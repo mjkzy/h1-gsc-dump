@@ -795,7 +795,7 @@ sub_getSpawnPoint
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A7BA getspawnpoint_ctf
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring getspawnpoint_ctf
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		REMOVE_LOCAL_VARIABLES 1
 	loc_781

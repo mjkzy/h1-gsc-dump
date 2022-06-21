@@ -108,7 +108,7 @@ getSpawnPoint()
     else
     {
         var_1 = maps\mp\gametypes\_spawnlogic::_id_411F( self.team );
-        var_0 = _id_A7BA::_id_40D5( var_1 );
+        var_0 = maps\mp\gametypes\_spawnscoring::_id_40D5( var_1 );
     }
 
     maps\mp\gametypes\_spawnlogic::_id_7273( var_0 );

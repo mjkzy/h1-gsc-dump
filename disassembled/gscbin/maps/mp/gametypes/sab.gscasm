@@ -673,13 +673,13 @@ sub_getSpawnPoint
 		JMP_FALSE loc_66B
 		PRE_CALL
 		EVAL_LEVEL_FIELD_VARIABLE spawn_axis_planted
-		CALL_FAR_FUNC _id_A7BA _id_40D3
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D3
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		JMP loc_675
 	loc_66B
 		PRE_CALL
 		EVAL_LEVEL_FIELD_VARIABLE spawn_allies_planted
-		CALL_FAR_FUNC _id_A7BA _id_40D3
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D3
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 	loc_675
 		JMP loc_69D
@@ -690,13 +690,13 @@ sub_getSpawnPoint
 		JMP_FALSE loc_693
 		PRE_CALL
 		EVAL_LEVEL_FIELD_VARIABLE spawn_axis
-		CALL_FAR_FUNC _id_A7BA _id_40D3
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D3
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		JMP loc_69D
 	loc_693
 		PRE_CALL
 		EVAL_LEVEL_FIELD_VARIABLE _id_88C7
-		CALL_FAR_FUNC _id_A7BA _id_40D3
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D3
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 	loc_69D
 		EVAL_LOCAL_VARIABLE_CACHED0

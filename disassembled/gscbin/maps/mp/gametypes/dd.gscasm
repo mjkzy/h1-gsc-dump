@@ -738,7 +738,7 @@ sub_getSpawnPoint
 	loc_6A7
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A7BA _id_40D3
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D3
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		JMP loc_725
 	loc_6B4
@@ -792,7 +792,7 @@ sub_getSpawnPoint
 	loc_71D
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A7BA _id_40D3
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D3
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_725
 		REMOVE_LOCAL_VARIABLES 1

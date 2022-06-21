@@ -331,7 +331,7 @@ getpkspawnpoint()
     else
     {
         var_2 = maps\mp\gametypes\_spawnlogic::_id_411F( var_0 );
-        var_1 = _id_A7BA::_id_40D3( var_2, var_0 );
+        var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2, var_0 );
     }
 
     maps\mp\gametypes\_spawnlogic::_id_7273( var_1 );
