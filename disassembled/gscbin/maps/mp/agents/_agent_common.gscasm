@@ -174,7 +174,7 @@ sub__id_214C
 	loc_123
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_METHOD maps/mp/gametypes/_spawnlogic _id_0848
+		CALL_FAR_METHOD maps/mp/gametypes/_spawnlogic addToCharactersArray
 		DEC_TOP
 	loc_12A
 		EVAL_LOCAL_VARIABLE_CACHED0

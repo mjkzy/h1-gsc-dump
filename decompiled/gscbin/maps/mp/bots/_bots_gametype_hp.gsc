@@ -203,7 +203,7 @@ _id_163E( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level._id_669D )
+    foreach ( var_3 in level.participants )
     {
         if ( var_3 != self && maps\mp\_utility::_id_51CE( var_3 ) && isalliedsentient( self, var_3 ) )
         {

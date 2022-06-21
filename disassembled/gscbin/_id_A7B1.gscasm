@@ -1695,7 +1695,7 @@ sub__id_89FB
 		DEC_TOP
 		EVAL_LEVEL_FIELD_VARIABLE _id_5FEC
 		JMP_FALSE loc_CDA
-		EVAL_LEVEL_FIELD_VARIABLE _id_91F7
+		EVAL_LEVEL_FIELD_VARIABLE teamNameList
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 9
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_BUILTIN_FUNC_1 getfirstarraykey
@@ -3256,7 +3256,7 @@ sub__id_19F3
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic _id_73AC
 		DEC_TOP
-		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic _id_73A7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic removeFromCharactersArray
 		DEC_TOP
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_81B5
@@ -4523,7 +4523,7 @@ sub__id_19F0
 		NOTIFY
 		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic _id_084E
 		DEC_TOP
-		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic _id_0848
+		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic addToCharactersArray
 		DEC_TOP
 		EVAL_LEVEL_FIELD_VARIABLE teamBased
 		JMP_FALSE loc_2457

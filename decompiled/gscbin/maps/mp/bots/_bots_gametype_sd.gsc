@@ -1033,7 +1033,7 @@ _id_3E30( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level._id_669D )
+    foreach ( var_3 in level.participants )
     {
         if ( isalive( var_3 ) && maps\mp\_utility::_id_51CE( var_3 ) && isdefined( var_3._id_759A ) && var_3._id_759A == var_0 )
             var_1[var_1.size] = var_3;

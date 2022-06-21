@@ -69,7 +69,7 @@ _id_214C( var_0, var_1, var_2 )
         if ( isdefined( level._id_0897[var_0]["onAIConnect"] ) )
             var_3 [[ var_3 maps\mp\agents\_agent_utility::_id_08A6( "onAIConnect" ) ]]();
 
-        var_3 maps\mp\gametypes\_spawnlogic::_id_0848();
+        var_3 maps\mp\gametypes\_spawnlogic::addToCharactersArray();
     }
 
     return var_3;

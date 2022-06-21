@@ -334,7 +334,7 @@ sub__id_2632
 		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic _id_73AC
 		DEC_TOP
 	loc_264
-		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic _id_73A7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_spawnlogic removeFromCharactersArray
 		DEC_TOP
 		GET_FLOAT 0.05
 		WAIT
@@ -348,7 +348,7 @@ sub__id_2632
 		CLEAR_FIELD_VARIABLE _id_214F
 		GET_SELF_OBJ
 		CLEAR_FIELD_VARIABLE _id_A04A
-		EVAL_LEVEL_FIELD_VARIABLE _id_1C8E
+		EVAL_LEVEL_FIELD_VARIABLE characters
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_BUILTIN_FUNC_1 getfirstarraykey

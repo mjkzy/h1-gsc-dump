@@ -1257,9 +1257,9 @@ _id_1640( var_0, var_1 )
     var_2 = var_1 * var_1;
     var_3 = [];
 
-    for ( var_4 = 0; var_4 < level._id_669D.size; var_4++ )
+    for ( var_4 = 0; var_4 < level.participants.size; var_4++ )
     {
-        var_5 = level._id_669D[var_4];
+        var_5 = level.participants[var_4];
 
         if ( var_5 != self && isdefined( var_5.team ) && var_5.team == self.team && maps\mp\_utility::_id_51CE( var_5 ) )
         {
@@ -1313,7 +1313,7 @@ _id_27A5( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level._id_669D )
+    foreach ( var_3 in level.participants )
     {
         if ( !isdefined( var_3.team ) )
             continue;
@@ -1532,9 +1532,9 @@ _id_15CB( var_0 )
 
 _id_15D5( var_0, var_1, var_2, var_3 )
 {
-    for ( var_4 = 0; var_4 < level._id_669D.size; var_4++ )
+    for ( var_4 = 0; var_4 < level.participants.size; var_4++ )
     {
-        var_5 = level._id_669D[var_4];
+        var_5 = level.participants[var_4];
 
         if ( var_5.team == self.team && var_5 != self )
         {

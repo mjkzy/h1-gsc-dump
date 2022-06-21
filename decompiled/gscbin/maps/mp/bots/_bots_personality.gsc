@@ -92,7 +92,7 @@ _id_15B0()
             var_2[var_7] = 0;
     }
 
-    foreach ( var_11 in level._id_669D )
+    foreach ( var_11 in level.participants )
     {
         if ( var_11 == self )
             continue;
@@ -523,7 +523,7 @@ _id_160C( var_0, var_1, var_2 )
 
     if ( level.teamBased )
     {
-        foreach ( var_7 in level._id_669D )
+        foreach ( var_7 in level.participants )
         {
             if ( !maps\mp\_utility::_id_5189( var_7 ) )
                 continue;

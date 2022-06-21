@@ -417,7 +417,7 @@ _id_3DF7( var_0 )
 {
     var_1 = 0;
 
-    foreach ( var_3 in level._id_669D )
+    foreach ( var_3 in level.participants )
     {
         if ( !isdefined( var_3.team ) )
             continue;

@@ -525,7 +525,7 @@ sub__id_88CE
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD maps/mp/gametypes/_spawnlogic _id_0848
+		CALL_FAR_METHOD maps/mp/gametypes/_spawnlogic addToCharactersArray
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED5
 		CALL_BUILTIN_FUNC_1 isdefined

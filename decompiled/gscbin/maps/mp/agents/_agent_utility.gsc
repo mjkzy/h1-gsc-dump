@@ -166,7 +166,7 @@ _id_2632()
     if ( maps\mp\_utility::_id_5112( self ) )
         maps\mp\gametypes\_spawnlogic::_id_73AC();
 
-    maps\mp\gametypes\_spawnlogic::_id_73A7();
+    maps\mp\gametypes\_spawnlogic::removeFromCharactersArray();
     wait 0.05;
     self._id_50A6 = 0;
     self._id_4726 = 0;
@@ -174,7 +174,7 @@ _id_2632()
     self._id_214F = undefined;
     self._id_A04A = undefined;
 
-    foreach ( var_1 in level._id_1C8E )
+    foreach ( var_1 in level.characters )
     {
         if ( isdefined( var_1._id_0E34 ) )
         {
