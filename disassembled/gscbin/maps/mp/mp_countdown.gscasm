@@ -1,0 +1,39 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_countdown_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_countdown_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_countdown_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_countdown"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_STRING "allies"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "axis"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "2000"
+		GET_STRING "compassmaxrange"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		PRE_CALL
+		GET_VECTOR -844 -1384 -4
+		GET_VECTOR -844 -1384 6
+		CALL_FAR_FUNC maps/mp/_utility headquartersradiomove
+		DEC_TOP
+		END
+
+end_

@@ -1,0 +1,290 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_STRING "vfx/map/mp_farm_spring/light_spotlight_mp_farm_spring"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "light_spotlight_mp_farm_spring"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_farm_spring/fx_flare_bulkhead_mp_farm_spring"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fx_flare_bulkhead_mp_farm_spring"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/maps/mp_farm_spring/mp_balloon_pop"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_balloon_pop"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_farm_spring/particulates_100_mp_farm_spring"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "particulates_100_mp_farm_spring"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_farm_spring/rainbow_sprite_mp_farm_spring"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "rainbow_sprite_mp_farm_spring"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_farm_spring/rainbow_flare_mp_farm_spring"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "rainbow_flare_mp_farm_spring"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/maps/mp_downpour/vfx_water_drips"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "vfx_water_drips"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lensflare/fx_flare_anamorphic_rain"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fx_flare_anamorphic_rain"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/smoke/smoldering_smk_direction_s"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "smoldering_smk_direction_s"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/water/water_flow_rain_gutter_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "water_flow_rain_gutter_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lights/godray_ambient_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "godray_ambient_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/dlc/fire_campfire_small"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fire_campfire_small"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/barrel_fire_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "barrel_fire_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/rain/water_drips_med"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "water_drips_med"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/water/water_sweeping_cgoshp_sml"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "water_sweeping_cgoshp_sml"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/water/water_sweeping_cgoshp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "water_sweeping_cgoshp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_farm_water_noise_ud01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "water_noise_ud"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_farm_water_noise01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "water_noise"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/roach_flock_scatter_radial_nofly_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "roach_flock_scatter_radial_nofly_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_pipeline/pip_ambient_particles"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "pip_ambient_particles"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_pipeline/pip_hazy_sun_lensflare"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "pip_hazy_sun_lensflare"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_carentan/drips_med_edge_mp_carentan"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "drips_med_edge_mp_carentan"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/cloud/00_particle_shadow_clouds"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "00_particle_shadow_clouds"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/dlc/insects_light_moths_complex"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "insects_light_moths_complex"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/wind/leaves_windblown_slw_constant"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "leaves_windblown_slw_constant"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/fog_daytime"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fog_daytime"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/wind/dlc/leaves_blowing_slow"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "leaves_blowing_slow"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/insects_flies_wall"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "insects_flies_wall"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_clowntown/sewage_flies_flying_bog"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sewage_flies_flying_bog"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/insects_dragonfly_runner_a"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "insects_dragonfly_runner_a"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/smoke/smoke_chimney_breeze_small"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "smoke_chimney_breeze_small"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lights/godray_ambient_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "godray_ambient_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lensflare/hazy_sun_lensflare"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hazy_sun_lensflare"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/barrel_fire_nolight_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "barrel_fire_nolight_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/fireplace_fire_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fireplace_fire_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/barrel_fire_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "barrel_fire_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/fire_wreckage_ground_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fire_wreckage_ground_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/smoke/thin_black_smoke_L"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "thin_black_smoke_L"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/smoke/battlefield_smokebank_S"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "battlefield_smokebank_S"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects02"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects02"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects03"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects03"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects04"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects04"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects05"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects05"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_fog_daytime01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_fog_daytime01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_leavesfall01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_leavesfall01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_leavesground01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_leavesground01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

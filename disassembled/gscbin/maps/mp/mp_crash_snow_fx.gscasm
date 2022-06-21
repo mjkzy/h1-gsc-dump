@@ -1,0 +1,233 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_STRING "vfx/map/mp_crash_snow/mp_crash_snow_flare_bulb"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_crash_snow_flare_bulb"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/mp_crash_snow_flare_anamorphic_wide"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_crash_snow_flare_anamorphic_wide"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/mp_crash_snow_flare_anamorphic"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_crash_snow_flare_anamorphic"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/ground_snow_low_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ground_snow_low_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lensflare/fx_flare_anamorphic_night"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fx_flare_anamorphic_night"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/sleigh_rudolph_nose"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sleigh_rudolph_nose"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/mp_crash_snow_fall_particles"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_crash_snow_fall_particles"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/sleigh_glow_trail"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sleigh_glow_trail"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/sleigh_sparkle_trail"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sleigh_sparkle_trail"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/mp_snow_wind_gust_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_snow_wind_gust_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/falling_snow_lrg_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "falling_snow_lrg_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/snow/snow_blowoff_ledge_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_blowoff_ledge_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/falling_snow_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "falling_snow_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/snow_fall_particles"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_fall_particles"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/snow_wind"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_wind"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/mp_xmas_crash_snow_wind_spiral_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_xmas_crash_snow_wind_spiral_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/roof_blowing_snow_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "roof_blowing_snow_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/snow_blown_off_rocks_lp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_blown_off_rocks_lp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/wind/snow_cloud_moutain_peak"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_cloud_moutain_peak"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/snow_blowing_door_lp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_blowing_door_lp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/vertical_light_wind_snow_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "vertical_light_wind_snow_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/snow_tornado_s_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_tornado_s_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/test/snow_drift"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_drift"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/snow/snow_blowing_window_lp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_blowing_window_lp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/crash/fire_wreckage_ground"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fire_wreckage_ground"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/crash/small_spark_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "small_spark_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/rain/drips_slow"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "drips_slow"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/roach_flock_scatter_radial_nofly_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "roach_flock_scatter_radial_nofly_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/dlc/fire_campfire_small"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fire_campfire_small"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/snow_light_mp_bloc"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_light_mp_bloc"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_crash_snow/deathfx_xmas_snow"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "deathfx_xmas_snow"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/explosions/clusterbomb_christmas"
+		CALL_BUILTIN_FUNC_1 loadfx
+		SET_LEVEL_FIELD_VARIABLE_FIELD _id_099B
+		GET_STRING "fx/fire/firelp_med_pm_nodistort"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "firelp_med_pm"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/snow_wind"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_wind_fast"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/snow_wind"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_wind_slow"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/snow_wind_spiral_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_wind_spiral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/smoke/hallway_smoke_light"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hallway_smoke_light"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/snow_light_mp_crash"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "snow_light"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

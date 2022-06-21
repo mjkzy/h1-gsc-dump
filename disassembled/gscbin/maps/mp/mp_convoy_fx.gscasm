@@ -1,0 +1,152 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_STRING "vfx/wind/trash_dust_tornado_s_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "trash_dust_tornado_s_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_lost/mp_trash_blowing_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_trash_blowing_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/smoke/bg_smoke_plume_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "bg_smoke_plume_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/ash_spiral_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ash_spiral_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/crash/small_spark_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "small_spark_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/dust_wind_slow_paper"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_wind_slow_paper"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/betrayal/bet_electrical_sparks_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "bet_electrical_sparks_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fire/dlc/fire_campfire_small"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fire_campfire_small"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/dust/dust_falling_ceiling_light_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_falling_ceiling_light_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/insects_fruitflies_flying"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "insects_fruitflies_flying"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/dust/dust_blowing_runner_mp"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_blowing_runner_mp"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lensflare/hazy_sun_lensflare"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hazy_sun_lensflare"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/crash/fire_wreckage_medium"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fire_wreckage_medium"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/animal/bird_vulture_circle_a_loop"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "bird_vulture_circle_a_loop"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/maps/mp_convoy/convoy_sml_fire_a"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "convoy_sml_fire_a"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/maps/mp_convoy/convoy_tank_fire_hatch"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "convoy_tank_fire_hatch"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/dust_wind_fast"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_wind_fast"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/dust_spiral_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_wind_spiral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/fire/firelp_small_pm"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "firelp_small_pm"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/fire/firelp_small_pm_a"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "firelp_small_pm_a"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/smoke/thin_black_smoke_L"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "thin_black_smoke_L"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/smoke/battlefield_smokebank_S"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "battlefield_smokebank_S"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/fire/tank_fire_turret_abrams"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "tank_fire_turret_abrams"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/fire/tank_fire_hatch"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "tank_fire_hatch"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

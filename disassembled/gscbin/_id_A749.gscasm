@@ -1,0 +1,179 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		PRE_CALL
+		GET_STRING "fx/misc/lighthaze"
+		GET_STRING "ch_streetlight_02_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/lighthaze_bog_mp"
+		GET_STRING "me_streetlight_01_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/light_glow_white"
+		GET_STRING "ch_street_light_01_on"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/light_glow_white"
+		GET_STRING "lamp_post_globe_on"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/lighthaze_villassault"
+		GET_STRING "highway_lamp_post"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/lighthaze"
+		GET_STRING "cs_cargoship_spotlight_on_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/fire/tire_fire_med"
+		GET_STRING "com_tires_burning01_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/power_tower_light_red_blink"
+		GET_STRING "icbm_powerlinetower_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/props/icbm_mainframe_lightblink"
+		GET_STRING "icbm_mainframe_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/lighthaze_oilrig"
+		GET_STRING "lighthaze_oilrig_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/lighthaze_white"
+		GET_STRING "lighthaze_white_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/light_glow_walllight_white"
+		GET_STRING "light_glow_walllight_white_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/fluorescent_glow"
+		GET_STRING "fluorescent_glow_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/light_glow_industrial"
+		GET_STRING "light_glow_industrial_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/power_tower_light_red_blink_large"
+		GET_STRING "highrise_blinky_tower"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/light_glow_white_bulb"
+		GET_STRING "light_glow_white_bulb_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fx/misc/light_glow_white_lamp"
+		GET_STRING "light_glow_white_lamp_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/tower_light_red_steady"
+		GET_STRING "light_red_steady_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "vfx/lights/tower_light_glow_blue_steady"
+		GET_STRING "light_blue_steady_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/tower_light_orange_steady"
+		GET_STRING "light_orange_steady_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/glow_stick_glow_pile"
+		GET_STRING "glow_stick_pile_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/glow_stick_glow_pile_orange"
+		GET_STRING "glow_stick_orange_pile_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/light_glow_red_generic_pulse"
+		GET_STRING "light_pulse_red_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/light_glow_red_generic_pulse"
+		GET_STRING "light_pulse_red_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/light_glow_orange_generic_pulse"
+		GET_STRING "light_pulse_orange_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_NBYTE 2
+		GET_STRING "fx/misc/power_tower_light_red_blink"
+		GET_STRING "light_red_blink_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "emt_road_flare_burn"
+		GET_UNDEFINED
+		GET_UNDEFINED
+		GET_STRING "fx/misc/flare_ambient"
+		GET_STRING "flare_ambient_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fire_dumpster_medium"
+		GET_UNDEFINED
+		GET_UNDEFINED
+		GET_STRING "fx/fire/firelp_med_pm_bog_mp"
+		GET_STRING "me_dumpster_fire_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fire_barrel_small"
+		GET_UNDEFINED
+		GET_UNDEFINED
+		GET_STRING "fx/fire/firelp_small_pm_bog_mp"
+		GET_STRING "barrel_fireFX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "fire_barrel_small"
+		GET_UNDEFINED
+		GET_UNDEFINED
+		GET_STRING "fx/fire/firelp_small_pm_bog_mp"
+		GET_STRING "barrel_fireFX_origin_mp_bog"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		END
+
+end_

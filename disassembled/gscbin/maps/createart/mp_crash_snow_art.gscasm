@@ -1,0 +1,16 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_BYTE 1
+		SET_LEVEL_FIELD_VARIABLE_FIELD _id_99E2
+		CALL_FAR_FUNC2 maps/createart/mp_crash_snow_fog_hdr _id_8317
+		DEC_TOP
+		GET_ZERO
+		GET_STRING "mp_crash_snow"
+		CALL_BUILTIN_FUNC_2 _func_143
+		DEC_TOP
+		END
+
+end_

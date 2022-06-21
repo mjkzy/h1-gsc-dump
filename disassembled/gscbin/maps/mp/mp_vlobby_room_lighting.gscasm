@@ -1,0 +1,24 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_BYTE 1
+		GET_STRING "r_lightGridEnableTweaks"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		GET_FLOAT 1.33
+		GET_STRING "r_lightGridIntensity"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		GET_FLOAT 0.01
+		GET_STRING "sm_spotshadowfadetime"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		GET_FLOAT 0.3
+		GET_STRING "sm_spotLightScoreModelScale"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		END
+
+end_

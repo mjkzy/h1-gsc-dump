@@ -1,0 +1,104 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_STRING "vfx/map/mp_shipment/ship_lgt_glow_square_red"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_lgt_glow_square_red"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_beacon_light"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_beacon_light"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_spotlight_beam"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_spotlight_beam"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_hanging_light3"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_hanging_light3"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_fluorescent_warm"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_fluorescent_warm"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_lgt_glow_square"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_lgt_glow_square"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_breaking_wave_01_cg"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_breaking_wave_01_cg"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_water_wake_long"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_water_wake_long"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_shipment/ship_water_wake"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "ship_water_wake"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/steam/steam_chimney_breeze_small"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "steam_chimney_breeze_small"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fog/fog_bank"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fog_bank"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/fog/fog_distant_vista"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fog_distant_vista"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/fog_daytime"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fog_daytime"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/bird_seagull_flock_large"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "bird_seagull_flock_large"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/jeepride_cloud_bank_far"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "cloud_bank_far"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/fog_bog_a"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fog_bog_a"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

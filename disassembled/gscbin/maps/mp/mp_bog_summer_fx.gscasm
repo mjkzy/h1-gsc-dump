@@ -1,0 +1,74 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_STRING "vfx/animal/roach_flock_scatter_radial_nofly_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "roach_flock_scatter_radial_nofly_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/wind/trash_dust_tornado_s_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "trash_dust_tornado_s_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/dust/dlc/dust_falling_debris_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "dust_falling_debris_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_bog_summer/rocks_water_splash_bog_sumr"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "rocks_water_splash_bog_sumr"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_bog_summer/bird_seagull_flying_runner_bog_sumr"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "bird_seagull_flying_runner_bog_sumr"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/sparks/spark_idle_carentan"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "spark_idle_carentan"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_carentan/clouds_moving_fast_mp_carentan"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "clouds_moving_fast_mp_carentan"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_clowntown/mp_dust_blowing_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_dust_blowing_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_bog_summer/blowing_sand_runner_bog_sumr"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "blowing_sand_runner_bog_sumr"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_bog_summer/hazy_sun_lensflare_bog_sumr"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hazy_sun_lensflare_bog_sumr"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/sand/blowing_sand_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "blowing_sand_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

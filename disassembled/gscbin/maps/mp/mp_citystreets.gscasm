@@ -1,0 +1,135 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_citystreets_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_citystreets_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_citystreets_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_citystreets"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_STRING "axis"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "allies"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "desert"
+		GET_STRING "allies_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "desert"
+		GET_STRING "axis_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "2000"
+		GET_STRING "compassmaxrange"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/_explosive_barrels main
+		DEC_TOP
+		CALL_LOCAL_FUNC_THREAD sub_misc_rotate_ceilingfans 0
+		DEC_TOP
+		GET_STRING "bright"
+		SET_LEVEL_FIELD_VARIABLE_FIELD oldschoolfxtype
+		PRE_CALL
+		GET_STRING "patch_hp_zone_trigger_3"
+		GET_VECTOR 2477 -937 32
+		CALL_FAR_FUNC maps/mp/_utility hardpointtriggerswap
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "patch_hq_zone_trigger_1"
+		GET_VECTOR 2477 -937 32
+		CALL_FAR_FUNC maps/mp/_utility headquarterstriggerswap
+		DEC_TOP
+		EVAL_LEVEL_FIELD_VARIABLE gametype
+		GET_STRING "ctf"
+		EQUALITY
+		JMP_FALSE loc_C3
+		PRE_CALL
+		GET_STRING "vfx/unique/vfx_marker_ctf_red_mid"
+		GET_STRING "vfx/unique/vfx_marker_ctf"
+		CALL_FAR_FUNC maps/mp/gametypes/ctf setflagbasefx
+		DEC_TOP
+		END
+	loc_C3
+		END
+
+end_
+
+sub_misc_rotate_ceilingfans
+		CHECK_CLEAR_PARAMS
+		PRE_CALL
+		GET_LOCAL_FUNC sub_ceilingfan_rotate_custom
+		GET_STRING "targetname"
+		GET_STRING "me_fanceil_spin"
+		CALL_BUILTIN_FUNC_2 getentarray
+		CALL_FAR_FUNC common_scripts/utility _id_0D13
+		DEC_TOP
+		PRE_CALL
+		GET_LOCAL_FUNC sub_ceilingfan_rotate_slow_custom
+		GET_STRING "targetname"
+		GET_STRING "me_fanceil_spin_slow"
+		CALL_BUILTIN_FUNC_2 getentarray
+		CALL_FAR_FUNC common_scripts/utility _id_0D13
+		DEC_TOP
+		END
+
+end__rotate_ceilingfans
+
+sub_ceilingfan_rotate_custom
+		CHECK_CLEAR_PARAMS
+		GET_USHORT 600
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
+		GET_USHORT 20000
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
+	loc_FF
+		EVAL_LOCAL_VARIABLE_CACHED0
+		GET_ZERO
+		EVAL_LOCAL_VARIABLE_CACHED1
+		GET_ZERO
+		VECTOR
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 _meth_82B9
+		DEC_TOP
+		EVAL_LOCAL_VARIABLE_CACHED0
+		WAIT
+		JMP_BACK loc_FF
+		END
+
+end_ingfan_rotate_custom
+
+sub_ceilingfan_rotate_slow_custom
+		CHECK_CLEAR_PARAMS
+		GET_BYTE 50
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
+		GET_USHORT 20000
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
+	loc_119
+		EVAL_LOCAL_VARIABLE_CACHED0
+		GET_ZERO
+		EVAL_LOCAL_VARIABLE_CACHED1
+		GET_ZERO
+		VECTOR
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 _meth_82B9
+		DEC_TOP
+		EVAL_LOCAL_VARIABLE_CACHED0
+		WAIT
+		JMP_BACK loc_119
+		END
+
+end_ingfan_rotate_slow_custom

@@ -1,0 +1,80 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_bloc_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_bloc_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_bloc_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A769 init
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_bloc"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_STRING "axis"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "allies"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "woodland"
+		GET_STRING "allies_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "woodland"
+		GET_STRING "axis_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "2000"
+		GET_STRING "compassmaxrange"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		EVAL_LEVEL_FIELD_VARIABLE gametype
+		GET_STRING "dom"
+		EQUALITY
+		JMP_FALSE loc_B3
+		GET_STRING "vfx/unique/vfx_marker_dom_blue_blocb"
+		GET_STRING "_b"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_blocb"
+		GET_STRING "_b"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_blocb"
+		GET_STRING "_b"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+	loc_B3
+		GET_FLOAT 1.8
+		SET_LEVEL_FIELD_VARIABLE_FIELD airstrikeheightscale
+		PRE_CALL
+		GET_VECTOR 0 180 0
+		GET_VECTOR 1005 -6128.5 -14
+		GET_STRING "_b"
+		CALL_FAR_FUNC maps/mp/_utility demolitionsitemove
+		DEC_TOP
+		END
+
+end_

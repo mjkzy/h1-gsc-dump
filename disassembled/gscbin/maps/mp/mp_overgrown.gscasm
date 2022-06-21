@@ -1,0 +1,127 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_overgrown_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_overgrown_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_overgrown_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A769 init
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_overgrown_dlc"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_STRING "amb_mp_overgrown_ext"
+		CALL_BUILTIN_FUNC_1 ambientplay
+		DEC_TOP
+		GET_STRING "axis"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "allies"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "2200"
+		GET_STRING "compassmaxrange"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		GET_BYTE 1
+		GET_STRING "r_lightGridEnableTweaks"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		GET_FLOAT 1.33
+		GET_STRING "r_lightGridIntensity"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "patch_hp_zone_1"
+		GET_STRING "hp_zone_1"
+		CALL_FAR_FUNC maps/mp/_utility hardpointvisualsswap
+		DEC_TOP
+		GET_LEVEL
+		CALL_LOCAL_METHOD_THREAD sub_scriptpatchclip 0
+		DEC_TOP
+		END
+
+end_
+
+sub_scriptpatchclip
+		CHECK_CLEAR_PARAMS
+		GET_FLOAT 1.0
+		WAIT
+		EVAL_LEVEL_FIELD_VARIABLE _id_7137
+		JMP_TRUE loc_15C
+		PRE_CALL
+		GET_VECTOR 0 0 0
+		GET_VECTOR 1218 -4104 -86
+		GET_STRING "patchclip_ai_16_64_64"
+		CALL_FAR_FUNC maps/mp/_utility spawnpatchclip
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
+		GET_ZERO
+		GET_ZERO
+		GET_USHORT 256
+		GET_VECTOR 1136 -4112 -83
+		CALL_BUILTIN_FUNC_3 getnodesinradiussorted
+		EVAL_ARRAY
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
+		GET_ZERO
+		GET_ZERO
+		GET_USHORT 256
+		GET_VECTOR 1242 -4120 -78
+		CALL_BUILTIN_FUNC_3 getnodesinradiussorted
+		EVAL_ARRAY
+		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
+		EVAL_LOCAL_VARIABLE_CACHED0
+		EVAL_LOCAL_VARIABLE_CACHED1
+		CALL_BUILTIN_FUNC_2 disconnectnodepair
+		DEC_TOP
+		GET_ZERO
+		GET_ZERO
+		GET_USHORT 256
+		GET_VECTOR 1136 -4112 -83
+		CALL_BUILTIN_FUNC_3 getnodesinradiussorted
+		EVAL_ARRAY
+		SET_LOCAL_VARIABLE_FIELD_CACHED 1
+		GET_ZERO
+		GET_ZERO
+		GET_USHORT 256
+		GET_VECTOR 1304 -4096 -83
+		CALL_BUILTIN_FUNC_3 getnodesinradiussorted
+		EVAL_ARRAY
+		SET_LOCAL_VARIABLE_FIELD_CACHED0
+		EVAL_LOCAL_VARIABLE_CACHED0
+		EVAL_LOCAL_VARIABLE_CACHED1
+		CALL_BUILTIN_FUNC_2 disconnectnodepair
+		DEC_TOP
+		GET_ZERO
+		GET_ZERO
+		GET_USHORT 256
+		GET_VECTOR 1136 -4112 -83
+		CALL_BUILTIN_FUNC_3 getnodesinradiussorted
+		EVAL_ARRAY
+		SET_LOCAL_VARIABLE_FIELD_CACHED 1
+		GET_ZERO
+		GET_ZERO
+		GET_USHORT 256
+		GET_VECTOR 1392 -4112 -83
+		CALL_BUILTIN_FUNC_3 getnodesinradiussorted
+		EVAL_ARRAY
+		SET_LOCAL_VARIABLE_FIELD_CACHED0
+		EVAL_LOCAL_VARIABLE_CACHED0
+		EVAL_LOCAL_VARIABLE_CACHED1
+		CALL_BUILTIN_FUNC_2 disconnectnodepair
+		DEC_TOP
+		END
+	loc_15C
+		END
+
+end_ptpatchclip

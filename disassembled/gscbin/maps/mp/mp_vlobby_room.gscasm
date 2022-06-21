@@ -1,0 +1,32 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 _id_A788 main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A6F9 main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A787 main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_vlobby_room_lighting main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_vlobby_room_aud main
+		DEC_TOP
+		GET_STRING "allies"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "axis"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		CALL_FAR_FUNC2 _id_A765 _id_9EA6
+		DEC_TOP
+		END
+
+end_
