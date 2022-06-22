@@ -239,12 +239,12 @@ sub_getSpawnPoint
 	loc_250
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic _id_411F
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic getTeamSpawnPoints
 		CREATE_LOCAL_VARIABLE 0
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring _id_40D5
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnscoring getSpawnpoint_FreeForAll
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		REMOVE_LOCAL_VARIABLES 1
 	loc_266

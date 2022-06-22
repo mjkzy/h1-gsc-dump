@@ -132,7 +132,7 @@ getSpawnPoint()
         var_1 = maps\mp\gametypes\_spawnlogic::getbeststartspawn( "mp_tdm_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::_id_411F( var_0 );
+        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 ); // the function called below this should be something related to "getSpawnpoint_<gamemode>"
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2, var_0 );
     }
 

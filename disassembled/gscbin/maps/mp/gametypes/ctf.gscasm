@@ -789,7 +789,7 @@ sub_getSpawnPoint
 	loc_76C
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic _id_411F
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic getTeamSpawnPoints
 		CREATE_LOCAL_VARIABLE 1
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		PRE_CALL
