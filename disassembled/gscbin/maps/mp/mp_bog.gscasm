@@ -9,13 +9,13 @@ sub_main
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/createart/mp_bog_art main
 		DEC_TOP
-		CALL_FAR_FUNC2 _id_A74C main
+		CALL_FAR_FUNC2 maps/mp/_load main
 		DEC_TOP
 		CALL_FAR_FUNC2 _id_A769 init
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_bog"
-		CALL_FAR_FUNC _id_A731 _id_8324
+		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
 		DEC_TOP
 		GET_STRING "axis"
 		GET_STRING "attackers"

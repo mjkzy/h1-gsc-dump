@@ -33,7 +33,7 @@ _id_64DA()
 
 loadbombfx()
 {
-    level._id_058F["bomb_explosion"] = loadfx( "vfx/explosion/mp_gametype_bomb" );
+    level._effect["bomb_explosion"] = loadfx( "vfx/explosion/mp_gametype_bomb" );
 }
 
 getcarrybombvisuals( var_0 )
@@ -377,7 +377,7 @@ onbombexploded( var_0, var_1, var_2 )
 
     var_4 = randomfloat( 360 );
     var_5 = var_0 + ( 0, 0, 50 );
-    var_6 = spawnfx( level._id_058F[var_3], var_5 + ( 0, 0, 50 ), ( 0, 0, 1 ), ( cos( var_4 ), sin( var_4 ), 0 ) );
+    var_6 = spawnfx( level._effect[var_3], var_5 + ( 0, 0, 50 ), ( 0, 0, 1 ), ( cos( var_4 ), sin( var_4 ), 0 ) );
     triggerfx( var_6 );
     physicsexplosionsphere( var_5, 200, 100, 3 );
     playrumbleonposition( "grenade_rumble", var_0 );

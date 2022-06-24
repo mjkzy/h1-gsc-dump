@@ -6,127 +6,127 @@ sub_main
 		GET_STRING "vfx/animal/bird_vulture_circle_runner_less"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "bird_vulture_circle_runner_less"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/animal/dlc/insects_flies_landing"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "insects_flies_landing"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/animal/insects_dragonfly_runner_a_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "insects_dragonfly_runner_a_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fog/vent_smoke_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "vent_smoke_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/smoke/ambient_ground_fog_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ambient_ground_fog_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/smoke/battlefield_smoke_m_slow_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "battlefield_smoke_m_slow_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fog/fog_oriented_edge_fade_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fog_oriented_edge_fade_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/smoke/ambient_smoke_hangar_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ambient_smoke_hangar_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/floating_room_dust_03_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "floating_room_dust_03_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/wind/ambient_falling_leaves_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ambient_falling_leaves_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/rain/drips_slow_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "drips_slow_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lensflare/fx_sunflare_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fx_sunflare_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_long_sm_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_long_sm_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_large_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_large_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_long_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_long_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_long_thin_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_long_thin_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_long_thin_2_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_long_thin_2_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_long_thin_3_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_long_thin_3_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_rays_moving_long_thin_4_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_rays_moving_long_thin_4_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/fluorescent_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fluorescent_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_spotlight_long_mp_killhouse"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "light_spotlight_long_mp_killhouse"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END

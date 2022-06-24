@@ -24,8 +24,8 @@ main()
     maps\mp\mp_backlot_precache::main();
     maps\mp\mp_backlot_fx::main();
     maps\createart\mp_backlot_art::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_backlot" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_backlot" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "desert";

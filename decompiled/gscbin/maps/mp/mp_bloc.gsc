@@ -24,9 +24,9 @@ main()
     maps\mp\mp_bloc_precache::main();
     maps\mp\mp_bloc_fx::main();
     maps\createart\mp_bloc_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     _id_A769::init();
-    _id_A731::_id_8324( "compass_map_mp_bloc" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_bloc" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "woodland";

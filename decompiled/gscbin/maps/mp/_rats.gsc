@@ -24,7 +24,7 @@ main()
     if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
         return;
 
-    level._id_058F["animated_rat_death"] = loadfx( "vfx/blood/dlc_blood_splash_sm" );
+    level._effect["animated_rat_death"] = loadfx( "vfx/blood/dlc_blood_splash_sm" );
     var_0 = getentarray( "animated_rat", "targetname" );
     common_scripts\utility::_id_0D13( var_0, ::init_rats );
 }

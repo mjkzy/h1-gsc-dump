@@ -26,8 +26,8 @@ main()
     maps\createart\mp_crossfire_art::main();
     maps\createart\mp_crossfire_fog::main();
     maps\createart\mp_crossfire_fog_hdr::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_crossfire" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_crossfire" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "desert";

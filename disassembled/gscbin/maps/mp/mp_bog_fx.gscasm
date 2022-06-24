@@ -6,199 +6,199 @@ sub_main
 		GET_STRING "vfx/lensflare/fx_flare_anamorphic_night"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fx_flare_anamorphic_night"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_bog/mp_bog_vista_explosion_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "mp_bog_vista_explosion_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/smoke/mp_bog_smoke_plumes_vista"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "mp_bog_smoke_plumes_vista"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/explosions/grenadeExp_wood"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "wood"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/explosions/grenadeExp_dirt_1"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/explosions/grenadeExp_concrete_1"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "brick"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/fire/firelp_small_pm_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "firelp_barrel_pm"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/fire/firelp_med_pm_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "firelp_container_mp_bog"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/fire/firelp_small_pm_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "barrel_fire_mp_bog"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/fire/firelp_med_pm_w_tail_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "oil_fire_mp_bog"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/antiair_runner_cloudy_bog_a"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "antiair_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/horizon_flash_runner_bog_a"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "mp_bog_horizon_flash"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/light_cone_streetlight_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "streetlight_bog_a_fx"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/sparks/electrical_spark_loop_night"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "electrical_spark"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/smoke/battlefield_smokebank_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "battlefield_smokebank_S"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/explosions/explosion_light_runner_bog_a"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "explosion_light"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/smoke/thin_black_smoke_l_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "thin_black_smoke_L_bog_a"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fog/hunted_fog_vista_night"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "hunted_fog_vista_night"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/smoke/building_back_smoke_bog_a"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "building_back_smoke_bog_a"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/fog_mp_bog"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fog_bog_a"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fog/fog_vista_night_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fog_vista_bog_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/animal/insects_flies_garbage_mp_bog"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "insects_flies_garbage_mp_bog"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/wind/trash_dust_tornado_s_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "trash_dust_tornado"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/ash_falling_bog_a"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ash_falling_bog_a"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/dust_falling_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust_falling_bog_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_recovery/dust_ambient_street_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust_ambient_street"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/greece/dust_ambient_interior"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust_ambient_interior"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/dust/dust_falling_ceiling_light_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust_ceilling_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/sand/blowing_sand_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "blowing_sand_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/dust/dust_ambient_street_blowing_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust_ambient_blowing"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_lost/mp_trash_blowing_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "trash_ambient_blowing"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fire/fire_palm_large_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fire_palm_large"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/explosions/a10_explosion_bog_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "AA Explosions"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END

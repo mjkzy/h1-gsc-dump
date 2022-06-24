@@ -24,9 +24,9 @@ main()
     maps\mp\mp_vacant_precache::main();
     maps\mp\mp_vacant_fx::main();
     maps\createart\mp_vacant_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     _id_A769::init();
-    _id_A731::_id_8324( "compass_map_mp_vacant_dlc" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_vacant_dlc" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     setdvar( "r_lightGridEnableTweaks", 1 );

@@ -24,8 +24,8 @@ main()
     maps\mp\mp_broadcast_fx::main();
     maps\createart\mp_broadcast_art::main();
     maps\mp\mp_broadcast_precache::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_broadcast" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_broadcast" );
     game["allies"] = "marines";
     game["axis"] = "opfor";
     game["attackers"] = "allies";

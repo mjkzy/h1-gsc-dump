@@ -24,9 +24,9 @@ main()
     maps\mp\mp_farm_precache::main();
     maps\mp\mp_farm_fx::main();
     maps\createart\mp_farm_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     _id_A769::init();
-    _id_A731::_id_8324( "compass_map_mp_farm" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_farm" );
     game["attackers"] = "allies";
     game["defenders"] = "axis";
     game["allies_soldiertype"] = "woodland";

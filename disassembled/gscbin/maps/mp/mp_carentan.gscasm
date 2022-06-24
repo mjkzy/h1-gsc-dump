@@ -9,11 +9,11 @@ sub_main
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/mp_carentan_fx main
 		DEC_TOP
-		CALL_FAR_FUNC2 _id_A74C main
+		CALL_FAR_FUNC2 maps/mp/_load main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_carentan"
-		CALL_FAR_FUNC _id_A731 _id_8324
+		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
 		DEC_TOP
 		GET_FLOAT 1.4
 		SET_LEVEL_FIELD_VARIABLE_FIELD airstrikeheightscale

@@ -24,8 +24,8 @@ main()
     maps\mp\mp_crash_snow_precache::main();
     maps\mp\mp_crash_snow_fx::main();
     maps\createart\mp_crash_snow_art::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_crash_snow" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_crash_snow" );
     level.heli_model_allies_override = "vehicle_cobra_helicopter_fly_crash_snow";
     level.heli_model_axis_override = "h1_vehicle_mi24_hind_crash_snow";
     level.airstrike_model_allies_override = "h1_mp_crash_snow_xmas_sleigh_with_reindeer_01_dlc";

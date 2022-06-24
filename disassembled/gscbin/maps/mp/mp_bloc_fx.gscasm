@@ -6,109 +6,109 @@ sub_main
 		GET_STRING "vfx/lights/godray_ambient_long_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "godray_ambient_long_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/godray_ambient_small_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "godray_ambient_small_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/godray_ambient_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "godray_ambient_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/cloud/00_particle_shadow_clouds"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "00_particle_shadow_clouds"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/smoke/smoldering_smk_thin_black"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "smoldering_smk_thin_black"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/snow/snow_fall_small_mpbloc"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "snow_fall_small_mpbloc"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fire/barrel_fire_nolight_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "barrel_fire_nolight_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/snow/ground_snow_light_mpbloc"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ground_snow_light_mpbloc"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/snow/snow_fall_particles_mpbloc"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "snow_fall_particles_mpbloc"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/snow_light_mp_bloc"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "snow_light"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/smoke/hallway_smoke_light"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "hallway_smoke"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/snow_wind"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "snow_wind"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lensflare/hazy_sun_lensflare"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "hazy_sun_lensflare"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/drips_slow"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "drips_slow"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/paper_falling"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "paper_falling"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/dust/amb_dust_unlit_dayonly"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "amb_dust_unlit_dayonly"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/smoke/smoldering_smk_big_black"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "smoldering_smk_big_black"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/dust/dust_ceiling_agu"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "dust_ceiling_agu"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END

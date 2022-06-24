@@ -24,8 +24,8 @@ main()
     maps\mp\mp_countdown_precache::main();
     maps\mp\mp_countdown_fx::main();
     maps\createart\mp_countdown_art::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_countdown" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_countdown" );
     game["attackers"] = "allies";
     game["defenders"] = "axis";
     setdvar( "compassmaxrange", "2000" );

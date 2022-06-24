@@ -23,9 +23,9 @@ main()
 {
     maps\mp\mp_convoy_fx::main();
     maps\createart\mp_convoy_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     maps\mp\mp_convoy_precache::main();
-    _id_A731::_id_8324( "compass_map_mp_convoy" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_convoy" );
     game["allies"] = "marines";
     game["axis"] = "opfor";
     game["attackers"] = "axis";

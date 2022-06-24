@@ -33,7 +33,7 @@ main()
         if ( !isdefined( var_5 ) )
             continue;
 
-        if ( !isdefined( level._id_058F[var_5] ) )
+        if ( !isdefined( level._effect[var_5] ) )
             continue;
 
         var_6 = var_4.teambalanced == "fx_trigger_reverse";
@@ -43,7 +43,7 @@ main()
             var_7 = spawnstruct();
             var_7.players = [];
             var_7.rightaimlimit = var_6;
-            var_7.fxent = spawnfx( level._id_058F[var_5], ( 0, 0, 0 ) );
+            var_7.fxent = spawnfx( level._effect[var_5], ( 0, 0, 0 ) );
             var_7.fxent _meth_8056();
             triggerfx( var_7.fxent, 1 );
             level.fx_trigger_info[var_5] = var_7;

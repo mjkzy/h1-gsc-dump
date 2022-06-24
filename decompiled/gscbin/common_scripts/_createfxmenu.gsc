@@ -328,7 +328,7 @@ _id_5BAD()
 
 _id_378E( var_0 )
 {
-    var_0._id_9C42["angles"] = vectortoangles( var_0._id_9C42["origin"] + ( 0, 0, 100 ) - var_0._id_9C42["origin"] );
+    var_0.v["angles"] = vectortoangles( var_0.v["origin"] + ( 0, 0, 100 ) - var_0.v["origin"] );
     var_0 common_scripts\_createfx::_id_6E6D();
     common_scripts\_createfx::_id_1EB5();
     common_scripts\_createfx::_id_7C5F();
@@ -356,7 +356,7 @@ _id_5BAA()
     {
         var_4 = level._id_0575._id_654C[var_3];
 
-        if ( !isdefined( var_2._id_9C42[var_4["name"]] ) )
+        if ( !isdefined( var_2.v[var_4["name"]] ) )
             continue;
 
         var_0++;
@@ -447,8 +447,8 @@ _id_0CA5( var_0, var_1 )
     {
         var_3 = level._id_0575._id_7C66[var_2];
 
-        if ( _id_59D2( var_0["mask"], var_3._id_9C42["type"] ) )
-            var_3._id_9C42[var_0["name"]] = var_1;
+        if ( _id_59D2( var_0["mask"], var_3.v["type"] ) )
+            var_3.v[var_0["name"]] = var_1;
     }
 
     level._id_5519 = undefined;
@@ -538,10 +538,10 @@ _id_4E7D( var_0 )
         {
             foreach ( var_3 in level._id_0575._id_7C66 )
             {
-                if ( isdefined( var_3._id_9C42["reactive_radius"] ) )
+                if ( isdefined( var_3.v["reactive_radius"] ) )
                 {
-                    var_3._id_9C42["reactive_radius"] += var_1;
-                    var_3._id_9C42["reactive_radius"] = clamp( var_3._id_9C42["reactive_radius"], 10, 1000 );
+                    var_3.v["reactive_radius"] += var_1;
+                    var_3.v["reactive_radius"] = clamp( var_3.v["reactive_radius"], 10, 1000 );
                 }
             }
         }
@@ -556,10 +556,10 @@ _id_2B48( var_0 )
 {
     level._id_2410 = 1;
     common_scripts\_createfx::_id_1EB9();
-    common_scripts\_createfx::_id_7E42( "Name: " + var_0._id_9C42["fxid"] );
-    common_scripts\_createfx::_id_7E42( "Type: " + var_0._id_9C42["type"] );
-    common_scripts\_createfx::_id_7E42( "Origin: " + var_0._id_9C42["origin"] );
-    common_scripts\_createfx::_id_7E42( "Angles: " + var_0._id_9C42["angles"] );
+    common_scripts\_createfx::_id_7E42( "Name: " + var_0.v["fxid"] );
+    common_scripts\_createfx::_id_7E42( "Type: " + var_0.v["type"] );
+    common_scripts\_createfx::_id_7E42( "Origin: " + var_0.v["origin"] );
+    common_scripts\_createfx::_id_7E42( "Angles: " + var_0.v["angles"] );
     var_1 = 0;
     var_2 = 0;
     var_3 = 0;
@@ -571,10 +571,10 @@ _id_2B48( var_0 )
     {
         var_5 = level._id_0575._id_654C[var_4];
 
-        if ( isdefined( var_0._id_9C42[var_5["name"]] ) )
+        if ( isdefined( var_0.v[var_5["name"]] ) )
             continue;
 
-        if ( !_id_59D2( var_5["mask"], var_0._id_9C42["type"] ) )
+        if ( !_id_59D2( var_5["mask"], var_0.v["type"] ) )
             continue;
 
         var_1++;
@@ -619,8 +619,8 @@ _id_0781( var_0 )
     {
         var_3 = level._id_0575._id_7C66[var_2];
 
-        if ( _id_59D2( var_0["mask"], var_3._id_9C42["type"] ) )
-            var_3._id_9C42[var_0["name"]] = var_0["default"];
+        if ( _id_59D2( var_0["mask"], var_3.v["type"] ) )
+            var_3.v[var_0["name"]] = var_0["default"];
     }
 }
 
@@ -640,8 +640,8 @@ _id_2B49( var_0 )
         return;
 
     common_scripts\_createfx::_id_1EB9();
-    common_scripts\_createfx::_id_7E42( "Name: " + var_0._id_9C42["fxid"] );
-    common_scripts\_createfx::_id_7E42( "Type: " + var_0._id_9C42["type"] );
+    common_scripts\_createfx::_id_7E42( "Name: " + var_0.v["fxid"] );
+    common_scripts\_createfx::_id_7E42( "Type: " + var_0.v["type"] );
 
     if ( _id_330E() )
     {
@@ -653,7 +653,7 @@ _id_2B49( var_0 )
         {
             var_5 = level._id_0575._id_654C[var_4];
 
-            if ( !isdefined( var_0._id_9C42[var_5["name"]] ) )
+            if ( !isdefined( var_0.v[var_5["name"]] ) )
                 continue;
 
             var_1++;
@@ -662,7 +662,7 @@ _id_2B49( var_0 )
                 continue;
 
             var_2++;
-            common_scripts\_createfx::_id_7E42( var_2 + ". " + var_5["description"] + ": " + var_0._id_9C42[var_5["name"]] );
+            common_scripts\_createfx::_id_7E42( var_2 + ". " + var_5["description"] + ": " + var_0.v[var_5["name"]] );
 
             if ( var_2 > level._id_301B )
             {
@@ -689,11 +689,11 @@ _id_2B49( var_0 )
         {
             var_5 = level._id_0575._id_654C[var_4];
 
-            if ( !isdefined( var_0._id_9C42[var_5["name"]] ) )
+            if ( !isdefined( var_0.v[var_5["name"]] ) )
                 continue;
 
             var_1++;
-            common_scripts\_createfx::_id_7E42( var_5["description"] + ": " + var_0._id_9C42[var_5["name"]] );
+            common_scripts\_createfx::_id_7E42( var_5["description"] + ": " + var_0.v[var_5["name"]] );
 
             if ( var_1 > level._id_0575._id_4AE1 )
                 break;
@@ -871,7 +871,7 @@ _id_7C5A()
 
     foreach ( var_3, var_7 in level._id_2417 )
     {
-        if ( issubstr( var_7._id_9C42["fxid"], var_1 ) )
+        if ( issubstr( var_7.v["fxid"], var_1 ) )
             var_5[var_5.size] = var_3;
     }
 

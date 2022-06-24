@@ -24,7 +24,7 @@ main()
     _id_A788::main();
     _id_A6F9::main();
     _id_A787::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     maps\mp\mp_vlobby_room_lighting::main();
     maps\mp\mp_vlobby_room_aud::main();
     game["attackers"] = "allies";

@@ -24,8 +24,8 @@ main()
     maps\mp\mp_citystreets_precache::main();
     maps\mp\mp_citystreets_fx::main();
     maps\createart\mp_citystreets_art::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_citystreets" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_citystreets" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "desert";

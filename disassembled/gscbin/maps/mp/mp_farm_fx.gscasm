@@ -6,163 +6,163 @@ sub_main
 		GET_STRING "vfx/rain/rain_splash_sm_5x5_no_dist_lp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "rain_splash_sm_5x5_no_dist_lp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/rain/rain_splash_sm_x20_no_dist_lp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "rain_splash_sm_x20_no_dist_lp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/rain/rain_splash_sm_20x20_no_dist_lp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "rain_splash_sm_20x20_no_dist_lp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/maps/mp_downpour/vfx_water_drips"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "vfx_water_drips"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lensflare/fx_flare_anamorphic_rain"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fx_flare_anamorphic_rain"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/mpfarm_headlight"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "mpfarm_headlight"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/smoke/smoldering_smk_direction_s"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "smoldering_smk_direction_s"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/water/water_flow_rain_gutter_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_flow_rain_gutter_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/rain/water_roof_gutter_gush_fall"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_roof_gutter_gush_fall"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lights/godray_ambient_rain_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "godray_ambient_rain_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fire/dlc/fire_campfire_small"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fire_campfire_small"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/fire/barrel_fire_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "barrel_fire_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/rain/water_drips_med"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_drips_med"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/water/falling_water_heavydoor_cgoshp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "falling_water_heavydoor_cgoshp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lightning/lightning_strike_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "lightning_strike_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lightning/lightning_strike_01"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "lightning_strike_01"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/water/water_sweeping_cgoshp_sml"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_sweeping_cgoshp_sml"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/water/water_sweeping_cgoshp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_sweeping_cgoshp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/rain_splashes_mpfarm"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "rain_splashes_mpfarm"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/lightning/lightning_mp_farm"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "lightning_mp_farm"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/rain_heavy_mist_mpfarm"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "rain_heavy_mist_mpfarm"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/lightning_mp_farm"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "lightning"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/maps/mp_downpour/vfx_water_drips"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "cgoshp_drips_a"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/ambient_runners/mp_farm_rain_splash01"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "rain_splash_mp_farm"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/ambient_runners/mp_farm_water_noise_ud01"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_noise_ud"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/ambient_runners/mp_farm_water_noise01"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "water_noise"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/rain/screen_rain_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "screen_rain_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END

@@ -24,8 +24,8 @@ main()
     maps\mp\mp_carentan_precache::main();
     maps\createart\mp_carentan_art::main();
     maps\mp\mp_carentan_fx::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_carentan" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_carentan" );
     level.airstrikeheightscale = 1.4;
     game["allies"] = "sas";
     game["axis"] = "russian";

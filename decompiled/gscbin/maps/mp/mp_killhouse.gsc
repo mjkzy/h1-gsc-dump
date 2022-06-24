@@ -24,8 +24,8 @@ main()
     maps\mp\mp_killhouse_precache::main();
     maps\mp\mp_killhouse_fx::main();
     maps\createart\mp_killhouse_art::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_killhouse" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_killhouse" );
     game["allies"] = "sas";
     game["axis"] = "russian";
     game["attackers"] = "axis";

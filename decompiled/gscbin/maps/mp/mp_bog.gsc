@@ -24,9 +24,9 @@ main()
     maps\mp\mp_bog_precache::main();
     maps\mp\mp_bog_fx::main();
     maps\createart\mp_bog_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     _id_A769::init();
-    _id_A731::_id_8324( "compass_map_mp_bog" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_bog" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     setdvar( "compassmaxrange", "1800" );

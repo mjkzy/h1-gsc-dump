@@ -9,7 +9,7 @@ sub_main
 		DEC_TOP
 		CALL_FAR_FUNC2 _id_A787 main
 		DEC_TOP
-		CALL_FAR_FUNC2 _id_A74C main
+		CALL_FAR_FUNC2 maps/mp/_load main
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/mp_vlobby_room_lighting main
 		DEC_TOP

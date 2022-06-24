@@ -24,8 +24,8 @@ main()
     maps\mp\mp_crash_precache::main();
     maps\mp\mp_crash_fx::main();
     maps\createart\mp_crash_art::main();
-    _id_A74C::main();
-    _id_A731::_id_8324( "compass_map_mp_crash_dlc" );
+    maps\mp\_load::main();
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_crash_dlc" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     setdvar( "compassmaxrange", "1600" );

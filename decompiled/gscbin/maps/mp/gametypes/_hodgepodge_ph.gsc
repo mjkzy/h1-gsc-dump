@@ -235,8 +235,8 @@ onStartGameType()
     setmapcenter( level.mapCenter );
     var_2[0] = level.gametype;
     maps\mp\gametypes\_gameobjects::main( var_2 );
-    level._id_058F["propFlash"] = loadfx( "vfx/explosion/flashbang_h1" );
-    level._id_058F["propDeathFX"] = loadfx( "vfx/explosion/prop_explosion" );
+    level._effect["propFlash"] = loadfx( "vfx/explosion/flashbang_h1" );
+    level._effect["propDeathFX"] = loadfx( "vfx/explosion/prop_explosion" );
 
     if ( !level.madpropsmode )
     {

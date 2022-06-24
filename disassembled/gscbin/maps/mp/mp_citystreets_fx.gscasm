@@ -6,103 +6,103 @@ sub_main
 		GET_STRING "vfx/cloud/00_particle_shadow_citystreets"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "00_particle_shadow_citystreets"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/sand/ground_sand_skitter_blowing"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ground_sand_skitter_blowing"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/sand_storm_city_streets"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "sand_storm_city_streets"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/sand_storm_distant_dubsided"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "sand_storm_distant_dubsided"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_citystreets/ambient_hallway_dust_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ambient_hallway_dust_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/animal/roach_flock_scatter_radial_nofly_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "roach_flock_scatter_radial_nofly_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/ambush/ambient_hallway_dust_01"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "ambient_hallway_dust_01"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_lost/mp_trash_blowing_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "mp_trash_blowing_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_citystreets/sand_storm_small_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "sand_storm_small_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/map/mp_citystreets/sand_storm_mp"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "sand_storm_mp"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/dust/amb_dust_unlit_dayonly"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "amb_dust_unlit_dayonly"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "vfx/sand/sand_tornado_s_runner"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "sand_tornado_s_runner"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/weather/fog_bog_a"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fog_bog_a"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/smoke/amb_ash"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "amb_ash"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/floodlight_white"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "floodlight_white"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/floodlight_yellow"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "floodlight_yellow"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "fx/misc/fluorescent_glow"
 		CALL_BUILTIN_FUNC_1 loadfx
 		GET_STRING "fluorescent_glow"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_LEVEL_FIELD_VARIABLE_REF _effect
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END

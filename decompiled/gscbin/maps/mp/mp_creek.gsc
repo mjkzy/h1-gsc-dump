@@ -24,9 +24,9 @@ main()
     maps\mp\mp_creek_precache::main();
     maps\mp\mp_creek_fx::main();
     maps\createart\mp_creek_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     _id_A769::init();
-    _id_A731::_id_8324( "compass_map_mp_creek" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_creek" );
     game["allies"] = "sas";
     game["axis"] = "russian";
     game["attackers"] = "axis";

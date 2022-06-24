@@ -24,9 +24,9 @@ main()
     maps\mp\mp_overgrown_precache::main();
     maps\mp\mp_overgrown_fx::main();
     maps\createart\mp_overgrown_art::main();
-    _id_A74C::main();
+    maps\mp\_load::main();
     _id_A769::init();
-    _id_A731::_id_8324( "compass_map_mp_overgrown_dlc" );
+    maps\mp\_compass::setupMiniMap( "compass_map_mp_overgrown_dlc" );
     ambientplay( "amb_mp_overgrown_ext" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
