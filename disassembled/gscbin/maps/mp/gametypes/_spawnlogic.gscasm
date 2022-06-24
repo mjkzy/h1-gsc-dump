@@ -4,19 +4,19 @@
 sub_init
 		CHECK_CLEAR_PARAMS
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_53A8 // forceBuddySpawn?
+		SET_LEVEL_FIELD_VARIABLE_FIELD _id_53A8
 		GET_VECTOR 0 0 0
 		SET_LEVEL_FIELD_VARIABLE_FIELD spawnMins
 		GET_VECTOR 0 0 0
 		SET_LEVEL_FIELD_VARIABLE_FIELD spawnMaxs
 		GET_LEVEL_OBJ
-		CLEAR_FIELD_VARIABLE _id_1F11 // clientTraceSpawnClass?
+		CLEAR_FIELD_VARIABLE _id_1F11
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_2AF8 // disableClientSpawnTraces?
+		SET_LEVEL_FIELD_VARIABLE_FIELD _id_2AF8
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_62AC // numPlayersWaitingToSpawn?
+		SET_LEVEL_FIELD_VARIABLE_FIELD _id_62AC
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_62AB // numPlayersWaitingToEnterKillcam?
+		SET_LEVEL_FIELD_VARIABLE_FIELD _id_62AB
 		GET_ZERO
 		GET_STRING "axis"
 		EVAL_LEVEL_FIELD_VARIABLE_REF badspawncount
@@ -33,8 +33,6 @@ sub_init
 		SET_LEVEL_FIELD_VARIABLE_FIELD participants
 		EMPTY_ARRAY
 		SET_LEVEL_FIELD_VARIABLE_FIELD characters
-
-		// unknown below this point
 		EMPTY_ARRAY
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_89FE
 		EMPTY_ARRAY
@@ -1431,7 +1429,7 @@ sub_getTeamSpawnPoints
 		RETN
 		END
 
-end_411F
+end_eamSpawnPoints
 
 sub__id_5170
 		CHECK_CLEAR_PARAMS
@@ -1549,7 +1547,7 @@ sub_addToCharactersArray
 		SET_VARIABLE_FIELD
 		END
 
-end_0848
+end_oCharactersArray
 
 sub_removeFromCharactersArray
 		CHECK_CLEAR_PARAMS
@@ -1605,7 +1603,7 @@ sub_removeFromCharactersArray
 	loc_AE3
 		END
 
-end_73A7
+end_veFromCharactersArray
 
 sub__id_8A03
 		CHECK_CLEAR_PARAMS

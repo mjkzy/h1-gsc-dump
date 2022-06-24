@@ -1,0 +1,52 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_creek_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_creek_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_creek_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A769 init
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_creek"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_STRING "sas"
+		GET_STRING "allies"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "russian"
+		GET_STRING "axis"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "axis"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "allies"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "woodland"
+		GET_STRING "allies_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "woodland"
+		GET_STRING "axis_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

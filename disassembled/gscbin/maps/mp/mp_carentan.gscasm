@@ -1,0 +1,200 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_carentan_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_carentan_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_carentan_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_carentan"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_FLOAT 1.4
+		SET_LEVEL_FIELD_VARIABLE_FIELD airstrikeheightscale
+		GET_STRING "sas"
+		GET_STRING "allies"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "russian"
+		GET_STRING "axis"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "axis"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "allies"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "urban"
+		GET_STRING "allies_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "urban"
+		GET_STRING "axis_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		PRE_CALL
+		GET_STRING "light_street_lamp"
+		GET_UNDEFINED
+		GET_STRING "fx/misc/ct_street_lamp_glow"
+		GET_STRING "ct_street_lamp_glow_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "steam_vent_small"
+		GET_UNDEFINED
+		GET_STRING "vfx/steam/steam_vent_small"
+		GET_STRING "vent_small_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "light_utilities"
+		GET_UNDEFINED
+		GET_STRING "vfx/lights/spotlight_yellow_mp_carentan"
+		GET_STRING "utility_light_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "light_street_wall"
+		GET_UNDEFINED
+		GET_STRING "vfx/lights/light_spotlight_long_mp_carentan"
+		GET_STRING "street_wall_light_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "light_street_wall_sml"
+		GET_UNDEFINED
+		GET_STRING "vfx/lights/light_spotlight_mp_carentan"
+		GET_STRING "street_wall_light_sml_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "com_studio_light"
+		GET_UNDEFINED
+		GET_STRING "vfx/lights/light_studiolight_mp_carentan"
+		GET_STRING "com_studio_light_FX_origin"
+		CALL_FAR_FUNC _id_A74A _id_422D
+		DEC_TOP
+		GET_STRING "2500"
+		GET_STRING "compassmaxrange"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		EVAL_LEVEL_FIELD_VARIABLE gametype
+		GET_STRING "dom"
+		EQUALITY
+		JMP_FALSE loc_1D2
+		GET_STRING "vfx/unique/vfx_marker_dom_med"
+		GET_STRING "_a"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_med_carentanb"
+		GET_STRING "_b"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_med"
+		GET_STRING "_c"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_med"
+		GET_STRING "_a"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_med_carentanb"
+		GET_STRING "_b"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_med"
+		GET_STRING "_c"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_mid"
+		GET_STRING "_a"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_med_carentanb"
+		GET_STRING "_b"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_mid"
+		GET_STRING "_c"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+	loc_1D2
+		PRE_CALL
+		GET_STRING "h1_headicon_marines_night"
+		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		GET_STRING "marines"
+		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "h1_headicon_opfor_night"
+		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		GET_STRING "opfor"
+		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "h1_headicon_sas_night"
+		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		GET_STRING "sas"
+		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "h1_headicon_russian_night"
+		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		GET_STRING "russian"
+		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		DEC_TOP
+		GET_STRING "h1_dogtag_enemy_animated_night"
+		SET_LEVEL_FIELD_VARIABLE_FIELD killconfirmeddogtagenemy
+		GET_STRING "h1_dogtag_friend_animated_night"
+		SET_LEVEL_FIELD_VARIABLE_FIELD killconfirmeddogtagfriend
+		GET_STRING "weapon_c4_bombsquad_mw1_night"
+		SET_LEVEL_FIELD_VARIABLE_FIELD bombsquadmodelc4
+		GET_STRING "weapon_claymore_bombsquad_mw1_night"
+		SET_LEVEL_FIELD_VARIABLE_FIELD bombsquadmodelclaymore
+		GET_STRING "unlit"
+		SET_LEVEL_FIELD_VARIABLE_FIELD oldschoolfxtype
+		END
+
+end_

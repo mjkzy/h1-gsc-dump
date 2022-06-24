@@ -1,0 +1,259 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		GET_STRING "vfx/wind/leaves_ground_gentlewind"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "leaves_ground_gentlewind"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/creek_ember_smoke_small"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "creek_ember_smoke_small"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/creek_ember_smoke"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "creek_ember_smoke"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/creek_cave_lens_dust"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "creek_cave_lens_dust"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_broadcast/broadcast_godray_haze"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "broadcast_godray_haze"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_flashlight_flare"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_flashlight_flare"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_climate/mp_ground_grassdirt_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_ground_grassdirt_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_leaves_tornado"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_leaves_tornado"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_dragonflys"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_dragonflys"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_area_leaves"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_area_leaves"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_clowntown/sewage_flies_flying"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sewage_flies_flying"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_cave_dust"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_cave_dust"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_falling_dust"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_falling_dust"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_waterfall_1"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_waterfall_1"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/lensflare/hazy_sun_lensflare"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hazy_sun_lensflare"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_broadcast/broadcast_hallway_smoke"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hallway_smoke"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/map/mp_creek/mp_creek_waterfall"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_creek_waterfall"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/wind/leaves_small_fall_gentlewind"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "leaves_small_fall_gentlewind"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/wind/leaves_fall_gentlewind"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "leaves_fall_gentlewind"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/weather/fog_daytime"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "fog_daytime"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects02"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects02"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects03"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects03"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects04"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects04"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_insects05"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_insects05"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_fog_daytime01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_fog_daytime01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_leavesfall01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_leavesfall01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/ambient_runners/mp_overgrown_leavesground01"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_overgrown_leavesground01"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "flak88_explode"
+		GET_STRING "flak88_explode"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_78BA
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/hawks"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "hawks"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/distortion/mp_creek_stream"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sewer_stream_village"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/stream_creek_far"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sewer_stream_village_far"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/distortion/mp_creek_stream_fast"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "sewer_stream_village_far_fast"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/insect_trail_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "insect_trail_runner"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/insect_trail_runner"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "toilet_flies"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/mp_creek_waterfall1"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "waterfall_0"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/mp_creek_waterfall2"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "waterfall_1"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/mp_creek_waterfall_large"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "waterfall_large"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/light_shaft_dust_large_mp_creek"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "light_shaft_dust_large_mp_creek"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/room_dust_200_blend_mp_creek"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "room_dust_200_mp_creek"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/dust/cave_particulates"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "cave_particulates"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "fx/misc/mp_cave_dripping"
+		CALL_BUILTIN_FUNC_1 loadfx
+		GET_STRING "mp_cave_dripping"
+		EVAL_LEVEL_FIELD_VARIABLE_REF _id_058F
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+
+end_

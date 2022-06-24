@@ -1,0 +1,123 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_main
+		CHECK_CLEAR_PARAMS
+		CALL_FAR_FUNC2 maps/mp/mp_killhouse_precache main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/mp/mp_killhouse_fx main
+		DEC_TOP
+		CALL_FAR_FUNC2 maps/createart/mp_killhouse_art main
+		DEC_TOP
+		CALL_FAR_FUNC2 _id_A74C main
+		DEC_TOP
+		PRE_CALL
+		GET_STRING "compass_map_mp_killhouse"
+		CALL_FAR_FUNC _id_A731 _id_8324
+		DEC_TOP
+		GET_STRING "sas"
+		GET_STRING "allies"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "russian"
+		GET_STRING "axis"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "axis"
+		GET_STRING "attackers"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "allies"
+		GET_STRING "defenders"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "woodland"
+		GET_STRING "allies_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "woodland"
+		GET_STRING "axis_soldiertype"
+		GET_GAME_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "2200"
+		GET_STRING "compassmaxrange"
+		CALL_BUILTIN_FUNC_2 setdvar
+		DEC_TOP
+		EVAL_LEVEL_FIELD_VARIABLE gametype
+		GET_STRING "dom"
+		EQUALITY
+		JMP_FALSE loc_147
+		GET_STRING "vfx/unique/vfx_marker_dom_med"
+		GET_STRING "_a"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_med"
+		GET_STRING "_b"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_med"
+		GET_STRING "_c"
+		GET_STRING "friendly"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_med"
+		GET_STRING "_a"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_med"
+		GET_STRING "_b"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_red_med"
+		GET_STRING "_c"
+		GET_STRING "enemy"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_mid"
+		GET_STRING "_a"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_mid"
+		GET_STRING "_b"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		GET_STRING "vfx/unique/vfx_marker_dom_w_mid"
+		GET_STRING "_c"
+		GET_STRING "neutral"
+		EVAL_LEVEL_FIELD_VARIABLE_REF domborderfx
+		EVAL_ARRAY_REF
+		EVAL_ARRAY_REF
+		SET_VARIABLE_FIELD
+		END
+	loc_147
+		END
+
+end_
