@@ -1573,7 +1573,7 @@ sub_updatetextongamepadchange
 		GET_STRING "disconnect"
 		GET_SELF
 		ENDON
-		EVAL_LEVEL_FIELD_VARIABLE _id_2153
+		EVAL_LEVEL_FIELD_VARIABLE console
 		JMP_FALSE loc_E27
 		END
 	loc_E27

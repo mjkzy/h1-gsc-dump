@@ -376,7 +376,7 @@ sub__id_8998
 		JMP_FALSE loc_2BA
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE _id_0851
-		CALL_FAR_FUNC _id_A7A9 _id_0851
+		CALL_FAR_FUNC maps/mp/gametypes/_menus _id_0851
 		DEC_TOP
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE _id_0851
@@ -1693,7 +1693,7 @@ sub__id_89FB
 		GET_SELF
 		CALL_BUILTIN_METHOD_1 _meth_82F1
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_5FEC
+		EVAL_LEVEL_FIELD_VARIABLE multiTeamBased
 		JMP_FALSE loc_CDA
 		EVAL_LEVEL_FIELD_VARIABLE teamNameList
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 9
@@ -2076,7 +2076,7 @@ sub__id_89FB
 	loc_FC5
 		REMOVE_LOCAL_VARIABLES 1
 	loc_FC7
-		EVAL_LEVEL_FIELD_VARIABLE _id_2153
+		EVAL_LEVEL_FIELD_VARIABLE console
 		JMP_FALSE loc_FDC
 		GET_STRING "65"
 		GET_STRING "cg_fov"
@@ -2124,7 +2124,7 @@ sub__id_89FB
 		SET_SELF_FIELD_VARIABLE_FIELD lastgameteamchosen
 		PRE_CALL
 		GET_STRING "allies"
-		CALL_FAR_FUNC _id_A7A9 getuiteamindex
+		CALL_FAR_FUNC maps/mp/gametypes/_menus getuiteamindex
 		GET_STRING "ui_team_selected"
 		GET_SELF
 		CALL_BUILTIN_METHOD_2 _meth_82F8
@@ -2139,7 +2139,7 @@ sub__id_89FB
 		SET_SELF_FIELD_VARIABLE_FIELD lastgameteamchosen
 		PRE_CALL
 		GET_STRING "axis"
-		CALL_FAR_FUNC _id_A7A9 getuiteamindex
+		CALL_FAR_FUNC maps/mp/gametypes/_menus getuiteamindex
 		GET_STRING "ui_team_selected"
 		GET_SELF
 		CALL_BUILTIN_METHOD_2 _meth_82F8
@@ -2469,7 +2469,7 @@ sub__id_4C0D
 		DEC_TOP
 		EVAL_LEVEL_FIELD_VARIABLE teamBased
 		JMP_EXPR_FALSE loc_1313
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		BOOL_NOT
 		CAST_BOOL
 	loc_1313
@@ -3274,7 +3274,7 @@ sub__id_19F3
 		CALL_FAR_FUNC2 maps/mp/_utility _id_584D
 		DEC_TOP
 	loc_19DF
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_FALSE loc_19FB
 		EVAL_LEVEL_FIELD_VARIABLE players
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
@@ -3434,7 +3434,7 @@ end_73D2
 
 sub__id_4D99
 		CHECK_CLEAR_PARAMS
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_EXPR_TRUE loc_1B0E
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_82CA
@@ -3702,7 +3702,7 @@ sub__id_833B
 		SET_VARIABLE_FIELD
 		JMP_BACK loc_1D36
 	loc_1D64
-		EVAL_LEVEL_FIELD_VARIABLE _id_2153
+		EVAL_LEVEL_FIELD_VARIABLE console
 		JMP_TRUE loc_1D9C
 		GET_BYTE 5
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
@@ -4633,7 +4633,7 @@ sub__id_19F0
 		DEC_TOP
 	loc_2539
 		EVAL_SELF_FIELD_VARIABLE sharpturnnotifydist
-		CALL_FAR_FUNC_THREAD _id_A7A9 _id_8027 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_menus _id_8027 1
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/_utility _id_0AA2
 		JMP_FALSE loc_2551
@@ -4658,7 +4658,7 @@ sub__id_19F0
 		CAST_BOOL
 	loc_256F
 		JMP_FALSE loc_2590
-		CALL_FAR_FUNC2 _id_A7A9 _id_5BB5
+		CALL_FAR_FUNC2 maps/mp/gametypes/_menus _id_5BB5
 		DEC_TOP
 		GET_BYTE 1
 		CALL_LOCAL_FUNC_THREAD sub__id_803C 1
@@ -4702,7 +4702,7 @@ sub__id_19F0
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A7A9 _id_0851
+		CALL_FAR_FUNC maps/mp/gametypes/_menus _id_0851
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "class"
@@ -4729,7 +4729,7 @@ sub__id_19F0
 		JMP_FALSE loc_261D
 		CALL_FAR_FUNC2 maps/mp/_utility _id_0AB0
 		JMP_FALSE loc_2614
-		CALL_FAR_FUNC2 _id_A7A9 _id_13A1
+		CALL_FAR_FUNC2 maps/mp/gametypes/_menus _id_13A1
 		DEC_TOP
 		END
 	loc_2614
@@ -4741,7 +4741,7 @@ sub__id_19F0
 		END
 		END
 	loc_261D
-		CALL_FAR_FUNC2 _id_A7A9 _id_1398
+		CALL_FAR_FUNC2 maps/mp/gametypes/_menus _id_1398
 		DEC_TOP
 		END
 		END

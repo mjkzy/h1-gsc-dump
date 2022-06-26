@@ -134,7 +134,7 @@ onStartGameType()
     maps\mp\_utility::setObjectiveText( "allies", &"OBJECTIVES_KOTH" );
     maps\mp\_utility::setObjectiveText( "axis", &"OBJECTIVES_KOTH" );
 
-    if ( level._id_8A7C )
+    if ( level.splitscreen )
     {
         maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_KOTH" );
         maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_KOTH" );
@@ -195,7 +195,7 @@ getSpawnPoint()
         var_1 = maps\mp\gametypes\_spawnlogic::getrandomstartspawn( "mp_hp_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 ); // the function called below this should be something related to "getSpawnpoint_<gamemode>"
+        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 );
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D6( var_2 );
     }
 

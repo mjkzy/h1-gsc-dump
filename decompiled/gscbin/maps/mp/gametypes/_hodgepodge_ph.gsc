@@ -494,7 +494,7 @@ updatetextongamepadchange()
     level endon( "game_ended" );
     self endon( "disconnect" );
 
-    if ( level._id_2153 )
+    if ( level.console )
         return;
 
     var_0 = common_scripts\utility::_id_5064();

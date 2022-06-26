@@ -255,7 +255,7 @@ sub_initmmmode
 		GET_STRING "axis"
 		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_FALSE loc_22B
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -360,7 +360,7 @@ end_6466
 sub_mmautoassign
 		CHECK_CLEAR_PARAMS
 		GET_STRING "allies"
-		CALL_FAR_FUNC_THREAD _id_A7A9 _id_8027 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_menus _id_8027 1
 		DEC_TOP
 		GET_STRING "allies"
 		SET_SELF_FIELD_VARIABLE_FIELD slasher_team
@@ -889,7 +889,7 @@ sub_setasslasher
 		GET_BYTE 1
 		GET_UNDEFINED
 		GET_STRING "axis"
-		CALL_FAR_FUNC _id_A7A9 _id_0851
+		CALL_FAR_FUNC maps/mp/gametypes/_menus _id_0851
 		DEC_TOP
 		GET_STRING "axis"
 		SET_SELF_FIELD_VARIABLE_FIELD slasher_team

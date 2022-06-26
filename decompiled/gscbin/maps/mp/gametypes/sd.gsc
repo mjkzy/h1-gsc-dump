@@ -116,7 +116,7 @@ onStartGameType()
     maps\mp\_utility::setObjectiveText( game["attackers"], &"OBJECTIVES_SD_ATTACKER" );
     maps\mp\_utility::setObjectiveText( game["defenders"], &"OBJECTIVES_SD_DEFENDER" );
 
-    if ( level._id_8A7C )
+    if ( level.splitscreen )
     {
         maps\mp\_utility::setObjectiveScoreText( game["attackers"], &"OBJECTIVES_SD_ATTACKER" );
         maps\mp\_utility::setObjectiveScoreText( game["defenders"], &"OBJECTIVES_SD_DEFENDER" );

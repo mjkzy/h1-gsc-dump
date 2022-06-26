@@ -360,7 +360,7 @@ sub_onStartGameType
 		GET_STRING "axis"
 		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_FALSE loc_38F
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_SAB"
@@ -407,7 +407,7 @@ sub_onStartGameType
 		GET_STRING "axis"
 		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_FALSE loc_41F
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
@@ -1105,7 +1105,7 @@ sub__id_64C2
 		GET_STRING "bomb_taken"
 		CALL_FAR_FUNC maps/mp/_utility _id_564B
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_TRUE loc_A41
 		PRE_CALL
 		GET_STRING "bomb"

@@ -77,7 +77,7 @@ onStartGameType()
     maps\mp\_utility::setObjectiveText( "allies", &"OBJECTIVES_DM" );
     maps\mp\_utility::setObjectiveText( "axis", &"OBJECTIVES_DM" );
 
-    if ( level._id_8A7C )
+    if ( level.splitscreen )
     {
         maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_DM" );
         maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_DM" );

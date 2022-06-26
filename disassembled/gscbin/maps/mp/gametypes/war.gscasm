@@ -204,7 +204,7 @@ sub_onStartGameType
 		GET_STRING "axis"
 		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_8A7C
+		EVAL_LEVEL_FIELD_VARIABLE splitscreen
 		JMP_FALSE loc_1F2
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
