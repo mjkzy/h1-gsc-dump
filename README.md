@@ -14,6 +14,6 @@ If H1-mod doesn't have the specific symbol you need named, then you'll need to u
 
 (Reference for below information: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)<br/>
 
-For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value `isplayer`. So, if `isplayer` wasn't defined with a proper name in H1-mod's function/method table, you would call this function as `game:_id_1AD(player)` or `game:_ID1AD(player)`<br/>
+For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value `isplayer`. So, if `isplayer` wasn't defined with a proper name in H1-mod's function/method table, you would call this function as `game:_id_1AD(player)` (or `game:_ID429(player)` i think)<br/>
 
 Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at. I'll try to update the function/method tables as much but I doubt I will.<br/>
