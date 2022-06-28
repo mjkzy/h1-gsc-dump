@@ -691,17 +691,17 @@ sub_monitorweaponammo
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_51EA
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51EA
 		JMP_EXPR_TRUE loc_598
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_51F2
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F2
 		CAST_BOOL
 	loc_598
 		JMP_EXPR_TRUE loc_5A2
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B isperkequipment
+		CALL_FAR_FUNC maps/mp/gametypes/_class isperkequipment
 		CAST_BOOL
 	loc_5A2
 		JMP_FALSE loc_5B3
@@ -713,17 +713,17 @@ sub_monitorweaponammo
 	loc_5B3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC _id_A78B _id_51F3
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F3
 		JMP_EXPR_TRUE loc_5C3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC _id_A78B _id_51F5
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F5
 		CAST_BOOL
 	loc_5C3
 		JMP_EXPR_TRUE loc_5CD
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B isperkprimary
+		CALL_FAR_FUNC maps/mp/gametypes/_class isperkprimary
 		CAST_BOOL
 	loc_5CD
 		JMP_FALSE loc_5DE
@@ -735,7 +735,7 @@ sub_monitorweaponammo
 	loc_5DE
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC _id_A78B isvalidmeleeweapon
+		CALL_FAR_FUNC maps/mp/gametypes/_class isvalidmeleeweapon
 		JMP_TRUE loc_5E7
 	loc_5E7
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -2773,7 +2773,7 @@ sub_targetdamagecallback
 	loc_15A2
 		PRE_CALL
 		GET_STRING "specialty_armorvest"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_15C1
 		PRE_CALL
 		GET_STRING "hitmorehealth"
@@ -3155,11 +3155,11 @@ sub__id_4028
 		JMP_FALSE loc_1909
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_51F3
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F3
 		JMP_EXPR_TRUE loc_1892
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_51F5
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F5
 		CAST_BOOL
 	loc_1892
 		JMP_FALSE loc_1905
@@ -4099,7 +4099,7 @@ sub__id_3807
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_METHOD _id_A78B _id_912F
+		CALL_FAR_METHOD maps/mp/gametypes/_class _id_912F
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED2

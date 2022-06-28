@@ -366,7 +366,7 @@ sub_init
 		CLEAR_LOCAL_VARIABLE_FIELD_CACHED0
 		REMOVE_LOCAL_VARIABLES 3
 	loc_31B
-		CALL_FAR_FUNC_THREAD _id_A747 main 0
+		CALL_FAR_FUNC_THREAD maps/mp/_hud_util main 0
 		DEC_TOP
 		CALL_FAR_FUNC_THREAD _id_A737 init 0
 		DEC_TOP
@@ -667,7 +667,7 @@ sub_checkbombsquadvisibility
 		PRE_CALL
 		GET_STRING "specialty_detectexplosive"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_5D9
 		JMP_FALSE loc_5E2
@@ -692,7 +692,7 @@ sub_checkbombsquadvisibility
 		PRE_CALL
 		GET_STRING "specialty_detectexplosive"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_TRUE loc_60D
 		JMP loc_613
 	loc_60D
@@ -1594,7 +1594,7 @@ sub__id_5A5E
 	loc_CDA
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		GET_STRING "weapon_projectile"
 		EQUALITY
 		JMP_FALSE loc_CEB
@@ -2266,12 +2266,12 @@ sub__id_467D
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_51F2
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F2
 		JMP_EXPR_FALSE loc_115C
 		PRE_CALL
 		GET_STRING "specialty_tacticalresupply"
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_115C
 		JMP_FALSE loc_116A
@@ -2283,12 +2283,12 @@ sub__id_467D
 	loc_116A
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_51EA
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51EA
 		JMP_EXPR_FALSE loc_117F
 		PRE_CALL
 		GET_STRING "specialty_lethalresupply"
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_117F
 		JMP_FALSE loc_1195
@@ -2316,7 +2316,7 @@ sub__id_467D
 		PRE_CALL
 		GET_STRING "specialty_scavenger"
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_FALSE loc_12C2
 		EVAL_LOCAL_VARIABLE_CACHED4
 		CALL_BUILTIN_METHOD_0 _meth_8309
@@ -2356,7 +2356,7 @@ sub__id_467D
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 11
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 12
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED4
@@ -2383,7 +2383,7 @@ sub__id_467D
 		PRE_CALL
 		GET_STRING "specialty_explosiveammoresupply"
 		EVAL_LOCAL_VARIABLE_CACHED 11
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_FALSE loc_123E
 		EVAL_LOCAL_VARIABLE_CACHED4
 		CALL_BUILTIN_FUNC_1 weaponclipsize
@@ -2404,7 +2404,7 @@ sub__id_467D
 		PRE_CALL
 		GET_STRING "specialty_explosiveammoresupply"
 		EVAL_LOCAL_VARIABLE_CACHED 11
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_FALSE loc_1271
 		EVAL_LOCAL_VARIABLE_CACHED4
 		CALL_BUILTIN_FUNC_1 weaponclipsize
@@ -2419,7 +2419,7 @@ sub__id_467D
 		PRE_CALL
 		GET_STRING "specialty_bulletresupply"
 		EVAL_LOCAL_VARIABLE_CACHED 11
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_FALSE loc_12A2
 		EVAL_LOCAL_VARIABLE_CACHED4
 		CALL_BUILTIN_FUNC_1 weaponmaxammo
@@ -2665,13 +2665,13 @@ sub__id_A265
 	loc_1416
 		PRE_CALL
 		GET_STRING "totalShots"
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		GET_BYTE 1
 		PLUS
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		PRE_CALL
 		GET_STRING "hits"
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		SET_LOCAL_VARIABLE_FIELD_CACHED 2
 		GET_FLOAT 1.0
 		GET_FLOAT 0.0
@@ -2687,13 +2687,13 @@ sub__id_A265
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
 		GET_STRING "totalShots"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "accuracy"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
@@ -2701,7 +2701,7 @@ sub__id_A265
 		MINUS
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "misses"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		EVAL_SELF_FIELD_VARIABLE _id_55EC
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -2805,7 +2805,7 @@ sub__id_1D0F
 		JMP_FALSE loc_1544
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -3006,11 +3006,11 @@ sub__id_1D0E
 		SET_VARIABLE_FIELD
 		PRE_CALL
 		GET_STRING "totalShots"
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 9
 		PRE_CALL
 		GET_STRING "hits"
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		GET_BYTE 1
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 10
@@ -3021,7 +3021,7 @@ sub__id_1D0E
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "hits"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -3029,7 +3029,7 @@ sub__id_1D0E
 		MINUS
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "misses"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		GET_FLOAT 1.0
 		GET_FLOAT 0.0
@@ -3046,7 +3046,7 @@ sub__id_1D0E
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "accuracy"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		END
 	loc_1729
@@ -5373,7 +5373,7 @@ sub__id_1E48
 		PRE_CALL
 		GET_STRING "specialty_delaymine"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_28E6
 		JMP_FALSE loc_28FA
@@ -7204,7 +7204,7 @@ sub__id_259B
 		EVAL_LOCAL_VARIABLE_CACHED5
 		EVAL_LOCAL_VARIABLE_CACHED 6
 		EVAL_SELF_FIELD_VARIABLE entity
-		EVAL_LEVEL_FIELD_VARIABLE _id_19FE
+		EVAL_LEVEL_FIELD_VARIABLE callbackPlayerDamage
 		CALL_METHOD_THREAD_POINTER 10
 		DEC_TOP
 		END
@@ -7738,7 +7738,7 @@ sub__id_50CE
 	loc_39DE
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SWITCH loc_3A12
 	loc_39E9
 		GET_BYTE 1
@@ -8317,7 +8317,7 @@ sub__id_8AFC
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "weapon_lmg"
@@ -8356,7 +8356,7 @@ sub__id_8AFC
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "weapon_lmg"
@@ -8954,7 +8954,7 @@ sub__id_5C5C
 		PRE_CALL
 		GET_STRING "specialty_delaymine"
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_42EC
 		JMP_FALSE loc_4300
@@ -11055,7 +11055,7 @@ sub_isprimaryorsecondaryprojectileweapon
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -11319,7 +11319,7 @@ sub_watchweaponinspection
 		SET_LOCAL_VARIABLE_FIELD_CACHED 6
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED 6
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_LOCAL_VARIABLE_FIELD_CACHED 5
 		EVAL_LOCAL_VARIABLE_CACHED5
 		GET_STRING "weapon_pistol"
@@ -11327,7 +11327,7 @@ sub_watchweaponinspection
 		SET_LOCAL_VARIABLE_FIELD_CACHED 4
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED 6
-		CALL_FAR_FUNC _id_A78B isperkequipment
+		CALL_FAR_FUNC maps/mp/gametypes/_class isperkequipment
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		EVAL_LOCAL_VARIABLE_CACHED 6
 		CALL_BUILTIN_FUNC_1 getweaponbasename
@@ -11455,13 +11455,13 @@ sub_watchmeleeweapon
 	loc_559C
 		PRE_CALL
 		GET_STRING "totalShots"
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		GET_BYTE 1
 		PLUS
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		PRE_CALL
 		GET_STRING "hits"
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		SET_LOCAL_VARIABLE_FIELD_CACHED 2
 		GET_FLOAT 1.0
 		GET_FLOAT 0.0
@@ -11477,13 +11477,13 @@ sub_watchmeleeweapon
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
 		GET_STRING "totalShots"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "accuracy"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
@@ -11491,7 +11491,7 @@ sub_watchmeleeweapon
 		MINUS
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "misses"
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		EVAL_SELF_FIELD_VARIABLE _id_55EC
 		CALL_BUILTIN_FUNC_1 isdefined

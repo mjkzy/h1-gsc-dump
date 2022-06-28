@@ -223,7 +223,7 @@ sub__id_5EBB
 		JMP_EXPR_FALSE loc_1EA
 		PRE_CALL
 		GET_STRING "specialty_scavenger"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_1EA
 		JMP_EXPR_FALSE loc_1F3
@@ -510,7 +510,7 @@ sub__id_1C57
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE _id_9024
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_TRUE loc_3FF
 		END
 	loc_3FF
@@ -670,7 +670,7 @@ sub__id_1C56
 		JMP_FALSE loc_551
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_3F10
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_3F10
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_551
 		PRE_CALL
@@ -1039,7 +1039,7 @@ sub__id_1C50
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 11
 		EVAL_FIELD_VARIABLE _id_9024
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 12
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 12
@@ -1321,7 +1321,7 @@ sub__id_1C50
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
 		EVAL_FIELD_VARIABLE _id_9024
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_FALSE loc_A6B
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
 		EVAL_FIELD_VARIABLE _id_9024
@@ -1384,7 +1384,7 @@ sub__id_1C50
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
 		EVAL_FIELD_VARIABLE _id_9024
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		BOOL_NOT
 		CAST_BOOL
 	loc_AC9
@@ -1430,7 +1430,7 @@ sub__id_1C50
 		JMP_FALSE loc_B1A
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_3F10
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_3F10
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_B1A
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -2947,7 +2947,7 @@ sub__id_3CE8
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -2962,7 +2962,7 @@ sub__id_3CE8
 		JMP_FALSE loc_188C
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_3F10
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_3F10
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_188C
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -2997,7 +2997,7 @@ sub__id_1C48
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
 		EVAL_FIELD_VARIABLE _id_9024
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_FALSE loc_18CA
 		END
 	loc_18CA
@@ -3448,7 +3448,7 @@ sub__id_1C52
 		GREATEREQUAL
 		JMP_EXPR_FALSE loc_1C84
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
-		EVAL_FIELD_VARIABLE killstreakrestricted
+		EVAL_FIELD_VARIABLE kills
 		GET_ZERO
 		GREATER
 		CAST_BOOL
@@ -4263,7 +4263,7 @@ sub__id_5EC9
 		SET_VARIABLE_FIELD
 		PRE_CALL
 		GET_STRING "specialty_longersprint"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_22DE
 		GET_STRING "totalGameSprintDist"
 		EVAL_SELF_FIELD_VARIABLE pers
@@ -5704,11 +5704,11 @@ sub__id_5205
 	loc_2CB5
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_51F3
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F3
 		JMP_EXPR_TRUE loc_2CC5
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_51F5
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F5
 		CAST_BOOL
 	loc_2CC5
 		JMP_FALSE loc_2CCB
@@ -6577,7 +6577,7 @@ sub__id_5EE1
 	loc_32C3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_FALSE loc_32D1
 		JMP loc_32F9
 	loc_32D1

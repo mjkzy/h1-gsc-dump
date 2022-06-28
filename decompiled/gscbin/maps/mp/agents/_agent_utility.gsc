@@ -97,7 +97,7 @@ _id_4DFF( var_0 )
         self._id_83C6 = 0;
         self._id_83C5 = 0;
         self._id_0898 = 1;
-        _id_A7B1::_id_833B();
+        maps\mp\gametypes\_playerlogic::_id_833B();
 
         if ( maps\mp\_utility::_id_5112( self ) )
         {

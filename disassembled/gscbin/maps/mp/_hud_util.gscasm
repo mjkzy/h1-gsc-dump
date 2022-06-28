@@ -337,7 +337,7 @@ sub__id_5E5E
 		PRE_CALL
 		GET_STRING "specialty_paint"
 		EVAL_LOCAL_VARIABLE_CACHED 7
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_2A8
 		JMP_FALSE loc_2B4

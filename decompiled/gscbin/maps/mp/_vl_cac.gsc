@@ -284,7 +284,7 @@ shouldhidecamoonweapon( var_0, var_1, var_2 )
 {
     var_3 = tablelookup( "mp/camotable.csv", 0, var_2, 1 );
     var_4 = doescamoignoreprivatematchunlock( var_3 );
-    return !_id_A78B::_id_50D6( var_1, var_3, var_4, var_0 );
+    return !maps\mp\gametypes\_class::_id_50D6( var_1, var_3, var_4, var_0 );
 }
 
 parseweaponhighlightedcategory( var_0 )
@@ -443,7 +443,7 @@ buildweaponnamecac( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( issubstr( var_0, "meleebottle" ) || issubstr( var_0, "meleejun6" ) || issubstr( var_0, "meleejun5" ) )
         var_2 = "lby";
 
-    return _id_A78B::_id_188C( var_0, var_1, var_2, var_3, var_4, var_5 );
+    return maps\mp\gametypes\_class::_id_188C( var_0, var_1, var_2, var_3, var_4, var_5 );
 }
 
 has_suffix( var_0, var_1 )
@@ -915,8 +915,8 @@ getfactionteam()
 
 setselectedfaction( var_0 )
 {
-    var_1 = _id_A78B::cac_getlastteam( var_0 );
-    var_2 = _id_A78B::cac_getlastenvironment( var_0 );
+    var_1 = maps\mp\gametypes\_class::cac_getlastteam( var_0 );
+    var_2 = maps\mp\gametypes\_class::cac_getlastenvironment( var_0 );
 
     if ( var_1 == "axis" && var_2 == "urban" )
         var_2 = "woodland";

@@ -680,7 +680,7 @@ _id_1206( var_0, var_1 )
     var_2 = 1;
     var_3 = 1;
 
-    while ( !level._id_3BDA )
+    while ( !level.gameended )
     {
         wait(var_2);
         _id_A7A4::_id_A0DD();
@@ -959,7 +959,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( !isdefined( var_10 ) || var_10 == "neutral" )
         return;
 
-    if ( isdefined( var_4 ) && maps\mp\_utility::_id_513D( var_4 ) )
+    if ( isdefined( var_4 ) && maps\mp\_utility::isKillstreakWeapon( var_4 ) )
         return;
 
     var_11 = 0;

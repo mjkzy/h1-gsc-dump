@@ -640,7 +640,7 @@ sub__id_2D7C
 		JMP_EXPR_TRUE loc_519
 		PRE_CALL
 		GET_STRING "specialty_coldblooded"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		BOOL_NOT
 		JMP_EXPR_FALSE loc_518
 		GET_SELF

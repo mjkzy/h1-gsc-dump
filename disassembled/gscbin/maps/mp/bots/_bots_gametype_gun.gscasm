@@ -48,7 +48,7 @@ sub_bot_gun_pick_personality_from_weapon
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		GET_STRING "weapon_pistol"
 		EQUALITY
 		JMP_FALSE loc_61
@@ -132,7 +132,7 @@ sub__id_1647
 		JMP_EXPR_FALSE loc_E5
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		BOOL_NOT
 		CAST_BOOL
 	loc_E5

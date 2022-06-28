@@ -47,12 +47,12 @@ sub__id_54FF
 		PRE_CALL
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_830E
-		CALL_FAR_FUNC _id_A78B _id_5101
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_5101
 		JMP_EXPR_TRUE loc_70
 		PRE_CALL
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_830E
-		CALL_FAR_FUNC _id_A78B _id_5198
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_5198
 		CAST_BOOL
 	loc_70
 		JMP_FALSE loc_82
@@ -130,12 +130,12 @@ sub__id_54FF
 		PRE_CALL
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_830E
-		CALL_FAR_FUNC _id_A78B _id_5101
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_5101
 		JMP_EXPR_TRUE loc_11E
 		PRE_CALL
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_830E
-		CALL_FAR_FUNC _id_A78B _id_5198
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_5198
 		CAST_BOOL
 	loc_11E
 		JMP_FALSE loc_130
@@ -182,12 +182,12 @@ sub__id_54FF
 		PRE_CALL
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_830E
-		CALL_FAR_FUNC _id_A78B _id_5101
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_5101
 		JMP_EXPR_TRUE loc_18B
 		PRE_CALL
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_830E
-		CALL_FAR_FUNC _id_A78B _id_5198
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_5198
 		CAST_BOOL
 	loc_18B
 		JMP_FALSE loc_19D

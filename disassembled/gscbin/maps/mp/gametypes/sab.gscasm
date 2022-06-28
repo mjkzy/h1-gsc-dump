@@ -1468,7 +1468,7 @@ sub__id_1545
 		EVAL_FIELD_VARIABLE _id_9345
 		CALL_FAR_METHOD maps/mp/gametypes/common_bomb_gameobject _id_8F06
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_FALSE loc_D2E
 		END
 	loc_D2E
@@ -1543,7 +1543,7 @@ sub__id_1545
 		EVAL_LOCAL_VARIABLE_CACHED4
 		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects _id_2B1E
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_FALSE loc_DD5
 		END
 	loc_DD5
@@ -1872,7 +1872,7 @@ sub_sabwaitandspawnclient
 		ENDON
 		GET_BYTE 1
 		SET_SELF_FIELD_VARIABLE_FIELD _id_A04D
-		CALL_FAR_FUNC2 _id_A7B1 _id_A008
+		CALL_FAR_FUNC2 maps/mp/gametypes/_playerlogic _id_A008
 		DEC_TOP
 		GET_SELF
 		CALL_BUILTIN_FUNC_1 isdefined

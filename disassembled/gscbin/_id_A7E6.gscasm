@@ -1102,7 +1102,7 @@ sub__id_198D
 		PRE_CALL
 		GET_STRING "specialty_bulletdamage"
 		EVAL_LOCAL_VARIABLE_CACHED 9
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_A62
 		JMP_EXPR_FALSE loc_A6D
@@ -1123,7 +1123,7 @@ sub__id_198D
 		PRE_CALL
 		GET_STRING "specialty_armorvest"
 		EVAL_LOCAL_VARIABLE_CACHED 10
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_A8E
 		JMP_FALSE loc_A98
@@ -1146,7 +1146,7 @@ sub__id_198D
 		PRE_CALL
 		GET_STRING "specialty_explosivedamage"
 		EVAL_LOCAL_VARIABLE_CACHED 9
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_ABB
 		JMP_EXPR_FALSE loc_AC4
@@ -1166,7 +1166,7 @@ sub__id_198D
 		PRE_CALL
 		GET_STRING "specialty_armorvest"
 		EVAL_LOCAL_VARIABLE_CACHED 10
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_AE5
 		JMP_FALSE loc_AEF
@@ -1194,7 +1194,7 @@ sub__id_198D
 		PRE_CALL
 		GET_STRING "specialty_armorvest"
 		EVAL_LOCAL_VARIABLE_CACHED 10
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_B1B
 		JMP_FALSE loc_B2C
@@ -1308,7 +1308,7 @@ sub__id_41E3
 	loc_BEE
 		PRE_CALL
 		GET_STRING "specialty_blindeye"
-		CALL_FAR_FUNC maps/mp/_utility _id_067B
+		CALL_FAR_FUNC maps/mp/_utility _unsetPerk
 		DEC_TOP
 		GET_ZERO
 		SET_SELF_FIELD_VARIABLE_FIELD _id_89F9
@@ -1324,7 +1324,7 @@ sub__id_0CAF
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "specialty_extended_battery"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_C22
 		PRE_CALL
 		GET_ZERO
@@ -1334,7 +1334,7 @@ sub__id_0CAF
 	loc_C22
 		PRE_CALL
 		GET_STRING "specialty_class_lowprofile"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_C3B
 		PRE_CALL
 		GET_ZERO
@@ -1344,7 +1344,7 @@ sub__id_0CAF
 	loc_C3B
 		PRE_CALL
 		GET_STRING "specialty_class_flakjacket"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_CA0
 		PRE_CALL
 		GET_ZERO
@@ -1385,7 +1385,7 @@ sub__id_0CAF
 	loc_CA0
 		PRE_CALL
 		GET_STRING "specialty_class_lightweight"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_CB9
 		PRE_CALL
 		GET_ZERO
@@ -1395,7 +1395,7 @@ sub__id_0CAF
 	loc_CB9
 		PRE_CALL
 		GET_STRING "specialty_class_dangerclose"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_CD2
 		PRE_CALL
 		GET_ZERO
@@ -1405,7 +1405,7 @@ sub__id_0CAF
 	loc_CD2
 		PRE_CALL
 		GET_STRING "specialty_class_blindeye"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_CF7
 		PRE_CALL
 		GET_ZERO
@@ -1420,7 +1420,7 @@ sub__id_0CAF
 	loc_CF7
 		PRE_CALL
 		GET_STRING "specialty_class_coldblooded"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_D28
 		PRE_CALL
 		GET_ZERO
@@ -1440,7 +1440,7 @@ sub__id_0CAF
 	loc_D28
 		PRE_CALL
 		GET_STRING "specialty_class_peripherals"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_D4D
 		PRE_CALL
 		GET_ZERO
@@ -1455,7 +1455,7 @@ sub__id_0CAF
 	loc_D4D
 		PRE_CALL
 		GET_STRING "specialty_class_fasthands"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_D7E
 		PRE_CALL
 		GET_ZERO
@@ -1475,7 +1475,7 @@ sub__id_0CAF
 	loc_D7E
 		PRE_CALL
 		GET_STRING "specialty_class_dexterity"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_D97
 		PRE_CALL
 		GET_ZERO
@@ -1485,7 +1485,7 @@ sub__id_0CAF
 	loc_D97
 		PRE_CALL
 		GET_STRING "specialty_class_hardwired"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_DC4
 		PRE_CALL
 		GET_ZERO
@@ -1502,7 +1502,7 @@ sub__id_0CAF
 	loc_DC4
 		PRE_CALL
 		GET_STRING "specialty_class_toughness"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_DDB
 		GET_FLOAT 0.2
 		GET_SELF
@@ -1511,7 +1511,7 @@ sub__id_0CAF
 	loc_DDB
 		PRE_CALL
 		GET_STRING "specialty_class_scavenger"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_E14
 		GET_FLOAT 0.2
 		SET_SELF_FIELD_VARIABLE_FIELD _id_0B7B
@@ -1533,7 +1533,7 @@ sub__id_0CAF
 	loc_E14
 		PRE_CALL
 		GET_STRING "specialty_class_hardline"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_E2E
 		PRE_CALL
 		GET_ZERO

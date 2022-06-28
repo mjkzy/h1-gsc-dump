@@ -2470,7 +2470,7 @@ sub_waittilldoneusingkillstreak
 	loc_1341
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_EXPR_TRUE loc_1353
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE _id_7C6F
@@ -2597,7 +2597,7 @@ sub_removekillstreakweapons
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_FALSE loc_1428
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_SELF
@@ -2619,7 +2619,7 @@ end_vekillstreakweapons
 sub_givehardpointitem
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_EXPR_FALSE loc_1446
 		EVAL_LEVEL_FIELD_VARIABLE _id_3BDC
 		CALL_BUILTIN_FUNC_0 gettime
@@ -2663,7 +2663,7 @@ sub_givehardpointitem
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_FALSE loc_1495
 		GET_ZERO
 		RETN
@@ -2788,7 +2788,7 @@ sub_hardpointitemwaiter
 		GET_LEVEL
 		ENDON
 		PRE_CALL
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		CALL_FAR_FUNC maps/mp/_utility _id_5092
 		JMP_FALSE loc_1577
 		END
@@ -2867,7 +2867,7 @@ sub_hardpointitemwaiter
 	loc_1614
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B isperkequipment
+		CALL_FAR_FUNC maps/mp/gametypes/_class isperkequipment
 		JMP_TRUE loc_1620
 		EVAL_LOCAL_VARIABLE_CACHED0
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
@@ -3823,7 +3823,7 @@ sub__id_539C
 		JMP_FALSE loc_1DEB
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_FALSE loc_1D3A
 		END
 	loc_1D3A
@@ -3864,12 +3864,12 @@ sub__id_539C
 		PRE_CALL
 		GET_STRING "totalShots"
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_METHOD _id_A7AE _id_8D69
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D69
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		PRE_CALL
 		GET_STRING "hits"
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_METHOD _id_A7AE _id_8D69
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D69
 		GET_BYTE 1
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 4
@@ -3881,7 +3881,7 @@ sub__id_539C
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "hits"
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_METHOD _id_A7AE _id_8D79
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -3890,7 +3890,7 @@ sub__id_539C
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "misses"
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_METHOD _id_A7AE _id_8D79
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		GET_FLOAT 1.0
 		GET_FLOAT 0.0
@@ -3908,7 +3908,7 @@ sub__id_539C
 		CALL_BUILTIN_FUNC_1 int
 		GET_STRING "accuracy"
 		EVAL_LOCAL_VARIABLE_CACHED5
-		CALL_FAR_METHOD _id_A7AE _id_8D79
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		END
 	loc_1DEA

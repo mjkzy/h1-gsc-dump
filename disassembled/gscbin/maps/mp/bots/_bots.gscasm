@@ -3141,7 +3141,7 @@ sub__id_7476
 		WAIT
 		JMP_BACK loc_16D1
 	loc_16E0
-		CALL_FAR_FUNC2 _id_A7B1 _id_6081
+		CALL_FAR_FUNC2 maps/mp/gametypes/_playerlogic _id_6081
 		JMP_FALSE loc_172E
 	loc_16E7
 		EVAL_SELF_FIELD_VARIABLE _id_A04D
@@ -4599,7 +4599,7 @@ sub__id_15A4
 		PRE_CALL
 		GET_STRING "specialty_scavenger"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_216E
 		JMP_FALSE loc_2179

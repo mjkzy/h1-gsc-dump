@@ -104,12 +104,12 @@ handlecaomodechange( var_0 )
         _id_A765::resetplayeravatar();
         thread _id_A765::handlerotateplayeravatar();
         _func_300( var_0 );
-        var_1.savedcostume = _id_A78B::_id_1B0C( var_0 );
+        var_1.savedcostume = maps\mp\gametypes\_class::_id_1B0C( var_0 );
         var_1._id_2236 = var_1.savedcostume;
         var_2 = maps\mp\_vl_cac::getfactionteam();
         var_3 = maps\mp\_vl_cac::getfactionenvironment();
         maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.privatematchsquadmembers, var_2, var_3 );
-        var_1.savedcharactercamoindex = _id_A78B::cao_getcharactercamoindex( var_0 );
+        var_1.savedcharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( var_0 );
         var_1._id_A7ED = var_1.savedcharactercamoindex;
         var_1 _meth_857C( var_1._id_A7ED );
         playerteleportavatartocao( var_1 );
@@ -270,8 +270,8 @@ handlecollectionsmodechange( var_0, var_1 )
         _id_A765::resetplayeravatar();
         thread _id_A765::handlerotateplayeravatar();
         var_2 = level._id_9EAB[level._id_9EA2];
-        var_2.savedcollectionscostume = _id_A78B::_id_1B0C( var_1 );
-        var_2.savedcollectionscharactercamoindex = _id_A78B::cao_getcharactercamoindex( var_1 );
+        var_2.savedcollectionscostume = maps\mp\gametypes\_class::_id_1B0C( var_1 );
+        var_2.savedcollectionscharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( var_1 );
     }
 
     if ( level.collections == 0 )
@@ -452,8 +452,8 @@ handlearmorymodechange( var_0 )
         _id_A765::resetplayeravatar();
         thread _id_A765::handlerotateplayeravatar();
         var_1 = level._id_9EAB[level._id_9EA2];
-        var_1.savedarmorycostume = _id_A78B::_id_1B0C( level.depotcontroller );
-        var_1.savedarmorycharactercamoindex = _id_A78B::cao_getcharactercamoindex( level.depotcontroller );
+        var_1.savedarmorycostume = maps\mp\gametypes\_class::_id_1B0C( level.depotcontroller );
+        var_1.savedarmorycharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( level.depotcontroller );
     }
 
     level.armory = var_0;

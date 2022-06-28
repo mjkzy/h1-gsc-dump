@@ -165,7 +165,7 @@ sub__id_64C8
 		PRE_CALL
 		GET_STRING "experience"
 		EVAL_LOCAL_VARIABLE_CACHED5
-		CALL_FAR_METHOD _id_A7AE _id_8D68
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D68
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		EVAL_LOCAL_VARIABLE_CACHED3
 		GET_ZERO
@@ -1605,7 +1605,7 @@ sub__id_409B
 	loc_C09
 		PRE_CALL
 		GET_STRING "prestige"
-		CALL_FAR_FUNC _id_A7AE _id_8D68
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D68
 		RETN
 		END
 		END
@@ -1931,7 +1931,7 @@ sub__id_9089
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "experience"
-		CALL_FAR_FUNC _id_A7AE _id_8D78
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D78
 		DEC_TOP
 		END
 

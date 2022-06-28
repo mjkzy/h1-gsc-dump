@@ -148,10 +148,10 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( self.owner ) )
         thread _id_28F0( self.owner );
 
-    thread _id_A747::_id_5E5E();
+    thread maps\mp\_hud_util::_id_5E5E();
     self _meth_83CF( 0 );
     self [[ level._id_64E9 ]]();
-    _id_A78B::_id_41E0( self.team, self._id_1E2E, 1 );
+    maps\mp\gametypes\_class::giveLoadout( self.team, self._id_1E2E, 1 );
     thread maps\mp\bots\_bots::_id_1719( 1 );
     thread maps\mp\bots\_bots_strategy::_id_1717();
     self thread [[ maps\mp\agents\_agent_utility::_id_08A6( "think" ) ]]();

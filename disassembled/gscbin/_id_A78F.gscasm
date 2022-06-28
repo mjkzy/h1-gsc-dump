@@ -64,7 +64,7 @@ sub__id_07DE
 		PRE_CALL
 		GET_STRING "specialty_silentkill"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		CAST_BOOL
 	loc_63
 		JMP_FALSE loc_67

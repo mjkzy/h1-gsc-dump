@@ -141,13 +141,13 @@ sub__id_9B65
 		GET_STRING "score"
 		GET_STRING "round"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD _id_A7AE _id_8D7A
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "score"
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD _id_A7AE _id_8D50
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D50
 		DEC_TOP
 		END
 
@@ -242,13 +242,13 @@ sub__id_41FC
 		GET_STRING "score"
 		GET_STRING "round"
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_METHOD _id_A7AE _id_8D7A
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "score"
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_METHOD _id_A7AE _id_8D50
+		CALL_FAR_METHOD maps/mp/gametypes/_presistence _id_8D50
 		DEC_TOP
 	loc_1AE
 		EVAL_LEVEL_FIELD_VARIABLE teamBased

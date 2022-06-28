@@ -2318,7 +2318,7 @@ sub__id_4C2E
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A7AE _id_8D50
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D50
 		DEC_TOP
 		END
 	loc_F65
@@ -2525,11 +2525,11 @@ sub__id_9B47
 	loc_108D
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A7AE _id_8D68
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D68
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A7AE _id_8D68
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D68
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 4
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_ZERO
@@ -2546,7 +2546,7 @@ sub__id_9B47
 		DIV
 		CALL_BUILTIN_FUNC_1 int
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_FUNC _id_A7AE _id_8D78
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D78
 		DEC_TOP
 		END
 
@@ -2563,11 +2563,11 @@ sub__id_9B48
 	loc_10C7
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A7AE _id_8D69
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D69
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 4
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_ZERO
@@ -2584,7 +2584,7 @@ sub__id_9B48
 		DIV
 		CALL_BUILTIN_FUNC_1 int
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_FUNC _id_A7AE _id_8D79
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D79
 		DEC_TOP
 		END
 
@@ -6316,7 +6316,7 @@ sub__id_1F0D
 		JMP_EXPR_TRUE loc_29A4
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub__id_513D
+		CALL_LOCAL_FUNC sub_isKillstreakWeapon
 		CAST_BOOL
 	loc_29A4
 		JMP_FALSE loc_29B0
@@ -6638,7 +6638,7 @@ sub__id_05C0
 
 end_05C0
 
-sub__id_05CB
+sub__hasPerk
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		EVAL_SELF_FIELD_VARIABLE persistentperksunlocked
@@ -6658,7 +6658,7 @@ sub__id_05CB
 		RETN
 		END
 
-end_05CB
+end_Perk
 
 sub__id_41F8
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
@@ -6743,7 +6743,7 @@ sub__id_063C
 
 end_063C
 
-sub__id_067B
+sub__unsetPerk
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -6786,7 +6786,7 @@ sub__id_067B
 		DEC_TOP
 		END
 
-end_067B
+end_etPerk
 
 sub__id_056B
 		CHECK_CLEAR_PARAMS
@@ -7787,7 +7787,7 @@ sub__id_5131
 
 end_5131
 
-sub__id_513D
+sub_isKillstreakWeapon
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -7825,7 +7825,7 @@ sub__id_513D
 		RETN
 		END
 
-end_513D
+end_llstreakWeapon
 
 sub__id_50F3
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
@@ -7971,7 +7971,7 @@ sub__id_416C
 
 end_416C
 
-sub__id_4167
+sub_getWeaponClass
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
@@ -8016,7 +8016,7 @@ sub__id_4167
 	loc_341A
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_LOCAL_FUNC sub__id_513D
+		CALL_LOCAL_FUNC sub_isKillstreakWeapon
 		JMP_FALSE loc_342E
 		GET_STRING "killstreak"
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
@@ -8041,7 +8041,7 @@ sub__id_4167
 		RETN
 		END
 
-end_4167
+end_eaponClass
 
 sub__id_4160
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
@@ -8989,7 +8989,7 @@ sub__id_510C
 		PRE_CALL
 		GET_STRING "specialty_bulletpenetration"
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_METHOD sub__id_05CB
+		CALL_LOCAL_METHOD sub__hasPerk
 		CAST_BOOL
 	loc_3A16
 		JMP_EXPR_FALSE loc_3A1E
@@ -9480,7 +9480,7 @@ sub__id_50D1
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub__id_4167
+		CALL_LOCAL_FUNC sub_getWeaponClass
 		SWITCH loc_3D34
 	loc_3D2F
 		GET_BYTE 1
@@ -9508,7 +9508,7 @@ sub__id_50D2
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub__id_4167
+		CALL_LOCAL_FUNC sub_getWeaponClass
 		SWITCH loc_3D8A
 	loc_3D85
 		GET_BYTE 1
@@ -9539,7 +9539,7 @@ sub_iscacmeleeweapon
 	loc_3DC0
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub__id_4167
+		CALL_LOCAL_FUNC sub_getWeaponClass
 		SWITCH loc_3DD0
 	loc_3DCB
 		GET_BYTE 1
@@ -9592,7 +9592,7 @@ sub__id_3FFC
 		JMP_EXPR_FALSE loc_3E2A
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD _id_A7B1 _id_5A62
+		CALL_FAR_METHOD maps/mp/gametypes/_playerlogic _id_5A62
 		BOOL_NOT
 		CAST_BOOL
 	loc_3E2A
@@ -9640,7 +9640,7 @@ sub__id_4093
 		JMP_EXPR_FALSE loc_3E73
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD _id_A7B1 _id_5A62
+		CALL_FAR_METHOD maps/mp/gametypes/_playerlogic _id_5A62
 		BOOL_NOT
 		CAST_BOOL
 	loc_3E73
@@ -10840,7 +10840,7 @@ sub__id_9C4F
 		JMP_EXPR_FALSE loc_4653
 		PRE_CALL
 		GET_STRING "specialty_finalstand"
-		CALL_LOCAL_FUNC sub__id_05CB
+		CALL_LOCAL_FUNC sub__hasPerk
 		BOOL_NOT
 		CAST_BOOL
 	loc_4653
@@ -16413,7 +16413,7 @@ sub_applycarrierclass
 		PRE_CALL
 		GET_STRING "gamemode"
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_41E0
+		CALL_FAR_FUNC maps/mp/gametypes/_class giveLoadout
 		DEC_TOP
 		END
 
@@ -16487,7 +16487,7 @@ sub_removecarrierclass
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE _id_1E2E
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_41E0
+		CALL_FAR_FUNC maps/mp/gametypes/_class giveLoadout
 		DEC_TOP
 		END
 
@@ -16588,7 +16588,7 @@ sub_streamcarrierweaponstoplayers
 		EVAL_LOCAL_VARIABLE_CACHED 8
 		EVAL_LOCAL_VARIABLE_CACHED 9
 		EVAL_LOCAL_VARIABLE_CACHED 10
-		CALL_FAR_FUNC _id_A78B _id_188C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_188C
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		EMPTY_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED3

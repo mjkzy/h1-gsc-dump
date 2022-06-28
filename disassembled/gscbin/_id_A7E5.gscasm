@@ -65,7 +65,7 @@ sub__id_2483
 	loc_86
 		PRE_CALL
 		GET_STRING "specialty_lightweight"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_98
 		CALL_FAR_FUNC2 maps/mp/_utility _id_5761
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
@@ -88,7 +88,7 @@ sub__id_9A67
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		PRE_CALL
 		GET_STRING "specialty_lightweight"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_C1
 		CALL_FAR_FUNC2 maps/mp/_utility _id_5761
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
@@ -635,7 +635,7 @@ sub__id_1496
 		PRE_CALL
 		PRE_CALL
 		GET_STRING "specialty_blastshield2"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		GET_SELF
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_METHOD_POINTER
@@ -934,11 +934,11 @@ sub__id_9A90
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		GET_STRING "specialty_bulletaccuracy"
-		CALL_FAR_FUNC maps/mp/_utility _id_067B
+		CALL_FAR_FUNC maps/mp/_utility _unsetPerk
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "specialty_holdbreath"
-		CALL_FAR_FUNC maps/mp/_utility _id_067B
+		CALL_FAR_FUNC maps/mp/_utility _unsetPerk
 		DEC_TOP
 		END
 
@@ -1232,7 +1232,7 @@ sub__id_41F6
 		ENDON
 		PRE_CALL
 		GET_STRING "specialty_omaquickchange"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_7FA
 		GET_FLOAT 3.0
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
@@ -1298,7 +1298,7 @@ sub__id_41F6
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_41E0
+		CALL_FAR_FUNC maps/mp/gametypes/_class giveLoadout
 		DEC_TOP
 		EVAL_SELF_FIELD_VARIABLE _id_1BB4
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -1362,7 +1362,7 @@ sub__id_6437
 		CAST_BOOL
 	loc_8D3
 		JMP_EXPR_FALSE loc_8DB
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		BOOL_NOT
 		CAST_BOOL
 	loc_8DB
@@ -1433,7 +1433,7 @@ sub__id_7FDB
 		JMP_EXPR_FALSE loc_945
 		PRE_CALL
 		GET_STRING "specialty_coldblooded"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		BOOL_NOT
 		CAST_BOOL
 	loc_945
@@ -1568,7 +1568,7 @@ sub__id_9A70
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		GET_STRING "specialty_pistoldeath"
-		CALL_FAR_FUNC maps/mp/_utility _id_067B
+		CALL_FAR_FUNC maps/mp/_utility _unsetPerk
 		DEC_TOP
 		END
 
@@ -1628,7 +1628,7 @@ sub__id_9A92
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		GET_STRING "specialty_bulletdamage"
-		CALL_FAR_FUNC maps/mp/_utility _id_067B
+		CALL_FAR_FUNC maps/mp/_utility _unsetPerk
 		DEC_TOP
 		VOIDCODEPOS
 		GET_STRING "watchStoppingPowerKill"
@@ -1844,7 +1844,7 @@ sub__id_9A78
 		SET_SELF_FIELD_VARIABLE_FIELD _id_5F7B
 		PRE_CALL
 		GET_STRING "specialty_lightweight"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_C65
 		CALL_FAR_FUNC2 maps/mp/_utility _id_5761
 		SET_SELF_FIELD_VARIABLE_FIELD _id_5F7B

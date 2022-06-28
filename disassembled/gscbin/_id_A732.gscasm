@@ -28,7 +28,7 @@ sub__id_2402
 		GET_FAR_FUNC common_scripts/utility _id_9F36
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FF
 		GET_FAR_FUNC common_scripts/utility _id_9F36
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FE
+		SET_LEVEL_FIELD_VARIABLE_FIELD callbackPlayerDamage
 		GET_FAR_FUNC common_scripts/utility _id_9F36
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A01
 		GET_FAR_FUNC common_scripts/utility _id_9F36

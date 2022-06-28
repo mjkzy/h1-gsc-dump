@@ -268,7 +268,7 @@ sub_handlecaomodechange
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_1B0C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_1B0C
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE_REF savedcostume
 		SET_VARIABLE_FIELD
@@ -294,7 +294,7 @@ sub_handlecaomodechange
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC _id_A78B cao_getcharactercamoindex
+		CALL_FAR_FUNC maps/mp/gametypes/_class cao_getcharactercamoindex
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
 		EVAL_FIELD_VARIABLE_REF savedcharactercamoindex
 		SET_VARIABLE_FIELD
@@ -753,13 +753,13 @@ sub_handlecollectionsmodechange
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_1B0C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_1B0C
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE_REF savedcollectionscostume
 		SET_VARIABLE_FIELD
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B cao_getcharactercamoindex
+		CALL_FAR_FUNC maps/mp/gametypes/_class cao_getcharactercamoindex
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE_REF savedcollectionscharactercamoindex
 		SET_VARIABLE_FIELD
@@ -1276,13 +1276,13 @@ sub_handlearmorymodechange
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LEVEL_FIELD_VARIABLE depotcontroller
-		CALL_FAR_FUNC _id_A78B _id_1B0C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_1B0C
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE_REF savedarmorycostume
 		SET_VARIABLE_FIELD
 		PRE_CALL
 		EVAL_LEVEL_FIELD_VARIABLE depotcontroller
-		CALL_FAR_FUNC _id_A78B cao_getcharactercamoindex
+		CALL_FAR_FUNC maps/mp/gametypes/_class cao_getcharactercamoindex
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE_REF savedarmorycharactercamoindex
 		SET_VARIABLE_FIELD

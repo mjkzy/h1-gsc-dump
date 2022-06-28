@@ -3041,7 +3041,7 @@ sub_playerspawndepotcharacter
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_4009
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_4009
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 5
 		PRE_CALL
 		GET_STRING "targetname"

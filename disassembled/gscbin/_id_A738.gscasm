@@ -343,7 +343,7 @@ sub__id_5360
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED 6
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		JMP_TRUE loc_656
 		EVAL_LOCAL_VARIABLE_CACHED 6
 		GET_STRING "none"
@@ -678,14 +678,14 @@ sub__id_5360
 		JMP_FALSE loc_60C
 		PRE_CALL
 		GET_STRING "specialty_bulletdamage"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_53C
 		CALL_LOCAL_FUNC2 sub_stoppingpowerevent
 		DEC_TOP
 	loc_53C
 		PRE_CALL
 		GET_STRING "specialty_fastreload"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_551
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED 6
@@ -694,7 +694,7 @@ sub__id_5360
 	loc_551
 		PRE_CALL
 		GET_STRING "specialty_rof"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_569
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 7
@@ -708,7 +708,7 @@ sub__id_5360
 	loc_571
 		PRE_CALL
 		GET_STRING "specialty_twoprimaries"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_585
 		EVAL_LOCAL_VARIABLE_CACHED 6
 		EVAL_SELF_FIELD_VARIABLE sentry_offline
@@ -721,7 +721,7 @@ sub__id_5360
 	loc_58D
 		PRE_CALL
 		GET_STRING "specialty_bulletaccuracy"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_5A5
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_833D
@@ -735,7 +735,7 @@ sub__id_5360
 	loc_5AD
 		PRE_CALL
 		GET_STRING "specialty_pistoldeath"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_5C3
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE left
@@ -755,7 +755,7 @@ sub__id_5360
 	loc_5D9
 		PRE_CALL
 		GET_STRING "specialty_holdbreath"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_5F2
 		EVAL_LOCAL_VARIABLE_CACHED 6
 		CALL_BUILTIN_FUNC_1 weaponclass
@@ -769,14 +769,14 @@ sub__id_5360
 	loc_5FA
 		PRE_CALL
 		GET_STRING "specialty_parabolic"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_60C
 		CALL_LOCAL_FUNC2 sub_eavesdropevent
 		DEC_TOP
 	loc_60C
 		PRE_CALL
 		GET_STRING "specialty_radarimmune"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_621
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED 7
@@ -789,7 +789,7 @@ sub__id_5360
 	loc_629
 		PRE_CALL
 		GET_STRING "specialty_explosivedamage"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_63B
 		EVAL_LOCAL_VARIABLE_CACHED5
 		CALL_BUILTIN_FUNC_1 isexplosivedamagemod
@@ -983,7 +983,7 @@ sub__id_6E24
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "specialty_quieter"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_7B3
 		PRE_CALL
 		GET_STRING "ch_deadsilence"
@@ -1013,12 +1013,12 @@ sub__id_5361
 		PRE_CALL
 		GET_STRING "kills"
 		CALL_FAR_FUNC maps/mp/_utility _id_4081
-		SET_SELF_FIELD_VARIABLE_FIELD killstreakrestricted
+		SET_SELF_FIELD_VARIABLE_FIELD kills
 		PRE_CALL
-		EVAL_SELF_FIELD_VARIABLE killstreakrestricted
+		EVAL_SELF_FIELD_VARIABLE kills
 		GET_STRING "kills"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "deaths"
@@ -1194,7 +1194,7 @@ sub__id_18AD
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "specialty_bulletpenetration"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_970
 		PRE_CALL
 		GET_STRING "ch_deepimpact"
@@ -1250,7 +1250,7 @@ sub__id_606F
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "specialty_armorvest"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_9D0
 		PRE_CALL
 		GET_STRING "ch_juggernaut"
@@ -1327,7 +1327,7 @@ sub__id_5166
 	loc_A3B
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "weapon_sniper"
@@ -1413,7 +1413,7 @@ sub__id_514B
 		JMP_EXPR_FALSE loc_ADF
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		BOOL_NOT
 		CAST_BOOL
 	loc_ADF
@@ -1427,7 +1427,7 @@ sub__id_514B
 		JMP_FALSE loc_B9C
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 5
 		EVAL_LOCAL_VARIABLE_CACHED0
 		SWITCH loc_B39
@@ -1605,7 +1605,7 @@ sub__id_477E
 		CALL_FAR_FUNC maps/mp/_utility _id_1E29
 		GET_STRING "headshots"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "headshots"
@@ -1841,7 +1841,7 @@ sub__id_27AE
 		EVAL_ARRAY
 		GET_STRING "defends"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "defend"
@@ -2035,7 +2035,7 @@ sub__id_5FE5
 		JMP_FALSE loc_FBC
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B _id_3F10
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_3F10
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_FBC
 		GET_STRING ""
@@ -2285,7 +2285,7 @@ sub_setuplinkstats
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "captures"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -2341,7 +2341,7 @@ sub__id_385F
 		EVAL_ARRAY
 		GET_STRING "captures"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "captures"
@@ -2388,7 +2388,7 @@ sub__id_3869
 		EVAL_ARRAY
 		GET_STRING "returns"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "flag_return"
@@ -2442,7 +2442,7 @@ sub__id_5368
 		EVAL_ARRAY
 		GET_STRING "defends"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "kill_flag_carrier"
@@ -2482,7 +2482,7 @@ sub__id_5359
 		EVAL_ARRAY
 		GET_STRING "denied"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_STRING "kill_denied"
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
@@ -2537,7 +2537,7 @@ sub__id_5356
 		EVAL_ARRAY
 		GET_STRING "confirmed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "kill_confirmed"
@@ -2643,7 +2643,7 @@ sub__id_1548
 		EVAL_ARRAY
 		GET_STRING "plants"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "plants"
@@ -2688,7 +2688,7 @@ sub__id_1537
 		EVAL_ARRAY
 		GET_STRING "defuses"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "defuses"
@@ -2813,7 +2813,7 @@ sub__id_1539
 		EVAL_ARRAY
 		GET_STRING "destructions"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "callout_destroyed_objective"
@@ -2867,7 +2867,7 @@ sub__id_2758
 		EVAL_ARRAY
 		GET_STRING "setbacks"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "dropped_gun_score"
@@ -2896,7 +2896,7 @@ sub__id_7F2C
 		EVAL_ARRAY
 		GET_STRING "humiliations"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "dropped_enemy_gun_rank"
@@ -2958,7 +2958,7 @@ sub__id_2CF0
 		EVAL_ARRAY
 		GET_STRING "captures"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "captures"
@@ -3052,7 +3052,7 @@ sub__id_7C06
 		EVAL_ARRAY
 		GET_STRING "captures"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		GET_SELF
 		GET_STRING "callout_hp_captured_by"
@@ -3085,7 +3085,7 @@ sub_holdhardpointevent
 		EVAL_ARRAY
 		GET_STRING "captureTime"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "captureTime"
@@ -3115,7 +3115,7 @@ sub_hqcaptureevent
 		EVAL_ARRAY
 		GET_STRING "captures"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "captures"
@@ -3163,7 +3163,7 @@ sub_hqdestroyevent
 		EVAL_ARRAY
 		GET_STRING "destructions"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "destructions"
@@ -4161,7 +4161,7 @@ sub__id_6FF4
 		EVAL_SELF_FIELD_VARIABLE assists
 		GET_STRING "assists"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		CALL_FAR_FUNC_THREAD _id_A7AA _id_6C67 0
 		DEC_TOP

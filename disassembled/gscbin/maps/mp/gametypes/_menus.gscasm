@@ -259,7 +259,7 @@ sub__id_64C8
 		GET_STRING "environment"
 		CALL_BUILTIN_FUNC_1 getmapcustom
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_METHOD _id_A78B cac_setlastenvironment
+		CALL_FAR_METHOD maps/mp/gametypes/_class cac_setlastenvironment
 		DEC_TOP
 		JMP_BACK loc_1E9
 		END
@@ -432,7 +432,7 @@ sub__id_A21E
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED1
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		JMP loc_3CF
 	loc_36C
@@ -467,18 +467,18 @@ sub__id_A21E
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED0
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_BYTE 1
 		PLUS
-		CALL_FAR_FUNC _id_A78B cac_setlastclassindex
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastclassindex
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "xblive_privatematch"
 		CALL_BUILTIN_FUNC_1 getdvarint
-		CALL_FAR_FUNC _id_A78B cac_setlastgrouplocation
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastgrouplocation
 		DEC_TOP
 		GET_ZERO
 		CALL_LOCAL_FUNC_THREAD sub__id_5BB2 1
@@ -677,13 +677,13 @@ sub__id_A22B
 	loc_53F
 		CALL_LOCAL_FUNC2 sub_teamchangeisfactionchange
 		JMP_EXPR_FALSE loc_54D
-		EVAL_SELF_FIELD_VARIABLE _id_0851
+		EVAL_SELF_FIELD_VARIABLE addToTeam
 		CALL_BUILTIN_FUNC_1 isdefined
 		CAST_BOOL
 	loc_54D
 		JMP_FALSE loc_554
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE _id_0851
+		CLEAR_FIELD_VARIABLE addToTeam
 	loc_554
 		JMP loc_599
 	loc_559
@@ -714,7 +714,7 @@ sub__id_A22B
 	loc_58E
 		JMP_FALSE loc_599
 		GET_NBYTE 1
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_803C 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_803C 1
 		DEC_TOP
 	loc_599
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -759,13 +759,13 @@ sub__id_A22B
 		JMP_FALSE loc_614
 		CALL_LOCAL_FUNC2 sub_teamchangeisfactionchange
 		JMP_EXPR_FALSE loc_600
-		EVAL_SELF_FIELD_VARIABLE _id_0851
+		EVAL_SELF_FIELD_VARIABLE addToTeam
 		CALL_BUILTIN_FUNC_1 isdefined
 		CAST_BOOL
 	loc_600
 		JMP_FALSE loc_607
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE _id_0851
+		CLEAR_FIELD_VARIABLE addToTeam
 	loc_607
 		VOIDCODEPOS
 		GET_STRING "selected_same_team"
@@ -1044,16 +1044,16 @@ sub__id_8027
 		GET_BYTE 1
 		GET_ZERO
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_LOCAL_FUNC sub__id_0851
+		CALL_LOCAL_FUNC sub_addToTeam
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B cac_setlastteam
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastteam
 		DEC_TOP
 		JMP loc_859
 	loc_855
 		EVAL_LOCAL_VARIABLE_CACHED1
-		SET_SELF_FIELD_VARIABLE_FIELD _id_0851
+		SET_SELF_FIELD_VARIABLE_FIELD addToTeam
 	loc_859
 		GET_BYTE 1
 		CALL_LOCAL_FUNC_THREAD sub__id_5BB2 1
@@ -1080,11 +1080,11 @@ sub__id_8027
 	loc_88F
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_LOCAL_FUNC sub__id_0851
+		CALL_LOCAL_FUNC sub_addToTeam
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B cac_setlastteam
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastteam
 		DEC_TOP
 		EVAL_SELF_FIELD_VARIABLE sharpturnlookaheaddist
 		GET_STRING "playing"
@@ -1131,7 +1131,7 @@ sub__id_8027
 		JMP_FALSE loc_8FF
 		END
 	loc_8FF
-		CALL_FAR_FUNC2 _id_A7B1 _id_8998
+		CALL_FAR_FUNC2 maps/mp/gametypes/_playerlogic _id_8998
 		DEC_TOP
 	loc_904
 		CALL_FAR_FUNC_THREAD _id_A7BB _id_8019 0
@@ -1180,14 +1180,14 @@ sub__id_801A
 		NOTIFY
 		PRE_CALL
 		GET_STRING "spectator"
-		CALL_LOCAL_FUNC sub__id_0851
+		CALL_LOCAL_FUNC sub_addToTeam
 		DEC_TOP
 		GET_STRING "class"
 		EVAL_SELF_FIELD_VARIABLE_REF pers
 		CLEAR_ARRAY
 		GET_SELF_OBJ
 		CLEAR_FIELD_VARIABLE _id_1E2E
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_8A0E 0
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_8A0E 0
 		DEC_TOP
 		END
 
@@ -1243,7 +1243,7 @@ sub__id_A018
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED0
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		JMP loc_A29
 	loc_9F1
@@ -1262,16 +1262,16 @@ sub__id_A018
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_LOCAL_FUNC sub__id_3F31
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B cac_setlastclassindex
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastclassindex
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "xblive_privatematch"
 		CALL_BUILTIN_FUNC_1 getdvarint
-		CALL_FAR_FUNC _id_A78B cac_setlastgrouplocation
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastgrouplocation
 		DEC_TOP
 	loc_A29
 		VOIDCODEPOS
@@ -1317,7 +1317,7 @@ sub__id_A018
 	loc_A75
 		JMP_FALSE loc_AA4
 		GET_BYTE 3
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_803C 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_803C 1
 		DEC_TOP
 		CREATE_LOCAL_VARIABLE 0
 		CREATE_LOCAL_VARIABLE 1
@@ -1361,7 +1361,7 @@ sub__id_1398
 		CALL_FAR_FUNC2 maps/mp/_utility _id_0AA2
 		JMP_FALSE loc_B48
 		GET_BYTE 2
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_803C 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_803C 1
 		DEC_TOP
 		GET_SELF
 		CALL_BUILTIN_METHOD_0 _meth_842D
@@ -1408,7 +1408,7 @@ sub__id_1398
 		JMP_FALSE loc_B35
 		END
 	loc_B35
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_8998 0
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_8998 0
 		DEC_TOP
 	loc_B3B
 		CALL_FAR_FUNC_THREAD _id_A7BB _id_8019 0
@@ -1456,7 +1456,7 @@ sub__id_1398
 		JMP_FALSE loc_B9D
 		END
 	loc_B9D
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_8998 0
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_8998 0
 		DEC_TOP
 	loc_BA3
 		CALL_FAR_FUNC_THREAD _id_A7BB _id_8019 0
@@ -1470,7 +1470,7 @@ end_1398
 
 sub__id_1968
 		CHECK_CLEAR_PARAMS
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		GET_BYTE 1
 		SET_SELF_FIELD_VARIABLE_FIELD _id_7C68
@@ -1493,7 +1493,7 @@ end_1968
 sub__id_13A1
 		CHECK_CLEAR_PARAMS
 		GET_BYTE 1
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_803C 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_803C 1
 		DEC_TOP
 		END
 
@@ -1551,16 +1551,16 @@ sub__id_5BB5
 	loc_C3F
 		PRE_CALL
 		GET_STRING "spectator"
-		CALL_LOCAL_FUNC sub__id_0851
+		CALL_LOCAL_FUNC sub_addToTeam
 		DEC_TOP
 		GET_STRING "class"
 		EVAL_SELF_FIELD_VARIABLE_REF pers
 		CLEAR_ARRAY
 		GET_SELF_OBJ
 		CLEAR_FIELD_VARIABLE _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_8A0E 0
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_8A0E 0
 		DEC_TOP
 		END
 
@@ -1652,7 +1652,7 @@ sub__id_5BB2
 	loc_D05
 		JMP_FALSE loc_DF4
 		GET_BYTE 1
-		CALL_FAR_FUNC_THREAD _id_A7B1 streamclass 1
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic streamclass 1
 		DEC_TOP
 		EVAL_SELF_FIELD_VARIABLE _id_1E41
 		JMP_FALSE loc_D7E
@@ -1709,12 +1709,12 @@ sub__id_5BB2
 		GET_STRING "class"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_7F3B
+		CALL_FAR_FUNC maps/mp/gametypes/_class setClass
 		DEC_TOP
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE tag_tip
+		CLEAR_FIELD_VARIABLE tag_stowed_back
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE _id_90D3
+		CLEAR_FIELD_VARIABLE tag_stowed_hip
 		PRE_CALL
 		GET_STRING "class"
 		EVAL_SELF_FIELD_VARIABLE pers
@@ -1722,19 +1722,19 @@ sub__id_5BB2
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_41F1
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_41F1
 		DEC_TOP
 		EVAL_SELF_FIELD_VARIABLE spawnplayergivingloadout
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_TRUE loc_DC0
-		CALL_FAR_FUNC2 _id_A78B _id_0CAE
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class applyLoadout
 		DEC_TOP
 		CALL_FAR_FUNC2 _id_A798 giveownedhardpointitem
 		DEC_TOP
 	loc_DC0
 		PRE_CALL
 		GET_STRING "specialty_moreminimap"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_DDD
 		GET_BYTE 1
 		GET_STRING "ui_minimap_extend_grace_period"
@@ -1754,7 +1754,7 @@ sub__id_5BB2
 		DEC_TOP
 		END
 	loc_DF4
-		CALL_FAR_FUNC2 _id_A7B1 streamclass
+		CALL_FAR_FUNC2 maps/mp/gametypes/_playerlogic streamclass
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		JMP_FALSE loc_E10
@@ -1791,11 +1791,11 @@ sub__id_5BB1
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B _id_3F31
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_3F31
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC _id_A78B _id_4166
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_4166
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "restricted"
@@ -1882,7 +1882,7 @@ sub__id_5BB1
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED1
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "primary"
@@ -1933,7 +1933,7 @@ sub__id_5BB1
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED1
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "primary"
@@ -1959,7 +1959,7 @@ sub__id_5BB1
 		CAST_BOOL
 	loc_FB0
 		JMP_FALSE loc_FB9
-		CALL_FAR_FUNC_THREAD _id_A7B1 _id_8998 0
+		CALL_FAR_FUNC_THREAD maps/mp/gametypes/_playerlogic _id_8998 0
 		DEC_TOP
 	loc_FB9
 		CALL_FAR_FUNC_THREAD _id_A7BB _id_8019 0
@@ -1992,7 +1992,7 @@ sub_getuiteamindex
 
 end_iteamindex
 
-sub__id_0851
+sub_addToTeam
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 1
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 2
@@ -2000,7 +2000,7 @@ sub__id_0851
 		EVAL_SELF_FIELD_VARIABLE team
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_100B
-		CALL_FAR_FUNC2 _id_A7B1 _id_73AF
+		CALL_FAR_FUNC2 maps/mp/gametypes/_playerlogic _id_73AF
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -2011,7 +2011,7 @@ sub__id_0851
 		JMP_FALSE loc_100B
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A7B1 _id_275E
+		CALL_FAR_FUNC maps/mp/gametypes/_playerlogic _id_275E
 		DEC_TOP
 	loc_100B
 		EVAL_LOCAL_VARIABLE_CACHED2
@@ -2103,7 +2103,7 @@ sub__id_0851
 		GET_STRING "postgame"
 		INEQUALITY
 		JMP_FALSE loc_10FE
-		CALL_FAR_FUNC2 _id_A7B1 _id_0852
+		CALL_FAR_FUNC2 maps/mp/gametypes/_playerlogic _id_0852
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -2114,7 +2114,7 @@ sub__id_0851
 		JMP_FALSE loc_10FE
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A7B1 _id_4C3C
+		CALL_FAR_FUNC maps/mp/gametypes/_playerlogic _id_4C3C
 		DEC_TOP
 	loc_10FE
 		CALL_FAR_FUNC2 maps/mp/_utility _id_9B42
@@ -2157,7 +2157,7 @@ sub__id_0851
 		END
 		END
 
-end_0851
+end_oTeam
 
 sub__id_31BF
 		CHECK_CLEAR_PARAMS

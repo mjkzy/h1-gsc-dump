@@ -104,7 +104,7 @@ sub_playerspawnlocalplayeravatar
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_4009
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_4009
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 6
 		PRE_CALL
 		GET_STRING "adding xuid "

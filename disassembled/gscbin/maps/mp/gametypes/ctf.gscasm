@@ -3250,7 +3250,7 @@ sub__id_64D3
 		JMP_EXPR_FALSE loc_1BD3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED5
-		CALL_FAR_FUNC maps/mp/_utility _id_513D
+		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
 		CAST_BOOL
 	loc_1BD3
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 10

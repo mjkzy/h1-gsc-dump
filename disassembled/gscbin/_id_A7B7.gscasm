@@ -11,7 +11,7 @@ sub__id_83BE
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 1
 		CHECK_CLEAR_PARAMS
-		CALL_FAR_FUNC2 _id_A747 _id_5107
+		CALL_FAR_FUNC2 maps/mp/_hud_util _id_5107
 		JMP_FALSE loc_10
 		END
 	loc_10
@@ -57,7 +57,7 @@ sub__id_83BE
 		JMP_FALSE loc_7B
 		PRE_CALL
 		GET_STRING "specialty_hard_shell"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_TRUE loc_7A
 		GET_FLOAT 0.5
 		GET_STRING "frag_grenade_mp"

@@ -370,7 +370,7 @@ sub__id_88C2
 		CALL_LOCAL_FUNC_THREAD sub__id_28F0 1
 		DEC_TOP
 	loc_2E0
-		CALL_FAR_FUNC_THREAD _id_A747 _id_5E5E 0
+		CALL_FAR_FUNC_THREAD maps/mp/_hud_util _id_5E5E 0
 		DEC_TOP
 		GET_ZERO
 		GET_SELF
@@ -385,7 +385,7 @@ sub__id_88C2
 		GET_BYTE 1
 		EVAL_SELF_FIELD_VARIABLE _id_1E2E
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_41E0
+		CALL_FAR_FUNC maps/mp/gametypes/_class giveLoadout
 		DEC_TOP
 		GET_BYTE 1
 		CALL_FAR_FUNC_THREAD maps/mp/bots/_bots _id_1719 1

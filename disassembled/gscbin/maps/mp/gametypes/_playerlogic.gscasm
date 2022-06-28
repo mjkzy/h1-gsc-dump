@@ -18,13 +18,13 @@ sub__id_9383
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		EVAL_LEVEL_FIELD_VARIABLE _id_560E
+		EVAL_LEVEL_FIELD_VARIABLE lastWave
 		EVAL_ARRAY
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		EVAL_LEVEL_FIELD_VARIABLE _id_A2AB
+		EVAL_LEVEL_FIELD_VARIABLE waveDelay
 		EVAL_ARRAY
 		GET_USHORT 1000
 		MULT
@@ -146,7 +146,7 @@ sub__id_9382
 		CAST_BOOL
 	loc_F4
 		JMP_EXPR_TRUE loc_FB
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		CAST_BOOL
 	loc_FB
 		JMP_FALSE loc_100
@@ -261,15 +261,15 @@ sub__id_5A62
 	loc_1C8
 		CALL_FAR_FUNC2 maps/mp/_utility _id_3FAA
 		JMP_EXPR_TRUE loc_1D6
-		EVAL_LEVEL_FIELD_VARIABLE _id_2B28
+		EVAL_LEVEL_FIELD_VARIABLE disableSpawning
 		CALL_BUILTIN_FUNC_1 isdefined
 		CAST_BOOL
 	loc_1D6
 		JMP_FALSE loc_269
-		EVAL_LEVEL_FIELD_VARIABLE _id_2B28
+		EVAL_LEVEL_FIELD_VARIABLE disableSpawning
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_EXPR_FALSE loc_1E6
-		EVAL_LEVEL_FIELD_VARIABLE _id_2B28
+		EVAL_LEVEL_FIELD_VARIABLE disableSpawning
 		CAST_BOOL
 	loc_1E6
 		JMP_FALSE loc_1EB
@@ -371,19 +371,19 @@ sub__id_8998
 		WAITTILL
 		CLEAR_PARAMS
 	loc_29B
-		EVAL_SELF_FIELD_VARIABLE _id_0851
+		EVAL_SELF_FIELD_VARIABLE addToTeam
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_2BA
 		PRE_CALL
-		EVAL_SELF_FIELD_VARIABLE _id_0851
-		CALL_FAR_FUNC maps/mp/gametypes/_menus _id_0851
+		EVAL_SELF_FIELD_VARIABLE addToTeam
+		CALL_FAR_FUNC maps/mp/gametypes/_menus addToTeam
 		DEC_TOP
 		PRE_CALL
-		EVAL_SELF_FIELD_VARIABLE _id_0851
-		CALL_FAR_FUNC _id_A78B cac_setlastteam
+		EVAL_SELF_FIELD_VARIABLE addToTeam
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_setlastteam
 		DEC_TOP
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE _id_0851
+		CLEAR_FIELD_VARIABLE addToTeam
 	loc_2BA
 		PRE_CALL
 		GET_ZERO
@@ -536,7 +536,7 @@ sub__id_8F31
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_4009
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_4009
 		SET_LOCAL_VARIABLE_FIELD_CACHED 2
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
 		EVAL_FIELD_VARIABLE _id_6F84
@@ -635,7 +635,7 @@ sub__id_3C60
 		GET_UNDEFINED
 		EVAL_SELF_FIELD_VARIABLE _id_1E2E
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_4009
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_4009
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_4AF
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
@@ -679,8 +679,8 @@ sub_getstreaminfo
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE team
-		EVAL_SELF_FIELD_VARIABLE _id_0851
-		EVAL_SELF_FIELD_VARIABLE _id_0851
+		EVAL_SELF_FIELD_VARIABLE addToTeam
+		EVAL_SELF_FIELD_VARIABLE addToTeam
 		CALL_BUILTIN_FUNC_1 isdefined
 		CALL_FAR_FUNC common_scripts/utility _id_9294
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
@@ -716,7 +716,7 @@ sub_getloadoutforclass
 		GET_UNDEFINED
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_4009
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_4009
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED0
 		RETN
@@ -1174,7 +1174,7 @@ sub__id_55ED
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "specialty_finalstand"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_EXPR_FALSE loc_8B2
 		EVAL_LEVEL_FIELD_VARIABLE _id_2A55
 		BOOL_NOT
@@ -1183,7 +1183,7 @@ sub__id_55ED
 		JMP_FALSE loc_8C0
 		PRE_CALL
 		GET_STRING "specialty_finalstand"
-		CALL_FAR_FUNC maps/mp/_utility _id_067B
+		CALL_FAR_FUNC maps/mp/_utility _unsetPerk
 		DEC_TOP
 	loc_8C0
 		EVAL_LEVEL_FIELD_VARIABLE _id_2A55
@@ -1555,7 +1555,7 @@ sub__id_89FB
 		GET_UNDEFINED
 		EVAL_SELF_FIELD_VARIABLE _id_1E2E
 		EVAL_SELF_FIELD_VARIABLE team
-		CALL_FAR_FUNC _id_A78B _id_41F1
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_41F1
 		DEC_TOP
 		CALL_LOCAL_FUNC2 sub_gather_spawn_weapons
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 4
@@ -1567,7 +1567,7 @@ sub__id_89FB
 		GET_SELF
 		CALL_BUILTIN_FUNC_1 isplayer
 		JMP_FALSE loc_B92
-		CALL_FAR_FUNC2 _id_A78B _id_1B0C
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1B0C
 		SET_SELF_FIELD_VARIABLE_FIELD _id_2236
 		JMP loc_BAD
 	loc_B92
@@ -1590,7 +1590,7 @@ sub__id_89FB
 		EVAL_FIELD_VARIABLE _id_6F84
 		CALL_FAR_FUNC _id_A7BC applycostume
 		DEC_TOP
-		CALL_FAR_FUNC2 _id_A78B cao_getcharactercamoindex
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class cao_getcharactercamoindex
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 5
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_SELF
@@ -2208,7 +2208,7 @@ sub__id_89FB
 	loc_10F4
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE _id_1E2E
-		CALL_FAR_FUNC _id_A78B _id_7F3B
+		CALL_FAR_FUNC maps/mp/gametypes/_class setClass
 		DEC_TOP
 		EVAL_LEVEL_FIELD_VARIABLE _id_2546
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -2223,7 +2223,7 @@ sub__id_89FB
 	loc_1113
 		EVAL_LOCAL_VARIABLE_CACHED4
 		JMP_FALSE loc_1124
-		CALL_FAR_FUNC2 _id_A78B _id_0CAE
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class applyLoadout
 		DEC_TOP
 		VOIDCODEPOS
 		GET_STRING "spawnplayer_giveloadout"
@@ -2438,7 +2438,7 @@ sub__id_4C0D
 		CAST_BOOL
 	loc_12C8
 		JMP_EXPR_FALSE loc_12D0
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		BOOL_NOT
 		CAST_BOOL
 	loc_12D0
@@ -3269,7 +3269,7 @@ sub__id_19F3
 		EVAL_ARRAY_REF
 		CLEAR_ARRAY
 	loc_19D4
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_TRUE loc_19DF
 		CALL_FAR_FUNC2 maps/mp/_utility _id_584D
 		DEC_TOP
@@ -3321,7 +3321,7 @@ sub__id_19F3
 		DEC_TOP
 		CALL_FAR_FUNC_THREAD _id_A738 _id_2B36 0
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_FALSE loc_1A53
 		CALL_FAR_FUNC2 _id_A795 _id_739E
 		DEC_TOP
@@ -4475,7 +4475,7 @@ sub__id_19F0
 		JMP_FALSE loc_23E5
 		PRE_CALL
 		GET_STRING "killStreak"
-		CALL_FAR_FUNC _id_A7AE _id_8D68
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D68
 		SET_SELF_FIELD_VARIABLE_FIELD _id_533C
 	loc_23E5
 		GET_NBYTE 1
@@ -4504,7 +4504,7 @@ sub__id_19F0
 		GET_LEVEL
 		CALL_LOCAL_METHOD_THREAD sub__id_5EA7 1
 		DEC_TOP
-		CALL_FAR_FUNC_THREAD _id_A747 _id_5E5E 0
+		CALL_FAR_FUNC_THREAD maps/mp/_hud_util _id_5E5E 0
 		DEC_TOP
 		CALL_LOCAL_FUNC2 sub__id_7462
 		DEC_TOP
@@ -4702,7 +4702,7 @@ sub__id_19F0
 		GET_STRING "team"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/gametypes/_menus _id_0851
+		CALL_FAR_FUNC maps/mp/gametypes/_menus addToTeam
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "class"
@@ -4893,7 +4893,7 @@ sub__id_39C8
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
 		SET_SELF_FIELD_VARIABLE_FIELD _id_1E2E
-		CALL_FAR_FUNC2 _id_A78B _id_1EE7
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_1EE7
 		DEC_TOP
 	loc_2744
 		CALL_LOCAL_FUNC_THREAD sub__id_8998 0
@@ -5000,7 +5000,7 @@ end_52F3
 
 sub__id_4E01
 		CHECK_CLEAR_PARAMS
-		CALL_FAR_FUNC2 _id_A7AE _id_4D95
+		CALL_FAR_FUNC2 maps/mp/gametypes/_presistence _id_4D95
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/_utility _id_3FAA
 		GET_STRING "lives"
@@ -5020,7 +5020,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "deaths"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_283F
 		PRE_CALL
@@ -5040,13 +5040,13 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "score"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7B
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7B
 		DEC_TOP
 	loc_2888
 		GET_USHORT 65535
@@ -5059,7 +5059,7 @@ sub__id_4E01
 		PRE_CALL
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D6B
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D6B
 		GET_STRING "total"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_9372
 		EVAL_ARRAY_REF
@@ -5091,13 +5091,13 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "kills"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2909
 		PRE_CALL
 		GET_STRING "kills"
 		CALL_FAR_FUNC maps/mp/_utility _id_4081
-		SET_SELF_FIELD_VARIABLE_FIELD killstreakrestricted
+		SET_SELF_FIELD_VARIABLE_FIELD kills
 		GET_STRING "headshots"
 		EVAL_SELF_FIELD_VARIABLE pers
 		EVAL_ARRAY
@@ -5111,7 +5111,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "headshots"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2941
 		PRE_CALL
@@ -5131,7 +5131,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "assists"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2979
 		PRE_CALL
@@ -5151,7 +5151,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "captures"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_29B1
 		GET_STRING "returns"
@@ -5167,7 +5167,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "returns"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_29DC
 		PRE_CALL
@@ -5187,7 +5187,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "defends"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2A14
 		GET_STRING "plants"
@@ -5203,7 +5203,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "plants"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2A3F
 		GET_STRING "defuses"
@@ -5219,7 +5219,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "defuses"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2A6A
 		GET_STRING "destructions"
@@ -5235,7 +5235,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "destructions"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2A95
 		GET_STRING "confirmed"
@@ -5251,7 +5251,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "confirmed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2AC0
 		GET_STRING "denied"
@@ -5267,7 +5267,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "denied"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2AEB
 		GET_STRING "setbacks"
@@ -5283,7 +5283,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "setbacks"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2B16
 		GET_STRING "humiliations"
@@ -5299,7 +5299,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "humiliations"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2B41
 		GET_STRING "rescues"
@@ -5315,7 +5315,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "rescues"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2B6C
 		GET_STRING "captureTime"
@@ -5331,7 +5331,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "captureTime"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2B97
 		GET_STRING "banked"
@@ -5347,7 +5347,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "banked"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2BC2
 		GET_STRING "muggings"
@@ -5363,7 +5363,7 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "muggings"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 	loc_2BED
 		GET_STRING "teamkills"
@@ -5441,25 +5441,25 @@ sub__id_4E01
 		GET_ZERO
 		GET_STRING "killStreak"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		GET_STRING "loss"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		GET_STRING "win"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "none"
 		GET_STRING "scoreboardType"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D7A
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D7A
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/_utility _id_7139
 		JMP_FALSE loc_2D3D

@@ -200,7 +200,7 @@ sub_waseliminatedbyenemy
 	loc_16F
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD _id_A7B1 _id_5A62
+		CALL_FAR_METHOD maps/mp/gametypes/_playerlogic _id_5A62
 		JMP_FALSE loc_17A
 		GET_ZERO
 		RETN
@@ -1243,7 +1243,7 @@ sub__id_1545
 		EVAL_FIELD_VARIABLE _id_9345
 		CALL_FAR_METHOD maps/mp/gametypes/common_bomb_gameobject _id_8F06
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_3BDA
+		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_EXPR_TRUE loc_981
 		EVAL_LEVEL_FIELD_VARIABLE _id_1536
 		CAST_BOOL
@@ -1526,7 +1526,7 @@ sub__id_5140
 	loc_B65
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_METHOD _id_A7B1 _id_5A62
+		CALL_FAR_METHOD maps/mp/gametypes/_playerlogic _id_5A62
 		JMP_FALSE loc_B70
 		GET_ZERO
 		RETN

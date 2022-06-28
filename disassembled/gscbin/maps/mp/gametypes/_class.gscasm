@@ -4565,7 +4565,7 @@ sub__id_41F1
 
 end_41F1
 
-sub__id_0CAE
+sub_applyLoadout
 		CHECK_CLEAR_PARAMS
 		EVAL_SELF_FIELD_VARIABLE _id_57D6
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
@@ -4592,7 +4592,7 @@ sub__id_0CAE
 		JMP_FALSE loc_2655
 		PRE_CALL
 		GET_STRING "copycat"
-		CALL_LOCAL_FUNC sub__id_7F3B
+		CALL_LOCAL_FUNC sub_setClass
 		DEC_TOP
 	loc_2655
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
@@ -5003,7 +5003,7 @@ sub__id_0CAE
 	loc_29E9
 		PRE_CALL
 		GET_STRING "specialty_extraammo"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_2A0C
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_SELF
@@ -5217,7 +5217,7 @@ sub__id_0CAE
 		NOTIFY
 		END
 
-end_0CAE
+end_yLoadout
 
 sub__id_5843
 		CHECK_CLEAR_PARAMS
@@ -5285,7 +5285,7 @@ sub__id_5843
 
 end_5843
 
-sub__id_41E0
+sub_giveLoadout
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 1
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 2
@@ -5298,11 +5298,11 @@ sub__id_41E0
 		EVAL_LOCAL_VARIABLE_CACHED3
 		CALL_LOCAL_FUNC sub__id_41F1
 		DEC_TOP
-		CALL_LOCAL_FUNC2 sub__id_0CAE
+		CALL_LOCAL_FUNC2 sub_applyLoadout
 		DEC_TOP
 		END
 
-end_41E0
+end_Loadout
 
 sub__id_41E5
 		CHECK_CLEAR_PARAMS
@@ -5310,7 +5310,7 @@ sub__id_41E5
 		SET_SELF_FIELD_VARIABLE_FIELD _id_89F9
 		PRE_CALL
 		GET_STRING "specialty_blindeye"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		BOOL_NOT
 		JMP_EXPR_FALSE loc_2CC8
 		EVAL_SELF_FIELD_VARIABLE _id_11FC
@@ -5572,7 +5572,7 @@ sub__id_6083
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		GET_STRING "weapon_sniper"
 		EQUALITY
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
@@ -6544,14 +6544,14 @@ sub__id_35EC
 
 end_35EC
 
-sub__id_7F3B
+sub_setClass
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		EVAL_LOCAL_VARIABLE_CACHED0
 		SET_SELF_FIELD_VARIABLE_FIELD _id_24C3
 		END
 
-end_7F3B
+end_lass
 
 sub__id_1EE7
 		CHECK_CLEAR_PARAMS
@@ -7705,7 +7705,7 @@ sub_isvalidattachkit
 	loc_4C56
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 7
 		GET_STRING ""
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 8
@@ -7884,7 +7884,7 @@ sub_isvalidfurniturekit
 	loc_4DD4
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility _id_4167
+		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 5
 		GET_STRING ""
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 6

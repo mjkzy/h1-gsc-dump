@@ -138,13 +138,13 @@ sub_streamprimariesfunc
 		GET_STRING "loadoutPrimary"
 		EVAL_LEVEL_FIELD_VARIABLE oldschool_loadout
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_188C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_188C
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		GET_STRING "loadoutSecondary"
 		EVAL_LEVEL_FIELD_VARIABLE oldschool_loadout
 		EVAL_ARRAY
-		CALL_FAR_FUNC _id_A78B _id_188C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_188C
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		EMPTY_ARRAY
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
@@ -197,7 +197,7 @@ end_amprimariesfunc
 
 sub_oldschoolloadout
 		CHECK_CLEAR_PARAMS
-		CALL_FAR_FUNC2 _id_A78B _id_3F7B
+		CALL_FAR_FUNC2 maps/mp/gametypes/_class _id_3F7B
 		SET_LEVEL_FIELD_VARIABLE_FIELD oldschool_loadout
 		GET_STRING "h1_skorpion"
 		GET_STRING "loadoutPrimary"
@@ -996,7 +996,7 @@ sub_trackpickup
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_TRUE loc_840
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0

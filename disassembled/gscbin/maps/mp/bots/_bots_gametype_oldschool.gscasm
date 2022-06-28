@@ -1803,7 +1803,7 @@ sub_bot_oldschool_should_pickup_perk
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
 		EVAL_FIELD_VARIABLE _id_67CF
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_F8A
 		GET_ZERO
 		RETN
@@ -2206,7 +2206,7 @@ sub_bot_oldschool_pickup_perk
 		EVAL_FIELD_VARIABLE _id_62E1
 		CAST_FIELD_OBJ
 		EVAL_FIELD_VARIABLE _id_67CF
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		BOOL_NOT
 		JMP_EXPR_FALSE loc_12BB
 		CALL_BUILTIN_FUNC_0 gettime
@@ -2304,7 +2304,7 @@ sub_bot_oldschool_pickup_get_desired_weapon_pickup_action
 		JMP_FALSE loc_13F7
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC _id_A78B _id_51F2
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_51F2
 		JMP_FALSE loc_13DA
 		GET_ZERO
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3

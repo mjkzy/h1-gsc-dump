@@ -423,14 +423,14 @@ sub__id_9B4A
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedAllies"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "allies"
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedTotal"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "allies"
@@ -438,7 +438,7 @@ sub__id_9B4A
 		EVAL_ARRAY
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D54
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D54
 		DEC_TOP
 	loc_3BA
 		GET_STRING "axis"
@@ -450,14 +450,14 @@ sub__id_9B4A
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedOpfor"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "axis"
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedTotal"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "axis"
@@ -465,7 +465,7 @@ sub__id_9B4A
 		EVAL_ARRAY
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D54
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D54
 		DEC_TOP
 	loc_407
 		GET_STRING "other"
@@ -477,14 +477,14 @@ sub__id_9B4A
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedOther"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "other"
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedTotal"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "other"
@@ -492,7 +492,7 @@ sub__id_9B4A
 		EVAL_ARRAY
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D54
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D54
 		DEC_TOP
 	loc_454
 		GET_STRING "state"
@@ -1293,7 +1293,7 @@ sub_verifycostume
 		JMP_FALSE loc_9F2
 		PRE_CALL
 		EVAL_SELF_FIELD_VARIABLE _id_2236
-		CALL_FAR_FUNC _id_A78B _id_1B15
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_1B15
 		DEC_TOP
 	loc_9F2
 		EVAL_SELF_FIELD_VARIABLE _id_2236
@@ -1581,14 +1581,14 @@ sub__id_9B1A
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedAllies"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "allies"
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedTotal"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "allies"
@@ -1596,7 +1596,7 @@ sub__id_9B1A
 		EVAL_ARRAY
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D54
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D54
 		DEC_TOP
 	loc_C36
 		GET_STRING "axis"
@@ -1608,14 +1608,14 @@ sub__id_9B1A
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedOpfor"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "axis"
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedTotal"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "axis"
@@ -1623,7 +1623,7 @@ sub__id_9B1A
 		EVAL_ARRAY
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D54
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D54
 		DEC_TOP
 	loc_C83
 		GET_STRING "other"
@@ -1635,14 +1635,14 @@ sub__id_9B1A
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedOther"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "other"
 		EVAL_SELF_FIELD_VARIABLE _id_9372
 		EVAL_ARRAY
 		GET_STRING "timePlayedTotal"
-		CALL_FAR_FUNC _id_A7AE _id_8D51
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D51
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "other"
@@ -1650,7 +1650,7 @@ sub__id_9B1A
 		EVAL_ARRAY
 		GET_STRING "timePlayed"
 		GET_STRING "round"
-		CALL_FAR_FUNC _id_A7AE _id_8D54
+		CALL_FAR_FUNC maps/mp/gametypes/_presistence _id_8D54
 		DEC_TOP
 	loc_CD0
 		GET_STRING "state"

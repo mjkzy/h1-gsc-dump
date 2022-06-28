@@ -39,7 +39,7 @@ main()
         maps\mp\_utility::registerRoundLimitDvar( level.gametype, 1 );
         maps\mp\_utility::registerNumLivesDvar( level.gametype, 0 );
         maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
-        // maps\mp\_utility::registerScoreLimitDvar( level.gametype, 30 ); // dupe made, idk?
+        maps\mp\_utility::registerScoreLimitDvar( level.gametype, 30 );
         level.matchRules_damageMultiplier = 0;
         level.matchRules_vampirism = 0;
     }
@@ -96,55 +96,54 @@ onStartGameType()
     maps\mp\gametypes\_spawnlogic::addSpawnPoints( "axis", "mp_dm_spawn" );
     level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
     setmapcenter( level.mapCenter );
-    allowed[0] = "dm";
-    maps\mp\gametypes\_gameobjects::main( allowed );
+    var_0[0] = "dm";
+    maps\mp\gametypes\_gameobjects::main( var_0 );
     level.QuickMessageToAll = 1;
 }
 
 getSpawnPoint()
 {
     if ( level.inGracePeriod )
-        spawnPoint = maps\mp\gametypes\_spawnlogic::getstartspawnffa( self.team );
+        var_0 = maps\mp\gametypes\_spawnlogic::getstartspawnffa( self.team );
     else
     {
-        spawnPoints = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( self.team ); // the function called below this should be something related to "getSpawnpoint_<gamemode>"
-        spawnPoint = maps\mp\gametypes\_spawnscoring::getSpawnpoint_FreeForAll( spawnPoints );
+        var_1 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( self.team );
+        var_0 = maps\mp\gametypes\_spawnscoring::getSpawnpoint_FreeForAll( var_1 );
     }
 
-    maps\mp\gametypes\_spawnlogic::_id_7273( spawnPoint ); // idk what this function is
-    return spawnPoint;
+    maps\mp\gametypes\_spawnlogic::_id_7273( var_0 );
+    return var_0;
 }
 
-onNormalDeath( victim, attacker, lifeId )
+onNormalDeath( var_0, var_1, var_2 )
 {
-    highestScore = 0;
+    var_3 = 0;
 
-    foreach ( player in level.players )
+    foreach ( var_5 in level.players )
     {
-        if ( isdefined( player.score ) && player.score > highestScore )
-            highestScore = player.score;
+        if ( isdefined( var_5.score ) && var_5.score > var_3 )
+            var_3 = var_5.score;
     }
 
-    if ( game["state"] == "postgame" && attacker.score >= highestScore )
-        attacker.finalKill = 1;
+    if ( game["state"] == "postgame" && var_1.score >= var_3 )
+        var_1.finalKill = 1;
 }
 
-// onPlayerScore( event, player, victim ) // function is different than iw6
-onPlayerScore( event, var_1, var_2 )
+onPlayerScore( var_0, var_1, var_2 )
 {
-    var_3 = _id_A7B4::_id_40C1( event );
+    var_3 = _id_A7B4::_id_40C1( var_0 );
     var_1 maps\mp\_utility::_id_7F6B( var_1.extrascore0 + var_3 );
     var_1 _id_A795::_id_9B65( var_1, var_3 );
 
-    if ( isscoringevent( event ) )
+    if ( isscoringevent( var_0 ) )
         return 1;
     else
         return 0;
 }
 
-isscoringevent( event )
+isscoringevent( var_0 )
 {
-    switch ( event )
+    switch ( var_0 )
     {
         case "kill":
         case "airstrike_mp_kill":

@@ -261,7 +261,7 @@ _id_8018()
     if ( level.madpropsmode )
     {
         var_0 = game["defenders"];
-        level.ph_loadouts[var_0] = _id_A78B::_id_3F7B();
+        level.ph_loadouts[var_0] = maps\mp\gametypes\_class::_id_3F7B();
         level.ph_loadouts[var_0]["loadoutPrimary"] = "h1_ak47";
         level.ph_loadouts[var_0]["loadoutPerks"] = [ "specialty_null", "specialty_null", "specialty_quieter" ];
         level.ph_loadouts[var_0]["loadoutEquipment"] = "h1_fraggrenade_mp";
@@ -270,7 +270,7 @@ _id_8018()
     else
     {
         var_0 = game["defenders"];
-        level.ph_loadouts[var_0] = _id_A78B::_id_3F7B();
+        level.ph_loadouts[var_0] = maps\mp\gametypes\_class::_id_3F7B();
         level.ph_loadouts[var_0]["loadoutPrimary"] = "h1_ak47";
         level.ph_loadouts[var_0]["loadoutPerks"] = [ "specialty_null", "specialty_null", "specialty_quieter" ];
         level.ph_loadouts[var_0]["loadoutEquipment"] = "h1_fraggrenade_mp";
@@ -279,7 +279,7 @@ _id_8018()
         if ( maps\mp\_utility::_id_4015() == "mp_shipment" )
         {
             var_1 = game["attackers"];
-            level.ph_loadouts[var_1] = _id_A78B::_id_3F7B();
+            level.ph_loadouts[var_1] = maps\mp\gametypes\_class::_id_3F7B();
             level.ph_loadouts[var_1]["loadoutSecondary"] = "h1_deserteagle";
             level.ph_loadouts[var_1]["loadoutPrimary"] = "h1_p90";
             level.ph_loadouts[var_1]["loadoutPerks"] = [ "rpg_mp", "specialty_null", "specialty_null" ];
@@ -289,7 +289,7 @@ _id_8018()
         else
         {
             var_1 = game["attackers"];
-            level.ph_loadouts[var_1] = _id_A78B::_id_3F7B();
+            level.ph_loadouts[var_1] = maps\mp\gametypes\_class::_id_3F7B();
             level.ph_loadouts[var_1]["loadoutSecondary"] = "h1_deserteagle";
             level.ph_loadouts[var_1]["loadoutPrimary"] = "h1_p90";
             level.ph_loadouts[var_1]["loadoutEquipment"] = "h1_fraggrenade_mp";
@@ -330,7 +330,7 @@ getpkspawnpoint()
         var_1 = maps\mp\gametypes\_spawnlogic::getbeststartspawn( "mp_tdm_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 ); // the function called below this should be something related to "getSpawnpoint_<gamemode>"
+        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 );
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2, var_0 );
     }
 
@@ -2012,7 +2012,7 @@ setphteamscores()
 
 _id_64C0( var_0 )
 {
-    if ( maps\mp\_utility::_id_5092( level._id_3BDA ) )
+    if ( maps\mp\_utility::_id_5092( level.gameended ) )
         return;
 
     if ( var_0 == game["attackers"] )
@@ -2025,7 +2025,7 @@ _id_64C0( var_0 )
         if ( isdefined( var_0 ) && var_3.team != var_0 )
             continue;
 
-        if ( !maps\mp\_utility::_id_5189( var_3 ) && !var_3 _id_A7B1::_id_5A62() )
+        if ( !maps\mp\_utility::_id_5189( var_3 ) && !var_3 maps\mp\gametypes\_playerlogic::_id_5A62() )
             continue;
 
         if ( isdefined( var_1 ) )
@@ -2446,7 +2446,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
 respawnattacker()
 {
-    _id_A7B1::_id_4C3C( self.team );
+    maps\mp\gametypes\_playerlogic::_id_4C3C( self.team );
     self._id_0B00 = 1;
     thread _id_A042();
 }
@@ -2464,7 +2464,7 @@ _id_A042()
         if ( isdefined( self ) && ( self.sharpturnlookaheaddist == "spectator" || !maps\mp\_utility::_id_5189( self ) ) )
         {
             self.pers["lives"] = 1;
-            _id_A7B1::_id_8998();
+            maps\mp\gametypes\_playerlogic::_id_8998();
             continue;
         }
 

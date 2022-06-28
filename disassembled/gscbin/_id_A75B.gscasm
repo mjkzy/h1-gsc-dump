@@ -1062,7 +1062,7 @@ sub__id_8E5B
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		PRE_CALL
 		GET_STRING "specialty_fasterlockon"
-		CALL_FAR_FUNC maps/mp/_utility _id_05CB
+		CALL_FAR_FUNC maps/mp/_utility _hasPerk
 		JMP_FALSE loc_7AC
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED 10

@@ -702,7 +702,7 @@ sub_shouldhidecamoonweapon
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC _id_A78B _id_50D6
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_50D6
 		BOOL_NOT
 		RETN
 		END
@@ -1088,7 +1088,7 @@ sub_buildweaponnamecac
 		EVAL_LOCAL_VARIABLE_CACHED3
 		EVAL_LOCAL_VARIABLE_CACHED4
 		EVAL_LOCAL_VARIABLE_CACHED5
-		CALL_FAR_FUNC _id_A78B _id_188C
+		CALL_FAR_FUNC maps/mp/gametypes/_class _id_188C
 		RETN
 		END
 
@@ -2441,11 +2441,11 @@ sub_setselectedfaction
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC _id_A78B cac_getlastteam
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_getlastteam
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A78B cac_getlastenvironment
+		CALL_FAR_FUNC maps/mp/gametypes/_class cac_getlastenvironment
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "axis"

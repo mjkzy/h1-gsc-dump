@@ -509,7 +509,7 @@ sub__id_6E51
 		PRE_CALL
 		GET_STRING "specialty_class_lowprofile"
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_METHOD maps/mp/_utility _id_05CB
+		CALL_FAR_METHOD maps/mp/_utility _hasPerk
 		JMP_FALSE loc_41A
 		JMP loc_44C
 	loc_41A
