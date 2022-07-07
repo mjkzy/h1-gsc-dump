@@ -99,7 +99,7 @@ sub_codecallback_playerdamage
 		EVAL_LOCAL_VARIABLE_CACHED 7
 		EVAL_LOCAL_VARIABLE_CACHED 8
 		EVAL_LOCAL_VARIABLE_CACHED 9
-		EVAL_LEVEL_FIELD_VARIABLE callbackPlayerDamage
+		EVAL_LEVEL_FIELD_VARIABLE callbackplayerdamage
 		CALL_FUNC_POINTER
 		DEC_TOP
 		END
@@ -258,7 +258,7 @@ sub_codecallback_vehicledamage
 		EVAL_LOCAL_VARIABLE_CACHED 10
 		EVAL_LOCAL_VARIABLE_CACHED 11
 		GET_SELF
-		CALL_BUILTIN_METHOD _meth_827E 12
+		CALL_BUILTIN_METHOD finishdamage 12
 		DEC_TOP
 		END
 		END
@@ -478,17 +478,17 @@ sub__id_830C
 		GET_BYTE 2
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B57
 		GET_BYTE 4
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B58
+		SET_LEVEL_FIELD_VARIABLE_FIELD idflags_no_knockback
 		GET_BYTE 8
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B5C
 		GET_BYTE 16
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B61
+		SET_LEVEL_FIELD_VARIABLE_FIELD idflags_stun
 		GET_BYTE 32
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B5E
+		SET_LEVEL_FIELD_VARIABLE_FIELD idflags_shield_explosive_impact
 		GET_BYTE 64
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B5F
+		SET_LEVEL_FIELD_VARIABLE_FIELD idflags_shield_explosive_impact_huge
 		GET_BYTE 128
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B60
+		SET_LEVEL_FIELD_VARIABLE_FIELD idflags_shield_explosive_splash 
 		GET_USHORT 256
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_4B5A
 		GET_USHORT 512
@@ -499,7 +499,7 @@ sub__id_830C
 
 end_830C
 
-sub_SetupCallbacks
+sub_setupcallbacks
 		CHECK_CLEAR_PARAMS
 		CALL_LOCAL_FUNC2 sub__id_7F47
 		DEC_TOP
@@ -507,31 +507,31 @@ sub_SetupCallbacks
 		DEC_TOP
 		END
 
-end_pCallbacks
+end_pcallbacks
 
 sub__id_7F47
 		CHECK_CLEAR_PARAMS
-		GET_FAR_FUNC _id_A793 _id_19F9
+		GET_FAR_FUNC maps/mp/gametypes/_gamelogic _id_19F9
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A05
 		GET_FAR_FUNC maps/mp/gametypes/_playerlogic _id_19F0
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FD
 		GET_FAR_FUNC maps/mp/gametypes/_playerlogic _id_19F3
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FF
 		GET_FAR_FUNC maps/mp/gametypes/_damage _id_19F1
-		SET_LEVEL_FIELD_VARIABLE_FIELD callbackPlayerDamage
-		GET_FAR_FUNC maps/mp/gametypes/_damage Callback_PlayerDamage
+		SET_LEVEL_FIELD_VARIABLE_FIELD callbackplayerdamage
+		GET_FAR_FUNC maps/mp/gametypes/_damage callback_playerdamage
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A01
 		GET_FAR_FUNC maps/mp/gametypes/_damage _id_19ED
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FB
 		GET_FAR_FUNC maps/mp/gametypes/_damage _id_19F4
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A00
-		GET_FAR_FUNC _id_A793 _id_19EC
+		GET_FAR_FUNC maps/mp/gametypes/_gamelogic _id_19EC
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FA
 		GET_FAR_FUNC maps/mp/gametypes/_damage _id_19F6
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A02
 		GET_FAR_FUNC maps/mp/gametypes/_playerlogic _id_19F8
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A03
-		GET_FAR_FUNC _id_A7A4 _id_19EE
+		GET_FAR_FUNC maps/mp/gametypes/_hostmigration _id_19EE
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FC
 		END
 
@@ -546,7 +546,7 @@ sub__id_06BF
 		GET_LOCAL_FUNC sub__id_1A06
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_19FF
 		GET_LOCAL_FUNC sub__id_1A06
-		SET_LEVEL_FIELD_VARIABLE_FIELD callbackPlayerDamage
+		SET_LEVEL_FIELD_VARIABLE_FIELD callbackplayerdamage
 		GET_LOCAL_FUNC sub__id_1A06
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1A01
 		GET_LOCAL_FUNC sub__id_1A06

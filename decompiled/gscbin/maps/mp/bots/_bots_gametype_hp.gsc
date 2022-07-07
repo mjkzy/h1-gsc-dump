@@ -27,8 +27,8 @@ main()
 
 _id_8072()
 {
-    level._id_161B["gametype_think"] = ::_id_164E;
-    level._id_161B["should_start_cautious_approach"] = ::_id_847D;
+    level.bot_funcs["gametype_think"] = ::_id_164E;
+    level.bot_funcs["should_start_cautious_approach"] = ::_id_847D;
 }
 
 _id_805E()
@@ -66,7 +66,7 @@ _id_805E()
             var_4 = common_scripts\utility::_id_710E( level._id_09E2 );
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_4 ] );
-        level.bot_gametype_zones_precached[var_4 _meth_81B5()] = 1;
+        level.bot_gametype_zones_precached[var_4 getentitynumber()] = 1;
         level._id_1628 = 1;
         thread bot_cache_entrances_to_other_zones( var_4 );
     }
@@ -85,7 +85,7 @@ bot_cache_entrances_to_other_zones( var_0 )
             var_2 = common_scripts\utility::_id_710E( var_1 );
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_2 ] );
-        level.bot_gametype_zones_precached[var_2 _meth_81B5()] = 1;
+        level.bot_gametype_zones_precached[var_2 getentitynumber()] = 1;
     }
 }
 
@@ -100,8 +100,8 @@ _id_164E()
     while ( !isdefined( level._id_1628 ) )
         wait 0.05;
 
-    self _meth_834F( "separation", 0 );
-    self _meth_834F( "grenade_objectives", 1 );
+    self botsetflag( "separation", 0 );
+    self botsetflag( "grenade_objectives", 1 );
     var_0 = undefined;
     var_1 = level._id_A3DD;
 
@@ -112,7 +112,7 @@ _id_164E()
         if ( self.helmet <= 0 )
             continue;
 
-        if ( !isdefined( level._id_A3DD ) || !isdefined( level.bot_gametype_zones_precached[level._id_A3DD _meth_81B5()] ) )
+        if ( !isdefined( level._id_A3DD ) || !isdefined( level.bot_gametype_zones_precached[level._id_A3DD getentitynumber()] ) )
         {
             if ( maps\mp\bots\_bots_util::_id_165D() )
                 maps\mp\bots\_bots_strategy::_id_15EF();
@@ -143,7 +143,7 @@ _id_164E()
                     if ( var_2 < 5000 )
                         var_4 = level._id_A3DD._id_A3E0.rank * 3;
 
-                    var_5 = distance( level._id_A3DD._id_A3E0._id_1C0F, self.owner_not );
+                    var_5 = distance( level._id_A3DD._id_A3E0._id_1C0F, self.origin );
 
                     if ( var_5 > var_4 )
                         var_0 = _id_16F6();
@@ -180,7 +180,7 @@ _id_16F6()
         return 0;
     else
     {
-        var_0 = self _meth_8379( "strategyLevel" );
+        var_0 = self botgetdifficultysetting( "strategyLevel" );
         var_1 = 0;
 
         if ( var_0 == 1 )
@@ -207,7 +207,7 @@ _id_163E( var_0 )
     {
         if ( var_3 != self && maps\mp\_utility::_id_51CE( var_3 ) && isalliedsentient( self, var_3 ) )
         {
-            if ( var_3 _meth_80AB( level._id_A3DD._id_9754 ) )
+            if ( var_3 istouching( level._id_A3DD._id_9754 ) )
             {
                 if ( !isai( var_3 ) || var_3 _id_165C( var_0 ) )
                     var_1[var_1.size] = var_3;
@@ -231,7 +231,7 @@ _id_15D0( var_0 )
     self._id_2507 = var_0;
     var_1["entrance_points_index"] = var_0._id_3320;
     var_1["override_origin_node"] = var_0._id_1C10;
-    maps\mp\bots\_bots_strategy::_id_15D2( var_0.owner_not, var_0._id_6139, var_0._id_9754, var_1 );
+    maps\mp\bots\_bots_strategy::_id_15D2( var_0.origin, var_0._id_6139, var_0._id_9754, var_1 );
 }
 
 _id_847D( var_0 )

@@ -25,18 +25,18 @@ main()
         return;
 
     maps\mp\gametypes\_globallogic::init();
-    maps\mp\gametypes\_callbacksetup::SetupCallbacks();
-    maps\mp\gametypes\_globallogic::SetupCallbacks();
-    level._id_7137 = 0;
-    level.onStartGameType = ::onStartGameType;
-    level.getSpawnPoint = ::getSpawnPoint;
+    maps\mp\gametypes\_callbacksetup::setupcallbacks();
+    maps\mp\gametypes\_globallogic::setupcallbacks();
+    level.rankedmatch = 0;
+    level.onstartgametype = ::onstartgametype;
+    level.getspawnpoint = ::getspawnpoint;
     level._id_64E9 = ::_id_64E9;
-    maps\mp\_utility::registerNumLivesDvar( level.gametype, 0 );
-    maps\mp\_utility::registerTimeLimitDvar( level.gametype, 0 );
-    maps\mp\_utility::registerScoreLimitDvar( level.gametype, 1 );
-    maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
-    level._id_1E38 = level._id_1E2E;
-    level._id_1E2E = ::_id_5BB1;
+    maps\mp\_utility::registernumlivesdvar( level.gametype, 0 );
+    maps\mp\_utility::registertimelimitdvar( level.gametype, 0 );
+    maps\mp\_utility::registerscorelimitdvar( level.gametype, 1 );
+    maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
+    level._id_1E38 = level.class;
+    level.class = ::_id_5BB1;
     game["menu_team"] = "main";
     game["menu_class_allies"] = "main";
     game["menu_class_axis"] = "main";
@@ -49,24 +49,24 @@ main()
 
 _id_5BB1( var_0 )
 {
-    level.inGracePeriod = 1;
+    level.ingraceperiod = 1;
     self._id_4729 = 0;
     [[ level._id_1E38 ]]( var_0 );
 }
 
-onStartGameType()
+onstartgametype()
 {
     setclientnamemode( "auto_change" );
 
     if ( !isdefined( game["switchedsides"] ) )
         game["switchedsides"] = 0;
 
-    maps\mp\_utility::setObjectiveText( "allies", &"OBJECTIVES_WAR" );
-    maps\mp\_utility::setObjectiveText( "axis", &"OBJECTIVES_WAR" );
-    maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_WAR" );
-    maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_WAR" );
-    maps\mp\_utility::setObjectiveHintText( "allies", &"OBJECTIVES_WAR" );
-    maps\mp\_utility::setObjectiveHintText( "axis", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivetext( "allies", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivetext( "axis", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivehinttext( "allies", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivehinttext( "axis", &"OBJECTIVES_WAR" );
     _id_4D5D();
     var_0[0] = level.gametype;
     maps\mp\gametypes\_gameobjects::main( var_0 );
@@ -76,17 +76,17 @@ onStartGameType()
 
 _id_4D5D()
 {
-    level.spawnMins = ( 0, 0, 0 );
-    level.spawnMaxs = ( 0, 0, 0 );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_allies_start" );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_axis_start" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "allies", "mp_tdm_spawn" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "axis", "mp_tdm_spawn" );
-    level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
-    setmapcenter( level.mapCenter );
+    level.spawnmins = ( 0, 0, 0 );
+    level.spawnmaxs = ( 0, 0, 0 );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "axis", "mp_tdm_spawn" );
+    level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
+    setmapcenter( level.mapcenter );
 }
 
-getSpawnPoint( var_0 )
+getspawnpoint( var_0 )
 {
     if ( !isdefined( var_0 ) )
     {

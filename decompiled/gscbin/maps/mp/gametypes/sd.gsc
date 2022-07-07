@@ -25,46 +25,46 @@ main()
         return;
 
     maps\mp\gametypes\_globallogic::init();
-    maps\mp\gametypes\_callbacksetup::SetupCallbacks();
-    maps\mp\gametypes\_globallogic::SetupCallbacks();
+    maps\mp\gametypes\_callbacksetup::setupcallbacks();
+    maps\mp\gametypes\_globallogic::setupcallbacks();
 
     if ( isusingmatchrulesdata() )
     {
-        level.initializeMatchRules = ::initializeMatchRules;
-        [[ level.initializeMatchRules ]]();
-        level thread maps\mp\_utility::reInitializeMatchRulesOnMigration();
+        level.initializematchrules = ::initializematchrules;
+        [[ level.initializematchrules ]]();
+        level thread maps\mp\_utility::reinitializematchrulesonmigration();
     }
     else
     {
-        maps\mp\_utility::registerRoundSwitchDvar( level.gametype, 1, 0, 9 );
-        maps\mp\_utility::registerTimeLimitDvar( level.gametype, 2.5 );
-        maps\mp\_utility::registerScoreLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerRoundLimitDvar( level.gametype, 0 );
-        maps\mp\_utility::registerWinLimitDvar( level.gametype, 4 );
-        maps\mp\_utility::registerNumLivesDvar( level.gametype, 1 );
-        maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
-        level.matchRules_damageMultiplier = 0;
-        level.matchRules_vampirism = 0;
+        maps\mp\_utility::registerroundswitchdvar( level.gametype, 1, 0, 9 );
+        maps\mp\_utility::registertimelimitdvar( level.gametype, 2.5 );
+        maps\mp\_utility::registerscorelimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registerroundlimitdvar( level.gametype, 0 );
+        maps\mp\_utility::registerwinlimitdvar( level.gametype, 4 );
+        maps\mp\_utility::registernumlivesdvar( level.gametype, 1 );
+        maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
+        level.matchrules_damagemultiplier = 0;
+        level.matchrules_vampirism = 0;
         setdynamicdvar( "scr_killcount_persists", 0 );
     }
 
     level._id_62F8 = 1;
-    level.teamBased = 1;
+    level.teambased = 1;
     level.classicgamemode = 1;
     level._id_64DA = maps\mp\gametypes\common_sd_sr::_id_64DA;
-    level.onStartGameType = ::onStartGameType;
-    level.getSpawnPoint = ::getSpawnPoint;
+    level.onstartgametype = ::onstartgametype;
+    level.getspawnpoint = ::getspawnpoint;
     level._id_64E9 = ::_id_64E9;
     level._id_64D3 = ::_id_64D3;
     level._id_6466 = maps\mp\gametypes\common_sd_sr::_id_6466;
     level._id_64C0 = maps\mp\gametypes\common_sd_sr::_id_64C0;
     level._id_64F0 = maps\mp\gametypes\common_sd_sr::_id_64F0;
-    level.onNormalDeath = maps\mp\gametypes\common_sd_sr::onNormalDeath;
+    level.onnormaldeath = maps\mp\gametypes\common_sd_sr::onnormaldeath;
     level._id_3BF5 = maps\mp\gametypes\common_sd_sr::_id_517B;
     level._id_0AAB = 0;
 
-    if ( level.matchRules_damageMultiplier || level.matchRules_vampirism )
-        level.modifyPlayerDamage = maps\mp\gametypes\_damage::gamemodeModifyPlayerDamage;
+    if ( level.matchrules_damagemultiplier || level.matchrules_vampirism )
+        level.modifyplayerdamage = maps\mp\gametypes\_damage::gamemodemodifyplayerdamage;
 
     game["dialog"]["gametype"] = "searchdestroy";
     game["dialog"]["offense_obj"] = "obj_destroy";
@@ -73,32 +73,32 @@ main()
     maps\mp\gametypes\common_sd_sr::setbombendtime( 0, 1 );
 }
 
-initializeMatchRules()
+initializematchrules()
 {
-    maps\mp\_utility::setCommonRulesFromMatchRulesData();
+    maps\mp\_utility::setcommonrulesfrommatchrulesdata();
     var_0 = getmatchrulesdata( "sdData", "roundLength" );
     setdynamicdvar( "scr_sd_timelimit", var_0 );
-    maps\mp\_utility::registerTimeLimitDvar( "sd", var_0 );
+    maps\mp\_utility::registertimelimitdvar( "sd", var_0 );
     var_1 = getmatchrulesdata( "sdData", "roundSwitch" );
     setdynamicdvar( "scr_sd_roundswitch", var_1 );
-    maps\mp\_utility::registerRoundSwitchDvar( "sd", var_1, 0, 9 );
+    maps\mp\_utility::registerroundswitchdvar( "sd", var_1, 0, 9 );
     var_2 = getmatchrulesdata( "commonOption", "scoreLimit" );
     setdynamicdvar( "scr_sd_winlimit", var_2 );
-    maps\mp\_utility::registerWinLimitDvar( "sd", var_2 );
+    maps\mp\_utility::registerwinlimitdvar( "sd", var_2 );
     setdynamicdvar( "scr_sd_bombtimer", getmatchrulesdata( "sdData", "bombTimer" ) );
     setdynamicdvar( "scr_sd_planttime", getmatchrulesdata( "sdData", "plantTime" ) );
     setdynamicdvar( "scr_sd_defusetime", getmatchrulesdata( "sdData", "defuseTime" ) );
     setdynamicdvar( "scr_sd_multibomb", getmatchrulesdata( "sdData", "multiBomb" ) );
     setdynamicdvar( "scr_sd_silentplant", getmatchrulesdata( "sdData", "silentPlant" ) );
     setdynamicdvar( "scr_sd_roundlimit", 0 );
-    maps\mp\_utility::registerRoundLimitDvar( "sd", 0 );
+    maps\mp\_utility::registerroundlimitdvar( "sd", 0 );
     setdynamicdvar( "scr_sd_scorelimit", 1 );
-    maps\mp\_utility::registerScoreLimitDvar( "sd", 1 );
+    maps\mp\_utility::registerscorelimitdvar( "sd", 1 );
     setdynamicdvar( "scr_sd_halftime", 0 );
-    maps\mp\_utility::registerHalfTimeDvar( "sd", 0 );
+    maps\mp\_utility::registerhalftimedvar( "sd", 0 );
 }
 
-onStartGameType()
+onstartgametype()
 {
     if ( !isdefined( game["switchedsides"] ) )
         game["switchedsides"] = 0;
@@ -113,23 +113,23 @@ onStartGameType()
 
     setclientnamemode( "manual_change" );
     maps\mp\gametypes\common_bomb_gameobject::loadbombfx();
-    maps\mp\_utility::setObjectiveText( game["attackers"], &"OBJECTIVES_SD_ATTACKER" );
-    maps\mp\_utility::setObjectiveText( game["defenders"], &"OBJECTIVES_SD_DEFENDER" );
+    maps\mp\_utility::setobjectivetext( game["attackers"], &"OBJECTIVES_SD_ATTACKER" );
+    maps\mp\_utility::setobjectivetext( game["defenders"], &"OBJECTIVES_SD_DEFENDER" );
 
     if ( level.splitscreen )
     {
-        maps\mp\_utility::setObjectiveScoreText( game["attackers"], &"OBJECTIVES_SD_ATTACKER" );
-        maps\mp\_utility::setObjectiveScoreText( game["defenders"], &"OBJECTIVES_SD_DEFENDER" );
+        maps\mp\_utility::setobjectivescoretext( game["attackers"], &"OBJECTIVES_SD_ATTACKER" );
+        maps\mp\_utility::setobjectivescoretext( game["defenders"], &"OBJECTIVES_SD_DEFENDER" );
     }
     else
     {
-        maps\mp\_utility::setObjectiveScoreText( game["attackers"], &"OBJECTIVES_SD_ATTACKER_SCORE" );
-        maps\mp\_utility::setObjectiveScoreText( game["defenders"], &"OBJECTIVES_SD_DEFENDER_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( game["attackers"], &"OBJECTIVES_SD_ATTACKER_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( game["defenders"], &"OBJECTIVES_SD_DEFENDER_SCORE" );
     }
 
-    maps\mp\_utility::setObjectiveHintText( game["attackers"], &"OBJECTIVES_SD_ATTACKER_HINT" );
-    maps\mp\_utility::setObjectiveHintText( game["defenders"], &"OBJECTIVES_SD_DEFENDER_HINT" );
-    initSpawns();
+    maps\mp\_utility::setobjectivehinttext( game["attackers"], &"OBJECTIVES_SD_ATTACKER_HINT" );
+    maps\mp\_utility::setobjectivehinttext( game["defenders"], &"OBJECTIVES_SD_DEFENDER_HINT" );
+    initspawns();
     var_2[0] = "sd";
     var_2[1] = "bombzone";
     var_2[2] = "blocker";
@@ -137,20 +137,20 @@ onStartGameType()
     thread maps\mp\gametypes\common_sd_sr::_id_9B22();
     maps\mp\_utility::setcarrierloadouts();
     thread maps\mp\gametypes\common_sd_sr::_id_1549();
-    thread _id_A7BB::allowallyteamspectating();
+    thread maps\mp\gametypes\_spectating::allowallyteamspectating();
 }
 
-initSpawns()
+initspawns()
 {
-    level.spawnMins = ( 0, 0, 0 );
-    level.spawnMaxs = ( 0, 0, 0 );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_sd_spawn_attacker" );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_sd_spawn_defender" );
-    level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
-    setmapcenter( level.mapCenter );
+    level.spawnmins = ( 0, 0, 0 );
+    level.spawnmaxs = ( 0, 0, 0 );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_attacker" );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_defender" );
+    level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
+    setmapcenter( level.mapcenter );
 }
 
-getSpawnPoint()
+getspawnpoint()
 {
     var_0 = "mp_sd_spawn_defender";
 
@@ -181,9 +181,9 @@ _id_64E9()
     if ( isplayer( self ) && !var_0 )
     {
         if ( level._id_5FE2 && self.pers["team"] == game["attackers"] )
-            self _meth_82F8( "ui_carrying_bomb", 1 );
+            self setclientomnvar( "ui_carrying_bomb", 1 );
         else
-            self _meth_82F8( "ui_carrying_bomb", 0 );
+            self setclientomnvar( "ui_carrying_bomb", 0 );
     }
 
     maps\mp\_utility::_id_7F6B( 0 );
@@ -204,7 +204,7 @@ _id_64E9()
 _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     if ( isplayer( self ) )
-        self _meth_82F8( "ui_carrying_bomb", 0 );
+        self setclientomnvar( "ui_carrying_bomb", 0 );
 
     thread maps\mp\gametypes\common_sd_sr::_id_1CF1();
 }

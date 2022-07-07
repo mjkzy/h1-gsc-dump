@@ -27,10 +27,10 @@ main()
 
 _id_8072()
 {
-    level._id_161B["gametype_think"] = ::_id_16D8;
-    level._id_161B["should_start_cautious_approach"] = ::_id_847E;
-    level._id_161B["know_enemies_on_start"] = undefined;
-    level._id_161B["notify_enemy_bots_bomb_used"] = ::_id_6206;
+    level.bot_funcs["gametype_think"] = ::_id_16D8;
+    level.bot_funcs["should_start_cautious_approach"] = ::_id_847E;
+    level.bot_funcs["know_enemies_on_start"] = undefined;
+    level.bot_funcs["notify_enemy_bots_bomb_used"] = ::_id_6206;
 }
 
 _id_16D7()
@@ -80,9 +80,9 @@ _id_16D8()
     while ( !isdefined( level._id_1628 ) )
         wait 0.05;
 
-    self _meth_834F( "separation", 0 );
-    self _meth_834F( "grenade_objectives", 1 );
-    self _meth_834F( "use_obj_path_style", 1 );
+    self botsetflag( "separation", 0 );
+    self botsetflag( "grenade_objectives", 1 );
+    self botsetflag( "use_obj_path_style", 1 );
     var_0 = game["attackers"];
     var_1 = 1;
 
@@ -106,8 +106,8 @@ _id_16D8()
 
     if ( !isdefined( level._id_4DC7 ) && !level._id_5FE2 )
     {
-        level._id_4DC7 = level._id_7B74.curOrigin;
-        level._id_4DC8 = getclosestnodeinsight( level._id_7B74.curOrigin );
+        level._id_4DC7 = level._id_7B74.curorigin;
+        level._id_4DC8 = getclosestnodeinsight( level._id_7B74.curorigin );
     }
 
     if ( self.team == var_0 && !isdefined( level._id_1A4B ) )
@@ -129,7 +129,7 @@ _id_16D8()
         {
             var_7 = 6000;
             level._id_1A4B = gettime() + var_7;
-            badplace_cylinder( "bomb", var_7 / 1000, level._id_7B74.curOrigin, 75, 300, var_0 );
+            badplace_cylinder( "bomb", var_7 / 1000, level._id_7B74.curorigin, 75, 300, var_0 );
         }
     }
 
@@ -152,14 +152,14 @@ _id_16D8()
         {
             if ( !level._id_5FE2 && isdefined( level._id_1A4B ) && gettime() < level._id_1A4B && !isdefined( level._id_7B74._id_1BAF ) )
             {
-                if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B74.curOrigin ) )
+                if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B74.curorigin ) )
                 {
-                    var_8 = getclosestnodeinsight( level._id_7B74.curOrigin );
+                    var_8 = getclosestnodeinsight( level._id_7B74.curorigin );
 
                     if ( isdefined( var_8 ) )
                     {
                         var_9["nearest_node_to_center"] = var_8;
-                        maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B74.curOrigin, 900, var_9 );
+                        maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B74.curorigin, 900, var_9 );
                     }
                     else
                         level._id_1A4B = gettime();
@@ -173,27 +173,27 @@ _id_16D8()
 
         if ( level._id_1545 )
         {
-            if ( distancesquared( self.owner_not, level._id_7B75.owner_not ) > squared( level._id_703F * 2 ) )
+            if ( distancesquared( self.origin, level._id_7B75.origin ) > squared( level._id_703F * 2 ) )
             {
                 if ( !isdefined( self._id_27AC ) )
                 {
                     self._id_27AC = 1;
-                    self _meth_8377( "scripted" );
+                    self botsetpathingstyle( "scripted" );
                 }
             }
             else if ( isdefined( self._id_27AC ) && !isdefined( self._id_7B3A ) )
             {
                 self._id_27AC = undefined;
-                self _meth_8377( undefined );
+                self botsetpathingstyle( undefined );
             }
         }
 
         if ( level._id_1545 && isdefined( level._id_152A ) && self._id_759A != "defuser" )
         {
-            if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B75.owner_not ) )
+            if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B75.origin ) )
             {
-                self _meth_8354();
-                maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B75.owner_not, level._id_703F );
+                self botclearscriptgoal();
+                maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B75.origin, level._id_703F );
             }
 
             continue;
@@ -208,11 +208,11 @@ _id_153A( var_0 )
     self endon( "death" );
     self endon( "disconnect" );
     level endon( "game_ended" );
-    self _meth_834F( "disable_movement", 1 );
-    self _meth_8350( "stand" );
+    self botsetflag( "disable_movement", 1 );
+    self botsetstance( "stand" );
     wait(var_0);
-    self _meth_834F( "disable_movement", 0 );
-    self _meth_8350( "none" );
+    self botsetflag( "disable_movement", 0 );
+    self botsetstance( "none" );
 }
 
 _id_0D86()
@@ -230,23 +230,23 @@ _id_0D86()
         if ( isdefined( level._id_7B74 ) )
         {
             if ( !isdefined( self._id_550E ) )
-                self._id_550E = level._id_7B74.curOrigin;
+                self._id_550E = level._id_7B74.curorigin;
 
-            if ( distancesquared( self._id_550E, level._id_7B74.curOrigin ) > 4 )
+            if ( distancesquared( self._id_550E, level._id_7B74.curorigin ) > 4 )
             {
-                self _meth_8354();
-                self._id_550E = level._id_7B74.curOrigin;
+                self botclearscriptgoal();
+                self._id_550E = level._id_7B74.curorigin;
             }
         }
 
         if ( self._id_0D85 >= 2 )
         {
-            var_1 = getnodesinradiussorted( level._id_7B74.curOrigin, 512, 0 );
+            var_1 = getnodesinradiussorted( level._id_7B74.curorigin, 512, 0 );
             var_2 = undefined;
 
             foreach ( var_4 in var_1 )
             {
-                if ( !var_4 _meth_8384() )
+                if ( !var_4 nodeisdisconnected() )
                 {
                     var_2 = var_4;
                     break;
@@ -255,7 +255,7 @@ _id_0D86()
 
             if ( isdefined( var_2 ) )
             {
-                self _meth_8352( var_2.owner_not, 20, "critical" );
+                self _meth_8352( var_2.origin, 20, "critical" );
                 maps\mp\bots\_bots_util::_id_172E();
 
                 if ( isdefined( level._id_7B74 ) && !isdefined( level._id_7B74._id_1BAF ) )
@@ -267,15 +267,15 @@ _id_0D86()
             return;
         }
 
-        if ( !self _meth_8363() )
+        if ( !self bothasscriptgoal() )
         {
             var_6 = 15;
             var_7 = 32;
-            var_8 = maps\mp\bots\_bots_util::_id_16C3( "BotGetClosestNavigablePoint", maps\mp\bots\_bots_util::_id_3AE5, level._id_7B74.curOrigin, var_6 + var_7, self );
+            var_8 = maps\mp\bots\_bots_util::_id_16C3( "BotGetClosestNavigablePoint", maps\mp\bots\_bots_util::_id_3AE5, level._id_7B74.curorigin, var_6 + var_7, self );
 
             if ( isdefined( var_8 ) )
             {
-                var_9 = self _meth_8352( level._id_7B74.curOrigin, 0, "critical" );
+                var_9 = self _meth_8352( level._id_7B74.curorigin, 0, "critical" );
 
                 if ( var_9 )
                 {
@@ -285,17 +285,17 @@ _id_0D86()
             }
             else
             {
-                var_1 = getnodesinradiussorted( level._id_7B74.curOrigin, 512, 0 );
+                var_1 = getnodesinradiussorted( level._id_7B74.curorigin, 512, 0 );
 
                 if ( var_1.size > 0 )
                 {
-                    self _meth_8352( var_1[0].owner_not, 0, "critical" );
+                    self _meth_8352( var_1[0].origin, 0, "critical" );
                     maps\mp\bots\_bots_util::_id_172E();
                 }
 
                 if ( isdefined( level._id_7B74 ) && !isdefined( level._id_7B74._id_1BAF ) )
                 {
-                    var_8 = maps\mp\bots\_bots_util::_id_16C3( "BotGetClosestNavigablePoint", maps\mp\bots\_bots_util::_id_3AE5, level._id_7B74.curOrigin, var_6 + var_7, self );
+                    var_8 = maps\mp\bots\_bots_util::_id_16C3( "BotGetClosestNavigablePoint", maps\mp\bots\_bots_util::_id_3AE5, level._id_7B74.curorigin, var_6 + var_7, self );
 
                     if ( !isdefined( var_8 ) )
                         level._id_7B74 maps\mp\gametypes\_gameobjects::_id_7FE2( self );
@@ -321,13 +321,13 @@ _id_0D86()
             wait(level._id_4DD0 / 1000);
         }
 
-        self _meth_8354();
+        self botclearscriptgoal();
 
         if ( level._id_0E0F == "rush" )
         {
-            self _meth_8377( "scripted" );
+            self botsetpathingstyle( "scripted" );
             var_11 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_plant_on( var_10, 1 );
-            self _meth_8352( var_11.owner_not, 0, "critical" );
+            self _meth_8352( var_11.origin, 0, "critical" );
         }
 
         var_12 = maps\mp\bots\_bots_util::_id_172E();
@@ -343,7 +343,7 @@ _id_0D86()
 
             var_16 = gettime() >= var_15;
             var_17 = maps\mp\bots\_bots_gametype_common::bombzone_press_use( level._id_688D + 2, "bomb_planted", var_16 );
-            self _meth_8354();
+            self botclearscriptgoal();
 
             if ( var_17 )
             {
@@ -361,7 +361,7 @@ _id_3E56()
     if ( level._id_1545 )
         return level._id_27BB;
     else
-        return gettime() + _id_A793::_id_4131();
+        return gettime() + maps\mp\gametypes\_gamelogic::_id_4131();
 }
 
 _id_153B()
@@ -401,7 +401,7 @@ _id_1ED9()
                 self._id_7E61 = 1;
             }
 
-            if ( self _meth_8379( "strategyLevel" ) > 0 )
+            if ( self botgetdifficultysetting( "strategyLevel" ) > 0 )
                 _id_7E3C();
 
             if ( isai( level._id_0D84 ) && isdefined( level._id_0D84._id_1554 ) )
@@ -411,12 +411,12 @@ _id_1ED9()
             else
                 var_1 = maps\mp\bots\_bots_gametype_common::_id_3759( level._id_0D84 );
 
-            if ( !maps\mp\bots\_bots_util::_id_165E( var_1.curOrigin ) )
+            if ( !maps\mp\bots\_bots_util::_id_165E( var_1.curorigin ) )
             {
                 var_0["min_goal_time"] = 2;
                 var_0["max_goal_time"] = 4;
                 var_0["override_origin_node"] = common_scripts\utility::_id_710E( var_1._id_174F );
-                maps\mp\bots\_bots_strategy::_id_16C2( var_1.curOrigin, level._id_703F, var_0 );
+                maps\mp\bots\_bots_strategy::_id_16C2( var_1.curorigin, level._id_703F, var_0 );
             }
         }
     }
@@ -431,10 +431,10 @@ _id_27A7()
         if ( level._id_0E0F == "rush" )
             _id_2AA5();
 
-        if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B75.owner_not ) )
+        if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B75.origin ) )
         {
             var_0["score_flags"] = "strongly_avoid_center";
-            maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B75.owner_not, level._id_703F, var_0 );
+            maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B75.origin, level._id_703F, var_0 );
         }
     }
 }
@@ -451,14 +451,14 @@ _id_152B()
     if ( !isdefined( var_0 ) )
         return;
 
-    var_1 = common_scripts\utility::_id_3CCB( level._id_7B75.owner_not, var_0._id_174F );
-    var_2 = ( level._id_7B75.owner_not[0], level._id_7B75.owner_not[1], var_1[0].owner_not[2] );
+    var_1 = common_scripts\utility::_id_3CCB( level._id_7B75.origin, var_0._id_174F );
+    var_2 = ( level._id_7B75.origin[0], level._id_7B75.origin[1], var_1[0].origin[2] );
 
     if ( self._id_27BC <= 1 )
         var_3 = _id_1BD8( var_2, undefined );
     else
     {
-        self _meth_8354();
+        self botclearscriptgoal();
         var_3 = self _meth_8352( var_2, 20, "critical" );
     }
 
@@ -488,7 +488,7 @@ _id_152B()
                         break;
                 }
                 else
-                    self _meth_8352( var_5[var_6].owner_not, 20, "critical" );
+                    self _meth_8352( var_5[var_6].origin, 20, "critical" );
 
                 var_4 = maps\mp\bots\_bots_util::_id_172E();
 
@@ -513,13 +513,13 @@ _id_152B()
             maps\mp\bots\_bots_util::_id_172F( var_9 );
 
         var_11 = gettime() >= var_10;
-        var_12 = level._id_7B75.owner_not[2] - self.owner_not[2];
+        var_12 = level._id_7B75.origin[2] - self.origin[2];
         var_13 = maps\mp\bots\_bots_gametype_common::bombzone_press_use( level._id_27BF + 2, "bomb_defused", var_11, var_12 > 40 );
 
         if ( !var_13 && self._id_27BC >= 4 )
             self._id_27BC++;
 
-        self _meth_8354();
+        self botclearscriptgoal();
         maps\mp\bots\_bots_strategy::_id_1604();
     }
 }
@@ -532,7 +532,7 @@ _id_4FA1()
         maps\mp\bots\_bots_strategy::_id_15EF();
 
     var_0 = maps\mp\bots\_bots_gametype_common::_id_3759( self );
-    self _meth_8353( common_scripts\utility::_id_710E( var_0._id_174F ), "critical" );
+    self botsetscriptgoal( common_scripts\utility::_id_710E( var_0._id_174F ), "critical" );
     var_1 = maps\mp\bots\_bots_util::_id_172E();
 
     if ( var_1 == "goal" )
@@ -553,10 +553,10 @@ _id_1A36()
 
         _id_16EE( self._id_6F44 );
     }
-    else if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B74.curOrigin ) )
+    else if ( !maps\mp\bots\_bots_util::_id_165E( level._id_7B74.curorigin ) )
     {
         var_0["nearest_node_to_center"] = level._id_7B74._id_6072;
-        maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B74.curOrigin, level._id_703F, var_0 );
+        maps\mp\bots\_bots_strategy::_id_16C2( level._id_7B74.curorigin, level._id_703F, var_0 );
     }
 }
 
@@ -564,11 +564,11 @@ _id_27AD()
 {
     self endon( "new_role" );
 
-    if ( !maps\mp\bots\_bots_util::_id_165E( self._id_27A9.curOrigin ) )
+    if ( !maps\mp\bots\_bots_util::_id_165E( self._id_27A9.curorigin ) )
     {
         var_0["score_flags"] = "strict_los";
         var_0["override_origin_node"] = common_scripts\utility::_id_710E( self._id_27A9._id_174F );
-        maps\mp\bots\_bots_strategy::_id_16C2( self._id_27A9.curOrigin, level._id_703F, var_0 );
+        maps\mp\bots\_bots_strategy::_id_16C2( self._id_27A9.curorigin, level._id_703F, var_0 );
     }
 }
 
@@ -584,8 +584,8 @@ _id_125B()
 
     if ( self._id_125A == "1_move_to_midpoint" )
     {
-        var_0 = level._id_1555[0].curOrigin;
-        var_1 = level._id_1555[1].curOrigin;
+        var_0 = level._id_1555[0].curorigin;
+        var_1 = level._id_1555[1].curorigin;
         var_2 = ( ( var_0[0] + var_1[0] ) * 0.5, ( var_0[1] + var_1[1] ) * 0.5, ( var_0[2] + var_1[2] ) * 0.5 );
         var_3 = getnodesinradiussorted( var_2, 512, 0 );
 
@@ -612,8 +612,8 @@ _id_125B()
             var_6 -= var_8;
         }
 
-        self _meth_8377( "scripted" );
-        var_9 = self _meth_8353( var_4, "guard" );
+        self botsetpathingstyle( "scripted" );
+        var_9 = self botsetscriptgoal( var_4, "guard" );
 
         if ( var_9 )
         {
@@ -631,8 +631,8 @@ _id_125B()
     {
         var_11 = maps\mp\gametypes\_spawnlogic::_id_40DD( "mp_sd_spawn_attacker" );
         var_12 = common_scripts\utility::_id_710E( var_11 );
-        self _meth_8377( "scripted" );
-        var_9 = self _meth_8352( var_12.owner_not, 250, "guard" );
+        self botsetpathingstyle( "scripted" );
+        var_9 = self _meth_8352( var_12.origin, 250, "guard" );
 
         if ( var_9 )
         {
@@ -648,8 +648,8 @@ _id_125B()
         if ( !isdefined( self._id_1553 ) )
             self._id_1553 = randomint( level._id_1555.size );
 
-        self _meth_8377( undefined );
-        var_9 = self _meth_8352( common_scripts\utility::_id_710E( level._id_1555[self._id_1553]._id_174F ).owner_not, 160, "objective" );
+        self botsetpathingstyle( undefined );
+        var_9 = self _meth_8352( common_scripts\utility::_id_710E( level._id_1555[self._id_1553]._id_174F ).origin, 160, "objective" );
 
         if ( var_9 )
         {
@@ -657,7 +657,7 @@ _id_125B()
 
             if ( var_10 == "goal" )
             {
-                self _meth_8354();
+                self botclearscriptgoal();
                 self._id_125A = "2_move_to_enemy_spawn";
                 self._id_1553 = 1 - self._id_1553;
             }
@@ -679,7 +679,7 @@ _id_7E3C()
 {
     if ( !isdefined( self._id_0B08 ) )
     {
-        self _meth_834F( "force_sprint", 1 );
+        self botsetflag( "force_sprint", 1 );
         self._id_0B08 = 1;
     }
 }
@@ -688,7 +688,7 @@ _id_2AA5()
 {
     if ( isdefined( self._id_0B08 ) )
     {
-        self _meth_834F( "force_sprint", 0 );
+        self botsetflag( "force_sprint", 0 );
         self._id_0B08 = undefined;
     }
 }
@@ -697,7 +697,7 @@ _id_7EB6()
 {
     if ( !isdefined( self._id_7B3A ) )
     {
-        self _meth_8377( "scripted" );
+        self botsetpathingstyle( "scripted" );
         self._id_7B3A = 1;
     }
 }
@@ -709,7 +709,7 @@ _id_1BD8( var_0, var_1 )
     maps\mp\bots\_bots_strategy::_id_15D1( var_0, var_2, var_3 );
     wait 0.05;
 
-    while ( distancesquared( self.owner_not, var_0 ) > var_2 * var_2 && maps\mp\bots\_bots_util::_id_165D() )
+    while ( distancesquared( self.origin, var_0 ) > var_2 * var_2 && maps\mp\bots\_bots_util::_id_165D() )
     {
         if ( _id_3E56() - gettime() < 20000 )
         {
@@ -763,7 +763,7 @@ _id_847E( var_0 )
         return var_3;
     }
     else
-        return distancesquared( self.owner_not, self._id_15F2 ) <= var_2 && self _meth_8373();
+        return distancesquared( self.origin, self._id_15F2 ) <= var_2 && self _meth_8373();
 }
 
 _id_3E32( var_0 )
@@ -781,7 +781,7 @@ _id_3E32( var_0 )
             continue;
         }
 
-        if ( distancesquared( var_4.owner_not, var_0.curOrigin ) < level._id_703F * level._id_703F )
+        if ( distancesquared( var_4.origin, var_0.curorigin ) < level._id_703F * level._id_703F )
             var_1 = common_scripts\utility::_id_0CDA( var_1, var_4 );
     }
 
@@ -795,7 +795,7 @@ _id_376F()
         if ( !isdefined( var_1._id_9345 ) )
             continue;
 
-        if ( distancesquared( var_1._id_9345.owner_not, var_1.curOrigin ) < 90000 )
+        if ( distancesquared( var_1._id_9345.origin, var_1.curorigin ) < 90000 )
             return var_1;
     }
 
@@ -837,7 +837,7 @@ _id_153C()
     level._id_7B74 waittill( "reset" );
 
     if ( maps\mp\_utility::_id_50B1( self ) )
-        self _meth_8354();
+        self botclearscriptgoal();
 
     _id_16EE( "atk_bomber" );
 }
@@ -855,7 +855,7 @@ _id_7E83()
     {
         maps\mp\bots\_bots_strategy::_id_15F9();
 
-        if ( level._id_0E0F == "rush" && self _meth_8379( "strategyLevel" ) > 0 )
+        if ( level._id_0E0F == "rush" && self botgetdifficultysetting( "strategyLevel" ) > 0 )
             _id_7E3C();
     }
 }
@@ -876,7 +876,7 @@ _id_4DDB()
         var_0 = _id_3E30( "backstabber" );
         var_1 = _id_3E30( "defender" );
         var_2 = level._id_16B2[self._id_67DF];
-        var_3 = self _meth_8379( "strategyLevel" );
+        var_3 = self botgetdifficultysetting( "strategyLevel" );
 
         if ( var_2 == "active" )
         {
@@ -987,7 +987,7 @@ _id_16EE( var_0 )
     if ( isai( self ) )
     {
         maps\mp\bots\_bots_strategy::_id_15EF();
-        self _meth_8377( undefined );
+        self botsetpathingstyle( undefined );
     }
 
     self._id_6F44 = self._id_759A;
@@ -1086,7 +1086,7 @@ _id_16D5()
 
             if ( !level._id_5FE2 && !isdefined( level._id_7B74._id_1BAF ) )
             {
-                var_5 = getclosestnodeinsight( level._id_7B74.curOrigin );
+                var_5 = getclosestnodeinsight( level._id_7B74.curorigin );
 
                 if ( isdefined( var_5 ) )
                 {
@@ -1097,15 +1097,15 @@ _id_16D5()
                     foreach ( var_9 in var_7 )
                     {
                         var_10 = var_9 _meth_8385();
-                        var_11 = var_9 _meth_8379( "strategyLevel" );
+                        var_11 = var_9 botgetdifficultysetting( "strategyLevel" );
 
                         if ( var_11 > 0 && var_9._id_759A != "camp_bomb" && isdefined( var_10 ) && nodesvisible( var_5, var_10, 1 ) )
                         {
                             var_12 = var_9 _meth_8371();
 
-                            if ( common_scripts\utility::_id_A347( var_9.owner_not, var_9 _meth_8338(), level._id_7B74.curOrigin, var_12 ) )
+                            if ( common_scripts\utility::_id_A347( var_9.origin, var_9 getplayerangles(), level._id_7B74.curorigin, var_12 ) )
                             {
-                                if ( var_11 >= 2 || distancesquared( var_9.owner_not, level._id_7B74.curOrigin ) < squared( 700 ) )
+                                if ( var_11 >= 2 || distancesquared( var_9.origin, level._id_7B74.curorigin ) < squared( 700 ) )
                                 {
                                     var_6 = 1;
                                     break;
@@ -1118,7 +1118,7 @@ _id_16D5()
                     {
                         foreach ( var_9 in var_7 )
                         {
-                            if ( var_9._id_759A != "camp_bomb" && var_9 _meth_8379( "strategyLevel" ) > 0 )
+                            if ( var_9._id_759A != "camp_bomb" && var_9 botgetdifficultysetting( "strategyLevel" ) > 0 )
                                 var_9 _id_16EE( "camp_bomb" );
                         }
                     }
@@ -1178,7 +1178,7 @@ _id_16D5()
 
                 if ( var_25.size > 0 )
                 {
-                    var_29 = common_scripts\utility::_id_3CCB( level._id_7B75.owner_not, var_25 );
+                    var_29 = common_scripts\utility::_id_3CCB( level._id_7B75.origin, var_25 );
                     level._id_152A = var_29[0];
                     level._id_152A _id_16EE( "defuser" );
                     level._id_152A maps\mp\bots\_bots_strategy::_id_15F9();

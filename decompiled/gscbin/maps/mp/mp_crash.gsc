@@ -25,7 +25,7 @@ main()
     maps\mp\mp_crash_fx::main();
     maps\createart\mp_crash_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_crash_dlc" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_crash_dlc" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     setdvar( "compassmaxrange", "1600" );
@@ -48,7 +48,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -60,7 +60,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

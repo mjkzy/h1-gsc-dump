@@ -26,7 +26,7 @@ main()
     maps\createart\mp_vacant_art::main();
     maps\mp\_load::main();
     _id_A769::init();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_vacant_dlc" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_vacant_dlc" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     setdvar( "r_lightGridEnableTweaks", 1 );
@@ -43,7 +43,7 @@ delete_botconnect_clip()
 
         if ( isdefined( var_0 ) )
         {
-            var_0 _meth_80B2();
+            var_0 delete();
             break;
         }
 

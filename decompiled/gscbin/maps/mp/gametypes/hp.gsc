@@ -25,36 +25,36 @@ main()
         return;
 
     maps\mp\gametypes\_globallogic::init();
-    maps\mp\gametypes\_callbacksetup::SetupCallbacks();
-    maps\mp\gametypes\_globallogic::SetupCallbacks();
+    maps\mp\gametypes\_callbacksetup::setupcallbacks();
+    maps\mp\gametypes\_globallogic::setupcallbacks();
 
     if ( isusingmatchrulesdata() )
     {
-        level.initializeMatchRules = ::initializeMatchRules;
-        [[ level.initializeMatchRules ]]();
-        level thread maps\mp\_utility::reInitializeMatchRulesOnMigration();
+        level.initializematchrules = ::initializematchrules;
+        [[ level.initializematchrules ]]();
+        level thread maps\mp\_utility::reinitializematchrulesonmigration();
     }
     else
     {
-        maps\mp\_utility::registerTimeLimitDvar( level.gametype, 30 );
-        maps\mp\_utility::registerScoreLimitDvar( level.gametype, 300 );
-        maps\mp\_utility::registerRoundLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerWinLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerNumLivesDvar( level.gametype, 0 );
-        maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
-        level.matchRules_damageMultiplier = 0;
-        level.matchRules_vampirism = 0;
+        maps\mp\_utility::registertimelimitdvar( level.gametype, 30 );
+        maps\mp\_utility::registerscorelimitdvar( level.gametype, 300 );
+        maps\mp\_utility::registerroundlimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registerwinlimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registernumlivesdvar( level.gametype, 0 );
+        maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
+        level.matchrules_damagemultiplier = 0;
+        level.matchrules_vampirism = 0;
     }
 
-    level.teamBased = 1;
+    level.teambased = 1;
     level._id_7130 = maps\mp\_utility::_id_3FDB( "scr_hp_radom_selection", 0 );
     level._id_4AA8 = 0;
     level._id_A3F2 = 60;
     level._id_4DE4 = maps\mp\_utility::_id_3FDB( "scr_hp_zone_delay", 0 );
     level._id_6C6D = 6;
     level._id_78A3 = 0;
-    level.onStartGameType = ::onStartGameType;
-    level.getSpawnPoint = ::getSpawnPoint;
+    level.onstartgametype = ::onstartgametype;
+    level.getspawnpoint = ::getspawnpoint;
     level._id_64D3 = ::_id_64D3;
     level._id_64DA = ::_id_64DA;
     game["dialog"]["gametype"] = "hpt_intro";
@@ -76,12 +76,12 @@ main()
     level._id_A3F8 = [];
 }
 
-initializeMatchRules()
+initializematchrules()
 {
-    maps\mp\_utility::setCommonRulesFromMatchRulesData();
-    maps\mp\_utility::registerRoundLimitDvar( level.gametype, 1 );
-    maps\mp\_utility::registerWinLimitDvar( level.gametype, 1 );
-    maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
+    maps\mp\_utility::setcommonrulesfrommatchrulesdata();
+    maps\mp\_utility::registerroundlimitdvar( level.gametype, 1 );
+    maps\mp\_utility::registerwinlimitdvar( level.gametype, 1 );
+    maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
     setdynamicdvar( "scr_hp_radom_selection", getmatchrulesdata( "hpData", "randomZones" ) );
     setdynamicdvar( "scr_hp_zone_delay", getmatchrulesdata( "hpData", "initDelay" ) );
 }
@@ -118,7 +118,7 @@ _id_9B40( var_0 )
     _id_9B41( var_0, var_0 );
 }
 
-onStartGameType()
+onstartgametype()
 {
     if ( !isdefined( game["switchedsides"] ) )
         game["switchedsides"] = 0;
@@ -131,18 +131,18 @@ onStartGameType()
         game["defenders"] = var_0;
     }
 
-    maps\mp\_utility::setObjectiveText( "allies", &"OBJECTIVES_KOTH" );
-    maps\mp\_utility::setObjectiveText( "axis", &"OBJECTIVES_KOTH" );
+    maps\mp\_utility::setobjectivetext( "allies", &"OBJECTIVES_KOTH" );
+    maps\mp\_utility::setobjectivetext( "axis", &"OBJECTIVES_KOTH" );
 
     if ( level.splitscreen )
     {
-        maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_KOTH" );
-        maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_KOTH" );
+        maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_KOTH" );
+        maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_KOTH" );
     }
     else
     {
-        maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_KOTH_SCORE" );
-        maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_KOTH_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_KOTH_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_KOTH_SCORE" );
     }
 
     if ( level._id_4DE4 )
@@ -151,7 +151,7 @@ onStartGameType()
         _id_9B40( level._id_62FB );
 
     setclientnamemode( "auto_change" );
-    initSpawns();
+    initspawns();
     var_2[0] = "hp";
     maps\mp\gametypes\_gameobjects::main( var_2 );
     setomnvar( "ui_mlg_game_mode_status_1", 0 );
@@ -172,30 +172,30 @@ _id_64C8()
     }
 }
 
-initSpawns()
+initspawns()
 {
-    level.spawnMins = ( 0, 0, 0 );
-    level.spawnMaxs = ( 0, 0, 0 );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_hp_spawn_allies_start" );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_hp_spawn_axis_start" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "allies", "mp_hp_spawn" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "axis", "mp_hp_spawn" );
-    level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
-    setmapcenter( level.mapCenter );
+    level.spawnmins = ( 0, 0, 0 );
+    level.spawnmaxs = ( 0, 0, 0 );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_hp_spawn_allies_start" );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_hp_spawn_axis_start" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_hp_spawn" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "axis", "mp_hp_spawn" );
+    level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
+    setmapcenter( level.mapcenter );
 }
 
-getSpawnPoint()
+getspawnpoint()
 {
     var_0 = self.pers["team"];
 
     if ( game["switchedsides"] )
-        var_0 = maps\mp\_utility::getOtherTeam( var_0 );
+        var_0 = maps\mp\_utility::getotherteam( var_0 );
 
-    if ( level._id_9C14 && level.inGracePeriod )
+    if ( level.usestartspawns && level.ingraceperiod )
         var_1 = maps\mp\gametypes\_spawnlogic::getrandomstartspawn( "mp_hp_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 );
+        var_2 = maps\mp\gametypes\_spawnlogic::getteamspawnpoints( var_0 );
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D6( var_2 );
     }
 
@@ -229,14 +229,14 @@ _id_4AA7()
 
     for (;;)
     {
-        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::allowUse( "any" );
-        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::setUseTime( 0 );
+        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::allowuse( "any" );
+        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::setusetime( 0 );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_834B( &"MP_CAPTURING_OBJECTIVE" );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_8352( "any" );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_7FB5( 1 );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_600A( 0 );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_1AC3( 1 );
-        level._id_A3DD._id_3BF8.onUse = ::_id_64FF;
+        level._id_A3DD._id_3BF8.onuse = ::_id_64FF;
         var_0 = level common_scripts\utility::_id_A070( "zone_captured", "zone_destroyed" );
 
         if ( var_0 == "zone_destroyed" )
@@ -251,8 +251,8 @@ _id_4AA7()
         else
             _id_9B41( level._id_62FB, level._id_62FB );
 
-        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::allowUse( "none" );
-        level._id_A3DD._id_3BF8.onUse = undefined;
+        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::allowuse( "none" );
+        level._id_A3DD._id_3BF8.onuse = undefined;
         level._id_A3DD._id_3BF8._id_64F6 = ::_id_6502;
         level._id_A3DD._id_3BF8._id_6462 = ::_id_6500;
         level._id_A3DD._id_3BF8._id_64F4 = ::_id_6501;
@@ -278,7 +278,7 @@ _id_9B20()
             var_2 = var_1;
 
             if ( var_1.team == "spectator" || var_1.sharpturnlookaheaddist == "spectator" )
-                var_2 = var_1 _meth_8299();
+                var_2 = var_1 getspectatingplayer();
 
             if ( !maps\mp\_utility::_id_5189( var_2 ) )
             {
@@ -322,7 +322,7 @@ _id_7F7A( var_0, var_1 )
 
     if ( var_2 != var_0._id_3BFA )
     {
-        var_0 _meth_82F8( "ui_hardpoint", var_2 );
+        var_0 setclientomnvar( "ui_hardpoint", var_2 );
         var_0._id_3BFA = var_2;
         var_0.offense_level = var_2;
     }
@@ -375,7 +375,7 @@ _id_46CD()
         var_0 = level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_4078();
         level._id_A3DD._id_3BF8._id_557E = undefined;
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_2B1E();
-        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::allowUse( "none" );
+        level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::allowuse( "none" );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_7FDA( "neutral" );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_7FB5( 0 );
         level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_600A( 0 );
@@ -416,11 +416,11 @@ _id_39CB( var_0 )
 _id_64FF( var_0 )
 {
     var_1 = var_0.pers["team"];
-    var_2 = maps\mp\_utility::getOtherTeam( var_1 );
+    var_2 = maps\mp\_utility::getotherteam( var_1 );
     var_3 = gettime();
-    var_0 _meth_8026( "zone captured" );
+    var_0 logstring( "zone captured" );
     level._id_A3DD._id_3BF8._id_50E5 = 0;
-    level._id_9C14 = 0;
+    level.usestartspawns = 0;
     _id_802A( var_1 );
     level._id_A3DD namedborderowned( var_1 );
 
@@ -451,7 +451,7 @@ _id_64FF( var_0 )
             if ( var_0.pers["team"] == var_1 )
             {
                 if ( isdefined( var_0.lastkilldefendertime ) && var_0.lastkilldefendertime + 500 > gettime() )
-                    var_0 _id_A7AA::_id_6FF6( "ch_hp_killedLastContester" );
+                    var_0 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_killedLastContester" );
             }
         }
     }
@@ -475,12 +475,12 @@ _id_41B9( var_0, var_1, var_2, var_3 )
 
         if ( !_id_519A( var_6 ) )
         {
-            var_6 _id_A7AA::_id_6FF6( "ch_hpcaptures" );
+            var_6 maos\mp\gametypes\_missions::_id_6FF6( "ch_hpcaptures" );
 
             if ( level._id_4AA8 + 500 > var_1 )
-                var_6 _id_A7AA::_id_6FF6( "ch_hp_immediateCapture" );
+                var_6 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_immediateCapture" );
 
-            var_6 thread _id_A738::_id_7C06();
+            var_6 thread maps\mp\_events::_id_7C06();
             __asm_jump( loc_C0B );
         }
 
@@ -500,12 +500,12 @@ namedbordervisible( var_0, var_1 )
         if ( var_1 )
         {
             var_3._id_8D56 = "show";
-            var_3 _meth_8055();
+            var_3 show();
             continue;
         }
 
         var_3._id_8D56 = "hide";
-        var_3 _meth_8056();
+        var_3 hide();
     }
 }
 
@@ -551,7 +551,7 @@ namedborderowned( var_0 )
     namedbordervisible( "neutral", 0 );
     namedbordervisible( "contested", 0 );
     namedbordershowtoteam( "friendly", var_0 );
-    namedbordershowtoteam( "enemy", maps\mp\_utility::getOtherTeam( var_0 ) );
+    namedbordershowtoteam( "enemy", maps\mp\_utility::getotherteam( var_0 ) );
 }
 
 _id_6502()
@@ -660,7 +660,7 @@ _id_5F9D( var_0 )
             foreach ( var_3 in level.players )
             {
                 if ( var_3.pers["team"] == var_1 )
-                    var_3 _id_A7AA::_id_6FF6( "ch_hp_controlZoneEntirely" );
+                    var_3 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_controlZoneEntirely" );
             }
         }
     }
@@ -683,7 +683,7 @@ _id_1206( var_0, var_1 )
     while ( !level.gameended )
     {
         wait(var_2);
-        _id_A7A4::_id_A0DD();
+        maps\mp\gametypes\_hostmigration::_id_A0DD();
 
         if ( !level._id_A3DD._id_3BF8._id_50E5 )
         {
@@ -700,10 +700,10 @@ _id_1206( var_0, var_1 )
                 if ( !isplayer( var_7 ) )
                     continue;
 
-                var_7 thread _id_A738::holdhardpointevent();
+                var_7 thread maps\mp\_events::holdhardpointevent();
             }
 
-            _id_A795::_id_420C( var_0, var_3 );
+            maps\mp\gametypes\_gamescores::_id_420C( var_0, var_3 );
         }
     }
 }
@@ -795,7 +795,7 @@ _id_59F1( var_0, var_1 )
 
         for ( var_5 = 0; var_5 < var_1.size; var_5++ )
         {
-            if ( var_4 _meth_80AB( var_1[var_5] ) )
+            if ( var_4 istouching( var_1[var_5] ) )
             {
                 if ( isdefined( var_4._id_9754 ) )
                 {
@@ -814,14 +814,14 @@ _id_59F1( var_0, var_1 )
                 continue;
         }
 
-        var_4._id_9820 = var_4._id_9754.owner_not;
+        var_4._id_9820 = var_4._id_9754.origin;
         var_6 = [];
         var_6[0] = var_4;
         var_4.namedborders = [];
 
-        if ( isdefined( var_4.team_not ) )
+        if ( isdefined( var_4._not_team ) )
         {
-            var_7 = getentarray( var_4.team_not, "targetname" );
+            var_7 = getentarray( var_4._not_team, "targetname" );
 
             foreach ( var_9 in var_7 )
             {
@@ -841,7 +841,7 @@ _id_59F1( var_0, var_1 )
             }
         }
 
-        var_4._id_3BF8 = maps\mp\gametypes\_gameobjects::createUseObject( "neutral", var_4._id_9754, var_6, ( 0, 0, 0 ) );
+        var_4._id_3BF8 = maps\mp\gametypes\_gameobjects::createuseobject( "neutral", var_4._id_9754, var_6, ( 0, 0, 0 ) );
         var_4._id_3BF8 maps\mp\gametypes\_gameobjects::_id_2B1E();
         _id_7FBB( var_4 );
         var_4._id_3BF8 maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", undefined );
@@ -863,7 +863,7 @@ _id_8326()
     var_0 = maps\mp\gametypes\_spawnlogic::_id_40DD( "mp_hp_spawn" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1]._id_2B82 = distancesquared( var_0[var_1].owner_not, self.owner_not );
+        var_0[var_1]._id_2B82 = distancesquared( var_0[var_1].origin, self.origin );
 
     for ( var_1 = 1; var_1 < var_0.size; var_1++ )
     {
@@ -959,18 +959,18 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( !isdefined( var_10 ) || var_10 == "neutral" )
         return;
 
-    if ( isdefined( var_4 ) && maps\mp\_utility::isKillstreakWeapon( var_4 ) )
+    if ( isdefined( var_4 ) && maps\mp\_utility::iskillstreakweapon( var_4 ) )
         return;
 
     var_11 = 0;
 
-    if ( !level._id_A3DD._id_3BF8._id_50E5 && var_1 _meth_80AB( level._id_A3DD._id_9754 ) )
+    if ( !level._id_A3DD._id_3BF8._id_50E5 && var_1 istouching( level._id_A3DD._id_9754 ) )
     {
         var_11 = 1;
-        var_1 thread _id_A738::_id_53B4( self, var_9 );
+        var_1 thread maps\mp\_events::_id_53B4( self, var_9 );
     }
 
-    if ( self _meth_80AB( level._id_A3DD._id_9754 ) )
+    if ( self istouching( level._id_A3DD._id_9754 ) )
     {
         var_1.lastkilldefendertime = gettime();
 
@@ -978,11 +978,11 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
             return;
 
         if ( self.team == var_10 )
-            var_1 thread _id_A738::_id_0D52( self, var_9 );
+            var_1 thread maps\mp\_events::_id_0D52( self, var_9 );
         else
         {
-            var_1 _id_A7AA::_id_6FF6( "ch_hp_zoneDefense" );
-            var_1 thread _id_A738::_id_27AE( self, var_9 );
+            var_1 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_zoneDefense" );
+            var_1 thread maps\mp\_events::_id_27AE( self, var_9 );
             var_1 maps\mp\_utility::_id_7F6C( var_1.pers["defends"] );
         }
     }
@@ -991,7 +991,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 _id_648D( var_0 )
 {
     for ( var_1 = 0; var_1 < level._id_A3F6.size; var_1++ )
-        level._id_A3F6[var_1]._id_3BF8 maps\mp\gametypes\_gameobjects::allowUse( "none" );
+        level._id_A3F6[var_1]._id_3BF8 maps\mp\gametypes\_gameobjects::allowuse( "none" );
 }
 
 _id_9AFB( var_0 )
@@ -1008,8 +1008,8 @@ _id_9AFB( var_0 )
     self._id_6294++;
     var_1 = maps\mp\_utility::_id_412C() / 60000;
 
-    if ( isplayer( self ) && isdefined( self._id_9372["total"] ) )
-        var_1 = max( self._id_9372["total"], 1 ) / 60;
+    if ( isplayer( self ) && isdefined( self.timeplayed["total"] ) )
+        var_1 = max( self.timeplayed["total"], 1 ) / 60;
 
     self._id_1B44 = self._id_6294 / var_1;
 
@@ -1019,7 +1019,7 @@ _id_9AFB( var_0 )
 
 _id_519A( var_0 )
 {
-    if ( !level._id_7137 )
+    if ( !level.rankedmatch )
         return 0;
 
     if ( var_0._id_1B44 > level._id_6C6D )

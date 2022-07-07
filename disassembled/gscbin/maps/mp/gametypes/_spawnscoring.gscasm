@@ -6,7 +6,7 @@ sub__id_40D7
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -196,7 +196,7 @@ sub__id_40DC
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -416,7 +416,7 @@ sub__id_78AB
 
 end_78AB
 
-sub_checkDynamicSpawns
+sub_checkdynamicspawns
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		EVAL_LEVEL_FIELD_VARIABLE _id_2FF2
@@ -432,7 +432,7 @@ sub_checkDynamicSpawns
 		RETN
 		END
 
-end_kDynamicSpawns
+end_kdynamicspawns
 
 sub__id_7C62
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
@@ -565,7 +565,7 @@ sub__id_726E
 		EVAL_FIELD_VARIABLE_REF _id_55DF
 		SET_VARIABLE_FIELD
 	loc_3DE
-		EVAL_LEVEL_FIELD_VARIABLE teamBased
+		EVAL_LEVEL_FIELD_VARIABLE teambased
 		JMP_FALSE loc_437
 		GET_STRING "allies"
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
@@ -901,7 +901,7 @@ sub__id_726E
 		EVAL_SELF_FIELD_VARIABLE nearz
 		GET_STRING "script_mp_spawnpoint_score: player_name %s, life_id %d, script_file %s, gameTime %d, classname %s, totalscore %d, totalPossibleScore %d, score_data0 %d, score_data1 %d, score_data2 %d, score_data3 %d, score_data4 %d, score_data5 %d, score_data6 %d, score_data7 %d, fullsights_allies %d, fullsights_axis %d, cornersights_allies %d, cornersights_axis %d, min_dist_squared_allies %d, min_dist_squared_axis %d, criticalResult %s, critical_data0 %d, critical_data1 %d, critical_data2 %d, critical_data3 %d, critical_data4 %d, critical_data5 %d, critical_data6 %d, critical_data7 %d, teambase %s, outside %d"
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 30
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC reconspatialevent 34
 		DEC_TOP
 		END
@@ -1212,7 +1212,7 @@ sub__id_40D4
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -1488,7 +1488,7 @@ sub__id_789A
 
 end_789A
 
-sub_getSpawnpoint_FreeForAll
+sub_getspawnpoint_freeforall
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		CALL_FAR_FUNC2 maps/mp/gametypes/_legacyspawnlogic uselegacyspawning
@@ -1500,7 +1500,7 @@ sub_getSpawnpoint_FreeForAll
 	loc_B09
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -1614,7 +1614,7 @@ sub_getSpawnpoint_FreeForAll
 		RETN
 		END
 
-end_pawnpoint_FreeForAll
+end_pawnpoint_freeforall
 
 sub__id_78A6
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
@@ -1746,7 +1746,7 @@ sub__id_40DA
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -1994,7 +1994,7 @@ sub__id_40D6
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -2263,7 +2263,7 @@ sub_getspawnpoint_ctf
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -2518,7 +2518,7 @@ sub__id_40D3
 	loc_1264
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		EMPTY_ARRAY
 		GET_STRING "primary"
@@ -2752,7 +2752,7 @@ sub__id_40D9
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_LOCAL_FUNC sub_checkDynamicSpawns
+		CALL_LOCAL_FUNC sub_checkdynamicspawns
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		EMPTY_ARRAY
 		GET_STRING "primary"

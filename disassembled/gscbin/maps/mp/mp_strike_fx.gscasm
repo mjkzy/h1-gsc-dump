@@ -199,7 +199,7 @@ sub_ceilingfan_rotate_custom
 		GET_ZERO
 		VECTOR
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82B9
+		CALL_BUILTIN_METHOD_2 rotatevelocity
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		WAIT
@@ -221,7 +221,7 @@ sub_ceilingfan_rotate_slow_custom
 		GET_ZERO
 		VECTOR
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82B9
+		CALL_BUILTIN_METHOD_2 rotatevelocity
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		WAIT
@@ -243,7 +243,7 @@ sub_ceilingfan_rotate_med_custom
 		GET_ZERO
 		VECTOR
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82B9
+		CALL_BUILTIN_METHOD_2 rotatevelocity
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		WAIT

@@ -25,7 +25,7 @@ main()
     maps\mp\mp_crash_snow_fx::main();
     maps\createart\mp_crash_snow_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_crash_snow" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_crash_snow" );
     level.heli_model_allies_override = "vehicle_cobra_helicopter_fly_crash_snow";
     level.heli_model_axis_override = "h1_vehicle_mi24_hind_crash_snow";
     level.airstrike_model_allies_override = "h1_mp_crash_snow_xmas_sleigh_with_reindeer_01_dlc";
@@ -68,7 +68,7 @@ light_geo_delete()
             continue;
 
         if ( var_0[var_1].script_parentname == "tube_light_geo" )
-            var_0[var_1] _meth_80B2();
+            var_0[var_1] delete();
     }
 }
 
@@ -82,7 +82,7 @@ light_model_delete()
             continue;
 
         if ( var_0[var_1].script_parentname == "tube_light_geo" )
-            var_0[var_1] _meth_80B2();
+            var_0[var_1] delete();
     }
 }
 
@@ -104,12 +104,12 @@ playerplaysnowfx()
 {
     self._id_487B = 1;
     var_0 = ( 0, 0, 30 );
-    var_1 = self _meth_8180();
+    var_1 = self getstance();
 
     if ( var_1 == "crouch" )
         var_0 = ( 0, 0, 20 );
     else if ( var_1 == "prone" )
         var_0 = ( 0, 0, 10 );
 
-    playfx( common_scripts\utility::_id_3FA8( "deathfx_xmas_snow" ), self.owner_not + var_0 );
+    playfx( common_scripts\utility::_id_3FA8( "deathfx_xmas_snow" ), self.origin + var_0 );
 }

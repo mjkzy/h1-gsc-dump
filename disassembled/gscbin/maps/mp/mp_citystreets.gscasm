@@ -13,7 +13,7 @@ sub_main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_citystreets"
-		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
+		CALL_FAR_FUNC maps/mp/_compass setupminimap
 		DEC_TOP
 		GET_STRING "axis"
 		GET_STRING "attackers"
@@ -103,7 +103,7 @@ sub_ceilingfan_rotate_custom
 		GET_ZERO
 		VECTOR
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82B9
+		CALL_BUILTIN_METHOD_2 rotatevelocity
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		WAIT
@@ -125,7 +125,7 @@ sub_ceilingfan_rotate_slow_custom
 		GET_ZERO
 		VECTOR
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82B9
+		CALL_BUILTIN_METHOD_2 rotatevelocity
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		WAIT

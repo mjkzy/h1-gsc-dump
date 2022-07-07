@@ -21,7 +21,7 @@
 
 _id_08A6( var_0 )
 {
-    return level._id_0897[self._id_08A0][var_0];
+    return level.agent_funcs[self.agent_type][var_0];
 }
 
 _id_7DB1( var_0, var_1 )
@@ -30,28 +30,28 @@ _id_7DB1( var_0, var_1 )
     self.agentteam = var_0;
     self.pers["team"] = var_0;
     self.owner = var_1;
-    self _meth_8381( var_1 );
-    self _meth_8383( var_1 );
+    self setotherent( var_1 );
+    self setentityowner( var_1 );
 }
 
 _id_4D7F()
 {
-    self._id_08A0 = "player";
+    self.agent_type = "player";
     self.pers = [];
-    self._id_4726 = 0;
-    self._id_50A6 = 0;
-    self._id_50AB = 1;
-    self._id_A1D2 = 0;
-    self._id_51AB = 0;
+    self.hasdied = 0;
+    self.isactive = 0;
+    self.isagent = 1;
+    self.wasti = 0;
+    self.issniper = 0;
     self.spectating_cycle = 0;
-    self._id_3314 = self _meth_81B5();
-    self._id_089F = 0;
-    self._id_0898 = 0;
-    self._id_1AD6 = 0;
+    self.entity_number = self getentitynumber();
+    self.agent_teamparticipant = 0;
+    self.agent_gameparticipant = 0;
+    self.canperformclienttraces = 0;
     self.agentname = undefined;
     self.ignoreforfixednodesafecheck = 0;
     self.ignoretriggers = 0;
-    self _meth_802B();
+    self detachall();
     _id_4DFF( 0 );
 }
 
@@ -59,17 +59,17 @@ _id_4DFF( var_0 )
 {
     if ( !var_0 )
     {
-        self._id_1E2E = undefined;
-        self._id_5589 = undefined;
-        self._id_5F7B = undefined;
-        self._id_11FC = undefined;
+        self.class = undefined;
+        self.lastclass = undefined;
+        self.movespeedscaler = undefined;
+        self.avoidkillstreakonspawntimer = undefined;
         self.guid = undefined;
         self.nearz = undefined;
         self._id_7811 = undefined;
         self.persistentperksunlocked = undefined;
-        self._id_A2DD = undefined;
-        self._id_6436 = undefined;
-        self._id_6303 = undefined;
+        self.weaponlist = undefined;
+        self.omaclasschanged = undefined;
+        self.objectivescaler = undefined;
         self._id_940F = undefined;
         self._id_1BB6 = undefined;
         self._id_1E23 = undefined;
@@ -79,48 +79,48 @@ _id_4DFF( var_0 )
         self.sharpturnlookaheaddist = undefined;
         self._id_55DF = undefined;
         self._id_55DD = undefined;
-        self._id_2B0B = undefined;
-        self._id_2B0C = undefined;
-        self._id_2B05 = undefined;
-        self._id_2B0A = undefined;
+        self.disabledweapon = undefined;
+        self.disabledweaponswitch = undefined;
+        self.disabledoffhandweapons = undefined;
+        self.disabledusability = undefined;
         self._id_83C6 = undefined;
         self._id_83C5 = undefined;
     }
     else
     {
-        self._id_5F7B = level._id_1317;
-        self._id_11FC = 5;
+        self.movespeedscaler = level._id_1317;
+        self.avoidkillstreakonspawntimer = 5;
         self.guid = maps\mp\_utility::_id_4144();
         self.nearz = self.guid;
         self.sharpturnnotifydist = self.team;
         self.sharpturnlookaheaddist = "playing";
         self._id_83C6 = 0;
         self._id_83C5 = 0;
-        self._id_0898 = 1;
+        self.agent_gameparticipant = 1;
         maps\mp\gametypes\_playerlogic::_id_833B();
 
         if ( maps\mp\_utility::_id_5112( self ) )
         {
-            self._id_6303 = 1;
+            self.objectivescaler = 1;
             maps\mp\gametypes\_gameobjects::_id_4D34();
-            self._id_2B0B = 0;
-            self._id_2B0C = 0;
-            self._id_2B05 = 0;
+            self.disabledweapon = 0;
+            self.disabledweaponswitch = 0;
+            self.disabledoffhandweapons = 0;
         }
     }
 
-    self._id_2B0A = 1;
+    self.disabledusability = 1;
 }
 
 _id_3FA2( var_0 )
 {
     var_1 = undefined;
 
-    if ( isdefined( level._id_08A1 ) )
+    if ( isdefined( level.agentarray ) )
     {
-        foreach ( var_3 in level._id_08A1 )
+        foreach ( var_3 in level.agentarray )
         {
-            if ( ( !isdefined( var_3._id_50A6 ) || !var_3._id_50A6 ) && ( !isdefined( var_3._id_518D ) || !var_3._id_518D ) )
+            if ( ( !isdefined( var_3.isactive ) || !var_3.isactive ) && ( !isdefined( var_3._id_518D ) || !var_3._id_518D ) )
             {
                 if ( isdefined( var_3._id_A04A ) && var_3._id_A04A )
                     continue;
@@ -132,7 +132,7 @@ _id_3FA2( var_0 )
                 var_1 _id_4D7F();
 
                 if ( isdefined( var_0 ) )
-                    var_1._id_08A0 = var_0;
+                    var_1.agent_type = var_0;
 
                 break;
             }
@@ -144,7 +144,7 @@ _id_3FA2( var_0 )
 
 _id_070B()
 {
-    self._id_50A6 = 1;
+    self.isactive = 1;
 }
 
 _id_2631()
@@ -166,28 +166,28 @@ _id_2632()
     if ( maps\mp\_utility::_id_5112( self ) )
         maps\mp\gametypes\_spawnlogic::_id_73AC();
 
-    maps\mp\gametypes\_spawnlogic::removeFromCharactersArray();
+    maps\mp\gametypes\_spawnlogic::removefromcharactersarray();
     wait 0.05;
-    self._id_50A6 = 0;
-    self._id_4726 = 0;
+    self.isactive = 0;
+    self.hasdied = 0;
     self.owner = undefined;
-    self._id_214F = undefined;
+    self.connecttime = undefined;
     self._id_A04A = undefined;
 
     foreach ( var_1 in level.characters )
     {
-        if ( isdefined( var_1._id_0E34 ) )
+        if ( isdefined( var_1.attackers ) )
         {
-            foreach ( var_4, var_3 in var_1._id_0E34 )
+            foreach ( var_4, var_3 in var_1.attackers )
             {
                 if ( var_3 == self )
-                    var_1._id_0E34[var_4] = undefined;
+                    var_1.attackers[var_4] = undefined;
             }
         }
     }
 
-    self._id_477D = undefined;
-    self _meth_802B();
+    self.headmodel = undefined;
+    self detachall();
     self notify( "disconnect" );
     self _meth_8486();
     level.despawning_agents = common_scripts\utility::_id_0CF6( level.despawning_agents, self );
@@ -206,14 +206,14 @@ _id_3ED9( var_0 )
 {
     var_1 = [];
 
-    if ( !isdefined( level._id_08A1 ) )
+    if ( !isdefined( level.agentarray ) )
         return var_1;
 
-    foreach ( var_3 in level._id_08A1 )
+    foreach ( var_3 in level.agentarray )
     {
-        if ( isdefined( var_3._id_50A6 ) && var_3._id_50A6 )
+        if ( isdefined( var_3.isactive ) && var_3.isactive )
         {
-            if ( var_0 == "all" || var_3._id_08A0 == var_0 )
+            if ( var_0 == "all" || var_3.agent_type == var_0 )
                 var_1[var_1.size] = var_3;
         }
     }
@@ -230,16 +230,16 @@ _id_4057( var_0, var_1 )
 {
     var_2 = 0;
 
-    if ( !isdefined( level._id_08A1 ) )
+    if ( !isdefined( level.agentarray ) )
         return var_2;
 
-    foreach ( var_4 in level._id_08A1 )
+    foreach ( var_4 in level.agentarray )
     {
-        if ( isdefined( var_4._id_50A6 ) && var_4._id_50A6 )
+        if ( isdefined( var_4.isactive ) && var_4.isactive )
         {
             if ( isdefined( var_4.owner ) && var_4.owner == var_0 )
             {
-                if ( var_1 == "all" || var_4._id_08A0 == var_1 )
+                if ( var_1 == "all" || var_4.agent_type == var_1 )
                     var_2++;
             }
         }
@@ -250,19 +250,19 @@ _id_4057( var_0, var_1 )
 
 _id_414D( var_0, var_1 )
 {
-    var_2 = getnodesinradius( self.owner_not, 350, 64, 128, "Path" );
+    var_2 = getnodesinradius( self.origin, 350, 64, 128, "Path" );
 
     if ( !isdefined( var_2 ) || var_2.size == 0 )
         return undefined;
 
-    if ( isdefined( level._id_A297 ) && isdefined( level._id_9822 ) )
+    if ( isdefined( level.waterdeletez ) && isdefined( level.trigunderwater ) )
     {
         var_3 = var_2;
         var_2 = [];
 
         foreach ( var_5 in var_3 )
         {
-            if ( var_5.owner_not[2] > level._id_A297 || !ispointinvolume( var_5.owner_not, level._id_9822 ) )
+            if ( var_5.origin[2] > level.waterdeletez || !ispointinvolume( var_5.origin, level.trigunderwater ) )
                 var_2[var_2.size] = var_5;
         }
     }
@@ -283,10 +283,10 @@ _id_414D( var_0, var_1 )
 
     foreach ( var_14 in var_2 )
     {
-        if ( !var_14 _meth_8036( "stand" ) )
+        if ( !var_14 doesnodeallowstance( "stand" ) )
             continue;
 
-        var_15 = vectornormalize( var_14.owner_not - self.owner_not );
+        var_15 = vectornormalize( var_14.origin - self.origin );
         var_16 = vectordot( var_7, var_15 );
 
         for ( var_17 = 0; var_17 < var_12.size; var_17++ )
@@ -310,8 +310,8 @@ _id_414D( var_0, var_1 )
     for ( var_17 = 0; var_17 < var_11.size; var_17++ )
     {
         var_14 = var_11[var_17];
-        var_20 = self.owner_not + var_10;
-        var_21 = var_14.owner_not + var_10;
+        var_20 = self.origin + var_10;
+        var_21 = var_14.origin + var_10;
 
         if ( var_17 > 0 )
             wait 0.05;
@@ -324,9 +324,9 @@ _id_414D( var_0, var_1 )
             if ( var_17 > 0 )
                 wait 0.05;
 
-            var_22 = playerphysicstrace( var_14.owner_not + var_10, var_14.owner_not );
+            var_22 = playerphysicstrace( var_14.origin + var_10, var_14.origin );
 
-            if ( distancesquared( var_22, var_14.owner_not ) > 1 )
+            if ( distancesquared( var_22, var_14.origin ) > 1 )
                 continue;
         }
 
@@ -344,13 +344,13 @@ _id_414D( var_0, var_1 )
         return var_14;
     }
 
-    if ( var_11.size > 0 && isdefined( level._id_511D ) )
+    if ( var_11.size > 0 && isdefined( level.ishorde ) )
         return var_11[0];
 }
 
 _id_5349( var_0 )
 {
-    var_0 _meth_8053( var_0.helmet + 500000, var_0.owner_not );
+    var_0 dodamage( var_0.helmet + 500000, var_0.origin );
 }
 
 _id_535A()

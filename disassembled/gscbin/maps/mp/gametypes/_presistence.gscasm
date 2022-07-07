@@ -7,11 +7,11 @@ sub_init
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_67DA
 		CALL_FAR_FUNC2 maps/mp/gametypes/_class init
 		DEC_TOP
-		CALL_FAR_FUNC2 _id_A7AA init
+		CALL_FAR_FUNC2 maos/mp/gametypes/_missions init
 		DEC_TOP
 		CALL_FAR_FUNC2 _id_A7B0 init
 		DEC_TOP
-		CALL_FAR_FUNC2 _id_A7B4 init
+		CALL_FAR_FUNC2 maps/mp/gametypes/_rank init
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "virtualLobbyActive"
@@ -40,7 +40,7 @@ sub__id_4D95
 		GET_STRING "totalShots"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "totalShots"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -48,7 +48,7 @@ sub__id_4D95
 		GET_STRING "accuracy"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "accuracy"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -56,7 +56,7 @@ sub__id_4D95
 		GET_STRING "misses"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "misses"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -64,7 +64,7 @@ sub__id_4D95
 		GET_STRING "hits"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "hits"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -72,7 +72,7 @@ sub__id_4D95
 		GET_STRING "timePlayedAllies"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "timePlayedAllies"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -80,7 +80,7 @@ sub__id_4D95
 		GET_STRING "timePlayedOpfor"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "timePlayedOpfor"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -88,7 +88,7 @@ sub__id_4D95
 		GET_STRING "timePlayedOther"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "timePlayedOther"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -96,7 +96,7 @@ sub__id_4D95
 		GET_STRING "timePlayedTotal"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "timePlayedTotal"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1838
 		EVAL_ARRAY_REF
@@ -113,7 +113,7 @@ sub__id_4D95
 		GET_STRING "round"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8226
+		CALL_BUILTIN_METHOD_3 getrankedplayerdata
 		GET_STRING "timePlayed"
 		GET_STRING "round"
 		EVAL_SELF_FIELD_VARIABLE_REF _id_1837
@@ -130,7 +130,7 @@ sub__id_8D68
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		RETN
 		END
 
@@ -148,7 +148,7 @@ sub__id_8D78
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 
@@ -170,7 +170,7 @@ sub__id_8D50
 		EVAL_LOCAL_VARIABLE_CACHED2
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8226
+		CALL_BUILTIN_METHOD_3 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED2
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -179,14 +179,14 @@ sub__id_8D50
 		EVAL_LOCAL_VARIABLE_CACHED3
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_186
 		EVAL_LOCAL_VARIABLE_CACHED2
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED2
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -194,7 +194,7 @@ sub__id_8D50
 		EVAL_LOCAL_VARIABLE_CACHED3
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 		END
@@ -213,7 +213,7 @@ sub__id_8D6A
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8226
+		CALL_BUILTIN_METHOD_3 getrankedplayerdata
 		RETN
 		END
 	loc_1BB
@@ -221,7 +221,7 @@ sub__id_8D6A
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8226
+		CALL_BUILTIN_METHOD_3 getrankedplayerdata
 		RETN
 		END
 		END
@@ -251,7 +251,7 @@ sub__id_8D7A
 		EVAL_LOCAL_VARIABLE_CACHED2
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_1F6
@@ -264,7 +264,7 @@ sub__id_8D7A
 		EVAL_LOCAL_VARIABLE_CACHED2
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		END
 		END
@@ -284,7 +284,7 @@ sub__id_8D53
 		EVAL_LOCAL_VARIABLE_CACHED2
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8226
+		CALL_BUILTIN_METHOD_3 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -293,7 +293,7 @@ sub__id_8D53
 		EVAL_LOCAL_VARIABLE_CACHED3
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		END
 
@@ -513,7 +513,7 @@ sub__id_9AFA
 	loc_34F
 		EVAL_LEVEL_FIELD_VARIABLE gameended
 		JMP_TRUE loc_392
-		CALL_FAR_FUNC2 _id_A7A4 _id_A0DD
+		CALL_FAR_FUNC2 maps/mp/gametypes/_hostmigration _id_A0DD
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_REF_CACHED0
 		INC
@@ -604,7 +604,7 @@ sub__id_A360
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED2
@@ -652,7 +652,7 @@ sub__id_A360
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		JMP loc_462
 	loc_451
@@ -663,7 +663,7 @@ sub__id_A360
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 	loc_462
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -691,7 +691,7 @@ sub__id_4C40
 		CHECK_CLEAR_PARAMS
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
+		CALL_FAR_FUNC maps/mp/_utility iskillstreakweapon
 		JMP_FALSE loc_48B
 		END
 	loc_48B
@@ -711,7 +711,7 @@ sub__id_4C40
 		GET_STRING "weaponStats"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8226
+		CALL_BUILTIN_METHOD_4 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -721,7 +721,7 @@ sub__id_4C40
 		GET_STRING "weaponStats"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_5 _meth_8243
+		CALL_BUILTIN_METHOD_5 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_4C8
@@ -741,7 +741,7 @@ sub__id_4C3D
 		GET_STRING "attachmentsStats"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8226
+		CALL_BUILTIN_METHOD_4 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -751,7 +751,7 @@ sub__id_4C3D
 		GET_STRING "attachmentsStats"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_5 _meth_8243
+		CALL_BUILTIN_METHOD_5 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_4FC
@@ -773,7 +773,7 @@ sub_incrementmeleestat
 		GET_STRING "meleeKills"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -781,7 +781,7 @@ sub_incrementmeleestat
 		GET_STRING "meleeKills"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_532
@@ -803,7 +803,7 @@ sub_incrementdestructiblestat
 		GET_STRING "destructibleKills"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -811,7 +811,7 @@ sub_incrementdestructiblestat
 		GET_STRING "destructibleKills"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_568
@@ -883,16 +883,16 @@ end_attachkitincludebaseattachment
 
 sub__id_9BA4
 		CHECK_CLEAR_PARAMS
-		EVAL_SELF_FIELD_VARIABLE _id_94FB
+		EVAL_SELF_FIELD_VARIABLE trackingweaponname
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_TRUE loc_5CF
 		END
 	loc_5CF
-		EVAL_SELF_FIELD_VARIABLE _id_94FB
+		EVAL_SELF_FIELD_VARIABLE trackingweaponname
 		GET_STRING ""
 		EQUALITY
 		JMP_EXPR_TRUE loc_5E5
-		EVAL_SELF_FIELD_VARIABLE _id_94FB
+		EVAL_SELF_FIELD_VARIABLE trackingweaponname
 		GET_STRING "none"
 		EQUALITY
 		CAST_BOOL
@@ -900,11 +900,11 @@ sub__id_9BA4
 		JMP_FALSE loc_5E9
 		END
 	loc_5E9
-		EVAL_SELF_FIELD_VARIABLE _id_94FB
+		EVAL_SELF_FIELD_VARIABLE trackingweaponname
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
+		CALL_FAR_FUNC maps/mp/_utility iskillstreakweapon
 		JMP_EXPR_TRUE loc_5FE
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -1142,7 +1142,7 @@ sub__id_9BA4
 		DEC_TOP
 	loc_7E1
 		GET_STRING "none"
-		SET_SELF_FIELD_VARIABLE_FIELD _id_94FB
+		SET_SELF_FIELD_VARIABLE_FIELD trackingweaponname
 		GET_ZERO
 		SET_SELF_FIELD_VARIABLE_FIELD _id_94FC
 		GET_ZERO
@@ -1199,7 +1199,7 @@ sub__id_9BA4
 		GET_STRING "shots"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_857
 		EVAL_SELF_FIELD_VARIABLE _id_94FA
@@ -1218,7 +1218,7 @@ sub__id_9BA4
 		GET_STRING "kills"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_881
 		EVAL_SELF_FIELD_VARIABLE _id_94F9
@@ -1237,7 +1237,7 @@ sub__id_9BA4
 		GET_STRING "hits"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_8AB
 		EVAL_SELF_FIELD_VARIABLE _id_94F7
@@ -1256,7 +1256,7 @@ sub__id_9BA4
 		GET_STRING "headShots"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_8D5
 		EVAL_SELF_FIELD_VARIABLE _id_94F6
@@ -1275,7 +1275,7 @@ sub__id_9BA4
 		GET_STRING "deaths"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_8FF
 		EVAL_SELF_FIELD_VARIABLE _id_94F8
@@ -1294,7 +1294,7 @@ sub__id_9BA4
 		GET_STRING "hipfirekills"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_929
 		EVAL_SELF_FIELD_VARIABLE _id_94FD
@@ -1313,7 +1313,7 @@ sub__id_9BA4
 		GET_STRING "timeInUse"
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 0
-		CALL_FAR_FUNC _id_A74E _id_584C
+		CALL_FAR_FUNC maps/mp/_matchdata _id_584C
 		DEC_TOP
 	loc_953
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -1477,7 +1477,7 @@ sub__id_9BA4
 		CLEAR_LOCAL_VARIABLE_FIELD_CACHED 3
 		CLEAR_LOCAL_VARIABLE_FIELD_CACHED0
 		GET_STRING "none"
-		SET_SELF_FIELD_VARIABLE_FIELD _id_94FB
+		SET_SELF_FIELD_VARIABLE_FIELD trackingweaponname
 		GET_ZERO
 		SET_SELF_FIELD_VARIABLE_FIELD _id_94FC
 		GET_ZERO
@@ -1534,7 +1534,7 @@ sub__id_9BCA
 		EVAL_LOCAL_VARIABLE_CACHED3
 		GET_STRING "total"
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
-		EVAL_FIELD_VARIABLE _id_9372
+		EVAL_FIELD_VARIABLE timeplayed
 		EVAL_ARRAY
 		PLUS
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
@@ -1573,7 +1573,7 @@ sub__id_9BCA
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		EVAL_LOCAL_VARIABLE_CACHED 10
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
-		EVAL_FIELD_VARIABLE kills
+		EVAL_FIELD_VARIABLE killstreakrestricted
 		PLUS
 		SET_LOCAL_VARIABLE_FIELD_CACHED 10
 		EVAL_LOCAL_VARIABLE_CACHED 9
@@ -1593,7 +1593,7 @@ sub__id_9BCA
 		SET_LOCAL_VARIABLE_FIELD_CACHED 7
 		EVAL_LOCAL_VARIABLE_CACHED 6
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
-		EVAL_FIELD_VARIABLE _id_8FAF
+		EVAL_FIELD_VARIABLE suicides
 		PLUS
 		SET_LOCAL_VARIABLE_FIELD_CACHED 6
 		EVAL_LOCAL_VARIABLE_CACHED0

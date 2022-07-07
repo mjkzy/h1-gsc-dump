@@ -16,10 +16,10 @@ sub_checkforseason1start
 		JMP_FALSE loc_1B
 		END
 	loc_1B
-		EVAL_LEVEL_FIELD_VARIABLE _id_511D
+		EVAL_LEVEL_FIELD_VARIABLE ishorde
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_EXPR_FALSE loc_28
-		EVAL_LEVEL_FIELD_VARIABLE _id_511D
+		EVAL_LEVEL_FIELD_VARIABLE ishorde
 		CAST_BOOL
 	loc_28
 		JMP_FALSE loc_2C
@@ -48,7 +48,7 @@ sub_checkforseason1start
 		GET_STRING "currentSeason"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		GET_STRING "scr_game_season"
 		CALL_BUILTIN_FUNC_1 getdvarint
@@ -67,51 +67,51 @@ sub_checkforseason1start
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_NUSHORT 31768
 		GET_STRING "mmr"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "divisionChallengePlayed"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "divisionChallengeWon"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "matchPrediction"
 		GET_STRING "round"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "matchDp"
 		GET_STRING "round"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "currentSeason"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_BYTE 1
 		GET_STRING "seasonStart"
@@ -447,7 +447,7 @@ sub_onmatchend
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		EVAL_LOCAL_VARIABLE_CACHED1
 		EVAL_LOCAL_VARIABLE_CACHED2
@@ -458,13 +458,13 @@ sub_onmatchend
 		GET_STRING "round"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "rankedPlaylistLockTime"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 	loc_3A0
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -549,7 +549,7 @@ sub_ondivisionwin
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 	loc_461
 		GET_STRING "maxDP"
@@ -583,13 +583,13 @@ sub_ondivisionwin
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		JMP loc_4D9
 	loc_4CA
@@ -597,7 +597,7 @@ sub_ondivisionwin
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 	loc_4D9
 		PRE_CALL
@@ -621,7 +621,7 @@ sub_ondivisionwin
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 		END
@@ -632,7 +632,7 @@ sub_ondivisionwin
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 		END
@@ -736,7 +736,7 @@ sub_ondivisionloss
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 		END
@@ -813,7 +813,7 @@ sub_ondivisiontie
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 	loc_6AB
 		GET_STRING "maxDP"
@@ -835,7 +835,7 @@ sub_ondivisiontie
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_STRING "playBits"
 		GET_STRING "init"
@@ -847,7 +847,7 @@ sub_ondivisiontie
 		GET_STRING "divisionChallengePlayed"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_STRING "winBits"
 		GET_STRING "init"
@@ -859,7 +859,7 @@ sub_ondivisiontie
 		GET_STRING "divisionChallengeWon"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 		JMP loc_762
@@ -883,7 +883,7 @@ sub_ondivisiontie
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_762
@@ -902,7 +902,7 @@ sub_ondivisiontie
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 
@@ -931,7 +931,7 @@ sub_initloss
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		GET_BYTE 1
 		GET_STRING "forfeit"
@@ -968,7 +968,7 @@ sub_initloss
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_BYTE 3
 		GREATEREQUAL
 		JMP_FALSE loc_83B
@@ -976,7 +976,7 @@ sub_initloss
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 	loc_83B
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -1000,7 +1000,7 @@ sub_initloss
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "relegation"
 		GET_STRING "init"
 		GET_STRING "division"
@@ -1012,7 +1012,7 @@ sub_initloss
 		GET_STRING "divisionChallengePlayed"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "playBits"
 		GET_STRING "init"
 		GET_STRING "division"
@@ -1024,7 +1024,7 @@ sub_initloss
 		GET_STRING "divisionChallengeWon"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		GET_STRING "winBits"
 		GET_STRING "init"
 		GET_STRING "division"
@@ -1114,7 +1114,7 @@ sub_initloss
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		JMP loc_9A9
 	loc_9A9
@@ -1170,7 +1170,7 @@ sub_initloss
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		JMP loc_A2B
 	loc_A2B
@@ -1178,7 +1178,7 @@ sub_initloss
 		GET_STRING "divisionRelegationCounter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 	loc_A3B
@@ -1199,7 +1199,7 @@ sub_initloss
 		GET_STRING "division"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 		END
@@ -1228,7 +1228,7 @@ sub_updatelockouttime
 		GET_STRING "rankedPlaylistLockTime"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_BYTE 10
 		WAIT
@@ -1360,12 +1360,12 @@ sub_getdivisionchallengestatus
 		GET_STRING "divisionChallengePlayed"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		GET_STRING "divisionChallengeWon"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 1
 		GET_ZERO
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
@@ -1432,13 +1432,13 @@ sub_cleardivisionchallengestatus
 		GET_STRING "divisionChallengePlayed"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "divisionChallengeWon"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		GET_ZERO
 		GET_STRING "wins"
@@ -1498,13 +1498,13 @@ sub_updatedivisionchallengestatus
 		GET_STRING "divisionChallengePlayed"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "divisionChallengeWon"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 
@@ -1515,7 +1515,7 @@ sub_getmmr
 		GET_STRING "mmr"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_NUSHORT 32768
@@ -1546,7 +1546,7 @@ sub_savemmr
 		GET_STRING "mmr"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_ranked
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_8243
+		CALL_BUILTIN_METHOD_3 setcommonplayerdata
 		DEC_TOP
 		END
 
@@ -1606,7 +1606,7 @@ sub_savematchprediction
 		GET_STRING "round"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		END
 
@@ -1623,7 +1623,7 @@ sub_clearmatchprediction
 		GET_STRING "round"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		GET_SELF
-		CALL_BUILTIN_METHOD_4 _meth_8243
+		CALL_BUILTIN_METHOD_4 setcommonplayerdata
 		DEC_TOP
 		END
 

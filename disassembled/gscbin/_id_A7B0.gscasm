@@ -54,17 +54,17 @@ sub__id_64C8
 		GET_STRING "emblemPatchIndex"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_LOCAL_VARIABLE_FIELD_CACHED 2
 		GET_STRING "applyEmblemToCharacter"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		GET_STRING "callingCardIndex"
 		CALL_FAR_FUNC2 common_scripts/utility getstatsgroup_common
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_2 _meth_8226
+		CALL_BUILTIN_METHOD_2 getrankedplayerdata
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_94
 		EVAL_LOCAL_VARIABLE_CACHED2

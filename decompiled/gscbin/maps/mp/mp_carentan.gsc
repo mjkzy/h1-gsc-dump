@@ -25,7 +25,7 @@ main()
     maps\createart\mp_carentan_art::main();
     maps\mp\mp_carentan_fx::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_carentan" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_carentan" );
     level.airstrikeheightscale = 1.4;
     game["allies"] = "sas";
     game["axis"] = "russian";
@@ -33,12 +33,12 @@ main()
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "urban";
     game["axis_soldiertype"] = "urban";
-    _id_A74A::_id_422D( "ct_street_lamp_glow_FX_origin", "fx/misc/ct_street_lamp_glow", undefined, "light_street_lamp" );
-    _id_A74A::_id_422D( "vent_small_FX_origin", "vfx/steam/steam_vent_small", undefined, "steam_vent_small" );
-    _id_A74A::_id_422D( "utility_light_FX_origin", "vfx/lights/spotlight_yellow_mp_carentan", undefined, "light_utilities" );
-    _id_A74A::_id_422D( "street_wall_light_FX_origin", "vfx/lights/light_spotlight_long_mp_carentan", undefined, "light_street_wall" );
-    _id_A74A::_id_422D( "street_wall_light_sml_FX_origin", "vfx/lights/light_spotlight_mp_carentan", undefined, "light_street_wall_sml" );
-    _id_A74A::_id_422D( "com_studio_light_FX_origin", "vfx/lights/light_studiolight_mp_carentan", undefined, "com_studio_light" );
+    maps\mp\_global_fx_code::_id_422D( "ct_street_lamp_glow_FX_origin", "fx/misc/ct_street_lamp_glow", undefined, "light_street_lamp" );
+    maps\mp\_global_fx_code::_id_422D( "vent_small_FX_origin", "vfx/steam/steam_vent_small", undefined, "steam_vent_small" );
+    maps\mp\_global_fx_code::_id_422D( "utility_light_FX_origin", "vfx/lights/spotlight_yellow_mp_carentan", undefined, "light_utilities" );
+    maps\mp\_global_fx_code::_id_422D( "street_wall_light_FX_origin", "vfx/lights/light_spotlight_long_mp_carentan", undefined, "light_street_wall" );
+    maps\mp\_global_fx_code::_id_422D( "street_wall_light_sml_FX_origin", "vfx/lights/light_spotlight_mp_carentan", undefined, "light_street_wall_sml" );
+    maps\mp\_global_fx_code::_id_422D( "com_studio_light_FX_origin", "vfx/lights/light_studiolight_mp_carentan", undefined, "com_studio_light" );
     setdvar( "compassmaxrange", "2500" );
 
     if ( level.gametype == "dom" )
@@ -54,10 +54,10 @@ main()
         level.domborderfx["neutral"]["_c"] = "vfx/unique/vfx_marker_dom_w_mid";
     }
 
-    _id_A7BC::setfactiontableoverride( "marines", _id_A7BC::getteamheadiconcol(), "h1_headicon_marines_night" );
-    _id_A7BC::setfactiontableoverride( "opfor", _id_A7BC::getteamheadiconcol(), "h1_headicon_opfor_night" );
-    _id_A7BC::setfactiontableoverride( "sas", _id_A7BC::getteamheadiconcol(), "h1_headicon_sas_night" );
-    _id_A7BC::setfactiontableoverride( "russian", _id_A7BC::getteamheadiconcol(), "h1_headicon_russian_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "marines", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_marines_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "opfor", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_opfor_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "sas", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_sas_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "russian", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_russian_night" );
     level.killconfirmeddogtagenemy = "h1_dogtag_enemy_animated_night";
     level.killconfirmeddogtagfriend = "h1_dogtag_friend_animated_night";
     level.bombsquadmodelc4 = "weapon_c4_bombsquad_mw1_night";

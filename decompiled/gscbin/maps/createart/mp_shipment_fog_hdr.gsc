@@ -21,7 +21,7 @@
 
 main()
 {
-    var_0 = _id_A72D::_id_23DF( "mp_shipment" );
+    var_0 = maps\mp\_art::_id_23DF( "mp_shipment" );
     var_0._id_8D08 = 2048;
     var_0._id_4500 = 6145;
     var_0._id_7299 = 0.742358;

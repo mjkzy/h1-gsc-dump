@@ -15,7 +15,7 @@ sub_main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_bloc"
-		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
+		CALL_FAR_FUNC maps/mp/_compass setupminimap
 		DEC_TOP
 		GET_STRING "axis"
 		GET_STRING "attackers"

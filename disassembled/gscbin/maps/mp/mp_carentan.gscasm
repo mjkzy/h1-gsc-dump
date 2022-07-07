@@ -13,7 +13,7 @@ sub_main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_carentan"
-		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
+		CALL_FAR_FUNC maps/mp/_compass setupminimap
 		DEC_TOP
 		GET_FLOAT 1.4
 		SET_LEVEL_FIELD_VARIABLE_FIELD airstrikeheightscale
@@ -52,42 +52,42 @@ sub_main
 		GET_UNDEFINED
 		GET_STRING "fx/misc/ct_street_lamp_glow"
 		GET_STRING "ct_street_lamp_glow_FX_origin"
-		CALL_FAR_FUNC _id_A74A _id_422D
+		CALL_FAR_FUNC maps/mp/_global_fx_code _id_422D
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "steam_vent_small"
 		GET_UNDEFINED
 		GET_STRING "vfx/steam/steam_vent_small"
 		GET_STRING "vent_small_FX_origin"
-		CALL_FAR_FUNC _id_A74A _id_422D
+		CALL_FAR_FUNC maps/mp/_global_fx_code _id_422D
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "light_utilities"
 		GET_UNDEFINED
 		GET_STRING "vfx/lights/spotlight_yellow_mp_carentan"
 		GET_STRING "utility_light_FX_origin"
-		CALL_FAR_FUNC _id_A74A _id_422D
+		CALL_FAR_FUNC maps/mp/_global_fx_code _id_422D
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "light_street_wall"
 		GET_UNDEFINED
 		GET_STRING "vfx/lights/light_spotlight_long_mp_carentan"
 		GET_STRING "street_wall_light_FX_origin"
-		CALL_FAR_FUNC _id_A74A _id_422D
+		CALL_FAR_FUNC maps/mp/_global_fx_code _id_422D
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "light_street_wall_sml"
 		GET_UNDEFINED
 		GET_STRING "vfx/lights/light_spotlight_mp_carentan"
 		GET_STRING "street_wall_light_sml_FX_origin"
-		CALL_FAR_FUNC _id_A74A _id_422D
+		CALL_FAR_FUNC maps/mp/_global_fx_code _id_422D
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "com_studio_light"
 		GET_UNDEFINED
 		GET_STRING "vfx/lights/light_studiolight_mp_carentan"
 		GET_STRING "com_studio_light_FX_origin"
-		CALL_FAR_FUNC _id_A74A _id_422D
+		CALL_FAR_FUNC maps/mp/_global_fx_code _id_422D
 		DEC_TOP
 		GET_STRING "2500"
 		GET_STRING "compassmaxrange"
@@ -163,27 +163,27 @@ sub_main
 	loc_1D2
 		PRE_CALL
 		GET_STRING "h1_headicon_marines_night"
-		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		CALL_FAR_FUNC2 maps/mp/gametypes/_teams getteamheadiconcol
 		GET_STRING "marines"
-		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		CALL_FAR_FUNC maps/mp/gametypes/_teams setfactiontableoverride
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "h1_headicon_opfor_night"
-		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		CALL_FAR_FUNC2 maps/mp/gametypes/_teams getteamheadiconcol
 		GET_STRING "opfor"
-		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		CALL_FAR_FUNC maps/mp/gametypes/_teams setfactiontableoverride
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "h1_headicon_sas_night"
-		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		CALL_FAR_FUNC2 maps/mp/gametypes/_teams getteamheadiconcol
 		GET_STRING "sas"
-		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		CALL_FAR_FUNC maps/mp/gametypes/_teams setfactiontableoverride
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "h1_headicon_russian_night"
-		CALL_FAR_FUNC2 _id_A7BC getteamheadiconcol
+		CALL_FAR_FUNC2 maps/mp/gametypes/_teams getteamheadiconcol
 		GET_STRING "russian"
-		CALL_FAR_FUNC _id_A7BC setfactiontableoverride
+		CALL_FAR_FUNC maps/mp/gametypes/_teams setfactiontableoverride
 		DEC_TOP
 		GET_STRING "h1_dogtag_enemy_animated_night"
 		SET_LEVEL_FIELD_VARIABLE_FIELD killconfirmeddogtagenemy

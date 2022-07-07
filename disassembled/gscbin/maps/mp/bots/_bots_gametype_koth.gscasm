@@ -23,12 +23,12 @@ sub__id_8072
 		CHECK_CLEAR_PARAMS
 		GET_LOCAL_FUNC sub_bot_koth_think
 		GET_STRING "gametype_think"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_161B
+		EVAL_LEVEL_FIELD_VARIABLE_REF bot_funcs
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_LOCAL_FUNC sub_should_start_cautious_approach_koth
 		GET_STRING "should_start_cautious_approach"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_161B
+		EVAL_LEVEL_FIELD_VARIABLE_REF bot_funcs
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END
@@ -149,7 +149,7 @@ sub_setup_bot_koth
 		DEC_TOP
 		GET_BYTE 1
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		EVAL_LEVEL_FIELD_VARIABLE_REF bot_gametype_radios_precached
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
@@ -211,7 +211,7 @@ sub_bot_cache_entrances_to_other_radios
 		DEC_TOP
 		GET_BYTE 1
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		EVAL_LEVEL_FIELD_VARIABLE_REF bot_gametype_radios_precached
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
@@ -255,12 +255,12 @@ sub_bot_koth_think
 		GET_ZERO
 		GET_STRING "separation"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_834F
+		CALL_BUILTIN_METHOD_2 botsetflag
 		DEC_TOP
 		GET_BYTE 1
 		GET_STRING "grenade_objectives"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_834F
+		CALL_BUILTIN_METHOD_2 botsetflag
 		DEC_TOP
 		CREATE_LOCAL_VARIABLE 0
 		CREATE_LOCAL_VARIABLE 1
@@ -282,7 +282,7 @@ sub_bot_koth_think
 		BOOL_NOT
 		JMP_EXPR_TRUE loc_204
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		EVAL_LEVEL_FIELD_VARIABLE bot_gametype_radios_precached
 		EVAL_ARRAY
 		CALL_BUILTIN_FUNC_1 isdefined
@@ -475,7 +475,7 @@ sub_bot_capture_koth_zone
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
 		EVAL_FIELD_VARIABLE _id_6139
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_FAR_FUNC maps/mp/bots/_bots_strategy _id_15D2
 		DEC_TOP
 		END
@@ -506,7 +506,7 @@ sub_bot_protect_koth_zone
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
 		EVAL_FIELD_VARIABLE _id_1C10
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_FAR_FUNC maps/mp/bots/_bots_strategy _id_16C2
 		DEC_TOP
 		END

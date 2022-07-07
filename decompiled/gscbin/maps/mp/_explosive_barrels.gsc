@@ -63,11 +63,11 @@ main()
 
 oil_spill_think()
 {
-    self._id_311C = _id_40FB( self.team_not, "targetname" );
-    self._id_8B20 = _id_40FB( self._id_311C.team_not, "targetname" );
-    self._id_12E4 = getclosestent( self._id_8B20.owner_not, getentarray( "explodable_barrel", "targetname" ) );
-    self.extra = getent( self.team_not, "targetname" );
-    self _meth_82BC( 1 );
+    self._id_311C = _id_40FB( self._not_team, "targetname" );
+    self._id_8B20 = _id_40FB( self._id_311C._not_team, "targetname" );
+    self._id_12E4 = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
+    self.extra = getent( self._not_team, "targetname" );
+    self setcandamage( 1 );
 
     if ( isdefined( self._id_12E4 ) )
     {
@@ -85,18 +85,18 @@ oil_spill_think()
         self._id_25A9 = var_0;
         playfx( level._id_17DD["oilspill"]["spark"], var_3, var_2 );
         thread oil_spill_burn_section( var_3 );
-        thread oil_spill_burn( var_3, self._id_8B20.owner_not );
-        thread oil_spill_burn( var_3, self._id_311C.owner_not );
+        thread oil_spill_burn( var_3, self._id_8B20.origin );
+        thread oil_spill_burn( var_3, self._id_311C.origin );
         break;
     }
 
     if ( isdefined( self._id_12E4 ) )
         self._id_12E4 waittill( "exploding" );
 
-    self.extra _meth_80B2();
-    self _meth_8056();
+    self.extra delete();
+    self hide();
     wait 10;
-    self _meth_80B2();
+    self delete();
 }
 
 getclosestent( var_0, var_1 )
@@ -109,7 +109,7 @@ getclosestent( var_0, var_1 )
 
     for ( var_4 = 0; var_4 < var_1.size; var_4++ )
     {
-        var_5 = distance( var_1[var_4] _meth_8097(), var_0 );
+        var_5 = distance( var_1[var_4] getorigin(), var_0 );
 
         if ( var_5 >= var_2 )
             continue;
@@ -136,9 +136,9 @@ oil_spill_burn_after()
     self._id_25A9 = var_1;
 
     if ( !isdefined( self._id_25A9 ) )
-        self _meth_81D8( self.owner_not, 4, 10, 10 );
+        self entityradiusdamage( self.origin, 4, 10, 10 );
     else
-        self _meth_81D8( self.owner_not, 4, 10, 10, self._id_25A9 );
+        self entityradiusdamage( self.origin, 4, 10, 10, self._id_25A9 );
 }
 
 oil_spill_burn( var_0, var_1 )
@@ -152,7 +152,7 @@ oil_spill_burn( var_0, var_1 )
     var_8 = getentarray( "explodable_barrel", "targetname" );
     var_9 = 484;
     var_10 = spawn( "script_origin", var_0 );
-    var_10 _meth_8056();
+    var_10 hide();
     var_11 = 0;
 
     for (;;)
@@ -169,14 +169,14 @@ oil_spill_burn( var_0, var_1 )
         if ( var_11 == 4 )
             var_11 = 0;
 
-        var_10.owner_not = var_0;
+        var_10.origin = var_0;
         var_12 = [];
         var_8 = common_scripts\utility::_id_0D01( var_8 );
 
         for ( var_13 = 0; var_13 < var_8.size; var_13++ )
         {
             var_14 = anglestoup( var_8[var_13].angles );
-            var_15 = var_8[var_13].owner_not + var_14 * 22;
+            var_15 = var_8[var_13].origin + var_14 * 22;
             var_16 = physicstrace( var_15, var_15 + ( 0, 0, -64 ) );
 
             if ( distancesquared( var_0, var_16 ) < var_9 )
@@ -185,9 +185,9 @@ oil_spill_burn( var_0, var_1 )
                 var_17 = 80 + randomfloat( 10 );
 
                 if ( !isdefined( self._id_25A9 ) )
-                    self _meth_81D8( var_8[var_13].owner_not, 4, var_17, var_17 );
+                    self entityradiusdamage( var_8[var_13].origin, 4, var_17, var_17 );
                 else
-                    self _meth_81D8( var_8[var_13].owner_not, 4, var_17, var_17, self._id_25A9 );
+                    self entityradiusdamage( var_8[var_13].origin, 4, var_17, var_17, self._id_25A9 );
             }
         }
 
@@ -200,14 +200,14 @@ oil_spill_burn( var_0, var_1 )
     if ( !isdefined( self._id_12E4 ) )
         return;
 
-    if ( distance( var_0, self._id_8B20.owner_not ) < 32 )
+    if ( distance( var_0, self._id_8B20.origin ) < 32 )
     {
         var_17 = 80 + randomfloat( 10 );
 
         if ( !isdefined( self._id_25A9 ) )
-            self _meth_81D8( self._id_12E4.owner_not, 4, var_17, var_17 );
+            self entityradiusdamage( self._id_12E4.origin, 4, var_17, var_17 );
         else
-            self _meth_81D8( self._id_12E4.owner_not, 4, var_17, var_17, self._id_25A9 );
+            self entityradiusdamage( self._id_12E4.origin, 4, var_17, var_17, self._id_25A9 );
     }
 }
 
@@ -220,9 +220,9 @@ oil_spill_burn_section( var_0 )
     while ( var_2 < 5 )
     {
         if ( !isdefined( self._id_25A9 ) )
-            self _meth_81D8( var_0, 32, 5, 1 );
+            self entityradiusdamage( var_0, 32, 5, 1 );
         else
-            self _meth_81D8( var_0, 32, 5, 1, self._id_25A9 );
+            self entityradiusdamage( var_0, 32, 5, 1, self._id_25A9 );
 
         var_2 += 1;
         wait 1;
@@ -244,7 +244,7 @@ explodable_barrel_think()
     self endon( "exploding" );
     breakable_clip();
     self.damagetaken = 0;
-    self _meth_82BC( 1 );
+    self setcandamage( 1 );
 
     for (;;)
     {
@@ -288,14 +288,14 @@ explodable_barrel_burn()
         {
             if ( !var_1 )
             {
-                playfx( level._id_17DD["barrel"]["burn_start"], self.owner_not + var_5 );
+                playfx( level._id_17DD["barrel"]["burn_start"], self.origin + var_5 );
                 var_1 = 1;
             }
 
             if ( var_0 > 20 )
                 var_0 = 0;
 
-            playfx( level._id_17DD["barrel"]["burn"], self.owner_not + var_6 );
+            playfx( level._id_17DD["barrel"]["burn"], self.origin + var_6 );
 
             if ( var_0 == 0 )
                 self.damagetaken += ( 10 + randomfloat( 10 ) );
@@ -319,18 +319,18 @@ explodable_barrel_explode()
 
     if ( var_2 < 0.5 )
     {
-        var_4 = self.owner_not + var_0 * 22;
+        var_4 = self.origin + var_0 * 22;
         var_5 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
-        var_3 = var_5 - self.owner_not;
+        var_3 = var_5 - self.origin;
     }
 
     var_3 += ( 0, 0, 4 );
-    self _meth_809C( level._id_12E8 );
-    playfx( level._id_17DD["barrel"]["explode"], self.owner_not + var_3 );
+    self playsound( level._id_12E8 );
+    playfx( level._id_17DD["barrel"]["explode"], self.origin + var_3 );
     level.barrelexplodingthisframe = 1;
 
     if ( isdefined( self.remove ) )
-        self.remove _meth_80B2();
+        self.remove delete();
 
     var_6 = 2;
     var_7 = 1;
@@ -341,25 +341,25 @@ explodable_barrel_explode()
         var_9 = self.rank;
 
     if ( !isdefined( self._id_25A9 ) )
-        self _meth_81D8( self.owner_not + ( 0, 0, 30 ), var_9, var_8, var_7, undefined, "MOD_EXPLOSIVE", "barrel_mp" );
+        self entityradiusdamage( self.origin + ( 0, 0, 30 ), var_9, var_8, var_7, undefined, "MOD_EXPLOSIVE", "barrel_mp" );
     else
-        self _meth_81D8( self.owner_not + ( 0, 0, 30 ), var_9, var_8, var_7, self._id_25A9, "MOD_EXPLOSIVE", "barrel_mp" );
+        self entityradiusdamage( self.origin + ( 0, 0, 30 ), var_9, var_8, var_7, self._id_25A9, "MOD_EXPLOSIVE", "barrel_mp" );
 
-    physicsexplosionsphere( self.owner_not + ( 0, 0, 30 ), var_9, var_9 / 2, var_6 );
-    _id_A7B7::_id_12E5();
+    physicsexplosionsphere( self.origin + ( 0, 0, 30 ), var_9, var_9 / 2, var_6 );
+    maps\mp\gametypes\_shellshock::_id_12E5();
 
     if ( randomint( 2 ) == 0 )
-        self setModel( "com_barrel_piece" );
+        self setmodel( "com_barrel_piece" );
     else
-        self setModel( "com_barrel_piece2" );
+        self setmodel( "com_barrel_piece2" );
 
-    self _meth_82BC( 0 );
+    self setcandamage( 0 );
 
     if ( var_2 < 0.5 )
     {
-        var_4 = self.owner_not + var_0 * 22;
+        var_4 = self.origin + var_0 * 22;
         var_10 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
-        self.owner_not = var_10;
+        self.origin = var_10;
         self.angles += ( 0, 0, 90 );
     }
 
@@ -385,9 +385,9 @@ _id_40FB( var_0, var_1 )
 
 breakable_clip()
 {
-    if ( isdefined( self.team_not ) )
+    if ( isdefined( self._not_team ) )
     {
-        var_0 = getent( self.team_not, "targetname" );
+        var_0 = getent( self._not_team, "targetname" );
 
         if ( var_0.classname == "script_brushmodel" )
         {
@@ -397,7 +397,7 @@ breakable_clip()
     }
 
     if ( isdefined( level.breakables_clip ) && level.breakables_clip.size > 0 )
-        self.remove = getclosestent( self.owner_not, level.breakables_clip );
+        self.remove = getclosestent( self.origin, level.breakables_clip );
 
     if ( isdefined( self.remove ) )
         level.breakables_clip = common_scripts\utility::_id_0CF6( level.breakables_clip, self.remove );

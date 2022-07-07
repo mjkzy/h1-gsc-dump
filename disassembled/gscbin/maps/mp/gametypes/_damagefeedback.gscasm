@@ -1,0 +1,162 @@
+// H1 GSC ASSEMBLY
+// Disassembled by https://github.com/xensik/gsc-tool
+
+sub_init
+		CHECK_CLEAR_PARAMS
+		END
+
+end_
+
+sub__id_9B0C
+		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
+		SAFE_CREATE_VARIABLE_FIELD_CACHED 1
+		CHECK_CLEAR_PARAMS
+		GET_SELF
+		CALL_BUILTIN_FUNC_1 isplayer
+		BOOL_NOT
+		JMP_EXPR_TRUE loc_16
+		EVAL_LOCAL_VARIABLE_CACHED1
+		CALL_BUILTIN_FUNC_1 isdefined
+		BOOL_NOT
+		CAST_BOOL
+	loc_16
+		JMP_FALSE loc_1A
+		END
+	loc_1A
+		EVAL_LOCAL_VARIABLE_CACHED1
+		SWITCH loc_147
+	loc_20
+		GET_STRING "scavenger_pack_pickup"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		EVAL_LEVEL_FIELD_VARIABLE hardcoremode
+		JMP_TRUE loc_3B
+		EVAL_LOCAL_VARIABLE_CACHED1
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+	loc_3B
+		JMP loc_19E
+	loc_40
+		GET_STRING "mp_hit_armor"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		EVAL_LOCAL_VARIABLE_CACHED1
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+		JMP loc_19E
+	loc_5A
+		EVAL_SELF_FIELD_VARIABLE _id_849F
+		CALL_BUILTIN_FUNC_1 isdefined
+		JMP_TRUE loc_78
+		EVAL_LEVEL_FIELD_VARIABLE _id_598B
+		CALL_BUILTIN_FUNC_1 isdefined
+		JMP_FALSE loc_73
+		GET_SELF
+		EVAL_LEVEL_FIELD_VARIABLE _id_598B
+		CALL_METHOD_THREAD_POINTER 0
+		DEC_TOP
+	loc_73
+		JMP loc_7D
+	loc_78
+		GET_BYTE 10
+		SET_SELF_FIELD_VARIABLE_FIELD _id_25A1
+	loc_7D
+		JMP loc_19E
+	loc_82
+		EVAL_LEVEL_FIELD_VARIABLE _id_7CC8
+		CALL_BUILTIN_FUNC_1 isdefined
+		JMP_FALSE loc_A7
+		EVAL_SELF_FIELD_VARIABLE _id_849F
+		CALL_BUILTIN_FUNC_1 isdefined
+		JMP_TRUE loc_A7
+		EVAL_LEVEL_FIELD_VARIABLE _id_598B
+		CALL_BUILTIN_FUNC_1 isdefined
+		JMP_FALSE loc_A7
+		EVAL_LEVEL_FIELD_VARIABLE _id_7CC8
+		GET_SELF
+		EVAL_LEVEL_FIELD_VARIABLE _id_598B
+		CALL_METHOD_THREAD_POINTER 1
+		DEC_TOP
+	loc_A7
+		JMP loc_19E
+	loc_AC
+		GET_STRING "mp_hit_headshot"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		GET_STRING "headshot"
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+		JMP loc_19E
+	loc_CA
+		GET_STRING "mp_hit_armor"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		GET_STRING "hitmorehealth"
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+		JMP loc_19E
+	loc_E8
+		GET_STRING "mp_hit_kill"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		GET_STRING "killshot"
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+		JMP loc_19E
+	loc_106
+		GET_STRING "mp_hit_kill_headshot"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		GET_STRING "killshot_headshot"
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+		JMP loc_19E
+	loc_124
+		JMP loc_19E
+	loc_129
+		GET_STRING "mp_hit_default"
+		GET_SELF
+		CALL_BUILTIN_METHOD_1 playlocalsound
+		DEC_TOP
+		GET_STRING "standard"
+		GET_STRING "damage_feedback"
+		GET_SELF
+		CALL_BUILTIN_METHOD_2 setclientomnvar
+		DEC_TOP
+		JMP loc_19E
+	loc_147
+		ENDSWITCH 12
+			case "headshot" loc_AC
+			case "killshot_headshot" loc_106
+			case "killshot" loc_E8
+			case "hitmorehealth" loc_CA
+			case "laser" loc_82
+			case "hitjuggernaut" loc_40
+			case "hitlightarmor" loc_40
+			case "hitblastshield" loc_40
+			case "scavenger" loc_20
+			case "mp_solar" loc_5A
+			case "none" loc_124
+			default loc_129
+	loc_19E
+		END
+
+end_9B0C

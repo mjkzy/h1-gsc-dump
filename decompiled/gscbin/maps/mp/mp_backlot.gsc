@@ -25,7 +25,7 @@ main()
     maps\mp\mp_backlot_fx::main();
     maps\createart\mp_backlot_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_backlot" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_backlot" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "desert";
@@ -40,7 +40,7 @@ movehpvisuals()
     var_0 = getentarray( "hp_zone_1", "targetname" );
 
     foreach ( var_2 in var_0 )
-        var_2.owner_not += ( 0, 0, -3 );
+        var_2.origin += ( 0, 0, -3 );
 }
 
 misc_rotate_ceilingfans()
@@ -56,7 +56,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -68,7 +68,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

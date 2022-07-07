@@ -21,7 +21,7 @@
 
 _id_4D16()
 {
-    level._id_0575._id_654C = [];
+    level._createfx._id_654C = [];
     _id_0819( "vector", "origin", "Origin", ( 0, 0, 0 ), "fx", 1 );
     _id_0819( "vector", "angles", "Angles", ( 0, 0, 0 ), "fx", 1 );
     _id_0819( "string", "fxid", "FX id", "nil", "fx" );
@@ -35,7 +35,7 @@ _id_4D16()
     _id_0819( "float", "emissive", "Emissive", 1.0, "fx" );
     _id_0819( "float", "sizescale", "Scale", 1.0, "fx" );
 
-    if ( !level._id_5FAC )
+    if ( !level.mp_createfx )
     {
         _id_0819( "string", "firefx", "2nd FX id", "nil", "exploder" );
         _id_0819( "float", "firefxdelay", "2nd FX id repeat rate", 0.5, "exploder" );
@@ -59,7 +59,7 @@ _id_4D16()
     _id_0819( "string", "ambiencename", "Ambience Name", "nil", "soundfx_dynamic" );
     _id_0819( "int", "dynamic_distance", "Dynamic Max Distance", 1000, "soundfx_dynamic" );
 
-    if ( !level._id_5FAC )
+    if ( !level.mp_createfx )
     {
         _id_0819( "string", "rumble", "Rumble", "nil", "exploder" );
         _id_0819( "int", "stoppable", "Can be stopped from script", "1", "all" );
@@ -107,7 +107,7 @@ _id_4D16()
     var_0["none"] = ::_id_5BAF;
     var_0["add_options"] = ::_id_5BA9;
     var_0["select_by_name"] = ::_id_5BB0;
-    level._id_0575._id_5BB4 = var_0;
+    level._createfx._id_5BB4 = var_0;
 }
 
 _id_5BA8( var_0 )
@@ -128,8 +128,8 @@ _id_23B9()
         return;
     }
 
-    if ( isdefined( level._id_0575._id_5BB4[level._id_23B9] ) )
-        [[ level._id_0575._id_5BB4[level._id_23B9] ]]();
+    if ( isdefined( level._createfx._id_5BB4[level._id_23B9] ) )
+        [[ level._createfx._id_5BB4[level._id_23B9] ]]();
 }
 
 _id_5BAC()
@@ -210,11 +210,11 @@ _id_5BAF()
     {
         var_0 = _id_3DB3();
 
-        if ( !isdefined( level._id_5519 ) || var_0 != level._id_5519 || level._id_0575._id_52CC == 1 )
+        if ( !isdefined( level._id_5519 ) || var_0 != level._id_5519 || level._createfx._id_52CC == 1 )
         {
             _id_2B49( var_0 );
             level._id_5519 = var_0;
-            level._id_0575._id_52CC = 0;
+            level._createfx._id_52CC = 0;
         }
 
         if ( common_scripts\_createfx::_id_194C( "a" ) )
@@ -340,21 +340,21 @@ _id_378E( var_0 )
 
 _id_330E()
 {
-    return level._id_0575._id_7C66.size > 0;
+    return level._createfx._id_7C66.size > 0;
 }
 
 _id_5BAA()
 {
-    if ( !level._id_0575._id_7C66.size )
+    if ( !level._createfx._id_7C66.size )
         return;
 
     var_0 = 0;
     var_1 = 0;
     var_2 = _id_3DB3();
 
-    for ( var_3 = 0; var_3 < level._id_0575._id_654C.size; var_3++ )
+    for ( var_3 = 0; var_3 < level._createfx._id_654C.size; var_3++ )
     {
-        var_4 = level._id_0575._id_654C[var_3];
+        var_4 = level._createfx._id_654C[var_3];
 
         if ( !isdefined( var_2.v[var_4["name"]] ) )
             continue;
@@ -394,7 +394,7 @@ _id_6F15( var_0, var_1 )
     }
 
     level._id_240D = 1;
-    level._id_0575._id_4AE9[var_1 + 1][0].color = ( 1, 1, 0 );
+    level._createfx._id_4AE9[var_1 + 1][0].color = ( 1, 1, 0 );
 
     if ( isdefined( var_0["input_func"] ) )
         thread [[ var_0["input_func"] ]]( var_1 + 1 );
@@ -443,9 +443,9 @@ _id_0CA5( var_0, var_1 )
 {
     common_scripts\_createfx::_id_780E();
 
-    for ( var_2 = 0; var_2 < level._id_0575._id_7C66.size; var_2++ )
+    for ( var_2 = 0; var_2 < level._createfx._id_7C66.size; var_2++ )
     {
-        var_3 = level._id_0575._id_7C66[var_2];
+        var_3 = level._createfx._id_7C66[var_2];
 
         if ( _id_59D2( var_0["mask"], var_3.v["type"] ) )
             var_3.v[var_0["name"]] = var_1;
@@ -469,19 +469,19 @@ _id_0CA5( var_0, var_1 )
 
 _id_7E8D( var_0 )
 {
-    for ( var_1 = 0; var_1 < level._id_0575._id_654C.size; var_1++ )
+    for ( var_1 = 0; var_1 < level._createfx._id_654C.size; var_1++ )
     {
-        if ( level._id_0575._id_654C[var_1]["name"] != var_0 )
+        if ( level._createfx._id_654C[var_1]["name"] != var_0 )
             continue;
 
-        level._id_0575._id_7C67 = var_1;
+        level._createfx._id_7C67 = var_1;
         return;
     }
 }
 
 _id_3E5D()
 {
-    return level._id_0575._id_654C[level._id_0575._id_7C67];
+    return level._createfx._id_654C[level._createfx._id_7C67];
 }
 
 _id_59D2( var_0, var_1 )
@@ -506,15 +506,15 @@ _id_0819( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( isdefined( var_6 ) )
         var_7["input_func"] = var_6;
 
-    level._id_0575._id_654C[level._id_0575._id_654C.size] = var_7;
+    level._createfx._id_654C[level._createfx._id_654C.size] = var_7;
 }
 
 _id_3E02( var_0 )
 {
-    for ( var_1 = 0; var_1 < level._id_0575._id_654C.size; var_1++ )
+    for ( var_1 = 0; var_1 < level._createfx._id_654C.size; var_1++ )
     {
-        if ( level._id_0575._id_654C[var_1]["name"] == var_0 )
-            return level._id_0575._id_654C[var_1];
+        if ( level._createfx._id_654C[var_1]["name"] == var_0 )
+            return level._createfx._id_654C[var_1];
     }
 }
 
@@ -524,19 +524,19 @@ _id_4E7D( var_0 )
     {
         wait 0.05;
 
-        if ( level.playercardbackground _meth_8248( "escape" ) || level.playercardbackground _meth_8248( "x" ) )
+        if ( level.playercardbackground buttonpressed( "escape" ) || level.playercardbackground buttonpressed( "x" ) )
             break;
 
         var_1 = 0;
 
-        if ( level.playercardbackground _meth_8248( "-" ) )
+        if ( level.playercardbackground buttonpressed( "-" ) )
             var_1 = -10;
-        else if ( level.playercardbackground _meth_8248( "=" ) )
+        else if ( level.playercardbackground buttonpressed( "=" ) )
             var_1 = 10;
 
         if ( var_1 != 0 )
         {
-            foreach ( var_3 in level._id_0575._id_7C66 )
+            foreach ( var_3 in level._createfx._id_7C66 )
             {
                 if ( isdefined( var_3.v["reactive_radius"] ) )
                 {
@@ -564,12 +564,12 @@ _id_2B48( var_0 )
     var_2 = 0;
     var_3 = 0;
 
-    if ( level._id_301A >= level._id_0575._id_654C.size )
+    if ( level._id_301A >= level._createfx._id_654C.size )
         level._id_301A = 0;
 
-    for ( var_4 = 0; var_4 < level._id_0575._id_654C.size; var_4++ )
+    for ( var_4 = 0; var_4 < level._createfx._id_654C.size; var_4++ )
     {
-        var_5 = level._id_0575._id_654C[var_4];
+        var_5 = level._createfx._id_654C[var_4];
 
         if ( isdefined( var_0.v[var_5["name"]] ) )
             continue;
@@ -615,9 +615,9 @@ _id_0781( var_0 )
 {
     var_1 = undefined;
 
-    for ( var_2 = 0; var_2 < level._id_0575._id_7C66.size; var_2++ )
+    for ( var_2 = 0; var_2 < level._createfx._id_7C66.size; var_2++ )
     {
-        var_3 = level._id_0575._id_7C66[var_2];
+        var_3 = level._createfx._id_7C66[var_2];
 
         if ( _id_59D2( var_0["mask"], var_3.v["type"] ) )
             var_3.v[var_0["name"]] = var_0["default"];
@@ -649,9 +649,9 @@ _id_2B49( var_0 )
         var_2 = 0;
         var_3 = 0;
 
-        for ( var_4 = 0; var_4 < level._id_0575._id_654C.size; var_4++ )
+        for ( var_4 = 0; var_4 < level._createfx._id_654C.size; var_4++ )
         {
-            var_5 = level._id_0575._id_654C[var_4];
+            var_5 = level._createfx._id_654C[var_4];
 
             if ( !isdefined( var_0.v[var_5["name"]] ) )
                 continue;
@@ -685,9 +685,9 @@ _id_2B49( var_0 )
         var_1 = 0;
         var_3 = 0;
 
-        for ( var_4 = 0; var_4 < level._id_0575._id_654C.size; var_4++ )
+        for ( var_4 = 0; var_4 < level._createfx._id_654C.size; var_4++ )
         {
-            var_5 = level._id_0575._id_654C[var_4];
+            var_5 = level._createfx._id_654C[var_4];
 
             if ( !isdefined( var_0.v[var_5["name"]] ) )
                 continue;
@@ -695,7 +695,7 @@ _id_2B49( var_0 )
             var_1++;
             common_scripts\_createfx::_id_7E42( var_5["description"] + ": " + var_0.v[var_5["name"]] );
 
-            if ( var_1 > level._id_0575._id_4AE1 )
+            if ( var_1 > level._createfx._id_4AE1 )
                 break;
         }
     }
@@ -877,10 +877,10 @@ _id_7C5A()
 
     common_scripts\_createfx::_id_28B2();
     common_scripts\_createfx::_id_7C5E( var_5 );
-    level._id_0575._id_7C5A = 1;
+    level._createfx._id_7C5A = 1;
 }
 
 _id_3DB3()
 {
-    return level._id_0575._id_7C66[level._id_0575._id_7C66.size - 1];
+    return level._createfx._id_7C66[level._createfx._id_7C66.size - 1];
 }

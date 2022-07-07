@@ -25,7 +25,7 @@ main()
     maps\mp\mp_pipeline_fx::main();
     maps\createart\mp_pipeline_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_pipeline" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_pipeline" );
     game["attackers"] = "allies";
     game["defenders"] = "axis";
     setdvar( "r_specularcolorscale", "1" );
@@ -46,7 +46,7 @@ fix_sab_bomb()
     {
         var_0 = maps\mp\gametypes\common_bomb_gameobject::getcarrybombvisuals( "sab_bomb" );
         var_1 = var_0[0];
-        var_1.owner_not = ( var_1.owner_not[0], var_1.owner_not[1], var_1.owner_not[2] + 7.5 );
+        var_1.origin = ( var_1.origin[0], var_1.origin[1], var_1.origin[2] + 7.5 );
     }
 }
 
@@ -56,11 +56,11 @@ replace_turrets()
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = var_2.owner_not;
+        var_3 = var_2.origin;
         var_4 = var_2.angles;
-        var_2 _meth_80B2();
+        var_2 delete();
         var_5 = spawnturret( "misc_turret", var_3, "saw_bipod_crouch_mp", 0 );
-        var_5 setModel( "weapon_saw_MG_setup" );
+        var_5 setmodel( "weapon_saw_MG_setup" );
         var_5.angles = var_4;
     }
 }
@@ -73,7 +73,7 @@ delete_botconnect_clip()
 
         if ( isdefined( var_0 ) )
         {
-            var_0 _meth_80B2();
+            var_0 delete();
             break;
         }
 
@@ -94,7 +94,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -106,7 +106,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

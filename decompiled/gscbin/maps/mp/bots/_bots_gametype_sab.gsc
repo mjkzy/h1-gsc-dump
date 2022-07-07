@@ -27,8 +27,8 @@ main()
 
 _id_8072()
 {
-    level._id_161B["gametype_think"] = ::bot_sab_think;
-    level._id_161B["notify_enemy_bots_bomb_used"] = ::_id_6206;
+    level.bot_funcs["gametype_think"] = ::bot_sab_think;
+    level.bot_funcs["notify_enemy_bots_bomb_used"] = ::_id_6206;
 }
 
 bot_sab_start()
@@ -70,10 +70,10 @@ bot_sab_think()
     while ( !isdefined( level._id_1628 ) )
         wait 0.05;
 
-    self _meth_834F( "separation", 0 );
-    self _meth_834F( "grenade_objectives", 1 );
+    self botsetflag( "separation", 0 );
+    self botsetflag( "grenade_objectives", 1 );
     var_0 = undefined;
-    var_1 = randomint( 100 ) < self _meth_8379( "strategyLevel" ) * 25;
+    var_1 = randomint( 100 ) < self botgetdifficultysetting( "strategyLevel" ) * 25;
     var_2 = ( 0, 0, 0 );
     self._id_27BC = 0;
 
@@ -93,7 +93,7 @@ bot_sab_think()
                 if ( maps\mp\bots\_bots_util::_id_165D() )
                     maps\mp\bots\_bots_strategy::_id_15EF();
 
-                self _meth_8352( level._id_7749.curOrigin, 16, "critical" );
+                self _meth_8352( level._id_7749.curorigin, 16, "critical" );
             }
             else if ( var_3 == self )
             {
@@ -115,8 +115,8 @@ bot_sab_think()
 
                 if ( !isdefined( var_0 ) )
                 {
-                    var_6 = distance( self.owner_not, level._id_7749.curOrigin );
-                    var_7 = distance( self.owner_not, var_5.curOrigin );
+                    var_6 = distance( self.origin, level._id_7749.curorigin );
+                    var_7 = distance( self.origin, var_5.curorigin );
 
                     if ( randomfloat( 1.0 ) < 0.75 || var_6 < var_7 )
                         var_0 = "hunt_carrier";
@@ -131,22 +131,22 @@ bot_sab_think()
 
                 if ( var_0 == "hunt_carrier" )
                 {
-                    if ( !maps\mp\bots\_bots_util::_id_172A( var_2, level._id_7749.curOrigin ) )
+                    if ( !maps\mp\bots\_bots_util::_id_172A( var_2, level._id_7749.curorigin ) )
                     {
-                        var_2 = level._id_7749.curOrigin;
+                        var_2 = level._id_7749.curorigin;
                         var_8 = var_2 - ( 0, 0, 75 );
-                        var_9 = var_1 && distance( var_8, var_5.curOrigin ) > level._id_703F;
+                        var_9 = var_1 && distance( var_8, var_5.curorigin ) > level._id_703F;
 
                         if ( var_9 )
                         {
                             var_10 = undefined;
-                            var_11 = getnodesonpath( var_8, common_scripts\utility::_id_710E( var_5._id_174F ).owner_not );
+                            var_11 = getnodesonpath( var_8, common_scripts\utility::_id_710E( var_5._id_174F ).origin );
 
                             if ( isdefined( var_11 ) && var_11.size > 0 )
-                                var_10 = var_11[int( var_11.size * randomfloatrange( 0.25, 0.75 ) )].owner_not;
+                                var_10 = var_11[int( var_11.size * randomfloatrange( 0.25, 0.75 ) )].origin;
 
                             if ( isdefined( var_10 ) && maps\mp\bots\_bots_personality::_id_3753( var_10, 512 ) )
-                                self _meth_8353( self._id_6121, "guard", self._id_0B68 );
+                                self botsetscriptgoal( self._id_6121, "guard", self._id_0B68 );
                             else
                                 var_9 = 0;
                         }
@@ -157,11 +157,11 @@ bot_sab_think()
                 }
                 else if ( var_0 == "defend_zone" )
                 {
-                    if ( !bot_is_protecting_point( var_5.curOrigin ) )
+                    if ( !bot_is_protecting_point( var_5.curorigin ) )
                     {
                         var_12["score_flags"] = "strict_los";
                         var_12["override_origin_node"] = common_scripts\utility::_id_710E( var_5._id_174F );
-                        maps\mp\bots\_bots_strategy::_id_16C2( var_5.curOrigin, level._id_703F, var_12 );
+                        maps\mp\bots\_bots_strategy::_id_16C2( var_5.curorigin, level._id_703F, var_12 );
                     }
                 }
             }
@@ -173,10 +173,10 @@ bot_sab_think()
 
         if ( var_13._id_663A != self.team )
         {
-            if ( !bot_is_protecting_point( level._id_7749.curOrigin ) )
+            if ( !bot_is_protecting_point( level._id_7749.curorigin ) )
             {
                 var_12["score_flags"] = "strongly_avoid_center";
-                maps\mp\bots\_bots_strategy::_id_16C2( level._id_7749.curOrigin, level._id_703F, var_12 );
+                maps\mp\bots\_bots_strategy::_id_16C2( level._id_7749.curorigin, level._id_703F, var_12 );
             }
         }
         else
@@ -187,8 +187,8 @@ bot_sab_think()
                 self._id_759A = "defuser";
             else if ( isai( var_14 ) )
             {
-                var_15 = distance( self.owner_not, var_13.curOrigin );
-                var_16 = distance( var_14.owner_not, var_13.curOrigin );
+                var_15 = distance( self.origin, var_13.curorigin );
+                var_16 = distance( var_14.origin, var_13.curorigin );
 
                 if ( var_15 < var_16 * 0.9 )
                 {
@@ -199,12 +199,12 @@ bot_sab_think()
 
             if ( isdefined( self._id_759A ) && self._id_759A == "defuser" )
                 defuse_bomb( var_13 );
-            else if ( !bot_is_protecting_point( var_13.curOrigin ) )
+            else if ( !bot_is_protecting_point( var_13.curorigin ) )
             {
                 var_12["min_goal_time"] = 2;
                 var_12["max_goal_time"] = 4;
                 var_12["override_origin_node"] = common_scripts\utility::_id_710E( var_13._id_174F );
-                maps\mp\bots\_bots_strategy::_id_16C2( var_13.curOrigin, level._id_703F, var_12 );
+                maps\mp\bots\_bots_strategy::_id_16C2( var_13.curorigin, level._id_703F, var_12 );
             }
         }
     }
@@ -215,20 +215,20 @@ _id_3E56()
     if ( level._id_1545 )
         return level._id_27BB;
     else
-        return gettime() + _id_A793::_id_4131();
+        return gettime() + maps\mp\gametypes\_gamelogic::_id_4131();
 }
 
 clear_non_tactical_goal()
 {
-    if ( self _meth_835B() != "tactical" )
-        self _meth_8354();
+    if ( self botgetscriptgoaltype() != "tactical" )
+        self botclearscriptgoal();
 }
 
 plant_bomb( var_0 )
 {
     self endon( "change_role" );
     var_1 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_plant_on( var_0, 0 );
-    self _meth_8352( var_1.owner_not, 0, "critical" );
+    self _meth_8352( var_1.origin, 0, "critical" );
     var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
 
     if ( var_2 == "goal" )
@@ -249,8 +249,8 @@ plant_bomb( var_0 )
 defuse_bomb( var_0 )
 {
     self endon( "change_role" );
-    self _meth_8377( "scripted" );
-    var_1 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_defuse_on( var_0 ).owner_not;
+    self botsetpathingstyle( "scripted" );
+    var_1 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_defuse_on( var_0 ).origin;
     self _meth_8352( var_1, 20, "critical" );
     var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
 
@@ -275,7 +275,7 @@ defuse_bomb( var_0 )
                         break;
                 }
                 else
-                    self _meth_8352( var_3[var_4].owner_not, 20, "critical" );
+                    self _meth_8352( var_3[var_4].origin, 20, "critical" );
 
                 var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
 
@@ -316,7 +316,7 @@ bot_sab_clear_role()
 {
     self._id_759A = undefined;
     clear_non_tactical_goal();
-    self _meth_8377( undefined );
+    self botsetpathingstyle( undefined );
     maps\mp\bots\_bots_strategy::_id_15EF();
     self notify( "change_role" );
     self._id_27BC = 0;
@@ -386,7 +386,7 @@ investigate_someone_using_bomb( var_0 )
     if ( maps\mp\bots\_bots_util::_id_165D() )
         maps\mp\bots\_bots_strategy::_id_15EF();
 
-    self _meth_8353( common_scripts\utility::_id_710E( var_0._id_174F ), "critical" );
+    self botsetscriptgoal( common_scripts\utility::_id_710E( var_0._id_174F ), "critical" );
     var_1 = maps\mp\bots\_bots_util::_id_172E();
 
     if ( var_1 == "goal" )

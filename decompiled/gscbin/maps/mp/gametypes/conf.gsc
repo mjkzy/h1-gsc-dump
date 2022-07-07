@@ -25,38 +25,38 @@ main()
         return;
 
     maps\mp\gametypes\_globallogic::init();
-    maps\mp\gametypes\_callbacksetup::SetupCallbacks();
-    maps\mp\gametypes\_globallogic::SetupCallbacks();
+    maps\mp\gametypes\_callbacksetup::setupcallbacks();
+    maps\mp\gametypes\_globallogic::setupcallbacks();
 
     if ( isusingmatchrulesdata() )
     {
-        level.initializeMatchRules = ::initializeMatchRules;
-        [[ level.initializeMatchRules ]]();
-        level thread maps\mp\_utility::reInitializeMatchRulesOnMigration();
+        level.initializematchrules = ::initializematchrules;
+        [[ level.initializematchrules ]]();
+        level thread maps\mp\_utility::reinitializematchrulesonmigration();
     }
     else
     {
-        maps\mp\_utility::registerRoundSwitchDvar( level.gametype, 0, 0, 9 );
-        maps\mp\_utility::registerTimeLimitDvar( level.gametype, 10 );
-        maps\mp\_utility::registerScoreLimitDvar( level.gametype, 65 );
-        maps\mp\_utility::registerRoundLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerWinLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerNumLivesDvar( level.gametype, 0 );
-        maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
-        level.matchRules_damageMultiplier = 0;
-        level.matchRules_vampirism = 0;
+        maps\mp\_utility::registerroundswitchdvar( level.gametype, 0, 0, 9 );
+        maps\mp\_utility::registertimelimitdvar( level.gametype, 10 );
+        maps\mp\_utility::registerscorelimitdvar( level.gametype, 65 );
+        maps\mp\_utility::registerroundlimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registerwinlimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registernumlivesdvar( level.gametype, 0 );
+        maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
+        level.matchrules_damagemultiplier = 0;
+        level.matchrules_vampirism = 0;
     }
 
-    level.teamBased = 1;
-    level.onStartGameType = ::onStartGameType;
-    level.getSpawnPoint = ::getSpawnPoint;
-    level.onNormalDeath = ::onNormalDeath;
+    level.teambased = 1;
+    level.onstartgametype = ::onstartgametype;
+    level.getspawnpoint = ::getspawnpoint;
+    level.onnormaldeath = ::onnormaldeath;
     level.killstreak_kills = getdvarint( "scr_conf_killstreak_kill", 1 );
     level.killstreak_tag_friendly = getdvarint( "scr_conf_killstreak_tag_friendly", 0 );
     level.killstreak_tag_enemy = getdvarint( "scr_conf_killstreak_tag_enemy", 0 );
 
-    if ( level.matchRules_damageMultiplier || level.matchRules_vampirism )
-        level.modifyPlayerDamage = maps\mp\gametypes\_damage::gamemodeModifyPlayerDamage;
+    if ( level.matchrules_damagemultiplier || level.matchrules_vampirism )
+        level.modifyplayerdamage = maps\mp\gametypes\_damage::gamemodemodifyplayerdamage;
 
     game["dialog"]["gametype"] = "kc_intro";
     game["dialog"]["kill_confirmed"] = "kc_killconfirmed";
@@ -67,17 +67,17 @@ main()
     level.conf_fx["vanish"] = loadfx( "vfx/unique/dogtag_vanish" );
 }
 
-initializeMatchRules()
+initializematchrules()
 {
-    maps\mp\_utility::setCommonRulesFromMatchRulesData();
+    maps\mp\_utility::setcommonrulesfrommatchrulesdata();
     setdynamicdvar( "scr_conf_roundswitch", 0 );
-    maps\mp\_utility::registerRoundSwitchDvar( "conf", 0, 0, 9 );
+    maps\mp\_utility::registerroundswitchdvar( "conf", 0, 0, 9 );
     setdynamicdvar( "scr_conf_roundlimit", 1 );
-    maps\mp\_utility::registerRoundLimitDvar( "conf", 1 );
+    maps\mp\_utility::registerroundlimitdvar( "conf", 1 );
     setdynamicdvar( "scr_conf_winlimit", 1 );
-    maps\mp\_utility::registerWinLimitDvar( "conf", 1 );
+    maps\mp\_utility::registerwinlimitdvar( "conf", 1 );
     setdynamicdvar( "scr_conf_halftime", 0 );
-    maps\mp\_utility::registerHalfTimeDvar( "conf", 0 );
+    maps\mp\_utility::registerhalftimedvar( "conf", 0 );
     var_0 = 0;
     var_1 = 0;
     var_2 = 0;
@@ -98,7 +98,7 @@ initializeMatchRules()
     setdynamicdvar( "scr_conf_killstreak_tag_enemy", var_2 );
 }
 
-onStartGameType()
+onstartgametype()
 {
     setclientnamemode( "auto_change" );
 
@@ -113,52 +113,52 @@ onStartGameType()
         game["defenders"] = var_0;
     }
 
-    maps\mp\_utility::setObjectiveText( "allies", &"OBJECTIVES_CONF" );
-    maps\mp\_utility::setObjectiveText( "axis", &"OBJECTIVES_CONF" );
+    maps\mp\_utility::setobjectivetext( "allies", &"OBJECTIVES_CONF" );
+    maps\mp\_utility::setobjectivetext( "axis", &"OBJECTIVES_CONF" );
 
     if ( level.splitscreen )
     {
-        maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_CONF" );
-        maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_CONF" );
+        maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_CONF" );
+        maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_CONF" );
     }
     else
     {
-        maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_CONF_SCORE" );
-        maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_CONF_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_CONF_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_CONF_SCORE" );
     }
 
-    maps\mp\_utility::setObjectiveHintText( "allies", &"OBJECTIVES_CONF_HINT" );
-    maps\mp\_utility::setObjectiveHintText( "axis", &"OBJECTIVES_CONF_HINT" );
-    initSpawns();
+    maps\mp\_utility::setobjectivehinttext( "allies", &"OBJECTIVES_CONF_HINT" );
+    maps\mp\_utility::setobjectivehinttext( "axis", &"OBJECTIVES_CONF_HINT" );
+    initspawns();
     level.dogtags = [];
     var_2[0] = level.gametype;
     maps\mp\gametypes\_gameobjects::main( var_2 );
 }
 
-initSpawns()
+initspawns()
 {
-    level.spawnMins = ( 0, 0, 0 );
-    level.spawnMaxs = ( 0, 0, 0 );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_allies_start" );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_axis_start" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "allies", "mp_tdm_spawn" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "axis", "mp_tdm_spawn" );
-    level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
-    setmapcenter( level.mapCenter );
+    level.spawnmins = ( 0, 0, 0 );
+    level.spawnmaxs = ( 0, 0, 0 );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "axis", "mp_tdm_spawn" );
+    level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
+    setmapcenter( level.mapcenter );
 }
 
-getSpawnPoint()
+getspawnpoint()
 {
     var_0 = self.pers["team"];
 
     if ( game["switchedsides"] )
-        var_0 = maps\mp\_utility::getOtherTeam( var_0 );
+        var_0 = maps\mp\_utility::getotherteam( var_0 );
 
-    if ( level._id_9C14 && level.inGracePeriod )
+    if ( level.usestartspawns && level.ingraceperiod )
         var_1 = maps\mp\gametypes\_spawnlogic::getbeststartspawn( "mp_tdm_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 );
+        var_2 = maps\mp\gametypes\_spawnlogic::getteamspawnpoints( var_0 );
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2 );
     }
 
@@ -166,21 +166,21 @@ getSpawnPoint()
     return var_1;
 }
 
-onNormalDeath( var_0, var_1, var_2 )
+onnormaldeath( var_0, var_1, var_2 )
 {
-    level thread spawnDogTags( var_0, var_1 );
+    level thread spawndogtags( var_0, var_1 );
 
     if ( game["state"] == "postgame" && game["teamScores"][var_1.team] > game["teamScores"][level._id_65B3[var_1.team]] )
-        var_1.finalKill = 1;
+        var_1.finalkill = 1;
 }
 
-spawnDogTags( var_0, var_1 )
+spawndogtags( var_0, var_1 )
 {
     var_2 = var_0.pers["team"];
 
     if ( isdefined( level.dogtags[var_0.guid] ) )
     {
-        playfx( level.conf_fx["vanish"], level.dogtags[var_0.guid].curOrigin );
+        playfx( level.conf_fx["vanish"], level.dogtags[var_0.guid].curorigin );
         level.dogtags[var_0.guid] notify( "reset" );
     }
     else
@@ -192,87 +192,87 @@ spawnDogTags( var_0, var_1 )
             level.killconfirmeddogtagfriend = "h1_dogtag_friend_animated";
 
         var_3[0] = spawn( "script_model", ( 0, 0, 0 ) );
-        var_3[0] setModel( level.killconfirmeddogtagenemy );
+        var_3[0] setmodel( level.killconfirmeddogtagenemy );
         var_3[1] = spawn( "script_model", ( 0, 0, 0 ) );
-        var_3[1] setModel( level.killconfirmeddogtagfriend );
+        var_3[1] setmodel( level.killconfirmeddogtagfriend );
         var_4 = spawn( "trigger_radius", ( 0, 0, 0 ), 0, 32, 32 );
-        level.dogtags[var_0.guid] = maps\mp\gametypes\_gameobjects::createUseObject( "any", var_4, var_3, ( 0, 0, 16 ) );
-        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].teamObjIds );
+        level.dogtags[var_0.guid] = maps\mp\gametypes\_gameobjects::createuseobject( "any", var_4, var_3, ( 0, 0, 16 ) );
+        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].teamobjids );
         maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid]._id_6306 );
         maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid]._id_6309 );
-        maps\mp\gametypes\_objpoints::deleteObjPoint( level.dogtags[var_0.guid]._id_6316["allies"] );
-        maps\mp\gametypes\_objpoints::deleteObjPoint( level.dogtags[var_0.guid]._id_6316["axis"] );
-        maps\mp\gametypes\_objpoints::deleteObjPoint( level.dogtags[var_0.guid]._id_6316["mlg"] );
-        level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::setUseTime( 0 );
-        level.dogtags[var_0.guid].onUse = ::onUse;
+        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid]._id_6316["allies"] );
+        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid]._id_6316["axis"] );
+        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid]._id_6316["mlg"] );
+        level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::setusetime( 0 );
+        level.dogtags[var_0.guid].onuse = ::onuse;
         level.dogtags[var_0.guid]._id_9E07 = var_0;
         level.dogtags[var_0.guid]._id_9E0A = var_2;
-        level.dogtags[var_0.guid].objId = maps\mp\gametypes\_gameobjects::getNextObjID();
-        objective_add( level.dogtags[var_0.guid].objId, "invisible", ( 0, 0, 0 ) );
-        objective_icon( level.dogtags[var_0.guid].objId, "waypoint_dogtags" );
-        level.dogtags[var_0.guid].objidself = maps\mp\gametypes\_gameobjects::getNextObjID();
+        level.dogtags[var_0.guid].objid = maps\mp\gametypes\_gameobjects::getnextobjid();
+        objective_add( level.dogtags[var_0.guid].objid, "invisible", ( 0, 0, 0 ) );
+        objective_icon( level.dogtags[var_0.guid].objid, "waypoint_dogtags" );
+        level.dogtags[var_0.guid].objidself = maps\mp\gametypes\_gameobjects::getnextobjid();
         objective_add( level.dogtags[var_0.guid].objidself, "invisible", ( 0, 0, 0 ) );
         objective_icon( level.dogtags[var_0.guid].objidself, "waypoint_dogtags_friendlys" );
-        level thread clearOnVictimDisconnect( var_0 );
-        var_0 thread tagTeamUpdater( level.dogtags[var_0.guid] );
+        level thread clearonvictimdisconnect( var_0 );
+        var_0 thread tagteamupdater( level.dogtags[var_0.guid] );
     }
 
-    var_5 = var_0.owner_not + ( 0, 0, 14 );
-    level.dogtags[var_0.guid].curOrigin = var_5;
-    level.dogtags[var_0.guid].trigger.owner_not = var_5;
-    level.dogtags[var_0.guid].visuals[0].owner_not = var_5;
-    level.dogtags[var_0.guid].visuals[1].owner_not = var_5;
-    level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::initializeTagPathVariables();
-    level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::allowUse( "any" );
-    level.dogtags[var_0.guid].visuals[0] thread showToTeam( level.dogtags[var_0.guid], maps\mp\_utility::getOtherTeam( var_2 ) );
-    level.dogtags[var_0.guid].visuals[1] thread showToTeam( level.dogtags[var_0.guid], var_2 );
+    var_5 = var_0.origin + ( 0, 0, 14 );
+    level.dogtags[var_0.guid].curorigin = var_5;
+    level.dogtags[var_0.guid].trigger.origin = var_5;
+    level.dogtags[var_0.guid].visuals[0].origin = var_5;
+    level.dogtags[var_0.guid].visuals[1].origin = var_5;
+    level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::initializetagpathvariables();
+    level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::allowuse( "any" );
+    level.dogtags[var_0.guid].visuals[0] thread showtoteam( level.dogtags[var_0.guid], maps\mp\_utility::getotherteam( var_2 ) );
+    level.dogtags[var_0.guid].visuals[1] thread showtoteam( level.dogtags[var_0.guid], var_2 );
     level.dogtags[var_0.guid].attacker = var_1;
-    objective_position( level.dogtags[var_0.guid].objId, var_5 );
-    objective_state( level.dogtags[var_0.guid].objId, "active" );
-    objective_playerenemyteam( level.dogtags[var_0.guid].objId, var_0 _meth_81B5() );
+    objective_position( level.dogtags[var_0.guid].objid, var_5 );
+    objective_state( level.dogtags[var_0.guid].objid, "active" );
+    objective_playerenemyteam( level.dogtags[var_0.guid].objid, var_0 getentitynumber() );
     objective_position( level.dogtags[var_0.guid].objidself, var_5 );
     objective_state( level.dogtags[var_0.guid].objidself, "active" );
-    objective_player( level.dogtags[var_0.guid].objidself, var_0 _meth_81B5() );
+    objective_player( level.dogtags[var_0.guid].objidself, var_0 getentitynumber() );
     playsoundatpos( var_5, "mp_killconfirm_tags_drop" );
-    level.dogtags[var_0.guid].visuals[0] ScriptModelPlayAnim( "mp_dogtag_spin" );
-    level.dogtags[var_0.guid].visuals[1] ScriptModelPlayAnim( "mp_dogtag_spin" );
+    level.dogtags[var_0.guid].visuals[0] scriptmodelplayanim( "mp_dogtag_spin" );
+    level.dogtags[var_0.guid].visuals[1] scriptmodelplayanim( "mp_dogtag_spin" );
 }
 
-showToTeam( var_0, var_1 )
+showtoteam( var_0, var_1 )
 {
     var_0 endon( "death" );
     var_0 endon( "reset" );
-    self _meth_8056();
+    self hide();
 
     foreach ( var_3 in level.players )
     {
         if ( var_3.team == var_1 )
-            self ShowToPlayer( var_3 );
+            self showtoplayer( var_3 );
 
         if ( var_3.team == "spectator" && var_1 == "allies" )
-            self ShowToPlayer( var_3 );
+            self showtoplayer( var_3 );
     }
 
     for (;;)
     {
         level waittill( "joined_team" );
-        self _meth_8056();
+        self hide();
 
         foreach ( var_3 in level.players )
         {
             if ( var_3.team == var_1 )
-                self ShowToPlayer( var_3 );
+                self showtoplayer( var_3 );
 
             if ( var_3.team == "spectator" && var_1 == "allies" )
-                self ShowToPlayer( var_3 );
+                self showtoplayer( var_3 );
 
             if ( var_0._id_9E0A == var_3.team && var_3 == var_0.attacker )
-                objective_state( var_0.objId, "invisible" );
+                objective_state( var_0.objid, "invisible" );
         }
     }
 }
 
-onUse( var_0 )
+onuse( var_0 )
 {
     if ( isdefined( var_0.owner ) )
         var_0 = var_0.owner;
@@ -281,7 +281,7 @@ onUse( var_0 )
 
     if ( var_1 == self._id_9E0A )
     {
-        self.trigger _meth_809C( "mp_kc_tag_denied" );
+        self.trigger playsound( "mp_kc_tag_denied" );
 
         if ( isplayer( var_0 ) )
             var_0 maps\mp\_utility::_id_5655( "kill_denied" );
@@ -290,30 +290,30 @@ onUse( var_0 )
             self.attacker maps\mp\_utility::_id_5655( "kc_killlost" );
 
         var_2 = self._id_9E07 == var_0;
-        var_0 _id_A738::_id_5359( var_2 );
+        var_0 maps\mp\_events::_id_5359( var_2 );
 
         if ( level.killstreak_tag_friendly )
             maps\mp\gametypes\_damage::incrementkillstreak( var_0 );
     }
     else
     {
-        self.trigger _meth_809C( "mp_kc_tag_collected" );
+        self.trigger playsound( "mp_kc_tag_collected" );
 
         if ( isplayer( self.attacker ) && self.attacker != var_0 )
-            level thread _id_A7B4::_id_1208( "team_confirmed", self.attacker );
+            level thread maps\mp\gametypes\_rank::_id_1208( "team_confirmed", self.attacker );
 
-        var_0 _id_A738::_id_5356();
+        var_0 maps\mp\_events::_id_5356();
 
         if ( isplayer( var_0 ) )
             var_0 maps\mp\_utility::_id_5655( "kill_confirmed" );
 
-        var_0 _id_A795::_id_420C( var_1, 1 );
+        var_0 maps\mp\gametypes\_gamescores::_id_420C( var_1, 1 );
 
         if ( level.killstreak_tag_enemy )
             maps\mp\gametypes\_damage::incrementkillstreak( var_0 );
     }
 
-    level thread _id_A738::_id_5ED2( var_0 );
+    level thread maps\mp\_events::_id_5ED2( var_0 );
     _id_7461();
 }
 
@@ -321,18 +321,18 @@ _id_7461()
 {
     self.attacker = undefined;
     self notify( "reset" );
-    self.visuals[0] _meth_8056();
-    self.visuals[1] _meth_8056();
-    self.curOrigin = ( 0, 0, 1000 );
-    self.trigger.owner_not = ( 0, 0, 1000 );
-    self.visuals[0].owner_not = ( 0, 0, 1000 );
-    self.visuals[1].owner_not = ( 0, 0, 1000 );
-    maps\mp\gametypes\_gameobjects::allowUse( "none" );
-    objective_state( self.objId, "invisible" );
+    self.visuals[0] hide();
+    self.visuals[1] hide();
+    self.curorigin = ( 0, 0, 1000 );
+    self.trigger.origin = ( 0, 0, 1000 );
+    self.visuals[0].origin = ( 0, 0, 1000 );
+    self.visuals[1].origin = ( 0, 0, 1000 );
+    maps\mp\gametypes\_gameobjects::allowuse( "none" );
+    objective_state( self.objid, "invisible" );
     objective_state( self.objidself, "invisible" );
 }
 
-tagTeamUpdater( var_0 )
+tagteamupdater( var_0 )
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
@@ -345,7 +345,7 @@ tagTeamUpdater( var_0 )
     }
 }
 
-clearOnVictimDisconnect( var_0 )
+clearonvictimdisconnect( var_0 )
 {
     level endon( "game_ended" );
     var_1 = var_0.guid;
@@ -353,19 +353,19 @@ clearOnVictimDisconnect( var_0 )
 
     if ( isdefined( level.dogtags[var_1] ) )
     {
-        level.dogtags[var_1] maps\mp\gametypes\_gameobjects::allowUse( "none" );
-        playfx( level.conf_fx["vanish"], level.dogtags[var_1].curOrigin );
+        level.dogtags[var_1] maps\mp\gametypes\_gameobjects::allowuse( "none" );
+        playfx( level.conf_fx["vanish"], level.dogtags[var_1].curorigin );
         level.dogtags[var_1] notify( "reset" );
         wait 0.05;
 
         if ( isdefined( level.dogtags[var_1] ) )
         {
-            objective_delete( level.dogtags[var_1].objId );
+            objective_delete( level.dogtags[var_1].objid );
             objective_delete( level.dogtags[var_1].objidself );
-            level.dogtags[var_1].trigger _meth_80B2();
+            level.dogtags[var_1].trigger delete();
 
             for ( var_2 = 0; var_2 < level.dogtags[var_1].visuals.size; var_2++ )
-                level.dogtags[var_1].visuals[var_2] _meth_80B2();
+                level.dogtags[var_1].visuals[var_2] delete();
 
             level.dogtags[var_1] notify( "deleted" );
             level.dogtags[var_1] = undefined;

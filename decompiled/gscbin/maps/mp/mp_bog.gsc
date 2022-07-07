@@ -26,7 +26,7 @@ main()
     maps\createart\mp_bog_art::main();
     maps\mp\_load::main();
     _id_A769::init();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_bog" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_bog" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     setdvar( "compassmaxrange", "1800" );
@@ -50,8 +50,8 @@ main()
     else if ( level.gametype == "ctf" )
         maps\mp\gametypes\ctf::flagbasefxdark();
 
-    _id_A7BC::setfactiontableoverride( "marines", _id_A7BC::getteamheadiconcol(), "h1_headicon_marines_night" );
-    _id_A7BC::setfactiontableoverride( "opfor", _id_A7BC::getteamheadiconcol(), "h1_headicon_opfor_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "marines", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_marines_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "opfor", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_opfor_night" );
     level.killconfirmeddogtagenemy = "h1_dogtag_enemy_animated_night";
     level.killconfirmeddogtagfriend = "h1_dogtag_friend_animated_night";
     level.bombsquadmodelc4 = "weapon_c4_bombsquad_mw1_night";
@@ -72,7 +72,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

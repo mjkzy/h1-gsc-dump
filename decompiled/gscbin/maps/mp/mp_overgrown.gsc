@@ -26,7 +26,7 @@ main()
     maps\createart\mp_overgrown_art::main();
     maps\mp\_load::main();
     _id_A769::init();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_overgrown_dlc" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_overgrown_dlc" );
     ambientplay( "amb_mp_overgrown_ext" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
@@ -41,7 +41,7 @@ scriptpatchclip()
 {
     wait 1.0;
 
-    if ( !level._id_7137 )
+    if ( !level.rankedmatch )
     {
         var_0 = maps\mp\_utility::spawnpatchclip( "patchclip_ai_16_64_64", ( 1218, -4104, -86 ), ( 0, 0, 0 ) );
         var_1 = getnodesinradiussorted( ( 1136, -4112, -83 ), 256, 0 )[0];

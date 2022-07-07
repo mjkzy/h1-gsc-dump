@@ -63,7 +63,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -75,7 +75,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -87,7 +87,7 @@ ceilingfan_rotate_med_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

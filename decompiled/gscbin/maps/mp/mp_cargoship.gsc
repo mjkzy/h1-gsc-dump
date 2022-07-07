@@ -25,7 +25,7 @@ main()
     maps\mp\mp_cargoship_fx::main();
     maps\createart\mp_cargoship_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_cargoship" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_cargoship" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "woodland";
@@ -52,8 +52,8 @@ main()
         level.domborderfx["neutral"]["_c"] = "vfx/unique/vfx_marker_dom_w_mid";
     }
 
-    _id_A7BC::setfactiontableoverride( "marines", _id_A7BC::getteamheadiconcol(), "h1_headicon_marines_night" );
-    _id_A7BC::setfactiontableoverride( "opfor", _id_A7BC::getteamheadiconcol(), "h1_headicon_opfor_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "marines", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_marines_night" );
+    maps\mp\gametypes\_teams::setfactiontableoverride( "opfor", maps\mp\gametypes\_teams::getteamheadiconcol(), "h1_headicon_opfor_night" );
     level.killconfirmeddogtagenemy = "h1_dogtag_enemy_animated_night";
     level.killconfirmeddogtagfriend = "h1_dogtag_friend_animated_night";
     level.bombsquadmodelc4 = "weapon_c4_bombsquad_mw1_night";
@@ -79,7 +79,7 @@ _id_366A()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, 150, 0 ), var_0 );
+        self rotatevelocity( ( 0, 150, 0 ), var_0 );
         wait(var_0);
     }
 }

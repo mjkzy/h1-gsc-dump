@@ -15,7 +15,7 @@ sub_main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_overgrown_dlc"
-		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
+		CALL_FAR_FUNC maps/mp/_compass setupminimap
 		DEC_TOP
 		GET_STRING "amb_mp_overgrown_ext"
 		CALL_BUILTIN_FUNC_1 ambientplay
@@ -58,7 +58,7 @@ sub_scriptpatchclip
 		CHECK_CLEAR_PARAMS
 		GET_FLOAT 1.0
 		WAIT
-		EVAL_LEVEL_FIELD_VARIABLE _id_7137
+		EVAL_LEVEL_FIELD_VARIABLE rankedmatch
 		JMP_TRUE loc_15C
 		PRE_CALL
 		GET_VECTOR 0 0 0

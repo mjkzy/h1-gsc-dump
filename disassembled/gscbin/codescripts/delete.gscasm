@@ -9,7 +9,7 @@ sub_main
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_11
 		GET_SELF
-		CALL_BUILTIN_METHOD_0 _meth_80B2
+		CALL_BUILTIN_METHOD_0 delete
 		DEC_TOP
 		END
 	loc_11

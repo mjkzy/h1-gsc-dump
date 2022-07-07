@@ -25,55 +25,55 @@ main()
         return;
 
     maps\mp\gametypes\_globallogic::init();
-    maps\mp\gametypes\_callbacksetup::SetupCallbacks();
-    maps\mp\gametypes\_globallogic::SetupCallbacks();
+    maps\mp\gametypes\_callbacksetup::setupcallbacks();
+    maps\mp\gametypes\_globallogic::setupcallbacks();
 
     if ( isusingmatchrulesdata() )
     {
-        level.initializeMatchRules = ::initializeMatchRules;
-        [[ level.initializeMatchRules ]]();
-        level thread maps\mp\_utility::reInitializeMatchRulesOnMigration();
+        level.initializematchrules = ::initializematchrules;
+        [[ level.initializematchrules ]]();
+        level thread maps\mp\_utility::reinitializematchrulesonmigration();
     }
     else
     {
-        maps\mp\_utility::registerRoundSwitchDvar( level.gametype, 0, 0, 9 );
-        maps\mp\_utility::registerTimeLimitDvar( level.gametype, 10 );
-        maps\mp\_utility::registerScoreLimitDvar( level.gametype, 75 );
-        maps\mp\_utility::registerRoundLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerWinLimitDvar( level.gametype, 1 );
-        maps\mp\_utility::registerNumLivesDvar( level.gametype, 0 );
-        maps\mp\_utility::registerHalfTimeDvar( level.gametype, 0 );
-        level.matchRules_damageMultiplier = 0;
-        level.matchRules_vampirism = 0;
+        maps\mp\_utility::registerroundswitchdvar( level.gametype, 0, 0, 9 );
+        maps\mp\_utility::registertimelimitdvar( level.gametype, 10 );
+        maps\mp\_utility::registerscorelimitdvar( level.gametype, 75 );
+        maps\mp\_utility::registerroundlimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registerwinlimitdvar( level.gametype, 1 );
+        maps\mp\_utility::registernumlivesdvar( level.gametype, 0 );
+        maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
+        level.matchrules_damagemultiplier = 0;
+        level.matchrules_vampirism = 0;
     }
 
-    level.teamBased = 1;
+    level.teambased = 1;
     level.classicgamemode = 1;
-    level.onStartGameType = ::onStartGameType;
-    level.getSpawnPoint = ::getSpawnPoint;
-    level.onNormalDeath = ::onNormalDeath;
+    level.onstartgametype = ::onstartgametype;
+    level.getspawnpoint = ::getspawnpoint;
+    level.onnormaldeath = ::onnormaldeath;
 
-    if ( level.matchRules_damageMultiplier || level.matchRules_vampirism )
-        level.modifyPlayerDamage = maps\mp\gametypes\_damage::gamemodeModifyPlayerDamage;
+    if ( level.matchrules_damagemultiplier || level.matchrules_vampirism )
+        level.modifyplayerdamage = maps\mp\gametypes\_damage::gamemodemodifyplayerdamage;
 
     game["dialog"]["gametype"] = "team_deathmtch";
     game["strings"]["overtime_hint"] = &"MP_FIRST_BLOOD";
 }
 
-initializeMatchRules()
+initializematchrules()
 {
-    maps\mp\_utility::setCommonRulesFromMatchRulesData();
+    maps\mp\_utility::setcommonrulesfrommatchrulesdata();
     setdynamicdvar( "scr_war_roundswitch", 0 );
-    maps\mp\_utility::registerRoundSwitchDvar( "war", 0, 0, 9 );
+    maps\mp\_utility::registerroundswitchdvar( "war", 0, 0, 9 );
     setdynamicdvar( "scr_war_roundlimit", 1 );
-    maps\mp\_utility::registerRoundLimitDvar( "war", 1 );
+    maps\mp\_utility::registerroundlimitdvar( "war", 1 );
     setdynamicdvar( "scr_war_winlimit", 1 );
-    maps\mp\_utility::registerWinLimitDvar( "war", 1 );
+    maps\mp\_utility::registerwinlimitdvar( "war", 1 );
     setdynamicdvar( "scr_war_halftime", 0 );
-    maps\mp\_utility::registerHalfTimeDvar( "war", 0 );
+    maps\mp\_utility::registerhalftimedvar( "war", 0 );
 }
 
-onStartGameType()
+onstartgametype()
 {
     setclientnamemode( "auto_change" );
 
@@ -88,51 +88,51 @@ onStartGameType()
         game["defenders"] = var_0;
     }
 
-    maps\mp\_utility::setObjectiveText( "allies", &"OBJECTIVES_WAR" );
-    maps\mp\_utility::setObjectiveText( "axis", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivetext( "allies", &"OBJECTIVES_WAR" );
+    maps\mp\_utility::setobjectivetext( "axis", &"OBJECTIVES_WAR" );
 
     if ( level.splitscreen )
     {
-        maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_WAR" );
-        maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_WAR" );
+        maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_WAR" );
+        maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_WAR" );
     }
     else
     {
-        maps\mp\_utility::setObjectiveScoreText( "allies", &"OBJECTIVES_WAR_SCORE" );
-        maps\mp\_utility::setObjectiveScoreText( "axis", &"OBJECTIVES_WAR_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( "allies", &"OBJECTIVES_WAR_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_WAR_SCORE" );
     }
 
-    maps\mp\_utility::setObjectiveHintText( "allies", &"OBJECTIVES_WAR_HINT" );
-    maps\mp\_utility::setObjectiveHintText( "axis", &"OBJECTIVES_WAR_HINT" );
-    initSpawns();
+    maps\mp\_utility::setobjectivehinttext( "allies", &"OBJECTIVES_WAR_HINT" );
+    maps\mp\_utility::setobjectivehinttext( "axis", &"OBJECTIVES_WAR_HINT" );
+    initspawns();
     var_2[0] = level.gametype;
     maps\mp\gametypes\_gameobjects::main( var_2 );
 }
 
-initSpawns()
+initspawns()
 {
-    level.spawnMins = ( 0, 0, 0 );
-    level.spawnMaxs = ( 0, 0, 0 );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_allies_start" );
-    maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_axis_start" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "allies", "mp_tdm_spawn" );
-    maps\mp\gametypes\_spawnlogic::addSpawnPoints( "axis", "mp_tdm_spawn" );
-    level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
-    setmapcenter( level.mapCenter );
+    level.spawnmins = ( 0, 0, 0 );
+    level.spawnmaxs = ( 0, 0, 0 );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
+    maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
+    maps\mp\gametypes\_spawnlogic::addspawnpoints( "axis", "mp_tdm_spawn" );
+    level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
+    setmapcenter( level.mapcenter );
 }
 
-getSpawnPoint()
+getspawnpoint()
 {
     var_0 = self.pers["team"];
 
     if ( game["switchedsides"] )
-        var_0 = maps\mp\_utility::getOtherTeam( var_0 );
+        var_0 = maps\mp\_utility::getotherteam( var_0 );
 
-    if ( level._id_9C14 && level.inGracePeriod )
+    if ( level.usestartspawns && level.ingraceperiod )
         var_1 = maps\mp\gametypes\_spawnlogic::getbeststartspawn( "mp_tdm_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 );
+        var_2 = maps\mp\gametypes\_spawnlogic::getteamspawnpoints( var_0 );
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2, var_0 );
     }
 
@@ -140,10 +140,10 @@ getSpawnPoint()
     return var_1;
 }
 
-onNormalDeath( var_0, var_1, var_2 )
+onnormaldeath( var_0, var_1, var_2 )
 {
-    level _id_A795::_id_420C( var_1.pers["team"], 1 );
+    level maps\mp\gametypes\_gamescores::_id_420C( var_1.pers["team"], 1 );
 
     if ( game["state"] == "postgame" && game["teamScores"][var_1.team] > game["teamScores"][level._id_65B3[var_1.team]] )
-        var_1.finalKill = 1;
+        var_1.finalkill = 1;
 }

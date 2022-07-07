@@ -15,7 +15,7 @@ sub_main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_vacant_dlc"
-		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
+		CALL_FAR_FUNC maps/mp/_compass setupminimap
 		DEC_TOP
 		GET_STRING "axis"
 		GET_STRING "attackers"
@@ -58,7 +58,7 @@ sub_delete_botconnect_clip
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_9A
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_BUILTIN_METHOD_0 _meth_80B2
+		CALL_BUILTIN_METHOD_0 delete
 		DEC_TOP
 		JMP loc_9E
 	loc_9A

@@ -26,7 +26,7 @@ ph_init()
 
     setupdvars();
     level._id_62F8 = 1;
-    level.teamBased = 1;
+    level.teambased = 1;
     level._id_64E9 = ::_id_64E9;
     level._id_64C0 = ::_id_64C0;
     level._id_64F0 = ::_id_64F0;
@@ -35,18 +35,18 @@ ph_init()
     level.checkforovertime = ::ph_checkforovertime;
     level.customplaydamagesound = ::playdamagesoundph;
     level.customplaydeathsound = ::playdeathsoundph;
-    level.modifyPlayerDamage = ::gamemodeModifyPlayerDamage;
+    level.modifyplayerdamage = ::gamemodemodifyplayerdamage;
 
     if ( level.madpropsmode )
     {
         if ( !isdefined( game["roundsPlayed"] ) )
             game["roundsPlayed"] = 0;
 
-        level.getSpawnPoint = ::getpkspawnpoint;
+        level.getspawnpoint = ::getpkspawnpoint;
     }
     else
     {
-        level.getSpawnPoint = ::getSpawnPoint;
+        level.getspawnpoint = ::getspawnpoint;
         level._id_1969 = ::phclass;
     }
 
@@ -59,8 +59,8 @@ ph_init()
     ph_precache();
     initializegametypesettings();
     level.ph_linker = spawn( "script_model", ( 0, 0, 0 ) );
-    level.ph_linker setModel( "tag_player" );
-    onStartGameType();
+    level.ph_linker setmodel( "tag_player" );
+    onstartgametype();
 
     if ( !level.madpropsmode )
     {
@@ -88,9 +88,9 @@ setupdvars()
         setdynamicdvar( "scr_war_roundlimit", 4 );
         setdynamicdvar( "scr_war_winlimit", 3 );
         setdynamicdvar( "scr_war_numlives", 4 );
-        maps\mp\_utility::registerWinLimitDvar( "war", 3 );
+        maps\mp\_utility::registerwinlimitdvar( "war", 3 );
         setdynamicdvar( "scr_war_roundswitch", 1 );
-        maps\mp\_utility::registerRoundSwitchDvar( "war", 1, 0, 9 );
+        maps\mp\_utility::registerroundswitchdvar( "war", 1, 0, 9 );
         setdynamicdvar( "scr_war_halftime", 0 );
     }
     else
@@ -101,9 +101,9 @@ setupdvars()
         setdynamicdvar( "scr_war_roundlimit", 4 );
         setdynamicdvar( "scr_war_winlimit", 3 );
         setdynamicdvar( "scr_war_numlives", 1 );
-        maps\mp\_utility::registerWinLimitDvar( "war", 3 );
+        maps\mp\_utility::registerwinlimitdvar( "war", 3 );
         setdynamicdvar( "scr_war_roundswitch", 1 );
-        maps\mp\_utility::registerRoundSwitchDvar( "war", 1, 0, 9 );
+        maps\mp\_utility::registerroundswitchdvar( "war", 1, 0, 9 );
         setdynamicdvar( "scr_war_halftime", 0 );
         setdynamicdvar( "scr_player_healthregen", 0 );
         level._id_765A = getdvarint( "scr_war_roundswitch" );
@@ -170,7 +170,7 @@ initializegametypesettings()
     }
 }
 
-onStartGameType()
+onstartgametype()
 {
     if ( [[ level.checkforovertime ]]() )
     {
@@ -197,42 +197,42 @@ onStartGameType()
 
     if ( level.madpropsmode )
     {
-        maps\mp\_utility::setObjectiveText( game["attackers"], &"OBJECTIVES_PK_ATTACKER" );
-        maps\mp\_utility::setObjectiveText( game["defenders"], &"OBJECTIVES_PK_DEFENDER" );
-        maps\mp\_utility::setObjectiveScoreText( game["attackers"], &"OBJECTIVES_PK_ATTACKER_SCORE" );
-        maps\mp\_utility::setObjectiveScoreText( game["defenders"], &"OBJECTIVES_PK_DEFENDER_SCORE" );
-        maps\mp\_utility::setObjectiveHintText( game["attackers"], &"OBJECTIVES_PK_ATTACKER_HINT" );
-        maps\mp\_utility::setObjectiveHintText( game["defenders"], &"OBJECTIVES_PK_DEFENDER_HINT" );
+        maps\mp\_utility::setobjectivetext( game["attackers"], &"OBJECTIVES_PK_ATTACKER" );
+        maps\mp\_utility::setobjectivetext( game["defenders"], &"OBJECTIVES_PK_DEFENDER" );
+        maps\mp\_utility::setobjectivescoretext( game["attackers"], &"OBJECTIVES_PK_ATTACKER_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( game["defenders"], &"OBJECTIVES_PK_DEFENDER_SCORE" );
+        maps\mp\_utility::setobjectivehinttext( game["attackers"], &"OBJECTIVES_PK_ATTACKER_HINT" );
+        maps\mp\_utility::setobjectivehinttext( game["defenders"], &"OBJECTIVES_PK_DEFENDER_HINT" );
     }
     else
     {
-        maps\mp\_utility::setObjectiveText( game["attackers"], &"OBJECTIVES_PH_ATTACKER" );
-        maps\mp\_utility::setObjectiveText( game["defenders"], &"OBJECTIVES_PH_DEFENDER" );
-        maps\mp\_utility::setObjectiveScoreText( game["attackers"], &"OBJECTIVES_PH_ATTACKER_SCORE" );
-        maps\mp\_utility::setObjectiveScoreText( game["defenders"], &"OBJECTIVES_PH_DEFENDER_SCORE" );
-        maps\mp\_utility::setObjectiveHintText( game["attackers"], &"OBJECTIVES_PH_ATTACKER_HINT" );
-        maps\mp\_utility::setObjectiveHintText( game["defenders"], &"OBJECTIVES_PH_DEFENDER_HINT" );
+        maps\mp\_utility::setobjectivetext( game["attackers"], &"OBJECTIVES_PH_ATTACKER" );
+        maps\mp\_utility::setobjectivetext( game["defenders"], &"OBJECTIVES_PH_DEFENDER" );
+        maps\mp\_utility::setobjectivescoretext( game["attackers"], &"OBJECTIVES_PH_ATTACKER_SCORE" );
+        maps\mp\_utility::setobjectivescoretext( game["defenders"], &"OBJECTIVES_PH_DEFENDER_SCORE" );
+        maps\mp\_utility::setobjectivehinttext( game["attackers"], &"OBJECTIVES_PH_ATTACKER_HINT" );
+        maps\mp\_utility::setobjectivehinttext( game["defenders"], &"OBJECTIVES_PH_DEFENDER_HINT" );
     }
 
     if ( level.madpropsmode )
     {
-        level.spawnMins = ( 0, 0, 0 );
-        level.spawnMaxs = ( 0, 0, 0 );
-        maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_allies_start" );
-        maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_tdm_spawn_axis_start" );
-        maps\mp\gametypes\_spawnlogic::addSpawnPoints( "allies", "mp_tdm_spawn" );
-        maps\mp\gametypes\_spawnlogic::addSpawnPoints( "axis", "mp_tdm_spawn" );
+        level.spawnmins = ( 0, 0, 0 );
+        level.spawnmaxs = ( 0, 0, 0 );
+        maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
+        maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
+        maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
+        maps\mp\gametypes\_spawnlogic::addspawnpoints( "axis", "mp_tdm_spawn" );
     }
     else
     {
-        level.spawnMins = ( 0, 0, 0 );
-        level.spawnMaxs = ( 0, 0, 0 );
-        maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_sd_spawn_attacker" );
-        maps\mp\gametypes\_spawnlogic::addStartSpawnPoints( "mp_sd_spawn_defender" );
+        level.spawnmins = ( 0, 0, 0 );
+        level.spawnmaxs = ( 0, 0, 0 );
+        maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_attacker" );
+        maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_defender" );
     }
 
-    level.mapCenter = maps\mp\gametypes\_spawnlogic::findBoxCenter( level.spawnMins, level.spawnMaxs );
-    setmapcenter( level.mapCenter );
+    level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
+    setmapcenter( level.mapcenter );
     var_2[0] = level.gametype;
     maps\mp\gametypes\_gameobjects::main( var_2 );
     level._effect["propFlash"] = loadfx( "vfx/explosion/flashbang_h1" );
@@ -303,11 +303,11 @@ phclass()
     self.pers["class"] = "gamemode";
     self.pers["lastClass"] = "";
     self.pers["gamemodeLoadout"] = level.ph_loadouts[self.pers["team"]];
-    self._id_1E2E = self.pers["class"];
-    self._id_5589 = self.pers["lastClass"];
+    self.class = self.pers["class"];
+    self.lastclass = self.pers["lastClass"];
 }
 
-getSpawnPoint()
+getspawnpoint()
 {
     if ( self.pers["team"] == game["attackers"] )
         var_0 = "mp_sd_spawn_attacker";
@@ -324,13 +324,13 @@ getpkspawnpoint()
     var_0 = self.pers["team"];
 
     if ( game["roundsPlayed"] >= 2 )
-        var_0 = maps\mp\_utility::getOtherTeam( var_0 );
+        var_0 = maps\mp\_utility::getotherteam( var_0 );
 
-    if ( level._id_9C14 && level.inGracePeriod )
+    if ( level.usestartspawns && level.ingraceperiod )
         var_1 = maps\mp\gametypes\_spawnlogic::getbeststartspawn( "mp_tdm_spawn_" + var_0 + "_start" );
     else
     {
-        var_2 = maps\mp\gametypes\_spawnlogic::getTeamSpawnPoints( var_0 );
+        var_2 = maps\mp\gametypes\_spawnlogic::getteamspawnpoints( var_0 );
         var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2, var_0 );
     }
 
@@ -341,34 +341,34 @@ getpkspawnpoint()
 propspectateing()
 {
     level endon( "game_ended" );
-    level._id_8A4A[game["defenders"]]._id_0AA7 = 1;
-    _id_A7BB::_id_9B72();
+    level.spectateoverride[game["defenders"]]._id_0AA7 = 1;
+    maps\mp\gametypes\_spectating::_id_9B72();
 }
 
 setupkeybindings()
 {
     if ( level.madpropsmode )
     {
-        self _meth_82DA( "explode", "+attack" );
-        self _meth_82DA( "explode", "+attack_akimbo_accessible" );
-        self _meth_82DA( "zoomin", "+actionslot 3" );
-        self _meth_82DA( "zoomout", "+actionslot 4" );
+        self notifyonplayercommand( "explode", "+attack" );
+        self notifyonplayercommand( "explode", "+attack_akimbo_accessible" );
+        self notifyonplayercommand( "zoomin", "+actionslot 3" );
+        self notifyonplayercommand( "zoomout", "+actionslot 4" );
         return;
     }
 
-    self _meth_82DA( "lock", "+attack" );
-    self _meth_82DA( "lock", "+attack_akimbo_accessible" );
-    self _meth_82DA( "spin", "+toggleads_throw" );
-    self _meth_82DA( "spin", "+speed_throw" );
-    self _meth_82DA( "spin", "+speed" );
-    self _meth_82DA( "spin", "+ads_akimbo_accessible" );
-    self _meth_82DA( "changeProp", "weapnext" );
-    self _meth_82DA( "setToSlope", "+usereload" );
-    self _meth_82DA( "setToSlope", "+activate" );
-    self _meth_82DA( "propAbility", "+smoke" );
-    self _meth_82DA( "zoomin", "+actionslot 3" );
-    self _meth_82DA( "zoomout", "+actionslot 4" );
-    self _meth_82DA( "spectate", "+actionslot 2" );
+    self notifyonplayercommand( "lock", "+attack" );
+    self notifyonplayercommand( "lock", "+attack_akimbo_accessible" );
+    self notifyonplayercommand( "spin", "+toggleads_throw" );
+    self notifyonplayercommand( "spin", "+speed_throw" );
+    self notifyonplayercommand( "spin", "+speed" );
+    self notifyonplayercommand( "spin", "+ads_akimbo_accessible" );
+    self notifyonplayercommand( "changeProp", "weapnext" );
+    self notifyonplayercommand( "setToSlope", "+usereload" );
+    self notifyonplayercommand( "setToSlope", "+activate" );
+    self notifyonplayercommand( "propAbility", "+smoke" );
+    self notifyonplayercommand( "zoomin", "+actionslot 3" );
+    self notifyonplayercommand( "zoomout", "+actionslot 4" );
+    self notifyonplayercommand( "spectate", "+actionslot 2" );
 }
 
 propcontrolshud()
@@ -376,9 +376,9 @@ propcontrolshud()
     level endon( "game_ended" );
     self endon( "disconnect" );
     var_0 = 26;
-    self.propchangecounter = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.propchangecounter = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     self.propchangecounter.land = &"MP_PH_CHANGESLEFT";
-    self.propchangecounter _meth_80D9( 0 );
+    self.propchangecounter setvalue( 0 );
     self.propchangecounter.xpmaxmultipliertimeplayed = -5;
     self.propchangecounter._id_0538 = var_0;
     self.propchangecounter.alignx = "right";
@@ -391,7 +391,7 @@ propcontrolshud()
     self.propchangecounter.glowalpha = 0;
     self.propchangecounter.hindlegstraceoffset = 0;
     var_0 += 12;
-    self.changepropkey = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.changepropkey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     self.changepropkey.land = &"MP_PH_CHANGE";
     self.changepropkey.xpmaxmultipliertimeplayed = -5;
     self.changepropkey._id_0538 = var_0;
@@ -405,7 +405,7 @@ propcontrolshud()
     self.changepropkey.glowalpha = 0;
     self.changepropkey.hindlegstraceoffset = 0;
     var_0 += 12;
-    self.lockpropkey = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.lockpropkey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     self.lockpropkey.land = &"MP_PH_LOCK";
     self.lockpropkey.xpmaxmultipliertimeplayed = -5;
     self.lockpropkey._id_0538 = var_0;
@@ -419,7 +419,7 @@ propcontrolshud()
     self.lockpropkey.glowalpha = 0;
     self.lockpropkey.hindlegstraceoffset = 0;
     var_0 += 12;
-    self.matchslopekey = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.matchslopekey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
 
     if ( common_scripts\utility::_id_5064() )
         self.matchslopekey.land = &"MP_PH_SLOPE";
@@ -438,7 +438,7 @@ propcontrolshud()
     self.matchslopekey.glowalpha = 0;
     self.matchslopekey.hindlegstraceoffset = 0;
     var_0 += 12;
-    self.abilitykey = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.abilitykey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     setnewabilityhud();
     self.abilitykey.xpmaxmultipliertimeplayed = -5;
     self.abilitykey._id_0538 = var_0;
@@ -459,7 +459,7 @@ pkcontrolshud()
     level endon( "game_ended" );
     self endon( "disconnect" );
     var_0 = 38;
-    self.pkexplodekey = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.pkexplodekey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     self.pkexplodekey.land = &"MP_PK_EXPLODELKEY";
     self.pkexplodekey.xpmaxmultipliertimeplayed = -5;
     self.pkexplodekey._id_0538 = var_0;
@@ -473,9 +473,9 @@ pkcontrolshud()
     self.pkexplodekey.glowalpha = 0;
     self.pkexplodekey.hindlegstraceoffset = 0;
     var_0 += 12;
-    self.pklivesleft = _id_A7A7::_id_2401( "objective", 0.9 );
+    self.pklivesleft = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     self.pklivesleft.land = &"MP_PK_LIVESLEFT";
-    self.pklivesleft _meth_80D9( 3 );
+    self.pklivesleft setvalue( 3 );
     self.pklivesleft.xpmaxmultipliertimeplayed = -5;
     self.pklivesleft._id_0538 = var_0;
     self.pklivesleft.alignx = "right";
@@ -526,14 +526,14 @@ updatetextongamepadchange()
 
 setuproundstarthud()
 {
-    level.phcountdowntimer = _id_A7A7::_id_243F( "objective", 1.4 );
-    level.phcountdowntimer _id_A7A7::_id_7FEE( "CENTER", undefined, 0, 50 );
+    level.phcountdowntimer = maps\mp\gametypes\_hud_util::_id_243F( "objective", 1.4 );
+    level.phcountdowntimer maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", undefined, 0, 50 );
     level.phcountdowntimer.land = &"MP_PH_STARTS_IN";
     level.phcountdowntimer.alpha = 0;
     level.phcountdowntimer.archived = 0;
     level.phcountdowntimer.hindlegstraceoffset = 1;
     level.phcountdowntimer.space = 1;
-    level.phwhistletimer = _id_A7A7::_id_243F( "objective", 0.9 );
+    level.phwhistletimer = maps\mp\gametypes\_hud_util::_id_243F( "objective", 0.9 );
     level.phwhistletimer.xpmaxmultipliertimeplayed = -6;
     level.phwhistletimer._id_0538 = 2;
     level.phwhistletimer.alignx = "right";
@@ -544,8 +544,8 @@ setuproundstarthud()
     level.phwhistletimer.alpha = 0;
     level.phwhistletimer.archived = 0;
     level.phwhistletimer.hindlegstraceoffset = 1;
-    level.phwhistletimer _meth_80D1( 120 );
-    level.whistling = _id_A7A7::_id_243D( "objective", 1 );
+    level.phwhistletimer settimer( 120 );
+    level.whistling = maps\mp\gametypes\_hud_util::_id_243D( "objective", 1 );
     level.whistling.land = &"MP_PH_WHISTLING";
     level.whistling.xpmaxmultipliertimeplayed = -5;
     level.whistling._id_0538 = 2;
@@ -561,9 +561,9 @@ setuproundstarthud()
     if ( !isdefined( level.elim_hud ) )
         level.elim_hud = [];
 
-    level.elim_hud = _id_A7A7::_id_243D( "objective", 0.9 );
+    level.elim_hud = maps\mp\gametypes\_hud_util::_id_243D( "objective", 0.9 );
     level.elim_hud.land = &"MP_PH_ALIVE";
-    level.elim_hud _meth_80D9( 0 );
+    level.elim_hud setvalue( 0 );
     level.elim_hud.xpmaxmultipliertimeplayed = -5;
     level.elim_hud._id_0538 = 14;
     level.elim_hud.alignx = "right";
@@ -583,9 +583,9 @@ setupmadpropsstarthud()
     if ( !isdefined( level.elim_hud ) )
         level.elim_hud = [];
 
-    level.elim_hud = _id_A7A7::_id_243D( "objective", 0.9 );
+    level.elim_hud = maps\mp\gametypes\_hud_util::_id_243D( "objective", 0.9 );
     level.elim_hud.land = &"MP_PK_ALIVE";
-    level.elim_hud _meth_80D9( 0 );
+    level.elim_hud setvalue( 0 );
     level.elim_hud.xpmaxmultipliertimeplayed = -5;
     level.elim_hud._id_0538 = 14;
     level.elim_hud.alignx = "right";
@@ -601,9 +601,9 @@ setupmadpropsstarthud()
     if ( !isdefined( level.elim_hud_humans ) )
         level.elim_hud_humans = [];
 
-    level.elim_hud_humans = _id_A7A7::_id_243D( "objective", 0.9 );
+    level.elim_hud_humans = maps\mp\gametypes\_hud_util::_id_243D( "objective", 0.9 );
     level.elim_hud_humans.land = &"MP_PK_HUMANSALIVE";
-    level.elim_hud_humans _meth_80D9( 0 );
+    level.elim_hud_humans setvalue( 0 );
     level.elim_hud_humans.xpmaxmultipliertimeplayed = -5;
     level.elim_hud_humans._id_0538 = 26;
     level.elim_hud_humans.alignx = "right";
@@ -616,15 +616,15 @@ setupmadpropsstarthud()
     level.elim_hud_humans.glowalpha = 0;
     level.elim_hud_humans.hindlegstraceoffset = 0;
     level thread eliminatedhudmonitor();
-    level.phcountdowntimer = _id_A7A7::_id_243F( "objective", 1.4 );
-    level.phcountdowntimer _id_A7A7::_id_7FEE( "CENTER", undefined, 0, 50 );
+    level.phcountdowntimer = maps\mp\gametypes\_hud_util::_id_243F( "objective", 1.4 );
+    level.phcountdowntimer maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", undefined, 0, 50 );
     level.phcountdowntimer.land = &"MP_PK_STARTS_IN";
     level.phcountdowntimer.alpha = 0;
     level.phcountdowntimer.archived = 0;
     level.phcountdowntimer.hindlegstraceoffset = 1;
     level.phcountdowntimer.space = 1;
-    level.pkinvuln = _id_A7A7::_id_243F( "objective", 1.4 );
-    level.pkinvuln _id_A7A7::_id_7FEE( "CENTER", undefined, 0, 50 );
+    level.pkinvuln = maps\mp\gametypes\_hud_util::_id_243F( "objective", 1.4 );
+    level.pkinvuln maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", undefined, 0, 50 );
     level.pkinvuln.land = &"MP_PK_PROPSINVULN";
     level.pkinvuln.alpha = 0;
     level.pkinvuln.archived = 0;
@@ -641,11 +641,11 @@ eliminatedhudmonitor()
         if ( level.madpropsmode )
         {
             var_0 = get_alive_nonspecating_players( game["attackers"] );
-            level.elim_hud_humans _meth_80D9( var_0.size );
+            level.elim_hud_humans setvalue( var_0.size );
         }
 
         var_1 = get_alive_nonspecating_players( game["defenders"] );
-        level.elim_hud _meth_80D9( var_1.size );
+        level.elim_hud setvalue( var_1.size );
         level common_scripts\utility::_id_A069( "player_spawned", "player_killed", "player_eliminated", "playerCountChanged", "propCountChanged" );
     }
 }
@@ -672,7 +672,7 @@ weaponusagecheck()
 
     if ( var_0 == "end_weapon_check_usage" )
     {
-        kick( self _meth_81B5(), "EXE_PLAYERKICKED_INACTIVE" );
+        kick( self getentitynumber(), "EXE_PLAYERKICKED_INACTIVE" );
         return 0;
     }
 
@@ -684,7 +684,7 @@ positioncheck()
     level endon( "game_ended" );
     self endon( "disconnect" );
     self endon( "death" );
-    var_0 = self.owner_not;
+    var_0 = self.origin;
     var_1 = squared( 300 );
     var_2 = 0;
 
@@ -692,13 +692,13 @@ positioncheck()
     {
         if ( !var_2 )
         {
-            var_4 = distancesquared( var_0, self.owner_not );
+            var_4 = distancesquared( var_0, self.origin );
 
             if ( var_4 >= var_1 )
                 var_2 = 1;
         }
 
-        _id_A7A4::_id_A052( 1 );
+        maps\mp\gametypes\_hostmigration::_id_A052( 1 );
     }
 
     if ( var_2 )
@@ -723,17 +723,17 @@ startcheck()
 
     if ( !positioncheck() )
     {
-        kick( self _meth_81B5(), "EXE_PLAYERKICKED_INACTIVE" );
+        kick( self getentitynumber(), "EXE_PLAYERKICKED_INACTIVE" );
         return;
     }
 
     if ( !positioncheck() )
     {
-        kick( self _meth_81B5(), "EXE_PLAYERKICKED_INACTIVE" );
+        kick( self getentitynumber(), "EXE_PLAYERKICKED_INACTIVE" );
         return;
     }
 
-    _id_A7A4::_id_A052( 30 );
+    maps\mp\gametypes\_hostmigration::_id_A052( 30 );
     self notify( "end_weapon_check_usage" );
 }
 
@@ -747,7 +747,7 @@ onconnect()
 
 _id_64E9()
 {
-    self._id_17E6 = 0;
+    self.breathingstoptime = 0;
 
     if ( self.team == game["defenders"] )
     {
@@ -764,7 +764,7 @@ _id_64E9()
             if ( !isdefined( self.doingcheck ) )
                 thread startcheck();
 
-            self _meth_831C();
+            self disableoffhandweapons();
         }
         else
         {
@@ -813,12 +813,12 @@ playerlastvalidpositionwatch()
 
     for (;;)
     {
-        var_0 = playerphysicstraceinfo( self.owner_not, self.owner_not + ( 0, 0, 1 ), self );
+        var_0 = playerphysicstraceinfo( self.origin, self.origin + ( 0, 0, 1 ), self );
 
         if ( var_0["fraction"] == 1 )
-            self.lastvalidpos = self.owner_not;
+            self.lastvalidpos = self.origin;
 
-        var_1 = getclosestnodeinsight( self.owner_not );
+        var_1 = getclosestnodeinsight( self.origin );
 
         if ( isdefined( var_1 ) )
             self.lastnodeinsight = var_1;
@@ -835,18 +835,18 @@ monitortimers()
     if ( level.madpropsmode )
     {
         level thread pausepktimerformigration();
-        level.phcountdowntimer _meth_80D1( level.madpropssettings.madpropshidetime );
+        level.phcountdowntimer settimer( level.madpropssettings.madpropshidetime );
         level.phcountdowntimer.alpha = 1;
-        _id_A7A4::_id_A052( level.madpropssettings.madpropshidetime );
+        maps\mp\gametypes\_hostmigration::_id_A052( level.madpropssettings.madpropshidetime );
     }
     else
     {
         level thread pausephtimerformigration();
-        level.phcountdowntimer _meth_80D1( level.phsettings.prophidetime );
+        level.phcountdowntimer settimer( level.phsettings.prophidetime );
         level.phcountdowntimer.alpha = 1;
-        level.phwhistletimer _meth_80D1( level.phsettings.propwhistletime + level.phsettings.prophidetime );
+        level.phwhistletimer settimer( level.phsettings.propwhistletime + level.phsettings.prophidetime );
         level.phwhistletimer.alpha = 1;
-        _id_A7A4::_id_A052( level.phsettings.prophidetime );
+        maps\mp\gametypes\_hostmigration::_id_A052( level.phsettings.prophidetime );
     }
 
     level notify( "props_hide_over" );
@@ -865,9 +865,9 @@ monitortimers()
     else
     {
         level.phcountdowntimer.alpha = 0;
-        level.pkinvuln _meth_80D1( level.madpropssettings.propinvulntime );
+        level.pkinvuln settimer( level.madpropssettings.propinvulntime );
         level.pkinvuln.alpha = 1;
-        _id_A7A4::_id_A052( level.madpropssettings.propinvulntime );
+        maps\mp\gametypes\_hostmigration::_id_A052( level.madpropssettings.propinvulntime );
         level.pkinvuln.alpha = 0;
         level.propsinvuln = 0;
 
@@ -895,12 +895,12 @@ pausephtimerformigration()
         level waittill( "host_migration_begin" );
         level.phcountdowntimer.alpha = 0;
         level.phwhistletimer.alpha = 0;
-        var_2 = int( _id_A7A4::_id_A0DD() / 1000 );
+        var_2 = int( maps\mp\gametypes\_hostmigration::_id_A0DD() / 1000 );
         var_1 += var_2;
         var_2 = var_1;
         var_3 = var_0 + var_2 - int( gettime() / 1000 );
-        level.phcountdowntimer _meth_80D1( var_3 );
-        level.phwhistletimer _meth_80D1( level.phsettings.propwhistletime + var_3 );
+        level.phcountdowntimer settimer( var_3 );
+        level.phwhistletimer settimer( level.phsettings.propwhistletime + var_3 );
         level.phcountdowntimer.alpha = 1;
         level.phwhistletimer.alpha = 1;
     }
@@ -917,11 +917,11 @@ pausepktimerformigration()
     {
         level waittill( "host_migration_begin" );
         level.pkcountdowntimer.alpha = 0;
-        var_2 = int( _id_A7A4::_id_A0DD() / 1000 );
+        var_2 = int( maps\mp\gametypes\_hostmigration::_id_A0DD() / 1000 );
         var_1 += var_2;
         var_2 = var_1;
         var_3 = var_0 + var_2 - int( gettime() / 1000 );
-        level.pkcountdowntimer _meth_80D1( var_3 );
+        level.pkcountdowntimer settimer( var_3 );
         level.pkcountdowntimer.alpha = 1;
     }
 }
@@ -943,7 +943,7 @@ handleprop()
 
         if ( level.madpropsmode )
         {
-            self _meth_830D();
+            self takeallweapons();
 
             if ( !isdefined( self.prop ) )
                 thread setupmadprops();
@@ -951,10 +951,10 @@ handleprop()
             continue;
         }
 
-        self _meth_830D();
-        self _meth_8301( 0 );
-        self _meth_826F( game["attackers"], 1 );
-        self _meth_81E4( 1.5 );
+        self takeallweapons();
+        self allowsprint( 0 );
+        self allowspectateteam( game["attackers"], 1 );
+        self setmovespeedscale( 1.5 );
 
         if ( !isdefined( self.prop ) )
             thread setupprop();
@@ -967,18 +967,18 @@ setupprop()
     self endon( "disconnect" );
     level endon( "game_ended" );
     var_0 = common_scripts\utility::_id_710E( level.proplist );
-    self _meth_8005( 1 );
-    self.propanchor = spawn( "script_model", self.owner_not );
+    self playerhide( 1 );
+    self.propanchor = spawn( "script_model", self.origin );
     self.propanchor _meth_8442( self );
     self.propanchor _meth_8581();
-    self.propanchor _meth_80C0( 0 );
-    self.propent = spawn( "script_model", self.owner_not );
+    self.propanchor setcontents( 0 );
+    self.propent = spawn( "script_model", self.origin );
     self.propent _meth_8442( self.propanchor );
     self.propent _meth_8581();
-    self.propent _meth_80C0( 0 );
-    self.prop = spawn( "script_model", self.propent.owner_not );
-    self.prop setModel( var_0.modelname );
-    self.prop _meth_82BC( 1 );
+    self.propent setcontents( 0 );
+    self.prop = spawn( "script_model", self.propent.origin );
+    self.prop setmodel( var_0.modelname );
+    self.prop setcandamage( 1 );
     self.prop.xyzoffset = var_0.xyzoffset;
     self.prop.anglesoffset = var_0.anglesoffset;
     self.prop.angles = self.angles;
@@ -1007,18 +1007,18 @@ setupmadprops()
     self endon( "disconnect" );
     level endon( "game_ended" );
     var_0 = common_scripts\utility::_id_710E( level.proplist );
-    self _meth_8005( 1 );
-    self.propanchor = spawn( "script_model", self.owner_not );
+    self playerhide( 1 );
+    self.propanchor = spawn( "script_model", self.origin );
     self.propanchor _meth_8442( self );
     self.propanchor _meth_8581();
-    self.propanchor _meth_80C0( 0 );
-    self.propent = spawn( "script_model", self.owner_not );
+    self.propanchor setcontents( 0 );
+    self.propent = spawn( "script_model", self.origin );
     self.propent _meth_8442( self.propanchor );
     self.propent _meth_8581();
-    self.propent _meth_80C0( 0 );
-    self.prop = spawn( "script_model", self.propent.owner_not );
-    self.prop setModel( var_0.modelname );
-    self.prop _meth_82BC( 1 );
+    self.propent setcontents( 0 );
+    self.prop = spawn( "script_model", self.propent.origin );
+    self.prop setmodel( var_0.modelname );
+    self.prop setcandamage( 1 );
     self.prop.xyzoffset = var_0.xyzoffset;
     self.prop.anglesoffset = var_0.anglesoffset;
     self.prop.angles = self.angles;
@@ -1050,9 +1050,9 @@ applyxyzoffset()
     var_0 = anglestoforward( self.prop.angles ) * self.prop.xyzoffset[0];
     var_1 = anglestoright( self.prop.angles ) * self.prop.xyzoffset[1];
     var_2 = anglestoup( self.prop.angles ) * self.prop.xyzoffset[2];
-    self.prop.owner_not += var_0;
-    self.prop.owner_not += var_1;
-    self.prop.owner_not += var_2;
+    self.prop.origin += var_0;
+    self.prop.origin += var_1;
+    self.prop.origin += var_2;
 }
 
 applyanglesoffset()
@@ -1073,7 +1073,7 @@ propwhistle()
     var_1 = level.phsettings.propwhistletime * 1000;
     var_2 = var_1;
     var_3 = 5000;
-    _id_A7A4::_id_A052( level.phsettings.prophidetime + level.phsettings.propwhistletime );
+    maps\mp\gametypes\_hostmigration::_id_A052( level.phsettings.prophidetime + level.phsettings.propwhistletime );
 
     for (;;)
     {
@@ -1090,35 +1090,35 @@ propwhistle()
                 if ( var_5.team == game["defenders"] && isalive( var_5 ) )
                 {
                     level.whistling.alpha = 1;
-                    level.whistling _meth_8086( 0.75 );
+                    level.whistling fadeovertime( 0.75 );
                     level.whistling.alpha = 0.6;
-                    playsoundatpos( var_5.owner_not, var_5.playtaunt );
-                    _id_A7A4::_id_A052( 1.5 );
+                    playsoundatpos( var_5.origin, var_5.playtaunt );
+                    maps\mp\gametypes\_hostmigration::_id_A052( 1.5 );
                 }
             }
 
             var_0 = gettime();
 
-            if ( var_2 >= _id_A793::_id_4131() - var_3 )
+            if ( var_2 >= maps\mp\gametypes\_gamelogic::_id_4131() - var_3 )
             {
                 level.whistling.alpha = 0;
                 return;
             }
             else
             {
-                if ( var_2 * 2 + getteamplayersalive( game["defenders"] ) * 2500 >= _id_A793::_id_4131() - var_3 )
+                if ( var_2 * 2 + getteamplayersalive( game["defenders"] ) * 2500 >= maps\mp\gametypes\_gamelogic::_id_4131() - var_3 )
                 {
                     level.phwhistletimer.land = &"MP_PH_FINAL_WHISTLE";
                     var_2 += getteamplayersalive( game["defenders"] ) * 2500;
                 }
 
-                level.phwhistletimer _meth_80D1( int( var_1 / 1000 ) );
+                level.phwhistletimer settimer( int( var_1 / 1000 ) );
                 level.whistling.alpha = 0;
                 level.phwhistletimer.alpha = 1;
             }
         }
 
-        _id_A7A4::_id_A052( 0.5 );
+        maps\mp\gametypes\_hostmigration::_id_A052( 0.5 );
     }
 }
 
@@ -1151,7 +1151,7 @@ proplockwatch()
     self._id_57FE = 0;
     self.slopelocked = 0;
     var_0 = level.proplist;
-    self.propchangecounter _meth_80D9( self.changesleft );
+    self.propchangecounter setvalue( self.changesleft );
     maps\mp\_utility::_id_3BE1( "prematch_done" );
     childthread propmoveunlock();
     childthread propcamerazoom();
@@ -1173,7 +1173,7 @@ proplockwatch()
 
         if ( var_2 == "lock" )
         {
-            if ( self _meth_82DD() )
+            if ( self ismantling() )
                 continue;
 
             if ( self._id_57FE )
@@ -1186,9 +1186,9 @@ proplockwatch()
 
         if ( var_2 == "spin" )
         {
-            self.propent _meth_8051();
+            self.propent unlink();
             self.propent.angles += ( 0, 45, 0 );
-            self.propent.owner_not = self.propanchor.owner_not;
+            self.propent.origin = self.propanchor.origin;
 
             if ( self.slopelocked && maps\mp\_utility::_id_5092( self._id_57FE ) )
                 self.propent set_pitch_roll_for_ground_normal( self.prop );
@@ -1207,13 +1207,13 @@ proplockwatch()
                 self notify( "changed_prop" );
                 var_0 = common_scripts\utility::_id_0CF6( var_0, self.prop._id_4C5C );
                 self.prop._id_4C5C = common_scripts\utility::_id_710E( var_0 );
-                self.prop setModel( self.prop._id_4C5C.modelname );
+                self.prop setmodel( self.prop._id_4C5C.modelname );
                 self.prop.xyzoffset = self.prop._id_4C5C.xyzoffset;
                 self.prop.anglesoffset = self.prop._id_4C5C.anglesoffset;
-                self.prop _meth_8051();
-                self.propent _meth_8051();
-                self.propent.owner_not = self.propanchor.owner_not;
-                self.prop.owner_not = self.propent.owner_not;
+                self.prop unlink();
+                self.propent unlink();
+                self.propent.origin = self.propanchor.origin;
+                self.prop.origin = self.propent.origin;
                 self.propent.angles = ( self.angles[0], self.propent.angles[1], self.angles[2] );
                 self.prop.angles = self.propent.angles;
 
@@ -1237,7 +1237,7 @@ proplockwatch()
                 setnewabilitycount();
                 self.abilitykey.alpha = 1;
                 self.changesleft--;
-                self.propchangecounter _meth_80D9( self.changesleft );
+                self.propchangecounter setvalue( self.changesleft );
 
                 if ( self.changesleft <= 0 )
                     self.changepropkey.alpha = 0;
@@ -1254,9 +1254,9 @@ proplockwatch()
 
                 if ( maps\mp\_utility::_id_5092( self._id_57FE ) )
                 {
-                    self.propent _meth_8051();
+                    self.propent unlink();
                     self.propent set_pitch_roll_for_ground_normal( self.prop );
-                    self.propent _meth_804F( self.propanchor );
+                    self.propent linkto( self.propanchor );
                 }
 
                 if ( common_scripts\utility::_id_5064() )
@@ -1270,9 +1270,9 @@ proplockwatch()
 
                 if ( maps\mp\_utility::_id_5092( self._id_57FE ) )
                 {
-                    self.propent _meth_8051();
+                    self.propent unlink();
                     self.propent.angles = ( self.angles[0], self.prop.angles[1], self.angles[2] );
-                    self.propent.owner_not = self.propanchor.owner_not;
+                    self.propent.origin = self.propanchor.origin;
                     self.propent _meth_8442( self.propanchor );
                 }
 
@@ -1322,13 +1322,13 @@ madpropswatch()
         if ( level.propsinvuln )
             continue;
 
-        self _meth_809C( "prop_whistle_01" );
-        _id_A7A4::_id_A052( 1 );
+        self playsound( "prop_whistle_01" );
+        maps\mp\gametypes\_hostmigration::_id_A052( 1 );
 
         if ( var_0 == "explode" )
         {
-            magicgrenademanual( "h1_fraggrenade_mp", self.owner_not + ( 0, 0, 5 ), ( 0, 0, 0 ), 0, self, 1 );
-            self _meth_8267();
+            magicgrenademanual( "h1_fraggrenade_mp", self.origin + ( 0, 0, 5 ), ( 0, 0, 0 ), 0, self, 1 );
+            self suicide();
         }
     }
 }
@@ -1340,7 +1340,7 @@ set_pitch_roll_for_ground_normal( var_0 )
     else
         var_1 = var_0;
 
-    var_2 = bullettrace( self.owner_not + ( 0, 0, 4 ), self.owner_not + ( 0, 0, -16 ), 0, var_1, 1, 0, 0, 0, 0, 0, 0 );
+    var_2 = bullettrace( self.origin + ( 0, 0, 4 ), self.origin + ( 0, 0, -16 ), 0, var_1, 1, 0, 0, 0, 0, 0, 0 );
 
     if ( var_2["fraction"] >= 1 )
         return;
@@ -1370,7 +1370,7 @@ propmoveunlock()
     for (;;)
     {
         waittillframeend;
-        var_0 = self _meth_82F0();
+        var_0 = self getnormalizedmovement();
 
         if ( !isdefined( var_0 ) )
             continue;
@@ -1386,20 +1386,20 @@ propmoveunlock()
 allowmove( var_0 )
 {
     if ( var_0 )
-        self _meth_807E( level.ph_linker, "tag_player" );
+        self playerlinkto( level.ph_linker, "tag_player" );
     else
-        self _meth_8051();
+        self unlink();
 }
 
 unlockprop()
 {
-    self _meth_8051();
+    self unlink();
 
     if ( self.slopelocked )
     {
-        self.propent _meth_8051();
+        self.propent unlink();
         self.propent.angles = ( self.angles[0], self.propent.angles[1], self.angles[2] );
-        self.propent.owner_not = self.propanchor.owner_not;
+        self.propent.origin = self.propanchor.origin;
         self.propent _meth_8442( self.propanchor );
     }
 
@@ -1410,13 +1410,13 @@ unlockprop()
 
 lockprop()
 {
-    self.propanchor _meth_8051();
-    self.propanchor.owner_not = self.owner_not;
-    self _meth_807E( self.propanchor );
+    self.propanchor unlink();
+    self.propanchor.origin = self.origin;
+    self playerlinkto( self.propanchor );
 
     if ( self.slopelocked )
     {
-        self.propent _meth_8051();
+        self.propent unlink();
         self.propent set_pitch_roll_for_ground_normal( self.prop );
         self.propent _meth_8442( self.propanchor );
     }
@@ -1559,7 +1559,7 @@ propspectateendwatch()
 
 createpropspecatehud()
 {
-    self.spectatecommands = _id_A7A7::_id_2401( "objective", 1 );
+    self.spectatecommands = maps\mp\gametypes\_hud_util::_id_2401( "objective", 1 );
     self.spectatecommands.land = &"MP_PH_SPECCOMMANDS";
     self.spectatecommands.xpmaxmultipliertimeplayed = 20;
     self.spectatecommands._id_0538 = -80;
@@ -1577,40 +1577,40 @@ createpropspecatehud()
 destroypropspecatehud()
 {
     if ( isdefined( self.spectatecommands ) )
-        self.spectatecommands _meth_808A();
+        self.spectatecommands destroy();
 }
 
 spectateprop()
 {
     var_0 = self.spectatableprops[self.spectatenumber];
     self.spectatingthisplayer = var_0;
-    self.propanchor _meth_8051();
-    self.propanchor.owner_not = self.owner_not;
-    self _meth_8335( var_0.owner_not );
+    self.propanchor unlink();
+    self.propanchor.origin = self.origin;
+    self setorigin( var_0.origin );
     self.angles = var_0.angles;
-    self _meth_807E( var_0.propanchor );
+    self playerlinkto( var_0.propanchor );
 }
 
 movetonewprop()
 {
     var_0 = self.spectatableprops[self.spectatenumber];
-    self _meth_8051();
-    self.owner_not = var_0.owner_not;
+    self unlink();
+    self.origin = var_0.origin;
     self.angles = var_0.angles;
-    self _meth_807E( var_0.propanchor );
+    self playerlinkto( var_0.propanchor );
 }
 
 returntoprop()
 {
-    self _meth_8051();
-    self _meth_8335( self.propanchor.owner_not );
+    self unlink();
+    self setorigin( self.propanchor.origin );
 
     if ( self._id_57FE )
-        self _meth_807E( self.propanchor );
+        self playerlinkto( self.propanchor );
     else
     {
         self.propanchor _meth_8442( self );
-        self.propanchor.owner_not = self.owner_not;
+        self.propanchor.origin = self.origin;
     }
 }
 
@@ -1620,7 +1620,7 @@ nospectatablepropswatch()
     level waittill( "noPropsToSpectate" );
 
     if ( isdefined( self.spectatekey ) )
-        self.spectatekey _meth_808A();
+        self.spectatekey destroy();
 }
 
 propcamerazoom()
@@ -1703,7 +1703,7 @@ flashtheprops( var_0 )
 {
     level endon( "game_ended" );
     var_0 endon( "disconnect" );
-    thread _id_A7B7::_id_31B8();
+    thread maps\mp\gametypes\_shellshock::_id_31B8();
     self endon( "end_explode" );
     self waittill( "explode", var_1 );
 
@@ -1733,7 +1733,7 @@ flashenemies( var_0, var_1 )
         var_0 = self;
 
     if ( !isdefined( var_1 ) )
-        var_1 = self.owner_not;
+        var_1 = self.origin;
 
     if ( !level.madpropsmode )
     {
@@ -1757,7 +1757,7 @@ flashenemies( var_0, var_1 )
         else if ( !isdefined( var_3 ) || !isalive( var_3 ) || !isdefined( var_3.team ) || var_3.team != game["attackers"] )
             continue;
 
-        var_4 = var_1 + ( 0, 0, 4 ) - var_3 _meth_80AA();
+        var_4 = var_1 + ( 0, 0, 4 ) - var_3 geteye();
         var_5 = length( var_4 );
         var_6 = 500.0;
         var_7 = 150.0;
@@ -1770,10 +1770,10 @@ flashenemies( var_0, var_1 )
                 var_8 = 1 - ( var_5 - var_7 ) / ( var_6 - var_7 );
 
             var_9 = vectornormalize( var_4 );
-            var_10 = anglestoforward( var_3 _meth_8338() );
+            var_10 = anglestoforward( var_3 getplayerangles() );
             var_11 = vectordot( var_10, var_9 );
             var_3 notify( "flashbang", var_1 + ( 0, 0, 4 ), var_8, var_11, var_0 );
-            var_0 thread _id_A78E::_id_9B0C( "standard", var_0 );
+            var_0 thread maps\mp\gametypes\_damagefeedback::_id_9B0C( "standard", var_0 );
         }
     }
 }
@@ -1783,7 +1783,7 @@ setupdamage()
     level endon( "game_ended" );
     self endon( "death" );
     self endon( "disconnect" );
-    _id_A7A4::_id_A052( 0.5 );
+    maps\mp\gametypes\_hostmigration::_id_A052( 0.5 );
     self.prop._id_258E = ::damagewatch;
 }
 
@@ -1800,22 +1800,22 @@ damagewatch( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_
         if ( var_1.pers["team"] == self.owner.pers["team"] )
             return;
 
-        var_1 thread _id_A78E::_id_9B0C( "standard", self );
+        var_1 thread maps\mp\gametypes\_damagefeedback::_id_9B0C( "standard", self );
     }
 
-    self.owner _meth_8053( var_2, var_6, var_1, var_0, var_4, var_5, var_8 );
+    self.owner dodamage( var_2, var_6, var_1, var_0, var_4, var_5, var_8 );
 }
 
 propcleanup()
 {
     if ( isdefined( self.prop ) )
-        self.prop _meth_80B2();
+        self.prop delete();
 
     if ( isdefined( self.propanchor ) )
-        self.propanchor _meth_80B2();
+        self.propanchor delete();
 
     if ( isdefined( self.propent ) )
-        self.propent _meth_80B2();
+        self.propent delete();
 }
 
 propwatchdeath()
@@ -1826,11 +1826,11 @@ propwatchdeath()
     self.propdeathfx = "propDeathFX";
     self waittill( "death" );
     var_0 = self.body;
-    playsoundatpos( self.prop.owner_not + ( 0, 0, 4 ), self.deathnoise );
-    playfx( common_scripts\utility::_id_3FA8( self.propdeathfx ), self.prop.owner_not + ( 0, 0, 4 ) );
+    playsoundatpos( self.prop.origin + ( 0, 0, 4 ), self.deathnoise );
+    playfx( common_scripts\utility::_id_3FA8( self.propdeathfx ), self.prop.origin + ( 0, 0, 4 ) );
 
     if ( isdefined( var_0 ) )
-        var_0 _meth_80B2();
+        var_0 delete();
 
     propcleanup();
     self _meth_8582( 0, 0 );
@@ -1896,7 +1896,7 @@ districtrestrictedarea()
             continue;
         }
 
-        var_1 _meth_8267();
+        var_1 suicide();
     }
 }
 
@@ -1990,7 +1990,7 @@ ph_endgame( var_0, var_1 )
 
     level.endingph = 1;
     level._id_374D = var_0;
-    thread _id_A793::_id_315F( var_0, var_1 );
+    thread maps\mp\gametypes\_gamelogic::_id_315F( var_0, var_1 );
     level thread givephteamscore( var_0 );
 }
 
@@ -2046,7 +2046,7 @@ _id_41F0()
     self endon( "disconnect" );
     level endon( "game_ended" );
     maps\mp\_utility::_id_A0ED( 3 );
-    var_0 = maps\mp\_utility::getOtherTeam( self.pers["team"] );
+    var_0 = maps\mp\_utility::getotherteam( self.pers["team"] );
     level thread maps\mp\_utility::_id_91FA( "callout_lastteammemberalive", self, self.pers["team"] );
     level thread maps\mp\_utility::_id_91FA( "callout_lastenemyalive", self, var_0 );
 
@@ -2094,7 +2094,7 @@ _id_64F0()
         if ( isdefined( var_1 ) && isdefined( var_2 ) )
         {
             if ( maps\mp\_utility::_id_5112( var_2 ) )
-                var_6 = var_2 _meth_81B5();
+                var_6 = var_2 getentitynumber();
             else
                 var_6 = -1;
 
@@ -2123,8 +2123,8 @@ givecustomloadout()
     {
         self waittill( "applyLoadout" );
         self _meth_8582( 0, 0 );
-        self _meth_811C( 1 );
-        self _meth_811B( 1 );
+        self allowprone( 1 );
+        self allowcrouch( 1 );
 
         if ( !maps\mp\_utility::_id_5092( self.hasthrownspecial ) )
             thread watchspecialgrenadethrow();
@@ -2136,7 +2136,7 @@ givecustomloadout()
 
 playertakegrenades()
 {
-    var_0 = self _meth_82CB();
+    var_0 = self getweaponslistoffhands();
 
     foreach ( var_2 in var_0 )
     {
@@ -2146,19 +2146,19 @@ playertakegrenades()
                 continue;
         }
 
-        self _meth_82F3( var_2, 0 );
+        self setweaponammoclip( var_2, 0 );
     }
 }
 
 stillalivexp()
 {
     level endon( "game_ended" );
-    level._id_A3A5["kill"]["value"] = 300;
+    level.scoreinfo["kill"]["value"] = 300;
     level waittill( "props_hide_over" );
 
     for (;;)
     {
-        _id_A7A4::_id_A052( 10 );
+        maps\mp\gametypes\_hostmigration::_id_A052( 10 );
 
         foreach ( var_1 in level.players )
         {
@@ -2168,7 +2168,7 @@ stillalivexp()
             if ( !maps\mp\_utility::_id_5189( var_1 ) )
                 continue;
 
-            level thread _id_A7B4::_id_1208( "still_alive", var_1 );
+            level thread maps\mp\gametypes\_rank::_id_1208( "still_alive", var_1 );
         }
     }
 }
@@ -2186,17 +2186,17 @@ updateprop()
             self.thirdpersonrange = 120;
 
         self _meth_8582( 1, self.thirdpersonrange );
-        self _meth_811C( 0 );
-        self _meth_811B( 1 );
+        self allowprone( 0 );
+        self allowcrouch( 1 );
         self _meth_8583();
-        self _meth_82C7();
+        self disableweaponpickup();
 
         if ( !level.madpropsmode )
-            self _meth_8301( 0 );
+            self allowsprint( 0 );
     }
 }
 
-gamemodeModifyPlayerDamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+gamemodemodifyplayerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     if ( maps\mp\_utility::_id_5092( self.propspectating ) )
     {
@@ -2211,10 +2211,10 @@ gamemodeModifyPlayerDamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var
 
     if ( isdefined( var_1 ) && isplayer( var_1 ) && isalive( var_1 ) )
     {
-        if ( level.matchRules_damageMultiplier )
-            var_2 *= level.matchRules_damageMultiplier;
+        if ( level.matchrules_damagemultiplier )
+            var_2 *= level.matchrules_damagemultiplier;
 
-        if ( level.matchRules_vampirism )
+        if ( level.matchrules_vampirism )
             var_1.helmet = int( min( float( var_1.maxturnspeed ), float( var_1.helmet + 20 ) ) );
     }
 
@@ -2254,7 +2254,7 @@ attackerswaittime()
         maps\mp\_utility::_id_3A32( 1 );
         self.phfrozen = 1;
         thread fadetoblackforxsec( var_0 );
-        _id_A7A4::_id_A052( var_0 );
+        maps\mp\gametypes\_hostmigration::_id_A052( var_0 );
     }
 
     self.phfrozen = undefined;
@@ -2280,30 +2280,30 @@ fadetoblackforxsec( var_0, var_1, var_2 )
     var_3.foreground = 0;
     var_3.xpmaxmultipliertimeplayed = 0;
     var_3._id_0538 = 0;
-    var_3 _meth_80CE( "black", 640, 480 );
+    var_3 setshader( "black", 640, 480 );
     var_3.alignx = "left";
     var_3.aligny = "top";
     var_3.hostquits = "fullscreen";
     var_3.visionsetnight = "fullscreen";
     var_3.alpha = 0;
     waittillframeend;
-    var_3 _meth_8086( var_1 );
+    var_3 fadeovertime( var_1 );
     var_3.alpha = 1;
-    _id_A7A4::_id_A052( var_0 - var_2 );
-    var_3 _meth_8086( var_2 );
+    maps\mp\gametypes\_hostmigration::_id_A052( var_0 - var_2 );
+    var_3 fadeovertime( var_2 );
     var_3.alpha = 0;
-    _id_A7A4::_id_A052( var_2 );
+    maps\mp\gametypes\_hostmigration::_id_A052( var_2 );
     waittillframeend;
 
     if ( isdefined( var_3 ) )
-        var_3 _meth_808A();
+        var_3 destroy();
 }
 
 watchspecialgrenadethrow()
 {
     self endon( "death" );
     self endon( "disconnect" );
-    self _meth_82DA( "specialGrenade", "+smoke" );
+    self notifyonplayercommand( "specialGrenade", "+smoke" );
     self waittill( "specialGrenade" );
     self.hasthrownspecial = 1;
 }
@@ -2322,19 +2322,19 @@ attackerregenammo()
     {
         if ( isalive( self ) )
         {
-            var_1 = self _meth_830F();
+            var_1 = self getcurrentprimaryweapon();
 
             if ( var_1 != "none" )
             {
-                var_2 = self _meth_82F6( var_1 );
-                self _meth_82F4( var_1, var_2 + 1 );
+                var_2 = self getweaponammostock( var_1 );
+                self setweaponammostock( var_1, var_2 + 1 );
             }
 
             if ( self.helmet < 100 && self.helmet > 0 )
                 self.helmet = 100;
         }
 
-        _id_A7A4::_id_A052( var_0 );
+        maps\mp\gametypes\_hostmigration::_id_A052( var_0 );
     }
 }
 
@@ -2376,7 +2376,7 @@ checkkillrespawn()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
-    _id_A7A4::_id_A052( 0.1 );
+    maps\mp\gametypes\_hostmigration::_id_A052( 0.1 );
 
     if ( self.pers["lives"] == 1 )
     {
@@ -2384,15 +2384,15 @@ checkkillrespawn()
         level._id_57B9[self.team]--;
 
         if ( isdefined( self.pklivesleft ) )
-            self.pklivesleft _meth_80D9( 0 );
+            self.pklivesleft setvalue( 0 );
 
-        _id_A793::_id_9B1F();
+        maps\mp\gametypes\_gamelogic::_id_9B1F();
         level notify( "propCountChanged" );
         return;
     }
 
     if ( isdefined( self.pklivesleft ) )
-        self.pklivesleft _meth_80D9( self.pers["lives"] - 1 );
+        self.pklivesleft setvalue( self.pers["lives"] - 1 );
 }
 
 _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -2420,13 +2420,13 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( var_10.team == game["attackers"] )
         thread respawnattacker();
     else
-        thread _id_A78F::_id_07DE( var_10.body, var_10, var_10.team, 5.0, var_1, 0 );
+        thread maps\mp\gametypes\_deathicons::_id_07DE( var_10.body, var_10, var_10.team, 5.0, var_1, 0 );
 
     if ( isdefined( var_1 ) && isplayer( var_1 ) && var_1 != var_10 && var_10.team != var_1.team )
         var_11 = 1;
 
     if ( var_11 )
-        var_1 thread _id_A7A6::_id_8A68( "prop_finalblow" );
+        var_1 thread maps\mp\gametypes\_hud_message::_id_8A68( "prop_finalblow" );
 
     foreach ( var_13 in level.players )
     {
@@ -2435,12 +2435,12 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
         if ( var_13 != var_1 && var_13.team == game["defenders"] && isalive( var_13 ) && var_10.team == game["defenders"] )
         {
-            var_13 thread _id_A7A6::_id_8A68( "prop_survived" );
+            var_13 thread maps\mp\gametypes\_hud_message::_id_8A68( "prop_survived" );
             continue;
         }
 
         if ( var_13 != var_1 && var_13.team == game["attackers"] && var_10.team == game["defenders"] )
-            var_13 thread _id_A7A6::_id_8A68( "prop_killed" );
+            var_13 thread maps\mp\gametypes\_hud_message::_id_8A68( "prop_killed" );
     }
 }
 
@@ -2493,7 +2493,7 @@ propkilledend()
 
     level.hunterswonending = 1;
     level.gameending = 1;
-    _id_A7A4::_id_A052( 3 );
+    maps\mp\gametypes\_hostmigration::_id_A052( 3 );
     thread ph_endgame( game["attackers"], game["end_reason"][game["defenders"] + "_eliminated"] );
 }
 
@@ -2510,15 +2510,15 @@ playdamagesoundph( var_0 )
 
     if ( self.team == "axis" )
     {
-        if ( self _meth_8435() )
-            self _meth_809C( "generic_pain_enemy_fm_" + var_1 );
+        if ( self hasfemalecustomizationmodel() )
+            self playsound( "generic_pain_enemy_fm_" + var_1 );
         else
-            self _meth_809C( "generic_pain_enemy_" + var_1 );
+            self playsound( "generic_pain_enemy_" + var_1 );
     }
-    else if ( self _meth_8435() )
-        self _meth_809C( "generic_pain_friendly_fm_" + var_1 );
+    else if ( self hasfemalecustomizationmodel() )
+        self playsound( "generic_pain_friendly_fm_" + var_1 );
     else
-        self _meth_809C( "generic_pain_friendly_" + var_1 );
+        self playsound( "generic_pain_friendly_" + var_1 );
 }
 
 playdeathsoundph()
@@ -2527,9 +2527,9 @@ playdeathsoundph()
 
     if ( self.team == game["attackers"] )
     {
-        if ( self _meth_8435() )
-            self _meth_809C( "generic_death_enemy_fm_" + var_0 );
+        if ( self hasfemalecustomizationmodel() )
+            self playsound( "generic_death_enemy_fm_" + var_0 );
         else
-            self _meth_809C( "generic_death_enemy_" + var_0 );
+            self playsound( "generic_death_enemy_" + var_0 );
     }
 }

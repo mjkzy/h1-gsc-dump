@@ -15,7 +15,7 @@ sub__id_8072
 		CHECK_CLEAR_PARAMS
 		GET_LOCAL_FUNC sub__id_1647
 		GET_STRING "gametype_think"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_161B
+		EVAL_LEVEL_FIELD_VARIABLE_REF bot_funcs
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		END
@@ -48,7 +48,7 @@ sub_bot_gun_pick_personality_from_weapon
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/_utility getWeaponClass
+		CALL_FAR_FUNC maps/mp/_utility getweaponclass
 		GET_STRING "weapon_pistol"
 		EQUALITY
 		JMP_FALSE loc_61
@@ -124,7 +124,7 @@ sub__id_1647
 		CREATE_LOCAL_VARIABLE 2
 	loc_CE
 		GET_SELF
-		CALL_BUILTIN_METHOD_0 _meth_830E
+		CALL_BUILTIN_METHOD_0 getcurrentweapon
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "none"
@@ -132,7 +132,7 @@ sub__id_1647
 		JMP_EXPR_FALSE loc_E5
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
+		CALL_FAR_FUNC maps/mp/_utility iskillstreakweapon
 		BOOL_NOT
 		CAST_BOOL
 	loc_E5
@@ -147,11 +147,11 @@ sub__id_1647
 		SET_LOCAL_VARIABLE_FIELD_CACHED 2
 		GET_STRING "advancedPersonality"
 		GET_SELF
-		CALL_BUILTIN_METHOD_1 _meth_8379
+		CALL_BUILTIN_METHOD_1 botgetdifficultysetting
 		JMP_EXPR_FALSE loc_10A
 		GET_STRING "strategyLevel"
 		GET_SELF
-		CALL_BUILTIN_METHOD_1 _meth_8379
+		CALL_BUILTIN_METHOD_1 botgetdifficultysetting
 		GET_ZERO
 		GREATER
 		CAST_BOOL

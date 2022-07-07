@@ -27,8 +27,8 @@ main()
 
 _id_8072()
 {
-    level._id_161B["gametype_think"] = ::bot_dd_think;
-    level._id_161B["notify_enemy_bots_bomb_used"] = ::_id_6206;
+    level.bot_funcs["gametype_think"] = ::bot_dd_think;
+    level.bot_funcs["notify_enemy_bots_bomb_used"] = ::_id_6206;
 }
 
 bot_dd_start()
@@ -64,8 +64,8 @@ bot_dd_think()
     while ( !isdefined( level._id_1628 ) )
         wait 0.05;
 
-    self _meth_834F( "separation", 0 );
-    self _meth_834F( "grenade_objectives", 1 );
+    self botsetflag( "separation", 0 );
+    self botsetflag( "grenade_objectives", 1 );
     self.current_bombzone = undefined;
     self._id_27BC = 0;
 
@@ -96,20 +96,20 @@ bot_dd_think()
 
             if ( self._id_759A == "sweep_zone" )
             {
-                if ( !maps\mp\bots\_bots_util::_id_165E( self.current_bombzone.curOrigin ) )
+                if ( !maps\mp\bots\_bots_util::_id_165E( self.current_bombzone.curorigin ) )
                 {
                     var_1["min_goal_time"] = 2;
                     var_1["max_goal_time"] = 4;
                     var_1["override_origin_node"] = common_scripts\utility::_id_710E( self.current_bombzone._id_174F );
-                    maps\mp\bots\_bots_strategy::_id_16C2( self.current_bombzone.curOrigin, level._id_703F, var_1 );
+                    maps\mp\bots\_bots_strategy::_id_16C2( self.current_bombzone.curorigin, level._id_703F, var_1 );
                 }
             }
             else if ( self._id_759A == "defend_zone" )
             {
-                if ( !maps\mp\bots\_bots_util::_id_165E( level.ddbombmodel[self.current_bombzone.land].owner_not ) )
+                if ( !maps\mp\bots\_bots_util::_id_165E( level.ddbombmodel[self.current_bombzone.land].origin ) )
                 {
                     var_1["score_flags"] = "strongly_avoid_center";
-                    maps\mp\bots\_bots_strategy::_id_16C2( level.ddbombmodel[self.current_bombzone.land].owner_not, level._id_703F, var_1 );
+                    maps\mp\bots\_bots_strategy::_id_16C2( level.ddbombmodel[self.current_bombzone.land].origin, level._id_703F, var_1 );
                 }
             }
             else if ( self._id_759A == "investigate_someone_using_bomb" )
@@ -129,11 +129,11 @@ bot_dd_think()
 
         if ( self._id_759A == "defend_zone" )
         {
-            if ( !maps\mp\bots\_bots_util::_id_165E( self.current_bombzone.curOrigin ) )
+            if ( !maps\mp\bots\_bots_util::_id_165E( self.current_bombzone.curorigin ) )
             {
                 var_1["score_flags"] = "strict_los";
                 var_1["override_origin_node"] = common_scripts\utility::_id_710E( self.current_bombzone._id_174F );
-                maps\mp\bots\_bots_strategy::_id_16C2( self.current_bombzone.curOrigin, level._id_703F, var_1 );
+                maps\mp\bots\_bots_strategy::_id_16C2( self.current_bombzone.curorigin, level._id_703F, var_1 );
             }
 
             continue;
@@ -166,12 +166,12 @@ plant_bomb()
 {
     self endon( "change_role" );
     var_0 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_plant_on( self.current_bombzone, 0 );
-    self _meth_8352( var_0.owner_not, 0, "critical" );
+    self _meth_8352( var_0.origin, 0, "critical" );
     var_1 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
 
     if ( var_1 == "goal" )
     {
-        var_2 = _id_A793::_id_4131();
+        var_2 = maps\mp\gametypes\_gamelogic::_id_4131();
         var_3 = var_2 - level._id_688D * 2 * 1000;
         var_4 = gettime() + var_3;
 
@@ -180,7 +180,7 @@ plant_bomb()
 
         var_5 = var_4 > 0 && gettime() >= var_4;
         var_6 = maps\mp\bots\_bots_gametype_common::bombzone_press_use( level._id_688D + 2, "bomb_planted", var_5 );
-        self _meth_8354();
+        self botclearscriptgoal();
 
         if ( var_6 )
             bot_dd_clear_role();
@@ -190,8 +190,8 @@ plant_bomb()
 defuse_bomb()
 {
     self endon( "change_role" );
-    self _meth_8377( "scripted" );
-    var_0 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_defuse_on( self.current_bombzone ).owner_not;
+    self botsetpathingstyle( "scripted" );
+    var_0 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_defuse_on( self.current_bombzone ).origin;
     self _meth_8352( var_0, 20, "critical" );
     var_1 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
 
@@ -216,7 +216,7 @@ defuse_bomb()
                         break;
                 }
                 else
-                    self _meth_8352( var_2[var_3].owner_not, 20, "critical" );
+                    self _meth_8352( var_2[var_3].origin, 20, "critical" );
 
                 var_1 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
 
@@ -246,7 +246,7 @@ defuse_bomb()
         if ( !var_9 && self._id_27BC >= 4 )
             self._id_27BC++;
 
-        self _meth_8354();
+        self botclearscriptgoal();
 
         if ( var_9 )
             bot_dd_clear_role();
@@ -260,7 +260,7 @@ investigate_someone_using_bomb()
     if ( maps\mp\bots\_bots_util::_id_165D() )
         maps\mp\bots\_bots_strategy::_id_15EF();
 
-    self _meth_8353( common_scripts\utility::_id_710E( self.current_bombzone._id_174F ), "critical" );
+    self botsetscriptgoal( common_scripts\utility::_id_710E( self.current_bombzone._id_174F ), "critical" );
     var_0 = maps\mp\bots\_bots_util::_id_172E();
 
     if ( var_0 == "goal" )
@@ -356,7 +356,7 @@ get_players_at_zone( var_0, var_1 )
             continue;
         }
 
-        if ( distancesquared( var_5.owner_not, var_0.curOrigin ) < level._id_703F * level._id_703F )
+        if ( distancesquared( var_5.origin, var_0.curorigin ) < level._id_703F * level._id_703F )
             var_2 = common_scripts\utility::_id_0CDA( var_2, var_5 );
     }
 
@@ -482,8 +482,8 @@ bot_try_switch_attack_zone()
 
     if ( isdefined( var_0 ) )
     {
-        var_1 = distance( self.owner_not, self.current_bombzone.curOrigin );
-        var_2 = distance( self.owner_not, var_0.curOrigin );
+        var_1 = distance( self.origin, self.current_bombzone.curorigin );
+        var_2 = distance( self.origin, var_0.curorigin );
 
         if ( var_2 < var_1 * 0.6 )
             self.current_bombzone = var_0;
@@ -510,8 +510,8 @@ bot_choose_attack_role()
             var_0 = "atk_bomber";
         else if ( isai( var_1 ) )
         {
-            var_2 = distance( self.owner_not, self.current_bombzone.curOrigin );
-            var_3 = distance( var_1.owner_not, self.current_bombzone.curOrigin );
+            var_2 = distance( self.origin, self.current_bombzone.curorigin );
+            var_3 = distance( var_1.origin, self.current_bombzone.curorigin );
 
             if ( var_2 < var_3 * 0.9 )
             {
@@ -545,8 +545,8 @@ bot_choose_defend_role()
             var_0 = "defuser";
         else if ( isai( var_1 ) )
         {
-            var_2 = distance( self.owner_not, self.current_bombzone.curOrigin );
-            var_3 = distance( var_1.owner_not, self.current_bombzone.curOrigin );
+            var_2 = distance( self.origin, self.current_bombzone.curorigin );
+            var_3 = distance( var_1.origin, self.current_bombzone.curorigin );
 
             if ( var_2 < var_3 * 0.9 )
             {
@@ -574,8 +574,8 @@ bot_dd_set_role( var_0 )
 bot_dd_clear_role()
 {
     self._id_759A = undefined;
-    self _meth_8354();
-    self _meth_8377( undefined );
+    self botclearscriptgoal();
+    self botsetpathingstyle( undefined );
     maps\mp\bots\_bots_strategy::_id_15EF();
     self notify( "change_role" );
     self._id_27BC = 0;

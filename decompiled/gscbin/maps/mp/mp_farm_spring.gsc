@@ -26,7 +26,7 @@ main()
     maps\createart\mp_farm_spring_art::main();
     maps\mp\_load::main();
     _id_A769::init();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_farm_spring" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_farm_spring" );
     game["attackers"] = "allies";
     game["defenders"] = "axis";
     game["allies_soldiertype"] = "woodland";
@@ -43,11 +43,11 @@ replace_turrets()
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = var_2.owner_not;
+        var_3 = var_2.origin;
         var_4 = var_2.angles;
-        var_2 _meth_80B2();
+        var_2 delete();
         var_5 = spawnturret( "misc_turret", var_3, "saw_bipod_stand_mp", 0 );
-        var_5 setModel( "weapon_saw_MG_setup" );
+        var_5 setmodel( "weapon_saw_MG_setup" );
         var_5.angles = var_4;
     }
 }

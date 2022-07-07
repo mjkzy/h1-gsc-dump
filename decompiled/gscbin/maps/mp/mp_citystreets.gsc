@@ -25,7 +25,7 @@ main()
     maps\mp\mp_citystreets_fx::main();
     maps\createart\mp_citystreets_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_citystreets" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_citystreets" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";
     game["allies_soldiertype"] = "desert";
@@ -54,7 +54,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -66,7 +66,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

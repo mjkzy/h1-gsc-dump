@@ -12,42 +12,42 @@ sub_main
 	loc_14
 		CALL_FAR_FUNC2 maps/mp/gametypes/_globallogic init
 		DEC_TOP
-		CALL_FAR_FUNC2 maps/mp/gametypes/_callbacksetup SetupCallbacks
+		CALL_FAR_FUNC2 maps/mp/gametypes/_callbacksetup setupcallbacks
 		DEC_TOP
-		CALL_FAR_FUNC2 maps/mp/gametypes/_globallogic SetupCallbacks
+		CALL_FAR_FUNC2 maps/mp/gametypes/_globallogic setupcallbacks
 		DEC_TOP
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_7137
-		GET_LOCAL_FUNC sub_onStartGameType
-		SET_LEVEL_FIELD_VARIABLE_FIELD onStartGameType
-		GET_LOCAL_FUNC sub_getSpawnPoint
-		SET_LEVEL_FIELD_VARIABLE_FIELD getSpawnPoint
+		SET_LEVEL_FIELD_VARIABLE_FIELD rankedmatch
+		GET_LOCAL_FUNC sub_onstartgametype
+		SET_LEVEL_FIELD_VARIABLE_FIELD onstartgametype
+		GET_LOCAL_FUNC sub_getspawnpoint
+		SET_LEVEL_FIELD_VARIABLE_FIELD getspawnpoint
 		GET_LOCAL_FUNC sub__id_64E9
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_64E9
 		PRE_CALL
 		GET_ZERO
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerNumLivesDvar
+		CALL_FAR_FUNC maps/mp/_utility registernumlivesdvar
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerTimeLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registertimelimitdvar
 		DEC_TOP
 		PRE_CALL
 		GET_BYTE 1
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerScoreLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registerscorelimitdvar
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerHalfTimeDvar
+		CALL_FAR_FUNC maps/mp/_utility registerhalftimedvar
 		DEC_TOP
-		EVAL_LEVEL_FIELD_VARIABLE _id_1E2E
+		EVAL_LEVEL_FIELD_VARIABLE class
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1E38
 		GET_LOCAL_FUNC sub__id_5BB1
-		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1E2E
+		SET_LEVEL_FIELD_VARIABLE_FIELD class
 		GET_STRING "main"
 		GET_STRING "menu_team"
 		GET_GAME_REF
@@ -96,7 +96,7 @@ sub__id_5BB1
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		GET_BYTE 1
-		SET_LEVEL_FIELD_VARIABLE_FIELD inGracePeriod
+		SET_LEVEL_FIELD_VARIABLE_FIELD ingraceperiod
 		GET_ZERO
 		SET_SELF_FIELD_VARIABLE_FIELD _id_4729
 		PRE_CALL
@@ -108,7 +108,7 @@ sub__id_5BB1
 
 end_5BB1
 
-sub_onStartGameType
+sub_onstartgametype
 		CHECK_CLEAR_PARAMS
 		GET_STRING "auto_change"
 		CALL_BUILTIN_FUNC_1 setclientnamemode
@@ -127,32 +127,32 @@ sub_onStartGameType
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
 		GET_STRING "allies"
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivetext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
 		GET_STRING "axis"
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivetext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
 		GET_STRING "allies"
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveScoreText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivescoretext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
 		GET_STRING "axis"
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveScoreText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivescoretext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
 		GET_STRING "allies"
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveHintText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivehinttext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_WAR"
 		GET_STRING "axis"
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveHintText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivehinttext
 		DEC_TOP
 		CALL_LOCAL_FUNC2 sub__id_4D5D
 		DEC_TOP
@@ -170,45 +170,45 @@ sub_onStartGameType
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_6F0A
 		END
 
-end_artGameType
+end_artgametype
 
 sub__id_4D5D
 		CHECK_CLEAR_PARAMS
 		GET_VECTOR 0 0 0
-		SET_LEVEL_FIELD_VARIABLE_FIELD spawnMins
+		SET_LEVEL_FIELD_VARIABLE_FIELD spawnmins
 		GET_VECTOR 0 0 0
-		SET_LEVEL_FIELD_VARIABLE_FIELD spawnMaxs
+		SET_LEVEL_FIELD_VARIABLE_FIELD spawnmaxs
 		PRE_CALL
 		GET_STRING "mp_tdm_spawn_allies_start"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addStartSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addstartspawnpoints
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "mp_tdm_spawn_axis_start"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addStartSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addstartspawnpoints
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "mp_tdm_spawn"
 		GET_STRING "allies"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addspawnpoints
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "mp_tdm_spawn"
 		GET_STRING "axis"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addspawnpoints
 		DEC_TOP
 		PRE_CALL
-		EVAL_LEVEL_FIELD_VARIABLE spawnMaxs
-		EVAL_LEVEL_FIELD_VARIABLE spawnMins
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic findBoxCenter
-		SET_LEVEL_FIELD_VARIABLE_FIELD mapCenter
-		EVAL_LEVEL_FIELD_VARIABLE mapCenter
+		EVAL_LEVEL_FIELD_VARIABLE spawnmaxs
+		EVAL_LEVEL_FIELD_VARIABLE spawnmins
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic findboxcenter
+		SET_LEVEL_FIELD_VARIABLE_FIELD mapcenter
+		EVAL_LEVEL_FIELD_VARIABLE mapcenter
 		CALL_BUILTIN_FUNC_1 setmapcenter
 		DEC_TOP
 		END
 
 end_4D5D
 
-sub_getSpawnPoint
+sub_getspawnpoint
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -289,7 +289,7 @@ sub_getSpawnPoint
 		RETN
 		END
 
-end_pawnPoint
+end_pawnpoint
 
 sub__id_64E9
 		CHECK_CLEAR_PARAMS

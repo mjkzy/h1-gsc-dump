@@ -29,7 +29,7 @@ codecallback_agentadded()
 
     level._id_628E++;
     maps\mp\agents\_agent_utility::_id_7DB1( var_0 );
-    level._id_08A1[level._id_08A1.size] = self;
+    level.agentarray[level.agentarray.size] = self;
 }
 
 codecallback_agentdamaged( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -56,7 +56,7 @@ _id_214C( var_0, var_1, var_2 )
 
     if ( isdefined( var_3 ) )
     {
-        var_3._id_214F = gettime();
+        var_3.connecttime = gettime();
 
         if ( isdefined( var_1 ) )
             var_3 maps\mp\agents\_agent_utility::_id_7DB1( var_1 );
@@ -66,10 +66,10 @@ _id_214C( var_0, var_1, var_2 )
         if ( isdefined( var_2 ) )
             var_3._id_1E30 = var_2;
 
-        if ( isdefined( level._id_0897[var_0]["onAIConnect"] ) )
+        if ( isdefined( level.agent_funcs[var_0]["onAIConnect"] ) )
             var_3 [[ var_3 maps\mp\agents\_agent_utility::_id_08A6( "onAIConnect" ) ]]();
 
-        var_3 maps\mp\gametypes\_spawnlogic::addToCharactersArray();
+        var_3 maps\mp\gametypes\_spawnlogic::addtocharactersarray();
     }
 
     return var_3;
@@ -77,7 +77,7 @@ _id_214C( var_0, var_1, var_2 )
 
 _id_4D7E()
 {
-    level._id_08A1 = [];
+    level.agentarray = [];
     level._id_628E = 0;
 }
 
@@ -87,7 +87,7 @@ _id_072F()
     level waittill( "connected", var_0 );
     var_1 = getmaxagents();
 
-    while ( level._id_08A1.size < var_1 )
+    while ( level.agentarray.size < var_1 )
     {
         var_2 = addagent();
 

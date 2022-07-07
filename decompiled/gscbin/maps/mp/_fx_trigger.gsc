@@ -44,7 +44,7 @@ main()
             var_7.players = [];
             var_7.rightaimlimit = var_6;
             var_7.fxent = spawnfx( level._effect[var_5], ( 0, 0, 0 ) );
-            var_7.fxent _meth_8056();
+            var_7.fxent hide();
             triggerfx( var_7.fxent, 1 );
             level.fx_trigger_info[var_5] = var_7;
             var_7.fxent thread fx_trigger_fx_ent_think( var_5 );
@@ -63,21 +63,21 @@ fx_trigger_fx_ent_think( var_0 )
         level.fx_trigger_info[var_0].players = [];
         waittillframeend;
         waitframe;
-        self _meth_8056();
+        self hide();
 
         if ( level.fx_trigger_info[var_0].rightaimlimit )
         {
             foreach ( var_2 in level.players )
             {
                 if ( !isdefined( common_scripts\utility::_id_0CE8( level.fx_trigger_info[var_0].players, var_2 ) ) )
-                    self ShowToPlayer( var_2 );
+                    self showtoplayer( var_2 );
             }
 
             continue;
         }
 
         foreach ( var_2 in level.fx_trigger_info[var_0].players )
-            self ShowToPlayer( var_2 );
+            self showtoplayer( var_2 );
     }
 }
 

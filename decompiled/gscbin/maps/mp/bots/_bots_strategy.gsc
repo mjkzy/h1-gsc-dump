@@ -24,7 +24,7 @@ _id_15ED()
     var_0 = _id_15EC( self._id_24BD );
 
     if ( isdefined( var_0 ) && var_0.size > 0 )
-        return common_scripts\utility::_id_710E( var_0 ).owner_not;
+        return common_scripts\utility::_id_710E( var_0 ).origin;
 
     return undefined;
 }
@@ -39,7 +39,7 @@ _id_15EC( var_0, var_1 )
 
 _id_162B( var_0, var_1, var_2 )
 {
-    if ( self _meth_8379( "allowGrenades" ) == 0 )
+    if ( self botgetdifficultysetting( "allowGrenades" ) == 0 )
         return undefined;
 
     var_3 = [];
@@ -54,12 +54,12 @@ _id_162B( var_0, var_1, var_2 )
     if ( var_3.size == 0 )
         return undefined;
 
-    var_4 = self _meth_82CC();
+    var_4 = self getweaponslistitems();
     var_5 = [];
 
     foreach ( var_7 in var_4 )
     {
-        if ( self _meth_82F5( var_7 ) > 0 || self _meth_82F6( var_7 ) > 0 )
+        if ( self getweaponammoclip( var_7 ) > 0 || self getweaponammostock( var_7 ) > 0 )
             var_5[var_5.size] = var_7;
     }
 
@@ -115,9 +115,9 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
                 continue;
             }
 
-            if ( distancesquared( var_9.owner_not, var_2.owner_not ) > 90000 )
+            if ( distancesquared( var_9.origin, var_2.origin ) > 90000 )
             {
-                if ( vectordot( var_7, vectornormalize( var_9.owner_not - var_2.owner_not ) ) < 0.4 )
+                if ( vectordot( var_7, vectornormalize( var_9.origin - var_2.origin ) ) < 0.4 )
                     var_6[var_6.size] = var_9;
             }
         }
@@ -125,7 +125,7 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
         if ( var_6.size > 0 )
         {
             var_5 = common_scripts\utility::_id_710E( var_6 );
-            var_11 = getnodesinradius( var_5.owner_not, 300, 50 );
+            var_11 = getnodesinradius( var_5.origin, 300, 50 );
             var_12 = [];
 
             foreach ( var_14 in var_11 )
@@ -135,7 +135,7 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
             }
 
             var_11 = var_12;
-            var_4 = self _meth_8362( var_11, min( var_11.size, 3 ), "node_trap", var_2, var_5 );
+            var_4 = self botnodepick( var_11, min( var_11.size, 3 ), "node_trap", var_2, var_5 );
         }
     }
 
@@ -145,14 +145,14 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
 
         if ( var_0["purpose"] == "trap_directional" && isdefined( var_5 ) )
         {
-            var_17 = vectortoangles( var_5.owner_not - var_4.owner_not );
+            var_17 = vectortoangles( var_5.origin - var_4.origin );
             var_16 = var_17[1];
         }
 
-        if ( self _meth_8363() && self _meth_835B() != "critical" && self _meth_835B() != "tactical" )
-            self _meth_8354();
+        if ( self bothasscriptgoal() && self botgetscriptgoaltype() != "critical" && self botgetscriptgoaltype() != "tactical" )
+            self botclearscriptgoal();
 
-        var_18 = self _meth_8353( var_4, "guard", var_16 );
+        var_18 = self botsetscriptgoal( var_4, "guard", var_16 );
 
         if ( var_18 )
         {
@@ -162,7 +162,7 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
             {
                 thread maps\mp\bots\_bots_util::_id_161A( "stand", 4.0 );
 
-                if ( !isdefined( self.enemy ) || !self _meth_836D( self.enemy ) )
+                if ( !isdefined( self.enemy ) || !self botcanseeentity( self.enemy ) )
                 {
                     thread maps\mp\bots\_bots_util::bot_disable_movement_for_time( 4.0 );
                     var_20 = ( 0, 0, 0 );
@@ -171,13 +171,13 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
                         var_20 = ( 0, 0, 55 );
 
                     if ( isdefined( var_16 ) )
-                        self _meth_836B( var_5.owner_not + var_20, 3.0, "script_forced" );
+                        self _meth_836b( var_5.origin + var_20, 3.0, "script_forced" );
                     else
-                        self _meth_836B( self.owner_not + var_20 + anglestoforward( self _meth_8338() ) * 50, 3.0, "script_forced" );
+                        self _meth_836b( self.origin + var_20 + anglestoforward( self getplayerangles() ) * 50, 3.0, "script_forced" );
 
-                    self _meth_8312( var_0["weap_name"] );
+                    self switchtoweapon( var_0["weap_name"] );
 
-                    while ( self _meth_830E() != var_0["weap_name"] )
+                    while ( self getcurrentweapon() != var_0["weap_name"] )
                         wait 0.05;
 
                     bot_try_use_ambush_item( var_0["item_action"] );
@@ -195,11 +195,11 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
                     self._id_0B66 = undefined;
                     wait(randomfloat( 0.25 ));
                     self notify( "bot_force_stance_for_time" );
-                    self _meth_8350( "none" );
-                    self _meth_8312( "none" );
+                    self botsetstance( "none" );
+                    self switchtoweapon( "none" );
                     self notify( "bot_disable_movement_for_time" );
-                    self _meth_834F( "disable_movement", 0 );
-                    self _meth_836B( undefined );
+                    self botsetflag( "disable_movement", 0 );
+                    self _meth_836b( undefined );
                 }
             }
 
@@ -216,7 +216,7 @@ bot_try_use_ambush_item( var_0 )
 
     for (;;)
     {
-        self _meth_837C( var_0 );
+        self _meth_837c( var_0 );
         wait 0.5;
     }
 }
@@ -242,15 +242,15 @@ bot_watch_c4_detonate( var_0, var_1 )
 
     for (;;)
     {
-        if ( distancesquared( self.owner_not, var_0.owner_not ) > var_2 )
+        if ( distancesquared( self.origin, var_0.origin ) > var_2 )
         {
-            var_3 = self _meth_817A( var_0.owner_not, 1.0 );
+            var_3 = self _meth_817a( var_0.origin, 1.0 );
 
             if ( var_3 < var_2 )
             {
-                self _meth_837C( "use", 0.25 );
+                self _meth_837c( "use", 0.25 );
                 wait 0.5;
-                self _meth_837C( "use", 0.25 );
+                self _meth_837c( "use", 0.25 );
                 return;
             }
         }
@@ -313,8 +313,8 @@ _id_15F0( var_0, var_1, var_2, var_3 )
     self endon( "defend_stop" );
     thread _id_27B0();
 
-    if ( isdefined( self._id_15F1 ) || self _meth_835B() == "camp" )
-        self _meth_8354();
+    if ( isdefined( self._id_15F1 ) || self botgetscriptgoaltype() == "camp" )
+        self botclearscriptgoal();
 
     self._id_15F1 = 1;
     self._id_15F7 = var_2;
@@ -343,7 +343,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         self._id_15F2 = var_0;
     }
 
-    self _meth_8350( "none" );
+    self botsetstance( "none" );
     var_4 = undefined;
     var_5 = 6;
     var_6 = 10;
@@ -378,9 +378,9 @@ _id_15F0( var_0, var_1, var_2, var_3 )
 
             foreach ( var_8 in self._id_27B4 )
             {
-                var_8._id_7020[self._id_27A3] = maps\mp\bots\_bots_util::_id_332B( var_8.owner_not, maps\mp\bots\_bots_util::_id_27A8(), "prone" );
+                var_8._id_7020[self._id_27A3] = maps\mp\bots\_bots_util::_id_332B( var_8.origin, maps\mp\bots\_bots_util::_id_27A8(), "prone" );
                 wait 0.05;
-                var_8._id_2480[self._id_27A3] = maps\mp\bots\_bots_util::_id_332B( var_8.owner_not, maps\mp\bots\_bots_util::_id_27A8(), "crouch" );
+                var_8._id_2480[self._id_27A3] = maps\mp\bots\_bots_util::_id_332B( var_8.origin, maps\mp\bots\_bots_util::_id_27A8(), "crouch" );
                 wait 0.05;
             }
         }
@@ -411,10 +411,10 @@ _id_15F0( var_0, var_1, var_2, var_3 )
 
             for ( var_13 = 0; var_13 < var_12.size; var_13++ )
             {
-                var_14 = vectornormalize( var_12[var_13].owner_not - var_11 );
+                var_14 = vectornormalize( var_12[var_13].origin - var_11 );
                 var_15 = var_11 + var_14 * 15;
 
-                if ( sighttracepassed( var_15, var_12[var_13].owner_not, 0, undefined ) )
+                if ( sighttracepassed( var_15, var_12[var_13].origin, 0, undefined ) )
                 {
                     var_10 = var_12[var_13];
                     break;
@@ -422,7 +422,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
 
                 wait 0.05;
 
-                if ( sighttracepassed( var_15 + ( 0, 0, 55 ), var_12[var_13].owner_not + ( 0, 0, 55 ), 0, undefined ) )
+                if ( sighttracepassed( var_15 + ( 0, 0, 55 ), var_12[var_13].origin + ( 0, 0, 55 ), 0, undefined ) )
                 {
                     var_10 = var_12[var_13];
                     break;
@@ -458,7 +458,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         self._id_24BC = undefined;
         var_18 = isdefined( var_3["entrance_points_index"] ) && isarray( var_3["entrance_points_index"] );
         self._id_24BD = _id_19C9( var_17, var_18 );
-        var_19 = self _meth_835B();
+        var_19 = self botgetscriptgoaltype();
         var_20 = maps\mp\bots\_bots_util::_id_1644( var_4, var_19 );
 
         if ( !var_20 )
@@ -495,7 +495,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
             self [[ var_16 ]]();
         }
 
-        self _meth_8354();
+        self botclearscriptgoal();
         var_24 = "";
 
         if ( isdefined( self._id_24BB ) || isdefined( self._id_24BC ) )
@@ -521,30 +521,30 @@ _id_15F0( var_0, var_1, var_2, var_3 )
                 self _meth_8352( self._id_24BC, 0, var_4, var_27, self._id_27A6 );
             }
             else if ( !isdefined( self._id_24BA ) )
-                self _meth_8353( self._id_24BB, var_4, undefined, self._id_27A6 );
+                self botsetscriptgoal( self._id_24BB, var_4, undefined, self._id_27A6 );
             else
-                self _meth_8353( self._id_24BB, var_4, self._id_24BA[1], self._id_27A6 );
+                self botsetscriptgoal( self._id_24BB, var_4, self._id_24BA[1], self._id_27A6 );
 
             if ( var_17 )
             {
                 if ( !isdefined( self._id_6F38 ) || !isdefined( self._id_24BB ) || self._id_6F38 != self._id_24BB )
-                    self _meth_8350( "none" );
+                    self botsetstance( "none" );
             }
 
-            var_28 = self _meth_8358();
+            var_28 = self botgetscriptgoal();
             self notify( "new_defend_goal" );
             maps\mp\bots\_bots_util::_id_A1EC();
 
             if ( var_4 == "objective" )
             {
                 _id_27AF();
-                self _meth_8372( 1.0 );
-                self _meth_834F( "cautious", 0 );
+                self botsetawareness( 1.0 );
+                self botsetflag( "cautious", 0 );
             }
 
-            if ( self _meth_8363() )
+            if ( self bothasscriptgoal() )
             {
-                var_29 = self _meth_8358();
+                var_29 = self botgetscriptgoal();
 
                 if ( maps\mp\bots\_bots_util::_id_172A( var_29, var_28 ) )
                     var_24 = maps\mp\bots\_bots_util::_id_172E( 20, "defend_force_node_recalculation" );
@@ -553,7 +553,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
             if ( var_24 == "goal" )
             {
                 if ( var_17 )
-                    self _meth_8350( self._id_24BD );
+                    self botsetstance( self._id_24BD );
 
                 childthread _id_27B6();
             }
@@ -569,7 +569,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         var_24 = common_scripts\utility::_id_A073( var_30, "node_relinquished", "goal_changed", "script_goal_changed", "defend_force_node_recalculation", "bad_path" );
 
         if ( ( var_24 == "node_relinquished" || var_24 == "bad_path" || var_24 == "goal_changed" || var_24 == "script_goal_changed" ) && ( self._id_24BD == "crouch" || self._id_24BD == "prone" ) )
-            self _meth_8350( "none" );
+            self botsetstance( "none" );
     }
 }
 
@@ -582,7 +582,7 @@ _id_19C9( var_0, var_1 )
         var_3 = 100;
         var_4 = 0;
         var_5 = 0;
-        var_6 = self _meth_8379( "strategyLevel" );
+        var_6 = self botgetdifficultysetting( "strategyLevel" );
 
         if ( var_6 == 1 )
         {
@@ -635,17 +635,17 @@ _id_847B( var_0 )
 
     if ( var_0 )
     {
-        if ( self _meth_8379( "strategyLevel" ) == 0 )
+        if ( self botgetdifficultysetting( "strategyLevel" ) == 0 )
             return 0;
 
-        if ( self._id_15F7 == "capture_zone" && self _meth_80AB( self._id_15F6 ) )
+        if ( self._id_15F7 == "capture_zone" && self istouching( self._id_15F6 ) )
             return 0;
 
-        return distancesquared( self.owner_not, self._id_15F2 ) > var_2 * 0.75 * 0.75;
+        return distancesquared( self.origin, self._id_15F2 ) > var_2 * 0.75 * 0.75;
     }
-    else if ( self _meth_8373() && distancesquared( self.owner_not, self._id_15F2 ) < var_2 )
+    else if ( self _meth_8373() && distancesquared( self.origin, self._id_15F2 ) < var_2 )
     {
-        var_3 = self _meth_837A();
+        var_3 = self botgetpathdist();
         return 0 <= var_3 && var_3 <= var_1;
     }
     else
@@ -657,9 +657,9 @@ _id_8158( var_0, var_1 )
     var_2 = spawnstruct();
 
     if ( isdefined( var_1 ) )
-        var_2.owner_not = var_1;
+        var_2.origin = var_1;
     else
-        var_2.owner_not = var_0.owner_not;
+        var_2.origin = var_0.origin;
 
     var_2.node_relinquished = var_0;
     var_2._id_3A11 = 0;
@@ -677,11 +677,11 @@ _id_27AF()
     self endon( "defend_stop" );
     self endon( "started_bot_defend_think" );
 
-    if ( ![[ level._id_161B["should_start_cautious_approach"] ]]( 1 ) )
+    if ( ![[ level.bot_funcs["should_start_cautious_approach"] ]]( 1 ) )
         return;
 
-    var_0 = self _meth_8358();
-    var_1 = self _meth_8374();
+    var_0 = self botgetscriptgoal();
+    var_1 = self botgetscriptgoalnode();
     var_2 = 1;
     var_3 = 0.2;
 
@@ -689,10 +689,10 @@ _id_27AF()
     {
         wait 0.25;
 
-        if ( !self _meth_8363() )
+        if ( !self bothasscriptgoal() )
             return;
 
-        var_4 = self _meth_8358();
+        var_4 = self botgetscriptgoal();
 
         if ( !maps\mp\bots\_bots_util::_id_172A( var_0, var_4 ) )
             return;
@@ -703,14 +703,14 @@ _id_27AF()
         {
             var_3 = 0.0;
 
-            if ( [[ level._id_161B["should_start_cautious_approach"] ]]( 0 ) )
+            if ( [[ level.bot_funcs["should_start_cautious_approach"] ]]( 0 ) )
                 var_2 = 0;
         }
     }
 
-    self _meth_8372( 1.8 );
-    self _meth_834F( "cautious", 1 );
-    var_5 = self _meth_836E();
+    self botsetawareness( 1.8 );
+    self botsetflag( "cautious", 1 );
+    var_5 = self botgetnodesonpath();
 
     if ( !isdefined( var_5 ) || var_5.size <= 2 )
         return;
@@ -727,9 +727,9 @@ _id_27AF()
     if ( var_8.size <= 0 )
         return;
 
-    var_9 = 5 + self _meth_8379( "strategyLevel" ) * 2;
+    var_9 = 5 + self botgetdifficultysetting( "strategyLevel" ) * 2;
     var_10 = int( min( var_9, var_8.size ) );
-    var_11 = self _meth_836F( var_8, 15, var_10, "node_protect", maps\mp\bots\_bots_util::_id_27A8(), "ignore_occupancy" );
+    var_11 = self _meth_836f( var_8, 15, var_10, "node_protect", maps\mp\bots\_bots_util::_id_27A8(), "ignore_occupancy" );
 
     for ( var_12 = 0; var_12 < var_11.size; var_12++ )
     {
@@ -768,9 +768,9 @@ _id_27AF()
         return;
 
     childthread _id_5D70();
-    var_20 = self _meth_835B();
-    var_21 = self _meth_8359();
-    var_22 = self _meth_835A();
+    var_20 = self botgetscriptgoaltype();
+    var_21 = self botgetscriptgoalradius();
+    var_22 = self botgetscriptgoalyaw();
     wait 0.05;
 
     for ( var_23 = 1; var_23 < var_5.size - 2; var_23++ )
@@ -785,7 +785,7 @@ _id_27AF()
 
         for ( var_12 = 0; var_12 < var_24.size; var_12++ )
         {
-            if ( !common_scripts\utility::_id_A347( self.owner_not, self _meth_8338(), var_24[var_12].owner_not, 0 ) )
+            if ( !common_scripts\utility::_id_A347( self.origin, self getplayerangles(), var_24[var_12].origin, 0 ) )
                 continue;
 
             for ( var_26 = 0; var_26 < self._id_57FD.size; var_26++ )
@@ -803,7 +803,7 @@ _id_27AF()
         if ( var_25.size == 0 )
             continue;
 
-        var_27 = self _meth_8362( var_25, 1 + var_25.size * 0.15, "node_hide" );
+        var_27 = self botnodepick( var_25, 1 + var_25.size * 0.15, "node_hide" );
 
         if ( isdefined( var_27 ) )
         {
@@ -813,13 +813,13 @@ _id_27AF()
             {
                 if ( nodesvisible( self._id_57FD[var_12].node_relinquished, var_27, 1 ) )
                 {
-                    if ( distance2dsquared( self._id_57FD[var_12].owner_not, var_27.owner_not ) > 3600 )
+                    if ( distance2dsquared( self._id_57FD[var_12].origin, var_27.origin ) > 3600 )
                         var_28 = common_scripts\utility::_id_0CDA( var_28, self._id_57FD[var_12] );
                 }
             }
 
-            self _meth_8354();
-            self _meth_8353( var_27, "critical" );
+            self botclearscriptgoal();
+            self botsetscriptgoal( var_27, "critical" );
             childthread _id_5D71();
             var_29 = maps\mp\bots\_bots_util::_id_172E( undefined, "cautious_approach_early_out" );
             self notify( "stop_cautious_approach_early_out_monitor" );
@@ -831,12 +831,12 @@ _id_27AF()
             {
                 for ( var_12 = 0; var_12 < var_28.size; var_12++ )
                 {
-                    if ( distance2dsquared( self.owner_not, var_28[var_12].owner_not ) < 1600 )
+                    if ( distance2dsquared( self.origin, var_28[var_12].origin ) < 1600 )
                         continue;
 
                     for ( var_30 = 0; var_28[var_12]._id_3A11 < 18 && var_30 < 3.6; var_30 += 0.25 )
                     {
-                        self _meth_836B( var_28[var_12].owner_not + ( 0, 0, self _meth_82EF() ), 0.25, "script_search" );
+                        self _meth_836b( var_28[var_12].origin + ( 0, 0, self _meth_82ef() ), 0.25, "script_search" );
                         wait 0.25;
                     }
                 }
@@ -847,10 +847,10 @@ _id_27AF()
     }
 
     self notify( "stop_location_monitoring" );
-    self _meth_8354();
+    self botclearscriptgoal();
 
     if ( isdefined( var_1 ) )
-        self _meth_8353( var_1, var_20, var_22 );
+        self botsetscriptgoal( var_1, var_20, var_22 );
     else
         self _meth_8352( self._id_24BC, var_21, var_20, var_22 );
 }
@@ -873,7 +873,7 @@ _id_5D71()
 
     for (;;)
     {
-        if ( distancesquared( self.owner_not, self._id_15F2 ) < var_0 )
+        if ( distancesquared( self.origin, self._id_15F2 ) < var_0 )
             self notify( "cautious_approach_early_out" );
 
         wait 0.05;
@@ -897,10 +897,10 @@ _id_5D70()
             {
                 if ( nodesvisible( var_1, self._id_57FD[var_3].node_relinquished, 1 ) )
                 {
-                    var_4 = common_scripts\utility::_id_A347( self.owner_not, self _meth_8338(), self._id_57FD[var_3].owner_not, var_2 );
+                    var_4 = common_scripts\utility::_id_A347( self.origin, self getplayerangles(), self._id_57FD[var_3].origin, var_2 );
                     var_5 = !var_4 || self._id_57FD[var_3]._id_3A11 < 17;
 
-                    if ( var_5 && distancesquared( self.owner_not, self._id_57FD[var_3].owner_not ) < var_0 )
+                    if ( var_5 && distancesquared( self.origin, self._id_57FD[var_3].origin ) < var_0 )
                     {
                         var_4 = 1;
                         self._id_57FD[var_3]._id_3A11 = 18;
@@ -944,10 +944,10 @@ _id_7040()
 
         foreach ( var_7 in var_5 )
         {
-            var_8 = var_7._id_3314;
+            var_8 = var_7.entity_number;
 
             if ( !isdefined( var_8 ) )
-                var_8 = var_7 _meth_81B5();
+                var_8 = var_7 getentitynumber();
 
             if ( !isdefined( var_0[var_8] ) )
                 var_0[var_8] = var_4 - 1;
@@ -961,14 +961,14 @@ _id_7040()
                 {
                     if ( isdefined( var_7.laststand ) && isdefined( var_7.laststand.team ) && var_7.laststand.team == common_scripts\utility::_id_3D4F( self.team ) )
                     {
-                        if ( distancesquared( var_7.body.owner_not, self.owner_not ) < var_2 )
+                        if ( distancesquared( var_7.body.origin, self.origin ) < var_2 )
                         {
-                            self _meth_8375( var_7.laststand, var_7.body.owner_not );
-                            var_9 = getclosestnodeinsight( var_7.body.owner_not );
+                            self botgetimperfectenemyinfo( var_7.laststand, var_7.body.origin );
+                            var_9 = getclosestnodeinsight( var_7.body.origin );
 
                             if ( isdefined( var_9 ) )
                             {
-                                self._id_27B3 = var_9.owner_not;
+                                self._id_27B3 = var_9.origin;
                                 self notify( "defend_force_node_recalculation" );
                             }
 
@@ -993,7 +993,7 @@ _id_27B2()
         return _id_15EC( self._id_24BD, 1 );
     else if ( maps\mp\bots\_bots_util::_id_1662() || maps\mp\bots\_bots_util::_id_1659() )
     {
-        var_0 = findentrances( self.owner_not );
+        var_0 = findentrances( self.origin );
         return var_0;
     }
 }
@@ -1022,13 +1022,13 @@ _id_27B6()
         }
 
         if ( var_1.size == 0 )
-            var_1 = findentrances( self.owner_not );
+            var_1 = findentrances( self.origin );
     }
     else if ( maps\mp\bots\_bots_util::_id_1662() || maps\mp\bots\_bots_util::_id_1659() )
     {
         var_1 = _id_27B2();
 
-        if ( isdefined( var_0 ) && !issubstr( self _meth_830E(), "riotshield" ) )
+        if ( isdefined( var_0 ) && !issubstr( self getcurrentweapon(), "riotshield" ) )
         {
             if ( nodesvisible( var_0, self._id_6122, 1 ) )
                 var_1 = common_scripts\utility::_id_0CDA( var_1, self._id_6122 );
@@ -1056,7 +1056,7 @@ _id_16A6()
     while ( !isdefined( self._id_A1EA ) )
         wait 0.05;
 
-    var_0 = level._id_161B["get_watch_node_chance"];
+    var_0 = level.bot_funcs["get_watch_node_chance"];
 
     for (;;)
     {
@@ -1073,11 +1073,11 @@ _id_16A6()
         {
             if ( var_4 == self._id_6122 )
             {
-                var_4._id_A1E9[self._id_3314] = var_1;
+                var_4._id_A1E9[self.entity_number] = var_1;
                 continue;
             }
 
-            var_4._id_A1E9[self._id_3314] = var_2;
+            var_4._id_A1E9[self.entity_number] = var_2;
         }
 
         var_6 = isdefined( var_0 );
@@ -1090,11 +1090,11 @@ _id_16A6()
             if ( var_6 )
             {
                 var_8 = self [[ var_0 ]]( var_4 );
-                var_4._id_A1E9[self._id_3314] *= var_8;
+                var_4._id_A1E9[self.entity_number] *= var_8;
             }
 
             if ( _id_332E( var_4 ) )
-                var_4._id_A1E9[self._id_3314] *= 0.5;
+                var_4._id_A1E9[self.entity_number] *= 0.5;
         }
 
         wait(randomfloatrange( 0.5, 0.75 ));
@@ -1113,23 +1113,23 @@ _id_16A7()
 
     for (;;)
     {
-        var_0 = anglestoforward( self._id_15EE _meth_8338() ) * ( 1, 1, 0 );
+        var_0 = anglestoforward( self._id_15EE getplayerangles() ) * ( 1, 1, 0 );
         var_0 = vectornormalize( var_0 );
 
         foreach ( var_2 in self._id_A1EA )
         {
-            var_2._id_A1E9[self._id_3314] = 1.0;
-            var_3 = var_2.owner_not - self._id_15EE.owner_not;
+            var_2._id_A1E9[self.entity_number] = 1.0;
+            var_3 = var_2.origin - self._id_15EE.origin;
             var_3 = vectornormalize( var_3 );
             var_4 = vectordot( var_0, var_3 );
 
             if ( var_4 > 0.6 )
-                var_2._id_A1E9[self._id_3314] *= 0.33;
+                var_2._id_A1E9[self.entity_number] *= 0.33;
             else if ( var_4 > 0 )
-                var_2._id_A1E9[self._id_3314] *= 0.66;
+                var_2._id_A1E9[self.entity_number] *= 0.66;
 
             if ( !_id_332A( var_2 ) )
-                var_2._id_A1E9[self._id_3314] *= 0.5;
+                var_2._id_A1E9[self.entity_number] *= 0.5;
         }
 
         wait(randomfloatrange( 0.4, 0.6 ));
@@ -1139,7 +1139,7 @@ _id_16A7()
 _id_332A( var_0 )
 {
     var_1 = getnodezone( var_0 );
-    var_2 = vectornormalize( var_0.owner_not - self.owner_not );
+    var_2 = vectornormalize( var_0.origin - self.origin );
 
     for ( var_3 = 0; var_3 < level._id_A3EF; var_3++ )
     {
@@ -1149,7 +1149,7 @@ _id_332A( var_0 )
                 return 1;
             else
             {
-                var_4 = vectornormalize( getzoneorigin( var_3 ) - self.owner_not );
+                var_4 = vectornormalize( getzoneorigin( var_3 ) - self.origin );
                 var_5 = vectordot( var_2, var_4 );
 
                 if ( var_5 > 0.2 )
@@ -1176,7 +1176,7 @@ _id_6FBD( var_0 )
         if ( var_1.size == 0 )
             break;
 
-        var_3 = vectornormalize( getzoneorigin( var_2 ) - self.owner_not );
+        var_3 = vectornormalize( getzoneorigin( var_2 ) - self.origin );
 
         for ( var_4 = 0; var_4 < var_1.size; var_4++ )
         {
@@ -1187,7 +1187,7 @@ _id_6FBD( var_0 )
                 var_6 = 1;
             else
             {
-                var_7 = vectornormalize( var_1[var_4].owner_not - self.owner_not );
+                var_7 = vectornormalize( var_1[var_4].origin - self.origin );
                 var_8 = vectordot( var_7, var_3 );
 
                 if ( var_8 > 0.2 )
@@ -1196,7 +1196,7 @@ _id_6FBD( var_0 )
 
             if ( var_6 )
             {
-                var_1[var_4]._id_A1E9[self._id_3314] *= var_0;
+                var_1[var_4]._id_A1E9[self.entity_number] *= var_0;
                 var_1[var_4] = var_1[var_1.size - 1];
                 var_1[var_1.size - 1] = undefined;
                 var_4--;
@@ -1220,8 +1220,8 @@ _id_332E( var_0 )
 
 _id_332F( var_0, var_1 )
 {
-    var_2 = anglestoforward( var_0 _meth_8338() );
-    var_3 = vectornormalize( var_1.owner_not - var_0.owner_not );
+    var_2 = anglestoforward( var_0 getplayerangles() );
+    var_3 = vectornormalize( var_1.origin - var_0.origin );
     var_4 = vectordot( var_2, var_3 );
 
     if ( var_4 > 0.6 )
@@ -1263,7 +1263,7 @@ _id_1640( var_0, var_1 )
 
         if ( var_5 != self && isdefined( var_5.team ) && var_5.team == self.team && maps\mp\_utility::_id_51CE( var_5 ) )
         {
-            if ( distancesquared( var_0, var_5.owner_not ) < var_2 )
+            if ( distancesquared( var_0, var_5.origin ) < var_2 )
                 var_3 = common_scripts\utility::_id_0CDA( var_3, var_5 );
         }
     }
@@ -1305,8 +1305,8 @@ _id_15EF()
     self._id_24BC = undefined;
     self._id_27A3 = undefined;
     self._id_27B4 = undefined;
-    self _meth_8354();
-    self _meth_8350( "none" );
+    self botclearscriptgoal();
+    self botsetstance( "none" );
 }
 
 _id_27A5( var_0 )
@@ -1332,7 +1332,7 @@ _id_5D82()
 {
     var_0 = 0;
     var_1 = 175;
-    var_2 = self._id_15EE.owner_not;
+    var_2 = self._id_15EE.origin;
     var_3 = 0;
     var_4 = 0;
 
@@ -1341,27 +1341,27 @@ _id_5D82()
         if ( !isdefined( self._id_15EE ) )
             thread _id_15EF();
 
-        self._id_15F2 = self._id_15EE.owner_not;
+        self._id_15F2 = self._id_15EE.origin;
         self._id_6122 = self._id_15EE _meth_8385();
 
         if ( !isdefined( self._id_6122 ) )
             self._id_6122 = self _meth_8385();
 
-        if ( self _meth_835B() != "none" )
+        if ( self botgetscriptgoaltype() != "none" )
         {
-            var_5 = self _meth_8358();
-            var_6 = self._id_15EE _meth_8336();
+            var_5 = self botgetscriptgoal();
+            var_6 = self._id_15EE getvelocity();
             var_7 = lengthsquared( var_6 );
 
             if ( var_7 > 100 )
             {
                 var_0 = 0;
 
-                if ( distancesquared( var_2, self._id_15EE.owner_not ) > var_1 * var_1 )
+                if ( distancesquared( var_2, self._id_15EE.origin ) > var_1 * var_1 )
                 {
-                    var_2 = self._id_15EE.owner_not;
+                    var_2 = self._id_15EE.origin;
                     var_4 = 1;
-                    var_8 = vectornormalize( var_5 - self._id_15EE.owner_not );
+                    var_8 = vectornormalize( var_5 - self._id_15EE.origin );
                     var_9 = vectornormalize( var_6 );
 
                     if ( vectordot( var_8, var_9 ) < 0.1 )
@@ -1377,7 +1377,7 @@ _id_5D82()
 
                 if ( var_3 > 100 && var_4 )
                 {
-                    var_2 = self._id_15EE.owner_not;
+                    var_2 = self._id_15EE.origin;
                     var_4 = 0;
                 }
 
@@ -1395,7 +1395,7 @@ _id_5D82()
 
             var_3 = var_7;
 
-            if ( abs( self._id_15EE.owner_not[2] - var_5[2] ) >= 50 )
+            if ( abs( self._id_15EE.origin[2] - var_5[2] ) >= 50 )
             {
                 self notify( "defend_force_node_recalculation" );
                 wait 0.25;
@@ -1415,12 +1415,12 @@ _id_375F()
     {
         if ( isdefined( var_0 ) )
         {
-            var_2 = vectornormalize( var_0 - var_1.owner_not );
+            var_2 = vectornormalize( var_0 - var_1.origin );
             self._id_24BA = vectortoangles( var_2 );
         }
         else
         {
-            var_3 = vectornormalize( var_1.owner_not - maps\mp\bots\_bots_util::_id_27A8() );
+            var_3 = vectornormalize( var_1.origin - maps\mp\bots\_bots_util::_id_27A8() );
             self._id_24BA = vectortoangles( var_3 );
         }
 
@@ -1441,12 +1441,12 @@ _id_3760()
     {
         if ( isdefined( var_0 ) )
         {
-            var_2 = vectornormalize( var_0 - var_1.owner_not );
+            var_2 = vectornormalize( var_0 - var_1.origin );
             self._id_24BA = vectortoangles( var_2 );
         }
         else
         {
-            var_3 = vectornormalize( var_1.owner_not - maps\mp\bots\_bots_util::_id_27A8() );
+            var_3 = vectornormalize( var_1.origin - maps\mp\bots\_bots_util::_id_27A8() );
             self._id_24BA = vectortoangles( var_3 );
         }
 
@@ -1464,7 +1464,7 @@ _id_3762()
 
     if ( isdefined( var_0 ) )
     {
-        var_1 = vectornormalize( maps\mp\bots\_bots_util::_id_27A8() - var_0.owner_not );
+        var_1 = vectornormalize( maps\mp\bots\_bots_util::_id_27A8() - var_0.origin );
         self._id_24BA = vectortoangles( var_1 );
         self._id_24BB = var_0;
     }
@@ -1485,7 +1485,7 @@ _id_375E()
         if ( isdefined( var_1 ) )
             self._id_24BB = var_1;
         else
-            self._id_24BC = self.owner_not;
+            self._id_24BC = self.origin;
     }
 }
 
@@ -1495,7 +1495,7 @@ _id_3761()
     var_1 = getnodesinradius( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F5, 0 );
 
     if ( isdefined( var_1 ) && var_1.size > 0 )
-        var_0 = self _meth_8362( var_1, 1 + var_1.size * 0.5, "node_traffic" );
+        var_0 = self botnodepick( var_1, 1 + var_1.size * 0.5, "node_traffic" );
 
     if ( isdefined( var_0 ) )
         self._id_24BB = var_0;
@@ -1542,13 +1542,13 @@ _id_15D5( var_0, var_1, var_2, var_3 )
             {
                 if ( var_2 )
                 {
-                    if ( distancesquared( var_0, var_5.owner_not ) < 441 )
+                    if ( distancesquared( var_0, var_5.origin ) < 441 )
                         return 1;
                 }
 
-                if ( var_3 && var_5 _meth_8363() )
+                if ( var_3 && var_5 bothasscriptgoal() )
                 {
-                    var_6 = var_5 _meth_8358();
+                    var_6 = var_5 botgetscriptgoal();
 
                     if ( distancesquared( var_0, var_6 ) < 441 )
                         return 1;
@@ -1559,7 +1559,7 @@ _id_15D5( var_0, var_1, var_2, var_3 )
 
             if ( var_1 )
             {
-                if ( distancesquared( var_0, var_5.owner_not ) < 441 )
+                if ( distancesquared( var_0, var_5.origin ) < 441 )
                     return 1;
             }
         }
@@ -1576,7 +1576,7 @@ _id_15D3()
     {
         foreach ( var_2 in self._id_15F3 )
         {
-            var_3 = distance( self._id_15F2, var_2.owner_not );
+            var_3 = distance( self._id_15F2, var_2.origin );
             var_0 = max( var_3, var_0 );
         }
     }
@@ -1614,7 +1614,7 @@ _id_1717()
                     var_1 = var_0._id_4251;
 
                 if ( maps\mp\_utility::_id_5092( var_0.clear_prev_goal ) )
-                    self _meth_8354();
+                    self botclearscriptgoal();
 
                 self _meth_8352( var_0._id_424F, var_0._id_4250, var_1, var_0.goal_yaw, var_0._id_62F3, var_0.short_term_goal );
                 var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "stop_tactical_goal" );
@@ -1631,7 +1631,7 @@ _id_1717()
                 }
 
                 if ( var_2 != "script_goal_changed" )
-                    self _meth_8354();
+                    self botclearscriptgoal();
 
                 if ( isdefined( var_0._id_3151 ) )
                     self [[ var_0._id_3151 ]]( var_0 );
@@ -1794,10 +1794,10 @@ _id_16A0()
         if ( !isdefined( var_1 ) )
             return 0;
 
-        if ( isdefined( self.enemy ) && self _meth_836D( self.enemy ) )
+        if ( isdefined( self.enemy ) && self botcanseeentity( self.enemy ) )
             return 0;
 
-        var_2 = getzonenearest( self.owner_not );
+        var_2 = getzonenearest( self.origin );
 
         if ( !isdefined( var_2 ) )
             return 0;
@@ -1807,12 +1807,12 @@ _id_16A0()
         if ( !isdefined( var_3 ) )
             return 0;
 
-        var_4 = getnodesinradius( self.owner_not, 500, 0 );
+        var_4 = getnodesinradius( self.origin, 500, 0 );
 
         if ( var_4.size <= 0 )
             return 0;
 
-        var_5 = self _meth_8362( var_4, var_4.size * 0.15, "node_hide" );
+        var_5 = self botnodepick( var_4, var_4.size * 0.15, "node_hide" );
 
         if ( !isdefined( var_5 ) )
             return 0;

@@ -21,7 +21,7 @@
 
 main()
 {
-    var_0 = _id_A72D::_id_23DF( "mp_crossfire" );
+    var_0 = maps\mp\_art::_id_23DF( "mp_crossfire" );
     var_0._id_8D08 = 1423.51;
     var_0._id_4500 = 6300.3;
     var_0._id_7299 = 0.742358;
@@ -63,7 +63,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 356;
     var_0._id_0DBC = 347;
-    var_0 = _id_A72D::_id_23DF( "mp_crossfire_interior" );
+    var_0 = maps\mp\_art::_id_23DF( "mp_crossfire_interior" );
     var_0._id_8D08 = 1423.51;
     var_0._id_4500 = 6300.3;
     var_0._id_7299 = 0.742358;

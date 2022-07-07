@@ -25,7 +25,7 @@ main()
     maps\createart\mp_convoy_art::main();
     maps\mp\_load::main();
     maps\mp\mp_convoy_precache::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_convoy" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_convoy" );
     game["allies"] = "marines";
     game["axis"] = "opfor";
     game["attackers"] = "axis";
@@ -46,7 +46,7 @@ fix_sab_bomb()
     {
         var_0 = maps\mp\gametypes\common_bomb_gameobject::getcarrybombvisuals( "sab_bomb" );
         var_1 = var_0[0];
-        var_1.owner_not = ( var_1.owner_not[0], var_1.owner_not[1], var_1.owner_not[2] - 4 );
+        var_1.origin = ( var_1.origin[0], var_1.origin[1], var_1.origin[2] - 4 );
     }
 }
 
@@ -58,7 +58,7 @@ delete_botconnect_clip()
 
         if ( isdefined( var_0 ) )
         {
-            var_0 _meth_80B2();
+            var_0 delete();
             break;
         }
 
@@ -80,7 +80,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -92,7 +92,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -104,7 +104,7 @@ ceilingfan_rotate_med_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

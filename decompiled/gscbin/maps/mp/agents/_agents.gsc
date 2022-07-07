@@ -35,23 +35,23 @@ main()
 
 _id_8072()
 {
-    if ( !isdefined( level._id_0897 ) )
-        level._id_0897 = [];
+    if ( !isdefined( level.agent_funcs ) )
+        level.agent_funcs = [];
 
     if ( !( isdefined( level.iszombiegame ) && level.iszombiegame ) )
     {
-        level._id_0897["player"] = [];
-        level._id_0897["player"]["spawn"] = ::_id_88C2;
-        level._id_0897["player"]["think"] = maps\mp\bots\_bots_gametype_war::_id_1731;
-        level._id_0897["player"]["on_killed"] = ::_id_643B;
-        level._id_0897["player"]["on_damaged"] = ::_id_643A;
-        level._id_0897["player"]["on_damaged_finished"] = ::_id_0896;
+        level.agent_funcs["player"] = [];
+        level.agent_funcs["player"]["spawn"] = ::_id_88C2;
+        level.agent_funcs["player"]["think"] = maps\mp\bots\_bots_gametype_war::_id_1731;
+        level.agent_funcs["player"]["on_killed"] = ::_id_643B;
+        level.agent_funcs["player"]["on_damaged"] = ::_id_643A;
+        level.agent_funcs["player"]["on_damaged_finished"] = ::_id_0896;
     }
 }
 
 _id_9FE6()
 {
-    while ( !isdefined( level._id_0897 ) )
+    while ( !isdefined( level.agent_funcs ) )
         wait 0.05;
 }
 
@@ -69,10 +69,10 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     self endon( "disconnect" );
 
-    while ( !isdefined( level.getSpawnPoint ) )
+    while ( !isdefined( level.getspawnpoint ) )
         waittillframeend;
 
-    if ( self._id_4726 )
+    if ( self.hasdied )
         wait(randomintrange( 6, 10 ));
 
     maps\mp\agents\_agent_utility::_id_4DFF( 1 );
@@ -82,13 +82,13 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_6 = var_0;
         var_7 = var_1;
         self._id_55DD = spawnstruct();
-        self._id_55DD.owner_not = var_6;
+        self._id_55DD.origin = var_6;
         self._id_55DD.angles = var_7;
     }
     else
     {
-        var_8 = self [[ level.getSpawnPoint ]]();
-        var_6 = var_8.owner_not;
+        var_8 = self [[ level.getspawnpoint ]]();
+        var_6 = var_8.origin;
         var_7 = var_8.angles;
         self._id_55DD = var_8;
     }
@@ -111,21 +111,21 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( self._id_0899 ) )
     {
         if ( self._id_0899 == "follow_code_and_dev_dvar" )
-            maps\mp\bots\_bots_util::_id_16EB( self _meth_8369(), 1 );
+            maps\mp\bots\_bots_util::_id_16EB( self botgetdifficulty(), 1 );
         else
             maps\mp\bots\_bots_util::_id_16EB( var_5 );
     }
     else
-        maps\mp\bots\_bots_util::_id_16EB( self _meth_8369() );
+        maps\mp\bots\_bots_util::_id_16EB( self botgetdifficulty() );
 
     if ( isdefined( var_3 ) && var_3 )
         self._id_9BE5 = 1;
 
     if ( isdefined( self._id_9BE5 ) && self._id_9BE5 )
     {
-        if ( !self._id_4726 )
+        if ( !self.hasdied )
         {
-            var_12 = self _meth_8379( "advancedPersonality" );
+            var_12 = self botgetdifficultysetting( "advancedPersonality" );
 
             if ( isdefined( var_12 ) && var_12 != 0 )
                 maps\mp\bots\_bots_personality::_id_15B0();
@@ -148,25 +148,25 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( self.owner ) )
         thread _id_28F0( self.owner );
 
-    thread maps\mp\_hud_util::_id_5E5E();
-    self _meth_83CF( 0 );
+    thread maps\mp\_flashgranades::_id_5E5E();
+    self enableanimstate( 0 );
     self [[ level._id_64E9 ]]();
-    maps\mp\gametypes\_class::giveLoadout( self.team, self._id_1E2E, 1 );
+    maps\mp\gametypes\_class::giveloadout( self.team, self.class, 1 );
     thread maps\mp\bots\_bots::_id_1719( 1 );
     thread maps\mp\bots\_bots_strategy::_id_1717();
     self thread [[ maps\mp\agents\_agent_utility::_id_08A6( "think" ) ]]();
 
-    if ( !self._id_4726 )
+    if ( !self.hasdied )
         maps\mp\gametypes\_spawnlogic::_id_084E();
 
-    if ( !self._id_4726 )
+    if ( !self.hasdied )
     {
-        thread _id_A7BE::_id_64D6();
-        thread _id_A78A::_id_64D6();
+        thread maps\mp\gametypes\_weapons::_id_64D6();
+        thread maps\mp\gametypes\_battlechatter_mp::_id_64D6();
     }
 
-    self._id_4726 = 0;
-    thread _id_A799::_id_6CC4();
+    self.hasdied = 0;
+    thread maps\mp\gametypes\_healthoverlay::_id_6CC4();
 
     if ( isdefined( self._id_9BE5 ) && self._id_9BE5 && isdefined( self._id_7472 ) && self._id_7472 )
         self _meth_8520( 1 );
@@ -183,10 +183,10 @@ _id_28F0( var_0 )
     var_0 waittill( "killstreak_disowned" );
     self notify( "owner_disconnect" );
 
-    if ( _id_A7A4::_id_A0DD() )
+    if ( maps\mp\gametypes\_hostmigration::_id_A0DD() )
         wait 0.05;
 
-    self _meth_8267();
+    self suicide();
 }
 
 _id_0896( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -207,13 +207,13 @@ _id_0896( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
         if ( isdefined( var_1 ) && var_4 != "MOD_FALLING" && var_4 != "MOD_SUICIDE" )
         {
-            if ( level.teamBased )
+            if ( level.teambased )
             {
                 if ( isdefined( var_1.team ) && var_1.team != self.team )
-                    self _meth_838A( var_1 );
+                    self setagentattacker( var_1 );
             }
             else
-                self _meth_838A( var_1 );
+                self setagentattacker( var_1 );
         }
     }
 
@@ -222,7 +222,7 @@ _id_0896( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( isdefined( var_10 ) )
         thread finishagentdamage_impactfxwrapper( var_10[0], var_10[1], var_10[2], var_10[3], var_10[4], var_10[5], var_10[6] );
 
-    if ( !isdefined( self._id_50A6 ) )
+    if ( !isdefined( self.isactive ) )
         self._id_A04A = 1;
 
     return 1;
@@ -243,10 +243,10 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     var_10 = isdefined( var_1 ) && isdefined( self.owner ) && self.owner == var_1;
     var_11 = maps\mp\_utility::_id_0E30( self.owner, var_1 ) || var_10;
 
-    if ( level.teamBased && var_11 && !level.friendlyfire )
+    if ( level.teambased && var_11 && !level.friendlyfire )
         return 0;
 
-    if ( !level.teamBased && var_10 )
+    if ( !level.teambased && var_10 )
         return 0;
 
     if ( isdefined( var_4 ) && var_4 == "MOD_CRUSH" && isdefined( var_0 ) && isdefined( var_0.classname ) && var_0.classname == "script_vehicle" )
@@ -258,21 +258,21 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( isdefined( var_1 ) && var_1.classname == "script_origin" && isdefined( var_1.unlockpoints ) && var_1.unlockpoints == "soft_landing" )
         return 0;
 
-    if ( var_5 == "bouncingbetty_mp" && !_id_A7BE::_id_5C52( var_0, self ) )
+    if ( var_5 == "bouncingbetty_mp" && !maps\mp\gametypes\_weapons::_id_5C52( var_0, self ) )
         return 0;
 
-    if ( isdefined( var_0 ) && isdefined( var_0._id_8F6C ) && var_0._id_8F6C == self )
+    if ( isdefined( var_0 ) && isdefined( var_0.stuckenemyentity ) && var_0.stuckenemyentity == self )
         var_2 = self.helmet + 1;
 
     if ( var_2 <= 0 )
         return 0;
 
-    if ( isdefined( level.modifyPlayerDamage ) )
-        var_2 = [[ level.modifyPlayerDamage ]]( self, var_1, var_2, var_4, var_5, var_6, var_7, var_8 );
+    if ( isdefined( level.modifyplayerdamage ) )
+        var_2 = [[ level.modifyplayerdamage ]]( self, var_1, var_2, var_4, var_5, var_6, var_7, var_8 );
 
     if ( isdefined( var_1 ) && var_1 != self && var_2 > 0 && ( !isdefined( var_8 ) || var_8 != "shield" ) )
     {
-        if ( var_3 & level._id_4B61 )
+        if ( var_3 & level.idflags_stun )
             var_12 = "stun";
         else if ( !maps\mp\gametypes\_damage::_id_84BD( var_5 ) )
             var_12 = "none";
@@ -312,7 +312,7 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
             }
         }
 
-        var_1 thread _id_A78E::_id_9B0C( var_12 );
+        var_1 thread maps\mp\gametypes\_damagefeedback::_id_9B0C( var_12 );
     }
 
     return self [[ maps\mp\agents\_agent_utility::_id_08A6( "on_damaged_finished" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
@@ -322,7 +322,7 @@ _id_643A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     var_10 = isdefined( var_1 ) && isdefined( self.owner ) && self.owner == var_1;
 
-    if ( !level.teamBased && var_10 )
+    if ( !level.teambased && var_10 )
         return 0;
 
     maps\mp\gametypes\_damage::_id_19F1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
@@ -338,9 +338,9 @@ _id_643B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     if ( isdefined( level._id_643B ) )
         [[ level._id_643B ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 
-    if ( self._id_50A6 )
+    if ( self.isactive )
     {
-        self._id_4726 = 1;
+        self.hasdied = 1;
 
         if ( maps\mp\_utility::_id_3FAA() != 1 && ( isdefined( self._id_7472 ) && self._id_7472 ) )
             self thread [[ maps\mp\agents\_agent_utility::_id_08A6( "spawn" ) ]]();
@@ -354,16 +354,16 @@ _id_6442( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( var_9 )
         self thread [[ level._id_A2D8 ]]( var_1, var_3 );
 
-    self.body = self _meth_838B( var_8 );
+    self.body = self _meth_838b( var_8 );
     thread maps\mp\gametypes\_damage::_id_27EE( self.body, var_6, var_5, var_4, var_0, var_3 );
 }
 
 _id_4DFC()
 {
     if ( isdefined( self._id_1E30 ) )
-        self._id_1E2E = self._id_1E30;
+        self.class = self._id_1E30;
     else if ( maps\mp\bots\_bots_loadout::_id_16F4() )
-        self._id_1E2E = "callback";
+        self.class = "callback";
     else
-        self._id_1E2E = "class1";
+        self.class = "class1";
 }

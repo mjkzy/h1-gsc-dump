@@ -22,16 +22,16 @@
 init_cao()
 {
     level.cao_loc = spawnstruct();
-    level.cao_loc.owner_not = ( 4065, -950, -69 );
+    level.cao_loc.origin = ( 4065, -950, -69 );
     level.cao_loc.angles = ( 0, 267, 0 );
     level.cao_head = spawnstruct();
-    level.cao_head.owner_not = ( 4065, -970, -75 );
+    level.cao_head.origin = ( 4065, -970, -75 );
     level.cao_head.angles = ( 0, 267, 0 );
     level.cao_loc_collection = spawnstruct();
-    level.cao_loc_collection.owner_not = ( 4050, -950, -68 );
+    level.cao_loc_collection.origin = ( 4050, -950, -68 );
     level.cao_loc_collection.angles = ( 0, 267, 0 );
     level.cao_head_collection = spawnstruct();
-    level.cao_head_collection.owner_not = ( 4050, -970, -75 );
+    level.cao_head_collection.origin = ( 4050, -970, -75 );
     level.cao_head_collection.angles = ( 0, 267, 0 );
     level.collections = 0;
     level.armory = 0;
@@ -87,9 +87,9 @@ handlecaomodechange( var_0 )
         {
             var_2 = maps\mp\_vl_cac::getfactionteam();
             var_3 = maps\mp\_vl_cac::getfactionenvironment();
-            maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedcostume, var_1.privatematchsquadmembers, var_2, var_3 );
-            self _meth_857C( var_1.savedcharactercamoindex );
-            var_1 _meth_857C( var_1.savedcharactercamoindex );
+            maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedcostume, var_1.primaryweapon, var_2, var_3 );
+            self _meth_857c( var_1.savedcharactercamoindex );
+            var_1 _meth_857c( var_1.savedcharactercamoindex );
             var_1.savedcostume = undefined;
             var_1.savedcharactercamoindex = undefined;
         }
@@ -108,10 +108,10 @@ handlecaomodechange( var_0 )
         var_1._id_2236 = var_1.savedcostume;
         var_2 = maps\mp\_vl_cac::getfactionteam();
         var_3 = maps\mp\_vl_cac::getfactionenvironment();
-        maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.privatematchsquadmembers, var_2, var_3 );
+        maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.primaryweapon, var_2, var_3 );
         var_1.savedcharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( var_0 );
         var_1._id_A7ED = var_1.savedcharactercamoindex;
-        var_1 _meth_857C( var_1._id_A7ED );
+        var_1 _meth_857c( var_1._id_A7ED );
         playerteleportavatartocao( var_1 );
         _id_A765::playerchangecameramode( "cao" );
         _id_A765::playersetlobbyfovscale();
@@ -127,12 +127,12 @@ handlecaomodechange( var_0 )
             {
                 var_2 = maps\mp\_vl_cac::getfactionteam();
                 var_3 = maps\mp\_vl_cac::getfactionenvironment();
-                maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedcostume, var_1.privatematchsquadmembers, var_2, var_3 );
+                maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedcostume, var_1.primaryweapon, var_2, var_3 );
             }
 
             if ( isdefined( var_1.savedcharactercamoindex ) )
             {
-                var_1 _meth_857C( var_1.savedcharactercamoindex );
+                var_1 _meth_857c( var_1.savedcharactercamoindex );
                 var_1._id_A7ED = var_1.savedcharactercamoindex;
             }
         }
@@ -153,8 +153,8 @@ handlebackfromcollections( var_0 )
     var_1._id_2236 = var_1.savedcostume;
     var_2 = maps\mp\_vl_cac::getfactionteam();
     var_3 = maps\mp\_vl_cac::getfactionenvironment();
-    maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.privatematchsquadmembers, var_2, var_3 );
-    var_1 _meth_857C( var_1.savedcharactercamoindex );
+    maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.primaryweapon, var_2, var_3 );
+    var_1 _meth_857c( var_1.savedcharactercamoindex );
     playerteleportavatartocao( var_1 );
     _id_A765::playersetlobbyfovscale();
     _id_A765::weaponroomscenelightsupdate( "characters_personalization" );
@@ -196,7 +196,7 @@ handlecostumepreview( var_0 )
         var_5 buildpreviewcostume( var_3 );
         var_6 = maps\mp\_vl_cac::getfactionteam();
         var_7 = maps\mp\_vl_cac::getfactionenvironment();
-        maps\mp\_vl_avatar::_id_9E9D( self, var_5, var_5._id_2236, var_5.privatematchsquadmembers, var_6, var_7 );
+        maps\mp\_vl_avatar::_id_9E9D( self, var_5, var_5._id_2236, var_5.primaryweapon, var_6, var_7 );
     }
 
     var_8 = "heads_personalization";
@@ -229,7 +229,7 @@ handlecamopreview( var_0 )
     if ( isdefined( var_5 ) )
     {
         var_5._id_A7ED = var_3;
-        var_5 _meth_857C( var_5._id_A7ED );
+        var_5 _meth_857c( var_5._id_A7ED );
     }
 
     var_6 = "characters_personalization";
@@ -319,7 +319,7 @@ playerresetavatarcollectionscostume()
     {
         var_1 = maps\mp\_vl_cac::getfactionteam();
         var_2 = maps\mp\_vl_cac::getfactionenvironment();
-        maps\mp\_vl_avatar::_id_9E9D( self, var_0, var_0.savedcollectionscostume, var_0.privatematchsquadmembers, var_1, var_2 );
+        maps\mp\_vl_avatar::_id_9E9D( self, var_0, var_0.savedcollectionscostume, var_0.primaryweapon, var_1, var_2 );
     }
 }
 
@@ -329,8 +329,8 @@ playerresetavatarcollectionscamo()
 
     if ( isdefined( var_0 ) && isdefined( var_0.savedcollectionscharactercamoindex ) )
     {
-        self _meth_857C( var_0.savedcollectionscharactercamoindex );
-        var_0 _meth_857C( var_0.savedcollectionscharactercamoindex );
+        self _meth_857c( var_0.savedcollectionscharactercamoindex );
+        var_0 _meth_857c( var_0.savedcollectionscharactercamoindex );
         var_0._id_A7ED = var_0.savedcollectionscharactercamoindex;
     }
 }
@@ -428,9 +428,9 @@ handlearmorymodechange( var_0 )
             {
                 var_3 = maps\mp\_vl_cac::getfactionteam();
                 var_4 = maps\mp\_vl_cac::getfactionenvironment();
-                maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedarmorycostume, var_1.privatematchsquadmembers, var_3, var_4 );
-                self _meth_857C( var_1.savedarmorycharactercamoindex );
-                var_1 _meth_857C( var_1.savedarmorycharactercamoindex );
+                maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedarmorycostume, var_1.primaryweapon, var_3, var_4 );
+                self _meth_857c( var_1.savedarmorycharactercamoindex );
+                var_1 _meth_857c( var_1.savedarmorycharactercamoindex );
                 var_1.savedarmorycostume = undefined;
                 var_1.savedarmorycharactercamoindex = undefined;
             }
@@ -545,7 +545,7 @@ handleequipmodechange( var_0 )
         if ( !maps\mp\_utility::_id_5092( level.in_depot ) )
             var_2 = level.caccontroller;
 
-        thread _id_A765::_id_9E55( level._id_9EA2, var_2, self._id_1E2E, 1 );
+        thread _id_A765::_id_9E55( level._id_9EA2, var_2, self.class, 1 );
     }
 
     level.equip = var_0;
@@ -602,7 +602,7 @@ handledepotcostumeapply( var_0 )
         var_5 buildpreviewcostume( var_3 );
         var_6 = maps\mp\_vl_cac::getfactionteam();
         var_7 = maps\mp\_vl_cac::getfactionenvironment();
-        maps\mp\_vl_avatar::_id_9E9D( self, var_5, var_5._id_2236, var_5.privatematchsquadmembers, var_6, var_7 );
+        maps\mp\_vl_avatar::_id_9E9D( self, var_5, var_5._id_2236, var_5.primaryweapon, var_6, var_7 );
     }
 }
 
@@ -617,7 +617,7 @@ handledepotcamoapply( var_0 )
     if ( isdefined( var_5 ) )
     {
         var_5._id_A7ED = var_3;
-        var_5 _meth_857C( var_5._id_A7ED );
-        self _meth_857C( var_5._id_A7ED );
+        var_5 _meth_857c( var_5._id_A7ED );
+        self _meth_857c( var_5._id_A7ED );
     }
 }

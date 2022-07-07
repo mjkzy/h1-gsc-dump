@@ -27,9 +27,9 @@ playanimnatrateuntilnotetrack_safe( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_0 ) )
     {
         if ( isdefined( var_1 ) )
-            var_6 = getanimlength( self _meth_83D1( var_0, var_1 ) );
+            var_6 = getanimlength( self getanimentry( var_0, var_1 ) );
         else
-            var_6 = getanimlength( self _meth_83D1( var_0, 0 ) );
+            var_6 = getanimlength( self getanimentry( var_0, 0 ) );
 
         childthread notetrack_timeout( var_3, var_6 * 1.0 / var_2, var_4 );
     }
@@ -72,7 +72,7 @@ _id_A100( var_0, var_1, var_2, var_3, var_4 )
     var_7 = undefined;
 
     if ( isdefined( var_2 ) && isdefined( var_3 ) )
-        var_7 = getanimlength( self _meth_83D1( var_2, var_3 ) );
+        var_7 = getanimlength( self getanimentry( var_2, var_3 ) );
 
     for (;;)
     {
@@ -115,9 +115,9 @@ loop_anim_state_randomize( var_0, var_1, var_2 )
 {
     for (;;)
     {
-        var_3 = randomint( self _meth_83D4( var_0 ) );
+        var_3 = randomint( self getanimentrycount( var_0 ) );
         set_anim_state( var_0, var_3, var_1 );
-        var_4 = getanimlength( self _meth_83D1( var_0, var_3 ) ) * 1.0 / var_1;
+        var_4 = getanimlength( self getanimentry( var_0, var_3 ) ) * 1.0 / var_1;
         waituntilnotetrack_safe( var_2, "end", var_4 );
     }
 }
@@ -125,11 +125,11 @@ loop_anim_state_randomize( var_0, var_1, var_2 )
 set_anim_state( var_0, var_1, var_2 )
 {
     if ( isdefined( var_2 ) )
-        self _meth_83D0( var_0, var_1, var_2 );
+        self setanimstate( var_0, var_1, var_2 );
     else if ( isdefined( var_1 ) )
-        self _meth_83D0( var_0, var_1 );
+        self setanimstate( var_0, var_1 );
     else
-        self _meth_83D0( var_0 );
+        self setanimstate( var_0 );
 }
 
 getangleindexvariable( var_0, var_1 )

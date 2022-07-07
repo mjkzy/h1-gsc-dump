@@ -13,7 +13,7 @@ sub_main
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "compass_map_mp_shipment"
-		CALL_FAR_FUNC maps/mp/_compass setupMiniMap
+		CALL_FAR_FUNC maps/mp/_compass setupminimap
 		DEC_TOP
 		GET_STRING "amb_mp_shipment_ext"
 		CALL_BUILTIN_FUNC_1 ambientplay

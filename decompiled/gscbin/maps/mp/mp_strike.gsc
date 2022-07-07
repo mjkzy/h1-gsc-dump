@@ -25,7 +25,7 @@ main()
     maps\mp\mp_strike_fx::main();
     maps\createart\mp_strike_art::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_strike" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_strike" );
     game["attackers"] = "allies";
     game["defenders"] = "axis";
     setdvar( "compassmaxrange", "1900" );
@@ -57,7 +57,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -69,7 +69,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -81,7 +81,7 @@ ceilingfan_rotate_med_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

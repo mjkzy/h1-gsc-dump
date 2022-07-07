@@ -27,7 +27,7 @@ checkforseason1start()
     if ( isdefined( level.iszombiegame ) && level.iszombiegame )
         return;
 
-    if ( isdefined( level._id_511D ) && level._id_511D )
+    if ( isdefined( level.ishorde ) && level.ishorde )
         return;
 
     if ( !maps\mp\_utility::_id_7139() )
@@ -36,19 +36,19 @@ checkforseason1start()
     if ( isdefined( self.pers["division"] ) && isdefined( self.pers["division"]["seasonStart"] ) )
         return;
 
-    var_0 = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "currentSeason" );
+    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "currentSeason" );
     var_1 = getdvarint( "scr_game_season" );
 
     if ( var_1 > 0 && var_0 == 0 )
     {
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", 0 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "mmr", -31768 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", 0 );
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "currentSeason", var_1 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", 0 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr", -31768 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", 0 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "currentSeason", var_1 );
         self.pers["division"]["seasonStart"] = 1;
     }
 }
@@ -152,9 +152,9 @@ onmatchend()
             else
                 var_2 ondivisionloss( var_3 );
 
-            var_4 = var_2 _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "division" );
-            var_2 _meth_8243( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", var_4 - var_3 + 128 );
-            var_2 _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", 0 );
+            var_4 = var_2 getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division" );
+            var_2 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", var_4 - var_3 + 128 );
+            var_2 setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", 0 );
         }
 
         break;
@@ -175,7 +175,7 @@ ondivisionwin( var_0 )
     self.pers["division"]["dp"] = var_0;
 
     if ( self.pers["division"]["minDP"] == var_0 )
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
 
     if ( isdefined( self.pers["division"]["maxDP"] ) )
     {
@@ -183,19 +183,19 @@ ondivisionwin( var_0 )
         {
             if ( self.pers["division"]["init"]["winBits"] > 0 )
             {
-                self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + 1 );
-                self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
+                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + 1 );
+                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
             }
             else
-                self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
+                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
 
             updatedivisionchallengestatus( 1 );
         }
         else
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
     }
     else
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + var_1 );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + var_1 );
 }
 
 ondivisionloss( var_0 )
@@ -220,7 +220,7 @@ ondivisionloss( var_0 )
     else if ( self.pers["division"]["minDP"] == var_0 )
         return;
     else
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
 }
 
 ondivisiontie( var_0 )
@@ -241,25 +241,25 @@ ondivisiontie( var_0 )
     setplayermmr( var_1 );
 
     if ( self.pers["division"]["minDP"] == var_0 )
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
 
     if ( isdefined( self.pers["division"]["maxDP"] ) )
     {
         if ( self.pers["division"]["maxDP"] == var_0 )
         {
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", self.pers["division"]["init"]["playBits"] );
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", self.pers["division"]["init"]["winBits"] );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", self.pers["division"]["init"]["playBits"] );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", self.pers["division"]["init"]["winBits"] );
             return;
         }
         else if ( var_1 > 0 )
         {
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
             return;
         }
     }
 
-    self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
 }
 
 initloss()
@@ -268,7 +268,7 @@ initloss()
         return;
 
     clearmatchprediction();
-    var_0 = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "division" );
+    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division" );
     var_1 = int( tablelookup( "mp/divisiontable.csv", 0, "forfeit", 1 ) );
     getdivisionchallengestatus();
     getmmr();
@@ -276,14 +276,14 @@ initloss()
     if ( self.pers["division"]["wins"] >= 2 || self.pers["division"]["losses"] >= 2 )
         cleardivisionchallengestatus();
 
-    if ( self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" ) >= 3 )
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
+    if ( self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" ) >= 3 )
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
 
     self.pers["division"]["init"]["dp"] = var_0;
     self.pers["division"]["init"]["deltaDP"] = var_1;
-    self.pers["division"]["init"]["relegation"] = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" );
-    self.pers["division"]["init"]["playBits"] = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
-    self.pers["division"]["init"]["winBits"] = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
+    self.pers["division"]["init"]["relegation"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" );
+    self.pers["division"]["init"]["playBits"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
+    self.pers["division"]["init"]["winBits"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
     self.pers["division"]["init"]["MMR"] = self.pers["division"]["MMR"];
     thread updatelockouttime();
     self.pers["division"]["dp"] = var_0;
@@ -300,7 +300,7 @@ initloss()
 
         if ( self.pers["division"]["losses"] >= 2 )
         {
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
             __asm_jump( loc_9A9 );
         }
 
@@ -315,15 +315,15 @@ initloss()
             if ( var_2 >= 3 )
             {
                 getdivisionpointrange( var_0 - 1 );
-                self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
+                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
                 __asm_jump( loc_A2B );
             }
 
-            self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", var_2 );
+            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", var_2 );
         }
     }
     else
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
 }
 
 updatelockouttime()
@@ -337,7 +337,7 @@ updatelockouttime()
         if ( isremovedentity( self ) )
             break;
 
-        self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", gettimeutc() );
+        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", gettimeutc() );
         wait 10;
     }
 }
@@ -376,8 +376,8 @@ getdivisionpointrange( var_0 )
 
 getdivisionchallengestatus()
 {
-    var_0 = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
-    var_1 = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
+    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
+    var_1 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
     var_2 = 0;
     var_3 = 0;
 
@@ -402,8 +402,8 @@ getdivisionchallengestatus()
 
 cleardivisionchallengestatus()
 {
-    self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
-    self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
     self.pers["division"]["wins"] = 0;
     self.pers["division"]["losses"] = 0;
 }
@@ -418,13 +418,13 @@ updatedivisionchallengestatus( var_0 )
     if ( var_0 )
         var_2 |= 1;
 
-    self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", var_1 );
-    self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", var_2 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", var_1 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", var_2 );
 }
 
 getmmr()
 {
-    var_0 = self _meth_8226( common_scripts\utility::getstatsgroup_ranked(), "mmr" );
+    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr" );
     var_0 -= -32768;
     self.pers["division"]["MMR"] = var_0;
 }
@@ -432,7 +432,7 @@ getmmr()
 savemmr()
 {
     var_0 = self.pers["division"]["MMR"] + -32768;
-    self _meth_8243( common_scripts\utility::getstatsgroup_ranked(), "mmr", var_0 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr", var_0 );
 }
 
 savematchprediction( var_0 )
@@ -450,7 +450,7 @@ savematchprediction( var_0 )
     else if ( var_0 == "loss" )
         var_1 |= 32;
 
-    self _meth_8243( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", var_1 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", var_1 );
 }
 
 clearmatchprediction()
@@ -458,7 +458,7 @@ clearmatchprediction()
     if ( !isvalidplayer() )
         return;
 
-    self _meth_8243( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
+    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
 }
 
 calculateteammmrs()

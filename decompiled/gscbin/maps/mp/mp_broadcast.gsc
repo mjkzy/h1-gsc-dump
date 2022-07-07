@@ -25,7 +25,7 @@ main()
     maps\createart\mp_broadcast_art::main();
     maps\mp\mp_broadcast_precache::main();
     maps\mp\_load::main();
-    maps\mp\_compass::setupMiniMap( "compass_map_mp_broadcast" );
+    maps\mp\_compass::setupminimap( "compass_map_mp_broadcast" );
     game["allies"] = "marines";
     game["axis"] = "opfor";
     game["attackers"] = "allies";
@@ -60,7 +60,7 @@ fanwall_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( var_0, 0, 0 ), var_1 );
+        self rotatevelocity( ( var_0, 0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -79,7 +79,7 @@ ceilingfan_rotate_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -91,7 +91,7 @@ ceilingfan_rotate_slow_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }
@@ -103,7 +103,7 @@ ceilingfan_rotate_med_custom()
 
     for (;;)
     {
-        self _meth_82B9( ( 0, var_0, 0 ), var_1 );
+        self rotatevelocity( ( 0, var_0, 0 ), var_1 );
         wait(var_1);
     }
 }

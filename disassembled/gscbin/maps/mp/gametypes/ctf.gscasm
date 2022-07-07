@@ -5,57 +5,57 @@ sub_main
 		CHECK_CLEAR_PARAMS
 		CALL_FAR_FUNC2 maps/mp/gametypes/_globallogic init
 		DEC_TOP
-		CALL_FAR_FUNC2 maps/mp/gametypes/_callbacksetup SetupCallbacks
+		CALL_FAR_FUNC2 maps/mp/gametypes/_callbacksetup setupcallbacks
 		DEC_TOP
-		CALL_FAR_FUNC2 maps/mp/gametypes/_globallogic SetupCallbacks
+		CALL_FAR_FUNC2 maps/mp/gametypes/_globallogic setupcallbacks
 		DEC_TOP
 		CALL_BUILTIN_FUNC_0 isusingmatchrulesdata
 		JMP_FALSE loc_30
-		GET_LOCAL_FUNC sub_initializeMatchRules
-		SET_LEVEL_FIELD_VARIABLE_FIELD initializeMatchRules
+		GET_LOCAL_FUNC sub_initializematchrules
+		SET_LEVEL_FIELD_VARIABLE_FIELD initializematchrules
 		PRE_CALL
-		EVAL_LEVEL_FIELD_VARIABLE initializeMatchRules
+		EVAL_LEVEL_FIELD_VARIABLE initializematchrules
 		CALL_FUNC_POINTER
 		DEC_TOP
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD maps/mp/_utility reInitializeMatchRulesOnMigration 0
+		CALL_FAR_METHOD_THEAD maps/mp/_utility reinitializematchrulesonmigration 0
 		DEC_TOP
 		JMP loc_78
 	loc_30
 		PRE_CALL
 		GET_BYTE 5
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerTimeLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registertimelimitdvar
 		DEC_TOP
 		PRE_CALL
 		GET_BYTE 3
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerScoreLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registerscorelimitdvar
 		DEC_TOP
 		PRE_CALL
 		GET_BYTE 1
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerRoundLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registerroundlimitdvar
 		DEC_TOP
 		PRE_CALL
 		GET_BYTE 1
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerWinLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registerwinlimitdvar
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerNumLivesDvar
+		CALL_FAR_FUNC maps/mp/_utility registernumlivesdvar
 		DEC_TOP
 		PRE_CALL
 		GET_ZERO
 		EVAL_LEVEL_FIELD_VARIABLE gametype
-		CALL_FAR_FUNC maps/mp/_utility registerHalfTimeDvar
+		CALL_FAR_FUNC maps/mp/_utility registerhalftimedvar
 		DEC_TOP
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD matchRules_damageMultiplier
+		SET_LEVEL_FIELD_VARIABLE_FIELD matchrules_damagemultiplier
 		GET_ZERO
-		SET_LEVEL_FIELD_VARIABLE_FIELD matchRules_vampirism
+		SET_LEVEL_FIELD_VARIABLE_FIELD matchrules_vampirism
 	loc_78
 		PRE_CALL
 		GET_BYTE 5
@@ -103,7 +103,7 @@ sub_main
 		GET_BYTE 1
 		SET_LEVEL_FIELD_VARIABLE_FIELD assists_count_disabled
 		GET_BYTE 1
-		SET_LEVEL_FIELD_VARIABLE_FIELD teamBased
+		SET_LEVEL_FIELD_VARIABLE_FIELD teambased
 		GET_BYTE 1
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_62F8
 		GET_BYTE 1
@@ -120,10 +120,10 @@ sub_main
 		GET_STRING "scr_ctf_win_by_captures"
 		CALL_FAR_FUNC maps/mp/_utility _id_3FDB
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_A32B
-		GET_LOCAL_FUNC sub_onStartGameType
-		SET_LEVEL_FIELD_VARIABLE_FIELD onStartGameType
-		GET_LOCAL_FUNC sub_getSpawnPoint
-		SET_LEVEL_FIELD_VARIABLE_FIELD getSpawnPoint
+		GET_LOCAL_FUNC sub_onstartgametype
+		SET_LEVEL_FIELD_VARIABLE_FIELD onstartgametype
+		GET_LOCAL_FUNC sub_getspawnpoint
+		SET_LEVEL_FIELD_VARIABLE_FIELD getspawnpoint
 		GET_LOCAL_FUNC sub__id_64D3
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_64D3
 		GET_LOCAL_FUNC sub__id_64F0
@@ -159,14 +159,14 @@ sub_main
 		CALL_BUILTIN_FUNC_2 setdynamicdvar
 		DEC_TOP
 	loc_16F
-		EVAL_LEVEL_FIELD_VARIABLE matchRules_damageMultiplier
+		EVAL_LEVEL_FIELD_VARIABLE matchrules_damagemultiplier
 		JMP_EXPR_TRUE loc_179
-		EVAL_LEVEL_FIELD_VARIABLE matchRules_vampirism
+		EVAL_LEVEL_FIELD_VARIABLE matchrules_vampirism
 		CAST_BOOL
 	loc_179
 		JMP_FALSE loc_183
-		GET_FAR_FUNC maps/mp/gametypes/_damage gamemodeModifyPlayerDamage
-		SET_LEVEL_FIELD_VARIABLE_FIELD modifyPlayerDamage
+		GET_FAR_FUNC maps/mp/gametypes/_damage gamemodemodifyplayerdamage
+		SET_LEVEL_FIELD_VARIABLE_FIELD modifyplayerdamage
 	loc_183
 		PRE_CALL
 		GET_BYTE 30
@@ -200,9 +200,9 @@ sub_main
 
 end_
 
-sub_initializeMatchRules
+sub_initializematchrules
 		CHECK_CLEAR_PARAMS
-		CALL_FAR_FUNC2 maps/mp/_utility setCommonRulesFromMatchRulesData
+		CALL_FAR_FUNC2 maps/mp/_utility setcommonrulesfrommatchrulesdata
 		DEC_TOP
 		GET_BYTE 1
 		GET_STRING "scr_ctf_roundlimit"
@@ -211,7 +211,7 @@ sub_initializeMatchRules
 		PRE_CALL
 		GET_BYTE 1
 		GET_STRING "ctf"
-		CALL_FAR_FUNC maps/mp/_utility registerRoundLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registerroundlimitdvar
 		DEC_TOP
 		GET_BYTE 1
 		GET_STRING "scr_ctf_winlimit"
@@ -220,7 +220,7 @@ sub_initializeMatchRules
 		PRE_CALL
 		GET_BYTE 1
 		GET_STRING "ctf"
-		CALL_FAR_FUNC maps/mp/_utility registerWinLimitDvar
+		CALL_FAR_FUNC maps/mp/_utility registerwinlimitdvar
 		DEC_TOP
 		GET_BYTE 1
 		GET_STRING "scr_ctf_halftime"
@@ -229,7 +229,7 @@ sub_initializeMatchRules
 		PRE_CALL
 		GET_BYTE 1
 		GET_STRING "ctf"
-		CALL_FAR_FUNC maps/mp/_utility registerHalfTimeDvar
+		CALL_FAR_FUNC maps/mp/_utility registerhalftimedvar
 		DEC_TOP
 		GET_STRING "returnTime"
 		GET_STRING "ctfData"
@@ -263,9 +263,9 @@ sub_initializeMatchRules
 		DEC_TOP
 		END
 
-end_ializeMatchRules
+end_ializematchrules
 
-sub_onStartGameType
+sub_onstartgametype
 		CHECK_CLEAR_PARAMS
 		GET_STRING "switchedsides"
 		GET_GAME
@@ -538,14 +538,14 @@ sub_onStartGameType
 		GET_STRING "attackers"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveScoreText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivescoretext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_ONE_FLAG_DEFENDER"
 		GET_STRING "defenders"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveScoreText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivescoretext
 		DEC_TOP
 		JMP loc_58D
 	loc_569
@@ -554,14 +554,14 @@ sub_onStartGameType
 		GET_STRING "attackers"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveScoreText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivescoretext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_ONE_FLAG_DEFENDER_SCORE"
 		GET_STRING "defenders"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveScoreText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivescoretext
 		DEC_TOP
 	loc_58D
 		PRE_CALL
@@ -569,28 +569,28 @@ sub_onStartGameType
 		GET_STRING "attackers"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivetext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_CTF"
 		GET_STRING "defenders"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivetext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_ONE_FLAG_ATTACKER_HINT"
 		GET_STRING "attackers"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveHintText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivehinttext
 		DEC_TOP
 		PRE_CALL
 		GET_ISTRING "OBJECTIVES_ONE_FLAG_DEFENDER_HINT"
 		GET_STRING "defenders"
 		GET_GAME
 		EVAL_ARRAY
-		CALL_FAR_FUNC maps/mp/_utility setObjectiveHintText
+		CALL_FAR_FUNC maps/mp/_utility setobjectivehinttext
 		DEC_TOP
 		CALL_LOCAL_FUNC2 sub__id_4E24
 		DEC_TOP
@@ -610,7 +610,7 @@ sub_onStartGameType
 		DEC_TOP
 		END
 
-end_artGameType
+end_artgametype
 
 sub_flagbasefxdefault
 		CHECK_CLEAR_PARAMS
@@ -725,46 +725,46 @@ end_lagbasefx
 sub__id_4E24
 		CHECK_CLEAR_PARAMS
 		GET_VECTOR 0 0 0
-		SET_LEVEL_FIELD_VARIABLE_FIELD spawnMins
+		SET_LEVEL_FIELD_VARIABLE_FIELD spawnmins
 		GET_VECTOR 0 0 0
-		SET_LEVEL_FIELD_VARIABLE_FIELD spawnMaxs
+		SET_LEVEL_FIELD_VARIABLE_FIELD spawnmaxs
 		PRE_CALL
 		GET_STRING "mp_ctf_spawn_allies_start"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addStartSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addstartspawnpoints
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "mp_ctf_spawn_axis_start"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addStartSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addstartspawnpoints
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "mp_ctf_spawn"
 		GET_STRING "allies"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addspawnpoints
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "mp_ctf_spawn"
 		GET_STRING "axis"
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic addspawnpoints
 		DEC_TOP
 		PRE_CALL
-		EVAL_LEVEL_FIELD_VARIABLE spawnMaxs
-		EVAL_LEVEL_FIELD_VARIABLE spawnMins
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic findBoxCenter
-		SET_LEVEL_FIELD_VARIABLE_FIELD mapCenter
-		EVAL_LEVEL_FIELD_VARIABLE mapCenter
+		EVAL_LEVEL_FIELD_VARIABLE spawnmaxs
+		EVAL_LEVEL_FIELD_VARIABLE spawnmins
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic findboxcenter
+		SET_LEVEL_FIELD_VARIABLE_FIELD mapcenter
+		EVAL_LEVEL_FIELD_VARIABLE mapcenter
 		CALL_BUILTIN_FUNC_1 setmapcenter
 		DEC_TOP
 		END
 
 end_4E24
 
-sub_getSpawnPoint
+sub_getspawnpoint
 		CHECK_CLEAR_PARAMS
 		EVAL_SELF_FIELD_VARIABLE team
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
-		EVAL_LEVEL_FIELD_VARIABLE _id_9C14
+		EVAL_LEVEL_FIELD_VARIABLE usestartspawns
 		JMP_EXPR_FALSE loc_73F
-		EVAL_LEVEL_FIELD_VARIABLE inGracePeriod
+		EVAL_LEVEL_FIELD_VARIABLE ingraceperiod
 		CAST_BOOL
 	loc_73F
 		JMP_FALSE loc_76C
@@ -774,7 +774,7 @@ sub_getSpawnPoint
 		JMP_FALSE loc_753
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_753
 		PRE_CALL
@@ -789,7 +789,7 @@ sub_getSpawnPoint
 	loc_76C
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic getTeamSpawnPoints
+		CALL_FAR_FUNC maps/mp/gametypes/_spawnlogic getteamspawnpoints
 		CREATE_LOCAL_VARIABLE 1
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
 		PRE_CALL
@@ -807,7 +807,7 @@ sub_getSpawnPoint
 		RETN
 		END
 
-end_pawnPoint
+end_pawnpoint
 
 sub__id_9B63
 		CHECK_CLEAR_PARAMS
@@ -878,7 +878,7 @@ sub__id_24AB
 		SET_VARIABLE_FIELD
 		GET_STRING "tag_origin"
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_1BB4
+		EVAL_LEVEL_FIELD_VARIABLE_REF carryflag
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "tag_origin"
@@ -888,7 +888,7 @@ sub__id_24AB
 		SET_VARIABLE_FIELD
 		GET_STRING "tag_origin"
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE_REF _id_1BB4
+		EVAL_LEVEL_FIELD_VARIABLE_REF carryflag
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		GET_STRING "waypoint_escort"
@@ -1034,7 +1034,7 @@ sub__id_64C4
 		GET_BYTE 2
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1219
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_1218
 		JMP loc_9B1
 	loc_99D
@@ -1045,7 +1045,7 @@ sub__id_64C4
 		GET_BYTE 2
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_0A84
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		SET_LEVEL_FIELD_VARIABLE_FIELD _id_0A83
 	loc_9B1
 		VOIDCODEPOS
@@ -1143,27 +1143,27 @@ sub__id_6D77
 		EVAL_LOCAL_VARIABLE_CACHED3
 		GET_STRING "ui_ctf_friendly_status"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED2
 		GET_STRING "ui_ctf_friendly_carrier_clientnum"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "ui_ctf_enemy_status"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_STRING "ui_ctf_enemy_carrier_clientnum"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 		GET_BYTE 1
 		GET_STRING "ui_ctf_status_changed"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 		END
 
@@ -1246,7 +1246,7 @@ sub__id_2442
 		JMP_FALSE loc_B1D
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_B1D
 		GET_STRING "targetname"
@@ -1295,7 +1295,7 @@ sub__id_2442
 		GET_BYTE 96
 		GET_ZERO
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 1
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_STRING "trigger_radius"
 		CALL_BUILTIN_FUNC_5 spawn
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 4
@@ -1306,12 +1306,12 @@ sub__id_2442
 		EVAL_ARRAY
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 1
-		CALL_BUILTIN_METHOD_1 setModel
+		CALL_BUILTIN_METHOD_1 setmodel
 		DEC_TOP
 		GET_ZERO
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 1
-		CALL_BUILTIN_METHOD_1 _meth_80C0
+		CALL_BUILTIN_METHOD_1 setcontents
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 1
 		CAST_FIELD_OBJ
@@ -1320,14 +1320,14 @@ sub__id_2442
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 1
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_VECTOR 0 0 32
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 5
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 2
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_VECTOR 0 0 -32
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 6
@@ -1342,7 +1342,7 @@ sub__id_2442
 		GET_ZERO
 		EVAL_LOCAL_ARRAY_CACHED 4
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE_REF owner_not
+		EVAL_FIELD_VARIABLE_REF origin
 		SET_VARIABLE_FIELD
 		PRE_CALL
 		GET_VECTOR 0 0 85
@@ -1499,9 +1499,9 @@ sub__id_2442
 		EVAL_FIELD_VARIABLE_REF _id_63DF
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 8
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
-		EVAL_FIELD_VARIABLE_REF owner_not
+		EVAL_FIELD_VARIABLE_REF origin
 		SET_VARIABLE_FIELD
 		GET_FLOAT 0.0
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
@@ -1559,7 +1559,7 @@ sub__id_2442
 		EMPTY_ARRAY
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED 9
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		ADD_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED2
 		CALL_FAR_FUNC_THREAD maps/mp/_utility streamcarrierweaponstoplayers 3
@@ -1608,7 +1608,7 @@ sub__id_23E7
 		JMP_FALSE loc_E44
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_E44
 		GET_STRING "targetname"
@@ -1624,12 +1624,12 @@ sub__id_23E7
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LOCAL_VARIABLE_CACHED1
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_FUNC maps/mp/gametypes/_gameobjects createUseObject
+		CALL_FAR_FUNC maps/mp/gametypes/_gameobjects createuseobject
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 4
 		PRE_CALL
 		GET_STRING "friendly"
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects allowUse
+		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects allowuse
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "any"
@@ -1663,32 +1663,32 @@ sub__id_23E7
 		PRE_CALL
 		GET_ZERO
 		EVAL_LOCAL_VARIABLE_CACHED0
-		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects setUseTime
+		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects setusetime
 		DEC_TOP
 		PRE_CALL
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED4
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		EVAL_LEVEL_FIELD_VARIABLE _id_91EF
 		EVAL_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects _id_7F99
 		DEC_TOP
-		GET_LOCAL_FUNC sub_onUse
+		GET_LOCAL_FUNC sub_onuse
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
-		EVAL_FIELD_VARIABLE_REF onUse
+		EVAL_FIELD_VARIABLE_REF onuse
 		SET_VARIABLE_FIELD
 		GET_LOCAL_FUNC sub__id_6459
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
 		EVAL_FIELD_VARIABLE_REF _id_6459
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_VECTOR 0 0 32
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 5
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_VECTOR 0 0 -32
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 6
@@ -1814,7 +1814,7 @@ sub__id_64C2
 		CALL_FAR_FUNC maps/mp/_utility _id_6DDD
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_METHOD_THEAD _id_A738 _id_3869 0
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_3869 0
 		DEC_TOP
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED1
@@ -1904,7 +1904,7 @@ sub__id_64C2
 		EVAL_LOCAL_VARIABLE_CACHED0
 		EVAL_LEVEL_FIELD_VARIABLE _id_1B60
 		EVAL_ARRAY
-		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects allowUse
+		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects allowuse
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "friendly"
@@ -1947,7 +1947,7 @@ sub__id_64C2
 		DEC_TOP
 		GET_STRING "h1_mp_flag_grab"
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_1 _meth_82F1
+		CALL_BUILTIN_METHOD_1 playlocalsound
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "status"
@@ -1991,7 +1991,7 @@ sub__id_64C2
 		CALL_FAR_FUNC maps/mp/gametypes/_gameobjects _id_7F13
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		GET_STRING "ui_mlg_game_mode_status_1"
 		CALL_BUILTIN_FUNC_2 setomnvar
 		DEC_TOP
@@ -2024,13 +2024,13 @@ sub__id_64C2
 		CALL_FAR_FUNC maps/mp/gametypes/_gameobjects _id_7F13
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_BUILTIN_METHOD_0 _meth_81B5
+		CALL_BUILTIN_METHOD_0 getentitynumber
 		GET_STRING "ui_mlg_game_mode_status_2"
 		CALL_BUILTIN_FUNC_2 setomnvar
 		DEC_TOP
 	loc_120E
 		EVAL_LOCAL_VARIABLE_CACHED3
-		CALL_FAR_METHOD_THEAD _id_A738 _id_3868 0
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_3868 0
 		DEC_TOP
 		END
 		END
@@ -2224,7 +2224,7 @@ sub__id_646F
 		EVAL_FIELD_VARIABLE_REF offense_level
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
-		EVAL_FIELD_VARIABLE _id_1BB4
+		EVAL_FIELD_VARIABLE carryflag
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_13A6
 		PRE_CALL
@@ -2370,7 +2370,7 @@ sub__id_64E0
 		EVAL_LOCAL_VARIABLE_CACHED1
 		EVAL_LEVEL_FIELD_VARIABLE _id_1B60
 		EVAL_ARRAY
-		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects allowUse
+		CALL_FAR_METHOD maps/mp/gametypes/_gameobjects allowuse
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "any"
@@ -2482,7 +2482,7 @@ sub__id_64E0
 
 end_64E0
 
-sub_onUse
+sub_onuse
 		SAFE_CREATE_VARIABLE_FIELD_CACHED 0
 		CHECK_CLEAR_PARAMS
 		GET_STRING "team"
@@ -2524,14 +2524,14 @@ sub_onUse
 		CALL_FAR_FUNC maps/mp/_utility _id_6DDD
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_METHOD_THEAD _id_A738 _id_385F 0
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_385F 0
 		DEC_TOP
 		CALL_FAR_FUNC2 maps/mp/_utility _id_4E3F
 		JMP_TRUE loc_1664
 		PRE_CALL
 		GET_BYTE 1
 		EVAL_LOCAL_VARIABLE_CACHED1
-		CALL_FAR_FUNC _id_A795 _id_420C
+		CALL_FAR_FUNC maps/mp/gametypes/_gamescores _id_420C
 		DEC_TOP
 	loc_1664
 		GET_ZERO
@@ -2549,7 +2549,7 @@ sub_onUse
 		EVAL_FIELD_VARIABLE_REF offense_level
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
-		EVAL_FIELD_VARIABLE _id_1BB4
+		EVAL_FIELD_VARIABLE carryflag
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_168F
 		PRE_CALL
@@ -2698,7 +2698,7 @@ sub_playerupdatetimetobeatomnvars
 		EVAL_ARRAY
 		GET_STRING "ui_friendly_time_to_beat"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 		JMP loc_179B
 	loc_1788
@@ -2709,7 +2709,7 @@ sub_playerupdatetimetobeatomnvars
 		EVAL_ARRAY
 		GET_STRING "ui_enemy_time_to_beat"
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_82F8
+		CALL_BUILTIN_METHOD_2 setclientomnvar
 		DEC_TOP
 	loc_179B
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -2765,7 +2765,7 @@ sub__id_1D19
 		EVAL_ARRAY
 		GET_STRING "overtime_halftime"
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 	loc_180F
@@ -2793,7 +2793,7 @@ sub__id_1D19
 		EVAL_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 	loc_1847
@@ -2832,7 +2832,7 @@ sub__id_1D19
 		EVAL_ARRAY
 		GET_STRING "halftime"
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 	loc_189D
@@ -2868,7 +2868,7 @@ sub__id_1D19
 		EVAL_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 	loc_18EA
@@ -2979,7 +2979,7 @@ sub__id_64F0
 		EVAL_ARRAY
 		GET_STRING "overtime_halftime"
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 	loc_19B4
@@ -3047,7 +3047,7 @@ sub__id_64F0
 		EVAL_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 	loc_1A3B
@@ -3129,7 +3129,7 @@ sub__id_64F0
 		EVAL_ARRAY
 		EVAL_LOCAL_VARIABLE_CACHED0
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		REMOVE_LOCAL_VARIABLES 1
 		END
@@ -3175,7 +3175,7 @@ sub__id_64F0
 		EVAL_ARRAY
 		GET_STRING "halftime"
 		GET_LEVEL
-		CALL_FAR_METHOD_THEAD _id_A793 _id_315F 2
+		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gamelogic _id_315F 2
 		DEC_TOP
 		END
 		END
@@ -3250,12 +3250,12 @@ sub__id_64D3
 		JMP_EXPR_FALSE loc_1BD3
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED5
-		CALL_FAR_FUNC maps/mp/_utility isKillstreakWeapon
+		CALL_FAR_FUNC maps/mp/_utility iskillstreakweapon
 		CAST_BOOL
 	loc_1BD3
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 10
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 9
-		EVAL_FIELD_VARIABLE _id_1BB4
+		EVAL_FIELD_VARIABLE carryflag
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_EXPR_FALSE loc_1BE3
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -3264,15 +3264,15 @@ sub__id_64D3
 	loc_1BE3
 		JMP_FALSE loc_1BEE
 		EVAL_LOCAL_VARIABLE_CACHED 9
-		CALL_FAR_METHOD_THEAD _id_A738 _id_53B6 0
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_53B6 0
 		DEC_TOP
 	loc_1BEE
-		EVAL_SELF_FIELD_VARIABLE _id_1BB4
+		EVAL_SELF_FIELD_VARIABLE carryflag
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_1C06
 		EVAL_LOCAL_VARIABLE_CACHED1
 		EVAL_LOCAL_VARIABLE_CACHED 9
-		CALL_FAR_METHOD_THEAD _id_A738 _id_5368 1
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_5368 1
 		DEC_TOP
 		CALL_LOCAL_FUNC2 sub__id_2980
 		DEC_TOP
@@ -3300,14 +3300,14 @@ sub__id_64D3
 		EVAL_LOCAL_ARRAY_CACHED 4
 		SET_LOCAL_VARIABLE_FIELD_CACHED 3
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
-		EVAL_FIELD_VARIABLE curOrigin
+		EVAL_FIELD_VARIABLE curorigin
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 15
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_2 distance2dsquared
 		SET_LOCAL_VARIABLE_FIELD_CACHED 2
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
-		EVAL_FIELD_VARIABLE curOrigin
-		EVAL_SELF_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE curorigin
+		EVAL_SELF_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_2 distance2dsquared
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 3
@@ -3329,7 +3329,7 @@ sub__id_64D3
 		EVAL_LOCAL_VARIABLE_CACHED 7
 		GET_SELF
 		EVAL_LOCAL_VARIABLE_CACHED 15
-		CALL_FAR_METHOD_THEAD _id_A738 _id_27AE 2
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_27AE 2
 		DEC_TOP
 		PRE_CALL
 		GET_STRING "defends"
@@ -3358,7 +3358,7 @@ sub__id_64D3
 		EVAL_LOCAL_VARIABLE_CACHED 7
 		GET_SELF
 		EVAL_LOCAL_VARIABLE_CACHED 15
-		CALL_FAR_METHOD_THEAD _id_A738 _id_0D52 2
+		CALL_FAR_METHOD_THEAD maps/mp/_events _id_0D52 2
 		DEC_TOP
 	loc_1CA8
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -3372,7 +3372,7 @@ sub__id_64D3
 		REMOVE_LOCAL_VARIABLES 7
 		END
 	loc_1CB7
-		EVAL_SELF_FIELD_VARIABLE _id_1BB4
+		EVAL_SELF_FIELD_VARIABLE carryflag
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_1CC6
 		CALL_LOCAL_FUNC2 sub__id_2980
@@ -3396,15 +3396,15 @@ sub__id_0DFA
 		GET_BYTE 1
 		GET_STRING "J_SpineUpper"
 		EVAL_LOCAL_VARIABLE_CACHED0
-		EVAL_LEVEL_FIELD_VARIABLE _id_1BB4
+		EVAL_LEVEL_FIELD_VARIABLE carryflag
 		EVAL_ARRAY
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_801D
+		CALL_BUILTIN_METHOD_3 attach
 		DEC_TOP
 		EVAL_LOCAL_VARIABLE_CACHED0
-		EVAL_LEVEL_FIELD_VARIABLE _id_1BB4
+		EVAL_LEVEL_FIELD_VARIABLE carryflag
 		EVAL_ARRAY
-		SET_SELF_FIELD_VARIABLE_FIELD _id_1BB4
+		SET_SELF_FIELD_VARIABLE_FIELD carryflag
 		EVAL_LOCAL_VARIABLE_CACHED1
 		CALL_LOCAL_METHOD_THREAD sub__id_3860 0
 		DEC_TOP
@@ -3438,14 +3438,14 @@ sub__id_426E
 		CLEAR_PARAMS
 		GET_FLOAT 1.0
 		WAIT
-		EVAL_SELF_FIELD_VARIABLE _id_1BB4
+		EVAL_SELF_FIELD_VARIABLE carryflag
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_1D4C
 		GET_BYTE 1
 		GET_STRING "J_SpineUpper"
-		EVAL_SELF_FIELD_VARIABLE _id_1BB4
+		EVAL_SELF_FIELD_VARIABLE carryflag
 		GET_SELF
-		CALL_BUILTIN_METHOD_3 _meth_801D
+		CALL_BUILTIN_METHOD_3 attach
 		DEC_TOP
 	loc_1D4C
 		EVAL_SELF_FIELD_VARIABLE _id_1BB6
@@ -3507,7 +3507,7 @@ sub__id_4272
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_1DBE
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE _id_1BB4
+		CLEAR_FIELD_VARIABLE carryflag
 		EVAL_SELF_FIELD_VARIABLE _id_1BB6
 		CALL_FAR_METHOD_THEAD maps/mp/gametypes/_gameobjects _id_7F5D 0
 		DEC_TOP
@@ -3526,12 +3526,12 @@ sub__id_2980
 		GET_STRING "J_SpineUpper"
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		EVAL_LOCAL_VARIABLE_CACHED0
-		EVAL_SELF_FIELD_VARIABLE _id_1BB4
+		EVAL_SELF_FIELD_VARIABLE carryflag
 		GET_SELF
-		CALL_BUILTIN_METHOD_2 _meth_802A
+		CALL_BUILTIN_METHOD_2 detach
 		DEC_TOP
 		GET_SELF_OBJ
-		CLEAR_FIELD_VARIABLE _id_1BB4
+		CLEAR_FIELD_VARIABLE carryflag
 		END
 
 end_2980
@@ -3544,12 +3544,12 @@ sub__id_0D76
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		EMPTY_ARRAY
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		EMPTY_ARRAY
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -3578,11 +3578,11 @@ sub__id_0D76
 		JMP_FALSE loc_1E4C
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE teamspawnpoints
 		EVAL_ARRAY
 		SIZE
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
@@ -3590,11 +3590,11 @@ sub__id_0D76
 	loc_1E4C
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE teamspawnpoints
 		EVAL_ARRAY
 		SIZE
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
@@ -3619,12 +3619,12 @@ sub__id_71EC
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 0
 		EMPTY_ARRAY
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		EMPTY_ARRAY
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
 		EVAL_LOCAL_VARIABLE_CACHED0
@@ -3653,11 +3653,11 @@ sub__id_71EC
 		JMP_FALSE loc_1EDE
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE teamspawnpoints
 		EVAL_ARRAY
 		SIZE
 		GET_STRING "axis"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
@@ -3665,11 +3665,11 @@ sub__id_71EC
 	loc_1EDE
 		EVAL_LOCAL_VARIABLE_CACHED1
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE teamspawnpoints
 		EVAL_ARRAY
 		SIZE
 		GET_STRING "allies"
-		EVAL_LEVEL_FIELD_VARIABLE_REF teamSpawnPoints
+		EVAL_LEVEL_FIELD_VARIABLE_REF teamspawnpoints
 		EVAL_ARRAY_REF
 		EVAL_ARRAY_REF
 		SET_VARIABLE_FIELD
@@ -3715,9 +3715,9 @@ sub__id_3DE5
 		JMP_FALSE loc_1F47
 		GET_INT 999999
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
-		EVAL_FIELD_VARIABLE curOrigin
+		EVAL_FIELD_VARIABLE curorigin
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 7
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_3 getpathdist
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_1F47
@@ -3732,9 +3732,9 @@ sub__id_3DE5
 	loc_1F54
 		JMP_FALSE loc_1F66
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 7
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 2
-		EVAL_FIELD_VARIABLE curOrigin
+		EVAL_FIELD_VARIABLE curorigin
 		CALL_BUILTIN_FUNC_2 distancesquared
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_1F66
@@ -3786,9 +3786,9 @@ sub__id_4034
 		EVAL_LEVEL_FIELD_VARIABLE _id_91EF
 		EVAL_ARRAY
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 4
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_3 getpathdist
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 		GET_INT 999999
@@ -3796,9 +3796,9 @@ sub__id_4034
 		EVAL_LEVEL_FIELD_VARIABLE _id_91EF
 		EVAL_ARRAY
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 4
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_3 getpathdist
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_1FDB
@@ -3813,12 +3813,12 @@ sub__id_4034
 	loc_1FE8
 		JMP_FALSE loc_2002
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 4
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_STRING "allies"
 		EVAL_LEVEL_FIELD_VARIABLE _id_91EF
 		EVAL_ARRAY
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_2 distancesquared
 		SET_LOCAL_VARIABLE_FIELD_CACHED 1
 	loc_2002
@@ -3833,12 +3833,12 @@ sub__id_4034
 	loc_200F
 		JMP_FALSE loc_2028
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 4
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_STRING "axis"
 		EVAL_LEVEL_FIELD_VARIABLE _id_91EF
 		EVAL_ARRAY
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		CALL_BUILTIN_FUNC_2 distancesquared
 		SET_LOCAL_VARIABLE_FIELD_CACHED0
 	loc_2028
@@ -4034,7 +4034,7 @@ sub__id_3860
 		EVAL_FIELD_VARIABLE angles
 		CALL_BUILTIN_FUNC_1 anglestoforward
 		EVAL_LOCAL_VARIABLE_OBJECT_CACHED 0
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		EVAL_LEVEL_FIELD_VARIABLE _id_3865
 		CALL_LOCAL_FUNC sub__id_3A99
 		DEC_TOP
@@ -4062,14 +4062,14 @@ sub__id_3A9A
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_21D2
 		EVAL_SELF_FIELD_VARIABLE _id_3AAB
-		CALL_BUILTIN_METHOD_0 _meth_80B2
+		CALL_BUILTIN_METHOD_0 delete
 		DEC_TOP
 	loc_21D2
 		EVAL_SELF_FIELD_VARIABLE _id_32AC
 		CALL_BUILTIN_FUNC_1 isdefined
 		JMP_FALSE loc_21E3
 		EVAL_SELF_FIELD_VARIABLE _id_32AC
-		CALL_BUILTIN_METHOD_0 _meth_80B2
+		CALL_BUILTIN_METHOD_0 delete
 		DEC_TOP
 		END
 	loc_21E3
@@ -4112,7 +4112,7 @@ sub__id_3A9B
 		EVAL_LOCAL_VARIABLE_CACHED4
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_LOCAL_FUNC sub__id_89EC
 		SET_SELF_FIELD_VARIABLE_FIELD _id_32AC
@@ -4155,7 +4155,7 @@ sub__id_3A99
 		EVAL_LOCAL_VARIABLE_CACHED4
 		PRE_CALL
 		EVAL_LOCAL_VARIABLE_CACHED2
-		CALL_FAR_FUNC maps/mp/_utility getOtherTeam
+		CALL_FAR_FUNC maps/mp/_utility getotherteam
 		EVAL_LOCAL_VARIABLE_CACHED0
 		CALL_FAR_FUNC maps/mp/_utility _id_89DD
 		SET_SELF_FIELD_VARIABLE_FIELD _id_32AC
@@ -4209,7 +4209,7 @@ sub__id_1B5E
 		EVAL_FIELD_VARIABLE visuals
 		EVAL_ARRAY
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_VECTOR 0 0 32
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 2
@@ -4218,7 +4218,7 @@ sub__id_1B5E
 		EVAL_FIELD_VARIABLE visuals
 		EVAL_ARRAY
 		CAST_FIELD_OBJ
-		EVAL_FIELD_VARIABLE owner_not
+		EVAL_FIELD_VARIABLE origin
 		GET_VECTOR 0 0 -32
 		PLUS
 		SET_NEW_LOCAL_VARIABLE_FIELD_CACHED0 3

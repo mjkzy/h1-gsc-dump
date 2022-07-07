@@ -41,14 +41,14 @@ initsosproxy( var_0 )
     level.sos_id++;
     var_1 = spawnstruct();
     var_1.begin_time = maps\mp\_utility::getgametimepassedseconds();
-    var_1.begin_sos_rating = var_0 _meth_8226( "rankedMatchData", "sosRating" );
-    var_1.begin_sos_weight = var_0 _meth_8226( "rankedMatchData", "sosWeight" );
+    var_1.begin_sos_rating = var_0 getrankedplayerdata( "rankedMatchData", "sosRating" );
+    var_1.begin_sos_weight = var_0 getrankedplayerdata( "rankedMatchData", "sosWeight" );
 
     if ( var_1.begin_sos_weight <= 0.5 )
         var_1.begin_sos_rating = level.skill_sos_default_rating;
 
-    var_1.begin_gdf_rating = var_0 _meth_8226( "rankedMatchData", "gdfRating" );
-    var_1.begin_gdf_variance = var_0 _meth_8226( "rankedMatchData", "gdfVariance" );
+    var_1.begin_gdf_rating = var_0 getrankedplayerdata( "rankedMatchData", "gdfRating" );
+    var_1.begin_gdf_variance = var_0 getrankedplayerdata( "rankedMatchData", "gdfVariance" );
     var_1.latest_time = var_1.begin_time;
     var_1.score_per_second = undefined;
     level.sos_players[var_0.sos_id] = var_1;
@@ -367,8 +367,8 @@ _updateskill()
     var_10 += 0.0001;
     var_11 += var_10 * var_12;
     var_10 = max( 0.05, var_10 * ( 1.0 - var_10 * var_13 ) );
-    self _meth_8243( "rankedMatchData", "gdfRating", var_11 );
-    self _meth_8243( "rankedMatchData", "gdfVariance", var_10 );
+    self setcommonplayerdata( "rankedMatchData", "gdfRating", var_11 );
+    self setcommonplayerdata( "rankedMatchData", "gdfVariance", var_10 );
     var_23 = var_8 / var_9;
     var_24 = 1.0;
     var_25 = _calc_rating( var_5, var_6, var_7, level.skill_recent_sosc );
@@ -380,7 +380,7 @@ _updateskill()
     if ( var_29 > 0 )
     {
         var_27 = ( var_3.begin_sos_rating * var_28 + var_27 * var_24 ) / var_29;
-        self _meth_8243( "rankedMatchData", "sosRating", var_27 );
-        self _meth_8243( "rankedMatchData", "sosWeight", var_3.begin_sos_weight + var_24 );
+        self setcommonplayerdata( "rankedMatchData", "sosRating", var_27 );
+        self setcommonplayerdata( "rankedMatchData", "sosWeight", var_3.begin_sos_weight + var_24 );
     }
 }

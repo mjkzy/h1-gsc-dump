@@ -62,19 +62,19 @@ _id_814F( var_0 )
 
     if ( _id_3532( var_0 ) )
     {
-        var_0 _meth_8056();
+        var_0 hide();
         return;
     }
 
     if ( _id_3531( var_0 ) )
     {
-        var_0 _meth_8056();
-        var_0 _meth_82BB();
+        var_0 hide();
+        var_0 notsolid();
 
         if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
         {
             if ( isdefined( var_0._id_79A0 ) )
-                var_0 _meth_805A();
+                var_0 connectpaths();
         }
 
         return;
@@ -82,22 +82,22 @@ _id_814F( var_0 )
 
     if ( _id_3530( var_0 ) )
     {
-        var_0 _meth_8056();
-        var_0 _meth_82BB();
+        var_0 hide();
+        var_0 notsolid();
 
         if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
-            var_0 _meth_805A();
+            var_0 connectpaths();
 
         return;
     }
 
     if ( exploder_model_is_anim_model( var_0 ) && issubstr( var_0.teambalanced, "exploderanimhide" ) )
     {
-        var_0 _meth_8056();
-        var_0 _meth_82BB();
+        var_0 hide();
+        var_0 notsolid();
 
         if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
-            var_0 _meth_805A();
+            var_0 connectpaths();
 
         return;
     }
@@ -200,9 +200,9 @@ _id_8313()
     for ( var_2 = 0; var_2 < var_6.size; var_2++ )
     {
         var_9 = var_6[var_2];
-        var_4 = common_scripts\utility::_id_23FE( var_9._id_79F1 );
+        var_4 = common_scripts\utility::_id_23FE( var_9.script_fxid );
         var_4.v = [];
-        var_4.v["origin"] = var_9.owner_not;
+        var_4.v["origin"] = var_9.origin;
         var_4.v["angles"] = var_9.angles;
         var_4.v["delay"] = var_9.script_lightset;
         var_4.v["delay_post"] = var_9._id_798F;
@@ -218,15 +218,15 @@ _id_8313()
         var_4.v["repeat"] = var_9._id_7AB6;
         var_4.v["delay_min"] = var_9._id_798E;
         var_4.v["delay_max"] = var_9._id_798D;
-        var_4.v["target"] = var_9.team_not;
+        var_4.v["target"] = var_9._not_team;
         var_4.v["ender"] = var_9._id_79B8;
         var_4.v["physics"] = var_9._id_7AA0;
         var_4.v["type"] = "exploder";
 
-        if ( !isdefined( var_9._id_79F1 ) )
+        if ( !isdefined( var_9.script_fxid ) )
             var_4.v["fxid"] = "No FX";
         else
-            var_4.v["fxid"] = var_9._id_79F1;
+            var_4.v["fxid"] = var_9.script_fxid;
 
         var_4.v["exploder"] = var_9._id_79BF;
 
@@ -244,13 +244,13 @@ _id_8313()
         if ( !isdefined( var_4.v["delay"] ) )
             var_4.v["delay"] = 0;
 
-        if ( isdefined( var_9.team_not ) )
+        if ( isdefined( var_9._not_team ) )
         {
             var_11 = getentarray( var_4.v["target"], "targetname" )[0];
 
             if ( isdefined( var_11 ) )
             {
-                var_12 = var_11.owner_not;
+                var_12 = var_11.origin;
                 var_4.v["angles"] = vectortoangles( var_12 - var_4.v["origin"] );
             }
             else
@@ -259,7 +259,7 @@ _id_8313()
 
                 if ( isdefined( var_11 ) )
                 {
-                    var_12 = var_11.owner_not;
+                    var_12 = var_11.origin;
                     var_4.v["angles"] = vectortoangles( var_12 - var_4.v["origin"] );
                 }
             }
@@ -290,7 +290,7 @@ _id_8313()
             var_4.v["masked_exploder"] = var_9.motiontrackerenabled;
             var_4.v["masked_exploder_spawnflags"] = var_9.specialgrenade;
             var_4.v["masked_exploder_script_disconnectpaths"] = var_9._id_79A0;
-            var_9 _meth_80B2();
+            var_9 delete();
         }
 
         var_4 common_scripts\_createfx::_id_6E6D();
@@ -384,10 +384,10 @@ _id_84CF( var_0 )
             foreach ( var_3 in var_1 )
             {
                 if ( !_id_3532( var_3.motiontrackerenabled ) && !_id_3531( var_3.motiontrackerenabled ) && !_id_3530( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled _meth_8055();
+                    var_3.motiontrackerenabled show();
 
                 if ( isdefined( var_3._id_1820 ) )
-                    var_3.motiontrackerenabled _meth_8055();
+                    var_3.motiontrackerenabled show();
             }
 
             return;
@@ -414,10 +414,10 @@ _id_84CF( var_0 )
             if ( isdefined( var_3.motiontrackerenabled ) )
             {
                 if ( !_id_3532( var_3.motiontrackerenabled ) && !_id_3531( var_3.motiontrackerenabled ) && !_id_3530( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled _meth_8055();
+                    var_3.motiontrackerenabled show();
 
                 if ( isdefined( var_3._id_1820 ) )
-                    var_3.motiontrackerenabled _meth_8055();
+                    var_3.motiontrackerenabled show();
             }
         }
     }
@@ -438,7 +438,7 @@ _id_8E7F( var_0 )
                 if ( !isdefined( var_3._id_587B ) )
                     continue;
 
-                var_3._id_587B _meth_80B2();
+                var_3._id_587B delete();
             }
 
             return;
@@ -465,7 +465,7 @@ _id_8E7F( var_0 )
             if ( !isdefined( var_3._id_587B ) )
                 continue;
 
-            var_3._id_587B _meth_80B2();
+            var_3._id_587B delete();
         }
     }
 }
@@ -515,7 +515,7 @@ _id_4850( var_0 )
             foreach ( var_3 in var_1 )
             {
                 if ( isdefined( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled _meth_8056();
+                    var_3.motiontrackerenabled hide();
             }
 
             return;
@@ -540,7 +540,7 @@ _id_4850( var_0 )
                 continue;
 
             if ( isdefined( var_3.motiontrackerenabled ) )
-                var_3.motiontrackerenabled _meth_8056();
+                var_3.motiontrackerenabled hide();
         }
     }
 }
@@ -558,7 +558,7 @@ _id_280E( var_0 )
             foreach ( var_3 in var_1 )
             {
                 if ( isdefined( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled _meth_80B2();
+                    var_3.motiontrackerenabled delete();
             }
         }
     }
@@ -581,7 +581,7 @@ _id_280E( var_0 )
                 continue;
 
             if ( isdefined( var_3.motiontrackerenabled ) )
-                var_3.motiontrackerenabled _meth_80B2();
+                var_3.motiontrackerenabled delete();
         }
     }
 
@@ -669,8 +669,8 @@ _id_181E()
 
         if ( isdefined( self.motiontrackerenabled ) && isdefined( self.motiontrackerenabled.classname ) )
         {
-            self.motiontrackerenabled _meth_8056();
-            self.motiontrackerenabled _meth_82BB();
+            self.motiontrackerenabled hide();
+            self.motiontrackerenabled notsolid();
         }
 
         var_1 = getdvarint( "createfx_exploder_waittime", 3 );
@@ -679,8 +679,8 @@ _id_181E()
 
         if ( isdefined( self.motiontrackerenabled ) && isdefined( self.motiontrackerenabled.classname ) )
         {
-            self.motiontrackerenabled _meth_8055();
-            self.motiontrackerenabled _meth_82BA();
+            self.motiontrackerenabled show();
+            self.motiontrackerenabled solid();
         }
 
         return;
@@ -692,7 +692,7 @@ _id_181E()
     waitframe;
 
     if ( isdefined( self.motiontrackerenabled ) && isdefined( self.motiontrackerenabled.classname ) )
-        self.motiontrackerenabled _meth_80B2();
+        self.motiontrackerenabled delete();
 }
 
 _id_1821()
@@ -708,19 +708,19 @@ _id_1821()
     if ( !isdefined( var_0 ) )
     {
         if ( isdefined( self.motiontrackerenabled ) )
-            self.motiontrackerenabled _meth_80B2();
+            self.motiontrackerenabled delete();
 
         return;
     }
 
-    self.motiontrackerenabled _meth_8055();
+    self.motiontrackerenabled show();
 
     if ( isdefined( self.v["delay_post"] ) )
         wait(self.v["delay_post"]);
 
     var_1 = self.v["origin"];
     var_2 = self.v["angles"];
-    var_3 = var_0.owner_not;
+    var_3 = var_0.origin;
     var_4 = var_3 - self.v["origin"];
     var_5 = var_4[0];
     var_6 = var_4[1];
@@ -731,27 +731,27 @@ _id_1821()
     {
         var_9 = undefined;
 
-        if ( isdefined( var_0.team_not ) )
+        if ( isdefined( var_0._not_team ) )
             var_9 = var_0 common_scripts\utility::_id_3E89();
 
         if ( !isdefined( var_9 ) )
         {
             var_10 = var_1;
-            var_11 = var_0.owner_not;
+            var_11 = var_0.origin;
         }
         else
         {
-            var_10 = var_0.owner_not;
-            var_11 = ( var_9.owner_not - var_0.owner_not ) * self.v["physics"];
+            var_10 = var_0.origin;
+            var_11 = ( var_9.origin - var_0.origin ) * self.v["physics"];
         }
 
-        self.motiontrackerenabled _meth_82BE( var_10, var_11 );
+        self.motiontrackerenabled physicslaunch( var_10, var_11 );
         return;
     }
     else
     {
-        self.motiontrackerenabled _meth_82B9( ( var_5, var_6, var_7 ), 12 );
-        self.motiontrackerenabled _meth_82AE( ( var_5, var_6, var_7 ), 12 );
+        self.motiontrackerenabled rotatevelocity( ( var_5, var_6, var_7 ), 12 );
+        self.motiontrackerenabled movegravity( ( var_5, var_6, var_7 ), 12 );
     }
 
     if ( level._id_2409 )
@@ -765,7 +765,7 @@ _id_1821()
         self._id_3527 = undefined;
         self.v["origin"] = var_1;
         self.v["angles"] = var_2;
-        self.motiontrackerenabled _meth_8056();
+        self.motiontrackerenabled hide();
         return;
     }
 
@@ -773,7 +773,7 @@ _id_1821()
     wait 6;
 
     if ( isdefined( self.motiontrackerenabled ) )
-        self.motiontrackerenabled _meth_80B2();
+        self.motiontrackerenabled delete();
 }
 
 _id_181F()
@@ -783,8 +783,8 @@ _id_181F()
 
     if ( !isdefined( self.motiontrackerenabled._id_7A3C ) )
     {
-        self.motiontrackerenabled _meth_8055();
-        self.motiontrackerenabled _meth_82BA();
+        self.motiontrackerenabled show();
+        self.motiontrackerenabled solid();
     }
     else
     {
@@ -793,8 +793,8 @@ _id_181F()
         if ( isdefined( self.motiontrackerenabled.script_origin ) )
             var_0.script_origin = self.motiontrackerenabled.script_origin;
 
-        var_0 setModel( self.motiontrackerenabled._id_7A3C );
-        var_0 _meth_8055();
+        var_0 setmodel( self.motiontrackerenabled._id_7A3C );
+        var_0 show();
     }
 
     self._id_1820 = 1;
@@ -819,8 +819,8 @@ _id_181F()
 
         if ( !isdefined( self.motiontrackerenabled._id_7A3C ) )
         {
-            self.motiontrackerenabled _meth_8056();
-            self.motiontrackerenabled _meth_82BB();
+            self.motiontrackerenabled hide();
+            self.motiontrackerenabled notsolid();
         }
     }
 }
@@ -828,11 +828,11 @@ _id_181F()
 exploder_anim()
 {
     var_0 = self.motiontrackerenabled;
-    var_0 _meth_8055();
-    var_0 _meth_82BA();
+    var_0 show();
+    var_0 solid();
 
     if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
-        var_0 _meth_805A();
+        var_0 connectpaths();
 
     var_0 notify( "play_exploder_anim" );
 }
@@ -843,7 +843,7 @@ _id_3536()
         return;
 
     _id_352C();
-    level.playercardbackground _meth_80AF( self.v["rumble"] );
+    level.playercardbackground playrumbleonentity( self.v["rumble"] );
 }
 
 _id_352C()
@@ -867,7 +867,7 @@ _id_352C()
 _id_301C()
 {
     if ( isdefined( self._id_5891 ) )
-        self._id_5891 _meth_80B2();
+        self._id_5891 delete();
 
     var_0 = self.v["origin"];
     var_1 = self.v["loopsound"];
@@ -965,7 +965,7 @@ _id_1AD3()
 cannon_spawnfx( var_0 )
 {
     if ( isdefined( self._id_587B ) )
-        self._id_587B _meth_80B2();
+        self._id_587B delete();
 
     self._id_587B = spawnfx( common_scripts\utility::_id_3FA8( self.v["fxid"] ), self.v["origin"], self.v["forward"], self.v["up"] );
 

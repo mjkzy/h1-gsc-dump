@@ -27,7 +27,7 @@ main()
 
 _id_8072()
 {
-    level._id_161B["gametype_think"] = ::_id_15DE;
+    level.bot_funcs["gametype_think"] = ::_id_15DE;
 }
 
 _id_805A()
@@ -63,9 +63,9 @@ _id_15DE()
         var_0 = isdefined( self._id_90BE );
         var_1 = 0;
 
-        if ( var_0 && self _meth_8363() )
+        if ( var_0 && self bothasscriptgoal() )
         {
-            var_2 = self _meth_8358();
+            var_2 = self botgetscriptgoal();
 
             if ( maps\mp\bots\_bots_util::_id_172A( self._id_90BE._id_4411, var_2 ) )
             {
@@ -79,7 +79,7 @@ _id_15DE()
             }
         }
 
-        self _meth_834F( "force_sprint", var_1 );
+        self botsetflag( "force_sprint", var_1 );
         self._id_9107 = _id_16CE( self._id_9107 );
         var_3 = _id_1610( self._id_9107, 1 );
         var_4 = isdefined( var_3 );
@@ -87,7 +87,7 @@ _id_15DE()
         if ( var_0 && !var_4 || !var_0 && var_4 || var_0 && var_4 && self._id_90BE != var_3 )
         {
             self._id_90BE = var_3;
-            self _meth_8354();
+            self botclearscriptgoal();
             self notify( "stop_camping_tag" );
             maps\mp\bots\_bots_personality::_id_1EA3();
             maps\mp\bots\_bots_strategy::_id_15A1( "kill_tag" );
@@ -148,11 +148,11 @@ _id_15D4( var_0 )
 {
     if ( isdefined( var_0._id_6445 ) && var_0._id_6445 )
     {
-        var_1 = self.owner_not + ( 0, 0, 55 );
+        var_1 = self.origin + ( 0, 0, 55 );
 
-        if ( distance2dsquared( var_0.curOrigin, var_1 ) < 144 )
+        if ( distance2dsquared( var_0.curorigin, var_1 ) < 144 )
         {
-            var_2 = var_0.curOrigin[2] - var_1[2];
+            var_2 = var_0.curorigin[2] - var_1[2];
 
             if ( var_2 > 0 )
             {
@@ -183,16 +183,16 @@ _id_1668()
 {
     self endon( "death" );
     self endon( "disconnect" );
-    self _meth_8350( "stand" );
+    self botsetstance( "stand" );
     wait 1.0;
-    self _meth_837C( "jump" );
+    self _meth_837c( "jump" );
     wait 0.5;
 
     if ( maps\mp\_utility::_id_50C4() )
-        self _meth_837C( "jump" );
+        self _meth_837c( "jump" );
 
     wait 0.5;
-    self _meth_8350( "none" );
+    self botsetstance( "none" );
 }
 
 _id_1735()
@@ -214,7 +214,7 @@ _id_1735()
                     if ( var_0._id_6445 )
                     {
                         var_1 = spawnstruct();
-                        var_1.owner_not = var_0.curOrigin;
+                        var_1.origin = var_0.curorigin;
                         var_1.tag_aim_animated = var_0;
                         var_2[0] = var_1;
                         self._id_9107 = _id_15DD( var_2, self._id_9107 );
@@ -235,7 +235,7 @@ _id_15DD( var_0, var_1 )
 
         foreach ( var_7 in var_1 )
         {
-            if ( var_4.tag_aim_animated == var_7.tag_aim_animated && maps\mp\bots\_bots_util::_id_172A( var_4.owner_not, var_7.owner_not ) )
+            if ( var_4.tag_aim_animated == var_7.tag_aim_animated && maps\mp\bots\_bots_util::_id_172A( var_4.origin, var_7.origin ) )
             {
                 var_5 = 1;
                 break;
@@ -253,7 +253,7 @@ _id_1665( var_0, var_1, var_2 )
 {
     if ( !var_0._id_19DB )
     {
-        var_0._id_6071 = getclosestnodeinsight( var_0.curOrigin );
+        var_0._id_6071 = getclosestnodeinsight( var_0.curorigin );
         var_0._id_19DB = 1;
     }
 
@@ -269,7 +269,7 @@ _id_1665( var_0, var_1, var_2 )
 
         if ( var_5 )
         {
-            var_6 = common_scripts\utility::_id_A347( self.owner_not, self _meth_8338(), var_0.curOrigin, var_2 );
+            var_6 = common_scripts\utility::_id_A347( self.origin, self getplayerangles(), var_0.curorigin, var_2 );
 
             if ( var_6 )
             {
@@ -326,7 +326,7 @@ _id_1617( var_0, var_1, var_2 )
                             _id_A0BC( var_7 );
                         }
 
-                        var_8 = distancesquared( self.owner_not, var_7._id_4411 ) < 1000000 && var_7._id_6445;
+                        var_8 = distancesquared( self.origin, var_7._id_4411 ) < 1000000 && var_7._id_6445;
                     }
                 }
                 else if ( _id_1665( var_7, var_3, var_4 ) )
@@ -335,7 +335,7 @@ _id_1617( var_0, var_1, var_2 )
                 if ( var_8 )
                 {
                     var_9 = spawnstruct();
-                    var_9.owner_not = var_7.curOrigin;
+                    var_9.origin = var_7.curorigin;
                     var_9.tag_aim_animated = var_7;
                     var_5 = common_scripts\utility::_id_0CDA( var_5, var_9 );
                 }
@@ -350,11 +350,11 @@ _id_19D5( var_0 )
 {
     var_0 endon( "reset" );
     var_0._id_19E7 = 1;
-    var_0._id_6445 = maps\mp\bots\_bots_util::_id_16BB( var_0.curOrigin, undefined, level._id_1709 + 55 );
+    var_0._id_6445 = maps\mp\bots\_bots_util::_id_16BB( var_0.curorigin, undefined, level._id_1709 + 55 );
 
     if ( var_0._id_6445 )
     {
-        var_0._id_4411 = getgroundposition( var_0.curOrigin, 32 );
+        var_0._id_4411 = getgroundposition( var_0.curorigin, 32 );
 
         if ( !isdefined( var_0._id_4411 ) )
             var_0._id_6445 = 0;
@@ -383,7 +383,7 @@ _id_1610( var_0, var_1 )
 
             if ( !var_1 || var_6 < 2 )
             {
-                var_7 = distancesquared( var_5.tag_aim_animated._id_4411, self.owner_not );
+                var_7 = distancesquared( var_5.tag_aim_animated._id_4411, self.origin );
 
                 if ( var_7 < var_3 )
                 {
@@ -403,7 +403,7 @@ _id_16CE( var_0 )
 
     foreach ( var_3 in var_0 )
     {
-        if ( var_3.tag_aim_animated maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) && maps\mp\bots\_bots_util::_id_172A( var_3.tag_aim_animated.curOrigin, var_3.owner_not ) )
+        if ( var_3.tag_aim_animated maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) && maps\mp\bots\_bots_util::_id_172A( var_3.tag_aim_animated.curorigin, var_3.origin ) )
         {
             if ( !_id_15D4( var_3.tag_aim_animated ) && var_3.tag_aim_animated._id_6445 )
                 var_1 = common_scripts\utility::_id_0CDA( var_1, var_3 );
@@ -432,7 +432,7 @@ _id_3DF7( var_0 )
                 continue;
             }
 
-            if ( distancesquared( var_3.owner_not, var_0.curOrigin ) < 160000 )
+            if ( distancesquared( var_3.origin, var_0.curorigin ) < 160000 )
                 var_1++;
         }
     }
@@ -449,7 +449,7 @@ _id_15C3( var_0, var_1, var_2 )
     if ( isdefined( var_2 ) )
         self endon( var_2 );
 
-    self _meth_8353( self._id_6121, var_1, self._id_0B68 );
+    self botsetscriptgoal( self._id_6121, var_1, self._id_0B68 );
     var_3 = maps\mp\bots\_bots_util::_id_172E();
 
     if ( var_3 == "goal" )
@@ -458,7 +458,7 @@ _id_15C3( var_0, var_1, var_2 )
 
         if ( isdefined( var_4 ) )
         {
-            var_5 = findentrances( self.owner_not );
+            var_5 = findentrances( self.origin );
             var_5 = common_scripts\utility::_id_0CDA( var_5, var_4 );
             childthread maps\mp\bots\_bots_util::_id_1736( var_5 );
         }

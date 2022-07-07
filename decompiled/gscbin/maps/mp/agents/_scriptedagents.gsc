@@ -37,7 +37,7 @@ _id_6A2B( var_0, var_1, var_2, var_3 )
 
 _id_6A2A( var_0, var_1, var_2, var_3, var_4 )
 {
-    self _meth_83D0( var_0, var_1 );
+    self setanimstate( var_0, var_1 );
 
     if ( !isdefined( var_3 ) )
         var_3 = "end";
@@ -47,7 +47,7 @@ _id_6A2A( var_0, var_1, var_2, var_3, var_4 )
 
 _id_6A28( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    self _meth_83D0( var_0, var_1, var_2 );
+    self setanimstate( var_0, var_1, var_2 );
 
     if ( !isdefined( var_4 ) )
         var_4 = "end";
@@ -62,7 +62,7 @@ _id_A100( var_0, var_1, var_2, var_3, var_4 )
     var_7 = undefined;
 
     if ( isdefined( var_2 ) && isdefined( var_3 ) )
-        var_7 = getanimlength( self _meth_83D1( var_2, var_3 ) );
+        var_7 = getanimlength( self getanimentry( var_2, var_3 ) );
 
     for (;;)
     {
@@ -89,13 +89,13 @@ _id_6A26( var_0, var_1 )
 
 _id_6A29( var_0, var_1, var_2 )
 {
-    self _meth_83D0( var_0, var_1 );
+    self setanimstate( var_0, var_1 );
     wait(var_2);
 }
 
 _id_6A27( var_0, var_1, var_2, var_3 )
 {
-    self _meth_83D0( var_0, var_1, var_2 );
+    self setanimstate( var_0, var_1, var_2 );
     wait(var_3);
 }
 
@@ -148,7 +148,7 @@ _id_2F8F( var_0, var_1 )
 
     var_2 = var_0 + ( 0, 0, var_1 );
     var_3 = var_0 + ( 0, 0, var_1 * -1 );
-    var_4 = self _meth_83E3( var_2, var_3, self.rank, self.hidewhendead, 1 );
+    var_4 = self aiphysicstrace( var_2, var_3, self.rank, self.hidewhendead, 1 );
 
     if ( abs( var_4[2] - var_2[2] ) < 0.1 )
         return undefined;
@@ -170,7 +170,7 @@ _id_1AD2( var_0, var_1, var_2, var_3 )
     var_4 = ( 0, 0, 1 ) * var_2;
     var_5 = var_0 + var_4;
     var_6 = var_1 + var_4;
-    return self _meth_83E4( var_5, var_6, var_3, self.hidewhendead - var_2, 1 );
+    return self _meth_83e4( var_5, var_6, var_3, self.hidewhendead - var_2, 1 );
 }
 
 _id_414C( var_0, var_1, var_2 )
@@ -181,16 +181,16 @@ _id_414C( var_0, var_1, var_2 )
     var_3 = ( 0, 0, 1 ) * var_2;
     var_4 = var_0 + var_3;
     var_5 = var_1 + var_3;
-    return self _meth_83E3( var_4, var_5, self.rank + 4, self.hidewhendead - var_2, 1 );
+    return self aiphysicstrace( var_4, var_5, self.rank + 4, self.hidewhendead - var_2, 1 );
 }
 
 _id_40C0( var_0 )
 {
     var_1 = getmovedelta( var_0 );
-    var_2 = self _meth_81B4( var_1 );
-    var_3 = _id_414C( self.owner_not, var_2 );
-    var_4 = distance( self.owner_not, var_3 );
-    var_5 = distance( self.owner_not, var_2 );
+    var_2 = self localtoworldcoords( var_1 );
+    var_3 = _id_414C( self.origin, var_2 );
+    var_4 = distance( self.origin, var_3 );
+    var_5 = distance( self.origin, var_2 );
     return min( 1.0, var_4 / var_5 );
 }
 
@@ -208,22 +208,22 @@ _id_77C7( var_0, var_1, var_2, var_3, var_4 )
 
 _id_77C8( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    self _meth_83D0( var_0, var_1, var_2 );
+    self setanimstate( var_0, var_1, var_2 );
     _id_77C9( var_0, var_1, var_3, var_4, var_5 );
 }
 
 _id_77C9( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = self _meth_83D1( var_0, var_1 );
+    var_5 = self getanimentry( var_0, var_1 );
     var_6 = _id_40C0( var_5 );
-    self _meth_8393( var_6, 1.0 );
+    self scragentsetanimscale( var_6, 1.0 );
     _id_6A2A( var_0, var_1, var_2, var_3, var_4 );
-    self _meth_8393( 1.0, 1.0 );
+    self scragentsetanimscale( 1.0, 1.0 );
 }
 
 _id_40A3( var_0 )
 {
-    var_1 = self _meth_83D4( var_0 );
+    var_1 = self getanimentrycount( var_0 );
     return randomint( var_1 );
 }
 
