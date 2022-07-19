@@ -260,8 +260,10 @@ _id_0D86()
 
                 if ( isdefined( level._id_7B74 ) && !isdefined( level._id_7B74._id_1BAF ) )
                     level._id_7B74 maps\mp\gametypes\_gameobjects::_id_7FE2( self );
+            }
+            else
+            {
 
-                __asm_jump( loc_5C4 );
             }
 
             return;

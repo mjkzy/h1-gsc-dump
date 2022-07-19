@@ -79,7 +79,7 @@ handlecaomodechange( var_0 )
     if ( maps\mp\_utility::_id_5092( level.cao ) && var_0 < 0 )
     {
         level.cao = undefined;
-        _id_A765::resetplayeravatar();
+        maps\mp\_vl_base::resetplayeravatar();
         self notify( "handleRotateAvatar" );
         var_1 = level._id_9EAB[level._id_9EA2];
 
@@ -94,15 +94,15 @@ handlecaomodechange( var_0 )
             var_1.savedcharactercamoindex = undefined;
         }
 
-        _id_A765::playerpopcameramode();
+        maps\mp\_vl_base::playerpopcameramode();
     }
     else if ( !maps\mp\_utility::_id_5092( level.cao ) && var_0 >= 0 )
     {
         level.cao = 1;
-        level._id_9EA2 = _id_A765::_id_3F9E( var_0 );
+        level._id_9EA2 = maps\mp\_vl_base::_id_3F9E( var_0 );
         var_1 = level._id_9EAB[level._id_9EA2];
-        _id_A765::resetplayeravatar();
-        thread _id_A765::handlerotateplayeravatar();
+        maps\mp\_vl_base::resetplayeravatar();
+        thread maps\mp\_vl_base::handlerotateplayeravatar();
         _func_300( var_0 );
         var_1.savedcostume = maps\mp\gametypes\_class::_id_1B0C( var_0 );
         var_1._id_2236 = var_1.savedcostume;
@@ -113,9 +113,9 @@ handlecaomodechange( var_0 )
         var_1._id_A7ED = var_1.savedcharactercamoindex;
         var_1 _meth_857c( var_1._id_A7ED );
         playerteleportavatartocao( var_1 );
-        _id_A765::playerchangecameramode( "cao" );
-        _id_A765::playersetlobbyfovscale();
-        _id_A765::weaponroomscenelightsupdate( "characters_personalization" );
+        maps\mp\_vl_base::playerchangecameramode( "cao" );
+        maps\mp\_vl_base::playersetlobbyfovscale();
+        maps\mp\_vl_base::weaponroomscenelightsupdate( "characters_personalization" );
     }
     else if ( maps\mp\_utility::_id_5092( level.cao ) )
     {
@@ -138,17 +138,17 @@ handlecaomodechange( var_0 )
         }
 
         playerteleportavatartocao( var_1 );
-        _id_A765::weaponroomscenelightsupdate( "characters_personalization" );
+        maps\mp\_vl_base::weaponroomscenelightsupdate( "characters_personalization" );
     }
 }
 
 handlebackfromcollections( var_0 )
 {
     handlecollectionsmodechange( 0, -1 );
-    level._id_9EA2 = _id_A765::_id_3F9E( var_0 );
+    level._id_9EA2 = maps\mp\_vl_base::_id_3F9E( var_0 );
     var_1 = level._id_9EAB[level._id_9EA2];
-    _id_A765::resetplayeravatar();
-    thread _id_A765::handlerotateplayeravatar();
+    maps\mp\_vl_base::resetplayeravatar();
+    thread maps\mp\_vl_base::handlerotateplayeravatar();
     _func_300( var_0 );
     var_1._id_2236 = var_1.savedcostume;
     var_2 = maps\mp\_vl_cac::getfactionteam();
@@ -156,8 +156,8 @@ handlebackfromcollections( var_0 )
     maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.primaryweapon, var_2, var_3 );
     var_1 _meth_857c( var_1.savedcharactercamoindex );
     playerteleportavatartocao( var_1 );
-    _id_A765::playersetlobbyfovscale();
-    _id_A765::weaponroomscenelightsupdate( "characters_personalization" );
+    maps\mp\_vl_base::playersetlobbyfovscale();
+    maps\mp\_vl_base::weaponroomscenelightsupdate( "characters_personalization" );
 }
 
 playerteleportavatartocao( var_0 )
@@ -186,7 +186,7 @@ handlecostumepreview( var_0 )
     var_1 = strtok( var_0, "_" );
     var_2 = int( var_1[0] );
     var_3 = int( var_1[1] );
-    var_4 = _id_A765::_id_3F9E( var_2 );
+    var_4 = maps\mp\_vl_base::_id_3F9E( var_2 );
     level._id_9EA2 = var_4;
     var_5 = level._id_9EAB[var_4];
     maps\mp\_vl_avatar::showavataronly( var_5, 0 );
@@ -204,7 +204,7 @@ handlecostumepreview( var_0 )
     if ( level.collections == 1 )
         var_8 = "heads_collection";
 
-    _id_A765::weaponroomscenelightsupdate( var_8 );
+    maps\mp\_vl_base::weaponroomscenelightsupdate( var_8 );
     playerteleportavatartocaohead( var_5 );
     return var_5;
 }
@@ -221,7 +221,7 @@ handlecamopreview( var_0 )
     var_1 = strtok( var_0, "_" );
     var_2 = int( var_1[0] );
     var_3 = int( var_1[1] );
-    var_4 = _id_A765::_id_3F9E( var_2 );
+    var_4 = maps\mp\_vl_base::_id_3F9E( var_2 );
     level._id_9EA2 = var_4;
     var_5 = level._id_9EAB[var_4];
     maps\mp\_vl_avatar::showavataronly( var_5, 0 );
@@ -237,7 +237,7 @@ handlecamopreview( var_0 )
     if ( maps\mp\_utility::_id_5092( level.collections == 1 ) )
         var_6 = "characters_collection";
 
-    _id_A765::weaponroomscenelightsupdate( var_6 );
+    maps\mp\_vl_base::weaponroomscenelightsupdate( var_6 );
     playerteleportavatartocao( var_5 );
     return var_5;
 }
@@ -262,13 +262,13 @@ handlecollectionsmodechange( var_0, var_1 )
 
     if ( var_0 == 2 )
     {
-        _id_A765::resetweaponavatar();
-        thread _id_A765::handlerotateweaponavatar( "Primary" );
+        maps\mp\_vl_base::resetweaponavatar();
+        thread maps\mp\_vl_base::handlerotateweaponavatar( "Primary" );
     }
     else if ( var_0 == 1 )
     {
-        _id_A765::resetplayeravatar();
-        thread _id_A765::handlerotateplayeravatar();
+        maps\mp\_vl_base::resetplayeravatar();
+        thread maps\mp\_vl_base::handlerotateplayeravatar();
         var_2 = level._id_9EAB[level._id_9EA2];
         var_2.savedcollectionscostume = maps\mp\gametypes\_class::_id_1B0C( var_1 );
         var_2.savedcollectionscharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( var_1 );
@@ -277,20 +277,20 @@ handlecollectionsmodechange( var_0, var_1 )
     if ( level.collections == 0 )
     {
         _func_300( var_1 );
-        _id_A765::playersetlobbyfovscale();
-        _id_A765::playerchangecameramode( "collections" );
+        maps\mp\_vl_base::playersetlobbyfovscale();
+        maps\mp\_vl_base::playerchangecameramode( "collections" );
         var_2 = level._id_9EAB[level._id_9EA2];
         var_3 = maps\mp\_vl_avatar::get_ownerid_for_avatar( var_2 );
-        _id_A765::playerrefreshavatar( var_3 );
+        maps\mp\_vl_base::playerrefreshavatar( var_3 );
     }
     else if ( level.collections != 0 && var_0 == 0 )
     {
         if ( maps\mp\_utility::_id_5092( level.cao ) )
-            thread _id_A765::handlerotateplayeravatar();
+            thread maps\mp\_vl_base::handlerotateplayeravatar();
         else if ( !maps\mp\_utility::_id_5092( level.cac_weap ) )
             self notify( "handleRotateAvatar" );
 
-        _id_A765::playerpopcameramode();
+        maps\mp\_vl_base::playerpopcameramode();
         playerresetavatarcollectionscostume();
         playerresetavatarcollectionscamo();
         var_2 = level._id_9EAB[level._id_9EA2];
@@ -408,16 +408,16 @@ handlearmorymodechange( var_0 )
     if ( level.armory == 0 && !iscollectionsmenuactive() )
     {
         _func_300( level.depotcontroller );
-        _id_A765::playersetlobbyfovscale();
-        _id_A765::playerchangecameramode( "armory" );
+        maps\mp\_vl_base::playersetlobbyfovscale();
+        maps\mp\_vl_base::playerchangecameramode( "armory" );
         var_1 = level._id_9EAB[level._id_9EA2];
         var_2 = maps\mp\_vl_avatar::get_ownerid_for_avatar( var_1 );
-        _id_A765::playerrefreshavatar( var_2 );
+        maps\mp\_vl_base::playerrefreshavatar( var_2 );
     }
     else if ( level.armory != 0 && var_0 == 0 )
     {
         self notify( "handleRotateAvatar" );
-        _id_A765::playerpopcameramode();
+        maps\mp\_vl_base::playerpopcameramode();
         var_1 = level._id_9EAB[level._id_9EA2];
 
         if ( isdefined( var_1 ) )
@@ -444,13 +444,13 @@ handlearmorymodechange( var_0 )
 
     if ( var_0 == 2 )
     {
-        _id_A765::resetweaponavatar();
-        thread _id_A765::handlerotateweaponavatar( "Primary" );
+        maps\mp\_vl_base::resetweaponavatar();
+        thread maps\mp\_vl_base::handlerotateweaponavatar( "Primary" );
     }
     else if ( var_0 == 1 )
     {
-        _id_A765::resetplayeravatar();
-        thread _id_A765::handlerotateplayeravatar();
+        maps\mp\_vl_base::resetplayeravatar();
+        thread maps\mp\_vl_base::handlerotateplayeravatar();
         var_1 = level._id_9EAB[level._id_9EA2];
         var_1.savedarmorycostume = maps\mp\gametypes\_class::_id_1B0C( level.depotcontroller );
         var_1.savedarmorycharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( level.depotcontroller );
@@ -526,26 +526,26 @@ handleequipmodechange( var_0 )
     if ( level.equip == 0 )
     {
         maps\mp\_vl_cac::playerhidecacavatars();
-        _id_A765::resetplayeravatar();
-        thread _id_A765::handlerotateplayeravatar();
-        _id_A766::_id_382D();
+        maps\mp\_vl_base::resetplayeravatar();
+        thread maps\mp\_vl_base::handlerotateplayeravatar();
+        maps\mp\_vl_camera::_id_382D();
         var_1 = level._id_9EAB[level._id_9EA2];
         maps\mp\_vl_avatar::playerteleportavatartocac( var_1 );
-        _id_A765::playersetlobbyfovscale();
-        _id_A765::playerchangecameramode( "equip" );
+        maps\mp\_vl_base::playersetlobbyfovscale();
+        maps\mp\_vl_base::playerchangecameramode( "equip" );
     }
     else if ( level.equip != 0 && var_0 == 0 )
     {
-        _id_A765::resetweaponavatar();
-        _id_A765::resetplayeravatar();
+        maps\mp\_vl_base::resetweaponavatar();
+        maps\mp\_vl_base::resetplayeravatar();
         self notify( "handleRotateAvatar" );
-        _id_A765::playerpopcameramode();
+        maps\mp\_vl_base::playerpopcameramode();
         var_2 = level.depotcontroller;
 
         if ( !maps\mp\_utility::_id_5092( level.in_depot ) )
             var_2 = level.caccontroller;
 
-        thread _id_A765::_id_9E55( level._id_9EA2, var_2, self.class, 1 );
+        thread maps\mp\_vl_base::_id_9E55( level._id_9EA2, var_2, self.class, 1 );
     }
 
     level.equip = var_0;
@@ -594,7 +594,7 @@ handledepotcostumeapply( var_0 )
     var_1 = strtok( var_0, "_" );
     var_2 = int( var_1[0] );
     var_3 = int( var_1[1] );
-    var_4 = _id_A765::_id_3F9E( var_2 );
+    var_4 = maps\mp\_vl_base::_id_3F9E( var_2 );
     var_5 = level._id_9EAB[var_4];
 
     if ( isdefined( var_5 ) )
@@ -611,7 +611,7 @@ handledepotcamoapply( var_0 )
     var_1 = strtok( var_0, "_" );
     var_2 = int( var_1[0] );
     var_3 = int( var_1[1] );
-    var_4 = _id_A765::_id_3F9E( var_2 );
+    var_4 = maps\mp\_vl_base::_id_3F9E( var_2 );
     var_5 = level._id_9EAB[var_4];
 
     if ( isdefined( var_5 ) )

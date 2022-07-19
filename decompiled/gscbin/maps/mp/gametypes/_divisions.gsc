@@ -299,9 +299,10 @@ initloss()
         self.pers["division"]["losses"]++;
 
         if ( self.pers["division"]["losses"] >= 2 )
-        {
             self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
-            __asm_jump( loc_9A9 );
+        else
+        {
+
         }
 
         updatedivisionchallengestatus( 0 );
@@ -316,7 +317,10 @@ initloss()
             {
                 getdivisionpointrange( var_0 - 1 );
                 self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
-                __asm_jump( loc_A2B );
+            }
+            else
+            {
+
             }
 
             self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", var_2 );

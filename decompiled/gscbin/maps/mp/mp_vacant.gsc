@@ -25,7 +25,7 @@ main()
     maps\mp\mp_vacant_fx::main();
     maps\createart\mp_vacant_art::main();
     maps\mp\_load::main();
-    _id_A769::init();
+    maps\mp\_water::init();
     maps\mp\_compass::setupminimap( "compass_map_mp_vacant_dlc" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";

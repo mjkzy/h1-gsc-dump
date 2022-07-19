@@ -25,7 +25,7 @@ main()
     maps\mp\mp_farm_fx::main();
     maps\createart\mp_farm_art::main();
     maps\mp\_load::main();
-    _id_A769::init();
+    maps\mp\_water::init();
     maps\mp\_compass::setupminimap( "compass_map_mp_farm" );
     game["attackers"] = "allies";
     game["defenders"] = "axis";

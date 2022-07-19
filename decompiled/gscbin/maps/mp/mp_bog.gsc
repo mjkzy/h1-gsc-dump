@@ -25,7 +25,7 @@ main()
     maps\mp\mp_bog_fx::main();
     maps\createart\mp_bog_art::main();
     maps\mp\_load::main();
-    _id_A769::init();
+    maps\mp\_water::init();
     maps\mp\_compass::setupminimap( "compass_map_mp_bog" );
     game["attackers"] = "axis";
     game["defenders"] = "allies";

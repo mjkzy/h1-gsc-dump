@@ -68,13 +68,13 @@ playercacprocesslui( var_0, var_1 )
 resetloadout( var_0 )
 {
     var_1 = var_0 & 15;
-    var_2 = _id_A765::_id_3F9E( var_1 );
+    var_2 = maps\mp\_vl_base::_id_3F9E( var_1 );
     var_3 = level._id_9EAB[var_2];
 
     if ( isdefined( var_3 ) )
     {
         level._id_9EA2 = var_2;
-        thread _id_A765::_id_9E55( var_2, var_1, "lobby" + self._id_2522, 1 );
+        thread maps\mp\_vl_base::_id_9E55( var_2, var_1, "lobby" + self._id_2522, 1 );
         var_4 = level._id_9EAB[level._id_9EA2];
         level._id_1999 = var_3.primaryweapon;
     }
@@ -86,22 +86,22 @@ handlecacweapmodechange( var_0, var_1 )
     {
         if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
         {
-            _id_A765::resetweaponavatar();
-            _id_A765::resetplayeravatar();
+            maps\mp\_vl_base::resetweaponavatar();
+            maps\mp\_vl_base::resetplayeravatar();
             playerhidecacavatars();
-            thread _id_A765::handlerotateplayeravatar();
-            _id_A765::playerpopcameramode();
+            thread maps\mp\_vl_base::handlerotateplayeravatar();
+            maps\mp\_vl_base::playerpopcameramode();
             level.cac_weap = undefined;
             return 1;
         }
     }
     else if ( !maps\mp\_utility::_id_5092( level.cac_weap ) )
     {
-        _id_A765::resetweaponavatar();
-        thread _id_A765::handlerotateweaponavatar( var_1 );
+        maps\mp\_vl_base::resetweaponavatar();
+        thread maps\mp\_vl_base::handlerotateweaponavatar( var_1 );
         level.cac_weap = 1;
-        _id_A765::playerchangecameramode( "cac_weap" );
-        _id_A765::playersetlobbyfovscale();
+        maps\mp\_vl_base::playerchangecameramode( "cac_weap" );
+        maps\mp\_vl_base::playersetlobbyfovscale();
         return 1;
     }
 
@@ -117,10 +117,10 @@ handlecacmodechange( var_0 )
             if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
                 handlecacweapmodechange( 0 );
 
-            _id_A765::resetweaponavatar();
-            _id_A765::resetplayeravatar();
+            maps\mp\_vl_base::resetweaponavatar();
+            maps\mp\_vl_base::resetplayeravatar();
             self notify( "handleRotateAvatar" );
-            _id_A765::playerpopcameramode();
+            maps\mp\_vl_base::playerpopcameramode();
             level._id_1975 = undefined;
         }
         else
@@ -130,13 +130,13 @@ handlecacmodechange( var_0 )
         handlecacweapmodechange( 0 );
     else if ( !maps\mp\_utility::_id_5092( level._id_1975 ) )
     {
-        _id_A765::resetplayeravatar();
-        thread _id_A765::handlerotateplayeravatar();
+        maps\mp\_vl_base::resetplayeravatar();
+        thread maps\mp\_vl_base::handlerotateplayeravatar();
         level._id_1975 = 1;
-        _id_A766::_id_382D();
+        maps\mp\_vl_camera::_id_382D();
         var_1 = level._id_9EAB[level._id_9EA2];
         maps\mp\_vl_avatar::playerteleportavatartocac( var_1 );
-        _id_A765::playerchangecameramode( "cac" );
+        maps\mp\_vl_base::playerchangecameramode( "cac" );
     }
 }
 
@@ -147,14 +147,14 @@ handleclassselect( var_0, var_1 )
         var_2 = var_1 & 15;
         level.caccontroller = var_2;
         var_3 = int( var_1 / 16 );
-        _id_A765::vlprintln( "handleClassSelect " + var_0 + " controller=" + var_2 + "  class=" + var_3 );
+        maps\mp\_vl_base::vlprintln( "handleClassSelect " + var_0 + " controller=" + var_2 + "  class=" + var_3 );
 
         if ( var_3 > 0 )
             self._id_2522 = var_3;
 
         var_4 = maps\mp\_utility::_id_197E();
         self.currentclassloc = var_4;
-        var_5 = _id_A765::_id_3F9E( var_2 );
+        var_5 = maps\mp\_vl_base::_id_3F9E( var_2 );
         var_6 = level._id_9EAB[var_5];
 
         if ( isdefined( var_6 ) )
@@ -167,10 +167,10 @@ handleclassselect( var_0, var_1 )
                 handlecacmodechange( 1 );
 
             maps\mp\_vl_avatar::_id_4846( var_6 );
-            _id_A766::_id_7DDB( 1 );
-            thread _id_A765::_id_9E55( var_5, var_2, var_7, 1 );
+            maps\mp\_vl_camera::_id_7DDB( 1 );
+            thread maps\mp\_vl_base::_id_9E55( var_5, var_2, var_7, 1 );
             level._id_1999 = var_6.primaryweapon;
-            _id_A766::playerupdatecamera();
+            maps\mp\_vl_camera::playerupdatecamera();
             return;
         }
     }
@@ -206,7 +206,7 @@ handleweaponhighlighted( var_0 )
     if ( maps\mp\_vl_cao::iscollectionsmenuactive() )
         var_6 = "weapons_collection";
 
-    _id_A765::weaponroomscenelightsupdate( var_6 );
+    maps\mp\_vl_base::weaponroomscenelightsupdate( var_6 );
 
     if ( var_2.size > 1 )
     {
@@ -351,7 +351,7 @@ handlefactionchanged( var_0 )
         var_2 = int( var_1[0] );
         var_3 = int( var_1[1] );
         level.vl_selectedfaction = var_2;
-        var_4 = _id_A765::_id_3F9E( var_3 );
+        var_4 = maps\mp\_vl_base::_id_3F9E( var_3 );
 
         if ( var_4 >= 0 )
         {
@@ -361,7 +361,7 @@ handlefactionchanged( var_0 )
                 var_5._id_57D6 = spawnstruct();
 
             var_5._id_57D6._id_A7E7 = var_2;
-            thread _id_A765::playerrefreshavatar( var_4 );
+            thread maps\mp\_vl_base::playerrefreshavatar( var_4 );
         }
     }
 }
@@ -373,7 +373,7 @@ updatefactionselection( var_0 )
 
 streamcacweaponwait( var_0 )
 {
-    _id_A765::vlprintln( "weapon_stream: " + var_0 );
+    maps\mp\_vl_base::vlprintln( "weapon_stream: " + var_0 );
     var_1 = [ var_0 ];
     var_2 = gettime();
     var_3 = getdvarfloat( "scr_vl_minweaponstreamtime", 0.0 );
@@ -413,8 +413,8 @@ setcacweapon( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     {
         if ( level.cac_weapon_base != var_0 )
         {
-            _id_A765::resetweaponavatar();
-            thread _id_A765::handlerotateweaponavatar( var_1 );
+            maps\mp\_vl_base::resetweaponavatar();
+            thread maps\mp\_vl_base::handlerotateweaponavatar( var_1 );
         }
 
         if ( var_1 == "Equipment" )
@@ -462,7 +462,7 @@ initweaponavatar()
     level.weaponavatarparent = common_scripts\utility::_id_8959();
     level.weaponavatarparent.cameralocation = common_scripts\utility::_id_40FB( "weaponCamera", "targetname" );
     spawnloadingweaponavatar( "h1_ak47loading_mp" );
-    _id_A765::resetweaponavatar();
+    maps\mp\_vl_base::resetweaponavatar();
 }
 
 spawngenericprop3avatar()
@@ -594,7 +594,7 @@ positionweaponavatar( var_0, var_1 )
 
     var_3 unlink();
     var_4 = getweaponavatarforwarddistance( var_0, var_2 );
-    _id_A766::vl_dof_based_on_focus_weap_cac( var_4 );
+    maps\mp\_vl_camera::vl_dof_based_on_focus_weap_cac( var_4 );
     var_5 = getweaponavatarlocation( var_0, var_2 );
     var_6 = isavatarbottle( var_0 );
     var_7 = var_2["midpoint"];
@@ -771,7 +771,7 @@ showweaponavatar( var_0 )
 
     positionweaponavatar( var_1, var_0 );
     level.weaponavatarparent.weaponavatar = var_1;
-    _id_A765::_id_6F0F( level.weaponavatarparent );
+    maps\mp\_vl_base::_id_6F0F( level.weaponavatarparent );
 }
 
 shouldplayidleanim( var_0 )
@@ -810,7 +810,7 @@ showperkavatar( var_0 )
     var_1.category = var_0;
     positionweaponavatar( var_1, var_0 );
     level.weaponavatarparent.weaponavatar = var_1;
-    _id_A765::_id_6F0F( level.weaponavatarparent );
+    maps\mp\_vl_base::_id_6F0F( level.weaponavatarparent );
 }
 
 hideperkavatar()

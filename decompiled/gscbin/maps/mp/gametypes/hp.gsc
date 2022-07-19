@@ -451,7 +451,7 @@ _id_64FF( var_0 )
             if ( var_0.pers["team"] == var_1 )
             {
                 if ( isdefined( var_0.lastkilldefendertime ) && var_0.lastkilldefendertime + 500 > gettime() )
-                    var_0 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_killedLastContester" );
+                    var_0 maps\mp\gametypes\_misions::_id_6FF6( "ch_hp_killedLastContester" );
             }
         }
     }
@@ -475,13 +475,16 @@ _id_41B9( var_0, var_1, var_2, var_3 )
 
         if ( !_id_519A( var_6 ) )
         {
-            var_6 maos\mp\gametypes\_missions::_id_6FF6( "ch_hpcaptures" );
+            var_6 maps\mp\gametypes\_misions::_id_6FF6( "ch_hpcaptures" );
 
             if ( level._id_4AA8 + 500 > var_1 )
-                var_6 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_immediateCapture" );
+                var_6 maps\mp\gametypes\_misions::_id_6FF6( "ch_hp_immediateCapture" );
 
             var_6 thread maps\mp\_events::_id_7C06();
-            __asm_jump( loc_C0B );
+        }
+        else
+        {
+
         }
 
         wait 0.05;
@@ -660,7 +663,7 @@ _id_5F9D( var_0 )
             foreach ( var_3 in level.players )
             {
                 if ( var_3.pers["team"] == var_1 )
-                    var_3 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_controlZoneEntirely" );
+                    var_3 maps\mp\gametypes\_misions::_id_6FF6( "ch_hp_controlZoneEntirely" );
             }
         }
     }
@@ -981,7 +984,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
             var_1 thread maps\mp\_events::_id_0D52( self, var_9 );
         else
         {
-            var_1 maos\mp\gametypes\_missions::_id_6FF6( "ch_hp_zoneDefense" );
+            var_1 maps\mp\gametypes\_misions::_id_6FF6( "ch_hp_zoneDefense" );
             var_1 thread maps\mp\_events::_id_27AE( self, var_9 );
             var_1 maps\mp\_utility::_id_7F6C( var_1.pers["defends"] );
         }

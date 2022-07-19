@@ -21,13 +21,13 @@
 
 main()
 {
-    _id_A788::main();
-    _id_A6F9::main();
-    _id_A787::main();
+    maps\mp\mp_vlobby_room_precache::main();
+    maps\createart\mp_vlobby_room_art::main();
+    maps\mp\mp_vlobby_room_fx::main();
     maps\mp\_load::main();
     maps\mp\mp_vlobby_room_lighting::main();
     maps\mp\mp_vlobby_room_aud::main();
     game["attackers"] = "allies";
     game["defenders"] = "axis";
-    _id_A765::_id_9EA6();
+    maps\mp\_vl_base::_id_9EA6();
 }

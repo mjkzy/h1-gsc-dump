@@ -148,7 +148,7 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( self.owner ) )
         thread _id_28F0( self.owner );
 
-    thread maps\mp\_flashgranades::_id_5E5E();
+    thread maps\mp\_flashgrenades::_id_5E5E();
     self enableanimstate( 0 );
     self [[ level._id_64E9 ]]();
     maps\mp\gametypes\_class::giveloadout( self.team, self.class, 1 );

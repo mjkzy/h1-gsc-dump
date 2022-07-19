@@ -42,9 +42,8 @@ init_rats()
         case "run":
             thread run_rat( "h1_mp_rat_run_01", [ "h1_mp_rat_death_03" ] );
             break;
+        default:
     }
-
-    __asm_endswitch( 3, case "frantic" loc_54 case "run" loc_71 default loc_88);
 }
 
 run_rat( var_0, var_1 )
