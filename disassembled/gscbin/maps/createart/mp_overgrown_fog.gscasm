@@ -1,8 +1,0 @@
-// H1 GSC ASSEMBLY
-// Disassembled by https://github.com/xensik/gsc-tool
-
-sub_main
-		CHECK_CLEAR_PARAMS
-		END
-
-end_
