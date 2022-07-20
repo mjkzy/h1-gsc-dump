@@ -46,16 +46,16 @@ _id_4DC1()
         level._id_2F1A = [];
 
     if ( !isdefined( level._id_2F1A["allies"] ) )
-        level._id_2F1A["allies"] = _id_A5A4::_id_8F62();
+        level._id_2F1A["allies"] = maps\_utility::_id_8F62();
 
     if ( !isdefined( level._id_2F1A["axis"] ) )
-        level._id_2F1A["axis"] = _id_A5A4::_id_8F62();
+        level._id_2F1A["axis"] = maps\_utility::_id_8F62();
 
     if ( !isdefined( level._id_2F1A["team3"] ) )
-        level._id_2F1A["team3"] = _id_A5A4::_id_8F62();
+        level._id_2F1A["team3"] = maps\_utility::_id_8F62();
 
     if ( !isdefined( level._id_2F1A["neutral"] ) )
-        level._id_2F1A["neutral"] = _id_A5A4::_id_8F62();
+        level._id_2F1A["neutral"] = maps\_utility::_id_8F62();
 
     level._id_2EC0 = ::_id_2E61;
 }
@@ -71,7 +71,7 @@ _id_2E61()
     thread _id_2E26( self );
     level notify( "new_drone" );
     self setcandamage( 1 );
-    _id_A52D::_id_2E58();
+    maps\_drone_base::_id_2E58();
 
     if ( isdefined( self._id_79AE ) )
         return;
@@ -95,14 +95,14 @@ _id_2E61()
 
 _id_2E26( var_0 )
 {
-    _id_A5A4::_id_8F65( level._id_2F1A[var_0.team], var_0 );
+    maps\_utility::_id_8F65( level._id_2F1A[var_0.team], var_0 );
     var_1 = var_0.team;
     var_0 waittill( "death" );
 
     if ( isdefined( var_0 ) && isdefined( var_0._id_8F61 ) )
-        _id_A5A4::_id_8F67( level._id_2F1A[var_1], var_0._id_8F61 );
+        maps\_utility::_id_8F67( level._id_2F1A[var_1], var_0._id_8F61 );
     else
-        _id_A5A4::_id_8F68( level._id_2F1A[var_1] );
+        maps\_utility::_id_8F68( level._id_2F1A[var_1] );
 }
 
 _id_2E3B()
@@ -255,7 +255,7 @@ _id_2E43()
 
     if ( isdefined( var_0 ) )
     {
-        _id_A5A4::_id_2975( self.weapon_switch_invalid );
+        maps\_utility::_id_2975( self.weapon_switch_invalid );
         self detach( var_0, "tag_weapon_right" );
         var_2 = self gettagorigin( "tag_weapon_right" );
         var_3 = self gettagangles( "tag_weapon_right" );
@@ -769,10 +769,10 @@ _id_407C( var_0, var_1 )
     var_3[0]["dist"] = 0;
     var_4 = undefined;
     var_4 = var_0;
-    var_5["entity"] = _id_A581::_id_3E8A;
-    var_5["node"] = _id_A581::_id_3E8C;
-    var_5["vehicle_node"] = _id_A581::get_target_vehicle_nodes;
-    var_5["struct"] = _id_A581::_id_3E8E;
+    var_5["entity"] = maps\_spawner::_id_3E8A;
+    var_5["node"] = maps\_spawner::_id_3E8C;
+    var_5["vehicle_node"] = maps\_spawner::get_target_vehicle_nodes;
+    var_5["struct"] = maps\_spawner::_id_3E8E;
     var_6 = undefined;
     var_7 = [[ var_5["entity"] ]]( var_4 );
     var_8 = [[ var_5["node"] ]]( var_4 );
@@ -882,7 +882,7 @@ _id_1CB6()
     {
         case "delete_on_goal":
             if ( isdefined( self._id_58D7 ) )
-                _id_A5A4::_id_8EA4();
+                maps\_utility::_id_8EA4();
 
             self delete();
             break;

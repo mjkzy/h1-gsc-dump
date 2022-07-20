@@ -41,8 +41,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "launchfacility_a", 5 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "launchfacility_a" );
+    maps\_utility::_id_9E6E( "launchfacility_a", 5 );
+    level.playercardbackground maps\_utility::set_light_set_player( "launchfacility_a" );
     level.playercardbackground _meth_848c( "clut_launchfacility_a", 0.0 );
     setsaveddvar( "r_specularcolorscale", "1.2" );
 }
@@ -50,5 +50,5 @@ _id_7E68()
 handle_rappel_down_vent()
 {
     common_scripts\utility::_id_384A( "rappel_down_vent_started" );
-    _id_A5A4::_id_7F00( "launchfacility_a_rappel", 15 );
+    maps\_utility::_id_7F00( "launchfacility_a_rappel", 15 );
 }

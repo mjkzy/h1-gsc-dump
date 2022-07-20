@@ -86,7 +86,7 @@ escape_debri_launch( var_0 )
 {
     wait(randomfloat( var_0 ));
     var_1 = anglestoright( ( 0, 180, 50 ) );
-    var_1 = _id_A5A4::vector_multiply( var_1, 10000 );
+    var_1 = maps\_utility::vector_multiply( var_1, 10000 );
     var_2 = getent( self._not_team, "targetname" );
     var_2 show();
     self delete();
@@ -226,18 +226,18 @@ escape_event()
 
             if ( var_20.angles != ( 0, 90, 0 ) && var_20.angles != ( 0, 270, 0 ) )
             {
-                var_25 = _id_A5A4::vector_multiply( anglestoup( ( 0, 360, 0 ) ), 4 );
-                var_26 = _id_A5A4::vector_multiply( anglestoright( ( 0, 360, 0 ) ), -1 );
+                var_25 = maps\_utility::vector_multiply( anglestoup( ( 0, 360, 0 ) ), 4 );
+                var_26 = maps\_utility::vector_multiply( anglestoright( ( 0, 360, 0 ) ), -1 );
                 var_24 = vectornormalize( var_25 + var_26 );
                 var_21 *= 800;
                 var_27 = anglestoright( ( 0, 360, 0 ) );
-                var_27 = _id_A5A4::vector_multiply( var_27, 64 );
+                var_27 = maps\_utility::vector_multiply( var_27, 64 );
                 var_23 = var_20.origin + var_27;
             }
             else
             {
                 var_25 = anglestoup( level._sea_org.angles );
-                var_26 = _id_A5A4::vector_multiply( anglestoright( level._sea_org.angles ), -1 );
+                var_26 = maps\_utility::vector_multiply( anglestoright( level._sea_org.angles ), -1 );
                 var_23 = var_20.origin + var_22;
                 var_24 = vectornormalize( var_25 + var_26 );
             }
@@ -314,7 +314,7 @@ escape_event()
         level.escape_stumble_num = 1;
     }
 
-    _id_A5A4::_id_0D18( level.heroes3, "done_stumbling" );
+    maps\_utility::_id_0D18( level.heroes3, "done_stumbling" );
     level notify( "let player up" );
 }
 
@@ -323,7 +323,7 @@ escape_event_rotate( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_0 ) )
     {
         var_6 = escape_event_get_snd_entity_obj( var_5 );
-        var_6 thread _id_A5A4::_id_69C4( var_0 );
+        var_6 thread maps\_utility::_id_69C4( var_0 );
     }
 
     var_7 = self.angles;
@@ -344,7 +344,7 @@ escape_event_rotate( var_0, var_1, var_2, var_3, var_4, var_5 )
         else
         {
             wait(var_4);
-            var_8 = var_7 + _id_A5A4::vector_multiply( var_3, 0.3 );
+            var_8 = var_7 + maps\_utility::vector_multiply( var_3, 0.3 );
             var_9 = var_4 * 0.5;
             self rotateto( var_8, var_9, 0, var_9 );
             wait(var_9);
@@ -417,7 +417,7 @@ escape_event_fx( var_0, var_1, var_2, var_3, var_4, var_5 )
     common_scripts\utility::_id_384A( var_3 );
 
     if ( isdefined( var_4 ) )
-        _id_A5A4::_id_8E7E( var_4 );
+        maps\_utility::_id_8E7E( var_4 );
 
     self stoploopsound();
     waitframe;
@@ -429,7 +429,7 @@ escape_event_sndfx( var_0, var_1, var_2 )
     var_3 = escape_event_get_snd_entity_obj( var_2 );
 
     if ( isdefined( var_0 ) )
-        var_3 thread _id_A5A4::_id_69C4( var_0 );
+        var_3 thread maps\_utility::_id_69C4( var_0 );
 
     if ( isdefined( var_1 ) )
         var_3 thread common_scripts\utility::_id_6975( var_1 );
@@ -441,7 +441,7 @@ escape_event_get_snd_entity_obj( var_0 )
 
     if ( isdefined( var_0 ) )
     {
-        var_2 = _id_A5A4::_id_3F82( var_0, "targetname" );
+        var_2 = maps\_utility::_id_3F82( var_0, "targetname" );
 
         if ( isdefined( var_2 ) )
             var_1 = var_2;
@@ -455,7 +455,7 @@ escape_event_ai( var_0 )
     var_1 = "stumble" + var_0;
     self.springleak = 1;
     var_2 = getanimlength( level._id_78AC[self._id_0C72][var_1] );
-    thread _id_A510::_id_0C24( self, var_1 );
+    thread maps\_anim::_id_0C24( self, var_1 );
     wait(var_2 - 0.2);
     self _meth_8143();
     self notify( "single_anim_done" );
@@ -470,13 +470,13 @@ escape_event_player()
     level.playercardbackground setstance( "crouch" );
     level.playercardbackground setvelocity( ( 0, 1, 0 ) );
     player_speed_set_cargoship( 135, 0.1 );
-    _id_A5A4::_id_27EF( 0.5, ::player_speed_set_cargoship, 185, 2.5 );
+    maps\_utility::_id_27EF( 0.5, ::player_speed_set_cargoship, 185, 2.5 );
     level.playercardbackground playrumbleonentity( "tank_rumble" );
-    _id_A5A4::_id_27EF( 0.05, ::blur_overlay, 2.4, 0.25 );
-    _id_A5A4::_id_27EF( 0.3, ::blur_overlay, 0, 0.5 );
-    level.playercardbackground _id_A5A4::_id_27EF( 0.1, _id_A5A4::_id_69C4, "breathing_hurt" );
+    maps\_utility::_id_27EF( 0.05, ::blur_overlay, 2.4, 0.25 );
+    maps\_utility::_id_27EF( 0.3, ::blur_overlay, 0, 0.5 );
+    level.playercardbackground maps\_utility::_id_27EF( 0.1, maps\_utility::_id_69C4, "breathing_hurt" );
     level waittill( "let player up" );
-    level.playercardbackground _id_A5A4::_id_27EF( 0.1, _id_A5A4::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 0.1, maps\_utility::_id_69C4, "breathing_better" );
     level.playercardbackground allowstand( 1 );
     level.playercardbackground allowprone( 1 );
     level.playercardbackground setstance( "stand" );
@@ -487,7 +487,7 @@ escape_player_last_quake()
     level.playercardbackground setvelocity( ( 0, 90, 0 ) );
     earthquake( 0.25, 1.5, level.playercardbackground.origin, 1024 );
     player_speed_set_cargoship( 100, 0.1 );
-    _id_A5A4::_id_27EF( 0.25, ::player_speed_set_cargoship, 140, 2 );
+    maps\_utility::_id_27EF( 0.25, ::player_speed_set_cargoship, 140, 2 );
     level.playercardbackground playrumbleonentity( "tank_rumble" );
 }
 
@@ -507,8 +507,8 @@ misc_light_flicker( var_0, var_1, var_2 )
 
     if ( isdefined( var_0 ) )
     {
-        var_14 = _id_A5A4::_id_3FA9( var_0 );
-        var_13 = _id_A5A4::_id_3F39( self.origin, var_14 );
+        var_14 = maps\_utility::_id_3FA9( var_0 );
+        var_13 = maps\_utility::_id_3F39( self.origin, var_14 );
         var_12 = 1;
     }
 
@@ -563,7 +563,7 @@ misc_light_flicker( var_0, var_1, var_2 )
                 self setlightintensity( var_5 );
 
                 if ( var_12 )
-                    var_13 _id_A5A4::_id_748D();
+                    var_13 maps\_utility::_id_748D();
 
                 if ( var_11 )
                     var_16 setmodel( var_8 );
@@ -669,9 +669,9 @@ escape_heroes_holdtheline_decide_jog_run_sprint( var_0, var_1 )
         self._id_76B8 = "sprint";
 
         if ( isdefined( self.escape_run_section ) )
-            _id_A5A4::_id_7E45( level.current_run[self.escape_run_section][self._id_76B8] );
+            maps\_utility::_id_7E45( level.current_run[self.escape_run_section][self._id_76B8] );
         else
-            _id_A5A4::_id_1ED1();
+            maps\_utility::_id_1ED1();
 
         if ( self._id_5F65 < self.aimaxsprintrate )
             self._id_5F65 = self.aimaxsprintrate;
@@ -684,9 +684,9 @@ escape_heroes_holdtheline_decide_jog_run_sprint( var_0, var_1 )
         self._id_76B8 = "run";
 
         if ( isdefined( self.escape_run_section ) )
-            _id_A5A4::_id_7E45( level.current_run[self.escape_run_section][self._id_76B8] );
+            maps\_utility::_id_7E45( level.current_run[self.escape_run_section][self._id_76B8] );
         else
-            _id_A5A4::_id_1ED1();
+            maps\_utility::_id_1ED1();
 
         self._id_5F65 = 1;
     }
@@ -698,9 +698,9 @@ escape_heroes_holdtheline_decide_jog_run_sprint( var_0, var_1 )
         self._id_76B8 = "jog";
 
         if ( isdefined( self.escape_run_section ) )
-            _id_A5A4::_id_7E45( level.current_run[self.escape_run_section][self._id_76B8] );
+            maps\_utility::_id_7E45( level.current_run[self.escape_run_section][self._id_76B8] );
         else
-            _id_A5A4::_id_1ED1();
+            maps\_utility::_id_1ED1();
 
         if ( self._id_5F65 > self.aiminjograte )
             self._id_5F65 = self.aiminjograte;
@@ -833,7 +833,7 @@ escape_heroes_run_wait( var_0 )
     {
         if ( var_6[var_4].script_parentname == self.script_parentname )
         {
-            thread _id_A5A4::_id_30A1();
+            thread maps\_utility::_id_30A1();
             self _meth_81a9( var_3[var_4 + 1] );
             self.goalradius = 16;
             break;
@@ -941,47 +941,47 @@ escape_shellshock_blur()
 
 escape_shellshock_breathing()
 {
-    level.playercardbackground _id_A5A4::_id_27EF( 1.5, _id_A5A4::_id_69C4, "breathing_hurt_start" );
-    level.playercardbackground _id_A5A4::_id_27EF( 2.5, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 4, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 5, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 8.5, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 11, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 13, _id_A5A4::_id_69C4, "breathing_better" );
-    level.playercardbackground _id_A5A4::_id_27EF( 16, _id_A5A4::_id_69C4, "breathing_better" );
-    level.playercardbackground _id_A5A4::_id_27EF( 21, _id_A5A4::_id_69C4, "breathing_better" );
-    level.playercardbackground _id_A5A4::_id_27EF( 24, _id_A5A4::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 1.5, maps\_utility::_id_69C4, "breathing_hurt_start" );
+    level.playercardbackground maps\_utility::_id_27EF( 2.5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 4, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 8.5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 11, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 13, maps\_utility::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 16, maps\_utility::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 21, maps\_utility::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 24, maps\_utility::_id_69C4, "breathing_better" );
 }
 
 escape_shellshock_vision()
 {
     var_0 = _id_23D0( "black", 0 );
-    var_0 _id_A5A4::_id_27EF( 1.5, ::exp_fade_overlay, 1, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 2.25, ::exp_fade_overlay, 0, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 3, ::exp_fade_overlay, 0.5, 0.25 );
-    var_0 _id_A5A4::_id_27EF( 3.25, ::exp_fade_overlay, 0, 0.25 );
-    var_0 _id_A5A4::_id_27EF( 5, ::exp_fade_overlay, 1, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 6, ::exp_fade_overlay, 0, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 10, ::exp_fade_overlay, 1, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 10.75, ::exp_fade_overlay, 0, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 13, ::exp_fade_overlay, 1, 0.5 );
-    var_0 _id_A5A4::_id_27EF( 13.75, ::exp_fade_overlay, 0, 0.5 );
-    _id_A5A4::_id_27EF( 0.75, ::blur_overlay, 4.8, 0.5 );
-    _id_A5A4::_id_27EF( 1.25, ::blur_overlay, 0, 4 );
-    _id_A5A4::_id_27EF( 7.25, ::blur_overlay, 4.8, 2 );
-    _id_A5A4::_id_27EF( 9.25, ::blur_overlay, 0, 2 );
-    _id_A5A4::_id_27EF( 13, ::blur_overlay, 7.2, 1 );
-    _id_A5A4::_id_27EF( 14, ::blur_overlay, 0, 1 );
-    level.playercardbackground _id_A5A4::_id_27EF( 1.5, _id_A5A4::_id_69C4, "breathing_hurt_start" );
-    level.playercardbackground _id_A5A4::_id_27EF( 2.5, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 4, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 5, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 8.5, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 11, _id_A5A4::_id_69C4, "breathing_hurt" );
-    level.playercardbackground _id_A5A4::_id_27EF( 13, _id_A5A4::_id_69C4, "breathing_better" );
-    level.playercardbackground _id_A5A4::_id_27EF( 16, _id_A5A4::_id_69C4, "breathing_better" );
-    level.playercardbackground _id_A5A4::_id_27EF( 21, _id_A5A4::_id_69C4, "breathing_better" );
-    level.playercardbackground _id_A5A4::_id_27EF( 24, _id_A5A4::_id_69C4, "breathing_better" );
+    var_0 maps\_utility::_id_27EF( 1.5, ::exp_fade_overlay, 1, 0.5 );
+    var_0 maps\_utility::_id_27EF( 2.25, ::exp_fade_overlay, 0, 0.5 );
+    var_0 maps\_utility::_id_27EF( 3, ::exp_fade_overlay, 0.5, 0.25 );
+    var_0 maps\_utility::_id_27EF( 3.25, ::exp_fade_overlay, 0, 0.25 );
+    var_0 maps\_utility::_id_27EF( 5, ::exp_fade_overlay, 1, 0.5 );
+    var_0 maps\_utility::_id_27EF( 6, ::exp_fade_overlay, 0, 0.5 );
+    var_0 maps\_utility::_id_27EF( 10, ::exp_fade_overlay, 1, 0.5 );
+    var_0 maps\_utility::_id_27EF( 10.75, ::exp_fade_overlay, 0, 0.5 );
+    var_0 maps\_utility::_id_27EF( 13, ::exp_fade_overlay, 1, 0.5 );
+    var_0 maps\_utility::_id_27EF( 13.75, ::exp_fade_overlay, 0, 0.5 );
+    maps\_utility::_id_27EF( 0.75, ::blur_overlay, 4.8, 0.5 );
+    maps\_utility::_id_27EF( 1.25, ::blur_overlay, 0, 4 );
+    maps\_utility::_id_27EF( 7.25, ::blur_overlay, 4.8, 2 );
+    maps\_utility::_id_27EF( 9.25, ::blur_overlay, 0, 2 );
+    maps\_utility::_id_27EF( 13, ::blur_overlay, 7.2, 1 );
+    maps\_utility::_id_27EF( 14, ::blur_overlay, 0, 1 );
+    level.playercardbackground maps\_utility::_id_27EF( 1.5, maps\_utility::_id_69C4, "breathing_hurt_start" );
+    level.playercardbackground maps\_utility::_id_27EF( 2.5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 4, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 8.5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 11, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.playercardbackground maps\_utility::_id_27EF( 13, maps\_utility::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 16, maps\_utility::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 21, maps\_utility::_id_69C4, "breathing_better" );
+    level.playercardbackground maps\_utility::_id_27EF( 24, maps\_utility::_id_69C4, "breathing_better" );
     common_scripts\utility::_id_384A( "escape_get_to_catwalks" );
     var_0 destroy();
 }
@@ -993,7 +993,7 @@ escape_shellshock_heartbeat()
 
     for (;;)
     {
-        level.playercardbackground _id_A5A4::_id_69C4( "breathing_heartbeat" );
+        level.playercardbackground maps\_utility::_id_69C4( "breathing_heartbeat" );
 
         if ( var_0 > 0 )
             wait(var_0);
@@ -1039,11 +1039,11 @@ escape_shellshock()
     thread escape_shellshock_heartbeat();
     thread escape_shellshock_depthoffield();
     level.playercardbackground playrumbleonentity( "tank_rumble" );
-    level thread _id_A5A4::_id_61FD( "stop_heartbeat_sound", 18 );
+    level thread maps\_utility::_id_61FD( "stop_heartbeat_sound", 18 );
     clearallcorpses();
     var_0 = ( 600, -296, -360 );
-    var_1 = _id_A5A4::_id_88D1( "player_viewbody" );
-    var_1.origin = level.playercardbackground _id_A5A4::_id_3E24();
+    var_1 = maps\_utility::_id_88D1( "player_viewbody" );
+    var_1.origin = level.playercardbackground maps\_utility::_id_3E24();
     level.playercardbackground setstance( "stand" );
     var_1.angles = level.playercardbackground getplayerangles();
     var_1 hide();
@@ -1067,17 +1067,17 @@ escape_shellshock()
     var_5 delete();
     var_6 delete();
     var_7 = ( 358.273, 286.02, -89.0164 );
-    var_8 = _id_A5A4::_id_88D1( "player_viewbody" );
+    var_8 = maps\_utility::_id_88D1( "player_viewbody" );
     var_8 hide();
     var_9 = spawn( "script_origin", var_0 );
     var_9.angles = ( 0, 180, 0 );
-    var_9 _id_A510::_id_0BC7( var_8, "player_explosion" );
+    var_9 maps\_anim::_id_0BC7( var_8, "player_explosion" );
     waitframe;
     var_7 = var_8 gettagangles( "tag_player" );
     var_10 = var_8 gettagorigin( "tag_player" );
     var_9 delete();
     var_8 delete();
-    var_2 thread _id_A510::_id_0C24( var_1, "player_explosion_start" );
+    var_2 thread maps\_anim::_id_0C24( var_1, "player_explosion_start" );
     var_2 moveto( var_10, 1 );
     var_2 waittill( "movedone" );
     thread escape_new_explosion_scene( var_2, var_1, var_0 );
@@ -1098,18 +1098,18 @@ escape_new_explosion_scene( var_0, var_1, var_2 )
     var_4 = level.heroes3["grigsby"];
     var_5 = spawn( "script_origin", var_2 );
     var_5.angles = ( 0, 180, 0 );
-    var_6 = getstartorigin( var_5.origin, var_5.angles, var_1 _id_A5A4::_id_3EF5( "player_explosion" ) );
+    var_6 = getstartorigin( var_5.origin, var_5.angles, var_1 maps\_utility::_id_3EF5( "player_explosion" ) );
     var_7 = var_1.origin - var_6;
     var_5.origin = ( var_5.origin[0], var_5.origin[1], -360 );
     var_1 show();
-    var_5 _id_A510::_id_0BC7( var_1, "player_explosion" );
+    var_5 maps\_anim::_id_0BC7( var_1, "player_explosion" );
     var_3 _meth_8143();
     var_3 unlink();
-    var_5 thread _id_A510::_id_0BC9( var_3, "price_explosion" );
+    var_5 thread maps\_anim::_id_0BC9( var_3, "price_explosion" );
     var_4 _meth_8143();
     var_4 unlink();
-    var_5 thread _id_A510::_id_0BC9( var_4, "grigsby_explosion" );
-    var_5 _id_A510::_id_0C24( var_1, "player_explosion" );
+    var_5 thread maps\_anim::_id_0BC9( var_4, "grigsby_explosion" );
+    var_5 maps\_anim::_id_0C24( var_1, "player_explosion" );
     level notify( "escape_unlink_player" );
     level.playercardbackground unlink();
     var_0 delete();
@@ -1216,7 +1216,7 @@ showgasmaskcracks()
     {
         level.maskcracksfx = spawnfx( level._effect["goggles_cracks"], level.playercardbackground.origin );
         triggerfx( level.maskcracksfx );
-        level.playercardbackground thread _id_A5A4::_id_69C4( "scn_cargo_explosion_mask_crack" );
+        level.playercardbackground thread maps\_utility::_id_69C4( "scn_cargo_explosion_mask_crack" );
     }
 }
 
@@ -1327,7 +1327,7 @@ _id_33EE( var_0, var_1, var_2, var_3, var_4 )
         var_9 = spawn( "script_origin", var_0[var_8] gettagorigin( "j_spine4" ) );
         var_9 linkto( var_0[var_8], "j_spine4" );
         maps\mo_tools::enable_cqbwalk_ign_demo_wrapper();
-        _id_A5A4::_id_22CF( var_9 );
+        maps\_utility::_id_22CF( var_9 );
 
         if ( var_3 )
         {
@@ -1361,7 +1361,7 @@ _id_33EE( var_0, var_1, var_2, var_3, var_4 )
         wait 0.1;
     }
 
-    _id_A5A4::_id_22CF( undefined );
+    maps\_utility::_id_22CF( undefined );
 
     if ( var_7 )
         maps\mo_tools::disable_cqbwalk_ign_demo_wrapper();
@@ -1397,7 +1397,7 @@ _id_66FC()
     self endon( "patrol_stop" );
     self endon( "damage" );
     self._id_0C72 = "patrol";
-    _id_A5A4::_id_7EAB( "walk" + randomintrange( 1, 5 ) );
+    maps\_utility::_id_7EAB( "walk" + randomintrange( 1, 5 ) );
     var_0 = [];
 
     for ( var_0[var_0.size] = getnode( self._not_team, "targetname" ); isdefined( var_0[var_0.size - 1]._not_team ); var_0[var_0.size] = getnode( var_0[var_0.size - 1]._not_team, "targetname" ) )
@@ -1428,7 +1428,7 @@ _id_66FC()
             continue;
         }
 
-        _id_A510::_id_0C24( self, "turn" );
+        maps\_anim::_id_0C24( self, "turn" );
         var_1 = 0;
         var_0 = common_scripts\utility::_id_0D02( var_0 );
     }
@@ -1439,8 +1439,8 @@ patrol2()
     common_scripts\utility::_id_A087( "damage", "patrol_stop" );
     self notify( "stopanimscripted" );
     self _meth_8143();
-    _id_A5A4::_id_1ED1();
-    thread _id_A5A4::_id_30A1();
+    maps\_utility::_id_1ED1();
+    thread maps\_utility::_id_30A1();
     flashlight_light( 0 );
     self detach( "com_flashlight_on", "tag_inhand" );
 }
@@ -1529,7 +1529,7 @@ txt_voice( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         {
             var_11 = level.playercardbackground getplayerangles();
             var_12 = anglestoforward( var_11 );
-            var_12 = _id_A5A4::vector_multiply( var_12, 96 );
+            var_12 = maps\_utility::vector_multiply( var_12, 96 );
             var_13 = level.playercardbackground.origin + var_12 + ( 0, 0, 64 );
             var_8 = 0.25;
             var_7 = ( 1, 1, 0 );
@@ -1766,7 +1766,7 @@ heli_minigun_fake_deck_stopfire()
 {
     self.minigun[self.minigun_control] notify( "stop_firing" );
     self.minigun[self.minigun_control] common_scripts\utility::_id_8EA1( "hind_gatling_fire" );
-    self.minigun[self.minigun_control] thread _id_A5A4::_id_69C4( "hind_gatling_cooldown" );
+    self.minigun[self.minigun_control] thread maps\_utility::_id_69C4( "hind_gatling_cooldown" );
     self notify( "stop_deck_glass_monitoring" );
     self notify( "stop_shell_snd" );
     thread common_scripts\utility::_id_69C2( "hind_shells_tail", ( -1990.82, -182.443, 16.125 ) );
@@ -1872,7 +1872,7 @@ deck_minigun_dodamage()
         if ( var_6.size > 0 )
             var_0 = common_scripts\utility::_id_0CF7( var_0, var_6 );
 
-        level.aftdeck_enemies = _id_A5A4::_id_0CFD( level.aftdeck_enemies );
+        level.aftdeck_enemies = maps\_utility::_id_0CFD( level.aftdeck_enemies );
         level.aftdeck_enemies = common_scripts\utility::_id_0D01( level.aftdeck_enemies );
         wait 0.05;
     }
@@ -1894,22 +1894,22 @@ deck_minigun_dodamage_to_ent( var_0 )
 deck_explosion_guy()
 {
     var_0 = getent( "aftdeck_explosion_enemy", "targetname" );
-    var_0 _id_A5A4::_id_0798( ::deck_explosion_guy_spawn );
-    var_1 = var_0 _id_A5A4::_id_88C3( 1 );
+    var_0 maps\_utility::_id_0798( ::deck_explosion_guy_spawn );
+    var_1 = var_0 maps\_utility::_id_88C3( 1 );
     var_1.ignoretriggers = 1;
     wait 0.05;
-    var_1 thread _id_A5A4::_id_69C4( "scn_cargo_heli_minigun_explosion_layer_guy" );
+    var_1 thread maps\_utility::_id_69C4( "scn_cargo_heli_minigun_explosion_layer_guy" );
     var_1._id_0C72 = "guy";
-    var_1 thread _id_A510::_id_0C24( var_1, "explosion" );
-    wait(getanimlength( var_1 _id_A5A4::_id_3EF5( "explosion" ) ) - 0.2);
+    var_1 thread maps\_anim::_id_0C24( var_1, "explosion" );
+    wait(getanimlength( var_1 maps\_utility::_id_3EF5( "explosion" ) ) - 0.2);
     var_1 kill();
 }
 
 deck_explosion_guy_spawn()
 {
     self.grenadeammo = 0;
-    thread _id_A5A4::_id_4BB0( 1 );
-    _id_A5A4::_id_4462();
+    thread maps\_utility::_id_4BB0( 1 );
+    maps\_utility::_id_4462();
 }
 
 deck_enemies_see( var_0 )
@@ -2153,7 +2153,7 @@ deck_kill_lights()
 deck_lights_off( var_0 )
 {
     foreach ( var_2 in var_0 )
-        var_2 _id_A5A4::_id_0639( 0 );
+        var_2 maps\_utility::_id_0639( 0 );
 }
 
 heli_minigun_attach( var_0 )
@@ -2240,8 +2240,8 @@ heli_searchlight_dlight()
     for (;;)
     {
         var_0 = anglestoforward( self gettagangles( "tag_flash" ) );
-        var_1 = physicstrace( self gettagorigin( "tag_flash" ), self gettagorigin( "tag_flash" ) + _id_A5A4::vector_multiply( var_0, 1500 ) );
-        var_2 = _id_A5A4::vector_multiply( var_0, -64 );
+        var_1 = physicstrace( self gettagorigin( "tag_flash" ), self gettagorigin( "tag_flash" ) + maps\_utility::vector_multiply( var_0, 1500 ) );
+        var_2 = maps\_utility::vector_multiply( var_0, -64 );
         var_1 += var_2;
 
         if ( isdefined( self.dlight ) )
@@ -2460,7 +2460,7 @@ misc_tv()
     }
 
     self._id_4236 = undefined;
-    self.gloworg = self.origin + ( 0, 0, 14 ) + _id_A5A4::vector_multiply( anglestoforward( self.angles ), 55 );
+    self.gloworg = self.origin + ( 0, 0, 14 ) + maps\_utility::vector_multiply( anglestoforward( self.angles ), 55 );
     self._id_9C1A = getent( self._not_team, "targetname" );
     self._id_9C1A usetriggerrequirelookat();
     self._id_9C1A setcursorhint( "HINT_NOICON" );
@@ -2540,7 +2540,7 @@ misc_vision()
     for (;;)
     {
         self waittill( "trigger" );
-        _id_A5A4::_id_7F00( self.script_parentname, var_1 );
+        maps\_utility::_id_7F00( self.script_parentname, var_1 );
     }
 }
 
@@ -2669,7 +2669,7 @@ seaknight_spawn( var_0 )
     var_1.motiontrackerenabled.angles = var_3;
     var_1.motiontrackerenabled._id_0C72 = "bigbird";
     var_1.motiontrackerenabled.visionsetnaked = var_1.unlockpoints;
-    var_1.motiontrackerenabled thread _id_A5A8::_id_0994();
+    var_1.motiontrackerenabled thread maps\_vehicle::_id_0994();
     var_1.motiontrackerenabled thread maps\mo_fastrope::fastrope_player_quake();
     var_1.motiontrackerenabled useanimtree( #animtree );
     var_1.motiontrackerenabled _meth_814d( %ch46_turret_idle );
@@ -2742,10 +2742,10 @@ hallways_heroes( var_0, var_1, var_2, var_3, var_4 )
     for ( var_6 = 0; var_6 < var_5.size; var_6++ )
     {
         var_7 = var_5[var_6];
-        level.heroes3[var_7] _id_A5A4::_id_27EF( var_3[var_7], ::hallways_heroes_solo, var_0, var_1, var_2[var_7], var_4[var_7] );
+        level.heroes3[var_7] maps\_utility::_id_27EF( var_3[var_7], ::hallways_heroes_solo, var_0, var_1, var_2[var_7], var_4[var_7] );
     }
 
-    _id_A5A4::_id_0D18( level.heroes3, "hallways_heroes_ready" );
+    maps\_utility::_id_0D18( level.heroes3, "hallways_heroes_ready" );
     common_scripts\utility::_id_384A( var_0 );
 }
 
@@ -2814,7 +2814,7 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
             self._id_0C72 = "guy";
             var_8 = getanimlength( level._id_78AC[self._id_0C72][var_3] );
             self _meth_8193( "face motion" );
-            var_7 thread _id_A510::_id_0C24( self, var_3 );
+            var_7 thread maps\_anim::_id_0C24( self, var_3 );
             wait(var_8 - 0.2);
             self _meth_8143();
             var_7 delete();
@@ -2838,14 +2838,14 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
                         if ( isdefined( var_4._not_team ) )
                             maps\mo_tools::disable_cqbwalk_ign_demo_wrapper();
                         else
-                            _id_A5A4::_id_27EF( 1.5, maps\mo_tools::disable_cqbwalk_ign_demo_wrapper );
+                            maps\_utility::_id_27EF( 1.5, maps\mo_tools::disable_cqbwalk_ign_demo_wrapper );
 
                         continue;
                     case "enable_cqb":
                         if ( isdefined( var_4._not_team ) )
                             maps\mo_tools::enable_cqbwalk_ign_demo_wrapper();
                         else
-                            _id_A5A4::_id_27EF( 1.5, maps\mo_tools::enable_cqbwalk_ign_demo_wrapper );
+                            maps\_utility::_id_27EF( 1.5, maps\mo_tools::enable_cqbwalk_ign_demo_wrapper );
 
                         continue;
                 }
@@ -2908,7 +2908,7 @@ cargohold_flashthrow( var_0, var_1, var_2 )
 
     var_6 = spawn( "script_origin", self.goodnode.origin );
     var_6.angles = self.goodnode.angles + ( 0, 90, 0 );
-    var_6 thread _id_A510::_id_0C24( self, "grenade_throw" );
+    var_6 thread maps\_anim::_id_0C24( self, "grenade_throw" );
     thread animscripts\shared::_id_2D06( "single anim", animscripts\combat_utility::h1_grenade_attach_detach_listener );
     var_7 = self.groundentchanged;
     self.groundentchanged = "flash_grenade";
@@ -2925,7 +2925,7 @@ cargohold_flashthrow( var_0, var_1, var_2 )
         if ( !isdefined( var_2 ) )
             var_2 = 350;
 
-        var_10 = _id_A5A4::vector_multiply( var_10, var_2 );
+        var_10 = maps\_utility::vector_multiply( var_10, var_2 );
         self magicgrenademanual( var_8, var_10, 1.1 );
     }
     else
@@ -3073,7 +3073,7 @@ jumptothink()
         case "start":
             break;
         case "bridge":
-            _id_A5E8::_id_870C( "aud_bridge_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_bridge_checkpoint" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
@@ -3081,20 +3081,20 @@ jumptothink()
             level._id_47A3._id_9C7E setgoalpos( common_scripts\utility::_id_40FB( "intro_ride_node", "targetname" ).origin + ( 0, 0, 920 ), 1 );
             level._id_47A3._id_9C7E settargetyaw( 220 );
             wait 5.5;
-            _id_A5A4::_id_27EF( 2.5, _id_A5E8::_id_870C, "aud_stop_intro_mix" );
+            maps\_utility::_id_27EF( 2.5, soundscripts\_snd::_id_870C, "aud_stop_intro_mix" );
             level.playercardbackground.titleunlocked = 3;
             level._id_47A3 maps\mo_fastrope::fastrope_player_unload();
             level notify( "bridge_jumpto_done" );
             break;
         case "deck":
-            _id_A5E8::_id_870C( "aud_deck_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_deck_checkpoint" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "_sea_waves" );
             common_scripts\utility::_id_3831( "_sea_bob" );
             common_scripts\utility::_id_384A( "heroes_ready" );
-            _id_A5A4::_id_7F00( "cargoship_exterior", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_exterior", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_exterior" );
+            maps\_utility::_id_7F00( "cargoship_exterior", 0 );
+            maps\_utility::_id_9E6E( "cargoship_exterior", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             level._id_47A3._id_9C7E vehicle_setspeed( 300, 300, 250 );
             level._id_47A3._id_9C7E setgoalpos( common_scripts\utility::_id_40FB( "heli_deck_landing_node", "targetname" ).origin + ( 0, 0, 146 ), 1 );
@@ -3109,12 +3109,12 @@ jumptothink()
             common_scripts\utility::_id_383F( "deck" );
             break;
         case "hallways":
-            _id_A5E8::_id_870C( "aud_hallways_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_hallways_checkpoint" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "_sea_waves" );
-            _id_A5A4::_id_7F00( "cargoship_exterior", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_exterior", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_exterior" );
+            maps\_utility::_id_7F00( "cargoship_exterior", 0 );
+            maps\_utility::_id_9E6E( "cargoship_exterior", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_2 = getnodearray( "hallways_door_open_guard", "targetname" );
@@ -3143,15 +3143,15 @@ jumptothink()
             common_scripts\utility::_id_383F( "hallways_moveup" );
             break;
         case "cargohold":
-            _id_A5E8::_id_870C( "aud_cargohold_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_cargohold_checkpoint" );
             common_scripts\utility::_id_3831( "_sea_waves" );
             common_scripts\utility::_id_3831( "topside_fx" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "cargohold_fx" );
-            thread _id_A5B3::_id_7100( 1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_upperdeck", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_upperdeck", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_upperdeck" );
+            thread maps\_weather::_id_7100( 1 );
+            maps\_utility::_id_7F00( "cargoship_interior_upperdeck", 0 );
+            maps\_utility::_id_9E6E( "cargoship_interior_upperdeck", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_upperdeck" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_2 = getnodearray( "hallways_door_open_guard", "targetname" );
@@ -3188,15 +3188,15 @@ jumptothink()
             common_scripts\utility::_id_383F( "hallways_lowerhall2" );
             break;
         case "cargohold2":
-            _id_A5E8::_id_870C( "aud_cargohold2_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_cargohold2_checkpoint" );
             common_scripts\utility::_id_3831( "_sea_waves" );
             common_scripts\utility::_id_3831( "topside_fx" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "cargohold_fx" );
-            thread _id_A5B3::_id_7100( 1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_cargohold", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_cargohold", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_cargohold" );
+            thread maps\_weather::_id_7100( 1 );
+            maps\_utility::_id_7F00( "cargoship_interior_cargohold", 0 );
+            maps\_utility::_id_9E6E( "cargoship_interior_cargohold", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_cargohold" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_2 = getnodearray( "hallways_door_open_guard", "targetname" );
@@ -3236,15 +3236,15 @@ jumptothink()
             common_scripts\utility::_id_383F( "cargoholds2" );
             break;
         case "laststand":
-            _id_A5E8::_id_870C( "aud_laststand_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_laststand_checkpoint" );
             common_scripts\utility::_id_3831( "_sea_waves" );
             common_scripts\utility::_id_3831( "topside_fx" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "cargohold_fx" );
-            thread _id_A5B3::_id_7100( 1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_cargohold", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_cargohold", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_cargohold" );
+            thread maps\_weather::_id_7100( 1 );
+            maps\_utility::_id_7F00( "cargoship_interior_cargohold", 0 );
+            maps\_utility::_id_9E6E( "cargoship_interior_cargohold", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_cargohold" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_2 = getnodearray( "hallways_door_open_guard", "targetname" );
@@ -3289,15 +3289,15 @@ jumptothink()
             common_scripts\utility::_id_383F( "laststand" );
             break;
         case "package":
-            _id_A5E8::_id_870C( "aud_package_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_package_checkpoint" );
             common_scripts\utility::_id_3831( "_sea_waves" );
             common_scripts\utility::_id_3831( "topside_fx" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "cargohold_fx" );
-            thread _id_A5B3::_id_7100( 1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_cargohold", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_cargohold", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_cargohold" );
+            thread maps\_weather::_id_7100( 1 );
+            maps\_utility::_id_7F00( "cargoship_interior_cargohold", 0 );
+            maps\_utility::_id_9E6E( "cargoship_interior_cargohold", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_cargohold" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_2 = getnodearray( "hallways_door_open_guard", "targetname" );
@@ -3335,15 +3335,15 @@ jumptothink()
             common_scripts\utility::_id_383F( "package" );
             break;
         case "escape":
-            _id_A5E8::_id_870C( "aud_escape_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_escape_checkpoint" );
             common_scripts\utility::_id_3831( "_sea_waves" );
             common_scripts\utility::_id_3831( "topside_fx" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_383F( "cargohold_fx" );
-            thread _id_A5B3::_id_7100( 1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_cargohold", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_cargohold", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_cargohold" );
+            thread maps\_weather::_id_7100( 1 );
+            maps\_utility::_id_7F00( "cargoship_interior_cargohold", 0 );
+            maps\_utility::_id_9E6E( "cargoship_interior_cargohold", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_cargohold" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_2 = getnodearray( "escape_nodes", "targetname" );
@@ -3382,19 +3382,19 @@ jumptothink()
             getent( "cargohold2_catwalk_enemies", "target" ) common_scripts\utility::_id_97CC();
             common_scripts\utility::_id_0D13( getentarray( "pulp_fiction_trigger", "targetname" ), common_scripts\utility::_id_97CC );
             common_scripts\utility::_id_383F( "escape" );
-            thread _id_A5A4::_id_3840( "package_secure", 1 );
+            thread maps\_utility::_id_3840( "package_secure", 1 );
             break;
         case "end":
-            _id_A5E8::_id_870C( "aud_end_checkpoint" );
+            soundscripts\_snd::_id_870C( "aud_end_checkpoint" );
             common_scripts\utility::_id_3831( "_sea_waves" );
             common_scripts\utility::_id_3831( "cargohold_fx" );
             common_scripts\utility::_id_383F( "topside_fx" );
             common_scripts\utility::_id_383F( "_sea_viewbob" );
             common_scripts\utility::_id_3831( "_sea_bob" );
-            thread _id_A5B3::_id_7100( 1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_upperdeck", 0 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_upperdeck", 0 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_upperdeck" );
+            thread maps\_weather::_id_7100( 1 );
+            maps\_utility::_id_7F00( "cargoship_interior_upperdeck", 0 );
+            maps\_utility::_id_9E6E( "cargoship_interior_upperdeck", 0 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_upperdeck" );
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             var_4 = getarraykeys( level.heroes5 );
@@ -3456,9 +3456,9 @@ jumptothink()
             var_7[var_7.size] = level.heroes3["price"];
             var_7[var_7.size] = level.heroes3["alavi"];
             var_7[var_7.size] = level.heroes3["grigsby"];
-            level.heroes3["price"] _id_A5A4::_id_32DD( "turning" );
-            level.heroes3["grigsby"] _id_A5A4::_id_32DD( "turning" );
-            level.heroes3["alavi"] _id_A5A4::_id_32DD( "turning" );
+            level.heroes3["price"] maps\_utility::_id_32DD( "turning" );
+            level.heroes3["grigsby"] maps\_utility::_id_32DD( "turning" );
+            level.heroes3["alavi"] maps\_utility::_id_32DD( "turning" );
             level.heroes3["alavi"] thread escape_heroes_holdtheline( 500, var_7, 200 );
             level.heroes3["grigsby"] thread escape_heroes_holdtheline( 400, var_7, 150 );
             level.heroes3["price"] thread escape_heroes_holdtheline( 350, var_7, 150 );
@@ -3467,10 +3467,10 @@ jumptothink()
             escape_heroes_runanim_setup();
             thread maps\cargoship::escape_seaknight();
             thread maps\cargoship::end_main();
-            level.heroes3["alavi"] thread _id_A5A4::_id_3AF2( ::escape_heroes_run, "escape_aftdeck" );
-            level.heroes3["grigsby"] _id_A5A4::_id_27EF( 2, _id_A5A4::_id_3AF2, ::escape_heroes_run, "escape_aftdeck" );
-            level.heroes3["price"] _id_A5A4::_id_27EF( 3, _id_A5A4::_id_3AF2, ::escape_heroes_run, "escape_aftdeck" );
-            thread _id_A5A4::_id_3840( "escape_hallway_upper_flag", 3.75 );
+            level.heroes3["alavi"] thread maps\_utility::_id_3AF2( ::escape_heroes_run, "escape_aftdeck" );
+            level.heroes3["grigsby"] maps\_utility::_id_27EF( 2, maps\_utility::_id_3AF2, ::escape_heroes_run, "escape_aftdeck" );
+            level.heroes3["price"] maps\_utility::_id_27EF( 3, maps\_utility::_id_3AF2, ::escape_heroes_run, "escape_aftdeck" );
+            thread maps\_utility::_id_3840( "escape_hallway_upper_flag", 3.75 );
             level._sea_org notify( "tilt_40_degrees" );
             level._sea_org.sway = "sway1";
             level._sea_org notify( "sway1" );
@@ -3598,7 +3598,7 @@ escape_catwalk()
     var_0 rotateto( ( 0, 0, 5 ), 0.25, 0, 0 );
     var_0 waittill( "rotatedone" );
     var_0 thread escape_catwalk_sway();
-    var_0 thread _id_A5A4::_id_69C4( "cgo_escape_catwalk_breaks" );
+    var_0 thread maps\_utility::_id_69C4( "cgo_escape_catwalk_breaks" );
     var_0 thread common_scripts\utility::_id_6975( "cgo_escape_catwalk_creaks_loop" );
     common_scripts\utility::_id_3852( "escape_death_cargohold1", "escape_catwalk_fall" );
     var_3 = _id_23D0( "overlay_hunted_red", 0 );
@@ -3612,7 +3612,7 @@ escape_catwalk()
 
     wait(var_4);
     var_0 common_scripts\utility::_id_8EA1( "cgo_escape_catwalk_creaks_loop" );
-    var_0 thread _id_A5A4::_id_69C4( "cgo_escape_catwalk_collapse" );
+    var_0 thread maps\_utility::_id_69C4( "cgo_escape_catwalk_collapse" );
     var_0 movez( -16, 1.5, 0, 1.5 );
     var_0 rotateto( ( 10, 0, 90 ), 1.5, 0, 1.5 );
     wait 2;
@@ -3674,7 +3674,7 @@ escape_heroes_run( var_0 )
     {
         var_1 = level.escape_turns[var_0];
         var_2 = var_1._id_7A99;
-        var_3 = _id_A5A4::_id_3EF5( var_2 );
+        var_3 = maps\_utility::_id_3EF5( var_2 );
         var_4 = getanimlength( var_3 );
         var_5 = getstartorigin( var_1.origin, var_1.angles, var_3 );
         self _meth_81aa( var_5 );
@@ -3723,16 +3723,16 @@ escape_heroes_run( var_0 )
         self.turn_anim["wait"] = var_4 / self.turn_anim["rate"] - 0.2;
 
         if ( self.script_parentname == "price" && var_6 == 1 )
-            _id_A5A4::_id_7E45( level.current_run[var_0][self._id_76B8] );
+            maps\_utility::_id_7E45( level.current_run[var_0][self._id_76B8] );
         else
         {
             self _meth_819e( ::escape_turn );
-            _id_A5A4::_id_27EF( self.turn_anim["wait"] - 0.2, _id_A5A4::_id_7E45, level.current_run[var_0][self._id_76B8] );
+            maps\_utility::_id_27EF( self.turn_anim["wait"] - 0.2, maps\_utility::_id_7E45, level.current_run[var_0][self._id_76B8] );
             wait(self.turn_anim["wait"]);
         }
     }
     else
-        _id_A5A4::_id_27EF( 0.75, _id_A5A4::_id_7E45, level.current_run[var_0][self._id_76B8] );
+        maps\_utility::_id_27EF( 0.75, maps\_utility::_id_7E45, level.current_run[var_0][self._id_76B8] );
 
     var_8 = getnodearray( var_0 + "_start", "targetname" );
 
@@ -3822,7 +3822,7 @@ escape_heroes_run( var_0 )
         if ( isdefined( var_11 ) )
         {
             var_16 = getent( "price_escapeanims_refpos", "targetname" );
-            var_16 _id_A510::_id_0BFF( self, var_11 );
+            var_16 maps\_anim::_id_0BFF( self, var_11 );
             self.a.animreachcustomradius = undefined;
 
             if ( isdefined( var_14 ) )
@@ -3833,9 +3833,9 @@ escape_heroes_run( var_0 )
                     var_13.origin = var_15.origin;
             }
 
-            _id_A5A4::_id_7E4D( var_12.origin );
+            maps\_utility::_id_7E4D( var_12.origin );
             self.goalradius = 40;
-            var_16 _id_A510::_id_0C24( self, var_11 );
+            var_16 maps\_anim::_id_0C24( self, var_11 );
         }
     }
 
@@ -3849,14 +3849,14 @@ escape_sneakyslowplayer_underwaterfall()
     if ( distance2d( level.playercardbackground.origin, level.heroes3["price"].origin ) < 150 )
         player_speed_set_cargoship( 110, 0.3 );
 
-    _id_A5A4::_id_27EF( 0.6, ::player_speed_set_cargoship, 185, 1.5 );
+    maps\_utility::_id_27EF( 0.6, ::player_speed_set_cargoship, 185, 1.5 );
     common_scripts\utility::_id_384A( "inside_1st_waterfall" );
 
     if ( distance2d( level.playercardbackground.origin, level.heroes3["price"].origin ) < 250 )
     {
         level.playercardbackground setvelocity( ( 0, 1, 0 ) );
         player_speed_set_cargoship( 135, 0.1 );
-        _id_A5A4::_id_27EF( 0.5, ::player_speed_set_cargoship, 185, 1.25 );
+        maps\_utility::_id_27EF( 0.5, ::player_speed_set_cargoship, 185, 1.25 );
     }
 
     common_scripts\utility::_id_384A( "inside_2nd_waterfall" );
@@ -3865,7 +3865,7 @@ escape_sneakyslowplayer_underwaterfall()
     {
         level.playercardbackground setvelocity( ( 0, 1, 0 ) );
         player_speed_set_cargoship( 135, 0.1 );
-        _id_A5A4::_id_27EF( 0.5, ::player_speed_set_cargoship, 180, 1.5 );
+        maps\_utility::_id_27EF( 0.5, ::player_speed_set_cargoship, 180, 1.5 );
     }
 
     common_scripts\utility::_id_384A( "waterleak_machine_room" );
@@ -3873,7 +3873,7 @@ escape_sneakyslowplayer_underwaterfall()
     if ( distance2d( level.playercardbackground.origin, level.heroes3["price"].origin ) < 200 )
     {
         player_speed_set_cargoship( 140, 0.2 );
-        _id_A5A4::_id_27EF( 0.75, ::player_speed_set_cargoship, 170, 1.25 );
+        maps\_utility::_id_27EF( 0.75, ::player_speed_set_cargoship, 170, 1.25 );
     }
 
     common_scripts\utility::_id_384A( "on_flooded_stairs" );
@@ -3881,7 +3881,7 @@ escape_sneakyslowplayer_underwaterfall()
     if ( distance2d( level.playercardbackground.origin, level.heroes3["price"].origin ) < 175 )
     {
         player_speed_set_cargoship( 110, 0.2 );
-        _id_A5A4::_id_27EF( 1, ::player_speed_set_cargoship, 170, 3 );
+        maps\_utility::_id_27EF( 1, ::player_speed_set_cargoship, 170, 3 );
     }
 }
 
@@ -3896,7 +3896,7 @@ escape_heroes2()
     self _meth_81ce( "crouch", "stand" );
     self _meth_8143();
     self linkto( var_0 );
-    var_0 thread _id_A510::_id_0C24( self, "blowback" );
+    var_0 thread maps\_anim::_id_0C24( self, "blowback" );
     var_1 = undefined;
 
     switch ( self.script_parentname )
@@ -3950,13 +3950,13 @@ escape_heroes2()
             wait 2;
             var_0.origin = self.origin;
             var_0.angles = ( 0, 230, 0 );
-            var_0 _id_A510::_id_0C24( self, "standup" );
+            var_0 maps\_anim::_id_0C24( self, "standup" );
             break;
         case "grigsby":
             wait 0.5;
             var_0.origin += ( 0, -35, 0 );
             var_0.angles = ( 0, 360, 0 );
-            var_0 _id_A510::_id_0C24( self, "stumble3" );
+            var_0 maps\_anim::_id_0C24( self, "stumble3" );
             break;
     }
 
@@ -4059,7 +4059,7 @@ escape_heroes()
 escape_waterlevel()
 {
     level waittill( "escape_show_waterlevel" );
-    _id_A5A4::_id_3CAE();
+    maps\_utility::_id_3CAE();
     var_0 = self._id_66BD;
     self show();
     self moveto( var_0.origin, 0.5 );
@@ -4083,8 +4083,8 @@ escape_tilt_gravity( var_0 )
     if ( isdefined( var_0 ) )
     {
         var_1 = ( 0, 0, var_0 );
-        var_2 = _id_A5A4::vector_multiply( anglestoup( var_1 ), -1 );
-        var_3 = _id_A5A4::vector_multiply( anglestoright( var_1 ), 0.25 );
+        var_2 = maps\_utility::vector_multiply( anglestoup( var_1 ), -1 );
+        var_3 = maps\_utility::vector_multiply( anglestoright( var_1 ), 0.25 );
         var_4 = var_2 + var_3;
         setphysicsgravitydir( var_4 );
     }
@@ -4092,8 +4092,8 @@ escape_tilt_gravity( var_0 )
     for (;;)
     {
         wait 0.05;
-        var_2 = _id_A5A4::vector_multiply( anglestoup( level._sea_org.angles ), -1 );
-        var_3 = _id_A5A4::vector_multiply( anglestoright( level._sea_org.angles ), 0.25 );
+        var_2 = maps\_utility::vector_multiply( anglestoup( level._sea_org.angles ), -1 );
+        var_3 = maps\_utility::vector_multiply( anglestoright( level._sea_org.angles ), 0.25 );
         var_4 = var_2 + var_3;
         setphysicsgravitydir( var_4 );
     }
@@ -4190,26 +4190,26 @@ escape_tiltboat()
     level._sea_org movez( -300, 1, 0.5, 0.5 );
     common_scripts\utility::_id_384A( "escape_hallway_lower_enter" );
     wait 0.5;
-    var_3 = _id_A5A4::vector_multiply( anglestoup( level._sea_org.angles ), -1 );
+    var_3 = maps\_utility::vector_multiply( anglestoup( level._sea_org.angles ), -1 );
     setphysicsgravitydir( var_3 );
     setsaveddvar( "phys_gravityChangeWakeupRadius", 1000 );
 }
 
 escape_fx_setup()
 {
-    var_0 = _id_A5A4::_id_3FA9( "cargo_vl_red_thin" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_vl_red_lrg" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_steam" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_steam_single" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_steam_single_2" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_steam_single_strong" ) );
-    var_1 = _id_A5A4::_id_3FA9( "sparks_runner" );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, _id_A5A4::_id_3FA9( "escape_waterdrips" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, _id_A5A4::_id_3FA9( "escape_caustics" ) );
+    var_0 = maps\_utility::_id_3FA9( "cargo_vl_red_thin" );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_vl_red_lrg" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_steam" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_steam_single" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_steam_single_2" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_steam_single_strong" ) );
+    var_1 = maps\_utility::_id_3FA9( "sparks_runner" );
+    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3FA9( "escape_waterdrips" ) );
+    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3FA9( "escape_caustics" ) );
     common_scripts\utility::_id_384A( "start_sinking_boat" );
     common_scripts\utility::_id_0D13( var_0, common_scripts\utility::_id_671F );
     common_scripts\utility::_id_384A( "escape_explosion" );
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_748D );
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_748D );
     var_2 = getentarray( "escape_pipe_hide", "targetname" );
     var_3 = getentarray( "pipe_shootable", "targetname" );
     var_4 = spawn( "script_origin", ( 0, 0, 0 ) );
@@ -4260,31 +4260,31 @@ escape_fx_setup()
 
     common_scripts\utility::_id_384A( "escape_hallway_lower_enter" );
     wait 1;
-    var_0 = _id_A5A4::_id_3FA9( "cargo_vl_white" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_vl_white_soft" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_vl_white_eql" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_vl_white_eql_flare" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_vl_white_sml" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "cargo_vl_white_sml_a" ) );
-    var_1 = _id_A5A4::_id_3FA9( "sinking_stair" );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, _id_A5A4::_id_3FA9( "escape_water_drip_stairs" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, _id_A5A4::_id_3FA9( "escape_water_nodrip_stairs" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, _id_A5A4::_id_3FA9( "escape_water_side_stairs" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, _id_A5A4::_id_3FA9( "escape_water_gush_stairs" ) );
+    var_0 = maps\_utility::_id_3FA9( "cargo_vl_white" );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_vl_white_soft" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_vl_white_eql" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_vl_white_eql_flare" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_vl_white_sml" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cargo_vl_white_sml_a" ) );
+    var_1 = maps\_utility::_id_3FA9( "sinking_stair" );
+    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3FA9( "escape_water_drip_stairs" ) );
+    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3FA9( "escape_water_nodrip_stairs" ) );
+    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3FA9( "escape_water_side_stairs" ) );
+    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3FA9( "escape_water_gush_stairs" ) );
     common_scripts\utility::_id_0D13( var_0, common_scripts\utility::_id_671F );
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_748D );
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_748D );
     common_scripts\utility::_id_384A( "escape_hallway_lower_flag" );
     setphysicsgravitydir( ( 0, -0.5, -0.866025 ) );
     var_13 = ( -2804, -32, 96 );
     var_14 = 8;
-    _id_A5A4::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.5, ::escape_fx_setup_throw_obj, "com_pipe_coupling_metal", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "com_pipe_4_coupling_ceramic", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1.25, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1.5, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1.75, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
-    _id_A5A4::_id_27EF( 2, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.5, ::escape_fx_setup_throw_obj, "com_pipe_coupling_metal", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "com_pipe_4_coupling_ceramic", var_13, var_14 );
+    maps\_utility::_id_27EF( 1, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
+    maps\_utility::_id_27EF( 1.25, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
+    maps\_utility::_id_27EF( 1.5, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
+    maps\_utility::_id_27EF( 1.75, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
+    maps\_utility::_id_27EF( 2, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
     common_scripts\utility::_id_384A( "escape_topofstairs" );
     setphysicsgravitydir( ( 0, -0.5, -0.866025 ) );
     var_13 = ( -2420, 176, 110 );
@@ -4292,45 +4292,45 @@ escape_fx_setup()
     thread escape_fx_setup_throw_obj( "com_fire_extinguisher", var_13, var_14 );
     thread escape_fx_setup_throw_obj( "com_pipe_4_coupling_ceramic", var_13, var_14 );
     thread escape_fx_setup_throw_obj( "me_plastic_crate7", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "h1_cs_pan_metalpot", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "me_plastic_crate6", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.4, ::escape_fx_setup_throw_obj, "me_plastic_crate7", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.4, ::escape_fx_setup_throw_obj, "h1_cs_pan_metal_sauce_sm", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.4, ::escape_fx_setup_throw_obj, "me_plastic_crate1", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.5, ::escape_fx_setup_throw_obj, "com_pipe_4_coupling_ceramic", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "com_fire_extinguisher", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
-    _id_A5A4::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "me_plastic_crate1", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1.25, ::escape_fx_setup_throw_obj, "com_plastic_bucket", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1.25, ::escape_fx_setup_throw_obj, "h1_cs_pan_metalpot", var_13, var_14 );
-    _id_A5A4::_id_27EF( 1.5, ::escape_fx_setup_throw_obj, "com_plastic_bucket", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "h1_cs_pan_metalpot", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "me_plastic_crate6", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.4, ::escape_fx_setup_throw_obj, "me_plastic_crate7", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.4, ::escape_fx_setup_throw_obj, "h1_cs_pan_metal_sauce_sm", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.4, ::escape_fx_setup_throw_obj, "me_plastic_crate1", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.5, ::escape_fx_setup_throw_obj, "com_pipe_4_coupling_ceramic", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "com_fire_extinguisher", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
+    maps\_utility::_id_27EF( 0.75, ::escape_fx_setup_throw_obj, "me_plastic_crate1", var_13, var_14 );
+    maps\_utility::_id_27EF( 1.25, ::escape_fx_setup_throw_obj, "com_plastic_bucket", var_13, var_14 );
+    maps\_utility::_id_27EF( 1.25, ::escape_fx_setup_throw_obj, "h1_cs_pan_metalpot", var_13, var_14 );
+    maps\_utility::_id_27EF( 1.5, ::escape_fx_setup_throw_obj, "com_plastic_bucket", var_13, var_14 );
     common_scripts\utility::_id_384A( "escape_hallway_upper_flag" );
-    var_15 = _id_A5A4::_id_3FA9( "escape_water_gush_stairs" );
-    var_15 = common_scripts\utility::_id_0CDD( var_15, _id_A5A4::_id_3FA9( "sinking_stair" ) );
-    var_15 = common_scripts\utility::_id_0CDD( var_15, _id_A5A4::_id_3FA9( "escape_water_drip_stairs" ) );
-    var_15 = common_scripts\utility::_id_0CDD( var_15, _id_A5A4::_id_3FA9( "escape_water_nodrip_stairs" ) );
-    var_15 = common_scripts\utility::_id_0CDD( var_15, _id_A5A4::_id_3FA9( "escape_water_side_stairs" ) );
-    var_15 = common_scripts\utility::_id_0CDD( var_15, _id_A5A4::_id_3FA9( "escape_caustics" ) );
-    var_16 = _id_A5A4::_id_3FA9( "cgoshp_drips_a" );
+    var_15 = maps\_utility::_id_3FA9( "escape_water_gush_stairs" );
+    var_15 = common_scripts\utility::_id_0CDD( var_15, maps\_utility::_id_3FA9( "sinking_stair" ) );
+    var_15 = common_scripts\utility::_id_0CDD( var_15, maps\_utility::_id_3FA9( "escape_water_drip_stairs" ) );
+    var_15 = common_scripts\utility::_id_0CDD( var_15, maps\_utility::_id_3FA9( "escape_water_nodrip_stairs" ) );
+    var_15 = common_scripts\utility::_id_0CDD( var_15, maps\_utility::_id_3FA9( "escape_water_side_stairs" ) );
+    var_15 = common_scripts\utility::_id_0CDD( var_15, maps\_utility::_id_3FA9( "escape_caustics" ) );
+    var_16 = maps\_utility::_id_3FA9( "cgoshp_drips_a" );
     common_scripts\utility::_id_0D13( var_15, common_scripts\utility::_id_671F );
     common_scripts\utility::_id_0D13( var_16, common_scripts\utility::_id_671F );
-    _id_A5A4::_id_27EF( 1, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 2, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 1, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304, -864, -128 ) );
-    _id_A5A4::_id_27EF( 1, common_scripts\_exploder::_id_3528, 126 );
+    maps\_utility::_id_27EF( 1, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 2, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 1, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304, -864, -128 ) );
+    maps\_utility::_id_27EF( 1, common_scripts\_exploder::_id_3528, 126 );
     common_scripts\utility::_id_384A( "escape_aftdeck_flag" );
-    _id_A5A4::_id_27EF( 0.1, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 2, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 5, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 7, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 9, _id_A5B3::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    _id_A5A4::_id_27EF( 0.5, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304, -864, -128 ) );
-    _id_A5A4::_id_27EF( 0.5, common_scripts\_exploder::_id_3528, 126 );
-    _id_A5A4::_id_27EF( 1.25, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2848, -800, -64 ) );
-    _id_A5A4::_id_27EF( 1.25, common_scripts\_exploder::_id_3528, 300 );
-    _id_A5A4::_id_27EF( 4, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -3808, -368, -64 ) );
-    _id_A5A4::_id_27EF( 4, common_scripts\_exploder::_id_3528, 302 );
+    maps\_utility::_id_27EF( 0.1, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 2, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 5, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 7, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 9, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
+    maps\_utility::_id_27EF( 0.5, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304, -864, -128 ) );
+    maps\_utility::_id_27EF( 0.5, common_scripts\_exploder::_id_3528, 126 );
+    maps\_utility::_id_27EF( 1.25, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2848, -800, -64 ) );
+    maps\_utility::_id_27EF( 1.25, common_scripts\_exploder::_id_3528, 300 );
+    maps\_utility::_id_27EF( 4, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -3808, -368, -64 ) );
+    maps\_utility::_id_27EF( 4, common_scripts\_exploder::_id_3528, 302 );
 }
 
 escape_fx_setup_throw_obj( var_0, var_1, var_2, var_3 )
@@ -4344,7 +4344,7 @@ escape_fx_setup_throw_obj( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_3 ) )
         var_3 = randomintrange( 500, 1000 );
 
-    var_6 = _id_A5A4::vector_multiply( var_6, var_3 );
+    var_6 = maps\_utility::vector_multiply( var_6, var_3 );
     var_5 physicslaunch( var_5.origin + var_4, var_6 );
 }
 
@@ -4359,9 +4359,9 @@ escape_explosion()
     level notify( "cargoship_escape_music" );
     musicstop( 0.1 );
     wait 0.2;
-    _id_A5E8::_id_870C( "aud_start_mix_scn_explosion" );
-    _id_A5A4::_id_6008( "cargoship_end_music" );
-    thread _id_A5A4::_id_3840( "cargoship_end_music", 93 );
+    soundscripts\_snd::_id_870C( "aud_start_mix_scn_explosion" );
+    maps\_utility::_id_6008( "cargoship_end_music" );
+    thread maps\_utility::_id_3840( "cargoship_end_music", 93 );
     common_scripts\utility::_id_383F( "escape_explosion" );
     thread escape_explosion_drops();
     earthquake( 0.3, 0.5, level.playercardbackground.origin, 256 );
@@ -4393,11 +4393,11 @@ escape_explosion()
     setsaveddvar( "hud_showStance", 1 );
     var_2 = spawn( "script_origin", ( -2808, -199, 0 ) );
     var_2 playloopsound( "cgo_water_stairs_large_loop" );
-    _id_A5E8::_id_870C( "aud_start_mix_escape" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_escape" );
     common_scripts\utility::_id_384A( "escape_hallway_lower_enter" );
     wait 2.0;
-    _id_A5A4::_id_8E7E( "601" );
-    _id_A5A4::_id_8E7E( "400" );
+    maps\_utility::_id_8E7E( "601" );
+    maps\_utility::_id_8E7E( "400" );
     var_1 stoploopsound();
     waitframe;
     var_1 delete();
@@ -4490,7 +4490,7 @@ escape_hallways_lower_flood_vfx( var_0, var_1, var_2, var_3, var_4, var_5 )
     common_scripts\_exploder::_id_3528( var_5 );
     var_6 _playloopsound( "cgo_water_breach_large_loop" );
     common_scripts\utility::_id_384A( var_3 );
-    _id_A5A4::_id_8E7E( var_5 );
+    maps\_utility::_id_8E7E( var_5 );
     var_6 stoploopsound();
     waitframe;
     var_6 delete();
@@ -4556,7 +4556,7 @@ escape_invisible_timer()
 
     common_scripts\utility::_id_384A( "escape_get_to_catwalks" );
     escape_timer_section( "escape_cargohold1_enter" );
-    thread _id_A5A4::_id_3840( "escape_death_cargohold1", level.escape_timer["escape_catwalk_madeit"] - 2.5 + level.timer_grace_period );
+    thread maps\_utility::_id_3840( "escape_death_cargohold1", level.escape_timer["escape_catwalk_madeit"] - 2.5 + level.timer_grace_period );
     escape_timer_section( "escape_catwalk_madeit" );
     escape_timer_section( "escape_hallway_lower_flood_save" );
     escape_timer_section( "escape_aftdeck_flag" );
@@ -4596,19 +4596,19 @@ escape_autosaves()
 
     common_scripts\utility::_id_384A( "escape_get_to_catwalks" );
     wait 0.5;
-    _id_A5A4::_id_27EF( 0.5, _id_A5A4::_id_114E );
+    maps\_utility::_id_27EF( 0.5, maps\_utility::_id_114E );
     var_0 common_scripts\utility::_id_97CC();
     common_scripts\utility::_id_384A( "escape_catwalk_madeit" );
     wait 0.5;
-    _id_A5A4::_id_114E();
+    maps\_utility::_id_114E();
     common_scripts\utility::_id_384A( "escape_hallway_lower_flood_save" );
     wait 0.1;
-    _id_A5A4::_id_114E();
+    maps\_utility::_id_114E();
     common_scripts\utility::_id_384A( "escape_aftdeck_flag" );
-    _id_A5A4::_id_114E();
+    maps\_utility::_id_114E();
     var_0 common_scripts\utility::_id_97CE();
     common_scripts\utility::_id_384A( "player_rescued" );
-    _id_A5A4::_id_114E();
+    maps\_utility::_id_114E();
 }
 
 escape_mission_failed()
@@ -4618,7 +4618,7 @@ escape_mission_failed()
 
     level notify( "mission_failed" );
     setdvar( "ui_deadquote", level.missionfailedquote["escape"] );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 end_handle_player_fall()
@@ -4737,7 +4737,7 @@ _id_1C16( var_0, var_1, var_2 )
     else
         level._id_4F4E++;
 
-    var_3 = _id_A54B::_cornerlinethread_height();
+    var_3 = maps\_introscreen::_cornerlinethread_height();
     var_4 = newhudelem();
     var_4.xpmaxmultipliertimeplayed = 0;
     var_4._id_0538 = 0;
@@ -4759,12 +4759,12 @@ _id_1C16( var_0, var_1, var_2 )
     var_4.glowalpha = 0.2;
     var_5 = int( var_1 * var_2 * 1000 + 3000 );
     var_4 setpulsefx( 30, var_5, 700 );
-    thread _id_A54B::_id_4AE2( var_4 );
+    thread maps\_introscreen::_id_4AE2( var_4 );
 }
 
 cargoship_hack_animreach_grigsby( var_0, var_1, var_2, var_3, var_4 )
 {
-    _id_A510::_id_0BF7( var_0, var_1, var_2, var_3 );
+    maps\_anim::_id_0BF7( var_0, var_1, var_2, var_3 );
     common_scripts\utility::_id_383F( var_4 );
 }
 
@@ -4788,7 +4788,7 @@ cargoship_waitanimend( var_0, var_1 )
 cargoship_hack_animreach_price( var_0, var_1, var_2, var_3, var_4 )
 {
     var_0.secondaryattachment1 = self;
-    _id_A510::_id_0BF5( var_0, var_1 );
+    maps\_anim::_id_0BF5( var_0, var_1 );
     var_0.secondaryattachment1 = undefined;
 
     if ( var_0.script_context == "cover_arrival" )
@@ -4799,15 +4799,15 @@ cargoship_hack_animreach_price( var_0, var_1, var_2, var_3, var_4 )
         var_0 waittill( var_5 );
     }
 
-    _id_A510::_id_0BF7( var_0, var_1, var_2, var_3 );
+    maps\_anim::_id_0BF7( var_0, var_1, var_2, var_3 );
     common_scripts\utility::_id_383F( var_4 );
 }
 
 cargoship_breach2_setup( var_0, var_1, var_2, var_3, var_4 )
 {
-    _id_A510::_id_0BD0( var_0, var_1 );
-    _id_A510::_id_0BC9( var_0, var_1 );
-    thread _id_A510::_id_0BCE( var_0, var_2, undefined, var_3 );
+    maps\_anim::_id_0BD0( var_0, var_1 );
+    maps\_anim::_id_0BC9( var_0, var_1 );
+    thread maps\_anim::_id_0BCE( var_0, var_2, undefined, var_3 );
     common_scripts\utility::_id_383F( var_4 );
 }
 
@@ -4871,7 +4871,7 @@ standhint()
     level.playercardbackground endon( "kill_stand_hint" );
     level.playercardbackground endon( "death" );
     common_scripts\utility::_id_384A( "crouch_hint" );
-    _id_A5A4::_id_27EF( 2, ::standhint_kill );
+    maps\_utility::_id_27EF( 2, ::standhint_kill );
     common_scripts\utility::_id_384A( "stand_hint" );
 
     while ( level.playercardbackground getstance() == "stand" )
@@ -4895,10 +4895,10 @@ standhint_kill()
 
 hint_setup()
 {
-    if ( _id_A5A4::_id_0CC3() )
+    if ( maps\_utility::_id_0CC3() )
         return;
 
-    _id_A5A4::_id_7DF3();
+    maps\_utility::_id_7DF3();
     level.actionbinds = [];
     registeractionbinding( "frag", "+frag", &"CARGOSHIP_HINT_FRAG" );
     registeractionbinding( "crouch", "+stance", &"CARGOSHIP_HINT_CROUCH_STANCE" );
@@ -4931,7 +4931,7 @@ keyhint( var_0, var_1 )
     _id_1EBE();
     level endon( "clearing_hints" );
     var_2 = getactionbind( var_0 );
-    _id_A5A4::_id_48B0( var_2._id_48B0 );
+    maps\_utility::_id_48B0( var_2._id_48B0 );
     var_3 = "did_action_" + var_0;
 
     for ( var_4 = 0; var_4 < level.actionbinds[var_0].size; var_4++ )
@@ -4944,12 +4944,12 @@ keyhint( var_0, var_1 )
         level.playercardbackground thread notifyontimeout( var_3, var_1 );
 
     level.playercardbackground waittill( var_3 );
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 _id_1EBE()
 {
-    _id_A5A4::_id_48CB( 0 );
+    maps\_utility::_id_48CB( 0 );
     level notify( "clearing_hints" );
 }
 

@@ -30,7 +30,7 @@ main()
 
 play_flickering_light()
 {
-    thread _id_A54E::_id_5D3A( "flicker_1", 0, 1, 30, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 1500 );
+    thread maps\_lighting::_id_5D3A( "flicker_1", 0, 1, 30, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 1500 );
 }
 
 _id_4D05()
@@ -45,8 +45,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "jeepride", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "jeepride" );
+    maps\_utility::_id_9E6E( "jeepride", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "jeepride" );
     level.playercardbackground _meth_848c( "clut_jeepride", 0.0 );
     setsaveddvar( "fx_cast_shadow", 0 );
 }

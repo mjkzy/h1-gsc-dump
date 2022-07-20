@@ -23,27 +23,27 @@
 main()
 {
     level._id_78B5["tank_draw"] = "vehicle_m1a1_abrams_drawing";
-    precachemodel( _id_A5A4::_id_4026( "tank_draw" ) );
+    precachemodel( maps\_utility::_id_4026( "tank_draw" ) );
     level._id_78AC["paulsen"]["melee"] = %bog_melee_r_defend;
     level._id_78BA["paulsen"]["melee"] = "bog_scn_melee_struggle";
     level._id_78BA["paulsen"]["melee_sound_stop"] = "bog_scn_melee_struggle_end";
     level._id_78AC["paulsen"]["back_death1"] = %bog_melee_r_backdeath1;
     level._id_78AC["paulsen"]["back_death2"] = %bog_melee_r_backdeath2;
     level._id_78AC["paulsen"]["stand_death"] = %bog_melee_r_standdeath;
-    _id_A510::_id_0807( "paulsen", "fire", maps\bog_a_code::paulsen_end_fire, "stand_death" );
-    _id_A510::_id_0807( "paulsen", "end standdeath", maps\bog_a_code::paulsen_end_standdeath );
-    _id_A510::_id_0807( "paulsen", "start backdeath1", maps\bog_a_code::paulsen_start_backdeath1 );
-    _id_A510::_id_0807( "paulsen", "start backdeath2", maps\bog_a_code::paulsen_start_backdeath2 );
+    maps\_anim::_id_0807( "paulsen", "fire", maps\bog_a_code::paulsen_end_fire, "stand_death" );
+    maps\_anim::_id_0807( "paulsen", "end standdeath", maps\bog_a_code::paulsen_end_standdeath );
+    maps\_anim::_id_0807( "paulsen", "start backdeath1", maps\bog_a_code::paulsen_start_backdeath1 );
+    maps\_anim::_id_0807( "paulsen", "start backdeath2", maps\bog_a_code::paulsen_start_backdeath2 );
     level._id_78AC["price"]["tank_is_stuck"] = %bog_a_start_briefing;
-    _id_A510::_id_0812( "price", "dialog", "tank_is_stuck", "bog_vsq_halfaclick" );
+    maps\_anim::_id_0812( "price", "dialog", "tank_is_stuck", "bog_vsq_halfaclick" );
     thread saw_ac_unit();
     level._id_78AC["saw"]["setup"] = %bog_a_saw_setup;
     level._id_78AC["saw"]["fire_loop"][0] = %bog_a_saw_fire;
-    _id_A510::_id_0807( "saw", "kick", maps\bog_a::kick_ac_unit );
+    maps\_anim::_id_0807( "saw", "kick", maps\bog_a::kick_ac_unit );
     level._id_78AC["emslie"]["melee"] = %bog_melee_r_attack;
     level._id_78AC["emslie"]["melee_done"] = %pistol_stand_switch;
     level._id_78AC["emslie"]["death"] = %exposed_death_groin;
-    _id_A510::_id_0807( "emslie", "scn_melee_custom_pistol_fire", maps\bog_a_aud::play_melee_custom_pistol_fire_sfx, "melee" );
+    maps\_anim::_id_0807( "emslie", "scn_melee_custom_pistol_fire", maps\bog_a_aud::play_melee_custom_pistol_fire_sfx, "melee" );
     level._id_78AC["generic"]["spin"] = %combatwalk_f_spin;
     level._id_78AC["price"]["wait_approach"] = %bog_price_wait_idle_approach;
     level._id_78AC["price"]["wait_idle"][0] = %bog_price_wait_idle;
@@ -80,15 +80,15 @@ main()
         level._id_78AC["fence_guy2"]["fence_cut"] = %h1_bog_a_fence_cutting_guy2;
     }
 
-    _id_A510::_id_0805( "second_floor_right_guy", "door_breach_setup", "fire", "bog_a_doorbreach_scripted_gun" );
-    _id_A510::_id_0805( "second_floor_right_guy", "door_breach", "fire", "bog_a_doorbreach_scripted_gun" );
-    _id_A510::_id_0806( "fence_guy1", "can_in_hand", "com_spray_can01", "tag_inhand", "fence_cut" );
+    maps\_anim::_id_0805( "second_floor_right_guy", "door_breach_setup", "fire", "bog_a_doorbreach_scripted_gun" );
+    maps\_anim::_id_0805( "second_floor_right_guy", "door_breach", "fire", "bog_a_doorbreach_scripted_gun" );
+    maps\_anim::_id_0806( "fence_guy1", "can_in_hand", "com_spray_can01", "tag_inhand", "fence_cut" );
     precachemodel( "com_spray_can01" );
-    _id_A510::_id_0808( "fence_guy1", "can_out_hand", "com_spray_can01", "tag_inhand", "fence_cut" );
-    _id_A510::_id_0805( "fence_guy1", "fence_cut", "scn_icbm_fence_cut", "scn_bog_a_fence_cut" );
-    _id_A510::_id_0805( "fence_guy1", "fence_cut", "scn_icbm_fence_pull", "scn_bog_a_fence_pull" );
-    _id_A510::_id_0807( "fence_guy1", "can_start_spray", ::spraycan_fx, "fence_cut" );
-    _id_A510::_id_0807( "fence_guy1", "can_stop_spray", ::spraycan_fx_stop, "fence_cut" );
+    maps\_anim::_id_0808( "fence_guy1", "can_out_hand", "com_spray_can01", "tag_inhand", "fence_cut" );
+    maps\_anim::_id_0805( "fence_guy1", "fence_cut", "scn_icbm_fence_cut", "scn_bog_a_fence_cut" );
+    maps\_anim::_id_0805( "fence_guy1", "fence_cut", "scn_icbm_fence_pull", "scn_bog_a_fence_pull" );
+    maps\_anim::_id_0807( "fence_guy1", "can_start_spray", ::spraycan_fx, "fence_cut" );
+    maps\_anim::_id_0807( "fence_guy1", "can_stop_spray", ::spraycan_fx_stop, "fence_cut" );
     level._id_78BA["generic"]["move_it"] = "bog_gm2_moveit";
     level._id_78BA["generic"]["keep_moving_up"] = "bog_gm3_clearkeepmoving";
     level._id_78BA["generic"]["ambush1"] = "bog_gm2_ambush1";
@@ -221,7 +221,7 @@ _id_7A3D()
         level._id_78AC["fence"]["fence_cut"] = %h1_bog_a_fence_cutting_guy1_fence;
 
     level._id_78B5["fence"] = "icbm_fence_cut";
-    precachemodel( _id_A5A4::_id_4026( "fence" ) );
+    precachemodel( maps\_utility::_id_4026( "fence" ) );
     level._id_78B1["exploder_script_model"] = #animtree;
     level._id_78AC["exploder_script_model"]["h1_boga_center0_anim"] = %h1_boga_center0_anim;
     level._id_78AC["exploder_script_model"]["h1_boga_center1_anim"] = %h1_boga_center1_anim;

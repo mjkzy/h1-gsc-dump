@@ -27,11 +27,11 @@ beautiful_corner()
     setup_flags();
     common_scripts\_ca_blockout::init();
     maps\bog_b_precache::main();
-    _id_A5A8::_id_186C( "bog_mortar", "vehicle_m1a1_abrams", undefined, "script_vehicle" );
-    _id_A5A8::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186C( "bog_mortar", "vehicle_m1a1_abrams", undefined, "script_vehicle" );
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
     maps\createart\bog_b_art::main();
     maps\bog_b_fx::main();
-    _id_A550::main();
+    maps\_load::main();
     maps\bog_b_anim::main();
     thread maps\bog_b_amb::main();
     maps\bog_b_lighting::main();

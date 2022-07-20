@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "airlift" );
+    var_0 = maps\_utility::_id_23DF( "airlift" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150.16;
     var_0._id_0DBC = 3746.79;
-    var_0 = _id_A5A4::_id_23DF( "airlift_cobra" );
+    var_0 = maps\_utility::_id_23DF( "airlift_cobra" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150.16;
     var_0._id_0DBC = 3746.79;
-    var_0 = _id_A5A4::_id_23DF( "airlift_intro" );
+    var_0 = maps\_utility::_id_23DF( "airlift_intro" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150.16;
     var_0._id_0DBC = 3746.79;
-    var_0 = _id_A5A4::_id_23DF( "airlift_nuke" );
+    var_0 = maps\_utility::_id_23DF( "airlift_nuke" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150.16;
     var_0._id_0DBC = 3746.79;
-    var_0 = _id_A5A4::_id_23DF( "airlift_nuke_flash" );
+    var_0 = maps\_utility::_id_23DF( "airlift_nuke_flash" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -232,7 +232,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150.16;
     var_0._id_0DBC = 3746.79;
-    var_0 = _id_A5A4::_id_23DF( "airlift_nuke_wavehit" );
+    var_0 = maps\_utility::_id_23DF( "airlift_nuke_wavehit" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -274,7 +274,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150.16;
     var_0._id_0DBC = 3746.79;
-    var_0 = _id_A5A4::_id_23DF( "airlift_streets" );
+    var_0 = maps\_utility::_id_23DF( "airlift_streets" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -316,7 +316,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 2130.06;
-    var_0 = _id_A5A4::_id_23DF( "airlift_streets_rescue" );
+    var_0 = maps\_utility::_id_23DF( "airlift_streets_rescue" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -358,7 +358,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 2130.06;
-    var_0 = _id_A5A4::_id_23DF( "airlift_rescue" );
+    var_0 = maps\_utility::_id_23DF( "airlift_rescue" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -400,7 +400,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 2130.06;
-    var_0 = _id_A5A4::_id_23DF( "airlift_interiors" );
+    var_0 = maps\_utility::_id_23DF( "airlift_interiors" );
     var_0._id_8D08 = 1813.95;
     var_0._id_4500 = 1.4703;
     var_0._id_7299 = 1;
@@ -446,9 +446,9 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -17.1551, 56.7753, 0 );
-    var_0 = _id_A5A4::_id_23DB( "nuke" );
+    var_0 = maps\_utility::_id_23DB( "nuke" );
     var_0.precache = ( -10.9, 79.785, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

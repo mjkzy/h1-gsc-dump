@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "sniperescape" );
+    var_0 = maps\_utility::_id_23DF( "sniperescape" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "sniperescape_ferriswheel" );
+    var_0 = maps\_utility::_id_23DF( "sniperescape_ferriswheel" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "sniperescape_scope" );
+    var_0 = maps\_utility::_id_23DF( "sniperescape_scope" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "sniperescape_interior" );
+    var_0 = maps\_utility::_id_23DF( "sniperescape_interior" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "sniperescape_pool" );
+    var_0 = maps\_utility::_id_23DF( "sniperescape_pool" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -232,7 +232,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "sniperescape_hotel" );
+    var_0 = maps\_utility::_id_23DF( "sniperescape_hotel" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -278,7 +278,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -21.4618, 129.498, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

@@ -26,7 +26,7 @@ dead_script()
     vehicle_scripts\_camera::main( "vehicle_camera", undefined, "script_vehicle_camera" );
     maps\createart\ac130_art::main();
     maps\ac130_fx::main();
-    _id_A550::main();
+    maps\_load::main();
     maps\ac130_snd::main();
     maps\ac130_anim::main();
     maps\ac130_aud::main();
@@ -58,18 +58,18 @@ main()
     level.hintprintduration = 4.5;
     level.minimumfriendlycount = 3;
     level.minimumautosavefriendlycount = 5;
-    _id_A5A4::_id_079C( "church", ::start_church, &"STARTS_CHURCH" );
-    _id_A5A4::_id_079C( "field", ::start_field, &"STARTS_FIELD" );
-    _id_A5A4::_id_079C( "hijack", ::start_hijack, &"STARTS_HIJACK" );
-    _id_A5A4::_id_079C( "junkyard", ::start_junkyard, &"STARTS_JUNKYARD" );
-    _id_A5A4::_id_278B( ::start_start );
+    maps\_utility::_id_079C( "church", ::start_church, &"STARTS_CHURCH" );
+    maps\_utility::_id_079C( "field", ::start_field, &"STARTS_FIELD" );
+    maps\_utility::_id_079C( "hijack", ::start_hijack, &"STARTS_HIJACK" );
+    maps\_utility::_id_079C( "junkyard", ::start_junkyard, &"STARTS_JUNKYARD" );
+    maps\_utility::_id_278B( ::start_start );
     maps\ac130_code::scriptcalls();
     precachemodel( "vehicle_pickup_roobars_thermal" );
     precachemodel( "vehicle_ch46e_opened_door_ac130" );
-    var_0 = _id_A5AA::_id_05BE();
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_0798, maps\_ac130::vehicle_thermal_models );
+    var_0 = maps\_vehicle_code::_id_05BE();
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, maps\_ac130::vehicle_thermal_models );
     common_scripts\utility::_id_0D13( vehicle_getarray(), maps\_ac130::vehicle_thermal_models );
-    thread _id_A581::override_random_tire( "com_junktire_ac130" );
+    thread maps\_spawner::override_random_tire( "com_junktire_ac130" );
     wait 10;
     objective_add( 1, "current", &"AC130_OBJECTIVE_SUPPORT_FRIENDLIES", ( 0, 0, 0 ) );
 }
@@ -200,7 +200,7 @@ gameplay_fields()
         wait 20;
         maps\ac130_code::waitforplayerkillcount( 10 );
         maps\ac130_code::stop_enemies( "field1_spawner_trigger" );
-        _id_A5A4::_id_A07E( maps\ac130_code::getenemiesinzone( "volume_field1" ), undefined, 30 );
+        maps\_utility::_id_A07E( maps\ac130_code::getenemiesinzone( "volume_field1" ), undefined, 30 );
     }
 
     thread gameplay_hijack();
@@ -210,7 +210,7 @@ driver_stop_anims()
 {
     self.edriver notify( "stop_idle" );
     waitframe;
-    thread _id_A510::_id_0BE1( self.edriver, "stop", "tag_driver", "stop_idle" );
+    thread maps\_anim::_id_0BE1( self.edriver, "stop", "tag_driver", "stop_idle" );
 }
 #using_animtree("vehicles");
 
@@ -227,7 +227,7 @@ gameplay_hijack()
 
     if ( getdvar( "ac130_gameplay_enabled" ) == "1" )
     {
-        var_1 = _id_A5A8::_id_23DE( 5 );
+        var_1 = maps\_vehicle::_id_23DE( 5 );
 
         foreach ( var_3 in var_1 )
         {
@@ -403,7 +403,7 @@ gameplay_junkyard1()
     if ( getdvar( "ac130_gameplay_enabled" ) == "1" )
     {
         maps\ac130_code::resetplayerkillcount();
-        common_scripts\utility::_id_0D13( getaiarray( "axis" ), _id_A5A4::_id_7C71 );
+        common_scripts\utility::_id_0D13( getaiarray( "axis" ), maps\_utility::_id_7C71 );
         maps\ac130_code::spawn_enemies( "junkyard_spawn_trigger1" );
         wait 3;
         maps\ac130_code::spawn_enemies( "junkyard_spawn_trigger4" );
@@ -451,7 +451,7 @@ gameplay_junkyard2()
 
 friendly_health_init()
 {
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
 }
 
 clear_to_engage( var_0 )

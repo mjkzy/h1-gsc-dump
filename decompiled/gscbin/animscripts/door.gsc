@@ -201,7 +201,7 @@ _id_2D60()
         self._id_5126 = 1;
 
         if ( !isdefined( self._id_22E0 ) || !self._id_22E0 )
-            _id_A5A4::_id_30B0( 1 );
+            maps\_utility::_id_30B0( 1 );
     }
 }
 
@@ -212,7 +212,7 @@ _id_2D64()
         self._id_5126 = 0;
 
         if ( isdefined( self._id_22E0 ) && self._id_22E0 )
-            _id_A5A4::_id_2A8D();
+            maps\_utility::_id_2A8D();
     }
 }
 

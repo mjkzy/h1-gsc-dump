@@ -74,7 +74,7 @@ _id_9999()
     {
         wait(2 + randomfloat( 1 ));
         var_1 = undefined;
-        var_1 = _id_A53F::_id_3F7F( self._id_0E48, undefined, 0, 1 );
+        var_1 = maps\_helicopter_globals::_id_3F7F( self._id_0E48, undefined, 0, 1 );
 
         if ( !isdefined( var_1 ) )
             continue;
@@ -159,7 +159,7 @@ _id_37E1()
 
         var_2 = ( 0, 0, var_0._id_7AED );
         var_1 = self fireweapon( self._id_5CCA[self._id_5CBD], var_0, var_2 );
-        var_1 thread _id_A5A4::_id_69C6( "weap_bm21_missile_projectile" );
+        var_1 thread maps\_utility::_id_69C6( "weap_bm21_missile_projectile" );
 
         if ( getdvar( "cobrapilot_debug" ) == "1" )
             level thread _id_2DC0( var_1, var_0, var_2 );
@@ -168,9 +168,9 @@ _id_37E1()
             var_0._id_4C2D = [];
 
         var_0._id_4C2D = common_scripts\utility::_id_0CDA( var_0._id_4C2D, var_1 );
-        thread _id_A53F::_id_5C8F( var_1, var_0 );
+        thread maps\_helicopter_globals::_id_5C8F( var_1, var_0 );
 
-        if ( _id_A5A4::_id_4749( self._id_5CBF, self._id_5CCA[self._id_5CBD] ) )
+        if ( maps\_utility::_id_4749( self._id_5CBF, self._id_5CCA[self._id_5CBD] ) )
             self detach( self._id_5CBF, self._id_5CCA[self._id_5CBD] );
 
         self._id_5CBD++;
@@ -203,7 +203,7 @@ _id_98A3()
 
     for ( var_0 = 0; var_0 < self._id_5CCA.size; var_0++ )
     {
-        if ( _id_A5A4::_id_4749( self._id_5CBF, self._id_5CCA[var_0] ) )
+        if ( maps\_utility::_id_4749( self._id_5CBF, self._id_5CCA[var_0] ) )
             self attach( self._id_5CBF, self._id_5CCA[var_0] );
     }
 

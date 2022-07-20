@@ -41,7 +41,7 @@ _id_8707()
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script_context + ".csv";
-    level._id_065D._id_937D._id_6F22 = _id_A5E8::_id_871B( "Timescale", var_0, 3, "timescale_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._id_065D._id_937D._id_6F22 = soundscripts\_snd::_id_871B( "Timescale", var_0, 3, "timescale_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
 _id_875A( var_0 )
@@ -65,7 +65,7 @@ _id_86EF( var_0 )
 
 _id_875F( var_0 )
 {
-    var_1 = _id_A5E8::_id_86EE();
+    var_1 = soundscripts\_snd::_id_86EE();
 
     foreach ( var_3 in var_0._id_8034 )
     {
@@ -73,12 +73,12 @@ _id_875F( var_0 )
 
         if ( var_4 == "all" )
         {
-            var_5 = _id_A5F7::_id_86E6();
+            var_5 = soundscripts\_snd_filters::_id_86E6();
 
             foreach ( var_7 in var_5 )
             {
                 soundsettimescalefactor( var_7, var_3["scalefactor"] );
-                var_1 _id_A5E8::_id_877A();
+                var_1 soundscripts\_snd::_id_877A();
             }
 
             continue;
@@ -95,13 +95,13 @@ _id_875B( var_0 )
 
 _id_875C( var_0 )
 {
-    var_1 = _id_A5E8::_id_86EE();
-    var_2 = _id_A5F7::_id_86E6();
+    var_1 = soundscripts\_snd::_id_86EE();
+    var_2 = soundscripts\_snd_filters::_id_86E6();
 
     foreach ( var_4 in var_2 )
     {
         soundsettimescalefactor( var_4, var_0 );
-        var_1 _id_A5E8::_id_877A();
+        var_1 soundscripts\_snd::_id_877A();
     }
 }
 
@@ -112,11 +112,11 @@ _id_875D( var_0, var_1 )
 
 _id_875E( var_0, var_1 )
 {
-    var_2 = _id_A5E8::_id_86EE();
+    var_2 = soundscripts\_snd::_id_86EE();
 
     foreach ( var_4 in var_0 )
     {
         soundsettimescalefactor( var_4, var_1 );
-        var_2 _id_A5E8::_id_877A();
+        var_2 soundscripts\_snd::_id_877A();
     }
 }

@@ -434,17 +434,17 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         if ( isdefined( level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_17].v["explode_force_min"] ) )
             self._id_353D = 1;
 
-        if ( isdefined( self._id_588C ) && isdefined( self._id_588C[_id_A5A4::_id_8F53( var_7 )] ) )
+        if ( isdefined( self._id_588C ) && isdefined( self._id_588C[maps\_utility::_id_8F53( var_7 )] ) )
         {
-            for ( var_9 = 0; var_9 < self._id_588C[_id_A5A4::_id_8F53( var_7 )].size; var_9++ )
+            for ( var_9 = 0; var_9 < self._id_588C[maps\_utility::_id_8F53( var_7 )].size; var_9++ )
             {
-                self notify( self._id_588C[_id_A5A4::_id_8F53( var_7 )][var_9] );
+                self notify( self._id_588C[maps\_utility::_id_8F53( var_7 )][var_9] );
 
                 if ( self._id_5D41 )
-                    self._id_5D40 notify( self._id_588C[_id_A5A4::_id_8F53( var_7 )][var_9] );
+                    self._id_5D40 notify( self._id_588C[maps\_utility::_id_8F53( var_7 )][var_9] );
             }
 
-            self._id_588C[_id_A5A4::_id_8F53( var_7 )] = undefined;
+            self._id_588C[maps\_utility::_id_8F53( var_7 )] = undefined;
         }
 
         if ( isdefined( level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_8] ) )
@@ -611,7 +611,7 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                     {
                         var_32 = level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_17].v["sound"][var_9];
                         var_33 = level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_17].v["tagName"];
-                        var_19 thread _id_A5A4::_id_69C5( var_32, var_33 );
+                        var_19 thread maps\_utility::_id_69C5( var_32, var_33 );
                     }
                 }
             }
@@ -632,11 +632,11 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                     if ( !isdefined( self._id_588C ) )
                         self._id_588C = [];
 
-                    if ( !isdefined( self._id_588C[_id_A5A4::_id_8F53( var_7 )] ) )
-                        self._id_588C[_id_A5A4::_id_8F53( var_7 )] = [];
+                    if ( !isdefined( self._id_588C[maps\_utility::_id_8F53( var_7 )] ) )
+                        self._id_588C[maps\_utility::_id_8F53( var_7 )] = [];
 
-                    var_36 = self._id_588C[_id_A5A4::_id_8F53( var_7 )].size;
-                    self._id_588C[_id_A5A4::_id_8F53( var_7 )][var_36] = "stop sound" + var_34;
+                    var_36 = self._id_588C[maps\_utility::_id_8F53( var_7 )].size;
+                    self._id_588C[maps\_utility::_id_8F53( var_7 )][var_36] = "stop sound" + var_34;
                 }
             }
         }
@@ -683,7 +683,7 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                     var_49 = level.playercardbackground geteye();
 
                 var_48 = vectornormalize( var_3 - var_49 );
-                var_48 = _id_A5A4::vector_multiply( var_48, 200 );
+                var_48 = maps\_utility::vector_multiply( var_48, 200 );
             }
 
             thread _id_67FD( var_7, var_17, var_3, var_48 );
@@ -1095,7 +1095,7 @@ explode( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 arcademode_car_kill()
 {
-    if ( !_id_A5A4::_id_0CC3() )
+    if ( !maps\_utility::_id_0CC3() )
         return 0;
 
     if ( level.script_context == "ac130" )
@@ -1104,7 +1104,7 @@ arcademode_car_kill()
     if ( isdefined( level.allcarsdamagedbyplayer ) )
         return 1;
 
-    return _id_A537::_id_6ACA();
+    return maps\_gameskill::_id_6ACA();
 }
 
 get_destructible_index( var_0, var_1, var_2 )
@@ -1145,7 +1145,7 @@ apply_physics_explosion_to_part( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6 = level.destructible_type[self.destuctableinfo]._id_66A7[var_0][0].v["physicsOnExplosion"];
     var_7 = self gettagorigin( var_2 );
     var_8 = vectornormalize( var_7 - var_3 );
-    var_8 = _id_A5A4::vector_multiply( var_8, randomfloatrange( var_4, var_5 ) * var_6 );
+    var_8 = maps\_utility::vector_multiply( var_8, randomfloatrange( var_4, var_5 ) * var_6 );
     thread _id_67FD( var_0, var_1, var_7, var_8 );
 }
 

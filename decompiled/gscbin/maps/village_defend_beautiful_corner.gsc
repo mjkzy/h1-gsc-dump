@@ -32,7 +32,7 @@ beautiful_corner()
     maps\village_defend_anim::main();
     maps\village_defend_precache::main();
     maps\createart\village_defend_art::main();
-    _id_A550::main();
+    maps\_load::main();
     level thread maps\village_defend_amb::main();
     maps\village_defend_lighting::main();
     thread _id_6504();

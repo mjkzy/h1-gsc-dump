@@ -22,14 +22,14 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "bus", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1848( "vehicle_bus_destructable", "vehicle_bus_destructible" );
-    _id_A5A8::_id_1849( %bus_driving_idle_forward, %bus_driving_idle_backward, 10 );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_186C( "bus", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1848( "vehicle_bus_destructable", "vehicle_bus_destructible" );
+    maps\_vehicle::_id_1849( %bus_driving_idle_forward, %bus_driving_idle_backward, 10 );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

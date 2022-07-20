@@ -95,23 +95,23 @@ beautiful_guys()
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = var_2 _id_A579::_id_072C();
+        var_3 = var_2 maps\_shg_design_tools::_id_072C();
 
         if ( !isdefined( var_3 ) )
             return;
 
-        var_3 _id_A5A4::_id_5926();
-        var_3 _id_A5A4::_id_08EB();
-        var_3 _id_A5A4::_id_58D7();
+        var_3 maps\_utility::_id_5926();
+        var_3 maps\_utility::_id_08EB();
+        var_3 maps\_utility::_id_58D7();
         var_3._id_79EE = "none";
 
         if ( isdefined( level.beautiful_weapon ) )
-            var_3 _id_A5A4::_id_39D0( level.beautiful_weapon, "primary" );
+            var_3 maps\_utility::_id_39D0( level.beautiful_weapon, "primary" );
 
         if ( isdefined( var_2.script_parentname ) )
         {
             var_3._id_0C72 = "beautiful_guy";
-            var_3 thread _id_A510::_id_0BE1( var_3, var_2.script_parentname, undefined, "stop_idle" );
+            var_3 thread maps\_anim::_id_0BE1( var_3, var_2.script_parentname, undefined, "stop_idle" );
         }
     }
 }
@@ -153,7 +153,7 @@ beautiful_offset_view_origin( var_0, var_1 )
     var_2.forward = var_1[0];
     var_2.riotshield_damaged = var_1[1];
     var_2.upgradepurchased = var_1[2];
-    var_2 _id_A5A4::_id_9723();
+    var_2 maps\_utility::_id_9723();
 }
 
 beautiful_view_init()
@@ -163,7 +163,7 @@ beautiful_view_init()
 
     common_scripts\utility::_id_383D( "beautiful_view_transitioning" );
     common_scripts\utility::_id_3831( "beautiful_view_transitioning" );
-    level._id_148A = _id_A546::_id_23A2( "black", 1 );
+    level._id_148A = maps\_hud_util::_id_23A2( "black", 1 );
     level._id_148A.space = 1000;
     level.playercardbackground takeweapon( "beretta" );
     level.playercardbackground takeweapon( "fraggrenade" );
@@ -274,7 +274,7 @@ beautiful_view_fade_out()
 beautiful_view_position( var_0 )
 {
     if ( level.beautiful_visions[var_0] != "" )
-        _id_A5A4::_id_9E6E( level.beautiful_visions[var_0], 0 );
+        maps\_utility::_id_9E6E( level.beautiful_visions[var_0], 0 );
 
     if ( level.beautiful_lightsets[var_0] != "" )
         level.playercardbackground _meth_83be( level.beautiful_lightsets[var_0] );

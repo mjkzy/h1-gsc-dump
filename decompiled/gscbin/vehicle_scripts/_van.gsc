@@ -22,16 +22,16 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "van", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_uaz_van", "vehicle_uaz_van" );
-    _id_A5A8::_id_1862( ( 0, 0, 32 ), 300, 200, 100, 0 );
-    _id_A5A8::_id_1849( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
-    _id_A5A8::_id_1846( 1, 1.6, 500 );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "axis" );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_186C( "van", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_uaz_van", "vehicle_uaz_van" );
+    maps\_vehicle::_id_1862( ( 0, 0, 32 ), 300, 200, 100, 0 );
+    maps\_vehicle::_id_1849( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
+    maps\_vehicle::_id_1846( 1, 1.6, 500 );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "axis" );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

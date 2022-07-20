@@ -38,13 +38,13 @@ _id_3DCA()
     var_0["trigger_multiple_specialops_flag_set"] = ::_id_9791;
     var_0["trigger_multiple_fx_volume"] = ::_id_97C2;
     var_0["trigger_multiple_fx_fxzone"] = ::_id_9793;
-    var_0["trigger_multiple_light_sunshadow"] = _id_A54F::_id_8FBC;
+    var_0["trigger_multiple_light_sunshadow"] = maps\_lights::_id_8FBC;
 
-    if ( !_id_A5A4::_id_5056() )
+    if ( !maps\_utility::_id_5056() )
     {
-        var_0["trigger_multiple_autosave"] = _id_A514::_id_9758;
-        var_0["trigger_multiple_spawn"] = _id_A581::_id_97F9;
-        var_0["trigger_multiple_spawn_reinforcement"] = _id_A581::_id_97FA;
+        var_0["trigger_multiple_autosave"] = maps\_autosave::_id_9758;
+        var_0["trigger_multiple_spawn"] = maps\_spawner::_id_97F9;
+        var_0["trigger_multiple_spawn_reinforcement"] = maps\_spawner::_id_97FA;
     }
 
     var_0["trigger_multiple_slide"] = ::_id_97F6;
@@ -92,41 +92,41 @@ _id_97C3( var_0 )
 _id_3DCB()
 {
     var_0 = [];
-    var_0["friendly_wave"] = _id_A581::_id_3A8E;
-    var_0["friendly_wave_off"] = _id_A581::_id_3A8E;
-    var_0["friendly_mgTurret"] = _id_A581::_id_3A70;
+    var_0["friendly_wave"] = maps\_spawner::_id_3A8E;
+    var_0["friendly_wave_off"] = maps\_spawner::_id_3A8E;
+    var_0["friendly_mgTurret"] = maps\_spawner::_id_3A70;
 
-    if ( !_id_A5A4::_id_5056() )
+    if ( !maps\_utility::_id_5056() )
     {
-        var_0["camper_spawner"] = _id_A581::_id_1A42;
-        var_0["flood_spawner"] = _id_A581::_id_38F4;
-        var_0["trigger_spawner"] = _id_A581::_id_97F9;
-        var_0["trigger_autosave"] = _id_A514::_id_9758;
+        var_0["camper_spawner"] = maps\_spawner::_id_1A42;
+        var_0["flood_spawner"] = maps\_spawner::_id_38F4;
+        var_0["trigger_spawner"] = maps\_spawner::_id_97F9;
+        var_0["trigger_autosave"] = maps\_autosave::_id_9758;
         var_0["trigger_spawngroup"] = ::_id_97FC;
-        var_0["two_stage_spawner"] = _id_A581::_id_99E5;
+        var_0["two_stage_spawner"] = maps\_spawner::_id_99E5;
         var_0["trigger_vehicle_spline_spawn"] = ::_id_980C;
         var_0["trigger_vehicle_spawn"] = ::_id_980B;
         var_0["trigger_vehicle_getin_spawn"] = ::_id_980A;
-        var_0["random_spawn"] = _id_A581::_id_7118;
+        var_0["random_spawn"] = maps\_spawner::_id_7118;
     }
 
-    var_0["autosave_now"] = _id_A514::_id_1150;
-    var_0["trigger_autosave_tactical"] = _id_A514::_id_975B;
-    var_0["trigger_autosave_stealth"] = _id_A514::_id_975A;
+    var_0["autosave_now"] = maps\_autosave::_id_1150;
+    var_0["trigger_autosave_tactical"] = maps\_autosave::_id_975B;
+    var_0["trigger_autosave_stealth"] = maps\_autosave::_id_975A;
     var_0["trigger_unlock"] = ::_id_9808;
     var_0["trigger_lookat"] = ::_id_97B0;
     var_0["trigger_looking"] = ::_id_97B2;
     var_0["trigger_cansee"] = ::_id_9764;
-    var_0["autosave_immediate"] = _id_A514::_id_9759;
+    var_0["autosave_immediate"] = maps\_autosave::_id_9759;
     var_0["flag_set"] = ::_id_978E;
 
-    if ( _id_A5A4::_id_500C() )
+    if ( maps\_utility::_id_500C() )
         var_0["flag_set_coop"] = ::_id_978F;
 
     var_0["flag_set_player"] = ::_id_9790;
     var_0["flag_unset"] = ::_id_978C;
     var_0["flag_clear"] = ::_id_978C;
-    var_0["objective_event"] = _id_A581::_id_62ED;
+    var_0["objective_event"] = maps\_spawner::_id_62ED;
     var_0["friendly_respawn_trigger"] = ::_id_979C;
     var_0["friendly_respawn_clear"] = ::friendly_respawn_clear;
     var_0["enemy_respawn_trigger"] = ::_id_9773;
@@ -136,8 +136,8 @@ _id_3DCB()
     var_0["trigger_delete"] = ::_id_9807;
     var_0["trigger_delete_on_touch"] = ::_id_976D;
     var_0["trigger_off"] = ::_id_9807;
-    var_0["trigger_outdoor"] = _id_A581::_id_65BC;
-    var_0["trigger_indoor"] = _id_A581::_id_4C45;
+    var_0["trigger_outdoor"] = maps\_spawner::_id_65BC;
+    var_0["trigger_indoor"] = maps\_spawner::_id_4C45;
     var_0["trigger_hint"] = ::_id_97A6;
     var_0["trigger_grenade_at_player"] = ::_id_9804;
     var_0["flag_on_cleared"] = ::_id_978D;
@@ -165,18 +165,18 @@ _id_4D53()
 
     var_6 = getentarray( "trigger_multiple", "classname" );
     var_7 = getentarray( "trigger_radius", "classname" );
-    var_4 = _id_A5A4::_id_0CF2( var_6, var_7 );
+    var_4 = maps\_utility::_id_0CF2( var_6, var_7 );
     var_8 = getentarray( "trigger_disk", "classname" );
-    var_4 = _id_A5A4::_id_0CF2( var_4, var_8 );
+    var_4 = maps\_utility::_id_0CF2( var_4, var_8 );
     var_9 = getentarray( "trigger_once", "classname" );
-    var_4 = _id_A5A4::_id_0CF2( var_4, var_9 );
+    var_4 = maps\_utility::_id_0CF2( var_4, var_9 );
 
-    if ( !_id_A5A4::_id_5056() )
+    if ( !maps\_utility::_id_5056() )
     {
         for ( var_10 = 0; var_10 < var_4.size; var_10++ )
         {
             if ( var_4[var_10].specialgrenade & 32 )
-                thread _id_A581::_id_97F9( var_4[var_10] );
+                thread maps\_spawner::_id_97F9( var_4[var_10] );
         }
     }
 
@@ -218,34 +218,34 @@ _id_4D53()
                 level thread _id_97DF( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7952 ) || isdefined( var_4[var_10]._id_7951 ) )
-                level thread _id_A514::_id_1166( var_4[var_10] );
+                level thread maps\_autosave::_id_1166( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_79C6 ) )
-                level thread _id_A581::_id_3662( var_4[var_10] );
+                level thread maps\_spawner::_id_3662( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7A37 ) )
-                level thread _id_A558::_id_5BD6( var_4[var_10] );
+                level thread maps\_mgturret::_id_5BD6( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7A1D ) )
-                level thread _id_A581::_id_5339( var_4[var_10] );
+                level thread maps\_spawner::_id_5339( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7A1C ) )
-                level thread _id_A5AA::_id_5340( var_4[var_10] );
+                level thread maps\_vehicle_code::_id_5340( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_79B6 ) )
-                level thread _id_A581::_id_3095( var_4[var_10] );
+                level thread maps\_spawner::_id_3095( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7AA6 ) )
                 var_4[var_10]._id_79BF = var_4[var_10]._id_7AA6;
 
             if ( isdefined( var_4[var_10]._id_79BF ) )
-                level thread _id_A550::_id_352F( var_4[var_10] );
+                level thread maps\_load::_id_352F( var_4[var_10] );
 
             if ( isdefined( var_4[var_10].ambient ) )
-                var_4[var_10] thread _id_A5DC::_id_97BD( 1 );
+                var_4[var_10] thread soundscripts\_audio::_id_97BD( 1 );
 
             if ( isdefined( var_4[var_10]._id_7950 ) || isdefined( var_4[var_10]._id_7947 ) || isdefined( var_4[var_10]._id_7949 ) || isdefined( var_4[var_10]._id_794D ) || isdefined( var_4[var_10]._id_7946 ) || isdefined( var_4[var_10]._id_7948 ) || isdefined( var_4[var_10]._id_794B ) || isdefined( var_4[var_10]._id_794A ) || isdefined( var_4[var_10]._id_794F ) )
-                var_4[var_10] thread _id_A5DC::_id_97BD();
+                var_4[var_10] thread soundscripts\_audio::_id_97BD();
 
             if ( isdefined( var_4[var_10]._id_7AFC ) )
                 level thread _id_97D3( var_4[var_10] );
@@ -257,10 +257,10 @@ _id_4D53()
                 var_4[var_10] thread _id_97A2();
 
             if ( isdefined( var_4[var_10]._id_7AB3 ) )
-                level thread _id_A581::_id_7116( var_4[var_10] );
+                level thread maps\_spawner::_id_7116( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7A99 ) )
-                level thread _id_A51C::init_color_delay_info( var_4[var_10] );
+                level thread maps\_colors::init_color_delay_info( var_4[var_10] );
 
             if ( isdefined( var_4[var_10].teambalanced ) )
             {
@@ -288,7 +288,7 @@ _id_23E3()
 
 _id_976A( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -303,14 +303,14 @@ _id_976A( var_0 )
         if ( !isplayer( var_2 ) )
             continue;
 
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
         common_scripts\utility::_id_383F( var_1, var_2 );
     }
 }
 
 _id_978C( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -318,14 +318,14 @@ _id_978C( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger" );
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
         common_scripts\utility::_id_3831( var_1 );
     }
 }
 
 _id_978D( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -376,7 +376,7 @@ _id_39F5()
 
 _id_978E( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -384,14 +384,14 @@ _id_978E( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_2 );
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
         common_scripts\utility::_id_383F( var_1, var_2 );
     }
 }
 
 _id_978F( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -407,19 +407,19 @@ _id_978F( var_0 )
 
         var_4 = [];
         var_4[var_4.size] = var_3;
-        var_2 = _id_A5A4::_id_0CF2( var_2, var_4 );
+        var_2 = maps\_utility::_id_0CF2( var_2, var_4 );
 
         if ( var_2.size == level.players.size )
             break;
     }
 
-    var_0 _id_A5A4::script_lightset();
+    var_0 maps\_utility::script_lightset();
     common_scripts\utility::_id_383F( var_1 );
 }
 
 _id_9791( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -435,7 +435,7 @@ _id_9791( var_0 )
         if ( var_0._id_6C32.size )
             continue;
 
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
         common_scripts\utility::_id_383F( var_1, var_2 );
     }
 }
@@ -553,7 +553,7 @@ _id_9774( var_0 )
 
 _id_9793( var_0 )
 {
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -561,7 +561,7 @@ _id_9793( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_2 );
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
 
         if ( isalive( var_2 ) && var_2 istouching( var_0 ) && isdefined( var_0 ) )
             common_scripts\utility::_id_383F( var_1 );
@@ -661,7 +661,7 @@ _id_97D2( var_0 )
 
     var_0._id_6581 = var_2[0].origin;
     var_0 waittill( "trigger" );
-    var_0 _id_A5A4::script_lightset();
+    var_0 maps\_utility::script_lightset();
 
     foreach ( var_6 in var_2 )
     {
@@ -700,7 +700,7 @@ _id_97D3( var_0 )
         {
             var_2[var_3].goalradius = 800;
             var_2[var_3] _meth_81ab( level.playercardbackground );
-            level thread _id_A581::_id_27DC( var_2[var_3] );
+            level thread maps\_spawner::_id_27DC( var_2[var_3] );
         }
     }
 }
@@ -744,7 +744,7 @@ _id_97FC( var_0 )
     var_2 = common_scripts\utility::_id_710E( level._id_8907[var_1] );
 
     foreach ( var_5, var_4 in var_2 )
-        var_4 _id_A5A4::_id_88C3();
+        var_4 maps\_utility::_id_88C3();
 }
 
 _id_9802( var_0 )
@@ -795,7 +795,7 @@ _id_980A( var_0 )
 
     var_0 waittill( "trigger" );
     var_1 = getentarray( var_0._not_team, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, _id_A5AB::_id_8976( undefined, 0, 1 ) );
+    common_scripts\utility::_id_0D13( var_1, maps\_vehicle_free_drive::_id_8976( undefined, 0, 1 ) );
 }
 
 _id_980C( var_0 )
@@ -805,7 +805,7 @@ _id_980C( var_0 )
 
     foreach ( var_3 in var_1 )
     {
-        var_3 thread _id_A5AB::_id_8976( 70 );
+        var_3 thread maps\_vehicle_free_drive::_id_8976( 70 );
         wait 0.05;
     }
 }
@@ -875,7 +875,7 @@ _id_97B1( var_0, var_1 )
 
     if ( var_6 )
     {
-        var_7 = var_0 _id_A5A4::_id_3EA3();
+        var_7 = var_0 maps\_utility::_id_3EA3();
 
         if ( !isdefined( level._id_382E[var_7] ) )
             common_scripts\utility::_id_383D( var_7 );
@@ -920,7 +920,7 @@ _id_97B1( var_0, var_1 )
 
             if ( var_14 >= var_2 )
             {
-                common_scripts\utility::_id_0D13( var_4, _id_A5A4::_id_7C82, "trigger" );
+                common_scripts\utility::_id_0D13( var_4, maps\_utility::_id_7C82, "trigger" );
 
                 if ( var_6 )
                     common_scripts\utility::_id_383F( var_7, var_9 );
@@ -956,7 +956,7 @@ _id_9764( var_0 )
 
     if ( var_4 )
     {
-        var_5 = var_0 _id_A5A4::_id_3EA3();
+        var_5 = var_0 maps\_utility::_id_3EA3();
 
         if ( !isdefined( level._id_382E[var_5] ) )
             common_scripts\utility::_id_383D( var_5 );
@@ -997,7 +997,7 @@ _id_9764( var_0 )
             if ( var_4 )
                 common_scripts\utility::_id_383F( var_5 );
 
-            common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_7C82, "trigger" );
+            common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7C82, "trigger" );
             wait 0.5;
         }
     }
@@ -1030,7 +1030,7 @@ _id_9808( var_0 )
         var_0 waittill( "trigger" );
         common_scripts\utility::_id_0D13( var_2, common_scripts\utility::_id_97CE );
         _id_9F87( var_2, var_1 );
-        _id_A5A4::_id_0CF4( var_2, "relock" );
+        maps\_utility::_id_0CF4( var_2, "relock" );
     }
 }
 
@@ -1117,7 +1117,7 @@ _id_975C( var_0 )
     if ( _id_1331( var_4.origin ) )
         return;
 
-    var_4 _id_A5A4::_id_2534( var_0._id_795D );
+    var_4 maps\_utility::_id_2534( var_0._id_795D );
 }
 
 _id_1331( var_0 )
@@ -1132,7 +1132,7 @@ _id_980B( var_0 )
 
     foreach ( var_3 in var_1 )
     {
-        var_3 thread _id_A5A8::_id_8977();
+        var_3 thread maps\_vehicle::_id_8977();
         wait 0.05;
     }
 }
@@ -1180,13 +1180,14 @@ _id_97A1( var_0 )
                     destroyglass( var_7, var_5 );
 
                 break;
-                continue;
             }
+            else
+            {
+                foreach ( var_7 in var_1 )
+                    destroyglass( var_7 );
 
-            foreach ( var_7 in var_1 )
-                destroyglass( var_7 );
-
-            break;
+                break;
+            }
         }
     }
 
@@ -1232,12 +1233,12 @@ _id_9804( var_0 )
 {
     var_0 endon( "death" );
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_933B();
+    maps\_utility::_id_933B();
 }
 
 _id_97A6( var_0 )
 {
-    if ( _id_A5A4::_id_5056() )
+    if ( maps\_utility::_id_5056() )
         return;
 
     if ( !isdefined( level._id_2B5F ) )
@@ -1251,7 +1252,7 @@ _id_97A6( var_0 )
         return;
 
     level._id_2B5F[var_1] = 1;
-    var_2 _id_A5A4::_id_2B4A( var_1 );
+    var_2 maps\_utility::_id_2B4A( var_1 );
 }
 
 _id_976D( var_0 )
@@ -1281,12 +1282,12 @@ _id_9807( var_0 )
 
 _id_97AA( var_0 )
 {
-    thread _id_97DC( var_0, _id_A5A4::_id_7E5E, _id_A5A4::_id_3DA5 );
+    thread _id_97DC( var_0, maps\_utility::_id_7E5E, maps\_utility::_id_3DA5 );
 }
 
 _id_97D1( var_0 )
 {
-    thread _id_97DC( var_0, _id_A5A4::_id_7E91, _id_A5A4::_id_3E16 );
+    thread _id_97DC( var_0, maps\_utility::_id_7E91, maps\_utility::_id_3E16 );
 }
 
 _id_97DC( var_0, var_1, var_2 )
@@ -1323,18 +1324,18 @@ _id_9406( var_0, var_1 )
 _id_97D8( var_0 )
 {
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_70BD( var_0.script_parentname );
+    maps\_utility::_id_70BD( var_0.script_parentname );
 }
 
 _id_9790( var_0 )
 {
-    if ( _id_A5A4::_id_500C() )
+    if ( maps\_utility::_id_500C() )
     {
         thread _id_978F( var_0 );
         return;
     }
 
-    var_1 = var_0 _id_A5A4::_id_3EA3();
+    var_1 = var_0 maps\_utility::_id_3EA3();
 
     if ( !isdefined( level._id_382E[var_1] ) )
         common_scripts\utility::_id_383D( var_1 );
@@ -1346,7 +1347,7 @@ _id_9790( var_0 )
         if ( !isplayer( var_2 ) )
             continue;
 
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
         common_scripts\utility::_id_383F( var_1 );
     }
 }
@@ -1356,7 +1357,7 @@ _id_97C5( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_1 );
-        var_1 _id_A513::_id_8FCD( var_0.script_zone, var_0.script_lightset );
+        var_1 maps\_art::_id_8FCD( var_0.script_zone, var_0.script_lightset );
         waittillframeend;
     }
 }
@@ -1401,7 +1402,7 @@ trigger_multiple_visionset_preh1( var_0 )
 
                 while ( var_6 istouching( var_0 ) )
                 {
-                    var_7 = _id_A5A4::_id_3E3D( var_3, var_4, var_6.origin, var_2 );
+                    var_7 = maps\_utility::_id_3E3D( var_3, var_4, var_6.origin, var_2 );
                     var_7 = clamp( var_7, 0, 1 );
 
                     if ( var_7 != var_5 )
@@ -1414,14 +1415,14 @@ trigger_multiple_visionset_preh1( var_0 )
                 }
 
                 if ( var_7 < 0.5 )
-                    var_6 _id_A5A4::_id_9E6E( var_0._id_7B1F, var_0.script_lightset );
+                    var_6 maps\_utility::_id_9E6E( var_0._id_7B1F, var_0.script_lightset );
                 else
-                    var_6 _id_A5A4::_id_9E6E( var_0._id_7B1E, var_0.script_lightset );
+                    var_6 maps\_utility::_id_9E6E( var_0._id_7B1E, var_0.script_lightset );
 
                 continue;
             }
 
-            var_6 _id_A5A4::_id_9E6E( var_0.script_zone, var_0.script_lightset );
+            var_6 maps\_utility::_id_9E6E( var_0.script_zone, var_0.script_lightset );
         }
     }
 }
@@ -1497,7 +1498,7 @@ _id_97C7( var_0, var_1 )
 
                         while ( level.playercardbackground istouching( var_0 ) )
                         {
-                            var_9 = _id_A5A4::_id_3E3D( var_5, var_6, level.playercardbackground.origin, var_4 );
+                            var_9 = maps\_utility::_id_3E3D( var_5, var_6, level.playercardbackground.origin, var_4 );
                             var_9 = clamp( var_9, 0, 1 );
 
                             if ( var_9 != var_8 )
@@ -1510,10 +1511,10 @@ _id_97C7( var_0, var_1 )
                         }
                     }
                     else if ( isdefined( var_0.script_zone ) )
-                        level.playercardbackground _id_A5A4::_id_9E6E( var_0.script_zone, var_0.script_lightset );
+                        level.playercardbackground maps\_utility::_id_9E6E( var_0.script_zone, var_0.script_lightset );
 
                     if ( isdefined( var_0.script_noteworthy ) )
-                        level.playercardbackground _id_A5A4::set_light_set_player( var_0.script_noteworthy );
+                        level.playercardbackground maps\_utility::set_light_set_player( var_0.script_noteworthy );
 
                     if ( isdefined( var_0.script_goal_changed ) )
                         level.playercardbackground _meth_848c( var_0.script_goal_changed, var_0.script_lightset );
@@ -1530,15 +1531,15 @@ _id_97C7( var_0, var_1 )
                         if ( var_3 && can_reset_vision_type( var_0, "visionset" ) )
                         {
                             if ( var_8 < 0.5 )
-                                level.playercardbackground _id_A5A4::_id_9E6E( var_0._id_7B1F, var_0.script_lightset );
+                                level.playercardbackground maps\_utility::_id_9E6E( var_0._id_7B1F, var_0.script_lightset );
                             else
-                                level.playercardbackground _id_A5A4::_id_9E6E( var_0._id_7B1E, var_0.script_lightset );
+                                level.playercardbackground maps\_utility::_id_9E6E( var_0._id_7B1E, var_0.script_lightset );
                         }
                         else if ( isdefined( var_0.script_zone ) && can_reset_vision_type( var_0, "visionset" ) )
-                            level.playercardbackground _id_A5A4::_id_9E6E( level.default_visionset, var_0.script_lightset );
+                            level.playercardbackground maps\_utility::_id_9E6E( level.default_visionset, var_0.script_lightset );
 
                         if ( isdefined( var_0.script_noteworthy ) && can_reset_vision_type( var_0, "lightset" ) )
-                            level.playercardbackground _id_A5A4::set_light_set_player( level.default_lightset );
+                            level.playercardbackground maps\_utility::set_light_set_player( level.default_lightset );
 
                         if ( isdefined( var_0.script_goal_changed ) && can_reset_vision_type( var_0, "clut" ) )
                             level.playercardbackground _meth_848c( level.default_clut, var_0.script_lightset );
@@ -1609,8 +1610,8 @@ _id_4D75()
     if ( !isdefined( self.script_lightset ) )
         self.script_lightset = 2;
 
-    var_0 = _id_A5A4::_id_3EBF( self._id_7B1F );
-    var_1 = _id_A5A4::_id_3EBF( self._id_7B1E );
+    var_0 = maps\_utility::_id_3EBF( self._id_7B1F );
+    var_1 = maps\_utility::_id_3EBF( self._id_7B1E );
 
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) )
         return;
@@ -1740,7 +1741,7 @@ _id_4D75()
 
 _id_9E6F( var_0, var_1 )
 {
-    _id_A5A4::_id_4D57();
+    maps\_utility::_id_4D57();
     var_0 _id_4D75();
 
     if ( var_1 < 0.5 )
@@ -1758,8 +1759,8 @@ _id_9E6F( var_0, var_1 )
     if ( !level._id_9E5C )
         self visionsetnakedforplayer_lerp( var_0._id_7B1F, var_0._id_7B1E, var_1 );
 
-    var_2 = _id_A5A4::_id_3EBF( var_0._id_7B1F );
-    var_3 = _id_A5A4::_id_3EBF( var_0._id_7B1E );
+    var_2 = maps\_utility::_id_3EBF( var_0._id_7B1F );
+    var_3 = maps\_utility::_id_3EBF( var_0._id_7B1E );
     var_4 = var_0._id_9E7B;
     var_5 = spawnstruct();
     var_5._id_8D08 = var_2._id_8D08 + var_4._id_8D08 * var_1;
@@ -1841,7 +1842,7 @@ _id_9799( var_0 )
 
         while ( level.playercardbackground istouching( var_0 ) )
         {
-            var_7 = _id_A5A4::_id_3E3D( var_2, var_3, level.playercardbackground.origin, var_5 );
+            var_7 = maps\_utility::_id_3E3D( var_2, var_3, level.playercardbackground.origin, var_5 );
 
             if ( var_7 < 0 )
                 var_7 = 0;
@@ -1849,7 +1850,7 @@ _id_9799( var_0 )
             if ( var_7 > 1 )
                 var_7 = 1;
 
-            var_0 _id_A513::_id_7E35( var_7 );
+            var_0 maps\_art::_id_7E35( var_7 );
             wait 0.05;
         }
 
@@ -1858,7 +1859,7 @@ _id_9799( var_0 )
         else
             var_7 = 0;
 
-        var_0 _id_A513::_id_7E35( var_7 );
+        var_0 maps\_art::_id_7E35( var_7 );
     }
 }
 
@@ -1871,8 +1872,8 @@ trigger_fog_preh1( var_0 )
 
     if ( isdefined( var_1 ) && isdefined( var_2 ) )
     {
-        var_3 = _id_A5A4::_id_3D76( var_1 );
-        var_4 = _id_A5A4::_id_3D76( var_2 );
+        var_3 = maps\_utility::_id_3D76( var_1 );
+        var_4 = maps\_utility::_id_3D76( var_2 );
         var_0._id_8FD0 = isdefined( var_3._id_8FD9 ) || isdefined( var_4._id_8FD9 );
         var_0._id_8C15 = var_3._id_8D08;
         var_0._id_8BA2 = var_3._id_4500;
@@ -1952,9 +1953,9 @@ trigger_fog_preh1( var_0 )
 
         while ( var_10 istouching( var_0 ) )
         {
-            var_11 = _id_A5A4::_id_3E3D( var_6, var_7, var_10.origin, var_9 );
+            var_11 = maps\_utility::_id_3E3D( var_6, var_7, var_10.origin, var_9 );
             var_11 = clamp( var_11, 0, 1 );
-            var_0 _id_A513::_id_7E35( var_11 );
+            var_0 maps\_art::_id_7E35( var_11 );
             wait 0.05;
         }
 
@@ -1963,7 +1964,7 @@ trigger_fog_preh1( var_0 )
         else
             var_11 = 0;
 
-        var_0 _id_A513::_id_7E35( var_11 );
+        var_0 maps\_art::_id_7E35( var_11 );
     }
 }
 
@@ -1984,7 +1985,7 @@ _id_97BF( var_0 )
 
         if ( var_2 != level._id_2C3D["base"]["goal"]["nearStart"] || var_3 != level._id_2C3D["base"]["goal"]["nearEnd"] || var_4 != level._id_2C3D["base"]["goal"]["nearBlur"] || var_5 != level._id_2C3D["base"]["goal"]["farStart"] || var_6 != level._id_2C3D["base"]["goal"]["farEnd"] || var_7 != level._id_2C3D["base"]["goal"]["farBlur"] )
         {
-            _id_A513::_id_2C6C( var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+            maps\_art::_id_2C6C( var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
             wait(var_8);
             continue;
         }
@@ -2013,7 +2014,7 @@ _id_97C6( var_0 )
             var_2 = min( 10000, var_2 );
             var_3 = max( 0, var_3 );
             var_3 = min( 10000, var_3 );
-            _id_A513::_id_929C( var_2, var_3, var_4 );
+            maps\_art::_id_929C( var_2, var_3, var_4 );
             continue;
         }
 
@@ -2035,7 +2036,7 @@ _id_8627( var_0 )
     if ( isdefined( self._id_9C7E ) )
         return;
 
-    if ( _id_A5A4::_id_51AA() )
+    if ( maps\_utility::_id_51AA() )
         return;
 
     if ( isdefined( self._id_6C50 ) )
@@ -2052,7 +2053,7 @@ _id_8627( var_0 )
         var_1 = var_0._id_7929;
 
     self endon( "cancel_sliding" );
-    _id_A5A4::_id_139F( undefined, var_1 );
+    maps\_utility::_id_139F( undefined, var_1 );
 
     for (;;)
     {
@@ -2065,7 +2066,7 @@ _id_8627( var_0 )
     if ( isdefined( level._id_3147 ) )
         wait(level._id_3147);
 
-    _id_A5A4::_id_31C7();
+    maps\_utility::_id_31C7();
 }
 
 _id_97FF( var_0 )
@@ -2112,7 +2113,7 @@ _id_97C1( var_0 )
         self waittill( "trigger" );
 
         if ( !var_0._id_3B76 )
-            common_scripts\utility::_id_0D13( var_0.fx, _id_A5A4::_id_748D );
+            common_scripts\utility::_id_0D13( var_0.fx, maps\_utility::_id_748D );
 
         wait 1;
     }
@@ -2157,7 +2158,7 @@ _id_97BE( var_0 )
         var_0 waittill( "trigger" );
 
         if ( level._id_5C73 != var_1 )
-            _id_A51D::setupminimap( var_1 );
+            maps\_compass::setupminimap( var_1 );
     }
 }
 
@@ -2226,20 +2227,20 @@ _id_980F( var_0 )
         if ( !isdefined( var_1 ) )
             continue;
 
-        if ( var_1 _id_A5A4::_id_32DC( "in_wake_volume" ) )
+        if ( var_1 maps\_utility::_id_32DC( "in_wake_volume" ) )
         {
 
         }
         else
-            var_1 _id_A5A4::_id_32DD( "in_wake_volume" );
+            var_1 maps\_utility::_id_32DD( "in_wake_volume" );
 
         if ( distancesquared( var_1.origin, level.playercardbackground.origin ) < 9250000 )
         {
-            if ( var_1 _id_A5A4::_id_32D8( "in_wake_volume" ) )
+            if ( var_1 maps\_utility::_id_32D8( "in_wake_volume" ) )
                 continue;
 
             var_1 thread _id_9F40( var_0 );
-            var_1 _id_A5A4::_id_32DE( "in_wake_volume" );
+            var_1 maps\_utility::_id_32DE( "in_wake_volume" );
         }
     }
 }
@@ -2303,7 +2304,7 @@ _id_9F40( var_0 )
             continue;
         }
 
-        _id_A5A4::_id_32DA( "in_wake_volume" );
+        maps\_utility::_id_32DA( "in_wake_volume" );
         return;
     }
 }
@@ -2317,20 +2318,20 @@ _id_978B( var_0 )
         if ( !isdefined( var_1 ) )
             continue;
 
-        if ( var_1 _id_A5A4::_id_32DC( "in_fallingwater_volume" ) )
+        if ( var_1 maps\_utility::_id_32DC( "in_fallingwater_volume" ) )
         {
 
         }
         else
-            var_1 _id_A5A4::_id_32DD( "in_fallingwater_volume" );
+            var_1 maps\_utility::_id_32DD( "in_fallingwater_volume" );
 
         if ( distancesquared( var_1.origin, level.playercardbackground.origin ) < 6250000 )
         {
-            if ( var_1 _id_A5A4::_id_32D8( "in_fallingwater_volume" ) )
+            if ( var_1 maps\_utility::_id_32D8( "in_fallingwater_volume" ) )
                 continue;
 
             var_1 thread _id_9F3E( var_0 );
-            var_1 _id_A5A4::_id_32DE( "in_fallingwater_volume" );
+            var_1 maps\_utility::_id_32DE( "in_fallingwater_volume" );
         }
     }
 }
@@ -2418,7 +2419,7 @@ _id_9F3E( var_0 )
             continue;
         }
 
-        _id_A5A4::_id_32DA( "in_fallingwater_volume" );
+        maps\_utility::_id_32DA( "in_fallingwater_volume" );
 
         if ( var_8 != "null" )
             _id_8EE3( var_8 );

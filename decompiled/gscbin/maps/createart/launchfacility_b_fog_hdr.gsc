@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "launchfacility_b" );
+    var_0 = maps\_utility::_id_23DF( "launchfacility_b" );
     var_0._id_8D08 = 317.819;
     var_0._id_4500 = 1029.28;
     var_0._id_7299 = 0.976563;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 1000;
-    var_0 = _id_A5A4::_id_23DF( "controlroom_launchb" );
+    var_0 = maps\_utility::_id_23DF( "controlroom_launchb" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 1000;
-    var_0 = _id_A5A4::_id_23DF( "upper_warehouse" );
+    var_0 = maps\_utility::_id_23DF( "upper_warehouse" );
     var_0._id_8D08 = 230.461;
     var_0._id_4500 = 14906.8;
     var_0._id_7299 = 0.976563;
@@ -152,7 +152,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -30, 85, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

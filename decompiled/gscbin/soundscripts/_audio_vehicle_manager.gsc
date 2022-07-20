@@ -50,9 +50,9 @@ _id_11A2()
     var_0._id_276F = "volume";
     var_0._id_2770 = 1.0;
     var_0._id_2772 = 50;
-    _id_A5E8::_id_874D( "snd_register_vehicle", ::_id_874E );
-    _id_A5E8::_id_874D( "snd_start_vehicle", ::_id_8771 );
-    _id_A5E8::_id_874D( "snd_stop_vehicle", ::_id_8779 );
+    soundscripts\_snd::_id_874D( "snd_register_vehicle", ::_id_874E );
+    soundscripts\_snd::_id_874D( "snd_start_vehicle", ::_id_8771 );
+    soundscripts\_snd::_id_874D( "snd_stop_vehicle", ::_id_8779 );
     _id_11A3( "distance2d", ::_id_4E48 );
     _id_11A3( "distance", ::_id_4E47 );
     _id_11A3( "throttle", ::_id_4E57 );
@@ -110,11 +110,11 @@ _id_8771( var_0 )
     }
 
     var_2 = var_0._id_6F21;
-    var_3 = _id_A5DC::_id_0F30( var_1._id_2771, var_0._id_6BA1 );
-    var_4 = _id_A5DC::_id_0F30( var_1._id_2769, var_0._id_35F0 );
-    var_5 = _id_A5DC::_id_0F30( var_1._id_276A, var_0._id_35F5 );
-    var_6 = _id_A5DC::_id_0F30( var_1._id_2776, var_0._id_6379 );
-    var_7 = _id_A5DC::_id_0F30( undefined, var_0._id_4DD4 );
+    var_3 = soundscripts\_audio::_id_0F30( var_1._id_2771, var_0._id_6BA1 );
+    var_4 = soundscripts\_audio::_id_0F30( var_1._id_2769, var_0._id_35F0 );
+    var_5 = soundscripts\_audio::_id_0F30( var_1._id_276A, var_0._id_35F5 );
+    var_6 = soundscripts\_audio::_id_0F30( var_1._id_2776, var_0._id_6379 );
+    var_7 = soundscripts\_audio::_id_0F30( undefined, var_0._id_4DD4 );
     self._id_86FE = thread _id_11E1( var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
@@ -125,10 +125,10 @@ _id_8779( var_0, var_1 )
     var_4 = var_2._id_86FE;
     var_2._id_86FE = undefined;
     var_5 = var_4 _id_11BC();
-    var_6 = _id_A5DC::_id_0F30( var_4._id_35F5, var_5._id_4777._id_35F5 );
-    var_4._id_35F5 = _id_A5DC::_id_0F30( var_6, var_0 );
-    var_1 = _id_A5DC::_id_0F30( 0, var_1 );
-    var_4 _id_A5A4::_id_27EF( var_1, ::_id_11EA, var_4._id_35F5 );
+    var_6 = soundscripts\_audio::_id_0F30( var_4._id_35F5, var_5._id_4777._id_35F5 );
+    var_4._id_35F5 = soundscripts\_audio::_id_0F30( var_6, var_0 );
+    var_1 = soundscripts\_audio::_id_0F30( 0, var_1 );
+    var_4 maps\_utility::_id_27EF( var_1, ::_id_11EA, var_4._id_35F5 );
 }
 
 _id_1194()
@@ -157,9 +157,9 @@ _id_1187( var_0, var_1, var_2 )
     self._id_586A = spawnstruct();
     self._id_586A._id_588F = [];
     self._id_586A._id_279C = spawnstruct();
-    self._id_586A._id_279C._id_35F5 = _id_A5DC::_id_0F30( var_3._id_276A, var_0 );
-    self._id_586A._id_279C._id_8691 = _id_A5DC::_id_0F30( var_3._id_2775, var_1 );
-    self._id_586A._id_279C._id_868C = _id_A5DC::_id_0F30( var_3._id_2774, var_2 );
+    self._id_586A._id_279C._id_35F5 = soundscripts\_audio::_id_0F30( var_3._id_276A, var_0 );
+    self._id_586A._id_279C._id_8691 = soundscripts\_audio::_id_0F30( var_3._id_2775, var_1 );
+    self._id_586A._id_279C._id_868C = soundscripts\_audio::_id_0F30( var_3._id_2774, var_2 );
 }
 
 _id_1188( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -169,11 +169,11 @@ _id_1188( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6 = [ var_0 ];
 
-    var_1 = _id_A5DC::_id_0F30( self._id_586A._id_279C._id_35F5, var_1 );
-    var_2 = _id_A5DC::_id_0F30( self._id_586A._id_279C._id_8691, var_2 );
-    var_3 = _id_A5DC::_id_0F30( self._id_586A._id_279C._id_868C, var_3 );
-    var_4 = _id_A5DC::_id_0F30( var_0, var_4 );
-    var_5 = _id_A5DC::_id_0F30( "alias", var_5 );
+    var_1 = soundscripts\_audio::_id_0F30( self._id_586A._id_279C._id_35F5, var_1 );
+    var_2 = soundscripts\_audio::_id_0F30( self._id_586A._id_279C._id_8691, var_2 );
+    var_3 = soundscripts\_audio::_id_0F30( self._id_586A._id_279C._id_868C, var_3 );
+    var_4 = soundscripts\_audio::_id_0F30( var_0, var_4 );
+    var_5 = soundscripts\_audio::_id_0F30( "alias", var_5 );
     var_10 = spawnstruct();
     var_10.nearz = var_4;
     var_10._id_35F5 = var_1;
@@ -222,10 +222,10 @@ _id_11D6( var_0, var_1 )
 {
     var_2 = _id_11B1();
     self._id_6680 = spawnstruct();
-    var_3 = _id_A5DC::_id_0F30( var_2._id_2775, self._id_6680._id_8691 );
-    var_4 = _id_A5DC::_id_0F30( var_2._id_2774, self._id_6680._id_868C );
-    self._id_6680._id_8691 = _id_A5DC::_id_0F30( var_3, var_0 );
-    self._id_6680._id_868C = _id_A5DC::_id_0F30( var_4, var_1 );
+    var_3 = soundscripts\_audio::_id_0F30( var_2._id_2775, self._id_6680._id_8691 );
+    var_4 = soundscripts\_audio::_id_0F30( var_2._id_2774, self._id_6680._id_868C );
+    self._id_6680._id_8691 = soundscripts\_audio::_id_0F30( var_3, var_0 );
+    self._id_6680._id_868C = soundscripts\_audio::_id_0F30( var_4, var_1 );
     self._id_6680._id_4E7B = var_2._id_276D;
     self._id_6680._id_65C7 = var_2._id_276F;
     self._id_6680._id_4E7A = [];
@@ -244,8 +244,8 @@ _id_118B( var_0, var_1, var_2 )
     var_6 = spawnstruct();
     var_6._id_3337 = [];
     var_6._id_4E7B = var_0;
-    var_6._id_8691 = _id_A5DC::_id_0F30( var_4._id_6680._id_8691, var_1 );
-    var_6._id_868C = _id_A5DC::_id_0F30( var_4._id_6680._id_868C, _id_A5DC::_id_0F30( var_1, var_2 ) );
+    var_6._id_8691 = soundscripts\_audio::_id_0F30( var_4._id_6680._id_8691, var_1 );
+    var_6._id_868C = soundscripts\_audio::_id_0F30( var_4._id_6680._id_868C, soundscripts\_audio::_id_0F30( var_1, var_2 ) );
     var_6._id_276F = var_4._id_6680._id_65C7;
     var_6._id_8691 = _id_1190( var_6._id_8691, 0.1, 0.1 );
     var_6._id_868C = _id_1190( var_6._id_868C, 0.1, 0.1 );
@@ -282,7 +282,7 @@ _id_11A6( var_0, var_1, var_2 )
 _id_1183( var_0, var_1, var_2 )
 {
     if ( isstring( var_1 ) )
-        var_2 = _id_A5DC::_id_0F30( var_1, var_2 );
+        var_2 = soundscripts\_audio::_id_0F30( var_1, var_2 );
 
     var_3 = _id_11D4( var_2 );
     var_4 = var_1;
@@ -320,17 +320,17 @@ _id_1189( var_0 )
     self._id_6497 = spawnstruct();
     self._id_6497._id_64A2 = [];
     self._id_6497._id_279C = spawnstruct();
-    self._id_6497._id_279C._id_35F5 = _id_A5DC::_id_0F30( var_1._id_276A, var_0 );
+    self._id_6497._id_279C._id_35F5 = soundscripts\_audio::_id_0F30( var_1._id_276A, var_0 );
 }
 
 _id_118A( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = _id_11B1();
-    var_1 = _id_A5DC::_id_0F30( undefined, var_1 );
-    var_2 = _id_A5DC::_id_0F30( self._id_6497._id_279C._id_35F5, var_2 );
-    var_3 = _id_A5DC::_id_0F30( 1, var_3 );
-    var_4 = _id_A5DC::_id_0F30( var_0, var_4 );
-    var_5 = _id_A5DC::_id_0F30( var_6._id_2768, var_5 );
+    var_1 = soundscripts\_audio::_id_0F30( undefined, var_1 );
+    var_2 = soundscripts\_audio::_id_0F30( self._id_6497._id_279C._id_35F5, var_2 );
+    var_3 = soundscripts\_audio::_id_0F30( 1, var_3 );
+    var_4 = soundscripts\_audio::_id_0F30( var_0, var_4 );
+    var_5 = soundscripts\_audio::_id_0F30( var_6._id_2768, var_5 );
     var_7 = var_4;
 
     if ( isstring( var_4 ) )
@@ -385,8 +385,8 @@ _id_1186( var_0, var_1, var_2, var_3, var_4 )
     var_6._id_6681 = [];
     var_6.nearz = var_0;
     var_6._id_20E0 = var_1;
-    var_3 = _id_A5DC::_id_0F30( self._id_13A3._id_279C._id_8691, var_3 );
-    var_4 = _id_A5DC::_id_0F30( self._id_13A3._id_279C._id_868C, var_4 );
+    var_3 = soundscripts\_audio::_id_0F30( self._id_13A3._id_279C._id_8691, var_3 );
+    var_4 = soundscripts\_audio::_id_0F30( self._id_13A3._id_279C._id_868C, var_4 );
     var_6 _id_11D6( var_3, var_4 );
     self._id_13A3._id_13A6[var_6.nearz] = var_6;
     self._id_13A3._id_13A5 = var_6;
@@ -468,8 +468,8 @@ _id_118D( var_0, var_1 )
     self._id_8D59 = spawnstruct();
     self._id_8D59._id_8D5B = [];
     self._id_8D59._id_279C = spawnstruct();
-    self._id_8D59._id_279C._id_6FBE = _id_A5DC::_id_0F30( var_2._id_2772, var_1 );
-    self._id_8D59._id_279C._id_5C34 = _id_A5DC::_id_0F30( var_2._id_2777, var_0 );
+    self._id_8D59._id_279C._id_6FBE = soundscripts\_audio::_id_0F30( var_2._id_2772, var_1 );
+    self._id_8D59._id_279C._id_5C34 = soundscripts\_audio::_id_0F30( var_2._id_2777, var_0 );
 }
 
 _id_118F( var_0, var_1, var_2, var_3, var_4 )
@@ -480,8 +480,8 @@ _id_118F( var_0, var_1, var_2, var_3, var_4 )
     var_5 = spawnstruct();
     var_5.nearz = var_0;
     var_5._id_4DD3 = [ var_1, var_2 ];
-    var_5._id_6FBE = _id_A5DC::_id_0F30( self._id_8D59._id_279C._id_6FBE, var_3 );
-    var_5._id_5C34 = _id_A5DC::_id_0F30( self._id_8D59._id_279C._id_5C34, var_4 );
+    var_5._id_6FBE = soundscripts\_audio::_id_0F30( self._id_8D59._id_279C._id_6FBE, var_3 );
+    var_5._id_5C34 = soundscripts\_audio::_id_0F30( self._id_8D59._id_279C._id_5C34, var_4 );
     var_5._id_8D67 = [];
     self._id_8D59._id_8D5B[var_0] = var_5;
     self._id_8D59._id_4437 = var_5;
@@ -497,8 +497,8 @@ _id_118E( var_0, var_1, var_2 )
     var_5 = spawnstruct();
     var_5.nearz = var_0;
     var_5._id_9719 = [];
-    var_5._id_6FBE = _id_A5DC::_id_0F30( var_3._id_6FBE, var_2 );
-    var_5._id_5C34 = _id_A5DC::_id_0F30( var_3._id_5C34, var_1 );
+    var_5._id_6FBE = soundscripts\_audio::_id_0F30( var_3._id_6FBE, var_2 );
+    var_5._id_5C34 = soundscripts\_audio::_id_0F30( var_3._id_5C34, var_1 );
     var_5._id_6F21 = _id_11C5();
     var_3._id_8D67[var_0] = var_5;
     self._id_8D59._id_4437._id_8D64 = var_5;
@@ -622,7 +622,7 @@ _id_11DB( var_0, var_1 )
     var_3 = var_2 _id_11BB();
     var_4 = var_2 _id_11CA();
     var_0 = clamp( var_0, 0, 1 );
-    var_1 = clamp( _id_A5DC::_id_0F30( 1, var_1 ), 0, 60 );
+    var_1 = clamp( soundscripts\_audio::_id_0F30( 1, var_1 ), 0, 60 );
     var_5 = var_3;
     var_2 notify( var_5 );
     var_2 endon( var_5 );
@@ -698,7 +698,7 @@ _id_11AE( var_0 )
     var_3._id_9C0F = spawnstruct();
     var_3._id_4777 = spawnstruct();
     var_3._id_4E88 = [];
-    var_3._id_4777._id_6F21 = _id_A5DC::_id_0F30( undefined, var_0 );
+    var_3._id_4777._id_6F21 = soundscripts\_audio::_id_0F30( undefined, var_0 );
     var_3._id_4777._id_35F0 = var_1._id_2769;
     var_3._id_4777._id_35F5 = var_1._id_276A;
     var_3._id_4777._id_88A1 = var_1._id_2776;
@@ -889,18 +889,18 @@ _id_11EA( var_0 )
         var_1 = self;
         var_2 = var_1 _id_11BC();
         var_3 = var_1 _id_11BB();
-        var_0 = max( 0.01, _id_A5DC::_id_0F30( var_1._id_35F5, var_0 ) );
+        var_0 = max( 0.01, soundscripts\_audio::_id_0F30( var_1._id_35F5, var_0 ) );
         level notify( "msg_snd_vehicle_stop_" + var_3 );
 
         foreach ( var_5 in var_1._id_5876 )
         {
-            var_6 = _id_A5DC::_id_0F30( var_5._id_704A._id_35F5, var_0 );
+            var_6 = soundscripts\_audio::_id_0F30( var_5._id_704A._id_35F5, var_0 );
             var_5 thread _id_11AF( var_6 );
         }
 
         foreach ( var_9 in var_1._id_649A )
         {
-            var_6 = _id_A5DC::_id_0F30( var_9._id_704A._id_35F5, var_0 );
+            var_6 = soundscripts\_audio::_id_0F30( var_9._id_704A._id_35F5, var_0 );
             var_9 thread _id_11AF( var_6 );
         }
 
@@ -1056,7 +1056,7 @@ _id_11D0( var_0, var_1 )
     var_4 = var_0._id_704A;
     var_5 = var_0._id_24CF;
     var_6 = gettime();
-    var_1 = _id_A5DC::_id_0F30( var_6 - 100, var_1 );
+    var_1 = soundscripts\_audio::_id_0F30( var_6 - 100, var_1 );
     var_5._id_67F7 = [];
     var_7 = [];
 
@@ -1138,7 +1138,7 @@ _id_11A5( var_0, var_1, var_2 )
     if ( var_1 == 1 )
         var_5 = 0;
 
-    var_2 = _id_A5DC::_id_0F30( 0.05, var_2 );
+    var_2 = soundscripts\_audio::_id_0F30( 0.05, var_2 );
     var_6 = var_5 - var_4._id_9F3C;
     var_7 = max( 1, var_2 / _id_11A1() );
     var_8 = var_6 / var_7;
@@ -1342,7 +1342,7 @@ _id_11E9( var_0, var_1 )
 _id_9EDB( var_0 )
 {
     var_1 = self;
-    var_0 = max( 0.01, _id_A5DC::_id_0F30( 0.05, var_0 ) );
+    var_0 = max( 0.01, soundscripts\_audio::_id_0F30( 0.05, var_0 ) );
 
     switch ( var_1._id_704A._id_0D5F )
     {
@@ -1533,19 +1533,19 @@ _id_4E56()
     if ( isdefined( var_0._id_3653 ) )
         return var_0._id_3653;
 
-    return var_0 _id_A57B::_id_3D3D() * 0.0568182;
+    return var_0 maps\_shg_utility::_id_3D3D() * 0.0568182;
 }
 
 _id_4E45()
 {
     var_0 = _id_11CA();
-    return length( var_0 _id_A57B::_id_3D3B() ) * 0.00125;
+    return length( var_0 maps\_shg_utility::_id_3D3B() ) * 0.00125;
 }
 
 _id_4E4C()
 {
     var_0 = _id_11CA();
-    return length( var_0 _id_A57B::_id_3D3C() ) * 0.00125;
+    return length( var_0 maps\_shg_utility::_id_3D3C() ) * 0.00125;
 }
 
 _id_4E49()
@@ -1852,7 +1852,7 @@ _id_11E3( var_0, var_1 )
         var_4 = spawn( "script_origin", var_6.origin );
         var_4 linkto( var_6, "tag_origin", var_2._id_88A1, ( 0, 0, 0 ) );
         var_4 scalevolume( 0 );
-        var_4 _id_A5FB::_id_872A( var_5, "sound_done" );
+        var_4 soundscripts\_snd_playsound::_id_872A( var_5, "sound_done" );
         var_4 thread _id_11D2( "sound_done" );
     }
 
@@ -1876,7 +1876,7 @@ _id_11CC()
 _id_11C6( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_0._id_0D5E[_id_A5DC::_id_0F30( 0, var_1 )];
+    var_3 = var_0._id_0D5E[soundscripts\_audio::_id_0F30( 0, var_1 )];
 
     if ( isdefined( var_3 ) && var_2 _id_11CC() )
         var_3 += "_plr";
@@ -1925,7 +1925,7 @@ _id_11F0( var_0 )
     if ( isdefined( var_3._id_2FB4 ) )
     {
         var_4 = var_2 _id_11B7( var_3._id_2FB4 );
-        var_5 = _id_A5DC::_id_0F2E( var_4 );
+        var_5 = soundscripts\_audio::_id_0F2E( var_4 );
         var_6 = 0;
         var_7 = var_5[1];
 
@@ -2159,7 +2159,7 @@ _id_11E2( var_0 )
         var_11 = spawn( "script_origin", var_3.origin );
         var_11 linkto( var_3, "tag_origin", var_6, ( 0, 0, 0 ) );
         var_11 scalevolume( 0 );
-        var_11 _id_A5FB::_id_873E( var_10 );
+        var_11 soundscripts\_snd_playsound::_id_873E( var_10 );
         var_0._id_86D9[var_10] = var_11;
     }
 }
@@ -2177,7 +2177,7 @@ _id_11EB( var_0 )
 _id_11EC( var_0 )
 {
     var_1 = self;
-    var_0 = max( 0.05, _id_A5DC::_id_0F30( 0.05, var_0 ) );
+    var_0 = max( 0.05, soundscripts\_audio::_id_0F30( 0.05, var_0 ) );
 
     if ( isdefined( var_1 ) )
     {

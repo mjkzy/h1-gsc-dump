@@ -312,15 +312,15 @@ _id_17BA( var_0, var_1, var_2 )
     _id_17A7( 64 );
 
     if ( !isdefined( self._id_9BF0 ) || self._id_9BF0 )
-        var_0._id_0C6D _id_A510::_id_0BD0( self, var_4 );
+        var_0._id_0C6D maps\_anim::_id_0BD0( self, var_4 );
     else
     {
         self.secondaryattachment1 = var_0._id_0C6D;
-        var_0._id_0C6D _id_A510::_id_0BD1( self, var_4 );
+        var_0._id_0C6D maps\_anim::_id_0BD1( self, var_4 );
     }
 
-    var_0._id_0C6D _id_A510::_id_0BC9( self, var_4 );
-    var_0._id_0C6D thread _id_A510::_id_0BCE( self, var_5, self._id_315B );
+    var_0._id_0C6D maps\_anim::_id_0BC9( self, var_4 );
+    var_0._id_0C6D thread maps\_anim::_id_0BCE( self, var_5, self._id_315B );
     self._id_7F7E = self.origin;
     var_0._id_17BB++;
     self.secondaryattachment1 = undefined;
@@ -329,7 +329,7 @@ _id_17BA( var_0, var_1, var_2 )
     if ( !var_0._id_38C7 && isdefined( var_7 ) )
     {
         var_0._id_0C6D notify( self._id_315B );
-        var_0._id_0C6D thread _id_A510::_id_0BC9( self, var_7 );
+        var_0._id_0C6D thread maps\_anim::_id_0BC9( self, var_7 );
         wait 1;
 
         if ( var_3 == "02" || var_0._id_858F == 1 )
@@ -353,7 +353,7 @@ _id_17BA( var_0, var_1, var_2 )
         }
 
         self waittillmatch( "single anim", "end" );
-        var_0._id_0C6D thread _id_A510::_id_0BCE( self, var_5, self._id_315B );
+        var_0._id_0C6D thread maps\_anim::_id_0BCE( self, var_5, self._id_315B );
         wait 0.1;
     }
 
@@ -362,7 +362,7 @@ _id_17BA( var_0, var_1, var_2 )
     if ( var_2 == 0 )
         self._id_17B5 = 1;
 
-    var_0._id_0C6D thread _id_A510::_id_0BC9( self, var_6 );
+    var_0._id_0C6D thread maps\_anim::_id_0BC9( self, var_6 );
 
     if ( var_1 == "explosive_breach_left" )
     {
@@ -463,7 +463,7 @@ _id_1776( var_0 )
 
         var_1 = "exposed_flashbang_v" + level._id_8F75;
         self.allowdeath = 1;
-        _id_A510::_id_0BCA( self, "gravity", var_1 );
+        maps\_anim::_id_0BCA( self, "gravity", var_1 );
         _id_17A3();
     }
 }
@@ -553,7 +553,7 @@ _id_17A0( var_0, var_1 )
 _id_89E3( var_0 )
 {
     var_1 = var_0 dospawn();
-    _id_A5A4::_id_88F1( var_1 );
+    maps\_utility::_id_88F1( var_1 );
     return var_1;
 }
 
@@ -611,8 +611,8 @@ door_animation( var_0, var_1 )
         return;
 
     var_4 = common_scripts\utility::_id_9294( isdefined( var_1.ebreacheddoor ), var_1.ebreacheddoor, self );
-    var_4 _id_A5A4::_id_0D61( var_2 );
-    var_4 thread _id_A510::_id_0C24( var_4, var_3 );
+    var_4 maps\_utility::_id_0D61( var_2 );
+    var_4 thread maps\_anim::_id_0C24( var_4, var_3 );
     var_1.isdooranimated = 1;
 }
 

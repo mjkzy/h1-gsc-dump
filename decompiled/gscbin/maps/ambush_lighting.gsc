@@ -51,10 +51,10 @@ _id_7E68()
 handle_aarea_takeover_lighting_init()
 {
     common_scripts\utility::_id_384A( "aa_takeover" );
-    _id_A5A4::_id_7F00( "ambush_start", 0 );
-    _id_A5A4::_id_9E6E( "ambush_start", 0 );
+    maps\_utility::_id_7F00( "ambush_start", 0 );
+    maps\_utility::_id_9E6E( "ambush_start", 0 );
     level.playercardbackground _meth_848c( "clut_ambush_start", 1.0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "ambush_start" );
+    level.playercardbackground maps\_utility::set_light_set_player( "ambush_start" );
 }
 
 handle_takeover_fade()
@@ -161,10 +161,10 @@ _id_23D0( var_0, var_1 )
 
 setup_daytime_lights()
 {
-    _id_A5A4::_id_7F00( "ambush", 0 );
-    _id_A5A4::_id_9E6E( "ambush", 0 );
+    maps\_utility::_id_7F00( "ambush", 0 );
+    maps\_utility::_id_9E6E( "ambush", 0 );
     level.playercardbackground _meth_848c( "clut_ambush_chase01", 1.0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "ambush" );
+    level.playercardbackground maps\_utility::set_light_set_player( "ambush" );
     var_0 = getent( "dawn_skydome", "targetname" );
     var_1 = getent( "day_skydome", "targetname" );
     var_0 delete();

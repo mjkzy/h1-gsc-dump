@@ -246,11 +246,8 @@ setnoclearance()
             }
             else
                 break;
-
-            continue;
         }
-
-        if ( var_6 )
+        else if ( var_6 )
         {
 
         }

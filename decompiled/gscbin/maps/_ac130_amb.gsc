@@ -22,7 +22,7 @@
 main()
 {
     level._id_0B47["ac130"] = "ambient_ac130_int1";
-    thread _id_A5A4::_id_7DB9( "ac130" );
+    thread maps\_utility::_id_7DB9( "ac130" );
     maps\_ambient::_id_0B4F( "ac130", 3.0, 6.0 );
     maps\_ambient::_id_0B50( "ac130", "elm_ac130_rattles", 4.0 );
     maps\_ambient::_id_0B50( "ac130", "elm_ac130_beeps", 0.3 );

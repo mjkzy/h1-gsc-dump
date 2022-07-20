@@ -151,7 +151,7 @@ _id_72DF( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_6 ) )
         level.playercardbackground setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "kills_total", var_6 + 1 );
 
-    if ( _id_A5A4::_id_5083() )
+    if ( maps\_utility::_id_5083() )
         level notify( "specops_player_kill", var_4, var_0, var_2, var_3 );
 
     if ( isdefined( var_0 ) )
@@ -223,7 +223,7 @@ _id_72DF( var_0, var_1, var_2, var_3 )
     var_4._id_8D77["career_kills_total"]++;
 
     if ( !var_10 )
-        _id_A580::_id_4C38( var_2, var_5 );
+        maps\_sp_matchdata::_id_4C38( var_2, var_5 );
 }
 
 _id_8D4D( var_0 )
@@ -247,7 +247,7 @@ _id_1B89( var_0, var_1 )
 {
     _id_8D4B( var_0, var_1 );
 
-    if ( !_id_A5A4::_id_5083() )
+    if ( !maps\_utility::_id_5083() )
         return;
 }
 
@@ -268,7 +268,7 @@ _id_72E7()
         _id_72E2( var_0 );
 
     self._id_8D77["weapon"][var_0]._id_8448++;
-    thread _id_A580::_id_4C37( var_0 );
+    thread maps\_sp_matchdata::_id_4C37( var_0 );
     waitframe;
     self._id_72F0 = undefined;
 }
@@ -282,7 +282,7 @@ _id_8447()
         self waittill( "weapon_fired" );
         var_0 = self getcurrentweapon();
 
-        if ( !isdefined( var_0 ) || !_id_A5A4::_id_5185( var_0 ) )
+        if ( !isdefined( var_0 ) || !maps\_utility::_id_5185( var_0 ) )
             continue;
 
         self._id_8D77["shots_fired"]++;
@@ -292,7 +292,7 @@ _id_8447()
             _id_72E2( var_0 );
 
         self._id_8D77["weapon"][var_0]._id_8446++;
-        thread _id_A580::_id_8446( var_0 );
+        thread maps\_sp_matchdata::_id_8446( var_0 );
     }
 }
 

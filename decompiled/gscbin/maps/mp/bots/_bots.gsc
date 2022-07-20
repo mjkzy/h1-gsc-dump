@@ -748,12 +748,9 @@ _id_5F03( var_0, var_1, var_2, var_3 )
             var_0--;
 
             if ( var_0 <= 0 )
-            {
                 break;
-                continue;
-            }
-
-            wait 0.1;
+            else
+                wait 0.1;
         }
     }
 }
@@ -891,18 +888,19 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
 
             maps\mp\gametypes\_hostmigration::_id_A052( 1 );
             continue;
-            continue;
         }
-
-        var_10 = spawnstruct();
-        var_10._id_159E = var_9;
-        var_10._id_71D4 = 0;
-        var_10._id_06BA = 0;
-        var_10.info_player_start = var_8;
-        var_10._id_2A5F = var_5;
-        var_7[var_7.size] = var_10;
-        var_10._id_159E thread _id_88D7( var_1, var_2, var_10 );
-        var_8++;
+        else
+        {
+            var_10 = spawnstruct();
+            var_10._id_159E = var_9;
+            var_10._id_71D4 = 0;
+            var_10._id_06BA = 0;
+            var_10.info_player_start = var_8;
+            var_10._id_2A5F = var_5;
+            var_7[var_7.size] = var_10;
+            var_10._id_159E thread _id_88D7( var_1, var_2, var_10 );
+            var_8++;
+        }
     }
 
     var_11 = 0;

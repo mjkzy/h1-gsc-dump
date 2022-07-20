@@ -38,12 +38,12 @@ _id_4D0E()
 _id_57B1()
 {
     self endon( "death" );
-    _id_A5A4::_id_32DD( "prep_unload" );
-    _id_A5A4::_id_32E0( "prep_unload" );
-    _id_A5AA::_id_992C();
+    maps\_utility::_id_32DD( "prep_unload" );
+    maps\_utility::_id_32E0( "prep_unload" );
+    maps\_vehicle_code::_id_992C();
     var_0 = _id_3DAF();
     var_0 _id_57B2( self );
-    _id_A5A8::_id_9D17( var_0 );
+    maps\_vehicle::_id_9D17( var_0 );
 }
 
 _id_8AE9( var_0, var_1, var_2, var_3 )
@@ -51,13 +51,13 @@ _id_8AE9( var_0, var_1, var_2, var_3 )
     var_4 = "stage_littlebird_" + var_1;
     var_5 = [];
     var_5[0] = var_0;
-    var_3 _id_A510::_id_0BD0( var_5[0], var_4, "tag_detach_" + var_1 );
-    var_3 _id_A510::_id_0BC9( var_5[0], var_4, "tag_detach_" + var_1 );
-    _id_A5A4::_id_32DE( "staged_guy_" + var_1 );
+    var_3 maps\_anim::_id_0BD0( var_5[0], var_4, "tag_detach_" + var_1 );
+    var_3 maps\_anim::_id_0BC9( var_5[0], var_4, "tag_detach_" + var_1 );
+    maps\_utility::_id_32DE( "staged_guy_" + var_1 );
     var_0 _meth_81aa( common_scripts\utility::_id_2F69( var_0.origin ) );
     var_0.goalradius = 16;
-    _id_A5A4::_id_32E0( "guy2_in_" + var_1 );
-    thread _id_A5A9::_id_57BF( [ var_0 ], undefined, var_1 );
+    maps\_utility::_id_32E0( "guy2_in_" + var_1 );
+    thread maps\_vehicle_aianim::_id_57BF( [ var_0 ], undefined, var_1 );
 }
 
 _id_8121()
@@ -88,7 +88,7 @@ _id_8120()
         var_0 vehicle_setspeed( 20, 22, 7 );
         var_0 thread _id_9CF6( 16, self );
         var_0 waittill( "near_goal" );
-        var_0 _id_A5AA::_id_A0B8();
+        var_0 maps\_vehicle_code::_id_A0B8();
         var_0 notify( "touch_down", self );
         var_0 vehicle_setspeed( 20, 8, 7 );
     }
@@ -112,7 +112,7 @@ _id_57B2( var_0 )
     badplace_delete( var_1 );
     badplace_cylinder( var_1, 30, self.origin, 200, 300, "axis", "allies", "neutral", "team3" );
     var_0 notify( "groupedanimevent", "pre_unload" );
-    var_0 thread _id_A5A9::_id_0C57( "pre_unload" );
+    var_0 thread maps\_vehicle_aianim::_id_0C57( "pre_unload" );
     var_0 vehicle_setspeed( 20, 22, 7 );
     var_0 notify( "nearing_landing" );
 
@@ -135,9 +135,9 @@ _id_57B2( var_0 )
     var_0 thread _id_9CF6( 16, self );
     var_0 waittill( "near_goal" );
     badplace_delete( var_1 );
-    _id_A5A4::script_lightset();
-    var_0 _id_A5A8::_id_9D67();
-    var_0 _id_A5AA::_id_A0B8();
+    maps\_utility::script_lightset();
+    var_0 maps\_vehicle::_id_9D67();
+    var_0 maps\_vehicle_code::_id_A0B8();
     var_0 vehicle_setspeed( 20, 8, 7 );
     wait 0.2;
     var_0 notify( "stable_for_unlink" );
@@ -154,15 +154,15 @@ _id_57B2( var_0 )
 
 _id_7EBF( var_0, var_1, var_2 )
 {
-    if ( !_id_A5A4::_id_32DC( "staged_guy_" + var_2 ) )
-        _id_A5A4::_id_32DD( "staged_guy_" + var_2 );
+    if ( !maps\_utility::_id_32DC( "staged_guy_" + var_2 ) )
+        maps\_utility::_id_32DD( "staged_guy_" + var_2 );
     else
-        _id_A5A4::_id_32DA( "staged_guy_" + var_2 );
+        maps\_utility::_id_32DA( "staged_guy_" + var_2 );
 
-    if ( !_id_A5A4::_id_32DC( "guy2_in_" + var_2 ) )
-        _id_A5A4::_id_32DD( "guy2_in_" + var_2 );
+    if ( !maps\_utility::_id_32DC( "guy2_in_" + var_2 ) )
+        maps\_utility::_id_32DD( "guy2_in_" + var_2 );
     else
-        _id_A5A4::_id_32DA( "guy2_in_" + var_2 );
+        maps\_utility::_id_32DA( "guy2_in_" + var_2 );
 
     var_3 = _id_3E6E( var_0, var_2 );
     var_4 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
@@ -201,14 +201,14 @@ _id_7EBF( var_0, var_1, var_2 )
         if ( var_11._id_7ADC == 2 || var_11._id_7ADC == 5 )
         {
             var_6 = var_11;
-            var_11 _id_A581::_id_4244( var_10 );
+            var_11 maps\_spawner::_id_4244( var_10 );
         }
         else if ( var_11._id_7ADC == 3 || var_11._id_7ADC == 6 )
             var_8 = var_11;
         else if ( var_11._id_7ADC == 4 || var_11._id_7ADC == 7 )
         {
             var_7 = var_11;
-            var_11 _id_A581::_id_4244( var_10 );
+            var_11 maps\_spawner::_id_4244( var_10 );
         }
 
         var_1 = common_scripts\utility::_id_0CF6( var_1, var_11 );
@@ -238,7 +238,7 @@ _id_3DAF()
 
     for (;;)
     {
-        var_1 = _id_A5A4::_id_3F82( var_0._not_team, "targetname" );
+        var_1 = maps\_utility::_id_3F82( var_0._not_team, "targetname" );
 
         if ( isdefined( var_1._id_7B06 ) )
             return var_1;
@@ -271,12 +271,12 @@ _id_57D1( var_0, var_1 )
             var_3 = var_6;
     }
 
-    _id_A5A4::_id_32E0( "staged_guy_" + var_0 );
-    thread _id_A5A8::_id_9D06( var_2, undefined, var_0 );
+    maps\_utility::_id_32E0( "staged_guy_" + var_0 );
+    thread maps\_vehicle::_id_9D06( var_2, undefined, var_0 );
     var_2 waittill( "boarding_vehicle" );
-    thread _id_A5A8::_id_9D06( var_3, undefined, var_0 );
+    thread maps\_vehicle::_id_9D06( var_3, undefined, var_0 );
     var_3 waittill( "boarding_vehicle" );
-    _id_A5A4::_id_32DE( "guy2_in_" + var_0 );
+    maps\_utility::_id_32DE( "guy2_in_" + var_0 );
 }
 
 _id_9CF6( var_0, var_1, var_2 )
@@ -293,6 +293,6 @@ _id_9CF6( var_0, var_1, var_2 )
     self sethoverparams( 0, 0, 0 );
     self cleargoalyaw();
     self settargetyaw( common_scripts\utility::_id_38C8( var_1.angles )[1] );
-    _id_A5AA::_id_0646( _id_A5A4::_id_4417( var_1.origin ) + ( 0, 0, var_2 ), 1 );
+    maps\_vehicle_code::_id_0646( maps\_utility::_id_4417( var_1.origin ) + ( 0, 0, var_2 ), 1 );
     self waittill( "goal" );
 }

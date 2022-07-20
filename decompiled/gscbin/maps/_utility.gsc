@@ -177,7 +177,7 @@ _id_7F00( var_0, var_1, var_2 )
     if ( !var_2 && !can_set_vision_set( var_0 ) )
         return;
 
-    if ( _id_A5A5::_id_4D74( var_0 ) )
+    if ( maps\_utility_code::_id_4D74( var_0 ) )
         return;
 
     if ( !isdefined( var_1 ) )
@@ -278,7 +278,7 @@ _id_32E2( var_0, var_1 )
         if ( gettime() >= var_2 + var_1 * 1000 )
             break;
 
-        _id_A5A5::_id_32ED( var_0, var_1 );
+        maps\_utility_code::_id_32ED( var_0, var_1 );
     }
 }
 
@@ -297,7 +297,7 @@ ent_flag_waitopen_or_timeout( var_0, var_1 )
         if ( gettime() >= var_2 + var_1 * 1000 )
             break;
 
-        _id_A5A5::_id_32ED( var_0, var_1 );
+        maps\_utility_code::_id_32ED( var_0, var_1 );
     }
 }
 
@@ -451,7 +451,7 @@ _id_3CF9( var_0, var_1, var_2 )
 
 flag_wait_trigger( var_0, var_1 )
 {
-    _id_A5A5::_id_05AE( var_0, var_1 );
+    maps\_utility_code::_id_05AE( var_0, var_1 );
 }
 
 _id_3847( var_0, var_1, var_2 )
@@ -461,7 +461,7 @@ _id_3847( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) )
         var_2 = 0;
 
-    var_1 thread _id_A5A5::_id_05AE( var_0, var_2 );
+    var_1 thread maps\_utility_code::_id_05AE( var_0, var_2 );
     return var_1;
 }
 
@@ -473,7 +473,7 @@ _id_3848( var_0, var_1, var_2 )
         var_2 = 0;
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
-        var_1[var_3] thread _id_A5A5::_id_05AE( var_0, 0 );
+        var_1[var_3] thread maps\_utility_code::_id_05AE( var_0, 0 );
 
     return var_1;
 }
@@ -590,7 +590,7 @@ _id_1145( var_0, var_1, var_2, var_3 )
         level._id_24C2 = 1;
 
     var_4 = "levelshots/autosave/autosave_" + level.script_context + level._id_24C2;
-    var_5 = level _id_A514::_id_9896( level._id_24C2, "autosave", var_4, var_1, var_2, var_3, var_0 );
+    var_5 = level maps\_autosave::_id_9896( level._id_24C2, "autosave", var_4, var_1, var_2, var_3, var_0 );
 
     if ( isdefined( var_5 ) && var_5 )
         level._id_24C2++;
@@ -680,7 +680,7 @@ _id_3670( var_0, var_1 )
 
 _id_3F39( var_0, var_1, var_2 )
 {
-    return _id_A5A5::_id_20CB( var_0, var_1, var_2, ::_id_1FDF );
+    return maps\_utility_code::_id_20CB( var_0, var_1, var_2, ::_id_1FDF );
 }
 
 _id_3D00( var_0, var_1, var_2 )
@@ -1219,7 +1219,7 @@ _id_3D5F( var_0 )
 
 _id_38EF( var_0 )
 {
-    _id_A581::_id_38F1( var_0 );
+    maps\_spawner::_id_38F1( var_0 );
 }
 
 _id_7DB9( var_0, var_1 )
@@ -1235,7 +1235,7 @@ _id_7DB9( var_0, var_1 )
 
 set_ambient_preh1( var_0, var_1 )
 {
-    _id_A5E7::_id_123A( var_0, var_1 );
+    soundscripts\_audio_zone_manager::_id_123A( var_0, var_1 );
 }
 
 _id_3992( var_0, var_1, var_2, var_3 )
@@ -1628,7 +1628,7 @@ _id_69C5( var_0, var_1, var_2, var_3, var_4 )
 
     if ( isdefined( var_2 ) )
     {
-        if ( !isdefined( _id_A5A5::_id_9FBD( var_5 ) ) )
+        if ( !isdefined( maps\_utility_code::_id_9FBD( var_5 ) ) )
             var_5 stopsounds();
 
         wait 0.05;
@@ -1766,7 +1766,7 @@ _id_9E15( var_0 )
 
     for (;;)
     {
-        _id_A526::_id_2DE7( var_0 );
+        maps\_debug::_id_2DE7( var_0 );
         wait 0.05;
     }
 }
@@ -2285,12 +2285,9 @@ _id_0CF2( var_0, var_1 )
         }
 
         if ( var_5 )
-        {
             continue;
-            continue;
-        }
-
-        var_2[var_2.size] = var_4;
+        else
+            var_2[var_2.size] = var_4;
     }
 
     return var_2;
@@ -2534,7 +2531,7 @@ _id_1332( var_0 )
         if ( !var_3._id_51B3 )
             continue;
 
-        var_3 _id_A5A5::_id_9FFA();
+        var_3 maps\_utility_code::_id_9FFA();
     }
 
     var_4 = gettime() - anim._id_5602["allies"];
@@ -2778,12 +2775,12 @@ _id_3DFC( var_0 )
 
 _id_A0A4()
 {
-    _id_A5A5::_id_A0A6( 1 );
+    maps\_utility_code::_id_A0A6( 1 );
 }
 
 _id_A0A5()
 {
-    _id_A5A5::_id_A0A6( 0 );
+    maps\_utility_code::_id_A0A6( 0 );
 }
 
 _id_272C()
@@ -3063,13 +3060,13 @@ _id_8F68( var_0 )
 
 _id_8F6B( var_0, var_1 )
 {
-    var_0 _id_A5A5::_id_8F6A( var_0._id_0CD8[var_0._id_55AE - 1], var_1 );
+    var_0 maps\_utility_code::_id_8F6A( var_0._id_0CD8[var_0._id_55AE - 1], var_1 );
 }
 
 _id_8F69( var_0, var_1 )
 {
     for ( var_2 = 0; var_2 < var_1; var_2++ )
-        var_0 _id_A5A5::_id_8F6A( var_0._id_0CD8[var_2], var_0._id_0CD8[randomint( var_0._id_55AE )] );
+        var_0 maps\_utility_code::_id_8F6A( var_0._id_0CD8[var_2], var_0._id_0CD8[randomint( var_0._id_55AE )] );
 }
 
 _id_3EB0()
@@ -3266,7 +3263,7 @@ _id_5CDF()
         return;
     }
 
-    _id_A5A5::_id_5CD7( 0 );
+    maps\_utility_code::_id_5CD7( 0 );
     missionfailed();
 }
 
@@ -3318,12 +3315,12 @@ _id_7B20()
 
 _id_4493( var_0 )
 {
-    _id_A5A9::_id_4492( var_0 );
+    maps\_vehicle_aianim::_id_4492( var_0 );
 }
 
 _id_44AD( var_0, var_1 )
 {
-    _id_A5A9::_id_44AC( var_0, var_1 );
+    maps\_vehicle_aianim::_id_44AC( var_0, var_1 );
 }
 
 _id_3D7A( var_0, var_1 )
@@ -3415,7 +3412,7 @@ _id_2A74()
 
     self._id_63A1 = self._id_79E6;
     level._id_0D22[self.team][self._id_79E6] = common_scripts\utility::_id_0CF6( level._id_0D22[self.team][self._id_79E6], self );
-    _id_A51C::_id_5674();
+    maps\_colors::_id_5674();
     self._id_79E6 = undefined;
     self._id_250C = undefined;
 }
@@ -3473,7 +3470,7 @@ _id_7E38( var_0 )
 
     self._id_79E6 = var_1;
     level._id_0D22[self.team][self._id_79E6] = common_scripts\utility::_id_0CDA( level._id_0D22[self.team][self._id_79E6], self );
-    thread _id_A5A5::new_color_being_set( var_1 );
+    thread maps\_utility_code::new_color_being_set( var_1 );
 }
 
 _id_7E39( var_0 )
@@ -3536,7 +3533,7 @@ _id_51BE( var_0, var_1 )
     }
 
     for ( var_5 = 0; var_5 < var_2.size; var_5++ )
-        thread _id_A51C::_id_51BD( var_2[var_5], var_3[var_5], var_1 );
+        thread maps\_colors::_id_51BD( var_2[var_5], var_3[var_5], var_1 );
 }
 
 _id_1EA5( var_0, var_1 )
@@ -3551,7 +3548,7 @@ _id_1E95( var_0 )
 
 _id_7402()
 {
-    thread _id_A51C::_id_2050();
+    thread maps\_colors::_id_2050();
 }
 
 _id_2ACC()
@@ -3575,7 +3572,7 @@ _id_8944( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_3 ) )
         var_3 = "allies";
 
-    thread _id_A51C::_id_2055( var_0, var_1 );
+    thread maps\_colors::_id_2055( var_0, var_1 );
 }
 
 _id_1ECF()
@@ -3692,7 +3689,7 @@ _id_60ED( var_0, var_1, var_2, var_3, var_4 )
         self notify( "flashed" );
         self.flashendtime = gettime() + var_11 * 1000;
         self shellshock( "flashbang", var_11 );
-        thread _id_A5DC::aud_set_flashbang();
+        thread soundscripts\_audio::aud_set_flashbang();
         common_scripts\utility::_id_383F( "player_flashed" );
 
         if ( var_1 * var_2 > 0.5 )
@@ -3701,7 +3698,7 @@ _id_60ED( var_0, var_1, var_2, var_3, var_4 )
         wait(var_5[var_12]);
     }
 
-    thread _id_A5A5::_id_9A25( 0.05 );
+    thread maps\_utility_code::_id_9A25( 0.05 );
 }
 
 _id_38C1()
@@ -3760,10 +3757,10 @@ _id_38C1()
         self notify( "flashed" );
         self.flashendtime = gettime() + var_9 * 1000;
         self shellshock( "flashbang", var_9 );
-        thread _id_A5DC::aud_set_flashbang();
+        thread soundscripts\_audio::aud_set_flashbang();
         self _meth_83bf( "flashed", 0.1 );
         common_scripts\utility::_id_383F( "player_flashed" );
-        thread _id_A5A5::_id_9A25( var_9 );
+        thread maps\_utility_code::_id_9A25( var_9 );
         wait 0.1;
 
         if ( isdefined( level.playercardbackground._id_60E6 ) && level.playercardbackground._id_60E6 )
@@ -3939,27 +3936,27 @@ _id_4BB0( var_0 )
 
 _id_9CB3()
 {
-    _id_A5AA::_id_9D16();
+    maps\_vehicle_code::_id_9D16();
 }
 
 _id_9D1F()
 {
-    thread _id_A5AA::_id_9D20();
+    thread maps\_vehicle_code::_id_9D20();
 }
 
 _id_9CF5( var_0 )
 {
-    _id_A5AA::_id_9CF7( var_0 );
+    maps\_vehicle_code::_id_9CF7( var_0 );
 }
 
 _id_9CFC( var_0 )
 {
-    _id_A5AA::_id_9CFD( var_0 );
+    maps\_vehicle_code::_id_9CFD( var_0 );
 }
 
 _id_9CBF( var_0, var_1 )
 {
-    _id_A5A8::_id_9D17( var_0, var_1 );
+    maps\_vehicle::_id_9D17( var_0, var_1 );
 }
 
 _id_4417( var_0 )
@@ -3984,7 +3981,7 @@ _id_4155( var_0 )
 
 _id_4156( var_0 )
 {
-    return _id_A5AA::_id_05BE( var_0 );
+    return maps\_vehicle_code::_id_05BE( var_0 );
 }
 
 _id_28B0( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -4129,7 +4126,7 @@ _id_278B( var_0 )
 
 _id_5777( var_0, var_1, var_2, var_3 )
 {
-    thread _id_A5A5::_id_5778( var_0, var_1, var_2, var_3 );
+    thread maps\_utility_code::_id_5778( var_0, var_1, var_2, var_3 );
 }
 
 _id_A348( var_0, var_1, var_2, var_3 )
@@ -4184,7 +4181,7 @@ waitspread( var_0, var_1 )
         level._id_9FE1 = 0;
         var_2 = level._id_9FE1;
         level._id_9FE1++;
-        thread _id_A5A5::_id_A05E( var_0, var_1 );
+        thread maps\_utility_code::_id_A05E( var_0, var_1 );
     }
     else
     {
@@ -4222,13 +4219,13 @@ _id_2A32( var_0 )
     }
 
     _id_134E();
-    _id_A510::_id_0C21( self, var_0 );
+    maps\_anim::_id_0C21( self, var_0 );
 }
 
 _id_3C8D( var_0, var_1 )
 {
     _id_134E();
-    _id_A510::_id_0BCF( self, var_0, undefined, undefined, var_1 );
+    maps\_anim::_id_0BCF( self, var_0, undefined, undefined, var_1 );
 }
 
 _id_70BD( var_0, var_1, var_2 )
@@ -4285,7 +4282,7 @@ _id_70C1( var_0 )
     var_1 linkto( level._id_6BCD );
     var_1 playsound( level._id_78B9[var_0], "sounddone" );
 
-    if ( !isdefined( _id_A5A5::_id_9FBD( var_1 ) ) )
+    if ( !isdefined( maps\_utility_code::_id_9FBD( var_1 ) ) )
         var_1 stopsounds();
 
     wait 0.05;
@@ -4382,32 +4379,32 @@ _id_70C8( var_0 )
 _id_866C( var_0, var_1 )
 {
     var_2 = getsndaliasvalue( var_0, "squelchname" );
-    _id_A5A5::_id_07AF( var_0 );
+    maps\_utility_code::_id_07AF( var_0 );
     _id_70BD( var_0, var_1, var_2 );
 }
 
 _id_866D( var_0 )
 {
-    _id_A5A5::_id_07AF( var_0 );
+    maps\_utility_code::_id_07AF( var_0 );
     _id_70C9();
     _id_70BF( var_0 );
 }
 
 _id_866F( var_0 )
 {
-    _id_A5A5::_id_07AF( var_0 );
+    maps\_utility_code::_id_07AF( var_0 );
     _id_70C1( var_0 );
 }
 
 _id_865D( var_0 )
 {
-    _id_A5A5::_id_07A9( var_0 );
+    maps\_utility_code::_id_07A9( var_0 );
     _id_2A32( var_0 );
 }
 
 _id_865E( var_0 )
 {
-    _id_A5A5::_id_07AA( var_0 );
+    maps\_utility_code::_id_07AA( var_0 );
     _id_3C8D( var_0 );
 }
 
@@ -4953,12 +4950,12 @@ _id_4E8C( var_0, var_1 )
 
 _id_9FBB( var_0 )
 {
-    _id_A5A5::_id_9FC3( var_0, "script_noteworthy" );
+    maps\_utility_code::_id_9FC3( var_0, "script_noteworthy" );
 }
 
 _id_9FC0( var_0 )
 {
-    _id_A5A5::_id_9FC3( var_0, "targetname" );
+    maps\_utility_code::_id_9FC3( var_0, "targetname" );
 }
 
 _id_9FA1( var_0, var_1 )
@@ -4990,14 +4987,14 @@ _id_9F94( var_0, var_1 )
     var_3 = common_scripts\utility::_id_0CDD( var_3, getentarray( var_1, "targetname" ) );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
-        var_2 thread _id_A5A5::_id_32EE( var_3[var_4] );
+        var_2 thread maps\_utility_code::_id_32EE( var_3[var_4] );
 
     var_2 waittill( "done" );
 }
 
 _id_2F2A( var_0 )
 {
-    var_1 = _id_A581::_id_89C1( var_0 );
+    var_1 = maps\_spawner::_id_89C1( var_0 );
     return var_1;
 }
 
@@ -5006,25 +5003,25 @@ _id_2F29( var_0, var_1 )
     if ( !isdefined( var_0 ) )
         var_0 = self;
 
-    var_2 = _id_A581::_id_89C1( var_0 );
+    var_2 = maps\_spawner::_id_89C1( var_0 );
 
     if ( isdefined( var_1 ) && var_1 )
         var_2 [[ level._id_2EC0 ]]();
 
     var_2._id_88FE = var_0._id_8900;
-    var_2 thread _id_A581::_id_76B6();
+    var_2 thread maps\_spawner::_id_76B6();
     var_2.spawntime = var_0;
     return var_2;
 }
 
 _id_9002( var_0 )
 {
-    return _id_A581::_id_89C8( var_0 );
+    return maps\_spawner::_id_89C8( var_0 );
 }
 
 _id_9007( var_0 )
 {
-    return _id_A581::_id_89C9( var_0 );
+    return maps\_spawner::_id_89C9( var_0 );
 }
 
 _id_3EA3()
@@ -5123,7 +5120,7 @@ _id_2BC3( var_0, var_1, var_2, var_3 )
 
 scrub()
 {
-    _id_A581::_id_7B48();
+    maps\_spawner::_id_7B48();
 }
 
 _id_7C82( var_0, var_1 )
@@ -5206,7 +5203,7 @@ _id_0764( var_0, var_1, var_2, var_3 )
 
 _id_84DB( var_0 )
 {
-    thread _id_A5A5::_id_8514( var_0 );
+    thread maps\_utility_code::_id_8514( var_0 );
 }
 
 _id_4857( var_0 )
@@ -5520,13 +5517,13 @@ _id_0707( var_0 )
     if ( isdefined( self._id_7975 ) )
     {
         self.activated_color_trigger = 1;
-        _id_A51C::activate_color_trigger( "allies" );
+        maps\_colors::activate_color_trigger( "allies" );
     }
 
     if ( isdefined( self._id_7976 ) )
     {
         self.activated_color_trigger = 1;
-        _id_A51C::activate_color_trigger( "axis" );
+        maps\_colors::activate_color_trigger( "axis" );
     }
 
     self notify( "trigger", var_0 );
@@ -5712,22 +5709,22 @@ _id_39D0( var_0, var_1 )
 
 _id_5696( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    _id_A5A5::_id_5698( level.playercardbackground, var_0, var_1, var_2, var_3, var_4, var_5, var_6, 0 );
+    maps\_utility_code::_id_5698( level.playercardbackground, var_0, var_1, var_2, var_3, var_4, var_5, var_6, 0 );
 }
 
 lerp_player_view_to_tag_smoothly( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    _id_A5A5::lerp_player_view_to_tag_smoothly_internal( level.playercardbackground, var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+    maps\_utility_code::lerp_player_view_to_tag_smoothly_internal( level.playercardbackground, var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
 lerp_player_view_to_tag_preh1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    _id_A5A5::_id_5698( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 0 );
+    maps\_utility_code::_id_5698( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 0 );
 }
 
 _id_5697( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    _id_A5A5::_id_5698( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 1 );
+    maps\_utility_code::_id_5698( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 1 );
 }
 
 _id_5693( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -5754,7 +5751,7 @@ _id_5693( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
 _id_5699( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    _id_A5A5::_id_569A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 0 );
+    maps\_utility_code::_id_569A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 0 );
 }
 
 _id_5695( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
@@ -5820,8 +5817,8 @@ _id_6BA7( var_0 )
 _id_A089( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawnstruct();
-    thread _id_A5A5::_id_A08A( var_4, var_0, var_1 );
-    thread _id_A5A5::_id_A08A( var_4, var_2, var_3 );
+    thread maps\_utility_code::_id_A08A( var_4, var_0, var_1 );
+    thread maps\_utility_code::_id_A08A( var_4, var_2, var_3 );
     var_4 waittill( "done" );
 }
 
@@ -5839,15 +5836,15 @@ _id_2B4A( var_0, var_1, var_2, var_3, var_4 )
         if ( var_5 [[ level._id_97A7[var_0] ]]() )
             return;
 
-        var_5 thread _id_A5A5::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_1, var_2, var_3, undefined, undefined, var_4, level.trigger_hint_doubleline[var_0] );
+        var_5 thread maps\_utility_code::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_1, var_2, var_3, undefined, undefined, var_4, level.trigger_hint_doubleline[var_0] );
     }
     else
-        var_5 thread _id_A5A5::_id_490D( level._id_97A8[var_0], undefined, undefined, undefined, undefined, undefined, undefined, var_4, level.trigger_hint_doubleline[var_0] );
+        var_5 thread maps\_utility_code::_id_490D( level._id_97A8[var_0], undefined, undefined, undefined, undefined, undefined, undefined, var_4, level.trigger_hint_doubleline[var_0] );
 }
 
 _id_48F9( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    _id_A5A5::_id_48FA( var_0 );
+    maps\_utility_code::_id_48FA( var_0 );
 
     if ( !isdefined( var_1 ) )
         _id_2B4A( var_0, var_2, var_3, var_4, var_5 );
@@ -5862,8 +5859,8 @@ _id_48FC( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( var_6 [[ level._id_97A7[var_0] ]]() )
         return;
 
-    _id_A5A5::_id_48FA( var_0 );
-    var_6 thread _id_A5A5::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_3, var_4, var_5, var_1, var_2, undefined, level.trigger_hint_doubleline[var_0] );
+    maps\_utility_code::_id_48FA( var_0 );
+    var_6 thread maps\_utility_code::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_3, var_4, var_5, var_1, var_2, undefined, level.trigger_hint_doubleline[var_0] );
 }
 
 _id_0746( var_0, var_1, var_2, var_3, var_4 )
@@ -5953,7 +5950,7 @@ _id_2B4F( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( var_6 [[ level._id_97A7[var_0] ]]() )
         return;
 
-    var_6 thread _id_A5A5::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_2, var_3, var_4, var_1, undefined, var_5, level.trigger_hint_doubleline[var_0] );
+    var_6 thread maps\_utility_code::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_2, var_3, var_4, var_1, undefined, var_5, level.trigger_hint_doubleline[var_0] );
 }
 
 _id_2B50( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -5963,7 +5960,7 @@ _id_2B50( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( var_6 [[ level._id_97A7[var_0] ]]() )
         return;
 
-    var_6 thread _id_A5A5::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_3, var_4, var_5, var_1, var_2, undefined, level.trigger_hint_doubleline[var_0] );
+    var_6 thread maps\_utility_code::_id_490D( level._id_97A8[var_0], level._id_97A7[var_0], var_3, var_4, var_5, var_1, var_2, undefined, level.trigger_hint_doubleline[var_0] );
 }
 
 _id_2B4C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -5971,9 +5968,9 @@ _id_2B4C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( !isdefined( var_6 ) )
         var_6 = 0;
 
-    var_10 = _id_A5A5::_id_48E2( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+    var_10 = maps\_utility_code::_id_48E2( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
     thread _id_2B4A( var_10, var_7, var_8, var_9 );
-    thread _id_A5A5::_id_48E3( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+    thread maps\_utility_code::_id_48E3( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
 _id_2B4D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
@@ -5981,9 +5978,9 @@ _id_2B4D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( !isdefined( var_7 ) )
         var_7 = 0;
 
-    var_11 = _id_A5A5::_id_48E2( var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
+    var_11 = maps\_utility_code::_id_48E2( var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
     thread _id_2B4F( var_11, var_1, var_8, var_9, var_10 );
-    thread _id_A5A5::_id_48E3( var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
+    thread maps\_utility_code::_id_48E3( var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 _id_2B4E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
@@ -5991,9 +5988,9 @@ _id_2B4E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( !isdefined( var_8 ) )
         var_8 = 0;
 
-    var_12 = _id_A5A5::_id_48E2( var_0, var_3, var_4, var_5, var_6, var_7, var_8 );
+    var_12 = maps\_utility_code::_id_48E2( var_0, var_3, var_4, var_5, var_6, var_7, var_8 );
     thread _id_2B50( var_12, var_1, var_2, var_9, var_10, var_11 );
-    thread _id_A5A5::_id_48E3( var_0, var_3, var_4, var_5, var_6, var_7, var_8 );
+    thread maps\_utility_code::_id_48E3( var_0, var_3, var_4, var_5, var_6, var_7, var_8 );
 }
 
 _id_1CC6( var_0, var_1, var_2, var_3 )
@@ -6108,17 +6105,17 @@ _id_88C3( var_0, var_1 )
 _id_3AF2( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = spawnstruct();
-    var_6 thread _id_A5A5::_id_3AF6( self, var_0, var_1, var_2, var_3, var_4, var_5 );
-    return _id_A5A5::_id_3AFA( var_6 );
+    var_6 thread maps\_utility_code::_id_3AF6( self, var_0, var_1, var_2, var_3, var_4, var_5 );
+    return maps\_utility_code::_id_3AFA( var_6 );
 }
 
 _id_3AF8( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = spawnstruct();
-    var_7 thread _id_A5A5::_id_3AF6( self, var_1, var_2, var_3, var_4, var_5, var_6 );
+    var_7 thread maps\_utility_code::_id_3AF6( self, var_1, var_2, var_3, var_4, var_5, var_6 );
 
     if ( isdefined( var_7._id_3AF5 ) || var_7 common_scripts\utility::_id_A073( var_0, "function_stack_func_begun" ) != "timeout" )
-        return _id_A5A5::_id_3AFA( var_7 );
+        return maps\_utility_code::_id_3AFA( var_7 );
     else
     {
         var_7 notify( "death" );
@@ -6238,7 +6235,7 @@ _id_7E47( var_0 )
 
 _id_62EC( var_0 )
 {
-    _id_A5A5::_id_62F4( var_0 );
+    maps\_utility_code::_id_62F4( var_0 );
     objective_state( var_0, "done" );
     level notify( "objective_complete" + var_0 );
 }
@@ -6261,7 +6258,7 @@ _id_4697( var_0, var_1, var_2, var_3 )
     if ( var_4 )
         self _meth_814f( _id_3FAC( var_5 ), 1, 0, 1.1 );
     else
-        _id_A510::_id_0BC9( self, var_5 );
+        maps\_anim::_id_0BC9( self, var_5 );
 }
 
 _id_0D08( var_0, var_1, var_2 )
@@ -6280,7 +6277,7 @@ _id_0D08( var_0, var_1, var_2 )
             var_6 = var_5 _id_8975();
 
             if ( isdefined( var_6._not_team ) && !isdefined( var_6._id_7A40 ) )
-                var_6 thread _id_A5A8::_id_427A();
+                var_6 thread maps\_vehicle::_id_427A();
 
             var_3[var_3.size] = var_6;
             continue;
@@ -6320,7 +6317,7 @@ _id_0D0A( var_0, var_1, var_2, var_3 )
             var_7 = var_6 _id_8975();
 
             if ( isdefined( var_7._not_team ) && !isdefined( var_7._id_7A40 ) )
-                var_7 thread _id_A5A8::_id_427A();
+                var_7 thread maps\_vehicle::_id_427A();
 
             var_4[var_4.size] = var_7;
             continue;
@@ -6357,7 +6354,7 @@ _id_0D0F( var_0, var_1, var_2, var_3 )
         if ( isdefined( var_3 ) && var_3 )
             _id_286F( var_5 );
 
-        var_6 = _id_A581::_id_3E35( var_5 );
+        var_6 = maps\_spawner::_id_3E35( var_5 );
         var_4 = common_scripts\utility::_id_0CDD( var_4, var_6 );
     }
 
@@ -6375,7 +6372,7 @@ _id_0D11( var_0, var_1, var_2, var_3, var_4 )
         if ( isdefined( var_4 ) && var_4 )
             _id_286F( var_6 );
 
-        var_7 = _id_A581::_id_3E35( var_6 );
+        var_7 = maps\_spawner::_id_3E35( var_6 );
         var_5 = common_scripts\utility::_id_0CDD( var_5, var_7 );
     }
 
@@ -6413,7 +6410,7 @@ _id_0D0E( var_0, var_1, var_2, var_3 )
         if ( isdefined( var_3 ) && var_3 )
             _id_286F( var_5 );
 
-        var_6 = _id_A581::_id_3E35( var_5 );
+        var_6 = maps\_spawner::_id_3E35( var_5 );
         var_4 = common_scripts\utility::_id_0CDD( var_4, var_6 );
     }
 
@@ -6494,7 +6491,7 @@ _id_0757( var_0, var_1, var_2 )
     }
 
     level._id_2A18[var_3] = 1;
-    var_5 = _id_A546::_id_2401( "default", 1.5 );
+    var_5 = maps\_hud_util::_id_2401( "default", 1.5 );
     var_5._id_57F4 = 0;
     var_5.alignx = "left";
     var_5.aligny = "top";
@@ -6635,12 +6632,12 @@ _id_502F()
 
 _id_114E( var_0 )
 {
-    return _id_A514::_id_055C( var_0 );
+    return maps\_autosave::_id_055C( var_0 );
 }
 
 _id_114F()
 {
-    return _id_A514::_id_055C( 1 );
+    return maps\_autosave::_id_055C( 1 );
 }
 
 _id_7E43( var_0 )
@@ -6725,12 +6722,12 @@ _id_7065()
 
 _id_0CA2()
 {
-    _id_A513::_id_7E35( 0 );
+    maps\_art::_id_7E35( 0 );
 }
 
 _id_0CA1()
 {
-    _id_A513::_id_7E35( 1 );
+    maps\_art::_id_7E35( 1 );
 }
 
 _id_0C3D()
@@ -6846,7 +6843,7 @@ _id_0D18( var_0, var_1, var_2 )
         var_6 = var_3[var_5];
         var_4[var_6] = spawnstruct();
         var_4[var_6]._id_0558 = 1;
-        var_4[var_6] thread _id_A5A5::_id_0D19( var_0[var_6], var_1, var_2 );
+        var_4[var_6] thread maps\_utility_code::_id_0D19( var_0[var_6], var_1, var_2 );
     }
 
     for ( var_5 = 0; var_5 < var_3.size; var_5++ )
@@ -6875,7 +6872,7 @@ _id_50A9()
 
 _id_7438()
 {
-    level.playercardbackground.threatsightdelayfalloff = int( _id_A537::_id_3DD0( "threatbias", 1 ) );
+    level.playercardbackground.threatsightdelayfalloff = int( maps\_gameskill::_id_3DD0( "threatbias", 1 ) );
 }
 
 _id_A0AC( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -7203,8 +7200,8 @@ _id_2BDC( var_0 )
     level._id_76A7 = [];
     level._id_76AD = [];
     var_1.count = var_2.size;
-    var_1 common_scripts\utility::_id_0CF0( var_2, _id_A5A5::_id_A091, var_3 );
-    var_1 thread _id_A5A5::_id_2BB5( var_7 );
+    var_1 common_scripts\utility::_id_0CF0( var_2, maps\_utility_code::_id_A091, var_3 );
+    var_1 thread maps\_utility_code::_id_2BB5( var_7 );
     var_1 endon( "any_funcs_aborted" );
 
     for (;;)
@@ -7216,9 +7213,9 @@ _id_2BDC( var_0 )
     }
 
     var_1 notify( "all_funcs_ended" );
-    common_scripts\utility::_id_0CF0( var_4, _id_A5A5::_id_33EC, [] );
-    common_scripts\utility::_id_0CF0( var_5, _id_A5A5::_id_33EA );
-    common_scripts\utility::_id_0CF0( var_6, _id_A5A5::_id_33EB );
+    common_scripts\utility::_id_0CF0( var_4, maps\_utility_code::_id_33EC, [] );
+    common_scripts\utility::_id_0CF0( var_5, maps\_utility_code::_id_33EA );
+    common_scripts\utility::_id_0CF0( var_6, maps\_utility_code::_id_33EB );
 }
 
 _id_2BC1()
@@ -7228,7 +7225,7 @@ _id_2BC1()
     level._id_76AB = [];
 
     foreach ( var_3 in var_1 )
-        level _id_A5A5::_id_33EC( var_3, [] );
+        level maps\_utility_code::_id_33EC( var_3, [] );
 
     var_0 notify( "all_funcs_ended" );
 }
@@ -7424,7 +7421,7 @@ _id_5972( var_0, var_1 )
 
 _id_60D6()
 {
-    _id_A530::_id_05FF();
+    maps\_endmission::_id_05FF();
 }
 
 _id_590F( var_0, var_1, var_2, var_3, var_4 )
@@ -7687,19 +7684,19 @@ _id_6008( var_0, var_1, var_2 )
 
 _id_5FFE( var_0, var_1, var_2, var_3, var_4 )
 {
-    thread _id_A5A5::_id_5FFF( var_0, var_1, var_2, var_3, var_4 );
+    thread maps\_utility_code::_id_5FFF( var_0, var_1, var_2, var_3, var_4 );
 }
 
 _id_6001( var_0, var_1, var_2, var_3, var_4 )
 {
-    thread _id_A5A5::_id_5FFF( var_0, var_1, var_2, var_3, var_4, 1 );
+    thread maps\_utility_code::_id_5FFF( var_0, var_1, var_2, var_3, var_4, 1 );
 }
 
 _id_6003( var_0, var_1, var_2, var_3 )
 {
     if ( isdefined( var_1 ) && var_1 > 0 )
     {
-        thread _id_A5A5::_id_6004( var_0, var_1, var_2, var_3 );
+        thread maps\_utility_code::_id_6004( var_0, var_1, var_2, var_3 );
         return;
     }
 
@@ -7950,7 +7947,7 @@ _id_9723()
     if ( isdefined( self.entity ) )
         var_0[var_0.size] = self.entity;
 
-    common_scripts\utility::_id_0CF0( var_0, _id_A5A5::_id_9724 );
+    common_scripts\utility::_id_0CF0( var_0, maps\_utility_code::_id_9724 );
 }
 
 _id_651D( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -8065,7 +8062,7 @@ _id_396A( var_0, var_1, var_2, var_3 )
 
     var_5 = self._id_79E9;
     self._id_79E9 = 1;
-    _id_A581::_id_4241( var_0, var_4, var_2, var_1, var_3 );
+    maps\_spawner::_id_4241( var_0, var_4, var_2, var_1, var_3 );
     self._id_79E9 = var_5;
 }
 
@@ -8087,7 +8084,7 @@ _id_30BC( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_5 = 0;
 
     self._id_2D2C = var_5;
-    thread _id_A5A5::_id_2FE4( var_0, var_1, var_2, var_3, var_4 );
+    thread maps\_utility_code::_id_2FE4( var_0, var_1, var_2, var_3, var_4 );
 }
 
 _id_2A9B()
@@ -8277,15 +8274,15 @@ _id_6C22( var_0, var_1 )
     if ( !isdefined( level.playercardbackground._id_3BC4 ) )
         level.playercardbackground._id_3BC4 = var_2;
 
-    var_3 = _id_A5A5::_id_3BC5;
-    var_4 = _id_A5A5::_id_3BC6;
+    var_3 = maps\_utility_code::_id_3BC5;
+    var_4 = maps\_utility_code::_id_3BC6;
     level.playercardbackground thread _id_6C21( var_0, var_1, var_3, var_4, "player_speed_set" );
 }
 
 _id_6A7A( var_0, var_1 )
 {
-    var_2 = _id_A5A5::_id_3BC1;
-    var_3 = _id_A5A5::_id_3BC2;
+    var_2 = maps\_utility_code::_id_3BC1;
+    var_3 = maps\_utility_code::_id_3BC2;
     level.playercardbackground thread _id_6C21( var_0, var_1, var_2, var_3, "player_bob_scale_set" );
 }
 
@@ -8299,8 +8296,8 @@ _id_149B( var_0, var_1 )
     if ( !isdefined( var_2._id_5F7A ) )
         var_2._id_5F7A = 1.0;
 
-    var_3 = _id_A5A5::_id_5F75;
-    var_4 = _id_A5A5::_id_5F79;
+    var_3 = maps\_utility_code::_id_5F75;
+    var_4 = maps\_utility_code::_id_5F79;
     var_2 thread _id_6C21( var_0, var_1, var_3, var_4, "blend_movespeedscale" );
 }
 
@@ -8441,7 +8438,7 @@ _id_139F( var_0, var_1, var_2 )
     var_3 allowprone( 0 );
     var_3 allowcrouch( 1 );
     var_3 allowstand( 0 );
-    var_3 thread _id_A5A5::_id_2D7B( var_5, var_1, var_2 );
+    var_3 thread maps\_utility_code::_id_2D7B( var_5, var_1, var_2 );
 }
 
 _id_31C7()
@@ -8461,12 +8458,12 @@ _id_31C7()
 
 _id_8975()
 {
-    return _id_A5A8::_id_9D41( self );
+    return maps\_vehicle::_id_9D41( self );
 }
 
 _id_3F89( var_0 )
 {
-    var_1 = _id_A59E::_id_3DCA();
+    var_1 = maps\_trigger::_id_3DCA();
     var_2 = [];
 
     foreach ( var_6, var_4 in var_1 )
@@ -8478,7 +8475,7 @@ _id_3F89( var_0 )
         var_2 = common_scripts\utility::_id_0CDD( var_2, var_5 );
     }
 
-    var_7 = _id_A59E::_id_3DCB();
+    var_7 = maps\_trigger::_id_3DCB();
 
     foreach ( var_9, var_4 in var_7 )
     {
@@ -8500,7 +8497,7 @@ _id_3F89( var_0 )
 
 _id_3F84( var_0 )
 {
-    var_1 = _id_A59E::_id_3DCA();
+    var_1 = maps\_trigger::_id_3DCA();
     var_2 = [];
 
     foreach ( var_6, var_4 in var_1 )
@@ -8512,7 +8509,7 @@ _id_3F84( var_0 )
         var_2 = common_scripts\utility::_id_0CDD( var_2, var_5 );
     }
 
-    var_7 = _id_A59E::_id_3DCB();
+    var_7 = maps\_trigger::_id_3DCB();
 
     foreach ( var_9, var_4 in var_7 )
     {
@@ -8600,7 +8597,7 @@ _id_3E58( var_0, var_1 )
     else
         var_3._id_4E9E = var_1;
 
-    var_3 thread _id_A5A5::_id_9AD8( var_2, var_0 );
+    var_3 thread maps\_utility_code::_id_9AD8( var_2, var_0 );
     return var_3;
 }
 
@@ -8729,7 +8726,7 @@ _id_A095( var_0, var_1, var_2 )
 _id_07B3( var_0 )
 {
     var_1 = spawnstruct();
-    var_1 thread _id_A5A5::_id_07B4( var_0 );
+    var_1 thread maps\_utility_code::_id_07B4( var_0 );
     return var_1;
 }
 
@@ -8835,11 +8832,11 @@ _id_48B0( var_0, var_1, var_2, var_3 )
     level endon( "clearing_hints" );
 
     if ( isdefined( level._id_4903 ) )
-        level._id_4903 _id_A546::_id_28E9();
+        level._id_4903 maps\_hud_util::_id_28E9();
 
-    _id_A546::_id_0763( var_3, var_2, 0.5 );
-    level._id_4903 = _id_A546::_id_2401( "timer", 0.5 );
-    level._id_4903 _id_A546::_id_7FEE( "TOP", undefined, 0, 127 + var_4 );
+    maps\_hud_util::_id_0763( var_3, var_2, 0.5 );
+    level._id_4903 = maps\_hud_util::_id_2401( "timer", 0.5 );
+    level._id_4903 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 127 + var_4 );
     level._id_4903.hindlegstraceoffset = 1;
     level._id_4903.high_priority = 1;
     level._id_4903.color = ( 1, 1, 1 );
@@ -8857,10 +8854,10 @@ _id_48B0( var_0, var_1, var_2, var_3 )
 
     level._id_4903 fadeovertime( var_5 );
     level._id_4903.alpha = 0;
-    _id_A546::fade_hint_background( var_5 );
+    maps\_hud_util::fade_hint_background( var_5 );
     wait(var_5);
-    _id_A546::clear_hint_background();
-    level._id_4903 _id_A546::_id_28E9();
+    maps\_hud_util::clear_hint_background();
+    level._id_4903 maps\_hud_util::_id_28E9();
 }
 
 _id_48CB( var_0 )
@@ -8874,7 +8871,7 @@ _id_48CB( var_0 )
             level._id_4903 fadeovertime( var_0 );
 
         level._id_4903.alpha = 0;
-        _id_A546::fade_hint_background( var_0 );
+        maps\_hud_util::fade_hint_background( var_0 );
 
         if ( var_0 > 0 )
             wait(var_0);
@@ -8897,7 +8894,7 @@ _id_5306( var_0, var_1, var_2 )
         {
             if ( isalive( var_6 ) )
             {
-                var_6 thread _id_A5A5::_id_5307( var_1, var_2 );
+                var_6 thread maps\_utility_code::_id_5307( var_1, var_2 );
                 continue;
             }
 
@@ -8928,7 +8925,7 @@ _id_3E2E( var_0, var_1, var_2, var_3 )
 _id_239F( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawnstruct();
-    var_4 childthread _id_A5A5::_id_6FDF( var_0, self, var_1, var_2, var_3 );
+    var_4 childthread maps\_utility_code::_id_6FDF( var_0, self, var_1, var_2, var_3 );
     return var_4;
 }
 
@@ -9342,7 +9339,7 @@ _id_9C21()
 _id_395E( var_0, var_1 )
 {
     if ( !isplayer( self ) )
-        _id_A513::_id_4CF3();
+        maps\_art::_id_4CF3();
     else
         _id_4D56();
 
@@ -9497,7 +9494,7 @@ _id_59D3( var_0 )
             if ( !var_5 istouching( var_8 ) )
                 continue;
 
-            var_5 _id_A5A5::_id_7064( var_8 );
+            var_5 maps\_utility_code::_id_7064( var_8 );
             break;
         }
     }
@@ -9868,7 +9865,7 @@ _id_6A96()
 {
     level.playercardbackground _id_32DA( "player_zero_attacker_accuracy" );
     level.playercardbackground.ikweight = 0;
-    level.playercardbackground _id_A537::_id_9AD3();
+    level.playercardbackground maps\_gameskill::_id_9AD3();
 }
 
 _id_6AA1()
@@ -9882,7 +9879,7 @@ _id_7E98( var_0 )
 {
     var_1 = _id_3E25();
     var_1._id_4441._id_6A64 = var_0;
-    var_1 _id_A537::_id_9AD3();
+    var_1 maps\_gameskill::_id_9AD3();
 }
 
 _id_0CEB( var_0 )
@@ -10075,7 +10072,7 @@ _id_2A70( var_0, var_1 )
     var_2 = _id_791D( var_0 );
 
     foreach ( var_5, var_4 in var_2 )
-        thread _id_A537::_id_43E7( var_5 );
+        thread maps\_gameskill::_id_43E7( var_5 );
 }
 
 _id_14BA( var_0 )
@@ -10086,7 +10083,7 @@ _id_14BA( var_0 )
     var_1 = _id_791D( self._id_258D.origin );
 
     foreach ( var_4, var_3 in var_1 )
-        thread _id_A537::_id_14B6( var_4 );
+        thread maps\_gameskill::_id_14B6( var_4 );
 }
 
 _id_791D( var_0 )
@@ -10231,12 +10228,12 @@ _id_936E( var_0 )
 
 _id_27EF( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    thread _id_A5A5::_id_27F1( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
+    thread maps\_utility_code::_id_27F1( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 _id_27CF( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    childthread _id_A5A5::_id_27D0( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
+    childthread maps\_utility_code::_id_27D0( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 _id_386F( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -10246,7 +10243,7 @@ _id_386F( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     if ( !isarray( var_0 ) )
         var_0 = [ var_0, 0 ];
 
-    thread _id_A5A5::_id_3870( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
+    thread maps\_utility_code::_id_3870( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 _id_A0F5( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -10256,7 +10253,7 @@ _id_A0F5( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     if ( !isarray( var_0 ) )
         var_0 = [ var_0, 0 ];
 
-    thread _id_A5A5::_id_A0F6( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
+    thread maps\_utility_code::_id_A0F6( var_1, var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 _id_30B4( var_0 )
@@ -10287,18 +10284,18 @@ _id_742F( var_0 )
 _id_7DFC( var_0 )
 {
     level._id_2545 = var_0;
-    thread _id_A537::_id_745C();
+    thread maps\_gameskill::_id_745C();
 }
 
 _id_1EA9()
 {
     level._id_2545 = undefined;
-    thread _id_A537::_id_745C();
+    thread maps\_gameskill::_id_745C();
 }
 
 _id_7F0C( var_0, var_1, var_2 )
 {
-    _id_A511::_id_4D79();
+    maps\_animatedmodels::_id_4D79();
 
     if ( isdefined( var_2 ) )
         level._id_A32C._id_9C65 = var_2;
@@ -10334,7 +10331,7 @@ _id_8F56( var_0 )
 _id_7DE0( var_0, var_1 )
 {
     level._id_132D[var_0] = var_1;
-    _id_A5A5::_id_9AA1();
+    maps\_utility_code::_id_9AA1();
 }
 
 _id_62EB( var_0 )
@@ -10659,7 +10656,7 @@ _id_1E6B( var_0 )
 _id_07B6( var_0 )
 {
     if ( !isdefined( self._id_97A0 ) )
-        thread _id_A5A5::_id_07B5();
+        thread maps\_utility_code::_id_07B5();
 
     self._id_97A0[self._id_97A0.size] = var_0;
 }
@@ -10749,12 +10746,12 @@ _id_5012()
 
 _id_074C()
 {
-    _id_A524::_id_5E3F();
+    maps\_damagefeedback::_id_5E3F();
 }
 
 _id_733D()
 {
-    _id_A524::_id_8EF9();
+    maps\_damagefeedback::_id_8EF9();
 }
 
 _id_5017()
@@ -11603,13 +11600,13 @@ _id_396D( var_0 )
 
     if ( isdefined( var_0.animation ) )
     {
-        var_0 _id_A510::_id_0BD0( self, var_0.animation );
+        var_0 maps\_anim::_id_0BD0( self, var_0.animation );
         self notify( "starting_anim", var_0.animation );
 
         if ( isdefined( var_0._id_7A99 ) && issubstr( var_0._id_7A99, "gravity" ) )
-            var_0 _id_A510::_id_0BCD( self, var_0.animation );
+            var_0 maps\_anim::_id_0BCD( self, var_0.animation );
         else
-            var_0 _id_A510::_id_0BD2( self, var_0.animation );
+            var_0 maps\_anim::_id_0BD2( self, var_0.animation );
 
         self _meth_81aa( self.origin );
     }
@@ -11623,13 +11620,13 @@ _id_396C( var_0 )
 
     if ( isdefined( var_0.animation ) )
     {
-        var_0 _id_A510::_id_0BD0( self, var_0.animation );
+        var_0 maps\_anim::_id_0BD0( self, var_0.animation );
         self notify( "starting_anim", var_0.animation );
 
         if ( isdefined( var_0._id_7A99 ) && issubstr( var_0._id_7A99, "gravity" ) )
-            var_0 _id_A510::_id_0BCD( self, var_0.animation );
+            var_0 maps\_anim::_id_0BCD( self, var_0.animation );
         else
-            var_0 _id_A510::_id_0BD2( self, var_0.animation );
+            var_0 maps\_anim::_id_0BD2( self, var_0.animation );
 
         self _meth_81aa( self.origin );
     }
@@ -11643,14 +11640,14 @@ _id_396E( var_0 )
 
     if ( isdefined( var_0.animation ) )
     {
-        var_0 _id_A510::_id_0BD0( self, var_0.animation );
+        var_0 maps\_anim::_id_0BD0( self, var_0.animation );
         self notify( "starting_anim", var_0.animation );
         _id_2A9D();
 
         if ( isdefined( var_0._id_7A99 ) && issubstr( var_0._id_7A99, "gravity" ) )
-            var_0 _id_A510::_id_0BCD( self, var_0.animation );
+            var_0 maps\_anim::_id_0BCD( self, var_0.animation );
         else
-            var_0 _id_A510::_id_0BD2( self, var_0.animation );
+            var_0 maps\_anim::_id_0BD2( self, var_0.animation );
 
         _id_27EF( 0.05, ::_id_30BD );
         self _meth_81aa( self.origin );
@@ -11790,27 +11787,27 @@ _id_08EB()
         _id_0933();
 
     self._id_05CF = [];
-    self.disableplayeradsloscheck = _id_A5A5::_id_090F( self.disableplayeradsloscheck, "disableplayeradsloscheck", 1 );
-    self.ignoreforfixednodesafecheck = _id_A5A5::_id_090F( self.ignoreforfixednodesafecheck, "ignoreall", 1 );
-    self.ignoretriggers = _id_A5A5::_id_090F( self.ignoretriggers, "ignoreme", 1 );
-    self.grenadeawareness = _id_A5A5::_id_090F( self.grenadeawareness, "grenadeawareness", 0 );
-    self.badplaceawareness = _id_A5A5::_id_090F( self.badplaceawareness, "badplaceawareness", 0 );
-    self.ignorerandombulletdamage = _id_A5A5::_id_090F( self.ignorerandombulletdamage, "ignoreexplosionevents", 1 );
-    self.ikweight = _id_A5A5::_id_090F( self.ikweight, "ignorerandombulletdamage", 1 );
-    self.index = _id_A5A5::_id_090F( self.index, "ignoresuppression", 1 );
-    self.dontavoidplayer = _id_A5A5::_id_090F( self.dontavoidplayer, "dontavoidplayer", 1 );
-    self.nextreadblackops2 = _id_A5A5::_id_090F( self.nextreadblackops2, "newEnemyReactionDistSq", 0 );
-    self._id_2AF7 = _id_A5A5::_id_090F( self._id_2AF7, "disableBulletWhizbyReaction", 1 );
-    self._id_2B12 = _id_A5A5::_id_090F( self._id_2B12, "disableFriendlyFireReaction", 1 );
-    self._id_2D38 = _id_A5A5::_id_090F( self._id_2D38, "dontMelee", 1 );
-    self._id_38A8 = _id_A5A5::_id_090F( self._id_38A8, "flashBangImmunity", 1 );
-    self.dodangerreact = _id_A5A5::_id_090F( self.dodangerreact, "doDangerReact", 0 );
-    self._id_6097 = _id_A5A5::_id_090F( self._id_6097, "neverSprintForVariation", 1 );
-    self.a._id_2B20 = _id_A5A5::_id_090F( self.a._id_2B20, "a.disablePain", 1 );
-    self.allowpain = _id_A5A5::_id_090F( self.allowpain, "allowPain", 0 );
-    self.fixednode = _id_A5A5::_id_090F( self.fixednode, "fixedNode", 1 );
-    self._id_79E9 = _id_A5A5::_id_090F( self._id_79E9, "script_forcegoal", 1 );
-    self.goalradius = _id_A5A5::_id_090F( self.goalradius, "goalradius", 5 );
+    self.disableplayeradsloscheck = maps\_utility_code::_id_090F( self.disableplayeradsloscheck, "disableplayeradsloscheck", 1 );
+    self.ignoreforfixednodesafecheck = maps\_utility_code::_id_090F( self.ignoreforfixednodesafecheck, "ignoreall", 1 );
+    self.ignoretriggers = maps\_utility_code::_id_090F( self.ignoretriggers, "ignoreme", 1 );
+    self.grenadeawareness = maps\_utility_code::_id_090F( self.grenadeawareness, "grenadeawareness", 0 );
+    self.badplaceawareness = maps\_utility_code::_id_090F( self.badplaceawareness, "badplaceawareness", 0 );
+    self.ignorerandombulletdamage = maps\_utility_code::_id_090F( self.ignorerandombulletdamage, "ignoreexplosionevents", 1 );
+    self.ikweight = maps\_utility_code::_id_090F( self.ikweight, "ignorerandombulletdamage", 1 );
+    self.index = maps\_utility_code::_id_090F( self.index, "ignoresuppression", 1 );
+    self.dontavoidplayer = maps\_utility_code::_id_090F( self.dontavoidplayer, "dontavoidplayer", 1 );
+    self.nextreadblackops2 = maps\_utility_code::_id_090F( self.nextreadblackops2, "newEnemyReactionDistSq", 0 );
+    self._id_2AF7 = maps\_utility_code::_id_090F( self._id_2AF7, "disableBulletWhizbyReaction", 1 );
+    self._id_2B12 = maps\_utility_code::_id_090F( self._id_2B12, "disableFriendlyFireReaction", 1 );
+    self._id_2D38 = maps\_utility_code::_id_090F( self._id_2D38, "dontMelee", 1 );
+    self._id_38A8 = maps\_utility_code::_id_090F( self._id_38A8, "flashBangImmunity", 1 );
+    self.dodangerreact = maps\_utility_code::_id_090F( self.dodangerreact, "doDangerReact", 0 );
+    self._id_6097 = maps\_utility_code::_id_090F( self._id_6097, "neverSprintForVariation", 1 );
+    self.a._id_2B20 = maps\_utility_code::_id_090F( self.a._id_2B20, "a.disablePain", 1 );
+    self.allowpain = maps\_utility_code::_id_090F( self.allowpain, "allowPain", 0 );
+    self.fixednode = maps\_utility_code::_id_090F( self.fixednode, "fixedNode", 1 );
+    self._id_79E9 = maps\_utility_code::_id_090F( self._id_79E9, "script_forcegoal", 1 );
+    self.goalradius = maps\_utility_code::_id_090F( self.goalradius, "goalradius", 5 );
     _id_2A74();
 }
 
@@ -11825,27 +11822,27 @@ _id_0933( var_0, var_1 )
             self._id_05CF = undefined;
     }
 
-    self.disableplayeradsloscheck = _id_A5A5::_id_090D( "disableplayeradsloscheck", 0 );
-    self.ignoreforfixednodesafecheck = _id_A5A5::_id_090D( "ignoreall", 0 );
-    self.ignoretriggers = _id_A5A5::_id_090D( "ignoreme", 0 );
-    self.grenadeawareness = _id_A5A5::_id_090D( "grenadeawareness", 1 );
-    self.badplaceawareness = _id_A5A5::_id_090D( "badplaceawareness", 1 );
-    self.ignorerandombulletdamage = _id_A5A5::_id_090D( "ignoreexplosionevents", 0 );
-    self.ikweight = _id_A5A5::_id_090D( "ignorerandombulletdamage", 0 );
-    self.index = _id_A5A5::_id_090D( "ignoresuppression", 0 );
-    self.dontavoidplayer = _id_A5A5::_id_090D( "dontavoidplayer", 0 );
-    self.nextreadblackops2 = _id_A5A5::_id_090D( "newEnemyReactionDistSq", 262144 );
-    self._id_2AF7 = _id_A5A5::_id_090D( "disableBulletWhizbyReaction", undefined );
-    self._id_2B12 = _id_A5A5::_id_090D( "disableFriendlyFireReaction", undefined );
-    self._id_2D38 = _id_A5A5::_id_090D( "dontMelee", undefined );
-    self._id_38A8 = _id_A5A5::_id_090D( "flashBangImmunity", undefined );
-    self.dodangerreact = _id_A5A5::_id_090D( "doDangerReact", 1 );
-    self._id_6097 = _id_A5A5::_id_090D( "neverSprintForVariation", undefined );
-    self.a._id_2B20 = _id_A5A5::_id_090D( "a.disablePain", 0 );
-    self.allowpain = _id_A5A5::_id_090D( "allowPain", 1 );
-    self.fixednode = _id_A5A5::_id_090D( "fixedNode", 0 );
-    self._id_79E9 = _id_A5A5::_id_090D( "script_forcegoal", 0 );
-    self.goalradius = _id_A5A5::_id_090D( "goalradius", 100 );
+    self.disableplayeradsloscheck = maps\_utility_code::_id_090D( "disableplayeradsloscheck", 0 );
+    self.ignoreforfixednodesafecheck = maps\_utility_code::_id_090D( "ignoreall", 0 );
+    self.ignoretriggers = maps\_utility_code::_id_090D( "ignoreme", 0 );
+    self.grenadeawareness = maps\_utility_code::_id_090D( "grenadeawareness", 1 );
+    self.badplaceawareness = maps\_utility_code::_id_090D( "badplaceawareness", 1 );
+    self.ignorerandombulletdamage = maps\_utility_code::_id_090D( "ignoreexplosionevents", 0 );
+    self.ikweight = maps\_utility_code::_id_090D( "ignorerandombulletdamage", 0 );
+    self.index = maps\_utility_code::_id_090D( "ignoresuppression", 0 );
+    self.dontavoidplayer = maps\_utility_code::_id_090D( "dontavoidplayer", 0 );
+    self.nextreadblackops2 = maps\_utility_code::_id_090D( "newEnemyReactionDistSq", 262144 );
+    self._id_2AF7 = maps\_utility_code::_id_090D( "disableBulletWhizbyReaction", undefined );
+    self._id_2B12 = maps\_utility_code::_id_090D( "disableFriendlyFireReaction", undefined );
+    self._id_2D38 = maps\_utility_code::_id_090D( "dontMelee", undefined );
+    self._id_38A8 = maps\_utility_code::_id_090D( "flashBangImmunity", undefined );
+    self.dodangerreact = maps\_utility_code::_id_090D( "doDangerReact", 1 );
+    self._id_6097 = maps\_utility_code::_id_090D( "neverSprintForVariation", undefined );
+    self.a._id_2B20 = maps\_utility_code::_id_090D( "a.disablePain", 0 );
+    self.allowpain = maps\_utility_code::_id_090D( "allowPain", 1 );
+    self.fixednode = maps\_utility_code::_id_090D( "fixedNode", 0 );
+    self._id_79E9 = maps\_utility_code::_id_090D( "script_forcegoal", 0 );
+    self.goalradius = maps\_utility_code::_id_090D( "goalradius", 100 );
 
     if ( !( isdefined( var_1 ) && var_1 ) )
         _id_309A();
@@ -11944,7 +11941,7 @@ _id_92D7()
 {
     precacheshader( "loading_animation" );
     common_scripts\utility::_id_383D( "tff_sync_complete" );
-    _id_A5A5::_id_0674();
+    maps\_utility_code::_id_0674();
 }
 
 _id_92D5( var_0 )

@@ -26,7 +26,7 @@ dead_script()
     maps\createart\airlift_art::main();
     level thread maps\airlift_fx::main();
     maps\airlift_precache::main();
-    _id_A550::main();
+    maps\_load::main();
     level thread maps\airlift_amb::main();
     maps\airlift_lighting::main();
     position_player();
@@ -128,17 +128,17 @@ main()
             level.acolornodetriggers = common_scripts\utility::_id_0CDA( level.acolornodetriggers, var_0[var_1] );
     }
 
-    _id_A5A4::_id_079C( "debug", ::start_debug, &"STARTS_DEBUG" );
-    _id_A5A4::_id_079C( "smoketown", ::start_smoketown, &"STARTS_SMOKETOWN" );
-    _id_A5A4::_id_079C( "cobraflight", ::start_cobraflight, &"STARTS_COBRAFLIGHT" );
-    _id_A5A4::_id_079C( "cobrastreets", ::start_cobrastreets, &"STARTS_COBRASTREETS" );
-    _id_A5A4::_id_079C( "nuke", ::start_nuke, &"STARTS_STARTSCOBRASTREETS" );
-    _id_A5A4::_id_278B( ::start_default );
-    _id_A632::setmig29fxoverride( "contrail", "fx/smoke/jet_contrail_airlift" );
-    _id_A632::setmig29fxoverride( "contrail_02", "fx/smoke/jet_contrail_airlift" );
+    maps\_utility::_id_079C( "debug", ::start_debug, &"STARTS_DEBUG" );
+    maps\_utility::_id_079C( "smoketown", ::start_smoketown, &"STARTS_SMOKETOWN" );
+    maps\_utility::_id_079C( "cobraflight", ::start_cobraflight, &"STARTS_COBRAFLIGHT" );
+    maps\_utility::_id_079C( "cobrastreets", ::start_cobrastreets, &"STARTS_COBRASTREETS" );
+    maps\_utility::_id_079C( "nuke", ::start_nuke, &"STARTS_STARTSCOBRASTREETS" );
+    maps\_utility::_id_278B( ::start_default );
+    vehicle_scripts\_mig29::setmig29fxoverride( "contrail", "fx/smoke/jet_contrail_airlift" );
+    vehicle_scripts\_mig29::setmig29fxoverride( "contrail_02", "fx/smoke/jet_contrail_airlift" );
     common_scripts\utility::_id_0D13( getentarray( "destructible", "targetname" ), ::destructibles_think );
     level.nomaxmortardist = 1;
-    _id_A52C::init();
+    maps\_drone_ai::init();
     maps\airlift_precache::main();
     maps\airlift_anim::main();
     level.weaponclipmodels = [];
@@ -150,17 +150,17 @@ main()
     level.weaponclipmodels[5] = "weapon_g3_clip";
     maps\createart\airlift_art::main();
     level thread maps\airlift_fx::main();
-    _id_A550::main();
-    _id_A51D::setupminimap( "compass_map_airlift" );
+    maps\_load::main();
+    maps\_compass::setupminimap( "compass_map_airlift" );
     level thread maps\airlift_amb::main();
     maps\airlift_lighting::main();
     maps\airlift_aud::main();
     thread maps\_mortar::bog_style_mortar();
-    _id_A53F::_id_4CFA();
-    _id_A59D::_id_7F1E( "script_vehicle_cobra_helicopter_low", undefined );
-    _id_A59D::_id_7F1E( "script_vehicle_ch46e", undefined );
-    _id_A59D::_id_7F1E( "script_vehicle_bmp_woodland_low", undefined );
-    _id_A59D::_id_7F1E( "script_vehicle_t72_tank_low", undefined );
+    maps\_helicopter_globals::_id_4CFA();
+    maps\_treadfx::_id_7F1E( "script_vehicle_cobra_helicopter_low", undefined );
+    maps\_treadfx::_id_7F1E( "script_vehicle_ch46e", undefined );
+    maps\_treadfx::_id_7F1E( "script_vehicle_bmp_woodland_low", undefined );
+    maps\_treadfx::_id_7F1E( "script_vehicle_t72_tank_low", undefined );
     common_scripts\utility::_id_383D( "aa_bridge_to_gas_station_section" );
     common_scripts\utility::_id_383D( "aa_gas_station_to_plaza_section" );
     common_scripts\utility::_id_383D( "aa_smoketown_to_construction_section" );
@@ -219,13 +219,13 @@ main()
     common_scripts\utility::_id_383D( "reload_turret_start" );
     common_scripts\utility::_id_383D( "pilot_name_reappear" );
     animscripts\init::_id_381E();
-    common_scripts\utility::_id_0D13( getentarray( "constructionSpawners", "script_noteworthy" ), _id_A5A4::_id_0798, ::ai_construction_spawner_think );
-    common_scripts\utility::_id_0D13( getentarray( "fastrope_and_die", "script_noteworthy" ), _id_A5A4::_id_0798, ::ai_fastrope_and_die );
-    common_scripts\utility::_id_0D13( getentarray( "hostiles_bmp_bridge", "script_noteworthy" ), _id_A5A4::_id_0798, ::ai_hostiles_bmp_bridge );
-    common_scripts\utility::_id_0D13( getentarray( "low_engage_dist", "script_noteworthy" ), _id_A5A4::_id_0798, ::ai_low_engage_dist_think );
-    common_scripts\utility::_id_0D13( getentarray( "smoketown_ambient_hostiles", "script_noteworthy" ), _id_A5A4::_id_0798, ::smoketown_ambient_hostiles_think );
-    common_scripts\utility::_id_0D13( getentarray( "smoketown_ambient_friendlies", "script_noteworthy" ), _id_A5A4::_id_0798, ::smoketown_ambient_friendlies_think );
-    common_scripts\utility::_id_0D13( getentarray( "allies_plaza_assaulters", "script_noteworthy" ), _id_A5A4::_id_0798, ::allies_plaza_assaulters_think );
+    common_scripts\utility::_id_0D13( getentarray( "constructionSpawners", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_construction_spawner_think );
+    common_scripts\utility::_id_0D13( getentarray( "fastrope_and_die", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_fastrope_and_die );
+    common_scripts\utility::_id_0D13( getentarray( "hostiles_bmp_bridge", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_hostiles_bmp_bridge );
+    common_scripts\utility::_id_0D13( getentarray( "low_engage_dist", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_low_engage_dist_think );
+    common_scripts\utility::_id_0D13( getentarray( "smoketown_ambient_hostiles", "script_noteworthy" ), maps\_utility::_id_0798, ::smoketown_ambient_hostiles_think );
+    common_scripts\utility::_id_0D13( getentarray( "smoketown_ambient_friendlies", "script_noteworthy" ), maps\_utility::_id_0798, ::smoketown_ambient_friendlies_think );
+    common_scripts\utility::_id_0D13( getentarray( "allies_plaza_assaulters", "script_noteworthy" ), maps\_utility::_id_0798, ::allies_plaza_assaulters_think );
     common_scripts\utility::_id_0D13( getentarray( "rooftop_tank_01", "targetname" ), ::rooftop_tank_destructible );
     createthreatbiasgroup( "player" );
     createthreatbiasgroup( "ignored" );
@@ -254,13 +254,13 @@ main()
     thread exploder_statue();
     thread falling_crane();
     common_scripts\utility::_id_0D13( getentarray( "badplace_volume", "targetname" ), ::badplace_volume_think );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "plane_sound", "script_noteworthy" ), _id_A632::_id_6877 );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "plane_bomb", "script_noteworthy" ), _id_A632::_id_686E );
+    common_scripts\utility::_id_0D13( getvehiclenodearray( "plane_sound", "script_noteworthy" ), vehicle_scripts\_mig29::_id_6877 );
+    common_scripts\utility::_id_0D13( getvehiclenodearray( "plane_bomb", "script_noteworthy" ), vehicle_scripts\_mig29::_id_686E );
     var_2 = getentarray( "flightFlag", "script_noteworthy" );
     common_scripts\utility::_id_0D13( var_2, ::flight_flags_think );
     var_3 = getentarray( "exploder_trigs_mark19", "targetname" );
     common_scripts\utility::_id_0D13( var_3, ::exploder_trigs_mark19_think );
-    var_4 = _id_A5AA::_id_05BE();
+    var_4 = maps\_vehicle_code::_id_05BE();
     common_scripts\utility::_id_0D13( var_4, ::vehicle_think );
     level thread smoketown_construction_door();
     level thread cobrastreets_ch46entrance_collision();
@@ -278,20 +278,20 @@ _id_2674()
 {
     wait 5;
     var_0 = getent( "seaknight_plaza_alt_landing", "targetname" );
-    var_1 = _id_A5A4::_id_0D08( getentarray( "allies_seaknight_wingman", "targetname" ), 1 );
+    var_1 = maps\_utility::_id_0D08( getentarray( "allies_seaknight_wingman", "targetname" ), 1 );
     common_scripts\utility::_id_0D13( var_1, ::friendlies_plaza_seaknights );
-    _id_A5A4::_id_27EF( 0, ::vehicle_animated_seaknight_land, var_0, undefined, var_1 );
+    maps\_utility::_id_27EF( 0, ::vehicle_animated_seaknight_land, var_0, undefined, var_1 );
 }
 
 start_default()
 {
-    _id_A5E8::_id_870C( "start_default_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_default_checkpoint" );
     aa_intro_init();
 }
 
 start_debug()
 {
-    _id_A5E8::_id_870C( "start_default_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_default_checkpoint" );
     aa_intro_init();
 }
 
@@ -310,7 +310,7 @@ start_plaza()
 
 start_smoketown()
 {
-    _id_A5E8::_id_870C( "start_smoketown_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_smoketown_checkpoint" );
     level.usingstartpoint = 1;
     thread seaknight_player_think( "smoketown" );
     common_scripts\utility::_id_383F( "seaknightLeavePlaza" );
@@ -320,7 +320,7 @@ start_smoketown()
 
 start_cobrastreets()
 {
-    _id_A5E8::_id_870C( "start_cobrastreets_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_cobrastreets_checkpoint" );
     thread seaknight_player_think( "cobrastreets" );
     level thread aa_cobrastreets_init();
     thread show_cobra_crash();
@@ -328,14 +328,14 @@ start_cobrastreets()
 
 start_cobraflight()
 {
-    _id_A5E8::_id_870C( "start_cobraflight_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_cobraflight_checkpoint" );
     thread seaknight_player_think( "cobraflight" );
     common_scripts\utility::_id_384A( "seaknight_set_up" );
     level.seaknight thread maps\airlift_anim::seaknight_open_doors();
     var_0 = getent( "seaknight_land_smoketown2", "script_noteworthy" );
-    level.seaknight _id_A5A4::_id_9CB3();
+    level.seaknight maps\_utility::_id_9CB3();
     level.seaknight setgoalyaw( var_0.angles[1] );
-    level.seaknight _id_A5A4::_id_9CF5();
+    level.seaknight maps\_utility::_id_9CF5();
     thread seaknight_player_triggers();
     thread seaknight_player_monitor( 1 );
     waittill_trigger_seaknight_gun();
@@ -346,14 +346,14 @@ start_cobraflight()
 
 start_nuke()
 {
-    _id_A5E8::_id_870C( "start_nuke_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_nuke_checkpoint" );
     level.usingstartpoint = 1;
     thread seaknight_player_think( "nuke" );
     common_scripts\utility::_id_384A( "seaknight_set_up" );
     level.seaknight thread maps\airlift_anim::seaknight_open_doors();
     level.crewchief = maps\jake_tools::spawndude( getent( "seaknight_crewchief_cobrastreets", "targetname" ), 1 );
-    level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
-    level.crewchief _id_A5A4::_id_4462();
+    level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+    level.crewchief maps\_utility::_id_4462();
     level.crewchief linkto( level.seaknight );
     thread cobrastreets_crewchief_think();
     common_scripts\utility::_id_383F( "pilot_taken_from_cockpit" );
@@ -361,14 +361,14 @@ start_nuke()
     common_scripts\utility::_id_383F( "obj_return_pilot_complete" );
     common_scripts\utility::_id_383F( "player_cobra_retreat_03" );
     level.playercardbackground.deathinvulnerabletime = 10000;
-    level.eplayerview = _id_A5A4::_id_88D1( "player_carry" );
+    level.eplayerview = maps\_utility::_id_88D1( "player_carry" );
     level.eplayerview hide();
     level.playercardbackground disableweapons();
     var_0 = getent( "seaknight_land_cobrastreets", "script_noteworthy" );
     var_0 waittill( "trigger", var_1 );
-    level.seaknight _id_A5A4::_id_9CB3();
+    level.seaknight maps\_utility::_id_9CB3();
     level.seaknight setgoalyaw( var_0.angles[1] );
-    level.seaknight _id_A5A4::_id_9CF5();
+    level.seaknight maps\_utility::_id_9CF5();
     thread seaknight_player_triggers();
     level thread aa_nuke_init();
 }
@@ -493,7 +493,7 @@ h1_airlift_reloadm19()
         wait(var_0);
     }
 
-    level.playercardbackground thread _id_A5A4::_id_69C4( "weap_mark19_reload" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "weap_mark19_reload" );
     wait 0.5;
     setsaveddvar( "r_mbEnable", 2 );
     level.playercardbackground _meth_84a7( 4.0, 21, 8.0, 8.0 );
@@ -588,26 +588,26 @@ fx_intro()
 
 music_intro()
 {
-    _id_A5A4::_id_6008( "airlift_start_music" );
+    maps\_utility::_id_6008( "airlift_start_music" );
     thread common_scripts\utility::_id_69C2( "airlift_intro_stinger", ( 0, 0, 0 ) );
     common_scripts\utility::_id_384A( "plaza_deploy" );
     musicstop( 1 );
     wait 1.1;
-    _id_A5A4::_id_6008( "airlift_deploy_music" );
+    maps\_utility::_id_6008( "airlift_deploy_music" );
 }
 
 _id_2A1A()
 {
     wait 7;
-    _id_A5A4::_id_70C4( "airlift_mhp_information" );
+    maps\_utility::_id_70C4( "airlift_mhp_information" );
     wait 2;
-    _id_A5A4::_id_70C4( "airlift_fhp_bigtargets" );
+    maps\_utility::_id_70C4( "airlift_fhp_bigtargets" );
     common_scripts\utility::_id_383F( "obj_plaza_clear_given" );
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.07, 1.0, 7, "intro_chopper_mix", "heli_approaching_city_mix" );
     wait 8.5;
-    _id_A5A4::_id_70C4( "airlift_hqr_allcallsigns" );
+    maps\_utility::_id_70C4( "airlift_hqr_allcallsigns" );
     wait 8;
-    _id_A5A4::_id_70C4( "airlift_mhp_takingfire" );
+    maps\_utility::_id_70C4( "airlift_mhp_takingfire" );
     wait 6.5;
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.0, 1.0, 3.7, "heli_approaching_city_mix", "heli_slowing_down_city_mix" );
 }
@@ -615,22 +615,22 @@ _id_2A1A()
 intro_flyover()
 {
     level.seaknight_engine_sound_node playloopsound( "veh_airlift_plr_heli_engine_int" );
-    _id_A5A4::_id_27EF( 10, _id_A5A8::_id_23DE, 1 );
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 4 );
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 7 );
-    _id_A5A4::_id_27EF( 3, maps\_mortar::bog_style_mortar_on, 0 );
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 3 );
-    _id_A5A4::_id_27EF( 13, _id_A5A8::_id_23DE, 5 );
+    maps\_utility::_id_27EF( 10, maps\_vehicle::_id_23DE, 1 );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 4 );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 7 );
+    maps\_utility::_id_27EF( 3, maps\_mortar::bog_style_mortar_on, 0 );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 3 );
+    maps\_utility::_id_27EF( 13, maps\_vehicle::_id_23DE, 5 );
 
     if ( getdvar( "airlift_min_spec" ) != "1" )
-        _id_A5A4::_id_27EF( 25, _id_A5A8::_id_23DE, 6 );
+        maps\_utility::_id_27EF( 25, maps\_vehicle::_id_23DE, 6 );
 
-    _id_A5A4::_id_27EF( 18, _id_A5A8::_id_23DE, 2 );
-    _id_A5A4::_id_27EF( 4, _id_A5A8::_id_23DE, 19 );
-    _id_A5A4::_id_27EF( 4.5, _id_A5A8::_id_23DE, 20 );
-    _id_A5A4::_id_27EF( 4.3, _id_A5A8::_id_23DE, 21 );
-    _id_A5A4::_id_27EF( 6, _id_A5A8::_id_23DE, 22 );
-    _id_A5A4::_id_27EF( 6.2, _id_A5A8::_id_23DE, 23 );
+    maps\_utility::_id_27EF( 18, maps\_vehicle::_id_23DE, 2 );
+    maps\_utility::_id_27EF( 4, maps\_vehicle::_id_23DE, 19 );
+    maps\_utility::_id_27EF( 4.5, maps\_vehicle::_id_23DE, 20 );
+    maps\_utility::_id_27EF( 4.3, maps\_vehicle::_id_23DE, 21 );
+    maps\_utility::_id_27EF( 6, maps\_vehicle::_id_23DE, 22 );
+    maps\_utility::_id_27EF( 6.2, maps\_vehicle::_id_23DE, 23 );
     wait 6;
     wait 8.5;
 
@@ -645,19 +645,19 @@ intro_flyover()
     wait 6;
 
     if ( getdvar( "airlift_min_spec" ) != "1" )
-        _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 16 );
+        maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 16 );
 
     common_scripts\utility::_id_383F( "aa_bridge_to_gas_station_section" );
     maps\jake_tools::_id_9810( "trig_spawn_zpu_start" );
     wait 3;
     common_scripts\utility::_id_383F( "cobra_shoots_at_bridge" );
-    thread _id_A5A4::_id_1143( "plaza_bridge" );
+    thread maps\_utility::_id_1143( "plaza_bridge" );
     thread maps\_mortar::bog_style_mortar_off( 0 );
     common_scripts\utility::_id_384A( "seaknightBridgeEnd" );
     common_scripts\utility::_id_384A( "seaknightInPlazaFly" );
-    thread _id_A5A4::_id_1143( "plaza_start" );
+    thread maps\_utility::_id_1143( "plaza_start" );
     var_0 = getentarray( "hostiles_bmp_bridge", "script_noteworthy" );
-    thread _id_A5A4::_id_08D6( var_0, level.aideletedistance );
+    thread maps\_utility::_id_08D6( var_0, level.aideletedistance );
 }
 
 ai_hostiles_bmp_bridge()
@@ -672,28 +672,28 @@ ai_hostiles_bmp_bridge()
 
 seaknight_wingman_think()
 {
-    level.ch46wingman = _id_A5A8::waittill_vehiclespawn( "seaknight_wingman" );
+    level.ch46wingman = maps\_vehicle::waittill_vehiclespawn( "seaknight_wingman" );
 }
 
 cobra_wingman_think()
 {
-    level.cobrawingman = _id_A5A8::waittill_vehiclespawn( "wingman" );
+    level.cobrawingman = maps\_vehicle::waittill_vehiclespawn( "wingman" );
     wait 2;
     level.cobrawingman notify( "stop_default_behavior" );
     common_scripts\utility::_id_384A( "cobra_shoots_at_bridge" );
     wait 1;
-    var_0 = _id_A5A8::get_vehicle_from_targetname( "cobra_bridge_tank1" );
-    level.cobrawingman _id_A53F::_id_37BA( "ffar_airlift_map_overwrite", 2, var_0 );
+    var_0 = maps\_vehicle::get_vehicle_from_targetname( "cobra_bridge_tank1" );
+    level.cobrawingman maps\_helicopter_globals::_id_37BA( "ffar_airlift_map_overwrite", 2, var_0 );
     wait 1.5;
-    var_0 = _id_A5A8::get_vehicle_from_targetname( "cobra_bridge_tank2" );
-    level.cobrawingman _id_A53F::_id_37BA( "ffar_airlift_map_overwrite", 2, var_0 );
+    var_0 = maps\_vehicle::get_vehicle_from_targetname( "cobra_bridge_tank2" );
+    level.cobrawingman maps\_helicopter_globals::_id_37BA( "ffar_airlift_map_overwrite", 2, var_0 );
     wait 2;
     level.cobrawingman thread vehicle_cobra_default_weapons_think();
 }
 
 cobra_wingman2_think()
 {
-    level.cobrawingman2 = _id_A5A8::waittill_vehiclespawn( "wingman2" );
+    level.cobrawingman2 = maps\_vehicle::waittill_vehiclespawn( "wingman2" );
     common_scripts\utility::_id_384A( "cobra_shoots_at_bridge" );
 }
 
@@ -715,47 +715,47 @@ allies_plaza_assaulters_think()
 dialogue_plaza()
 {
     wait 1;
-    _id_A5A4::_id_70C4( "airlift_mhp_rpgrooftops" );
+    maps\_utility::_id_70C4( "airlift_mhp_rpgrooftops" );
     wait 7.5;
-    _id_A5A4::_id_70C4( "airlift_mhp_lightarmor" );
-    _id_A5A4::_id_70C4( "airlift_mhp_groundinfantry" );
+    maps\_utility::_id_70C4( "airlift_mhp_lightarmor" );
+    maps\_utility::_id_70C4( "airlift_mhp_groundinfantry" );
     wait 5.5;
-    _id_A5A4::_id_70C4( "airlift_mhp_wevegotrpgs" );
+    maps\_utility::_id_70C4( "airlift_mhp_wevegotrpgs" );
     wait 4.5;
-    _id_A5A4::_id_70C4( "airlift_mhp_antiairrooftop" );
+    maps\_utility::_id_70C4( "airlift_mhp_antiairrooftop" );
     common_scripts\utility::_id_384A( "seaknightInPlazaStreetEnd" );
     wait 4;
-    _id_A5A4::_id_70C4( "airlift_mhp_hostilesrpgs" );
+    maps\_utility::_id_70C4( "airlift_mhp_hostilesrpgs" );
     common_scripts\utility::_id_384A( "seaknightInPlaza" );
     wait 4;
-    _id_A5A4::_id_70C4( "airlift_mhp_makingarun" );
+    maps\_utility::_id_70C4( "airlift_mhp_makingarun" );
     wait 1.5;
-    _id_A5A4::_id_70C4( "airlift_hqr_getabramsfront" );
+    maps\_utility::_id_70C4( "airlift_hqr_getabramsfront" );
     common_scripts\utility::_id_383F( "obj_plaza_clear_complete" );
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 0.89, 0.9, 9.6, "heli_slowing_down_city_mix", "heli_landing_city_mix" );
     setsaveddvar( "sm_sunSampleSizeNear", 0.25 );
     setsaveddvar( "sm_sunShadowScale", 1 );
-    _id_A5A4::_id_70C4( "airlift_hqr_2clickswest" );
+    maps\_utility::_id_70C4( "airlift_hqr_2clickswest" );
     common_scripts\utility::_id_384A( "plaza_deploy" );
     thread maps\airlift_aud::aud_cobra_passby_manager( "auto413", "scn_airlift_plaza_cobra_passby", 0 );
     thread maps\airlift_aud::aud_cobra_passby_manager( "auto415", "scn_airlift_smktown_cobra_passby", 0 );
-    level.seaknight _id_A5A4::_id_69C5( level._id_78BA["airlift_hcc_downramp"], "tag_door_rear" );
-    _id_A5A4::_id_70C4( "airlift_hqr_enroute" );
+    level.seaknight maps\_utility::_id_69C5( level._id_78BA["airlift_hcc_downramp"], "tag_door_rear" );
+    maps\_utility::_id_70C4( "airlift_hqr_enroute" );
     wait 7.5;
-    _id_A5A4::_id_70C4( "airlift_vsq_forwardrecon" );
+    maps\_utility::_id_70C4( "airlift_vsq_forwardrecon" );
     setsaveddvar( "sm_sunSampleSizeNear", 1 );
     setsaveddvar( "sm_sunShadowScale", 0.5 );
     common_scripts\utility::_id_384A( "seaknightLeavePlaza" );
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.07, 1.0, 5.0, "heli_taking_off_city_mix", "heli_speed_away_city_mix" );
     wait 2;
-    _id_A5A4::_id_70C4( "airlift_fhp_refitandrefuel" );
+    maps\_utility::_id_70C4( "airlift_fhp_refitandrefuel" );
 }
 
 car_crush_arcademode()
 {
     var_0 = self.origin;
     level waittill( "exploder_1000_detonated" );
-    _id_A5A4::arcademode_kill( var_0, "explosive", 200 );
+    maps\_utility::arcademode_kill( var_0, "explosive", 200 );
 }
 
 tank_crush_destructible()
@@ -785,64 +785,64 @@ plaza_flyover()
 
     if ( getdvar( "airlift_min_spec" ) != "1" )
     {
-        _id_A5A4::_id_27EF( 3.6, _id_A5A8::_id_23DE, 25 );
-        _id_A5A4::_id_27EF( 3.2, _id_A5A8::_id_23DE, 26 );
-        _id_A5A4::_id_27EF( 3.6, _id_A5A8::_id_23DE, 27 );
-        _id_A5A4::_id_27EF( 4, _id_A5A8::_id_23DE, 28 );
-        _id_A5A4::_id_27EF( 4.2, _id_A5A8::_id_23DE, 29 );
+        maps\_utility::_id_27EF( 3.6, maps\_vehicle::_id_23DE, 25 );
+        maps\_utility::_id_27EF( 3.2, maps\_vehicle::_id_23DE, 26 );
+        maps\_utility::_id_27EF( 3.6, maps\_vehicle::_id_23DE, 27 );
+        maps\_utility::_id_27EF( 4, maps\_vehicle::_id_23DE, 28 );
+        maps\_utility::_id_27EF( 4.2, maps\_vehicle::_id_23DE, 29 );
     }
 
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 14 );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 14 );
     maps\jake_tools::_id_9810( "trig_spawn_zpu_plaza" );
     wait 2;
     maps\jake_tools::_id_9810( "trig_spawn_plaza_main" );
     maps\jake_tools::_id_9810( "trig_spawn_drones_palace_01" );
-    _id_A5A4::_id_27EF( 14, _id_A5A8::_id_23DE, 15 );
+    maps\_utility::_id_27EF( 14, maps\_vehicle::_id_23DE, 15 );
     common_scripts\utility::_id_384A( "seaknightInPlazaConstruction" );
     maps\jake_tools::_id_9810( "trig_spawn_zpu_plaza_alley" );
-    _id_A5A4::_id_27EF( 2, _id_A5A8::_id_23DE, 17 );
+    maps\_utility::_id_27EF( 2, maps\_vehicle::_id_23DE, 17 );
     var_0 = getentarray( "hostiles_plaza_fodder_roof", "script_noteworthy" );
-    thread _id_A5A4::_id_08D6( var_0, level.aideletedistance );
+    thread maps\_utility::_id_08D6( var_0, level.aideletedistance );
     thread maps\airlift_aud::aud_cobra_passby_manager( "auto415", "scn_airlift_cobra_right_passby", 5.5 );
     thread maps\airlift_aud::aud_cobra_passby_manager( "auto772", "scn_airlift_cobra_overhead_passby", 0 );
     thread bmp_play_stopping_anim();
     common_scripts\utility::_id_384A( "seaknightInPlazaStreetEnd" );
     common_scripts\utility::_id_3831( "aa_bridge_to_gas_station_section" );
     common_scripts\utility::_id_383F( "aa_gas_station_to_plaza_section" );
-    thread _id_A5A4::_id_1143( "plaza_street_end" );
+    thread maps\_utility::_id_1143( "plaza_street_end" );
     var_0 = getentarray( "hostiles_plaza_fodder_palace", "script_noteworthy" );
-    thread _id_A5A4::_id_08D6( var_0, 512 );
-    _id_A5A4::_id_27EF( 2.5, _id_A5A8::_id_23DE, 18 );
+    thread maps\_utility::_id_08D6( var_0, 512 );
+    maps\_utility::_id_27EF( 2.5, maps\_vehicle::_id_23DE, 18 );
     wait 4;
     maps\jake_tools::_id_9810( "trig_spawn_plaza_alley_01" );
     var_0 = getentarray( "hostiles_bmp_alley", "script_noteworthy" );
-    thread _id_A5A4::_id_08D6( var_0, level.aideletedistance );
+    thread maps\_utility::_id_08D6( var_0, level.aideletedistance );
     wait 11;
     maps\jake_tools::_id_9810( "trig_spawn_drones_plaza_street_retreat" );
     level.seaknight thread maps\airlift_aud::play_player_heli_land_sfx( getent( "auto807", "targetname" ), "scn_seaknight_land_plaza" );
     level.seaknight thread vehicle_heli_land( getent( "seaknight_land_plaza", "script_noteworthy" ) );
     common_scripts\utility::_id_384A( "seaknightInPlaza" );
     var_0 = getentarray( "hostiles_plaza_fodder", "script_noteworthy" );
-    thread _id_A5A4::_id_08D6( var_0, 1024 );
-    _id_A5A8::_id_7B3C( 49 );
+    thread maps\_utility::_id_08D6( var_0, 1024 );
+    maps\_vehicle::_id_7B3C( 49 );
     wait 0.05;
     var_1 = getentarray( "targets_plaza_end", "script_noteworthy" );
 
     if ( var_1.size > 0 )
-        _id_A5A4::_id_27EF( 12, ::vehicle_cobra_spawn_and_kill, "cobra_plaza_end", var_1, 1 );
+        maps\_utility::_id_27EF( 12, ::vehicle_cobra_spawn_and_kill, "cobra_plaza_end", var_1, 1 );
 
     var_2 = getent( "seaknight_plaza_alt_landing", "targetname" );
-    var_3 = _id_A5A4::_id_0D08( getentarray( "allies_seaknight_wingman", "targetname" ), 1 );
+    var_3 = maps\_utility::_id_0D08( getentarray( "allies_seaknight_wingman", "targetname" ), 1 );
     common_scripts\utility::_id_0D13( var_3, ::friendlies_plaza_seaknights );
-    _id_A5A4::_id_27EF( 0, ::vehicle_animated_seaknight_land, var_2, undefined, var_3 );
+    maps\_utility::_id_27EF( 0, ::vehicle_animated_seaknight_land, var_2, undefined, var_3 );
     var_2 = getent( "seaknight_plaza_alt_landing2", "targetname" );
-    var_4 = _id_A5A4::_id_0D08( getentarray( "allies_seaknight_plaza_ch46_2", "targetname" ), 1 );
+    var_4 = maps\_utility::_id_0D08( getentarray( "allies_seaknight_plaza_ch46_2", "targetname" ), 1 );
     common_scripts\utility::_id_0D13( var_4, ::friendlies_plaza_seaknights );
-    _id_A5A4::_id_27EF( 1, ::vehicle_animated_seaknight_land, var_2, "right_side_seaknight_lift_off", var_4 );
-    _id_A5A4::_id_27EF( 22, ::disablech46turretfire );
+    maps\_utility::_id_27EF( 1, ::vehicle_animated_seaknight_land, var_2, "right_side_seaknight_lift_off", var_4 );
+    maps\_utility::_id_27EF( 22, ::disablech46turretfire );
     level.seaknight waittill( "landed" );
     common_scripts\utility::_id_3831( "aa_gas_station_to_plaza_section" );
-    thread _id_A5A4::_id_1143( "plaza_assault" );
+    thread maps\_utility::_id_1143( "plaza_assault" );
     common_scripts\utility::_id_383F( "plaza_deploy" );
     thread seaknight_door_open_sound();
 
@@ -857,31 +857,31 @@ plaza_flyover()
     var_5 = getent( "colornodes_plaza", "script_noteworthy" );
     var_5 notify( "trigger", level.playercardbackground );
     maps\jake_tools::_id_9810( "trig_spawn_hostiles_palace_assault" );
-    level.seaknight thread _id_A5A4::_id_69C4( "scn_seaknight_liftoff_plaza" );
+    level.seaknight thread maps\_utility::_id_69C4( "scn_seaknight_liftoff_plaza" );
     wait 2;
     common_scripts\utility::_id_383F( "right_side_seaknight_lift_off" );
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.0, 1.0, 2, "heli_landing_city_mix", "heli_taking_off_city_mix" );
-    _id_A5A4::_id_27EF( 2, ::enablech46turretfire );
+    maps\_utility::_id_27EF( 2, ::enablech46turretfire );
     level.seaknight cleargoalyaw();
     thread seaknight_liftoff_anim();
-    level.seaknight _id_A5A4::_id_9CFC();
-    level.seaknight _id_A5A4::_id_9D1F();
+    level.seaknight maps\_utility::_id_9CFC();
+    level.seaknight maps\_utility::_id_9D1F();
     level thread aa_smoketown_init();
 }
 
 cobra_plaza_chase()
 {
     common_scripts\utility::_id_384A( "seaknightInPlaza" );
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 30 );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 30 );
     common_scripts\utility::_id_384A( "seaknightPlazaLanding" );
     var_0 = getaiarray( "axis" );
-    thread _id_A5A4::_id_08D6( var_0, 256 );
+    thread maps\_utility::_id_08D6( var_0, 256 );
 }
 
 vehicle_cobra_spawn_and_kill( var_0, var_1, var_2 )
 {
-    var_3 = _id_A5A8::_id_8978( var_0 );
-    thread _id_A5A8::_id_427A( var_3 );
+    var_3 = maps\_vehicle::_id_8978( var_0 );
+    thread maps\_vehicle::_id_427A( var_3 );
 
     if ( isdefined( var_2 ) )
         wait(var_2);
@@ -899,7 +899,7 @@ vehicle_cobra_spawn_and_kill( var_0, var_1, var_2 )
             if ( !isdefined( var_1[var_4] ) || !isalive( var_1[var_4] ) )
                 continue;
 
-            var_3 _id_A53F::_id_37BA( "ffar_airlift_map_overwrite", 1, var_1[var_4] );
+            var_3 maps\_helicopter_globals::_id_37BA( "ffar_airlift_map_overwrite", 1, var_1[var_4] );
             wait 0.3;
         }
     }
@@ -925,33 +925,33 @@ friendlies_plaza_seaknights()
 tank_crush_plaza()
 {
     common_scripts\utility::_id_384A( "start_tank_crush" );
-    level.tankcrusher = _id_A5A8::_id_8978( "tank_crusher" );
-    thread _id_A5A8::_id_427A( level.tankcrusher );
-    level.tankcrusher thread _id_A5A8::_id_5BD3();
-    _id_A5A4::_id_27EF( 4.5, _id_A5A8::_id_23DE, 11 );
-    _id_A5A4::_id_27EF( 8.1, _id_A5A8::_id_23DE, 12 );
-    _id_A5A4::_id_27EF( 10.9, _id_A5A8::_id_23DE, 13 );
-    _id_A5A4::_id_27EF( 21, _id_A5A8::_id_23DE, 45 );
+    level.tankcrusher = maps\_vehicle::_id_8978( "tank_crusher" );
+    thread maps\_vehicle::_id_427A( level.tankcrusher );
+    level.tankcrusher thread maps\_vehicle::_id_5BD3();
+    maps\_utility::_id_27EF( 4.5, maps\_vehicle::_id_23DE, 11 );
+    maps\_utility::_id_27EF( 8.1, maps\_vehicle::_id_23DE, 12 );
+    maps\_utility::_id_27EF( 10.9, maps\_vehicle::_id_23DE, 13 );
+    maps\_utility::_id_27EF( 21, maps\_vehicle::_id_23DE, 45 );
 
     if ( getdvar( "airlift_min_spec" ) != "1" )
     {
-        _id_A5A4::_id_27EF( 23, _id_A5A8::_id_23DE, 46 );
-        _id_A5A4::_id_27EF( 36, _id_A5A8::_id_23DE, 47 );
-        _id_A5A4::_id_27EF( 38.8, _id_A5A8::_id_23DE, 48 );
+        maps\_utility::_id_27EF( 23, maps\_vehicle::_id_23DE, 46 );
+        maps\_utility::_id_27EF( 36, maps\_vehicle::_id_23DE, 47 );
+        maps\_utility::_id_27EF( 38.8, maps\_vehicle::_id_23DE, 48 );
     }
 
     var_0 = getvehiclenode( "auto369", "targetname" );
     var_1 = getvehiclenode( "auto373", "targetname" );
     var_0 thread maps\airlift_aud::aud_abrams_passby_manager( "lead" );
     var_1 thread maps\airlift_aud::aud_abrams_passby_manager( "follow" );
-    _id_A5A4::_id_27EF( 0, ::plaza_building_assault );
+    maps\_utility::_id_27EF( 0, ::plaza_building_assault );
     var_2 = getvehiclenode( "sedan_crush_node", "script_noteworthy" );
     var_2 waittill( "trigger" );
     common_scripts\utility::_id_383F( "car_getting_crushed" );
-    level.tankcrusher thread _id_A5A8::_id_5BD2();
+    level.tankcrusher thread maps\_vehicle::_id_5BD2();
     level.tankcrusher vehicle_setspeed( 0, 999999999, 999999999 );
     var_3 = getvehiclenode( "tank_path_2", "targetname" );
-    level.tankcrusher _id_A5A8::tank_crush( level.crush_car, var_3, level._id_78AC["tank"]["tank_crush"], level._id_78AC["sedan"]["tank_crush"], level._id_78B1["tank_crush"], level._id_78BA["tank_crush"] );
+    level.tankcrusher maps\_vehicle::tank_crush( level.crush_car, var_3, level._id_78AC["tank"]["tank_crush"], level._id_78AC["sedan"]["tank_crush"], level._id_78B1["tank_crush"], level._id_78BA["tank_crush"] );
     level.tankcrusher resumespeed( 999999999 );
     level.tankcrusher waittill( "reached_end_node" );
     level.tankcrusher delete();
@@ -979,7 +979,7 @@ plaza_at4_sequence()
     setignoremegroup( "ignored", "axis" );
     setignoremegroup( "axis", "ignored" );
     wait 8;
-    var_2 thread _id_A510::_id_0C24( var_1, "AT4_fire_short" );
+    var_2 thread maps\_anim::_id_0C24( var_1, "AT4_fire_short" );
     wait 0.1;
     var_1 detach( "weapon_AT4", "TAG_STOWED_BACK" );
     var_1 attach( "weapon_AT4", "TAG_INHAND" );
@@ -995,14 +995,14 @@ plaza_at4_sequence()
     var_6 = spawn( "script_model", var_4 );
     var_6 setmodel( "weapon_at4" );
     var_6.angles = var_5;
-    var_2 thread _id_A510::_id_0BE1( var_1, "AT4_idle", undefined, "stop_idle" );
+    var_2 thread maps\_anim::_id_0BE1( var_1, "AT4_idle", undefined, "stop_idle" );
     wait 1;
     var_2 notify( "stop_idle" );
     var_7 = getnode( "node_at4_guy_next", "targetname" );
     var_1 _meth_81a9( var_7 );
 
     if ( isdefined( var_1._id_58D7 ) )
-        var_1 _id_A5A4::_id_8EA4();
+        var_1 maps\_utility::_id_8EA4();
 
     common_scripts\utility::_id_384A( "seaknightLeavePlaza" );
 
@@ -1031,9 +1031,9 @@ double_rooftop_tank_destructible()
     var_2 setmodel( "h1_me_rooftop_tank_destroyed" );
     var_3 = ( self.origin + var_2.origin ) / 2;
     playfx( level._effect["dual_propane_tank_explosion_airlift"], var_3 );
-    thread _id_A5A4::_id_69C4( "airlift_oil_tank_explo" );
+    thread maps\_utility::_id_69C4( "airlift_oil_tank_explo" );
     wait 0.2;
-    var_2 thread _id_A5A4::_id_69C4( "airlift_oil_tank_explo" );
+    var_2 thread maps\_utility::_id_69C4( "airlift_oil_tank_explo" );
     var_2 notify( "tankdestroyed" );
 }
 
@@ -1052,7 +1052,7 @@ setasdestructible( var_0, var_1, var_2 )
             playfx( level._effect[var_1], var_8 );
 
             if ( isdefined( var_2 ) )
-                thread _id_A5A4::_id_69C4( var_2 );
+                thread maps\_utility::_id_69C4( var_2 );
 
             return;
         }
@@ -1127,31 +1127,31 @@ dialogue_smoketown()
     if ( !level.usingstartpoint )
     {
         wait 12.5;
-        _id_A5A4::_id_70C4( "airlift_hqr_bluesmoke" );
+        maps\_utility::_id_70C4( "airlift_hqr_bluesmoke" );
         wait 1.7;
-        _id_A5A4::_id_70C4( "airlift_mhp_havevisual" );
+        maps\_utility::_id_70C4( "airlift_mhp_havevisual" );
     }
 
     common_scripts\utility::_id_384A( "seaknight_landed_smoketown" );
-    _id_A5A4::_id_1332( "allies" );
+    maps\_utility::_id_1332( "allies" );
     setsaveddvar( "sm_sunSampleSizeNear", 0.25 );
     setsaveddvar( "sm_sunShadowScale", 1 );
     wait 1.5;
-    _id_A5A4::_id_70C4( "airlift_vsq_watchcoloredsmoke" );
+    maps\_utility::_id_70C4( "airlift_vsq_watchcoloredsmoke" );
     wait 3;
     var_0 = maps\jake_tools::_id_3CF2();
     var_0 maps\jake_tools::_id_2A05( "airlift_gm1_firebalcony" );
     common_scripts\utility::_id_384A( "player_exited_seaknight_smoketown" );
-    _id_A5A4::_id_70C4( "airlift_mhp_lztoohot" );
-    _id_A5A4::_id_1333( "allies" );
+    maps\_utility::_id_70C4( "airlift_mhp_lztoohot" );
+    maps\_utility::_id_1333( "allies" );
     common_scripts\utility::_id_384A( "player_constrction_approach" );
-    _id_A5A4::_id_1332( "allies" );
-    _id_A5A4::_id_70C4( "airlift_vsq_greensmoke" );
+    maps\_utility::_id_1332( "allies" );
+    maps\_utility::_id_70C4( "airlift_vsq_greensmoke" );
     common_scripts\utility::_id_383F( "player_constrction_dialogue_spoken" );
-    _id_A5A4::_id_1333( "allies" );
+    maps\_utility::_id_1333( "allies" );
     common_scripts\utility::_id_384A( "player_middle_construction" );
-    _id_A5A4::_id_1332( "allies" );
-    thread _id_A5A4::_id_70C4( "airlift_gm1_holdyourfire" );
+    maps\_utility::_id_1332( "allies" );
+    thread maps\_utility::_id_70C4( "airlift_gm1_holdyourfire" );
     common_scripts\utility::_id_384A( "player_in_upper_construction_stairs" );
     level.smokeleader maps\jake_tools::_id_2A05( "airlift_gm2_firebalcony" );
     common_scripts\utility::_id_384A( "obj_extract_team_complete" );
@@ -1162,8 +1162,8 @@ dialogue_smoketown()
     common_scripts\utility::_id_383F( "obj_extract_to_lz_given" );
     common_scripts\utility::_id_384A( "smoketown_cobra_returns" );
     wait 1.5;
-    _id_A5A4::_id_70C4( "airlift_fhp_missme" );
-    _id_A5A4::_id_1333( "allies" );
+    maps\_utility::_id_70C4( "airlift_fhp_missme" );
+    maps\_utility::_id_1333( "allies" );
 
     if ( level.playerhasseenmi17crash )
     {
@@ -1175,10 +1175,10 @@ dialogue_smoketown()
     level.vasquez maps\jake_tools::_id_2A05( "airlift_vsq_letsgo" );
     common_scripts\utility::_id_384A( "smoketown_hardpoint_overrun" );
     wait 1;
-    _id_A5A4::_id_70C4( "airlift_vsq_gettolz2" );
+    maps\_utility::_id_70C4( "airlift_vsq_gettolz2" );
     maps\jake_tools::_id_9823( "smoketown_lz_return" );
     level.crewchief notify( "player_returning_to_seaknight" );
-    _id_A5A4::_id_70C4( "airlift_vsq_gogo" );
+    maps\_utility::_id_70C4( "airlift_vsq_gogo" );
     common_scripts\utility::_id_384A( "player_at_smoketown_lz" );
     level.crewchief maps\jake_tools::_id_2A05( "airlift_hcc_backonmark19" );
 }
@@ -1187,7 +1187,7 @@ music_smoketown()
 {
     common_scripts\utility::_id_384A( "smoketown_hardpoint_overrun" );
     wait 5;
-    _id_A5A4::_id_6008( "airlift_deploy_music" );
+    maps\_utility::_id_6008( "airlift_deploy_music" );
 }
 
 smoketown_ambient_friendlies_think()
@@ -1212,7 +1212,7 @@ smoketown_ambient_think()
     common_scripts\utility::_id_384A( "player_stairs_construction" );
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
@@ -1244,21 +1244,21 @@ green_smoke()
     wait 3;
     common_scripts\_exploder::_id_3528( 173 );
     common_scripts\utility::_id_384A( "cobra_hit" );
-    _id_A5A4::_id_8E7E( 173 );
+    maps\_utility::_id_8E7E( 173 );
 }
 
 smoketown_flyover()
 {
     common_scripts\utility::_id_384A( "seaknightLeavePlaza" );
-    common_scripts\utility::_id_0D13( level.fxsmoketown, _id_A5A4::_id_748D );
+    common_scripts\utility::_id_0D13( level.fxsmoketown, maps\_utility::_id_748D );
 
     if ( level.usingstartpoint )
         return;
 
-    _id_A5A4::_id_27EF( 10, _id_A5A8::_id_23DE, 24 );
+    maps\_utility::_id_27EF( 10, maps\_vehicle::_id_23DE, 24 );
     common_scripts\utility::_id_384A( "seaknightSmokeTownApproach" );
     var_0 = getaiarray();
-    thread _id_A5A4::_id_08D6( var_0, level.aideletedistance );
+    thread maps\_utility::_id_08D6( var_0, level.aideletedistance );
     maps\jake_tools::_id_9810( "trig_spawn_smoketown_roof_01" );
     wait 3;
     maps\jake_tools::_id_9810( "trig_spawn_smoketown_street_01" );
@@ -1273,10 +1273,10 @@ smoketown_land()
     thread animate_smoketown_crane();
     level._id_78BA["mortar"]["incomming"] = "mortar_incoming";
     level.seaknight thread vehicle_heli_land( getent( "seaknight_land_smoketown", "script_noteworthy" ) );
-    _id_A5A4::_id_27EF( 8, ::disablech46turretfire );
+    maps\_utility::_id_27EF( 8, ::disablech46turretfire );
     var_0 = getentarray( "pilots_smoketown", "targetname" );
     spawn_pilots( var_0 );
-    var_1 = _id_A5A4::_id_0D08( getentarray( "seaknight_unloaders_smoketown", "targetname" ), 1 );
+    var_1 = maps\_utility::_id_0D08( getentarray( "seaknight_unloaders_smoketown", "targetname" ), 1 );
     level.vasquez = maps\jake_tools::_id_3F71( var_1, "vasquez" );
     level.crewchief = maps\jake_tools::spawndude( getent( "seaknight_crewchief_smoketown", "targetname" ), 1 );
     level.seaknight thread vehicle_seaknight_unload( var_1, level.crewchief, "smoketown" );
@@ -1294,15 +1294,15 @@ smoketown_land()
             level.friendliesnames_ch46 = common_scripts\utility::_id_0CDA( level.friendliesnames_ch46, var_3.nearz );
     }
 
-    thread _id_A5A4::_id_1143( "smoketown_start" );
+    thread maps\_utility::_id_1143( "smoketown_start" );
     common_scripts\utility::_id_383F( "obj_extract_team_given" );
     wait 1;
     level.seaknight notify( "unload_ai" );
     common_scripts\_exploder::_id_3528( 888 );
     thread seaknight_player_dismount_gun();
-    _id_A5E8::_id_870C( "set_context_int_for_seaknight" );
+    soundscripts\_snd::_id_870C( "set_context_int_for_seaknight" );
     var_5 = getaiarray( "axis" );
-    thread _id_A5A4::_id_08D6( var_5, 256 );
+    thread maps\_utility::_id_08D6( var_5, 256 );
     level.seaknight waittill( "all_ai_unloaded" );
 
     while ( level.playerinseaknight == 1 )
@@ -1319,20 +1319,20 @@ smoketown_land()
     foreach ( var_3 in var_1 )
         var_3 _meth_8565( 0 );
 
-    _id_A5E8::_id_870C( "aud_add_smoketown_operation_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_smoketown_operation_mix" );
     common_scripts\utility::_id_384A( "player_constrction_dialogue_spoken" );
 
     if ( getdvar( "airlift_min_spec" ) != "1" )
-        _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 41 );
+        maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 41 );
 
     common_scripts\utility::_id_384A( "player_middle_construction" );
-    level.vasquez _id_A5A4::_id_2A74();
+    level.vasquez maps\_utility::_id_2A74();
     var_9 = getnode( "vasquez_construction", "targetname" );
     level.vasquez _meth_81a9( var_9 );
     common_scripts\utility::_id_384A( "player_stairs_construction" );
     var_5 = getaiarray( "axis" );
-    thread _id_A5A4::_id_08D6( var_5, 256 );
-    level.smokefriendlies = _id_A5A4::_id_0D08( getentarray( "smoke_friendlies", "targetname" ), 1 );
+    thread maps\_utility::_id_08D6( var_5, 256 );
+    level.smokefriendlies = maps\_utility::_id_0D08( getentarray( "smoke_friendlies", "targetname" ), 1 );
     level.smokeleader = maps\jake_tools::_id_3F71( level.smokefriendlies, "smokeleader" );
     var_10 = "Cpt. ";
     var_11 = strtok( level.smokeleader.nearz, " " );
@@ -1371,12 +1371,12 @@ smoketown_land()
     var_9 = getnode( "node_construction_rpg", "targetname" );
     level.smokeat4dude.ignoretriggers = 1;
     level.smokeat4dude.grenadeawareness = 0;
-    var_9 _id_A510::_id_0BFF( level.smokeat4dude, "AT4_fire_short_start" );
+    var_9 maps\_anim::_id_0BFF( level.smokeat4dude, "AT4_fire_short_start" );
     level.smokeat4dude attach( "weapon_AT4", "TAG_INHAND" );
-    var_9 thread _id_A510::_id_0BC7( level.smokeat4dude, "AT4_fire_short" );
+    var_9 thread maps\_anim::_id_0BC7( level.smokeat4dude, "AT4_fire_short" );
     common_scripts\utility::_id_384A( "player_in_upper_construction_stairs" );
-    thread _id_A5A4::_id_1143( "smoketown_construction" );
-    var_9 thread _id_A510::_id_0C24( level.smokeat4dude, "AT4_fire_short" );
+    thread maps\_utility::_id_1143( "smoketown_construction" );
+    var_9 thread maps\_anim::_id_0C24( level.smokeat4dude, "AT4_fire_short" );
     level.smokeat4dude thread at4_detach();
     level.smokeat4dude waittillmatch( "single anim", "fire" );
     var_21 = level.smokeat4dude gettagorigin( "TAG_INHAND" );
@@ -1385,20 +1385,20 @@ smoketown_land()
     playfxontag( level.hack_at4_muzzle_flash, level.smokeat4dude, "tag_flash" );
     thread smoketown_at4_impact( var_19, var_22 );
     level.smokeat4dude waittillmatch( "single anim", "end" );
-    level.smokeat4dude thread _id_A510::_id_0BE1( level.smokeat4dude, "AT4_idle_short", undefined, "stop_idle" );
+    level.smokeat4dude thread maps\_anim::_id_0BE1( level.smokeat4dude, "AT4_idle_short", undefined, "stop_idle" );
     common_scripts\utility::_id_383F( "at4_sequence_over" );
     common_scripts\utility::_id_384A( "player_smoketown_junkyard" );
-    level.vasquez _id_A5A4::_id_309A();
+    level.vasquez maps\_utility::_id_309A();
 }
 
 stair_friendly_think()
 {
     self endon( "death" );
     self setthreatbiasgroup( "oblivious" );
-    _id_A5A4::_id_2A74();
+    maps\_utility::_id_2A74();
     common_scripts\utility::_id_384A( "at4_sequence_over" );
     self setthreatbiasgroup( "allies" );
-    _id_A5A4::_id_309A();
+    maps\_utility::_id_309A();
 }
 
 at4_detach()
@@ -1416,7 +1416,7 @@ at4_detach()
     common_scripts\utility::_id_384A( "player_smoketown_junkyard" );
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
@@ -1468,13 +1468,13 @@ junkyard_assault()
         }
     }
 
-    thread _id_A5A4::_id_08D6( var_2, 512 );
+    thread maps\_utility::_id_08D6( var_2, 512 );
     common_scripts\utility::_id_3856( "player_going_to_lz", 3 );
     var_7 = getaiarray( "axis" );
     common_scripts\utility::_id_0D13( var_7, ::ai_player_seek );
     common_scripts\utility::_id_383F( "smoketown_hardpoint_overrun" );
     common_scripts\utility::_id_3831( "aa_construction_to_lz_section" );
-    thread _id_A5A4::_id_1143( "smoketown_hardpoint_overrun" );
+    thread maps\_utility::_id_1143( "smoketown_hardpoint_overrun" );
 }
 
 smoketown_upstairs()
@@ -1486,33 +1486,33 @@ smoketown_upstairs()
 smoketown_lz_advance()
 {
     common_scripts\utility::_id_384A( "smoketown_hardpoint_overrun" );
-    _id_A5A4::playerwatch_register_crusher( level.seaknight );
+    maps\_utility::playerwatch_register_crusher( level.seaknight );
     disable_color_trigs();
     maps\jake_tools::_id_981B( "colornodes_smoketown_lz_initial", "script_noteworthy", 1 );
     var_0 = getent( "colornodes_smoketown_lz_initial", "script_noteworthy" );
     var_0 notify( "trigger", level.playercardbackground );
     maps\jake_tools::_id_981B( "colornodes_smoketown_lz", "script_noteworthy", 1 );
     common_scripts\utility::_id_384A( "player_smoketown_lz_alley" );
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 42 );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 42 );
     thread seaknight_player_triggers();
     thread seaknight_player_monitor( 1 );
     common_scripts\utility::_id_383F( "obj_extract_to_lz_complete" );
-    thread _id_A5A4::_id_1143( "obj_extract_to_lz_complete" );
+    thread maps\_utility::_id_1143( "obj_extract_to_lz_complete" );
     common_scripts\utility::_id_383F( "player_at_smoketown_lz" );
     common_scripts\utility::_id_384A( "seaknight_back_at_smoketown_lz" );
     level.trigger_seaknight_gun common_scripts\utility::_id_97CE();
-    _id_A5A4::playerwatch_unregister_crusher( level.seaknight );
+    maps\_utility::playerwatch_unregister_crusher( level.seaknight );
     common_scripts\utility::_id_383F( "obj_get_on_mark_19_given" );
     waittill_trigger_seaknight_gun();
     common_scripts\utility::_id_383F( "obj_get_on_mark_19_complete" );
-    _id_A5A4::_id_27EF( 0.5, ::disablech46turretfire );
-    _id_A5A4::_id_6720( 888 );
+    maps\_utility::_id_27EF( 0.5, ::disablech46turretfire );
+    maps\_utility::_id_6720( 888 );
     seaknight_player_mount_gun( 1 );
     turn_off_lights( "gamescom_perf", "script_noteworthy" );
-    _id_A5A4::_id_27EF( 5, ::enablech46turretfire );
+    maps\_utility::_id_27EF( 5, ::enablech46turretfire );
     setexpfog( 400, 6500, 0.678431, 0.529574, 0.372549, 1, 0, 3 );
     maps\airlift_lighting::apply_lighting_pass_airlift( "airlift_cobra" );
-    _id_A5E8::_id_870C( "set_context_ext_for_seaknight" );
+    soundscripts\_snd::_id_870C( "set_context_ext_for_seaknight" );
     var_1 = getaiarray( "allies" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
@@ -1524,7 +1524,7 @@ smoketown_lz_advance()
             continue;
 
         if ( isdefined( var_1[var_2]._id_58D7 ) )
-            var_1[var_2] _id_A5A4::_id_8EA4();
+            var_1[var_2] maps\_utility::_id_8EA4();
 
         var_1[var_2] delete();
     }
@@ -1544,14 +1544,14 @@ smoketown_mortars()
 smoketown_enemy_heli()
 {
     common_scripts\utility::_id_384A( "player_in_upper_construction_stairs" );
-    var_0 = _id_A5A8::_id_8978( "smoketown_heli_2" );
+    var_0 = maps\_vehicle::_id_8978( "smoketown_heli_2" );
     var_1 = getent( "heli_crash_smoketown_2", "script_noteworthy" );
     var_0._id_67CA = var_1;
-    thread _id_A5A8::_id_427A( var_0 );
-    level.smoketownmi17 = _id_A5A8::_id_8978( "smoketown_heli_1" );
+    thread maps\_vehicle::_id_427A( var_0 );
+    level.smoketownmi17 = maps\_vehicle::_id_8978( "smoketown_heli_1" );
     var_2 = getent( "heli_crash_smoketown_1", "script_noteworthy" );
     level.smoketownmi17._id_67CA = var_2;
-    thread _id_A5A8::_id_427A( level.smoketownmi17 );
+    thread maps\_vehicle::_id_427A( level.smoketownmi17 );
     level.smoketownmi17 waittill( "deathspin" );
     wait 7;
     level.smoketownmi17 notify( "goal" );
@@ -1564,10 +1564,10 @@ smoketown_enemy_heli()
 smoketown_cobra_think()
 {
     common_scripts\utility::_id_384A( "player_in_upper_construction_stairs" );
-    var_0 = _id_A5A8::_id_8978( "cobra_wingman_smoketown" );
+    var_0 = maps\_vehicle::_id_8978( "cobra_wingman_smoketown" );
     var_0 notify( "stop_default_behavior" );
     common_scripts\utility::_id_384A( "smoketown_mi17_owned" );
-    thread _id_A5A8::_id_427A( var_0 );
+    thread maps\_vehicle::_id_427A( var_0 );
     var_0 thread vehicle_cobra_default_weapons_think();
     wait 0.25;
 
@@ -1604,28 +1604,28 @@ smoketown_deactivate_heli_dust()
     for (;;)
     {
         common_scripts\utility::_id_384A( "deactivate_heli_dust" );
-        _id_A59D::_id_7F1E( "script_vehicle_mi17_woodland_fly_cheap", undefined );
-        _id_A59D::_id_7F1E( "script_vehicle_cobra_helicopter_low", undefined );
+        maps\_treadfx::_id_7F1E( "script_vehicle_mi17_woodland_fly_cheap", undefined );
+        maps\_treadfx::_id_7F1E( "script_vehicle_cobra_helicopter_low", undefined );
         common_scripts\utility::_id_3857( "deactivate_heli_dust" );
-        _id_A59D::_id_7F1E( "script_vehicle_mi17_woodland_fly_cheap", "fx/treadfx/heli_dust_default" );
-        _id_A59D::_id_7F1E( "script_vehicle_cobra_helicopter_low", "fx/treadfx/heli_dust_default" );
+        maps\_treadfx::_id_7F1E( "script_vehicle_mi17_woodland_fly_cheap", "fx/treadfx/heli_dust_default" );
+        maps\_treadfx::_id_7F1E( "script_vehicle_cobra_helicopter_low", "fx/treadfx/heli_dust_default" );
     }
 }
 
 seaknight_smoketown_think()
 {
     common_scripts\utility::_id_384A( "smoketown_seaknight_leaves" );
-    level.seaknight thread _id_A5A4::_id_69C4( "scn_seaknight_liftoff_smoketown" );
+    level.seaknight thread maps\_utility::_id_69C4( "scn_seaknight_liftoff_smoketown" );
     level.seaknight thread maps\airlift_anim::seaknight_close_doors();
     level notify( "stop_seaknight_player_monitor" );
     wait 1.0;
-    _id_A5E8::_id_870C( "aud_seaknight_leaves_smoketown" );
-    level.seaknight _id_A5A4::_id_9CFC();
-    level.seaknight _id_A5A4::_id_9D1F();
+    soundscripts\_snd::_id_870C( "aud_seaknight_leaves_smoketown" );
+    level.seaknight maps\_utility::_id_9CFC();
+    level.seaknight maps\_utility::_id_9D1F();
     common_scripts\utility::_id_384A( "player_smoketown_junkyard_hardpoint" );
     var_0 = getent( "smoketown_seaknight_return", "script_noteworthy" );
-    level.seaknight _id_A5A4::_id_9CB3();
-    level.seaknight thread _id_A5A4::_id_9CBF( var_0, 0 );
+    level.seaknight maps\_utility::_id_9CB3();
+    level.seaknight thread maps\_utility::_id_9CBF( var_0, 0 );
     level.seaknight thread maps\airlift_anim::seaknight_open_doors();
     level.seaknight thread maps\airlift_aud::play_player_heli_land_sfx( getent( "auto978", "targetname" ), "scn_seaknight_land_smoketown2" );
     level.seaknight thread vehicle_heli_land( getent( "seaknight_land_smoketown2", "script_noteworthy" ) );
@@ -1683,7 +1683,7 @@ h1_depthoffield_cobraflight()
             if ( isdefined( level._id_A33F.origin ) )
                 var_2 = level._id_A33F.origin;
 
-            var_3 = _id_A5A4::_id_7612( distance( level.playercardbackground.origin, var_2 ), 0 );
+            var_3 = maps\_utility::_id_7612( distance( level.playercardbackground.origin, var_2 ), 0 );
             level.playercardbackground _meth_84a7( 3.0, var_3, 1.0, 1.0 );
         }
 
@@ -1709,7 +1709,7 @@ music_cobraflight()
 
     for (;;)
     {
-        _id_A5A4::_id_6008( "airlift_cobradown_music" );
+        maps\_utility::_id_6008( "airlift_cobradown_music" );
         wait 96;
         musicstop( 4 );
         wait 4.25;
@@ -1718,36 +1718,36 @@ music_cobraflight()
 
 dialogue_cobraflight()
 {
-    _id_A5A4::_id_70C4( "airlift_hqr_situation" );
-    _id_A5A4::_id_70C4( "airlift_mhp_goahead" );
-    level thread _id_A5A4::_id_70C4( "airlift_hqr_nestteams" );
+    maps\_utility::_id_70C4( "airlift_hqr_situation" );
+    maps\_utility::_id_70C4( "airlift_mhp_goahead" );
+    level thread maps\_utility::_id_70C4( "airlift_hqr_nestteams" );
     wait 5.4;
     wait 1.0;
     common_scripts\utility::_id_383F( "cobra_rpg_launch" );
     common_scripts\utility::_id_384A( "cobra_hit" );
     wait 1;
-    _id_A5A4::_id_70C4( "airlift_fhp_werehit" );
+    maps\_utility::_id_70C4( "airlift_fhp_werehit" );
     wait 3.5;
-    _id_A5A4::_id_70C4( "airlift_fhp_mayday" );
+    maps\_utility::_id_70C4( "airlift_fhp_mayday" );
     wait 0.2;
-    _id_A5A4::_id_70C4( "airlift_fhp_goingdown" );
+    maps\_utility::_id_70C4( "airlift_fhp_goingdown" );
     common_scripts\utility::_id_384A( "cobraCrash02" );
     common_scripts\utility::_id_384A( "cobra_on_deck" );
     wait 1.75;
-    _id_A5A4::_id_70C4( "airlift_mhp_cobradown" );
+    maps\_utility::_id_70C4( "airlift_mhp_cobradown" );
     wait 2;
-    _id_A5A4::_id_70C4( "airlift_mhp_comein" );
+    maps\_utility::_id_70C4( "airlift_mhp_comein" );
     wait 1.5;
-    _id_A5A4::_id_70C4( "airlift_mhp_smallarmsfire" );
+    maps\_utility::_id_70C4( "airlift_mhp_smallarmsfire" );
     wait 1;
-    _id_A5A4::_id_70C4( "airlift_hqr_notsafe" );
-    thread _id_A5A4::_id_1143( "cobraflight_end" );
-    _id_A5A4::_id_70C4( "airlift_mhp_weknow" );
+    maps\_utility::_id_70C4( "airlift_hqr_notsafe" );
+    thread maps\_utility::_id_1143( "cobraflight_end" );
+    maps\_utility::_id_70C4( "airlift_mhp_weknow" );
     wait 1.5;
-    _id_A5A4::_id_70C4( "airlift_hqr_youcall" );
-    _id_A5A4::_id_70C4( "airlift_mhp_youstatus" );
-    _id_A5A4::_id_70C4( "airlift_fhp_usesomehelp" );
-    _id_A5A4::_id_70C4( "airlift_mhp_werecoming" );
+    maps\_utility::_id_70C4( "airlift_hqr_youcall" );
+    maps\_utility::_id_70C4( "airlift_mhp_youstatus" );
+    maps\_utility::_id_70C4( "airlift_fhp_usesomehelp" );
+    maps\_utility::_id_70C4( "airlift_mhp_werecoming" );
     common_scripts\utility::_id_383F( "cobra_crash_dialogue_over" );
 }
 
@@ -1757,14 +1757,14 @@ cobra_flyover()
     level.seaknight thread maps\airlift_anim::seaknight_close_doors();
     level notify( "stop_seaknight_player_monitor" );
     wait 2.0;
-    level.seaknight thread _id_A5A4::_id_69C4( "scn_seaknight_liftoff_smoketown2" );
+    level.seaknight thread maps\_utility::_id_69C4( "scn_seaknight_liftoff_smoketown2" );
     wait 2.0;
     setsaveddvar( "sm_sunSampleSizeNear", 1 );
     setsaveddvar( "sm_sunShadowScale", 0.5 );
-    common_scripts\utility::_id_0D13( level.fxcobrastreets, _id_A5A4::_id_748D );
-    _id_A5A4::_id_27EF( 3, maps\_mortar::bog_style_mortar_on, 2 );
-    level._id_A33F = _id_A5A8::_id_8978( "wingmanCobraflight" );
-    thread _id_A5A8::_id_427A( level._id_A33F );
+    common_scripts\utility::_id_0D13( level.fxcobrastreets, maps\_utility::_id_748D );
+    maps\_utility::_id_27EF( 3, maps\_mortar::bog_style_mortar_on, 2 );
+    level._id_A33F = maps\_vehicle::_id_8978( "wingmanCobraflight" );
+    thread maps\_vehicle::_id_427A( level._id_A33F );
     var_0 = getent( "seaknight_land_smoketown2", "script_noteworthy" );
     var_1 = var_0.sprint_begin;
     var_2 = var_0._id_798B;
@@ -1773,23 +1773,23 @@ cobra_flyover()
     level.seaknight cleargoalyaw();
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.0, 1.0, 3.7, "smoketown_operation_mix", "leaving_smoketown_mix" );
     thread seaknight_liftoff_anim();
-    level.seaknight _id_A5A4::_id_9CFC();
-    level.seaknight _id_A5A4::_id_9D1F();
+    level.seaknight maps\_utility::_id_9CFC();
+    level.seaknight maps\_utility::_id_9D1F();
     level notify( "stop_seaknight_player_monitor" );
     var_4 = getaiarray( "allies" );
-    thread _id_A5A4::_id_08D6( var_4, 10 );
+    thread maps\_utility::_id_08D6( var_4, 10 );
     var_4 = getaiarray();
-    thread _id_A5A4::_id_08D6( var_4, 2048 );
+    thread maps\_utility::_id_08D6( var_4, 2048 );
     common_scripts\utility::_id_384A( "cobra_on_deck" );
-    _id_A5A4::_id_27EF( 0, maps\jake_tools::_id_9810, "trig_spawn_drones_cobra_hills_01" );
-    _id_A5A4::_id_27EF( 0, maps\jake_tools::_id_9810, "trig_spawn_drones_cobra_oasis_01" );
+    maps\_utility::_id_27EF( 0, maps\jake_tools::_id_9810, "trig_spawn_drones_cobra_hills_01" );
+    maps\_utility::_id_27EF( 0, maps\jake_tools::_id_9810, "trig_spawn_drones_cobra_oasis_01" );
     wait 8;
     maps\jake_tools::_id_9810( "trig_spawn_cobra_flyover_01" );
     wait 3;
     maps\jake_tools::_id_9810( "trig_spawn_cobra_roof_03" );
     wait 9.5;
     maps\jake_tools::_id_9810( "trig_spawn_cobra_roof_01" );
-    _id_A5A4::_id_27EF( 2, _id_A5A8::_id_23DE, 52 );
+    maps\_utility::_id_27EF( 2, maps\_vehicle::_id_23DE, 52 );
     level thread aa_cobrastreets_init();
     common_scripts\utility::_id_384A( "seaknightLandingCobratown" );
     setsaveddvar( "sm_sunSampleSizeNear", 0.25 );
@@ -1799,7 +1799,7 @@ cobra_flyover()
 cobra_missile()
 {
     common_scripts\utility::_id_384A( "cobra_rpg_launch" );
-    var_0 = _id_A5A8::_id_8978( "missile_source" );
+    var_0 = maps\_vehicle::_id_8978( "missile_source" );
     var_0 hide();
     var_0 setvehweapon( "crash_missile_airlift" );
     var_0 setturrettargetent( level._id_A33F );
@@ -1811,7 +1811,7 @@ cobra_missile()
     var_2 _meth_81dc( var_3 );
     var_4 = distancesquared( var_2.origin, level._id_A33F gettagorigin( "tail_rotor_jnt" ) );
     wait 0.05;
-    var_2 thread _id_A5A4::_id_69C4( "scn_airlift_cobracrash_incoming_rocket" );
+    var_2 thread maps\_utility::_id_69C4( "scn_airlift_cobracrash_incoming_rocket" );
 
     while ( distancesquared( var_2.origin, level._id_A33F gettagorigin( "tail_rotor_jnt" ) ) < var_4 )
     {
@@ -1825,14 +1825,14 @@ cobra_missile()
 
 cobra_rpgs()
 {
-    _id_A5A4::_id_27EF( 13, ::rpg_fake, "rpg_source_missing_cobra_2" );
+    maps\_utility::_id_27EF( 13, ::rpg_fake, "rpg_source_missing_cobra_2" );
 }
 #using_animtree("vehicles");
 
 cobra_crash()
 {
     common_scripts\utility::_id_384A( "cobra_hit" );
-    _id_A5E8::_id_870C( "start_cobra_crash_mix" );
+    soundscripts\_snd::_id_870C( "start_cobra_crash_mix" );
     level._id_A33F.yawspeed = 400;
     level._id_A33F.yawaccel = 100;
     level._id_A33F setmaxpitchroll( 100, 200 );
@@ -1891,18 +1891,18 @@ cobra_crash_fx()
     setblur( 3.5, 0.1 );
     wait 0.1;
     setblur( 0.0, 1.0 );
-    thread _id_A5A4::_id_69C4( "scn_airlift_cobra_down" );
-    thread _id_A5A4::_id_69C5( "scn_airlift_cobra_exp1", "tail_rotor_jnt" );
+    thread maps\_utility::_id_69C4( "scn_airlift_cobra_down" );
+    thread maps\_utility::_id_69C5( "scn_airlift_cobra_exp1", "tail_rotor_jnt" );
     wait 0.9;
     thread maps\_mortar::bog_style_mortar_off( 2 );
     common_scripts\utility::_id_384A( "cobraCrash01" );
-    thread _id_A5A4::_id_69C4( "scn_airlift_cobra_exp2" );
+    thread maps\_utility::_id_69C4( "scn_airlift_cobra_exp2" );
     earthquake( 0.4, 1, level.playercardbackground.origin, 8000 );
     exploder_trigger( 600, var_0.origin );
     playfxontag( common_scripts\utility::_id_3FA8( "cobra_hitting_first_roof" ), self, "tag_deathfx" );
     playfxontag( common_scripts\utility::_id_3FA8( "helicopter_rotor_damaged_fire_airlift" ), self, "tag_deathfx" );
     wait 6.8;
-    thread _id_A5A4::_id_69C4( "scn_airlift_cobra_exp3" );
+    thread maps\_utility::_id_69C4( "scn_airlift_cobra_exp3" );
     earthquake( 0.3, 2, level.playercardbackground.origin, 8000 );
     exploder_trigger( 700, var_2.origin );
     wait 1.6;
@@ -1928,7 +1928,7 @@ show_cobra_crash()
 
 exploder_trigger( var_0, var_1 )
 {
-    var_0 = _id_A5A4::_id_8F53( var_0 );
+    var_0 = maps\_utility::_id_8F53( var_0 );
     common_scripts\_exploder::_id_3528( var_0 );
 
     if ( isdefined( level._id_78BA["exploder"][var_0] ) )
@@ -1941,9 +1941,9 @@ cobra_crash_attached_fx()
     self endon( "death" );
     common_scripts\utility::_id_384A( "cobra_hit" );
     thread cobra_crash_attached_subfx( "tail_rotor_jnt", undefined, "fire_trail_l_airlift", 1.5 );
-    _id_A5A4::_id_27EF( 1.5, ::cobra_crash_attached_subfx, "tail_rotor_jnt", "cobra_fire_burst_exhaust", "smoke_trail_l_airlift", 8.3 );
-    _id_A5A4::_id_27EF( 3, ::cobra_crash_attached_subfx, "tag_engine_right", "cobra_fire_burst_exhaust", "cobra_fire_exhaust", 6.9 );
-    _id_A5A4::_id_27EF( 3.4, ::cobra_crash_attached_subfx, "tag_engine_left", "cobra_fire_burst_exhaust", "cobra_fire_exhaust", 6.6 );
+    maps\_utility::_id_27EF( 1.5, ::cobra_crash_attached_subfx, "tail_rotor_jnt", "cobra_fire_burst_exhaust", "smoke_trail_l_airlift", 8.3 );
+    maps\_utility::_id_27EF( 3, ::cobra_crash_attached_subfx, "tag_engine_right", "cobra_fire_burst_exhaust", "cobra_fire_exhaust", 6.9 );
+    maps\_utility::_id_27EF( 3.4, ::cobra_crash_attached_subfx, "tag_engine_left", "cobra_fire_burst_exhaust", "cobra_fire_exhaust", 6.6 );
 }
 
 cobra_crash_attached_subfx( var_0, var_1, var_2, var_3 )
@@ -1954,7 +1954,7 @@ cobra_crash_attached_subfx( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_1 ) )
     {
         playfxontag( common_scripts\utility::_id_3FA8( var_1 ), self, var_0 );
-        thread _id_A5A4::_id_69C5( "airlift_cobra_burst_exhaust", var_0 );
+        thread maps\_utility::_id_69C5( "airlift_cobra_burst_exhaust", var_0 );
     }
 
     if ( isdefined( var_2 ) )
@@ -2024,53 +2024,53 @@ cobrastreets_crewchief_think()
     level.crewchief notify( "stop_default_behavior" );
     level.crewchief notify( "stop_idle_crewchief" );
     level.crewchief animscripts\shared::_id_6869( level.crewchief.secondaryweapon, "right" );
-    level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+    level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
     common_scripts\utility::_id_384A( "player_cobra_retreat_03" );
 
     while ( distancesquared( level.playercardbackground.origin, level.crewchief.origin ) > level.crewchiefrangesquared )
     {
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
         level.crewchief waittillmatch( "looping anim", "end" );
     }
 
     level.crewchief notify( "stop_default_behavior" );
     level.crewchief notify( "stop_idle_crewchief" );
-    level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+    level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
 
     if ( !level.usingstartpoint )
     {
         common_scripts\utility::_id_384A( "cobrastreet_seaknight_loading" );
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_getin", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_getin", "tag_detach", "stop_idle_crewchief", level.seaknight );
         wait 5;
         level.crewchief waittillmatch( "looping anim", "end" );
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
         wait 1.3;
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_getin", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_getin", "tag_detach", "stop_idle_crewchief", level.seaknight );
         wait 1;
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
         level.crewchief waittillmatch( "looping anim", "end" );
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
         wait 3;
         level.crewchief notify( "stop_idle_crewchief" );
-        level.seaknight _id_A510::_id_0C24( level.crewchief, "airlift_crewchief_stepout", "tag_detach" );
+        level.seaknight maps\_anim::_id_0C24( level.crewchief, "airlift_crewchief_stepout", "tag_detach" );
         level.crewchief notify( "stop_idle_crewchief" );
-        level.seaknight _id_A510::_id_0C24( level.crewchief, "airlift_crewchief_stepout_fire", "tag_detach" );
-        level.seaknight _id_A510::_id_0C24( level.crewchief, "airlift_crewchief_stepout_fire_2_idle", "tag_detach" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, "airlift_crewchief_stepout_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.seaknight maps\_anim::_id_0C24( level.crewchief, "airlift_crewchief_stepout_fire", "tag_detach" );
+        level.seaknight maps\_anim::_id_0C24( level.crewchief, "airlift_crewchief_stepout_fire_2_idle", "tag_detach" );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "airlift_crewchief_stepout_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
     }
 
     common_scripts\utility::_id_384A( "nuke_explodes" );
     level.crewchief notify( "stop_idle_crewchief" );
-    level.seaknight _id_A510::_id_0C24( level.crewchief, "crewchief_sucked_out", "tag_detach" );
+    level.seaknight maps\_anim::_id_0C24( level.crewchief, "crewchief_sucked_out", "tag_detach" );
 
     if ( isdefined( level.crewchief._id_58D7 ) )
-        level.crewchief _id_A5A4::_id_8EA4();
+        level.crewchief maps\_utility::_id_8EA4();
 
     level.crewchief delete();
 }
@@ -2127,17 +2127,17 @@ dialogue_crash_site_nag()
 dialogue_crash_site_nag_cleanup()
 {
     common_scripts\utility::_id_384A( "pilot_taken_from_cockpit" );
-    thread _id_A5A4::_id_48CB();
+    thread maps\_utility::_id_48CB();
 }
 
 dialogue_cobrastreets()
 {
     common_scripts\utility::_id_384A( "cobra_crash_dialogue_over" );
-    _id_A5A4::_id_1332( "allies" );
+    maps\_utility::_id_1332( "allies" );
     common_scripts\utility::_id_384A( "player_exited_seaknight_cobrastreets" );
-    _id_A5A4::_id_70C4( "airlift_hqr_hostilesadvancing" );
-    _id_A5A4::_id_70C4( "airlift_vsq_90sec" );
-    _id_A5A4::_id_1333( "allies" );
+    maps\_utility::_id_70C4( "airlift_hqr_hostilesadvancing" );
+    maps\_utility::_id_70C4( "airlift_vsq_90sec" );
+    maps\_utility::_id_1333( "allies" );
     common_scripts\utility::_id_384A( "player_near_crash_site" );
     level.vasquez maps\jake_tools::_id_2A05( "airlift_vsq_pullherout" );
     thread dialogue_crash_site_nag();
@@ -2146,8 +2146,8 @@ dialogue_cobrastreets()
     wait 3;
     level.vasquez maps\jake_tools::_id_2A05( "airlift_vsq_holddown" );
     common_scripts\utility::_id_383F( "obj_return_pilot_given" );
-    _id_A5A4::_id_70C4( "airlift_mhp_goodtime" );
-    _id_A5A4::_id_70C4( "airlift_vsq_onourway" );
+    maps\_utility::_id_70C4( "airlift_mhp_goodtime" );
+    maps\_utility::_id_70C4( "airlift_vsq_onourway" );
 }
 
 cobrapilot_spawn()
@@ -2164,12 +2164,12 @@ cobra_streetfight()
     level.seaknight thread maps\airlift_aud::play_player_heli_land_sfx( getent( "flightPathstart_cobrastreets", "targetname" ), "scn_seaknight_land_cobrastreets" );
     common_scripts\utility::_id_384A( "seaknightLandingCobratown" );
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.0, 1.0, 3.7, "cobra_crash_mix", "landing_crash_mix" );
-    _id_A536::_id_9932();
+    maps\_friendlyfire::_id_9932();
     var_0 = getentarray( "trigger_cobra_retreat", "script_noteworthy" );
     common_scripts\utility::_id_0D13( var_0, common_scripts\utility::_id_97CC );
     level.seaknight thread vehicle_heli_land( getent( "seaknight_land_cobrastreets", "script_noteworthy" ) );
-    _id_A5A4::_id_27EF( 5, ::disablech46turretfire );
-    level.afriendliesseaknight = _id_A5A4::_id_0D08( getentarray( "seaknight_unloaders_cobrastreets", "targetname" ), 1 );
+    maps\_utility::_id_27EF( 5, ::disablech46turretfire );
+    level.afriendliesseaknight = maps\_utility::_id_0D08( getentarray( "seaknight_unloaders_cobrastreets", "targetname" ), 1 );
 
     if ( isdefined( level.friendliesnames_smoketown ) )
     {
@@ -2193,9 +2193,9 @@ cobra_streetfight()
     level.crewchief = maps\jake_tools::spawndude( getent( "seaknight_crewchief_cobrastreets", "targetname" ), 1 );
     level.seaknight thread vehicle_seaknight_unload( level.afriendliesseaknight, level.crewchief, "cobrastreets" );
     level.seaknight waittill( "landed" );
-    _id_A5E8::_id_870C( "start_pilot_rescue_mix" );
+    soundscripts\_snd::_id_870C( "start_pilot_rescue_mix" );
     var_6 = getaiarray( "axis" );
-    thread _id_A5A4::_id_08D6( var_6, 100 );
+    thread maps\_utility::_id_08D6( var_6, 100 );
     common_scripts\utility::_id_383F( "seaknight_landed_cobrastreets" );
     common_scripts\utility::_id_383F( "aa_cobra_rescue_section" );
     thread maps\_mortar::bog_style_mortar_off( 2 );
@@ -2206,14 +2206,14 @@ cobra_streetfight()
     var_7 = getent( "friendly_deadpilot", "script_noteworthy" );
     level.deadpilot = maps\jake_tools::spawndude( var_7, "stalingrad" );
     level.deadpilot._id_0C72 = "frnd";
-    level.deadpilot _id_A5A4::_id_4462();
+    level.deadpilot maps\_utility::_id_4462();
     level.deadpilot setcontents( 0 );
     level.deadpilot.allowdeath = 0;
     level.deadpilot.ignoretriggers = 1;
     level.deadpilot.grenadeawareness = 0;
     var_8 = getent( "node_gunner_crash", "targetname" );
-    var_8 thread _id_A510::_id_0BE1( level.deadpilot, "deadpilot_idle", undefined, "stop_idle_deadpilot" );
-    level.afriendlieslz = _id_A5A4::_id_0D08( getentarray( "friendlies_cobrastreets_lz", "targetname" ), 1 );
+    var_8 thread maps\_anim::_id_0BE1( level.deadpilot, "deadpilot_idle", undefined, "stop_idle_deadpilot" );
+    level.afriendlieslz = maps\_utility::_id_0D08( getentarray( "friendlies_cobrastreets_lz", "targetname" ), 1 );
 
     if ( isdefined( level.friendliesnames_smoketown ) )
     {
@@ -2235,20 +2235,20 @@ cobra_streetfight()
     wait 2;
     common_scripts\utility::_id_383F( "obj_rescue_pilot_given" );
     thread remove_enemiesgrenades_cobrastreets();
-    _id_A5A4::_id_27EF( 1, ::rescue_timer, 90 );
+    maps\_utility::_id_27EF( 1, ::rescue_timer, 90 );
     thread vehicles_delete_all( "t72s" );
     level.sk_godrays_reverse = 1;
     level.seaknight notify( "unload_ai" );
     thread seaknight_player_dismount_gun();
-    _id_A536::_id_992E();
+    maps\_friendlyfire::_id_992E();
     level.seaknight waittill( "all_ai_unloaded" );
 
     while ( level.playerinseaknight == 1 )
         wait 0.05;
 
     common_scripts\utility::_id_383F( "player_exited_seaknight_cobrastreets" );
-    _id_A5A4::_id_27EF( 0, _id_A5A8::_id_23DE, 51 );
-    thread _id_A5A4::_id_1143( "seaknight_landed_cobrastreets" );
+    maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 51 );
+    thread maps\_utility::_id_1143( "seaknight_landed_cobrastreets" );
     common_scripts\utility::_id_0D13( level.afriendliesseaknight, maps\jake_tools::_id_0907, "stop_ch46_idle", 10 );
     maps\jake_tools::_id_981B( "colornodes_cobrastreets_start", "script_noteworthy", 1 );
     common_scripts\utility::_id_384A( "pilot_taken_from_cockpit" );
@@ -2257,13 +2257,13 @@ cobra_streetfight()
     thread h1_nukevisualeffects_blurs();
     common_scripts\utility::_id_3831( "aa_cobra_rescue_section" );
     common_scripts\utility::_id_383F( "aa_cobra_escape_section" );
-    _id_A5A4::_id_27EF( 4, _id_A546::_id_8AF5, 1 );
+    maps\_utility::_id_27EF( 4, maps\_hud_util::_id_8AF5, 1 );
     level.playercardbackground.deathinvulnerabletime = 10000;
     var_0 = getentarray( "trigger_cobra_retreat", "script_noteworthy" );
     common_scripts\utility::_id_0D13( var_0, common_scripts\utility::_id_97CE );
     maps\jake_tools::_id_981B( "colornodes_cobrastreets_start", "script_noteworthy", 0 );
     maps\jake_tools::_id_981B( "colornodes_cobrastreets_end", "script_noteworthy", 1 );
-    level.afriendlieslzdummies = _id_A5A4::_id_0D08( getentarray( "friendlies_cobrastreets_lz_dummies", "targetname" ), 1 );
+    level.afriendlieslzdummies = maps\_utility::_id_0D08( getentarray( "friendlies_cobrastreets_lz_dummies", "targetname" ), 1 );
     vehicle_seaknight_idle_and_load( level.afriendlieslzdummies );
     common_scripts\utility::_id_384A( "player_cobra_retreat_01" );
     maps\jake_tools::_id_9810( "killspawner_cobra_retreat_01" );
@@ -2276,16 +2276,16 @@ cobra_streetfight()
     for ( var_1 = 0; var_1 < level.afriendliesseaknight.size; var_1++ )
     {
         if ( isdefined( level.afriendliesseaknight[var_1]._id_58D7 ) )
-            level.afriendliesseaknight[var_1] _id_A5A4::_id_8EA4();
+            level.afriendliesseaknight[var_1] maps\_utility::_id_8EA4();
     }
 
     common_scripts\utility::_id_384A( "player_putting_down_pilot" );
     turn_off_lights( "cobra_light", "script_noteworthy" );
     common_scripts\utility::_id_3831( "aa_cobra_escape_section" );
-    thread _id_A546::_id_8AF5( 0 );
+    thread maps\_hud_util::_id_8AF5( 0 );
     common_scripts\utility::_id_383F( "obj_return_pilot_complete" );
     thread kill_timer();
-    thread _id_A5A4::_id_1143( "obj_return_pilot_complete" );
+    thread maps\_utility::_id_1143( "obj_return_pilot_complete" );
     var_13 = spawn( "script_origin", level.seaknight.origin );
     var_13.origin = level.seaknight gettagorigin( "tag_door_rear" );
     var_14 = missile_createrepulsorent( var_13, 7000, 500 );
@@ -2300,7 +2300,7 @@ cobra_streetfight()
     for ( var_1 = 0; var_1 < level.afriendlieslz.size; var_1++ )
     {
         if ( isdefined( level.afriendlieslz[var_1]._id_58D7 ) )
-            level.afriendlieslz[var_1] _id_A5A4::_id_8EA4();
+            level.afriendlieslz[var_1] maps\_utility::_id_8EA4();
 
         level.afriendlieslz[var_1] delete();
     }
@@ -2314,7 +2314,7 @@ cobra_streetfight()
             continue;
 
         if ( isdefined( level.afriendliesseaknight[var_1]._id_58D7 ) )
-            level.afriendliesseaknight[var_1] _id_A5A4::_id_8EA4();
+            level.afriendliesseaknight[var_1] maps\_utility::_id_8EA4();
 
         level.afriendliesseaknight[var_1] delete();
     }
@@ -2322,7 +2322,7 @@ cobra_streetfight()
     if ( isdefined( level.vasquez ) )
     {
         if ( isdefined( level.vasquez._id_58D7 ) )
-            level.vasquez _id_A5A4::_id_8EA4();
+            level.vasquez maps\_utility::_id_8EA4();
 
         level.vasquez delete();
     }
@@ -2340,7 +2340,7 @@ cobra_streetfight()
 
 h1_grabbingpilot_dofsystem()
 {
-    level.playercardbackground thread _id_A5A4::_id_69C4( "airlift_pickup_pilot_backpack" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "airlift_pickup_pilot_backpack" );
     level.playercardbackground _meth_84a7( 2.0, 42, 9.0, 9.0 );
     level.playercardbackground _meth_84a5();
     level.playercardbackground _meth_84a7( 2.0, 42, 4.0, 4.0 );
@@ -2358,7 +2358,7 @@ h1_grabbingpilot_dofsystem()
 
     while ( var_1 >= 0 )
     {
-        var_2 = _id_A5A4::_id_7612( distance( level.playercardbackground.origin, level.seaknight.origin ), 0 );
+        var_2 = maps\_utility::_id_7612( distance( level.playercardbackground.origin, level.seaknight.origin ), 0 );
         level.playercardbackground _meth_84a7( 2.0, var_2, 1.0, 1.0 );
         wait(var_0);
         var_1 += var_0;
@@ -2544,8 +2544,8 @@ cobrapilot_wave()
     level endon( "pilot_taken_from_cockpit" );
     level.crashnode notify( "stop_idle_pilot" );
     cobrapilot_change_facial_anim( "wounded_cockpit_wave_over_facial", 0 );
-    level.crashnode _id_A510::_id_0C24( self, "wounded_cockpit_wave_over" );
-    level.crashnode thread _id_A510::_id_0BE1( self, "wounded_cockpit_idle", undefined, "stop_idle_pilot" );
+    level.crashnode maps\_anim::_id_0C24( self, "wounded_cockpit_wave_over" );
+    level.crashnode thread maps\_anim::_id_0BE1( self, "wounded_cockpit_idle", undefined, "stop_idle_pilot" );
     thread cobrapilot_change_facial_anim( "wounded_cockpit_idle_facial", 1 );
     wait(randomfloatrange( 2, 4 ));
 
@@ -2557,8 +2557,8 @@ cobrapilot_wave()
         {
             level.crashnode notify( "stop_idle_pilot" );
             cobrapilot_change_facial_anim( "wounded_cockpit_wave_over_facial", 0 );
-            level.crashnode _id_A510::_id_0C24( self, "wounded_cockpit_wave_over" );
-            level.crashnode thread _id_A510::_id_0BE1( self, "wounded_cockpit_idle", undefined, "stop_idle_pilot" );
+            level.crashnode maps\_anim::_id_0C24( self, "wounded_cockpit_wave_over" );
+            level.crashnode thread maps\_anim::_id_0BE1( self, "wounded_cockpit_idle", undefined, "stop_idle_pilot" );
             thread cobrapilot_change_facial_anim( "wounded_cockpit_idle_facial", 1 );
             wait(randomfloatrange( 2, 4 ));
         }
@@ -2581,7 +2581,7 @@ cobrapilot_think()
     self.usepathsmoothingvalues = 1;
     thread cobrapilot_shoots_enemies();
     thread cobrapilot_change_facial_anim( "wounded_cockpit_shoot_facial", 1 );
-    level.crashnode thread _id_A510::_id_0BE1( self, "wounded_cockpit_shoot", undefined, "stop_idle_pilot" );
+    level.crashnode thread maps\_anim::_id_0BE1( self, "wounded_cockpit_shoot", undefined, "stop_idle_pilot" );
     common_scripts\utility::_id_384A( "player_near_crash_site" );
     self.ignoretriggers = 1;
     self.grenadeawareness = 0;
@@ -2608,7 +2608,7 @@ cobrapilot_think()
         }
     }
 
-    level.cobrapilot thread _id_A5A4::_id_69C4( "scn_airlift_pilot_pullout" );
+    level.cobrapilot thread maps\_utility::_id_69C4( "scn_airlift_pilot_pullout" );
     level.playercardbackground enableinvulnerability();
     level.playercardbackground allowprone( 0 );
     level.playercardbackground allowcrouch( 0 );
@@ -2620,10 +2620,10 @@ cobrapilot_think()
     level.playercardbackground allowsprint( 0 );
     level.playercardbackground allowjump( 0 );
     level.playercardbackground allowlean( 0 );
-    level.eplayerview = _id_A5A4::_id_88D1( "player_carry" );
+    level.eplayerview = maps\_utility::_id_88D1( "player_carry" );
     level.eplayerview hide();
-    level.crashnode _id_A510::_id_0BC7( level.eplayerview, "wounded_pullout" );
-    level.eplayerview _id_A5A4::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
+    level.crashnode maps\_anim::_id_0BC7( level.eplayerview, "wounded_pullout" );
+    level.eplayerview maps\_utility::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
     level.playercardbackground playerlinktodelta( level.eplayerview, "tag_player", 1, 0, 0, 0, 0 );
     common_scripts\utility::_id_383F( "pilot_taken_from_cockpit" );
     level.eplayerview show();
@@ -2631,11 +2631,11 @@ cobrapilot_think()
     setsaveddvar( "r_znear", 1.0 );
     level.crashnode notify( "stop_idle_pilot" );
     cobrapilot_change_facial_anim( "wounded_pullout_facial", 0 );
-    level.crashnode thread _id_A510::_id_0C24( level.cobrapilot, "wounded_pullout" );
-    level.crashnode _id_A510::_id_0C24( level.eplayerview, "wounded_pullout" );
+    level.crashnode thread maps\_anim::_id_0C24( level.cobrapilot, "wounded_pullout" );
+    level.crashnode maps\_anim::_id_0C24( level.eplayerview, "wounded_pullout" );
     level.playercardbackground disableinvulnerability();
-    level.seaknight thread _id_A5AA::_id_5748( "back3" );
-    level.seaknight thread _id_A5AA::_id_5746( "back back2" );
+    level.seaknight thread maps\_vehicle_code::_id_5748( "back3" );
+    level.seaknight thread maps\_vehicle_code::_id_5746( "back back2" );
     level aa_nuke_init();
 }
 
@@ -2699,51 +2699,51 @@ music_nuke()
     wait 4.1;
     common_scripts\utility::_id_384A( "shockwave_about_to_hit_player" );
     wait 1;
-    _id_A5A4::_id_6008( "airlift_crash_music" );
+    maps\_utility::_id_6008( "airlift_crash_music" );
 }
 
 dialogue_nuke()
 {
     common_scripts\utility::_id_384A( "nuke_section_start" );
-    _id_A5A4::_id_70C4( "airlift_hqr_nuclearthreat" );
+    maps\_utility::_id_70C4( "airlift_hqr_nuclearthreat" );
     wait 1;
-    _id_A5A4::_id_70C4( "airlift_vsq_gogo" );
+    maps\_utility::_id_70C4( "airlift_vsq_gogo" );
     wait 5.5;
     setsaveddvar( "sm_sunSampleSizeNear", 1 );
     setsaveddvar( "sm_sunShadowScale", 0.5 );
-    _id_A5A4::_id_70C4( "airlift_mhp_inforchop" );
+    maps\_utility::_id_70C4( "airlift_mhp_inforchop" );
     wait 0.5;
-    _id_A5A4::_id_70C4( "airlift_hqr_confirmed" );
+    maps\_utility::_id_70C4( "airlift_hqr_confirmed" );
     level.playercardbackground playsound( "airlift_nuke_radio_comm_shutoff" );
     common_scripts\utility::_id_384A( "shockwave_about_to_hit_player" );
-    level thread _id_A5A4::_id_70BD( "airlift_vsq_hangon" );
+    level thread maps\_utility::_id_70BD( "airlift_vsq_hangon" );
 }
 
 nuke_flight()
 {
     level.cobrapilot common_scripts\utility::_id_4853( "nuke_section_start" );
-    _id_A5E8::_id_870C( "aud_add_drag_pilot_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_drag_pilot_mix" );
 
     if ( isdefined( level.cobrapilot ) )
     {
         if ( isdefined( level.cobrapilot._id_58D7 ) )
-            level.cobrapilot _id_A5A4::_id_8EA4();
+            level.cobrapilot maps\_utility::_id_8EA4();
 
         level.cobrapilot unlink();
         level.cobrapilot delete();
     }
 
-    level.cobrapilot = _id_A5A4::_id_88D1( "frnd" );
+    level.cobrapilot = maps\_utility::_id_88D1( "frnd" );
     level.playercardbackground unlink();
     level.carryignoreentityfunction = ::carryignoreentity;
     maps\_move_with_animation::carrystart( level.cobrapilot, ::carryloopcondition );
     var_0 = getent( "trig_pilot_putdown", "targetname" );
     var_0 waittill( "trigger" );
-    _id_A5E8::_id_870C( "aud_add_escape_crash_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_escape_crash_mix" );
     level.is_carry_done = 1;
-    var_1 = _id_A5A4::_id_88D1( "player_carry" );
-    level.seaknight _id_A510::_id_0C43( var_1, "wounded_putdown", "tag_detach" );
-    level.seaknight _id_A510::_id_0BC7( var_1, "wounded_putdown", "tag_detach" );
+    var_1 = maps\_utility::_id_88D1( "player_carry" );
+    level.seaknight maps\_anim::_id_0C43( var_1, "wounded_putdown", "tag_detach" );
+    level.seaknight maps\_anim::_id_0BC7( var_1, "wounded_putdown", "tag_detach" );
     var_2 = var_1 gettagorigin( "tag_player" );
     var_3 = var_1 gettagangles( "tag_player" );
     var_1 hide();
@@ -2751,22 +2751,22 @@ nuke_flight()
     var_4._id_0C72 = "frnd";
     var_5 = [];
     var_5[0] = var_4;
-    level.seaknight _id_A510::_id_0C36( var_5, "wounded_putdown", "tag_detach" );
+    level.seaknight maps\_anim::_id_0C36( var_5, "wounded_putdown", "tag_detach" );
     var_6 = maps\jake_tools::spawndude( var_4, "stalingrad" );
     var_6 setcontents( 0 );
     var_6.ignoretriggers = 1;
     var_6.grenadeawareness = 0;
     var_6 setthreatbiasgroup( "oblivious" );
-    level.seaknight _id_A510::_id_0BC7( var_6, "wounded_putdown", "tag_detach" );
+    level.seaknight maps\_anim::_id_0BC7( var_6, "wounded_putdown", "tag_detach" );
     var_6 hide();
     common_scripts\utility::_id_383F( "nuke_section_start" );
     thread hud_hide( 1 );
-    _id_A5E8::_id_870C( "set_ambient_helicopter" );
+    soundscripts\_snd::_id_870C( "set_ambient_helicopter" );
     common_scripts\utility::_id_383F( "player_putting_down_pilot" );
     thread cobrapilot_grunt();
     level.playercardbackground enableinvulnerability();
     level notify( "delete_pilots" );
-    var_1 _id_A5A4::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
+    var_1 maps\_utility::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
     maps\_move_with_animation::carrystop();
     level.eplayerview delete();
     level.eplayerview = var_1;
@@ -2779,7 +2779,7 @@ nuke_flight()
     var_5[var_5.size] = level.eplayerview;
     var_5[var_5.size] = level.cobrapilot;
     level.cobrapilot cobrapilot_change_facial_anim( "wounded_putdown_facial", 0 );
-    level.seaknight _id_A510::_id_0C18( var_5, "wounded_putdown", "tag_detach" );
+    level.seaknight maps\_anim::_id_0C18( var_5, "wounded_putdown", "tag_detach" );
 
     if ( isdefined( level.oldnearclip ) )
     {
@@ -2787,7 +2787,7 @@ nuke_flight()
         level.oldnearclip = undefined;
     }
 
-    _id_A513::_id_8FCD( "nuke", 0 );
+    maps\_art::_id_8FCD( "nuke", 0 );
     level.eplayerview hide();
     level.playercardbackground enableweapons();
     level.eplayerview linkto( level.seaknight );
@@ -2796,31 +2796,31 @@ nuke_flight()
     wait 1;
 
     if ( isdefined( level.cobrapilot._id_58D7 ) )
-        level.cobrapilot _id_A5A4::_id_8EA4();
+        level.cobrapilot maps\_utility::_id_8EA4();
 
     level.cobrapilot delete();
     common_scripts\utility::_id_383F( "pilot_put_down_in_seaknight" );
-    _id_A5A4::_id_27EF( 14, _id_A5A8::_id_23DE, 36 );
+    maps\_utility::_id_27EF( 14, maps\_vehicle::_id_23DE, 36 );
     wait 6;
-    level.seaknight thread _id_A5A4::_id_69C4( "scn_seaknight_liftoff_cobrastreets" );
+    level.seaknight thread maps\_utility::_id_69C4( "scn_seaknight_liftoff_cobrastreets" );
     level notify( "stop_seaknight_player_monitor" );
     wait 2;
     level.seaknight vehicle_setspeed( 60 );
     level.seaknight cleargoalyaw();
     level.seaknight_engine_sound_node thread maps\airlift_aud::aud_seaknight_event_handler( 1.0, 1.0, 3.7, "drag_pilot_mix", "escape_crash_mix" );
-    level.seaknight _id_A5A4::_id_9CFC();
-    level.seaknight _id_A5A4::_id_9D1F();
+    level.seaknight maps\_utility::_id_9CFC();
+    level.seaknight maps\_utility::_id_9D1F();
     level.seaknight setmaxpitchroll( 25, 50 );
     level.seaknight setairresitance( 1 );
     level.seaknight setacceleration( 5 );
     level.seaknight setjitterparams( ( 0, 0, 20 ), 0.5, 1.5 );
     common_scripts\utility::_id_383F( "seaknight_leaving_cobrastreets" );
     level notify( "stop_seaknight_player_monitor" );
-    _id_A5A4::_id_27EF( 1.5, ::rpg_fake, "rpg_source_cobra_end" );
+    maps\_utility::_id_27EF( 1.5, ::rpg_fake, "rpg_source_cobra_end" );
     maps\jake_tools::_id_9810( "killspawner_cobra_end" );
-    thread _id_A5A4::_id_1143( "cobra_leave" );
+    thread maps\_utility::_id_1143( "cobra_leave" );
     var_7 = getaiarray( "axis" );
-    thread _id_A5A4::_id_08D6( var_7, 2048 );
+    thread maps\_utility::_id_08D6( var_7, 2048 );
 }
 
 carryloopcondition()
@@ -2839,13 +2839,13 @@ carryignoreentity( var_0 )
 
 cobrapilot_grunt()
 {
-    level.cobrapilot thread _id_A5A4::_id_69C4( "airlift_drop_pilot_backpack" );
+    level.cobrapilot thread maps\_utility::_id_69C4( "airlift_drop_pilot_backpack" );
 }
 
 _id_6265()
 {
     common_scripts\utility::_id_384A( "seaknightStartingNukePath" );
-    var_0 = _id_A5A8::get_vehicle_from_targetname( "nuke_seaknight_02" );
+    var_0 = maps\_vehicle::get_vehicle_from_targetname( "nuke_seaknight_02" );
     var_0 playsound( "scn_airlift_nuke_incoming_seaknight" );
     thread player_viewbody_animations_nukecrash();
     thread despawn_smoketown_crane();
@@ -2853,24 +2853,24 @@ _id_6265()
     wait 1.5;
     thread nuke_sunlight();
     common_scripts\utility::_id_383F( "nuke_explodes" );
-    _id_A5E8::_id_870C( "start_nuke_mix" );
+    soundscripts\_snd::_id_870C( "start_nuke_mix" );
     wait 0.5;
     level.playercardbackground disableweapons();
     level.playercardbackground playlocalsound( "airlift_nuke" );
     common_scripts\_exploder::_id_3528( 666 );
     maps\airlift_lighting::apply_lighting_pass_airlift( "airlift_nuke_flash" );
-    _id_A5A4::_id_27EF( 0.25, maps\airlift_lighting::apply_lighting_pass_airlift, "airlift_nuke" );
+    maps\_utility::_id_27EF( 0.25, maps\airlift_lighting::apply_lighting_pass_airlift, "airlift_nuke" );
     setexpfog( 0, 17000, 0.678352, 0.498765, 0.372533, 1, 0, 0.5 );
     thread nuke_shockwave_blur();
     wait 1;
     thread nuke_earthquake();
-    _id_A5A4::_id_27EF( 2.3, ::nuke_chopper_crash, "nuke_cobra_04" );
-    _id_A5A4::_id_27EF( 2.5, ::nuke_chopper_crash, "nuke_cobra_02" );
-    _id_A5A4::_id_27EF( 2.8, ::nuke_chopper_crash, "nuke_seaknight_01" );
-    _id_A5A4::_id_27EF( 3.3, ::nuke_chopper_crash, "nuke_cobra_03" );
-    _id_A5A4::_id_27EF( 2.9, ::nuke_chopper_crash, "nuke_cobra_01" );
-    _id_A5A4::_id_27EF( 4.5, ::nuke_chopper_crash, "nuke_cobra_05" );
-    var_0 = _id_A5A8::get_vehicle_from_targetname( "nuke_seaknight_02" );
+    maps\_utility::_id_27EF( 2.3, ::nuke_chopper_crash, "nuke_cobra_04" );
+    maps\_utility::_id_27EF( 2.5, ::nuke_chopper_crash, "nuke_cobra_02" );
+    maps\_utility::_id_27EF( 2.8, ::nuke_chopper_crash, "nuke_seaknight_01" );
+    maps\_utility::_id_27EF( 3.3, ::nuke_chopper_crash, "nuke_cobra_03" );
+    maps\_utility::_id_27EF( 2.9, ::nuke_chopper_crash, "nuke_cobra_01" );
+    maps\_utility::_id_27EF( 4.5, ::nuke_chopper_crash, "nuke_cobra_05" );
+    var_0 = maps\_vehicle::get_vehicle_from_targetname( "nuke_seaknight_02" );
     var_0 delete();
     wait 1;
     common_scripts\utility::_id_383F( "nuke_flattens_trees" );
@@ -2878,28 +2878,28 @@ _id_6265()
     common_scripts\utility::_id_383F( "shockwave_about_to_hit_player" );
     wait 2;
     common_scripts\utility::_id_383F( "nuke_shockwave_hits" );
-    _id_A5E8::_id_870C( "aud_add_nuke_heli_spin_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_nuke_heli_spin_mix" );
     level.playercardbackground playrumblelooponentity( "tank_rumble" );
     thread nuke_shockwave_blur();
     maps\airlift_lighting::apply_lighting_pass_airlift( "airlift_nuke_wavehit" );
     level.seaknight.yawspeed = 400;
     level.seaknight.yawaccel = 100;
     level.seaknight thread nuke_seaknight_spin();
-    level.seaknight thread _id_A5A4::_id_69C4( "ch46_helicopter_dying_loop" );
+    level.seaknight thread maps\_utility::_id_69C4( "ch46_helicopter_dying_loop" );
     level.playercardbackground thread common_scripts\utility::_id_6975( "airlift_heli_alarm_loop" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "airlift_ch46_nuke_exp" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "airlift_ch46_nuke_exp" );
     common_scripts\utility::_id_383F( "shockwave_hit_player" );
     playfxontag( common_scripts\utility::_id_3FA8( "airlift_nuke_dirt_helico" ), level.seaknight, "tag_origin" );
     wait 7;
     var_1 = getent( "nuke_crash", "targetname" );
-    level.seaknight _id_A5A4::_id_9CB3();
+    level.seaknight maps\_utility::_id_9CB3();
     level.seaknight setgoalpos( var_1.origin, 0 );
     wait 6.5;
     wait 1.5;
     level.playercardbackground thread common_scripts\utility::_id_69C2( "airlift_ch46_nuke_crash" );
     wait 0.5;
     level notify( "wibble_heli_check_stop" );
-    _id_A5E8::_id_870C( "aud_add_nuke_blackscreen_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_nuke_blackscreen_mix" );
     var_2 = maps\jake_tools::_id_23D0( "black", 1 );
     level.playercardbackground freezecontrols( 1 );
     musicstop();
@@ -2911,7 +2911,7 @@ _id_6265()
     wait 0.1;
     level.seaknight delete();
     wait 4;
-    _id_A5A4::_id_60D6();
+    maps\_utility::_id_60D6();
 }
 
 nuke_earthquake()
@@ -2937,9 +2937,9 @@ nuke_sunlight()
 {
     level.defaultsun = getmapsunlight();
     level.nukesun = ( 3.11, 2.05, 1.67 );
-    _id_A5A4::_id_8FB6( level.defaultsun, level.nukesun, 2 );
+    maps\_utility::_id_8FB6( level.defaultsun, level.nukesun, 2 );
     wait 1;
-    thread _id_A5A4::_id_8FB6( level.nukesun, level.defaultsun, 2 );
+    thread maps\_utility::_id_8FB6( level.nukesun, level.defaultsun, 2 );
 }
 
 nuke_shockwave_blur()
@@ -2965,7 +2965,7 @@ nuke_seaknight_spin()
 
 nuke_chopper_crash( var_0 )
 {
-    var_1 = _id_A5A8::get_vehicle_from_targetname( var_0 );
+    var_1 = maps\_vehicle::get_vehicle_from_targetname( var_0 );
     var_1 notify( "crash" );
 }
 
@@ -2980,7 +2980,7 @@ nuke_choppers_think()
     self waittill( "crash" );
     var_0 = 0;
 
-    if ( _id_A5A8::vehicle_spawner_has_targetname( self, "nuke_cobra_05" ) )
+    if ( maps\_vehicle::vehicle_spawner_has_targetname( self, "nuke_cobra_05" ) )
         var_0 = 1;
 
     thread nuke_chopper_spin_and_fx( var_0 );
@@ -3170,10 +3170,9 @@ vehicle_delete_thread()
             {
                 self notify( "death" );
                 break;
-                continue;
             }
-
-            wait(randomfloatrange( 1, 2.2 ));
+            else
+                wait(randomfloatrange( 1, 2.2 ));
         }
     }
 }
@@ -3185,7 +3184,7 @@ vehicle_think()
     if ( isdefined( self._id_7A99 ) && self._id_7A99 == "playerTarget" )
         level.cobratargetexcluders[level.cobratargetexcluders.size] = var_0;
 
-    if ( _id_A5A8::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" ) )
+    if ( maps\_vehicle::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" ) )
         return;
 
     if ( isdefined( var_0.visionsetnaked ) && var_0.visionsetnaked == "flare" )
@@ -3242,11 +3241,11 @@ vehicle_think()
 
 vehicle_heli_deletepath( var_0 )
 {
-    _id_A5A4::_id_9CB3();
-    thread _id_A5A4::_id_9CBF( var_0, 0 );
-    var_1 = var_0 _id_A5A4::_id_3DB1( "ent" );
+    maps\_utility::_id_9CB3();
+    thread maps\_utility::_id_9CBF( var_0, 0 );
+    var_1 = var_0 maps\_utility::_id_3DB1( "ent" );
     var_1 waittill( "trigger", var_2 );
-    _id_A5A4::_id_9CB3();
+    maps\_utility::_id_9CB3();
     self delete();
 }
 
@@ -3254,8 +3253,8 @@ vehicle_death_think()
 {
     self waittill( "death", var_0, var_1 );
 
-    if ( _id_A5A8::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" ) )
-        _id_A5A4::arcademode_kill( self.origin, "explosive", 150 );
+    if ( maps\_vehicle::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" ) )
+        maps\_utility::arcademode_kill( self.origin, "explosive", 150 );
 
     if ( isdefined( self ) )
         earthquake( 0.2, 2, self.origin, 8000 );
@@ -3279,9 +3278,9 @@ vehicle_heli_land( var_0 )
     self endon( "death" );
     var_0 waittill( "trigger", var_1 );
     self notify( "landing" );
-    _id_A5A4::_id_9CB3();
+    maps\_utility::_id_9CB3();
     self setgoalyaw( var_0.angles[1] );
-    _id_A5A4::_id_9CF5();
+    maps\_utility::_id_9CF5();
     self notify( "landed" );
 }
 
@@ -3289,7 +3288,7 @@ vehicle_cobra_think()
 {
     self endon( "death" );
     thread vehicle_cobra_default_weapons_think();
-    var_0 = _id_A5A4::_id_3DB1( "ent" );
+    var_0 = maps\_utility::_id_3DB1( "ent" );
     var_1 = 0;
     var_2 = 0;
 
@@ -3325,7 +3324,7 @@ vehicle_cobra_think()
             var_1 = 0;
             var_2 = 0;
             self waittill( "start_dynamicpath" );
-            var_0 = _id_A5A4::_id_3DB1( "ent" );
+            var_0 = maps\_utility::_id_3DB1( "ent" );
         }
     }
 }
@@ -3343,7 +3342,7 @@ vehicle_cobra_default_weapons_think()
         if ( isdefined( self._id_6EF5 ) )
             var_0 = self._id_6EF5;
         else
-            var_0 = _id_A53F::_id_3F7F( 3000, level._id_2235["20"], 1, 1, 1, 1, level.cobratargetexcluders );
+            var_0 = maps\_helicopter_globals::_id_3F7F( 3000, level._id_2235["20"], 1, 1, 1, 1, level.cobratargetexcluders );
 
         if ( isdefined( var_0 ) && isdefined( var_0.code_classname ) )
         {
@@ -3360,7 +3359,7 @@ vehicle_cobra_default_weapons_think()
                     else
                     {
                         var_5 = 1;
-                        _id_A53F::_id_37BA( "ffar_airlift_map_overwrite", var_5, var_0 );
+                        maps\_helicopter_globals::_id_37BA( "ffar_airlift_map_overwrite", var_5, var_0 );
                         wait(randomfloatrange( 2, 4.0 ));
                     }
 
@@ -3369,9 +3368,9 @@ vehicle_cobra_default_weapons_think()
                     var_5 = 1;
 
                     if ( isdefined( level.smoketownmi17 ) && var_0 == level.smoketownmi17 )
-                        _id_A53F::_id_37BA( "ffar_airlift_nofx", var_5, var_0 );
+                        maps\_helicopter_globals::_id_37BA( "ffar_airlift_nofx", var_5, var_0 );
                     else
-                        _id_A53F::_id_37BA( "ffar_airlift_map_overwrite", var_5, var_0 );
+                        maps\_helicopter_globals::_id_37BA( "ffar_airlift_map_overwrite", var_5, var_0 );
 
                     wait(randomfloatrange( 1, 4.0 ));
                     continue;
@@ -3410,7 +3409,7 @@ vehicle_m1a1_think()
     self endon( "death" );
     self endon( "stop_default_behavior" );
 
-    if ( _id_A5A8::vehicle_spawner_has_targetname( self, "tank_crusher" ) )
+    if ( maps\_vehicle::vehicle_spawner_has_targetname( self, "tank_crusher" ) )
         return;
 
     thread vehicle_turret_scan();
@@ -3465,12 +3464,12 @@ vehicle_bmp_think()
 
 vehicle_mg_off()
 {
-    thread _id_A5A8::_id_5BD2();
+    thread maps\_vehicle::_id_5BD2();
 }
 
 vehicle_mg_on()
 {
-    thread _id_A5A8::_id_5BD3();
+    thread maps\_vehicle::_id_5BD3();
 }
 
 vehicle_turret_think()
@@ -3561,7 +3560,7 @@ vehicle_get_target()
             var_0 = self.defaulttargets[0];
             break;
         case "bmp":
-            var_0 = _id_A53F::_id_3F7F( level.cannonrange, level._id_2235["180"], 1, 1, 0, 1 );
+            var_0 = maps\_helicopter_globals::_id_3F7F( level.cannonrange, level._id_2235["180"], 1, 1, 0, 1 );
             break;
     }
 
@@ -3604,7 +3603,7 @@ vehicle_fire_main_cannon()
 vehicle_t72_think()
 {
     self setdeceleration( 1 );
-    thread _id_A5A8::_id_5BD2();
+    thread maps\_vehicle::_id_5BD2();
     thread vehicle_turret_scan();
 }
 
@@ -3622,8 +3621,8 @@ vehicle_damage_think()
 
         if ( self._id_7AEF == "allies" )
         {
-            if ( _id_A5A8::vehicle_spawner_has_targetname( var_3, "seaknightPlayer" ) && isdefined( var_2 ) && var_2 > 150 )
-                thread _id_A536::_id_5CDD();
+            if ( maps\_vehicle::vehicle_spawner_has_targetname( var_3, "seaknightPlayer" ) && isdefined( var_2 ) && var_2 > 150 )
+                thread maps\_friendlyfire::_id_5CDD();
         }
 
         switch ( self.visionsetnaked )
@@ -3700,8 +3699,8 @@ vehicle_cobra_attack_pattern_think( var_0 )
     self notify( "starting_new_attack_pattern" );
     self endon( "starting_new_attack_pattern" );
     var_1 = getent( var_0, "script_noteworthy" );
-    _id_A5A4::_id_9CB3();
-    thread _id_A5A4::_id_9CBF( var_1, 0 );
+    maps\_utility::_id_9CB3();
+    thread maps\_utility::_id_9CBF( var_1, 0 );
     var_1 waittill( "trigger", var_2 );
 }
 
@@ -3710,19 +3709,19 @@ vehicle_animated_seaknight_land( var_0, var_1, var_2 )
     var_3 = spawn( "script_model", var_0.origin + ( 0, 0, 100 ) );
     var_3 setmodel( "vehicle_ch46e" );
     var_3._id_0C72 = "seaknight";
-    var_3 _id_A5A4::_id_0D61();
+    var_3 maps\_utility::_id_0D61();
     var_3 thread vehicle_seaknight_rotors();
-    var_0 _id_A510::_id_0BC7( var_3, "landing" );
+    var_0 maps\_anim::_id_0BC7( var_3, "landing" );
 
     if ( isdefined( var_2 ) )
         var_3 thread vehicle_seaknight_unload( var_2 );
 
     wait 0.5;
     var_4 = spawn( "script_origin", var_0.origin );
-    var_3 _id_A5A4::_id_27EF( 15, ::seaknight_plaza_event, var_0 );
-    var_3 _id_A5A4::_id_27EF( 19, ::vehicle_canned_seaknight_fx, var_4, var_0 );
-    var_0 _id_A510::_id_0C24( var_3, "landing" );
-    var_0 thread _id_A510::_id_0BE1( var_3, "idle", undefined, "stop_idle" );
+    var_3 maps\_utility::_id_27EF( 15, ::seaknight_plaza_event, var_0 );
+    var_3 maps\_utility::_id_27EF( 19, ::vehicle_canned_seaknight_fx, var_4, var_0 );
+    var_0 maps\_anim::_id_0C24( var_3, "landing" );
+    var_0 thread maps\_anim::_id_0BE1( var_3, "idle", undefined, "stop_idle" );
     var_3 notify( "unload_ai" );
     var_3 waittill( "all_ai_unloaded" );
 
@@ -3731,7 +3730,7 @@ vehicle_animated_seaknight_land( var_0, var_1, var_2 )
 
     wait 1;
     var_0 notify( "stop_idle" );
-    var_0 thread _id_A510::_id_0C24( var_3, "take_off" );
+    var_0 thread maps\_anim::_id_0C24( var_3, "take_off" );
     wait 1.5;
     var_3 notify( "taking_off" );
     var_4 delete();
@@ -3750,7 +3749,7 @@ seaknight_plaza_event( var_0 )
 vehicle_seaknight_rotors()
 {
     self endon( "death" );
-    var_0 = _id_A5A4::_id_3EF5( "rotors" );
+    var_0 = maps\_utility::_id_3EF5( "rotors" );
     var_1 = getanimlength( var_0 );
 
     for (;;)
@@ -3770,20 +3769,20 @@ vehicle_seaknight_fake_load( var_0, var_1 )
     while ( var_0.size > 0 )
     {
         wait 0.05;
-        var_0 = _id_A5A4::_id_0CFD( var_0 );
+        var_0 = maps\_utility::_id_0CFD( var_0 );
     }
 }
 
 vehicle_seaknight_fake_load_think( var_0 )
 {
-    _id_A5A4::_id_2A74();
+    maps\_utility::_id_2A74();
     self _meth_81a7( 1 );
     self _meth_81a9( var_0 );
     maps\jake_tools::_id_7F7F( var_0.rank );
     self waittill( "goal" );
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
@@ -3805,7 +3804,7 @@ vehicle_seaknight_idle_and_load_think( var_0 )
     var_1 = "ch46_unload_" + var_0 + "_generic";
     var_2 = "ch46_load_" + var_0;
     self hide();
-    _id_A5A4::_id_08EB();
+    maps\_utility::_id_08EB();
     self.ignoretriggers = 1;
     self.grenadeawareness = 0;
     self setthreatbiasgroup( "oblivious" );
@@ -3820,14 +3819,14 @@ vehicle_seaknight_idle_and_load_think( var_0 )
     }
 
     level.seaknight waittill( "load" );
-    level.seaknight _id_A510::_id_0BCC( self, var_2, "tag_detach" );
+    level.seaknight maps\_anim::_id_0BCC( self, var_2, "tag_detach" );
     wait 1.4;
     self show();
     self notify( "stop_ch46_idle" );
-    level.seaknight _id_A510::_id_0BC9( self, var_2, "tag_detach" );
+    level.seaknight maps\_anim::_id_0BC9( self, var_2, "tag_detach" );
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
@@ -3836,12 +3835,12 @@ seaknight_crewchief_think( var_0 )
 {
     self endon( "death" );
     self endon( "stop_default_behavior" );
-    _id_A5A4::_id_4462();
+    maps\_utility::_id_4462();
     self linkto( level.seaknight );
-    thread _id_A510::_id_0BE1( self, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+    thread maps\_anim::_id_0BE1( self, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
     level.seaknight waittill( "unload_ai" );
     self notify( "stop_idle_crewchief" );
-    thread _id_A510::_id_0BE1( self, "crewchief_getout_" + var_0, "tag_detach", "stop_idle_crewchief", level.seaknight );
+    thread maps\_anim::_id_0BE1( self, "crewchief_getout_" + var_0, "tag_detach", "stop_idle_crewchief", level.seaknight );
     level.seaknight waittill( "all_ai_unloaded" );
 
     if ( var_0 == "smoketown" )
@@ -3850,7 +3849,7 @@ seaknight_crewchief_think( var_0 )
         common_scripts\utility::_id_384A( "player_exit_seaknight_cobrastreets" );
 
     self notify( "stop_idle_crewchief" );
-    thread _id_A510::_id_0BE1( self, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+    thread maps\_anim::_id_0BE1( self, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
     level.crewchief waittill( "player_returning_to_seaknight" );
     var_1 = 1;
 
@@ -3875,10 +3874,10 @@ seaknight_crewchief_think( var_0 )
         }
 
         level.crewchief notify( "stop_idle_crewchief" );
-        level.crewchief thread _id_A510::_id_0BE1( level.crewchief, var_2, "tag_detach", "stop_idle_crewchief", level.seaknight );
+        level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, var_2, "tag_detach", "stop_idle_crewchief", level.seaknight );
         level.crewchief waittillmatch( "looping anim", "end" );
         self notify( "stop_idle_crewchief" );
-        thread _id_A510::_id_0BE1( self, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
+        thread maps\_anim::_id_0BE1( self, "crewchief_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
         wait(randomfloatrange( 2, 5.5 ));
     }
 }
@@ -3938,12 +3937,12 @@ vehicle_seaknight_unload_ai_think( var_0, var_1 )
         var_2 = "tag_detach";
 
     self _meth_81ca( var_1 gettagorigin( var_2 ), var_1 gettagangles( var_2 ) );
-    var_1 _id_A510::_id_0BCC( self, var_0, "tag_detach" );
+    var_1 maps\_anim::_id_0BCC( self, var_0, "tag_detach" );
     self linkto( var_1, var_2 );
     var_1 waittill( "unload_ai" );
-    thread _id_A5A4::_id_69C4( "scn_airlift_foley_soliders_getout" );
+    thread maps\_utility::_id_69C4( "scn_airlift_foley_soliders_getout" );
     self show();
-    var_1 _id_A510::_id_0BC9( self, var_0, "tag_detach" );
+    var_1 maps\_anim::_id_0BC9( self, var_0, "tag_detach" );
     self unlink();
     self _meth_81aa( self.origin );
     self notify( "unloaded" );
@@ -3992,7 +3991,7 @@ _id_6AC6()
     if ( !level.onmark19 )
         return;
 
-    level.seaknight _id_A5A4::_id_5699( level.playercardbackground, "tag_player", 0.05, 0.5, 90, 90, 90, 90 );
+    level.seaknight maps\_utility::_id_5699( level.playercardbackground, "tag_player", 0.05, 0.5, 90, 90, 90, 90 );
 }
 
 rescue_timer( var_0 )
@@ -4001,13 +4000,13 @@ rescue_timer( var_0 )
     level endon( "pilot_put_down_in_seaknight" );
     level endon( "kill_timer" );
     level._id_4AFE = 20;
-    level._id_9373 = _id_A546::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
+    level._id_9373 = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
     level._id_9373 setpulsefx( 30, 900000, 700 );
     level._id_9373._id_92B2.land = &"AIRLIFT_TIME_REMAINING";
     level._id_9373 settenthstimer( var_0 );
     thread timer_tick();
     wait(var_0);
-    _id_A546::destroy_countdown_hud( level._id_9373 );
+    maps\_hud_util::destroy_countdown_hud( level._id_9373 );
     level thread mission_failed_out_of_time();
 }
 
@@ -4018,7 +4017,7 @@ timer_tick()
     for (;;)
     {
         wait 1;
-        level.playercardbackground thread _id_A5A4::_id_69C4( "countdown_beep" );
+        level.playercardbackground thread maps\_utility::_id_69C4( "countdown_beep" );
     }
 }
 
@@ -4027,10 +4026,10 @@ mission_failed_out_of_time()
     level.playercardbackground endon( "death" );
     level endon( "kill_timer" );
     level notify( "mission failed" );
-    _id_A5E8::_id_870C( "aud_add_failure_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_failure_mix" );
     musicstop( 1 );
     setdvar( "ui_deadquote", &"AIRLIFT_RAN_OUT_OF_TIME" );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
     level notify( "kill_timer" );
 }
 
@@ -4039,7 +4038,7 @@ kill_timer()
     level notify( "kill_timer" );
 
     if ( isdefined( level._id_9373 ) )
-        _id_A546::destroy_countdown_hud( level._id_9373 );
+        maps\_hud_util::destroy_countdown_hud( level._id_9373 );
 }
 
 nuke_trees()
@@ -4106,7 +4105,7 @@ carrying_hint()
         if ( !var_0 )
         {
             var_0 = 1;
-            thread _id_A5A4::_id_48B0( &"AIRLIFT_HINT_CARRYING_PILOT", 3 );
+            thread maps\_utility::_id_48B0( &"AIRLIFT_HINT_CARRYING_PILOT", 3 );
             wait 5;
             var_0 = 0;
         }
@@ -4116,7 +4115,7 @@ carrying_hint()
 carrying_hint_cleanup()
 {
     common_scripts\utility::_id_384A( "obj_return_pilot_complete" );
-    thread _id_A5A4::_id_48CB();
+    thread maps\_utility::_id_48CB();
 }
 
 player_mashing_buttons()
@@ -4138,7 +4137,7 @@ fx_management()
     level.fxplazatown = [];
     level.fxsmoketown = [];
     level.fxcobrastreets = [];
-    level.fxtowerexploders = _id_A5A4::_id_3FA9( "building_collapse_nuke" );
+    level.fxtowerexploders = maps\_utility::_id_3FA9( "building_collapse_nuke" );
     var_0 = getent( "fx_volume_intro", "targetname" );
     var_1 = getent( "fx_volume_plazatown", "targetname" );
     var_2 = getent( "fx_volume_smoketown", "targetname" );
@@ -4185,7 +4184,7 @@ destructibles_think()
         case "vehicle_tanker_truck":
             thread tanker_gas_station_think();
             self waittill( "destroyed" );
-            thread _id_A5A4::_id_69C4( "scn_airlift_gas_station_explosion" );
+            thread maps\_utility::_id_69C4( "scn_airlift_gas_station_explosion" );
             earthquake( 0.4, 2, self.origin, 8000 );
             var_0 = spawn( "script_origin", self.origin + ( 0, 0, 0 ) );
             var_0.angles = self.angles;
@@ -4450,27 +4449,27 @@ seaknight_player_think( var_0 )
 
     if ( var_0 != "default" )
     {
-        var_3 = _id_A5A4::_id_4155( "seaknightPlayer" );
+        var_3 = maps\_utility::_id_4155( "seaknightPlayer" );
         var_3.origin = var_1.origin;
         var_3.angles = var_1.angles;
     }
 
-    level.seaknight = _id_A5A8::_id_8978( "seaknightPlayer" );
-    thread _id_A5A8::_id_427A( level.seaknight );
+    level.seaknight = maps\_vehicle::_id_8978( "seaknightPlayer" );
+    thread maps\_vehicle::_id_427A( level.seaknight );
     level.seaknight seaknight_turret_think( var_0 );
 
     if ( var_0 != "default" )
     {
-        level.seaknight _id_A5A4::_id_9CB3();
-        level.seaknight thread _id_A5A4::_id_9CBF( var_1, 0 );
+        level.seaknight maps\_utility::_id_9CB3();
+        level.seaknight thread maps\_utility::_id_9CBF( var_1, 0 );
     }
 
     level.seaknight maps\airlift_anim::seaknight_turret_anim_init();
     level.seaknight setmaxpitchroll( 5, 10 );
     level.seaknight sethoverparams( 32, 10, 3 );
-    level.seaknight _id_A5A8::_id_4259();
+    level.seaknight maps\_vehicle::_id_4259();
     level.seaknight._id_0C72 = "seaknight";
-    level.seaknight _id_A5A4::_id_0D61();
+    level.seaknight maps\_utility::_id_0D61();
     thread perf_prepare_seaknight_optimization();
 
     if ( isdefined( var_2 ) )
@@ -4484,7 +4483,7 @@ seaknight_player_think( var_0 )
         level notify( "stop_seaknight_player_monitor" );
     }
 
-    _id_A5E8::_id_870C( "aud_seaknight_sound_node_spawner" );
+    soundscripts\_snd::_id_870C( "aud_seaknight_sound_node_spawner" );
     level._id_4816 = [];
     level._id_4816[0] = level.seaknight;
     common_scripts\utility::_id_383F( "seaknight_set_up" );
@@ -4517,9 +4516,9 @@ exploder_trigs_mark19_think()
 
         if ( var_7 == "mod_projectile" || var_7 == "mod_projectile_splash" )
         {
-            if ( _id_A5A8::vehicle_spawner_has_targetname( var_4, "seaknightPlayer" ) && var_3 > 150 )
+            if ( maps\_vehicle::vehicle_spawner_has_targetname( var_4, "seaknightPlayer" ) && var_3 > 150 )
             {
-                var_0 = _id_A5A4::_id_8F53( var_0 );
+                var_0 = maps\_utility::_id_8F53( var_0 );
                 var_1 = 1;
                 var_2 = "exploder_" + var_0 + "_detonated";
                 level notify( var_2 );
@@ -4555,7 +4554,7 @@ exploder_statue()
 {
     var_0 = getent( "statue", "targetname" );
     level waittill( "exploder_100_detonated" );
-    var_0 _id_A5A4::_id_484D();
+    var_0 maps\_utility::_id_484D();
     thread common_scripts\utility::_id_69C2( "airlift_statue_collapse", var_0.origin );
 }
 
@@ -4621,9 +4620,9 @@ seaknight_fire_turret()
     if ( isdefined( level.playerview ) )
         level.playerview delete();
 
-    level.playerview = _id_A5A4::_id_88D1( "player_viewhands", self.origin );
+    level.playerview = maps\_utility::_id_88D1( "player_viewhands", self.origin );
     level.playerview linkto( self, "tag_barrel" );
-    thread _id_A510::_id_0BE1( level.playerview, "turret_idle_anim", "tag_barrel" );
+    thread maps\_anim::_id_0BE1( level.playerview, "turret_idle_anim", "tag_barrel" );
     var_0 = weaponfiretime( "seaknight_mark19" );
 
     for (;;)
@@ -4634,7 +4633,7 @@ seaknight_fire_turret()
         {
             self fireweapon();
             thread maps\airlift_anim::seaknight_turret_anim();
-            thread _id_A510::_id_0C24( level.playerview, "turret_fire_anim", "tag_barrel" );
+            thread maps\_anim::_id_0C24( level.playerview, "turret_fire_anim", "tag_barrel" );
             earthquake( 0.25, 0.13, level.playercardbackground.origin, 200 );
 
             if ( level.turretoverheat == 1 )
@@ -4687,9 +4686,9 @@ overheat_overheated( var_0 )
     if ( level.turret_heat_status <= level.turret_heat_max )
         return;
 
-    _id_A5E8::_id_870C( "aud_add_gun_overheat_mix" );
+    soundscripts\_snd::_id_870C( "aud_add_gun_overheat_mix" );
     level._id_781D = 0;
-    level.playercardbackground thread _id_A5A4::_id_69C4( "weap_mark19_overheat" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "weap_mark19_overheat" );
     var_0 thread overheat_fx();
     level.overheat_flashing.alpha = 1;
     level.overheat_status.alpha = 0;
@@ -4817,7 +4816,7 @@ overheat_hud_drain()
     level endon( "disable_overheat" );
     level endon( "stop_overheat_drain" );
     var_0 = 1.0;
-    _id_A5E8::_id_870C( "aud_remove_gun_overheat_mix" );
+    soundscripts\_snd::_id_870C( "aud_remove_gun_overheat_mix" );
 
     for (;;)
     {
@@ -4994,7 +4993,7 @@ seaknight_player_lerp_to_gun( var_0 )
         if ( var_13 <= 0 )
             break;
 
-        var_14 = _id_A57B::_id_576C( var_13, var_11, 0, var_5, var_10 );
+        var_14 = maps\_shg_utility::_id_576C( var_13, var_11, 0, var_5, var_10 );
 
         if ( var_14 != 0 )
         {
@@ -5057,20 +5056,20 @@ seaknight_player_intro_mount_gun()
 {
     level.playercardbackground disableweapons();
     wait 3;
-    level.playerview = _id_A5A4::_id_88D1( "player_viewhands", level.seaknight.origin );
+    level.playerview = maps\_utility::_id_88D1( "player_viewhands", level.seaknight.origin );
     level.playerview hide();
     level.playerview linkto( level.seaknight, "tag_detach" );
-    level.seaknight _id_A510::_id_0BC7( level.playerview, "turret_intro_anim", "tag_detach" );
+    level.seaknight maps\_anim::_id_0BC7( level.playerview, "turret_intro_anim", "tag_detach" );
     level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1, 20, 20, 30, 50, 1 );
     level.playercardbackground dontinterpolate();
     level.playerview show();
     level.seaknight thread maps\airlift_anim::seaknight_turret_anim_intro();
-    level.seaknight thread _id_A510::_id_0C24( level.playerview, "turret_intro_anim", "tag_detach" );
+    level.seaknight thread maps\_anim::_id_0C24( level.playerview, "turret_intro_anim", "tag_detach" );
     var_0 = 11;
     wait(var_0);
     common_scripts\utility::_id_383F( "reload_turret_start" );
     level.playercardbackground lerpviewangleclamp( 0.5, 0, 0, 0, 0, 0, 0 );
-    wait(getanimlength( level.playerview _id_A5A4::_id_3EF5( "turret_intro_anim" ) ) - var_0);
+    wait(getanimlength( level.playerview maps\_utility::_id_3EF5( "turret_intro_anim" ) ) - var_0);
     level.seaknight thread maps\airlift_anim::seaknight_turret_anim_idle();
     level.playercardbackground dontinterpolate();
 }
@@ -5146,13 +5145,13 @@ seaknight_player_dismount_gun()
 
     if ( level.sk_godrays_reverse )
     {
-        level.seaknight thread _id_A5AA::_id_5748( "interior2 back2" );
-        level.seaknight thread _id_A5AA::_id_5746( "interior back" );
+        level.seaknight thread maps\_vehicle_code::_id_5748( "interior2 back2" );
+        level.seaknight thread maps\_vehicle_code::_id_5746( "interior back" );
     }
     else
     {
-        level.seaknight thread _id_A5AA::_id_5748( "interior back" );
-        level.seaknight thread _id_A5AA::_id_5746( "interior2 back2" );
+        level.seaknight thread maps\_vehicle_code::_id_5748( "interior back" );
+        level.seaknight thread maps\_vehicle_code::_id_5746( "interior2 back2" );
     }
 
     level.onmark19 = 0;
@@ -5166,7 +5165,7 @@ seaknight_player_dismount_gun()
     level.playercardbackground playerlinktodelta( level.seaknight, "tag_player", 1, 50, 50, 30, 45 );
     wait 0.05;
     level.seaknight turret_reset();
-    level.seaknight _id_A5A4::_id_5696( "tag_turret_exit", 1, 0.9, 25, 25, 45, 0 );
+    level.seaknight maps\_utility::_id_5696( "tag_turret_exit", 1, 0.9, 25, 25, 45, 0 );
     level notify( "delete_rpgGuy" );
     turn_on_lights( "gamescom_perf", "script_noteworthy" );
     level.playercardbackground unlink();
@@ -5213,10 +5212,10 @@ seaknight_player_monitor( var_0 )
 
     for (;;)
     {
-        _id_A5E8::_id_870C( "set_ambient_helicopter" );
+        soundscripts\_snd::_id_870C( "set_ambient_helicopter" );
         level.playerinseaknight = 1;
         waittill_trigger_seaknight();
-        _id_A5E8::_id_870C( "player_outside_seaknight" );
+        soundscripts\_snd::_id_870C( "player_outside_seaknight" );
         level.playerinseaknight = 0;
         waittill_trigger_inside_seaknight();
     }
@@ -5285,7 +5284,7 @@ flight_flags_think()
     {
         self waittill( "trigger", var_3 );
 
-        if ( _id_A5A8::vehicle_spawner_has_targetname( var_3, var_1 ) )
+        if ( maps\_vehicle::vehicle_spawner_has_targetname( var_3, var_1 ) )
         {
             if ( getdvar( "debug_airlift" ) == "1" )
                 thread maps\jake_tools::_id_6FA6( var_2, undefined, 5 );
@@ -5309,7 +5308,7 @@ ai_allies_think()
     self._id_0C72 = "frnd";
 
     if ( !isdefined( self._id_58D7 ) )
-        thread _id_A5A4::_id_58D7();
+        thread maps\_utility::_id_58D7();
 
     self.a._id_2B20 = 1;
 }
@@ -5327,12 +5326,12 @@ ai_ragdoll( var_0 )
     if ( !isdefined( var_1 ) )
         return;
 
-    if ( _id_A5A8::vehicle_spawner_has_targetname( var_1, "seaknightPlayer" ) && level.onmark19 == 1 )
+    if ( maps\_vehicle::vehicle_spawner_has_targetname( var_1, "seaknightPlayer" ) && level.onmark19 == 1 )
     {
         self._id_85BA = 1;
 
         if ( isdefined( var_0 ) && var_0 == 1 && ( isdefined( self.team ) && self.team != "allies" ) )
-            _id_A5A4::arcademode_kill( self.origin, "explosive", 50 );
+            maps\_utility::arcademode_kill( self.origin, "explosive", 50 );
     }
 }
 
@@ -5375,7 +5374,7 @@ spawn_pilots( var_0 )
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_3 = _id_A5A4::_id_2F29( var_0[var_2] );
+        var_3 = maps\_utility::_id_2F29( var_0[var_2] );
         var_3 thread ai_pilots_think( var_1 );
         var_1 = "copilot_idle";
     }
@@ -5384,7 +5383,7 @@ spawn_pilots( var_0 )
 ai_pilots_think( var_0 )
 {
     self endon( "death" );
-    _id_A5A9::_id_297A( self, "weapon_" );
+    maps\_vehicle_aianim::_id_297A( self, "weapon_" );
     self.ignoretriggers = 1;
     self.grenadeawareness = 0;
     self._id_0C72 = "drone";
@@ -5395,19 +5394,19 @@ ai_pilots_think( var_0 )
     else
         var_1 = "tag_passenger";
 
-    level.seaknight thread _id_A510::_id_0BE1( self, var_0, var_1 );
+    level.seaknight thread maps\_anim::_id_0BE1( self, var_0, var_1 );
     self linkto( level.seaknight );
     level waittill( "delete_pilots" );
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
 
 player_attacks_from_seaknight( var_0 )
 {
-    return _id_A5A8::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" );
+    return maps\_vehicle::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" );
 }
 
 remove_enemiesgrenades_cobrastreets()
@@ -5430,8 +5429,8 @@ animate_smoketown_crane()
 {
     var_0 = getent( "crane_smoketown", "targetname" );
     var_0._id_0C72 = "crane";
-    var_0 _id_A5A4::_id_0D61();
-    var_0 thread _id_A510::_id_0BE1( var_0, "crane_idle" );
+    var_0 maps\_utility::_id_0D61();
+    var_0 thread maps\_anim::_id_0BE1( var_0, "crane_idle" );
 }
 
 despawn_smoketown_crane()
@@ -5439,18 +5438,18 @@ despawn_smoketown_crane()
     var_0 = getent( "crane_smoketown", "targetname" );
     var_0 delete();
     var_1 = getentarray( "crane_part_smoketown", "targetname" );
-    _id_A5A4::_id_0CE5( var_1 );
+    maps\_utility::_id_0CE5( var_1 );
 }
 
 player_viewbody_animations_nukecrash()
 {
-    level.playerbodyview = _id_A5A4::_id_88D1( "player_viewbody", level.seaknight.origin );
+    level.playerbodyview = maps\_utility::_id_88D1( "player_viewbody", level.seaknight.origin );
     level.playerbodyview linkto( level.seaknight, "tag_detach" );
-    level.seaknight thread _id_A510::_id_0BC7( level.playerbodyview, "player_nuke_crash", "tag_detach" );
+    level.seaknight thread maps\_anim::_id_0BC7( level.playerbodyview, "player_nuke_crash", "tag_detach" );
     level.playerbodyview hide();
     common_scripts\utility::_id_384A( "nuke_explodes" );
     level.playercardbackground freezecontrols( 1 );
-    level.seaknight thread _id_A510::_id_0C24( level.playerbodyview, "player_nuke_crash", "tag_detach" );
+    level.seaknight thread maps\_anim::_id_0C24( level.playerbodyview, "player_nuke_crash", "tag_detach" );
     wait 0.25;
     level.playercardbackground lerpviewangleclamp( 0.5, 0.1, 0.2, 0, 0, 0, 0 );
     wait 0.25;
@@ -5505,8 +5504,8 @@ falling_crane()
         {
             thread falling_crane_fx();
             var_0._id_0C72 = "crane";
-            var_0 _id_A5A4::_id_0D61();
-            var_0 _id_A510::_id_0C24( var_0, "crane_fall" );
+            var_0 maps\_utility::_id_0D61();
+            var_0 maps\_anim::_id_0C24( var_0, "crane_fall" );
             self notify( "cranedestroyed" );
         }
     }
@@ -5532,9 +5531,9 @@ bmp_play_stopping_anim()
     var_0 = getvehiclenode( "bmp_play_stopping_anim", "script_noteworthy" );
     var_0 waittill( "trigger" );
     wait 0.25;
-    var_1 = _id_A5A8::get_vehicle_from_targetname( "bmp_near_gaz_station" );
+    var_1 = maps\_vehicle::get_vehicle_from_targetname( "bmp_near_gaz_station" );
     var_1._id_0C72 = "bmp";
-    var_2 = var_1 _id_A5A4::_id_3EF5( "stopping" );
+    var_2 = var_1 maps\_utility::_id_3EF5( "stopping" );
     var_1 _meth_814d( var_2 );
 }
 

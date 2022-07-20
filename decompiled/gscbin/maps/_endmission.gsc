@@ -80,7 +80,7 @@ _id_05FF()
     level._id_60D6 = 1;
     level.playercardbackground enableinvulnerability();
 
-    if ( _id_A5A4::_id_0CC3() )
+    if ( maps\_utility::_id_0CC3() )
     {
         level.arcademode_success = 1;
         thread maps\_arcademode::arcademode_ends();
@@ -92,7 +92,7 @@ _id_05FF()
     setdvar( "ui_showPopup", "0" );
     setdvar( "ui_popupString", "" );
     game["previous_map"] = level.script_context;
-    _id_A537::_id_1123( "aa_main_" + level.script_context );
+    maps\_gameskill::_id_1123( "aa_main_" + level.script_context );
     var_0 = level._id_5CE0 _id_4000( level.script_context );
 
     if ( !isdefined( var_0 ) )
@@ -100,10 +100,10 @@ _id_05FF()
 
     if ( level.script_context != "jeepride" && level.script_context != "airplane" )
     {
-        thread _id_A546::_id_35E3( 1, undefined );
-        _id_A5E8::_id_870C( "end_mission_fade_to_black" );
+        thread maps\_hud_util::_id_35E3( 1, undefined );
+        soundscripts\_snd::_id_870C( "end_mission_fade_to_black" );
         wait 2;
-        _id_A5A4::_id_56C0();
+        maps\_utility::_id_56C0();
     }
 
     var_1 = level._id_5CE0 isallmisioncompleted();
@@ -111,13 +111,13 @@ _id_05FF()
     updategamerprofile();
 
     if ( level._id_5CE0 _id_4713( var_0 ) )
-        _id_A5A4::_id_41DD( level._id_5CE0 _id_3ED8( var_0 ) );
+        maps\_utility::_id_41DD( level._id_5CE0 _id_3ED8( var_0 ) );
 
     if ( level._id_5CE0 _id_4734( var_0 ) && _id_3FFF( var_0 ) == 4 && level._id_5CE0 _id_1CDA( var_0 ) )
-        _id_A5A4::_id_41DD( level._id_5CE0 _id_4003( var_0 ) );
+        maps\_utility::_id_41DD( level._id_5CE0 _id_4003( var_0 ) );
 
     if ( level._id_5CE0 _id_473A() && level._id_5CE0 _id_4014() > 2 )
-        _id_A5A4::_id_41DD( level._id_5CE0 _id_3FC2() );
+        maps\_utility::_id_41DD( level._id_5CE0 _id_3FC2() );
 
     level._id_5CE0 checkcampaigncompleted();
     var_2 = level._id_5CE0._id_56E5.size;
@@ -159,7 +159,7 @@ _id_05FF()
     }
     else
     {
-        if ( _id_A5A4::_id_0CC3() )
+        if ( maps\_utility::_id_0CC3() )
         {
             if ( !getdvarint( "arcademode_full" ) )
             {
@@ -405,10 +405,10 @@ checkcampaigncompleted()
     }
 
     if ( var_1 )
-        _id_A5A4::_id_41DD( "CAMPAIGN_COMPLETE" );
+        maps\_utility::_id_41DD( "CAMPAIGN_COMPLETE" );
 
     if ( var_2 )
-        _id_A5A4::_id_41DD( "DEEP_AND_HARD" );
+        maps\_utility::_id_41DD( "DEEP_AND_HARD" );
 }
 
 _id_242B( var_0 )
@@ -583,8 +583,8 @@ _id_3139( var_0 )
     if ( !isdefined( var_0 ) || var_0 == 0 )
         return;
 
-    _id_A5E8::_id_870C( "finish_mission_fade", var_0 );
-    var_1 = _id_A546::_id_23A2( "black", 0, level.playercardbackground );
+    soundscripts\_snd::_id_870C( "finish_mission_fade", var_0 );
+    var_1 = maps\_hud_util::_id_23A2( "black", 0, level.playercardbackground );
     var_1.space = 100;
     var_1 fadeovertime( var_0 );
     var_1.alpha = 1;

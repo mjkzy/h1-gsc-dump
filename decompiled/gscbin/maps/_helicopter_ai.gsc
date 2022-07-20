@@ -107,15 +107,15 @@ _id_33BE( var_0, var_1 )
             var_5 = var_0.angles[1];
 
         if ( getdvar( "cobrapilot_debug" ) == "1" )
-            thread _id_A5A4::_id_2DBF( var_1[var_3]["pos"], var_1[var_3]["pos"] + anglestoforward( ( 0, var_5, 0 ) ) * 250, 1.0, 1.0, 0.2, var_0, "evasive_action_done" );
+            thread maps\_utility::_id_2DBF( var_1[var_3]["pos"], var_1[var_3]["pos"] + anglestoforward( ( 0, var_5, 0 ) ) * 250, 1.0, 1.0, 0.2, var_0, "evasive_action_done" );
 
         var_0 settargetyaw( var_5 );
-        var_0 thread _id_A5AA::_id_834E( var_1[var_3]["pos"], 0 );
+        var_0 thread maps\_vehicle_code::_id_834E( var_1[var_3]["pos"], 0 );
         var_0 waittill( "near_goal" );
     }
 
     var_0 notify( "evasive_action_done" );
-    var_0 thread _id_A5A4::_id_9D1F();
+    var_0 thread maps\_utility::_id_9D1F();
 }
 
 _id_33BB( var_0 )
@@ -125,7 +125,7 @@ _id_33BB( var_0 )
     var_0 endon( "evasive_action_done" );
     var_0 endon( "death" );
     var_0 waittill( "missile_lock_ended" );
-    var_0 thread _id_A5A4::_id_9D1F();
+    var_0 thread maps\_utility::_id_9D1F();
 }
 
 _id_33B8( var_0, var_1, var_2, var_3 )
@@ -164,7 +164,7 @@ _id_33BC( var_0 )
 _id_33BA( var_0 )
 {
     for ( var_1 = 1; var_1 < var_0.size; var_1++ )
-        thread _id_A5A4::_id_2DBF( var_0[var_1 - 1]["pos"], var_0[var_1]["pos"], 1.0, 0.2, 0.2, self, "evasive_action_done" );
+        thread maps\_utility::_id_2DBF( var_0[var_1 - 1]["pos"], var_0[var_1]["pos"], 1.0, 0.2, 0.2, self, "evasive_action_done" );
 }
 
 _id_A341( var_0 )

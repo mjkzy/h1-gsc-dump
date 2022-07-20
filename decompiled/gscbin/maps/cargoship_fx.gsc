@@ -222,12 +222,12 @@ main()
     level._effect["lightning"] = loadfx( "fx/weather/lightning" );
     level._effect["lightning_bolt"] = loadfx( "fx/weather/cin_lightning_bolt" );
     level._effect["destp_office_paper_stack_cgoshp"] = loadfx( "vfx/destructible/destp_office_paper_stack_01_dyndst" );
-    _id_A5B3::_id_07FE( 10 );
-    _id_A5B3::_id_07FE( 11 );
-    _id_A5B3::_id_07FE( 12 );
+    maps\_weather::_id_07FE( 10 );
+    maps\_weather::_id_07FE( 11 );
+    maps\_weather::_id_07FE( 12 );
     level._id_60CD = gettime() + 1;
     thread raincontrol();
-    thread _id_A5B3::_id_6D94();
+    thread maps\_weather::_id_6D94();
     thread _id_974C();
     thread init_exploders();
     thread rampupsun();
@@ -330,78 +330,78 @@ cargoship_pre_set_light_set( var_0 )
 
 _id_974C()
 {
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "brick", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "bark", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "carpet", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "cloth", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "concrete", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "dirt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "flesh", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "foliage", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "glass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "grass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "gravel", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "ice", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "mud", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "paper", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "plaster", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "rock", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "sand", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "snow", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "water", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "wood", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "asphalt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "ceramic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "plastic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "rubber", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "cushion", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "fruit", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "painted metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "default", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "none", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "brick", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "bark", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "carpet", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "cloth", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "concrete", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "dirt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "flesh", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "foliage", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "glass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "grass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "gravel", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "ice", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "mud", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "paper", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "plaster", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "rock", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "sand", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "snow", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "water", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "wood", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "asphalt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "ceramic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "plastic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "rubber", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "cushion", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "fruit", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "painted metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "default", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A59D::_id_8350( "script_vehicle_seaknight", "none", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
-    _id_A5A8::add_vehicle_fx_to_bank( "fx/treadfx/heli_dust_cargoship" );
-    _id_A5A8::add_vehicle_fx_to_bank( "fx/treadfx/heli_dust_cargoship_shooting" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "brick", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "bark", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "carpet", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "cloth", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "concrete", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "dirt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "flesh", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "foliage", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "glass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "grass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "gravel", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "ice", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "mud", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "paper", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "plaster", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "rock", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "sand", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "snow", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "water", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "wood", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "asphalt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "ceramic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "plastic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "rubber", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "cushion", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "fruit", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "painted metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "default", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "none", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "brick", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "bark", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "carpet", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "cloth", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "concrete", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "dirt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "flesh", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "foliage", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "glass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "grass", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "gravel", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "ice", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "mud", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "paper", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "plaster", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "rock", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "sand", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "snow", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "water", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "wood", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "asphalt", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "ceramic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "plastic", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "rubber", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "cushion", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "fruit", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "painted metal", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "default", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_seaknight", "none", "fx/treadfx/heli_dust_cargoship_outdoor_only", "h1r_cargoship_helicopter_wind" );
+    maps\_vehicle::add_vehicle_fx_to_bank( "fx/treadfx/heli_dust_cargoship" );
+    maps\_vehicle::add_vehicle_fx_to_bank( "fx/treadfx/heli_dust_cargoship_shooting" );
 }
 
 raincontrol()
 {
-    _id_A5B3::_id_70FA( "hard" );
+    maps\_weather::_id_70FA( "hard" );
 
     if ( level.jumpto == "start" )
         wait 40;
 
-    thread _id_A5B3::_id_5734( ::notifyname, ::flash );
+    thread maps\_weather::_id_5734( ::notifyname, ::flash );
 }
 
 rampupsun()
@@ -467,9 +467,9 @@ show_water()
 init_exploders()
 {
     waitframe;
-    level._waves_exploders = _id_A5A4::_id_3FA9( "watersplash" );
-    level._waves_exploders = common_scripts\utility::_id_0CDD( level._waves_exploders, _id_A5A4::_id_3FA9( "watersplash_2" ) );
-    level._lighting_exploders = _id_A5A4::_id_3FA9( "lightning" );
+    level._waves_exploders = maps\_utility::_id_3FA9( "watersplash" );
+    level._waves_exploders = common_scripts\utility::_id_0CDD( level._waves_exploders, maps\_utility::_id_3FA9( "watersplash_2" ) );
+    level._lighting_exploders = maps\_utility::_id_3FA9( "lightning" );
 
     for ( var_0 = 0; var_0 < level._lighting_exploders.size; var_0++ )
     {
@@ -533,7 +533,7 @@ ocean_scenario_vfx()
         common_scripts\_exploder::_id_3528( "501" );
         common_scripts\utility::_id_384A( "cargoship_ocean_scenario_end" );
         common_scripts\utility::_id_3831( "cargoship_ocean_scenario_start" );
-        _id_A5A4::_id_8E7E( "501" );
+        maps\_utility::_id_8E7E( "501" );
     }
 }
 
@@ -627,19 +627,19 @@ do_flash( var_0, var_1, var_2, var_3, var_4 )
         do_flash_loop( var_1, var_7, var_5 == 0 );
     }
 
-    level.playercardbackground _id_A5A4::set_light_set_player( level.wanted_lightset, 1 );
+    level.playercardbackground maps\_utility::set_light_set_player( level.wanted_lightset, 1 );
 }
 
 do_flash_loop( var_0, var_1, var_2 )
 {
     update_exploders();
     setsunlight( var_1[0], var_1[1], var_1[2] );
-    level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_lightning" );
+    level.playercardbackground maps\_utility::set_light_set_player( "cargoship_lightning" );
 
     if ( var_2 )
         show_water();
 
     wait(var_0);
-    level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_lightning_soft" );
+    level.playercardbackground maps\_utility::set_light_set_player( "cargoship_lightning_soft" );
     wait(var_0);
 }

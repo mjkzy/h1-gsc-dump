@@ -50,8 +50,8 @@ anim_play()
         var_0 = self.motiontrackerenabled + "_anim";
 
     var_2 = get_animtree( var_0 );
-    _id_A5A4::_id_0D61( var_2 );
-    _id_A510::_id_0C24( self, var_0 );
+    maps\_utility::_id_0D61( var_2 );
+    maps\_anim::_id_0C24( self, var_0 );
 }
 
 get_animtree( var_0 )

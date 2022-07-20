@@ -167,8 +167,8 @@ _id_0926( var_0 )
 {
     self endon( "death" );
 
-    if ( isdefined( self ) && isalive( self ) && _id_A5A4::_id_38A9() )
-        _id_A5A4::_id_38AB( var_0 );
+    if ( isdefined( self ) && isalive( self ) && maps\_utility::_id_38A9() )
+        maps\_utility::_id_38AB( var_0 );
 }
 
 _id_8CC0( var_0 )
@@ -317,7 +317,7 @@ _id_867F()
 _id_2A05( var_0 )
 {
     self endon( "death" );
-    _id_A5A4::_id_2A32( var_0 );
+    maps\_utility::_id_2A32( var_0 );
 }
 
 _id_9755( var_0 )
@@ -542,16 +542,16 @@ _id_3CF2( var_0 )
         var_2 = var_0 getorigin();
 
     if ( isdefined( level._id_33E7 ) )
-        var_1 = _id_A5A4::_id_3CEF( var_2, "allies", level._id_33E7 );
+        var_1 = maps\_utility::_id_3CEF( var_2, "allies", level._id_33E7 );
     else
-        var_1 = _id_A5A4::_id_3CEE( var_2, "allies" );
+        var_1 = maps\_utility::_id_3CEE( var_2, "allies" );
 
     return var_1;
 }
 
 _id_3CF3()
 {
-    var_0 = _id_A5A4::_id_3CEE( level.playercardbackground getorigin(), "axis" );
+    var_0 = maps\_utility::_id_3CEE( level.playercardbackground getorigin(), "axis" );
     return var_0;
 }
 
@@ -611,7 +611,7 @@ _id_6251( var_0, var_1, var_2, var_3 )
     {
         for ( var_6 = 0; var_6 < var_3.size; var_6++ )
         {
-            if ( _id_A5A4::_id_503B( var_5, var_3[var_6] ) )
+            if ( maps\_utility::_id_503B( var_5, var_3[var_6] ) )
                 var_5 = common_scripts\utility::_id_0CF6( var_5, var_3[var_6] );
         }
     }
@@ -737,10 +737,10 @@ _id_4FA8( var_0 )
     if ( var_0 == 0 )
     {
         if ( isdefined( self._id_58D7 ) )
-            _id_A5A4::_id_8EA4();
+            maps\_utility::_id_8EA4();
     }
     else if ( !isdefined( self._id_58D7 ) )
-        thread _id_A5A4::_id_58D7();
+        thread maps\_utility::_id_58D7();
 
     self.a._id_2B20 = var_0;
 }
@@ -782,7 +782,7 @@ spawndude( var_0, var_1 )
     else
         var_2 = var_0 dospawn();
 
-    _id_A5A4::_id_88F1( var_2 );
+    maps\_utility::_id_88F1( var_2 );
     return var_2;
 }
 

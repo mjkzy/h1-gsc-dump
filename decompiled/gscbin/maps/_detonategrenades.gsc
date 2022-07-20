@@ -138,7 +138,7 @@ _id_7C7B( var_0 )
     if ( !isdefined( var_1 ) || !isalive( var_1 ) )
         return;
 
-    if ( var_1 _id_A5A8::_id_5031() || var_1 _id_A5AA::_id_0E29( var_0 ) )
+    if ( var_1 maps\_vehicle::_id_5031() || var_1 maps\_vehicle_code::_id_0E29( var_0 ) )
     {
         var_1._id_46FD = undefined;
         return;
@@ -162,16 +162,16 @@ _id_94A1( var_0 )
 {
     self.throwinggrenade = 0;
     var_0 waittill( "death" );
-    _id_A5A4::_id_8643( 0.1 );
-    _id_A5A4::_id_8644( 0.25 );
-    _id_A5A4::_id_8645( 1 );
-    _id_A5A4::_id_8646( 0.25 );
-    _id_A5A4::_id_8640();
+    maps\_utility::_id_8643( 0.1 );
+    maps\_utility::_id_8644( 0.25 );
+    maps\_utility::_id_8645( 1 );
+    maps\_utility::_id_8646( 0.25 );
+    maps\_utility::_id_8640();
     setdvar( "noflash", "1" );
     wait 0.05;
     setdvar( "noflash", "0" );
     wait 2.0;
-    _id_A5A4::_id_8641();
+    maps\_utility::_id_8641();
 }
 
 _id_8681()
@@ -187,7 +187,7 @@ _id_139C()
     self waittill( "grenade_fire", var_0, var_1 );
 
     if ( var_1 == "fraggrenade" )
-        var_0 thread _id_A5A4::_id_43E9();
+        var_0 thread maps\_utility::_id_43E9();
     else if ( var_1 == "ninebang_grenade" )
         self._id_9336 = 1;
 
@@ -224,7 +224,7 @@ _id_A203()
 _id_196F( var_0 )
 {
     var_0 waittill( "death" );
-    self._id_196D = _id_A5A4::_id_0CFB( self._id_196D, var_0 );
+    self._id_196D = maps\_utility::_id_0CFB( self._id_196D, var_0 );
 }
 
 _id_A20A()
@@ -280,7 +280,7 @@ _id_1E48()
 
     level._id_1E4A = common_scripts\utility::_id_0CDA( level._id_1E4A, self );
 
-    if ( !_id_A5A4::_id_5083() && level._id_1E4A.size > 15 )
+    if ( !maps\_utility::_id_5083() && level._id_1E4A.size > 15 )
         level._id_1E4A[0] delete();
 
     for (;;)
@@ -311,7 +311,7 @@ _id_1E48()
 _id_285A( var_0 )
 {
     self waittill( "death" );
-    level._id_1E4A = _id_A5A4::_id_0CFB( level._id_1E4A, self );
+    level._id_1E4A = maps\_utility::_id_0CFB( level._id_1E4A, self );
     wait 0.05;
 
     if ( isdefined( var_0 ) )

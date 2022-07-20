@@ -22,39 +22,39 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "bm21_troops", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1848( "vehicle_bm21_mobile_bed_destructible", "vehicle_bm21_mobile_bed" );
-    _id_A5A8::_id_1848( "vehicle_bm21_bed_under_destructible", "vehicle_bm21_bed_under" );
-    _id_A5A8::_id_1848( "vehicle_bm21_cover_destructible", "vehicle_bm21_cover" );
-    _id_A5A8::_id_1848( "vehicle_bm21_cover_under_destructible", "vehicle_bm21_cover_under" );
-    _id_A5A8::_id_1845( "vehicle_bm21_mobile", "vehicle_bm21_mobile_dstry" );
-    _id_A5A8::_id_1845( "vehicle_bm21_mobile_cover", "vehicle_bm21_mobile_cover_dstry" );
-    _id_A5A8::_id_1845( "vehicle_bm21_mobile_bed", "vehicle_bm21_mobile_bed_dstry" );
-    _id_A5A8::_id_1845( "vehicle_bm21_mobile_cover_no_bench", "vehicle_bm21_mobile_cover_dstry" );
-    _id_A5A8::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "truck_explode", undefined, undefined, undefined, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", undefined, undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_cab", "fire_metal_medium", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1842( "fx/explosions/small_vehicle_explosion", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 2 );
-    _id_A5A8::_id_1865( "pickup_rumble", 0.01, 4.5, 900, 1, 1 );
-    _id_A5A8::_id_1846( 1, 1.6, 500 );
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "axis" );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_183C( 1 );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
-    _id_A5A8::_id_1873( ::_id_9A3D );
-    _id_A5A8::_id_1857( var_2, "headlight_truck_left", "tag_headlight_left", "fx/misc/lighthaze", "headlights" );
-    _id_A5A8::_id_1857( var_2, "headlight_truck_right", "tag_headlight_right", "fx/misc/lighthaze", "headlights" );
-    _id_A5A8::_id_1857( var_2, "headlight_truck_left2", "tag_headlight_left", "fx/misc/car_headlight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_2, "headlight_truck_right2", "tag_headlight_right", "fx/misc/car_headlight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_2, "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_2, "parkinglight_truck_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_2, "taillight_truck_right", "tag_taillight_right", "fx/misc/car_taillight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_2, "taillight_truck_left", "tag_taillight_left", "fx/misc/car_taillight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_2, "brakelight_troops_right", "tag_taillight_right", "fx/misc/car_taillight_bm21", "brakelights" );
-    _id_A5A8::_id_1857( var_2, "brakelight_troops_left", "tag_taillight_left", "fx/misc/car_taillight_bm21", "brakelights" );
-    _id_A5A8::_id_1849( %bm21_driving_idle_forward, %bm21_driving_idle_backward, 10 );
+    maps\_vehicle::_id_186C( "bm21_troops", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1848( "vehicle_bm21_mobile_bed_destructible", "vehicle_bm21_mobile_bed" );
+    maps\_vehicle::_id_1848( "vehicle_bm21_bed_under_destructible", "vehicle_bm21_bed_under" );
+    maps\_vehicle::_id_1848( "vehicle_bm21_cover_destructible", "vehicle_bm21_cover" );
+    maps\_vehicle::_id_1848( "vehicle_bm21_cover_under_destructible", "vehicle_bm21_cover_under" );
+    maps\_vehicle::_id_1845( "vehicle_bm21_mobile", "vehicle_bm21_mobile_dstry" );
+    maps\_vehicle::_id_1845( "vehicle_bm21_mobile_cover", "vehicle_bm21_mobile_cover_dstry" );
+    maps\_vehicle::_id_1845( "vehicle_bm21_mobile_bed", "vehicle_bm21_mobile_bed_dstry" );
+    maps\_vehicle::_id_1845( "vehicle_bm21_mobile_cover_no_bench", "vehicle_bm21_mobile_cover_dstry" );
+    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "truck_explode", undefined, undefined, undefined, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", undefined, undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_cab", "fire_metal_medium", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1842( "fx/explosions/small_vehicle_explosion", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 2 );
+    maps\_vehicle::_id_1865( "pickup_rumble", 0.01, 4.5, 900, 1, 1 );
+    maps\_vehicle::_id_1846( 1, 1.6, 500 );
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "axis" );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_183C( 1 );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_1873( ::_id_9A3D );
+    maps\_vehicle::_id_1857( var_2, "headlight_truck_left", "tag_headlight_left", "fx/misc/lighthaze", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "headlight_truck_right", "tag_headlight_right", "fx/misc/lighthaze", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "headlight_truck_left2", "tag_headlight_left", "fx/misc/car_headlight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "headlight_truck_right2", "tag_headlight_right", "fx/misc/car_headlight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "parkinglight_truck_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "taillight_truck_right", "tag_taillight_right", "fx/misc/car_taillight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "taillight_truck_left", "tag_taillight_left", "fx/misc/car_taillight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "brakelight_troops_right", "tag_taillight_right", "fx/misc/car_taillight_bm21", "brakelights" );
+    maps\_vehicle::_id_1857( var_2, "brakelight_troops_left", "tag_taillight_left", "fx/misc/car_taillight_bm21", "brakelights" );
+    maps\_vehicle::_id_1849( %bm21_driving_idle_forward, %bm21_driving_idle_backward, 10 );
 }
 
 _id_4D10()

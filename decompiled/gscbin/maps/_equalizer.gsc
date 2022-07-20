@@ -838,7 +838,7 @@ old_iw4_filters()
             break;
     }
 
-    if ( _id_A5A4::_id_5083() )
+    if ( maps\_utility::_id_5083() )
     {
         define_filter( "specialop_fadeout" );
         set_filter_type( "specialop_fadeout", 0, "highshelf" );

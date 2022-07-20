@@ -29,19 +29,19 @@ anim_main()
     level._id_78AC["generic"]["fast_walk"] = %active_patrolwalk_gundown;
     level._id_78AC["generic"]["casual_killer_jog_A"] = %casual_killer_jog_a;
     level._id_78AC["price"]["reveal"] = %killhouse_sas_price;
-    _id_A510::_id_080B( "price", "dialog", "reveal", "killhouse_pri_muppet" );
-    _id_A510::_id_080B( "price", "dialog2", "reveal", "killhouse_pri_cqbtest" );
-    _id_A510::_id_080B( "price", "dialog3", "reveal", "killhouse_pri_runsolo" );
-    _id_A510::_id_080B( "price", "dialog4", "reveal", "killhouse_pri_record19sec" );
-    _id_A510::_id_0807( "price", "dialog5", maps\killhouse::reveal_dialog_ladder, "reveal" );
+    maps\_anim::_id_080B( "price", "dialog", "reveal", "killhouse_pri_muppet" );
+    maps\_anim::_id_080B( "price", "dialog2", "reveal", "killhouse_pri_cqbtest" );
+    maps\_anim::_id_080B( "price", "dialog3", "reveal", "killhouse_pri_runsolo" );
+    maps\_anim::_id_080B( "price", "dialog4", "reveal", "killhouse_pri_record19sec" );
+    maps\_anim::_id_0807( "price", "dialog5", maps\killhouse::reveal_dialog_ladder, "reveal" );
     level._id_78AC["price"]["reveal_idle"][0] = %killhouse_sas_price_idle;
     level._id_78AC["price"]["debrief_p"] = %h1_killhouse_07_price;
     level._id_78AC["price"]["debrief_idle_s4_b"][0] = %h1_killhouse_07_price_idle;
     level._id_78AC["price"]["price_mask_up"] = %price_mask_up;
     level._id_78AC["price"]["price_mask_outloop"] = %h1_cargoship_price_mask_outloop;
-    _id_A510::_id_080B( "sas1", "dialog", "reveal", "killhouse_sas4_fng" );
-    _id_A510::_id_080B( "sas1", "dialog", "reveal", "killhouse_sas4_goeasy" );
-    _id_A510::_id_080B( "price", "dialog", "debrief_p", "killhouse_pri_wheelsup" );
+    maps\_anim::_id_080B( "sas1", "dialog", "reveal", "killhouse_sas4_fng" );
+    maps\_anim::_id_080B( "sas1", "dialog", "reveal", "killhouse_sas4_goeasy" );
+    maps\_anim::_id_080B( "price", "dialog", "debrief_p", "killhouse_pri_wheelsup" );
     level._id_78AC["sas1"]["reveal"] = %killhouse_sas_1;
     level._id_78AC["sas1"]["reveal_idle"][0] = %killhouse_sas_1_idle;
     level._id_78AC["spectator"]["spectator_idle"][0] = %killhouse_woodland_sas_priceidle;
@@ -133,7 +133,7 @@ anim_main()
 
     level._id_78AC["gaz"]["intro"] = %killhouse_gaz_intro;
     level._id_78AC["gaz"]["intro_idle"][0] = %h1_killhouse_gaz_intro_idle;
-    _id_A510::_id_080B( "gaz", "dialog", "intro", "killhouse_gaz_goodtosee" );
+    maps\_anim::_id_080B( "gaz", "dialog", "intro", "killhouse_gaz_goodtosee" );
     level._id_78AC["generic"]["training_sleeping_in_chair"][0] = %training_sleeping_in_chair;
     level._id_78AC["generic"]["training_basketball_rest"][0] = %training_basketball_rest;
     level._id_78AC["generic"]["training_basketball_guy1"][0] = %training_basketball_guy1;
@@ -232,7 +232,7 @@ anim_main()
     anim_view_body();
     _id_0BEE();
     anim_chair();
-    _id_A55F::init_patrol_animation_list();
+    maps\_patrol::init_patrol_animation_list();
 }
 #using_animtree("player");
 
@@ -512,12 +512,9 @@ gaz_face_think( var_0 )
             for (;;)
             {
                 if ( var_0.speaking == 1 )
-                {
                     break;
-                    continue;
-                }
-
-                wait 0.2;
+                else
+                    wait 0.2;
             }
         }
     }

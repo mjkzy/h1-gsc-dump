@@ -30,10 +30,10 @@ main()
     level._id_78AC["generic"]["shotgunhinges_breach_left_stack_idle_02"][0] = %breach_sh_stackr1_idle;
     level._id_78AC["generic"]["shotgunhinges_breach_left_stack_breach_01"] = %h1_armada_03_shotgunhinges_soldiera;
     level._id_78AC["generic"]["shotgunhinges_breach_left_stack_breach_02"] = %h1_armada_03_shotgunhinges_soldierb;
-    _id_A510::_id_0807( "generic", "custom_audio_fire", ::custom_audio_fire, "shotgunhinges_breach_left_stack_breach_01" );
+    maps\_anim::_id_0807( "generic", "custom_audio_fire", ::custom_audio_fire, "shotgunhinges_breach_left_stack_breach_01" );
 }
 
 custom_audio_fire( var_0 )
 {
-    var_0 thread _id_A5A4::_id_69C4( "armada_doorbreach_scripted_gun" );
+    var_0 thread maps\_utility::_id_69C4( "armada_doorbreach_scripted_gun" );
 }

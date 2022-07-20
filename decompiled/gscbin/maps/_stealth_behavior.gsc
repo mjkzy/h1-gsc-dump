@@ -94,7 +94,7 @@ enemy_try_180_turn( var_0 )
         var_5 = physicstrace( var_3, var_4 );
 
         if ( var_5 == var_4 )
-            _id_A510::_id_0BC9( self, "patrol_turn180" );
+            maps\_anim::_id_0BC9( self, "patrol_turn180" );
     }
 }
 
@@ -110,13 +110,13 @@ _id_324A( var_0 )
         if ( isdefined( self._id_5545 ) )
             self._not_team = self._id_5545.teambalanced;
 
-        thread _id_A55F::_id_66FC();
+        thread maps\_patrol::_id_66FC();
     }
     else
     {
         if ( !self._id_0669._id_5836.dog )
         {
-            _id_A5A4::_id_7E45( "patrol_walk", 1 );
+            maps\_utility::_id_7E45( "patrol_walk", 1 );
             self._id_2AF3 = 1;
             self._id_2B0E = 1;
         }
@@ -199,7 +199,7 @@ _id_08B9( var_0, var_1, var_2, var_3 )
     if ( isdefined( self._id_0BEF ) )
         return;
 
-    var_0 thread _id_A510::_id_0C18( var_4, var_1 );
+    var_0 thread maps\_anim::_id_0C18( var_4, var_1 );
 }
 
 _id_908E( var_0 )
@@ -219,7 +219,7 @@ _id_908E( var_0 )
     level._id_0669._id_13A2.event_explosion_index = 5;
     level._id_0669._id_13A2.system_state_functions = [];
     system_init_state_functions( var_0 );
-    _id_A585::main();
+    maps\_stealth_anims::main();
     common_scripts\utility::_id_383D( "_stealth_searching_for_nodes" );
     common_scripts\utility::_id_383D( "_stealth_getallnodes" );
     common_scripts\utility::_id_383D( "_stealth_event" );
@@ -273,20 +273,20 @@ system_message_handler( var_0, var_1 )
 
 _id_9095()
 {
-    _id_A5A4::_id_1333( "axis" );
+    maps\_utility::_id_1333( "axis" );
 }
 
 system_state_alert()
 {
     level._id_0669._id_13A2._id_8899["spotted"] = 0;
-    _id_A5A4::_id_1332( "axis" );
+    maps\_utility::_id_1332( "axis" );
     setdvar( "bcs_stealth", "" );
 }
 
 system_state_hidden()
 {
     level._id_0669._id_13A2._id_8899["spotted"] = 0;
-    _id_A5A4::_id_1332( "axis" );
+    maps\_utility::_id_1332( "axis" );
     setdvar( "bcs_stealth", "1" );
     animscripts\battlechatter::_id_7451( "allies", "threat" );
 }
@@ -329,11 +329,11 @@ _id_324F( var_0, var_1, var_2, var_3 )
     ai_change_ai_functions( "alert", var_1 );
     ai_change_ai_functions( "corpse", var_2 );
     ai_change_ai_functions( "awareness", var_3 );
-    _id_A5A4::_id_32DD( "_stealth_enemy_alert_level_action" );
-    _id_A5A4::_id_32DD( "_stealth_running_to_corpse" );
-    _id_A5A4::_id_32DD( "_stealth_behavior_reaction_anim" );
-    _id_A5A4::_id_32DD( "_stealth_behavior_first_reaction" );
-    _id_A5A4::_id_32DD( "_stealth_behavior_reaction_anim_in_progress" );
+    maps\_utility::_id_32DD( "_stealth_enemy_alert_level_action" );
+    maps\_utility::_id_32DD( "_stealth_running_to_corpse" );
+    maps\_utility::_id_32DD( "_stealth_behavior_reaction_anim" );
+    maps\_utility::_id_32DD( "_stealth_behavior_first_reaction" );
+    maps\_utility::_id_32DD( "_stealth_behavior_reaction_anim_in_progress" );
     self._id_0669._id_13A2._id_33C0 = spawnstruct();
 
     if ( self._id_0669._id_5836.dog )
@@ -407,7 +407,7 @@ _id_3223()
     self.ignoretriggers = 1;
     self.ignoreforfixednodesafecheck = 1;
     self.allowdeath = 1;
-    thread _id_A510::_id_0BCE( self, "_stealth_dog_sleeping", undefined, "stop_loop" );
+    thread maps\_anim::_id_0BCE( self, "_stealth_dog_sleeping", undefined, "stop_loop" );
 }
 
 enemy_message_loop()
@@ -464,7 +464,7 @@ _id_3265()
     self.fovcosine = 0.01;
     self.ignoreforfixednodesafecheck = 0;
     self.diequietly = 0;
-    _id_A5A4::_id_1ED1();
+    maps\_utility::_id_1ED1();
     self.fixednode = 0;
 }
 
@@ -481,7 +481,7 @@ _id_327D()
     if ( !self._id_0669._id_5836.dog )
     {
         self.diequietly = 0;
-        _id_A5A4::_id_1ED1();
+        maps\_utility::_id_1ED1();
         self._id_1300 *= 3;
         self.accuracy *= 3;
         self.fixednode = 0;
@@ -557,22 +557,22 @@ _id_31E8( var_0 )
     var_2 = self._id_0669._id_13A2._id_33C0._id_2532._id_0C6C;
     var_3 = self._id_0669._id_13A2._id_33C0._id_2532.tag_aim_animated;
     var_4 = self._id_0669._id_13A2._id_33C0._id_2532._id_315B;
-    _id_A5A4::_id_32DE( "_stealth_behavior_reaction_anim" );
+    maps\_utility::_id_32DE( "_stealth_behavior_reaction_anim" );
     self.allowdeath = 1;
     var_1 notify( var_4 );
 
     if ( isdefined( self._id_0BEE ) )
     {
         self._id_0BEF = 1;
-        var_1 thread _id_A510::_id_0C18( self._id_0BEE, var_2 );
+        var_1 thread maps\_anim::_id_0C18( self._id_0BEE, var_2 );
     }
 
     if ( var_0 != "doFlashBanged" )
     {
         if ( isdefined( var_3 ) || isdefined( self._id_46E9 ) )
-            var_1 _id_A510::_id_0BC9( self, var_2, var_3 );
+            var_1 maps\_anim::_id_0BC9( self, var_2, var_3 );
         else
-            var_1 _id_A510::_id_0BCA( self, "gravity", var_2 );
+            var_1 maps\_anim::_id_0BCA( self, "gravity", var_2 );
     }
 
     _id_08C6();
@@ -582,7 +582,7 @@ _id_31EF( var_0 )
 {
     self notify( "enemy_awareness_reaction", var_0 );
 
-    if ( _id_A5A4::_id_32D8( "_stealth_behavior_first_reaction" ) || _id_A5A4::_id_32D8( "_stealth_behavior_reaction_anim_in_progress" ) )
+    if ( maps\_utility::_id_32D8( "_stealth_behavior_first_reaction" ) || maps\_utility::_id_32D8( "_stealth_behavior_reaction_anim_in_progress" ) )
         return 1;
 
     _id_327E();
@@ -593,19 +593,19 @@ _id_31EF( var_0 )
         case "heard_corpse":
         case "saw_corpse":
         case "found_corpse":
-            _id_A5A4::_id_32DE( "_stealth_behavior_reaction_anim" );
+            maps\_utility::_id_32DE( "_stealth_behavior_reaction_anim" );
             break;
         case "reset":
         case "alerted_once":
         case "alerted_again":
             break;
         default:
-            _id_A5A4::_id_32DE( "_stealth_behavior_first_reaction" );
-            _id_A5A4::_id_32DE( "_stealth_behavior_reaction_anim" );
+            maps\_utility::_id_32DE( "_stealth_behavior_first_reaction" );
+            maps\_utility::_id_32DE( "_stealth_behavior_reaction_anim" );
             break;
     }
 
-    _id_A5A4::_id_32DE( "_stealth_behavior_reaction_anim_in_progress" );
+    maps\_utility::_id_32DE( "_stealth_behavior_reaction_anim_in_progress" );
     return 0;
 }
 
@@ -614,18 +614,18 @@ _id_31EE( var_0 )
     switch ( var_0 )
     {
         default:
-            _id_A5A4::_id_32DA( "_stealth_behavior_reaction_anim" );
+            maps\_utility::_id_32DA( "_stealth_behavior_reaction_anim" );
             break;
     }
 
-    _id_A5A4::_id_32DA( "_stealth_behavior_reaction_anim_in_progress" );
+    maps\_utility::_id_32DA( "_stealth_behavior_reaction_anim_in_progress" );
 }
 
 enemy_animation_whizby( var_0 )
 {
     self.allowdeath = 1;
     var_1 = "_stealth_behavior_whizby_" + randomint( 5 );
-    thread _id_A510::_id_0BCA( self, "gravity", var_1 );
+    thread maps\_anim::_id_0BCA( self, "gravity", var_1 );
     wait 1.5;
     self notify( "stop_animmode" );
 }
@@ -640,7 +640,7 @@ _id_31E7( var_0 )
         var_2 = "_stealth_behavior_spotted_long";
 
     self.allowdeath = 1;
-    thread _id_A510::_id_0BCA( self, "gravity", var_2 );
+    thread maps\_anim::_id_0BCA( self, "gravity", var_2 );
     common_scripts\utility::_id_A0A0( var_2, randomfloatrange( 1.5, 3 ) );
     self notify( "stop_animmode" );
 }
@@ -673,21 +673,21 @@ _id_31EB( var_0 )
     }
 
     var_7 = "_stealth_behavior_generic" + var_5;
-    _id_A510::_id_0BCA( self, "gravity", var_7 );
+    maps\_anim::_id_0BCA( self, "gravity", var_7 );
 }
 
 _id_31F1( var_0 )
 {
     self.allowdeath = 1;
     var_1 = "_stealth_behavior_saw_corpse";
-    _id_A510::_id_0BCA( self, "gravity", var_1 );
+    maps\_anim::_id_0BCA( self, "gravity", var_1 );
 }
 
 _id_31EA( var_0 )
 {
     self.allowdeath = 1;
     var_1 = "_stealth_find_jog";
-    _id_A510::_id_0BCA( self, "gravity", var_1 );
+    maps\_anim::_id_0BCA( self, "gravity", var_1 );
 }
 
 _id_2C85( var_0 )
@@ -700,21 +700,21 @@ _id_2C85( var_0 )
     else
         var_1 = "_stealth_dog_wakeup_slow";
 
-    _id_A510::_id_0BCA( self, "gravity", var_1 );
+    maps\_anim::_id_0BCA( self, "gravity", var_1 );
 }
 
 _id_2C88( var_0 )
 {
     self.allowdeath = 1;
     var_1 = "_stealth_dog_wakeup_fast";
-    _id_A510::_id_0BCA( self, "gravity", var_1 );
+    maps\_anim::_id_0BCA( self, "gravity", var_1 );
 }
 
 _id_2C89( var_0 )
 {
     self.allowdeath = 1;
     var_1 = "_stealth_dog_wakeup_slow";
-    _id_A510::_id_0BCA( self, "gravity", var_1 );
+    maps\_anim::_id_0BCA( self, "gravity", var_1 );
 }
 
 enemy_awareness_loop()
@@ -827,12 +827,9 @@ enemy_awareness_reaction_safety( var_0, var_1 )
         self waittill( "enemy_awareness_reaction", var_2 );
 
         if ( var_0 == var_2 )
-        {
             continue;
-            continue;
-        }
-
-        break;
+        else
+            break;
     }
 
     self notify( "another_enemy_awareness_reaction" );
@@ -908,7 +905,7 @@ _id_328D()
 
 _id_31D8( var_0, var_1 )
 {
-    _id_A5A4::_id_32DE( "_stealth_enemy_alert_level_action" );
+    maps\_utility::_id_32DE( "_stealth_enemy_alert_level_action" );
     var_2 = self._id_0669._id_13A2._id_08E6["alert"];
     self thread [[ var_2[var_0] ]]( var_1 );
 }
@@ -921,8 +918,8 @@ _id_31DD()
     var_0 = _id_3243();
     _id_327E();
     self waittill( "normal" );
-    _id_A5A4::_id_32DA( "_stealth_enemy_alert_level_action" );
-    _id_A5A4::_id_32E4( "_stealth_saw_corpse" );
+    maps\_utility::_id_32DA( "_stealth_enemy_alert_level_action" );
+    maps\_utility::_id_32E4( "_stealth_saw_corpse" );
     wait 0.05;
     common_scripts\utility::_id_3857( "_stealth_found_corpse" );
     thread _id_31F6();
@@ -957,7 +954,7 @@ enemy_alert_level_alerted_once( var_0 )
     if ( isdefined( self._id_7A9C ) )
     {
         var_1 = !( isdefined( self.canpatrolturn ) && self.canpatrolturn );
-        _id_A5A4::_id_7E45( "patrol_walk", 1, var_1 );
+        maps\_utility::_id_7E45( "patrol_walk", 1, var_1 );
         self._id_2AF3 = 1;
         self._id_2B0E = 1;
     }
@@ -972,7 +969,7 @@ enemy_alert_level_alerted_once( var_0 )
     if ( var_3 > 128 )
         var_3 = 128;
 
-    var_2 = _id_A5A4::vector_multiply( var_2, var_3 );
+    var_2 = maps\_utility::vector_multiply( var_2, var_3 );
     var_4 = self.origin + var_2 + ( 0, 0, 16 );
     var_5 = var_4 + ( 0, 0, -96 );
     var_4 = physicstrace( var_4, var_5 );
@@ -995,7 +992,7 @@ enemy_alert_level_alerted_again( var_0 )
     self endon( "pain_death" );
     thread _id_31F7();
     thread _id_31DD();
-    _id_A5A4::_id_7E45( "_stealth_patrol_jog" );
+    maps\_utility::_id_7E45( "_stealth_patrol_jog" );
     self._id_2AF3 = 0;
     self._id_2B0E = 0;
     var_1 = var_0.origin;
@@ -1003,14 +1000,14 @@ enemy_alert_level_alerted_again( var_0 )
     self _meth_81aa( var_1 );
     self.goalradius = var_2 * 0.5;
     self waittill( "goal" );
-    _id_A5A4::_id_7E45( "_stealth_patrol_walk", 1 );
+    maps\_utility::_id_7E45( "_stealth_patrol_walk", 1 );
     self _meth_81aa( var_1 );
     self.goalradius = 64;
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
     self waittill( "goal" );
     wait 12;
-    _id_A5A4::_id_7E45( "_stealth_patrol_walk", 1 );
+    maps\_utility::_id_7E45( "_stealth_patrol_walk", 1 );
     self notify( "normal" );
 }
 
@@ -1191,7 +1188,7 @@ _id_3270()
 
     for (;;)
     {
-        _id_A5A4::_id_32E4( "_stealth_enemy_alert_level_action" );
+        maps\_utility::_id_32E4( "_stealth_enemy_alert_level_action" );
         _id_3215();
         self waittill( "normal" );
     }
@@ -1199,7 +1196,7 @@ _id_3270()
 
 _id_327E()
 {
-    if ( !_id_A5A4::_id_32D8( "_stealth_behavior_reaction_anim" ) )
+    if ( !maps\_utility::_id_32D8( "_stealth_behavior_reaction_anim" ) )
     {
         self _meth_8143();
         self notify( "stop_animmode" );
@@ -1216,7 +1213,7 @@ _id_327E()
     }
 
     self notify( "stop_first_frame" );
-    _id_A5A4::_id_1ED1();
+    maps\_utility::_id_1ED1();
 }
 
 _id_3215()
@@ -1229,10 +1226,10 @@ _id_3215()
 _id_3214()
 {
     _id_327E();
-    _id_A5A4::_id_32DE( "_stealth_running_to_corpse" );
+    maps\_utility::_id_32DE( "_stealth_running_to_corpse" );
     self._id_2AF3 = 0;
     self._id_2B0E = 0;
-    _id_A5A4::_id_7E45( "_stealth_combat_jog" );
+    maps\_utility::_id_7E45( "_stealth_combat_jog" );
     self.goalradius = 80;
     self _meth_81aa( self._id_0669._id_5836._id_222C._id_2231.origin );
 }
@@ -1257,7 +1254,7 @@ _id_3247()
 
         while ( common_scripts\utility::_id_382E( "_stealth_found_corpse" ) )
         {
-            if ( _id_A5A4::_id_32D8( "_stealth_found_corpse" ) )
+            if ( maps\_utility::_id_32D8( "_stealth_found_corpse" ) )
                 thread _id_31F5();
             else
                 self notify( "heard_corpse", ( 0, 0, 0 ) );
@@ -1313,7 +1310,7 @@ _id_326F( var_0 )
     wait 0.5;
 
     if ( !self._id_0669._id_5836.dog )
-        _id_A510::_id_0BCE( self, "_stealth_look_around", undefined, "stop_loop" );
+        maps\_anim::_id_0BCE( self, "_stealth_look_around", undefined, "stop_loop" );
 }
 
 enemy_corpse_reaction_takenode()
@@ -1353,7 +1350,7 @@ enemy_get_closest_pathnodes( var_0, var_1 )
         else
             common_scripts\utility::_id_3857( "_stealth_searching_for_nodes" );
 
-        level _id_A5A4::_id_27EF( 0.2, common_scripts\utility::_id_3831, "_stealth_getallnodes" );
+        level maps\_utility::_id_27EF( 0.2, common_scripts\utility::_id_3831, "_stealth_getallnodes" );
         level common_scripts\utility::_id_383F( "_stealth_getallnodes" );
     }
 
@@ -1379,7 +1376,7 @@ _id_3A66( var_0 )
     self._id_0669._id_13A2._id_08E6["state"] = [];
     friendly_default_ai_functions( "state" );
     ai_change_ai_functions( "state", var_0 );
-    _id_A5A4::_id_32DD( "_stealth_custom_anim" );
+    maps\_utility::_id_32DD( "_stealth_custom_anim" );
 }
 
 friendly_default_ai_functions( var_0 )
@@ -1414,7 +1411,7 @@ _id_3A8A()
     self.ignoretriggers = 1;
     self._id_2AF3 = 0;
     self._id_2B0E = 0;
-    _id_A5A4::_id_2A74();
+    maps\_utility::_id_2A74();
     waitframe;
     self.fixednode = 0;
 }
@@ -1428,7 +1425,7 @@ friendly_state_alert()
     self.grenadeammo = 0;
     self._id_39C7 = 0;
     self.ignoreforfixednodesafecheck = 1;
-    _id_A5A4::_id_2A74();
+    maps\_utility::_id_2A74();
     waitframe;
     self.fixednode = 0;
 }
@@ -1444,8 +1441,8 @@ _id_3A8B()
     self _meth_8143();
     self.ignoreforfixednodesafecheck = 0;
     self.ignoretriggers = 0;
-    _id_A5A4::_id_2A8D();
-    _id_A5A4::_id_309A();
+    maps\_utility::_id_2A8D();
+    maps\_utility::_id_309A();
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
     self _meth_81a7( 0 );
@@ -1458,7 +1455,7 @@ _id_3A80( var_0, var_1 )
     if ( self._id_0669._id_5836._id_8AF2 != "prone" )
         return;
 
-    _id_A5A4::_id_32DE( "_stealth_custom_anim" );
+    maps\_utility::_id_32DE( "_stealth_custom_anim" );
 
     if ( isdefined( var_1 ) && var_1 )
         var_2 = "prone_2_stand";
@@ -1468,11 +1465,11 @@ _id_3A80( var_0, var_1 )
     if ( isdefined( var_0 ) )
         self _meth_8193( "face angle", var_0[1] + 20 );
 
-    thread _id_A510::_id_0BCA( self, "gravity", var_2 );
-    var_3 = getanimlength( _id_A5A4::_id_3EF7( var_2 ) );
+    thread maps\_anim::_id_0BCA( self, "gravity", var_2 );
+    var_3 = getanimlength( maps\_utility::_id_3EF7( var_2 ) );
     wait(var_3 - 0.2);
     self notify( "stop_animmode" );
-    _id_A5A4::_id_32DA( "_stealth_custom_anim" );
+    maps\_utility::_id_32DA( "_stealth_custom_anim" );
 }
 
 _id_3A81()
@@ -1483,7 +1480,7 @@ _id_3A81()
 
     for (;;)
     {
-        while ( _id_A5A4::_id_32D8( "_stealth_stance_handler" ) && !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
+        while ( maps\_utility::_id_32D8( "_stealth_stance_handler" ) && !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
         {
             _id_3A87();
             var_0 = [];
@@ -1491,11 +1488,11 @@ _id_3A81()
 
             if ( var_0[self._id_0669._id_5836._id_8AF2] )
                 thread _id_3A82();
-            else if ( _id_A5A4::_id_32D8( "_stealth_stay_still" ) )
+            else if ( maps\_utility::_id_32D8( "_stealth_stay_still" ) )
                 thread _id_3A85();
             else if ( !var_0[self._id_0669._id_13A2._id_8AFA] )
                 thread _id_3A83();
-            else if ( _id_A5A4::_id_32D8( "_stealth_stance_change" ) )
+            else if ( maps\_utility::_id_32D8( "_stealth_stance_change" ) )
                 self notify( "_stealth_stance_dont_change" );
 
             wait 0.05;
@@ -1504,17 +1501,17 @@ _id_3A81()
         self._id_5F65 = 1;
         self _meth_81ce( "stand", "crouch", "prone" );
         thread _id_3A85();
-        _id_A5A4::_id_32E0( "_stealth_stance_handler" );
+        maps\_utility::_id_32E0( "_stealth_stance_handler" );
         common_scripts\utility::_id_3857( "_stealth_spotted" );
     }
 }
 
 _id_3A88()
 {
-    if ( _id_A5A4::_id_32D8( "_stealth_stay_still" ) )
+    if ( maps\_utility::_id_32D8( "_stealth_stay_still" ) )
         return;
 
-    _id_A5A4::_id_32DE( "_stealth_stay_still" );
+    maps\_utility::_id_32DE( "_stealth_stay_still" );
     badplace_cylinder( "_stealth_" + self._id_0908 + "_prone", 0, self.origin, 30, 90, "axis" );
 
     if ( self.a._id_5F5B != "stop" )
@@ -1522,19 +1519,19 @@ _id_3A88()
         self notify( "move_interrupt" );
         animscripts\setposemovement::_id_7024();
 
-        if ( !_id_A5A4::_id_32D8( "_stealth_stay_still" ) )
-            _id_A5A4::_id_32DE( "_stealth_stay_still" );
+        if ( !maps\_utility::_id_32D8( "_stealth_stay_still" ) )
+            maps\_utility::_id_32DE( "_stealth_stay_still" );
 
         self _meth_8193( "face current" );
     }
 
     self notify( "stop_loop" );
-    thread _id_A510::_id_0BCE( self, "_stealth_prone_idle", undefined, "stop_loop" );
+    thread maps\_anim::_id_0BCE( self, "_stealth_prone_idle", undefined, "stop_loop" );
 }
 
 _id_3A85()
 {
-    _id_A5A4::_id_32DA( "_stealth_stay_still" );
+    maps\_utility::_id_32DA( "_stealth_stay_still" );
     badplace_delete( "_stealth_" + self._id_0908 + "_prone" );
     self notify( "stop_loop" );
 }
@@ -1565,12 +1562,12 @@ _id_3A83()
     self endon( "_stealth_stance_dont_change" );
     self endon( "_stealth_stance_handler" );
 
-    if ( _id_A5A4::_id_32D8( "_stealth_stance_change" ) )
+    if ( maps\_utility::_id_32D8( "_stealth_stance_change" ) )
         return;
 
-    _id_A5A4::_id_32DE( "_stealth_stance_change" );
+    maps\_utility::_id_32DE( "_stealth_stance_change" );
     wait 1.5;
-    _id_A5A4::_id_32DA( "_stealth_stance_change" );
+    maps\_utility::_id_32DA( "_stealth_stance_change" );
     self._id_5F65 = 1;
 
     switch ( self._id_0669._id_5836._id_8AF2 )
@@ -1646,9 +1643,9 @@ _id_3A86( var_0, var_1 )
 
 friendly_stance_handler_init()
 {
-    _id_A5A4::_id_32DD( "_stealth_stance_handler" );
-    _id_A5A4::_id_32DD( "_stealth_stay_still" );
-    _id_A5A4::_id_32DD( "_stealth_stance_change" );
+    maps\_utility::_id_32DD( "_stealth_stance_handler" );
+    maps\_utility::_id_32DD( "_stealth_stay_still" );
+    maps\_utility::_id_32DD( "_stealth_stance_change" );
     level._id_78AC["generic"]["_stealth_prone_idle"][0] = %prone_aim_5_legsstraight;
     self._id_0669._id_13A2._id_8AFA = undefined;
     self._id_0669._id_13A2._id_8AF8 = [];
@@ -1710,7 +1707,7 @@ default_event_awareness_ended_cleanup()
 {
     level endon( "event_awareness_handler" );
     level waittill( "default_event_awareness_enders" );
-    _id_A5A4::_id_32DA( "_stealth_stance_handler" );
+    maps\_utility::_id_32DA( "_stealth_stance_handler" );
 
     if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) )
         return;
@@ -1721,9 +1718,9 @@ default_event_awareness_ended_cleanup()
 
 default_event_awareness_setup()
 {
-    self._id_0669._id_13A2.alreadysmartstance = _id_A5A4::_id_32D8( "_stealth_stance_handler" );
+    self._id_0669._id_13A2.alreadysmartstance = maps\_utility::_id_32D8( "_stealth_stance_handler" );
     self._id_0669._id_13A2.alreadyignoreme = self.ignoretriggers;
-    _id_A5A4::_id_32DE( "_stealth_stance_handler" );
+    maps\_utility::_id_32DE( "_stealth_stance_handler" );
     self.ignoretriggers = 0;
 }
 
@@ -1735,11 +1732,11 @@ default_event_awareness_handle_changes()
     for (;;)
     {
         self waittill( "_stealth_stance_handler" );
-        self._id_0669._id_13A2.alreadysmartstance = _id_A5A4::_id_32D8( "_stealth_stance_handler" );
+        self._id_0669._id_13A2.alreadysmartstance = maps\_utility::_id_32D8( "_stealth_stance_handler" );
 
-        if ( !_id_A5A4::_id_32D8( "_stealth_stance_handler" ) )
+        if ( !maps\_utility::_id_32D8( "_stealth_stance_handler" ) )
         {
-            _id_A5A4::_id_32DE( "_stealth_stance_handler" );
+            maps\_utility::_id_32DE( "_stealth_stance_handler" );
             wait 0.05;
         }
     }
@@ -1750,7 +1747,7 @@ default_event_awareness_cleanup()
     self notify( "default_event_awareness_cleanup" );
 
     if ( !self._id_0669._id_13A2.alreadysmartstance )
-        _id_A5A4::_id_32DA( "_stealth_stance_handler" );
+        maps\_utility::_id_32DA( "_stealth_stance_handler" );
 
     if ( isdefined( self._id_0669._id_13A2.alreadyignoreme ) && self._id_0669._id_13A2.alreadyignoreme )
         self.ignoretriggers = 1;
@@ -1787,7 +1784,7 @@ default_event_awareness_waitclear( var_0 )
         var_1 = getaispeciesarray( "axis", "all" );
         var_2 = level._id_0669._id_5836._id_298E["alert"]["crouch"];
         common_scripts\utility::_id_0D13( var_1, ::default_event_awareness_waitclear_ai, var_2 );
-        _id_A5A4::_id_0D18( var_1, "default_event_awareness_waitclear_ai" );
+        maps\_utility::_id_0D18( var_1, "default_event_awareness_waitclear_ai" );
     }
 
     if ( common_scripts\utility::_id_382E( "_stealth_found_corpse" ) )
@@ -1795,7 +1792,7 @@ default_event_awareness_waitclear( var_0 )
         var_1 = getaispeciesarray( "axis", "all" );
         var_2 = level._id_0669._id_5836._id_298E["alert"]["stand"];
         common_scripts\utility::_id_0D13( var_1, ::default_event_awareness_waitclear_ai, var_2 );
-        _id_A5A4::_id_0D18( var_1, "default_event_awareness_waitclear_ai" );
+        maps\_utility::_id_0D18( var_1, "default_event_awareness_waitclear_ai" );
     }
 }
 
@@ -1812,20 +1809,20 @@ default_event_awareness_waitclear_ai_proc( var_0 )
     var_1 = 0;
 
     if ( isdefined( self._id_32D8["_stealth_behavior_first_reaction"] ) )
-        var_1 = _id_A5A4::_id_32D8( "_stealth_behavior_first_reaction" );
+        var_1 = maps\_utility::_id_32D8( "_stealth_behavior_first_reaction" );
 
     var_2 = 0;
 
     if ( isdefined( self._id_32D8["_stealth_behavior_reaction_anim"] ) )
-        var_1 = _id_A5A4::_id_32D8( "_stealth_behavior_reaction_anim" );
+        var_1 = maps\_utility::_id_32D8( "_stealth_behavior_reaction_anim" );
 
     if ( !var_1 && !var_2 )
         return;
 
-    _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "death" );
-    _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "going_back" );
-    level _id_A5A4::_id_07BE( common_scripts\utility::_id_384A, "_stealth_found_corpse" );
-    _id_A5A4::_id_2BDD();
+    maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    maps\_utility::_id_07BE( maps\_utility::_id_A099, "going_back" );
+    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "_stealth_found_corpse" );
+    maps\_utility::_id_2BDD();
     self endon( "goal" );
     var_3 = var_0 * var_0;
 

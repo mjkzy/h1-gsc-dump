@@ -48,7 +48,7 @@ exchange_turret()
     setsaveddvar( "r_lodFOVFixedScale", 0.6 );
 
     if ( !common_scripts\utility::_id_382E( "player_used_zoom" ) )
-        level.playercardbackground thread _id_A5A4::_id_2B4A( "barrett" );
+        level.playercardbackground thread maps\_utility::_id_2B4A( "barrett" );
 
     level._id_56D2 = 1;
     var_2 = level.playercardbackground.origin + ( 0, 0, 60 );
@@ -119,7 +119,7 @@ track_ent_chain( var_0 )
 
 exchange_heli_tracking()
 {
-    _id_A5A8::vehicle_flag_arrived( "block_heli_arrives" );
+    maps\_vehicle::vehicle_flag_arrived( "block_heli_arrives" );
     wait 1.5;
     track_ent_chain( "heli_search_org" );
     common_scripts\utility::_id_383F( "block_heli_moves" );
@@ -134,7 +134,7 @@ exchange_trace_converter()
     for (;;)
     {
         common_scripts\utility::_id_384A( "player_is_on_turret" );
-        _id_A5A4::_id_9F8C( var_1, 1.0 );
+        maps\_utility::_id_9F8C( var_1, 1.0 );
 
         if ( !level.playercardbackground attackbuttonpressed() )
         {
@@ -465,19 +465,19 @@ exchange_bored_idle()
     if ( isdefined( self.script_parentname ) )
         return;
 
-    _id_A510::_id_0BCE( self, "bored_idle" );
+    maps\_anim::_id_0BCE( self, "bored_idle" );
 }
 
 lean_and_smoke()
 {
     var_0 = getent( self._not_team, "targetname" );
-    var_0 _id_A510::_id_0BCE( self, "smoke_idle" );
+    var_0 maps\_anim::_id_0BCE( self, "smoke_idle" );
 }
 
 stand_and_smoke()
 {
     var_0 = getent( self._not_team, "targetname" );
-    var_0 _id_A510::_id_0BCE( self, "smoking" );
+    var_0 maps\_anim::_id_0BCE( self, "smoking" );
 }
 
 exchange_barrett_trigger()
@@ -502,7 +502,7 @@ exchange_barrett_trigger()
     level.playercardbackground setplayerangles( ( 5.5, -65.06, 0 ) );
     level.playercardbackground._id_659E = level.playercardbackground.origin;
     var_1 useby( level.playercardbackground );
-    thread _id_A5A4::_id_114E( 1 );
+    thread maps\_utility::_id_114E( 1 );
     wait 1;
 
     if ( getdvar( "use_old_sniper_text_style" ) == "1" )
@@ -576,7 +576,7 @@ player_attach_to_barret_with_anim()
 {
     var_0 = getdvar( "r_znear" );
     setsaveddvar( "r_znear", 1.0 );
-    level.player_intro_node thread _id_A510::_id_0C24( level.player_intro_model, "grab_barret" );
+    level.player_intro_node thread maps\_anim::_id_0C24( level.player_intro_model, "grab_barret" );
     thread blackscreengrabgun( 4.16 );
     level.player_intro_model thread common_scripts\utility::_id_69C2( "sniperescape_m82_foley", level.player_intro_model.origin );
     var_1 = 0.5;
@@ -835,7 +835,7 @@ exchange_baddie_main_think()
     if ( !isdefined( self._id_2E18 ) )
         self.allowdeath = 1;
 
-    _id_A5A4::_id_32DD( "run_to_car" );
+    maps\_utility::_id_32DD( "run_to_car" );
     thread exchange_guy_dies();
     thread exchange_guy_patrol_path();
 
@@ -860,7 +860,7 @@ exchange_baddie_main_think()
     if ( is_zak() )
     {
         var_0 = "exchange_surprise_zakhaev";
-        _id_A5A4::_id_27EF( 1.8, _id_A5A4::_id_7C82, "stop_animmode" );
+        maps\_utility::_id_27EF( 1.8, maps\_utility::_id_7C82, "stop_animmode" );
     }
 
     if ( !isdefined( self.zak_got_hit ) )
@@ -874,12 +874,12 @@ exchange_baddie_main_think()
         {
             stop_loop();
             self _meth_8143();
-            _id_A510::_id_0BCA( self, "gravity", var_0 );
-            _id_A5A4::_id_1ED1();
+            maps\_anim::_id_0BCA( self, "gravity", var_0 );
+            maps\_utility::_id_1ED1();
             self._id_2B0E = 0;
         }
 
-        _id_A5A4::_id_32DE( "run_to_car" );
+        maps\_utility::_id_32DE( "run_to_car" );
     }
 
     self notify( "run_to_car" );
@@ -888,7 +888,7 @@ exchange_baddie_main_think()
 exchange_baddie_flags_on_death( var_0 )
 {
     common_scripts\utility::_id_A087( "death", "riding_still" );
-    var_0 _id_A5A4::_id_32DE( "passenger_got_in" );
+    var_0 maps\_utility::_id_32DE( "passenger_got_in" );
 }
 
 exchange_waittill_time_to_go_to_car()
@@ -919,18 +919,18 @@ exchange_baddie_runs_to_car()
         if ( is_zak() && isdefined( self.zak_got_hit ) )
             common_scripts\utility::_id_384A( "wounded_zak_runs_for_car" );
         else
-            _id_A5A4::_id_32E0( "run_to_car" );
+            maps\_utility::_id_32E0( "run_to_car" );
     }
     else
     {
         self._id_2B0E = 1;
 
         if ( is_zak() )
-            _id_A5A4::_id_7E45( "patrol_jog" );
+            maps\_utility::_id_7E45( "patrol_jog" );
         else
         {
-            self._id_76AF = _id_A5A4::_id_3EF7( "stealth_walk" );
-            _id_A5A4::_id_7E45( "stealth_walk" );
+            self._id_76AF = maps\_utility::_id_3EF7( "stealth_walk" );
+            maps\_utility::_id_7E45( "stealth_walk" );
         }
     }
 
@@ -944,7 +944,7 @@ exchange_baddie_runs_to_car()
     var_2 = undefined;
 
     if ( isdefined( self._id_7B19 ) )
-        var_2 = _id_A5A9::_id_3DE1();
+        var_2 = maps\_vehicle_aianim::_id_3DE1();
     else
     {
         var_2 = get_shared_linkto();
@@ -956,7 +956,7 @@ exchange_baddie_runs_to_car()
     if ( is_zak() )
     {
         self notify( "got_in_car" );
-        var_0 _id_A5A4::_id_32DE( "passenger_got_in" );
+        var_0 maps\_utility::_id_32DE( "passenger_got_in" );
         self delete();
         return;
     }
@@ -967,9 +967,9 @@ exchange_baddie_runs_to_car()
         return;
     }
 
-    var_2 _id_A5A9::_id_57BF( var_3 );
+    var_2 maps\_vehicle_aianim::_id_57BF( var_3 );
     self waittill( "enteredvehicle" );
-    var_0 _id_A5A4::_id_32DE( "passenger_got_in" );
+    var_0 maps\_utility::_id_32DE( "passenger_got_in" );
     self notify( "got_in_car" );
     self waittill( "jumpedout" );
     self delete();
@@ -1064,17 +1064,17 @@ exchange_rider_gets_out()
     self _meth_81a9( var_0 );
     self._id_2B0E = 1;
     self._id_2AF3 = 1;
-    _id_A5A4::_id_7E45( "stealth_walk" );
+    maps\_utility::_id_7E45( "stealth_walk" );
     self.goalradius = 16;
 }
 
 exchange_uaz_preps_for_escape()
 {
-    _id_A5A4::_id_32DD( "driver_dead" );
+    maps\_utility::_id_32DD( "driver_dead" );
     self endon( "driver_dead" );
     common_scripts\utility::_id_383D( self._id_79D3 );
-    _id_A5A4::_id_32DD( "time_to_go" );
-    _id_A5A8::_id_4259();
+    maps\_utility::_id_32DD( "time_to_go" );
+    maps\_vehicle::_id_4259();
     self.enter_count = 0;
     var_0 = strtok( self._id_7A26, " " );
     common_scripts\utility::_id_0CF0( var_0, ::exchange_vehicle_waits_for_passengers );
@@ -1092,7 +1092,7 @@ exchange_uaz_preps_for_escape()
         wait 9;
     }
     else
-        _id_A5A4::_id_32E0( "time_to_go" );
+        maps\_utility::_id_32E0( "time_to_go" );
 
     if ( self._id_79D3 == "uaz4" )
         self vehicle_setspeed( 25, 10 );
@@ -1113,7 +1113,7 @@ exchange_uaz_preps_for_escape()
     exchange_wait_until_other_base_uazs_go();
     self startpath();
     self waittill( "reached_end_node" );
-    var_3 = _id_A5A9::_id_9CCC();
+    var_3 = maps\_vehicle_aianim::_id_9CCC();
     common_scripts\utility::_id_0D13( var_3, maps\sniperescape_code::delete_living );
     self delete();
 }
@@ -1136,15 +1136,15 @@ exchange_vehicle_waits_for_passengers( var_0 )
     if ( !isdefined( var_1 ) )
         return;
 
-    var_1 _id_A5A4::_id_32DD( "passenger_got_in" );
+    var_1 maps\_utility::_id_32DD( "passenger_got_in" );
     self.enter_count++;
-    var_1 _id_A5A4::_id_32E0( "passenger_got_in" );
+    var_1 maps\_utility::_id_32E0( "passenger_got_in" );
     self.enter_count--;
 
     if ( !self.enter_count )
     {
         wait 2;
-        _id_A5A4::_id_32DE( "time_to_go" );
+        maps\_utility::_id_32DE( "time_to_go" );
     }
 }
 
@@ -1158,12 +1158,12 @@ exchange_zaks_car_door()
     level endon( "zak_spawns" );
     var_0 = getent( "zak_car_org", "script_noteworthy" );
     common_scripts\utility::_id_384A( "player_attacks_exchange" );
-    var_0 _id_A5A4::_id_32DE( "passenger_got_in" );
+    var_0 maps\_utility::_id_32DE( "passenger_got_in" );
 }
 
 arm_detach()
 {
-    self setmodel( _id_A5A4::_id_4026( "zak_one_arm" ) );
+    self setmodel( maps\_utility::_id_4026( "zak_one_arm" ) );
     self hidepart( "J_Shoulder_LE" );
     arm_goes_flying( self gettagorigin( "J_Shoulder_LE" ) );
 }
@@ -1172,7 +1172,7 @@ arm_goes_flying( var_0 )
 {
     var_1 = spawn( "script_model", ( 0, 0, 0 ) );
     var_1.origin = var_0;
-    var_1 setmodel( _id_A5A4::_id_4026( "zak_left_arm" ) );
+    var_1 setmodel( maps\_utility::_id_4026( "zak_left_arm" ) );
 
     if ( getdvar( "ax" ) == "" )
         setdvar( "ax", "-0.01" );
@@ -1224,7 +1224,7 @@ zak_arm_blood()
     var_2 = spawn( "script_model", ( 0, 0, 0 ) );
     var_2 setmodel( "tag_origin" );
     var_2 linkto( self, "J_Shoulder_LE", ( 0, 0, 0 ), ( 0, 0, 0 ) );
-    var_2 thread _id_A526::_id_2DE8( "tag_origin" );
+    var_2 thread maps\_debug::_id_2DE8( "tag_origin" );
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
@@ -1288,12 +1288,12 @@ blood_pool()
 zak_dies()
 {
     self.helmet = 50000;
-    _id_A5A4::_id_2AB1();
+    maps\_utility::_id_2AB1();
     var_0 = spawn( "script_model", ( 0, 0, 0 ) );
     var_0 character\character_sp_zakhaev_onearm::main();
     var_0 hide();
     var_0._id_0C72 = "zak_script_model";
-    var_0 _id_A5A4::_id_0D61();
+    var_0 maps\_utility::_id_0D61();
     var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
     common_scripts\utility::_id_A087( "damage", "fake_damage" );
     var_1 = "zak_pain";
@@ -1306,10 +1306,10 @@ zak_dies()
     if ( !isdefined( self ) )
         return;
 
-    _id_A5A4::arcademode_kill( self geteye(), "rifle", 2000 );
+    maps\_utility::arcademode_kill( self geteye(), "rifle", 2000 );
 
     if ( !common_scripts\utility::_id_382E( "exchange_heli_alerted" ) )
-        thread _id_A5A4::_id_114E();
+        thread maps\_utility::_id_114E();
 
     common_scripts\utility::_id_383F( "exchange_success" );
     var_0 unlink();
@@ -1318,14 +1318,14 @@ zak_dies()
     var_3 = 135;
     var_2.angles = ( 0, var_3, 0 );
     var_4 = getstartorigin( var_2.origin, var_2.angles, level._id_78AC["zak_left_arm"][var_1] );
-    var_5 = _id_A5A4::_id_88D1( "zak_left_arm", var_4 );
-    var_6 = _id_A5A4::_id_590F( var_0, var_5 );
+    var_5 = maps\_utility::_id_88D1( "zak_left_arm", var_4 );
+    var_6 = maps\_utility::_id_590F( var_0, var_5 );
 
     if ( getdvarint( "use_old_zak_death" ) == 1 )
     {
-        var_2 _id_A510::_id_0BC7( var_5, var_1 );
-        var_2 thread _id_A510::_id_0C24( var_0, var_1 );
-        var_2 _id_A5A4::_id_27EF( 0.05, _id_A510::_id_0C24, var_5, var_1 );
+        var_2 maps\_anim::_id_0BC7( var_5, var_1 );
+        var_2 thread maps\_anim::_id_0C24( var_0, var_1 );
+        var_2 maps\_utility::_id_27EF( 0.05, maps\_anim::_id_0C24, var_5, var_1 );
         var_0 thread zak_blood();
         var_0 show();
         self hide();
@@ -1333,9 +1333,9 @@ zak_dies()
     else
     {
         var_5 hide();
-        var_2 thread _id_A510::_id_0C24( self, var_1 );
-        var_2 _id_A510::_id_0BC5( var_6, var_1 );
-        var_2 _id_A5A4::_id_27EF( 0.1, _id_A510::_id_0C18, var_6, var_1 );
+        var_2 thread maps\_anim::_id_0C24( self, var_1 );
+        var_2 maps\_anim::_id_0BC5( var_6, var_1 );
+        var_2 maps\_utility::_id_27EF( 0.1, maps\_anim::_id_0C18, var_6, var_1 );
         wait 0.15;
         self hide();
         var_0 thread zak_blood();
@@ -1360,13 +1360,13 @@ exchange_zak_and_guards_jab_it_up( var_0, var_1 )
     common_scripts\utility::_id_384A( "exchange_uazs_arrive" );
     common_scripts\utility::_id_384A( "launch_zak" );
     wait 2;
-    var_2 = _id_A5A4::_id_88D1( "briefcase" );
+    var_2 = maps\_utility::_id_88D1( "briefcase" );
     var_2 hide();
     level.fake_case = var_2;
-    var_0 thread _id_A510::_id_0C24( var_2, "exchange" );
+    var_0 thread maps\_anim::_id_0C24( var_2, "exchange" );
     wait 0.25;
     common_scripts\utility::_id_383F( "zak_spawns" );
-    var_3 = _id_A5A4::get_guy_with_targetname_from_spawner( "exchange_zak" );
+    var_3 = maps\_utility::get_guy_with_targetname_from_spawner( "exchange_zak" );
     level.zakhaev = var_3;
     var_3 thread exchange_baddie_main_think();
     var_3.a._id_2B20 = 1;
@@ -1375,19 +1375,19 @@ exchange_zak_and_guards_jab_it_up( var_0, var_1 )
     var_3.main_baddie = 1;
     var_3.tracksuit_ignore = 1;
     var_3._id_0C72 = "zakhaev";
-    var_3 _id_A5A4::_id_7EAB( "run" );
+    var_3 maps\_utility::_id_7EAB( "run" );
     var_3.ignoreforfixednodesafecheck = 1;
     var_3._id_2B0E = 1;
     var_3._id_2AF3 = 1;
-    var_3 _id_A5A4::_id_7065();
-    var_4 = _id_A5A4::_id_88D1( "briefcase" );
+    var_3 maps\_utility::_id_7065();
+    var_4 = maps\_utility::_id_88D1( "briefcase" );
     var_1[var_1.size] = var_3;
     var_4 thread exchange_brick_drop();
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_7DB8, 1 );
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7DB8, 1 );
     var_1[var_1.size] = var_4;
     common_scripts\utility::_id_0D13( var_1, ::set_exchange_timings, var_0 );
     var_0 notify( "stop_loop" );
-    var_0 thread _id_A510::_id_0C18( var_1, "exchange" );
+    var_0 thread maps\_anim::_id_0C18( var_1, "exchange" );
     common_scripts\utility::_id_384A( "block_heli_arrives" );
     wait 2;
     var_5 = getent( "exchange_org2", "targetname" );
@@ -1404,14 +1404,14 @@ set_exchange_timings( var_0 )
     level endon( "player_attacks_exchange" );
     common_scripts\utility::_id_384A( "block_heli_arrives" );
     wait 2;
-    self setflaggedanim( "single anim", _id_A5A4::_id_3EF5( "exchange" ), 1, 0, 0 );
+    self setflaggedanim( "single anim", maps\_utility::_id_3EF5( "exchange" ), 1, 0, 0 );
     self linkto( var_0 );
     thread exchange_unlink();
     common_scripts\utility::_id_384A( "block_heli_moves" );
-    self setflaggedanim( "single anim", _id_A5A4::_id_3EF5( "exchange" ), 1, 0, 1 );
-    self setanimtime( _id_A5A4::_id_3EF5( "exchange" ), 0.49 );
+    self setflaggedanim( "single anim", maps\_utility::_id_3EF5( "exchange" ), 1, 0, 1 );
+    self setanimtime( maps\_utility::_id_3EF5( "exchange" ), 0.49 );
     common_scripts\utility::_id_384A( "heli_moves_again" );
-    self setanimtime( _id_A5A4::_id_3EF5( "exchange" ), 0.9 );
+    self setanimtime( maps\_utility::_id_3EF5( "exchange" ), 0.9 );
 }
 
 exchange_unlink()
@@ -1667,7 +1667,7 @@ exchange_brick_drop()
         var_1 unlink();
         var_1 setmodel( "com_golden_brick" );
         var_1 physicslaunch( var_1.origin, var_2 );
-        self _meth_814d( _id_A5A4::_id_3EF5( "exchange" ), 1, 0, 0 );
+        self _meth_814d( maps\_utility::_id_3EF5( "exchange" ), 1, 0, 0 );
     }
 }
 
@@ -1699,7 +1699,7 @@ should_break_prone_hint()
 
 should_break_claymores()
 {
-    var_0 = _id_A5A4::_id_4088();
+    var_0 = maps\_utility::_id_4088();
 
     if ( var_0 <= 0 )
         return 1;
@@ -1803,7 +1803,7 @@ exchange_wind_generator()
 exchange_flag_relinks( var_0 )
 {
     waitframe;
-    var_0 _id_A5A4::_id_32E0( "time_to_go" );
+    var_0 maps\_utility::_id_32E0( "time_to_go" );
     common_scripts\utility::_id_3852( "zak_uaz_leaves", "player_attacks_exchange" );
     self.angles = ( 0, var_0.angles[1] + 180, 0 );
     self linkto( var_0 );
@@ -1811,7 +1811,7 @@ exchange_flag_relinks( var_0 )
 
 exchange_flag()
 {
-    var_0 = _id_A5A4::_id_88D1( "flag" );
+    var_0 = maps\_utility::_id_88D1( "flag" );
     var_0.origin = self.origin;
     var_0.angles = self.angles;
     var_1 = getent( self._id_7A26, "script_linkname" );
@@ -1847,47 +1847,47 @@ exchange_flag()
         }
 
         var_5 = randomfloatrange( 0.1, 1 );
-        var_0 _meth_814d( var_0 _id_A5A4::_id_3EF5( "up" ), var_2, var_5, 5 );
-        var_0 _meth_814d( var_0 _id_A5A4::_id_3EF5( "down" ), 1 - var_2, var_5, 5 );
+        var_0 _meth_814d( var_0 maps\_utility::_id_3EF5( "up" ), var_2, var_5, 5 );
+        var_0 _meth_814d( var_0 maps\_utility::_id_3EF5( "down" ), 1 - var_2, var_5, 5 );
         wait(var_5);
     }
 }
 
 exchange_heli_second_wave()
 {
-    var_0 = _id_A5A8::_id_897D( "hotel_attack_helis" );
+    var_0 = maps\_vehicle::_id_897D( "hotel_attack_helis" );
     common_scripts\utility::_id_0D13( var_0, ::exchange_second_heli );
     common_scripts\utility::_id_0D13( var_0, ::exchange_followup_heli_shoots_hotel );
 }
 
 exchange_heli()
 {
-    var_0 = _id_A5A8::_id_8979( "view_block_heli" );
+    var_0 = maps\_vehicle::_id_8979( "view_block_heli" );
     var_0 thread exchange_heli_tracking();
     var_0 thread exchange_heli_think( 35, 35 );
     var_0 thread exchange_heli_preps_missiles();
     var_0 thread exchange_block_view_on_attack();
-    var_0 thread _id_A5A4::_id_2BC3( _id_A5A4::_id_A099, "death_spiral", common_scripts\utility::_id_383F, "block_heli_starts" );
+    var_0 thread maps\_utility::_id_2BC3( maps\_utility::_id_A099, "death_spiral", common_scripts\utility::_id_383F, "block_heli_starts" );
     var_0._id_86CE = 1;
-    _id_A5A4::_id_07BE( common_scripts\utility::_id_384A, "player_attacks_exchange" );
-    _id_A5A4::_id_07BE( common_scripts\utility::_id_384A, "block_heli_starts" );
-    var_0 _id_A5A4::_id_075F( _id_A5A8::volume_up, 0 );
-    _id_A5A4::_id_075F( ::handle_block_heli_audio, var_0 );
-    thread _id_A5A4::_id_2BDD();
+    maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "player_attacks_exchange" );
+    maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "block_heli_starts" );
+    var_0 maps\_utility::_id_075F( maps\_vehicle::volume_up, 0 );
+    maps\_utility::_id_075F( ::handle_block_heli_audio, var_0 );
+    thread maps\_utility::_id_2BDD();
     var_0 endon( "death" );
     level endon( "player_attacks_exchange" );
     common_scripts\utility::_id_384A( "block_heli_moves" );
-    _id_A5A4::_id_27EF( 8, _id_A5E8::_id_870C, "start_heli_block_moves" );
+    maps\_utility::_id_27EF( 8, soundscripts\_snd::_id_870C, "start_heli_block_moves" );
     wait 22.0;
     common_scripts\utility::_id_383F( "heli_blocks_zak" );
     common_scripts\utility::_id_384A( "zak_escape" );
-    _id_A5A4::_id_27EF( 4.5, common_scripts\utility::_id_383F, "heli_moves_again" );
+    maps\_utility::_id_27EF( 4.5, common_scripts\utility::_id_383F, "heli_moves_again" );
     wait 4.0;
 
     if ( isalive( level.zakhaev ) )
     {
         level.zakhaev notify( "run_to_car" );
-        level.zakhaev _id_A5A4::_id_0C3D();
+        level.zakhaev maps\_utility::_id_0C3D();
     }
 
     wait 10;
@@ -1896,15 +1896,15 @@ exchange_heli()
 
 handle_block_heli_audio( var_0 )
 {
-    _id_A5E8::_id_870C( "start_heli_block_sequence" );
-    var_0 thread _id_A5A4::_id_69C4( "scn_se_havoc_blocking_sniper" );
+    soundscripts\_snd::_id_870C( "start_heli_block_sequence" );
+    var_0 thread maps\_utility::_id_69C4( "scn_se_havoc_blocking_sniper" );
 }
 
 exchange_followup_heli_shoots_hotel()
 {
     self endon( "death" );
     self endon( "death_spiral" );
-    _id_A5A8::vehicle_flag_arrived( "block_heli_followup" );
+    maps\_vehicle::vehicle_flag_arrived( "block_heli_followup" );
     var_0 = getent( "hotel_look_org", "targetname" );
     self setlookatent( var_0 );
     common_scripts\utility::_id_384A( "apartment_explosion" );
@@ -1941,9 +1941,9 @@ exchange_heli_preps_missiles()
     self endon( "death" );
     self endon( "death_spiral" );
     common_scripts\utility::_id_384A( "player_attacks_exchange" );
-    _id_A5A8::vehicle_flag_arrived( "block_heli_starts" );
-    _id_A5A4::_id_27EF( 5, common_scripts\utility::_id_383F, "exchange_heli_alerted" );
-    _id_A5A4::_id_27EF( 5, common_scripts\utility::_id_3831, "can_save" );
+    maps\_vehicle::vehicle_flag_arrived( "block_heli_starts" );
+    maps\_utility::_id_27EF( 5, common_scripts\utility::_id_383F, "exchange_heli_alerted" );
+    maps\_utility::_id_27EF( 5, common_scripts\utility::_id_3831, "can_save" );
     wait 15;
     common_scripts\utility::_id_383F( "apartment_explosion" );
     wait 1.5;
@@ -1957,18 +1957,18 @@ exchange_heli_shoots_hotel()
     var_2 = common_scripts\utility::_id_710E( var_0 );
     var_1.origin = var_2.origin;
     maps\sniperescape_code::shoots_down( var_1, 25 );
-    var_1 _id_A5A4::_id_27EF( 5, _id_A5A4::_id_7C71 );
+    var_1 maps\_utility::_id_27EF( 5, maps\_utility::_id_7C71 );
 }
 
 exchange_second_heli()
 {
-    thread _id_A5AA::helipath( self._not_team, 45, 45 );
+    thread maps\_vehicle_code::helipath( self._not_team, 45, 45 );
 }
 
 exchange_heli_think( var_0, var_1 )
 {
-    thread _id_A5AA::helipath( self._not_team, var_0, var_1 );
-    _id_A5A8::_id_4259();
+    thread maps\_vehicle_code::helipath( self._not_team, var_0, var_1 );
+    maps\_vehicle::_id_4259();
     thread exchange_heli_death_spiral();
     var_2 = common_scripts\utility::_id_3DBD();
     self.pilots = [];
@@ -1983,7 +1983,7 @@ exchange_heli_think( var_0, var_1 )
     {
         var_4 = self.bloodmodels;
         self waittill( "death" );
-        common_scripts\utility::_id_0D13( var_4, _id_A5A4::_id_057D );
+        common_scripts\utility::_id_0D13( var_4, maps\_utility::_id_057D );
     }
 
     common_scripts\utility::_id_0D13( var_3, maps\sniperescape_code::delete_living );
@@ -1991,9 +1991,9 @@ exchange_heli_think( var_0, var_1 )
 
 exchange_heli_pilot( var_0, var_1, var_2, var_3 )
 {
-    var_4 = var_0 _id_A5A4::_id_88C3();
+    var_4 = var_0 maps\_utility::_id_88C3();
 
-    if ( _id_A5A4::_id_88F1( var_4 ) )
+    if ( maps\_utility::_id_88F1( var_4 ) )
         return;
 
     self endon( "death" );
@@ -2003,10 +2003,10 @@ exchange_heli_pilot( var_0, var_1, var_2, var_3 )
     var_4.allowdeath = 0;
     var_4.a._id_612E = 1;
     var_4.helmet = 50000;
-    var_4 _id_A5A4::_id_4462();
+    var_4 maps\_utility::_id_4462();
     var_4._id_47A3 = self;
     self.pilots[self.pilots.size] = var_4;
-    thread _id_A510::_id_0BCE( var_4, var_2, var_1, "stop_loop" + var_1 );
+    thread maps\_anim::_id_0BCE( var_4, var_2, var_1, "stop_loop" + var_1 );
 
     for (;;)
     {
@@ -2028,7 +2028,7 @@ exchange_heli_pilot( var_0, var_1, var_2, var_3 )
             break;
     }
 
-    _id_A5A4::arcademode_kill( var_4 geteye(), "rifle", 100 );
+    maps\_utility::arcademode_kill( var_4 geteye(), "rifle", 100 );
     var_4.is_victim = 1;
     var_5 = spawn( "script_model", ( 0, 0, 0 ) );
     var_5 setmodel( level._id_78B5[var_1] );
@@ -2047,7 +2047,7 @@ heli_pilot_death_anims( var_0 )
     if ( isdefined( self.is_victim ) && self.is_victim )
     {
         self._id_0C72 = "victim";
-        var_0 thread _id_A510::_id_0C24( self, "shot", self.helitag );
+        var_0 thread maps\_anim::_id_0C24( self, "shot", self.helitag );
         var_1 = level._id_78AC["victim"]["shot"];
         wait(getanimlength( var_1 ) - 0.1);
         self _meth_83c5( var_1, 0 );
@@ -2055,7 +2055,7 @@ heli_pilot_death_anims( var_0 )
     else
     {
         self._id_0C72 = "copilot";
-        var_0 thread _id_A510::_id_0BE1( self, "shot", self.helitag );
+        var_0 thread maps\_anim::_id_0BE1( self, "shot", self.helitag );
     }
 }
 
@@ -2064,22 +2064,22 @@ exchange_heli_death_spiral()
     self endon( "death" );
     self waittill( "death_spiral" );
     common_scripts\utility::_id_0D13( self.pilots, ::heli_pilot_death_anims, self );
-    _id_A5A4::_id_27EF( 0.5, common_scripts\utility::_id_383F, "heli_destroyed" );
+    maps\_utility::_id_27EF( 0.5, common_scripts\utility::_id_383F, "heli_destroyed" );
     wait 0.2;
     level notify( "weapon_master_barrett_kill" );
-    thread _id_A5A8::_id_530E( self.motiontrackerenabled, 0 );
-    _id_A5AA::_id_4807();
-    _id_A5A4::arcademode_kill( self.origin, "explosive", 1000 );
+    thread maps\_vehicle::_id_530E( self.motiontrackerenabled, 0 );
+    maps\_vehicle_code::_id_4807();
+    maps\_utility::arcademode_kill( self.origin, "explosive", 1000 );
     playfx( common_scripts\utility::_id_3FA8( "heli_explosion" ), self.origin );
     thread common_scripts\utility::_id_69C2( "havoc_helicopter_crash", self.origin );
     wait 0.25;
-    _id_A5A8::_id_4258();
+    maps\_vehicle::_id_4258();
     self delete();
 }
 
 exchange_ready_to_run( var_0 )
 {
-    _id_A5A4::_id_0C3D();
+    maps\_utility::_id_0C3D();
 }
 
 exchange_claymore()
@@ -2092,7 +2092,7 @@ exchange_claymore()
     var_1 = getentarray( "grenade", "classname" );
     var_2 = var_1[0];
     var_2.angles = var_0.angles;
-    var_2 _id_A528::_id_6A36();
+    var_2 maps\_detonategrenades::_id_6A36();
     level._id_6F7C.groundentchanged = "fraggrenade";
 }
 
@@ -2177,10 +2177,10 @@ blow_up_hotel()
         return;
 
     common_scripts\utility::_id_383F( "hotel_destroyed" );
-    _id_A5A4::_id_27EF( 1.75, common_scripts\utility::_id_383F, "player_gets_off_turret" );
-    _id_A5A4::_id_27EF( 1.8, common_scripts\_exploder::_id_3528, 3 );
-    _id_A5A4::_id_27EF( 2.3, ::hotel_rumble );
-    _id_A5A4::_id_27EF( 4.2, common_scripts\_exploder::_id_3528, 37 );
+    maps\_utility::_id_27EF( 1.75, common_scripts\utility::_id_383F, "player_gets_off_turret" );
+    maps\_utility::_id_27EF( 1.8, common_scripts\_exploder::_id_3528, 3 );
+    maps\_utility::_id_27EF( 2.3, ::hotel_rumble );
+    maps\_utility::_id_27EF( 4.2, common_scripts\_exploder::_id_3528, 37 );
     wait 1.5;
     maps\sniperescape_code::price_clears_dialogue();
     wait 0.5;
@@ -2236,7 +2236,7 @@ exchange_mission_failure()
     else
         setdvar( "ui_deadquote", &"SNIPERESCAPE_ZAKHAEV_ESCAPED" );
 
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 exchange_mission_failure_paradox_deadquote()
@@ -2360,15 +2360,15 @@ barrett_intro_with_anim()
 {
     level.barrett_intro_with_anim = 1;
     level.player_intro_node = getent( level._id_6F7C._not_team, "targetname" );
-    level.player_intro_model = _id_A5A4::_id_88D1( "player_grab_barret" );
-    level.player_intro_node _id_A510::_id_0BC7( level.player_intro_model, "grab_barret_prep" );
-    level.player_intro_node thread _id_A510::_id_0BE1( level.player_intro_model, "grab_barret_idle" );
+    level.player_intro_model = maps\_utility::_id_88D1( "player_grab_barret" );
+    level.player_intro_node maps\_anim::_id_0BC7( level.player_intro_model, "grab_barret_prep" );
+    level.player_intro_node thread maps\_anim::_id_0BE1( level.player_intro_model, "grab_barret_idle" );
     level.playercardbackground playerlinktodelta( level.player_intro_model, "tag_player", 1.0, 25, 30, 35, 50, 0 );
 }
 
 barrett_intro_with_script( var_0 )
 {
-    var_0 _id_A5A4::_id_5696( "tag_origin", 0.1, 1, 5, 15, 10, 10 );
+    var_0 maps\_utility::_id_5696( "tag_origin", 0.1, 1, 5, 15, 10, 10 );
 }
 
 armtest()
@@ -2384,12 +2384,12 @@ armtest()
         var_3 = spawn( "script_model", ( 0, 0, 0 ) );
         var_3 character\character_sp_zakhaev_onearm::main();
         var_3._id_0C72 = "zakhaev";
-        var_3 _id_A5A4::_id_0D61();
+        var_3 maps\_utility::_id_0D61();
         wait 0.5;
-        var_1 thread _id_A510::_id_0BCC( var_3, "zak_pain" );
+        var_1 thread maps\_anim::_id_0BCC( var_3, "zak_pain" );
         wait 0.1;
         var_3 thread arm_detach();
-        var_1 thread _id_A510::_id_0BC9( var_3, "zak_pain" );
+        var_1 thread maps\_anim::_id_0BC9( var_3, "zak_pain" );
         wait 1;
         var_3 delete();
     }
@@ -2454,7 +2454,7 @@ flashback_guy_setup()
     thread flashback_guy_death( self.nearz );
 
     if ( getdvar( "enable_flashback_guy_nameplate" ) == "1" )
-        thread _id_A546::display_custom_nameplate( ::can_display_flashback_guy_name );
+        thread maps\_hud_util::display_custom_nameplate( ::can_display_flashback_guy_name );
 }
 
 flashback_face_anims()
@@ -2476,22 +2476,22 @@ flashback_face_anims()
 flashback_guys_anim()
 {
     common_scripts\utility::_id_384A( "player_on_barret" );
-    level.flashback_guys_uaz _id_A5A4::_id_32E0( "unloaded" );
+    level.flashback_guys_uaz maps\_utility::_id_32E0( "unloaded" );
     wait 1.5;
-    level.flashback_guys_uaz _id_A5A8::_id_9C7F( "talk" );
+    level.flashback_guys_uaz maps\_vehicle::_id_9C7F( "talk" );
     level.exchange_makarov thread flashback_face_anims();
     common_scripts\utility::_id_384A( "player_attacks_exchange" );
-    level.flashback_guys_uaz _id_A5A8::_id_9C7F( "panic" );
+    level.flashback_guys_uaz maps\_vehicle::_id_9C7F( "panic" );
 }
 
 guy_talk_check( var_0, var_1 )
 {
-    return isdefined( _id_A5A9::_id_0BE9( self, var_1 ).talk );
+    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).talk );
 }
 
 guy_talk( var_0, var_1 )
 {
-    var_2 = _id_A5A9::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
 
     if ( isdefined( var_2.talk_transition ) )
         do_flashback_anim( var_0, var_1, var_2.talk, var_2._id_85AE, 1, 0, var_2.talk_transition );
@@ -2501,7 +2501,7 @@ guy_talk( var_0, var_1 )
 
 guy_panic( var_0, var_1 )
 {
-    var_2 = _id_A5A9::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
 
     if ( var_1 == 3 )
         do_flashback_anim( var_0, var_1, var_2.panic, var_2._id_85AE, 0, 1 );
@@ -2511,7 +2511,7 @@ guy_panic( var_0, var_1 )
 
 guy_panic_check( var_0, var_1 )
 {
-    return isdefined( _id_A5A9::_id_0BE9( self, var_1 ).panic );
+    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).panic );
 }
 
 do_flashback_anim( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -2523,12 +2523,12 @@ do_flashback_anim( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( !isdefined( var_5 ) || var_5 == 0 )
     {
         if ( isdefined( var_6 ) )
-            _id_A5A9::_id_0C74( var_0, var_3, var_6 );
+            maps\_vehicle_aianim::_id_0C74( var_0, var_3, var_6 );
 
-        _id_A5A9::_id_0C74( var_0, var_3, var_2 );
+        maps\_vehicle_aianim::_id_0C74( var_0, var_3, var_2 );
 
         while ( isdefined( var_4 ) && var_4 )
-            _id_A5A9::_id_0C74( var_0, var_3, var_2 );
+            maps\_vehicle_aianim::_id_0C74( var_0, var_3, var_2 );
     }
     else
     {
@@ -2539,14 +2539,14 @@ do_flashback_anim( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         animonorg( var_0, var_7, var_8, var_2 );
     }
 
-    thread _id_A5A9::_id_449B( var_0, var_1 );
+    thread maps\_vehicle_aianim::_id_449B( var_0, var_1 );
 }
 
 flashback_uaz_stop_while_driverdead()
 {
     self endon( "death" );
     common_scripts\utility::_id_384A( "makarov_killed" );
-    _id_A5A4::_id_32DE( "driver_dead" );
+    maps\_utility::_id_32DE( "driver_dead" );
 
     if ( isdefined( self._id_4746 ) && self._id_4746 )
     {
@@ -2563,7 +2563,7 @@ animonorg( var_0, var_1, var_2, var_3 )
     var_4 = "animontagdone";
     var_5 = self;
     var_0 _meth_8140( var_4, var_1, var_2, var_3 );
-    thread _id_A5A9::_id_2D06( var_0, var_5, var_4 );
+    thread maps\_vehicle_aianim::_id_2D06( var_0, var_5, var_4 );
     wait(getanimlength( var_3 ) * 0.28);
     var_0 _meth_8145( var_3, 1, 1, 0.1 );
     wait 4;
@@ -2598,7 +2598,7 @@ can_display_flashback_guy_name()
         return 0;
 
     var_4 = getent( "bullet_block", "targetname" );
-    var_5 = _id_A5A8::get_vehicle_from_targetname( "view_block_heli" );
+    var_5 = maps\_vehicle::get_vehicle_from_targetname( "view_block_heli" );
     var_6 = 0;
     var_7 = level.playercardbackground geteye() + 10000 * anglestoforward( level.playercardbackground getplayerangles() );
     var_8 = bullettrace( level.playercardbackground geteye(), var_7, 1, var_4 );
@@ -2624,18 +2624,18 @@ flashback_guys_failure()
 
         if ( var_0 == "Makarov" )
         {
-            level.flashback_guys_uaz _id_A5A4::_id_32DE( "driver_dead" );
+            level.flashback_guys_uaz maps\_utility::_id_32DE( "driver_dead" );
             common_scripts\utility::_id_383F( "makarov_killed" );
             objective_add( maps\sniperescape_wounding::getobj( "future" ), "active", &"SNIPERESCAPE_CHANGE_THE_FUTURE" );
             objective_indentlevel( maps\sniperescape_wounding::getobj( "future" ), 1 );
-            _id_A5A4::_id_62EC( maps\sniperescape_wounding::getobj( "future" ) );
+            maps\_utility::_id_62EC( maps\sniperescape_wounding::getobj( "future" ) );
             continue;
         }
 
         if ( var_0 == "Yuri" )
         {
             setdvar( "ui_deadquote", &"SNIPERESCAPE_FRIENDLY_FIRE" );
-            _id_A5A4::_id_5CDF();
+            maps\_utility::_id_5CDF();
             return;
         }
     }
@@ -2645,5 +2645,5 @@ flashback_time_paradox_monitor()
 {
     level endon( "player_gets_off_turret" );
     common_scripts\utility::_id_384B( "exchange_success", "makarov_killed" );
-    _id_A5A4::_id_41DD( "TIME_PARADOX" );
+    maps\_utility::_id_41DD( "TIME_PARADOX" );
 }

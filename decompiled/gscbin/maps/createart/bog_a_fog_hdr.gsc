@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "bog_a" );
+    var_0 = maps\_utility::_id_23DF( "bog_a" );
     var_0._id_8D08 = 1267.61;
     var_0._id_4500 = 2049;
     var_0._id_7299 = 1;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -42;
     var_0._id_0DBC = 961;
-    var_0 = _id_A5A4::_id_23DF( "bog_a_bog_eh" );
+    var_0 = maps\_utility::_id_23DF( "bog_a_bog_eh" );
     var_0._id_8D08 = 1267.61;
     var_0._id_4500 = 2049;
     var_0._id_7299 = 1;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -42;
     var_0._id_0DBC = 170;
-    var_0 = _id_A5A4::_id_23DF( "bog_a_flare" );
+    var_0 = maps\_utility::_id_23DF( "bog_a_flare" );
     var_0._id_8D08 = 1267.61;
     var_0._id_4500 = 2049;
     var_0._id_7299 = 1;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -42.6706;
     var_0._id_0DBC = 3242;
-    var_0 = _id_A5A4::_id_23DF( "bog_a_nightvision" );
+    var_0 = maps\_utility::_id_23DF( "bog_a_nightvision" );
     var_0._id_8D08 = 1267.61;
     var_0._id_4500 = 2049;
     var_0._id_7299 = 1;
@@ -194,7 +194,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -5.27893, -115.812, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

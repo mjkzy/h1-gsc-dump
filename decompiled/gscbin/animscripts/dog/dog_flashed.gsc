@@ -26,7 +26,7 @@ main()
     self endon( "stop_flashbang_effect" );
     wait(randomfloatrange( 0, 0.4 ));
     self _meth_8144( %root, 0.1 );
-    var_0 = _id_A5A4::_id_38A7();
+    var_0 = maps\_utility::_id_38A7();
 
     if ( var_0 > 2 && randomint( 100 ) > 60 )
         self setflaggedanimrestart( "flashed_anim", %german_shepherd_run_pain, 1, 0.2, self._id_0C78 * 0.75 );

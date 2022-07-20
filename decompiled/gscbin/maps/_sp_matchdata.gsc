@@ -68,7 +68,7 @@ _id_72DC( var_0, var_1 )
 
     var_2 = getspmatchdata( "checkpoints", "deaths_total" ) + 1;
     setspmatchdata( "checkpoints", "deaths_total", var_2 );
-    _id_A5A4::save_time_played();
+    maps\_utility::save_time_played();
     var_3 = level.playercardbackground getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "deaths_total" );
 
     if ( isdefined( var_3 ) )
@@ -119,7 +119,7 @@ _id_56BD( var_0 )
     var_2 = level.playercardbackground _meth_8211( "gameskill" );
     var_3 = level._id_2A63[int( var_2 )];
     setspmatchdata( "final_difficulty", var_3 );
-    _id_A5A4::save_time_played();
+    maps\_utility::save_time_played();
 }
 
 _id_2C3A( var_0 )

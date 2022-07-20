@@ -104,7 +104,7 @@ scripted_spawn2( var_0, var_1, var_2, var_3 )
 
     if ( isdefined( var_3._id_79AD ) )
     {
-        var_4 = _id_A5A4::_id_2F29( var_3, 1 );
+        var_4 = maps\_utility::_id_2F29( var_3, 1 );
 
         if ( var_3.classname == "actor_enemy_arab_AR_ak47" )
         {
@@ -123,7 +123,7 @@ scripted_spawn2( var_0, var_1, var_2, var_3 )
         else
             var_5 = var_3 dospawn();
 
-        _id_A5A4::_id_88F1( var_5 );
+        maps\_utility::_id_88F1( var_5 );
         return var_5;
     }
 }
@@ -246,7 +246,7 @@ dropdead()
     var_1 = self.origin;
     var_1 += ( 0, 16, 0 );
     var_2 = anglestoforward( ( 0, 270, 0 ) );
-    var_3 = _id_A5A4::vector_multiply( var_2, 2 );
+    var_3 = maps\_utility::vector_multiply( var_2, 2 );
     physicsjolt( var_1, 250, 250, var_3 );
 }
 
@@ -255,7 +255,7 @@ deleteentity( var_0 )
     if ( isdefined( var_0 ) )
     {
         if ( isdefined( var_0._id_58D7 ) )
-            var_0 _id_A5A4::_id_8EA4();
+            var_0 maps\_utility::_id_8EA4();
 
         var_0 delete();
     }
@@ -291,7 +291,7 @@ playspeech( var_0, var_1 )
     if ( isdefined( var_1 ) )
         printspeech( var_1 );
 
-    level.playercardbackground thread _id_A5A4::_id_69C4( var_0 );
+    level.playercardbackground thread maps\_utility::_id_69C4( var_0 );
 }
 
 playspeechcarradio( var_0, var_1 )
@@ -300,7 +300,7 @@ playspeechcarradio( var_0, var_1 )
         printspeech( var_1 );
 
     var_2 = var_0 + "_r";
-    level.car thread _id_A5A4::_id_69C4( var_2 );
+    level.car thread maps\_utility::_id_69C4( var_2 );
 }
 
 playalasadspeech( var_0, var_1 )
@@ -308,7 +308,7 @@ playalasadspeech( var_0, var_1 )
     if ( isdefined( var_1 ) )
         printspeech( var_1 );
 
-    level.alasad thread _id_A5A4::_id_69C4( var_0 );
+    level.alasad thread maps\_utility::_id_69C4( var_0 );
 }
 
 randomizeguardcharacter()
@@ -399,7 +399,7 @@ playlinkedsound( var_0 )
     var_1.origin = self.origin;
     var_1.angles = self.angles;
     var_1 linkto( self );
-    var_1 thread _id_A5A4::_id_69C5( var_0, undefined, 1 );
+    var_1 thread maps\_utility::_id_69C5( var_0, undefined, 1 );
     return var_1;
 }
 
@@ -457,7 +457,7 @@ play_anim_on_ropehands( var_0, var_1 )
     if ( var_1 )
         level.handsrope linkto( level.playerview );
 
-    _id_A510::_id_0C24( level.handsrope, var_2 );
+    maps\_anim::_id_0C24( level.handsrope, var_2 );
 
     if ( var_1 )
         level.handsrope unlink();

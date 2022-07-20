@@ -43,13 +43,13 @@ main()
     thread setup_lighting_pass_helicrash();
     thread setup_lighting_pass_interior();
     thread _id_8106();
-    thread _id_A54E::_id_694A( "firelight_motion_01", "heli_fire_01" );
-    thread _id_A54E::_id_694A( "firelight_motion_02", "heli_fire_02" );
-    thread _id_A54E::_id_694A( "firelight_motion_03", "heli_fire_03" );
-    thread _id_A54E::_id_694A( "firelight_motion_04", "heli_fire_04" );
-    thread _id_A54E::_id_694A( "fire_barrel_small_01", "barrel_01" );
-    thread _id_A54E::_id_694A( "fire_barrel_small_02", "barrel_02" );
-    thread _id_A54E::_id_694A( "fire_barrel_small_03", "dumpster_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_01", "heli_fire_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_02", "heli_fire_02" );
+    thread maps\_lighting::_id_694A( "firelight_motion_03", "heli_fire_03" );
+    thread maps\_lighting::_id_694A( "firelight_motion_04", "heli_fire_04" );
+    thread maps\_lighting::_id_694A( "fire_barrel_small_01", "barrel_01" );
+    thread maps\_lighting::_id_694A( "fire_barrel_small_02", "barrel_02" );
+    thread maps\_lighting::_id_694A( "fire_barrel_small_03", "dumpster_01" );
 }
 
 precache_lighting_and_fx()
@@ -318,7 +318,7 @@ handle_heli_crash_lighting_init()
     common_scripts\utility::_id_384A( "aa_crash" );
     thread handle_wakeup_overlay();
     set_specular_scale( 1.7, 0 );
-    _id_A5A4::_id_7F00( "hunted", 0 );
+    maps\_utility::_id_7F00( "hunted", 0 );
 }
 
 handle_wakeup_overlay()
@@ -385,7 +385,7 @@ handle_wakeup_done()
     common_scripts\utility::_id_384A( "wakeup_done" );
     thread post_crash_flashlight_off();
     set_specular_scale( 2.3, 1 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "heli_crash" );
+    level.playercardbackground maps\_utility::set_light_set_player( "heli_crash" );
 }
 
 post_crash_flashlight_off()
@@ -607,7 +607,7 @@ visionset_trigger( var_0 )
     {
         self waittill( "trigger" );
         var_0 notify( "new_visionset" );
-        _id_A5A4::_id_7F00( self.script_parentname, self.script_lightset );
+        maps\_utility::_id_7F00( self.script_parentname, self.script_lightset );
         var_0 waittill( "new_visionset" );
     }
 }
@@ -641,36 +641,36 @@ apply_lighting_pass_hunted_outside( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = 5.0;
 
-    _id_A5A4::_id_9E6E( "hunted", 2 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "hunted" );
+    maps\_utility::_id_9E6E( "hunted", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "hunted" );
     level.playercardbackground _meth_848c( "clut_hunted", var_0 );
 }
 
 apply_lighting_pass_hunted_inside()
 {
-    _id_A5A4::_id_9E6E( "hunted_barn_interior", 2 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "barn_interior" );
+    maps\_utility::_id_9E6E( "hunted_barn_interior", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "barn_interior" );
     level.playercardbackground _meth_848c( "clut_hunted", 5 );
-    _id_A5A4::_id_7F00( "hunted_barn_interior", 6 );
+    maps\_utility::_id_7F00( "hunted_barn_interior", 6 );
 }
 
 apply_lighting_pass_hunted_helicrash()
 {
-    level.playercardbackground _id_A5A4::set_light_set_player( "heli_crash" );
+    level.playercardbackground maps\_utility::set_light_set_player( "heli_crash" );
 }
 
 _id_8106()
 {
-    _id_A54E::_id_23B3( "firelight_motion_01", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    _id_A54E::_id_23B3( "firelight_motion_02", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    _id_A54E::_id_23B3( "firelight_motion_03", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    _id_A54E::_id_23B3( "firelight_motion_04", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    _id_A54E::_id_23B3( "fire_barrel_small_01", ( 1, 0.4, 0.1 ), 45, 20, 0.1, 0.8 );
-    _id_A54E::_id_23B3( "fire_barrel_small_02", ( 1, 0.65, 0.4 ), 28, 20, 0.1, 0.8 );
-    _id_A54E::_id_23B3( "fire_barrel_small_03", ( 1, 0.4, 0.1 ), 55, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_01", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_02", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_03", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_04", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "fire_barrel_small_01", ( 1, 0.4, 0.1 ), 45, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "fire_barrel_small_02", ( 1, 0.65, 0.4 ), 28, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "fire_barrel_small_03", ( 1, 0.4, 0.1 ), 55, 20, 0.1, 0.8 );
 }
 
 end_slomo_mix()
 {
-    _id_A5E8::_id_870C( "aud_heli_crashing" );
+    soundscripts\_snd::_id_870C( "aud_heli_crashing" );
 }

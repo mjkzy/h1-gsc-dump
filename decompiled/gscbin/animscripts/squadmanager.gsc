@@ -30,7 +30,7 @@ _id_4D5F()
     anim._id_8ACE = [];
     anim._id_8AD4 = 0;
     anim._id_8ACF = 1;
-    _id_A5A4::_id_7DF3();
+    maps\_utility::_id_7DF3();
 }
 
 _id_2441( var_0, var_1 )

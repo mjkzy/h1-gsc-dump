@@ -21,9 +21,9 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "camera", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_camera" );
+    maps\_vehicle::_id_186C( "camera", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_camera" );
 }
 
 _id_4D10()

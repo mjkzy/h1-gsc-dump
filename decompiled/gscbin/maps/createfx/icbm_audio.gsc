@@ -27,5 +27,5 @@ main()
 _id_4CB2()
 {
     waitframe;
-    _id_A510::_id_0818( "tower", "explosion", "scn_icbm_tower_exp_sweet" );
+    maps\_anim::_id_0818( "tower", "explosion", "scn_icbm_tower_exp_sweet" );
 }

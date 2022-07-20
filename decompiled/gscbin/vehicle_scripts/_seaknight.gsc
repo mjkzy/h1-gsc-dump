@@ -22,25 +22,25 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "seaknight", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_ch46e" );
-    _id_A5A8::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
-    _id_A5A8::_id_1849( %sniper_escape_ch46_rotors, undefined, 0 );
-    _id_A5A8::_id_1873( ::_id_9A3D );
-    _id_A5A8::_id_1857( var_2, "cockpit_red_cargo02", "tag_light_cargo02", "fx/misc/aircraft_light_cockpit_red", "interior", 0.0 );
-    _id_A5A8::_id_1857( var_2, "cockpit_blue_cockpit01", "tag_light_cockpit01", "fx/misc/aircraft_light_cockpit_blue", "interior", 0.1 );
-    _id_A5A8::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_red_blink", "running", 0.0 );
-    _id_A5A8::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_red_blink", "running", 0.3 );
-    _id_A5A8::_id_1857( var_2, "wingtip_green1", "tag_light_L_wing1", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
-    _id_A5A8::_id_1857( var_2, "wingtip_green2", "tag_light_L_wing2", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
-    _id_A5A8::_id_1857( var_2, "wingtip_red1", "tag_light_R_wing1", "fx/misc/aircraft_light_wingtip_red", "running", 0.2 );
-    _id_A5A8::_id_1857( var_2, "wingtip_red2", "tag_light_R_wing2", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
-    _id_A5A8::_id_1855();
+    maps\_vehicle::_id_186C( "seaknight", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_ch46e" );
+    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_1849( %sniper_escape_ch46_rotors, undefined, 0 );
+    maps\_vehicle::_id_1873( ::_id_9A3D );
+    maps\_vehicle::_id_1857( var_2, "cockpit_red_cargo02", "tag_light_cargo02", "fx/misc/aircraft_light_cockpit_red", "interior", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "cockpit_blue_cockpit01", "tag_light_cockpit01", "fx/misc/aircraft_light_cockpit_blue", "interior", 0.1 );
+    maps\_vehicle::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_red_blink", "running", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_red_blink", "running", 0.3 );
+    maps\_vehicle::_id_1857( var_2, "wingtip_green1", "tag_light_L_wing1", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "wingtip_green2", "tag_light_L_wing2", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "wingtip_red1", "tag_light_R_wing1", "fx/misc/aircraft_light_wingtip_red", "running", 0.2 );
+    maps\_vehicle::_id_1857( var_2, "wingtip_red2", "tag_light_R_wing2", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
+    maps\_vehicle::_id_1855();
 }
 
 _id_4D10()

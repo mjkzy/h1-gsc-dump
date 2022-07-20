@@ -27,7 +27,7 @@ _id_4476( var_0 )
     self._id_1A49 = 1;
     self._id_A151 = 0;
 
-    if ( !_id_A558::_id_9BE8( var_0 ) )
+    if ( !maps\_mgturret::_id_9BE8( var_0 ) )
     {
         self notify( "continue_cover_script" );
         return;

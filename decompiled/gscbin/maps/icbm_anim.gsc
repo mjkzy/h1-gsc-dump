@@ -29,10 +29,10 @@ anim_main()
     level._id_78BA["price"]["charlie_towersdown"] = "icbm_pri_towersdown";
     level._id_78BA["price"]["scoutthrough"] = "icbm_pri_scoutthrough";
     level._id_78BA["price"]["alternateroute"] = "icbm_pri_alternateroute";
-    _id_A573::_id_0796( "generic" );
-    _id_A573::_id_073F( "generic" );
-    _id_A573::_id_0796( "hostile" );
-    _id_A573::_id_073F( "hostile" );
+    maps\_props::_id_0796( "generic" );
+    maps\_props::_id_073F( "generic" );
+    maps\_props::_id_0796( "hostile" );
+    maps\_props::_id_073F( "hostile" );
     _id_0C7A();
     _id_6A5B();
     _id_66FC();
@@ -160,11 +160,11 @@ _id_66FC()
 _id_0C7A()
 {
     level._id_78AC["price"]["intro_briefing"] = %h1_icbm_introbrief_price;
-    _id_A510::_id_080B( "price", "dialog", "intro_briefing", "icbm_pri_regrouponme" );
-    _id_A510::_id_080B( "price", "dialog", "intro_briefing", "icbm_pri_wheresgriggs" );
-    _id_A510::_id_080B( "price", "dialog", "intro_briefing", "icbm_pri_wereonourway" );
+    maps\_anim::_id_080B( "price", "dialog", "intro_briefing", "icbm_pri_regrouponme" );
+    maps\_anim::_id_080B( "price", "dialog", "intro_briefing", "icbm_pri_wheresgriggs" );
+    maps\_anim::_id_080B( "price", "dialog", "intro_briefing", "icbm_pri_wereonourway" );
     level._id_78AC["gaz"]["intro_briefing"] = %h1_icbm_introbrief_gaz;
-    _id_A510::_id_080B( "gaz", "dialog", "intro_briefing", "icbm_uk2_noidea" );
+    maps\_anim::_id_080B( "gaz", "dialog", "intro_briefing", "icbm_uk2_noidea" );
     level._id_78AC["generic"]["intro_briefing"] = %h1_icbm_introbrief_soldier;
     level._id_78AC["generic"]["pronehide_dive1"] = %hunted_dive_2_pronehide_v1;
     level._id_78AC["generic"]["pronehide_dive2"] = %hunted_dive_2_pronehide_v2;
@@ -210,40 +210,40 @@ _id_0C7A()
     level._id_78AC["generic"]["lean_smoke_react"] = %patrol_bored_react_walkstop_short;
     level._id_78AC["generic"]["coffee_react"] = %parabolic_guard_sleeper_react;
     level._id_78AC["generic"]["sleep_react"] = %parabolic_guard_sleeper_react;
-    _id_A510::_id_0807( "generic", "fire", maps\icbm_code::kill_during_breach1, "detcord_stack_leftbreach_01" );
-    _id_A510::_id_0807( "generic", "fire", maps\icbm_code::kill_during_breach2, "detcord_stack_leftbreach_02" );
-    _id_A510::_id_0805( "generic", "smoke_idle", "exhale", "h1_ru_smoker_exhale" );
-    _id_A510::_id_0805( "generic", "smoke_idle", "puff", "h1_ru_smoker_inhale" );
-    _id_A510::_id_0805( "generic", "smoke_idle", "openlighter", "h1_icbm_ru_lighter_open" );
-    _id_A510::_id_0805( "generic", "smoke_idle", "closelighter", "h1_icbm_ru_lighter_close" );
-    _id_A510::_id_0805( "generic", "smoke_idle", "rattle", "h1_scn_ru_rattle" );
-    _id_A510::_id_0805( "generic", "sleep_idle", "start", "h1_icbm_ru_snore_loop" );
+    maps\_anim::_id_0807( "generic", "fire", maps\icbm_code::kill_during_breach1, "detcord_stack_leftbreach_01" );
+    maps\_anim::_id_0807( "generic", "fire", maps\icbm_code::kill_during_breach2, "detcord_stack_leftbreach_02" );
+    maps\_anim::_id_0805( "generic", "smoke_idle", "exhale", "h1_ru_smoker_exhale" );
+    maps\_anim::_id_0805( "generic", "smoke_idle", "puff", "h1_ru_smoker_inhale" );
+    maps\_anim::_id_0805( "generic", "smoke_idle", "openlighter", "h1_icbm_ru_lighter_open" );
+    maps\_anim::_id_0805( "generic", "smoke_idle", "closelighter", "h1_icbm_ru_lighter_close" );
+    maps\_anim::_id_0805( "generic", "smoke_idle", "rattle", "h1_scn_ru_rattle" );
+    maps\_anim::_id_0805( "generic", "sleep_idle", "start", "h1_icbm_ru_snore_loop" );
     level._id_78AC["price"]["knifekill_price"] = %icbm_patrol_knifekill_winner;
-    _id_A510::_id_0807( "price", "attach knife", ::show_prices_knife, "knifekill_price" );
-    _id_A510::_id_0807( "price", "detach knife", ::hide_prices_knife, "knifekill_price" );
+    maps\_anim::_id_0807( "price", "attach knife", ::show_prices_knife, "knifekill_price" );
+    maps\_anim::_id_0807( "price", "detach knife", ::hide_prices_knife, "knifekill_price" );
     level._id_78AC["price"]["signal_assault_coverstand"] = %coverstand_hide_idle_wave02;
     level._id_78AC["price"]["signal_forward_coverstand"] = %coverstand_hide_idle_wave01;
 
     if ( getdvarint( "use_old_griggs_rescue" ) == 1 )
     {
         level._id_78AC["griggs"]["grigsby_rescue"] = %grigsby_rescue;
-        _id_A510::_id_0807( "griggs", "grab gun", maps\icbm_code::griggs_grab_gun, "grigsby_rescue" );
+        maps\_anim::_id_0807( "griggs", "grab gun", maps\icbm_code::griggs_grab_gun, "grigsby_rescue" );
         level._id_78AC["griggs"]["grigsby_rescue_idle"][0] = %grigsby_rescue_idle;
         level._id_78AC["griggs"]["grigsby_rescue_react"] = %grigsby_rescue_react;
     }
     else
     {
         level._id_78AC["griggs"]["grigsby_rescue"] = %h1_grigsby_rescue;
-        _id_A510::_id_080B( "griggs", "dialog", "grigsby_rescue", "icbm_grg_leavemebehind" );
-        _id_A510::_id_080B( "griggs", "dialog", "grigsby_rescue", "icbm_grg_goodtogo" );
-        _id_A510::_id_0807( "griggs", "grab gun", maps\icbm_code::griggs_grab_gun, "grigsby_rescue" );
+        maps\_anim::_id_080B( "griggs", "dialog", "grigsby_rescue", "icbm_grg_leavemebehind" );
+        maps\_anim::_id_080B( "griggs", "dialog", "grigsby_rescue", "icbm_grg_goodtogo" );
+        maps\_anim::_id_0807( "griggs", "grab gun", maps\icbm_code::griggs_grab_gun, "grigsby_rescue" );
         level._id_78AC["griggs"]["grigsby_rescue_idle"][0] = %h1_grigsby_rescue_idle;
         level._id_78AC["price"]["grigsby_rescue_price_idle"][0] = %h1_grigsby_rescue_price_idle;
         level._id_78AC["price"]["grigsby_rescue_price"] = %h1_grigsby_rescue_price;
         level._id_78AC["price"]["grigsby_rescue_price_in"] = %h1_grigsby_rescue_price_in;
-        _id_A510::_id_080B( "price", "dialog", "grigsby_rescue_price_in", "icbm_pri_cutloose" );
-        _id_A510::_id_080B( "price", "dialog", "grigsby_rescue_price", "icbm_pri_firstthought" );
-        _id_A510::_id_080B( "price", "dialog", "grigsby_rescue_price", "icbm_pri_youallright" );
+        maps\_anim::_id_080B( "price", "dialog", "grigsby_rescue_price_in", "icbm_pri_cutloose" );
+        maps\_anim::_id_080B( "price", "dialog", "grigsby_rescue_price", "icbm_pri_firstthought" );
+        maps\_anim::_id_080B( "price", "dialog", "grigsby_rescue_price", "icbm_pri_youallright" );
         level._id_78AC["griggs"]["grigsby_rescue_react"] = %grigsby_rescue_react;
     }
 
@@ -259,12 +259,12 @@ _id_0C7A()
     }
 
     level._id_78AC["generic"]["fence_stand_idle"][0] = %cqb_stand_idle;
-    _id_A510::_id_0806( "gaz", "can_in_hand", "com_spray_can01", "tag_inhand", "icbm_fence_cutting_guys" );
-    _id_A510::_id_0808( "gaz", "can_out_hand", "com_spray_can01", "tag_inhand", "icbm_fence_cutting_guys" );
-    _id_A510::_id_0805( "gaz", "icbm_fence_cutting_guys", "scn_icbm_fence_cut", "scn_icbm_fence_cut" );
-    _id_A510::_id_0805( "gaz", "icbm_fence_cutting_guys", "scn_icbm_fence_pull", "scn_icbm_fence_pull" );
-    _id_A510::_id_0807( "gaz", "can_start_spray", maps\icbm_code::spraycan_fx, "icbm_fence_cutting_guys" );
-    _id_A510::_id_0807( "gaz", "can_stop_spray", maps\icbm_code::spraycan_fx_stop, "icbm_fence_cutting_guys" );
+    maps\_anim::_id_0806( "gaz", "can_in_hand", "com_spray_can01", "tag_inhand", "icbm_fence_cutting_guys" );
+    maps\_anim::_id_0808( "gaz", "can_out_hand", "com_spray_can01", "tag_inhand", "icbm_fence_cutting_guys" );
+    maps\_anim::_id_0805( "gaz", "icbm_fence_cutting_guys", "scn_icbm_fence_cut", "scn_icbm_fence_cut" );
+    maps\_anim::_id_0805( "gaz", "icbm_fence_cutting_guys", "scn_icbm_fence_pull", "scn_icbm_fence_pull" );
+    maps\_anim::_id_0807( "gaz", "can_start_spray", maps\icbm_code::spraycan_fx, "icbm_fence_cutting_guys" );
+    maps\_anim::_id_0807( "gaz", "can_stop_spray", maps\icbm_code::spraycan_fx_stop, "icbm_fence_cutting_guys" );
 
     if ( getdvarint( "use_old_endrun" ) == 1 )
     {
@@ -275,9 +275,9 @@ _id_0C7A()
     {
         level._id_78AC["price"]["icbm_end_price_idle"][0] = %h1_icbm_end_price_idle;
         level._id_78AC["price"]["icbm_end_price"] = %h1_icbm_end_price;
-        _id_A510::_id_080B( "price", "dialog", "icbm_end_price", "icbm_pri_onemissile" );
+        maps\_anim::_id_080B( "price", "dialog", "icbm_end_price", "icbm_pri_onemissile" );
         level._id_78AC["gm5"]["icbm_end_sniper"] = %h1_icbm_end_sniper;
-        _id_A510::_id_080B( "gm5", "dialog", "icbm_end_sniper", "icbm_gm5_whatthe" );
+        maps\_anim::_id_080B( "gm5", "dialog", "icbm_end_sniper", "icbm_gm5_whatthe" );
     }
 }
 #using_animtree("player");
@@ -287,7 +287,7 @@ _id_6A5B()
     level._id_78B1["player_rescue_griggs_model"] = #animtree;
     level._id_78B5["player_rescue_griggs_model"] = "viewhands_player_sas_woodland";
     level._id_78AC["player_rescue_griggs_model"]["grigsby_rescue_player"] = %h1_grigsby_rescue_player;
-    _id_A510::_id_0805( "player_rescue_griggs_model", "grigsby_rescue_player", "start", "scn_icbm_rescue_griggs_cut" );
+    maps\_anim::_id_0805( "player_rescue_griggs_model", "grigsby_rescue_player", "start", "scn_icbm_rescue_griggs_cut" );
 }
 #using_animtree("icbm");
 
@@ -332,17 +332,17 @@ tower_explode_anims()
     level._id_78AC["wire"]["explosion15"] = %h1_icbm_power_tower_wire_le4;
     level._id_78AC["wire"]["explosion16"] = %h1_icbm_power_tower_wire_le5;
     level._id_78AC["wire"]["explosion17"] = %h1_icbm_power_tower_wire_le6;
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion0", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion1", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion2", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion3", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion4", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion5", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion6", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0812( "wire", "wire_snap", "explosion7", "scn_icbm_tower_wire_snap" );
-    _id_A510::_id_0807( "tower", "powertower_break", maps\icbm_code::tower_legbreak_fx, "explosion" );
-    _id_A510::_id_0807( "tower", "powertower_sparks", maps\icbm_code::tower_spark_fx, "explosion" );
-    _id_A510::_id_0807( "tower", "powertower_crash", maps\icbm_code::tower_impact_fx, "explosion" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion0", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion1", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion2", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion3", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion4", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion5", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion6", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0812( "wire", "wire_snap", "explosion7", "scn_icbm_tower_wire_snap" );
+    maps\_anim::_id_0807( "tower", "powertower_break", maps\icbm_code::tower_legbreak_fx, "explosion" );
+    maps\_anim::_id_0807( "tower", "powertower_sparks", maps\icbm_code::tower_spark_fx, "explosion" );
+    maps\_anim::_id_0807( "tower", "powertower_crash", maps\icbm_code::tower_impact_fx, "explosion" );
     level._id_78B1["fence"] = #animtree;
 
     if ( getdvarint( "use_old_fence_cutting" ) == 1 )
@@ -391,7 +391,7 @@ _id_7A3D()
     level._id_78AC["chair"]["sleep_react"] = %parabolic_guard_sleeper_react_chair;
     level._id_78B1["chair"] = #animtree;
     level._id_78B5["chair"] = "com_folding_chair";
-    _id_A510::_id_0807( "chair", "scn_relaxed_guard_chair_death", ::play_relaxed_guard_chair_death, "sleep_react" );
+    maps\_anim::_id_0807( "chair", "scn_relaxed_guard_chair_death", ::play_relaxed_guard_chair_death, "sleep_react" );
 }
 
 play_relaxed_guard_chair_death( var_0 )

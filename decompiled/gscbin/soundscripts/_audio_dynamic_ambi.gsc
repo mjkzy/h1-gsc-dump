@@ -429,7 +429,7 @@ _id_25EB( var_0, var_1, var_2 )
             }
         }
         else
-            _id_A5DC::_id_102D( "Dynamic ambience is playing back serially and using components which do not define oneshots or loops" );
+            soundscripts\_audio::_id_102D( "Dynamic ambience is playing back serially and using components which do not define oneshots or loops" );
 
         var_8 = randomfloatrange( var_4, var_5 );
     }
@@ -740,7 +740,7 @@ _id_25E0( var_0, var_1, var_2 )
             var_4 linkto( var_2._id_32D5 );
 
         var_4 playsound( var_2._id_09D6["name"], "sounddone" );
-        var_4 thread _id_A5DC::_id_0EB6();
+        var_4 thread soundscripts\_audio::_id_0EB6();
 
         if ( !var_4._id_88AA )
         {
@@ -775,7 +775,7 @@ _id_25E0( var_0, var_1, var_2 )
         return;
     }
     else
-        _id_A5DC::_id_102D( "TRYING TO PLAY ONESHOT WITH DAMB REF COUNT AT MAXIMUM!" );
+        soundscripts\_audio::_id_102D( "TRYING TO PLAY ONESHOT WITH DAMB REF COUNT AT MAXIMUM!" );
 }
 
 _id_25DF( var_0, var_1, var_2 )
@@ -822,7 +822,7 @@ _id_25DF( var_0, var_1, var_2 )
             var_13 scalevolume( 1.0, var_10 );
         }
 
-        var_13 thread _id_A5DC::_id_0EB6();
+        var_13 thread soundscripts\_audio::_id_0EB6();
 
         if ( !var_13._id_88AA )
         {
@@ -872,7 +872,7 @@ _id_25DF( var_0, var_1, var_2 )
                     }
 
                     if ( isdefined( var_11 ) )
-                        thread _id_A5DC::_id_0F19( var_13, var_11 );
+                        thread soundscripts\_audio::_id_0F19( var_13, var_11 );
                     else
                     {
                         var_13 stoploopsound();
@@ -900,7 +900,7 @@ _id_25DF( var_0, var_1, var_2 )
         return;
     }
     else
-        _id_A5DC::_id_102D( "TRYING TO PLAY LOOP WITH DAMB REF COUNT AT MAXIMUM!" );
+        soundscripts\_audio::_id_102D( "TRYING TO PLAY LOOP WITH DAMB REF COUNT AT MAXIMUM!" );
 }
 
 _id_25E3( var_0, var_1 )
@@ -1006,10 +1006,9 @@ _id_25E2( var_0 )
                     var_10 = var_5[0];
                     var_11 = "loop";
                     break;
-                    continue;
                 }
-
-                var_12 = var_13;
+                else
+                    var_12 = var_13;
             }
         }
     }
@@ -1027,10 +1026,9 @@ _id_25E2( var_0 )
                     var_10 = var_5[0];
                     var_11 = "oneshot";
                     break;
-                    continue;
                 }
-
-                var_12 = var_13;
+                else
+                    var_12 = var_13;
             }
         }
         else
@@ -1205,7 +1203,7 @@ _id_25D5( var_0, var_1, var_2, var_3 )
 _id_25D6( var_0, var_1 )
 {
     var_2 = "soundtables/sp_defaults.csv";
-    var_3 = _id_A5DC::_id_3D2B();
+    var_3 = soundscripts\_audio::_id_3D2B();
     var_4 = [];
 
     if ( var_1 )
@@ -1455,7 +1453,7 @@ _id_25D2( var_0, var_1 )
 
 _id_25D1( var_0, var_1 )
 {
-    var_2 = _id_A5DC::_id_3D2A();
+    var_2 = soundscripts\_audio::_id_3D2A();
     var_3 = "soundtables/sp_defaults.csv";
     var_4 = [];
 
@@ -1559,7 +1557,7 @@ _id_25DA( var_0, var_1 )
 
 _id_25D9( var_0, var_1 )
 {
-    var_2 = _id_A5DC::_id_3D2C();
+    var_2 = soundscripts\_audio::_id_3D2C();
     var_3 = "soundtables/sp_defaults.csv";
     var_4 = [];
 

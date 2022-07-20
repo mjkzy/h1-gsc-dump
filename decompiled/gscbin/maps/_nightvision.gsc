@@ -43,11 +43,11 @@ _id_4C75( var_0, var_1 )
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
         var_3 = var_0[var_2];
-        var_3 _id_A5A4::_id_32DD( "nightvision_enabled" );
-        var_3 _id_A5A4::_id_32DD( "nightvision_on" );
-        var_3 _id_A5A4::_id_32DE( "nightvision_enabled" );
-        var_3 _id_A5A4::_id_32DD( "nightvision_dlight_enabled" );
-        var_3 _id_A5A4::_id_32DE( "nightvision_dlight_enabled" );
+        var_3 maps\_utility::_id_32DD( "nightvision_enabled" );
+        var_3 maps\_utility::_id_32DD( "nightvision_on" );
+        var_3 maps\_utility::_id_32DE( "nightvision_enabled" );
+        var_3 maps\_utility::_id_32DD( "nightvision_dlight_enabled" );
+        var_3 maps\_utility::_id_32DE( "nightvision_dlight_enabled" );
         var_3 setactionslot( var_1, "nightvision" );
     }
 
@@ -97,12 +97,12 @@ _id_60E8()
 {
     level.playercardbackground _meth_848d( "disabled", 0 );
     self._id_60EA = 1;
-    _id_A5A4::_id_32DE( "nightvision_on" );
+    maps\_utility::_id_32DE( "nightvision_on" );
     self._id_60E6 = 1;
     thread h1_view_weapon_laser_update();
     level.playercardbackground _meth_83bf( level.nightvisionlightset, 0 );
 
-    if ( _id_A5A4::_id_32D8( "nightvision_dlight_enabled" ) )
+    if ( maps\_utility::_id_32D8( "nightvision_dlight_enabled" ) )
     {
         level._id_60E3 = spawnfx( level._id_60E4, level.playercardbackground.origin );
         triggerfx( level._id_60E3 );
@@ -111,8 +111,8 @@ _id_60E8()
     var_0 = getaiarray( "allies" );
     common_scripts\utility::_id_0D13( var_0, ::_id_30CD );
 
-    if ( !_id_A5A4::_id_3416( "allies", ::_id_30CD ) )
-        _id_A5A4::_id_0761( "allies", ::_id_30CD );
+    if ( !maps\_utility::_id_3416( "allies", ::_id_30CD ) )
+        maps\_utility::_id_0761( "allies", ::_id_30CD );
 }
 
 has_laser_sight_nightvision( var_0 )
@@ -192,7 +192,7 @@ _id_60E7()
         level._id_60E3 delete();
 
     self notify( "nightvision_shellshock_off" );
-    _id_A5A4::_id_32DA( "nightvision_on" );
+    maps\_utility::_id_32DA( "nightvision_on" );
     self._id_60E6 = undefined;
     level.playercardbackground _meth_83c0();
     level.playercardbackground _meth_848e( 0 );
@@ -205,7 +205,7 @@ _id_60E7()
     }
 
     if ( !var_0 )
-        _id_A5A4::_id_735B( "allies", ::_id_30CD );
+        maps\_utility::_id_735B( "allies", ::_id_30CD );
 
     thread _id_60E5();
 }
@@ -256,10 +256,10 @@ monitor_blowouts()
 
     for (;;)
     {
-        level.playercardbackground _id_A5A4::_id_32E0( "nightvision_on" );
-        thread _id_A5A4::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_nvg_value, 0.25 );
-        level.playercardbackground _id_A5A4::_id_32E4( "nightvision_on" );
-        thread _id_A5A4::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_default_value, 0.25 );
+        level.playercardbackground maps\_utility::_id_32E0( "nightvision_on" );
+        thread maps\_utility::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_nvg_value, 0.25 );
+        level.playercardbackground maps\_utility::_id_32E4( "nightvision_on" );
+        thread maps\_utility::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_default_value, 0.25 );
     }
 }
 

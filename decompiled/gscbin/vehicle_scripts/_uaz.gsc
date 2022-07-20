@@ -22,27 +22,27 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "uaz", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1848( "vehicle_uaz_hardtop_destructible", "vehicle_uaz_hardtop" );
-    _id_A5A8::_id_1848( "vehicle_uaz_light_destructible", "vehicle_uaz_light" );
-    _id_A5A8::_id_1848( "vehicle_uaz_open_destructible", "vehicle_uaz_open" );
-    _id_A5A8::_id_1848( "vehicle_uaz_open_for_ride", "vehicle_uaz_open" );
-    _id_A5A8::_id_1848( "vehicle_uaz_fabric_destructible", "vehicle_uaz_fabric" );
-    _id_A5A8::_id_183C( 1 );
-    _id_A5A8::_id_1845( "vehicle_uaz_fabric", "vehicle_uaz_fabric_dsr" );
-    _id_A5A8::_id_1845( "vehicle_uaz_hardtop", "vehicle_uaz_hardtop_dsr" );
-    _id_A5A8::_id_1845( "vehicle_uaz_open", "vehicle_uaz_open_dsr" );
-    _id_A5A8::_id_1845( "vehicle_uaz_hardtop_thermal", "vehicle_uaz_hardtop_thermal" );
-    _id_A5A8::_id_1845( "vehicle_uaz_open_for_ride" );
-    _id_A5A8::_id_1842( "fx/explosions/small_vehicle_explosion", undefined, "explo_metal_rand" );
-    _id_A5A8::_id_1862( ( 0, 0, 32 ), 300, 200, 100, 0 );
-    _id_A5A8::_id_1849( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
-    _id_A5A8::_id_1846( 1, 1.6, 500 );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "axis" );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_186C( "uaz", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1848( "vehicle_uaz_hardtop_destructible", "vehicle_uaz_hardtop" );
+    maps\_vehicle::_id_1848( "vehicle_uaz_light_destructible", "vehicle_uaz_light" );
+    maps\_vehicle::_id_1848( "vehicle_uaz_open_destructible", "vehicle_uaz_open" );
+    maps\_vehicle::_id_1848( "vehicle_uaz_open_for_ride", "vehicle_uaz_open" );
+    maps\_vehicle::_id_1848( "vehicle_uaz_fabric_destructible", "vehicle_uaz_fabric" );
+    maps\_vehicle::_id_183C( 1 );
+    maps\_vehicle::_id_1845( "vehicle_uaz_fabric", "vehicle_uaz_fabric_dsr" );
+    maps\_vehicle::_id_1845( "vehicle_uaz_hardtop", "vehicle_uaz_hardtop_dsr" );
+    maps\_vehicle::_id_1845( "vehicle_uaz_open", "vehicle_uaz_open_dsr" );
+    maps\_vehicle::_id_1845( "vehicle_uaz_hardtop_thermal", "vehicle_uaz_hardtop_thermal" );
+    maps\_vehicle::_id_1845( "vehicle_uaz_open_for_ride" );
+    maps\_vehicle::_id_1842( "fx/explosions/small_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::_id_1862( ( 0, 0, 32 ), 300, 200, 100, 0 );
+    maps\_vehicle::_id_1849( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
+    maps\_vehicle::_id_1846( 1, 1.6, 500 );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "axis" );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

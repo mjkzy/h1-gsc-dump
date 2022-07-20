@@ -2326,12 +2326,9 @@ _id_1EED()
         wait 3;
 
         if ( isdefined( self._id_32AE ) && self._id_32AE.size > 0 )
-        {
             continue;
-            continue;
-        }
-
-        self._id_2515 = 0;
+        else
+            self._id_2515 = 0;
     }
 }
 

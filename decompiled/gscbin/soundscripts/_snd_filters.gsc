@@ -78,7 +78,7 @@ _id_8752( var_0 )
 
 _id_8704()
 {
-    var_0 = _id_A5E8::_id_871B( "DSP bus", [ "sounddata/dspbuses.csv" ], 2, "name", "name" );
+    var_0 = soundscripts\_snd::_id_871B( "DSP bus", [ "sounddata/dspbuses.csv" ], 2, "name", "name" );
 
     if ( isdefined( var_0 ) )
         level._id_065D._id_2FAE = var_0;
@@ -112,12 +112,12 @@ _id_8705()
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script_context + ".csv";
-    level._id_065D._id_36CD._id_6F22 = _id_A5E8::_id_871B( "Filter", var_0, 6, "filter_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._id_065D._id_36CD._id_6F22 = soundscripts\_snd::_id_871B( "Filter", var_0, 6, "filter_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
 _id_8754( var_0, var_1, var_2 )
 {
-    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
         return;
 
     var_3 = 0;
@@ -214,7 +214,7 @@ _id_879B( var_0, var_1, var_2 )
 
 _id_8756( var_0, var_1 )
 {
-    var_2 = _id_A5E8::_id_86EE();
+    var_2 = soundscripts\_snd::_id_86EE();
     var_3 = [];
 
     foreach ( var_5 in var_1._id_8034 )
@@ -241,7 +241,7 @@ _id_8756( var_0, var_1 )
     foreach ( var_13 in var_3 )
     {
         level.playercardbackground seteq( var_13._id_2FAD, var_13.info_player_start, var_13.unlockpoints, var_13._id_3BD1, var_13._id_3A36, var_13._id_7072 );
-        var_2 _id_A5E8::_id_877A();
+        var_2 soundscripts\_snd::_id_877A();
     }
 }
 
@@ -261,12 +261,12 @@ _id_8706()
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script_context + ".csv";
-    level._id_065D._id_6330._id_6F22 = _id_A5E8::_id_871B( "Filter", var_0, 6, "occlusion_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._id_065D._id_6330._id_6F22 = soundscripts\_snd::_id_871B( "Filter", var_0, 6, "occlusion_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
 _id_8757( var_0 )
 {
-    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
         return;
 
     if ( !isdefined( var_0 ) )
@@ -298,7 +298,7 @@ _id_86EA( var_0 )
 
 _id_8758( var_0 )
 {
-    var_1 = _id_A5E8::_id_86EE();
+    var_1 = soundscripts\_snd::_id_86EE();
 
     foreach ( var_3 in var_0 )
     {
@@ -311,21 +311,22 @@ _id_8758( var_0 )
             foreach ( var_7 in var_5 )
             {
                 level.playercardbackground setocclusion( var_7, var_3["freq"], var_3["type"], var_3["gain"], var_3["q"] );
-                var_1 _id_A5E8::_id_877A();
+                var_1 soundscripts\_snd::_id_877A();
             }
 
             break;
-            continue;
         }
-
-        if ( _id_86FF( var_4 ) )
-            level.playercardbackground setocclusion( var_4, var_3["freq"], var_3["type"], var_3["gain"], var_3["q"] );
         else
         {
+            if ( _id_86FF( var_4 ) )
+                level.playercardbackground setocclusion( var_4, var_3["freq"], var_3["type"], var_3["gain"], var_3["q"] );
+            else
+            {
 
+            }
+
+            var_1 soundscripts\_snd::_id_877A();
         }
-
-        var_1 _id_A5E8::_id_877A();
     }
 }
 
@@ -336,13 +337,13 @@ _id_86D2()
 
 _id_86CC()
 {
-    var_0 = _id_A5E8::_id_86EE();
+    var_0 = soundscripts\_snd::_id_86EE();
     var_1 = _id_86E6();
 
     foreach ( var_3 in var_1 )
     {
         level.playercardbackground deactivateocclusion( var_3 );
-        var_0 _id_A5E8::_id_877A();
+        var_0 soundscripts\_snd::_id_877A();
     }
 }
 
@@ -382,7 +383,7 @@ _id_86D5()
 
     if ( isdefined( level._id_055B._id_A3E9._id_2507 ) && isdefined( level._id_055B._id_A3E9._id_A3F6[level._id_055B._id_A3E9._id_2507] ) )
     {
-        var_2 = _id_A5E7::_id_121B();
+        var_2 = soundscripts\_audio_zone_manager::_id_121B();
         var_3 = level._id_055B._id_A3E9._id_A3F6[var_2];
 
         if ( isdefined( var_3["occlusion"] ) && var_3["occlusion"] != "none" )

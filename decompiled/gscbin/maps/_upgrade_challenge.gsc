@@ -70,7 +70,7 @@ _id_9BB8()
 
 _id_9BB7( var_0 )
 {
-    var_0 _id_A56F::_id_8D4D( ::_id_9BBA );
+    var_0 maps\_player_stats::_id_8D4D( ::_id_9BBA );
 
     if ( isdefined( level._id_9BAD ) && level._id_9BAD.size > 0 )
     {

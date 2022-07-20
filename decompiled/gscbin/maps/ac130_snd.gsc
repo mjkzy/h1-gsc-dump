@@ -214,9 +214,9 @@ add_context_sensative_timeout( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_2 ) )
     {
         level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E = [];
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )] = spawnstruct();
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )].v["timeoutDuration"] = var_3 * 1000;
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )].v["lastPlayed"] = var_3 * -1000;
+        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )] = spawnstruct();
+        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["timeoutDuration"] = var_3 * 1000;
+        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["lastPlayed"] = var_3 * -1000;
     }
     else
     {

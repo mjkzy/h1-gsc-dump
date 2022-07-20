@@ -119,7 +119,7 @@ init()
     level._id_2235 = [];
     level._id_2235["45"] = cos( 45 );
     level._id_2235["5"] = cos( 5 );
-    _id_A5A4::enable_scuff_footsteps_sound( 0 );
+    maps\_utility::enable_scuff_footsteps_sound( 0 );
     level.playercardbackground takeallweapons();
     level.playercardbackground.ignoretriggers = 1;
     level.textimagealpha = 0.55;
@@ -923,7 +923,7 @@ _id_1C85()
         level._id_6D93 = level.ac130_weapon[var_0].weapon_switch_invalid;
         level.playercardbackground switchtoweapon( level.ac130_weapon[var_0].weapon_switch_invalid );
         setammo();
-        level.playercardbackground thread _id_A5A4::_id_69C4( "ac130_weapon_switch" );
+        level.playercardbackground thread maps\_utility::_id_69C4( "ac130_weapon_switch" );
 
         if ( var_0 == 0 )
             common_scripts\utility::_id_383F( "player_changed_weapons_back" );
@@ -1066,7 +1066,7 @@ invertthermal()
         return;
 
     level.playercardbackground endon( "death" );
-    _id_A5A4::_id_7F00( "ac130", 0 );
+    maps\_utility::_id_7F00( "ac130", 0 );
     var_0 = "0";
 
     if ( isdefined( level._id_244D ) )
@@ -1087,7 +1087,7 @@ invertthermal()
 
         if ( var_0 == "0" )
         {
-            _id_A5A4::_id_7F00( "ac130_inverted", 0 );
+            maps\_utility::_id_7F00( "ac130_inverted", 0 );
 
             if ( isdefined( level._id_4AEC["thermal_mode"] ) )
                 level._id_4AEC["thermal_mode"] setshader( level.bhot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
@@ -1096,7 +1096,7 @@ invertthermal()
         }
         else
         {
-            _id_A5A4::_id_7F00( "ac130", 0 );
+            maps\_utility::_id_7F00( "ac130", 0 );
 
             if ( isdefined( level._id_4AEC["thermal_mode"] ) )
                 level._id_4AEC["thermal_mode"] setshader( level.whot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
@@ -1140,7 +1140,7 @@ failmissionforengaging()
     {
         common_scripts\utility::_id_383F( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_DO_NOT_ENGAGE" );
-        _id_A5A4::_id_5CDF();
+        maps\_utility::_id_5CDF();
     }
 }
 
@@ -1620,7 +1620,7 @@ context_sensative_dialog_kill_thread()
         var_2 = undefined;
 
         if ( level.enemieskilledintimewindow >= 5 )
-            _id_A5A4::_id_41DD( "STRAIGHT_FLUSH" );
+            maps\_utility::_id_41DD( "STRAIGHT_FLUSH" );
 
         if ( level.enemieskilledintimewindow >= 3 )
             var_2 = "large_group";
@@ -1790,14 +1790,14 @@ context_sensative_dialog_timedout( var_0, var_1, var_2 )
     if ( !isdefined( level.context_sensative_dialog_timeouts[var_0][var_1] ) )
         return 0;
 
-    if ( isdefined( level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E ) && isdefined( level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )] ) )
+    if ( isdefined( level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E ) && isdefined( level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )] ) )
     {
         var_3 = gettime();
 
-        if ( var_3 - level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )].v["lastPlayed"] < level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )].v["timeoutDuration"] )
+        if ( var_3 - level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["lastPlayed"] < level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["timeoutDuration"] )
             return 1;
 
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[_id_A5A4::_id_8F53( var_2 )].v["lastPlayed"] = var_3;
+        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["lastPlayed"] = var_3;
     }
     else if ( isdefined( level.context_sensative_dialog_timeouts[var_0][var_1].v ) )
     {
@@ -1852,7 +1852,7 @@ playsoundoverradio( var_0, var_1, var_2 )
         }
     }
 
-    level.radioforcedtransmissionqueue = _id_A5A4::_id_0CFA( level.radioforcedtransmissionqueue, 0 );
+    level.radioforcedtransmissionqueue = maps\_utility::_id_0CFA( level.radioforcedtransmissionqueue, 0 );
 }
 
 playaliasoverradio( var_0 )
@@ -1884,7 +1884,7 @@ mission_fail_casualties()
     {
         common_scripts\utility::_id_383F( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_FRIENDLIES_DEAD" );
-        _id_A5A4::_id_5CDF();
+        maps\_utility::_id_5CDF();
     }
 }
 

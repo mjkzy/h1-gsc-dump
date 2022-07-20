@@ -357,17 +357,13 @@ _id_9BA4()
             {
                 var_1[0] = "glmwr";
                 break;
-                continue;
             }
-
-            if ( var_3 == "masterkeymwr" )
+            else if ( var_3 == "masterkeymwr" )
             {
                 var_1[0] = "masterkeymwr";
                 break;
-                continue;
             }
-
-            if ( getsubstr( var_3, 0, 2 ) == "a#" )
+            else if ( getsubstr( var_3, 0, 2 ) == "a#" )
             {
                 var_4 = getsubstr( var_3, 2 );
 

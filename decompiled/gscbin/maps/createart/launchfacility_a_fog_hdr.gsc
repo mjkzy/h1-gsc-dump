@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "launchfacility_a" );
+    var_0 = maps\_utility::_id_23DF( "launchfacility_a" );
     var_0._id_8D08 = 1204.17;
     var_0._id_4500 = 9151;
     var_0._id_7299 = 0.906515;
@@ -68,7 +68,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -13.3154, -7.5753, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

@@ -1136,13 +1136,13 @@ _id_6DD0( var_0, var_1 )
             }
 
             self playsoundasmaster( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-            thread _id_A510::_id_0BC4( var_0._id_88A9[var_2], var_0.lootnew );
+            thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.lootnew );
             self waittill( var_0._id_88A9[var_2] );
             continue;
         }
 
         self playsound( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-        thread _id_A510::_id_0BC4( var_0._id_88A9[var_2], var_0.lootnew );
+        thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.lootnew );
         self waittill( var_0._id_88A9[var_2] );
     }
 

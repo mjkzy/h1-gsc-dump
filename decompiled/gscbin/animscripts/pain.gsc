@@ -1260,7 +1260,7 @@ crawling_stab_achievement()
         return;
 
     if ( var_1 == "MOD_MELEE" )
-        _id_A5A4::_id_41DD( "NO_REST_FOR_THE_WEARY" );
+        maps\_utility::_id_41DD( "NO_REST_FOR_THE_WEARY" );
 }
 
 _id_84B3()
@@ -1592,7 +1592,7 @@ _id_2229()
     self endon( "death" );
     thread _id_6657();
     thread _id_6F52( "corner_grenade" );
-    thread _id_A5A4::_id_7DDF( 0 );
+    thread maps\_utility::_id_7DDF( 0 );
     self.threatsightdelayfalloff = -1000;
     _id_664D( "corner_grenade_pain", animscripts\utility::_id_5863( "corner_grenade_death", "pain" ), %body, 1, 0.1 );
     self waittillmatch( "corner_grenade_pain", "dropgun" );

@@ -41,11 +41,11 @@ main()
         level._id_78AC["right_guy"]["tank_talk_idle"][0] = %h1_bog_a_tank_dialogue_guyr_idle;
     }
 
-    _id_A510::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_listenup" );
-    _id_A510::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_donthavemuchtime" );
-    _id_A510::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_defensivepositions" );
-    _id_A510::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_oorah" );
-    _id_A510::_id_0805( "price", "tank_talk", "scn_vsq_tank_dialog_foley", "scn_vsq_tank_dialog_foley" );
+    maps\_anim::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_listenup" );
+    maps\_anim::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_donthavemuchtime" );
+    maps\_anim::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_defensivepositions" );
+    maps\_anim::_id_080B( "price", "dialog", "tank_talk", "bog_vsq_oorah" );
+    maps\_anim::_id_0805( "price", "tank_talk", "scn_vsq_tank_dialog_foley", "scn_vsq_tank_dialog_foley" );
     level._id_78B9["alphasixstatus"] = "bog_a_vsq_alphasixstatus";
     level._id_78BA["price"]["letsmoveout"] = "bog_a_vsq_letsmoveout";
     level._id_78BA["price"]["twocharliebravosix"] = "bog_a_vsq_twocharliebravosix";

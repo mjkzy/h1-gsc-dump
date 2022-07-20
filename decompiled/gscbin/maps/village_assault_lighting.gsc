@@ -26,8 +26,8 @@ main()
     thread _id_80C6();
     thread _id_7E68();
     thread _id_8106();
-    thread _id_A54E::_id_694A( "firelight_motion_06", "heli_fire_01" );
-    thread _id_A54E::_id_694A( "firelight_motion_05", "gas_station_flicker_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_06", "heli_fire_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_05", "gas_station_flicker_01" );
     level.default_clut = "clut_village_assault";
     level.default_lightset = "village_assault";
     level.default_visionset = "village_assault";
@@ -49,15 +49,15 @@ _id_7E68()
 {
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     setsaveddvar( "r_specularColorScale", "4.5" );
-    _id_A5A4::_id_9E6E( "village_assault", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "village_assault" );
+    maps\_utility::_id_9E6E( "village_assault", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "village_assault" );
     level.playercardbackground _meth_848c( "clut_village_assault", 0.0 );
 }
 
 _id_8106()
 {
-    _id_A54E::_id_23B3( "firelight_motion_05", ( 0.8, 0.6, 0.4 ), 1200, 20, 0.2, 0.8 );
-    _id_A54E::_id_23B3( "firelight_motion_06", ( 0.9, 0.6, 0.3 ), 1200, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_05", ( 0.8, 0.6, 0.4 ), 1200, 20, 0.2, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_06", ( 0.9, 0.6, 0.3 ), 1200, 20, 0.1, 0.8 );
 }
 
 goblack( var_0, var_1, var_2 )

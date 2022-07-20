@@ -30,7 +30,7 @@ main()
     _id_0BEE();
     anim_chickens();
     anim_dogs();
-    _id_A573::_id_0796( "human" );
+    maps\_props::_id_0796( "human" );
 }
 #using_animtree("player");
 
@@ -49,11 +49,11 @@ anim_playerview()
     level._id_78AC["playerview"]["playerview_idle_smooth"] = %coup_opening_playerview_idle_smooth;
     level._id_78AC["playerview"]["playerview_idle_bumpy"] = %coup_opening_playerview_idle_bumpy;
     level._id_78AC["playerview"]["playerview_idle_static"] = %coup_opening_playerview_idle_static;
-    _id_A510::_id_080C( "playerview", "start_car_rearview_mirror_video", "start_car_rearview_mirror_video" );
-    _id_A510::_id_0807( "playerview", "throw_in_car", ::playerthrownincar, "intro" );
-    _id_A510::_id_0807( "playerview", "hit", ::playerhit, "intro" );
-    _id_A510::_id_0807( "playerview", "pulled_from_car", ::playerpulledfromcar, "carexit" );
-    _id_A510::_id_0807( "playerview", "kick", ::playerkicked, "carexit" );
+    maps\_anim::_id_080C( "playerview", "start_car_rearview_mirror_video", "start_car_rearview_mirror_video" );
+    maps\_anim::_id_0807( "playerview", "throw_in_car", ::playerthrownincar, "intro" );
+    maps\_anim::_id_0807( "playerview", "hit", ::playerhit, "intro" );
+    maps\_anim::_id_0807( "playerview", "pulled_from_car", ::playerpulledfromcar, "carexit" );
+    maps\_anim::_id_0807( "playerview", "kick", ::playerkicked, "carexit" );
 }
 #using_animtree("generic_human");
 
@@ -136,9 +136,9 @@ anim_human()
     level._id_78AC["human"]["runinto_garage_left"] = %unarmed_runinto_garage_left;
     level._id_78AC["human"]["runinto_garage_right"] = %unarmed_runinto_garage_right;
     level._id_78AC["human"]["spraypainting"] = %coup_spraypainting_sequence;
-    _id_A510::_id_0807( "human", "start_spray", ::fx_paint_spray_coup, "spraypainting" );
-    _id_A510::_id_0807( "human", "end_spray", ::fx_stop_paint_spray_coup, "spraypainting" );
-    _id_A510::_id_0807( "human", "drop_can", ::detach_paint_spray_coup, "spraypainting" );
+    maps\_anim::_id_0807( "human", "start_spray", ::fx_paint_spray_coup, "spraypainting" );
+    maps\_anim::_id_0807( "human", "end_spray", ::fx_stop_paint_spray_coup, "spraypainting" );
+    maps\_anim::_id_0807( "human", "drop_can", ::detach_paint_spray_coup, "spraypainting" );
     level._id_78AC["human"]["civiliankilled_tumblesoncar"] = %h1_coup_opening_car_driving_civiliangetskilled_runner;
     level._id_78AC["human"]["civiliankilled_guard_a"] = %h1_coup_opening_car_driving_civiliangetskilled_soldiera;
     level._id_78AC["human"]["civiliankilled_guard_b"] = %h1_coup_opening_car_driving_civiliangetskilled_soldierb;
@@ -186,8 +186,8 @@ anim_human()
     level._id_78AC["human"]["interrogation_guard_4"] = %h1_coup_civilians_interrogated_guard_v1;
     level._id_78AC["human"]["interrogation_guard_5b"] = %h1_coup_civilians_interrogated_guard_v2;
     level._id_78AC["human"]["interrogation_guard_5"] = %h1_coup_civilians_interrogated_guard_v3;
-    _id_A510::_id_0805( "human", "interrogation_guard_5b", "scream", "coup_scream_female" );
-    _id_A510::_id_0805( "human", "interrogation_guard_5b", "death", "coup_death_female" );
+    maps\_anim::_id_0805( "human", "interrogation_guard_5b", "scream", "coup_scream_female" );
+    maps\_anim::_id_0805( "human", "interrogation_guard_5b", "death", "coup_death_female" );
     level._id_78B1["generic"] = #animtree;
     level._id_78AC["generic"]["patrol_walk"] = %patrol_bored_patrolwalk;
     level._id_78AC["generic"]["patrol_walk_twitch"] = %patrol_bored_patrolwalk_twitch;
@@ -226,57 +226,57 @@ anim_human()
     level._id_78AC["human"]["execution_soldier_04"] = %h1_coup_21_execution_soldiers_04;
     level._id_78AC["human"]["execution_soldier_05"] = %h1_coup_21_execution_soldiers_05;
     level._id_78AC["human"]["execution_soldier_06"] = %h1_coup_21_execution_soldiers_06;
-    _id_A510::_id_0807( "human", "execution_fire", ::shootcivilianexecution );
-    _id_A510::_id_0807( "human", "melee", ::melee_kill, "sneakattack_attack_side" );
-    _id_A510::_id_0807( "human", "no death", ::rag_doll_death, "sneakattack_defend_side" );
-    _id_A510::_id_0807( "human", "end", ::kill_self, "sneakattack_defend_side" );
-    _id_A510::_id_0807( "human", "melee", ::melee_kill, "sneakattack_attack_behind" );
-    _id_A510::_id_0807( "human", "no death", ::rag_doll_death, "sneakattack_defend_behind" );
-    _id_A510::_id_0807( "human", "end", ::kill_self, "sneakattack_defend_behind" );
-    _id_A510::_id_0808( "human", "detach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_zakhaev" );
-    _id_A510::_id_0806( "human", "attach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_alasad" );
-    _id_A510::_id_0806( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
-    _id_A510::_id_0808( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
-    _id_A510::_id_0806( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
-    _id_A510::_id_0808( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
-    _id_A510::_id_0807( "human", "detach_cellphone", ::attach_phone_to_car, "carpassenger_fulldrive" );
-    _id_A510::_id_0807( "human", "phone_ring", ::play_soz_ringtone, "carpassenger_fulldrive", "scn_coup_mobile_ring" );
-    _id_A510::_id_0807( "human", "phone_dialog", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_wehavetraitor" );
-    _id_A510::_id_0807( "human", "turn_left", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_turnlefthere" );
-    _id_A510::_id_0807( "human", "turn_right", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_rightatintersection" );
-    _id_A510::_id_0807( "human", "answer_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_02" );
-    _id_A510::_id_0807( "human", "look_back_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_03" );
-    _id_A510::_id_0807( "human", "throws_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_04" );
-    _id_A510::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gunup_fire" );
-    _id_A510::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_a" );
-    _id_A510::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_b" );
-    _id_A510::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_soldier_welcome_3" );
-    _id_A510::_id_0807( "human", "soz_foley", ::passengerlookback, "intro_leftguard" );
-    _id_A510::_id_0807( "human", "closing_door", ::ambientcarinterior, "intro_leftguard" );
-    _id_A510::_id_0807( "human", "door_open", ::ambientcarexterior, "carexit_leftguard" );
-    _id_A510::_id_0807( "human", "fire_gun", ::playerdeath, "ending_alasad" );
-    _id_A510::_id_080C( "car", "civiliankilled_tumblesoncar", "drive_trashstumble" );
-    _id_A510::_id_080C( "car", "civilians_running_to_garage", "drive_runtogarage" );
-    _id_A510::_id_0807( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_a" );
-    _id_A510::_id_0807( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_b" );
-    _id_A510::_id_080C( "human", "spawn_operator", "spawn_garage_operator", "civilians_running_garage" );
-    _id_A510::_id_080C( "human", "animate_operator", "animate_garage_operator", "civilians_running_garage" );
-    _id_A510::_id_0807( "human", "fire", ::shootcivilianinterrogation1, "interrogation_guard_5b" );
+    maps\_anim::_id_0807( "human", "execution_fire", ::shootcivilianexecution );
+    maps\_anim::_id_0807( "human", "melee", ::melee_kill, "sneakattack_attack_side" );
+    maps\_anim::_id_0807( "human", "no death", ::rag_doll_death, "sneakattack_defend_side" );
+    maps\_anim::_id_0807( "human", "end", ::kill_self, "sneakattack_defend_side" );
+    maps\_anim::_id_0807( "human", "melee", ::melee_kill, "sneakattack_attack_behind" );
+    maps\_anim::_id_0807( "human", "no death", ::rag_doll_death, "sneakattack_defend_behind" );
+    maps\_anim::_id_0807( "human", "end", ::kill_self, "sneakattack_defend_behind" );
+    maps\_anim::_id_0808( "human", "detach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_zakhaev" );
+    maps\_anim::_id_0806( "human", "attach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_alasad" );
+    maps\_anim::_id_0806( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
+    maps\_anim::_id_0808( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
+    maps\_anim::_id_0806( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
+    maps\_anim::_id_0808( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
+    maps\_anim::_id_0807( "human", "detach_cellphone", ::attach_phone_to_car, "carpassenger_fulldrive" );
+    maps\_anim::_id_0807( "human", "phone_ring", ::play_soz_ringtone, "carpassenger_fulldrive", "scn_coup_mobile_ring" );
+    maps\_anim::_id_0807( "human", "phone_dialog", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_wehavetraitor" );
+    maps\_anim::_id_0807( "human", "turn_left", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_turnlefthere" );
+    maps\_anim::_id_0807( "human", "turn_right", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_rightatintersection" );
+    maps\_anim::_id_0807( "human", "answer_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_02" );
+    maps\_anim::_id_0807( "human", "look_back_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_03" );
+    maps\_anim::_id_0807( "human", "throws_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_04" );
+    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gunup_fire" );
+    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_a" );
+    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_b" );
+    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_soldier_welcome_3" );
+    maps\_anim::_id_0807( "human", "soz_foley", ::passengerlookback, "intro_leftguard" );
+    maps\_anim::_id_0807( "human", "closing_door", ::ambientcarinterior, "intro_leftguard" );
+    maps\_anim::_id_0807( "human", "door_open", ::ambientcarexterior, "carexit_leftguard" );
+    maps\_anim::_id_0807( "human", "fire_gun", ::playerdeath, "ending_alasad" );
+    maps\_anim::_id_080C( "car", "civiliankilled_tumblesoncar", "drive_trashstumble" );
+    maps\_anim::_id_080C( "car", "civilians_running_to_garage", "drive_runtogarage" );
+    maps\_anim::_id_0807( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_a" );
+    maps\_anim::_id_0807( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_b" );
+    maps\_anim::_id_080C( "human", "spawn_operator", "spawn_garage_operator", "civilians_running_garage" );
+    maps\_anim::_id_080C( "human", "animate_operator", "animate_garage_operator", "civilians_running_garage" );
+    maps\_anim::_id_0807( "human", "fire", ::shootcivilianinterrogation1, "interrogation_guard_5b" );
 }
 
 play_soz_vo( var_0, var_1 )
 {
-    level.car.passenger.headshots thread _id_A5A4::_id_69C4( var_1 );
+    level.car.passenger.headshots thread maps\_utility::_id_69C4( var_1 );
 }
 
 play_soz_foley( var_0, var_1 )
 {
-    level.car.passenger.body thread _id_A5A4::_id_69C4( var_1 );
+    level.car.passenger.body thread maps\_utility::_id_69C4( var_1 );
 }
 
 play_soz_ringtone( var_0, var_1 )
 {
-    level.car.passenger._id_67ED thread _id_A5A4::_id_69C4( var_1 );
+    level.car.passenger._id_67ED thread maps\_utility::_id_69C4( var_1 );
 }
 #using_animtree("vehicles");
 
@@ -291,21 +291,21 @@ anim_vehicles()
     level._id_78AC["car"]["car_idle_bumpy"] = %coup_opening_car_driving_idle_bumpy;
     level._id_78AC["car"]["car_idle_static"] = %coup_opening_car_driving_idle_static;
     level._id_78AC["car"]["carexit"] = %coup_ending_drag_cardoor;
-    _id_A510::_id_0805( "car", "coup_car_driving", "bump_front_01", "scn_coup_car_bump_front_01" );
-    _id_A510::_id_0805( "car", "coup_car_driving", "big_turn_left_01", "scn_coup_car_turn_01" );
-    _id_A510::_id_0805( "car", "coup_car_driving", "brake_civilian", "scn_coup_car_brake_01" );
-    _id_A510::_id_0805( "car", "coup_car_driving", "big_turn_left_02", "scn_coup_car_turn_02" );
-    _id_A510::_id_0805( "car", "coup_car_driving", "suspension_rattle_01", "scn_coup_car_suspension_rattle_front_01" );
-    _id_A510::_id_0805( "car", "coup_car_driving", "big_turn_left_03", "scn_coup_car_turn_02" );
-    _id_A510::_id_0805( "car", "coup_car_driving", "brake_end", "scn_coup_car_brake_02" );
-    _id_A510::_id_0807( "car", "start_ride", ::play_engine, "coup_car_driving", "01" );
-    _id_A510::_id_0807( "car", "start_ride", ::car_event, "coup_car_driving", "start_ride" );
-    _id_A510::_id_0807( "car", "restart_ride", ::play_engine, "coup_car_driving", "02" );
-    _id_A510::_id_0807( "car", "big_turn_left_01", ::car_event, "coup_car_driving", "big_turn_left_01" );
-    _id_A510::_id_0807( "car", "brake_civilian", ::car_event, "coup_car_driving", "brake_civilian" );
-    _id_A510::_id_0807( "car", "big_turn_left_02", ::car_event, "coup_car_driving", "big_turn_left_02" );
-    _id_A510::_id_0807( "car", "big_turn_left_03", ::car_event, "coup_car_driving", "big_turn_left_03" );
-    _id_A510::_id_0807( "car", "slowdown", ::car_event, "coup_car_driving", "slowdown" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "bump_front_01", "scn_coup_car_bump_front_01" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "big_turn_left_01", "scn_coup_car_turn_01" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "brake_civilian", "scn_coup_car_brake_01" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "big_turn_left_02", "scn_coup_car_turn_02" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "suspension_rattle_01", "scn_coup_car_suspension_rattle_front_01" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "big_turn_left_03", "scn_coup_car_turn_02" );
+    maps\_anim::_id_0805( "car", "coup_car_driving", "brake_end", "scn_coup_car_brake_02" );
+    maps\_anim::_id_0807( "car", "start_ride", ::play_engine, "coup_car_driving", "01" );
+    maps\_anim::_id_0807( "car", "start_ride", ::car_event, "coup_car_driving", "start_ride" );
+    maps\_anim::_id_0807( "car", "restart_ride", ::play_engine, "coup_car_driving", "02" );
+    maps\_anim::_id_0807( "car", "big_turn_left_01", ::car_event, "coup_car_driving", "big_turn_left_01" );
+    maps\_anim::_id_0807( "car", "brake_civilian", ::car_event, "coup_car_driving", "brake_civilian" );
+    maps\_anim::_id_0807( "car", "big_turn_left_02", ::car_event, "coup_car_driving", "big_turn_left_02" );
+    maps\_anim::_id_0807( "car", "big_turn_left_03", ::car_event, "coup_car_driving", "big_turn_left_03" );
+    maps\_anim::_id_0807( "car", "slowdown", ::car_event, "coup_car_driving", "slowdown" );
     level._id_78AC["car"]["wheel_bigleft2center"] = %coup_driver_bigleft2center_car;
     level._id_78AC["car"]["wheel_bigleft_idle"] = %coup_driver_bigleft_idle_car;
     level._id_78AC["car"]["wheel_bigleftloop_idle"] = %coup_driver_bigleftloop_idle_car;
@@ -440,31 +440,31 @@ anim_dogs()
     level._id_78AC["dog"]["attackidle_growl"][0] = %german_shepherd_attackidle_growl;
     level._id_78AC["dog"]["attackidle_bark"][0] = %german_shepherd_attackidle_bark;
     level._id_78AC["dog"]["attackidle"][0] = %german_shepherd_attackidle;
-    _id_A510::_id_0812( "dog", "fence", "fence_attack", "fence_smash" );
+    maps\_anim::_id_0812( "dog", "fence", "fence_attack", "fence_smash" );
 }
 
 car_normal( var_0 )
 {
-    var_0 _meth_8145( var_0 _id_A5A4::_id_3EF5( "car_idle_normal" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview _id_A5A4::_id_3EF5( "playerview_idle_normal" ), 1, 0, 1 );
+    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_normal" ), 1, 0, 1 );
+    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_normal" ), 1, 0, 1 );
 }
 
 car_smooth( var_0 )
 {
-    var_0 _meth_8145( var_0 _id_A5A4::_id_3EF5( "car_idle_smooth" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview _id_A5A4::_id_3EF5( "playerview_idle_smooth" ), 1, 0, 1 );
+    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_smooth" ), 1, 0, 1 );
+    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_smooth" ), 1, 0, 1 );
 }
 
 car_bumpy( var_0 )
 {
-    var_0 _meth_8145( var_0 _id_A5A4::_id_3EF5( "car_idle_bumpy" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview _id_A5A4::_id_3EF5( "playerview_idle_bumpy" ), 1, 0, 1 );
+    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_bumpy" ), 1, 0, 1 );
+    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_bumpy" ), 1, 0, 1 );
 }
 
 car_static( var_0 )
 {
-    var_0 _meth_8145( var_0 _id_A5A4::_id_3EF5( "car_idle_static" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview _id_A5A4::_id_3EF5( "playerview_idle_static" ), 1, 0, 1 );
+    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_static" ), 1, 0, 1 );
+    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_static" ), 1, 0, 1 );
 }
 
 driver_turnright1( var_0 )
@@ -527,7 +527,7 @@ playerdeath( var_0 )
     playfxontag( common_scripts\utility::_id_3FA8( "execution_muzzleflash" ), var_0, "tag_flash" );
     playfxontag( common_scripts\utility::_id_3FA8( "execution_shell_eject" ), var_0, "tag_brass" );
     level.playercardbackground playrumbleonentity( "grenade_rumble" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "assassination_shot" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "assassination_shot" );
     wait 0.1;
     var_1 = newhudelem();
     var_1.xpmaxmultipliertimeplayed = 0;
@@ -541,41 +541,41 @@ playerdeath( var_0 )
     var_1.space = 1;
     level notify( "player_death" );
     level.playercardbackground shellshock( "coup_death", 10 );
-    _id_A5E8::_id_870C( "start_coup_player_death_mix" );
+    soundscripts\_snd::_id_870C( "start_coup_player_death_mix" );
     wait 4.5;
-    _id_A5A4::_id_60D6();
+    maps\_utility::_id_60D6();
 }
 
 playerthrownincar( var_0 )
 {
     wait 0.3;
-    _id_A5E8::_id_870C( "aud_coup_car_open" );
+    soundscripts\_snd::_id_870C( "aud_coup_car_open" );
     wait 0.25;
     level.playercardbackground playrumbleonentity( "grenade_rumble" );
     wait 1.8;
-    level.leftguard _id_A5A4::_id_69C4( "coup_ab0_move_generic_custom" );
+    level.leftguard maps\_utility::_id_69C4( "coup_ab0_move_generic_custom" );
 }
 
 playerhit( var_0 )
 {
     wait 0.15;
-    _id_A5E8::_id_870C( "aud_add_stunned_car_event" );
+    soundscripts\_snd::_id_870C( "aud_add_stunned_car_event" );
     level.playercardbackground playrumbleonentity( "grenade_rumble" );
     setblur( 40, 0.1 );
-    _id_A5A4::_id_7F00( "coup_hit", 0 );
+    maps\_utility::_id_7F00( "coup_hit", 0 );
     setsaveddvar( "r_glow_allowed_script_forced", "0" );
     wait 0.1;
-    _id_A5A4::_id_7F00( "coup_ride", 0.2 );
+    maps\_utility::_id_7F00( "coup_ride", 0.2 );
     setblur( 0, 0.75 );
     thread _id_6C6A( 35.0, 25 );
     wait 5;
-    _id_A5E8::_id_870C( "aud_stop_stunned_car_event" );
+    soundscripts\_snd::_id_870C( "aud_stop_stunned_car_event" );
 }
 
 playerpulledfromcar( var_0 )
 {
     wait 2.15;
-    _id_A5E8::_id_870C( "aud_coup_car_thrown_out" );
+    soundscripts\_snd::_id_870C( "aud_coup_car_thrown_out" );
     wait 2.0;
     level.playercardbackground playrumbleonentity( "grenade_rumble" );
 }
@@ -610,7 +610,7 @@ _id_6C6A( var_0, var_1 )
         if ( var_2 > level.playercardbackground._id_4441.healthoverlaycutoff )
             continue;
 
-        level.playercardbackground _id_A5A4::_id_69C4( "breathing_hurt" );
+        level.playercardbackground maps\_utility::_id_69C4( "breathing_hurt" );
         wait(0.1 + randomfloat( 0.8 ));
     }
 }
@@ -668,11 +668,11 @@ playdriveranim( var_0, var_1 )
         printturnanim( " ---          , " + var_0 );
 
     if ( var_0 == "bigleft2center" && var_1 == "turnleft3" )
-        self _meth_8145( _id_A5A4::_id_3EF5( "wheel_bigleftloop2center" ), 1, 0, 1 );
+        self _meth_8145( maps\_utility::_id_3EF5( "wheel_bigleftloop2center" ), 1, 0, 1 );
     else
-        self _meth_8145( _id_A5A4::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
+        self _meth_8145( maps\_utility::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
 
-    _id_A510::_id_0C24( self._id_2E04, "cardriver_" + var_0, "tag_driver" );
+    maps\_anim::_id_0C24( self._id_2E04, "cardriver_" + var_0, "tag_driver" );
 }
 
 loopdriveranim( var_0, var_1, var_2 )
@@ -685,11 +685,11 @@ loopdriveranim( var_0, var_1, var_2 )
     self notify( "stop_driver_loop" );
 
     if ( var_0 == "bigleft_idle" && var_1 == "turnleft3" )
-        self _meth_8145( _id_A5A4::_id_3EF5( "wheel_bigleftloop_idle" ), 1, 0, 1 );
+        self _meth_8145( maps\_utility::_id_3EF5( "wheel_bigleftloop_idle" ), 1, 0, 1 );
     else
-        self _meth_8145( _id_A5A4::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
+        self _meth_8145( maps\_utility::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
 
-    thread _id_A510::_id_0BE1( self._id_2E04, "cardriver_" + var_0, "tag_driver", "stop_driver_loop" );
+    thread maps\_anim::_id_0BE1( self._id_2E04, "cardriver_" + var_0, "tag_driver", "stop_driver_loop" );
 
     if ( isdefined( var_2 ) )
     {
@@ -700,13 +700,13 @@ loopdriveranim( var_0, var_1, var_2 )
 
 playpassengeranim( var_0 )
 {
-    _id_A510::_id_0C24( self.passenger, var_0, "tag_passenger" );
+    maps\_anim::_id_0C24( self.passenger, var_0, "tag_passenger" );
 }
 
 looppassengeranim( var_0, var_1 )
 {
     self notify( "stop_passenger_loop" );
-    thread _id_A510::_id_0BE1( self.passenger, var_0, "tag_passenger", "stop_passenger_loop" );
+    thread maps\_anim::_id_0BE1( self.passenger, var_0, "tag_passenger", "stop_passenger_loop" );
 
     if ( isdefined( var_1 ) )
         self waittillmatch( "single anim", var_1 );
@@ -727,24 +727,24 @@ printpassengeranim( var_0 )
 ambientcarinterior( var_0 )
 {
     wait 0.6;
-    _id_A5E8::_id_870C( "aud_coup_enter_car" );
+    soundscripts\_snd::_id_870C( "aud_coup_enter_car" );
 }
 
 ambientcarexterior( var_0 )
 {
     wait 0.1;
-    _id_A5E8::_id_870C( "aud_coup_exit_car" );
+    soundscripts\_snd::_id_870C( "aud_coup_exit_car" );
 }
 
 passengerlookback( var_0 )
 {
     wait 2.5;
-    level.car.passenger.body thread _id_A5A4::_id_69C4( "scn_coup_car_soz_foley_01" );
+    level.car.passenger.body thread maps\_utility::_id_69C4( "scn_coup_car_soz_foley_01" );
 }
 
 crowdfireweapon( var_0 )
 {
-    var_0 thread _id_A5A4::_id_69C5( "weap_ak47_fire_npc", "tag_flash" );
+    var_0 thread maps\_utility::_id_69C5( "weap_ak47_fire_npc", "tag_flash" );
     playfxontag( common_scripts\utility::_id_3FA8( "ak47_muzzleflash" ), var_0, "tag_flash" );
 }
 

@@ -1706,12 +1706,9 @@ _id_0671( var_0 )
     foreach ( var_3 in var_1 )
     {
         if ( var_3 == var_0 )
-        {
             continue;
-            continue;
-        }
-
-        self takeweapon( var_3 );
+        else
+            self takeweapon( var_3 );
     }
 }
 

@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "icbm" );
+    var_0 = maps\_utility::_id_23DF( "icbm" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 1000;
-    var_0 = _id_A5A4::_id_23DF( "icbm_sunrise0" );
+    var_0 = maps\_utility::_id_23DF( "icbm_sunrise0" );
     var_0._id_8D08 = 32.355;
     var_0._id_4500 = 778.305;
     var_0._id_7299 = 0.47044;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 1000;
-    var_0 = _id_A5A4::_id_23DF( "icbm_sunrise2" );
+    var_0 = maps\_utility::_id_23DF( "icbm_sunrise2" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1556.33;
     var_0._id_0DBC = 684.694;
-    var_0 = _id_A5A4::_id_23DF( "icbm_sunrise3" );
+    var_0 = maps\_utility::_id_23DF( "icbm_sunrise3" );
     var_0._id_8D08 = 1204.17;
     var_0._id_4500 = 9151;
     var_0._id_7299 = 0.906515;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1556.33;
     var_0._id_0DBC = 684.694;
-    var_0 = _id_A5A4::_id_23DF( "icbm_sunrise4" );
+    var_0 = maps\_utility::_id_23DF( "icbm_sunrise4" );
     var_0._id_8D08 = 1204.17;
     var_0._id_4500 = 9151;
     var_0._id_7299 = 0.906515;
@@ -232,7 +232,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1556.33;
     var_0._id_0DBC = 684.694;
-    var_0 = _id_A5A4::_id_23DF( "icbm_village_interior" );
+    var_0 = maps\_utility::_id_23DF( "icbm_village_interior" );
     var_0._id_8D08 = 2000000000;
     var_0._id_4500 = 2000000001;
     var_0._id_7299 = 0;
@@ -274,7 +274,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1556.33;
     var_0._id_0DBC = 684.694;
-    var_0 = _id_A5A4::_id_23DF( "icbm_launch" );
+    var_0 = maps\_utility::_id_23DF( "icbm_launch" );
     var_0._id_8D08 = 1204.17;
     var_0._id_4500 = 9151;
     var_0._id_7299 = 0.906515;
@@ -320,7 +320,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -13.5297, -7.55944, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

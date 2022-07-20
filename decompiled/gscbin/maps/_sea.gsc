@@ -313,7 +313,7 @@ sea_bob()
 
         self rotateto( self.runto_arrived, self.titleunlocked, self.titleunlocked * 0.5, self.titleunlocked * 0.5 );
         level._id_47A3.heightsea = 110;
-        _id_A5E8::_id_870C( "aud_start_sway1" );
+        soundscripts\_snd::_id_870C( "aud_start_sway1" );
         wait(self.titleunlocked);
         self.runto_arrived *= -1;
         self.sway = "sway2";
@@ -324,7 +324,7 @@ sea_bob()
 
         self rotateto( self.runto_arrived, self.titleunlocked, self.titleunlocked * 0.5, self.titleunlocked * 0.5 );
         level._id_47A3.heightsea = 180;
-        _id_A5E8::_id_870C( "aud_start_sway2" );
+        soundscripts\_snd::_id_870C( "aud_start_sway2" );
         wait(self.titleunlocked);
     }
 }
@@ -509,10 +509,9 @@ sea_litebob()
         {
             setsundirection( ( 0.6, 0.5, 0.7 ) );
             return;
-            continue;
         }
-
-        lerpsundirection( var_3, var_4, 0.2 );
+        else
+            lerpsundirection( var_3, var_4, 0.2 );
     }
 }
 

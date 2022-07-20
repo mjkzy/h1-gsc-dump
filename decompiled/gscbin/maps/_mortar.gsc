@@ -408,7 +408,7 @@ bunker_style_mortar()
     var_4 = getentarray( "mortar_bunker", "targetname" );
 
     if ( isdefined( var_4 ) && var_4.size > 0 )
-        var_1 = _id_A5A4::_id_0CF2( var_3, var_4 );
+        var_1 = maps\_utility::_id_0CF2( var_3, var_4 );
     else
         var_1 = var_3;
 
@@ -543,7 +543,7 @@ bog_style_mortar()
 {
     var_0 = [];
     var_1 = [];
-    var_2 = _id_A5A4::_id_40FE( "mortar", "targetname" );
+    var_2 = maps\_utility::_id_40FE( "mortar", "targetname" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {

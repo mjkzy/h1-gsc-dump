@@ -140,7 +140,7 @@ main( var_0 )
 
 _id_8350( var_0, var_1, var_2, var_3 )
 {
-    _id_A5A8::_id_7EFD( var_0, var_1, var_2, undefined, var_3 );
+    maps\_vehicle::_id_7EFD( var_0, var_1, var_2, undefined, var_3 );
 }
 
 _id_7F1E( var_0, var_1, var_2 )

@@ -76,13 +76,13 @@ _id_139E()
 _id_975A( var_0 )
 {
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_1154();
+    maps\_utility::_id_1154();
 }
 
 _id_975B( var_0 )
 {
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_1158();
+    maps\_utility::_id_1158();
 }
 
 _id_9758( var_0 )
@@ -111,7 +111,7 @@ _id_1169( var_0 )
 
 _id_1166( var_0 )
 {
-    if ( _id_A5A4::_id_5056() )
+    if ( maps\_utility::_id_5056() )
         return;
 
     var_0 waittill( "trigger" );
@@ -128,7 +128,7 @@ _id_1166( var_0 )
             return;
     }
 
-    _id_A5A4::_id_1143( var_1 );
+    maps\_utility::_id_1143( var_1 );
 }
 
 _id_9759( var_0 )
@@ -238,7 +238,7 @@ _id_055C( var_0 )
 _id_1150( var_0 )
 {
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_114E();
+    maps\_utility::_id_114E();
 }
 
 _id_988F()
@@ -268,7 +268,7 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     level endon( "nextmission" );
     level.playercardbackground endon( "death" );
 
-    if ( _id_A5A4::_id_500C() )
+    if ( maps\_utility::_id_500C() )
         level._id_6C5B endon( "death" );
 
     level notify( "trying_new_autosave" );
@@ -355,7 +355,7 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             _id_1153( var_11 );
             thread maps\_arcademode::arcademode_checkpoint_print();
             commitsave( var_11 );
-            _id_A5A4::save_time_played();
+            maps\_utility::save_time_played();
             level._id_55D6 = gettime();
             level.lasttimeplayedregister = gettime();
             setdvar( "ui_grenade_death", "0" );
@@ -528,7 +528,7 @@ _id_1165()
     if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
         return 1;
 
-    if ( _id_A5A4::_id_32DC( "laststand_downed" ) && _id_A5A4::_id_32D8( "laststand_downed" ) )
+    if ( maps\_utility::_id_32DC( "laststand_downed" ) && maps\_utility::_id_32D8( "laststand_downed" ) )
         return 0;
 
     var_0 = self.helmet / self.maxturnspeed;
@@ -536,10 +536,10 @@ _id_1165()
     if ( var_0 < 0.5 )
         return 0;
 
-    if ( _id_A5A4::_id_32D8( "_radiation_poisoning" ) )
+    if ( maps\_utility::_id_32D8( "_radiation_poisoning" ) )
         return 0;
 
-    if ( _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
         return 0;
 
     return 1;
@@ -601,7 +601,7 @@ _id_116B( var_0 )
             return 0;
     }
 
-    if ( _id_A5A4::_id_6B6F() )
+    if ( maps\_utility::_id_6B6F() )
         return 0;
 
     var_9 = getentarray( "destructible", "classname" );
@@ -642,18 +642,10 @@ _id_1152( var_0 )
         var_3 = distance( var_0.origin, var_2.origin );
 
         if ( var_3 < 200 )
-        {
             return "return_even_if_low_accuracy";
-            continue;
-        }
-
-        if ( var_3 < 360 )
-        {
+        else if ( var_3 < 360 )
             return "return";
-            continue;
-        }
-
-        if ( var_3 < 1000 )
+        else if ( var_3 < 1000 )
             return "threat_exists";
     }
 
@@ -662,10 +654,10 @@ _id_1152( var_0 )
 
 _id_1153( var_0 )
 {
-    if ( !_id_A5A4::_id_5016() )
+    if ( !maps\_utility::_id_5016() )
         return;
 
-    var_1 = _id_A5A5::_id_3DB8();
+    var_1 = maps\_utility_code::_id_3DB8();
     var_2 = var_1;
 
     if ( isdefined( level._id_726C ) )

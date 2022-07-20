@@ -34,9 +34,9 @@ main()
 
 _id_2110()
 {
-    _id_A5DC::_id_7EC8( "shg" );
-    _id_A5F7::_id_8757( "med_occlusion" );
-    _id_A5DE::_id_5CF2( "mix_icbm_global" );
+    soundscripts\_audio::_id_7EC8( "shg" );
+    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_icbm_global" );
 }
 
 _id_4D5B()
@@ -76,21 +76,21 @@ _id_6ECB()
 
 _id_72E8()
 {
-    _id_A5E8::_id_874D( "start_default_checkpoint", ::start_default_checkpoint );
-    _id_A5E8::_id_874D( "start_landed_checkpoint", ::start_landed_checkpoint );
-    _id_A5E8::_id_874D( "start_basement_checkpoint", ::start_basement_checkpoint );
-    _id_A5E8::_id_874D( "start_house2_checkpoint", ::start_house2_checkpoint );
-    _id_A5E8::_id_874D( "start_rescued_checkpoint", ::start_rescued_checkpoint );
-    _id_A5E8::_id_874D( "start_tower_checkpoint", ::start_tower_checkpoint );
-    _id_A5E8::_id_874D( "start_fense_checkpoint", ::start_fense_checkpoint );
-    _id_A5E8::_id_874D( "start_base_checkpoint", ::start_base_checkpoint );
-    _id_A5E8::_id_874D( "start_base2_checkpoint", ::start_base2_checkpoint );
-    _id_A5E8::_id_874D( "start_launch_checkpoint", ::start_launch_checkpoint );
-    _id_A5E8::_id_874D( "aud_open_fisrt_door", ::aud_open_fisrt_door );
-    _id_A5E8::_id_874D( "first_house_mix", ::first_house_mix );
-    _id_A5E8::_id_874D( "start_tower_first_choppers_fly_by", ::start_tower_first_choppers_fly_by );
-    _id_A5E8::_id_874D( "start_missile_launch_mix", ::start_missile_launch_mix );
-    _id_A5E8::_id_874D( "aud_start_bm21_scripted_sfx", ::aud_start_bm21_scripted_sfx );
+    soundscripts\_snd::_id_874D( "start_default_checkpoint", ::start_default_checkpoint );
+    soundscripts\_snd::_id_874D( "start_landed_checkpoint", ::start_landed_checkpoint );
+    soundscripts\_snd::_id_874D( "start_basement_checkpoint", ::start_basement_checkpoint );
+    soundscripts\_snd::_id_874D( "start_house2_checkpoint", ::start_house2_checkpoint );
+    soundscripts\_snd::_id_874D( "start_rescued_checkpoint", ::start_rescued_checkpoint );
+    soundscripts\_snd::_id_874D( "start_tower_checkpoint", ::start_tower_checkpoint );
+    soundscripts\_snd::_id_874D( "start_fense_checkpoint", ::start_fense_checkpoint );
+    soundscripts\_snd::_id_874D( "start_base_checkpoint", ::start_base_checkpoint );
+    soundscripts\_snd::_id_874D( "start_base2_checkpoint", ::start_base2_checkpoint );
+    soundscripts\_snd::_id_874D( "start_launch_checkpoint", ::start_launch_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_open_fisrt_door", ::aud_open_fisrt_door );
+    soundscripts\_snd::_id_874D( "first_house_mix", ::first_house_mix );
+    soundscripts\_snd::_id_874D( "start_tower_first_choppers_fly_by", ::start_tower_first_choppers_fly_by );
+    soundscripts\_snd::_id_874D( "start_missile_launch_mix", ::start_missile_launch_mix );
+    soundscripts\_snd::_id_874D( "aud_start_bm21_scripted_sfx", ::aud_start_bm21_scripted_sfx );
 }
 
 _id_A3E6( var_0, var_1 )
@@ -106,56 +106,56 @@ _id_5FFD( var_0, var_1 )
 start_default_checkpoint( var_0 )
 {
     disable_azm_trigger_open_door_first_house();
-    _id_A5E7::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
 }
 
 start_landed_checkpoint( var_0 )
 {
     disable_azm_trigger_open_door_first_house();
-    _id_A5E7::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
 }
 
 start_basement_checkpoint( var_0 )
 {
     disable_azm_trigger_open_door_first_house();
-    _id_A5E7::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
 }
 
 start_house2_checkpoint( var_0 )
 {
     aud_open_fisrt_door();
-    _id_A5E7::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
 }
 
 start_rescued_checkpoint( var_0 )
 {
     aud_open_fisrt_door();
-    _id_A5E7::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
 }
 
 start_tower_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "field" );
+    soundscripts\_audio_zone_manager::_id_123A( "field" );
 }
 
 start_fense_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "field" );
+    soundscripts\_audio_zone_manager::_id_123A( "field" );
 }
 
 start_base_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
 }
 
 start_base2_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "warehouse" );
+    soundscripts\_audio_zone_manager::_id_123A( "warehouse" );
 }
 
 start_launch_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior_wood_end" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood_end" );
 }
 
 aud_open_fisrt_door()
@@ -170,8 +170,8 @@ aud_open_fisrt_door()
     var_0 thread common_scripts\utility::_id_6975( "emt_icbm_ambient_door_transition" );
     var_1 = getent( "footstep_amb_emitter_02", "targetname" );
     var_1 thread common_scripts\utility::_id_6975( "emt_overhead_footsteps" );
-    _id_A5DE::_id_5CF6( "mix_first_house_search" );
-    _id_A5DE::_id_5CF2( "mix_rescue_griggs" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_first_house_search" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_rescue_griggs" );
     common_scripts\utility::_id_3852( "breach_started", "player_shooting_interogators" );
     var_1 thread common_scripts\utility::_id_8EA1( "emt_overhead_footsteps" );
 }
@@ -180,23 +180,23 @@ first_house_mix()
 {
     var_0 = getent( "footstep_amb_emitter_01", "targetname" );
     var_0 thread common_scripts\utility::_id_6975( "emt_overhead_footsteps" );
-    _id_A5DE::_id_5CF2( "mix_first_house_search" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_first_house_search" );
     common_scripts\utility::_id_3852( "house1_cleared", "_stealth_spotted" );
     var_0 thread common_scripts\utility::_id_8EA1( "emt_overhead_footsteps" );
 }
 
 start_missile_launch_mix()
 {
-    _id_A5DE::_id_5CF6( "mix_tower_destruction" );
-    _id_A5DE::_id_5CF2( "missile_launch_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_tower_destruction" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "missile_launch_mix" );
     common_scripts\utility::_id_384A( "launch_01" );
-    _id_A5DE::_id_5CF6( "missile_launch_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "missile_launch_mix" );
 }
 
 start_tower_first_choppers_fly_by()
 {
-    _id_A5DE::_id_5CF6( "mix_rescue_griggs" );
-    _id_A5DE::_id_5CF2( "mix_tower_destruction" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_rescue_griggs" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_tower_destruction" );
 }
 
 start_first_truck_audio()
@@ -231,7 +231,7 @@ handle_start_vehicle( var_0, var_1 )
     self waittill( "trigger", var_2 );
     var_2 endon( "death" );
     var_2 vehicle_turnengineoff();
-    var_2 thread _id_A5A4::_id_69C6( var_0 );
+    var_2 thread maps\_utility::_id_69C6( var_0 );
     wait(var_1);
     var_2 vehicle_turnengineon();
 }

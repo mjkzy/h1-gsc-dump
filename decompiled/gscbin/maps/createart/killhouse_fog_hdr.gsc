@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "killhouse" );
+    var_0 = maps\_utility::_id_23DF( "killhouse" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 405.335;
-    var_0 = _id_A5A4::_id_23DF( "killhouse_nohaze" );
+    var_0 = maps\_utility::_id_23DF( "killhouse_nohaze" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 405.335;
-    var_0 = _id_A5A4::_id_23DF( "killhouse_interior_range" );
+    var_0 = maps\_utility::_id_23DF( "killhouse_interior_range" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 153.076;
-    var_0 = _id_A5A4::_id_23DF( "killhouse_interior_ship" );
+    var_0 = maps\_utility::_id_23DF( "killhouse_interior_ship" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 0;
     var_0._id_0DBC = 405.335;
-    var_0 = _id_A5A4::_id_23DF( "killhouse_interior_ship_timedrun" );
+    var_0 = maps\_utility::_id_23DF( "killhouse_interior_ship_timedrun" );
     var_0._id_8D08 = 3764.17;
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
@@ -236,7 +236,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -10.3043, -69.8003, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

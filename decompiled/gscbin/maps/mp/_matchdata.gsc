@@ -280,15 +280,14 @@ _id_583C()
         var_3 = getmatchdata( "players", self.clientid, "loadouts", var_2, "slotUsed" );
 
         if ( !var_3 )
-        {
             break;
-            continue;
+        else
+        {
+            var_4 = getmatchdata( "players", self.clientid, "loadouts", var_2, "className" );
+
+            if ( var_1 == var_4 )
+                return var_2;
         }
-
-        var_4 = getmatchdata( "players", self.clientid, "loadouts", var_2, "className" );
-
-        if ( var_1 == var_4 )
-            return var_2;
     }
 
     if ( var_2 == level.maxnumawardsperplayer )

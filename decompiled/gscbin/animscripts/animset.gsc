@@ -73,7 +73,7 @@ _id_4C76()
     _id_4CA9();
     _id_4CAB();
 
-    if ( _id_A5A4::_id_76FF() )
+    if ( maps\_utility::_id_76FF() )
     {
         anim._id_0CCA["s1_soldier"] = [];
         animscripts\s1_common_anims::_id_4D4B();

@@ -55,7 +55,7 @@ main()
     level._effect["spark_spit"] = loadfx( "vfx/sparks/launch_b_spark_spit" );
     level._effect["fog_oriented_edge_fade"] = loadfx( "vfx/fog/fog_oriented_edge_fade_launch_b" );
     level._effect["light_beams"] = loadfx( "fx/smoke/light_beam_launch_b" );
-    _id_A538::set_custom_global_fx( "light_red_pulse_spritelight_origin", "vfx/map/betrayal/btr_emergency_nolight_pulse_spritelight" );
+    maps\_global_fx::set_custom_global_fx( "light_red_pulse_spritelight_origin", "vfx/map/betrayal/btr_emergency_nolight_pulse_spritelight" );
     common_scripts\_pipes::override_pipe_fx( "steam", "fx/smoke/h1_steam_jet_med" );
     common_scripts\_pipes::override_pipe_fx( "impact", "vfx/weaponimpact/small_metalhit_1" );
     common_scripts\_pipes::override_pipe_fx( "water", "fx/water/launch_b_pipe_spray" );

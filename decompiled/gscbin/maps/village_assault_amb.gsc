@@ -25,7 +25,7 @@ main()
     level._id_0B47["exterior1"] = "ambient_village_assault_ext1";
     level._id_0B47["exterior2"] = "ambient_village_assault_ext2";
     level._id_0B47["exterior3"] = "ambient_village_assault_ext3";
-    thread _id_A5A4::_id_7DB9( "exterior2" );
+    thread maps\_utility::_id_7DB9( "exterior2" );
     maps\_ambient::_id_0B4F( "exterior", 2.0, 8.0 );
     maps\_ambient::_id_0B50( "exterior", "elm_wind_leafy", 12.0 );
     maps\_ambient::_id_0B50( "exterior", "elm_anml_wolf", 1.5 );

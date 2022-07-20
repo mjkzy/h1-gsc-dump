@@ -35,18 +35,18 @@ main()
 _id_0C7A()
 {
     level._id_78AC["price"]["hunted_opening_price"] = %hunted_opening_price;
-    _id_A510::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_onepiece" );
-    _id_A510::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_getup" );
-    _id_A510::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_comeonsearchparties" );
-    _id_A510::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_casualtyreport" );
-    _id_A510::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_bugger" );
-    _id_A510::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_extractionpoint" );
+    maps\_anim::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_onepiece" );
+    maps\_anim::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_getup" );
+    maps\_anim::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_comeonsearchparties" );
+    maps\_anim::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_casualtyreport" );
+    maps\_anim::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_bugger" );
+    maps\_anim::_id_080B( "price", "dialog", "hunted_opening_price", "hunted_pri_extractionpoint" );
     level._id_78AC["steve"]["hunted_opening_nikolai"] = %hunted_opening_nikolai;
     level._id_78AC["dead_guy"]["hunted_dying"] = %hunted_dying_deadguy;
     level._id_78AC["dead_guy"]["hunted_dying_endidle"][0] = %hunted_dying_deadguy_endidle;
     level._id_78AC["steve"]["hunted_dying"] = %hunted_dying_soldier;
     level._id_78AC["mark"]["mark_hunted_dying"] = %hunted_dying_gaz;
-    _id_A510::_id_080B( "mark", "dialog", "mark_hunted_dying", "hunted_uk2_bothpilotsdead" );
+    maps\_anim::_id_080B( "mark", "dialog", "mark_hunted_dying", "hunted_uk2_bothpilotsdead" );
     level._id_78AC["price"]["hunted_wave_chat"] = %hunted_wave_chat;
     level._id_78BA["price"]["hunted_wave_chat_snd"] = "hunted_pri_underbridge";
     level._id_78AC["charlie"]["hunted_wave_chat"] = %hunted_spotter_wave_chat;
@@ -95,12 +95,12 @@ _id_0C7A()
     level._id_78AC["farmer"]["farmer_deathpose"][0] = %hunted_farmsequence_farmer_deathpose;
     level._id_78AC["farmer"]["farmer_altending"] = %hunted_farmsequence_farmer_altending;
     level._id_78AC["farmer"]["hack_idle"][0] = %hunted_pronehide_idle_v3;
-    _id_A510::_id_080B( "leader", "dialog", "hunted_farmsequence", "hunted_ru1_dontplaystupid" );
-    _id_A510::_id_080B( "leader", "dialog", "hunted_farmsequence", "hunted_ru1_hidingsoldiers" );
-    _id_A510::_id_080B( "leader", "dialog", "hunted_farmsequence", "hunted_ru1_forgetit" );
-    _id_A510::_id_080B( "farmer", "dialog", "hunted_farmsequence", "hunted_ruf_whatsgoingon" );
-    _id_A510::_id_080B( "farmer", "dialog", "hunted_farmsequence", "hunted_ruf_hidingwho" );
-    _id_A510::_id_080B( "farmer", "dialog", "hunted_farmsequence", "hunted_ruf_british" );
+    maps\_anim::_id_080B( "leader", "dialog", "hunted_farmsequence", "hunted_ru1_dontplaystupid" );
+    maps\_anim::_id_080B( "leader", "dialog", "hunted_farmsequence", "hunted_ru1_hidingsoldiers" );
+    maps\_anim::_id_080B( "leader", "dialog", "hunted_farmsequence", "hunted_ru1_forgetit" );
+    maps\_anim::_id_080B( "farmer", "dialog", "hunted_farmsequence", "hunted_ruf_whatsgoingon" );
+    maps\_anim::_id_080B( "farmer", "dialog", "hunted_farmsequence", "hunted_ruf_hidingwho" );
+    maps\_anim::_id_080B( "farmer", "dialog", "hunted_farmsequence", "hunted_ruf_british" );
     level._id_78AC["price"]["hunted_dive_2_pronehide"] = %hunted_dive_2_pronehide_v1;
     level._id_78AC["price"]["hunted_pronehide_idle"][0] = %hunted_pronehide_idle_v1;
     level._id_78AC["price"]["hunted_pronehide_2_stand"] = %hunted_pronehide_2_stand_v1;
@@ -147,7 +147,7 @@ _id_0C7A()
     level._id_78AC["farmer"]["farmer_surprised"] = %h1_hunted_farmer_surprised;
     level._id_78AC["farmer"]["runaway"] = %h1_hunted_farmer_runaway;
     level._id_78AC["price"]["talk_to_control"] = %h1_hunted_price_talks_to_control;
-    _id_A510::_id_080B( "price", "dialog", "talk_to_control", "hunted_pri_100metres" );
+    maps\_anim::_id_080B( "price", "dialog", "talk_to_control", "hunted_pri_100metres" );
 }
 
 run_anims()

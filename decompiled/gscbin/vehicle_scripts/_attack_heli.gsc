@@ -92,7 +92,7 @@ _id_8B37( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = "kill_heli";
 
-    var_1 = _id_A5A8::_id_8979( var_0 );
+    var_1 = maps\_vehicle::_id_8979( var_0 );
     var_1 = _id_136E( var_1 );
     return var_1;
 }
@@ -118,7 +118,7 @@ _id_136E( var_0, var_1 )
         {
             var_0._id_0E54 = missile_createattractorent( var_2, var_3, 10000, level.playercardbackground );
 
-            if ( _id_A5A4::_id_500C() )
+            if ( maps\_utility::_id_500C() )
                 var_0._id_0E55 = missile_createattractorent( var_2, var_3, 10000, level._id_6C5B );
         }
     }
@@ -180,9 +180,9 @@ _id_136E( var_0, var_1 )
 _id_298D()
 {
     foreach ( var_1 in level.players )
-        var_1 _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "death" );
+        var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
 
-    _id_A5A4::_id_2BDD();
+    maps\_utility::_id_2BDD();
     self notify( "heli_players_dead" );
 }
 
@@ -225,7 +225,7 @@ _id_47B7()
     var_2.entity = self._id_91C4;
     var_2.forward = var_1;
     var_2.upgradepurchased = var_0;
-    var_2 _id_A5A4::_id_9723();
+    var_2 maps\_utility::_id_9723();
     self._id_91C4 linkto( self );
     self._id_91C4 thread _id_47B6( self );
 }
@@ -265,7 +265,7 @@ _id_8B5E( var_0, var_1 )
     if ( !isdefined( var_0 ) )
         var_0 = "kill_heli";
 
-    var_2 = _id_A5A8::_id_8979( var_0 );
+    var_2 = maps\_vehicle::_id_8979( var_0 );
     var_2._id_8D26 = spawn( "script_origin", var_2.origin );
     var_2 thread common_scripts\utility::_id_2825( var_2._id_8D26 );
     var_2._id_1D75 = 1;
@@ -281,7 +281,7 @@ _id_5319( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
     {
-        var_0 = _id_A5A8::_id_8979( "kill_heli" );
+        var_0 = maps\_vehicle::_id_8979( "kill_heli" );
         var_0._id_0AAF = 1;
         var_0._id_3805 = 0;
         var_0 thread _id_6200();
@@ -392,7 +392,7 @@ _id_47A9( var_0, var_1 )
     {
         var_3 vehicle_setspeed( var_1, var_1 / 4, var_1 / 4 );
         var_3 neargoalnotifydist( 100 );
-        var_4 = _id_A5A4::_id_3CFF( var_3.origin );
+        var_4 = maps\_utility::_id_3CFF( var_3.origin );
         var_5 = var_4.origin;
         var_3 setlookatent( var_4 );
         var_6 = common_scripts\utility::_id_3F33( var_5, var_2 );
@@ -430,7 +430,7 @@ _id_47C8( var_0 )
         wait 0.05;
         var_2 vehicle_setspeed( var_0, var_0 / 2, var_0 / 10 );
         var_2 neargoalnotifydist( 100 );
-        var_6 = _id_A5A4::_id_3CFF( var_2.origin );
+        var_6 = maps\_utility::_id_3CFF( var_2.origin );
         var_7 = var_6.origin;
 
         if ( var_3 == var_4 && var_2._id_51C8 )
@@ -441,7 +441,7 @@ _id_47C8( var_0 )
 
         var_2 setgoalpos( var_3.origin, 1 );
         var_2._id_5F9E = 1;
-        var_6 = _id_A5A4::_id_3CFF( var_2.origin );
+        var_6 = maps\_utility::_id_3CFF( var_2.origin );
 
         if ( isdefined( self._id_338A ) && isdefined( self._id_338A.classname ) && self._id_338A.classname == "script_origin" )
             var_5 = var_6;
@@ -454,7 +454,7 @@ _id_47C8( var_0 )
         var_2 waittill( "near_goal" );
         var_2._id_5F9E = 0;
 
-        if ( !_id_A5A4::_id_500C() )
+        if ( !maps\_utility::_id_500C() )
         {
             if ( level._id_3BFE == 0 || level._id_3BFE == 1 )
             {
@@ -465,7 +465,7 @@ _id_47C8( var_0 )
             }
         }
 
-        var_6 = _id_A5A4::_id_3CFF( var_2.origin );
+        var_6 = maps\_utility::_id_3CFF( var_2.origin );
         var_7 = var_6.origin;
         var_8 = _id_3DBF( var_2, var_3, var_1, var_6, var_7 );
         var_8[var_8.size] = var_3;
@@ -545,7 +545,7 @@ _id_47E0()
 
         if ( _id_47C9() && level.players.size > 1 )
         {
-            var_2 = _id_A5A4::_id_3CFF( self.origin );
+            var_2 = maps\_utility::_id_3CFF( self.origin );
 
             if ( self._id_338A != var_2 )
             {
@@ -659,7 +659,7 @@ _id_47CA()
 
 _id_47C4()
 {
-    var_0 = _id_A53F::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 1, 0, 1, level._id_0E38 );
+    var_0 = maps\_helicopter_globals::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 1, 0, 1, level._id_0E38 );
 
     if ( isdefined( var_0 ) && isplayer( var_0 ) )
         var_0 = self._id_91C4;
@@ -673,7 +673,7 @@ _id_47C4()
 _id_47C6()
 {
     var_0 = getaiarray( "allies" );
-    var_1 = _id_A53F::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 0, 0, 0, var_0 );
+    var_1 = maps\_helicopter_globals::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 0, 0, 0, var_0 );
 
     if ( !isdefined( var_1 ) )
         var_1 = self._id_91C4;
@@ -683,7 +683,7 @@ _id_47C6()
 
 _id_47C5()
 {
-    var_0 = _id_A53F::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 1, 0, 1, level.players );
+    var_0 = maps\_helicopter_globals::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 1, 0, 1, level.players );
 
     if ( !isdefined( var_0 ) )
         var_0 = self._id_91C4;
@@ -927,9 +927,9 @@ _id_9970( var_0, var_1, var_2 )
     if ( !self._id_5C71 )
     {
         self._id_3804 = 1;
-        thread _id_A5A4::_id_69C5( "littlebird_gatling_spinup", "tag_flash" );
+        thread maps\_utility::_id_69C5( "littlebird_gatling_spinup", "tag_flash" );
         wait 2.1;
-        thread _id_A5A4::_id_6976( "littlebird_minigun_spinloop", "tag_flash" );
+        thread maps\_utility::_id_6976( "littlebird_minigun_spinloop", "tag_flash" );
     }
 
     self._id_5C71 = 1;
@@ -1043,7 +1043,7 @@ _id_5C6F()
 {
     self notify( "stop soundlittlebird_minigun_spinloop" );
     self._id_5C71 = 0;
-    _id_A5A4::_id_69C5( "littlebird_gatling_cooldown", "tag_flash" );
+    maps\_utility::_id_69C5( "littlebird_gatling_cooldown", "tag_flash" );
 }
 
 _id_5C8A( var_0 )
@@ -1130,10 +1130,10 @@ _id_47B1()
         thread _id_47B2();
         thread _id_1A4D( var_1 );
 
-        if ( _id_A5A4::_id_5011() )
+        if ( maps\_utility::_id_5011() )
             var_1 thread _id_9B0D();
 
-        if ( _id_A5A4::_id_5012() )
+        if ( maps\_utility::_id_5012() )
             var_1 thread _id_9B0E();
     }
 }
@@ -1308,12 +1308,12 @@ _id_47E6( var_0 )
     var_2 = spawnstruct();
     var_2.entity = self._id_5676;
     var_2.riotshield_damaged = 250;
-    var_2 _id_A5A4::_id_9723();
+    var_2 maps\_utility::_id_9723();
     self._id_5676 linkto( self );
     var_3 = spawnstruct();
     var_3.entity = self._id_751E;
     var_3.riotshield_damaged = -250;
-    var_3 _id_A5A4::_id_9723();
+    var_3 maps\_utility::_id_9723();
     self._id_751E linkto( self );
     var_4 = [];
     var_4[0] = var_1;
@@ -1421,7 +1421,7 @@ _id_47E4( var_0 )
 _id_57B6( var_0 )
 {
     var_1 = self;
-    var_1 _id_A5AA::_id_9985( "manual" );
+    var_1 maps\_vehicle_code::_id_9985( "manual" );
 
     if ( isdefined( var_0._id_91C4 ) )
         var_1 settargetentity( var_0._id_91C4 );
@@ -1461,10 +1461,10 @@ _id_47B5( var_0 )
         var_4 = undefined;
 
         if ( isdefined( self._id_251D ) && isdefined( self._id_251D._not_team ) )
-            var_4 = _id_A5A4::_id_3F82( self._id_251D._not_team, "targetname" );
+            var_4 = maps\_utility::_id_3F82( self._id_251D._not_team, "targetname" );
 
         if ( isdefined( var_4 ) && isdefined( var_4._id_7A26 ) )
-            self._id_6EF5 = _id_A5A4::_id_3F82( var_4._id_7A26, "script_linkname" );
+            self._id_6EF5 = maps\_utility::_id_3F82( var_4._id_7A26, "script_linkname" );
 
         if ( isdefined( self._id_6EF5 ) )
         {
@@ -1636,15 +1636,15 @@ _id_1563()
 {
     self waittill( "trigger", var_0 );
     var_1 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
-    var_1 = _id_A5A4::_id_0CEC( var_1 );
+    var_1 = maps\_utility::_id_0CEC( var_1 );
     _id_1562( var_0, var_1 );
 }
 
 _id_1564()
 {
     self waittill( "trigger", var_0 );
-    var_1 = _id_A5A4::_id_3DC0();
-    var_1 = _id_A5A4::_id_0CEC( var_1 );
+    var_1 = maps\_utility::_id_3DC0();
+    var_1 = maps\_utility::_id_0CEC( var_1 );
     _id_1562( var_0, var_1 );
 }
 

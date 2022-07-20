@@ -33,11 +33,11 @@ main()
     thread handle_start_swamp_fog();
     thread handle_exfil_heli_cinematic();
     thread _id_8106();
-    thread _id_A54E::_id_694A( "firelight_motion_dim", "firelight_dim" );
-    thread _id_A54E::_id_694A( "firelight_motion_medium", "firelight_medium" );
-    thread _id_A54E::_id_694A( "firelight_motion_bright", "firelight_bright" );
-    thread _id_A54E::_id_694A( "firelight_motion_verybright", "firelight_verybright" );
-    thread _id_A54E::_id_694A( "firelight_motion_ridonculous", "firelight_ridonculous" );
+    thread maps\_lighting::_id_694A( "firelight_motion_dim", "firelight_dim" );
+    thread maps\_lighting::_id_694A( "firelight_motion_medium", "firelight_medium" );
+    thread maps\_lighting::_id_694A( "firelight_motion_bright", "firelight_bright" );
+    thread maps\_lighting::_id_694A( "firelight_motion_verybright", "firelight_verybright" );
+    thread maps\_lighting::_id_694A( "firelight_motion_ridonculous", "firelight_ridonculous" );
     level.nightvisionlightset = "nightvision_blackout";
     _func_144( "blackout_nightvision" );
 }
@@ -57,8 +57,8 @@ _id_80C6()
 _id_7E68()
 {
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
-    _id_A5A4::_id_9E6E( "blackout_swamp_1", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "blackout_swamp_1" );
+    maps\_utility::_id_9E6E( "blackout_swamp_1", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "blackout_swamp_1" );
     level.playercardbackground _meth_848c( "clut_blackout", 0.0 );
     enableouterspacemodellighting( ( 10000, 10000, 10000 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
 }
@@ -161,11 +161,11 @@ blackout_vision_adjustment()
     for (;;)
     {
         common_scripts\utility::_id_384A( "player_in_house" );
-        thread _id_A5A4::_id_7F00( "blackout_darkness", 0.5 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "safehouse_interior" );
+        thread maps\_utility::_id_7F00( "blackout_darkness", 0.5 );
+        level.playercardbackground maps\_utility::set_light_set_player( "safehouse_interior" );
         common_scripts\utility::_id_3857( "player_in_house" );
-        thread _id_A5A4::_id_7F00( "blackout_village", 0.5 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "blackout" );
+        thread maps\_utility::_id_7F00( "blackout_village", 0.5 );
+        level.playercardbackground maps\_utility::set_light_set_player( "blackout" );
     }
 }
 
@@ -233,8 +233,8 @@ handle_blackout_spotlights_off()
     common_scripts\utility::_id_384A( "turn_off_blackout_spotlights" );
     var_0 = getentarray( "blackout_spotlight", "targetname" );
     common_scripts\utility::_id_0D13( var_0, maps\blackout_code::record_old_intensity );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_0639, 0 );
-    _id_A5A4::_id_2AC0( "blackout_light_org" );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0639, 0 );
+    maps\_utility::_id_2AC0( "blackout_light_org" );
 }
 
 handle_blackout_upstairs_spotlight()
@@ -246,9 +246,9 @@ handle_blackout_upstairs_spotlight()
 
 _id_8106()
 {
-    _id_A54E::_id_23B3( "firelight_motion_dim", ( 0.86, 0.5, 0.15 ), 10, 12, 0.15, 0.75 );
-    _id_A54E::_id_23B3( "firelight_motion_medium", ( 1, 0.75, 0.35 ), 35, 12, 0.15, 0.75 );
-    _id_A54E::_id_23B3( "firelight_motion_bright", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
-    _id_A54E::_id_23B3( "firelight_motion_verybright", ( 0.86, 0.5, 0.15 ), 200, 30, 0.6, 1.5 );
-    _id_A54E::_id_23B3( "firelight_motion_ridonculous", ( 0.86, 0.5, 0.15 ), 4000, 40, 1, 2.5 );
+    maps\_lighting::_id_23B3( "firelight_motion_dim", ( 0.86, 0.5, 0.15 ), 10, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_medium", ( 1, 0.75, 0.35 ), 35, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_bright", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
+    maps\_lighting::_id_23B3( "firelight_motion_verybright", ( 0.86, 0.5, 0.15 ), 200, 30, 0.6, 1.5 );
+    maps\_lighting::_id_23B3( "firelight_motion_ridonculous", ( 0.86, 0.5, 0.15 ), 4000, 40, 1, 2.5 );
 }

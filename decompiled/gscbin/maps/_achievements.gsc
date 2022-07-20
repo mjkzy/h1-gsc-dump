@@ -31,7 +31,7 @@ master_ninja_init()
 {
     common_scripts\utility::_id_383D( "master_ninja_melee_kill" );
     common_scripts\utility::_id_383D( "master_ninja_illegal_kill" );
-    _id_A5A4::_id_0761( "axis", ::master_ninja_enemy_spawned );
+    maps\_utility::_id_0761( "axis", ::master_ninja_enemy_spawned );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::master_ninja_enemy_spawned );
     level thread master_ninja_mission_complete();
 }
@@ -42,7 +42,7 @@ master_ninja_mission_complete()
     level waittill( "achievements_level_complete" );
 
     if ( common_scripts\utility::_id_382E( "master_ninja_melee_kill" ) && !common_scripts\utility::_id_382E( "master_ninja_illegal_kill" ) )
-        _id_A5A4::_id_41DD( "MASTER_NINJA" );
+        maps\_utility::_id_41DD( "MASTER_NINJA" );
 }
 
 master_ninja_enemy_spawned()
@@ -86,16 +86,16 @@ retro_shooter_mission_complete()
 {
     level endon( "retro_shooter_player_reloaded" );
     level waittill( "achievements_level_complete" );
-    _id_A5A4::_id_41DD( "RETRO_SHOOTER" );
+    maps\_utility::_id_41DD( "RETRO_SHOOTER" );
 }
 
 weapon_master_init()
 {
     var_0 = get_base_weapon_list();
-    _id_A5A4::_id_0761( "axis", ::weapon_master_enemy_spawned );
+    maps\_utility::_id_0761( "axis", ::weapon_master_enemy_spawned );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::weapon_master_enemy_spawned );
-    var_1 = _id_A5AA::_id_05BE();
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_0798, ::weapon_master_vehicle_spawned );
+    var_1 = maps\_vehicle_code::_id_05BE();
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::weapon_master_vehicle_spawned );
     common_scripts\utility::_id_0D13( vehicle_getarray(), ::weapon_master_vehicle_spawned );
     thread weapon_master_barrett();
 }
@@ -229,12 +229,12 @@ weapon_master_check_success()
     }
 
     if ( var_2 == var_0.size || platform_tracks_progression() )
-        _id_A5A4::_id_41DD( "WEAPON_MASTER" );
+        maps\_utility::_id_41DD( "WEAPON_MASTER" );
 }
 
 i_hate_dogs_init()
 {
-    _id_A5A4::_id_0761( "axis", ::i_hate_dogs_enemy_spawned );
+    maps\_utility::_id_0761( "axis", ::i_hate_dogs_enemy_spawned );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::i_hate_dogs_enemy_spawned );
 }
 
@@ -263,7 +263,7 @@ i_hate_dogs_enemy_spawned()
             updategamerprofileall();
 
             if ( var_2 >= var_3 || platform_tracks_progression() )
-                _id_A5A4::_id_41DD( "DOGS_I_HATE_DOGS" );
+                maps\_utility::_id_41DD( "DOGS_I_HATE_DOGS" );
         }
     }
 }

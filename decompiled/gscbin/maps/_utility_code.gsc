@@ -95,7 +95,7 @@ _id_A0A6( var_0 )
     if ( var_0 )
         self waittill( "trigger" );
 
-    var_1 = _id_A5A4::_id_3EA3();
+    var_1 = maps\_utility::_id_3EA3();
     common_scripts\utility::_id_383F( var_1 );
 }
 
@@ -157,7 +157,7 @@ new_color_being_set( var_0 )
 {
     self notify( "new_color_being_set" );
     self._id_609C = 1;
-    _id_A51C::_id_5674();
+    maps\_colors::_id_5674();
     self endon( "new_color_being_set" );
     self endon( "death" );
     waitframe;
@@ -168,7 +168,7 @@ new_color_being_set( var_0 )
         self._id_250C = level._id_250D[self.team][self._id_79E6];
 
         if ( !isdefined( self._id_2D2E ) )
-            thread _id_A51C::_id_427C();
+            thread maps\_colors::_id_427C();
         else
             self._id_2D2E = undefined;
     }
@@ -193,8 +193,8 @@ _id_70CA( var_0 )
     }
 
     self._id_061C = 1;
-    _id_A5A4::_id_9F8C( level._id_5541, 0.5 );
-    level.playercardbackground _id_A5A4::_id_69C4( level._id_78B9[var_0] );
+    maps\_utility::_id_9F8C( level._id_5541, 0.5 );
+    level.playercardbackground maps\_utility::_id_69C4( level._id_78B9[var_0] );
     self._id_061C = undefined;
     level._id_5541 = gettime();
     self notify( "finished_radio" );
@@ -337,7 +337,7 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             return;
     }
 
-    _id_A5A4::_id_32E4( "global_hint_in_use" );
+    maps\_utility::_id_32E4( "global_hint_in_use" );
 
     if ( isdefined( self._id_24E9 ) )
     {
@@ -345,16 +345,16 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             return;
     }
 
-    _id_A5A4::_id_32DE( "global_hint_in_use" );
+    maps\_utility::_id_32DE( "global_hint_in_use" );
     self._id_24E9 = var_0;
-    _id_A546::_id_0763( var_8, var_7 );
-    var_15 = _id_A546::_id_23ED( "timer", var_14 );
+    maps\_hud_util::_id_0763( var_8, var_7 );
+    var_15 = maps\_hud_util::_id_23ED( "timer", var_14 );
     level._id_24EC = var_15;
     level._id_48B4 = var_1;
     thread _id_28C4( var_15 );
     level endon( "friendlyfire_mission_fail" );
     var_15.alpha = 1.0;
-    var_15 _id_A546::_id_7FEE( "TOP", undefined, 0, 127 + var_10 );
+    var_15 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 127 + var_10 );
     var_15.foreground = 0;
     var_15.high_priority = 1;
     var_15.hindlegstraceoffset = 1;
@@ -398,27 +398,18 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             {
                 if ( [[ level._id_48B4 ]]( var_2, var_3, var_4 ) )
                     break;
-
-                continue;
             }
-
-            if ( var_16 == 2 )
+            else if ( var_16 == 2 )
             {
                 if ( [[ level._id_48B4 ]]( var_2, var_3 ) )
                     break;
-
-                continue;
             }
-
-            if ( var_16 == 1 )
+            else if ( var_16 == 1 )
             {
                 if ( [[ level._id_48B4 ]]( var_2 ) )
                     break;
-
-                continue;
             }
-
-            if ( [[ level._id_48B4 ]]() )
+            else if ( [[ level._id_48B4 ]]() )
                 break;
         }
     }
@@ -428,23 +419,23 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             _id_490E( var_12, level._id_48B4 );
     }
 
-    _id_A5A4::_id_9F8C( var_9, var_6 );
+    maps\_utility::_id_9F8C( var_9, var_6 );
     var_15 notify( "destroying" );
     self._id_24E9 = undefined;
-    _id_A546::clear_hint_background();
+    maps\_hud_util::clear_hint_background();
     var_15 destroy();
     level._id_24EC = undefined;
-    _id_A5A4::_id_32DA( "global_hint_in_use" );
+    maps\_utility::_id_32DA( "global_hint_in_use" );
 }
 
 _id_48FB( var_0 )
 {
     level.playercardbackground notify( "HintDisplayHandlerEnd" );
     level.playercardbackground endon( "HintDisplayHandlerEnd" );
-    level.playercardbackground _id_A5A4::_id_32E4( "global_hint_in_use" );
-    level.playercardbackground _id_A5A4::_id_32E0( "global_hint_in_use" );
+    level.playercardbackground maps\_utility::_id_32E4( "global_hint_in_use" );
+    level.playercardbackground maps\_utility::_id_32E0( "global_hint_in_use" );
 
-    while ( level.playercardbackground _id_A5A4::_id_32D8( "global_hint_in_use" ) )
+    while ( level.playercardbackground maps\_utility::_id_32D8( "global_hint_in_use" ) )
     {
         if ( !level.playercardbackground common_scripts\utility::_id_5064() && isdefined( level._id_48D2[var_0]["pc"] ) )
             level._id_24EC settext( level._id_48D2[var_0]["pc"] );
@@ -492,7 +483,7 @@ _id_28C4( var_0 )
 
     self._id_24E9 = undefined;
     var_0 destroy();
-    _id_A5A4::_id_32DA( "global_hint_in_use" );
+    maps\_utility::_id_32DA( "global_hint_in_use" );
 }
 
 _id_8514( var_0 )
@@ -506,8 +497,8 @@ _id_8514( var_0 )
     var_2 = 0.75;
     var_3 = 0.95;
     var_4 = 0.4;
-    _id_A5A4::_id_32E4( "global_hint_in_use" );
-    _id_A5A4::_id_32DE( "global_hint_in_use" );
+    maps\_utility::_id_32E4( "global_hint_in_use" );
+    maps\_utility::_id_32DE( "global_hint_in_use" );
 
     if ( var_0._id_9361 )
         return;
@@ -515,7 +506,7 @@ _id_8514( var_0 )
     if ( isdefined( var_0._id_936B ) )
         var_0 thread _id_48EA( var_0._id_936B );
 
-    var_5 = _id_A546::_id_23ED( "objective", 2 );
+    var_5 = maps\_hud_util::_id_23ED( "objective", 2 );
     var_5.alpha = 0.9;
     var_5.xpmaxmultipliertimeplayed = 0;
     var_5._id_0538 = -38;
@@ -549,7 +540,7 @@ _id_8514( var_0 )
     }
 
     var_5 destroy();
-    _id_A5A4::_id_32DA( "global_hint_in_use" );
+    maps\_utility::_id_32DA( "global_hint_in_use" );
 }
 
 lerp_player_view_to_tag_smoothly_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -559,7 +550,7 @@ lerp_player_view_to_tag_smoothly_internal( var_0, var_1, var_2, var_3, var_4, va
 
     var_8 = self gettagorigin( var_1 );
     var_9 = self gettagangles( var_1 );
-    var_10 = var_0 _id_A5A4::lerp_player_view_to_position_leave_linked( var_8, var_9, var_2, var_3, var_4, var_5, var_6, var_7 );
+    var_10 = var_0 maps\_utility::lerp_player_view_to_position_leave_linked( var_8, var_9, var_2, var_3, var_4, var_5, var_6, var_7 );
     var_0 playerlinktodelta( self, var_1, var_3, var_4, var_5, var_6, var_7 );
     var_10 delete();
 }
@@ -571,7 +562,7 @@ _id_5698( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
     var_9 = self gettagorigin( var_1 );
     var_10 = self gettagangles( var_1 );
-    var_0 _id_A5A4::_id_5693( var_9, var_10, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+    var_0 maps\_utility::_id_5693( var_9, var_10, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 
     if ( var_8 )
         return;
@@ -586,7 +577,7 @@ _id_569A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
     var_9 = self gettagorigin( var_1 );
     var_10 = self gettagangles( var_1 );
-    var_0 _id_A5A4::_id_5695( var_9, var_10, var_2, var_3, var_4, var_5, var_6, var_7, 1 );
+    var_0 maps\_utility::_id_5695( var_9, var_10, var_2, var_3, var_4, var_5, var_6, var_7, 1 );
 
     if ( var_8 )
         return;
@@ -690,7 +681,7 @@ _id_9A25( var_0 )
 {
     level endon( "player_flashed" );
     wait(var_0);
-    thread _id_A5DC::aud_restore_after_flashbang();
+    thread soundscripts\_audio::aud_restore_after_flashbang();
     common_scripts\utility::_id_3831( "player_flashed" );
 }
 
@@ -871,18 +862,18 @@ _id_2FE4( var_0, var_1, var_2, var_3, var_4 )
     self endon( "start_dynamic_run_speed" );
     level endon( "_stealth_spotted" );
 
-    if ( _id_A5A4::_id_32DC( "_stealth_custom_anim" ) )
-        _id_A5A4::_id_32E4( "_stealth_custom_anim" );
+    if ( maps\_utility::_id_32DC( "_stealth_custom_anim" ) )
+        maps\_utility::_id_32E4( "_stealth_custom_anim" );
 
-    if ( !_id_A5A4::_id_32DC( "dynamic_run_speed_stopped" ) )
+    if ( !maps\_utility::_id_32DC( "dynamic_run_speed_stopped" ) )
     {
-        _id_A5A4::_id_32DD( "dynamic_run_speed_stopped" );
-        _id_A5A4::_id_32DD( "dynamic_run_speed_stopping" );
+        maps\_utility::_id_32DD( "dynamic_run_speed_stopped" );
+        maps\_utility::_id_32DD( "dynamic_run_speed_stopping" );
     }
     else
     {
-        _id_A5A4::_id_32DA( "dynamic_run_speed_stopping" );
-        _id_A5A4::_id_32DA( "dynamic_run_speed_stopped" );
+        maps\_utility::_id_32DA( "dynamic_run_speed_stopping" );
+        maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
     }
 
     self._id_76B8 = "";
@@ -931,18 +922,14 @@ _id_2FE4( var_0, var_1, var_2, var_3, var_4 )
             _id_2FE2( "sprint" );
             wait 0.5;
             continue;
-            continue;
         }
-
-        if ( var_16 < var_5 || var_15 > -0.25 )
+        else if ( var_16 < var_5 || var_15 > -0.25 )
         {
             _id_2FE2( "run" );
             wait 0.5;
             continue;
-            continue;
         }
-
-        if ( var_17 > var_7 )
+        else if ( var_17 > var_7 )
         {
             if ( self.a._id_5F5B != "stop" )
             {
@@ -951,10 +938,8 @@ _id_2FE4( var_0, var_1, var_2, var_3, var_4 )
             }
 
             continue;
-            continue;
         }
-
-        if ( var_16 > var_8 )
+        else if ( var_16 > var_8 )
         {
             _id_2FE2( "jog" );
             wait 0.5;
@@ -975,16 +960,16 @@ _id_8E78()
     if ( isdefined( level._id_78AC["generic"]["DRS_run"] ) )
     {
         if ( isarray( level._id_78AC["generic"]["DRS_run"] ) )
-            _id_A5A4::_id_7E46( "DRS_run" );
+            maps\_utility::_id_7E46( "DRS_run" );
         else
-            _id_A5A4::_id_7E45( "DRS_run" );
+            maps\_utility::_id_7E45( "DRS_run" );
     }
     else
-        _id_A5A4::_id_1ED1();
+        maps\_utility::_id_1ED1();
 
     self notify( "stop_loop" );
-    _id_A5A4::_id_32DA( "dynamic_run_speed_stopping" );
-    _id_A5A4::_id_32DA( "dynamic_run_speed_stopped" );
+    maps\_utility::_id_32DA( "dynamic_run_speed_stopping" );
+    maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
 }
 
 _id_8E79()
@@ -998,14 +983,14 @@ _id_2FE1( var_0, var_1 )
     if ( !isdefined( var_0.classname ) )
     {
         if ( !isdefined( var_0.unlockpoints ) )
-            var_2 = _id_A581::_id_3E8E;
+            var_2 = maps\_spawner::_id_3E8E;
         else
-            var_2 = _id_A581::_id_3E8C;
+            var_2 = maps\_spawner::_id_3E8C;
     }
     else
-        var_2 = _id_A581::_id_3E8A;
+        var_2 = maps\_spawner::_id_3E8A;
 
-    return _id_A581::_id_4247( var_0, var_2, var_1 );
+    return maps\_spawner::_id_4247( var_0, var_2, var_1 );
 }
 
 _id_2FE2( var_0 )
@@ -1024,13 +1009,13 @@ _id_2FE2( var_0 )
                 self._id_5F65 = 1.15;
 
             if ( isarray( level._id_78AC["generic"]["DRS_sprint"] ) )
-                _id_A5A4::_id_7E46( "DRS_sprint" );
+                maps\_utility::_id_7E46( "DRS_sprint" );
             else
-                _id_A5A4::_id_7E45( "DRS_sprint" );
+                maps\_utility::_id_7E45( "DRS_sprint" );
 
             self notify( "stop_loop" );
-            _id_A5A4::_id_0C3D();
-            _id_A5A4::_id_32DA( "dynamic_run_speed_stopped" );
+            maps\_utility::_id_0C3D();
+            maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
             break;
         case "run":
             if ( !self._id_2D2C )
@@ -1039,16 +1024,16 @@ _id_2FE2( var_0 )
             if ( isdefined( level._id_78AC["generic"]["DRS_run"] ) )
             {
                 if ( isarray( level._id_78AC["generic"]["DRS_run"] ) )
-                    _id_A5A4::_id_7E46( "DRS_run" );
+                    maps\_utility::_id_7E46( "DRS_run" );
                 else
-                    _id_A5A4::_id_7E45( "DRS_run" );
+                    maps\_utility::_id_7E45( "DRS_run" );
             }
             else
-                _id_A5A4::_id_1ED1();
+                maps\_utility::_id_1ED1();
 
             self notify( "stop_loop" );
-            _id_A5A4::_id_0C3D();
-            _id_A5A4::_id_32DA( "dynamic_run_speed_stopped" );
+            maps\_utility::_id_0C3D();
+            maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
             break;
         case "stop":
             thread _id_2FE5();
@@ -1060,16 +1045,16 @@ _id_2FE2( var_0 )
             if ( isdefined( level._id_78AC["generic"]["DRS_combat_jog"] ) )
             {
                 if ( isarray( level._id_78AC["generic"]["DRS_combat_jog"] ) )
-                    _id_A5A4::_id_7E46( "DRS_combat_jog" );
+                    maps\_utility::_id_7E46( "DRS_combat_jog" );
                 else
-                    _id_A5A4::_id_7E45( "DRS_combat_jog" );
+                    maps\_utility::_id_7E45( "DRS_combat_jog" );
             }
             else
-                _id_A5A4::_id_1ED1();
+                maps\_utility::_id_1ED1();
 
             self notify( "stop_loop" );
-            _id_A5A4::_id_0C3D();
-            _id_A5A4::_id_32DA( "dynamic_run_speed_stopped" );
+            maps\_utility::_id_0C3D();
+            maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
             break;
         case "crouch":
             break;
@@ -1080,46 +1065,46 @@ _id_2FE5()
 {
     self endon( "death" );
 
-    if ( _id_A5A4::_id_32D8( "dynamic_run_speed_stopped" ) )
+    if ( maps\_utility::_id_32D8( "dynamic_run_speed_stopped" ) )
         return;
 
-    if ( _id_A5A4::_id_32D8( "dynamic_run_speed_stopping" ) )
+    if ( maps\_utility::_id_32D8( "dynamic_run_speed_stopping" ) )
         return;
 
     self endon( "stop_dynamic_run_speed" );
-    _id_A5A4::_id_32DE( "dynamic_run_speed_stopping" );
-    _id_A5A4::_id_32DE( "dynamic_run_speed_stopped" );
+    maps\_utility::_id_32DE( "dynamic_run_speed_stopping" );
+    maps\_utility::_id_32DE( "dynamic_run_speed_stopped" );
     self endon( "dynamic_run_speed_stopped" );
     var_0 = "DRS_run_2_stop";
-    _id_A510::_id_0BCA( self, "gravity", var_0 );
-    _id_A5A4::_id_32DA( "dynamic_run_speed_stopping" );
+    maps\_anim::_id_0BCA( self, "gravity", var_0 );
+    maps\_utility::_id_32DA( "dynamic_run_speed_stopping" );
 
-    while ( _id_A5A4::_id_32D8( "dynamic_run_speed_stopped" ) )
+    while ( maps\_utility::_id_32D8( "dynamic_run_speed_stopped" ) )
     {
         var_1 = "DRS_stop_idle";
-        thread _id_A510::_id_0BCE( self, var_1 );
+        thread maps\_anim::_id_0BCE( self, var_1 );
 
         if ( isdefined( level._id_78AC["generic"]["signal_go"] ) )
-            _id_A5A4::_id_4697( "go" );
+            maps\_utility::_id_4697( "go" );
 
         wait(randomfloatrange( 12, 20 ));
 
-        if ( _id_A5A4::_id_32DC( "_stealth_stance_handler" ) )
-            _id_A5A4::_id_32E4( "_stealth_stance_handler" );
+        if ( maps\_utility::_id_32DC( "_stealth_stance_handler" ) )
+            maps\_utility::_id_32E4( "_stealth_stance_handler" );
 
         self notify( "stop_loop" );
 
-        if ( !_id_A5A4::_id_32D8( "dynamic_run_speed_stopped" ) )
+        if ( !maps\_utility::_id_32D8( "dynamic_run_speed_stopped" ) )
             return;
 
         if ( isdefined( level._id_2FE3 ) )
         {
             var_2 = common_scripts\utility::_id_710E( level._id_2FE3 );
-            level thread _id_A5A4::_id_70C4( var_2 );
+            level thread maps\_utility::_id_70C4( var_2 );
         }
 
         if ( isdefined( level._id_78AC["generic"]["signal_go"] ) )
-            _id_A5A4::_id_4697( "go" );
+            maps\_utility::_id_4697( "go" );
     }
 }
 
@@ -1166,7 +1151,7 @@ _id_5F77( var_0, var_1, var_2, var_3, var_4 )
         var_5 += var_6;
 
         if ( isai( var_0 ) )
-            var_0 _id_A5A4::_id_7E81( var_5, undefined, var_4 );
+            var_0 maps\_utility::_id_7E81( var_5, undefined, var_4 );
         else
             var_0 setmovespeedscale( var_5 );
 
@@ -1174,7 +1159,7 @@ _id_5F77( var_0, var_1, var_2, var_3, var_4 )
     }
 
     if ( isai( var_0 ) )
-        var_0 _id_A5A4::_id_7E81( var_2, undefined, var_4 );
+        var_0 maps\_utility::_id_7E81( var_2, undefined, var_4 );
     else
         var_0 setmovespeedscale( var_2 );
 }
@@ -1218,7 +1203,7 @@ _id_115C()
 {
     level notify( "autosave_tactical_proc" );
     level endon( "autosave_tactical_proc" );
-    level thread _id_A5A4::_id_61FD( "kill_save", 5 );
+    level thread maps\_utility::_id_61FD( "kill_save", 5 );
     level endon( "kill_save" );
     level endon( "autosave_tactical_player_nade" );
 
@@ -1239,20 +1224,20 @@ _id_115C()
     }
 
     waitframe;
-    _id_A5A4::_id_1143();
+    maps\_utility::_id_1143();
 }
 
 _id_6004( var_0, var_1, var_2, var_3 )
 {
-    _id_A5A4::_id_6005( var_1 );
+    maps\_utility::_id_6005( var_1 );
     level endon( "stop_music" );
     wait(var_1);
-    thread _id_A5A4::_id_6003( var_0, undefined, var_2, var_3 );
+    thread maps\_utility::_id_6003( var_0, undefined, var_2, var_3 );
 }
 
 _id_6000( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    _id_A5A4::_id_6005( var_2 );
+    maps\_utility::_id_6005( var_2 );
     level endon( "stop_music" );
     wait(var_2);
     thread _id_5FFF( var_0, var_1, undefined, var_3, var_4, var_5 );
@@ -1266,9 +1251,9 @@ _id_5FFF( var_0, var_1, var_2, var_3, var_4, var_5 )
         return;
     }
 
-    _id_A5A4::_id_6005();
+    maps\_utility::_id_6005();
     level endon( "stop_music" );
-    _id_A5A4::_id_6008( var_0, var_3, var_4 );
+    maps\_utility::_id_6008( var_0, var_3, var_4 );
 
     if ( isdefined( var_5 ) && var_5 == 1 && common_scripts\utility::_id_3839( "_stealth_spotted" ) )
     {
@@ -1276,7 +1261,7 @@ _id_5FFF( var_0, var_1, var_2, var_3, var_4, var_5 )
         thread _id_6002( var_0, var_1, var_2 );
     }
 
-    var_6 = _id_A5A4::_id_6007( var_0 );
+    var_6 = maps\_utility::_id_6007( var_0 );
 
     if ( !isdefined( var_1 ) )
         var_1 = 1;
@@ -1285,7 +1270,7 @@ _id_5FFF( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_6 += var_1;
 
     wait(var_6);
-    _id_A5A4::_id_5FFE( var_0, var_1, var_2, var_3, var_4 );
+    maps\_utility::_id_5FFE( var_0, var_1, var_2, var_3, var_4 );
 }
 
 _id_6002( var_0, var_1, var_2 )
@@ -1300,7 +1285,7 @@ _id_6002( var_0, var_1, var_2 )
         wait 1;
     }
 
-    thread _id_A5A4::_id_5FFE( var_0, var_1, var_2 );
+    thread maps\_utility::_id_5FFE( var_0, var_1, var_2 );
 }
 
 _id_2D7B( var_0, var_1, var_2 )
@@ -1329,7 +1314,7 @@ _id_5307( var_0, var_1 )
     if ( isdefined( var_0 ) )
         wait(randomfloat( var_0 ));
 
-    if ( isdefined( var_1 ) && var_1 && _id_A5A4::_id_6A98( self ) )
+    if ( isdefined( var_1 ) && var_1 && maps\_utility::_id_6A98( self ) )
         return;
 
     playfxontag( common_scripts\utility::_id_3FA8( "flesh_hit" ), self, "tag_eye" );
@@ -1474,7 +1459,7 @@ _id_7064( var_0 )
     var_1._not_team = var_0._not_team;
     var_1.destructible_type = var_0.destructible_type;
     var_1._id_7A7E = var_0._id_7A7E;
-    var_0 _id_A5A4::_id_6EBA( var_0.destructible_type );
+    var_0 maps\_utility::_id_6EBA( var_0.destructible_type );
     self._id_293A[self._id_293A.size] = var_1;
     var_0 notify( "masking_destructible" );
     var_0 delete();
@@ -1527,7 +1512,7 @@ _id_27D0( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 _id_3870( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     self endon( "death" );
-    self endon( _id_A5A4::_id_8F53( var_1[0] + "_stop_flagWaitThread" ) );
+    self endon( maps\_utility::_id_8F53( var_1[0] + "_stop_flagWaitThread" ) );
     common_scripts\utility::_id_384A( var_1[0] );
     _id_27F1( var_0, var_1[1], var_2, var_3, var_4, var_5, var_6, var_7 );
 }
@@ -1535,7 +1520,7 @@ _id_3870( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 _id_A0F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     self endon( "death" );
-    self endon( _id_A5A4::_id_8F53( var_1[0] + "_stop_waittillThread" ) );
+    self endon( maps\_utility::_id_8F53( var_1[0] + "_stop_waittillThread" ) );
     self waittill( var_1[0] );
     _id_27F1( var_0, var_1[1], var_2, var_3, var_4, var_5, var_6, var_7 );
 }
@@ -1648,7 +1633,7 @@ _id_07AA( var_0 )
 
 _id_62F4( var_0 )
 {
-    if ( !_id_A5A4::_id_5016() )
+    if ( !maps\_utility::_id_5016() )
         return;
 
     var_1 = _id_3DB8();
@@ -1663,7 +1648,7 @@ _id_62F4( var_0 )
 
 _id_5CD7( var_0 )
 {
-    if ( _id_A5A4::_id_5016() )
+    if ( maps\_utility::_id_5016() )
     {
         if ( !isdefined( var_0 ) )
             var_0 = 1;
@@ -1735,5 +1720,5 @@ _id_0674()
 _id_0673()
 {
     self waittill( "trigger" );
-    _id_A5A4::_id_92D5();
+    maps\_utility::_id_92D5();
 }

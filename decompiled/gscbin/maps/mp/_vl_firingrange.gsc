@@ -1095,15 +1095,14 @@ _id_7834()
             wait 0.05;
 
             if ( level._id_4C03 == 1 || getdvarint( "virtualLobbyInFiringRange", 0 ) == 1 )
+                continue;
+            else
             {
-                continue;
-                continue;
+                level._id_3806._id_88AB = common_scripts\utility::_id_0CF9( level._id_3806._id_88AB );
+
+                foreach ( var_1 in level._id_3806._id_88AB )
+                    var_1 scalevolume( 0, 0.5 );
             }
-
-            level._id_3806._id_88AB = common_scripts\utility::_id_0CF9( level._id_3806._id_88AB );
-
-            foreach ( var_1 in level._id_3806._id_88AB )
-                var_1 scalevolume( 0, 0.5 );
         }
     }
 }
@@ -1204,13 +1203,12 @@ _id_43FA( var_0 )
                 if ( var_2.owner == self )
                 {
                     if ( !isdefined( var_2._id_A2DF ) )
+                        continue;
+                    else
                     {
-                        continue;
-                        continue;
+                        var_2 notify( "death" );
+                        var_2 thread _id_27D3();
                     }
-
-                    var_2 notify( "death" );
-                    var_2 thread _id_27D3();
                 }
             }
         }

@@ -21,7 +21,7 @@
 
 main()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return;
 
     precachestring( &"SCRIPT_INTELLIGENCE_OF_THIRTY" );
@@ -156,7 +156,7 @@ _id_4E96()
     level thread common_scripts\utility::_id_69C2( "intelligence_pickup", self.j_exoclav04_r.origin );
     var_0 = 3000;
     var_1 = 700;
-    var_2 = _id_A546::_id_2420( "h1_hud_ammo_status_glow", 400, 75 );
+    var_2 = maps\_hud_util::_id_2420( "h1_hud_ammo_status_glow", 400, 75 );
     var_2.color = ( 1, 0.95, 0.4 );
     var_2.xpmaxmultipliertimeplayed = 0;
     var_2._id_0538 = -65;
@@ -166,7 +166,7 @@ _id_4E96()
     var_2.visionsetnight = "middle";
     var_2.foreground = 1;
     var_2.alpha = 0.0;
-    var_3 = _id_A546::_id_2420( "h1_hud_ammo_status_scanlines", 800, 75 );
+    var_3 = maps\_hud_util::_id_2420( "h1_hud_ammo_status_scanlines", 800, 75 );
     var_3.color = ( 1, 0.85, 0 );
     var_3.xpmaxmultipliertimeplayed = 0;
     var_3._id_0538 = -65;
@@ -176,17 +176,17 @@ _id_4E96()
     var_3.visionsetnight = "middle";
     var_3.foreground = 1;
     var_3.alpha = 0.0;
-    var_4 = _id_A546::_id_2401( "objective", 1.5 );
+    var_4 = maps\_hud_util::_id_2401( "objective", 1.5 );
     var_4 _id_814B();
     var_4 setpulsefx( 19, var_0, var_1 );
     var_4 setvalue( intel_found_total() );
     var_5 = intel_found_total();
 
     if ( var_5 == 15 || maps\_achievements::platform_tracks_progression() )
-        _id_A5A4::_id_41DD( "LOOK_SHARP" );
+        maps\_utility::_id_41DD( "LOOK_SHARP" );
 
     if ( var_5 == 30 || maps\_achievements::platform_tracks_progression() )
-        _id_A5A4::_id_41DD( "EYES_AND_EARS" );
+        maps\_utility::_id_41DD( "EYES_AND_EARS" );
 
     wait 0.7;
     var_2.alpha = 0.5;

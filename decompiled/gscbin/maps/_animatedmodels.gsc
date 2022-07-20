@@ -269,7 +269,7 @@ heliwind_init_spawn_tracker()
     {
         if ( isdefined( var_2.visionsetnaked ) )
         {
-            if ( var_2 _id_A5A8::_id_5118() )
+            if ( var_2 maps\_vehicle::_id_5118() )
                 var_2 thread heliwind_track_heli_alive();
         }
     }

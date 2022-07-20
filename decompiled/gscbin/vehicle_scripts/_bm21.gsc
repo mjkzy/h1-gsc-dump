@@ -22,32 +22,32 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "bm21", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_bm21_mobile", "vehicle_bm21_mobile_dstry" );
+    maps\_vehicle::_id_186C( "bm21", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_bm21_mobile", "vehicle_bm21_mobile_dstry" );
     precachemodel( "projectile_bm21_missile" );
-    _id_A5A8::_id_1842( "fx/explosions/small_vehicle_explosion", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_med_pm", "tag_deathfx", "fire_metal_medium", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_cab", undefined, undefined, undefined, undefined, 0 );
-    _id_A5A8::_id_1842( "fx/explosions/grenadeexp_default", "tag_missile18", "explo_metal_rand", undefined, undefined, undefined, 0.5 );
-    _id_A5A8::_id_1842( "fx/explosions/grenadeexp_default", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 0.8 );
-    _id_A5A8::_id_1842( "fx/explosions/grenadeexp_default", "tag_missile14", "explo_metal_rand", undefined, undefined, undefined, 1.0 );
-    _id_A5A8::_id_1842( "fx/explosions/grenadeexp_default", "tag_flash", "explo_metal_rand", undefined, undefined, undefined, 1.4 );
-    _id_A5A8::_id_1842( "fx/explosions/vehicle_explosion_bm21", undefined, "car_explode", undefined, undefined, undefined, 2.6 );
-    _id_A5A8::_id_1842( "fx/explosions/vehicle_explosion_bm21_tires", "tag_deathfx", undefined, undefined, undefined, undefined, 2.6 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", undefined, undefined, undefined, undefined, 2.7 );
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_1849( %bm21_driving_idle_forward, %bm21_driving_idle_backward, 10 );
+    maps\_vehicle::_id_1842( "fx/explosions/small_vehicle_explosion", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_med_pm", "tag_deathfx", "fire_metal_medium", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_cab", undefined, undefined, undefined, undefined, 0 );
+    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tag_missile18", "explo_metal_rand", undefined, undefined, undefined, 0.5 );
+    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 0.8 );
+    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tag_missile14", "explo_metal_rand", undefined, undefined, undefined, 1.0 );
+    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tag_flash", "explo_metal_rand", undefined, undefined, undefined, 1.4 );
+    maps\_vehicle::_id_1842( "fx/explosions/vehicle_explosion_bm21", undefined, "car_explode", undefined, undefined, undefined, 2.6 );
+    maps\_vehicle::_id_1842( "fx/explosions/vehicle_explosion_bm21_tires", "tag_deathfx", undefined, undefined, undefined, undefined, 2.6 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", undefined, undefined, undefined, undefined, 2.7 );
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_1849( %bm21_driving_idle_forward, %bm21_driving_idle_backward, 10 );
     var_3 = var_2;
-    _id_A5A8::_id_1857( var_3, "headlight_bm21_left", "tag_headlight_left", "fx/misc/car_headlight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_3, "headlight_bm21_right", "tag_headlight_right", "fx/misc/car_headlight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_3, "parkinglight_bm21_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_3, "parkinglight_bm21_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_3, "taillight_bm21_right", "tag_taillight_right", "fx/misc/car_taillight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_3, "taillight_bm21_left", "tag_taillight_left", "fx/misc/car_taillight_bm21", "headlights" );
-    _id_A5A8::_id_1857( var_3, "breaklight_bm21_right", "tag_taillight_right", "fx/misc/car_brakelight_bm21", "brakelights" );
-    _id_A5A8::_id_1857( var_3, "breaklight_bm21_left", "tag_taillight_left", "fx/misc/car_brakelight_bm21", "brakelights" );
+    maps\_vehicle::_id_1857( var_3, "headlight_bm21_left", "tag_headlight_left", "fx/misc/car_headlight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_3, "headlight_bm21_right", "tag_headlight_right", "fx/misc/car_headlight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_3, "parkinglight_bm21_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_3, "parkinglight_bm21_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_3, "taillight_bm21_right", "tag_taillight_right", "fx/misc/car_taillight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_3, "taillight_bm21_left", "tag_taillight_left", "fx/misc/car_taillight_bm21", "headlights" );
+    maps\_vehicle::_id_1857( var_3, "breaklight_bm21_right", "tag_taillight_right", "fx/misc/car_brakelight_bm21", "brakelights" );
+    maps\_vehicle::_id_1857( var_3, "breaklight_bm21_left", "tag_taillight_left", "fx/misc/car_brakelight_bm21", "brakelights" );
 }
 
 _id_4D10()
@@ -80,5 +80,5 @@ _id_4D10()
     self._id_5CCA[23] = "tag_missile24";
     self._id_5CCA[24] = "tag_missile25";
     self._id_5CCA[25] = "tag_missile26";
-    thread _id_A5AC::main();
+    thread maps\_vehicle_missile::main();
 }

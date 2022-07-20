@@ -147,16 +147,16 @@ _id_87AC( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
 {
     var_13 = self;
-    var_14 = "sndx_play_alias_" + _id_A5E8::_id_8718();
+    var_14 = "sndx_play_alias_" + soundscripts\_snd::_id_8718();
     level endon( var_14 );
     var_5 endon( "death" );
-    var_6 = _id_A5DC::_id_0F30( undefined, var_6 );
-    var_7 = _id_A5DC::_id_0F30( 0.0, var_7 );
-    var_8 = _id_A5DC::_id_0F30( 0.1, var_8 );
-    var_9 = _id_A5DC::_id_0F30( 1.0, var_9 );
-    var_10 = _id_A5DC::_id_0F30( ( 0, 0, 0 ), var_10 );
-    var_11 = _id_A5DC::_id_0F30( 0, var_11 );
-    var_12 = _id_A5DC::_id_0F30( 0, var_12 );
+    var_6 = soundscripts\_audio::_id_0F30( undefined, var_6 );
+    var_7 = soundscripts\_audio::_id_0F30( 0.0, var_7 );
+    var_8 = soundscripts\_audio::_id_0F30( 0.1, var_8 );
+    var_9 = soundscripts\_audio::_id_0F30( 1.0, var_9 );
+    var_10 = soundscripts\_audio::_id_0F30( ( 0, 0, 0 ), var_10 );
+    var_11 = soundscripts\_audio::_id_0F30( 0, var_11 );
+    var_12 = soundscripts\_audio::_id_0F30( 0, var_12 );
 
     if ( var_2 )
     {
@@ -172,7 +172,7 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( var_11 > 0 )
     {
         if ( var_12 )
-            _id_A5DC::_id_1094( var_11 );
+            soundscripts\_audio::_id_1094( var_11 );
         else
             wait(var_11);
     }
@@ -245,10 +245,10 @@ _id_872A( var_0, var_1, var_2 )
 {
     if ( soundexists( var_0 ) )
     {
-        self.guid = _id_A5E8::_id_8718();
+        self.guid = soundscripts\_snd::_id_8718();
         self._id_8702 = 1;
-        var_1 = _id_A5DC::_id_0F30( undefined, var_1 );
-        var_2 = _id_A5DC::_id_0F30( 0, var_2 );
+        var_1 = soundscripts\_audio::_id_0F30( undefined, var_1 );
+        var_2 = soundscripts\_audio::_id_0F30( 0, var_2 );
         self playsound( var_0, var_1, 0, var_2 );
     }
     else
@@ -264,7 +264,7 @@ _id_873E( var_0 )
         if ( !isdefined( self._id_8701 ) )
         {
             self playloopsound( var_0 );
-            self.guid = _id_A5E8::_id_8718();
+            self.guid = soundscripts\_snd::_id_8718();
             self._id_8701 = 1;
         }
         else

@@ -21,13 +21,13 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A631::main( var_0, "mi17", var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
-    _id_A5A8::_id_183B( ::_id_7DDA );
-    _id_A5A8::_id_1873( ::_id_9A3D );
-    _id_A5A8::_id_1855();
+    vehicle_scripts\_mi17_noai::main( var_0, "mi17", var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_183B( ::_id_7DDA );
+    maps\_vehicle::_id_1873( ::_id_9A3D );
+    maps\_vehicle::_id_1855();
 }
 
 _id_4D10()
@@ -35,7 +35,7 @@ _id_4D10()
     self._id_65A7 = distance( self gettagorigin( "tag_origin" ), self gettagorigin( "tag_ground" ) );
     self._id_367F = 710;
     self._id_7957 = 0;
-    _id_A5A8::_id_9D02( "running" );
+    maps\_vehicle::_id_9D02( "running" );
     thread _id_4521();
     thread keep_ragdolls_alive();
 }
@@ -54,7 +54,7 @@ _id_4521()
     self endon( "death" );
     var_0 = 0;
     var_1 = 12000;
-    _id_A630::_id_86FA();
+    vehicle_scripts\_mi17_aud::_id_86FA();
     thread _id_5D80();
 
     if ( isdefined( level.override_aud_mi17_dist_treshold ) )
@@ -68,19 +68,19 @@ _id_4521()
 
             if ( var_0 && var_2 > var_1 )
             {
-                _id_A630::_id_8777( 1.0 );
+                vehicle_scripts\_mi17_aud::_id_8777( 1.0 );
                 var_0 = 0;
                 wait 0.1;
             }
             else if ( !var_0 && var_2 < var_1 )
             {
-                _id_A630::_id_876D();
+                vehicle_scripts\_mi17_aud::_id_876D();
                 var_0 = 1;
             }
         }
         else if ( var_0 )
         {
-            _id_A630::_id_8777( 1.0 );
+            vehicle_scripts\_mi17_aud::_id_8777( 1.0 );
             var_0 = 0;
         }
 
@@ -91,7 +91,7 @@ _id_4521()
 _id_5D80()
 {
     self waittill( "death" );
-    _id_A630::_id_8777( 1.0 );
+    vehicle_scripts\_mi17_aud::_id_8777( 1.0 );
 }
 #using_animtree("vehicles");
 

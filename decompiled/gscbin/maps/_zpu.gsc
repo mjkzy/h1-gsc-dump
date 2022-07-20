@@ -129,10 +129,10 @@ waittill_death_or_dismount( var_0, var_1, var_2 )
 {
     var_1 endon( "death" );
     var_1 endon( "damage" );
-    var_0 _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "trigger" );
-    var_1 _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "doFlashBanged" );
-    var_1 _id_A5A4::_id_075B( "death" );
-    _id_A5A4::_id_2BDD();
+    var_0 maps\_utility::_id_07BE( maps\_utility::_id_A099, "trigger" );
+    var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "doFlashBanged" );
+    var_1 maps\_utility::_id_075B( "death" );
+    maps\_utility::_id_2BDD();
     var_1 waittillmatch( "looping anim", "end" );
     var_2 notify( "stop_looping" );
     var_1 thread zpugunner_dismount( var_2 );
@@ -157,16 +157,16 @@ gunner_death_think( var_0 )
     self notify( "dying_damage" );
     self.a._id_612E = 1;
     self._id_2652 = level._id_78AC["zpu_gunner"]["deathslouch"];
-    var_0 thread _id_A510::_id_0C24( self, "deathslouch", "tag_driver" );
+    var_0 thread maps\_anim::_id_0C24( self, "deathslouch", "tag_driver" );
     wait 0.5;
-    _id_A5A4::_id_2A51();
+    maps\_utility::_id_2A51();
 }
 
 spawn_gunner()
 {
-    var_0 = _id_A5A4::_id_88C3();
+    var_0 = maps\_utility::_id_88C3();
 
-    if ( _id_A5A4::_id_88F1( var_0 ) )
+    if ( maps\_utility::_id_88F1( var_0 ) )
         return;
 
     var_0 endon( "death" );
@@ -188,8 +188,8 @@ load_zpu_anims()
     level._id_78B1["zpu_gun"] = #animtree;
     level._id_78AC["zpu_gun"]["fire_loop"][0] = %zpu_gun_fire_a;
     level._id_78AC["zpu_gun"]["fire_loop"][1] = %zpu_gun_fire_b;
-    _id_A510::_id_0807( "zpu_gun", "fire_1", ::zpu_shoot1 );
-    _id_A510::_id_0807( "zpu_gun", "fire_2", ::zpu_shoot2 );
+    maps\_anim::_id_0807( "zpu_gun", "fire_1", ::zpu_shoot1 );
+    maps\_anim::_id_0807( "zpu_gun", "fire_2", ::zpu_shoot2 );
 }
 #using_animtree("generic_human");
 
@@ -226,11 +226,11 @@ zpugunner_animation_think( var_0 )
     var_0 endon( "new gunner" );
     self._id_0C72 = "zpu_gunner";
     var_0._id_0C72 = "zpu_gun";
-    var_0 _id_A5A4::_id_0D61();
+    var_0 maps\_utility::_id_0D61();
     var_1 = [];
-    var_1[var_1.size] = _id_A510::_id_0BAB( var_0, "tag_driver" );
-    var_1[var_1.size] = var_0 _id_A510::_id_0BAC();
-    var_0 thread _id_A510::_id_0BDF( var_1, "fire_loop", "stop_looping" );
+    var_1[var_1.size] = maps\_anim::_id_0BAB( var_0, "tag_driver" );
+    var_1[var_1.size] = var_0 maps\_anim::_id_0BAC();
+    var_0 thread maps\_anim::_id_0BDF( var_1, "fire_loop", "stop_looping" );
 }
 
 zpugunner_dismount( var_0 )
@@ -239,8 +239,8 @@ zpugunner_dismount( var_0 )
     self endon( "dying_damage" );
     self._id_0C72 = "zpu_gunner";
     var_0._id_0C72 = "zpu_gun";
-    var_0 _id_A5A4::_id_0D61();
-    var_0 thread _id_A510::_id_0C24( self, "dismount", "tag_driver" );
+    var_0 maps\_utility::_id_0D61();
+    var_0 thread maps\_anim::_id_0C24( self, "dismount", "tag_driver" );
     wait 0.8;
     self.helmet = 100;
     self notify( "dismount" );

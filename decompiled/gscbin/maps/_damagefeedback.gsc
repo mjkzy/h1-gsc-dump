@@ -23,10 +23,10 @@ init()
 {
     precacheshader( "damage_feedback" );
     precacheshader( "damage_feedback_headshot" );
-    _id_A5A4::_id_30B2();
-    _id_A5A4::_id_30B3();
+    maps\_utility::_id_30B2();
+    maps\_utility::_id_30B3();
     common_scripts\utility::_id_0D13( level.players, ::_id_4CCF );
-    common_scripts\utility::_id_0D13( level.players, _id_A5A4::_id_3C8C );
+    common_scripts\utility::_id_0D13( level.players, maps\_utility::_id_3C8C );
     common_scripts\utility::_id_0D13( level.players, ::_id_5E3F );
 }
 
@@ -54,12 +54,12 @@ _id_4CCF()
 
 _id_5E3F()
 {
-    _id_A5A4::_id_0749( ::_id_259E );
+    maps\_utility::_id_0749( ::_id_259E );
 }
 
 _id_8EF9()
 {
-    _id_A5A4::_id_733C( ::_id_259E );
+    maps\_utility::_id_733C( ::_id_259E );
 }
 
 _id_259E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -115,7 +115,7 @@ _id_9B0C( var_0, var_1 )
 
 _id_9B0E( var_0 )
 {
-    if ( !_id_A5A4::_id_5012() )
+    if ( !maps\_utility::_id_5012() )
         return;
 
     if ( isdefined( var_0 ) && isdefined( var_0._id_2B02 ) && var_0._id_2B02 )
@@ -137,7 +137,7 @@ _id_9B0E( var_0 )
 
 _id_9B0D( var_0, var_1 )
 {
-    if ( !_id_A5A4::_id_5011() )
+    if ( !maps\_utility::_id_5011() )
         return;
 
     if ( !isplayer( self ) )

@@ -43,8 +43,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "icbm", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "icbm" );
+    maps\_utility::_id_9E6E( "icbm", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "icbm" );
     level.playercardbackground _meth_848c( "clut_icbm", 0.0 );
 }
 
@@ -63,7 +63,7 @@ sun_rise_handling_init()
     var_2.invisible = 20;
     thread handle_sunrise2_colors();
     wait 0.05;
-    _id_A5A4::_id_9E6E( "icbm_sunrise0", 0 );
+    maps\_utility::_id_9E6E( "icbm_sunrise0", 0 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise0", 0.0 );
     thread sunrise_lerp_loop();
 }
@@ -75,7 +75,7 @@ handle_sunrise2_colors()
     setsaveddvar( "sm_sunEnable", 1 );
     setsaveddvar( "sm_spotEnable", 1 );
     var_1 = var_0.invisible;
-    sun_set_lerp_parameters( "sun", _id_A5A4::vector_multiply( ( 1, 0.65, 0.4 ), 1 ), var_1 );
+    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1, 0.65, 0.4 ), 1 ), var_1 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise2", var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise2", "icbm_sunrise_02", var_1 );
     thread stop_snow();
@@ -102,7 +102,7 @@ stop_snow()
 
 remove_cloud_cover()
 {
-    var_0 = _id_A5A4::_id_3FA9( "cloud_cover" );
+    var_0 = maps\_utility::_id_3FA9( "cloud_cover" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] common_scripts\utility::_id_671F();
@@ -113,7 +113,7 @@ handle_sunrise3_colors()
     var_0 = getent( "sunrise3", "targetname" );
     var_0 waittill( "trigger" );
     var_1 = var_0.invisible;
-    sun_set_lerp_parameters( "sun", _id_A5A4::vector_multiply( ( 1, 0.8, 0.6 ), 1 ), var_1 );
+    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1, 0.8, 0.6 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise3", "icbm_sunrise_03", var_1 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise3", var_1 );
     thread handle_sunrise4_colors();
@@ -136,7 +136,7 @@ handle_sunrise4_colors()
     var_0 = getent( "sunrise4", "targetname" );
     var_0 waittill( "trigger" );
     var_1 = var_0.invisible;
-    sun_set_lerp_parameters( "sun", _id_A5A4::vector_multiply( ( 1, 1, 1 ), 1 ), var_1 );
+    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1, 1, 1 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise4", "icbm_sunrise_04", var_1 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise4", var_1 );
 }
@@ -161,12 +161,12 @@ launchvision()
 {
     wait 5;
     thread handle_launch_cinematic_effects();
-    level.playercardbackground _id_A5A4::set_light_set_player( "icbm_launch" );
-    _id_A5A4::_id_9E6E( "icbm_launch", 0.5 );
+    level.playercardbackground maps\_utility::set_light_set_player( "icbm_launch" );
+    maps\_utility::_id_9E6E( "icbm_launch", 0.5 );
     level.playercardbackground _meth_848c( "clut_icbm_launch", 0.5 );
     wait 2;
-    _id_A5A4::_id_9E6E( "icbm_sunrise4", 5 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "icbm_sunrise_04" );
+    maps\_utility::_id_9E6E( "icbm_sunrise4", 5 );
+    level.playercardbackground maps\_utility::set_light_set_player( "icbm_sunrise_04" );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise4", 5 );
     level notify( "missile_vision_done" );
 }
@@ -188,13 +188,13 @@ set_interior_vision()
     for (;;)
     {
         common_scripts\utility::_id_384A( "player_is_inside" );
-        _id_A5A4::_id_7F00( "icbm_village_interior", 2 );
-        _id_A5A4::_id_9E6E( "icbm_village_interior", 2 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "icbm_village_interior" );
+        maps\_utility::_id_7F00( "icbm_village_interior", 2 );
+        maps\_utility::_id_9E6E( "icbm_village_interior", 2 );
+        level.playercardbackground maps\_utility::set_light_set_player( "icbm_village_interior" );
         common_scripts\utility::_id_3857( "player_is_inside" );
-        _id_A5A4::_id_7F00( level.outside_vision_set, 2 );
-        _id_A5A4::_id_9E6E( level.outside_vision_set, 6 );
-        level.playercardbackground _id_A5A4::set_light_set_player( level.outside_light_set );
+        maps\_utility::_id_7F00( level.outside_vision_set, 2 );
+        maps\_utility::_id_9E6E( level.outside_vision_set, 6 );
+        level.playercardbackground maps\_utility::set_light_set_player( level.outside_light_set );
     }
 }
 
@@ -209,7 +209,7 @@ lerp_sun_color( var_0, var_1 )
     var_3 = var_2["start"];
     var_4 = var_2["target"];
     var_5 = var_2["timePassed"] / var_2["timeTotal"];
-    var_2["current"] = _id_A5A4::vector_multiply( var_3, 1 - var_5 ) + _id_A5A4::vector_multiply( var_4, var_5 );
+    var_2["current"] = maps\_utility::vector_multiply( var_3, 1 - var_5 ) + maps\_utility::vector_multiply( var_4, var_5 );
     level.sunriseinterpcolors[var_0] = var_2;
     return var_2["current"];
 }
@@ -221,9 +221,9 @@ set_exterior_vision_and_light_set( var_0, var_1, var_2 )
 
     if ( !level.playerisinside )
     {
-        _id_A5A4::_id_7F00( level.outside_vision_set, var_2 );
-        _id_A5A4::_id_9E6E( level.outside_vision_set, var_2 );
-        level.playercardbackground _id_A5A4::set_light_set_player( level.outside_light_set );
+        maps\_utility::_id_7F00( level.outside_vision_set, var_2 );
+        maps\_utility::_id_9E6E( level.outside_vision_set, var_2 );
+        level.playercardbackground maps\_utility::set_light_set_player( level.outside_light_set );
     }
 }
 

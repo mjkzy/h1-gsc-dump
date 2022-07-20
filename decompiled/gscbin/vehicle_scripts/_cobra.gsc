@@ -22,22 +22,22 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "cobra", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_cobra_helicopter", "vehicle_cobra_helicopter_fly" );
-    _id_A5A8::_id_1845( "vehicle_cobra_helicopter_fly", "vehicle_cobra_helicopter_fly" );
-    _id_A5A8::_id_1849( %bh_rotors, undefined, 0, 3.0 );
-    _id_A5A8::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_185A();
-    _id_A5A8::_id_1857( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.1 );
-    _id_A5A8::_id_1857( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
-    _id_A5A8::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink", "running", 0.0 );
-    _id_A5A8::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_white_blink", "running", 0.4 );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
-    _id_A5A8::_id_1855();
+    maps\_vehicle::_id_186C( "cobra", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_cobra_helicopter", "vehicle_cobra_helicopter_fly" );
+    maps\_vehicle::_id_1845( "vehicle_cobra_helicopter_fly", "vehicle_cobra_helicopter_fly" );
+    maps\_vehicle::_id_1849( %bh_rotors, undefined, 0, 3.0 );
+    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_185A();
+    maps\_vehicle::_id_1857( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.1 );
+    maps\_vehicle::_id_1857( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink", "running", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_white_blink", "running", 0.4 );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_1855();
 }
 
 _id_4D10()

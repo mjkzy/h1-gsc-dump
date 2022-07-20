@@ -25,7 +25,7 @@ _id_2743( var_0 )
     self notify( "stop_deciding_how_to_shoot" );
     self endon( "stop_deciding_how_to_shoot" );
     self endon( "death" );
-    _id_A537::_id_7450();
+    maps\_gameskill::_id_7450();
     self._id_840E = var_0;
     self._id_83F6 = undefined;
     self._id_840F = undefined;

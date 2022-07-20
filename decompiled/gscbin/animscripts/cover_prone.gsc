@@ -276,14 +276,14 @@ _id_993D( var_0 )
     if ( var_0 < 0 - self._id_993A )
     {
         _id_2D88( "left", 0 - var_0 );
-        _id_A537::_id_2A4D();
+        maps\_gameskill::_id_2A4D();
         return 1;
     }
 
     if ( var_0 > self._id_993A )
     {
         _id_2D88( "right", var_0 );
-        _id_A537::_id_2A4D();
+        maps\_gameskill::_id_2A4D();
         return 1;
     }
 

@@ -140,9 +140,9 @@ _id_8976( var_0, var_1, var_2, var_3 )
         var_5 = common_scripts\utility::_id_3CCB( self.origin, var_5 );
 
         foreach ( var_11, var_10 in var_5 )
-            var_10 thread _id_A5A4::_id_0798( ::_id_44B0, self, var_11 );
+            var_10 thread maps\_utility::_id_0798( ::_id_44B0, self, var_11 );
 
-        var_12 = _id_A5A4::_id_8975();
+        var_12 = maps\_utility::_id_8975();
         var_12 waittill( "guy_entered" );
         wait 3;
 
@@ -150,11 +150,11 @@ _id_8976( var_0, var_1, var_2, var_3 )
             return undefined;
     }
     else
-        var_12 = _id_A5A4::_id_8975();
+        var_12 = maps\_utility::_id_8975();
 
     var_12._id_2D3D = 1;
     var_12._id_46FB = var_2;
-    var_12 thread _id_A5AA::_id_9C90();
+    var_12 thread maps\_vehicle_code::_id_9C90();
 
     if ( isdefined( var_0 ) )
         var_12 vehphys_setspeed( var_0 );
@@ -167,7 +167,7 @@ _id_8976( var_0, var_1, var_2, var_3 )
     else
     {
         var_12 thread _id_5666( 0, var_0 );
-        var_12 thread _id_A5AA::_id_05C6( var_12 );
+        var_12 thread maps\_vehicle_code::_id_05C6( var_12 );
     }
 
     return var_12;
@@ -213,7 +213,7 @@ _id_3DE0( var_0 )
 
 _id_44B0( var_0, var_1 )
 {
-    _id_A5AA::_id_05FC( var_0, var_1 );
+    maps\_vehicle_code::_id_05FC( var_0, var_1 );
 }
 
 _id_810E( var_0 )
@@ -783,7 +783,7 @@ _id_7EFE()
 
     var_15 = 0;
     var_0._id_31BC = var_0 _id_3EB9( var_11, var_9, var_10, var_15 );
-    var_16 = _id_A5A4::_id_3D46( var_0.origin, var_0.angles, var_0._id_31BC );
+    var_16 = maps\_utility::_id_3D46( var_0.origin, var_0.angles, var_0._id_31BC );
     var_17 = 1.0;
 
     if ( var_16 > 0.9659 )
@@ -942,7 +942,7 @@ _id_3E9A()
     if ( !isdefined( var_2 ) || !isdefined( self._id_7000 ) )
         return 0;
 
-    var_3 = _id_A5A4::_id_3F82( var_2._not_team, "targetname" );
+    var_3 = maps\_utility::_id_3F82( var_2._not_team, "targetname" );
     var_0 = self._id_7000;
 
     for (;;)
@@ -951,7 +951,7 @@ _id_3E9A()
             break;
 
         var_3 = var_2;
-        var_2 = _id_A5A4::_id_3F82( var_2.teambalanced, "target" );
+        var_2 = maps\_utility::_id_3F82( var_2.teambalanced, "target" );
 
         if ( !isdefined( var_2 ) )
             break;
@@ -1298,6 +1298,10 @@ _id_267D( var_0 )
     var_1 = ( 0.2, 0.2, 1 );
 
     if ( var_0 )
+    {
+
+    }
+    else
     {
 
     }

@@ -59,7 +59,7 @@ main()
     self endon( "death" );
     self endon( "killanimscript" );
     animscripts\utility::_id_4DD7( "flashed" );
-    var_0 = _id_A5A4::_id_38A7();
+    var_0 = maps\_utility::_id_38A7();
 
     if ( var_0 <= 0 )
         return;

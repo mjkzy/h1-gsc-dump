@@ -69,11 +69,11 @@ bog_backhalf_init()
     level.defensesuccessratio = 0.87;
     level._id_135E = getent( "beacon", "targetname" );
     level._id_135E.origin += ( 0, 0, 2.85 );
-    thread _id_A5A4::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", _id_A581::_id_533A, 1008 );
-    common_scripts\utility::_id_0D13( getentarray( "tank_defender", "script_noteworthy" ), _id_A5A4::_id_0798, ::tank_defender_spawn_setup );
-    common_scripts\utility::_id_0D13( getentarray( "tank_defender", "script_noteworthy" ), _id_A5A4::_id_0798, _id_A5A4::_id_7402 );
-    common_scripts\utility::_id_0D13( getentarray( "tank_attack_enemy", "script_noteworthy" ), _id_A5A4::_id_0798, ::enemy_infantry_spawn_setup );
-    common_scripts\utility::_id_0D13( getentarray( "tank_attack_enemy", "script_noteworthy" ), _id_A5A4::_id_0798, ::tank_attack_death_tally );
+    thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", maps\_spawner::_id_533A, 1008 );
+    common_scripts\utility::_id_0D13( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::_id_0798, ::tank_defender_spawn_setup );
+    common_scripts\utility::_id_0D13( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::_id_0798, maps\_utility::_id_7402 );
+    common_scripts\utility::_id_0D13( getentarray( "tank_attack_enemy", "script_noteworthy" ), maps\_utility::_id_0798, ::enemy_infantry_spawn_setup );
+    common_scripts\utility::_id_0D13( getentarray( "tank_attack_enemy", "script_noteworthy" ), maps\_utility::_id_0798, ::tank_attack_death_tally );
 }
 
 start_bog_backhalf()
@@ -102,7 +102,7 @@ start_bog_backhalf()
 
 start_zpu()
 {
-    _id_A5E8::_id_870C( "start_zpu_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_zpu_checkpoint" );
     common_scripts\utility::_id_383F( "zpu_orders_given" );
     var_0 = getent( "zpu_player_org", "targetname" );
     level.playercardbackground setorigin( var_0.origin );
@@ -119,12 +119,12 @@ start_zpu()
     thread cobra_sequence();
     thread _id_29F3();
     wait 0.1;
-    _id_A5A4::_id_0709( "zpu_trigger" );
+    maps\_utility::_id_0709( "zpu_trigger" );
 }
 
 start_cobras()
 {
-    _id_A5E8::_id_870C( "start_cobra_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_cobra_checkpoint" );
     common_scripts\utility::_id_383F( "tank_defense_completed" );
     common_scripts\utility::_id_383F( "final_bldg_activate" );
     common_scripts\utility::_id_383F( "zpu_orders_given" );
@@ -153,14 +153,14 @@ start_cobras_pos()
 
 start_end()
 {
-    _id_A5E8::_id_870C( "start_end_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_end_checkpoint" );
     level.playercardbackground setplayerangles( ( 0, 80, 0 ) );
     level.playercardbackground setorigin( ( 4968, 1528, -12320 ) );
     var_0 = getaiarray();
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_7E5E, 1 );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5E, 1 );
     level.abrams thread tank_setup();
     var_1 = getentarray( "tank_defender", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_7C71 );
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7C71 );
     wait 0.05;
     level notify( "begin_sunrise_after_tank_defend", 1 );
     abrams_gets_drawing();
@@ -169,13 +169,13 @@ start_end()
     level._id_6F7C _meth_81c9( var_2.origin );
     var_3 = getent( "mark_spawner", "targetname" ) stalingradspawn();
     level.mark = var_3;
-    _id_A5A4::_id_88F1( var_3 );
-    _id_A5A4::_id_88F1( level._id_6F7C );
-    level._id_6F7C _id_A5A4::_id_5926();
-    var_3 _id_A5A4::_id_5926();
+    maps\_utility::_id_88F1( var_3 );
+    maps\_utility::_id_88F1( level._id_6F7C );
+    level._id_6F7C maps\_utility::_id_5926();
+    var_3 maps\_utility::_id_5926();
     var_4 = getaiarray( "allies" );
-    var_4 = _id_A5A4::_id_735E( var_4 );
-    _id_A5A4::_id_0CE5( var_4 );
+    var_4 = maps\_utility::_id_735E( var_4 );
+    maps\_utility::_id_0CE5( var_4 );
     var_5 = getentarray( "main_friendly_unit", "script_noteworthy" );
     common_scripts\utility::_id_0D13( var_5, ::force_spawn );
     waitframe;
@@ -188,7 +188,7 @@ start_end()
 temp_friendly_boost()
 {
     var_0 = getaiarray( "allies" );
-    var_0 = _id_A5A4::_id_735E( var_0 );
+    var_0 = maps\_utility::_id_735E( var_0 );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -248,7 +248,7 @@ tank_defender_deathmonitor()
     var_0 waittill( "trigger" );
     wait 10;
     level notify( "detpack_rush_flare" );
-    _id_A5A4::_id_70C4( "movingindetpacks" );
+    maps\_utility::_id_70C4( "movingindetpacks" );
 }
 
 tank_defense_victory_check()
@@ -342,26 +342,26 @@ tank_defense_killspawner_monitor()
 bog_a_backhalf_autosaves()
 {
     common_scripts\utility::_id_384A( "tank_defense_completed" );
-    _id_A5A4::_id_1143( "tank_defense_finished" );
+    maps\_utility::_id_1143( "tank_defense_finished" );
 
     if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
     {
         var_0 = getent( "zpuMidSaveTrig", "targetname" );
         var_0 waittill( "trigger" );
-        _id_A5A4::_id_1143( "zpu_midpoint_approach" );
+        maps\_utility::_id_1143( "zpu_midpoint_approach" );
         var_1 = getent( "zpu_autosave", "targetname" );
         var_1 waittill( "trigger" );
-        _id_A5A4::_id_1143( "zpu_dont_blow_yourself_up" );
+        maps\_utility::_id_1143( "zpu_dont_blow_yourself_up" );
     }
 
     common_scripts\utility::_id_384A( "zpus_destroyed" );
-    _id_A5A4::_id_1143( "airstrike_begin" );
+    maps\_utility::_id_1143( "airstrike_begin" );
 }
 
 tank_defense_stragglers()
 {
     var_0 = getentarray( "tank_attack_killspawner", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_0706 );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0706 );
     common_scripts\utility::_id_383F( "lower_health_of_tank_defense_stragglers" );
 }
 
@@ -438,7 +438,7 @@ _id_6302()
     common_scripts\utility::_id_383D( "aa_zpu" );
     common_scripts\utility::_id_383F( "aa_zpu" );
     objective_state( 5, "done" );
-    _id_A5A4::arcademode_checkpoint( 4.5, "d" );
+    maps\_utility::arcademode_checkpoint( 4.5, "d" );
     objective_add( 6, "active", &"BOG_A_DESTROY_THE_ZPU_ANTI", level.zpu.origin );
     objective_indentlevel( 6, 1 );
     objective_current( 6 );
@@ -455,10 +455,10 @@ _id_6302()
     var_1 = spawnfx( common_scripts\utility::_id_3FA8( "beacon_glow" ), level._id_135E.origin );
     triggerfx( var_1 );
     objective_current( 7 );
-    _id_A5A4::arcademode_checkpoint( 1.5, "e" );
+    maps\_utility::arcademode_checkpoint( 1.5, "e" );
     common_scripts\utility::_id_384A( "beacon_planted" );
     var_1 delete();
-    _id_A5A4::arcademode_checkpoint( 3, "f" );
+    maps\_utility::arcademode_checkpoint( 3, "f" );
     objective_delete( 7 );
     objective_add( 7, "active", &"BOG_A_WAIT_FOR_AIR_SUPPORT" );
     objective_indentlevel( 7, 1 );
@@ -550,7 +550,7 @@ backhalf_manual_mg_fire()
 
 cobra_bldg_mg_cleanup()
 {
-    thread _id_A5A4::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", _id_A5A4::_id_7C82, "stop_firing" );
+    thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", maps\_utility::_id_7C82, "stop_firing" );
     common_scripts\utility::_id_384A( "final_bldg_fired_upon" );
     self delete();
 }
@@ -558,9 +558,9 @@ cobra_bldg_mg_cleanup()
 cobra_sequence()
 {
     common_scripts\utility::_id_384A( "zpus_destroyed" );
-    _id_A5E8::_id_870C( "start_cobra_arrival_scripted_sfx" );
+    soundscripts\_snd::_id_870C( "start_cobra_arrival_scripted_sfx" );
     wait 6;
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "plantbeacon" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "plantbeacon" );
     thread cobra_sequence_reminder();
     common_scripts\utility::_id_383F( "beacon_orders" );
     var_0 = spawn( "script_model", level._id_135E.origin + ( 0, 0, -3 ) );
@@ -569,24 +569,24 @@ cobra_sequence()
     var_1 = getent( "beaconTrig", "targetname" );
     var_1 sethintstring( &"SCRIPT_PLATFORM_HINT_PLANTBEACON" );
     var_1 waittill( "trigger" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "scn_bog_a_beacon_plant" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "scn_bog_a_beacon_plant" );
     var_1 delete();
     var_0 setmodel( "com_night_beacon" );
     common_scripts\utility::_id_383F( "beacon_planted" );
-    _id_A5E8::_id_870C( "start_cobra_support_mix" );
-    var_2 = _id_A5A8::_id_8978( "cobra1" );
-    var_3 = _id_A5A8::_id_8978( "cobra2" );
-    var_2 thread _id_A5A8::_id_5BD3();
-    var_3 thread _id_A5A8::_id_5BD3();
+    soundscripts\_snd::_id_870C( "start_cobra_support_mix" );
+    var_2 = maps\_vehicle::_id_8978( "cobra1" );
+    var_3 = maps\_vehicle::_id_8978( "cobra2" );
+    var_2 thread maps\_vehicle::_id_5BD3();
+    var_3 thread maps\_vehicle::_id_5BD3();
     var_2 thread cobra_flightplan();
     var_3 thread cobra_flightplan( 1 );
     musicstop( 1.9 );
     wait 2;
-    _id_A5A4::_id_6008( "bog_a_victory" );
+    maps\_utility::_id_6008( "bog_a_victory" );
     wait 1;
-    _id_A5A4::_id_70C4( "cominhot" );
+    maps\_utility::_id_70C4( "cominhot" );
     wait 2;
-    _id_A5A4::_id_70C4( "standby" );
+    maps\_utility::_id_70C4( "standby" );
 }
 
 cobra_sequence_reminder()
@@ -599,16 +599,16 @@ cobra_sequence_reminder()
         wait 40;
 
         if ( var_0 == 0 )
-            _id_A5A4::_id_70C4( "buttonedup" );
+            maps\_utility::_id_70C4( "buttonedup" );
         else if ( var_0 == 1 )
-            _id_A5A4::_id_70C4( "whereistheairsupport" );
+            maps\_utility::_id_70C4( "whereistheairsupport" );
         else if ( var_0 == 2 )
-            _id_A5A4::_id_70C4( "canttakebuilding" );
+            maps\_utility::_id_70C4( "canttakebuilding" );
         else if ( var_0 == 3 )
-            _id_A5A4::_id_70C4( "rippingusapart" );
+            maps\_utility::_id_70C4( "rippingusapart" );
         else if ( var_0 == 4 )
         {
-            _id_A5A4::_id_70C4( "plantbeacon" );
+            maps\_utility::_id_70C4( "plantbeacon" );
             var_0 = 0;
         }
 
@@ -714,7 +714,7 @@ cobra_flightplan( var_0 )
             }
 
             level common_scripts\utility::_id_384A( "cobra_missiles_done" );
-            thread _id_A5A8::_id_5BD2();
+            thread maps\_vehicle::_id_5BD2();
             wait 3.75;
             level common_scripts\utility::_id_383F( "pilot_final_dialogue" );
             wait 7.35;
@@ -737,7 +737,7 @@ cobra_fire( var_0, var_1 )
         case "alpha":
             common_scripts\_exploder::_id_3528( 500 );
             var_2 = getent( "ffar_1001", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
             thread cobra_missile_fired_earthquake();
             thread cobra_building_damage_fx( 1001 );
             var_3 = getentarray( "finalBldgKillSpawn", "targetname" );
@@ -760,11 +760,11 @@ cobra_fire( var_0, var_1 )
             wait 0.5;
             common_scripts\utility::_id_383F( "final_bldg_fired_upon" );
             var_2 = getent( "ffar_1002", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1002 );
             var_2 = getent( "ffar_1003", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1003 );
 
@@ -774,34 +774,34 @@ cobra_fire( var_0, var_1 )
             break;
         case "gamma":
             var_2 = getent( "ffar_1008", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1008 );
             break;
         case "delta":
             var_2 = getent( "ffar_1000", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1000 );
             wait 2;
             var_2 = getent( "ffar_1004", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
             thread cobra_missile_fired_earthquake();
             thread cobra_building_damage_fx( 1004 );
             wait 2;
             var_2 = getent( "ffar_1005", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
             thread cobra_missile_fired_earthquake();
             thread cobra_building_damage_fx( 1005 );
             break;
         case "zeta":
             var_2 = getent( "ffar_1007", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1007 );
             wait 3;
             var_2 = getent( "ffar_1006", "targetname" );
-            _id_A53F::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1006 );
             level common_scripts\utility::_id_383F( "cobra_missiles_done" );
@@ -848,13 +848,13 @@ tank_defense_warning()
         switch ( var_0 )
         {
             case 0:
-                _id_A5A4::_id_70C4( "dangeroverrun" );
+                maps\_utility::_id_70C4( "dangeroverrun" );
                 break;
             case 1:
-                _id_A5A4::_id_70C4( "jacksonawol" );
+                maps\_utility::_id_70C4( "jacksonawol" );
                 break;
             case 2:
-                _id_A5A4::_id_70C4( "fallbacktank" );
+                maps\_utility::_id_70C4( "fallbacktank" );
                 break;
         }
 
@@ -938,10 +938,10 @@ tank_destruction()
 
 tank_missionfailure()
 {
-    _id_A5E8::_id_870C( "start_tank_mission_failure" );
+    soundscripts\_snd::_id_870C( "start_tank_mission_failure" );
     wait 2.25;
     setdvar( "ui_deadquote", &"BOG_A_THE_TANK_WAS_OVERRUN" );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 zpu_battle_init()
@@ -1005,7 +1005,7 @@ zpu_c4()
     thread common_scripts\utility::_id_69C2( "bog_aagun_explode", var_0.origin );
     var_0 setmodel( "vehicle_zpu4_burn" );
     radiusdamage( var_0.origin + ( 0, 0, 96 ), level.zpublastradius, 1000, 50 );
-    _id_A5A4::arcademode_kill( var_0.origin, "explosive", 2000 );
+    maps\_utility::arcademode_kill( var_0.origin, "explosive", 2000 );
     common_scripts\utility::_id_383F( "zpus_destroyed" );
     abrams_gets_drawing();
 }
@@ -1017,15 +1017,15 @@ zpu_dialogue()
     common_scripts\utility::_id_383F( "activate_final_bldg" );
     var_1 = getnode( "zpuTalkingFriendly", "targetname" );
     var_2 = getaiarray( "allies" );
-    var_2 = _id_A5A4::_id_735E( var_2 );
+    var_2 = maps\_utility::_id_735E( var_2 );
     var_3 = common_scripts\utility::_id_3F33( var_1.origin, var_2 );
-    var_3 thread _id_A5A4::_id_58D7();
+    var_3 thread maps\_utility::_id_58D7();
     var_3._id_0C72 = "marine";
-    var_3 thread _id_A510::_id_0C21( var_3, "plantc4" );
+    var_3 thread maps\_anim::_id_0C21( var_3, "plantc4" );
     level waittill( "c4_in_place" );
     thread zpu_interface();
-    _id_A5A4::_id_1143( "zpu_c4_planted" );
-    var_3 _id_A510::_id_0C21( var_3, "goodjob" );
+    maps\_utility::_id_1143( "zpu_c4_planted" );
+    var_3 maps\_anim::_id_0C21( var_3, "goodjob" );
     var_4 = getent( "zpu", "targetname" );
     var_5 = length( level.playercardbackground.origin - var_4.origin );
 
@@ -1036,9 +1036,9 @@ zpu_dialogue()
     }
 
     if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
-        var_3 _id_A510::_id_0C21( var_3, "jacksondoit" );
+        var_3 maps\_anim::_id_0C21( var_3, "jacksondoit" );
 
-    var_3 _id_A5A4::_id_8EA4();
+    var_3 maps\_utility::_id_8EA4();
 }
 
 dont_show_c4_hint()
@@ -1054,7 +1054,7 @@ zpu_interface()
 {
     level endon( "zpus_destroyed" );
     wait 2;
-    level.playercardbackground thread _id_A5A4::_id_2B4A( "c4_use" );
+    level.playercardbackground thread maps\_utility::_id_2B4A( "c4_use" );
 }
 
 _id_29F3()
@@ -1064,11 +1064,11 @@ _id_29F3()
         thread dialogue_south_tank_attack();
         var_0 = getent( "backhalf_dialogue", "targetname" );
         var_0 waittill( "trigger" );
-        _id_A5A4::_id_70C4( "alphasixstatus" );
-        _id_A5A4::_id_1333( "allies" );
-        _id_A5A4::_id_1333( "axis" );
-        _id_A5A4::_id_70C4( "stillsurrounded" );
-        _id_A5A4::_id_70C4( "maingunsoffline" );
+        maps\_utility::_id_70C4( "alphasixstatus" );
+        maps\_utility::_id_1333( "allies" );
+        maps\_utility::_id_1333( "axis" );
+        maps\_utility::_id_70C4( "stillsurrounded" );
+        maps\_utility::_id_70C4( "maingunsoffline" );
     }
 
     common_scripts\utility::_id_384A( "tank_defense_completed" );
@@ -1076,51 +1076,51 @@ _id_29F3()
     if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
     {
         thread zpu_player_followers();
-        _id_A5A4::_id_70C4( "morewest" );
-        level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "twocharliebravosix" );
+        maps\_utility::_id_70C4( "morewest" );
+        level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "twocharliebravosix" );
         common_scripts\utility::_id_383F( "zpu_speech_started" );
-        _id_A5A4::_id_70C4( "negativebravo" );
+        maps\_utility::_id_70C4( "negativebravo" );
         common_scripts\utility::_id_383F( "zpu_orders_given" );
 
         if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
-            level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "jacksonfindzpu" );
+            level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "jacksonfindzpu" );
 
-        level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "securewest" );
+        level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "securewest" );
         wait 2;
         level._id_78BA["price"]["letsmoveout"] = "bog_a_pri_letsmoveout";
     }
 
     common_scripts\utility::_id_384A( "pilot_final_dialogue" );
-    _id_A5E8::_id_870C( "set_bog_ambience_to_bog_end_ext0" );
+    soundscripts\_snd::_id_870C( "set_bog_ambience_to_bog_end_ext0" );
     var_1 = getaiarray( "axis" );
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_2A51 );
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_2A51 );
     var_2 = getspawnerteamarray( "axis" );
-    common_scripts\utility::_id_0D13( var_2, _id_A5A4::_id_7C71 );
-    _id_A5A4::_id_70C4( "seeanyoneleft" );
+    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_7C71 );
+    maps\_utility::_id_70C4( "seeanyoneleft" );
     wait 0.5;
-    _id_A5A4::_id_70C4( "negative" );
+    maps\_utility::_id_70C4( "negative" );
     wait 0.3;
-    _id_A5A4::_id_70C4( "alltargetsdestroyed" );
+    maps\_utility::_id_70C4( "alltargetsdestroyed" );
     level notify( "begin_sunrise_after_tank_defend", 90 );
     wait 3;
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "lzissecure" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "lzissecure" );
     wait 0.15;
     common_scripts\utility::_id_383F( "cobra_success" );
-    _id_A5E8::_id_870C( "stop_cobra_support_mix" );
+    soundscripts\_snd::_id_870C( "stop_cobra_support_mix" );
     thread ending_sequence();
     level notify( "abrams_stop_slewing_turret" );
     thread abrams_turn_straight();
-    _id_A5A4::_id_70C4( "goodworkout" );
+    maps\_utility::_id_70C4( "goodworkout" );
     level.mark._id_0C72 = "left_guy";
-    level.mark _id_A510::_id_0C21( level.mark, "regroupattank" );
+    level.mark maps\_anim::_id_0C21( level.mark, "regroupattank" );
 }
 
 abrams_gets_drawing()
 {
-    level.abrams setmodel( _id_A5A4::_id_4026( "tank_draw" ) );
-    level._id_9F56 = _id_A5A4::_id_4026( "tank_draw" );
-    level.abrams _id_A5A8::_id_184B( "fx/distortion/abrams_exhaust" );
-    level.abrams _id_A5A8::_id_1847( "fx/dust/abrams_deck_dust" );
+    level.abrams setmodel( maps\_utility::_id_4026( "tank_draw" ) );
+    level._id_9F56 = maps\_utility::_id_4026( "tank_draw" );
+    level.abrams maps\_vehicle::_id_184B( "fx/distortion/abrams_exhaust" );
+    level.abrams maps\_vehicle::_id_1847( "fx/dust/abrams_deck_dust" );
 }
 
 abrams_turn_straight()
@@ -1130,15 +1130,15 @@ abrams_turn_straight()
 
 zpu_player_followers()
 {
-    thread _id_A5A4::_id_7016( "c", "p" );
-    thread _id_A5A4::_id_7016( "c", "p" );
+    thread maps\_utility::_id_7016( "c", "p" );
+    thread maps\_utility::_id_7016( "c", "p" );
 }
 
 ending_sequence()
 {
-    level._id_6F7C _id_A5A4::_id_5926();
+    level._id_6F7C maps\_utility::_id_5926();
     var_0 = getaiarray( "allies" );
-    var_0 = _id_A5A4::_id_735E( var_0 );
+    var_0 = maps\_utility::_id_735E( var_0 );
     level._id_6F7C._id_0C72 = "price";
     var_0[0]._id_0C72 = "right_guy";
     level.mark._id_0C72 = "left_guy";
@@ -1155,8 +1155,8 @@ ending_sequence()
     var_4 = spawn( "script_origin", ( 0, 0, 0 ) );
     var_4.origin = level.abrams.origin;
     var_4.angles = level.abrams.angles;
-    var_4 _id_A510::_id_0C42( var_3, "tank_talk" );
-    var_4 _id_A510::_id_0BF6( var_3, "tank_talk", "tank_talk_idle", "stop_loop" );
+    var_4 maps\_anim::_id_0C42( var_3, "tank_talk" );
+    var_4 maps\_anim::_id_0BF6( var_3, "tank_talk", "tank_talk_idle", "stop_loop" );
 
     if ( getdvarint( "use_old_tank_dialogue" ) == 1 )
         var_5 = 220;
@@ -1167,24 +1167,24 @@ ending_sequence()
         wait 0.05;
 
     common_scripts\utility::_id_383F( "reached_ending_area" );
-    _id_A5E8::_id_870C( "start_ending_area_mix" );
+    soundscripts\_snd::_id_870C( "start_ending_area_mix" );
     var_4 notify( "stop_loop" );
     level._id_6F7C thread new_goal_at_scene_end();
 
     if ( getdvarint( "use_old_tank_dialogue" ) == 1 )
     {
-        var_4 thread _id_A510::_id_0C18( var_3, "tank_talk" );
+        var_4 thread maps\_anim::_id_0C18( var_3, "tank_talk" );
         wait 14.95;
     }
     else
     {
         var_6 = getanimlength( level._id_78AC[var_3[0]._id_0C72]["tank_talk"] );
-        var_4 thread _id_A510::_id_0C18( var_3, "tank_talk" );
+        var_4 thread maps\_anim::_id_0C18( var_3, "tank_talk" );
         wait(var_6 - 1);
     }
 
-    _id_A5E8::_id_870C( "start_end_black_screen_mix" );
-    _id_A5A4::_id_60D6();
+    soundscripts\_snd::_id_870C( "start_end_black_screen_mix" );
+    maps\_utility::_id_60D6();
 }
 
 new_goal_at_scene_end()
@@ -1216,18 +1216,18 @@ dialogue_south_tank_attack()
         var_0 waittill( "trigger" );
 
     wait 4;
-    _id_A5A4::_id_70C4( "contactseast" );
+    maps\_utility::_id_70C4( "contactseast" );
 }
 
 heroshield()
 {
     var_0 = getentarray( "hero", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_0798, ::hero );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::hero );
 }
 
 hero()
 {
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
     self.ikweight = 1;
 }
 

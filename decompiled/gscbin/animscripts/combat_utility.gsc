@@ -126,7 +126,7 @@ cheatammoifnecessary_h1()
         if ( !isplayer( self.enemy ) )
             return 0;
 
-        if ( self.enemy _id_A5A4::_id_32D8( "player_is_invulnerable" ) )
+        if ( self.enemy maps\_utility::_id_32D8( "player_is_invulnerable" ) )
             return 0;
     }
 
@@ -162,7 +162,7 @@ cheatammoifnecessary_cod3()
         if ( weaponclipsize( self.weapon_switch_invalid ) < 15 )
             return 0;
 
-        if ( self.enemy _id_A5A4::_id_32D8( "player_is_invulnerable" ) )
+        if ( self.enemy maps\_utility::_id_32D8( "player_is_invulnerable" ) )
             return 0;
     }
 
@@ -382,7 +382,7 @@ _id_8442()
 _id_37EE( var_0, var_1, var_2 )
 {
     var_3 = "fireAnim_" + _id_4143();
-    _id_A537::_id_7450();
+    maps\_gameskill::_id_7450();
 
     while ( !_id_0976() )
         wait 0.05;
@@ -470,7 +470,7 @@ _id_37F0( var_0, var_1, var_2, var_3, var_4 )
 
         _id_83EB();
 
-        if ( isplayer( self.enemy ) && self.enemy _id_A5A4::_id_32D8( "player_is_invulnerable" ) )
+        if ( isplayer( self.enemy ) && self.enemy maps\_utility::_id_32D8( "player_is_invulnerable" ) )
         {
             if ( randomint( 3 ) == 0 )
                 self._id_18B0--;
@@ -886,7 +886,7 @@ _id_2151( var_0 )
 
 _id_5A63( var_0 )
 {
-    if ( _id_A5A4::_id_6ACB() )
+    if ( maps\_utility::_id_6ACB() )
         return 0;
 
     if ( !var_0._id_4441._id_2D8C )
@@ -913,7 +913,7 @@ _id_6036()
 
 _id_43FB( var_0 )
 {
-    if ( _id_A5A4::_id_6ACB() )
+    if ( maps\_utility::_id_6ACB() )
         return 0;
 
     if ( self._id_79EA == 1 )
@@ -1016,7 +1016,7 @@ _id_989D( var_0, var_1 )
         if ( !_id_1D09() )
             return 0;
 
-        if ( isplayer( self.enemy ) && _id_A5A4::_id_5062( self.enemy ) )
+        if ( isplayer( self.enemy ) && maps\_utility::_id_5062( self.enemy ) )
             return 0;
 
         if ( animscripts\utility::_id_1AE2() )
@@ -1752,7 +1752,7 @@ _id_5E5E()
         if ( isdefined( self.flashbangstopsscriptedanim ) && self.flashbangstopsscriptedanim )
             self _meth_8143();
 
-        _id_A5A4::_id_38AB( var_6 );
+        maps\_utility::_id_38AB( var_6 );
         self notify( "doFlashBanged", var_1, var_3 );
     }
 }

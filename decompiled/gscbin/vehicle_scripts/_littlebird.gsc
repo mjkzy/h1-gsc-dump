@@ -28,7 +28,7 @@ _id_0CD0( var_0, var_1 )
 main( var_0, var_1, var_2 )
 {
     if ( _id_0CD0( var_0, var_2 ) )
-        _id_A609::_id_6EFB();
+        vehicle_scripts\_attack_heli::_id_6EFB();
 
     if ( issubstr( var_2, "bench" ) )
     {
@@ -36,38 +36,38 @@ main( var_0, var_1, var_2 )
         precachemodel( "vehicle_sentinel_littlebird_benchright" );
     }
 
-    _id_A5A8::_id_186C( "littlebird", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_little_bird_armed" );
-    _id_A5A8::_id_1845( "vehicle_little_bird_bench" );
+    maps\_vehicle::_id_186C( "littlebird", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_little_bird_armed" );
+    maps\_vehicle::_id_1845( "vehicle_little_bird_bench" );
 
     if ( issubstr( var_2, "kva" ) || issubstr( var_2, "atlas" ) || issubstr( var_2, "sentinel" ) )
-        _id_A5A8::_id_1849( %mil_helicopter_littlebird_ai_rotors, undefined, 0, 3.0 );
+        maps\_vehicle::_id_1849( %mil_helicopter_littlebird_ai_rotors, undefined, 0, 3.0 );
     else
-        _id_A5A8::_id_1849( %mi28_rotors, undefined, 0, 3.0 );
+        maps\_vehicle::_id_1849( %mi28_rotors, undefined, 0, 3.0 );
 
-    _id_A5A8::_id_1842( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", "littlebird_helicopter_secondary_exp", undefined, undefined, undefined, 0.0, 1 );
-    _id_A5A8::_id_1842( "vfx/trail/trail_fire_smoke_l", "tag_engine", "littlebird_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
-    _id_A5A8::_id_1842( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", undefined, undefined, undefined, undefined, 2.5, 1 );
-    _id_A5A8::_id_1842( "vfx/explosion/vehicle_littlebird_explosion_a", undefined, "littlebird_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
-    _id_A5A8::_id_1864( "vfx/explosion/vehicle_littlebird_explosion_a", "tag_deathfx", "littlebird_helicopter_crash", undefined, undefined, undefined, undefined, 1, undefined, 0 );
-    _id_A5A8::_id_1846( 0.8, 1.6, 2048 );
-    _id_A5A8::_id_186E( var_2, "default", "vfx/treadfx/heli_dust_default" );
-    _id_A5A8::_id_1856( 799 );
-    _id_A5A8::_id_186A( "axis" );
-    _id_A5A8::_id_185A();
-    _id_A5A8::_id_1873( ::_id_9A3D );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_1842( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", "littlebird_helicopter_secondary_exp", undefined, undefined, undefined, 0.0, 1 );
+    maps\_vehicle::_id_1842( "vfx/trail/trail_fire_smoke_l", "tag_engine", "littlebird_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
+    maps\_vehicle::_id_1842( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", undefined, undefined, undefined, undefined, 2.5, 1 );
+    maps\_vehicle::_id_1842( "vfx/explosion/vehicle_littlebird_explosion_a", undefined, "littlebird_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
+    maps\_vehicle::_id_1864( "vfx/explosion/vehicle_littlebird_explosion_a", "tag_deathfx", "littlebird_helicopter_crash", undefined, undefined, undefined, undefined, 1, undefined, 0 );
+    maps\_vehicle::_id_1846( 0.8, 1.6, 2048 );
+    maps\_vehicle::_id_186E( var_2, "default", "vfx/treadfx/heli_dust_default" );
+    maps\_vehicle::_id_1856( 799 );
+    maps\_vehicle::_id_186A( "axis" );
+    maps\_vehicle::_id_185A();
+    maps\_vehicle::_id_1873( ::_id_9A3D );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
     var_3 = randomfloatrange( 0, 1 );
-    _id_A5A8::_id_1857( var_2, "white_blink", "TAG_LIGHT_BELLY", "vfx/lights/aircraft_light_white_blink", "running", var_3 );
-    _id_A5A8::_id_1857( var_2, "red_blink1", "TAG_LIGHT_TAIL1", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
-    _id_A5A8::_id_1857( var_2, "red_blink2", "TAG_LIGHT_TAIL2", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
-    _id_A5A8::_id_1857( var_2, "headlight_nose", "tag_light_nose", "vfx/lights/headlight_gaz", "headlights", 0.0 );
+    maps\_vehicle::_id_1857( var_2, "white_blink", "TAG_LIGHT_BELLY", "vfx/lights/aircraft_light_white_blink", "running", var_3 );
+    maps\_vehicle::_id_1857( var_2, "red_blink1", "TAG_LIGHT_TAIL1", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
+    maps\_vehicle::_id_1857( var_2, "red_blink2", "TAG_LIGHT_TAIL2", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
+    maps\_vehicle::_id_1857( var_2, "headlight_nose", "tag_light_nose", "vfx/lights/headlight_gaz", "headlights", 0.0 );
     var_4 = "littlebird_gunpod";
-    _id_A5A8::_id_1872( var_4, "TAG_MINIGUN_ATTACH_LEFT", "vehicle_mil_helicopter_littlebird_gunpodleft" );
-    _id_A5A8::_id_1872( var_4, "TAG_MINIGUN_ATTACH_RIGHT", "vehicle_mil_helicopter_littlebird_gunpodright" );
-    _id_A5A8::_id_1855();
-    _id_A62D::_id_4D0D();
+    maps\_vehicle::_id_1872( var_4, "TAG_MINIGUN_ATTACH_LEFT", "vehicle_mil_helicopter_littlebird_gunpodleft" );
+    maps\_vehicle::_id_1872( var_4, "TAG_MINIGUN_ATTACH_RIGHT", "vehicle_mil_helicopter_littlebird_gunpodright" );
+    maps\_vehicle::_id_1855();
+    vehicle_scripts\_littlebird_landing::_id_4D0D();
 }
 
 _id_4D10()
@@ -77,9 +77,9 @@ _id_4D10()
     self._id_7957 = 0;
     self._id_2D30 = 1;
     self._id_9D08 = 6;
-    thread _id_A62D::_id_57B1();
+    thread vehicle_scripts\_littlebird_landing::_id_57B1();
     thread _id_0DE7();
-    thread _id_A5A8::_id_9D02( "running" );
+    thread maps\_vehicle::_id_9D02( "running" );
 
     if ( issubstr( self.classname, "sentinel" ) )
         self hidepart( "main_rotor_static_jnt" );
@@ -88,15 +88,15 @@ _id_4D10()
 
     if ( !_id_0CD0( self.motiontrackerenabled, self.classname ) )
     {
-        _id_A5A8::_id_5BD2();
+        maps\_vehicle::_id_5BD2();
 
         foreach ( var_1 in self._id_5BD5 )
             var_1 hide();
     }
 
-    thread _id_A62C::_id_45B5();
+    thread vehicle_scripts\_littlebird_aud::_id_45B5();
     self._id_3069 = ::_id_57AE;
-    _id_A5A4::_id_0749( ::_id_57AD );
+    maps\_utility::_id_0749( ::_id_57AD );
 }
 
 _id_84C2()
@@ -226,12 +226,12 @@ _id_7F23()
     var_0[6]._id_3FD3 = "mount_finish";
     var_0[7]._id_3FD2 = %little_bird_mount_guy2;
     var_0[7]._id_3FD3 = "mount_finish";
-    var_0[2]._id_3FD4 = _id_A5A9::_id_449C;
-    var_0[3]._id_3FD4 = _id_A5A9::_id_449C;
-    var_0[4]._id_3FD4 = _id_A5A9::_id_449C;
-    var_0[5]._id_3FD4 = _id_A5A9::_id_449C;
-    var_0[6]._id_3FD4 = _id_A5A9::_id_449C;
-    var_0[7]._id_3FD4 = _id_A5A9::_id_449C;
+    var_0[2]._id_3FD4 = maps\_vehicle_aianim::_id_449C;
+    var_0[3]._id_3FD4 = maps\_vehicle_aianim::_id_449C;
+    var_0[4]._id_3FD4 = maps\_vehicle_aianim::_id_449C;
+    var_0[5]._id_3FD4 = maps\_vehicle_aianim::_id_449C;
+    var_0[6]._id_3FD4 = maps\_vehicle_aianim::_id_449C;
+    var_0[7]._id_3FD4 = maps\_vehicle_aianim::_id_449C;
     var_0[2]._id_6EAF = %little_bird_aim_2_prelanding_guy1;
     var_0[3]._id_6EAF = %little_bird_aim_2_prelanding_guy3;
     var_0[4]._id_6EAF = %little_bird_aim_2_prelanding_guy2;
@@ -289,7 +289,7 @@ _id_57AE( var_0, var_1 )
     self endon( "death" );
     self endon( "in_air_explosion" );
     self notify( "emp_death" );
-    _id_A5A8::_id_9D01( "all" );
+    maps\_vehicle::_id_9D01( "all" );
     self._id_9D4B = 1;
     var_2 = self vehicle_getvelocity();
     var_3 = 250;
@@ -315,7 +315,7 @@ _id_57AE( var_0, var_1 )
     self notify( "crash_done" );
     self._id_0B0C = 1;
     self._id_3118 = 1;
-    _id_A5AA::_id_9CF0( var_0, var_1 );
+    maps\_vehicle_code::_id_9CF0( var_0, var_1 );
 
     if ( getdvar( "mapname" ) == "lab" )
         _id_1CD0();
@@ -331,7 +331,7 @@ _id_1CD0()
     level._id_74B9++;
 
     if ( level._id_74B9 >= 10 )
-        _id_A5A4::_id_41DD( "LEVEL_10A" );
+        maps\_utility::_id_41DD( "LEVEL_10A" );
 }
 
 _id_57AB()

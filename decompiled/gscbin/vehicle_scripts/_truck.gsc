@@ -22,30 +22,30 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "truck", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_pickup_roobars", "vehicle_pickup_technical_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_pickup_4door", "vehicle_pickup_technical_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_opfor_truck", "vehicle_pickup_technical_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_pickup_technical", "vehicle_pickup_technical_destroyed" );
-    _id_A5A8::_id_1842( "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_small_pm_a", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1842( "fx/fire/firelp_small_pm_a", "tag_engine_left", "smallfire", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
-    _id_A5A8::_id_1873( ::_id_9A3D );
-    _id_A5A8::_id_1857( var_2, "headlight_truck_left", "tag_headlight_left", "fx/misc/car_headlight_truck_L", "headlights" );
-    _id_A5A8::_id_1857( var_2, "headlight_truck_right", "tag_headlight_right", "fx/misc/car_headlight_truck_R", "headlights" );
-    _id_A5A8::_id_1857( var_2, "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_truck_LF", "headlights" );
-    _id_A5A8::_id_1857( var_2, "parkinglight_truck_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_truck_RF", "headlights" );
-    _id_A5A8::_id_1857( var_2, "taillight_truck_right", "tag_taillight_right", "fx/misc/car_taillight_truck_R", "headlights" );
-    _id_A5A8::_id_1857( var_2, "taillight_truck_left", "tag_taillight_left", "fx/misc/car_taillight_truck_L", "headlights" );
-    _id_A5A8::_id_1857( var_2, "brakelight_truck_right", "tag_taillight_right", "fx/misc/car_brakelight_truck_R", "brakelights" );
-    _id_A5A8::_id_1857( var_2, "brakelight_truck_left", "tag_taillight_left", "fx/misc/car_brakelight_truck_L", "brakelights" );
+    maps\_vehicle::_id_186C( "truck", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_pickup_roobars", "vehicle_pickup_technical_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_pickup_4door", "vehicle_pickup_technical_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_opfor_truck", "vehicle_pickup_technical_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_pickup_technical", "vehicle_pickup_technical_destroyed" );
+    maps\_vehicle::_id_1842( "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_small_pm_a", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1842( "fx/fire/firelp_small_pm_a", "tag_engine_left", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_1873( ::_id_9A3D );
+    maps\_vehicle::_id_1857( var_2, "headlight_truck_left", "tag_headlight_left", "fx/misc/car_headlight_truck_L", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "headlight_truck_right", "tag_headlight_right", "fx/misc/car_headlight_truck_R", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_truck_LF", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "parkinglight_truck_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_truck_RF", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "taillight_truck_right", "tag_taillight_right", "fx/misc/car_taillight_truck_R", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "taillight_truck_left", "tag_taillight_left", "fx/misc/car_taillight_truck_L", "headlights" );
+    maps\_vehicle::_id_1857( var_2, "brakelight_truck_right", "tag_taillight_right", "fx/misc/car_brakelight_truck_R", "brakelights" );
+    maps\_vehicle::_id_1857( var_2, "brakelight_truck_left", "tag_taillight_left", "fx/misc/car_brakelight_truck_L", "brakelights" );
 }
 
 _id_4D10()

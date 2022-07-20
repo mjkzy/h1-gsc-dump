@@ -127,15 +127,15 @@ main()
 
 _id_974C()
 {
-    _id_A59D::_id_7F1E( "script_vehicle_blackhawk", "fx/treadfx/heli_dust_armada", "h1r_blackhawk_wind" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "water", "fx/treadfx/heli_water", "h1r_blackhawk_wind" );
-    _id_A59D::_id_7F1E( "script_vehicle_m1a1_abrams", "vfx/treadfx/tread_dust_tanks", undefined );
+    maps\_treadfx::_id_7F1E( "script_vehicle_blackhawk", "fx/treadfx/heli_dust_armada", "h1r_blackhawk_wind" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "water", "fx/treadfx/heli_water", "h1r_blackhawk_wind" );
+    maps\_treadfx::_id_7F1E( "script_vehicle_m1a1_abrams", "vfx/treadfx/tread_dust_tanks", undefined );
 }
 
 pickup_technical_deathfx_override()
 {
-    _id_A5A8::swap_deathfx_effect_only( "script_vehicle_pickup_technical", "fx/explosions/Vehicle_Explosion_Pickuptruck", "tag_deathfx", "fx/explosions/large_vehicle_explosion_pickup_armada" );
-    _id_A5A8::swap_deathfx_effect_only( "script_vehicle_pickup_technical", "fx/fire/firelp_med_pm", "tag_fx_cab", "fx/fire/firelp_med_pm_armada" );
+    maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_pickup_technical", "fx/explosions/Vehicle_Explosion_Pickuptruck", "tag_deathfx", "fx/explosions/large_vehicle_explosion_pickup_armada" );
+    maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_pickup_technical", "fx/fire/firelp_med_pm", "tag_fx_cab", "fx/fire/firelp_med_pm_armada" );
 }
 
 destructiblefx_overide()

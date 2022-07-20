@@ -96,7 +96,7 @@ _id_47BE( var_0 )
             break;
         default:
             if ( self.classname == "script_vehicle_littlebird_armed" || self.classname == "script_vehicle_littlebird_md500" )
-                _id_A609::_id_47BD( var_1, 2, 0.25 );
+                vehicle_scripts\_attack_heli::_id_47BD( var_1, 2, 0.25 );
             else
                 _id_37BA( "hind_zippy", 5, var_1, 0.3 );
 
@@ -131,14 +131,14 @@ _id_4233()
         return;
 
     level thread _id_389B( self );
-    level thread _id_A53E::_id_33BF( self );
+    level thread maps\_helicopter_ai::_id_33BF( self );
 
     if ( getdvar( "cobrapilot_wingman_enabled" ) == "1" )
     {
         if ( isdefined( self._id_7B25 ) )
         {
             level._id_A33F = self;
-            level thread _id_A53E::_id_A341( self );
+            level thread maps\_helicopter_ai::_id_A341( self );
         }
     }
 }
@@ -331,7 +331,7 @@ _id_3F7F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     }
 
     if ( isdefined( var_6 ) )
-        var_10 = _id_A5A4::_id_0CE7( var_10, var_6 );
+        var_10 = maps\_utility::_id_0CE7( var_10, var_6 );
 
     if ( var_5 )
         var_10 = common_scripts\utility::_id_0CF5( var_10 );
@@ -661,13 +661,13 @@ _id_37BA( var_0, var_1, var_2, var_3, var_4 )
             if ( isdefined( var_2 ) )
             {
                 var_13 = self fireweapon( var_8[var_9], var_2 );
-                _id_A5DC::_id_28A2( "missile_fired", var_13 );
+                soundscripts\_audio::_id_28A2( "missile_fired", var_13 );
 
                 switch ( var_0 )
                 {
                     case "ffar":
                     case "ffar_bog_a_lite":
-                        var_13 thread _id_A5A4::_id_69C5( "weap_lau61c_fire", undefined, 1 );
+                        var_13 thread maps\_utility::_id_69C5( "weap_lau61c_fire", undefined, 1 );
                     case "ffar_airlift":
                     case "ffar_airlift_map_overwrite":
                         var_13 thread _id_5CBE( 0.1 );

@@ -534,7 +534,7 @@ getturnaniminfo()
         var_1 = animscripts\swim::_id_4100( "turn" );
     else if ( animscripts\utility::_id_51DE() )
         var_1 = animscripts\utility::_id_5864( "unstable_run_turn" );
-    else if ( isdefined( self.canpatrolturn ) && self.canpatrolturn && _id_A55F::is_patrolling() )
+    else if ( isdefined( self.canpatrolturn ) && self.canpatrolturn && maps\_patrol::is_patrolling() )
     {
         if ( isdefined( self.leftfootdown ) && self.leftfootdown )
         {
@@ -777,7 +777,7 @@ _id_66D6()
     else
         var_3 = 0.05;
 
-    _id_A5A4::_id_27CF( var_3, animscripts\stairs_utility::threadcheckstairstransition, var_0, 0, var_2, undefined, "inOnly" );
+    maps\_utility::_id_27CF( var_3, animscripts\stairs_utility::threadcheckstairstransition, var_0, 0, var_2, undefined, "inOnly" );
     animscripts\shared::_id_2D06( "turnAnim" );
     self.turret_no_vis = 0;
     self._id_4BB7 = undefined;
@@ -797,12 +797,9 @@ _id_3F45()
         if ( var_0[var_1]["animation"] == %combatrun_forward )
         {
             if ( var_0[var_1 + 1].size > 2 )
-            {
                 return var_0[var_1 + 1];
-                continue;
-            }
-
-            return undefined;
+            else
+                return undefined;
         }
     }
 
@@ -819,7 +816,7 @@ _id_595D( var_0, var_1, var_2 )
     var_5 = getstartorigin( var_5, var_6, var_0 );
     var_6 = getstartangles( var_5, var_6, var_0 );
     var_7 = getanimlength( var_0 ) * var_4[0];
-    var_8 = int( _id_A5A4::_id_7612( var_7 * 20, 0, 0 ) );
+    var_8 = int( maps\_utility::_id_7612( var_7 * 20, 0, 0 ) );
 
     if ( var_8 < 1 )
         return;

@@ -42,10 +42,10 @@ main()
 
     if ( isdefined( level.override_breach_explosive_left_audio ) )
     {
-        _id_A510::_id_0807( "generic", "audio_start_mix", ::audio_start_mix, "detcord_stack_leftbreach_01" );
-        _id_A510::_id_0807( "generic", "audio_stop_mix", ::audio_stop_mix, "detcord_stack_leftbreach_01" );
-        _id_A510::_id_0807( "generic", "audio_custom_fire", ::audio_custom_fire, "detcord_stack_leftbreach_01" );
-        _id_A510::_id_0807( "generic", "audio_custom_fire", ::audio_custom_fire, "detcord_stack_leftbreach_02" );
+        maps\_anim::_id_0807( "generic", "audio_start_mix", ::audio_start_mix, "detcord_stack_leftbreach_01" );
+        maps\_anim::_id_0807( "generic", "audio_stop_mix", ::audio_stop_mix, "detcord_stack_leftbreach_01" );
+        maps\_anim::_id_0807( "generic", "audio_custom_fire", ::audio_custom_fire, "detcord_stack_leftbreach_01" );
+        maps\_anim::_id_0807( "generic", "audio_custom_fire", ::audio_custom_fire, "detcord_stack_leftbreach_02" );
     }
 
     if ( isdefined( level.breach_play_door_animation ) && level.breach_play_door_animation )
@@ -57,17 +57,17 @@ audio_custom_fire( var_0 )
     if ( isdefined( var_0._id_17B5 ) )
         return;
 
-    var_0 thread _id_A5A4::_id_69C4( "sp_breach_explosive_left_fire_npc" );
+    var_0 thread maps\_utility::_id_69C4( "sp_breach_explosive_left_fire_npc" );
 }
 
 audio_start_mix( var_0 )
 {
-    _id_A5DE::_id_5CF2( "explosive_breach_left_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "explosive_breach_left_mix" );
 }
 
 audio_stop_mix( var_0 )
 {
-    _id_A5DE::_id_5CF6( "explosive_breach_left_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "explosive_breach_left_mix" );
 }
 #using_animtree("door");
 

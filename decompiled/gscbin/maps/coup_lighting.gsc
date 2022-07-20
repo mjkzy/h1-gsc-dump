@@ -42,8 +42,8 @@ _id_7E68()
 {
     if ( isusinghdr() )
     {
-        _id_A5A4::_id_9E6E( "coup", 0 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "coup" );
+        maps\_utility::_id_9E6E( "coup", 0 );
+        level.playercardbackground maps\_utility::set_light_set_player( "coup" );
         level.playercardbackground _meth_848c( "clut_coup", 1.0 );
     }
 }

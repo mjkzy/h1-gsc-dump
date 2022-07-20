@@ -99,90 +99,90 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 0.0;
 
-            _id_A5A4::_id_7F00( "cargoship_intro", var_1 );
-            _id_A5A4::_id_9E6E( "cargoship_intro", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_intro" );
+            maps\_utility::_id_7F00( "cargoship_intro", var_1 );
+            maps\_utility::_id_9E6E( "cargoship_intro", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_intro" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_exterior":
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            _id_A5A4::_id_7F00( "cargoship_exterior", var_1 );
-            _id_A5A4::_id_9E6E( "cargoship_exterior", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_exterior" );
+            maps\_utility::_id_7F00( "cargoship_exterior", var_1 );
+            maps\_utility::_id_9E6E( "cargoship_exterior", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_exterior_helitrans_vision":
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            _id_A5A4::_id_7F00( "cargoship_introtransit", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_exterior" );
+            maps\_utility::_id_7F00( "cargoship_introtransit", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_interior":
             if ( !isdefined( var_1 ) )
                 var_1 = 3.0;
 
-            _id_A5A4::_id_7F00( "cargoship_interior_upperdeck", var_1 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_upperdeck", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_upperdeck" );
+            maps\_utility::_id_7F00( "cargoship_interior_upperdeck", var_1 );
+            maps\_utility::_id_9E6E( "cargoship_interior_upperdeck", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_upperdeck" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_interior_transition":
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            _id_A5A4::_id_7F00( "cargoship_interior_transition", var_1 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_transition", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_transition" );
+            maps\_utility::_id_7F00( "cargoship_interior_transition", var_1 );
+            maps\_utility::_id_9E6E( "cargoship_interior_transition", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_transition" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_explosion":
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            _id_A5A4::_id_7F00( "cargoship_explosion", 0.2 );
+            maps\_utility::_id_7F00( "cargoship_explosion", 0.2 );
             wait 0.3;
-            _id_A5A4::_id_9E6E( "cargoship_interior_cargohold_alert", var_1 );
-            _id_A5A4::_id_7F00( "cargoship_interior_cargohold_alert_igc", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_cargohold_alert" );
+            maps\_utility::_id_9E6E( "cargoship_interior_cargohold_alert", var_1 );
+            maps\_utility::_id_7F00( "cargoship_interior_cargohold_alert_igc", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_cargohold_alert" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_escape":
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            _id_A5A4::_id_7F00( "cargoship_interior_cargohold_alert", var_1 );
-            _id_A5A4::_id_9E6E( "cargoship_interior_cargohold_alert", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_interior_cargohold_alert" );
+            maps\_utility::_id_7F00( "cargoship_interior_cargohold_alert", var_1 );
+            maps\_utility::_id_9E6E( "cargoship_interior_cargohold_alert", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_interior_cargohold_alert" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_exterior_outro":
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            _id_A5A4::_id_7F00( "cargoship_exterior_outro", var_1 );
-            _id_A5A4::_id_395E( "cargoship_exterior" );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_exterior_outro" );
+            maps\_utility::_id_7F00( "cargoship_exterior_outro", var_1 );
+            maps\_utility::_id_395E( "cargoship_exterior" );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior_outro" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         case "cargoship_outro":
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            _id_A5A4::_id_7F00( "cargoship_outro", var_1 );
-            _id_A5A4::_id_9E6E( "cargoship_outro", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_outro" );
+            maps\_utility::_id_7F00( "cargoship_outro", var_1 );
+            maps\_utility::_id_9E6E( "cargoship_outro", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_outro" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
         default:
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            _id_A5A4::_id_9E6E( "cargoship_exterior", var_1 );
-            level.playercardbackground _id_A5A4::set_light_set_player( "cargoship_exterior" );
+            maps\_utility::_id_9E6E( "cargoship_exterior", var_1 );
+            level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.playercardbackground _meth_848c( "clut_cargoship", var_1 );
             break;
     }
@@ -295,22 +295,22 @@ apply_lights_change( var_0 )
 
 generic_lights_flickering()
 {
-    thread _id_A54E::_id_5D3A( "flicker_1", 0, 200, 3000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
+    thread maps\_lighting::_id_5D3A( "flicker_1", 0, 200, 3000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
 }
 
 aftdeck_lights_flickering()
 {
-    thread _id_A54E::_id_5D3A( "flicker_3", 0, 150, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
+    thread maps\_lighting::_id_5D3A( "flicker_3", 0, 150, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
 }
 
 cargohold_lights_flickering()
 {
-    thread _id_A54E::_id_5D3A( "flicker_2", 0, 200, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
+    thread maps\_lighting::_id_5D3A( "flicker_2", 0, 200, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
 }
 
 sinking_ship_lights_flickering()
 {
-    thread _id_A54E::_id_5D3A( "flicker_4", 0, 2, 100, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
+    thread maps\_lighting::_id_5D3A( "flicker_4", 0, 2, 100, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
 }
 
 init_emergency_lights()
@@ -373,21 +373,21 @@ emergency_light_rotation( var_0 )
 explosion_lerping()
 {
     common_scripts\utility::_id_384A( "escape_explosion" );
-    _id_A54E::_id_56A0( "fire", 0, 250000 );
-    _id_A54E::_id_56A0( "fire_crate", 0, 250000 );
-    _id_A54E::_id_56A0( "price_fall_fill", 0, 55000 );
-    _id_A54E::_id_56A0( "gaz_fall_rim", 1, 20000 );
+    maps\_lighting::_id_56A0( "fire", 0, 250000 );
+    maps\_lighting::_id_56A0( "fire_crate", 0, 250000 );
+    maps\_lighting::_id_56A0( "price_fall_fill", 0, 55000 );
+    maps\_lighting::_id_56A0( "gaz_fall_rim", 1, 20000 );
     wait 8;
-    _id_A54E::_id_56A0( "gaz_fall_rim", 0, 0 );
-    _id_A54E::_id_56A0( "gaz_rim", 0, 65000 );
+    maps\_lighting::_id_56A0( "gaz_fall_rim", 0, 0 );
+    maps\_lighting::_id_56A0( "gaz_rim", 0, 65000 );
     wait 5;
-    _id_A54E::_id_56A0( "price_fill", 0, 65000 );
-    _id_A54E::_id_56A0( "price_bounce", 0, 15000 );
-    _id_A54E::_id_56A0( "price_fall_fill", 1, 0 );
+    maps\_lighting::_id_56A0( "price_fill", 0, 65000 );
+    maps\_lighting::_id_56A0( "price_bounce", 0, 15000 );
+    maps\_lighting::_id_56A0( "price_fall_fill", 1, 0 );
     common_scripts\utility::_id_384A( "escape_get_to_catwalks" );
-    _id_A54E::_id_56A0( "price_fill", 1, 0 );
-    _id_A54E::_id_56A0( "gaz_rim", 1, 0 );
-    _id_A54E::_id_56A0( "price_bounce", 1, 0 );
+    maps\_lighting::_id_56A0( "price_fill", 1, 0 );
+    maps\_lighting::_id_56A0( "gaz_rim", 1, 0 );
+    maps\_lighting::_id_56A0( "price_bounce", 1, 0 );
 }
 
 special_lighting_trigger_think()

@@ -21,7 +21,7 @@
 
 main()
 {
-    _id_A5A4::_id_7DF3();
+    maps\_utility::_id_7DF3();
     level._id_2C7B["nearStart"] = 1;
     level._id_2C7B["nearEnd"] = 1;
     level._id_2C7B["farStart"] = 500;
@@ -65,7 +65,7 @@ setdefaultdepthoffield()
 
 _id_23AA( var_0 )
 {
-    var_1 = _id_A5A4::_id_23DF( var_0 );
+    var_1 = maps\_utility::_id_23DF( var_0 );
     var_1._id_8D08 = 3764.17;
     var_1._id_4500 = 19391;
     var_1._id_7299 = 0.661137;
@@ -179,7 +179,7 @@ _id_2C58()
     foreach ( var_7 in level.players )
         var_7 thread _id_2C77();
 
-    level.playercardbackground _id_A5A4::_id_27EF( 1, ::dof_monitor_prone );
+    level.playercardbackground maps\_utility::_id_27EF( 1, ::dof_monitor_prone );
 }
 
 _id_2C6C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -797,9 +797,9 @@ _id_8ADF( var_0, var_1 )
 {
     level notify( "ssao_set_target_over_time_internal" );
     level endon( "ssao_set_target_over_time_internal" );
-    _id_A5A4::_id_7DF3();
+    maps\_utility::_id_7DF3();
 
-    if ( !_id_A5A4::_id_502F() )
+    if ( !maps\_utility::_id_502F() )
         return;
 
     var_2 = getdvarfloat( "r_ssaoScriptScale", 1.0 );

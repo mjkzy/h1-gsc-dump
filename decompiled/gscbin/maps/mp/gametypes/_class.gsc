@@ -1609,10 +1609,9 @@ _id_3F10( var_0 )
         {
             var_0 = getsubstr( var_0, 0, var_5 - var_1 + 1 );
             break;
-            continue;
         }
-
-        var_1 = 0;
+        else
+            var_1 = 0;
     }
 
     return var_0;

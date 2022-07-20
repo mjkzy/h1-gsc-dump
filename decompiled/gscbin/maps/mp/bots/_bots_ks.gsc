@@ -484,11 +484,9 @@ enemy_airstrike_exists( var_0 )
             {
                 if ( var_2.team != var_0 )
                     return 1;
-
-                continue;
             }
-
-            return 1;
+            else
+                return 1;
         }
     }
 

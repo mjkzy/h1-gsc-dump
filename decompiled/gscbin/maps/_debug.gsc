@@ -451,7 +451,7 @@ _id_22C2()
             var_1.count = 1;
             var_0 = var_1 stalingradspawn();
 
-            if ( _id_A5A4::_id_88F1( var_0 ) )
+            if ( maps\_utility::_id_88F1( var_0 ) )
             {
                 _id_7393( self );
                 continue;
@@ -472,7 +472,7 @@ _id_22C2()
         var_0.team = "neutral";
         var_0 _meth_81aa( var_0.origin );
         thread _id_2426( self.origin );
-        var_0 thread _id_A5A4::_id_272C();
+        var_0 thread maps\_utility::_id_272C();
         thread _id_2427( var_0 );
         var_0 waittill( "death" );
     }
@@ -575,7 +575,7 @@ _id_8AED()
 _id_3D3F()
 {
     var_0 = anglestoforward( self.angles );
-    var_1 = _id_A57B::_id_3D3E();
+    var_1 = maps\_shg_utility::_id_3D3E();
 
     if ( !isdefined( var_1 ) || !isdefined( var_0 ) )
         return "none";
@@ -1538,7 +1538,7 @@ _id_2DA8()
     var_2[var_2.size] = "w";
     var_2[var_2.size] = "a";
     var_2[var_2.size] = "l";
-    var_3 = _id_A5A4::_id_3E5A();
+    var_3 = maps\_utility::_id_3E5A();
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
         var_1[var_2[var_4]] = 0;
@@ -1778,12 +1778,12 @@ _id_20D1()
     {
         wait 7;
         setdvar( "credits_active", "0" );
-        _id_A530::_id_2452();
+        maps\_endmission::_id_2452();
         return;
     }
 
     wait 7;
-    _id_A5A4::_id_60D6();
+    maps\_utility::_id_60D6();
 }
 
 _id_3768( var_0 )

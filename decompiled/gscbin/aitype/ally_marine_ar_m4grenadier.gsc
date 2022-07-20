@@ -44,28 +44,28 @@ main()
     switch ( codescripts\character::_id_3E43( 8 ) )
     {
         case 0:
-            _id_A4D7::main();
+            character\character_sp_usmc_james::main();
             break;
         case 1:
-            _id_A4D9::main();
+            character\character_sp_usmc_sami::main();
             break;
         case 2:
-            _id_A4D6::main();
+            character\character_sp_usmc_at4::main();
             break;
         case 3:
-            _id_A4D8::main();
+            character\character_sp_usmc_ryan::main();
             break;
         case 4:
-            _id_A4D9::main();
+            character\character_sp_usmc_sami::main();
             break;
         case 5:
-            _id_A4DB::main();
+            character\character_sp_usmc_zach::main();
             break;
         case 6:
-            _id_A4DC::main();
+            character\character_sp_usmc_zach_goggles::main();
             break;
         case 7:
-            _id_A4DA::main();
+            character\character_sp_usmc_sami_goggles::main();
             break;
     }
 }
@@ -77,14 +77,14 @@ spawntime()
 
 prestigedoublexp()
 {
-    _id_A4D7::prestigedoublexp();
-    _id_A4D9::prestigedoublexp();
-    _id_A4D6::prestigedoublexp();
-    _id_A4D8::prestigedoublexp();
-    _id_A4D9::prestigedoublexp();
-    _id_A4DB::prestigedoublexp();
-    _id_A4DC::prestigedoublexp();
-    _id_A4DA::prestigedoublexp();
+    character\character_sp_usmc_james::prestigedoublexp();
+    character\character_sp_usmc_sami::prestigedoublexp();
+    character\character_sp_usmc_at4::prestigedoublexp();
+    character\character_sp_usmc_ryan::prestigedoublexp();
+    character\character_sp_usmc_sami::prestigedoublexp();
+    character\character_sp_usmc_zach::prestigedoublexp();
+    character\character_sp_usmc_zach_goggles::prestigedoublexp();
+    character\character_sp_usmc_sami_goggles::prestigedoublexp();
     precacheitem( "m4_grenadier" );
     precacheitem( "m203_m4" );
     precacheitem( "colt45" );

@@ -32,7 +32,7 @@ main()
         var_1.radiation = spawnstruct();
         var_1.radiation.super_dose = 0;
         var_1.radiation.inside = 0;
-        var_1 _id_A5A4::_id_32DD( "_radiation_poisoning" );
+        var_1 maps\_utility::_id_32DD( "_radiation_poisoning" );
     }
 
     common_scripts\utility::_id_76BB( "radiation", ::updateradiationtriggers );
@@ -150,20 +150,20 @@ updateradiationshock()
         if ( self.radiation.ratepercent >= 75 )
         {
             self shellshock( "radiation_high", 5 );
-            _id_A5E8::_id_870C( "aud_radiation_shellshock", "radiation_high" );
+            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_high" );
         }
         else if ( self.radiation.ratepercent >= 50 )
         {
             self shellshock( "radiation_med", 5 );
-            _id_A5E8::_id_870C( "aud_radiation_shellshock", "radiation_med" );
+            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_med" );
         }
         else if ( self.radiation.ratepercent > 25 )
         {
             self shellshock( "radiation_low", 5 );
-            _id_A5E8::_id_870C( "aud_radiation_shellshock", "radiation_low" );
+            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_low" );
         }
         else if ( self.radiation.ratepercent <= 25 && self.radiation.ratepercent > 0 )
-            _id_A5E8::_id_870C( "aud_radiation_shellshock", "radiation_none" );
+            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_none" );
 
         wait(var_0);
     }
@@ -195,9 +195,9 @@ updateradiationflag()
     for (;;)
     {
         if ( self.radiation.ratepercent > 25 )
-            _id_A5A4::_id_32DE( "_radiation_poisoning" );
+            maps\_utility::_id_32DE( "_radiation_poisoning" );
         else
-            _id_A5A4::_id_32DA( "_radiation_poisoning" );
+            maps\_utility::_id_32DA( "_radiation_poisoning" );
 
         wait 0.05;
     }
@@ -377,7 +377,7 @@ radiation_kill()
     self._id_8A2B = 1;
     self.radiationdeath = 1;
 
-    if ( !_id_A5A4::_id_5346() )
+    if ( !maps\_utility::_id_5346() )
         return;
 
     waitframe;
@@ -407,13 +407,13 @@ first_radiation_dialogue()
 
     for (;;)
     {
-        _id_A5A4::_id_32E0( "_radiation_poisoning" );
+        maps\_utility::_id_32E0( "_radiation_poisoning" );
 
         if ( level.script_context == "scoutsniper" || level.script_context == "co_scoutsniper" )
-            level thread _id_A5A4::_id_3AF2( _id_A5A4::_id_70BD, "scoutsniper_mcm_youdaft" );
+            level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_youdaft" );
 
         level notify( "radiation_warning" );
-        _id_A5A4::_id_32E4( "_radiation_poisoning" );
+        maps\_utility::_id_32E4( "_radiation_poisoning" );
         wait 10;
     }
 }

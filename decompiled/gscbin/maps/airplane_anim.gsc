@@ -35,7 +35,7 @@ _id_0C7A()
 {
     level._id_78AC["frnd"]["C4_plant_start"] = %explosive_plant_knee;
     level._id_78AC["frnd"]["C4_plant"] = %explosive_plant_knee;
-    _id_A53D::_id_4DC4();
+    maps\_hand_signals::_id_4DC4();
     level._id_78AC["generic"]["signal_onme"] = %cqb_stand_wave_on_me;
     level._id_78AC["generic"]["signal_go"] = %cqb_stand_wave_go_v1;
     level._id_78AC["generic"]["signal_stop"] = %cqb_stand_signal_stop;
@@ -237,5 +237,5 @@ bathroom_door_anims()
 {
     level._id_78B1["bathroom_door"] = #animtree;
     level._id_78AC["bathroom_door"]["bathroom_door_shake"][0] = %h1_airplane_bathroom_door_animated_shake;
-    _id_A510::_id_0805( "bathroom_door", "bathroom_door_shake", "start", "emt_metal_shake" );
+    maps\_anim::_id_0805( "bathroom_door", "bathroom_door_shake", "start", "emt_metal_shake" );
 }

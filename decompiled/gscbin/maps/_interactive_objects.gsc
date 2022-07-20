@@ -140,7 +140,7 @@ main()
     for ( var_10 = 0; var_10 < level.console_auto_aim_2nd.size; var_10++ )
         level.console_auto_aim_2nd[var_10] notsolid();
 
-    _id_A5A4::_id_7DF3();
+    maps\_utility::_id_7DF3();
 
     if ( level.console )
     {
@@ -191,7 +191,7 @@ security_camera_logic()
     playfxontag( level._id_17DD["security_camera_explode"], self, "tag_deathfx" );
 
     if ( isdefined( level.breakables_sfx["security_camera_explode"] ) )
-        thread _id_A5A4::_id_69C6( level.breakables_sfx["security_camera_explode"] );
+        thread maps\_utility::_id_69C6( level.breakables_sfx["security_camera_explode"] );
 }
 
 _id_99D3()
@@ -247,7 +247,7 @@ _id_99D6()
     {
         wait 0.2;
         self._id_9C1A waittill( "trigger" );
-        thread _id_A5A4::_id_69C6( "scn_tv_trigger_on_off" );
+        thread maps\_utility::_id_69C6( "scn_tv_trigger_on_off" );
         self notify( "off" );
 
         if ( is_tv_off() )
@@ -301,7 +301,7 @@ _id_99CF()
     playfxontag( level._id_17DD["tv_explode"], self, "tag_fx" );
 
     if ( isdefined( level.breakables_sfx["tv_explode"] ) )
-        thread _id_A5A4::_id_69C5( level.breakables_sfx["tv_explode"], "tag_fx" );
+        thread maps\_utility::_id_69C5( level.breakables_sfx["tv_explode"], "tag_fx" );
 
     if ( isdefined( self._id_9C1A ) )
         self._id_9C1A delete();
@@ -502,7 +502,7 @@ oil_spill_think()
         var_0 = spawn( "script_origin", var_4 );
 
         if ( isdefined( level.breakables_sfx["oilspill"]["spark"] ) )
-            var_0 thread _id_A5A4::_id_69C6( level.breakables_sfx["oilspill"]["spark"] );
+            var_0 thread maps\_utility::_id_69C6( level.breakables_sfx["oilspill"]["spark"] );
 
         var_4 = pointonsegmentnearesttopoint( self._id_8B20.origin, self._id_311C.origin, var_4 );
         thread oil_spill_burn_section( var_4 );
@@ -545,7 +545,7 @@ oil_spill_burn( var_0, var_1 )
     var_2 = vectornormalize( var_1 - var_0 );
     var_3 = distance( var_0, var_1 );
     var_4 = 8;
-    var_5 = _id_A5A4::vector_multiply( var_2, var_4 );
+    var_5 = maps\_utility::vector_multiply( var_2, var_4 );
     var_6 = vectortoangles( var_2 );
     var_7 = anglestoright( var_6 );
     var_8 = getentarray( "explodable_barrel", "targetname" );
@@ -560,7 +560,7 @@ oil_spill_burn( var_0, var_1 )
         if ( var_3 < var_4 * 0.1 )
             break;
 
-        var_0 += ( var_5 + _id_A5A4::vector_multiply( var_7, randomfloatrange( -6, 6 ) ) );
+        var_0 += ( var_5 + maps\_utility::vector_multiply( var_7, randomfloatrange( -6, 6 ) ) );
         thread oil_spill_burn_section( var_0 );
         var_11++;
 
@@ -577,7 +577,7 @@ oil_spill_burn( var_0, var_1 )
         for ( var_13 = 0; var_13 < var_8.size; var_13++ )
         {
             var_14 = anglestoup( var_8[var_13].angles );
-            var_15 = var_8[var_13].origin + _id_A5A4::vector_multiply( var_14, 22 );
+            var_15 = var_8[var_13].origin + maps\_utility::vector_multiply( var_14, 22 );
             var_16 = physicstrace( var_15, var_15 + ( 0, 0, -64 ) );
 
             if ( distancesquared( var_0, var_16 ) < var_9 )
@@ -607,7 +607,7 @@ oil_spill_burn_section( var_0 )
     playfx( level._id_17DD["oilspill"]["burn"], var_0 );
 
     if ( isdefined( level.breakables_sfx["oilspill"]["burn"] ) )
-        thread _id_A5A4::_id_6976( level.breakables_sfx["oilspill"]["burn"], undefined, 1, 1 );
+        thread maps\_utility::_id_6976( level.breakables_sfx["oilspill"]["burn"], undefined, 1, 1 );
 }
 
 explodable_barrel_think()
@@ -655,12 +655,12 @@ explodable_barrel_burn()
     var_3 = anglestoup( ( 0, 90, 0 ) );
     var_4 = vectordot( var_2, var_3 );
     var_5 = ( 0, 0, 0 );
-    var_6 = _id_A5A4::vector_multiply( var_2, 44 );
+    var_6 = maps\_utility::vector_multiply( var_2, 44 );
 
     if ( var_4 < 0.5 )
     {
-        var_5 = _id_A5A4::vector_multiply( var_2, 22 ) - ( 0, 0, 30 );
-        var_6 = _id_A5A4::vector_multiply( var_2, 22 ) + ( 0, 0, 14 );
+        var_5 = maps\_utility::vector_multiply( var_2, 22 ) - ( 0, 0, 30 );
+        var_6 = maps\_utility::vector_multiply( var_2, 22 ) + ( 0, 0, 14 );
     }
 
     var_7 = spawn( "script_origin", self.origin + var_6 );
@@ -672,7 +672,7 @@ explodable_barrel_burn()
             playfx( level._id_17DD["barrel"]["burn_start"], self.origin + var_5 );
 
             if ( isdefined( level.breakables_sfx["barrel"]["burn_start"] ) )
-                thread _id_A5A4::_id_69C6( level.breakables_sfx["barrel"]["burn_start"] );
+                thread maps\_utility::_id_69C6( level.breakables_sfx["barrel"]["burn_start"] );
 
             var_1 = 1;
         }
@@ -683,7 +683,7 @@ explodable_barrel_burn()
         playfx( level._id_17DD["barrel"]["burn"], self.origin + var_6 );
 
         if ( isdefined( level.breakables_sfx["barrel"]["burn"] ) )
-            var_7 thread _id_A5A4::_id_6976( level.breakables_sfx["barrel"]["burn"], undefined, 1, 1 );
+            var_7 thread maps\_utility::_id_6976( level.breakables_sfx["barrel"]["burn"], undefined, 1, 1 );
 
         if ( var_0 == 0 )
         {
@@ -713,7 +713,7 @@ explodable_barrel_explode()
 
     if ( var_2 < 0.5 )
     {
-        var_4 = self.origin + _id_A5A4::vector_multiply( var_0, 22 );
+        var_4 = self.origin + maps\_utility::vector_multiply( var_0, 22 );
         var_5 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
         var_3 = var_5 - self.origin;
     }
@@ -722,7 +722,7 @@ explodable_barrel_explode()
     playfx( level._id_17DD["barrel"]["explode"], self.origin + var_3 );
 
     if ( isdefined( level.breakables_sfx["barrel"]["explode"] ) )
-        thread _id_A5A4::_id_69C6( level.breakables_sfx["barrel"]["explode"] );
+        thread maps\_utility::_id_69C6( level.breakables_sfx["barrel"]["explode"] );
 
     physicsexplosionsphere( self.origin + var_3, 100, 80, 1 );
     level.barrelexplodingthisframe = 1;
@@ -747,7 +747,7 @@ explodable_barrel_explode()
         var_9 = self._id_25A9;
 
         if ( isplayer( var_9 ) )
-            _id_A5A4::arcademode_kill( self.origin, "rifle", 150 );
+            maps\_utility::arcademode_kill( self.origin, "rifle", 150 );
     }
 
     level._id_55A0["time"] = gettime();
@@ -762,7 +762,7 @@ explodable_barrel_explode()
 
     if ( var_2 < 0.5 )
     {
-        var_4 = self.origin + _id_A5A4::vector_multiply( var_0, 22 );
+        var_4 = self.origin + maps\_utility::vector_multiply( var_0, 22 );
         var_10 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
         self.origin = var_10;
         self.angles += ( 0, 0, 90 );
@@ -1093,11 +1093,9 @@ breakable_logic( var_0 )
 
             if ( isdefined( level._id_386B["Breakable Boxes"] ) && level._id_386B["Breakable Boxes"] == 1 )
                 break;
-
-            continue;
         }
-
-        break;
+        else
+            break;
     }
 
     self notify( "death" );

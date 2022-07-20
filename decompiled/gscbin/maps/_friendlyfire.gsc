@@ -160,53 +160,53 @@ _id_3A59( var_0 )
                 _id_669F();
                 return;
             }
-
-            continue;
-        }
-
-        if ( isdefined( var_0._id_60FA ) )
-            continue;
-
-        if ( var_5 == "MOD_PROJECTILE_SPLASH" && isdefined( level._id_60FB ) )
-            continue;
-
-        if ( isdefined( var_6 ) && var_6 == "claymore" )
-        {
-            if ( isdefined( level.claymoreexplodethisframe_byplayer ) && level.claymoreexplodethisframe_byplayer )
-            {
-
-            }
-            else
-                continue;
-        }
-
-        if ( var_12 )
-        {
-            if ( isdefined( var_0._id_3A3A ) )
-                level.playercardbackground._id_669E += var_0._id_3A3A;
-            else
-                level.playercardbackground._id_669E += level.friendlyfire["friend_kill_points"];
         }
         else
-            level.playercardbackground._id_669E -= var_1;
-
-        _id_669F();
-
-        if ( _id_1CC1( var_0, var_5 ) && _id_780F() )
         {
-            if ( var_12 )
-                return;
-            else
+            if ( isdefined( var_0._id_60FA ) )
                 continue;
-        }
 
-        if ( isdefined( level._id_3A58 ) )
-        {
-            [[ level._id_3A58 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
-            continue;
-        }
+            if ( var_5 == "MOD_PROJECTILE_SPLASH" && isdefined( level._id_60FB ) )
+                continue;
 
-        _id_3A57( var_11 );
+            if ( isdefined( var_6 ) && var_6 == "claymore" )
+            {
+                if ( isdefined( level.claymoreexplodethisframe_byplayer ) && level.claymoreexplodethisframe_byplayer )
+                {
+
+                }
+                else
+                    continue;
+            }
+
+            if ( var_12 )
+            {
+                if ( isdefined( var_0._id_3A3A ) )
+                    level.playercardbackground._id_669E += var_0._id_3A3A;
+                else
+                    level.playercardbackground._id_669E += level.friendlyfire["friend_kill_points"];
+            }
+            else
+                level.playercardbackground._id_669E -= var_1;
+
+            _id_669F();
+
+            if ( _id_1CC1( var_0, var_5 ) && _id_780F() )
+            {
+                if ( var_12 )
+                    return;
+                else
+                    continue;
+            }
+
+            if ( isdefined( level._id_3A58 ) )
+            {
+                [[ level._id_3A58 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+                continue;
+            }
+
+            _id_3A57( var_11 );
+        }
     }
 }
 
@@ -320,24 +320,24 @@ _id_5CDD( var_0 )
     if ( isdefined( level.playercardbackground._id_3615 ) )
         return;
 
-    _id_A5E8::_id_870C( "friendly_fire_mission_failed" );
+    soundscripts\_snd::_id_870C( "friendly_fire_mission_failed" );
 
     if ( var_0 )
-        _id_A56A::_id_7E03( &"SCRIPT_MISSIONFAIL_CIVILIAN_KILLED" );
+        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_CIVILIAN_KILLED" );
     else if ( isdefined( level._id_2543 ) )
-        _id_A56A::_id_7E03( level._id_2543 );
+        maps\_player_death::_id_7E03( level._id_2543 );
     else if ( level._id_1A3D == "british" )
-        _id_A56A::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_BRITISH" );
+        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_BRITISH" );
     else if ( level._id_1A3D == "russian" )
-        _id_A56A::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_RUSSIAN" );
+        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_RUSSIAN" );
     else
-        _id_A56A::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_AMERICAN" );
+        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_AMERICAN" );
 
     if ( isdefined( level._id_2544 ) )
-        thread _id_A56A::_id_7E04( level._id_2544, 64, 64, 0 );
+        thread maps\_player_death::_id_7E04( level._id_2544, 64, 64, 0 );
 
     reconspatialevent( level.playercardbackground.origin, "script_friendlyfire: civilian %d", var_0 );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 _id_6228( var_0 )

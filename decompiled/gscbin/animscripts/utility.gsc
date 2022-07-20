@@ -753,7 +753,7 @@ _id_83F2( var_0 )
 _id_83F4( var_0 )
 {
     self.a._id_55D7 = gettime();
-    _id_A537::_id_7DAF();
+    maps\_gameskill::_id_7DAF();
     self notify( "shooting" );
     self _meth_81ea( 1, undefined, var_0 );
 }
@@ -864,7 +864,7 @@ _id_67DD()
     {
         self waittill( "spawned", var_0 );
 
-        if ( _id_A5A4::_id_88F1( var_0 ) )
+        if ( maps\_utility::_id_88F1( var_0 ) )
             continue;
 
         var_0 thread _id_67DC();
@@ -1330,10 +1330,9 @@ _id_3780( var_0 )
                 continue;
 
             return 1;
-            continue;
         }
-
-        var_10 = 0;
+        else
+            var_10 = 0;
     }
 
     return isdefined( self._id_4279 );
@@ -2075,7 +2074,7 @@ _id_515A( var_0 )
 _id_5863( var_0, var_1 )
 {
     if ( isdefined( anim._id_39B2 ) || isdefined( anim._id_39B3 ) )
-        _id_A5A4::_id_30ED( 1 );
+        maps\_utility::_id_30ED( 1 );
 
     if ( isdefined( self._id_0C4D ) )
     {
@@ -2089,7 +2088,7 @@ _id_5863( var_0, var_1 )
 _id_5864( var_0 )
 {
     if ( isdefined( anim._id_39B2 ) || isdefined( anim._id_39B3 ) )
-        _id_A5A4::_id_30ED( 1 );
+        maps\_utility::_id_30ED( 1 );
 
     if ( isdefined( self._id_0C4D ) )
     {

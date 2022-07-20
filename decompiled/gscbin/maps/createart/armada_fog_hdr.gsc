@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "armada" );
+    var_0 = maps\_utility::_id_23DF( "armada" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 4256.31;
     var_0._id_7299 = 0.972628;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -68.5601;
     var_0._id_0DBC = 128.313;
-    var_0 = _id_A5A4::_id_23DF( "armada_transit" );
+    var_0 = maps\_utility::_id_23DF( "armada_transit" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 4256.31;
     var_0._id_7299 = 0.972628;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -68.5601;
     var_0._id_0DBC = 128.313;
-    var_0 = _id_A5A4::_id_23DF( "armada_interior_tvstation_out" );
+    var_0 = maps\_utility::_id_23DF( "armada_interior_tvstation_out" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 4256.31;
     var_0._id_7299 = 0.972628;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -88.1494;
     var_0._id_0DBC = 69.5534;
-    var_0 = _id_A5A4::_id_23DF( "armada_ride" );
+    var_0 = maps\_utility::_id_23DF( "armada_ride" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 4256.31;
     var_0._id_7299 = 0.972628;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 323.194;
     var_0._id_0DBC = 884.942;
-    var_0 = _id_A5A4::_id_23DF( "armada_ride2" );
+    var_0 = maps\_utility::_id_23DF( "armada_ride2" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 4256.31;
     var_0._id_7299 = 0.972628;
@@ -232,7 +232,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 323.194;
     var_0._id_0DBC = 884.942;
-    var_0 = _id_A5A4::_id_23DF( "armada_tvs" );
+    var_0 = maps\_utility::_id_23DF( "armada_tvs" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 3716.29;
     var_0._id_7299 = 0.972628;
@@ -274,7 +274,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -57;
     var_0._id_0DBC = 50;
-    var_0 = _id_A5A4::_id_23DF( "armada_hq" );
+    var_0 = maps\_utility::_id_23DF( "armada_hq" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 3716.29;
     var_0._id_7299 = 0.972628;
@@ -316,7 +316,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -57;
     var_0._id_0DBC = 50;
-    var_0 = _id_A5A4::_id_23DF( "armada_HeliTransition" );
+    var_0 = maps\_utility::_id_23DF( "armada_HeliTransition" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 4256.31;
     var_0._id_7299 = 0.972628;
@@ -358,7 +358,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -150;
     var_0._id_0DBC = 375;
-    var_0 = _id_A5A4::_id_23DF( "armada_hq_exit" );
+    var_0 = maps\_utility::_id_23DF( "armada_hq_exit" );
     var_0._id_8D08 = 4078.01;
     var_0._id_4500 = 3716.29;
     var_0._id_7299 = 0.972628;
@@ -404,7 +404,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -31.5782, 19.652, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

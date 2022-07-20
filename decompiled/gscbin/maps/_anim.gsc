@@ -53,7 +53,7 @@ init()
 
     common_scripts\utility::_id_23C8( "moreThanThreeHack", 3 );
 
-    if ( _id_A5A4::_id_502F() )
+    if ( maps\_utility::_id_502F() )
         common_scripts\utility::_id_23C8( "trace_part_for_efx", 12 );
     else
         common_scripts\utility::_id_23C8( "trace_part_for_efx" );
@@ -83,7 +83,7 @@ init()
 
 should_use_cover_suppression_behaviour()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 0;
 
     switch ( level.script_context )
@@ -117,7 +117,7 @@ should_use_cover_suppression_behaviour()
 
 should_enable_foot_ik()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 0;
 
     switch ( level.script_context )
@@ -133,7 +133,7 @@ should_enable_foot_ik()
 
 should_use_mw_cover_moveup_behaviour()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 1;
 
     switch ( level.script_context )
@@ -167,10 +167,10 @@ should_use_mw_cover_moveup_behaviour()
 
 should_use_bullet_whizby()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 1;
 
-    var_0 = _id_A5A4::_id_3F74( "ai_bulletWhizbyEnable", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_bulletWhizbyEnable", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -206,10 +206,10 @@ should_use_bullet_whizby()
 
 should_use_turn_animations()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 1;
 
-    var_0 = _id_A5A4::_id_3F74( "ai_turnAnimsOverride", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_turnAnimsOverride", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -243,10 +243,10 @@ should_use_turn_animations()
 
 should_use_improved_grenade_returns()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 1;
 
-    var_0 = _id_A5A4::_id_3F74( "ai_grenadeReturn_improvements", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_grenadeReturn_improvements", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -282,10 +282,10 @@ should_use_improved_grenade_returns()
 
 should_use_forced_teleport_to_anim_start()
 {
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 1;
 
-    var_0 = _id_A5A4::_id_3F74( "ai_forcedTeleportToAnimStart", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_forcedTeleportToAnimStart", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -308,7 +308,7 @@ should_use_forced_teleport_to_anim_start()
 
 should_arrival_ignore_player()
 {
-    var_0 = _id_A5A4::_id_3F74( "ai_coverArrival_ignorePlayer", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_coverArrival_ignorePlayer", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -324,7 +324,7 @@ should_arrival_ignore_player()
 
 shoulduserpgrepulsors()
 {
-    var_0 = _id_A5A4::_id_3F74( "ai_use_rpg_repulsors", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_use_rpg_repulsors", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -360,7 +360,7 @@ shoulduserpgrepulsors()
 
 shouldusegrenadedistancechecks()
 {
-    var_0 = _id_A5A4::_id_3F74( "ai_use_grenade_dist_checks", 0 );
+    var_0 = maps\_utility::_id_3F74( "ai_use_grenade_dist_checks", 0 );
 
     if ( var_0 != 0 )
         return var_0 > 0;
@@ -454,11 +454,11 @@ _id_0BC9( var_0, var_1, var_2 )
 _id_0BCD( var_0, var_1, var_2 )
 {
     var_3 = var_0.allowpain;
-    var_0 _id_A5A4::_id_2AC2();
+    var_0 maps\_utility::_id_2AC2();
     _id_0BCA( var_0, "gravity", var_1, var_2 );
 
     if ( var_3 )
-        var_0 _id_A5A4::_id_30D9();
+        var_0 maps\_utility::_id_30D9();
 }
 
 _id_0BD2( var_0, var_1, var_2 )
@@ -494,7 +494,7 @@ _id_0BF9( var_0, var_1, var_2 )
 
 _id_0BCE( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( var_2 ) && isdefined( self.motiontrackerenabled ) && !_id_A5A4::_id_4749( self.motiontrackerenabled, var_2 ) )
+    if ( isdefined( var_2 ) && isdefined( self.motiontrackerenabled ) && !maps\_utility::_id_4749( self.motiontrackerenabled, var_2 ) )
     {
         anim_generic_loop_preh1( var_0, var_1, var_2, var_3 );
         return;
@@ -704,7 +704,7 @@ _id_0BC6( var_0, var_1, var_2, var_3, var_4 )
 
 _id_0BB4( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
-    if ( isai( var_0 ) && var_0 _id_A5A4::_id_2CE7() )
+    if ( isai( var_0 ) && var_0 maps\_utility::_id_2CE7() )
         return;
 
     var_9 = undefined;
@@ -861,7 +861,7 @@ _id_0BDF( var_0, var_1, var_2, var_3 )
             if ( isdefined( level._id_78B0[var_31] ) && isdefined( level._id_78B0[var_31][var_11 + var_1] ) )
                 var_6 playsound( level._id_78B0[var_31][var_11 + var_1] );
 
-            if ( isdefined( level._id_78AC[var_31] ) && isdefined( level._id_78AC[var_31][var_1] ) && ( !isai( var_6 ) || !var_6 _id_A5A4::_id_2CE7() ) )
+            if ( isdefined( level._id_78AC[var_31] ) && isdefined( level._id_78AC[var_31][var_1] ) && ( !isai( var_6 ) || !var_6 maps\_utility::_id_2CE7() ) )
                 var_27 = 1;
 
             if ( var_27 )
@@ -898,7 +898,7 @@ _id_0BDF( var_0, var_1, var_2, var_3 )
                         var_6 animscripts\face::_id_7828( var_29, var_30, 1.0, var_9 );
                 }
                 else
-                    var_6 _id_A5A4::_id_69C4( var_30 );
+                    var_6 maps\_utility::_id_69C4( var_30 );
 
                 var_15 = var_34;
             }
@@ -1031,7 +1031,7 @@ _id_0C1D( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             var_24 = level._id_78BA[var_26][var_1];
         }
 
-        if ( isdefined( level._id_78AC[var_26] ) && isdefined( level._id_78AC[var_26][var_1] ) && ( !isai( var_8 ) || !var_8 _id_A5A4::_id_2CE7() ) )
+        if ( isdefined( level._id_78AC[var_26] ) && isdefined( level._id_78AC[var_26][var_1] ) && ( !isai( var_8 ) || !var_8 maps\_utility::_id_2CE7() ) )
             var_22 = 1;
 
         if ( isdefined( level._id_78B0[var_26] ) && isdefined( level._id_78B0[var_26][var_1] ) )
@@ -1107,7 +1107,7 @@ _id_0C1D( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             }
             else
             {
-                var_8 thread _id_A5A4::_id_69C4( var_24, "single dialogue" );
+                var_8 thread maps\_utility::_id_69C4( var_24, "single dialogue" );
 
                 if ( var_8 _meth_851e() )
                 {
@@ -1205,7 +1205,7 @@ _id_0BA9( var_0, var_1, var_2, var_3 )
 
     if ( var_3 > 0 && var_2 > 0 )
     {
-        var_0 _id_A5A4::_id_A098( "single anim", "end", var_2 );
+        var_0 maps\_utility::_id_A098( "single anim", "end", var_2 );
         var_0 _meth_8143();
     }
     else
@@ -1421,7 +1421,7 @@ _id_61BD( var_0, var_1, var_2, var_3, var_4, var_5 )
             if ( isdefined( var_0._id_0BE8 ) )
                 var_0 thread [[ var_0._id_0BE8 ]]( var_30, "j_head", 1 );
             else
-                var_0 thread _id_A5A4::_id_69C5( var_30, undefined, 1 );
+                var_0 thread maps\_utility::_id_69C5( var_30, undefined, 1 );
 
             continue;
         }
@@ -1433,7 +1433,7 @@ _id_61BD( var_0, var_1, var_2, var_3, var_4, var_5 )
             if ( isdefined( var_0._id_0BE8 ) )
                 var_0 thread [[ var_0._id_0BE8 ]]( var_30, "j_head", 1 );
             else
-                var_0 thread _id_A5A4::_id_69C5( var_30, "j_head", 1 );
+                var_0 thread maps\_utility::_id_69C5( var_30, "j_head", 1 );
 
             continue;
         }
@@ -1441,7 +1441,7 @@ _id_61BD( var_0, var_1, var_2, var_3, var_4, var_5 )
         if ( var_29 == "sd_" )
         {
             var_30 = getsubstr( var_20, 3 );
-            var_0 thread _id_A5A4::_id_865D( var_30 );
+            var_0 thread maps\_utility::_id_865D( var_30 );
             continue;
         }
 
@@ -1458,7 +1458,7 @@ _id_61BD( var_0, var_1, var_2, var_3, var_4, var_5 )
                 }
                 else if ( var_31[0] == "stop_exploder" )
                 {
-                    _id_A5A4::_id_8E7E( var_31[1] );
+                    maps\_utility::_id_8E7E( var_31[1] );
                     continue;
                 }
                 else
@@ -1499,7 +1499,7 @@ _id_61BD( var_0, var_1, var_2, var_3, var_4, var_5 )
         if ( var_29 == "psr_" )
         {
             var_30 = getsubstr( var_20, 4 );
-            _id_A5A4::_id_70BD( var_30 );
+            maps\_utility::_id_70BD( var_30 );
             continue;
         }
 
@@ -1596,7 +1596,7 @@ _id_0BD6( var_0, var_1, var_2, var_3 )
         if ( isdefined( var_0["sound_on_tag"] ) )
             var_5 = var_0["sound_on_tag"];
 
-        var_1 thread _id_A5A4::_id_69C5( var_0["sound"], var_5, var_4 );
+        var_1 thread maps\_utility::_id_69C5( var_0["sound"], var_5, var_4 );
     }
 
     if ( isdefined( var_0["playersound"] ) )
@@ -1966,7 +1966,7 @@ can_get_anim_position_from_tag( var_0, var_1 )
     if ( var_0 _meth_83b6() == "" )
         return 0;
 
-    if ( !_id_A5A4::_id_4749( var_0 _meth_83b6(), var_1 ) )
+    if ( !maps\_utility::_id_4749( var_0 _meth_83b6(), var_1 ) )
         return 0;
 
     return 1;
@@ -1985,7 +1985,7 @@ _id_5D4C( var_0 )
 
     for (;;)
     {
-        var_0 = _id_A5A4::_id_733F( var_0 );
+        var_0 = maps\_utility::_id_733F( var_0 );
         var_2 = [];
         var_3 = 0;
 
@@ -2074,7 +2074,7 @@ _id_0BF2( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_0C03( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    var_8 = _id_A5A4::get_anim_reach_unique_id();
+    var_8 = maps\_utility::get_anim_reach_unique_id();
     var_9 = _id_3CCA( var_2 );
     var_10 = var_9["origin"];
     var_11 = var_9["angles"];
@@ -2322,7 +2322,7 @@ _id_136D( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     self endon( "new_anim_reach" );
     var_1 = [[ var_2 ]]( var_1 );
     thread _id_716D( var_0, var_1, var_6 );
-    _id_A5A4::_id_7E4D( var_1 );
+    maps\_utility::_id_7E4D( var_1 );
     self._id_716E = var_1;
     self.goalradius = 0;
 
@@ -2354,7 +2354,7 @@ _id_7172( var_0 )
     self._id_63E2 = isdefined( self._id_79E6 );
 
     if ( !isdefined( self._id_67CB ) )
-        _id_A5A4::_id_2A74();
+        maps\_utility::_id_2A74();
 
     _id_0BB0( 1 );
     self._id_382C = self.fixednode;
@@ -2383,7 +2383,7 @@ _id_7173()
     if ( self._id_63E2 )
     {
         if ( !isdefined( self._id_67CB ) )
-            _id_A5A4::_id_309B();
+            maps\_utility::_id_309B();
 
         self._id_63E2 = undefined;
     }
@@ -2563,7 +2563,7 @@ anim_reach_and_arrive_facing_anim_solo( var_0, var_1, var_2, var_3, var_4 )
     var_9 = !isdefined( var_0._id_79E6 ) && isdefined( var_0._id_63A1 );
     var_10 = var_7[1];
     var_11 = spawnstruct();
-    var_0 _id_A5A4::_id_08EB();
+    var_0 maps\_utility::_id_08EB();
     var_0.secondaryattachment1 = undefined;
     var_0 _id_7172( var_6 );
     var_0 get_to_transition_point( var_11, var_10, var_6, var_10, var_2 );
@@ -2574,7 +2574,7 @@ anim_reach_and_arrive_facing_anim_solo( var_0, var_1, var_2, var_3, var_4 )
 
     var_0 play_arrival_animation( var_2, var_11, var_12, var_3 );
     var_0 _id_7173();
-    var_0 _id_A5A4::_id_0933( undefined, var_9 );
+    var_0 maps\_utility::_id_0933( undefined, var_9 );
 }
 
 play_arrival_animation( var_0, var_1, var_2, var_3 )
@@ -2597,7 +2597,7 @@ get_to_transition_point( var_0, var_1, var_2, var_1, var_3, var_4 )
     else
         var_5 = anim._id_0CCA["soldier"]["CoverTransLongestDist"][var_3];
 
-    _id_A5A4::_id_7E4D( var_1 );
+    maps\_utility::_id_7E4D( var_1 );
     self._id_716E = var_1;
     self.goalradius = 0;
     var_6 = var_5 * var_5;
@@ -2701,9 +2701,9 @@ _id_0732( var_0, var_1 )
 _id_0C21( var_0, var_1, var_2, var_3 )
 {
     if ( isdefined( var_0._id_554C ) )
-        _id_A5A4::_id_9F8C( var_0._id_554C, 0.5 );
+        maps\_utility::_id_9F8C( var_0._id_554C, 0.5 );
 
-    _id_A5A4::_id_3AF2( ::_id_0C24, var_0, var_1, var_2, var_3 );
+    maps\_utility::_id_3AF2( ::_id_0C24, var_0, var_1, var_2, var_3 );
 
     if ( isalive( var_0 ) )
         var_0._id_554C = gettime();
@@ -2717,12 +2717,12 @@ _id_0BCF( var_0, var_1, var_2, var_3, var_4 )
         var_3 = 0;
 
     if ( isdefined( var_0._id_554C ) )
-        _id_A5A4::_id_9F8C( var_0._id_554C, 0.5 );
+        maps\_utility::_id_9F8C( var_0._id_554C, 0.5 );
 
     if ( isdefined( var_4 ) )
-        _id_A5A4::_id_3AF8( var_4, ::_id_0C24, var_0, var_1, var_2, var_3, "generic" );
+        maps\_utility::_id_3AF8( var_4, ::_id_0C24, var_0, var_1, var_2, var_3, "generic" );
     else
-        _id_A5A4::_id_3AF2( ::_id_0C24, var_0, var_1, var_2, var_3, "generic" );
+        maps\_utility::_id_3AF2( ::_id_0C24, var_0, var_1, var_2, var_3, "generic" );
 
     if ( isalive( var_0 ) )
         var_0._id_554C = gettime();
@@ -2768,7 +2768,7 @@ _id_73BC( var_0, var_1, var_2, var_3, var_4 )
     if ( var_5.size == 1 )
         var_5 = [];
     else
-        var_5 = _id_A5A4::_id_0CFA( var_5, var_6 );
+        var_5 = maps\_utility::_id_0CFA( var_5, var_6 );
 
     level._id_78B6[var_0][var_2][var_1] = var_5;
 }
@@ -2969,7 +2969,7 @@ _id_6174( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = _id_3D2D();
 
-    if ( var_0 != "start" && !animhasnotetrack( var_6 _id_A5A4::_id_3EF5( var_6._id_0C10 ), var_0 ) )
+    if ( var_0 != "start" && !animhasnotetrack( var_6 maps\_utility::_id_3EF5( var_6._id_0C10 ), var_0 ) )
         return;
 
     common_scripts\utility::_id_0760( var_3, var_3 );
@@ -2984,7 +2984,7 @@ _id_6170( var_0, var_1, var_2 )
 {
     var_3 = _id_3D2D();
 
-    if ( var_0 != "start" && !animhasnotetrack( var_3 _id_A5A4::_id_3EF5( var_3._id_0C10 ), var_0 ) )
+    if ( var_0 != "start" && !animhasnotetrack( var_3 maps\_utility::_id_3EF5( var_3._id_0C10 ), var_0 ) )
         return;
 
     common_scripts\utility::_id_0760( var_2, var_2 );
@@ -3286,7 +3286,7 @@ _id_7EC3( var_0, var_1, var_2, var_3, var_4 )
         var_8 = getstartangles( var_1, var_2, var_6 );
 
         if ( isdefined( self._id_0C38 ) )
-            var_7 = _id_A5A4::_id_4417( var_7 );
+            var_7 = maps\_utility::_id_4417( var_7 );
 
         if ( should_use_forced_teleport_to_anim_start() )
         {
@@ -3362,7 +3362,7 @@ _id_0C12( var_0, var_1, var_2 )
     else
         var_3 = self._id_0C72;
 
-    var_4 = _id_A5A4::_id_3EF6( var_0, var_3 );
+    var_4 = maps\_utility::_id_3EF6( var_0, var_3 );
 
     if ( isarray( var_4 ) )
         var_4 = var_4[0];
@@ -3377,7 +3377,7 @@ _id_0C15( var_0, var_1, var_2 )
 
 _id_0C0F( var_0, var_1 )
 {
-    var_2 = _id_A5A4::_id_3EF5( var_0 );
+    var_2 = maps\_utility::_id_3EF5( var_0 );
     self setanimtime( var_2, var_1 );
 }
 

@@ -262,13 +262,13 @@ _id_6D9A( var_0, var_1, var_2, var_3, var_4, var_5 )
 
                 if ( isdefined( var_0 ) )
                 {
-                    _id_A510::_id_2B04();
+                    maps\_anim::_id_2B04();
                     self setflaggedanimknobrestart( "animscript faceanim", var_0, 1, 0.1, 1 );
                     self.a._id_35C4 = 0;
                     thread _id_A01D();
                 }
                 else
-                    _id_A510::_id_2B04( 0 );
+                    maps\_anim::_id_2B04( 0 );
 
                 if ( isdefined( var_1 ) )
                 {
@@ -334,7 +334,7 @@ _id_A01D()
     animscripts\shared::_id_2D06( "animscript faceanim" );
     self.a._id_35C4 = 1;
     self notify( "animscript facedone" );
-    _id_A510::_id_2B04( 0 );
+    maps\_anim::_id_2B04( 0 );
 }
 
 _id_A01C( var_0 )

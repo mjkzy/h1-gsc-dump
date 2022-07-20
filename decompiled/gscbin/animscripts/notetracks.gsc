@@ -130,7 +130,7 @@ _id_4659( var_0 )
     if ( soundexists( var_2 ) )
     {
         if ( isalive( self ) )
-            thread _id_A5A4::_id_69C6( var_2, "tag_eye" );
+            thread maps\_utility::_id_69C6( var_2, "tag_eye" );
         else
             thread common_scripts\utility::_id_69C2( var_2, self geteye() );
     }
@@ -486,7 +486,7 @@ _id_61CA( var_0, var_1 )
     _id_6D9F( var_2, var_3 );
 
     if ( isdefined( level.play_additionnal_fs_sfx ) )
-        _id_A5E8::_id_870C( "play_additionnal_fs_sfx" );
+        soundscripts\_snd::_id_870C( "play_additionnal_fs_sfx" );
 
     self.leftfootdown = var_2;
 }
@@ -605,7 +605,7 @@ _id_61F5( var_0, var_1 )
                     var_5 = randomint( 8 );
                     var_6 = var_2[var_5];
 
-                    if ( _id_A5A4::_id_4749( self.motiontrackerenabled, var_6 ) )
+                    if ( maps\_utility::_id_4749( self.motiontrackerenabled, var_6 ) )
                     {
                         if ( !isdefined( self._id_10F2 ) )
                             self._id_10F2 = 0;
@@ -628,7 +628,7 @@ _id_61F5( var_0, var_1 )
             {
                 foreach ( var_6 in var_2 )
                 {
-                    if ( isdefined( var_6 ) && _id_A5A4::_id_4749( self.motiontrackerenabled, var_6 ) )
+                    if ( isdefined( var_6 ) && maps\_utility::_id_4749( self.motiontrackerenabled, var_6 ) )
                     {
                         if ( !isdefined( self._id_10F2 ) )
                             self._id_10F2 = 0;
@@ -806,7 +806,7 @@ _id_61E4()
     if ( isai( self ) && !isalive( self ) )
         return;
 
-    if ( _id_A5A4::_id_4749( getweaponmodel( self.weapon_switch_invalid ), "tag_rocket" ) )
+    if ( maps\_utility::_id_4749( getweaponmodel( self.weapon_switch_invalid ), "tag_rocket" ) )
         self showpart( "tag_rocket" );
 }
 
@@ -893,7 +893,7 @@ _id_466C( var_0, var_1, var_2, var_3 )
 
             break;
         case "stop anim":
-            _id_A5A4::_id_0C3D();
+            maps\_utility::_id_0C3D();
             return var_0;
         case "break glass":
             level notify( "glass_break", self );

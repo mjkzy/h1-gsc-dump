@@ -27,7 +27,7 @@ _id_5F21( var_0 )
     var_1 = common_scripts\utility::_id_40FB( var_0, "targetname" );
 
     if ( isdefined( var_1 ) )
-        _id_A5A4::_id_923E( var_1 );
+        maps\_utility::_id_923E( var_1 );
 }
 
 _id_88FC( var_0, var_1, var_2, var_3 )
@@ -51,10 +51,10 @@ _id_88FC( var_0, var_1, var_2, var_3 )
 
     foreach ( var_14 in var_5 )
     {
-        var_15 = var_14 _id_A5A4::_id_88C3( 1 );
+        var_15 = var_14 maps\_utility::_id_88C3( 1 );
 
         if ( var_2 )
-            var_15 thread _id_A5A4::_id_7402();
+            var_15 thread maps\_utility::_id_7402();
 
         var_15 _meth_81ca( var_11.origin, var_11.angles );
         var_15 _meth_81aa( var_15.origin );
@@ -118,7 +118,7 @@ _id_5EBC()
     {
         if ( !isdefined( var_1._id_87E2 ) )
         {
-            var_1._id_87E2 = var_1 _id_A546::_id_23ED( "default", 1.75 );
+            var_1._id_87E2 = var_1 maps\_hud_util::_id_23ED( "default", 1.75 );
             var_1._id_87E2.hostquits = "center";
             var_1._id_87E2.visionsetnight = "top";
             var_1._id_87E2.alignx = "center";
@@ -176,7 +176,7 @@ _id_5EBC()
 
         if ( var_8 && !var_6 isreloading() && !var_6 isswitchingweapon() )
         {
-            if ( var_6 _id_A5A4::_id_50A9() && var_6 adsbuttonpressed() )
+            if ( var_6 maps\_utility::_id_50A9() && var_6 adsbuttonpressed() )
             {
                 var_6 _id_9939( var_3 );
                 var_3 = 1;
@@ -292,27 +292,26 @@ _id_2A38( var_0, var_1, var_2, var_3, var_4 )
         var_7 = common_scripts\utility::_id_710E( var_2 );
 
         if ( isdefined( var_5 ) && var_7 == var_5 )
-        {
             continue;
-            continue;
-        }
-
-        var_5 = var_7;
-        wait(var_6);
-
-        if ( !common_scripts\utility::_id_382E( var_1 ) )
+        else
         {
-            if ( isstring( var_0 ) && var_0 == "radio" )
+            var_5 = var_7;
+            wait(var_6);
+
+            if ( !common_scripts\utility::_id_382E( var_1 ) )
             {
-                _id_219E();
-                _id_A5A4::_id_70BD( var_7 );
-                _id_219F();
-                continue;
-            }
+                if ( isstring( var_0 ) && var_0 == "radio" )
+                {
+                    _id_219E();
+                    maps\_utility::_id_70BD( var_7 );
+                    _id_219F();
+                    continue;
+                }
 
-            _id_219E();
-            var_0 _id_A5A4::_id_2A32( var_7 );
-            _id_219F();
+                _id_219E();
+                var_0 maps\_utility::_id_2A32( var_7 );
+                _id_219F();
+            }
         }
     }
 }
@@ -517,7 +516,7 @@ _id_54C3( var_0 )
     level.playercardbackground endon( "remove_laser_targeting_device" );
     level.playercardbackground._id_54EE = 0;
     self setweaponhudiconoverride( "actionslot4", "dpad_killstreak_hellfire_missile_inactive" );
-    _id_A5A4::_id_38CC( "allies" );
+    maps\_utility::_id_38CC( "allies" );
     var_1 = level.playercardbackground;
     wait 2.5;
 
@@ -1035,7 +1034,7 @@ _id_1950( var_0, var_1, var_2, var_3 )
     self endon( var_2 );
     level.playercardbackground endon( var_2 );
     self endon( "death" );
-    thread _id_A5A4::_id_48B0( var_0 );
+    thread maps\_utility::_id_48B0( var_0 );
     var_4 = var_1 + "_button_mash_dynamic_hint";
     thread _id_195E( var_2, var_4, var_1, var_3 );
     level.playercardbackground notifyonplayercommand( var_4, var_1 );
@@ -1057,7 +1056,7 @@ _id_195E( var_0, var_1, var_2, var_3 )
 {
     self endon( "death" );
     common_scripts\utility::_id_A06A( self, var_0, level.playercardbackground, var_0 );
-    thread _id_A5A4::_id_48CB();
+    thread maps\_utility::_id_48CB();
     level.playercardbackground _meth_8498( var_1, var_2 );
 
     if ( isdefined( var_3 ) )

@@ -26,7 +26,7 @@ _id_3D70()
 
 main()
 {
-    var_0 = _id_A5A4::_id_38A7();
+    var_0 = maps\_utility::_id_38A7();
 
     if ( var_0 <= 0 )
         return;

@@ -154,8 +154,8 @@ _id_7A3D()
     level._id_78AC["minigun"]["spin_start"] = %minigun_spin_start;
     level._id_78AC["minigun"]["use"] = %h1_minigun_in;
     level._id_78AC["minigun"]["drop"] = %h1_minigun_out;
-    _id_A510::_id_0805( "minigun", "use", "start", "h1_minigun_use_foley" );
-    _id_A510::_id_0805( "minigun", "drop", "start", "h1_minigun_drop_foley" );
+    maps\_anim::_id_0805( "minigun", "use", "start", "h1_minigun_use_foley" );
+    maps\_anim::_id_0805( "minigun", "drop", "start", "h1_minigun_drop_foley" );
     level._id_78B1["minigun"] = #animtree;
     level._id_78B5["minigun"] = "weapon_minigun";
 }
@@ -167,10 +167,10 @@ script_models_minigun_player()
     level._id_78B1["minigun_player"] = #animtree;
     level._id_78B5["minigun_player"] = "viewhands_player_sas_woodland";
     level._id_78AC["detonator_guy"]["press_detonator"] = %h1_village_defend_sas_press_detonator;
-    _id_A510::_id_0807( "detonator_guy", "radio_dialog", maps\village_defend::say_kaboom, "press_detonator" );
-    _id_A510::_id_0807( "detonator_guy", "kaboom", maps\village_defend::do_kaboom, "press_detonator" );
-    _id_A510::_id_0807( "detonator_guy", "spawn_detonator", maps\village_defend::toggle_detonator, "press_detonator", 1 );
-    _id_A510::_id_0807( "detonator_guy", "despawn_detonator", maps\village_defend::toggle_detonator, "press_detonator", 0 );
+    maps\_anim::_id_0807( "detonator_guy", "radio_dialog", maps\village_defend::say_kaboom, "press_detonator" );
+    maps\_anim::_id_0807( "detonator_guy", "kaboom", maps\village_defend::do_kaboom, "press_detonator" );
+    maps\_anim::_id_0807( "detonator_guy", "spawn_detonator", maps\village_defend::toggle_detonator, "press_detonator", 1 );
+    maps\_anim::_id_0807( "detonator_guy", "despawn_detonator", maps\village_defend::toggle_detonator, "press_detonator", 0 );
 }
 #using_animtree("vehicles");
 

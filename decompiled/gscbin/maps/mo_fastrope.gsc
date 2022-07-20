@@ -38,9 +38,9 @@ fastrope_override( var_0, var_1, var_2, var_3 )
     level._id_78AC[var_4]["custom_all" + self.teambalanced] = var_1;
     level._id_78AC[var_4]["custom_ride" + self.teambalanced] = var_2;
     level._id_78AC[var_4]["custom_unload" + self.teambalanced] = var_3;
-    _id_A510::_id_0807( var_4, "start", ::play_fastrope_start_sfx, "custom_unload" + self.teambalanced );
-    _id_A510::_id_0807( var_4, "fastrope_end_sfx", ::play_fastrope_end_sfx, "custom_unload" + self.teambalanced );
-    _id_A510::_id_0807( var_4, "custom_land", ::play_fastrope_land_sfx, "custom_unload" + self.teambalanced );
+    maps\_anim::_id_0807( var_4, "start", ::play_fastrope_start_sfx, "custom_unload" + self.teambalanced );
+    maps\_anim::_id_0807( var_4, "fastrope_end_sfx", ::play_fastrope_end_sfx, "custom_unload" + self.teambalanced );
+    maps\_anim::_id_0807( var_4, "custom_land", ::play_fastrope_land_sfx, "custom_unload" + self.teambalanced );
 }
 
 fastrope_override_vehicle( var_0, var_1 )
@@ -51,19 +51,19 @@ fastrope_override_vehicle( var_0, var_1 )
 
 play_fastrope_start_sfx( var_0 )
 {
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_start_npc" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_start_npc" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_npc" );
 }
 
 play_fastrope_end_sfx( var_0 )
 {
     var_0 notify( "stop soundfastrope_loop_npc" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_end_npc" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_end_npc" );
 }
 
 play_fastrope_land_sfx( var_0 )
 {
-    var_0 thread _id_A5A4::_id_69C4( "step_land_hv_concrete_wet" );
+    var_0 thread maps\_utility::_id_69C4( "step_land_hv_concrete_wet" );
 }
 
 fastrope_spawner_think()
@@ -91,7 +91,7 @@ fastrope_spawner_think()
     {
         self waittill( "spawned", var_2 );
 
-        if ( _id_A5A4::_id_88F1( var_2 ) )
+        if ( maps\_utility::_id_88F1( var_2 ) )
             continue;
 
         var_2.spawntime = self;
@@ -136,7 +136,7 @@ fastrope_ai_think( var_0 )
             {
                 common_scripts\utility::_id_384A( "heli_shoot_deck_windows" );
                 self.spawntime._id_47A3.motiontrackerenabled notify( "stop_" + var_1._id_08B4.seat_index );
-                self.spawntime._id_47A3.motiontrackerenabled thread _id_A510::_id_0BE1( self, "minigun", "tag_detach" );
+                self.spawntime._id_47A3.motiontrackerenabled thread maps\_anim::_id_0BE1( self, "minigun", "tag_detach" );
             }
 
             var_0._id_47A3._id_9C7E waittill( "reached_end_node" );
@@ -154,19 +154,19 @@ fastrope_ai_think( var_0 )
     if ( isdefined( level._id_78AC[var_1._id_08B4._id_0C72][var_3] ) )
     {
         self waittillmatch( "single anim", "start" );
-        thread _id_A5A4::_id_69C4( "fastrope_start_npc" );
+        thread maps\_utility::_id_69C4( "fastrope_start_npc" );
         var_1 thread common_scripts\utility::_id_6975( "fastrope_loop_npc" );
         fastrope_calc( var_1 );
         var_0 thread fastrope_post_unload( var_1 );
         self waittillmatch( "single_anim_done" );
         var_1 notify( "stop soundfastrope_loop_npc" );
-        thread _id_A5A4::_id_69C4( "fastrope_end_npc" );
+        thread maps\_utility::_id_69C4( "fastrope_end_npc" );
         self unlink();
     }
     else if ( isdefined( level._id_78AC[var_1._id_08B4._id_0C72][var_2] ) )
     {
         thread fastrope_ai_think_hack( getanimlength( level._id_78AC[var_1._id_08B4._id_0C72][var_2] ) );
-        var_0._id_47A3.motiontrackerenabled thread _id_A510::_id_0C24( self, var_2, "tag_detach" );
+        var_0._id_47A3.motiontrackerenabled thread maps\_anim::_id_0C24( self, var_2, "tag_detach" );
         self waittillmatch( "single anim", "start" );
         fastrope_calc( var_1 );
         var_0 thread fastrope_post_unload( var_1 );
@@ -186,7 +186,7 @@ fastrope_ai_think( var_0 )
         var_1.angles = self.angles;
         var_1 linkto( self );
         var_0._id_47A3 thread fastrope_ropethink( self );
-        var_0._id_47A3.motiontrackerenabled thread _id_A510::_id_0C24( self, "grab", "tag_detach" );
+        var_0._id_47A3.motiontrackerenabled thread maps\_anim::_id_0C24( self, "grab", "tag_detach" );
         wait 2.5;
         fastrope_calc( var_1 );
         self waittillmatch( "single anim", "end" );
@@ -194,8 +194,8 @@ fastrope_ai_think( var_0 )
         self linkto( var_1 );
         fastrope_calc( var_1 );
         var_0 thread fastrope_post_unload( var_1 );
-        var_1 thread _id_A510::_id_0BE1( self, "loop", undefined, "stopanimscripted" );
-        thread _id_A5A4::_id_69C4( "fastrope_start_npc" );
+        var_1 thread maps\_anim::_id_0BE1( self, "loop", undefined, "stopanimscripted" );
+        thread maps\_utility::_id_69C4( "fastrope_start_npc" );
         var_1 thread common_scripts\utility::_id_6975( "fastrope_loop_npc" );
         var_1 movez( var_1._id_7131 * -1, var_1.titleunlocked );
         var_6 = var_4 - var_5;
@@ -203,9 +203,9 @@ fastrope_ai_think( var_0 )
         wait(var_1.titleunlocked);
         var_1 notify( "stopanimscripted" );
         var_1.angles = self.angles;
-        var_1 _id_A510::_id_0C24( self, "land" );
+        var_1 maps\_anim::_id_0C24( self, "land" );
         var_1 notify( "stop soundfastrope_loop_npc" );
-        thread _id_A5A4::_id_69C4( "fastrope_end_npc" );
+        thread maps\_utility::_id_69C4( "fastrope_end_npc" );
         self unlink();
     }
 
@@ -274,16 +274,16 @@ fastrope_ropethink( var_0 )
     if ( isdefined( level._id_78AC[self.teambalanced][var_3] ) )
     {
         var_6 = getanimlength( level._id_78AC[self.teambalanced][var_3] );
-        self.motiontrackerenabled thread _id_A510::_id_0C24( var_5, var_3, var_4 );
+        self.motiontrackerenabled thread maps\_anim::_id_0C24( var_5, var_3, var_4 );
         wait(var_6 - 1.5);
     }
     else
     {
-        self.motiontrackerenabled thread _id_A510::_id_0BE1( var_5, var_2, var_4, "stop_" + var_2 );
+        self.motiontrackerenabled thread maps\_anim::_id_0BE1( var_5, var_2, var_4, "stop_" + var_2 );
         self waittill( "unload_" + var_1 );
         self.motiontrackerenabled notify( "stop_" + var_2 );
         var_2 = "ropedrop" + var_1;
-        self.motiontrackerenabled thread _id_A510::_id_0C24( var_5, var_2, var_4 );
+        self.motiontrackerenabled thread maps\_anim::_id_0C24( var_5, var_2, var_4 );
 
         while ( self.que.size )
             self waittill( "check_fastrope_que" );
@@ -345,10 +345,9 @@ fastrope_attach_helicopter( var_0 )
         {
             self._id_47A3 waittill( "seat_open" );
             continue;
-            continue;
         }
-
-        break;
+        else
+            break;
     }
 
     self._id_47A3.motiontrackerenabled endon( "death" );
@@ -372,7 +371,7 @@ fastrope_attach_helicopter( var_0 )
         var_0._id_08B4 linkto( self._id_47A3.motiontrackerenabled, "tag_detach" );
         var_0._id_08B4 _meth_81a7( 1 );
         var_0 linkto( var_0._id_08B4 );
-        self._id_47A3.motiontrackerenabled thread _id_A510::_id_0C24( var_0._id_08B4, "custom_all" + self._id_47A3.teambalanced, "tag_detach" );
+        self._id_47A3.motiontrackerenabled thread maps\_anim::_id_0C24( var_0._id_08B4, "custom_all" + self._id_47A3.teambalanced, "tag_detach" );
         var_0 notify( "custom_all" );
         var_0._id_08B4 thread fastrope_ai_think_hack( getanimlength( level._id_78AC[var_0._id_08B4._id_0C72]["custom_all" + self._id_47A3.teambalanced] ), 0.25 );
         return;
@@ -383,13 +382,13 @@ fastrope_attach_helicopter( var_0 )
         var_0._id_08B4 linkto( self._id_47A3.motiontrackerenabled, "tag_detach" );
         var_0._id_08B4 _meth_81a7( 1 );
         var_0 linkto( var_0._id_08B4 );
-        self._id_47A3.motiontrackerenabled _id_A510::_id_0C24( var_0._id_08B4, "custom_ride" + self._id_47A3.teambalanced, "tag_detach" );
+        self._id_47A3.motiontrackerenabled maps\_anim::_id_0C24( var_0._id_08B4, "custom_ride" + self._id_47A3.teambalanced, "tag_detach" );
 
         if ( self._id_47A3._id_71D4 )
             return;
     }
 
-    self._id_47A3.motiontrackerenabled thread _id_A510::_id_0BE1( var_0._id_08B4, "idle", "tag_detach", "stop_" + var_1 );
+    self._id_47A3.motiontrackerenabled thread maps\_anim::_id_0BE1( var_0._id_08B4, "idle", "tag_detach", "stop_" + var_1 );
 }
 
 fastrope_free_seat( var_0 )
@@ -525,7 +524,7 @@ fastrope_player_unload_nolock()
     var_0 linkto( var_1 );
     var_2 = 1;
     var_3 = anglestoforward( ( 0, 233, 0 ) );
-    var_3 = _id_A5A4::vector_multiply( var_3, 30 );
+    var_3 = maps\_utility::vector_multiply( var_3, 30 );
     self.que = common_scripts\utility::_id_0CF6( self.que, level.playercardbackground );
     thread fastrope_que_check();
     fastrope_calc( level.playercardbackground );
@@ -533,12 +532,12 @@ fastrope_player_unload_nolock()
     self._id_5605 = level.playercardbackground.titleunlocked;
     var_4 = ( level.playercardbackground._id_7131 + 100 ) * -1;
     var_1 moveto( ( 3220, 255, 435 ), level.playercardbackground.titleunlocked );
-    var_1 thread _id_A510::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_start_plr" );
+    var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     wait(level.playercardbackground.titleunlocked);
     var_0 notify( "stop soundfastrope_loop_plr" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_end_plr" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_end_plr" );
     var_1 notify( "stopanimscripted" );
     maps\mo_tools::playerweapongive();
     setsaveddvar( "compass", 1 );
@@ -569,7 +568,7 @@ fastrope_player_unload_nolock2()
     var_0 linkto( var_1 );
     var_2 = 1;
     var_3 = anglestoforward( ( 0, 233, 0 ) );
-    var_3 = _id_A5A4::vector_multiply( var_3, 30 );
+    var_3 = maps\_utility::vector_multiply( var_3, 30 );
     self.que = common_scripts\utility::_id_0CF6( self.que, level.playercardbackground );
     thread fastrope_que_check();
     fastrope_calc( level.playercardbackground );
@@ -577,15 +576,15 @@ fastrope_player_unload_nolock2()
     self._id_5605 = level.playercardbackground.titleunlocked;
     var_4 = ( level.playercardbackground._id_7131 + 100 ) * -1;
     var_1 moveto( ( 3220, 300, 400 ), level.playercardbackground.titleunlocked );
-    var_1 thread _id_A510::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_start_plr" );
+    var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     var_5 = 0.5;
     wait(level.playercardbackground.titleunlocked - var_5);
     var_1 rotateto( ( -60, 225, 0 ), var_5, var_5 * 0.5, var_5 * 0.5 );
     wait(var_5);
     var_0 notify( "stop soundfastrope_loop_plr" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_end_plr" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_end_plr" );
     var_1 notify( "stopanimscripted" );
     maps\mo_tools::playerweapongive();
     setsaveddvar( "compass", 1 );
@@ -659,7 +658,7 @@ fastrope_player_unload_lock()
     var_0 linkto( var_1 );
     var_2 = 1;
     var_3 = anglestoforward( ( 0, 233, 0 ) );
-    var_3 = _id_A5A4::vector_multiply( var_3, -50 );
+    var_3 = maps\_utility::vector_multiply( var_3, -50 );
     self.que = common_scripts\utility::_id_0CF6( self.que, level.playercardbackground );
     thread fastrope_que_check();
     fastrope_calc( level.playercardbackground );
@@ -671,8 +670,8 @@ fastrope_player_unload_lock()
     var_7 = var_1.origin + var_3 + ( 0, 0, var_6 );
     var_1 rotateto( ( 80, 233, 0 ), var_2, var_2 * 0.5, var_2 * 0.5 );
     var_1 moveto( var_7, var_2 );
-    var_1 thread _id_A510::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_start_plr" );
+    var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     thread play_fast_rope_fx();
     wait(var_2);
@@ -680,14 +679,14 @@ fastrope_player_unload_lock()
     var_9 = level.playercardbackground.titleunlocked - var_2 + 0.5 - var_8;
     var_6 = var_4 - var_6;
     var_5 = ( level.playercardbackground.titleunlocked + 0.5 ) * var_6 / var_4;
-    var_3 = _id_A5A4::vector_multiply( var_3, -1 );
+    var_3 = maps\_utility::vector_multiply( var_3, -1 );
     var_7 = var_1.origin + var_3 + ( 0, 0, var_6 );
     var_1 moveto( var_7, level.playercardbackground.titleunlocked + 0.5 - var_2 );
     wait(var_9);
     var_1 rotateto( ( 10, 233, 0 ), var_8, var_8 * 0.5, var_8 * 0.5 );
     wait(var_8 - 0.25);
     var_0 notify( "stop soundfastrope_loop_plr" );
-    var_0 thread _id_A5A4::_id_69C4( "fastrope_end_plr" );
+    var_0 thread maps\_utility::_id_69C4( "fastrope_end_plr" );
     var_1 moveto( ( 3200, 225, 337 ), 0.5 );
     var_1 notify( "stopanimscripted" );
     maps\mo_tools::playerweapongive();
@@ -720,16 +719,16 @@ fastrope_player_attach()
     var_0 useanimtree( #animtree );
     var_0 hide();
     level.playercardbackground playerlinktodelta( var_0, "tag_player", 1, 100, 100, 30, 60 );
-    self.motiontrackerenabled thread _id_A510::_id_0C24( var_0, "ride", "tag_detach", self.motiontrackerenabled );
+    self.motiontrackerenabled thread maps\_anim::_id_0C24( var_0, "ride", "tag_detach", self.motiontrackerenabled );
     level.playercardbackground allowlean( 0 );
     level.playercardbackground allowcrouch( 0 );
     level.playercardbackground allowprone( 0 );
 
     if ( isdefined( level._id_78B5["fastrope_intro"] ) )
     {
-        var_1 = _id_A5A4::_id_88D1( "fastrope_intro" );
+        var_1 = maps\_utility::_id_88D1( "fastrope_intro" );
         var_1 linkto( self.motiontrackerenabled, "tag_detach" );
-        self.motiontrackerenabled thread _id_A510::_id_0C24( var_1, "opening", "tag_detach", self.motiontrackerenabled );
+        self.motiontrackerenabled thread maps\_anim::_id_0C24( var_1, "opening", "tag_detach", self.motiontrackerenabled );
         level.playercardbackground playerlinktodelta( var_1, "tag_player", 1, 65, 74, 30, 35, 1 );
         level.playercardbackground.ropecamera = var_1;
 
@@ -792,7 +791,7 @@ fastrope_heli_fly()
     self.motiontrackerenabled useanimtree( #animtree );
     self.motiontrackerenabled _meth_814d( level._id_78AC[fastrope_animname( self.unlockpoints, "heli" )]["loop"][0] );
     self.motiontrackerenabled.visionsetnaked = self.unlockpoints;
-    self.motiontrackerenabled thread _id_A5AA::_id_0995();
+    self.motiontrackerenabled thread maps\_vehicle_code::_id_0995();
     self notify( "inflight" );
 
     if ( self.playercardbackground )
@@ -846,7 +845,7 @@ fastrope_heli_waittill_unload()
         self._id_9C7E._id_0C72 = self._id_0C72;
         self._id_9C7E useanimtree( #animtree );
         wait 1.15;
-        self.pathnode thread _id_A510::_id_0C24( self._id_9C7E, "pathanim" );
+        self.pathnode thread maps\_anim::_id_0C24( self._id_9C7E, "pathanim" );
         self._id_9C7E waittillmatch( "single anim", "stop" );
     }
     else

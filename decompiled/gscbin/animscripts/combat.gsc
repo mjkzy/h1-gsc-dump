@@ -704,14 +704,14 @@ _id_993D( var_0 )
     if ( var_0 < 0 - self._id_993A )
     {
         _id_2D88( "left", 0 - var_0 );
-        _id_A537::_id_2A4D();
+        maps\_gameskill::_id_2A4D();
         return 1;
     }
 
     if ( var_0 > self._id_993A )
     {
         _id_2D88( "right", var_0 );
-        _id_A537::_id_2A4D();
+        maps\_gameskill::_id_2A4D();
         return 1;
     }
 
@@ -1043,7 +1043,7 @@ _id_989B( var_0, var_1 )
     }
 
     if ( var_2 )
-        _id_A537::_id_2A4D();
+        maps\_gameskill::_id_2A4D();
 
     return var_2;
 }
@@ -1088,7 +1088,7 @@ _id_971D( var_0 )
     self.a._id_6E5A = var_0;
     _id_804F();
     animscripts\combat_utility::_id_8D17();
-    _id_A537::_id_2A4D();
+    maps\_gameskill::_id_2A4D();
 }
 
 _id_52E3()
@@ -1171,7 +1171,7 @@ _id_3592( var_0 )
         self notify( "stop_trying_to_melee" );
         self.a._id_3593 = 0;
         self._id_3798 = undefined;
-        _id_A537::_id_2A4D();
+        maps\_gameskill::_id_2A4D();
         animscripts\combat_utility::_id_8D17();
         return 1;
     }
@@ -1233,11 +1233,11 @@ _id_3799( var_0 )
 
 _id_2F6A()
 {
-    _id_A558::_id_2F96();
+    maps\_mgturret::_id_2F96();
     animscripts\weaponlist::_id_72B1();
     self.a._id_6084 = 0;
     self notify( "dropped_gun" );
-    _id_A558::_id_74A9();
+    maps\_mgturret::_id_74A9();
 }
 
 _id_33E6()
@@ -1272,7 +1272,7 @@ _id_9081( var_0 )
     self notify( "facing_enemy_immediately" );
     self notify( "switched_to_sidearm" );
     self._id_900F = undefined;
-    _id_A537::_id_2A4D();
+    maps\_gameskill::_id_2A4D();
 }
 
 removeswapanimonkillanimscript( var_0 )
@@ -1333,7 +1333,7 @@ _id_9080( var_0, var_1 )
     self _meth_8144( self._id_900F, 0.2 );
     self notify( "switched_to_lastweapon" );
     self._id_900F = undefined;
-    _id_A537::_id_2A4D();
+    maps\_gameskill::_id_2A4D();
     return 1;
 }
 

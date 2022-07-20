@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "blackout" );
+    var_0 = maps\_utility::_id_23DF( "blackout" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 10418.7;
     var_0._id_7299 = 0.547333;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1812.71;
     var_0._id_0DBC = 1573.3;
-    var_0 = _id_A5A4::_id_23DF( "blackout_swamp_1" );
+    var_0 = maps\_utility::_id_23DF( "blackout_swamp_1" );
     var_0._id_8D08 = 383.373;
     var_0._id_4500 = 2850.39;
     var_0._id_7299 = 0.547333;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1.7467;
     var_0._id_0DBC = 797.126;
-    var_0 = _id_A5A4::_id_23DF( "blackout_swamp_2" );
+    var_0 = maps\_utility::_id_23DF( "blackout_swamp_2" );
     var_0._id_8D08 = 150;
     var_0._id_4500 = 4000;
     var_0._id_7299 = 0.547333;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 102.861;
     var_0._id_0DBC = 934.477;
-    var_0 = _id_A5A4::_id_23DF( "blackout_hill" );
+    var_0 = maps\_utility::_id_23DF( "blackout_hill" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 14500.0;
     var_0._id_7299 = 0.547333;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = -1812.71;
     var_0._id_0DBC = 1573.3;
-    var_0 = _id_A5A4::_id_23DF( "blackout_village" );
+    var_0 = maps\_utility::_id_23DF( "blackout_village" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 14500.0;
     var_0._id_7299 = 0.547333;
@@ -236,7 +236,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -19.1107, 62.1748, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

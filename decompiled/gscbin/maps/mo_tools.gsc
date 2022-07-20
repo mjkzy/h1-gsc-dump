@@ -59,7 +59,7 @@ get_ai( var_0, var_1, var_2 )
 
                 continue;
             case "script_forcecolor":
-                if ( var_3[var_5] _id_A5A4::_id_1CC0( var_0 ) )
+                if ( var_3[var_5] maps\_utility::_id_1CC0( var_0 ) )
                     var_4[var_4.size] = var_3[var_5];
 
                 continue;
@@ -159,15 +159,15 @@ _id_2D41( var_0, var_1, var_2, var_3 )
         var_5 = 1;
 
     if ( !var_4 )
-        var_1 _id_A5A4::_id_7E3F();
+        var_1 maps\_utility::_id_7E3F();
 
     if ( !var_5 )
-        var_1 thread _id_A5A4::_id_58D7();
+        var_1 thread maps\_utility::_id_58D7();
 
     if ( var_3 == "kick" )
     {
         var_6 = anglestoforward( var_0.angles );
-        var_6 = _id_A5A4::vector_multiply( var_6, 20 );
+        var_6 = maps\_utility::vector_multiply( var_6, 20 );
         var_7 = spawn( "script_origin", var_0.origin + var_6 );
         var_7.angles = var_0.angles;
         var_0 = var_7;
@@ -177,14 +177,14 @@ _id_2D41( var_0, var_1, var_2, var_3 )
     var_1._id_0C72 = "guy";
 
     if ( var_3 == "kick" )
-        var_0 _id_A510::_id_0BFF( var_1, var_3 );
+        var_0 maps\_anim::_id_0BFF( var_1, var_3 );
     else
     {
         var_1 _meth_81a9( var_0 );
         var_1 waittill( "goal" );
     }
 
-    var_0 thread _id_A510::_id_0C24( var_1, var_3 );
+    var_0 thread maps\_anim::_id_0C24( var_1, var_3 );
     var_1 waittillmatch( "single anim", "kick" );
     common_scripts\utility::_id_0D13( var_2, ::door_breach_door );
 
@@ -201,10 +201,10 @@ _id_2D41( var_0, var_1, var_2, var_3 )
     var_1.ignoretriggers = 0;
 
     if ( !var_4 )
-        var_1 _id_A5A4::_id_9A61();
+        var_1 maps\_utility::_id_9A61();
 
     if ( !var_5 )
-        var_1 _id_A5A4::_id_8EA4();
+        var_1 maps\_utility::_id_8EA4();
 }
 
 door_breach_door()
@@ -278,14 +278,14 @@ spawner_switch_think2()
     self endon( "death" );
     self.count = 1;
 
-    if ( !_id_A5A4::_id_7B20() )
+    if ( !maps\_utility::_id_7B20() )
         wait(randomfloatrange( 2, 4 ));
 
     for (;;)
     {
         var_0 = self dospawn();
 
-        if ( !_id_A5A4::_id_88F1( var_0 ) )
+        if ( !maps\_utility::_id_88F1( var_0 ) )
             break;
 
         wait 0.2;
@@ -307,12 +307,12 @@ player_fastrope_go( var_0 )
     level.playercardbackground freezecontrols( 1 );
     level.playercardbackground playerlinktoabsolute( var_1, "tag_player" );
     playerweapontake();
-    var_2 _id_A510::_id_0C24( var_1, "fastrope_on" );
+    var_2 maps\_anim::_id_0C24( var_1, "fastrope_on" );
     var_2 movez( ( var_0._id_7131 + 96 ) * -1, var_0.titleunlocked + 0.5 );
-    var_2 thread _id_A510::_id_0BE1( var_1, "fastrope_loop", undefined, "stopanimscripted" );
+    var_2 thread maps\_anim::_id_0BE1( var_1, "fastrope_loop", undefined, "stopanimscripted" );
     wait(var_0.titleunlocked);
     var_2 notify( "stopanimscripted" );
-    level.playercardbackground _id_A510::_id_0C24( var_1, "fastrope_off" );
+    level.playercardbackground maps\_anim::_id_0C24( var_1, "fastrope_off" );
     playerweapongive();
     level.playercardbackground unlink();
     level.playercardbackground freezecontrols( 0 );
@@ -361,10 +361,10 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
     {
         var_6.count = var_1.size;
         var_6 thread ai_clear_dialog_logic_check();
-        common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_0798, ::ai_clear_dialog_logic_guy, var_6 );
+        common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::ai_clear_dialog_logic_guy, var_6 );
     }
 
-    _id_A5A4::_id_A07E( var_0 );
+    maps\_utility::_id_A07E( var_0 );
 
     if ( !var_6._id_71D4 )
         var_6 waittill( "ready" );
@@ -378,13 +378,13 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
         if ( var_4 == level.playercardbackground )
             thread radio_msg_stack( var_5 );
         else
-            var_4 thread _id_A5A4::_id_69C4( var_5 );
+            var_4 thread maps\_utility::_id_69C4( var_5 );
     }
     else
     {
         var_7 = getaiarray( "allies" );
         var_8 = [];
-        var_9 = _id_A5A4::_id_3CFA( level.playercardbackground.origin, var_7, 1024 );
+        var_9 = maps\_utility::_id_3CFA( level.playercardbackground.origin, var_7, 1024 );
 
         if ( !isdefined( var_9 ) )
         {
@@ -405,10 +405,10 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
         switch ( var_11 )
         {
             case 0:
-                var_9 thread _id_A5A4::_id_69C4( level.level_name + "_gm2_clear" );
+                var_9 thread maps\_utility::_id_69C4( level.level_name + "_gm2_clear" );
                 break;
             case 1:
-                var_9 thread _id_A5A4::_id_69C4( level.level_name + "_gm3_clear" );
+                var_9 thread maps\_utility::_id_69C4( level.level_name + "_gm3_clear" );
                 break;
         }
     }
@@ -456,7 +456,7 @@ anim_single_stack_proc( var_0, var_1 )
     while ( level.anim_stack[0] != var_2 )
         level waittill( "level_anim_stack_ready" );
 
-    _id_A510::_id_0C24( var_0, var_1 );
+    maps\_anim::_id_0C24( var_0, var_1 );
     level.anim_stack = common_scripts\utility::_id_0CF6( level.anim_stack, var_2 );
     level notify( "level_anim_stack_ready" );
     self notify( "anim_single_done" );
@@ -479,7 +479,7 @@ radio_msg_stack_proc( var_0 )
     while ( level.radio_stack[0] != var_0 )
         level waittill( "level_radio_stack_ready" );
 
-    _id_A5A4::_id_70BD( var_0 );
+    maps\_utility::_id_70BD( var_0 );
     level.radio_stack = common_scripts\utility::_id_0CF6( level.radio_stack, var_0 );
     level notify( "level_radio_stack_ready" );
     self notify( "radio_dialogue_done" );
@@ -487,7 +487,7 @@ radio_msg_stack_proc( var_0 )
 
 disable_cqbwalk_ign_demo_wrapper()
 {
-    _id_A5A4::_id_2A8D();
+    maps\_utility::_id_2A8D();
 
     if ( !isdefined( self.a.cqbchangedontmodifyinterval ) || !self.a.cqbchangedontmodifyinterval )
         self.invisible = 96;
@@ -495,7 +495,7 @@ disable_cqbwalk_ign_demo_wrapper()
 
 enable_cqbwalk_ign_demo_wrapper()
 {
-    _id_A5A4::_id_30B0();
+    maps\_utility::_id_30B0();
 
     if ( !isdefined( self.a.cqbchangedontmodifyinterval ) || !self.a.cqbchangedontmodifyinterval )
         self.invisible = 50;

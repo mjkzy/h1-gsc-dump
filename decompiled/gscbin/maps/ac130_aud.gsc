@@ -35,9 +35,9 @@ main()
 
 _id_2110()
 {
-    _id_A5DC::_id_7EC8( "shg" );
-    _id_A5F7::_id_8757( "med_occlusion" );
-    _id_A5DE::_id_5CF2( "mix_ac130_global" );
+    soundscripts\_audio::_id_7EC8( "shg" );
+    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_ac130_global" );
 }
 
 _id_4D5B()
@@ -95,5 +95,5 @@ start_ac130_finish_fadeout()
     common_scripts\utility::_id_384A( "choppers_flew_away" );
 
     if ( getdvar( "arcademode" ) != "1" )
-        _id_A5DE::_id_5CF2( "ac130_fadeout_mix" );
+        soundscripts\_audio_mix_manager::_id_5CF2( "ac130_fadeout_mix" );
 }

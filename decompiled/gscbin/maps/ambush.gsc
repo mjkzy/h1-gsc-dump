@@ -32,7 +32,7 @@ dead_script()
     common_scripts\_ca_blockout::init();
     maps\ambush_fx::main();
     maps\ambush_precache::main();
-    _id_A550::main();
+    maps\_load::main();
     level thread maps\ambush_amb::main();
     maps\ambush_anim::main();
     maps\createart\ambush_art::main();
@@ -58,19 +58,19 @@ main()
         return;
     }
 
-    _id_A5A4::_id_079C( "ambush", ::start_ambush, &"STARTS_AMBUSH" );
-    _id_A5A4::_id_079C( "village", ::start_village, &"STARTS_VILLAGE" );
-    _id_A5A4::_id_079C( "morpheus", ::start_morpheus, &"STARTS_MORPHEUS" );
-    _id_A5A4::_id_079C( "apartment", ::start_apartment, &"STARTS_APARTMENT" );
-    _id_A5A4::_id_079C( "suicide", ::start_suicide, "SUICIDE" );
-    _id_A5A4::_id_278B( ::start_default );
+    maps\_utility::_id_079C( "ambush", ::start_ambush, &"STARTS_AMBUSH" );
+    maps\_utility::_id_079C( "village", ::start_village, &"STARTS_VILLAGE" );
+    maps\_utility::_id_079C( "morpheus", ::start_morpheus, &"STARTS_MORPHEUS" );
+    maps\_utility::_id_079C( "apartment", ::start_apartment, &"STARTS_APARTMENT" );
+    maps\_utility::_id_079C( "suicide", ::start_suicide, "SUICIDE" );
+    maps\_utility::_id_278B( ::start_default );
     createthreatbiasgroup( "player" );
     createthreatbiasgroup( "oblivious" );
     createthreatbiasgroup( "group1" );
     createthreatbiasgroup( "group2" );
     createthreatbiasgroup( "badguy" );
     maps\ambush_precache::main();
-    _id_A5A8::build_aianims_with_classname( "script_vehicle_uaz_open", ::uaz_anims, ::uaz_vehicle_anims );
+    maps\_vehicle::build_aianims_with_classname( "script_vehicle_uaz_open", ::uaz_anims, ::uaz_vehicle_anims );
     precacheitem( "hunted_crash_missile" );
     precachemodel( "viewhands_op_force" );
     precachemodel( "weapon_m4" );
@@ -106,12 +106,12 @@ main()
     level.weaponclipmodels[5] = "weapon_g36_clip";
     level.weaponclipmodels[6] = "weapon_saw_clip";
     level.weaponclipmodels[7] = "weapon_g3_clip";
-    _id_A550::_id_7E9E( "viewhands_player_sas_woodland" );
+    maps\_load::_id_7E9E( "viewhands_player_sas_woodland" );
     setup_flags();
     maps\ambush_fx::main();
-    _id_A550::main();
+    maps\_load::main();
     level thread maps\ambush_amb::main();
-    _id_A51D::setupminimap( "compass_map_ambush" );
+    maps\_compass::setupminimap( "compass_map_ambush" );
     maps\ambush_anim::main();
     maps\ambush_lighting::main();
     maps\ambush_aud::main();
@@ -141,7 +141,7 @@ main()
     level thread ambush_tower_fall();
     level thread detonate_car_setup();
     level thread music_control();
-    common_scripts\utility::_id_0D13( getentarray( "respawn_guy", "script_noteworthy" ), _id_A5A4::_id_0798, ::generic_allied );
+    common_scripts\utility::_id_0D13( getentarray( "respawn_guy", "script_noteworthy" ), maps\_utility::_id_0798, ::generic_allied );
 }
 #using_animtree("vehicles");
 
@@ -184,24 +184,24 @@ guy_escape( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_A5A9::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
 
     for (;;)
     {
         if ( isdefined( var_2.escape_occurrence ) )
         {
-            var_3 = _id_A5A9::_id_712A( var_0, var_2.escape_occurrence );
-            _id_A5A9::_id_0C74( var_0, var_2._id_85AE, var_2.escape[var_3] );
+            var_3 = maps\_vehicle_aianim::_id_712A( var_0, var_2.escape_occurrence );
+            maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.escape[var_3] );
             continue;
         }
 
-        _id_A5A9::_id_0C74( var_0, var_2._id_85AE, var_2.escape );
+        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.escape );
     }
 }
 
 guy_escape_check( var_0, var_1 )
 {
-    return isdefined( _id_A5A9::_id_0BE9( self, var_1 ).escape );
+    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).escape );
 }
 
 guy_hide_attack_left( var_0, var_1 )
@@ -209,27 +209,27 @@ guy_hide_attack_left( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_A5A9::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
 
     if ( isdefined( var_2.hide_attack_left_transition ) )
-        _id_A5A9::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left_transition );
+        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left_transition );
 
     for (;;)
     {
         if ( isdefined( var_2.hide_attack_left_occurrence ) )
         {
-            var_3 = _id_A5A9::_id_712A( var_0, var_2.hide_attack_left_occurrence );
-            _id_A5A9::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left[var_3] );
+            var_3 = maps\_vehicle_aianim::_id_712A( var_0, var_2.hide_attack_left_occurrence );
+            maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left[var_3] );
             continue;
         }
 
-        _id_A5A9::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left );
+        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left );
     }
 }
 
 guy_hide_attack_left_check( var_0, var_1 )
 {
-    return isdefined( _id_A5A9::_id_0BE9( self, var_1 ).hide_attack_left );
+    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).hide_attack_left );
 }
 
 setup_flags()
@@ -249,12 +249,12 @@ setup_flags()
 
 takeover_flags()
 {
-    _id_A5A4::_id_3847( "takeover_danger", getent( "takeover_danger_trigger", "targetname" ) );
-    _id_A5A4::_id_3847( "takeover_setup", getent( "takeover_setup", "targetname" ) );
+    maps\_utility::_id_3847( "takeover_danger", getent( "takeover_danger_trigger", "targetname" ) );
+    maps\_utility::_id_3847( "takeover_setup", getent( "takeover_setup", "targetname" ) );
     common_scripts\utility::_id_383D( "takeover_checkpoint_located" );
-    _id_A5A4::_id_3847( "takeover_inplace", getent( "takeover_inplace", "targetname" ) );
-    _id_A5A4::_id_3847( "takeover_force", getent( "takeover_boundary", "targetname" ) );
-    _id_A5A4::_id_3847( "takeover_advance", getent( "takeover_boundary", "targetname" ) );
+    maps\_utility::_id_3847( "takeover_inplace", getent( "takeover_inplace", "targetname" ) );
+    maps\_utility::_id_3847( "takeover_force", getent( "takeover_boundary", "targetname" ) );
+    maps\_utility::_id_3847( "takeover_advance", getent( "takeover_boundary", "targetname" ) );
     common_scripts\utility::_id_383D( "takeover_done" );
     common_scripts\utility::_id_383D( "takeover_briefing_done" );
     common_scripts\utility::_id_383D( "takeover_finalized_done" );
@@ -288,47 +288,47 @@ ambush_flags()
 village_flags()
 {
     common_scripts\utility::_id_383D( "village_helicopter_greeting" );
-    _id_A5A4::_id_3847( "village_gasstation", getent( "village_gasstation", "targetname" ), 1 );
-    _id_A5A4::_id_3847( "junkyard_exit", getent( "junkyard_exit", "targetname" ) );
-    _id_A5A4::_id_3847( "village_road", getent( "village_road", "targetname" ) );
-    _id_A5A4::_id_3847( "village_approach", getent( "village_approach", "targetname" ) );
+    maps\_utility::_id_3847( "village_gasstation", getent( "village_gasstation", "targetname" ), 1 );
+    maps\_utility::_id_3847( "junkyard_exit", getent( "junkyard_exit", "targetname" ) );
+    maps\_utility::_id_3847( "village_road", getent( "village_road", "targetname" ) );
+    maps\_utility::_id_3847( "village_approach", getent( "village_approach", "targetname" ) );
     common_scripts\utility::_id_383D( "village_defend" );
-    _id_A5A4::_id_3847( "village_retreat", getent( "village_retreat", "targetname" ) );
-    _id_A5A4::_id_3847( "village_force_escape", getent( "village_force_escape", "targetname" ) );
-    _id_A5A4::_id_3847( "village_wrong_way", getent( "village_wrong_way", "targetname" ) );
-    _id_A5A4::_id_3847( "village_past_alley", getent( "village_past_alley", "targetname" ) );
+    maps\_utility::_id_3847( "village_retreat", getent( "village_retreat", "targetname" ) );
+    maps\_utility::_id_3847( "village_force_escape", getent( "village_force_escape", "targetname" ) );
+    maps\_utility::_id_3847( "village_wrong_way", getent( "village_wrong_way", "targetname" ) );
+    maps\_utility::_id_3847( "village_past_alley", getent( "village_past_alley", "targetname" ) );
     common_scripts\utility::_id_383D( "village_badguy_escape" );
     common_scripts\utility::_id_383D( "village_alley" );
 }
 
 morpheus_flags()
 {
-    _id_A5A4::_id_3847( "morpheus_quick_start", getent( "morpheus_quick_start", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_dumpster", getent( "morpheus_dumpster", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_green_car", getent( "morpheus_green_car", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_iron_fence", getent( "morpheus_iron_fence", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_quick_start", getent( "morpheus_quick_start", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_dumpster", getent( "morpheus_dumpster", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_green_car", getent( "morpheus_green_car", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_iron_fence", getent( "morpheus_iron_fence", "targetname" ) );
     common_scripts\utility::_id_383D( "morpheus_iron_fence_fight" );
-    _id_A5A4::_id_3847( "morpheus_flanker", getent( "morpheus_flanker", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_rpg", getent( "morpheus_rpg", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_2nd_floor", getent( "morpheus_2nd_floor", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_single", getent( "morpheus_single", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_target", getent( "morpheus_target", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_target_moving", getent( "morpheus_target_moving", "targetname" ) );
-    _id_A5A4::_id_3847( "morpheus_alley", getent( "morpheus_alley", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_flanker", getent( "morpheus_flanker", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_rpg", getent( "morpheus_rpg", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_2nd_floor", getent( "morpheus_2nd_floor", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_single", getent( "morpheus_single", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_target", getent( "morpheus_target", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_target_moving", getent( "morpheus_target_moving", "targetname" ) );
+    maps\_utility::_id_3847( "morpheus_alley", getent( "morpheus_alley", "targetname" ) );
 }
 
 apartment_flags()
 {
-    _id_A5A4::_id_3847( "apartment_start", getent( "apartment_start", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_badguy_run", getent( "apartment_badguy_run", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_fire", getent( "apartment_fire", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_start", getent( "apartment_start", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_badguy_run", getent( "apartment_badguy_run", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_fire", getent( "apartment_fire", "targetname" ) );
     common_scripts\utility::_id_383D( "apartment_heli_attack" );
     common_scripts\utility::_id_383D( "apartment_heli_firing" );
     common_scripts\utility::_id_383D( "apartment_mg_destroyed" );
-    _id_A5A4::_id_3847( "apartment_badguy_attack", getent( "apartment_badguy_attack", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_inside", getent( "apartment_inside", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_badguy_3rd_flr", getent( "apartment_badguy_3rd_flr", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_mg_4th_flr", getent( "apartment_mg_4th_flr", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_badguy_attack", getent( "apartment_badguy_attack", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_inside", getent( "apartment_inside", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_badguy_3rd_flr", getent( "apartment_badguy_3rd_flr", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_mg_4th_flr", getent( "apartment_mg_4th_flr", "targetname" ) );
     common_scripts\utility::_id_383D( "apartment_mg_destroyed_2" );
     common_scripts\utility::_id_383D( "apartment_clear" );
     common_scripts\utility::_id_383D( "gaz_shouts_at_zakhaev" );
@@ -337,15 +337,15 @@ apartment_flags()
     common_scripts\utility::_id_383D( "h1_zakhaev_suicide_stepping_down" );
     common_scripts\utility::_id_383D( "h1_zakhaev_suicide_down" );
     common_scripts\utility::_id_383D( "h1_zakhaev_suicide_let_play" );
-    _id_A5A4::_id_3847( "apartment_roof", getent( "apartment_roof", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_roof_friendlies", getent( "apartment_roof_friendlies", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_stairs", getent( "apartment_stairs", "targetname" ) );
-    _id_A5A4::_id_3847( "apartment_suicide", getent( "apartment_suicide", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_roof", getent( "apartment_roof", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_roof_friendlies", getent( "apartment_roof_friendlies", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_stairs", getent( "apartment_stairs", "targetname" ) );
+    maps\_utility::_id_3847( "apartment_suicide", getent( "apartment_suicide", "targetname" ) );
     common_scripts\utility::_id_383D( "obj_flexicuff" );
-    _id_A5A4::_id_3847( "stage1", getent( "stage1", "targetname" ) );
-    _id_A5A4::_id_3847( "stage2", getent( "stage2", "targetname" ) );
-    _id_A5A4::_id_3847( "stage3", getent( "stage3", "targetname" ) );
-    _id_A5A4::_id_3847( "stage4", getent( "stage4", "targetname" ) );
+    maps\_utility::_id_3847( "stage1", getent( "stage1", "targetname" ) );
+    maps\_utility::_id_3847( "stage2", getent( "stage2", "targetname" ) );
+    maps\_utility::_id_3847( "stage3", getent( "stage3", "targetname" ) );
+    maps\_utility::_id_3847( "stage4", getent( "stage4", "targetname" ) );
     common_scripts\utility::_id_383D( "forced_suicide" );
     common_scripts\utility::_id_383D( "timed_suicide" );
     common_scripts\utility::_id_383D( "apartment_suicide_done" );
@@ -354,15 +354,15 @@ apartment_flags()
 
 aarea_takeover_init()
 {
-    _id_A5A4::_id_27EF( 1.5, _id_A5A4::_id_070A, "start_color_init" );
+    maps\_utility::_id_27EF( 1.5, maps\_utility::_id_070A, "start_color_init" );
     common_scripts\utility::_id_383F( "aa_takeover" );
-    _id_A5A4::_id_1332( "allies" );
-    _id_A5A4::_id_1332( "axis" );
+    maps\_utility::_id_1332( "allies" );
+    maps\_utility::_id_1332( "axis" );
     common_scripts\utility::_id_0D13( getentarray( "village_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     setup_friendlies( 3 );
     level.playercardbackground set_playerspeed( 130 );
-    common_scripts\utility::_id_0D13( level._id_8AB0, _id_A5A4::_id_30B0 );
-    common_scripts\utility::_id_0D13( get_generic_allies(), _id_A5A4::_id_7402 );
+    common_scripts\utility::_id_0D13( level._id_8AB0, maps\_utility::_id_30B0 );
+    common_scripts\utility::_id_0D13( get_generic_allies(), maps\_utility::_id_7402 );
     level thread guardtower_dead_enemies();
     level thread takeover_player();
     level thread takeover_objective();
@@ -370,7 +370,7 @@ aarea_takeover_init()
     level thread takeover_attack();
     level thread takeover_clear_roof();
     level thread takeover_fade();
-    common_scripts\utility::_id_0D13( getentarray( "checkpoint_guy", "targetname" ), _id_A5A4::_id_0798, ::checkpoint_guy );
+    common_scripts\utility::_id_0D13( getentarray( "checkpoint_guy", "targetname" ), maps\_utility::_id_0798, ::checkpoint_guy );
     scripted_array_spawn( "checkpoint_guy", "targetname", 1 );
     common_scripts\utility::_id_384A( "takeover_fade" );
     common_scripts\utility::_id_3831( "aa_takeover" );
@@ -393,7 +393,7 @@ guardtower_dead_enemies()
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_1[var_2] _id_A510::_id_0BC7( var_0[var_2], "death_pose_" + var_2 );
+        var_1[var_2] maps\_anim::_id_0BC7( var_0[var_2], "death_pose_" + var_2 );
         var_0[var_2] linkto( var_1[var_2] );
     }
 
@@ -410,9 +410,9 @@ guardtower_dead_enemies()
     var_3[1]._id_0C72 = "generic";
     var_3[1] useanimtree( #animtree );
     var_4 = getentarray( "dead_enemies_ground", "script_noteworthy" );
-    var_4[0] thread _id_A510::_id_0BC7( var_3[0], "det_school_enter_pt2_npc_deadbody_08" );
+    var_4[0] thread maps\_anim::_id_0BC7( var_3[0], "det_school_enter_pt2_npc_deadbody_08" );
     var_3[0] linkto( var_4[0] );
-    var_4[1] thread _id_A510::_id_0BC7( var_3[1], "det_school_enter_pt2_npc_deadbody_01" );
+    var_4[1] thread maps\_anim::_id_0BC7( var_3[1], "det_school_enter_pt2_npc_deadbody_01" );
     var_3[1] linkto( var_4[1] );
 }
 
@@ -433,8 +433,8 @@ takeover_objective()
     }
 
     common_scripts\utility::_id_384A( "takeover_force" );
-    _id_A5E8::_id_870C( "aud_stop_mix_stealth_ambush" );
-    _id_A5A4::_id_A07F( _id_A5A4::_id_3CB4( "tower_guy" ), undefined, 4 );
+    soundscripts\_snd::_id_870C( "aud_stop_mix_stealth_ambush" );
+    maps\_utility::_id_A07F( maps\_utility::_id_3CB4( "tower_guy" ), undefined, 4 );
 
     if ( common_scripts\utility::_id_382E( "takeover_checkpoint_located" ) )
         objective_state( 1, "done" );
@@ -442,7 +442,7 @@ takeover_objective()
     objective_add( 2, "active", &"AMBUSH_OBJ_SECURE_CHECKPOINT", var_0.origin );
     objective_current( 2 );
     common_scripts\utility::_id_384A( "takeover_done" );
-    _id_A5A4::arcademode_checkpoint( 3.5, 1 );
+    maps\_utility::arcademode_checkpoint( 3.5, 1 );
     objective_state( 2, "done" );
 }
 
@@ -451,7 +451,7 @@ takeover_player()
     common_scripts\utility::_id_384A( "takeover_danger" );
     level thread set_flag_on_player_action( "takeover_force", 1, 1 );
     common_scripts\utility::_id_384A( "takeover_force" );
-    _id_A5E8::_id_870C( "aud_stop_mix_stealth_ambush" );
+    soundscripts\_snd::_id_870C( "aud_stop_mix_stealth_ambush" );
     level.playercardbackground set_playerspeed( 190, 3 );
 }
 
@@ -461,24 +461,24 @@ takeover_setup()
     thread takeover_predumpster_activate_color();
     wait 4;
     level.kamarov._id_0C72 = "kamarov";
-    level.kamarov _id_A510::_id_0C21( level.kamarov, "ambush_kmr_bestwayin" );
+    level.kamarov maps\_anim::_id_0C21( level.kamarov, "ambush_kmr_bestwayin" );
     level.kamarov._id_0C72 = "generic";
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_notbad" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_radiojammers" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_notbad" );
+    level maps\_utility::_id_70C4( "ambush_mhp_radiojammers" );
     common_scripts\utility::_id_0CDB( getentarray( "gate_open", "targetname" ), ::hide );
     getent( "rear_blocker_open", "targetname" ) hide();
     common_scripts\utility::_id_384A( "takeover_setup" );
-    _id_A5A4::_id_1143( "dumpster" );
+    maps\_utility::_id_1143( "dumpster" );
     common_scripts\utility::_id_383F( "takeover_checkpoint_located" );
     level._id_6F7C waittill( "goal" );
     level.steve waittill( "goal" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_onmymark" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_onmymark" );
     thread takeover_postdumpster_activate_color();
     common_scripts\utility::_id_384A( "takeover_inplace" );
     wait 1;
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_takethemout" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_takethemout" );
     wait 7;
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_cleartower" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_cleartower" );
     wait 7;
     common_scripts\utility::_id_383F( "takeover_force" );
 }
@@ -487,62 +487,62 @@ takeover_predumpster_activate_color()
 {
     var_0 = getent( "takeover_predumpster_color_trigger", "targetname" );
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_070A( "takeover_predumpster_color_o" );
+    maps\_utility::_id_070A( "takeover_predumpster_color_o" );
     wait 0.2;
-    _id_A5A4::_id_070A( "takeover_predumpster_color_b" );
+    maps\_utility::_id_070A( "takeover_predumpster_color_b" );
     wait 0.3;
-    _id_A5A4::_id_070A( "takeover_predumpster_color_r" );
+    maps\_utility::_id_070A( "takeover_predumpster_color_r" );
     wait 0.2;
-    _id_A5A4::_id_070A( "takeover_predumpster_color_g" );
+    maps\_utility::_id_070A( "takeover_predumpster_color_g" );
     wait 0.3;
-    _id_A5A4::_id_070A( "takeover_predumpster_color_y" );
+    maps\_utility::_id_070A( "takeover_predumpster_color_y" );
 }
 
 takeover_postdumpster_activate_color()
 {
-    _id_A5A4::_id_070A( "takeover_postdumpster_color_o" );
+    maps\_utility::_id_070A( "takeover_postdumpster_color_o" );
     wait 0.2;
-    _id_A5A4::_id_070A( "takeover_postdumpster_color_g" );
+    maps\_utility::_id_070A( "takeover_postdumpster_color_g" );
     wait 0.2;
-    _id_A5A4::_id_070A( "takeover_postdumpster_color_r" );
+    maps\_utility::_id_070A( "takeover_postdumpster_color_r" );
     wait 0.2;
-    _id_A5A4::_id_070A( "takeover_postdumpster_color_b" );
+    maps\_utility::_id_070A( "takeover_postdumpster_color_b" );
     wait 0.55;
-    _id_A5A4::_id_070A( "takeover_postdumpster_color_y" );
+    maps\_utility::_id_070A( "takeover_postdumpster_color_y" );
 }
 
 takeover_attack()
 {
     common_scripts\utility::_id_384A( "takeover_force" );
-    _id_A5E8::_id_870C( "aud_stop_mix_stealth_ambush" );
+    soundscripts\_snd::_id_870C( "aud_stop_mix_stealth_ambush" );
     var_0 = getent( "takeout_path_blocker", "targetname" );
     var_0 connectpaths();
     var_0 delete();
     common_scripts\utility::_id_0D13( getentarray( "takeover_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
-    _id_A5A4::_id_070A( "takeover_attack_color_init" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_movemove" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_goloud" );
-    _id_A5A4::_id_1333( "allies" );
-    _id_A5A4::_id_1333( "axis" );
-    _id_A5A4::_id_070A( "takeover_attack_color_init" );
+    maps\_utility::_id_070A( "takeover_attack_color_init" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_movemove" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_goloud" );
+    maps\_utility::_id_1333( "allies" );
+    maps\_utility::_id_1333( "axis" );
+    maps\_utility::_id_070A( "takeover_attack_color_init" );
     common_scripts\utility::_id_3856( "takeover_advance", 10 );
-    _id_A5A4::_id_070A( "takeover_advance_color_init" );
+    maps\_utility::_id_070A( "takeover_advance_color_init" );
     var_1 = getaiarray( "axis" );
-    _id_A5A4::_id_A07F( var_1, var_1.size - 3 );
+    maps\_utility::_id_A07F( var_1, var_1.size - 3 );
 
     if ( isdefined( getent( "takeover_diner_color_init", "targetname" ) ) )
     {
-        _id_A5A4::_id_070A( "takeover_diner_color_init" );
+        maps\_utility::_id_070A( "takeover_diner_color_init" );
         getent( "takeover_diner_color_init", "targetname" ) common_scripts\utility::_id_97CC();
     }
 
     var_1 = getaiarray( "axis" );
-    _id_A5A4::_id_A07F( var_1 );
-    common_scripts\utility::_id_0D13( level._id_8AB0, _id_A5A4::_id_2A8D );
-    _id_A5A4::_id_070A( "takeover_hero_clear_color_init" );
+    maps\_utility::_id_A07F( var_1 );
+    common_scripts\utility::_id_0D13( level._id_8AB0, maps\_utility::_id_2A8D );
+    maps\_utility::_id_070A( "takeover_hero_clear_color_init" );
     wait 2;
-    level.mark thread _id_A510::_id_0C21( level.mark, "ambush_grg_areasecure" );
-    _id_A5A4::_id_070A( "takeover_clear_color_init" );
+    level.mark thread maps\_anim::_id_0C21( level.mark, "ambush_grg_areasecure" );
+    maps\_utility::_id_070A( "takeover_clear_color_init" );
     level thread takeover_briefing();
     wait 2;
     common_scripts\utility::_id_383F( "takeover_done" );
@@ -550,7 +550,7 @@ takeover_attack()
 
 takeover_briefing()
 {
-    level._id_6F7C _id_A5A4::_id_2A74();
+    level._id_6F7C maps\_utility::_id_2A74();
     var_0 = getent( "cleanup_animent", "targetname" );
     var_1[0] = level._id_6F7C;
     var_1[1] = level.kamarov;
@@ -573,7 +573,7 @@ takeover_briefing()
 
     level.briefing_actors_arrived = undefined;
     level thread takeover_briefing_dialogue();
-    var_0 _id_A510::_id_0C18( var_1, "tower_briefing" );
+    var_0 maps\_anim::_id_0C18( var_1, "tower_briefing" );
     level._id_6F7C _meth_81aa( level._id_6F7C.origin );
     level.kamarov _meth_81aa( level.kamarov.origin );
     common_scripts\utility::_id_383F( "takeover_briefing_done" );
@@ -584,7 +584,7 @@ reach_briefing_and_add_to_count( var_0, var_1 )
     if ( isdefined( var_1 ) && var_1 > 0 )
         wait(var_1);
 
-    _id_A510::_id_0BF5( var_0, "tower_briefing" );
+    maps\_anim::_id_0BF5( var_0, "tower_briefing" );
     level.briefing_actors_arrived++;
 }
 
@@ -605,22 +605,22 @@ takeover_clear_roof()
 {
     var_0 = getent( "clear_roof", "targetname" );
     var_0 waittill( "trigger" );
-    common_scripts\utility::_id_0D13( _id_A5A4::_id_3CB4( "roof_guy" ), ::kill_ai, 0, 5 );
+    common_scripts\utility::_id_0D13( maps\_utility::_id_3CB4( "roof_guy" ), ::kill_ai, 0, 5 );
 }
 
 takeover_fade()
 {
     common_scripts\utility::_id_384A( "takeover_fade" );
-    _id_A5E8::_id_870C( "aud_start_mix_fade_to_black" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "foley_plr_dress_up" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_fade_to_black" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "foley_plr_dress_up" );
     thread hud_hide();
     wait 2;
     level.playercardbackground freezecontrols( 1 );
     common_scripts\utility::_id_384A( "takeover_fade_clear" );
-    _id_A5E8::_id_870C( "aud_start_ambience_morning" );
+    soundscripts\_snd::_id_870C( "aud_start_ambience_morning" );
     hud_string();
     common_scripts\utility::_id_383F( "takeover_fade_begin_fade_in" );
-    _id_A5E8::_id_870C( "aud_stop_mix_fade_to_black" );
+    soundscripts\_snd::_id_870C( "aud_stop_mix_fade_to_black" );
     level.playercardbackground freezecontrols( 0 );
     wait 2;
     thread hud_hide( 0 );
@@ -630,7 +630,7 @@ takeover_fade()
 
 hud_string()
 {
-    var_0 = _id_A546::_id_2401( "objective", 1.5 );
+    var_0 = maps\_hud_util::_id_2401( "objective", 1.5 );
     var_0.space = 3;
     var_0.fontscale = 1.6;
     var_0.color = ( 0.8, 1, 0.8 );
@@ -638,9 +638,9 @@ hud_string()
     var_0.glowalpha = 0.2;
     var_0 setpulsefx( 60, 3500, 700 );
     var_0.foreground = 1;
-    var_0 _id_A546::_id_7FEE( "BOTTOM", undefined, 0, -150 );
+    var_0 maps\_hud_util::_id_7FEE( "BOTTOM", undefined, 0, -150 );
     var_0 settext( &"AMBUSH_TWO_HOURS_LATER" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "ambush_fadetoblack_interlude_music" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "ambush_fadetoblack_interlude_music" );
     wait 5;
     var_0 destroy();
 }
@@ -651,7 +651,7 @@ checkpoint_guy()
 
     if ( isdefined( self._id_792E ) && self._id_792E == "tower_guy" )
     {
-        _id_A5A4::_id_7F71( 1 );
+        maps\_utility::_id_7F71( 1 );
         self _meth_856f();
     }
 
@@ -666,19 +666,19 @@ aarea_ambush_init()
 {
     level thread ambush_mark();
     common_scripts\utility::_id_383F( "ambush_init" );
-    _id_A5A4::_id_1332( "allies" );
-    _id_A5A4::_id_1332( "axis" );
+    maps\_utility::_id_1332( "allies" );
+    maps\_utility::_id_1332( "axis" );
     ambush_setup();
-    _id_A5A4::_id_1143( "ambush" );
+    maps\_utility::_id_1143( "ambush" );
     common_scripts\utility::_id_383F( "aa_ambush" );
     var_0 = getent( "rear_blocker", "targetname" );
     var_0 connectpaths();
     var_0 delete();
     getent( "rear_blocker_open", "targetname" ) show();
-    getent( "badguy", "script_noteworthy" ) _id_A5A4::_id_0798( ::ambush_badguy_spawn_function );
-    getent( "badguy_passanger", "script_noteworthy" ) _id_A5A4::_id_0798( ::ambush_badguy_passanger_spawn_function );
-    getent( "badguy_passanger", "script_noteworthy" ) _id_A5A4::_id_0798( ::ambush_badguy_passanger_hit_tower_death );
-    _id_A5A4::_id_070A( "ambush_enemy_color_init" );
+    getent( "badguy", "script_noteworthy" ) maps\_utility::_id_0798( ::ambush_badguy_spawn_function );
+    getent( "badguy_passanger", "script_noteworthy" ) maps\_utility::_id_0798( ::ambush_badguy_passanger_spawn_function );
+    getent( "badguy_passanger", "script_noteworthy" ) maps\_utility::_id_0798( ::ambush_badguy_passanger_hit_tower_death );
+    maps\_utility::_id_070A( "ambush_enemy_color_init" );
     level thread ambush_player_interrupt();
     level thread ambush_helicopter();
     level thread ambush_objective();
@@ -707,7 +707,7 @@ ambush_player_interrupt()
     level thread set_flag_on_player_action( "ambush_early_start", 0, 1 );
     common_scripts\utility::_id_384A( "ambush_early_start" );
     common_scripts\utility::_id_383F( "ambush_start" );
-    _id_A5E8::_id_870C( "aud_start_mix_ambush" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_ambush" );
     common_scripts\utility::_id_383F( "ambush_rocket" );
 }
 
@@ -716,13 +716,13 @@ ambush_mission_fail()
     level endon( "ambush_vehicles_inplace" );
     common_scripts\utility::_id_384A( "ambush_mission_fail" );
     setdvar( "ui_deadquote", "@AMBUSH_MISSIONFAIL_STARTED_EARLY" );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 ambush_helicopter()
 {
     common_scripts\utility::_id_384A( "ambush_start" );
-    level.helicopter = _id_A5A8::_id_8978( "blackhawk" );
+    level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
     var_0 = spawn( "script_model", level.helicopter gettagorigin( "tag_turret" ) );
     var_0.angles = level.helicopter gettagangles( "tag_turret" );
     var_0 notsolid();
@@ -731,13 +731,13 @@ ambush_helicopter()
     var_1 = common_scripts\utility::_id_40FB( level.helicopter._not_team, "targetname" );
     level.helicopter thread heli_path_speed();
     level.helicopter sethoverparams( 150, 120, 60 );
-    var_2 = _id_A5A4::_id_3F82( "heli_restart_avm", "script_noteworthy" );
+    var_2 = maps\_utility::_id_3F82( "heli_restart_avm", "script_noteworthy" );
     level.helicopter thread maps\ambush_aud::aud_start_ambush_heli_scripted_sequence( var_2 );
     var_1 = common_scripts\utility::_id_40FB( "rocket_attack", "script_noteworthy" );
     var_1 waittill( "trigger" );
     level.helicopter setvehweapon( "hunted_crash_missile" );
     level.helicopter setturrettargetent( level.rear_bmp );
-    level.rear_bmp _id_A5A8::_id_4258();
+    level.rear_bmp maps\_vehicle::_id_4258();
     var_3 = level.helicopter fireweapon( "tag_barrel", level.rear_bmp, ( 0, 0, 0 ) );
     thread maps\ambush_aud::snd_heli_missile_shoot( level.helicopter, var_3 );
     wait 0.5;
@@ -764,30 +764,30 @@ ambush_badguy_spawn_function()
 {
     level.badguy = self;
     self.nearz = "V. Zakhaev";
-    _id_A5A4::_id_7DDF( 0 );
+    maps\_utility::_id_7DDF( 0 );
     self setthreatbiasgroup( "oblivious" );
-    _id_A5A4::_id_7E60( 1 );
+    maps\_utility::_id_7E60( 1 );
     self.a._id_2B20 = 1;
     self.grenadeawareness = 0;
     self.allowdeath = 1;
     self._id_2B0E = 1;
     self._id_2652 = %death_stand_dropinplace;
     thread badguy_died( 10 );
-    _id_A5A4::_id_7F71( 1 );
+    maps\_utility::_id_7F71( 1 );
     self._id_7A16 = 1;
     self._id_2AF7 = 1;
     self _meth_81d7();
     common_scripts\utility::_id_384A( "ambush_switch_tower" );
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
     level.badguy animscripts\shared::_id_6869( level.badguy.secondaryweapon, "right" );
     self._id_855D = "none";
     level.badguy_jeep waittill( "death" );
     self unlink();
     var_0 = getnode( "ambush_badguy_path", "targetname" );
-    thread _id_A581::_id_4241( var_0 );
+    thread maps\_spawner::_id_4241( var_0 );
     self waittill( "reached_path_end" );
     self notify( "stop_death_fail" );
-    _id_A5A4::_id_8EA4();
+    maps\_utility::_id_8EA4();
     self delete();
 }
 
@@ -817,7 +817,7 @@ driver_death()
     self.allowdeath = 1;
     common_scripts\utility::_id_384A( "ambush_rocket" );
     wait 1.2;
-    _id_A5A4::_id_2A51();
+    maps\_utility::_id_2A51();
 }
 
 bmp_stop_anim()
@@ -833,15 +833,15 @@ bmp_stop_anim()
     }
 
     self._id_0C72 = "bmp";
-    var_2 = _id_A5A4::_id_3EF5( "stopping" );
+    var_2 = maps\_utility::_id_3EF5( "stopping" );
     self _meth_814d( var_2, 1.0, 0.0 );
 }
 
 ambush_caravan()
 {
-    common_scripts\utility::_id_0D13( getentarray( "drivers", "script_noteworthy" ), _id_A5A4::_id_0798, ::driver_death );
+    common_scripts\utility::_id_0D13( getentarray( "drivers", "script_noteworthy" ), maps\_utility::_id_0798, ::driver_death );
     wait 8;
-    var_0 = _id_A5A8::_id_7B3C( 0 );
+    var_0 = maps\_vehicle::_id_7B3C( 0 );
     wait 0.1;
     level.badguy_jeep = undefined;
     level.rear_truck = undefined;
@@ -852,7 +852,7 @@ ambush_caravan()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        thread _id_A5A8::_id_427A( var_0[var_1] );
+        thread maps\_vehicle::_id_427A( var_0[var_1] );
 
         if ( !isdefined( var_0[var_1].script_parentname ) )
             continue;
@@ -893,30 +893,30 @@ ambush_caravan()
         }
     }
 
-    level.badguy_jeep _id_A5A8::_id_4259();
+    level.badguy_jeep maps\_vehicle::_id_4259();
     level.vehicle_resumespeed = 20;
     var_2 = getvehiclenode( "bm21_inplace", "script_noteworthy" );
     var_2 waittill( "trigger" );
     common_scripts\utility::_id_383F( "ambush_vehicles_inplace" );
     common_scripts\utility::_id_384A( "ambush_rocket" );
     common_scripts\utility::_id_3856( "ambush_start", 1 );
-    _id_A5A4::_id_1333( "allies" );
-    _id_A5A4::_id_1333( "axis" );
+    maps\_utility::_id_1333( "allies" );
+    maps\_utility::_id_1333( "axis" );
     level.bm21 notify( "unload", "all" );
     level.middle_bm21 notify( "unload", "passengers" );
     level.rear_bmp thread ambush_bmp_attack();
     wait 1;
-    level.badguy_jeep thread _id_A5A8::_id_9C7F( "hide_attack_left" );
+    level.badguy_jeep thread maps\_vehicle::_id_9C7F( "hide_attack_left" );
     common_scripts\utility::_id_384A( "ambush_rear_bmp_destroyed" );
     wait 1;
-    _id_A5A4::_id_27EF( 0.0, _id_A5A4::_id_0709, "ambush_extra_enemies_1" );
-    _id_A5A4::_id_27EF( 1.0, _id_A5A4::_id_0709, "ambush_extra_enemies_2" );
-    _id_A5A4::_id_27EF( 2.0, _id_A5A4::_id_0709, "ambush_extra_enemies_3" );
-    _id_A5A4::_id_27EF( 1.5, common_scripts\utility::_id_383F, "extra_guys_spawned" );
+    maps\_utility::_id_27EF( 0.0, maps\_utility::_id_0709, "ambush_extra_enemies_1" );
+    maps\_utility::_id_27EF( 1.0, maps\_utility::_id_0709, "ambush_extra_enemies_2" );
+    maps\_utility::_id_27EF( 2.0, maps\_utility::_id_0709, "ambush_extra_enemies_3" );
+    maps\_utility::_id_27EF( 1.5, common_scripts\utility::_id_383F, "extra_guys_spawned" );
     wait 3;
-    _id_A5A4::_id_070A( "jeep_vehiclegate" );
-    level.badguy_jeep thread _id_A5A8::_id_9C7F( "escape" );
-    level.badguy_jeep thread _id_A5A4::_id_69C4( "scn_ambush_jeep_escape" );
+    maps\_utility::_id_070A( "jeep_vehiclegate" );
+    level.badguy_jeep thread maps\_vehicle::_id_9C7F( "escape" );
+    level.badguy_jeep thread maps\_utility::_id_69C4( "scn_ambush_jeep_escape" );
 }
 
 ambush_streetlight()
@@ -979,12 +979,12 @@ bmp_pan_target( var_0 )
 ambush_rockets()
 {
     common_scripts\utility::_id_384A( "ambush_rocket" );
-    var_0 = _id_A5A4::_id_3CB4( "rocket_man" );
+    var_0 = maps\_utility::_id_3CB4( "rocket_man" );
     var_0 = common_scripts\utility::_id_3CCB( level.rear_truck.origin, var_0 );
     var_1 = getent( "rpg_target1", "targetname" );
     var_2 = getent( "rpg_target2", "targetname" );
     var_0[0] notify( "end_patrol" );
-    var_0[0] _id_A5A4::_id_7E60( 1 );
+    var_0[0] maps\_utility::_id_7E60( 1 );
     var_0[0] _meth_81a9( getnode( "bmp_attack_node", "targetname" ) );
     var_0[0] setstablemissile( 1 );
     var_0[0].goalradius = 32;
@@ -992,9 +992,9 @@ ambush_rockets()
     var_0[0].a._id_7594 = 1;
     var_0[0].melee_fired = 67108864;
     level.bmp thread destroy_rocket_target( var_0[0] );
-    level.bmp _id_A5A8::_id_4258();
+    level.bmp maps\_vehicle::_id_4258();
     var_0[1] notify( "end_patrol" );
-    var_0[1] _id_A5A4::_id_7E60( 1 );
+    var_0[1] maps\_utility::_id_7E60( 1 );
     var_0[1] _meth_81a9( getnode( "rear_truck_attack_node", "targetname" ) );
     var_0[1].goalradius = 32;
     var_0[1].ignoreforfixednodesafecheck = 1;
@@ -1005,7 +1005,7 @@ ambush_rockets()
     var_0[1].a._id_7594 = 1;
     var_0[1].melee_fired = 67108864;
     level.rear_truck thread destroy_rocket_target( var_0[1] );
-    level.rear_truck _id_A5A8::_id_4258();
+    level.rear_truck maps\_vehicle::_id_4258();
 }
 
 destroy_rocket_target( var_0 )
@@ -1021,7 +1021,7 @@ destroy_rocket_target( var_0 )
             var_0 setthreatbiasgroup( "allies" );
 
             if ( !var_0 is_kamarov() )
-                var_0 _id_A5A4::_id_8EA4();
+                var_0 maps\_utility::_id_8EA4();
 
             if ( isalive( self ) )
                 self notify( "death" );
@@ -1034,14 +1034,14 @@ destroy_rocket_target( var_0 )
 ambush_price()
 {
     wait 6;
-    level _id_A5A4::_id_70C4( "ambush_mhp_enemyconvoy" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_nobodyfires" );
+    level maps\_utility::_id_70C4( "ambush_mhp_enemyconvoy" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_nobodyfires" );
     common_scripts\utility::_id_383F( "caravan_on_the_move" );
     level thread ambush_price_leadup();
     common_scripts\utility::_id_3852( "ambush_rocket", "ambush_early_start" );
-    _id_A5A4::_id_070A( "ambush_attack_color_init" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_smokeem" );
-    _id_A5E8::_id_870C( "aud_start_mix_ambush" );
+    maps\_utility::_id_070A( "ambush_attack_color_init" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_smokeem" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_ambush" );
     common_scripts\utility::_id_3856( "ambush_start", 3 );
     level._id_6F7C setthreatbiasgroup( "allies" );
     level.playercardbackground setthreatbiasgroup( "player" );
@@ -1051,9 +1051,9 @@ ambush_price_leadup()
 {
     level endon( "ambush_early_start" );
     common_scripts\utility::_id_384A( "ambush_badguy_spotted" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_targetinjeep" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_takealive" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_standby" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_targetinjeep" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_takealive" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_standby" );
     common_scripts\utility::_id_383F( "ambush_rocket" );
 }
 
@@ -1063,12 +1063,12 @@ ambush_mark()
     wait 2.5;
     level.mark _meth_81a7( 1 );
     level.mark.a._id_2B20 = 1;
-    level.mark _id_A5A4::_id_7F71( 1 );
+    level.mark maps\_utility::_id_7F71( 1 );
 
     if ( getdvarint( "use_old_griggs_tower" ) == 1 )
     {
-        level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_likeaclown" );
-        level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_nothinglikerussian" );
+        level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_likeaclown" );
+        level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_nothinglikerussian" );
     }
     else
         thread ambush_mark_talk_anim();
@@ -1080,37 +1080,37 @@ ambush_mark()
     level.mark _meth_816a();
     setthreatbias( "group2", "group1", 100000 );
     level.mark setthreatbiasgroup( "group1" );
-    var_1 = _id_A5A4::_id_3CB4( "mark_targets" );
+    var_1 = maps\_utility::_id_3CB4( "mark_targets" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
         var_1[var_2] setthreatbiasgroup( "group2" );
 
     common_scripts\utility::_id_384A( "ambush_truck_hit" );
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_hittower" );
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_hittower" );
     common_scripts\utility::_id_384A( "ambush_tower_fall" );
     level.mark setthreatbiasgroup( "oblivious" );
 
     if ( randomint( 2 ) )
-        level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_ohno2" );
+        level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_ohno2" );
     else
-        level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_ohno2" );
+        level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_ohno2" );
 
-    level.mark _id_A5A4::_id_7EAB( "sprint" );
+    level.mark maps\_utility::_id_7EAB( "sprint" );
     common_scripts\utility::_id_384A( "ambush_recovered" );
     level.mark setthreatbiasgroup( "allies" );
     level.mark.a._id_2B20 = 0;
     level.mark _meth_81a7( 0 );
-    level.mark _id_A5A4::_id_7F71( 0 );
+    level.mark maps\_utility::_id_7F71( 0 );
 }
 
 ambush_mark_talk_anim()
 {
     var_0 = spawn( "script_origin", ( -602, 80, 225 ) );
     var_0.angles = ( 0, -20, 0 );
-    var_0 thread _id_A510::_id_0BC7( level.mark, "ambush_grg_tower_talk" );
+    var_0 thread maps\_anim::_id_0BC7( level.mark, "ambush_grg_tower_talk" );
     wait 2.5;
-    level.mark thread _id_A5A4::_id_69C4( "ambush_grigg_tower_foley" );
-    var_0 _id_A510::_id_0C24( level.mark, "ambush_grg_tower_talk" );
+    level.mark thread maps\_utility::_id_69C4( "ambush_grigg_tower_foley" );
+    var_0 maps\_anim::_id_0C24( level.mark, "ambush_grg_tower_talk" );
     var_0 thread h1_griggs_tower_idle_thread();
     level.mark _meth_81ce( "crouch" );
     common_scripts\utility::_id_384A( "ambush_rocket" );
@@ -1135,8 +1135,8 @@ h1_griggs_tower_idle_thread()
     {
         var_3 = randomintrange( 0, var_2 );
         var_0 = var_1[var_3];
-        var_1 = _id_A5A4::_id_0CFA( var_1, var_3 );
-        _id_A510::_id_0C24( level.mark, "ambush_grg_tower_idle" + var_0 );
+        var_1 = maps\_utility::_id_0CFA( var_1, var_3 );
+        maps\_anim::_id_0C24( level.mark, "ambush_grg_tower_idle" + var_0 );
     }
 
     for (;;)
@@ -1144,15 +1144,15 @@ h1_griggs_tower_idle_thread()
         var_1 = [ 1, 2, 3 ];
 
         if ( var_0 == 1 )
-            var_1 = _id_A5A4::_id_0CFA( var_1, 0 );
+            var_1 = maps\_utility::_id_0CFA( var_1, 0 );
         else if ( var_0 == 2 )
-            var_1 = _id_A5A4::_id_0CFA( var_1, 1 );
+            var_1 = maps\_utility::_id_0CFA( var_1, 1 );
         else if ( var_0 == 3 )
-            var_1 = _id_A5A4::_id_0CFA( var_1, 2 );
+            var_1 = maps\_utility::_id_0CFA( var_1, 2 );
 
         var_0 = randomintrange( 0, var_1.size );
         var_0 = var_1[var_0];
-        _id_A510::_id_0C24( level.mark, "ambush_grg_tower_idle" + var_0 );
+        maps\_anim::_id_0C24( level.mark, "ambush_grg_tower_idle" + var_0 );
     }
 }
 
@@ -1170,15 +1170,15 @@ ambush_setup()
     level._id_6F7C notify( "killanimscript" );
     level._id_6F7C _meth_81ca( var_1.origin, var_1.angles, 9999 );
     level._id_6F7C setthreatbiasgroup( "oblivious" );
-    level._id_6F7C _id_A5A4::_id_7E38( "o" );
+    level._id_6F7C maps\_utility::_id_7E38( "o" );
     var_1 = getnode( "startnodemark_ambush", "targetname" );
     level.mark notify( "killanimscript" );
     level.mark _meth_81ca( var_1.origin, var_1.angles, 9999 );
     level.mark setthreatbiasgroup( "oblivious" );
-    level.steve _id_A5A4::_id_8EA4();
+    level.steve maps\_utility::_id_8EA4();
     level.steve delete();
     level.steve = _id_7B3C( "ambush_steve", "targetname", 1 );
-    level.steve thread _id_A5A4::_id_58D7();
+    level.steve thread maps\_utility::_id_58D7();
     level.steve._id_0C72 = "steve";
     level.steve.nearz = "Gaz";
     level.steve thread squad_init();
@@ -1190,7 +1190,7 @@ ambush_setup()
     level.steve.a._id_55D7 = gettime();
     level.steve.team = "allies";
     level.steve._id_9F32 = "british";
-    level.steve _id_A5A4::_id_7DDF( 0 );
+    level.steve maps\_utility::_id_7DDF( 0 );
     level.steve.ignoretriggers = 1;
     level.steve.melee_fired = 4;
     level.steve.no_ir_beacon = 1;
@@ -1204,7 +1204,7 @@ ambush_setup()
     level.playercardbackground setorigin( var_1.origin );
     level.playercardbackground setplayerangles( var_1.angles + ( 13, 0, 0 ) );
     level.playercardbackground setthreatbiasgroup( "oblivious" );
-    _id_A5A4::_id_070A( "ambush_setup_color_init" );
+    maps\_utility::_id_070A( "ambush_setup_color_init" );
 
     if ( level.playercardbackground hasweapon( "remington700" ) )
     {
@@ -1240,14 +1240,14 @@ ambush_setup_enemy_allies()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         level.names_copies[level.names_copies.size] = var_0[var_1].nearz;
-        var_0[var_1] _id_A5A4::_id_2ACC();
+        var_0[var_1] maps\_utility::_id_2ACC();
         var_0[var_1] delete();
     }
 
     waitframe;
-    common_scripts\utility::_id_0D13( getentarray( "ambush_allied_axis", "targetname" ), _id_A5A4::_id_0798, ::ambush_allied_axis_spawnfunc );
+    common_scripts\utility::_id_0D13( getentarray( "ambush_allied_axis", "targetname" ), maps\_utility::_id_0798, ::ambush_allied_axis_spawnfunc );
     scripted_array_spawn( "ambush_allied_axis", "targetname", 1 );
-    common_scripts\utility::_id_0D13( getentarray( "ambush_allied", "targetname" ), _id_A5A4::_id_0798, ::ambush_allied_spawnfunc );
+    common_scripts\utility::_id_0D13( getentarray( "ambush_allied", "targetname" ), maps\_utility::_id_0798, ::ambush_allied_spawnfunc );
     scripted_array_spawn( "ambush_allied", "targetname", 1 );
 }
 
@@ -1258,11 +1258,11 @@ ambush_allied_axis_spawnfunc()
     self.a._id_55D7 = gettime();
     self.team = "allies";
     self._id_9F32 = "russian";
-    _id_A5A4::_id_7DDF( 0 );
+    maps\_utility::_id_7DDF( 0 );
     self.ignoretriggers = 1;
     self.melee_fired = 4;
     self.no_ir_beacon = 1;
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
 
     if ( isdefined( self.script_parentname ) && self.script_parentname == "delay_guy" )
         thread ambush_delay();
@@ -1273,14 +1273,14 @@ ambush_allied_axis_spawnfunc()
         level.names_copies = common_scripts\utility::_id_0CF6( level.names_copies, self.nearz );
     }
     else
-        _id_A55D::_id_3DE2();
+        maps\_names::_id_3DE2();
 
     thread generic_allied();
     common_scripts\utility::_id_384A( "ambush_rocket" );
     common_scripts\utility::_id_3856( "ambush_start", 2 );
 
     if ( ( !isdefined( self._id_792E ) || self._id_792E != "rocket_man" ) && !is_kamarov() )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self.pantssize = 0;
     self.ignoretriggers = 0;
@@ -1289,13 +1289,13 @@ ambush_allied_axis_spawnfunc()
     if ( self._id_792E == "ground_man_upper" )
     {
         self setthreatbiasgroup( "allies" );
-        _id_A5A4::_id_7E38( "r" );
+        maps\_utility::_id_7E38( "r" );
     }
 
     if ( self._id_792E == "ground_man_lower" )
     {
         self setthreatbiasgroup( "allies" );
-        _id_A5A4::_id_7E38( "c" );
+        maps\_utility::_id_7E38( "c" );
     }
 }
 
@@ -1304,15 +1304,15 @@ ambush_steve()
     level endon( "ambush_early_start" );
     level thread ambush_steve_fight();
     level.steve.fixednode = 0;
-    level.steve thread _id_A55F::_id_66FC( "steve_ambush_patrol_node" );
+    level.steve thread maps\_patrol::_id_66FC( "steve_ambush_patrol_node" );
     var_0 = level.steve.grenadeawareness;
     level.steve.grenadeawareness = 0;
     common_scripts\utility::_id_384A( "ambush_vehicles_inplace" );
-    level.steve thread _id_A55F::_id_66FC( "caravan_walkby" );
+    level.steve thread maps\_patrol::_id_66FC( "caravan_walkby" );
     var_1 = getent( "badguy_spotted", "script_noteworthy" );
     var_1 waittill( "trigger" );
     level.steve.grenadeawareness = var_0;
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_visualtarget" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_visualtarget" );
     common_scripts\utility::_id_383F( "ambush_badguy_spotted" );
 }
 
@@ -1320,12 +1320,12 @@ ambush_steve_fight()
 {
     common_scripts\utility::_id_384A( "ambush_rocket" );
     level.steve notify( "end_patrol" );
-    level.steve _id_A5A4::_id_7E38( "c" );
+    level.steve maps\_utility::_id_7E38( "c" );
     wait 4;
     level.steve setthreatbiasgroup( "allies" );
     common_scripts\utility::_id_384A( "ambush_rear_bmp_destroyed" );
     wait 3;
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_gotcompany" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_gotcompany" );
 }
 
 ambush_delay()
@@ -1334,7 +1334,7 @@ ambush_delay()
     var_0 = getvehiclenode( "delay_node", "script_noteworthy" );
     var_0 waittill( "trigger" );
     wait 0.5;
-    _id_A55F::_id_66FC( "delay_path" );
+    maps\_patrol::_id_66FC( "delay_path" );
     common_scripts\utility::_id_384A( "ambush_vehicles_inplace" );
     common_scripts\utility::_id_384A( "ambush_rocket" );
     wait 1;
@@ -1343,7 +1343,7 @@ ambush_delay()
     self.melee_fired = 67108864;
     wait 1;
     self _meth_816a();
-    _id_A5A4::_id_7E38( "c" );
+    maps\_utility::_id_7E38( "c" );
     wait 5;
     self setthreatbiasgroup( "allies" );
 }
@@ -1360,14 +1360,14 @@ ambush_delay_dialogue()
     self endon( "death" );
     var_0._id_0C72 = "russian";
     self._id_0C72 = "loyalist";
-    _id_A510::_id_0C21( self, "ambush_ru2_papersplease" );
+    maps\_anim::_id_0C21( self, "ambush_ru2_papersplease" );
     wait 0.5;
-    var_0 _id_A510::_id_0C21( var_0, "ambush_ru1_paperswhatpapers" );
-    var_0 _id_A510::_id_0C21( var_0, "ambush_ru1_fatpolitician" );
+    var_0 maps\_anim::_id_0C21( var_0, "ambush_ru1_paperswhatpapers" );
+    var_0 maps\_anim::_id_0C21( var_0, "ambush_ru1_fatpolitician" );
     wait 0.5;
-    var_0 _id_A510::_id_0C21( var_0, "ambush_ru1_whatareyouwaitingfor" );
+    var_0 maps\_anim::_id_0C21( var_0, "ambush_ru1_whatareyouwaitingfor" );
     wait 0.5;
-    _id_A510::_id_0C21( self, "ambush_ru2_illdothatrightnow" );
+    maps\_anim::_id_0C21( self, "ambush_ru2_illdothatrightnow" );
 }
 
 ambush_allied_spawnfunc()
@@ -1406,7 +1406,7 @@ ambush_tower_fall()
     var_5 waittill( "trigger", var_6 );
     var_1 playsound( "scn_ambush_tower_crash" );
     common_scripts\_exploder::_id_3528( 3 );
-    _id_A5E8::_id_870C( "aud_start_mix_tower_crash" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_tower_crash" );
 
     if ( getdvarint( "use_old_tower" ) == 1 )
         level.mark linkto( var_1 );
@@ -1431,7 +1431,7 @@ ambush_tower_fall()
     level.mark unlink();
     level notify( "tower_fall_unlink" );
     common_scripts\utility::_id_383F( "player_tower_hits_ground" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "scn_ambush_tower_end" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "scn_ambush_tower_end" );
     level thread ambush_tower_blackout();
     wait 1;
 
@@ -1471,14 +1471,14 @@ ambush_tower_fall_player( var_0 )
     var_1.angles = ( 0, level.playercardbackground.angles[1], 0 );
     var_1 linkto( var_0 );
     thread h1_towerfalling_dof();
-    var_2 = _id_A5A4::_id_88D1( "player_rig", var_1.origin, var_1.angles );
+    var_2 = maps\_utility::_id_88D1( "player_rig", var_1.origin, var_1.angles );
     var_2 hide();
     var_2 linkto( var_1 );
-    var_1 thread _id_A510::_id_0BC7( var_2, "ambush_plr_tower_fall" );
+    var_1 thread maps\_anim::_id_0BC7( var_2, "ambush_plr_tower_fall" );
     level.playercardbackground _meth_855e( var_2, "tag_player", 1, 0.4, 0.2, 0.2, 50, 50, 40, 10 );
     wait 0.4;
     var_2 show();
-    var_1 thread _id_A510::_id_0C24( var_2, "ambush_plr_tower_fall" );
+    var_1 thread maps\_anim::_id_0C24( var_2, "ambush_plr_tower_fall" );
     var_3 = getanimlength( level._id_78AC["player_rig"]["ambush_plr_tower_fall"] );
     var_4 = getnotetracktimes( level._id_78AC["player_rig"]["ambush_plr_tower_fall"], "rotation_start" );
     var_5 = getnotetracktimes( level._id_78AC["player_rig"]["ambush_plr_tower_fall"], "rotation_end" );
@@ -1533,8 +1533,8 @@ ambush_tower_fall_mark( var_0 )
         var_2 = "ambush_grg_tower_fall_stand";
     }
 
-    var_1 _id_A510::_id_0C29( level.mark, var_2 );
-    var_1 thread _id_A510::_id_0C24( level.mark, "ambush_grg_tower_fall" );
+    var_1 maps\_anim::_id_0C29( level.mark, var_2 );
+    var_1 thread maps\_anim::_id_0C24( level.mark, "ambush_grg_tower_fall" );
     level waittill( "tower_fall_unlink" );
     level.mark _meth_856e();
     level.mark _meth_81ce( "stand", "prone", "crouch" );
@@ -1583,7 +1583,7 @@ ambush_tower_blackout()
     level.playercardbackground freezecontrols( 1 );
     wait 1;
     common_scripts\utility::_id_383F( "ambush_tower_blackout_come_to" );
-    _id_A5E8::_id_870C( "aud_start_mix_tower_crash_stunned" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_tower_crash_stunned" );
 
     if ( getdvarint( "use_old_escapecam" ) == 1 )
         thread ambush_recover();
@@ -1598,8 +1598,8 @@ ambush_tower_blackout()
     level.badguy_jeep notify( "death" );
     common_scripts\utility::_id_383F( "son_of_zakhaev_money_shot" );
     wait 8.35;
-    level.playercardbackground thread _id_A5A4::_id_69C4( "scn_ambush_shellshock_out" );
-    _id_A5E8::_id_870C( "aud_start_mix_zak_son_escape" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "scn_ambush_shellshock_out" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_zak_son_escape" );
     wait 2;
     level notify( "escape_cam_end" );
     level.playercardbackground freezecontrols( 0 );
@@ -1619,9 +1619,9 @@ ambush_recover_h1()
     setsaveddvar( "r_mbEnable", 2 );
     var_0 = spawn( "script_origin", level.badguy_jeep gettagorigin( "tag_driver" ) );
     var_0.angles = level.badguy_jeep gettagangles( "tag_driver" );
-    var_1 = _id_A5A4::_id_88D1( "player_rig" );
+    var_1 = maps\_utility::_id_88D1( "player_rig" );
     level.playercardbackground playerlinktodelta( var_1, "tag_player", 1, 0, 0, 0, 0, 1 );
-    var_0 thread _id_A510::_id_0C24( var_1, "vip_escape_player" );
+    var_0 thread maps\_anim::_id_0C24( var_1, "vip_escape_player" );
     level waittill( "escape_cam_end" );
     level.playercardbackground unlink();
     var_1 delete();
@@ -1707,10 +1707,10 @@ aarea_village_init()
     common_scripts\utility::_id_383F( "aa_hunt" );
     level thread village_nag( "village_gasstation", undefined, "ambush_mhp_wrongway", 1 );
     common_scripts\utility::_id_0D13( getentarray( "village_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CE );
-    getent( "badguy_village", "script_noteworthy" ) _id_A5A4::_id_0798( ::badguy_spawn_function );
-    getent( "badguy_village", "script_noteworthy" ) _id_A5A4::_id_0798( ::village_badguy );
-    _id_A5A4::_id_1143( "village" );
-    _id_A5A4::arcademode_checkpoint( 4, 2 );
+    getent( "badguy_village", "script_noteworthy" ) maps\_utility::_id_0798( ::badguy_spawn_function );
+    getent( "badguy_village", "script_noteworthy" ) maps\_utility::_id_0798( ::village_badguy );
+    maps\_utility::_id_1143( "village" );
+    maps\_utility::arcademode_checkpoint( 4, 2 );
     level thread village_friendlies();
     level thread village_enemies();
     level thread main_objective();
@@ -1727,17 +1727,17 @@ aarea_village_init()
 village_friendlies()
 {
     common_scripts\utility::_id_384A( "junkyard_exit" );
-    _id_A5E8::_id_870C( "aud_start_ambience_war" );
+    soundscripts\_snd::_id_870C( "aud_start_ambience_war" );
     var_0 = getaiarray( "axis", "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         if ( var_0[var_1] is_kamarov() )
-            var_0[var_1] _id_A5A4::_id_8EA4();
+            var_0[var_1] maps\_utility::_id_8EA4();
     }
 
-    _id_A581::_id_533A( 1 );
-    _id_A5A4::_id_0CE5( getaiarray( "axis" ) );
+    maps\_spawner::_id_533A( 1 );
+    maps\_utility::_id_0CE5( getaiarray( "axis" ) );
     var_2 = get_generic_allies();
 
     for ( var_1 = 0; var_1 < var_2.size; var_1++ )
@@ -1747,36 +1747,36 @@ village_friendlies()
     common_scripts\utility::_id_0D13( var_0, ::generic_allied );
     level._id_6F7C notify( "killanimscript" );
     level._id_6F7C _meth_81c9( getnode( "village_price_teleport", "targetname" ).origin );
-    level._id_6F7C _id_A5A4::_id_7E38( "r" );
-    level.steve _id_A5A4::_id_8EA4();
+    level._id_6F7C maps\_utility::_id_7E38( "r" );
+    level.steve maps\_utility::_id_8EA4();
     level.steve delete();
     waitframe;
     var_3 = getent( "steve", "targetname" );
     var_3.count = 1;
     level.steve = _id_7B3C( "steve", "targetname", 1 );
-    level.steve thread _id_A5A4::_id_58D7();
+    level.steve thread maps\_utility::_id_58D7();
     level.steve._id_0C72 = "steve";
     level.steve.nearz = "Gaz";
     level.steve thread squad_init();
     level.steve notify( "killanimscript" );
     level.steve _meth_81c9( getnode( "village_steve_teleport", "targetname" ).origin );
-    level.steve _id_A5A4::_id_7E38( "r" );
+    level.steve maps\_utility::_id_7E38( "r" );
     var_4 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_4[var_1] _meth_8168( 1 );
 
-    common_scripts\utility::_id_0D13( get_generic_allies(), _id_A5A4::_id_7402 );
-    common_scripts\utility::_id_0D13( level._id_8AB0, _id_A5A4::_id_30AA );
+    common_scripts\utility::_id_0D13( get_generic_allies(), maps\_utility::_id_7402 );
+    common_scripts\utility::_id_0D13( level._id_8AB0, maps\_utility::_id_30AA );
     level endon( "morpheus_quick_start" );
     level thread village_friendlies_six();
     common_scripts\utility::_id_384A( "village_badguy_escape" );
     wait 5;
-    level _id_A5A4::_id_70C4( "ambush_mhp_sidealley" );
+    level maps\_utility::_id_70C4( "ambush_mhp_sidealley" );
     wait 3;
     common_scripts\utility::_id_383F( "village_alley" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_goafterhim" );
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_soapgoalley" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_goafterhim" );
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_soapgoalley" );
     level.mark thread village_nag( undefined, 25, "ambush_grg_thisway" );
     level thread village_nag( undefined, 12, "ambush_mhp_cuthrualley", 1 );
     level thread village_nag( "village_wrong_way", undefined, "ambush_mhp_wrongway", 1 );
@@ -1797,9 +1797,9 @@ village_nag( var_0, var_1, var_2, var_3, var_4 )
         wait(var_1);
 
     if ( isdefined( var_3 ) )
-        level _id_A5A4::_id_70C4( var_2 );
+        level maps\_utility::_id_70C4( var_2 );
     else
-        _id_A510::_id_0C21( self, var_2 );
+        maps\_anim::_id_0C21( self, var_2 );
 }
 
 village_friendlies_six()
@@ -1815,29 +1815,29 @@ village_friendlies_six()
             break;
     }
 
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_friendliessixoclock" );
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_friendliessixoclock" );
 }
 
 village_enemies()
 {
-    common_scripts\utility::_id_0D13( getentarray( "village_force", "script_noteworthy" ), _id_A5A4::_id_0798, ::village_enemies_spawn_function );
+    common_scripts\utility::_id_0D13( getentarray( "village_force", "script_noteworthy" ), maps\_utility::_id_0798, ::village_enemies_spawn_function );
     level thread village_bmp();
     common_scripts\utility::_id_384A( "village_defend" );
-    _id_A5A4::_id_070A( "village_defend_color_init" );
+    maps\_utility::_id_070A( "village_defend_color_init" );
     common_scripts\utility::_id_384A( "village_retreat" );
     wait 3;
-    _id_A5A4::_id_070A( "village_retreat_1_color_init" );
+    maps\_utility::_id_070A( "village_retreat_1_color_init" );
 
-    while ( !common_scripts\utility::_id_382E( "village_force_escape" ) && _id_A5A4::_id_3CB5( "village_force" ) > 4 )
+    while ( !common_scripts\utility::_id_382E( "village_force_escape" ) && maps\_utility::_id_3CB5( "village_force" ) > 4 )
         wait 0.05;
 
     for ( var_0 = 0; !common_scripts\utility::_id_382E( "village_force_escape" ) && enemies_close( 512 ) && var_0 > 10; var_0++ )
         wait 1;
 
     common_scripts\utility::_id_383F( "village_badguy_escape" );
-    _id_A5A4::_id_070A( "village_retreat_2_color_init" );
+    maps\_utility::_id_070A( "village_retreat_2_color_init" );
     var_1 = getentarray( "village_second_force", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_1, _id_A5A4::_id_0706 );
+    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0706 );
 }
 
 enemies_close( var_0 )
@@ -1855,7 +1855,7 @@ enemies_close( var_0 )
 
 village_bmp()
 {
-    var_0 = _id_A5A8::waittill_vehiclespawn( "village_bmp" );
+    var_0 = maps\_vehicle::waittill_vehiclespawn( "village_bmp" );
     var_0 waittill( "reached_end_node" );
     var_0 thread vehicle_turret_think();
 }
@@ -1878,7 +1878,7 @@ village_enemies_allert()
 
 village_badguy()
 {
-    _id_A5A4::_id_7E45( "sprint" );
+    maps\_utility::_id_7E45( "sprint" );
     self._id_5F65 = 1.2;
     setignoremegroup( "allies", "badguy" );
     setignoremegroup( "player", "badguy" );
@@ -1921,39 +1921,39 @@ badguy_health_shield()
 
 village_mark()
 {
-    _id_A5A4::_id_070A( "village_color_init" );
-    _id_A5A4::_id_A066( "junkyard_dog" );
-    _id_A5A4::_id_070A( "dog_dead_color_init" );
+    maps\_utility::_id_070A( "village_color_init" );
+    maps\_utility::_id_A066( "junkyard_dog" );
+    maps\_utility::_id_070A( "dog_dead_color_init" );
     wait 1.5;
-    level.mark thread _id_A510::_id_0C21( level.mark, "ambush_grg_downboy" );
+    level.mark thread maps\_anim::_id_0C21( level.mark, "ambush_grg_downboy" );
     common_scripts\utility::_id_384A( "village_defend" );
-    level.mark _id_A5A4::_id_1ED1();
+    level.mark maps\_utility::_id_1ED1();
 }
 
 village_helicopter()
 {
     common_scripts\utility::_id_384A( "village_helicopter_greeting" );
     wait 1;
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_jmovesfast" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_jmovesfast" );
     wait 5;
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_junkyard" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_junkyard" );
     common_scripts\utility::_id_384A( "junkyard_exit" );
-    level.helicopter thread _id_A5A4::_id_69C4( "scn_ambush_heli_village_flyby" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_cityoutskirts" );
+    level.helicopter thread maps\_utility::_id_69C4( "scn_ambush_heli_village_flyby" );
+    level maps\_utility::_id_70C4( "ambush_mhp_cityoutskirts" );
     common_scripts\utility::_id_384A( "village_road" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_hostileforces" );
-    _id_A5E8::_id_870C( "aud_russian_battle_chatter" );
+    level maps\_utility::_id_70C4( "ambush_mhp_hostileforces" );
+    soundscripts\_snd::_id_870C( "aud_russian_battle_chatter" );
     common_scripts\utility::_id_384A( "village_retreat" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_checkyourfire" );
+    level maps\_utility::_id_70C4( "ambush_mhp_checkyourfire" );
 }
 
 village_price()
 {
     level endon( "morpheus_quick_start" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_runforit" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_chasehim" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_runforit" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_chasehim" );
     common_scripts\utility::_id_383F( "village_helicopter_greeting" );
-    var_0 = _id_A5A4::_id_3F83( "auto300", "targetname" );
+    var_0 = maps\_utility::_id_3F83( "auto300", "targetname" );
     var_0 thread maps\ambush_aud::aud_dog_sequence();
 }
 
@@ -1961,8 +1961,8 @@ village_cleanup()
 {
     thread bugfix_failsafe_triggerflag_morpheus_rpg();
     common_scripts\utility::_id_384A( "morpheus_rpg" );
-    level._id_6F7C _id_A5A4::_id_8EA4();
-    level._id_6F7C _id_A5A4::_id_2ACC();
+    level._id_6F7C maps\_utility::_id_8EA4();
+    level._id_6F7C maps\_utility::_id_2ACC();
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
@@ -1973,29 +1973,29 @@ village_cleanup()
             continue;
         }
 
-        var_0[var_1] _id_A5A4::_id_2ACC();
+        var_0[var_1] maps\_utility::_id_2ACC();
         var_0[var_1] delete();
     }
 
-    var_2 = _id_A5A4::_id_3CB4( "village_force" );
-    var_2 = _id_A5A4::_id_0CF2( var_2, _id_A5A4::_id_3CB4( "village_enemy" ) );
-    var_2 = _id_A5A4::_id_0CF2( var_2, _id_A5A4::_id_3CB4( "village_dog" ) );
-    _id_A5A4::_id_0CE5( var_2 );
+    var_2 = maps\_utility::_id_3CB4( "village_force" );
+    var_2 = maps\_utility::_id_0CF2( var_2, maps\_utility::_id_3CB4( "village_enemy" ) );
+    var_2 = maps\_utility::_id_0CF2( var_2, maps\_utility::_id_3CB4( "village_dog" ) );
+    maps\_utility::_id_0CE5( var_2 );
 }
 
 aarea_morpheus_init()
 {
-    _id_A5A4::_id_1151( "morpheus", 10 );
+    maps\_utility::_id_1151( "morpheus", 10 );
     common_scripts\utility::_id_383F( "aa_morpheus" );
     common_scripts\utility::_id_383F( "village_alley" );
     level thread fall_death();
     var_0 = get_generic_allies();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] _id_A5A4::_id_2ACC();
+        var_0[var_1] maps\_utility::_id_2ACC();
 
-    level.steve _id_A5A4::_id_7E38( "g" );
-    _id_A5A4::_id_070A( "morpheus_color_init" );
+    level.steve maps\_utility::_id_7E38( "g" );
+    maps\_utility::_id_070A( "morpheus_color_init" );
     level.steve thread morpheus_allies();
     level.mark thread morpheus_allies();
     setsaveddvar( "ai_friendlyFireBlockDuration", 0 );
@@ -2010,18 +2010,18 @@ aarea_morpheus_init()
 
 morpheus_allies()
 {
-    _id_A5A4::_id_7E60( 1 );
+    maps\_utility::_id_7E60( 1 );
     self.a._id_2B20 = 1;
     self setthreatbiasgroup( "oblivious" );
     common_scripts\utility::_id_384A( "morpheus_dumpster" );
-    _id_A5A4::_id_7E60( 0 );
+    maps\_utility::_id_7E60( 0 );
     self.a._id_2B20 = 0;
     self setthreatbiasgroup( "allies" );
 }
 
 morpheus_sets()
 {
-    common_scripts\utility::_id_0D13( getentarray( "iron_fence_guy", "script_noteworthy" ), _id_A5A4::_id_0798, ::morpheus_iron_fence_spawn_function );
+    common_scripts\utility::_id_0D13( getentarray( "iron_fence_guy", "script_noteworthy" ), maps\_utility::_id_0798, ::morpheus_iron_fence_spawn_function );
     level thread morpheus_iron_fence();
     level thread morpheus_flanker();
     level thread morpheus_rpg();
@@ -2034,7 +2034,7 @@ morpheus_completion( var_0, var_1 )
 {
     level endon( "new_morpheus_set" );
     level waittill( var_0 );
-    level thread _id_A5A4::_id_70C4( var_1 );
+    level thread maps\_utility::_id_70C4( var_1 );
 }
 
 morpheus_dumpster()
@@ -2042,20 +2042,20 @@ morpheus_dumpster()
     common_scripts\utility::_id_384A( "morpheus_dumpster" );
     level notify( "new_morpheus_set" );
     level thread morpheus_completion( "morpheus_dumpster_complete", "ambush_mhp_gotem" );
-    _id_A5A4::_id_A066( "dumpster_front_guy" );
+    maps\_utility::_id_A066( "dumpster_front_guy" );
 
     if ( common_scripts\utility::_id_382E( "morpheus_green_car" ) )
         return;
 
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_dumpster" );
-    var_0 = _id_A5A4::_id_3CB4( "dumpster_guy" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_dumpster" );
+    var_0 = maps\_utility::_id_3CB4( "dumpster_guy" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] setthreatbiasgroup( "axis" );
 
     level thread morpheus_dumpster_clear( "morpheus_dumpster_complete" );
     level endon( "morpheus_dumpster_clear" );
-    _id_A5A4::_id_A066( "dumpster_guy" );
+    maps\_utility::_id_A066( "dumpster_guy" );
     level notify( "morpheus_dumpster_complete" );
 }
 
@@ -2063,7 +2063,7 @@ morpheus_dumpster_clear( var_0 )
 {
     level endon( var_0 );
     common_scripts\utility::_id_384A( "morpheus_iron_fence" );
-    common_scripts\utility::_id_0D13( _id_A5A4::_id_3CB4( "dumpster_guy" ), _id_A5A4::_id_7C71 );
+    common_scripts\utility::_id_0D13( maps\_utility::_id_3CB4( "dumpster_guy" ), maps\_utility::_id_7C71 );
     level notify( "morpheus_dumpster_clear" );
 }
 
@@ -2072,10 +2072,10 @@ morpheus_iron_fence()
     common_scripts\utility::_id_384A( "morpheus_iron_fence" );
     level notify( "new_morpheus_set" );
     level thread morpheus_completion( "morpheus_iron_fence_complete", "ambush_mhp_goodkill" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_ironfence" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_ironfence" );
     level thread morpheus_iron_fence_fight();
     common_scripts\utility::_id_384A( "morpheus_iron_fence_fight" );
-    _id_A5A4::_id_070A( "iron_fence_color_init" );
+    maps\_utility::_id_070A( "iron_fence_color_init" );
 }
 
 morpheus_iron_fence_fight()
@@ -2085,7 +2085,7 @@ morpheus_iron_fence_fight()
     var_0 = getent( "fight_timeout_trigger", "targetname" );
     var_0 waittill( "trigger" );
     var_0 = getent( "fight_trigger", "targetname" );
-    var_0 _id_A5A4::_id_9FC8( 1 );
+    var_0 maps\_utility::_id_9FC8( 1 );
     common_scripts\utility::_id_383F( "morpheus_iron_fence_fight" );
 }
 
@@ -2108,17 +2108,17 @@ morpheus_flanker()
     common_scripts\utility::_id_384A( "morpheus_flanker" );
     level notify( "new_morpheus_set" );
 
-    if ( !_id_A5A4::_id_3CB5( "flanker" ) )
+    if ( !maps\_utility::_id_3CB5( "flanker" ) )
         return;
 
     common_scripts\utility::_id_384A( "morpheus_iron_fence_fight" );
     level thread morpheus_completion( "morpheus_flanker_complete", "ambush_mhp_gotem" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_rightflank" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_rightflank" );
     level thread morpheus_flanker_clear( "morpheus_flanker_complete" );
     level endon( "morpheus_flanker_clear" );
     wait 1;
-    _id_A5A4::_id_070A( "morpheus_flanker_color_init" );
-    _id_A5A4::_id_A066( "flanker" );
+    maps\_utility::_id_070A( "morpheus_flanker_color_init" );
+    maps\_utility::_id_A066( "flanker" );
     level notify( "morpheus_flanker_complete" );
 }
 
@@ -2138,14 +2138,14 @@ morpheus_rpg()
     level thread morpheus_rpg_dialogue();
     level thread morpheus_rpg_clear( "morpheus_rpg_complete" );
     level endon( "morpheus_rpg_clear" );
-    _id_A5A4::_id_A066( "roof_guy" );
+    maps\_utility::_id_A066( "roof_guy" );
     level notify( "morpheus_rpg_complete" );
 }
 
 morpheus_rpg_dialogue()
 {
-    level _id_A5A4::_id_70C4( "ambush_mhp_rooftops" );
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_movementroof" );
+    level maps\_utility::_id_70C4( "ambush_mhp_rooftops" );
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_movementroof" );
 }
 
 morpheus_rpg_clear( var_0 )
@@ -2153,7 +2153,7 @@ morpheus_rpg_clear( var_0 )
     level endon( var_0 );
     var_1 = getent( "morpheus_rpg_clear", "targetname" );
     var_1 waittill( "trigger" );
-    common_scripts\utility::_id_0D13( _id_A5A4::_id_3CB4( "roof_guy" ), _id_A5A4::_id_7C71 );
+    common_scripts\utility::_id_0D13( maps\_utility::_id_3CB4( "roof_guy" ), maps\_utility::_id_7C71 );
     level notify( "morpheus_rpg_clear" );
 }
 
@@ -2161,12 +2161,12 @@ morpheus_2nd_floor()
 {
     common_scripts\utility::_id_384A( "morpheus_2nd_floor" );
     level notify( "new_morpheus_set" );
-    _id_A5A4::_id_070A( "roof_guy_spawn_trigger" );
+    maps\_utility::_id_070A( "roof_guy_spawn_trigger" );
     level thread morpheus_completion( "morpheus_2nd_floor_complete", "ambush_mhp_gotem" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_secondfloor" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_secondfloor" );
     level thread morpheus_2nd_floor_clear( "morpheus_2nd_floor_complete" );
     level endon( "morpheus_2nd_floor_clear" );
-    _id_A5A4::_id_A066( "floor_guy" );
+    maps\_utility::_id_A066( "floor_guy" );
     level notify( "morpheus_2nd_floor_complete" );
 }
 
@@ -2175,7 +2175,7 @@ morpheus_2nd_floor_clear( var_0 )
     level endon( var_0 );
     var_1 = getent( "morpheus_rpg_clear", "targetname" );
     var_1 waittill( "trigger" );
-    common_scripts\utility::_id_0D13( _id_A5A4::_id_3CB4( "floor_guy" ), _id_A5A4::_id_7C71 );
+    common_scripts\utility::_id_0D13( maps\_utility::_id_3CB4( "floor_guy" ), maps\_utility::_id_7C71 );
     level notify( "morpheus_2nd_floor_clear" );
 }
 
@@ -2186,14 +2186,14 @@ morpheus_single()
     level thread morpheus_single_dialogue();
     level thread morpheus_single_clear( "morpheus_single_complete" );
     level endon( "morpheus_single_clear" );
-    _id_A5A4::_id_A066( "single_guy" );
+    maps\_utility::_id_A066( "single_guy" );
     level notify( "morpheus_single_complete" );
 }
 
 morpheus_single_dialogue()
 {
-    level _id_A5A4::_id_70C4( "ambush_mhp_overturneddump" );
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_bydumpster" );
+    level maps\_utility::_id_70C4( "ambush_mhp_overturneddump" );
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_bydumpster" );
 }
 
 morpheus_single_clear( var_0 )
@@ -2201,7 +2201,7 @@ morpheus_single_clear( var_0 )
     level endon( var_0 );
     var_1 = getent( "morpheus_single_clear", "targetname" );
     var_1 waittill( "trigger" );
-    common_scripts\utility::_id_0D13( _id_A5A4::_id_3CB4( "single_guy" ), _id_A5A4::_id_7C71 );
+    common_scripts\utility::_id_0D13( maps\_utility::_id_3CB4( "single_guy" ), maps\_utility::_id_7C71 );
     level notify( "morpheus_single_clear" );
 }
 
@@ -2209,9 +2209,9 @@ morpheus_target()
 {
     common_scripts\utility::_id_384A( "morpheus_target" );
     level notify( "new_morpheus_set" );
-    _id_A5A4::_id_A066( "single_guy" );
+    maps\_utility::_id_A066( "single_guy" );
     common_scripts\utility::_id_384A( "morpheus_target_moving" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_deadahead" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_deadahead" );
     setignoremegroup( "allies", "badguy" );
     setignoremegroup( "player", "badguy" );
     var_0 = _id_7B3C( "badguy_runby", "targetname" );
@@ -2227,12 +2227,12 @@ morpheus_alley()
     common_scripts\utility::_id_384A( "morpheus_alley" );
     level notify( "new_morpheus_set" );
     level thread morpheus_completion( "morpheus_alley_complete", "ambush_mhp_allclear" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_alleyleft" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_alleyleft" );
     level thread morpheus_alley_clear( "morpheus_alley_complete" );
     level endon( "morpheus_alley_clear" );
     common_scripts\utility::_id_384A( "morpheus_green_car" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_greencar" );
-    _id_A5A4::_id_A066( "alley_guy" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_greencar" );
+    maps\_utility::_id_A066( "alley_guy" );
     level notify( "morpheus_alley_complete" );
 }
 
@@ -2241,7 +2241,7 @@ morpheus_alley_clear( var_0 )
     level endon( var_0 );
     var_1 = getent( "morpheus_alley_clear", "targetname" );
     var_1 waittill( "trigger" );
-    common_scripts\utility::_id_0D13( _id_A5A4::_id_3CB4( "alley_guy" ), _id_A5A4::_id_7C71 );
+    common_scripts\utility::_id_0D13( maps\_utility::_id_3CB4( "alley_guy" ), maps\_utility::_id_7C71 );
     level notify( "morpheus_alley_clear" );
 }
 
@@ -2263,8 +2263,8 @@ detonate_car( var_0 )
 aarea_apartment_init()
 {
     common_scripts\utility::_id_383F( "aa_apartment" );
-    _id_A5A4::_id_1143( "apartment_start" );
-    _id_A5A4::arcademode_checkpoint( 4, 4 );
+    maps\_utility::_id_1143( "apartment_start" );
+    maps\_utility::arcademode_checkpoint( 4, 4 );
     var_0 = getaiarray( "axis" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
@@ -2289,15 +2289,15 @@ aarea_apartment_init()
     level thread apartment_suicide();
     common_scripts\utility::_id_0D13( getentarray( "apartment_heli_damage_trig", "targetname" ), ::apartment_heli_damage_trig_think );
     common_scripts\utility::_id_384A( "apartment_inside" );
-    _id_A5A4::_id_1143( "inside" );
+    maps\_utility::_id_1143( "inside" );
     common_scripts\utility::_id_384A( "apartment_badguy_3rd_flr" );
     wait 4;
-    _id_A5A4::_id_1143( "stairs" );
+    maps\_utility::_id_1143( "stairs" );
     common_scripts\utility::_id_384A( "apartment_roof" );
-    _id_A5A4::_id_1143( "roof" );
+    maps\_utility::_id_1143( "roof" );
     common_scripts\utility::_id_384A( "mission_done" );
     common_scripts\utility::_id_3831( "aa_apartment" );
-    _id_A5A4::_id_60D6();
+    maps\_utility::_id_60D6();
 }
 
 apartment_slowdown()
@@ -2311,22 +2311,22 @@ apartment_slowdown()
     {
         var_0[var_1].a._id_135B = 1;
 
-        if ( _id_A5A4::_id_503B( level._id_8AB0, var_0[var_1] ) )
+        if ( maps\_utility::_id_503B( level._id_8AB0, var_0[var_1] ) )
             continue;
 
-        var_0[var_1] _id_A5A4::_id_30B0();
+        var_0[var_1] maps\_utility::_id_30B0();
     }
 }
 
 apartment_helicopter()
 {
     common_scripts\utility::_id_384A( "apartment_heli_attack" );
-    _id_A581::_id_533A( 6 );
+    maps\_spawner::_id_533A( 6 );
     var_0 = getent( "heli_mg_nest_aim_point", "targetname" );
     level.helicopter thread apartment_helicopter_turret( var_0, undefined, 300 );
-    var_1 = _id_A5A4::_id_3CB4( "fifthfloor_guy" );
+    var_1 = maps\_utility::_id_3CB4( "fifthfloor_guy" );
     common_scripts\utility::_id_0D13( var_1, ::rail_guy_fall_on_death );
-    _id_A5E8::_id_870C( "aud_start_mix_heli_1st_turret" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_heli_1st_turret" );
     var_2 = common_scripts\utility::_id_40FB( "helicopter_fire", "script_noteworthy" );
     var_2 waittill( "trigger" );
     common_scripts\utility::_id_383F( "apartment_heli_firing" );
@@ -2334,10 +2334,10 @@ apartment_helicopter()
     var_3 = getent( "mg_destroyed", "script_noteworthy" );
     var_3 waittill( "trigger" );
     wait 1;
-    var_3 thread _id_A5A4::_id_69C4( "scn_ambush_turret1_explo_default" );
+    var_3 thread maps\_utility::_id_69C4( "scn_ambush_turret1_explo_default" );
     common_scripts\utility::_id_383F( "apartment_mg_destroyed" );
     wait 2;
-    _id_A5E8::_id_870C( "aud_stop_mix_heli_1st_turret" );
+    soundscripts\_snd::_id_870C( "aud_stop_mix_heli_1st_turret" );
     common_scripts\utility::_id_384A( "apartment_inside" );
     var_0 = getent( "heli_ambient_targets", "targetname" );
     level.helicopter thread apartment_helicopter_ambient_turret( var_0, 100 );
@@ -2347,22 +2347,22 @@ apartment_helicopter()
     common_scripts\utility::_id_384A( "apartment_mg_4th_flr" );
     var_0 = getent( "heli_mg_nest_aim_point_2", "targetname" );
     level.helicopter thread apartment_helicopter_turret( var_0, 1, 100 );
-    _id_A5E8::_id_870C( "aud_start_mix_heli_2nd_turret" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_heli_2nd_turret" );
     wait 4;
     common_scripts\utility::_id_383F( "apartment_heli_firing" );
     common_scripts\_exploder::_id_3528( 6 );
-    _id_A581::_id_533A( 7 );
+    maps\_spawner::_id_533A( 7 );
     var_3 = getent( "mg_destroyed_2", "script_noteworthy" );
     var_3 waittill( "trigger" );
     wait 1;
-    var_3 thread _id_A5A4::_id_69C4( "scn_ambush_turret2_explo_default" );
+    var_3 thread maps\_utility::_id_69C4( "scn_ambush_turret2_explo_default" );
     common_scripts\utility::_id_383F( "apartment_mg_destroyed_2" );
     wait 2;
-    _id_A5E8::_id_870C( "aud_stop_mix_heli_2nd_turret" );
-    _id_A5A4::_id_A066( "fourthfloor_guy" );
+    soundscripts\_snd::_id_870C( "aud_stop_mix_heli_2nd_turret" );
+    maps\_utility::_id_A066( "fourthfloor_guy" );
     common_scripts\utility::_id_383F( "apartment_clear" );
     level.helicopter thread apartment_helicopter_rooftop_turret();
-    level _id_A5A4::_id_70C4( "ambush_mhp_goodtogo" );
+    level maps\_utility::_id_70C4( "ambush_mhp_goodtogo" );
 }
 
 apartment_heli_damage_trig_think()
@@ -2417,7 +2417,7 @@ apartment_helicopter_turret_guy()
     var_0 useanimtree( #animtree );
     var_0 linkto( self, "tag_origin", ( 0, -32, -25 ), ( 0, 90, 0 ) );
     level._id_78AC["generic"]["crouch_shoot"] = %crouch_shoot_straight;
-    _id_A510::_id_0BCC( var_0, "crouch_shoot" );
+    maps\_anim::_id_0BCC( var_0, "crouch_shoot" );
     self waittill( "death" );
     var_0 delete();
 }
@@ -2425,7 +2425,7 @@ apartment_helicopter_turret_guy()
 wait_ambient_turret_end()
 {
     level endon( "apartment_badguy_3rd_flr" );
-    _id_A5A4::_id_A066( "apartment_main_force" );
+    maps\_utility::_id_A066( "apartment_main_force" );
 }
 
 apartment_helicopter_ambient_turret( var_0, var_1 )
@@ -2465,7 +2465,7 @@ apartment_helicopter_ambient_turret_track( var_0, var_1, var_2 )
         var_1 moveto( var_0.origin, var_4 );
         var_1 waittill( "movedone" );
         var_0 notify( "trigger" );
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
     }
 }
 
@@ -2496,7 +2496,7 @@ apartment_helicopter_turret( var_0, var_1, var_2 )
     var_3 apartment_helicopter_turret_mg_nest( var_4, var_5, var_2 );
     var_3 notify( "stop_firing" );
     var_3 stopfiring();
-    _id_A5A4::_id_61FD( "stop_shell_snd", 0.75 );
+    maps\_utility::_id_61FD( "stop_shell_snd", 0.75 );
     thread common_scripts\utility::_id_69C2( "scn_minigun_shell_tl", ( -4802.8, -8288.6, 38 ) );
     level waittill( "remove_old_turret" );
     var_3 delete();
@@ -2512,7 +2512,7 @@ apartment_helicopter_turret_mg_nest( var_0, var_1, var_2 )
         var_1 moveto( var_0.origin, var_4 );
         var_1 waittill( "movedone" );
         var_0 notify( "trigger" );
-        var_0 _id_A5A4::script_lightset();
+        var_0 maps\_utility::script_lightset();
     }
 
     if ( !common_scripts\utility::_id_382E( "apartment_inside" ) )
@@ -2520,7 +2520,7 @@ apartment_helicopter_turret_mg_nest( var_0, var_1, var_2 )
     else
         var_5 = "fourthfloor_guy";
 
-    for ( var_6 = _id_A5A4::_id_3CB4( var_5 ); isdefined( var_6 ) && var_6.size; var_6 = _id_A5A4::_id_3CB4( var_5 ) )
+    for ( var_6 = maps\_utility::_id_3CB4( var_5 ); isdefined( var_6 ) && var_6.size; var_6 = maps\_utility::_id_3CB4( var_5 ) )
     {
         self settargetentity( var_6[0] );
         var_6[0] waittill( "death" );
@@ -2537,7 +2537,7 @@ apartment_helicopter_rooftop_turret()
     var_0 useanimtree( #animtree );
     var_0 linkto( level.helicopter, "tag_detach", ( -15, 45, -13 ), ( 0, 270, 0 ) );
     level._id_78AC["generic"]["crouch_shoot"] = %crouch_shoot_straight;
-    var_0 _id_A510::_id_0BCC( var_0, "crouch_shoot" );
+    var_0 maps\_anim::_id_0BCC( var_0, "crouch_shoot" );
     var_1 = spawn( "script_model", ( 0, 0, 0 ) );
     var_1 setmodel( "weapon_m4" );
     var_1 linkto( var_0, "tag_weapon_right", ( 1, 0, 3 ), ( 0, 0, 0 ) );
@@ -2546,7 +2546,7 @@ apartment_helicopter_rooftop_turret()
 apartment_friendlies()
 {
     common_scripts\utility::_id_384A( "apartment_mg_destroyed" );
-    _id_A5A4::_id_070A( "apartment_entry_color_init" );
+    maps\_utility::_id_070A( "apartment_entry_color_init" );
 }
 
 apartment_badguy()
@@ -2554,7 +2554,7 @@ apartment_badguy()
     common_scripts\utility::_id_384A( "apartment_start" );
     common_scripts\utility::_id_3856( "apartment_badguy_run", 5 );
     common_scripts\utility::_id_383F( "apartment_badguy_run" );
-    _id_A5A4::_id_0709( "spawn_mg_nest_ai" );
+    maps\_utility::_id_0709( "spawn_mg_nest_ai" );
     common_scripts\utility::_id_383F( "apartment_fire" );
     var_0 = _id_7B3C( "badguy_apartment", "targetname", 1 );
     level.badguy = var_0;
@@ -2572,7 +2572,7 @@ apartment_badguy()
     setignoremegroup( "player", "badguy" );
     var_0 set_goalnode( getnode( "badguy_third_floor_node", "targetname" ) );
     wait 3;
-    var_0 _id_A5A4::_id_920E( getnode( "badguy_third_floor_node", "targetname" ) );
+    var_0 maps\_utility::_id_920E( getnode( "badguy_third_floor_node", "targetname" ) );
     common_scripts\utility::_id_384A( "apartment_badguy_3rd_flr" );
     var_0 set_goalnode( getnode( "badguy_4th_floor_node", "targetname" ) );
     common_scripts\utility::_id_384A( "apartment_roof" );
@@ -2616,34 +2616,34 @@ suicide_badguy_h1()
 
 apartment_dialogue()
 {
-    level _id_A5A4::_id_70C4( "ambush_mhp_fivestory" );
+    level maps\_utility::_id_70C4( "ambush_mhp_fivestory" );
     common_scripts\utility::_id_384A( "apartment_fire" );
     common_scripts\utility::_id_383F( "apartment_heli_attack" );
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_heavyfire" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_firstonefree" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_heavyfire" );
+    level maps\_utility::_id_70C4( "ambush_mhp_firstonefree" );
     common_scripts\utility::_id_384A( "apartment_mg_destroyed" );
-    var_0 = _id_A5A4::_id_3CB4( "fifthfloor_guy" );
-    _id_A5A4::_id_A07E( var_0 );
-    level _id_A5A4::_id_70C4( "ambush_mhp_goodtogo" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_visual" );
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_fivestory" );
+    var_0 = maps\_utility::_id_3CB4( "fifthfloor_guy" );
+    maps\_utility::_id_A07E( var_0 );
+    level maps\_utility::_id_70C4( "ambush_mhp_goodtogo" );
+    level maps\_utility::_id_70C4( "ambush_mhp_visual" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_fivestory" );
     common_scripts\utility::_id_384A( "apartment_badguy_attack" );
     wait 6;
-    level _id_A5A4::_id_70C4( "ambush_mhp_northeast" );
+    level maps\_utility::_id_70C4( "ambush_mhp_northeast" );
     common_scripts\utility::_id_384A( "apartment_badguy_3rd_flr" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_staircase" );
+    level maps\_utility::_id_70C4( "ambush_mhp_staircase" );
     common_scripts\utility::_id_384A( "apartment_mg_4th_flr" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_deeperinto" );
-    level _id_A5A4::_id_70C4( "ambush_mhp_holdon" );
+    level maps\_utility::_id_70C4( "ambush_mhp_deeperinto" );
+    level maps\_utility::_id_70C4( "ambush_mhp_holdon" );
     common_scripts\utility::_id_384A( "apartment_mg_destroyed_2" );
-    level.mark _id_A5A4::_id_2A8D();
-    level.steve _id_A5A4::_id_2A8D();
+    level.mark maps\_utility::_id_2A8D();
+    level.steve maps\_utility::_id_2A8D();
     common_scripts\utility::_id_384A( "apartment_roof" );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_movementroof" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_movementroof" );
     wait 3;
-    level.mark _id_A5A4::_id_30B0();
-    level.steve _id_A5A4::_id_30B0();
-    level _id_A5A4::_id_70C4( "ambush_mhp_onroof" );
+    level.mark maps\_utility::_id_30B0();
+    level.steve maps\_utility::_id_30B0();
+    level maps\_utility::_id_70C4( "ambush_mhp_onroof" );
 }
 
 apartment_mg_nest()
@@ -2670,8 +2670,8 @@ apartment_mg_nest()
     wait 0.9;
     var_5 physicslaunch( var_5.origin + ( 0, -50, 0 ), ( 0, 600, 0 ) );
     common_scripts\utility::_id_384A( "apartment_inside" );
-    var_6 = _id_A5A4::_id_3CB4( "fifthfloor_guy" );
-    common_scripts\utility::_id_0D13( var_6, _id_A5A4::_id_7C71 );
+    var_6 = maps\_utility::_id_3CB4( "fifthfloor_guy" );
+    common_scripts\utility::_id_0D13( var_6, maps\_utility::_id_7C71 );
 }
 
 apartment_mg_nest_heli()
@@ -2706,14 +2706,14 @@ apartment_mg_nest_player_damage( var_0, var_1, var_2 )
             break;
     }
 
-    thread _id_A5A4::arcademode_kill( self.origin, var_3, 100 );
+    thread maps\_utility::arcademode_kill( self.origin, var_3, 100 );
     common_scripts\utility::_id_383F( var_0 );
 }
 
 apartment_mg_nest_sandbag()
 {
     common_scripts\utility::_id_384A( "apartment_mg_destroyed" );
-    _id_A5A4::script_lightset();
+    maps\_utility::script_lightset();
     self physicslaunch( self.origin + ( 0, -10, 0 ), ( 0, 1500, 200 ) );
 }
 
@@ -2789,12 +2789,12 @@ apartment_mg_kill( var_0, var_1 )
 
 apartment_teleport_roof_friendlies()
 {
-    _id_A5A4::_id_0CE5( getentarray( "teleport_roof_friendlies_delete", "script_noteworthy" ) );
+    maps\_utility::_id_0CE5( getentarray( "teleport_roof_friendlies_delete", "script_noteworthy" ) );
     getent( "teleport_roof_friendlies_trig", "targetname" ) waittill( "trigger" );
     var_0 = getnode( "teleport_roof_gaz_node", "targetname" );
     var_1 = getnode( "teleport_roof_griggs_node", "targetname" );
-    level.steve _id_A5A4::_id_920E( var_0 );
-    level.mark _id_A5A4::_id_920E( var_1 );
+    level.steve maps\_utility::_id_920E( var_0 );
+    level.mark maps\_utility::_id_920E( var_1 );
 }
 
 apartment_suicide()
@@ -2817,7 +2817,7 @@ apartment_suicide_price()
 {
     level endon( "missionfailed" );
     level._id_6F7C = _id_7B3C( "roof_price", "targetname", 1 );
-    level._id_6F7C thread _id_A5A4::_id_58D7();
+    level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread squad_init();
     level._id_6F7C.nearz = "Captain Price";
@@ -2825,7 +2825,7 @@ apartment_suicide_price()
     var_1 = getent( "price_roof_ent", "targetname" );
     level._id_6F7C.goalradius = 64;
     level._id_6F7C _meth_81a9( var_0 );
-    var_1 thread _id_A510::_id_0BE1( level._id_6F7C, "roof_idle", undefined, "stop_idle" );
+    var_1 thread maps\_anim::_id_0BE1( level._id_6F7C, "roof_idle", undefined, "stop_idle" );
 
     if ( getdvarint( "use_old_suicide" ) == 1 )
         common_scripts\utility::_id_3852( "stage3", "timed_suicide" );
@@ -2836,8 +2836,8 @@ apartment_suicide_price()
 
     if ( !common_scripts\utility::_id_382E( "timed_suicide" ) )
     {
-        level._id_6F7C _id_A510::_id_0C24( level._id_6F7C, "roof_move" );
-        level._id_6F7C thread _id_A510::_id_0BE1( level._id_6F7C, "roof_idle", undefined, "stop_idle" );
+        level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "roof_move" );
+        level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "roof_idle", undefined, "stop_idle" );
     }
 
     common_scripts\utility::_id_3852( "forced_suicide", "timed_suicide" );
@@ -2855,13 +2855,13 @@ apartment_suicide_badguy()
     level.badguy.grenadeammo = 0;
     level.badguy.helmet = 10;
     var_0 = getent( "roof_anim_ent_3", "targetname" );
-    var_0 _id_A510::_id_0BC7( level.badguy, "jump" );
+    var_0 maps\_anim::_id_0BC7( level.badguy, "jump" );
     common_scripts\utility::_id_384A( "apartment_suicide" );
     level.badguy thread apartment_suicide_badguy_fx();
     level thread apartment_suicide_badguy_interrupt();
     level thread apartment_suicide_badguy_timed();
     level endon( "forced_suicide" );
-    var_0 _id_A510::_id_0C24( level.badguy, "jump" );
+    var_0 maps\_anim::_id_0C24( level.badguy, "jump" );
 
     if ( !isalive( level.badguy ) )
         return;
@@ -2887,7 +2887,7 @@ apartment_suicide_badguy_h1()
     level.badguy.grenadeammo = 0;
     level.badguy.helmet = 10;
     var_0 = getent( "roof_anim_ent_3", "targetname" );
-    var_0 _id_A510::_id_0BC7( level.badguy, "h1_climb_up" );
+    var_0 maps\_anim::_id_0BC7( level.badguy, "h1_climb_up" );
     common_scripts\utility::_id_384A( "apartment_suicide" );
     level.playercardbackground thread flag_on_seeing_zakhaev_h1( "h1_player_seen_zakhaev", "stage3" );
     thread set_flag_on_timeout_h1( "stage3", 20 );
@@ -2901,12 +2901,12 @@ apartment_suicide_badguy_h1()
     level.badguy _meth_8143();
     level.badguy notify( "single anim", "end" );
     level.badguy notify( "looping anim", "end" );
-    var_0 _id_A510::_id_0BC7( level.badguy, "h1_climb_back_down_die" );
+    var_0 maps\_anim::_id_0BC7( level.badguy, "h1_climb_back_down_die" );
     level.playercardbackground thread flag_on_seeing_zakhaev_h1( "h1_player_seen_zakhaev_outside", "stage4" );
     thread set_flag_on_timeout_h1( "stage4", 10, "h1_player_seen_zakhaev_outside" );
     common_scripts\utility::_id_384C( "h1_player_seen_zakhaev_outside", "stage4" );
     thread listen_for_up_quickdeath_window_end_h1();
-    var_0 thread _id_A510::_id_0C24( level.badguy, "h1_climb_back_down_die" );
+    var_0 thread maps\_anim::_id_0C24( level.badguy, "h1_climb_back_down_die" );
     level.badguy thread apartment_suicide_badguy_fx();
     level thread apartment_suicide_badguy_interrupt();
     level thread apartment_suicide_badguy_timed();
@@ -2945,12 +2945,9 @@ flag_on_seeing_zakhaev_h1( var_0, var_1 )
         var_3 = common_scripts\utility::_id_A347( self geteye(), self getplayerangles(), level.badguy.origin, var_2 );
 
         if ( var_3 && level.badguy _meth_81db( self geteye(), self ) > 0 )
-        {
             break;
-            continue;
-        }
-
-        waittillframeend;
+        else
+            waittillframeend;
     }
 
     common_scripts\utility::_id_383F( var_0 );
@@ -2970,8 +2967,8 @@ start_suicide_climb_up_and_finish_h1()
 {
     self endon( "interrupt_zakhaev_climb_up" );
     level.badguy endon( "death" );
-    _id_A510::_id_0C24( level.badguy, "h1_climb_up" );
-    _id_A510::_id_0BE1( level.badguy, "h1_up_idle" );
+    maps\_anim::_id_0C24( level.badguy, "h1_climb_up" );
+    maps\_anim::_id_0BE1( level.badguy, "h1_up_idle" );
 }
 
 apartment_suicide_badguy_timed()
@@ -3033,7 +3030,7 @@ apartment_suicide_badguy_interrupt()
         level thread slowdown();
         level.badguy _meth_8143();
         level.badguy notify( "single anim", "end" );
-        var_1 _id_A510::_id_0C24( level.badguy, "quick_jump" );
+        var_1 maps\_anim::_id_0C24( level.badguy, "quick_jump" );
     }
     else
     {
@@ -3041,7 +3038,7 @@ apartment_suicide_badguy_interrupt()
         {
             level.badguy _meth_8143();
             level.badguy notify( "single anim", "end" );
-            var_1 thread _id_A510::_id_0C24( level.badguy, "h1_quickdeath_down" );
+            var_1 thread maps\_anim::_id_0C24( level.badguy, "h1_quickdeath_down" );
             level.badguy thread slowmo_on_notetrack();
         }
         else if ( common_scripts\utility::_id_382E( "h1_zakhaev_suicide_stepping_down" ) )
@@ -3049,14 +3046,14 @@ apartment_suicide_badguy_interrupt()
             level.badguy waittillmatch( "single anim", "done_stepping" );
             level.badguy _meth_8143();
             level.badguy notify( "single anim", "end" );
-            var_1 thread _id_A510::_id_0C24( level.badguy, "h1_quickdeath_down" );
+            var_1 thread maps\_anim::_id_0C24( level.badguy, "h1_quickdeath_down" );
             level.badguy thread slowmo_on_notetrack();
         }
         else if ( !common_scripts\utility::_id_382E( "h1_zakhaev_suicide_let_play" ) )
         {
             level.badguy _meth_8143();
             level.badguy notify( "single anim", "end" );
-            var_1 thread _id_A510::_id_0C24( level.badguy, "h1_quickdeath_up" );
+            var_1 thread maps\_anim::_id_0C24( level.badguy, "h1_quickdeath_up" );
             level.badguy thread slowmo_on_notetrack();
         }
 
@@ -3084,21 +3081,21 @@ slowmo_on_notetrack()
 slowdown()
 {
     var_0 = gettimescale() < level._id_8637._id_8A53;
-    _id_A5A4::_id_8648();
-    level.badguy thread _id_A5A4::_id_69C4( "scn_ambush_suicide_start" );
-    level.helicopter thread _id_A5A4::_id_69C4( "scn_ambush_suicide_heli" );
-    _id_A5E8::_id_870C( "aud_start_mix_suicide_slowmo" );
-    _id_A5A4::_id_8646( 0.3 );
-    _id_A5A4::_id_8643( 0.6 );
-    _id_A5A4::_id_8640();
+    maps\_utility::_id_8648();
+    level.badguy thread maps\_utility::_id_69C4( "scn_ambush_suicide_start" );
+    level.helicopter thread maps\_utility::_id_69C4( "scn_ambush_suicide_heli" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_suicide_slowmo" );
+    maps\_utility::_id_8646( 0.3 );
+    maps\_utility::_id_8643( 0.6 );
+    maps\_utility::_id_8640();
     level waittill( "slowdown_done" );
     var_1 = 1.2;
-    _id_A5A4::_id_8644( var_1 );
-    _id_A5A4::_id_8641();
-    level.playercardbackground thread _id_A5A4::_id_69C4( "scn_ambush_suicide_end" );
-    _id_A5E8::_id_870C( "aud_start_mix_ending" );
+    maps\_utility::_id_8644( var_1 );
+    maps\_utility::_id_8641();
+    level.playercardbackground thread maps\_utility::_id_69C4( "scn_ambush_suicide_end" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_ending" );
     wait(var_1);
-    _id_A5A4::_id_863E();
+    maps\_utility::_id_863E();
 
     if ( var_0 )
         level.playercardbackground notify( "_cheat_player_press_slowmo" );
@@ -3107,25 +3104,25 @@ slowdown()
 apartment_suicide_dialogue()
 {
     level endon( "missionfailed" );
-    _id_A5E8::_id_870C( "aud_start_mix_drop_bloody_gun" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_drop_bloody_gun" );
     common_scripts\utility::_id_383F( "gaz_shouts_at_zakhaev" );
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_dropgun" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_dropgun" );
     wait 1;
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_inhisleg" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_cantriskit" );
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_inhisleg" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_cantriskit" );
     level._id_6F7C thread restrain_dialogue();
     level.mark thread dropgun_dialogue();
     common_scripts\utility::_id_383F( "obj_flexicuff" );
     common_scripts\utility::_id_3852( "forced_suicide", "timed_suicide" );
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_no" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_no" );
     common_scripts\utility::_id_384A( "apartment_suicide_done" );
     wait 1.5;
-    _id_A5A4::_id_0CC5();
-    level.mark _id_A510::_id_0C21( level.mark, "ambush_grg_kidissues" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_sonisdead" );
+    maps\_utility::_id_0CC5();
+    level.mark maps\_anim::_id_0C21( level.mark, "ambush_grg_kidissues" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_sonisdead" );
     wait 2;
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_onlylead" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_knowtheman" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_onlylead" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_knowtheman" );
     common_scripts\utility::_id_383F( "mission_done" );
 }
 
@@ -3135,9 +3132,9 @@ dropgun_dialogue()
     level endon( "forced_suicide" );
     level endon( "timed_suicide" );
     wait 5;
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_dropit" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_dropit" );
     wait 1;
-    level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_dropitnow" );
+    level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_dropitnow" );
 }
 
 restrain_dialogue()
@@ -3145,20 +3142,20 @@ restrain_dialogue()
     level endon( "missionfailed" );
     level endon( "forced_suicide" );
     level endon( "timed_suicide" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_restrainhim" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_restrainhim" );
     wait 3;
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_restrainnow" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_restrainnow" );
 
     if ( getdvarint( "use_old_suicide" ) != 1 )
     {
         wait 8;
-        level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_restrainhim" );
+        level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_restrainhim" );
         wait 1;
-        level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_dropitnow" );
+        level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_dropitnow" );
         wait 3;
-        level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "ambush_pri_restrainnow" );
+        level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "ambush_pri_restrainnow" );
         wait 1;
-        level.steve _id_A510::_id_0C21( level.steve, "ambush_gaz_dropit" );
+        level.steve maps\_anim::_id_0C21( level.steve, "ambush_gaz_dropit" );
     }
 }
 
@@ -3171,22 +3168,22 @@ failed_to_pursue()
     level thread failed_to_pursue_timer( 15, "ambush_mhp_guyshaulin" );
     common_scripts\utility::_id_384A( "village_road" );
     level notify( "made the time" );
-    _id_A5A4::_id_1151( "village_road", 10 );
+    maps\_utility::_id_1151( "village_road", 10 );
     common_scripts\utility::_id_384A( "village_alley" );
-    _id_A5A4::_id_1151( "village_alley", 5 );
+    maps\_utility::_id_1151( "village_alley", 5 );
     level thread failed_to_pursue_timer( 35, "ambush_mhp_getaway" );
     common_scripts\utility::_id_384A( "morpheus_dumpster" );
     level notify( "made the time" );
-    _id_A5A4::_id_1151( "morpheus_dumpster", 5 );
+    maps\_utility::_id_1151( "morpheus_dumpster", 5 );
     level thread failed_to_pursue_timer( 30, "ambush_mhp_guyshaulin" );
     common_scripts\utility::_id_384A( "morpheus_iron_fence" );
     level notify( "made the time" );
-    _id_A5A4::_id_1151( "morpheus_iron_fence", 20 );
-    _id_A5A4::arcademode_checkpoint( 7, 3 );
+    maps\_utility::_id_1151( "morpheus_iron_fence", 20 );
+    maps\_utility::arcademode_checkpoint( 7, 3 );
     level thread failed_to_pursue_timer( 120, "ambush_mhp_betterhurry" );
     common_scripts\utility::_id_384A( "morpheus_target_moving" );
     level notify( "made the time" );
-    _id_A5A4::_id_1151( "morpheus_target_moving", 8 );
+    maps\_utility::_id_1151( "morpheus_target_moving", 8 );
     level thread failed_to_pursue_timer( 50, "ambush_mhp_gonnalose" );
     common_scripts\utility::_id_384A( "apartment_start" );
     level notify( "made the time" );
@@ -3204,7 +3201,7 @@ failed_to_pursue_timer( var_0, var_1 )
         while ( var_3 > gettime() )
             wait 1;
 
-        level thread _id_A5A4::_id_70C4( var_1 );
+        level thread maps\_utility::_id_70C4( var_1 );
     }
 
     while ( var_2 > gettime() )
@@ -3219,14 +3216,14 @@ failed_to_pursue_timer( var_0, var_1 )
 failed()
 {
     var_0 = randomint( 4 );
-    level thread _id_A5A4::_id_70C4( "ambush_mhp_losthim_" + var_0 );
-    _id_A5E8::_id_870C( "aud_start_mix_mission_failed" );
+    level thread maps\_utility::_id_70C4( "ambush_mhp_losthim_" + var_0 );
+    soundscripts\_snd::_id_870C( "aud_start_mix_mission_failed" );
     wait 1.5;
     setdvar( "ui_deadquote", "@AMBUSH_MISSIONFAIL_ESCAPED" );
     var_1 = 1;
 
     if ( var_1 )
-        _id_A5A4::_id_5CDF();
+        maps\_utility::_id_5CDF();
 }
 
 failed_to_pursue_trigger()
@@ -3240,20 +3237,20 @@ badguy_spawn_function()
 {
     self.nearz = "";
     self._id_0C72 = "badguy";
-    _id_A5A4::_id_7DDF( 0 );
+    maps\_utility::_id_7DDF( 0 );
     self setthreatbiasgroup( "badguy" );
     self.fixednode = 1;
     thread badguy_died();
     thread badguy_proximity_kill();
     thread badguy_immune_to_everything_but_player();
-    _id_A5A4::_id_7E60( 1 );
+    maps\_utility::_id_7E60( 1 );
     self.a._id_2B20 = 1;
     self.grenadeawareness = 1;
-    _id_A5A4::_id_7F71( 1 );
+    maps\_utility::_id_7F71( 1 );
     self._id_7A16 = 1;
     self._id_2AF7 = 1;
     self _meth_81d7();
-    thread _id_A546::display_custom_nameplate( ::can_display_badguy_name, "V. Zakhaev", "axis" );
+    thread maps\_hud_util::display_custom_nameplate( ::can_display_badguy_name, "V. Zakhaev", "axis" );
 }
 
 can_display_badguy_name()
@@ -3276,9 +3273,9 @@ badguy_died( var_0 )
     self endon( "stop_death_fail" );
     self.helmet *= var_0;
     self waittill( "death" );
-    _id_A5E8::_id_870C( "aud_start_mix_mission_failed" );
+    soundscripts\_snd::_id_870C( "aud_start_mix_mission_failed" );
     setdvar( "ui_deadquote", "@AMBUSH_MISSIONFAIL_KILLED_TARGET" );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 badguy_proximity_kill()
@@ -3306,13 +3303,13 @@ badguy_proximity_kill()
 
 start_default()
 {
-    _id_A5E8::_id_870C( "start_default_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_default_checkpoint" );
     aarea_takeover_init();
 }
 
 start_ambush()
 {
-    _id_A5E8::_id_870C( "start_ambush_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_ambush_checkpoint" );
     common_scripts\utility::_id_0D13( getentarray( "takeover_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     common_scripts\utility::_id_0D13( getentarray( "village_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     setup_friendlies( 3 );
@@ -3331,13 +3328,13 @@ start_ambush()
 
 start_village()
 {
-    _id_A5E8::_id_870C( "start_village_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_village_checkpoint" );
     setup_friendlies( 3 );
     start_teleport_squad( "village" );
     common_scripts\utility::_id_383F( "takeover_done" );
     maps\ambush_lighting::setup_village_start_lighting();
     level.playercardbackground setthreatbiasgroup( "player" );
-    _id_A5A4::_id_070A( "ambush_attack_color_init" );
+    maps\_utility::_id_070A( "ambush_attack_color_init" );
     common_scripts\utility::_id_0D13( getentarray( "takeover_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     common_scripts\utility::_id_0D13( getentarray( "village_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     var_0 = getent( "takeout_path_blocker", "targetname" );
@@ -3358,7 +3355,7 @@ start_village()
     for ( var_3 = 0; var_3 < var_4.size; var_3++ )
         var_4[var_3] delete();
 
-    level.helicopter = _id_A5A8::_id_8978( "blackhawk" );
+    level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
     var_5 = common_scripts\utility::_id_40FB( "village_heli_start", "targetname" );
     level.helicopter thread heli_path_speed( var_5 );
     aarea_village_init();
@@ -3366,13 +3363,13 @@ start_village()
 
 start_morpheus()
 {
-    _id_A5E8::_id_870C( "start_morpheus_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_morpheus_checkpoint" );
     setup_friendlies( 0 );
     start_teleport_squad( "morpheus" );
     maps\ambush_lighting::setup_morpheus_start_lighting();
     level.playercardbackground setthreatbiasgroup( "player" );
-    _id_A5A4::_id_070A( "village_retreat_2_color_init" );
-    level.helicopter = _id_A5A8::_id_8978( "blackhawk" );
+    maps\_utility::_id_070A( "village_retreat_2_color_init" );
+    level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
     var_0 = common_scripts\utility::_id_40FB( "apartment_heli_start", "targetname" );
     level.helicopter thread heli_path_speed( var_0 );
     aarea_morpheus_init();
@@ -3380,14 +3377,14 @@ start_morpheus()
 
 start_apartment()
 {
-    _id_A5E8::_id_870C( "start_apartment_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_apartment_checkpoint" );
     setup_friendlies( 0 );
     start_teleport_squad( "apartment" );
     maps\ambush_lighting::setup_apartment_start_lighting();
     level.playercardbackground setthreatbiasgroup( "player" );
-    level.steve _id_A5A4::_id_7E38( "g" );
-    _id_A5A4::_id_070A( "apartment_color_init" );
-    level.helicopter = _id_A5A8::_id_8978( "blackhawk" );
+    level.steve maps\_utility::_id_7E38( "g" );
+    maps\_utility::_id_070A( "apartment_color_init" );
+    level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
     var_0 = common_scripts\utility::_id_40FB( "apartment_heli_start", "targetname" );
     level.helicopter thread heli_path_speed( var_0 );
     common_scripts\utility::_id_384A( "apartment_start" );
@@ -3396,7 +3393,7 @@ start_apartment()
 
 start_suicide()
 {
-    _id_A5E8::_id_870C( "start_apartment_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_apartment_checkpoint" );
     setup_friendlies( 0 );
     var_0 = getent( "startnodesteve_suicide", "targetname" );
     level.steve _meth_81ca( var_0.origin );
@@ -3408,15 +3405,15 @@ start_suicide()
     maps\ambush_lighting::setup_apartment_start_lighting();
     level thread suicide_badguy_h1();
     level.playercardbackground setthreatbiasgroup( "player" );
-    level.steve _id_A5A4::_id_7E38( "g" );
-    level.mark _id_A5A4::_id_7E38( "g" );
-    _id_A5A4::_id_0709( "suicide_color_init" );
-    level.helicopter = _id_A5A8::_id_8978( "blackhawk" );
+    level.steve maps\_utility::_id_7E38( "g" );
+    level.mark maps\_utility::_id_7E38( "g" );
+    maps\_utility::_id_0709( "suicide_color_init" );
+    level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
     var_3 = common_scripts\utility::_id_40FB( "apartment_heli_start", "targetname" );
     level.helicopter thread heli_path_speed( var_3 );
     common_scripts\utility::_id_383F( "apartment_roof_friendlies" );
     level thread apartment_suicide();
-    _id_A5A4::_id_1143( "suicide" );
+    maps\_utility::_id_1143( "suicide" );
 }
 
 setup_friendlies( var_0 )
@@ -3426,23 +3423,23 @@ setup_friendlies( var_0 )
 
     level._id_8AB0 = [];
     level._id_6F7C = _id_7B3C( "price", "targetname", 1 );
-    level._id_6F7C thread _id_A5A4::_id_58D7();
+    level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread squad_init();
     level._id_6F7C.nearz = "Captain Price";
     level.mark = _id_7B3C( "mark", "targetname", 1 );
     level.mark._id_795C = 0;
-    level.mark thread _id_A5A4::_id_58D7();
+    level.mark thread maps\_utility::_id_58D7();
     level.mark._id_0C72 = "mark";
     level.mark thread squad_init();
     level.mark._id_132D = 0;
     level.mark.nearz = "SSgt. Griggs";
     level.steve = _id_7B3C( "steve", "targetname", 1 );
-    level.steve thread _id_A5A4::_id_58D7();
+    level.steve thread maps\_utility::_id_58D7();
     level.steve._id_0C72 = "steve";
     level.steve.nearz = "Gaz";
     level.steve thread squad_init();
-    getent( "kamarov", "script_noteworthy" ) _id_A5A4::_id_0798( ::kamarov );
+    getent( "kamarov", "script_noteworthy" ) maps\_utility::_id_0798( ::kamarov );
     var_1 = getentarray( "allies", "targetname" );
 
     for ( var_2 = 0; var_2 < var_0; var_2++ )
@@ -3451,7 +3448,7 @@ setup_friendlies( var_0 )
         var_3 generic_allied();
     }
 
-    common_scripts\utility::_id_0D13( getentarray( "color_spawner", "targetname" ), _id_A5A4::_id_0798, ::generic_allied );
+    common_scripts\utility::_id_0D13( getentarray( "color_spawner", "targetname" ), maps\_utility::_id_0798, ::generic_allied );
 }
 
 kamarov()
@@ -3459,9 +3456,9 @@ kamarov()
     self endon( "death" );
     level.kamarov = self;
     self.nearz = "Sgt. Kamarov";
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
     common_scripts\utility::_id_384A( "takeover_fade_clear" );
-    _id_A5A4::_id_8EA4();
+    maps\_utility::_id_8EA4();
 }
 
 is_kamarov()
@@ -3505,7 +3502,7 @@ _id_7B3C( var_0, var_1, var_2, var_3 )
     else
         var_4 = var_3 dospawn();
 
-    _id_A5A4::_id_88F1( var_4 );
+    maps\_utility::_id_88F1( var_4 );
     return var_4;
 }
 
@@ -3840,7 +3837,7 @@ heli_path_speed( var_0 )
             self vehicle_setspeed( var_3, var_1 );
     }
 
-    _id_A5A8::_id_9D17( var_0 );
+    maps\_vehicle::_id_9D17( var_0 );
 }
 
 fixednode_trigger_setup()
@@ -3885,11 +3882,11 @@ fall_death()
         if ( getdvarint( "ragdoll_enable" ) )
         {
             var_1._id_85BA = 1;
-            var_1 _id_A5A4::_id_2A51();
+            var_1 maps\_utility::_id_2A51();
             continue;
         }
 
-        var_1 _id_A5A4::_id_2A51();
+        var_1 maps\_utility::_id_2A51();
     }
 }
 
@@ -3897,7 +3894,7 @@ vehicle_turret_think()
 {
     self endon( "death" );
     self endon( "c4_detonation" );
-    thread _id_A5A8::_id_5BD2();
+    thread maps\_vehicle::_id_5BD2();
     self.turretfiring = 0;
     var_0 = undefined;
     var_1 = undefined;
@@ -3928,7 +3925,7 @@ vehicle_turret_think()
             self _meth_825d( var_3 );
 
             if ( getdvar( "debug_bmp" ) == "1" )
-                thread _id_A5A4::_id_2DBF( self.origin + ( 0, 0, 32 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
+                thread maps\_utility::_id_2DBF( self.origin + ( 0, 0, 32 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
 
             var_4 = randomfloatrange( 2, 3 );
             common_scripts\utility::_id_A0A0( "turret_rotate_stopped", var_4 );
@@ -3938,13 +3935,13 @@ vehicle_turret_think()
                 if ( distancesquared( var_0.origin, self.origin ) <= level.bmpmgrangesquared )
                 {
                     if ( !self._id_5BD5[0] isfiringturret() )
-                        thread _id_A5A8::_id_5BD3();
+                        thread maps\_vehicle::_id_5BD3();
 
                     wait 0.5;
 
                     if ( !self._id_5BD5[0] isfiringturret() )
                     {
-                        thread _id_A5A8::_id_5BD2();
+                        thread maps\_vehicle::_id_5BD2();
 
                         if ( !self.turretfiring )
                             thread vehicle_fire_main_cannon();
@@ -3952,7 +3949,7 @@ vehicle_turret_think()
                 }
                 else
                 {
-                    thread _id_A5A8::_id_5BD2();
+                    thread maps\_vehicle::_id_5BD2();
 
                     if ( !self.turretfiring )
                         thread vehicle_fire_main_cannon();
@@ -3986,14 +3983,14 @@ vehicle_fire_main_cannon()
 
 vehicle_get_target( var_0 )
 {
-    var_1 = _id_A53F::_id_3F7F( level.bmpcannonrange, level._id_2235["180"], 1, 1, 0, 1, var_0 );
+    var_1 = maps\_helicopter_globals::_id_3F7F( level.bmpcannonrange, level._id_2235["180"], 1, 1, 0, 1, var_0 );
     return var_1;
 }
 
 vehicle_get_target_player_only()
 {
     var_0 = level._id_8AB0;
-    var_1 = _id_A53F::_id_3F7F( level.bmpcannonrange, level._id_2235["180"], 0, 1, 0, 0, var_0 );
+    var_1 = maps\_helicopter_globals::_id_3F7F( level.bmpcannonrange, level._id_2235["180"], 0, 1, 0, 0, var_0 );
     return var_1;
 }
 
@@ -4054,14 +4051,14 @@ music_playback( var_0, var_1, var_2, var_3 )
     {
         for (;;)
         {
-            _id_A5A4::_id_6008( var_0 );
+            maps\_utility::_id_6008( var_0 );
             wait(var_1);
             musicstop();
             wait(var_3);
         }
     }
     else
-        _id_A5A4::_id_6008( var_0 );
+        maps\_utility::_id_6008( var_0 );
 }
 
 bugfix_failsafe_triggerflag_morpheus_rpg()

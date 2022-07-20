@@ -22,7 +22,7 @@
 
 anim_main()
 {
-    _id_A510::_id_0807( "generic", "fire", maps\armada::kill_during_breach, "detcord_stack_leftbreach_02" );
+    maps\_anim::_id_0807( "generic", "fire", maps\armada::kill_during_breach, "detcord_stack_leftbreach_02" );
     anim_blackhawk();
     level._id_78AC["generic"]["jog"] = %combat_jog;
     level._id_78AC["generic"]["walk"] = %patrol_bored_patrolwalk;
@@ -39,21 +39,21 @@ anim_main()
     level._id_78AC["barbed_wire_long"]["razor_endidle"] = %armada_wire_setup_wire_endidle;
     level._id_78B1["barbed_wire_long"] = #animtree;
     level._id_78AC["griggs"]["enter"] = %armada_grigs_enter;
-    _id_A510::_id_080B( "griggs", "dialog", "enter", "armada_grg_scoreone" );
-    _id_A510::_id_080B( "griggs", "dialog", "enter", "armada_grg_rogerMS" );
-    _id_A510::_id_080B( "griggs", "dialog", "enter", "armada_grg_yeahoorah" );
-    _id_A510::_id_0806( "griggs", "attach_usbkey", "h1_me_armada_usb_device", "tag_weapon_chest", "enter" );
-    _id_A510::_id_0808( "griggs", "detach_usbkey", "h1_me_armada_usb_device", "tag_weapon_chest", "enter" );
-    _id_A510::_id_080F( "griggs", "Grab_USB", "trash_asad_usb", "enter" );
-    _id_A510::_id_080F( "griggs", "Throw_USB", "grounded_asad_usb", "enter" );
-    _id_A510::_id_0807( "griggs", "detach_usbkey", maps\armada::ending_griggs_usbkey_think, "enter" );
+    maps\_anim::_id_080B( "griggs", "dialog", "enter", "armada_grg_scoreone" );
+    maps\_anim::_id_080B( "griggs", "dialog", "enter", "armada_grg_rogerMS" );
+    maps\_anim::_id_080B( "griggs", "dialog", "enter", "armada_grg_yeahoorah" );
+    maps\_anim::_id_0806( "griggs", "attach_usbkey", "h1_me_armada_usb_device", "tag_weapon_chest", "enter" );
+    maps\_anim::_id_0808( "griggs", "detach_usbkey", "h1_me_armada_usb_device", "tag_weapon_chest", "enter" );
+    maps\_anim::_id_080F( "griggs", "Grab_USB", "trash_asad_usb", "enter" );
+    maps\_anim::_id_080F( "griggs", "Throw_USB", "grounded_asad_usb", "enter" );
+    maps\_anim::_id_0807( "griggs", "detach_usbkey", maps\armada::ending_griggs_usbkey_think, "enter" );
     level._id_78AC["final_breacher_shotgun"]["react"] = %armada_left_guy_react;
     level._id_78AC["final_breacher_right"]["react"] = %armada_right_guy_react;
     level._id_78AC["price"]["enter"] = %armada_sarge_enter;
-    _id_A510::_id_080B( "price", "dialog", "enter", "armada_vsq_griggsmusic" );
-    _id_A510::_id_080B( "price", "dialog", "enter", "armada_vsq_recording" );
-    _id_A510::_id_080B( "price", "dialog", "enter", "armada_vsq_rogercommand" );
-    _id_A510::_id_080B( "price", "dialog", "enter", "armada_vsq_rallyup" );
+    maps\_anim::_id_080B( "price", "dialog", "enter", "armada_vsq_griggsmusic" );
+    maps\_anim::_id_080B( "price", "dialog", "enter", "armada_vsq_recording" );
+    maps\_anim::_id_080B( "price", "dialog", "enter", "armada_vsq_rogercommand" );
+    maps\_anim::_id_080B( "price", "dialog", "enter", "armada_vsq_rallyup" );
     _id_0BEE();
     level._id_78BA["price"]["targetbuilding"] = "armada_vsq_targetbuilding";
     level._id_78BA["price"]["throwflash"] = "armada_vsq_throwflash";
@@ -94,16 +94,16 @@ anim_main()
 
 guy_snipe( var_0, var_1 )
 {
-    var_2 = _id_A5A9::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
     self notify( "ropeidleend" );
 
     if ( var_1 == 2 )
-        _id_A5A9::_id_0C74( var_0, var_2._id_85AE, %armada_blackhawk_sniper_idle );
+        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, %armada_blackhawk_sniper_idle );
 
-    thread _id_A5A9::_id_449B( var_0, var_1 );
+    thread maps\_vehicle_aianim::_id_449B( var_0, var_1 );
 }
 #using_animtree("animated_props");
 
@@ -154,8 +154,8 @@ player_heli_ropeanimoverride()
     var_6 useanimtree( #animtree );
     thread player_heli_ropeanimoverride_idle( var_6, var_0, var_3 );
     self waittill( "unloading" );
-    level.playercardbackground thread _id_A5A4::_id_69C4( "scn_armada_intro_foley" );
-    thread _id_A5A9::_id_0C74( var_6, var_0, var_4 );
+    level.playercardbackground thread maps\_utility::_id_69C4( "scn_armada_intro_foley" );
+    thread maps\_vehicle_aianim::_id_0C74( var_6, var_0, var_4 );
     wait(getanimlength( var_4 ) - 1.8);
     var_6 unlink();
     wait 10;
@@ -167,7 +167,7 @@ player_heli_ropeanimoverride_idle( var_0, var_1, var_2 )
     self endon( "unloading" );
 
     for (;;)
-        _id_A5A9::_id_0C74( var_0, var_1, var_2 );
+        maps\_vehicle_aianim::_id_0C74( var_0, var_1, var_2 );
 }
 #using_animtree("animated_props");
 

@@ -406,8 +406,10 @@ bot_oldschool_handle_pickup_goals()
                     var_11["action"] = "pickup_perk";
                     break;
                 }
+            }
+            else
+            {
 
-                continue;
             }
         }
 

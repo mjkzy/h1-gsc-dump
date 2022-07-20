@@ -26,5 +26,5 @@ init()
     level._id_2E22["neutral"]["stand"]["run"] = %unarmed_scared_run;
     level._id_2E22["neutral"]["stand"]["death"] = %exposed_death;
     level._id_0E0A = animscripts\civilian\civilian_init::_id_0E09;
-    _id_A52B::_id_4DC1();
+    maps\_drone::_id_4DC1();
 }

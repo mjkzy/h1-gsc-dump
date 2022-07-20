@@ -51,14 +51,14 @@ _id_4B55( var_0, var_1 )
     if ( _id_50B9( var_0 ) )
     {
         if ( isalive( self ) && self._id_5680 == "generic" )
-            var_1 _id_A510::_id_0BCE( self, var_0, "stop_loop" );
+            var_1 maps\_anim::_id_0BCE( self, var_0, "stop_loop" );
         else if ( isalive( self ) )
-            var_1 _id_A510::_id_0BE1( self, var_0, "stop_loop" );
+            var_1 maps\_anim::_id_0BE1( self, var_0, "stop_loop" );
     }
     else if ( isalive( self ) && isdefined( self._id_0C72 ) && self._id_0C72 != "generic" )
-        var_1 _id_A510::_id_0C24( self, var_0 );
+        var_1 maps\_anim::_id_0C24( self, var_0 );
     else if ( isalive( self ) )
-        var_1 _id_A510::_id_0BC9( self, var_0 );
+        var_1 maps\_anim::_id_0BC9( self, var_0 );
 
     self notify( "anim_simple_done", var_0 );
 }
@@ -102,7 +102,7 @@ _id_6215( var_0, var_1 )
     {
         while ( isdefined( var_0 ) && var_0.size > 0 )
         {
-            var_0 = _id_A5A4::_id_0CFF( var_0 );
+            var_0 = maps\_utility::_id_0CFF( var_0 );
             var_0 = common_scripts\utility::_id_0D01( var_0 );
             waittillframeend;
         }
@@ -175,16 +175,16 @@ _id_0CC1( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_6 = var_3 * var_8 / 2;
     var_9 = gettime() * 0.001 - var_0;
     var_10 = var_6 * var_9 - 0.5 * var_8 * squared( var_9 );
-    var_11 = _id_A5A4::_id_576B( var_9 / var_3, var_1, var_2 ) + ( 0, 0, var_10 );
+    var_11 = maps\_utility::_id_576B( var_9 / var_3, var_1, var_2 ) + ( 0, 0, var_10 );
     return var_11;
 }
 
 _id_0C3C( var_0, var_1, var_2 )
 {
     if ( isdefined( var_0 ) )
-        var_0 _id_A5A4::_id_0C3D();
+        var_0 maps\_utility::_id_0C3D();
 
-    _id_A5A4::_id_0C3D();
+    maps\_utility::_id_0C3D();
 
     if ( isdefined( var_0 ) )
         var_0 notify( "stop_first_frame" );
@@ -227,7 +227,7 @@ _id_0C17( var_0, var_1, var_2 )
     level waittill( var_2 );
 
     if ( isdefined( var_0._id_0C72 ) && var_0._id_0C72 != "generic" )
-        var_0 _id_A510::_id_7F29();
+        var_0 maps\_anim::_id_7F29();
 
     _id_0C16( var_0, var_1 );
 }
@@ -536,16 +536,16 @@ _id_072C( var_0 )
     if ( !isdefined( self.count ) || self.count < 1 )
         self.count = 1;
 
-    var_1 = _id_A5A4::_id_88C3( 1 );
-    _id_A5A4::_id_88F1( var_1 );
+    var_1 = maps\_utility::_id_88C3( 1 );
+    maps\_utility::_id_88F1( var_1 );
 
     if ( isdefined( var_0 ) )
     {
         while ( !isdefined( var_1 ) )
         {
             self.count = 1;
-            var_1 = _id_A5A4::_id_88C3( 1 );
-            _id_A5A4::_id_88F1( var_1 );
+            var_1 = maps\_utility::_id_88C3( 1 );
+            maps\_utility::_id_88F1( var_1 );
             waittillframeend;
         }
     }
@@ -643,7 +643,7 @@ _id_4BFE( var_0, var_1, var_2, var_3 )
         if ( !isdefined( var_6 ) )
             continue;
 
-        if ( var_6 _id_A5A8::_id_51FD() )
+        if ( var_6 maps\_vehicle::_id_51FD() )
         {
             var_6 dodamage( var_6.helmet * 2, var_2 );
             continue;
@@ -667,11 +667,11 @@ _id_8893( var_0, var_1 )
 
 _id_7E1A( var_0 )
 {
-    if ( !_id_A5A4::_id_32DC( var_0 ) )
-        _id_A5A4::_id_32DD( var_0 );
+    if ( !maps\_utility::_id_32DC( var_0 ) )
+        maps\_utility::_id_32DD( var_0 );
 
     self waittill( var_0 );
-    _id_A5A4::_id_32D8( var_0 );
+    maps\_utility::_id_32D8( var_0 );
 }
 
 _id_9805( var_0, var_1 )
@@ -689,7 +689,7 @@ _id_3854( var_0, var_1 )
     var_2 = randomfloat( 1000.0 );
     var_3 = "flag_or_timeout" + var_2;
     level endon( var_3 );
-    level thread _id_A5A4::_id_61FD( var_3, var_1 );
+    level thread maps\_utility::_id_61FD( var_3, var_1 );
     common_scripts\utility::_id_384A( var_0 );
 }
 
@@ -822,9 +822,9 @@ _id_4123( var_0, var_1 )
 
 _id_5916( var_0 )
 {
-    var_1 = _id_A581::_id_89C1( var_0 );
+    var_1 = maps\_spawner::_id_89C1( var_0 );
     var_1._id_0C72 = "generic";
-    var_1 _id_A5A4::_id_4462();
+    var_1 maps\_utility::_id_4462();
     return var_1;
 }
 
@@ -888,7 +888,7 @@ _id_84F2( var_0, var_1 )
 _id_2838( var_0, var_1, var_2 )
 {
     var_3 = "delete_subtitle_hud" + var_2;
-    level thread _id_A5A4::_id_61FD( var_3, var_0 );
+    level thread maps\_utility::_id_61FD( var_3, var_0 );
     level waittill( var_3 );
     self._id_8F85 = common_scripts\utility::_id_0CF6( self._id_8F85, var_1 );
     var_1 destroy();

@@ -675,7 +675,7 @@ _id_933A( var_0 )
     self setflaggedanimknoballrestart( "weapon swap", var_0, %body, 1, 0.1, 1 );
     thread animscripts\combat_utility::_id_7066();
     _id_2D06( "weapon swap" );
-    _id_A537::_id_2A4D();
+    maps\_gameskill::_id_2A4D();
 }
 
 _id_766B()
@@ -714,7 +714,7 @@ _id_766B()
 
 _id_766D()
 {
-    var_0 = _id_A5A4::_id_3F58();
+    var_0 = maps\_utility::_id_3F58();
 
     switch ( var_0 )
     {

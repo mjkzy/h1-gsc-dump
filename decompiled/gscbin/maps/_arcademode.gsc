@@ -185,9 +185,9 @@ arcademode_get_level_time()
 arcademode_death_detection()
 {
     level endon( "arcademode_complete" );
-    level _id_A5A4::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
-    level.playercardbackground _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "death" );
-    _id_A5A4::_id_2BDD();
+    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
+    level.playercardbackground maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    maps\_utility::_id_2BDD();
     setdvar( "arcademode_died", 1 );
     var_0 = getdvarint( "arcademode_lives" );
     var_1 = getdvarint( "arcademode_earned_lives" );
@@ -238,7 +238,7 @@ arcademode_update_timer()
     wait(var_1);
     level.arcademode_failurestring = &"SCRIPT_TIME_UP";
     thread arcademode_ends();
-    _id_A5E8::_id_870C( "player_death" );
+    soundscripts\_snd::_id_870C( "player_death" );
 }
 
 arcademode_update_lives()
@@ -303,7 +303,7 @@ arcademode_convert_extra_lives()
 
 arcademode_checkpoint_print()
 {
-    if ( !_id_A5A4::_id_0CC3() )
+    if ( !maps\_utility::_id_0CC3() )
         return;
 
     arcademode_convert_extra_lives();
@@ -722,9 +722,9 @@ arcademode_multiplier_maxed()
     musicstop();
     wait 0.05;
     musicplay( "airplane_alt_maximum_music" );
-    level _id_A5A4::_id_07BE( _id_A5A4::_id_0694, var_0 + 1 );
-    level _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "lost_streak" );
-    _id_A5A4::_id_2BDD();
+    level maps\_utility::_id_07BE( maps\_utility::_id_0694, var_0 + 1 );
+    level maps\_utility::_id_07BE( maps\_utility::_id_A099, "lost_streak" );
+    maps\_utility::_id_2BDD();
     thread arcademode_reset_kill_streak();
     musicstop();
 
@@ -1136,7 +1136,7 @@ extra_lives_sizzle()
     var_0.alpha = randomfloatrange( 0.1, 0.45 );
     var_0.space -= 1;
     var_0 settext( &"SCRIPT_EXTRA_LIFE" );
-    var_0 _id_A5A4::_id_27EF( 3, ::_id_35E3, 1 );
+    var_0 maps\_utility::_id_27EF( 3, ::_id_35E3, 1 );
     var_0 endon( "death" );
     var_1 = var_0.xpmaxmultipliertimeplayed;
     var_2 = var_0._id_0538;
@@ -1546,9 +1546,9 @@ arcademode_ends()
         return;
 
     common_scripts\utility::_id_383F( "arcademode_complete" );
-    _id_A5A4::_id_8644( 0.05 );
-    _id_A5A4::_id_8641();
-    _id_A5A4::_id_863E();
+    maps\_utility::_id_8644( 0.05 );
+    maps\_utility::_id_8641();
+    maps\_utility::_id_863E();
 
     if ( level.arcademode_success )
     {
@@ -2028,7 +2028,7 @@ arcademode_ends()
     setdvar( "arcademode_combined_score", var_22 );
 
     if ( var_22 >= 400000 )
-        _id_A5A4::_id_41DD( "ARCADE_ADDICT" );
+        maps\_utility::_id_41DD( "ARCADE_ADDICT" );
 
     if ( !level.arcademode_success )
     {
@@ -2143,7 +2143,7 @@ player_invul_forever()
         level.playercardbackground.deathinvulnerabletime = 70000;
         level.playercardbackground.ignoretriggers = 1;
         var_0 = getaispeciesarray( "all", "all" );
-        common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_7E5E, 1 );
+        common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5E, 1 );
         wait 0.05;
     }
 }

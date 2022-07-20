@@ -32,22 +32,22 @@ main( var_0 )
     if ( isdefined( var_0._id_798E ) )
         var_1 = var_0._id_798E;
     else
-        var_1 = _id_A558::_id_192C( "delay" );
+        var_1 = maps\_mgturret::_id_192C( "delay" );
 
     if ( isdefined( var_0._id_798D ) )
         var_2 = var_0._id_798D - var_1;
     else
-        var_2 = _id_A558::_id_192C( "delay_range" );
+        var_2 = maps\_mgturret::_id_192C( "delay_range" );
 
     if ( isdefined( var_0._id_7968 ) )
         var_3 = var_0._id_7968;
     else
-        var_3 = _id_A558::_id_192C( "burst" );
+        var_3 = maps\_mgturret::_id_192C( "burst" );
 
     if ( isdefined( var_0._id_7967 ) )
         var_4 = var_0._id_7967 - var_3;
     else
-        var_4 = _id_A558::_id_192C( "burst_range" );
+        var_4 = maps\_mgturret::_id_192C( "burst_range" );
 
     var_5 = gettime();
     var_6 = "start";

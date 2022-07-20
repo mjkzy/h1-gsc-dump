@@ -24,8 +24,8 @@ main()
 {
     if ( !level.sniperescape_fastload )
     {
-        _id_A573::_id_0796( "generic" );
-        _id_A573::_id_073F( "generic" );
+        maps\_props::_id_0796( "generic" );
+        maps\_props::_id_073F( "generic" );
     }
 
     level._id_78B5["stone_block_1"] = "me_stone_block01";
@@ -42,7 +42,7 @@ main()
     level._id_78AC["price"]["smooth_door_open_init"] = %hunted_open_barndoor_stop;
     level._id_78AC["price"]["smooth_door_open"] = %hunted_open_barndoor_flathand;
     level._id_78AC["price"]["chopper_point"] = %h1_sniper_escape_macmillan_chopper_point;
-    _id_A510::_id_080B( "price", "dialog", "chopper_point", "sniperescape_mcm_incomingheli" );
+    maps\_anim::_id_080B( "price", "dialog", "chopper_point", "sniperescape_mcm_incomingheli" );
 
     if ( getdvarint( "use_old_crash_pickup" ) == 1 )
     {
@@ -77,8 +77,8 @@ main()
     level._id_78AC["dealer"]["exchange"] = %sniper_escape_meeting_dealer;
     level._id_78AC["guard"]["exchange_idle"][0] = %sniper_escape_meeting_guard_idle;
     level._id_78AC["dealer"]["exchange_idle"][0] = %sniper_escape_meeting_dealer_idle;
-    _id_A510::_id_080C( "zakhaev", "zak_front", "zak_is_facing_player", "exchange" );
-    _id_A510::_id_080D( "zakhaev", "zak_back", "zak_is_facing_player", "exchange" );
+    maps\_anim::_id_080C( "zakhaev", "zak_front", "zak_is_facing_player", "exchange" );
+    maps\_anim::_id_080D( "zakhaev", "zak_back", "zak_is_facing_player", "exchange" );
     level._id_78AC["price"]["spin"] = %combatwalk_f_spin;
     level._id_78AC["price"]["halt"] = %stand_exposed_wave_halt_v2;
     level._id_78AC["price"]["wounded_turn_left"] = %sniper_escape_price_turn_l;
@@ -88,7 +88,7 @@ main()
     level._id_78AC["price"]["spotter_wave"] = %sniper_escape_spotter_wave;
     level._id_78AC["price"]["intro_spotter"] = %sniper_escape_macmillanintro_macmillan;
     level._id_78AC["price"]["behind_turn"] = %h1_exposed_stand_180_l;
-    _id_A510::_id_080B( "price", "dialog", "wounded_begins", "sniperescape_mcm_choppergetback" );
+    maps\_anim::_id_080B( "price", "dialog", "wounded_begins", "sniperescape_mcm_choppergetback" );
     level._id_78AC["price"]["wounded_begins"] = %sniper_escape_price_hit;
     level._id_78AC["price"]["wounded_idle_reach"] = %sniper_escape_price_hit_idle;
     level._id_78AC["price"]["wounded_idle"][0] = %sniper_escape_price_hit_idle;
@@ -121,11 +121,11 @@ main()
     else
     {
         level._id_78AC["price"]["crash_pickup"] = %h1_sniper_escape_crash_pickup_macmillan;
-        _id_A510::_id_0805( "price", "crash_pickup", "start", "h1_macmillan_initial" );
+        maps\_anim::_id_0805( "price", "crash_pickup", "start", "h1_macmillan_initial" );
         level._id_78AC["price"]["wounded_pickup"] = %h1_sniper_escape_price_getup;
         level._id_78AC["price"]["wounded_putdown"] = %h1_sniper_escape_price_putdown;
-        _id_A510::_id_0805( "price", "wounded_pickup", "start", "h1_macmillan_up" );
-        _id_A510::_id_0805( "price", "wounded_putdown", "start", "h1_macmillan_down" );
+        maps\_anim::_id_0805( "price", "wounded_pickup", "start", "h1_macmillan_up" );
+        maps\_anim::_id_0805( "price", "wounded_putdown", "start", "h1_macmillan_down" );
         level._id_78B1["carry_price"] = #animtree;
         level._id_78B5["carry_price"] = "body_complete_sp_usmc_ghillie_price";
         level._id_78AC["carry_price"]["carry_idle"] = [ %h1_sniper_escape_price_carry_idle ];
@@ -149,7 +149,7 @@ main()
     level._id_78AC["generic"]["exchange_surprise_1"] = %exposed_idle_reactb;
     level._id_78AC["generic"]["exchange_surprise_2"] = %exposed_idle_twitch;
     level._id_78AC["generic"]["exchange_surprise_3"] = %exposed_idle_twitch_v4;
-    _id_A510::_id_0807( "generic", "ready_to_run", maps\sniperescape_exchange::exchange_ready_to_run );
+    maps\_anim::_id_0807( "generic", "ready_to_run", maps\sniperescape_exchange::exchange_ready_to_run );
     level.surprise_anims = 4;
     level._id_78AC["generic"]["_stealth_behavior_whizby_0"] = %exposed_idle_reacta;
     level._id_78AC["generic"]["_stealth_behavior_whizby_1"] = %exposed_idle_reactb;
@@ -190,7 +190,7 @@ main()
     level._id_78B9["cant_move_1"] = "sniperescape_mcm_cantmove";
     level._id_78B9["cant_move_2"] = "sniperescape_mcm_cantmove";
     level._id_78B9["cant_move_3"] = "sniperescape_mcm_cantmove";
-    _id_A510::_id_0807( "price", "fire", maps\sniperescape_code::price_fires, "wounded_fire" );
+    maps\_anim::_id_0807( "price", "fire", maps\sniperescape_code::price_fires, "wounded_fire" );
     level._id_78B9["transport_sighted"] = "sniperescape_mcm_enemysighted";
     level._id_78B9["get_on_barrett"] = "sniperescape_mcm_getonbarrett";
     level._id_78B9["remember_my_teaching"] = "sniperescape_mcm_corioliseffect";
@@ -394,8 +394,8 @@ _id_6BD0()
         level._id_78AC["wounded_carry"]["wounded_pickup"] = %h1_sniper_escape_player_getup;
         level._id_78AC["wounded_carry"]["carry_idle"] = [ %h1_sniper_escape_player_carry_idle ];
         level._id_78AC["wounded_carry"]["carry_run"] = [ %h1_sniper_escape_player_carry ];
-        _id_A510::_id_0805( "player_carry", "carry_run", "drag_step_right", "sniperescape_plr_footstep_dragR" );
-        _id_A510::_id_0805( "player_carry", "carry_run", "drag_step_left", "sniperescape_plr_footstep_dragL" );
+        maps\_anim::_id_0805( "player_carry", "carry_run", "drag_step_right", "sniperescape_plr_footstep_dragR" );
+        maps\_anim::_id_0805( "player_carry", "carry_run", "drag_step_left", "sniperescape_plr_footstep_dragL" );
         level._id_78AC["wounded_carry"]["ladder_on"] = %h1_sniper_escape_player_ladder_takeoff;
         level._id_78AC["wounded_carry"]["ladder_off"] = %h1_sniper_escape_player_ladder_puton;
         level._id_78AC["wounded_carry"]["wounded_seaknight_putdown"] = %h1_sniperescape_player_putdown;
@@ -410,7 +410,7 @@ dog_anims()
     level._id_78AC["generic"]["dog_food_w_sound"][0] = %german_shepherd_eating;
     level._id_78AC["generic"]["dog_food_nonidle"] = %german_shepherd_eating;
     level._id_78BA["generic"]["dog_food_w_sound"][0] = "anml_dog_eating_body";
-    _id_A510::_id_0812( "dog", "fence", "fence_attack", "fence_smash" );
+    maps\_anim::_id_0812( "dog", "fence", "fence_attack", "fence_smash" );
 }
 #using_animtree("vehicles");
 
@@ -419,9 +419,9 @@ seaknight_anims()
     level._id_78AC["seaknight"]["idle"][0] = %sniper_escape_ch46_idle;
     level._id_78AC["seaknight"]["landing"] = %sniper_escape_ch46_land;
     level._id_78AC["seaknight"]["take_off"] = %sniper_escape_ch46_take_off;
-    _id_A510::_id_0807( "seaknight", "fade", maps\sniperescape::_id_3137, "take_off" );
-    _id_A510::_id_0807( "mi28", "rotor", maps\sniperescape_wounding::rotor_blades );
-    _id_A510::_id_0807( "mi28", "rotor", maps\sniperescape_wounding::rotor_hub );
+    maps\_anim::_id_0807( "seaknight", "fade", maps\sniperescape::_id_3137, "take_off" );
+    maps\_anim::_id_0807( "mi28", "rotor", maps\sniperescape_wounding::rotor_blades );
+    maps\_anim::_id_0807( "mi28", "rotor", maps\sniperescape_wounding::rotor_hub );
     level._id_78AC["seaknight"]["rotors"] = %sniper_escape_ch46_rotors;
     level._id_78B1["seaknight"] = #animtree;
     level._id_78AC["mi28"]["entrance"] = %sniper_escape_crash_mi28_entrance;
@@ -479,7 +479,7 @@ _id_7A3D()
     level._id_78B1["zak_left_arm"] = #animtree;
     level._id_78AC["zak_left_arm"]["zak_pain"] = %sniper_escape_meeting_zakhaev_hit_arm_front;
     level._id_78AC["zak_left_arm"]["zak_pain_back"] = %sniper_escape_meeting_zakhaev_hit_arm_back;
-    _id_A510::_id_080C( "briefcase", "dust", "briefcase_placed", "exchange" );
+    maps\_anim::_id_080C( "briefcase", "dust", "briefcase_placed", "exchange" );
     level._id_78B5["tag_gunner"] = "vehicle_mi-28_window_front";
     level._id_78B5["tag_pilot"] = "vehicle_mi-28_window_back";
     level._id_78B5["blade1"] = "vehicle_mi-28_hub";
@@ -487,11 +487,11 @@ _id_7A3D()
     level._id_78B5["blade3"] = "vehicle_mi-28_blade2";
     level._id_78B5["blade4"] = "vehicle_mi-28_blade3";
     level._id_78B5["blade5"] = "vehicle_mi-28_blade4";
-    _id_A510::_id_0807( "blade1", "blade", maps\sniperescape_wounding::remove_blade );
-    _id_A510::_id_0807( "blade2", "blade", maps\sniperescape_wounding::remove_blade );
-    _id_A510::_id_0807( "blade3", "blade", maps\sniperescape_wounding::remove_blade );
-    _id_A510::_id_0807( "blade4", "blade", maps\sniperescape_wounding::remove_blade );
-    _id_A510::_id_0807( "blade5", "blade", maps\sniperescape_wounding::remove_blade );
+    maps\_anim::_id_0807( "blade1", "blade", maps\sniperescape_wounding::remove_blade );
+    maps\_anim::_id_0807( "blade2", "blade", maps\sniperescape_wounding::remove_blade );
+    maps\_anim::_id_0807( "blade3", "blade", maps\sniperescape_wounding::remove_blade );
+    maps\_anim::_id_0807( "blade4", "blade", maps\sniperescape_wounding::remove_blade );
+    maps\_anim::_id_0807( "blade5", "blade", maps\sniperescape_wounding::remove_blade );
     level._id_78B1["blade1"] = #animtree;
     level._id_78B1["blade2"] = #animtree;
     level._id_78B1["blade3"] = #animtree;

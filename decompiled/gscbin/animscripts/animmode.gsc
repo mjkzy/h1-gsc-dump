@@ -83,8 +83,8 @@ main()
     self _meth_8193( "face angle", var_5[1] );
     var_9 = "custom_animmode";
     self setflaggedanimrestart( var_9, var_3, 1, var_8, 1 );
-    self._id_0670 thread _id_A510::_id_8C17( self, var_9, var_1, self._id_0553, var_3 );
-    self._id_0670 thread _id_A510::_id_0C7E( self, var_9, var_1 );
+    self._id_0670 thread maps\_anim::_id_8C17( self, var_9, var_1, self._id_0553, var_3 );
+    self._id_0670 thread maps\_anim::_id_0C7E( self, var_9, var_1 );
     var_10 = self._id_0670;
     self._id_0670 = undefined;
     self._id_0552 = undefined;
@@ -110,8 +110,8 @@ main()
 
             if ( isdefined( var_10 ) )
             {
-                var_10 thread _id_A510::_id_8C17( self, var_9, var_1, self._id_0553, var_3 );
-                var_10 thread _id_A510::_id_0C7E( self, var_9, var_1 );
+                var_10 thread maps\_anim::_id_8C17( self, var_9, var_1, self._id_0553, var_3 );
+                var_10 thread maps\_anim::_id_0C7E( self, var_9, var_1 );
             }
 
             continue;

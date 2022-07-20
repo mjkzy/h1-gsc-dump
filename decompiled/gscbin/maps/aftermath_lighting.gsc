@@ -141,8 +141,8 @@ player_fallen()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "aftermath", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "aftermath" );
+    maps\_utility::_id_9E6E( "aftermath", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "aftermath" );
     level.playercardbackground _meth_848c( "clut_h1_aftermath", 0.0 );
     thread set_level_lighting_default();
     thread set_level_lighting_pain();
@@ -155,7 +155,7 @@ set_level_lighting_default()
     for (;;)
     {
         level waittill( "aftermath_lighting_default", var_0 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "aftermath" );
+        level.playercardbackground maps\_utility::set_light_set_player( "aftermath" );
         level.playercardbackground _meth_848c( "clut_h1_aftermath", var_0 );
     }
 }
@@ -165,7 +165,7 @@ set_level_lighting_pain()
     for (;;)
     {
         level waittill( "aftermath_lighting_pain", var_0 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "aftermath" );
+        level.playercardbackground maps\_utility::set_light_set_player( "aftermath" );
         level.playercardbackground _meth_848c( "clut_h1_aftermath_pain", var_0 );
         var_1 = maps\_cinematography::cinseq_create_screen_shake_struct();
         var_1.duration = 1;
@@ -192,7 +192,7 @@ set_level_lighting_glow()
     for (;;)
     {
         level waittill( "aftermath_lighting_glow", var_0 );
-        level.playercardbackground _id_A5A4::set_light_set_player( "aftermath_glow" );
+        level.playercardbackground maps\_utility::set_light_set_player( "aftermath_glow" );
         level.playercardbackground _meth_848c( "clut_h1_aftermath_glow", var_0 );
     }
 }

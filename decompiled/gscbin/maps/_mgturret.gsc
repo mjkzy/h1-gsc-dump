@@ -112,7 +112,7 @@ _id_6E4A()
     else
         _id_76BE( var_3 );
 
-    _id_A557::_id_4476( var_1._id_9940 );
+    maps\_mg_penetration::_id_4476( var_1._id_9940 );
 }
 
 _id_5BCC()
@@ -142,7 +142,7 @@ _id_5BD6( var_0 )
             var_3[var_2]._id_0905 = "auto_ai";
     }
 
-    _id_A581::_id_533E( var_0 );
+    maps\_spawner::_id_533E( var_0 );
 }
 
 _id_5BC9( var_0 )
@@ -435,16 +435,16 @@ _id_0663()
         }
 
         if ( var_2.size )
-            var_3 = _id_A5A4::_id_3CEF( var_0.origin, undefined, var_2 );
+            var_3 = maps\_utility::_id_3CEF( var_0.origin, undefined, var_2 );
         else
-            var_3 = _id_A5A4::_id_3CEE( var_0.origin, undefined );
+            var_3 = maps\_utility::_id_3CEE( var_0.origin, undefined );
 
         var_2 = undefined;
 
         if ( isdefined( var_3 ) )
         {
             var_3 notify( "stop_going_to_node" );
-            var_3 thread _id_A581::_id_4241( var_0 );
+            var_3 thread maps\_spawner::_id_4241( var_0 );
             var_3 waittill( "death" );
             continue;
         }
@@ -862,7 +862,7 @@ _id_7F51()
 {
     _id_4D17();
     var_0 = getentarray( "misc_turret", "code_classname" );
-    var_1 = _id_A5A4::_id_3F58();
+    var_1 = maps\_utility::_id_3F58();
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
@@ -917,7 +917,7 @@ _id_5BCA( var_0, var_1, var_2 )
         var_0 = 0;
 
     self setmode( "manual_ai" );
-    var_3 = _id_A5A4::_id_3F58();
+    var_3 = maps\_utility::_id_3F58();
 
     if ( !isdefined( level._id_2F1A ) )
         var_4 = 1;
@@ -1053,7 +1053,7 @@ _id_2ED7( var_0, var_1, var_2 )
     }
 
     self stopfiring();
-    _id_A5A4::_id_8F69( level._id_2F1A[var_0.team], 1 );
+    maps\_utility::_id_8F69( level._id_2F1A[var_0.team], 1 );
 }
 
 _id_3CDB( var_0, var_1 )
@@ -1549,7 +1549,7 @@ _id_99A0()
 
     var_2 = self.node_relinquished;
 
-    if ( !isdefined( var_2 ) || !_id_A5A4::_id_503B( var_1, var_2 ) )
+    if ( !isdefined( var_2 ) || !maps\_utility::_id_503B( var_1, var_2 ) )
     {
         var_3 = _id_4104();
 
@@ -1574,7 +1574,7 @@ _id_99A0()
     else
         _id_76BE( var_5 );
 
-    _id_A557::_id_4476( var_2._id_9940 );
+    maps\_mg_penetration::_id_4476( var_2._id_9940 );
 }
 
 _id_9BE8( var_0 )

@@ -117,40 +117,40 @@ horizon_flashes()
 
 globalfx_override()
 {
-    _id_A538::override_global_fx( "barrel_fireFX_origin", "fx/fire/firelp_barrel_pm_bog_a", undefined, "fire_barrel_small", "fire_wood_small" );
-    _id_A538::override_global_fx( "me_dumpster_fire_FX_origin", "fx/fire/firelp_med_pm_bog_a", undefined, "fire_dumpster_medium", "fire_metal_small" );
+    maps\_global_fx::override_global_fx( "barrel_fireFX_origin", "fx/fire/firelp_barrel_pm_bog_a", undefined, "fire_barrel_small", "fire_wood_small" );
+    maps\_global_fx::override_global_fx( "me_dumpster_fire_FX_origin", "fx/fire/firelp_med_pm_bog_a", undefined, "fire_dumpster_medium", "fire_metal_small" );
 }
 
 _id_974C()
 {
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "brick", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "bark", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "carpet", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "cloth", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "concrete", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "dirt", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "flesh", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "foliage", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "glass", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "grass", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "gravel", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "ice", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "metal", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "mud", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "paper", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "plaster", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "rock", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "sand", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "snow", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "water", "vfx/map/bog_a/heli_dust_water_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "wood", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "asphalt", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "ceramic", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "plastic", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "rubber", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "cushion", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "fruit", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "painted metal", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "default", "vfx/map/bog_a/heli_dust_bog_a" );
-    _id_A59D::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "none", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "brick", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "bark", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "carpet", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "cloth", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "concrete", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "dirt", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "flesh", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "foliage", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "glass", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "grass", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "gravel", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "ice", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "metal", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "mud", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "paper", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "plaster", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "rock", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "sand", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "snow", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "water", "vfx/map/bog_a/heli_dust_water_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "wood", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "asphalt", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "ceramic", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "plastic", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "rubber", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "cushion", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "fruit", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "painted metal", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "default", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "none", "vfx/map/bog_a/heli_dust_bog_a" );
 }

@@ -43,11 +43,11 @@ _id_38D8( var_0, var_1, var_2, var_3 )
     self endon( "kill_flicker" );
     var_4 = var_0;
     var_5 = 0.0;
-    _id_A5A4::_id_32DD( "stop_flicker" );
+    maps\_utility::_id_32DD( "stop_flicker" );
 
     for (;;)
     {
-        if ( _id_A5A4::_id_32D8( "stop_flicker" ) )
+        if ( maps\_utility::_id_32D8( "stop_flicker" ) )
         {
             wait 0.05;
             continue;
@@ -64,7 +64,7 @@ _id_38D8( var_0, var_1, var_2, var_3 )
         if ( var_5 == 0 )
             var_5 += 1e-07;
 
-        for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !_id_A5A4::_id_32D8( "stop_flicker" ); var_5 -= 0.05 )
+        for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !maps\_utility::_id_32D8( "stop_flicker" ); var_5 -= 0.05 )
         {
             self setlightcolor( var_4 + var_7 * var_5 );
             wait 0.05;
@@ -370,31 +370,31 @@ _id_3C94()
 
 _id_3C92()
 {
-    _id_A5A4::_id_32DD( "flicker_on" );
+    maps\_utility::_id_32DD( "flicker_on" );
 
     if ( isdefined( self._id_7A23 ) && self._id_7A23 != "nil" )
     {
         for (;;)
         {
             level waittill( self._id_7A23 );
-            _id_A5A4::_id_32DE( "flicker_on" );
+            maps\_utility::_id_32DE( "flicker_on" );
 
             if ( isdefined( self._id_7A24 ) && self._id_7A24 != "nil" )
             {
                 level waittill( self._id_7A24 );
-                _id_A5A4::_id_32DA( "flicker_on" );
+                maps\_utility::_id_32DA( "flicker_on" );
             }
         }
     }
     else
-        _id_A5A4::_id_32DE( "flicker_on" );
+        maps\_utility::_id_32DE( "flicker_on" );
 }
 
 _id_3C93()
 {
     var_0 = self getlightintensity();
 
-    if ( !_id_A5A4::_id_32D8( "flicker_on" ) )
+    if ( !maps\_utility::_id_32D8( "flicker_on" ) )
     {
         if ( self._id_578C )
         {
@@ -424,7 +424,7 @@ _id_3C93()
                 self._id_5789[var_7] setlightintensity( 0 );
         }
 
-        _id_A5A4::_id_32E0( "flicker_on" );
+        maps\_utility::_id_32E0( "flicker_on" );
         self setlightintensity( var_0 );
 
         if ( self._id_578A )
@@ -442,7 +442,7 @@ _id_3C93()
                     var_2 show();
 
                     if ( isdefined( var_2._id_3018 ) )
-                        var_2._id_3018 _id_A5A4::_id_748D();
+                        var_2._id_3018 maps\_utility::_id_748D();
                 }
             }
 
@@ -509,7 +509,7 @@ _id_3C91()
                             var_7 show();
 
                             if ( isdefined( var_7._id_3018 ) )
-                                var_7._id_3018 _id_A5A4::_id_748D();
+                                var_7._id_3018 maps\_utility::_id_748D();
                         }
                     }
 
@@ -518,7 +518,7 @@ _id_3C91()
                         foreach ( var_10 in self._id_9A39 )
                         {
                             var_10 hide();
-                            _id_A5DC::_id_28A2( "light_flicker_on", var_10 );
+                            soundscripts\_audio::_id_28A2( "light_flicker_on", var_10 );
                         }
                     }
                 }
@@ -551,7 +551,7 @@ _id_3C91()
                     var_7 show();
 
                     if ( isdefined( var_7._id_3018 ) )
-                        var_7._id_3018 _id_A5A4::_id_748D();
+                        var_7._id_3018 maps\_utility::_id_748D();
                 }
             }
 
@@ -955,7 +955,7 @@ _id_7051()
 
     for (;;)
     {
-        _id_A5A4::_id_7B20();
+        maps\_utility::_id_7B20();
         var_0 = self._id_7A1A;
         var_1 = self._id_7A1A + ( self._id_7A19 - self._id_7A1A ) * 0.4;
         var_2 = self._id_7A19 - ( self._id_7A19 - self._id_7A1A ) * 0.4;
@@ -966,7 +966,7 @@ _id_7051()
         {
             var_6 = randomfloatrange( var_0, var_1 );
             _id_568D( var_6, _id_3D30() );
-            _id_A5A4::script_lightset();
+            maps\_utility::script_lightset();
             var_6 = randomfloatrange( var_2, var_3 );
             _id_568D( var_6, _id_3D30() );
         }
@@ -1012,7 +1012,7 @@ _id_45B4( var_0 )
             var_3 show();
 
             if ( isdefined( var_3._id_3018 ) )
-                var_3._id_3018 thread _id_A5A4::_id_748D();
+                var_3._id_3018 thread maps\_utility::_id_748D();
 
             continue;
         }

@@ -27,9 +27,9 @@ main( var_0, var_1 )
     level._effect["flare_runner_intro"] = loadfx( "fx/misc/flare_start" );
     level._effect["flare_runner"] = loadfx( "fx/misc/flare" );
     level._effect["flare_runner_fizzout"] = loadfx( "fx/misc/flare_end" );
-    _id_A5A8::_id_186C( "flare", var_0, var_1, "script_vehicle_flare" );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1856( 9999 );
+    maps\_vehicle::_id_186C( "flare", var_0, var_1, "script_vehicle_flare" );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1856( 9999 );
 }
 
 _id_4D10()
@@ -139,7 +139,7 @@ combine_sunlight_and_brightness()
 
 flare_path()
 {
-    thread _id_A5A8::_id_427A( self );
+    thread maps\_vehicle::_id_427A( self );
     common_scripts\utility::_id_384A( "flare_stop_setting_sundir" );
     self delete();
 }
@@ -174,7 +174,7 @@ flare_explodes()
     thread merge_sunbrightness( 0, 1.0, level.original_brightness, level.red_sunbrightness );
 
     if ( isdefined( level.flare_fog ) )
-        _id_A5A4::_id_9E6E( level.flare_fog, 1.0 );
+        maps\_utility::_id_9E6E( level.flare_fog, 1.0 );
 
     var_0 = spawn( "script_model", ( 0, 0, 0 ) );
     var_0 setmodel( "tag_origin" );
@@ -190,15 +190,15 @@ flare_burns_out()
     var_0 setmodel( "tag_origin" );
     var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
     playfxontag( level._effect["flare_runner_fizzout"], var_0, "tag_origin" );
-    var_0 thread _id_A5A4::_id_69C6( "flare_runner_fizzout" );
+    var_0 thread maps\_utility::_id_69C6( "flare_runner_fizzout" );
     thread merge_sunsingledvar( "sm_sunSampleSizeNear", 0, 1, 1, 0.5 );
     thread merge_sunbrightness( 0, 1, level.red_sunbrightness, level.original_brightness );
     thread merge_suncolor( 0, 0.01, level.red_suncolor, normalized_color( level.original_suncolor ) );
 
     if ( isdefined( level.flare_fog_return ) )
-        _id_A5A4::_id_9E6E( level.flare_fog_return, 1 );
+        maps\_utility::_id_9E6E( level.flare_fog_return, 1 );
 
-    thread _id_A5A8::volume_down( 1 );
+    thread maps\_vehicle::volume_down( 1 );
     wait 1.0;
     level notify( "stop_combining_sunlight_and_brightness" );
     wait 0.1;
@@ -228,7 +228,7 @@ flag_flare( var_0 )
 
 flare_from_targetname( var_0 )
 {
-    var_1 = _id_A5A8::_id_8978( var_0 );
+    var_1 = maps\_vehicle::_id_8978( var_0 );
     flag_flare( "flare_in_use" );
     flag_flare( "flare_complete" );
     flag_flare( "flare_stop_setting_sundir" );

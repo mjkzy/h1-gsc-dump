@@ -30,13 +30,13 @@ player_head_tracking()
     {
         wait 0.2;
 
-        if ( distance( self.origin, level.playercardbackground.origin ) <= 200 && _id_A5A4::_id_6B91( self.origin ) )
+        if ( distance( self.origin, level.playercardbackground.origin ) <= 200 && maps\_utility::_id_6B91( self.origin ) )
         {
             self _meth_81ba( 60, 60, randomfloatrange( 0.5, 2.0 ) );
             self _meth_8202( level.playercardbackground, 1, randomint( 5 ) == 0 );
-            _id_A5A4::waitspread( 5, 7 );
+            maps\_utility::waitspread( 5, 7 );
             self _meth_8203( 1 );
-            _id_A5A4::waitspread( 5, 7 );
+            maps\_utility::waitspread( 5, 7 );
         }
     }
 }

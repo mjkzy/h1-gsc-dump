@@ -780,7 +780,7 @@ get_stats_display_hud( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_8.xpmaxmultipliertimeplayed = var_6;
     var_8._id_0538 = var_7;
 
-    if ( _id_A5A4::_id_0CC3() )
+    if ( maps\_utility::_id_0CC3() )
     {
         var_8.alignx = "left";
         var_8.aligny = "top";
@@ -1082,7 +1082,7 @@ _id_23A2( var_0, var_1, var_2 )
 
 _id_23A3( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = _id_A5A4::_id_3E25();
+    var_5 = maps\_utility::_id_3E25();
     var_6 = newclienthudelem( var_5 );
 
     if ( !isdefined( var_4 ) )
@@ -1109,7 +1109,7 @@ _id_23A3( var_0, var_1, var_2, var_3, var_4 )
 
 _id_23A4( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = _id_A5A4::_id_3E25();
+    var_5 = maps\_utility::_id_3E25();
     var_6 = newclienthudelem( var_5 );
 
     if ( !isdefined( var_4 ) )
@@ -1190,8 +1190,8 @@ _id_3E13( var_0 )
 
 display_custom_nameplate( var_0, var_1, var_2 )
 {
-    if ( !_id_A5A4::_id_32DC( "kill_custom_nameplate" ) )
-        _id_A5A4::_id_32DD( "kill_custom_nameplate" );
+    if ( !maps\_utility::_id_32DC( "kill_custom_nameplate" ) )
+        maps\_utility::_id_32DD( "kill_custom_nameplate" );
 
     var_3 = undefined;
 
@@ -1211,7 +1211,7 @@ display_custom_nameplate( var_0, var_1, var_2 )
 
     for (;;)
     {
-        if ( !isdefined( self ) || _id_A5A4::_id_32D8( "kill_custom_nameplate" ) )
+        if ( !isdefined( self ) || maps\_utility::_id_32D8( "kill_custom_nameplate" ) )
         {
             if ( isdefined( var_5 ) )
                 var_5 destroy();

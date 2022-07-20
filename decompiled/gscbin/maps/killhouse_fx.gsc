@@ -94,20 +94,20 @@ main()
 
 _id_974C()
 {
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "asphalt", "fx/treadfx/heli_dust_asphalt_fng" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "concrete", "fx/treadfx/heli_dust_asphalt_fng" );
-    _id_A59D::_id_8350( "script_vehicle_blackhawk", "metal", "fx/treadfx/tread_empty_default" );
-    _id_A59D::_id_8350( "script_vehicle_littlebird_armed", "asphalt", "fx/treadfx/heli_dust_asphalt_fng" );
-    _id_A59D::_id_8350( "script_vehicle_littlebird_armed", "concrete", "fx/treadfx/heli_dust_asphalt_fng" );
-    _id_A59D::_id_8350( "script_vehicle_littlebird_armed", "metal", "fx/treadfx/tread_empty_default" );
-    _id_A59D::_id_7F1E( "script_vehicle_ch46e", "fx/treadfx/heli_dust_default_killhouse" );
-    _id_A59D::_id_8350( "script_vehicle_ch46e", "asphalt", "fx/treadfx/heli_dust_asphalt_killhouse" );
-    _id_A59D::_id_8350( "script_vehicle_ch46e", "metal", "fx/treadfx/tread_empty_default" );
-    _id_A59D::_id_8350( "script_vehicle_ch46e", "wood", "fx/treadfx/tread_empty_default" );
-    _id_A59D::_id_8350( "script_vehicle_m1a1_abrams", "asphalt", "vfx/treadfx/tread_road_killhouse" );
-    _id_A59D::_id_8350( "script_vehicle_m1a1_abrams", "concrete", "vfx/treadfx/tread_road_killhouse" );
-    _id_A59D::_id_8350( "script_vehicle_bm21_mobile_cover", "asphalt", "vfx/treadfx/tread_road_killhouse" );
-    _id_A59D::_id_8350( "script_vehicle_bm21_mobile_cover", "concrete", "vfx/treadfx/tread_road_killhouse" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "asphalt", "fx/treadfx/heli_dust_asphalt_fng" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "concrete", "fx/treadfx/heli_dust_asphalt_fng" );
+    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "metal", "fx/treadfx/tread_empty_default" );
+    maps\_treadfx::_id_8350( "script_vehicle_littlebird_armed", "asphalt", "fx/treadfx/heli_dust_asphalt_fng" );
+    maps\_treadfx::_id_8350( "script_vehicle_littlebird_armed", "concrete", "fx/treadfx/heli_dust_asphalt_fng" );
+    maps\_treadfx::_id_8350( "script_vehicle_littlebird_armed", "metal", "fx/treadfx/tread_empty_default" );
+    maps\_treadfx::_id_7F1E( "script_vehicle_ch46e", "fx/treadfx/heli_dust_default_killhouse" );
+    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "asphalt", "fx/treadfx/heli_dust_asphalt_killhouse" );
+    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "metal", "fx/treadfx/tread_empty_default" );
+    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "wood", "fx/treadfx/tread_empty_default" );
+    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "asphalt", "vfx/treadfx/tread_road_killhouse" );
+    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "concrete", "vfx/treadfx/tread_road_killhouse" );
+    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "asphalt", "vfx/treadfx/tread_road_killhouse" );
+    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "concrete", "vfx/treadfx/tread_road_killhouse" );
 }
 
 override_footsteps_mud_fx()

@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "scoutsniper" );
+    var_0 = maps\_utility::_id_23DF( "scoutsniper" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "scoutsniper_interior" );
+    var_0 = maps\_utility::_id_23DF( "scoutsniper_interior" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "scoutsniper_cultcenter" );
+    var_0 = maps\_utility::_id_23DF( "scoutsniper_cultcenter" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 0;
     var_0._id_0DBA = 357.422;
     var_0._id_0DBC = 256.269;
-    var_0 = _id_A5A4::_id_23DF( "scoutsniper_start" );
+    var_0 = maps\_utility::_id_23DF( "scoutsniper_start" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -194,7 +194,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -21.8683, -60.1996, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

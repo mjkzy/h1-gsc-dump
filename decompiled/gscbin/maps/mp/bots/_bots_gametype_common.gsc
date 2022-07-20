@@ -397,10 +397,9 @@ _id_161E()
                                 var_11 _id_1629( "defender" );
                                 var_9 = 1;
                                 break;
-                                continue;
                             }
-
-                            var_8 = common_scripts\utility::_id_0CDA( var_8, var_11 );
+                            else
+                                var_8 = common_scripts\utility::_id_0CDA( var_8, var_11 );
                         }
                     }
 
@@ -422,10 +421,9 @@ _id_161E()
                                 var_16 _id_1629( "attacker" );
                                 var_14 = 1;
                                 break;
-                                continue;
                             }
-
-                            var_13 = common_scripts\utility::_id_0CDA( var_13, var_16 );
+                            else
+                                var_13 = common_scripts\utility::_id_0CDA( var_13, var_16 );
                         }
                     }
 

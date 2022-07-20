@@ -51,7 +51,7 @@ _id_33F3( var_0 )
     thread _id_33F2( 0, var_1 );
 
     for ( var_4 = 1; var_4 < var_1._id_96D5.size; var_4++ )
-        _id_A5A4::_id_27EF( var_1.titleunlocked[var_4], ::_id_33F2, var_4, var_1 );
+        maps\_utility::_id_27EF( var_1.titleunlocked[var_4], ::_id_33F2, var_4, var_1 );
 }
 
 _id_7B33( var_0, var_1 )
@@ -405,12 +405,12 @@ model_animation_light( var_0 )
             continue;
 
         var_14._id_0C72 = var_2;
-        var_14 _id_A510::_id_7F29();
-        var_14 thread _id_A510::_id_0BE1( var_14, var_3, var_4 );
+        var_14 maps\_anim::_id_7F29();
+        var_14 thread maps\_anim::_id_0BE1( var_14, var_3, var_4 );
         var_15 = getent( var_14._not_team, "targetname" );
         var_16 = common_scripts\utility::_id_8959();
         var_16 linkto( var_14, var_5, var_6, var_7 );
-        var_15 thread _id_A5A4::_id_5972( var_16 );
+        var_15 thread maps\_utility::_id_5972( var_16 );
 
         if ( isdefined( var_8 ) )
         {
@@ -667,7 +667,7 @@ _id_3C29( var_0, var_1, var_2, var_3 )
         var_3 = 0.25;
 
     if ( var_0 )
-        _id_A546::_id_35E3( var_1 );
+        maps\_hud_util::_id_35E3( var_1 );
 
     self._id_3C24 = newclienthudelem( self );
     self._id_3C24.xpmaxmultipliertimeplayed = 0;
@@ -687,20 +687,20 @@ _id_3C29( var_0, var_1, var_2, var_3 )
     self._id_3C25.space = -1;
     self._id_3C25 setshader( "gasmask_overlay_delta2_bottom", 650, 138 );
     self._id_3C25.alpha = 1.0;
-    level.playercardbackground _id_A5A4::_id_27EF( 1.0, ::_id_3C23 );
+    level.playercardbackground maps\_utility::_id_27EF( 1.0, ::_id_3C23 );
     thread _id_1509( self._id_3C24 );
     thread _id_1509( self._id_3C25 );
 
     if ( var_0 )
     {
         wait(var_3);
-        _id_A546::_id_35DC( var_2 );
+        maps\_hud_util::_id_35DC( var_2 );
     }
 }
 
 _id_3C27()
 {
-    _id_A546::_id_35E3( 0.25 );
+    maps\_hud_util::_id_35E3( 0.25 );
     self notify( "stop_mask_bob" );
 
     if ( isdefined( self._id_3C24 ) )
@@ -717,7 +717,7 @@ _id_3C27()
 
     level.playercardbackground notify( "stop_breathing" );
     wait 0.25;
-    _id_A546::_id_35DC( 1.5 );
+    maps\_hud_util::_id_35DC( 1.5 );
 }
 
 _id_3C23()
@@ -727,7 +727,7 @@ _id_3C23()
 
     for (;;)
     {
-        _id_A5A4::_id_69C4( "breathing_gasmask" );
+        maps\_utility::_id_69C4( "breathing_gasmask" );
         wait(var_0);
     }
 }
@@ -1026,7 +1026,7 @@ _id_5709( var_0, var_1, var_2 )
     }
     else if ( isdefined( self._id_A1BC ) && !var_2 )
     {
-        _id_A5A4::_id_8E7E( self._id_3BA8 );
+        maps\_utility::_id_8E7E( self._id_3BA8 );
 
         foreach ( var_7 in self._id_5D42 )
             var_7 hide();
@@ -1058,7 +1058,7 @@ _id_38D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         {
             var_11 = var_7 - var_8 * var_10;
             var_12 = vectorlerp( var_1, var_3, var_11 );
-            var_13 = _id_A5A4::_id_576B( var_11, var_2, var_4 );
+            var_13 = maps\_utility::_id_576B( var_11, var_2, var_4 );
             var_14 = var_11 > 0.5;
             var_0 _id_5709( var_13, var_12, var_14 );
             wait 0.05;
@@ -1076,7 +1076,7 @@ _id_67D7( var_0, var_1, var_2, var_3, var_4 )
     {
         var_8 = clamp( perlinnoise2d( gettime() * 0.001 * var_5, 0, var_6, 2, var_7 ), 0, 1 );
         var_9 = vectorlerp( var_1, var_3, var_8 );
-        var_10 = _id_A5A4::_id_576B( var_8, var_2, var_4 );
+        var_10 = maps\_utility::_id_576B( var_8, var_2, var_4 );
         var_11 = var_8 > 0.5;
         var_0 _id_5709( var_10, var_9, var_11 );
         wait 0.05;
@@ -1268,7 +1268,7 @@ _id_6995( var_0, var_1, var_2, var_3 )
         }
 
         if ( isdefined( var_3 ) )
-            _id_A5A4::_id_8E7E( var_3 );
+            maps\_utility::_id_8E7E( var_3 );
 
         wait 0.8;
         var_17 = 0;
@@ -1368,7 +1368,7 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_25 = var_11["vol_env"];
 
         if ( isstring( var_23 ) )
-            var_24 = "model_flicker_preset_" + _id_A5E8::_id_8718();
+            var_24 = "model_flicker_preset_" + soundscripts\_snd::_id_8718();
     }
 
     var_27 = 0;
@@ -1405,14 +1405,14 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                     level notify( var_24 );
 
                 if ( isdefined( var_22 ) )
-                    var_34 _id_A5FB::_id_8738( var_22, undefined, undefined, undefined, var_26 );
+                    var_34 soundscripts\_snd_playsound::_id_8738( var_22, undefined, undefined, undefined, var_26 );
 
                 var_20 = 0;
             }
         }
 
         if ( isdefined( var_5 ) )
-            _id_A5A4::_id_8E7E( var_5 );
+            maps\_utility::_id_8E7E( var_5 );
 
         foreach ( var_37 in var_15 )
             var_37 hide();
@@ -1437,13 +1437,13 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             if ( isdefined( var_21 ) && !var_20 )
             {
                 if ( isarray( var_25 ) )
-                    var_26 = _id_A5E8::_id_8708( var_18, var_25 );
+                    var_26 = soundscripts\_snd::_id_8708( var_18, var_25 );
 
                 if ( isdefined( var_21 ) )
-                    var_34 _id_A5FB::_id_8738( var_21, undefined, undefined, undefined, var_26 );
+                    var_34 soundscripts\_snd_playsound::_id_8738( var_21, undefined, undefined, undefined, var_26 );
 
                 if ( isdefined( var_23 ) )
-                    var_34 _id_A5FB::_id_8742( var_23, var_24, 0.0, 0.1, var_26 );
+                    var_34 soundscripts\_snd_playsound::_id_8742( var_23, var_24, 0.0, 0.1, var_26 );
 
                 var_20 = 1;
             }
@@ -1504,7 +1504,7 @@ _id_1498( var_0, var_1, var_2 )
         var_4 = _id_5703( var_1 );
 
         if ( isdefined( var_3 ) && isdefined( var_4 ) )
-            _id_A513::_id_2C4B( var_4["nearStart"], var_4["nearEnd"], var_4["nearBlur"], var_4["farStart"], var_4["farEnd"], var_4["farBlur"], var_2, var_4["bias"] );
+            maps\_art::_id_2C4B( var_4["nearStart"], var_4["nearEnd"], var_4["nearBlur"], var_4["farStart"], var_4["farEnd"], var_4["farBlur"], var_2, var_4["bias"] );
         else
         {
 
@@ -1639,7 +1639,7 @@ _id_568E( var_0, var_1, var_2, var_3, var_4 )
     for ( var_5 = 0; var_5 <= var_4; var_5 += 0.05 )
     {
         var_6 = var_5 / var_4;
-        self setlightfovrange( _id_A5A4::_id_576B( var_6, var_0, var_2 ), _id_A5A4::_id_576B( var_6, var_1, var_3 ) );
+        self setlightfovrange( maps\_utility::_id_576B( var_6, var_0, var_2 ), maps\_utility::_id_576B( var_6, var_1, var_3 ) );
         waittillframeend;
     }
 }

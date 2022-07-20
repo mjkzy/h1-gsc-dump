@@ -35,24 +35,24 @@ _id_8010( var_0 )
         level._id_4226 = ::_id_3094;
         level._id_4225 = ::_id_3094;
         level._id_422E = ::_id_3094;
-        _id_A5A4::_id_7DF3();
+        maps\_utility::_id_7DF3();
 
         if ( getdvar( "arcademode" ) == "1" )
             thread maps\_arcademode::main();
 
         foreach ( var_2 in level.players )
         {
-            var_2 _id_A5A4::_id_32DD( "player_has_red_flashing_overlay" );
-            var_2 _id_A5A4::_id_32DD( "player_is_invulnerable" );
-            var_2 _id_A5A4::_id_32DD( "player_zero_attacker_accuracy" );
-            var_2 _id_A5A4::_id_32DD( "player_no_auto_blur" );
-            var_2 _id_A5A4::_id_32DD( "near_death_vision_enabled" );
-            var_2 _id_A5A4::_id_32DA( "near_death_vision_enabled" );
+            var_2 maps\_utility::_id_32DD( "player_has_red_flashing_overlay" );
+            var_2 maps\_utility::_id_32DD( "player_is_invulnerable" );
+            var_2 maps\_utility::_id_32DD( "player_zero_attacker_accuracy" );
+            var_2 maps\_utility::_id_32DD( "player_no_auto_blur" );
+            var_2 maps\_utility::_id_32DD( "near_death_vision_enabled" );
+            var_2 maps\_utility::_id_32DA( "near_death_vision_enabled" );
             var_2._id_4441 = spawnstruct();
             var_2.a = spawnstruct();
             var_2._id_257E = [];
-            var_2 _id_A56F::_id_4D62();
-            var_2 _id_A5A4::_id_32DD( "global_hint_in_use" );
+            var_2 maps\_player_stats::_id_4D62();
+            var_2 maps\_utility::_id_32DD( "global_hint_in_use" );
             var_2.pers = [];
 
             if ( !isdefined( var_2._id_130B ) )
@@ -250,16 +250,16 @@ _id_7F7D()
     anim._id_5A17 = [[ var_0 ]]( "max_sniper_burst_delay_time", level._id_3BFE );
     setsaveddvar( "ai_accuracyDistScale", [[ var_0 ]]( "accuracyDistScale", level._id_3BFE ) );
 
-    if ( _id_A5A4::_id_55E1() )
+    if ( maps\_utility::_id_55E1() )
         level._id_6AE0 = level._id_2A60["player_downed_buffer_time"][var_1];
 
-    _id_A558::_id_7F51();
+    maps\_mgturret::_id_7F51();
 }
 
 _id_9B21()
 {
     foreach ( var_1 in level.players )
-        var_1._id_3BFE = var_1 _id_A5A4::_id_3E26();
+        var_1._id_3BFE = var_1 maps\_utility::_id_3E26();
 
     level._id_3BFE = level.playercardbackground._id_3BFE;
     level._id_8A48 = level.playercardbackground._id_3BFE;
@@ -332,7 +332,7 @@ _id_0C9F( var_0, var_1 )
 
 _id_9AD3()
 {
-    if ( _id_A5A4::_id_32D8( "player_zero_attacker_accuracy" ) )
+    if ( maps\_utility::_id_32D8( "player_zero_attacker_accuracy" ) )
         return;
 
     self.ikweight = self._id_130B;
@@ -564,10 +564,10 @@ _id_6CC4()
 
         if ( self.helmet == self.maxturnspeed )
         {
-            thread _id_A5DC::_id_7498();
+            thread soundscripts\_audio::_id_7498();
 
-            if ( _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
-                _id_A5A4::_id_32DA( "player_has_red_flashing_overlay" );
+            if ( maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
+                maps\_utility::_id_32DA( "player_has_red_flashing_overlay" );
 
             var_7 = 1;
             var_3 = 0;
@@ -603,12 +603,12 @@ _id_6CC4()
                 else
                     thread _id_14C8( 7.5, 0.67 );
 
-                thread _id_A5DC::_id_7E07();
+                thread soundscripts\_audio::_id_7E07();
 
-                if ( _id_A5A4::_id_32D8( "near_death_vision_enabled" ) )
+                if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
                     self _meth_823b();
 
-                _id_A5A4::_id_32DE( "player_has_red_flashing_overlay" );
+                maps\_utility::_id_32DE( "player_has_red_flashing_overlay" );
                 var_3 = 1;
             }
         }
@@ -680,10 +680,10 @@ _id_6CC4()
         if ( !var_11 )
             continue;
 
-        if ( _id_A5A4::_id_32D8( "player_is_invulnerable" ) )
+        if ( maps\_utility::_id_32D8( "player_is_invulnerable" ) )
             continue;
 
-        _id_A5A4::_id_32DE( "player_is_invulnerable" );
+        maps\_utility::_id_32DE( "player_is_invulnerable" );
         level notify( "player_becoming_invulnerable" );
 
         if ( var_3 )
@@ -731,7 +731,7 @@ _id_6CD0( var_0 )
     }
 
     _id_9AD3();
-    _id_A5A4::_id_32DA( "player_is_invulnerable" );
+    maps\_utility::_id_32DA( "player_is_invulnerable" );
 }
 
 _id_277A()
@@ -774,7 +774,7 @@ grenadeawareness()
 
 _id_14C8( var_0, var_1 )
 {
-    if ( _id_A5A4::_id_32D8( "player_no_auto_blur" ) )
+    if ( maps\_utility::_id_32D8( "player_no_auto_blur" ) )
         return;
 
     self notify( "blurview_stop" );
@@ -858,7 +858,7 @@ healthoverlayalt()
         if ( !isalive( level.playercardbackground ) )
             break;
 
-        _id_A5A4::_id_32E0( "player_has_red_flashing_overlay" );
+        maps\_utility::_id_32E0( "player_has_red_flashing_overlay" );
 
         if ( getdvarint( "cg_altDamageMode" ) == 1 )
         {
@@ -895,7 +895,7 @@ _id_4789()
         if ( !isalive( level.playercardbackground ) )
             break;
 
-        _id_A5A4::_id_32E0( "player_has_red_flashing_overlay" );
+        maps\_utility::_id_32E0( "player_has_red_flashing_overlay" );
 
         if ( getdvarint( "cg_altDamageMode" ) == 0 )
         {
@@ -1022,7 +1022,7 @@ compasshealthoverlay()
 
         self waittill( "activate_compass_red_overlay" );
 
-        if ( !_id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+        if ( !maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
             continue;
 
         if ( getdvar( "compass" ) == "0" )
@@ -1284,7 +1284,7 @@ _id_9110()
 
 _id_8477()
 {
-    if ( _id_A5A4::is_h1_level() )
+    if ( maps\_utility::is_h1_level() )
         return 0;
 
     if ( !isalive( self ) )
@@ -1305,7 +1305,7 @@ _id_8477()
     if ( level._id_5CDE )
         return 0;
 
-    if ( !_id_A550::_id_5982() )
+    if ( !maps\_load::_id_5982() )
         return 0;
 
     if ( getdvar( "limited_mode" ) == "1" )
@@ -1341,7 +1341,7 @@ redflashingoverlayalt( var_0 )
     self notify( "kill_pulse" );
     var_0 fadeovertime( 0.5 );
     var_0.alpha = 0;
-    _id_A5A4::_id_32DA( "player_has_red_flashing_overlay" );
+    maps\_utility::_id_32DA( "player_has_red_flashing_overlay" );
 
     if ( !isdefined( self._id_2A84 ) || !self._id_2A84 )
     {
@@ -1351,7 +1351,7 @@ redflashingoverlayalt( var_0 )
             self playlocalsound( var_3 );
     }
 
-    if ( _id_A5A4::_id_32D8( "near_death_vision_enabled" ) )
+    if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
         self _meth_823c();
 }
 
@@ -1368,7 +1368,7 @@ redflashingoverlay( var_0 )
     _id_35EE( var_0, var_1, 0.8, 0.7, 0 );
     level.playercardbackground playsound( "breathing_heartbeat" );
 
-    while ( gettime() < var_2 && isalive( self ) && _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+    while ( gettime() < var_2 && isalive( self ) && maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
     {
         _id_35EE( var_0, var_1, 0.9, 1, 0 );
         var_3 = "breathing_heartbeat";
@@ -1386,7 +1386,7 @@ redflashingoverlay( var_0 )
     _id_35EE( var_0, var_1, 0, 0.7, 1 );
     var_0 fadeovertime( 0.5 );
     var_0.alpha = 0;
-    _id_A5A4::_id_32DA( "player_has_red_flashing_overlay" );
+    maps\_utility::_id_32DA( "player_has_red_flashing_overlay" );
 
     if ( !isdefined( self._id_2A84 ) || !self._id_2A84 )
     {
@@ -1396,7 +1396,7 @@ redflashingoverlay( var_0 )
             self playlocalsound( var_4 );
     }
 
-    if ( _id_A5A4::_id_32D8( "near_death_vision_enabled" ) )
+    if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
         self _meth_823c();
 }
 
@@ -1426,7 +1426,7 @@ _id_4C3B()
     self endon( "new_cover_on_death_thread" );
     self waittill( "death" );
 
-    if ( !_id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( !maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
         return;
 
     if ( !_id_9110() )
@@ -1477,11 +1477,11 @@ _id_06AB()
 
     for (;;)
     {
-        if ( level.playercardbackground _id_A5A4::_id_50A9() )
+        if ( level.playercardbackground maps\_utility::_id_50A9() )
         {
             level._id_6A4E = gettime();
 
-            while ( level.playercardbackground _id_A5A4::_id_50A9() )
+            while ( level.playercardbackground maps\_utility::_id_50A9() )
                 wait 0.05;
 
             continue;
@@ -1696,7 +1696,7 @@ _id_06AC( var_0, var_1, var_2 )
 {
     _id_06A5( "aa_player_damage_dealt", var_0 );
 
-    if ( !level.playercardbackground _id_A5A4::_id_50A9() )
+    if ( !level.playercardbackground maps\_utility::_id_50A9() )
     {
         [[ level._id_4225 ]]( var_1, self.damagelocation, var_2 );
         return 0;

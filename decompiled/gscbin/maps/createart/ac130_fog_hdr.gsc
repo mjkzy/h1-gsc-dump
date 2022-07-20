@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "ac130" );
+    var_0 = maps\_utility::_id_23DF( "ac130" );
     var_0._id_8D08 = 17346.3;
     var_0._id_4500 = 32487.6;
     var_0._id_7299 = 1;
@@ -68,7 +68,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -30, 85, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

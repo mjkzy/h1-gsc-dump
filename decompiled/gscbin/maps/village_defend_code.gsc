@@ -22,7 +22,7 @@
 minigun_player_anims()
 {
     level.minigun_node = getent( "minigun_anim_node", "targetname" );
-    _id_A510::_id_0BC7( self, "use" );
+    maps\_anim::_id_0BC7( self, "use" );
 
     for (;;)
     {
@@ -41,17 +41,17 @@ minigun_player_use()
     level.playercardbackground disableweapons();
     level.playercardbackground _meth_84a5();
     level.playercardbackground _meth_84a7( 12.0, 500, 1.0, 1.0 );
-    level.eplayerview = _id_A5A4::_id_88D1( "minigun_player", level.minigun_node.origin, level.minigun_node.angles );
+    level.eplayerview = maps\_utility::_id_88D1( "minigun_player", level.minigun_node.origin, level.minigun_node.angles );
     level.eplayerview hide();
-    level.minigun_node _id_A510::_id_0BC7( level.eplayerview, "use_minigun" );
+    level.minigun_node maps\_anim::_id_0BC7( level.eplayerview, "use_minigun" );
     level.playercardbackground _meth_855e( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
     level.minigun_previous_fov = getstarttime();
     level.playercardbackground lerpfov( 55, 0.5 );
     wait 0.3;
     level.eplayerview show();
-    _id_A510::_id_0BC7( self, "use" );
-    thread _id_A510::_id_0C24( self, "use" );
-    level.minigun_node _id_A510::_id_0C24( level.eplayerview, "use_minigun" );
+    maps\_anim::_id_0BC7( self, "use" );
+    thread maps\_anim::_id_0C24( self, "use" );
+    level.minigun_node maps\_anim::_id_0C24( level.eplayerview, "use_minigun" );
     level.eplayerview hide();
     level.playercardbackground unlink();
     level.minigun_eye_height = level.playercardbackground _meth_82ef();
@@ -75,8 +75,8 @@ minigun_player_drop()
     self _meth_856d();
     self waittill( "turret_returned_to_default" );
     level.playercardbackground _meth_84c8();
-    _id_A510::_id_0BC7( self, "drop" );
-    thread _id_A510::_id_0C24( self, "drop" );
+    maps\_anim::_id_0BC7( self, "drop" );
+    thread maps\_anim::_id_0C24( self, "drop" );
     level.eplayerview unlink();
     level.playercardbackground enableweapons();
     var_7 = level.playercardbackground getplayerangles();
@@ -100,7 +100,7 @@ minigun_think()
 {
     common_scripts\utility::_id_383D( "player_on_minigun" );
     self._id_0C72 = "minigun";
-    _id_A5A4::_id_0D61();
+    maps\_utility::_id_0D61();
     thread minigun_console_hint();
     thread minigun_player_anims();
     thread minigun_used();
@@ -179,9 +179,9 @@ minigun_console_hint()
             continue;
 
         if ( level.playercardbackground common_scripts\utility::_id_5064() )
-            level.playercardbackground thread _id_A5A4::_id_2B4A( "minigun_spin_left_trigger" );
+            level.playercardbackground thread maps\_utility::_id_2B4A( "minigun_spin_left_trigger" );
         else
-            level.playercardbackground thread _id_A5A4::_id_2B4A( "minigun_spin_keyboard" );
+            level.playercardbackground thread maps\_utility::_id_2B4A( "minigun_spin_keyboard" );
 
         level.minigun_console_hint_displayed = 1;
     }
@@ -409,7 +409,7 @@ minigun_used()
             }
         }
 
-        self _meth_814d( _id_A5A4::_id_3EF5( "spin" ), 1, 0.2, var_9 );
+        self _meth_814d( maps\_utility::_id_3EF5( "spin" ), 1, 0.2, var_9 );
         wait 0.05;
     }
 }
@@ -633,7 +633,7 @@ overheat_overheated()
     if ( !common_scripts\utility::_id_382E( "disable_overheat" ) )
     {
         level._id_781D = 0;
-        level.playercardbackground thread _id_A5A4::_id_69C4( "h1_wep_m134_overheat" );
+        level.playercardbackground thread maps\_utility::_id_69C4( "h1_wep_m134_overheat" );
         level.overheat_flashing.alpha = 1;
         level.overheat_status.alpha = 0;
         level.overheat_status2.alpha = 0;
@@ -807,7 +807,7 @@ overheat_status_rampdown( var_0, var_1 )
 
 seaknight()
 {
-    level.seaknight1 = _id_A5A8::_id_8979( "rescue_chopper" );
+    level.seaknight1 = maps\_vehicle::_id_8979( "rescue_chopper" );
     level.seaknight1 setmodel( "vehicle_ch46e_opened_door_interior_a" );
     var_0 = spawn( "script_model", level.seaknight1 gettagorigin( "body_animate_jnt" ) );
     var_0 setmodel( "vehicle_ch46e_opened_door_interior_b" );
@@ -849,7 +849,7 @@ seaknight()
     var_5 = missile_createrepulsorent( level.seaknight1, 5000, 1500 );
     level.seaknight1._id_2D30 = 1;
     level.seaknight1 sethoverparams( 0, 0, 0 );
-    level.seaknight1 _meth_814d( _id_A5A4::_id_3EF7( "ch46_doors_open" ), 1 );
+    level.seaknight1 _meth_814d( maps\_utility::_id_3EF7( "ch46_doors_open" ), 1 );
     level.seaknight1 playsound( "seaknight_door_open" );
     level._id_9C82["script_vehicle_ch46e"][1]._id_9CD5 = undefined;
     level._id_9C82["script_vehicle_ch46e"][2]._id_4068 = level._id_78AC["generic"]["ch46_unload_2"];
@@ -877,7 +877,7 @@ seaknight()
     {
         level.playercardbackground enableinvulnerability();
         level.playercardbackground.attackeraccuracy = 0;
-        _id_A5A4::enable_scuff_footsteps_sound( 0 );
+        maps\_utility::enable_scuff_footsteps_sound( 0 );
     }
 
     createthreatbiasgroup( "sas_evac_guy" );
@@ -898,7 +898,7 @@ seaknight()
 
     common_scripts\utility::_id_383F( "all_real_friendlies_on_board" );
     common_scripts\utility::_id_383F( "seaknight_guards_boarding" );
-    level.playercardbackground _id_A5A4::_id_69C4( "scn_vd_seaknight_leaving" );
+    level.playercardbackground maps\_utility::_id_69C4( "scn_vd_seaknight_leaving" );
 }
 
 seaknight_departure_sequence()
@@ -934,7 +934,7 @@ seaknight_departure_sequence()
 seaknight_sas_load()
 {
     self endon( "death" );
-    _id_A5A4::_id_3100( "interval_trigger_seaknight" );
+    maps\_utility::_id_3100( "interval_trigger_seaknight" );
     self setthreatbiasgroup( "sas_evac_guy" );
     setignoremegroup( "axis", "sas_evac_guy" );
     self.goalradius = 60;
@@ -956,7 +956,7 @@ seaknight_sas_load()
     level.sasseaknightboarded--;
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
@@ -970,11 +970,11 @@ seaknight_griggs_speech()
     else
         wait 5.5;
 
-    level.griggs _id_A510::_id_0C21( level.griggs, "needaride" );
+    level.griggs maps\_anim::_id_0C21( level.griggs, "needaride" );
     wait 0.45;
-    level.griggs _id_A510::_id_0C21( level.griggs, "getonboard" );
+    level.griggs maps\_anim::_id_0C21( level.griggs, "getonboard" );
     wait 2;
-    level.griggs _id_A510::_id_0C21( level.griggs, "griggsletsgo" );
+    level.griggs maps\_anim::_id_0C21( level.griggs, "griggsletsgo" );
 }
 
 vehicle_seaknight_idle_and_load_think( var_0 )
@@ -982,7 +982,7 @@ vehicle_seaknight_idle_and_load_think( var_0 )
     self endon( "death" );
     common_scripts\utility::_id_384A( "seaknight_guards_boarding" );
     var_1 = "ch46_load_" + var_0;
-    level.seaknight1 _id_A510::_id_0BC9( self, var_1, "tag_detach" );
+    level.seaknight1 maps\_anim::_id_0BC9( self, var_1, "tag_detach" );
     var_2 = getent( "seaknight_guards_loading_org_" + var_0, "targetname" );
     self _meth_81aa( var_2.origin );
     self.goalradius = 4;
@@ -997,7 +997,7 @@ vehicle_seaknight_idle_and_load_think( var_0 )
     wait 1;
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }
@@ -1013,7 +1013,7 @@ seaknight_riders_erase()
     common_scripts\utility::_id_384A( "all_fake_friendlies_aboard" );
 
     if ( isdefined( self._id_58D7 ) )
-        _id_A5A4::_id_8EA4();
+        maps\_utility::_id_8EA4();
 
     self delete();
 }

@@ -167,10 +167,10 @@ _id_8D31()
     {
         self._id_66F5 = animscripts\civilian\civilian_move::_id_1DDA;
         self._id_66F4 = 0.1;
-        _id_A5A4::_id_3102();
+        maps\_utility::_id_3102();
     }
     else
-        _id_A5A4::_id_2AEA();
+        maps\_utility::_id_2AEA();
 
     self._id_76AF = level._id_78AC[self._id_0C72]["run_noncombat"];
     self._id_A108 = self._id_76AF;
@@ -188,7 +188,7 @@ _id_8D04()
     self notify( "combat" );
     animscripts\move::_id_1EE8();
     self._id_66F4 = undefined;
-    _id_A5A4::_id_3102();
+    maps\_utility::_id_3102();
     self.turret_not_on_target = 0.3;
     var_0 = randomint( 3 ) < 1;
 

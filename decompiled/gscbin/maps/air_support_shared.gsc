@@ -168,7 +168,7 @@ air_support_update_arrow_coords( var_0, var_1 )
         thread air_support_draw_arrow( var_0, var_17, var_20, var_8, var_4, var_19 );
 
         if ( var_10 )
-            _id_A526::_id_2DD0( var_0.origin, var_0.angles );
+            maps\_debug::_id_2DD0( var_0.origin, var_0.angles );
 
         var_4 = 0.2;
     }
@@ -236,7 +236,7 @@ air_support_find_best_ceiling( var_0 )
 
 air_support_draw_arrow( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_1 += _id_A5A4::vector_multiply( var_2, var_0._id_6379 );
+    var_1 += maps\_utility::vector_multiply( var_2, var_0._id_6379 );
     var_0.origin = var_1;
 
     if ( var_5 )

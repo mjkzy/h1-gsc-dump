@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "aftermath" );
+    var_0 = maps\_utility::_id_23DF( "aftermath" );
     var_0._id_8D08 = 0;
     var_0._id_4500 = 5000;
     var_0._id_7299 = 0;
@@ -68,7 +68,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -11.7048, 49.1773, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

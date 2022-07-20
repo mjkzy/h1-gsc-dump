@@ -22,22 +22,22 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "m1a1", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_m1a1_abrams", "vehicle_m1a1_abrams_dmg" );
-    _id_A5A8::_id_1868( "tankblast" );
-    _id_A5A8::_id_1849( %abrams_movement, %abrams_movement_backwards, 10 );
-    _id_A5A8::_id_184B( "fx/distortion/abrams_exhaust" );
-    _id_A5A8::_id_1847( "fx/dust/abrams_deck_dust" );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "exp_armor_vehicle" );
-    _id_A5A8::_id_1872( "m1a1_coaxial_mg", "tag_coax_mg", "vehicle_m1a1_abrams_PKT_Coaxial_MG" );
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_1865( "tank_rumble", 0.15, 4.5, 900, 1, 1 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_185A();
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
-    _id_A5A8::_id_184C( 0.33 );
+    maps\_vehicle::_id_186C( "m1a1", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_m1a1_abrams", "vehicle_m1a1_abrams_dmg" );
+    maps\_vehicle::_id_1868( "tankblast" );
+    maps\_vehicle::_id_1849( %abrams_movement, %abrams_movement_backwards, 10 );
+    maps\_vehicle::_id_184B( "fx/distortion/abrams_exhaust" );
+    maps\_vehicle::_id_1847( "fx/dust/abrams_deck_dust" );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "exp_armor_vehicle" );
+    maps\_vehicle::_id_1872( "m1a1_coaxial_mg", "tag_coax_mg", "vehicle_m1a1_abrams_PKT_Coaxial_MG" );
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_1865( "tank_rumble", 0.15, 4.5, 900, 1, 1 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_185A();
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_184C( 0.33 );
 }
 
 _id_4D10()

@@ -35,7 +35,7 @@ main()
 
 handle_tank_fight_dof()
 {
-    var_0 = _id_A5A8::waittill_vehiclespawn( "t72" );
+    var_0 = maps\_vehicle::waittill_vehiclespawn( "t72" );
     var_1 = maps\_cinematography::dyndof( "t72" ) maps\_cinematography::dyndof_values( 2.4, -1, 3, 1 ) maps\_cinematography::dyndof_reference_entity( var_0 ) maps\_cinematography::dyndof_require_visible( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 6 );
     var_1 maps\_cinematography::dyndof_angles( -15, 15 ) maps\_cinematography::dyndof_priority( 2 );
     var_2 = maps\_cinematography::dyndof( "m1a1" ) maps\_cinematography::dyndof_values( 2.4, -1, 3, 1 ) maps\_cinematography::dyndof_reference_entity( level.abrams ) maps\_cinematography::dyndof_require_visible( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 6 );
@@ -200,29 +200,29 @@ apply_lighting_pass_bog_outside( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = 5.0;
 
-    _id_A5A4::_id_9E6E( "bog_b", 2 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "bog_b" );
+    maps\_utility::_id_9E6E( "bog_b", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "bog_b" );
     level.playercardbackground _meth_848c( "clut_bog_b", var_0 );
 }
 
 apply_lighting_pass_bog_inside()
 {
-    _id_A5A4::_id_9E6E( "bog_b_interior", 2 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "bog_b_interior" );
+    maps\_utility::_id_9E6E( "bog_b_interior", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "bog_b_interior" );
     level.playercardbackground _meth_848c( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_street_part01()
 {
-    _id_A5A4::_id_9E6E( "bog_b", 2 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "bog_b" );
+    maps\_utility::_id_9E6E( "bog_b", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "bog_b" );
     level.playercardbackground _meth_848c( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_tank_sequence()
 {
-    _id_A5A4::_id_9E6E( "bog_b", 2 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "bog_b" );
+    maps\_utility::_id_9E6E( "bog_b", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "bog_b" );
     level.playercardbackground _meth_848c( "clut_bog_b", 5 );
 }
 
@@ -234,9 +234,9 @@ play_flickering_light()
     var_2["off"] = "emt_light_flicker_off";
     var_2["loop"] = "emt_light_flicker_lp";
     var_2["vol_env"] = [ [ var_0, 0.2 ], [ var_1, 1.0 ] ];
-    thread _id_A54E::_id_5D3A( "model_flicker_01", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
+    thread maps\_lighting::_id_5D3A( "model_flicker_01", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
     var_0 = 1800;
     var_1 = 25000;
     var_2["vol_env"] = [ [ var_0, 0.2 ], [ var_1, 1.0 ] ];
-    thread _id_A54E::_id_5D3A( "model_flicker_03", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
+    thread maps\_lighting::_id_5D3A( "model_flicker_03", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
 }

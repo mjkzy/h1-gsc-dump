@@ -21,18 +21,18 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "mig29", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_mig29_desert" );
-    _id_A5A8::_id_1845( "vehicle_av8b_harrier_jet" );
+    maps\_vehicle::_id_186C( "mig29", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_mig29_desert" );
+    maps\_vehicle::_id_1845( "vehicle_av8b_harrier_jet" );
     buildmig29fx( "afterburner", "fx/fire/jet_afterburner" );
     buildmig29fx( "contrail", "fx/smoke/jet_contrail" );
     buildmig29fx( "contrail_02", "fx/smoke/jet_contrail_02" );
-    _id_A5A8::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_1865( "mig_rumble", 0.1, 0.2, 11300, 0.05, 0.05 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_1854();
+    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_1865( "mig_rumble", 0.1, 0.2, 11300, 0.05, 0.05 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_1854();
 }
 
 _id_4D10()
@@ -134,10 +134,10 @@ plane_passby_sfx( var_0 )
     while ( !_id_6CD2( self ) )
         wait 0.05;
 
-    thread _id_A5A4::_id_69C4( "veh_mig29_passby" );
+    thread maps\_utility::_id_69C4( "veh_mig29_passby" );
 
     if ( var_0 )
-        thread _id_A5A4::_id_69C4( "veh_mig29_passby_layer" );
+        thread maps\_utility::_id_69C4( "veh_mig29_passby_layer" );
 }
 
 _id_686F()
@@ -159,7 +159,7 @@ _id_686F()
         if ( var_2 == 3 )
             var_2 = 1;
 
-        var_1[var_3] thread _id_A5A4::_id_69C4( "airstrike_explosion" );
+        var_1[var_3] thread maps\_utility::_id_69C4( "airstrike_explosion" );
         var_4 = "plane_bomb_explosion" + var_2;
         var_5 = level._effect[var_4];
 

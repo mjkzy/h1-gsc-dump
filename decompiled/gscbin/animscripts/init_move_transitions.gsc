@@ -674,7 +674,7 @@ _id_4DF3()
     _id_4E1E();
     _id_4E1F();
 
-    if ( _id_A5A4::_id_76FF() )
+    if ( maps\_utility::_id_76FF() )
     {
         animscripts\s1_common_anims::_id_4E21();
         animscripts\s1_common_anims::_id_4E22();
@@ -682,7 +682,7 @@ _id_4DF3()
 
     _id_4E2F( "soldier" );
 
-    if ( _id_A5A4::_id_76FF() )
+    if ( maps\_utility::_id_76FF() )
         _id_4E2F( "s1_soldier" );
 
     anim._id_8A78 = [];
@@ -709,7 +709,7 @@ _id_4DF3()
     anim._id_8A7B["heat_right"] = 1;
     _id_40E1( "soldier" );
 
-    if ( _id_A5A4::_id_76FF() )
+    if ( maps\_utility::_id_76FF() )
         _id_40E1( "s1_soldier" );
 
     anim._id_0D24["left"] = "stand";

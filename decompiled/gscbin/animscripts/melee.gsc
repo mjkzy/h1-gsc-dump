@@ -246,7 +246,7 @@ _id_5B62()
         if ( var_0 _meth_819f() )
             return 0;
 
-        if ( var_0 _id_A5A4::_id_2CE7() || var_0.delayeddeath )
+        if ( var_0 maps\_utility::_id_2CE7() || var_0.delayeddeath )
             return 0;
     }
 
@@ -914,13 +914,13 @@ _id_5B45()
 
     if ( animscripts\utility::_id_9C3A() )
     {
-        _id_A5A4::_id_39D0( self.primaryweapon, "primary" );
+        maps\_utility::_id_39D0( self.primaryweapon, "primary" );
         self._id_560F = self.primaryweapon;
     }
 
     if ( var_0 animscripts\utility::_id_9C3A() )
     {
-        var_0 _id_A5A4::_id_39D0( var_0.primaryweapon, "primary" );
+        var_0 maps\_utility::_id_39D0( var_0.primaryweapon, "primary" );
         var_0._id_560F = var_0.primaryweapon;
     }
 
@@ -1078,8 +1078,8 @@ _id_5B50()
 {
     self._id_5B36._id_A1BF = self.allowpain;
     self._id_5B36._id_A1C9 = self._id_38A8;
-    _id_A5A4::_id_2AC2();
-    _id_A5A4::_id_7F71( 1 );
+    maps\_utility::_id_2AC2();
+    maps\_utility::_id_7F71( 1 );
 }
 
 _id_5B64()
@@ -1095,7 +1095,7 @@ _id_5B53()
     if ( !isdefined( self._id_5B36.weapon_switch_invalid ) || self._id_5B36.weapon_switch_invalid == "none" )
         return;
 
-    _id_A5A4::_id_39D0( self._id_5B36.weapon_switch_invalid, self._id_5B36._id_A2E9 );
+    maps\_utility::_id_39D0( self._id_5B36.weapon_switch_invalid, self._id_5B36._id_A2E9 );
 
     if ( isdefined( self._id_5B36._id_2F75 ) )
     {
@@ -1260,7 +1260,7 @@ _id_5B5C( var_0 )
         {
             self playsound( "melee_knife_hit_body" );
 
-            if ( _id_A5A4::_id_4749( self.motiontrackerenabled, "TAG_KNIFE_FX" ) )
+            if ( maps\_utility::_id_4749( self.motiontrackerenabled, "TAG_KNIFE_FX" ) )
                 playfxontag( level._effect["melee_knife_ai"], self, "TAG_KNIFE_FX" );
             else
             {
@@ -1332,13 +1332,13 @@ _id_5B57()
     if ( isdefined( self._id_5B36._id_A1BF ) )
     {
         if ( self._id_5B36._id_A1BF )
-            _id_A5A4::_id_30D9();
+            maps\_utility::_id_30D9();
         else
-            _id_A5A4::_id_2AC2();
+            maps\_utility::_id_2AC2();
     }
 
     if ( isdefined( self._id_5B36._id_A1C9 ) )
-        _id_A5A4::_id_7F71( self._id_5B36._id_A1C9 );
+        maps\_utility::_id_7F71( self._id_5B36._id_A1C9 );
 }
 
 _id_5B54()

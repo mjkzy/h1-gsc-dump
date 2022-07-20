@@ -28,14 +28,14 @@ _id_86F4()
         level._id_065D._id_2791 = 1.0;
         thread _id_86F8();
         _id_86C6();
-        _id_A5F9::_id_86F2();
+        soundscripts\_snd_hud::_id_86F2();
         _id_8759( level.script_context );
-        _id_A5F7::_id_8704();
-        _id_A5F7::_id_86DD();
-        _id_A5FC::_id_877C();
-        _id_A5F8::_id_86E0();
+        soundscripts\_snd_filters::_id_8704();
+        soundscripts\_snd_filters::_id_86DD();
+        soundscripts\_snd_timescale::_id_877C();
+        soundscripts\_snd_foley::_id_86E0();
         _id_870D();
-        _id_A5E9::_id_86C4();
+        soundscripts\_snd_common::_id_86C4();
     }
 }
 
@@ -264,17 +264,17 @@ _id_871B( var_0, var_1, var_2, var_3, var_4 )
                             {
                                 if ( var_20 != var_13 )
                                     break;
-
-                                continue;
                             }
-
-                            if ( _id_A5A4::_id_5086( var_20 ) )
+                            else
                             {
-                                var_17[var_21] = float( var_20 );
-                                continue;
-                            }
+                                if ( maps\_utility::_id_5086( var_20 ) )
+                                {
+                                    var_17[var_21] = float( var_20 );
+                                    continue;
+                                }
 
-                            var_17[var_21] = var_20;
+                                var_17[var_21] = var_20;
+                            }
                         }
 
                         var_12._id_8034[var_12._id_8034.size] = var_17;

@@ -187,8 +187,8 @@ cloudcover()
 
 override_uaz_fx()
 {
-    _id_A5A8::_id_1857( "script_vehicle_uaz_hardtop_destructible", "headlight_truck_left2", "tag_headlight_left", "vfx/map/icbm/car_headlight_icbm", "headlights" );
-    _id_A5A8::_id_1857( "script_vehicle_uaz_hardtop_destructible", "headlight_truck_right2", "tag_headlight_right", "vfx/map/icbm/car_headlight_icbm", "headlights" );
-    _id_A5A8::_id_1857( "script_vehicle_uaz_hardtop_destructible", "brakelight_troops_right", "tag_light_right_back", "vfx/map/icbm/car_brakelight_icbm", "brakelights" );
-    _id_A5A8::_id_1857( "script_vehicle_uaz_hardtop_destructible", "brakelight_troops_left", "tag_light_left_back", "vfx/map/icbm/car_brakelight_icbm", "brakelights" );
+    maps\_vehicle::_id_1857( "script_vehicle_uaz_hardtop_destructible", "headlight_truck_left2", "tag_headlight_left", "vfx/map/icbm/car_headlight_icbm", "headlights" );
+    maps\_vehicle::_id_1857( "script_vehicle_uaz_hardtop_destructible", "headlight_truck_right2", "tag_headlight_right", "vfx/map/icbm/car_headlight_icbm", "headlights" );
+    maps\_vehicle::_id_1857( "script_vehicle_uaz_hardtop_destructible", "brakelight_troops_right", "tag_light_right_back", "vfx/map/icbm/car_brakelight_icbm", "brakelights" );
+    maps\_vehicle::_id_1857( "script_vehicle_uaz_hardtop_destructible", "brakelight_troops_left", "tag_light_left_back", "vfx/map/icbm/car_brakelight_icbm", "brakelights" );
 }

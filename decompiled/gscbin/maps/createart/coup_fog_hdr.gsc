@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "coup" );
+    var_0 = maps\_utility::_id_23DF( "coup" );
     var_0._id_8D08 = 104.384;
     var_0._id_4500 = 25679.4;
     var_0._id_7299 = 0.806017;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 200;
     var_0._id_0DBC = 1050;
-    var_0 = _id_A5A4::_id_23DF( "coup_end" );
+    var_0 = maps\_utility::_id_23DF( "coup_end" );
     var_0._id_8D08 = 104.384;
     var_0._id_4500 = 25679.4;
     var_0._id_7299 = 0.806017;
@@ -110,7 +110,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -18.8014, 88.3258, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

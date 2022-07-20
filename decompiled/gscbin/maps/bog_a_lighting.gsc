@@ -27,14 +27,14 @@ main()
     level.cheat_highcontrast_override = "_night";
     enableouterspacemodellighting( ( 10000, 10000, 10000 ), ( 0.001, 0.001, 0.001 ) );
     thread _id_8106();
-    thread _id_A54E::_id_694A( "firelight_motion_dim_01", "firelight_dim_01" );
-    thread _id_A54E::_id_694A( "firelight_motion_dim_02", "firelight_dim_02" );
-    thread _id_A54E::_id_694A( "firelight_motion_medium_01", "firelight_medium_01" );
-    thread _id_A54E::_id_694A( "firelight_motion_medium_02", "firelight_medium_02" );
-    thread _id_A54E::_id_694A( "firelight_motion_bright_01", "firelight_bright_01" );
-    thread _id_A54E::_id_694A( "firelight_motion_bright_02", "firelight_bright_02" );
-    thread _id_A54E::_id_694A( "firelight_motion_verybright_01", "firelight_verybright_01" );
-    thread _id_A54E::_id_694A( "firelight_motion_ridonculous_01", "firelight_ridonculous_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_dim_01", "firelight_dim_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_dim_02", "firelight_dim_02" );
+    thread maps\_lighting::_id_694A( "firelight_motion_medium_01", "firelight_medium_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_medium_02", "firelight_medium_02" );
+    thread maps\_lighting::_id_694A( "firelight_motion_bright_01", "firelight_bright_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_bright_02", "firelight_bright_02" );
+    thread maps\_lighting::_id_694A( "firelight_motion_verybright_01", "firelight_verybright_01" );
+    thread maps\_lighting::_id_694A( "firelight_motion_ridonculous_01", "firelight_ridonculous_01" );
     level.nightvisionlightset = "nightvision_bog_a";
     _func_144( "bog_a_nightvision" );
     setsaveddvar( "sm_cacheSunShadowEnabled", 0 );
@@ -54,19 +54,19 @@ _id_80C6()
 _id_7E68()
 {
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
-    _id_A5A4::_id_9E6E( "bog_a", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "bog_a" );
+    maps\_utility::_id_9E6E( "bog_a", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "bog_a" );
     level.playercardbackground _meth_848c( "clut_bog_a", 0.0 );
 }
 
 _id_8106()
 {
-    _id_A54E::_id_23B3( "firelight_motion_dim_01", ( 0.86, 0.5, 0.15 ), 10, 12, 0.15, 0.75 );
-    _id_A54E::_id_23B3( "firelight_motion_dim_02", ( 0.86, 0.5, 0.15 ), 13, 12, 0.15, 0.75 );
-    _id_A54E::_id_23B3( "firelight_motion_medium_01", ( 0.86, 0.5, 0.15 ), 35, 12, 0.15, 0.75 );
-    _id_A54E::_id_23B3( "firelight_motion_medium_02", ( 0.86, 0.5, 0.15 ), 35, 12, 0.15, 0.75 );
-    _id_A54E::_id_23B3( "firelight_motion_bright_01", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
-    _id_A54E::_id_23B3( "firelight_motion_bright_02", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
-    _id_A54E::_id_23B3( "firelight_motion_verybright_01", ( 0.86, 0.5, 0.15 ), 200, 30, 0.6, 1.5 );
-    _id_A54E::_id_23B3( "firelight_motion_ridonculous_01", ( 0.86, 0.5, 0.15 ), 4000, 40, 1, 2.5 );
+    maps\_lighting::_id_23B3( "firelight_motion_dim_01", ( 0.86, 0.5, 0.15 ), 10, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_dim_02", ( 0.86, 0.5, 0.15 ), 13, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_medium_01", ( 0.86, 0.5, 0.15 ), 35, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_medium_02", ( 0.86, 0.5, 0.15 ), 35, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_bright_01", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
+    maps\_lighting::_id_23B3( "firelight_motion_bright_02", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
+    maps\_lighting::_id_23B3( "firelight_motion_verybright_01", ( 0.86, 0.5, 0.15 ), 200, 30, 0.6, 1.5 );
+    maps\_lighting::_id_23B3( "firelight_motion_ridonculous_01", ( 0.86, 0.5, 0.15 ), 4000, 40, 1, 2.5 );
 }

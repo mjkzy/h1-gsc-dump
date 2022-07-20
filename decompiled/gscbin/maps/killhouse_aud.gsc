@@ -34,9 +34,9 @@ main()
 
 _id_2110()
 {
-    _id_A5DC::_id_7EC8( "shg" );
-    _id_A5F7::_id_8757( "med_occlusion" );
-    _id_A5DE::_id_5CF2( "mix_killhouse_global" );
+    soundscripts\_audio::_id_7EC8( "shg" );
+    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_killhouse_global" );
     aud_deactivate_hangar_transition_zone();
 }
 
@@ -77,19 +77,19 @@ _id_6ECB()
 
 _id_72E8()
 {
-    _id_A5E8::_id_874D( "start_inside_checkpoint", ::start_inside_checkpoint );
-    _id_A5E8::_id_874D( "start_look_training_checkpoint", ::start_look_training_checkpoint );
-    _id_A5E8::_id_874D( "start_rifle_start_checkpoint", ::start_rifle_start_checkpoint );
-    _id_A5E8::_id_874D( "start_rifle_timed_start_checkpoint", ::start_rifle_timed_start_checkpoint );
-    _id_A5E8::_id_874D( "start_sidearm_start_checkpoint", ::start_sidearm_start_checkpoint );
-    _id_A5E8::_id_874D( "start_frag_start_checkpoint", ::start_frag_start_checkpoint );
-    _id_A5E8::_id_874D( "start_launcher_start_checkpoint", ::start_launcher_start_checkpoint );
-    _id_A5E8::_id_874D( "start_explosives_start_checkpoint", ::start_explosives_start_checkpoint );
-    _id_A5E8::_id_874D( "start_course_start_checkpoint", ::start_course_start_checkpoint );
-    _id_A5E8::_id_874D( "start_reveal_start_checkpoint", ::start_reveal_start_checkpoint );
-    _id_A5E8::_id_874D( "start_cargoship_start_checkpoint", ::start_cargoship_start_checkpoint );
-    _id_A5E8::_id_874D( "start_debrief_start_checkpoint", ::start_debrief_start_checkpoint );
-    _id_A5E8::_id_874D( "start_fade_to_black_end", ::start_fade_to_black_end );
+    soundscripts\_snd::_id_874D( "start_inside_checkpoint", ::start_inside_checkpoint );
+    soundscripts\_snd::_id_874D( "start_look_training_checkpoint", ::start_look_training_checkpoint );
+    soundscripts\_snd::_id_874D( "start_rifle_start_checkpoint", ::start_rifle_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_rifle_timed_start_checkpoint", ::start_rifle_timed_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_sidearm_start_checkpoint", ::start_sidearm_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_frag_start_checkpoint", ::start_frag_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_launcher_start_checkpoint", ::start_launcher_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_explosives_start_checkpoint", ::start_explosives_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_course_start_checkpoint", ::start_course_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_reveal_start_checkpoint", ::start_reveal_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_cargoship_start_checkpoint", ::start_cargoship_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_debrief_start_checkpoint", ::start_debrief_start_checkpoint );
+    soundscripts\_snd::_id_874D( "start_fade_to_black_end", ::start_fade_to_black_end );
 }
 
 _id_A3E6( var_0, var_1 )
@@ -104,62 +104,62 @@ _id_5FFD( var_0, var_1 )
 
 start_inside_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
 }
 
 start_look_training_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
 }
 
 start_rifle_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
 }
 
 start_rifle_timed_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
 }
 
 start_sidearm_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
 }
 
 start_frag_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 start_launcher_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 start_explosives_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 start_course_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 start_reveal_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 start_cargoship_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar2" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar2" );
 }
 
 start_debrief_start_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "hangar2" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar2" );
 }
 
 aud_deactivate_hangar_transition_zone()
@@ -170,7 +170,7 @@ aud_deactivate_hangar_transition_zone()
 
 aud_activate_hangar_transition_zone()
 {
-    _id_A5A4::_id_3101( "hangar_audio_transition_zone" );
+    maps\_utility::_id_3101( "hangar_audio_transition_zone" );
 }
 
 aud_disable_bm21_idle()
@@ -212,7 +212,7 @@ aud_entity_link_on_tag( var_0, var_1, var_2 )
 
 aud_vehicle_node_handler( var_0 )
 {
-    var_1 = _id_A5A4::_id_3F83( var_0, "script_noteworthy" );
+    var_1 = maps\_utility::_id_3F83( var_0, "script_noteworthy" );
     var_1 waittill( "trigger", var_2 );
 }
 
@@ -224,8 +224,8 @@ aud_timer_end()
 
 aud_jet_passby()
 {
-    var_0 = _id_A5A4::_id_3F83( "jet01_sound", "script_noteworthy" );
-    var_1 = _id_A5A4::_id_3F83( "jet02_sound", "script_noteworthy" );
+    var_0 = maps\_utility::_id_3F83( "jet01_sound", "script_noteworthy" );
+    var_1 = maps\_utility::_id_3F83( "jet02_sound", "script_noteworthy" );
     thread aud_jet_start_node_handler( var_0 );
     thread aud_jet_start_node_handler( var_1 );
 }
@@ -234,22 +234,22 @@ aud_jet_start_node_handler( var_0 )
 {
     var_0 waittill( "trigger", var_1 );
     wait 0.9;
-    var_1 thread _id_A5A4::_id_69C4( "scn_mig29_passby" );
-    var_1 thread _id_A5A4::_id_69C4( "veh_mig29_passby_layer" );
+    var_1 thread maps\_utility::_id_69C4( "scn_mig29_passby" );
+    var_1 thread maps\_utility::_id_69C4( "veh_mig29_passby_layer" );
 }
 
 aud_vehicle_driveby_manager()
 {
     if ( self.visionsetnaked == "bm21_troops" )
     {
-        _id_A5DE::_id_5CF2( "bm21_engine_mute" );
-        thread _id_A5A4::_id_69C4( "scn_bm21_break" );
-        thread _id_A5A4::_id_69C4( "scn_bm21_horn" );
+        soundscripts\_audio_mix_manager::_id_5CF2( "bm21_engine_mute" );
+        thread maps\_utility::_id_69C4( "scn_bm21_break" );
+        thread maps\_utility::_id_69C4( "scn_bm21_horn" );
     }
     else
     {
-        thread _id_A5A4::_id_69C4( "scn_jeep_break" );
-        thread _id_A5A4::_id_69C4( "scn_jeep_horn" );
+        thread maps\_utility::_id_69C4( "scn_jeep_break" );
+        thread maps\_utility::_id_69C4( "scn_jeep_horn" );
     }
 }
 
@@ -257,8 +257,8 @@ aud_vehicle_driveby_reset()
 {
     if ( self.visionsetnaked == "bm21_troops" )
     {
-        _id_A5DE::_id_5CF6( "bm21_engine_mute" );
-        thread _id_A5A4::_id_69C4( "scn_bm21_start" );
+        soundscripts\_audio_mix_manager::_id_5CF6( "bm21_engine_mute" );
+        thread maps\_utility::_id_69C4( "scn_bm21_start" );
     }
 }
 
@@ -274,7 +274,7 @@ aud_bm21_tire_sounds()
 aud_fail_mix()
 {
     level waittill( "mission failed" );
-    _id_A5DE::_id_5CF2( "fail_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "fail_mix" );
 }
 
 aud_hangar_amb_ext()
@@ -291,5 +291,5 @@ aud_hangar_amb_ext()
 
 start_fade_to_black_end()
 {
-    _id_A5DE::_id_5CF2( "fade_to_black_end_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "fade_to_black_end_mix" );
 }

@@ -302,7 +302,7 @@ ambient_trigger()
 
         while ( level.playercardbackground istouching( self ) )
         {
-            var_11 = _id_A5A4::_id_3E3D( var_4, var_5, level.playercardbackground.origin, var_7 );
+            var_11 = maps\_utility::_id_3E3D( var_4, var_5, level.playercardbackground.origin, var_7 );
 
             if ( var_11 < 0 )
                 var_11 = 0;
@@ -341,7 +341,7 @@ ambient_trigger_sets_ambience_levels( var_0, var_1, var_2, var_3, var_4 )
 
     for (;;)
     {
-        var_5 = _id_A5A4::_id_3E3D( var_0, var_1, level.playercardbackground.origin, var_2 );
+        var_5 = maps\_utility::_id_3E3D( var_0, var_1, level.playercardbackground.origin, var_2 );
 
         if ( var_5 < 0 )
         {

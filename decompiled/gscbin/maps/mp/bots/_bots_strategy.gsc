@@ -1713,12 +1713,9 @@ _id_1649( var_0, var_1 )
             if ( var_3.unlockpoints == var_0 )
             {
                 if ( isdefined( var_1 ) && isdefined( var_3._id_62E1 ) )
-                {
                     return var_3._id_62E1 == var_1;
-                    continue;
-                }
-
-                return 1;
+                else
+                    return 1;
             }
         }
 

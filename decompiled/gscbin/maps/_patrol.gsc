@@ -43,14 +43,14 @@ _id_66FC( var_0, var_1, var_2 )
         var_3 = self._id_6718;
 
     var_4 = isdefined( self.canpatrolturn ) && self.canpatrolturn;
-    _id_A5A4::_id_7E45( var_3, 1, !var_4 );
+    maps\_utility::_id_7E45( var_3, 1, !var_4 );
     thread patrol_walk_twitch_loop();
     var_5[1][1] = ::_id_3E8A;
     var_5[1][0] = common_scripts\utility::_id_3DBD;
     var_5[0][1] = ::_id_3E8C;
     var_5[0][0] = ::_id_3DBE;
-    var_6[1] = _id_A5A4::_id_7E47;
-    var_6[0] = _id_A5A4::_id_7E4B;
+    var_6[1] = maps\_utility::_id_7E47;
+    var_6[0] = maps\_utility::_id_7E4B;
 
     if ( isdefined( var_0 ) )
         self._not_team = var_0;
@@ -117,7 +117,7 @@ _id_66FC( var_0, var_1, var_2 )
             if ( !isdefined( var_2 ) || var_2 == 0 )
             {
                 var_13 = "patrol_stop";
-                _id_A510::_id_0BCA( self, "gravity", var_13 );
+                maps\_anim::_id_0BCA( self, "gravity", var_13 );
             }
 
             switch ( var_10._id_793C )
@@ -128,13 +128,13 @@ _id_66FC( var_0, var_1, var_2 )
                     if ( var_14 == "patrol_idle_2" && !can_smoke() )
                         var_14 = "patrol_idle_" + randomintrange( 3, 6 );
 
-                    _id_A510::_id_0BC9( self, var_14 );
+                    maps\_anim::_id_0BC9( self, var_14 );
                     var_15 = "patrol_start";
-                    _id_A510::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
                     break;
                 case "turn180":
                     var_16 = "patrol_turn180";
-                    _id_A510::_id_0BCA( self, "gravity", var_16 );
+                    maps\_anim::_id_0BCA( self, "gravity", var_16 );
                     break;
                 case "smoke":
                     var_17 = "patrol_idle_smoke";
@@ -142,27 +142,27 @@ _id_66FC( var_0, var_1, var_2 )
                     if ( !can_smoke() )
                         var_17 = "patrol_idle_" + randomintrange( 3, 6 );
 
-                    _id_A510::_id_0BC9( self, var_17 );
+                    maps\_anim::_id_0BC9( self, var_17 );
                     var_15 = "patrol_start";
-                    _id_A510::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
                     break;
                 case "stretch":
                     var_17 = "patrol_idle_stretch";
-                    _id_A510::_id_0BC9( self, var_17 );
+                    maps\_anim::_id_0BC9( self, var_17 );
                     var_15 = "patrol_start";
-                    _id_A510::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
                     break;
                 case "checkphone":
                     var_17 = "patrol_idle_checkphone";
-                    _id_A510::_id_0BC9( self, var_17 );
+                    maps\_anim::_id_0BC9( self, var_17 );
                     var_15 = "patrol_start";
-                    _id_A510::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
                     break;
                 case "phone":
                     var_17 = "patrol_idle_phone";
-                    _id_A510::_id_0BC9( self, var_17 );
+                    maps\_anim::_id_0BC9( self, var_17 );
                     var_15 = "patrol_start";
-                    _id_A510::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
                     break;
             }
         }
@@ -291,15 +291,15 @@ patrol_walk_twitch_loop()
             var_0 = self._id_6719;
 
         var_1 = isdefined( self.canpatrolturn ) && self.canpatrolturn;
-        _id_A5A4::_id_7E45( var_0, 1, !var_1 );
-        var_2 = getanimlength( _id_A5A4::_id_3EF7( var_0 ) );
+        maps\_utility::_id_7E45( var_0, 1, !var_1 );
+        var_2 = getanimlength( maps\_utility::_id_3EF7( var_0 ) );
         wait(var_2);
         var_0 = "patrol_walk";
 
         if ( isdefined( self._id_6718 ) )
             var_0 = self._id_6718;
 
-        _id_A5A4::_id_7E45( var_0, 1, !var_1 );
+        maps\_utility::_id_7E45( var_0, 1, !var_1 );
     }
 }
 
@@ -333,7 +333,7 @@ _id_A078()
 
     if ( !isdefined( self._id_0669 ) )
     {
-        _id_A5A4::_id_1ED1();
+        maps\_utility::_id_1ED1();
         self _meth_81ce( "stand", "crouch", "prone" );
         self._id_2AF3 = 0;
         self._id_2B0E = 0;

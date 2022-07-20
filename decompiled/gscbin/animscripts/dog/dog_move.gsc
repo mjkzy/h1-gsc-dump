@@ -333,7 +333,7 @@ stopmove()
 
 dogplaysoundandnotify( var_0, var_1 )
 {
-    _id_A5A4::_id_69C6( var_0, "tag_eye" );
+    maps\_utility::_id_69C6( var_0, "tag_eye" );
 
     if ( isalive( self ) )
         self notify( var_1 );

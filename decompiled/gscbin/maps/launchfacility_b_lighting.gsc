@@ -45,8 +45,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "launchfacility_b", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "launchfacility_b" );
+    maps\_utility::_id_9E6E( "launchfacility_b", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "launchfacility_b" );
     level.playercardbackground _meth_848c( "clut_launchfacility_b", 0.0 );
 }
 
@@ -63,8 +63,8 @@ setup_spinning_ents()
         if ( isdefined( var_4 ) )
         {
             var_3 linkto( var_0 );
-            var_3 thread _id_A5A4::yaw_ent_by_linked( 1.0 );
-            var_4 thread _id_A5A4::rotate_ent_with_ent( var_3 );
+            var_3 thread maps\_utility::yaw_ent_by_linked( 1.0 );
+            var_4 thread maps\_utility::rotate_ent_with_ent( var_3 );
         }
     }
 }

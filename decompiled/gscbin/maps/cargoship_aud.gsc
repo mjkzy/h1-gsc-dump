@@ -35,9 +35,9 @@ main()
 
 _id_2110()
 {
-    _id_A5DC::_id_7EC8( "shg" );
-    _id_A5F7::_id_8757( "med_occlusion" );
-    _id_A5DE::_id_5CF2( "mix_cargoship_global" );
+    soundscripts\_audio::_id_7EC8( "shg" );
+    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_cargoship_global" );
 }
 
 _id_4D5B()
@@ -69,13 +69,13 @@ _id_5618()
 _id_5617()
 {
     wait 0.1;
-    thread _id_A5DC::_id_0FF4( "ocean_emitter_left", "emt_waves_crashing_far", ( 3649.9, -899.7, -13 ), ( -3582, -899.7, -13 ), 0.5 );
-    thread _id_A5DC::_id_0FF4( "ocean_emitter_right", "emt_waves_crashing_far", ( 3710.4, 893.8, -13 ), ( -3586.4, 896.9, -13 ), 0.5 );
-    thread _id_A5DC::_id_0FF4( "hangar_emitter_center01 ", "emt_water_drop_metal", ( -1894.71, -27.25, -407.875 ), ( -1142.67, -20.391, -407.875 ), 0.5 );
-    thread _id_A5DC::_id_0FF4( "hangar_emitter_center02 ", "emt_water_drop_metal", ( -963.804, -5.706, -407.875 ), ( -830.211, 2.213, -407.875 ), 0.5 );
-    thread _id_A5DC::_id_0FF4( "hangar_emitter_center03 ", "emt_water_drop_metal", ( -548.97, 8.78, -407.875 ), ( 131.804, 11.023, -407.875 ), 0.5 );
-    thread _id_A5DC::_id_0FF4( "hangar_emitter_center04 ", "emt_water_drop_metal", ( 549.98, 14.846, -407.875 ), ( 995.199, 22.681, -407.875 ), 0.5 );
-    thread _id_A5DC::_id_0FF4( "hangar_emitter_center05 ", "emt_water_drop_metal", ( 1255.19, 11.04, -407.875 ), ( 2497.56, 2.806, -407.875 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_left", "emt_waves_crashing_far", ( 3649.9, -899.7, -13 ), ( -3582, -899.7, -13 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_right", "emt_waves_crashing_far", ( 3710.4, 893.8, -13 ), ( -3586.4, 896.9, -13 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center01 ", "emt_water_drop_metal", ( -1894.71, -27.25, -407.875 ), ( -1142.67, -20.391, -407.875 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center02 ", "emt_water_drop_metal", ( -963.804, -5.706, -407.875 ), ( -830.211, 2.213, -407.875 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center03 ", "emt_water_drop_metal", ( -548.97, 8.78, -407.875 ), ( 131.804, 11.023, -407.875 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center04 ", "emt_water_drop_metal", ( 549.98, 14.846, -407.875 ), ( 995.199, 22.681, -407.875 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center05 ", "emt_water_drop_metal", ( 1255.19, 11.04, -407.875 ), ( 2497.56, 2.806, -407.875 ), 0.5 );
 }
 
 _id_23C4()
@@ -90,32 +90,32 @@ _id_6ECB()
 
 _id_72E8()
 {
-    _id_A5E8::_id_874D( "snd_zone_handler", ::_id_A3E6 );
-    _id_A5E8::_id_874D( "snd_music_handler", ::_id_5FFD );
-    _id_A5E8::_id_874D( "aud_start_checkpoint", ::aud_start_checkpoint );
-    _id_A5E8::_id_874D( "aud_bridge_checkpoint", ::aud_bridge_checkpoint );
-    _id_A5E8::_id_874D( "aud_deck_checkpoint", ::aud_deck_checkpoint );
-    _id_A5E8::_id_874D( "aud_hallways_checkpoint", ::aud_hallways_checkpoint );
-    _id_A5E8::_id_874D( "aud_cargohold_checkpoint", ::aud_cargohold_checkpoint );
-    _id_A5E8::_id_874D( "aud_cargohold2_checkpoint", ::aud_cargohold2_checkpoint );
-    _id_A5E8::_id_874D( "aud_laststand_checkpoint", ::aud_laststand_checkpoint );
-    _id_A5E8::_id_874D( "aud_package_checkpoint", ::aud_package_checkpoint );
-    _id_A5E8::_id_874D( "aud_escape_checkpoint", ::aud_escape_checkpoint );
-    _id_A5E8::_id_874D( "aud_end_checkpoint", ::aud_end_checkpoint );
-    _id_A5E8::_id_874D( "aud_get_out_blackhawk", ::aud_get_out_blackhawk );
-    _id_A5E8::_id_874D( "aud_stop_intro_mix", ::aud_stop_intro_mix );
-    _id_A5E8::_id_874D( "aud_get_in_seaknight", ::aud_get_in_seaknight );
-    _id_A5E8::_id_874D( "aud_start_mix_heli_shoot_window", ::aud_start_mix_heli_shoot_window );
-    _id_A5E8::_id_874D( "aud_stop_mix_heli_shoot_window", ::aud_stop_mix_heli_shoot_window );
-    _id_A5E8::_id_874D( "aud_stop_mix_moving_to_hallway", ::aud_stop_mix_moving_to_hallway );
-    _id_A5E8::_id_874D( "aud_start_mix_npc_pre_explosion", ::aud_start_mix_npc_pre_explosion );
-    _id_A5E8::_id_874D( "aud_start_mix_scn_explosion", ::aud_start_mix_scn_explosion );
-    _id_A5E8::_id_874D( "aud_start_mix_escape", ::aud_start_mix_escape );
-    _id_A5E8::_id_874D( "start_mix_final_jump", ::start_mix_final_jump );
-    _id_A5E8::_id_874D( "start_mix_finale_music", ::start_mix_finale_music );
-    _id_A5E8::_id_874D( "start_title_logo_mix", ::start_title_logo_mix );
-    _id_A5E8::_id_874D( "aud_start_sway1", ::aud_start_sway1 );
-    _id_A5E8::_id_874D( "aud_start_sway2", ::aud_start_sway2 );
+    soundscripts\_snd::_id_874D( "snd_zone_handler", ::_id_A3E6 );
+    soundscripts\_snd::_id_874D( "snd_music_handler", ::_id_5FFD );
+    soundscripts\_snd::_id_874D( "aud_start_checkpoint", ::aud_start_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_bridge_checkpoint", ::aud_bridge_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_deck_checkpoint", ::aud_deck_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_hallways_checkpoint", ::aud_hallways_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_cargohold_checkpoint", ::aud_cargohold_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_cargohold2_checkpoint", ::aud_cargohold2_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_laststand_checkpoint", ::aud_laststand_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_package_checkpoint", ::aud_package_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_escape_checkpoint", ::aud_escape_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_end_checkpoint", ::aud_end_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_get_out_blackhawk", ::aud_get_out_blackhawk );
+    soundscripts\_snd::_id_874D( "aud_stop_intro_mix", ::aud_stop_intro_mix );
+    soundscripts\_snd::_id_874D( "aud_get_in_seaknight", ::aud_get_in_seaknight );
+    soundscripts\_snd::_id_874D( "aud_start_mix_heli_shoot_window", ::aud_start_mix_heli_shoot_window );
+    soundscripts\_snd::_id_874D( "aud_stop_mix_heli_shoot_window", ::aud_stop_mix_heli_shoot_window );
+    soundscripts\_snd::_id_874D( "aud_stop_mix_moving_to_hallway", ::aud_stop_mix_moving_to_hallway );
+    soundscripts\_snd::_id_874D( "aud_start_mix_npc_pre_explosion", ::aud_start_mix_npc_pre_explosion );
+    soundscripts\_snd::_id_874D( "aud_start_mix_scn_explosion", ::aud_start_mix_scn_explosion );
+    soundscripts\_snd::_id_874D( "aud_start_mix_escape", ::aud_start_mix_escape );
+    soundscripts\_snd::_id_874D( "start_mix_final_jump", ::start_mix_final_jump );
+    soundscripts\_snd::_id_874D( "start_mix_finale_music", ::start_mix_finale_music );
+    soundscripts\_snd::_id_874D( "start_title_logo_mix", ::start_title_logo_mix );
+    soundscripts\_snd::_id_874D( "aud_start_sway1", ::aud_start_sway1 );
+    soundscripts\_snd::_id_874D( "aud_start_sway2", ::aud_start_sway2 );
 }
 
 _id_A3E6( var_0, var_1 )
@@ -130,130 +130,130 @@ _id_5FFD( var_0, var_1 )
 
 aud_start_checkpoint()
 {
-    _id_A5DE::_id_5CF2( "intro_mix" );
-    _id_A5E7::_id_123A( "cargoship_inside_blackhawk" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "intro_mix" );
+    soundscripts\_audio_zone_manager::_id_123A( "cargoship_inside_blackhawk" );
 }
 
 aud_bridge_checkpoint()
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_deck_checkpoint()
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_hallways_checkpoint()
 {
-    _id_A5DE::_id_5CF2( "mix_moving_to_hallway" );
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_moving_to_hallway" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_cargohold_checkpoint()
 {
-    _id_A5E7::_id_123A( "interior_metal" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_metal" );
 }
 
 aud_cargohold2_checkpoint()
 {
-    _id_A5E7::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
 }
 
 aud_laststand_checkpoint()
 {
-    _id_A5E7::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
 }
 
 aud_package_checkpoint()
 {
-    _id_A5E7::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
 }
 
 aud_escape_checkpoint()
 {
-    _id_A5E7::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
 }
 
 aud_end_checkpoint()
 {
-    _id_A5DE::_id_5CF2( "mix_escape" );
-    _id_A5E7::_id_123A( "interior_metal" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_escape" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_metal" );
 }
 
 _id_4F77()
 {
     common_scripts\utility::_id_384A( "introscreen_activate" );
-    _id_A5DE::_id_5CF2( "cargoship_intro_mute" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "cargoship_intro_mute" );
     intro_check_end();
 }
 
 intro_check_end()
 {
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
-    _id_A5DE::_id_5CF6( "cargoship_intro_mute", 1.75 );
+    soundscripts\_audio_mix_manager::_id_5CF6( "cargoship_intro_mute", 1.75 );
 }
 
 aud_get_out_blackhawk()
 {
-    _id_A5E7::_id_123A( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior", 0.3 );
 }
 
 aud_stop_intro_mix()
 {
-    _id_A5DE::_id_5CF6( "intro_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "intro_mix" );
 }
 
 aud_get_in_seaknight()
 {
-    _id_A5DE::_id_5CF6( "mix_final_jump" );
-    _id_A5E7::_id_123A( "cargoship_inside_seaknight", 0.3 );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_final_jump" );
+    soundscripts\_audio_zone_manager::_id_123A( "cargoship_inside_seaknight", 0.3 );
 }
 
 aud_start_mix_deck_windows()
 {
     common_scripts\utility::_id_384A( "aud_mix_deck_window" );
-    _id_A5DE::_id_5CF2( "mix_deck_windows" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_deck_windows" );
 }
 
 aud_start_mix_heli_shoot_window()
 {
-    _id_A5DE::_id_5CF6( "mix_deck_windows" );
-    _id_A5DE::_id_5CF2( "mix_heli_shoot_window" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_deck_windows" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_heli_shoot_window" );
 }
 
 aud_stop_mix_heli_shoot_window()
 {
-    _id_A5DE::_id_5CF6( "mix_heli_shoot_window" );
-    _id_A5DE::_id_5CF2( "mix_moving_to_hallway" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_heli_shoot_window" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_moving_to_hallway" );
 }
 
 aud_stop_mix_moving_to_hallway()
 {
-    _id_A5DE::_id_5CF6( "mix_moving_to_hallway" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_moving_to_hallway" );
 }
 
 aud_start_mix_npc_pre_explosion()
 {
-    _id_A5DE::_id_5CF2( "mix_npc_pre_explosion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_npc_pre_explosion" );
 }
 
 aud_start_mix_scn_explosion()
 {
-    _id_A5DE::_id_5CF2( "mix_scn_explosion" );
-    _id_A5DE::_id_5CF6( "mix_npc_pre_explosion" );
-    _id_A5E7::_id_122C( 1 );
-    _id_A5E7::_id_1233( 1 );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_scn_explosion" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_npc_pre_explosion" );
+    soundscripts\_audio_zone_manager::_id_122C( 1 );
+    soundscripts\_audio_zone_manager::_id_1233( 1 );
     level.playercardbackground setreverb( "snd_enveffectsprio_level", "scn_cargo_explosion", 1, 0.7, 0.5 );
-    _id_A5F7::_id_86DB( "scn_explosion_filter", 0.5 );
+    soundscripts\_snd_filters::_id_86DB( "scn_explosion_filter", 0.5 );
 }
 
 aud_start_mix_escape()
 {
-    _id_A5DE::_id_5CF6( "mix_scn_explosion" );
-    _id_A5DE::_id_5CF2( "mix_escape" );
-    _id_A5F7::_id_86DC( 0.5 );
-    _id_A5E7::_id_122C( 0 );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_scn_explosion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_escape" );
+    soundscripts\_snd_filters::_id_86DC( 0.5 );
+    soundscripts\_audio_zone_manager::_id_122C( 0 );
     level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
     level.playercardbackground setreverb( "snd_enveffectsprio_level", "hall_metal", 1, 0.4, 0.5 );
     thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble", ( 333.375, -0.75, -99.156 ) );
@@ -264,32 +264,32 @@ aud_start_mix_escape()
 aud_start_mix_end()
 {
     common_scripts\utility::_id_384A( "aud_mix_end" );
-    _id_A5DE::_id_5CF6( "mix_escape" );
-    _id_A5DE::_id_5CF2( "mix_end" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_escape" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_end" );
     level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
-    _id_A5E7::_id_1233( 0 );
+    soundscripts\_audio_zone_manager::_id_1233( 0 );
 }
 
 start_mix_final_jump()
 {
-    _id_A5DE::_id_5CF2( "mix_final_jump" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_final_jump" );
 }
 
 start_mix_finale_music()
 {
-    _id_A5DE::_id_5CF6( "mix_end" );
-    _id_A5DE::_id_5CF2( "mix_finale_music" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_end" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_finale_music" );
 }
 
 start_title_logo_mix()
 {
     wait 6;
-    _id_A5DE::_id_5CF2( "start_title_logo_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "start_title_logo_mix" );
 }
 
 aud_start_sway1()
 {
-    level.playercardbackground thread _id_A5A4::_id_69C4( "elm_cargo_metal_stress_l" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "elm_cargo_metal_stress_l" );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 894.75, -254.68, 427.8 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 839.41, 199.43, 465.56 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( -736.85, -175.85, 444.47 ) );
@@ -299,7 +299,7 @@ aud_start_sway1()
 
 aud_start_sway2()
 {
-    level.playercardbackground thread _id_A5A4::_id_69C4( "elm_cargo_metal_stress_r" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "elm_cargo_metal_stress_r" );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 894.75, -254.68, 427.8 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 839.41, 199.43, 465.56 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( -736.85, -175.85, 444.47 ) );
@@ -329,13 +329,13 @@ start_blackhawk_move( var_0, var_1 )
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) )
         return;
 
-    _id_A5DE::_id_5CF2( "mix_heli_above_deck" );
-    var_0 thread _id_A5A4::_id_69C4( var_1 );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_heli_above_deck" );
+    var_0 thread maps\_utility::_id_69C4( var_1 );
 }
 
 stop_blackhawk_move()
 {
-    _id_A5DE::_id_5CF6( "mix_heli_above_deck" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mix_heli_above_deck" );
 }
 
 aud_alarm_sound()

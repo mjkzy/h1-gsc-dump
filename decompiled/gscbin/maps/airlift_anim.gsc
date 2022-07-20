@@ -75,8 +75,8 @@ _id_0C7A()
     level._id_78AC["frnd"]["crewchief_gun_shoot"][0] = %airlift_crewchief_gun_shoot;
     level._id_78AC["frnd"]["crewchief_gun_getin"][0] = %airlift_crewchief_gun_getin;
     level._id_78AC["frnd"]["crewchief_sucked_out"] = %airlift_crewchief_sucked_out;
-    _id_A510::_id_0805( "frnd", "crewchief_sucked_out", "foley_pilot_sucked_out", "scn_airlift_nuke_pilot_foley" );
-    _id_A510::_id_0810( "frnd", "foley_pilot_slipping_from_hand", "crewchief_sucked_out", "scn_airlift_nuke_plr_foley" );
+    maps\_anim::_id_0805( "frnd", "crewchief_sucked_out", "foley_pilot_sucked_out", "scn_airlift_nuke_pilot_foley" );
+    maps\_anim::_id_0810( "frnd", "foley_pilot_slipping_from_hand", "crewchief_sucked_out", "scn_airlift_nuke_plr_foley" );
     level._id_78AC["frnd"]["crewchief_getout_generic"][0] = %airlift_crewchief_getout;
     level._id_78AC["frnd"]["crewchief_getout_cobrastreets"][0] = %h1_airlift_landing_scene2_crewchief;
     level._id_78AC["frnd"]["crewchief_getout_smoketown"][0] = %airlift_crewchief_getout;
@@ -218,8 +218,8 @@ _id_6A5B()
     level._id_78AC["player_carry"]["wounded_putdown"] = %airlift_player_putdown;
     level._id_78AC["player_carry"]["carry_idle"] = [ %h1_airlift_player_carry_idle ];
     level._id_78AC["player_carry"]["carry_run"] = [ %h1_airlift_player_carry_run ];
-    _id_A510::_id_0805( "player_carry", "carry_run", "drag_step_right", "airlift_plr_footstep_dragR" );
-    _id_A510::_id_0805( "player_carry", "carry_run", "drag_step_left", "airlift_plr_footstep_dragL" );
+    maps\_anim::_id_0805( "player_carry", "carry_run", "drag_step_right", "airlift_plr_footstep_dragR" );
+    maps\_anim::_id_0805( "player_carry", "carry_run", "drag_step_left", "airlift_plr_footstep_dragL" );
     level._id_78B1["player_carry"] = #animtree;
     level._id_78B5["player_carry"] = "viewhands_player_usmc";
     level._id_78B1["player_viewbody"] = #animtree;

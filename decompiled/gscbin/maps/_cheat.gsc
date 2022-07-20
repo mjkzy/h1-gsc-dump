@@ -148,7 +148,7 @@ specialfeaturesmenu()
 
 tire_explosionmode_init()
 {
-    _id_A5A4::_id_0761( "axis", ::tirecheat_dogs_enemy_spawned );
+    maps\_utility::_id_0761( "axis", ::tirecheat_dogs_enemy_spawned );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::tirecheat_dogs_enemy_spawned );
 }
 
@@ -172,7 +172,7 @@ tirecheat_dogs_enemy_spawned()
         waitframe;
 
         for ( var_2 = 0; var_2 < 15; var_2++ )
-            thread _id_A581::random_tire( var_0, var_1 );
+            thread maps\_spawner::random_tire( var_0, var_1 );
 
         if ( isdefined( self ) && !isremovedentity( self ) )
             self delete();
@@ -333,7 +333,7 @@ applyvisionsets()
     {
         level._id_9E5C = 0;
         setsaveddvar( "using_vision_cheat", 0 );
-        _id_A5A4::_id_7F00( level._id_58BC, var_0 );
+        maps\_utility::_id_7F00( level._id_58BC, var_0 );
     }
 }
 
@@ -376,27 +376,27 @@ slowmo_hintprint()
 
     level.cheatshowslowmohint = 1;
     var_1 = 180;
-    var_2 = _id_A546::_id_2420( "h1_hud_tutorial_blur", 400, 25 );
-    var_3 = _id_A546::_id_2420( "h1_hud_tutorial_border", 400, 1 );
-    var_4 = _id_A546::_id_2420( "h1_hud_tutorial_border", 400, 1 );
-    var_2 _id_A546::_id_7FEE( "TOP", undefined, 0, var_1 );
+    var_2 = maps\_hud_util::_id_2420( "h1_hud_tutorial_blur", 400, 25 );
+    var_3 = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 400, 1 );
+    var_4 = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 400, 1 );
+    var_2 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 );
     var_2.space = 1;
     var_2.hindlegstraceoffset = 1;
     var_2.high_priority = 1;
     var_2.alpha = 0.9;
-    var_3 _id_A546::_id_7FEE( "TOP", undefined, 0, var_1 );
+    var_3 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 );
     var_3.space = 1;
     var_3.hindlegstraceoffset = 1;
     var_3.high_priority = 1;
     var_3.alpha = 0.05;
-    var_4 _id_A546::_id_7FEE( "TOP", undefined, 0, var_1 + 24 );
+    var_4 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 + 24 );
     var_4.space = 1;
     var_4.hindlegstraceoffset = 1;
     var_4.high_priority = 1;
     var_4.alpha = 0.05;
-    var_5 = _id_A546::_id_2401( "timer", 0.5 );
+    var_5 = maps\_hud_util::_id_2401( "timer", 0.5 );
     var_5.hindlegstraceoffset = 1;
-    var_5 _id_A546::_id_7FEE( "TOP", undefined, 0, var_1 + var_0 );
+    var_5 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 + var_0 );
     var_5.space = 0.5;
     var_5 settext( &"SCRIPT_PLATFORM_CHEAT_USETOSLOWMO" );
 
@@ -548,7 +548,7 @@ chaplinmode( var_0 )
         _func_144( "default_night" );
         setomnvar( "ui_ragtimewarefare_overlay", 0 );
         level.visionsets["chaplin"] = 0;
-        _id_A5E8::_id_870C( "aud_stop_ragtime_warfare" );
+        soundscripts\_snd::_id_870C( "aud_stop_ragtime_warfare" );
         setsaveddvar( "bg_weaponBobAmplitudeStanding", level.cheatbobamporiginal );
         setsaveddvar( "chaplincheat", "0" );
 
@@ -618,7 +618,7 @@ chaplin_titlecard( var_0 )
 chaplin_proc()
 {
     level endon( "disable_chaplin" );
-    _id_A5E8::_id_870C( "aud_start_ragtime_warfare" );
+    soundscripts\_snd::_id_870C( "aud_start_ragtime_warfare" );
 
     for (;;)
     {
@@ -689,7 +689,7 @@ melonhead_mode_init()
     level.melonhead_mode_attachtag = "j_head";
     level.melonhead_mode_model = "me_fruit_watermelon_oblong";
     precachemodel( level.melonhead_mode_model );
-    _id_A5A4::_id_0761( "axis", ::melonhead_monitor );
+    maps\_utility::_id_0761( "axis", ::melonhead_monitor );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::melonhead_monitor );
 }
 
@@ -817,9 +817,9 @@ handgun_monitor()
     for (;;)
     {
         if ( level.playercardbackground issplitscreenplayer() == 1 && level.playercardbackground getcurrentweapon() == level.cheat_handgun_weaponname )
-            level.playercardbackground _id_A5A4::_id_6C65( 0, "cheat_handgun" );
+            level.playercardbackground maps\_utility::_id_6C65( 0, "cheat_handgun" );
         else if ( level.playercardbackground issplitscreenplayer() == 0 && level.playercardbackground getcurrentweapon() != level.cheat_handgun_weaponname )
-            level.playercardbackground _id_A5A4::_id_6C65( 1, "cheat_handgun" );
+            level.playercardbackground maps\_utility::_id_6C65( 1, "cheat_handgun" );
 
         wait 0.05;
     }
@@ -855,7 +855,7 @@ givehandgun()
 takehandgun()
 {
     if ( level.playercardbackground issplitscreenplayer() == 0 )
-        level.playercardbackground _id_A5A4::_id_6C65( 1, "cheat_handgun" );
+        level.playercardbackground maps\_utility::_id_6C65( 1, "cheat_handgun" );
 
     var_0 = level.playercardbackground getcurrentweapon();
     var_1 = 0;
@@ -948,7 +948,7 @@ tracksuit_mode_init()
     precachemodel( level.tracksuit_mode_head );
     precacheitem( level.tracksuit_mode_weapon );
     precacheitem( "rpg_player" );
-    _id_A5A4::_id_0761( "axis", ::tracksuit_monitor );
+    maps\_utility::_id_0761( "axis", ::tracksuit_monitor );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::tracksuit_monitor );
 }
 
@@ -994,10 +994,10 @@ add_tracksuit()
 
         self.tracksuitmode_previousprimary = animscripts\utility::_id_3EE5();
         var_0 = tracksuit_should_equipweapon();
-        _id_A5A4::_id_39D0( level.tracksuit_mode_weapon, "primary" );
+        maps\_utility::_id_39D0( level.tracksuit_mode_weapon, "primary" );
 
         if ( !var_0 )
-            _id_A5A4::_id_4462();
+            maps\_utility::_id_4462();
 
         self.tracksuitmode_previousneverlean = self.a._id_6096;
         self.a._id_6096 = 1;
@@ -1069,7 +1069,7 @@ remove_tracksuit()
             animscripts\combat_utility::_id_315E();
 
         if ( tracksuit_should_equipweapon() )
-            _id_A5A4::_id_39D0( self.tracksuitmode_previousprimary, "primary" );
+            maps\_utility::_id_39D0( self.tracksuitmode_previousprimary, "primary" );
 
         self.secondaryweapon = self.tracksuitmode_previoussecondary;
         self.a._id_6096 = self.tracksuitmode_previousneverlean;

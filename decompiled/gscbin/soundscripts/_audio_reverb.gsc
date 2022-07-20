@@ -64,7 +64,7 @@ _id_76ED( var_0, var_1 )
 
 _id_76F3( var_0, var_1 )
 {
-    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
     {
         if ( isdefined( var_0 ) && var_0 != "none" )
         {
@@ -72,7 +72,7 @@ _id_76F3( var_0, var_1 )
 
             if ( !isdefined( var_2 ) )
             {
-                _id_A5DC::_id_102D( "Failed to load reverb preset: " + var_0 );
+                soundscripts\_audio::_id_102D( "Failed to load reverb preset: " + var_0 );
                 return;
             }
 
@@ -105,7 +105,7 @@ _id_76F3( var_0, var_1 )
 
     if ( !isdefined( var_2 ) )
     {
-        _id_A5DC::_id_102D( "Failed to load reverb preset: " + var_0 );
+        soundscripts\_audio::_id_102D( "Failed to load reverb preset: " + var_0 );
         return;
     }
 
@@ -161,7 +161,7 @@ _id_76EF()
 
 _id_76F7( var_0, var_1 )
 {
-    var_2 = _id_A5DC::_id_3E53();
+    var_2 = soundscripts\_audio::_id_3E53();
     var_3 = "soundtables/sp_defaults.csv";
     var_4 = [];
 

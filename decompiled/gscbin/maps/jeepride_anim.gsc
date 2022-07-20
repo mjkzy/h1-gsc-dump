@@ -109,22 +109,22 @@ main_anim()
     level._id_78AC["price"]["jeepride_ending_price01"] = %jeepride_ending_price;
     level._id_78AC["price"]["jeepride_ending_price02"] = %jeepride_ending_price;
     level._id_78AC["price"]["wave_player_over"] = %h1_jeepride_bridgecollapse_price;
-    _id_A510::_id_0805( "price", "jeepride_ending_price02", "scn_price_throw_colt_to_player", "scn_price_throw_colt_to_player" );
+    maps\_anim::_id_0805( "price", "jeepride_ending_price02", "scn_price_throw_colt_to_player", "scn_price_throw_colt_to_player" );
     level._id_78AC["medic"]["jeepride_CPR_medic"] = %jeepride_cpr_medic;
     level._id_78AC["price"]["jeepride_CPR_price"] = %jeepride_cpr_price;
     level._id_78B1["price"] = #animtree;
     level._id_78AC["griggs"]["drag_player"] = %jeepride_drag_grigsby;
     level._id_78AC["price"]["drag_player"] = %jeepride_ending_price;
     level._id_78B1["griggs"] = #animtree;
-    _id_A510::_id_0807( "griggs", "drop_pistol", ::drop_pistol );
-    _id_A510::_id_0807( "griggs", "fire", maps\jeepride::shoot_loc );
-    _id_A510::_id_0807( "griggs", "scripted_weaponswitch", ::scripted_weaponswitch );
-    _id_A510::_id_0807( "griggs", "brain_splatter", maps\jeepride_code::shot_in_the_head );
-    _id_A510::_id_0807( "griggs", "brain_splatter_sfx", ::play_griggs_brain_splatter_sfx, "drag_player" );
-    _id_A510::_id_0807( "griggs", "fire", ::play_griggs_custom_fire_sfx, "drag_player" );
-    _id_A510::_id_0813( "vehicles", "start_cabin_fire", "bettle_Crash", "fire_crash_jeepride", "tag_deathfx" );
-    _id_A510::_id_0813( "vehicles", "explosion_02", "bettle_Crash", "vehicle_explosion_generic", "tag_deathfx" );
-    _id_A510::_id_0807( "griggs", "scn_griggs_drag_colt_empty", ::play_griggs_custom_fire_empty_sfx, "drag_player" );
+    maps\_anim::_id_0807( "griggs", "drop_pistol", ::drop_pistol );
+    maps\_anim::_id_0807( "griggs", "fire", maps\jeepride::shoot_loc );
+    maps\_anim::_id_0807( "griggs", "scripted_weaponswitch", ::scripted_weaponswitch );
+    maps\_anim::_id_0807( "griggs", "brain_splatter", maps\jeepride_code::shot_in_the_head );
+    maps\_anim::_id_0807( "griggs", "brain_splatter_sfx", ::play_griggs_brain_splatter_sfx, "drag_player" );
+    maps\_anim::_id_0807( "griggs", "fire", ::play_griggs_custom_fire_sfx, "drag_player" );
+    maps\_anim::_id_0813( "vehicles", "start_cabin_fire", "bettle_Crash", "fire_crash_jeepride", "tag_deathfx" );
+    maps\_anim::_id_0813( "vehicles", "explosion_02", "bettle_Crash", "vehicle_explosion_generic", "tag_deathfx" );
+    maps\_anim::_id_0807( "griggs", "scn_griggs_drag_colt_empty", ::play_griggs_custom_fire_empty_sfx, "drag_player" );
     level._id_78AC["zakhaev"]["end_scene_01"] = %jeepride_zak_approach;
     level._id_78AC["zakhaev_buddy1"]["end_scene_01"] = %jeepride_lguy_approach;
     level._id_78AC["zakhaev_buddy2"]["end_scene_01"] = %jeepride_rguy_approach;
@@ -137,10 +137,10 @@ main_anim()
     level._id_78AC["end_friend_3"]["pain_loop"][1] = %jeepride_dying_back_idle;
     level._id_78AC["ru1"]["player_pickup"] = %jeepride_player_pickup_guy1;
     level._id_78AC["ru2"]["player_pickup"] = %jeepride_player_pickup_guy2;
-    _id_A510::_id_080B( "ru2", "dialog", "player_pickup", "jeepride_ru2_allrightmyfriend" );
-    _id_A510::_id_080B( "ru2", "dialog", "player_pickup", "jeepride_ru2_gethimoutofhere" );
-    _id_A510::_id_0812( "ru1", "scn_jeepride_player_pickup_guy1_foley", "player_pickup", "scn_jeepride_player_pickup_guy1_foley" );
-    _id_A510::_id_0812( "ru2", "scn_jeepride_player_pickup_guy2_foley", "player_pickup", "scn_jeepride_player_pickup_guy2_foley" );
+    maps\_anim::_id_080B( "ru2", "dialog", "player_pickup", "jeepride_ru2_allrightmyfriend" );
+    maps\_anim::_id_080B( "ru2", "dialog", "player_pickup", "jeepride_ru2_gethimoutofhere" );
+    maps\_anim::_id_0812( "ru1", "scn_jeepride_player_pickup_guy1_foley", "player_pickup", "scn_jeepride_player_pickup_guy1_foley" );
+    maps\_anim::_id_0812( "ru2", "scn_jeepride_player_pickup_guy2_foley", "player_pickup", "scn_jeepride_player_pickup_guy2_foley" );
     level._id_78AC["zakhaev"]["end_scene_02"] = %jeepride_zak_end;
     level._id_78AC["zakhaev_buddy1"]["end_scene_02"] = %jeepride_lguy_end;
     level._id_78AC["zakhaev_buddy2"]["end_scene_02"] = %jeepride_rguy_end;
@@ -168,7 +168,7 @@ main_anim()
     level._id_78AC["generic"]["rpgfromgriggs_price_idle"] = %uaz_lguy_idle_hide;
     level._id_78AC["griggs"]["rpgfromgriggs_griggs"] = %h1_jeepride_rpgfromgriggs_griggs;
     level._id_78AC["generic"]["rpgfromgriggs_griggs_idle"] = %uaz_rguy_idle;
-    _id_A510::_id_0807( "griggs", "drop_rpg", maps\jeepride::remove_rpg_models, "rpgfromgriggs_griggs" );
+    maps\_anim::_id_0807( "griggs", "drop_rpg", maps\jeepride::remove_rpg_models, "rpgfromgriggs_griggs" );
     _id_9C8B();
     _id_6A5B();
     thread cliff_collapse_anim();
@@ -195,25 +195,25 @@ drop_pistol( var_0 )
     var_3 = spawn( "script_model", var_0 gettagorigin( var_1 ) );
     var_3 setmodel( "weapon_colt1911_white" );
     var_3.angles = var_0 gettagorigin( var_1 );
-    var_3 physicslaunch( var_3.origin + ( 0, 0, 0 ), _id_A5A4::vector_multiply( var_3.origin - var_2, 25 ) );
+    var_3 physicslaunch( var_3.origin + ( 0, 0, 0 ), maps\_utility::vector_multiply( var_3.origin - var_2, 25 ) );
 }
 
 play_griggs_brain_splatter_sfx( var_0 )
 {
-    var_0 thread _id_A5A4::_id_69C5( "scn_griggs_shot_in_the_head", "TAG_EYE" );
+    var_0 thread maps\_utility::_id_69C5( "scn_griggs_shot_in_the_head", "TAG_EYE" );
 }
 
 play_griggs_custom_fire_sfx( var_0 )
 {
     if ( isdefined( var_0.scriptedweapon ) && var_0.scriptedweapon == "wpn_h1_pst_m1911_vm" )
-        var_0.scriptedweaponmodel thread _id_A5A4::_id_69C5( "scn_griggs_drag_colt_shot", "TAG_FLASH" );
+        var_0.scriptedweaponmodel thread maps\_utility::_id_69C5( "scn_griggs_drag_colt_shot", "TAG_FLASH" );
     else
-        var_0 thread _id_A5A4::_id_69C5( "scn_griggs_drag_saw_shot", "TAG_FLASH" );
+        var_0 thread maps\_utility::_id_69C5( "scn_griggs_drag_saw_shot", "TAG_FLASH" );
 }
 
 play_griggs_custom_fire_empty_sfx( var_0 )
 {
-    var_0.scriptedweaponmodel thread _id_A5A4::_id_69C5( "scn_griggs_drag_colt_empty", "TAG_FLASH" );
+    var_0.scriptedweaponmodel thread maps\_utility::_id_69C5( "scn_griggs_drag_colt_empty", "TAG_FLASH" );
 }
 #using_animtree("player");
 
@@ -253,39 +253,39 @@ _id_9C8B()
     level._id_78AC["vehicles"]["bettle_Crash"] = %h1_civilian_beetle_explosion;
     level._id_78AC["vehicles"]["rock_Crash"] = %h1_civilian_pickup_rockcrash;
     level._id_78AC["vehicles"]["concrete_Crash"] = %h1_civilian_pickup_concretecrash;
-    _id_A510::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::crossroad_crash, "crossroad_crash" );
-    _id_A510::_id_0807( "vehicles", "explosion_end", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "crossroad_crash", "scn_bm21_explode" );
-    _id_A510::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::truck_tanker_crash, "truck_tanker_crash" );
-    _id_A510::_id_0807( "vehicles", "explosion_end_FX", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "truck_tanker_crash", "scn_bm21_explode" );
-    _id_A510::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::tanker_tanker_crash, "tanker_tanker_crash" );
-    _id_A510::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::tunnel_crash_truck01, "tunnel_crash_truck01" );
-    _id_A510::_id_0807( "vehicles", "explosion_fx", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "tunnel_crash_truck01", "scn_bm21_explode" );
-    _id_A510::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::tunnel_crash_truck02, "tunnel_crash_truck02" );
-    _id_A510::_id_0813( "vehicles", "hit_three_crash", "three_crash", "sedan_impact_civilian_treecrash", "rear_door_left_jnt" );
-    _id_A510::_id_0813( "vehicles", "rock_hit", "rock_Crash", "pickuptruck_civilian_rockcrash", "door_open_r2_jnt" );
-    _id_A510::_id_0813( "vehicles", "HitConcrete", "crossroad_crash", "offroad_truck_tire_hit_concrete", "tag_wheel_front_left" );
-    _id_A510::_id_0813( "vehicles", "impact_water", "crossroad_crash", "offroad_truck_hit_water", "tag_wheel_front_left" );
-    _id_A510::_id_0813( "vehicles", "explosion_end", "crossroad_crash", "offroad_truck_explosion", "tag_wheel_front_left" );
-    _id_A510::_id_080C( "vehicles", "explosion_fx", "tunnel_explosion_fx_flag", "tunnel_crash_truck01" );
-    _id_A510::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_leak_jeepride", "tag_fx_top_ladder" );
-    _id_A510::_id_0813( "vehicles", "HitRock", "truck_tanker_crash", "jeep_tire_hit_cliff", "tag_wheel_front_right" );
-    _id_A510::_id_0813( "vehicles", "HitTanker_FX", "truck_tanker_crash", "jeep_tire_hit_tanker", "tag_parkinglight_left_f" );
-    _id_A510::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_small_leak_jeepride", "tag_fx_right_side1" );
-    _id_A510::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_small_leak_jeepride", "tag_fx_right_side2" );
-    _id_A510::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_small_leak_jeepride", "tag_fx_right_side3" );
-    _id_A510::_id_0813( "vehicles", "explosion_end_FX", "truck_tanker_crash", "tanker_truck_explosion_end", "tag_wheel_middle_right" );
-    _id_A510::_id_0813( "vehicles", "hit_concrete", "concrete_Crash", "pickuptruck_civilian_concretecrash", "tag_headlight_right" );
-    _id_A510::_id_0807( "vehicles", "HitFence", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "crossroad_crash" );
-    _id_A510::_id_0807( "vehicles", "HitWall", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "tunnel_crash_truck01" );
-    _id_A510::_id_0807( "vehicles", "Flip", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "tunnel_crash_truck02" );
-    _id_A510::_id_0807( "vehicles", "HitTanker", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "truck_tanker_crash" );
+    maps\_anim::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::crossroad_crash, "crossroad_crash" );
+    maps\_anim::_id_0807( "vehicles", "explosion_end", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "crossroad_crash", "scn_bm21_explode" );
+    maps\_anim::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::truck_tanker_crash, "truck_tanker_crash" );
+    maps\_anim::_id_0807( "vehicles", "explosion_end_FX", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "truck_tanker_crash", "scn_bm21_explode" );
+    maps\_anim::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::tanker_tanker_crash, "tanker_tanker_crash" );
+    maps\_anim::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::tunnel_crash_truck01, "tunnel_crash_truck01" );
+    maps\_anim::_id_0807( "vehicles", "explosion_fx", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "tunnel_crash_truck01", "scn_bm21_explode" );
+    maps\_anim::_id_0807( "vehicles", "scripted_sfx", maps\jeepride_aud::tunnel_crash_truck02, "tunnel_crash_truck02" );
+    maps\_anim::_id_0813( "vehicles", "hit_three_crash", "three_crash", "sedan_impact_civilian_treecrash", "rear_door_left_jnt" );
+    maps\_anim::_id_0813( "vehicles", "rock_hit", "rock_Crash", "pickuptruck_civilian_rockcrash", "door_open_r2_jnt" );
+    maps\_anim::_id_0813( "vehicles", "HitConcrete", "crossroad_crash", "offroad_truck_tire_hit_concrete", "tag_wheel_front_left" );
+    maps\_anim::_id_0813( "vehicles", "impact_water", "crossroad_crash", "offroad_truck_hit_water", "tag_wheel_front_left" );
+    maps\_anim::_id_0813( "vehicles", "explosion_end", "crossroad_crash", "offroad_truck_explosion", "tag_wheel_front_left" );
+    maps\_anim::_id_080C( "vehicles", "explosion_fx", "tunnel_explosion_fx_flag", "tunnel_crash_truck01" );
+    maps\_anim::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_leak_jeepride", "tag_fx_top_ladder" );
+    maps\_anim::_id_0813( "vehicles", "HitRock", "truck_tanker_crash", "jeep_tire_hit_cliff", "tag_wheel_front_right" );
+    maps\_anim::_id_0813( "vehicles", "HitTanker_FX", "truck_tanker_crash", "jeep_tire_hit_tanker", "tag_parkinglight_left_f" );
+    maps\_anim::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_small_leak_jeepride", "tag_fx_right_side1" );
+    maps\_anim::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_small_leak_jeepride", "tag_fx_right_side2" );
+    maps\_anim::_id_0813( "vehicles", "gaz_leak", "tanker_tanker_crash", "tanker_gaz_small_leak_jeepride", "tag_fx_right_side3" );
+    maps\_anim::_id_0813( "vehicles", "explosion_end_FX", "truck_tanker_crash", "tanker_truck_explosion_end", "tag_wheel_middle_right" );
+    maps\_anim::_id_0813( "vehicles", "hit_concrete", "concrete_Crash", "pickuptruck_civilian_concretecrash", "tag_headlight_right" );
+    maps\_anim::_id_0807( "vehicles", "HitFence", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "crossroad_crash" );
+    maps\_anim::_id_0807( "vehicles", "HitWall", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "tunnel_crash_truck01" );
+    maps\_anim::_id_0807( "vehicles", "Flip", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "tunnel_crash_truck02" );
+    maps\_anim::_id_0807( "vehicles", "HitTanker", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "truck_tanker_crash" );
     level._id_78B3["vehicles"]["crossroad_crash"] = 0;
     level._id_78B3["vehicles"]["tunnel_crash_truck01"] = 0;
     level._id_78B3["vehicles"]["tunnel_crash_truck02"] = 0;
     level._id_78B3["vehicles"]["truck_tanker_crash"] = 0;
     level._id_78B3["vehicles"]["tanker_tanker_crash"] = 0;
-    _id_A510::_id_0807( "vehicles", "sparks_on", maps\jeepride_code::anim_spark_on );
-    _id_A510::_id_0807( "vehicles", "sparks_off", maps\jeepride_code::anim_spark_off );
+    maps\_anim::_id_0807( "vehicles", "sparks_on", maps\jeepride_code::anim_spark_on );
+    maps\_anim::_id_0807( "vehicles", "sparks_off", maps\jeepride_code::anim_spark_off );
     precache_crash_models();
 }
 
@@ -385,52 +385,52 @@ bridge_animation()
 {
     level._id_78B1["bridge_collapse"] = #animtree;
     level._id_78AC["bridge_collapse"]["bridge_collapsing"] = %h1_jeepride_bridgecollapse;
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_01", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "01" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_02", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "02" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_03", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "03" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_04", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "04" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_05", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "05" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_06", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "06" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_07", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "07" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_08", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "08" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_09", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "09" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_10", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "10" );
-    _id_A510::_id_0807( "bridge_collapse", "scn_bridge_collapse_11", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "11" );
-    _id_A510::_id_0807( "bridge_collapse", "vfx_vehicle_build_up", maps\jeepride::play_bridge_vehicle_collapse_vfx, "bridge_collapsing" );
-    _id_A510::_id_0813( "bridge_collapse", "vfx_vehicle_explosion", "bridge_collapsing", "bridge_small_exp_cin", "tag_fx_wagon_explosion_1" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_01", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "01" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_02", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "02" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_03", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "03" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_04", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "04" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_05", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "05" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_06", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "06" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_07", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "07" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_08", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "08" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_09", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "09" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_10", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "10" );
+    maps\_anim::_id_0807( "bridge_collapse", "scn_bridge_collapse_11", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "11" );
+    maps\_anim::_id_0807( "bridge_collapse", "vfx_vehicle_build_up", maps\jeepride::play_bridge_vehicle_collapse_vfx, "bridge_collapsing" );
+    maps\_anim::_id_0813( "bridge_collapse", "vfx_vehicle_explosion", "bridge_collapsing", "bridge_small_exp_cin", "tag_fx_wagon_explosion_1" );
 
     for ( var_0 = 1; var_0 <= 4; var_0++ )
     {
-        _id_A510::_id_0807( "bridge_collapse", "vfx_wagon_spark_on_" + var_0, maps\jeepride::play_bridge_wagon_spark_vfx, "bridge_collapsing", var_0 );
-        _id_A510::_id_0807( "bridge_collapse", "vfx_wagon_spark_off_" + var_0, maps\jeepride::stop_bridge_wagon_spark_vfx, "bridge_collapsing", var_0 );
+        maps\_anim::_id_0807( "bridge_collapse", "vfx_wagon_spark_on_" + var_0, maps\jeepride::play_bridge_wagon_spark_vfx, "bridge_collapsing", var_0 );
+        maps\_anim::_id_0807( "bridge_collapse", "vfx_wagon_spark_off_" + var_0, maps\jeepride::stop_bridge_wagon_spark_vfx, "bridge_collapsing", var_0 );
     }
 
     for ( var_0 = 1; var_0 <= 5; var_0++ )
     {
-        _id_A510::_id_0807( "bridge_collapse", "vfx_uaz_spark_on_" + var_0, maps\jeepride::play_bridge_uaz_spark_vfx, "bridge_collapsing", var_0 );
-        _id_A510::_id_0807( "bridge_collapse", "vfx_uaz_spark_off_" + var_0, maps\jeepride::stop_bridge_uaz_spark_vfx, "bridge_collapsing", var_0 );
+        maps\_anim::_id_0807( "bridge_collapse", "vfx_uaz_spark_on_" + var_0, maps\jeepride::play_bridge_uaz_spark_vfx, "bridge_collapsing", var_0 );
+        maps\_anim::_id_0807( "bridge_collapse", "vfx_uaz_spark_off_" + var_0, maps\jeepride::stop_bridge_uaz_spark_vfx, "bridge_collapsing", var_0 );
     }
 
     for ( var_0 = 1; var_0 <= 14; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_falling_dust_" + var_0, "bridge_collapsing", "bridge_collapse_dust", "tag_fx_falling_dust_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_falling_dust_" + var_0, "bridge_collapsing", "bridge_collapse_dust", "tag_fx_falling_dust_" + var_0 );
 
     for ( var_0 = 1; var_0 <= 17; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_falling_dust_os_" + var_0, "bridge_collapsing", "bridge_collapse_dust_os", "tag_fx_falling_dust_os_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_falling_dust_os_" + var_0, "bridge_collapsing", "bridge_collapse_dust_os", "tag_fx_falling_dust_os_" + var_0 );
 
     for ( var_0 = 1; var_0 <= 14; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_stone_impact_" + var_0, "bridge_collapsing", "bridge_collapse_stone_impact", "tag_fx_stone_impact_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_stone_impact_" + var_0, "bridge_collapsing", "bridge_collapse_stone_impact", "tag_fx_stone_impact_" + var_0 );
 
     for ( var_0 = 1; var_0 <= 3; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_stone_detach_" + var_0, "bridge_collapsing", "bridge_collapse_stone_detach", "tag_fx_stone_detach_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_stone_detach_" + var_0, "bridge_collapsing", "bridge_collapse_stone_detach", "tag_fx_stone_detach_" + var_0 );
 
     for ( var_0 = 1; var_0 <= 2; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_frame_spark_" + var_0, "bridge_collapsing", "bridge_collapse_spark", "tag_fx_frame_spark_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_frame_spark_" + var_0, "bridge_collapsing", "bridge_collapse_spark", "tag_fx_frame_spark_" + var_0 );
 
     for ( var_0 = 1; var_0 <= 2; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_frame_impact_" + var_0, "bridge_collapsing", "bridge_collapse_frame_hit", "tag_fx_frame_impact_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_frame_impact_" + var_0, "bridge_collapsing", "bridge_collapse_frame_hit", "tag_fx_frame_impact_" + var_0 );
 
     for ( var_0 = 1; var_0 <= 7; var_0++ )
-        _id_A510::_id_0813( "bridge_collapse", "vfx_dust_ambient_" + var_0, "bridge_collapsing", "bridge_leftovers_2", "tag_fx_dust_ambient_" + var_0 );
+        maps\_anim::_id_0813( "bridge_collapse", "vfx_dust_ambient_" + var_0, "bridge_collapsing", "bridge_leftovers_2", "tag_fx_dust_ambient_" + var_0 );
 
     level._id_78B1["rpgfromgriggs"] = #animtree;
     level._id_78AC["rpgfromgriggs"]["rpgfromgriggs_rpg"] = %h1_jeepride_rpgfromgriggs_rpg;

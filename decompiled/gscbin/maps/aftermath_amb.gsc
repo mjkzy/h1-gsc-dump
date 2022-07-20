@@ -22,7 +22,7 @@
 main()
 {
     level._id_0B47["exterior"] = "ambient_aftermath_ext0";
-    thread _id_A5A4::_id_7DB9( "exterior" );
+    thread maps\_utility::_id_7DB9( "exterior" );
     maps\_ambient::_id_0B4F( "exterior", 8.0, 20.0 );
     maps\_ambient::_id_0B50( "exterior", "elm_wind_leafy", 6.0 );
     maps\_ambient::_id_0B50( "exterior", "elm_rubble", 6.0 );

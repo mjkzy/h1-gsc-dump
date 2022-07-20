@@ -35,9 +35,9 @@ main()
 
 _id_2110()
 {
-    _id_A5DC::_id_7EC8( "shg" );
-    _id_A5F7::_id_8757( "med_occlusion" );
-    _id_A5DE::_id_5CF2( "mix_village_defend_global" );
+    soundscripts\_audio::_id_7EC8( "shg" );
+    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_village_defend_global" );
     soundsettraceflags( "emitters", "solid", "glass" );
 }
 
@@ -78,27 +78,27 @@ _id_6ECB()
 
 _id_72E8()
 {
-    _id_A5E8::_id_874D( "snd_zone_handler", ::_id_A3E6 );
-    _id_A5E8::_id_874D( "aud_start_southern_hill_checkpoint", ::aud_start_southern_hill_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_minigun_fallback_checkpoint", ::aud_start_minigun_fallback_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_minigun_checkpoint", ::aud_start_minigun_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_helidrop_checkpoint", ::aud_start_helidrop_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_clackers_checkpoint", ::aud_start_clackers_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_field_fallback_checkpoint", ::aud_start_field_fallback_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_javelin_checkpoint", ::aud_start_javelin_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_final_battle_checkpoint", ::aud_start_final_battle_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_seaknight_checkpoint", ::aud_start_seaknight_checkpoint );
-    _id_A5E8::_id_874D( "aud_start_default_checkpoint", ::aud_start_default_checkpoint );
-    _id_A5E8::_id_874D( "start_southern_hill_ambush_mix", ::start_southern_hill_ambush_mix );
-    _id_A5E8::_id_874D( "start_ambush_smoke_screen_mix", ::start_ambush_smoke_screen_mix );
-    _id_A5E8::_id_874D( "aud_start_mortar_mix", ::aud_start_mortar_mix );
-    _id_A5E8::_id_874D( "aud_start_minigun_mix", ::aud_start_minigun_mix );
-    _id_A5E8::_id_874D( "start_helidrop_mix", ::start_helidrop_mix );
-    _id_A5E8::_id_874D( "start_clacker_mix", ::start_clacker_mix );
-    _id_A5E8::_id_874D( "start_fall_back_to_barn_mix", ::start_fall_back_to_barn_mix );
-    _id_A5E8::_id_874D( "aud_open_door_meeting", ::aud_open_door_meeting );
-    _id_A5E8::_id_874D( "start_get_to_lz_mix", ::start_get_to_lz_mix );
-    _id_A5E8::_id_874D( "start_inside_seaknight_mix", ::start_inside_seaknight_mix );
+    soundscripts\_snd::_id_874D( "snd_zone_handler", ::_id_A3E6 );
+    soundscripts\_snd::_id_874D( "aud_start_southern_hill_checkpoint", ::aud_start_southern_hill_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_minigun_fallback_checkpoint", ::aud_start_minigun_fallback_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_minigun_checkpoint", ::aud_start_minigun_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_helidrop_checkpoint", ::aud_start_helidrop_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_clackers_checkpoint", ::aud_start_clackers_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_field_fallback_checkpoint", ::aud_start_field_fallback_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_javelin_checkpoint", ::aud_start_javelin_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_final_battle_checkpoint", ::aud_start_final_battle_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_seaknight_checkpoint", ::aud_start_seaknight_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_start_default_checkpoint", ::aud_start_default_checkpoint );
+    soundscripts\_snd::_id_874D( "start_southern_hill_ambush_mix", ::start_southern_hill_ambush_mix );
+    soundscripts\_snd::_id_874D( "start_ambush_smoke_screen_mix", ::start_ambush_smoke_screen_mix );
+    soundscripts\_snd::_id_874D( "aud_start_mortar_mix", ::aud_start_mortar_mix );
+    soundscripts\_snd::_id_874D( "aud_start_minigun_mix", ::aud_start_minigun_mix );
+    soundscripts\_snd::_id_874D( "start_helidrop_mix", ::start_helidrop_mix );
+    soundscripts\_snd::_id_874D( "start_clacker_mix", ::start_clacker_mix );
+    soundscripts\_snd::_id_874D( "start_fall_back_to_barn_mix", ::start_fall_back_to_barn_mix );
+    soundscripts\_snd::_id_874D( "aud_open_door_meeting", ::aud_open_door_meeting );
+    soundscripts\_snd::_id_874D( "start_get_to_lz_mix", ::start_get_to_lz_mix );
+    soundscripts\_snd::_id_874D( "start_inside_seaknight_mix", ::start_inside_seaknight_mix );
 }
 
 _id_A3E6( var_0, var_1 )
@@ -120,81 +120,81 @@ _id_5FFD( var_0, var_1 )
 aud_start_default_checkpoint( var_0 )
 {
     start_ambience_0();
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_start_southern_hill_checkpoint( var_0 )
 {
     start_ambience_3();
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_start_minigun_fallback_checkpoint( var_0 )
 {
     start_ambush_smoke_screen_mix();
     start_ambience_4();
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_start_minigun_checkpoint( var_0 )
 {
     aud_start_minigun_mix();
     start_ambience_4();
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_start_helidrop_checkpoint( var_0 )
 {
     start_ambience_5();
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 aud_start_clackers_checkpoint( var_0 )
 {
     start_clacker_mix();
     start_ambience_5();
-    _id_A5E7::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
 }
 
 aud_start_field_fallback_checkpoint( var_0 )
 {
     start_fall_back_to_barn_mix();
     start_ambience_5();
-    _id_A5E7::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
 }
 
 aud_start_javelin_checkpoint( var_0 )
 {
     start_fall_back_to_barn_mix();
     start_ambience_5();
-    _id_A5E7::_id_123A( "javelin_barn" );
+    soundscripts\_audio_zone_manager::_id_123A( "javelin_barn" );
 }
 
 aud_start_final_battle_checkpoint( var_0 )
 {
     start_fall_back_to_barn_mix();
     start_ambience_5();
-    _id_A5E7::_id_123A( "javelin_barn" );
+    soundscripts\_audio_zone_manager::_id_123A( "javelin_barn" );
 }
 
 aud_start_seaknight_checkpoint( var_0 )
 {
     start_get_to_lz_mix();
     start_ambience_5();
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 _id_4F77()
 {
     common_scripts\utility::_id_384A( "introscreen_activate" );
-    _id_A5DE::_id_5CF2( "village_defend_intro_mute" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "village_defend_intro_mute" );
     intro_check_end();
 }
 
 intro_check_end()
 {
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
-    _id_A5DE::_id_5CF6( "village_defend_intro_mute", 1 );
+    soundscripts\_audio_mix_manager::_id_5CF6( "village_defend_intro_mute", 1 );
 }
 
 start_ambience_0()
@@ -219,67 +219,67 @@ start_ambience_5()
 
 set_all_ambiences( var_0, var_1 )
 {
-    _id_A5E7::_id_1239( "exterior", var_0, 0.8 );
-    _id_A5E7::_id_1235( "exterior", var_1, 0.8 );
-    _id_A5E7::_id_1239( "interior_wood_open", var_0, 0.8 );
-    _id_A5E7::_id_1235( "interior_wood_open", var_1, 0.8 );
-    _id_A5E7::_id_1239( "trainstation_attic", var_0, 0.8 );
-    _id_A5E7::_id_1235( "trainstation_attic", var_1, 0.8 );
-    _id_A5E7::_id_1239( "bell_tower", var_0, 0.8 );
-    _id_A5E7::_id_1235( "bell_tower", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1239( "exterior", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1235( "exterior", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1239( "interior_wood_open", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1235( "interior_wood_open", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1239( "trainstation_attic", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1235( "trainstation_attic", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1239( "bell_tower", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::_id_1235( "bell_tower", var_1, 0.8 );
 }
 
 start_southern_hill_ambush_mix()
 {
-    _id_A5DE::_id_5CF2( "southern_hill_ambush_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "southern_hill_ambush_mix" );
 }
 
 start_ambush_smoke_screen_mix()
 {
-    _id_A5DE::_id_5CF6( "southern_hill_ambush_mix" );
-    _id_A5DE::_id_5CF2( "ambush_smoke_screen_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "southern_hill_ambush_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "ambush_smoke_screen_mix" );
 }
 
 aud_start_mortar_mix()
 {
-    _id_A5DE::_id_5CF6( "ambush_smoke_screen_mix" );
-    _id_A5DE::_id_5CF2( "mortar_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "ambush_smoke_screen_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mortar_mix" );
 }
 
 aud_start_minigun_mix()
 {
-    _id_A5DE::_id_5CF6( "mortar_mix" );
-    _id_A5DE::_id_5CF2( "minigun_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "mortar_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "minigun_mix" );
 }
 
 start_helidrop_mix()
 {
-    _id_A5DE::_id_5CF6( "minigun_mix" );
-    _id_A5DE::_id_5CF2( "helidrop_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "minigun_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "helidrop_mix" );
 }
 
 start_clacker_mix()
 {
-    _id_A5DE::_id_5CF6( "helidrop_mix" );
-    _id_A5DE::_id_5CF2( "clacker_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "helidrop_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "clacker_mix" );
 }
 
 start_fall_back_to_barn_mix()
 {
-    _id_A5DE::_id_5CF6( "clacker_mix" );
-    _id_A5DE::_id_5CF2( "fall_back_to_barn_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "clacker_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "fall_back_to_barn_mix" );
 }
 
 start_inside_seaknight_mix()
 {
-    _id_A5DE::_id_5CF6( "get_to_lz_mix" );
-    _id_A5E7::_id_123A( "inside_seaknight" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "get_to_lz_mix" );
+    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight" );
 }
 
 start_get_to_lz_mix()
 {
-    _id_A5DE::_id_5CF6( "fall_back_to_barn_mix" );
-    _id_A5DE::_id_5CF2( "get_to_lz_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "fall_back_to_barn_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "get_to_lz_mix" );
 }
 
 aud_open_door_meeting()

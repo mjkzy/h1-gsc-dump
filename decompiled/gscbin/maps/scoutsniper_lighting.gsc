@@ -44,8 +44,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "scoutsniper", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "scoutsniper" );
+    maps\_utility::_id_9E6E( "scoutsniper", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "scoutsniper" );
     level.playercardbackground _meth_848c( "clut_scoutsniper", 0.0 );
     setsaveddvar( "sm_sunShadowScale", "0.7" );
 }
@@ -81,8 +81,8 @@ handle_intro_cinematics()
 
 intro_blur_pre_h1()
 {
-    _id_A5A4::_id_27EF( 1, _id_A5A4::_id_7DE2, 4.8, 0.25 );
-    _id_A5A4::_id_27EF( 4, _id_A5A4::_id_7DE2, 0, 3 );
+    maps\_utility::_id_27EF( 1, maps\_utility::_id_7DE2, 4.8, 0.25 );
+    maps\_utility::_id_27EF( 4, maps\_utility::_id_7DE2, 0, 3 );
 }
 
 handle_church_explosion()

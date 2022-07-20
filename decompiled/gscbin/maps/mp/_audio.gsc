@@ -284,10 +284,9 @@ _id_2899( var_0, var_1 )
             var_11 = ( var_0 - var_7 ) / ( var_8 - var_7 );
             var_2 = var_9 + var_11 * ( var_10 - var_9 );
             break;
-            continue;
         }
-
-        var_4 = var_6;
+        else
+            var_4 = var_6;
     }
 
     return var_2;

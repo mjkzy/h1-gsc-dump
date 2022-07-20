@@ -43,7 +43,7 @@ introscreen_init()
     common_scripts\utility::_id_383D( "introscreen_remove_submix" );
     common_scripts\utility::_id_383D( "introscreen_complete" );
     common_scripts\utility::_id_383D( "safe_for_objectives" );
-    _id_A5A4::_id_27EF( 10, common_scripts\utility::_id_383F, "safe_for_objectives" );
+    maps\_utility::_id_27EF( 10, common_scripts\utility::_id_383F, "safe_for_objectives" );
     level.linefeed_delay = 16;
     level.background_sort = 1000;
     level.intro_text_sort = 1001;
@@ -62,7 +62,7 @@ introscreen_should_activate()
     if ( !introscreen_is_enabled() )
         return 0;
 
-    if ( !_id_A5A4::is_h1_level() )
+    if ( !maps\_utility::is_h1_level() )
         return 0;
 
     return 1;
@@ -311,7 +311,7 @@ airlift_intro()
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
     wait 1;
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    thread _id_A5A4::_id_114E( 1 );
+    thread maps\_utility::_id_114E( 1 );
     level.playercardbackground freezecontrols( 0 );
 }
 
@@ -373,7 +373,7 @@ scoutsniper_intro()
     thread scoutsniperintroplayer();
     cinematicingamesync( "scoutsniper_fade" );
     wait 4;
-    _id_A5A4::_id_7F00( "grayscale" );
+    maps\_utility::_id_7F00( "grayscale" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     var_0 = newhudelem();
     var_0.xpmaxmultipliertimeplayed = 0;
@@ -407,7 +407,7 @@ scoutsniper_intro()
     var_0.alpha = 0;
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
     wait 4.5;
-    _id_A5A4::_id_7F00( "scoutsniper_start", 1 );
+    maps\_utility::_id_7F00( "scoutsniper_start", 1 );
     wait 8.0;
     common_scripts\utility::_id_383F( "introscreen_complete" );
     level.playercardbackground freezecontrols( 0 );
@@ -532,7 +532,7 @@ ambush_intro()
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     introscreen_generic_white_fade_in( 2 );
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
-    thread _id_A5A4::_id_114E( 1 );
+    thread maps\_utility::_id_114E( 1 );
     setsaveddvar( "compass", 1 );
     setsaveddvar( "ammoCounterHide", "0" );
     setsaveddvar( "hud_showStance", 1 );
@@ -553,7 +553,7 @@ armada_intro()
     wait 2;
     common_scripts\utility::_id_383F( "introscreen_complete" );
     wait 2;
-    _id_A5A4::_id_1143( "levelstart" );
+    maps\_utility::_id_1143( "levelstart" );
     wait 4;
     level.playercardbackground enableweapons();
 }
@@ -567,7 +567,7 @@ _id_4F90( var_0 )
         var_3 = var_1[var_2];
         var_4 = 1;
         var_5 = var_2 * var_4 + 1;
-        _id_A5A4::_id_27EF( var_5, ::_id_4F8E, var_0[var_3], var_0.size - var_2 - 1, var_4, var_3 );
+        maps\_utility::_id_27EF( var_5, ::_id_4F8E, var_0[var_3], var_0.size - var_2 - 1, var_4, var_3 );
     }
 }
 

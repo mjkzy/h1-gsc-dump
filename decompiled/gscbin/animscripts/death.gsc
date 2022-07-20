@@ -92,7 +92,7 @@ main()
     self stopsounds();
     var_0 = 0.3;
     self _meth_8144( %scripted_talking, var_0 );
-    _id_A510::_id_2B04( 0 );
+    maps\_anim::_id_2B04( 0 );
     self _meth_83f9();
 
     if ( self.a._id_612E == 1 )
@@ -270,7 +270,7 @@ _id_594E( var_0 )
     {
         if ( self istouching( var_0 ) && isdefined( level.playercardbackground._id_594D ) )
         {
-            _id_A5A4::_id_41DD( "LEVEL_12A" );
+            maps\_utility::_id_41DD( "LEVEL_12A" );
             break;
         }
 

@@ -323,7 +323,7 @@ _id_6E49()
 _id_83EA()
 {
     self endon( "return_to_cover" );
-    _id_A537::_id_2A4D();
+    maps\_gameskill::_id_2A4D();
 
     for (;;)
     {
@@ -757,7 +757,7 @@ _id_9C15()
     if ( !var_0._id_519E )
         return;
 
-    thread _id_A557::_id_4476( var_0 );
+    thread maps\_mg_penetration::_id_4476( var_0 );
     self waittill( "continue_cover_script" );
 }
 
@@ -793,7 +793,7 @@ _id_82B1( var_0 )
 
     if ( var_0 != "over" )
     {
-        if ( var_0 == "stand_tall" && _id_A5A4::_id_76FF() )
+        if ( var_0 == "stand_tall" && maps\_utility::_id_76FF() )
         {
             var_1 = animscripts\utility::_id_5864( "old_default_stand" );
             self.a._id_0CD8["stand_tall_aim"] = var_1["straight_level"];

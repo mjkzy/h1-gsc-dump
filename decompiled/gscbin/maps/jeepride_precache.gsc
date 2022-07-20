@@ -29,8 +29,8 @@ main()
     vehicle_scripts\_bmp::main( "vehicle_bmp_woodland_jeepride", undefined, "script_vehicle_bmp_woodland_jeepride" );
     vehicle_scripts\_bus::main( "vehicle_bus", undefined, "script_vehicle_bus" );
     vehicle_scripts\_luxurysedan::main( "vehicle_luxurysedan", undefined, "script_vehicle_luxurysedan" );
-    _id_A62F::main( "vehicle_mi17_woodland_fly", undefined, "script_vehicle_mi17_woodland_fly" );
-    _id_A62F::main( "vehicle_mi17_woodland_fly_cheap", undefined, "script_vehicle_mi17_woodland_fly_cheap" );
+    vehicle_scripts\_mi17::main( "vehicle_mi17_woodland_fly", undefined, "script_vehicle_mi17_woodland_fly" );
+    vehicle_scripts\_mi17::main( "vehicle_mi17_woodland_fly_cheap", undefined, "script_vehicle_mi17_woodland_fly_cheap" );
     vehicle_scripts\_hind::main( "vehicle_mi24p_hind_woodland", undefined, "script_vehicle_mi24p_hind_woodland" );
     vehicle_scripts\_mi28::main( "vehicle_mi-28_flying", undefined, "script_vehicle_mi28_flying" );
     vehicle_scripts\_truck::main( "vehicle_pickup_4door", undefined, "script_vehicle_pickup_4door" );

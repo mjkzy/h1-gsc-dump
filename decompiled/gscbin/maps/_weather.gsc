@@ -312,7 +312,7 @@ _id_9343()
     else
     {
         var_0 playsound( "elm_thunder_distant", "sounddone" );
-        var_0 thread _id_A5A4::_id_69C4( "elm_thunder_strike" );
+        var_0 thread maps\_utility::_id_69C4( "elm_thunder_strike" );
     }
 
     var_0 waittill( "sounddone" );

@@ -28,9 +28,9 @@ initchickens()
 
 spawnchicken()
 {
-    var_0 = _id_A5A4::_id_88D1( "chicken" );
-    thread _id_A510::_id_0C24( var_0, "cage_freakout" );
-    var_1 = var_0 _id_A5A4::_id_3EF5( "cage_freakout" );
+    var_0 = maps\_utility::_id_88D1( "chicken" );
+    thread maps\_anim::_id_0C24( var_0, "cage_freakout" );
+    var_1 = var_0 maps\_utility::_id_3EF5( "cage_freakout" );
     var_2 = randomfloatrange( 0, 1.0 );
     var_0 setanimtime( var_1, var_2 );
 

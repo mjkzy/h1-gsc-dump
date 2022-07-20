@@ -164,7 +164,7 @@ _id_427C()
     if ( !isalive( self ) )
         return;
 
-    if ( !_id_A5A4::_id_46E8() )
+    if ( !maps\_utility::_id_46E8() )
         return;
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
@@ -293,7 +293,7 @@ activate_color_trigger_internal( var_0, var_1, var_2, var_3 )
 
     for ( var_4 = 0; var_4 < var_1.size; var_4++ )
     {
-        level._id_0D22[var_2][var_1[var_4]] = _id_A5A4::_id_0CFD( level._id_0D22[var_2][var_1[var_4]] );
+        level._id_0D22[var_2][var_1[var_4]] = maps\_utility::_id_0CFD( level._id_0D22[var_2][var_1[var_4]] );
         level._id_558A[var_2][var_1[var_4]] = level._id_250D[var_2][var_1[var_4]];
         level._id_250D[var_2][var_1[var_4]] = var_3[var_1[var_4]];
     }
@@ -398,7 +398,7 @@ get_prioritized_colorcoded_nodes( var_0, var_1, var_2 )
 
 _id_51C0( var_0, var_1, var_2 )
 {
-    level.arrays_of_colorcoded_ai[var_2][var_0] = _id_A5A4::_id_0CFD( level.arrays_of_colorcoded_ai[var_2][var_0] );
+    level.arrays_of_colorcoded_ai[var_2][var_0] = maps\_utility::_id_0CFD( level.arrays_of_colorcoded_ai[var_2][var_0] );
     var_3 = level.arrays_of_colorcoded_ai[var_2][var_0];
     var_3 = common_scripts\utility::_id_0CDD( var_3, level._id_0D22[var_2][var_1] );
     var_4 = [];
@@ -434,7 +434,7 @@ _id_51BD( var_0, var_1, var_2, var_3 )
     if ( !var_5.size )
         return;
 
-    var_6 = _id_A5A4::_id_3F74( "ai_color_squadAssignmentOverride", 0 );
+    var_6 = maps\_utility::_id_3F74( "ai_color_squadAssignmentOverride", 0 );
     var_7 = var_6 > 0;
 
     if ( var_6 == 0 )
@@ -612,7 +612,7 @@ color_node_finds_user_for_colorcode( var_0, var_1 )
     if ( level._id_250D[var_1][var_2] != var_0 )
         return;
 
-    var_3 = _id_A5A4::_id_3D7A( var_1, var_2 );
+    var_3 = maps\_utility::_id_3D7A( var_1, var_2 );
 
     if ( !var_3.size )
         return;
@@ -665,7 +665,7 @@ set_goal_and_volume( var_0 )
 {
     if ( isdefined( self._id_0574 ) )
     {
-        thread _id_A510::_id_0C21( self, self._id_0574 );
+        thread maps\_anim::_id_0C21( self, self._id_0574 );
         self._id_0574 = undefined;
     }
 
@@ -792,7 +792,7 @@ _id_6032()
     if ( !isdefined( self.node_relinquished ) )
         return 0;
 
-    return self.node_relinquished _id_A5A4::script_lightset();
+    return self.node_relinquished maps\_utility::script_lightset();
 }
 
 _id_6FE5( var_0, var_1, var_2 )
@@ -803,7 +803,7 @@ _id_6FE5( var_0, var_1, var_2 )
 
     if ( isdefined( var_1 ) )
     {
-        var_1 _id_A5A4::script_lightset();
+        var_1 maps\_utility::script_lightset();
 
         if ( isdefined( var_1.colordelayinfo ) )
         {
@@ -991,7 +991,7 @@ nodethink()
 
     for (;;)
     {
-        var_2 = _id_A5A4::_id_3E5A();
+        var_2 = maps\_utility::_id_3E5A();
         var_3 = strtok( var_0, " " );
 
         if ( var_3.size > 1 )
@@ -1122,9 +1122,9 @@ _id_2050()
         if ( get_color_from_order( var_1, var_2 ) == "none" )
             return;
 
-        var_4 = _id_A5A4::_id_3D7A( "allies", var_2[var_1] );
-        var_4 = _id_A5A4::_id_735E( var_4 );
-        var_4 = _id_A5A4::_id_738F( var_4, var_0 );
+        var_4 = maps\_utility::_id_3D7A( "allies", var_2[var_1] );
+        var_4 = maps\_utility::_id_735E( var_4 );
+        var_4 = maps\_utility::_id_738F( var_4, var_0 );
 
         if ( !var_4.size )
         {
@@ -1138,7 +1138,7 @@ _id_2050()
         if ( !isalive( var_5 ) )
             continue;
 
-        var_5 _id_A5A4::_id_7E38( var_1 );
+        var_5 maps\_utility::_id_7E38( var_1 );
 
         if ( isdefined( level._id_3A7A ) )
             var_5 [[ level._id_3A7A ]]( var_1 );
@@ -1260,7 +1260,7 @@ _id_890B( var_0, var_1 )
         var_3.count = 1;
         var_2 = var_3 stalingradspawn();
 
-        if ( _id_A5A4::_id_88F1( var_2 ) )
+        if ( maps\_utility::_id_88F1( var_2 ) )
         {
             thread _id_5805();
             wait 1;
@@ -1283,7 +1283,7 @@ _id_890B( var_0, var_1 )
     }
 
     if ( isdefined( var_1 ) )
-        var_2 _id_A5A4::_id_7E38( var_1 );
+        var_2 maps\_utility::_id_7E38( var_1 );
 
     var_2 setup_nodes_intelligently_from_team();
     thread _id_5805();

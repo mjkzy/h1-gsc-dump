@@ -78,9 +78,9 @@ deadbody__anims()
     level._id_78AC["dead_guy"]["pelayo_dying"] = %h1_aftermath_dyingbodies_pelayo;
     level._id_78AC["dead_guy"]["soldierA_dying"] = %h1_aftermath_dyingbodies_soldiera;
     level._id_78AC["dead_guy"]["soldierB_dying"] = %h1_aftermath_dyingbodies_soldierb;
-    _id_A510::_id_0805( "dead_guy", "pelayo_dying", "scn_dying_soldier_b", "h1_vo_female_dying_breath_02" );
-    _id_A510::_id_0805( "dead_guy", "soldierB_dying", "scn_dyin_pelayo_dying", "h1_male_crew_helico_suffering_02" );
-    _id_A510::_id_0805( "dead_guy", "soldierA_dying", "scn_dying_soldier_a", "h1_male_crew_helico_suffering_01" );
+    maps\_anim::_id_0805( "dead_guy", "pelayo_dying", "scn_dying_soldier_b", "h1_vo_female_dying_breath_02" );
+    maps\_anim::_id_0805( "dead_guy", "soldierB_dying", "scn_dyin_pelayo_dying", "h1_male_crew_helico_suffering_02" );
+    maps\_anim::_id_0805( "dead_guy", "soldierA_dying", "scn_dying_soldier_a", "h1_male_crew_helico_suffering_01" );
 }
 #using_animtree("player");
 
@@ -93,5 +93,5 @@ player_body_sense()
     level._id_78AC["player_body"]["jackson_death"] = %h1_aftermath_jackson_death;
     level._id_78B5["player_body"] = "worldbody_h1_usmc_desert";
     level._id_78B1["player_body"] = #animtree;
-    _id_A510::_id_0805( "player_body", "jackson_death", "body_hit_ground", "bodyfall_gravel_large" );
+    maps\_anim::_id_0805( "player_body", "jackson_death", "body_hit_ground", "bodyfall_gravel_large" );
 }

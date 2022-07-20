@@ -316,7 +316,7 @@ dyndof_system_start( var_0 )
 
                 if ( isdefined( var_8._id_90C3 ) )
                 {
-                    if ( !_id_A5A4::_id_4749( var_8.reference_entity.motiontrackerenabled, var_8._id_90C3 ) )
+                    if ( !maps\_utility::_id_4749( var_8.reference_entity.motiontrackerenabled, var_8._id_90C3 ) )
                     {
                         if ( !isdefined( var_8.reference_entity.headmodel ) )
                         {

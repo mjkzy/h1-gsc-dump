@@ -27,5 +27,5 @@ main()
 _id_4CB2()
 {
     waitframe;
-    _id_A510::_id_0818( "end_hands", "player_rescue", "cargoship_jumpforheli" );
+    maps\_anim::_id_0818( "end_hands", "player_rescue", "cargoship_jumpforheli" );
 }

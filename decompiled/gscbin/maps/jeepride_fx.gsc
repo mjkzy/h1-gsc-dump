@@ -186,13 +186,13 @@ main()
     level._ak_impacts["asphalt"] = loadfx( "fx/impacts/large_asphalt" );
     level._ak_impacts["rubber"] = loadfx( "fx/impacts/default_hit" );
     level._ak_impacts["paintedmetal"] = loadfx( "fx/impacts/large_metal_painted_hit" );
-    _id_A5A8::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/helicopter_explosion_jeepride", undefined, "hind_helicopter_hit", undefined, undefined, undefined, 0.1, 1 );
-    _id_A5A8::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
-    _id_A5A8::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
-    _id_A5A8::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
-    _id_A5A8::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/helicopter_explosion_jeepride", undefined, "hind_helicopter_hit", undefined, undefined, undefined, 0.1, 1 );
+    maps\_vehicle::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
+    maps\_vehicle::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
+    maps\_vehicle::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
     _id_974C();
     thread init_collapsing_bridge_parts();
     maps\createfx\jeepride_fx::main();
@@ -292,7 +292,7 @@ ghettotag_generate_sparks( var_0 )
             for ( var_6 = 0; var_6 < self.ghettotags.size; var_6++ )
             {
                 var_7 = self.ghettotags[var_6].origin;
-                var_8 = self.ghettotags[var_6].origin + _id_A5A4::vector_multiply( anglestoup( self.ghettotags[var_6].angles ), 8 );
+                var_8 = self.ghettotags[var_6].origin + maps\_utility::vector_multiply( anglestoup( self.ghettotags[var_6].angles ), 8 );
                 var_9 = bullettrace( var_7, var_8, 0, self );
 
                 if ( var_9["fraction"] < 1 && !trace_isjunk( var_9 ) )
@@ -351,12 +351,12 @@ _id_974C()
 
     foreach ( var_1 in level.all_vehicles )
     {
-        _id_A59D::_id_8350( var_1, "asphalt", "vfx/treadfx/tread_road_jeepride" );
-        _id_A59D::_id_8350( var_1, "grass", "vfx/treadfx/tread_dirt_jeepride" );
-        _id_A59D::_id_8350( var_1, "dirt", "vfx/treadfx/tread_dirt_jeepride" );
-        _id_A59D::_id_8350( var_1, "mud", "vfx/treadfx/tread_mud_jeepride" );
-        _id_A59D::_id_8350( var_1, "snow", "vfx/treadfx/tread_mud_jeepride" );
-        _id_A59D::_id_8350( var_1, "water", "vfx/treadfx/tread_water_jeepride" );
+        maps\_treadfx::_id_8350( var_1, "asphalt", "vfx/treadfx/tread_road_jeepride" );
+        maps\_treadfx::_id_8350( var_1, "grass", "vfx/treadfx/tread_dirt_jeepride" );
+        maps\_treadfx::_id_8350( var_1, "dirt", "vfx/treadfx/tread_dirt_jeepride" );
+        maps\_treadfx::_id_8350( var_1, "mud", "vfx/treadfx/tread_mud_jeepride" );
+        maps\_treadfx::_id_8350( var_1, "snow", "vfx/treadfx/tread_mud_jeepride" );
+        maps\_treadfx::_id_8350( var_1, "water", "vfx/treadfx/tread_water_jeepride" );
     }
 }
 
@@ -364,10 +364,10 @@ heli_tread_fx_swap( var_0, var_1 )
 {
     foreach ( var_3 in level.all_choppers )
     {
-        _id_A59D::_id_7F1E( var_3, var_0 );
+        maps\_treadfx::_id_7F1E( var_3, var_0 );
 
         if ( isdefined( var_1 ) )
-            _id_A59D::_id_8350( var_3, "water", var_1 );
+            maps\_treadfx::_id_8350( var_3, "water", var_1 );
     }
 }
 

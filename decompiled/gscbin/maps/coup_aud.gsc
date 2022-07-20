@@ -35,9 +35,9 @@ main()
 
 _id_2110()
 {
-    _id_A5DC::_id_7EC8( "shg" );
-    _id_A5F7::_id_8757( "med_occlusion" );
-    _id_A5DE::_id_5CF2( "mix_coup_global" );
+    soundscripts\_audio::_id_7EC8( "shg" );
+    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "mix_coup_global" );
 }
 
 _id_4D5B()
@@ -81,30 +81,30 @@ _id_6ECB()
 
 _id_72E8()
 {
-    _id_A5E8::_id_874D( "snd_zone_handler", ::_id_A3E6 );
-    _id_A5E8::_id_874D( "snd_music_handler", ::_id_5FFD );
-    _id_A5E8::_id_874D( "start_intro_checkpoint", ::start_intro_checkpoint );
-    _id_A5E8::_id_874D( "start_drive_checkpoint", ::start_drive_checkpoint );
-    _id_A5E8::_id_874D( "start_doorkick_checkpoint", ::start_doorkick_checkpoint );
-    _id_A5E8::_id_874D( "start_trashstumble_checkpoint", ::start_trashstumble_checkpoint );
-    _id_A5E8::_id_874D( "start_runners2_checkpoint", ::start_runners2_checkpoint );
-    _id_A5E8::_id_874D( "start_alley_checkpoint", ::start_alley_checkpoint );
-    _id_A5E8::_id_874D( "start_shore_checkpoint", ::start_shore_checkpoint );
-    _id_A5E8::_id_874D( "start_carexit_checkpoint", ::start_carexit_checkpoint );
-    _id_A5E8::_id_874D( "start_ending_checkpoint", ::start_ending_checkpoint );
-    _id_A5E8::_id_874D( "aud_coup_car_open", ::aud_coup_car_open );
-    _id_A5E8::_id_874D( "aud_coup_enter_car", ::aud_coup_enter_car );
-    _id_A5E8::_id_874D( "aud_coup_exit_car", ::aud_coup_exit_car );
-    _id_A5E8::_id_874D( "aud_coup_car_thrown_out", ::aud_coup_car_thrown_out );
-    _id_A5E8::_id_874D( "aud_exterior_to_bunker", ::aud_exterior_to_bunker );
-    _id_A5E8::_id_874D( "aud_bunker_to_exterior", ::aud_bunker_to_exterior );
-    _id_A5E8::_id_874D( "start_slowmo_mix", ::start_slowmo_mix );
-    _id_A5E8::_id_874D( "stop_slowmo_mix", ::stop_slowmo_mix );
-    _id_A5E8::_id_874D( "start_coup_player_death_mix", ::start_coup_player_death_mix );
-    _id_A5E8::_id_874D( "aud_add_stunned_car_event", ::aud_add_stunned_car_event );
-    _id_A5E8::_id_874D( "aud_stop_stunned_car_event", ::aud_stop_stunned_car_event );
-    _id_A5E8::_id_874D( "aud_car_sound_node_spawner", ::aud_car_sound_node_spawner );
-    _id_A5E8::_id_874D( "aud_shutoff_engine", ::aud_shutoff_engine );
+    soundscripts\_snd::_id_874D( "snd_zone_handler", ::_id_A3E6 );
+    soundscripts\_snd::_id_874D( "snd_music_handler", ::_id_5FFD );
+    soundscripts\_snd::_id_874D( "start_intro_checkpoint", ::start_intro_checkpoint );
+    soundscripts\_snd::_id_874D( "start_drive_checkpoint", ::start_drive_checkpoint );
+    soundscripts\_snd::_id_874D( "start_doorkick_checkpoint", ::start_doorkick_checkpoint );
+    soundscripts\_snd::_id_874D( "start_trashstumble_checkpoint", ::start_trashstumble_checkpoint );
+    soundscripts\_snd::_id_874D( "start_runners2_checkpoint", ::start_runners2_checkpoint );
+    soundscripts\_snd::_id_874D( "start_alley_checkpoint", ::start_alley_checkpoint );
+    soundscripts\_snd::_id_874D( "start_shore_checkpoint", ::start_shore_checkpoint );
+    soundscripts\_snd::_id_874D( "start_carexit_checkpoint", ::start_carexit_checkpoint );
+    soundscripts\_snd::_id_874D( "start_ending_checkpoint", ::start_ending_checkpoint );
+    soundscripts\_snd::_id_874D( "aud_coup_car_open", ::aud_coup_car_open );
+    soundscripts\_snd::_id_874D( "aud_coup_enter_car", ::aud_coup_enter_car );
+    soundscripts\_snd::_id_874D( "aud_coup_exit_car", ::aud_coup_exit_car );
+    soundscripts\_snd::_id_874D( "aud_coup_car_thrown_out", ::aud_coup_car_thrown_out );
+    soundscripts\_snd::_id_874D( "aud_exterior_to_bunker", ::aud_exterior_to_bunker );
+    soundscripts\_snd::_id_874D( "aud_bunker_to_exterior", ::aud_bunker_to_exterior );
+    soundscripts\_snd::_id_874D( "start_slowmo_mix", ::start_slowmo_mix );
+    soundscripts\_snd::_id_874D( "stop_slowmo_mix", ::stop_slowmo_mix );
+    soundscripts\_snd::_id_874D( "start_coup_player_death_mix", ::start_coup_player_death_mix );
+    soundscripts\_snd::_id_874D( "aud_add_stunned_car_event", ::aud_add_stunned_car_event );
+    soundscripts\_snd::_id_874D( "aud_stop_stunned_car_event", ::aud_stop_stunned_car_event );
+    soundscripts\_snd::_id_874D( "aud_car_sound_node_spawner", ::aud_car_sound_node_spawner );
+    soundscripts\_snd::_id_874D( "aud_shutoff_engine", ::aud_shutoff_engine );
 }
 
 _id_A3E6( var_0, var_1 )
@@ -119,135 +119,135 @@ _id_5FFD( var_0, var_1 )
 
 start_intro_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 start_drive_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_doorkick_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_trashstumble_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_runners2_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_alley_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_shore_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_carexit_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
 }
 
 start_ending_checkpoint( var_0 )
 {
-    _id_A5E7::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
 }
 
 _id_4F77()
 {
     common_scripts\utility::_id_384A( "introscreen_activate" );
-    _id_A5DE::_id_5CF2( "coup_intro_mute" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "coup_intro_mute" );
     intro_check_end();
 }
 
 intro_check_end()
 {
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
-    _id_A5DE::_id_5CF6( "coup_intro_mute", 1 );
+    soundscripts\_audio_mix_manager::_id_5CF6( "coup_intro_mute", 1 );
 }
 
 aud_coup_enter_car()
 {
-    _id_A5E7::_id_123B( "exterior", 0.3 );
-    _id_A5E7::_id_123A( "interior_vehicle", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123B( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle", 0.3 );
 }
 
 aud_coup_exit_car()
 {
-    _id_A5E7::_id_123B( "interior_vehicle", 0.3 );
-    _id_A5E7::_id_123A( "interior_vehicle_open", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123B( "interior_vehicle", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle_open", 0.3 );
 }
 
 aud_coup_car_open()
 {
-    _id_A5E7::_id_123B( "exterior", 0.3 );
-    _id_A5E7::_id_123B( "interior_vehicle", 0.3 );
-    _id_A5E7::_id_123A( "interior_vehicle_open", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123B( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123B( "interior_vehicle", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle_open", 0.3 );
 }
 
 aud_coup_car_thrown_out()
 {
-    _id_A5E7::_id_123B( "interior_vehicle_open", 0.3 );
-    _id_A5E7::_id_123A( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123B( "interior_vehicle_open", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior", 0.3 );
 }
 
 aud_exterior_to_bunker()
 {
-    _id_A5E7::_id_123B( "exterior", 0.3 );
-    _id_A5E7::_id_123A( "bunker", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123B( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::_id_123A( "bunker", 0.3 );
 }
 
 aud_bunker_to_exterior()
 {
-    _id_A5E7::_id_123B( "bunker", 5.5 );
-    _id_A5E7::_id_123A( "exterior", 5.5 );
+    soundscripts\_audio_zone_manager::_id_123B( "bunker", 5.5 );
+    soundscripts\_audio_zone_manager::_id_123A( "exterior", 5.5 );
 }
 
 start_slowmo_mix()
 {
-    _id_A5DE::_id_5CF6( "dead_man_mix" );
-    _id_A5DE::_id_5CF2( "slowmo_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "dead_man_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "slowmo_mix" );
 }
 
 stop_slowmo_mix()
 {
-    _id_A5DE::_id_5CF6( "slowmo_mix" );
-    _id_A5DE::_id_5CF2( "getting_shot_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "slowmo_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "getting_shot_mix" );
 }
 
 start_coup_player_death_mix()
 {
-    _id_A5DE::_id_5CF6( "getting_shot_mix" );
-    _id_A5DE::_id_5CF2( "coup_player_death_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "getting_shot_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "coup_player_death_mix" );
 }
 
 aud_add_stunned_car_event()
 {
-    _id_A5DE::_id_5CF2( "stunned_car_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "stunned_car_mix" );
 }
 
 aud_stop_stunned_car_event()
 {
-    _id_A5DE::_id_5CF6( "stunned_car_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "stunned_car_mix" );
 }
 
 aud_curb_stomp_event()
 {
     wait 0.7;
-    _id_A5DE::_id_5CF6( "engine_shutoff_mix" );
-    _id_A5DE::_id_5CF2( "curb_stomp_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "engine_shutoff_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "curb_stomp_mix" );
     wait 2.5;
-    _id_A5DE::_id_5CF6( "curb_stomp_mix" );
-    _id_A5DE::_id_5CF2( "dead_man_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF6( "curb_stomp_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "dead_man_mix" );
 }
 
 handle_heli_scripted_sfx()
@@ -281,7 +281,7 @@ three_heli_passby_trig( var_0 )
     var_1 = self._id_7B1A;
     self waittill( "trigger", var_2 );
     wait 0.1;
-    var_3 = _id_A5A4::_id_4153();
+    var_3 = maps\_utility::_id_4153();
     var_4 = 1;
 
     foreach ( var_6 in var_3 )
@@ -298,14 +298,14 @@ aud_jeep_event()
 {
     var_0 = getvehiclenode( "auto2734", "targetname" );
     var_0 waittill( "trigger", var_1 );
-    var_1 thread _id_A5A4::_id_69C4( "scn_coup_jeep_hard_turn" );
+    var_1 thread maps\_utility::_id_69C4( "scn_coup_jeep_hard_turn" );
 }
 
 play_helicopter_scripted_sfx( var_0 )
 {
     self._id_799F = 1;
     self vehicle_turnengineoff();
-    thread _id_A5A4::_id_69C4( var_0 );
+    thread maps\_utility::_id_69C4( var_0 );
 }
 
 aud_car_sound_node_spawner()
@@ -319,7 +319,7 @@ aud_car_sound_node_spawner()
 aud_car_event_handler( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( isdefined( var_5 ) )
-        _id_A5DE::_id_5CF2( var_5 );
+        soundscripts\_audio_mix_manager::_id_5CF2( var_5 );
 
     thread aud_car_engine_idle_handler( var_0, var_1, var_2, var_3, var_4 );
     self scalepitch( var_0, var_1 );
@@ -328,7 +328,7 @@ aud_car_event_handler( var_0, var_1, var_2, var_3, var_4, var_5 )
     wait(var_4);
 
     if ( isdefined( var_5 ) )
-        _id_A5DE::_id_5CF6( var_5 );
+        soundscripts\_audio_mix_manager::_id_5CF6( var_5 );
 }
 
 aud_car_engine_idle_handler( var_0, var_1, var_2, var_3, var_4 )
@@ -361,30 +361,30 @@ aud_stop_engine( var_0, var_1 )
 aud_shutoff_engine()
 {
     wait 1.0;
-    _id_A5DE::_id_5CF2( "engine_shutoff_mix" );
+    soundscripts\_audio_mix_manager::_id_5CF2( "engine_shutoff_mix" );
     level.car_move_engine_sound_node playsound( "scn_coup_engine_shutoff" );
     level.car_move_engine_sound_node thread aud_stop_engine( "02", 1 );
 }
 
 aud_music_handler()
 {
-    _id_A5A4::_id_6008( "music_coup_intro_01" );
+    maps\_utility::_id_6008( "music_coup_intro_01" );
     common_scripts\utility::_id_384A( "music_part2" );
     wait 1.5;
-    _id_A5A4::_id_6005( 1.0 );
-    _id_A5A4::_id_6008( "music_coup_intro_02" );
+    maps\_utility::_id_6005( 1.0 );
+    maps\_utility::_id_6008( "music_coup_intro_02" );
     common_scripts\utility::_id_384A( "music_part3" );
     wait 8.0;
-    _id_A5A4::_id_5FFC( "music_coup_intro_03", 1.0 );
+    maps\_utility::_id_5FFC( "music_coup_intro_03", 1.0 );
     common_scripts\utility::_id_384A( "music_part4" );
     wait 1.5;
-    _id_A5A4::_id_6005( 1.0 );
-    _id_A5A4::_id_6008( "music_coup_intro_04" );
+    maps\_utility::_id_6005( 1.0 );
+    maps\_utility::_id_6008( "music_coup_intro_04" );
 }
 
 aud_first_bmp()
 {
     var_0 = getvehiclenode( "auto707", "targetname" );
     var_0 waittill( "trigger", var_1 );
-    var_1 thread _id_A5A4::_id_69C4( "scn_coup_first_bmp" );
+    var_1 thread maps\_utility::_id_69C4( "scn_coup_first_bmp" );
 }

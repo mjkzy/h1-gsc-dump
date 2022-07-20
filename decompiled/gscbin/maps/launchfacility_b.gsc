@@ -25,7 +25,7 @@ dead_script()
     thread maps\createart\launchfacility_b_art::main();
     thread maps\launchfacility_b_fx::main();
     maps\launchfacility_b_precache::main();
-    _id_A550::main();
+    maps\_load::main();
     thread maps\launchfacility_b_amb::main();
     maps\launchfacility_b_anim::main();
     maps\launchfacility_b_lighting::main();
@@ -61,13 +61,13 @@ main()
     precacheshader( "h1_hud_timer_border" );
     precacheshader( "h1_timer_on_flare" );
     precacheshader( "h1_timer_warning_flare" );
-    _id_A5A4::_id_079C( "warehouse", ::start_warehouse, &"STARTS_WAREHOUSE" );
-    _id_A5A4::_id_079C( "launchtubes", ::start_launchtubes, &"STARTS_LAUNCHTUBES" );
-    _id_A5A4::_id_079C( "vaultdoors", ::start_vaultdoors, &"STARTS_VAULTDOORS" );
-    _id_A5A4::_id_079C( "controlroom", ::start_controlroom, &"STARTS_CONTROLROOM" );
-    _id_A5A4::_id_079C( "escape", ::_id_8B9A, &"STARTS_ESCAPE1" );
-    _id_A5A4::_id_079C( "elevator", ::start_elevator, &"STARTS_ELEVATOR" );
-    _id_A5A4::_id_278B( ::start_default );
+    maps\_utility::_id_079C( "warehouse", ::start_warehouse, &"STARTS_WAREHOUSE" );
+    maps\_utility::_id_079C( "launchtubes", ::start_launchtubes, &"STARTS_LAUNCHTUBES" );
+    maps\_utility::_id_079C( "vaultdoors", ::start_vaultdoors, &"STARTS_VAULTDOORS" );
+    maps\_utility::_id_079C( "controlroom", ::start_controlroom, &"STARTS_CONTROLROOM" );
+    maps\_utility::_id_079C( "escape", ::_id_8B9A, &"STARTS_ESCAPE1" );
+    maps\_utility::_id_079C( "elevator", ::start_elevator, &"STARTS_ELEVATOR" );
+    maps\_utility::_id_278B( ::start_default );
     level thread maps\createart\launchfacility_b_art::main();
     level thread maps\launchfacility_b_fx::main();
     level.weaponclipmodels = [];
@@ -79,15 +79,15 @@ main()
     thread common_scripts\_pipes::main();
     thread maps\_leak::main();
     maps\launchfacility_b_precache::main();
-    _id_A550::main();
-    _id_A55E::main();
+    maps\_load::main();
+    maps\_nightvision::main();
     level thread maps\launchfacility_b_amb::main();
     maps\_c4::main();
     maps\launchfacility_b_anim::main();
     maps\launchfacility_b_lighting::main();
     maps\launchfacility_b_aud::main();
     maps\_deadbody::main();
-    _id_A51D::setupminimap( "compass_map_launchfacility_b" );
+    maps\_compass::setupminimap( "compass_map_launchfacility_b" );
     createthreatbiasgroup( "player" );
     precachemodel( "com_computer_keyboard_obj" );
     precachemodel( "com_computer_keyboard" );
@@ -107,7 +107,7 @@ main()
     precachestring( &"LAUNCHFACILITY_B_HINT_UPLOAD_CODES" );
     precachestring( &"LAUNCHFACILITY_B_FOLLOW_PRICE" );
     precachestring( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
-    _id_A5A4::_id_1332( "allies" );
+    maps\_utility::_id_1332( "allies" );
     level.secondaryprogressbary = 75;
     level.secondaryprogressbarx = 0;
     level.secondaryprogressbarheight = 14;
@@ -121,21 +121,21 @@ main()
     level.elevator_upper = getent( "elevator_upper", "targetname" );
     level.wallexplosionsmall_fx = loadfx( "fx/explosions/wall_explosion_small" );
     var_0 = getent( "price", "script_noteworthy" );
-    var_0 _id_A5A4::_id_0798( ::price_think );
+    var_0 maps\_utility::_id_0798( ::price_think );
     var_1 = getent( "grigsby", "script_noteworthy" );
-    var_1 _id_A5A4::_id_0798( ::grigsby_think );
+    var_1 maps\_utility::_id_0798( ::grigsby_think );
     var_2 = getent( "team1", "script_noteworthy" );
-    var_2 _id_A5A4::_id_0798( ::team1_think );
+    var_2 maps\_utility::_id_0798( ::team1_think );
     var_3 = getentarray( "vent_friendlies_group1", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_3, _id_A5A4::_id_0798, ::vent_friendlies_group1_spawner_think );
+    common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_0798, ::vent_friendlies_group1_spawner_think );
     var_4 = getentarray( "vent_enemies_group1", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_4, _id_A5A4::_id_0798, ::vent_enemies_group1_spawner_think );
+    common_scripts\utility::_id_0D13( var_4, maps\_utility::_id_0798, ::vent_enemies_group1_spawner_think );
     var_5 = getentarray( "vent_friendlies_group2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_5, _id_A5A4::_id_0798, ::vent_friendlies_group2_spawner_think );
+    common_scripts\utility::_id_0D13( var_5, maps\_utility::_id_0798, ::vent_friendlies_group2_spawner_think );
     var_6 = getentarray( "vent_enemies_group2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_6, _id_A5A4::_id_0798, ::vent_enemies_group2_spawner_think );
+    common_scripts\utility::_id_0D13( var_6, maps\_utility::_id_0798, ::vent_enemies_group2_spawner_think );
     var_7 = getentarray( "gassed_runners", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_7, _id_A5A4::_id_0798, ::warehouse_retreating_enemies_think );
+    common_scripts\utility::_id_0D13( var_7, maps\_utility::_id_0798, ::warehouse_retreating_enemies_think );
     common_scripts\utility::_id_383D( "aa_countdown_started" );
     common_scripts\utility::_id_383D( "aa_first_floor" );
     common_scripts\utility::_id_383D( "aa_warehouse" );
@@ -271,12 +271,12 @@ h1_typing_dof_stop()
 
 start_default()
 {
-    _id_A5E8::_id_870C( "start_default_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_default_checkpoint" );
 }
 
 start_warehouse()
 {
-    _id_A5E8::_id_870C( "start_warehouse_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_warehouse_checkpoint" );
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "warehouse_price", "targetname" );
@@ -288,14 +288,14 @@ start_warehouse()
     level.playercardbackground setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
-    _id_A5A4::_id_070A( "warehouse_color_init" );
+    maps\_utility::_id_070A( "warehouse_color_init" );
     wait 1;
     level._id_91E7[0] delete();
 }
 
 start_launchtubes()
 {
-    _id_A5E8::_id_870C( "start_launchtubes_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_launchtubes_checkpoint" );
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "launchtubes_price", "targetname" );
@@ -313,7 +313,7 @@ start_launchtubes()
 
 start_vaultdoors()
 {
-    _id_A5E8::_id_870C( "start_vaultdoors_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_vaultdoors_checkpoint" );
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "vaultdoors_price", "targetname" );
@@ -326,15 +326,15 @@ start_vaultdoors()
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     common_scripts\utility::_id_383F( "open_vault_doors" );
-    level._id_6F7C _id_A5A4::_id_7E38( "r" );
-    _id_A5A4::_id_070A( "setup_for_vault_doors" );
+    level._id_6F7C maps\_utility::_id_7E38( "r" );
+    maps\_utility::_id_070A( "setup_for_vault_doors" );
     wait 1;
     level._id_91E7[0] delete();
 }
 
 start_controlroom()
 {
-    _id_A5E8::_id_870C( "start_controlroom_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_controlroom_checkpoint" );
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "controlroom_price", "targetname" );
@@ -347,12 +347,12 @@ start_controlroom()
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     level thread hide_triggers( "attacking" );
-    _id_A5A4::_id_070A( "protect_the_c4" );
+    maps\_utility::_id_070A( "protect_the_c4" );
     common_scripts\utility::_id_383F( "update_objectives" );
     thread plant_the_c4();
     var_3 = getentarray( "team2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_3, _id_A5A4::_id_88C3 );
-    _id_A5A4::_id_070A( "control_room_friendlies_attack" );
+    common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_88C3 );
+    maps\_utility::_id_070A( "control_room_friendlies_attack" );
     wait 1;
     level._id_91E7[0] delete();
     var_4 = getent( "vault_door_left", "targetname" );
@@ -369,7 +369,7 @@ start_controlroom()
 
 _id_8B9A()
 {
-    _id_A5E8::_id_870C( "start_escape_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_escape_checkpoint" );
     level notify( "use_start" );
     level thread hide_triggers( "attacking" );
     var_0 = getent( "vault_door_left", "targetname" );
@@ -395,14 +395,14 @@ _id_8B9A()
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     var_8 = getentarray( "team2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_8, _id_A5A4::_id_88C3 );
-    _id_A5A4::_id_070A( "control_room_friendlies_attack" );
+    common_scripts\utility::_id_0D13( var_8, maps\_utility::_id_88C3 );
+    maps\_utility::_id_070A( "control_room_friendlies_attack" );
     level thread show_triggers( "escape" );
     thread telemetry_doors_open();
     thread escape_doors_open();
     thread grigsby_warning();
     thread delete_controlroom_friendlies();
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "vehicledepot" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "vehicledepot" );
     thread follow_price();
     wait 1;
     level._id_91E7[0] delete();
@@ -410,7 +410,7 @@ _id_8B9A()
 
 start_elevator()
 {
-    _id_A5E8::_id_870C( "start_elevator_checkpoint" );
+    soundscripts\_snd::_id_870C( "start_elevator_checkpoint" );
     level notify( "use_start" );
     var_0 = getent( "elevator_player", "targetname" );
     level.playercardbackground setorigin( var_0.origin );
@@ -422,7 +422,7 @@ start_elevator()
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     level thread show_triggers( "escape" );
-    _id_A5A4::_id_1143( "start_elevator" );
+    maps\_utility::_id_1143( "start_elevator" );
     wait 1;
     level._id_91E7[0] delete();
 }
@@ -453,14 +453,14 @@ autosave_by_name_wraper( var_0, var_1 )
             return;
     }
 
-    _id_A5A4::_id_1151( var_0, 12 );
+    maps\_utility::_id_1151( var_0, 12 );
 }
 
 price_think()
 {
     level._id_6F7C = self;
     level._id_6F7C._id_0C72 = "price";
-    level._id_6F7C thread _id_A5A4::_id_58D7();
+    level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C._id_2AF7 = 1;
     thread ai_duct();
 }
@@ -469,7 +469,7 @@ grigsby_think()
 {
     level.grigsby = self;
     level.grigsby._id_0C72 = "grigsby";
-    level.grigsby thread _id_A5A4::_id_58D7();
+    level.grigsby thread maps\_utility::_id_58D7();
     level.grigsby._id_2AF7 = 1;
     thread ai_duct();
 }
@@ -488,10 +488,10 @@ team1_think()
 vent_trigger_move_out()
 {
     wait 3;
-    _id_A5A4::_id_070A( "move_out" );
+    maps\_utility::_id_070A( "move_out" );
     common_scripts\utility::_id_383F( "aa_first_floor" );
     wait 1;
-    _id_A5A4::_id_070A( "h1_move_out" );
+    maps\_utility::_id_070A( "h1_move_out" );
 }
 
 vent_trigger_air_raid_siren()
@@ -506,12 +506,12 @@ vent_dialogue1()
 {
     level endon( "use_start" );
     wait 3;
-    _id_A5A4::_id_70BD( "letsmove" );
+    maps\_utility::_id_70BD( "letsmove" );
     wait 3;
-    _id_A5A4::_id_70BD( "basesecurity" );
+    maps\_utility::_id_70BD( "basesecurity" );
     wait 1;
-    _id_A5A4::_id_70BD( "invents" );
-    _id_A5A4::_id_70BD( "gm1_copythat" );
+    maps\_utility::_id_70BD( "invents" );
+    maps\_utility::_id_70BD( "gm1_copythat" );
     wait 1;
     play_sound_on_speaker( "launchfacility_b_rul_alert" );
 }
@@ -525,9 +525,9 @@ vent_dialogue2()
 vent_dialogue2_01()
 {
     self waittill( "trigger" );
-    _id_A5A4::_id_70BD( "heavyresistance" );
-    _id_A5A4::_id_70BD( "gaincontrol" );
-    _id_A5A4::_id_70BD( "regroup" );
+    maps\_utility::_id_70BD( "heavyresistance" );
+    maps\_utility::_id_70BD( "gaincontrol" );
+    maps\_utility::_id_70BD( "regroup" );
     common_scripts\utility::_id_383F( "begin_countdown" );
 }
 
@@ -598,22 +598,22 @@ obj_plant_the_c4()
     objective_add( var_0, "active", &"LAUNCHFACILITY_B_CLEAR_ROOM", var_1.origin );
     objective_indentlevel( var_0, 1 );
     objective_current( var_0 );
-    _id_A5A4::_id_A066( "control_room" );
+    maps\_utility::_id_A066( "control_room" );
     objective_state( var_0, "done" );
 }
 
 obj_upload_the_abort_codes()
 {
-    _id_A5A4::_id_A066( "control_room" );
-    _id_A5E8::_id_870C( "start_code_input_mix" );
+    maps\_utility::_id_A066( "control_room" );
+    soundscripts\_snd::_id_870C( "start_code_input_mix" );
     var_0 = getent( "control_room_friendlies_group", "targetname" );
 
     if ( isdefined( var_0 ) )
-        var_0 _id_A5A4::_id_0706();
+        var_0 maps\_utility::_id_0706();
 
     hide_triggers( "control_room_friendlies_group" );
-    _id_A5A4::_id_70BD( "grg_clearR" );
-    _id_A5A4::_id_70BD( "entercodes" );
+    maps\_utility::_id_70BD( "grg_clearR" );
+    maps\_utility::_id_70BD( "entercodes" );
     var_1 = 3;
     wait 0.5;
     var_2 = ( 0, 0, 0 );
@@ -663,8 +663,8 @@ lock_obj_location( var_0 )
 
 countdown_begins()
 {
-    if ( _id_A5A4::_id_5016() )
-        _id_A5A4::_id_9FC0( "countdown_start" );
+    if ( maps\_utility::_id_5016() )
+        maps\_utility::_id_9FC0( "countdown_start" );
 
     var_0 = undefined;
 
@@ -694,17 +694,17 @@ countdown_begins()
 
     common_scripts\utility::_id_384A( "begin_countdown" );
 
-    if ( _id_A5A4::_id_5016() )
-        _id_A5A4::_id_70BD( var_0 );
+    if ( maps\_utility::_id_5016() )
+        maps\_utility::_id_70BD( var_0 );
 
     common_scripts\utility::_id_383F( "countdown_started" );
     common_scripts\utility::_id_383F( "aa_countdown_started" );
-    _id_A5A4::arcademode_checkpoint( 2, "a" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "pri_copythat" );
+    maps\_utility::arcademode_checkpoint( 2, "a" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_copythat" );
     level thread starttimer();
     common_scripts\utility::_id_383F( "music_start_countdown" );
     level.timer_start_time = gettime();
-    _id_A5E8::_id_870C( "start_hallway_combat_mix" );
+    soundscripts\_snd::_id_870C( "start_hallway_combat_mix" );
 }
 
 grigsby_countdown_spam()
@@ -712,15 +712,15 @@ grigsby_countdown_spam()
     common_scripts\utility::_id_384A( "countdown_started" );
 
     if ( level._id_8F0D > 10 )
-        thread _id_A5A4::_id_3840( "10min_left", level._id_8F0D * 60 - 602 );
+        thread maps\_utility::_id_3840( "10min_left", level._id_8F0D * 60 - 602 );
 
-    thread _id_A5A4::_id_3840( "8min_left", level._id_8F0D * 60 - 482 );
-    thread _id_A5A4::_id_3840( "6min_left", level._id_8F0D * 60 - 362 );
-    thread _id_A5A4::_id_3840( "5min_left", level._id_8F0D * 60 - 302 );
-    thread _id_A5A4::_id_3840( "4min_left", level._id_8F0D * 60 - 242 );
-    thread _id_A5A4::_id_3840( "3min_left", level._id_8F0D * 60 - 182 );
-    thread _id_A5A4::_id_3840( "2min_left", level._id_8F0D * 60 - 122 );
-    thread _id_A5A4::_id_3840( "1min_left", level._id_8F0D * 60 - 62 );
+    thread maps\_utility::_id_3840( "8min_left", level._id_8F0D * 60 - 482 );
+    thread maps\_utility::_id_3840( "6min_left", level._id_8F0D * 60 - 362 );
+    thread maps\_utility::_id_3840( "5min_left", level._id_8F0D * 60 - 302 );
+    thread maps\_utility::_id_3840( "4min_left", level._id_8F0D * 60 - 242 );
+    thread maps\_utility::_id_3840( "3min_left", level._id_8F0D * 60 - 182 );
+    thread maps\_utility::_id_3840( "2min_left", level._id_8F0D * 60 - 122 );
+    thread maps\_utility::_id_3840( "1min_left", level._id_8F0D * 60 - 62 );
     level thread grigsby_countdown_dialogue();
 }
 
@@ -728,17 +728,17 @@ grigsby_countdown_dialogue()
 {
     level endon( "codes_uploaded" );
     common_scripts\utility::_id_384A( "10min_left" );
-    _id_A5A4::_id_70BD( "grg_10" );
+    maps\_utility::_id_70BD( "grg_10" );
     common_scripts\utility::_id_384A( "8min_left" );
-    _id_A5A4::_id_70BD( "grg_8" );
+    maps\_utility::_id_70BD( "grg_8" );
     common_scripts\utility::_id_384A( "6min_left" );
-    _id_A5A4::_id_70BD( "grg_6" );
+    maps\_utility::_id_70BD( "grg_6" );
     common_scripts\utility::_id_384A( "5min_left" );
-    _id_A5A4::_id_70BD( "grg_5" );
+    maps\_utility::_id_70BD( "grg_5" );
     common_scripts\utility::_id_384A( "4min_left" );
-    _id_A5A4::_id_70BD( "grg_4" );
+    maps\_utility::_id_70BD( "grg_4" );
     common_scripts\utility::_id_384A( "3min_left" );
-    _id_A5A4::_id_70BD( "grg_3" );
+    maps\_utility::_id_70BD( "grg_3" );
 }
 
 starttimer()
@@ -746,14 +746,14 @@ starttimer()
     _id_53B1();
     level endon( "kill_timer" );
     level._id_4AFE = 20;
-    level._id_9373 = _id_A546::_id_3D17( undefined, undefined, undefined, undefined, level._id_8F0D * 60 );
+    level._id_9373 = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, level._id_8F0D * 60 );
     level._id_9373 setpulsefx( 30, 900000, 700 );
     level._id_9373._id_92B2.land = &"LAUNCHFACILITY_B_TIME_TILL_ICBM_IMPACT";
     level._id_9373 settenthstimer( level._id_8F0D * 60 );
     wait(level._id_8F0D * 60);
     common_scripts\utility::_id_383F( "timer_expired" );
-    _id_A546::destroy_countdown_hud( level._id_9373 );
-    _id_A5E8::_id_870C( "mission_failed" );
+    maps\_hud_util::destroy_countdown_hud( level._id_9373 );
+    soundscripts\_snd::_id_870C( "mission_failed" );
     level thread mission_failed_out_of_time();
 }
 
@@ -763,7 +763,7 @@ mission_failed_out_of_time()
     level endon( "kill_timer" );
     level notify( "mission failed" );
     setdvar( "ui_deadquote", level.missionfailedquote );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 _id_53B1()
@@ -771,7 +771,7 @@ _id_53B1()
     level notify( "kill_timer" );
 
     if ( isdefined( level._id_9373 ) )
-        _id_A546::destroy_countdown_hud( level._id_9373 );
+        maps\_hud_util::destroy_countdown_hud( level._id_9373 );
 }
 
 ai_duct()
@@ -784,14 +784,14 @@ ai_duct()
     self.exitconditioncheckfunc = ::air_duct_check_cover_transition;
     self.exittypefunc = ::air_duct_get_transition_type;
     common_scripts\utility::_id_384A( "walk" );
-    _id_A5A4::_id_22DA( "on" );
+    maps\_utility::_id_22DA( "on" );
     self _meth_81ce( "stand", "crouch", "prone" );
     self._id_0CB7 = undefined;
     self._id_0CBD = undefined;
     self.exitconditioncheckfunc = undefined;
     self.exittypefunc = undefined;
     common_scripts\utility::_id_384A( "move_faster" );
-    _id_A5A4::_id_22DA( "off" );
+    maps\_utility::_id_22DA( "off" );
     self.invisible = 60;
 }
 
@@ -807,16 +807,16 @@ air_duct_get_transition_type( var_0 )
 
 vent_friendlies_group1_spawner_think()
 {
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
     self.grenadeammo = 0;
-    _id_A5A4::_id_22DA( "on" );
+    maps\_utility::_id_22DA( "on" );
     self _meth_81ce( "stand", "crouch", "prone" );
-    _id_A5A4::_id_A066( "vent_enemies_group1" );
-    _id_A5A4::_id_070A( "vent_friendlies_group1_move" );
-    _id_A5A4::_id_22DA( "off" );
+    maps\_utility::_id_A066( "vent_enemies_group1" );
+    maps\_utility::_id_070A( "vent_friendlies_group1_move" );
+    maps\_utility::_id_22DA( "off" );
     wait 1;
     common_scripts\utility::_id_A06A( self, "goal", level, "player_out_of_vents" );
-    _id_A5A4::_id_8EA4();
+    maps\_utility::_id_8EA4();
     self delete();
 }
 
@@ -838,12 +838,12 @@ delete_on_damage()
 
 vent_friendlies_group2_spawner_think()
 {
-    thread _id_A5A4::_id_58D7();
-    _id_A5A4::_id_A066( "vent_enemies_group2" );
-    _id_A5A4::_id_070A( "vent_friendlies_group2_move" );
+    thread maps\_utility::_id_58D7();
+    maps\_utility::_id_A066( "vent_enemies_group2" );
+    maps\_utility::_id_070A( "vent_friendlies_group2_move" );
     wait 1;
     common_scripts\utility::_id_A06A( self, "goal", level, "player_out_of_vents" );
-    _id_A5A4::_id_8EA4();
+    maps\_utility::_id_8EA4();
     self delete();
 }
 
@@ -876,28 +876,28 @@ vent_friendlies_vent_jump()
 {
     common_scripts\utility::_id_383F( "grisby_jump" );
     var_0 = getent( "vent_jump_animent", "targetname" );
-    var_0 _id_A510::_id_0BFF( level._id_6F7C, "vent_drop_l" );
-    var_0 _id_A510::_id_0C24( level._id_6F7C, "vent_drop_l" );
-    level._id_6F7C _id_A5A4::_id_7E38( "r" );
+    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "vent_drop_l" );
+    var_0 maps\_anim::_id_0C24( level._id_6F7C, "vent_drop_l" );
+    level._id_6F7C maps\_utility::_id_7E38( "r" );
     wait 0.5;
-    _id_A5A4::_id_070A( "grigsby_price_setup_shower" );
+    maps\_utility::_id_070A( "grigsby_price_setup_shower" );
 }
 
 vent_grisby_vent_jump()
 {
     common_scripts\utility::_id_384A( "grisby_jump" );
     var_0 = getent( "vent_jump_animent", "targetname" );
-    var_0 _id_A510::_id_0BFF( level.grigsby, "vent_drop_r" );
-    var_0 _id_A510::_id_0C24( level.grigsby, "vent_drop_r" );
-    level.grigsby _id_A5A4::_id_7E38( "o" );
+    var_0 maps\_anim::_id_0BFF( level.grigsby, "vent_drop_r" );
+    var_0 maps\_anim::_id_0C24( level.grigsby, "vent_drop_r" );
+    level.grigsby maps\_utility::_id_7E38( "o" );
 }
 
 vent_team1_vent_jump()
 {
     var_0 = getent( "vent_jump_animent", "targetname" );
-    var_0 _id_A510::_id_0C24( level._id_91E7[0], "vent_drop_team1" );
-    level._id_91E7[0] _id_A5A4::_id_7E38( "y" );
-    _id_A5A4::_id_070A( "team1_setup_shower" );
+    var_0 maps\_anim::_id_0C24( level._id_91E7[0], "vent_drop_team1" );
+    level._id_91E7[0] maps\_utility::_id_7E38( "y" );
+    maps\_utility::_id_070A( "team1_setup_shower" );
 }
 
 hide_triggers_1st_floor()
@@ -907,7 +907,7 @@ hide_triggers_1st_floor()
     level thread hide_triggers( "attacking_1st_floor" );
     common_scripts\utility::_id_3831( "aa_first_floor" );
     common_scripts\utility::_id_383F( "aa_warehouse" );
-    _id_A5A4::arcademode_checkpoint( 3, "b" );
+    maps\_utility::arcademode_checkpoint( 3, "b" );
 }
 
 warehouse_retreating_enemies_think()
@@ -933,7 +933,7 @@ warehouse_trigger_kill_enemies()
     thread warehouse_kill_all_enemy();
     common_scripts\utility::_id_3831( "aa_warehouse" );
     common_scripts\utility::_id_383F( "aa_launchtubes" );
-    _id_A5A4::arcademode_checkpoint( 3, "c" );
+    maps\_utility::arcademode_checkpoint( 3, "c" );
 }
 
 warehouse_kill_all_enemy()
@@ -977,14 +977,14 @@ launch_tube_dialogue()
 {
     var_0 = getent( "times_running_out", "targetname" );
     var_0 waittill( "trigger" );
-    _id_A5A4::_id_70BD( "grg_gottamove" );
+    maps\_utility::_id_70BD( "grg_gottamove" );
     level endon( "speaker_interrupt" );
     wait 2;
     play_sound_on_speaker( "launchfacility_b_rul_storagearea" );
     play_sound_on_speaker( "launchfacility_b_rul_primaryinititated" );
     play_sound_on_speaker( "launchfacility_b_rul_securemissilebay" );
-    _id_A5A4::_id_70BD( "grg_goinon" );
-    _id_A5A4::_id_70BD( "startedcountdown" );
+    maps\_utility::_id_70BD( "grg_goinon" );
+    maps\_utility::_id_70BD( "startedcountdown" );
 }
 
 rocket_powering_up()
@@ -992,7 +992,7 @@ rocket_powering_up()
     var_0 = getent( "rocket_power_up", "targetname" );
     var_0 waittill( "trigger" );
     play_sound_on_speaker( "launchfacility_b_rul_30secs" );
-    _id_A5E8::_id_870C( "start_missile_silo_mix" );
+    soundscripts\_snd::_id_870C( "start_missile_silo_mix" );
     wait(randomfloatrange( 0.2, 1.2 ));
 
     while ( !common_scripts\utility::_id_382E( "blast_door_player_clip_off" ) )
@@ -1026,7 +1026,7 @@ launchtubes_teleport_friendlies()
     level.grigsby thread guard_the_vaultdoors_grigsby();
     common_scripts\utility::_id_383F( "start_missile_alarm" );
     thread rocket_powering_up_dialogue();
-    _id_A5A4::_id_70BD( "pri_gogogo1" );
+    maps\_utility::_id_70BD( "pri_gogogo1" );
 }
 
 launchtubes_effects()
@@ -1107,13 +1107,13 @@ run_to_the_door()
     var_3 = getent( "shut_blast_door", "targetname" );
     wait 2;
     var_1._id_0C72 = "door";
-    var_1 _id_A510::_id_7F29();
-    var_0 _id_A510::_id_0BC6( var_1, "blast_door_close", var_0.origin, var_0.angles );
+    var_1 maps\_anim::_id_7F29();
+    var_0 maps\_anim::_id_0BC6( var_1, "blast_door_close", var_0.origin, var_0.angles );
     wait 2;
     common_scripts\utility::_id_384A( "price_close_door" );
-    var_0 _id_A510::_id_0BFF( level._id_6F7C, "blast_door_runto" );
-    var_0 _id_A510::_id_0C24( level._id_6F7C, "blast_door_runto" );
-    var_0 thread _id_A510::_id_0BE1( level._id_6F7C, "blast_door_wave", undefined, "stop_idle" );
+    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "blast_door_runto" );
+    var_0 maps\_anim::_id_0C24( level._id_6F7C, "blast_door_runto" );
+    var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "blast_door_wave", undefined, "stop_idle" );
     thread price_warning();
     level.playercardbackground in_volume();
     var_0 notify( "stop_idle" );
@@ -1123,10 +1123,10 @@ run_to_the_door()
     var_4[0] = var_1;
     var_4[1] = level._id_6F7C;
     level thread launchtubes_hatch_close_sound();
-    var_0 _id_A510::_id_0C18( var_4, "blast_door_close" );
+    var_0 maps\_anim::_id_0C18( var_4, "blast_door_close" );
     common_scripts\utility::_id_383F( "blast_door_player_clip_off" );
     common_scripts\utility::_id_383F( "open_vault_doors" );
-    _id_A5E8::_id_870C( "start_vault_doors_mix" );
+    soundscripts\_snd::_id_870C( "start_vault_doors_mix" );
 
     switch ( level._id_3BFE )
     {
@@ -1151,7 +1151,7 @@ run_to_the_door()
 
 price_warning()
 {
-    _id_A5A4::_id_70BD( "pri_movemove" );
+    maps\_utility::_id_70BD( "pri_movemove" );
 }
 
 launchtubes_hatch_close_sound()
@@ -1160,7 +1160,7 @@ launchtubes_hatch_close_sound()
     level._id_6F7C playsound( "scn_door_launchb_hatch_close" );
     level.playercardbackground playsound( "scn_launchb_missile_launch" );
     common_scripts\_exploder::_id_3528( 2 );
-    _id_A5A4::_id_8E7E( 1 );
+    maps\_utility::_id_8E7E( 1 );
     var_0 = getent( "inc_fireball_sfx", "targetname" );
     var_0 playsound( "h1_launchtube_fireball" );
     level thread fireballdlight();
@@ -1211,9 +1211,9 @@ player_death_effect()
 
 kill_launchtube_steam_fx()
 {
-    var_0 = _id_A5A4::_id_3FA9( "steam_jet_med_loop" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "hallway_steam_loop" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, _id_A5A4::_id_3FA9( "steam_jet_med_loop_rand" ) );
+    var_0 = maps\_utility::_id_3FA9( "steam_jet_med_loop" );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "hallway_steam_loop" ) );
+    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "steam_jet_med_loop_rand" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] common_scripts\utility::_id_671F();
@@ -1248,8 +1248,8 @@ guard_the_vaultdoors()
     var_1[0] = level._id_6F7C;
     var_1[1] = level.grigsby;
     level.grigsby _meth_8168( 0 );
-    var_0 _id_A510::_id_0BF2( var_1, "guard_vaultdoors" );
-    var_0 _id_A510::_id_0C18( var_1, "guard_vaultdoors" );
+    var_0 maps\_anim::_id_0BF2( var_1, "guard_vaultdoors" );
+    var_0 maps\_anim::_id_0C18( var_1, "guard_vaultdoors" );
 }
 
 returnexposedcrouch()
@@ -1272,7 +1272,7 @@ guard_the_vaultdoors_grigsby()
     var_0 = getent( "guard_vaultdoors", "targetname" );
     level.grigsby._id_0CBD = ::returnexposedcrouch;
     level.grigsby.a.dontstartaim = 1;
-    var_0 _id_A510::_id_0BF5( level.grigsby, "guard_vaultdoors" );
+    var_0 maps\_anim::_id_0BF5( level.grigsby, "guard_vaultdoors" );
     common_scripts\utility::_id_383D( "vaultdoors_grigs_approach_done" );
     level.grigsby thread guard_the_vaultdoors_grigsby_wait_for_approach( var_0 );
 
@@ -1293,25 +1293,25 @@ vault_doors_dialogue()
     if ( getdvarint( "use_old_vaultdoors" ) != 1 )
         wait 3;
 
-    _id_A5A4::_id_70BD( "controlbasesec" );
+    maps\_utility::_id_70BD( "controlbasesec" );
 
     if ( getdvarint( "use_old_vaultdoors" ) != 1 )
         return;
 
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "pri_atdoor" );
-    _id_A5A4::_id_70BD( "workinonit" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_atdoor" );
+    maps\_utility::_id_70BD( "workinonit" );
     wait 2;
-    _id_A5A4::_id_70BD( "almostthere" );
+    maps\_utility::_id_70BD( "almostthere" );
     wait 2;
-    _id_A5A4::_id_70BD( "gotit" );
+    maps\_utility::_id_70BD( "gotit" );
     thread vault_doors_team_ready();
     wait 0.5;
     common_scripts\utility::_id_383F( "vault_doors_unlocked" );
     wait 8;
-    level.grigsby _id_A510::_id_0C21( level.grigsby, "grg_shittinme" );
-    _id_A5A4::_id_70BD( "pri_faster" );
-    _id_A5A4::_id_70BD( "gm1_trypulling" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "pri_cheeky" );
+    level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_shittinme" );
+    maps\_utility::_id_70BD( "pri_faster" );
+    maps\_utility::_id_70BD( "gm1_trypulling" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_cheeky" );
     vault_door_scene_completed();
 }
 
@@ -1369,7 +1369,7 @@ vault_doors_open()
     var_0 rotateyaw( -50, 30, 0, 30 );
     var_3 rotateyaw( 50, 30, 0, 30 );
     common_scripts\utility::_id_3831( "aa_launchtubes" );
-    _id_A5A4::arcademode_checkpoint( 5, "d" );
+    maps\_utility::arcademode_checkpoint( 5, "d" );
     common_scripts\utility::_id_383F( "vault_door_opened" );
     common_scripts\utility::_id_383F( "move_faster" );
     common_scripts\utility::_id_383F( "aa_blow_the_wall" );
@@ -1379,34 +1379,34 @@ vault_doors_open()
 
 vault_doors_team_ready()
 {
-    level._id_6F7C _id_A5A4::_id_7E38( "r" );
-    level.grigsby _id_A5A4::_id_7E38( "o" );
-    _id_A5A4::_id_070A( "setup_for_vault_doors_opening" );
+    level._id_6F7C maps\_utility::_id_7E38( "r" );
+    level.grigsby maps\_utility::_id_7E38( "o" );
+    maps\_utility::_id_070A( "setup_for_vault_doors_opening" );
 }
 
 spawn_utility_enemies()
 {
     common_scripts\utility::_id_384A( "vault_door_opened" );
     var_0 = getentarray( "utility_enemies", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_88C3 );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
     thread blow_the_wall_dialogue();
 }
 
 preparing_to_breach()
 {
     level.playercardbackground endon( "death" );
-    _id_A5A4::_id_A066( "utility_badies" );
+    maps\_utility::_id_A066( "utility_badies" );
     level thread hide_triggers( "attacking" );
-    _id_A5A4::_id_070A( "protect_the_c4" );
+    maps\_utility::_id_070A( "protect_the_c4" );
 }
 
 blow_the_wall_dialogue()
 {
     var_0 = getent( "plant_explosives_dialogue", "targetname" );
     var_0 waittill( "trigger" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "status" );
-    _id_A5A4::_id_70BD( "gm2_inposition" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "pri_plantexplos" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "status" );
+    maps\_utility::_id_70BD( "gm2_inposition" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_plantexplos" );
     common_scripts\utility::_id_383F( "update_objectives" );
     thread plant_the_c4();
 
@@ -1435,7 +1435,7 @@ plant_the_c4()
     var_0 waittill( "c4_planted" );
     level notify( "wall_c4_planted" );
     thread griggs_c4_take_cover_path();
-    _id_A5A4::_id_070A( "take_cover" );
+    maps\_utility::_id_070A( "take_cover" );
     var_0 waittill( "c4_detonation" );
     thread blow_the_wall();
 }
@@ -1443,11 +1443,11 @@ plant_the_c4()
 griggs_c4_take_cover_path()
 {
     level.grigsby endon( "death" );
-    level.grigsby _id_A5A4::_id_2A74();
+    level.grigsby maps\_utility::_id_2A74();
     var_0 = getnode( "griggs_c4_take_cover_start", "targetname" );
-    level.grigsby thread _id_A5A4::_id_396A( var_0 );
+    level.grigsby thread maps\_utility::_id_396A( var_0 );
     level.grigsby waittill( "reached_path_end" );
-    level.grigsby _id_A5A4::_id_309A();
+    level.grigsby maps\_utility::_id_309A();
     level.grigsby.disable_tight_turn = 1;
     var_1 = getnode( var_0._not_team, "targetname" );
 
@@ -1476,34 +1476,34 @@ blow_the_wall()
     common_scripts\utility::_id_3831( "aa_blow_the_wall" );
     common_scripts\utility::_id_383F( "aa_upload_them_codes" );
     wait 1;
-    _id_A5A4::_id_070A( "breaching_control_room" );
-    _id_A5A4::_id_70BD( "pri_gogogo2" );
-    _id_A5A4::_id_70BD( "movingin" );
-    _id_A5E8::_id_870C( "start_control_room_mix" );
+    maps\_utility::_id_070A( "breaching_control_room" );
+    maps\_utility::_id_70BD( "pri_gogogo2" );
+    maps\_utility::_id_70BD( "movingin" );
+    soundscripts\_snd::_id_870C( "start_control_room_mix" );
 }
 
 spawn_telemetry_enemies()
 {
     common_scripts\utility::_id_384A( "wall_destroyed" );
     var_0 = getentarray( "telemetry_enemies", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_88C3 );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
 }
 
 spawn_telemetry_friendlies()
 {
     var_0 = getentarray( "team2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_0798, ::telemetry_friendlies_think );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::telemetry_friendlies_think );
     common_scripts\utility::_id_384A( "wall_destroyed" );
-    common_scripts\utility::_id_0D13( var_0, _id_A5A4::_id_88C3 );
-    _id_A5A4::_id_070A( "control_room_friendlies_attack" );
+    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
+    maps\_utility::_id_070A( "control_room_friendlies_attack" );
 }
 
 telemetry_friendlies_think()
 {
     self endon( "death" );
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
     common_scripts\utility::_id_384A( "delete_team2" );
-    _id_A5A4::_id_8EA4();
+    maps\_utility::_id_8EA4();
     self delete();
 }
 
@@ -1515,7 +1515,7 @@ upload_codes_h1()
     var_2 = spawn( "script_model", level.keyboard.origin );
     var_2.angles = ( 0, 315, 0 );
     var_2 setmodel( "com_computer_keyboard" );
-    _id_A5A4::_id_A066( "control_room" );
+    maps\_utility::_id_A066( "control_room" );
     var_3 = 0.05;
     var_4 = 0;
     var_5 = 3;
@@ -1554,13 +1554,13 @@ upload_codes_h1()
         level.playercardbackground disableweapons();
         level.playercardbackground freezecontrols( 1 );
         level.playercardbackground allowlean( 0 );
-        var_13 = _id_A5A4::_id_88D1( "player" );
+        var_13 = maps\_utility::_id_88D1( "player" );
         var_13 hide();
-        var_7 _id_A510::_id_0BC7( var_13, "typing_abort_codes" );
-        var_13 _id_A5A4::lerp_player_view_to_tag_smoothly( "tag_player", 0.5, 1, 0, 0, 0, 0 );
+        var_7 maps\_anim::_id_0BC7( var_13, "typing_abort_codes" );
+        var_13 maps\_utility::lerp_player_view_to_tag_smoothly( "tag_player", 0.5, 1, 0, 0, 0, 0 );
         var_13 show();
         level.playercardbackground playsound( "scn_enter_code_typing" );
-        var_7 thread _id_A510::_id_0C24( var_13, "typing_abort_codes" );
+        var_7 thread maps\_anim::_id_0C24( var_13, "typing_abort_codes" );
         level.playercardbackground startprogressbar( var_5 );
         level.playercardbackground.progresstext settext( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
         var_14 = 0;
@@ -1589,7 +1589,7 @@ upload_codes_h1()
         level.playercardbackground freezecontrols( 0 );
         level.playercardbackground enableweapons();
         var_13 hide();
-        _id_A5A4::_id_5695( var_8, var_9, 0.5, 1, 0, 0, 0, 0 );
+        maps\_utility::_id_5695( var_8, var_9, 0.5, 1, 0, 0, 0, 0 );
         var_13 delete();
         level.playercardbackground allowcrouch( 1 );
         level.playercardbackground allowprone( 1 );
@@ -1602,21 +1602,21 @@ upload_codes_h1()
     }
 
     level.playercardbackground playsound( "h1_scn_enter_press" );
-    _id_A5E8::_id_870C( "start_missile_stopped_mix" );
+    soundscripts\_snd::_id_870C( "start_missile_stopped_mix" );
     var_0 delete();
     var_6 delete();
     common_scripts\utility::_id_383F( "codes_uploaded" );
     common_scripts\utility::_id_3831( "aa_countdown_started" );
     common_scripts\utility::_id_3831( "aa_upload_them_codes" );
-    _id_A5A4::_id_1143( "Codes have been uploaded" );
-    _id_A5A4::arcademode_checkpoint( 4, "e" );
+    maps\_utility::_id_1143( "Codes have been uploaded" );
+    maps\_utility::arcademode_checkpoint( 4, "e" );
 }
 
 upload_codes()
 {
     var_0 = getent( "keyboard_use_trigger", "targetname" );
     var_0 common_scripts\utility::_id_97CC();
-    _id_A5A4::_id_A066( "control_room" );
+    maps\_utility::_id_A066( "control_room" );
     var_1 = 0.05;
     var_2 = 0;
     var_3 = 3;
@@ -1670,7 +1670,7 @@ upload_codes()
     level.playercardbackground freezecontrols( 0 );
     level.playercardbackground stopsounds( "scn_enter_code_typing" );
     level.playercardbackground playsound( "h1_scn_enter_press" );
-    _id_A5E8::_id_870C( "start_missile_stopped_mix" );
+    soundscripts\_snd::_id_870C( "start_missile_stopped_mix" );
     var_0 delete();
     var_4 delete();
     var_6 = spawn( "script_model", level.keyboard.origin );
@@ -1679,8 +1679,8 @@ upload_codes()
     common_scripts\utility::_id_383F( "codes_uploaded" );
     common_scripts\utility::_id_3831( "aa_countdown_started" );
     common_scripts\utility::_id_3831( "aa_upload_them_codes" );
-    _id_A5A4::_id_1143( "Codes have been uploaded" );
-    _id_A5A4::arcademode_checkpoint( 4, "e" );
+    maps\_utility::_id_1143( "Codes have been uploaded" );
+    maps\_utility::arcademode_checkpoint( 4, "e" );
 }
 
 startprogressbar( var_0 )
@@ -1694,27 +1694,27 @@ setprogressbarprogress( var_0 )
     if ( var_0 > 1 )
         var_0 = 1;
 
-    self.progressbar _id_A546::_id_9AF7( var_0 );
+    self.progressbar maps\_hud_util::_id_9AF7( var_0 );
 }
 
 endprogressbar()
 {
     self notify( "progress_bar_ended" );
-    self.progresstext _id_A546::_id_28E9();
-    self.progressbar _id_A546::_id_28E9();
+    self.progresstext maps\_hud_util::_id_28E9();
+    self.progressbar maps\_hud_util::_id_28E9();
 }
 
 createsecondaryprogressbar()
 {
-    var_0 = _id_A546::h1_createbar( level.secondaryprogressbarx, level.secondaryprogressbary, 114, 14, "h1_hud_upload_codes_border", "h1_hud_upload_codes_blur", "white" );
-    var_0 _id_A546::_id_7FEE( "CENTER", undefined, 0, level.secondaryprogressbary );
+    var_0 = maps\_hud_util::h1_createbar( level.secondaryprogressbarx, level.secondaryprogressbary, 114, 14, "h1_hud_upload_codes_border", "h1_hud_upload_codes_blur", "white" );
+    var_0 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, level.secondaryprogressbary );
     return var_0;
 }
 
 createsecondaryprogressbartext()
 {
-    var_0 = _id_A546::_id_2401( "objective", level.secondaryprogressbarfontsize );
-    var_0 _id_A546::_id_7FEE( "CENTER", undefined, 0, level.secondaryprogressbartexty );
+    var_0 = maps\_hud_util::_id_2401( "objective", level.secondaryprogressbarfontsize );
+    var_0 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, level.secondaryprogressbartexty );
     return var_0;
 }
 
@@ -1726,20 +1726,20 @@ control_room_dialogue()
     thread escape_doors_open();
     thread grigsby_warning();
     thread delete_controlroom_friendlies();
-    _id_A5A4::_id_70BD( "hqr_confirm" );
+    maps\_utility::_id_70BD( "hqr_confirm" );
     wait 2;
-    _id_A5A4::_id_70BD( "hqr_standby" );
+    maps\_utility::_id_70BD( "hqr_standby" );
     wait 1;
     common_scripts\utility::_id_383F( "successful_confirmation" );
-    _id_A5A4::_id_70BD( "hqr_confdest" );
+    maps\_utility::_id_70BD( "hqr_confdest" );
     common_scripts\utility::_id_383F( "zakhaev_leaving" );
-    _id_A5A4::_id_70BD( "checkfeed2" );
-    _id_A5A4::_id_70BD( "sendcoordinates" );
-    level._id_6F7C thread _id_A510::_id_0C21( level._id_6F7C, "vehicledepot" );
+    maps\_utility::_id_70BD( "checkfeed2" );
+    maps\_utility::_id_70BD( "sendcoordinates" );
+    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "vehicledepot" );
     thread follow_price();
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "pri_outtahere" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_outtahere" );
     common_scripts\utility::_id_383F( "aa_follow_price_end_level" );
-    _id_A5A4::_id_70BD( "exfilfromarea" );
+    maps\_utility::_id_70BD( "exfilfromarea" );
 }
 
 control_room_noradscreen()
@@ -1770,23 +1770,23 @@ control_room_screen_h1()
     common_scripts\utility::_id_384A( "zakhaev_leaving" );
     common_scripts\utility::_id_383F( "change_films" );
     cinematicingame( "zakhaev_escape" );
-    var_0 _id_A5A4::_id_69C4( "h1_Inchb_display_on" );
-    _id_A5A4::_id_27EF( 8.5, ::play_display_change_sfx );
-    _id_A5A4::_id_27EF( 13.75, ::play_display_change_sfx );
-    _id_A5A4::_id_27EF( 24.25, ::play_display_change_sfx );
-    _id_A5A4::_id_27EF( 28.25, ::play_display_change_sfx );
+    var_0 maps\_utility::_id_69C4( "h1_Inchb_display_on" );
+    maps\_utility::_id_27EF( 8.5, ::play_display_change_sfx );
+    maps\_utility::_id_27EF( 13.75, ::play_display_change_sfx );
+    maps\_utility::_id_27EF( 24.25, ::play_display_change_sfx );
+    maps\_utility::_id_27EF( 28.25, ::play_display_change_sfx );
 
     while ( iscinematicplaying() )
         wait 0.05;
 
     cinematicingameloop( "h1_icbm_norad_screen_abort" );
-    var_0 _id_A5A4::_id_69C4( "h1_Inchb_display_off" );
+    var_0 maps\_utility::_id_69C4( "h1_Inchb_display_off" );
 }
 
 play_display_change_sfx()
 {
     var_0 = getent( "display_name_sfx", "targetname" );
-    var_0 _id_A5A4::_id_69C4( "h1_Inchb_display_on" );
+    var_0 maps\_utility::_id_69C4( "h1_Inchb_display_on" );
 }
 
 update_keyboard_monitor_screen( var_0, var_1 )
@@ -1854,12 +1854,12 @@ escape_doors_open()
 
 follow_price()
 {
-    _id_A5E8::_id_870C( "start_escape_facility_mix" );
-    _id_A5A4::_id_070A( "escape" );
+    soundscripts\_snd::_id_870C( "start_escape_facility_mix" );
+    maps\_utility::_id_070A( "escape" );
     level thread obj_follow_price();
-    _id_A5A4::_id_1143( "let's get out of here" );
-    _id_A5A4::_id_A066( "hallway_escape" );
-    _id_A5A4::_id_070A( "escape_hallway" );
+    maps\_utility::_id_1143( "let's get out of here" );
+    maps\_utility::_id_A066( "hallway_escape" );
+    maps\_utility::_id_070A( "escape_hallway" );
 }
 
 grigsby_warning()
@@ -1867,7 +1867,7 @@ grigsby_warning()
     var_0 = getent( "incoming_enemy", "script_noteworthy" );
     var_0 waittill( "spawned" );
     wait 1;
-    level.grigsby _id_A510::_id_0C21( level.grigsby, "grg_company" );
+    level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_company" );
 }
 
 delete_controlroom_friendlies()
@@ -1880,11 +1880,11 @@ delete_controlroom_friendlies()
 _id_3029()
 {
     if ( level._id_8C36 != "elevator" )
-        _id_A5A4::_id_A066( "elevator" );
+        maps\_utility::_id_A066( "elevator" );
     else
         wait 1;
 
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "pri_movemove" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_movemove" );
     level.anim_ent = getent( "tunnel_animent", "targetname" );
 
     if ( getdvarint( "use_old_elevator" ) == 1 )
@@ -1918,48 +1918,48 @@ elevator_player_clip()
 price_to_elevator( var_0 )
 {
     wait 2;
-    level.anim_ent _id_A510::_id_0BFF( self, "h1_elevator_run_to_idle1" );
-    level.anim_ent _id_A510::_id_0C24( self, "h1_elevator_run_to_idle1" );
+    level.anim_ent maps\_anim::_id_0BFF( self, "h1_elevator_run_to_idle1" );
+    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_run_to_idle1" );
 
     if ( !common_scripts\utility::_id_382E( "player_in_elevator" ) )
-        level.anim_ent thread _id_A510::_id_0BE1( self, "h1_elevator_idle1", undefined, "stop_price_idle1" );
+        level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle1", undefined, "stop_price_idle1" );
 
     common_scripts\utility::_id_384A( "player_in_elevator" );
     level.anim_ent notify( "stop_price_idle1" );
-    level.anim_ent _id_A510::_id_0C24( self, "h1_elevator_runin" );
-    level.anim_ent _id_A510::_id_0C24( self, "h1_elevator_entering" );
-    level.anim_ent thread _id_A510::_id_0BE1( self, "h1_elevator_idle2", undefined, "stop_price_idle2" );
+    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runin" );
+    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_entering" );
+    level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle2", undefined, "stop_price_idle2" );
     common_scripts\utility::_id_384A( "all_in_elevator" );
     self linkto( level.anim_ent );
     common_scripts\utility::_id_384A( "elevator_dialogue" );
     level.anim_ent notify( "stop_price_idle2" );
-    level.anim_ent thread _id_A510::_id_0C24( self, "h1_elevator_elevator" );
+    level.anim_ent thread maps\_anim::_id_0C24( self, "h1_elevator_elevator" );
     var_1 = getent( "elevator_top", "targetname" );
     var_1 waittill( "trigger" );
     wait 2;
     self unlink( level.anim_ent );
-    level.anim_ent _id_A510::_id_0C24( self, "h1_elevator_runout" );
-    _id_A5A4::_id_7E38( var_0 );
+    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runout" );
+    maps\_utility::_id_7E38( var_0 );
 }
 
 griggs_to_elevator( var_0 )
 {
-    level.anim_ent _id_A510::_id_0BFF( self, "h1_elevator_runin" );
-    level.anim_ent _id_A510::_id_0C24( self, "h1_elevator_runin" );
-    level.anim_ent thread _id_A510::_id_0BE1( self, "h1_elevator_idle1", undefined, "stop_griggs_idle1" );
+    level.anim_ent maps\_anim::_id_0BFF( self, "h1_elevator_runin" );
+    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runin" );
+    level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle1", undefined, "stop_griggs_idle1" );
     common_scripts\utility::_id_384A( "all_in_elevator" );
     level.anim_ent notify( "stop_griggs_idle1" );
-    level.anim_ent thread _id_A510::_id_0BE1( self, "h1_elevator_idle2", undefined, "stop_griggs_idle2" );
+    level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle2", undefined, "stop_griggs_idle2" );
     self linkto( level.anim_ent );
     common_scripts\utility::_id_384A( "elevator_dialogue" );
     level.anim_ent notify( "stop_griggs_idle2" );
-    level.anim_ent thread _id_A510::_id_0C24( self, "h1_elevator_elevator" );
+    level.anim_ent thread maps\_anim::_id_0C24( self, "h1_elevator_elevator" );
     var_1 = getent( "elevator_top", "targetname" );
     var_1 waittill( "trigger" );
     wait 2.5;
     self unlink( level.anim_ent );
-    level.anim_ent _id_A510::_id_0C24( self, "h1_elevator_runout" );
-    _id_A5A4::_id_7E38( var_0 );
+    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runout" );
+    maps\_utility::_id_7E38( var_0 );
 }
 
 check_elevator()
@@ -1988,17 +1988,17 @@ check_elevator()
 
 ai_to_elevator( var_0 )
 {
-    level.anim_ent _id_A510::_id_0BFF( self, "elevator_runin" );
-    level.anim_ent _id_A510::_id_0C24( self, "elevator_runin" );
-    level.anim_ent thread _id_A510::_id_0BE1( self, "elevator_idle", undefined, "stop_idle" );
+    level.anim_ent maps\_anim::_id_0BFF( self, "elevator_runin" );
+    level.anim_ent maps\_anim::_id_0C24( self, "elevator_runin" );
+    level.anim_ent thread maps\_anim::_id_0BE1( self, "elevator_idle", undefined, "stop_idle" );
     self linkto( level.anim_ent );
     var_1 = getent( "elevator_top", "targetname" );
     var_1 waittill( "trigger" );
     wait 2;
     self unlink( level.anim_ent );
     level.anim_ent notify( "stop_idle" );
-    level.anim_ent _id_A510::_id_0C24( self, "elevator_runout" );
-    _id_A5A4::_id_7E38( var_0 );
+    level.anim_ent maps\_anim::_id_0C24( self, "elevator_runout" );
+    maps\_utility::_id_7E38( var_0 );
 }
 
 in_the_elevator()
@@ -2033,7 +2033,7 @@ _id_3055()
     var_3 = getent( "elevator_door_inner_bottom", "targetname" );
     var_3 movez( -102, 2, 1, 1 );
     var_3 playsound( "scn_elevator_door_close" );
-    var_3 _id_A5A4::_id_69C4( "scn_launchb_elevator_sequence" );
+    var_3 maps\_utility::_id_69C4( "scn_launchb_elevator_sequence" );
     var_3 waittill( "movedone" );
     level.elevator_door_inner_bottom linkto( var_0 );
     var_4 = getent( "elevator_door_outside1_bottom", "targetname" );
@@ -2047,8 +2047,8 @@ _id_3055()
     var_0 playsound( "scn_elevator_move" );
     common_scripts\utility::_id_383F( "elevator_dialogue" );
     var_0 waittill( "movedone" );
-    _id_A5A4::_id_1143( "On our way" );
-    _id_A5A4::arcademode_checkpoint( 3, "f" );
+    maps\_utility::_id_1143( "On our way" );
+    maps\_utility::arcademode_checkpoint( 3, "f" );
     level.elevator_door_inner_top = getent( "elevator_door_inner_top", "targetname" );
     level.elevator_door_inner_top unlink( var_0 );
     level.elevator_door_inner_top = getent( "elevator_door_inner_top", "targetname" );
@@ -2071,40 +2071,40 @@ elevator_dialogue()
 {
     common_scripts\utility::_id_384A( "elevator_dialogue" );
     var_0 = getent( "the_gaz_man", "script_noteworthy" );
-    var_0 _id_A5A4::_id_0798( ::protect_gaz );
+    var_0 maps\_utility::_id_0798( ::protect_gaz );
 
     if ( getdvarint( "use_old_elevator" ) == 1 )
     {
         wait 1.5;
-        _id_A5A4::_id_70BD( "takinfire" );
-        _id_A5A4::_id_70BD( "upthelift" );
+        maps\_utility::_id_70BD( "takinfire" );
+        maps\_utility::_id_70BD( "upthelift" );
         wait 1;
-        level.grigsby _id_A510::_id_0C21( level.grigsby, "grg_ashot" );
-        level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "pri_getinline" );
+        level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_ashot" );
+        level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_getinline" );
     }
 }
 
 protect_gaz()
 {
-    thread _id_A5A4::_id_58D7();
+    thread maps\_utility::_id_58D7();
 }
 
 vehical_depot()
 {
-    _id_A5A4::_id_A066( "garage" );
+    maps\_utility::_id_A066( "garage" );
     common_scripts\utility::_id_383F( "at_the_jeep" );
     wait 1.5;
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "letsgo" );
-    level.grigsby _id_A510::_id_0C21( level.grigsby, "grg_move" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "letsgo" );
+    level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_move" );
     common_scripts\utility::_id_383F( "level_end" );
     common_scripts\utility::_id_3831( "aa_follow_price_end_level" );
-    _id_A5A4::arcademode_checkpoint( 2, "g" );
+    maps\_utility::arcademode_checkpoint( 2, "g" );
 }
 
 end_of_level()
 {
     common_scripts\utility::_id_384A( "level_end" );
-    _id_A5A4::_id_60D6();
+    maps\_utility::_id_60D6();
 }
 
 compass_maps()
@@ -2120,7 +2120,7 @@ map_change( var_0 )
     for (;;)
     {
         self waittill( "trigger" );
-        _id_A51D::setupminimap( var_0 );
+        maps\_compass::setupminimap( var_0 );
     }
 }
 #using_animtree("animated_props");
@@ -2226,14 +2226,14 @@ _id_5FFB()
     musicstop( 8 );
     wait 8.1;
     common_scripts\utility::_id_384A( "successful_confirmation" );
-    _id_A5A4::_id_6008( "launch_b_victory_music" );
+    maps\_utility::_id_6008( "launch_b_victory_music" );
     wait 19;
     musicstop( 1 );
     wait 1.1;
 
     for (;;)
     {
-        _id_A5A4::_id_6008( "tension_maintheme_groove" );
+        maps\_utility::_id_6008( "tension_maintheme_groove" );
         wait 46;
         musicstop( 1 );
         wait 1.1;
@@ -2246,7 +2246,7 @@ music_vents()
 
     for (;;)
     {
-        _id_A5A4::_id_6008( "tension_maintheme_groove" );
+        maps\_utility::_id_6008( "tension_maintheme_groove" );
         wait 46;
         musicstop( 1 );
         wait 1.1;
@@ -2261,60 +2261,60 @@ music_countdown( var_0 )
     {
         for ( var_1 = 0; var_1 < 2; var_1++ )
         {
-            _id_A5A4::_id_6008( "launch_b_count_01" );
+            maps\_utility::_id_6008( "launch_b_count_01" );
             wait 36;
             musicstop( 1 );
             wait 1.1;
-            _id_A5A4::_id_6008( "launch_b_count_02" );
+            maps\_utility::_id_6008( "launch_b_count_02" );
             wait 94;
             musicstop( 1 );
             wait 1.1;
-            _id_A5A4::_id_6008( "launch_b_count_03" );
+            maps\_utility::_id_6008( "launch_b_count_03" );
             wait 140;
             musicstop( 3 );
             wait 3.1;
-            _id_A5A4::_id_6008( "launch_b_count_04" );
+            maps\_utility::_id_6008( "launch_b_count_04" );
             wait 54;
             musicstop( 0.1 );
             wait 0.15;
         }
 
-        _id_A5A4::_id_6008( "launch_b_count_01" );
+        maps\_utility::_id_6008( "launch_b_count_01" );
         wait 36;
         musicstop( 1 );
         wait 1.1;
-        _id_A5A4::_id_6008( "launch_b_count_05" );
+        maps\_utility::_id_6008( "launch_b_count_05" );
         wait 192;
         musicstop( 4 );
         wait 4.1;
     }
     else if ( var_0 == 1 || var_0 == 2 )
     {
-        _id_A5A4::_id_6008( "launch_b_count_01" );
+        maps\_utility::_id_6008( "launch_b_count_01" );
         wait 36;
         musicstop( 1 );
         wait 1.1;
-        _id_A5A4::_id_6008( "launch_b_count_02" );
+        maps\_utility::_id_6008( "launch_b_count_02" );
         wait 92;
         musicstop( 2 );
         wait 2.1;
-        _id_A5A4::_id_6008( "launch_b_count_03" );
+        maps\_utility::_id_6008( "launch_b_count_03" );
         wait 138;
         musicstop( 3 );
         wait 3.1;
-        _id_A5A4::_id_6008( "launch_b_count_04" );
+        maps\_utility::_id_6008( "launch_b_count_04" );
         wait 54;
         musicstop( 0.1 );
         wait 0.15;
-        _id_A5A4::_id_6008( "launch_b_count_01" );
+        maps\_utility::_id_6008( "launch_b_count_01" );
         wait 36;
         musicstop( 1 );
         wait 1.1;
-        _id_A5A4::_id_6008( "launch_b_count_02" );
+        maps\_utility::_id_6008( "launch_b_count_02" );
         wait 92;
         musicstop( 2 );
         wait 2.1;
-        _id_A5A4::_id_6008( "launch_b_count_05" );
+        maps\_utility::_id_6008( "launch_b_count_05" );
         wait 192;
         musicstop( 4 );
         wait 4.1;
@@ -2322,23 +2322,23 @@ music_countdown( var_0 )
     else if ( var_0 == 3 )
     {
         wait 13;
-        _id_A5A4::_id_6008( "launch_b_count_01" );
+        maps\_utility::_id_6008( "launch_b_count_01" );
         wait 36;
         musicstop( 1 );
         wait 1.1;
-        _id_A5A4::_id_6008( "launch_b_count_02" );
+        maps\_utility::_id_6008( "launch_b_count_02" );
         wait 94;
         musicstop( 2 );
         wait 2.1;
-        _id_A5A4::_id_6008( "launch_b_count_03" );
+        maps\_utility::_id_6008( "launch_b_count_03" );
         wait 140;
         musicstop( 3 );
         wait 3.1;
-        _id_A5A4::_id_6008( "launch_b_count_04" );
+        maps\_utility::_id_6008( "launch_b_count_04" );
         wait 54;
         musicstop( 0.1 );
         wait 0.15;
-        _id_A5A4::_id_6008( "launch_b_count_05" );
+        maps\_utility::_id_6008( "launch_b_count_05" );
         wait 194;
         musicstop( 2 );
         wait 2.1;
@@ -2365,7 +2365,7 @@ keep_price_griggs_distance_hallway_after_staircase()
 {
     getent( "kill_yellow_allied", "targetname" ) waittill( "trigger" );
     var_0 = [ level._id_6F7C, level.grigsby ];
-    level thread _id_A5A4::keep_distance( var_0 );
+    level thread maps\_utility::keep_distance( var_0 );
     getent( "trigger_big_blast_door", "targetname" ) waittill( "trigger" );
-    level thread _id_A5A4::stop_keep_distance( var_0 );
+    level thread maps\_utility::stop_keep_distance( var_0 );
 }

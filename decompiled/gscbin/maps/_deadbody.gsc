@@ -82,9 +82,9 @@ spawn_dead_body( var_0 )
     var_2.origin = self.origin;
     var_2.angles = self.angles;
     var_2._id_0C72 = "dead_guy";
-    var_2 _id_A5A4::_id_0D61();
+    var_2 maps\_utility::_id_0D61();
 
-    if ( _id_A5A4::is_h1_level() )
+    if ( maps\_utility::is_h1_level() )
         var_2 _meth_855d();
 
     if ( !h1_ragdollspecialcase( self ) )
@@ -121,7 +121,7 @@ spawn_dead_body( var_0 )
     }
     else
     {
-        var_2 setflaggedanim( "flag", var_2 _id_A5A4::_id_3EF5( self.script_parentname ), 1, 0, 1 );
+        var_2 setflaggedanim( "flag", var_2 maps\_utility::_id_3EF5( self.script_parentname ), 1, 0, 1 );
         var_2 waittillmatch( "flag", "end" );
 
         if ( !isdefined( self._id_7ADA ) )
@@ -142,7 +142,7 @@ que_body( var_0 )
 
 lookat_custom_death_anim( var_0 )
 {
-    _id_A510::_id_0BC7( self, var_0 );
+    maps\_anim::_id_0BC7( self, var_0 );
     wait 0.5;
     var_1 = cos( 45 );
     var_2 = 0;
@@ -160,7 +160,7 @@ lookat_custom_death_anim( var_0 )
         waittillframeend;
     }
 
-    _id_A510::_id_0C24( self, var_0 );
+    maps\_anim::_id_0C24( self, var_0 );
 }
 
 checksighttrace( var_0 )

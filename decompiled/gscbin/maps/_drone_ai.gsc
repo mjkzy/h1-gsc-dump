@@ -195,5 +195,5 @@ init()
     level._id_2E22["axis"]["coverprone_no_pop"]["death"] = %saw_gunner_prone_death;
     level._id_2E22["axis"]["coverprone_no_pop"]["pop_up_chance"] = 0;
     level._effect["pdrone_flash_wv"] = loadfx( "vfx/muzzleflash/pdrone_flash_wv" );
-    _id_A52B::_id_4DC1();
+    maps\_drone::_id_4DC1();
 }

@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "cargoship" );
+    var_0 = maps\_utility::_id_23DF( "cargoship" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 10000;
     var_0._id_0DBC = 2340.66;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_intro" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_intro" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -106,7 +106,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 265.145;
     var_0._id_0DBC = 7559.24;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_outro" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_outro" );
     var_0._id_8D08 = 1700;
     var_0._id_4500 = 12500;
     var_0._id_7299 = 0.258821;
@@ -148,7 +148,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 250;
     var_0._id_0DBC = 1464.73;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_exterior" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_exterior" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -190,7 +190,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 150;
     var_0._id_0DBC = 7000;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_interior_transition" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_interior_transition" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -232,7 +232,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 10000;
     var_0._id_0DBC = 2340.66;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_interior_upperdeck" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_interior_upperdeck" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -274,7 +274,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -251.54;
     var_0._id_0DBC = 113.12;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_interior_cargohold" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_interior_cargohold" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -316,7 +316,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = -251.54;
     var_0._id_0DBC = 113.12;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_exterior_container" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_exterior_container" );
     var_0._id_8D08 = 1696;
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
@@ -358,7 +358,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 10000;
     var_0._id_0DBC = 2340.66;
-    var_0 = _id_A5A4::_id_23DF( "cargoship_interior_cargohold_alert" );
+    var_0 = maps\_utility::_id_23DF( "cargoship_interior_cargohold_alert" );
     var_0._id_8D08 = 3131.52;
     var_0._id_4500 = 14406;
     var_0._id_7299 = 0.258821;
@@ -404,7 +404,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -30, 85, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

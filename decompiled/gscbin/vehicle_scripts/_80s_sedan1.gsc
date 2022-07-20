@@ -22,25 +22,25 @@
 
 main( var_0, var_1, var_2 )
 {
-    _id_A5A8::_id_186C( "80s_sedan1", var_0, var_1, var_2 );
-    _id_A5A8::_id_1859( ::_id_4D10 );
-    _id_A5A8::_id_1845( "vehicle_80s_sedan1_brn", "vehicle_80s_sedan1_brn_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_80s_sedan1_green", "vehicle_80s_sedan1_green_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_80s_sedan1_red", "vehicle_80s_sedan1_red_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_80s_sedan1_silv", "vehicle_80s_sedan1_silv_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_80s_sedan1_tan", "vehicle_80s_sedan1_tan_destroyed" );
-    _id_A5A8::_id_1845( "vehicle_80s_sedan1_yel", "vehicle_80s_sedan1_yel_destroyed" );
-    _id_A5A8::_id_1848( "vehicle_80s_sedan1_brn_destructible", "vehicle_80s_sedan1_brn" );
-    _id_A5A8::_id_1848( "vehicle_80s_sedan1_green_destructible", "vehicle_80s_sedan1_green" );
-    _id_A5A8::_id_1848( "vehicle_80s_sedan1_red_destructible", "vehicle_80s_sedan1_red" );
-    _id_A5A8::_id_1848( "vehicle_80s_sedan1_silv_destructible", "vehicle_80s_sedan1_silv" );
-    _id_A5A8::_id_1848( "vehicle_80s_sedan1_tan_destructible", "vehicle_80s_sedan1_tan" );
-    _id_A5A8::_id_1848( "vehicle_80s_sedan1_yel_destructible", "vehicle_80s_sedan1_yel" );
-    _id_A5A8::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
-    _id_A5A8::_id_186E();
-    _id_A5A8::_id_1856( 999, 500, 1500 );
-    _id_A5A8::_id_186A( "allies" );
-    _id_A5A8::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::_id_186C( "80s_sedan1", var_0, var_1, var_2 );
+    maps\_vehicle::_id_1859( ::_id_4D10 );
+    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_brn", "vehicle_80s_sedan1_brn_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_green", "vehicle_80s_sedan1_green_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_red", "vehicle_80s_sedan1_red_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_silv", "vehicle_80s_sedan1_silv_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_tan", "vehicle_80s_sedan1_tan_destroyed" );
+    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_yel", "vehicle_80s_sedan1_yel_destroyed" );
+    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_brn_destructible", "vehicle_80s_sedan1_brn" );
+    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_green_destructible", "vehicle_80s_sedan1_green" );
+    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_red_destructible", "vehicle_80s_sedan1_red" );
+    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_silv_destructible", "vehicle_80s_sedan1_silv" );
+    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_tan_destructible", "vehicle_80s_sedan1_tan" );
+    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_yel_destructible", "vehicle_80s_sedan1_yel" );
+    maps\_vehicle::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
+    maps\_vehicle::_id_186E();
+    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::_id_186A( "allies" );
+    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

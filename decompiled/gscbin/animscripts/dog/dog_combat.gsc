@@ -51,7 +51,7 @@ _id_5374()
 
     var_0._id_6B7D = 1;
 
-    if ( _id_A5A4::_id_536C( self._id_5B8B ) )
+    if ( maps\_utility::_id_536C( self._id_5B8B ) )
     {
         _id_53C0( self._id_5B8B, self );
         return;
@@ -88,13 +88,13 @@ _id_53C0( var_0, var_1 )
     var_0._id_6C50 notify( "pvd_melee_done" );
     var_0._id_6C50 _id_6D7B( var_0 );
 
-    if ( !_id_A5A4::_id_536C( var_0 ) )
+    if ( !maps\_utility::_id_536C( var_0 ) )
         var_0 _id_2CB5( var_1 );
 }
 
 _id_2CB5( var_0 )
 {
-    if ( _id_A5A4::_id_55E1() )
+    if ( maps\_utility::_id_55E1() )
         self enabledeathshield( 0 );
 
     self disableinvulnerability();
@@ -107,7 +107,7 @@ _id_2CB5( var_0 )
 
 _id_2C97( var_0, var_1 )
 {
-    if ( _id_A5A4::_id_5083() )
+    if ( maps\_utility::_id_5083() )
         return;
 
     wait 1.5;
@@ -133,7 +133,7 @@ _id_2C97( var_0, var_1 )
 
 _id_2C9A( var_0 )
 {
-    var_1 = var_0 _id_A546::_id_23ED( "default", 1 );
+    var_1 = var_0 maps\_hud_util::_id_23ED( "default", 1 );
     var_1.color = ( 1, 1, 1 );
     var_1 settext( level._id_2C98 );
     var_1.xpmaxmultipliertimeplayed = 0;
@@ -371,7 +371,7 @@ _id_6C8F()
 
 _id_5B81()
 {
-    thread _id_A5A4::_id_69C4( "anml_dog_attack_jump" );
+    thread maps\_utility::_id_69C4( "anml_dog_attack_jump" );
     self._id_5B8B = self.enemy;
 
     if ( !isdefined( self._id_5B8B._id_2CCF ) )
@@ -388,7 +388,7 @@ _id_5B81()
         if ( !isplayer( self.enemy ) )
             break;
 
-        if ( _id_A5A4::_id_5062( self.enemy ) )
+        if ( maps\_utility::_id_5062( self.enemy ) )
         {
             _id_20AC();
             continue;
@@ -468,7 +468,7 @@ _id_2C92()
     if ( getdvarint( "survival_chaos" ) == 1 )
         return 1;
 
-    if ( _id_A5A4::_id_5062( self._id_5B8B ) )
+    if ( maps\_utility::_id_5062( self._id_5B8B ) )
         return 1;
 
     if ( isdefined( self._id_5B8B._id_8626 ) )
@@ -698,16 +698,16 @@ destroy_dog_hint()
     if ( !isdefined( self._id_5B8B._id_2CCE ) )
         return;
 
-    self._id_5B8B._id_2CCE _id_A546::_id_28E9();
+    self._id_5B8B._id_2CCE maps\_hud_util::_id_28E9();
 
     if ( isdefined( self._id_5B8B.doghintbackerblur ) )
     {
-        self._id_5B8B.doghintbackerblur _id_A546::_id_28E9();
-        self._id_5B8B.doghintbackerbordertop _id_A546::_id_28E9();
-        self._id_5B8B.doghintbackerborderbottom _id_A546::_id_28E9();
+        self._id_5B8B.doghintbackerblur maps\_hud_util::_id_28E9();
+        self._id_5B8B.doghintbackerbordertop maps\_hud_util::_id_28E9();
+        self._id_5B8B.doghintbackerborderbottom maps\_hud_util::_id_28E9();
     }
     else
-        self._id_5B8B.doghintstar _id_A546::_id_28E9();
+        self._id_5B8B.doghintstar maps\_hud_util::_id_28E9();
 
     level notify( "clearing_dog_hint" );
 }
@@ -744,7 +744,7 @@ show_prepare_dog_hint_h1()
             }
         }
 
-        self._id_5B8B._id_2CCE = self._id_5B8B _id_A546::_id_23ED( "timer", var_0 );
+        self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", var_0 );
         self._id_5B8B._id_2CCE.color = ( 1, 1, 1 );
         self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT" );
         self._id_5B8B._id_2CCE.xpmaxmultipliertimeplayed = 0;
@@ -756,7 +756,7 @@ show_prepare_dog_hint_h1()
         self._id_5B8B._id_2CCE.foreground = 1;
         self._id_5B8B._id_2CCE.alpha = 0.1;
         self._id_5B8B._id_2CCE.space = -1;
-        self._id_5B8B.doghintstar = _id_A546::_id_2420( "h1_dog_melee_prompt_star", 0, 0 );
+        self._id_5B8B.doghintstar = maps\_hud_util::_id_2420( "h1_dog_melee_prompt_star", 0, 0 );
         self._id_5B8B.doghintstar.color = ( 1, 1, 1 );
         self._id_5B8B.doghintstar.xpmaxmultipliertimeplayed = 0;
         self._id_5B8B.doghintstar._id_0538 = 20;
@@ -770,7 +770,7 @@ show_prepare_dog_hint_h1()
     }
     else
     {
-        self._id_5B8B._id_2CCE = self._id_5B8B _id_A546::_id_23ED( "timer", 0.5 );
+        self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", 0.5 );
         self._id_5B8B._id_2CCE.color = ( 1, 1, 1 );
         self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD" );
         self._id_5B8B._id_2CCE.xpmaxmultipliertimeplayed = 0;
@@ -783,9 +783,9 @@ show_prepare_dog_hint_h1()
         self._id_5B8B._id_2CCE.foreground = 1;
         self._id_5B8B._id_2CCE.alpha = 0.25;
         self._id_5B8B._id_2CCE.space = -1;
-        self._id_5B8B.doghintbackerblur = _id_A546::_id_2420( "h1_hud_tutorial_blur", 225, 20 );
-        self._id_5B8B.doghintbackerbordertop = _id_A546::_id_2420( "h1_hud_tutorial_border", 225, 1 );
-        self._id_5B8B.doghintbackerborderbottom = _id_A546::_id_2420( "h1_hud_tutorial_border", 225, 1 );
+        self._id_5B8B.doghintbackerblur = maps\_hud_util::_id_2420( "h1_hud_tutorial_blur", 225, 20 );
+        self._id_5B8B.doghintbackerbordertop = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 225, 1 );
+        self._id_5B8B.doghintbackerborderbottom = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 225, 1 );
         self._id_5B8B.doghintbackerblur.xpmaxmultipliertimeplayed = 0;
         self._id_5B8B.doghintbackerblur._id_0538 = 20;
         self._id_5B8B.doghintbackerblur.space = -3;
@@ -860,14 +860,14 @@ dog_hint_h1()
         wait(var_0);
     }
 
-    if ( !_id_A5A4::_id_32D8( "neck_snapped" ) )
+    if ( !maps\_utility::_id_32D8( "neck_snapped" ) )
         thread dog_hint_fail_effect();
 }
 
 dog_hint_succeed_effect()
 {
     level endon( "clearing_dog_hint" );
-    _id_A5A4::_id_32E0( "neck_snapped" );
+    maps\_utility::_id_32E0( "neck_snapped" );
 
     if ( !isdefined( self ) )
         return;
@@ -936,8 +936,8 @@ _id_2CAE()
     self endon( "killanimscript" );
     self endon( "dog_no_longer_melee_able" );
 
-    if ( !_id_A5A4::_id_32DC( "neck_snapped" ) )
-        _id_A5A4::_id_32DD( "neck_snapped" );
+    if ( !maps\_utility::_id_32DC( "neck_snapped" ) )
+        maps\_utility::_id_32DD( "neck_snapped" );
 
     var_0 = 0;
     self waittill( "dog_early_notetrack" );
@@ -961,12 +961,12 @@ _id_2CAE()
                     {
                         self._id_5B8B _id_7E7B( var_1 );
                         self._id_5B8B._id_6C50._id_607A = 1;
-                        _id_A5A4::_id_32DE( "neck_snapped" );
+                        maps\_utility::_id_32DE( "neck_snapped" );
                         self notify( "melee_stop" );
                         self setflaggedanimknobrestart( "dog_death_anim", %german_shepherd_player_neck_snap, 1, 0.2, 1 );
                         thread _id_2C9B();
                         self setcandamage( 0 );
-                        _id_A5A4::_id_41DD( "DOWN_BOY_DOWN" );
+                        maps\_utility::_id_41DD( "DOWN_BOY_DOWN" );
                         self waittillmatch( "dog_death_anim", "dog_death" );
                         thread common_scripts\utility::_id_69C2( "dog_neckbreak", self geteye() );
                         self setcandamage( 1 );
@@ -974,7 +974,7 @@ _id_2CAE()
                         self._id_2CB2 = 1;
                         var_2 = self._id_5B8B.origin - self.origin;
                         var_2 = ( var_2[0], var_2[1], 0 );
-                        _id_A5A4::arcademode_kill( self.origin, "melee", 50 );
+                        maps\_utility::arcademode_kill( self.origin, "melee", 50 );
                         thread _id_2C9C();
                         self kill( self geteye() - var_2, self._id_5B8B );
                         self notify( "killanimscript" );
@@ -1204,7 +1204,7 @@ _id_466E( var_0 )
             if ( !isdefined( self.dog._id_5B8B ) )
                 break;
 
-            if ( _id_A5A4::_id_536C( self.dog._id_5B8B ) )
+            if ( maps\_utility::_id_536C( self.dog._id_5B8B ) )
                 break;
 
             var_1 = self gettagorigin( "tag_torso" );
@@ -1328,7 +1328,7 @@ _id_6D7B( var_0 )
 
         if ( !isdefined( var_0._id_2C9D ) )
         {
-            var_0 _id_A5A4::_id_27EF( 2.5, ::_id_6B2B );
+            var_0 maps\_utility::_id_27EF( 2.5, ::_id_6B2B );
             animscripts\shared::_id_2D06( "viewanim" );
             var_0 notify( "player_saved_from_dog" );
         }

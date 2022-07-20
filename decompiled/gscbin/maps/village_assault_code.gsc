@@ -94,7 +94,7 @@ setleveldvars()
     level.genocide_audio[3] = "assault_killing_interior3";
     level.timedautosavenumber = 0;
     level.timedautosavetime = undefined;
-    var_2 = _id_A5A4::_id_3F58();
+    var_2 = maps\_utility::_id_3F58();
 
     switch ( var_2 )
     {
@@ -120,18 +120,18 @@ scriptcalls()
 {
     maps\village_assault_anim::main();
     level thread maps\village_assault_amb::main();
-    _id_A51D::setupminimap( "compass_map_village_assault" );
-    common_scripts\utility::_id_0D13( getentarray( "seek_player", "script_noteworthy" ), _id_A5A4::_id_0798, ::seek_player );
-    common_scripts\utility::_id_0D13( getentarray( "indoor_enemy", "script_noteworthy" ), _id_A5A4::_id_0798, ::indoor_enemy );
-    common_scripts\utility::_id_0D13( getentarray( "seek_player_smart", "script_noteworthy" ), _id_A5A4::_id_0798, ::seek_player_smart );
-    common_scripts\utility::_id_0D13( getentarray( "dog", "script_noteworthy" ), _id_A5A4::_id_0798, ::seek_player_dog );
+    maps\_compass::setupminimap( "compass_map_village_assault" );
+    common_scripts\utility::_id_0D13( getentarray( "seek_player", "script_noteworthy" ), maps\_utility::_id_0798, ::seek_player );
+    common_scripts\utility::_id_0D13( getentarray( "indoor_enemy", "script_noteworthy" ), maps\_utility::_id_0798, ::indoor_enemy );
+    common_scripts\utility::_id_0D13( getentarray( "seek_player_smart", "script_noteworthy" ), maps\_utility::_id_0798, ::seek_player_smart );
+    common_scripts\utility::_id_0D13( getentarray( "dog", "script_noteworthy" ), maps\_utility::_id_0798, ::seek_player_dog );
     common_scripts\utility::_id_0D13( getentarray( "enemy_color_hint_trigger", "targetname" ), ::enemy_color_hint_trigger_think );
     common_scripts\utility::_id_0D13( getentarray( "genocide_audio_trigger", "targetname" ), ::genocide_audio_trigger );
     common_scripts\utility::_id_0D13( getentarray( "dead_civilian", "targetname" ), ::dead_civilian );
     common_scripts\utility::_id_0D13( getentarray( "trigger_upstairs_guys", "targetname" ), ::trigger_upstairs_guys );
     common_scripts\utility::_id_0D13( getentarray( "alasad_barn_deletable", "script_noteworthy" ), ::alasad_deletable_hide );
     common_scripts\utility::_id_0D13( getentarray( "alasad_house_deletable", "script_noteworthy" ), ::alasad_deletable_hide );
-    _id_A5A4::_id_0764( "call_air_support2", &"SCRIPT_PLATFORM_LEARN_CHOPPER_AIR_SUPPORT2", ::should_delete_attack_coord_hint );
+    maps\_utility::_id_0764( "call_air_support2", &"SCRIPT_PLATFORM_LEARN_CHOPPER_AIR_SUPPORT2", ::should_delete_attack_coord_hint );
     thread chopper_air_support();
     thread vehicle_patrol_init();
     thread roaming_bmp();
@@ -185,7 +185,7 @@ spawn_starting_friendlies( var_0 )
     {
         var_3 = var_1[var_2] stalingradspawn();
 
-        if ( _id_A5A4::_id_88F1( var_3 ) )
+        if ( maps\_utility::_id_88F1( var_3 ) )
         {
 
         }
@@ -206,7 +206,7 @@ spawn_starting_friendlies( var_0 )
         }
 
         if ( var_3 ishero() )
-            var_3 thread _id_A5A4::_id_58D7( undefined, undefined, 5.0 );
+            var_3 thread maps\_utility::_id_58D7( undefined, undefined, 5.0 );
 
         level.friendlies[level.friendlies.size] = var_3;
         var_3 thread friendly_adjust_movement_speed();
@@ -214,9 +214,9 @@ spawn_starting_friendlies( var_0 )
     }
 
     level._id_6F7C._id_0C72 = "price";
-    level._id_6F7C _id_A5A4::_id_5926();
+    level._id_6F7C maps\_utility::_id_5926();
     level._id_3C61._id_0C72 = "gaz";
-    level._id_3C61 _id_A5A4::_id_5926();
+    level._id_3C61 maps\_utility::_id_5926();
 }
 
 friendly_bmp_damage_ignore_timer()
@@ -357,7 +357,7 @@ distracted_guys_spawn()
     {
         var_5 = var_1._id_89CD[var_3] stalingradspawn();
 
-        if ( _id_A5A4::_id_88F1( var_5 ) )
+        if ( maps\_utility::_id_88F1( var_5 ) )
             return;
 
         var_1._id_44CE[var_1._id_44CE.size] = var_5;
@@ -376,7 +376,7 @@ distractedguys_animate( var_0 )
         var_0._id_44CE[var_1].distracted = 1;
         var_0._id_44CE[var_1] thread alert_event_notify( var_0 );
         var_0._id_44CE[var_1]._id_0C72 = var_0._id_44CE[var_1]._id_793C;
-        var_0._id_6139[var_1] thread _id_A510::_id_0BE1( var_0._id_44CE[var_1], "idle", undefined, "stop_idle" );
+        var_0._id_6139[var_1] thread maps\_anim::_id_0BE1( var_0._id_44CE[var_1], "idle", undefined, "stop_idle" );
         var_0._id_44CE[var_1].allowdeath = 1;
 
         if ( isdefined( level._id_78AC[var_0._id_44CE[var_1]._id_0C72]["death"] ) )
@@ -419,7 +419,7 @@ distractedguys_alert( var_0 )
 
         if ( isdefined( level._id_78AC[var_0._id_44CE[var_1]._id_0C72]["react"] ) )
         {
-            var_0._id_6139[var_1] thread _id_A510::_id_0C24( var_0._id_44CE[var_1], "react" );
+            var_0._id_6139[var_1] thread maps\_anim::_id_0C24( var_0._id_44CE[var_1], "react" );
             continue;
         }
 
@@ -476,7 +476,7 @@ assasination()
     {
         var_6 = var_4._id_89CD[var_3] stalingradspawn();
 
-        if ( _id_A5A4::_id_88F1( var_6 ) )
+        if ( maps\_utility::_id_88F1( var_6 ) )
             return;
 
         var_6._id_0C73 = var_4._id_89CD[var_3]._id_0C73;
@@ -586,25 +586,25 @@ assasination_ragdoll_death()
 
 assasination_assasinated_idle( var_0, var_1 )
 {
-    var_0._id_44CE[var_1] thread _id_A5A4::_id_4462();
+    var_0._id_44CE[var_1] thread maps\_utility::_id_4462();
     var_0._id_44CE[var_1]._id_0C72 = "assasinated";
 
     if ( randomint( 3 ) == 0 )
     {
         if ( randomint( 3 ) == 0 )
-            var_0._id_44CE[var_1]._id_0C73 _id_A510::_id_0C24( var_0._id_44CE[var_1], "stand_idle2" );
+            var_0._id_44CE[var_1]._id_0C73 maps\_anim::_id_0C24( var_0._id_44CE[var_1], "stand_idle2" );
 
-        var_0._id_44CE[var_1]._id_0C73 _id_A510::_id_0C24( var_0._id_44CE[var_1], "stand_fall" );
+        var_0._id_44CE[var_1]._id_0C73 maps\_anim::_id_0C24( var_0._id_44CE[var_1], "stand_fall" );
     }
 
-    var_0._id_44CE[var_1]._id_0C73 thread _id_A510::_id_0BE1( var_0._id_44CE[var_1], "knees_idle", undefined, "stop_idle" );
+    var_0._id_44CE[var_1]._id_0C73 thread maps\_anim::_id_0BE1( var_0._id_44CE[var_1], "knees_idle", undefined, "stop_idle" );
 }
 
 assasination_executioner_idle( var_0, var_1 )
 {
     var_0.executioners[var_1].allowdeath = 1;
     var_0.executioners[var_1]._id_0C72 = "executioner";
-    var_0.executioners[var_1]._id_0C73 thread _id_A510::_id_0BE1( var_0.executioners[var_1], "idle", undefined, "stop_idle" );
+    var_0.executioners[var_1]._id_0C73 thread maps\_anim::_id_0BE1( var_0.executioners[var_1], "idle", undefined, "stop_idle" );
 }
 
 assasination_kill_trigger( var_0 )
@@ -679,7 +679,7 @@ seek_player_smart()
     if ( isdefined( self.distracted ) && self.distracted == 1 )
         self waittill( "alerted" );
 
-    _id_A5A4::_id_7E38( "r" );
+    maps\_utility::_id_7E38( "r" );
 
     for (;;)
     {
@@ -721,7 +721,7 @@ waittill_ai_in_volume_dead( var_0 )
     }
 
     if ( var_3.size > 0 )
-        _id_A5A4::_id_A07E( var_3 );
+        maps\_utility::_id_A07E( var_3 );
 }
 
 add_objective_building( var_0 )
@@ -758,9 +758,9 @@ add_objective_building( var_0 )
     level.suggested_objective_order[var_4].completed = 0;
     level.suggested_objective_order[var_4].additionalpositionindex = level.buildings_remaining;
     level.suggested_objective_order[var_4]._id_57F4 = var_2;
-    _id_A5A4::_id_A066( var_0 );
+    maps\_utility::_id_A066( var_0 );
     wait(randomfloatrange( 1.5, 3.0 ));
-    _id_A5A4::arcademode_checkpoint( 4, "building_" + var_0 );
+    maps\_utility::arcademode_checkpoint( 4, "building_" + var_0 );
 
     if ( isdefined( level.alasad_objective_location ) && var_0 == level.alasad_objective_location )
         return;
@@ -773,20 +773,20 @@ add_objective_building( var_0 )
     {
         if ( level.buildingclearnextaudio == 0 )
         {
-            level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "nosign" );
-            _id_A5E8::_id_870C( "increase_ambient" );
+            level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "nosign" );
+            soundscripts\_snd::_id_870C( "increase_ambient" );
         }
         else if ( level.buildingclearnextaudio == 1 )
-            level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "nextone" );
+            level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "nextone" );
         else if ( level.buildingclearnextaudio == 2 )
-            level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "checkother" );
+            level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "checkother" );
         else if ( level.buildingclearnextaudio == 3 )
         {
-            level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "checknext" );
-            _id_A5E8::_id_870C( "settle_ambient" );
+            level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "checknext" );
+            soundscripts\_snd::_id_870C( "settle_ambient" );
         }
         else if ( level.buildingclearnextaudio == 4 )
-            level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "nosign" );
+            level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "nosign" );
 
         level.buildingclearnextaudio++;
     }
@@ -834,7 +834,7 @@ chopper_air_support_arcade_mode()
     self waittill( "death", var_0, var_1 );
 
     if ( isdefined( var_0 ) && isdefined( level.chopper ) && var_0 == level.chopper )
-        _id_A5A4::arcademode_kill( self.origin, var_1, 30 );
+        maps\_utility::arcademode_kill( self.origin, var_1, 30 );
 }
 
 chopper_air_support()
@@ -843,7 +843,7 @@ chopper_air_support()
     level._id_560A = undefined;
     level.fake_chopper_ammo = 1;
     common_scripts\utility::_id_383D( "ammo_cheat_for_chopper" );
-    _id_A5A4::_id_0761( "axis", ::chopper_air_support_arcade_mode );
+    maps\_utility::_id_0761( "axis", ::chopper_air_support_arcade_mode );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::chopper_air_support_arcade_mode );
 
     for (;;)
@@ -870,12 +870,12 @@ chopper_air_support()
             {
                 if ( var_0 == 0 )
                 {
-                    thread _id_A5A4::_id_70C8( "refueling" );
+                    thread maps\_utility::_id_70C8( "refueling" );
                     var_0 = 1;
                 }
                 else
                 {
-                    thread _id_A5A4::_id_70C8( "rearming" );
+                    thread maps\_utility::_id_70C8( "rearming" );
                     var_0 = 0;
                 }
             }
@@ -961,11 +961,11 @@ chopper_air_support_paint_target()
     chopper_air_support_deactive();
 
     if ( level.choppersupportcallnextaudio == 0 )
-        thread _id_A5A4::_id_70C4( "ontheway" );
+        thread maps\_utility::_id_70C4( "ontheway" );
     else if ( level.choppersupportcallnextaudio == 1 )
-        thread _id_A5A4::_id_70C4( "helicopteronway" );
+        thread maps\_utility::_id_70C4( "helicopteronway" );
     else if ( level.choppersupportcallnextaudio == 2 )
-        thread _id_A5A4::_id_70C4( "wehavetarget" );
+        thread maps\_utility::_id_70C4( "wehavetarget" );
 
     level.choppersupportcallnextaudio++;
 
@@ -1010,7 +1010,7 @@ chopper_air_support_friendlyfire()
             break;
     }
 
-    thread _id_A536::_id_5CDD();
+    thread maps\_friendlyfire::_id_5CDD();
 }
 
 chopper_air_support_call_chopper( var_0 )
@@ -1034,12 +1034,12 @@ chopper_air_support_call_chopper( var_0 )
 
     }
 
-    level.chopper = _id_A5A8::_id_8978( "chopper" );
+    level.chopper = maps\_vehicle::_id_8978( "chopper" );
     level.chopper endon( "death" );
     var_2 = getent( "chopper_pilot", "targetname" );
     var_3 = getent( "chopper_gunner", "targetname" );
-    level.chopper._id_6820 = var_2 _id_A5A4::_id_88C3();
-    level.chopper.gunner = var_3 _id_A5A4::_id_88C3();
+    level.chopper._id_6820 = var_2 maps\_utility::_id_88C3();
+    level.chopper.gunner = var_3 maps\_utility::_id_88C3();
     level.chopper thread chopper_air_support_friendlyfire();
     var_4 = level.chopper.origin;
     var_5 = spawn( "script_origin", var_0 );
@@ -1052,7 +1052,7 @@ chopper_air_support_call_chopper( var_0 )
     level.chopper neargoalnotifydist( 4000 );
     level.chopper waittill( "near_goal" );
     level notify( "airsupport_inbound" );
-    _id_A5E8::_id_870C( "start_air_support_mix" );
+    soundscripts\_snd::_id_870C( "start_air_support_mix" );
     level.chopper thread chopper_ai_mode( var_5 );
     level.chopper settargetyaw( var_6[1] );
     level.chopper waittill( "goal" );
@@ -1166,8 +1166,8 @@ chopper_air_support_end( var_0 )
     common_scripts\utility::_id_3831( "air_support_refueling" );
     wait 30;
     common_scripts\utility::_id_383F( "air_support_refueling" );
-    thread _id_A5A4::_id_70C4( "refuelandrearm" );
-    _id_A5E8::_id_870C( "stop_air_support_mix" );
+    thread maps\_utility::_id_70C4( "refuelandrearm" );
+    soundscripts\_snd::_id_870C( "stop_air_support_mix" );
     level notify( "air_support_over" );
     var_1 = vectortoangles( var_0 - level.chopper.origin );
 
@@ -1184,7 +1184,7 @@ chopper_air_support_end( var_0 )
     level.chopper = undefined;
     wait 20;
     common_scripts\utility::_id_3831( "air_support_refueling" );
-    thread _id_A5A4::_id_70C4( "readytoattack" );
+    thread maps\_utility::_id_70C4( "readytoattack" );
     level.playercardbackground givestartammo( "cobra_air_support" );
     level.fake_chopper_ammo = 1;
 }
@@ -1204,7 +1204,7 @@ chopper_ai_mode_aim_turret( var_0 )
 
     for (;;)
     {
-        var_0 = _id_A53F::_id_3F7F( 6000, level._id_2235["45"], 1, 1, 1, 1 );
+        var_0 = maps\_helicopter_globals::_id_3F7F( 6000, level._id_2235["45"], 1, 1, 1, 1 );
 
         if ( !isdefined( var_0 ) )
             var_0 = var_1;
@@ -1249,7 +1249,7 @@ chopper_ai_mode_flares()
     for (;;)
     {
         var_0 = randomintrange( 2, 8 );
-        thread _id_A53F::_id_3897( self, var_0, 1, 5.0 );
+        thread maps\_helicopter_globals::_id_3897( self, var_0, 1, 5.0 );
         wait(randomfloatrange( 4.0, 8.0 ));
     }
 }
@@ -1263,12 +1263,12 @@ chopper_ai_mode_missiles( var_0 )
     for (;;)
     {
         var_2 = randomintrange( 1, 5 );
-        var_0 = _id_A53F::_id_3F7F( 6000, level._id_2235["25"], 1, 1, 1, 1 );
+        var_0 = maps\_helicopter_globals::_id_3F7F( 6000, level._id_2235["25"], 1, 1, 1, 1 );
 
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
-            _id_A53F::_id_37BA( "ffar_mi28_village_assault", var_2, var_0 );
+            maps\_helicopter_globals::_id_37BA( "ffar_mi28_village_assault", var_2, var_0 );
         else
-            _id_A53F::_id_37BA( "ffar_mi28_village_assault", var_2, var_1 );
+            maps\_helicopter_globals::_id_37BA( "ffar_mi28_village_assault", var_2, var_1 );
 
         wait(randomfloatrange( 3.5, 6.0 ));
     }
@@ -1344,8 +1344,8 @@ _id_0926( var_0 )
 {
     self endon( "death" );
 
-    if ( isdefined( self ) && isalive( self ) && _id_A5A4::_id_38A9() )
-        _id_A5A4::_id_38AB( var_0 );
+    if ( isdefined( self ) && isalive( self ) && maps\_utility::_id_38A9() )
+        maps\_utility::_id_38AB( var_0 );
 }
 
 _id_3CB9( var_0, var_1, var_2 )
@@ -1368,13 +1368,13 @@ _id_3CB9( var_0, var_1, var_2 )
 
 roaming_bmp()
 {
-    var_0 = _id_A5A8::waittill_vehiclespawn( "roaming_bmp" );
+    var_0 = maps\_vehicle::waittill_vehiclespawn( "roaming_bmp" );
     target_set( var_0, ( 0, 0, 32 ) );
     target_setjavelinonly( var_0, 1 );
     var_0 thread vehicle_patrol_think();
     var_0 thread vehicle_turret_think();
     var_0 thread vehicle_c4_think();
-    var_0 thread _id_A5AA::_id_2581();
+    var_0 thread maps\_vehicle_code::_id_2581();
     var_0 thread bmp_autosave_on_death();
     var_0 thread vehicle_death_think();
 }
@@ -1443,7 +1443,7 @@ vehicle_patrol_init()
     level.avehiclenodes = [];
     var_0 = getvehiclenodearray( "go_forward", "script_noteworthy" );
     var_1 = getvehiclenodearray( "go_backward", "script_noteworthy" );
-    level.avehiclenodes = _id_A5A4::_id_0CF2( var_0, var_1 );
+    level.avehiclenodes = maps\_utility::_id_0CF2( var_0, var_1 );
 }
 
 vehicle_patrol_think()
@@ -1461,7 +1461,7 @@ vehicle_patrol_think()
         var_4 = undefined;
         var_5 = undefined;
         var_6 = undefined;
-        var_2 = var_0 _id_A5A4::_id_3DB1( "vehiclenode" );
+        var_2 = var_0 maps\_utility::_id_3DB1( "vehiclenode" );
         var_1 = level.avehiclenodes;
         var_1 = common_scripts\utility::_id_0CF6( var_1, var_2 );
         var_7 = level.avehiclenodes;
@@ -1490,10 +1490,10 @@ vehicle_patrol_think()
         }
 
         if ( isdefined( var_3 ) )
-            var_3._id_311C = var_3 _id_A5A4::_id_3DB1( "vehiclenode" );
+            var_3._id_311C = var_3 maps\_utility::_id_3DB1( "vehiclenode" );
 
         if ( isdefined( var_4 ) )
-            var_4._id_311C = var_4 _id_A5A4::_id_3DB1( "vehiclenode" );
+            var_4._id_311C = var_4 maps\_utility::_id_3DB1( "vehiclenode" );
 
         var_6 = getclosestinfov( level.playercardbackground.origin, level.avehiclenodes, 55, level.bmp_safety_distance );
 
@@ -1519,7 +1519,7 @@ vehicle_patrol_think()
             self attachpath( var_5 );
 
             if ( isdefined( var_5._id_7B24 ) )
-                thread _id_A5AA::_id_A2FF( var_5._id_7B24 );
+                thread maps\_vehicle_code::_id_A2FF( var_5._id_7B24 );
 
             var_0 = var_5;
             wait(randomfloatrange( 0.2, 1.2 ));
@@ -1540,7 +1540,7 @@ vehicle_turret_think()
 
     for (;;)
     {
-        var_0 = _id_A53F::_id_3F7F( 3000, undefined, 1, 1, 0, 1 );
+        var_0 = maps\_helicopter_globals::_id_3F7F( 3000, undefined, 1, 1, 0, 1 );
 
         if ( isdefined( var_0 ) )
         {
@@ -1562,7 +1562,7 @@ vehicle_turret_think()
 
 doautosave( var_0 )
 {
-    thread _id_A5A4::_id_1143( var_0 );
+    thread maps\_utility::_id_1143( var_0 );
     thread timedautosaves();
 }
 
@@ -1608,7 +1608,7 @@ genocide_audio_trigger()
 dead_civilian()
 {
     wait(randomfloatrange( 0.05, 0.2 ));
-    var_0 = _id_A5A4::_id_2F29( self );
+    var_0 = maps\_utility::_id_2F29( self );
     var_0 setcontents( 0 );
     var_0 startragdoll();
 }
@@ -1620,11 +1620,11 @@ air_support_hint_print_activate()
     while ( !player_activated_air_support() )
     {
         if ( level.air_support_hint_print_dialog_next == 0 )
-            level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "airsupport" );
+            level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "airsupport" );
         else if ( level.air_support_hint_print_dialog_next == 1 )
-            level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "softenup" );
+            level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "softenup" );
         else
-            thread _id_A5A4::_id_70C4( "readytoattack" );
+            thread maps\_utility::_id_70C4( "readytoattack" );
 
         level.air_support_hint_print_dialog_next++;
 
@@ -1643,20 +1643,20 @@ air_support_hint_print_activate()
 display_air_support_hint_console()
 {
     level endon( "clearing_hints" );
-    _id_A5A4::_id_48B0( &"SCRIPT_LEARN_CHOPPER_AIR_SUPPORT1" );
-    level.iconelem1 = _id_A546::_id_2420( "hud_dpad", 32, 32 );
-    level.iconelem1 _id_A546::_id_7FEE( "TOP", undefined, -32, 165 );
-    level._id_4B40 = _id_A546::_id_2420( "hud_arrow_right", 24, 24 );
-    level._id_4B40 _id_A546::_id_7FEE( "TOP", undefined, -31.5, 170 );
+    maps\_utility::_id_48B0( &"SCRIPT_LEARN_CHOPPER_AIR_SUPPORT1" );
+    level.iconelem1 = maps\_hud_util::_id_2420( "hud_dpad", 32, 32 );
+    level.iconelem1 maps\_hud_util::_id_7FEE( "TOP", undefined, -32, 165 );
+    level._id_4B40 = maps\_hud_util::_id_2420( "hud_arrow_right", 24, 24 );
+    level._id_4B40 maps\_hud_util::_id_7FEE( "TOP", undefined, -31.5, 170 );
     level._id_4B40.space = 1;
     level._id_4B40.color = ( 1, 1, 0 );
     level._id_4B40.alpha = 0.7;
-    level._id_4B3F = _id_A546::_id_2420( "hud_icon_cobra", 64, 32 );
-    level._id_4B3F _id_A546::_id_7FEE( "TOP", undefined, 16, 165 );
+    level._id_4B3F = maps\_hud_util::_id_2420( "hud_icon_cobra", 64, 32 );
+    level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, 16, 165 );
     wait 4;
-    level.iconelem1 _id_A546::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
-    level._id_4B3F _id_A546::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
-    level._id_4B40 _id_A546::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
+    level.iconelem1 maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
+    level._id_4B3F maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
+    level._id_4B40 maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
     level.iconelem1 scaleovertime( 1, 20, 20 );
     level._id_4B3F scaleovertime( 1, 20, 20 );
     level._id_4B40 scaleovertime( 1, 20, 20 );
@@ -1667,29 +1667,29 @@ display_air_support_hint_console()
     level._id_4B3F.alpha = 0;
     level._id_4B40 fadeovertime( 0.15 );
     level._id_4B40.alpha = 0;
-    _id_A5A4::_id_48CB( 0.15 );
+    maps\_utility::_id_48CB( 0.15 );
 }
 
 display_air_support_hint_pc()
 {
     level endon( "clearing_hints" );
-    _id_A5A4::_id_48B0( &"SCRIPT_LEARN_CHOPPER_AIR_SUPPORT1_PC" );
+    maps\_utility::_id_48B0( &"SCRIPT_LEARN_CHOPPER_AIR_SUPPORT1_PC" );
     setomnvar( "ui_display_hud_for_equipment_motion", 1 );
-    level._id_4B3F = _id_A546::_id_2420( "hud_icon_cobra", 48, 48 );
-    level._id_4B3F _id_A546::_id_7FEE( "TOP", undefined, 0, 140 );
+    level._id_4B3F = maps\_hud_util::_id_2420( "hud_icon_cobra", 48, 48 );
+    level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 140 );
     wait 4;
-    level._id_4B3F _id_A546::_id_7FEE( "TOP", undefined, -320, 460, 1.0 );
+    level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, -320, 460, 1.0 );
     level._id_4B3F scaleovertime( 1, 20, 20 );
     wait 0.7;
     level._id_4B3F fadeovertime( 0.15 );
     level._id_4B3F.alpha = 0;
     setomnvar( "ui_display_hud_for_equipment_motion", 0 );
-    _id_A5A4::_id_48CB( 0.15 );
+    maps\_utility::_id_48CB( 0.15 );
 }
 
 _id_1EBE()
 {
-    _id_A5A4::_id_48CB( 0 );
+    maps\_utility::_id_48CB( 0 );
     level notify( "clearing_hints" );
 
     if ( isdefined( level.iconelem1 ) )
@@ -1709,7 +1709,7 @@ air_support_hint_print_call()
 
     level endon( "alasad_sequence_started" );
     thread _id_1EBE();
-    level.playercardbackground thread _id_A5A4::_id_2B4A( "call_air_support2" );
+    level.playercardbackground thread maps\_utility::_id_2B4A( "call_air_support2" );
     wait 5;
     level.air_support_hint_delete = 1;
 }
@@ -1788,15 +1788,15 @@ spawn_ai_and_make_dumb( var_0, var_1 )
     var_2 = getent( var_0, "targetname" );
 
     if ( isdefined( var_2._id_79AD ) )
-        var_3 = _id_A5A4::_id_2F29( var_2 );
+        var_3 = maps\_utility::_id_2F29( var_2 );
     else
     {
         var_3 = var_2 stalingradspawn();
-        _id_A5A4::_id_88F1( var_3 );
+        maps\_utility::_id_88F1( var_3 );
         var_3.melee_fired = 0;
         var_3.ignoretriggers = 1;
         var_3.ignoreforfixednodesafecheck = 1;
-        var_3 thread _id_A5A4::_id_4BB0( 1 );
+        var_3 thread maps\_utility::_id_4BB0( 1 );
     }
 
     var_3.helmet = 100000;
@@ -1893,8 +1893,8 @@ alasad_sequence_init( var_0 )
 
     common_scripts\utility::_id_0D13( getentarray( var_0.deletablenoteworthy, "script_noteworthy" ), ::alasad_deletable_show );
     var_0.node_relinquished = getnode( var_0.nodetargetname1, "targetname" );
-    var_0._id_2D40 = _id_A5A4::_id_88D1( "door" );
-    var_0.node_relinquished thread _id_A510::_id_0BC7( var_0._id_2D40, "interrogationA" );
+    var_0._id_2D40 = maps\_utility::_id_88D1( "door" );
+    var_0.node_relinquished thread maps\_anim::_id_0BC7( var_0._id_2D40, "interrogationA" );
     var_0.brushmodel_door = getent( var_0.brushdoortargetname, "targetname" );
     var_0.brushmodel_door linkto( var_0._id_2D40, "door_hinge_jnt" );
     var_0._id_2D40 hide();
@@ -1904,7 +1904,7 @@ alasad_sequence_init( var_0 )
     var_1 linkto( var_0.brushmodel_door, "", var_0.door_offset_origin, var_0.door_offset_angle );
 
     if ( isdefined( var_0.spawnerstodeletekillspawner ) )
-        thread _id_A581::_id_533A( var_0.spawnerstodeletekillspawner );
+        thread maps\_spawner::_id_533A( var_0.spawnerstodeletekillspawner );
 
     if ( isdefined( var_0.aitodeleteareatargetname ) )
     {
@@ -1934,7 +1934,7 @@ alasad_sequence_wait( var_0 )
     {
         if ( level.playercardbackground istouching( var_0.alasad_area_interior ) )
         {
-            common_scripts\utility::_id_0D13( getaiarray( "allies" ), _id_A5A4::_id_7E38, "o" );
+            common_scripts\utility::_id_0D13( getaiarray( "allies" ), maps\_utility::_id_7E38, "o" );
             var_0.color_trigger notify( "trigger" );
             thread alasad_sequence_ready( var_0 );
 
@@ -1947,7 +1947,7 @@ alasad_sequence_wait( var_0 )
         level notify( "alasad_sequence_canceled" );
         common_scripts\utility::_id_3831( "price_ready_for_interrogation" );
         var_0.node_relinquished notify( "stop_loop" );
-        common_scripts\utility::_id_0D13( getaiarray( "allies" ), _id_A5A4::_id_7E38, "r" );
+        common_scripts\utility::_id_0D13( getaiarray( "allies" ), maps\_utility::_id_7E38, "r" );
 
         while ( !level.playercardbackground istouching( var_0.alasad_area_interior ) )
             wait 0.05;
@@ -1966,9 +1966,9 @@ alasad_sequence_ready( var_0 )
 h1_do_price_reach_interrogation()
 {
     level endon( "alasad_sequence_canceled" );
-    _id_A510::_id_0BFF( level._id_6F7C, "interrogationA_run_in" );
-    _id_A510::_id_0C24( level._id_6F7C, "interrogationA_run_in" );
-    thread _id_A510::_id_0BE1( level._id_6F7C, "interrogationA_idle" );
+    maps\_anim::_id_0BFF( level._id_6F7C, "interrogationA_run_in" );
+    maps\_anim::_id_0C24( level._id_6F7C, "interrogationA_run_in" );
+    thread maps\_anim::_id_0BE1( level._id_6F7C, "interrogationA_idle" );
     common_scripts\utility::_id_383F( "price_ready_for_interrogation" );
 }
 
@@ -1982,8 +1982,8 @@ alasad_damage_monitor()
 
         if ( isdefined( var_1 ) && var_1 == level.playercardbackground )
         {
-            _id_A56A::_id_7E03( &"VILLAGE_ASSAULT_YOU_KILLED_ALASAD" );
-            _id_A5A4::_id_5CDF();
+            maps\_player_death::_id_7E03( &"VILLAGE_ASSAULT_YOU_KILLED_ALASAD" );
+            maps\_utility::_id_5CDF();
             return;
         }
     }
@@ -1997,29 +1997,29 @@ alasad_sequence_start( var_0 )
     removeweaponfromplayer( "smoke_grenade_american" );
     removeweaponfromplayer( "c4" );
     removeweaponfromplayer( "flash_grenade" );
-    level.playercardbackground _id_A5A4::_id_6C65( 0, "alasad_interrogation" );
+    level.playercardbackground maps\_utility::_id_6C65( 0, "alasad_interrogation" );
     level.playercardbackground setactionslot( 1, "" );
-    thread _id_A5A4::_id_1332( "allies" );
-    thread _id_A5A4::_id_1332( "axis" );
+    thread maps\_utility::_id_1332( "allies" );
+    thread maps\_utility::_id_1332( "axis" );
     thread doautosave( "capturing_al_asad" );
     level.alasad = spawn_ai_and_make_dumb( var_0.alasadspawnertargetname );
     level.alasad thread removeweapon();
     level.alasad._id_0C72 = "alasad";
     level.alasad.tracksuit_ignore = 1;
-    level.alasad thread _id_A5A4::_id_58D7();
+    level.alasad thread maps\_utility::_id_58D7();
     level.alasad thread alasad_damage_monitor();
     waitframe;
-    var_0.node_relinquished thread _id_A510::_id_0C43( level.alasad, "interrogationA" );
+    var_0.node_relinquished thread maps\_anim::_id_0C43( level.alasad, "interrogationA" );
     level.alasad_guard1 = spawn_ai_and_make_dumb( var_0.alasadfirstshotspawnertargetname, 1 );
     level.alasad_guard2 = spawn_ai_and_make_dumb( var_0.alasadsecondshotspawnertargetname, 1 );
-    var_1 = _id_A5A4::_id_88D1( "phone" );
-    var_0.node_relinquished thread _id_A510::_id_0BC7( var_1, "interrogationA" );
+    var_1 = maps\_utility::_id_88D1( "phone" );
+    var_0.node_relinquished thread maps\_anim::_id_0BC7( var_1, "interrogationA" );
     var_2 = undefined;
 
     if ( getdvarint( "use_old_interrogation" ) != 1 )
     {
-        var_2 = _id_A5A4::_id_88D1( "rope" );
-        var_0.node_relinquished thread _id_A510::_id_0BC7( var_2, "interrogationA" );
+        var_2 = maps\_utility::_id_88D1( "rope" );
+        var_0.node_relinquished thread maps\_anim::_id_0BC7( var_2, "interrogationA" );
     }
 
     var_0._id_44CE = [];
@@ -2027,26 +2027,26 @@ alasad_sequence_start( var_0 )
     var_0._id_44CE[var_0._id_44CE.size] = level.alasad;
     level._id_6F7C animscripts\init::_id_4E32( "colt45_alasad_killer" );
     level._id_6F7C._id_855D = "colt45_alasad_killer";
-    level._id_6F7C _id_A5A4::_id_A0AC( level._id_2235["60"] );
+    level._id_6F7C maps\_utility::_id_A0AC( level._id_2235["60"] );
     var_0.node_relinquished notify( "stop_loop" );
     common_scripts\utility::_id_383F( "alasad_sequence_started" );
-    _id_A5E8::_id_870C( "start_interrogation_mix" );
+    soundscripts\_snd::_id_870C( "start_interrogation_mix" );
 
     if ( getdvarint( "use_old_interrogation" ) == 1 )
-        level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "nogooddead" );
+        level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "nogooddead" );
 
-    _id_A5A4::_id_27EF( 5.9, _id_A5A4::_id_070A, var_0.friendlycolortriggertargetname2 );
-    _id_A5A4::_id_27EF( 6.0, ::disconnectpathswrapper, var_0.brushmodel_door );
+    maps\_utility::_id_27EF( 5.9, maps\_utility::_id_070A, var_0.friendlycolortriggertargetname2 );
+    maps\_utility::_id_27EF( 6.0, ::disconnectpathswrapper, var_0.brushmodel_door );
     var_0._id_44CE[var_0._id_44CE.size] = var_0._id_2D40;
     var_0._id_44CE[var_0._id_44CE.size] = var_1;
 
     if ( getdvarint( "use_old_interrogation" ) != 1 )
         var_0._id_44CE[var_0._id_44CE.size] = var_2;
 
-    var_0.node_relinquished _id_A510::_id_0C18( var_0._id_44CE, "interrogationA" );
+    var_0.node_relinquished maps\_anim::_id_0C18( var_0._id_44CE, "interrogationA" );
     thread chopper_air_support_removefunctionality();
     thread maps\village_assault_lighting::goblack( 18.0, 0.0, 0.5 );
-    _id_A5E8::_id_870C( "start_interrogationA_black_screen_mix" );
+    soundscripts\_snd::_id_870C( "start_interrogationA_black_screen_mix" );
 
     foreach ( var_4 in getaiarray( "allies" ) )
     {
@@ -2060,13 +2060,13 @@ alasad_sequence_start( var_0 )
     objective_state( 0, "done" );
     var_0.node_relinquished = getnode( var_0.nodetargetname2, "targetname" );
     level._id_6F7C.a._id_A2E2["chest"] = "none";
-    var_6 = _id_A5A4::_id_88D1( "chair" );
+    var_6 = maps\_utility::_id_88D1( "chair" );
     var_7 = undefined;
 
     if ( getdvarint( "use_old_interrogation" ) != 1 )
     {
-        var_7 = _id_A5A4::_id_88D1( "handrope" );
-        var_0.node_relinquished thread _id_A510::_id_0BC7( var_7, "interrogationB" );
+        var_7 = maps\_utility::_id_88D1( "handrope" );
+        var_0.node_relinquished thread maps\_anim::_id_0BC7( var_7, "interrogationB" );
     }
 
     var_0._id_44CE = [];
@@ -2082,52 +2082,52 @@ alasad_sequence_start( var_0 )
         var_0._id_44CE[var_0._id_44CE.size] = var_7;
     }
 
-    var_0.node_relinquished thread _id_A510::_id_0BC5( var_0._id_44CE, "interrogationB" );
+    var_0.node_relinquished thread maps\_anim::_id_0BC5( var_0._id_44CE, "interrogationB" );
     level.playercardbackground freezecontrols( 1 );
     delete_dropped_weapons();
     level.playercardbackground takeallweapons();
     setsaveddvar( "compass", 0 );
     moveplayertolocation( var_0.playerlocationscenebtargetname );
-    getnode( var_0.nodetargetname1, "targetname" ) thread _id_A510::_id_0BC7( var_0._id_2D40, "interrogationA" );
+    getnode( var_0.nodetargetname1, "targetname" ) thread maps\_anim::_id_0BC7( var_0._id_2D40, "interrogationA" );
     level waittill( "fade_from_black" );
-    _id_A5E8::_id_870C( "start_interrogationA_mix" );
-    level._id_6F7C _id_A5A4::_id_4462();
+    soundscripts\_snd::_id_870C( "start_interrogationA_mix" );
+    level._id_6F7C maps\_utility::_id_4462();
     level.playercardbackground freezecontrols( 0 );
     level._id_6F7C thread alasad_execution_notes();
     level._id_6F7C thread alasad_cell_phone_sounds( var_1 );
-    level._id_3C61 thread _id_A5A4::_id_69C4( "scn_assault_interogation_pickup" );
-    var_0.node_relinquished _id_A510::_id_0C18( var_0._id_44CE, "interrogationB" );
+    level._id_3C61 thread maps\_utility::_id_69C4( "scn_assault_interogation_pickup" );
+    var_0.node_relinquished maps\_anim::_id_0C18( var_0._id_44CE, "interrogationB" );
     level._id_6F7C.weeklychallengeid["m4_silencer"].precache = "none";
 }
 
 blackscreen1_dialog()
 {
-    level.playercardbackground thread _id_A5A4::_id_69C4( "h1_scn_safehouse_punch_out" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "h1_scn_safehouse_punch_out" );
     wait 2;
     var_0 = getcorpsearray();
 
     foreach ( var_2 in var_0 )
         var_2 delete();
 
-    level.playercardbackground thread _id_A5A4::_id_69C4( "scn_assault_interogation_black" );
-    level._id_6F7C thread _id_A5A4::_id_27EF( 0.0, _id_A510::_id_0C24, level._id_6F7C, "whydyoudoit" );
-    level.alasad thread _id_A5A4::_id_27EF( 3.05, _id_A510::_id_0C24, level.alasad, "wasntme1" );
-    level._id_6F7C thread _id_A5A4::_id_27EF( 5.3, _id_A510::_id_0C24, level._id_6F7C, "whothen" );
-    level.alasad thread _id_A5A4::_id_27EF( 8.3, _id_A510::_id_0C24, level.alasad, "wasntme2" );
-    level._id_6F7C thread _id_A5A4::_id_27EF( 10.85, _id_A510::_id_0C24, level._id_6F7C, "givemeaname" );
-    level._id_6F7C thread _id_A5A4::_id_27EF( 13.65, _id_A510::_id_0C24, level._id_6F7C, "aname" );
+    level.playercardbackground thread maps\_utility::_id_69C4( "scn_assault_interogation_black" );
+    level._id_6F7C thread maps\_utility::_id_27EF( 0.0, maps\_anim::_id_0C24, level._id_6F7C, "whydyoudoit" );
+    level.alasad thread maps\_utility::_id_27EF( 3.05, maps\_anim::_id_0C24, level.alasad, "wasntme1" );
+    level._id_6F7C thread maps\_utility::_id_27EF( 5.3, maps\_anim::_id_0C24, level._id_6F7C, "whothen" );
+    level.alasad thread maps\_utility::_id_27EF( 8.3, maps\_anim::_id_0C24, level.alasad, "wasntme2" );
+    level._id_6F7C thread maps\_utility::_id_27EF( 10.85, maps\_anim::_id_0C24, level._id_6F7C, "givemeaname" );
+    level._id_6F7C thread maps\_utility::_id_27EF( 13.65, maps\_anim::_id_0C24, level._id_6F7C, "aname" );
     wait 16;
 }
 
 blackscreen2_dialog()
 {
     wait 1;
-    level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "whowasthat" );
+    level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "whowasthat" );
     wait 2;
-    level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "zakhaev" );
+    level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "zakhaev" );
     wait 2;
-    level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "imran" );
-    _id_A5A4::_id_6005( 4 );
+    level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "imran" );
+    maps\_utility::_id_6005( 4 );
 }
 
 alasad_execution_notes()
@@ -2138,11 +2138,11 @@ alasad_execution_notes()
     level.alasad maps\_cheat::melonhead_remove_melon( 1, 1 );
     wait 3.5;
     level.playercardbackground freezecontrols( 1 );
-    _id_A5E8::_id_870C( "start_interrogationB_black_screen_mix" );
+    soundscripts\_snd::_id_870C( "start_interrogationB_black_screen_mix" );
     setomnvar( "ui_go_black", 1.0 );
     thread blackscreen2_dialog();
     wait 7;
-    _id_A5A4::_id_60D6();
+    maps\_utility::_id_60D6();
 }
 
 alasad_cell_phone_sounds( var_0 )
@@ -2154,9 +2154,9 @@ alasad_cell_phone_sounds( var_0 )
     wait 1;
 
     if ( getdvarint( "use_old_interrogation" ) == 1 )
-        level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "cellphone" );
+        level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "cellphone" );
 
-    _id_A5A4::_id_6008( "h1_interrogation_tension_music" );
+    maps\_utility::_id_6008( "h1_interrogation_tension_music" );
 }
 
 alasad_cell_phone_ring( var_0 )
@@ -2165,7 +2165,7 @@ alasad_cell_phone_ring( var_0 )
 
     for (;;)
     {
-        level._id_3C61 thread _id_A5A4::_id_69C4( "scn_assault_mobile_ring" );
+        level._id_3C61 thread maps\_utility::_id_69C4( "scn_assault_mobile_ring" );
         wait 2;
     }
 }
@@ -2181,7 +2181,7 @@ alasad_notetracks( var_0 )
         thread alasad_flashbang( 1.0 );
         var_0 waittillmatch( "single anim", "pistol_pickup" );
         var_0 waittillmatch( "single anim", "pistol_drop" );
-        var_0 _id_A5A4::_id_4462();
+        var_0 maps\_utility::_id_4462();
         var_0 waittillmatch( "single anim", "fire" );
         headshot( level.alasad, 0 );
     }
@@ -2199,7 +2199,7 @@ alasad_notetracks( var_0 )
         var_0 waittillmatch( "single anim", "fire" );
         headshot( level.alasad_guard2 );
         var_0 waittillmatch( "single anim", "pistol_drop" );
-        var_0 _id_A5A4::_id_4462();
+        var_0 maps\_utility::_id_4462();
         level._id_6F7C showpart( "J_Leg_Weapon_RI", "body_sas_woodland_assault_a" );
         var_0 waittillmatch( "single anim", "pistol_pickup" );
         level._id_6F7C hidepart( "J_Leg_Weapon_RI", "body_sas_woodland_assault_a" );
@@ -2267,11 +2267,11 @@ opening_sequence()
     var_1 = [];
     var_1[0] = level._id_6F7C;
     var_1[1] = level.opening_guy;
-    var_0 _id_A510::_id_0BC5( var_1, "opening" );
+    var_0 maps\_anim::_id_0BC5( var_1, "opening" );
     wait 4.0;
     thread opening_sequence_notetracks( level.opening_guy );
     thread opening_sequence_dialog( level.opening_guy );
-    var_0 _id_A510::_id_0C18( var_1, "opening" );
+    var_0 maps\_anim::_id_0C18( var_1, "opening" );
 }
 
 opening_head_tracking()
@@ -2330,21 +2330,21 @@ opening_sequence_dialog( var_0 )
     if ( getdvarint( "use_old_intro" ) == 1 )
     {
         wait 3;
-        level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "kamarovsman" );
+        level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "kamarovsman" );
         wait 5;
-        var_0 thread _id_A510::_id_0C24( var_0, "asadinvillage" );
+        var_0 thread maps\_anim::_id_0C24( var_0, "asadinvillage" );
         wait 4.5;
-        level._id_6F7C thread _id_A510::_id_0C24( level._id_6F7C, "perfect" );
+        level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "perfect" );
     }
     else
         wait 15;
 
     wait 10;
-    level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "whatsgoingon" );
+    level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "whatsgoingon" );
     wait 2.5;
-    var_0 thread _id_A510::_id_0C24( var_0, "killingvillagers" );
+    var_0 thread maps\_anim::_id_0C24( var_0, "killingvillagers" );
     wait 3.5;
-    level._id_3C61 thread _id_A510::_id_0C24( level._id_3C61, "notforlong" );
+    level._id_3C61 thread maps\_anim::_id_0C24( level._id_3C61, "notforlong" );
 }
 
 ismodelattached( var_0, var_1 )
@@ -2411,7 +2411,7 @@ removeweaponfromplayer( var_0 )
 removeweapon( var_0 )
 {
     if ( isai( self ) )
-        _id_A5A4::_id_4462();
+        maps\_utility::_id_4462();
     else
     {
         var_1 = self getattachsize();

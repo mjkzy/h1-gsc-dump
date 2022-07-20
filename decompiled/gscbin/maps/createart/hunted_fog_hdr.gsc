@@ -22,7 +22,7 @@
 main()
 {
     _id_8FCC();
-    var_0 = _id_A5A4::_id_23DF( "hunted" );
+    var_0 = maps\_utility::_id_23DF( "hunted" );
     var_0._id_8D08 = 1024;
     var_0._id_4500 = 4097;
     var_0._id_7299 = 0.0845683;
@@ -64,7 +64,7 @@ main()
     var_0._id_0DBB = 1;
     var_0._id_0DBA = 228.052;
     var_0._id_0DBC = 346.845;
-    var_0 = _id_A5A4::_id_23DF( "hunted_barn_interior" );
+    var_0 = maps\_utility::_id_23DF( "hunted_barn_interior" );
     var_0._id_8D08 = 1024;
     var_0._id_4500 = 4097;
     var_0._id_7299 = 0.0845683;
@@ -110,7 +110,7 @@ main()
 
 _id_8FCC()
 {
-    var_0 = _id_A5A4::_id_23DB( "default" );
+    var_0 = maps\_utility::_id_23DB( "default" );
     var_0.precache = ( -44.3585, 50.2227, 0 );
-    _id_A513::_id_8FCD( "default", 0 );
+    maps\_art::_id_8FCD( "default", 0 );
 }

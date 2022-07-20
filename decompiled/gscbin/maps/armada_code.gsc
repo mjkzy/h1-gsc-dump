@@ -69,7 +69,7 @@ flashbang_hint()
 {
     var_0 = getent( "flashbang_hint", "targetname" );
     var_0 waittill( "trigger" );
-    level._id_6F7C _id_A510::_id_0C21( level._id_6F7C, "throwflash" );
+    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "throwflash" );
     wait 2;
 
     if ( !common_scripts\utility::_id_382E( "player_has_flashed" ) )
@@ -112,7 +112,7 @@ _id_6ACA()
 
 init_pickup_technical()
 {
-    var_0 = _id_A5AA::_id_05BE();
+    var_0 = maps\_vehicle_code::_id_05BE();
 
     foreach ( var_2 in var_0 )
     {
@@ -126,7 +126,7 @@ init_pickup_technical()
 
 init_pickup_technical_badplace()
 {
-    var_0 = _id_A5AA::_id_05BE();
+    var_0 = maps\_vehicle_code::_id_05BE();
 
     foreach ( var_2 in var_0 )
     {
@@ -231,7 +231,7 @@ pickup_technical_think()
     var_0._id_0DF4[0].a._id_2B20 = 1;
     var_0._id_0DF4[0]._id_2AF7 = 1;
 
-    if ( _id_A5A4::_id_0CC3() )
+    if ( maps\_utility::_id_0CC3() )
         var_0 thread pickup_arcade_setup();
 
     var_0.tail_gate = spawn( "script_model", var_0 gettagorigin( "tag_rear_tailgate" ) );
@@ -273,7 +273,7 @@ pickup_technical_think()
 init_heli_turrets()
 {
     level.heli_turrets = [];
-    _id_A5A8::waittill_vehiclespawn_noteworthy( "circling_heli" );
+    maps\_vehicle::waittill_vehiclespawn_noteworthy( "circling_heli" );
     wait 0.1;
     var_0 = get_vehiclearray( "circling_heli", "script_noteworthy" );
     common_scripts\utility::_id_0D13( var_0, ::setup_circling_heli_turret );
@@ -407,7 +407,7 @@ draw_target()
 {
     for (;;)
     {
-        _id_A526::_id_2DD0( self.origin, self.angles );
+        maps\_debug::_id_2DD0( self.origin, self.angles );
         wait 0.05;
     }
 }

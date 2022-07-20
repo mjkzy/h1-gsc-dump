@@ -44,19 +44,18 @@ new_look_wait_for_target( var_0, var_1 )
     {
         self waittill( "damage", var_2, var_3, var_4, var_5, var_6 );
 
-        if ( level.playercardbackground _id_A5A4::_id_50A9() )
-        {
+        if ( level.playercardbackground maps\_utility::_id_50A9() )
             break;
-            continue;
-        }
-
-        if ( level.xuid )
+        else
         {
-            thread keyhint( "ads_360" );
-            continue;
-        }
+            if ( level.xuid )
+            {
+                thread keyhint( "ads_360" );
+                continue;
+            }
 
-        thread keyhint( "ads" );
+            thread keyhint( "ads" );
+        }
     }
 
     self playsound( "killhouse_buzzer" );
@@ -82,11 +81,11 @@ level_scripted_unloadnode()
     for (;;)
     {
         self waittill( "trigger", var_0 );
-        var_0 _id_A5A4::_id_9CB3();
+        var_0 maps\_utility::_id_9CB3();
         var_0 vehicle_setspeed( 20, 20 );
-        var_0 _id_A5A4::_id_9CF5();
+        var_0 maps\_utility::_id_9CF5();
         wait 10;
-        var_0 _id_A5A4::_id_9D1F();
+        var_0 maps\_utility::_id_9D1F();
     }
 }
 
@@ -97,7 +96,7 @@ ambient_trucks()
     for (;;)
     {
         var_1 = randomint( 8 );
-        var_2 = _id_A5A8::_id_23DE( var_1 );
+        var_2 = maps\_vehicle::_id_23DE( var_1 );
 
         foreach ( var_4 in var_2 )
             var_4.veh_transmission = "constrained";
@@ -135,7 +134,7 @@ newcastle_think()
 {
     common_scripts\utility::_id_384A( "spawn_frags" );
     var_0 = getent( "nwc", "script_noteworthy" );
-    level.newcastle = var_0 _id_A5A4::_id_88C3();
+    level.newcastle = var_0 maps\_utility::_id_88C3();
     level.newcastle._id_0C72 = "nwc";
     level.newcastle._id_2AF3 = 1;
     level.newcastle._id_2B0E = 1;
@@ -143,10 +142,10 @@ newcastle_think()
     level.newcastle.lastnagtime = 0;
     level.newcastle.speaking = 0;
     level.newcastle _meth_81a7( 1 );
-    level.newcastle _id_A5A4::_id_2A8D();
-    level.newcastle _id_A5A4::_id_4462();
-    level.newcastle _id_A5A4::_id_7E45( "patrol_unarmed_walk" );
-    level.newcastle _id_A5A4::_id_7E44( "patrol_unarmed_idle" );
+    level.newcastle maps\_utility::_id_2A8D();
+    level.newcastle maps\_utility::_id_4462();
+    level.newcastle maps\_utility::_id_7E45( "patrol_unarmed_walk" );
+    level.newcastle maps\_utility::_id_7E44( "patrol_unarmed_idle" );
     level.newcastle.grenadeawareness = 0;
     level.newcastle _meth_8202( level.playercardbackground, 1 );
     level.newcastle specify_head_model( "head_sp_sas_woodland_golden" );
@@ -246,27 +245,27 @@ compass_hint( var_0, var_1 )
 {
     _id_1EBE();
     level endon( "clearing_hints" );
-    _id_A5A4::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_MARKER", undefined, undefined, 1 );
-    level._id_4B3E = _id_A546::_id_2420( "objective", 32, 32 );
+    maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_MARKER", undefined, undefined, 1 );
+    level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
     level._id_4B3E.hindlegstraceoffset = 1;
-    level._id_4B3E _id_A546::_id_7FEE( "TOP", undefined, 0, 155 );
+    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 155 );
     wait 5;
-    level._id_4B3E _id_A546::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
+    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
     level._id_4B3E scaleovertime( 1, 20, 20 );
     wait 0.85;
     level._id_4B3E fadeovertime( 0.15 );
     level._id_4B3E.alpha = 0;
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 compass_reminder()
 {
     _id_1EBE();
     level endon( "clearing_hints" );
-    _id_A5A4::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_REMINDER", undefined, undefined, 1 );
-    level._id_4B3E = _id_A546::_id_2420( "objective", 32, 32 );
+    maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_REMINDER", undefined, undefined, 1 );
+    level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
     level._id_4B3E.hindlegstraceoffset = 1;
-    level._id_4B3E _id_A546::_id_7FEE( "TOP", undefined, 0, 155 );
+    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 155 );
 
     for ( var_0 = 0; var_0 < 5; var_0++ )
     {
@@ -276,7 +275,7 @@ compass_reminder()
         {
             level._id_4B3E fadeovertime( 0.15 );
             level._id_4B3E.alpha = 0;
-            _id_A5A4::_id_48CB( 0.5 );
+            maps\_utility::_id_48CB( 0.5 );
             wait 0.75;
             _id_1EBE();
             wait 0.25;
@@ -284,13 +283,13 @@ compass_reminder()
         }
     }
 
-    level._id_4B3E _id_A546::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
+    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
     level._id_4B3E scaleovertime( 1, 20, 20 );
     wait 0.85;
     level._id_4B3E fadeovertime( 0.15 );
     level._id_4B3E.alpha = 0;
     wait 2;
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 move_gaz_once_player_past()
@@ -299,10 +298,10 @@ move_gaz_once_player_past()
     common_scripts\utility::_id_384A( "gaz_intro_done" );
     common_scripts\utility::_id_384A( "rifle_picked_up" );
     var_0 = getnode( "gaz_intro", "targetname" );
-    var_0 _id_A510::_id_0C24( level.waters, "h1_killhouse_gaz_walkonstage" );
+    var_0 maps\_anim::_id_0C24( level.waters, "h1_killhouse_gaz_walkonstage" );
     var_0 notify( "end_idle" );
     level.waters.ref_node = var_0;
-    var_0 thread _id_A510::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
+    var_0 thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
     common_scripts\utility::_id_383F( "gaz_in_idle_position" );
 }
 
@@ -312,7 +311,7 @@ move_gaz_fake()
     var_1 = spawn( "script_origin", var_0.origin + ( 0, 12, 0 ) );
     var_1.angles = var_0.angles;
     level.waters.ref_node = var_1;
-    level.waters.ref_node thread _id_A510::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
+    level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
     common_scripts\utility::_id_383F( "gaz_in_idle_position" );
 }
 
@@ -323,7 +322,7 @@ fail_on_damage()
         self waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
         if ( isplayer( var_1 ) )
-            _id_A536::_id_5CDD();
+            maps\_friendlyfire::_id_5CDD();
     }
 }
 
@@ -375,7 +374,7 @@ fail_if_friendlies_in_line_of_fire()
             {
                 level notify( "mission failed" );
                 setdvar( "ui_deadquote", &"KILLHOUSE_FIRED_NEAR_FRIENDLY" );
-                _id_A5A4::_id_5CDF();
+                maps\_utility::_id_5CDF();
             }
         }
     }
@@ -393,7 +392,7 @@ vision_trigger( var_0 )
     for (;;)
     {
         self waittill( "trigger" );
-        _id_A5A4::_id_7F00( var_0, 1 );
+        maps\_utility::_id_7F00( var_0, 1 );
 
         while ( level.playercardbackground istouching( self ) )
             wait 0.1;
@@ -418,7 +417,7 @@ flashed_debug()
     for (;;)
     {
         level waittill( "flashed" );
-        var_0 = _id_A546::get_stats_display_hud();
+        var_0 = maps\_hud_util::get_stats_display_hud();
         var_0._id_0538 = 130;
         var_0 settext( &"KILLHOUSE_YOUR_TIME" );
         level waittill( "not_flashed" );
@@ -484,7 +483,7 @@ deck_training()
     {
         common_scripts\utility::_id_384A( "price_reveal_done" );
         var_1 waittill( "trigger" );
-        thread _id_A5A4::_id_1143( "starting_deck_attack" );
+        thread maps\_utility::_id_1143( "starting_deck_attack" );
 
         if ( var_8 )
         {
@@ -521,7 +520,7 @@ deck_training()
         var_6 waittill( "trigger" );
         level notify( "test_cleared" );
         setobjectivestate( "obj_deck", "done" );
-        thread _id_A5A4::_id_1143( "completed_deck_attack" );
+        thread maps\_utility::_id_1143( "completed_deck_attack" );
         _id_53B1( 15.85, 1 );
     }
 }
@@ -532,7 +531,7 @@ check_deck_training_quit()
     self waittill( "trigger" );
     level notify( "mission failed" );
     setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_MUST_CLEAR_DECK_MOCK_UP" );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 get_randomized_targets()
@@ -604,7 +603,7 @@ jumpoff_monitor()
     else
         setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_JUMPED_TOO_EARLY" );
 
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 flashbang_ammo_monitor( var_0 )
@@ -623,7 +622,7 @@ flashbang_ammo_monitor( var_0 )
         {
             level notify( "mission failed" );
             setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_OUT_OF_FLASH" );
-            _id_A5A4::_id_5CDF();
+            maps\_utility::_id_5CDF();
         }
     }
 }
@@ -841,15 +840,15 @@ _id_75E0()
         if ( level.jumpoff == 1 )
             return;
 
-        level.playercardbackground thread _id_A5A4::_id_69C4( "scn_killhouse_rope_slide" );
-        var_3 = _id_A5A4::_id_88D1( "view_body" );
+        level.playercardbackground thread maps\_utility::_id_69C4( "scn_killhouse_rope_slide" );
+        var_3 = maps\_utility::_id_88D1( "view_body" );
         var_3 hide();
         var_4 = getent( "training_rope_node", "targetname" );
-        var_4 thread _id_A510::_id_0BC7( var_3, "training_rope" );
-        var_4 thread _id_A510::_id_0C24( var_3, "training_rope" );
+        var_4 thread maps\_anim::_id_0BC7( var_3, "training_rope" );
+        var_4 thread maps\_anim::_id_0C24( var_3, "training_rope" );
         var_5 = getanimlength( level._id_78AC[var_3._id_0C72]["training_rope"] );
         var_6 = var_5 - 1.7;
-        thread _id_A5A4::_id_3840( "start_timer", var_6 );
+        thread maps\_utility::_id_3840( "start_timer", var_6 );
         level.playercardbackground _meth_855e( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
         wait 0.35;
         var_3 show();
@@ -868,7 +867,7 @@ fail_if_damage_waiter()
     self endon( "pop_down" );
     self waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
     setdvar( "ui_deadquote", &"KILLHOUSE_HIT_FRIENDLY" );
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 timer_think()
@@ -892,11 +891,11 @@ starttimer( var_0 )
     level endon( "kill_timer" );
     level._id_4AFE = 20;
     thread cqb_timer_think();
-    level.updated_timer = _id_A546::_id_3D17();
+    level.updated_timer = maps\_hud_util::_id_3D17();
     level.updated_timer._id_92B2.land = &"KILLHOUSE_YOUR_TIME";
     level.updated_timer settenthstimerup( 0.05 );
     wait(var_0);
-    _id_A546::destroy_countdown_hud( level.updated_timer );
+    maps\_hud_util::destroy_countdown_hud( level.updated_timer );
     level thread mission_failed_out_of_time();
 }
 
@@ -1047,7 +1046,7 @@ mission_failed_out_of_time()
     else
         setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_DIDNT_SPRINT" );
 
-    _id_A5A4::_id_5CDF();
+    maps\_utility::_id_5CDF();
 }
 
 mission_failed_quit_training()
@@ -1060,7 +1059,7 @@ mission_failed_quit_training()
             level endon( "kill_timer" );
             level notify( "mission failed" );
             setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_MUST_CLEAR_DECK_MOCK_UP" );
-            _id_A5A4::_id_5CDF();
+            maps\_utility::_id_5CDF();
         }
 
         wait 1;
@@ -1070,7 +1069,7 @@ mission_failed_quit_training()
 clear_timer_elems()
 {
     if ( isdefined( level.updated_timer ) )
-        _id_A546::destroy_countdown_hud( level.updated_timer );
+        maps\_hud_util::destroy_countdown_hud( level.updated_timer );
 
     if ( isdefined( level.titleunlocked ) )
         level.titleunlocked destroy();
@@ -1175,46 +1174,46 @@ _id_53B1( var_0, var_1 )
 
     if ( getdvarint( "loc_language", 0 ) == 12 )
     {
-        level.titleunlocked = _id_A546::get_stats_display_hud( var_7, 82, undefined, undefined, 1 );
-        level.time_text = _id_A546::get_stats_display_hud( var_8, 82, undefined, undefined, 1, &"KILLHOUSE_YOUR_TIME" );
+        level.titleunlocked = maps\_hud_util::get_stats_display_hud( var_7, 82, undefined, undefined, 1 );
+        level.time_text = maps\_hud_util::get_stats_display_hud( var_8, 82, undefined, undefined, 1, &"KILLHOUSE_YOUR_TIME" );
         level.time_text.alignx = "right";
     }
     else
     {
-        level.titleunlocked = _id_A546::get_stats_display_hud( var_8, 82, undefined, undefined, 1 );
+        level.titleunlocked = maps\_hud_util::get_stats_display_hud( var_8, 82, undefined, undefined, 1 );
         level.titleunlocked.alignx = "right";
-        level.time_text = _id_A546::get_stats_display_hud( var_7, 82, undefined, undefined, 1, &"KILLHOUSE_YOUR_TIME" );
+        level.time_text = maps\_hud_util::get_stats_display_hud( var_7, 82, undefined, undefined, 1, &"KILLHOUSE_YOUR_TIME" );
     }
 
     level.titleunlocked setvalue( var_10 );
     level waittill( "accuracy_bonus" );
     var_11 = var_10 - level.bonus_time;
-    level.final_time = _id_A546::get_stats_display_hud( var_9, 146, undefined, undefined, 1.6 );
-    level.final_time_text = _id_A546::get_stats_display_hud( var_9, 126, undefined, undefined, 1, &"KILLHOUSE_YOUR_FINAL_TIME" );
+    level.final_time = maps\_hud_util::get_stats_display_hud( var_9, 146, undefined, undefined, 1.6 );
+    level.final_time_text = maps\_hud_util::get_stats_display_hud( var_9, 126, undefined, undefined, 1, &"KILLHOUSE_YOUR_FINAL_TIME" );
     level.final_time_text.alignx = "center";
     level.final_time.alignx = "center";
     level.final_time setvalue( var_11 );
 
     if ( getdvarint( "loc_language", 0 ) == 12 )
     {
-        level.iw_best = _id_A546::get_stats_display_hud( var_7, 68, undefined, undefined, 1 );
+        level.iw_best = maps\_hud_util::get_stats_display_hud( var_7, 68, undefined, undefined, 1 );
 
         if ( var_1 )
-            level.iw_best_text = _id_A546::get_stats_display_hud( var_8, 68, undefined, undefined, 1, &"KILLHOUSE_IW_DECK_TIME" );
+            level.iw_best_text = maps\_hud_util::get_stats_display_hud( var_8, 68, undefined, undefined, 1, &"KILLHOUSE_IW_DECK_TIME" );
         else
-            level.iw_best_text = _id_A546::get_stats_display_hud( var_8, 68, undefined, undefined, 1, &"KILLHOUSE_IW_BEST_TIME" );
+            level.iw_best_text = maps\_hud_util::get_stats_display_hud( var_8, 68, undefined, undefined, 1, &"KILLHOUSE_IW_BEST_TIME" );
 
         level.iw_best_text.alignx = "right";
     }
     else
     {
-        level.iw_best = _id_A546::get_stats_display_hud( var_8, 68, undefined, undefined, 1 );
+        level.iw_best = maps\_hud_util::get_stats_display_hud( var_8, 68, undefined, undefined, 1 );
         level.iw_best.alignx = "right";
 
         if ( var_1 )
-            level.iw_best_text = _id_A546::get_stats_display_hud( var_7, 68, undefined, undefined, 1, &"KILLHOUSE_IW_DECK_TIME" );
+            level.iw_best_text = maps\_hud_util::get_stats_display_hud( var_7, 68, undefined, undefined, 1, &"KILLHOUSE_IW_DECK_TIME" );
         else
-            level.iw_best_text = _id_A546::get_stats_display_hud( var_7, 68, undefined, undefined, 1, &"KILLHOUSE_IW_BEST_TIME" );
+            level.iw_best_text = maps\_hud_util::get_stats_display_hud( var_7, 68, undefined, undefined, 1, &"KILLHOUSE_IW_BEST_TIME" );
     }
 
     level.iw_best setvalue( var_0 );
@@ -1226,39 +1225,39 @@ _id_53B1( var_0, var_1 )
     }
     else
     {
-        level.recommended_label = _id_A546::get_stats_display_hud( var_9, 174, undefined, undefined, 1, &"KILLHOUSE_RECOMMENDED_LABEL" );
+        level.recommended_label = maps\_hud_util::get_stats_display_hud( var_9, 174, undefined, undefined, 1, &"KILLHOUSE_RECOMMENDED_LABEL" );
         level.recommended_label.alignx = "center";
         thread clearhud_after10sec();
 
         if ( var_11 > 40 )
         {
             setdvar( "recommended_gameskill", "0" );
-            level.recommended = _id_A546::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_EASY" );
+            level.recommended = maps\_hud_util::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_EASY" );
         }
         else if ( var_11 > 26 )
         {
             setdvar( "recommended_gameskill", "1" );
-            level.recommended = _id_A546::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_NORMAL" );
+            level.recommended = maps\_hud_util::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_NORMAL" );
         }
         else if ( var_11 > 20 )
         {
             setdvar( "recommended_gameskill", "2" );
-            level.recommended = _id_A546::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_HARD" );
+            level.recommended = maps\_hud_util::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_HARD" );
         }
         else
         {
             setdvar( "recommended_gameskill", "3" );
-            level.recommended = _id_A546::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_VETERAN" );
+            level.recommended = maps\_hud_util::get_stats_display_hud( var_9, 192, undefined, undefined, 1.6, &"KILLHOUSE_RECOMMENDED_VETERAN" );
         }
 
         level.recommended.alignx = "center";
 
         if ( var_11 < 19.0 )
         {
-            _id_A5A4::_id_41DD( "NEW_SQUADRON_RECORD" );
+            maps\_utility::_id_41DD( "NEW_SQUADRON_RECORD" );
 
             if ( var_11 < 15.1 )
-                _id_A5A4::_id_41DD( "BEST_OF_THE_BEST" );
+                maps\_utility::_id_41DD( "BEST_OF_THE_BEST" );
         }
     }
 }
@@ -1290,15 +1289,15 @@ accuracy_bonus()
 
     if ( getdvarint( "loc_language", 0 ) == 12 )
     {
-        level.bonus_text = _id_A546::get_stats_display_hud( -50, 97, undefined, undefined, 1, &"KILLHOUSE_ACCURACY_BONUS" );
-        level.bonus = _id_A546::get_stats_display_hud( -232, 97, undefined, undefined, 1 );
+        level.bonus_text = maps\_hud_util::get_stats_display_hud( -50, 97, undefined, undefined, 1, &"KILLHOUSE_ACCURACY_BONUS" );
+        level.bonus = maps\_hud_util::get_stats_display_hud( -232, 97, undefined, undefined, 1 );
         level.bonus.alignx = "left";
         level.bonus_text.alignx = "right";
     }
     else
     {
-        level.bonus_text = _id_A546::get_stats_display_hud( -232, 97, undefined, undefined, 1, &"KILLHOUSE_ACCURACY_BONUS" );
-        level.bonus = _id_A546::get_stats_display_hud( -50, 97, undefined, undefined, 1 );
+        level.bonus_text = maps\_hud_util::get_stats_display_hud( -232, 97, undefined, undefined, 1, &"KILLHOUSE_ACCURACY_BONUS" );
+        level.bonus = maps\_hud_util::get_stats_display_hud( -50, 97, undefined, undefined, 1 );
         level.bonus.alignx = "right";
     }
 
@@ -1336,7 +1335,7 @@ scoldplayer( var_0 )
 execdialog( var_0, var_1 )
 {
     self.speaking = 1;
-    _id_A510::_id_0C21( self, var_0 );
+    maps\_anim::_id_0C21( self, var_0 );
     self.speaking = 0;
     self.lastspeaktime = gettime();
 
@@ -1631,7 +1630,7 @@ targetdummythink()
 
             if ( level.hip_fire_required )
             {
-                if ( level.playercardbackground _id_A5A4::_id_50A9() )
+                if ( level.playercardbackground maps\_utility::_id_50A9() )
                 {
                     thread keyhint( "stop_ads", 2, var_8 );
                     target_down();
@@ -1739,12 +1738,9 @@ cargoship_targets()
                 self waittill( "damage", var_4, var_5, var_6, var_7, var_8 );
 
                 if ( var_8 == "MOD_IMPACT" )
-                {
                     continue;
-                    continue;
-                }
-
-                break;
+                else
+                    break;
             }
 
             self notify( "hit" );
@@ -2011,7 +2007,7 @@ firearmdepot_guy_think()
 {
     level endon( "DespawnGuysHangar1" );
     var_0 = getent( "firearmDepotGuy", "targetname" );
-    var_0 _id_A5A4::_id_7E60( 1 );
+    var_0 maps\_utility::_id_7E60( 1 );
     var_1 = [];
     var_1[0] = getnode( "firearmDepotNode_0", "targetname" );
     var_1[1] = getnode( "firearmDepotNode_1", "targetname" );
@@ -2022,12 +2018,12 @@ firearmdepot_guy_think()
     var_4 = 0;
     var_0._id_2AF3 = 1;
     var_0.exitconditioncheckfunc = ::killhouse_guy_exitconditionoverride;
-    var_0 _id_A5A4::_id_7E45( "patrol_walk_unarmed" );
-    var_0 _id_A5A4::_id_7E44( "patrol_unarmed_idle" );
-    var_0 _id_A5A4::_id_4462();
+    var_0 maps\_utility::_id_7E45( "patrol_walk_unarmed" );
+    var_0 maps\_utility::_id_7E44( "patrol_unarmed_idle" );
+    var_0 maps\_utility::_id_4462();
     common_scripts\utility::_id_384A( "lootz_intro_start" );
     var_0 thread common_scripts\utility::_id_6975( "npc_firearmdepot_guy_lp" );
-    var_0 _id_A5A4::_id_7E4B( var_1[3] );
+    var_0 maps\_utility::_id_7E4B( var_1[3] );
     wait 7;
 
     for (;;)
@@ -2045,7 +2041,7 @@ firearmdepot_guy_think()
 
         if ( var_5 != var_2 )
         {
-            var_0 _id_A5A4::_id_7E4B( var_1[var_5] );
+            var_0 maps\_utility::_id_7E4B( var_1[var_5] );
             var_2 = var_5;
             var_3 = var_4;
 
@@ -2060,20 +2056,20 @@ firearmdepot_guy_think()
             switch ( var_4 )
             {
                 case 0:
-                    var_0 _id_A5A4::_id_7E45( "patrol_walk_unarmed" );
-                    var_0 _id_A5A4::_id_4462();
+                    var_0 maps\_utility::_id_7E45( "patrol_walk_unarmed" );
+                    var_0 maps\_utility::_id_4462();
                     break;
                 case 1:
-                    var_0 _id_A5A4::_id_7E45( "fast_walk" );
-                    var_0 _id_A5A4::_id_39D0( "g36c", "primary" );
+                    var_0 maps\_utility::_id_7E45( "fast_walk" );
+                    var_0 maps\_utility::_id_39D0( "g36c", "primary" );
                     break;
                 case 2:
-                    var_0 _id_A5A4::_id_7E45( "fast_walk" );
-                    var_0 _id_A5A4::_id_39D0( "m16_grenadier", "primary" );
+                    var_0 maps\_utility::_id_7E45( "fast_walk" );
+                    var_0 maps\_utility::_id_39D0( "m16_grenadier", "primary" );
                     break;
                 case 3:
-                    var_0 _id_A5A4::_id_7E45( "fast_walk" );
-                    var_0 _id_A5A4::_id_39D0( "mp5", "primary" );
+                    var_0 maps\_utility::_id_7E45( "fast_walk" );
+                    var_0 maps\_utility::_id_39D0( "mp5", "primary" );
                     break;
             }
 
@@ -2087,16 +2083,16 @@ inventory_guy_setup()
     level endon( "DespawnGuysHangar1" );
     var_0 = getent( "inventory_guy", "targetname" );
     var_0._id_0C72 = "generic";
-    var_0 _id_A5A4::_id_4462();
+    var_0 maps\_utility::_id_4462();
     var_0 attach( "com_clipboard_mocap", "tag_inhand" );
     var_0 attach( "characters_accessories_pencil", "tag_weapon_right" );
     var_1 = getentarray( "inventoryNode", "targetname" );
     var_2 = randomintrange( 0, var_1.size );
     var_3 = var_1[var_2];
-    var_3 thread _id_A510::_id_0BE1( var_0, "guy_inventory_idle01", undefined, "1stPosDone" );
+    var_3 thread maps\_anim::_id_0BE1( var_0, "guy_inventory_idle01", undefined, "1stPosDone" );
     common_scripts\utility::_id_384A( "inventoryNewPos" );
     var_3 notify( "1stPosDone" );
-    var_3 _id_A5A4::_id_0C3D();
+    var_3 maps\_utility::_id_0C3D();
 
     for ( var_4 = var_2; var_2 == var_4; var_2 = randomintrange( 0, var_1.size ) )
     {
@@ -2104,7 +2100,7 @@ inventory_guy_setup()
     }
 
     var_3 = var_1[var_2];
-    var_3 thread _id_A510::_id_0BE1( var_0, "guy_inventory_idle01", undefined, "2ndPosDone" );
+    var_3 thread maps\_anim::_id_0BE1( var_0, "guy_inventory_idle01", undefined, "2ndPosDone" );
 }
 
 chair_guy_setup()
@@ -2112,7 +2108,7 @@ chair_guy_setup()
     var_0 = getent( "chair_guy", "script_noteworthy" );
     var_1 = getent( "chair_guy_origin", "script_noteworthy" );
     var_0._id_0C72 = "generic";
-    var_0 _id_A5A4::_id_4462();
+    var_0 maps\_utility::_id_4462();
     var_0 _meth_81c9( var_1.origin );
     var_0 specify_head_model( "head_sp_sas_woodland_colon" );
     var_1 thread chair_guy_think( var_0 );
@@ -2125,15 +2121,15 @@ chair_guy_think( var_0 )
     var_2 thread check_in_front_of_armory();
     var_3 = 0;
     var_4 = getent( "chair_guy_origin", "script_noteworthy" );
-    var_5 = _id_A5A4::_id_88D1( "chair", var_4.origin );
-    var_4 thread _id_A510::_id_0C24( var_5, "chair_counting" );
+    var_5 = maps\_utility::_id_88D1( "chair", var_4.origin );
+    var_4 thread maps\_anim::_id_0C24( var_5, "chair_counting" );
 
     while ( !common_scripts\utility::_id_382E( "lootz_intro_start" ) )
-        var_1 _id_A510::_id_0C24( var_0, "guy_chair_counting" );
+        var_1 maps\_anim::_id_0C24( var_0, "guy_chair_counting" );
 
-    var_4 thread _id_A510::_id_0C24( var_5, "chair_turnaround" );
-    var_1 _id_A510::_id_0C24( var_0, "guy_chair_turnaround" );
-    var_4 thread _id_A510::_id_0C24( var_5, "chair_idle" );
+    var_4 thread maps\_anim::_id_0C24( var_5, "chair_turnaround" );
+    var_1 maps\_anim::_id_0C24( var_0, "guy_chair_turnaround" );
+    var_4 thread maps\_anim::_id_0C24( var_5, "chair_idle" );
 
     for (;;)
     {
@@ -2164,7 +2160,7 @@ chair_guy_think( var_0 )
         else
             var_3++;
 
-        var_1 _id_A510::_id_0C24( var_0, var_6 );
+        var_1 maps\_anim::_id_0C24( var_0, var_6 );
     }
 }
 
@@ -2394,7 +2390,7 @@ killhouse_hint( var_0, var_1, var_2 )
 {
     _id_1EBE();
     level endon( "clearing_hints" );
-    _id_A5A4::_id_48B0( var_0, undefined, undefined, var_2 );
+    maps\_utility::_id_48B0( var_0, undefined, undefined, var_2 );
 
     if ( var_0 == &"KILLHOUSE_HINT_LADDER" )
         var_1 = 5;
@@ -2404,21 +2400,21 @@ killhouse_hint( var_0, var_1, var_2 )
     else
         return;
 
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 _id_1EBE()
 {
-    _id_A5A4::_id_48CB( 0 );
+    maps\_utility::_id_48CB( 0 );
 
     if ( isdefined( level._id_4B3E ) )
-        level._id_4B3E _id_A546::_id_28E9();
+        level._id_4B3E maps\_hud_util::_id_28E9();
 
     if ( isdefined( level._id_4B3F ) )
-        level._id_4B3F _id_A546::_id_28E9();
+        level._id_4B3F maps\_hud_util::_id_28E9();
 
     if ( isdefined( level._id_4B40 ) )
-        level._id_4B40 _id_A546::_id_28E9();
+        level._id_4B40 maps\_hud_util::_id_28E9();
 
     level notify( "clearing_hints" );
 }
@@ -2430,9 +2426,9 @@ keyhint( var_0, var_1, var_2 )
     var_3 = getactionbind( var_0 );
 
     if ( var_0 == "melee" && level.xuid && var_3.key == "BUTTON_RSTICK" )
-        _id_A5A4::_id_48B0( &"KILLHOUSE_HINT_MELEE_CLICK" );
+        maps\_utility::_id_48B0( &"KILLHOUSE_HINT_MELEE_CLICK" );
     else
-        _id_A5A4::_id_48B0( var_3._id_48B0, undefined, undefined, var_2 );
+        maps\_utility::_id_48B0( var_3._id_48B0, undefined, undefined, var_2 );
 
     var_4 = "did_action_" + var_0;
 
@@ -2446,7 +2442,7 @@ keyhint( var_0, var_1, var_2 )
         level.playercardbackground thread notifyontimeout( var_4, var_1 );
 
     level.playercardbackground waittill( var_4 );
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 keyhintmantle( var_0, var_1 )
@@ -2454,7 +2450,7 @@ keyhintmantle( var_0, var_1 )
     _id_1EBE();
     level endon( "clearing_hints" );
     var_2 = getactionbind( "mantle" );
-    _id_A5A4::_id_48B0( var_2._id_48B0, undefined, undefined, var_1 );
+    maps\_utility::_id_48B0( var_2._id_48B0, undefined, undefined, var_1 );
     var_3 = 0.0;
 
     while ( !level.playercardbackground ismantling() && var_3 < var_0 )
@@ -2463,7 +2459,7 @@ keyhintmantle( var_0, var_1 )
         wait 0.05;
     }
 
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 keyhintprone( var_0, var_1 )
@@ -2471,7 +2467,7 @@ keyhintprone( var_0, var_1 )
     _id_1EBE();
     level endon( "clearing_hints" );
     var_2 = getactionbind( "prone" );
-    _id_A5A4::_id_48B0( var_2._id_48B0, undefined, undefined, var_1 );
+    maps\_utility::_id_48B0( var_2._id_48B0, undefined, undefined, var_1 );
     var_3 = 0.0;
 
     while ( level.playercardbackground getstance() != "prone" && var_3 < var_0 )
@@ -2480,7 +2476,7 @@ keyhintprone( var_0, var_1 )
         wait 0.05;
     }
 
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 second_sprint_hint()
@@ -2515,7 +2511,7 @@ wrongstallnag( var_0 )
     for (;;)
     {
         level waittill( "player_wrong_stall", var_1 );
-        level.marine2 _id_A510::_id_0C24( level.marine2, "gotofour" );
+        level.marine2 maps\_anim::_id_0C24( level.marine2, "gotofour" );
         wait 10.0;
     }
 }
@@ -2701,7 +2697,7 @@ clear_hints_on_stand()
 move_mac()
 {
     self waittill( "trigger" );
-    level.mac _id_A5A4::_id_7E45( "jog" );
+    level.mac maps\_utility::_id_7E45( "jog" );
     level.mac _meth_81a9( getnode( self._not_team, "targetname" ) );
 }
 
@@ -2709,11 +2705,11 @@ loop_obstacle()
 {
     for ( var_0 = 0; var_0 < level.buddies.size; var_0++ )
     {
-        level.mac _id_A5A4::_id_7E45( "jog" );
+        level.mac maps\_utility::_id_7E45( "jog" );
         level.buddies[var_0] thread obstacletrainingcoursethink( level.buddies[var_0].startnode, level.buddies[var_0].waittime );
     }
 
-    level.mac _id_A5A4::_id_7E45( "walk", 1 );
+    level.mac maps\_utility::_id_7E45( "walk", 1 );
     level.mac _meth_81a9( getnode( "mac_start_node", "targetname" ) );
     level.mac waittill( "goal" );
 }
@@ -2801,7 +2797,7 @@ set_allowed_stances_all()
 set_allowed_stances_all_from_prone()
 {
     self _meth_81ce( "prone", "stand", "crouch" );
-    _id_A510::_id_0BC9( self, "prone_to_stand" );
+    maps\_anim::_id_0BC9( self, "prone_to_stand" );
     self._id_8B09 = 1;
 }
 
@@ -2814,7 +2810,7 @@ set_idle_after_course()
 {
     self.goalradius = 100;
     self notify( "goal" );
-    _id_A5A4::_id_7E4D( self.origin );
+    maps\_utility::_id_7E4D( self.origin );
 }
 
 frag_trigger_think( var_0, var_1, var_2 )
@@ -2912,7 +2908,7 @@ frag_too_low_hint()
 
 walk_to( var_0 )
 {
-    _id_A5A4::_id_7E45( "patrol_unarmed_walk" );
+    maps\_utility::_id_7E45( "patrol_unarmed_walk" );
     self._id_0C78 = 1.25;
     self.goalradius = 16;
     self _meth_81a9( var_0 );
@@ -2923,7 +2919,7 @@ walk_to( var_0 )
 jog_to( var_0 )
 {
     level.newcastle _meth_8202();
-    _id_A5A4::_id_7E45( "RunNoGun_1" );
+    maps\_utility::_id_7E45( "RunNoGun_1" );
     self.goalradius = 16;
     self _meth_81a9( var_0 );
     self waittill( "goal" );
@@ -2941,10 +2937,10 @@ walk_to_debrief( var_0 )
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        var_1[var_2] _id_A5A4::_id_7E45( "jog", 1 );
-        var_1[var_2] _id_A5A4::_id_08EB();
-        var_1[var_2] _id_A5A4::_id_0C3D();
-        var_0 thread _id_A510::_id_0BF7( var_1[var_2], "debrief_idle_s" + ( var_2 + 1 ) + "_b", "debrief_idle_s" + ( var_2 + 1 ) + "_b", "stop_loop" );
+        var_1[var_2] maps\_utility::_id_7E45( "jog", 1 );
+        var_1[var_2] maps\_utility::_id_08EB();
+        var_1[var_2] maps\_utility::_id_0C3D();
+        var_0 thread maps\_anim::_id_0BF7( var_1[var_2], "debrief_idle_s" + ( var_2 + 1 ) + "_b", "debrief_idle_s" + ( var_2 + 1 ) + "_b", "stop_loop" );
         wait 1;
     }
 
@@ -2977,12 +2973,12 @@ dialog_nag_till_in_pit()
 
 pause_anim()
 {
-    self setflaggedanim( "single anim", _id_A5A4::_id_3EF5( "reveal" ), 1, 0, 0 );
+    self setflaggedanim( "single anim", maps\_utility::_id_3EF5( "reveal" ), 1, 0, 0 );
 }
 
 unpause_anim()
 {
-    self setflaggedanim( "single anim", _id_A5A4::_id_3EF5( "reveal" ), 1, 0, 1 );
+    self setflaggedanim( "single anim", maps\_utility::_id_3EF5( "reveal" ), 1, 0, 1 );
 }
 
 m203_icon_hint()
@@ -2990,7 +2986,7 @@ m203_icon_hint()
     _id_1EBE();
     level waittill( "clearing_hints" );
     wait 0.7;
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 c4_icon_hint()
@@ -3000,7 +2996,7 @@ c4_icon_hint()
     level waittill( "c4_equiped" );
     level.currentkeyhintactionname = "";
     wait 0.85;
-    _id_A5A4::_id_48CB( 0.5 );
+    maps\_utility::_id_48CB( 0.5 );
 }
 
 auto_aim()
@@ -3045,22 +3041,22 @@ gaz_animation( var_0, var_1, var_2, var_3 )
     level.waters endon( "gaz_animation" );
     level.waters.ref_node notify( "stop_loop" );
     level.waters _meth_8143();
-    level.waters.ref_node _id_A510::_id_0C24( level.waters, var_0 );
+    level.waters.ref_node maps\_anim::_id_0C24( level.waters, var_0 );
 
     if ( isdefined( var_2 ) )
     {
         if ( var_3 == 1 )
         {
             level.waters.ref_node notify( "stop_loop" );
-            level.waters.ref_node thread _id_A510::_id_0BE1( level.waters, var_2, undefined, "stop_loop" );
+            level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, var_2, undefined, "stop_loop" );
             return;
         }
         else
-            level.waters.ref_node _id_A510::_id_0C24( level.waters, var_2 );
+            level.waters.ref_node maps\_anim::_id_0C24( level.waters, var_2 );
     }
 
     level.waters.ref_node notify( "stop_loop" );
-    level.waters.ref_node thread _id_A510::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
+    level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
     level.waters _meth_8202( level.playercardbackground, 1 );
 }
 

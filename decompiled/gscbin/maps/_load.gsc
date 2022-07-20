@@ -38,7 +38,7 @@ main()
     level._id_3AE4["kill"] = ::kill;
     level._id_3AE4["magicgrenade"] = ::magicgrenade;
     _id_7E18();
-    _id_A5A4::_id_7DF3();
+    maps\_utility::_id_7DF3();
     level._id_4224 = [];
     level._id_4224["_autosave_stealthcheck"] = ::_id_422C;
     level._id_4224["_patrol_endon_spotted_flag"] = ::_id_422C;
@@ -51,10 +51,10 @@ main()
 
     visionsetthermal( level._id_9E7D );
     visionsetpain( "near_death" );
-    level._id_3AE4["damagefeedback"] = _id_A524::_id_9B0C;
+    level._id_3AE4["damagefeedback"] = maps\_damagefeedback::_id_9B0C;
     common_scripts\utility::_id_0D13( getentarray( "script_model_pickup_claymore", "classname" ), ::_id_1E42 );
     common_scripts\utility::_id_0D13( getentarray( "ammo_cache", "targetname" ), ::_id_0B6F );
-    _id_A5A4::_id_0CE5( getentarray( "trigger_multiple_softlanding", "classname" ) );
+    maps\_utility::_id_0CE5( getentarray( "trigger_multiple_softlanding", "classname" ) );
 
     if ( getdvar( "debug" ) == "" )
         setdvar( "debug", "0" );
@@ -96,7 +96,7 @@ main()
     }
 
     common_scripts\utility::_id_383D( "introscreen_complete" );
-    _id_A5A4::_id_079C( "no_game", ::_id_8C16 );
+    maps\_utility::_id_079C( "no_game", ::_id_8C16 );
     _id_0779();
     level._id_05E5 = 1;
     level._id_380E = 1;
@@ -140,16 +140,16 @@ main()
     common_scripts\utility::_id_383D( "respawn_friendlies" );
     common_scripts\utility::_id_383D( "missionfailed" );
     common_scripts\utility::_id_383D( "auto_adjust_initialized" );
-    level.playercardbackground _id_A5A4::_id_32DD( "_radiation_poisoning" );
+    level.playercardbackground maps\_utility::_id_32DD( "_radiation_poisoning" );
     common_scripts\utility::_id_383D( "gameskill_selected" );
     common_scripts\utility::_id_383D( "battlechatter_on_thread_waiting" );
     common_scripts\utility::_id_383D( "start_is_set" );
-    thread _id_A537::_id_06AA();
+    thread maps\_gameskill::_id_06AA();
     thread _id_6AC7();
     level._id_278A = 190;
     setsaveddvar( "g_speed", level._id_278A );
 
-    if ( _id_A5A4::_id_5083() )
+    if ( maps\_utility::_id_5083() )
         setsaveddvar( "sv_saveOnStartMap", 0 );
     else if ( isdefined( level._id_244D ) )
         setsaveddvar( "sv_saveOnStartMap", 0 );
@@ -176,14 +176,14 @@ main()
     level._id_1262 = ::badplace_cylinder;
     level._id_1263 = ::badplace_delete;
     level._id_50AC = ::isai;
-    level._id_23EE = _id_A546::_id_23ED;
-    level._id_4AFD = _id_A546::_id_7FEE;
+    level._id_23EE = maps\_hud_util::_id_23ED;
+    level._id_4AFD = maps\_hud_util::_id_7FEE;
     level._id_5940 = ::makeentitysentient;
     level._id_3A26 = ::freeentitysentient;
     level._id_54FC = ::laseron;
     level._id_54F9 = ::laseroff;
-    level._id_8D4F = _id_A56F::_id_72DF;
-    level._id_8D4E = _id_A56F::_id_72E7;
+    level._id_8D4F = maps\_player_stats::_id_72DF;
+    level._id_8D4E = maps\_player_stats::_id_72E7;
     level._id_2D70 = 1;
     level._id_115E = 1;
     level._id_404C = ::getnode;
@@ -208,9 +208,9 @@ main()
     for ( var_7 = 0; var_7 < level.players.size; var_7++ )
     {
         var_5 = level.players[var_7];
-        var_5 thread _id_A5A4::_id_38C1();
-        var_5 thread _id_A5A4::_id_83D0();
-        var_5 thread _id_A5A4::_id_6092();
+        var_5 thread maps\_utility::_id_38C1();
+        var_5 thread maps\_utility::_id_83D0();
+        var_5 thread maps\_utility::_id_6092();
     }
 
     precachemodel( "fx" );
@@ -257,12 +257,12 @@ main()
     level._id_88FE["team3"] = [];
     level._id_88FE["neutral"] = [];
     maps\_cheat::init();
-    _id_A558::main();
+    maps\_mgturret::main();
     common_scripts\_exploder::_id_8313();
     maps\_exploderanim::main();
-    _id_A513::main();
-    _id_A537::_id_8010();
-    _id_A510::init();
+    maps\_art::main();
+    maps\_gameskill::_id_8010();
+    maps\_anim::init();
     thread common_scripts\_fx::_id_4DBF();
 
     if ( level._id_2409 )
@@ -270,14 +270,14 @@ main()
 
     }
 
-    _id_A539::init();
-    _id_A538::main();
-    _id_A538::create_custom_global_fx();
+    maps\_global_fx_code::init();
+    maps\_global_fx::main();
+    maps\_global_fx::create_custom_global_fx();
     _id_277C();
-    _id_A528::init();
-    _id_A54E::_id_5705();
-    _id_A54F::_id_4D7B();
-    _id_A55D::_id_8241();
+    maps\_detonategrenades::init();
+    maps\_lighting::_id_5705();
+    maps\_lights::_id_4D7B();
+    maps\_names::_id_8241();
 
     if ( isdefined( level._id_4618 ) )
         thread [[ level._id_4618 ]]();
@@ -291,47 +291,47 @@ main()
         common_scripts\utility::_id_4D6D();
 
     level._id_537C = [];
-    _id_A5DC::_id_0F91();
-    _id_A5E8::_id_86F4();
-    _id_A59E::_id_4D53();
+    soundscripts\_audio::_id_0F91();
+    soundscripts\_snd::_id_86F4();
+    maps\_trigger::_id_4D53();
     setsaveddvar( "ufoHitsTriggers", "0" );
-    _id_A545::init();
+    maps\_hud::init();
     _id_2BC7();
 
     if ( getdvar( "g_connectpaths" ) == "2" )
         level waittill( "eternity" );
 
-    _id_A514::main();
-    thread _id_A580::init();
+    maps\_autosave::main();
+    thread maps\_sp_matchdata::init();
 
     if ( !isdefined( level._id_0C8A ) )
         thread _id_4CB2();
 
-    _id_A510::init();
+    maps\_anim::init();
 
     if ( isdefined( level._id_110D ) )
-        _id_A5DC::_id_7EC8( level._id_110D );
+        soundscripts\_audio::_id_7EC8( level._id_110D );
 
     anim._id_9BFF = 0;
 
     if ( !isdefined( level._id_5CDE ) )
         level._id_5CDE = 0;
 
-    if ( !_id_A5A4::_id_5083() )
+    if ( !maps\_utility::_id_5083() )
     {
-        _id_A551::_id_4D0F();
+        maps\_loadout::_id_4D0F();
         setsaveddvar( "ui_campaign", level._id_1A3D );
     }
 
     common_scripts\_static_destructible::main();
     common_scripts\_destructible::init();
-    thread _id_A5A8::_id_4D73();
-    thread _id_A54B::main();
-    thread _id_A530::main();
-    thread _id_A524::init();
-    _id_A536::main();
+    thread maps\_vehicle::_id_4D73();
+    thread maps\_introscreen::main();
+    thread maps\_endmission::main();
+    thread maps\_damagefeedback::init();
+    maps\_friendlyfire::main();
     common_scripts\utility::_id_0CF0( getentarray( "badplace", "targetname" ), ::_id_1266 );
-    common_scripts\utility::_id_0CF0( getentarray( "delete_on_load", "targetname" ), _id_A5A4::_id_284E );
+    common_scripts\utility::_id_0CF0( getentarray( "delete_on_load", "targetname" ), maps\_utility::_id_284E );
     common_scripts\utility::_id_0D13( getnodearray( "traverse", "targetname" ), ::_id_9741 );
     common_scripts\utility::_id_0D13( getentarray( "piano_key", "targetname" ), ::_id_6807 );
     common_scripts\utility::_id_0D13( getentarray( "piano_damage", "targetname" ), ::_id_6806 );
@@ -348,30 +348,30 @@ main()
     common_scripts\utility::_id_0D13( getentarray( "ammo_pickup_45", "targetname" ), ::_id_0B76, "45" );
     common_scripts\utility::_id_0D13( getentarray( "ammo_pickup_pistol", "targetname" ), ::_id_0B76, "pistol" );
     thread maps\_interactive_objects::main();
-    thread _id_A54A::main();
+    thread maps\_intelligence::main();
 
     for ( var_7 = 0; var_7 < level.players.size; var_7++ )
     {
         var_5 = level.players[var_7];
 
         if ( !( getdvarint( "disable_player_regen" ) == 1 ) )
-            var_5 thread _id_A537::_id_6CC4();
+            var_5 thread maps\_gameskill::_id_6CC4();
 
         var_5 thread _id_6C83();
     }
 
-    thread _id_A56A::main();
+    thread maps\_player_death::main();
     thread _id_59D7();
     common_scripts\utility::_id_383D( "spawning_friendlies" );
     common_scripts\utility::_id_383D( "friendly_wave_spawn_enabled" );
     common_scripts\utility::_id_3831( "spawning_friendlies" );
     level._id_3A7F["rifleguy"] = getentarray( "rifle_spawner", "script_noteworthy" );
     level._id_3A7F["smgguy"] = getentarray( "smg_spawner", "script_noteworthy" );
-    thread _id_A581::_id_4255();
-    thread _id_A581::_id_3A96();
-    thread _id_A581::_id_3A94();
-    common_scripts\utility::_id_0D13( getentarray( "friendly_spawn", "targetname" ), _id_A581::_id_3ABC );
-    common_scripts\utility::_id_0D13( getentarray( "flood_and_secure", "targetname" ), _id_A581::_id_38EA );
+    thread maps\_spawner::_id_4255();
+    thread maps\_spawner::_id_3A96();
+    thread maps\_spawner::_id_3A94();
+    common_scripts\utility::_id_0D13( getentarray( "friendly_spawn", "targetname" ), maps\_spawner::_id_3ABC );
+    common_scripts\utility::_id_0D13( getentarray( "flood_and_secure", "targetname" ), maps\_spawner::_id_38EA );
     common_scripts\utility::_id_0D13( getentarray( "window_poster", "targetname" ), ::_id_A337 );
 
     if ( !isdefined( level._id_97A8 ) )
@@ -383,10 +383,10 @@ main()
 
     level._id_83B3 = [];
     level._id_8907 = [];
-    _id_A581::main();
+    maps\_spawner::main();
     common_scripts\utility::_id_0D13( getentarray( "background_block", "targetname" ), ::_id_1250 );
     thread _id_57C3();
-    thread _id_A511::main();
+    thread maps\_animatedmodels::main();
     thread maps\_cagedchickens::initchickens();
     thread _id_A2B6();
 
@@ -400,7 +400,7 @@ main()
     }
 
     if ( level.script_context == level._id_5CE0._id_56E5[0].nearz && !level.playercardbackground _meth_8212( "hasEverPlayed_SP" ) )
-        _id_A5A4::_id_27EF( 0.1, ::_id_9AC0 );
+        maps\_utility::_id_27EF( 0.1, ::_id_9AC0 );
 
     var_11 = level.playercardbackground _meth_8211( "gameskill" );
     var_12 = level._id_2A63[int( var_11 )];
@@ -408,10 +408,10 @@ main()
     setspmatchdata( "final_difficulty", var_12 );
     level thread maps\_achievements::achievements_init();
     thread maps\_dragunov_lightset::dragunov_scope_init();
-    level thread _id_A5A4::_id_8C0F();
+    level thread maps\_utility::_id_8C0F();
     level notify( "load_finished" );
     _id_76B4();
-    level.playercardbackground thread _id_A5A4::_id_5820();
+    level.playercardbackground thread maps\_utility::_id_5820();
 }
 
 _id_9AC0()
@@ -582,14 +582,14 @@ _id_352F( var_0 )
 
     if ( isdefined( var_0._id_796E ) && randomfloat( 1 ) > var_0._id_796E )
     {
-        if ( !var_0 _id_A5A4::script_lightset() )
+        if ( !var_0 maps\_utility::script_lightset() )
             wait 4;
 
         level thread _id_352F( var_0 );
         return;
     }
 
-    if ( !var_0 _id_A5A4::script_lightset() && isdefined( var_0._id_79C0 ) )
+    if ( !var_0 maps\_utility::script_lightset() && isdefined( var_0._id_79C0 ) )
         wait(var_0._id_79C0);
 
     common_scripts\_exploder::_id_3528( var_0._id_79BF );
@@ -754,9 +754,9 @@ _id_A29D( var_0 )
 _id_59D7()
 {
     var_0 = getallnodes();
-    thread _id_A558::_id_1126( var_0 );
-    thread _id_A558::_id_7820( var_0 );
-    thread _id_A51C::_id_4CCA( var_0 );
+    thread maps\_mgturret::_id_1126( var_0 );
+    thread maps\_mgturret::_id_7820( var_0 );
+    thread maps\_colors::_id_4CCA( var_0 );
 }
 
 _id_4C43( var_0 )
@@ -825,7 +825,7 @@ _id_4617()
     {
         if ( isdefined( level._id_278B ) )
             level._id_8C36 = "default";
-        else if ( _id_A5A4::_id_56C2() )
+        else if ( maps\_utility::_id_56C2() )
             level._id_8C36 = level._id_8BB5[0]["name"];
         else
             level._id_8C36 = "default";
@@ -875,7 +875,7 @@ _id_4617()
         thread [[ var_10["start_func"] ]]();
     }
 
-    if ( _id_A5A4::_id_5016() )
+    if ( maps\_utility::_id_5016() )
     {
         var_12 = _id_3E7A( var_1 );
         setdvar( "start", var_12 );
@@ -888,7 +888,7 @@ _id_4617()
 
     var_13 = [];
 
-    if ( !_id_A5A4::_id_5016() && level._id_8C36 != "no_game" )
+    if ( !maps\_utility::_id_5016() && level._id_8C36 != "no_game" )
     {
         var_14 = gettime();
 
@@ -1394,9 +1394,9 @@ _id_57C3()
             }
 
             var_7 = game["character" + var_0 - 1];
-            _id_A5A4::prestigedoublexp( var_7["model"] );
-            _id_A5A4::prestigedoublexp( var_7["model"] );
-            var_4[var_6] thread _id_A5A4::_id_894D( game["character" + var_0 - 1] );
+            maps\_utility::prestigedoublexp( var_7["model"] );
+            maps\_utility::prestigedoublexp( var_7["model"] );
+            var_4[var_6] thread maps\_utility::_id_894D( game["character" + var_0 - 1] );
             var_5--;
             var_6++;
             var_0--;
@@ -1440,9 +1440,9 @@ _id_6AC7()
 {
     setdvar( "player_died_recently", "0" );
     thread _id_6ACC();
-    level _id_A5A4::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
-    level.playercardbackground _id_A5A4::_id_07BE( _id_A5A4::_id_A099, "death" );
-    _id_A5A4::_id_2BDD();
+    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
+    level.playercardbackground maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    maps\_utility::_id_2BDD();
     var_0 = [];
     var_0[0] = 70;
     var_0[1] = 30;
@@ -1533,7 +1533,7 @@ _id_4D06()
     {
         var_2 thread _id_7271();
 
-        if ( _id_A5A4::_id_5083() )
+        if ( maps\_utility::_id_5083() )
             var_2 thread _id_7272();
     }
 }
@@ -1541,7 +1541,7 @@ _id_4D06()
 _id_52F8()
 {
     self waittill( "trigger", var_0 );
-    var_0 _id_A5A4::_id_5346();
+    var_0 maps\_utility::_id_5346();
 }
 
 _id_A263()
@@ -1804,9 +1804,9 @@ _id_92FF()
         var_2 thread _id_586F( self._id_9A29 );
     }
 
-    if ( _id_A5A4::_id_500C() )
+    if ( maps\_utility::_id_500C() )
     {
-        var_4 = _id_A5A4::_id_3E07( self );
+        var_4 = maps\_utility::_id_3E07( self );
 
         if ( !isdefined( var_4._id_4702 ) )
         {
@@ -1825,9 +1825,9 @@ _id_92FE()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1]._id_4702 = undefined;
 
-    if ( _id_A5A4::_id_500C() )
+    if ( maps\_utility::_id_500C() )
     {
-        var_2 = _id_A5A4::_id_3E07( self );
+        var_2 = maps\_utility::_id_3E07( self );
         var_2._id_4702 = undefined;
     }
 }
@@ -2018,7 +2018,7 @@ _id_0B73()
             else if ( var_2 getfractionmaxammo( var_4 ) > 0.9 )
                 var_3 = 0;
 
-            if ( _id_A5A4::_id_6B91( self.origin, 0.8, 1 ) && var_3 )
+            if ( maps\_utility::_id_6B91( self.origin, 0.8, 1 ) && var_3 )
                 _id_0B71( var_1 );
             else
                 _id_0B72( var_1 );
@@ -2157,13 +2157,13 @@ _id_0779()
         if ( !isdefined( var_2._id_7ADD ) )
             continue;
 
-        _id_A5A4::_id_079C( "no_game_" + var_2._id_7ADD, ::_id_8C16 );
+        maps\_utility::_id_079C( "no_game_" + var_2._id_7ADD, ::_id_8C16 );
     }
 }
 
 _id_2BC7()
 {
-    if ( !_id_A5A4::_id_5056() )
+    if ( !maps\_utility::_id_5056() )
         return;
 
     setsaveddvar( "ufoHitsTriggers", "1" );
@@ -2172,11 +2172,11 @@ _id_2BC7()
     if ( isdefined( level._id_254C ) )
         level [[ level._id_254C ]]();
 
-    _id_A551::_id_4D0F();
-    _id_A5DC::_id_0F91();
-    _id_A5E8::_id_86F4();
-    _id_A538::main();
-    thread _id_A580::init();
+    maps\_loadout::_id_4D0F();
+    soundscripts\_audio::_id_0F91();
+    soundscripts\_snd::_id_86F4();
+    maps\_global_fx::main();
+    thread maps\_sp_matchdata::init();
     _id_2BC8();
     common_scripts\utility::_id_0CDB( getentarray( "truckjunk", "targetname" ), ::delete );
     common_scripts\utility::_id_0CDB( getentarray( "truckjunk", "script_noteworthy" ), ::delete );
@@ -2194,7 +2194,7 @@ _id_2BC8()
 
     if ( level._id_8C36 == "no_game" )
     {
-        level.playercardbackground _id_A5A4::_id_923E( var_0[0] );
+        level.playercardbackground maps\_utility::_id_923E( var_0[0] );
         return;
     }
 
@@ -2210,15 +2210,15 @@ _id_2BC8()
             continue;
 
         if ( isdefined( var_4.script_zone ) )
-            _id_A5A4::_id_9E6E( var_4.script_zone, 0 );
+            maps\_utility::_id_9E6E( var_4.script_zone, 0 );
 
-        level.playercardbackground _id_A5A4::_id_923E( var_4 );
+        level.playercardbackground maps\_utility::_id_923E( var_4 );
         var_2 = 1;
         break;
     }
 
     if ( !var_2 )
-        level.playercardbackground _id_A5A4::_id_923E( var_0[0] );
+        level.playercardbackground maps\_utility::_id_923E( var_0[0] );
 }
 
 _id_4CB2()

@@ -41,8 +41,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "airlift_intro", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "airlift_Start" );
+    maps\_utility::_id_9E6E( "airlift_intro", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "airlift_Start" );
     level.playercardbackground _meth_848c( "clut_airlift", 0.0 );
     setsaveddvar( "fx_cast_shadow", 0 );
 }
@@ -119,19 +119,19 @@ apply_lighting_pass_airlift( var_0 )
             break;
     }
 
-    _id_A5A4::_id_7F00( var_2, var_1 );
-    _id_A5A4::_id_395E( var_3, var_1 );
-    level.playercardbackground _id_A5A4::set_light_set_player( var_0 );
+    maps\_utility::_id_7F00( var_2, var_1 );
+    maps\_utility::_id_395E( var_3, var_1 );
+    level.playercardbackground maps\_utility::set_light_set_player( var_0 );
     level.playercardbackground _meth_848c( var_4, var_1 );
     level.current_light_set = var_0;
 }
 
 play_flickering_light()
 {
-    thread _id_A54E::_id_5D3A( "flicker_1", 0, 1500, 4000, undefined, undefined, 0.01, 0.4, 0.01, 0.04, undefined, undefined, 1500 );
-    thread _id_A54E::_id_5D3A( "flicker_2", 0, 400, 2500, undefined, undefined, 0.03, 0.6, 0.01, 0.08, undefined, undefined, 1500 );
-    thread _id_A54E::_id_5D3A( "flicker_3", 0, 1500, 1850, undefined, undefined, 0.03, 0.6, 0.01, 0.08, undefined, undefined, 1500 );
-    thread _id_A54E::_id_5D3A( "flicker_4", 0, 1500, 2000, undefined, undefined, 0.03, 0.6, 0.01, 0.08, undefined, undefined, 1500 );
+    thread maps\_lighting::_id_5D3A( "flicker_1", 0, 1500, 4000, undefined, undefined, 0.01, 0.4, 0.01, 0.04, undefined, undefined, 1500 );
+    thread maps\_lighting::_id_5D3A( "flicker_2", 0, 400, 2500, undefined, undefined, 0.03, 0.6, 0.01, 0.08, undefined, undefined, 1500 );
+    thread maps\_lighting::_id_5D3A( "flicker_3", 0, 1500, 1850, undefined, undefined, 0.03, 0.6, 0.01, 0.08, undefined, undefined, 1500 );
+    thread maps\_lighting::_id_5D3A( "flicker_4", 0, 1500, 2000, undefined, undefined, 0.03, 0.6, 0.01, 0.08, undefined, undefined, 1500 );
 }
 
 shadow_triggers_setup()

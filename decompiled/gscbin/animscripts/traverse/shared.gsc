@@ -138,10 +138,10 @@ _id_2D86( var_0 )
     if ( var_5 )
     {
         if ( isdefined( var_0["traverseToCoverSound"] ) )
-            thread _id_A5A4::_id_69C4( var_0["traverseToCoverSound"] );
+            thread maps\_utility::_id_69C4( var_0["traverseToCoverSound"] );
     }
     else if ( isdefined( var_0["traverseSound"] ) )
-        thread _id_A5A4::_id_69C4( var_0["traverseSound"] );
+        thread maps\_utility::_id_69C4( var_0["traverseSound"] );
 
     self._id_9735 = var_3;
 

@@ -40,7 +40,7 @@ main()
     }
 
     self.weapon_switch_invalid = "saw_muzzle_small";
-    _id_A4D8::main();
+    character\character_sp_usmc_ryan::main();
 }
 
 spawntime()
@@ -50,7 +50,7 @@ spawntime()
 
 prestigedoublexp()
 {
-    _id_A4D8::prestigedoublexp();
+    character\character_sp_usmc_ryan::prestigedoublexp();
     precacheitem( "saw_muzzle_small" );
     precacheitem( "colt45" );
     precacheitem( "colt45" );

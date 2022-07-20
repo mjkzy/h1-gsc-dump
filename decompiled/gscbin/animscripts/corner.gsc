@@ -791,7 +791,7 @@ _id_7104()
 
 _id_83EA()
 {
-    _id_A537::_id_2A4D();
+    maps\_gameskill::_id_2A4D();
 
     for (;;)
     {
@@ -827,12 +827,12 @@ _id_83EA()
 
                 if ( _id_8410() )
                     break;
-
-                continue;
             }
-
-            _id_8418( 1 );
-            self _meth_8144( %add_fire, 0.2 );
+            else
+            {
+                _id_8418( 1 );
+                self _meth_8144( %add_fire, 0.2 );
+            }
         }
 
         if ( _id_1ADB( self.a._id_2227 != "lean" ) )
@@ -1094,9 +1094,9 @@ _id_5171()
     else
         var_1 += var_3 * 30;
 
-    if ( self.team == "allies" && level.playercardbackground _id_A5A4::_id_50A9() )
+    if ( self.team == "allies" && level.playercardbackground maps\_utility::_id_50A9() )
     {
-        if ( _id_A5A4::_id_6B91( var_1, 0.95, undefined, level.playercardbackground ) )
+        if ( maps\_utility::_id_6B91( var_1, 0.95, undefined, level.playercardbackground ) )
             return 0;
     }
 

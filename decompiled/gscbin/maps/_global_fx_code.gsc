@@ -35,7 +35,7 @@ _id_422D( var_0, var_1, var_2, var_3, var_4 )
         level._effect = [];
 
     level._id_422D[var_0] = var_3;
-    var_6 = _id_A5A4::_id_40FE( var_0, "targetname" );
+    var_6 = maps\_utility::_id_40FE( var_0, "targetname" );
 
     if ( !isdefined( var_6 ) )
         return;

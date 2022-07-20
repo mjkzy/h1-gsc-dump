@@ -49,8 +49,8 @@ _id_80C6()
 
 _id_7E68()
 {
-    _id_A5A4::_id_9E6E( "sniperescape", 0 );
-    level.playercardbackground _id_A5A4::set_light_set_player( "sniperescape" );
+    maps\_utility::_id_9E6E( "sniperescape", 0 );
+    level.playercardbackground maps\_utility::set_light_set_player( "sniperescape" );
     level.playercardbackground _meth_848c( "clut_sniperescape", 1.0 );
 }
 
@@ -65,8 +65,8 @@ handle_player_on_sniper_rifle()
     foreach ( var_2 in var_0 )
         var_2 _meth_8494( "force_on" );
 
-    level.playercardbackground _id_A5A4::set_light_set_player( "sniperescape_scope" );
-    _id_A5A4::_id_9E6E( "sniperescape_scope", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "sniperescape_scope" );
+    maps\_utility::_id_9E6E( "sniperescape_scope", 2 );
     common_scripts\utility::_id_384A( "player_gets_off_turret" );
     setsaveddvar( "sv_znear", "1.0" );
     setsaveddvar( "sm_sunShadowCenter", ( 0, 0, 0 ) );
@@ -75,8 +75,8 @@ handle_player_on_sniper_rifle()
     foreach ( var_2 in var_0 )
         var_2 _meth_8494( "normal" );
 
-    level.playercardbackground _id_A5A4::set_light_set_player( "sniperescape" );
-    _id_A5A4::_id_9E6E( "sniperescape", 2 );
+    level.playercardbackground maps\_utility::set_light_set_player( "sniperescape" );
+    maps\_utility::_id_9E6E( "sniperescape", 2 );
 }
 
 handle_player_rappel_init()
@@ -194,9 +194,9 @@ begin_vision_blurs()
 vision_glow_change()
 {
     common_scripts\utility::_id_383F( "stop_adjusting_vision" );
-    _id_A5A4::_id_7F00( "sniperescape_glow_off", 5 );
+    maps\_utility::_id_7F00( "sniperescape_glow_off", 5 );
     wait 10;
-    _id_A5A4::_id_7F00( "sniperescape_outside", 5 );
+    maps\_utility::_id_7F00( "sniperescape_outside", 5 );
 }
 
 snipe_vision_adjust()
@@ -211,16 +211,16 @@ snipe_vision_adjust()
         common_scripts\utility::_id_384A( "near_window" );
         var_0 = 1.25;
         var_1 = 1.25;
-        _id_A5A4::_id_7F00( "sniperescape_glow_off", var_0 );
+        maps\_utility::_id_7F00( "sniperescape_glow_off", var_0 );
         common_scripts\utility::_id_385B( "near_window", var_0 );
-        _id_A5A4::_id_7F00( "sniperescape_outside", var_1 );
+        maps\_utility::_id_7F00( "sniperescape_outside", var_1 );
         common_scripts\utility::_id_385B( "near_window", var_1 );
         common_scripts\utility::_id_3857( "near_window" );
         var_0 = 0.25;
         var_1 = 1.25;
-        _id_A5A4::_id_7F00( "sniperescape_glow_off", var_0 );
+        maps\_utility::_id_7F00( "sniperescape_glow_off", var_0 );
         common_scripts\utility::_id_3856( "near_window", var_0 );
-        _id_A5A4::_id_7F00( "sniperescape", var_1 );
+        maps\_utility::_id_7F00( "sniperescape", var_1 );
         common_scripts\utility::_id_3856( "near_window", var_1 );
     }
 }

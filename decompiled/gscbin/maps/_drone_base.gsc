@@ -31,7 +31,7 @@ _id_2E58()
 
     if ( self.team == "allies" )
     {
-        _id_A55D::_id_3DE2();
+        maps\_names::_id_3DE2();
 
         if ( isdefined( self.nearz ) )
             self setlookattext( self.nearz, &"" );
@@ -41,7 +41,7 @@ _id_2E58()
         self thread [[ level._id_2EFA ]]();
 
     if ( !isdefined( self._id_79ED ) )
-        level thread _id_A536::_id_3A59( self );
+        level thread maps\_friendlyfire::_id_3A59( self );
 
     if ( !isdefined( level._id_08DD ) )
         _id_9302();

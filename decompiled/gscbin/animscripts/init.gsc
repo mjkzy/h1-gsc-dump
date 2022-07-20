@@ -382,7 +382,7 @@ _id_7FBA()
     if ( !isdefined( level._id_57DA ) )
         level waittill( "loadout complete" );
 
-    _id_A55D::_id_3DE2();
+    maps\_names::_id_3DE2();
     thread animscripts\squadmanager::_id_084F();
 }
 
@@ -505,14 +505,14 @@ _id_381E()
     anim._id_61F8 = 1;
     animscripts\animset::_id_4C76();
     anim._id_9BFF = 0;
-    _id_A550::_id_4D06();
+    maps\_load::_id_4D06();
     level.playercardbackground._id_4FA7 = 0;
     level._id_60CB = randomint( 3 );
     level._id_55CC = 100;
     anim._id_2796 = ::empty;
     _id_4DA9();
     setdvar( "scr_expDeathMayMoveCheck", "on" );
-    _id_A55D::_id_8241();
+    maps\_names::_id_8241();
     anim._id_0C6E = 0;
     animscripts\init_move_transitions::_id_4DF3();
     anim._id_20AE = 10000;
@@ -549,7 +549,7 @@ _id_381E()
     if ( !isdefined( level._id_382E ) )
         common_scripts\utility::_id_4CF0();
 
-    _id_A537::_id_8010();
+    maps\_gameskill::_id_8010();
     level._id_6650 = undefined;
     animscripts\setposemovement::_id_4E02();
     animscripts\face::_id_4DEF();
@@ -713,7 +713,7 @@ _id_139C()
     for (;;)
     {
         self waittill( "grenade_fire", var_0, var_1 );
-        var_0 thread _id_A5A4::_id_43E9();
+        var_0 thread maps\_utility::_id_43E9();
     }
 }
 

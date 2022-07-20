@@ -29,7 +29,7 @@ main()
 death_behavior()
 {
     level.playercardbackground waittill( "death", var_0, var_1, var_2, var_3 );
-    _id_A5E8::_id_870C( "player_death" );
+    soundscripts\_snd::_id_870C( "player_death" );
 
     if ( isdefined( var_3 ) )
     {
@@ -43,7 +43,7 @@ death_behavior()
     }
 
     level.playercardbackground allowprone( 1 );
-    _id_A580::_id_72DC( var_2, var_1 );
+    maps\_sp_matchdata::_id_72DC( var_2, var_1 );
 }
 
 _id_6C30()
@@ -77,7 +77,7 @@ death_quote_think()
 
 _id_8A1E( var_0, var_1, var_2 )
 {
-    if ( _id_A5A4::_id_5083() )
+    if ( maps\_utility::_id_5083() )
         return;
 
     if ( level._id_5CDE )
@@ -88,7 +88,7 @@ _id_8A1E( var_0, var_1, var_2 )
 
     if ( level._id_3BFE >= 2 )
     {
-        if ( !_id_A550::_id_5982() )
+        if ( !maps\_load::_id_5982() )
             return;
     }
 

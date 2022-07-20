@@ -53,10 +53,10 @@ init()
     level.uav_struct.view_cone = 4;
     common_scripts\utility::_id_383D( "predator_missile_launch_allowed" );
     common_scripts\utility::_id_383F( "predator_missile_launch_allowed" );
-    _id_A5A4::_id_0764( "hint_predator_drone_destroyed", &"HELLFIRE_DESTROYED", ::should_break_destroyed );
-    _id_A5A4::_id_0764( "hint_predator_drone_4", &"HELLFIRE_USE_DRONE", ::should_break_use_drone );
-    _id_A5A4::_id_0764( "hint_predator_drone_2", &"HELLFIRE_USE_DRONE_2", ::should_break_use_drone );
-    _id_A5A4::_id_0764( "hint_predator_drone_not_available", &"HELLFIRE_DRONE_NOT_AVAILABLE", ::should_break_available );
+    maps\_utility::_id_0764( "hint_predator_drone_destroyed", &"HELLFIRE_DESTROYED", ::should_break_destroyed );
+    maps\_utility::_id_0764( "hint_predator_drone_4", &"HELLFIRE_USE_DRONE", ::should_break_use_drone );
+    maps\_utility::_id_0764( "hint_predator_drone_2", &"HELLFIRE_USE_DRONE_2", ::should_break_use_drone );
+    maps\_utility::_id_0764( "hint_predator_drone_not_available", &"HELLFIRE_DRONE_NOT_AVAILABLE", ::should_break_available );
 
     if ( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal )
         visionsetnight( "missilecam" );
@@ -67,14 +67,14 @@ init()
 
     setsaveddvar( "missileRemoteSpeedUp", "1000" );
     setsaveddvar( "missileRemoteSpeedTargetRange", "6000 12000" );
-    _id_A5A4::_id_0761( "axis", ::missile_kill_ai );
+    maps\_utility::_id_0761( "axis", ::missile_kill_ai );
     common_scripts\utility::_id_383D( "uav_reloading" );
     common_scripts\utility::_id_383D( "uav_collecting_stats" );
     common_scripts\utility::_id_383D( "uav_enabled" );
     common_scripts\utility::_id_383F( "uav_enabled" );
 
     foreach ( var_1 in level.players )
-        var_1 _id_A5A4::_id_32DD( "controlling_UAV" );
+        var_1 maps\_utility::_id_32DD( "controlling_UAV" );
 }
 
 should_break_use_drone()
@@ -95,7 +95,7 @@ should_break_use_drone()
     if ( common_scripts\utility::_id_3839( "wave_wiped_out" ) && common_scripts\utility::_id_382E( "wave_wiped_out" ) )
         var_0 = 1;
 
-    if ( _id_A5A4::_id_32DC( "laststand_downed" ) && _id_A5A4::_id_32D8( "laststand_downed" ) )
+    if ( maps\_utility::_id_32DC( "laststand_downed" ) && maps\_utility::_id_32D8( "laststand_downed" ) )
         var_0 = 1;
 
     if ( self getcurrentweapon() == "remote_missile_detonator" )
@@ -287,23 +287,23 @@ remotemissile_weapon_change( var_0 )
                 continue;
             }
 
-            if ( _id_A5A4::_id_32DC( "laststand_downed" ) && _id_A5A4::_id_32D8( "laststand_downed" ) )
+            if ( maps\_utility::_id_32DC( "laststand_downed" ) && maps\_utility::_id_32D8( "laststand_downed" ) )
             {
                 switchbacktomainweapon();
                 self._id_9C29 = 0;
                 continue;
             }
 
-            if ( _id_A5A4::_id_32DC( "player_has_red_flashing_overlay" ) && _id_A5A4::_id_32D8( "player_has_red_flashing_overlay" ) )
+            if ( maps\_utility::_id_32DC( "player_has_red_flashing_overlay" ) && maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
             {
                 switchbacktomainweapon();
                 self._id_9C29 = 0;
                 continue;
             }
 
-            if ( _id_A5A4::_id_5087() && isdefined( level.uav_user ) && level.uav_user != self )
+            if ( maps\_utility::_id_5087() && isdefined( level.uav_user ) && level.uav_user != self )
             {
-                thread _id_A5A4::_id_70BD( "so_hq_uav_busy" );
+                thread maps\_utility::_id_70BD( "so_hq_uav_busy" );
                 switchbacktomainweapon();
                 self._id_9C29 = 0;
                 continue;
@@ -315,7 +315,7 @@ remotemissile_weapon_change( var_0 )
             if ( isdefined( level.remote_missile_hide_stuff_func ) )
                 [[ level.remote_missile_hide_stuff_func ]]();
 
-            _id_A5DC::_id_28A2( "player_UAV_use" );
+            soundscripts\_audio::_id_28A2( "player_UAV_use" );
             level.uav_user = self;
             level.uav_killstats = [];
             uavremotelaunchersequence( self, var_1 );
@@ -435,7 +435,7 @@ remotemissile_radio_reminder()
             return;
 
         remotemissile_radio( "uav_online" );
-        thread _id_A5A4::_id_2B4F( "hint_predator_drone_" + get_remotemissile_actionslot(), 6 );
+        thread maps\_utility::_id_2B4F( "hint_predator_drone_" + get_remotemissile_actionslot(), 6 );
     }
 }
 
@@ -566,7 +566,7 @@ remotemissile_radio( var_0 )
         return;
 
     set_variant_remotemissile_radio( var_0 );
-    _id_A5A4::_id_70BD( var_0 );
+    maps\_utility::_id_70BD( var_0 );
 }
 
 cancel_on_player_damage()
@@ -574,21 +574,21 @@ cancel_on_player_damage()
     self endon( "exiting_uav_control" );
     self.took_damage = 0;
 
-    if ( _id_A5A4::_id_5087() )
+    if ( maps\_utility::_id_5087() )
         common_scripts\utility::_id_A069( "player_has_red_flashing_overlay", "player_downed", "dtest", "force_out_of_uav" );
     else
         common_scripts\utility::_id_A069( "damage", "dtest", "force_out_of_uav" );
 
     self.took_damage = 1;
-    _id_A5DC::_id_28A2( "abort_UAV_control" );
+    soundscripts\_audio::_id_28A2( "abort_UAV_control" );
 }
 
 text_titlecreate()
 {
-    level.text1 = _id_A546::_id_23ED( "objective", 2.0 );
+    level.text1 = maps\_hud_util::_id_23ED( "objective", 2.0 );
     var_0 = -175;
 
-    if ( _id_A5A4::_id_5087() )
+    if ( maps\_utility::_id_5087() )
     {
         var_0 = -150;
 
@@ -596,7 +596,7 @@ text_titlecreate()
             var_0 = -110;
     }
 
-    level.text1 _id_A546::_id_7FEE( "CENTER", undefined, 0, var_0 );
+    level.text1 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, var_0 );
 }
 
 text_titlesettext( var_0 )
@@ -629,8 +629,8 @@ display_wait_to_fire( var_0 )
 
 text_labelcreate( var_0, var_1 )
 {
-    level.text2 = _id_A546::_id_23ED( "objective", 1.85 );
-    level.text2 _id_A546::_id_7FEE( "CENTER", undefined, 0, -120 );
+    level.text2 = maps\_hud_util::_id_23ED( "objective", 1.85 );
+    level.text2 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, -120 );
     level.text2.land = var_0;
     level.text2 setvalue( var_1 );
     level.text2.color = ( 0.85, 0.85, 0.85 );
@@ -639,8 +639,8 @@ text_labelcreate( var_0, var_1 )
 
 text_noticecreate( var_0 )
 {
-    level.text2 = _id_A546::_id_23ED( "objective", 1.85 );
-    level.text2 _id_A546::_id_7FEE( "CENTER", undefined, 0, -120 );
+    level.text2 = maps\_hud_util::_id_23ED( "objective", 1.85 );
+    level.text2 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, -120 );
     level.text2 settext( var_0 );
     level.text2.color = ( 0.85, 0.85, 0.85 );
     level.text2.alpha = 0.75;
@@ -699,7 +699,7 @@ notifyonmissiledeath( var_0, var_1 )
         var_0 waittill( "death" );
     }
 
-    var_1 _id_A5A4::_id_27EF( 0.1, ::holdstancechange, 1 );
+    var_1 maps\_utility::_id_27EF( 0.1, ::holdstancechange, 1 );
     var_1.active_uav_missile = undefined;
 
     if ( isdefined( level.remotemissilefiretime ) && level.remotemissilefiretime == var_2 )
@@ -709,28 +709,28 @@ notifyonmissiledeath( var_0, var_1 )
         level.remotemissile = undefined;
     }
 
-    level _id_A5A4::_id_27EF( 0.2, _id_A5A4::_id_7C82, "delayed_remote_missile_exploded" );
+    level maps\_utility::_id_27EF( 0.2, maps\_utility::_id_7C82, "delayed_remote_missile_exploded" );
 }
 
 abortlaptopswitch( var_0 )
 {
-    var_0 _id_A5A4::_id_32DA( "controlling_UAV" );
+    var_0 maps\_utility::_id_32DA( "controlling_UAV" );
     var_0 notify( "exiting_uav_control" );
-    _id_A5DC::_id_28A2( "abort_UAV_control" );
+    soundscripts\_audio::_id_28A2( "abort_UAV_control" );
     var_0 visionsetnakedforplayer( level._id_58BC, 0.5 );
 
     if ( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal )
         var_0 visionsetthermalforplayer( level._id_9E7D, 0.5 );
-    else if ( isdefined( _id_A5A4::_id_3EBF( level._id_58BC ) ) )
-        var_0 _id_A5A4::_id_395E( level._id_58BC, 0.5 );
+    else if ( isdefined( maps\_utility::_id_3EBF( level._id_58BC ) ) )
+        var_0 maps\_utility::_id_395E( level._id_58BC, 0.5 );
 
     var_0 switchbacktomainweapon();
     var_0 freezecontrols( 0 );
 
-    if ( !_id_A5A4::_id_5062( var_0 ) )
+    if ( !maps\_utility::_id_5062( var_0 ) )
         var_0 enableoffhandweapons();
 
-    var_0 _id_A5A4::_id_27EF( 0.1, ::holdstancechange, 1 );
+    var_0 maps\_utility::_id_27EF( 0.1, ::holdstancechange, 1 );
     level.uavtargetent = undefined;
     wait 0.1;
     huditemsshow();
@@ -780,7 +780,7 @@ uavremotelaunchersequence( var_0, var_1 )
     var_0 disableoffhandweapons();
     var_0 freezecontrols( 1 );
     var_0 holdstancechange( 0 );
-    var_0 _id_A5A4::_id_32DE( "controlling_UAV" );
+    var_0 maps\_utility::_id_32DE( "controlling_UAV" );
     var_4 = var_0 waitwithabortondamage( 1.0 );
 
     if ( !var_4 )
@@ -809,7 +809,7 @@ uavremotelaunchersequence( var_0, var_1 )
 
         if ( isdefined( var_6 ) )
         {
-            if ( _id_A5A4::_id_5083() )
+            if ( maps\_utility::_id_5083() )
                 var_6 hideonclient( self );
             else
                 var_6 hide();
@@ -829,7 +829,7 @@ uavremotelaunchersequence( var_0, var_1 )
             var_0._id_6394 = var_0 getplayerangles();
             var_0 playerlinktodelta( maps\_remotemissile_utility::player_uav_rig(), "tag_player", 1.0, level.uav_struct.view_cone, level.uav_struct.view_cone, level.uav_struct.view_cone, level.uav_struct.view_cone );
             var_0 playerlinktodelta( maps\_remotemissile_utility::player_uav_rig(), "tag_player", 1.0, 0, 0, 0, 0 );
-            var_0 _id_A5A4::_id_27EF( 0.1, ::open_view_cone );
+            var_0 maps\_utility::_id_27EF( 0.1, ::open_view_cone );
         }
 
         var_0 freezecontrols( 0 );
@@ -846,15 +846,15 @@ uavremotelaunchersequence( var_0, var_1 )
 
         if ( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal )
         {
-            _id_A550::_id_92FF();
+            maps\_load::_id_92FF();
             var_0 thermalvisionon();
             var_0 visionsetthermalforplayer( level.vision_uav, 0.25 );
             var_0 visionsetnakedforplayer( level._id_58BC, 0.25 );
         }
         else
         {
-            if ( isdefined( _id_A5A4::_id_3EBF( level.vision_uav ) ) )
-                var_0 _id_A5A4::_id_395E( level.vision_uav, 0.25 );
+            if ( isdefined( maps\_utility::_id_3EBF( level.vision_uav ) ) )
+                var_0 maps\_utility::_id_395E( level.vision_uav, 0.25 );
 
             var_0 visionsetnakedforplayer( level.vision_uav, 0.25 );
         }
@@ -1005,7 +1005,7 @@ do_physics_impact_on_explosion( var_0 )
     var_4 = 1000;
     var_5 = 6.0;
     earthquake( 0.3, 1.4, var_2, 8000 );
-    _id_A5DC::_id_28A2( "remote_missle_impact", var_2 );
+    soundscripts\_audio::_id_28A2( "remote_missle_impact", var_2 );
     wait 0.1;
     physicsexplosionsphere( var_2, var_4, var_4 / 2, var_5 );
     wait 2;
@@ -1016,7 +1016,7 @@ do_physics_impact_on_explosion( var_0 )
 missile_kills( var_0 )
 {
     common_scripts\utility::_id_383F( "uav_collecting_stats" );
-    var_1 = _id_A5A4::_id_4153();
+    var_1 = maps\_utility::_id_4153();
 
     foreach ( var_3 in var_1 )
         var_3 thread missile_kill_vehicle( var_0 );
@@ -1129,7 +1129,7 @@ exitfromcamera_missile( var_0, var_1 )
 
     if ( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal )
     {
-        _id_A550::_id_92FE();
+        maps\_load::_id_92FE();
         var_0 thermalvisionoff();
         var_0 visionsetthermalforplayer( level._id_9E7D, 0 );
     }
@@ -1139,7 +1139,7 @@ exitfromcamera_missile( var_0, var_1 )
 
     if ( isdefined( var_2 ) )
     {
-        if ( _id_A5A4::_id_5083() )
+        if ( maps\_utility::_id_5083() )
             var_2 showonclient( self );
         else
             var_2 show();
@@ -1153,11 +1153,11 @@ exitfromcamera_missile( var_0, var_1 )
 
         if ( !( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal ) )
         {
-            if ( isdefined( _id_A5A4::_id_3EBF( level._id_58BC ) ) )
-                var_0 _id_A5A4::_id_395E( level._id_58BC, 0.4 );
+            if ( isdefined( maps\_utility::_id_3EBF( level._id_58BC ) ) )
+                var_0 maps\_utility::_id_395E( level._id_58BC, 0.4 );
         }
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
         var_0 freezecontrols( 0 );
@@ -1165,7 +1165,7 @@ exitfromcamera_missile( var_0, var_1 )
         wait 0.2;
         huditemsshow();
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableoffhandweapons();
     }
     else
@@ -1177,18 +1177,18 @@ exitfromcamera_missile( var_0, var_1 )
 
         if ( !( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal ) )
         {
-            if ( isdefined( _id_A5A4::_id_3EBF( level._id_58BC ) ) )
-                var_0 _id_A5A4::_id_395E( level._id_58BC, 1.0 );
+            if ( isdefined( maps\_utility::_id_3EBF( level._id_58BC ) ) )
+                var_0 maps\_utility::_id_395E( level._id_58BC, 1.0 );
         }
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
         var_0 _meth_847d();
         wait 0.5;
         huditemsshow();
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableoffhandweapons();
 
         var_0 freezecontrols( 0 );
@@ -1201,7 +1201,7 @@ exitfromcamera_missile( var_0, var_1 )
 
 exitfromcamera_uav( var_0, var_1 )
 {
-    _id_A5DC::_id_28A2( "abort_UAV_control" );
+    soundscripts\_audio::_id_28A2( "abort_UAV_control" );
     drawtargetsend();
 
     if ( isdefined( level.deactivate_uav_hud_cb ) )
@@ -1236,7 +1236,7 @@ exitfromcamera_uav( var_0, var_1 )
     if ( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal )
     {
         var_0 visionsetthermalforplayer( level._id_9E7D, 0 );
-        _id_A550::_id_92FE();
+        maps\_load::_id_92FE();
         var_0 thermalvisionoff();
     }
 
@@ -1247,7 +1247,7 @@ exitfromcamera_uav( var_0, var_1 )
 
     if ( isdefined( var_2 ) )
     {
-        if ( _id_A5A4::_id_5083() )
+        if ( maps\_utility::_id_5083() )
             var_2 showonclient( self );
         else
             var_2 show();
@@ -1262,18 +1262,18 @@ exitfromcamera_uav( var_0, var_1 )
 
         if ( !( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal ) )
         {
-            if ( isdefined( _id_A5A4::_id_3EBF( level._id_58BC ) ) )
-                var_0 _id_A5A4::_id_395E( level._id_58BC, 0.4 );
+            if ( isdefined( maps\_utility::_id_3EBF( level._id_58BC ) ) )
+                var_0 maps\_utility::_id_395E( level._id_58BC, 0.4 );
         }
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
         var_0 _meth_847d();
         wait 0.1;
         huditemsshow();
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableoffhandweapons();
 
         var_0 freezecontrols( 0 );
@@ -1286,11 +1286,11 @@ exitfromcamera_uav( var_0, var_1 )
 
         if ( !( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal ) )
         {
-            if ( isdefined( _id_A5A4::_id_3EBF( level._id_58BC ) ) )
-                var_0 _id_A5A4::_id_395E( level._id_58BC, 0.75 );
+            if ( isdefined( maps\_utility::_id_3EBF( level._id_58BC ) ) )
+                var_0 maps\_utility::_id_395E( level._id_58BC, 0.75 );
         }
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
         var_0 _meth_847d();
@@ -1298,13 +1298,13 @@ exitfromcamera_uav( var_0, var_1 )
         huditemsshow();
         var_0 switchbacktomainweapon();
 
-        if ( !_id_A5A4::_id_5062( var_0 ) )
+        if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableoffhandweapons();
 
         var_0 freezecontrols( 0 );
     }
 
-    var_0 _id_A5A4::_id_27EF( 0.1, ::holdstancechange, 1 );
+    var_0 maps\_utility::_id_27EF( 0.1, ::holdstancechange, 1 );
     var_0 notify( "exiting_uav_control" );
     var_0._id_500B = undefined;
     level.uavtargetent = undefined;
@@ -1332,7 +1332,7 @@ waitforattackcommand( var_0 )
         var_0 thread wait_for_command_thread( "launch_remote_missile", "launch" );
 
     var_0 waittill( "remote_missile_attack", var_1 );
-    var_0 _id_A5A4::_id_32DA( "controlling_UAV" );
+    var_0 maps\_utility::_id_32DA( "controlling_UAV" );
 
     if ( var_1 == "launch" )
         return 1;
@@ -1541,7 +1541,7 @@ _switchernow( var_0 )
 
 switchbacktomainweapon_internal( var_0 )
 {
-    if ( _id_A5A4::_id_32DC( "laststand_downed" ) && _id_A5A4::_id_32D8( "laststand_downed" ) )
+    if ( maps\_utility::_id_32DC( "laststand_downed" ) && maps\_utility::_id_32D8( "laststand_downed" ) )
         return;
 
     var_1 = self getweaponslist( "primary", "altmode" );
@@ -1614,7 +1614,7 @@ cycle_uav_rigs()
 
     for (;;)
     {
-        _id_A5A4::_id_32E0( "controlling_UAV" );
+        maps\_utility::_id_32E0( "controlling_UAV" );
         player_can_cycle_uav_rigs();
     }
 }
@@ -1628,9 +1628,9 @@ run_rig_function_when_player_uses_uav( var_0, var_1 )
 
     for (;;)
     {
-        var_1 _id_A5A4::_id_32E0( "controlling_UAV" );
+        var_1 maps\_utility::_id_32E0( "controlling_UAV" );
         thread [[ var_0 ]]( var_1 );
-        var_1 _id_A5A4::_id_32E4( "controlling_UAV" );
+        var_1 maps\_utility::_id_32E4( "controlling_UAV" );
         setsaveddvar( var_3, 1 );
     }
 }
