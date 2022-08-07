@@ -224,7 +224,7 @@ _id_4683()
 
 _id_4685()
 {
-    var_0 = self.origin + ( 0, 0, 32 );
+    var_0 = self.origin + ( 0.0, 0.0, 32.0 );
     var_1 = self _meth_8151( self._id_9735 );
     var_2 = getanimlength( self._id_9735 );
     var_3 = var_1 * var_2;
@@ -259,7 +259,7 @@ _id_4685()
         var_5 = var_14 / 3.0;
     }
 
-    var_15 = physicstrace( var_0, var_0 + ( 0, 0, -768 ) );
+    var_15 = physicstrace( var_0, var_0 + ( 0.0, 0.0, -768.0 ) );
     var_16 = distance( var_0, var_15 );
     var_17 = var_16 - 32 - 0.5;
     var_18 = var_4 - var_17;
@@ -362,7 +362,7 @@ _id_2D8D( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     {
         var_13 = getmovedelta( var_2, 0, 1 );
         var_12 = _id_96EF( var_13 * -1, var_11.origin, var_11.angles );
-        var_12 += ( 0, 0, 1 );
+        var_12 += ( 0.0, 0.0, 1.0 );
     }
 
     var_14 = getmovedelta( var_1, 0, 1 );
@@ -617,8 +617,8 @@ _id_2CAB( var_0, var_1 )
 
 _id_403B()
 {
-    var_0 = ( 0, 0, 0 );
-    var_1 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( self._id_5A7A ) && self._id_5A7A )
     {

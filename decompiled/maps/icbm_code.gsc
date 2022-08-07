@@ -305,10 +305,10 @@ flashlight_light( var_0 )
 
     if ( var_0 )
     {
-        var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_2 setmodel( "tag_origin" );
         var_2 hide();
-        var_2 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_2 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         thread flashlight_light_death( var_2 );
         playfxontag( level._effect["flashlight"], var_2, "tag_origin" );
     }
@@ -798,7 +798,7 @@ ai_hostile_knife_kill_think()
     thread ai_hostile_knife_kill_abort_think();
     level.price_knife = spawn( "script_model", level._id_6F7C gettagorigin( "TAG_INHAND" ) );
     level.price_knife.angles = level._id_6F7C gettagangles( "TAG_INHAND" );
-    level.price_knife linkto( level._id_6F7C, "TAG_INHAND", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    level.price_knife linkto( level._id_6F7C, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.price_knife setmodel( "weapon_parabolic_knife" );
     level.price_knife hide();
     level._id_6F7C playsound( "scn_icbm_knife_melee" );
@@ -815,7 +815,7 @@ ai_hostile_knife_kill_think()
     self.a._id_612E = 1;
     self.allowdeath = 1;
     animscripts\shared::_id_2F6C();
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 ai_hostile_knife_kill_finish_anim()
@@ -947,7 +947,7 @@ beehive2_attack()
     var_3 linkto( var_1 );
     var_3 = getent( "doorknob8", "targetname" );
     var_3 linkto( var_1 );
-    var_1 rotateto( var_1.angles + ( 0, -92, 0 ), 0.5, 0, 0 );
+    var_1 rotateto( var_1.angles + ( 0.0, -92.0, 0.0 ), 0.5, 0, 0 );
     var_1 connectpaths();
     var_1 playsound( "icbm_door_slams_open" );
     wait 1;
@@ -955,7 +955,7 @@ beehive2_attack()
     var_4 = getent( "beehive1_front_door", "targetname" );
     var_5 = getent( "beehive1_front_door_model", "targetname" );
     var_5 linkto( var_4 );
-    var_4 rotateto( var_4.angles + ( 0, -87, 0 ), 0.5, 0, 0 );
+    var_4 rotateto( var_4.angles + ( 0.0, -87.0, 0.0 ), 0.5, 0, 0 );
     var_4 connectpaths();
     var_4 playsound( "icbm_door_slams_open" );
 }
@@ -1111,9 +1111,9 @@ tower_collapse()
         var_3[var_4] maps\_utility::_id_0D61( "wire" );
     }
 
-    var_6 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_6.origin = var_0.origin;
-    var_6.angles = var_0.angles + ( 0, -90, 0 );
+    var_6.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
 
     for ( var_4 = 0; var_4 < var_1; var_4++ )
         var_6 thread maps\_anim::_id_0BE1( var_3[var_4], "idle" + var_4, undefined, "stop_idle" );
@@ -1126,7 +1126,7 @@ tower_collapse()
     for ( var_4 = 0; var_4 < var_1; var_4++ )
         var_6 thread maps\_anim::_id_0C24( var_3[var_4], "explosion" + var_4 );
 
-    radiusdamage( var_0.origin + ( 0, 0, 96 ), level.towerblastradius, 1000, 50 );
+    radiusdamage( var_0.origin + ( 0.0, 0.0, 96.0 ), level.towerblastradius, 1000, 50 );
 }
 
 tower_impact_fx( var_0 )
@@ -1136,7 +1136,7 @@ tower_impact_fx( var_0 )
 
 tower_spark_fx( var_0 )
 {
-    thread _id_6DDC( "scn_icbm_tower_sparks", var_0.origin + ( 0, 0, 512 ) );
+    thread _id_6DDC( "scn_icbm_tower_sparks", var_0.origin + ( 0.0, 0.0, 512.0 ) );
     playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left03" );
     playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right03" );
     wait 0.1;
@@ -1166,7 +1166,7 @@ spraycan_fx_stop( var_0 )
 
 _id_6DDC( var_0, var_1, var_2 )
 {
-    var_3 = spawn( "script_origin", ( 0, 0, 1 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
 
     if ( !isdefined( var_1 ) )
         var_1 = self.origin;

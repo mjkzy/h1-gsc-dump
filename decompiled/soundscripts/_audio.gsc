@@ -124,7 +124,7 @@ _id_0FF4( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_5 ) )
         var_7 = max( var_5, 0 );
 
-    var_8 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_8 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_8._id_09D6 = var_1;
     var_8._id_506C = 0;
     var_8._id_6E22 = var_2;
@@ -824,7 +824,7 @@ _id_1046( var_0, var_1 )
 
 _id_0EC2( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
     var_1 += var_0;
     return var_1;
 }
@@ -1122,7 +1122,7 @@ _id_10DC( var_0, var_1, var_2, var_3 )
 
 _id_1094( var_0 )
 {
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1 thread _id_1119( var_0 );
     var_1 waittill( "slo_mo_wait_done" );
     var_1 delete();
@@ -1146,10 +1146,10 @@ _id_1029( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( self ) )
     {
-        var_5 = ( 1, 1, 1 );
-        var_6 = ( 1, 0, 0 );
-        var_7 = ( 0, 1, 0 );
-        var_8 = ( 0, 1, 1 );
+        var_5 = ( 1.0, 1.0, 1.0 );
+        var_6 = ( 1.0, 0.0, 0.0 );
+        var_7 = ( 0.0, 1.0, 0.0 );
+        var_8 = ( 0.0, 1.0, 1.0 );
         var_9 = 5;
         var_10 = var_5;
 
@@ -1704,7 +1704,7 @@ _id_289E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_10 = spawn( "script_origin", var_9 );
 
     if ( isdefined( var_4 ) )
-        var_10 linkto( var_1, "tag_origin", var_4, ( 0, 0, 0 ) );
+        var_10 linkto( var_1, "tag_origin", var_4, ( 0.0, 0.0, 0.0 ) );
     else
         var_10 linkto( var_1 );
 
@@ -1863,8 +1863,8 @@ _id_289D( var_0, var_1 )
         if ( isdefined( var_6._id_27C0 ) )
             wait(var_6._id_27C0);
 
-        var_7 = spawn( "script_origin", ( 0, 0, 0 ) );
-        var_7 linkto( var_6._id_32D5, "", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_7 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+        var_7 linkto( var_6._id_32D5, "", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         var_7 soundscripts\_snd_playsound::_id_872A( var_6._id_8899, "sounddone" );
         var_7 waittill( "sounddone" );
         wait 0.05;

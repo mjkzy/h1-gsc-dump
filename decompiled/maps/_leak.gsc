@@ -56,7 +56,7 @@ leak_barrel_setup()
 {
     self.a = self.origin;
     self.upgradepurchased = anglestoup( self.angles );
-    var_0 = anglestoup( ( 0, 90, 0 ) );
+    var_0 = anglestoup( ( 0.0, 90.0, 0.0 ) );
     self._id_6581 = self.a + self.upgradepurchased * 22;
     self.a += self.upgradepurchased * 1.5;
     self.b = self.a + self.upgradepurchased * 41.4;
@@ -69,7 +69,7 @@ leak_barrel_setup()
         var_2 = self.a;
 
     var_1 = abs( 1 - abs( var_1 ) );
-    self.lowz = physicstrace( self._id_6581, self._id_6581 + ( 0, 0, -80 ) )[2];
+    self.lowz = physicstrace( self._id_6581, self._id_6581 + ( 0.0, 0.0, -80.0 ) )[2];
     self.highz = var_2[2] + var_1 * 14;
 }
 

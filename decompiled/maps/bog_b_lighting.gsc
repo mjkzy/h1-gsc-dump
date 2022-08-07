@@ -84,7 +84,7 @@ _id_4D05()
 _id_7E68()
 {
     setsaveddvar( "r_disablelightsets", 0 );
-    setsunflareposition( ( -50, 136, 0 ) );
+    setsunflareposition( ( -50.0, 136.0, 0.0 ) );
     setsaveddvar( "scr_dof_enable", "1" );
     apply_lighting_pass_bog_outside( 0.0 );
 }
@@ -101,7 +101,7 @@ update_fade_angle_lights()
 {
     var_0 = 45.0;
     var_1 = 135.0;
-    var_2 = 3e+06.0;
+    var_2 = 3000000.0;
 
     if ( isdefined( self.script_parentname ) )
     {

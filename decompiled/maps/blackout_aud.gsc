@@ -299,9 +299,9 @@ play_uaz_rock_falling_sfx()
     {
         self waittill( "trigger", var_1 );
         wait 2;
-        var_1 thread common_scripts\utility::_id_69C2( "emt_truck_rock_rubble", var_1.origin + ( 0, 0, -100 ) );
+        var_1 thread common_scripts\utility::_id_69C2( "emt_truck_rock_rubble", var_1.origin + ( 0.0, 0.0, -100.0 ) );
         wait 1;
-        var_1 thread common_scripts\utility::_id_69C2( "emt_truck_rock_rubble", var_1.origin + ( 0, 0, -100 ) );
+        var_1 thread common_scripts\utility::_id_69C2( "emt_truck_rock_rubble", var_1.origin + ( 0.0, 0.0, -100.0 ) );
     }
 }
 

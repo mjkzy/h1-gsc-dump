@@ -336,7 +336,7 @@ _id_8313()
 
 _id_54BD()
 {
-    common_scripts\_fx::_id_587C( "lantern_light", self.origin, 0.3, self.origin + ( 0, 0, 1 ) );
+    common_scripts\_fx::_id_587C( "lantern_light", self.origin, 0.3, self.origin + ( 0.0, 0.0, 1.0 ) );
 }
 
 _id_4B0C()
@@ -371,8 +371,8 @@ _id_830E()
                 break;
         }
 
-        var_3 = var_2.origin + ( 0, 0, 5 );
-        var_4 = var_2.origin + ( 0, 0, 128 );
+        var_3 = var_2.origin + ( 0.0, 0.0, 5.0 );
+        var_4 = var_2.origin + ( 0.0, 0.0, 128.0 );
         var_5 = bullettrace( var_3, var_4, 0, var_2 );
         var_2._id_534D = spawn( "script_model", var_5["position"] );
         var_2._id_534D.teambalanced = "killCamEnt_destructible_vehicle";
@@ -384,8 +384,8 @@ _id_830E()
 
     foreach ( var_2 in var_7 )
     {
-        var_3 = var_2.origin + ( 0, 0, 5 );
-        var_4 = var_2.origin + ( 0, 0, 128 );
+        var_3 = var_2.origin + ( 0.0, 0.0, 5.0 );
+        var_4 = var_2.origin + ( 0.0, 0.0, 128.0 );
         var_5 = bullettrace( var_3, var_4, 0, var_2 );
         var_2._id_534D = spawn( "script_model", var_5["position"] );
         var_2._id_534D.teambalanced = "killCamEnt_destructible_toy";
@@ -397,8 +397,8 @@ _id_830E()
 
     foreach ( var_2 in var_10 )
     {
-        var_3 = var_2.origin + ( 0, 0, 5 );
-        var_4 = var_2.origin + ( 0, 0, 128 );
+        var_3 = var_2.origin + ( 0.0, 0.0, 5.0 );
+        var_4 = var_2.origin + ( 0.0, 0.0, 128.0 );
         var_5 = bullettrace( var_3, var_4, 0, var_2 );
         var_2._id_534D = spawn( "script_model", var_5["position"] );
         var_2._id_534D.teambalanced = "killCamEnt_explodable_barrel";

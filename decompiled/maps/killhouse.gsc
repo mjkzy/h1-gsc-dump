@@ -1830,7 +1830,7 @@ beforeopenning_firing_range_door()
     var_2 = getent( "rifle_range_doorGlass", "targetname" );
     var_2 linkto( var_0 );
     var_0 playsound( "h1_metal_door_open" );
-    var_0 rotateto( var_0.angles + ( 0, 18, 0 ), 1, 0.5, 0 );
+    var_0 rotateto( var_0.angles + ( 0.0, 18.0, 0.0 ), 1, 0.5, 0 );
     common_scripts\_exploder::_id_3528( 101 );
     wait 1;
     thread open_firing_range_door();
@@ -1870,7 +1870,7 @@ open_firing_range_door()
     wait 1.4;
     thread soundscripts\_audio_mix_manager::_id_5CF2( "door_opening" );
     maps\_utility::_id_27EF( 4, soundscripts\_audio_mix_manager::_id_5CF6, "door_opening" );
-    var_0 rotateto( var_0.angles + ( 0, 130, 0 ), 1, 0.5, 0 );
+    var_0 rotateto( var_0.angles + ( 0.0, 130.0, 0.0 ), 1, 0.5, 0 );
     level.firing_range_door_open = 1;
     thread spawnwhendooropen();
     maps\_utility::_id_27EF( 0.5, maps\killhouse_aud::aud_activate_hangar_transition_zone );
@@ -1901,7 +1901,7 @@ close_firing_range_door()
 
     var_0 = getent( "rifle_range_door", "targetname" );
     var_0 playsound( "scn_killhouse_door_close" );
-    var_0 rotateto( var_0.angles + ( 0, -88, 0 ), 1, 0.5, 0 );
+    var_0 rotateto( var_0.angles + ( 0.0, -88.0, 0.0 ), 1, 0.5, 0 );
     level.firing_range_door_open = 0;
     var_1 = getent( "rifle_range_door_coll", "targetname" );
     var_1 linkto( var_0 );
@@ -1944,7 +1944,7 @@ explosive_flag_think()
     var_0.init_angles = var_0.angles;
     self linkto( var_0 );
     self waittill( "flip_to_red" );
-    var_0 rotateto( var_0.init_angles + ( 0, 0, 180 ), 0.25, 0, 0 );
+    var_0 rotateto( var_0.init_angles + ( 0.0, 0.0, 180.0 ), 0.25, 0, 0 );
     wait 0.25;
     self playsound( "killhouse_target_up_metal" );
 
@@ -1955,7 +1955,7 @@ explosive_flag_think()
         if ( !common_scripts\utility::_id_382E( "in_safety_pit" ) )
             continue;
 
-        var_0 rotateto( var_0.init_angles + ( 0, 0, -1 ), 0.25, 0, 0 );
+        var_0 rotateto( var_0.init_angles + ( 0.0, 0.0, -1.0 ), 0.25, 0, 0 );
         wait 0.25;
         self playsound( "killhouse_target_up_metal" );
         break;
@@ -3539,7 +3539,7 @@ ai_rifle_training_aim_target_think()
     {
         self waittill( "damage" );
         self playsound( "killhouse_target_up_quiet" );
-        self.linked_ent rotateto( self.init_angles + ( 0, 0, -90 ), 0.25, 0, 0 );
+        self.linked_ent rotateto( self.init_angles + ( 0.0, 0.0, -90.0 ), 0.25, 0, 0 );
         self setcandamage( 0 );
         self.raised = 0;
         self waittill( "raise" );
@@ -3762,7 +3762,7 @@ ai_ambient_noprop_think()
             break;
         case "training_locals_kneel":
             maps\_utility::_id_4462();
-            self.m4 = spawn( "script_model", ( 0, 0, 0 ) );
+            self.m4 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
             self.m4 setmodel( "weapon_m4" );
             self.m4 hidepart( "TAG_THERMAL_SCOPE" );
             self.m4 hidepart( "TAG_FOREGRIP" );
@@ -3799,7 +3799,7 @@ ai_ambient_noprop_think()
             break;
         case "afgan_caves_sleeping_guard_idle":
             maps\_utility::_id_4462();
-            self._id_3002.origin += ( 0, 0, 26 );
+            self._id_3002.origin += ( 0.0, 0.0, 26.0 );
             break;
         case "bunker_toss_idle_guy1":
         case "DC_Burning_artillery_reaction_v1_idle":

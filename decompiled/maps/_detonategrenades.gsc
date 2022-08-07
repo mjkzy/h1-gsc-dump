@@ -460,7 +460,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
         if ( !isalive( level.players[var_5] ) || level.players[var_5].sharpturnlookaheaddist != "playing" )
             continue;
 
-        var_6 = level.players[var_5].origin + ( 0, 0, 32 );
+        var_6 = level.players[var_5].origin + ( 0.0, 0.0, 32.0 );
         var_7 = distance( var_0, var_6 );
 
         if ( var_7 < var_1 && ( !var_2 || _id_A2D6( var_0, var_6, var_3, undefined ) ) )
@@ -528,11 +528,11 @@ _id_A2D6( var_0, var_1, var_2, var_3 )
     if ( getdvarint( "scr_damage_debug" ) != 0 )
     {
         if ( var_7["fraction"] == 1 )
-            thread _id_2729( var_4, var_1, ( 1, 1, 1 ) );
+            thread _id_2729( var_4, var_1, ( 1.0, 1.0, 1.0 ) );
         else
         {
-            thread _id_2729( var_4, var_7["position"], ( 1, 0.9, 0.8 ) );
-            thread _id_2729( var_7["position"], var_1, ( 1, 0.4, 0.3 ) );
+            thread _id_2729( var_4, var_7["position"], ( 1.0, 0.9, 0.8 ) );
+            thread _id_2729( var_7["position"], var_1, ( 1.0, 0.4, 0.3 ) );
         }
     }
 

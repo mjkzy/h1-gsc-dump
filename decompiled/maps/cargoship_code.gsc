@@ -85,7 +85,7 @@ escape_debri_wait( var_0, var_1 )
 escape_debri_launch( var_0 )
 {
     wait(randomfloat( var_0 ));
-    var_1 = anglestoright( ( 0, 180, 50 ) );
+    var_1 = anglestoright( ( 0.0, 180.0, 50.0 ) );
     var_1 = maps\_utility::vector_multiply( var_1, 10000 );
     var_2 = getent( self._not_team, "targetname" );
     var_2 show();
@@ -220,17 +220,17 @@ escape_event()
         case "cargocontainer":
             var_20 = getent( self._not_team, "targetname" );
             var_21 = var_14;
-            var_22 = ( 0, 0, 90 );
+            var_22 = ( 0.0, 0.0, 90.0 );
             var_23 = undefined;
             var_24 = undefined;
 
-            if ( var_20.angles != ( 0, 90, 0 ) && var_20.angles != ( 0, 270, 0 ) )
+            if ( var_20.angles != ( 0.0, 90.0, 0.0 ) && var_20.angles != ( 0.0, 270.0, 0.0 ) )
             {
-                var_25 = maps\_utility::vector_multiply( anglestoup( ( 0, 360, 0 ) ), 4 );
-                var_26 = maps\_utility::vector_multiply( anglestoright( ( 0, 360, 0 ) ), -1 );
+                var_25 = maps\_utility::vector_multiply( anglestoup( ( 0.0, 360.0, 0.0 ) ), 4 );
+                var_26 = maps\_utility::vector_multiply( anglestoright( ( 0.0, 360.0, 0.0 ) ), -1 );
                 var_24 = vectornormalize( var_25 + var_26 );
                 var_21 *= 800;
-                var_27 = anglestoright( ( 0, 360, 0 ) );
+                var_27 = anglestoright( ( 0.0, 360.0, 0.0 ) );
                 var_27 = maps\_utility::vector_multiply( var_27, 64 );
                 var_23 = var_20.origin + var_27;
             }
@@ -468,7 +468,7 @@ escape_event_player()
     level.playercardbackground allowstand( 0 );
     level.playercardbackground allowprone( 0 );
     level.playercardbackground setstance( "crouch" );
-    level.playercardbackground setvelocity( ( 0, 1, 0 ) );
+    level.playercardbackground setvelocity( ( 0.0, 1.0, 0.0 ) );
     player_speed_set_cargoship( 135, 0.1 );
     maps\_utility::_id_27EF( 0.5, ::player_speed_set_cargoship, 185, 2.5 );
     level.playercardbackground playrumbleonentity( "tank_rumble" );
@@ -484,7 +484,7 @@ escape_event_player()
 
 escape_player_last_quake()
 {
-    level.playercardbackground setvelocity( ( 0, 90, 0 ) );
+    level.playercardbackground setvelocity( ( 0.0, 90.0, 0.0 ) );
     earthquake( 0.25, 1.5, level.playercardbackground.origin, 1024 );
     player_speed_set_cargoship( 100, 0.1 );
     maps\_utility::_id_27EF( 0.25, ::player_speed_set_cargoship, 140, 2 );
@@ -887,7 +887,7 @@ escape_explosion_drops()
     var_2 = 2;
     var_3 = 0;
     var_4 = 0;
-    var_0 rotateto( ( 0, 45, 0 ), 2 );
+    var_0 rotateto( ( 0.0, 45.0, 0.0 ), 2 );
     wait(var_2);
     var_0 delete();
 
@@ -1041,7 +1041,7 @@ escape_shellshock()
     level.playercardbackground playrumbleonentity( "tank_rumble" );
     level thread maps\_utility::_id_61FD( "stop_heartbeat_sound", 18 );
     clearallcorpses();
-    var_0 = ( 600, -296, -360 );
+    var_0 = ( 600.0, -296.0, -360.0 );
     var_1 = maps\_utility::_id_88D1( "player_viewbody" );
     var_1.origin = level.playercardbackground maps\_utility::_id_3E24();
     level.playercardbackground setstance( "stand" );
@@ -1070,7 +1070,7 @@ escape_shellshock()
     var_8 = maps\_utility::_id_88D1( "player_viewbody" );
     var_8 hide();
     var_9 = spawn( "script_origin", var_0 );
-    var_9.angles = ( 0, 180, 0 );
+    var_9.angles = ( 0.0, 180.0, 0.0 );
     var_9 maps\_anim::_id_0BC7( var_8, "player_explosion" );
     waitframe;
     var_7 = var_8 gettagangles( "tag_player" );
@@ -1097,7 +1097,7 @@ escape_new_explosion_scene( var_0, var_1, var_2 )
     var_3 = level.heroes3["price"];
     var_4 = level.heroes3["grigsby"];
     var_5 = spawn( "script_origin", var_2 );
-    var_5.angles = ( 0, 180, 0 );
+    var_5.angles = ( 0.0, 180.0, 0.0 );
     var_6 = getstartorigin( var_5.origin, var_5.angles, var_1 maps\_utility::_id_3EF5( "player_explosion" ) );
     var_7 = var_1.origin - var_6;
     var_5.origin = ( var_5.origin[0], var_5.origin[1], -360 );
@@ -1123,38 +1123,38 @@ escape_old_explosion_scene( var_0, var_1 )
     var_0 moveto( var_1, 0.2, 0, 0.2 );
     wait 0.1;
     var_0 rotateto( ( 358.273, 286.02, -89.0164 ), 0.3, 0.3, 0 );
-    var_0 moveto( var_0.origin + ( 0, 0, -12 ), 0.3, 0.3, 0 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, -12.0 ), 0.3, 0.3, 0 );
     wait 0.3;
     var_0 rotateto( ( 344.064, 286.67, -93.2207 ), 2.05, 0, 2.05 );
-    var_0 moveto( var_0.origin + ( 0, 0, 0 ), 2.05, 0, 2.05 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, 0.0 ), 2.05, 0, 2.05 );
     wait 2.05;
     var_0 rotateto( ( 321.374, 134.198, 58.7419 ), 6, 3, 3 );
-    var_0 moveto( var_0.origin + ( 0, 0, -32 ), 3, 3, 0 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, -32.0 ), 3, 3, 0 );
     wait 3;
-    var_0 moveto( var_0.origin + ( 0, 0, 32 ), 3, 0, 3 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, 32.0 ), 3, 0, 3 );
     wait 3;
     var_0 rotateto( ( 344.064, 286.67, -93.2207 ), 6, 3, 3 );
-    var_0 moveto( var_0.origin + ( 0, 0, -32 ), 3, 3, 0 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, -32.0 ), 3, 3, 0 );
     wait 3;
-    var_0 moveto( var_0.origin + ( 0, 0, 36 ), 3, 0, 3 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, 36.0 ), 3, 0, 3 );
     wait 3;
     var_0 rotateto( ( 321.374, 134.198, 58.7419 ), 4, 2, 2 );
-    var_0 moveto( var_0.origin + ( 0, 0, -32 ), 2, 2, 0 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, -32.0 ), 2, 2, 0 );
     wait 2;
-    var_0 moveto( var_0.origin + ( 0, 0, 36 ), 2, 0, 2 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, 36.0 ), 2, 0, 2 );
     wait 2;
     var_0 rotateto( ( 330.674, 192.977, -13.8899 ), 2, 1, 1 );
-    var_0 moveto( var_0.origin + ( 0, 0, -16 ), 2, 2, 0 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, -16.0 ), 2, 2, 0 );
     wait 2;
     var_0 rotateto( ( 327.722, 180.996, -2.2776 ), 0.5, 0.25, 0.25 );
     wait 0.5;
     wait 0.25;
-    var_0 rotateto( ( -10, 180, 0 ), 0.5 );
-    var_0 moveto( var_0.origin + ( 0, 0, 0 ), 0.5 );
+    var_0 rotateto( ( -10.0, 180.0, 0.0 ), 0.5 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, 0.0 ), 0.5 );
     wait 0.5;
-    var_0 rotateto( ( 0, 75, 10 ), 1.5 );
+    var_0 rotateto( ( 0.0, 75.0, 10.0 ), 1.5 );
     wait 0.35;
-    var_0 moveto( var_0.origin + ( 0, 0, 10 ), 0.75 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, 10.0 ), 0.75 );
     wait 0.4;
     wait 0.74;
     wait 0.3;
@@ -1451,10 +1451,10 @@ flashlight_light( var_0 )
 
     if ( var_0 )
     {
-        var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_2 setmodel( "tag_origin" );
         var_2 hide();
-        var_2 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_2 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         thread flashlight_light_death( var_2 );
         playfxontag( level._effect["flashlight"], var_2, "tag_origin" );
     }
@@ -1482,7 +1482,7 @@ door_opens( var_0 )
 txt_voice( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     self endon( "death" );
-    var_7 = ( 0, 1, 0 );
+    var_7 = ( 0.0, 1.0, 0.0 );
     var_8 = 0.5;
 
     if ( isdefined( var_6 ) )
@@ -1493,16 +1493,16 @@ txt_voice( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         switch ( var_1 )
         {
             case "r":
-                var_7 = ( 1, 0, 0 );
+                var_7 = ( 1.0, 0.0, 0.0 );
                 break;
             case "b":
-                var_7 = ( 0, 0, 1 );
+                var_7 = ( 0.0, 0.0, 1.0 );
                 break;
             case "g":
-                var_7 = ( 0, 1, 0 );
+                var_7 = ( 0.0, 1.0, 0.0 );
                 break;
             case "y":
-                var_7 = ( 1, 1, 0 );
+                var_7 = ( 1.0, 1.0, 0.0 );
                 break;
         }
     }
@@ -1530,9 +1530,9 @@ txt_voice( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             var_11 = level.playercardbackground getplayerangles();
             var_12 = anglestoforward( var_11 );
             var_12 = maps\_utility::vector_multiply( var_12, 96 );
-            var_13 = level.playercardbackground.origin + var_12 + ( 0, 0, 64 );
+            var_13 = level.playercardbackground.origin + var_12 + ( 0.0, 0.0, 64.0 );
             var_8 = 0.25;
-            var_7 = ( 1, 1, 0 );
+            var_7 = ( 1.0, 1.0, 0.0 );
 
             for ( var_14 = 0; var_14 < var_9.size; var_14++ )
                 var_13 += ( 0, 0, 10 * var_8 );
@@ -1545,7 +1545,7 @@ txt_voice( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     {
         while ( var_10 )
         {
-            var_13 = self.origin + ( 0, 0, 64 );
+            var_13 = self.origin + ( 0.0, 0.0, 64.0 );
 
             for ( var_14 = 0; var_14 < var_9.size; var_14++ )
                 var_13 += ( 0, 0, 10 * var_8 );
@@ -1569,7 +1569,7 @@ heli_flypath( var_0 )
             var_1 = 0;
 
         handle_heli_audio( var_0 );
-        level._id_47A3._id_9C7E setgoalpos( var_0.origin + ( 0, 0, 150 ), var_1 );
+        level._id_47A3._id_9C7E setgoalpos( var_0.origin + ( 0.0, 0.0, 150.0 ), var_1 );
         level._id_47A3._id_9C7E neargoalnotifydist( 150 );
         level._id_47A3._id_9C7E waittill( "near_goal" );
 
@@ -2186,7 +2186,7 @@ heli_searchlight_on()
     self._id_8A85 = spawnturret( "misc_turret", self gettagorigin( "tag_barrel" ), "heli_spotlight" );
     self._id_8A85.angles = self gettagangles( "tag_barrel" );
     self._id_8A85 setmodel( "com_blackhawk_spotlight_on_mg_setup" );
-    self._id_8A85 linkto( self, "tag_barrel", ( 0, 0, -16 ), ( 0, 0, 0 ) );
+    self._id_8A85 linkto( self, "tag_barrel", ( 0.0, 0.0, -16.0 ), ( 0.0, 0.0, 0.0 ) );
     self._id_8A85 makeunusable();
     self._id_8A85 setmode( "manual" );
     self._id_8A85 _meth_8159( 5 );
@@ -2227,7 +2227,7 @@ heli_searchlight_off()
     var_0 = spawn( "script_model", self._id_8A85.origin );
     var_0 setmodel( "tag_origin" );
     self._id_8A85 linkto( var_0 );
-    var_0 moveto( ( 0, 0, -10000 ), 0.05 );
+    var_0 moveto( ( 0.0, 0.0, -10000.0 ), 0.05 );
     wait 0.25;
     self._id_8A85 delete();
     var_0 delete();
@@ -2361,7 +2361,7 @@ heli_deckdrop_target()
     var_0 = getent( "heli_deck_spottarget", "targetname" );
     level._id_47A3.motiontrackerenabled.spotlight_default_target = var_0;
     level._id_47A3.motiontrackerenabled thread heli_searchlight_target( "heli_deck_spottarget" );
-    var_0 linkto( level._id_47A3.motiontrackerenabled, "tag_turret", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( level._id_47A3.motiontrackerenabled, "tag_turret", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 }
 
 player_speed_set_cargoship( var_0, var_1 )
@@ -2415,18 +2415,18 @@ misc_light_sway()
 
     var_0 = self.angles;
     var_1 = self.origin;
-    var_0 += ( 0, 90, 0 );
+    var_0 += ( 0.0, 90.0, 0.0 );
 
     for (;;)
     {
         level._sea_org waittill( "sway1" );
         var_2 = level._sea_org.titleunlocked;
         var_3 = var_2 * 0.5;
-        self moveto( var_1 + ( 0, 20, 0 ), var_2, var_3, var_3 );
+        self moveto( var_1 + ( 0.0, 20.0, 0.0 ), var_2, var_3, var_3 );
         level._sea_org waittill( "sway2" );
         var_2 = level._sea_org.titleunlocked;
         var_3 = var_2 * 0.5;
-        self moveto( var_1 + ( 0, -20, 0 ), var_2, var_3, var_3 );
+        self moveto( var_1 + ( 0.0, -20.0, 0.0 ), var_2, var_3, var_3 );
     }
 }
 
@@ -2460,7 +2460,7 @@ misc_tv()
     }
 
     self._id_4236 = undefined;
-    self.gloworg = self.origin + ( 0, 0, 14 ) + maps\_utility::vector_multiply( anglestoforward( self.angles ), 55 );
+    self.gloworg = self.origin + ( 0.0, 0.0, 14.0 ) + maps\_utility::vector_multiply( anglestoforward( self.angles ), 55 );
     self._id_9C1A = getent( self._not_team, "targetname" );
     self._id_9C1A usetriggerrequirelookat();
     self._id_9C1A setcursorhint( "HINT_NOICON" );
@@ -2801,14 +2801,14 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
             self.hackexit = var_7;
 
             if ( var_3 == "stand2run180" )
-                var_7.angles += ( 0, 32, 0 );
+                var_7.angles += ( 0.0, 32.0, 0.0 );
 
             if ( var_6 != self )
             {
                 if ( issubstr( var_3, "cornerleft" ) )
-                    var_7.angles += ( 0, 90, 0 );
+                    var_7.angles += ( 0.0, 90.0, 0.0 );
                 else if ( issubstr( var_3, "cornerright" ) )
-                    var_7.angles -= ( 0, 90, 0 );
+                    var_7.angles -= ( 0.0, 90.0, 0.0 );
             }
 
             self._id_0C72 = "guy";
@@ -2907,19 +2907,19 @@ cargohold_flashthrow( var_0, var_1, var_2 )
     }
 
     var_6 = spawn( "script_origin", self.goodnode.origin );
-    var_6.angles = self.goodnode.angles + ( 0, 90, 0 );
+    var_6.angles = self.goodnode.angles + ( 0.0, 90.0, 0.0 );
     var_6 thread maps\_anim::_id_0C24( self, "grenade_throw" );
     thread animscripts\shared::_id_2D06( "single anim", animscripts\combat_utility::h1_grenade_attach_detach_listener );
     var_7 = self.groundentchanged;
     self.groundentchanged = "flash_grenade";
     self.grenadeammo++;
     wait 3.5;
-    var_8 = self.origin + ( 30, 25, 30 );
+    var_8 = self.origin + ( 30.0, 25.0, 30.0 );
     var_9 = var_8 + var_0;
 
     if ( isdefined( var_1 ) )
     {
-        var_9 += ( 0, 0, 200 );
+        var_9 += ( 0.0, 0.0, 200.0 );
         var_10 = vectornormalize( var_9 - var_8 );
 
         if ( !isdefined( var_2 ) )
@@ -3078,7 +3078,7 @@ jumptothink()
             common_scripts\utility::_id_384A( "heroes_ready" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             level._id_47A3._id_9C7E vehicle_setspeed( 700, 700 );
-            level._id_47A3._id_9C7E setgoalpos( common_scripts\utility::_id_40FB( "intro_ride_node", "targetname" ).origin + ( 0, 0, 920 ), 1 );
+            level._id_47A3._id_9C7E setgoalpos( common_scripts\utility::_id_40FB( "intro_ride_node", "targetname" ).origin + ( 0.0, 0.0, 920.0 ), 1 );
             level._id_47A3._id_9C7E settargetyaw( 220 );
             wait 5.5;
             maps\_utility::_id_27EF( 2.5, soundscripts\_snd::_id_870C, "aud_stop_intro_mix" );
@@ -3097,7 +3097,7 @@ jumptothink()
             level.playercardbackground maps\_utility::set_light_set_player( "cargoship_exterior" );
             level._id_47A3 maps\mo_fastrope::fastrope_heli_overtake_now();
             level._id_47A3._id_9C7E vehicle_setspeed( 300, 300, 250 );
-            level._id_47A3._id_9C7E setgoalpos( common_scripts\utility::_id_40FB( "heli_deck_landing_node", "targetname" ).origin + ( 0, 0, 146 ), 1 );
+            level._id_47A3._id_9C7E setgoalpos( common_scripts\utility::_id_40FB( "heli_deck_landing_node", "targetname" ).origin + ( 0.0, 0.0, 146.0 ), 1 );
             var_1 = getnode( "quarters_price_2", "targetname" );
             level.heroes5["price"] thread jumptoactor( var_1.origin );
             var_1 = getnode( "quarters_alavi_2", "targetname" );
@@ -3123,8 +3123,8 @@ jumptothink()
             for ( var_3 = 0; var_3 < var_2.size; var_3++ )
                 var_1[var_2[var_3].script_parentname] = var_2[var_3];
 
-            level.heroes5["price"] thread jumptoactor( var_1["alavi"].origin + ( -100, 0, 0 ) );
-            level.heroes5["grigsby"] thread jumptoactor( var_1["alavi"].origin + ( 250, 0, 0 ) );
+            level.heroes5["price"] thread jumptoactor( var_1["alavi"].origin + ( -100.0, 0.0, 0.0 ) );
+            level.heroes5["grigsby"] thread jumptoactor( var_1["alavi"].origin + ( 250.0, 0.0, 0.0 ) );
             level.heroes5["alavi"] thread jumptoactor( var_1["alavi"].origin );
             level.heroes5["seat5"] thread jumptoactor( var_1["seat5"].origin );
             level.heroes5["seat6"] thread jumptoactor( var_1["seat6"].origin );
@@ -3477,7 +3477,7 @@ jumptothink()
             level._sea_org.titleunlocked = 0.1;
             level._sea_org.acctime = level._sea_org.titleunlocked * 0.5;
             level._sea_org.dectime = level._sea_org.titleunlocked * 0.5;
-            level._sea_org.runto_arrived = ( 0, 0, -40 );
+            level._sea_org.runto_arrived = ( 0.0, 0.0, -40.0 );
             level._sea_link rotateto( level._sea_org.runto_arrived, level._sea_org.titleunlocked, level._sea_org.acctime, level._sea_org.dectime );
             level._sea_org rotateto( level._sea_org.runto_arrived, level._sea_org.titleunlocked, level._sea_org.acctime, level._sea_org.dectime );
             level._sea_link movez( -300, 0.1 );
@@ -3517,7 +3517,7 @@ jumptothink()
     level.playercardbackground allowlean( 1 );
     level.playercardbackground allowcrouch( 1 );
     level.playercardbackground allowprone( 1 );
-    level.playercardbackground setorigin( var_1.origin + ( 0, 0, 8 ) );
+    level.playercardbackground setorigin( var_1.origin + ( 0.0, 0.0, 8.0 ) );
     level.playercardbackground setplayerangles( var_1.angles );
 }
 
@@ -3595,7 +3595,7 @@ escape_catwalk()
     common_scripts\utility::_id_384A( "escape_catwalk" );
     var_0 movez( -4, 0.25, 0, 0 );
     var_0 movey( -2, 0.25, 0, 0 );
-    var_0 rotateto( ( 0, 0, 5 ), 0.25, 0, 0 );
+    var_0 rotateto( ( 0.0, 0.0, 5.0 ), 0.25, 0, 0 );
     var_0 waittill( "rotatedone" );
     var_0 thread escape_catwalk_sway();
     var_0 thread maps\_utility::_id_69C4( "cgo_escape_catwalk_breaks" );
@@ -3614,7 +3614,7 @@ escape_catwalk()
     var_0 common_scripts\utility::_id_8EA1( "cgo_escape_catwalk_creaks_loop" );
     var_0 thread maps\_utility::_id_69C4( "cgo_escape_catwalk_collapse" );
     var_0 movez( -16, 1.5, 0, 1.5 );
-    var_0 rotateto( ( 10, 0, 90 ), 1.5, 0, 1.5 );
+    var_0 rotateto( ( 10.0, 0.0, 90.0 ), 1.5, 0, 1.5 );
     wait 2;
 
     if ( !common_scripts\utility::_id_382E( "escape_catwalk_madeit" ) )
@@ -3854,7 +3854,7 @@ escape_sneakyslowplayer_underwaterfall()
 
     if ( distance2d( level.playercardbackground.origin, level.heroes3["price"].origin ) < 250 )
     {
-        level.playercardbackground setvelocity( ( 0, 1, 0 ) );
+        level.playercardbackground setvelocity( ( 0.0, 1.0, 0.0 ) );
         player_speed_set_cargoship( 135, 0.1 );
         maps\_utility::_id_27EF( 0.5, ::player_speed_set_cargoship, 185, 1.25 );
     }
@@ -3863,7 +3863,7 @@ escape_sneakyslowplayer_underwaterfall()
 
     if ( distance2d( level.playercardbackground.origin, level.heroes3["price"].origin ) < 250 )
     {
-        level.playercardbackground setvelocity( ( 0, 1, 0 ) );
+        level.playercardbackground setvelocity( ( 0.0, 1.0, 0.0 ) );
         player_speed_set_cargoship( 135, 0.1 );
         maps\_utility::_id_27EF( 0.5, ::player_speed_set_cargoship, 180, 1.5 );
     }
@@ -3890,7 +3890,7 @@ escape_heroes2()
     self._id_0C78 = 1.0;
     self._id_5F65 = 1.0;
     var_0 = spawn( "script_origin", self.origin );
-    var_0.angles = ( 0, 180, 0 );
+    var_0.angles = ( 0.0, 180.0, 0.0 );
     self._id_63C4 = self._id_0C72;
     self._id_0C72 = "escape";
     self _meth_81ce( "crouch", "stand" );
@@ -3902,14 +3902,14 @@ escape_heroes2()
     switch ( self.script_parentname )
     {
         case "alavi":
-            var_1 = ( 600, -160, -359 );
+            var_1 = ( 600.0, -160.0, -359.0 );
             break;
         case "grigsby":
-            var_1 = ( 520, -320, -359 );
+            var_1 = ( 520.0, -320.0, -359.0 );
             break;
         case "price":
             self _meth_81ce( "prone" );
-            var_1 = ( 442, -230, -359 );
+            var_1 = ( 442.0, -230.0, -359.0 );
             break;
     }
 
@@ -3949,13 +3949,13 @@ escape_heroes2()
         case "price":
             wait 2;
             var_0.origin = self.origin;
-            var_0.angles = ( 0, 230, 0 );
+            var_0.angles = ( 0.0, 230.0, 0.0 );
             var_0 maps\_anim::_id_0C24( self, "standup" );
             break;
         case "grigsby":
             wait 0.5;
-            var_0.origin += ( 0, -35, 0 );
-            var_0.angles = ( 0, 360, 0 );
+            var_0.origin += ( 0.0, -35.0, 0.0 );
+            var_0.angles = ( 0.0, 360.0, 0.0 );
             var_0 maps\_anim::_id_0C24( self, "stumble3" );
             break;
     }
@@ -4212,7 +4212,7 @@ escape_fx_setup()
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_748D );
     var_2 = getentarray( "escape_pipe_hide", "targetname" );
     var_3 = getentarray( "pipe_shootable", "targetname" );
-    var_4 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_4 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
     for ( var_5 = 0; var_5 < var_2.size; var_5++ )
     {
@@ -4251,9 +4251,9 @@ escape_fx_setup()
         var_11[var_5] delete();
 
     var_12 = [];
-    var_12[var_12.size] = spawn( "script_origin", ( 520, 596, -90 ) );
-    var_12[var_12.size] = spawn( "script_origin", ( -1376, 596, -90 ) );
-    var_12[var_12.size] = spawn( "script_origin", ( -2640, 32, -80 ) );
+    var_12[var_12.size] = spawn( "script_origin", ( 520.0, 596.0, -90.0 ) );
+    var_12[var_12.size] = spawn( "script_origin", ( -1376.0, 596.0, -90.0 ) );
+    var_12[var_12.size] = spawn( "script_origin", ( -2640.0, 32.0, -80.0 ) );
 
     for ( var_5 = 0; var_5 < var_12.size; var_5++ )
         var_12[var_5] playloopsound( "emt_alarm_ship_sinking" );
@@ -4274,8 +4274,8 @@ escape_fx_setup()
     common_scripts\utility::_id_0D13( var_0, common_scripts\utility::_id_671F );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_748D );
     common_scripts\utility::_id_384A( "escape_hallway_lower_flag" );
-    setphysicsgravitydir( ( 0, -0.5, -0.866025 ) );
-    var_13 = ( -2804, -32, 96 );
+    setphysicsgravitydir( ( 0.0, -0.5, -0.866025 ) );
+    var_13 = ( -2804.0, -32.0, 96.0 );
     var_14 = 8;
     maps\_utility::_id_27EF( 0.25, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
     maps\_utility::_id_27EF( 0.5, ::escape_fx_setup_throw_obj, "com_pipe_coupling_metal", var_13, var_14 );
@@ -4286,8 +4286,8 @@ escape_fx_setup()
     maps\_utility::_id_27EF( 1.75, ::escape_fx_setup_throw_obj, "com_soup_can", var_13, var_14 );
     maps\_utility::_id_27EF( 2, ::escape_fx_setup_throw_obj, "h1_cs_container_jug_water_gallon_b", var_13, var_14 );
     common_scripts\utility::_id_384A( "escape_topofstairs" );
-    setphysicsgravitydir( ( 0, -0.5, -0.866025 ) );
-    var_13 = ( -2420, 176, 110 );
+    setphysicsgravitydir( ( 0.0, -0.5, -0.866025 ) );
+    var_13 = ( -2420.0, 176.0, 110.0 );
     var_14 = 8;
     thread escape_fx_setup_throw_obj( "com_fire_extinguisher", var_13, var_14 );
     thread escape_fx_setup_throw_obj( "com_pipe_4_coupling_ceramic", var_13, var_14 );
@@ -4317,7 +4317,7 @@ escape_fx_setup()
     common_scripts\utility::_id_0D13( var_16, common_scripts\utility::_id_671F );
     maps\_utility::_id_27EF( 1, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
     maps\_utility::_id_27EF( 2, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    maps\_utility::_id_27EF( 1, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304, -864, -128 ) );
+    maps\_utility::_id_27EF( 1, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304.0, -864.0, -128.0 ) );
     maps\_utility::_id_27EF( 1, common_scripts\_exploder::_id_3528, 126 );
     common_scripts\utility::_id_384A( "escape_aftdeck_flag" );
     maps\_utility::_id_27EF( 0.1, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
@@ -4325,11 +4325,11 @@ escape_fx_setup()
     maps\_utility::_id_27EF( 5, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
     maps\_utility::_id_27EF( 7, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
     maps\_utility::_id_27EF( 9, maps\_weather::_id_5741, maps\cargoship_fx::notifyname, maps\cargoship_fx::flash );
-    maps\_utility::_id_27EF( 0.5, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304, -864, -128 ) );
+    maps\_utility::_id_27EF( 0.5, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2304.0, -864.0, -128.0 ) );
     maps\_utility::_id_27EF( 0.5, common_scripts\_exploder::_id_3528, 126 );
-    maps\_utility::_id_27EF( 1.25, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2848, -800, -64 ) );
+    maps\_utility::_id_27EF( 1.25, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -2848.0, -800.0, -64.0 ) );
     maps\_utility::_id_27EF( 1.25, common_scripts\_exploder::_id_3528, 300 );
-    maps\_utility::_id_27EF( 4, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -3808, -368, -64 ) );
+    maps\_utility::_id_27EF( 4, common_scripts\utility::_id_69C2, "elm_wave_crash_ext", ( -3808.0, -368.0, -64.0 ) );
     maps\_utility::_id_27EF( 4, common_scripts\_exploder::_id_3528, 302 );
 }
 
@@ -4339,7 +4339,7 @@ escape_fx_setup_throw_obj( var_0, var_1, var_2, var_3 )
     var_5 = spawn( "script_model", var_1 + var_4 );
     var_5 setmodel( var_0 );
     var_4 = ( randomfloatrange( -10, 10 ), randomfloatrange( -10, 10 ), randomfloatrange( -10, 10 ) );
-    var_6 = anglestoright( ( 0, 180, 0 ) );
+    var_6 = anglestoright( ( 0.0, 180.0, 0.0 ) );
 
     if ( !isdefined( var_3 ) )
         var_3 = randomintrange( 500, 1000 );
@@ -4365,10 +4365,10 @@ escape_explosion()
     common_scripts\utility::_id_383F( "escape_explosion" );
     thread escape_explosion_drops();
     earthquake( 0.3, 0.5, level.playercardbackground.origin, 256 );
-    var_1 = spawn( "script_model", ( 8, -360, -216 ) );
-    var_1.angles = ( 0, 45, 0 );
+    var_1 = spawn( "script_model", ( 8.0, -360.0, -216.0 ) );
+    var_1.angles = ( 0.0, 45.0, 0.0 );
     var_1 setmodel( "tag_origin" );
-    thread common_scripts\utility::_id_69C2( "scn_cargo_explosion", ( 8, -360, -216 ) );
+    thread common_scripts\utility::_id_69C2( "scn_cargo_explosion", ( 8.0, -360.0, -216.0 ) );
     playfxontag( level._effect["sinking_explosion"], var_1, "tag_origin" );
     common_scripts\_exploder::_id_3528( "601" );
     thread maps\cargoship_lighting::apply_lighting_pass_cargoship( "cargoship_explosion" );
@@ -4380,8 +4380,8 @@ escape_explosion()
     thread player_speed_set_cargoship( 185, 0.5 );
     thread escape_shellshock();
     wait 0.3;
-    var_1.origin = ( 100, -600, -70 );
-    var_1.angles = ( 0, -90, 0 );
+    var_1.origin = ( 100.0, -600.0, -70.0 );
+    var_1.angles = ( 0.0, -90.0, 0.0 );
     common_scripts\_exploder::_id_3528( "400" );
     var_1 _playloopsound( "cgo_water_breach_large_loop" );
     wait 21.5;
@@ -4391,7 +4391,7 @@ escape_explosion()
         setsaveddvar( "compass", 1 );
 
     setsaveddvar( "hud_showStance", 1 );
-    var_2 = spawn( "script_origin", ( -2808, -199, 0 ) );
+    var_2 = spawn( "script_origin", ( -2808.0, -199.0, 0.0 ) );
     var_2 playloopsound( "cgo_water_stairs_large_loop" );
     soundscripts\_snd::_id_870C( "aud_start_mix_escape" );
     common_scripts\utility::_id_384A( "escape_hallway_lower_enter" );
@@ -4458,8 +4458,8 @@ escape_heroes_runanim_setup()
 
 escape_hallways_lower_flood()
 {
-    thread escape_hallways_lower_flood_vfx( "escape_hallway_lower_flag", ( -2985, -401, 15 ), ( 300, -90, 0 ), "escape_hallway_upper_flag", 0.0, 404 );
-    thread escape_hallways_lower_flood_vfx( "escape_hallway_lower_flag", ( -2434, 117, 197 ), ( 300, 90, 0 ), "escape_aftdeck_flag", 2.5, 405 );
+    thread escape_hallways_lower_flood_vfx( "escape_hallway_lower_flag", ( -2985.0, -401.0, 15.0 ), ( 300.0, -90.0, 0.0 ), "escape_hallway_upper_flag", 0.0, 404 );
+    thread escape_hallways_lower_flood_vfx( "escape_hallway_lower_flag", ( -2434.0, 117.0, 197.0 ), ( 300.0, 90.0, 0.0 ), "escape_aftdeck_flag", 2.5, 405 );
     common_scripts\utility::_id_384A( "escape_hallway_lower_enter" );
     common_scripts\utility::_id_3856( "escape_hallway_lower_flood_save", level.escape_timer["escape_hallway_lower_flood_save"] + level.timer_grace_period );
 
@@ -4680,7 +4680,7 @@ water_stuff_for_art1( var_0 )
     var_1 = "cargoship_water_hole";
     var_2 = "cargoship_water";
     var_3 = 0;
-    var_4 = ( 0, 0, 1000 );
+    var_4 = ( 0.0, 0.0, 1000.0 );
 
     if ( isdefined( var_0 ) )
     {
@@ -4753,7 +4753,7 @@ _id_1C16( var_0, var_1, var_2 )
     var_4.alpha = 1;
     var_4.hindlegstraceoffset = 1;
     var_4.fontscale = 1.6;
-    var_4.color = ( 0.8, 1, 0.8 );
+    var_4.color = ( 0.8, 1.0, 0.8 );
     var_4.font = "objective";
     var_4.glowcolor = ( 0.26, 0.65, 0.32 );
     var_4.glowalpha = 0.2;

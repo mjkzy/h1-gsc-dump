@@ -293,7 +293,7 @@ bird_flyaway_sound01()
 
 bird_flyaway_sound02()
 {
-    bird_flywaway( ( -9819, -7393.55, -58.442 ), ( -11173.2, -7153.06, 352.737 ) );
+    bird_flywaway( ( -9819.0, -7393.55, -58.442 ), ( -11173.2, -7153.06, 352.737 ) );
 }
 
 bird_flyaway_sound03()
@@ -308,8 +308,8 @@ aud_start_graveyard_heli_scripted_sequence( var_0 )
     var_1 linkto( self );
     var_1 playsound( "scn_scoutsniper_graveyard_hind_passby" );
     var_2 = spawn( "script_origin", self.origin );
-    var_3 = ( 0, 0, -400 );
-    var_2 linkto( self, "tag_origin", var_3, ( 0, 0, 0 ) );
+    var_3 = ( 0.0, 0.0, -400.0 );
+    var_2 linkto( self, "tag_origin", var_3, ( 0.0, 0.0, 0.0 ) );
     var_2 playrumblelooponentity( "heli_loop" );
     var_0 thread monitor_end_node_reached();
     common_scripts\utility::_id_A069( "end_node_reached", "enemy", "restart_avm" );
@@ -447,7 +447,7 @@ play_additionnal_fs_sfx()
 aud_school_heli_rumble()
 {
     thread common_scripts\utility::_id_69C2( "emt_helicopter_ground_rumble", ( 11330.9, 6009.59, 150.375 ) );
-    thread common_scripts\utility::_id_69C2( "scn_scoutsniper_school_int_debris_1", ( 11366, 5986.93, 191.435 ) );
+    thread common_scripts\utility::_id_69C2( "scn_scoutsniper_school_int_debris_1", ( 11366.0, 5986.93, 191.435 ) );
     thread common_scripts\utility::_id_69C2( "scn_scoutsniper_school_int_debris_2", ( 11346.6, 5770.42, 190.031 ) );
 }
 

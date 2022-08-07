@@ -126,7 +126,7 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     {
         var_18 = common_scripts\utility::_id_23FE( var_1 );
         var_18.v["origin"] = var_2;
-        var_18.v["angles"] = ( 0, 0, 0 );
+        var_18.v["angles"] = ( 0.0, 0.0, 0.0 );
 
         if ( isdefined( var_4 ) )
             var_18.v["angles"] = vectortoangles( var_4 - var_2 );
@@ -148,7 +148,7 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         return;
     }
 
-    var_20 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_20 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_20.origin = var_2;
     var_20.angles = vectortoangles( var_4 - var_2 );
     var_20._id_79BF = var_0;
@@ -181,7 +181,7 @@ _id_587C( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = common_scripts\utility::_id_2428( var_0 );
     var_7.v["origin"] = var_1;
-    var_7.v["angles"] = ( 0, 0, 0 );
+    var_7.v["angles"] = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_3 ) )
         var_7.v["angles"] = vectortoangles( var_3 - var_1 );
@@ -574,7 +574,7 @@ _id_23DD()
         var_0 = self.v["tintcolor"];
 
         if ( !isdefined( var_0 ) )
-            var_0 = ( 1, 1, 1 );
+            var_0 = ( 1.0, 1.0, 1.0 );
 
         var_1 = self.v["tintalpha"];
 
@@ -584,12 +584,12 @@ _id_23DD()
         var_2 = self.v["fadein"];
 
         if ( !isdefined( var_2 ) )
-            var_2 = ( 0, 0, 0 );
+            var_2 = ( 0.0, 0.0, 0.0 );
 
         var_3 = self.v["fadeout"];
 
         if ( !isdefined( var_3 ) )
-            var_3 = ( 0, 0, 0 );
+            var_3 = ( 0.0, 0.0, 0.0 );
 
         var_4 = self.v["emissive"];
 
@@ -790,7 +790,7 @@ _id_3E4D()
 
     if ( level._id_05B2._id_718F.size < 4 )
     {
-        var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+        var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
         var_1._id_506C = 0;
         level._id_05B2._id_718F[level._id_05B2._id_718F.size] = var_1;
         return var_1;

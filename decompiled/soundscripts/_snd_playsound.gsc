@@ -80,7 +80,7 @@ _id_8730( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8 = "oneshot";
     var_9 = var_1;
     var_10 = "3d";
-    return _id_87AC( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0, 0, 0 ), var_2, var_3 );
+    return _id_87AC( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0.0, 0.0, 0.0 ), var_2, var_3 );
 }
 
 _id_872F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -88,7 +88,7 @@ _id_872F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7 = "oneshot";
     var_8 = undefined;
     var_9 = "2d";
-    return _id_87AC( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0, 0, 0 ), var_1, var_2 );
+    return _id_87AC( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
 }
 
 _id_8735( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -104,7 +104,7 @@ _id_8734( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8 = "loop";
     var_9 = var_3;
     var_10 = "3d";
-    return _id_87AC( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0, 0, 0 ), var_1, var_2 );
+    return _id_87AC( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
 }
 
 _id_8733( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -112,7 +112,7 @@ _id_8733( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7 = "loop";
     var_8 = undefined;
     var_9 = "2d";
-    return _id_87AC( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0, 0, 0 ), var_1, var_2 );
+    return _id_87AC( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
 }
 
 _id_8745( var_0 )
@@ -154,7 +154,7 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_7 = soundscripts\_audio::_id_0F30( 0.0, var_7 );
     var_8 = soundscripts\_audio::_id_0F30( 0.1, var_8 );
     var_9 = soundscripts\_audio::_id_0F30( 1.0, var_9 );
-    var_10 = soundscripts\_audio::_id_0F30( ( 0, 0, 0 ), var_10 );
+    var_10 = soundscripts\_audio::_id_0F30( ( 0.0, 0.0, 0.0 ), var_10 );
     var_11 = soundscripts\_audio::_id_0F30( 0, var_11 );
     var_12 = soundscripts\_audio::_id_0F30( 0, var_12 );
 
@@ -165,7 +165,7 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         if ( isdefined( var_13.motiontrackerenabled ) || var_13.motiontrackerenabled != "" || var_13 _meth_843e( var_15 ) < 0 )
             var_15 = "";
 
-        var_5 linkto( var_13, var_15, var_10, ( 0, 0, 0 ) );
+        var_5 linkto( var_13, var_15, var_10, ( 0.0, 0.0, 0.0 ) );
         var_5 thread _id_87AE( var_8, var_14, var_13 );
     }
 

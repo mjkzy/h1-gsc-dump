@@ -91,9 +91,9 @@ main()
     level._id_2235["35"] = cos( 35 );
     level._id_2235["45"] = cos( 45 );
     level._id_2235["180"] = cos( 180 );
-    level.color["white"] = ( 1, 1, 1 );
-    level.color["red"] = ( 1, 0, 0 );
-    level.color["blue"] = ( 0.1, 0.3, 1 );
+    level.color["white"] = ( 1.0, 1.0, 1.0 );
+    level.color["red"] = ( 1.0, 0.0, 0.0 );
+    level.color["blue"] = ( 0.1, 0.3, 1.0 );
     level.c4_callback_thread = ::c4_callback_thread_launchfacility;
     level._id_89CB = ::ai_think;
     level._id_33E7 = [];
@@ -211,7 +211,7 @@ main()
 
 _id_2674()
 {
-    thread maps\jake_tools::_id_6FA6( "X", ( -6271, -16779, -964 ), 10 );
+    thread maps\jake_tools::_id_6FA6( "X", ( -6271.0, -16779.0, -964.0 ), 10 );
 }
 
 start_default()
@@ -441,7 +441,7 @@ dialogue_smoke_hints()
             var_6 = var_4.groundentchanged;
             var_4.groundentchanged = "smoke_grenade_american";
             var_4.grenadeammo++;
-            var_4 magicgrenademanual( var_5.origin, ( 0, 0, 0 ), 0 );
+            var_4 magicgrenademanual( var_5.origin, ( 0.0, 0.0, 0.0 ), 0 );
             var_1 notify( "smoke_has_been_thrown" );
             var_4.groundentchanged = var_6;
         }
@@ -696,7 +696,7 @@ heli_guy_death()
     var_0 = getent( "heli_dude", "targetname" );
     var_1 = var_0 stalingradspawn();
     maps\_utility::_id_88F1( var_1 );
-    var_2 = var_1.origin + ( 100, -50, -100 );
+    var_2 = var_1.origin + ( 100.0, -50.0, -100.0 );
     var_1._id_85BA = 1;
     var_1 kill();
     wait 0.1;
@@ -1522,12 +1522,12 @@ saw_sound_and_fx( var_0, var_1, var_2 )
 
 vent_drop()
 {
-    var_0 = spawn( "script_origin", self.origin + ( 0, 0, -350 ) );
+    var_0 = spawn( "script_origin", self.origin + ( 0.0, 0.0, -350.0 ) );
     self waittill( "vent_drop" );
     maps\_utility::_id_32DE( "vent_dropping" );
     thread common_scripts\utility::_id_69C2( "launch_grate_falling", var_0.origin );
     var_1 = 2.5;
-    var_2 = self.angles + ( 0, 0, 25 );
+    var_2 = self.angles + ( 0.0, 0.0, 25.0 );
     self movez( -1000, var_1, var_1 / 3 );
     self rotateto( var_2, 1, 0.2 );
     wait(var_1);
@@ -2469,7 +2469,7 @@ c4_plant_think()
     var_0 = self.script_parentname;
     var_1 = getent( self._not_team, "targetname" );
     var_1 waittill( "trigger" );
-    maps\_c4::c4_location( undefined, ( 0, 0, 0 ), ( 0, 0, 0 ), self.origin );
+    maps\_c4::c4_location( undefined, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), self.origin );
     self waittill( "c4_detonation" );
     common_scripts\_exploder::_id_3528( var_0 );
     thread common_scripts\utility::_id_69C2( "detpack_explo_concrete" );
@@ -2524,10 +2524,10 @@ launch_lid_think( var_0 )
     var_6 = getent( "lid_fx_" + var_0, "targetname" );
     var_6.opening = 0;
     var_7 = getent( "lid_origin_" + var_0, "targetname" );
-    var_3.rotationdummy = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_3.rotationdummy = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_3.rotationdummy.angles = var_7.angles;
     var_3.rotationdummy.origin = var_7.origin;
-    var_2.rotationdummy = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_2.rotationdummy = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_2.rotationdummy.angles = var_7.angles;
     var_2.rotationdummy.origin = var_7.origin;
     var_3 linkto( var_3.rotationdummy );
@@ -2538,7 +2538,7 @@ launch_lid_think( var_0 )
     var_9 linkto( var_8 );
     var_10 = getent( var_8._not_team, "targetname" );
     var_2.rotationdummy rotatepitch( 125, 0.5 );
-    var_2.rotationdummy moveto( var_2.rotationdummy.origin + ( 0, 0, -50 ), 0.5 );
+    var_2.rotationdummy moveto( var_2.rotationdummy.origin + ( 0.0, 0.0, -50.0 ), 0.5 );
     common_scripts\utility::_id_384A( var_1 );
     var_6 thread launch_lid_alarm();
     var_6 playsound( level._id_78BA["launch_tube_prepare"], "sounddone" );
@@ -2553,7 +2553,7 @@ launch_lid_think( var_0 )
     var_8 thread missile_move();
     var_3.rotationdummy rotatepitch( -125, var_12, 2, 2 );
     var_2.rotationdummy rotatepitch( -125, var_12 / 1.5, 1, 1 );
-    var_2.rotationdummy moveto( var_2.rotationdummy.origin + ( 0, 0, 50 ), var_12 / 2.5, 0, 2 );
+    var_2.rotationdummy moveto( var_2.rotationdummy.origin + ( 0.0, 0.0, 50.0 ), var_12 / 2.5, 0, 2 );
     wait(var_12 - 1);
     var_6.opening = 0;
     var_6 notify( "stopped_opening" );
@@ -2580,7 +2580,7 @@ lid_kill( var_0, var_1 )
 
 missile_move()
 {
-    self moveto( self.origin + ( 0, 0, 175 ), 18, 4, 4 );
+    self moveto( self.origin + ( 0.0, 0.0, 175.0 ), 18, 4, 4 );
 }
 
 launch_lid_sound()
@@ -2704,7 +2704,7 @@ obj_enemy_armor_vehicle_death( var_0 )
     self waittill( "death" );
     level.enemyarmor = common_scripts\utility::_id_0CF6( level.enemyarmor, self );
     waitframe;
-    objective_additionalposition( 10, var_0, ( 0, 0, 0 ) );
+    objective_additionalposition( 10, var_0, ( 0.0, 0.0, 0.0 ) );
 
     if ( level.enemyarmor.size == 0 )
     {
@@ -2815,7 +2815,7 @@ vehicle_bmp_think( var_0 )
 {
     maps\_utility::_id_0764( "armor_damage", &"SCRIPT_ARMOR_DAMAGE", undefined, 1 );
     var_1 = maps\_vehicle::waittill_vehiclespawn( var_0 );
-    target_set( var_1, ( 0, 0, 0 ) );
+    target_set( var_1, ( 0.0, 0.0, 0.0 ) );
     target_setjavelinonly( var_1, 1 );
     var_1 thread vehicle_bmp_death_wait();
     common_scripts\utility::_id_383F( var_0 + "_spawned" );
@@ -2839,7 +2839,7 @@ vehicle_bmp_think( var_0 )
         badplace_brush( var_0, 0, var_2, "allies" );
 
     var_1 waittill( "death" );
-    var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_3.angles = var_1.angles;
     var_3.origin = var_1.origin;
     var_4 = var_0 + "_destroyed";
@@ -2966,14 +2966,14 @@ vehicle_smoke()
         level.peoplespeaking = 0;
     }
 
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = self gettagorigin( "tag_origin" );
     var_1 linkto( self );
 
     while ( isalive( self ) )
     {
         playfx( common_scripts\utility::_id_3FA8( "smoke_trail_bmp" ), var_1.origin );
-        playfx( common_scripts\utility::_id_3FA8( "smoke_trail_bmp" ), var_1.origin + ( 50, 50, -50 ) );
+        playfx( common_scripts\utility::_id_3FA8( "smoke_trail_bmp" ), var_1.origin + ( 50.0, 50.0, -50.0 ) );
         wait 0.1;
     }
 
@@ -3055,7 +3055,7 @@ vehicle_turret_think()
         if ( isdefined( var_0 ) && isplayer( var_0 ) )
         {
             var_2 = 0;
-            var_2 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0, 0, 150 ), 0, self );
+            var_2 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0.0, 0.0, 150.0 ), 0, self );
 
             if ( !var_2 )
                 var_0 = vehicle_get_target( level.bmpexcluders );
@@ -3065,11 +3065,11 @@ vehicle_turret_think()
 
         if ( isdefined( var_0 ) && isalive( var_0 ) )
         {
-            var_3 = var_0.origin + ( 0, 0, 32 );
+            var_3 = var_0.origin + ( 0.0, 0.0, 32.0 );
             self _meth_825d( var_3 );
 
             if ( getdvar( "debug_bmp" ) == "1" )
-                thread maps\_utility::_id_2DBF( self.origin + ( 0, 0, 32 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
+                thread maps\_utility::_id_2DBF( self.origin + ( 0.0, 0.0, 32.0 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
 
             var_4 = randomfloatrange( 2, 3 );
             common_scripts\utility::_id_A0A0( "turret_rotate_stopped", var_4 );
@@ -3128,10 +3128,10 @@ vehicle_fire_main_cannon()
 vehicle_c4_think()
 {
     var_0 = self getentitynumber();
-    var_1 = ( 0, -33, 10 );
-    var_2 = ( 0, 90, -90 );
-    var_3 = ( 129, 0, 35 );
-    var_4 = ( 0, 90, 144 );
+    var_1 = ( 0.0, -33.0, 10.0 );
+    var_2 = ( 0.0, 90.0, -90.0 );
+    var_3 = ( 129.0, 0.0, 35.0 );
+    var_4 = ( 0.0, 90.0, 144.0 );
     maps\_c4::c4_location( "rear_hatch_open_jnt_left", var_1, var_2 );
     maps\_c4::c4_location( "tag_origin", var_3, var_4 );
     self.rearc4location = spawn( "script_origin", self.origin );
@@ -3183,7 +3183,7 @@ _id_9CA1( var_0 )
 player_token_vehicle_damage( var_0 )
 {
     if ( distancesquared( var_0, level.playercardbackground.origin ) <= level.playervehicledamagerangesquared )
-        level.playercardbackground dodamage( level.playercardbackground.helmet / 3, ( 0, 0, 0 ) );
+        level.playercardbackground dodamage( level.playercardbackground.helmet / 3, ( 0.0, 0.0, 0.0 ) );
 }
 
 vehicle_enemies_setup()
@@ -3780,7 +3780,7 @@ attach_saw( var_0 )
         {
             var_1 = spawn( "script_model", self.origin );
             var_1 setmodel( "weapon_saw_rescue" );
-            var_1 linkto( self, "TAG_STOWED_BACK", ( 0, 3, 0 ), ( 180, 191, 0 ) );
+            var_1 linkto( self, "TAG_STOWED_BACK", ( 0.0, 3.0, 0.0 ), ( 180.0, 191.0, 0.0 ) );
             self waittill( "delete_saw" );
             var_1 unlink();
             var_1 delete();
@@ -3830,7 +3830,7 @@ vehicle_path_disconnector()
 {
     var_0 = getent( self._not_team, "targetname" );
     var_0 notsolid();
-    var_0.origin -= ( 0, 0, 1024 );
+    var_0.origin -= ( 0.0, 0.0, 1024.0 );
 
     for (;;)
     {

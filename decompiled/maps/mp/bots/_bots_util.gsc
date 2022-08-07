@@ -25,11 +25,11 @@ _id_1637( var_0, var_1, var_2, var_3 )
     var_5 = [];
     var_6 = self _meth_8385();
     var_7 = anglestoforward( self getplayerangles() );
-    var_8 = vectornormalize( var_7 * ( 1, 1, 0 ) );
+    var_8 = vectornormalize( var_7 * ( 1.0, 1.0, 0.0 ) );
 
     foreach ( var_10 in var_4 )
     {
-        var_11 = vectornormalize( ( var_10.origin - self.origin ) * ( 1, 1, 0 ) );
+        var_11 = vectornormalize( ( var_10.origin - self.origin ) * ( 1.0, 1.0, 0.0 ) );
         var_12 = vectordot( var_11, var_8 );
 
         if ( var_12 > var_2 )
@@ -215,8 +215,8 @@ _id_165F( var_0 )
 
 _id_332B( var_0, var_1, var_2 )
 {
-    var_3 = ( 0, 0, 11 );
-    var_4 = ( 0, 0, 40 );
+    var_3 = ( 0.0, 0.0, 11.0 );
+    var_4 = ( 0.0, 0.0, 40.0 );
     var_5 = undefined;
 
     if ( var_2 == "stand" )
@@ -923,7 +923,7 @@ _id_1736( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
                 var_14 = 1;
 
             var_15 = self geteye();
-            var_16 = vectordot( ( 0, 0, 1 ), vectornormalize( var_13.origin + var_11 - var_15 ) );
+            var_16 = vectordot( ( 0.0, 0.0, 1.0 ), vectornormalize( var_13.origin + var_11 - var_15 ) );
 
             if ( abs( var_16 ) > 0.92 )
                 var_14 = 1;
@@ -1102,14 +1102,14 @@ _id_A1EB()
 
 _id_1681( var_0, var_1 )
 {
-    if ( isdefined( var_1 ) && var_1 != ( 0, 0, 0 ) )
+    if ( isdefined( var_1 ) && var_1 != ( 0.0, 0.0, 0.0 ) )
     {
         if ( !common_scripts\utility::_id_A347( self.origin, self getplayerangles(), var_1, self _meth_8371() ) )
         {
             var_2 = self botpredictseepoint( var_1 );
 
             if ( isdefined( var_2 ) )
-                self _meth_836b( var_2 + ( 0, 0, 40 ), 1.0, "script_seek" );
+                self _meth_836b( var_2 + ( 0.0, 0.0, 40.0 ), 1.0, "script_seek" );
         }
 
         self botmemoryevent( "known_enemy", undefined, var_1 );
@@ -1435,8 +1435,8 @@ _id_16BB( var_0, var_1, var_2 )
 
     foreach ( var_5 in var_3 )
     {
-        var_6 = var_0 + ( 0, 0, 30 );
-        var_7 = var_5.origin + ( 0, 0, 30 );
+        var_6 = var_0 + ( 0.0, 0.0, 30.0 );
+        var_7 = var_5.origin + ( 0.0, 0.0, 30.0 );
         var_8 = physicstrace( var_6, var_7 );
 
         if ( _id_172A( var_8, var_7 ) )

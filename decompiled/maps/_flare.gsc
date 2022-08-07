@@ -146,9 +146,9 @@ flare_path()
 
 flare_initial_fx()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "tag_origin" );
-    var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( level._effect["flare_runner_intro"], var_0, "tag_origin" );
     self waittillmatch( "noteworthy", "flare_intro_node" );
     var_0 delete();
@@ -176,9 +176,9 @@ flare_explodes()
     if ( isdefined( level.flare_fog ) )
         maps\_utility::_id_9E6E( level.flare_fog, 1.0 );
 
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "tag_origin" );
-    var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( level._effect["flare_runner"], var_0, "tag_origin" );
     self waittillmatch( "noteworthy", "flare_fade_node" );
     var_0 delete();
@@ -186,9 +186,9 @@ flare_explodes()
 
 flare_burns_out()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "tag_origin" );
-    var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( level._effect["flare_runner_fizzout"], var_0, "tag_origin" );
     var_0 thread maps\_utility::_id_69C6( "flare_runner_fizzout" );
     thread merge_sunsingledvar( "sm_sunSampleSizeNear", 0, 1, 1, 0.5 );

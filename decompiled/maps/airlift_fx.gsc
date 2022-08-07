@@ -310,7 +310,7 @@ globalfx_override()
 
 spawnoilwellsonfire()
 {
-    var_0 = self.origin + ( 0, 0, 1350 );
+    var_0 = self.origin + ( 0.0, 0.0, 1350.0 );
     playfx( common_scripts\utility::_id_3FA8( "oil_field_fire" ), var_0, anglestoup( self.angles ), anglestoforward( self.angles ) );
 }
 

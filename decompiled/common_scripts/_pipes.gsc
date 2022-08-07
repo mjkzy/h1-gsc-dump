@@ -431,7 +431,7 @@ _id_682F()
 
 pipethink()
 {
-    var_0 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
     self.numfx = 0;
     self endon( "deleting" );
 
@@ -586,8 +586,8 @@ _id_682C( var_0, var_1 )
     thread pipesndloopfx( "mtl_gas_pipe_flame_loop", var_0, "pipe_breaking" );
     thread pipe_snd_end( "mtl_gas_pipe_flame_end", var_0, "pipe_breaking" );
 
-    if ( var_1 == ( 0, 0, 0 ) )
-        var_1 = ( 0, 360, 0 );
+    if ( var_1 == ( 0.0, 0.0, 0.0 ) )
+        var_1 = ( 0.0, 360.0, 0.0 );
 
     for ( var_3 = 0; var_3 < self.burnsec; var_3++ )
     {
@@ -600,7 +600,7 @@ _id_682C( var_0, var_1 )
 
 pipeimpact()
 {
-    var_0 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
     self endon( "deleting" );
 
     for (;;)

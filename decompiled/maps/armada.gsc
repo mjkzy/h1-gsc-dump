@@ -348,7 +348,7 @@ friendlies_coming_out()
         var_3[var_4] linkto( var_2 );
 
     var_2 thread maps\_utility::_id_69C4( "scn_friendlies_door_open" );
-    var_2 rotateto( var_2.angles + ( 0, -130, 0 ), 0.6, 0, 0 );
+    var_2 rotateto( var_2.angles + ( 0.0, -130.0, 0.0 ), 0.6, 0, 0 );
     var_2 connectpaths();
     var_2 waittill( "rotatedone" );
     var_5 = getent( "griggs_come_out", "targetname" );
@@ -639,7 +639,7 @@ magic_grenade_trigger_think()
     var_0 = getentarray( self._not_team, "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        level._id_6F7C magicgrenade( var_0[var_1].origin + ( 0, 0, 50 ), var_0[var_1].origin, randomfloatrange( 1, 2 ) );
+        level._id_6F7C magicgrenade( var_0[var_1].origin + ( 0.0, 0.0, 50.0 ), var_0[var_1].origin, randomfloatrange( 1, 2 ) );
 }
 
 player_breaks_ignore( var_0 )
@@ -686,7 +686,7 @@ start_phone_call()
 {
     self waittill( "trigger", var_0 );
     wait(1.0 + randomfloat( 3.0 ));
-    thread common_scripts\utility::_id_69C2( "armada_phonering", ( 4031, 22596, 0 ) );
+    thread common_scripts\utility::_id_69C2( "armada_phonering", ( 4031.0, 22596.0, 0.0 ) );
 }
 
 sit_rep_dialog()
@@ -729,7 +729,7 @@ tank_start()
 _id_4E9A()
 {
     soundscripts\_snd::_id_870C( "start_intel_checkpoint" );
-    level.playercardbackground setorigin( ( 3622, 29958, -168 ) );
+    level.playercardbackground setorigin( ( 3622.0, 29958.0, -168.0 ) );
 }
 
 tv_start()
@@ -790,7 +790,7 @@ _id_6302()
     common_scripts\utility::_id_384A( "regrouped" );
     common_scripts\utility::_id_383F( "aa_street_fight" );
     objective_state( 3, "done" );
-    objective_add( 4, "active", &"ARMADA_MAKE_YOUR_WAY_TO_THE", ( 2808, 23672, -24 ) );
+    objective_add( 4, "active", &"ARMADA_MAKE_YOUR_WAY_TO_THE", ( 2808.0, 23672.0, -24.0 ) );
     objective_current( 4 );
     common_scripts\utility::_id_384A( "tvstation_entered" );
     var_3 = getent( "second_floor_obj", "targetname" );
@@ -1266,7 +1266,7 @@ player_control_during_ride()
     level.playercardbackground enableinvulnerability();
     level.playercardbackground.ignoretriggers = 1;
     wait 0.05;
-    level.playercardbackground setplayerangles( ( 0, 35, 0 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 35.0, 0.0 ) );
     level.player_heli waittill( "unloading" );
     level.playercardbackground notify( "stop_quake" );
     wait 4;
@@ -1474,61 +1474,61 @@ setasdestructible( var_0, var_1, var_2, var_3 )
 
 monitor_destruct()
 {
-    setasdestructible( "h1_mwr_com_widescreen_monitor_des", "tv_explosion", ( 0, 0, 25 ), 1 );
+    setasdestructible( "h1_mwr_com_widescreen_monitor_des", "tv_explosion", ( 0.0, 0.0, 25.0 ), 1 );
 }
 
 monitor_destruct2()
 {
-    setasdestructible( "h1_mwr_com_widescreen_monitor_2_des", "tv_explosion", ( 0, 0, 30 ), 1 );
+    setasdestructible( "h1_mwr_com_widescreen_monitor_2_des", "tv_explosion", ( 0.0, 0.0, 30.0 ), 1 );
 }
 
 monitor_destruct3()
 {
-    setasdestructible( "h1_mwr_com_widescreen_monitor_3_des", "tv_explosion", ( 0, 0, 28 ), 1 );
+    setasdestructible( "h1_mwr_com_widescreen_monitor_3_des", "tv_explosion", ( 0.0, 0.0, 28.0 ), 1 );
 }
 
 monitor_destruct_on()
 {
-    setasdestructible( "com_widescreen_monitor_on_1_des", "tv_explosion", ( 0, 0, 25 ), 1 );
+    setasdestructible( "com_widescreen_monitor_on_1_des", "tv_explosion", ( 0.0, 0.0, 25.0 ), 1 );
 }
 
 monitor_destruct_on_2()
 {
-    setasdestructible( "com_widescreen_monitor_on_2_des", "tv_explosion", ( 0, 0, 30 ), 1 );
+    setasdestructible( "com_widescreen_monitor_on_2_des", "tv_explosion", ( 0.0, 0.0, 30.0 ), 1 );
 }
 
 monitor_destruct_on_3()
 {
-    setasdestructible( "com_widescreen_monitor_on_3_des", "tv_explosion", ( 0, 0, 28 ), 1 );
+    setasdestructible( "com_widescreen_monitor_on_3_des", "tv_explosion", ( 0.0, 0.0, 28.0 ), 1 );
 }
 
 computer_destruct()
 {
-    setasdestructible( "com_computer_monitor_d", "tv_explosion", ( 0, 0, 10 ) );
+    setasdestructible( "com_computer_monitor_d", "tv_explosion", ( 0.0, 0.0, 10.0 ) );
 }
 
 tv_news_destruct()
 {
-    setasdestructible( "me_news_ticker_video_screen_des", "tv_explosion", ( 0, 0, 25 ) );
+    setasdestructible( "me_news_ticker_video_screen_des", "tv_explosion", ( 0.0, 0.0, 25.0 ) );
     wait 2.0;
-    setasdestructible( "me_news_ticker_video_screen_des2", "tv_explosion", ( 0, 0, 25 ) );
+    setasdestructible( "me_news_ticker_video_screen_des2", "tv_explosion", ( 0.0, 0.0, 25.0 ) );
 }
 
 monitor_destruct_scaled()
 {
-    setasdestructible( "com_widescreen_monitor_on_1_des_scaled", "tv_explosion", ( 0, 0, 40 ) );
+    setasdestructible( "com_widescreen_monitor_on_1_des_scaled", "tv_explosion", ( 0.0, 0.0, 40.0 ) );
 }
 
 monitor_destruct_on_scaled2()
 {
-    setasdestructible( "com_widescreen_monitor_on_2_des_scaled", "tv_explosion", ( 0, 0, 50 ) );
+    setasdestructible( "com_widescreen_monitor_on_2_des_scaled", "tv_explosion", ( 0.0, 0.0, 50.0 ) );
 }
 
 tv_wall()
 {
-    setasdestructible( "btr_tv_smart_wall_02_sml_des01", "tv_explosion", ( 0, 0, 25 ) );
+    setasdestructible( "btr_tv_smart_wall_02_sml_des01", "tv_explosion", ( 0.0, 0.0, 25.0 ) );
     wait 2.0;
-    setasdestructible( "btr_tv_smart_wall_02_sml_des02", "tv_explosion", ( 0, 0, 25 ) );
+    setasdestructible( "btr_tv_smart_wall_02_sml_des02", "tv_explosion", ( 0.0, 0.0, 25.0 ) );
 }
 
 final_breach()
@@ -1785,10 +1785,10 @@ tv_breach()
     level.tv_breacher thread maps\_utility::_id_7402();
 
     if ( distancesquared( level.tv_breacher.origin, level.playercardbackground.origin ) > 1690000 )
-        level.tv_breacher _meth_81ca( ( 2294.8, 25157, -26.4 ), ( 0, 0, 0 ) );
+        level.tv_breacher _meth_81ca( ( 2294.8, 25157.0, -26.4 ), ( 0.0, 0.0, 0.0 ) );
 
     if ( distancesquared( level._id_6F7C.origin, level.playercardbackground.origin ) > 1690000 )
-        level._id_6F7C _meth_81ca( ( 2184.1, 25231.2, -47.9 ), ( 0, 0, 0 ) );
+        level._id_6F7C _meth_81ca( ( 2184.1, 25231.2, -47.9 ), ( 0.0, 0.0, 0.0 ) );
 
     thread tv_breach_dialog( var_4 );
     var_5 = [];
@@ -2204,7 +2204,7 @@ damage_on()
         self waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
         if ( var_4 != "MOD_MELEE" && var_4 != "MOD_IMPACT" )
-            self physicslaunch( self.origin, ( 0, 0, 0 ) );
+            self physicslaunch( self.origin, ( 0.0, 0.0, 0.0 ) );
 
         wait 0.01;
     }

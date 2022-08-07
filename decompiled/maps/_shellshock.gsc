@@ -45,7 +45,7 @@ internalmain( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6 = var_5;
 
-    var_7 = level.playercardbackground getorigin() + ( 0, 8, 2 );
+    var_7 = level.playercardbackground getorigin() + ( 0.0, 8.0, 2.0 );
     var_8 = 320;
     var_9 = var_1 + randomint( var_2 );
     var_10 = var_3;

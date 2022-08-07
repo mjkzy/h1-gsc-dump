@@ -72,25 +72,25 @@ loadprecacheddepoteffects()
 setupdepotexploders()
 {
     var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089, 1251.84, -609.323 ), ( 270, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -609.323 ), ( 270.0, 152.37, 157.63 ) );
     var_0 common_scripts\_createfx::_id_7E40();
     var_0.v["fxid"] = "vlobby_crate_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "106";
     var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_rare_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089, 1251.84, -608.323 ), ( 270, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -608.323 ), ( 270.0, 152.37, 157.63 ) );
     var_0 common_scripts\_createfx::_id_7E40();
     var_0.v["fxid"] = "vlobby_crate_rare_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "109";
     var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_leg_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089, 1251.84, -607.323 ), ( 270, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -607.323 ), ( 270.0, 152.37, 157.63 ) );
     var_0 common_scripts\_createfx::_id_7E40();
     var_0.v["fxid"] = "vlobby_crate_leg_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "112";
     var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_epic_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089, 1251.84, -606.323 ), ( 270, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -606.323 ), ( 270.0, 152.37, 157.63 ) );
     var_0 common_scripts\_createfx::_id_7E40();
     var_0.v["fxid"] = "vlobby_crate_epic_glow";
     var_0.v["delay"] = 0;

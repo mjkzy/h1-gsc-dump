@@ -680,7 +680,7 @@ _id_183D()
         }
 
         var_1 _id_5917();
-        var_1._id_5EF4 = spawn( "trigger_radius", var_1.origin + ( 0, 0, -32 ), 0, 32, 64 );
+        var_1._id_5EF4 = spawn( "trigger_radius", var_1.origin + ( 0.0, 0.0, -32.0 ), 0, 32, 64 );
     }
 }
 
@@ -733,10 +733,10 @@ _id_30FF()
     if ( !self._id_310D )
     {
         self._id_310D = 1;
-        self.origin += ( 0, 0, 10000 );
+        self.origin += ( 0.0, 0.0, 10000.0 );
 
         if ( isdefined( self._id_5EF4 ) )
-            self._id_5EF4.origin += ( 0, 0, 10000 );
+            self._id_5EF4.origin += ( 0.0, 0.0, 10000.0 );
     }
 }
 
@@ -753,10 +753,10 @@ _id_2AE5()
     self endon( "disable_trigger" );
     self._id_310D = 0;
     wait 1.5;
-    self.origin += ( 0, 0, -10000 );
+    self.origin += ( 0.0, 0.0, -10000.0 );
 
     if ( isdefined( self._id_5EF4 ) )
-        self._id_5EF4.origin += ( 0, 0, -10000 );
+        self._id_5EF4.origin += ( 0.0, 0.0, -10000.0 );
 }
 
 _id_3E0C( var_0 )

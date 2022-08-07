@@ -41,5 +41,5 @@ main()
     }
 
     level.airstrikeheightscale = 1.8;
-    maps\mp\_utility::demolitionsitemove( "_b", ( 1005, -6128.5, -14 ), ( 0, 180, 0 ) );
+    maps\mp\_utility::demolitionsitemove( "_b", ( 1005.0, -6128.5, -14.0 ), ( 0.0, 180.0, 0.0 ) );
 }

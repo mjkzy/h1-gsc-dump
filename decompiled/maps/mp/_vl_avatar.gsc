@@ -36,7 +36,7 @@ init_avatar_pool()
     {
         var_3 = maps\mp\agents\_agent_utility::_id_3FA2();
         level.vlavatarpool[var_2] = var_3;
-        var_3 _meth_8388( ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_3 _meth_8388( ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         var_3 _id_7DB2( "spectator", "none" );
         var_3 maps\mp\agents\_agent_common::_id_7DB0( 100 );
         var_3 botclearscriptenemy();
@@ -129,7 +129,7 @@ teleport_avatar_stick( var_0, var_1, var_2 )
     if ( !maps\mp\_utility::_id_5092( level.vl_setup ) )
         maps\mp\_utility::waittillplayersnextsnapshot( var_2 );
 
-    var_0 _meth_8442( var_0.teleportlinker, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 _meth_8442( var_0.teleportlinker, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_2 setorigin( var_1.origin, 1 );
     var_3 = get_ownerid_for_avatar( var_0 );
     var_2 maps\mp\_vl_base::playerrefreshavatar( var_3 );
@@ -173,8 +173,8 @@ _id_88CE( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_13.angles = var_13._id_88D0;
     var_13._id_8CFF = var_13._id_88D0;
     maps\mp\_vl_base::resetrotationdata( var_13 );
-    var_13._id_1A25 = ( 0, 0, 0 );
-    var_13._id_1A24 = ( 0, 0, 0 );
+    var_13._id_1A25 = ( 0.0, 0.0, 0.0 );
+    var_13._id_1A24 = ( 0.0, 0.0, 0.0 );
     var_13 motionblurhqdisable();
     var_13 maps\mp\gametypes\_spawnlogic::addtocharactersarray();
 
@@ -546,7 +546,7 @@ avatarattachprimaryweapons()
 
         if ( !isdefined( self._id_6F8F ) )
         {
-            var_0 = spawn( "weapon_" + self.primaryweapon, ( 0, 0, 0 ) );
+            var_0 = spawn( "weapon_" + self.primaryweapon, ( 0.0, 0.0, 0.0 ) );
             var_1 = get_xuid_for_avatar( self );
             self._id_6F8F = var_0;
             var_0.primaryweapon = self.primaryweapon;
@@ -601,7 +601,7 @@ attachprimaryweapon( var_0 )
     var_0._id_6F8F unlink();
     var_0._id_6F8F.origin = var_0 gettagorigin( var_2 );
     var_0._id_6F8F.angles = var_0 gettagangles( var_2 );
-    var_0._id_6F8F _meth_8442( var_0, var_2, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0._id_6F8F _meth_8442( var_0, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0._id_6F8F _meth_8523( var_1 );
 }
 
@@ -736,7 +736,7 @@ animateweaponroomscenenode( var_0, var_1, var_2 )
 
 cameralinktoscenenode( var_0, var_1, var_2 )
 {
-    var_0 _meth_8442( var_1, var_2, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 _meth_8442( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 }
 
 startweaponroompropanimations( var_0, var_1, var_2 )
@@ -748,7 +748,7 @@ startweaponroompropanimations( var_0, var_1, var_2 )
         if ( isdefined( var_3 ) )
         {
             if ( !var_3 islinked() )
-                var_3 _meth_8442( var_0, "J_prop_3", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+                var_3 _meth_8442( var_0, "J_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 
             var_3 show();
             var_3 _meth_8487( "h1_lobby_mk19_idle", var_1.origin, var_1.angles, "mk19_anim" );

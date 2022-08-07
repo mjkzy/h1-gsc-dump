@@ -82,7 +82,7 @@ playereffect()
 
     for (;;)
     {
-        playfx( level._effect["ash_turb_aftermath"], var_0.origin + ( 0, 0, 100 ), var_0.origin + ( 0, 0, 150 ) );
+        playfx( level._effect["ash_turb_aftermath"], var_0.origin + ( 0.0, 0.0, 100.0 ), var_0.origin + ( 0.0, 0.0, 150.0 ) );
         wait 0.2;
     }
 }

@@ -142,8 +142,8 @@ onstartgametype()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_attacker" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_defender" );
     level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );

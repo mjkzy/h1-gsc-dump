@@ -89,8 +89,8 @@ enemy_try_180_turn( var_0 )
 
     if ( vectordot( var_1, var_2 ) < -0.8 )
     {
-        var_3 = self.origin + ( 0, 0, 16 );
-        var_4 = var_0 + ( 0, 0, 16 );
+        var_3 = self.origin + ( 0.0, 0.0, 16.0 );
+        var_4 = var_0 + ( 0.0, 0.0, 16.0 );
         var_5 = physicstrace( var_3, var_4 );
 
         if ( var_5 == var_4 )
@@ -213,7 +213,7 @@ _id_908E( var_0 )
     level._id_0669._id_13A2._id_8899["corpse"] = 0;
     level._id_0669._id_13A2._id_8899["alert"] = 0;
     level._id_0669._id_13A2._id_222C = spawnstruct();
-    level._id_0669._id_13A2._id_222C._id_554A = ( 0, 0, -100000 );
+    level._id_0669._id_13A2._id_222C._id_554A = ( 0.0, 0.0, -100000.0 );
     level._id_0669._id_13A2._id_222C.search_radius = 512;
     level._id_0669._id_13A2._id_222C.node_array = undefined;
     level._id_0669._id_13A2.event_explosion_index = 5;
@@ -777,7 +777,7 @@ enemy_awareness_reaction_flashbang( var_0 )
     var_3 = enemy_find_nodes_at_origin( var_3 );
     thread enemy_investigate_explosion( var_3 );
 
-    if ( var_3 != ( 0, 0, 0 ) )
+    if ( var_3 != ( 0.0, 0.0, 0.0 ) )
     {
         wait 1.05;
         self waittill( "goal" );
@@ -855,17 +855,17 @@ enemy_find_nodes_at_origin( var_0 )
         }
     }
     else
-        var_0 = ( 0, 0, 0 );
+        var_0 = ( 0.0, 0.0, 0.0 );
 
     if ( var_2 == var_0 )
-        var_0 = ( 0, 0, 0 );
+        var_0 = ( 0.0, 0.0, 0.0 );
 
     return var_0;
 }
 
 enemy_investigate_explosion( var_0 )
 {
-    if ( var_0 != ( 0, 0, 0 ) )
+    if ( var_0 != ( 0.0, 0.0, 0.0 ) )
     {
         wait(randomfloat( 1 ));
         thread _id_326F( var_0 );
@@ -970,8 +970,8 @@ enemy_alert_level_alerted_once( var_0 )
         var_3 = 128;
 
     var_2 = maps\_utility::vector_multiply( var_2, var_3 );
-    var_4 = self.origin + var_2 + ( 0, 0, 16 );
-    var_5 = var_4 + ( 0, 0, -96 );
+    var_4 = self.origin + var_2 + ( 0.0, 0.0, 16.0 );
+    var_5 = var_4 + ( 0.0, 0.0, -96.0 );
     var_4 = physicstrace( var_4, var_5 );
 
     if ( var_4 == var_5 )
@@ -1257,7 +1257,7 @@ _id_3247()
             if ( maps\_utility::_id_32D8( "_stealth_found_corpse" ) )
                 thread _id_31F5();
             else
-                self notify( "heard_corpse", ( 0, 0, 0 ) );
+                self notify( "heard_corpse", ( 0.0, 0.0, 0.0 ) );
 
             _id_3265();
             self [[ var_0["found"] ]]();

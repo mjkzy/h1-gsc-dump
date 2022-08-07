@@ -76,8 +76,8 @@ onstartgametype()
 
 _id_4D5D()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );

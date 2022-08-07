@@ -75,7 +75,7 @@ handle_sunrise2_colors()
     setsaveddvar( "sm_sunEnable", 1 );
     setsaveddvar( "sm_spotEnable", 1 );
     var_1 = var_0.invisible;
-    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1, 0.65, 0.4 ), 1 ), var_1 );
+    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 0.65, 0.4 ), 1 ), var_1 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise2", var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise2", "icbm_sunrise_02", var_1 );
     thread stop_snow();
@@ -113,7 +113,7 @@ handle_sunrise3_colors()
     var_0 = getent( "sunrise3", "targetname" );
     var_0 waittill( "trigger" );
     var_1 = var_0.invisible;
-    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1, 0.8, 0.6 ), 1 ), var_1 );
+    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 0.8, 0.6 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise3", "icbm_sunrise_03", var_1 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise3", var_1 );
     thread handle_sunrise4_colors();
@@ -136,7 +136,7 @@ handle_sunrise4_colors()
     var_0 = getent( "sunrise4", "targetname" );
     var_0 waittill( "trigger" );
     var_1 = var_0.invisible;
-    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1, 1, 1 ), 1 ), var_1 );
+    sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 1.0, 1.0 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise4", "icbm_sunrise_04", var_1 );
     level.playercardbackground _meth_848c( "clut_icbm_sunrise4", var_1 );
 }

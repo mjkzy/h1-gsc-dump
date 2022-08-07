@@ -616,7 +616,7 @@ obj_upload_the_abort_codes()
     maps\_utility::_id_70BD( "entercodes" );
     var_1 = 3;
     wait 0.5;
-    var_2 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( !common_scripts\utility::_id_382E( "codes_uploaded" ) )
     {
@@ -656,7 +656,7 @@ lock_obj_location( var_0 )
 
     for (;;)
     {
-        objective_position( var_0, self.origin + ( 0, 0, 48 ) );
+        objective_position( var_0, self.origin + ( 0.0, 0.0, 48.0 ) );
         wait 0.5;
     }
 }
@@ -1103,7 +1103,7 @@ run_to_the_door()
     var_0 = getent( "close_blastdoor_animent", "targetname" );
     var_1 = getent( "blast_door_slam", "targetname" );
     var_2 = getent( "blast_door_col", "targetname" );
-    var_2 linkto( var_1, "hinge_jnt", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_2 linkto( var_1, "hinge_jnt", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_3 = getent( "shut_blast_door", "targetname" );
     wait 2;
     var_1._id_0C72 = "door";
@@ -1183,7 +1183,7 @@ fireballdlight()
     var_1 = spawn( "script_model", ( 395.177, 2955.42, -300.614 ) );
     var_1 setmodel( "tag_origin" );
     playfxontag( level._effect["launchtube_fire_light"], var_1, "tag_origin" );
-    var_1 moveto( ( -524, 3898, -292 ), var_0, 0, 1 );
+    var_1 moveto( ( -524.0, 3898.0, -292.0 ), var_0, 0, 1 );
     wait(var_0);
     var_1 delete();
 }
@@ -1431,7 +1431,7 @@ plant_the_c4()
 {
     level.playercardbackground endon( "death" );
     var_0 = getent( "wall_explosives", "targetname" );
-    var_0 maps\_c4::c4_location( undefined, ( 0, 0, 0 ), ( 0, 0, 0 ), var_0.origin );
+    var_0 maps\_c4::c4_location( undefined, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), var_0.origin );
     var_0 waittill( "c4_planted" );
     level notify( "wall_c4_planted" );
     thread griggs_c4_take_cover_path();
@@ -1513,19 +1513,19 @@ upload_codes_h1()
     var_0 common_scripts\utility::_id_97CC();
     var_1 = getent( "keyboard_use_trigger_h1", "targetname" );
     var_2 = spawn( "script_model", level.keyboard.origin );
-    var_2.angles = ( 0, 315, 0 );
+    var_2.angles = ( 0.0, 315.0, 0.0 );
     var_2 setmodel( "com_computer_keyboard" );
     maps\_utility::_id_A066( "control_room" );
     var_3 = 0.05;
     var_4 = 0;
     var_5 = 3;
     var_6 = spawn( "script_model", level.keyboard.origin );
-    var_6.angles = ( 0, 315, 0 );
+    var_6.angles = ( 0.0, 315.0, 0.0 );
     var_6 setmodel( "com_computer_keyboard_obj" );
-    var_7 = spawn( "script_origin", ( -2662, 4452, -387 ) );
-    var_7.angles = ( 0, 138, 0 );
-    var_8 = ( -2647, 4430, -391 );
-    var_9 = ( 0, 138, 0 );
+    var_7 = spawn( "script_origin", ( -2662.0, 4452.0, -387.0 ) );
+    var_7.angles = ( 0.0, 138.0, 0.0 );
+    var_8 = ( -2647.0, 4430.0, -391.0 );
+    var_9 = ( 0.0, 138.0, 0.0 );
     var_10 = cos( 30 );
 
     for (;;)
@@ -1624,7 +1624,7 @@ upload_codes()
     var_0 sethintstring( &"LAUNCHFACILITY_B_HINT_UPLOAD_CODES" );
     var_0 usetriggerrequirelookat();
     var_4 = spawn( "script_model", level.keyboard.origin );
-    var_4.angles = ( 0, 315, 0 );
+    var_4.angles = ( 0.0, 315.0, 0.0 );
     var_4 setmodel( "com_computer_keyboard_obj" );
 
     for (;;)
@@ -1674,7 +1674,7 @@ upload_codes()
     var_0 delete();
     var_4 delete();
     var_6 = spawn( "script_model", level.keyboard.origin );
-    var_6.angles = ( 0, 315, 0 );
+    var_6.angles = ( 0.0, 315.0, 0.0 );
     var_6 setmodel( "com_computer_keyboard" );
     common_scripts\utility::_id_383F( "codes_uploaded" );
     common_scripts\utility::_id_3831( "aa_countdown_started" );
@@ -1896,7 +1896,7 @@ _id_3029()
     else
     {
         level.anim_ent = common_scripts\utility::_id_8959();
-        level.anim_ent.origin = ( -1145, 5781, -390 );
+        level.anim_ent.origin = ( -1145.0, 5781.0, -390.0 );
         level._id_6F7C thread price_to_elevator( "r" );
         level.grigsby thread griggs_to_elevator( "o" );
         level.playercardbackground check_elevator();
@@ -2168,7 +2168,7 @@ redlights_think()
 
     for (;;)
     {
-        self rotatevelocity( ( 0, 360, 0 ), var_0 );
+        self rotatevelocity( ( 0.0, 360.0, 0.0 ), var_0 );
         wait(var_0);
     }
 }
@@ -2197,7 +2197,7 @@ wall_lights_think()
 
     for (;;)
     {
-        self rotatevelocity( ( 360, 0, 0 ), var_0 );
+        self rotatevelocity( ( 360.0, 0.0, 0.0 ), var_0 );
         wait(var_0);
     }
 }

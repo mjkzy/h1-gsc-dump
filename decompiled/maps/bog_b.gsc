@@ -153,7 +153,7 @@ main()
     thread maps\_utility::ai_team_run_twitch_think( "allies", "alley_cleared", undefined, "ch46", undefined );
     level.abrams = maps\_vehicle::waittill_vehiclespawn( "abrams" );
     var_0 = getent( "abrams_top_clip", "targetname" );
-    var_0 linkto( level.abrams, "tag_turret", ( -10, 0, 10 ), ( 0, -90, 0 ) );
+    var_0 linkto( level.abrams, "tag_turret", ( -10.0, 0.0, 10.0 ), ( 0.0, -90.0, 0.0 ) );
     thread seaknight_player_door_clip();
     setsaveddvar( "r_reactiveMotionWindAmplitudeScale", 3 );
     setsaveddvar( "r_reactiveMotionWindStrength", 1 );
@@ -185,7 +185,7 @@ main()
     var_0 = getent( "truck_clip_before", "targetname" );
     var_0 notsolid();
     var_0 delete();
-    var_6 = spawn( "script_model", ( 3900, -1500, 100 ) );
+    var_6 = spawn( "script_model", ( 3900.0, -1500.0, 100.0 ) );
     var_6 setmodel( "h1_bog_b_patch_concrete_slab" );
     level.abrams._id_51B6 = 1;
     level.abrams.forwardent = spawn( "script_origin", level.abrams gettagorigin( "tag_flash" ) );
@@ -196,7 +196,7 @@ main()
     wait 6.5;
     getent( "player_spawn_safety_brush", "targetname" ) delete();
     wait 3.0;
-    objective_add( 1, "current", &"BOG_B_OBJ_ESCORT_TANK", ( 4347, -4683, 130 ) );
+    objective_add( 1, "current", &"BOG_B_OBJ_ESCORT_TANK", ( 4347.0, -4683.0, 130.0 ) );
 }
 
 makeminspec()
@@ -287,9 +287,9 @@ fog_adjust()
     for (;;)
     {
         var_0 waittill( "trigger" );
-        setexpfog( 0, 2842, 0.642709, 0.626383, 0.5, 1, 3.0, 0.642709, 0.626383, 0.3, ( 0, 1, 0.4 ), 0.0, 180.0, 2.0 );
+        setexpfog( 0, 2842, 0.642709, 0.626383, 0.5, 1, 3.0, 0.642709, 0.626383, 0.3, ( 0.0, 1.0, 0.4 ), 0.0, 180.0, 2.0 );
         var_1 waittill( "trigger" );
-        setexpfog( 0, 3842, 0.642709, 0.626383, 0.5, 1, 3.0, 0.642709, 0.626383, 0.3, ( 0, 1, 0.4 ), 0.0, 180.0, 2.0 );
+        setexpfog( 0, 3842, 0.642709, 0.626383, 0.5, 1, 3.0, 0.642709, 0.626383, 0.3, ( 0.0, 1.0, 0.4 ), 0.0, 180.0, 2.0 );
     }
 }
 
@@ -614,11 +614,11 @@ attack_troops()
         if ( var_3 > 15 )
             continue;
 
-        var_4 = var_0.origin + ( 0, 0, 32 );
+        var_4 = var_0.origin + ( 0.0, 0.0, 32.0 );
         self _meth_825d( var_4 );
 
         if ( getdvar( "bog_debug_tank" ) == "1" )
-            thread maps\_utility::_id_2DBF( level.abrams.origin + ( 0, 0, 32 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
+            thread maps\_utility::_id_2DBF( level.abrams.origin + ( 0.0, 0.0, 32.0 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
 
         common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 3.0 );
         self clearturrettargetent();
@@ -626,7 +626,7 @@ attack_troops()
         if ( getdvar( "bog_debug_tank" ) == "1" )
         {
             self notify( "stop_drawing_line" );
-            thread maps\_utility::_id_2DBF( level.abrams.origin + ( 0, 0, 32 ), var_4, 0, 1, 0, self, "stop_drawing_line" );
+            thread maps\_utility::_id_2DBF( level.abrams.origin + ( 0.0, 0.0, 32.0 ), var_4, 0, 1, 0, self, "stop_drawing_line" );
         }
 
         if ( getdvar( "bog_debug_tank" ) == "1" )
@@ -1199,7 +1199,7 @@ alley_door_kick( var_0 )
     {
         level._id_6F7C._id_0C72 = "price";
         var_0._id_0C72 = "alley_breach_buddy";
-        var_3 = spawn( "script_origin", ( 3966, -4898, -111.97 ) );
+        var_3 = spawn( "script_origin", ( 3966.0, -4898.0, -111.97 ) );
         var_4 = [];
         var_4[0] = "at_alley_breach_price";
         var_4[1] = "at_alley_breach_alley_breach_buddy";
@@ -1229,7 +1229,7 @@ breach_cqb_wait()
 {
     var_0 = 122500;
 
-    for ( var_1 = distancesquared( self.origin, ( 3966, -4898, -111.97 ) ); var_1 > var_0; var_1 = distancesquared( self.origin, ( 3966, -4898, -111.97 ) ) )
+    for ( var_1 = distancesquared( self.origin, ( 3966.0, -4898.0, -111.97 ) ); var_1 > var_0; var_1 = distancesquared( self.origin, ( 3966.0, -4898.0, -111.97 ) ) )
         wait 0.2;
 
     maps\_utility::_id_30B0();
@@ -1418,7 +1418,7 @@ lastsequence()
         wait 4.0;
         level.playercardbackground thread playradiosound( level._id_78BA["tank_commander"]["switchmanual"] );
         wait 2.5;
-        level.abrams setturrettargetent( level.t72, ( 0, 0, 50 ) );
+        level.abrams setturrettargetent( level.t72, ( 0.0, 0.0, 50.0 ) );
     }
 
     if ( getdvarint( "use_old_celebration" ) == 1 )
@@ -1502,7 +1502,7 @@ t72_kill_player_trigger()
                 continue;
             }
 
-            thread common_scripts\utility::_id_69C2( "t72_fire", ( 6105, -3475, -60 ) );
+            thread common_scripts\utility::_id_69C2( "t72_fire", ( 6105.0, -3475.0, -60.0 ) );
             level.playercardbackground dodamage( var_2, level.playercardbackground.origin );
         }
 
@@ -1589,7 +1589,7 @@ abrams_aimat_t72()
     common_scripts\utility::_id_384A( "t72_in_final_position" );
     common_scripts\utility::_id_384A( "tank_in_final_position" );
     level.abrams notify( "stop_attacking_troops" );
-    level.abrams _meth_825d( level.t72.origin + ( 0, 0, 50 ) );
+    level.abrams _meth_825d( level.t72.origin + ( 0.0, 0.0, 50.0 ) );
 
     if ( getdvarint( "use_old_t72battle" ) )
         level.abrams common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 3.0 );
@@ -2062,7 +2062,7 @@ vehicle_path_disconnector()
 {
     var_0 = getent( self._not_team, "targetname" );
     var_0 notsolid();
-    var_0.origin -= ( 0, 0, 1024 );
+    var_0.origin -= ( 0.0, 0.0, 1024.0 );
     var_1 = "tank_bad_place_brush_" + var_0 getentitynumber();
 
     for (;;)
@@ -2607,5 +2607,5 @@ setasdestructible( var_0, var_1, var_2 )
 
 computer_destruct()
 {
-    setasdestructible( "com_computer_monitor_d", "tv_explosion", ( 0, 0, 10 ) );
+    setasdestructible( "com_computer_monitor_d", "tv_explosion", ( 0.0, 0.0, 10.0 ) );
 }

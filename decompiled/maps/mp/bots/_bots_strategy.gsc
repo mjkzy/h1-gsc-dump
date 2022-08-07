@@ -165,10 +165,10 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
                 if ( !isdefined( self.enemy ) || !self botcanseeentity( self.enemy ) )
                 {
                     thread maps\mp\bots\_bots_util::bot_disable_movement_for_time( 4.0 );
-                    var_20 = ( 0, 0, 0 );
+                    var_20 = ( 0.0, 0.0, 0.0 );
 
                     if ( var_0["weap_name"] == "h1_claymore_mp" )
-                        var_20 = ( 0, 0, 55 );
+                        var_20 = ( 0.0, 0.0, 55.0 );
 
                     if ( isdefined( var_16 ) )
                         self _meth_836b( var_5.origin + var_20, 3.0, "script_forced" );
@@ -422,7 +422,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
 
                 wait 0.05;
 
-                if ( sighttracepassed( var_15 + ( 0, 0, 55 ), var_12[var_13].origin + ( 0, 0, 55 ), 0, undefined ) )
+                if ( sighttracepassed( var_15 + ( 0.0, 0.0, 55.0 ), var_12[var_13].origin + ( 0.0, 0.0, 55.0 ), 0, undefined ) )
                 {
                     var_10 = var_12[var_13];
                     break;
@@ -1113,7 +1113,7 @@ _id_16A7()
 
     for (;;)
     {
-        var_0 = anglestoforward( self._id_15EE getplayerangles() ) * ( 1, 1, 0 );
+        var_0 = anglestoforward( self._id_15EE getplayerangles() ) * ( 1.0, 1.0, 0.0 );
         var_0 = vectornormalize( var_0 );
 
         foreach ( var_2 in self._id_A1EA )

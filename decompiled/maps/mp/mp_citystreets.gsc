@@ -34,8 +34,8 @@ main()
     maps\mp\_explosive_barrels::main();
     thread misc_rotate_ceilingfans();
     level.oldschoolfxtype = "bright";
-    maps\mp\_utility::hardpointtriggerswap( ( 2477, -937, 32 ), "patch_hp_zone_trigger_3" );
-    maps\mp\_utility::headquarterstriggerswap( ( 2477, -937, 32 ), "patch_hq_zone_trigger_1" );
+    maps\mp\_utility::hardpointtriggerswap( ( 2477.0, -937.0, 32.0 ), "patch_hp_zone_trigger_3" );
+    maps\mp\_utility::headquarterstriggerswap( ( 2477.0, -937.0, 32.0 ), "patch_hq_zone_trigger_1" );
 
     if ( level.gametype == "ctf" )
         maps\mp\gametypes\ctf::setflagbasefx( "vfx/unique/vfx_marker_ctf", "vfx/unique/vfx_marker_ctf_red_mid" );

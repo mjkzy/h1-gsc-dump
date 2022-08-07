@@ -245,7 +245,7 @@ _id_4DFA()
 
 spawnpickupfx( var_0, var_1 )
 {
-    var_2 = spawnfx( var_1, var_0, ( 0, 0, 1 ), ( 1, 0, 0 ) );
+    var_2 = spawnfx( var_1, var_0, ( 0.0, 0.0, 1.0 ), ( 1.0, 0.0, 0.0 ) );
     triggerfx( var_2 );
     return var_2;
 }
@@ -260,7 +260,7 @@ playeffectshortly( var_0 )
 getpickupgroundpoint( var_0 )
 {
     var_1 = 44.0;
-    var_2 = bullettrace( var_0.origin, var_0.origin + ( 0, 0, -128 ), 0, var_0 );
+    var_2 = bullettrace( var_0.origin, var_0.origin + ( 0.0, 0.0, -128.0 ), 0, var_0 );
     var_3 = var_2["position"];
     var_4 = var_3[2];
 
@@ -272,7 +272,7 @@ getpickupgroundpoint( var_0 )
         {
             var_8 = var_7 / 10.0 * 360.0;
             var_9 = var_0.origin + ( cos( var_8 ), sin( var_8 ), 0 ) * var_6;
-            var_2 = bullettrace( var_9, var_9 + ( 0, 0, -128 ), 0, var_0 );
+            var_2 = bullettrace( var_9, var_9 + ( 0.0, 0.0, -128.0 ), 0, var_0 );
             var_10 = var_2["position"];
 
             if ( var_10[2] > var_4 && var_10[2] < var_3[2] + 15 )
@@ -446,7 +446,7 @@ changesecondarygrenadetype( var_0 )
     if ( var_0 != var_1 && var_0 != var_2 && var_0 != var_3 )
         return;
 
-    var_4 = spawn( "trigger_radius", self.origin - ( 0, 0, 20 ), 0, 128, 64 );
+    var_4 = spawn( "trigger_radius", self.origin - ( 0.0, 0.0, 20.0 ), 0, 128, 64 );
     thread deletetriggerwhenpickedup( var_4 );
 
     for (;;)

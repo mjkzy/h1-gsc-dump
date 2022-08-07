@@ -206,7 +206,7 @@ updateradiationflag()
 playradiationsound()
 {
     wait 0.05;
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = self.origin;
     var_0.angles = self.angles;
     var_0 linkto( self );
@@ -303,7 +303,7 @@ updateradiationdosimetercolor( var_0 )
             wait(var_1);
         }
 
-        self.color = ( 1, 1, 1 );
+        self.color = ( 1.0, 1.0, 1.0 );
         wait(var_1);
     }
 }

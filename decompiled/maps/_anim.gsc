@@ -1771,7 +1771,7 @@ _id_0BA8( var_0, var_1 )
         var_0._id_7B42 = [];
 
     var_2 = var_0._id_7B42.size;
-    var_0._id_7B42[var_2] = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0._id_7B42[var_2] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0._id_7B42[var_2] setmodel( var_1["create model"] );
     var_0._id_7B42[var_2].origin = var_0 gettagorigin( var_1["selftag"] );
     var_0._id_7B42[var_2].angles = var_0 gettagangles( var_1["selftag"] );
@@ -1926,8 +1926,8 @@ _id_4B73( var_0, var_1, var_2, var_3, var_4 )
 
 _id_3CCA( var_0, var_1 )
 {
-    var_2 = ( 0, 0, 0 );
-    var_3 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
+    var_3 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_1 ) )
         var_1 = self;
@@ -2282,7 +2282,7 @@ _id_0BDC( var_0, var_1 )
     var_2 = self gettagorigin( var_1 );
     var_3 = spawn( "script_model", var_2 );
     var_3 setmodel( var_0 );
-    var_3 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_3 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     return var_3;
 }
 

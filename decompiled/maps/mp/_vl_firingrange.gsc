@@ -28,7 +28,7 @@ _id_4CEF()
     var_0.aim_up_targets = gettargetarray( "aim_up_target" );
     var_0.aim_left_targets = gettargetarray( "aim_left_target" );
     var_0.aim_right_targets = gettargetarray( "aim_right_target" );
-    var_0.aim_targets = gettargetarray( "aim_target", ( 0, 0, -90 ) );
+    var_0.aim_targets = gettargetarray( "aim_target", ( 0.0, 0.0, -90.0 ) );
     var_0.aim_move_targets = gettargetarray( "aim_move_target", undefined, 0, 1 );
     var_0.plywood_blockers = gettargetarray( "plywood" );
     var_0.target_clips = gettargetarray( "target_clip", undefined, 1 );
@@ -557,7 +557,7 @@ popupaimtarget( var_0, var_1 )
     var_2 = level._id_3806.aim_targets[var_0];
     var_2.unlockpoints = "human";
     self.targetsup++;
-    var_2 thread targetpopup( ( 0, 0, 0 ), ( 0, 0, -90 ), 0.4, 0.2, var_1 );
+    var_2 thread targetpopup( ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, -90.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
     self.targetsup--;
 }
@@ -567,7 +567,7 @@ popupaimuptarget( var_0, var_1 )
     var_2 = level._id_3806.aim_up_targets[var_0];
     var_2.unlockpoints = "target";
     self.targetsup++;
-    var_2 thread targetpopup( ( 0, 180, 179 ), ( 0, 180, 0 ), 0.4, 0.2, var_1 );
+    var_2 thread targetpopup( ( 0.0, 180.0, 179.0 ), ( 0.0, 180.0, 0.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
     self.targetsup--;
 }
@@ -577,7 +577,7 @@ popupaimlefttarget( var_0, var_1 )
     var_2 = level._id_3806.aim_left_targets[var_0];
     var_2.unlockpoints = "target";
     self.targetsup++;
-    var_2 thread targetpopup( ( 90, 0, -1 ), ( 90, 0, -180 ), 0.4, 0.2, var_1 );
+    var_2 thread targetpopup( ( 90.0, 0.0, -1.0 ), ( 90.0, 0.0, -180.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
     self.targetsup--;
 }
@@ -587,7 +587,7 @@ popupaimrighttarget( var_0, var_1 )
     var_2 = level._id_3806.aim_right_targets[var_0];
     var_2.unlockpoints = "target";
     self.targetsup++;
-    var_2 thread targetpopup( ( 270, 180, 179 ), ( 270, 180, 0 ), 0.4, 0.2, var_1 );
+    var_2 thread targetpopup( ( 270.0, 180.0, 179.0 ), ( 270.0, 180.0, 0.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
     self.targetsup--;
 }
@@ -597,7 +597,7 @@ popuptargetclip( var_0, var_1 )
     var_2 = level._id_3806.target_clips[var_0];
     var_2.unlockpoints = "target";
     self.targetsup++;
-    var_2 thread targetpopup( ( 0, 180, 179 ), ( 0, 180, 90 ), 0.2, 0.1, var_1, 1 );
+    var_2 thread targetpopup( ( 0.0, 180.0, 179.0 ), ( 0.0, 180.0, 90.0 ), 0.2, 0.1, var_1, 1 );
     var_2 waittill( "down" );
     self.targetsup--;
 }
@@ -607,7 +607,7 @@ popupaimmovetarget( var_0, var_1 )
     var_2 = level._id_3806.aim_move_targets[var_0];
     var_2.unlockpoints = "human";
     self.targetsup++;
-    var_2 thread targetpopup( ( 0, 0, 0 ), ( 0, 90, 0 ), 0.4, 0.2, var_1, 0, 1 );
+    var_2 thread targetpopup( ( 0.0, 0.0, 0.0 ), ( 0.0, 90.0, 0.0 ), 0.4, 0.2, var_1, 0, 1 );
     var_2 waittill( "down" );
     self.targetsup--;
 }
@@ -857,12 +857,12 @@ popupplywood( var_0 )
 {
     var_1 = level._id_3806.plywood_blockers[var_0];
     var_1.active = 1;
-    var_1 rotateto( ( 0, 180, 0 ), 0.4 );
+    var_1 rotateto( ( 0.0, 180.0, 0.0 ), 0.4 );
     var_1 playsound( "killhouse_target_up_wood" );
     thread targethandlestop();
     common_scripts\utility::_id_A087( "plywood_" + var_0 + "_down", "reset" );
     var_1.active = undefined;
-    var_1 rotateto( ( 0, 180, 90 ), 0.2 );
+    var_1 rotateto( ( 0.0, 180.0, 90.0 ), 0.2 );
 }
 
 popdownplywood( var_0 )
@@ -1280,5 +1280,5 @@ watermelonthink()
     var_1 hide();
     var_1 notsolid();
     var_2 _meth_81d7();
-    var_2.origin += ( 0, 0, -100 );
+    var_2.origin += ( 0.0, 0.0, -100.0 );
 }

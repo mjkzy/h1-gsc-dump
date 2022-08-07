@@ -177,7 +177,7 @@ oil_spill_burn( var_0, var_1 )
         {
             var_14 = anglestoup( var_8[var_13].angles );
             var_15 = var_8[var_13].origin + var_14 * 22;
-            var_16 = physicstrace( var_15, var_15 + ( 0, 0, -64 ) );
+            var_16 = physicstrace( var_15, var_15 + ( 0.0, 0.0, -64.0 ) );
 
             if ( distancesquared( var_0, var_16 ) < var_9 )
             {
@@ -271,15 +271,15 @@ explodable_barrel_burn()
     var_0 = 0;
     var_1 = 0;
     var_2 = anglestoup( self.angles );
-    var_3 = anglestoup( ( 0, 90, 0 ) );
+    var_3 = anglestoup( ( 0.0, 90.0, 0.0 ) );
     var_4 = vectordot( var_2, var_3 );
-    var_5 = ( 0, 0, 0 );
+    var_5 = ( 0.0, 0.0, 0.0 );
     var_6 = var_2 * 44;
 
     if ( var_4 < 0.5 )
     {
-        var_5 = var_2 * 22 - ( 0, 0, 30 );
-        var_6 = var_2 * 22 + ( 0, 0, 14 );
+        var_5 = var_2 * 22 - ( 0.0, 0.0, 30.0 );
+        var_6 = var_2 * 22 + ( 0.0, 0.0, 14.0 );
     }
 
     if ( self.damagetype != "MOD_GRENADE_SPLASH" && self.damagetype != "MOD_GRENADE" )
@@ -313,18 +313,18 @@ explodable_barrel_explode()
     self notify( "exploding" );
     self notify( "death" );
     var_0 = anglestoup( self.angles );
-    var_1 = anglestoup( ( 0, 90, 0 ) );
+    var_1 = anglestoup( ( 0.0, 90.0, 0.0 ) );
     var_2 = vectordot( var_0, var_1 );
-    var_3 = ( 0, 0, 0 );
+    var_3 = ( 0.0, 0.0, 0.0 );
 
     if ( var_2 < 0.5 )
     {
         var_4 = self.origin + var_0 * 22;
-        var_5 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
+        var_5 = physicstrace( var_4, var_4 + ( 0.0, 0.0, -64.0 ) );
         var_3 = var_5 - self.origin;
     }
 
-    var_3 += ( 0, 0, 4 );
+    var_3 += ( 0.0, 0.0, 4.0 );
     self playsound( level._id_12E8 );
     playfx( level._id_17DD["barrel"]["explode"], self.origin + var_3 );
     level.barrelexplodingthisframe = 1;
@@ -341,11 +341,11 @@ explodable_barrel_explode()
         var_9 = self.rank;
 
     if ( !isdefined( self._id_25A9 ) )
-        self entityradiusdamage( self.origin + ( 0, 0, 30 ), var_9, var_8, var_7, undefined, "MOD_EXPLOSIVE", "barrel_mp" );
+        self entityradiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_9, var_8, var_7, undefined, "MOD_EXPLOSIVE", "barrel_mp" );
     else
-        self entityradiusdamage( self.origin + ( 0, 0, 30 ), var_9, var_8, var_7, self._id_25A9, "MOD_EXPLOSIVE", "barrel_mp" );
+        self entityradiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_9, var_8, var_7, self._id_25A9, "MOD_EXPLOSIVE", "barrel_mp" );
 
-    physicsexplosionsphere( self.origin + ( 0, 0, 30 ), var_9, var_9 / 2, var_6 );
+    physicsexplosionsphere( self.origin + ( 0.0, 0.0, 30.0 ), var_9, var_9 / 2, var_6 );
     maps\mp\gametypes\_shellshock::_id_12E5();
 
     if ( randomint( 2 ) == 0 )
@@ -358,9 +358,9 @@ explodable_barrel_explode()
     if ( var_2 < 0.5 )
     {
         var_4 = self.origin + var_0 * 22;
-        var_10 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
+        var_10 = physicstrace( var_4, var_4 + ( 0.0, 0.0, -64.0 ) );
         self.origin = var_10;
-        self.angles += ( 0, 0, 90 );
+        self.angles += ( 0.0, 0.0, 90.0 );
     }
 
     wait 0.05;

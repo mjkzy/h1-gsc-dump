@@ -732,7 +732,7 @@ destructible_building()
         var_22 = 5.0;
         var_23 = 2.0;
         var_24 = 2.0;
-        var_1[var_4] moveto( var_1[var_4].origin - ( 0, 0, 512 ), var_22, var_23, var_24 );
+        var_1[var_4] moveto( var_1[var_4].origin - ( 0.0, 0.0, 512.0 ), var_22, var_23, var_24 );
         var_1[var_4] rotateto( var_1[var_4].angles + ( var_19, var_20, var_21 ), var_22 / 2, var_23 / 2, var_24 / 2 );
         var_1[var_4] thread maps\_utility::_id_27EF( 5.0, maps\_utility::_id_7C71 );
     }

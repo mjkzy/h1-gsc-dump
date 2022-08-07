@@ -124,7 +124,7 @@ _id_7A56()
         {
             case "origin":
                 if ( !isdefined( var_2.angles ) )
-                    var_2.angles = ( 0, 0, 0 );
+                    var_2.angles = ( 0.0, 0.0, 0.0 );
 
                 self._id_6593 = spawn( "script_model", var_2.origin );
                 self._id_6593.angles = var_2.angles;
@@ -134,7 +134,7 @@ _id_7A56()
             case "scripted_node":
             case "scene_node":
                 if ( !isdefined( var_2.angles ) )
-                    var_2.angles = ( 0, 0, 0 );
+                    var_2.angles = ( 0.0, 0.0, 0.0 );
 
                 self._id_7B39 = var_2;
                 continue;
@@ -688,7 +688,7 @@ _id_7A57()
     self._id_6683 = [];
 
     if ( !isdefined( self.angles ) )
-        self.angles = ( 0, 0, 0 );
+        self.angles = ( 0.0, 0.0, 0.0 );
 
     self.angles = _id_0B9F( self.angles );
     _id_7A63( self._id_7A99 );
@@ -976,7 +976,7 @@ _id_9A5C( var_0, var_1 )
         var_2 = sortbydistance( var_2, var_0.origin );
     }
 
-    var_3 = ( 0, 0, -100 );
+    var_3 = ( 0.0, 0.0, -100.0 );
     var_0 cancelmantle();
     var_0 dontinterpolate();
     var_0 setorigin( var_0.origin + var_3 );

@@ -204,14 +204,14 @@ flying_intro()
     thread flying_intro_force_streaming_center( level.playercardbackground.origin );
     var_4 = level.playercardbackground.origin;
     level.playercardbackground.origin = var_4 + ( 0, 0, var_0 );
-    var_5 = spawn( "script_model", ( 69, 69, 69 ) );
+    var_5 = spawn( "script_model", ( 69.0, 69.0, 69.0 ) );
     var_5.origin = level.playercardbackground.origin;
     var_5 setmodel( "tag_origin" );
     var_5.angles = level.playercardbackground.angles;
     level.playercardbackground playerlinktoabsolute( var_5 );
     var_5.angles = ( var_5.angles[0] + 89, var_5.angles[1], 0 );
     wait(var_2);
-    var_5 moveto( var_4 + ( 0, 0, 0 ), 2, 0, 2 );
+    var_5 moveto( var_4 + ( 0.0, 0.0, 0.0 ), 2, 0, 2 );
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
     wait 1.2;
     wait 0.3;
@@ -346,7 +346,7 @@ village_defend_intro()
     var_1.foreground = 1;
     var_1 settext( &"VILLAGE_DEFEND_PRESENT_DAY" );
     var_1.fontscale = 1.6;
-    var_1.color = ( 0.8, 1, 0.8 );
+    var_1.color = ( 0.8, 1.0, 0.8 );
     var_1.font = "objective";
     var_1.glowcolor = ( 0.26, 0.65, 0.32 );
     var_1.glowalpha = 0.2;
@@ -395,7 +395,7 @@ scoutsniper_intro()
     var_1.foreground = 1;
     var_1 settext( &"SCOUTSNIPER_15_YEARS_AGO" );
     var_1.fontscale = 1.6;
-    var_1.color = ( 0.8, 1, 0.8 );
+    var_1.color = ( 0.8, 1.0, 0.8 );
     var_1.font = "objective";
     var_1.glowcolor = ( 0.26, 0.65, 0.32 );
     var_1.glowalpha = 0.2;
@@ -663,7 +663,7 @@ _cornerlinethread( var_0, var_1, var_2, var_3 )
     var_5.alpha = 1;
     var_5.hindlegstraceoffset = 1;
     var_5.fontscale = 1.25;
-    var_5.color = ( 0.8, 1, 0.8 );
+    var_5.color = ( 0.8, 1.0, 0.8 );
     var_5.font = "objective";
     var_5.glowcolor = ( 0.26, 0.65, 0.32 );
     var_5.glowalpha = 0.2;

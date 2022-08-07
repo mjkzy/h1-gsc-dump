@@ -364,7 +364,7 @@ _id_358D( var_0 )
 
     if ( var_0 > 262144 && self.a._id_6E5A != "crouch" && self _meth_81cf( "crouch" ) && !self.tactical && !animscripts\utility::_id_9C3A() && !isdefined( self._id_4795 ) && gettime() >= self.a._id_2D2F && lengthsquared( self._id_83F7 ) < 10000 )
     {
-        if ( !isdefined( self._id_840F ) || sighttracepassed( self.origin + ( 0, 0, 36 ), self._id_840F, 0, undefined ) )
+        if ( !isdefined( self._id_840F ) || sighttracepassed( self.origin + ( 0.0, 0.0, 36.0 ), self._id_840F, 0, undefined ) )
         {
             _id_971D( "crouch" );
             return 1;
@@ -532,7 +532,7 @@ _id_3595()
 
 _id_8B08()
 {
-    if ( isdefined( self.enemy ) && ( !self _meth_81c2( self.enemy ) || !self _meth_81c1() ) && sighttracepassed( self.origin + ( 0, 0, 64 ), self.enemy getshootatpos(), 0, undefined ) )
+    if ( isdefined( self.enemy ) && ( !self _meth_81c2( self.enemy ) || !self _meth_81c1() ) && sighttracepassed( self.origin + ( 0.0, 0.0, 64.0 ), self.enemy getshootatpos(), 0, undefined ) )
     {
         self.a._id_2D2F = gettime() + 3000;
         _id_971D( "stand" );
@@ -721,7 +721,7 @@ _id_993D( var_0 )
 _id_A258()
 {
     self endon( "killanimscript" );
-    self._id_83F7 = ( 0, 0, 0 );
+    self._id_83F7 = ( 0.0, 0.0, 0.0 );
     var_0 = undefined;
     var_1 = self.origin;
     var_2 = 0.15;
@@ -742,7 +742,7 @@ _id_A258()
                 var_1 = self.origin;
 
             var_0 = self._id_83F6;
-            self._id_83F7 = ( 0, 0, 0 );
+            self._id_83F7 = ( 0.0, 0.0, 0.0 );
         }
 
         wait(var_2);

@@ -156,7 +156,7 @@ _id_23E9( var_0, var_1, var_2, var_3 )
     var_4._id_9C1C = undefined;
 
     if ( !isdefined( var_3 ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
 
     var_4._id_637F = var_3;
 
@@ -452,7 +452,7 @@ _id_7FE2( var_0 )
     for ( var_1 = 0; var_1 < self.visuals.size; var_1++ )
         self.visuals[var_1] hide();
 
-    self.trigger.origin += ( 0, 0, 10000 );
+    self.trigger.origin += ( 0.0, 0.0, 10000.0 );
     self notify( "pickup_object" );
 
     if ( isdefined( self._id_64C2 ) )
@@ -473,7 +473,7 @@ _id_9AFD()
     {
         if ( isdefined( self._id_1BAF ) )
         {
-            self.curorigin = self._id_1BAF.origin + ( 0, 0, 75 );
+            self.curorigin = self._id_1BAF.origin + ( 0.0, 0.0, 75.0 );
             self.curcarrierorigin = self._id_1BAF.origin;
             self._id_6316["allies"] maps\mp\gametypes\_objpoints::_id_9B44( self.curorigin );
             self._id_6316["axis"] maps\mp\gametypes\_objpoints::_id_9B44( self.curorigin );
@@ -680,19 +680,19 @@ _id_7F5D()
     {
         if ( isdefined( self._id_1BAF.body ) )
         {
-            var_0 = playerphysicstrace( self._id_1BAF.origin + ( 0, 0, 20 ), self._id_1BAF.origin - ( 0, 0, 2000 ), self._id_1BAF.body );
-            var_1 = bullettrace( self._id_1BAF.origin + ( 0, 0, 20 ), self._id_1BAF.origin - ( 0, 0, 2000 ), 0, self._id_1BAF.body );
+            var_0 = playerphysicstrace( self._id_1BAF.origin + ( 0.0, 0.0, 20.0 ), self._id_1BAF.origin - ( 0.0, 0.0, 2000.0 ), self._id_1BAF.body );
+            var_1 = bullettrace( self._id_1BAF.origin + ( 0.0, 0.0, 20.0 ), self._id_1BAF.origin - ( 0.0, 0.0, 2000.0 ), 0, self._id_1BAF.body );
         }
         else
         {
-            var_0 = playerphysicstrace( self._id_1BAF.origin + ( 0, 0, 20 ), self._id_1BAF.origin - ( 0, 0, 2000 ) );
-            var_1 = bullettrace( self._id_1BAF.origin + ( 0, 0, 20 ), self._id_1BAF.origin - ( 0, 0, 2000 ), 0 );
+            var_0 = playerphysicstrace( self._id_1BAF.origin + ( 0.0, 0.0, 20.0 ), self._id_1BAF.origin - ( 0.0, 0.0, 2000.0 ) );
+            var_1 = bullettrace( self._id_1BAF.origin + ( 0.0, 0.0, 20.0 ), self._id_1BAF.origin - ( 0.0, 0.0, 2000.0 ), 0 );
         }
     }
     else
     {
-        var_0 = playerphysicstrace( self._id_77CC + ( 0, 0, 20 ), self._id_77CC - ( 0, 0, 20 ) );
-        var_1 = bullettrace( self._id_77CC + ( 0, 0, 20 ), self._id_77CC - ( 0, 0, 20 ), 0, undefined );
+        var_0 = playerphysicstrace( self._id_77CC + ( 0.0, 0.0, 20.0 ), self._id_77CC - ( 0.0, 0.0, 20.0 ) );
+        var_1 = bullettrace( self._id_77CC + ( 0.0, 0.0, 20.0 ), self._id_77CC - ( 0.0, 0.0, 20.0 ), 0, undefined );
     }
 
     var_2 = self._id_1BAF;
@@ -893,7 +893,7 @@ _id_94B8()
     {
         if ( self isonground() )
         {
-            var_0 = bullettrace( self.origin + ( 0, 0, 20 ), self.origin - ( 0, 0, 20 ), 0, undefined );
+            var_0 = bullettrace( self.origin + ( 0.0, 0.0, 20.0 ), self.origin - ( 0.0, 0.0, 20.0 ), 0, undefined );
 
             if ( var_0["fraction"] < 1 )
                 self._id_1BB6._id_77CC = var_0["position"];
@@ -968,7 +968,7 @@ createuseobject( var_0, var_1, var_2, var_3, var_4 )
     var_5.visuals = var_2;
 
     if ( !isdefined( var_3 ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
 
     var_5._id_637F = var_3;
 
@@ -1047,7 +1047,7 @@ createuseobject( var_0, var_1, var_2, var_3, var_4 )
 _id_5F3D( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( self.trigger ) )
     {
@@ -1110,8 +1110,8 @@ _id_5F3D( var_0, var_1 )
     if ( isdefined( self._id_1305 ) )
     {
         self._id_1305 delete();
-        var_11 = self.visuals[0].origin + ( 0, 0, 32 );
-        var_12 = self.visuals[0].origin + ( 0, 0, -32 );
+        var_11 = self.visuals[0].origin + ( 0.0, 0.0, 32.0 );
+        var_12 = self.visuals[0].origin + ( 0.0, 0.0, -32.0 );
         var_13 = bullettrace( var_11, var_12, 0, undefined );
         var_14 = vectortoangles( var_13["normal"] );
         self._id_1306 = anglestoforward( var_14 );
@@ -2081,7 +2081,7 @@ _id_9B8F()
         return;
 
     if ( self._id_4EA9 == "none" )
-        self.trigger.origin -= ( 0, 0, 50000 );
+        self.trigger.origin -= ( 0.0, 0.0, 50000.0 );
     else if ( self._id_4EA9 == "any" )
     {
         self.trigger.origin = self.curorigin;
@@ -2096,7 +2096,7 @@ _id_9B8F()
         else if ( self._id_663A == "axis" )
             self.trigger setteamfortrigger( "axis" );
         else
-            self.trigger.origin -= ( 0, 0, 50000 );
+            self.trigger.origin -= ( 0.0, 0.0, 50000.0 );
     }
     else if ( self._id_4EA9 == "enemy" )
     {

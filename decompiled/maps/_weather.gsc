@@ -144,7 +144,7 @@ _id_6D94()
         while ( common_scripts\utility::_id_382E( "player_weather_enabled" ) )
         {
             var_2 = var_0.angles;
-            var_1 moveto( var_0.origin + ( 0, 0, 650 ), 0.1 );
+            var_1 moveto( var_0.origin + ( 0.0, 0.0, 650.0 ), 0.1 );
             var_1 rotateto( ( -90, var_2[1], 180 ), 0.1 );
             playfxontag( level._effect["rain_drops"], var_1, "tag_origin" );
             wait 0.3;
@@ -303,8 +303,8 @@ _id_9343()
     else if ( level._id_70FB == 10 )
         wait 1;
 
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
-    var_0.origin = level.playercardbackground.origin + ( 0, 0, 80 );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+    var_0.origin = level.playercardbackground.origin + ( 0.0, 0.0, 80.0 );
     var_0 linkto( level.playercardbackground );
 
     if ( level._id_70FB <= 8 )

@@ -32,12 +32,12 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = 0;
     var_6 = 0;
-    var_7 = ( 0, 0, 0 );
+    var_7 = ( 0.0, 0.0, 0.0 );
     var_8 = 1;
     var_9 = 0;
     var_10 = 0;
     var_11 = 10;
-    var_12 = ( 0, 0, 0 );
+    var_12 = ( 0.0, 0.0, 0.0 );
     var_13 = 0;
     var_14 = 0;
     var_15 = 0;
@@ -103,7 +103,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
 
         var_25 = isdefined( self._id_64E7 ) || isdefined( self._id_6450 );
         var_26 = isdefined( var_24 );
-        var_27 = ( 0, 0, 0 );
+        var_27 = ( 0.0, 0.0, 0.0 );
 
         if ( var_26 )
             var_27 = var_24;

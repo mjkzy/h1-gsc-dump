@@ -51,7 +51,7 @@ exchange_turret()
         level.playercardbackground thread maps\_utility::_id_2B4A( "barrett" );
 
     level._id_56D2 = 1;
-    var_2 = level.playercardbackground.origin + ( 0, 0, 60 );
+    var_2 = level.playercardbackground.origin + ( 0.0, 0.0, 60.0 );
     common_scripts\utility::_id_384C( "player_gets_off_turret_fade", "hotel_destroyed" );
 
     if ( !common_scripts\utility::_id_382E( "hotel_destroyed" ) )
@@ -72,7 +72,7 @@ exchange_turret()
     level._id_56D2 = 0;
     setsaveddvar( "r_lodFOVFixedScale", 1 );
     setblur( 0, 0.05 );
-    level.playercardbackground setorigin( level.playercardbackground._id_659E + ( 0, 0, 90 ) );
+    level.playercardbackground setorigin( level.playercardbackground._id_659E + ( 0.0, 0.0, 90.0 ) );
 }
 
 update_goal_yaw( var_0 )
@@ -194,7 +194,7 @@ exchange_player_fires()
     if ( !isdefined( var_15 ) )
         return;
 
-    var_16 = var_15.origin + ( -0.1, 0, 15 );
+    var_16 = var_15.origin + ( -0.1, 0.0, 15.0 );
     var_17 = spawn( "script_model", var_16 );
     var_17 setmodel( "tag_origin" );
     playfxontag( common_scripts\utility::_id_3FA8( "bullet_geo" ), var_17, "tag_origin" );
@@ -207,7 +207,7 @@ exchange_player_fires()
     var_23 = 0;
     var_24 = 0;
     var_25 = undefined;
-    var_26 = ( 0, 0, 0 );
+    var_26 = ( 0.0, 0.0, 0.0 );
 
     for (;;)
     {
@@ -391,7 +391,7 @@ exchange_get_safe_shot( var_0 )
                 }
 
                 if ( isdefined( var_2["entity"]._id_47A3 ) )
-                    var_2["entity"] kill( ( 0, 0, 0 ) );
+                    var_2["entity"] kill( ( 0.0, 0.0, 0.0 ) );
 
                 var_2 = bullettrace( var_2["position"], self.traces[var_1], 1, var_2["entity"] );
             }
@@ -409,7 +409,7 @@ exchange_turret_traces( var_0, var_1, var_2 )
     self endon( "stop_gathering_traces" );
     var_3 = bullettrace( var_0, var_1, 1, undefined );
     var_4 = var_3["position"];
-    var_5 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_5 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level.trace_gather_ent = var_5;
     var_6 = level.wind_vec * var_2;
     var_5.origin = var_4 + var_6;
@@ -497,9 +497,9 @@ exchange_barrett_trigger()
     else
         player_attach_to_barret_with_anim();
 
-    level._id_9E12 moveto( level._id_9E12.origin + ( 0, 0, 260 ), 0.1 );
+    level._id_9E12 moveto( level._id_9E12.origin + ( 0.0, 0.0, 260.0 ), 0.1 );
     level._id_9E12 delete();
-    level.playercardbackground setplayerangles( ( 5.5, -65.06, 0 ) );
+    level.playercardbackground setplayerangles( ( 5.5, -65.06, 0.0 ) );
     level.playercardbackground._id_659E = level.playercardbackground.origin;
     var_1 useby( level.playercardbackground );
     thread maps\_utility::_id_114E( 1 );
@@ -597,7 +597,7 @@ player_attach_to_barret_with_script()
     var_1 = 0.4;
     var_2 = 0.45;
     level._id_9E12 moveto( ( 781.86, -11719.7, 953.57 ), var_0, var_0 * var_1, var_0 * var_2 );
-    level._id_9E12 rotateto( ( 8.48, -56.48, 0 ), var_0, var_0 * var_1, var_0 * var_2 );
+    level._id_9E12 rotateto( ( 8.48, -56.48, 0.0 ), var_0, var_0 * var_1, var_0 * var_2 );
     thread blackscreen( var_0 );
     wait(var_0);
 }
@@ -693,7 +693,7 @@ sniper_text_init( var_0, var_1, var_2, var_3 )
     var_5.alpha = 1;
     var_5.hindlegstraceoffset = 1;
     var_5.fontscale = 1;
-    var_5.color = ( 0.8, 1, 0.8 );
+    var_5.color = ( 0.8, 1.0, 0.8 );
     var_5.font = "objective";
     var_5.glowcolor = ( 0.26, 0.65, 0.32 );
     var_5.glowalpha = 0.2;
@@ -1170,7 +1170,7 @@ arm_detach()
 
 arm_goes_flying( var_0 )
 {
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = var_0;
     var_1 setmodel( maps\_utility::_id_4026( "zak_left_arm" ) );
 
@@ -1221,9 +1221,9 @@ zak_arm_blood()
     if ( 1 )
         return;
 
-    var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_2 setmodel( "tag_origin" );
-    var_2 linkto( self, "J_Shoulder_LE", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_2 linkto( self, "J_Shoulder_LE", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_2 thread maps\_debug::_id_2DE8( "tag_origin" );
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
@@ -1256,11 +1256,11 @@ zak_blood_pool()
 
     for (;;)
     {
-        var_2 = self gettagorigin( "J_Shoulder_LE" ) + ( 0, 0, 50 );
-        var_3 = var_2 + ( 0, 0, -250 );
+        var_2 = self gettagorigin( "J_Shoulder_LE" ) + ( 0.0, 0.0, 50.0 );
+        var_3 = var_2 + ( 0.0, 0.0, -250.0 );
         var_4 = bullettrace( var_2, var_3, 0, undefined );
         var_5 = ( var_4["position"][0], var_4["position"][1], var_1 );
-        playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_5, ( 0, 0, 1 ) );
+        playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_5, ( 0.0, 0.0, 1.0 ) );
         wait 0.35;
     }
 }
@@ -1272,7 +1272,7 @@ blood_pool()
 
     for (;;)
     {
-        playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_0.origin + ( 0, 0, 1 ), ( 0, 0, 1 ) );
+        playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_0.origin + ( 0.0, 0.0, 1.0 ), ( 0.0, 0.0, 1.0 ) );
         var_1--;
 
         if ( var_1 <= 0 )
@@ -1289,12 +1289,12 @@ zak_dies()
 {
     self.helmet = 50000;
     maps\_utility::_id_2AB1();
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 character\character_sp_zakhaev_onearm::main();
     var_0 hide();
     var_0._id_0C72 = "zak_script_model";
     var_0 maps\_utility::_id_0D61();
-    var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     common_scripts\utility::_id_A087( "damage", "fake_damage" );
     var_1 = "zak_pain";
 
@@ -1313,7 +1313,7 @@ zak_dies()
 
     common_scripts\utility::_id_383F( "exchange_success" );
     var_0 unlink();
-    var_2 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_2.origin = self.origin;
     var_3 = 135;
     var_2.angles = ( 0, var_3, 0 );
@@ -1643,10 +1643,10 @@ exchange_case_velcalc()
 
 exchange_brick_drop()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_0 linkto( self, "J_Case", ( 0, 0, 0 ), ( 0, 0, 0 ) );
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_1 linkto( self, "TAG_GOLD_BRICK", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_0 linkto( self, "J_Case", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_1 linkto( self, "TAG_GOLD_BRICK", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     common_scripts\utility::_id_384A( "player_attacks_exchange" );
     wait(level.exchanger_surprise_time);
 
@@ -1953,7 +1953,7 @@ exchange_heli_preps_missiles()
 exchange_heli_shoots_hotel()
 {
     var_0 = common_scripts\utility::_id_40FD( "hotel_org", "targetname" );
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_2 = common_scripts\utility::_id_710E( var_0 );
     var_1.origin = var_2.origin;
     maps\sniperescape_code::shoots_down( var_1, 25 );
@@ -2030,9 +2030,9 @@ exchange_heli_pilot( var_0, var_1, var_2, var_3 )
 
     maps\_utility::arcademode_kill( var_4 geteye(), "rifle", 100 );
     var_4.is_victim = 1;
-    var_5 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_5 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_5 setmodel( level._id_78B5[var_1] );
-    var_5 linkto( self, var_3, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_5 linkto( self, var_3, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     self.bloodmodels[self.bloodmodels.size] = var_5;
     self notify( "death_spiral" );
     thread common_scripts\utility::_id_69C2( "havoc_helicopter_pilot_shot_gls", self.origin );
@@ -2085,10 +2085,10 @@ exchange_ready_to_run( var_0 )
 exchange_claymore()
 {
     var_0 = getent( "claymore_org", "targetname" );
-    var_0.origin = ( 215.199, -10977.9, 1028 );
-    var_0.angles = ( 0, 161.65, 0 );
+    var_0.origin = ( 215.199, -10977.9, 1028.0 );
+    var_0.angles = ( 0.0, 161.65, 0.0 );
     level._id_6F7C.groundentchanged = "claymore";
-    level._id_6F7C magicgrenademanual( var_0.origin, ( 0, 0, 0 ), 9000 );
+    level._id_6F7C magicgrenademanual( var_0.origin, ( 0.0, 0.0, 0.0 ), 9000 );
     var_1 = getentarray( "grenade", "classname" );
     var_2 = var_1[0];
     var_2.angles = var_0.angles;
@@ -2211,7 +2211,7 @@ deathtouch()
     {
         if ( level.playercardbackground istouching( self ) )
         {
-            radiusdamage( level.playercardbackground.origin + ( 0, 0, 15 ), 16, 35, 35, level.playercardbackground );
+            radiusdamage( level.playercardbackground.origin + ( 0.0, 0.0, 15.0 ), 16, 35, 35, level.playercardbackground );
 
             if ( level.playercardbackground.helmet <= 1 )
             {
@@ -2295,7 +2295,7 @@ player_learns_to_zoom()
 
 kill_ai_along_path( var_0, var_1, var_2 )
 {
-    var_3 = ( 0, 0, 0 );
+    var_3 = ( 0.0, 0.0, 0.0 );
 
     for (;;)
     {
@@ -2323,11 +2323,11 @@ kill_ai_along_path( var_0, var_1, var_2 )
 
         if ( isdefined( var_5.no_magic_death ) )
         {
-            var_5 dodamage( 50, ( 0, 0, 0 ) );
+            var_5 dodamage( 50, ( 0.0, 0.0, 0.0 ) );
             continue;
         }
 
-        var_5 kill( ( 0, 0, 0 ) );
+        var_5 kill( ( 0.0, 0.0, 0.0 ) );
         wait 0.05;
         return;
     }
@@ -2345,9 +2345,9 @@ barrett_intro()
     level.playercardbackground disableweapons();
     level.playercardbackground allowcrouch( 0 );
     level.playercardbackground allowstand( 1 );
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = ( 791.7, -11707.8, 957.11 );
-    var_0.angles = ( 17.38, -104.33, 0 );
+    var_0.angles = ( 17.38, -104.33, 0.0 );
     var_0 setmodel( "tag_origin" );
     level._id_9E12 = var_0;
     barrett_intro_with_anim();
@@ -2374,14 +2374,14 @@ barrett_intro_with_script( var_0 )
 armtest()
 {
     var_0 = getent( "flying_arm", "targetname" );
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = var_0.origin;
     var_2 = 135;
     var_1.angles = ( 0, var_2, 0 );
 
     for (;;)
     {
-        var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_3 character\character_sp_zakhaev_onearm::main();
         var_3._id_0C72 = "zakhaev";
         var_3 maps\_utility::_id_0D61();
@@ -2591,7 +2591,7 @@ can_display_flashback_guy_name()
         return 0;
 
     var_1 = 0.075;
-    var_2 = ( 0, 0, -8 );
+    var_2 = ( 0.0, 0.0, -8.0 );
     var_3 = common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), self gettagorigin( "tag_eye" ) + var_2, cos( var_1 ) );
 
     if ( !var_3 )

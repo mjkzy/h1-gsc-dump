@@ -591,7 +591,7 @@ intro_sneakup_tableguys()
     self notify( "stop_dynamic_run_speed" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_holdup" );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cornerR" );
     self.ref_node waittill( "stop_cornerR" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_goaround" );
@@ -615,7 +615,7 @@ intro_sneakup_tableguys()
 
     var_0 = getnode( "price_intro_tableguys_node3", "targetname" );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self _meth_81a9( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
@@ -673,7 +673,7 @@ intro_avoid_tableguys()
     self._id_2B0E = 0;
     var_0 = getnode( "price_intro_tableguys_node4", "targetname" );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_tangobycar" );
     intro_corpse_hide();
@@ -694,7 +694,7 @@ intro_corpse_hide()
     var_0 = level._id_0669._id_5836._id_222C._id_0CD8.size;
 
     for ( var_1 = 0; var_1 < var_0; var_1++ )
-        level._id_0669._id_5836._id_222C._id_0CD8[var_1].origin -= ( 0, 0, 10 );
+        level._id_0669._id_5836._id_222C._id_0CD8[var_1].origin -= ( 0.0, 0.0, 10.0 );
 }
 
 intro_leave_area()
@@ -711,7 +711,7 @@ intro_leave_area()
 
     var_0 = getnode( "price_intro_tableguys_node4", "targetname" );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
 
     if ( common_scripts\utility::_id_382E( "intro_last_patrol_dead" ) )
@@ -1240,7 +1240,7 @@ church_run_for_it()
     {
         self _meth_81ce( "prone" );
         level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_turnaround" );
-        var_0 = ( 0, 45, 0 );
+        var_0 = ( 0.0, 45.0, 0.0 );
         var_1 = anglestoforward( var_0 );
         var_2 = maps\_utility::_id_3DC5( "church_lookout", "script_noteworthy" );
 
@@ -1514,7 +1514,7 @@ church_walkthrough()
     common_scripts\utility::_id_384A( "church_lookout_dead" );
     var_0 = getnode( "church_price_backdoor_node", "targetname" );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self.ref_node maps\_anim::_id_0BD1( self, "exposed_2_alert_cornerR" );
     self _meth_8565( 0 );
     self._id_5F65 = 1.0;
@@ -1596,7 +1596,7 @@ graveyard_moveup()
     self._id_2564 = ::cornerright_exitforwards;
     maps\_utility::_id_27EF( 0.25, maps\scoutsniper_code::dynamic_run_speed );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self.disablestairsanims = 1;
     maps\_utility::_id_30B0();
     maps\_utility::_id_27EF( 5, ::cleanup_graveyard_moveup );
@@ -1606,7 +1606,7 @@ graveyard_moveup()
     else
     {
         if ( !isdefined( level.graveyard_price_hind_node ) )
-            level.graveyard_price_hind_node = spawn( "script_origin", ( -8864, -4410, -167 ) );
+            level.graveyard_price_hind_node = spawn( "script_origin", ( -8864.0, -4410.0, -167.0 ) );
 
         self._id_0C72 = "price";
 
@@ -1730,7 +1730,7 @@ h1_macmillan_heli_sequence()
         self notify( "stop_dynamic_run_speed" );
 
         if ( !isdefined( level.graveyard_price_hind_node ) )
-            level.graveyard_price_hind_node = spawn( "script_origin", ( -8864, -4410, -167 ) );
+            level.graveyard_price_hind_node = spawn( "script_origin", ( -8864.0, -4410.0, -167.0 ) );
 
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_enemyheli" );
 
@@ -1942,7 +1942,7 @@ graveyard_hind_spot_enemy()
             if ( var_1 < 0.5 )
                 continue;
 
-            var_9 = bullettrace( self.origin + ( 0, 0, -128 ), level.playercardbackground.origin, 1, level._id_6F7C );
+            var_9 = bullettrace( self.origin + ( 0.0, 0.0, -128.0 ), level.playercardbackground.origin, 1, level._id_6F7C );
 
             if ( !isdefined( var_9["entity"] ) || !isplayer( var_9["entity"] ) )
                 continue;
@@ -1961,7 +1961,7 @@ graveyard_hind_spot_enemy()
             if ( distance( self.origin, level.playercardbackground.origin ) > var_10 )
                 continue;
 
-            var_9 = bullettrace( self.origin + ( 0, 0, -128 ), level.playercardbackground.origin, 1, level._id_6F7C );
+            var_9 = bullettrace( self.origin + ( 0.0, 0.0, -128.0 ), level.playercardbackground.origin, 1, level._id_6F7C );
 
             if ( !isdefined( var_9["entity"] ) || !isplayer( var_9["entity"] ) )
                 continue;
@@ -2809,7 +2809,7 @@ pond_betterview()
     level endon( "event_awareness" );
     var_0 = getnode( "price_pond_better_node", "targetname" );
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, 90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, 90.0, 0.0 );
     self._id_2AF3 = 0;
     self _meth_81a9( var_0 );
     self.goalradius = 100;
@@ -3445,7 +3445,7 @@ cargo_slipby()
     var_0 = 450;
     var_1 = getnode( "cargo_price_slipby_3", "targetname" );
     self.ref_node.origin = var_1.origin;
-    self.ref_node.angles = var_1.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_1.angles + ( 0.0, -90.0, 0.0 );
     self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
     self.goalradius = level.macmillan_exposed_cqb_radius;
 
@@ -3905,7 +3905,7 @@ dash_last()
     maps\_utility::_id_1ED1();
     wait 1;
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
 
     if ( distance( level.playercardbackground.origin, level._id_6F7C.origin ) < level.hearing_distance )
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_holdfast" );
@@ -3945,7 +3945,7 @@ dash_sniper()
 
     wait 0.5;
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_dontmove" );
     self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cornerR" );
     self.ref_node waittill( "stop_cornerR" );
@@ -4068,7 +4068,7 @@ town_moveup2()
     self notify( "stop_dynamic_run_speed" );
     wait 0.5;
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_areaclear" );
 }
 
@@ -4310,7 +4310,7 @@ dogs_sneakpast()
     maps\scoutsniper_code::scoutsniper_follow_path( var_0, 200 );
     var_0 = self._id_5558;
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_clearright" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_go" );
     self.ref_node thread maps\_anim::_id_0BC9( self, "moveout_cornerR" );
@@ -4357,7 +4357,7 @@ center_handle_heli()
     var_3 thread maps\scoutsniper_aud::aud_start_school_heli_scripted_sequence( var_4 );
     thread maps\scoutsniper_aud::aud_school_heli_rumble();
     var_3 endon( "death" );
-    target_set( var_3, ( 0, 0, -80 ) );
+    target_set( var_3, ( 0.0, 0.0, -80.0 ) );
     target_setjavelinonly( var_3, 1 );
     var_3 thread maps\scoutsniper_code::center_heli_quake( var_0 );
     var_3 playrumblelooponentity( "heli_loop" );
@@ -4442,7 +4442,7 @@ center_moveup4()
     maps\scoutsniper_code::scoutsniper_follow_path( var_0, 200 );
     wait 0.25;
     self.ref_node.origin = var_0.origin;
-    self.ref_node.angles = var_0.angles + ( 0, -90, 0 );
+    self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_move" );
     self.ref_node thread maps\_anim::_id_0BC9( self, "moveout_cornerR" );
     self.ref_node waittill( "moveout_cornerR" );
@@ -4480,13 +4480,13 @@ end_moveup()
         var_3 = anglestoforward( var_0.angles );
         var_3 = maps\_utility::vector_multiply( var_3, 100 );
         var_2 += var_3;
-        var_2 += ( 0, 0, 80 );
+        var_2 += ( 0.0, 0.0, 80.0 );
         var_4 = spawn( "script_origin", var_2 );
         var_4 movez( 30, 2.5 );
         maps\_utility::_id_30B0();
         maps\_utility::_id_22CF( var_4 );
         wait 2.5;
-        var_4 moveto( var_4.origin + ( 0, 100, 60 ), 2.5 );
+        var_4 moveto( var_4.origin + ( 0.0, 100.0, 60.0 ), 2.5 );
         wait 2.5;
         maps\_utility::_id_2A8D();
         var_4 delete();
@@ -4498,7 +4498,7 @@ end_moveup()
     else
     {
         wait 0.5;
-        var_5 = spawn( "script_origin", ( 12681, 8698.45, -150.532 ) );
+        var_5 = spawn( "script_origin", ( 12681.0, 8698.45, -150.532 ) );
         var_5 maps\_anim::_id_0BFF( level._id_6F7C, "outtro" );
         self notify( "stop_dynamic_run_speed" );
         var_6 = getanimlength( maps\_utility::_id_3EF5( "outtro" ) );

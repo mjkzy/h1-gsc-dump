@@ -65,7 +65,7 @@ main()
     level.spawndelay = level.hqautodestroytime;
     level.hqclassicmode = getdvarint( "scr_koth_classicMode", 1 );
     level.captureinsteadofdestroy = !level.hqclassicmode;
-    level.iconoffset = ( 0, 0, 32 );
+    level.iconoffset = ( 0.0, 0.0, 32.0 );
     level.timerdisplay = [];
     level._id_64E2 = ::getrespawndelay;
     game["dialog"]["gametype"] = "headquarters";
@@ -199,8 +199,8 @@ onstartgametype()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "axis", "mp_tdm_spawn" );
     level.mapcenter = maps\mp\gametypes\_spawnlogic::findboxcenter( level.spawnmins, level.spawnmaxs );
@@ -262,7 +262,7 @@ hqmainloop()
     wait 5;
     thread hidetimerdisplayongameend();
     var_0 = maps\mp\gametypes\_gameobjects::getnextobjid();
-    objective_add( var_0, "invisible", ( 0, 0, 0 ) );
+    objective_add( var_0, "invisible", ( 0.0, 0.0, 0.0 ) );
 
     for (;;)
     {

@@ -57,6 +57,6 @@ run_rat( var_0, var_1 )
     self.helmet = 1;
     self _meth_8277( var_0 );
     self waittill( "damage", var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
-    playfx( common_scripts\utility::_id_3FA8( "animated_rat_death" ), self.origin, ( 0, 0, 1 ) );
+    playfx( common_scripts\utility::_id_3FA8( "animated_rat_death" ), self.origin, ( 0.0, 0.0, 1.0 ) );
     self _meth_8277( common_scripts\utility::_id_710E( var_1 ) );
 }

@@ -174,8 +174,8 @@ _id_64C8()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_hp_spawn_allies_start" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_hp_spawn_axis_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_hp_spawn" );
@@ -844,7 +844,7 @@ _id_59F1( var_0, var_1 )
             }
         }
 
-        var_4._id_3BF8 = maps\mp\gametypes\_gameobjects::createuseobject( "neutral", var_4._id_9754, var_6, ( 0, 0, 0 ) );
+        var_4._id_3BF8 = maps\mp\gametypes\_gameobjects::createuseobject( "neutral", var_4._id_9754, var_6, ( 0.0, 0.0, 0.0 ) );
         var_4._id_3BF8 maps\mp\gametypes\_gameobjects::_id_2B1E();
         _id_7FBB( var_4 );
         var_4._id_3BF8 maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", undefined );

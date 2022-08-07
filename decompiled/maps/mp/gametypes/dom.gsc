@@ -290,8 +290,8 @@ _id_6EDA()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_dom_spawn_allies_start" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_dom_spawn_axis_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_dom_spawn" );
@@ -461,7 +461,7 @@ _id_2CF9()
         var_7[1].angles = var_7[0].angles;
         var_7[0] thread maps\mp\_utility::_id_850E( "allies" );
         var_7[1] thread maps\mp\_utility::_id_850E( "axis" );
-        var_8 = maps\mp\gametypes\_gameobjects::createuseobject( "neutral", var_6, var_7, ( 0, 0, 100 ) );
+        var_8 = maps\mp\gametypes\_gameobjects::createuseobject( "neutral", var_6, var_7, ( 0.0, 0.0, 100.0 ) );
         var_8 maps\mp\gametypes\_gameobjects::allowuse( "enemy" );
         var_8 maps\mp\gametypes\_gameobjects::setusetime( level._id_2CF1 );
         var_8 maps\mp\gametypes\_gameobjects::_id_834B( &"MP_SECURING_POSITION" );
@@ -479,8 +479,8 @@ _id_2CF9()
         var_8._id_4B53 = "domFlag";
         var_8._id_46E3 = 0;
         var_8._id_3818 = 1;
-        var_10 = var_7[0].origin + ( 0, 0, 32 );
-        var_11 = var_7[0].origin + ( 0, 0, -32 );
+        var_10 = var_7[0].origin + ( 0.0, 0.0, 32.0 );
+        var_11 = var_7[0].origin + ( 0.0, 0.0, -32.0 );
         var_12 = bullettrace( var_10, var_11, 0, var_7[0] );
         var_13 = vectortoangles( var_12["normal"] );
         var_8._id_1306 = anglestoforward( var_13 );

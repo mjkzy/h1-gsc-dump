@@ -42,8 +42,8 @@ carrystart( var_0, var_1, var_2 )
     level.m_player_spot.angles = ( 0, level.m_player_rig.angles[1], 0 );
     level.m_player_spot thread maps\_anim::_id_0BE1( level.m_player_rig, "carry_idle" );
     level.m_player_rig thread maps\_anim::_id_0BE1( level.m_carried, "carry_idle" );
-    level.m_carried _meth_83ff( level.playercardbackground, "tag_origin", ( 0, 0, -60 ), ( 0, 0, 0 ), 1, 0, 1, 0 );
-    level.m_player_rig _meth_83ff( level.playercardbackground, "tag_origin", ( 0, 0, -60 ), ( 0, 0, 0 ), 1, 0, 1, 0 );
+    level.m_carried _meth_83ff( level.playercardbackground, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
+    level.m_player_rig _meth_83ff( level.playercardbackground, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
     wait 0.05;
     thread carrymoveloop( var_1 );
 }

@@ -30,7 +30,7 @@ air_support_precache()
 
 air_support_create_arrow_ent()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "wpn_h1_airsupport_marker" );
     var_0 useanimtree( #animtree );
     var_0 _meth_814d( %h1_wpn_spl_airsupport_target_idle );
@@ -92,7 +92,7 @@ air_support_update_arrow_coords( var_0, var_1 )
         var_8 = anglestoright( var_5 );
         var_9 = level.playercardbackground geteye();
         var_10 = getdvar( var_1 ) == "1";
-        var_11 = ( 0, 0, 0 );
+        var_11 = ( 0.0, 0.0, 0.0 );
 
         for ( var_12 = 0; var_12 < var_3.size; var_12++ )
         {
@@ -176,7 +176,7 @@ air_support_update_arrow_coords( var_0, var_1 )
 
 air_support_average_coords( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
     var_2 = 0;
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
@@ -193,7 +193,7 @@ air_support_average_coords( var_0 )
 
 air_support_average_normals( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
     var_2 = 0;
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
@@ -241,7 +241,7 @@ air_support_draw_arrow( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     if ( var_5 )
     {
-        var_6 = ( 0, 0, 1 );
+        var_6 = ( 0.0, 0.0, 1.0 );
         var_7 = vectornormalize( vectorcross( var_2, var_6 ) );
         var_8 = axistoangles( var_2, var_7, var_6 );
     }
@@ -254,7 +254,7 @@ air_support_draw_arrow( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     if ( !var_5 )
-        var_8 -= ( 90, 0, 0 ) * common_scripts\utility::_id_856D( var_2[2] );
+        var_8 -= ( 90.0, 0.0, 0.0 ) * common_scripts\utility::_id_856D( var_2[2] );
 
     if ( var_4 > 0 )
         var_0 rotateto( var_8, var_4 );

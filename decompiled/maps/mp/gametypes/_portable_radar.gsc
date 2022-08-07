@@ -83,9 +83,9 @@ _id_6E52( var_0 )
     self setmodel( "weapon_radar" );
 
     if ( level.teambased )
-        maps\mp\_entityheadicons::_id_8028( self.team, ( 0, 0, 20 ) );
+        maps\mp\_entityheadicons::_id_8028( self.team, ( 0.0, 0.0, 20.0 ) );
     else
-        maps\mp\_entityheadicons::_id_7FE5( var_0, ( 0, 0, 20 ) );
+        maps\mp\_entityheadicons::_id_7FE5( var_0, ( 0.0, 0.0, 20.0 ) );
 
     thread _id_6E50( var_0 );
     thread _id_6E53( var_0 );

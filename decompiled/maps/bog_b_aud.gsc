@@ -342,12 +342,12 @@ play_abrams_idle_sound( var_0 )
 
 aud_final_wall_exp_debris()
 {
-    soundscripts\_snd_playsound::_id_872E( "bog_b_final_wall_exp_debris", ( 4779, -3910, -16 ) );
+    soundscripts\_snd_playsound::_id_872E( "bog_b_final_wall_exp_debris", ( 4779.0, -3910.0, -16.0 ) );
 }
 
 aud_final_tank_exp_debris()
 {
-    soundscripts\_snd_playsound::_id_872E( "final_tank_exp_debris", ( 4859, -4353, 76 ) );
+    soundscripts\_snd_playsound::_id_872E( "final_tank_exp_debris", ( 4859.0, -4353.0, 76.0 ) );
 }
 
 set_exterior_streamed_ambience( var_0 )

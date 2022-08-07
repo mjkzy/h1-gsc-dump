@@ -22,17 +22,17 @@
 init_cao()
 {
     level.cao_loc = spawnstruct();
-    level.cao_loc.origin = ( 4065, -950, -69 );
-    level.cao_loc.angles = ( 0, 267, 0 );
+    level.cao_loc.origin = ( 4065.0, -950.0, -69.0 );
+    level.cao_loc.angles = ( 0.0, 267.0, 0.0 );
     level.cao_head = spawnstruct();
-    level.cao_head.origin = ( 4065, -970, -75 );
-    level.cao_head.angles = ( 0, 267, 0 );
+    level.cao_head.origin = ( 4065.0, -970.0, -75.0 );
+    level.cao_head.angles = ( 0.0, 267.0, 0.0 );
     level.cao_loc_collection = spawnstruct();
-    level.cao_loc_collection.origin = ( 4050, -950, -68 );
-    level.cao_loc_collection.angles = ( 0, 267, 0 );
+    level.cao_loc_collection.origin = ( 4050.0, -950.0, -68.0 );
+    level.cao_loc_collection.angles = ( 0.0, 267.0, 0.0 );
     level.cao_head_collection = spawnstruct();
-    level.cao_head_collection.origin = ( 4050, -970, -75 );
-    level.cao_head_collection.angles = ( 0, 267, 0 );
+    level.cao_head_collection.origin = ( 4050.0, -970.0, -75.0 );
+    level.cao_head_collection.angles = ( 0.0, 267.0, 0.0 );
     level.collections = 0;
     level.armory = 0;
     level.equip = 0;

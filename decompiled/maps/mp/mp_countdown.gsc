@@ -29,5 +29,5 @@ main()
     game["attackers"] = "allies";
     game["defenders"] = "axis";
     setdvar( "compassmaxrange", "2000" );
-    maps\mp\_utility::headquartersradiomove( ( -844, -1384, 6 ), ( -844, -1384, -4 ) );
+    maps\mp\_utility::headquartersradiomove( ( -844.0, -1384.0, 6.0 ), ( -844.0, -1384.0, -4.0 ) );
 }

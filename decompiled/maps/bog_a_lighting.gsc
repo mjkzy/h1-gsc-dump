@@ -25,7 +25,7 @@ main()
     thread _id_80C6();
     thread _id_7E68();
     level.cheat_highcontrast_override = "_night";
-    enableouterspacemodellighting( ( 10000, 10000, 10000 ), ( 0.001, 0.001, 0.001 ) );
+    enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.001, 0.001, 0.001 ) );
     thread _id_8106();
     thread maps\_lighting::_id_694A( "firelight_motion_dim_01", "firelight_dim_01" );
     thread maps\_lighting::_id_694A( "firelight_motion_dim_02", "firelight_dim_02" );

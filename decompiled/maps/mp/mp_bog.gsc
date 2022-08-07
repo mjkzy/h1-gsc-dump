@@ -57,7 +57,7 @@ main()
     level.bombsquadmodelc4 = "weapon_c4_bombsquad_mw1_night";
     level.bombsquadmodelclaymore = "weapon_claymore_bombsquad_mw1_night";
     level.oldschoolfxtype = "unlit";
-    maps\mp\_utility::demolitiontriggermove( ( 3559, 1308, 2 ), undefined, ( 357.835, 99.7969, 1.82364 ) );
+    maps\mp\_utility::demolitiontriggermove( ( 3559.0, 1308.0, 2.0 ), undefined, ( 357.835, 99.7969, 1.82364 ) );
 }
 
 misc_rotate_ceilingfans()

@@ -541,7 +541,7 @@ start_javelin()
     common_scripts\utility::_id_383F( "barn_assault_begins" );
     common_scripts\utility::_id_383F( "objective_armor_arrival" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
-    level.playercardbackground setorigin( ( 1021, 7309, 1006 ) );
+    level.playercardbackground setorigin( ( 1021.0, 7309.0, 1006.0 ) );
     thread saw_gunner_friendly();
 }
 
@@ -567,7 +567,7 @@ start_final_battle()
     common_scripts\utility::_id_383F( "airstrikes_ready" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
     common_scripts\utility::_id_383F( "start_final_battle" );
-    level.playercardbackground setorigin( ( 1021, 7309, 1006 ) );
+    level.playercardbackground setorigin( ( 1021.0, 7309.0, 1006.0 ) );
     thread saw_gunner_friendly();
     var_0 = getentarray( "barbed_wire_detonator", "targetname" );
     thread minigun_barbed_wire_detonate( "southern_hill_barbed_wire_wall_1", var_0 );
@@ -599,7 +599,7 @@ start_seaknight()
     common_scripts\utility::_id_383F( "airstrikes_ready" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
     common_scripts\utility::_id_383F( "rescue_chopper_ingress" );
-    level.playercardbackground setorigin( ( -64, -1904, -80 ) );
+    level.playercardbackground setorigin( ( -64.0, -1904.0, -80.0 ) );
     thread saw_gunner_friendly();
     var_0 = getentarray( "barbed_wire_detonator", "targetname" );
     thread minigun_barbed_wire_detonate( "southern_hill_barbed_wire_wall_1", var_0 );
@@ -857,7 +857,7 @@ magic_sniper()
         var_0 = randomint( var_4.size );
         var_7 = var_4[var_0];
         var_2 playsound( level.sniperfx );
-        var_7 kill( ( 0, 0, 0 ) );
+        var_7 kill( ( 0.0, 0.0, 0.0 ) );
 
         if ( level.magicsnipertalk )
         {
@@ -2139,9 +2139,9 @@ clacker_markers_init_fx( var_0 )
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_3 setmodel( "tag_origin" );
-        var_3.angles = ( -90, 0, 0 );
+        var_3.angles = ( -90.0, 0.0, 0.0 );
         var_3.origin = var_0[var_2].origin;
         var_1[var_1.size] = var_3;
         var_3 thread clacker_markers_monitor_fx();
@@ -2448,7 +2448,7 @@ enemy_loadout_reset()
 javelin_init()
 {
     common_scripts\utility::_id_384A( "fall_back_to_barn" );
-    var_0 = spawn( "weapon_javelin", ( 1021.1, 7309.2, 1006 ), 1 );
+    var_0 = spawn( "weapon_javelin", ( 1021.1, 7309.2, 1006.0 ), 1 );
     var_0.angles = ( 356.201, 346.91, -0.426635 );
     var_0 thread maps\_utility::_id_076A( "kill_jav_glow" );
     var_0 waittill( "trigger" );
@@ -2504,7 +2504,7 @@ tanks_engage( var_0 )
     for (;;)
     {
         var_2 waittill( "trigger" );
-        self _meth_825d( level.playercardbackground.origin + ( 0, 0, 72 ) );
+        self _meth_825d( level.playercardbackground.origin + ( 0.0, 0.0, 72.0 ) );
         common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 8.0 );
         self fireweapon();
         wait 4;
@@ -2519,7 +2519,7 @@ tanks_deploy( var_0 )
     level.tankid++;
     var_2 = level.tankid;
     var_1 thread tank_ping( var_2 );
-    var_3 = ( 0, 0, 60 );
+    var_3 = ( 0.0, 0.0, 60.0 );
     target_set( var_1, var_3 );
     target_setattackmode( var_1, "top" );
     target_setjavelinonly( var_1, 1 );
@@ -2693,11 +2693,11 @@ return_trip_friendly_boost()
 airstrike_command()
 {
     common_scripts\utility::_id_384A( "airstrikes_ready" );
-    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0, 110, 0 ) );
+    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0.0, 110.0, 0.0 ) );
     wait 1.2;
-    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0, 96, 0 ) );
+    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0.0, 96.0, 0.0 ) );
     wait 1;
-    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0, 126, 0 ) );
+    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0.0, 126.0, 0.0 ) );
     wait 5;
     maps\_utility::_id_70C4( "casready" );
     thread airstrike_hint_pc();
@@ -2759,12 +2759,12 @@ _id_6302()
 
     common_scripts\utility::_id_384A( "objective_price_orders_southern_hill" );
     common_scripts\utility::_id_383F( "aa_southernhill" );
-    objective_add( 2, "active", &"VILLAGE_DEFEND_TAKE_UP_A_DEFENSIVE_POSITION", ( -732, -1473, 188 ) );
+    objective_add( 2, "active", &"VILLAGE_DEFEND_TAKE_UP_A_DEFENSIVE_POSITION", ( -732.0, -1473.0, 188.0 ) );
     objective_current( 2 );
     common_scripts\utility::_id_384A( "objective_player_on_ridgeline" );
     wait 3;
     objective_state( 2, "done" );
-    objective_add( 3, "active", &"VILLAGE_DEFEND_DEFEND_THE_SOUTHERN_HILL", ( -732, -1473, 188 ) );
+    objective_add( 3, "active", &"VILLAGE_DEFEND_DEFEND_THE_SOUTHERN_HILL", ( -732.0, -1473.0, 188.0 ) );
     objective_current( 3 );
     maps\_utility::_id_1143( "ready_for_ambush" );
     common_scripts\utility::_id_384A( "objective_price_orders_minigun" );
@@ -2808,7 +2808,7 @@ _id_6302()
     common_scripts\utility::_id_3831( "aa_fallback" );
     common_scripts\utility::_id_383F( "aa_javelin" );
     maps\_utility::_id_1143( "player_got_to_the_farm" );
-    objective_add( 7, "active", &"VILLAGE_DEFEND_GET_THE_JAVELIN_IN_THE", ( 1021.1, 7309.2, 1006 ) );
+    objective_add( 7, "active", &"VILLAGE_DEFEND_GET_THE_JAVELIN_IN_THE", ( 1021.1, 7309.2, 1006.0 ) );
     objective_current( 7 );
     maps\_utility::arcademode_checkpoint( 2, "d" );
     common_scripts\utility::_id_384A( "got_the_javelin" );
@@ -2995,10 +2995,10 @@ init_warning_font_color()
 
     level.warning_font_color_inited = 1;
     level.warning_font_color = [];
-    level.warning_font_color["default"] = ( 0.8, 1, 0.8 );
+    level.warning_font_color["default"] = ( 0.8, 1.0, 0.8 );
     level.warning_font_color["green"] = level.warning_font_color["default"];
-    level.warning_font_color["yellow"] = ( 1, 1, 0.6 );
-    level.warning_font_color["red"] = ( 1, 0.3, 0.3 );
+    level.warning_font_color["yellow"] = ( 1.0, 1.0, 0.6 );
+    level.warning_font_color["red"] = ( 1.0, 0.3, 0.3 );
     level.warning_font_color["default glow"] = ( 0.3, 0.6, 0.3 );
     level.warning_font_color["green glow"] = level.warning_font_color["default glow"];
     level.warning_font_color["yellow glow"] = ( 0.7, 0.7, 0.2 );
@@ -3137,7 +3137,7 @@ rescue_chopper()
 
     thread maps\village_defend_code::seaknight();
     common_scripts\utility::_id_384A( "seaknight_can_be_boarded" );
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = level.seaknight1 gettagorigin( "tag_door_rear" );
     var_0.rank = 27.7311;
 
@@ -3799,7 +3799,7 @@ airstrike_hint_console()
     level._id_4B40 = maps\_hud_util::_id_2420( "hud_arrow_down", 24, 24 );
     level._id_4B40 maps\_hud_util::_id_7FEE( "TOP", undefined, -15.5, 170 );
     level._id_4B40.space = 1;
-    level._id_4B40.color = ( 1, 1, 0 );
+    level._id_4B40.color = ( 1.0, 1.0, 0.0 );
     level._id_4B40.alpha = 0.7;
     wait 4;
     level._id_4B3E maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
@@ -4066,7 +4066,7 @@ _id_6A38()
     self endon( "death" );
 
     if ( !isdefined( level.mapcenter ) )
-        var_0 = ( 0, 0, 0 );
+        var_0 = ( 0.0, 0.0, 0.0 );
     else
         var_0 = level.mapcenter;
 
@@ -4156,7 +4156,7 @@ callstrike_bombeffect( var_0, var_1, var_2 )
             var_13 = var_5 + maps\_utility::vector_multiply( var_12, 10000 );
             var_14 = bullettrace( var_5, var_13, 0, undefined );
             var_15 = var_14["position"];
-            radiusdamage( var_15 + ( 0, 0, 16 ), 512, 400, 30, level.airstriker );
+            radiusdamage( var_15 + ( 0.0, 0.0, 16.0 ), 512, 400, 30, level.airstriker );
 
             if ( var_11 % 3 == 0 )
             {
@@ -4175,7 +4175,7 @@ callstrike_bombeffect( var_0, var_1, var_2 )
 
 _id_6DDC( var_0, var_1, var_2 )
 {
-    var_3 = spawn( "script_origin", ( 0, 0, 1 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
 
     if ( !isdefined( var_1 ) )
         var_1 = self.origin;
@@ -4251,7 +4251,7 @@ toggle_detonator( var_0, var_1 )
 {
     if ( var_1 )
     {
-        var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_2 setmodel( "ctl_weapon_c4_detonator_animated" );
         wait 0.1;
         var_2 hide();

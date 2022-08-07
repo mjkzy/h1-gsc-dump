@@ -874,7 +874,7 @@ _id_89FB( var_0, var_1 )
         var_15 = self.pers["team"];
 
         if ( maps\mp\_utility::_id_4E3F() )
-            thread maps\mp\gametypes\_hud_message::_id_63DB( game["strings"]["overtime"], game["strings"]["overtime_hint"], undefined, ( 1, 0, 0 ), "mp_last_stand" );
+            thread maps\mp\gametypes\_hud_message::_id_63DB( game["strings"]["overtime"], game["strings"]["overtime_hint"], undefined, ( 1.0, 0.0, 0.0 ), "mp_last_stand" );
 
         thread _id_852C();
     }

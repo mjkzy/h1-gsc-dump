@@ -71,7 +71,7 @@ main()
     common_scripts\utility::_id_0D13( vehicle_getarray(), maps\_ac130::vehicle_thermal_models );
     thread maps\_spawner::override_random_tire( "com_junktire_ac130" );
     wait 10;
-    objective_add( 1, "current", &"AC130_OBJECTIVE_SUPPORT_FRIENDLIES", ( 0, 0, 0 ) );
+    objective_add( 1, "current", &"AC130_OBJECTIVE_SUPPORT_FRIENDLIES", ( 0.0, 0.0, 0.0 ) );
 }
 
 start_start()

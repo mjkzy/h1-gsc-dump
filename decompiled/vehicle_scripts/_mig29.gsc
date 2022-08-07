@@ -177,7 +177,7 @@ _id_686E()
     var_0 endon( "death" );
     var_1 = var_0;
     var_1 thread _id_686E();
-    var_2 = spawn( "script_model", var_1.origin - ( 0, 0, 100 ) );
+    var_2 = spawn( "script_model", var_1.origin - ( 0.0, 0.0, 100.0 ) );
     var_2.angles = var_1.angles;
     var_2 setmodel( "projectile_cbu97_clusterbomb" );
     var_3 = anglestoforward( var_1.angles ) * 2;
@@ -213,7 +213,7 @@ _id_686E()
         var_15 = var_8 + var_14 * 10000;
         var_16 = bullettrace( var_8, var_15, 0, undefined );
         var_17 = var_16["position"];
-        radiusdamage( var_17 + ( 0, 0, 16 ), 512, 400, 30 );
+        radiusdamage( var_17 + ( 0.0, 0.0, 16.0 ), 512, 400, 30 );
 
         if ( var_6 % 3 == 0 )
         {

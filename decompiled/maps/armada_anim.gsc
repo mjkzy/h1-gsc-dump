@@ -150,7 +150,7 @@ player_heli_ropeanimoverride()
     self._id_0DE8 = var_5;
     var_6 = spawn( "script_model", level.playercardbackground.origin );
     var_6 setmodel( var_1 );
-    var_6 linkto( self, var_0, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_6 linkto( self, var_0, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_6 useanimtree( #animtree );
     thread player_heli_ropeanimoverride_idle( var_6, var_0, var_3 );
     self waittill( "unloading" );

@@ -281,7 +281,7 @@ _id_523B( var_0, var_1 )
 
 _id_6DD8( var_0, var_1, var_2 )
 {
-    var_3 = spawn( "script_origin", ( 0, 0, 1 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
     var_3 hide();
 
     if ( !isdefined( var_1 ) )
@@ -300,7 +300,7 @@ _id_6DD8( var_0, var_1, var_2 )
 
 _id_6DD9( var_0, var_1 )
 {
-    var_2 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_2 hide();
     var_2 endon( "death" );
     thread common_scripts\utility::_id_2825( var_2 );
@@ -434,10 +434,10 @@ _id_9D85( var_0 )
                 continue;
 
             self notify( "death" );
-            self.origin += ( 0, 0, 10000 );
+            self.origin += ( 0.0, 0.0, 10000.0 );
 
             if ( !isdefined( self._id_9EBE ) )
-                var_8 = self._id_9EC7.origin + ( 37, -31, 52 );
+                var_8 = self._id_9EC7.origin + ( 37.0, -31.0, 52.0 );
             else
                 var_8 = self._id_9EBE;
 
@@ -1048,7 +1048,7 @@ _id_67F1( var_0 )
                 var_0._id_21D4 = var_1;
                 var_0._id_8C41 = var_1.origin;
                 var_0.lockorientation = var_2;
-                var_3 = self._id_21CE.angles + ( 0, 90, 0 );
+                var_3 = self._id_21CE.angles + ( 0.0, 90.0, 0.0 );
                 var_4 = anglestoforward( var_3 );
                 var_0._id_313E = var_0._id_8C41 + var_4 * 30;
             }
@@ -1258,9 +1258,9 @@ _id_366A( var_0 )
 
     for (;;)
     {
-        var_6 = abs( vectordot( var_5, ( 1, 0, 0 ) ) );
-        var_7 = abs( vectordot( var_5, ( 0, 1, 0 ) ) );
-        var_8 = abs( vectordot( var_5, ( 0, 0, 1 ) ) );
+        var_6 = abs( vectordot( var_5, ( 1.0, 0.0, 0.0 ) ) );
+        var_7 = abs( vectordot( var_5, ( 0.0, 1.0, 0.0 ) ) );
+        var_8 = abs( vectordot( var_5, ( 0.0, 0.0, 1.0 ) ) );
 
         if ( var_6 > 0.9 )
             self rotatevelocity( ( var_1, 0, 0 ), var_2 );

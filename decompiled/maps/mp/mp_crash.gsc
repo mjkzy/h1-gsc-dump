@@ -83,5 +83,5 @@ delayimpulsepot()
     level notify( "delayImpulsePot" );
     level endon( "delayImpulsePot" );
     wait 1;
-    physicsjitter( ( 1597, 835, 216 ), 1, 0, 100, 100 );
+    physicsjitter( ( 1597.0, 835.0, 216.0 ), 1, 0, 100, 100 );
 }

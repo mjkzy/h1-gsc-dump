@@ -464,7 +464,7 @@ fastrope_player_think()
 
     self.que = common_scripts\utility::_id_0CED( self.que, level.playercardbackground, var_1 );
     wait 2;
-    level.playercardbackground setplayerangles( ( 15, 70, 0 ) );
+    level.playercardbackground setplayerangles( ( 15.0, 70.0, 0.0 ) );
     self._id_9C7E waittill( "reached_wait_node" );
     wait 2.5;
 
@@ -523,7 +523,7 @@ fastrope_player_unload_nolock()
     var_1.angles = var_0.angles;
     var_0 linkto( var_1 );
     var_2 = 1;
-    var_3 = anglestoforward( ( 0, 233, 0 ) );
+    var_3 = anglestoforward( ( 0.0, 233.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_3, 30 );
     self.que = common_scripts\utility::_id_0CF6( self.que, level.playercardbackground );
     thread fastrope_que_check();
@@ -531,7 +531,7 @@ fastrope_player_unload_nolock()
     level.playercardbackground.titleunlocked += 1;
     self._id_5605 = level.playercardbackground.titleunlocked;
     var_4 = ( level.playercardbackground._id_7131 + 100 ) * -1;
-    var_1 moveto( ( 3220, 255, 435 ), level.playercardbackground.titleunlocked );
+    var_1 moveto( ( 3220.0, 255.0, 435.0 ), level.playercardbackground.titleunlocked );
     var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
@@ -567,7 +567,7 @@ fastrope_player_unload_nolock2()
     var_1.angles = var_0.angles;
     var_0 linkto( var_1 );
     var_2 = 1;
-    var_3 = anglestoforward( ( 0, 233, 0 ) );
+    var_3 = anglestoforward( ( 0.0, 233.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_3, 30 );
     self.que = common_scripts\utility::_id_0CF6( self.que, level.playercardbackground );
     thread fastrope_que_check();
@@ -575,13 +575,13 @@ fastrope_player_unload_nolock2()
     level.playercardbackground.titleunlocked += 1;
     self._id_5605 = level.playercardbackground.titleunlocked;
     var_4 = ( level.playercardbackground._id_7131 + 100 ) * -1;
-    var_1 moveto( ( 3220, 300, 400 ), level.playercardbackground.titleunlocked );
+    var_1 moveto( ( 3220.0, 300.0, 400.0 ), level.playercardbackground.titleunlocked );
     var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     var_5 = 0.5;
     wait(level.playercardbackground.titleunlocked - var_5);
-    var_1 rotateto( ( -60, 225, 0 ), var_5, var_5 * 0.5, var_5 * 0.5 );
+    var_1 rotateto( ( -60.0, 225.0, 0.0 ), var_5, var_5 * 0.5, var_5 * 0.5 );
     wait(var_5);
     var_0 notify( "stop soundfastrope_loop_plr" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_end_plr" );
@@ -657,7 +657,7 @@ fastrope_player_unload_lock()
     var_1.angles = var_0.angles;
     var_0 linkto( var_1 );
     var_2 = 1;
-    var_3 = anglestoforward( ( 0, 233, 0 ) );
+    var_3 = anglestoforward( ( 0.0, 233.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_3, -50 );
     self.que = common_scripts\utility::_id_0CF6( self.que, level.playercardbackground );
     thread fastrope_que_check();
@@ -668,7 +668,7 @@ fastrope_player_unload_lock()
     var_5 = var_2 / ( level.playercardbackground.titleunlocked + 0.5 );
     var_6 = var_4 * var_5;
     var_7 = var_1.origin + var_3 + ( 0, 0, var_6 );
-    var_1 rotateto( ( 80, 233, 0 ), var_2, var_2 * 0.5, var_2 * 0.5 );
+    var_1 rotateto( ( 80.0, 233.0, 0.0 ), var_2, var_2 * 0.5, var_2 * 0.5 );
     var_1 moveto( var_7, var_2 );
     var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
@@ -683,11 +683,11 @@ fastrope_player_unload_lock()
     var_7 = var_1.origin + var_3 + ( 0, 0, var_6 );
     var_1 moveto( var_7, level.playercardbackground.titleunlocked + 0.5 - var_2 );
     wait(var_9);
-    var_1 rotateto( ( 10, 233, 0 ), var_8, var_8 * 0.5, var_8 * 0.5 );
+    var_1 rotateto( ( 10.0, 233.0, 0.0 ), var_8, var_8 * 0.5, var_8 * 0.5 );
     wait(var_8 - 0.25);
     var_0 notify( "stop soundfastrope_loop_plr" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_end_plr" );
-    var_1 moveto( ( 3200, 225, 337 ), 0.5 );
+    var_1 moveto( ( 3200.0, 225.0, 337.0 ), 0.5 );
     var_1 notify( "stopanimscripted" );
     maps\mo_tools::playerweapongive();
     setsaveddvar( "compass", 1 );
@@ -714,7 +714,7 @@ fastrope_player_attach()
 {
     var_0 = spawn( "script_model", self.motiontrackerenabled gettagorigin( "tag_detach" ) );
     var_0 setmodel( level._id_5D45["player"]["fastrope"] );
-    var_0 linkto( self.motiontrackerenabled, "tag_detach", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self.motiontrackerenabled, "tag_detach", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0._id_0C72 = fastrope_animname( self.unlockpoints, "player" );
     var_0 useanimtree( #animtree );
     var_0 hide();
@@ -938,7 +938,7 @@ fastrope_heli_playinteriorlightfx2()
 fastrope_heli_playinteriorlightgreenfx( var_0 )
 {
     var_1 = common_scripts\utility::_id_8959();
-    var_1 linkto( self, "tag_light_cargo01", ( 0, 0, 0 ), ( 0, -90, 0 ) );
+    var_1 linkto( self, "tag_light_cargo01", ( 0.0, 0.0, 0.0 ), ( 0.0, -90.0, 0.0 ) );
 
     if ( var_0 == 1 )
         playfxontag( level._effect["aircraft_light_cockpit_green"], var_1, "tag_origin" );
@@ -962,7 +962,7 @@ fastrope_heli_fly_sea( var_0 )
 fastrope_calc( var_0 )
 {
     var_1 = var_0.origin;
-    var_2 = physicstrace( var_1, var_1 + ( 0, 0, -10000 ) );
+    var_2 = physicstrace( var_1, var_1 + ( 0.0, 0.0, -10000.0 ) );
     var_3 = distance( var_1, var_2 ) + 1;
     var_4 = 400;
     var_5 = int( var_3 - 128 );

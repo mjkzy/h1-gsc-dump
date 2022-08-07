@@ -454,7 +454,7 @@ spawndepotpropent( var_0, var_1, var_2, var_3, var_4 )
 
 setupdepotpropent( var_0, var_1, var_2, var_3 )
 {
-    var_0 _meth_8442( var_1, var_2, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 _meth_8442( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 
     if ( maps\mp\_utility::_id_5092( var_3 ) )
         var_0 hide();
@@ -576,7 +576,7 @@ spawnandinitdepotents()
     level.depotagent.depotsceneent = spawn( "script_model", var_1.origin );
     level.depotagent.depotsceneent setmodel( "genericprop_x10" );
     level.depotagent.depotsceneent.scriptednode = var_1;
-    level.depotagent _meth_8442( level.depotagent.depotsceneent, "j_prop_1", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    level.depotagent _meth_8442( level.depotagent.depotsceneent, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.depotagent.props = [];
     level.depotagent.props["pistol"] = spawndepotpropent( "wpn_h1_pst_m1911_npc", var_1.origin, level.depotagent.depotsceneent, "j_prop_2" );
     level.depotagent.props["knife"] = spawndepotpropent( "wpn_h1_graves_combat_knife_npc", var_1.origin, level.depotagent.depotsceneent, "j_prop_3" );
@@ -600,7 +600,7 @@ spawnandinitdepotents()
     level.depotlackey.sceneent = spawn( "script_model", var_1.origin );
     level.depotlackey.sceneent setmodel( "genericprop_x10" );
     level.depotlackey.sceneent.scriptednode = var_1;
-    level.depotlackey _meth_8442( level.depotlackey.sceneent, "j_prop_10", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    level.depotlackey _meth_8442( level.depotlackey.sceneent, "j_prop_10", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.depotlackey.props = [];
     level.depotlackey.props["redtoolbox"] = spawndepotpropent( "com_red_toolbox", var_1.origin, level.depotlackey.sceneent, "j_prop_1", 1 );
     level.depotlackey.props["firstaid"] = spawndepotpropent( "h1_cs_firstaid_kit", var_1.origin, level.depotlackey.sceneent, "j_prop_2", 1 );
@@ -610,7 +610,7 @@ spawnandinitdepotents()
     level.depotlackey.props["ammo"] = spawndepotpropent( "h1_fng_shell_ammo_crate", var_1.origin, level.depotlackey.sceneent, "j_prop_6", 1 );
     level.depotlackey.props["plasticcase"] = spawndepotpropent( "com_plasticcase_beige_big", var_1.origin, level.depotlackey.sceneent, "j_prop_7", 1 );
     level.depotlackey.props["clipboard"] = spawndepotpropent( "com_clipboard_wpaper", var_1.origin, level.depotlackey.sceneent, "j_prop_8", 1 );
-    level.depotlackey.props["cards"] = spawn( "script_model", ( 0, 0, 0 ) );
+    level.depotlackey.props["cards"] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level.depotlackey.props["cards"] setmodel( "h1_props_vl_depot_playcards" );
     level.depotlackey.props["cards"].animstatesuffix = "cards";
     level.depotlackey.props["cards"].animscenenode = level.depotlackey.sceneent.scriptednode;
@@ -636,9 +636,9 @@ spawnandinitdepotents()
 
     for ( var_5 = 0; var_5 < 3; var_5++ )
     {
-        level.depotlootcards[var_5] = spawn( "script_model", ( 0, 0, 0 ) );
+        level.depotlootcards[var_5] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         level.depotlootcards[var_5] setmodel( "h1_props_vl_depot_playcards_single_crate" );
-        level.depotlootcards[var_5] _meth_8442( level.depotlootprop, "j_prop_" + ( var_5 + 1 ), ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        level.depotlootcards[var_5] _meth_8442( level.depotlootprop, "j_prop_" + ( var_5 + 1 ), ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         level.depotlootcards[var_5] _meth_8507();
     }
 
@@ -1564,12 +1564,12 @@ depotsetupseasonal()
 
     if ( level.inventory_contentpromo == 1 )
     {
-        var_2 = spawn( "script_model", ( 13856.5, 1578, -670 ) );
-        var_2.angles = ( 0, 55.686, 0 );
+        var_2 = spawn( "script_model", ( 13856.5, 1578.0, -670.0 ) );
+        var_2.angles = ( 0.0, 55.686, 0.0 );
         var_2 setmodel( "h1_props_depot_gold_coin_pile_lod0" );
         var_6[var_6.size] = var_2;
-        var_2 = spawn( "script_model", ( 13865.5, 1566, -669.5 ) );
-        var_2.angles = ( 0, 211.496, 0 );
+        var_2 = spawn( "script_model", ( 13865.5, 1566.0, -669.5 ) );
+        var_2.angles = ( 0.0, 211.496, 0.0 );
         var_2 setmodel( "h1_props_vl_depot_bobblehead" );
         var_6[var_6.size] = var_2;
 
@@ -1588,11 +1588,11 @@ depotsetupseasonal()
         var_2.angles = ( 71.7996, 61.809, 179.07 );
         var_2 setmodel( "h1_mp_bog_summer_surfboard_01_blue" );
         var_6[var_6.size] = var_2;
-        var_2 = spawn( "script_model", ( 13831.5, 1331.5, -689 ) );
+        var_2 = spawn( "script_model", ( 13831.5, 1331.5, -689.0 ) );
         var_2.angles = ( 358.324, 214.285, 78.4818 );
         var_2 setmodel( "h1_mp_bog_summer_bodyboard_orange" );
         var_6[var_6.size] = var_2;
-        var_2 = spawn( "script_model", ( 13790.7, 1463.1, -660 ) );
+        var_2 = spawn( "script_model", ( 13790.7, 1463.1, -660.0 ) );
         var_2.angles = ( 1.99531, 319.334, 1.83047 );
         var_2 setmodel( "h1_mp_bog_summer_floatie_duck" );
         var_6[var_6.size] = var_2;
@@ -1600,20 +1600,20 @@ depotsetupseasonal()
         var_2.angles = ( 45.0986, 125.457, -9.40193 );
         var_2 setmodel( "h1_mp_bog_summer_life_preserver_01" );
         var_6[var_6.size] = var_2;
-        var_2 = spawn( "script_model", ( 13861.5, 1559.5, -670 ) );
-        var_2.angles = ( 0, 203, 0 );
+        var_2 = spawn( "script_model", ( 13861.5, 1559.5, -670.0 ) );
+        var_2.angles = ( 0.0, 203.0, 0.0 );
         var_2 setmodel( "h1_mp_bog_summer_margarita_glass_full_depot" );
         var_6[var_6.size] = var_2;
         var_2 = spawn( "script_model", ( 13901.2, 1263.6, -652.5 ) );
-        var_2.angles = ( 0, 180, 0 );
+        var_2.angles = ( 0.0, 180.0, 0.0 );
         var_2 setmodel( "h1_mp_bog_summer_pool_ball_01" );
         var_6[var_6.size] = var_2;
         var_2 = spawn( "script_model", ( 13846.5, 1300.5, -664.5 ) );
-        var_2.angles = ( 0, 180, 0 );
+        var_2.angles = ( 0.0, 180.0, 0.0 );
         var_2 setmodel( "home_towels_01b" );
         var_6[var_6.size] = var_2;
         var_2 = spawn( "script_model", ( 13782.2, 1429.1, -661.5 ) );
-        var_2.angles = ( 0, 180, 0 );
+        var_2.angles = ( 0.0, 180.0, 0.0 );
         var_2 setmodel( "h1_mp_bog_summer_umbrella_closed_02_red" );
         var_6[var_6.size] = var_2;
 

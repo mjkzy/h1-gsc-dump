@@ -78,7 +78,7 @@ spawn_dead_body( var_0 )
         var_1 = level.dead_body_count;
     }
 
-    var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_2.origin = self.origin;
     var_2.angles = self.angles;
     var_2._id_0C72 = "dead_guy";
@@ -100,7 +100,7 @@ spawn_dead_body( var_0 )
 
     if ( !isdefined( self._id_7AF8 ) )
     {
-        var_3 = bullettrace( var_2.origin + ( 0, 0, 5 ), var_2.origin + ( 0, 0, -64 ), 0, undefined );
+        var_3 = bullettrace( var_2.origin + ( 0.0, 0.0, 5.0 ), var_2.origin + ( 0.0, 0.0, -64.0 ), 0, undefined );
         var_2.origin = var_3["position"];
     }
 
@@ -149,7 +149,7 @@ lookat_custom_death_anim( var_0 )
 
     for (;;)
     {
-        if ( distancesquared( level.playercardbackground.origin, self.origin ) > 5000 && ( !checksighttrace( self ) || !common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), self.origin + ( 0, 0, 12 ), var_1 ) ) )
+        if ( distancesquared( level.playercardbackground.origin, self.origin ) > 5000 && ( !checksighttrace( self ) || !common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), self.origin + ( 0.0, 0.0, 12.0 ), var_1 ) ) )
             var_2 = 0;
         else
             var_2++;
@@ -165,7 +165,7 @@ lookat_custom_death_anim( var_0 )
 
 checksighttrace( var_0 )
 {
-    var_1 = var_0 gettagorigin( "J_Ankle_LE" ) + ( 0, 0, 3 );
+    var_1 = var_0 gettagorigin( "J_Ankle_LE" ) + ( 0.0, 0.0, 3.0 );
     var_2 = var_0 gettagorigin( "J_Hip_RI" );
     var_3 = var_0 gettagorigin( "J_HEAD" );
     return sighttracepassed( level.playercardbackground geteye(), var_1, 0, level.playercardbackground, self ) || sighttracepassed( level.playercardbackground geteye(), var_2, 0, level.playercardbackground, self ) || sighttracepassed( level.playercardbackground geteye(), var_3, 0, level.playercardbackground, self );

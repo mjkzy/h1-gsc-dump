@@ -244,8 +244,8 @@ dropdead()
     animscripts\shared::_id_2F6C();
     self startragdoll();
     var_1 = self.origin;
-    var_1 += ( 0, 16, 0 );
-    var_2 = anglestoforward( ( 0, 270, 0 ) );
+    var_1 += ( 0.0, 16.0, 0.0 );
+    var_2 = anglestoforward( ( 0.0, 270.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_2, 2 );
     physicsjolt( var_1, 250, 250, var_3 );
 }
@@ -395,7 +395,7 @@ lerpshadowdetail( var_0, var_1 )
 
 playlinkedsound( var_0 )
 {
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = self.origin;
     var_1.angles = self.angles;
     var_1 linkto( self );
@@ -406,10 +406,10 @@ playlinkedsound( var_0 )
 fake_tag( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     var_3 = spawn( "script_model", self.origin );
     var_3 setmodel( "tag_origin" );
@@ -469,7 +469,7 @@ update_handsrope_lighting_origin()
 
     for (;;)
     {
-        var_0 = level.car.origin + ( 0, 0, 36 );
+        var_0 = level.car.origin + ( 0.0, 0.0, 36.0 );
         level.handsrope _meth_8477( var_0 );
         wait 0.05;
     }

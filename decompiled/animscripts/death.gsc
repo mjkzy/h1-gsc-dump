@@ -411,7 +411,7 @@ _id_68A1( var_0, var_1 )
     var_5 = anglestoup( var_3 );
     var_6 = anglestoright( var_3 );
     var_2 = var_2 + var_4 * -8.5 + var_5 * 5 + var_6 * 0;
-    var_7 = bullettrace( var_2 + ( 0, 0, 30 ), var_2 - ( 0, 0, 100 ), 0, self );
+    var_7 = bullettrace( var_2 + ( 0.0, 0.0, 30.0 ), var_2 - ( 0.0, 0.0, 100.0 ), 0, self );
 
     if ( var_7["normal"][2] > 0.9 )
         playfx( level._effect["deathfx_bloodpool_generic"], var_7["position"] );
@@ -545,7 +545,7 @@ _id_4820()
         return;
 
     var_0 = getpartname( self._id_475D, 0 );
-    var_1 = spawn( "script_model", self.origin + ( 0, 0, 64 ) );
+    var_1 = spawn( "script_model", self.origin + ( 0.0, 0.0, 64.0 ) );
     var_2 = getheadshothelmet();
     var_1 setmodel( var_2 );
     var_1.origin = self gettagorigin( var_0 );

@@ -188,7 +188,7 @@ _id_1549()
         var_9._id_6459 = ::_id_6459;
         level._id_1555[level._id_1555.size] = var_9;
         var_9._id_1538 = getent( var_1[0]._not_team, "targetname" );
-        var_9._id_1538.origin += ( 0, 0, -10000 );
+        var_9._id_1538.origin += ( 0.0, 0.0, -10000.0 );
         var_9._id_1538.land = var_9.land;
         var_9._id_1538 _meth_852a( 1 );
     }
@@ -355,14 +355,14 @@ _id_1545( var_0, var_1 )
         level._id_7B75 setmodel( "wpn_h1_briefcase_bomb_npc" );
     }
 
-    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level._id_7B75.origin + ( 0, 0, 1 ) );
+    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level._id_7B75.origin + ( 0.0, 0.0, 1.0 ) );
     var_0 maps\mp\gametypes\_gameobjects::allowuse( "none" );
     var_0 maps\mp\gametypes\_gameobjects::_id_8352( "none" );
     var_2 = var_0 maps\mp\gametypes\_gameobjects::_id_3FFA();
     var_3 = var_0._id_1538;
     var_3.origin = level._id_7B75.origin;
     var_4 = [];
-    var_5 = maps\mp\gametypes\_gameobjects::createuseobject( game["defenders"], var_3, var_4, ( 0, 0, 32 ) );
+    var_5 = maps\mp\gametypes\_gameobjects::createuseobject( game["defenders"], var_3, var_4, ( 0.0, 0.0, 32.0 ) );
     var_5.land = var_2;
     var_5 maps\mp\gametypes\common_bomb_gameobject::setupzonefordefusing( 1 );
     var_5._id_6454 = ::_id_6454;
@@ -387,7 +387,7 @@ _id_1545( var_0, var_1 )
     level._id_1540 = 1;
     setomnvar( "ui_mlg_game_mode_status_1", 0 );
     var_6 = level._id_7B75.origin;
-    var_6 += ( 0, 0, 10 );
+    var_6 += ( 0.0, 0.0, 10.0 );
     level._id_7B75 hide();
     var_0 maps\mp\gametypes\common_bomb_gameobject::onbombexploded( var_6, 300, var_1 );
 

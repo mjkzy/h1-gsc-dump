@@ -58,7 +58,7 @@ ph_init()
     populateproplist();
     ph_precache();
     initializegametypesettings();
-    level.ph_linker = spawn( "script_model", ( 0, 0, 0 ) );
+    level.ph_linker = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level.ph_linker setmodel( "tag_player" );
     onstartgametype();
 
@@ -216,8 +216,8 @@ onstartgametype()
 
     if ( level.madpropsmode )
     {
-        level.spawnmins = ( 0, 0, 0 );
-        level.spawnmaxs = ( 0, 0, 0 );
+        level.spawnmins = ( 0.0, 0.0, 0.0 );
+        level.spawnmaxs = ( 0.0, 0.0, 0.0 );
         maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
         maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
         maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
@@ -225,8 +225,8 @@ onstartgametype()
     }
     else
     {
-        level.spawnmins = ( 0, 0, 0 );
-        level.spawnmaxs = ( 0, 0, 0 );
+        level.spawnmins = ( 0.0, 0.0, 0.0 );
+        level.spawnmaxs = ( 0.0, 0.0, 0.0 );
         maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_attacker" );
         maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sd_spawn_defender" );
     }
@@ -813,7 +813,7 @@ playerlastvalidpositionwatch()
 
     for (;;)
     {
-        var_0 = playerphysicstraceinfo( self.origin, self.origin + ( 0, 0, 1 ), self );
+        var_0 = playerphysicstraceinfo( self.origin, self.origin + ( 0.0, 0.0, 1.0 ), self );
 
         if ( var_0["fraction"] == 1 )
             self.lastvalidpos = self.origin;
@@ -1187,7 +1187,7 @@ proplockwatch()
         if ( var_2 == "spin" )
         {
             self.propent unlink();
-            self.propent.angles += ( 0, 45, 0 );
+            self.propent.angles += ( 0.0, 45.0, 0.0 );
             self.propent.origin = self.propanchor.origin;
 
             if ( self.slopelocked && maps\mp\_utility::_id_5092( self._id_57FE ) )
@@ -1327,7 +1327,7 @@ madpropswatch()
 
         if ( var_0 == "explode" )
         {
-            magicgrenademanual( "h1_fraggrenade_mp", self.origin + ( 0, 0, 5 ), ( 0, 0, 0 ), 0, self, 1 );
+            magicgrenademanual( "h1_fraggrenade_mp", self.origin + ( 0.0, 0.0, 5.0 ), ( 0.0, 0.0, 0.0 ), 0, self, 1 );
             self suicide();
         }
     }
@@ -1340,7 +1340,7 @@ set_pitch_roll_for_ground_normal( var_0 )
     else
         var_1 = var_0;
 
-    var_2 = bullettrace( self.origin + ( 0, 0, 4 ), self.origin + ( 0, 0, -16 ), 0, var_1, 1, 0, 0, 0, 0, 0, 0 );
+    var_2 = bullettrace( self.origin + ( 0.0, 0.0, 4.0 ), self.origin + ( 0.0, 0.0, -16.0 ), 0, var_1, 1, 0, 0, 0, 0, 0, 0 );
 
     if ( var_2["fraction"] >= 1 )
         return;
@@ -1737,7 +1737,7 @@ flashenemies( var_0, var_1 )
 
     if ( !level.madpropsmode )
     {
-        playfx( common_scripts\utility::_id_3FA8( "propFlash" ), var_1 + ( 0, 0, 4 ) );
+        playfx( common_scripts\utility::_id_3FA8( "propFlash" ), var_1 + ( 0.0, 0.0, 4.0 ) );
         playsoundatpos( var_1, "prop_flashbang" );
     }
 
@@ -1757,7 +1757,7 @@ flashenemies( var_0, var_1 )
         else if ( !isdefined( var_3 ) || !isalive( var_3 ) || !isdefined( var_3.team ) || var_3.team != game["attackers"] )
             continue;
 
-        var_4 = var_1 + ( 0, 0, 4 ) - var_3 geteye();
+        var_4 = var_1 + ( 0.0, 0.0, 4.0 ) - var_3 geteye();
         var_5 = length( var_4 );
         var_6 = 500.0;
         var_7 = 150.0;
@@ -1772,7 +1772,7 @@ flashenemies( var_0, var_1 )
             var_9 = vectornormalize( var_4 );
             var_10 = anglestoforward( var_3 getplayerangles() );
             var_11 = vectordot( var_10, var_9 );
-            var_3 notify( "flashbang", var_1 + ( 0, 0, 4 ), var_8, var_11, var_0 );
+            var_3 notify( "flashbang", var_1 + ( 0.0, 0.0, 4.0 ), var_8, var_11, var_0 );
             var_0 thread maps\mp\gametypes\_damagefeedback::_id_9B0C( "standard", var_0 );
         }
     }
@@ -1826,8 +1826,8 @@ propwatchdeath()
     self.propdeathfx = "propDeathFX";
     self waittill( "death" );
     var_0 = self.body;
-    playsoundatpos( self.prop.origin + ( 0, 0, 4 ), self.deathnoise );
-    playfx( common_scripts\utility::_id_3FA8( self.propdeathfx ), self.prop.origin + ( 0, 0, 4 ) );
+    playsoundatpos( self.prop.origin + ( 0.0, 0.0, 4.0 ), self.deathnoise );
+    playfx( common_scripts\utility::_id_3FA8( self.propdeathfx ), self.prop.origin + ( 0.0, 0.0, 4.0 ) );
 
     if ( isdefined( var_0 ) )
         var_0 delete();
@@ -1878,7 +1878,7 @@ checkmapofflimits()
 districtrestrictedarea()
 {
     level endon( "game_ended" );
-    var_0 = spawn( "trigger_radius", ( 5648, 68, -1176 ), 0, 150, 900 );
+    var_0 = spawn( "trigger_radius", ( 5648.0, 68.0, -1176.0 ), 0, 150, 900 );
 
     for (;;)
     {

@@ -116,7 +116,7 @@ playereffect()
 
     for (;;)
     {
-        playfx( level._effect["snow_light"], var_0.origin + ( 0, 0, 300 ), var_0.origin + ( 0, 0, 350 ) );
+        playfx( level._effect["snow_light"], var_0.origin + ( 0.0, 0.0, 300.0 ), var_0.origin + ( 0.0, 0.0, 350.0 ) );
         wait 0.075;
     }
 }
@@ -175,11 +175,11 @@ cloudcover()
     var_0.v["delay"] = -100;
     var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
     var_0.v["origin"] = ( 4398.43, -20449.8, 268.961 );
-    var_0.v["angles"] = ( 86.0004, 179.999, 0 );
+    var_0.v["angles"] = ( 86.0004, 179.999, 0.0 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;
     var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
-    var_0.v["origin"] = ( 1306.07, -19108, 470.969 );
+    var_0.v["origin"] = ( 1306.07, -19108.0, 470.969 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;

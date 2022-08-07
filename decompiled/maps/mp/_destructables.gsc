@@ -90,7 +90,7 @@ _id_28F7()
     }
 
     if ( isdefined( var_0.fx ) )
-        playfx( var_0.fx, var_0.origin + ( 0, 0, 6 ) );
+        playfx( var_0.fx, var_0.origin + ( 0.0, 0.0, 6.0 ) );
 
     var_0 delete();
 }

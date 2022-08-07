@@ -1462,9 +1462,9 @@ draw_target()
     self.has_target_shader = 1;
 
     if ( isdefined( self._id_4811 ) )
-        target_set( self, ( 0, 0, -96 ) );
+        target_set( self, ( 0.0, 0.0, -96.0 ) );
     else
-        target_set( self, ( 0, 0, 64 ) );
+        target_set( self, ( 0.0, 0.0, 64.0 ) );
 
     if ( isai( self ) )
     {
@@ -1561,7 +1561,7 @@ switchbacktomainweapon_internal( var_0 )
 
 staticeffect( var_0 )
 {
-    var_1 = spawn( "script_origin", ( 0, 0, 1 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
     var_1.origin = self.origin;
     var_1 playsound( "predator_drone_static", "sounddone" );
     var_2 = newclienthudelem( self );

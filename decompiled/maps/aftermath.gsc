@@ -35,7 +35,7 @@ dead_script()
     common_scripts\utility::_id_383D( "fall" );
     common_scripts\utility::_id_383D( "collapse" );
     common_scripts\utility::_id_383D( "collapse_done" );
-    level._id_4413 = spawn( "script_model", ( 0, 0, 0 ) );
+    level._id_4413 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level.playercardbackground playersetgroundreferenceent( level._id_4413 );
     building_collapse_h1();
     player_start();
@@ -43,8 +43,8 @@ dead_script()
 
 player_start()
 {
-    var_0 = ( -989, 8433, 666 );
-    var_1 = ( -18, 25, 0 );
+    var_0 = ( -989.0, 8433.0, 666.0 );
+    var_1 = ( -18.0, 25.0, 0.0 );
     level.playercardbackground setstance( "prone" );
     level.playercardbackground setorigin( var_0 );
     level.playercardbackground setplayerangles( var_1 );
@@ -91,7 +91,7 @@ main()
         setup_force_fall();
 
     level.player_speed = 50;
-    level._id_4413 = spawn( "script_model", ( 0, 0, 0 ) );
+    level._id_4413 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level.playercardbackground playersetgroundreferenceent( level._id_4413 );
     level.playercardbackground thread player_speed_over_time();
     level.playercardbackground thread _id_6B4F();
@@ -158,8 +158,8 @@ restart_slowview()
 
 _id_70BB()
 {
-    thread common_scripts\utility::_id_69C2( "snc_intro_stinger", ( 0, 0, 0 ) );
-    var_0 = ( -1144, 8506, 660.3 );
+    thread common_scripts\utility::_id_69C2( "snc_intro_stinger", ( 0.0, 0.0, 0.0 ) );
+    var_0 = ( -1144.0, 8506.0, 660.3 );
     wait 4;
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_intro_stinger" );
     thread maps\aftermath_aud::aud_player_dying_slowly();
@@ -231,7 +231,7 @@ radiation_death()
     setblur( 0, 0.5 );
     level.playercardbackground freezecontrols( 1 );
     level.playercardbackground thread maps\_utility::_id_69C4( "h1_plr_fall_near_death_sfx" );
-    level._id_4413 thread stumble( ( 20, 10, 30 ), 0.2, 1.5, 1 );
+    level._id_4413 thread stumble( ( 20.0, 10.0, 30.0 ), 0.2, 1.5, 1 );
     wait 0.2;
     level waittill( "recovered" );
     level.playercardbackground playrumbleonentity( "grenade_rumble" );
@@ -374,7 +374,7 @@ building_collapse_pull_view( var_0, var_1 )
     var_5.angles = var_4;
     var_6 = 1.75;
     level.playercardbackground playerlinktoblend( var_5, undefined, var_6, var_6 * 0.333, var_6 * 0.333, 1 );
-    level._id_4413 rotateto( ( 0, 0, 0 ), var_6, var_6 * 0.333, var_6 * 0.333 );
+    level._id_4413 rotateto( ( 0.0, 0.0, 0.0 ), var_6, var_6 * 0.333, var_6 * 0.333 );
     wait(var_6);
     wait 1.0;
     level.playercardbackground setplayerangles( var_4 );
@@ -388,7 +388,7 @@ building_collapse_recenter_view( var_0 )
     var_2 = var_1 * 0.5;
     var_3 = var_1 * 0.25;
     wait(var_2);
-    level._id_4413 rotateto( ( 0, 0, 0 ), var_2, var_3, var_3 );
+    level._id_4413 rotateto( ( 0.0, 0.0, 0.0 ), var_2, var_3, var_3 );
 }
 
 building_collapse()
@@ -397,7 +397,7 @@ building_collapse()
     var_0 = getent( "building_collapse", "targetname" );
     var_1 = cos( 45 );
 
-    while ( !common_scripts\utility::_id_A347( level.playercardbackground.origin, level.playercardbackground getplayerangles(), var_0.origin + ( 0, 0, -1000 ), var_1 ) )
+    while ( !common_scripts\utility::_id_A347( level.playercardbackground.origin, level.playercardbackground getplayerangles(), var_0.origin + ( 0.0, 0.0, -1000.0 ), var_1 ) )
         wait 0.05;
 
     common_scripts\utility::_id_3857( "fall" );
@@ -406,14 +406,14 @@ building_collapse()
     thread common_scripts\utility::_id_69C2( "exp_building_collapse_dist", level.playercardbackground.origin );
     var_2 = getentarray( var_0._not_team, "targetname" );
     common_scripts\utility::_id_0D13( var_2, ::collapse, var_0 );
-    var_0 moveto( var_0.origin + ( 0, 0, -3000 ), 7, 4, 0 );
+    var_0 moveto( var_0.origin + ( 0.0, 0.0, -3000.0 ), 7, 4, 0 );
     wait 0.5;
     common_scripts\_exploder::_id_3528( 1 );
-    var_3 = _id_085A( ( 0, 0, -20 ) );
+    var_3 = _id_085A( ( 0.0, 0.0, -20.0 ) );
     level._id_4413 rotateto( var_3, 2, 1, 1 );
     level._id_4413 waittill( "rotatedone" );
     wait 1;
-    level._id_4413 rotateto( ( 0, 0, 0 ), 3, 1.5, 1.5 );
+    level._id_4413 rotateto( ( 0.0, 0.0, 0.0 ), 3, 1.5, 1.5 );
     wait 2;
     common_scripts\utility::_id_3831( "collapse" );
     common_scripts\utility::_id_383F( "collapse_done" );
@@ -436,7 +436,7 @@ collapse( var_0 )
     wait(randomfloat( 0.1 ) + self.script_lightset);
     var_2 = vectornormalize( common_scripts\utility::_id_38C9( var_0.origin ) - common_scripts\utility::_id_38C9( self.origin ) );
     var_3 = maps\_utility::vector_multiply( vector_switch( vectornormalize( var_2 ) ), randomintrange( 80, 100 ) );
-    var_2 = _id_711A( ( 1, 1, 0.1 ) );
+    var_2 = _id_711A( ( 1.0, 1.0, 0.1 ) );
     var_2 = maps\_utility::vector_multiply( var_2, randomintrange( 100, 150 ) );
     self rotatevelocity( var_3, 2, 0.2, 0 );
     self movegravity( var_2, 2 );
@@ -526,8 +526,8 @@ player_wakeup()
     level.playercardbackground freezecontrols( 1 );
     level.playercardbackground allowstand( 0 );
     level.playercardbackground allowcrouch( 0 );
-    var_0 = ( -989, 8433, 666 );
-    var_1 = ( -18, 25, 0 );
+    var_0 = ( -989.0, 8433.0, 666.0 );
+    var_1 = ( -18.0, 25.0, 0.0 );
     level.playercardbackground setorigin( var_0 );
     level.playercardbackground setplayerangles( var_1 );
     var_2 = _id_23D0( "overlay_hunted_black", 1 );
@@ -591,7 +591,7 @@ body_sense_wakeup_setup()
     level.playercardbackground setstance( "prone" );
     level.player_body_node maps\_anim::_id_0BC7( level.player_body, "jackson_wakeup" );
     var_0 = level.player_body gettagorigin( "tag_camera" );
-    var_0 -= ( 0, 0, 11 );
+    var_0 -= ( 0.0, 0.0, 11.0 );
     level.playercardbackground setorigin( var_0 );
     var_1 = level.player_body gettagangles( "tag_camera" );
     var_1 = ( 0, var_1[1], 0 );
@@ -601,14 +601,14 @@ body_sense_wakeup_setup()
 body_sense_wakeup_start()
 {
     setsaveddvar( "bg_allowProneWhileLinked", 1 );
-    level._id_4413.angles += ( 0, 0, -5.27285 );
+    level._id_4413.angles += ( 0.0, 0.0, -5.27285 );
     level.player_body show();
     level.playercardbackground playerlinktodelta( level.player_body, "tag_player", 1, 0, 0, 0, 0, 1 );
     level.player_body_node thread maps\_anim::_id_0C24( level.player_body, "jackson_wakeup" );
     thread h1_aftermathwakeupseq_dof();
     var_0 = 0.333;
     wait(getanimlength( level._id_78AC["player_body"]["jackson_wakeup"] ) - var_0);
-    level._id_4413 rotateto( ( 0, 0, 0 ), var_0, var_0 * 0.333, var_0 * 0.333 );
+    level._id_4413 rotateto( ( 0.0, 0.0, 0.0 ), var_0, var_0 * 0.333, var_0 * 0.333 );
     level._id_4413 waittill( "rotatedone" );
     level.playercardbackground unlink();
     level.player_body hide();
@@ -771,7 +771,7 @@ fall()
     common_scripts\utility::_id_383F( "fall" );
     level.playercardbackground setstance( "prone" );
     thread maps\aftermath_aud::aud_player_falls();
-    level._id_4413 thread stumble( ( 20, 10, 30 ), 0.2, 1.5, 1, 1 );
+    level._id_4413 thread stumble( ( 20.0, 10.0, 30.0 ), 0.2, 1.5, 1, 1 );
     wait 0.2;
     level notify( "aftermath_lighting_pain", 0 );
     level.playercardbackground playrumbleonentity( "grenade_rumble" );
@@ -817,16 +817,16 @@ _id_728D()
     if ( common_scripts\utility::_id_382E( "collapse" ) )
         return;
 
-    var_0 = _id_085A( ( -5, -5, 0 ) );
+    var_0 = _id_085A( ( -5.0, -5.0, 0.0 ) );
     level._id_4413 rotateto( var_0, 0.6, 0.6, 0 );
     level._id_4413 waittill( "rotatedone" );
-    var_0 = _id_085A( ( -15, -20, 0 ) );
+    var_0 = _id_085A( ( -15.0, -20.0, 0.0 ) );
     level._id_4413 rotateto( var_0, 2.5, 0, 2.5 );
     level._id_4413 waittill( "rotatedone" );
-    var_0 = _id_085A( ( 5, 5, 0 ) );
+    var_0 = _id_085A( ( 5.0, 5.0, 0.0 ) );
     level._id_4413 rotateto( var_0, 2.5, 2, 0.5 );
     level._id_4413 waittill( "rotatedone" );
-    level._id_4413 rotateto( ( 0, 0, 0 ), 1, 0.2, 0.8 );
+    level._id_4413 rotateto( ( 0.0, 0.0, 0.0 ), 1, 0.2, 0.8 );
 }
 
 _id_23D0( var_0, var_1 )

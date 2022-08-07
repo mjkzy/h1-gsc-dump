@@ -137,8 +137,8 @@ onstartgametype()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_allies_start" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_tdm_spawn_axis_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_tdm_spawn" );
@@ -191,12 +191,12 @@ spawndogtags( var_0, var_1 )
         if ( !isdefined( level.killconfirmeddogtagfriend ) )
             level.killconfirmeddogtagfriend = "h1_dogtag_friend_animated";
 
-        var_3[0] = spawn( "script_model", ( 0, 0, 0 ) );
+        var_3[0] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_3[0] setmodel( level.killconfirmeddogtagenemy );
-        var_3[1] = spawn( "script_model", ( 0, 0, 0 ) );
+        var_3[1] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_3[1] setmodel( level.killconfirmeddogtagfriend );
-        var_4 = spawn( "trigger_radius", ( 0, 0, 0 ), 0, 32, 32 );
-        level.dogtags[var_0.guid] = maps\mp\gametypes\_gameobjects::createuseobject( "any", var_4, var_3, ( 0, 0, 16 ) );
+        var_4 = spawn( "trigger_radius", ( 0.0, 0.0, 0.0 ), 0, 32, 32 );
+        level.dogtags[var_0.guid] = maps\mp\gametypes\_gameobjects::createuseobject( "any", var_4, var_3, ( 0.0, 0.0, 16.0 ) );
         maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].teamobjids );
         maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid]._id_6306 );
         maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid]._id_6309 );
@@ -208,16 +208,16 @@ spawndogtags( var_0, var_1 )
         level.dogtags[var_0.guid]._id_9E07 = var_0;
         level.dogtags[var_0.guid]._id_9E0A = var_2;
         level.dogtags[var_0.guid].objid = maps\mp\gametypes\_gameobjects::getnextobjid();
-        objective_add( level.dogtags[var_0.guid].objid, "invisible", ( 0, 0, 0 ) );
+        objective_add( level.dogtags[var_0.guid].objid, "invisible", ( 0.0, 0.0, 0.0 ) );
         objective_icon( level.dogtags[var_0.guid].objid, "waypoint_dogtags" );
         level.dogtags[var_0.guid].objidself = maps\mp\gametypes\_gameobjects::getnextobjid();
-        objective_add( level.dogtags[var_0.guid].objidself, "invisible", ( 0, 0, 0 ) );
+        objective_add( level.dogtags[var_0.guid].objidself, "invisible", ( 0.0, 0.0, 0.0 ) );
         objective_icon( level.dogtags[var_0.guid].objidself, "waypoint_dogtags_friendlys" );
         level thread clearonvictimdisconnect( var_0 );
         var_0 thread tagteamupdater( level.dogtags[var_0.guid] );
     }
 
-    var_5 = var_0.origin + ( 0, 0, 14 );
+    var_5 = var_0.origin + ( 0.0, 0.0, 14.0 );
     level.dogtags[var_0.guid].curorigin = var_5;
     level.dogtags[var_0.guid].trigger.origin = var_5;
     level.dogtags[var_0.guid].visuals[0].origin = var_5;
@@ -323,10 +323,10 @@ _id_7461()
     self notify( "reset" );
     self.visuals[0] hide();
     self.visuals[1] hide();
-    self.curorigin = ( 0, 0, 1000 );
-    self.trigger.origin = ( 0, 0, 1000 );
-    self.visuals[0].origin = ( 0, 0, 1000 );
-    self.visuals[1].origin = ( 0, 0, 1000 );
+    self.curorigin = ( 0.0, 0.0, 1000.0 );
+    self.trigger.origin = ( 0.0, 0.0, 1000.0 );
+    self.visuals[0].origin = ( 0.0, 0.0, 1000.0 );
+    self.visuals[1].origin = ( 0.0, 0.0, 1000.0 );
     maps\mp\gametypes\_gameobjects::allowuse( "none" );
     objective_state( self.objid, "invisible" );
     objective_state( self.objidself, "invisible" );

@@ -49,7 +49,7 @@ main( var_0, var_1, var_2 )
     else
         maps\_vehicle::_id_1872( "bmp_turret2", "tag_turret2", "vehicle_bmp_machine_gun" );
 
-    maps\_vehicle::_id_1862( ( 0, 0, 53 ), 512, 300, 20, 0 );
+    maps\_vehicle::_id_1862( ( 0.0, 0.0, 53.0 ), 512, 300, 20, 0 );
     maps\_vehicle::_id_186E();
     maps\_vehicle::_id_1856( 999, 500, 1500 );
     maps\_vehicle::_id_186A( "axis" );

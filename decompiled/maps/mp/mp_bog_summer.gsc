@@ -47,7 +47,7 @@ main()
     }
 
     thread misc_rotate_ceilingfans();
-    maps\mp\_utility::demolitiontriggermove( ( 3559, 1308, 2 ), undefined, ( 357.835, 99.7969, 1.82364 ) );
+    maps\mp\_utility::demolitiontriggermove( ( 3559.0, 1308.0, 2.0 ), undefined, ( 357.835, 99.7969, 1.82364 ) );
 }
 
 misc_rotate_ceilingfans()

@@ -51,7 +51,7 @@ getcarrybombvisuals( var_0 )
 
 createbombcarryobject( var_0, var_1, var_2, var_3 )
 {
-    var_4 = maps\mp\gametypes\_gameobjects::_id_23E9( var_0, var_2, var_3, ( 0, 0, 32 ) );
+    var_4 = maps\mp\gametypes\_gameobjects::_id_23E9( var_0, var_2, var_3, ( 0.0, 0.0, 32.0 ) );
     var_4 maps\mp\gametypes\_gameobjects::_id_0AA1( var_1 );
     var_4 maps\mp\gametypes\_gameobjects::_id_8352( var_1 );
 
@@ -119,7 +119,7 @@ oncarrybombdrop( var_0, var_1 )
 createbombzoneobject( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = getentarray( var_3._not_team, "targetname" );
-    var_7 = maps\mp\gametypes\_gameobjects::createuseobject( var_0, var_3, var_6, ( 0, 0, 64 ) );
+    var_7 = maps\mp\gametypes\_gameobjects::createuseobject( var_0, var_3, var_6, ( 0.0, 0.0, 64.0 ) );
     var_7.land = var_7 maps\mp\gametypes\_gameobjects::_id_3FFA();
     var_7 resetbombzone( var_4, var_1, var_2, var_5 );
     var_7._id_6242 = 1;
@@ -175,8 +175,8 @@ _id_831E( var_0 )
     var_1.angles = self.angles;
     var_1 rotateyaw( -45, 0.05 );
     wait 0.05;
-    var_2 = self.origin + ( 0, 0, 5 );
-    var_3 = self.origin + anglestoforward( var_1.angles ) * 100 + ( 0, 0, 128 );
+    var_2 = self.origin + ( 0.0, 0.0, 5.0 );
+    var_3 = self.origin + anglestoforward( var_1.angles ) * 100 + ( 0.0, 0.0, 128.0 );
     var_4 = bullettrace( var_2, var_3, 0, self );
     self._id_534D = spawn( "script_model", var_4["position"] );
     self._id_534D setscriptmoverkillcam( "explosive" );
@@ -376,8 +376,8 @@ onbombexploded( var_0, var_1, var_2 )
         var_3 = self.trigger._id_3018;
 
     var_4 = randomfloat( 360 );
-    var_5 = var_0 + ( 0, 0, 50 );
-    var_6 = spawnfx( level._effect[var_3], var_5 + ( 0, 0, 50 ), ( 0, 0, 1 ), ( cos( var_4 ), sin( var_4 ), 0 ) );
+    var_5 = var_0 + ( 0.0, 0.0, 50.0 );
+    var_6 = spawnfx( level._effect[var_3], var_5 + ( 0.0, 0.0, 50.0 ), ( 0.0, 0.0, 1.0 ), ( cos( var_4 ), sin( var_4 ), 0 ) );
     triggerfx( var_6 );
     physicsexplosionsphere( var_5, 200, 100, 3 );
     playrumbleonposition( "grenade_rumble", var_0 );

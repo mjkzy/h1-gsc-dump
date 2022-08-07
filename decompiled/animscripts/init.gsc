@@ -296,10 +296,10 @@ handleikevent()
 
         for ( var_18 = 0; var_18 < 4; var_18++ )
         {
-            var_19 = var_13[var_18] + ( 0, 0, 30 );
-            var_20 = var_13[var_18] - ( 0, 0, 30 );
+            var_19 = var_13[var_18] + ( 0.0, 0.0, 30.0 );
+            var_20 = var_13[var_18] - ( 0.0, 0.0, 30.0 );
             var_21 = self aiphysicstrace( var_19, var_20, 1.5, 3, 1, 1, 0, 1, 1, 1 );
-            var_22 = var_19 + 2 * var_21["fraction"] * ( 0, 0, -30 );
+            var_22 = var_19 + 2 * var_21["fraction"] * ( 0.0, 0.0, -30.0 );
             var_17[var_18] = var_22[2] - self.origin[2];
 
             if ( var_21["fraction"] == 1 )
@@ -393,38 +393,38 @@ _id_6E2E()
         if ( self _meth_81cf( "stand" ) )
         {
             var_0[0] = "stand allowed";
-            var_1[0] = ( 0, 1, 0 );
+            var_1[0] = ( 0.0, 1.0, 0.0 );
         }
         else
         {
             var_0[0] = "stand not allowed";
-            var_1[0] = ( 1, 0, 0 );
+            var_1[0] = ( 1.0, 0.0, 0.0 );
         }
 
         if ( self _meth_81cf( "crouch" ) )
         {
             var_0[1] = "crouch allowed";
-            var_1[1] = ( 0, 1, 0 );
+            var_1[1] = ( 0.0, 1.0, 0.0 );
         }
         else
         {
             var_0[1] = "crouch not allowed";
-            var_1[1] = ( 1, 0, 0 );
+            var_1[1] = ( 1.0, 0.0, 0.0 );
         }
 
         if ( self _meth_81cf( "prone" ) )
         {
             var_0[2] = "prone allowed";
-            var_1[2] = ( 0, 1, 0 );
+            var_1[2] = ( 0.0, 1.0, 0.0 );
         }
         else
         {
             var_0[2] = "prone not allowed";
-            var_1[2] = ( 1, 0, 0 );
+            var_1[2] = ( 1.0, 0.0, 0.0 );
         }
 
-        var_2 = self getshootatpos() + ( 0, 0, 30 );
-        var_3 = ( 0, 0, -10 );
+        var_2 = self getshootatpos() + ( 0.0, 0.0, 30.0 );
+        var_3 = ( 0.0, 0.0, -10.0 );
 
         for ( var_4 = 0; var_4 < var_0.size; var_4++ )
             var_5 = ( var_2[0] + var_3[0] * var_4, var_2[1] + var_3[1] * var_4, var_2[2] + var_3[2] * var_4 );
@@ -623,15 +623,15 @@ _id_4D7D()
     level._id_5574["team3"] = 0;
     level._id_5574["neutral"] = 0;
     level._id_5572 = [];
-    level._id_5572["axis"] = ( 0, 0, 0 );
-    level._id_5572["allies"] = ( 0, 0, 0 );
-    level._id_5572["team3"] = ( 0, 0, 0 );
-    level._id_5572["neutral"] = ( 0, 0, 0 );
+    level._id_5572["axis"] = ( 0.0, 0.0, 0.0 );
+    level._id_5572["allies"] = ( 0.0, 0.0, 0.0 );
+    level._id_5572["team3"] = ( 0.0, 0.0, 0.0 );
+    level._id_5572["neutral"] = ( 0.0, 0.0, 0.0 );
     level._id_5573 = [];
-    level._id_5573["axis"] = ( 0, 0, 0 );
-    level._id_5573["allies"] = ( 0, 0, 0 );
-    level._id_5573["team3"] = ( 0, 0, 0 );
-    level._id_5573["neutral"] = ( 0, 0, 0 );
+    level._id_5573["axis"] = ( 0.0, 0.0, 0.0 );
+    level._id_5573["allies"] = ( 0.0, 0.0, 0.0 );
+    level._id_5573["team3"] = ( 0.0, 0.0, 0.0 );
+    level._id_5573["neutral"] = ( 0.0, 0.0, 0.0 );
     level._id_5571 = [];
     level._id_0883 = [];
     level._id_0883["axis"] = 0;

@@ -43,15 +43,15 @@ scriptpatchclip()
 
     if ( !level.rankedmatch )
     {
-        var_0 = maps\mp\_utility::spawnpatchclip( "patchclip_ai_16_64_64", ( 1218, -4104, -86 ), ( 0, 0, 0 ) );
-        var_1 = getnodesinradiussorted( ( 1136, -4112, -83 ), 256, 0 )[0];
-        var_2 = getnodesinradiussorted( ( 1242, -4120, -78 ), 256, 0 )[0];
+        var_0 = maps\mp\_utility::spawnpatchclip( "patchclip_ai_16_64_64", ( 1218.0, -4104.0, -86.0 ), ( 0.0, 0.0, 0.0 ) );
+        var_1 = getnodesinradiussorted( ( 1136.0, -4112.0, -83.0 ), 256, 0 )[0];
+        var_2 = getnodesinradiussorted( ( 1242.0, -4120.0, -78.0 ), 256, 0 )[0];
         disconnectnodepair( var_1, var_2 );
-        var_1 = getnodesinradiussorted( ( 1136, -4112, -83 ), 256, 0 )[0];
-        var_2 = getnodesinradiussorted( ( 1304, -4096, -83 ), 256, 0 )[0];
+        var_1 = getnodesinradiussorted( ( 1136.0, -4112.0, -83.0 ), 256, 0 )[0];
+        var_2 = getnodesinradiussorted( ( 1304.0, -4096.0, -83.0 ), 256, 0 )[0];
         disconnectnodepair( var_1, var_2 );
-        var_1 = getnodesinradiussorted( ( 1136, -4112, -83 ), 256, 0 )[0];
-        var_2 = getnodesinradiussorted( ( 1392, -4112, -83 ), 256, 0 )[0];
+        var_1 = getnodesinradiussorted( ( 1136.0, -4112.0, -83.0 ), 256, 0 )[0];
+        var_2 = getnodesinradiussorted( ( 1392.0, -4112.0, -83.0 ), 256, 0 )[0];
         disconnectnodepair( var_1, var_2 );
     }
 }

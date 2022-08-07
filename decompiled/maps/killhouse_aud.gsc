@@ -204,8 +204,8 @@ aud_bm21_driveby_snd( var_0 )
 
 aud_entity_link_on_tag( var_0, var_1, var_2 )
 {
-    var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
-    var_3 linkto( var_1, var_2, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+    var_3 linkto( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_3 playloopsound( var_0 );
     return var_3;
 }

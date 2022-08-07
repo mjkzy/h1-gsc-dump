@@ -624,7 +624,7 @@ _id_6251( var_0, var_1, var_2, var_3 )
 
             if ( var_2 == 1 )
             {
-                var_5[var_6] kill( ( 0, 0, 0 ) );
+                var_5[var_6] kill( ( 0.0, 0.0, 0.0 ) );
                 continue;
             }
 
@@ -912,7 +912,7 @@ _id_2683( var_0, var_1, var_2, var_3, var_4 )
 _id_26AB( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
-        var_3 = ( 1, 1, 1 );
+        var_3 = ( 1.0, 1.0, 1.0 );
 
     for ( var_4 = 0; var_4 < var_2 * 20; var_4++ )
         wait 0.05;

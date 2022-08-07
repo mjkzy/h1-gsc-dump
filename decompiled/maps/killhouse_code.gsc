@@ -30,8 +30,8 @@ new_look_training_setup()
 {
     var_0 = getent( "aim_down_target", "targetname" );
     var_1 = getent( "aim_up_target", "targetname" );
-    var_0 rotateto( var_0.angles + ( 0, 0, -90 ), 0.25, 0, 0 );
-    var_1 rotateto( var_1.angles + ( 0, 0, -90 ), 0.25, 0, 0 );
+    var_0 rotateto( var_0.angles + ( 0.0, 0.0, -90.0 ), 0.25, 0, 0 );
+    var_1 rotateto( var_1.angles + ( 0.0, 0.0, -90.0 ), 0.25, 0, 0 );
 }
 
 new_look_wait_for_target( var_0, var_1 )
@@ -308,7 +308,7 @@ move_gaz_once_player_past()
 move_gaz_fake()
 {
     var_0 = getnode( "stationone_node", "script_noteworthy" );
-    var_1 = spawn( "script_origin", var_0.origin + ( 0, 12, 0 ) );
+    var_1 = spawn( "script_origin", var_0.origin + ( 0.0, 12.0, 0.0 ) );
     var_1.angles = var_0.angles;
     level.waters.ref_node = var_1;
     level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
@@ -725,7 +725,7 @@ wait_till_flashed( var_0 )
 
         if ( var_2 == "flash_grenade" )
         {
-            var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
+            var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
             var_1 thread track_grenade_origin( var_3, var_0 );
             var_1 thread check_if_in_volume( var_3, var_0 );
         }
@@ -1805,7 +1805,7 @@ ammorespawnthink( var_0, var_1, var_2 )
     wait 0.2;
     var_3 = self;
     var_4 = var_3.classname;
-    var_5 = var_3.origin + ( 0, 0, 8 );
+    var_5 = var_3.origin + ( 0.0, 0.0, 8.0 );
     var_6 = var_3.angles;
     var_3 set_ammo();
     var_7 = undefined;
@@ -1824,7 +1824,7 @@ ammorespawnthink( var_0, var_1, var_2 )
 
     if ( isdefined( var_0 ) )
     {
-        self.origin += ( 0, 0, -10000 );
+        self.origin += ( 0.0, 0.0, -10000.0 );
 
         if ( isdefined( var_7 ) )
             var_7 hide();
@@ -1834,7 +1834,7 @@ ammorespawnthink( var_0, var_1, var_2 )
         if ( isdefined( var_7 ) )
             var_7 show();
 
-        self.origin += ( 0, 0, 10000 );
+        self.origin += ( 0.0, 0.0, 10000.0 );
         var_3 set_ammo();
     }
 
@@ -1872,7 +1872,7 @@ ammorespawnthink( var_0, var_1, var_2 )
             var_3.angles = var_6;
             var_3 set_ammo();
             wait 0.2;
-            var_3.origin = var_5 + ( 0, 0, -8 );
+            var_3.origin = var_5 + ( 0.0, 0.0, -8.0 );
 
             while ( isdefined( var_3 ) )
                 wait 1;
@@ -1983,17 +1983,17 @@ _id_6FA9( var_0, var_1, var_2, var_3 )
     self endon( "death" );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_3 ) )
-        var_3 = ( 1, 0, 0 );
+        var_3 = ( 1.0, 0.0, 0.0 );
 
     for ( var_4 = 0; var_4 < var_1 * 20; var_4++ )
     {
         if ( !isalive( self ) )
             return;
 
-        var_5 = self getshootatpos() + ( 0, 0, 10 ) + var_2;
+        var_5 = self getshootatpos() + ( 0.0, 0.0, 10.0 ) + var_2;
         wait 0.05;
     }
 }

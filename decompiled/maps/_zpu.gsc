@@ -89,7 +89,7 @@ per_zpu_init()
         if ( var_2.count > 0 )
         {
             var_8 = var_2 spawn_gunner();
-            var_8 linkto( self, "tag_driver", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+            var_8 linkto( self, "tag_driver", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
             var_8 thread zpugunner_animation_think( self );
             var_8 thread monitor_gunner( self );
             var_8 thread gunner_death_think( self );

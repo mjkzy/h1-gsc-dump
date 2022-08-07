@@ -540,7 +540,7 @@ price_clears_dialogue()
 
 create_price_dialogue_master()
 {
-    level.price_dialogue_master = spawn( "script_origin", ( 0, 0, 0 ) );
+    level.price_dialogue_master = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level.price_dialogue_master.last_dialogue_line = -5000;
 }
 
@@ -560,9 +560,9 @@ play_sound_on_price( var_0 )
         return;
 
     if ( isalive( level._id_6F7C ) )
-        self linkto( level._id_6F7C, "tag_eye", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        self linkto( level._id_6F7C, "tag_eye", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     else
-        self linkto( level.playercardbackground, "", ( 0, 0, 60 ), ( 0, 0, 0 ) );
+        self linkto( level.playercardbackground, "", ( 0.0, 0.0, 60.0 ), ( 0.0, 0.0, 0.0 ) );
 
     maps\_utility::_id_69C5( var_0, "", 1 );
 
@@ -921,7 +921,7 @@ player_too_far_from_macmillan_fail()
 price_dies()
 {
     if ( isalive( level._id_6F7C ) )
-        level._id_6F7C kill( ( 0, 0, 0 ) );
+        level._id_6F7C kill( ( 0.0, 0.0, 0.0 ) );
 
     setdvar( "ui_deadquote", &"SNIPERESCAPE_CPT_MACMILLAN_DIED" );
     maps\_utility::_id_5CDF();
@@ -969,7 +969,7 @@ can_see_from_array( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( bullettracepassed( self.origin, var_0[var_1].origin + ( 0, 0, 64 ), 0, self ) )
+        if ( bullettracepassed( self.origin, var_0[var_1].origin + ( 0.0, 0.0, 64.0 ), 0, self ) )
             return var_0[var_1];
     }
 
@@ -1010,7 +1010,7 @@ kill_all_visible_enemies()
 
         while ( isalive( var_1 ) )
         {
-            self setturrettargetent( var_1, common_scripts\utility::_id_712D( 15 ) + ( 0, 0, 16 ) );
+            self setturrettargetent( var_1, common_scripts\utility::_id_712D( 15 ) + ( 0.0, 0.0, 16.0 ) );
             self fireweapon();
             wait 0.15;
         }
@@ -1033,7 +1033,7 @@ die_soon()
 {
     self endon( "death" );
     wait(randomfloatrange( 0.5, 2.0 ));
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 array_remove_without_model( var_0, var_1 )
@@ -1066,7 +1066,7 @@ price_flees_grenades()
     if ( distance( var_1.origin, level._id_6F7C.origin ) > var_2 )
         return;
 
-    var_3 = ( 0, 0, 0 );
+    var_3 = ( 0.0, 0.0, 0.0 );
 
     for (;;)
     {
@@ -1146,7 +1146,7 @@ price_teleports_to_player()
 
         for ( var_2 = 0; var_2 < var_1; var_2++ )
         {
-            if ( physicstrace( level._id_6F7C.origin + ( 0, 0, 2 ), level._id_6F7C.origin + ( 0, 0, -10 ) ) != level._id_6F7C.origin + ( 0, 0, -10 ) )
+            if ( physicstrace( level._id_6F7C.origin + ( 0.0, 0.0, 2.0 ), level._id_6F7C.origin + ( 0.0, 0.0, -10.0 ) ) != level._id_6F7C.origin + ( 0.0, 0.0, -10.0 ) )
             {
                 var_0 delete();
                 return;
@@ -1173,7 +1173,7 @@ price_teleports_to_org( var_0 )
 {
     var_1 = spawn( "script_origin", level._id_6F7C.origin );
     level._id_6F7C linkto( var_1 );
-    var_1 moveto( var_0 + ( 0, 0, 2 ), 2 );
+    var_1 moveto( var_0 + ( 0.0, 0.0, 2.0 ), 2 );
     wait 2;
     var_1 delete();
 }
@@ -1258,8 +1258,8 @@ price_targets_guy( var_0 )
     if ( isdefined( level._id_6F7C.targetorg ) )
         level._id_6F7C.targetorg delete();
 
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
-    var_1 linkto( var_0, "TAG_EYE", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+    var_1 linkto( var_0, "TAG_EYE", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.price_target_guy = var_0;
     level.price_target_time = gettime();
     level._id_6F7C.targetorg = var_1;
@@ -1492,7 +1492,7 @@ price_aims_at( var_0 )
 {
     if ( !isdefined( level._id_6F7C.targetorg ) )
     {
-        var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+        var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
         level._id_6F7C.targetorg = var_1;
     }
 
@@ -1602,7 +1602,7 @@ idle_until_price_has_target()
 
 should_teleport()
 {
-    var_0 = physicstrace( level._id_6F7C.origin + ( 0, 0, 2 ), level._id_6F7C.origin + ( 0, 0, -100 ) );
+    var_0 = physicstrace( level._id_6F7C.origin + ( 0.0, 0.0, 2.0 ), level._id_6F7C.origin + ( 0.0, 0.0, -100.0 ) );
     return var_0[2] > level._id_6F7C.origin[2] + 60;
 }
 
@@ -1753,7 +1753,7 @@ area_is_clear( var_0, var_1 )
         if ( distance( var_8, var_7 ) > 0.01 )
             return 0;
 
-        var_8 = physicstrace( var_7 + ( 0, 0, 42 ), var_7 );
+        var_8 = physicstrace( var_7 + ( 0.0, 0.0, 42.0 ), var_7 );
 
         if ( distance( var_8, var_7 ) > 0.01 )
             return 0;
@@ -1792,7 +1792,7 @@ wait_for_player_to_drop_price_func( var_0 )
     for (;;)
     {
         var_2 = 0;
-        var_0.origin = ( 0, 0, -1500 );
+        var_0.origin = ( 0.0, 0.0, -1500.0 );
         var_3 = level.playercardbackground geteye();
         var_4 = level.playercardbackground getplayerangles();
         var_5 = var_4[0] + 15;
@@ -1847,7 +1847,7 @@ wait_for_player_to_drop_price_func( var_0 )
         level.playerdroppointorg = level.playercardbackground.origin;
         level.playerdropangles = level.playercardbackground.angles;
         level.price_drop_point = var_11;
-        var_12 = ( 0, 0, 0.2 );
+        var_12 = ( 0.0, 0.0, 0.2 );
         var_0.origin = level.playercardbackground.origin + var_12;
         wait 0.05;
     }
@@ -1907,7 +1907,7 @@ price_slides_into_proper_putdown_position()
     if ( !isdefined( level.price_drop_point ) )
         return;
 
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = level._id_6F7C.origin;
     level._id_6F7C linkto( var_0 );
     level._id_6F7C thread maps\_anim::_id_0BC7( level._id_6F7C, "wounded_idle_reach" );
@@ -2127,7 +2127,7 @@ draw_player_viewtag()
 
 drop_to_floor()
 {
-    var_0 = bullettrace( self.origin + ( 0, 0, 32 ), self.origin, 0, undefined );
+    var_0 = bullettrace( self.origin + ( 0.0, 0.0, 32.0 ), self.origin, 0, undefined );
     self.origin = var_0["position"];
 }
 #using_animtree("generic_human");
@@ -2190,7 +2190,7 @@ player_picks_up_price()
         var_2 delete();
 
         if ( getdvar( "no_heli_protection" ) == "" )
-            level.playercardbackground setorigin( ( 3577, -8420, 0.125 ) );
+            level.playercardbackground setorigin( ( 3577.0, -8420.0, 0.125 ) );
 
         if ( getdvarint( "use_old_crash_pickup" ) != 1 )
         {
@@ -2211,7 +2211,7 @@ player_picks_up_price()
         level.playercardbackground thread maps\_utility::_id_69C4( "wpn_lrg_holster_plr" );
     }
 
-    var_6 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level.playercardbackground maps\_utility::_id_5693( level.playercardbackground.origin, ( 0, vectortoyaw( level._id_6F7C.origin - level.playercardbackground.origin ), level.playercardbackground.angles[2] ), 0.2, 1, 0, 0, 0, 0 );
     var_6.origin = level.playercardbackground.origin;
     var_6.angles = level.playercardbackground.angles;
@@ -2226,7 +2226,7 @@ player_picks_up_price()
     level._id_6F7C maps\_headtracking::head_tracking_end( 0, 1 );
     level._id_6F7C _meth_8144( %wounded_aim, 0 );
     var_7 = var_2 gettagorigin( "tag_player" );
-    var_8 = bullettrace( var_7 + ( 0, 0, 32 ), var_7, 0, undefined );
+    var_8 = bullettrace( var_7 + ( 0.0, 0.0, 32.0 ), var_7, 0, undefined );
 
     if ( var_8["fraction"] < 1 )
     {
@@ -2266,7 +2266,7 @@ player_picks_up_price()
         var_6 maps\_anim::_id_0C18( var_5, var_0 );
 
     var_6 notify( var_0 );
-    var_8 = bullettrace( level.playercardbackground.origin + ( 0, 0, 32 ), level.playercardbackground.origin, 0, undefined );
+    var_8 = bullettrace( level.playercardbackground.origin + ( 0.0, 0.0, 32.0 ), level.playercardbackground.origin, 0, undefined );
 
     if ( var_8["fraction"] < 1 )
     {
@@ -2302,7 +2302,7 @@ player_puts_down_price()
 
     thread h1_pricecarry_putdown_dof_generic();
     level._id_6F7C notify( "stop_loop" );
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     maps\_utility::_id_5693( level.playerdroppointorg, level.playerdropangles, 0.2, 1.0, 0, 0, 0, 0 );
     var_0.origin = level.playercardbackground.origin;
     var_0.angles = level.playercardbackground.angles;
@@ -2312,7 +2312,7 @@ player_puts_down_price()
     var_0 maps\_anim::_id_0BC7( var_1, "wounded_putdown" );
     wait 0.1;
     var_2 = var_1 gettagorigin( "tag_player" );
-    var_3 = bullettrace( var_2 + ( 0, 0, 32 ), var_2, 0, undefined );
+    var_3 = bullettrace( var_2 + ( 0.0, 0.0, 32.0 ), var_2, 0, undefined );
 
     if ( var_3["fraction"] < 1 )
     {
@@ -2638,7 +2638,7 @@ player_carries_price_until_he_drops_him()
     var_0 sethintstring( &"SNIPERESCAPE_HOLD_1_TO_PUT_CPT_MACMILLAN" );
     level endon( "player_made_it_to_seaknight" );
     wait_for_player_to_drop_price( var_0 );
-    var_0.origin = ( 0, 0, -1500 );
+    var_0.origin = ( 0.0, 0.0, -1500.0 );
     player_puts_down_price();
 
     if ( !isalive( level._id_6F7C ) )
@@ -2778,9 +2778,9 @@ price_should_be_useable()
     if ( level.playercardbackground isleaning() )
         return 0;
 
-    var_0 = playerphysicstrace( level.playercardbackground.origin + ( 0, 0, 60 ), level.playercardbackground.origin + ( 0, 0, 2 ) );
+    var_0 = playerphysicstrace( level.playercardbackground.origin + ( 0.0, 0.0, 60.0 ), level.playercardbackground.origin + ( 0.0, 0.0, 2.0 ) );
 
-    if ( !int_vec_compare( var_0, level.playercardbackground.origin + ( 0, 0, 2 ) ) )
+    if ( !int_vec_compare( var_0, level.playercardbackground.origin + ( 0.0, 0.0, 2.0 ) ) )
         return 0;
 
     return common_scripts\utility::_id_382E( "can_manage_price" );
@@ -3101,7 +3101,7 @@ tracks_ent( var_0 )
     for (;;)
     {
         if ( level.playercardbackground istouching( var_1 ) || sighttracepassed( self gettagorigin( "tag_barrel" ), level.playercardbackground geteye(), 0, undefined ) )
-            self setturrettargetent( level.playercardbackground, ( 0, 0, 24 ) );
+            self setturrettargetent( level.playercardbackground, ( 0.0, 0.0, 24.0 ) );
         else
             self setturrettargetent( var_0 );
 
@@ -3326,7 +3326,7 @@ shoots_down( var_0, var_1 )
         var_1 = 0;
 
     self setvehweapon( "cobra_seeker" );
-    var_2 = ( 0, 0, -50 );
+    var_2 = ( 0.0, 0.0, -50.0 );
     self fireweapon( "tag_store_L_2_a", var_0, common_scripts\utility::_id_712D( var_1 ) + var_2 );
     wait 0.2;
     self fireweapon( "tag_store_L_2_b", var_0, common_scripts\utility::_id_712D( var_1 ) + var_2 );
@@ -5087,7 +5087,7 @@ _id_5319()
         {
             var_10 = vectortoangles( level.playercardbackground.origin - var_7.origin );
             var_7 setgoalyaw( var_10[1] );
-            var_7 setturrettargetent( level.playercardbackground, common_scripts\utility::_id_712D( 15 ) + ( 0, 0, 16 ) );
+            var_7 setturrettargetent( level.playercardbackground, common_scripts\utility::_id_712D( 15 ) + ( 0.0, 0.0, 16.0 ) );
             var_7 fireweapon();
             wait 0.05;
         }

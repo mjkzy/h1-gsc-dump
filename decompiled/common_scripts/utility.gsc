@@ -971,7 +971,7 @@ _id_97CD()
         self._id_71E9 = self.origin;
 
     if ( self.origin == self._id_71E9 )
-        self.origin += ( 0, 0, -10000 );
+        self.origin += ( 0.0, 0.0, -10000.0 );
 
     self._id_97CC = 1;
 }
@@ -1978,7 +1978,7 @@ _id_2D9F( var_0, var_1, var_2 )
 _id_2DB4( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 1, 0 );
+        var_2 = ( 0.0, 1.0, 0.0 );
 
     if ( !isdefined( var_3 ) )
         var_3 = 0;
@@ -2224,7 +2224,7 @@ _id_711C( var_0 )
 
 _id_8959()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "tag_origin" );
     var_0 hide();
 
@@ -2393,7 +2393,7 @@ _id_697A( var_0, var_1 )
     if ( !soundexists( var_0 ) )
         return;
 
-    var_2 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
     if ( !isdefined( var_1 ) )
         var_1 = self.origin;
@@ -2419,7 +2419,7 @@ _id_69C3( var_0, var_1, var_2, var_3 )
     if ( !soundexists( var_0 ) )
         return;
 
-    var_4 = spawn( "script_origin", ( 0, 0, 1 ) );
+    var_4 = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
 
     if ( !isdefined( var_1 ) )
         var_1 = self.origin;
@@ -2446,7 +2446,7 @@ _id_69C3( var_0, var_1, var_2, var_3 )
 
 _id_69C2( var_0, var_1, var_2 )
 {
-    _id_69C3( var_0, var_1, ( 0, 0, 0 ), var_2 );
+    _id_69C3( var_0, var_1, ( 0.0, 0.0, 0.0 ), var_2 );
 }
 
 _id_5871( var_0, var_1, var_2, var_3, var_4 )
@@ -2458,10 +2458,10 @@ _id_5871( var_0, var_1, var_2, var_3, var_4 )
         var_2 = undefined;
 
     if ( isdefined( var_2 ) && var_2 && ( !isdefined( level._id_380E ) || level._id_380E == 1 ) )
-        spawnloopingsound( var_0, var_1, ( 0, 0, 0 ) );
+        spawnloopingsound( var_0, var_1, ( 0.0, 0.0, 0.0 ) );
     else
     {
-        var_5 = spawn( "script_origin", ( 0, 0, 0 ) );
+        var_5 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
         if ( isdefined( var_3 ) )
         {
@@ -2490,7 +2490,7 @@ _id_5874( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         if ( isdefined( level._id_2409 ) && level._id_2409 && isdefined( var_5._id_5891 ) )
             var_7 = var_5._id_5891;
         else
-            var_7 = spawn( "script_origin", ( 0, 0, 0 ) );
+            var_7 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
         if ( isdefined( var_4 ) )
         {
@@ -2511,12 +2511,12 @@ _id_5874( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
 _id_5872( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    _id_5873( var_0, var_1, ( 0, 0, 0 ), var_2, var_3, var_4, var_5 );
+    _id_5873( var_0, var_1, ( 0.0, 0.0, 0.0 ), var_2, var_3, var_4, var_5 );
 }
 
 _id_5873( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    var_7 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_7 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
     if ( isdefined( var_3 ) )
     {
@@ -2620,7 +2620,7 @@ _id_6975( var_0, var_1, var_2, var_3 )
     if ( !soundexists( var_0 ) )
         return;
 
-    var_4 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_4 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_4 endon( "death" );
     thread _id_2825( var_4 );
 
@@ -3031,7 +3031,7 @@ _id_3F91( var_0, var_1, var_2 )
 
 _id_5CA4( var_0, var_1, var_2 )
 {
-    var_2 = _id_9294( isdefined( var_2 ), var_2, ( 0, 0, 0 ) );
+    var_2 = _id_9294( isdefined( var_2 ), var_2, ( 0.0, 0.0, 0.0 ) );
     self _meth_81dc( var_0, var_2 );
 
     switch ( var_1 )
@@ -3047,7 +3047,7 @@ _id_5CA4( var_0, var_1, var_2 )
 
 _id_33E1( var_0 )
 {
-    return log( var_0 + 6.1e-05 ) / log( 2.0 ) + 2.84;
+    return log( var_0 + 0.000061 ) / log( 2.0 ) + 2.84;
 }
 
 _id_576F( var_0 )
@@ -3128,7 +3128,7 @@ _id_21A4( var_0 )
                     var_0._id_8FD2 = 0;
                     var_0._id_8FBF = 0;
                     var_0._id_4776 = 0;
-                    var_0._id_8FC6 = ( 0, 0, 0 );
+                    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
                     var_0._id_8FBD = 0;
                     var_0._id_8FCB = 0;
                     var_0._id_615E = 1;

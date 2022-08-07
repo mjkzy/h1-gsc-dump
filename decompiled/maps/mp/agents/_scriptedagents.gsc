@@ -167,7 +167,7 @@ _id_1AD2( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_3 ) )
         var_3 = self.rank;
 
-    var_4 = ( 0, 0, 1 ) * var_2;
+    var_4 = ( 0.0, 0.0, 1.0 ) * var_2;
     var_5 = var_0 + var_4;
     var_6 = var_1 + var_4;
     return self _meth_83e4( var_5, var_6, var_3, self.hidewhendead - var_2, 1 );
@@ -178,7 +178,7 @@ _id_414C( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) )
         var_2 = 6;
 
-    var_3 = ( 0, 0, 1 ) * var_2;
+    var_3 = ( 0.0, 0.0, 1.0 ) * var_2;
     var_4 = var_0 + var_3;
     var_5 = var_1 + var_3;
     return self aiphysicstrace( var_4, var_5, self.rank + 4, self.hidewhendead - var_2, 1 );

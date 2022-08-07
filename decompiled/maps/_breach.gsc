@@ -684,7 +684,7 @@ _id_2D45( var_0 )
 
     var_2 = ( var_1[0] * 20, var_1[1] * 20, var_1[2] * 20 );
     self moveto( self.origin + var_2, 0.5, 0, 0.5 );
-    var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_3.angles = var_0.angles;
     var_3.origin = ( self.origin[0], self.origin[1], var_0.origin[2] );
     self linkto( var_3 );

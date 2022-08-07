@@ -34,7 +34,7 @@ main()
     var_0._id_8FD2 = 0;
     var_0._id_8FBF = 0;
     var_0._id_4776 = 1;
-    var_0._id_8FC6 = ( 1, 0, 0 );
+    var_0._id_8FC6 = ( 1.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 180;
     var_0._id_615E = 1;
@@ -75,7 +75,7 @@ main()
     var_0._id_8FD2 = 0;
     var_0._id_8FBF = 0;
     var_0._id_4776 = 1;
-    var_0._id_8FC6 = ( 1, 0, 0 );
+    var_0._id_8FC6 = ( 1.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 180;
     var_0._id_615E = 1;
@@ -116,7 +116,7 @@ main()
     var_0._id_8FD2 = 0;
     var_0._id_8FBF = 0;
     var_0._id_4776 = 1;
-    var_0._id_8FC6 = ( 1, 0, 0 );
+    var_0._id_8FC6 = ( 1.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 180;
     var_0._id_615E = 1;

@@ -69,8 +69,8 @@ _id_0793( var_0 )
 _id_0DDD( var_0 )
 {
     var_0 notify( "new_prop_rotation" );
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_1 linkto( var_0, "tag_inhand", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_1 linkto( var_0, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( maps\_utility::_id_4026( "clip" ) );
     var_0._id_1F96 = var_1;
     thread _id_7037( var_1, var_0 );
@@ -89,8 +89,8 @@ _id_073F( var_0 )
 _id_0DEA( var_0 )
 {
     var_0 notify( "new_phone_rotation" );
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_1 linkto( var_0, "tag_inhand", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_1 linkto( var_0, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( maps\_utility::_id_4026( "cellphone" ) );
     var_0._id_67ED = var_1;
     thread _id_7037( var_1, var_0 );
@@ -105,8 +105,8 @@ _id_297D( var_0 )
 _id_0DDB( var_0 )
 {
     var_0 notify( "new_cigar_rotation" );
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_1 linkto( var_0, "tag_inhand", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_1 linkto( var_0, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( maps\_utility::_id_4026( "cigar" ) );
     playfxontag( common_scripts\utility::_id_3FA8( "cigar_glow" ), var_1, "tag_cigarglow" );
     var_0._id_1D6B = var_1;
@@ -161,7 +161,7 @@ _id_7036()
     var_1 = anglestoforward( self.angles );
     self unlink();
     self movegravity( var_1 * 100, var_0 );
-    self rotatevelocity( ( 400, 0, 0 ), var_0, 0, var_0 );
+    self rotatevelocity( ( 400.0, 0.0, 0.0 ), var_0, 0, var_0 );
     wait(var_0);
     self delete();
 }

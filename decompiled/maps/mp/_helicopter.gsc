@@ -76,7 +76,7 @@ heli_path_graph()
                     break;
                 }
 
-                debug_print3d_simple( "+", var_11, ( 0, 0, -10 ) );
+                debug_print3d_simple( "+", var_11, ( 0.0, 0.0, -10.0 ) );
 
                 if ( isdefined( var_12._not_team ) )
                 {
@@ -87,7 +87,7 @@ heli_path_graph()
                 }
 
                 if ( isdefined( var_11.script_lightset ) )
-                    debug_print3d_simple( "Wait: " + var_11.script_lightset, var_11, ( 0, 0, 10 ) );
+                    debug_print3d_simple( "Wait: " + var_11.script_lightset, var_11, ( 0.0, 0.0, 10.0 ) );
             }
 
             if ( var_10 )
@@ -286,7 +286,7 @@ heli_missile_regen()
 
     for (;;)
     {
-        debug_print3d( "Missile Ammo: " + self.missile_ammo, ( 0.5, 0.5, 1 ), self, ( 0, 0, -100 ), 0 );
+        debug_print3d( "Missile Ammo: " + self.missile_ammo, ( 0.5, 0.5, 1.0 ), self, ( 0.0, 0.0, -100.0 ), 0 );
 
         if ( self.missile_ammo >= level.heli_missile_max )
             self waittill( "missile fired" );
@@ -378,7 +378,7 @@ cantarget_turret( var_0 )
     if ( isdefined( var_0.spectating_cycle ) && ( gettime() - var_0.spectating_cycle ) / 1000 <= level.heli_target_spawnprotection )
         return 0;
 
-    var_2 = self.origin + ( 0, 0, -160 );
+    var_2 = self.origin + ( 0.0, 0.0, -160.0 );
     var_3 = anglestoforward( self.angles );
     var_4 = var_2 + 144 * var_3;
 
@@ -581,9 +581,9 @@ heli_health()
         }
 
         if ( self.damagetaken <= level.heli_armor )
-            debug_print3d_simple( "Armor: " + level.heli_armor - self.damagetaken, self, ( 0, 0, 100 ), 20 );
+            debug_print3d_simple( "Armor: " + level.heli_armor - self.damagetaken, self, ( 0.0, 0.0, 100.0 ), 20 );
         else
-            debug_print3d_simple( "Health: " + self.maxturnspeed - self.damagetaken, self, ( 0, 0, 100 ), 20 );
+            debug_print3d_simple( "Health: " + self.maxturnspeed - self.damagetaken, self, ( 0.0, 0.0, 100.0 ), 20 );
 
         wait 1;
     }
@@ -652,7 +652,7 @@ trail_fx( var_0, var_1, var_2 )
 _id_47BB()
 {
     self notify( "death" );
-    var_0 = self.origin + ( 0, 0, 100 ) - self.origin;
+    var_0 = self.origin + ( 0.0, 0.0, 100.0 ) - self.origin;
     playfx( level._id_1D55["explode"]["death"], self.origin, var_0 );
     self playsound( level._id_47E1[self.team]["crash"] );
     level.chopper = undefined;
@@ -690,7 +690,7 @@ heli_fly( var_0 )
     {
         maps\mp\gametypes\_hostmigration::_id_A0DD();
         var_2 = _id_3F86( var_0._not_team, "targetname" );
-        var_1 = var_2.origin + ( 0, 0, 30 );
+        var_1 = var_2.origin + ( 0.0, 0.0, 30.0 );
 
         if ( isdefined( var_0._id_7930 ) && isdefined( var_0._id_7929 ) )
         {
@@ -708,7 +708,7 @@ heli_fly( var_0 )
         else
             var_5 = 0;
 
-        _id_26AB( var_0.origin, var_2.origin, ( 1, 0.5, 0.5 ), 200 );
+        _id_26AB( var_0.origin, var_2.origin, ( 1.0, 0.5, 0.5 ), 200 );
 
         if ( self._id_2525 == "heavy smoke" || self._id_2525 == "light smoke" )
         {
@@ -871,7 +871,7 @@ missile_target_sight_check( var_0 )
 
     if ( var_4 >= level.heli_missile_target_cone )
     {
-        debug_print3d_simple( "Missile sight: " + var_4, self, ( 0, 0, -40 ), 40 );
+        debug_print3d_simple( "Missile sight: " + var_4, self, ( 0.0, 0.0, -40.0 ), 40 );
         return 1;
     }
 
@@ -906,7 +906,7 @@ missile_support( var_0, var_1, var_2, var_3 )
 
                 if ( isdefined( var_5.pers["team"] ) && var_5.pers["team"] == self.team && distance( var_5.origin, var_0.origin ) <= level.heli_missile_friendlycare )
                 {
-                    debug_print3d_simple( "Missile omitted due to nearby friendly", self, ( 0, 0, -80 ), 40 );
+                    debug_print3d_simple( "Missile omitted due to nearby friendly", self, ( 0.0, 0.0, -80.0 ), 40 );
                     self notify( "missile ready" );
                     return;
                 }
@@ -918,7 +918,7 @@ missile_support( var_0, var_1, var_2, var_3 )
 
             if ( isdefined( var_5 ) && isdefined( var_5.pers["team"] ) && var_5.pers["team"] == self.team && distance( var_5.origin, var_0.origin ) <= level.heli_missile_friendlycare )
             {
-                debug_print3d_simple( "Missile omitted due to nearby friendly", self, ( 0, 0, -80 ), 40 );
+                debug_print3d_simple( "Missile omitted due to nearby friendly", self, ( 0.0, 0.0, -80.0 ), 40 );
                 self notify( "missile ready" );
                 return;
             }
@@ -958,7 +958,7 @@ attack_primary()
 
             while ( isdefined( self.turrettarget ) && isalive( self.turrettarget ) )
             {
-                self setturrettargetent( self.turrettarget, ( 0, 0, 40 ) );
+                self setturrettargetent( self.turrettarget, ( 0.0, 0.0, 40.0 ) );
 
                 if ( missile_target_sight_check( self.turrettarget ) )
                     thread missile_support( self.turrettarget, 10 / level.heli_rage_missile, 0, "turret on target" );
@@ -975,7 +975,7 @@ attack_primary()
                     if ( isdefined( self.turrettarget ) && isdefined( self._id_6F8C ) )
                     {
                         if ( self._id_6F8C != self.turrettarget )
-                            self setturrettargetent( self._id_6F8C, ( 0, 0, 40 ) );
+                            self setturrettargetent( self._id_6F8C, ( 0.0, 0.0, 40.0 ) );
                     }
                     else if ( isdefined( self.targetlost ) && self.targetlost && isdefined( self.turret_last_pos ) )
                         self _meth_825d( self.turret_last_pos );
@@ -1029,7 +1029,7 @@ turret_target_flag( var_0 )
 
     while ( isdefined( var_0 ) )
     {
-        var_1 = self.origin + ( 0, 0, -160 );
+        var_1 = self.origin + ( 0.0, 0.0, -160.0 );
         var_2 = anglestoforward( self.angles );
         var_3 = var_1 + 144 * var_2;
         var_4 = var_0 _meth_81db( var_3, self, 1 );
@@ -1042,9 +1042,9 @@ turret_target_flag( var_0 )
 
     if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
     {
-        self.turret_last_pos = var_0.origin + ( 0, 0, 40 );
+        self.turret_last_pos = var_0.origin + ( 0.0, 0.0, 40.0 );
         self _meth_825d( self.turret_last_pos );
-        debug_print3d_simple( "Turret target lost at: " + self.turret_last_pos, self, ( 0, 0, -70 ), 60 );
+        debug_print3d_simple( "Turret target lost at: " + self.turret_last_pos, self, ( 0.0, 0.0, -70.0 ), 60 );
         self.targetlost = 1;
     }
     else
@@ -1069,8 +1069,8 @@ debug_print_target()
             var_1 = "Secondary: ";
 
         var_2 = int( self._id_91CC * 20 ) + 1;
-        thread draw_text( var_0, ( 1, 0.6, 0.6 ), self, ( 0, 0, 40 ), var_2 );
-        thread draw_text( var_1, ( 1, 0.6, 0.6 ), self, ( 0, 0, 0 ), var_2 );
+        thread draw_text( var_0, ( 1.0, 0.6, 0.6 ), self, ( 0.0, 0.0, 40.0 ), var_2 );
+        thread draw_text( var_1, ( 1.0, 0.6, 0.6 ), self, ( 0.0, 0.0, 0.0 ), var_2 );
     }
 }
 

@@ -1258,7 +1258,7 @@ _id_727B()
                 if ( isdefined( var_1.clientid ) )
                     var_4 = var_1.clientid;
 
-                var_5 = ( -999, -999, -999 );
+                var_5 = ( -999.0, -999.0, -999.0 );
 
                 if ( isdefined( var_1.angles ) )
                     var_5 = var_1.angles;

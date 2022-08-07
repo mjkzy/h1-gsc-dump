@@ -56,7 +56,7 @@ _id_7EE9( var_0, var_1, var_2 )
     var_1 endon( "death" );
     var_0 endon( "death" );
     var_0 setmode( "auto_nonai" );
-    var_1 linkto( var_0, var_2._id_85AE, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 linkto( var_0, var_2._id_85AE, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     thread _id_8ED0( var_0, var_1, var_2 );
     thread _id_52D8( var_0, var_1 );
     var_3 = var_0 gettagorigin( var_2._id_85AE );

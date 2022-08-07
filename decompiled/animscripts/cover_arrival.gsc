@@ -548,7 +548,7 @@ _id_1CF4( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     animscripts\exit_node::_id_19E5( var_7, var_2, 1, var_1, var_3, var_4, var_5 );
     animscripts\exit_node::_id_8897( var_7, var_4 );
     var_8 = spawnstruct();
-    var_9 = ( 0, 0, 0 );
+    var_9 = ( 0.0, 0.0, 0.0 );
     var_8._id_0CBB = -1;
     var_10 = 2;
 
@@ -716,7 +716,7 @@ _id_35B8( var_0 )
     if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
         return self _meth_81c2( self.enemy );
 
-    return sighttracepassed( self.enemy getshootatpos(), self.pc + ( 0, 0, 60 ), 0, undefined );
+    return sighttracepassed( self.enemy getshootatpos(), self.pc + ( 0.0, 0.0, 60.0 ), 0, undefined );
 }
 
 calculatelastminuteanimdistance( var_0, var_1, var_2, var_3, var_4 )

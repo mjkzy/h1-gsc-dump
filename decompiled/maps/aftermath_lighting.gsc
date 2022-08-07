@@ -147,7 +147,7 @@ _id_7E68()
     thread set_level_lighting_default();
     thread set_level_lighting_pain();
     thread set_level_lighting_glow();
-    enableouterspacemodellighting( ( 10000, 10000, 10000 ), ( 0.5, 0.5, 0.5 ) );
+    enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.5, 0.5, 0.5 ) );
 }
 
 set_level_lighting_default()

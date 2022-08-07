@@ -78,8 +78,8 @@ _id_47BE( var_0 )
         case "apache_zippy":
             var_4 = [ 0.1, 0.2, 0.3 ];
             wait 1;
-            var_1.origin += ( 0, 0, -150 );
-            var_1 moveto( var_1.origin + ( 0, 0, 150 ), 0.6, 0, 0 );
+            var_1.origin += ( 0.0, 0.0, -150.0 );
+            var_1 moveto( var_1.origin + ( 0.0, 0.0, 150.0 ), 0.6, 0, 0 );
 
             foreach ( var_6 in var_4 )
             {
@@ -408,12 +408,12 @@ _id_83F0( var_0 )
     if ( isdefined( self._id_6C7E ) )
         self endon( "gunner_stop_firing" );
 
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_0._id_7AED ) )
         var_1 += ( 0, 0, var_0._id_7AED );
     else if ( issentient( var_0 ) )
-        var_1 = ( 0, 0, 32 );
+        var_1 = ( 0.0, 0.0, 32.0 );
 
     self setturrettargetent( var_0, var_1 );
 
@@ -432,7 +432,7 @@ _id_83F0( var_0 )
                     self setvehweapon( level._id_4478 );
             }
 
-            thread _id_83F1( self, "tag_turret", var_0, var_1, ( 1, 1, 0 ), 0.05 );
+            thread _id_83F1( self, "tag_turret", var_0, var_1, ( 1.0, 1.0, 0.0 ), 0.05 );
             self fireweapon( "tag_flash" );
 
             if ( isdefined( self._id_6C7E ) )
@@ -451,13 +451,13 @@ _id_83F1( var_0, var_1, var_2, var_3, var_4, var_5 )
         return;
 
     if ( !isdefined( var_4 ) )
-        var_4 = ( 0, 0, 0 );
+        var_4 = ( 0.0, 0.0, 0.0 );
 
     var_2 endon( "death" );
     self endon( "gunner_new_target" );
 
     if ( !isdefined( var_3 ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_5 ) )
     {

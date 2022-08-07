@@ -399,7 +399,7 @@ h1_createbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_8.visionsetnight = "bottom";
     var_8.offset_x = 1;
     var_8.offset_y = -2;
-    var_8.color = ( 1, 0.9, 0.1 );
+    var_8.color = ( 1.0, 0.9, 0.1 );
     var_8.alpha = 0.9;
     var_8.space = 0;
     var_8._id_3A08 = 0.25;
@@ -790,7 +790,7 @@ get_stats_display_hud( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     var_8.fontscale = var_4;
-    var_8.color = ( 0.8, 1, 0.8 );
+    var_8.color = ( 0.8, 1.0, 0.8 );
     var_8.font = "objective";
     var_8.glowcolor = ( 0.26, 0.65, 0.32 );
     var_8.glowalpha = 0.2;
@@ -821,7 +821,7 @@ add_countdown_flourish( var_0, var_1, var_2, var_3 )
 {
     level endon( "kill_timer_flourish" );
     var_4 = 57;
-    var_5 = ( 1, 1, 1 );
+    var_5 = ( 1.0, 1.0, 1.0 );
     var_6 = 210;
     var_7 = 0.13;
     var_8 = 0.03;
@@ -942,9 +942,9 @@ _id_3D17( var_0, var_1, var_2, var_3, var_4 )
     }
 
     var_7.fontscale = 0.75;
-    var_7.color = ( 1, 1, 1 );
+    var_7.color = ( 1.0, 1.0, 1.0 );
     var_7.font = "timer";
-    var_7.glowcolor = ( 0, 0, 0 );
+    var_7.glowcolor = ( 0.0, 0.0, 0.0 );
     var_7.glowalpha = 1;
     var_7.foreground = 1;
     var_7.hindlegstraceoffset = 1;
@@ -957,9 +957,9 @@ _id_3D17( var_0, var_1, var_2, var_3, var_4 )
     var_7._id_92B2.xpmaxmultipliertimeplayed = var_5;
     var_7._id_92B2._id_0538 = var_6 + 8;
     var_7._id_92B2.fontscale = 0.45;
-    var_7._id_92B2.color = ( 1, 1, 1 );
+    var_7._id_92B2.color = ( 1.0, 1.0, 1.0 );
     var_7._id_92B2.font = "timer";
-    var_7._id_92B2.glowcolor = ( 0, 0, 0 );
+    var_7._id_92B2.glowcolor = ( 0.0, 0.0, 0.0 );
     var_7._id_92B2.glowalpha = 1;
     var_7._id_92B2.foreground = 1;
     var_7._id_92B2.hindlegstraceoffset = 1;
@@ -1050,7 +1050,7 @@ _id_3D47( var_0, var_1, var_2, var_3 )
     var_6.xpmaxmultipliertimeplayed = var_4;
     var_6._id_0538 = var_5;
     var_6.fontscale = 1.6;
-    var_6.color = ( 0.8, 1, 0.8 );
+    var_6.color = ( 0.8, 1.0, 0.8 );
     var_6.font = "objective";
     var_6.glowcolor = ( 0.3, 0.6, 0.3 );
     var_6.glowalpha = 1;

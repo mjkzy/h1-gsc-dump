@@ -147,13 +147,13 @@ _id_27F1( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
 _id_4087()
 {
-    var_0 = self.origin + ( 0, 0, 10 );
+    var_0 = self.origin + ( 0.0, 0.0, 10.0 );
     var_1 = 11;
     var_2 = anglestoforward( self.angles );
     var_2 *= var_1;
     var_3[0] = var_0 + var_2;
     var_3[1] = var_0;
-    var_4 = bullettrace( var_3[0], var_3[0] + ( 0, 0, -18 ), 0, undefined );
+    var_4 = bullettrace( var_3[0], var_3[0] + ( 0.0, 0.0, -18.0 ), 0, undefined );
 
     if ( var_4["fraction"] < 1 )
     {
@@ -163,7 +163,7 @@ _id_4087()
         return var_5;
     }
 
-    var_4 = bullettrace( var_3[1], var_3[1] + ( 0, 0, -18 ), 0, undefined );
+    var_4 = bullettrace( var_3[1], var_3[1] + ( 0.0, 0.0, -18.0 ), 0, undefined );
 
     if ( var_4["fraction"] < 1 )
     {
@@ -173,16 +173,16 @@ _id_4087()
         return var_5;
     }
 
-    var_3[2] = var_0 + ( 16, 16, 0 );
-    var_3[3] = var_0 + ( 16, -16, 0 );
-    var_3[4] = var_0 + ( -16, -16, 0 );
-    var_3[5] = var_0 + ( -16, 16, 0 );
+    var_3[2] = var_0 + ( 16.0, 16.0, 0.0 );
+    var_3[3] = var_0 + ( 16.0, -16.0, 0.0 );
+    var_3[4] = var_0 + ( -16.0, -16.0, 0.0 );
+    var_3[5] = var_0 + ( -16.0, 16.0, 0.0 );
     var_6 = undefined;
     var_7 = undefined;
 
     for ( var_8 = 0; var_8 < var_3.size; var_8++ )
     {
-        var_4 = bullettrace( var_3[var_8], var_3[var_8] + ( 0, 0, -1000 ), 0, undefined );
+        var_4 = bullettrace( var_3[var_8], var_3[var_8] + ( 0.0, 0.0, -1000.0 ), 0, undefined );
 
         if ( !isdefined( var_6 ) || var_4["fraction"] < var_6 )
         {
@@ -206,7 +206,7 @@ _id_658A( var_0 )
     var_2 = length( var_1 );
 
     if ( !var_2 )
-        return ( 0, 0, 0 );
+        return ( 0.0, 0.0, 0.0 );
 
     var_3 = vectornormalize( var_1 );
     var_4 = var_0[2] * -1;
@@ -299,7 +299,7 @@ _id_6DC5( var_0, var_1, var_2 )
     if ( !soundexists( var_0 ) )
         return;
 
-    var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_3 endon( "death" );
     thread common_scripts\utility::_id_2825( var_3 );
 
@@ -1086,7 +1086,7 @@ _id_5655( var_0, var_1, var_2, var_3 )
         return;
 
     if ( !isdefined( var_3 ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_1 ) )
     {
@@ -1650,17 +1650,17 @@ _id_3D26( var_0, var_1 )
 
 _id_3D28( var_0 )
 {
-    return var_0.origin + ( 0, 0, 32 );
+    return var_0.origin + ( 0.0, 0.0, 32.0 );
 }
 
 _id_40E7()
 {
     if ( self getstance() == "crouch" )
-        var_0 = self.origin + ( 0, 0, 24 );
+        var_0 = self.origin + ( 0.0, 0.0, 24.0 );
     else if ( self getstance() == "prone" )
-        var_0 = self.origin + ( 0, 0, 10 );
+        var_0 = self.origin + ( 0.0, 0.0, 10.0 );
     else
-        var_0 = self.origin + ( 0, 0, 32 );
+        var_0 = self.origin + ( 0.0, 0.0, 32.0 );
 
     return var_0;
 }
@@ -1675,12 +1675,12 @@ _id_3F75( var_0 )
     var_1 = getdvar( var_0 );
 
     if ( var_1 == "" )
-        return ( 0, 0, 0 );
+        return ( 0.0, 0.0, 0.0 );
 
     var_2 = strtok( var_1, " " );
 
     if ( var_2.size < 3 )
-        return ( 0, 0, 0 );
+        return ( 0.0, 0.0, 0.0 );
 
     setdvar( "tempR", var_2[0] );
     setdvar( "tempG", var_2[1] );
@@ -2065,7 +2065,7 @@ _id_3BE2()
 
 _id_3F0D( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( !var_0.size )
         return undefined;
@@ -2443,7 +2443,7 @@ _id_9001( var_0, var_1, var_2 )
 _id_066F()
 {
     if ( _id_51E3() && !isdefined( self._id_3693 ) )
-        thread maps\mp\gametypes\_damage::_id_6CD8( self, self, self, 10000, "MOD_SUICIDE", "h1_fraggrenade_mp", ( 0, 0, 0 ), "none", 0, 1116, 1, 0 );
+        thread maps\mp\gametypes\_damage::_id_6CD8( self, self, self, 10000, "MOD_SUICIDE", "h1_fraggrenade_mp", ( 0.0, 0.0, 0.0 ), "none", 0, 1116, 1, 0 );
     else if ( !_id_51E3() && !isdefined( self._id_3693 ) )
         self suicide();
 }
@@ -3523,8 +3523,8 @@ _id_3782( var_0, var_1, var_2 )
     var_3 = cos( var_2 );
     var_4 = anglestoforward( var_0.angles );
     var_5 = var_1.origin - var_0.origin;
-    var_4 *= ( 1, 1, 0 );
-    var_5 *= ( 1, 1, 0 );
+    var_4 *= ( 1.0, 1.0, 0.0 );
+    var_5 *= ( 1.0, 1.0, 0.0 );
     var_5 = vectornormalize( var_5 );
     var_4 = vectornormalize( var_4 );
     var_6 = vectordot( var_5, var_4 );
@@ -4490,12 +4490,12 @@ _id_51EC( var_0, var_1 )
 
 _id_3FC4()
 {
-    return ( 0, 0, 5000 );
+    return ( 0.0, 0.0, 5000.0 );
 }
 
 _id_3FC5()
 {
-    return ( 0, 0, 2500 );
+    return ( 0.0, 0.0, 2500.0 );
 }
 
 _id_74FA( var_0 )
@@ -5204,8 +5204,8 @@ headquartersradiomove( var_0, var_1, var_2 )
     var_4 = undefined;
     var_5 = isdefined( var_1 );
     var_6 = isdefined( var_2 );
-    var_7 = ( 0, 0, 0 );
-    var_8 = ( 0, 0, 0 );
+    var_7 = ( 0.0, 0.0, 0.0 );
+    var_8 = ( 0.0, 0.0, 0.0 );
 
     foreach ( var_10 in var_3 )
     {
@@ -5269,8 +5269,8 @@ demolitionsitemove( var_0, var_1, var_2 )
     var_3 = getentarray( "dd_bombzone", "targetname" );
     var_4 = isdefined( var_1 );
     var_5 = isdefined( var_2 );
-    var_6 = ( 0, 0, 0 );
-    var_7 = ( 0, 0, 0 );
+    var_6 = ( 0.0, 0.0, 0.0 );
+    var_7 = ( 0.0, 0.0, 0.0 );
     var_8 = undefined;
 
     foreach ( var_10 in var_3 )

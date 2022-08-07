@@ -47,10 +47,10 @@ c4_location( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6 = undefined;
 
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_4 ) )
         var_4 = "weapon_c4";

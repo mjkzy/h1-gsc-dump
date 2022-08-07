@@ -59,8 +59,8 @@ _id_23FB( var_0, var_1 )
     var_2.v = [];
     var_2.v["type"] = var_0;
     var_2.v["fxid"] = var_1;
-    var_2.v["angles"] = ( 0, 0, 0 );
-    var_2.v["origin"] = ( 0, 0, 0 );
+    var_2.v["angles"] = ( 0.0, 0.0, 0.0 );
+    var_2.v["origin"] = ( 0.0, 0.0, 0.0 );
     var_2._id_2DDB = 1;
 
     if ( isdefined( var_1 ) && isdefined( level._id_2415 ) )
@@ -120,8 +120,8 @@ _id_2429()
     var_0.v["type"] = "soundfx";
     var_0.v["fxid"] = "No FX";
     var_0.v["soundalias"] = "nil";
-    var_0.v["angles"] = ( 0, 0, 0 );
-    var_0.v["origin"] = ( 0, 0, 0 );
+    var_0.v["angles"] = ( 0.0, 0.0, 0.0 );
+    var_0.v["origin"] = ( 0.0, 0.0, 0.0 );
     var_0.v["server_culled"] = 1;
 
     if ( getdvar( "serverCulledSounds" ) != "1" )
@@ -155,7 +155,7 @@ _id_23F9()
     }
 
     var_0.v = [];
-    var_0.v["origin"] = ( 0, 0, 0 );
+    var_0.v["origin"] = ( 0.0, 0.0, 0.0 );
     var_0.v["dynamic_distance"] = 1000;
     var_0.v["fxid"] = "No FX";
     var_0.v["type"] = "soundfx_dynamic";
@@ -182,8 +182,8 @@ _id_242D()
     var_0.v["fxid"] = "No FX";
     var_0.v["soundalias"] = "nil";
     var_0.v["loopsound"] = "nil";
-    var_0.v["angles"] = ( 0, 0, 0 );
-    var_0.v["origin"] = ( 0, 0, 0 );
+    var_0.v["angles"] = ( 0.0, 0.0, 0.0 );
+    var_0.v["origin"] = ( 0.0, 0.0, 0.0 );
     var_0.v["exploder"] = 1;
     var_0.v["flag"] = "nil";
     var_0.v["exploder_type"] = "normal";
@@ -213,7 +213,7 @@ _id_2438()
     }
 
     var_0.v = [];
-    var_0.v["origin"] = ( 0, 0, 0 );
+    var_0.v["origin"] = ( 0.0, 0.0, 0.0 );
     var_0.v["reactive_radius"] = 200;
     var_0.v["fxid"] = "No FX";
     var_0.v["type"] = "reactive_fx";
@@ -271,7 +271,7 @@ _id_2407()
 {
     precacheshader( "black" );
     level._createfx = spawnstruct();
-    level._createfx.grenade = spawn( "script_origin", ( 0, 0, 0 ) );
+    level._createfx.grenade = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level._createfx.grenade.fx = loadfx( "vfx/explosion/frag_grenade_default" );
     level._createfx.grenade._id_8899 = "null";
     level._createfx.grenade.rank = 256;
@@ -321,30 +321,30 @@ _id_4D12()
 _id_4CCB()
 {
     var_0 = [];
-    var_0["loopfx"]["selected"] = ( 1, 1, 0.2 );
-    var_0["loopfx"]["highlighted"] = ( 0.4, 0.95, 1 );
-    var_0["loopfx"]["default"] = ( 0.3, 0.8, 1 );
-    var_0["oneshotfx"]["selected"] = ( 1, 1, 0.2 );
-    var_0["oneshotfx"]["highlighted"] = ( 0.3, 0.6, 1 );
-    var_0["oneshotfx"]["default"] = ( 0.1, 0.2, 1 );
-    var_0["exploder"]["selected"] = ( 1, 1, 0.2 );
-    var_0["exploder"]["highlighted"] = ( 1, 0.2, 0.2 );
-    var_0["exploder"]["default"] = ( 1, 0.1, 0.1 );
-    var_0["rainfx"]["selected"] = ( 1, 1, 0.2 );
+    var_0["loopfx"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["loopfx"]["highlighted"] = ( 0.4, 0.95, 1.0 );
+    var_0["loopfx"]["default"] = ( 0.3, 0.8, 1.0 );
+    var_0["oneshotfx"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["oneshotfx"]["highlighted"] = ( 0.3, 0.6, 1.0 );
+    var_0["oneshotfx"]["default"] = ( 0.1, 0.2, 1.0 );
+    var_0["exploder"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["exploder"]["highlighted"] = ( 1.0, 0.2, 0.2 );
+    var_0["exploder"]["default"] = ( 1.0, 0.1, 0.1 );
+    var_0["rainfx"]["selected"] = ( 1.0, 1.0, 0.2 );
     var_0["rainfx"]["highlighted"] = ( 0.95, 0.4, 0.95 );
-    var_0["rainfx"]["default"] = ( 0.78, 0, 0.73 );
-    var_0["soundfx"]["selected"] = ( 1, 1, 0.2 );
-    var_0["soundfx"]["highlighted"] = ( 0.2, 1, 0.2 );
-    var_0["soundfx"]["default"] = ( 0.1, 1, 0.1 );
-    var_0["soundfx_interval"]["selected"] = ( 1, 1, 0.2 );
-    var_0["soundfx_interval"]["highlighted"] = ( 0.3, 1, 0.3 );
-    var_0["soundfx_interval"]["default"] = ( 0.1, 1, 0.1 );
-    var_0["reactive_fx"]["selected"] = ( 1, 1, 0.2 );
-    var_0["reactive_fx"]["highlighted"] = ( 0.5, 1, 0.75 );
+    var_0["rainfx"]["default"] = ( 0.78, 0.0, 0.73 );
+    var_0["soundfx"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["soundfx"]["highlighted"] = ( 0.2, 1.0, 0.2 );
+    var_0["soundfx"]["default"] = ( 0.1, 1.0, 0.1 );
+    var_0["soundfx_interval"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["soundfx_interval"]["highlighted"] = ( 0.3, 1.0, 0.3 );
+    var_0["soundfx_interval"]["default"] = ( 0.1, 1.0, 0.1 );
+    var_0["reactive_fx"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["reactive_fx"]["highlighted"] = ( 0.5, 1.0, 0.75 );
     var_0["reactive_fx"]["default"] = ( 0.2, 0.9, 0.2 );
-    var_0["soundfx_dynamic"]["selected"] = ( 1, 1, 0.2 );
-    var_0["soundfx_dynamic"]["highlighted"] = ( 0.3, 1, 0.3 );
-    var_0["soundfx_dynamic"]["default"] = ( 0.1, 1, 0.1 );
+    var_0["soundfx_dynamic"]["selected"] = ( 1.0, 1.0, 0.2 );
+    var_0["soundfx_dynamic"]["highlighted"] = ( 0.3, 1.0, 0.3 );
+    var_0["soundfx_dynamic"]["default"] = ( 0.1, 1.0, 0.1 );
     level._createfx._id_2058 = var_0;
 }
 
@@ -395,7 +395,7 @@ _id_241B()
     level._id_2408 = 1;
     level._id_5519 = undefined;
     level._id_195A = [];
-    var_0 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
     common_scripts\utility::_id_383F( "createfx_started" );
 
     if ( !level.mp_createfx )
@@ -767,7 +767,7 @@ draw_origin( var_0, var_1 )
     var_4 = level._createfx._id_2058[self.v["type"]][var_1];
     var_5 = 0;
     var_6 = 1;
-    var_7 = ( 0, 0, 0 );
+    var_7 = ( 0.0, 0.0, 0.0 );
     var_8 = int( max( 16, getdvarfloat( "createfx_crosshairdrawdist" ) ) );
     var_9 = int( max( 16, getdvarfloat( "createfx_accuratedrawdist" ) ) );
     var_10 = var_9 * var_9;
@@ -819,7 +819,7 @@ _id_2413( var_0, var_1, var_2 )
         var_7 = level._createfx._id_2058[self.v["type"]][var_0];
 
         if ( isdefined( self._id_506C ) )
-            var_7 = ( 1, 0.5, 0 );
+            var_7 = ( 1.0, 0.5, 0.0 );
 
         if ( isdefined( self.v["reactive_radius"] ) )
             return;
@@ -886,7 +886,7 @@ _id_4609( var_0 )
             if ( level._createfx._id_86BD )
             {
                 var_1 = "on";
-                var_2 = ( 0, 1, 0 );
+                var_2 = ( 0.0, 1.0, 0.0 );
             }
             else
             {
@@ -899,7 +899,7 @@ _id_4609( var_0 )
             if ( level._createfx._id_86BE )
             {
                 var_3 = "on";
-                var_4 = ( 0, 1, 0 );
+                var_4 = ( 0.0, 1.0, 0.0 );
             }
             else
             {
@@ -912,7 +912,7 @@ _id_4609( var_0 )
             if ( level._createfx._id_57F0 )
             {
                 var_5 = "on";
-                var_6 = ( 0, 1, 0 );
+                var_6 = ( 0.0, 1.0, 0.0 );
             }
             else
             {
@@ -958,7 +958,7 @@ _id_4609( var_0 )
                 var_9.v["origin"] += var_8;
             }
 
-            if ( distance( ( 0, 0, 0 ), var_8 ) > 0 )
+            if ( distance( ( 0.0, 0.0, 0.0 ), var_8 ) > 0 )
             {
                 thread _id_780E();
                 level._id_240E = 0;
@@ -1053,7 +1053,7 @@ _id_93DC()
     if ( level._createfx._id_86BD )
     {
         var_0 = "on";
-        var_1 = ( 0, 1, 0 );
+        var_1 = ( 0.0, 1.0, 0.0 );
     }
     else
     {
@@ -1071,7 +1071,7 @@ _id_93DD()
     if ( level._createfx._id_86BE )
     {
         var_0 = "on";
-        var_1 = ( 0, 1, 0 );
+        var_1 = ( 0.0, 1.0, 0.0 );
     }
     else
     {
@@ -1089,7 +1089,7 @@ _id_93D4()
     if ( level._createfx._id_57F0 )
     {
         var_0 = "on";
-        var_1 = ( 0, 1, 0 );
+        var_1 = ( 0.0, 1.0, 0.0 );
     }
     else
     {
@@ -1142,7 +1142,7 @@ _id_7423()
     for ( var_0 = 0; var_0 < level._createfx._id_7C66.size; var_0++ )
     {
         var_1 = level._createfx._id_7C66[var_0];
-        var_1.v["angles"] = ( 0, 0, 0 );
+        var_1.v["angles"] = ( 0.0, 0.0, 0.0 );
         var_1 _id_7E40();
     }
 
@@ -1170,7 +1170,7 @@ _id_2F66()
     for ( var_0 = 0; var_0 < level._createfx._id_7C66.size; var_0++ )
     {
         var_1 = level._createfx._id_7C66[var_0];
-        var_2 = bullettrace( var_1.v["origin"], var_1.v["origin"] + ( 0, 0, -2048 ), 0, undefined );
+        var_2 = bullettrace( var_1.v["origin"], var_1.v["origin"] + ( 0.0, 0.0, -2048.0 ), 0, undefined );
         var_1.v["origin"] = var_2["position"];
     }
 
@@ -1495,7 +1495,7 @@ _id_0731( var_0 )
 
 _id_3CE7( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         var_1 = ( var_1[0] + var_0[var_2].v["origin"][0], var_1[1] + var_0[var_2].v["origin"][1], var_1[2] + var_0[var_2].v["origin"][2] );
@@ -1662,7 +1662,7 @@ _id_1ED6()
 _id_742D()
 {
     for ( var_0 = 0; var_0 < level._createfx._id_4AE1; var_0++ )
-        level._createfx._id_4AE9[var_0][0].color = ( 1, 1, 1 );
+        level._createfx._id_4AE9[var_0][0].color = ( 1.0, 1.0, 1.0 );
 }
 
 _id_93CA( var_0, var_1 )
@@ -1839,7 +1839,7 @@ _id_3E5C()
     else
         level._id_7C6B = 0;
 
-    var_7 = ( 0, 0, 0 );
+    var_7 = ( 0.0, 0.0, 0.0 );
     var_7 += var_3 * level._id_7C69;
     var_7 += var_2 * level._id_7C6A;
     var_7 += var_4 * level._id_7C6B;
@@ -2044,7 +2044,7 @@ _id_6FEC()
     {
         foreach ( var_5 in level._createfx._id_7C66 )
         {
-            var_2 = spawn( "script_origin", ( 0, 0, 0 ) );
+            var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
             var_2.angles = var_5.v["angles"];
 
             if ( level._id_7C6C != 0 )
@@ -2541,7 +2541,7 @@ _id_4CFE()
             var_5._id_0538 = 60 + var_1[var_4] + var_2 * 15;
 
             if ( var_4 > 0 )
-                var_5.color = ( 0, 0, 0 );
+                var_5.color = ( 0.0, 0.0, 0.0 );
 
             var_3[var_3.size] = var_5;
         }
@@ -2564,7 +2564,7 @@ _id_4CFE()
         var_5._id_0538 = 80 + var_1[var_4];
 
         if ( var_4 > 0 )
-            var_5.color = ( 0, 0, 0 );
+            var_5.color = ( 0.0, 0.0, 0.0 );
 
         var_3[var_3.size] = var_5;
     }
@@ -2697,7 +2697,7 @@ _id_7EDB( var_0, var_1, var_2 )
         var_4._id_92B2 = var_1;
 
         if ( !isdefined( var_2 ) )
-            var_2 = ( 1, 1, 1 );
+            var_2 = ( 1.0, 1.0, 1.0 );
 
         var_4.color = var_2;
     }

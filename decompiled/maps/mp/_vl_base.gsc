@@ -782,7 +782,7 @@ handlerotateweaponavatar( var_0 )
 
 resetweaponavatar()
 {
-    level.weaponavatarparent.angles = ( 0, 30, 0 );
+    level.weaponavatarparent.angles = ( 0.0, 30.0, 0.0 );
 }
 
 getyawrotationangle( var_0, var_1 )

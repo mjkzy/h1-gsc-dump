@@ -361,7 +361,7 @@ hanging_object_logic()
 
         if ( var_4 != "MOD_MELEE" && var_4 != "MOD_IMPACT" )
         {
-            self physicslaunch( self.origin, ( 0, 0, 0 ) );
+            self physicslaunch( self.origin, ( 0.0, 0.0, 0.0 ) );
             break;
         }
 
@@ -420,7 +420,7 @@ glass_logic()
         self waittill( "damage", var_6, var_7, var_0, var_8, var_9 );
 
         if ( !isdefined( var_0 ) )
-            var_0 = ( 0, 0, 1 );
+            var_0 = ( 0.0, 0.0, 1.0 );
 
         if ( !isdefined( var_9 ) )
             var_6 = 100000;
@@ -448,7 +448,7 @@ glass_logic()
             var_2 waittill( "damage", var_6, var_11, var_0, var_8, var_9 );
 
             if ( !isdefined( var_0 ) )
-                var_0 = ( 0, 0, 1 );
+                var_0 = ( 0.0, 0.0, 1.0 );
 
             if ( !isdefined( var_9 ) )
                 var_6 = 100000;
@@ -578,7 +578,7 @@ oil_spill_burn( var_0, var_1 )
         {
             var_14 = anglestoup( var_8[var_13].angles );
             var_15 = var_8[var_13].origin + maps\_utility::vector_multiply( var_14, 22 );
-            var_16 = physicstrace( var_15, var_15 + ( 0, 0, -64 ) );
+            var_16 = physicstrace( var_15, var_15 + ( 0.0, 0.0, -64.0 ) );
 
             if ( distancesquared( var_0, var_16 ) < var_9 )
             {
@@ -652,15 +652,15 @@ explodable_barrel_burn()
     var_0 = 0;
     var_1 = 0;
     var_2 = anglestoup( self.angles );
-    var_3 = anglestoup( ( 0, 90, 0 ) );
+    var_3 = anglestoup( ( 0.0, 90.0, 0.0 ) );
     var_4 = vectordot( var_2, var_3 );
-    var_5 = ( 0, 0, 0 );
+    var_5 = ( 0.0, 0.0, 0.0 );
     var_6 = maps\_utility::vector_multiply( var_2, 44 );
 
     if ( var_4 < 0.5 )
     {
-        var_5 = maps\_utility::vector_multiply( var_2, 22 ) - ( 0, 0, 30 );
-        var_6 = maps\_utility::vector_multiply( var_2, 22 ) + ( 0, 0, 14 );
+        var_5 = maps\_utility::vector_multiply( var_2, 22 ) - ( 0.0, 0.0, 30.0 );
+        var_6 = maps\_utility::vector_multiply( var_2, 22 ) + ( 0.0, 0.0, 14.0 );
     }
 
     var_7 = spawn( "script_origin", self.origin + var_6 );
@@ -707,18 +707,18 @@ explodable_barrel_explode()
     self notify( "exploding" );
     self notify( "death" );
     var_0 = anglestoup( self.angles );
-    var_1 = anglestoup( ( 0, 90, 0 ) );
+    var_1 = anglestoup( ( 0.0, 90.0, 0.0 ) );
     var_2 = vectordot( var_0, var_1 );
-    var_3 = ( 0, 0, 0 );
+    var_3 = ( 0.0, 0.0, 0.0 );
 
     if ( var_2 < 0.5 )
     {
         var_4 = self.origin + maps\_utility::vector_multiply( var_0, 22 );
-        var_5 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
+        var_5 = physicstrace( var_4, var_4 + ( 0.0, 0.0, -64.0 ) );
         var_3 = var_5 - self.origin;
     }
 
-    var_3 += ( 0, 0, 4 );
+    var_3 += ( 0.0, 0.0, 4.0 );
     playfx( level._id_17DD["barrel"]["explode"], self.origin + var_3 );
 
     if ( isdefined( level.breakables_sfx["barrel"]["explode"] ) )
@@ -751,9 +751,9 @@ explodable_barrel_explode()
     }
 
     level._id_55A0["time"] = gettime();
-    level._id_55A0["origin"] = self.origin + ( 0, 0, 30 );
+    level._id_55A0["origin"] = self.origin + ( 0.0, 0.0, 30.0 );
     level._id_55A0["radius"] = 350;
-    self entityradiusdamage( self.origin + ( 0, 0, 30 ), var_8, var_7, var_6, var_9 );
+    self entityradiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_8, var_7, var_6, var_9 );
 
     if ( randomint( 2 ) == 0 )
         self setmodel( "com_barrel_piece" );
@@ -763,9 +763,9 @@ explodable_barrel_explode()
     if ( var_2 < 0.5 )
     {
         var_4 = self.origin + maps\_utility::vector_multiply( var_0, 22 );
-        var_10 = physicstrace( var_4, var_4 + ( 0, 0, -64 ) );
+        var_10 = physicstrace( var_4, var_4 + ( 0.0, 0.0, -64.0 ) );
         self.origin = var_10;
-        self.angles += ( 0, 0, 90 );
+        self.angles += ( 0.0, 0.0, 90.0 );
     }
 
     wait 0.05;
@@ -847,7 +847,7 @@ helmet_logic()
 
     self notsolid();
     self hide();
-    var_4 = spawn( "script_model", self.origin + ( 0, 0, 5 ) );
+    var_4 = spawn( "script_model", self.origin + ( 0.0, 0.0, 5.0 ) );
     var_4.angles = self.angles;
     var_4 setmodel( self.motiontrackerenabled );
     var_4 thread animscripts\death::_id_481F( var_3 );
@@ -1081,7 +1081,7 @@ breakable_logic( var_0 )
         self waittill( "damage", var_2, var_1 );
 
         if ( isdefined( var_1 ) && var_1.code_classname == "script_vehicle" )
-            var_1 joltbody( self.origin + ( 0, 0, -90 ), 0.2 );
+            var_1 joltbody( self.origin + ( 0.0, 0.0, -90.0 ), 0.2 );
 
         if ( var_0 == "wood box" )
         {
@@ -1272,126 +1272,126 @@ make_broken_peices( var_0, var_1 )
     switch ( var_1 )
     {
         case "orange vase":
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -7, 0, 22, var_0, ( 0, 0, 0 ), "egypt_prop_vase_br2" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 13, -6, 28, var_0, ( 0, 245.1, 0 ), "egypt_prop_vase_br7" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 12, 10, 27, var_0, ( 0, 180, 0 ), "egypt_prop_vase_br7" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 2, 0, var_0, ( 0, 0, 0 ), "egypt_prop_vase_br5" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -7, 0, 22, var_0, ( 0.0, 0.0, 0.0 ), "egypt_prop_vase_br2" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 13, -6, 28, var_0, ( 0.0, 245.1, 0.0 ), "egypt_prop_vase_br7" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 12, 10, 27, var_0, ( 0.0, 180.0, 0.0 ), "egypt_prop_vase_br7" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 2, 0, var_0, ( 0.0, 0.0, 0.0 ), "egypt_prop_vase_br5" );
             break;
         case "green vase":
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, -1, 26, var_0, ( 0, 0, 0 ), "egypt_prop_vase_br1" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 12, 1, 31, var_0, ( 0, 348.5, 0 ), "egypt_prop_vase_br3" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 6, 13, 29, var_0, ( 0, 153.5, 0 ), "egypt_prop_vase_br6" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 1, 0, var_0, ( 0, 0, 0 ), "egypt_prop_vase_br4" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, -1, 26, var_0, ( 0.0, 0.0, 0.0 ), "egypt_prop_vase_br1" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 12, 1, 31, var_0, ( 0.0, 348.5, 0.0 ), "egypt_prop_vase_br3" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 6, 13, 29, var_0, ( 0.0, 153.5, 0.0 ), "egypt_prop_vase_br6" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 1, 0, var_0, ( 0.0, 0.0, 0.0 ), "egypt_prop_vase_br4" );
             break;
         case "wood box":
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, 10, 25, var_0, ( 0, 0, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, 10, 25, var_0, ( 0, 90, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, -10, 25, var_0, ( 0, 180, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, -10, 25, var_0, ( 0, 270, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, 10, 5, var_0, ( 180, 0, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, -10, 5, var_0, ( 180, 90, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, -10, 5, var_0, ( 180, 180, 0 ), "prop_crate_dak_shard" );
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, 10, 5, var_0, ( 180, 270, 0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, 10, 25, var_0, ( 0.0, 0.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, 10, 25, var_0, ( 0.0, 90.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, -10, 25, var_0, ( 0.0, 180.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, -10, 25, var_0, ( 0.0, 270.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, 10, 5, var_0, ( 180.0, 0.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 10, -10, 5, var_0, ( 180.0, 90.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, -10, 5, var_0, ( 180.0, 180.0, 0.0 ), "prop_crate_dak_shard" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, -10, 10, 5, var_0, ( 180.0, 270.0, 0.0 ), "prop_crate_dak_shard" );
             break;
         case "bottle":
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 0, 0, 10, var_0, ( 0, 0, 0 ), "prop_winebottle_broken_top" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 0, 0, 10, var_0, ( 0.0, 0.0, 0.0 ), "prop_winebottle_broken_top" );
             var_5[var_5.size - 1].unlockpoints = "bottle_top";
-            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 0, 0, 0, var_0, ( 0, 0, 0 ), "prop_winebottle_broken_bot" );
+            var_5[var_5.size] = addpiece( var_2, var_3, var_4, 0, 0, 0, var_0, ( 0.0, 0.0, 0.0 ), "prop_winebottle_broken_bot" );
             var_5[var_5.size - 1].unlockpoints = "bottle_bot";
             break;
         case "plate":
             switch ( var_0.plate )
             {
                 case "round_floral":
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0, 150, 0 ), "prop_diningplate_brokenfloral1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenfloral1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0, 149.8, 0 ), "prop_diningplate_brokenfloral2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenfloral2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenfloral3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0, 146.8, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
                     break;
                 case "round_plain":
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0, 150, 0 ), "prop_diningplate_brokenplain1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenplain1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0, 149.8, 0 ), "prop_diningplate_brokenplain2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenplain2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenplain3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenplain3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0, 146.8, 0 ), "prop_diningplate_brokenplain4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenplain4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
                     break;
                 case "round_stack":
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0, 150, 0 ), "prop_diningplate_brokenfloral1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenfloral1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0, 149.8, 0 ), "prop_diningplate_brokenfloral2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenfloral2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenfloral3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0, 146.8, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 3, 2.5, var_0, ( 0, 60, 0 ), "prop_diningplate_brokenplain1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 3, 2.5, var_0, ( 0.0, 60.0, 0.0 ), "prop_diningplate_brokenplain1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -1, -3, 2.5, var_0, ( 0, 59.8, 0 ), "prop_diningplate_brokenplain2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -1, -3, 2.5, var_0, ( 0.0, 59.8, 0.0 ), "prop_diningplate_brokenplain2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, -1, 2.5, var_0, ( 0, 60.2, 0 ), "prop_diningplate_brokenplain3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, -1, 2.5, var_0, ( 0.0, 60.2, 0.0 ), "prop_diningplate_brokenplain3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, 4, 2.5, var_0, ( 0, 56.8, 0 ), "prop_diningplate_brokenplain4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, 4, 2.5, var_0, ( 0.0, 56.8, 0.0 ), "prop_diningplate_brokenplain4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 4.5, var_0, ( 0, 150, 0 ), "prop_diningplate_brokenfloral1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 4.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenfloral1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 4.5, var_0, ( 0, 149.8, 0 ), "prop_diningplate_brokenfloral2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 4.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenfloral2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 4.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenfloral3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 4.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 4.5, var_0, ( 0, 146.8, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 4.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
                     break;
                 case "oval_floral":
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0, 205.9, 0 ), "prop_diningplate_brokenfloral1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0.0, 205.9, 0.0 ), "prop_diningplate_brokenfloral1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0, 352.2, 0 ), "prop_diningplate_brokenfloral2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0.0, 352.2, 0.0 ), "prop_diningplate_brokenfloral2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenfloral3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0, 102.3, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0.0, 102.3, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0, 246.7, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0.0, 246.7, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
                     break;
                 case "oval_plain":
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0, 205.9, 0 ), "prop_diningplate_brokenplain1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0.0, 205.9, 0.0 ), "prop_diningplate_brokenplain1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0, 352.2, 0 ), "prop_diningplate_brokenplain2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0.0, 352.2, 0.0 ), "prop_diningplate_brokenplain2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenplain3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenplain3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0, 102.3, 0 ), "prop_diningplate_brokenplain4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0.0, 102.3, 0.0 ), "prop_diningplate_brokenplain4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0, 246.7, 0 ), "prop_diningplate_brokenplain4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0.0, 246.7, 0.0 ), "prop_diningplate_brokenplain4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
                     break;
                 case "oval_stack":
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0, 205.9, 0 ), "prop_diningplate_brokenfloral1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0.0, 205.9, 0.0 ), "prop_diningplate_brokenfloral1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0, 352.2, 0 ), "prop_diningplate_brokenfloral2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0.0, 352.2, 0.0 ), "prop_diningplate_brokenfloral2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0, 150.2, 0 ), "prop_diningplate_brokenfloral3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0, 102.3, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0.0, 102.3, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0, 246.7, 0 ), "prop_diningplate_brokenfloral4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0.0, 246.7, 0.0 ), "prop_diningplate_brokenfloral4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 5, 2.5, var_0, ( 0, 25.9, 0 ), "prop_diningplate_brokenplain1" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 5, 2.5, var_0, ( 0.0, 25.9, 0.0 ), "prop_diningplate_brokenplain1" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 6, 0, 2.5, var_0, ( 0, 172.2, 0 ), "prop_diningplate_brokenplain2" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 6, 0, 2.5, var_0, ( 0.0, 172.2, 0.0 ), "prop_diningplate_brokenplain2" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, -1, 2.5, var_0, ( 0, 330.2, 0 ), "prop_diningplate_brokenplain3" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, -1, 2.5, var_0, ( 0.0, 330.2, 0.0 ), "prop_diningplate_brokenplain3" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, -4, 2.5, var_0, ( 0, 282.3, 0 ), "prop_diningplate_brokenplain4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, -4, 2.5, var_0, ( 0.0, 282.3, 0.0 ), "prop_diningplate_brokenplain4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
-                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 4, 2.5, var_0, ( 0, 66.7, 0 ), "prop_diningplate_brokenplain4" );
+                    var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 4, 2.5, var_0, ( 0.0, 66.7, 0.0 ), "prop_diningplate_brokenplain4" );
                     var_5[var_5.size - 1].unlockpoints = "plate";
                     break;
             }
@@ -1503,7 +1503,7 @@ pieces_collision( var_0 )
 {
     self endon( "death" );
     wait 0.1;
-    var_1 = bullettrace( self.origin, self.origin - ( 0, 0, 50000 ), 0, undefined );
+    var_1 = bullettrace( self.origin, self.origin - ( 0.0, 0.0, 50000.0 ), 0, undefined );
     var_2 = var_1["position"];
 
     while ( self.origin[2] > var_2[2] )
@@ -1689,9 +1689,9 @@ _id_366A( var_0 )
 
     for (;;)
     {
-        var_6 = abs( vectordot( var_5, ( 1, 0, 0 ) ) );
-        var_7 = abs( vectordot( var_5, ( 0, 1, 0 ) ) );
-        var_8 = abs( vectordot( var_5, ( 0, 0, 1 ) ) );
+        var_6 = abs( vectordot( var_5, ( 1.0, 0.0, 0.0 ) ) );
+        var_7 = abs( vectordot( var_5, ( 0.0, 1.0, 0.0 ) ) );
+        var_8 = abs( vectordot( var_5, ( 0.0, 0.0, 1.0 ) ) );
 
         if ( var_6 > 0.9 )
             self rotatevelocity( ( var_1, 0, 0 ), var_2 );

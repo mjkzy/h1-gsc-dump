@@ -52,7 +52,7 @@ main()
     precacheshader( "h1_arcademode_lives_earned_flare" );
     precacheshader( "h1_arcademode_lives_message_flare" );
     precacheshader( "h1_arcademode_number_streak_flare" );
-    level.color_cool_green = ( 0.8, 2, 0.8 );
+    level.color_cool_green = ( 0.8, 2.0, 0.8 );
     level.color_cool_green_glow = ( 0.3, 0.6, 0.3 );
     level.arcademode_ending_hud = [];
     arcademode_init_kill_streak_colors();
@@ -227,7 +227,7 @@ arcademode_update_timer()
     var_0._id_0538 = 38.9778;
     var_0.space = level.arcademode_hud_sort;
     var_0.fontscale = 1.5;
-    var_0.color = ( 1, 1, 1 );
+    var_0.color = ( 1.0, 1.0, 1.0 );
     var_0.font = "objective";
     var_0 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_0.hindlegstraceoffset = 1;
@@ -355,7 +355,7 @@ arcademode_redraw_life( var_0, var_1 )
 
     self fadeovertime( 1 );
     self.alpha = 1;
-    self.color = ( 1, 1, 1 );
+    self.color = ( 1.0, 1.0, 1.0 );
 }
 
 arcademode_remove_life( var_0 )
@@ -365,7 +365,7 @@ arcademode_remove_life( var_0 )
 
     self fadeovertime( 1 );
     self.alpha = 0;
-    self.color = ( 1, 0, 0 );
+    self.color = ( 1.0, 0.0, 0.0 );
     self.glowalpha = 0;
     self.empty = 0;
 }
@@ -493,7 +493,7 @@ arcademode_add_kill( var_0, var_1, var_2, var_3, var_4, var_5 )
                 wait 3;
 
             var_6 fadeovertime( var_8 );
-            var_6.color = ( 1, 0, 0 );
+            var_6.color = ( 1.0, 0.0, 0.0 );
             var_6.alpha = 0;
             wait(var_8);
             level notify( "arcademode_decrement_kill_streak" );
@@ -588,7 +588,7 @@ arcademode_add_kill_streak_time( var_0 )
         var_5 = get_streak_hud( 3, 3, var_6, var_1 );
         var_5.space -= 1;
         var_5.alpha = 0.0;
-        var_5.color = ( 0, 0, 0 );
+        var_5.color = ( 0.0, 0.0, 0.0 );
     }
     else
     {
@@ -921,7 +921,7 @@ arcademode_add_life( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6.hostquits = "right";
     var_6.visionsetnight = "top";
     var_6.space = var_5;
-    var_6.color = ( 1, 1, 1 );
+    var_6.color = ( 1.0, 1.0, 1.0 );
     var_6.glowalpha = 0;
     var_6.alpha = 0;
     var_6.hindlegstraceoffset = 1;
@@ -961,10 +961,10 @@ arcademode_define_damage_multipliers()
     var_2["MOD_GRENADE_SPLASH"] = "explosive";
     level.arcademode_deathtypes = var_2;
     var_3 = [];
-    var_3["melee"] = ( 1, 0, 1 );
-    var_3["pistol"] = ( 0, 1, 0 );
-    var_3["rifle"] = ( 1, 1, 0 );
-    var_3["explosive"] = ( 0, 1, 1 );
+    var_3["melee"] = ( 1.0, 0.0, 1.0 );
+    var_3["pistol"] = ( 0.0, 1.0, 0.0 );
+    var_3["rifle"] = ( 1.0, 1.0, 0.0 );
+    var_3["explosive"] = ( 0.0, 1.0, 1.0 );
     level.arcademode_killcolors = var_3;
     var_4 = [];
     var_4["head"] = 50;
@@ -1032,7 +1032,7 @@ new_ending_hud( var_0, var_1, var_2, var_3 )
     if ( getdvar( "widescreen" ) == "1" )
         var_4.fontscale = 5;
 
-    var_4.color = ( 0.8, 1, 0.8 );
+    var_4.color = ( 0.8, 1.0, 0.8 );
     var_4.font = "objective";
     var_4.glowcolor = ( 0.3, 0.6, 0.3 );
     var_4.glowalpha = 1;
@@ -1186,7 +1186,7 @@ arcademode_add_points( var_0, var_1, var_2, var_3 )
     if ( var_8 > 1.4 )
         var_8 = 1.4;
 
-    var_9 = ( 0.75, 0, 0 );
+    var_9 = ( 0.75, 0.0, 0.0 );
 
     if ( var_1 )
     {
@@ -1290,7 +1290,7 @@ pointpulse( var_0 )
     var_1.font = "objective";
     var_1.fontscale = 1.5;
     var_1.archived = 0;
-    var_1.color = ( 1, 1, 1 );
+    var_1.color = ( 1.0, 1.0, 1.0 );
     var_1.space = 4;
     var_2 = level.arcademode_kill_streak_current_multiplier;
     level.playercardbackground.pointpulsecount++;
@@ -1300,14 +1300,14 @@ pointpulse( var_0 )
     if ( var_0 <= 0 )
     {
         var_1.land = &"";
-        var_1.color = ( 1, 0, 0 );
-        var_1.glowcolor = ( 0, 0, 0 );
+        var_1.color = ( 1.0, 0.0, 0.0 );
+        var_1.glowcolor = ( 0.0, 0.0, 0.0 );
         var_1.glowalpha = 0;
     }
     else
     {
         var_1.land = &"SCRIPT_PLUS";
-        var_1.color = ( 1, 1, 1 );
+        var_1.color = ( 1.0, 1.0, 1.0 );
         var_1 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     }
 
@@ -1345,7 +1345,7 @@ set_circular_origin()
         var_1 = randomint( var_0 );
         var_2 = randomint( var_0 );
 
-        if ( distance( ( 0, 0, 0 ), ( var_1, var_2, 0 ) ) < var_0 )
+        if ( distance( ( 0.0, 0.0, 0.0 ), ( var_1, var_2, 0 ) ) < var_0 )
             break;
     }
 
@@ -1413,12 +1413,12 @@ ending_screen_mission_complete_flourish( var_0 )
 {
     var_1 = new_ending_hud( "center", 0.05, 0, var_0 );
     var_1.fontscale = 3;
-    var_1.color = ( 1, 1, 1 );
+    var_1.color = ( 1.0, 1.0, 1.0 );
     var_1 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_1 settext( &"SCRIPT_MISSION_COMPLETE" );
     var_2 = new_ending_hud( "center", 0.15, 0, var_0 );
     var_2.fontscale = 4.5;
-    var_2.color = ( 1, 1, 1 );
+    var_2.color = ( 1.0, 1.0, 1.0 );
     var_2 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_2 settext( &"SCRIPT_MISSION_COMPLETE" );
     var_1 changefontscaleovertime( 0.15 );
@@ -1609,7 +1609,7 @@ arcademode_ends()
 
     if ( level.arcademode_success )
     {
-        var_15.color = ( 1, 1, 1 );
+        var_15.color = ( 1.0, 1.0, 1.0 );
         var_15 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
         var_16 setshader( "h1_arcademode_scanelines_border", int( 344 * var_17 ), 65 );
         var_15 settext( &"SCRIPT_MISSION_COMPLETE" );
@@ -1618,11 +1618,11 @@ arcademode_ends()
     }
     else
     {
-        var_15.color = ( 1, 0.15, 0.16 );
-        var_15 _meth_8347( -0.6, 0, 0, 0, ( 0.5, 0.1, 0.1 ), 0.3, 0, 0, ( 0, 0, 0 ), 0 );
+        var_15.color = ( 1.0, 0.15, 0.16 );
+        var_15 _meth_8347( -0.6, 0, 0, 0, ( 0.5, 0.1, 0.1 ), 0.3, 0, 0, ( 0.0, 0.0, 0.0 ), 0 );
         var_15 settext( level.arcademode_failurestring );
         var_16 setshader( "h1_arcademode_scanelines_border", int( 216 * var_17 ), 65 );
-        var_16.color = ( 1, 0.15, 0.16 );
+        var_16.color = ( 1.0, 0.15, 0.16 );
         level.playercardbackground playsound( "h1_arcademode_mission_fail" );
     }
 
@@ -1659,7 +1659,7 @@ arcademode_ends()
         var_23.alignx = "right";
         var_23.hostquits = "fullscreen";
         var_23.fontscale = 1.875;
-        var_23.color = ( 1, 1, 1 );
+        var_23.color = ( 1.0, 1.0, 1.0 );
         var_23 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
         var_23 settext( &"SCRIPT_TOTAL_SCORE" );
         create_total_score_hud( 0, var_8 );
@@ -1671,7 +1671,7 @@ arcademode_ends()
     var_24.alignx = "right";
     var_24.hostquits = "fullscreen";
     var_24.fontscale = 1.875;
-    var_24.color = ( 1, 1, 1 );
+    var_24.color = ( 1.0, 1.0, 1.0 );
     var_24 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_24 settext( &"SCRIPT_MISSION_SCORE" );
     level.arcademode_hud_mission_scores = [];
@@ -1705,7 +1705,7 @@ arcademode_ends()
     var_28.alignx = "right";
     var_28.hostquits = "fullscreen";
     var_28.fontscale = 1.7;
-    var_28.color = ( 1, 1, 1 );
+    var_28.color = ( 1.0, 1.0, 1.0 );
     var_28 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_28 settext( &"SCRIPT_TIME_REMAINING" );
     level._id_0CC4 = [];
@@ -1723,7 +1723,7 @@ arcademode_ends()
         level._id_0CC4[var_21].visionsetnight = "middle";
         level._id_0CC4[var_21].fontscale = 1.7;
         level._id_0CC4[var_21].fontscale = 1.7;
-        level._id_0CC4[var_21].color = ( 1, 1, 1 );
+        level._id_0CC4[var_21].color = ( 1.0, 1.0, 1.0 );
         level._id_0CC4[var_21] _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     }
 
@@ -2173,9 +2173,9 @@ draw_checkpoint( var_0, var_1, var_2 )
     var_3 = new_ending_hud( "center", 0.001, var_0, 73.3333 );
     var_3.visionsetnight = "top_adjustable";
     var_3.fontscale = 2.5;
-    var_3.color = ( 1, 1, 1 );
+    var_3.color = ( 1.0, 1.0, 1.0 );
     var_3.font = "objective";
-    var_3 _meth_8347( -0.1, 0, 0, -0.001, ( 0, 0, 0 ), 0.2, -0.1, 0, ( 0, 0, 0 ), 0.5 );
+    var_3 _meth_8347( -0.1, 0, 0, -0.001, ( 0.0, 0.0, 0.0 ), 0.2, -0.1, 0, ( 0.0, 0.0, 0.0 ), 0.5 );
     var_3 settext( &"SCRIPT_CHECKPOINT" );
     var_3.alpha = 0;
     wait 0.15;
@@ -2309,7 +2309,7 @@ arcademode_init_kill_streak_colors()
     level.arcademode_streak_color[level.arcademode_streak_color.size] = level.color_cool_green;
     level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 0.678431, 0.976471, 0.768627 );
     level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 0.658824, 0.964706, 0.619608 );
-    level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 1, 0.976471, 0.317647 );
+    level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 1.0, 0.976471, 0.317647 );
     level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 0.988235, 0.866667, 0.301961 );
     level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 0.988235, 0.831373, 0.376471 );
     level.arcademode_streak_color[level.arcademode_streak_color.size] = ( 0.988235, 0.792157, 0.223529 );
@@ -2399,7 +2399,7 @@ get_hud_multi()
     var_1.foreground = 1;
     var_1.hindlegstraceoffset = 1;
     var_1.color = level.arcademode_streak_color[level.arcademode_kill_streak_current_multiplier - 1];
-    var_1 _meth_8347( -0.1, 0, 0, -0.001, ( 0, 0, 0 ), 0.5, -0.1, 0, ( 0, 0, 0 ), 0.75 );
+    var_1 _meth_8347( -0.1, 0, 0, -0.001, ( 0.0, 0.0, 0.0 ), 0.5, -0.1, 0, ( 0.0, 0.0, 0.0 ), 0.75 );
     var_1.space = level.arcademode_hud_sort;
     var_1.land = &"SCRIPT_X";
     var_1 setvalue( level.arcademode_kill_streak_current_multiplier );
@@ -2426,7 +2426,7 @@ get_hud_multi_emphasis()
     var_0.foreground = 1;
     var_0.hindlegstraceoffset = 1;
     var_0.color = level.arcademode_streak_color[level.arcademode_kill_streak_current_multiplier - 1];
-    var_0 _meth_8347( -0.6, 0, 0, 0, ( 0, 0, 0 ), 0.0, -0.6, 0, var_0.color, 1.0 );
+    var_0 _meth_8347( -0.6, 0, 0, 0, ( 0.0, 0.0, 0.0 ), 0.0, -0.6, 0, var_0.color, 1.0 );
     var_0.space = level.arcademode_hud_sort;
     var_0.land = &"SCRIPT_X";
     var_0 setvalue( level.arcademode_kill_streak_current_multiplier );

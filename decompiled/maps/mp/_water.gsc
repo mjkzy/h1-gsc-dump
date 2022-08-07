@@ -315,9 +315,9 @@ _id_6CD1( var_0 )
             self._id_51C4 = undefined;
             self._id_5201 = undefined;
             self notify( "above_water" );
-            var_3 = distance( self getvelocity(), ( 0, 0, 0 ) );
+            var_3 = distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) );
             var_4 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) );
-            playfx( level._effect["water_splash_emerge"], var_4, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270, 180, 0 ) ) );
+            playfx( level._effect["water_splash_emerge"], var_4, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270.0, 180.0, 0.0 ) ) );
 
             if ( !maps\mp\_utility::_id_51E3() )
             {
@@ -370,18 +370,18 @@ _id_4FAE( var_0 )
     self endon( "death" );
     self endon( "disconnect" );
     self endon( "out_of_water" );
-    var_1 = distance( self getvelocity(), ( 0, 0, 0 ) );
+    var_1 = distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) );
 
     if ( var_1 > 90 )
     {
         var_2 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) );
-        playfx( level._effect["water_splash_enter"], var_2, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270, 180, 0 ) ) );
+        playfx( level._effect["water_splash_enter"], var_2, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270.0, 180.0, 0.0 ) ) );
     }
 
     for (;;)
     {
         var_3 = self getvelocity();
-        var_1 = distance( var_3, ( 0, 0, 0 ) );
+        var_1 = distance( var_3, ( 0.0, 0.0, 0.0 ) );
 
         if ( var_1 > 0 )
             wait(max( 1 - var_1 / 120, 0.1 ));
@@ -391,14 +391,14 @@ _id_4FAE( var_0 )
         if ( var_1 > 5 )
         {
             var_4 = vectornormalize( ( var_3[0], var_3[1], 0 ) );
-            var_5 = anglestoforward( vectortoangles( var_4 ) + ( 270, 180, 0 ) );
+            var_5 = anglestoforward( vectortoangles( var_4 ) + ( 270.0, 180.0, 0.0 ) );
             var_2 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) ) + var_1 / 4 * var_4;
             playfx( level._effect["water_wake"], var_2, var_5 );
             continue;
         }
 
         var_2 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) );
-        playfx( level._effect["water_wake_stationary"], var_2, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270, 180, 0 ) ) );
+        playfx( level._effect["water_wake_stationary"], var_2, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270.0, 180.0, 0.0 ) ) );
     }
 }
 

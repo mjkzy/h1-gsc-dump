@@ -393,7 +393,7 @@ _id_98A5( var_0, var_1 )
 
     self _meth_8192( "zonly_physics" );
     self.key2 = 1;
-    var_3 = ( 32, 20, 64 );
+    var_3 = ( 32.0, 20.0, 64.0 );
     var_4 = animscripts\combat_utility::_id_989D( var_0, var_2 );
     self.key2 = 0;
     return var_4;

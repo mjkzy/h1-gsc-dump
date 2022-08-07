@@ -41,7 +41,7 @@ _id_422D( var_0, var_1, var_2, var_3, var_4 )
             level._effect[var_3] = loadfx( var_1 );
 
         if ( !isdefined( var_7.angles ) )
-            var_7.angles = ( 0, 0, 0 );
+            var_7.angles = ( 0.0, 0.0, 0.0 );
 
         var_8 = common_scripts\utility::_id_242E( var_3 );
         var_8.v["origin"] = var_7.origin;

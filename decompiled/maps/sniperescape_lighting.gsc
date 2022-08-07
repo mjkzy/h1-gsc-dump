@@ -69,7 +69,7 @@ handle_player_on_sniper_rifle()
     maps\_utility::_id_9E6E( "sniperescape_scope", 2 );
     common_scripts\utility::_id_384A( "player_gets_off_turret" );
     setsaveddvar( "sv_znear", "1.0" );
-    setsaveddvar( "sm_sunShadowCenter", ( 0, 0, 0 ) );
+    setsaveddvar( "sm_sunShadowCenter", ( 0.0, 0.0, 0.0 ) );
     var_0 = getentarray( "zakhaev_light", "targetname" );
 
     foreach ( var_2 in var_0 )

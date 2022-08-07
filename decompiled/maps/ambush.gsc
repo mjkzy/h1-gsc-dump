@@ -381,8 +381,8 @@ guardtower_dead_enemies()
 {
     common_scripts\utility::_id_384A( "takeover_fade_clear" );
     var_0 = [];
-    var_0[0] = spawn( "script_model", ( 0, 0, 0 ) );
-    var_0[1] = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0[0] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_0[1] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0[0] character\character_sp_opforce_geoff::main();
     var_0[0]._id_0C72 = "generic";
     var_0[0] useanimtree( #animtree );
@@ -401,8 +401,8 @@ guardtower_dead_enemies()
     var_0[0] delete();
     var_0[1] delete();
     var_3 = [];
-    var_3[0] = spawn( "script_model", ( 0, 0, 0 ) );
-    var_3[1] = spawn( "script_model", ( 0, 0, 0 ) );
+    var_3[0] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_3[1] = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_3[0] character\character_sp_opforce_geoff::main();
     var_3[0]._id_0C72 = "generic";
     var_3[0] useanimtree( #animtree );
@@ -633,7 +633,7 @@ hud_string()
     var_0 = maps\_hud_util::_id_2401( "objective", 1.5 );
     var_0.space = 3;
     var_0.fontscale = 1.6;
-    var_0.color = ( 0.8, 1, 0.8 );
+    var_0.color = ( 0.8, 1.0, 0.8 );
     var_0.glowcolor = ( 0.26, 0.65, 0.32 );
     var_0.glowalpha = 0.2;
     var_0 setpulsefx( 60, 3500, 700 );
@@ -726,7 +726,7 @@ ambush_helicopter()
     var_0 = spawn( "script_model", level.helicopter gettagorigin( "tag_turret" ) );
     var_0.angles = level.helicopter gettagangles( "tag_turret" );
     var_0 notsolid();
-    var_0 linkto( level.helicopter, "tag_turret", ( -10, -10, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( level.helicopter, "tag_turret", ( -10.0, -10.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "h1_blackhawk_missile_luncher" );
     var_1 = common_scripts\utility::_id_40FB( level.helicopter._not_team, "targetname" );
     level.helicopter thread heli_path_speed();
@@ -738,10 +738,10 @@ ambush_helicopter()
     level.helicopter setvehweapon( "hunted_crash_missile" );
     level.helicopter setturrettargetent( level.rear_bmp );
     level.rear_bmp maps\_vehicle::_id_4258();
-    var_3 = level.helicopter fireweapon( "tag_barrel", level.rear_bmp, ( 0, 0, 0 ) );
+    var_3 = level.helicopter fireweapon( "tag_barrel", level.rear_bmp, ( 0.0, 0.0, 0.0 ) );
     thread maps\ambush_aud::snd_heli_missile_shoot( level.helicopter, var_3 );
     wait 0.5;
-    var_3 = level.helicopter fireweapon( "tag_barrel", level.rear_bmp, ( 0, 0, 0 ) );
+    var_3 = level.helicopter fireweapon( "tag_barrel", level.rear_bmp, ( 0.0, 0.0, 0.0 ) );
     thread maps\ambush_aud::snd_heli_missile_shoot( level.helicopter, var_3 );
     var_3 waittill( "death" );
 
@@ -945,7 +945,7 @@ ambush_streetlight()
     var_0 moveto( var_3, 0.3, 0, 0.1 );
     var_4 = getvehiclenode( "truck_hit", "script_noteworthy" );
     var_4 waittill( "trigger" );
-    level.middle_bm21 joltbody( level.middle_bm21.origin + ( 0, 0, 64 ), 2 );
+    level.middle_bm21 joltbody( level.middle_bm21.origin + ( 0.0, 0.0, 64.0 ), 2 );
 }
 
 ambush_bmp_attack()
@@ -1105,8 +1105,8 @@ ambush_mark()
 
 ambush_mark_talk_anim()
 {
-    var_0 = spawn( "script_origin", ( -602, 80, 225 ) );
-    var_0.angles = ( 0, -20, 0 );
+    var_0 = spawn( "script_origin", ( -602.0, 80.0, 225.0 ) );
+    var_0.angles = ( 0.0, -20.0, 0.0 );
     var_0 thread maps\_anim::_id_0BC7( level.mark, "ambush_grg_tower_talk" );
     wait 2.5;
     level.mark thread maps\_utility::_id_69C4( "ambush_grigg_tower_foley" );
@@ -1202,7 +1202,7 @@ ambush_setup()
     ambush_setup_enemy_allies();
     var_1 = getnode( "startnodeplayer_ambush", "targetname" );
     level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles + ( 13, 0, 0 ) );
+    level.playercardbackground setplayerangles( var_1.angles + ( 13.0, 0.0, 0.0 ) );
     level.playercardbackground setthreatbiasgroup( "oblivious" );
     maps\_utility::_id_070A( "ambush_setup_color_init" );
 
@@ -1420,13 +1420,13 @@ ambush_tower_fall()
     earthquake( 0.1, 0.5, level.playercardbackground.origin, 400 );
     thread ambush_tower_rumble();
     level notify( "tower_fall_start" );
-    var_1 rotateto( ( 5, 0, 0 ), 0.5, 0, 0.5 );
+    var_1 rotateto( ( 5.0, 0.0, 0.0 ), 0.5, 0, 0.5 );
     wait 0.5;
-    var_1 rotateto( ( 2, 0, 5 ), 1, 0.7, 0.3 );
+    var_1 rotateto( ( 2.0, 0.0, 5.0 ), 1, 0.7, 0.3 );
     wait 1;
-    var_1 rotateto( ( 0, 0, -2 ), 0.7, 0.5, 0.2 );
+    var_1 rotateto( ( 0.0, 0.0, -2.0 ), 0.7, 0.5, 0.2 );
     wait 0.7;
-    var_1 rotateto( ( 0, 20, 90 ), 1.7, 1.7, 0 );
+    var_1 rotateto( ( 0.0, 20.0, 90.0 ), 1.7, 1.7, 0 );
     wait 1.65;
     level.mark unlink();
     level notify( "tower_fall_unlink" );
@@ -1572,8 +1572,8 @@ ambush_tower_blackout()
     var_1 = getnode( "startnodemark_village", "targetname" );
     level.mark notify( "killanimscript" );
     level.mark _meth_81ca( var_1.origin, var_1.angles );
-    var_2 = ( -439, -197, 9 );
-    var_3 = ( -25, 40, 0 );
+    var_2 = ( -439.0, -197.0, 9.0 );
+    var_3 = ( -25.0, 40.0, 0.0 );
     level.playercardbackground setorigin( var_2 );
     level.playercardbackground setplayerangles( var_3 );
     level.playercardbackground setstance( "prone" );
@@ -1632,29 +1632,29 @@ ambush_recover_h1()
 
 ambush_recover()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level.playercardbackground playersetgroundreferenceent( var_0 );
     var_1 = [];
-    var_1[0]["angles"] = ( 10, -40, -10 );
-    var_1[0]["time"] = ( 0, 0, 0 );
-    var_1[1]["angles"] = ( 0, 25, 0 );
-    var_1[1]["time"] = ( 3.3, 3.3, 0 );
-    var_1[2]["angles"] = ( -5, 30, 3 );
-    var_1[2]["time"] = ( 1, 0, 1 );
-    var_1[3]["angles"] = ( -1, 30, -3 );
-    var_1[3]["time"] = ( 3, 3, 0 );
-    var_1[4]["angles"] = ( 0, 30, -4 );
-    var_1[4]["time"] = ( 1, 0, 1 );
-    var_1[5]["angles"] = ( -3, 28, -2 );
-    var_1[5]["time"] = ( 0.65, 0.65, 0 );
-    var_1[6]["angles"] = ( 20, -10, 15 );
-    var_1[6]["time"] = ( 0.7, 0, 0.4 );
-    var_1[7]["angles"] = ( 0, -16, 0 );
-    var_1[7]["time"] = ( 4, 2, 2 );
-    var_1[8]["angles"] = ( 10, -70, 0 );
-    var_1[8]["time"] = ( 3.5, 2, 1.5 );
-    var_1[9]["angles"] = ( 0, -20, 0 );
-    var_1[9]["time"] = ( 2, 1, 0 );
+    var_1[0]["angles"] = ( 10.0, -40.0, -10.0 );
+    var_1[0]["time"] = ( 0.0, 0.0, 0.0 );
+    var_1[1]["angles"] = ( 0.0, 25.0, 0.0 );
+    var_1[1]["time"] = ( 3.3, 3.3, 0.0 );
+    var_1[2]["angles"] = ( -5.0, 30.0, 3.0 );
+    var_1[2]["time"] = ( 1.0, 0.0, 1.0 );
+    var_1[3]["angles"] = ( -1.0, 30.0, -3.0 );
+    var_1[3]["time"] = ( 3.0, 3.0, 0.0 );
+    var_1[4]["angles"] = ( 0.0, 30.0, -4.0 );
+    var_1[4]["time"] = ( 1.0, 0.0, 1.0 );
+    var_1[5]["angles"] = ( -3.0, 28.0, -2.0 );
+    var_1[5]["time"] = ( 0.65, 0.65, 0.0 );
+    var_1[6]["angles"] = ( 20.0, -10.0, 15.0 );
+    var_1[6]["time"] = ( 0.7, 0.0, 0.4 );
+    var_1[7]["angles"] = ( 0.0, -16.0, 0.0 );
+    var_1[7]["time"] = ( 4.0, 2.0, 2.0 );
+    var_1[8]["angles"] = ( 10.0, -70.0, 0.0 );
+    var_1[8]["time"] = ( 3.5, 2.0, 1.5 );
+    var_1[9]["angles"] = ( 0.0, -20.0, 0.0 );
+    var_1[9]["time"] = ( 2.0, 1.0, 0.0 );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -1673,7 +1673,7 @@ ambush_recover()
         var_0 waittill( "rotatedone" );
     }
 
-    var_0 rotateto( ( 0, 0, 0 ), 1, 0.5, 0.5 );
+    var_0 rotateto( ( 0.0, 0.0, 0.0 ), 1, 0.5, 0.5 );
     var_0 waittill( "rotatedone" );
     level.playercardbackground playersetgroundreferenceent( undefined );
 }
@@ -2411,11 +2411,11 @@ rail_guy_fall_on_death()
 
 apartment_helicopter_turret_guy()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 character\character_sp_opforce_geoff::main();
     var_0._id_0C72 = "generic";
     var_0 useanimtree( #animtree );
-    var_0 linkto( self, "tag_origin", ( 0, -32, -25 ), ( 0, 90, 0 ) );
+    var_0 linkto( self, "tag_origin", ( 0.0, -32.0, -25.0 ), ( 0.0, 90.0, 0.0 ) );
     level._id_78AC["generic"]["crouch_shoot"] = %crouch_shoot_straight;
     maps\_anim::_id_0BCC( var_0, "crouch_shoot" );
     self waittill( "death" );
@@ -2431,10 +2431,10 @@ wait_ambient_turret_end()
 apartment_helicopter_ambient_turret( var_0, var_1 )
 {
     level notify( "remove_old_turret" );
-    var_2 = spawnturret( "misc_turret", ( 0, 0, 0 ), "heli_minigun_noai" );
+    var_2 = spawnturret( "misc_turret", ( 0.0, 0.0, 0.0 ), "heli_minigun_noai" );
     var_2 setmodel( "cod3mg42" );
     var_2.team = "allies";
-    var_2 linkto( level.helicopter, "tag_detach", ( 0, 120, 10 ), ( 0, 0, 0 ) );
+    var_2 linkto( level.helicopter, "tag_detach", ( 0.0, 120.0, 10.0 ), ( 0.0, 0.0, 0.0 ) );
     var_2 thread apartment_helicopter_turret_guy();
     var_2 makeunusable();
     var_2 setmode( "manual" );
@@ -2472,14 +2472,14 @@ apartment_helicopter_ambient_turret_track( var_0, var_1, var_2 )
 apartment_helicopter_turret( var_0, var_1, var_2 )
 {
     level notify( "remove_old_turret" );
-    var_3 = spawnturret( "misc_turret", ( 0, 0, 0 ), "heli_minigun_noai" );
+    var_3 = spawnturret( "misc_turret", ( 0.0, 0.0, 0.0 ), "heli_minigun_noai" );
     var_3 setmodel( "cod3mg42" );
     var_3.team = "allies";
 
     if ( isdefined( var_1 ) )
-        var_3 linkto( level.helicopter, "tag_detach", ( 0, 120, 10 ), ( 0, 0, 0 ) );
+        var_3 linkto( level.helicopter, "tag_detach", ( 0.0, 120.0, 10.0 ), ( 0.0, 0.0, 0.0 ) );
     else
-        var_3 linkto( level.helicopter, "tag_detach", ( 0, 12, 10 ), ( 0, 180, 0 ) );
+        var_3 linkto( level.helicopter, "tag_detach", ( 0.0, 12.0, 10.0 ), ( 0.0, 180.0, 0.0 ) );
 
     var_3 thread apartment_helicopter_turret_guy();
     var_3 makeunusable();
@@ -2492,12 +2492,12 @@ apartment_helicopter_turret( var_0, var_1, var_2 )
     common_scripts\utility::_id_384A( "apartment_heli_firing" );
     var_3 thread manual_mg_fire( 6, 0.5, 3, level._effect["apartment_heli_fire_shell"] );
     var_3 startfiring();
-    thread common_scripts\utility::play_loopsound_in_space_with_end( "scn_minigun_shell_lp", ( -4802.8, -8288.6, 38 ), "stop_shell_snd" );
+    thread common_scripts\utility::play_loopsound_in_space_with_end( "scn_minigun_shell_lp", ( -4802.8, -8288.6, 38.0 ), "stop_shell_snd" );
     var_3 apartment_helicopter_turret_mg_nest( var_4, var_5, var_2 );
     var_3 notify( "stop_firing" );
     var_3 stopfiring();
     maps\_utility::_id_61FD( "stop_shell_snd", 0.75 );
-    thread common_scripts\utility::_id_69C2( "scn_minigun_shell_tl", ( -4802.8, -8288.6, 38 ) );
+    thread common_scripts\utility::_id_69C2( "scn_minigun_shell_tl", ( -4802.8, -8288.6, 38.0 ) );
     level waittill( "remove_old_turret" );
     var_3 delete();
 }
@@ -2531,16 +2531,16 @@ apartment_helicopter_rooftop_turret()
 {
     common_scripts\utility::_id_384A( "apartment_roof" );
     level notify( "remove_old_turret" );
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 character\character_sp_opforce_geoff::main();
     var_0._id_0C72 = "generic";
     var_0 useanimtree( #animtree );
-    var_0 linkto( level.helicopter, "tag_detach", ( -15, 45, -13 ), ( 0, 270, 0 ) );
+    var_0 linkto( level.helicopter, "tag_detach", ( -15.0, 45.0, -13.0 ), ( 0.0, 270.0, 0.0 ) );
     level._id_78AC["generic"]["crouch_shoot"] = %crouch_shoot_straight;
     var_0 maps\_anim::_id_0BCC( var_0, "crouch_shoot" );
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( "weapon_m4" );
-    var_1 linkto( var_0, "tag_weapon_right", ( 1, 0, 3 ), ( 0, 0, 0 ) );
+    var_1 linkto( var_0, "tag_weapon_right", ( 1.0, 0.0, 3.0 ), ( 0.0, 0.0, 0.0 ) );
 }
 
 apartment_friendlies()
@@ -2668,7 +2668,7 @@ apartment_mg_nest()
     var_5 setmodel( var_0.motiontrackerenabled );
     var_0 hide();
     wait 0.9;
-    var_5 physicslaunch( var_5.origin + ( 0, -50, 0 ), ( 0, 600, 0 ) );
+    var_5 physicslaunch( var_5.origin + ( 0.0, -50.0, 0.0 ), ( 0.0, 600.0, 0.0 ) );
     common_scripts\utility::_id_384A( "apartment_inside" );
     var_6 = maps\_utility::_id_3CB4( "fifthfloor_guy" );
     common_scripts\utility::_id_0D13( var_6, maps\_utility::_id_7C71 );
@@ -2714,7 +2714,7 @@ apartment_mg_nest_sandbag()
 {
     common_scripts\utility::_id_384A( "apartment_mg_destroyed" );
     maps\_utility::script_lightset();
-    self physicslaunch( self.origin + ( 0, -10, 0 ), ( 0, 1500, 200 ) );
+    self physicslaunch( self.origin + ( 0.0, -10.0, 0.0 ), ( 0.0, 1500.0, 200.0 ) );
 }
 
 apartment_mg_nest_2()
@@ -2869,7 +2869,7 @@ apartment_suicide_badguy()
     level.badguy notify( "stop_death_fail" );
     level.badguy.a._id_612E = 1;
     level.badguy.allowdeath = 1;
-    level.badguy kill( ( 0, 0, 0 ) );
+    level.badguy kill( ( 0.0, 0.0, 0.0 ) );
     level notify( "slowdown_done" );
     common_scripts\utility::_id_383F( "apartment_suicide_done" );
 }
@@ -2919,7 +2919,7 @@ apartment_suicide_badguy_h1()
     level.badguy notify( "stop_death_fail" );
     level.badguy.a._id_612E = 1;
     level.badguy.allowdeath = 1;
-    level.badguy kill( ( 0, 0, 0 ) );
+    level.badguy kill( ( 0.0, 0.0, 0.0 ) );
     level notify( "slowdown_done" );
     common_scripts\utility::_id_383F( "apartment_suicide_done" );
 }
@@ -3004,8 +3004,8 @@ apartment_suicide_badguy_fx()
     playfx( level._effect["head_fatal"], var_0, anglestoforward( var_1 ), anglestoup( var_1 ) );
     maps\_cheat::melonhead_remove_melon( 1, 1 );
     wait 1.5;
-    var_1 = ( 270, 0, 0 );
-    var_0 = ( -4688, -9280, 644.5 );
+    var_1 = ( 270.0, 0.0, 0.0 );
+    var_0 = ( -4688.0, -9280.0, 644.5 );
     playfx( level._effect["bloodpool"], var_0, anglestoforward( var_1 ), anglestoup( var_1 ) );
 }
 
@@ -3066,7 +3066,7 @@ apartment_suicide_badguy_interrupt()
     level.badguy notify( "stop_death_fail" );
     level.badguy.a._id_612E = 1;
     level.badguy.allowdeath = 1;
-    level.badguy kill( ( 0, 0, 0 ) );
+    level.badguy kill( ( 0.0, 0.0, 0.0 ) );
     level notify( "slowdown_done" );
     level.playercardbackground thread set_playerspeed( 140, 2 );
     common_scripts\utility::_id_383F( "apartment_suicide_done" );
@@ -3911,7 +3911,7 @@ vehicle_turret_think()
         if ( isdefined( var_0 ) && isplayer( var_0 ) )
         {
             var_2 = 0;
-            var_2 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0, 0, 150 ), 0, self );
+            var_2 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0.0, 0.0, 150.0 ), 0, self );
 
             if ( !var_2 )
                 var_0 = vehicle_get_target( level.bmpexcluders );
@@ -3921,11 +3921,11 @@ vehicle_turret_think()
 
         if ( isdefined( var_0 ) && isalive( var_0 ) )
         {
-            var_3 = var_0.origin + ( 0, 0, 32 );
+            var_3 = var_0.origin + ( 0.0, 0.0, 32.0 );
             self _meth_825d( var_3 );
 
             if ( getdvar( "debug_bmp" ) == "1" )
-                thread maps\_utility::_id_2DBF( self.origin + ( 0, 0, 32 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
+                thread maps\_utility::_id_2DBF( self.origin + ( 0.0, 0.0, 32.0 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
 
             var_4 = randomfloatrange( 2, 3 );
             common_scripts\utility::_id_A0A0( "turret_rotate_stopped", var_4 );
@@ -4063,7 +4063,7 @@ music_playback( var_0, var_1, var_2, var_3 )
 
 bugfix_failsafe_triggerflag_morpheus_rpg()
 {
-    var_0 = ( -4736, -6592, -120 );
+    var_0 = ( -4736.0, -6592.0, -120.0 );
     var_1 = 350;
 
     while ( common_scripts\utility::_id_2B73( level.playercardbackground.origin, var_0 ) > var_1 * var_1 )

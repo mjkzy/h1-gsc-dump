@@ -406,12 +406,12 @@ _id_40BF()
     var_2 = 0;
     var_3 = 0;
 
-    if ( self _meth_81c7( self localtoworldcoords( ( 300, 0, 0 ) ) ) )
+    if ( self _meth_81c7( self localtoworldcoords( ( 300.0, 0.0, 0.0 ) ) ) )
     {
         var_2 = 1;
         var_1 = 1;
     }
-    else if ( self _meth_81c7( self localtoworldcoords( ( 200, 0, 0 ) ) ) )
+    else if ( self _meth_81c7( self localtoworldcoords( ( 200.0, 0.0, 0.0 ) ) ) )
         var_1 = 1;
 
     if ( isdefined( self.a._id_2B1A ) )
@@ -424,7 +424,7 @@ _id_40BF()
         var_0 = animscripts\utility::_id_5863( "pain", "run_long" );
     else if ( var_1 )
         var_0 = animscripts\utility::_id_5863( "pain", "run_medium" );
-    else if ( self _meth_81c7( self localtoworldcoords( ( 120, 0, 0 ) ) ) )
+    else if ( self _meth_81c7( self localtoworldcoords( ( 120.0, 0.0, 0.0 ) ) ) )
         var_0 = animscripts\utility::_id_5863( "pain", "run_short" );
 
     if ( !var_0.size )
@@ -1373,7 +1373,7 @@ _id_2FD6()
         var_5 = self gettagorigin( var_1 );
         var_6 = self gettagangles( var_2 );
         var_7 = anglestoright( var_6 );
-        var_8 = anglestoforward( ( 270, 0, 0 ) );
+        var_8 = anglestoforward( ( 270.0, 0.0, 0.0 ) );
         playfx( var_4, var_5, var_8, var_7 );
         wait(var_3);
     }
@@ -1624,7 +1624,7 @@ _id_2229()
     animscripts\death::_id_6A3F();
     wait 0.7;
     self._id_2660 = ::_id_A0DC;
-    var_5 = ( 0, 0, 30 ) - anglestoright( self.angles ) * 70;
+    var_5 = ( 0.0, 0.0, 30.0 ) - anglestoright( self.angles ) * 70;
     _id_2224( var_5, randomfloatrange( 2.0, 3.0 ) );
     wait 0.05;
     self detach( var_0, "tag_inhand" );
@@ -1634,8 +1634,8 @@ _id_2229()
 _id_2224( var_0, var_1 )
 {
     var_2 = self gettagorigin( "tag_inhand" );
-    var_3 = var_2 + ( 0, 0, 20 );
-    var_4 = var_2 - ( 0, 0, 20 );
+    var_3 = var_2 + ( 0.0, 0.0, 20.0 );
+    var_4 = var_2 - ( 0.0, 0.0, 20.0 );
     var_5 = bullettrace( var_3, var_4, 0, undefined );
 
     if ( var_5["fraction"] < 0.5 )
@@ -1725,7 +1725,7 @@ _id_A215()
 {
     self endon( "kill_long_death" );
     self endon( "death" );
-    self._id_32CC = ( 0, 0, 0 );
+    self._id_32CC = ( 0.0, 0.0, 0.0 );
     var_0 = undefined;
     var_1 = self.origin;
     var_2 = 0.15;
@@ -1746,7 +1746,7 @@ _id_A215()
                 var_1 = self.origin;
 
             var_0 = self.enemy;
-            self._id_83F7 = ( 0, 0, 0 );
+            self._id_83F7 = ( 0.0, 0.0, 0.0 );
         }
 
         wait(var_2);

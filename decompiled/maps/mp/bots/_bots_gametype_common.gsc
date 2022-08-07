@@ -187,7 +187,7 @@ _id_15A3( var_0, var_1 )
         {
             if ( !ispointinvolume( var_11.origin, var_1 ) )
             {
-                if ( ispointinvolume( var_11.origin + ( 0, 0, 40 ), var_1 ) || ispointinvolume( var_11.origin + ( 0, 0, 80 ), var_1 ) || ispointinvolume( var_11.origin + ( 0, 0, 120 ), var_1 ) )
+                if ( ispointinvolume( var_11.origin + ( 0.0, 0.0, 40.0 ), var_1 ) || ispointinvolume( var_11.origin + ( 0.0, 0.0, 80.0 ), var_1 ) || ispointinvolume( var_11.origin + ( 0.0, 0.0, 120.0 ), var_1 ) )
                 {
                     if ( var_11.unlockpoints != "Begin" && var_11.unlockpoints != "End" )
                         var_0 = common_scripts\utility::_id_0CDA( var_0, var_11 );
@@ -495,7 +495,7 @@ bot_cache_entrances_to_zones( var_0 )
         var_5._id_3320 = [];
         var_5._id_A3E0 = _id_19D8( var_5 );
         var_5._id_1C10 = _id_A3E5( var_5, 0, 0 );
-        var_7 = [ ( 0, 0, 0 ), ( 1, 1, 0 ), ( 1, -1, 0 ), ( -1, 1, 0 ), ( -1, -1, 0 ) ];
+        var_7 = [ ( 0.0, 0.0, 0.0 ), ( 1.0, 1.0, 0.0 ), ( 1.0, -1.0, 0.0 ), ( -1.0, 1.0, 0.0 ), ( -1.0, -1.0, 0.0 ) ];
 
         foreach ( var_9 in var_7 )
         {
@@ -515,8 +515,8 @@ bot_cache_entrances_to_zones( var_0 )
 _id_19D8( var_0 )
 {
     var_1 = spawnstruct();
-    var_1._id_5C31 = ( 999999, 999999, 999999 );
-    var_1._id_5A10 = ( -999999, -999999, -999999 );
+    var_1._id_5C31 = ( 999999.0, 999999.0, 999999.0 );
+    var_1._id_5A10 = ( -999999.0, -999999.0, -999999.0 );
 
     foreach ( var_3 in var_0._id_6139 )
     {

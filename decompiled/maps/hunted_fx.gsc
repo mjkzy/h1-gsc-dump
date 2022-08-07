@@ -407,7 +407,7 @@ ac130_gas_station()
     var_2 = getentarray( "big_explosion", "targetname" );
     var_3 = getentarray( "small_explosion", "targetname" );
     common_scripts\utility::_id_0D13( var_0, ::hide_ent );
-    common_scripts\utility::_id_0D13( var_1, ::swap_ent, ( 7680, 0, 0 ) );
+    common_scripts\utility::_id_0D13( var_1, ::swap_ent, ( 7680.0, 0.0, 0.0 ) );
 }
 
 hide_ent( var_0 )

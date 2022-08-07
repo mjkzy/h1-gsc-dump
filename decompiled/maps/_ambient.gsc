@@ -181,7 +181,7 @@ _id_8B2C( var_0 )
 
     if ( !isdefined( level.playercardbackground.soundent ) )
     {
-        level.playercardbackground.soundent = spawn( "script_origin", ( 0, 0, 0 ) );
+        level.playercardbackground.soundent = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
         level.playercardbackground.soundent.playingsound = 0;
     }
     else if ( level.playercardbackground.soundent.playingsound )

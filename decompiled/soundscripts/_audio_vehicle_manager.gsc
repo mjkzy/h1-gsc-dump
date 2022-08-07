@@ -43,7 +43,7 @@ _id_11A2()
     var_0._id_2769 = 1.0;
     var_0._id_276A = 1.0;
     var_0._id_2777 = 0;
-    var_0._id_2776 = ( 0, 0, 0 );
+    var_0._id_2776 = ( 0.0, 0.0, 0.0 );
     var_0._id_2775 = 1.0;
     var_0._id_2774 = 1.0;
     var_0._id_276D = "distance";
@@ -1662,7 +1662,7 @@ _id_4E53()
         if ( var_3 > var_1._id_0B91 + var_2 )
         {
             var_1._id_0B91 = var_3;
-            var_4 = bullettrace( var_1.origin, var_1.origin - ( 0, 0, 360 ), 0 );
+            var_4 = bullettrace( var_1.origin, var_1.origin - ( 0.0, 0.0, 360.0 ), 0 );
             var_1._id_0B92 = var_4["fraction"];
 
             if ( !isdefined( var_1._id_0B92 ) )
@@ -1850,7 +1850,7 @@ _id_11E3( var_0, var_1 )
     {
         var_6 = var_2 _id_11CA();
         var_4 = spawn( "script_origin", var_6.origin );
-        var_4 linkto( var_6, "tag_origin", var_2._id_88A1, ( 0, 0, 0 ) );
+        var_4 linkto( var_6, "tag_origin", var_2._id_88A1, ( 0.0, 0.0, 0.0 ) );
         var_4 scalevolume( 0 );
         var_4 soundscripts\_snd_playsound::_id_872A( var_5, "sound_done" );
         var_4 thread _id_11D2( "sound_done" );
@@ -2157,7 +2157,7 @@ _id_11E2( var_0 )
     {
         var_10 = var_1 _id_11C6( var_4, var_9 );
         var_11 = spawn( "script_origin", var_3.origin );
-        var_11 linkto( var_3, "tag_origin", var_6, ( 0, 0, 0 ) );
+        var_11 linkto( var_3, "tag_origin", var_6, ( 0.0, 0.0, 0.0 ) );
         var_11 scalevolume( 0 );
         var_11 soundscripts\_snd_playsound::_id_873E( var_10 );
         var_0._id_86D9[var_10] = var_11;

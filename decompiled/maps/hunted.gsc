@@ -326,7 +326,7 @@ area_flight_init()
     level.playercardbackground allowprone( 0 );
     level.playercardbackground enableinvulnerability();
     var_0 = getent( "crash_mask", "targetname" );
-    var_0.origin += ( -3000, 64, -436 );
+    var_0.origin += ( -3000.0, 64.0, -436.0 );
     level.playercardbackground disableweapons();
     level thread fligth_missile();
     flight_helicopter();
@@ -368,14 +368,14 @@ fligth_missile()
     var_2 setturrettargetent( var_1 );
     wait 1.5;
     var_3 = getent( "dummy_target", "targetname" );
-    level.blackhawk_down_missile = var_2 fireweapon( "tag_gun_r", var_3, ( 0, 0, 0 ) );
+    level.blackhawk_down_missile = var_2 fireweapon( "tag_gun_r", var_3, ( 0.0, 0.0, 0.0 ) );
     level notify( "missile_fired" );
 
     while ( distance2d( level.blackhawk_down_missile.origin, var_3.origin ) > 350 && isdefined( level.blackhawk_down_missile ) )
         wait 0.05;
 
     var_2 delete();
-    level.blackhawk_down_missile _meth_81dc( var_1, ( 80, 20, -200 ) );
+    level.blackhawk_down_missile _meth_81dc( var_1, ( 80.0, 20.0, -200.0 ) );
     wait 2;
     level.blackhawk_down_missile playsound( "blackhawk_down_missile_inbound" );
     var_4 = distancesquared( level.blackhawk_down_missile.origin, var_1.origin );
@@ -479,9 +479,9 @@ flight_helicopter()
 
     if ( getdvarint( "use_original_crash_view" ) == 1 )
     {
-        var_0._id_90BD = var_0 fake_tag( "tag_origin", ( -10, 32, -132 ), ( 0, 140, 0 ) );
+        var_0._id_90BD = var_0 fake_tag( "tag_origin", ( -10.0, 32.0, -132.0 ), ( 0.0, 140.0, 0.0 ) );
         level.playercardbackground playerlinktodelta( var_0._id_90BD, "tag_origin", 0.5, 80, 80, 30, 20 );
-        level.playercardbackground setplayerangles( ( 0, 35, 0 ) );
+        level.playercardbackground setplayerangles( ( 0.0, 35.0, 0.0 ) );
         maps\_utility::enable_scuff_footsteps_sound( 0 );
         common_scripts\utility::_id_384A( "blackhawk_down" );
         level.playercardbackground unlink();
@@ -514,10 +514,10 @@ h1_flightcrash_viewclamp_seq()
 
 flight_helicopter_dlight()
 {
-    self.dlight_ent1 = fake_tag( "tag_light_cargo01", ( 10, -25, -60 ), ( 0, 0, 0 ) );
+    self.dlight_ent1 = fake_tag( "tag_light_cargo01", ( 10.0, -25.0, -60.0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( level._effect["heli_dlight_blue"], self.dlight_ent1, "tag_origin" );
     common_scripts\utility::_id_384A( "flight_missile_warning" );
-    self.dlight_ent3 = fake_tag( "tag_light_cargo01", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    self.dlight_ent3 = fake_tag( "tag_light_cargo01", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( level._effect["heli_dlight_red"], self.dlight_ent3, "tag_origin" );
 }
 
@@ -977,7 +977,7 @@ impact_trigger_attach()
         var_0 enablelinkto();
 
     var_0.isradarblocked = 1;
-    var_0 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0 thread notify_impact( self );
 }
 
@@ -1291,8 +1291,8 @@ barn_interrogation_farmer_anim_reaction()
 
     if ( isdefined( var_1 ) )
     {
-        var_2 = self aiphysicstrace( self.origin + ( 0, 0, 10 ), self.origin - ( 0, 0, 10 ), 0, 0, 1, 1, 0, 1, 2 );
-        var_3 = self aiphysicstrace( var_1 + ( 0, 0, 10 ), var_1 - ( 0, 0, 10 ), 0, 0, 1, 1, 0, 1, 2 );
+        var_2 = self aiphysicstrace( self.origin + ( 0.0, 0.0, 10.0 ), self.origin - ( 0.0, 0.0, 10.0 ), 0, 0, 1, 1, 0, 1, 2 );
+        var_3 = self aiphysicstrace( var_1 + ( 0.0, 0.0, 10.0 ), var_1 - ( 0.0, 0.0, 10.0 ), 0, 0, 1, 1, 0, 1, 2 );
     }
 
     if ( !isdefined( var_2 ) || !isdefined( var_3 ) || var_2["fraction"] == 1 && var_3["fraction"] == 1 )
@@ -1316,7 +1316,7 @@ farmer_death_fx( var_0 )
     var_2 = invertangles( var_2 );
     var_3 = anglestoforward( var_2 );
     var_1 += var_3 * 9;
-    var_1 -= ( -5, 0, 0 );
+    var_1 -= ( -5.0, 0.0, 0.0 );
     playfx( level._effect["head_fatal"], var_1, anglestoforward( var_2 ), anglestoup( var_2 ) );
 }
 
@@ -1624,11 +1624,11 @@ barn_front_door()
 
         if ( var_0[var_2].script_parentname == "right" )
         {
-            var_0[var_2] rotateto( var_0[var_2].angles + ( 0, -160, 0 ), 0.6, 0, 0.1 );
+            var_0[var_2] rotateto( var_0[var_2].angles + ( 0.0, -160.0, 0.0 ), 0.6, 0, 0.1 );
             continue;
         }
 
-        var_0[var_2] rotateto( var_0[var_2].angles + ( 0, 175, 0 ), 0.75, 0, 0.1 );
+        var_0[var_2] rotateto( var_0[var_2].angles + ( 0.0, 175.0, 0.0 ), 0.75, 0, 0.1 );
     }
 
     make_ai_normal();
@@ -3194,11 +3194,11 @@ infinite_stinger()
 
     for (;;)
     {
-        var_3 = var_0.origin + ( 0, 0, 5 );
+        var_3 = var_0.origin + ( 0.0, 0.0, 5.0 );
         var_4 = spawn( "weapon_stinger", var_3 );
         var_4.angles = var_0.angles;
         wait 1;
-        var_4.origin = var_0.origin + ( 0, 0, -2 );
+        var_4.origin = var_0.origin + ( 0.0, 0.0, -2.0 );
         var_4 waittill( "trigger", var_5, var_6 );
 
         if ( isdefined( var_6 ) )
@@ -3236,11 +3236,11 @@ infinite_stinger_h1()
 
     for (;;)
     {
-        var_7 = var_3 + ( 0, 0, 5 );
+        var_7 = var_3 + ( 0.0, 0.0, 5.0 );
         var_8 = spawn( "weapon_stinger", var_7 );
         var_8.angles = var_4;
         wait 1;
-        var_8.origin = var_3 + ( 0, 0, -2 );
+        var_8.origin = var_3 + ( 0.0, 0.0, -2.0 );
         var_8 waittill( "trigger", var_9, var_10 );
 
         if ( isdefined( var_10 ) )
@@ -3354,8 +3354,8 @@ greenhouse_fake_target()
 {
     level.helicopter endon( "death" );
     var_0 = spawn( "script_model", level.helicopter.origin );
-    var_0 linkto( level.helicopter, "tag_origin", ( 0, 0, -80 ), ( 0, 0, 0 ) );
-    target_set( var_0, ( 0, 0, -80 ) );
+    var_0 linkto( level.helicopter, "tag_origin", ( 0.0, 0.0, -80.0 ), ( 0.0, 0.0, 0.0 ) );
+    target_set( var_0, ( 0.0, 0.0, -80.0 ) );
     target_setjavelinonly( var_0, 1 );
     level.playercardbackground waittill( "stinger_fired" );
 
@@ -3369,10 +3369,10 @@ greenhouse_fake_target()
     wait 0.5;
     thread stinger_nag();
     var_0 unlink();
-    var_1 = get_vehicle_velocity( level.helicopter, ( 0, 0, 10 ) );
+    var_1 = get_vehicle_velocity( level.helicopter, ( 0.0, 0.0, 10.0 ) );
     var_0 movegravity( var_1, 8 );
     var_0 thread ent_delete();
-    target_set( level.helicopter, ( 0, 0, -80 ) );
+    target_set( level.helicopter, ( 0.0, 0.0, -80.0 ) );
     target_setjavelinonly( level.helicopter, 1 );
 
     if ( isalive( level.heli_guy ) )
@@ -3653,7 +3653,7 @@ ac130_dazed_guy()
     else
     {
         self._id_85BA = 1;
-        thread throw_on_death( ( 6432, 11312, 200 ), "MOD_EXPLOSIVE" );
+        thread throw_on_death( ( 6432.0, 11312.0, 200.0 ), "MOD_EXPLOSIVE" );
         common_scripts\utility::_id_384A( "go_dazed" );
         self setthreatbiasgroup( "oblivious" );
         var_0 = common_scripts\utility::mod_explosive( self._id_3584, 5 );
@@ -3720,12 +3720,12 @@ ac130_kill_player()
     {
         if ( !common_scripts\utility::_id_382E( "ac130_barrage" ) )
         {
-            if ( distance2d( ( 6264, 12264, 232 ), level.playercardbackground.origin ) < 1200 )
+            if ( distance2d( ( 6264.0, 12264.0, 232.0 ), level.playercardbackground.origin ) < 1200 )
                 break;
         }
         else if ( !common_scripts\utility::_id_382E( "go_dazed" ) )
         {
-            if ( distance2d( ( 5928, 12952, 200 ), level.playercardbackground.origin ) < 1600 )
+            if ( distance2d( ( 5928.0, 12952.0, 200.0 ), level.playercardbackground.origin ) < 1600 )
                 break;
         }
 
@@ -3738,7 +3738,7 @@ ac130_kill_player()
 
     for (;;)
     {
-        level.playercardbackground dodamage( var_1, ( 6896, 12118, 328 ) );
+        level.playercardbackground dodamage( var_1, ( 6896.0, 12118.0, 328.0 ) );
         wait 0.05;
     }
 }
@@ -3763,8 +3763,8 @@ ac130_devastation()
             level._id_6F7C _meth_81a7( 0 );
         }
 
-        var_0 = spawn( "script_origin", ( 7395, 10012, 211 ) );
-        var_0.angles = ( 0, 180, 0 );
+        var_0 = spawn( "script_origin", ( 7395.0, 10012.0, 211.0 ) );
+        var_0.angles = ( 0.0, 180.0, 0.0 );
         var_0 maps\_anim::_id_0BB5( level._id_6F7C, "zonly_physics", "talk_to_control" );
     }
 
@@ -3892,7 +3892,7 @@ ac130_gas_station()
     common_scripts\_exploder::_id_3528( 66 );
     wait 1.0;
     common_scripts\utility::_id_0D13( var_0, ::hide_ent );
-    common_scripts\utility::_id_0D13( var_1, ::swap_ent, ( 7680, 0, 0 ) );
+    common_scripts\utility::_id_0D13( var_1, ::swap_ent, ( 7680.0, 0.0, 0.0 ) );
 }
 
 hide_ent( var_0 )
@@ -4175,10 +4175,10 @@ _id_8CC0( var_0 )
 scripted_sightconetrace( var_0, var_1 )
 {
     var_2 = level.playercardbackground geteye();
-    var_3[0] = var_2 + ( 14, 14, 0 );
-    var_3[2] = var_2 + ( -14, 14, -10 );
-    var_3[1] = var_2 + ( -14, -14, -20 );
-    var_3[3] = var_2 + ( 14, -14, -30 );
+    var_3[0] = var_2 + ( 14.0, 14.0, 0.0 );
+    var_3[2] = var_2 + ( -14.0, 14.0, -10.0 );
+    var_3[1] = var_2 + ( -14.0, -14.0, -20.0 );
+    var_3[3] = var_2 + ( 14.0, -14.0, -30.0 );
     var_4 = 0;
 
     for ( var_5 = 0; var_5 < var_3.size; var_5++ )
@@ -4222,10 +4222,10 @@ flashlight_light( var_0 )
 
     if ( var_0 )
     {
-        var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_2 setmodel( "tag_origin" );
         var_2 hide();
-        var_2 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_2 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         thread flashlight_light_death( var_2 );
         playfxontag( level._effect["flashlight"], var_2, "tag_origin" );
     }
@@ -4456,7 +4456,7 @@ heli_guy()
 
     self.a._id_2B18 = 1;
     self.ignoreweaponintracksuitmode = 1;
-    self linkto( level.helicopter, "tag_origin", ( 120, 30, -140 ), ( 0, 90, 0 ) );
+    self linkto( level.helicopter, "tag_origin", ( 120.0, 30.0, -140.0 ), ( 0.0, 90.0, 0.0 ) );
     self _meth_81ce( "crouch" );
     self.helmet = int( self.helmet * level.heli_guy_health_multiplier );
     self._id_1300 = level.heli_guy_accuracy;
@@ -4473,7 +4473,7 @@ heli_guy()
         {
             self.a._id_612E = 1;
             var_0 = spawn( "script_origin", self.origin );
-            var_0.angles = level.helicopter.angles + ( 0, 90, 0 );
+            var_0.angles = level.helicopter.angles + ( 0.0, 90.0, 0.0 );
             level._id_78AC["generic"]["heli_fall"] = %helicopter_death_fall;
             thread common_scripts\utility::_id_69C2( "generic_death_falling", level.helicopter.origin );
             var_0 maps\_anim::_id_0BC9( self, "heli_fall" );
@@ -4600,7 +4600,7 @@ helicopter_attack( var_0, var_1 )
     self sethoverparams( 200, 30, 30 );
 
     if ( !isdefined( self.look_at_ent ) )
-        self.look_at_ent = spawn( "script_model", ( 0, 0, 0 ) );
+        self.look_at_ent = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
 
     var_4 = anglestoforward( self.angles );
     self.look_at_ent.origin = self.origin + maps\_utility::vector_multiply( var_4, 3000 );
@@ -4858,7 +4858,7 @@ helicopter_searchlight_on()
     thread helicopter_searchlight_effect();
     level._id_3B34 = spawn( "script_model", self gettagorigin( "tag_barrel" ) );
     level._id_3B34 setmodel( "tag_origin" );
-    level._id_3B34 linkto( self, "tag_barrel", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    level._id_3B34 linkto( self, "tag_barrel", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     wait 0.5;
 
     if ( isdefined( level._id_3B34 ) )
@@ -4924,7 +4924,7 @@ spawn_searchlight_target()
 {
     var_0 = self gettagorigin( "tag_ground" );
     var_1 = spawn( "script_origin", var_0 );
-    var_1 linkto( self, "tag_ground", ( 320, 0, -256 ), ( 0, 0, 0 ) );
+    var_1 linkto( self, "tag_ground", ( 320.0, 0.0, -256.0 ), ( 0.0, 0.0, 0.0 ) );
     self.spotlight_default_target = var_1;
     thread searchlight_target_death();
 }
@@ -5019,7 +5019,7 @@ spawn_dead_body()
         var_0 = level.dead_body_count;
     }
 
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = self.origin;
     var_1.angles = self.angles;
     var_1._id_0C72 = "dead_guy";
@@ -5029,7 +5029,7 @@ spawn_dead_body()
 
     if ( !isdefined( self._id_7AF8 ) )
     {
-        var_2 = bullettrace( var_1.origin + ( 0, 0, 5 ), var_1.origin + ( 0, 0, -64 ), 0, undefined );
+        var_2 = bullettrace( var_1.origin + ( 0.0, 0.0, 5.0 ), var_1.origin + ( 0.0, 0.0, -64.0 ), 0, undefined );
         var_1.origin = var_2["position"];
     }
 

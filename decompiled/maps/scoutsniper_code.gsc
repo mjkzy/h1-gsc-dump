@@ -670,7 +670,7 @@ unload_helicopter()
 
 unload_struct_adjustment( var_0 )
 {
-    var_1 = physicstrace( var_0.origin, var_0.origin + ( 0, 0, -10000 ) );
+    var_1 = physicstrace( var_0.origin, var_0.origin + ( 0.0, 0.0, -10000.0 ) );
     var_0.origin = var_1 + ( 0, 0, self._id_367F );
     return var_0;
 }
@@ -741,7 +741,7 @@ vehicle_turret_think()
         if ( isdefined( var_0 ) && isplayer( var_0 ) )
         {
             var_3 = 0;
-            var_3 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0, 0, 150 ), 0, self );
+            var_3 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0.0, 0.0, 150.0 ), 0, self );
 
             if ( !var_3 )
                 var_0 = vehicle_get_target( var_1 );
@@ -751,11 +751,11 @@ vehicle_turret_think()
 
         if ( isdefined( var_0 ) && isalive( var_0 ) )
         {
-            var_4 = var_0.origin + ( 0, 0, 32 );
+            var_4 = var_0.origin + ( 0.0, 0.0, 32.0 );
             self _meth_825d( var_4 );
 
             if ( getdvar( "debug_bmp" ) == "1" )
-                thread maps\_utility::_id_2DBF( self.origin + ( 0, 0, 32 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
+                thread maps\_utility::_id_2DBF( self.origin + ( 0.0, 0.0, 32.0 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
 
             var_5 = randomfloatrange( 1, 1.5 );
             common_scripts\utility::_id_A0A0( "turret_rotate_stopped", var_5 );
@@ -901,7 +901,7 @@ scoutsniper_music_play( var_0, var_1 )
 
 teleport_actor( var_0 )
 {
-    level.playercardbackground setorigin( level.playercardbackground.origin + ( 0, 0, -34341 ) );
+    level.playercardbackground setorigin( level.playercardbackground.origin + ( 0.0, 0.0, -34341.0 ) );
     self _meth_81c9( var_0.origin, var_0.angles );
     self _meth_81aa( var_0.origin );
 }
@@ -917,7 +917,7 @@ teleport_player_to_start_point( var_0 )
     {
         if ( var_1[var_2].script_parentname == var_0 )
         {
-            level.playercardbackground setorigin( var_1[var_2].origin + ( 0, 0, 4 ) );
+            level.playercardbackground setorigin( var_1[var_2].origin + ( 0.0, 0.0, 4.0 ) );
             level.playercardbackground setplayerangles( var_1[var_2].angles );
             return;
         }
@@ -962,7 +962,7 @@ flashbang_from_corner_nade( var_0, var_1 )
     var_2 = self.groundentchanged;
     self.groundentchanged = "flash_grenade";
     self.grenadeammo++;
-    var_3 = self.origin + ( 30, 25, 30 );
+    var_3 = self.origin + ( 30.0, 25.0, 30.0 );
     var_4 = anglestoforward( var_0 );
     var_4 = maps\_utility::vector_multiply( var_4, var_1 );
     self magicgrenademanual( var_3, var_4, 1.1 );
@@ -1075,7 +1075,7 @@ door_open_kick()
     wait 0.6;
     self._id_6394 = self.angles;
     self playsound( "wood_door_kick" );
-    self rotateto( self.angles + ( 0, 130, 0 ), 0.3, 0, 0.15 );
+    self rotateto( self.angles + ( 0.0, 130.0, 0.0 ), 0.3, 0, 0.15 );
     self connectpaths();
     self waittill( "rotatedone" );
 }
@@ -1091,7 +1091,7 @@ _id_2D43()
 church_lookout_stealth_behavior_alert_level_investigate( var_0 )
 {
     var_1 = maps\_utility::_id_3DC5( "church_smoker", "script_noteworthy" );
-    var_2 = ( -34245, -1550, 608 );
+    var_2 = ( -34245.0, -1550.0, 608.0 );
     self _meth_81aa( var_2 );
     self.goalradius = 16;
     maps\_stealth_behavior::_id_327E();
@@ -1134,7 +1134,7 @@ church_lookout_stealth_behavior_alert_level_attack( var_0 )
 {
     thread maps\_stealth_behavior::_id_31F7();
     church_lookout_goto_bestpos( var_0.origin, 80 );
-    var_1 = ( -35040, -1632, 224 );
+    var_1 = ( -35040.0, -1632.0, 224.0 );
     thread maps\_stealth_behavior::_id_31FA( var_1 );
     thread church_lookout_fire();
 }
@@ -1312,8 +1312,8 @@ graveyard_hind_stinger_logic( var_0 )
     if ( !isdefined( var_0 ) )
     {
         var_1 = spawn( "script_model", self.origin );
-        var_1 linkto( self, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
-        target_set( var_1, ( 0, 0, -80 ) );
+        var_1 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        target_set( var_1, ( 0.0, 0.0, -80.0 ) );
         target_setjavelinonly( var_1, 1 );
         level.playercardbackground waittill( "stinger_fired" );
         common_scripts\utility::_id_383F( "hind_spotted" );
@@ -1325,7 +1325,7 @@ graveyard_hind_stinger_logic( var_0 )
         var_1 movegravity( var_2, 8 );
     }
 
-    target_set( self, ( 0, 0, -80 ) );
+    target_set( self, ( 0.0, 0.0, -80.0 ) );
     target_setjavelinonly( self, 1 );
     level.playercardbackground waittill( "stinger_fired" );
     common_scripts\utility::_id_383F( "hind_spotted" );
@@ -1417,7 +1417,7 @@ graveyard_church_breakable()
         if ( !isdefined( level._id_6C50 ) )
             level.playercardbackground setstance( "crouch" );
 
-        level.playercardbackground setvelocity( ( 0, 1, 0 ) );
+        level.playercardbackground setvelocity( ( 0.0, 1.0, 0.0 ) );
         level notify( "church_explosion_player_screen_fx" );
         thread maps\_utility::_id_69C4( "scn_scoutsniper_church_breaking" );
     }
@@ -1429,7 +1429,7 @@ graveyard_church_breakable()
         if ( isdefined( self.script_parentname ) && isdefined( level._effect[self.script_parentname] ) )
             var_10 = level._effect[self.script_parentname];
 
-        playfx( var_10, var_0, var_0 + ( 0, 0, -1 ) );
+        playfx( var_10, var_0, var_0 + ( 0.0, 0.0, -1.0 ) );
         thread graveyard_church_breakable_flag();
     }
 
@@ -1529,7 +1529,7 @@ chopper_ai_mode_missiles( var_0 )
         }
 
         var_5 = randomintrange( 4, 6 );
-        var_6 = bullettrace( self.origin + ( 0, 0, -150 ), var_0.origin, 1, level._id_6F7C );
+        var_6 = bullettrace( self.origin + ( 0.0, 0.0, -150.0 ), var_0.origin, 1, level._id_6F7C );
 
         if ( !isdefined( var_6["entity"] ) || !isplayer( var_6["entity"] ) )
         {
@@ -1541,7 +1541,7 @@ chopper_ai_mode_missiles( var_0 )
                 var_1.origin = var_7[0] getorigin();
             }
             else
-                var_1.origin = var_0.origin + ( 0, 0, 128 );
+                var_1.origin = var_0.origin + ( 0.0, 0.0, 128.0 );
         }
         else
             var_1.origin = var_0.origin;
@@ -2272,7 +2272,7 @@ dash_handle_doors_blowopen()
         break;
     }
 
-    var_3 = var_1.origin + ( 0, 0, 75 );
+    var_3 = var_1.origin + ( 0.0, 0.0, 75.0 );
     common_scripts\utility::_id_384A( "_stealth_spotted" );
     var_4 = getent( "dash_door_right", "script_noteworthy" );
     var_5 = getent( "dash_door_left", "script_noteworthy" );
@@ -2307,8 +2307,8 @@ dash_handle_nosight_clip()
 dash_crawl_patrol()
 {
     common_scripts\utility::_id_383F( "dash_crawl_patrol_spawned" );
-    var_0 = ( 24281, -4069.5, -330.5 );
-    var_1 = spawn( "script_model", ( -21828, 3997, 249 ) + var_0 );
+    var_0 = ( 24281.0, -4069.5, -330.5 );
+    var_1 = spawn( "script_model", ( -21828.0, 3997.0, 249.0 ) + var_0 );
     var_1.angles = ( 0.17992, 214.91, 1.77098 );
     var_1 setmodel( "vehicle_bm21_mobile_cover" );
     var_1 hide();
@@ -2618,7 +2618,7 @@ _id_17CF()
 {
     wait(randomfloat( 0.5 ));
     var_0 = self getorigin();
-    var_1 = ( 0, -1, 0 );
+    var_1 = ( 0.0, -1.0, 0.0 );
     thread common_scripts\utility::_id_69C2( "veh_glass_break_small", var_0 );
     playfx( level._effect["glass_break"], var_0, var_1 );
     self delete();
@@ -2724,7 +2724,7 @@ field_waittill_player_passed_guards()
 {
     for (;;)
     {
-        var_0 = ( 0, 225, 0 );
+        var_0 = ( 0.0, 225.0, 0.0 );
         var_1 = anglestoforward( var_0 );
         var_2 = maps\_utility::_id_3DC6( "field_guard", "script_noteworthy" );
         var_2 = common_scripts\utility::_id_0CDD( var_2, maps\_utility::_id_3DC6( "field_guard2", "script_noteworthy" ) );
@@ -3060,9 +3060,9 @@ pond_dump_bodies()
     var_6 = anglestoforward( var_4.angles );
     var_6 = maps\_utility::vector_multiply( var_6, -1 );
     var_6 = maps\_utility::vector_multiply( var_6, 330 );
-    var_5 += ( var_6 + ( 0, 0, 16 ) );
+    var_5 += ( var_6 + ( 0.0, 0.0, 16.0 ) );
     var_7 = spawn( "script_origin", var_5 );
-    var_7.angles = ( 0, 180, 0 );
+    var_7.angles = ( 0.0, 180.0, 0.0 );
     var_8 = 1;
     var_2.allowdeath = 1;
     var_3.allowdeath = 1;
@@ -3086,30 +3086,30 @@ pond_dump_2nd( var_0 )
 
 pond_create_body_piles()
 {
-    var_0 = ( 24281, -4069.5, -330.5 );
-    pond_create_body_pile( ( -27269, 3850, 194 ) + var_0 );
-    pond_create_body_pile( ( -27210, 3900, 198 ) + var_0, ( 6, 90, -6 ), 1 );
-    pond_create_body_pile( ( -27430, 3900, 180 ) + var_0, ( 8, 120, 0 ) );
+    var_0 = ( 24281.0, -4069.5, -330.5 );
+    pond_create_body_pile( ( -27269.0, 3850.0, 194.0 ) + var_0 );
+    pond_create_body_pile( ( -27210.0, 3900.0, 198.0 ) + var_0, ( 6.0, 90.0, -6.0 ), 1 );
+    pond_create_body_pile( ( -27430.0, 3900.0, 180.0 ) + var_0, ( 8.0, 120.0, 0.0 ) );
 }
 #using_animtree("generic_human");
 
 pond_create_body_pile( var_0, var_1, var_2 )
 {
     var_3 = spawn( "script_origin", var_0 );
-    var_3.angles = ( 0, 0, 0 );
-    var_4 = pond_create_drone( var_3, var_0, ( 0, 0, 0 ) );
+    var_3.angles = ( 0.0, 0.0, 0.0 );
+    var_4 = pond_create_drone( var_3, var_0, ( 0.0, 0.0, 0.0 ) );
     var_4 useanimtree( #animtree );
     var_4 _meth_814d( %covercrouch_death_1 );
-    var_4 = pond_create_drone( var_3, var_0 + ( -25, 0, 0 ), ( 0, 0, 0 ) );
+    var_4 = pond_create_drone( var_3, var_0 + ( -25.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_4 useanimtree( #animtree );
     var_4 _meth_814d( %covercrouch_death_2 );
-    var_4 = pond_create_drone( var_3, var_0 + ( -20, 40, 0 ), ( 0, -135, 0 ) );
+    var_4 = pond_create_drone( var_3, var_0 + ( -20.0, 40.0, 0.0 ), ( 0.0, -135.0, 0.0 ) );
     var_4 useanimtree( #animtree );
     var_4 _meth_814d( %covercrouch_death_3 );
 
     if ( !isdefined( var_2 ) )
     {
-        var_4 = pond_create_drone( var_3, var_0 + ( -45, 20, -5 ), ( 6, 90, 0 ) );
+        var_4 = pond_create_drone( var_3, var_0 + ( -45.0, 20.0, -5.0 ), ( 6.0, 90.0, 0.0 ) );
         var_4 useanimtree( #animtree );
         var_4 _meth_814d( %corner_standr_death_grenade_slump );
     }
@@ -3410,7 +3410,7 @@ _id_69C1( var_0 )
     if ( maps\_utility::_id_5014() )
         return;
 
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1 endon( "death" );
     thread maps\_utility::_id_2826( var_1, "sounddone" );
     var_1.origin = self.origin;

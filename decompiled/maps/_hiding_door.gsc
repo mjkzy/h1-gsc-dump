@@ -437,9 +437,9 @@ hiding_door_death( var_0, var_1, var_2, var_3, var_4 )
     if ( isalive( var_2 ) )
     {
         if ( isdefined( var_6 ) )
-            var_2 kill( ( 0, 0, 0 ), var_6 );
+            var_2 kill( ( 0.0, 0.0, 0.0 ), var_6 );
         else
-            var_2 kill( ( 0, 0, 0 ) );
+            var_2 kill( ( 0.0, 0.0, 0.0 ) );
     }
 }
 

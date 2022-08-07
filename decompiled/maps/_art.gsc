@@ -712,7 +712,7 @@ _id_8FCD( var_0, var_1 )
     self endon( "sunflare_start_adjust" );
     var_2 = gettime();
     var_3 = var_1 * 1000;
-    var_4 = getdvarvector( "r_sunflare_position", ( 0, 0, 0 ) );
+    var_4 = getdvarvector( "r_sunflare_position", ( 0.0, 0.0, 0.0 ) );
     var_5 = gettime() - var_2;
     var_6 = level._id_8FCE[var_0].precache;
 

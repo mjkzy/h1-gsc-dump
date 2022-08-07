@@ -96,7 +96,7 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     maps\mp\agents\_agent_utility::_id_070B();
     self._id_55DF = gettime();
     self.spectating_cycle = gettime();
-    var_9 = var_6 + ( 0, 0, 25 );
+    var_9 = var_6 + ( 0.0, 0.0, 25.0 );
     var_10 = var_6;
     var_11 = playerphysicstrace( var_9, var_10 );
 

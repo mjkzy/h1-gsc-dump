@@ -465,7 +465,7 @@ _id_A0DA()
 _id_9365( var_0 )
 {
     setgameendtime( gettime() + int( var_0 * 1000 ) );
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1 hide();
 
     if ( var_0 >= 10.0 )
@@ -1795,12 +1795,12 @@ _id_19F9()
         game["strings"]["tie"] = &"MP_MATCH_TIE";
         game["colors"]["blue"] = ( 0.25, 0.25, 0.75 );
         game["colors"]["red"] = ( 0.75, 0.25, 0.25 );
-        game["colors"]["white"] = ( 1, 1, 1 );
-        game["colors"]["black"] = ( 0, 0, 0 );
+        game["colors"]["white"] = ( 1.0, 1.0, 1.0 );
+        game["colors"]["black"] = ( 0.0, 0.0, 0.0 );
         game["colors"]["grey"] = ( 0.5, 0.5, 0.5 );
         game["colors"]["green"] = ( 0.25, 0.75, 0.25 );
-        game["colors"]["yellow"] = ( 0.65, 0.65, 0 );
-        game["colors"]["orange"] = ( 1, 0.45, 0 );
+        game["colors"]["yellow"] = ( 0.65, 0.65, 0.0 );
+        game["colors"]["orange"] = ( 1.0, 0.45, 0.0 );
         game["colors"]["cyan"] = ( 0.35, 0.7, 0.9 );
         game["strings"]["allies_name"] = maps\mp\gametypes\_teams::_id_411B( "allies" );
         game["icons"]["allies"] = maps\mp\gametypes\_teams::_id_4118( "allies" );
@@ -1809,10 +1809,10 @@ _id_19F9()
         game["icons"]["axis"] = maps\mp\gametypes\_teams::_id_4118( "axis" );
         game["colors"]["axis"] = maps\mp\gametypes\_teams::_id_410B( "axis" );
 
-        if ( game["colors"]["allies"] == ( 0, 0, 0 ) )
+        if ( game["colors"]["allies"] == ( 0.0, 0.0, 0.0 ) )
             game["colors"]["allies"] = ( 0.5, 0.5, 0.5 );
 
-        if ( game["colors"]["axis"] == ( 0, 0, 0 ) )
+        if ( game["colors"]["axis"] == ( 0.0, 0.0, 0.0 ) )
             game["colors"]["axis"] = ( 0.5, 0.5, 0.5 );
 
         [[ level._id_64DA ]]();
@@ -2147,7 +2147,7 @@ _id_9364()
 {
     level endon( "game_ended" );
     wait 0.05;
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0 hide();
 
     while ( game["state"] == "playing" )

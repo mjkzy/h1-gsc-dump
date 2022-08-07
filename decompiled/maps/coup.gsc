@@ -35,7 +35,7 @@ dead_script()
 
 player_start()
 {
-    level.playercardbackground setorigin( ( 48, -618, 0 ) );
+    level.playercardbackground setorigin( ( 48.0, -618.0, 0.0 ) );
 }
 
 main()
@@ -129,9 +129,9 @@ main()
     level.car_idle_engine_sound_node scalevolume( 0.71, 0 );
     level.car_idle_engine_sound_node scalepitch( 0.85, 0 );
     var_0 = common_scripts\utility::_id_8959();
-    var_0 linkto( level.car, "body_animate_jnt", ( 0, 0, 43.2 ), ( 125, 0, 90 ) );
+    var_0 linkto( level.car, "body_animate_jnt", ( 0.0, 0.0, 43.2 ), ( 125.0, 0.0, 90.0 ) );
     playfxontag( level._effect["car_interior"], var_0, "tag_origin" );
-    var_0 thread maps\_debug::_id_2DE8( "tag_origin", ( 0, 1, 0 ) );
+    var_0 thread maps\_debug::_id_2DE8( "tag_origin", ( 0.0, 1.0, 0.0 ) );
     playfxontag( level._effect["steam_coffee_slow_coup"], level.car, "body_animate_jnt" );
     wait 0.05;
     setsaveddvar( "g_friendlyfiredist", 0 );
@@ -438,8 +438,8 @@ h1_couplerpviewangles_carridelogic()
 {
     var_0 = 0.0;
     var_1 = 0.05;
-    var_2 = ( 0, 0, 0 );
-    var_3 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
+    var_3 = ( 0.0, 0.0, 0.0 );
     var_4 = 0;
     var_5 = 150;
     var_6 = 150;
@@ -885,9 +885,9 @@ execdrive( var_0 )
     level.car.passenger = var_2;
     level.car._id_2E04._id_0C78 = 1;
     level.car.passenger._id_0C78 = 1;
-    level.car.passenger.headshots = spawn( "script_origin", level.car.passenger.origin + ( 20, 5, 50 ) );
-    level.car.passenger.body = spawn( "script_origin", level.car.passenger.origin + ( 25, 12, 25 ) );
-    level.car.passenger._id_67ED = spawn( "script_origin", level.car.passenger.origin + ( 22, 15, 35 ) );
+    level.car.passenger.headshots = spawn( "script_origin", level.car.passenger.origin + ( 20.0, 5.0, 50.0 ) );
+    level.car.passenger.body = spawn( "script_origin", level.car.passenger.origin + ( 25.0, 12.0, 25.0 ) );
+    level.car.passenger._id_67ED = spawn( "script_origin", level.car.passenger.origin + ( 22.0, 15.0, 35.0 ) );
     level.car.passenger.headshots linkto( level.car.passenger );
     level.car.passenger.body linkto( level.car.passenger );
     level.car.passenger._id_67ED linkto( level.car.passenger );
@@ -1171,7 +1171,7 @@ execending()
     level.alasad = var_1;
     level.alasad.tracksuit_ignore = 1;
     var_2 = level.zakhaev;
-    var_3 = var_2.origin + ( 0, 0, 50 );
+    var_3 = var_2.origin + ( 0.0, 0.0, 50.0 );
     var_2 _meth_8477( var_3 );
     var_4 = maps\coup_code::scripted_spawn2( "ending_leftguard", "targetname", 1 );
     var_4._id_0C72 = "human";
@@ -1270,11 +1270,11 @@ intro_doors()
 {
     level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_intro_door" );
     var_0 = getent( "intro_leftdoor", "targetname" );
-    var_0.origin = ( -15, -510, 70 );
-    var_0.angles += ( 0, 180, 0 );
+    var_0.origin = ( -15.0, -510.0, 70.0 );
+    var_0.angles += ( 0.0, 180.0, 0.0 );
     var_1 = getent( "intro_rightdoor", "targetname" );
-    var_1.origin = ( 143, -510, 70 );
-    var_1.angles += ( 0, 180, 0 );
+    var_1.origin = ( 143.0, -510.0, 70.0 );
+    var_1.angles += ( 0.0, 180.0, 0.0 );
     setsaveddvar( "r_glow_allowed_script_forced", 1 );
     var_2 = newhudelem();
     var_2.xpmaxmultipliertimeplayed = 0;
@@ -1582,7 +1582,7 @@ drive_casualguards2()
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_1 );
     wait 2.7;
-    thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer", ( 4608, 10824.5, 380.5 ) );
+    thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer", ( 4608.0, 10824.5, 380.5 ) );
 }
 
 drive_spraypaint1()
@@ -1604,8 +1604,8 @@ drive_spraypaint1()
 drive_sneakattack()
 {
     common_scripts\utility::_id_384A( "drive_sneakattack" );
-    thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 4176, 11140, 368 ) );
-    thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 4176, 11140, 368 ) );
+    thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 4176.0, 11140.0, 368.0 ) );
+    thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 4176.0, 11140.0, 368.0 ) );
     var_0 = maps\coup_code::scripted_spawn2( "sneakattack_cower1", "targetname", 1 );
     var_0._id_0C72 = "human";
     var_0 thread maps\_anim::_id_0BE1( var_0, "cowerstand_pointidle" );
@@ -1619,8 +1619,8 @@ drive_sneakattack()
     wait 5.0;
     var_3 thread attackbehind( var_2, 20 );
     var_5 thread attackside( var_4, 20 );
-    thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 3729.1, 12331.3, 368 ) );
-    thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 3729.1, 12331.3, 368 ) );
+    thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 3729.1, 12331.3, 368.0 ) );
+    thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 3729.1, 12331.3, 368.0 ) );
     wait 1;
     var_1 thread maps\_anim::_id_0C24( var_1, "cowerstand_react" );
     wait 1;
@@ -2492,7 +2492,7 @@ displaypage( var_0 )
             var_1[var_2].fontscale = level.namesize;
             var_1[var_2].space = 2;
             var_1[var_2].color = ( 0.99, 0.97, 0.85 );
-            var_1[var_2].glowcolor = ( 0.96, 0.81, 0 );
+            var_1[var_2].glowcolor = ( 0.96, 0.81, 0.0 );
             var_1[var_2].glowalpha = 0.2;
             var_1[var_2] setpulsefx( 40, 4500, 600 );
 
@@ -2601,7 +2601,7 @@ doorkick( var_0, var_1, var_2, var_3, var_4 )
     var_9 = var_7 * var_5 - var_8 * var_6;
     var_10 = var_8 * var_5 + var_7 * var_6;
     var_11 = ( var_9, var_10, 0 );
-    var_12 = ( 0, -90, 0 );
+    var_12 = ( 0.0, -90.0, 0.0 );
     var_13 = spawn( "script_origin", self.origin + var_11 );
     var_13.angles = self.angles + var_12;
     var_14 = maps\_utility::_id_88D1( "door" );
@@ -2720,7 +2720,7 @@ garage( var_0, var_1, var_2, var_3 )
     var_1 setrandomrun( var_4 );
     var_5 = anglestoforward( self.angles ) * -22;
     self.origin += var_5;
-    var_2.origin += ( 0, 0, 51.013 );
+    var_2.origin += ( 0.0, 0.0, 51.013 );
     var_6 = getent( "intro_node", "targetname" );
     var_6 thread maps\_anim::_id_0C24( var_1, "civilians_running_garage" );
     common_scripts\utility::_id_384A( "spawn_garage_operator" );

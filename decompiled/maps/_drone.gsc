@@ -259,7 +259,7 @@ _id_2E43()
         self detach( var_0, "tag_weapon_right" );
         var_2 = self gettagorigin( "tag_weapon_right" );
         var_3 = self gettagangles( "tag_weapon_right" );
-        var_4 = spawn( "weapon_" + var_1, ( 0, 0, 0 ) );
+        var_4 = spawn( "weapon_" + var_1, ( 0.0, 0.0, 0.0 ) );
         var_4.angles = var_3;
         var_4.origin = var_2;
     }
@@ -371,7 +371,7 @@ _id_2E4A( var_0, var_1, var_2 )
     self.angles = ( 0, self.angles[1], self.angles[2] );
 
     if ( var_0 == "coverprone" )
-        self moveto( self.origin + ( 0, 0, 8 ), 0.05 );
+        self moveto( self.origin + ( 0.0, 0.0, 8.0 ), 0.05 );
 
     self._id_6159 = 1;
     var_4 = level._id_2E22[self.team][var_0];
@@ -629,8 +629,8 @@ _id_2E95()
                 self rotateto( vectortoangles( var_0[var_0.size - 1]["vec"] ), var_5 );
                 var_14 = distance( self.origin, var_0[var_0.size - 1]["origin"] );
                 var_15 = var_14 / var_3 * self._id_5F65;
-                var_16 = var_0[var_0.size - 1]["origin"] + ( 0, 0, 100 );
-                var_17 = var_0[var_0.size - 1]["origin"] - ( 0, 0, 100 );
+                var_16 = var_0[var_0.size - 1]["origin"] + ( 0.0, 0.0, 100.0 );
+                var_17 = var_0[var_0.size - 1]["origin"] - ( 0.0, 0.0, 100.0 );
                 var_18 = physicstrace( var_16, var_17 );
 
                 if ( getdvar( "debug_drones" ) == "1" )
@@ -681,8 +681,8 @@ _id_2E95()
         var_19 = var_0[var_6]["vec"] * var_12;
         var_19 += var_0[var_6]["origin"];
         var_20 = var_19;
-        var_16 = var_20 + ( 0, 0, 100 );
-        var_17 = var_20 - ( 0, 0, 100 );
+        var_16 = var_20 + ( 0.0, 0.0, 100.0 );
+        var_17 = var_20 - ( 0.0, 0.0, 100.0 );
         var_20 = physicstrace( var_16, var_17 );
 
         if ( !var_4 )
@@ -807,7 +807,7 @@ _id_407C( var_0, var_1 )
                 self._id_2F19 = -1 + randomfloat( 2 );
 
             if ( !isdefined( var_13.angles ) )
-                var_13.angles = ( 0, 0, 0 );
+                var_13.angles = ( 0.0, 0.0, 0.0 );
 
             var_15 = anglestoforward( var_13.angles );
             var_16 = anglestoright( var_13.angles );

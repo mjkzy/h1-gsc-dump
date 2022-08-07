@@ -2231,7 +2231,7 @@ _id_9C84( var_0 )
     self endon( "death" );
     var_1 = anglestoforward( self.angles + ( 0, var_0, 0 ) );
     var_1 *= 10000;
-    var_1 += ( 0, 0, 70 );
+    var_1 += ( 0.0, 0.0, 70.0 );
     self _meth_825d( var_1 );
 }
 
@@ -2830,7 +2830,7 @@ _id_531B( var_0 )
     if ( !isdefined( self ) )
         return;
 
-    self joltbody( self.origin + ( 23, 33, 64 ), 3 );
+    self joltbody( self.origin + ( 23.0, 33.0, 64.0 ), 3 );
     wait 2;
 
     if ( !isdefined( self ) )
@@ -2902,7 +2902,7 @@ _id_5312( var_0, var_1, var_2 )
             }
             else
             {
-                var_4 = var_3.origin + ( 0, 0, 100 ) - var_3.origin;
+                var_4 = var_3.origin + ( 0.0, 0.0, 100.0 ) - var_3.origin;
                 playfx( var_1._id_3018, var_3.origin, var_4 );
             }
         }
@@ -2915,7 +2915,7 @@ _id_5312( var_0, var_1, var_2 )
         }
         else
         {
-            var_4 = var_3.origin + ( 0, 0, 100 ) - var_3.origin;
+            var_4 = var_3.origin + ( 0.0, 0.0, 100.0 ) - var_3.origin;
             playfx( var_1._id_3018, var_3.origin, var_4 );
         }
     }
@@ -2961,7 +2961,7 @@ _id_2662()
 
     if ( !isdefined( self._id_2662 ) )
     {
-        var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_1 = _id_05B3();
         var_0 setmodel( self.motiontrackerenabled );
         var_0.origin = var_1.origin;
@@ -3165,7 +3165,7 @@ _id_418A( var_0 )
     var_1.origin = self.origin - var_0 gettagorigin( var_2 );
 
     if ( !isdefined( self.angles ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
     else
         var_3 = self.angles;
 
@@ -3569,7 +3569,7 @@ _id_0995( var_0, var_1 )
         {
             var_20 = var_18 gettagorigin( var_1 );
             var_21 = var_18 gettagangles( var_1 );
-            var_21 = combineangles( var_21, ( -90, 0, 0 ) );
+            var_21 = combineangles( var_21, ( -90.0, 0.0, 0.0 ) );
         }
         else
         {
@@ -3656,7 +3656,7 @@ _id_0995( var_0, var_1 )
             var_29 = anglestoforward( ( -90 + var_19, var_32[1], 0 ) );
 
         if ( length( var_31 ) < 1 )
-            var_31 = anglestoforward( var_21 + ( 0, 180, 0 ) );
+            var_31 = anglestoforward( var_21 + ( 0.0, 180.0, 0.0 ) );
 
         if ( abs( vectordot( vectornormalize( var_31 ), var_29 ) ) > 0.999 )
             continue;
@@ -3682,7 +3682,7 @@ get_wash_info( var_0, var_1, var_2, var_3 )
     var_4 = spawnstruct();
     var_4._id_8FF0 = var_1["surfacetype"];
     var_4.bank = undefined;
-    var_5 = vectordot( ( 0, 0, -1 ), var_2 );
+    var_5 = vectordot( ( 0.0, 0.0, -1.0 ), var_2 );
 
     if ( var_5 >= 0.97 )
         var_4.bank = undefined;
@@ -3776,7 +3776,7 @@ _id_9D5A()
         return;
 
     if ( isdefined( level._id_9743 ) )
-        self thread [[ level._id_9743 ]]( "tag_origin", "back_left", ( 160, 0, 0 ) );
+        self thread [[ level._id_9743 ]]( "tag_origin", "back_left", ( 160.0, 0.0, 0.0 ) );
     else
     {
         if ( isdefined( level._id_9D40 ) && isdefined( level._id_9D40[self.visionsetnaked] ) )
@@ -4020,12 +4020,12 @@ _id_5BD0()
 
     foreach ( var_7, var_5 in var_2 )
     {
-        var_6 = spawnturret( "misc_turret", ( 0, 0, 0 ), var_5._id_4C5C );
+        var_6 = spawnturret( "misc_turret", ( 0.0, 0.0, 0.0 ), var_5._id_4C5C );
 
         if ( isdefined( var_5._id_637D ) )
             var_6 linkto( self, var_5.tag_aim_animated, var_5._id_637D, ( 0, -1 * var_1, 0 ) );
         else
-            var_6 linkto( self, var_5.tag_aim_animated, ( 0, 0, 0 ), ( 0, -1 * var_1, 0 ) );
+            var_6 linkto( self, var_5.tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0, -1 * var_1, 0 ) );
 
         var_6 setmodel( var_5.motiontrackerenabled );
         var_6.angles = self.angles;
@@ -4893,7 +4893,7 @@ _id_5908()
         self waittill( "weapon_fired" );
         playfxontag( level._id_9CB1[var_0], self, "tag_engine_exhaust" );
         var_1 = self gettagorigin( "tag_flash" );
-        var_2 = physicstrace( var_1, var_1 + ( 0, 0, -128 ) );
+        var_2 = physicstrace( var_1, var_1 + ( 0.0, 0.0, -128.0 ) );
         physicsexplosionsphere( var_2, 192, 100, 1 );
     }
 }
@@ -5102,7 +5102,7 @@ _id_5F3B( var_0 )
     foreach ( var_4, var_3 in self._id_5BD5 )
     {
         var_3 unlink();
-        var_3 linkto( var_0, level._id_9D0C[var_1][var_4].tag_aim_animated, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_3 linkto( var_0, level._id_9D0C[var_1][var_4].tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 }
 
@@ -5111,7 +5111,7 @@ _id_9D16()
     self._id_0DF6 = undefined;
     self notify( "newpath" );
     self setgoalyaw( common_scripts\utility::_id_38C8( self.angles )[1] );
-    self setgoalpos( self.origin + ( 0, 0, 4 ), 1 );
+    self setgoalpos( self.origin + ( 0.0, 0.0, 4.0 ), 1 );
 }
 
 _id_A086()
@@ -5441,7 +5441,7 @@ _id_816E()
     level._id_9CF4 = [];
     level._id_4806 = getentarray( "helicopter_crash_location", "targetname" );
     level._id_4806 = common_scripts\utility::_id_0CDD( level._id_4806, maps\_utility::_id_40FE( "helicopter_crash_location", "targetname" ) );
-    level._id_6D79 = spawn( "script_origin", ( 0, 0, 0 ) );
+    level._id_6D79 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level.playervehiclenone = level._id_6D79;
     level._id_9D7A = [];
     level._id_9D7A["allies"] = [];

@@ -355,5 +355,5 @@ _id_5349( var_0 )
 
 _id_535A()
 {
-    self [[ _id_08A6( "on_damaged" ) ]]( level, undefined, self.helmet + 1, 0, "MOD_CRUSH", "none", ( 0, 0, 0 ), ( 0, 0, 0 ), "none", 0 );
+    self [[ _id_08A6( "on_damaged" ) ]]( level, undefined, self.helmet + 1, 0, "MOD_CRUSH", "none", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "none", 0 );
 }

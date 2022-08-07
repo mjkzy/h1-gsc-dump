@@ -960,7 +960,7 @@ _id_23D9( var_0, var_1 )
         if ( var_1 != var_4 )
             var_2 = 1 - abs( var_4 - var_1 ) / var_4;
         else
-            var_3 = ( 1, 1, 0 );
+            var_3 = ( 1.0, 1.0, 0.0 );
     }
 
     if ( var_2 == 0 )
@@ -1014,7 +1014,7 @@ _id_2B56()
     var_0[var_0.size] = "cancel";
     var_1 = _id_8BF8();
     var_2 = _id_23D9( "Selected Start:", -1 );
-    var_2.color = ( 1, 1, 1 );
+    var_2.color = ( 1.0, 1.0, 1.0 );
     var_3 = [];
 
     for ( var_4 = 0; var_4 < var_0.size; var_4++ )
@@ -1478,7 +1478,7 @@ _id_7271()
 
     var_3 = 0;
     var_4 = "none";
-    var_5 = ( 0, 0, 0 );
+    var_5 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_0 ) )
     {
@@ -1924,7 +1924,7 @@ _id_1E42()
 _id_0B6F( var_0 )
 {
     self endon( "remove_ammo_cache" );
-    self._id_9BEB = spawn( "script_model", self.origin + ( 0, 0, 28 ) );
+    self._id_9BEB = spawn( "script_model", self.origin + ( 0.0, 0.0, 28.0 ) );
     self._id_9BEB setmodel( "tag_origin" );
     self._id_9BEB makeusable();
     self._id_9BEB setcursorhint( "HINT_NOICON" );
@@ -1985,7 +1985,7 @@ _id_0B73()
     var_1 = newhudelem();
     var_1 setshader( "waypoint_ammo", 1, 1 );
     var_1.alpha = 0;
-    var_1.color = ( 1, 1, 1 );
+    var_1.color = ( 1.0, 1.0, 1.0 );
     var_1.xpmaxmultipliertimeplayed = self.origin[0];
     var_1._id_0538 = self.origin[1];
     var_1._id_053B = self.origin[2] + 16;

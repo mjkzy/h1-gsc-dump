@@ -276,7 +276,7 @@ ambush()
     var_3 maps\_utility::_id_27EF( 1.5, maps\_anim::_id_0C24, var_3, "spin" );
     maps\_utility::_id_27EF( 5.5, ::price_blends_into_run );
     common_scripts\utility::_id_384A( "safe_for_objectives" );
-    objective_add( 1, "active", &"BOG_A_SECURE_THE_M1A2_ABRAMS", ( 4800, 1488, 32 ) );
+    objective_add( 1, "active", &"BOG_A_SECURE_THE_M1A2_ABRAMS", ( 4800.0, 1488.0, 32.0 ) );
     objective_current( 1 );
 }
 
@@ -744,7 +744,7 @@ apartment_second_floor()
     common_scripts\utility::_id_384A( "rubble_room_cleared" );
     common_scripts\utility::_id_383F( "second_floor_door_breach_initiated" );
     wait 1;
-    var_2 = maps\_utility::_id_3CF4( "p", ( 10327.1, -386.339, 236 ) );
+    var_2 = maps\_utility::_id_3CF4( "p", ( 10327.1, -386.339, 236.0 ) );
     var_2._id_0C72 = "third_floor_left_guy";
     var_2 maps\_anim::_id_0C24( var_2, "clear" );
     common_scripts\utility::_id_3831( "player_can_trigger_rubble_attack" );
@@ -925,9 +925,9 @@ javelin_guy_runs_in()
     animscripts\shared::_id_6869( self.weapon_switch_invalid, "back" );
     level.javelin_guy = self;
     maps\_utility::_id_5926();
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "weapon_javelin" );
-    var_0 linkto( self, "tag_weapon_right", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_weapon_right", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.javmodel = var_0;
     var_1 = getent( self._not_team, "targetname" );
     var_1 maps\_anim::_id_0BFF( self, "hangout_arrival" );
@@ -962,11 +962,11 @@ javelin_guy_runs_in()
 
     common_scripts\utility::_id_383F( "javelin_guy_died" );
     wait 2.0;
-    thread common_scripts\utility::_id_69C2( "bog_a_gm1_westisdown", ( 9153.57, 64.5412, 80 ), 1 );
+    thread common_scripts\utility::_id_69C2( "bog_a_gm1_westisdown", ( 9153.57, 64.5412, 80.0 ), 1 );
     level maps\_utility::_id_27EF( 4.0, common_scripts\utility::_id_383F, "west_is_down_done" );
     level.playercardbackground.threatsightdelayfalloff = -450;
     wait 2;
-    var_4 = spawn( "weapon_javelin", ( 0, 0, 0 ), 1 );
+    var_4 = spawn( "weapon_javelin", ( 0.0, 0.0, 0.0 ), 1 );
     var_4.origin = var_0.origin;
     var_4.angles = var_0.angles;
     var_4 thread maps\_utility::_id_076A( "overpass_baddies_flee" );

@@ -862,7 +862,7 @@ _id_2F42()
     level._id_60CB = 3 + randomint( 2 );
     var_4 = 25;
     var_5 = 12;
-    var_1 = self.origin + ( randomint( var_4 ) - var_5, randomint( var_4 ) - var_5, 2 ) + ( 0, 0, 42 );
+    var_1 = self.origin + ( randomint( var_4 ) - var_5, randomint( var_4 ) - var_5, 2 ) + ( 0.0, 0.0, 42.0 );
     var_6 = ( 0, randomint( 360 ), 90 );
     thread _id_8905( var_1, var_6, self.team );
 }
@@ -875,7 +875,7 @@ random_tire( var_0, var_1 )
         level.cheattires = maps\_utility::_id_0CFA( level.cheattires, 0 );
     }
 
-    var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_2.angles = ( 0, randomint( 360 ), 0 );
     var_3 = randomfloat( 1 );
     var_2.origin = var_0 * var_3 + var_1 * ( 1 - var_3 );
@@ -3896,7 +3896,7 @@ _id_2731( var_0, var_1, var_2 )
     self endon( "new_color" );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0.8, 0.6 );
+        var_2 = ( 0.0, 0.8, 0.6 );
 
     var_5 = 0;
 

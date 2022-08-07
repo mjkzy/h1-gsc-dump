@@ -243,7 +243,7 @@ _id_4DA4()
     if ( isdefined( self._id_2482 ) )
         return;
 
-    var_0 = ( 0, 0, 42 );
+    var_0 = ( 0.0, 0.0, 42.0 );
     var_1 = anglestoforward( self.angles );
     self._id_2482 = sighttracepassed( self.origin + var_0, self.origin + var_0 + var_1 * 64, 0, undefined );
 }
@@ -253,7 +253,7 @@ _id_4DA5()
     if ( isdefined( self._id_58AE ) )
         return;
 
-    var_0 = ( 0, 0, 48 );
+    var_0 = ( 0.0, 0.0, 48.0 );
     var_1 = anglestoforward( self.angles );
     self._id_58AE = sighttracepassed( self.origin + var_0, self.origin + var_0 + var_1 * 64, 0, undefined );
 }

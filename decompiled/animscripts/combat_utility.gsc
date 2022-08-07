@@ -21,7 +21,7 @@
 
 _id_4105( var_0 )
 {
-    var_1 = self getshootatpos() + ( 0, 0, -3 );
+    var_1 = self getshootatpos() + ( 0.0, 0.0, -3.0 );
     var_2 = ( var_1[0] - var_0[0], var_1[1] - var_0[1], var_1[2] - var_0[2] );
     var_2 = vectornormalize( var_2 );
     var_3 = var_2[2] * -1;
@@ -732,7 +732,7 @@ h1_grenade_attach_detach_listener( var_0 )
         self.h1_scripted_grenade = spawn( "script_model", self gettagorigin( "tag_inhand" ) );
         var_1 = animscripts\utility::_id_3FB0();
         self.h1_scripted_grenade setmodel( var_1 );
-        self.h1_scripted_grenade linkto( self, "tag_inhand", ( 0, 0, 3 ), ( 0, 0, 0 ) );
+        self.h1_scripted_grenade linkto( self, "tag_inhand", ( 0.0, 0.0, 3.0 ), ( 0.0, 0.0, 0.0 ) );
     }
     else if ( var_0 == "grenade_throw" )
     {
@@ -744,7 +744,7 @@ h1_grenade_attach_detach_listener( var_0 )
 
 _id_3FB1( var_0 )
 {
-    var_1 = ( 0, 0, 64 );
+    var_1 = ( 0.0, 0.0, 64.0 );
 
     if ( isdefined( var_0 ) )
     {
@@ -989,12 +989,12 @@ _id_989E( var_0, var_1, var_2, var_3 )
     else if ( distancesquared( self.origin, var_1 ) < 40000 )
         return 0;
 
-    var_4 = physicstrace( var_1 + ( 0, 0, 1 ), var_1 + ( 0, 0, -500 ) );
+    var_4 = physicstrace( var_1 + ( 0.0, 0.0, 1.0 ), var_1 + ( 0.0, 0.0, -500.0 ) );
 
-    if ( var_4 == var_1 + ( 0, 0, -500 ) )
+    if ( var_4 == var_1 + ( 0.0, 0.0, -500.0 ) )
         return 0;
 
-    var_4 += ( 0, 0, 0.1 );
+    var_4 += ( 0.0, 0.0, 0.1 );
     return _id_989F( var_0, var_4, var_2, var_3 );
 }
 
@@ -1075,12 +1075,12 @@ _id_989F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             case "cover_crouch":
                 if ( self.a._id_6E5A == "stand" )
                 {
-                    var_3 = ( 0, 0, 80 );
+                    var_3 = ( 0.0, 0.0, 80.0 );
                     var_7 = %stand_grenade_throw;
                 }
                 else
                 {
-                    var_3 = ( 0, 0, 65 );
+                    var_3 = ( 0.0, 0.0, 65.0 );
                     var_7 = %crouch_grenade_throw;
                 }
 

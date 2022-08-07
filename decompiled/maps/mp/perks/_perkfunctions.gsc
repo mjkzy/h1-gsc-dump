@@ -780,7 +780,7 @@ _id_7F97( var_0, var_1, var_2 )
         self._id_52B0 = maps\mp\gametypes\_hud_util::_id_2447( "hudsmall", 1.0 );
         self._id_52B0 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", "CENTER", 0, var_3 );
         self._id_52B0 settimer( var_1 );
-        self._id_52B0.color = ( 0.8, 0.8, 0 );
+        self._id_52B0.color = ( 0.8, 0.8, 0.0 );
         self._id_52B0.archived = 0;
         self._id_52B0.foreground = 1;
         self._id_52AF = maps\mp\gametypes\_hud_util::_id_2420( level._id_8A3D, var_4, var_4 );

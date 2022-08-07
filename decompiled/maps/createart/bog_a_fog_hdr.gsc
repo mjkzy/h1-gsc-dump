@@ -36,7 +36,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -48,7 +48,7 @@ main()
     var_0._id_47A0 = 206.435;
     var_0._id_0DB4 = 1;
     var_0._id_0DC4 = ( 0.764161, 0.829042, 0.883625 );
-    var_0._id_0DB7 = ( 1, 0.823587, 0.581871 );
+    var_0._id_0DB7 = ( 1.0, 0.823587, 0.581871 );
     var_0._id_0DB9 = 0.0938697;
     var_0._id_0DB8 = 0.0507663;
     var_0._id_0DB5 = 0.902375;
@@ -78,7 +78,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -120,7 +120,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -132,7 +132,7 @@ main()
     var_0._id_47A0 = 206.435;
     var_0._id_0DB4 = 1;
     var_0._id_0DC4 = ( 0.520692, 0.601151, 0.689173 );
-    var_0._id_0DB7 = ( 1, 0.828125, 0.586609 );
+    var_0._id_0DB7 = ( 1.0, 0.828125, 0.586609 );
     var_0._id_0DB9 = 0.132769;
     var_0._id_0DB8 = 0.0507663;
     var_0._id_0DB5 = 0.97;
@@ -162,7 +162,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -195,6 +195,6 @@ main()
 _id_8FCC()
 {
     var_0 = maps\_utility::_id_23DB( "default" );
-    var_0.precache = ( -5.27893, -115.812, 0 );
+    var_0.precache = ( -5.27893, -115.812, 0.0 );
     maps\_art::_id_8FCD( "default", 0 );
 }

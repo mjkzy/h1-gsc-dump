@@ -89,7 +89,7 @@ _id_4DAB()
     anim._id_2CDE = lengthsquared( getmovedelta( %german_shepherd_run_stop, 0, 1 ) * 1.2 );
     anim._id_2CDC = length( getmovedelta( %german_shepherd_run_start, 0, 1 ) );
     anim._id_2CC3 = 102;
-    var_0 = getstartorigin( ( 0, 0, 0 ), ( 0, 0, 0 ), %german_shepherd_attack_ai_01_start_a );
+    var_0 = getstartorigin( ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), %german_shepherd_attack_ai_01_start_a );
     anim._id_2CC1 = length( var_0 );
     anim._id_2CE0 = [];
     anim._id_2CE0["wallhop"] = %german_shepherd_run_jump_40;

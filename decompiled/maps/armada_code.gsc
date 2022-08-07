@@ -236,16 +236,16 @@ pickup_technical_think()
 
     var_0.tail_gate = spawn( "script_model", var_0 gettagorigin( "tag_rear_tailgate" ) );
     var_0.tail_gate setmodel( "vehicle_pickup_rear_tailgate" );
-    var_0.tail_gate linkto( var_0, "tag_rear_tailgate", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0.tail_gate linkto( var_0, "tag_rear_tailgate", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0.tailgate_clip = getent( "tailgate_clip", "targetname" );
-    var_0.tailgate_clip.origin = var_0 gettagorigin( "tag_rear_tailgate" ) + ( 0, 0, 12 );
+    var_0.tailgate_clip.origin = var_0 gettagorigin( "tag_rear_tailgate" ) + ( 0.0, 0.0, 12.0 );
     var_0.tailgate_clip.angles = var_0 gettagangles( "tag_rear_tailgate" );
     var_0.tailgate_clip linkto( var_0, "tag_rear_tailgate" );
     var_0 thread vehicle_tail_gate_remove();
     var_1 = spawn( "script_model", var_0._id_5BD5[0] gettagorigin( "tag_flash" ) );
-    var_1 linkto( var_0._id_5BD5[0], "tag_flash", ( -25, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 linkto( var_0._id_5BD5[0], "tag_flash", ( -25.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0.col_clip = getent( "col_clip_pickup", "targetname" );
-    var_0.col_clip.origin = var_0._id_5BD5[0].origin + ( 0, 0, -12 );
+    var_0.col_clip.origin = var_0._id_5BD5[0].origin + ( 0.0, 0.0, -12.0 );
     var_0.col_clip.angles = var_0._id_5BD5[0] gettagangles( "tag_flash" );
     var_0.col_clip linkto( var_0._id_5BD5[0], "tag_flash" );
     var_0 thread vehicle_gun_clip_remove();
@@ -301,7 +301,7 @@ setup_circling_heli_turret()
     var_0 = "tag_gun_l";
     var_1 = spawnturret( "misc_turret", self gettagorigin( var_0 ), "heli_minigun_noai" );
     var_1 setmodel( "weapon_saw_MG_setup" );
-    var_1 linkto( self, var_0, ( 0, 0, -24 ), ( 0, 90, 0 ) );
+    var_1 linkto( self, var_0, ( 0.0, 0.0, -24.0 ), ( 0.0, 90.0, 0.0 ) );
     var_1 maketurretinoperable();
     var_1 setmode( "manual" );
     var_1 setturretteam( "allies" );

@@ -409,11 +409,11 @@ _id_5D60( var_0 )
         self._id_0887 = [];
 
     self._id_0887[self._id_0887.size] = var_0;
-    var_1 = vectornormalize( ( var_0.origin - self.origin ) * ( 1, 1, 0 ) );
+    var_1 = vectornormalize( ( var_0.origin - self.origin ) * ( 1.0, 1.0, 0.0 ) );
 
     while ( isalive( var_0 ) )
     {
-        var_2 = vectornormalize( ( var_0.origin - self.origin ) * ( 1, 1, 0 ) );
+        var_2 = vectornormalize( ( var_0.origin - self.origin ) * ( 1.0, 1.0, 0.0 ) );
         var_3 = vectordot( var_1, var_2 );
 
         if ( var_3 <= 0 )

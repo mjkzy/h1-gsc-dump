@@ -173,7 +173,7 @@ heliwind_get_closest_fraction( var_0 )
 
 heliwind_get_closest_heli()
 {
-    var_0 = 1e+08.0;
+    var_0 = 100000000.0;
     var_1 = 0;
 
     for ( var_2 = 0; var_2 < level.anim_models_helis.size; var_2++ )

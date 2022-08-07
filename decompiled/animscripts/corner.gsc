@@ -985,7 +985,7 @@ _id_14AB()
 _id_5776( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
-        var_2 = ( 1, 1, 1 );
+        var_2 = ( 1.0, 1.0, 1.0 );
 
     for ( var_3 = 0; var_3 < 100; var_3++ )
         wait 0.05;

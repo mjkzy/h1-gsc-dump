@@ -43,7 +43,7 @@ main()
             var_7 = spawnstruct();
             var_7.players = [];
             var_7.rightaimlimit = var_6;
-            var_7.fxent = spawnfx( level._effect[var_5], ( 0, 0, 0 ) );
+            var_7.fxent = spawnfx( level._effect[var_5], ( 0.0, 0.0, 0.0 ) );
             var_7.fxent hide();
             triggerfx( var_7.fxent, 1 );
             level.fx_trigger_info[var_5] = var_7;

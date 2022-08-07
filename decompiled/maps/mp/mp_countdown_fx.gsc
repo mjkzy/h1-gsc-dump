@@ -45,19 +45,19 @@ main()
 ambientfx()
 {
     var_0 = common_scripts\utility::_id_242E( "smoke_missile_launched" );
-    var_0.v["origin"] = ( 632, 936, -200 );
-    var_0.v["angles"] = ( 270, 0, 0 );
+    var_0.v["origin"] = ( 632.0, 936.0, -200.0 );
+    var_0.v["angles"] = ( 270.0, 0.0, 0.0 );
     var_0.v["delay"] = -120;
     var_0 = common_scripts\utility::_id_242E( "smoke_missile_launched" );
-    var_0.v["origin"] = ( 632, -24, -200 );
-    var_0.v["angles"] = ( 270, 0, 0 );
+    var_0.v["origin"] = ( 632.0, -24.0, -200.0 );
+    var_0.v["angles"] = ( 270.0, 0.0, 0.0 );
     var_0.v["delay"] = -120;
     var_0 = common_scripts\utility::_id_242E( "smoke_missile_launched" );
-    var_0.v["origin"] = ( -600, -24, -200 );
-    var_0.v["angles"] = ( 270, 0, 0 );
+    var_0.v["origin"] = ( -600.0, -24.0, -200.0 );
+    var_0.v["angles"] = ( 270.0, 0.0, 0.0 );
     var_0.v["delay"] = -120;
     var_0 = common_scripts\utility::_id_242E( "launchtube_steam" );
-    var_0.v["origin"] = ( -656, 1052, 0 );
-    var_0.v["angles"] = ( 0, 0, 0 );
+    var_0.v["origin"] = ( -656.0, 1052.0, 0.0 );
+    var_0.v["angles"] = ( 0.0, 0.0, 0.0 );
     var_0.v["delay"] = -120;
 }

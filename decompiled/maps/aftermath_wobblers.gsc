@@ -126,7 +126,7 @@ local_update_angles_vector_from_axis( var_0, var_1 )
             return ( 0, 0, var_1 );
     }
 
-    return ( 0, 0, 0 );
+    return ( 0.0, 0.0, 0.0 );
 }
 
 wobbler_linked_think()

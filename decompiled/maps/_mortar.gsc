@@ -617,7 +617,7 @@ bog_style_mortar_activate( var_0, var_1, var_2, var_3 )
     else
         var_4 = 300;
 
-    var_5 = spawn( "trigger_radius", ( 0, 0, 0 ), 0, var_4, 256 );
+    var_5 = spawn( "trigger_radius", ( 0.0, 0.0, 0.0 ), 0, var_4, 256 );
     thread bog_style_mortar_cleanup( var_5, var_1 );
 
     for (;;)
@@ -689,7 +689,7 @@ mortars_too_close( var_0, var_1 )
 mortar_within_player_fov( var_0 )
 {
     var_1 = level.playercardbackground geteye();
-    var_2 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( level.playermortarfovoffset ) )
         var_2 = level.playermortarfovoffset;

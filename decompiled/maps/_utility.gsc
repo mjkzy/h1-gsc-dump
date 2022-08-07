@@ -662,7 +662,7 @@ _id_26AF( var_0, var_1, var_2, var_3 )
 
 prestigedoublexp( var_0 )
 {
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = level.playercardbackground getorigin();
     var_1 setmodel( var_0 );
     var_1 delete();
@@ -1611,12 +1611,12 @@ _id_69C5( var_0, var_1, var_2, var_3, var_4 )
     if ( !soundexists( var_0 ) )
         return;
 
-    var_5 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_5 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_5 endon( "death" );
     thread _id_2826( var_5, "sounddone" );
 
     if ( isdefined( var_1 ) )
-        var_5 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_5 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     else
     {
         var_5.origin = self.origin;
@@ -1657,7 +1657,7 @@ _id_6976( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( !isdefined( var_0 ) )
         return;
 
-    var_6 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_6 endon( "death" );
 
     if ( !isdefined( var_2 ) )
@@ -1673,7 +1673,7 @@ _id_6976( var_0, var_1, var_2, var_3, var_4, var_5 )
         thread _id_282C( var_6 );
 
     if ( isdefined( var_1 ) )
-        var_6 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_6 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     else
     {
         var_6.origin = self.origin;
@@ -1793,7 +1793,7 @@ _id_0D68()
 _id_88D1( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     var_3 = spawn( "script_model", var_1 );
     var_3._id_0C72 = var_0;
@@ -3961,7 +3961,7 @@ _id_9CBF( var_0, var_1 )
 
 _id_4417( var_0 )
 {
-    return bullettrace( var_0, var_0 + ( 0, 0, -100000 ), 0, self, 0, 0, 0, 0, 0, 1, 0, 1 )["position"];
+    return bullettrace( var_0, var_0 + ( 0.0, 0.0, -100000.0 ), 0, self, 0, 0, 0, 0, 0, 1, 0, 1 )["position"];
 }
 
 _id_1C72( var_0 )
@@ -4232,8 +4232,8 @@ _id_70BD( var_0, var_1, var_2 )
 {
     if ( !isdefined( level._id_6BCD ) )
     {
-        var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
-        var_3 linkto( level.playercardbackground, "", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+        var_3 linkto( level.playercardbackground, "", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         level._id_6BCD = var_3;
     }
 
@@ -4273,7 +4273,7 @@ _id_70C1( var_0 )
     if ( !isdefined( level._id_6BCE ) )
         level._id_6BCE = [];
 
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level._id_6BCE[level._id_6BCE.size] = var_1;
     var_1 endon( "death" );
     thread _id_2826( var_1, "sounddone" );
@@ -4363,8 +4363,8 @@ _id_70BF( var_0 )
 {
     if ( !isdefined( level._id_6BCD ) )
     {
-        var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
-        var_1 linkto( level.playercardbackground, "", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+        var_1 linkto( level.playercardbackground, "", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         level._id_6BCD = var_1;
     }
 
@@ -5462,7 +5462,7 @@ _id_6802( var_0, var_1, var_2 )
     {
         var_0 = 400;
         var_1 = 256;
-        var_2 = ( 0, 0, 0.075 );
+        var_2 = ( 0.0, 0.0, 0.075 );
     }
 
     var_3 = var_0 * var_0;
@@ -5572,16 +5572,16 @@ _id_1EDA( var_0 )
 _id_3E5A()
 {
     var_0 = [];
-    var_0["r"] = ( 1, 0, 0 );
-    var_0["o"] = ( 1, 0.5, 0 );
-    var_0["y"] = ( 1, 1, 0 );
-    var_0["g"] = ( 0, 1, 0 );
-    var_0["c"] = ( 0, 1, 1 );
-    var_0["b"] = ( 0, 0, 1 );
-    var_0["p"] = ( 1, 0, 1 );
-    var_0["w"] = ( 1, 1, 1 );
-    var_0["a"] = ( 0, 0.9, 1 );
-    var_0["l"] = ( 0.8, 1, 0 );
+    var_0["r"] = ( 1.0, 0.0, 0.0 );
+    var_0["o"] = ( 1.0, 0.5, 0.0 );
+    var_0["y"] = ( 1.0, 1.0, 0.0 );
+    var_0["g"] = ( 0.0, 1.0, 0.0 );
+    var_0["c"] = ( 0.0, 1.0, 1.0 );
+    var_0["b"] = ( 0.0, 0.0, 1.0 );
+    var_0["p"] = ( 1.0, 0.0, 1.0 );
+    var_0["w"] = ( 1.0, 1.0, 1.0 );
+    var_0["a"] = ( 0.0, 0.9, 1.0 );
+    var_0["l"] = ( 0.8, 1.0, 0.0 );
     return var_0;
 }
 
@@ -5730,7 +5730,7 @@ _id_5697( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 _id_5693( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     var_9 = _id_3E25();
-    var_10 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_10 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_10.origin = var_9.origin;
     var_10.angles = var_9 getplayerangles();
 
@@ -5757,7 +5757,7 @@ _id_5699( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 _id_5695( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     var_9 = _id_3E25();
-    var_10 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_10 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_10.origin = var_9 _id_3E24();
     var_10.angles = var_9 getplayerangles();
 
@@ -5779,7 +5779,7 @@ _id_5695( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 lerp_player_view_to_position_leave_linked( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = _id_3E25();
-    var_9 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_9 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_9.origin = level.playercardbackground _id_3E24();
     var_9.angles = var_8 getplayerangles();
 
@@ -6149,7 +6149,7 @@ _id_3CAD()
         return;
 
     self._id_71E9 = self getorigin();
-    self moveto( self._id_71E9 + ( 0, 0, -10000 ), 0.2 );
+    self moveto( self._id_71E9 + ( 0.0, 0.0, -10000.0 ), 0.2 );
     self._id_3CAD = 1;
 }
 
@@ -6503,7 +6503,7 @@ _id_0757( var_0, var_1, var_2 )
     var_5.xpmaxmultipliertimeplayed = 40;
     var_5._id_0538 = 260 + var_3 * 18;
     var_5.land = " " + var_4 + "< " + var_0 + " > ^7" + var_1;
-    var_5.color = ( 1, 1, 1 );
+    var_5.color = ( 1.0, 1.0, 1.0 );
     wait 2;
     var_6 = 40;
     var_5 fadeovertime( 6 );
@@ -6665,13 +6665,13 @@ _id_4B09( var_0 )
         self playsound( "door_wood_slow_open" );
 
     wait 1;
-    self rotateto( self.angles + ( 0, 70, 0 ), 2, 0.5, 0 );
+    self rotateto( self.angles + ( 0.0, 70.0, 0.0 ), 2, 0.5, 0 );
 
     if ( self.classname == "script_brushmodel" )
         self connectpaths();
 
     self waittill( "rotatedone" );
-    self rotateto( self.angles + ( 0, 40, 0 ), 2, 0, 2 );
+    self rotateto( self.angles + ( 0.0, 40.0, 0.0 ), 2, 0, 2 );
 }
 
 _id_6666( var_0 )
@@ -6683,10 +6683,10 @@ _id_6666( var_0 )
     else
         self playsound( "door_wood_slow_open" );
 
-    self rotateto( self.angles + ( 0, 70, 0 ), 2, 0.5, 0 );
+    self rotateto( self.angles + ( 0.0, 70.0, 0.0 ), 2, 0.5, 0 );
     self connectpaths();
     self waittill( "rotatedone" );
-    self rotateto( self.angles + ( 0, 40, 0 ), 2, 0, 2 );
+    self rotateto( self.angles + ( 0.0, 40.0, 0.0 ), 2, 0, 2 );
 }
 
 _id_5689( var_0, var_1 )
@@ -6857,7 +6857,7 @@ _id_0D18( var_0, var_1, var_2 )
 
 _id_2A51()
 {
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 _id_4026( var_0 )
@@ -7044,7 +7044,7 @@ _id_08D6( var_0, var_1 )
             if ( _id_6D3D( var_1, var_0[var_3].origin ) )
                 continue;
 
-            if ( _id_3021( var_0[var_3].origin + ( 0, 0, 48 ), var_2, 1 ) )
+            if ( _id_3021( var_0[var_3].origin + ( 0.0, 0.0, 48.0 ), var_2, 1 ) )
                 continue;
 
             if ( isdefined( var_0[var_3]._id_58D7 ) )
@@ -7316,8 +7316,8 @@ _id_A299( var_0, var_1 )
     for (;;)
     {
         wait(randomfloatrange( 0.15, 0.3 ));
-        var_3 = self.origin + ( 0, 0, 150 );
-        var_4 = self.origin - ( 0, 0, 150 );
+        var_3 = self.origin + ( 0.0, 0.0, 150.0 );
+        var_4 = self.origin - ( 0.0, 0.0, 150.0 );
         var_5 = bullettrace( var_3, var_4, 0, undefined );
 
         if ( !issubstr( var_5["surfacetype"], "water" ) )
@@ -7327,7 +7327,7 @@ _id_A299( var_0, var_1 )
 
         if ( isplayer( self ) )
         {
-            if ( distance( self getvelocity(), ( 0, 0, 0 ) ) < 5 )
+            if ( distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) ) < 5 )
                 var_6 = "water_stop";
         }
         else if ( isdefined( level._effect["water_" + self.a._id_5F5B] ) )
@@ -7356,11 +7356,11 @@ _id_6D5A( var_0 )
     for (;;)
     {
         wait(randomfloatrange( 0.25, 0.5 ));
-        var_1 = self.origin + ( 0, 0, 0 );
-        var_2 = self.origin - ( 0, 0, 5 );
+        var_1 = self.origin + ( 0.0, 0.0, 0.0 );
+        var_2 = self.origin - ( 0.0, 0.0, 5.0 );
         var_3 = bullettrace( var_1, var_2, 0, undefined );
         var_4 = anglestoforward( self.angles );
-        var_5 = distance( self getvelocity(), ( 0, 0, 0 ) );
+        var_5 = distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) );
 
         if ( isdefined( self._id_9C7E ) )
             continue;
@@ -7373,10 +7373,10 @@ _id_6D5A( var_0 )
 
         var_6 = "snow_movement";
 
-        if ( distance( self getvelocity(), ( 0, 0, 0 ) ) <= 154 )
+        if ( distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) ) <= 154 )
             playfx( common_scripts\utility::_id_3FA8( "footstep_snow_small" ), var_3["position"], var_3["normal"], var_4 );
 
-        if ( distance( self getvelocity(), ( 0, 0, 0 ) ) > 154 )
+        if ( distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) ) > 154 )
             playfx( common_scripts\utility::_id_3FA8( "footstep_snow" ), var_3["position"], var_3["normal"], var_4 );
     }
 }
@@ -7409,7 +7409,7 @@ _id_5972( var_0, var_1 )
     self endon( "death" );
 
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     for (;;)
     {
@@ -7534,7 +7534,7 @@ _id_6B2D( var_0 )
 
 _id_076A( var_0 )
 {
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setcontents( 0 );
     var_1 setmodel( "weapon_javelin_obj" );
     var_1.origin = self.origin;
@@ -7553,7 +7553,7 @@ _id_076A( var_0 )
 
 _id_073B( var_0 )
 {
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setcontents( 0 );
     var_1 setmodel( "weapon_c4_obj" );
     var_1.origin = self.origin;
@@ -7819,7 +7819,7 @@ _id_3F0E()
 
 _id_3CD1( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
 
     foreach ( var_3 in var_0 )
         var_1 += var_3.origin;
@@ -8411,7 +8411,7 @@ _id_139F( var_0, var_1, var_2 )
     var_4 = isdefined( level._id_254B );
 
     if ( !isdefined( var_0 ) )
-        var_0 = var_3 getvelocity() + ( 0, 0, -10 );
+        var_0 = var_3 getvelocity() + ( 0.0, 0.0, -10.0 );
 
     if ( !isdefined( var_1 ) )
         var_1 = 10;
@@ -8427,7 +8427,7 @@ _id_139F( var_0, var_1, var_2 )
     var_5 = spawn( "script_origin", var_3.origin );
     var_5.angles = var_3.angles;
     var_3._id_8626 = var_5;
-    var_5 moveslide( ( 0, 0, 15 ), 15, var_0 );
+    var_5 moveslide( ( 0.0, 0.0, 15.0 ), 15, var_0 );
 
     if ( var_4 )
         var_3 playerlinktoblend( var_5, undefined, 1 );
@@ -8839,7 +8839,7 @@ _id_48B0( var_0, var_1, var_2, var_3 )
     level._id_4903 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 127 + var_4 );
     level._id_4903.hindlegstraceoffset = 1;
     level._id_4903.high_priority = 1;
-    level._id_4903.color = ( 1, 1, 1 );
+    level._id_4903.color = ( 1.0, 1.0, 1.0 );
     level._id_4903 settext( var_0 );
     level._id_4903.alpha = 0;
     level._id_4903 fadeovertime( 0.5 );
@@ -8909,13 +8909,13 @@ _id_3E2E( var_0, var_1, var_2, var_3 )
         var_3 = "player_view_controller";
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     var_4 = var_0 gettagorigin( var_1 );
     var_5 = spawnturret( "misc_turret", var_4, var_3 );
     var_5.angles = var_0 gettagangles( var_1 );
     var_5 setmodel( "tag_turret" );
-    var_5 linkto( var_0, var_1, var_2, ( 0, 0, 0 ) );
+    var_5 linkto( var_0, var_1, var_2, ( 0.0, 0.0, 0.0 ) );
     var_5 makeunusable();
     var_5 hide();
     var_5 setmode( "manual" );
@@ -9594,7 +9594,7 @@ _id_59D4( var_0 )
 
 _id_06FA()
 {
-    var_0 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
     foreach ( var_2 in level._id_2417 )
     {
@@ -9610,7 +9610,7 @@ _id_06FA()
         var_3 = var_2.v["masked_exploder"];
         var_4 = var_2.v["masked_exploder_spawnflags"];
         var_5 = var_2.v["masked_exploder_script_disconnectpaths"];
-        var_6 = spawn( "script_model", ( 0, 0, 0 ), var_4 );
+        var_6 = spawn( "script_model", ( 0.0, 0.0, 0.0 ), var_4 );
         var_6 setmodel( var_3 );
         var_6.origin = var_2.v["origin"];
         var_6.angles = var_2.v["angles"];
@@ -9688,7 +9688,7 @@ _id_280F( var_0, var_1 )
         var_2[var_2.size] = var_3[var_4];
 
     var_5 = [];
-    var_6 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_7 = 0;
 
     if ( !isdefined( var_1 ) )
@@ -9721,7 +9721,7 @@ _id_06F7()
 
     foreach ( var_1 in self._id_293A )
     {
-        var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_2 setmodel( var_1._id_948C );
         var_2.origin = var_1.origin;
         var_2.angles = var_1.angles;
@@ -9987,9 +9987,9 @@ _id_6BE3( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_1 allowprone( 0 );
     var_1 disableweapons();
     var_6 = common_scripts\utility::_id_8959();
-    var_6 linkto( self, "tag_passenger", _id_6BE4( var_0 ), ( 0, 0, 0 ) );
+    var_6 linkto( self, "tag_passenger", _id_6BE4( var_0 ), ( 0.0, 0.0, 0.0 ) );
     var_6._id_6ACE = common_scripts\utility::_id_8959();
-    var_6._id_6ACE linkto( self, "tag_body", _id_6BE2( var_0 ), ( 0, 0, 0 ) );
+    var_6._id_6ACE linkto( self, "tag_body", _id_6BE2( var_0 ), ( 0.0, 0.0, 0.0 ) );
 
     if ( !isdefined( var_2 ) )
         var_2 = 90;
@@ -10014,11 +10014,11 @@ _id_6BE4( var_0 )
     switch ( var_0 )
     {
         case "shotgun":
-            return ( -5, 10, -34 );
+            return ( -5.0, 10.0, -34.0 );
         case "backleft":
-            return ( -45, 45, -34 );
+            return ( -45.0, 45.0, -34.0 );
         case "backright":
-            return ( -45, 5, -34 );
+            return ( -45.0, 5.0, -34.0 );
     }
 }
 
@@ -10027,11 +10027,11 @@ _id_6BE2( var_0 )
     switch ( var_0 )
     {
         case "shotgun":
-            return ( -8, -90, -12.6 );
+            return ( -8.0, -90.0, -12.6 );
         case "backleft":
-            return ( -58, 85, -12.6 );
+            return ( -58.0, 85.0, -12.6 );
         case "backright":
-            return ( -58, -95, -12.6 );
+            return ( -58.0, -95.0, -12.6 );
     }
 }
 
@@ -10337,7 +10337,7 @@ _id_7DE0( var_0, var_1 )
 _id_62EB( var_0 )
 {
     for ( var_1 = 0; var_1 < 8; var_1++ )
-        objective_additionalposition( var_0, var_1, ( 0, 0, 0 ) );
+        objective_additionalposition( var_0, var_1, ( 0.0, 0.0, 0.0 ) );
 }
 
 _id_3DDB( var_0 )
@@ -10894,7 +10894,7 @@ _id_7F66( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_3 ) )
         self._id_3318 = var_3;
     else
-        self._id_3318 = ( 0, 0, 0 );
+        self._id_3318 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_4 ) )
         self._id_3319 = var_4;
@@ -12029,7 +12029,7 @@ yaw_ent_by_linked( var_0 )
 
     for (;;)
     {
-        self _meth_8425( ( 0, 360, 0 ), var_0 );
+        self _meth_8425( ( 0.0, 360.0, 0.0 ), var_0 );
         wait(var_0);
     }
 }

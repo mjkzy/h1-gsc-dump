@@ -257,7 +257,7 @@ _id_448A( var_0, var_1 )
     var_0 = _id_21A2( var_0 );
     [[ level._id_422E ]]( "MOD_RIFLE_BULLET", "torso_upper", var_4 );
     _id_297A( var_0, "weapon_" );
-    var_0 linkto( self, var_1._id_85AE, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, var_1._id_85AE, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0 notsolid();
     thread _id_0C74( var_0, var_1._id_85AE, var_1.death );
 
@@ -645,7 +645,7 @@ _id_5781( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_6 = self._id_5BD5[var_5];
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_3 ) )
         var_3 = 0;
@@ -653,7 +653,7 @@ _id_5781( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( var_3 && !isdefined( var_0._id_79AD ) )
         var_0 linktoblendtotag( var_6, var_1, 0 );
     else
-        var_0 linkto( var_6, var_1, var_2, ( 0, 0, 0 ) );
+        var_0 linkto( var_6, var_1, var_2, ( 0.0, 0.0, 0.0 ) );
 }
 
 _id_0BE9( var_0, var_1 )
@@ -1221,7 +1221,7 @@ _id_406B( var_0, var_1, var_2 )
     var_8 setmodel( level._id_9C8D[var_3][var_4._id_3680].motiontrackerenabled );
     self._id_3680[var_4._id_3680] = var_8;
     var_8 useanimtree( #animtree );
-    var_8 linkto( var_0, level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_8 linkto( var_0, level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     thread _id_4073( var_4, var_8, level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated, level._id_9C8D[var_3][var_4._id_3680]._id_2F6D, var_2 );
     return var_8;
 }
@@ -1521,7 +1521,7 @@ _id_44BF( var_0, var_1 )
             if ( !isdefined( self._id_0B96 ) )
             {
                 self._id_0B96 = 0;
-                self._id_6595 = ( 0, 0, 0 );
+                self._id_6595 = ( 0.0, 0.0, 0.0 );
                 self._id_9A3B = 0.5;
             }
             else
@@ -1953,8 +1953,8 @@ _id_0C76( var_0, var_1, var_2 )
     if ( isdefined( var_0._id_70DA ) )
     {
         var_3 = getmovedelta( var_0._id_70DA, 0, 1 );
-        var_4 = physicstrace( var_0.origin + ( 0, 0, 16 ), var_0.origin - ( 0, 0, 10000 ) );
-        var_5 = distance( var_0.origin + ( 0, 0, 16 ), var_4 );
+        var_4 = physicstrace( var_0.origin + ( 0.0, 0.0, 16.0 ), var_0.origin - ( 0.0, 0.0, 10000.0 ) );
+        var_5 = distance( var_0.origin + ( 0.0, 0.0, 16.0 ), var_4 );
 
         if ( abs( var_3[2] + 16 ) <= abs( var_5 ) )
         {
@@ -1985,7 +1985,7 @@ _id_0C76( var_0, var_1, var_2 )
             var_0 detach( var_6, "tag_weapon_right" );
             var_8 = var_0 gettagorigin( "tag_weapon_right" );
             var_9 = var_0 gettagangles( "tag_weapon_right" );
-            level._id_4454 = spawn( "weapon_" + var_7, ( 0, 0, 0 ) );
+            level._id_4454 = spawn( "weapon_" + var_7, ( 0.0, 0.0, 0.0 ) );
             level._id_4454.angles = var_9;
             level._id_4454.origin = var_8;
         }
@@ -2293,7 +2293,7 @@ _id_4483( var_0 )
     var_6 = getanimlength( var_2._id_3540 );
     var_7 = gettime() + var_6 * 1000;
     wait(var_6 * var_5);
-    var_8 = ( 0, 0, 1 );
+    var_8 = ( 0.0, 0.0, 1.0 );
     var_9 = var_0.origin;
 
     if ( getdvar( "ragdoll_enable" ) == "0" )

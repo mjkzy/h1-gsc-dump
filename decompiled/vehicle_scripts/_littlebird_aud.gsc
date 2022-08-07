@@ -169,7 +169,7 @@ _id_57B5()
     var_5 = 30;
     var_6 = var_5 - var_3;
     var_7 = soundscripts\_audio_vehicle_manager::_id_A3B3( 0 );
-    var_8 = soundscripts\_audio_vehicle_manager::_id_A3B3( 99 );
+    var_8 = soundscripts\_audio_vehicle_manager::_id_A3B3( 99.0 );
     var_9 = var_8 - var_7;
     var_10 = 0.0;
     var_11 = 1.0;

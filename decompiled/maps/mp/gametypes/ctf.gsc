@@ -214,8 +214,8 @@ setflagbasefx( var_0, var_1 )
 
 _id_4E24()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_ctf_spawn_allies_start" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_ctf_spawn_axis_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_ctf_spawn" );
@@ -455,11 +455,11 @@ _id_2442( var_0 )
         var_2 = var_4;
         var_3[0] setmodel( level._id_3866[var_0] );
         var_3[0]._id_63C7 = var_3[0] setcontents( 0 );
-        var_5 = var_3[0].origin + ( 0, 0, 32 );
-        var_6 = var_3[0].origin + ( 0, 0, -32 );
+        var_5 = var_3[0].origin + ( 0.0, 0.0, 32.0 );
+        var_6 = var_3[0].origin + ( 0.0, 0.0, -32.0 );
         var_7 = bullettrace( var_5, var_6, 0, undefined );
         var_3[0].origin = var_7["position"];
-        var_8 = maps\mp\gametypes\_gameobjects::_id_23E9( var_0, var_2, var_3, ( 0, 0, 85 ) );
+        var_8 = maps\mp\gametypes\_gameobjects::_id_23E9( var_0, var_2, var_3, ( 0.0, 0.0, 85.0 ) );
         var_9 = getdvarfloat( "scr_ctf_flag_pick_up_time_friendly", 0.0 );
 
         if ( var_9 > 0 )
@@ -543,7 +543,7 @@ _id_23E7( var_0 )
 
     var_2 = getent( "ctf_zone_" + var_1, "targetname" );
     var_3 = [];
-    var_4 = maps\mp\gametypes\_gameobjects::createuseobject( var_0, var_2, var_3, ( 0, 0, 85 ) );
+    var_4 = maps\mp\gametypes\_gameobjects::createuseobject( var_0, var_2, var_3, ( 0.0, 0.0, 85.0 ) );
     var_4 maps\mp\gametypes\_gameobjects::allowuse( "friendly" );
     var_4 maps\mp\gametypes\_gameobjects::_id_8352( "any" );
     var_4 maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B3A );
@@ -554,8 +554,8 @@ _id_23E7( var_0 )
     var_4 maps\mp\gametypes\_gameobjects::_id_7F99( level._id_91EF[maps\mp\_utility::getotherteam( var_0 )] );
     var_4.onuse = ::onuse;
     var_4._id_6459 = ::_id_6459;
-    var_5 = var_2.origin + ( 0, 0, 32 );
-    var_6 = var_2.origin + ( 0, 0, -32 );
+    var_5 = var_2.origin + ( 0.0, 0.0, 32.0 );
+    var_6 = var_2.origin + ( 0.0, 0.0, -32.0 );
     var_7 = bullettrace( var_5, var_6, 0, undefined );
     var_4._id_1307 = var_7["position"];
     var_4._id_1306 = var_7["normal"];
@@ -1324,8 +1324,8 @@ _id_1B5E()
     {
         if ( var_1.visuals.size )
         {
-            var_2 = var_1.visuals[0].origin + ( 0, 0, 32 );
-            var_3 = var_1.visuals[0].origin + ( 0, 0, -32 );
+            var_2 = var_1.visuals[0].origin + ( 0.0, 0.0, 32.0 );
+            var_3 = var_1.visuals[0].origin + ( 0.0, 0.0, -32.0 );
             var_4 = bullettrace( var_2, var_3, 0, undefined );
             var_5 = vectortoangles( var_4["normal"] );
             var_1._id_1306 = anglestoforward( var_5 );

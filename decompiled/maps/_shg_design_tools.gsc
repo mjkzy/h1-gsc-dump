@@ -325,7 +325,7 @@ _id_3E40( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_8 = newhudelem();
 
     if ( !isdefined( var_4 ) )
-        var_4 = ( 0.8, 1, 0.8 );
+        var_4 = ( 0.8, 1.0, 0.8 );
 
     if ( !isdefined( var_5 ) )
         var_5 = ( 0.3, 0.6, 0.3 );
@@ -654,7 +654,7 @@ _id_4BFE( var_0, var_1, var_2, var_3 )
         wait(var_11);
         var_8 = var_6.origin;
         var_12 = vectornormalize( var_6 gettagorigin( "tag_eye" ) - var_2 );
-        var_12 = vectornormalize( var_12 + ( 0, 0, 0.2 ) );
+        var_12 = vectornormalize( var_12 + ( 0.0, 0.0, 0.2 ) );
         var_6 startragdollfromimpact( "torso_lower", var_12 * 7000 );
         var_6 thread common_scripts\utility::_id_27CD( 2, ::kill );
     }
@@ -844,7 +844,7 @@ _id_4FAF( var_0, var_1 )
     var_2.fontscale = 1.5;
     var_2 settext( var_0 );
     var_2.alpha = 0;
-    var_2.color = ( 1, 1, 1 );
+    var_2.color = ( 1.0, 1.0, 1.0 );
     var_2.glowcolor = ( 0.6, 0.6, 0.9 );
     var_2.glowalpha = 0.4;
     var_2.space = -10;
@@ -878,7 +878,7 @@ _id_84F2( var_0, var_1 )
 
         var_0 moveovertime( 0.35 );
         var_0._id_0538 = 325 + var_3 * var_4;
-        var_0.color = ( 1, 1, 1 );
+        var_0.color = ( 1.0, 1.0, 1.0 );
         var_0.glowalpha = 0;
         var_0.alpha = 0.9 - var_3 / 5;
         waittillframeend;
@@ -905,7 +905,7 @@ _id_3E6F( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     var_11 = var_5 * var_2 + var_1;
 
     if ( !isdefined( var_6 ) )
-        var_6 = ( 0.8, 1, 0.8 );
+        var_6 = ( 0.8, 1.0, 0.8 );
 
     if ( !isdefined( var_7 ) )
         var_7 = ( var_6[0] / 2, var_6[1] / 2, var_6[2] / 2 );

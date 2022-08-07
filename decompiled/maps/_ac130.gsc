@@ -25,7 +25,7 @@ init()
     setsaveddvar( "con_subtitleExtraDark", 1 );
     level.ac130 = spawn( "script_model", level.playercardbackground getorigin() );
     level.ac130 setmodel( "c130_zoomrig" );
-    level.ac130.angles = ( 0, 115, 0 );
+    level.ac130.angles = ( 0.0, 115.0, 0.0 );
     level.ac130 hide();
 
     if ( getdvar( "ac130_enabled" ) == "" )
@@ -113,9 +113,9 @@ init()
     level.enemieskilledintimewindow = 0;
     level.radioforcedtransmissionqueue = [];
     level.lastradiotransmission = gettime();
-    level.color["white"] = ( 1, 1, 1 );
-    level.color["red"] = ( 1, 0, 0 );
-    level.color["blue"] = ( 0.1, 0.3, 1 );
+    level.color["white"] = ( 1.0, 1.0, 1.0 );
+    level.color["red"] = ( 1.0, 0.0, 0.0 );
+    level.color["blue"] = ( 0.1, 0.3, 1.0 );
     level._id_2235 = [];
     level._id_2235["45"] = cos( 45 );
     level._id_2235["5"] = cos( 5 );
@@ -632,7 +632,7 @@ overlay_coords()
             level._id_4AEC["coordinate_lat"][var_2].alpha = 0;
         }
 
-        var_5 = physicstrace( level.playercardbackground.origin, level.playercardbackground.origin - ( 0, 0, 100000 ) );
+        var_5 = physicstrace( level.playercardbackground.origin, level.playercardbackground.origin - ( 0.0, 0.0, 100000.0 ) );
 
         if ( isdefined( var_5 ) && isdefined( var_5[2] ) )
         {
@@ -1248,10 +1248,10 @@ getfriendlyscenter()
     var_1 = getaiarray( "allies" );
 
     if ( !isdefined( var_1 ) )
-        return ( 0, 0, 0 );
+        return ( 0.0, 0.0, 0.0 );
 
     if ( var_1.size <= 0 )
-        return ( 0, 0, 0 );
+        return ( 0.0, 0.0, 0.0 );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -1292,7 +1292,7 @@ shotfiredfriendlyproximity( var_0, var_1 )
     if ( !isdefined( level.weaponfriendlyclosedistance[var_0] ) )
         return;
 
-    var_2 = var_1 - ( 0, 0, 50 );
+    var_2 = var_1 - ( 0.0, 0.0, 50.0 );
     var_3 = level.weaponfriendlyclosedistance[var_0];
     var_4 = 300;
     var_5 = 10;
@@ -1428,7 +1428,7 @@ spawn_callback_thread( var_0 )
 
     if ( getdvar( "ac130_target_markers" ) == "1" )
     {
-        target_set( var_0, ( 0, 0, 32 ) );
+        target_set( var_0, ( 0.0, 0.0, 32.0 ) );
         thread hud_target_blink( var_0 );
     }
 }
@@ -1534,7 +1534,7 @@ context_sensative_dialog_guy_crawling()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 0, 1, 0 ) );
+                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 0.0, 1.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_crawl" );
@@ -1550,7 +1550,7 @@ context_sensative_dialog_guy_pain_falling()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1, 0, 0 ) );
+                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_pain" );
@@ -1566,7 +1566,7 @@ context_sensative_dialog_guy_pain()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1, 0, 0 ) );
+                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_pain" );
@@ -1583,7 +1583,7 @@ context_sensative_dialog_secondary_explosion_vehicle()
         if ( isdefined( var_0 ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0, 5.0, ( 0, 0, 1 ) );
+                thread _id_26AB( level.playercardbackground.origin, var_0, 5.0, ( 0.0, 0.0, 1.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "explosion", "secondary" );
@@ -1604,7 +1604,7 @@ context_sensative_dialog_kill( var_0, var_1 )
     if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
     {
         if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-            thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1, 1, 0 ) );
+            thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1.0, 1.0, 0.0 ) );
     }
 }
 
@@ -1967,7 +1967,7 @@ _id_2683( var_0, var_1, var_2, var_3, var_4 )
 _id_26AB( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
-        var_3 = ( 1, 1, 1 );
+        var_3 = ( 1.0, 1.0, 1.0 );
 
     for ( var_4 = 0; var_4 < var_2 * 20; var_4++ )
         wait 0.05;

@@ -36,7 +36,7 @@ _id_4476( var_0 )
     self._id_5524 = undefined;
     thread _id_7283();
     var_1 = anglestoforward( var_0.angles );
-    var_2 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     thread _id_91A1( var_2 );
     var_2.origin = var_0.origin + var_1 * 500;
 
@@ -269,7 +269,7 @@ _id_8A91( var_0, var_1 )
     var_0 moveto( self._id_5524, var_4 );
     wait(var_4);
     var_5 = var_0.origin;
-    var_0 moveto( var_0.origin + var_2 * 80 + ( 0, 0, -25 ), 3, 1, 1 );
+    var_0 moveto( var_0.origin + var_2 * 80 + ( 0.0, 0.0, -25.0 ), 3, 1, 1 );
     wait 3.5;
     var_0 moveto( var_5 + var_2 * -20, 3, 1, 1 );
     wait 1;
@@ -288,7 +288,7 @@ _id_3E80( var_0, var_1, var_2 )
 
     var_4 = var_2 - var_1;
     var_4 = ( var_4[0] / var_3, var_4[1] / var_3, var_4[2] / var_3 );
-    var_5 = ( 0, 0, 0 );
+    var_5 = ( 0.0, 0.0, 0.0 );
     var_6 = undefined;
 
     for ( var_7 = 0; var_7 < var_3 + 2; var_7++ )

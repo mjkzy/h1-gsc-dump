@@ -25,7 +25,7 @@ main( var_0, var_1, var_2 )
     maps\_vehicle::_id_186C( "uaz_ac130", var_0, var_1, var_2 );
     maps\_vehicle::_id_1859( ::_id_4D10 );
     maps\_vehicle::_id_1845( "vehicle_uaz_hardtop_thermal", "vehicle_uaz_hardtop_thermal" );
-    maps\_vehicle::_id_1862( ( 0, 0, 32 ), 300, 200, 100, 0 );
+    maps\_vehicle::_id_1862( ( 0.0, 0.0, 32.0 ), 300, 200, 100, 0 );
     maps\_vehicle::_id_1842( "fx/explosions/small_vehicle_explosion", undefined, "explo_metal_rand" );
     maps\_vehicle::_id_1849( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
     maps\_vehicle::_id_1846( 1, 1.6, 500 );

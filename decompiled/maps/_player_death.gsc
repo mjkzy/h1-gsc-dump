@@ -33,7 +33,7 @@ death_behavior()
 
     if ( isdefined( var_3 ) )
     {
-        var_4 = level.playercardbackground.origin - level.playercardbackground geteye() + ( 0, 0, 35 );
+        var_4 = level.playercardbackground.origin - level.playercardbackground geteye() + ( 0.0, 0.0, 35.0 );
         var_5 = spawn( "script_model", level.playercardbackground.origin + ( 0, 0, var_4[2] ) );
         var_5.angles = ( -10, level.playercardbackground.angles[2], 30 );
         var_5 linkto( var_3 );

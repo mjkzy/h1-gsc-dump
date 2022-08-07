@@ -36,7 +36,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -78,7 +78,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -120,7 +120,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -162,7 +162,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -204,7 +204,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -246,7 +246,7 @@ main()
     var_0._id_8FD2 = 0.5;
     var_0._id_8FBF = 0.5;
     var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0, 0, 0 );
+    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
     var_0._id_8FBD = 0;
     var_0._id_8FC9 = 1;
     var_0._id_615E = 1;
@@ -257,7 +257,7 @@ main()
     var_0._id_479E = 0;
     var_0._id_47A0 = 1000;
     var_0._id_0DB4 = 1;
-    var_0._id_0DC4 = ( 0.851562, 0.93042, 1 );
+    var_0._id_0DC4 = ( 0.851562, 0.93042, 1.0 );
     var_0._id_0DB7 = ( 0.5, 0.5, 0.5 );
     var_0._id_0DB9 = 0.0625;
     var_0._id_0DB8 = 0.0390625;
@@ -279,6 +279,6 @@ main()
 _id_8FCC()
 {
     var_0 = maps\_utility::_id_23DB( "default" );
-    var_0.precache = ( -21.4618, 129.498, 0 );
+    var_0.precache = ( -21.4618, 129.498, 0.0 );
     maps\_art::_id_8FCD( "default", 0 );
 }

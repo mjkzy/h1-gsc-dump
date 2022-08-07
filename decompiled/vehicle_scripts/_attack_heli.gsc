@@ -104,7 +104,7 @@ _id_136E( var_0, var_1 )
 
     if ( level._id_3BFE == 0 || level._id_3BFE == 1 )
     {
-        var_2 = spawn( "script_origin", var_0.origin + ( 0, 0, -20 ) );
+        var_2 = spawn( "script_origin", var_0.origin + ( 0.0, 0.0, -20.0 ) );
         var_2 linkto( var_0 );
         var_0 thread common_scripts\utility::_id_2825( var_2 );
         var_3 = undefined;
@@ -320,19 +320,19 @@ _id_5319( var_0, var_1 )
             case "mi17":
             case "nh90":
             case "mi28":
-                target_set( var_0, ( 0, 0, -80 ) );
+                target_set( var_0, ( 0.0, 0.0, -80.0 ) );
                 break;
             case "hind":
             case "hind_blackice":
             case "ny_harbor_hind":
-                target_set( var_0, ( 0, 0, -96 ) );
+                target_set( var_0, ( 0.0, 0.0, -96.0 ) );
                 break;
             case "apache":
-                target_set( var_0, ( 0, 0, -96 ) );
+                target_set( var_0, ( 0.0, 0.0, -96.0 ) );
                 break;
             case "littlebird":
             case "littlebird_spotlight":
-                target_set( var_0, ( 0, 0, -80 ) );
+                target_set( var_0, ( 0.0, 0.0, -80.0 ) );
                 break;
             default:
                 break;
@@ -622,7 +622,7 @@ _id_47A8()
     if ( !isdefined( self._id_338A ) )
         return 0;
 
-    var_0 = self._id_338A.origin + ( 0, 0, 32 );
+    var_0 = self._id_338A.origin + ( 0.0, 0.0, 32.0 );
 
     if ( isplayer( self._id_338A ) )
         var_0 = self._id_338A geteye();
@@ -906,7 +906,7 @@ _id_9954( var_0, var_1, var_2 )
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        self setturrettargetent( var_0, common_scripts\utility::_id_712D( 50 ) + ( 0, 0, 32 ) );
+        self setturrettargetent( var_0, common_scripts\utility::_id_712D( 50 ) + ( 0.0, 0.0, 32.0 ) );
 
         if ( self._id_0AAF && !self._id_3805 )
             self fireweapon();
@@ -1005,7 +1005,7 @@ _id_9971( var_0, var_1 )
 
     if ( !isplayer( var_0 ) && isai( var_0 ) && level._id_0E3B == 0 )
     {
-        var_2 = spawn( "script_origin", var_0.origin + ( 0, 0, 100 ) );
+        var_2 = spawn( "script_origin", var_0.origin + ( 0.0, 0.0, 100.0 ) );
         var_2 linkto( var_0 );
         thread _id_5C6A( var_2 );
         var_0 = var_2;
@@ -1071,7 +1071,7 @@ _id_1A50( var_0 )
     self endon( "death" );
     self endon( "heli_players_dead" );
     var_1 = self gettagorigin( "tag_flash" );
-    var_2 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( isplayer( var_0 ) )
         var_2 = var_0 geteye();
@@ -1362,7 +1362,7 @@ _id_47E3( var_0 )
         }
 
         if ( isdefined( var_1 ) )
-            self setturrettargetent( var_1, ( 0, 0, 0 ) );
+            self setturrettargetent( var_1, ( 0.0, 0.0, 0.0 ) );
     }
 }
 
@@ -1537,7 +1537,7 @@ _id_47EC()
     while ( isdefined( self ) )
     {
         wait 0.05;
-        self setturrettargetent( self._id_91C4, ( 0, 0, 0 ) );
+        self setturrettargetent( self._id_91C4, ( 0.0, 0.0, 0.0 ) );
     }
 }
 
@@ -1667,7 +1667,7 @@ _id_1562( var_0, var_1 )
         var_3[var_4] = spawn( "script_origin", var_1[var_4].origin );
         var_0 setvehweapon( "littlebird_FFAR" );
         var_0 setturrettargetent( var_3[var_4] );
-        var_5 = var_0 fireweapon( var_2[var_4 % var_2.size], var_3[var_4], ( 0, 0, 0 ) );
+        var_5 = var_0 fireweapon( var_2[var_4 % var_2.size], var_3[var_4], ( 0.0, 0.0, 0.0 ) );
         var_5 common_scripts\utility::_id_27CD( 1, ::_meth_81de );
         wait(randomfloatrange( 0.2, 0.3 ));
     }

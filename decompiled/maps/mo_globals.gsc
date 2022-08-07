@@ -769,7 +769,7 @@ interactive_wallthink()
 interactive_cardboardboxthink()
 {
     self setcandamage( 1 );
-    var_0 = ( 0, 0, 1 );
+    var_0 = ( 0.0, 0.0, 1.0 );
     var_1 = 5;
 
     for (;;)

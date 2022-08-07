@@ -48,7 +48,7 @@ main( var_0, var_1, var_2 )
     maps\_vehicle::_id_1857( var_2, "brakelight_truck_left", "tag_taillight_left", "fx/misc/car_brakelight_truck_L", "brakelights" );
     maps\_vehicle::_id_183F( 0.5, 3, 512, 700, "axis", "allies" );
     maps\_vehicle::_id_1840( 2.9 );
-    maps\_vehicle::_id_1862( ( 0, 0, 53 ), 512, 300, 20, 1, 2.9 );
+    maps\_vehicle::_id_1862( ( 0.0, 0.0, 53.0 ), 512, 300, 20, 1, 2.9 );
 }
 
 _id_7EFA( var_0 )

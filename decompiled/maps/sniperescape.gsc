@@ -477,7 +477,7 @@ snipe()
     soundscripts\_snd::_id_870C( "start_default_checkpoint" );
     objective_add( maps\sniperescape_wounding::getobj( "zakhaev" ), "active", &"SNIPERESCAPE_ELIMINATE_IMRAN_ZAKHAEV", maps\sniperescape_exchange::exchange_turret_org() );
     setsaveddvar( "xanim_disableFootIKOutsidePlayerView", 0 );
-    level.playercardbackground setplayerangles( ( 9.8, -104, 0 ) );
+    level.playercardbackground setplayerangles( ( 9.8, -104.0, 0.0 ) );
     maps\_utility::enable_scuff_footsteps_sound( 0 );
     thread maps\sniperescape_exchange::exchange_wind_flunctuates();
     thread maps\sniperescape_exchange::exchange_heli();
@@ -585,7 +585,7 @@ exchange_uaz()
     level.flashback_guys_uaz = maps\sniperescape_wounding::get_ent_with_key_from_array( var_1, "flashback_guys_uaz", "script_noteworthy" );
     level.flashback_guys_uaz thread maps\sniperescape_exchange::flashback_uaz_stop_while_driverdead();
     var_3 = getent( "jeep_window", "targetname" );
-    var_3 linkto( var_2, "body_animate_jnt", ( -20, 0, 54 ), ( 0, 180, 0 ) );
+    var_3 linkto( var_2, "body_animate_jnt", ( -20.0, 0.0, 54.0 ), ( 0.0, 180.0, 0.0 ) );
     wait 2;
     common_scripts\utility::_id_384A( "player_on_barret" );
     common_scripts\utility::_id_0CF0( var_1, maps\_vehicle::_id_427A );
@@ -597,9 +597,9 @@ exchange_uaz()
 price_watches( var_0 )
 {
     self._id_0C72 = "price";
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( level._id_78B5["binocs"] );
-    var_1 linkto( self, "TAG_INHAND", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 linkto( self, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.binocs = var_1;
     var_2 = getent( self._not_team, "targetname" );
     var_2 maps\_anim::_id_0C24( self, "intro_spotter" );
@@ -861,8 +861,8 @@ start_run()
     var_2 = getent( "tele_org", "targetname" );
     level.move_in_trigger_used = [];
     common_scripts\utility::_id_76BB( "move_in_trigger", maps\sniperescape_code::move_in );
-    level.playercardbackground setplayerangles( ( 0, 0, 0 ) );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -34341 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 0.0, 0.0 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setorigin( var_2.origin );
@@ -923,8 +923,8 @@ start_apartment()
     common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apartment_org", "targetname" );
     var_2 = getent( "player_apartment_org", "targetname" );
-    level.playercardbackground setplayerangles( ( 0, 0, 0 ) );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -34341 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 0.0, 0.0 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setorigin( var_2.origin );
@@ -1012,7 +1012,7 @@ start_wounding()
     var_1 = getent( "price_apart_org", "targetname" );
     var_2 = getent( "player_apart_org", "targetname" );
     level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -34341 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setorigin( var_2.origin );
@@ -1036,7 +1036,7 @@ _id_8B7C()
     var_1 = getent( "price_apart_org", "targetname" );
     var_2 = getent( "player_wounding_org", "targetname" );
     level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -34341 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     var_3 = getnode( "price_wounding_node", "targetname" );
     var_3 maps\_anim::_id_0C43( level._id_6F7C, "crash" );
@@ -1175,7 +1175,7 @@ start_wounded()
     var_2 = getnode( "price_apartment_destination_node", "targetname" );
     var_3 = getent( "player_post_wound_org", "targetname" );
     level.playercardbackground setplayerangles( var_3.angles );
-    level.playercardbackground setorigin( var_3.origin + ( 0, 0, -34341 ) );
+    level.playercardbackground setorigin( var_3.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_2.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setorigin( var_3.origin );
@@ -1239,7 +1239,7 @@ start_burnt()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_burnt_org", "targetname" );
     var_3 = getent( "price_burnt_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -5150 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setplayerangles( var_2.angles );
@@ -1263,7 +1263,7 @@ enter_burnt_apartment()
     thread maps\sniperescape_code::player_navigates_burnt_apartment();
     thread _id_6E2F();
     var_0 = getent( "level_end", "targetname" );
-    var_0.origin += ( 0, 150, 0 );
+    var_0.origin += ( 0.0, 150.0, 0.0 );
     thread fairgrounds_before_battle();
 }
 
@@ -1284,7 +1284,7 @@ start_pool()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_pool_org", "targetname" );
     var_3 = getent( "price_pool_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -5150 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setplayerangles( var_2.angles );
@@ -1346,7 +1346,7 @@ start_fair()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_fair_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -5150 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setplayerangles( var_2.angles );
@@ -1376,7 +1376,7 @@ start_fair_battle()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_gnoll", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -5150 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setplayerangles( var_2.angles );
@@ -1536,7 +1536,7 @@ start_seaknight()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_gnoll", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -5150 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
     maps\sniperescape_wounding::plant_price();
     level.playercardbackground setplayerangles( var_2.angles );
@@ -1593,7 +1593,7 @@ seaknight_flies_in( var_0 )
     var_2 thread maps\sniperescape_code::seaknight_badplace();
     var_2 maps\_utility::_id_0D61();
     var_7 = getent( "seaknight_collmap", "targetname" );
-    var_7 linkto( var_2, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_7 linkto( var_2, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     maps\_wibble::wibble_add_heli_to_track( level.seaknight );
     var_2 thread maps\sniperescape_wounding::seaknight_sound();
     var_8 = getent( "seaknight_trigger", "targetname" );
@@ -1616,7 +1616,7 @@ seaknight_flies_in( var_0 )
     var_3 thread maps\_anim::_id_0BE1( var_2, "idle", undefined, "stop_idle" );
     var_9 delete();
     maps\_utility::_id_62EC( maps\sniperescape_wounding::getobj( "holdout" ) );
-    var_12 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_12 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_12.origin = var_2 gettagorigin( "tag_door_rear" );
     var_12.rank = 27.7311;
     objective_add( maps\sniperescape_wounding::getobj( "seaknight" ), "active", &"SNIPERESCAPE_GET_CPT_MACMILLAN_TO", var_12.origin );

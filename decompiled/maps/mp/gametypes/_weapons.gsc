@@ -189,7 +189,7 @@ _id_1550()
 
 _id_23E6( var_0, var_1, var_2 )
 {
-    var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_3 hide();
     wait 0.05;
 
@@ -198,7 +198,7 @@ _id_23E6( var_0, var_1, var_2 )
 
     var_3 thread _id_154F( var_2 );
     var_3 setmodel( var_0 );
-    var_3 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_3 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_3 setcontents( 0 );
     self waittill( "death" );
 
@@ -1718,9 +1718,9 @@ _id_7FAB( var_0 )
         wait 0.05;
 
         if ( level.teambased )
-            maps\mp\_entityheadicons::_id_8028( var_0, ( 0, 0, 20 ) );
+            maps\mp\_entityheadicons::_id_8028( var_0, ( 0.0, 0.0, 20.0 ) );
         else if ( isdefined( self.owner ) )
-            maps\mp\_entityheadicons::_id_7FE5( self.owner, ( 0, 0, 20 ) );
+            maps\mp\_entityheadicons::_id_7FE5( self.owner, ( 0.0, 0.0, 20.0 ) );
     }
 }
 
@@ -1965,7 +1965,7 @@ _id_8482( var_0 )
     if ( isdefined( var_0.disabled ) )
         return 0;
 
-    var_1 = self.origin + ( 0, 0, 32 );
+    var_1 = self.origin + ( 0.0, 0.0, 32.0 );
     var_2 = var_1 - var_0.origin;
     var_3 = anglestoforward( var_0.angles );
     var_4 = vectordot( var_2, var_3 );
@@ -2430,7 +2430,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
 
     foreach ( var_17 in var_15 )
     {
-        var_11 = var_17.origin + ( 0, 0, 32 );
+        var_11 = var_17.origin + ( 0.0, 0.0, 32.0 );
         var_9 = distancesquared( var_0, var_11 );
 
         if ( var_9 < var_5 && ( !var_2 || _id_A2D6( var_0, var_11, var_3, var_17 ) ) )
@@ -2451,7 +2451,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
         if ( var_21.motiontrackerenabled != "projectile_bouncing_betty_grenade" && var_21.motiontrackerenabled != "ims_scorpion_body" )
             continue;
 
-        var_11 = var_21.origin + ( 0, 0, 32 );
+        var_11 = var_21.origin + ( 0.0, 0.0, 32.0 );
         var_9 = distancesquared( var_0, var_11 );
 
         if ( var_9 < var_5 && ( !var_2 || _id_A2D6( var_0, var_11, var_3, var_21 ) ) )
@@ -2518,11 +2518,11 @@ _id_A2D6( var_0, var_1, var_2, var_3 )
             thread _id_2731( var_1, ".undefined" );
 
         if ( var_7["fraction"] == 1 )
-            thread _id_2729( var_4, var_1, ( 1, 1, 1 ) );
+            thread _id_2729( var_4, var_1, ( 1.0, 1.0, 1.0 ) );
         else
         {
-            thread _id_2729( var_4, var_7["position"], ( 1, 0.9, 0.8 ) );
-            thread _id_2729( var_7["position"], var_1, ( 1, 0.4, 0.3 ) );
+            thread _id_2729( var_4, var_7["position"], ( 1.0, 0.9, 0.8 ) );
+            thread _id_2729( var_7["position"], var_1, ( 1.0, 0.4, 0.3 ) );
         }
     }
 
@@ -2541,7 +2541,7 @@ _id_259B( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         if ( self._id_50A8 && ( var_4 == "artillery_mp" || var_4 == "h1_claymore_mp" ) )
             return;
 
-        self.entity notify( "damage", var_2, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ), "MOD_EXPLOSIVE", "", "", "", undefined, var_4 );
+        self.entity notify( "damage", var_2, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "MOD_EXPLOSIVE", "", "", "", undefined, var_4 );
     }
 }
 
@@ -3044,7 +3044,7 @@ _id_89F5( var_0, var_1, var_2, var_3, var_4 )
     var_6 setotherent( var_1 );
     var_6._id_A2DF = "bouncingbetty_mp";
     level._id_5C5D[level._id_5C5D.size] = var_6;
-    var_6._id_5350 = ( 0, 0, 4 );
+    var_6._id_5350 = ( 0.0, 0.0, 4.0 );
     var_6._id_534D = spawn( "script_model", var_6.origin + var_6._id_5350 );
     var_6._id_534D setscriptmoverkillcam( "explosive" );
     var_1._id_334B = common_scripts\utility::_id_0D01( var_1._id_334B );
@@ -3213,10 +3213,10 @@ _id_5C4D()
     if ( isdefined( self.trigger ) )
         self.trigger delete();
 
-    var_0 = self.origin + ( 0, 0, 64 );
+    var_0 = self.origin + ( 0.0, 0.0, 64.0 );
     self moveto( var_0, 0.7, 0, 0.65 );
     self._id_534D moveto( var_0 + self._id_5350, 0.7, 0, 0.65 );
-    self rotatevelocity( ( 0, 750, 32 ), 0.7, 0, 0.65 );
+    self rotatevelocity( ( 0.0, 750.0, 32.0 ), 0.7, 0, 0.65 );
     thread _id_6DE1();
     wait 0.65;
     thread _id_5C5B();
@@ -3301,7 +3301,7 @@ _id_5C4E( var_0 )
             self.owner._id_334B[self.owner._id_334B.size] = self;
             self.team = var_0.team;
             self setotherent( var_0 );
-            self.trigger = spawn( "script_origin", self.origin + ( 0, 0, 25 ) );
+            self.trigger = spawn( "script_origin", self.origin + ( 0.0, 0.0, 25.0 ) );
             self.trigger.owner = self;
             _id_3347( var_0 );
             thread _id_5C4B();
@@ -3383,8 +3383,8 @@ _id_6DE1()
 
 _id_5C50( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_6[0] = ( 1, 0, 0 );
-    var_6[1] = ( 0, 1, 0 );
+    var_6[0] = ( 1.0, 0.0, 0.0 );
+    var_6[1] = ( 0.0, 1.0, 0.0 );
 
     if ( var_1[2] < var_5 )
         var_7 = 0;
@@ -3409,7 +3409,7 @@ _id_5C52( var_0, var_1 )
     if ( isplayer( var_1 ) && isalive( var_1 ) && var_1.sharpturnlookaheaddist == "playing" )
         var_2 = var_1 maps\mp\_utility::_id_40E7();
     else if ( var_1.classname == "misc_turret" )
-        var_2 = var_1.origin + ( 0, 0, 32 );
+        var_2 = var_1.origin + ( 0.0, 0.0, 32.0 );
     else
         var_2 = var_1.origin;
 
@@ -3487,7 +3487,7 @@ _id_5C62( var_0, var_1 )
     if ( !isdefined( var_0 ) )
         return;
 
-    var_2 = bullettrace( self.origin + ( 0, 0, 4 ), self.origin - ( 0, 0, 4 ), 0, self );
+    var_2 = bullettrace( self.origin + ( 0.0, 0.0, 4.0 ), self.origin - ( 0.0, 0.0, 4.0 ), 0, self );
     var_3 = var_2["position"];
 
     if ( var_2["fraction"] == 1 )
@@ -3498,9 +3498,9 @@ _id_5C62( var_0, var_1 )
 
     var_4 = vectornormalize( var_2["normal"] );
     var_5 = vectortoangles( var_4 );
-    var_5 += ( 90, 0, 0 );
+    var_5 += ( 90.0, 0.0, 0.0 );
     var_6 = _id_89F5( var_3, var_0, undefined, var_5, var_1 );
-    var_6.trigger = spawn( "script_origin", var_6.origin + ( 0, 0, 25 ) );
+    var_6.trigger = spawn( "script_origin", var_6.origin + ( 0.0, 0.0, 25.0 ) );
     var_6.trigger.owner = var_6;
     var_6 thread _id_334D( var_0 );
     var_0 thread _id_5C64( var_6 );

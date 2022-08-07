@@ -836,7 +836,7 @@ _id_595D( var_0, var_1, var_2 )
 
         var_14 = getmovedelta( var_0, 0, var_12 );
         var_15 = getangledelta3d( var_0, 0, var_12 );
-        var_16 = transformmove( var_5, var_6, ( 0, 0, 0 ), ( 0, 0, 0 ), var_14, var_15 );
+        var_16 = transformmove( var_5, var_6, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), var_14, var_15 );
         var_17 = var_16["origin"];
         var_18 = var_16["angles"];
         var_19 = self.lookforward;

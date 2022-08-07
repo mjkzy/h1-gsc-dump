@@ -60,7 +60,7 @@ _id_7E68()
     maps\_utility::_id_9E6E( "blackout_swamp_1", 0 );
     level.playercardbackground maps\_utility::set_light_set_player( "blackout_swamp_1" );
     level.playercardbackground _meth_848c( "clut_blackout", 0.0 );
-    enableouterspacemodellighting( ( 10000, 10000, 10000 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
+    enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
 }
 
 setup_fade_angle_lights()
@@ -247,7 +247,7 @@ handle_blackout_upstairs_spotlight()
 _id_8106()
 {
     maps\_lighting::_id_23B3( "firelight_motion_dim", ( 0.86, 0.5, 0.15 ), 10, 12, 0.15, 0.75 );
-    maps\_lighting::_id_23B3( "firelight_motion_medium", ( 1, 0.75, 0.35 ), 35, 12, 0.15, 0.75 );
+    maps\_lighting::_id_23B3( "firelight_motion_medium", ( 1.0, 0.75, 0.35 ), 35, 12, 0.15, 0.75 );
     maps\_lighting::_id_23B3( "firelight_motion_bright", ( 0.86, 0.5, 0.15 ), 80, 20, 0.2, 1.0 );
     maps\_lighting::_id_23B3( "firelight_motion_verybright", ( 0.86, 0.5, 0.15 ), 200, 30, 0.6, 1.5 );
     maps\_lighting::_id_23B3( "firelight_motion_ridonculous", ( 0.86, 0.5, 0.15 ), 4000, 40, 1, 2.5 );

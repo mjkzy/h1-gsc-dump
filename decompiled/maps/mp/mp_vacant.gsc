@@ -32,7 +32,7 @@ main()
     setdvar( "r_lightGridEnableTweaks", 1 );
     setdvar( "r_lightGridIntensity", 1.33 );
     thread delete_botconnect_clip();
-    maps\mp\_utility::hardpointtriggerswap( ( 718, -571, 4 ), "patch_hp_zone_trigger_3" );
+    maps\mp\_utility::hardpointtriggerswap( ( 718.0, -571.0, 4.0 ), "patch_hp_zone_trigger_3" );
 }
 
 delete_botconnect_clip()

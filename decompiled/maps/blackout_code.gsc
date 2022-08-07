@@ -218,9 +218,9 @@ guy_stops_animating_on_high_alert( var_0, var_1, var_2 )
 
 chess_guys_drop_weapon()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "weapon_" + self.weapon_switch_invalid );
-    var_0 linkto( self, "TAG_WEAPON_RIGHT", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "TAG_WEAPON_RIGHT", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     wait 1;
     var_0 unlink();
     maps\_utility::_id_4462();
@@ -897,7 +897,7 @@ sas_main_think()
         else
         {
             var_1 = spawn( "script_origin", ( -7603.46, -2327.64, 801.256 ) );
-            var_1.angles = ( 0, 82.128, 0 );
+            var_1.angles = ( 0.0, 82.128, 0.0 );
             var_1 maps\_anim::_id_0BFF( self, "overlook_gunaway" );
         }
 
@@ -1115,7 +1115,7 @@ h1_burning_house_kick_door( var_0 )
     var_2 = getent( var_0 + "_door_org", "targetname" );
     var_3 = getent( "burning_door_model", "targetname" );
     var_3 linkto( var_1 );
-    var_1 rotateto( var_1.angles + ( 0, 110, 0 ), 0.7, 0.4, 0.3 );
+    var_1 rotateto( var_1.angles + ( 0.0, 110.0, 0.0 ), 0.7, 0.4, 0.3 );
     var_4 = 0.7;
     soundscripts\_snd::_id_870C( "aud_open_door_meeting" );
     wait(var_4 - 0.3);
@@ -2018,7 +2018,7 @@ physics_launch_think()
     var_8 = var_7.origin;
     var_9 = var_7.origin - self.origin;
     var_9 = maps\_utility::vector_multiply( var_9, 100 );
-    var_10 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_10 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_10.angles = self.angles;
     var_10.origin = self.origin;
     var_10 setmodel( self.motiontrackerenabled );
@@ -2225,7 +2225,7 @@ farm_rpg_guy_attacks_bm21s()
     if ( isalive( var_1 ) )
     {
         self _meth_816b( var_1 );
-        var_2 = missile_createattractororigin( var_1.origin + ( 0, 0, 50 ), 5000, 500 );
+        var_2 = missile_createattractororigin( var_1.origin + ( 0.0, 0.0, 50.0 ), 5000, 500 );
         var_1.helmet = 500;
         var_1 waittill( "death" );
         var_1 thread maps\_utility::_id_69C4( "scn_blackout_bmp_explosion" );
@@ -2237,7 +2237,7 @@ farm_rpg_guy_attacks_bm21s()
     if ( isalive( var_3 ) )
     {
         self _meth_816b( var_3 );
-        var_2 = missile_createattractororigin( var_3.origin + ( 0, 0, 50 ), 5000, 500 );
+        var_2 = missile_createattractororigin( var_3.origin + ( 0.0, 0.0, 50.0 ), 5000, 500 );
         var_3.helmet = 500;
         var_3 waittill( "death" );
         var_3 thread maps\_utility::_id_69C4( "scn_blackout_bmp_explosion" );
@@ -2465,8 +2465,8 @@ hut_friendlies_chats_about_russians()
 
     if ( getdvarint( "use_old_captainprice_briefing" ) != 1 )
     {
-        var_4 = spawn( "script_origin", ( -15989.4, -10084.1, -163 ) );
-        var_4.angles = ( 0, -65.663, 0 );
+        var_4 = spawn( "script_origin", ( -15989.4, -10084.1, -163.0 ) );
+        var_4.angles = ( 0.0, -65.663, 0.0 );
         var_5 = maps\_utility::_id_590F( level._id_3C61, level._id_6F7C );
         var_4 thread maps\_anim::_id_0BC5( var_5, "captainpricebrief" );
         common_scripts\utility::_id_384A( "introscreen_complete" );
@@ -2631,7 +2631,7 @@ informant_org()
     if ( !common_scripts\utility::_id_382E( "player_in_house" ) )
     {
         var_0 = getent( "blackout_door", "targetname" );
-        return var_0.origin + ( 0, 0, 100 );
+        return var_0.origin + ( 0.0, 0.0, 100.0 );
     }
 
     var_1 = getent( "informant_org", "targetname" );
@@ -2885,10 +2885,10 @@ spawn_flashlighfx( var_0, var_1 )
     if ( isdefined( level._id_8A85[var_0] ) )
         return;
 
-    var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level._id_8A85[var_0] = var_2;
     var_2 setmodel( "tag_origin" );
-    var_2 linkto( self, "tag_light", ( var_1, 0, 0 ), ( 0, 0, 0 ) );
+    var_2 linkto( self, "tag_light", ( var_1, 0, 0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( common_scripts\utility::_id_3FA8( var_0 ), var_2, "tag_origin" );
 }
 
@@ -3218,7 +3218,7 @@ gaz_goes_to_cut_the_power_h1()
     var_0 = getnode( "power_node", "targetname" );
     level._id_3C61 _meth_81a9( var_0 );
     var_1 = spawn( "script_origin", ( -1042.69, -3254.42, 361.123 ) );
-    var_1.angles = ( 0, -45.133, 0 );
+    var_1.angles = ( 0.0, -45.133, 0.0 );
     var_2 = getent( "house_electric_box_animated", "targetname" );
     var_2 maps\_utility::_id_0D61( "electrical_box_animated" );
     var_1 thread maps\_anim::_id_0BE1( var_2, "idle", undefined, "stop_loop_box" );
@@ -3523,7 +3523,7 @@ first_rpg_spawner_think()
     if ( isalive( var_0 ) )
     {
         self _meth_816b( var_0 );
-        var_1 = missile_createattractororigin( var_0.origin + ( 0, 0, 50 ), 5000, 500 );
+        var_1 = missile_createattractororigin( var_0.origin + ( 0.0, 0.0, 50.0 ), 5000, 500 );
         var_0.helmet = 500;
         var_0 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
         maps\_utility::_id_07BE( maps\_utility::_id_0694, 30 );
@@ -3557,7 +3557,7 @@ bmp_killer_spawner_think()
     if ( isalive( level.enemy_bmp ) )
     {
         self _meth_816b( level.enemy_bmp );
-        var_0 = missile_createattractororigin( level.enemy_bmp.origin + ( 0, 0, 0 ), 5000, 500 );
+        var_0 = missile_createattractororigin( level.enemy_bmp.origin + ( 0.0, 0.0, 0.0 ), 5000, 500 );
         level.enemy_bmp maps\_vehicle::_id_4258();
         level.enemy_bmp.helmet = 500;
         level.enemy_bmp maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
@@ -3691,7 +3691,7 @@ price_and_gaz_flash_hut()
 
     wait 0.5;
     var_1 = spawn( "script_origin", level._id_6F7C.node_relinquished.origin );
-    var_1.angles = level._id_6F7C.node_relinquished.angles + ( 0, 90, 0 );
+    var_1.angles = level._id_6F7C.node_relinquished.angles + ( 0.0, 90.0, 0.0 );
     var_1 thread maps\_anim::_id_0BC9( level._id_6F7C, "grenade_throw" );
     level._id_6F7C thread animscripts\shared::_id_2D06( "single anim", animscripts\combat_utility::h1_grenade_attach_detach_listener );
     var_2 = level._id_6F7C.groundentchanged;
@@ -3820,9 +3820,9 @@ get_prop( var_0 )
 
     if ( var_0 == "binocs" )
     {
-        var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_1 setmodel( level._id_78B5["binocs"] );
-        var_1 linkto( self, "TAG_INHAND", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_1 linkto( self, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 
     return var_1;
@@ -4353,7 +4353,7 @@ is_rappel_or_earlier_start()
 shoot_magic_rocket( var_0 )
 {
     var_1 = getent( var_0, "targetname" );
-    var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_2 setmodel( "tag_origin" );
     var_2.origin = var_1.origin;
     var_1 maps\_utility::script_lightset();
@@ -4390,13 +4390,13 @@ helicopter_searchlight_setup()
     self._id_8A85 = spawnturret( "misc_turret", self gettagorigin( "tag_barrel" ), "heli_spotlight" );
     self._id_8A85.angles = self gettagangles( "tag_barrel" );
     self._id_8A85 setmodel( "com_blackhawk_spotlight_off_mg_setup" );
-    self._id_8A85 linkto( self, "tag_barrel", ( 0, 0, -16 ), ( 0, 0, 0 ) );
+    self._id_8A85 linkto( self, "tag_barrel", ( 0.0, 0.0, -16.0 ), ( 0.0, 0.0, 0.0 ) );
     self._id_8A85 makeunusable();
     self._id_8A85 setmode( "manual" );
     self._id_8A85 _meth_8159( 25 );
     self._id_8A85._id_310D = 0;
     var_0 = spawn( "script_origin", self gettagorigin( "tag_ground" ) );
-    var_0 linkto( self, "tag_ground", ( 320, 0, -256 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_ground", ( 320.0, 0.0, -256.0 ), ( 0.0, 0.0, 0.0 ) );
     self._id_8A85.default_target = var_0;
 }
 
@@ -4430,7 +4430,7 @@ helicopter_set_spotlight_target( var_0 )
 spot_target( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_2 ) )
         var_2 = 350;

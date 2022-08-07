@@ -86,5 +86,5 @@ delayimpulsepainting()
     level notify( "delayImpulsePainting" );
     level endon( "delayImpulsePainting" );
     wait 1;
-    physicsexplosionsphere( ( 5492, -730, 100 ), 15, 0, 1, 0 );
+    physicsexplosionsphere( ( 5492.0, -730.0, 100.0 ), 15, 0, 1, 0 );
 }

@@ -199,8 +199,8 @@ onstartgametype()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sab_spawn_allies_start" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_sab_spawn_axis_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( "allies", "mp_sab_spawn" );
@@ -491,7 +491,7 @@ _id_1545( var_0, var_1 )
     setomnvar( "ui_bomb_timer", 1 );
     level._id_27BB = int( gettime() + level._id_1551 * 1000 );
     setgameendtime( level._id_27BB );
-    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level.sabbombmodel.origin + ( 0, 0, 1 ) );
+    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level.sabbombmodel.origin + ( 0.0, 0.0, 1.0 ) );
     var_3 = var_0 maps\mp\gametypes\_gameobjects::_id_3FFA();
 
     if ( var_3 == "_allies" )

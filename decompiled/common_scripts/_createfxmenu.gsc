@@ -22,16 +22,16 @@
 _id_4D16()
 {
     level._createfx._id_654C = [];
-    _id_0819( "vector", "origin", "Origin", ( 0, 0, 0 ), "fx", 1 );
-    _id_0819( "vector", "angles", "Angles", ( 0, 0, 0 ), "fx", 1 );
+    _id_0819( "vector", "origin", "Origin", ( 0.0, 0.0, 0.0 ), "fx", 1 );
+    _id_0819( "vector", "angles", "Angles", ( 0.0, 0.0, 0.0 ), "fx", 1 );
     _id_0819( "string", "fxid", "FX id", "nil", "fx" );
     _id_0819( "float", "delay", "Repeat rate/start delay", 0.5, "fx" );
     _id_0819( "string", "flag", "Flag", "nil", "exploder" );
     _id_0819( "string", "platform", "Platform", "all", "all" );
-    _id_0819( "vector", "tintcolor", "Tint Color", ( 1, 1, 1 ), "fx" );
+    _id_0819( "vector", "tintcolor", "Tint Color", ( 1.0, 1.0, 1.0 ), "fx" );
     _id_0819( "float", "tintalpha", "Tint Alpha", 1.0, "fx" );
-    _id_0819( "vector", "fadein", "Fade In(base, range, 0)", ( 0, 0, 0 ), "fx" );
-    _id_0819( "vector", "fadeout", "Fade Out(base, range, 0)", ( 0, 0, 0 ), "fx" );
+    _id_0819( "vector", "fadein", "Fade In(base, range, 0)", ( 0.0, 0.0, 0.0 ), "fx" );
+    _id_0819( "vector", "fadeout", "Fade Out(base, range, 0)", ( 0.0, 0.0, 0.0 ), "fx" );
     _id_0819( "float", "emissive", "Emissive", 1.0, "fx" );
     _id_0819( "float", "sizescale", "Scale", 1.0, "fx" );
 
@@ -328,7 +328,7 @@ _id_5BAD()
 
 _id_378E( var_0 )
 {
-    var_0.v["angles"] = vectortoangles( var_0.v["origin"] + ( 0, 0, 100 ) - var_0.v["origin"] );
+    var_0.v["angles"] = vectortoangles( var_0.v["origin"] + ( 0.0, 0.0, 100.0 ) - var_0.v["origin"] );
     var_0 common_scripts\_createfx::_id_6E6D();
     common_scripts\_createfx::_id_1EB5();
     common_scripts\_createfx::_id_7C5F();
@@ -394,7 +394,7 @@ _id_6F15( var_0, var_1 )
     }
 
     level._id_240D = 1;
-    level._createfx._id_4AE9[var_1 + 1][0].color = ( 1, 1, 0 );
+    level._createfx._id_4AE9[var_1 + 1][0].color = ( 1.0, 1.0, 0.0 );
 
     if ( isdefined( var_0["input_func"] ) )
         thread [[ var_0["input_func"] ]]( var_1 + 1 );

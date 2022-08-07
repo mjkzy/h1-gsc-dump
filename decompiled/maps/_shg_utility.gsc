@@ -575,11 +575,11 @@ _id_2A56()
     {
         self._id_2A5B = var_0;
         self._id_2A5A = self.origin;
-        self._id_2A5C = ( 0, 0, 0 );
-        self._id_2A59 = ( 0, 0, 0 );
-        self._id_2A58 = ( 0, 0, 0 );
-        self._id_2A57 = ( 0, 0, 0 );
-        self._id_2A5E = ( 0, 0, 0 );
+        self._id_2A5C = ( 0.0, 0.0, 0.0 );
+        self._id_2A59 = ( 0.0, 0.0, 0.0 );
+        self._id_2A58 = ( 0.0, 0.0, 0.0 );
+        self._id_2A57 = ( 0.0, 0.0, 0.0 );
+        self._id_2A5E = ( 0.0, 0.0, 0.0 );
         self._id_2A5D = 0;
     }
     else if ( self._id_2A5B != var_0 )
@@ -787,7 +787,7 @@ _id_6955( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_3 ) && var_3 )
     {
         var_4.tag_rail_master_off = common_scripts\utility::_id_8959();
-        var_4.tag_rail_master_off linkto( var_1, var_4.tag_aim_animated, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_4.tag_rail_master_off linkto( var_1, var_4.tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         playfxontag( var_4._id_3B58, var_4.tag_rail_master_off, "tag_origin" );
         _id_5314( var_4 );
     }
@@ -1066,7 +1066,7 @@ _id_195E( var_0, var_1, var_2, var_3 )
 _id_48B9( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( var_3 ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
 
     self endon( "death" );
     var_7 = common_scripts\utility::_id_8959();

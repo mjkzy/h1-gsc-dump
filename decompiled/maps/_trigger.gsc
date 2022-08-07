@@ -969,7 +969,7 @@ _id_9764( var_0 )
     var_0 endon( "death" );
     var_6 = 12;
     var_7 = [];
-    var_7[var_7.size] = ( 0, 0, 0 );
+    var_7[var_7.size] = ( 0.0, 0.0, 0.0 );
     var_7[var_7.size] = ( var_6, 0, 0 );
     var_7[var_7.size] = ( var_6 * -1, 0, 0 );
     var_7[var_7.size] = ( 0, var_6, 0 );
@@ -1665,12 +1665,12 @@ _id_4D75()
 
     var_2._id_8FC0 = var_7;
     var_2._id_8FBF = var_8 - var_7;
-    var_9 = ( 0, 0, 0 );
+    var_9 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_0._id_8FC6 ) )
         var_9 = var_0._id_8FC6;
 
-    var_10 = ( 0, 0, 0 );
+    var_10 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_1._id_8FC6 ) )
         var_10 = var_1._id_8FC6;
@@ -1897,7 +1897,7 @@ trigger_fog_preh1( var_0 )
         {
             var_0._id_8CB2 = var_0._id_8B66;
             var_0._id_8BD1 = 1;
-            var_0._id_8CB3 = ( 0, 0, 0 );
+            var_0._id_8CB3 = ( 0.0, 0.0, 0.0 );
             var_0._id_8CB1 = 0;
             var_0._id_8CB4 = 90;
             var_0._id_8CB5 = 1;
@@ -1925,7 +1925,7 @@ trigger_fog_preh1( var_0 )
         {
             var_0._id_314C = var_0._id_3124;
             var_0._id_3136 = 1;
-            var_0._id_314D = ( 0, 0, 0 );
+            var_0._id_314D = ( 0.0, 0.0, 0.0 );
             var_0._id_314B = 0;
             var_0._id_314E = 90;
             var_0._id_314F = 1;
@@ -2076,7 +2076,7 @@ _id_97FF( var_0 )
 
 _id_97C2( var_0 )
 {
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0.fx = [];
 
     foreach ( var_3 in level._id_2417 )
@@ -2260,7 +2260,7 @@ _id_9F40( var_0 )
                 wait 0.15;
 
             var_2 = var_0.script_fxid;
-            var_3 = ( 0, 0, 0 );
+            var_3 = ( 0.0, 0.0, 0.0 );
 
             if ( isplayer( self ) )
                 var_3 = self getvelocity();
@@ -2268,7 +2268,7 @@ _id_9F40( var_0 )
             if ( isai( self ) )
                 var_3 = self.visionsetnakedduration;
 
-            var_1 = distance( var_3, ( 0, 0, 0 ) );
+            var_1 = distance( var_3, ( 0.0, 0.0, 0.0 ) );
 
             if ( var_1 < 5 )
                 var_2 = "null";
@@ -2276,9 +2276,9 @@ _id_9F40( var_0 )
             if ( var_2 != "null" )
             {
                 var_4 = vectornormalize( ( var_3[0], var_3[1], 0 ) );
-                var_5 = anglestoforward( vectortoangles( var_4 ) + ( 270, 180, 0 ) );
-                var_6 = self.origin + ( 0, 0, 64 );
-                var_7 = self.origin - ( 0, 0, 150 );
+                var_5 = anglestoforward( vectortoangles( var_4 ) + ( 270.0, 180.0, 0.0 ) );
+                var_6 = self.origin + ( 0.0, 0.0, 64.0 );
+                var_7 = self.origin - ( 0.0, 0.0, 150.0 );
                 var_8 = bullettrace( var_6, var_7, 0, undefined );
 
                 if ( isdefined( var_0._id_7AEB ) )
@@ -2294,7 +2294,7 @@ _id_9F40( var_0 )
                 {
                     var_10 = vectornormalize( vectorcross( var_8["normal"], vectorcross( var_4, var_8["normal"] ) ) );
 
-                    if ( var_8["normal"] != ( 0, 0, 0 ) && var_10 != ( 0, 0, 0 ) )
+                    if ( var_8["normal"] != ( 0.0, 0.0, 0.0 ) && var_10 != ( 0.0, 0.0, 0.0 ) )
                         playfx( var_9, var_6, var_8["normal"], var_10 );
                 }
                 else
@@ -2388,7 +2388,7 @@ _id_9F3E( var_0 )
                             {
                                 var_14 = common_scripts\utility::_id_3FA8( var_7 );
                                 var_11 = var_13["position"];
-                                var_15 = vectortoangles( var_13["normal"] + ( 90, 0, 0 ) );
+                                var_15 = vectortoangles( var_13["normal"] + ( 90.0, 0.0, 0.0 ) );
                                 var_16 = anglestoforward( var_15 );
                                 var_17 = anglestoup( var_15 );
                                 playfx( var_14, var_11, var_17, var_16 );
@@ -2412,7 +2412,7 @@ _id_9F3E( var_0 )
                 if ( !isdefined( level._id_301F ) )
                 {
                     if ( var_8 != "null" )
-                        _id_89A8( var_8, ( 500, 0, 0 ), ( 180, 0, 0 ) );
+                        _id_89A8( var_8, ( 500.0, 0.0, 0.0 ), ( 180.0, 0.0, 0.0 ) );
                 }
             }
 
@@ -2431,10 +2431,10 @@ _id_9F3E( var_0 )
 _id_89A8( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     var_3 = common_scripts\utility::_id_3FA8( var_0 );
     level._id_301F = common_scripts\utility::_id_8959();

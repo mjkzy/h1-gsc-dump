@@ -1176,11 +1176,11 @@ _id_3EB9( var_0, var_1, var_2, var_3 )
 
 _id_2F65( var_0 )
 {
-    var_1 = physicstrace( var_0 + ( 0, 0, 100 ), var_0 + ( 0, 0, -100 ) );
+    var_1 = physicstrace( var_0 + ( 0.0, 0.0, 100.0 ), var_0 + ( 0.0, 0.0, -100.0 ) );
 
-    if ( var_1 == var_0 + ( 0, 0, -100 ) )
+    if ( var_1 == var_0 + ( 0.0, 0.0, -100.0 ) )
     {
-        var_2 = bullettrace( var_0 + ( 0, 0, 100 ), var_0 + ( 0, 0, -100 ), 0, undefined, 0, 0, 1, 0, 0 );
+        var_2 = bullettrace( var_0 + ( 0.0, 0.0, 100.0 ), var_0 + ( 0.0, 0.0, -100.0 ), 0, undefined, 0, 0, 1, 0, 0 );
 
         if ( var_2["position"] == var_1 )
             return var_0;
@@ -1277,10 +1277,10 @@ _id_2691()
             }
 
             foreach ( var_6 in var_4._id_2013 )
-                var_4 _id_2DA7( var_6._id_205B, ( 0.5, 0, 1 ) );
+                var_4 _id_2DA7( var_6._id_205B, ( 0.5, 0.0, 1.0 ) );
 
             foreach ( var_6 in var_4._id_2011 )
-                var_4 _id_2DA7( var_6._id_205B, ( 1, 0, 0.5 ) );
+                var_4 _id_2DA7( var_6._id_205B, ( 1.0, 0.0, 0.5 ) );
 
             foreach ( var_11 in var_4._id_2010 )
             {
@@ -1295,7 +1295,7 @@ _id_2691()
 
 _id_267D( var_0 )
 {
-    var_1 = ( 0.2, 0.2, 1 );
+    var_1 = ( 0.2, 0.2, 1.0 );
 
     if ( var_0 )
     {

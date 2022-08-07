@@ -134,11 +134,11 @@ _id_2697()
         if ( isdefined( var_1._id_4279 ) )
         {
             if ( var_1 _meth_813f() )
-                var_3 = ( 1, 0, 0 );
+                var_3 = ( 1.0, 0.0, 0.0 );
             else
-                var_3 = ( 0, 0, 1 );
+                var_3 = ( 0.0, 0.0, 1.0 );
 
-            var_4 = var_1.origin + ( 0, 0, 54 );
+            var_4 = var_1.origin + ( 0.0, 0.0, 54.0 );
 
             if ( isdefined( var_1.node_relinquished ) )
             {
@@ -275,7 +275,7 @@ _id_2DD6( var_0, var_1 )
         var_0 = 100;
 
     if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 1, 0 );
+        var_1 = ( 0.0, 1.0, 0.0 );
 
     for (;;)
     {
@@ -291,7 +291,7 @@ _id_2DE1()
 {
     for (;;)
     {
-        _id_2DD0( level.playercardbackground.origin, level.playercardbackground getplayerangles(), ( 1, 1, 1 ) );
+        _id_2DD0( level.playercardbackground.origin, level.playercardbackground getplayerangles(), ( 1.0, 1.0, 1.0 ) );
         wait 0.05;
     }
 }
@@ -839,7 +839,7 @@ _id_8507()
     var_0 = undefined;
     var_1 = undefined;
     var_0 = ( 15.1859, -12.2822, 4.071 );
-    var_1 = ( 947.2, -10918, 64.9514 );
+    var_1 = ( 947.2, -10918.0, 64.9514 );
 
     for (;;)
     {
@@ -940,7 +940,7 @@ _id_2680()
 _id_6265()
 {
     if ( !self.damageshield )
-        self kill( ( 0, 0, -500 ), level.playercardbackground, level.playercardbackground );
+        self kill( ( 0.0, 0.0, -500.0 ), level.playercardbackground, level.playercardbackground );
 }
 
 _id_26B1()
@@ -1211,7 +1211,7 @@ _id_9B37()
                     var_21 = 10000;
 
                 var_3 playerlinktoabsolute( var_9 );
-                var_9.origin = var_5 + ( 0, 0, -62 );
+                var_9.origin = var_5 + ( 0.0, 0.0, -62.0 );
                 var_9.angles = ( 90, getnorthyaw(), 0 );
                 var_3 giveweapon( "defaultweapon" );
                 setsaveddvar( "cg_fov", var_20 );
@@ -1307,7 +1307,7 @@ _id_2DDA( var_0, var_1, var_2 )
 _id_514C( var_0 )
 {
     var_1 = vectornormalize( var_0 - self getshootatpos() );
-    var_2 = vectornormalize( var_0 - ( 0, 0, 24 ) - self getshootatpos() );
+    var_2 = vectornormalize( var_0 - ( 0.0, 0.0, 24.0 ) - self getshootatpos() );
     var_3 = vectordot( var_1, var_2 );
     var_4 = anglestoforward( self getplayerangles() );
     var_5 = vectordot( var_4, var_1 );
@@ -1335,7 +1335,7 @@ _id_2687()
             continue;
 
         var_1[var_3.team][var_3._id_250C] = 1;
-        var_4 = ( 1, 1, 1 );
+        var_4 = ( 1.0, 1.0, 1.0 );
 
         if ( isdefined( var_3._id_79E6 ) )
             var_4 = level._id_2034[var_3._id_79E6];
@@ -1358,7 +1358,7 @@ _id_2DAA( var_0, var_1 )
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        var_4 = ( 1, 1, 1 );
+        var_4 = ( 1.0, 1.0, 1.0 );
         var_4 = level._id_2034[getsubstr( var_2[var_3], 0, 1 )];
 
         if ( isdefined( level._id_2057[var_1][var_2[var_3]] ) )
@@ -1408,7 +1408,7 @@ _id_3E91()
 
 _id_9891()
 {
-    var_0 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( self.node_relinquished ) )
         var_0 = self.node_relinquished.origin;
@@ -1485,8 +1485,8 @@ _id_2B6B( var_0, var_1 )
         var_2 = "Ignore";
 
     var_5 = 20;
-    var_6 = ( 1, 0.5, 0.2 );
-    var_7 = ( 0.2, 0.5, 1 );
+    var_6 = ( 1.0, 0.5, 0.2 );
+    var_7 = ( 0.2, 0.5, 1.0 );
     var_8 = !isplayer( self ) && self.pantssize;
 
     for ( var_9 = 0; var_9 <= var_5; var_9++ )
@@ -1742,7 +1742,7 @@ _id_93F1( var_0 )
 _id_5770( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( var_2 ) )
-        var_2 = ( 1, 1, 1 );
+        var_2 = ( 1.0, 1.0, 1.0 );
 
     if ( isdefined( var_5 ) )
     {

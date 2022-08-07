@@ -45,7 +45,7 @@ _id_8073()
 spawncamera( var_0 )
 {
     var_1 = ( -70.7675, -691.293, 507.472 );
-    var_2 = ( 0, 87, 0 );
+    var_2 = ( 0.0, 87.0, 0.0 );
     var_3 = common_scripts\utility::_id_40FB( "camera", "targetname" );
 
     if ( isdefined( var_3 ) )

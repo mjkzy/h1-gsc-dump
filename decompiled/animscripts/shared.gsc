@@ -602,7 +602,7 @@ _id_2F6E( var_0, var_1 )
     var_2 = spawn( "script_model", self gettagorigin( var_1 ) );
     var_2 setmodel( var_0 );
     var_2.angles = self gettagangles( var_1 );
-    var_2 physicslaunch( var_2.origin, ( 0, 0, 0 ) );
+    var_2 physicslaunch( var_2.origin, ( 0.0, 0.0, 0.0 ) );
     wait 10;
 
     if ( isdefined( var_2 ) )

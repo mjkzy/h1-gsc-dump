@@ -204,7 +204,7 @@ _id_7394()
 doartillery( var_0, var_1, var_2 )
 {
     level.airstrikeinprogress = 1;
-    var_3 = bullettrace( var_0, var_0 + ( 0, 0, -100000 ), 0, undefined, 0, 0, 0, 0, 0, 1 );
+    var_3 = bullettrace( var_0, var_0 + ( 0.0, 0.0, -100000.0 ), 0, undefined, 0, 0, 0, 0, 0, 1 );
     var_4 = var_3["position"];
     var_5 = level.mapcenter[2] - var_4[2];
 
@@ -342,11 +342,11 @@ losradiusdamage( var_0, var_1, var_2, var_3, var_4, var_5 )
 
         if ( var_6[var_7]._id_5175 )
         {
-            var_9 = !maps\mp\gametypes\_weapons::_id_A2D6( var_6[var_7].entity.origin, var_6[var_7].entity.origin + ( 0, 0, 130 ), 0, undefined );
+            var_9 = !maps\mp\gametypes\_weapons::_id_A2D6( var_6[var_7].entity.origin, var_6[var_7].entity.origin + ( 0.0, 0.0, 130.0 ), 0, undefined );
 
             if ( !var_9 )
             {
-                var_9 = !maps\mp\gametypes\_weapons::_id_A2D6( var_6[var_7].entity.origin + ( 0, 0, 130 ), var_0 + ( 0, 0, 114 ), 0, undefined );
+                var_9 = !maps\mp\gametypes\_weapons::_id_A2D6( var_6[var_7].entity.origin + ( 0.0, 0.0, 130.0 ), var_0 + ( 0.0, 0.0, 114.0 ), 0, undefined );
 
                 if ( var_9 )
                 {
@@ -413,7 +413,7 @@ _id_70D6( var_0, var_1, var_2, var_3 )
         if ( !isalive( var_4[var_5] ) )
             continue;
 
-        var_6 = var_4[var_5].origin + ( 0, 0, 32 );
+        var_6 = var_4[var_5].origin + ( 0.0, 0.0, 32.0 );
         var_7 = distance( var_0, var_6 );
 
         if ( var_7 < var_1 )
@@ -490,16 +490,16 @@ callstrike_bombeffect( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_7 = spawnbomb( var_0.origin, var_0.angles );
     var_7 movegravity( common_scripts\utility::vectorscale( anglestoforward( var_0.angles ), 4666.67 ), 3.0 );
     var_7.ownerrequireddeathcount = var_5;
-    var_8 = spawn( "script_model", var_0.origin + ( 0, 0, 100 ) - var_6 * 200 );
+    var_8 = spawn( "script_model", var_0.origin + ( 0.0, 0.0, 100.0 ) - var_6 * 200 );
     var_7._id_534D = var_8;
     var_8._id_8D41 = gettime();
     var_8 thread _id_2845( 15.0 );
     var_8.angles = var_6;
-    var_8 moveto( var_1 + ( 0, 0, 100 ), var_2, 0, 0 );
+    var_8 moveto( var_1 + ( 0.0, 0.0, 100.0 ), var_2, 0, 0 );
     wait 0.4;
     var_8 moveto( var_8.origin + var_6 * 4000, 1, 0, 0 );
     wait 0.45;
-    var_8 moveto( var_8.origin + ( var_6 + ( 0, 0, -0.2 ) ) * 3500, 2, 0, 0 );
+    var_8 moveto( var_8.origin + ( var_6 + ( 0.0, 0.0, -0.2 ) ) * 3500, 2, 0, 0 );
     wait 0.15;
     var_9 = spawn( "script_model", var_7.origin );
     var_9 setmodel( "tag_origin" );
@@ -511,16 +511,16 @@ callstrike_bombeffect( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_11 = var_9.angles;
     playfxontag( level._id_099B, var_9, "tag_origin" );
     wait 0.05;
-    var_8 moveto( var_8.origin + ( var_6 + ( 0, 0, -0.25 ) ) * 2500, 2, 0, 0 );
+    var_8 moveto( var_8.origin + ( var_6 + ( 0.0, 0.0, -0.25 ) ) * 2500, 2, 0, 0 );
     wait 0.25;
-    var_8 moveto( var_8.origin + ( var_6 + ( 0, 0, -0.35 ) ) * 2000, 2, 0, 0 );
+    var_8 moveto( var_8.origin + ( var_6 + ( 0.0, 0.0, -0.35 ) ) * 2000, 2, 0, 0 );
     wait 0.2;
-    var_8 moveto( var_8.origin + ( var_6 + ( 0, 0, -0.45 ) ) * 1500, 2, 0, 0 );
+    var_8 moveto( var_8.origin + ( var_6 + ( 0.0, 0.0, -0.45 ) ) * 1500, 2, 0, 0 );
     var_12 = 12;
     var_13 = 5;
     var_14 = 55;
     var_15 = ( var_14 - var_13 ) / var_12;
-    var_16 = ( 0, 0, 0 );
+    var_16 = ( 0.0, 0.0, 0.0 );
 
     for ( var_17 = 0; var_17 < var_12; var_17++ )
     {
@@ -529,7 +529,7 @@ callstrike_bombeffect( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_20 = bullettrace( var_10, var_19, 0, undefined );
         var_21 = var_20["position"];
         var_16 += var_21;
-        thread losradiusdamage( var_21 + ( 0, 0, 16 ), 512, 200, 30, var_4, var_7 );
+        thread losradiusdamage( var_21 + ( 0.0, 0.0, 16.0 ), 512, 200, 30, var_4, var_7 );
 
         if ( var_17 % 3 == 0 )
         {
@@ -541,7 +541,7 @@ callstrike_bombeffect( var_0, var_1, var_2, var_3, var_4, var_5 )
         wait 0.05;
     }
 
-    var_16 = var_16 / var_12 + ( 0, 0, 128 );
+    var_16 = var_16 / var_12 + ( 0.0, 0.0, 128.0 );
     var_8 moveto( var_7._id_534D.origin * 0.35 + var_16 * 0.65, 1.5, 0, 0.5 );
     wait 5.0;
     var_9 delete();
@@ -592,7 +592,7 @@ getbestplanedirection( var_0 )
 
     var_1 = -25;
     var_2 = 15;
-    var_3 = var_0 + ( 0, 0, 64 );
+    var_3 = var_0 + ( 0.0, 0.0, 64.0 );
     var_4 = randomfloat( 360 );
     var_5 = 0;
     var_6 = [];
@@ -1086,7 +1086,7 @@ useteamuav( var_0, var_1 )
     var_2.team = var_0;
     var_2.owner = self;
     var_2._id_99ED = "standard";
-    var_2.origin = ( 0, 0, 0 );
+    var_2.origin = ( 0.0, 0.0, 0.0 );
     var_2 _id_0858();
     var_2 _id_07C5();
     var_3 = level waitforradartoexpireorinterrupt( "radar_timer_kill_" + var_0 );
@@ -1110,7 +1110,7 @@ useplayeruav( var_0, var_1 )
     var_2.team = var_0;
     var_2.owner = self;
     var_2._id_99ED = "standard";
-    var_2.origin = ( 0, 0, 0 );
+    var_2.origin = ( 0.0, 0.0, 0.0 );
     var_2 _id_0858();
     var_2 _id_07C5();
     var_3 = waitforradartoexpireorinterrupt( "radar_timer_kill" );
@@ -1186,7 +1186,7 @@ useairstrike( var_0 )
 {
     if ( !isdefined( level.airstrikeheight ) )
     {
-        var_1 = bullettrace( level.mapcenter + ( 0, 0, 100000 ), level.mapcenter, 0, undefined );
+        var_1 = bullettrace( level.mapcenter + ( 0.0, 0.0, 100000.0 ), level.mapcenter, 0, undefined );
         level.airstrikeheight = var_1["position"][2] - 514;
     }
 

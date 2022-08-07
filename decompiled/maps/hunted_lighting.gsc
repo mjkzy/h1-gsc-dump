@@ -77,7 +77,7 @@ _id_7E68()
     setsaveddvar( "r_specularcolorscale", "2.3" );
     setsaveddvar( "sm_sunShadowScale", "0.5" );
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
-    enableouterspacemodellighting( ( 10000, 10000, 10000 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
+    enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
     apply_lighting_pass_hunted_outside( 0.0 );
 }
 
@@ -407,7 +407,7 @@ handle_barn_lighting_init()
     if ( isdefined( var_1 ) )
     {
         var_2 = maps\_cinematography::dyndof( "farmer" ) maps\_cinematography::dyndof_values( 4, -1, 5, 4 ) maps\_cinematography::dyndof_angles( -25, 25 ) maps\_cinematography::dyndof_priority( 2 );
-        var_2 maps\_cinematography::dyndof_reference_entity( var_1 ) maps\_cinematography::dyndof_offset( ( 0, 0, 30 ) ) maps\_cinematography::dyndof_require_visible( 1 );
+        var_2 maps\_cinematography::dyndof_reference_entity( var_1 ) maps\_cinematography::dyndof_offset( ( 0.0, 0.0, 30.0 ) ) maps\_cinematography::dyndof_require_visible( 1 );
     }
 }
 
@@ -661,13 +661,13 @@ apply_lighting_pass_hunted_helicrash()
 
 _id_8106()
 {
-    maps\_lighting::_id_23B3( "firelight_motion_01", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "firelight_motion_02", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "firelight_motion_03", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "firelight_motion_04", ( 1, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "fire_barrel_small_01", ( 1, 0.4, 0.1 ), 45, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "fire_barrel_small_02", ( 1, 0.65, 0.4 ), 28, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "fire_barrel_small_03", ( 1, 0.4, 0.1 ), 55, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_01", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_02", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_03", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "firelight_motion_04", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "fire_barrel_small_01", ( 1.0, 0.4, 0.1 ), 45, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "fire_barrel_small_02", ( 1.0, 0.65, 0.4 ), 28, 20, 0.1, 0.8 );
+    maps\_lighting::_id_23B3( "fire_barrel_small_03", ( 1.0, 0.4, 0.1 ), 55, 20, 0.1, 0.8 );
 }
 
 end_slomo_mix()

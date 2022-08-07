@@ -158,8 +158,8 @@ onstartgametype()
 
 initspawns()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( game["defenders"], "mp_dd_spawn" );
     maps\mp\gametypes\_spawnlogic::addstartspawnpoints( "mp_dd_spawn_defender_start" );
     maps\mp\gametypes\_spawnlogic::addspawnpoints( game["attackers"], "mp_dd_spawn" );
@@ -599,7 +599,7 @@ _id_1545( var_0, var_1 )
         var_0 maps\mp\gametypes\_gameobjects::_id_7FDA( level._id_65B3[var_1.team] );
 
     var_0 maps\mp\gametypes\common_bomb_gameobject::setupzonefordefusing( !maps\mp\_utility::_id_4E3F() );
-    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level.ddbombmodel[var_0.land].origin + ( 0, 0, 1 ) );
+    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level.ddbombmodel[var_0.land].origin + ( 0.0, 0.0, 1.0 ) );
     var_0 _id_1552( var_0 );
     maps\mp\_utility::_id_7FAE( var_0, undefined );
     var_0._id_9345 maps\mp\gametypes\common_bomb_gameobject::_id_8F06();
@@ -668,7 +668,7 @@ setbombtimerdvar()
 
 dropbombmodel( var_0, var_1 )
 {
-    var_2 = bullettrace( var_0.origin + ( 0, 0, 20 ), var_0.origin - ( 0, 0, 2000 ), 0, var_0 );
+    var_2 = bullettrace( var_0.origin + ( 0.0, 0.0, 20.0 ), var_0.origin - ( 0.0, 0.0, 2000.0 ), 0, var_0 );
     var_3 = randomfloat( 360 );
     var_4 = ( cos( var_3 ), sin( var_3 ), 0 );
     var_4 = vectornormalize( var_4 - var_2["normal"] * vectordot( var_4, var_2["normal"] ) );

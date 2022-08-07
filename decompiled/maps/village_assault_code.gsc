@@ -141,7 +141,7 @@ scriptcalls()
         thread disable_gameplay();
 
     wait 6.5;
-    objective_add( 0, "current", &"VILLAGE_ASSAULT_OBJECTIVE_LOCATE_ALASAD", ( 0, 0, 0 ) );
+    objective_add( 0, "current", &"VILLAGE_ASSAULT_OBJECTIVE_LOCATE_ALASAD", ( 0.0, 0.0, 0.0 ) );
 }
 
 disable_gameplay()
@@ -812,7 +812,7 @@ objective_updatenextwaypoints()
     var_1 = 0;
 
     for ( var_2 = 0; var_2 < level.suggested_objective_order.size; var_2++ )
-        objective_additionalposition( 0, var_2, ( 0, 0, 0 ) );
+        objective_additionalposition( 0, var_2, ( 0.0, 0.0, 0.0 ) );
 
     for ( var_3 = 0; var_3 < level.suggested_objective_order.size; var_3++ )
     {
@@ -1116,7 +1116,7 @@ findbestchopperwaypoint( var_0, var_1, var_2 )
 
     var_3 = level.playercardbackground.origin;
     var_4 = level.playercardbackground getplayerangles();
-    var_5 = var_4 + ( 0, 180, 0 );
+    var_5 = var_4 + ( 0.0, 180.0, 0.0 );
     var_6 = cos( var_1 );
 
     if ( !isdefined( var_2 ) )
@@ -1209,12 +1209,12 @@ chopper_ai_mode_aim_turret( var_0 )
         if ( !isdefined( var_0 ) )
             var_0 = var_1;
 
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
         if ( isdefined( var_0._id_7AED ) )
             var_2 += ( 0, 0, var_0._id_7AED );
         else if ( issentient( var_0 ) )
-            var_2 = ( 0, 0, 32 );
+            var_2 = ( 0.0, 0.0, 32.0 );
 
         self setturrettargetent( var_0, var_2 );
         wait(randomfloatrange( 0.2, 1.0 ));
@@ -1305,10 +1305,10 @@ getclosestinfov( var_0, var_1, var_2, var_3 )
 vehicle_c4_think()
 {
     var_0 = self getentitynumber();
-    var_1 = ( 0, -33, 10 );
-    var_2 = ( 0, 90, -90 );
-    var_3 = ( 129, 0, 35 );
-    var_4 = ( 0, 90, 144 );
+    var_1 = ( 0.0, -33.0, 10.0 );
+    var_2 = ( 0.0, 90.0, -90.0 );
+    var_3 = ( 129.0, 0.0, 35.0 );
+    var_4 = ( 0.0, 90.0, 144.0 );
     level.vehicle_c4_models = [];
     level.vehicle_c4_models[0] = maps\_c4::c4_location( "rear_hatch_open_jnt_left", var_1, var_2 );
     level.vehicle_c4_models[1] = maps\_c4::c4_location( "tag_origin", var_3, var_4 );
@@ -1337,7 +1337,7 @@ _id_9CA1( var_0 )
     radiusdamage( self.origin, 256, 200, 100 );
 
     if ( distancesquared( self.origin, level.playercardbackground.origin ) <= 65536 )
-        level.playercardbackground dodamage( level.playercardbackground.helmet / 3, ( 0, 0, 0 ) );
+        level.playercardbackground dodamage( level.playercardbackground.helmet / 3, ( 0.0, 0.0, 0.0 ) );
 }
 
 _id_0926( var_0 )
@@ -1369,7 +1369,7 @@ _id_3CB9( var_0, var_1, var_2 )
 roaming_bmp()
 {
     var_0 = maps\_vehicle::waittill_vehiclespawn( "roaming_bmp" );
-    target_set( var_0, ( 0, 0, 32 ) );
+    target_set( var_0, ( 0.0, 0.0, 32.0 ) );
     target_setjavelinonly( var_0, 1 );
     var_0 thread vehicle_patrol_think();
     var_0 thread vehicle_turret_think();
@@ -1544,7 +1544,7 @@ vehicle_turret_think()
 
         if ( isdefined( var_0 ) )
         {
-            self setturrettargetent( var_0, ( 0, 0, 32 ) );
+            self setturrettargetent( var_0, ( 0.0, 0.0, 32.0 ) );
             common_scripts\utility::_id_A0A0( "turret_rotate_stopped", randomfloatrange( 2.0, 3.0 ) );
             var_1 = weaponfiretime( "bmp_turret" );
             var_2 = randomintrange( 3, 8 );
@@ -1649,7 +1649,7 @@ display_air_support_hint_console()
     level._id_4B40 = maps\_hud_util::_id_2420( "hud_arrow_right", 24, 24 );
     level._id_4B40 maps\_hud_util::_id_7FEE( "TOP", undefined, -31.5, 170 );
     level._id_4B40.space = 1;
-    level._id_4B40.color = ( 1, 1, 0 );
+    level._id_4B40.color = ( 1.0, 1.0, 0.0 );
     level._id_4B40.alpha = 0.7;
     level._id_4B3F = maps\_hud_util::_id_2420( "hud_icon_cobra", 64, 32 );
     level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, 16, 165 );
@@ -1772,12 +1772,12 @@ alasad_deletable_hide()
     if ( isdefined( self.specialgrenade ) && self.specialgrenade & 1 )
         self connectpaths();
 
-    self.origin -= ( 0, 0, 5000 );
+    self.origin -= ( 0.0, 0.0, 5000.0 );
 }
 
 alasad_deletable_show()
 {
-    self.origin += ( 0, 0, 5000 );
+    self.origin += ( 0.0, 0.0, 5000.0 );
 
     if ( isdefined( self.specialgrenade ) && self.specialgrenade & 1 )
         self disconnectpaths();
@@ -1852,8 +1852,8 @@ do_alasad( var_0 )
         var_1.setupareainteriortriggertargetname = "alasad_barn_area_interior";
         var_1.setupareaexteriortriggertargetname = "alasad_barn_area_exterior";
         var_1.aitodeleteareatargetname = "area_barn";
-        var_1.door_offset_origin = ( -3, 0, 0 );
-        var_1.door_offset_angle = ( 0, -10, 0 );
+        var_1.door_offset_origin = ( -3.0, 0.0, 0.0 );
+        var_1.door_offset_angle = ( 0.0, -10.0, 0.0 );
         level.alasad_flashbang_location = getent( "alasad_barn_flash_location", "targetname" ).origin;
         level.alasad_objective_location = "6";
     }
@@ -1874,8 +1874,8 @@ do_alasad( var_0 )
         var_1.setupareainteriortriggertargetname = "alasad_house_area_interior";
         var_1.setupareaexteriortriggertargetname = "alasad_house_area_exterior";
         var_1.aitodeleteareatargetname = "area_grandmas_house";
-        var_1.door_offset_origin = ( 0, -2, 2 );
-        var_1.door_offset_angle = ( 0, -8, 0 );
+        var_1.door_offset_origin = ( 0.0, -2.0, 2.0 );
+        var_1.door_offset_angle = ( 0.0, -8.0, 0.0 );
         level.alasad_flashbang_location = getent( "alasad_house_flash_location", "targetname" ).origin;
         level.alasad_objective_location = "2";
     }
@@ -2258,8 +2258,8 @@ opening_sequence()
 
     if ( getdvarint( "use_old_intro" ) != 1 )
     {
-        var_0 = spawn( "script_origin", ( 1376, -3520, -594.729 ) );
-        var_0.angles = ( 0, 180, 0 );
+        var_0 = spawn( "script_origin", ( 1376.0, -3520.0, -594.729 ) );
+        var_0.angles = ( 0.0, 180.0, 0.0 );
     }
 
     thread opening_head_tracking();
@@ -2385,10 +2385,10 @@ flashlight_light( var_0 )
 
     if ( var_0 )
     {
-        var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_2 setmodel( "tag_origin" );
         var_2 hide();
-        var_2 linkto( self, var_1, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_2 linkto( self, var_1, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         thread flashlight_light_death( var_2 );
         playfxontag( level._effect["flashlight"], var_2, "tag_origin" );
     }

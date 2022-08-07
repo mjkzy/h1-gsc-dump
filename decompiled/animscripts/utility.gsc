@@ -598,9 +598,9 @@ _id_8518( var_0 )
         return;
 
     if ( self.enemy.team == "allies" )
-        var_1 = ( 0.4, 0.7, 1 );
+        var_1 = ( 0.4, 0.7, 1.0 );
     else
-        var_1 = ( 1, 0.7, 0.4 );
+        var_1 = ( 1.0, 0.7, 0.4 );
 
     for (;;)
     {
@@ -675,9 +675,9 @@ _id_272F( var_0, var_1, var_2 )
     var_3 endon( "timeout" );
 
     if ( self.enemy.team == "allies" )
-        var_4 = ( 0.4, 0.7, 1 );
+        var_4 = ( 0.4, 0.7, 1.0 );
     else
-        var_4 = ( 1, 0.7, 0.4 );
+        var_4 = ( 1.0, 0.7, 0.4 );
 
     for (;;)
         wait 0.05;
@@ -707,8 +707,8 @@ _id_271D( var_0, var_1 )
     else
         var_3 = "long burst";
 
-    thread _id_2730( self.origin + ( 0, 0, 42 ), var_3, 1.5 );
-    thread _id_272E( self.origin + ( 0, 0, 60 ), "Suppressing" );
+    thread _id_2730( self.origin + ( 0.0, 0.0, 42.0 ), var_3, 1.5 );
+    thread _id_272E( self.origin + ( 0.0, 0.0, 60.0 ), "Suppressing" );
 }
 
 _id_6FB9()
@@ -739,7 +739,7 @@ _id_8504( var_0, var_1, var_2, var_3 )
 
 _id_8503( var_0, var_1, var_2, var_3 )
 {
-    thread _id_8504( var_0, var_1 + ( 0, 0, -5 ), var_2, var_3 );
+    thread _id_8504( var_0, var_1 + ( 0.0, 0.0, -5.0 ), var_2, var_3 );
 }
 
 _id_83F2( var_0 )
@@ -778,15 +778,15 @@ _id_8412( var_0, var_1 )
 
 _id_933D()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "temp" );
-    var_0.origin = self gettagorigin( "tag_weapon_right" ) + ( 50, 50, 0 );
+    var_0.origin = self gettagorigin( "tag_weapon_right" ) + ( 50.0, 50.0, 0.0 );
     var_0.angles = self gettagangles( "tag_weapon_right" );
     var_1 = anglestoright( var_0.angles );
     var_1 *= 15;
     var_2 = anglestoforward( var_0.angles );
     var_2 *= 15;
-    var_0 movegravity( ( 0, 50, 150 ), 100 );
+    var_0 movegravity( ( 0.0, 50.0, 150.0 ), 100 );
     var_3 = "weapon_" + self.weapon_switch_invalid;
     var_4 = spawn( var_3, var_0.origin );
     var_4.angles = self gettagangles( "tag_weapon_right" );
@@ -890,7 +890,7 @@ _id_51B0()
 _id_413B( var_0 )
 {
     if ( !isdefined( var_0 ) )
-        return ( 0, 0, 0 );
+        return ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_0._id_793A ) )
         return var_0.angles;
@@ -915,14 +915,14 @@ _id_404D( var_0, var_1 )
     if ( isdefined( var_0._id_6379 ) )
         return var_0._id_6379;
 
-    var_2 = ( -26, 0.4, 36 );
-    var_3 = ( -32, 7, 63 );
-    var_4 = ( 43.5, 11, 36 );
-    var_5 = ( 36, 8.3, 63 );
-    var_6 = ( 3.5, -12.5, 45 );
-    var_7 = ( -3.7, -22, 63 );
+    var_2 = ( -26.0, 0.4, 36.0 );
+    var_3 = ( -32.0, 7.0, 63.0 );
+    var_4 = ( 43.5, 11.0, 36.0 );
+    var_5 = ( 36.0, 8.3, 63.0 );
+    var_6 = ( 3.5, -12.5, 45.0 );
+    var_7 = ( -3.7, -22.0, 63.0 );
     var_8 = 0;
-    var_9 = ( 0, 0, 0 );
+    var_9 = ( 0.0, 0.0, 0.0 );
     var_10 = anglestoright( var_0.angles );
     var_11 = anglestoforward( var_0.angles );
 
@@ -1050,7 +1050,7 @@ _id_1AE5( var_0, var_1 )
     {
         if ( var_1.unlockpoints == "Cover Crouch" || var_1.unlockpoints == "Conceal Crouch" )
         {
-            var_3 = ( 0, 0, 64 ) + var_1.origin;
+            var_3 = ( 0.0, 0.0, 64.0 ) + var_1.origin;
             return sighttracepassed( var_3, var_0, 0, undefined );
         }
 
@@ -1917,7 +1917,7 @@ _id_70DE( var_0 )
 {
     self endon( "killanimscript" );
     var_1 = self.origin;
-    var_2 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
 
     for (;;)
     {

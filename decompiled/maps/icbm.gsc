@@ -331,12 +331,12 @@ _id_6302()
     objective_add( 2, "active", &"ICBM_LOCATE_SSGTGRIGGS", var_0.origin );
     objective_current( 2 );
     var_1 = getent( "house01_basement_door_model", "targetname" );
-    objective_position( 2, var_1.origin + ( 50, 33, 0 ) );
+    objective_position( 2, var_1.origin + ( 50.0, 33.0, 0.0 ) );
     common_scripts\utility::_id_384A( "price_basement_door_anim_complete" );
-    objective_position( 2, ( 0, 0, 0 ) );
+    objective_position( 2, ( 0.0, 0.0, 0.0 ) );
     common_scripts\utility::_id_384A( "soap_take_look" );
     var_2 = getent( "house02_front_door", "targetname" );
-    objective_position( 2, var_2.origin + ( 64, 51, 0 ) );
+    objective_position( 2, var_2.origin + ( 64.0, 51.0, 0.0 ) );
     common_scripts\utility::_id_384A( "price_house2_door_anim_complete" );
     objective_position( 2, var_0.origin );
     common_scripts\utility::_id_384A( "griggs_loose" );
@@ -841,8 +841,8 @@ flyover_to_tower_handler()
     var_1 = getent( "tower_c4_2", "targetname" );
     var_2 = getent( "tower", "targetname" );
     var_2.multiple_c4 = 1;
-    var_3 = var_2 maps\_c4::c4_location( "tag_origin", ( -185.75, -178, 57.87 ), ( 288, 270, 0 ) );
-    var_4 = var_2 maps\_c4::c4_location( "tag_origin", ( 184.3, -178.1, 57.9 ), ( 288, 270, 0 ) );
+    var_3 = var_2 maps\_c4::c4_location( "tag_origin", ( -185.75, -178.0, 57.87 ), ( 288.0, 270.0, 0.0 ) );
+    var_4 = var_2 maps\_c4::c4_location( "tag_origin", ( 184.3, -178.1, 57.9 ), ( 288.0, 270.0, 0.0 ) );
     objective_string( 3, &"ICBM_PLANT_C4_ON_TOWER_LEGS", 2 );
     objective_position( 3, var_0.origin );
     objective_additionalposition( 3, 1, var_1.origin );
@@ -854,11 +854,11 @@ flyover_to_tower_handler()
 
     if ( var_4 == var_5 )
     {
-        objective_additionalposition( 3, 0, ( 0, 0, 0 ) );
+        objective_additionalposition( 3, 0, ( 0.0, 0.0, 0.0 ) );
         var_6 = 1;
     }
     else
-        objective_additionalposition( 3, 1, ( 0, 0, 0 ) );
+        objective_additionalposition( 3, 1, ( 0.0, 0.0, 0.0 ) );
 
     objective_string( 3, &"ICBM_PLANT_C4_ON_TOWER_LEGS", 1 );
     thread second_c4_plant_check();

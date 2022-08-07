@@ -715,7 +715,7 @@ _id_1589( var_0 )
             if ( var_0 < var_2 )
                 return;
 
-            var_7 = playerphysicstraceinfo( var_3.origin + ( 0, 0, 16 ), var_3.origin + ( 0, 0, -16 ), var_3 )["surfacetype"];
+            var_7 = playerphysicstraceinfo( var_3.origin + ( 0.0, 0.0, 16.0 ), var_3.origin + ( 0.0, 0.0, -16.0 ), var_3 )["surfacetype"];
             var_8 = _id_8703( var_7, level._id_065D._id_1572._id_8FF2 );
 
             if ( var_8 )
@@ -1620,7 +1620,7 @@ _id_8791( var_0 )
 
     if ( isdefined( var_4 ) && var_4 == 1 )
     {
-        var_17 = var_16 * 8.33333e-05;
+        var_17 = var_16 * 0.0000833333;
         wait(var_17);
     }
 

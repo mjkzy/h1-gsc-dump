@@ -199,7 +199,7 @@ _id_4CB8()
     anim._id_33DB["inform"]["suppressed"] = 2000;
     anim._id_33DB["custom"]["generic"] = 1000;
     anim.chatcount = 0;
-    anim._id_5F63 = spawn( "script_origin", ( 0, 0, 0 ) );
+    anim._id_5F63 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     anim.areas = getentarray( "trigger_location", "targetname" );
     anim.locations = getentarray( "trigger_location", "targetname" );
     anim.landmarks = getentarray( "trigger_landmark", "targetname" );
@@ -1760,7 +1760,7 @@ _id_4152( var_0 )
 
 _id_4151( var_0 )
 {
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         var_1 += var_0[var_2];
@@ -2165,7 +2165,7 @@ _id_133D()
         if ( !isdefined( anim.areas[var_0]._id_793E ) )
             continue;
 
-        thread _id_2DD3( "Area:     " + anim.areas[var_0]._id_793E, anim.areas[var_0] getorigin(), ( 0, 0, 16 ), ( 1, 1, 1 ) );
+        thread _id_2DD3( "Area:     " + anim.areas[var_0]._id_793E, anim.areas[var_0] getorigin(), ( 0.0, 0.0, 16.0 ), ( 1.0, 1.0, 1.0 ) );
     }
 
     for ( var_0 = 0; var_0 < anim.locations.size; var_0++ )
@@ -2173,7 +2173,7 @@ _id_133D()
         if ( !isdefined( anim.locations[var_0]._id_7A27 ) )
             continue;
 
-        thread _id_2DD3( "Location: " + anim.locations[var_0]._id_7A27, anim.locations[var_0] getorigin(), ( 0, 0, 8 ), ( 1, 1, 1 ) );
+        thread _id_2DD3( "Location: " + anim.locations[var_0]._id_7A27, anim.locations[var_0] getorigin(), ( 0.0, 0.0, 8.0 ), ( 1.0, 1.0, 1.0 ) );
     }
 
     for ( var_0 = 0; var_0 < anim.landmarks.size; var_0++ )
@@ -2181,8 +2181,8 @@ _id_133D()
         if ( !isdefined( anim.landmarks[var_0]._id_7A20 ) )
             continue;
 
-        thread _id_2DD3( "Landmark: " + anim.landmarks[var_0]._id_7A20, anim.landmarks[var_0] getorigin(), ( 0, 0, 0 ), ( 1, 1, 1 ) );
-        thread _id_2DD2( anim.landmarks[var_0] getorigin(), ( 0, 0, 8 ), ( 1, 1, 0 ) );
+        thread _id_2DD3( "Landmark: " + anim.landmarks[var_0]._id_7A20, anim.landmarks[var_0] getorigin(), ( 0.0, 0.0, 0.0 ), ( 1.0, 1.0, 1.0 ) );
+        thread _id_2DD2( anim.landmarks[var_0] getorigin(), ( 0.0, 0.0, 8.0 ), ( 1.0, 1.0, 0.0 ) );
     }
 
     var_1 = getallnodes();
@@ -2193,16 +2193,16 @@ _id_133D()
             continue;
 
         anim._id_5F63.origin = var_1[var_0].origin;
-        anim._id_5F63.origin += ( 0, 0, 10 );
+        anim._id_5F63.origin += ( 0.0, 0.0, 10.0 );
         var_2 = anim._id_5F63 _id_400A();
 
         if ( isdefined( var_2 ) )
         {
-            thread _id_2DD3( var_1[var_0]._id_7A27 + " @ " + var_2._id_7A27, var_1[var_0].origin, ( 0, 0, 0 ), ( 0, 1, 0 ) );
+            thread _id_2DD3( var_1[var_0]._id_7A27 + " @ " + var_2._id_7A27, var_1[var_0].origin, ( 0.0, 0.0, 0.0 ), ( 0.0, 1.0, 0.0 ) );
             continue;
         }
 
-        thread _id_2DD3( var_1[var_0]._id_7A27 + " @ undefined", var_1[var_0].origin, ( 0, 0, 0 ), ( 1, 0, 0 ) );
+        thread _id_2DD3( var_1[var_0]._id_7A27 + " @ undefined", var_1[var_0].origin, ( 0.0, 0.0, 0.0 ), ( 1.0, 0.0, 0.0 ) );
     }
 
     var_1 = undefined;

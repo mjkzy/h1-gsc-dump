@@ -74,7 +74,7 @@ bot_sab_think()
     self botsetflag( "grenade_objectives", 1 );
     var_0 = undefined;
     var_1 = randomint( 100 ) < self botgetdifficultysetting( "strategyLevel" ) * 25;
-    var_2 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
     self._id_27BC = 0;
 
     for (;;)
@@ -134,7 +134,7 @@ bot_sab_think()
                     if ( !maps\mp\bots\_bots_util::_id_172A( var_2, level._id_7749.curorigin ) )
                     {
                         var_2 = level._id_7749.curorigin;
-                        var_8 = var_2 - ( 0, 0, 75 );
+                        var_8 = var_2 - ( 0.0, 0.0, 75.0 );
                         var_9 = var_1 && distance( var_8, var_5.curorigin ) > level._id_703F;
 
                         if ( var_9 )

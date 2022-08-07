@@ -224,7 +224,7 @@ create_clustergrenade( var_0 )
         wait 0.1;
     }
 
-    var_1 += ( 0, 0, 5 );
+    var_1 += ( 0.0, 0.0, 5.0 );
     var_2 = 8;
 
     for ( var_3 = 0; var_3 < var_2; var_3++ )

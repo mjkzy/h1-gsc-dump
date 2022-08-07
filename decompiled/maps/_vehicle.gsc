@@ -136,7 +136,7 @@ _id_1862( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_4 = 0;
 
     if ( !isdefined( var_0 ) )
-        var_0 = ( 0, 0, 0 );
+        var_0 = ( 0.0, 0.0, 0.0 );
 
     var_6 = spawnstruct();
     var_6._id_6379 = var_0;
@@ -634,7 +634,7 @@ _id_5F23( var_0 )
             continue;
 
         var_3 unlink();
-        var_3 linkto( var_0, var_4._id_85AE, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_3 linkto( var_0, var_4._id_85AE, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 
         if ( isai( var_3 ) )
         {
@@ -1763,7 +1763,7 @@ heli_squashes_stuff( var_0 )
             if ( var_1.team == "allies" && var_1 != level.playercardbackground )
                 continue;
 
-            var_1 dodamage( var_1.helmet + 150, ( 0, 0, 0 ) );
+            var_1 dodamage( var_1.helmet + 150, ( 0.0, 0.0, 0.0 ) );
         }
     }
 }

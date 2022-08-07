@@ -53,7 +53,7 @@ windmill_wheel_think()
 
     for (;;)
     {
-        self _meth_8425( ( 30, 0, 0 ), self.rotate_speed );
+        self _meth_8425( ( 30.0, 0.0, 0.0 ), self.rotate_speed );
         wait(self.rotate_speed);
     }
 }

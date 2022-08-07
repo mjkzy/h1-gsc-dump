@@ -670,7 +670,7 @@ _id_9032()
             var_23._id_58BD = var_15[var_19][var_20];
         }
         else
-            var_23._id_58BD = ( 0, 0, 0 );
+            var_23._id_58BD = ( 0.0, 0.0, 0.0 );
 
         return var_23;
     }
@@ -824,8 +824,8 @@ _id_9037( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( animscripts\utility::_id_51B0() )
     {
-        var_6 = ( 0, 0, 0 );
-        var_7 = ( 0, 0, 0 );
+        var_6 = ( 0.0, 0.0, 0.0 );
+        var_7 = ( 0.0, 0.0, 0.0 );
         var_8 = combineangles( invertangles( var_4 ), var_5 );
         var_9 = rotatevectorinverted( vectornormalize( self.origin - var_2 ), var_4 ) * -1.0;
         var_10 = _id_9036( var_0, var_1, var_6, var_9, var_7, var_8, 1, var_2, var_4 );

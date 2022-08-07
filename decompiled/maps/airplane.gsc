@@ -242,14 +242,14 @@ intro_fade_in()
     var_4 = getent( "org_intro_playerview", "targetname" );
     level.playercardbackground.origin = var_4.origin;
     level.playercardbackground playerlinkto( var_4, undefined, 0, 0, 0, 0 );
-    var_4.origin += ( 0, 20, -52 );
+    var_4.origin += ( 0.0, 20.0, -52.0 );
     level.playercardbackground freezecontrols( 1 );
     var_5 = spawn( "script_origin", var_4.origin );
     var_5.angles = var_4.angles;
     level.playercardbackground playersetgroundreferenceent( var_5 );
     var_5 rotatepitch( 65, 0.05 );
     var_4 rotateroll( -10, 0.05 );
-    var_3.origin += ( 15, 20, -10 );
+    var_3.origin += ( 15.0, 20.0, -10.0 );
     wait 0.2;
     level._id_6F7C hide();
     var_0.alpha = 0;
@@ -669,7 +669,7 @@ breach_gravity_shift()
     thread gravity_shift( 25 );
     var_1 = getent( "breach_physics", "targetname" );
     var_2 = getent( "breach_org1", "targetname" );
-    var_1 thread maps\_utility::_id_6802( 5000, 2500, ( 0, 0, 0.25 ) );
+    var_1 thread maps\_utility::_id_6802( 5000, 2500, ( 0.0, 0.0, 0.25 ) );
     common_scripts\utility::_id_384A( "player_up_breach_stairs" );
     common_scripts\utility::_id_3831( "aa_first_floor_section" );
     common_scripts\utility::_id_383F( "aa_second_floor_section" );
@@ -677,7 +677,7 @@ breach_gravity_shift()
     common_scripts\utility::_id_384A( "exit_door_blown" );
     thread final_roll();
     var_3 = getent( "shake_org", "targetname" );
-    var_3 thread maps\_utility::_id_6802( 5000, 2500, ( 0, 0, 0.25 ) );
+    var_3 thread maps\_utility::_id_6802( 5000, 2500, ( 0.0, 0.0, 0.25 ) );
     common_scripts\utility::_id_384A( "player_jumped_out" );
     var_3 notify( "stop_physicsjolt" );
 }
@@ -700,9 +700,9 @@ airplane_tirescheat()
 
                 var_3 = var_0.origin - var_2.origin;
                 var_3 = vectornormalize( var_3 );
-                var_3 += ( 0, 0, 1 );
+                var_3 += ( 0.0, 0.0, 1.0 );
                 var_3 = maps\_utility::vector_multiply( var_3, randomintrange( 1600, 3200 ) );
-                applyaccelerationonentity( var_2, ( 0, 0, 0 ), var_3 );
+                applyaccelerationonentity( var_2, ( 0.0, 0.0, 0.0 ), var_3 );
             }
         }
 
@@ -780,7 +780,7 @@ blood_pool()
     common_scripts\utility::_id_384A( "human_shield_over" );
 
     if ( level.playergotheadshot )
-        playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_0.origin + ( 5, 15, 0 ), ( 0, 0, 1 ) );
+        playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_0.origin + ( 5.0, 15.0, 0.0 ), ( 0.0, 0.0, 1.0 ) );
 }
 
 humanshield_timer_kill()
@@ -1036,11 +1036,11 @@ headshot_fx()
     var_3 = level.playercardbackground geteye();
     var_4 = var_3 + var_2;
     var_5 = bullettrace( var_3, var_4, 0, undefined );
-    playfx( common_scripts\utility::_id_3FA8( "flesh_hit" ), var_5["position"], ( 0, 0, 1 ) );
-    playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_5["position"], ( 0, 0, 1 ) );
-    playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_5["position"], ( -25, 10, -10 ) );
-    playfx( common_scripts\utility::_id_3FA8( "headshot2" ), var_5["position"], ( 0, 0, 1 ) );
-    playfx( common_scripts\utility::_id_3FA8( "headshot3" ), var_5["position"], ( 0, 0, 1 ) );
+    playfx( common_scripts\utility::_id_3FA8( "flesh_hit" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
+    playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
+    playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_5["position"], ( -25.0, 10.0, -10.0 ) );
+    playfx( common_scripts\utility::_id_3FA8( "headshot2" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
+    playfx( common_scripts\utility::_id_3FA8( "headshot3" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
     thread common_scripts\utility::_id_69C2( "bullet_large_flesh", level.playercardbackground.origin );
     thread suitcase_splatter();
 }
@@ -1055,7 +1055,7 @@ suitcase_splatter()
     var_5 = var_0.origin;
     var_6 = var_1.origin;
     var_7 = bullettrace( var_5, var_6, 0, undefined );
-    playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_6 + ( 100, -10, 10 ), var_4, ( 0, 10, 1 ) );
+    playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_6 + ( 100.0, -10.0, 10.0 ), var_4, ( 0.0, 10.0, 1.0 ) );
 }
 
 human_shield_death_monitor()
@@ -1191,7 +1191,7 @@ bomb_think()
 {
     var_0 = getent( "bomb_flash", "targetname" );
     level waittill( "timer_tick" );
-    playfx( common_scripts\utility::_id_3FA8( "c4_light_blink" ), var_0.origin + ( 0, 0, 0 ) );
+    playfx( common_scripts\utility::_id_3FA8( "c4_light_blink" ), var_0.origin + ( 0.0, 0.0, 0.0 ) );
 }
 
 freefall_ai_setup()
@@ -1327,7 +1327,7 @@ _id_3A27()
     var_2 show();
     var_3 = getent( "plane_wings", "targetname" );
     var_3 hide();
-    level.player_sound_org = spawn( "script_origin", level.playercardbackground.origin + ( 0, 0, 32 ) );
+    level.player_sound_org = spawn( "script_origin", level.playercardbackground.origin + ( 0.0, 0.0, 32.0 ) );
     level.player_sound_org linkto( level.playercardbackground );
     level.player_sound_org playloopsound( "airplane_wind_loop" );
     var_4 = 1;
@@ -1449,8 +1449,8 @@ friendly_blows_door()
     var_0 = getent( "org_exit_door", "targetname" );
     var_1 = getnode( "node_door", "targetname" );
     var_2 = spawn( "script_origin", var_1.origin );
-    var_2.origin += ( 0, -50, 0 );
-    var_2.angles += ( 0, 90, 0 );
+    var_2.origin += ( 0.0, -50.0, 0.0 );
+    var_2.angles += ( 0.0, 90.0, 0.0 );
     var_3 = getent( "c4_door", "targetname" );
     level.grigsby maps\_utility::_id_2A74();
     level.grigsby.ignoretriggers = 1;
@@ -1583,7 +1583,7 @@ airmasks()
 
 airmask_think()
 {
-    self.dummy = spawn( "script_origin", self.origin + ( 0, 0, 30 ) );
+    self.dummy = spawn( "script_origin", self.origin + ( 0.0, 0.0, 30.0 ) );
     self.dummy.angles = level.org_view_roll.angles;
     level.arollers = common_scripts\utility::_id_0CDA( level.arollers, self.dummy );
     self linkto( self.dummy );
@@ -2150,7 +2150,7 @@ ai_patroller()
 
         if ( distance( self.origin, level.playercardbackground.origin ) <= level.alertdistance )
         {
-            if ( bullettracepassed( level.playercardbackground geteye(), self.origin + ( 0, 0, 48 ), 0, undefined ) )
+            if ( bullettracepassed( level.playercardbackground geteye(), self.origin + ( 0.0, 0.0, 48.0 ), 0, undefined ) )
             {
                 if ( !common_scripts\utility::_id_382E( "enemies_alerted" ) )
                     common_scripts\utility::_id_383F( "enemies_alerted" );
@@ -2472,14 +2472,14 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
             self.hackexit = var_9;
 
             if ( var_3 == "stand2run180" )
-                var_9.angles += ( 0, 32, 0 );
+                var_9.angles += ( 0.0, 32.0, 0.0 );
 
             if ( var_8 != self )
             {
                 if ( issubstr( var_3, "cornerleft" ) )
-                    var_9.angles += ( 0, 90, 0 );
+                    var_9.angles += ( 0.0, 90.0, 0.0 );
                 else if ( issubstr( var_3, "cornerright" ) )
-                    var_9.angles -= ( 0, 90, 0 );
+                    var_9.angles -= ( 0.0, 90.0, 0.0 );
             }
 
             self._id_0C72 = "guy";

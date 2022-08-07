@@ -50,7 +50,7 @@ dialog_intro_h1()
     }
 
     var_4 = spawn( "script_origin", ( 9037.58, -21616.8, -683.706 ) );
-    var_4.angles = ( 0, -104.433, 0 );
+    var_4.angles = ( 0.0, -104.433, 0.0 );
     common_scripts\utility::_id_384A( "landed" );
     var_4 thread maps\_anim::_id_0BC5( var_0, "intro_briefing" );
     wait 1.9;

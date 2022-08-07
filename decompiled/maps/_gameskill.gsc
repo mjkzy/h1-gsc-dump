@@ -158,7 +158,7 @@ _id_8010( var_0 )
     level._id_2A60["missTimeConstant"]["veteran"] = 0;
     level._id_2A60["missTimeDistanceFactor"]["easy"] = 0.0008;
     level._id_2A60["missTimeDistanceFactor"]["normal"] = 0.0001;
-    level._id_2A60["missTimeDistanceFactor"]["hardened"] = 5e-05;
+    level._id_2A60["missTimeDistanceFactor"]["hardened"] = 0.00005;
     level._id_2A60["missTimeDistanceFactor"]["veteran"] = 0;
     level._id_2A60["flashbangedInvulFactor"]["easy"] = 0.25;
     level._id_2A60["flashbangedInvulFactor"]["normal"] = 0;
@@ -922,7 +922,7 @@ bloodsplatter()
     var_0.hostquits = "fullscreen";
     var_0.visionsetnight = "fullscreen";
     var_0.enablehudlighting = 1;
-    var_0.color = ( 0, 0, 0 );
+    var_0.color = ( 0.0, 0.0, 0.0 );
     var_0.alpha = 0;
     thread _id_478B( var_0 );
     var_1 = 0;
@@ -1108,7 +1108,7 @@ _id_23E1()
     var_0 settext( &"GAME_GET_TO_COVER" );
     var_0.fontscale = 2;
     var_0.alpha = 1;
-    var_0.color = ( 1, 0.9, 0.9 );
+    var_0.color = ( 1.0, 0.9, 0.9 );
     var_0.space = 1;
     var_0.foreground = 1;
     return var_0;

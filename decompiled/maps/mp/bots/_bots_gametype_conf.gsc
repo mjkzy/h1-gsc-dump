@@ -148,7 +148,7 @@ _id_15D4( var_0 )
 {
     if ( isdefined( var_0._id_6445 ) && var_0._id_6445 )
     {
-        var_1 = self.origin + ( 0, 0, 55 );
+        var_1 = self.origin + ( 0.0, 0.0, 55.0 );
 
         if ( distance2dsquared( var_0.curorigin, var_1 ) < 144 )
         {

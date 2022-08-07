@@ -40,7 +40,7 @@ movehpvisuals()
     var_0 = getentarray( "hp_zone_1", "targetname" );
 
     foreach ( var_2 in var_0 )
-        var_2.origin += ( 0, 0, -3 );
+        var_2.origin += ( 0.0, 0.0, -3.0 );
 }
 
 misc_rotate_ceilingfans()

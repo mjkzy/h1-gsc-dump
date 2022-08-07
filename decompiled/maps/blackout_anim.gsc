@@ -377,7 +377,7 @@ animated_model_setup()
 
 play_relaxed_guard_chair_death( var_0 )
 {
-    var_0 thread common_scripts\utility::_id_69C2( "scn_relaxed_guard_chair_fall", var_0.origin + ( 0, 0, 30 ) );
+    var_0 thread common_scripts\utility::_id_69C2( "scn_relaxed_guard_chair_fall", var_0.origin + ( 0.0, 0.0, 30.0 ) );
 }
 #using_animtree("player");
 

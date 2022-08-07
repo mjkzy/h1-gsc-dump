@@ -21,8 +21,8 @@
 
 getprecisegroundnear( var_0 )
 {
-    var_1 = var_0 + ( 0, 0, 36 );
-    var_2 = var_0 - ( 0, 0, 36 );
+    var_1 = var_0 + ( 0.0, 0.0, 36.0 );
+    var_2 = var_0 - ( 0.0, 0.0, 36.0 );
     return getrayfromtrace( var_1, var_2 );
 }
 
@@ -145,7 +145,7 @@ distancebetweentwolines( var_0, var_1, var_2, var_3 )
     var_9 = vectordot( var_3, var_4 );
     var_10 = var_5 * var_7 - var_6 * var_6;
 
-    if ( var_10 < 1e-05 )
+    if ( var_10 < 0.00001 )
     {
         var_11 = 0;
 
@@ -306,8 +306,8 @@ waitforstairedge( var_0, var_1 )
 
         if ( lengthsquared( self.origin - var_8 ) < squared( 20 ) )
         {
-            var_9 = self.origin + ( 0, 0, 15 );
-            var_10 = var_8 + ( 0, 0, 15 );
+            var_9 = self.origin + ( 0.0, 0.0, 15.0 );
+            var_10 = var_8 + ( 0.0, 0.0, 15.0 );
             var_11 = self aiphysicstrace( var_9, var_10, 15, 30, 0, 1 );
 
             if ( var_11["fraction"] == 1 )
@@ -413,7 +413,7 @@ checktransition_up_in( var_0, var_1, var_2, var_3, var_4, var_5 )
             return undefined;
 
         var_9 = var_10["pos"];
-        var_11 = findstaircorner( self.lookforward, self.lookright, var_9, var_0["normal"], self.origin, ( 0, 0, 1 ), 15 );
+        var_11 = findstaircorner( self.lookforward, self.lookright, var_9, var_0["normal"], self.origin, ( 0.0, 0.0, 1.0 ), 15 );
         var_12["wantedPos"] = var_11["position"];
         var_12["stairEdgeDir"] = var_11["stairEdgeDirection"];
         var_12["inStairTransitionIn"] = 1;
@@ -478,7 +478,7 @@ checktransition_down_in( var_0, var_1, var_2, var_3 )
     var_12 = animscripts\run::_id_40E5( var_3, "down", var_11 );
     var_13 = getstairanimtranslationtoedge( var_12 );
     var_9 = gettracecontactpos( var_6, var_7, var_8, 0, 48 );
-    var_14 = findstaircorner( self.lookforward, self.lookright, var_9, var_10, self.origin, ( 0, 0, 1 ), 15 );
+    var_14 = findstaircorner( self.lookforward, self.lookright, var_9, var_10, self.origin, ( 0.0, 0.0, 1.0 ), 15 );
     var_15["wantedPos"] = var_14["position"];
     var_15["stairEdgeDir"] = var_14["stairEdgeDirection"];
     var_15["inStairTransitionIn"] = 1;
@@ -536,7 +536,7 @@ checktransition_up_out( var_0 )
     if ( vectordot( var_1["normal"], var_0 ) > 0 )
         return undefined;
 
-    var_14 = findstaircorner( self.lookforward, self.lookright, var_1["pos"], var_1["normal"], var_13, ( 0, 0, 1 ), 15 );
+    var_14 = findstaircorner( self.lookforward, self.lookright, var_1["pos"], var_1["normal"], var_13, ( 0.0, 0.0, 1.0 ), 15 );
     var_15["wantedPos"] = var_14["position"];
     var_15["stairEdgeDir"] = var_14["stairEdgeDirection"];
     var_15["transitionAnim"] = var_3;
@@ -578,7 +578,7 @@ checktransition_down_out( var_0 )
     if ( vectordot( var_1["normal"], var_0 ) < 0 )
         return undefined;
 
-    var_14 = findstaircorner( self.lookforward, self.lookright, var_1["pos"], var_1["normal"], var_13, ( 0, 0, 1 ), 15 );
+    var_14 = findstaircorner( self.lookforward, self.lookright, var_1["pos"], var_1["normal"], var_13, ( 0.0, 0.0, 1.0 ), 15 );
     var_15["wantedPos"] = var_14["position"];
     var_15["stairEdgeDir"] = var_14["stairEdgeDirection"];
     var_15["transitionAnim"] = var_3;
@@ -601,7 +601,7 @@ getexpectedstairstransition( var_0, var_1, var_2, var_3 )
     if ( self.start_move == "none" && var_7 )
     {
         var_9 = getcurrentanimdisplacement( var_0, var_1, var_2 );
-        var_10 = self.origin + ( 0, 0, 1 );
+        var_10 = self.origin + ( 0.0, 0.0, 1.0 );
         var_11 = var_10 + var_9 * var_6;
         var_12 = self aiphysicstrace( var_10, var_11, 15, 48, 1, 1 );
 
@@ -758,7 +758,7 @@ isonstairs()
 getstairtypefromtraceresult( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
-        return getstairtypefromnormal( ( 0, 0, 1 ) );
+        return getstairtypefromnormal( ( 0.0, 0.0, 1.0 ) );
 
     return getstairtypefromnormal( var_0["normal"] );
 }

@@ -132,7 +132,7 @@ sea_objectbob( var_0 )
     var_3 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
     var_4 = var_3[0].origin;
     var_5 = undefined;
-    var_6 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_6.axial = 0;
 
     if ( isdefined( var_3[1] ) )
@@ -196,7 +196,7 @@ sea_objectbob( var_0 )
     if ( var_6.axial )
     {
         var_11 = undefined;
-        var_12 = ( 0, 360, 0 );
+        var_12 = ( 0.0, 360.0, 0.0 );
 
         if ( !isdefined( var_3[1] ) )
             var_11 = var_3[0].angles;
@@ -343,12 +343,12 @@ sea_bob_reset()
     thread sea_bob_reset_loop();
     level endon( "_sea_bob" );
     var_0 = 1.5;
-    var_1 = ( 0, 0, 0 );
+    var_1 = ( 0.0, 0.0, 0.0 );
     level._sea_link rotateto( var_1, var_0, var_0 * 0.5, var_0 * 0.5 );
     wait(var_0);
     wait 0.05;
     level._id_60A3 = level._id_57A8;
-    level._sea_link.angles = ( 0, 0, 0 );
+    level._sea_link.angles = ( 0.0, 0.0, 0.0 );
 }
 
 sea_waves()

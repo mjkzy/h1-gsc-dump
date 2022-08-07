@@ -958,7 +958,7 @@ updatekillindicator( var_0 )
     var_1 = var_0;
 
     if ( var_0 >= 150 )
-        self.killindicator.color = ( 0, 1, 0 );
+        self.killindicator.color = ( 0.0, 1.0, 0.0 );
     else
     {
         var_1 = 0.01 * ( 100 - 0.67 * var_1 );
@@ -976,7 +976,7 @@ updatekillindicator( var_0 )
 
         if ( var_0 >= 150 )
         {
-            self.maxkillindicator.color = ( 0, 1, 0 );
+            self.maxkillindicator.color = ( 0.0, 1.0, 0.0 );
             self.maxkillindicator.glowalpha = 0.5;
         }
 
@@ -989,7 +989,7 @@ updatekillindicator( var_0 )
 
             if ( var_0 >= 150 )
             {
-                level.maxmatchindicator.color = ( 0, 1, 0 );
+                level.maxmatchindicator.color = ( 0.0, 1.0, 0.0 );
                 level.maxmatchindicator.glowalpha = 0.5;
             }
         }

@@ -32,7 +32,7 @@ main( var_0, var_1, var_2 )
     var_3["vehicle_zpu4_nowheels"] = "fx/explosions/large_vehicle_explosion";
     maps\_vehicle::_id_1842( var_3[var_0], undefined, "exp_armor_vehicle", undefined, undefined, undefined, 0 );
     maps\_vehicle::_id_185A( "tag_flash", "tag_flash2", "tag_flash1", "tag_flash3" );
-    maps\_vehicle::_id_1862( ( 0, 0, 53 ), 512, 300, 20, 0 );
+    maps\_vehicle::_id_1862( ( 0.0, 0.0, 53.0 ), 512, 300, 20, 0 );
     maps\_vehicle::_id_1856( 999, 500, 1500 );
     maps\_vehicle::_id_186A( "axis" );
     maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );

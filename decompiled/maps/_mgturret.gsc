@@ -566,11 +566,11 @@ _id_6BF2()
 _id_8AF9()
 {
     if ( level.playercardbackground getstance() == "prone" )
-        return ( 0, 0, 5 );
+        return ( 0.0, 0.0, 5.0 );
     else if ( level.playercardbackground getstance() == "crouch" )
-        return ( 0, 0, 25 );
+        return ( 0.0, 0.0, 25.0 );
 
-    return ( 0, 0, 50 );
+    return ( 0.0, 0.0, 50.0 );
 }
 
 _id_5BC5( var_0, var_1 )
@@ -591,8 +591,8 @@ _id_5BC5( var_0, var_1 )
     self.pantssize = 0;
     var_0 setmode( "auto_ai" );
     var_0 cleartargetentity();
-    var_2 = spawn( "script_origin", ( 0, 0, 0 ) );
-    var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+    var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_3._id_782D = 3;
 
     if ( getdvar( "mg42" ) != "off" )
@@ -742,7 +742,7 @@ _id_5BC5( var_0, var_1 )
                 var_0 cleartargetentity();
                 var_0._id_6C2D = 0;
                 var_3._id_9197 = var_3;
-                var_3.origin = ( 0, 0, 0 );
+                var_3.origin = ( 0.0, 0.0, 0.0 );
             }
 
             while ( isdefined( level._id_6ABD ) )
@@ -996,7 +996,7 @@ _id_5BCA( var_0, var_1, var_2 )
             else
                 self setmode( "manual_ai" );
 
-            self settargetentity( var_7, ( 0, 0, 32 ) );
+            self settargetentity( var_7, ( 0.0, 0.0, 32.0 ) );
             _id_2ED7( var_7, 1, var_2 );
             self cleartargetentity();
             self stopfiring();
@@ -1032,7 +1032,7 @@ _id_2ED7( var_0, var_1, var_2 )
         common_scripts\utility::_id_57FE( "mg42_drones_target_trace" );
         var_5 = self getturrettarget( 1 );
 
-        if ( !bullettracepassed( self gettagorigin( "tag_flash" ), var_0.origin + ( 0, 0, 40 ), 0, var_0 ) )
+        if ( !bullettracepassed( self gettagorigin( "tag_flash" ), var_0.origin + ( 0.0, 0.0, 40.0 ), 0, var_0 ) )
         {
             common_scripts\utility::_id_9A45( "mg42_drones_target_trace" );
             break;
@@ -1271,7 +1271,7 @@ _id_2F96()
 
 _id_2F97()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = self gettagorigin( level._id_6E4B );
     var_0.angles = self gettagangles( level._id_6E4B );
     var_0 setmodel( self._id_99B5 );
@@ -1334,8 +1334,8 @@ _id_5F30( var_0, var_1 )
     self endon( "death" );
     self endon( "end_mg_behavior" );
     self endon( "stop_updating_enemy_target_pos" );
-    var_2 = self._id_9940.origin + ( 0, 0, 16 );
-    var_3 = var_1.origin + ( 0, 0, 16 );
+    var_2 = self._id_9940.origin + ( 0.0, 0.0, 16.0 );
+    var_3 = var_1.origin + ( 0.0, 0.0, 16.0 );
 
     for (;;)
     {
@@ -1360,7 +1360,7 @@ _id_7281( var_0 )
 
     for (;;)
     {
-        var_0._id_17C9[var_0._id_17C9.size] = self.origin + ( 0, 0, 50 );
+        var_0._id_17C9[var_0._id_17C9.size] = self.origin + ( 0.0, 0.0, 50.0 );
         wait 0.35;
     }
 }
@@ -1695,7 +1695,7 @@ _id_3764( var_0 )
         if ( !common_scripts\utility::_id_A347( var_2[var_4].origin, var_2[var_4].angles, var_0.origin, 0.75 ) )
             continue;
 
-        if ( !sighttracepassed( var_0.origin, var_2[var_4].origin + ( 0, 0, 16 ), 0, undefined ) )
+        if ( !sighttracepassed( var_0.origin, var_2[var_4].origin + ( 0.0, 0.0, 16.0 ), 0, undefined ) )
             continue;
 
         var_3[var_3.size] = var_2[var_4];

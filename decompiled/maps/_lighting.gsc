@@ -165,16 +165,16 @@ _id_8EBE( var_0 )
 _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     if ( !isdefined( var_3 ) )
-        var_3 = ( 0, 0, 0 );
+        var_3 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_4 ) )
         var_4 = 5000;
 
     if ( !isdefined( var_5 ) )
-        var_5 = ( 1, 1, 1 );
+        var_5 = ( 1.0, 1.0, 1.0 );
 
     if ( !isdefined( var_6 ) )
         var_6 = 60;
@@ -238,7 +238,7 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         if ( isdefined( var_9 ) )
         {
             var_11._id_0DF0.origin = var_12 gettagorigin( var_9 );
-            var_11._id_0DF0 linkto( var_12, var_9, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+            var_11._id_0DF0 linkto( var_12, var_9, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
         {
@@ -292,7 +292,7 @@ _id_7B2A( var_0, var_1, var_2, var_3 )
             var_3 = "tag_origin";
     }
     else if ( !isdefined( var_1 ) )
-        var_1 = ( 0, 0, 0 );
+        var_1 = ( 0.0, 0.0, 0.0 );
 
     level._id_78B7[var_0]._id_2003 = var_3;
     level._id_78B7[var_0]._id_2005 = var_1;
@@ -387,10 +387,10 @@ model_animation_light( var_0 )
         var_10 = 1.0;
 
     if ( !isdefined( var_6 ) )
-        var_6 = ( 0, 0, 0 );
+        var_6 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_7 ) )
-        var_7 = ( 0, 0, 0 );
+        var_7 = ( 0.0, 0.0, 0.0 );
 
     self endon( "death" );
 
@@ -605,7 +605,7 @@ _id_1509( var_0 )
             var_8 = level.playercardbackground getplayerangles();
             var_9 = level.playercardbackground getvelocity();
             var_10 = var_9[2];
-            var_9 -= var_9 * ( 0, 0, 1 );
+            var_9 -= var_9 * ( 0.0, 0.0, 1.0 );
             var_11 = length( var_9 );
             var_12 = level.playercardbackground getstance();
             var_13 = clamp( var_11, 0, 280 ) / 280;
@@ -734,9 +734,9 @@ _id_3C23()
 
 _id_3C28()
 {
-    self._id_3C22 = spawn( "script_model", ( 0, 0, 0 ) );
+    self._id_3C22 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     self._id_3C22 setmodel( "prop_sas_gasmask" );
-    self._id_3C22 linkto( self, "tag_eye", ( -4, 0, 2 ), ( 120, 0, 0 ) );
+    self._id_3C22 linkto( self, "tag_eye", ( -4.0, 0.0, 2.0 ), ( 120.0, 0.0, 0.0 ) );
 }
 
 _id_3C26()
@@ -752,11 +752,11 @@ _id_570F()
     _id_23B4( "white_fire", ( 0.972549, 0.972549, 0.972549 ), ( 0.2, 0.2, 0.2 ), 0.005, 0.2, 8 );
     _id_23B4( "white_fire_dim", ( 0.972549, 0.972549, 0.972549 ), ( 0.2, 0.2, 0.2 ), 0.005, 0.2, 0.5 );
     _id_23B4( "street_light", ( 0.972549, 0.972549, 0.972549 ), ( 0.572549, 0.572549, 0.572549 ), 0.005, 0.2, 8 );
-    _id_23B4( "pulse", ( 0, 0, 0 ), ( 255, 107, 107 ), 0.2, 1, 8 );
+    _id_23B4( "pulse", ( 0.0, 0.0, 0.0 ), ( 255.0, 107.0, 107.0 ), 0.2, 1, 8 );
     _id_23B4( "lightbulb", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 6 );
     _id_23B4( "fluorescent", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 7 );
     _id_23B4( "static_screen", ( 0.63, 0.72, 0.92 ), ( 0.4, 0.43, 0.48 ), 0.005, 0.2, 7 );
-    _id_23B4( "sfb_fire", ( 1, 0.65, 0.8 ), ( 0.4, 0.24, 0.3 ), 0.005, 0.2, 8 );
+    _id_23B4( "sfb_fire", ( 1.0, 0.65, 0.8 ), ( 0.4, 0.24, 0.3 ), 0.005, 0.2, 8 );
 }
 
 _id_23B3( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -923,7 +923,7 @@ _id_2FD7( var_0, var_1, var_2, var_3 )
             var_5 += var_2;
 
         if ( var_5 == 0 )
-            var_5 += 1e-07;
+            var_5 += 0.0000001;
 
         for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !self._id_5148; var_5 -= 0.05 )
         {
@@ -1052,7 +1052,7 @@ _id_38D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             var_8 += var_6;
 
         if ( var_8 == 0 )
-            var_8 += 1e-07;
+            var_8 += 0.0000001;
 
         for ( var_10 = ( var_7 - var_9 ) / var_8; var_8 > 0; var_8 -= 0.05 )
         {
@@ -1189,11 +1189,11 @@ _id_7EBD( var_0, var_1 )
 
 _id_5711()
 {
-    _id_23D3( "red", 0.1, 0.1, 10000, ( 1, 0.2, 0.2 ), 2 );
-    _id_23D3( "red2", 0.1, 0.1, 68200000, ( 1, 0.2, 0.2 ), 2 );
-    _id_23D3( "yellow", 0.1, 0.1, 68200000, ( 1, 0.7, 0.2 ), 2 );
-    _id_23D3( "white", 0.1, 0.1, 68200000, ( 1, 1, 1 ), 2 );
-    _id_23D3( "turbine_pulse", 0.1, 0.1, 10000, ( 0.9, 0.9, 1 ), 2 );
+    _id_23D3( "red", 0.1, 0.1, 10000, ( 1.0, 0.2, 0.2 ), 2 );
+    _id_23D3( "red2", 0.1, 0.1, 68200000, ( 1.0, 0.2, 0.2 ), 2 );
+    _id_23D3( "yellow", 0.1, 0.1, 68200000, ( 1.0, 0.7, 0.2 ), 2 );
+    _id_23D3( "white", 0.1, 0.1, 68200000, ( 1.0, 1.0, 1.0 ), 2 );
+    _id_23D3( "turbine_pulse", 0.1, 0.1, 10000, ( 0.9, 0.9, 1.0 ), 2 );
 }
 
 _id_23D3( var_0, var_1, var_2, var_3, var_4, var_5 )

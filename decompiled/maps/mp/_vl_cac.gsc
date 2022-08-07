@@ -467,7 +467,7 @@ initweaponavatar()
 
 spawngenericprop3avatar()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "genericprop_x3" );
     var_0 scriptmodelplayanim( "h1_lobby_turnaround_ranger_akimbo_align" );
     return var_0;
@@ -608,15 +608,15 @@ positionweaponavatar( var_0, var_1 )
     var_3.origin = var_5 - var_7;
 
     if ( var_6 )
-        var_3.angles = ( 185, 126, 0 );
+        var_3.angles = ( 185.0, 126.0, 0.0 );
     else if ( isweaponavataraweapon( var_0 ) )
-        var_3.angles = ( 5, 0, 0 );
+        var_3.angles = ( 5.0, 0.0, 0.0 );
     else
-        var_3.angles = ( 0, 300, 15 );
+        var_3.angles = ( 0.0, 300.0, 15.0 );
 
     level.weaponavatarparent.origin = var_5;
     var_9 = level.weaponavatarparent.angles;
-    level.weaponavatarparent.angles = ( 0, 180, 0 );
+    level.weaponavatarparent.angles = ( 0.0, 180.0, 0.0 );
     var_3 _meth_8442( level.weaponavatarparent );
     level.weaponavatarparent.angles = var_9;
 }
@@ -630,7 +630,7 @@ getperkbounds( var_0 )
         if ( var_0 islinked() )
         {
             var_0 unlink();
-            var_0.origin = ( 0, 0, 0 );
+            var_0.origin = ( 0.0, 0.0, 0.0 );
         }
 
         var_1 = var_0 _meth_8540( 0, 0, 0 );
@@ -692,21 +692,21 @@ showloadingweaponavatar( var_0, var_1 )
             var_7 = common_scripts\utility::_id_40FB( "cameraWeapon", "targetname" ).origin;
             var_2.akimboavatar = spawn( "weapon_" + var_0, var_7, 1 );
             var_2.akimboavatar _meth_8447();
-            var_2.akimboavatar _meth_8442( var_2.linker, "j_prop_2", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+            var_2.akimboavatar _meth_8442( var_2.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
             var_2.akimboavatar show();
 
         var_2.akimboavatar _meth_847f( var_4, 1 );
         weaponitemplayidleanim( var_2.akimboavatar, var_5 );
-        var_2 _meth_8442( var_2.linker, "j_prop_1", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_2 _meth_8442( var_2.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
     else
     {
         if ( isdefined( var_2.akimboavatar ) )
             var_2.akimboavatar hide();
 
-        var_2 _meth_8442( var_2.linker, "j_prop_3", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_2 _meth_8442( var_2.linker, "j_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 
     positionweaponavatar( var_2, var_1 );
@@ -732,7 +732,7 @@ showweaponavatar( var_0 )
 
     if ( !isdefined( var_1 ) )
     {
-        var_1 = spawn( "weapon_" + level._id_1999, ( 0, 0, 0 ), 1 );
+        var_1 = spawn( "weapon_" + level._id_1999, ( 0.0, 0.0, 0.0 ), 1 );
         var_1.isweapon = 1;
         level.weaponavatarparent.savedweaponavatar = var_1;
         var_1.linker = spawngenericprop3avatar();
@@ -751,22 +751,22 @@ showweaponavatar( var_0 )
     {
         if ( !isdefined( var_1.akimboavatar ) )
         {
-            var_1.akimboavatar = spawn( "weapon_" + level._id_1999, ( 0, 0, 0 ), 1 );
-            var_1.akimboavatar _meth_8442( var_1.linker, "j_prop_2", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+            var_1.akimboavatar = spawn( "weapon_" + level._id_1999, ( 0.0, 0.0, 0.0 ), 1 );
+            var_1.akimboavatar _meth_8442( var_1.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
             var_1.akimboavatar show();
 
         var_1.akimboavatar _meth_847f( level._id_1999, 1 );
         weaponitemplayidleanim( var_1.akimboavatar, var_2 );
-        var_1 _meth_8442( var_1.linker, "j_prop_1", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_1 _meth_8442( var_1.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
     else
     {
         if ( isdefined( var_1.akimboavatar ) )
             var_1.akimboavatar hide();
 
-        var_1 _meth_8442( var_1.linker, "j_prop_3", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+        var_1 _meth_8442( var_1.linker, "j_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 
     positionweaponavatar( var_1, var_0 );
@@ -797,7 +797,7 @@ showperkavatar( var_0 )
 
     if ( !isdefined( var_1 ) )
     {
-        var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_1.isperk = 1;
         level.weaponavatarparent.savedperkavatar = var_1;
     }

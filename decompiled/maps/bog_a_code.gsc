@@ -30,7 +30,7 @@ start_melee()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0D13( var_0, ::_id_2819 );
     thread melee_sequence();
-    level.playercardbackground setplayerangles( ( 0, 240, 0 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 240.0, 0.0 ) );
     level.playercardbackground setorigin( ( 10181.9, 708.265, 100.567 ) );
 }
 
@@ -41,8 +41,8 @@ start_breach()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0D13( var_0, ::_id_2819 );
     thread melee_sequence();
-    level.playercardbackground setplayerangles( ( 0, 180, 0 ) );
-    level.playercardbackground setorigin( ( 9976.2, 423.6, 236 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 180.0, 0.0 ) );
+    level.playercardbackground setorigin( ( 9976.2, 423.6, 236.0 ) );
     thread second_floor_door_breach_setup();
 
     for (;;)
@@ -67,7 +67,7 @@ second_floor_door_breach_setup()
 start_apart()
 {
     thread melee_sequence();
-    level.playercardbackground setplayerangles( ( 0, 240, 0 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 240.0, 0.0 ) );
     level.playercardbackground setorigin( ( 10181.9, 708.265, 100.567 ) );
 }
 
@@ -327,7 +327,7 @@ targets_tank( var_0 )
 targets_tank_thread( var_0 )
 {
     wait 0.11;
-    self setturrettargetent( var_0, ( 0, 0, 60 ) );
+    self setturrettargetent( var_0, ( 0.0, 0.0, 60.0 ) );
     self._id_24FD = var_0;
 }
 
@@ -778,9 +778,9 @@ melee_sequence_plays_out( var_0, var_1 )
     var_2 = [];
     var_2[0] = var_0;
     var_2[1] = var_1;
-    var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
-    var_3.origin = ( 9705, 1207, 112 );
-    var_3.angles = ( 0, 294, 0 );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+    var_3.origin = ( 9705.0, 1207.0, 112.0 );
+    var_3.angles = ( 0.0, 294.0, 0.0 );
     var_0.allowdeath = 1;
     var_1.allowdeath = 1;
     var_0.end_melee_animation = "stand_death";
@@ -820,14 +820,14 @@ paulsen_end_fire( var_0 )
     var_4 = var_0 gettagorigin( "tag_flash" );
     var_5 = var_4 + var_3;
     var_6 = bullettrace( var_4, var_5, 0, undefined );
-    playfx( common_scripts\utility::_id_3FA8( "flesh_hit" ), var_6["position"], ( 0, 0, 1 ) );
+    playfx( common_scripts\utility::_id_3FA8( "flesh_hit" ), var_6["position"], ( 0.0, 0.0, 1.0 ) );
     thread common_scripts\utility::_id_69C2( "bullet_large_flesh", var_6["position"] );
     var_7 = var_6["position"];
     var_2 = anglestoforward( ( 0, self.angles[1], 0 ) );
     var_3 = maps\_utility::vector_multiply( var_2, -5 );
     var_7 += var_3;
-    var_6 = bullettrace( var_7 + ( 0, 0, 5 ), var_7 + ( 0, 0, -50 ), 0, undefined );
-    playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_6["position"], ( 0, 0, 1 ) );
+    var_6 = bullettrace( var_7 + ( 0.0, 0.0, 5.0 ), var_7 + ( 0.0, 0.0, -50.0 ), 0, undefined );
+    playfx( common_scripts\utility::_id_3FA8( "blood_pool" ), var_6["position"], ( 0.0, 0.0, 1.0 ) );
 }
 
 orient_to_guy( var_0 )
@@ -1123,7 +1123,7 @@ start_bog()
     maps\_utility::_id_7EA2( "r", "y" );
     level._id_7474 = getent( "auto2840", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( ( 6782.4, 336.4, 66 ) );
+    level._id_6F7C _meth_81c9( ( 6782.4, 336.4, 66.0 ) );
     maps\_utility::_id_88F1( level._id_6F7C );
     level._id_6F7C _meth_81aa( level._id_6F7C.origin );
     level._id_6F7C._id_0C72 = "price";
@@ -1134,8 +1134,8 @@ start_bog()
     maps\_utility::_id_0CE5( var_0 );
     var_1 = force_spawn_guys_from_targetname( "bog_friendly_start" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7402 );
-    level.playercardbackground setplayerangles( ( 0, 241, 0 ) );
-    level.playercardbackground setorigin( ( 6872.2, 547.4, 93 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 241.0, 0.0 ) );
+    level.playercardbackground setorigin( ( 6872.2, 547.4, 93.0 ) );
     bog_is_under_attack();
 }
 
@@ -1158,7 +1158,7 @@ start_alley()
     ambush_clear();
     level._id_7474 = getent( "alley_respawn", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( ( 9695.2, 372.3, 76 ) );
+    level._id_6F7C _meth_81c9( ( 9695.2, 372.3, 76.0 ) );
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C maps\_utility::_id_7E38( "c" );
@@ -1169,8 +1169,8 @@ start_alley()
     var_1 = force_spawn_guys_from_targetname( "alley_friendly_spawners" );
     var_1 = maps\_utility::_id_7339( var_1, "g" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7402 );
-    level.playercardbackground setplayerangles( ( 0, 255, 0 ) );
-    level.playercardbackground setorigin( ( 9838.94, 960.646, 76 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 255.0, 0.0 ) );
+    level.playercardbackground setorigin( ( 9838.94, 960.646, 76.0 ) );
     thread maps\bog_a::open_laundrymat();
     common_scripts\utility::_id_383F( "alley_enemies_spawn" );
 }
@@ -1182,12 +1182,12 @@ start_javelin()
     maps\_utility::_id_7EA2( "r", "y" );
     level._id_7474 = getent( "alley_respawn", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( ( 8812.1, -557.4, 212 ) );
+    level._id_6F7C _meth_81c9( ( 8812.1, -557.4, 212.0 ) );
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     getent( "playerseeker_spawn_trigger", "script_noteworthy" ) delete();
-    level.playercardbackground setplayerangles( ( 0, 255, 0 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 255.0, 0.0 ) );
     level.playercardbackground setorigin( ( 8636.5, -578.8, 190.9 ) );
     var_0 = getaiarray( "allies" );
     var_0 = common_scripts\utility::_id_0CF6( var_0, level._id_6F7C );
@@ -1292,7 +1292,7 @@ bridge_bmp_rolls_in( var_0, var_1 )
 {
     var_1.count++;
     var_2 = maps\_vehicle::_id_8978( var_0 );
-    var_3 = ( 0, 0, 60 );
+    var_3 = ( 0.0, 0.0, 60.0 );
     target_set( var_2, var_3 );
     target_setattackmode( var_2, "top" );
     target_setjavelinonly( var_2, 1 );
@@ -1443,7 +1443,7 @@ magic_laser_lights()
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        var_4 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_4 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_4.origin = self.origin;
         var_4 setmodel( "tag_laser" );
         var_4 thread laser_targets_points( var_0, "lasers_shift_fire", var_2.origin, 0.75, 1.25 );
@@ -1476,7 +1476,7 @@ street_laser_lights()
 
     for ( var_2 = 0; var_2 < var_1; var_2++ )
     {
-        var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_3.origin = self.origin;
         var_3 setmodel( "tag_laser" );
         var_3 thread laser_targets_points( var_0, "stop_street_lasers", undefined, 0.15, 0.9 );
@@ -1485,7 +1485,7 @@ street_laser_lights()
 
 laser_targets_points( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_5 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     thread draw_laser_line( var_5 );
     var_6 = undefined;
     var_7 = 0;
@@ -1591,7 +1591,7 @@ modulate_laser()
 
 get_laser()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = self.origin;
     var_0 setmodel( "tag_laser" );
     return var_0;
@@ -1722,7 +1722,7 @@ die_shortly()
 
     self endon( "death" );
     maps\_utility::waitspread( 0, 8 );
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 wait_while_enemies_are_alive_near_player()
@@ -1910,7 +1910,7 @@ ambushed_guys_die()
 
 killme()
 {
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 waitspread_death( var_0 )
@@ -2308,7 +2308,7 @@ cobra_crash()
         }
 
         soundscripts\_snd::_id_870C( "start_cobra_crash_sequence" );
-        var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+        var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_1.origin = var_0.origin;
         var_1.angles = var_0.angles;
         var_1 setmodel( var_0.motiontrackerenabled );
@@ -2427,7 +2427,7 @@ die_soon( var_0 )
 
     self endon( "death" );
     wait(var_0);
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 player_has_javelin()
@@ -2713,7 +2713,7 @@ alley_balcony_guy()
 {
     self endon( "death" );
     common_scripts\utility::_id_384A( "price_in_alley_position" );
-    magicbullet( "rpg_straight", self.origin + ( 0, 0, 10 ), self.origin );
+    magicbullet( "rpg_straight", self.origin + ( 0.0, 0.0, 10.0 ), self.origin );
 }
 
 lose_goal_volume()
@@ -2742,7 +2742,7 @@ die_after_spawn( var_0 )
 {
     self endon( "death" );
     wait(var_0);
-    self kill( ( 0, 0, 0 ) );
+    self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
 wait_until_price_reaches_his_trigger()
@@ -2911,14 +2911,14 @@ second_floor_door_breach_guys( var_0 )
     var_1 = getent( "apartment_second_floor_door_breach", "targetname" );
     var_2 = maps\_utility::_id_88D1( "door" );
     var_1 hide();
-    var_1 linkto( var_2, "door_jnt", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_1 linkto( var_2, "door_jnt", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_3 = getnode( "second_floor_door_breach_node", "targetname" );
-    level.door_mod = ( -20, -5.35, 0 );
+    level.door_mod = ( -20.0, -5.35, 0.0 );
     var_4 = spawn( "script_origin", var_3.origin + level.door_mod );
     level.door_ent = var_4;
-    var_4.angles = var_3.angles + ( 0, 270, 0 );
+    var_4.angles = var_3.angles + ( 0.0, 270.0, 0.0 );
     var_4 thread maps\_anim::_id_0BC7( var_2, "door_breach" );
-    var_5 = spawn( "script_origin", var_3.origin + ( -20, -13, 0 ) );
+    var_5 = spawn( "script_origin", var_3.origin + ( -20.0, -13.0, 0.0 ) );
     var_5.angles = var_3.angles;
     common_scripts\utility::_id_384A( "second_floor_door_breach_initiated" );
     remove_corner_ai_blocker();

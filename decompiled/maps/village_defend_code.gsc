@@ -69,7 +69,7 @@ minigun_player_drop()
     var_5 = var_3 - var_0;
     var_6 = ( vectordot( var_5, var_2["forward"] ), vectordot( var_5, var_2["right"] ), vectordot( var_5, var_2["up"] ) );
     var_6 -= ( 0, 0, level.minigun_eye_height );
-    level.eplayerview linkto( self, "tag_flash", var_6, ( 0, 0, 0 ) );
+    level.eplayerview linkto( self, "tag_flash", var_6, ( 0.0, 0.0, 0.0 ) );
     level.playercardbackground playerlinktoabsolute( level.eplayerview, undefined );
     waittillframeend;
     self _meth_856d();
@@ -81,9 +81,9 @@ minigun_player_drop()
     level.playercardbackground enableweapons();
     var_7 = level.playercardbackground getplayerangles();
     var_8 = anglestoforward( var_7 );
-    var_9 = level.playercardbackground.origin + ( 0, 0, 20 );
+    var_9 = level.playercardbackground.origin + ( 0.0, 0.0, 20.0 );
     var_9 -= var_8 * 20;
-    var_10 = var_9 - ( 0, 0, 100 );
+    var_10 = var_9 - ( 0.0, 0.0, 100.0 );
     var_11 = playerphysicstrace( var_9, var_10 );
     level.eplayerview moveto( var_11, 0.5, 0.2, 0.2 );
     level.playercardbackground lerpfov( level.minigun_previous_fov, 0.5 );
@@ -590,7 +590,7 @@ overheat_hud()
         level.overheat_status.xpmaxmultipliertimeplayed = var_0;
         level.overheat_status._id_0538 = var_1;
         level.overheat_status setshader( "white", 10, 0 );
-        level.overheat_status.color = ( 1, 0.9, 0 );
+        level.overheat_status.color = ( 1.0, 0.9, 0.0 );
         level.overheat_status.alpha = 0;
         level.overheat_status.space = 1;
     }
@@ -605,7 +605,7 @@ overheat_hud()
         level.overheat_status2.xpmaxmultipliertimeplayed = var_0;
         level.overheat_status2._id_0538 = var_1;
         level.overheat_status2 setshader( "white", 10, 0 );
-        level.overheat_status2.color = ( 1, 0.9, 0 );
+        level.overheat_status2.color = ( 1.0, 0.9, 0.0 );
         level.overheat_status2.alpha = 0;
         level.overheat_status2.space = 2;
     }
@@ -620,7 +620,7 @@ overheat_hud()
         level.overheat_flashing.xpmaxmultipliertimeplayed = var_0;
         level.overheat_flashing._id_0538 = var_1;
         level.overheat_flashing setshader( "white", 10, level.overheat_hud_height_max );
-        level.overheat_flashing.color = ( 0.8, 0.16, 0 );
+        level.overheat_flashing.color = ( 0.8, 0.16, 0.0 );
         level.overheat_flashing.alpha = 0;
         level.overheat_flashing.space = 3;
     }

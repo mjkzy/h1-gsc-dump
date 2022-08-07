@@ -93,7 +93,7 @@ _id_9999()
             continue;
 
         var_3 = 0;
-        var_3 = sighttracepassed( self.origin, var_1.origin + ( 0, 0, 150 ), 0, self );
+        var_3 = sighttracepassed( self.origin, var_1.origin + ( 0.0, 0.0, 150.0 ), 0, self );
 
         if ( !var_3 )
             continue;

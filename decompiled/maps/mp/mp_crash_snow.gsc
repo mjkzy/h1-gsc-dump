@@ -103,13 +103,13 @@ _id_6D29( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 playerplaysnowfx()
 {
     self._id_487B = 1;
-    var_0 = ( 0, 0, 30 );
+    var_0 = ( 0.0, 0.0, 30.0 );
     var_1 = self getstance();
 
     if ( var_1 == "crouch" )
-        var_0 = ( 0, 0, 20 );
+        var_0 = ( 0.0, 0.0, 20.0 );
     else if ( var_1 == "prone" )
-        var_0 = ( 0, 0, 10 );
+        var_0 = ( 0.0, 0.0, 10.0 );
 
     playfx( common_scripts\utility::_id_3FA8( "deathfx_xmas_snow" ), self.origin + var_0 );
 }

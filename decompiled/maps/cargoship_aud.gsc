@@ -69,8 +69,8 @@ _id_5618()
 _id_5617()
 {
     wait 0.1;
-    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_left", "emt_waves_crashing_far", ( 3649.9, -899.7, -13 ), ( -3582, -899.7, -13 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_right", "emt_waves_crashing_far", ( 3710.4, 893.8, -13 ), ( -3586.4, 896.9, -13 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_left", "emt_waves_crashing_far", ( 3649.9, -899.7, -13.0 ), ( -3582.0, -899.7, -13.0 ), 0.5 );
+    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_right", "emt_waves_crashing_far", ( 3710.4, 893.8, -13.0 ), ( -3586.4, 896.9, -13.0 ), 0.5 );
     thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center01 ", "emt_water_drop_metal", ( -1894.71, -27.25, -407.875 ), ( -1142.67, -20.391, -407.875 ), 0.5 );
     thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center02 ", "emt_water_drop_metal", ( -963.804, -5.706, -407.875 ), ( -830.211, 2.213, -407.875 ), 0.5 );
     thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center03 ", "emt_water_drop_metal", ( -548.97, 8.78, -407.875 ), ( 131.804, 11.023, -407.875 ), 0.5 );
@@ -257,7 +257,7 @@ aud_start_mix_escape()
     level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
     level.playercardbackground setreverb( "snd_enveffectsprio_level", "hall_metal", 1, 0.4, 0.5 );
     thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble", ( 333.375, -0.75, -99.156 ) );
-    thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble_02", ( -1762, 103, -123 ) );
+    thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble_02", ( -1762.0, 103.0, -123.0 ) );
     thread aud_alarm_sound();
 }
 
@@ -309,18 +309,18 @@ aud_start_sway2()
 
 aud_container_doors_creak()
 {
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1380.5, 181, 25 ) );
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1630.5, 181, 24.5 ) );
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1636.5, 89, 25 ) );
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1387, 192.5, 25.5 ) );
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1630, 285, 25.5 ) );
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1637, 194, 27 ) );
-    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1274.5, 256.5, -350 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1380.5, 181.0, 25.0 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1630.5, 181.0, 24.5 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1636.5, 89.0, 25.0 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1387.0, 192.5, 25.5 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1630.0, 285.0, 25.5 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1637.0, 194.0, 27.0 ) );
+    thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( -1274.5, 256.5, -350.0 ) );
 
     if ( common_scripts\utility::_id_382E( "aud_package_door_creaks" ) )
     {
-        thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( 2349.5, 254, -306 ) );
-        thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( 2349.5, 154, -306 ) );
+        thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( 2349.5, 254.0, -306.0 ) );
+        thread common_scripts\utility::_id_69C2( "cgo_container_door_creaks", ( 2349.5, 154.0, -306.0 ) );
     }
 }
 

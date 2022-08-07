@@ -134,7 +134,7 @@ _id_2C97( var_0, var_1 )
 _id_2C9A( var_0 )
 {
     var_1 = var_0 maps\_hud_util::_id_23ED( "default", 1 );
-    var_1.color = ( 1, 1, 1 );
+    var_1.color = ( 1.0, 1.0, 1.0 );
     var_1 settext( level._id_2C98 );
     var_1.xpmaxmultipliertimeplayed = 0;
     var_1._id_0538 = -30;
@@ -610,7 +610,7 @@ _id_20AD()
             if ( var_4 < 30 )
             {
                 var_3 *= 3 / var_4;
-                self _meth_81cb( self.origin - var_3, ( 0, 30, 0 ) );
+                self _meth_81cb( self.origin - var_3, ( 0.0, 30.0, 0.0 ) );
             }
         }
     }
@@ -745,7 +745,7 @@ show_prepare_dog_hint_h1()
         }
 
         self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", var_0 );
-        self._id_5B8B._id_2CCE.color = ( 1, 1, 1 );
+        self._id_5B8B._id_2CCE.color = ( 1.0, 1.0, 1.0 );
         self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT" );
         self._id_5B8B._id_2CCE.xpmaxmultipliertimeplayed = 0;
         self._id_5B8B._id_2CCE._id_0538 = 20;
@@ -757,7 +757,7 @@ show_prepare_dog_hint_h1()
         self._id_5B8B._id_2CCE.alpha = 0.1;
         self._id_5B8B._id_2CCE.space = -1;
         self._id_5B8B.doghintstar = maps\_hud_util::_id_2420( "h1_dog_melee_prompt_star", 0, 0 );
-        self._id_5B8B.doghintstar.color = ( 1, 1, 1 );
+        self._id_5B8B.doghintstar.color = ( 1.0, 1.0, 1.0 );
         self._id_5B8B.doghintstar.xpmaxmultipliertimeplayed = 0;
         self._id_5B8B.doghintstar._id_0538 = 20;
         self._id_5B8B.doghintstar.alignx = "center";
@@ -771,7 +771,7 @@ show_prepare_dog_hint_h1()
     else
     {
         self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", 0.5 );
-        self._id_5B8B._id_2CCE.color = ( 1, 1, 1 );
+        self._id_5B8B._id_2CCE.color = ( 1.0, 1.0, 1.0 );
         self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD" );
         self._id_5B8B._id_2CCE.xpmaxmultipliertimeplayed = 0;
         self._id_5B8B._id_2CCE._id_0538 = 20;
@@ -1095,7 +1095,7 @@ _id_5B97()
     self _meth_8144( var_0[0], 0.1 );
     self setflaggedanimrestart( "aianim", var_0[1], 1, 0.1, 1 );
     wait 0.15;
-    self.tag_ai_aim_target linkto( self, "tag_sync", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    self.tag_ai_aim_target linkto( self, "tag_sync", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     self waittillmatch( "aianim", "end" );
     self._id_5B8F = 1;
 
@@ -1282,7 +1282,7 @@ _id_6D83( var_0 )
     thread _id_6D7C( var_0 );
     self dontinterpolate();
     var_1 playerlinktoabsolute( self, "tag_player" );
-    var_0 linkto( self, "tag_sync", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 linkto( self, "tag_sync", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_5 = self gettagangles( "tag_sync" );
     var_0 _meth_8193( "face angle", var_5[1] );
     var_0 _meth_8193( "face default" );

@@ -934,7 +934,7 @@ bot_oldschool_pickup_is_probably_visible( var_0, var_1, var_2, var_3 )
 
 bot_oldschool_pickup_trace_passed( var_0 )
 {
-    if ( sighttracepassed( self geteye(), var_0.origin + ( 0, 0, 30 ), 1, self, var_0.pitchamount, 0 ) )
+    if ( sighttracepassed( self geteye(), var_0.origin + ( 0.0, 0.0, 30.0 ), 1, self, var_0.pitchamount, 0 ) )
         return 1;
 
     return sighttracepassed( self geteye(), var_0.origin, 1, self, var_0.pitchamount, 0 );

@@ -321,7 +321,7 @@ spawnlogic_begin()
 ispointvulnerable( var_0 )
 {
     var_1 = self.origin + level.claymoremodelcenteroffset;
-    var_2 = var_0 + ( 0, 0, 32 );
+    var_2 = var_0 + ( 0.0, 0.0, 32.0 );
     var_3 = distancesquared( var_1, var_2 );
     var_4 = anglestoforward( self.angles );
 
@@ -442,7 +442,7 @@ spawnperframeupdate()
                 continue;
 
             var_2++;
-            var_14 = legacybullettracepassed( var_9.origin + ( 0, 0, 50 ), var_5._id_856B, var_5 );
+            var_14 = legacybullettracepassed( var_9.origin + ( 0.0, 0.0, 50.0 ), var_5._id_856B, var_5 );
             var_5.lastsighttracetime = gettime();
 
             if ( var_14 )
@@ -530,13 +530,13 @@ lastminutesighttraces( var_0 )
 
     if ( isdefined( var_2 ) )
     {
-        if ( legacybullettracepassed( var_2.origin + ( 0, 0, 50 ), var_0._id_856B, var_0 ) )
+        if ( legacybullettracepassed( var_2.origin + ( 0.0, 0.0, 50.0 ), var_0._id_856B, var_0 ) )
             return 1;
     }
 
     if ( isdefined( var_4 ) )
     {
-        if ( legacybullettracepassed( var_4.origin + ( 0, 0, 50 ), var_0._id_856B, var_0 ) )
+        if ( legacybullettracepassed( var_4.origin + ( 0.0, 0.0, 50.0 ), var_0._id_856B, var_0 ) )
             return 1;
     }
 

@@ -37,7 +37,7 @@ main()
     thread misc_rotate_ceilingfans();
     level replace_turrets();
     fix_sab_bomb();
-    maps\mp\_utility::hardpointtriggerswap( ( 132, 3704, 64 ), "patch_hp_zone_trigger_2" );
+    maps\mp\_utility::hardpointtriggerswap( ( 132.0, 3704.0, 64.0 ), "patch_hp_zone_trigger_2" );
 }
 
 fix_sab_bomb()

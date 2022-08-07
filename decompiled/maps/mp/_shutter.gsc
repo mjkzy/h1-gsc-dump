@@ -164,7 +164,7 @@ _id_A344( var_0 )
     var_2 = var_1[0].origin;
     var_3 = var_1[1].origin;
     var_4 = vectortoangles( var_2 - var_3 );
-    var_5 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_5 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_5.origin = var_2 * 0.5 + var_3 * 0.5;
     var_5.angles = var_4;
     var_0 linkto( var_5 );

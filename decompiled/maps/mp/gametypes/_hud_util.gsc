@@ -413,7 +413,7 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_7._id_12DB = var_6;
     var_7._id_1D3D = [];
     var_7.space = -3;
-    var_7.color = ( 0, 0, 0 );
+    var_7.color = ( 0.0, 0.0, 0.0 );
     var_7.alpha = 0.5;
     var_7 _id_7FDC( level._id_99F4 );
     var_7 setshader( "progress_bar_bg", var_1, var_2 );
@@ -445,7 +445,7 @@ _id_23E5( var_0, var_1, var_2, var_3 )
     var_5._id_12DB = var_4;
     var_5._id_1D3D = [];
     var_5.space = -3;
-    var_5.color = ( 0, 0, 0 );
+    var_5.color = ( 0.0, 0.0, 0.0 );
     var_5.alpha = 0.5;
     var_5 _id_7FDC( level._id_99F4 );
     var_5 setshader( "progress_bar_bg", var_1 + 4, var_2 + 4 );
@@ -482,7 +482,7 @@ _id_2435( var_0, var_1 )
     if ( self issplitscreenplayerprimary() )
         var_1 += 20;
 
-    var_2 = _id_23E5( ( 1, 1, 1 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
+    var_2 = _id_23E5( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
     var_2 _id_7FEE( "CENTER", undefined, level.primaryprogressbarx + var_0, level.primaryprogressbary + var_1 );
     return var_2;
 }
@@ -506,7 +506,7 @@ _id_2436( var_0, var_1 )
 
 _id_2444( var_0 )
 {
-    var_1 = _id_243C( ( 1, 0, 0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
+    var_1 = _id_243C( ( 1.0, 0.0, 0.0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
     var_1 _id_7FEE( "TOP", undefined, 0, level.teamprogressbary );
     return var_1;
 }
@@ -870,7 +870,7 @@ _id_2B5E( var_0, var_1, var_2, var_3 )
     var_4 = _id_2401( "hudbig", var_2 );
     var_4 _id_7FEE( "CENTER", "CENTER", 0, var_1 );
     var_4.space = 1001;
-    var_4.color = ( 1, 1, 1 );
+    var_4.color = ( 1.0, 1.0, 1.0 );
     var_4.foreground = 0;
     var_4.hindlegstraceoffset = 1;
     var_4 settext( var_0 );

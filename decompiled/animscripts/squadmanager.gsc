@@ -381,7 +381,7 @@ _id_9B25()
         self.forward = vectornormalize( self.enemy.origin - self.origin );
     else
     {
-        var_0 = ( 0, 0, 0 );
+        var_0 = ( 0.0, 0.0, 0.0 );
         var_1 = 0;
 
         for ( var_2 = 0; var_2 < self._id_5BA6.size; var_2++ )
@@ -405,7 +405,7 @@ _id_9B25()
 
 _id_9B44()
 {
-    var_0 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
     var_1 = 0;
 
     for ( var_2 = 0; var_2 < self._id_5BA6.size; var_2++ )
@@ -461,7 +461,7 @@ _id_9B15()
 
 _id_9AF1()
 {
-    var_0 = ( 0, 0, 0 );
+    var_0 = ( 0.0, 0.0, 0.0 );
     var_1 = 0;
     var_2 = undefined;
     var_3 = 0;
@@ -521,17 +521,17 @@ _id_6FA9( var_0, var_1, var_2, var_3 )
     self endon( "death" );
 
     if ( !isdefined( var_2 ) )
-        var_2 = ( 0, 0, 0 );
+        var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( !isdefined( var_3 ) )
-        var_3 = ( 1, 0, 0 );
+        var_3 = ( 1.0, 0.0, 0.0 );
 
     for ( var_4 = 0; var_4 < var_1 * 2; var_4++ )
     {
         if ( !isalive( self ) )
             return;
 
-        var_5 = self getshootatpos() + ( 0, 0, 10 ) + var_2;
+        var_5 = self getshootatpos() + ( 0.0, 0.0, 10.0 ) + var_2;
         wait 0.05;
     }
 }

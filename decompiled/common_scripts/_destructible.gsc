@@ -511,14 +511,14 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                 else
                 {
                     var_22 = var_19 gettagorigin( var_21 );
-                    var_23 = var_22 + ( 0, 0, 100 ) - var_22;
+                    var_23 = var_22 + ( 0.0, 0.0, 100.0 ) - var_22;
                     playfx( var_20, var_22, var_23 );
                 }
             }
             else
             {
                 var_22 = var_19.origin;
-                var_23 = var_22 + ( 0, 0, 100 ) - var_22;
+                var_23 = var_22 + ( 0.0, 0.0, 100.0 ) - var_22;
                 playfx( var_20, var_22, var_23 );
             }
         }
@@ -673,7 +673,7 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         if ( isdefined( level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_17].v["physics"] ) )
         {
             var_48 = var_3;
-            var_49 = ( 0, 0, 0 );
+            var_49 = ( 0.0, 0.0, 0.0 );
 
             if ( isdefined( var_5 ) )
             {
@@ -933,7 +933,7 @@ _id_4781( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     while ( self._id_2925[var_2].v["health"] > 0 )
     {
-        self notify( "damage", var_0, self, ( 0, 0, 0 ), ( 0, 0, 0 ), "MOD_UNKNOWN", var_3, var_4 );
+        self notify( "damage", var_0, self, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "MOD_UNKNOWN", var_3, var_4 );
         wait(var_1);
     }
 
@@ -1027,7 +1027,7 @@ explode( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_7 = self.origin;
 
-    self notify( "damage", var_5, self, ( 0, 0, 0 ), var_7, "MOD_EXPLOSIVE", "", "" );
+    self notify( "damage", var_5, self, ( 0.0, 0.0, 0.0 ), var_7, "MOD_EXPLOSIVE", "", "" );
     waitframe;
 
     if ( isdefined( self.partsspawnedents ) )
@@ -1075,7 +1075,7 @@ explode( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     self notify( "stop_taking_damage" );
     wait 0.05;
-    var_14 = var_7 + ( 0, 0, 80 );
+    var_14 = var_7 + ( 0.0, 0.0, 80.0 );
 
     if ( getsubstr( level.destructible_type[self.destuctableinfo].v["type"], 0, 7 ) == "vehicle" )
     {
@@ -1192,7 +1192,7 @@ ismodelattached( var_0, var_1 )
 _id_6974( var_0, var_1 )
 {
     var_2 = _id_3D4B();
-    var_3 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
 
     if ( isdefined( var_1 ) )
         var_3.origin = var_2 gettagorigin( var_1 );
@@ -1283,7 +1283,7 @@ _id_2150()
         return;
 
     var_0 connectpaths();
-    var_0.origin -= ( 0, 0, 10000 );
+    var_0.origin -= ( 0.0, 0.0, 10000.0 );
 }
 
 _id_2B3A()
@@ -1293,9 +1293,9 @@ _id_2B3A()
     if ( !isdefined( var_0 ) )
         return;
 
-    var_0.origin += ( 0, 0, 10000 );
+    var_0.origin += ( 0.0, 0.0, 10000.0 );
     var_0 disconnectpaths();
-    var_0.origin -= ( 0, 0, 10000 );
+    var_0.origin -= ( 0.0, 0.0, 10000.0 );
 }
 
 setup_destructible_entities()
@@ -1310,7 +1310,7 @@ setup_destructible_entities()
         switch ( var_2.script_parentname )
         {
             case "destroyed":
-                var_2.origin -= ( 0, 0, 10000 );
+                var_2.origin -= ( 0.0, 0.0, 10000.0 );
                 continue;
         }
     }
@@ -1331,7 +1331,7 @@ destroy_destructible_entities()
                 var_2 delete();
                 continue;
             case "destroyed":
-                var_2.origin += ( 0, 0, 10000 );
+                var_2.origin += ( 0.0, 0.0, 10000.0 );
                 continue;
         }
     }

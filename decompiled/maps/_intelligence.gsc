@@ -157,7 +157,7 @@ _id_4E96()
     var_0 = 3000;
     var_1 = 700;
     var_2 = maps\_hud_util::_id_2420( "h1_hud_ammo_status_glow", 400, 75 );
-    var_2.color = ( 1, 0.95, 0.4 );
+    var_2.color = ( 1.0, 0.95, 0.4 );
     var_2.xpmaxmultipliertimeplayed = 0;
     var_2._id_0538 = -65;
     var_2.alignx = "center";
@@ -167,7 +167,7 @@ _id_4E96()
     var_2.foreground = 1;
     var_2.alpha = 0.0;
     var_3 = maps\_hud_util::_id_2420( "h1_hud_ammo_status_scanlines", 800, 75 );
-    var_3.color = ( 1, 0.85, 0 );
+    var_3.color = ( 1.0, 0.85, 0.0 );
     var_3.xpmaxmultipliertimeplayed = 0;
     var_3._id_0538 = -65;
     var_3.alignx = "center";
@@ -206,7 +206,7 @@ _id_4E96()
 _id_814B()
 {
     self.fontscale = 1.2;
-    self.glowcolor = ( 0.96, 0.81, 0 );
+    self.glowcolor = ( 0.96, 0.81, 0.0 );
     self.glowalpha = 0.2;
     self.color = ( 0.99, 0.97, 0.85 );
     self.alpha = 1;

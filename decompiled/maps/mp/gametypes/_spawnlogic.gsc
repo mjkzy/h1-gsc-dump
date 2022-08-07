@@ -22,8 +22,8 @@
 init()
 {
     level.killstreakspawnshield = 0;
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     level._id_1F11 = undefined;
     level._id_2AF8 = 0;
     level._id_62AC = 0;
@@ -106,7 +106,7 @@ updatespawnsightsforplayer( var_0 )
 
 calculatespawntospawnsights()
 {
-    var_0 = ( 0, 0, 64 );
+    var_0 = ( 0.0, 0.0, 64.0 );
 
     foreach ( var_2 in level.spawnpoints )
     {
@@ -245,7 +245,7 @@ _id_8A00()
     level.spawnmins = _id_3519( level.spawnmins, var_0.origin );
     level.spawnmaxs = _id_3518( level.spawnmaxs, var_0.origin );
     var_0.forward = anglestoforward( var_0.angles );
-    var_0._id_856B = var_0.origin + ( 0, 0, 50 );
+    var_0._id_856B = var_0.origin + ( 0.0, 0.0, 50.0 );
     var_0._id_55DF = gettime();
     var_0._id_65D1 = 1;
     var_0._id_4DB5 = 1;
@@ -268,7 +268,7 @@ _id_8A00()
 
 _id_07C9( var_0, var_1 )
 {
-    var_2 = playerphysicstrace( var_0.origin, var_0.origin + ( 0, 0, 18 ) );
+    var_2 = playerphysicstrace( var_0.origin, var_0.origin + ( 0.0, 0.0, 18.0 ) );
     var_3 = var_2[2] - var_0.origin[2];
     var_4 = ( var_1[0], var_1[1], var_1[2] + var_3 );
     var_5 = playerphysicstrace( var_2, var_4 );
@@ -303,7 +303,7 @@ _id_40DD( var_0 )
 
 cananyplayerseeffaspawnpoint( var_0 )
 {
-    var_1 = ( 0, 0, 64 );
+    var_1 = ( 0.0, 0.0, 64.0 );
     var_2 = var_0.origin + var_1;
 
     foreach ( var_4 in level.players )
@@ -1010,7 +1010,7 @@ _id_07EE( var_0, var_1 )
         if ( var_0._id_3AE2[var_4] )
             continue;
 
-        var_5 = spawnsighttrace( var_0, var_0._id_856B, var_3.origin + ( 0, 0, 50 ), var_0.info_player_start );
+        var_5 = spawnsighttrace( var_0, var_0._id_856B, var_3.origin + ( 0.0, 0.0, 50.0 ), var_0.info_player_start );
 
         if ( !var_5 )
             continue;
@@ -1083,7 +1083,7 @@ _id_3518( var_0, var_1 )
 
 findboxcenter( var_0, var_1 )
 {
-    var_2 = ( 0, 0, 0 );
+    var_2 = ( 0.0, 0.0, 0.0 );
     var_2 = var_1 - var_0;
     var_2 = ( var_2[0] / 2, var_2[1] / 2, var_2[2] / 2 ) + var_0;
     return var_2;
@@ -1091,8 +1091,8 @@ findboxcenter( var_0, var_1 )
 
 _id_7FA6()
 {
-    level.spawnmins = ( 0, 0, 0 );
-    level.spawnmaxs = ( 0, 0, 0 );
+    level.spawnmins = ( 0.0, 0.0, 0.0 );
+    level.spawnmaxs = ( 0.0, 0.0, 0.0 );
     _id_351A( "mp_tdm_spawn_allies_start" );
     _id_351A( "mp_tdm_spawn_axis_start" );
     level.mapcenter = findboxcenter( level.spawnmins, level.spawnmaxs );

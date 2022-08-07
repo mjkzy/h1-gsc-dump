@@ -466,13 +466,13 @@ _id_51BD( var_0, var_1, var_2, var_3 )
     if ( var_7 )
     {
         var_18 = 1;
-        var_20 = ( 0, 0, 0 );
+        var_20 = ( 0.0, 0.0, 0.0 );
 
         foreach ( var_15 in var_5 )
             var_20 += var_15.origin;
 
         var_20 /= var_5.size;
-        var_23 = ( 0, 0, 0 );
+        var_23 = ( 0.0, 0.0, 0.0 );
 
         foreach ( var_10 in var_3 )
             var_23 += var_10.origin;

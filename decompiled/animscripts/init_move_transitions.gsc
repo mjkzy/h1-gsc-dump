@@ -813,7 +813,7 @@ findbestsplittime( var_0, var_1, var_2 )
     var_5 = 1000;
     var_6 = -1;
     var_7 = -100000000;
-    var_8 = ( 0, 0, 0 );
+    var_8 = ( 0.0, 0.0, 0.0 );
 
     for ( var_9 = 0; var_9 < var_5; var_9++ )
     {

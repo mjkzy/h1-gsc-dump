@@ -246,7 +246,7 @@ _id_8028( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_1 ) )
         self._id_3318 = var_1;
     else
-        self._id_3318 = ( 0, 0, 0 );
+        self._id_3318 = ( 0.0, 0.0, 0.0 );
 
     self notify( "kill_entity_headicon_thread" );
 
@@ -336,7 +336,7 @@ _id_7FE5( var_0, var_1, var_2 )
     if ( isdefined( var_1 ) )
         self._id_3318 = var_1;
     else
-        self._id_3318 = ( 0, 0, 0 );
+        self._id_3318 = ( 0.0, 0.0, 0.0 );
 
     var_4 = game["entity_headicon_" + var_3];
     var_5 = newclienthudelem( var_0 );

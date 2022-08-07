@@ -478,7 +478,7 @@ start_field()
     var_1 = getaiarray( "allies" );
     common_scripts\utility::_id_383F( "second_shacks" );
     var_2 = getent( "player_meeting_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -27000 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -27000.0 ) );
     var_3 = getent( "price_meeting_org", "targetname" );
     var_4 = getent( "price_meeting_org", "targetname" );
     level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
@@ -593,7 +593,7 @@ field_meeting()
     common_scripts\utility::_id_0D13( var_8, maps\_utility::_id_7E5E, 1 );
     common_scripts\utility::_id_383F( "go_to_overlook" );
     thread overlook_mortars();
-    objective_add( 3, "current", &"BLACKOUT_PROVIDE_SNIPER_SUPPORT", ( -7587, -2233, 857 ) );
+    objective_add( 3, "current", &"BLACKOUT_PROVIDE_SNIPER_SUPPORT", ( -7587.0, -2233.0, 857.0 ) );
 
     if ( getdvarint( "use_old_meeting" ) != 1 )
     {
@@ -653,7 +653,7 @@ _id_8C24()
     common_scripts\utility::_id_0CF0( var_1, maps\_utility::_id_284E );
     var_2 = getaiarray( "allies" );
     var_3 = getent( "player_overlook_org", "targetname" );
-    level.playercardbackground setorigin( var_3.origin + ( 0, 0, -27000 ) );
+    level.playercardbackground setorigin( var_3.origin + ( 0.0, 0.0, -27000.0 ) );
     var_4 = getentarray( "friendly_overlook_org", "targetname" );
 
     for ( var_5 = 0; var_5 < var_2.size; var_5++ )
@@ -848,7 +848,7 @@ start_cliff()
     common_scripts\utility::_id_383F( "player_reaches_cliff_area" );
     wait 0.5;
     var_7 = getent( "player_cliff_org", "targetname" );
-    level.playercardbackground setorigin( var_7.origin + ( 0, 0, -27000 ) );
+    level.playercardbackground setorigin( var_7.origin + ( 0.0, 0.0, -27000.0 ) );
     var_8 = getentarray( "friendly_cliff_org", "targetname" );
 
     for ( var_6 = 0; var_6 < var_1.size; var_6++ )
@@ -958,7 +958,7 @@ start_farmhouse()
     common_scripts\utility::_id_383F( "player_reaches_cliff_area" );
     wait 0.5;
     var_2 = getent( "player_farmhouse_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0, 0, -27000 ) );
+    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -27000.0 ) );
     var_3 = getentarray( "ally_farmhouse_org", "targetname" );
 
     for ( var_4 = 0; var_4 < var_0.size; var_4++ )
@@ -1010,7 +1010,7 @@ start_blackout()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0CF0( var_0, maps\_utility::_id_284E );
     var_1 = getent( "player_blackout_org", "targetname" );
-    level.playercardbackground setorigin( var_1.origin + ( 0, 0, -27000 ) );
+    level.playercardbackground setorigin( var_1.origin + ( 0.0, 0.0, -27000.0 ) );
     var_2 = getaiarray( "allies" );
     var_3 = getentarray( "ally_blackout_org", "targetname" );
 
@@ -1125,7 +1125,7 @@ start_rescue()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0CF0( var_0, maps\_utility::_id_284E );
     var_1 = getent( "rescue_player_org", "targetname" );
-    level.playercardbackground setorigin( var_1.origin + ( 0, 0, -27000 ) );
+    level.playercardbackground setorigin( var_1.origin + ( 0.0, 0.0, -27000.0 ) );
     var_2 = getent( "rescue_price_org", "targetname" );
     level._id_6F7C _meth_81c9( var_2.origin );
     level.playercardbackground setorigin( var_1.origin );
@@ -1165,9 +1165,9 @@ blackout_rescue()
     var_2.angles = var_0.angles;
     var_2 linkto( var_0, "body_animate_jnt" );
     var_3 = getent( "blackhawk_collision", "targetname" );
-    var_3 linkto( var_0, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_3 linkto( var_0, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_4 = getent( "blackhawk_death_trigger", "targetname" );
-    var_4 thread maps\_utility::_id_5972( var_0, ( 0, 0, -50 ) );
+    var_4 thread maps\_utility::_id_5972( var_0, ( 0.0, 0.0, -50.0 ) );
     var_4 thread maps\_vehicle::heli_squashes_stuff( "blackhawk_lands" );
     var_0._id_0C72 = "blackhawk";
     var_0 thread maps\_vehicle_code::_id_7611();

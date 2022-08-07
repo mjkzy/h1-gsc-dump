@@ -79,7 +79,7 @@ _id_366A()
 
     for (;;)
     {
-        self rotatevelocity( ( 0, 150, 0 ), var_0 );
+        self rotatevelocity( ( 0.0, 150.0, 0.0 ), var_0 );
         wait(var_0);
     }
 }

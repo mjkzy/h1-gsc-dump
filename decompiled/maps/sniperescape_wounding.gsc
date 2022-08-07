@@ -41,7 +41,7 @@ bring_out_the_hounds()
         {
             var_4 = var_1[var_3];
 
-            if ( bullettracepassed( level.playercardbackground.origin + ( 0, 0, 32 ), var_4.origin + ( 0, 0, 32 ), 0, level.playercardbackground ) )
+            if ( bullettracepassed( level.playercardbackground.origin + ( 0.0, 0.0, 32.0 ), var_4.origin + ( 0.0, 0.0, 32.0 ), 0, level.playercardbackground ) )
                 continue;
 
             var_2++;
@@ -444,7 +444,7 @@ price_complains_until_he_is_picked_up()
 
 plant_price()
 {
-    var_0 = physicstrace( level._id_6F7C.origin + ( 0, 0, 2 ), level._id_6F7C.origin + ( 0, 0, -100 ), level._id_6F7C );
+    var_0 = physicstrace( level._id_6F7C.origin + ( 0.0, 0.0, 2.0 ), level._id_6F7C.origin + ( 0.0, 0.0, -100.0 ), level._id_6F7C );
     level._id_6F7C _meth_81c9( var_0 );
 }
 
@@ -571,7 +571,7 @@ apartment_price_waits_for_dog_death()
 pool_have_body()
 {
     var_0 = getent( "dog_body", "targetname" );
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = var_0.origin;
     var_1.angles = var_0.angles;
     var_1._id_0C72 = "dead_guy";
@@ -638,10 +638,10 @@ seaknight_sound()
 {
     var_0 = "sniperescape_seaknight_fly";
     var_1 = "sniperescape_seaknight_idle";
-    var_2 = spawn( "sound_blend", ( 0, 0, 0 ) );
-    var_2 thread maps\_utility::_id_5972( self, ( 0, 0, 0 ) );
-    var_3 = spawn( "sound_blend", ( 0, 0, 0 ) );
-    var_3 thread maps\_utility::_id_5972( self, ( 0, 0, 64 ) );
+    var_2 = spawn( "sound_blend", ( 0.0, 0.0, 0.0 ) );
+    var_2 thread maps\_utility::_id_5972( self, ( 0.0, 0.0, 0.0 ) );
+    var_3 = spawn( "sound_blend", ( 0.0, 0.0, 0.0 ) );
+    var_3 thread maps\_utility::_id_5972( self, ( 0.0, 0.0, 64.0 ) );
     soundscripts\_snd::_id_870C( "seaknight_rescue_submix_arrival" );
     thread play_extra_seaknight_sound();
     var_2 thread maps\_utility::_id_5CEC( var_0 );
@@ -779,7 +779,7 @@ fair_grenade_trigger_think()
 heli_shoots_targetnamed_rocket( var_0, var_1 )
 {
     var_2 = getent( var_0, "targetname" );
-    var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_3 setmodel( "tag_origin" );
     var_3 playsound( "weap_lau61c_fire" );
     var_3.origin = var_2.origin;
@@ -833,7 +833,7 @@ wall_explosion_rocket_acceleration( var_0 )
 
 linktoblade( var_0 )
 {
-    self linkto( var_0, self.tag_aim_animated, ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    self linkto( var_0, self.tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     self.root = var_0;
 }
 
@@ -940,7 +940,7 @@ rotor_blades( var_0 )
 
 rotor_hub( var_0 )
 {
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( "vehicle_mi28_center_hub" );
     var_1.origin = var_0 gettagorigin( "main_rotor_jnt" );
     var_1.angles = var_0 gettagangles( "main_rotor_jnt" );
@@ -949,7 +949,7 @@ rotor_hub( var_0 )
 
 add_dirtmodel( var_0, var_1 )
 {
-    var_2 = spawn( "script_model", ( 90, 0, 0 ) );
+    var_2 = spawn( "script_model", ( 90.0, 0.0, 0.0 ) );
     var_2 setmodel( "tag_origin" );
     var_2 hide();
     var_2 linkto( self, "tag_body", var_0, var_1 );
@@ -1028,21 +1028,21 @@ heli_attacks_price_new()
     var_2 = var_1;
     var_1 = var_1 maps\_vehicle::_id_9D58();
     var_3 = getent( "death_heli_clip", "targetname" );
-    var_3 linkto( var_1, "origin_animate_jnt", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_3 linkto( var_1, "origin_animate_jnt", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_3 hide();
     var_1 thread kill_toucher_until_stop( var_3 );
     var_1._id_1F96 = var_3;
-    var_4 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_4 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_4 setmodel( "tag_origin" );
     var_4 hide();
-    var_4 linkto( var_1, "tail_rotor_jnt", ( 0, 0, 0 ), ( 0, 90, 0 ) );
+    var_4 linkto( var_1, "tail_rotor_jnt", ( 0.0, 0.0, 0.0 ), ( 0.0, 90.0, 0.0 ) );
     var_5 = [];
     var_6 = 1;
     var_7 = 230;
     var_8 = var_7 / var_6;
 
     for ( var_9 = 0; var_9 < var_6; var_9++ )
-        var_5[var_5.size] = var_1 add_dirtmodel( ( -20 + var_8 * var_9, 0, -70 ), ( 0, 90, 0 ) );
+        var_5[var_5.size] = var_1 add_dirtmodel( ( -20 + var_8 * var_9, 0, -70 ), ( 0.0, 90.0, 0.0 ) );
 
     level.price_heli = var_1;
     var_1._id_0C72 = "mi28";
@@ -1089,7 +1089,7 @@ heli_attacks_price_new()
         var_0 maps\_anim::_id_0BFF( level._id_6F7C, "crash" );
         level._id_6F7C.a.animreachcustomradius = undefined;
         var_12 = spawn( "script_origin", level._id_6F7C.origin );
-        var_12.angles = ( 0, 35, 0 );
+        var_12.angles = ( 0.0, 35.0, 0.0 );
         var_12 maps\_anim::_id_0C24( level._id_6F7C, "chopper_point" );
         var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "precrash_idle", undefined, "price_loop" );
         level._id_6F7C.ignoreforfixednodesafecheck = 0;
@@ -1178,7 +1178,7 @@ heli_to_idle_once_in_place( var_0 )
 heli_rumbles()
 {
     self.rumbler = spawn( "script_origin", self.origin );
-    self.rumbler linkto( self, "main_rotor_jnt", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    self.rumbler linkto( self, "main_rotor_jnt", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     self.rumbler playrumblelooponentity( "crash_heli_rumble" );
 }
 
@@ -1213,16 +1213,16 @@ heli_shoots_dirt( var_0 )
 
 dirt_model_shoots_dirt( var_0 )
 {
-    var_1 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( "tag_origin" );
     var_1 hide();
     playfxontag( common_scripts\utility::_id_3FA8( "heli_dirt" ), var_1, "tag_origin" );
-    var_1 linkto( level.price_heli, "tag_deathfx", ( 0, 0, 0 ), ( 0, 0, 0 ) );
-    var_2 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_1 linkto( level.price_heli, "tag_deathfx", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_2 setmodel( "tag_origin" );
     var_2 hide();
     playfxontag( common_scripts\utility::_id_3FA8( "heli_dirt_rear" ), var_2, "tag_origin" );
-    var_2 linkto( level.price_heli, "tag_deathfx", ( -100, 0, 100 ), ( 0, 0, 0 ) );
+    var_2 linkto( level.price_heli, "tag_deathfx", ( -100.0, 0.0, 100.0 ), ( 0.0, 0.0, 0.0 ) );
     self waittill( "kill_dirt" );
     var_1 delete();
     var_2 delete();
@@ -1247,7 +1247,7 @@ dirt_model_shoots_dirt( var_0 )
             level.dirtfx_org = var_8;
         }
 
-        level.dirtfx_org.angles = var_0.angles + ( -90, 0, 0 );
+        level.dirtfx_org.angles = var_0.angles + ( -90.0, 0.0, 0.0 );
         level.dirtfx_org.origin = var_7;
         wait 0.05;
     }
@@ -1278,7 +1278,7 @@ heli_makes_sparks( var_0 )
         var_4 = anglestoforward( self.angles );
         var_5 = var_4 * 500;
         var_6 = bullettrace( self.origin, self.origin + var_5, 1, var_0 );
-        var_7 = var_6["position"] + ( 8, 8, 16 );
+        var_7 = var_6["position"] + ( 8.0, 8.0, 16.0 );
         playfx( common_scripts\utility::_id_3FA8( "helicopter_tail_sparks" ), var_7, var_2 );
         var_3--;
 
@@ -1294,13 +1294,13 @@ heli_makes_sparks( var_0 )
     if ( 1 )
         return;
 
-    var_8 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_8 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_8 setmodel( "tag_origin" );
     var_8.origin = var_1.origin;
     var_8.angles = var_1.angles;
     playfxontag( common_scripts\utility::_id_3FA8( "rocket_geo" ), var_8, "tag_origin" );
-    var_9 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_9 linkto( var_8, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_9 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_9 linkto( var_8, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_10 = 1200;
     var_11 = var_10;
     var_8.spark = 1;
@@ -1464,7 +1464,7 @@ script_animator()
 
     for (;;)
     {
-        var_0.origin += ( 0, 0, -5000 );
+        var_0.origin += ( 0.0, 0.0, -5000.0 );
         var_0 hide();
 
         if ( !isdefined( var_0._not_team ) )
@@ -1480,7 +1480,7 @@ script_animator()
 
     for (;;)
     {
-        var_0.origin += ( 0, 0, 5000 );
+        var_0.origin += ( 0.0, 0.0, 5000.0 );
 
         if ( !isdefined( var_0._not_team ) )
             break;
@@ -1656,10 +1656,10 @@ heli_fires_around_price()
 
 heli_fires( var_0 )
 {
-    var_1 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = self.origin;
     var_2 = randomfloat( 1 ) * 10;
-    var_3 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_3 setmodel( "tag_origin" );
 
     for ( var_4 = 0; var_4 < var_2; var_4++ )
@@ -1760,19 +1760,19 @@ helicopter_broadcast( var_0 )
 {
     common_scripts\utility::_id_384A( var_0 );
     var_1 = level.heli_flag[var_0];
-    common_scripts\utility::_id_69C2( level._id_78BA["heli"][var_1], level.playercardbackground.origin + ( 0, 0, 800 ) );
+    common_scripts\utility::_id_69C2( level._id_78BA["heli"][var_1], level.playercardbackground.origin + ( 0.0, 0.0, 800.0 ) );
 }
 
 dead_heli_pilots()
 {
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_0 linkto( self, "tag_gunner", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_0 linkto( self, "tag_gunner", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0._id_0C72 = "dead_heli_pilot";
     var_0 character\character_sp_spetsnaz_collins::main();
     var_0 maps\_utility::_id_0D61();
     var_0 _meth_814d( maps\_utility::_id_3EF7( "dead_gunner" ) );
-    var_0 = spawn( "script_model", ( 0, 0, 0 ) );
-    var_0 linkto( self, "tag_pilot", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    var_0 linkto( self, "tag_pilot", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0._id_0C72 = "dead_heli_pilot";
     var_0 character\character_sp_spetsnaz_geoff::main();
     var_0 maps\_utility::_id_0D61();

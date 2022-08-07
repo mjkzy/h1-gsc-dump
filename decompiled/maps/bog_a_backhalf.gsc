@@ -37,7 +37,7 @@ bog_backhalf_init()
     level.abrams.forwardent = spawn( "script_origin", level.abrams gettagorigin( "tag_flash" ) );
     level.abrams.forwardent linkto( level.abrams );
     var_0 = getent( "abrams_top_clip", "targetname" );
-    var_0 linkto( level.abrams, "tag_turret", ( -30, 0, 10 ), var_0.angles - level.abrams gettagangles( "tag_turret" ) + ( 0, 7, 0 ) );
+    var_0 linkto( level.abrams, "tag_turret", ( -30.0, 0.0, 10.0 ), var_0.angles - level.abrams gettagangles( "tag_turret" ) + ( 0.0, 7.0, 0.0 ) );
     level.zpu = getent( "zpu", "targetname" );
     level.tankdefenderpop = 0;
     level.tankatkdead = 0;
@@ -68,7 +68,7 @@ bog_backhalf_init()
     level.tankencroachpausetime = 7;
     level.defensesuccessratio = 0.87;
     level._id_135E = getent( "beacon", "targetname" );
-    level._id_135E.origin += ( 0, 0, 2.85 );
+    level._id_135E.origin += ( 0.0, 0.0, 2.85 );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", maps\_spawner::_id_533A, 1008 );
     common_scripts\utility::_id_0D13( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::_id_0798, ::tank_defender_spawn_setup );
     common_scripts\utility::_id_0D13( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::_id_0798, maps\_utility::_id_7402 );
@@ -154,8 +154,8 @@ start_cobras_pos()
 start_end()
 {
     soundscripts\_snd::_id_870C( "start_end_checkpoint" );
-    level.playercardbackground setplayerangles( ( 0, 80, 0 ) );
-    level.playercardbackground setorigin( ( 4968, 1528, -12320 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 80.0, 0.0 ) );
+    level.playercardbackground setorigin( ( 4968.0, 1528.0, -12320.0 ) );
     var_0 = getaiarray();
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5E, 1 );
     level.abrams thread tank_setup();
@@ -181,8 +181,8 @@ start_end()
     waitframe;
     thread ending_sequence();
     wait 0.05;
-    level.playercardbackground setplayerangles( ( 0, 80, 0 ) );
-    level.playercardbackground setorigin( ( 4777, 1491, 20 ) );
+    level.playercardbackground setplayerangles( ( 0.0, 80.0, 0.0 ) );
+    level.playercardbackground setorigin( ( 4777.0, 1491.0, 20.0 ) );
 }
 
 temp_friendly_boost()
@@ -428,8 +428,8 @@ enemy_tank_encroach_mvmt()
 
 _id_6302()
 {
-    objective_add( 1, "active", &"BOG_A_SECURE_THE_M1A1_ABRAMS", ( 4800, 1488, 32 ) );
-    objective_add( 5, "active", &"BOG_A_INTERCEPT_THE_ENEMY_BEFORE", ( 4800, 1488, 32 ) );
+    objective_add( 1, "active", &"BOG_A_SECURE_THE_M1A1_ABRAMS", ( 4800.0, 1488.0, 32.0 ) );
+    objective_add( 5, "active", &"BOG_A_INTERCEPT_THE_ENEMY_BEFORE", ( 4800.0, 1488.0, 32.0 ) );
     objective_indentlevel( 5, 1 );
     objective_current( 5 );
     common_scripts\utility::_id_384A( "tank_defense_completed" );
@@ -563,7 +563,7 @@ cobra_sequence()
     level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "plantbeacon" );
     thread cobra_sequence_reminder();
     common_scripts\utility::_id_383F( "beacon_orders" );
-    var_0 = spawn( "script_model", level._id_135E.origin + ( 0, 0, -3 ) );
+    var_0 = spawn( "script_model", level._id_135E.origin + ( 0.0, 0.0, -3.0 ) );
     var_0 setmodel( "com_night_beacon_obj" );
     common_scripts\utility::_id_383F( "beacon_ready_to_use" );
     var_1 = getent( "beaconTrig", "targetname" );
@@ -998,13 +998,13 @@ zpu_battle_trigger_control()
 zpu_c4()
 {
     var_0 = getent( "zpu", "targetname" );
-    var_0 maps\_c4::c4_location( "tag_c4", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    var_0 maps\_c4::c4_location( "tag_c4", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0 waittill( "c4_detonation" );
     var_0 notify( "death" );
     playfx( level.tankexplosion_fx, var_0.origin );
     thread common_scripts\utility::_id_69C2( "bog_aagun_explode", var_0.origin );
     var_0 setmodel( "vehicle_zpu4_burn" );
-    radiusdamage( var_0.origin + ( 0, 0, 96 ), level.zpublastradius, 1000, 50 );
+    radiusdamage( var_0.origin + ( 0.0, 0.0, 96.0 ), level.zpublastradius, 1000, 50 );
     maps\_utility::arcademode_kill( var_0.origin, "explosive", 2000 );
     common_scripts\utility::_id_383F( "zpus_destroyed" );
     abrams_gets_drawing();
@@ -1152,7 +1152,7 @@ ending_sequence()
     var_3[var_3.size] = level._id_6F7C;
     var_3[var_3.size] = var_0[0];
     var_3[var_3.size] = level.mark;
-    var_4 = spawn( "script_origin", ( 0, 0, 0 ) );
+    var_4 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_4.origin = level.abrams.origin;
     var_4.angles = level.abrams.angles;
     var_4 maps\_anim::_id_0C42( var_3, "tank_talk" );

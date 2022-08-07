@@ -182,7 +182,7 @@ _id_8313()
         if ( isdefined( var_7[var_2]._id_79BF ) )
         {
             if ( !isdefined( var_7[var_2].angles ) )
-                var_7[var_2].angles = ( 0, 0, 0 );
+                var_7[var_2].angles = ( 0.0, 0.0, 0.0 );
 
             var_6[var_6.size] = var_7[var_2];
         }
@@ -923,7 +923,7 @@ _id_37AD()
     _id_352C();
 
     if ( isdefined( var_3 ) )
-        common_scripts\utility::_id_5874( var_3, var_4, ( 0, 0, 0 ), 1, var_6 );
+        common_scripts\utility::_id_5874( var_3, var_4, ( 0.0, 0.0, 0.0 ), 1, var_6 );
 
     playfx( level._effect[var_5], self.v["origin"], var_0, var_1 );
 }

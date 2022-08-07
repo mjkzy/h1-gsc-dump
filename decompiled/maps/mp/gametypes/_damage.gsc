@@ -621,7 +621,7 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     else
     {
         if ( var_4 == "MOD_GRENADE" && var_0 == var_1 || var_4 == "MOD_IMPACT" || var_4 == "MOD_GRENADE_SPLASH" || var_4 == "MOD_EXPLOSIVE" )
-            _id_07CC( var_2, var_1, var_0, var_5, var_3, ( 0, 0, 0 ), var_6, var_7, var_8, var_4 );
+            _id_07CC( var_2, var_1, var_0, var_5, var_3, ( 0.0, 0.0, 0.0 ), var_6, var_7, var_8, var_4 );
 
         var_36 = 1;
 
@@ -2350,7 +2350,7 @@ _id_379A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( var_11 || maps\mp\_utility::isrocketcorpse() )
     {
         if ( !isdefined( var_7 ) )
-            var_7 = ( 0, 0, 0 );
+            var_7 = ( 0.0, 0.0, 0.0 );
 
         if ( !isdefined( var_1 ) && !isdefined( var_0 ) )
         {
@@ -2454,7 +2454,7 @@ _id_19F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             var_11._id_4B48 = level._id_8A3C;
         }
 
-        var_11.glowcolor = ( 1, 0, 0 );
+        var_11.glowcolor = ( 1.0, 0.0, 0.0 );
         var_11._id_8899 = "mp_last_stand";
         var_11.duration = 2.0;
         var_11._id_7454 = 1;
@@ -2673,14 +2673,14 @@ _id_55F2( var_0, var_1 )
         }
 
         wait(var_0 / 3);
-        var_3.color = ( 1, 0.64, 0 );
+        var_3.color = ( 1.0, 0.64, 0.0 );
 
         while ( var_2.isradarblocked )
             wait 0.05;
 
         maps\mp\_utility::_id_6A3F();
         wait(var_0 / 3);
-        var_3.color = ( 1, 0, 0 );
+        var_3.color = ( 1.0, 0.0, 0.0 );
 
         while ( var_2.isradarblocked )
             wait 0.05;
@@ -2924,7 +2924,7 @@ _id_27EE( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( level.oldschool )
     {
         if ( !isdefined( var_2 ) )
-            var_2 = ( 0, 0, 0 );
+            var_2 = ( 0.0, 0.0, 0.0 );
 
         var_10 = var_0.origin + ( 0, 0, _id_3FCB( var_1 ) );
         var_10 -= var_2 * 20;

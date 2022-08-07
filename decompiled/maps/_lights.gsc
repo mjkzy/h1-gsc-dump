@@ -62,7 +62,7 @@ _id_38D8( var_0, var_1, var_2, var_3 )
             var_5 += var_2;
 
         if ( var_5 == 0 )
-            var_5 += 1e-07;
+            var_5 += 0.0000001;
 
         for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !maps\_utility::_id_32D8( "stop_flicker" ); var_5 -= 0.05 )
         {
@@ -76,7 +76,7 @@ _id_530C( var_0 )
 {
     var_1 = getentarray( var_0, "script_noteworthy" );
     var_2 = undefined;
-    var_3 = 1e+08.0;
+    var_3 = 100000000.0;
 
     foreach ( var_5 in var_1 )
     {
@@ -94,7 +94,7 @@ _id_530C( var_0 )
         var_2 waittill( "damage", var_8, var_9, var_10, var_11, var_12, var_13, var_14 );
         self notify( "kill_flicker" );
         wait 0.05;
-        self setlightcolor( ( 0, 0, 0 ) );
+        self setlightcolor( ( 0.0, 0.0, 0.0 ) );
     }
 }
 
@@ -327,8 +327,8 @@ _id_3C94()
             if ( isdefined( var_4 ) && isdefined( var_4.script_fxid ) )
             {
                 var_4._id_3018 = common_scripts\utility::_id_242E( var_4.script_fxid );
-                var_6 = ( 0, 0, 0 );
-                var_7 = ( 0, 0, 0 );
+                var_6 = ( 0.0, 0.0, 0.0 );
+                var_7 = ( 0.0, 0.0, 0.0 );
 
                 if ( isdefined( var_4._id_7A99 ) )
                 {
@@ -933,7 +933,7 @@ _id_4D0C( var_0 )
         {
             var_1 = var_4.script_fxid;
             var_2 = var_4.origin;
-            var_3 = ( 0, 0, 0 );
+            var_3 = ( 0.0, 0.0, 0.0 );
 
             if ( isdefined( var_4.angles ) )
                 var_3 = var_4.angles;

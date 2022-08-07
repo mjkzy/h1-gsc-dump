@@ -166,7 +166,7 @@ _id_7EBF( var_0, var_1, var_2 )
 
     var_3 = _id_3E6E( var_0, var_2 );
     var_4 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
-    var_5 = spawn( "script_model", ( 0, 0, 0 ) );
+    var_5 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_5 setmodel( self.motiontrackerenabled );
 
     if ( isdefined( self._id_60A8 ) )

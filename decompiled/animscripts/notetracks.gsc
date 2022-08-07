@@ -790,7 +790,7 @@ _id_61E3()
     else
         self._id_7590 setmodel( "projectile_rpg7" );
 
-    self._id_7590 linkto( self, "tag_inhand", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+    self._id_7590 linkto( self, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     thread _id_467A();
 }
 
@@ -1068,7 +1068,7 @@ _id_6D9F( var_0, var_1 )
             var_4 = "J_Ball_LE";
 
         var_5 = self gettagorigin( var_4 );
-        var_6 = bullettrace( var_5 + ( 0, 0, 16 ), var_5 + ( 0, 0, -4 ), 0 );
+        var_6 = bullettrace( var_5 + ( 0.0, 0.0, 16.0 ), var_5 + ( 0.0, 0.0, -4.0 ), 0 );
 
         if ( var_6["fraction"] < 1 && var_6["fraction"] > 0 && var_6["surfacetype"] != "none" )
         {
