@@ -179,7 +179,7 @@ security_camera_logic()
     self setcandamage( 1 );
     var_0 = undefined;
 
-    switch ( self.motiontrackerenabled )
+    switch ( self.model )
     {
         case "com_security_camera":
             var_0 = "com_security_camera_destroyed";
@@ -200,27 +200,27 @@ _id_99D3()
     self._id_25A7 = undefined;
     self._id_6378 = undefined;
 
-    if ( issubstr( self.motiontrackerenabled, "1" ) )
+    if ( issubstr( self.model, "1" ) )
     {
         self._id_6378 = "com_tv1";
         self._id_64BC = "com_tv1_testpattern";
         self._id_25A7 = "com_tv1_d";
     }
-    else if ( issubstr( self.motiontrackerenabled, "2" ) )
+    else if ( issubstr( self.model, "2" ) )
     {
         self._id_25A7 = "com_tv2_d";
         self._id_6378 = "com_tv2";
         self._id_64BC = "com_tv2_testpattern";
     }
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        self._id_9C1A = getent( self._not_team, "targetname" );
+        self._id_9C1A = getent( self.target, "targetname" );
         self._id_9C1A usetriggerrequirelookat();
         self._id_9C1A setcursorhint( "HINT_NOICON" );
     }
 
-    if ( !isdefined( self.script_parentname ) || self.script_parentname != "nolite" )
+    if ( !isdefined( self.script_noteworthy ) || self.script_noteworthy != "nolite" )
     {
         var_0 = common_scripts\utility::_id_3CCB( self.origin, level._id_99D2, undefined, undefined, 64 );
 
@@ -235,7 +235,7 @@ _id_99D3()
 
     thread _id_99CF();
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
         thread _id_99D6();
 }
 
@@ -278,7 +278,7 @@ _id_99CF()
             if ( !isalive( var_1 ) )
                 continue;
 
-            if ( var_1 != level.playercardbackground )
+            if ( var_1 != level.player )
                 continue;
         }
 
@@ -309,17 +309,17 @@ _id_99CF()
 
 is_tv_on()
 {
-    return self.motiontrackerenabled == self._id_64BC;
+    return self.model == self._id_64BC;
 }
 
 is_tv_off()
 {
-    return self.motiontrackerenabled == self._id_6378;
+    return self.model == self._id_6378;
 }
 
 is_tv_damaged()
 {
-    return self.motiontrackerenabled == self._id_25A7;
+    return self.model == self._id_25A7;
 }
 
 is_tv_emitting_light()
@@ -331,7 +331,7 @@ destroy_platestack()
 {
     setbreakablesfx( "platestack_shatter", undefined, self._id_7A99 );
     self setcandamage( 1 );
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
 
     for (;;)
     {
@@ -376,8 +376,8 @@ glass_logic()
     var_2 = undefined;
     var_3 = 0;
 
-    if ( isdefined( self._not_team ) )
-        var_2 = getent( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_2 = getent( self.target, "targetname" );
 
     if ( isdefined( self._id_7A26 ) )
     {
@@ -476,8 +476,8 @@ glass_play_break_fx( var_0, var_1, var_2 )
 
 oil_spill_think()
 {
-    self._id_311C = common_scripts\utility::_id_40FB( self._not_team, "targetname" );
-    self._id_8B20 = common_scripts\utility::_id_40FB( self._id_311C._not_team, "targetname" );
+    self._id_311C = common_scripts\utility::_id_40FB( self.target, "targetname" );
+    self._id_8B20 = common_scripts\utility::_id_40FB( self._id_311C.target, "targetname" );
     self._id_12E4 = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
 
     if ( isdefined( self._id_12E4 ) )
@@ -486,7 +486,7 @@ oil_spill_think()
         thread oil_spill_burn_after();
     }
 
-    self.extra = getent( self._not_team, "targetname" );
+    self.extra = getent( self.target, "targetname" );
     self setcandamage( 1 );
     var_0 = undefined;
 
@@ -737,8 +737,8 @@ explodable_barrel_explode()
     var_7 = 250;
     var_8 = 250;
 
-    if ( isdefined( self.rank ) )
-        var_8 = self.rank;
+    if ( isdefined( self.radius ) )
+        var_8 = self.radius;
 
     var_9 = undefined;
 
@@ -776,7 +776,7 @@ shuddering_entity_think()
 {
     var_0 = 0;
 
-    if ( self.motiontrackerenabled == "prop_helmet_german_normandy" )
+    if ( self.model == "prop_helmet_german_normandy" )
         var_0 = 1;
 
     self setcandamage( 1 );
@@ -839,7 +839,7 @@ helmet_logic()
 
     var_3 = vectornormalize( self.origin - var_2 );
 
-    if ( !isdefined( self.dontremove ) && var_1 == level.playercardbackground )
+    if ( !isdefined( self.dontremove ) && var_1 == level.player )
     {
         thread animscripts\death::_id_481F( var_3 );
         return;
@@ -849,7 +849,7 @@ helmet_logic()
     self hide();
     var_4 = spawn( "script_model", self.origin + ( 0.0, 0.0, 5.0 ) );
     var_4.angles = self.angles;
-    var_4 setmodel( self.motiontrackerenabled );
+    var_4 setmodel( self.model );
     var_4 thread animscripts\death::_id_481F( var_3 );
     self.dontremove = 0;
     self notify( "ok_remove" );
@@ -890,12 +890,12 @@ breakable_think()
     if ( self.classname != "script_model" )
         return;
 
-    if ( !isdefined( self.motiontrackerenabled ) )
+    if ( !isdefined( self.model ) )
         return;
 
     var_0 = undefined;
 
-    if ( self.motiontrackerenabled == "egypt_prop_vase1" || self.motiontrackerenabled == "egypt_prop_vase3" || self.motiontrackerenabled == "egypt_prop_vase4" )
+    if ( self.model == "egypt_prop_vase1" || self.model == "egypt_prop_vase3" || self.model == "egypt_prop_vase4" )
     {
         if ( !isdefined( level.precachemodeltype["egypt_prop_vase_o"] ) )
         {
@@ -909,7 +909,7 @@ breakable_think()
         breakable_clip();
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "egypt_prop_vase2" || self.motiontrackerenabled == "egypt_prop_vase5" || self.motiontrackerenabled == "egypt_prop_vase6" )
+    else if ( self.model == "egypt_prop_vase2" || self.model == "egypt_prop_vase5" || self.model == "egypt_prop_vase6" )
     {
         if ( !isdefined( level.precachemodeltype["egypt_prop_vase_g"] ) )
         {
@@ -924,7 +924,7 @@ breakable_think()
         breakable_clip();
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_crate_dak1" || self.motiontrackerenabled == "prop_crate_dak2" || self.motiontrackerenabled == "prop_crate_dak3" || self.motiontrackerenabled == "prop_crate_dak4" || self.motiontrackerenabled == "prop_crate_dak5" || self.motiontrackerenabled == "prop_crate_dak6" || self.motiontrackerenabled == "prop_crate_dak7" || self.motiontrackerenabled == "prop_crate_dak8" || self.motiontrackerenabled == "prop_crate_dak9" )
+    else if ( self.model == "prop_crate_dak1" || self.model == "prop_crate_dak2" || self.model == "prop_crate_dak3" || self.model == "prop_crate_dak4" || self.model == "prop_crate_dak5" || self.model == "prop_crate_dak6" || self.model == "prop_crate_dak7" || self.model == "prop_crate_dak8" || self.model == "prop_crate_dak9" )
     {
         if ( !isdefined( level.precachemodeltype["prop_crate_dak_shard"] ) )
         {
@@ -936,7 +936,7 @@ breakable_think()
         breakable_clip();
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_winebottle_breakable" )
+    else if ( self.model == "prop_winebottle_breakable" )
     {
         if ( !isdefined( level.precachemodeltype["prop_winebottle"] ) )
         {
@@ -948,7 +948,7 @@ breakable_think()
         var_0 = "bottle";
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_diningplate_roundfloral" )
+    else if ( self.model == "prop_diningplate_roundfloral" )
     {
         if ( !isdefined( level.precachemodeltype["prop_diningplate_brokenfloral"] ) )
         {
@@ -963,7 +963,7 @@ breakable_think()
         self.plate = "round_floral";
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_diningplate_roundplain" )
+    else if ( self.model == "prop_diningplate_roundplain" )
     {
         if ( !isdefined( level.precachemodeltype["prop_diningplate_brokenplain"] ) )
         {
@@ -978,7 +978,7 @@ breakable_think()
         self.plate = "round_plain";
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_diningplate_roundstack" )
+    else if ( self.model == "prop_diningplate_roundstack" )
     {
         if ( !isdefined( level.precachemodeltype["prop_diningplate_brokenplain"] ) )
         {
@@ -1002,7 +1002,7 @@ breakable_think()
         self.plate = "round_stack";
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_diningplate_ovalfloral" )
+    else if ( self.model == "prop_diningplate_ovalfloral" )
     {
         if ( !isdefined( level.precachemodeltype["prop_diningplate_brokenfloral"] ) )
         {
@@ -1017,7 +1017,7 @@ breakable_think()
         self.plate = "oval_floral";
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_diningplate_ovalplain" )
+    else if ( self.model == "prop_diningplate_ovalplain" )
     {
         if ( !isdefined( level.precachemodeltype["prop_diningplate_brokenplain"] ) )
         {
@@ -1032,7 +1032,7 @@ breakable_think()
         self.plate = "oval_plain";
         xenon_auto_aim();
     }
-    else if ( self.motiontrackerenabled == "prop_diningplate_ovalstack" )
+    else if ( self.model == "prop_diningplate_ovalstack" )
     {
         if ( !isdefined( level.precachemodeltype["prop_diningplate_brokenplain"] ) )
         {
@@ -1060,9 +1060,9 @@ breakable_think()
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_1 = getent( self._not_team, "targetname" );
+        var_1 = getent( self.target, "targetname" );
 
         if ( isdefined( var_1 ) && var_1.classname == "trigger_multiple" )
             var_1 thread breakable_think_triggered( self );
@@ -1228,9 +1228,9 @@ xenon_enable_auto_aim( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = 1;
 
-    if ( isdefined( self.script_parentname ) && var_0 )
+    if ( isdefined( self.script_noteworthy ) && var_0 )
     {
-        var_1 = "enable_xenon_autoaim_" + self.script_parentname;
+        var_1 = "enable_xenon_autoaim_" + self.script_noteworthy;
         level waittill( var_1 );
     }
 
@@ -1244,9 +1244,9 @@ xenon_enable_auto_aim( var_0 )
 
 breakable_clip()
 {
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
 
         if ( var_0.classname == "script_brushmodel" )
         {
@@ -1295,104 +1295,104 @@ make_broken_peices( var_0, var_1 )
             break;
         case "bottle":
             var_5[var_5.size] = addpiece( var_2, var_3, var_4, 0, 0, 10, var_0, ( 0.0, 0.0, 0.0 ), "prop_winebottle_broken_top" );
-            var_5[var_5.size - 1].unlockpoints = "bottle_top";
+            var_5[var_5.size - 1].type = "bottle_top";
             var_5[var_5.size] = addpiece( var_2, var_3, var_4, 0, 0, 0, var_0, ( 0.0, 0.0, 0.0 ), "prop_winebottle_broken_bot" );
-            var_5[var_5.size - 1].unlockpoints = "bottle_bot";
+            var_5[var_5.size - 1].type = "bottle_bot";
             break;
         case "plate":
             switch ( var_0.plate )
             {
                 case "round_floral":
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenfloral1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenfloral2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     break;
                 case "round_plain":
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenplain1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenplain2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenplain3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenplain4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     break;
                 case "round_stack":
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 0.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenfloral1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 0.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenfloral2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 0.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 3, 2.5, var_0, ( 0.0, 60.0, 0.0 ), "prop_diningplate_brokenplain1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -1, -3, 2.5, var_0, ( 0.0, 59.8, 0.0 ), "prop_diningplate_brokenplain2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, -1, 2.5, var_0, ( 0.0, 60.2, 0.0 ), "prop_diningplate_brokenplain3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, 4, 2.5, var_0, ( 0.0, 56.8, 0.0 ), "prop_diningplate_brokenplain4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -4, 4.5, var_0, ( 0.0, 150.0, 0.0 ), "prop_diningplate_brokenfloral1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, -2, 4.5, var_0, ( 0.0, 149.8, 0.0 ), "prop_diningplate_brokenfloral2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 1, 2, 4.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 2, 4.5, var_0, ( 0.0, 146.8, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     break;
                 case "oval_floral":
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0.0, 205.9, 0.0 ), "prop_diningplate_brokenfloral1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0.0, 352.2, 0.0 ), "prop_diningplate_brokenfloral2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0.0, 102.3, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0.0, 246.7, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     break;
                 case "oval_plain":
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0.0, 205.9, 0.0 ), "prop_diningplate_brokenplain1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0.0, 352.2, 0.0 ), "prop_diningplate_brokenplain2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenplain3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0.0, 102.3, 0.0 ), "prop_diningplate_brokenplain4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0.0, 246.7, 0.0 ), "prop_diningplate_brokenplain4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     break;
                 case "oval_stack":
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, -4, 0.5, var_0, ( 0.0, 205.9, 0.0 ), "prop_diningplate_brokenfloral1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -6, 1, 0.5, var_0, ( 0.0, 352.2, 0.0 ), "prop_diningplate_brokenfloral2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 4, 2, 0.5, var_0, ( 0.0, 150.2, 0.0 ), "prop_diningplate_brokenfloral3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -2, 5, 0.5, var_0, ( 0.0, 102.3, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -3, -3, 0.5, var_0, ( 0.0, 246.7, 0.0 ), "prop_diningplate_brokenfloral4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, 5, 2.5, var_0, ( 0.0, 25.9, 0.0 ), "prop_diningplate_brokenplain1" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 6, 0, 2.5, var_0, ( 0.0, 172.2, 0.0 ), "prop_diningplate_brokenplain2" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, -4, -1, 2.5, var_0, ( 0.0, 330.2, 0.0 ), "prop_diningplate_brokenplain3" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 2, -4, 2.5, var_0, ( 0.0, 282.3, 0.0 ), "prop_diningplate_brokenplain4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     var_5[var_5.size] = addpiece( var_2, var_3, var_4, 3, 4, 2.5, var_0, ( 0.0, 66.7, 0.0 ), "prop_diningplate_brokenplain4" );
-                    var_5[var_5.size - 1].unlockpoints = "plate";
+                    var_5[var_5.size - 1].type = "plate";
                     break;
             }
 
@@ -1443,7 +1443,7 @@ pieces_move( var_0 )
 {
     self endon( "do not kill" );
 
-    if ( isdefined( self.unlockpoints ) && self.unlockpoints == "bottle_bot" )
+    if ( isdefined( self.type ) && self.type == "bottle_bot" )
         return;
 
     var_1 = spawn( "script_origin", self.origin );
@@ -1451,7 +1451,7 @@ pieces_move( var_0 )
     var_2 = self.origin + ( randomfloat( 10 ) - 5, randomfloat( 10 ) - 5, randomfloat( 10 ) + 5 );
     var_3 = undefined;
 
-    if ( isdefined( self.unlockpoints ) && self.unlockpoints == "bottle_top" )
+    if ( isdefined( self.type ) && self.type == "bottle_top" )
     {
         var_3 = ( randomfloat( 40 ) - 20, randomfloat( 40 ) - 20, 70 + randomfloat( 15 ) );
         var_4 = 1;
@@ -1469,7 +1469,7 @@ pieces_move( var_0 )
 
         var_1 rotatevelocity( ( 250 * var_4, 250 * var_5, randomfloat( 100 ) * var_6 ), 2, 0, 0.5 );
     }
-    else if ( isdefined( self.unlockpoints ) && self.unlockpoints == "plate" )
+    else if ( isdefined( self.type ) && self.type == "plate" )
     {
         var_3 = vectornormalize( var_2 - var_0 );
         var_3 = common_scripts\utility::vectorscale( var_3, 125 + randomfloat( 25 ) );
@@ -1658,12 +1658,12 @@ _id_366A( var_0 )
     var_2 = 20000;
     var_3 = 1.0;
 
-    if ( isdefined( self.sprint_begin ) )
-        var_3 = self.sprint_begin;
+    if ( isdefined( self.speed ) )
+        var_3 = self.speed;
 
     if ( var_0 == "slow" )
     {
-        if ( isdefined( self.script_parentname ) && self.script_parentname == "lockedspeed" )
+        if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "lockedspeed" )
             var_1 = 180;
         else
             var_1 = randomfloatrange( 100 * var_3, 360 * var_3 );
@@ -1677,14 +1677,14 @@ _id_366A( var_0 )
 
     }
 
-    if ( !isdefined( self.script_parentname ) || self.script_parentname == "lockedspeed" )
+    if ( !isdefined( self.script_noteworthy ) || self.script_noteworthy == "lockedspeed" )
         wait(randomfloatrange( 0, 1 ));
 
     var_4 = self.angles;
     var_5 = anglestoright( self.angles ) * 100;
     var_5 = vectornormalize( var_5 );
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "reverse" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "reverse" )
         var_1 *= -1;
 
     for (;;)

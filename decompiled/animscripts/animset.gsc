@@ -887,7 +887,7 @@ _id_7DD2()
         self.a._id_0CD8 = animscripts\utility::_id_5864( "rpg_stand" );
     else if ( animscripts\utility::_id_9C3B() )
         self.a._id_0CD8 = animscripts\utility::_id_5864( "smg_stand" );
-    else if ( isdefined( self.weapon_switch_invalid ) && animscripts\utility::_id_A2CF() )
+    else if ( isdefined( self.weapon ) && animscripts\utility::_id_A2CF() )
         self.a._id_0CD8 = animscripts\utility::_id_5864( "shotgun_stand" );
     else if ( animscripts\utility::_id_50E9() )
         self.a._id_0CD8 = animscripts\utility::_id_5864( "cqb_stand" );
@@ -908,7 +908,7 @@ _id_7DC5()
         self.a._id_0CD8 = animscripts\utility::_id_5864( "rpg_crouch" );
     else if ( animscripts\utility::_id_9C3B() )
         self.a._id_0CD8 = animscripts\utility::_id_5864( "smg_crouch" );
-    else if ( isdefined( self.weapon_switch_invalid ) && animscripts\utility::_id_A2CF() )
+    else if ( isdefined( self.weapon ) && animscripts\utility::_id_A2CF() )
         self.a._id_0CD8 = animscripts\utility::_id_5864( "shotgun_crouch" );
     else
         self.a._id_0CD8 = animscripts\utility::_id_5864( "default_crouch" );
@@ -1265,18 +1265,18 @@ _id_7DBA()
 
 _id_4797()
 {
-    if ( self.weapon_switch_invalid != self.primaryweapon )
+    if ( self.weapon != self.primaryweapon )
         return animscripts\utility::_id_0C51( "reload" );
 
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
     {
         if ( self _meth_8165() )
         {
             var_0 = undefined;
 
-            if ( self.node_relinquished.unlockpoints == "Cover Left" )
+            if ( self.node.type == "Cover Left" )
                 var_0 = animscripts\utility::_id_5863( "heat_reload", "reload_cover_left" );
-            else if ( self.node_relinquished.unlockpoints == "Cover Right" )
+            else if ( self.node.type == "Cover Right" )
                 var_0 = animscripts\utility::_id_5863( "heat_reload", "reload_cover_right" );
 
             if ( isdefined( var_0 ) )

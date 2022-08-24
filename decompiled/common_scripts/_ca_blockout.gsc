@@ -55,10 +55,10 @@ delete_multiple_trigger()
         if ( var_0[var_1].classname == "trigger_multiple_visionset" )
             continue;
 
-        if ( isdefined( var_0[var_1].teambalanced ) && var_0[var_1].teambalanced == "trigger_fog" )
+        if ( isdefined( var_0[var_1].targetname ) && var_0[var_1].targetname == "trigger_fog" )
             continue;
 
-        if ( isdefined( var_0[var_1].script_parentname ) && var_0[var_1].script_parentname == "skip_blockout_delete" )
+        if ( isdefined( var_0[var_1].script_noteworthy ) && var_0[var_1].script_noteworthy == "skip_blockout_delete" )
             continue;
 
         var_0[var_1] delete();

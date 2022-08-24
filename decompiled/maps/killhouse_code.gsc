@@ -44,11 +44,11 @@ new_look_wait_for_target( var_0, var_1 )
     {
         self waittill( "damage", var_2, var_3, var_4, var_5, var_6 );
 
-        if ( level.playercardbackground maps\_utility::_id_50A9() )
+        if ( level.player maps\_utility::_id_50A9() )
             break;
         else
         {
-            if ( level.xuid )
+            if ( level.xenon )
             {
                 thread keyhint( "ads_360" );
                 continue;
@@ -99,7 +99,7 @@ ambient_trucks()
         var_2 = maps\_vehicle::_id_23DE( var_1 );
 
         foreach ( var_4 in var_2 )
-            var_4.veh_transmission = "constrained";
+            var_4.veh_pathtype = "constrained";
 
         for ( var_6 = 0; var_6 < var_2.size; var_6++ )
         {
@@ -147,7 +147,7 @@ newcastle_think()
     level.newcastle maps\_utility::_id_7E45( "patrol_unarmed_walk" );
     level.newcastle maps\_utility::_id_7E44( "patrol_unarmed_idle" );
     level.newcastle.grenadeawareness = 0;
-    level.newcastle _meth_8202( level.playercardbackground, 1 );
+    level.newcastle _meth_8202( level.player, 1 );
     level.newcastle specify_head_model( "head_sp_sas_woodland_golden" );
     thread maps\killhouse_anim::newcastle_face_think( level.newcastle );
 }
@@ -213,7 +213,7 @@ objective_hints( var_0 )
     compass_hint();
     wait 2;
 
-    if ( level.console || level.playercardbackground _meth_834c() )
+    if ( level.console || level.player _meth_834c() )
         keyhint( "objectives", 6.0 );
     else
         keyhint( "objectives_pc", 6.0 );
@@ -247,7 +247,7 @@ compass_hint( var_0, var_1 )
     level endon( "clearing_hints" );
     maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_MARKER", undefined, undefined, 1 );
     level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
-    level._id_4B3E.hindlegstraceoffset = 1;
+    level._id_4B3E.hidewheninmenu = 1;
     level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 155 );
     wait 5;
     level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
@@ -264,7 +264,7 @@ compass_reminder()
     level endon( "clearing_hints" );
     maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_REMINDER", undefined, undefined, 1 );
     level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
-    level._id_4B3E.hindlegstraceoffset = 1;
+    level._id_4B3E.hidewheninmenu = 1;
     level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 155 );
 
     for ( var_0 = 0; var_0 < 5; var_0++ )
@@ -334,14 +334,14 @@ fail_if_friendlies_in_line_of_fire()
 
     for (;;)
     {
-        var_2 = level.playercardbackground common_scripts\utility::_id_A070( "weapon_fired", "player_flash", "player_frag" );
+        var_2 = level.player common_scripts\utility::_id_A070( "weapon_fired", "player_flash", "player_frag" );
 
         if ( !isdefined( var_2 ) )
             break;
 
         if ( var_2 == "weapon_fired" )
         {
-            var_3 = level.playercardbackground getcurrentweapon();
+            var_3 = level.player getcurrentweapon();
 
             if ( var_3 == "c4" )
                 continue;
@@ -349,7 +349,7 @@ fail_if_friendlies_in_line_of_fire()
 
         if ( var_2 == "player_frag" && isdefined( var_0 ) )
         {
-            if ( !level.playercardbackground isthrowinggrenade() )
+            if ( !level.player isthrowinggrenade() )
                 continue;
 
             wait 1;
@@ -357,7 +357,7 @@ fail_if_friendlies_in_line_of_fire()
 
         if ( var_2 == "player_flash" && isdefined( var_1 ) )
         {
-            if ( !level.playercardbackground isthrowinggrenade() )
+            if ( !level.player isthrowinggrenade() )
                 continue;
 
             wait 1;
@@ -367,8 +367,8 @@ fail_if_friendlies_in_line_of_fire()
 
         for ( var_5 = 0; var_5 < var_4.size; var_5++ )
         {
-            var_6 = common_scripts\utility::_id_A347( level.playercardbackground.origin, level.playercardbackground.angles, var_4[var_5].origin, cos( 25 ) );
-            var_7 = distance( level.playercardbackground.origin, var_4[var_5].origin );
+            var_6 = common_scripts\utility::_id_A347( level.player.origin, level.player.angles, var_4[var_5].origin, cos( 25 ) );
+            var_7 = distance( level.player.origin, var_4[var_5].origin );
 
             if ( var_6 && var_7 < 1000 )
             {
@@ -394,7 +394,7 @@ vision_trigger( var_0 )
         self waittill( "trigger" );
         maps\_utility::_id_7F00( var_0, 1 );
 
-        while ( level.playercardbackground istouching( self ) )
+        while ( level.player istouching( self ) )
             wait 0.1;
     }
 }
@@ -403,7 +403,7 @@ flashed_hud_elem()
 {
     for (;;)
     {
-        if ( level.playercardbackground common_scripts\utility::_id_5108() )
+        if ( level.player common_scripts\utility::_id_5108() )
             level notify( "flashed" );
         else
             level notify( "not_flashed" );
@@ -418,7 +418,7 @@ flashed_debug()
     {
         level waittill( "flashed" );
         var_0 = maps\_hud_util::get_stats_display_hud();
-        var_0._id_0538 = 130;
+        var_0.y = 130;
         var_0 settext( &"KILLHOUSE_YOUR_TIME" );
         level waittill( "not_flashed" );
         var_0 destroy();
@@ -457,11 +457,11 @@ ads_shoot_dialog()
 deck_start()
 {
     var_0 = getent( "deck_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
-    level.playercardbackground giveweapon( "g36c" );
-    level.playercardbackground giveweapon( "mp5" );
-    level.playercardbackground switchtoweapon( "mp5" );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
+    level.player giveweapon( "g36c" );
+    level.player giveweapon( "mp5" );
+    level.player switchtoweapon( "mp5" );
     common_scripts\utility::_id_383F( "start_deck" );
 }
 
@@ -569,7 +569,7 @@ pop_up_and_wait()
         wait(randomfloatrange( 0.25, 0.4 ));
         var_0[var_4] notify( "pop_up" );
 
-        if ( var_0[var_4].teambalanced == "hostile" )
+        if ( var_0[var_4].targetname == "hostile" )
         {
             var_1++;
             continue;
@@ -613,12 +613,12 @@ flashbang_ammo_monitor( var_0 )
 
     for (;;)
     {
-        level.playercardbackground waittill( "grenade_fire", var_1, var_2 );
+        level.player waittill( "grenade_fire", var_1, var_2 );
         var_1 waittill( "death" );
         waitframe;
         var_3 = var_0.size - level.volumes_flashed;
 
-        if ( level.playercardbackground getweaponammostock( "flash_grenade" ) < var_3 )
+        if ( level.player getweaponammostock( "flash_grenade" ) < var_3 )
         {
             level notify( "mission failed" );
             setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_OUT_OF_FLASH" );
@@ -659,7 +659,7 @@ flash_dialog_three( var_0 )
 
     for (;;)
     {
-        if ( !level.playercardbackground istouching( self ) )
+        if ( !level.player istouching( self ) )
         {
             if ( var_1 )
             {
@@ -692,7 +692,7 @@ flash_dialog_six( var_0 )
 
     for (;;)
     {
-        if ( !level.playercardbackground istouching( self ) )
+        if ( !level.player istouching( self ) )
         {
             if ( var_1 )
             {
@@ -721,7 +721,7 @@ wait_till_flashed( var_0 )
 
     for (;;)
     {
-        level.playercardbackground waittill( "grenade_fire", var_1, var_2 );
+        level.player waittill( "grenade_fire", var_1, var_2 );
 
         if ( var_2 == "flash_grenade" )
         {
@@ -741,9 +741,9 @@ wait_till_pos_cleared( var_0 )
 
     level.targets_hit = 0;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_1 = getentarray( self._not_team, "targetname" );
+        var_1 = getentarray( self.target, "targetname" );
 
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
             var_1[var_2] notify( "pop_up" );
@@ -755,7 +755,7 @@ wait_till_pos_cleared( var_0 )
         {
             if ( var_3 > 5 )
             {
-                if ( !level.playercardbackground istouching( self ) )
+                if ( !level.player istouching( self ) )
                 {
                     var_4 = [];
                     var_4[0] = "missgoback";
@@ -798,7 +798,7 @@ rope_triggercheck_playerisinvalidstate()
 
     for (;;)
     {
-        if ( level.playercardbackground isonground() && !level.playercardbackground isleaning() )
+        if ( level.player isonground() && !level.player isleaning() )
             var_0 common_scripts\utility::_id_97CE();
         else
             var_0 common_scripts\utility::_id_97CC();
@@ -827,20 +827,20 @@ _id_75E0()
             var_0 waittill( "trigger" );
             waittillframeend;
 
-            if ( !level.playercardbackground isleaning() )
+            if ( !level.player isleaning() )
                 break;
         }
 
         level notify( "starting_rope" );
-        level.playercardbackground disableweapons();
-        level.playercardbackground allowcrouch( 0 );
-        level.playercardbackground allowprone( 0 );
-        level.playercardbackground allowlean( 0 );
+        level.player disableweapons();
+        level.player allowcrouch( 0 );
+        level.player allowprone( 0 );
+        level.player allowlean( 0 );
 
         if ( level.jumpoff == 1 )
             return;
 
-        level.playercardbackground thread maps\_utility::_id_69C4( "scn_killhouse_rope_slide" );
+        level.player thread maps\_utility::_id_69C4( "scn_killhouse_rope_slide" );
         var_3 = maps\_utility::_id_88D1( "view_body" );
         var_3 hide();
         var_4 = getent( "training_rope_node", "targetname" );
@@ -849,15 +849,15 @@ _id_75E0()
         var_5 = getanimlength( level._id_78AC[var_3._id_0C72]["training_rope"] );
         var_6 = var_5 - 1.7;
         thread maps\_utility::_id_3840( "start_timer", var_6 );
-        level.playercardbackground _meth_855e( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
+        level.player _meth_855e( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
         wait 0.35;
         var_3 show();
         var_4 waittill( "training_rope" );
         var_3 delete();
-        level.playercardbackground enableweapons();
-        level.playercardbackground allowcrouch( 1 );
-        level.playercardbackground allowprone( 1 );
-        level.playercardbackground allowlean( 1 );
+        level.player enableweapons();
+        level.player allowcrouch( 1 );
+        level.player allowprone( 1 );
+        level.player allowlean( 1 );
         var_0 common_scripts\utility::_id_97CC();
     }
 }
@@ -892,7 +892,7 @@ starttimer( var_0 )
     level._id_4AFE = 20;
     thread cqb_timer_think();
     level.updated_timer = maps\_hud_util::_id_3D17();
-    level.updated_timer._id_92B2.land = &"KILLHOUSE_YOUR_TIME";
+    level.updated_timer._id_92B2.label = &"KILLHOUSE_YOUR_TIME";
     level.updated_timer settenthstimerup( 0.05 );
     wait(var_0);
     maps\_hud_util::destroy_countdown_hud( level.updated_timer );
@@ -944,7 +944,7 @@ cqb_timer_think()
         var_3 = ( gettime() - level._id_8CC5 ) * 0.001;
         var_4 = floor( var_3 );
         var_5 = int( ( var_3 - var_4 ) * 10 );
-        var_6 = int( common_scripts\utility::mod_explosive( var_4, 10 ) );
+        var_6 = int( common_scripts\utility::mod( var_4, 10 ) );
         var_7 = int( floor( var_4 * 0.1 ) );
 
         if ( var_5 != var_0 )
@@ -1029,7 +1029,7 @@ dialog_sprint_reminders()
 
 mission_failed_out_of_time()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "kill_timer" );
     var_0 = [];
     var_0[0] = "startover";
@@ -1055,7 +1055,7 @@ mission_failed_quit_training()
     {
         if ( common_scripts\utility::_id_382E( "in_quit_cargoship_tutorial" ) )
         {
-            level.playercardbackground endon( "death" );
+            level.player endon( "death" );
             level endon( "kill_timer" );
             level notify( "mission failed" );
             setdvar( "ui_deadquote", &"KILLHOUSE_SHIP_MUST_CLEAR_DECK_MOCK_UP" );
@@ -1071,8 +1071,8 @@ clear_timer_elems()
     if ( isdefined( level.updated_timer ) )
         maps\_hud_util::destroy_countdown_hud( level.updated_timer );
 
-    if ( isdefined( level.titleunlocked ) )
-        level.titleunlocked destroy();
+    if ( isdefined( level.time ) )
+        level.time destroy();
 
     if ( isdefined( level.final_time ) )
         level.final_time destroy();
@@ -1080,8 +1080,8 @@ clear_timer_elems()
     if ( isdefined( level.bonus ) )
         level.bonus destroy();
 
-    if ( isdefined( level.land ) )
-        level.land destroy();
+    if ( isdefined( level.label ) )
+        level.label destroy();
 
     if ( isdefined( level.iw_best ) )
         level.iw_best destroy();
@@ -1128,31 +1128,31 @@ getstatbackers( var_0, var_1, var_2, var_3 )
 {
     var_4 = [];
     var_4[0] = newhudelem();
-    var_4[0].xpmaxmultipliertimeplayed = var_0;
-    var_4[0]._id_0538 = var_1;
+    var_4[0].x = var_0;
+    var_4[0].y = var_1;
     var_4[0] setshader( "h1_hud_fng_results_blur", var_2, var_3 );
     var_4[0].alignx = "right";
     var_4[0].aligny = "top";
-    var_4[0].space = 1;
+    var_4[0].sort = 1;
     var_4[0].foreground = 0;
-    var_4[0].hostquits = "right";
-    var_4[0].visionsetnight = "top";
+    var_4[0].horzalign = "right";
+    var_4[0].vertalign = "top";
     var_4[0].alpha = 0.9;
-    var_4[0].hindlegstraceoffset = 1;
-    var_4[0].high_priority = 1;
+    var_4[0].hidewheninmenu = 1;
+    var_4[0].hidewhendead = 1;
     var_4[1] = newhudelem();
-    var_4[1].xpmaxmultipliertimeplayed = var_0;
-    var_4[1]._id_0538 = var_1;
+    var_4[1].x = var_0;
+    var_4[1].y = var_1;
     var_4[1] setshader( "h1_hud_fng_results_border", var_2, var_3 );
     var_4[1].alignx = "right";
     var_4[1].aligny = "top";
-    var_4[1].space = 2;
+    var_4[1].sort = 2;
     var_4[1].foreground = 0;
-    var_4[1].hostquits = "right";
-    var_4[1].visionsetnight = "top";
+    var_4[1].horzalign = "right";
+    var_4[1].vertalign = "top";
     var_4[1].alpha = 0.33;
-    var_4[1].hindlegstraceoffset = 1;
-    var_4[1].high_priority = 1;
+    var_4[1].hidewheninmenu = 1;
+    var_4[1].hidewhendead = 1;
     return var_4;
 }
 
@@ -1174,18 +1174,18 @@ _id_53B1( var_0, var_1 )
 
     if ( getdvarint( "loc_language", 0 ) == 12 )
     {
-        level.titleunlocked = maps\_hud_util::get_stats_display_hud( var_7, 82, undefined, undefined, 1 );
+        level.time = maps\_hud_util::get_stats_display_hud( var_7, 82, undefined, undefined, 1 );
         level.time_text = maps\_hud_util::get_stats_display_hud( var_8, 82, undefined, undefined, 1, &"KILLHOUSE_YOUR_TIME" );
         level.time_text.alignx = "right";
     }
     else
     {
-        level.titleunlocked = maps\_hud_util::get_stats_display_hud( var_8, 82, undefined, undefined, 1 );
-        level.titleunlocked.alignx = "right";
+        level.time = maps\_hud_util::get_stats_display_hud( var_8, 82, undefined, undefined, 1 );
+        level.time.alignx = "right";
         level.time_text = maps\_hud_util::get_stats_display_hud( var_7, 82, undefined, undefined, 1, &"KILLHOUSE_YOUR_TIME" );
     }
 
-    level.titleunlocked setvalue( var_10 );
+    level.time setvalue( var_10 );
     level waittill( "accuracy_bonus" );
     var_11 = var_10 - level.bonus_time;
     level.final_time = maps\_hud_util::get_stats_display_hud( var_9, 146, undefined, undefined, 1.6 );
@@ -1264,17 +1264,17 @@ _id_53B1( var_0, var_1 )
 
 accuracy_bonus()
 {
-    var_0 = level.playercardbackground getweaponslistprimaries();
-    var_1 = level.playercardbackground getweaponammostock( var_0[0] );
-    var_2 = level.playercardbackground getweaponammostock( var_0[1] );
-    var_3 = level.playercardbackground getweaponammoclip( var_0[0] );
-    var_4 = level.playercardbackground getweaponammoclip( var_0[1] );
+    var_0 = level.player getweaponslistprimaries();
+    var_1 = level.player getweaponammostock( var_0[0] );
+    var_2 = level.player getweaponammostock( var_0[1] );
+    var_3 = level.player getweaponammoclip( var_0[0] );
+    var_4 = level.player getweaponammoclip( var_0[1] );
     var_5 = var_1 + var_2 + var_3 + var_4;
     level waittill( "test_cleared" );
-    var_1 = level.playercardbackground getweaponammostock( var_0[0] );
-    var_2 = level.playercardbackground getweaponammostock( var_0[1] );
-    var_3 = level.playercardbackground getweaponammoclip( var_0[0] );
-    var_4 = level.playercardbackground getweaponammoclip( var_0[1] );
+    var_1 = level.player getweaponammostock( var_0[0] );
+    var_2 = level.player getweaponammostock( var_0[1] );
+    var_3 = level.player getweaponammoclip( var_0[0] );
+    var_4 = level.player getweaponammoclip( var_0[1] );
     var_6 = var_1 + var_2 + var_3 + var_4;
     var_7 = var_5 - var_6;
     var_8 = 20;
@@ -1345,7 +1345,7 @@ execdialog( var_0, var_1 )
 
 actionnodethink( var_0 )
 {
-    switch ( var_0.script_parentname )
+    switch ( var_0.script_noteworthy )
     {
         case "ammo_node":
             wait 2.0;
@@ -1355,13 +1355,13 @@ actionnodethink( var_0 )
 
 getfreeactionnode( var_0 )
 {
-    for ( var_1 = undefined; isdefined( var_0._not_team ); var_0 = var_2 )
+    for ( var_1 = undefined; isdefined( var_0.target ); var_0 = var_2 )
     {
-        var_2 = getnode( var_0._not_team, "targetname" );
+        var_2 = getnode( var_0.target, "targetname" );
 
-        if ( isdefined( var_2.script_parentname ) )
+        if ( isdefined( var_2.script_noteworthy ) )
         {
-            if ( var_2.isradarblocked )
+            if ( var_2.inuse )
             {
                 if ( !isdefined( var_1 ) )
                     return var_0;
@@ -1378,10 +1378,10 @@ getfreeactionnode( var_0 )
 
 initactionchain( var_0 )
 {
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
-        var_0.isradarblocked = 0;
-        var_0 = getnode( var_0._not_team, "targetname" );
+        var_0.inuse = 0;
+        var_0 = getnode( var_0.target, "targetname" );
     }
 }
 
@@ -1400,11 +1400,11 @@ actionchainthink( var_0 )
 
     while ( isdefined( var_2 ) )
     {
-        var_2.isradarblocked = 1;
+        var_2.inuse = 1;
 
         while ( var_1 != var_2 )
         {
-            var_1 = getnode( var_1._not_team, "targetname" );
+            var_1 = getnode( var_1.target, "targetname" );
             self _meth_81a9( var_1 );
             self waittill( "goal" );
         }
@@ -1417,12 +1417,12 @@ actionchainthink( var_0 )
             wait(randomfloatrange( 0.1, 0.5 ));
         }
 
-        var_1.isradarblocked = 0;
+        var_1.inuse = 0;
     }
 
-    while ( isdefined( var_1._not_team ) )
+    while ( isdefined( var_1.target ) )
     {
-        var_1 = getnode( var_1._not_team, "targetname" );
+        var_1 = getnode( var_1.target, "targetname" );
         self _meth_81a9( var_1 );
         self waittill( "goal" );
     }
@@ -1585,12 +1585,12 @@ training_targetdummies( var_0 )
 
 targetdummythink()
 {
-    self.orgent = getent( self._not_team, "targetname" );
+    self.orgent = getent( self.target, "targetname" );
     self linkto( self.orgent );
-    self.dummyid = int( self.script_model );
-    self.laneid = int( self.teambalanced[4] );
-    self.aim_assist_target = getent( self.orgent._not_team, "targetname" );
-    self.aim_assist_target.helmet = 10;
+    self.dummyid = int( self.script_label );
+    self.laneid = int( self.targetname[4] );
+    self.aim_assist_target = getent( self.orgent.target, "targetname" );
+    self.aim_assist_target.health = 10;
     self.aim_assist_target hide();
     self.aim_assist_target notsolid();
     self.orgent rotatepitch( -90, 0.25 );
@@ -1606,7 +1606,7 @@ targetdummythink()
         {
             self waittill( "damage", var_1, var_2, var_3, var_4, var_5 );
 
-            if ( !level.playercardbackground istouching( var_0 ) )
+            if ( !level.player istouching( var_0 ) )
             {
                 target_down();
 
@@ -1630,7 +1630,7 @@ targetdummythink()
 
             if ( level.hip_fire_required )
             {
-                if ( level.playercardbackground maps\_utility::_id_50A9() )
+                if ( level.player maps\_utility::_id_50A9() )
                 {
                     thread keyhint( "stop_ads", 2, var_8 );
                     target_down();
@@ -1673,7 +1673,7 @@ targetdummythink()
 
 target_down()
 {
-    self.helmet = 10;
+    self.health = 10;
     self playsound( "killhouse_target_up" );
     self._id_5F9E = 1;
     self.aim_assist_target _meth_81d7();
@@ -1686,14 +1686,14 @@ target_down()
 
 cargoship_targets()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     var_1 = var_0 common_scripts\utility::_id_8959();
     var_2 = anglestoforward( var_1.angles );
 
-    if ( !isdefined( var_0.script_parentname ) )
-        var_0.script_parentname = "standard";
+    if ( !isdefined( var_0.script_noteworthy ) )
+        var_0.script_noteworthy = "standard";
 
-    if ( var_0.script_parentname == "reverse" )
+    if ( var_0.script_noteworthy == "reverse" )
     {
         var_0 rotatepitch( 90, 0.25 );
         var_1.origin += anglestoforward( var_1.angles ) * 65;
@@ -1705,8 +1705,8 @@ cargoship_targets()
     }
 
     self linkto( var_0 );
-    var_3 = getent( var_0._not_team, "targetname" );
-    var_3.helmet = 10;
+    var_3 = getent( var_0.target, "targetname" );
+    var_3.health = 10;
     var_3 hide();
     var_3 notsolid();
 
@@ -1719,17 +1719,17 @@ cargoship_targets()
         playfxontag( level._effect["dust_poof_radial_dummy_fng"], var_1, "tag_origin" );
         self setcandamage( 1 );
 
-        if ( self.teambalanced != "friendly" )
+        if ( self.targetname != "friendly" )
             var_3 _meth_81b9();
 
-        if ( var_0.script_parentname == "reverse" )
+        if ( var_0.script_noteworthy == "reverse" )
             var_0 rotatepitch( -90, 0.2 );
         else
             var_0 rotatepitch( 90, 0.2 );
 
         wait 0.25;
 
-        if ( self.teambalanced == "friendly" )
+        if ( self.targetname == "friendly" )
             fail_if_damage_waiter();
         else
         {
@@ -1744,7 +1744,7 @@ cargoship_targets()
             }
 
             self notify( "hit" );
-            self.helmet = 10;
+            self.health = 10;
             level.targets_hit++;
             self playsound( "killhouse_buzzer" );
             self playsound( "killhouse_target_up" );
@@ -1754,7 +1754,7 @@ cargoship_targets()
 
         self notsolid();
 
-        if ( var_0.script_parentname == "reverse" )
+        if ( var_0.script_noteworthy == "reverse" )
             var_0 rotatepitch( 90, 0.25 );
         else
             var_0 rotatepitch( -90, 0.25 );
@@ -1810,9 +1810,9 @@ ammorespawnthink( var_0, var_1, var_2 )
     var_3 set_ammo();
     var_7 = undefined;
 
-    if ( isdefined( var_3._not_team ) )
+    if ( isdefined( var_3.target ) )
     {
-        var_7 = getent( var_3._not_team, "targetname" );
+        var_7 = getent( var_3.target, "targetname" );
         var_7.origin = var_3.origin;
         var_7.angles = var_3.angles;
     }
@@ -1843,7 +1843,7 @@ ammorespawnthink( var_0, var_1, var_2 )
 
     if ( var_1 == "alt_m16_grenadier" )
     {
-        while ( !level.playercardbackground hasweapon( "m16_grenadier" ) )
+        while ( !level.player hasweapon( "m16_grenadier" ) )
             wait 0.05;
     }
     else
@@ -1859,9 +1859,9 @@ ammorespawnthink( var_0, var_1, var_2 )
     {
         wait 1;
 
-        if ( level.playercardbackground getfractionmaxammo( var_1 ) < var_8 )
+        if ( level.player getfractionmaxammo( var_1 ) < var_8 )
         {
-            while ( distance( level.playercardbackground.origin, var_5 ) < 160 )
+            while ( distance( level.player.origin, var_5 ) < 160 )
                 wait 1;
 
             var_3 = spawn( var_4, var_5, 1 );
@@ -1904,7 +1904,7 @@ registerobjective( var_0, var_1, var_2 )
     common_scripts\utility::_id_383D( var_0 );
     var_3 = level._id_6302.size;
     var_4 = spawnstruct();
-    var_4.nearz = var_0;
+    var_4.name = var_0;
     var_4._id_4B53 = var_3;
     var_4._id_8D56 = "invisible";
     var_4._id_92B2 = var_1;
@@ -2173,7 +2173,7 @@ check_in_front_of_armory()
 
     for (;;)
     {
-        if ( level.playercardbackground istouching( self ) )
+        if ( level.player istouching( self ) )
         {
             if ( !var_0 )
             {
@@ -2425,7 +2425,7 @@ keyhint( var_0, var_1, var_2 )
     level endon( "clearing_hints" );
     var_3 = getactionbind( var_0 );
 
-    if ( var_0 == "melee" && level.xuid && var_3.key == "BUTTON_RSTICK" )
+    if ( var_0 == "melee" && level.xenon && var_3.key == "BUTTON_RSTICK" )
         maps\_utility::_id_48B0( &"KILLHOUSE_HINT_MELEE_CLICK" );
     else
         maps\_utility::_id_48B0( var_3._id_48B0, undefined, undefined, var_2 );
@@ -2439,9 +2439,9 @@ keyhint( var_0, var_1, var_2 )
     }
 
     if ( isdefined( var_1 ) )
-        level.playercardbackground thread notifyontimeout( var_4, var_1 );
+        level.player thread notifyontimeout( var_4, var_1 );
 
-    level.playercardbackground waittill( var_4 );
+    level.player waittill( var_4 );
     maps\_utility::_id_48CB( 0.5 );
 }
 
@@ -2453,7 +2453,7 @@ keyhintmantle( var_0, var_1 )
     maps\_utility::_id_48B0( var_2._id_48B0, undefined, undefined, var_1 );
     var_3 = 0.0;
 
-    while ( !level.playercardbackground ismantling() && var_3 < var_0 )
+    while ( !level.player ismantling() && var_3 < var_0 )
     {
         var_3 += 0.05;
         wait 0.05;
@@ -2470,7 +2470,7 @@ keyhintprone( var_0, var_1 )
     maps\_utility::_id_48B0( var_2._id_48B0, undefined, undefined, var_1 );
     var_3 = 0.0;
 
-    while ( level.playercardbackground getstance() != "prone" && var_3 < var_0 )
+    while ( level.player getstance() != "prone" && var_3 < var_0 )
     {
         var_3 += 0.05;
         wait 0.05;
@@ -2525,9 +2525,9 @@ stalltriggerthink( var_0 )
         if ( !isplayer( var_1 ) )
             continue;
 
-        if ( self.teambalanced != "stall4" )
+        if ( self.targetname != "stall4" )
         {
-            level notify( "player_wrong_stall", self.teambalanced );
+            level notify( "player_wrong_stall", self.targetname );
             continue;
         }
 
@@ -2665,7 +2665,7 @@ blink_primary_lights()
 melon_think()
 {
     var_0 = getent( "scr_watermelon", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_1 hide();
     var_1 notsolid();
     level waittill( "show_melon" );
@@ -2688,7 +2688,7 @@ _id_929E()
 
 clear_hints_on_stand()
 {
-    while ( level.playercardbackground getstance() != "stand" )
+    while ( level.player getstance() != "stand" )
         wait 0.05;
 
     _id_1EBE();
@@ -2698,7 +2698,7 @@ move_mac()
 {
     self waittill( "trigger" );
     level.mac maps\_utility::_id_7E45( "jog" );
-    level.mac _meth_81a9( getnode( self._not_team, "targetname" ) );
+    level.mac _meth_81a9( getnode( self.target, "targetname" ) );
 }
 
 loop_obstacle()
@@ -2733,7 +2733,7 @@ buddiesinit()
 
     for ( var_0 = 0; var_0 < level.buddies.size; var_0++ )
     {
-        level.buddies[var_0].buddyid = int( level.buddies[var_0].teambalanced[5] );
+        level.buddies[var_0].buddyid = int( level.buddies[var_0].targetname[5] );
         level.buddiesbyid[level.buddies[var_0].buddyid] = level.buddies[var_0];
 
         switch ( level.buddies[var_0].buddyid )
@@ -2769,16 +2769,16 @@ obstacletrainingcoursethink( var_0, var_1 )
     var_2["finishNode"] = ::set_idle_after_course;
     self._id_2AF3 = 1;
 
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
-        var_0 = getnode( var_0._not_team, "targetname" );
+        var_0 = getnode( var_0.target, "targetname" );
         self _meth_81a9( var_0 );
         self waittill( "goal" );
 
-        if ( !isdefined( var_0.script_parentname ) )
+        if ( !isdefined( var_0.script_noteworthy ) )
             continue;
 
-        [[ var_2[var_0.script_parentname] ]]();
+        [[ var_2[var_0.script_noteworthy] ]]();
     }
 
     self._id_2AF3 = 0;
@@ -2818,11 +2818,11 @@ frag_trigger_think( var_0, var_1, var_2 )
     common_scripts\utility::_id_383D( var_0 );
     var_1 enablegrenadetouchdamage();
 
-    if ( isdefined( var_1._not_team ) )
-        var_1.lockorientation = getent( var_1._not_team, "targetname" );
+    if ( isdefined( var_1.target ) )
+        var_1.light = getent( var_1.target, "targetname" );
 
-    if ( isdefined( var_1.lockorientation ) )
-        var_1.lockorientation thread flicker_on();
+    if ( isdefined( var_1.light ) )
+        var_1.light thread flicker_on();
 
     if ( !isdefined( var_2 ) )
         var_2 = 0;
@@ -2835,10 +2835,10 @@ frag_trigger_think( var_0, var_1, var_2 )
             continue;
 
         common_scripts\utility::_id_383F( var_0 );
-        level.playercardbackground playsound( "killhouse_buzzer" );
+        level.player playsound( "killhouse_buzzer" );
 
-        if ( isdefined( var_1.lockorientation ) )
-            var_1.lockorientation thread flicker_off();
+        if ( isdefined( var_1.light ) )
+            var_1.light thread flicker_off();
 
         return var_1;
     }
@@ -2886,7 +2886,7 @@ in_pit()
 {
     var_0 = getent( "safety_pit", "targetname" );
 
-    if ( !level.playercardbackground istouching( var_0 ) )
+    if ( !level.player istouching( var_0 ) )
         return 0;
 
     return 1;
@@ -2923,7 +2923,7 @@ jog_to( var_0 )
     self.goalradius = 16;
     self _meth_81a9( var_0 );
     self waittill( "goal" );
-    level.newcastle _meth_8202( level.playercardbackground, 1 );
+    level.newcastle _meth_8202( level.player, 1 );
 }
 
 walk_to_debrief( var_0 )
@@ -2952,7 +2952,7 @@ price_mask_up_gun_spawn()
 {
     level._id_6F7C _meth_814e( level._id_78AC["price"]["price_mask_up"], 1 );
     level._id_6F7C _meth_814e( level._id_78AC["price"]["price_mask_outloop"], 1 );
-    level._id_6F7C animscripts\shared::_id_6869( level._id_6F7C.weapon_switch_invalid, "right" );
+    level._id_6F7C animscripts\shared::_id_6869( level._id_6F7C.weapon, "right" );
 }
 
 dialog_nag_till_in_pit()
@@ -3057,7 +3057,7 @@ gaz_animation( var_0, var_1, var_2, var_3 )
 
     level.waters.ref_node notify( "stop_loop" );
     level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
-    level.waters _meth_8202( level.playercardbackground, 1 );
+    level.waters _meth_8202( level.player, 1 );
 }
 
 nwc_talk_animation( var_0 )

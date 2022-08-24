@@ -119,13 +119,13 @@ codecallback_hostmigration()
 
 _id_2000( var_0, var_1 )
 {
-    if ( isbot( var_0 ) || istestclient( var_0 ) || var_0.team == "spectator" || var_0.sharpturnlookaheaddist == "spectator" )
+    if ( isbot( var_0 ) || istestclient( var_0 ) || var_0.team == "spectator" || var_0.sessionstate == "spectator" )
         return;
 }
 
 codecallback_givekillstreakmodule( var_0, var_1 )
 {
-    if ( isbot( var_0 ) || istestclient( var_0 ) || var_0.team == "spectator" || var_0.sharpturnlookaheaddist == "spectator" )
+    if ( isbot( var_0 ) || istestclient( var_0 ) || var_0.team == "spectator" || var_0.sessionstate == "spectator" )
         return;
 }
 

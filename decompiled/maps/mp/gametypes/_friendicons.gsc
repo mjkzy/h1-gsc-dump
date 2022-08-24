@@ -61,7 +61,7 @@ _id_64D3()
     for (;;)
     {
         self waittill( "killed_player" );
-        self.health = "";
+        self.headicon = "";
     }
 }
 
@@ -71,13 +71,13 @@ _id_850D()
     {
         if ( self.pers["team"] == "allies" )
         {
-            self.health = game["headicon_allies"];
-            self.healthregen = "allies";
+            self.headicon = game["headicon_allies"];
+            self.headiconteam = "allies";
         }
         else
         {
-            self.health = game["headicon_axis"];
-            self.healthregen = "axis";
+            self.headicon = game["headicon_axis"];
+            self.headiconteam = "axis";
         }
     }
 }
@@ -101,19 +101,19 @@ _id_9B1C()
     {
         var_2 = var_0[var_1];
 
-        if ( isdefined( var_2.pers["team"] ) && var_2.pers["team"] != "spectator" && var_2.sharpturnlookaheaddist == "playing" )
+        if ( isdefined( var_2.pers["team"] ) && var_2.pers["team"] != "spectator" && var_2.sessionstate == "playing" )
         {
             if ( level.drawfriend )
             {
                 if ( var_2.pers["team"] == "allies" )
                 {
-                    var_2.health = game["headicon_allies"];
-                    var_2.healthregen = "allies";
+                    var_2.headicon = game["headicon_allies"];
+                    var_2.headiconteam = "allies";
                 }
                 else
                 {
-                    var_2.health = game["headicon_axis"];
-                    var_2.healthregen = "axis";
+                    var_2.headicon = game["headicon_axis"];
+                    var_2.headiconteam = "axis";
                 }
 
                 continue;
@@ -125,8 +125,8 @@ _id_9B1C()
             {
                 var_2 = var_0[var_1];
 
-                if ( isdefined( var_2.pers["team"] ) && var_2.pers["team"] != "spectator" && var_2.sharpturnlookaheaddist == "playing" )
-                    var_2.health = "";
+                if ( isdefined( var_2.pers["team"] ) && var_2.pers["team"] != "spectator" && var_2.sessionstate == "playing" )
+                    var_2.headicon = "";
             }
         }
     }

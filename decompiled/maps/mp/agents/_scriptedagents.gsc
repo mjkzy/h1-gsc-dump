@@ -19,13 +19,13 @@
 
 */
 
-onwifi( var_0, var_1 )
+onenterstate( var_0, var_1 )
 {
     if ( isdefined( self._id_6490 ) )
         self [[ self._id_6490 ]]( var_0, var_1 );
 }
 
-onlygoodnearestnodes()
+ondeactivate()
 {
     self notify( "killanimscript" );
 }
@@ -126,7 +126,7 @@ _id_3EFD( var_0, var_1, var_2 )
 
     var_11 = spawnstruct();
     var_11._id_A3B1 = var_7;
-    var_11._id_053B = var_8;
+    var_11.z = var_8;
     return var_11;
 }
 
@@ -148,7 +148,7 @@ _id_2F8F( var_0, var_1 )
 
     var_2 = var_0 + ( 0, 0, var_1 );
     var_3 = var_0 + ( 0, 0, var_1 * -1 );
-    var_4 = self aiphysicstrace( var_2, var_3, self.rank, self.hidewhendead, 1 );
+    var_4 = self aiphysicstrace( var_2, var_3, self.radius, self.height, 1 );
 
     if ( abs( var_4[2] - var_2[2] ) < 0.1 )
         return undefined;
@@ -165,12 +165,12 @@ _id_1AD2( var_0, var_1, var_2, var_3 )
         var_2 = 6;
 
     if ( !isdefined( var_3 ) )
-        var_3 = self.rank;
+        var_3 = self.radius;
 
     var_4 = ( 0.0, 0.0, 1.0 ) * var_2;
     var_5 = var_0 + var_4;
     var_6 = var_1 + var_4;
-    return self _meth_83e4( var_5, var_6, var_3, self.hidewhendead - var_2, 1 );
+    return self _meth_83e4( var_5, var_6, var_3, self.height - var_2, 1 );
 }
 
 _id_414C( var_0, var_1, var_2 )
@@ -181,7 +181,7 @@ _id_414C( var_0, var_1, var_2 )
     var_3 = ( 0.0, 0.0, 1.0 ) * var_2;
     var_4 = var_0 + var_3;
     var_5 = var_1 + var_3;
-    return self aiphysicstrace( var_4, var_5, self.rank + 4, self.hidewhendead - var_2, 1 );
+    return self aiphysicstrace( var_4, var_5, self.radius + 4, self.height - var_2, 1 );
 }
 
 _id_40C0( var_0 )

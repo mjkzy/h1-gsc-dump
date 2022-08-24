@@ -69,6 +69,6 @@ main()
 _id_8FCC()
 {
     var_0 = maps\_utility::_id_23DB( "default" );
-    var_0.precache = ( -30.0037, 91.0018, 0.0 );
+    var_0.position = ( -30.0037, 91.0018, 0.0 );
     maps\_art::_id_8FCD( "default", 0 );
 }

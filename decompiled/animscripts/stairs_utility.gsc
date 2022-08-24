@@ -197,7 +197,7 @@ stairupdatepos( var_0, var_1, var_2, var_3, var_4, var_5 )
             }
             else
             {
-                var_11 = vectornormalize( ( self.lookforward[0], self.lookforward[1], 0 ) );
+                var_11 = vectornormalize( ( self.lookaheaddir[0], self.lookaheaddir[1], 0 ) );
                 var_12 = distancebetweentwolines( self.origin, var_11, var_6, var_7 );
                 self.stairstransition["wantedPos"] = var_12["intersectionLine2"];
             }
@@ -218,7 +218,7 @@ stairupdatepos( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_18 = self.stairstransition["wantedPos"] - self.origin;
         var_19 = 0.001;
 
-        if ( vectordot( var_18, self.lookforward ) > var_19 )
+        if ( vectordot( var_18, self.lookaheaddir ) > var_19 )
         {
             var_20 = getmovedelta( var_0, var_9, var_13 );
             var_21 = length( var_20 ) / var_8;
@@ -413,7 +413,7 @@ checktransition_up_in( var_0, var_1, var_2, var_3, var_4, var_5 )
             return undefined;
 
         var_9 = var_10["pos"];
-        var_11 = findstaircorner( self.lookforward, self.lookright, var_9, var_0["normal"], self.origin, ( 0.0, 0.0, 1.0 ), 15 );
+        var_11 = findstaircorner( self.lookaheaddir, self.lookaheaddist, var_9, var_0["normal"], self.origin, ( 0.0, 0.0, 1.0 ), 15 );
         var_12["wantedPos"] = var_11["position"];
         var_12["stairEdgeDir"] = var_11["stairEdgeDirection"];
         var_12["inStairTransitionIn"] = 1;
@@ -422,14 +422,14 @@ checktransition_up_in( var_0, var_1, var_2, var_3, var_4, var_5 )
         return var_12;
     }
 
-    if ( var_1 < self.lookright )
+    if ( var_1 < self.lookaheaddist )
         return undefined;
 
-    if ( var_1 - self.lookright > 15 )
+    if ( var_1 - self.lookaheaddist > 15 )
         var_4 -= var_3 * 15;
     else
     {
-        var_13 = ( var_1 + self.lookright ) * 0.5;
+        var_13 = ( var_1 + self.lookaheaddist ) * 0.5;
         var_4 -= var_3 * var_13;
     }
 
@@ -478,7 +478,7 @@ checktransition_down_in( var_0, var_1, var_2, var_3 )
     var_12 = animscripts\run::_id_40E5( var_3, "down", var_11 );
     var_13 = getstairanimtranslationtoedge( var_12 );
     var_9 = gettracecontactpos( var_6, var_7, var_8, 0, 48 );
-    var_14 = findstaircorner( self.lookforward, self.lookright, var_9, var_10, self.origin, ( 0.0, 0.0, 1.0 ), 15 );
+    var_14 = findstaircorner( self.lookaheaddir, self.lookaheaddist, var_9, var_10, self.origin, ( 0.0, 0.0, 1.0 ), 15 );
     var_15["wantedPos"] = var_14["position"];
     var_15["stairEdgeDir"] = var_14["stairEdgeDirection"];
     var_15["inStairTransitionIn"] = 1;
@@ -487,7 +487,7 @@ checktransition_down_in( var_0, var_1, var_2, var_3 )
 
     if ( getdvarint( "ai_useStairsTraceErrorOffset", 1 ) )
     {
-        var_16 = ( self.lookforward[0], self.lookforward[1], 0 );
+        var_16 = ( self.lookaheaddir[0], self.lookaheaddir[1], 0 );
         var_16 = vectornormalize( var_16 );
 
         if ( vectordot( var_10, var_16 ) > 0 )
@@ -536,7 +536,7 @@ checktransition_up_out( var_0 )
     if ( vectordot( var_1["normal"], var_0 ) > 0 )
         return undefined;
 
-    var_14 = findstaircorner( self.lookforward, self.lookright, var_1["pos"], var_1["normal"], var_13, ( 0.0, 0.0, 1.0 ), 15 );
+    var_14 = findstaircorner( self.lookaheaddir, self.lookaheaddist, var_1["pos"], var_1["normal"], var_13, ( 0.0, 0.0, 1.0 ), 15 );
     var_15["wantedPos"] = var_14["position"];
     var_15["stairEdgeDir"] = var_14["stairEdgeDirection"];
     var_15["transitionAnim"] = var_3;
@@ -578,7 +578,7 @@ checktransition_down_out( var_0 )
     if ( vectordot( var_1["normal"], var_0 ) < 0 )
         return undefined;
 
-    var_14 = findstaircorner( self.lookforward, self.lookright, var_1["pos"], var_1["normal"], var_13, ( 0.0, 0.0, 1.0 ), 15 );
+    var_14 = findstaircorner( self.lookaheaddir, self.lookaheaddist, var_1["pos"], var_1["normal"], var_13, ( 0.0, 0.0, 1.0 ), 15 );
     var_15["wantedPos"] = var_14["position"];
     var_15["stairEdgeDir"] = var_14["stairEdgeDirection"];
     var_15["transitionAnim"] = var_3;
@@ -590,15 +590,15 @@ getexpectedstairstransition( var_0, var_1, var_2, var_3 )
 {
     var_4 = undefined;
 
-    if ( !isdefined( self.lookforward ) )
+    if ( !isdefined( self.lookaheaddir ) )
         return undefined;
 
     var_5 = getanimationcontext( var_0 );
-    var_6 = vectornormalize( ( self.lookforward[0], self.lookforward[1], 0 ) );
+    var_6 = vectornormalize( ( self.lookaheaddir[0], self.lookaheaddir[1], 0 ) );
     var_7 = !isdefined( var_3 ) || var_3 == "inOnly";
     var_8 = !isdefined( var_3 ) || var_3 == "outOnly";
 
-    if ( self.start_move == "none" && var_7 )
+    if ( self.stairsstate == "none" && var_7 )
     {
         var_9 = getcurrentanimdisplacement( var_0, var_1, var_2 );
         var_10 = self.origin + ( 0.0, 0.0, 1.0 );
@@ -612,9 +612,9 @@ getexpectedstairstransition( var_0, var_1, var_2, var_3 )
     }
     else if ( var_8 )
     {
-        if ( self.start_move == "up" )
+        if ( self.stairsstate == "up" )
             var_4 = checktransition_up_out( var_6 );
-        else if ( self.start_move == "down" )
+        else if ( self.stairsstate == "down" )
             var_4 = checktransition_down_out( var_6 );
     }
 
@@ -726,7 +726,7 @@ lookaheadhitstairslistener()
         if ( isinstairstransition() )
             continue;
 
-        if ( self.start_move != "none" )
+        if ( self.stairsstate != "none" )
             continue;
 
         if ( shouldstairstransitionnow() )
@@ -752,7 +752,7 @@ using_h1_stairs_system()
 
 isonstairs()
 {
-    return self.start_move != "none" && using_h1_stairs_system();
+    return self.stairsstate != "none" && using_h1_stairs_system();
 }
 
 getstairtypefromtraceresult( var_0, var_1 )
@@ -774,7 +774,7 @@ getstairtypefromnormal( var_0 )
     if ( var_0[2] < 0.86 )
         return "12x8";
 
-    if ( level.script_context == "scoutsniper" )
+    if ( level.script == "scoutsniper" )
         return "12x6";
 
     return "16x8";
@@ -784,5 +784,5 @@ getstairsanimnameatgroundpos()
 {
     var_0 = getprecisegroundnear( self.origin );
     var_1 = getstairtypefromtraceresult( var_0, self.origin );
-    return "stairs_" + self.start_move + "_" + var_1;
+    return "stairs_" + self.stairsstate + "_" + var_1;
 }

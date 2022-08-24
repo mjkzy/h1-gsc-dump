@@ -97,7 +97,7 @@ start_bog_backhalf()
     thread cobra_sequence();
     thread _id_29F3();
     var_0 = getent( "badplace_fires", "targetname" );
-    badplace_cylinder( "hill_fires", -1, var_0.origin, var_0.rank, var_0.hidewhendead, "allies" );
+    badplace_cylinder( "hill_fires", -1, var_0.origin, var_0.radius, var_0.height, "allies" );
 }
 
 start_zpu()
@@ -105,8 +105,8 @@ start_zpu()
     soundscripts\_snd::_id_870C( "start_zpu_checkpoint" );
     common_scripts\utility::_id_383F( "zpu_orders_given" );
     var_0 = getent( "zpu_player_org", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     thread _id_6302();
     thread bog_a_backhalf_autosaves();
     level.abrams thread tank_setup();
@@ -145,7 +145,7 @@ start_cobras()
 start_cobras_pos()
 {
     var_0 = getent( "start_cobras_player", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     var_1 = getent( "start_cobras_price", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C _meth_81c9( var_1.origin );
@@ -154,8 +154,8 @@ start_cobras_pos()
 start_end()
 {
     soundscripts\_snd::_id_870C( "start_end_checkpoint" );
-    level.playercardbackground setplayerangles( ( 0.0, 80.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 4968.0, 1528.0, -12320.0 ) );
+    level.player setplayerangles( ( 0.0, 80.0, 0.0 ) );
+    level.player setorigin( ( 4968.0, 1528.0, -12320.0 ) );
     var_0 = getaiarray();
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5E, 1 );
     level.abrams thread tank_setup();
@@ -181,8 +181,8 @@ start_end()
     waitframe;
     thread ending_sequence();
     wait 0.05;
-    level.playercardbackground setplayerangles( ( 0.0, 80.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 4777.0, 1491.0, 20.0 ) );
+    level.player setplayerangles( ( 0.0, 80.0, 0.0 ) );
+    level.player setorigin( ( 4777.0, 1491.0, 20.0 ) );
 }
 
 temp_friendly_boost()
@@ -193,8 +193,8 @@ temp_friendly_boost()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_2 = var_0[var_1];
-        var_2.index = 1;
-        var_2.helmet = 1000;
+        var_2.ignoresuppression = 1;
+        var_2.health = 1000;
     }
 }
 
@@ -231,8 +231,8 @@ tank_defense_flares()
 tank_defender_spawn_setup()
 {
     level.tankdefenderpop++;
-    self.index = 1;
-    self.helmet = 1000;
+    self.ignoresuppression = 1;
+    self.health = 1000;
     thread tank_defender_deathnotify();
 }
 
@@ -261,10 +261,10 @@ tank_defense_victory_check()
     {
         var_3 = var_1[var_2];
 
-        if ( !isdefined( var_3.script_parentname ) )
+        if ( !isdefined( var_3.script_noteworthy ) )
             continue;
 
-        if ( var_3.script_parentname == "tank_attack_enemy" )
+        if ( var_3.script_noteworthy == "tank_attack_enemy" )
             var_0[var_0.size] = var_3;
     }
 
@@ -377,7 +377,7 @@ enemy_infantry_spawn_setup()
     self waittill( "reached_path_end" );
     thread enemy_infantry_tank_encroach();
     common_scripts\utility::_id_384A( "lower_health_of_tank_defense_stragglers" );
-    self.helmet = 5;
+    self.health = 5;
 }
 
 enemy_infantry_tank_encroach()
@@ -392,8 +392,8 @@ enemy_infantry_tank_encroach()
     if ( !var_0 )
     {
         self.goalradius = 64;
-        self.pathlookaheaddist = 512;
-        self.pathrandompercent = 512;
+        self.pathenemyfightdist = 512;
+        self.pathenemylookahead = 512;
         self waittill( "goal" );
 
         if ( !common_scripts\utility::_id_382E( "tank_defense_completed" ) )
@@ -405,7 +405,7 @@ enemy_infantry_tank_encroach()
         else
         {
             self.goalradius = 1000;
-            self _meth_81ab( level.playercardbackground );
+            self _meth_81ab( level.player );
         }
     }
 }
@@ -416,8 +416,8 @@ enemy_tank_encroach_mvmt()
     var_0 = getnode( "tank_suicide_bomb_dest", "targetname" );
     self _meth_81a9( var_0 );
     self.goalradius = level.tankencroachinitradius;
-    self.pathlookaheaddist = 96;
-    self.pathrandompercent = 512;
+    self.pathenemyfightdist = 96;
+    self.pathenemylookahead = 512;
 
     for ( var_1 = 0; var_1 < level.tankencroachsteps; var_1++ )
     {
@@ -480,7 +480,7 @@ cobra_bldg_activate()
 
     foreach ( var_2 in var_0 )
     {
-        if ( isdefined( var_2.script_origin ) && issubstr( var_2.script_origin, "post_zpu_final_bldg_spawn" ) )
+        if ( isdefined( var_2.script_linkname ) && issubstr( var_2.script_linkname, "post_zpu_final_bldg_spawn" ) )
             var_2 notify( "trigger" );
     }
 }
@@ -497,7 +497,7 @@ cobra_bldg_mg()
 cobra_bldg_mg_targeting()
 {
     level endon( "final_bldg_fired_upon" );
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     thread backhalf_manual_mg_fire();
     var_1 = 0;
 
@@ -509,7 +509,7 @@ cobra_bldg_mg_targeting()
         if ( var_1 > 6 && !common_scripts\utility::_id_382E( "beacon_planted" ) && !level.playeristargeted )
         {
             level.playeristargeted = 1;
-            self settargetentity( level.playercardbackground );
+            self settargetentity( level.player );
             var_1 = 0;
         }
         else
@@ -569,7 +569,7 @@ cobra_sequence()
     var_1 = getent( "beaconTrig", "targetname" );
     var_1 sethintstring( &"SCRIPT_PLATFORM_HINT_PLANTBEACON" );
     var_1 waittill( "trigger" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_bog_a_beacon_plant" );
+    level.player thread maps\_utility::_id_69C4( "scn_bog_a_beacon_plant" );
     var_1 delete();
     var_0 setmodel( "com_night_beacon" );
     common_scripts\utility::_id_383F( "beacon_planted" );
@@ -626,8 +626,8 @@ cobra_flightplan( var_0 )
     self sethoverparams( 128 );
     var_3 = undefined;
 
-    if ( isdefined( self._not_team ) )
-        var_3 = getent( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_3 = getent( self.target, "targetname" );
     else
     {
 
@@ -639,9 +639,9 @@ cobra_flightplan( var_0 )
     {
         var_4[var_4.size] = var_3;
 
-        if ( isdefined( var_3._not_team ) )
+        if ( isdefined( var_3.target ) )
         {
-            var_3 = getent( var_3._not_team, "targetname" );
+            var_3 = getent( var_3.target, "targetname" );
             continue;
         }
 
@@ -660,8 +660,8 @@ cobra_flightplan( var_0 )
         var_11 = 0;
         var_12 = var_4[var_10];
 
-        if ( isdefined( var_12.rank ) )
-            var_7 = var_12.rank;
+        if ( isdefined( var_12.radius ) )
+            var_7 = var_12.radius;
 
         self neargoalnotifydist( var_7 );
 
@@ -820,9 +820,9 @@ cobra_missile_fired_earthquake( var_0 )
     earthquake( 0.3, 1.0, self.origin, 4000 );
 
     if ( isdefined( var_0 ) && var_0 == 1 )
-        level.playercardbackground playrumbleonentity( "generic_attack_heavy_500" );
+        level.player playrumbleonentity( "generic_attack_heavy_500" );
     else
-        level.playercardbackground playrumbleonentity( "generic_attack_medium_500" );
+        level.player playrumbleonentity( "generic_attack_medium_500" );
 }
 
 tank_defense_enforcement()
@@ -882,7 +882,7 @@ tank_defense_failure()
 
 tank_setup()
 {
-    var_0 = getvehiclenode( self._not_team, "targetname" );
+    var_0 = getvehiclenode( self.target, "targetname" );
     self attachpath( var_0 );
     self startpath();
 }
@@ -930,9 +930,9 @@ tank_destruction()
     level notify( "tank_was_overrun" );
     thread tank_missionfailure();
     common_scripts\utility::_id_69C2( "generic_meleecharge_arab_6", level.abrams.origin );
-    level.playercardbackground playsound( "explo_mine" );
+    level.player playsound( "explo_mine" );
     playfx( level.tankexplosion_fx, level.abrams.origin );
-    earthquake( 0.5, 2, level.playercardbackground.origin, 1250 );
+    earthquake( 0.5, 2, level.player.origin, 1250 );
     radiusdamage( level.abrams.origin, 512, 100500, 100500 );
 }
 
@@ -950,7 +950,7 @@ zpu_battle_init()
     common_scripts\utility::_id_383F( "zpu_battle_started" );
     thread zpu_battle_friendly_advance();
     var_0 = getnode( "zpu_badplace", "targetname" );
-    badplace_cylinder( "zpuNoAllies", -1, var_0.origin, var_0.rank, var_0.hidewhendead, "allies" );
+    badplace_cylinder( "zpuNoAllies", -1, var_0.origin, var_0.radius, var_0.height, "allies" );
     var_1 = getent( "zpu_battle_seed", "targetname" );
     wait 2;
     var_1 notify( "trigger" );
@@ -971,16 +971,16 @@ zpu_battle_trigger_control()
     var_0 = [];
     var_1 = undefined;
 
-    if ( isdefined( self._not_team ) )
-        var_1 = getent( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_1 = getent( self.target, "targetname" );
 
     while ( isdefined( var_1 ) )
     {
         var_0[var_0.size] = var_1;
 
-        if ( isdefined( var_1._not_team ) )
+        if ( isdefined( var_1.target ) )
         {
-            var_1 = getent( var_1._not_team, "targetname" );
+            var_1 = getent( var_1.target, "targetname" );
             continue;
         }
 
@@ -1027,11 +1027,11 @@ zpu_dialogue()
     maps\_utility::_id_1143( "zpu_c4_planted" );
     var_3 maps\_anim::_id_0C21( var_3, "goodjob" );
     var_4 = getent( "zpu", "targetname" );
-    var_5 = length( level.playercardbackground.origin - var_4.origin );
+    var_5 = length( level.player.origin - var_4.origin );
 
     while ( var_5 <= level.zpublastradius * 1.05 )
     {
-        var_5 = length( level.playercardbackground.origin - var_4.origin );
+        var_5 = length( level.player.origin - var_4.origin );
         wait 0.05;
     }
 
@@ -1054,7 +1054,7 @@ zpu_interface()
 {
     level endon( "zpus_destroyed" );
     wait 2;
-    level.playercardbackground thread maps\_utility::_id_2B4A( "c4_use" );
+    level.player thread maps\_utility::_id_2B4A( "c4_use" );
 }
 
 _id_29F3()
@@ -1163,7 +1163,7 @@ ending_sequence()
     else
         var_5 = 300;
 
-    while ( distance( level.playercardbackground.origin, var_4.origin ) > var_5 )
+    while ( distance( level.player.origin, var_4.origin ) > var_5 )
         wait 0.05;
 
     common_scripts\utility::_id_383F( "reached_ending_area" );
@@ -1192,7 +1192,7 @@ new_goal_at_scene_end()
     common_scripts\utility::waittillend( "single anim" );
     self _meth_81aa( self.origin );
     self.goalradius = 0;
-    self.weapon_change = 15010;
+    self.walkdist = 15010;
 }
 
 dialogue_south_tank_attack()
@@ -1202,10 +1202,10 @@ dialogue_south_tank_attack()
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( !isdefined( var_1[var_2].script_parentname ) )
+        if ( !isdefined( var_1[var_2].script_noteworthy ) )
             continue;
 
-        if ( var_1[var_2].script_parentname == "south_tank_attack_wave" )
+        if ( var_1[var_2].script_noteworthy == "south_tank_attack_wave" )
         {
             var_0 = var_1[var_2];
             break;
@@ -1228,7 +1228,7 @@ heroshield()
 hero()
 {
     thread maps\_utility::_id_58D7();
-    self.ikweight = 1;
+    self.ignorerandombulletdamage = 1;
 }
 
 schoolcircle( var_0, var_1 )
@@ -1248,10 +1248,10 @@ schoolcircle_nav( var_0, var_1 )
     self.dontavoidplayer = 1;
     self _meth_81ce( "stand" );
 
-    if ( !isdefined( var_0[var_1].script_parentname ) )
+    if ( !isdefined( var_0[var_1].script_noteworthy ) )
         return;
 
-    if ( var_0[var_1].script_parentname == "kneel" )
+    if ( var_0[var_1].script_noteworthy == "kneel" )
         thread schoolcircle_crouch( self );
 }
 

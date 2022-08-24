@@ -257,16 +257,16 @@ main()
 
 h1_typing_dof_start()
 {
-    level.playercardbackground _meth_84a7( 16.0, 150, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 2.5, 25, 4.0, 4.0 );
+    level.player _meth_84a7( 16.0, 150, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 2.5, 25, 4.0, 4.0 );
 }
 
 h1_typing_dof_stop()
 {
-    level.playercardbackground _meth_84a7( 16.0, 150, 4.0, 4.0 );
+    level.player _meth_84a7( 16.0, 150, 4.0, 4.0 );
     wait 0.5;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 start_default()
@@ -284,8 +284,8 @@ start_warehouse()
     var_1 = getent( "warehouse_grigsby", "targetname" );
     level.grigsby _meth_81c9( var_1.origin, var_1.angles );
     var_2 = getent( "warehouse_player", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
-    level.playercardbackground setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     maps\_utility::_id_070A( "warehouse_color_init" );
@@ -303,8 +303,8 @@ start_launchtubes()
     var_1 = getent( "launchtubes_grigsby", "targetname" );
     level.grigsby _meth_81c9( var_1.origin, var_1.angles );
     var_2 = getent( "launchtubes_player", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
-    level.playercardbackground setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     wait 1;
@@ -321,8 +321,8 @@ start_vaultdoors()
     var_1 = getent( "vaultdoors_grigsby", "targetname" );
     level.grigsby _meth_81c9( var_1.origin, var_1.angles );
     var_2 = getent( "vaultdoors_player", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
-    level.playercardbackground setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     common_scripts\utility::_id_383F( "open_vault_doors" );
@@ -342,8 +342,8 @@ start_controlroom()
     var_1 = getent( "controlroom_grigsby", "targetname" );
     level.grigsby _meth_81c9( var_1.origin, var_1.angles );
     var_2 = getent( "controlroom_player", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
-    level.playercardbackground setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     level thread hide_triggers( "attacking" );
@@ -356,10 +356,10 @@ start_controlroom()
     wait 1;
     level._id_91E7[0] delete();
     var_4 = getent( "vault_door_left", "targetname" );
-    var_5 = getent( var_4._not_team, "targetname" );
+    var_5 = getent( var_4.target, "targetname" );
     var_5 linkto( var_4 );
     var_6 = getent( "vault_door_right", "targetname" );
-    var_7 = getent( var_6._not_team, "targetname" );
+    var_7 = getent( var_6.target, "targetname" );
     var_7 linkto( var_6 );
     var_4 rotateyaw( -103, 1, 0, 1 );
     var_6 rotateyaw( 103, 1, 0, 1 );
@@ -373,10 +373,10 @@ _id_8B9A()
     level notify( "use_start" );
     level thread hide_triggers( "attacking" );
     var_0 = getent( "vault_door_left", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_1 linkto( var_0 );
     var_2 = getent( "vault_door_right", "targetname" );
-    var_3 = getent( var_2._not_team, "targetname" );
+    var_3 = getent( var_2.target, "targetname" );
     var_3 linkto( var_2 );
     var_0 rotateyaw( -103, 1, 0, 1 );
     var_2 rotateyaw( 103, 1, 0, 1 );
@@ -390,8 +390,8 @@ _id_8B9A()
     var_6 = getent( "escape_grigsby", "targetname" );
     level.grigsby _meth_81c9( var_6.origin, var_6.angles );
     var_7 = getent( "escape_player", "targetname" );
-    level.playercardbackground setorigin( var_7.origin );
-    level.playercardbackground setplayerangles( var_7.angles );
+    level.player setorigin( var_7.origin );
+    level.player setplayerangles( var_7.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     var_8 = getentarray( "team2", "script_noteworthy" );
@@ -413,8 +413,8 @@ start_elevator()
     soundscripts\_snd::_id_870C( "start_elevator_checkpoint" );
     level notify( "use_start" );
     var_0 = getent( "elevator_player", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     var_1 = getent( "elevator_grigsby", "targetname" );
     level._id_6F7C _meth_81ca( var_1.origin, var_1.angles );
     var_2 = getent( "elevator_price", "targetname" );
@@ -748,7 +748,7 @@ starttimer()
     level._id_4AFE = 20;
     level._id_9373 = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, level._id_8F0D * 60 );
     level._id_9373 setpulsefx( 30, 900000, 700 );
-    level._id_9373._id_92B2.land = &"LAUNCHFACILITY_B_TIME_TILL_ICBM_IMPACT";
+    level._id_9373._id_92B2.label = &"LAUNCHFACILITY_B_TIME_TILL_ICBM_IMPACT";
     level._id_9373 settenthstimer( level._id_8F0D * 60 );
     wait(level._id_8F0D * 60);
     common_scripts\utility::_id_383F( "timer_expired" );
@@ -759,7 +759,7 @@ starttimer()
 
 mission_failed_out_of_time()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "kill_timer" );
     level notify( "mission failed" );
     setdvar( "ui_deadquote", level.missionfailedquote );
@@ -777,7 +777,7 @@ _id_53B1()
 ai_duct()
 {
     self._id_38A8 = 1;
-    self.invisible = 24;
+    self.interval = 24;
     self _meth_81ce( "crouch" );
     self._id_0CB7 = ::air_duct_check_cover_transition;
     self._id_0CBD = ::air_duct_get_transition_type;
@@ -792,7 +792,7 @@ ai_duct()
     self.exittypefunc = undefined;
     common_scripts\utility::_id_384A( "move_faster" );
     maps\_utility::_id_22DA( "off" );
-    self.invisible = 60;
+    self.interval = 60;
 }
 
 air_duct_check_cover_transition( var_0 )
@@ -849,7 +849,7 @@ vent_friendlies_group2_spawner_think()
 
 vent_enemies_group2_spawner_think()
 {
-    self.helmet = 2;
+    self.health = 2;
     wait 10;
 
     if ( isalive( self ) )
@@ -944,7 +944,7 @@ warehouse_kill_all_enemy()
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         if ( var_1[var_2] istouching( var_0 ) )
-            var_1[var_2] dodamage( var_1[var_2].helmet + 1000, var_1[var_2].origin );
+            var_1[var_2] dodamage( var_1[var_2].health + 1000, var_1[var_2].origin );
     }
 }
 
@@ -966,7 +966,7 @@ play_sound_on_speaker( var_0, var_1 )
 
     level endon( "speaker_interrupt" );
     common_scripts\utility::_id_383F( "speakers_active" );
-    var_2 = common_scripts\utility::_id_3CCB( level.playercardbackground.origin, var_2, undefined, 2 );
+    var_2 = common_scripts\utility::_id_3CCB( level.player.origin, var_2, undefined, 2 );
     var_2[0] playsound( var_0, "sounddone", 1 );
     var_2[1] playsound( var_0 );
     var_2[0] waittill( "sounddone" );
@@ -997,7 +997,7 @@ rocket_powering_up()
 
     while ( !common_scripts\utility::_id_382E( "blast_door_player_clip_off" ) )
     {
-        earthquake( 0.05, 1, level.playercardbackground.origin, 1024 );
+        earthquake( 0.05, 1, level.player.origin, 1024 );
         wait 0.2;
     }
 }
@@ -1007,7 +1007,7 @@ launchtubes_teleport_friendlies()
     var_0 = getent( "teleport_the_team", "targetname" );
     var_0 waittill( "trigger" );
     common_scripts\utility::_id_383F( "10sec_till_blastoff" );
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     setignoremegroup( "allies", "axis" );
     setignoremegroup( "axis", "allies" );
     thread launchtubes_clear();
@@ -1043,7 +1043,7 @@ launchtubes_clear()
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         if ( var_1[var_2] istouching( var_0 ) )
-            var_1[var_2] dodamage( var_1[var_2].helmet + 1000, var_1[var_2].origin );
+            var_1[var_2] dodamage( var_1[var_2].health + 1000, var_1[var_2].origin );
     }
 }
 
@@ -1115,7 +1115,7 @@ run_to_the_door()
     var_0 maps\_anim::_id_0C24( level._id_6F7C, "blast_door_runto" );
     var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "blast_door_wave", undefined, "stop_idle" );
     thread price_warning();
-    level.playercardbackground in_volume();
+    level.player in_volume();
     var_0 notify( "stop_idle" );
     common_scripts\utility::_id_383F( "blast_door_player_clip_on" );
     common_scripts\utility::_id_383F( "walk" );
@@ -1158,7 +1158,7 @@ launchtubes_hatch_close_sound()
 {
     wait 0.5;
     level._id_6F7C playsound( "scn_door_launchb_hatch_close" );
-    level.playercardbackground playsound( "scn_launchb_missile_launch" );
+    level.player playsound( "scn_launchb_missile_launch" );
     common_scripts\_exploder::_id_3528( 2 );
     maps\_utility::_id_8E7E( 1 );
     var_0 = getent( "inc_fireball_sfx", "targetname" );
@@ -1172,7 +1172,7 @@ rockets_launch()
 {
     for ( var_0 = 0.15; var_0 > 0; var_0 -= 0.001 )
     {
-        earthquake( var_0, 0.1, level.playercardbackground.origin, 256 );
+        earthquake( var_0, 0.1, level.player.origin, 256 );
         wait 0.1;
     }
 }
@@ -1192,13 +1192,13 @@ kill_player_in_tubes()
 {
     var_0 = getent( "kill_player_tubes", "targetname" );
 
-    if ( level.playercardbackground istouching( var_0 ) )
+    if ( level.player istouching( var_0 ) )
     {
-        level.playercardbackground playsound( "scn_launchb_missile_launch" );
-        level.playercardbackground enablehealthshield( 0 );
-        level.playercardbackground thread player_death_effect();
+        level.player playsound( "scn_launchb_missile_launch" );
+        level.player enablehealthshield( 0 );
+        level.player thread player_death_effect();
         wait 1;
-        level.playercardbackground dodamage( level.playercardbackground.helmet + 1000, level.playercardbackground.origin );
+        level.player dodamage( level.player.health + 1000, level.player.origin );
     }
 }
 
@@ -1206,7 +1206,7 @@ player_death_effect()
 {
     var_0 = getent( "player", "classname" );
     playfx( level._effect["player_death_explosion"], var_0.origin );
-    earthquake( 1, 1, level.playercardbackground.origin, 100 );
+    earthquake( 1, 1, level.player.origin, 100 );
 }
 
 kill_launchtube_steam_fx()
@@ -1237,7 +1237,7 @@ kill_enemy_in_tubes()
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         if ( var_1[var_2] istouching( var_0 ) )
-            var_1[var_2] dodamage( var_1[var_2].helmet + 1000, var_1[var_2].origin );
+            var_1[var_2] dodamage( var_1[var_2].health + 1000, var_1[var_2].origin );
     }
 }
 
@@ -1276,7 +1276,7 @@ guard_the_vaultdoors_grigsby()
     common_scripts\utility::_id_383D( "vaultdoors_grigs_approach_done" );
     level.grigsby thread guard_the_vaultdoors_grigsby_wait_for_approach( var_0 );
 
-    while ( level.grigsby.script_context == "cover_arrival" )
+    while ( level.grigsby.script == "cover_arrival" )
         wait 0.05;
 
     level.grigsby.a.dontstartaim = undefined;
@@ -1346,12 +1346,12 @@ vault_doors_open()
 {
     common_scripts\utility::_id_384A( "vault_doors_unlocked" );
     var_0 = getent( "vault_door_left", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_1 linkto( var_0 );
     var_2 = getent( "vault_door_sfx", "targetname" );
     var_2 playsound( "scn_vault_door_open" );
     var_3 = getent( "vault_door_right", "targetname" );
-    var_4 = getent( var_3._not_team, "targetname" );
+    var_4 = getent( var_3.target, "targetname" );
     var_4 linkto( var_3 );
     wait 1;
     var_0 rotateyaw( -0.3, 0.05 );
@@ -1394,7 +1394,7 @@ spawn_utility_enemies()
 
 preparing_to_breach()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     maps\_utility::_id_A066( "utility_badies" );
     level thread hide_triggers( "attacking" );
     maps\_utility::_id_070A( "protect_the_c4" );
@@ -1429,7 +1429,7 @@ blow_the_wall_dialogue()
 
 plant_the_c4()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_0 = getent( "wall_explosives", "targetname" );
     var_0 maps\_c4::c4_location( undefined, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), var_0.origin );
     var_0 waittill( "c4_planted" );
@@ -1449,7 +1449,7 @@ griggs_c4_take_cover_path()
     level.grigsby waittill( "reached_path_end" );
     level.grigsby maps\_utility::_id_309A();
     level.grigsby.disable_tight_turn = 1;
-    var_1 = getnode( var_0._not_team, "targetname" );
+    var_1 = getnode( var_0.target, "targetname" );
 
     for (;;)
     {
@@ -1530,10 +1530,10 @@ upload_codes_h1()
 
     for (;;)
     {
-        var_11 = level.playercardbackground getvieworigin();
-        var_12 = level.playercardbackground getplayerangles();
+        var_11 = level.player getvieworigin();
+        var_12 = level.player getplayerangles();
 
-        if ( level.playercardbackground isleaning() || !level.playercardbackground istouching( var_1 ) || !common_scripts\utility::_id_A347( var_11, var_12, var_0._id_71E9, var_10 ) )
+        if ( level.player isleaning() || !level.player istouching( var_1 ) || !common_scripts\utility::_id_A347( var_11, var_12, var_0._id_71E9, var_10 ) )
         {
             var_1 sethintstring( " " );
             waittillframeend;
@@ -1542,37 +1542,37 @@ upload_codes_h1()
 
         var_1 sethintstring( &"LAUNCHFACILITY_B_HINT_UPLOAD_CODES" );
 
-        if ( !level.playercardbackground usebuttonpressed() )
+        if ( !level.player usebuttonpressed() )
         {
             waittillframeend;
             continue;
         }
 
         var_1 sethintstring( " " );
-        level.playercardbackground allowcrouch( 0 );
-        level.playercardbackground allowprone( 0 );
-        level.playercardbackground disableweapons();
-        level.playercardbackground freezecontrols( 1 );
-        level.playercardbackground allowlean( 0 );
+        level.player allowcrouch( 0 );
+        level.player allowprone( 0 );
+        level.player disableweapons();
+        level.player freezecontrols( 1 );
+        level.player allowlean( 0 );
         var_13 = maps\_utility::_id_88D1( "player" );
         var_13 hide();
         var_7 maps\_anim::_id_0BC7( var_13, "typing_abort_codes" );
         var_13 maps\_utility::lerp_player_view_to_tag_smoothly( "tag_player", 0.5, 1, 0, 0, 0, 0 );
         var_13 show();
-        level.playercardbackground playsound( "scn_enter_code_typing" );
+        level.player playsound( "scn_enter_code_typing" );
         var_7 thread maps\_anim::_id_0C24( var_13, "typing_abort_codes" );
-        level.playercardbackground startprogressbar( var_5 );
-        level.playercardbackground.progresstext settext( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
+        level.player startprogressbar( var_5 );
+        level.player.progresstext settext( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
         var_14 = 0;
         level thread h1_typing_dof_start();
 
         for (;;)
         {
-            if ( !level.playercardbackground usebuttonpressed() )
+            if ( !level.player usebuttonpressed() )
                 break;
 
             var_4 += var_3;
-            level.playercardbackground setprogressbarprogress( var_4 / var_5 );
+            level.player setprogressbarprogress( var_4 / var_5 );
 
             if ( var_4 >= var_5 )
             {
@@ -1584,16 +1584,16 @@ upload_codes_h1()
         }
 
         level thread h1_typing_dof_stop();
-        level.playercardbackground endprogressbar();
-        level.playercardbackground stopsounds( "scn_enter_code_typing" );
-        level.playercardbackground freezecontrols( 0 );
-        level.playercardbackground enableweapons();
+        level.player endprogressbar();
+        level.player stopsounds( "scn_enter_code_typing" );
+        level.player freezecontrols( 0 );
+        level.player enableweapons();
         var_13 hide();
         maps\_utility::_id_5695( var_8, var_9, 0.5, 1, 0, 0, 0, 0 );
         var_13 delete();
-        level.playercardbackground allowcrouch( 1 );
-        level.playercardbackground allowprone( 1 );
-        level.playercardbackground allowlean( 1 );
+        level.player allowcrouch( 1 );
+        level.player allowprone( 1 );
+        level.player allowlean( 1 );
 
         if ( var_14 )
             break;
@@ -1601,7 +1601,7 @@ upload_codes_h1()
         waittillframeend;
     }
 
-    level.playercardbackground playsound( "h1_scn_enter_press" );
+    level.player playsound( "h1_scn_enter_press" );
     soundscripts\_snd::_id_870C( "start_missile_stopped_mix" );
     var_0 delete();
     var_6 delete();
@@ -1630,21 +1630,21 @@ upload_codes()
     for (;;)
     {
         var_0 waittill( "trigger" );
-        level.playercardbackground disableweapons();
-        level.playercardbackground freezecontrols( 1 );
-        level.playercardbackground playsound( "scn_enter_code_typing" );
+        level.player disableweapons();
+        level.player freezecontrols( 1 );
+        level.player playsound( "scn_enter_code_typing" );
         var_0 common_scripts\utility::_id_97CC();
-        level.playercardbackground startprogressbar( var_3 );
-        level.playercardbackground.progresstext settext( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
+        level.player startprogressbar( var_3 );
+        level.player.progresstext settext( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
         var_5 = 0;
 
         for (;;)
         {
-            if ( !level.playercardbackground usebuttonpressed() )
+            if ( !level.player usebuttonpressed() )
                 break;
 
             var_2 += var_1;
-            level.playercardbackground setprogressbarprogress( var_2 / var_3 );
+            level.player setprogressbarprogress( var_2 / var_3 );
 
             if ( var_2 >= var_3 )
             {
@@ -1655,21 +1655,21 @@ upload_codes()
             wait(var_1);
         }
 
-        level.playercardbackground endprogressbar();
+        level.player endprogressbar();
 
         if ( var_5 )
             break;
 
-        level.playercardbackground stopsounds( "scn_enter_code_typing" );
+        level.player stopsounds( "scn_enter_code_typing" );
         var_0 common_scripts\utility::_id_97CE();
-        level.playercardbackground freezecontrols( 0 );
-        level.playercardbackground enableweapons();
+        level.player freezecontrols( 0 );
+        level.player enableweapons();
     }
 
-    level.playercardbackground enableweapons();
-    level.playercardbackground freezecontrols( 0 );
-    level.playercardbackground stopsounds( "scn_enter_code_typing" );
-    level.playercardbackground playsound( "h1_scn_enter_press" );
+    level.player enableweapons();
+    level.player freezecontrols( 0 );
+    level.player stopsounds( "scn_enter_code_typing" );
+    level.player playsound( "h1_scn_enter_press" );
     soundscripts\_snd::_id_870C( "start_missile_stopped_mix" );
     var_0 delete();
     var_4 delete();
@@ -1847,7 +1847,7 @@ escape_doors_open()
     var_0 = getent( "open_escape_door", "targetname" );
     var_0 waittill( "trigger" );
     var_1 = getent( "escape_door_right", "targetname" );
-    var_2 = getent( var_1._not_team, "targetname" );
+    var_2 = getent( var_1.target, "targetname" );
     var_1 moveto( var_2.origin, 3, 1, 2 );
     var_1 connectpaths();
 }
@@ -1891,7 +1891,7 @@ _id_3029()
     {
         level._id_6F7C thread ai_to_elevator( "r" );
         level.grigsby thread ai_to_elevator( "o" );
-        level.playercardbackground in_the_elevator();
+        level.player in_the_elevator();
     }
     else
     {
@@ -1899,7 +1899,7 @@ _id_3029()
         level.anim_ent.origin = ( -1145.0, 5781.0, -390.0 );
         level._id_6F7C thread price_to_elevator( "r" );
         level.grigsby thread griggs_to_elevator( "o" );
-        level.playercardbackground check_elevator();
+        level.player check_elevator();
     }
 
     level thread _id_3055();
@@ -1970,7 +1970,7 @@ check_elevator()
     {
         wait 0.05;
 
-        if ( level.playercardbackground istouching( var_0 ) )
+        if ( level.player istouching( var_0 ) )
         {
             if ( !common_scripts\utility::_id_382E( "player_in_elevator" ) )
                 common_scripts\utility::_id_383F( "player_in_elevator" );
@@ -1978,7 +1978,7 @@ check_elevator()
         else if ( common_scripts\utility::_id_382E( "player_in_elevator" ) )
             common_scripts\utility::_id_3831( "player_in_elevator" );
 
-        if ( level.playercardbackground istouching( var_0 ) && level._id_6F7C istouching( var_0 ) && level.grigsby istouching( var_0 ) )
+        if ( level.player istouching( var_0 ) && level._id_6F7C istouching( var_0 ) && level.grigsby istouching( var_0 ) )
         {
             common_scripts\utility::_id_383F( "all_in_elevator" );
             return;
@@ -2037,10 +2037,10 @@ _id_3055()
     var_3 waittill( "movedone" );
     level.elevator_door_inner_bottom linkto( var_0 );
     var_4 = getent( "elevator_door_outside1_bottom", "targetname" );
-    var_5 = getent( var_4._not_team, "targetname" );
+    var_5 = getent( var_4.target, "targetname" );
     var_4 moveto( var_5.origin, 2, 1, 1 );
     var_6 = getent( "elevator_door_outside2_bottom", "targetname" );
-    var_5 = getent( var_6._not_team, "targetname" );
+    var_5 = getent( var_6.target, "targetname" );
     var_6 moveto( var_5.origin, 2, 1, 1 );
     var_4 waittill( "movedone" );
     var_0 moveto( level.elevator_upper.origin, 15, 0.5, 0.1 );
@@ -2058,11 +2058,11 @@ _id_3055()
     var_7 playsound( "scn_elevator_door_open" );
     var_7 waittill( "movedone" );
     var_8 = getent( "elevator_door_outside1_top", "targetname" );
-    var_5 = getent( var_8._not_team, "targetname" );
+    var_5 = getent( var_8.target, "targetname" );
     var_8 moveto( var_5.origin, 2, 1, 1 );
     var_8 connectpaths();
     var_9 = getent( "elevator_door_outside2_top", "targetname" );
-    var_5 = getent( var_9._not_team, "targetname" );
+    var_5 = getent( var_9.target, "targetname" );
     var_9 moveto( var_5.origin, 2, 1, 1 );
     var_9 connectpaths();
 }

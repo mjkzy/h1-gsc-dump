@@ -22,7 +22,7 @@
 _id_6869( var_0, var_1, var_2 )
 {
     self notify( "weapon_position_change" );
-    var_3 = self.weeklychallengeid[var_0].precache;
+    var_3 = self.weaponinfo[var_0].position;
 
     if ( var_1 != "none" && self.a._id_A2E2[var_1] == var_0 )
         return;
@@ -40,8 +40,8 @@ _id_6869( var_0, var_1, var_2 )
 
     if ( self.a._id_A2E2[var_1] != "none" )
         _id_2985( self.a._id_A2E2[var_1] );
-    else if ( isdefined( self.weeklychallengeid["none"] ) )
-        self.weeklychallengeid["none"].precache = "none";
+    else if ( isdefined( self.weaponinfo["none"] ) )
+        self.weaponinfo["none"].position = "none";
 
     if ( !isdefined( var_2 ) )
         var_2 = 1;
@@ -49,7 +49,7 @@ _id_6869( var_0, var_1, var_2 )
     if ( var_2 && ( var_1 == "left" || var_1 == "right" ) )
     {
         _id_0E0C( var_0, var_1 );
-        self.weapon_switch_invalid = var_0;
+        self.weapon = var_0;
     }
     else
         _id_0E0C( var_0, var_1 );
@@ -59,13 +59,13 @@ _id_6869( var_0, var_1, var_2 )
 
 _id_2985( var_0 )
 {
-    self.a._id_A2E2[self.weeklychallengeid[var_0].precache] = "none";
-    self.weeklychallengeid[var_0].precache = "none";
+    self.a._id_A2E2[self.weaponinfo[var_0].position] = "none";
+    self.weaponinfo[var_0].position = "none";
 }
 
 _id_0E0C( var_0, var_1 )
 {
-    self.weeklychallengeid[var_0].precache = var_1;
+    self.weaponinfo[var_0].position = var_1;
     self.a._id_A2E2[var_1] = var_0;
 
     if ( self.a._id_A2E3[var_1] != "none" )
@@ -139,7 +139,7 @@ _id_9AF6()
         if ( var_4 == "none" )
             continue;
 
-        if ( self.weeklychallengeid[var_4]._id_9BF2 && !self.weeklychallengeid[var_4]._id_4723 )
+        if ( self.weaponinfo[var_4]._id_9BF2 && !self.weaponinfo[var_4]._id_4723 )
         {
             var_5 = getweaponmodel( var_4 );
             self hidepart( "tag_clip", var_5 );
@@ -173,10 +173,10 @@ _id_1AFA()
     if ( !self.a._id_54FB )
         return 0;
 
-    if ( animscripts\utility::_id_51A3( self.weapon_switch_invalid ) )
+    if ( animscripts\utility::_id_51A3( self.weapon ) )
         return 0;
 
-    if ( !isdefined( level.playercardbackground._id_60E6 ) )
+    if ( !isdefined( level.player._id_60E6 ) )
         return 0;
 
     return isalive( self );
@@ -204,7 +204,7 @@ _id_4102( var_0 )
 _id_2F6B( var_0 )
 {
     if ( !isdefined( var_0 ) )
-        var_0 = self.weapon_switch_invalid;
+        var_0 = self.weapon;
 
     if ( var_0 == "none" )
         return;
@@ -213,15 +213,15 @@ _id_2F6B( var_0 )
         return;
 
     _id_297F();
-    var_1 = self.weeklychallengeid[var_0].precache;
+    var_1 = self.weaponinfo[var_0].position;
 
     if ( self.dropweapon && var_1 != "none" )
         thread _id_2F9B( var_0, var_1 );
 
     _id_2985( var_0 );
 
-    if ( var_0 == self.weapon_switch_invalid )
-        self.weapon_switch_invalid = "none";
+    if ( var_0 == self.weapon )
+        self.weapon = "none";
 
     _id_9AF6();
 }
@@ -245,14 +245,14 @@ _id_2F6C()
         if ( var_3 == "none" )
             continue;
 
-        self.weeklychallengeid[var_3].precache = "none";
+        self.weaponinfo[var_3].position = "none";
         self.a._id_A2E2[var_2] = "none";
 
         if ( self.dropweapon )
             thread _id_2F9B( var_3, var_2 );
     }
 
-    self.weapon_switch_invalid = "none";
+    self.weapon = "none";
     _id_9AF6();
 }
 
@@ -332,7 +332,7 @@ _id_3EE2()
 {
     var_0 = _id_4084();
 
-    if ( self.script_context == "cover_crouch" && isdefined( self.a._id_22AB ) && self.a._id_22AB == "lean" )
+    if ( self.script == "cover_crouch" && isdefined( self.a._id_22AB ) && self.a._id_22AB == "lean" )
         var_0 -= anim._id_22A1;
 
     return var_0;
@@ -457,7 +457,7 @@ _id_7107( var_0 )
 _id_2741()
 {
     var_0 = 0;
-    var_1 = weaponburstcount( self.weapon_switch_invalid );
+    var_1 = weaponburstcount( self.weapon );
 
     if ( var_1 )
         var_0 = var_1;
@@ -481,7 +481,7 @@ _id_2742()
 {
     var_0 = self._id_18B0;
 
-    if ( weaponclass( self.weapon_switch_invalid ) == "mg" )
+    if ( weaponclass( self.weapon ) == "mg" )
     {
         var_1 = randomfloat( 10 );
 
@@ -502,10 +502,10 @@ _id_465B( var_0 )
     self endon( "abort_reload" );
     var_1 = undefined;
 
-    if ( self.weeklychallengeid[self.weapon_switch_invalid]._id_9BF2 )
-        var_1 = getweaponclipmodel( self.weapon_switch_invalid );
+    if ( self.weaponinfo[self.weapon]._id_9BF2 )
+        var_1 = getweaponclipmodel( self.weapon );
 
-    if ( self.weeklychallengeid[self.weapon_switch_invalid]._id_4723 )
+    if ( self.weaponinfo[self.weapon]._id_4723 )
     {
         if ( animscripts\utility::_id_9C3A() )
             self playsound( "weap_reload_pistol_clipout_npc" );
@@ -514,10 +514,10 @@ _id_465B( var_0 )
 
         if ( isdefined( var_1 ) )
         {
-            var_2 = getweaponmodel( self.weapon_switch_invalid );
+            var_2 = getweaponmodel( self.weapon );
             self hidepart( "tag_clip", var_2 );
             thread _id_2F6E( var_1, "tag_clip" );
-            self.weeklychallengeid[self.weapon_switch_invalid]._id_4723 = 0;
+            self.weaponinfo[self.weapon]._id_4723 = 0;
             thread _id_7448( var_1 );
         }
     }
@@ -535,9 +535,9 @@ _id_465B( var_0 )
                     self attach( var_1, "tag_inhand" );
                     thread _id_7448( var_1, "tag_inhand" );
 
-                    if ( !self.weeklychallengeid[self.weapon_switch_invalid]._id_4723 )
+                    if ( !self.weaponinfo[self.weapon]._id_4723 )
                     {
-                        var_2 = getweaponmodel( self.weapon_switch_invalid );
+                        var_2 = getweaponmodel( self.weapon );
                         self hidepart( "tag_clip", var_2 );
                     }
                 }
@@ -554,10 +554,10 @@ _id_465B( var_0 )
                 if ( isdefined( var_1 ) )
                 {
                     self detach( var_1, "tag_inhand" );
-                    var_2 = getweaponmodel( self.weapon_switch_invalid );
+                    var_2 = getweaponmodel( self.weapon );
                     self showpart( "tag_clip", var_2 );
                     self notify( "clip_detached" );
-                    self.weeklychallengeid[self.weapon_switch_invalid]._id_4723 = 1;
+                    self.weaponinfo[self.weapon]._id_4723 = 1;
                 }
 
                 if ( animscripts\utility::_id_9C3A() )
@@ -585,13 +585,13 @@ _id_7448( var_0, var_1 )
 
     if ( isalive( self ) )
     {
-        if ( self.weapon_switch_invalid != "none" && self.weeklychallengeid[self.weapon_switch_invalid].precache != "none" )
+        if ( self.weapon != "none" && self.weaponinfo[self.weapon].position != "none" )
         {
-            var_2 = getweaponmodel( self.weapon_switch_invalid );
+            var_2 = getweaponmodel( self.weapon );
             self showpart( "tag_clip", var_2 );
         }
 
-        self.weeklychallengeid[self.weapon_switch_invalid]._id_4723 = 1;
+        self.weaponinfo[self.weapon]._id_4723 = 1;
     }
     else if ( isdefined( var_1 ) )
         _id_2F6E( var_0, var_1 );
@@ -621,10 +621,10 @@ _id_5F94( var_0, var_1 )
         return;
     }
 
-    if ( var_3 > 256 && !self _meth_81c7( var_2, !self.tactical ) )
+    if ( var_3 > 256 && !self _meth_81c7( var_2, !self.swimmer ) )
         return;
 
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_4 = distance( self.origin, var_2 );
     var_5 = int( var_1 * 20 );
 
@@ -639,7 +639,7 @@ _id_5F94( var_0, var_1 )
         wait 0.05;
     }
 
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
 }
 
 _id_74E2()
@@ -698,7 +698,7 @@ _id_766B()
         if ( !isdefined( var_1.enemy ) )
             continue;
 
-        if ( var_1.enemy != level.playercardbackground )
+        if ( var_1.enemy != level.player )
             continue;
 
         if ( isdefined( level._id_243A ) && level._id_243A == 0 )
@@ -734,7 +734,7 @@ _id_766D()
 
 _id_766C()
 {
-    var_0 = missile_createrepulsorent( level.playercardbackground, 5000, 800 );
+    var_0 = missile_createrepulsorent( level.player, 5000, 800 );
     wait 4.0;
     missile_deleteattractor( var_0 );
 }

@@ -37,7 +37,7 @@ _id_2906( var_0, var_1, var_2, var_3, var_4 )
     level.destructible_type[var_5].v["type"] = var_0;
     level.destructible_type[var_5]._id_66A7 = [];
     level.destructible_type[var_5]._id_66A7[0][0] = spawnstruct();
-    level.destructible_type[var_5]._id_66A7[0][0].v["modelName"] = self.motiontrackerenabled;
+    level.destructible_type[var_5]._id_66A7[0][0].v["modelName"] = self.model;
     level.destructible_type[var_5]._id_66A7[0][0].v["health"] = var_1;
     level.destructible_type[var_5]._id_66A7[0][0].v["validAttackers"] = var_2;
     level.destructible_type[var_5]._id_66A7[0][0].v["validDamageZone"] = var_3;
@@ -307,7 +307,7 @@ _id_2932()
         var_4 = _id_3F4C( var_4 );
 
         if ( var_5 == "" )
-            var_5 = self.motiontrackerenabled;
+            var_5 = self.model;
 
         if ( isdefined( var_6 ) && var_6 == "" )
             var_6 = undefined;
@@ -333,9 +333,9 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7 = -1;
     var_8 = -1;
 
-    if ( tolower( var_1 ) == tolower( self.motiontrackerenabled ) && !isdefined( var_2 ) )
+    if ( tolower( var_1 ) == tolower( self.model ) && !isdefined( var_2 ) )
     {
-        var_1 = self.motiontrackerenabled;
+        var_1 = self.model;
         var_2 = undefined;
         var_7 = 0;
         var_8 = 0;
@@ -407,7 +407,7 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
             if ( var_16 )
             {
-                if ( var_5 == level.playercardbackground )
+                if ( var_5 == level.player )
                     self._id_6AC2 += var_0;
                 else if ( var_5 != self )
                     self._id_614F += var_0;
@@ -679,8 +679,8 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             {
                 var_49 = var_5.origin;
 
-                if ( var_5 == level.playercardbackground )
-                    var_49 = level.playercardbackground geteye();
+                if ( var_5 == level.player )
+                    var_49 = level.player geteye();
 
                 var_48 = vectornormalize( var_3 - var_49 );
                 var_48 = maps\_utility::vector_multiply( var_48, 200 );
@@ -696,7 +696,7 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
 delayvfxonmultipleframes( var_0 )
 {
-    return var_0.motiontrackerenabled == "vehicle_uaz_hardtop_dsr" && level.script_context == "icbm";
+    return var_0.model == "vehicle_uaz_hardtop_dsr" && level.script == "icbm";
 }
 
 reduceplayingcount( var_0 )
@@ -815,12 +815,12 @@ _id_50C1( var_0, var_1, var_2 )
 
     if ( var_3 == "no_player" )
     {
-        if ( var_2 != level.playercardbackground )
+        if ( var_2 != level.player )
             return 1;
     }
     else if ( var_3 == "player_only" )
     {
-        if ( var_2 == level.playercardbackground )
+        if ( var_2 == level.player )
             return 1;
     }
     else if ( var_3 == "no_ai" )
@@ -1098,7 +1098,7 @@ arcademode_car_kill()
     if ( !maps\_utility::_id_0CC3() )
         return 0;
 
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return 0;
 
     if ( isdefined( level.allcarsdamagedbyplayer ) )
@@ -1261,15 +1261,15 @@ _id_3995()
 
 _id_3EA1()
 {
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return undefined;
 
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
     if ( !isdefined( var_0 ) )
         return undefined;
 
-    if ( !var_0.specialgrenade & 1 )
+    if ( !var_0.spawnflags & 1 )
         return undefined;
 
     return var_0;
@@ -1304,10 +1304,10 @@ setup_destructible_entities()
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
             continue;
 
-        switch ( var_2.script_parentname )
+        switch ( var_2.script_noteworthy )
         {
             case "destroyed":
                 var_2.origin -= ( 0.0, 0.0, 10000.0 );
@@ -1322,10 +1322,10 @@ destroy_destructible_entities()
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
             continue;
 
-        switch ( var_2.script_parentname )
+        switch ( var_2.script_noteworthy )
         {
             case "destructible":
                 var_2 delete();

@@ -100,7 +100,7 @@ _id_4DD7( var_0 )
     self.a._id_7B46 = gettime();
     self.a._id_0D83 = 0;
 
-    if ( isdefined( self.node_relinquished ) && ( self.node_relinquished.unlockpoints == "Conceal Prone" || self.node_relinquished.unlockpoints == "Conceal Crouch" || self.node_relinquished.unlockpoints == "Conceal Stand" ) )
+    if ( isdefined( self.node ) && ( self.node.type == "Conceal Prone" || self.node.type == "Conceal Crouch" || self.node.type == "Conceal Stand" ) )
         self.a._id_0D83 = 1;
 
     _id_4D89( var_0 );
@@ -176,7 +176,7 @@ _id_3F7D()
     else
     {
         var_0 = self getshootatpos();
-        var_0 += ( 196 * self.lookup[0], 196 * self.lookup[1], 196 * self.lookup[2] );
+        var_0 += ( 196 * self.lookforward[0], 196 * self.lookforward[1], 196 * self.lookforward[2] );
         return var_0;
     }
 }
@@ -189,7 +189,7 @@ _id_404B( var_0 )
             return var_0.angles[1] + 90;
         else if ( _id_515E( var_0 ) )
             return var_0.angles[1] - 90;
-        else if ( var_0.unlockpoints == "Cover Multi" )
+        else if ( var_0.type == "Cover Multi" )
         {
             if ( isdefined( self.cover ) && isdefined( self.cover._id_8D56 ) )
             {
@@ -206,8 +206,8 @@ _id_404B( var_0 )
 
 _id_4051( var_0 )
 {
-    if ( isdefined( self.node_relinquished ) )
-        var_1 = self.node_relinquished.angles[1] - _id_4171( var_0 );
+    if ( isdefined( self.node ) )
+        var_1 = self.node.angles[1] - _id_4171( var_0 );
     else
         var_1 = self.angles[1] - _id_4171( var_0 );
 
@@ -223,8 +223,8 @@ _id_4050()
         var_0 = self.enemy.origin;
     else
     {
-        if ( isdefined( self.node_relinquished ) )
-            var_1 = anglestoforward( self.node_relinquished.angles );
+        if ( isdefined( self.node ) )
+            var_1 = anglestoforward( self.node.angles );
         else
             var_1 = anglestoforward( self.angles );
 
@@ -232,8 +232,8 @@ _id_4050()
         var_0 = self.origin + var_1;
     }
 
-    if ( isdefined( self.node_relinquished ) )
-        var_2 = self.node_relinquished.angles[1] - _id_4171( var_0 );
+    if ( isdefined( self.node ) )
+        var_2 = self.node.angles[1] - _id_4171( var_0 );
     else
         var_2 = self.angles[1] - _id_4171( var_0 );
 
@@ -343,7 +343,7 @@ _id_4178( var_0, var_1 )
 
 _id_4176( var_0 )
 {
-    if ( isdefined( self.unlockpoints ) && ( self.unlockpoints == "Cover Up 3D" || self.unlockpoints == "Cover Left 3D" || self.unlockpoints == "Cover Right 3D" || self.unlockpoints == "Exposed 3D" ) )
+    if ( isdefined( self.type ) && ( self.type == "Cover Up 3D" || self.type == "Cover Left 3D" || self.type == "Cover Right 3D" || self.type == "Exposed 3D" ) )
     {
         var_1 = _id_413B( self );
         var_2 = anglestoforward( var_1 );
@@ -424,7 +424,7 @@ _id_1D45( var_0 )
 
 _id_3F2F()
 {
-    var_0 = self.node_relinquished;
+    var_0 = self.node;
 
     if ( isdefined( var_0 ) && ( self _meth_8163( var_0 ) || isdefined( self._id_22BA ) && var_0 == self._id_22BA ) )
         return var_0;
@@ -437,7 +437,7 @@ _id_404F()
     var_0 = _id_3F2F();
 
     if ( isdefined( var_0 ) )
-        return var_0.unlockpoints;
+        return var_0.type;
 
     return "none";
 }
@@ -606,14 +606,14 @@ _id_8518( var_0 )
     {
         wait 0.05;
 
-        if ( !isdefined( self.leanamount ) )
+        if ( !isdefined( self.lastenemysightpos ) )
             continue;
     }
 }
 
 _id_472C()
 {
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
         return _id_1AE2() || _id_1AF0();
     else
         return _id_1AE1() || _id_1AEF();
@@ -787,7 +787,7 @@ _id_933D()
     var_2 = anglestoforward( var_0.angles );
     var_2 *= 15;
     var_0 movegravity( ( 0.0, 50.0, 150.0 ), 100 );
-    var_3 = "weapon_" + self.weapon_switch_invalid;
+    var_3 = "weapon_" + self.weapon;
     var_4 = spawn( var_3, var_0.origin );
     var_4.angles = self gettagangles( "tag_weapon_right" );
     var_4 linkto( var_0 );
@@ -876,7 +876,7 @@ _id_51C3()
     if ( isdefined( self._id_39CD ) )
         return self._id_39CD;
 
-    if ( self.suppressionwait <= self._id_8FEC )
+    if ( self.suppressionmeter <= self._id_8FEC )
         return 0;
 
     return self _meth_81d1();
@@ -884,7 +884,7 @@ _id_51C3()
 
 _id_51B0()
 {
-    return isdefined( self.tactical ) && self.tactical == 1 && ( isdefined( self.spawnflags ) && self.spawnflags == 1 );
+    return isdefined( self.swimmer ) && self.swimmer == 1 && ( isdefined( self.space ) && self.space == 1 );
 }
 
 _id_413B( var_0 )
@@ -904,7 +904,7 @@ _id_413B( var_0 )
 
 _id_516E()
 {
-    if ( self.suppressionwait <= self._id_8FEC * 0.25 )
+    if ( self.suppressionmeter <= self._id_8FEC * 0.25 )
         return 0;
 
     return self _meth_81d1();
@@ -928,7 +928,7 @@ _id_404D( var_0, var_1 )
 
     if ( !isdefined( var_1 ) )
     {
-        var_1 = var_0.unlockpoints;
+        var_1 = var_0.type;
 
         if ( var_1 == "Cover Multi" )
             var_1 = _id_3F3F( var_0 );
@@ -1014,10 +1014,10 @@ _id_1AE2()
 
     var_0 = _id_3F7D();
 
-    if ( !isdefined( self.node_relinquished ) )
+    if ( !isdefined( self.node ) )
         var_1 = self _meth_81c2( self.enemy );
     else
-        var_1 = _id_1AE5( var_0, self.node_relinquished );
+        var_1 = _id_1AE5( var_0, self.node );
 
     if ( var_1 )
     {
@@ -1048,13 +1048,13 @@ _id_1AE5( var_0, var_1 )
 
     if ( !sighttracepassed( var_3, var_0, 0, undefined ) )
     {
-        if ( var_1.unlockpoints == "Cover Crouch" || var_1.unlockpoints == "Conceal Crouch" )
+        if ( var_1.type == "Cover Crouch" || var_1.type == "Conceal Crouch" )
         {
             var_3 = ( 0.0, 0.0, 64.0 ) + var_1.origin;
             return sighttracepassed( var_3, var_0, 0, undefined );
         }
 
-        if ( _id_51B0() && var_1.unlockpoints == "Cover Up 3D" )
+        if ( _id_51B0() && var_1.type == "Cover Up 3D" )
         {
             var_4 = anglestoup( self.angles );
             var_3 = var_1.origin + ( var_4[0] * 32, var_4[1] * 32, var_4[2] * 32 );
@@ -1069,7 +1069,7 @@ _id_1AE5( var_0, var_1 )
 
 _id_515C( var_0 )
 {
-    if ( var_0.unlockpoints != "Cover Multi" )
+    if ( var_0.type != "Cover Multi" )
         return 0;
 
     if ( !isdefined( self.cover ) )
@@ -1106,7 +1106,7 @@ _id_3F3F( var_0, var_1 )
 _id_1D15( var_0, var_1, var_2 )
 {
     var_3 = self.downaimlimit - anim._id_097B;
-    var_4 = self.useable + anim._id_097B;
+    var_4 = self.upaimlimit + anim._id_097B;
     var_5 = angleclamp180( vectortoangles( var_1 - var_0 )[0] );
 
     if ( var_5 > var_4 )
@@ -1114,7 +1114,7 @@ _id_1D15( var_0, var_1, var_2 )
 
     if ( var_5 < var_3 )
     {
-        if ( isdefined( var_2 ) && var_2.unlockpoints != "Cover Crouch" && var_2.unlockpoints != "Conceal Crouch" )
+        if ( isdefined( var_2 ) && var_2.type != "Cover Crouch" && var_2.type != "Conceal Crouch" )
             return 0;
 
         if ( var_5 < anim._id_22A1 + var_3 )
@@ -1157,10 +1157,10 @@ _id_09A5()
 
     var_0 = undefined;
 
-    if ( isdefined( self.enemy.node_relinquished ) )
+    if ( isdefined( self.enemy.node ) )
     {
-        var_1 = _id_404D( self.enemy.node_relinquished );
-        var_0 = self.enemy.node_relinquished.origin + var_1;
+        var_1 = _id_404D( self.enemy.node );
+        var_0 = self.enemy.node.origin + var_1;
     }
     else if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
         var_0 = animscripts\combat_utility::_id_3DB2( self.enemy );
@@ -1170,7 +1170,7 @@ _id_09A5()
     if ( !self _meth_81c0( var_0 ) )
         return 0;
 
-    if ( self.script_context == "combat" )
+    if ( self.script == "combat" )
     {
         if ( !sighttracepassed( self geteye(), self _meth_81bc(), 0, undefined ) )
             return 0;
@@ -1191,21 +1191,21 @@ _id_1AF0()
     if ( !isplayer( self.enemy ) )
         return _id_09A5();
 
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
     {
-        if ( _id_515B( self.node_relinquished ) || _id_515E( self.node_relinquished ) )
+        if ( _id_515B( self.node ) || _id_515E( self.node ) )
         {
-            if ( !animscripts\corner::_id_1AE4( _id_3F7D(), self.node_relinquished ) )
+            if ( !animscripts\corner::_id_1AE4( _id_3F7D(), self.node ) )
                 return 0;
         }
 
-        var_0 = _id_404D( self.node_relinquished );
-        var_1 = self.node_relinquished.origin + var_0;
+        var_0 = _id_404D( self.node );
+        var_1 = self.node.origin + var_0;
     }
     else
         var_1 = self _meth_81bc();
 
-    if ( !_id_1D15( var_1, self.leanamount ) )
+    if ( !_id_1D15( var_1, self.lastenemysightpos ) )
         return 0;
 
     return _id_3780( var_1 );
@@ -1224,7 +1224,7 @@ _id_1AEF()
 
     var_0 = self _meth_81bc();
 
-    if ( !_id_1D15( var_0, self.leanamount ) )
+    if ( !_id_1D15( var_0, self.lastenemysightpos ) )
         return 0;
 
     return _id_3780( var_0 );
@@ -1235,7 +1235,7 @@ _id_4748()
     if ( !isdefined( self.enemy ) )
         return 0;
 
-    if ( !isdefined( self.leanamount ) )
+    if ( !isdefined( self.lastenemysightpos ) )
         return 0;
 
     _id_9B23();
@@ -1266,7 +1266,7 @@ _id_607E()
     if ( isdefined( self._id_4279 ) && !_id_1AE0( self._id_4279 ) )
         return 1;
 
-    return !isdefined( self._id_559B ) || self._id_559B != self.leanamount || distancesquared( self._id_559C, self.origin ) > 1024;
+    return !isdefined( self._id_559B ) || self._id_559B != self.lastenemysightpos || distancesquared( self._id_559C, self.origin ) > 1024;
 }
 
 _id_3780( var_0 )
@@ -1274,7 +1274,7 @@ _id_3780( var_0 )
     if ( !_id_607E() )
         return isdefined( self._id_4279 );
 
-    if ( isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) > squared( self.enemy.meleeattackdist ) )
+    if ( isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) > squared( self.enemy.maxvisibledist ) )
     {
         self._id_4279 = undefined;
         return 0;
@@ -1287,12 +1287,12 @@ _id_3780( var_0 )
     }
 
     self._id_559C = self.origin;
-    self._id_559B = self.leanamount;
+    self._id_559B = self.lastenemysightpos;
     var_1 = _id_3F7D();
-    var_2 = bullettrace( self.leanamount, var_1, 0, undefined );
+    var_2 = bullettrace( self.lastenemysightpos, var_1, 0, undefined );
     var_3 = var_2["position"];
-    var_4 = self.leanamount - var_3;
-    var_5 = vectornormalize( self.leanamount - var_0 );
+    var_4 = self.lastenemysightpos - var_3;
+    var_5 = vectornormalize( self.lastenemysightpos - var_0 );
     var_4 -= var_5 * vectordot( var_4, var_5 );
     var_6 = 20.0;
     var_7 = int( length( var_4 ) / var_6 + 0.5 );
@@ -1303,7 +1303,7 @@ _id_3780( var_0 )
     if ( var_7 > 20 )
         var_7 = 20;
 
-    var_8 = self.leanamount - var_3;
+    var_8 = self.lastenemysightpos - var_3;
     var_8 = ( var_8[0] / var_7, var_8[1] / var_7, var_8[2] / var_7 );
     var_7++;
     var_9 = var_3;
@@ -1397,7 +1397,7 @@ _id_247B( var_0, var_1 )
 
 _id_3FB0()
 {
-    return getweaponmodel( self.groundentchanged );
+    return getweaponmodel( self.grenadeweapon );
 }
 
 _id_7822( var_0 )
@@ -1421,7 +1421,7 @@ _id_1AF3()
 
 _id_9C2D()
 {
-    return weaponisboltaction( self.weapon_switch_invalid );
+    return weaponisboltaction( self.weapon );
 }
 
 _id_711B( var_0 )
@@ -1496,7 +1496,7 @@ _id_7FBF( var_0, var_1, var_2, var_3, var_4, var_5 )
         level._id_0601 = [];
 
     level._id_0601[var_0][var_2] = spawnstruct();
-    level._id_0601[var_0][var_2].tag_aim_animated = var_1;
+    level._id_0601[var_0][var_2].tag = var_1;
     level._id_0601[var_0][var_2].fx = var_3;
     anim._id_61E5[var_0] = animscripts\notetracks::_id_2566;
     _id_7FC0( var_0, var_2, var_4, var_5 );
@@ -1581,7 +1581,7 @@ _id_1AAF()
     if ( !animscripts\weaponlist::_id_9C2C() )
         return 0;
 
-    if ( weaponclass( self.weapon_switch_invalid ) == "mg" )
+    if ( weaponclass( self.weapon ) == "mg" )
         return 0;
 
     if ( isdefined( self._id_2A7E ) && self._id_2A7E == 1 )
@@ -1731,31 +1731,31 @@ _id_3EE8()
 
 _id_3EE0()
 {
-    return self.weapon_switch_invalid;
+    return self.weapon;
 }
 
 _id_9C33()
 {
-    return self.weapon_switch_invalid == self.primaryweapon && self.weapon_switch_invalid != "none";
+    return self.weapon == self.primaryweapon && self.weapon != "none";
 }
 
 _id_9C37()
 {
-    return self.weapon_switch_invalid == self.secondaryweapon && self.weapon_switch_invalid != "none";
+    return self.weapon == self.secondaryweapon && self.weapon != "none";
 }
 
 _id_9C3A()
 {
-    return self.weapon_switch_invalid == self._id_855D && self.weapon_switch_invalid != "none";
+    return self.weapon == self._id_855D && self.weapon != "none";
 }
 
 _id_3EE1()
 {
-    if ( self.weapon_switch_invalid == self.primaryweapon )
+    if ( self.weapon == self.primaryweapon )
         return "primary";
-    else if ( self.weapon_switch_invalid == self.secondaryweapon )
+    else if ( self.weapon == self.secondaryweapon )
         return "secondary";
-    else if ( self.weapon_switch_invalid == self._id_855D )
+    else if ( self.weapon == self._id_855D )
         return "sidearm";
     else
     {
@@ -1765,7 +1765,7 @@ _id_3EE1()
 
 _id_095B( var_0 )
 {
-    if ( isdefined( self.weeklychallengeid[var_0] ) )
+    if ( isdefined( self.weaponinfo[var_0] ) )
         return 1;
 
     return 0;
@@ -1850,50 +1850,50 @@ _id_25A6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
 _id_9C31()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return 0;
 
-    return weaponclass( self.weapon_switch_invalid ) == "pistol";
+    return weaponclass( self.weapon ) == "pistol";
 }
 
 _id_9C36()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return 0;
 
-    return weaponclass( self.weapon_switch_invalid ) == "rocketlauncher";
+    return weaponclass( self.weapon ) == "rocketlauncher";
 }
 
 _id_9C2E()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return 0;
 
-    return weaponclass( self.weapon_switch_invalid ) == "mg";
+    return weaponclass( self.weapon ) == "mg";
 }
 
 _id_9C39()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return 0;
 
-    return weaponclass( self.weapon_switch_invalid ) == "spread";
+    return weaponclass( self.weapon ) == "spread";
 }
 
 _id_9C3B()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return 0;
 
-    return weaponclass( self.weapon_switch_invalid ) == "smg";
+    return weaponclass( self.weapon ) == "smg";
 }
 
 _id_9C35()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return 0;
 
-    var_0 = weaponclass( self.weapon_switch_invalid );
+    var_0 = weaponclass( self.weapon );
 
     switch ( var_0 )
     {
@@ -1925,7 +1925,7 @@ _id_70DE( var_0 )
         var_3 = distance( self.origin, var_1 );
         var_1 = self.origin;
 
-        if ( self.helmet == 1 )
+        if ( self.health == 1 )
         {
             self.a._id_612E = 1;
             self startragdoll();
@@ -2036,7 +2036,7 @@ _id_51AC( var_0 )
 
 _id_A2CF()
 {
-    return self.weapon_switch_invalid != "none" && weaponisboltaction( self.weapon_switch_invalid ) && weaponclass( self.weapon_switch_invalid ) == "spread";
+    return self.weapon != "none" && weaponisboltaction( self.weapon ) && weaponclass( self.weapon ) == "spread";
 }
 
 _id_40A6( var_0, var_1 )
@@ -2058,17 +2058,17 @@ _id_3F47()
 
 _id_515B( var_0 )
 {
-    return var_0.unlockpoints == "Cover Left" || var_0.unlockpoints == "Cover Left 3D";
+    return var_0.type == "Cover Left" || var_0.type == "Cover Left 3D";
 }
 
 _id_515E( var_0 )
 {
-    return var_0.unlockpoints == "Cover Right" || var_0.unlockpoints == "Cover Right 3D";
+    return var_0.type == "Cover Right" || var_0.type == "Cover Right 3D";
 }
 
 _id_515A( var_0 )
 {
-    return var_0.unlockpoints == "Cover Left 3D" || var_0.unlockpoints == "Cover Right 3D" || var_0.unlockpoints == "Cover Up 3D";
+    return var_0.type == "Cover Left 3D" || var_0.type == "Cover Right 3D" || var_0.type == "Cover Up 3D";
 }
 
 _id_5863( var_0, var_1 )
@@ -2308,8 +2308,8 @@ using_improved_transitions()
 
 using_tight_turn_anims()
 {
-    if ( isdefined( level.script_context ) )
-        var_0 = level.script_context;
+    if ( isdefined( level.script ) )
+        var_0 = level.script;
     else
         var_0 = tolower( getdvar( "mapname" ) );
 
@@ -2350,8 +2350,8 @@ using_tight_turn_anims()
 
 using_cqb_tight_turn_20()
 {
-    if ( isdefined( level.script_context ) )
-        var_0 = level.script_context;
+    if ( isdefined( level.script ) )
+        var_0 = level.script;
     else
         var_0 = tolower( getdvar( "mapname" ) );
 
@@ -2392,8 +2392,8 @@ using_exit_node_to_cover_arrival_early_out()
     if ( getdvarint( "force_enable_cover_arrival_early_out", 0 ) )
         return 1;
 
-    if ( isdefined( level.script_context ) )
-        var_0 = level.script_context;
+    if ( isdefined( level.script ) )
+        var_0 = level.script;
     else
         var_0 = tolower( getdvar( "mapname" ) );
 
@@ -2428,8 +2428,8 @@ using_exit_node_to_cover_arrival_early_out()
 
 using_cover_transition_angle_correction()
 {
-    if ( isdefined( level.script_context ) )
-        var_0 = level.script_context;
+    if ( isdefined( level.script ) )
+        var_0 = level.script;
     else
         var_0 = tolower( getdvar( "mapname" ) );
 

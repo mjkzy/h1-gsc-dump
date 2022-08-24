@@ -74,8 +74,8 @@ beautiful_corner_settings()
 player_position()
 {
     var_0 = getent( "info_player_start", "classname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
 }
 
 _id_6504()

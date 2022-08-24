@@ -83,7 +83,7 @@ gundebug()
     setdvar( var_0, 0 );
     setdvar( var_1, 0 );
 
-    while ( !isdefined( level.playercardbackground ) )
+    while ( !isdefined( level.player ) )
         waittillframeend;
 
     for (;;)
@@ -92,23 +92,23 @@ gundebug()
 
         if ( getdvarint( var_0, 0 ) )
         {
-            level.playercardbackground._id_4470 = level.playercardbackground._id_446F;
-            level.playercardbackground._id_446F++;
-            level.playercardbackground _id_41F3();
+            level.player._id_4470 = level.player._id_446F;
+            level.player._id_446F++;
+            level.player _id_41F3();
             setdvar( var_0, 0 );
             continue;
         }
 
         if ( getdvarint( var_1, 0 ) )
         {
-            level.playercardbackground._id_4470 = level.playercardbackground._id_446F;
+            level.player._id_4470 = level.player._id_446F;
 
-            for ( level.playercardbackground._id_446F--; level.playercardbackground._id_446F < 0; level.playercardbackground._id_446F += level._id_4459.size )
+            for ( level.player._id_446F--; level.player._id_446F < 0; level.player._id_446F += level._id_4459.size )
             {
 
             }
 
-            level.playercardbackground _id_41F3();
+            level.player _id_41F3();
             setdvar( var_1, 0 );
         }
     }
@@ -254,7 +254,7 @@ streamprimariesfunc()
         {
             var_9 = spawnstruct();
             var_9.team = var_8;
-            var_9.weapon_switch_invalid = var_2;
+            var_9.weapon = var_2;
             var_4[var_4.size] = var_9;
         }
     }

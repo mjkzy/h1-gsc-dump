@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_russian_loyalist_d" );
     precachemodel( "head_russian_loyalist_kamarov" );

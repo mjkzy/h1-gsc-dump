@@ -58,8 +58,8 @@ _id_7E68()
 {
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     maps\_utility::_id_9E6E( "blackout_swamp_1", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "blackout_swamp_1" );
-    level.playercardbackground _meth_848c( "clut_blackout", 0.0 );
+    level.player maps\_utility::set_light_set_player( "blackout_swamp_1" );
+    level.player _meth_848c( "clut_blackout", 0.0 );
     enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
 }
 
@@ -77,9 +77,9 @@ update_fade_angle_lights()
     var_1 = 135.0;
     var_2 = 10000.0;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_3 = strtok( self.script_parentname, " " );
+        var_3 = strtok( self.script_noteworthy, " " );
 
         if ( isdefined( var_3[0] ) )
             var_0 = float( var_3[0] );
@@ -99,7 +99,7 @@ update_fade_angle_lights()
 
     for (;;)
     {
-        var_9 = level.playercardbackground.origin - self.origin + var_7 * self.rank * 0.75;
+        var_9 = level.player.origin - self.origin + var_7 * self.radius * 0.75;
         var_9 = vectornormalize( ( var_9[0], var_9[1], 0.0 ) );
         var_10 = vectordot( var_8, var_9 );
         var_11 = ( clamp( ( var_10 + 1.0 ) * 0.5, var_4, var_5 ) - var_4 ) / var_6;
@@ -162,10 +162,10 @@ blackout_vision_adjustment()
     {
         common_scripts\utility::_id_384A( "player_in_house" );
         thread maps\_utility::_id_7F00( "blackout_darkness", 0.5 );
-        level.playercardbackground maps\_utility::set_light_set_player( "safehouse_interior" );
+        level.player maps\_utility::set_light_set_player( "safehouse_interior" );
         common_scripts\utility::_id_3857( "player_in_house" );
         thread maps\_utility::_id_7F00( "blackout_village", 0.5 );
-        level.playercardbackground maps\_utility::set_light_set_player( "blackout" );
+        level.player maps\_utility::set_light_set_player( "blackout" );
     }
 }
 
@@ -223,7 +223,7 @@ loop_camera_shake()
     {
         var_1 = randomintrange( 0, var_0.size );
         var_2 = var_0[var_1];
-        level.playercardbackground _meth_83fc( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.rank, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
+        level.player _meth_83fc( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
         wait(var_0[var_1].duration - 0.5);
     }
 }

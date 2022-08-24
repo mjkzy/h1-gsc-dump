@@ -119,31 +119,31 @@ _id_4DF5()
 
     self._id_623A = maps\mp\gametypes\_hud_util::_id_2401( var_3, var_0 );
     self._id_623A maps\mp\gametypes\_hud_util::_id_7FEE( var_4, undefined, var_7, var_6 );
-    self._id_623A.hindlegstraceoffset = 1;
+    self._id_623A.hidewheninmenu = 1;
     self._id_623A.archived = 0;
     self._id_623A.alpha = 0;
     self._id_6238 = maps\mp\gametypes\_hud_util::_id_2401( var_3, var_1 );
     self._id_6238 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_623A );
     self._id_6238 maps\mp\gametypes\_hud_util::_id_7FEE( var_4, var_5, 0, 0 );
-    self._id_6238.hindlegstraceoffset = 1;
+    self._id_6238.hidewheninmenu = 1;
     self._id_6238.archived = 0;
     self._id_6238.alpha = 0;
     self._id_6239 = maps\mp\gametypes\_hud_util::_id_2401( var_3, var_1 );
     self._id_6239 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_623A );
     self._id_6239 maps\mp\gametypes\_hud_util::_id_7FEE( var_4, var_5, 0, 0 );
-    self._id_6239.hindlegstraceoffset = 1;
+    self._id_6239.hidewheninmenu = 1;
     self._id_6239.archived = 0;
     self._id_6239.alpha = 0;
     self._id_622D = maps\mp\gametypes\_hud_util::_id_2420( "white", var_2, var_2 );
     self._id_622D maps\mp\gametypes\_hud_util::_id_7FDC( self._id_6239 );
     self._id_622D maps\mp\gametypes\_hud_util::_id_7FEE( var_4, var_5, 0, 0 );
-    self._id_622D.hindlegstraceoffset = 1;
+    self._id_622D.hidewheninmenu = 1;
     self._id_622D.archived = 0;
     self._id_622D.alpha = 0;
     self._id_6233 = maps\mp\gametypes\_hud_util::_id_2420( "white", var_2, var_2 );
     self._id_6233 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_622D );
     self._id_6233 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", "CENTER", 0, 0 );
-    self._id_6233.hindlegstraceoffset = 1;
+    self._id_6233.hidewheninmenu = 1;
     self._id_6233.archived = 0;
     self._id_6233.alpha = 0;
     self.doingsplash = [];
@@ -180,8 +180,8 @@ _id_622E( var_0 )
 
     var_1 = var_0._id_8631;
 
-    if ( !isdefined( var_0.unlockpoints ) )
-        var_0.unlockpoints = "";
+    if ( !isdefined( var_0.type ) )
+        var_0.type = "";
 
     if ( !isdefined( self.doingsplash[var_1] ) )
     {
@@ -205,7 +205,7 @@ _id_2B40( var_0 )
 
     self.splashqueue[var_0][var_2 - 1] = undefined;
 
-    if ( isdefined( var_1.nearz ) )
+    if ( isdefined( var_1.name ) )
         _id_06F0( var_1 );
     else
         _id_8521( var_1 );
@@ -219,8 +219,8 @@ _id_7018()
     self endon( "disconnect" );
     var_0 = spawnstruct();
     var_1 = "promotion";
-    var_0.nearz = var_1;
-    var_0.unlockpoints = tablelookup( _id_3E83(), 0, var_1, 11 );
+    var_0.name = var_1;
+    var_0.type = tablelookup( _id_3E83(), 0, var_1, 11 );
     var_0._id_8899 = tablelookup( _id_3E83(), 0, var_1, 9 );
     var_0._id_8631 = 0;
     thread _id_06F0( var_0 );
@@ -237,7 +237,7 @@ _id_8521( var_0 )
 
     if ( level.gameended )
     {
-        if ( isdefined( var_0.unlockpoints ) && var_0.unlockpoints == "rank" )
+        if ( isdefined( var_0.type ) && var_0.type == "rank" )
         {
             self setclientdvar( "ui_promotion", 1 );
             self.bonusupdatetotal = 1;
@@ -276,9 +276,9 @@ _id_8521( var_0 )
     if ( isdefined( var_0._id_93A2 ) )
     {
         if ( isdefined( var_0._id_93A0 ) )
-            self._id_623A.land = var_0._id_93A0;
+            self._id_623A.label = var_0._id_93A0;
         else
-            self._id_623A.land = &"";
+            self._id_623A.label = &"";
 
         if ( isdefined( var_0._id_93A0 ) && !isdefined( var_0._id_939F ) )
             self._id_623A setvalue( var_0._id_93A2 );
@@ -299,9 +299,9 @@ _id_8521( var_0 )
     if ( isdefined( var_0._id_6238 ) )
     {
         if ( isdefined( var_0._id_92BF ) )
-            self._id_6238.land = var_0._id_92BF;
+            self._id_6238.label = var_0._id_92BF;
         else
-            self._id_6238.land = &"";
+            self._id_6238.label = &"";
 
         if ( isdefined( var_0._id_92BF ) && !isdefined( var_0._id_92BE ) )
             self._id_6238 setvalue( var_0._id_6238 );
@@ -322,9 +322,9 @@ _id_8521( var_0 )
         self._id_6239 maps\mp\gametypes\_hud_util::_id_7FDC( var_4 );
 
         if ( isdefined( var_0._id_92BA ) )
-            self._id_6239.land = var_0._id_92BA;
+            self._id_6239.label = var_0._id_92BA;
         else
-            self._id_6239.land = &"";
+            self._id_6239.label = &"";
 
         self._id_6239 settext( var_0._id_6239 );
 
@@ -398,8 +398,8 @@ _id_21C7( var_0, var_1 )
         return;
 
     var_2 = spawnstruct();
-    var_2.nearz = var_0;
-    var_2.unlockpoints = tablelookup( _id_3E83(), 0, var_0, 11 );
+    var_2.name = var_0;
+    var_2.type = tablelookup( _id_3E83(), 0, var_0, 11 );
     var_2._id_6547 = 0;
     var_2._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
     var_2._id_565B = var_1;
@@ -442,8 +442,8 @@ _id_53A9( var_0, var_1, var_2, var_3, var_4 )
     }
 
     var_6 = spawnstruct();
-    var_6.nearz = var_0;
-    var_6.unlockpoints = tablelookup( _id_3E83(), 0, var_0, 11 );
+    var_6.name = var_0;
+    var_6.type = tablelookup( _id_3E83(), 0, var_0, 11 );
     var_6._id_6547 = var_1;
     var_6._id_8899 = maps\mp\_utility::_id_3FF7( var_0 );
     var_6._id_565B = var_0;
@@ -503,8 +503,8 @@ _id_1C64( var_0, var_1, var_2 )
         }
 
         var_7 = spawnstruct();
-        var_7.nearz = var_0;
-        var_7.unlockpoints = tablelookup( _id_3E83(), 0, var_0, 11 );
+        var_7.name = var_0;
+        var_7.type = tablelookup( _id_3E83(), 0, var_0, 11 );
         var_7.challengetier = var_3;
         var_7._id_6547 = var_4;
         var_7._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
@@ -562,10 +562,10 @@ _id_8A68( var_0, var_1, var_2 )
     self endon( "disconnect" );
     wait 0.05;
     var_4 = spawnstruct();
-    var_4.nearz = var_0;
-    var_4.unlockpoints = tablelookup( _id_3E83(), 0, var_0, 11 );
+    var_4.name = var_0;
+    var_4.type = tablelookup( _id_3E83(), 0, var_0, 11 );
     var_4._id_6547 = var_1;
-    var_4._id_8899 = tablelookup( _id_3E83(), 0, var_4.nearz, 9 );
+    var_4._id_8899 = tablelookup( _id_3E83(), 0, var_4.name, 9 );
 
     if ( !isdefined( var_2 ) )
         var_2 = -1;
@@ -604,11 +604,11 @@ _id_713B( var_0, var_1, var_2 )
     }
 
     var_4 = spawnstruct();
-    var_4.nearz = var_0;
-    var_4.unlockpoints = tablelookup( _id_3E83(), 0, var_0, 11 );
+    var_4.name = var_0;
+    var_4.type = tablelookup( _id_3E83(), 0, var_0, 11 );
     var_4._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
-    var_4.reached_wait_node = var_1;
-    var_4.prestigeshoptokens = var_2;
+    var_4.rank = var_1;
+    var_4.prestige = var_2;
     var_4._id_8631 = 0;
     thread _id_06F0( var_4 );
 }
@@ -628,14 +628,14 @@ _id_6C6F( var_0, var_1, var_2 )
         return;
 
     var_3 = spawnstruct();
-    var_3.nearz = var_0;
-    var_3.unlockpoints = tablelookup( _id_3E83(), 0, var_0, 11 );
+    var_3.name = var_0;
+    var_3.type = tablelookup( _id_3E83(), 0, var_0, 11 );
     var_3._id_6547 = var_2;
     var_3._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
     var_3._id_6C6E = var_1;
     var_3._id_8631 = 0;
 
-    if ( var_3.unlockpoints == "playercard_splash" )
+    if ( var_3.type == "playercard_splash" )
         var_3._id_8631 = 1;
 
     thread _id_06F0( var_3 );
@@ -647,8 +647,8 @@ _id_06F0( var_0 )
     self endon( "disconnect" );
     var_1 = var_0._id_8631;
 
-    if ( !isdefined( var_0.unlockpoints ) )
-        var_0.unlockpoints = "";
+    if ( !isdefined( var_0.type ) )
+        var_0.type = "";
 
     if ( !isdefined( self.doingsplash[var_1] ) )
     {
@@ -657,7 +657,7 @@ _id_06F0( var_0 )
     }
     else
     {
-        switch ( var_0.unlockpoints )
+        switch ( var_0.type )
         {
             case "urgent_splash":
                 self._id_6238.alpha = 0;
@@ -673,7 +673,7 @@ _id_06F0( var_0 )
             case "splash":
             case "killstreak_splash":
             case "killstreak_coop_splash":
-                if ( self.doingsplash[var_1].unlockpoints != "splash" && self.doingsplash[var_1].unlockpoints != "urgent_splash" && self.doingsplash[var_1].unlockpoints != "killstreak_coop_splash" && self.doingsplash[var_1].unlockpoints != "killstreak_splash" && self.doingsplash[var_1].unlockpoints != "challenge_splash" && self.doingsplash[var_1].unlockpoints != "promotion_splash" && self.doingsplash[var_1].unlockpoints != "intel_splash" && self.doingsplash[var_1].unlockpoints != "rankup_splash" )
+                if ( self.doingsplash[var_1].type != "splash" && self.doingsplash[var_1].type != "urgent_splash" && self.doingsplash[var_1].type != "killstreak_coop_splash" && self.doingsplash[var_1].type != "killstreak_splash" && self.doingsplash[var_1].type != "challenge_splash" && self.doingsplash[var_1].type != "promotion_splash" && self.doingsplash[var_1].type != "intel_splash" && self.doingsplash[var_1].type != "rankup_splash" )
                 {
                     self._id_6238.alpha = 0;
                     self._id_6239.alpha = 0;
@@ -686,7 +686,7 @@ _id_06F0( var_0 )
         }
     }
 
-    if ( var_0.unlockpoints == "challenge_splash" || var_0.unlockpoints == "killstreak_splash" || var_0.unlockpoints == "killstreak_coop_splash" )
+    if ( var_0.type == "challenge_splash" || var_0.type == "killstreak_splash" || var_0.type == "killstreak_coop_splash" )
     {
         for ( var_2 = self.splashqueue[var_1].size; var_2 > 0; var_2-- )
             self.splashqueue[var_1][var_2] = self.splashqueue[var_1][var_2 - 1];
@@ -704,15 +704,15 @@ _id_06F1( var_0 )
 
     if ( level.gameended )
     {
-        if ( isdefined( var_0.unlockpoints ) && ( var_0.unlockpoints == "promotion_splash" || var_0.unlockpoints == "promotion_weapon_splash" ) )
+        if ( isdefined( var_0.type ) && ( var_0.type == "promotion_splash" || var_0.type == "promotion_weapon_splash" ) )
         {
             self setclientdvar( "ui_promotion", 1 );
             self.bonusupdatetotal = 1;
         }
-        else if ( isdefined( var_0.unlockpoints ) && var_0.unlockpoints == "challenge_splash" )
+        else if ( isdefined( var_0.type ) && var_0.type == "challenge_splash" )
         {
             self.pers["postGameChallenges"]++;
-            self setclientdvar( "ui_challenge_" + self.pers["postGameChallenges"] + "_ref", var_0.nearz );
+            self setclientdvar( "ui_challenge_" + self.pers["postGameChallenges"] + "_ref", var_0.name );
         }
 
         if ( self.splashqueue[var_1].size )
@@ -721,12 +721,12 @@ _id_06F1( var_0 )
         return;
     }
 
-    if ( tablelookup( _id_3E83(), 0, var_0.nearz, 0 ) != "" )
+    if ( tablelookup( _id_3E83(), 0, var_0.name, 0 ) != "" )
     {
-        var_2 = tablelookuprownum( _id_3E83(), 0, var_0.nearz );
+        var_2 = tablelookuprownum( _id_3E83(), 0, var_0.name );
         var_3 = maps\mp\_utility::_id_8F5A( tablelookupbyrow( _id_3E83(), var_2, 4 ) );
 
-        switch ( var_0.unlockpoints )
+        switch ( var_0.type )
         {
             case "killstreak_splash":
             case "killstreak_coop_splash":
@@ -786,16 +786,16 @@ _id_06F1( var_0 )
             case "rankup_splash":
                 self setclientomnvar( "ui_rankup_splash_idx", var_2 );
 
-                if ( isdefined( var_0.reached_wait_node ) )
-                    self setclientomnvar( "ui_rank_splash_rank", var_0.reached_wait_node );
+                if ( isdefined( var_0.rank ) )
+                    self setclientomnvar( "ui_rank_splash_rank", var_0.rank );
 
-                if ( isdefined( var_0.prestigeshoptokens ) )
-                    self setclientomnvar( "ui_rank_splash_prestige", var_0.prestigeshoptokens );
+                if ( isdefined( var_0.prestige ) )
+                    self setclientomnvar( "ui_rank_splash_prestige", var_0.prestige );
 
                 break;
             case "challenge_splash":
             case "perk_challenge_splash":
-                var_2 = int( tablelookup( "mp/allchallengestable.csv", 0, var_0.nearz, 28 ) );
+                var_2 = int( tablelookup( "mp/allchallengestable.csv", 0, var_0.name, 28 ) );
                 self setclientomnvar( "ui_challenge_splash_idx", var_2 );
 
                 if ( isdefined( var_0.challengetier ) )
@@ -909,16 +909,16 @@ _id_58A7()
     self._id_58A4 = maps\mp\gametypes\_hud_util::_id_2401( var_0, var_2 );
     self._id_58A4 settext( "" );
     self._id_58A4.archived = 0;
-    self._id_58A4.space = 10;
-    self._id_58A4.silenced_shot = 0;
+    self._id_58A4.sort = 10;
+    self._id_58A4.showinkillcam = 0;
     self._id_58A4 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", level.lowertextyalign, 0, var_1 );
     self._id_58AB = maps\mp\gametypes\_hud_util::_id_2401( "default", var_3 );
     self._id_58AB maps\mp\gametypes\_hud_util::_id_7FDC( self._id_58A4 );
     self._id_58AB maps\mp\gametypes\_hud_util::_id_7FEE( "TOP", "BOTTOM", 0, 0 );
     self._id_58AB settext( "" );
     self._id_58AB.archived = 0;
-    self._id_58AB.space = 10;
-    self._id_58AB.silenced_shot = 0;
+    self._id_58AB.sort = 10;
+    self._id_58AB.showinkillcam = 0;
 }
 
 _id_65B6( var_0 )
@@ -945,7 +945,7 @@ _id_59E4( var_0 )
     var_2 maps\mp\gametypes\_hud_util::_id_7FEE( "TOP", undefined, 0, 50 );
     var_2.foreground = 1;
     var_2.glowalpha = 1;
-    var_2.hindlegstraceoffset = 0;
+    var_2.hidewheninmenu = 0;
     var_2.archived = 0;
     var_2 settext( game["strings"][var_0] );
     var_2.alpha = 0;
@@ -966,7 +966,7 @@ _id_59E4( var_0 )
     var_3 maps\mp\gametypes\_hud_util::_id_7FDC( var_2 );
     var_3 maps\mp\gametypes\_hud_util::_id_7FEE( "TOP", "BOTTOM", 0, 30 );
     var_3.foreground = 1;
-    var_3.hindlegstraceoffset = 0;
+    var_3.hidewheninmenu = 0;
     var_3.archived = 0;
     var_3.alpha = 0;
     var_3 fadeovertime( 0.5 );

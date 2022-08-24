@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 100;
-    self.groundentchanged = "fraggrenade";
+    self.health = 100;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "winchester1200";
     self._id_855D = "usp_silencer";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "m4_silencer";
+    self.weapon = "m4_silencer";
     character\character_sp_sas_ct_charles::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_sas_ct_charles::prestigedoublexp();
+    character\character_sp_sas_ct_charles::precache();
     precacheitem( "m4_silencer" );
     precacheitem( "winchester1200" );
     precacheitem( "usp_silencer" );

@@ -35,27 +35,27 @@ minigun_player_anims()
 
 minigun_player_use()
 {
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowstand( 0 );
-    level.playercardbackground disableweapons();
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 12.0, 500, 1.0, 1.0 );
+    level.player allowprone( 0 );
+    level.player allowcrouch( 1 );
+    level.player allowstand( 0 );
+    level.player disableweapons();
+    level.player _meth_84a5();
+    level.player _meth_84a7( 12.0, 500, 1.0, 1.0 );
     level.eplayerview = maps\_utility::_id_88D1( "minigun_player", level.minigun_node.origin, level.minigun_node.angles );
     level.eplayerview hide();
     level.minigun_node maps\_anim::_id_0BC7( level.eplayerview, "use_minigun" );
-    level.playercardbackground _meth_855e( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
+    level.player _meth_855e( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
     level.minigun_previous_fov = getstarttime();
-    level.playercardbackground lerpfov( 55, 0.5 );
+    level.player lerpfov( 55, 0.5 );
     wait 0.3;
     level.eplayerview show();
     maps\_anim::_id_0BC7( self, "use" );
     thread maps\_anim::_id_0C24( self, "use" );
     level.minigun_node maps\_anim::_id_0C24( level.eplayerview, "use_minigun" );
     level.eplayerview hide();
-    level.playercardbackground unlink();
-    level.minigun_eye_height = level.playercardbackground _meth_82ef();
-    level.playercardbackground _meth_84c7( 0 );
+    level.player unlink();
+    level.minigun_eye_height = level.player _meth_82ef();
+    level.player _meth_84c7( 0 );
     self _meth_856c();
 }
 
@@ -64,36 +64,36 @@ minigun_player_drop()
     var_0 = self gettagorigin( "tag_flash" );
     var_1 = self gettagangles( "tag_flash" );
     var_2 = anglestoaxis( var_1 );
-    var_3 = level.playercardbackground geteye();
-    var_4 = level.playercardbackground _meth_82ef();
+    var_3 = level.player geteye();
+    var_4 = level.player _meth_82ef();
     var_5 = var_3 - var_0;
     var_6 = ( vectordot( var_5, var_2["forward"] ), vectordot( var_5, var_2["right"] ), vectordot( var_5, var_2["up"] ) );
     var_6 -= ( 0, 0, level.minigun_eye_height );
     level.eplayerview linkto( self, "tag_flash", var_6, ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground playerlinktoabsolute( level.eplayerview, undefined );
+    level.player playerlinktoabsolute( level.eplayerview, undefined );
     waittillframeend;
     self _meth_856d();
     self waittill( "turret_returned_to_default" );
-    level.playercardbackground _meth_84c8();
+    level.player _meth_84c8();
     maps\_anim::_id_0BC7( self, "drop" );
     thread maps\_anim::_id_0C24( self, "drop" );
     level.eplayerview unlink();
-    level.playercardbackground enableweapons();
-    var_7 = level.playercardbackground getplayerangles();
+    level.player enableweapons();
+    var_7 = level.player getplayerangles();
     var_8 = anglestoforward( var_7 );
-    var_9 = level.playercardbackground.origin + ( 0.0, 0.0, 20.0 );
+    var_9 = level.player.origin + ( 0.0, 0.0, 20.0 );
     var_9 -= var_8 * 20;
     var_10 = var_9 - ( 0.0, 0.0, 100.0 );
     var_11 = playerphysicstrace( var_9, var_10 );
     level.eplayerview moveto( var_11, 0.5, 0.2, 0.2 );
-    level.playercardbackground lerpfov( level.minigun_previous_fov, 0.5 );
-    level.playercardbackground _meth_84a6();
+    level.player lerpfov( level.minigun_previous_fov, 0.5 );
+    level.player _meth_84a6();
     wait 0.5;
-    level.playercardbackground unlink();
+    level.player unlink();
     level.eplayerview delete();
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowstand( 1 );
+    level.player allowprone( 1 );
+    level.player allowcrouch( 1 );
+    level.player allowstand( 1 );
 }
 
 minigun_think()
@@ -158,7 +158,7 @@ minigun_rumble()
         if ( self._id_5D5C <= 0 || !common_scripts\utility::_id_382E( "player_on_minigun" ) )
             continue;
 
-        self._id_767A.origin = level.playercardbackground geteye() + ( 0, 0, var_1 - var_2 * self._id_5D5C );
+        self._id_767A.origin = level.player geteye() + ( 0, 0, var_1 - var_2 * self._id_5D5C );
         self._id_767A playrumbleonentity( "minigun_rumble" );
     }
 }
@@ -172,16 +172,16 @@ minigun_console_hint()
         wait 0.05;
         var_1 = var_0 getturretowner();
 
-        if ( isdefined( var_1 ) && level.playercardbackground != var_1 || !isdefined( var_1 ) )
+        if ( isdefined( var_1 ) && level.player != var_1 || !isdefined( var_1 ) )
             continue;
 
         if ( isdefined( level.minigun_console_hint_displayed ) )
             continue;
 
-        if ( level.playercardbackground common_scripts\utility::_id_5064() )
-            level.playercardbackground thread maps\_utility::_id_2B4A( "minigun_spin_left_trigger" );
+        if ( level.player common_scripts\utility::_id_5064() )
+            level.player thread maps\_utility::_id_2B4A( "minigun_spin_left_trigger" );
         else
-            level.playercardbackground thread maps\_utility::_id_2B4A( "minigun_spin_keyboard" );
+            level.player thread maps\_utility::_id_2B4A( "minigun_spin_keyboard" );
 
         level.minigun_console_hint_displayed = 1;
     }
@@ -204,7 +204,7 @@ minigun_used()
     var_6 = 0;
     var_7 = 1 / var_0 * 20;
     var_8 = 1 / var_1 * 20;
-    level.isradarblocked = 0;
+    level.inuse = 0;
     var_9 = 0;
     self._id_5D5C = 0;
     var_10 = 0;
@@ -227,49 +227,49 @@ minigun_used()
 
         if ( common_scripts\utility::_id_382E( "player_on_minigun" ) )
         {
-            if ( !level.isradarblocked )
+            if ( !level.inuse )
             {
-                if ( level.playercardbackground common_scripts\utility::_id_5064() )
+                if ( level.player common_scripts\utility::_id_5064() )
                 {
-                    if ( level.playercardbackground adsbuttonpressed() )
+                    if ( level.player adsbuttonpressed() )
                     {
-                        level.isradarblocked = 1;
+                        level.inuse = 1;
                         thread minigun_sound_spinup();
                     }
                 }
-                else if ( level.playercardbackground attackbuttonpressed() )
+                else if ( level.player attackbuttonpressed() )
                 {
-                    level.isradarblocked = 1;
+                    level.inuse = 1;
                     thread minigun_sound_spinup();
                 }
             }
-            else if ( level.playercardbackground common_scripts\utility::_id_5064() )
+            else if ( level.player common_scripts\utility::_id_5064() )
             {
-                if ( !level.playercardbackground adsbuttonpressed() )
+                if ( !level.player adsbuttonpressed() )
                 {
-                    level.isradarblocked = 0;
+                    level.inuse = 0;
                     thread minigun_sound_spindown();
                 }
-                else if ( !level.playercardbackground adsbuttonpressed() && level.playercardbackground attackbuttonpressed() && var_15 )
+                else if ( !level.player adsbuttonpressed() && level.player attackbuttonpressed() && var_15 )
                 {
-                    level.isradarblocked = 0;
+                    level.inuse = 0;
                     thread minigun_sound_spindown();
                 }
             }
-            else if ( !level.playercardbackground attackbuttonpressed() )
+            else if ( !level.player attackbuttonpressed() )
             {
-                level.isradarblocked = 0;
+                level.inuse = 0;
                 thread minigun_sound_spindown();
             }
-            else if ( level.playercardbackground attackbuttonpressed() && var_15 )
+            else if ( level.player attackbuttonpressed() && var_15 )
             {
-                level.isradarblocked = 0;
+                level.inuse = 0;
                 thread minigun_sound_spindown();
             }
 
-            if ( level.playercardbackground common_scripts\utility::_id_5064() )
+            if ( level.player common_scripts\utility::_id_5064() )
             {
-                if ( level.playercardbackground adsbuttonpressed() )
+                if ( level.player adsbuttonpressed() )
                 {
                     var_6 += 0.05;
 
@@ -282,15 +282,15 @@ minigun_used()
 
             if ( !var_13 )
             {
-                if ( level.playercardbackground attackbuttonpressed() && !var_15 && var_12 )
+                if ( level.player attackbuttonpressed() && !var_15 && var_12 )
                 {
                     var_13 = 1;
                     var_17 = gettime();
 
-                    if ( !level.playercardbackground common_scripts\utility::_id_5064() )
+                    if ( !level.player common_scripts\utility::_id_5064() )
                         common_scripts\utility::_id_383F( "minigun_lesson_learned" );
                 }
-                else if ( level.playercardbackground attackbuttonpressed() && var_15 )
+                else if ( level.player attackbuttonpressed() && var_15 )
                 {
                     var_13 = 0;
                     var_17 = undefined;
@@ -298,13 +298,13 @@ minigun_used()
             }
             else
             {
-                if ( !level.playercardbackground attackbuttonpressed() )
+                if ( !level.player attackbuttonpressed() )
                 {
                     var_13 = 0;
                     var_17 = undefined;
                 }
 
-                if ( level.playercardbackground attackbuttonpressed() && !var_12 )
+                if ( level.player attackbuttonpressed() && !var_12 )
                 {
                     var_13 = 0;
                     var_17 = undefined;
@@ -313,11 +313,11 @@ minigun_used()
         }
         else
         {
-            if ( var_13 || level.isradarblocked == 1 )
+            if ( var_13 || level.inuse == 1 )
                 thread minigun_sound_spindown();
 
             var_13 = 0;
-            level.isradarblocked = 0;
+            level.inuse = 0;
         }
 
         if ( var_15 )
@@ -330,7 +330,7 @@ minigun_used()
             }
         }
 
-        if ( level.isradarblocked )
+        if ( level.inuse )
         {
             var_9 += var_3;
             self._id_5D5C = var_9;
@@ -541,13 +541,13 @@ overheat_hud()
         level.overheat_bg = newhudelem();
         level.overheat_bg.alignx = "right";
         level.overheat_bg.aligny = "bottom";
-        level.overheat_bg.hostquits = "right";
-        level.overheat_bg.visionsetnight = "bottom";
-        level.overheat_bg.xpmaxmultipliertimeplayed = -29;
-        level.overheat_bg._id_0538 = -146;
+        level.overheat_bg.horzalign = "right";
+        level.overheat_bg.vertalign = "bottom";
+        level.overheat_bg.x = -29;
+        level.overheat_bg.y = -146;
         level.overheat_bg.alpha = 0.3;
         level.overheat_bg setshader( "h1_hud_temperature_border", 14, 114 );
-        level.overheat_bg.space = 5;
+        level.overheat_bg.sort = 5;
     }
 
     if ( !isdefined( level.overheat_bg_distort ) )
@@ -555,13 +555,13 @@ overheat_hud()
         level.overheat_bg_distort = newhudelem();
         level.overheat_bg_distort.alignx = "right";
         level.overheat_bg_distort.aligny = "bottom";
-        level.overheat_bg_distort.hostquits = "right";
-        level.overheat_bg_distort.visionsetnight = "bottom";
-        level.overheat_bg_distort.xpmaxmultipliertimeplayed = -29;
-        level.overheat_bg_distort._id_0538 = -146;
+        level.overheat_bg_distort.horzalign = "right";
+        level.overheat_bg_distort.vertalign = "bottom";
+        level.overheat_bg_distort.x = -29;
+        level.overheat_bg_distort.y = -146;
         level.overheat_bg_distort.alpha = 0.9;
         level.overheat_bg_distort setshader( "h1_hud_temperature_blur", 14, 114 );
-        level.overheat_bg_distort.space = 4;
+        level.overheat_bg_distort.sort = 4;
     }
 
     if ( !isdefined( level.overheat_icon ) )
@@ -569,12 +569,12 @@ overheat_hud()
         level.overheat_icon = newhudelem();
         level.overheat_icon.alignx = "right";
         level.overheat_icon.aligny = "bottom";
-        level.overheat_icon.hostquits = "right";
-        level.overheat_icon.visionsetnight = "bottom";
-        level.overheat_icon.xpmaxmultipliertimeplayed = -26;
-        level.overheat_icon._id_0538 = -126;
+        level.overheat_icon.horzalign = "right";
+        level.overheat_icon.vertalign = "bottom";
+        level.overheat_icon.x = -26;
+        level.overheat_icon.y = -126;
         level.overheat_icon setshader( "h1_hud_temperature_icon", 28, 28 );
-        level.overheat_icon.space = 6;
+        level.overheat_icon.sort = 6;
     }
 
     var_0 = -31;
@@ -585,14 +585,14 @@ overheat_hud()
         level.overheat_status = newhudelem();
         level.overheat_status.alignx = "right";
         level.overheat_status.aligny = "bottom";
-        level.overheat_status.hostquits = "right";
-        level.overheat_status.visionsetnight = "bottom";
-        level.overheat_status.xpmaxmultipliertimeplayed = var_0;
-        level.overheat_status._id_0538 = var_1;
+        level.overheat_status.horzalign = "right";
+        level.overheat_status.vertalign = "bottom";
+        level.overheat_status.x = var_0;
+        level.overheat_status.y = var_1;
         level.overheat_status setshader( "white", 10, 0 );
         level.overheat_status.color = ( 1.0, 0.9, 0.0 );
         level.overheat_status.alpha = 0;
-        level.overheat_status.space = 1;
+        level.overheat_status.sort = 1;
     }
 
     if ( !isdefined( level.overheat_status2 ) )
@@ -600,14 +600,14 @@ overheat_hud()
         level.overheat_status2 = newhudelem();
         level.overheat_status2.alignx = "right";
         level.overheat_status2.aligny = "bottom";
-        level.overheat_status2.hostquits = "right";
-        level.overheat_status2.visionsetnight = "bottom";
-        level.overheat_status2.xpmaxmultipliertimeplayed = var_0;
-        level.overheat_status2._id_0538 = var_1;
+        level.overheat_status2.horzalign = "right";
+        level.overheat_status2.vertalign = "bottom";
+        level.overheat_status2.x = var_0;
+        level.overheat_status2.y = var_1;
         level.overheat_status2 setshader( "white", 10, 0 );
         level.overheat_status2.color = ( 1.0, 0.9, 0.0 );
         level.overheat_status2.alpha = 0;
-        level.overheat_status2.space = 2;
+        level.overheat_status2.sort = 2;
     }
 
     if ( !isdefined( level.overheat_flashing ) )
@@ -615,14 +615,14 @@ overheat_hud()
         level.overheat_flashing = newhudelem();
         level.overheat_flashing.alignx = "right";
         level.overheat_flashing.aligny = "bottom";
-        level.overheat_flashing.hostquits = "right";
-        level.overheat_flashing.visionsetnight = "bottom";
-        level.overheat_flashing.xpmaxmultipliertimeplayed = var_0;
-        level.overheat_flashing._id_0538 = var_1;
+        level.overheat_flashing.horzalign = "right";
+        level.overheat_flashing.vertalign = "bottom";
+        level.overheat_flashing.x = var_0;
+        level.overheat_flashing.y = var_1;
         level.overheat_flashing setshader( "white", 10, level.overheat_hud_height_max );
         level.overheat_flashing.color = ( 0.8, 0.16, 0.0 );
         level.overheat_flashing.alpha = 0;
-        level.overheat_flashing.space = 3;
+        level.overheat_flashing.sort = 3;
     }
 }
 
@@ -633,7 +633,7 @@ overheat_overheated()
     if ( !common_scripts\utility::_id_382E( "disable_overheat" ) )
     {
         level._id_781D = 0;
-        level.playercardbackground thread maps\_utility::_id_69C4( "h1_wep_m134_overheat" );
+        level.player thread maps\_utility::_id_69C4( "h1_wep_m134_overheat" );
         level.overheat_flashing.alpha = 1;
         level.overheat_status.alpha = 0;
         level.overheat_status2.alpha = 0;
@@ -873,10 +873,10 @@ seaknight()
     thread seaknight_departure_sequence();
     common_scripts\utility::_id_384A( "player_made_it" );
 
-    if ( isalive( level.playercardbackground ) )
+    if ( isalive( level.player ) )
     {
-        level.playercardbackground enableinvulnerability();
-        level.playercardbackground.attackeraccuracy = 0;
+        level.player enableinvulnerability();
+        level.player.attackeraccuracy = 0;
         maps\_utility::enable_scuff_footsteps_sound( 0 );
     }
 
@@ -898,7 +898,7 @@ seaknight()
 
     common_scripts\utility::_id_383F( "all_real_friendlies_on_board" );
     common_scripts\utility::_id_383F( "seaknight_guards_boarding" );
-    level.playercardbackground maps\_utility::_id_69C4( "scn_vd_seaknight_leaving" );
+    level.player maps\_utility::_id_69C4( "scn_vd_seaknight_leaving" );
 }
 
 seaknight_departure_sequence()
@@ -917,7 +917,7 @@ seaknight_departure_sequence()
     if ( common_scripts\utility::_id_382E( "player_made_it" ) )
     {
         common_scripts\utility::_id_384A( "all_real_friendlies_on_board" );
-        level.playercardbackground playsound( "villagedef_grg_wereallaboard" );
+        level.player playsound( "villagedef_grg_wereallaboard" );
         wait 1;
     }
     else
@@ -939,16 +939,16 @@ seaknight_sas_load()
     setignoremegroup( "axis", "sas_evac_guy" );
     self.goalradius = 60;
     self._id_2AF3 = 1;
-    self.index = 1;
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoresuppression = 1;
+    self.ignoreall = 1;
     wait(randomfloatrange( 1.5, 3.2 ));
     var_0 = getnode( "seaknight_fakeramp_startpoint", "targetname" );
     self _meth_81a9( var_0 );
     self waittill( "goal" );
-    self.noncombat = 1;
+    self.nododgemove = 1;
 
-    if ( isdefined( var_0.rank ) )
-        self.goalradius = var_0.rank;
+    if ( isdefined( var_0.radius ) )
+        self.goalradius = var_0.radius;
 
     var_1 = getnode( "seaknight_fakeramp_end", "targetname" );
     self _meth_81a9( var_1 );
@@ -1036,11 +1036,11 @@ seaknightriders_standinplace()
     self _meth_81ce( "crouch" );
     self.goalradius = 4;
     self _meth_81a7( 1 );
-    self.radarshowenemydirection = 0;
+    self.pushable = 0;
     self _meth_81aa( self.origin );
     self.grenadeawareness = 0;
     self.grenadeammo = 0;
-    self.index = 1;
+    self.ignoresuppression = 1;
 }
 
 friendly_pushplayer( var_0 )
@@ -1056,13 +1056,13 @@ friendly_pushplayer( var_0 )
         {
             var_1[var_2] _meth_81a7( 1 );
             var_1[var_2].dontavoidplayer = 1;
-            var_1[var_2].radarshowenemydirection = 0;
+            var_1[var_2].pushable = 0;
             continue;
         }
 
         var_1[var_2] _meth_81a7( 0 );
         var_1[var_2].dontavoidplayer = 0;
-        var_1[var_2].radarshowenemydirection = 1;
+        var_1[var_2].pushable = 1;
     }
 }
 
@@ -1070,16 +1070,16 @@ can_display_pvt_parity_name()
 {
     var_0 = 400;
 
-    if ( distancesquared( level.playercardbackground.origin, self.origin ) > var_0 * var_0 )
+    if ( distancesquared( level.player.origin, self.origin ) > var_0 * var_0 )
         return 0;
 
-    var_1 = level.playercardbackground geteye() + 2000 * anglestoforward( level.playercardbackground getplayerangles() );
-    var_2 = bullettrace( level.playercardbackground geteye(), var_1, 0, level.playercardbackground );
+    var_1 = level.player geteye() + 2000 * anglestoforward( level.player getplayerangles() );
+    var_2 = bullettrace( level.player geteye(), var_1, 0, level.player );
 
     if ( isdefined( var_2["surfacetype"] ) && issubstr( var_2["surfacetype"], "water" ) )
     {
-        var_3 = var_2["position"] + 2 * vectornormalize( anglestoforward( level.playercardbackground getplayerangles() ) );
-        var_2 = bullettrace( var_3, var_1, 0, level.playercardbackground );
+        var_3 = var_2["position"] + 2 * vectornormalize( anglestoforward( level.player getplayerangles() ) );
+        var_2 = bullettrace( var_3, var_1, 0, level.player );
     }
 
     return isdefined( var_2["entity"] ) && var_2["entity"] == self;

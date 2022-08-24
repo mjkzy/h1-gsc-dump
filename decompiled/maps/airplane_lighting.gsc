@@ -43,8 +43,8 @@ _id_80C6()
 _id_7E68()
 {
     maps\_utility::_id_9E6E( "airplane", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "airplane" );
-    level.playercardbackground _meth_848c( "airplane", 0.0 );
+    level.player maps\_utility::set_light_set_player( "airplane" );
+    level.player _meth_848c( "airplane", 0.0 );
 }
 
 toggle_breach_lightset_triggers()
@@ -64,7 +64,7 @@ toggle_breach_lightset_triggers()
     var_0 common_scripts\utility::_id_97CC();
     var_1 common_scripts\utility::_id_97CE();
 
-    if ( level.playercardbackground istouching( var_1 ) )
+    if ( level.player istouching( var_1 ) )
         wait 0.3;
 
     var_1 common_scripts\utility::_id_97CC();
@@ -117,9 +117,9 @@ override_scriptmodel_lightorigins()
 
 set_new_lighting_origin()
 {
-    if ( isdefined( self._not_team ) && self._not_team != "" )
+    if ( isdefined( self.target ) && self.target != "" )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
             self _meth_8477( var_0.origin );

@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_cobra_pilot_woodland_zack" );
     precachemodel( "head_sp_cobra_pilot_zack_wglasses" );

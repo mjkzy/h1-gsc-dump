@@ -28,7 +28,7 @@ main()
     self.cover._id_55FA = 0;
     self.cover._id_51CA = 0;
     self.cover._id_4880 = _id_22AC();
-    self._id_22BA = self.node_relinquished;
+    self._id_22BA = self.node;
     _id_22B9();
     self waittill( "killanimscript" );
 }
@@ -100,7 +100,7 @@ _id_22B9()
 _id_22B5( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = self.node_relinquished getvalidcoverpeekouts();
+        var_1 = self.node getvalidcoverpeekouts();
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -114,7 +114,7 @@ _id_22B5( var_0, var_1 )
 _id_22B1( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
-        var_1 = self.node_relinquished getvalidcoverpeekouts();
+        var_1 = self.node getvalidcoverpeekouts();
 
     var_2 = [];
 
@@ -144,7 +144,7 @@ _id_22B1( var_0, var_1 )
 _id_22B3( var_0 )
 {
     if ( !isdefined( var_0 ) )
-        var_0 = self.node_relinquished getvalidcoverpeekouts();
+        var_0 = self.node getvalidcoverpeekouts();
 
     var_1 = randomint( var_0.size );
     return var_0[var_1];
@@ -170,8 +170,8 @@ _id_22B6( var_0, var_1 )
 {
     if ( var_0 == "over" )
     {
-        var_2 = self.node_relinquished doesnodeallowstance( "stand" );
-        var_3 = self.node_relinquished doesnodeallowstance( "crouch" );
+        var_2 = self.node doesnodeallowstance( "stand" );
+        var_3 = self.node doesnodeallowstance( "crouch" );
 
         if ( var_2 )
         {

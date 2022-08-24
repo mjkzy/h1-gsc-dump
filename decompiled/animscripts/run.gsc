@@ -327,7 +327,7 @@ _id_71D1()
         if ( !isdefined( self._id_717B ) )
             break;
 
-        if ( !isdefined( self.pc ) || distancesquared( self.pc, self.origin ) < squared( 80 ) )
+        if ( !isdefined( self.pathgoalpos ) || distancesquared( self.pathgoalpos, self.origin ) < squared( 80 ) )
         {
             _id_31C1();
             self notify( "interrupt_react_to_bullet" );
@@ -741,7 +741,7 @@ _id_4098( var_0 )
 {
     var_1 = self.origin;
     var_2 = self.angles[1] + self _meth_8194();
-    var_1 += ( cos( var_2 ), sin( var_2 ), 0 ) * length( self.visionsetnakedduration ) * var_0;
+    var_1 += ( cos( var_2 ), sin( var_2 ), 0 ) * length( self.velocity ) * var_0;
     var_3 = self.angles[1] - vectortoyaw( self.enemy.origin - var_1 );
     var_3 = angleclamp180( var_3 );
     return var_3;
@@ -833,9 +833,9 @@ _id_8B13()
     standrun_noncombatnormal_animate( var_1, var_2 );
     var_3 = 0;
 
-    if ( self.leftaimlimit > 0 && self.leftaimlimit < 0.998 )
+    if ( self.leanamount > 0 && self.leanamount < 0.998 )
         var_3 = 1;
-    else if ( self.leftaimlimit < 0 && self.leftaimlimit > -0.998 )
+    else if ( self.leanamount < 0 && self.leanamount > -0.998 )
         var_3 = -1;
 
     var_4 = max( 0.2, var_2 );
@@ -927,12 +927,12 @@ _id_8B11()
     if ( _id_1AE7() && !animscripts\combat_utility::_id_6089( 0 ) )
         return 0;
 
-    if ( !isdefined( self.pc ) || distancesquared( self.origin, self.pc ) < 65536 )
+    if ( !isdefined( self.pathgoalpos ) || distancesquared( self.origin, self.pathgoalpos ) < 65536 )
         return 0;
 
     var_1 = getdvarfloat( "ai_runReload_minLookahead", 320 );
 
-    if ( var_1 > 0 && self.lookright < var_1 )
+    if ( var_1 > 0 && self.lookaheaddist < var_1 )
         return 0;
 
     var_2 = angleclamp180( self _meth_8194() );
@@ -1084,7 +1084,7 @@ _id_9B5D( var_0, var_1, var_2, var_3 )
 _id_8B10()
 {
     var_0 = isdefined( self._id_A154 ) && self._id_A154;
-    var_1 = animscripts\utility::_id_51A3( self.weapon_switch_invalid );
+    var_1 = animscripts\utility::_id_51A3( self.weapon );
 
     if ( var_0 == var_1 )
         return 0;
@@ -1092,13 +1092,13 @@ _id_8B10()
     if ( animscripts\stairs_utility::isonstairs() )
         return 0;
 
-    if ( !isdefined( self.pc ) || distancesquared( self.origin, self.pc ) < 65536 )
+    if ( !isdefined( self.pathgoalpos ) || distancesquared( self.origin, self.pathgoalpos ) < 65536 )
         return 0;
 
     if ( animscripts\utility::_id_9C3A() )
         return 0;
 
-    if ( self.weapon_switch_invalid == self.primaryweapon )
+    if ( self.weapon == self.primaryweapon )
     {
         if ( !var_0 )
             return 0;
@@ -1160,7 +1160,7 @@ _id_A259( var_0, var_1, var_2, var_3, var_4 )
     self endon( "movemode" );
     self endon( "switchEnded" );
     self waittillmatch( var_0, var_1 );
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, var_2 );
+    animscripts\shared::_id_6869( self.weapon, var_2 );
     thread _id_8444( var_3 );
     self waittillmatch( var_0, var_4 );
     self notify( "complete_weapon_switch" );
@@ -1170,9 +1170,9 @@ _id_8444( var_0 )
 {
     self endon( "death" );
     common_scripts\utility::_id_A069( "killanimscript", "movemode", "switchEnded", "complete_weapon_switch" );
-    self._id_560F = self.weapon_switch_invalid;
+    self._id_560F = self.weapon;
     animscripts\shared::_id_6869( var_0, "right" );
-    self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+    self._id_18B0 = weaponclipsize( self.weapon );
 }
 
 _id_76B3( var_0 )

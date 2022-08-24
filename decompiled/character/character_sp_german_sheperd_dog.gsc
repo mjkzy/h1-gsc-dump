@@ -26,7 +26,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "german_sheperd_dog" );
 }

@@ -119,15 +119,15 @@ _id_5EBC()
         if ( !isdefined( var_1._id_87E2 ) )
         {
             var_1._id_87E2 = var_1 maps\_hud_util::_id_23ED( "default", 1.75 );
-            var_1._id_87E2.hostquits = "center";
-            var_1._id_87E2.visionsetnight = "top";
+            var_1._id_87E2.horzalign = "center";
+            var_1._id_87E2.vertalign = "top";
             var_1._id_87E2.alignx = "center";
             var_1._id_87E2.aligny = "top";
-            var_1._id_87E2.xpmaxmultipliertimeplayed = 0;
-            var_1._id_87E2._id_0538 = 20;
+            var_1._id_87E2.x = 0;
+            var_1._id_87E2.y = 20;
             var_1._id_87E2 settext( &"VARIABLE_SCOPE_SNIPER_ZOOM" );
             var_1._id_87E2.alpha = 0;
-            var_1._id_87E2.space = 0.5;
+            var_1._id_87E2.sort = 0.5;
             var_1._id_87E2.foreground = 1;
         }
 
@@ -480,16 +480,16 @@ _id_4109( var_0 )
         var_3 = distance2d( var_0, var_2.origin );
         var_4 = var_0[2] - var_2.origin[2];
 
-        if ( !isdefined( var_2.rank ) )
+        if ( !isdefined( var_2.radius ) )
             continue;
 
-        if ( !isdefined( var_2.hidewhendead ) )
+        if ( !isdefined( var_2.height ) )
             continue;
 
-        if ( var_3 <= var_2.rank && var_4 <= var_2.hidewhendead && var_4 >= 0 )
+        if ( var_3 <= var_2.radius && var_4 <= var_2.height && var_4 >= 0 )
         {
             level._id_54E4 = common_scripts\utility::_id_0CF6( level._id_54E4, var_2 );
-            return getent( var_2._not_team, "script_noteworthy" );
+            return getent( var_2.target, "script_noteworthy" );
         }
     }
 
@@ -513,11 +513,11 @@ _id_3DB0()
 
 _id_54C3( var_0 )
 {
-    level.playercardbackground endon( "remove_laser_targeting_device" );
-    level.playercardbackground._id_54EE = 0;
+    level.player endon( "remove_laser_targeting_device" );
+    level.player._id_54EE = 0;
     self setweaponhudiconoverride( "actionslot4", "dpad_killstreak_hellfire_missile_inactive" );
     maps\_utility::_id_38CC( "allies" );
-    var_1 = level.playercardbackground;
+    var_1 = level.player;
     wait 2.5;
 
     if ( !isdefined( var_0._id_7A18 ) )
@@ -538,8 +538,8 @@ _id_54C3( var_0 )
             common_scripts\utility::_id_0CDB( var_3, ::show );
     }
 
-    wait(level.playercardbackground._id_54EF);
-    level.playercardbackground._id_54EE = 1;
+    wait(level.player._id_54EF);
+    level.player._id_54EE = 1;
     self setweaponhudiconoverride( "actionslot4", "dpad_laser_designator" );
 }
 
@@ -688,7 +688,7 @@ _id_30C1( var_0 )
 
 _id_45FB( var_0, var_1, var_2 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "missionfailed" );
 
     if ( isdefined( var_2 ) && isstring( var_2 ) )
@@ -722,7 +722,7 @@ _id_45FB( var_0, var_1, var_2 )
 
 _id_6E56( var_0, var_1 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "missionfailed" );
 
     if ( !isdefined( var_0 ) || !isstring( var_0 ) )
@@ -746,7 +746,7 @@ _id_6E56( var_0, var_1 )
 
 _id_6E55( var_0, var_1 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "missionfailed" );
 
     if ( !isdefined( var_0 ) || !isstring( var_0 ) )
@@ -782,17 +782,17 @@ _id_6955( var_0, var_1, var_2, var_3 )
     var_4 = spawnstruct();
     var_4._id_3B58 = common_scripts\utility::_id_3FA8( var_0 );
     var_4.entity = var_1;
-    var_4.tag_aim_animated = var_2;
+    var_4.tag = var_2;
 
     if ( isdefined( var_3 ) && var_3 )
     {
-        var_4.tag_rail_master_off = common_scripts\utility::_id_8959();
-        var_4.tag_rail_master_off linkto( var_1, var_4.tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-        playfxontag( var_4._id_3B58, var_4.tag_rail_master_off, "tag_origin" );
+        var_4.tag_origin = common_scripts\utility::_id_8959();
+        var_4.tag_origin linkto( var_1, var_4.tag, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        playfxontag( var_4._id_3B58, var_4.tag_origin, "tag_origin" );
         _id_5314( var_4 );
     }
     else
-        playfxontag( var_4._id_3B58, var_4.entity, var_4.tag_aim_animated );
+        playfxontag( var_4._id_3B58, var_4.entity, var_4.tag );
 
     return var_4;
 }
@@ -810,16 +810,16 @@ _id_5315( var_0 )
 
 _id_5313( var_0 )
 {
-    if ( isdefined( var_0.tag_rail_master_off ) )
+    if ( isdefined( var_0.tag_origin ) )
     {
-        killfxontag( var_0._id_3B58, var_0.tag_rail_master_off, "tag_origin" );
-        var_0.tag_rail_master_off common_scripts\utility::_id_27CD( 0.05, ::delete );
-        var_0.tag_rail_master_off = undefined;
+        killfxontag( var_0._id_3B58, var_0.tag_origin, "tag_origin" );
+        var_0.tag_origin common_scripts\utility::_id_27CD( 0.05, ::delete );
+        var_0.tag_origin = undefined;
         var_0.entity = undefined;
     }
     else if ( isdefined( var_0.entity ) )
     {
-        killfxontag( var_0._id_3B58, var_0.entity, var_0.tag_aim_animated );
+        killfxontag( var_0._id_3B58, var_0.entity, var_0.tag );
         var_0.entity = undefined;
     }
 }
@@ -855,12 +855,12 @@ _id_48BE( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_48B8( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    var_7 = newclienthudelem( level.playercardbackground );
+    var_7 = newclienthudelem( level.player );
     var_7.alignx = "center";
     var_7.aligny = "middle";
     var_7.fontscale = 3;
     var_7.font = "buttonprompt";
-    var_7.predicted_projectile_impact = 1;
+    var_7.positioninworld = 1;
 
     if ( isdefined( self ) )
     {
@@ -872,12 +872,12 @@ _id_48B8( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     var_8 = _id_48BF( var_0 );
     var_7 settext( var_8 );
-    var_7.hindlegstraceoffset = 1;
-    var_7.space = -1;
+    var_7.hidewheninmenu = 1;
+    var_7.sort = -1;
     var_7.alpha = 1;
 
     if ( !isdefined( var_5 ) || !var_5 )
-        var_7 thread _id_782E( self, var_1, level.playercardbackground, var_2, var_3, var_6 );
+        var_7 thread _id_782E( self, var_1, level.player, var_2, var_3, var_6 );
 
     var_7._id_62E1 = self;
 
@@ -974,9 +974,9 @@ _id_48BF( var_0 )
         case "lt":
         case "l1":
         case "ads":
-            if ( level.perk1 )
+            if ( level.pc )
                 return "^3[{+ads}]^7";
-            else if ( level.playercardbackground _meth_834c() )
+            else if ( level.player _meth_834c() )
                 return "^3[{+speed_throw}]^7";
             else
                 return "^3[{+toggleads_throw}]^7";
@@ -1032,15 +1032,15 @@ _id_48BA( var_0, var_1 )
 _id_1950( var_0, var_1, var_2, var_3 )
 {
     self endon( var_2 );
-    level.playercardbackground endon( var_2 );
+    level.player endon( var_2 );
     self endon( "death" );
     thread maps\_utility::_id_48B0( var_0 );
     var_4 = var_1 + "_button_mash_dynamic_hint";
     thread _id_195E( var_2, var_4, var_1, var_3 );
-    level.playercardbackground notifyonplayercommand( var_4, var_1 );
+    level.player notifyonplayercommand( var_4, var_1 );
 
     if ( isdefined( var_3 ) )
-        level.playercardbackground notifyonplayercommand( var_4, var_3 );
+        level.player notifyonplayercommand( var_4, var_3 );
 
     for (;;)
     {
@@ -1055,12 +1055,12 @@ _id_1950( var_0, var_1, var_2, var_3 )
 _id_195E( var_0, var_1, var_2, var_3 )
 {
     self endon( "death" );
-    common_scripts\utility::_id_A06A( self, var_0, level.playercardbackground, var_0 );
+    common_scripts\utility::_id_A06A( self, var_0, level.player, var_0 );
     thread maps\_utility::_id_48CB();
-    level.playercardbackground _meth_8498( var_1, var_2 );
+    level.player _meth_8498( var_1, var_2 );
 
     if ( isdefined( var_3 ) )
-        level.playercardbackground _meth_8498( var_1, var_3 );
+        level.player _meth_8498( var_1, var_3 );
 }
 
 _id_48B9( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -1079,7 +1079,7 @@ _id_48B9( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         var_1.fontscale = var_6;
 
     var_1 thread _id_48BA( 0.15, 0.1 );
-    common_scripts\utility::_id_A06A( self, var_2, level.playercardbackground, var_2 );
+    common_scripts\utility::_id_A06A( self, var_2, level.player, var_2 );
     var_1 _id_48B6();
 }
 
@@ -1165,10 +1165,10 @@ _id_8ED3()
 _id_68AD( var_0, var_1, var_2 )
 {
     common_scripts\utility::_id_383D( "chyron_video_done" );
-    var_3 = newclienthudelem( level.playercardbackground );
+    var_3 = newclienthudelem( level.player );
     var_3 setshader( "black", 1280, 720 );
-    var_3.hostquits = "fullscreen";
-    var_3.visionsetnight = "fullscreen";
+    var_3.horzalign = "fullscreen";
+    var_3.vertalign = "fullscreen";
     var_3.alpha = 1;
     var_3.foreground = 0;
     cinematicingame( var_0 );
@@ -1200,7 +1200,7 @@ _id_68AD( var_0, var_1, var_2 )
 _id_6E1A( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
-        var_2 = level.playercardbackground;
+        var_2 = level.player;
 
     return vectordot( vectornormalize( var_0 - var_2 geteye() ), anglestoforward( var_2 getplayerangles() ) ) > cos( var_1 );
 }

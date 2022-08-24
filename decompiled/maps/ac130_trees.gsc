@@ -40,9 +40,9 @@ ac130_tree_setup()
     self.ac130_tree_anims["sway"][2] = %ac130_pine01_sway03;
     self.ac130_tree_anims["sway"][3] = %ac130_pine01_sway04;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
         {

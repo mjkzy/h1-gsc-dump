@@ -41,7 +41,7 @@ main()
     {
         level._id_9E72 = spawnstruct();
         level._id_9E72._id_9E6B = "";
-        level._id_9E72.titleunlocked = 0;
+        level._id_9E72.time = 0;
     }
 
     if ( !isdefined( level._id_8FCE ) )
@@ -50,12 +50,12 @@ main()
     if ( !isdefined( level._id_9E6D ) )
     {
         level._id_9E6D = [];
-        _id_23AA( level.script_context );
+        _id_23AA( level.script );
         common_scripts\_artcommon::_id_7F73();
     }
 
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 }
 
 setdefaultdepthoffield()
@@ -179,7 +179,7 @@ _id_2C58()
     foreach ( var_7 in level.players )
         var_7 thread _id_2C77();
 
-    level.playercardbackground maps\_utility::_id_27EF( 1, ::dof_monitor_prone );
+    level.player maps\_utility::_id_27EF( 1, ::dof_monitor_prone );
 }
 
 _id_2C6C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -528,14 +528,14 @@ dof_monitor_prone()
 
 dof_set_standing()
 {
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 dof_set_prone()
 {
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 3.0, 800.0, 20, 20 );
-    level.playercardbackground _meth_84b8( 12.0, 900.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 3.0, 800.0, 20, 20 );
+    level.player _meth_84b8( 12.0, 900.0 );
 }
 
 _id_5226( var_0, var_1, var_2, var_3, var_4 )
@@ -714,11 +714,11 @@ _id_8FCD( var_0, var_1 )
     var_3 = var_1 * 1000;
     var_4 = getdvarvector( "r_sunflare_position", ( 0.0, 0.0, 0.0 ) );
     var_5 = gettime() - var_2;
-    var_6 = level._id_8FCE[var_0].precache;
+    var_6 = level._id_8FCE[var_0].position;
 
     for ( level._id_24FC = var_0; var_5 < var_3; var_5 = gettime() - var_2 )
     {
-        var_6 = level._id_8FCE[var_0].precache;
+        var_6 = level._id_8FCE[var_0].position;
         var_7 = min( float( var_5 / var_3 ), 1 );
         var_8 = var_4 + ( var_6 - var_4 ) * var_7;
         setdvar( "r_sunflare_position", var_8 );
@@ -726,7 +726,7 @@ _id_8FCD( var_0, var_1 )
         wait 0.05;
     }
 
-    setdvar( "r_sunflare_position", level._id_8FCE[var_0].precache );
+    setdvar( "r_sunflare_position", level._id_8FCE[var_0].position );
     setsunflareposition( var_6 );
 }
 
@@ -736,7 +736,7 @@ _id_4CF3()
     {
         level._id_3961 = spawnstruct();
         level._id_3961._id_3964 = "";
-        level._id_3961.titleunlocked = 0;
+        level._id_3961.time = 0;
     }
 }
 

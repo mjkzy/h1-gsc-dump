@@ -240,10 +240,10 @@ play_scripted_pass_by_sfx( var_0 )
 
 trigger_sound_emitter()
 {
-    if ( isdefined( self._id_7A99 ) && isdefined( self._not_team ) )
+    if ( isdefined( self._id_7A99 ) && isdefined( self.target ) )
     {
         self waittill( "trigger", var_0 );
-        var_1 = getent( self._not_team, "targetname" );
+        var_1 = getent( self.target, "targetname" );
         var_1 maps\_utility::_id_69C4( self._id_7A99 );
     }
 }
@@ -274,9 +274,9 @@ monitor_stop_bog_combat_emitter()
 
 handle_cobra_waypoint_audio( var_0 )
 {
-    if ( isdefined( var_0.teambalanced ) )
+    if ( isdefined( var_0.targetname ) )
     {
-        switch ( var_0.teambalanced )
+        switch ( var_0.targetname )
         {
             case "maverick_waypoint1":
                 thread maps\_utility::_id_69C4( "scn_cobra_support_arrival_01" );

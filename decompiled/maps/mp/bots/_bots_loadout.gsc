@@ -64,7 +64,7 @@ _id_4CC5()
                 var_15 = _id_1691( var_12, var_14, 1 );
                 var_16 = spawnstruct();
                 var_16._id_57E7 = var_5;
-                var_15.look[var_15.look.size] = var_16;
+                var_15.loadouts[var_15.loadouts.size] = var_16;
             }
         }
     }
@@ -320,7 +320,7 @@ _id_1691( var_0, var_1, var_2 )
     if ( !isdefined( level._id_1741[var_3] ) && var_2 )
     {
         level._id_1741[var_3] = spawnstruct();
-        level._id_1741[var_3].look = [];
+        level._id_1741[var_3].loadouts = [];
     }
 
     if ( isdefined( level._id_1741[var_3] ) )
@@ -331,10 +331,10 @@ _id_1690( var_0, var_1 )
 {
     var_2 = _id_1691( var_0, var_1, 0 );
 
-    if ( isdefined( var_2 ) && isdefined( var_2.look ) && var_2.look.size > 0 )
+    if ( isdefined( var_2 ) && isdefined( var_2.loadouts ) && var_2.loadouts.size > 0 )
     {
-        var_3 = randomint( var_2.look.size );
-        return var_2.look[var_3]._id_57E7;
+        var_3 = randomint( var_2.loadouts.size );
+        return var_2.loadouts[var_3]._id_57E7;
     }
 }
 
@@ -1389,20 +1389,20 @@ _id_16F4()
     var_1 = _id_168D();
     var_2 = _id_1691( var_0, var_1, 0 );
 
-    if ( isdefined( var_2 ) && isdefined( var_2.look ) && var_2.look.size > 0 )
+    if ( isdefined( var_2 ) && isdefined( var_2.loadouts ) && var_2.loadouts.size > 0 )
     {
         self._id_1E33 = ::_id_168B;
         return 1;
     }
 
-    var_3 = getsubstr( self.nearz, 0, self.nearz.size - 10 );
+    var_3 = getsubstr( self.name, 0, self.name.size - 10 );
     self._id_1E33 = undefined;
     return 0;
 }
 
 bot_modify_behavior_from_loadout()
 {
-    foreach ( var_2, var_1 in self.persistentperksunlocked )
+    foreach ( var_2, var_1 in self.perks )
     {
         if ( !var_1 )
             continue;

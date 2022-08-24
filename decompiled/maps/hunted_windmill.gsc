@@ -28,7 +28,7 @@ windmill_wheel_setup()
 {
     self.rotate_speed = 1.0;
     self _meth_8563( 1 );
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
     if ( !isdefined( var_0 ) )
     {
@@ -42,8 +42,8 @@ windmill_wheel_setup()
 
 windmill_top_setup()
 {
-    self.missile_fire = 0.1;
-    self.maxrange = 1.0;
+    self.min_time = 0.1;
+    self.max_time = 1.0;
     thread windmill_top_think();
 }
 
@@ -65,7 +65,7 @@ windmill_top_think()
 
     for (;;)
     {
-        var_1 = randomfloatrange( self.missile_fire, self.maxrange );
+        var_1 = randomfloatrange( self.min_time, self.max_time );
         var_0 *= -1;
         self rotateyaw( var_0, var_1, var_1 * 0.5, var_1 * 0.5 );
         wait(var_1);

@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "usp_silencer";
     self._id_855D = "usp_silencer";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "mp5_silencer";
+    self.weapon = "mp5_silencer";
 
     switch ( codescripts\character::_id_3E43( 5 ) )
     {
@@ -61,18 +61,18 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_sas_ct_benjamin::prestigedoublexp();
-    character\character_sp_sas_ct_charles::prestigedoublexp();
-    character\character_sp_sas_ct_mitchel::prestigedoublexp();
-    character\character_sp_sas_ct_neal::prestigedoublexp();
-    character\character_sp_sas_ct_william::prestigedoublexp();
+    character\character_sp_sas_ct_benjamin::precache();
+    character\character_sp_sas_ct_charles::precache();
+    character\character_sp_sas_ct_mitchel::precache();
+    character\character_sp_sas_ct_neal::precache();
+    character\character_sp_sas_ct_william::precache();
     precacheitem( "mp5_silencer" );
     precacheitem( "usp_silencer" );
     precacheitem( "usp_silencer" );

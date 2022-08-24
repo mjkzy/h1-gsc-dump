@@ -50,8 +50,8 @@ _id_7E68()
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     setsaveddvar( "r_specularColorScale", "4.5" );
     maps\_utility::_id_9E6E( "village_assault", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "village_assault" );
-    level.playercardbackground _meth_848c( "clut_village_assault", 0.0 );
+    level.player maps\_utility::set_light_set_player( "village_assault" );
+    level.player _meth_848c( "clut_village_assault", 0.0 );
 }
 
 _id_8106()
@@ -63,14 +63,14 @@ _id_8106()
 goblack( var_0, var_1, var_2 )
 {
     var_3 = newhudelem();
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = 0;
+    var_3.x = 0;
+    var_3.y = 0;
     var_3.alignx = "left";
     var_3.aligny = "top";
-    var_3.hostquits = "fullscreen";
-    var_3.visionsetnight = "fullscreen";
+    var_3.horzalign = "fullscreen";
+    var_3.vertalign = "fullscreen";
     var_3 setshader( "black", 640, 480 );
-    var_3.space = 1;
+    var_3.sort = 1;
     var_3.alpha = 0;
 
     if ( var_1 > 0 )

@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_cobra_pilot_desert_velinda_burned" );
     precachemodel( "head_sp_cobra_pilot_velinda_damaged" );

@@ -50,7 +50,7 @@ main()
 trigger_body( var_0 )
 {
     self waittill( "trigger" );
-    var_1 = getentarray( self._not_team, "targetname" );
+    var_1 = getentarray( self.target, "targetname" );
     common_scripts\utility::_id_0D13( var_1, ::spawn_dead_body, var_0 );
 }
 
@@ -108,7 +108,7 @@ spawn_dead_body( var_0 )
     {
         if ( isdefined( self.link_corpse_clip ) )
         {
-            var_4 = getent( "corpse_clip_" + self.script_parentname, "targetname" );
+            var_4 = getent( "corpse_clip_" + self.script_noteworthy, "targetname" );
 
             if ( isdefined( var_4 ) )
             {
@@ -117,11 +117,11 @@ spawn_dead_body( var_0 )
             }
         }
 
-        var_2 thread lookat_custom_death_anim( self.script_parentname );
+        var_2 thread lookat_custom_death_anim( self.script_noteworthy );
     }
     else
     {
-        var_2 setflaggedanim( "flag", var_2 maps\_utility::_id_3EF5( self.script_parentname ), 1, 0, 1 );
+        var_2 setflaggedanim( "flag", var_2 maps\_utility::_id_3EF5( self.script_noteworthy ), 1, 0, 1 );
         var_2 waittillmatch( "flag", "end" );
 
         if ( !isdefined( self._id_7ADA ) )
@@ -149,7 +149,7 @@ lookat_custom_death_anim( var_0 )
 
     for (;;)
     {
-        if ( distancesquared( level.playercardbackground.origin, self.origin ) > 5000 && ( !checksighttrace( self ) || !common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), self.origin + ( 0.0, 0.0, 12.0 ), var_1 ) ) )
+        if ( distancesquared( level.player.origin, self.origin ) > 5000 && ( !checksighttrace( self ) || !common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), self.origin + ( 0.0, 0.0, 12.0 ), var_1 ) ) )
             var_2 = 0;
         else
             var_2++;
@@ -168,7 +168,7 @@ checksighttrace( var_0 )
     var_1 = var_0 gettagorigin( "J_Ankle_LE" ) + ( 0.0, 0.0, 3.0 );
     var_2 = var_0 gettagorigin( "J_Hip_RI" );
     var_3 = var_0 gettagorigin( "J_HEAD" );
-    return sighttracepassed( level.playercardbackground geteye(), var_1, 0, level.playercardbackground, self ) || sighttracepassed( level.playercardbackground geteye(), var_2, 0, level.playercardbackground, self ) || sighttracepassed( level.playercardbackground geteye(), var_3, 0, level.playercardbackground, self );
+    return sighttracepassed( level.player geteye(), var_1, 0, level.player, self ) || sighttracepassed( level.player geteye(), var_2, 0, level.player, self ) || sighttracepassed( level.player geteye(), var_3, 0, level.player, self );
 }
 
 set_deadbody_info()
@@ -209,7 +209,7 @@ get_custom_deadbody( var_0 )
     var_1 = common_scripts\utility::_id_0CF6( var_1, var_1[0] );
     var_2 = spawnstruct();
     var_2.body = var_1[0];
-    var_2.headshots = var_1[1];
+    var_2.head = var_1[1];
     var_2._id_9F32 = var_1[2];
     var_2.clothtype = var_1[3];
     return var_2;
@@ -218,14 +218,14 @@ get_custom_deadbody( var_0 )
 precache_custom_deadbody()
 {
     precachemodel( self.custom_deadbody.body );
-    precachemodel( self.custom_deadbody.headshots );
+    precachemodel( self.custom_deadbody.head );
 }
 
 custom_deadbody( var_0 )
 {
     var_0 setmodel( self.custom_deadbody.body );
-    var_0 attach( self.custom_deadbody.headshots, "", 1 );
-    var_0.headmodel = self.custom_deadbody.headshots;
+    var_0 attach( self.custom_deadbody.head, "", 1 );
+    var_0.headmodel = self.custom_deadbody.head;
     var_0._id_9F32 = self.custom_deadbody._id_9F32;
     var_0 setclothtype( self.custom_deadbody.clothtype );
 }

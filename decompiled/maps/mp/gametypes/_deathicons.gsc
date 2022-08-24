@@ -70,9 +70,9 @@ _id_07DE( var_0, var_1, var_2, var_3, var_4, var_5 )
         self.lastdeathicon destroy();
 
     var_7 = newteamhudelem( var_2 );
-    var_7.xpmaxmultipliertimeplayed = var_6[0];
-    var_7._id_0538 = var_6[1];
-    var_7._id_053B = var_6[2] + 54;
+    var_7.x = var_6[0];
+    var_7.y = var_6[1];
+    var_7.z = var_6[2] + 54;
     var_7.alpha = 0.61;
     var_7.archived = 1;
 

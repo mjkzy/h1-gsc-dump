@@ -38,11 +38,11 @@ _id_0850( var_0 )
     if ( isplayer( self ) )
     {
         self._id_132D = 0;
-        self.unlockpoints = "human";
+        self.type = "human";
         return;
     }
 
-    if ( self.unlockpoints == "dog" )
+    if ( self.type == "dog" )
     {
         self._id_32A8 = undefined;
         self._id_132D = 0;
@@ -223,7 +223,7 @@ _id_0840( var_0, var_1, var_2 )
     if ( !animscripts\battlechatter::_id_1ADD( "threat", var_0, var_2 ) )
         return;
 
-    if ( isdefined( var_1._id_1A07 ) && isdefined( var_1._id_1A07[self._id_8AB0.stand] ) )
+    if ( isdefined( var_1._id_1A07 ) && isdefined( var_1._id_1A07[self._id_8AB0.squadname] ) )
         return;
 
     var_3 = animscripts\battlechatter::_id_23EA( "threat", var_0, var_2 );
@@ -239,7 +239,7 @@ _id_0840( var_0, var_1, var_2 )
     }
 
     if ( isdefined( var_1._id_8AB0 ) )
-        self._id_8AB0 animscripts\battlechatter::_id_9B0A( var_1._id_8AB0.stand, self );
+        self._id_8AB0 animscripts\battlechatter::_id_9B0A( var_1._id_8AB0.squadname, self );
 
     self._id_1CA6["threat"] = undefined;
     self._id_1CA6["threat"] = var_3;
@@ -253,7 +253,7 @@ _id_0826( var_0, var_1, var_2, var_3 )
     if ( !animscripts\battlechatter::_id_1ADD( "response", var_0, var_3, var_1 ) )
         return;
 
-    if ( var_2 != level.playercardbackground )
+    if ( var_2 != level.player )
     {
         if ( isstring( var_2._id_6252 ) && isstring( self._id_6252 ) && var_2._id_6252 == self._id_6252 )
             return;
@@ -335,7 +335,7 @@ _id_081B( var_0, var_1, var_2, var_3 )
     if ( !animscripts\battlechatter::_id_1ADD( "order", var_0, var_3, var_1 ) )
         return;
 
-    if ( isdefined( var_2 ) && var_2.unlockpoints == "dog" )
+    if ( isdefined( var_2 ) && var_2.type == "dog" )
         return;
 
     var_4 = animscripts\battlechatter::_id_23EA( "order", var_0, var_3 );
@@ -354,7 +354,7 @@ _id_081B( var_0, var_1, var_2, var_3 )
 _id_8AD3()
 {
     anim endon( "battlechatter disabled" );
-    anim endon( "squad deleted " + self.stand );
+    anim endon( "squad deleted " + self.squadname );
 
     for (;;)
     {
@@ -375,7 +375,7 @@ _id_8AD3()
 
         if ( var_2.size )
         {
-            var_0 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_2 );
+            var_0 = common_scripts\utility::_id_3F33( level.player.origin, var_2 );
             var_0 _id_0988();
             var_0 waittill( "death" );
         }
@@ -393,7 +393,7 @@ getthreats( var_0 )
         if ( !isdefined( var_0[var_2]._id_32A8 ) )
             continue;
 
-        if ( !level.playercardbackground animscripts\battlechatter::_id_6E26( var_0[var_2].origin ) )
+        if ( !level.player animscripts\battlechatter::_id_6E26( var_0[var_2].origin ) )
             continue;
 
         var_0[var_2].threatid = var_1.size;
@@ -406,7 +406,7 @@ getthreats( var_0 )
 _id_8AD7()
 {
     anim endon( "battlechatter disabled" );
-    anim endon( "squad deleted " + self.stand );
+    anim endon( "squad deleted " + self.squadname );
 
     for (;;)
     {
@@ -465,7 +465,7 @@ _id_8AD7()
 flexiblethreatwaiter()
 {
     anim endon( "battlechatter disabled" );
-    anim endon( "squad deleted " + self.stand );
+    anim endon( "squad deleted " + self.squadname );
 
     for (;;)
     {
@@ -510,7 +510,7 @@ flexiblethreatwaiter()
                 {
                     var_4 = int( getdvar( "bcs_threatLimitSpeakerDist" ) );
 
-                    if ( distance( level.playercardbackground.origin, self._id_5BA6[var_2].origin ) > var_4 )
+                    if ( distance( level.player.origin, self._id_5BA6[var_2].origin ) > var_4 )
                         continue;
                 }
 
@@ -540,13 +540,13 @@ filterthreats( var_0 )
 
         if ( getdvar( "bcs_threatLimitTargetingPlayer" ) == "on" )
         {
-            if ( !isdefined( var_0[var_2].enemy ) || var_0[var_2].enemy != level.playercardbackground )
+            if ( !isdefined( var_0[var_2].enemy ) || var_0[var_2].enemy != level.player )
                 continue;
         }
 
         if ( getdvar( "bcs_threatLimitInPlayerFOV" ) == "on" )
         {
-            if ( !level.playercardbackground animscripts\battlechatter::_id_6E26( var_0[var_2].origin ) )
+            if ( !level.player animscripts\battlechatter::_id_6E26( var_0[var_2].origin ) )
                 continue;
         }
 
@@ -554,7 +554,7 @@ filterthreats( var_0 )
         {
             var_3 = int( getdvar( "bcs_threatLimitThreatDist" ) );
 
-            if ( distance( level.playercardbackground.origin, var_0[var_2].origin ) > var_3 )
+            if ( distance( level.player.origin, var_0[var_2].origin ) > var_3 )
                 continue;
         }
 
@@ -575,7 +575,7 @@ randomthreatwaiter()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    anim endon( "squad deleted " + self.stand );
+    anim endon( "squad deleted " + self.squadname );
 
     for (;;)
     {
@@ -603,7 +603,7 @@ randomthreatwaiter()
             if ( var_0 > self._id_5BA6[var_1]._id_559D + 2000 )
                 continue;
 
-            self._id_8AD0[var_2._id_8AB0.stand]._id_1A07 = 1;
+            self._id_8AD0[var_2._id_8AB0.squadname]._id_1A07 = 1;
             self._id_5BA6[var_1] _id_0840( var_2._id_32A8, var_2 );
         }
 
@@ -632,8 +632,8 @@ _id_094C()
 
     if ( isalive( var_0 ) && issentient( var_0 ) && isdefined( var_0._id_8AB0 ) && var_0._id_132D )
     {
-        if ( isdefined( var_0._id_1A07[var_0._id_8AB0.stand] ) )
-            var_0._id_1A07[var_0._id_8AB0.stand] = undefined;
+        if ( isdefined( var_0._id_1A07[var_0._id_8AB0.squadname] ) )
+            var_0._id_1A07[var_0._id_8AB0.squadname] = undefined;
 
         for ( var_1 = 0; var_1 < self._id_8AB0._id_5BA6.size; var_1++ )
         {
@@ -666,14 +666,14 @@ _id_094A()
     if ( !isalive( var_0 ) || !issentient( var_0 ) || !isdefined( var_0._id_8AB0 ) )
         return;
 
-    if ( isdefined( self._id_1A07[var_0._id_8AB0.stand] ) && isalive( self._id_1A07[var_0._id_8AB0.stand]._id_8A97 ) && self._id_1A07[var_0._id_8AB0.stand]._id_8A97 != var_0 && gettime() < self._id_1A07[var_0._id_8AB0.stand]._id_351C )
+    if ( isdefined( self._id_1A07[var_0._id_8AB0.squadname] ) && isalive( self._id_1A07[var_0._id_8AB0.squadname]._id_8A97 ) && self._id_1A07[var_0._id_8AB0.squadname]._id_8A97 != var_0 && gettime() < self._id_1A07[var_0._id_8AB0.squadname]._id_351C )
     {
-        if ( var_0 == level.playercardbackground )
+        if ( var_0 == level.player )
             return;
 
         return;
     }
-    else if ( var_0 != level.playercardbackground )
+    else if ( var_0 != level.player )
         var_0 thread _id_0960();
 }
 
@@ -718,10 +718,10 @@ _id_0955()
         if ( getdvar( "bcs_enable" ) == "off" )
             continue;
 
-        if ( !isdefined( var_0 ) || var_0.motiontrackerenabled != "projectile_m67fraggrenade" )
+        if ( !isdefined( var_0 ) || var_0.model != "projectile_m67fraggrenade" )
             continue;
 
-        if ( distance( var_0.origin, level.playercardbackground.origin ) < 512 )
+        if ( distance( var_0.origin, level.player.origin ) < 512 )
             _id_07E7( "incoming", "grenade" );
     }
 }
@@ -768,7 +768,7 @@ _id_094F()
         if ( gettime() < self.a._id_665F + 4000 )
             continue;
 
-        _id_0826( "ack", "yes", level.playercardbackground, 1.0 );
+        _id_0826( "ack", "yes", level.player, 1.0 );
     }
 }
 
@@ -780,10 +780,10 @@ _id_33B5( var_0 )
     if ( !animscripts\battlechatter::_id_1357() )
         return;
 
-    if ( !isdefined( self.node_relinquished ) )
+    if ( !isdefined( self.node ) )
         return;
 
-    var_1 = distance( self.origin, self.node_relinquished.origin );
+    var_1 = distance( self.origin, self.node.origin );
 
     if ( var_1 < 250 )
         return;
@@ -798,7 +798,7 @@ _id_33B5( var_0 )
 
     if ( isdefined( var_2 ) && distance( self.origin, var_2.origin ) < 800 && self._id_20B5 > 0.0 )
     {
-        anim._id_5F63.origin = self.node_relinquished.origin;
+        anim._id_5F63.origin = self.node.origin;
         var_3 = anim._id_5F63 animscripts\battlechatter::getlandmark();
         self._id_8AB0 animscripts\squadmanager::_id_9B77();
 
@@ -830,12 +830,12 @@ _id_33B5( var_0 )
             _id_081B( "action", "coverme", var_2 );
         }
     }
-    else if ( distance( self.origin, level.playercardbackground.origin ) < 500 )
+    else if ( distance( self.origin, level.player.origin ) < 500 )
     {
         if ( self._id_20B5 < 0.0 )
             return;
 
-        _id_081B( "action", "coverme", level.playercardbackground );
+        _id_081B( "action", "coverme", level.player );
     }
 }
 
@@ -1058,9 +1058,9 @@ _id_3158( var_0, var_1 )
         var_2._id_351C = gettime() + var_0;
 
     if ( isdefined( var_1 ) )
-        var_2.unlockpoints = var_1;
+        var_2.type = var_1;
     else
-        var_2.unlockpoints = "custom";
+        var_2.type = "custom";
 
     self._id_1CA6["custom"] = undefined;
     self._id_1CA6["custom"] = var_2;

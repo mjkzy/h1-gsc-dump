@@ -44,8 +44,8 @@ _id_80C6()
 _id_7E68()
 {
     maps\_utility::_id_9E6E( "icbm", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "icbm" );
-    level.playercardbackground _meth_848c( "clut_icbm", 0.0 );
+    level.player maps\_utility::set_light_set_player( "icbm" );
+    level.player _meth_848c( "clut_icbm", 0.0 );
 }
 
 sun_rise_handling_init()
@@ -58,13 +58,13 @@ sun_rise_handling_init()
     var_0 = getent( "sunrise2", "targetname" );
     var_1 = getent( "sunrise3", "targetname" );
     var_2 = getent( "sunrise4", "targetname" );
-    var_0.invisible = 60;
-    var_1.invisible = 20;
-    var_2.invisible = 20;
+    var_0.interval = 60;
+    var_1.interval = 20;
+    var_2.interval = 20;
     thread handle_sunrise2_colors();
     wait 0.05;
     maps\_utility::_id_9E6E( "icbm_sunrise0", 0 );
-    level.playercardbackground _meth_848c( "clut_icbm_sunrise0", 0.0 );
+    level.player _meth_848c( "clut_icbm_sunrise0", 0.0 );
     thread sunrise_lerp_loop();
 }
 
@@ -74,9 +74,9 @@ handle_sunrise2_colors()
     var_0 waittill( "trigger" );
     setsaveddvar( "sm_sunEnable", 1 );
     setsaveddvar( "sm_spotEnable", 1 );
-    var_1 = var_0.invisible;
+    var_1 = var_0.interval;
     sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 0.65, 0.4 ), 1 ), var_1 );
-    level.playercardbackground _meth_848c( "clut_icbm_sunrise2", var_1 );
+    level.player _meth_848c( "clut_icbm_sunrise2", var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise2", "icbm_sunrise_02", var_1 );
     thread stop_snow();
     thread handle_sunrise3_colors();
@@ -91,7 +91,7 @@ skip_to_sunrise2()
 {
     var_0 = getent( "sunrise2", "targetname" );
     wait 0.1;
-    var_0.invisible = 0.05;
+    var_0.interval = 0.05;
     var_0 notify( "trigger" );
 }
 
@@ -112,10 +112,10 @@ handle_sunrise3_colors()
 {
     var_0 = getent( "sunrise3", "targetname" );
     var_0 waittill( "trigger" );
-    var_1 = var_0.invisible;
+    var_1 = var_0.interval;
     sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 0.8, 0.6 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise3", "icbm_sunrise_03", var_1 );
-    level.playercardbackground _meth_848c( "clut_icbm_sunrise3", var_1 );
+    level.player _meth_848c( "clut_icbm_sunrise3", var_1 );
     thread handle_sunrise4_colors();
 }
 
@@ -123,8 +123,8 @@ skip_to_sunrise3()
 {
     var_0 = getent( "sunrise2", "targetname" );
     var_1 = getent( "sunrise3", "targetname" );
-    var_0.invisible = 0.05;
-    var_1.invisible = 0.05;
+    var_0.interval = 0.05;
+    var_1.interval = 0.05;
     wait 0.1;
     var_0 notify( "trigger" );
     wait 0.1;
@@ -135,10 +135,10 @@ handle_sunrise4_colors()
 {
     var_0 = getent( "sunrise4", "targetname" );
     var_0 waittill( "trigger" );
-    var_1 = var_0.invisible;
+    var_1 = var_0.interval;
     sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 1.0, 1.0 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise4", "icbm_sunrise_04", var_1 );
-    level.playercardbackground _meth_848c( "clut_icbm_sunrise4", var_1 );
+    level.player _meth_848c( "clut_icbm_sunrise4", var_1 );
 }
 
 skip_to_sunrise4()
@@ -146,9 +146,9 @@ skip_to_sunrise4()
     var_0 = getent( "sunrise2", "targetname" );
     var_1 = getent( "sunrise3", "targetname" );
     var_2 = getent( "sunrise4", "targetname" );
-    var_0.invisible = 0.05;
-    var_1.invisible = 0.05;
-    var_2.invisible = 0.05;
+    var_0.interval = 0.05;
+    var_1.interval = 0.05;
+    var_2.interval = 0.05;
     wait 0.1;
     var_0 notify( "trigger" );
     wait 0.1;
@@ -161,13 +161,13 @@ launchvision()
 {
     wait 5;
     thread handle_launch_cinematic_effects();
-    level.playercardbackground maps\_utility::set_light_set_player( "icbm_launch" );
+    level.player maps\_utility::set_light_set_player( "icbm_launch" );
     maps\_utility::_id_9E6E( "icbm_launch", 0.5 );
-    level.playercardbackground _meth_848c( "clut_icbm_launch", 0.5 );
+    level.player _meth_848c( "clut_icbm_launch", 0.5 );
     wait 2;
     maps\_utility::_id_9E6E( "icbm_sunrise4", 5 );
-    level.playercardbackground maps\_utility::set_light_set_player( "icbm_sunrise_04" );
-    level.playercardbackground _meth_848c( "clut_icbm_sunrise4", 5 );
+    level.player maps\_utility::set_light_set_player( "icbm_sunrise_04" );
+    level.player _meth_848c( "clut_icbm_sunrise4", 5 );
     level notify( "missile_vision_done" );
 }
 
@@ -190,11 +190,11 @@ set_interior_vision()
         common_scripts\utility::_id_384A( "player_is_inside" );
         maps\_utility::_id_7F00( "icbm_village_interior", 2 );
         maps\_utility::_id_9E6E( "icbm_village_interior", 2 );
-        level.playercardbackground maps\_utility::set_light_set_player( "icbm_village_interior" );
+        level.player maps\_utility::set_light_set_player( "icbm_village_interior" );
         common_scripts\utility::_id_3857( "player_is_inside" );
         maps\_utility::_id_7F00( level.outside_vision_set, 2 );
         maps\_utility::_id_9E6E( level.outside_vision_set, 6 );
-        level.playercardbackground maps\_utility::set_light_set_player( level.outside_light_set );
+        level.player maps\_utility::set_light_set_player( level.outside_light_set );
     }
 }
 
@@ -223,7 +223,7 @@ set_exterior_vision_and_light_set( var_0, var_1, var_2 )
     {
         maps\_utility::_id_7F00( level.outside_vision_set, var_2 );
         maps\_utility::_id_9E6E( level.outside_vision_set, var_2 );
-        level.playercardbackground maps\_utility::set_light_set_player( level.outside_light_set );
+        level.player maps\_utility::set_light_set_player( level.outside_light_set );
     }
 }
 

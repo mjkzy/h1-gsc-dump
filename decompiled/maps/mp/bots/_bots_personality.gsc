@@ -473,7 +473,7 @@ _id_160F( var_0, var_1 )
     if ( isdefined( var_3 ) && var_3.size > 0 )
     {
         wait 0.05;
-        var_4 = var_0.unlockpoints != "Cover Stand" && var_0.unlockpoints != "Conceal Stand";
+        var_4 = var_0.type != "Cover Stand" && var_0.type != "Conceal Stand";
 
         if ( var_4 && var_1 )
             var_3 = self _meth_837e( var_3, "node_exposure_vis", var_0.origin, "crouch" );
@@ -639,7 +639,7 @@ _id_3758()
                 if ( var_6.size > 0 )
                 {
                     var_10 = common_scripts\utility::_id_710E( getzonenodes( var_9 ) );
-                    var_11 = isdefined( var_10.teambalanced ) && var_10.teambalanced == "no_bot_random_path";
+                    var_11 = isdefined( var_10.targetname ) && var_10.targetname == "no_bot_random_path";
 
                     if ( !var_11 )
                     {

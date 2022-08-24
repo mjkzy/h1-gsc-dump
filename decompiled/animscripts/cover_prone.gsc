@@ -77,7 +77,7 @@ main()
     self endon( "killanimscript" );
     animscripts\utility::_id_4DD7( "cover_prone" );
 
-    if ( weaponclass( self.weapon_switch_invalid ) == "rocketlauncher" )
+    if ( weaponclass( self.weapon ) == "rocketlauncher" )
     {
         animscripts\combat::main();
         return;
@@ -85,7 +85,7 @@ main()
 
     if ( isdefined( self.a._id_0D29 ) && self.a._id_0D29 == "prone_saw" )
         animscripts\cover_wall::_id_9C12( "saw_bipod_prone", "weapon_saw_MG_Setup", 0 );
-    else if ( isdefined( self.node_relinquished._id_9940 ) )
+    else if ( isdefined( self.node._id_9940 ) )
         animscripts\cover_wall::_id_9C15();
 
     if ( isdefined( self.enemy ) && lengthsquared( self.origin - self.enemy.origin ) < squared( 512 ) )
@@ -96,7 +96,7 @@ main()
 
     _id_80A3();
     self._id_993A = 50;
-    self._id_22BA = self.node_relinquished;
+    self._id_22BA = self.node;
     self _meth_8193( "face angle", self.angles[1] );
     self.a._id_425B = 1;
     self _meth_81fd( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
@@ -217,7 +217,7 @@ _id_2D88( var_0, var_1 )
 
     if ( isdefined( self._id_993E ) )
         self _meth_8192( "angle deltas", 0 );
-    else if ( isdefined( self.node_relinquished ) && isdefined( anim._id_50E3[self.node_relinquished.unlockpoints] ) && distancesquared( self.origin, self.node_relinquished.origin ) < 256 )
+    else if ( isdefined( self.node ) && isdefined( anim._id_50E3[self.node.type] ) && distancesquared( self.origin, self.node.origin ) < 256 )
         self _meth_8192( "angle deltas", 0 );
     else if ( animscripts\combat::_id_50B8( var_9 ) )
         animscripts\combat::_id_7444();
@@ -373,12 +373,12 @@ _id_7022()
 
 _id_7026( var_0 )
 {
-    return animscripts\combat_utility::rendertotexture( var_0, animscripts\utility::_id_0C4E( "reload" ) );
+    return animscripts\combat_utility::reload( var_0, animscripts\utility::_id_0C4E( "reload" ) );
 }
 
 _id_80A3()
 {
-    self _meth_8177( self.node_relinquished );
+    self _meth_8177( self.node );
     self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_prone" );
 }
 
@@ -392,18 +392,18 @@ _id_98A5( var_0, var_1 )
         var_2 = animscripts\utility::_id_0C51( "grenade_exposed" );
 
     self _meth_8192( "zonly_physics" );
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_3 = ( 32.0, 20.0, 64.0 );
     var_4 = animscripts\combat_utility::_id_989D( var_0, var_2 );
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return var_4;
 }
 
 _id_2152()
 {
-    if ( isdefined( anim._id_933B ) && isalive( level.playercardbackground ) )
+    if ( isdefined( anim._id_933B ) && isalive( level.player ) )
     {
-        if ( _id_98A5( level.playercardbackground, 200 ) )
+        if ( _id_98A5( level.player, 200 ) )
             return 1;
     }
 
@@ -415,10 +415,10 @@ _id_2152()
 
 _id_8499()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) || !weaponisauto( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) || !weaponisauto( self.weapon ) )
         return 0;
 
-    if ( isdefined( self.node_relinquished ) && distancesquared( self.origin, self.node_relinquished.origin ) < 256 )
+    if ( isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 256 )
         return 0;
 
     if ( isdefined( self.enemy ) && self _meth_81c2( self.enemy ) && !isdefined( self.grenade ) && animscripts\shared::_id_3EE4() < 20 )

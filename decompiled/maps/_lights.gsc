@@ -159,9 +159,9 @@ _id_3C8E()
     var_5 = 0;
     var_6 = [];
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_7 = getentarray( self.script_parentname, "targetname" );
+        var_7 = getentarray( self.script_noteworthy, "targetname" );
 
         for ( var_8 = 0; var_8 < var_7.size; var_8++ )
         {
@@ -174,7 +174,7 @@ _id_3C8E()
             if ( var_7[var_8].classname == "script_model" )
             {
                 var_3 = var_7[var_8];
-                var_4 = getent( var_3._not_team, "targetname" );
+                var_4 = getent( var_3.target, "targetname" );
                 var_2 = 1;
             }
         }
@@ -257,7 +257,7 @@ _id_3C94()
 
         foreach ( var_1 in self._id_578E )
         {
-            if ( isdefined( var_1.script_parentname ) && var_1.script_parentname == "on" )
+            if ( isdefined( var_1.script_noteworthy ) && var_1.script_noteworthy == "on" )
             {
                 if ( !isdefined( self._id_57A6 ) )
                     self._id_57A6[0] = var_1;
@@ -267,7 +267,7 @@ _id_3C94()
                 continue;
             }
 
-            if ( isdefined( var_1.script_parentname ) && var_1.script_parentname == "off" )
+            if ( isdefined( var_1.script_noteworthy ) && var_1.script_noteworthy == "off" )
             {
                 if ( !isdefined( self._id_9A39 ) )
                     self._id_9A39[0] = var_1;
@@ -288,8 +288,8 @@ _id_3C94()
         self._id_578C = 1;
     }
 
-    if ( isdefined( self.script_parentname ) )
-        self._id_5790 = getentarray( self.script_parentname, "targetname" );
+    if ( isdefined( self.script_noteworthy ) )
+        self._id_5790 = getentarray( self.script_noteworthy, "targetname" );
 
     if ( !self._id_5790.size && !isdefined( self._id_578E ) )
         self._id_5790 = _id_3F3A( self.origin );
@@ -312,9 +312,9 @@ _id_3C94()
                 self._id_57A6[self._id_57A6.size] = var_4;
 
             if ( !isdefined( self._id_9A39 ) )
-                self._id_9A39[0] = getent( var_4._not_team, "targetname" );
+                self._id_9A39[0] = getent( var_4.target, "targetname" );
             else
-                self._id_9A39[self._id_9A39.size] = getent( var_4._not_team, "targetname" );
+                self._id_9A39[self._id_9A39.size] = getent( var_4.target, "targetname" );
 
             self._id_578C = 1;
         }
@@ -859,9 +859,9 @@ _id_4D0B()
     self._id_9A39 = [];
     self._id_578A = [];
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getentarray( self._not_team, "targetname" );
+        var_0 = getentarray( self.target, "targetname" );
 
         if ( var_0.size == 0 )
             return;
@@ -877,14 +877,14 @@ _id_4D0B()
 
             var_3 = 1;
 
-            if ( isdefined( var_2.script_parentname ) )
+            if ( isdefined( var_2.script_noteworthy ) )
             {
-                if ( var_2.script_parentname == "on" )
+                if ( var_2.script_noteworthy == "on" )
                 {
                     var_3 = 0;
                     _id_4D0C( var_2 );
                 }
-                else if ( var_2.script_parentname == "off" )
+                else if ( var_2.script_noteworthy == "off" )
                 {
                     var_3 = 0;
                     self._id_9A39[self._id_9A39.size] = var_2;
@@ -894,7 +894,7 @@ _id_4D0B()
             if ( var_3 )
             {
                 _id_4D0C( var_2 );
-                var_4 = getentarray( var_2._not_team, "targetname" );
+                var_4 = getentarray( var_2.target, "targetname" );
 
                 foreach ( var_6 in var_4 )
                     self._id_9A39[self._id_9A39.size] = var_6;
@@ -925,9 +925,9 @@ _id_4D0C( var_0 )
         var_2 = var_0.origin;
         var_3 = var_0.angles;
     }
-    else if ( isdefined( var_0._not_team ) )
+    else if ( isdefined( var_0.target ) )
     {
-        var_4 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+        var_4 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
 
         if ( isdefined( var_4 ) && isdefined( var_4.script_fxid ) )
         {
@@ -966,7 +966,7 @@ _id_7051()
         {
             var_6 = randomfloatrange( var_0, var_1 );
             _id_568D( var_6, _id_3D30() );
-            maps\_utility::script_lightset();
+            maps\_utility::script_delay();
             var_6 = randomfloatrange( var_2, var_3 );
             _id_568D( var_6, _id_3D30() );
         }

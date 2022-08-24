@@ -99,7 +99,7 @@ _id_5B7B()
 
 _id_5B6B()
 {
-    self._id_5B36._not_team = self.enemy;
+    self._id_5B36.target = self.enemy;
     self._id_5B36._id_4DE7 = 0;
     self._id_5B36._id_4E43 = 0;
 }
@@ -129,21 +129,21 @@ _id_5B4A()
 
     self._id_5B36._id_3AE4 = undefined;
     self._id_60D2 = gettime() + 150;
-    self._id_60D1 = self._id_5B36._not_team;
+    self._id_60D1 = self._id_5B36.target;
     return 0;
 }
 
 _id_5B7E()
 {
     var_0 = 1;
-    var_1 = distance2d( self._id_5B36._id_8D38, self._id_5B36._not_team.origin );
+    var_1 = distance2d( self._id_5B36._id_8D38, self._id_5B36.target.origin );
 
     if ( var_1 < 32 )
     {
-        var_2 = vectornormalize( ( self._id_5B36._id_8D38[0] - self._id_5B36._not_team.origin[0], self._id_5B36._id_8D38[1] - self._id_5B36._not_team.origin[1], 0 ) );
+        var_2 = vectornormalize( ( self._id_5B36._id_8D38[0] - self._id_5B36.target.origin[0], self._id_5B36._id_8D38[1] - self._id_5B36.target.origin[1], 0 ) );
         self._id_5B36._id_8D38 += var_2 * ( 32 - var_1 );
 
-        if ( distance( self._id_5B36._id_8D38, self._id_5B36._not_team.origin ) < 31.9 )
+        if ( distance( self._id_5B36._id_8D38, self._id_5B36.target.origin ) < 31.9 )
             return 0;
 
         var_0 = 0;
@@ -167,26 +167,26 @@ _id_5B7E()
 
     if ( isdefined( self._id_5B36._id_8D43 ) )
     {
-        var_4 = self._id_5B36._id_8D38 - self._id_5B36._not_team.origin;
+        var_4 = self._id_5B36._id_8D38 - self._id_5B36.target.origin;
         var_5 = anglestoforward( self._id_5B36._id_8D43 );
         var_6 = vectordot( var_5, var_4 );
         var_7 = self._id_5B36._id_8D38 - var_5 * var_6;
-        var_8 = self._id_5B36._not_team.origin - var_7;
-        var_9 = distance2d( self._id_5B36._not_team.origin, var_7 );
+        var_8 = self._id_5B36.target.origin - var_7;
+        var_9 = distance2d( self._id_5B36.target.origin, var_7 );
 
         if ( var_9 < 32 )
             var_7 -= var_8 * ( 32 - var_9 ) / 32;
     }
     else
     {
-        var_2 = vectornormalize( ( self._id_5B36._id_8D38[0] - self._id_5B36._not_team.origin[0], self._id_5B36._id_8D38[1] - self._id_5B36._not_team.origin[1], 0 ) );
-        var_7 = self._id_5B36._not_team.origin + var_2 * 32;
+        var_2 = vectornormalize( ( self._id_5B36._id_8D38[0] - self._id_5B36.target.origin[0], self._id_5B36._id_8D38[1] - self._id_5B36.target.origin[1], 0 ) );
+        var_7 = self._id_5B36.target.origin + var_2 * 32;
     }
 
     if ( !self _meth_81c8( self._id_5B36._id_8D38, var_7, 1, 0 ) )
         return 0;
 
-    if ( !self _meth_81c8( var_7, self._id_5B36._not_team.origin, 1, 1 ) )
+    if ( !self _meth_81c8( var_7, self._id_5B36.target.origin, 1, 1 ) )
         return 0;
 
     return 1;
@@ -194,10 +194,10 @@ _id_5B7E()
 
 _id_5B62()
 {
-    if ( !isdefined( self._id_5B36._not_team ) )
+    if ( !isdefined( self._id_5B36.target ) )
         return 0;
 
-    var_0 = self._id_5B36._not_team;
+    var_0 = self._id_5B36.target;
 
     if ( isdefined( var_0._id_2D38 ) )
         return 0;
@@ -235,7 +235,7 @@ _id_5B62()
     if ( !isalive( var_0 ) )
         return 0;
 
-    if ( isdefined( var_0._id_2D2B ) || isdefined( var_0.ignoretriggers ) && var_0.ignoretriggers )
+    if ( isdefined( var_0._id_2D2B ) || isdefined( var_0.ignoreme ) && var_0.ignoreme )
         return 0;
 
     if ( !isai( var_0 ) && !isplayer( var_0 ) )
@@ -326,9 +326,9 @@ _id_5B71( var_0 )
 
 _id_5B6F()
 {
-    var_0 = distancesquared( self._id_5B36._not_team.origin, self.origin );
+    var_0 = distancesquared( self._id_5B36.target.origin, self.origin );
 
-    if ( var_0 > 4096 && isdefined( self._id_60D4 ) && isdefined( self._id_60D3 ) && gettime() < self._id_60D4 && self._id_60D3 == self._id_5B36._not_team )
+    if ( var_0 > 4096 && isdefined( self._id_60D4 ) && isdefined( self._id_60D3 ) && gettime() < self._id_60D4 && self._id_60D3 == self._id_5B36.target )
         return 0;
 
     return 1;
@@ -336,13 +336,13 @@ _id_5B6F()
 
 _id_5B70()
 {
-    if ( isdefined( self._id_5B36._not_team._id_58D7 ) )
+    if ( isdefined( self._id_5B36.target._id_58D7 ) )
         return 0;
 
     if ( !_id_5B6F() )
         return 0;
 
-    if ( isdefined( self._id_5B36._not_team._id_8A32 ) )
+    if ( isdefined( self._id_5B36.target._id_8A32 ) )
         return 0;
 
     return _id_5B76();
@@ -352,12 +352,12 @@ _id_5B75()
 {
     if ( isdefined( self._id_5B82 ) )
         var_0 = self._id_5B82;
-    else if ( isplayer( self._id_5B36._not_team ) )
+    else if ( isplayer( self._id_5B36.target ) )
         var_0 = 40000;
     else
         var_0 = 25600;
 
-    if ( distancesquared( self.origin, self._id_5B36._not_team.origin ) > var_0 )
+    if ( distancesquared( self.origin, self._id_5B36.target.origin ) > var_0 )
         self._id_5B36._id_420F = gettime() + 3000;
     else
         self._id_5B36._id_420F = gettime() + 1000;
@@ -367,23 +367,23 @@ _id_5B73()
 {
     self _meth_8192( "zonly_physics" );
 
-    if ( isdefined( self._id_5B36._not_team ) )
+    if ( isdefined( self._id_5B36.target ) )
         _id_5B75();
 
-    while ( isdefined( self._id_5B36._not_team ) )
+    while ( isdefined( self._id_5B36.target ) )
     {
         if ( !_id_5B72() )
         {
             self._id_60D0 = gettime() + 1500;
-            self._id_60CF = self._id_5B36._not_team;
+            self._id_60CF = self._id_5B36.target;
             break;
         }
 
-        if ( !isdefined( self._id_5B36._not_team ) )
+        if ( !isdefined( self._id_5B36.target ) )
             break;
 
         animscripts\battlechatter_ai::_id_33B4();
-        self _meth_8193( "face point", self._id_5B36._not_team.origin );
+        self _meth_8193( "face point", self._id_5B36.target.origin );
         var_0 = animscripts\utility::_id_5863( "melee", "standard" );
         self setflaggedanimknoballrestart( "meleeanim", var_0, %body, 1, 0.2, 1 );
         _id_5B68( var_0 );
@@ -391,7 +391,7 @@ _id_5B73()
 
         if ( !_id_5B74() )
         {
-            _id_5B71( self._id_5B36._not_team );
+            _id_5B71( self._id_5B36.target );
             break;
         }
     }
@@ -419,12 +419,12 @@ _id_5B74()
 
         if ( var_0 == "fire" )
         {
-            if ( isdefined( self._id_5B36._not_team ) )
+            if ( isdefined( self._id_5B36.target ) )
             {
-                var_1 = self._id_5B36._not_team.helmet;
+                var_1 = self._id_5B36.target.health;
                 self _meth_81ec();
 
-                if ( isdefined( self._id_5B36._not_team ) && self._id_5B36._not_team.helmet < var_1 )
+                if ( isdefined( self._id_5B36.target ) && self._id_5B36.target.health < var_1 )
                     _id_5B75();
             }
         }
@@ -433,7 +433,7 @@ _id_5B74()
 
 _id_5B76()
 {
-    if ( !isdefined( self._id_5B36._not_team ) )
+    if ( !isdefined( self._id_5B36.target ) )
         return 0;
 
     if ( !isdefined( self.enemy ) )
@@ -442,8 +442,8 @@ _id_5B76()
     if ( !_id_5B62() )
         return 0;
 
-    var_0 = vectornormalize( self._id_5B36._not_team.origin - self.origin );
-    self._id_5B36._id_8D38 = self._id_5B36._not_team.origin - 40.0 * var_0;
+    var_0 = vectornormalize( self._id_5B36.target.origin - self.origin );
+    self._id_5B36._id_8D38 = self._id_5B36.target.origin - 40.0 * var_0;
     return _id_5B7E();
 }
 
@@ -452,7 +452,7 @@ _id_5B72()
     if ( !_id_5B76() )
         return 0;
 
-    var_0 = common_scripts\utility::_id_2B73( self.origin, self._id_5B36._not_team.origin );
+    var_0 = common_scripts\utility::_id_2B73( self.origin, self._id_5B36.target.origin );
 
     if ( var_0 <= 4096 )
     {
@@ -464,7 +464,7 @@ _id_5B72()
     }
 
     _id_5B67();
-    var_2 = self._id_5B36._not_team.origin;
+    var_2 = self._id_5B36.target.origin;
     var_3 = 0.1;
     var_4 = animscripts\utility::_id_5863( "melee", "standard_run_to_melee" );
     var_5 = length( getmovedelta( var_4, 0, 1 ) );
@@ -480,10 +480,10 @@ _id_5B72()
     var_15 = undefined;
     var_16 = animscripts\utility::_id_5863( "run", "straight" );
 
-    if ( isplayer( self._id_5B36._not_team ) && self._id_5B36._not_team == self.enemy )
+    if ( isplayer( self._id_5B36.target ) && self._id_5B36.target == self.enemy )
         self _meth_8193( "face enemy" );
     else
-        self _meth_8193( "face point", self._id_5B36._not_team.origin );
+        self _meth_8193( "face point", self._id_5B36.target.origin );
 
     self setflaggedanimknoball( "chargeanim", var_16, %body, 1, 0.2, 1 );
     _id_5B68( var_16 );
@@ -526,13 +526,13 @@ _id_5B72()
             return 0;
         }
 
-        var_0 = common_scripts\utility::_id_2B73( self.origin, self._id_5B36._not_team.origin );
-        var_21 = ( self._id_5B36._not_team.origin - var_2 ) * 1 / ( gettime() - var_18 );
-        var_2 = self._id_5B36._not_team.origin;
-        var_22 = self._id_5B36._not_team.origin + var_21 * var_13;
+        var_0 = common_scripts\utility::_id_2B73( self.origin, self._id_5B36.target.origin );
+        var_21 = ( self._id_5B36.target.origin - var_2 ) * 1 / ( gettime() - var_18 );
+        var_2 = self._id_5B36.target.origin;
+        var_22 = self._id_5B36.target.origin + var_21 * var_13;
         var_15 = common_scripts\utility::_id_2B73( self.origin, var_22 );
 
-        if ( var_17 && var_0 <= var_10 && ( gettime() - var_14 >= var_12 || !isplayer( self._id_5B36._not_team ) ) )
+        if ( var_17 && var_0 <= var_10 && ( gettime() - var_14 >= var_12 || !isplayer( self._id_5B36.target ) ) )
             break;
 
         if ( !var_17 && gettime() >= self._id_5B36._id_420F )
@@ -571,7 +571,7 @@ _id_5B3F( var_0 )
     if ( abs( var_0 ) < var_1 )
         return 0;
 
-    var_2 = self._id_5B36._not_team;
+    var_2 = self._id_5B36.target;
     _id_5B4F();
 
     if ( self._id_5B36._id_A342 )
@@ -599,7 +599,7 @@ _id_5B40( var_0 )
     if ( abs( var_0 ) < var_1 )
         return 0;
 
-    var_2 = self._id_5B36._not_team;
+    var_2 = self._id_5B36.target;
 
     if ( isdefined( var_2._id_58D7 ) )
         return 0;
@@ -627,7 +627,7 @@ melee_aivsai_exposed_chooseanimationandposition_kick( var_0 )
     if ( isdefined( self._id_58D7 ) )
         return 0;
 
-    var_2 = self._id_5B36._not_team;
+    var_2 = self._id_5B36.target;
 
     if ( isdefined( self._id_5B7F ) )
         return 0;
@@ -644,7 +644,7 @@ _id_5B3D( var_0 )
     if ( -90 > var_0 || var_0 > 0 )
         return 0;
 
-    var_1 = self._id_5B36._not_team;
+    var_1 = self._id_5B36.target;
 
     if ( isdefined( var_1._id_58D7 ) )
         return 0;
@@ -688,7 +688,7 @@ _id_5B3C()
     if ( isdefined( self.h1_melee_animations_enabled ) && !self.h1_melee_animations_enabled )
         return 0;
 
-    var_0 = self._id_5B36._not_team;
+    var_0 = self._id_5B36.target;
     var_1 = vectortoangles( var_0.origin - self.origin );
     var_2 = angleclamp180( var_0.angles[1] - var_1[1] );
     var_3 = _id_5B3E();
@@ -710,7 +710,7 @@ _id_5B3C()
 
 _id_5B4F()
 {
-    var_0 = self._id_5B36._not_team;
+    var_0 = self._id_5B36.target;
 
     if ( isdefined( self._id_5B7F ) )
     {
@@ -733,9 +733,9 @@ _id_5B4F()
 
 _id_5B48()
 {
-    var_0 = self._id_5B36._not_team;
+    var_0 = self._id_5B36.target;
     _id_5B4F();
-    var_1 = var_0._id_22BA.unlockpoints;
+    var_1 = var_0._id_22BA.type;
 
     if ( var_1 == "Cover Multi" )
         var_1 = animscripts\utility::_id_3F3F( var_0._id_22BA );
@@ -785,17 +785,17 @@ _id_5B47()
     if ( isdefined( self.h1_melee_animations_enabled ) && !self.h1_melee_animations_enabled )
         return 0;
 
-    var_0 = self._id_5B36._not_team._id_22BA;
+    var_0 = self._id_5B36.target._id_22BA;
 
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( distancesquared( var_0.origin, self._id_5B36._not_team.origin ) > 16 && isdefined( self._id_5B36._not_team.a._id_22AB ) && ( self._id_5B36._not_team.a._id_22AB != "hide" && self._id_5B36._not_team.a._id_22AB != "lean" ) )
+    if ( distancesquared( var_0.origin, self._id_5B36.target.origin ) > 16 && isdefined( self._id_5B36.target.a._id_22AB ) && ( self._id_5B36.target.a._id_22AB != "hide" && self._id_5B36.target.a._id_22AB != "lean" ) )
         return 0;
 
     var_1 = vectortoangles( self.origin - var_0.origin );
     var_2 = angleclamp180( var_0.angles[1] - var_1[1] );
-    var_3 = var_0.unlockpoints;
+    var_3 = var_0.type;
 
     if ( var_3 == "Cover Multi" )
         var_3 = animscripts\utility::_id_3F3F( var_0 );
@@ -816,12 +816,12 @@ _id_5B47()
 
 _id_5B3A()
 {
-    var_0 = self._id_5B36._not_team;
+    var_0 = self._id_5B36.target;
 
-    if ( !isai( var_0 ) || var_0.unlockpoints != "human" )
+    if ( !isai( var_0 ) || var_0.type != "human" )
         return 0;
 
-    if ( self.start_move != "none" || var_0.start_move != "none" )
+    if ( self.stairsstate != "none" || var_0.stairsstate != "none" )
         return 0;
 
     if ( isdefined( self._id_5B7F ) && isdefined( var_0._id_5B7F ) )
@@ -875,8 +875,8 @@ _id_5B49( var_0 )
     if ( !isalive( var_0 ) )
         return;
 
-    self.tag_ai_aim_target = var_0;
-    var_0.tag_ai_aim_target = self;
+    self.syncedmeleetarget = var_0;
+    var_0.syncedmeleetarget = self;
     self._id_5B36._id_5786 = 1;
     var_0._id_5B36._id_5786 = 1;
     self linktoblendtotag( var_0, "tag_sync", 1, 1 );
@@ -887,11 +887,11 @@ _id_5B45()
     if ( !_id_5B41() )
     {
         self._id_60D0 = gettime() + 1500;
-        self._id_60CF = self._id_5B36._not_team;
+        self._id_60CF = self._id_5B36.target;
         return;
     }
 
-    var_0 = self._id_5B36._not_team;
+    var_0 = self._id_5B36.target;
 
     if ( !animhasnotetrack( self._id_5B36._id_0C72, "sync" ) )
         return;
@@ -924,14 +924,14 @@ _id_5B45()
         var_0._id_560F = var_0.primaryweapon;
     }
 
-    self._id_5B36.weapon_switch_invalid = self.weapon_switch_invalid;
+    self._id_5B36.weapon = self.weapon;
     self._id_5B36._id_A2E9 = animscripts\utility::_id_3F47();
-    var_0._id_5B36.weapon_switch_invalid = var_0.weapon_switch_invalid;
+    var_0._id_5B36.weapon = var_0.weapon;
     var_0._id_5B36._id_A2E9 = var_0 animscripts\utility::_id_3F47();
     self._id_5B36._id_4E43 = 1;
     var_0 _meth_819e( ::_id_5B3B, ::_id_5B54 );
     var_0 thread _id_5B39( self );
-    self._id_5B36._not_team = undefined;
+    self._id_5B36.target = undefined;
     _id_5B3B();
 }
 
@@ -955,7 +955,7 @@ _id_5B44( var_0, var_1 )
     if ( !_id_5B62() )
         return 0;
 
-    var_2 = self._id_5B36._not_team;
+    var_2 = self._id_5B36.target;
     var_3 = distancesquared( var_2.origin, var_0 );
 
     if ( self._id_5B36._id_6EE9 )
@@ -982,9 +982,9 @@ _id_5B43( var_0 )
         return 1;
 
     var_2 = distancesquared( ( var_0[0], var_0[1], 0 ), ( self._id_5B36._id_8D38[0], self._id_5B36._id_8D38[1], 0 ) );
-    var_3 = distancesquared( ( self.origin[0], self.origin[1], 0 ), ( self._id_5B36._not_team.origin[0], self._id_5B36._not_team.origin[1], 0 ) );
+    var_3 = distancesquared( ( self.origin[0], self.origin[1], 0 ), ( self._id_5B36.target.origin[0], self._id_5B36.target.origin[1], 0 ) );
 
-    if ( var_2 > var_3 && abs( self._id_5B36._not_team.origin[2] - self.origin[2] ) < 64 )
+    if ( var_2 > var_3 && abs( self._id_5B36.target.origin[2] - self.origin[2] ) < 64 )
         return 1;
 
     return 0;
@@ -1017,9 +1017,9 @@ _id_5B41()
     self _meth_8144( %body, 0.2 );
     self _meth_8149( animscripts\run::_id_40BD(), %body, 1, 0.2 );
     self _meth_8192( "zonly_physics" );
-    self.key1 = 1;
+    self.keepclaimednode = 1;
     var_0 = gettime() + 1500;
-    var_1 = self._id_5B36._not_team.origin;
+    var_1 = self._id_5B36.target.origin;
 
     while ( _id_5B44( var_1, var_0 ) )
     {
@@ -1071,7 +1071,7 @@ _id_5B3B()
     if ( isdefined( self._id_5B36 ) && isdefined( self._id_5B36.death ) )
         self kill();
 
-    self.key1 = 0;
+    self.keepclaimednode = 0;
 }
 
 _id_5B50()
@@ -1084,18 +1084,18 @@ _id_5B50()
 
 _id_5B64()
 {
-    return isdefined( self._id_5B36.weapon_switch_invalid ) && self._id_5B36.weapon_switch_invalid != "none" && self.weapon_switch_invalid != self._id_5B36.weapon_switch_invalid;
+    return isdefined( self._id_5B36.weapon ) && self._id_5B36.weapon != "none" && self.weapon != self._id_5B36.weapon;
 }
 
 _id_5B53()
 {
-    if ( self.weapon_switch_invalid != "none" && self._id_560F != "none" )
+    if ( self.weapon != "none" && self._id_560F != "none" )
         return;
 
-    if ( !isdefined( self._id_5B36.weapon_switch_invalid ) || self._id_5B36.weapon_switch_invalid == "none" )
+    if ( !isdefined( self._id_5B36.weapon ) || self._id_5B36.weapon == "none" )
         return;
 
-    maps\_utility::_id_39D0( self._id_5B36.weapon_switch_invalid, self._id_5B36._id_A2E9 );
+    maps\_utility::_id_39D0( self._id_5B36.weapon, self._id_5B36._id_A2E9 );
 
     if ( isdefined( self._id_5B36._id_2F75 ) )
     {
@@ -1154,8 +1154,8 @@ _id_5B7C()
     if ( !isdefined( self._id_5B36._id_5786 ) )
         return;
 
-    if ( isdefined( self.tag_ai_aim_target ) )
-        self.tag_ai_aim_target _id_5B7D();
+    if ( isdefined( self.syncedmeleetarget ) )
+        self.syncedmeleetarget _id_5B7D();
 
     _id_5B7D();
 }
@@ -1163,7 +1163,7 @@ _id_5B7C()
 _id_5B7D()
 {
     self unlink();
-    self.tag_ai_aim_target = undefined;
+    self.syncedmeleetarget = undefined;
 
     if ( !isalive( self ) )
         return;
@@ -1260,7 +1260,7 @@ _id_5B5C( var_0 )
         {
             self playsound( "melee_knife_hit_body" );
 
-            if ( maps\_utility::_id_4749( self.motiontrackerenabled, "TAG_KNIFE_FX" ) )
+            if ( maps\_utility::_id_4749( self.model, "TAG_KNIFE_FX" ) )
                 playfxontag( level._effect["melee_knife_ai"], self, "TAG_KNIFE_FX" );
             else
             {
@@ -1352,7 +1352,7 @@ _id_5B54()
     if ( isdefined( self._id_5B36._id_66A5 ) )
         self._id_5B36._id_66A5 notify( "partner_end_melee" );
 
-    _id_5B6A( self._id_5B36._not_team );
+    _id_5B6A( self._id_5B36.target );
     _id_5B4B();
 }
 

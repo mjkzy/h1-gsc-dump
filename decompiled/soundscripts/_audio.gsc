@@ -29,8 +29,8 @@ _id_0F91( var_0 )
     if ( !isdefined( level._id_0E57 ) )
         level._id_0E57 = spawnstruct();
 
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 
     if ( !isdefined( level._id_055B ) )
         level._id_055B = spawnstruct();
@@ -130,7 +130,7 @@ _id_0FF4( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_8._id_6E22 = var_2;
     var_8._id_6E23 = var_3;
     var_8._id_35DC = var_6;
-    var_8.land = var_0;
+    var_8.label = var_0;
     var_8 thread _id_1116();
     level waittill( var_0 + "_line_emitter_stop" );
     var_8 scalevolume( 0, var_7 );
@@ -142,7 +142,7 @@ _id_0FF4( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_1116()
 {
-    level endon( self.land + "_line_emitter_stop" );
+    level endon( self.label + "_line_emitter_stop" );
     var_0 = self._id_6E23 - self._id_6E22;
     var_1 = vectornormalize( var_0 );
     var_2 = distance( self._id_6E22, self._id_6E23 );
@@ -150,7 +150,7 @@ _id_1116()
 
     for (;;)
     {
-        var_4 = level.playercardbackground.origin - self._id_6E22;
+        var_4 = level.player.origin - self._id_6E22;
         var_5 = vectordot( var_4, var_1 );
         var_5 = clamp( var_5, 0, var_2 );
         var_6 = self._id_6E22 + var_1 * var_5;
@@ -309,11 +309,11 @@ _id_97BD( var_0 )
     var_4 = undefined;
     var_5 = undefined;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
         if ( !isdefined( common_scripts\utility::_id_3E89() ) )
         {
-            _id_102B( "Audo Zone Trigger at " + self.origin + " has defined a target, " + self._not_team + ", but that target doesn't exist." );
+            _id_102B( "Audo Zone Trigger at " + self.origin + " has defined a target, " + self.target + ", but that target doesn't exist." );
             return;
         }
 
@@ -353,7 +353,7 @@ _id_97BD( var_0 )
     {
         self waittill( "trigger", var_2 );
 
-        if ( _id_0FAA() && var_2 != level.playercardbackground )
+        if ( _id_0FAA() && var_2 != level.player )
             continue;
 
         if ( isdefined( var_3 ) && isdefined( var_4 ) )
@@ -693,7 +693,7 @@ _id_97BC( var_0 )
 _id_97B5()
 {
     var_0 = common_scripts\utility::_id_3E89();
-    return var_0._not_team;
+    return var_0.target;
 }
 
 _id_97B4()
@@ -738,7 +738,7 @@ _id_97B9( var_0, var_1 )
 
 _id_0FF0( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_6 = spawn( "script_origin", level.playercardbackground.origin );
+    var_6 = spawn( "script_origin", level.player.origin );
     var_7 = spawn( "script_origin", var_0 );
 
     if ( !isdefined( var_3 ) )
@@ -1060,11 +1060,11 @@ _id_10A2( var_0, var_1 )
         var_4 thread _id_0F79( var_1 );
 
     var_6 = 0;
-    var_7 = level.playercardbackground getcurrentweapon();
+    var_7 = level.player getcurrentweapon();
 
     for (;;)
     {
-        if ( level.playercardbackground attackbuttonpressed() )
+        if ( level.player attackbuttonpressed() )
         {
             if ( !var_6 )
             {
@@ -1082,7 +1082,7 @@ _id_10A2( var_0, var_1 )
 _id_0F79( var_0 )
 {
     level endon( "aud_stop_slow_mo_gunshot" );
-    var_1 = level.playercardbackground getcurrentweapon();
+    var_1 = level.player getcurrentweapon();
 
     for (;;)
     {
@@ -1227,13 +1227,13 @@ _id_5015()
 
 _id_0EF0()
 {
-    level.playercardbackground._id_2A84 = 0;
+    level.player._id_2A84 = 0;
     level._id_055B._id_2669 = 1;
 }
 
 _id_0EDE()
 {
-    level.playercardbackground._id_2A84 = 1;
+    level.player._id_2A84 = 1;
     level._id_055B._id_2669 = 0;
 }
 
@@ -1245,7 +1245,7 @@ _id_7498()
         soundscripts\_audio_mix_manager::_id_5CF6( "deaths_door", 2 );
         soundscripts\_snd_common::_id_86CD( "deathsdoor" );
         level notify( "kill_deaths_door_audio" );
-        level.playercardbackground _meth_848f( 0 );
+        level.player _meth_848f( 0 );
         soundscripts\_audio_zone_manager::_id_122C( 0 );
         thread soundscripts\_audio_reverb::_id_76F3( level._id_055B._id_2668._id_74EC );
         soundscripts\_snd_playsound::_id_872B( "deaths_door_exit" );
@@ -1277,7 +1277,7 @@ _id_7E07()
         soundscripts\_snd_playsound::_id_872B( "deaths_door_intro" );
         soundscripts\_snd_playsound::_id_872B( "deaths_door_breaths", "kill_deaths_door_audio", 0, 0.5 );
         soundscripts\_snd_playsound::_id_873F( "deaths_door_loop", "kill_deaths_door_audio", 0, 0.5 );
-        level.playercardbackground _meth_848f( 1 );
+        level.player _meth_848f( 1 );
     }
 }
 
@@ -1345,7 +1345,7 @@ _id_7E02( var_0 )
 _id_3D2C()
 {
     if ( !isdefined( level._id_055B._id_8F59["damb"] ) )
-        return "soundtables/" + level.script_context + ".csv";
+        return "soundtables/" + level.script + ".csv";
     else
         return "soundtables/" + level._id_055B._id_8F59["damb"];
 }
@@ -1358,7 +1358,7 @@ _id_7E00( var_0 )
 _id_3D2A( var_0 )
 {
     if ( !isdefined( level._id_055B._id_8F59["damb_comp"] ) )
-        return "soundtables/" + level.script_context + ".csv";
+        return "soundtables/" + level.script + ".csv";
     else
         return "soundtables/" + level._id_055B._id_8F59["damb_comp"];
 }
@@ -1371,7 +1371,7 @@ _id_7E01( var_0 )
 _id_3D2B( var_0 )
 {
     if ( !isdefined( level._id_055B._id_8F59["damb_loops"] ) )
-        return "soundtables/" + level.script_context + ".csv";
+        return "soundtables/" + level.script + ".csv";
     else
         return "soundtables/" + level._id_055B._id_8F59["damb_loops"];
 }
@@ -1384,7 +1384,7 @@ _id_7EA8( var_0 )
 _id_3E53()
 {
     if ( !isdefined( level._id_055B._id_8F59["reverb"] ) )
-        return "soundtables/" + level.script_context + ".csv";
+        return "soundtables/" + level.script + ".csv";
     else
         return "soundtables/" + level._id_055B._id_8F59["reverb"];
 }
@@ -1397,7 +1397,7 @@ _id_7F11( var_0 )
 _id_3ED7()
 {
     if ( !isdefined( level._id_055B._id_8F59["zone"] ) )
-        return "soundtables/" + level.script_context + ".csv";
+        return "soundtables/" + level.script + ".csv";
     else
         return "soundtables/" + level._id_055B._id_8F59["zone"];
 }
@@ -1439,7 +1439,7 @@ _id_0F34( var_0, var_1, var_2 )
         {
             if ( isdefined( var_14.alertlevelint ) && var_14.alertlevelint >= var_5 )
             {
-                var_15 = distance( level.playercardbackground.origin, var_14.origin );
+                var_15 = distance( level.player.origin, var_14.origin );
 
                 if ( var_15 < var_8 )
                 {
@@ -1493,7 +1493,7 @@ _id_0FDB( var_0 )
     {
         if ( isalive( var_5 ) )
         {
-            var_6 = distance( level.playercardbackground.origin, var_5.origin );
+            var_6 = distance( level.player.origin, var_5.origin );
 
             if ( var_6 < var_2 )
                 var_1++;
@@ -1602,14 +1602,14 @@ _id_28AA( var_0 )
 _id_2893( var_0, var_1, var_2, var_3 )
 {
     _id_10DC( var_1, var_2, var_3 );
-    var_4 = spawn( "script_origin", level.playercardbackground.origin );
+    var_4 = spawn( "script_origin", level.player.origin );
     var_4 thread _id_28AA( var_0 );
     return var_4;
 }
 
 _id_289C( var_0 )
 {
-    var_1 = spawn( "script_origin", level.playercardbackground.origin );
+    var_1 = spawn( "script_origin", level.player.origin );
     var_1 thread _id_28AA( var_0 );
     return var_1;
 }
@@ -1772,7 +1772,7 @@ _id_2891( var_0, var_1 )
             soundscripts\_audio_mix_manager::_id_5D00( "mute_all", var_4 );
             break;
         case "generic_building_bomb_shake":
-            level.playercardbackground soundscripts\_snd_playsound::_id_872A( "sewer_bombs" );
+            level.player soundscripts\_snd_playsound::_id_872A( "sewer_bombs" );
             break;
         case "start_player_slide_trigger":
             break;
@@ -1796,8 +1796,8 @@ _id_2891( var_0, var_1 )
             else
                 var_6 = undefined;
 
-            if ( isdefined( var_1.visionsetnakedduration ) )
-                var_7 = var_1.visionsetnakedduration;
+            if ( isdefined( var_1.velocity ) )
+                var_7 = var_1.velocity;
             else
                 var_7 = undefined;
 
@@ -1829,7 +1829,7 @@ _id_2898( var_0 )
 {
     var_1 = 0;
 
-    switch ( var_0.motiontrackerenabled )
+    switch ( var_0.model )
     {
         case "furniture_lamp_floor1_off":
         case "com_cafe_light_part1_off":

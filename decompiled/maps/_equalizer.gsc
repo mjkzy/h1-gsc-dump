@@ -368,7 +368,7 @@ generic_filters()
 
 old_iw4_eq()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "estate":
         case "co_hunted":
@@ -646,7 +646,7 @@ old_iw4_eq()
 
 old_iw4_filters()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "ac130":
             define_filter( "ac130" );

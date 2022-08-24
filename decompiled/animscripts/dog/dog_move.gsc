@@ -72,9 +72,9 @@ moveloop()
     for (;;)
     {
         if ( self._id_2AF3 )
-            self.streaktype = 0;
+            self.stopanimdistsq = 0;
         else
-            self.streaktype = anim._id_2CDE;
+            self.stopanimdistsq = anim._id_2CDE;
 
         if ( isdefined( self._id_5F55 ) )
         {
@@ -149,9 +149,9 @@ pathchangecheck2()
 
     for (;;)
     {
-        if ( self.lookright > 40 && !isdefined( self._id_5F56 ) && !isdefined( self._id_4BB7 ) && !isdefined( self._id_623F ) && self.a._id_5F5B == "run" )
+        if ( self.lookaheaddist > 40 && !isdefined( self._id_5F56 ) && !isdefined( self._id_4BB7 ) && !isdefined( self._id_623F ) && self.a._id_5F5B == "run" )
         {
-            var_0 = vectortoyaw( self.lookforward );
+            var_0 = vectortoyaw( self.lookaheaddir );
             var_1 = angleclamp180( self.angles[1] - var_0 );
             var_2 = pathchange_getdogturnanim( var_1 );
 
@@ -203,10 +203,10 @@ pathchange_dodogturnanim()
     animscripts\notetracks::_id_2D0B( var_1 * 0.2, "turnAnim" );
     self _meth_8193( "face motion" );
     self _meth_8192( "none", 0 );
-    var_2 = self.turret_not_on_target;
-    self.turret_not_on_target = 0.4;
+    var_2 = self.turnrate;
+    self.turnrate = 0.4;
     animscripts\notetracks::_id_2D0B( var_1 * 0.65, "turnAnim" );
-    self.turret_not_on_target = var_2;
+    self.turnrate = var_2;
     self._id_4BB7 = undefined;
 }
 
@@ -224,7 +224,7 @@ startmovetracklookahead()
 
     for ( var_0 = 0; var_0 < 2; var_0++ )
     {
-        var_1 = vectortoangles( self.lookforward );
+        var_1 = vectortoangles( self.lookaheaddir );
         self _meth_8193( "face angle", var_1 );
     }
 }
@@ -233,15 +233,15 @@ playmovestartanim()
 {
     self endon( "move_loop_restart" );
 
-    if ( self.lookright == 0 )
+    if ( self.lookaheaddist == 0 )
         thread pathchangecheck2();
     else
     {
         var_0 = self.origin;
         var_1 = anim._id_2CDC * 0.6;
-        var_0 += self.lookforward * var_1;
-        var_2 = distancesquared( self.origin, self.pc ) < var_1 * var_1;
-        var_3 = vectortoangles( self.lookforward );
+        var_0 += self.lookaheaddir * var_1;
+        var_2 = distancesquared( self.origin, self.pathgoalpos ) < var_1 * var_1;
+        var_3 = vectortoangles( self.lookaheaddir );
 
         if ( !var_2 && self _meth_81c7( var_0 ) )
         {
@@ -279,8 +279,8 @@ playmovestartanim()
 
         self _meth_8193( "face angle", var_3[1] );
         self _meth_8192( "none" );
-        self._id_6F7A = self.turret_not_on_target;
-        self.turret_not_on_target = 0.5;
+        self._id_6F7A = self.turnrate;
+        self.turnrate = 0.5;
         var_9 = angleclamp180( var_3[1] - self.angles[1] );
 
         if ( abs( var_9 ) > 20 )
@@ -297,7 +297,7 @@ playmovestartanim()
         }
 
         thread pathchangecheck2();
-        self.turret_not_on_target = self._id_6F7A;
+        self.turnrate = self._id_6F7A;
         self._id_6F7A = undefined;
         self _meth_8193( "face motion" );
     }
@@ -305,9 +305,9 @@ playmovestartanim()
 
 _id_8D2C()
 {
-    if ( isdefined( self.pc ) )
+    if ( isdefined( self.pathgoalpos ) )
     {
-        if ( isdefined( self.pc ) )
+        if ( isdefined( self.pathgoalpos ) )
         {
             playmovestartanim();
             self _meth_8144( %root, 0.2 );
@@ -369,13 +369,13 @@ getrunanimweights()
     var_0["left"] = 0;
     var_0["right"] = 0;
 
-    if ( self.leftaimlimit > 0 )
+    if ( self.leanamount > 0 )
     {
-        if ( self.leftaimlimit < 0.95 )
-            self.leftaimlimit = 0.95;
+        if ( self.leanamount < 0.95 )
+            self.leanamount = 0.95;
 
         var_0["left"] = 0;
-        var_0["right"] = ( 1 - self.leftaimlimit ) * 20;
+        var_0["right"] = ( 1 - self.leanamount ) * 20;
 
         if ( var_0["right"] > 1 )
             var_0["right"] = 1;
@@ -384,13 +384,13 @@ getrunanimweights()
 
         var_0["center"] = 1 - var_0["right"];
     }
-    else if ( self.leftaimlimit < 0 )
+    else if ( self.leanamount < 0 )
     {
-        if ( self.leftaimlimit > -0.95 )
-            self.leftaimlimit = -0.95;
+        if ( self.leanamount > -0.95 )
+            self.leanamount = -0.95;
 
         var_0["right"] = 0;
-        var_0["left"] = ( 1 + self.leftaimlimit ) * 20;
+        var_0["left"] = ( 1 + self.leanamount ) * 20;
 
         if ( var_0["left"] > 1 )
             var_0["left"] = 1;

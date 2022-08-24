@@ -44,7 +44,7 @@ setup_bot_koth()
     for ( var_1 = 0; var_1 < level.radios.size; var_1++ )
     {
         var_2 = level.radios[var_1];
-        var_2.script_model = "radio_" + var_1;
+        var_2.script_label = "radio_" + var_1;
         var_2 thread maps\mp\bots\_bots_gametype_common::_id_5E23();
         var_3 = 0;
 
@@ -122,7 +122,7 @@ bot_koth_think()
     {
         wait 0.05;
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             continue;
 
         var_0 = find_current_radio();

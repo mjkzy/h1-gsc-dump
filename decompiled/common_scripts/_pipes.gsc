@@ -99,7 +99,7 @@ pipemasterinit( var_0 )
     {
         var_1 = level.pipe_breaks[level.pipe_breaks.size - 1];
         var_2 = spawnstruct();
-        var_2.nearz = "pipe master at (" + var_1.origin + ") position";
+        var_2.name = "pipe master at (" + var_1.origin + ") position";
         var_1._id_59D8 = var_2;
         level.pipe_breaks = common_scripts\utility::_id_0CF6( level.pipe_breaks, var_1 );
         var_2 pipemasteriterate( var_1 );
@@ -168,53 +168,53 @@ pipebreakinit( var_0 )
         self[var_1].fxnode = spawnstruct();
         self[var_1].fxnode.origin = self[var_1].origin;
         self[var_1].fxnode.forward = common_scripts\utility::vectorscale( anglestoright( self[var_1].angles ), -1 );
-        self[var_1].fxnode.upgradepurchased = anglestoforward( self[var_1].angles );
+        self[var_1].fxnode.up = anglestoforward( self[var_1].angles );
 
-        if ( self[var_1].script_parentname == "fueltanker" )
+        if ( self[var_1].script_noteworthy == "fueltanker" )
         {
-            var_2 = common_scripts\utility::_id_40FB( self[var_1].whole._not_team, "targetname" );
+            var_2 = common_scripts\utility::_id_40FB( self[var_1].whole.target, "targetname" );
             self[var_1].fxnode.origin = var_2.origin;
             self[var_1].fxnode.forward = anglestoup( var_2.angles );
-            self[var_1].fxnode.upgradepurchased = anglestoforward( var_2.angles );
-            self[var_1].fxnode.riotshield_damaged = anglestoright( var_2.angles );
+            self[var_1].fxnode.up = anglestoforward( var_2.angles );
+            self[var_1].fxnode.right = anglestoright( var_2.angles );
         }
 
         self[var_1].hurtnode = [];
 
-        switch ( self[var_1].script_parentname )
+        switch ( self[var_1].script_noteworthy )
         {
             case "fire64":
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin;
                 break;
             case "fire96":
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, 16 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, 16 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, -16 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, -16 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
                 break;
             case "fire128":
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, 32 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, 32 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, -32 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, -32 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
                 break;
             case "fire256":
                 self[var_1].fx_multinode = [];
                 var_4 = spawnstruct();
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, 64 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, 64 );
                 var_4.origin = self[var_1].fxnode.origin + var_3;
                 var_4.forward = self[var_1].fxnode.forward;
-                var_4.upgradepurchased = self[var_1].fxnode.upgradepurchased;
+                var_4.up = self[var_1].fxnode.up;
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_4;
                 var_4 = spawnstruct();
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, -64 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, -64 );
                 var_4.origin = self[var_1].fxnode.origin + var_3;
                 var_4.forward = self[var_1].fxnode.forward;
-                var_4.upgradepurchased = self[var_1].fxnode.upgradepurchased;
+                var_4.up = self[var_1].fxnode.up;
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_4;
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, 64 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, 64 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, -64 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, -64 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
                 break;
             case "fueltanker":
@@ -222,50 +222,50 @@ pipebreakinit( var_0 )
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = self[var_1].fxnode;
                 var_5 = spawnstruct();
                 var_5.origin = self[var_1].fxnode.origin;
-                var_5.upgradepurchased = self[var_1].fxnode.upgradepurchased;
-                var_5.forward = self[var_1].fxnode.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.riotshield_damaged, 1 );
+                var_5.up = self[var_1].fxnode.up;
+                var_5.forward = self[var_1].fxnode.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.right, 1 );
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_5;
                 var_5 = spawnstruct();
                 var_5.origin = self[var_1].fxnode.origin;
-                var_5.upgradepurchased = self[var_1].fxnode.upgradepurchased;
-                var_5.forward = self[var_1].fxnode.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.riotshield_damaged, -1 );
+                var_5.up = self[var_1].fxnode.up;
+                var_5.forward = self[var_1].fxnode.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.right, -1 );
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_5;
                 var_4 = spawnstruct();
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, 112 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, 112 );
                 var_4.origin = self[var_1].fxnode.origin + var_3;
                 var_4.forward = self[var_1].fxnode.forward;
-                var_4.upgradepurchased = self[var_1].fxnode.upgradepurchased;
+                var_4.up = self[var_1].fxnode.up;
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_4;
                 var_5 = spawnstruct();
                 var_5.origin = var_4.origin;
-                var_5.upgradepurchased = var_4.upgradepurchased;
-                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.riotshield_damaged, 1 );
+                var_5.up = var_4.up;
+                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.right, 1 );
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_5;
                 var_5 = spawnstruct();
                 var_5.origin = var_4.origin;
-                var_5.upgradepurchased = var_4.upgradepurchased;
-                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.riotshield_damaged, -1 );
+                var_5.up = var_4.up;
+                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.right, -1 );
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_5;
                 var_4 = spawnstruct();
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, -112 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, -112 );
                 var_4.origin = self[var_1].fxnode.origin + var_3;
                 var_4.forward = self[var_1].fxnode.forward;
-                var_4.upgradepurchased = self[var_1].fxnode.upgradepurchased;
+                var_4.up = self[var_1].fxnode.up;
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_4;
                 var_5 = spawnstruct();
                 var_5.origin = var_4.origin;
-                var_5.upgradepurchased = var_4.upgradepurchased;
-                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.riotshield_damaged, 1 );
+                var_5.up = var_4.up;
+                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.right, 1 );
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_5;
                 var_5 = spawnstruct();
                 var_5.origin = var_4.origin;
-                var_5.upgradepurchased = var_4.upgradepurchased;
-                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.riotshield_damaged, -1 );
+                var_5.up = var_4.up;
+                var_5.forward = var_4.forward + common_scripts\utility::vectorscale( self[var_1].fxnode.right, -1 );
                 self[var_1].fx_multinode[self[var_1].fx_multinode.size] = var_5;
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin;
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, 184 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, 184 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
-                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, -184 );
+                var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, -184 );
                 self[var_1].hurtnode[self[var_1].hurtnode.size] = self[var_1].fxnode.origin + var_3;
                 break;
         }
@@ -273,7 +273,7 @@ pipebreakinit( var_0 )
         self[var_1].ends = [];
         var_6 = 0;
 
-        switch ( self[var_1].script_parentname )
+        switch ( self[var_1].script_noteworthy )
         {
             case "fire64":
                 var_6 = 32;
@@ -293,9 +293,9 @@ pipebreakinit( var_0 )
         }
 
         self[var_1].ends[self[var_1].ends.size] = self[var_1].fxnode.origin;
-        var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, var_6 );
+        var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, var_6 );
         self[var_1].ends[self[var_1].ends.size] = self[var_1].fxnode.origin + var_3;
-        var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.upgradepurchased, var_6 * -1 );
+        var_3 = common_scripts\utility::vectorscale( self[var_1].fxnode.up, var_6 * -1 );
         self[var_1].ends[self[var_1].ends.size] = self[var_1].fxnode.origin + var_3;
     }
 }
@@ -306,7 +306,7 @@ pipebreak_damage()
     var_1 = 250;
     var_2 = 200;
 
-    if ( self.script_parentname == "fueltanker" )
+    if ( self.script_noteworthy == "fueltanker" )
         var_2 = 350;
 
     for ( var_3 = 0; var_3 < self.hurtnode.size; var_3++ )
@@ -354,7 +354,7 @@ pipebreakthink4()
     self.whole waittill( "pipe_breaking" );
     self._id_59D8 notify( "hurtme" );
 
-    switch ( self.script_parentname )
+    switch ( self.script_noteworthy )
     {
         case "fueltanker":
             thread common_scripts\utility::_id_69C2( "explo_rock", self.fxnode.origin );
@@ -383,12 +383,12 @@ pipebreakthink4()
     if ( isdefined( self.fx_multinode ) )
     {
         for ( var_0 = 0; var_0 < self.fx_multinode.size; var_0++ )
-            playfx( level._effect["pipe_interactive"][self.script_parentname], self.fx_multinode[var_0].origin, self.fx_multinode[var_0].forward, self.fx_multinode[var_0].upgradepurchased );
+            playfx( level._effect["pipe_interactive"][self.script_noteworthy], self.fx_multinode[var_0].origin, self.fx_multinode[var_0].forward, self.fx_multinode[var_0].up );
     }
     else
-        playfx( level._effect["pipe_interactive"][self.script_parentname], self.fxnode.origin, self.fxnode.forward, self.fxnode.upgradepurchased );
+        playfx( level._effect["pipe_interactive"][self.script_noteworthy], self.fxnode.origin, self.fxnode.forward, self.fxnode.up );
 
-    if ( self.script_parentname == "fueltanker" )
+    if ( self.script_noteworthy == "fueltanker" )
         earthquake( 0.4, 1.5, self.fxnode.origin, 600 );
 
     thread pipeimpact();
@@ -402,9 +402,9 @@ _id_682F()
 
     if ( isdefined( self._id_7A99 ) && self._id_7A99 == "use_bullet_hitnormal" )
         self.use_bullet_hitnormal = 1;
-    else if ( isdefined( self._not_team ) )
+    else if ( isdefined( self.target ) )
     {
-        var_0 = common_scripts\utility::_id_40FB( self._not_team, "targetname" );
+        var_0 = common_scripts\utility::_id_40FB( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
         {
@@ -423,7 +423,7 @@ _id_682F()
         self.b = self.origin + var_2;
     }
 
-    if ( self.script_parentname == "fire" )
+    if ( self.script_noteworthy == "fire" )
         self.limit = 4;
 
     thread pipethink();
@@ -487,7 +487,7 @@ pipethink_logic( var_0, var_1, var_2, var_3, var_4 )
             return;
 
         thread _id_682C( var_3, var_8 );
-        var_9 = pipeoverlaymaskfxduration( level.pipe_fx_time[self.script_parentname] );
+        var_9 = pipeoverlaymaskfxduration( level.pipe_fx_time[self.script_noteworthy] );
 
         if ( var_9 )
             thread pipeoverlaymaskfx( var_9, var_3, var_8 );
@@ -505,8 +505,8 @@ pipeoverlaymaskfxduration( var_0 )
     if ( getdvarint( "ui_multiplayer" ) )
         return var_1;
 
-    if ( getomnvar( "ui_gasmask" ) != 0 && ( self.script_parentname == "steam" || self.script_parentname == "water" ) && isdefined( level._effect["screen_heavy_rain_cgoshp"] ) && isdefined( level.pipe_fx_time[self.script_parentname] ) )
-        return level.pipe_fx_time[self.script_parentname];
+    if ( getomnvar( "ui_gasmask" ) != 0 && ( self.script_noteworthy == "steam" || self.script_noteworthy == "water" ) && isdefined( level._effect["screen_heavy_rain_cgoshp"] ) && isdefined( level.pipe_fx_time[self.script_noteworthy] ) )
+        return level.pipe_fx_time[self.script_noteworthy];
 
     return var_1;
 }
@@ -532,16 +532,16 @@ pipeoverlaymaskfx( var_0, var_1, var_2 )
             return;
         }
 
-        var_6 = distancesquared( var_1, level.playercardbackground geteye() );
-        var_7 = var_1 - level.playercardbackground.origin;
-        var_8 = vectordot( var_7, anglestoforward( level.playercardbackground.angles ) );
+        var_6 = distancesquared( var_1, level.player geteye() );
+        var_7 = var_1 - level.player.origin;
+        var_8 = vectordot( var_7, anglestoforward( level.player.angles ) );
 
         if ( var_6 < 12000 && var_8 > 0 )
         {
             if ( !level.overlaymaskfxwastriggered )
             {
                 level.overlaymaskfxwastriggered = 1;
-                var_4 = spawnfx( level._effect["screen_heavy_rain_cgoshp"], level.playercardbackground.origin );
+                var_4 = spawnfx( level._effect["screen_heavy_rain_cgoshp"], level.player.origin );
                 triggerfx( var_4 );
             }
 
@@ -558,16 +558,16 @@ pipeoverlaymaskfx( var_0, var_1, var_2 )
 
 pipethink2()
 {
-    wait(level.pipe_fx_time[self.script_parentname]);
+    wait(level.pipe_fx_time[self.script_noteworthy]);
     level._id_6289--;
 }
 
 _id_682C( var_0, var_1 )
 {
-    if ( self.script_parentname != "fire" )
+    if ( self.script_noteworthy != "fire" )
     {
-        playfx( level._effect["pipe_interactive"][self.script_parentname], var_0, var_1 );
-        thread common_scripts\utility::_id_69C2( level._id_0662["pipe_interactive"][self.script_parentname], var_0 );
+        playfx( level._effect["pipe_interactive"][self.script_noteworthy], var_0, var_1 );
+        thread common_scripts\utility::_id_69C2( level._id_0662["pipe_interactive"][self.script_noteworthy], var_0 );
         return;
     }
 
@@ -591,7 +591,7 @@ _id_682C( var_0, var_1 )
 
     for ( var_3 = 0; var_3 < self.burnsec; var_3++ )
     {
-        playfx( level._effect["pipe_interactive"][self.script_parentname], var_0, var_1 );
+        playfx( level._effect["pipe_interactive"][self.script_noteworthy], var_0, var_1 );
         wait(var_2);
     }
 
@@ -642,43 +642,43 @@ _id_6EDB()
 {
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "steam" )
+        if ( self[var_0].script_noteworthy != "steam" )
             continue;
 
-        level._effect["pipe_interactive"][self[var_0].script_parentname] = loadfx( "fx/impacts/pipe_steam" );
-        level._id_0662["pipe_interactive"][self[var_0].script_parentname] = "mtl_steam_pipe_hit";
-        level.pipe_fx_time[self[var_0].script_parentname] = 5;
+        level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/pipe_steam" );
+        level._id_0662["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_steam_pipe_hit";
+        level.pipe_fx_time[self[var_0].script_noteworthy] = 5;
         break;
     }
 
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "steam_canister" )
+        if ( self[var_0].script_noteworthy != "steam_canister" )
             continue;
 
-        level._effect["pipe_interactive"][self[var_0].script_parentname] = loadfx( "vfx/props/canister_steam" );
-        level._id_0662["pipe_interactive"][self[var_0].script_parentname] = "mtl_steam_pipe_hit";
-        level.pipe_fx_time[self[var_0].script_parentname] = 5;
+        level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "vfx/props/canister_steam" );
+        level._id_0662["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_steam_pipe_hit";
+        level.pipe_fx_time[self[var_0].script_noteworthy] = 5;
         break;
     }
 
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "water" )
+        if ( self[var_0].script_noteworthy != "water" )
             continue;
 
-        level._effect["pipe_interactive"][self[var_0].script_parentname] = loadfx( "fx/impacts/pipe_water" );
-        level._id_0662["pipe_interactive"][self[var_0].script_parentname] = "mtl_water_pipe_hit";
-        level.pipe_fx_time[self[var_0].script_parentname] = 2.6;
+        level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/pipe_water" );
+        level._id_0662["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_water_pipe_hit";
+        level.pipe_fx_time[self[var_0].script_noteworthy] = 2.6;
         break;
     }
 
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "fire" )
+        if ( self[var_0].script_noteworthy != "fire" )
             continue;
 
-        level._effect["pipe_interactive"][self[var_0].script_parentname] = loadfx( "fx/impacts/pipe_fire" );
+        level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/pipe_fire" );
         level._effect["pipe_interactive"]["fire64"] = loadfx( "fx/explosions/pipe_explosion64" );
         level._effect["pipe_interactive"]["fire96"] = loadfx( "fx/explosions/pipe_explosion64" );
         level._effect["pipe_interactive"]["fire128"] = loadfx( "fx/explosions/pipe_explosion128" );

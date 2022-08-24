@@ -64,7 +64,7 @@ _id_5EB2()
                 var_0 delete();
 
             var_3 = spawn( "script_model", var_2 );
-            var_3.helmet = 100;
+            var_3.health = 100;
             var_3.team = self.team;
             var_3.owner = self;
             var_3 setcandamage( 1 );
@@ -116,8 +116,8 @@ _id_6E4F()
 _id_6E50( var_0 )
 {
     self endon( "death" );
-    self.helmet = 999999;
-    self.maxturnspeed = 100;
+    self.health = 999999;
+    self.maxhealth = 100;
     self.damagetaken = 0;
 
     for (;;)
@@ -147,7 +147,7 @@ _id_6E50( var_0 )
             return;
 
         if ( maps\mp\_utility::_id_5150( var_5 ) )
-            self.damagetaken += self.maxturnspeed;
+            self.damagetaken += self.maxhealth;
 
         if ( isdefined( var_9 ) && var_9 & level._id_4B5C )
             self.wasdamagedfrombulletpenetration = 1;
@@ -158,7 +158,7 @@ _id_6E50( var_0 )
         if ( isplayer( var_2 ) )
             var_2 maps\mp\gametypes\_damagefeedback::_id_9B0C( "portable_radar" );
 
-        if ( self.damagetaken >= self.maxturnspeed )
+        if ( self.damagetaken >= self.maxhealth )
         {
             if ( isdefined( var_0 ) && var_2 != var_0 )
                 var_2 notify( "destroyed_explosive" );

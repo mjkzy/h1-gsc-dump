@@ -295,7 +295,7 @@ _id_64C8()
 _id_64D6()
 {
     self endon( "disconnect" );
-    self.persistentperksunlocked = [];
+    self.perks = [];
     self.weaponlist = [];
 }
 
@@ -304,7 +304,7 @@ _id_198D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) || !isplayer( var_1 ) || !maps\mp\_utility::_id_4FA6() && !isplayer( var_0 ) )
         return var_2;
 
-    if ( var_1.sharpturnlookaheaddist != "playing" || !isdefined( var_2 ) || !isdefined( var_3 ) )
+    if ( var_1.sessionstate != "playing" || !isdefined( var_2 ) || !isdefined( var_3 ) )
         return var_2;
 
     if ( var_3 == "" )
@@ -472,7 +472,7 @@ get_specialtydata( var_0, var_1, var_2 )
             else
                 self.perkscustom["grenades_count"] = 1;
 
-            if ( var_0 == "specialty_specialgrenade" && isdefined( var_2.oldtime ) && var_2.oldtime != "h1_smokegrenade_mp" )
+            if ( var_0 == "specialty_specialgrenade" && isdefined( var_2.offhand ) && var_2.offhand != "h1_smokegrenade_mp" )
                 self.perkscustom["specialgrenades_count"] = var_4;
             else
                 self.perkscustom["specialgrenades_count"] = 1;

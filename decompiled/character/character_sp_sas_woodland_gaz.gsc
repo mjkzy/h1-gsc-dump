@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sas_woodland_gaz" );
     precachemodel( "head_sas_woodland_gaz" );

@@ -184,8 +184,8 @@ _id_5BC0( var_0 )
 _id_5BD4( var_0 )
 {
     wait 1;
-    level notify( "new_mg_firing_team" + var_0[0].script_parentname );
-    level endon( "new_mg_firing_team" + var_0[0].script_parentname );
+    level notify( "new_mg_firing_team" + var_0[0].script_noteworthy );
+    level endon( "new_mg_firing_team" + var_0[0].script_noteworthy );
 
     for (;;)
     {

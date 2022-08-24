@@ -86,7 +86,7 @@ should_use_cover_suppression_behaviour()
     if ( !maps\_utility::is_h1_level() )
         return 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -120,7 +120,7 @@ should_enable_foot_ik()
     if ( !maps\_utility::is_h1_level() )
         return 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "ac130":
         case "aftermath":
@@ -136,7 +136,7 @@ should_use_mw_cover_moveup_behaviour()
     if ( !maps\_utility::is_h1_level() )
         return 1;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -175,7 +175,7 @@ should_use_bullet_whizby()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -214,7 +214,7 @@ should_use_turn_animations()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -251,7 +251,7 @@ should_use_improved_grenade_returns()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -290,7 +290,7 @@ should_use_forced_teleport_to_anim_start()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -313,7 +313,7 @@ should_arrival_ignore_player()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "cargoship":
             return 1;
@@ -329,7 +329,7 @@ shoulduserpgrepulsors()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -365,7 +365,7 @@ shouldusegrenadedistancechecks()
     if ( var_0 != 0 )
         return var_0 > 0;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -494,7 +494,7 @@ _id_0BF9( var_0, var_1, var_2 )
 
 _id_0BCE( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( var_2 ) && isdefined( self.motiontrackerenabled ) && !maps\_utility::_id_4749( self.motiontrackerenabled, var_2 ) )
+    if ( isdefined( var_2 ) && isdefined( self.model ) && !maps\_utility::_id_4749( self.model, var_2 ) )
     {
         anim_generic_loop_preh1( var_0, var_1, var_2, var_3 );
         return;
@@ -1506,16 +1506,16 @@ _id_61BD( var_0, var_1, var_2, var_3, var_4, var_5 )
         switch ( var_20 )
         {
             case "ignoreall true":
-                self.ignoreforfixednodesafecheck = 1;
+                self.ignoreall = 1;
                 continue;
             case "ignoreall false":
-                self.ignoreforfixednodesafecheck = 0;
+                self.ignoreall = 0;
                 continue;
             case "ignoreme true":
-                self.ignoretriggers = 1;
+                self.ignoreme = 1;
                 continue;
             case "ignoreme false":
-                self.ignoretriggers = 0;
+                self.ignoreme = 0;
                 continue;
             case "allowdeath true":
                 self.allowdeath = 1;
@@ -1600,7 +1600,7 @@ _id_0BD6( var_0, var_1, var_2, var_3 )
     }
 
     if ( isdefined( var_0["playersound"] ) )
-        level.playercardbackground playsound( var_0["playersound"] );
+        level.player playsound( var_0["playersound"] );
 
     if ( !var_2._id_2A49 )
     {
@@ -1801,7 +1801,7 @@ _id_445F()
 
     self._id_445E delete();
     self.dropweapon = 1;
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "left" );
+    animscripts\shared::_id_6869( self.weapon, "left" );
 }
 
 _id_4460()
@@ -1811,7 +1811,7 @@ _id_4460()
 
     self._id_445E delete();
     self.dropweapon = 1;
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+    animscripts\shared::_id_6869( self.weapon, "right" );
 }
 
 _id_445B( var_0 )
@@ -1826,10 +1826,10 @@ _id_445B( var_0 )
     if ( isdefined( var_0["suspend"] ) )
         var_3 = var_0["suspend"];
 
-    var_4 = spawn( "weapon_" + self.weapon_switch_invalid, var_1, var_3 );
+    var_4 = spawn( "weapon_" + self.weapon, var_1, var_3 );
     var_4.angles = var_2;
     self._id_445E = var_4;
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "none" );
+    animscripts\shared::_id_6869( self.weapon, "none" );
     self.dropweapon = 0;
 }
 
@@ -2081,7 +2081,7 @@ _id_0C03( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 
     if ( isdefined( var_6 ) )
     {
-        self.unlockpoints = var_6;
+        self.type = var_6;
         self._id_0D27 = "stand";
     }
 
@@ -2092,7 +2092,7 @@ _id_0C03( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     foreach ( var_16 in var_0 )
     {
         if ( isdefined( var_6 ) )
-            var_16.secondaryattachment1 = self;
+            var_16.scriptedarrivalent = self;
 
         if ( isdefined( var_3 ) )
             var_17 = var_3;
@@ -2141,8 +2141,8 @@ _id_0BFA( var_0, var_1, var_2 )
         if ( isalive( var_4 ) && var_4._id_0C00 )
         {
             var_4.goalradius = var_4._id_63CC;
-            var_4.secondaryattachment1 = undefined;
-            var_4.streaktype = 0;
+            var_4.scriptedarrivalent = undefined;
+            var_4.stopanimdistsq = 0;
         }
 
         if ( isdefined( var_4 ) )
@@ -2150,7 +2150,7 @@ _id_0BFA( var_0, var_1, var_2 )
     }
 
     if ( isdefined( var_2 ) )
-        var_1.unlockpoints = undefined;
+        var_1.type = undefined;
 }
 
 _id_5DF6( var_0, var_1, var_2, var_3, var_4 )
@@ -2168,7 +2168,7 @@ _id_5DF6( var_0, var_1, var_2, var_3, var_4 )
             var_6._id_716C = 1;
             var_6 notify( "goal", var_4 );
 
-            if ( isdefined( var_6.nearz ) )
+            if ( isdefined( var_6.name ) )
             {
 
             }
@@ -2192,8 +2192,8 @@ _id_0BFB( var_0 )
     if ( isdefined( var_0._id_63CC ) )
         var_0.goalradius = var_0._id_63CC;
 
-    var_0.secondaryattachment1 = undefined;
-    var_0.streaktype = 0;
+    var_0.scriptedarrivalent = undefined;
+    var_0.stopanimdistsq = 0;
 }
 
 _id_0C42( var_0, var_1, var_2 )
@@ -2347,10 +2347,10 @@ _id_7172( var_0 )
     }
 
     self._id_63CC = self.goalradius;
-    self._id_63DD = self.pathlookaheaddist;
-    self._id_63DE = self.pathrandompercent;
-    self.pathlookaheaddist = 128;
-    self.pathrandompercent = 128;
+    self._id_63DD = self.pathenemyfightdist;
+    self._id_63DE = self.pathenemylookahead;
+    self.pathenemyfightdist = 128;
+    self.pathenemylookahead = 128;
     self._id_63E2 = isdefined( self._id_79E6 );
 
     if ( !isdefined( self._id_67CB ) )
@@ -2360,7 +2360,7 @@ _id_7172( var_0 )
     self._id_382C = self.fixednode;
     self.fixednode = 0;
 
-    if ( !isdefined( self.secondaryattachment1 ) )
+    if ( !isdefined( self.scriptedarrivalent ) )
     {
         self._id_639D = self._id_2AF3;
         self._id_2AF3 = 1;
@@ -2376,8 +2376,8 @@ _id_7173()
     _id_0BB0( 0 );
     self.fixednode = self._id_382C;
     self._id_382C = undefined;
-    self.pathlookaheaddist = self._id_63DD;
-    self.pathrandompercent = self._id_63DE;
+    self.pathenemyfightdist = self._id_63DD;
+    self.pathenemylookahead = self._id_63DE;
     self._id_2AF3 = self._id_639D;
 
     if ( self._id_63E2 )
@@ -2519,18 +2519,18 @@ _id_0BF4( var_0, var_1, var_2, var_3, var_4 )
     var_11.angles = var_8;
 
     if ( isdefined( var_3 ) )
-        var_11.unlockpoints = var_3;
+        var_11.type = var_3;
     else
-        var_11.unlockpoints = self.unlockpoints;
+        var_11.type = self.type;
 
     if ( isdefined( var_4 ) )
         var_11._id_0D27 = var_4;
     else
         var_11._id_0D27 = self gethighestnodestance();
 
-    var_0.secondaryattachment1 = var_11;
+    var_0.scriptedarrivalent = var_11;
     _id_0BF3( var_5, var_1, var_2 );
-    var_0.secondaryattachment1 = undefined;
+    var_0.scriptedarrivalent = undefined;
     var_11 delete();
 
     while ( var_0.a._id_5F5B != "stop" )
@@ -2564,7 +2564,7 @@ anim_reach_and_arrive_facing_anim_solo( var_0, var_1, var_2, var_3, var_4 )
     var_10 = var_7[1];
     var_11 = spawnstruct();
     var_0 maps\_utility::_id_08EB();
-    var_0.secondaryattachment1 = undefined;
+    var_0.scriptedarrivalent = undefined;
     var_0 _id_7172( var_6 );
     var_0 get_to_transition_point( var_11, var_10, var_6, var_10, var_2 );
     var_12 = var_10 - var_0 animscripts\utility::_id_5868( "cover_trans_angles", var_2, var_11.approach_number );
@@ -3132,8 +3132,8 @@ _id_0BC4( var_0, var_1 )
     self endon( "newLookTarget" );
     waitframe;
 
-    if ( !isdefined( var_1 ) && isdefined( self.lootnew ) )
-        var_1 = self.lootnew;
+    if ( !isdefined( var_1 ) && isdefined( self.looktarget ) )
+        var_1 = self.looktarget;
 
     if ( self _meth_84ea() )
         var_3 = %generic_talker_blend;
@@ -3415,7 +3415,7 @@ _id_2399( var_0, var_1, var_2, var_3, var_4 )
 
     var_5 = spawnstruct();
     var_5._id_0C8E = var_0;
-    var_5.motiontrackerenabled = var_4;
+    var_5.model = var_4;
 
     if ( isdefined( var_4 ) )
         level._id_78B5[var_3] = var_4;

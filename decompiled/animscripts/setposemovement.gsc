@@ -585,7 +585,7 @@ _id_14A4()
 
     var_2 = 0.1;
 
-    if ( self.a._id_5F5B != "stop" && self.start_move == "none" )
+    if ( self.a._id_5F5B != "stop" && self.stairsstate == "none" )
         var_2 = 0.5;
 
     if ( isdefined( self._id_8AA8 ) )

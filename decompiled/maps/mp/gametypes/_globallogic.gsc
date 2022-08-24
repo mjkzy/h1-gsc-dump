@@ -22,12 +22,12 @@
 init()
 {
     level.splitscreen = issplitscreen();
-    level.pushable = getdvar( "ps3Game" ) == "true";
-    level.xuid = getdvar( "xenonGame" ) == "true";
+    level.ps3 = getdvar( "ps3Game" ) == "true";
+    level.xenon = getdvar( "xenonGame" ) == "true";
     level.console = getdvar( "consoleGame" ) == "true";
     level.onlinegame = isonlinegame();
     level.rankedmatch = level.onlinegame && !getdvarint( "xblive_privatematch" );
-    level.script_context = tolower( getdvar( "mapname" ) );
+    level.script = tolower( getdvar( "mapname" ) );
 
     if ( getdvarint( "virtualLobbyActive", 0 ) )
         level.gametype = "vlobby";

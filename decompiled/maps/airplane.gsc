@@ -35,8 +35,8 @@ dead_script()
 player_start()
 {
     var_0 = getent( "player_intro_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
 }
 
 main()
@@ -84,7 +84,7 @@ main()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isdefined( var_0[var_1].script_parentname ) && getsubstr( var_0[var_1].script_parentname, 0, 10 ) == "colornodes" )
+        if ( isdefined( var_0[var_1].script_noteworthy ) && getsubstr( var_0[var_1].script_noteworthy, 0, 10 ) == "colornodes" )
             level.acolornodetriggers = common_scripts\utility::_id_0CDA( level.acolornodetriggers, var_0[var_1] );
     }
 
@@ -155,7 +155,7 @@ main()
     thread dialogue_move();
     thread dialogue_clear();
     level._id_6D5E = 0.85;
-    level.playercardbackground setmovespeedscale( level._id_6D5E );
+    level.player setmovespeedscale( level._id_6D5E );
     common_scripts\utility::_id_0D13( getentarray( "civilian", "script_noteworthy" ), ::ai_civilian_think );
     level.org_view_roll = getent( "org_view_roll", "targetname" );
     level.arollers = [];
@@ -165,7 +165,7 @@ main()
     createthreatbiasgroup( "player" );
     createthreatbiasgroup( "ignored" );
     createthreatbiasgroup( "oblivious" );
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     setignoremegroup( "allies", "oblivious" );
     setignoremegroup( "axis", "oblivious" );
     setignoremegroup( "player", "oblivious" );
@@ -237,16 +237,16 @@ intro_fade_in()
     var_1 = getent( "cutaway_geo_floor", "targetname" );
     var_1 hide();
     var_2 = maps\jake_tools::_id_23D0( "airplane_hole_overlay", 1 );
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     var_3 = getent( "cutaway_geo", "targetname" );
     var_4 = getent( "org_intro_playerview", "targetname" );
-    level.playercardbackground.origin = var_4.origin;
-    level.playercardbackground playerlinkto( var_4, undefined, 0, 0, 0, 0 );
+    level.player.origin = var_4.origin;
+    level.player playerlinkto( var_4, undefined, 0, 0, 0, 0 );
     var_4.origin += ( 0.0, 20.0, -52.0 );
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     var_5 = spawn( "script_origin", var_4.origin );
     var_5.angles = var_4.angles;
-    level.playercardbackground playersetgroundreferenceent( var_5 );
+    level.player playersetgroundreferenceent( var_5 );
     var_5 rotatepitch( 65, 0.05 );
     var_4 rotateroll( -10, 0.05 );
     var_3.origin += ( 15.0, 20.0, -10.0 );
@@ -261,22 +261,22 @@ intro_fade_in()
     wait 1;
     var_2 destroy();
     setomnvar( "ui_gasmask", 1 );
-    level.playercardbackground playersetgroundreferenceent( level.org_view_roll );
+    level.player playersetgroundreferenceent( level.org_view_roll );
     level._id_6F7C show();
-    level.playercardbackground unlink();
+    level.player unlink();
     var_6 = getent( "player_intro_start", "targetname" );
-    thread common_scripts\utility::_id_69C2( "gear_rattle_plr_run", level.playercardbackground.origin );
-    level.playercardbackground setorigin( var_6.origin );
-    level.playercardbackground setplayerangles( var_6.angles );
-    level.playercardbackground.angles = var_6.angles;
+    thread common_scripts\utility::_id_69C2( "gear_rattle_plr_run", level.player.origin );
+    level.player setorigin( var_6.origin );
+    level.player setplayerangles( var_6.angles );
+    level.player.angles = var_6.angles;
     common_scripts\utility::_id_383F( "intro_fade_in_complete" );
     var_1 show();
     var_0 fadeovertime( 2 );
     var_0.alpha = 0;
     var_3 hide();
     var_3 notsolid();
-    level.playercardbackground enableweapons();
-    level.playercardbackground freezecontrols( 0 );
+    level.player enableweapons();
+    level.player freezecontrols( 0 );
     maps\_utility::_id_114F();
     wait 2;
     var_0 destroy();
@@ -286,11 +286,11 @@ intro_fade_in_h1()
 {
     var_0 = maps\jake_tools::_id_23D0( "black", 1 );
     var_1 = getent( "player_intro_start", "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
-    level.playercardbackground.angles = var_1.angles;
-    level.playercardbackground disableweapons();
-    level.playercardbackground freezecontrols( 1 );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
+    level.player.angles = var_1.angles;
+    level.player disableweapons();
+    level.player freezecontrols( 1 );
     var_2 = getent( "cutaway_geo", "targetname" );
     var_2 hide();
     var_2 notsolid();
@@ -300,16 +300,16 @@ intro_fade_in_h1()
     setomnvar( "ui_gasmask", 1 );
     var_0 fadeovertime( 1 );
     var_0.alpha = 0;
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
     wait 1.0;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     wait 1.0;
     var_0 destroy();
 }
 
 cutaway_geo( var_0 )
 {
-    level.playercardbackground thread maps\_utility::_id_69C4( "airplane_panel_drop" );
+    level.player thread maps\_utility::_id_69C4( "airplane_panel_drop" );
     var_0 rotateroll( -10, 0.3, 0.1, 0.1 );
     var_0 movez( -110, 0.7, 0.2 );
     wait 0.3;
@@ -317,8 +317,8 @@ cutaway_geo( var_0 )
     var_0 rotateroll( 10, 0.15, 0.05, 0.05 );
     wait 0.15;
     wait 0.15;
-    earthquake( 0.1, 0.5, level.playercardbackground.origin, 500 );
-    level.playercardbackground playrumbleonentity( "generic_attack_light_500" );
+    earthquake( 0.1, 0.5, level.player.origin, 500 );
+    level.player playrumbleonentity( "generic_attack_light_500" );
 }
 
 intro_fade_in2()
@@ -326,20 +326,20 @@ intro_fade_in2()
     var_0 = getent( "cutaway_geo", "targetname" );
     var_0 hide();
     var_0 notsolid();
-    level.playercardbackground disableweapons();
-    level.playercardbackground freezecontrols( 1 );
+    level.player disableweapons();
+    level.player freezecontrols( 1 );
     var_1 = maps\jake_tools::_id_23D0( "black", 1 );
     wait 2;
     setomnvar( "ui_gasmask", 1 );
     var_1 fadeovertime( 2 );
     var_1.alpha = 0;
-    level.playercardbackground enableweapons();
-    level.playercardbackground freezecontrols( 0 );
+    level.player enableweapons();
+    level.player freezecontrols( 0 );
     maps\_utility::_id_114F();
     wait 2;
     var_1 destroy();
     common_scripts\utility::_id_383F( "intro_fade_in_complete" );
-    level.playercardbackground playersetgroundreferenceent( level.org_view_roll );
+    level.player playersetgroundreferenceent( level.org_view_roll );
 }
 
 airplane_timer()
@@ -360,11 +360,11 @@ _id_5FFB()
 stealth_intro()
 {
     maps\_utility::_id_1332( "axis" );
-    level.playercardbackground.ignoretriggers = 1;
+    level.player.ignoreme = 1;
 
     for ( var_0 = 0; var_0 < level._id_8AB0.size; var_0++ )
     {
-        level._id_8AB0[var_0].ignoretriggers = 1;
+        level._id_8AB0[var_0].ignoreme = 1;
         level._id_8AB0[var_0] setthreatbiasgroup( "oblivious" );
     }
 
@@ -376,12 +376,12 @@ stealth_intro()
     level thread maps\_utility::_id_70C4( "airplane_first_hostile_killed_2" );
     maps\_utility::_id_1333( "axis" );
     var_1 = getent( "colornodes_intro", "script_noteworthy" );
-    var_1 notify( "trigger", level.playercardbackground );
-    level.playercardbackground.ignoretriggers = 0;
+    var_1 notify( "trigger", level.player );
+    level.player.ignoreme = 0;
 
     for ( var_0 = 0; var_0 < level._id_8AB0.size; var_0++ )
     {
-        level._id_8AB0[var_0].ignoretriggers = 0;
+        level._id_8AB0[var_0].ignoreme = 0;
         level._id_8AB0[var_0] setthreatbiasgroup( "allies" );
     }
 
@@ -418,10 +418,10 @@ conference_shotgun_guy()
         if ( var_2.classname == "actor_enemy_merc_SHTGN_m1014" )
         {
             var_2 waittill( "spawned", var_3 );
-            var_4 = var_3.invisible;
-            var_3.invisible = 10;
+            var_4 = var_3.interval;
+            var_3.interval = 10;
             wait 5;
-            var_3.invisible = var_4;
+            var_3.interval = var_4;
         }
     }
 }
@@ -454,7 +454,7 @@ dialogue_breach()
 
 hull_breach_rumble( var_0, var_1 )
 {
-    level.playercardbackground playrumbleonentity( "generic_attack_heavy_1500" );
+    level.player playrumbleonentity( "generic_attack_heavy_1500" );
     var_0 playrumblelooponentity( "breach_loop" );
 
     if ( !var_1 )
@@ -466,13 +466,13 @@ hull_breach_rumble( var_0, var_1 )
     {
         common_scripts\utility::_id_384A( "player_jumped_out" );
         var_0 stoprumble( "breach_loop" );
-        level.playercardbackground playrumblelooponentity( "generic_quake_loop" );
+        level.player playrumblelooponentity( "generic_quake_loop" );
         common_scripts\utility::_id_384A( "plane_explodes" );
-        level.playercardbackground stoprumble( "generic_quake_loop" );
-        level.playercardbackground playrumbleonentity( "generic_attack_heavy_1500" );
-        level.playercardbackground playrumblelooponentity( "generic_quake_loop" );
+        level.player stoprumble( "generic_quake_loop" );
+        level.player playrumbleonentity( "generic_attack_heavy_1500" );
+        level.player playrumblelooponentity( "generic_quake_loop" );
         common_scripts\utility::_id_384A( "cut_to_black" );
-        level.playercardbackground stoprumble( "generic_quake_loop" );
+        level.player stoprumble( "generic_quake_loop" );
     }
 }
 
@@ -488,24 +488,24 @@ fuselage_breached()
         level.macey maps\_utility::_id_8EA4();
 
     common_scripts\utility::_id_0D13( getentarray( "breach_seats", "targetname" ), ::breach_seat, "fuselage_breached" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "fuselage_stress" );
-    level.playercardbackground playrumblelooponentity( "generic_ambient_loop" );
+    level.player thread maps\_utility::_id_69C4( "fuselage_stress" );
+    level.player playrumblelooponentity( "generic_ambient_loop" );
     wait 0.5;
     common_scripts\_exploder::_id_3528( 7 );
     wait 1.5;
-    level.playercardbackground thread maps\_utility::_id_69C4( "fuselage_stress" );
+    level.player thread maps\_utility::_id_69C4( "fuselage_stress" );
     common_scripts\utility::_id_383F( "fuselage_about_to_blow" );
     wait 0.5;
-    level.playercardbackground playlocalsound( "airplane_seatbelt", "airplane_seatbelt_done" );
+    level.player playlocalsound( "airplane_seatbelt", "airplane_seatbelt_done" );
     common_scripts\utility::_id_0D13( getentarray( "animated_center_console", "targetname" ), ::animated_breach_entity, "center_console", "center_console_open", "center_console_shake", 0, 1 );
-    level.playercardbackground waittill( "airplane_seatbelt_done" );
+    level.player waittill( "airplane_seatbelt_done" );
     wait 0.5;
-    level.playercardbackground stoprumble( "generic_ambient_loop" );
+    level.player stoprumble( "generic_ambient_loop" );
     common_scripts\_exploder::_id_3528( 666 );
-    earthquake( 0.5, 3, level.playercardbackground.origin, 8000 );
+    earthquake( 0.5, 3, level.player.origin, 8000 );
     soundscripts\_audio_mix_manager::_id_5CF6( "first_floor_mix" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "fuselage_breach_explosion_in" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "fuselage_breach_explosion" );
+    level.player thread maps\_utility::_id_69C4( "fuselage_breach_explosion_in" );
+    level.player thread maps\_utility::_id_69C4( "fuselage_breach_explosion" );
     thread maps\airplane_aud::aud_explosion_event();
     common_scripts\utility::_id_383F( "wind_zone_active" );
     common_scripts\utility::_id_383F( "fuselage_breached" );
@@ -542,12 +542,12 @@ animated_breach_entity( var_0, var_1, var_2, var_3, var_4, var_5 )
     self._id_0C72 = var_0;
     maps\_utility::_id_0D61();
 
-    if ( isdefined( self.script_parentname ) )
-        common_scripts\utility::_id_384A( self.script_parentname );
+    if ( isdefined( self.script_noteworthy ) )
+        common_scripts\utility::_id_384A( self.script_noteworthy );
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_6 = getent( self._not_team, "targetname" );
+        var_6 = getent( self.target, "targetname" );
 
         if ( isdefined( var_6 ) && issubstr( var_6.classname, "trigger_multiple" ) )
             var_6 waittill( "trigger" );
@@ -555,17 +555,17 @@ animated_breach_entity( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     if ( var_4 )
     {
-        maps\_utility::script_lightset();
+        maps\_utility::script_delay();
         self show();
         thread maps\_utility::_id_69C4( "scn_cargoship_mask_down" );
         maps\_anim::_id_0C24( self, var_1 );
         common_scripts\utility::_id_384A( "fuselage_breached" );
-        maps\_utility::script_lightset();
+        maps\_utility::script_delay();
         maps\_anim::_id_0BE1( self, var_2 );
     }
     else
     {
-        maps\_utility::script_lightset();
+        maps\_utility::script_delay();
         self show();
         maps\_anim::_id_0C24( self, var_1 );
         maps\_anim::_id_0BE1( self, var_2 );
@@ -590,7 +590,7 @@ breach_kill_ai()
 
 breach_kill_ai_logic()
 {
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self._id_85BA = 1;
     self kill();
     var_0 = self.origin;
@@ -606,7 +606,7 @@ breach_compartment_setup()
 
 breach_compartment_open( var_0, var_1 )
 {
-    var_2 = getent( self._not_team, "targetname" );
+    var_2 = getent( self.target, "targetname" );
 
     if ( isdefined( var_0 ) )
         common_scripts\utility::_id_384A( var_0 );
@@ -619,8 +619,8 @@ breach_compartment_open( var_0, var_1 )
 
 breach_seat( var_0 )
 {
-    var_1 = getent( self._not_team, "targetname" );
-    var_2 = getent( var_1._not_team, "targetname" );
+    var_1 = getent( self.target, "targetname" );
+    var_2 = getent( var_1.target, "targetname" );
     var_3 = undefined;
     var_4 = undefined;
     var_5 = undefined;
@@ -630,7 +630,7 @@ breach_seat( var_0 )
     if ( isdefined( var_0 ) )
         common_scripts\utility::_id_384A( var_0 );
 
-    switch ( self.script_parentname )
+    switch ( self.script_noteworthy )
     {
         case "seat_1":
             var_4 = 75;
@@ -725,7 +725,7 @@ physicsshake()
     for (;;)
     {
         wait 0.1;
-        physicsjitter( level.playercardbackground.origin, 5000, 2500, 0.45, 0.9 );
+        physicsjitter( level.player.origin, 5000, 2500, 0.45, 0.9 );
     }
 }
 
@@ -797,12 +797,12 @@ friendly_human_shield_setup()
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        if ( isdefined( var_0[var_3].script_parentname ) )
+        if ( isdefined( var_0[var_3].script_noteworthy ) )
         {
-            if ( var_0[var_3].script_parentname == "nodePrice" )
+            if ( var_0[var_3].script_noteworthy == "nodePrice" )
                 var_1 = var_0[var_3];
 
-            if ( var_0[var_3].script_parentname == "nodeGrigsby" )
+            if ( var_0[var_3].script_noteworthy == "nodeGrigsby" )
                 var_2 = var_0[var_3];
         }
     }
@@ -817,7 +817,7 @@ teleport_human_shield( var_0 )
     maps\_utility::_id_2A74();
     self _meth_81ca( var_0.origin, var_0.angles );
     self _meth_81aa( self.origin );
-    maps\jake_tools::_id_7F7F( var_0.rank );
+    maps\jake_tools::_id_7F7F( var_0.radius );
     self _meth_81a9( var_0 );
 }
 
@@ -838,24 +838,24 @@ humanshield()
     maps\_utility::_id_27EF( 1, ::player_hearbeat );
     thread humanshield_player_weapon();
     var_0 = getent( "org_humanshield_playerview", "targetname" );
-    var_0.origin = level.playercardbackground.origin;
+    var_0.origin = level.player.origin;
     create_playerview( var_0 );
     var_1 = 0.5;
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_slomo_in_front" );
+    level.player thread maps\_utility::_id_69C4( "scn_slomo_in_front" );
     maps\_utility::_id_7F00( "airplane_slomo", 2 );
-    level.playercardbackground _meth_848c( "clut_airplane_slomo", 2.0 );
-    level.playercardbackground _meth_83be( "airplane_slomo" );
+    level.player _meth_848c( "clut_airplane_slomo", 2.0 );
+    level.player _meth_83be( "airplane_slomo" );
     level.eplayerview maps\_utility::_id_5696( "tag_player", var_1, 1, 35, 35, 45, 45 );
     wait(var_1);
     common_scripts\utility::_id_383F( "player_looking_at_human_shield" );
     soundscripts\_snd::_id_870C( "aud_start_vip_checkpoint" );
-    level.slowmooverlay = spawnfx( level._effect["slow_mo_overlay"], level.playercardbackground.origin );
+    level.slowmooverlay = spawnfx( level._effect["slow_mo_overlay"], level.player.origin );
     triggerfx( level.slowmooverlay );
     setomnvar( "ui_airplane_slowmo_overlay", 1 );
 
     if ( getdvar( "chaplincheat" ) == "1" )
     {
-        level.playercardbackground setmovespeedscale( 0.2 );
+        level.player setmovespeedscale( 0.2 );
         level.eplayerview delete();
         common_scripts\utility::_id_384A( "restore_timescale" );
         common_scripts\utility::_id_383F( "obj_rescue_vip_complete" );
@@ -870,7 +870,7 @@ humanshield()
         maps\_utility::_id_8646( 0.3 );
         maps\_utility::_id_8643( 0.05 );
         maps\_utility::_id_8640();
-        level.playercardbackground setmovespeedscale( 0.2 );
+        level.player setmovespeedscale( 0.2 );
         level.eplayerview delete();
         common_scripts\utility::_id_384A( "restore_timescale" );
         common_scripts\utility::_id_383F( "obj_rescue_vip_complete" );
@@ -884,17 +884,17 @@ humanshield()
         maps\_utility::_id_863E();
 
         if ( var_2 )
-            level.playercardbackground notify( "_cheat_player_press_slowmo" );
+            level.player notify( "_cheat_player_press_slowmo" );
     }
 
     level.slowmooverlay delete();
     setomnvar( "ui_airplane_slowmo_overlay", 0 );
     thread airplane_destabilize();
-    level.playercardbackground setmovespeedscale( level._id_6D5E );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_slomo_out_front" );
+    level.player setmovespeedscale( level._id_6D5E );
+    level.player thread maps\_utility::_id_69C4( "scn_slomo_out_front" );
     maps\_utility::_id_7F00( "airplane", 2 );
-    level.playercardbackground _meth_848c( "clut_airplane_top", 2.0 );
-    level.playercardbackground _meth_83be( "airplane" );
+    level.player _meth_848c( "clut_airplane_top", 2.0 );
+    level.player _meth_83be( "airplane" );
     level notify( "stop_player_heartbeat" );
 }
 
@@ -925,26 +925,26 @@ player_hearbeat()
 
     for (;;)
     {
-        level.playercardbackground thread maps\_utility::_id_69C4( "breathing_heartbeat" );
+        level.player thread maps\_utility::_id_69C4( "breathing_heartbeat" );
         wait 0.5;
     }
 }
 
 humanshield_player_weapon()
 {
-    var_0 = level.playercardbackground getcurrentweapon();
-    level.playercardbackground takeweapon( var_0 );
+    var_0 = level.player getcurrentweapon();
+    level.player takeweapon( var_0 );
     wait 1;
-    level.playercardbackground giveweapon( "usp_silencer" );
-    level.playercardbackground givemaxammo( "usp_silencer" );
-    level.playercardbackground switchtoweapon( "usp_silencer" );
+    level.player giveweapon( "usp_silencer" );
+    level.player givemaxammo( "usp_silencer" );
+    level.player switchtoweapon( "usp_silencer" );
 }
 
 ai_human_shield_think()
 {
     common_scripts\utility::_id_384A( "human_shield_actors_spawned" );
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     maps\_utility::_id_7F71( 1 );
     self setthreatbiasgroup( "oblivious" );
     self _meth_81aa( self.origin );
@@ -953,7 +953,7 @@ ai_human_shield_think()
     thread human_shield_pain_monitor();
     var_0 = undefined;
 
-    switch ( self.script_parentname )
+    switch ( self.script_noteworthy )
     {
         case "terrorist":
             self.allowdeath = 0;
@@ -1003,7 +1003,7 @@ human_shield_ter_wounded_failsafe()
     }
 
     if ( !isdefined( var_1 ) )
-        var_1 = common_scripts\utility::_id_3F91( level.playercardbackground.origin, var_0 );
+        var_1 = common_scripts\utility::_id_3F91( level.player.origin, var_0 );
 
     var_6 = self gettagorigin( "TAG_EYE" );
     thread humanshield_magicbullet_h1( var_1 );
@@ -1023,17 +1023,17 @@ humanshield_magicbullet_h1( var_0 )
     {
         var_3 = self gettagorigin( "TAG_EYE" );
         bullettracer( var_0.origin, var_3, 1 );
-        thread common_scripts\utility::_id_69C2( "weap_usp45sd_fire_plr", level.playercardbackground.origin );
+        thread common_scripts\utility::_id_69C2( "weap_usp45sd_fire_plr", level.player.origin );
         wait 0.05;
     }
 }
 
 headshot_fx()
 {
-    var_0 = level.playercardbackground.angles;
+    var_0 = level.player.angles;
     var_1 = anglestoforward( var_0 );
     var_2 = maps\_utility::vector_multiply( var_1, 5000 );
-    var_3 = level.playercardbackground geteye();
+    var_3 = level.player geteye();
     var_4 = var_3 + var_2;
     var_5 = bullettrace( var_3, var_4, 0, undefined );
     playfx( common_scripts\utility::_id_3FA8( "flesh_hit" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
@@ -1041,7 +1041,7 @@ headshot_fx()
     playfx( common_scripts\utility::_id_3FA8( "headshot1" ), var_5["position"], ( -25.0, 10.0, -10.0 ) );
     playfx( common_scripts\utility::_id_3FA8( "headshot2" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
     playfx( common_scripts\utility::_id_3FA8( "headshot3" ), var_5["position"], ( 0.0, 0.0, 1.0 ) );
-    thread common_scripts\utility::_id_69C2( "bullet_large_flesh", level.playercardbackground.origin );
+    thread common_scripts\utility::_id_69C2( "bullet_large_flesh", level.player.origin );
     thread suitcase_splatter();
 }
 
@@ -1281,9 +1281,9 @@ _id_3A27()
 
     if ( getdvarint( "use_old_airplane_jump" ) != 1 )
     {
-        level.playercardbackground allowlean( 0 );
+        level.player allowlean( 0 );
 
-        while ( level.playercardbackground isleaning() )
+        while ( level.player isleaning() )
             waittillframeend;
     }
 
@@ -1292,13 +1292,13 @@ _id_3A27()
     if ( getdvarint( "use_old_airplane_jump" ) == 1 )
     {
         thread white_flash();
-        level.playercardbackground disableweapons();
+        level.player disableweapons();
         setsaveddvar( "compass", 0 );
     }
     else
     {
-        level.playercardbackground disableweapons();
-        level.playercardbackground setstance( "stand" );
+        level.player disableweapons();
+        level.player setstance( "stand" );
         setsaveddvar( "compass", 0 );
         var_1 = maps\_utility::_id_88D1( "worldbody" );
         var_1 hide();
@@ -1308,7 +1308,7 @@ _id_3A27()
         var_1 show();
         level.nodefreefall thread maps\_anim::_id_0C24( var_1, "airplane_end_player" );
         wait 0.45;
-        level.playercardbackground playrumbleonentity( "generic_attack_heavy_1500" );
+        level.player playrumbleonentity( "generic_attack_heavy_1500" );
     }
 
     thread freefall_camerashake();
@@ -1316,7 +1316,7 @@ _id_3A27()
     thread _id_53B1();
     thread savetime();
     ambientstop( 1 );
-    level.playercardbackground thread maps\_utility::_id_69C4( "airplane_jump_whoosh" );
+    level.player thread maps\_utility::_id_69C4( "airplane_jump_whoosh" );
 
     if ( getdvarint( "use_old_airplane_jump" ) != 1 )
         var_1 waittillmatch( "single anim", "switchplane" );
@@ -1327,8 +1327,8 @@ _id_3A27()
     var_2 show();
     var_3 = getent( "plane_wings", "targetname" );
     var_3 hide();
-    level.player_sound_org = spawn( "script_origin", level.playercardbackground.origin + ( 0.0, 0.0, 32.0 ) );
-    level.player_sound_org linkto( level.playercardbackground );
+    level.player_sound_org = spawn( "script_origin", level.player.origin + ( 0.0, 0.0, 32.0 ) );
+    level.player_sound_org linkto( level.player );
     level.player_sound_org playloopsound( "airplane_wind_loop" );
     var_4 = 1;
     var_5 = 1;
@@ -1341,15 +1341,15 @@ _id_3A27()
     if ( getdvarint( "use_old_airplane_jump" ) == 1 )
     {
         common_scripts\utility::_id_384A( "white_done" );
-        level.playercardbackground setplayerangles( var_9.angles );
-        level.playercardbackground setorigin( var_9.origin );
-        level.playercardbackground playerlinkto( var_9 );
-        var_11 = getent( var_9._not_team, "targetname" );
+        level.player setplayerangles( var_9.angles );
+        level.player setorigin( var_9.origin );
+        level.player playerlinkto( var_9 );
+        var_11 = getent( var_9.target, "targetname" );
         var_10 = 4;
         thread plane_explodes();
-        level.playercardbackground unlink();
+        level.player unlink();
         maps\_utility::_id_5693( var_11.origin, var_11.angles, var_10, var_4, var_5, var_6, var_7, var_8 );
-        level.playercardbackground playerlinkto( var_11 );
+        level.player playerlinkto( var_11 );
     }
     else
     {
@@ -1416,14 +1416,14 @@ plane_explodes()
     wait 0.1;
     level.player_sound_org delete();
     wait 2.5;
-    level.playercardbackground freezecontrols( 1 );
-    level.playercardbackground shellshock( "nosound", 60, 0 );
+    level.player freezecontrols( 1 );
+    level.player shellshock( "nosound", 60, 0 );
 
     if ( !maps\_utility::_id_0CC3() )
     {
         wait 4.0;
-        level.playercardbackground _meth_84ed( &"AIRPLANE_CAMPAIGN_COMPLETED" );
-        level.playercardbackground waittill( "menuresponse" );
+        level.player _meth_84ed( &"AIRPLANE_CAMPAIGN_COMPLETED" );
+        level.player waittill( "menuresponse" );
     }
 
     maps\_utility::_id_60D6();
@@ -1432,7 +1432,7 @@ plane_explodes()
 end_sound_start()
 {
     thread end_sound_stop();
-    level.playercardbackground playlocalsound( "scn_final_explosion_front" );
+    level.player playlocalsound( "scn_final_explosion_front" );
 }
 
 end_sound_stop()
@@ -1441,7 +1441,7 @@ end_sound_stop()
     ambientstop();
 
     if ( getdvar( "arcademode" ) != "1" )
-        level.playercardbackground shellshock( "nosound", 60, 0 );
+        level.player shellshock( "nosound", 60, 0 );
 }
 
 friendly_blows_door()
@@ -1453,7 +1453,7 @@ friendly_blows_door()
     var_2.angles += ( 0.0, 90.0, 0.0 );
     var_3 = getent( "c4_door", "targetname" );
     level.grigsby maps\_utility::_id_2A74();
-    level.grigsby.ignoretriggers = 1;
+    level.grigsby.ignoreme = 1;
     level.grigsby.goalradius = 32;
     level.grigsby _meth_81a7( 1 );
     var_2 maps\_anim::_id_0BFF( level.grigsby, "C4_plant_start" );
@@ -1473,7 +1473,7 @@ friendly_blows_door()
     earthquake( 0.5, 3, var_0.origin, 3000 );
     var_3 delete();
     var_0 thread maps\airplane_aud::aud_end_breach_sounds();
-    level.playercardbackground thread common_scripts\utility::_id_6975( "end_wind_loop" );
+    level.player thread common_scripts\utility::_id_6975( "end_wind_loop" );
     thread hull_breach_rumble( var_0, 1 );
     soundscripts\_snd::_id_870C( "aud_add_wind_door_mix" );
     common_scripts\utility::_id_383F( "exit_door_blown" );
@@ -1485,13 +1485,13 @@ freefall_camerashake()
 
     while ( !common_scripts\utility::_id_382E( "plane_explodes" ) )
     {
-        earthquake( 0.2, 0.05, level.playercardbackground.origin, 80000 );
+        earthquake( 0.2, 0.05, level.player.origin, 80000 );
         wait 0.05;
     }
 
     for (;;)
     {
-        earthquake( 0.35, 0.05, level.playercardbackground.origin, 80000 );
+        earthquake( 0.35, 0.05, level.player.origin, 80000 );
         wait 0.05;
     }
 }
@@ -1697,7 +1697,7 @@ flashbang_detect()
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         {
-            if ( var_0[var_1].motiontrackerenabled == "projectile_us_smoke_grenade" || var_0[var_1].motiontrackerenabled == "projectile_m84_flashbang_grenade" )
+            if ( var_0[var_1].model == "projectile_us_smoke_grenade" || var_0[var_1].model == "projectile_m84_flashbang_grenade" )
             {
                 wait 2;
 
@@ -1710,7 +1710,7 @@ flashbang_detect()
 
 player_breach_jump()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     common_scripts\utility::_id_384A( "player_breach_jump" );
     level notify( "mission failed" );
     thread white_flash( 0.35 );
@@ -1722,7 +1722,7 @@ player_breach_jump()
     level notify( "kill_timer" );
     setdvar( "ui_deadquote", &"AIRPLANE_FAILED_JUMPED_OUT" );
     maps\_utility::_id_5CDF();
-    level.playercardbackground kill();
+    level.player kill();
 }
 
 no_grenade_death_hack()
@@ -1797,7 +1797,7 @@ door_open_double( var_0 )
     {
         var_7 = var_0[var_6];
 
-        switch ( var_7.script_parentname )
+        switch ( var_7.script_noteworthy )
         {
             case "left":
                 var_1 = var_7;
@@ -1860,7 +1860,7 @@ bathroom_door_open( var_0, var_1 )
     {
         wait 0.05;
 
-        if ( !level.playercardbackground istouching( var_8 ) )
+        if ( !level.player istouching( var_8 ) )
             break;
     }
 
@@ -1896,7 +1896,7 @@ airplane_destabilize()
 
     for (;;)
     {
-        earthquake( 0.15, 0.05, level.playercardbackground.origin, 80000 );
+        earthquake( 0.15, 0.05, level.player.origin, 80000 );
         wait 0.05;
     }
 }
@@ -1952,7 +1952,7 @@ timer_logic( var_0, var_1, var_2 )
     level._id_4AFE = 20;
     level._id_9373 = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
     level._id_9373 setpulsefx( 30, 900000, 700 );
-    level._id_9373._id_92B2.land = var_1;
+    level._id_9373._id_92B2.label = var_1;
     level._id_9373 settenthstimer( var_0 );
     level._id_8CC5 = gettime();
 
@@ -1997,7 +1997,7 @@ hostage_timer( var_0 )
     level._id_4AFE = 20;
     level._id_9373 = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
     level._id_9373 setpulsefx( 30, 900000, 700 );
-    level._id_9373._id_92B2.land = &"AIRPLANE_TIME_TILL_HOSTAGE_KILL";
+    level._id_9373._id_92B2.label = &"AIRPLANE_TIME_TILL_HOSTAGE_KILL";
     level._id_9373 settenthstimer( var_0 );
     level._id_8CC5 = gettime();
     thread hostage_timer_cleanup();
@@ -2016,19 +2016,19 @@ timer_tick()
     for (;;)
     {
         wait 1;
-        level.playercardbackground thread maps\_utility::_id_69C4( "countdown_beep" );
+        level.player thread maps\_utility::_id_69C4( "countdown_beep" );
         level notify( "timer_tick" );
     }
 }
 
 mission_failed_out_of_time( var_0 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "kill_timer" );
     level notify( "mission failed" );
-    level.playercardbackground freezecontrols( 1 );
-    level.playercardbackground thread player_death_effect();
-    level.playercardbackground thread maps\_utility::_id_69C4( "airplane_final_explosion" );
+    level.player freezecontrols( 1 );
+    level.player thread player_death_effect();
+    level.player thread maps\_utility::_id_69C4( "airplane_final_explosion" );
     musicstop( 1 );
     setdvar( "ui_deadquote", var_0 );
     thread timer_death_hud();
@@ -2039,14 +2039,14 @@ mission_failed_out_of_time( var_0 )
 timer_death_hud()
 {
     soundscripts\_snd::_id_870C( "mission_failed_fade_out" );
-    var_0 = newclienthudelem( level.playercardbackground );
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 15;
+    var_0 = newclienthudelem( level.player );
+    var_0.x = 0;
+    var_0.y = 15;
     var_0 setshader( "hud_death_timeout", 50, 50 );
     var_0.alignx = "center";
     var_0.aligny = "middle";
-    var_0.hostquits = "center";
-    var_0.visionsetnight = "middle";
+    var_0.horzalign = "center";
+    var_0.vertalign = "middle";
     var_0.foreground = 1;
     var_0.alpha = 0;
     wait 0.65;
@@ -2056,9 +2056,9 @@ timer_death_hud()
 
 player_death_effect()
 {
-    var_0 = level.playercardbackground;
+    var_0 = level.player;
     playfx( level._effect["player_death_explosion"], var_0.origin );
-    earthquake( 1, 1, level.playercardbackground.origin, 100 );
+    earthquake( 1, 1, level.player.origin, 100 );
 }
 
 _id_53B1()
@@ -2109,13 +2109,13 @@ ai_allies_think()
 
 ai_civilian_think()
 {
-    var_0 = getent( self._not_team, "targetname" );
-    var_1 = var_0.script_parentname;
+    var_0 = getent( self.target, "targetname" );
+    var_1 = var_0.script_noteworthy;
     var_2 = maps\_vehicle_aianim::_id_21A2( self );
     var_2.allowdeath = 0;
     var_2.nofriendlyfire = 1;
     maps\_vehicle_aianim::_id_297A( var_2, "weapon_" );
-    var_2.ignoretriggers = 1;
+    var_2.ignoreme = 1;
 
     if ( !isdefined( var_2._id_58D7 ) )
         var_2 thread maps\_utility::_id_58D7();
@@ -2142,15 +2142,15 @@ ai_patroller()
         if ( common_scripts\utility::_id_382E( "enemies_alerted" ) )
             break;
 
-        if ( self _meth_81c2( level.playercardbackground ) )
+        if ( self _meth_81c2( level.player ) )
         {
             if ( !common_scripts\utility::_id_382E( "enemies_alerted" ) )
                 common_scripts\utility::_id_383F( "enemies_alerted" );
         }
 
-        if ( distance( self.origin, level.playercardbackground.origin ) <= level.alertdistance )
+        if ( distance( self.origin, level.player.origin ) <= level.alertdistance )
         {
-            if ( bullettracepassed( level.playercardbackground geteye(), self.origin + ( 0.0, 0.0, 48.0 ), 0, undefined ) )
+            if ( bullettracepassed( level.player geteye(), self.origin + ( 0.0, 0.0, 48.0 ), 0, undefined ) )
             {
                 if ( !common_scripts\utility::_id_382E( "enemies_alerted" ) )
                     common_scripts\utility::_id_383F( "enemies_alerted" );
@@ -2284,9 +2284,9 @@ initfriendlies( var_0 )
 
         for ( var_1 = 0; var_1 < var_3.size; var_1++ )
         {
-            if ( isdefined( var_3[var_1].script_parentname ) )
+            if ( isdefined( var_3[var_1].script_noteworthy ) )
             {
-                switch ( var_3[var_1].script_parentname )
+                switch ( var_3[var_1].script_noteworthy )
                 {
                     case "nodePrice":
                         level._id_6F7C maps\jake_tools::_id_8CC0( var_3[var_1] );
@@ -2319,8 +2319,8 @@ initfriendlies( var_0 )
     }
 
     common_scripts\utility::_id_384A( "intro_fade_in_complete" );
-    level.playercardbackground setorigin( var_5.origin );
-    level.playercardbackground setplayerangles( var_5.angles );
+    level.player setorigin( var_5.origin );
+    level.player setplayerangles( var_5.angles );
 }
 
 demo_setup()
@@ -2344,7 +2344,7 @@ demo_setup()
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        switch ( var_1[var_2].script_parentname )
+        switch ( var_1[var_2].script_noteworthy )
         {
             case "demo_alavi":
                 level._id_483C["alavi"] = var_1[var_2];
@@ -2371,7 +2371,7 @@ demo_walkthrough()
     {
         var_2 = var_0[var_1];
         level._id_483C[var_2] maps\_utility::_id_30B0();
-        level._id_483C[var_2].invisible = 60;
+        level._id_483C[var_2].interval = 60;
         level._id_483C[var_2]._id_2B0E = 1;
     }
 
@@ -2432,7 +2432,7 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 
     for ( var_6 = 0; var_6 < var_4.size; var_6++ )
     {
-        if ( var_4[var_6].script_parentname == self.script_parentname )
+        if ( var_4[var_6].script_noteworthy == self.script_noteworthy )
         {
             var_5 = var_4[var_6];
             break;
@@ -2443,8 +2443,8 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
     {
         self _meth_81a9( var_5 );
 
-        if ( var_5.rank )
-            self.goalradius = var_5.rank;
+        if ( var_5.radius )
+            self.goalradius = var_5.radius;
         else
             self.goalradius = 80;
 
@@ -2460,8 +2460,8 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 
             if ( var_3 == "stand2run180" )
                 var_8 = self;
-            else if ( isdefined( self.node_relinquished ) && distance( self.node_relinquished.origin, self.origin ) < 4 )
-                var_8 = self.node_relinquished;
+            else if ( isdefined( self.node ) && distance( self.node.origin, self.origin ) < 4 )
+                var_8 = self.node;
             else if ( isdefined( self.goodnode ) && distance( self.goodnode.origin, self.origin ) < 4 )
                 var_8 = self.goodnode;
             else
@@ -2505,14 +2505,14 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
                 switch ( var_11[var_12] )
                 {
                     case "disable_cqb":
-                        if ( isdefined( var_5._not_team ) )
+                        if ( isdefined( var_5.target ) )
                             disable_cqbwalk_ign_demo_wrapper();
                         else
                             maps\_utility::_id_27EF( 1.5, ::disable_cqbwalk_ign_demo_wrapper );
 
                         continue;
                     case "enable_cqb":
-                        if ( isdefined( var_5._not_team ) )
+                        if ( isdefined( var_5.target ) )
                             enable_cqbwalk_ign_demo_wrapper();
                         else
                             maps\_utility::_id_27EF( 1.5, ::enable_cqbwalk_ign_demo_wrapper );
@@ -2522,9 +2522,9 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
             }
         }
 
-        if ( isdefined( var_5._not_team ) )
+        if ( isdefined( var_5.target ) )
         {
-            var_5 = getnode( var_5._not_team, "targetname" );
+            var_5 = getnode( var_5.target, "targetname" );
             continue;
         }
 
@@ -2546,13 +2546,13 @@ decanim( var_0 )
 disable_cqbwalk_ign_demo_wrapper()
 {
     maps\_utility::_id_2A8D();
-    self.invisible = 96;
+    self.interval = 96;
 }
 
 enable_cqbwalk_ign_demo_wrapper()
 {
     maps\_utility::_id_30B0();
-    self.invisible = 50;
+    self.interval = 50;
 }
 
 addgasmaskcracks()
@@ -2560,11 +2560,11 @@ addgasmaskcracks()
     var_0 = 250;
     var_1 = getent( "breach_physics", "targetname" );
 
-    if ( distancesquared( level.playercardbackground.origin, var_1.origin ) < var_0 * var_0 )
+    if ( distancesquared( level.player.origin, var_1.origin ) < var_0 * var_0 )
     {
-        level.maskcracksfx = spawnfx( level._effect["goggles_cracks"], level.playercardbackground.origin );
+        level.maskcracksfx = spawnfx( level._effect["goggles_cracks"], level.player.origin );
         triggerfx( level.maskcracksfx );
-        level.playercardbackground thread maps\_utility::_id_69C4( "scn_airplane_explosion_mask_crack" );
+        level.player thread maps\_utility::_id_69C4( "scn_airplane_explosion_mask_crack" );
     }
 }
 

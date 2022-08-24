@@ -129,7 +129,7 @@ _id_87AC( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_13 = self;
 
     if ( !var_12 )
-        var_13 = level.playercardbackground;
+        var_13 = level.player;
 
     if ( !isdefined( var_13 ) )
         return;
@@ -162,7 +162,7 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     {
         var_15 = "tag_origin";
 
-        if ( isdefined( var_13.motiontrackerenabled ) || var_13.motiontrackerenabled != "" || var_13 _meth_843e( var_15 ) < 0 )
+        if ( isdefined( var_13.model ) || var_13.model != "" || var_13 _meth_843e( var_15 ) < 0 )
             var_15 = "";
 
         var_5 linkto( var_13, var_15, var_10, ( 0.0, 0.0, 0.0 ) );

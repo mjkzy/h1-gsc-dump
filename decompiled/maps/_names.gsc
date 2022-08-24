@@ -619,8 +619,8 @@ _id_3DE2( var_0 )
         if ( self._id_79EE == "none" )
             return;
 
-        self.nearz = self._id_79EE;
-        _id_40AB( self.nearz );
+        self.name = self._id_79EE;
+        _id_40AB( self.name );
         self notify( "set name and rank" );
         return;
     }
@@ -667,7 +667,7 @@ _id_3DE3( var_0 )
     if ( isai( self ) && self _meth_813f() )
         self._id_0986 = var_3;
     else
-        self.nearz = var_3;
+        self.name = var_3;
 }
 
 _id_40AB( var_0 )

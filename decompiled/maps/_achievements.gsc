@@ -50,7 +50,7 @@ master_ninja_enemy_spawned()
     level endon( "master_ninja_illegal_kill" );
     self waittill( "death", var_0, var_1 );
 
-    if ( isdefined( var_0 ) && var_0 == level.playercardbackground )
+    if ( isdefined( var_0 ) && var_0 == level.player )
     {
         if ( var_1 == "MOD_MELEE" )
             common_scripts\utility::_id_383F( "master_ninja_melee_kill" );
@@ -61,7 +61,7 @@ master_ninja_enemy_spawned()
 
 retro_shooter_init()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "ac130":
         case "aftermath":
@@ -77,7 +77,7 @@ retro_shooter_init()
 
     for (;;)
     {
-        level.playercardbackground waittill( "reload" );
+        level.player waittill( "reload" );
         level notify( "retro_shooter_player_reloaded" );
     }
 }
@@ -102,7 +102,7 @@ weapon_master_init()
 
 weapon_master_barrett()
 {
-    if ( level.script_context == "sniperescape" )
+    if ( level.script == "sniperescape" )
     {
         common_scripts\utility::_id_A069( "weapon_master_barrett_kill", "makarov_killed" );
         weapon_master_register_kill( "barrett" );
@@ -133,7 +133,7 @@ weapon_master_enemy_spawned()
 {
     self waittill( "death", var_0, var_1, var_2 );
 
-    if ( isdefined( var_0 ) && var_0 == level.playercardbackground && isdefined( var_2 ) && var_1 != "MOD_MELEE" )
+    if ( isdefined( var_0 ) && var_0 == level.player && isdefined( var_2 ) && var_1 != "MOD_MELEE" )
         weapon_master_register_kill( var_2 );
 }
 
@@ -160,7 +160,7 @@ weapon_master_vehicle_damaged()
                 var_7 = "javelin";
             else if ( var_0 >= 300 )
             {
-                if ( var_1 == level.playercardbackground )
+                if ( var_1 == level.player )
                     var_7 = "rpg";
             }
         }
@@ -180,7 +180,7 @@ weapon_master_vehicle_spawned()
     thread weapon_master_vehicle_damaged();
     self waittill( "death", var_1, var_2, var_3 );
 
-    if ( isdefined( var_1 ) && var_1 == level.playercardbackground && isdefined( var_3 ) && var_2 != "MOD_MELEE" )
+    if ( isdefined( var_1 ) && var_1 == level.player && isdefined( var_3 ) && var_2 != "MOD_MELEE" )
         weapon_master_register_kill( var_3 );
     else
     {
@@ -205,9 +205,9 @@ weapon_master_register_kill( var_0 )
     if ( common_scripts\utility::_id_382E( "has_cheated" ) || maps\_cheat::is_cheating() )
         return;
 
-    if ( level.playercardbackground _meth_8212( "sp_weaponMaster", var_1 ) != "1" )
+    if ( level.player _meth_8212( "sp_weaponMaster", var_1 ) != "1" )
     {
-        level.playercardbackground _meth_8213( "sp_weaponMaster", var_1, 1 );
+        level.player _meth_8213( "sp_weaponMaster", var_1, 1 );
         updategamerprofileall();
         weapon_master_check_success();
     }
@@ -221,7 +221,7 @@ weapon_master_check_success()
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        var_4 = level.playercardbackground _meth_8212( "sp_weaponMaster", var_3 );
+        var_4 = level.player _meth_8212( "sp_weaponMaster", var_3 );
         var_1[var_0[var_3]] = var_4;
 
         if ( var_4 == "1" )
@@ -248,18 +248,18 @@ i_hate_dogs_enemy_spawned()
 
     self waittill( "death", var_0, var_1 );
 
-    if ( isdefined( var_0 ) && var_0 == level.playercardbackground && var_1 == "MOD_MELEE" )
+    if ( isdefined( var_0 ) && var_0 == level.player && var_1 == "MOD_MELEE" )
     {
         if ( common_scripts\utility::_id_382E( "has_cheated" ) || maps\_cheat::is_cheating() )
             return;
 
-        var_2 = level.playercardbackground _meth_8212( "sp_iHateDogs" );
+        var_2 = level.player _meth_8212( "sp_iHateDogs" );
         var_3 = 20;
 
         if ( var_2 < var_3 )
         {
             var_2++;
-            level.playercardbackground _meth_8213( "sp_iHateDogs", var_2 );
+            level.player _meth_8213( "sp_iHateDogs", var_2 );
             updategamerprofileall();
 
             if ( var_2 >= var_3 || platform_tracks_progression() )
@@ -270,5 +270,5 @@ i_hate_dogs_enemy_spawned()
 
 platform_tracks_progression()
 {
-    return level.xpmultiplier || level.perk1;
+    return level.xb3 || level.pc;
 }

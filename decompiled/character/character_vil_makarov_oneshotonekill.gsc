@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_russian_military_assault_a_woodland" );
     precachemodel( "head_makarov_b_young" );

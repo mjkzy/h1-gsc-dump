@@ -147,7 +147,7 @@ _id_4D97()
 
 _id_8D31()
 {
-    self.turret_not_on_target = 0.2;
+    self.turnrate = 0.2;
 
     if ( isdefined( self._id_1DFD ) )
     {
@@ -189,7 +189,7 @@ _id_8D04()
     animscripts\move::_id_1EE8();
     self._id_66F4 = undefined;
     maps\_utility::_id_3102();
-    self.turret_not_on_target = 0.3;
+    self.turnrate = 0.3;
     var_0 = randomint( 3 ) < 1;
 
     if ( isdefined( self._id_398F ) )

@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 100;
-    self.groundentchanged = "fraggrenade";
+    self.health = 100;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "usp";
     self._id_855D = "usp";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "ak47_grenadier";
+    self.weapon = "ak47_grenadier";
     character\character_sp_russian_loyalist_d::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_russian_loyalist_d::prestigedoublexp();
+    character\character_sp_russian_loyalist_d::precache();
     precacheitem( "ak47_grenadier" );
     precacheitem( "gp25" );
     precacheitem( "usp" );

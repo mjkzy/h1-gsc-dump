@@ -59,7 +59,7 @@ init()
     if ( getdvar( "credits_active" ) == "1" )
         return;
 
-    level.playercardbackground thread specialfeaturesmenu();
+    level.player thread specialfeaturesmenu();
 }
 
 death_monitor()
@@ -190,7 +190,7 @@ tire_explosionmode( var_0 )
 clustergrenademode( var_0 )
 {
     if ( var_0 )
-        level.playercardbackground thread wait_for_grenades();
+        level.player thread wait_for_grenades();
     else
         level notify( "end_cluster_grenades" );
 }
@@ -231,7 +231,7 @@ create_clustergrenade( var_0 )
     {
         var_4 = getclustergrenadevelocity();
         var_5 = 1.5 + var_3 / 6 + randomfloat( 0.1 );
-        var_6 = magicgrenademanual( var_0, var_1, var_4, var_5, level.playercardbackground );
+        var_6 = magicgrenademanual( var_0, var_1, var_4, var_5, level.player );
         var_6.cluster_grenade = 1;
     }
 }
@@ -251,7 +251,7 @@ getclustergrenadevelocity()
 
 ignore_ammomode( var_0 )
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return;
 
     if ( var_0 )
@@ -292,7 +292,7 @@ invertmode( var_0 )
 
 applyvisionsets()
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return;
 
     var_0 = 0;
@@ -380,24 +380,24 @@ slowmo_hintprint()
     var_3 = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 400, 1 );
     var_4 = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 400, 1 );
     var_2 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 );
-    var_2.space = 1;
-    var_2.hindlegstraceoffset = 1;
-    var_2.high_priority = 1;
+    var_2.sort = 1;
+    var_2.hidewheninmenu = 1;
+    var_2.hidewhendead = 1;
     var_2.alpha = 0.9;
     var_3 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 );
-    var_3.space = 1;
-    var_3.hindlegstraceoffset = 1;
-    var_3.high_priority = 1;
+    var_3.sort = 1;
+    var_3.hidewheninmenu = 1;
+    var_3.hidewhendead = 1;
     var_3.alpha = 0.05;
     var_4 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 + 24 );
-    var_4.space = 1;
-    var_4.hindlegstraceoffset = 1;
-    var_4.high_priority = 1;
+    var_4.sort = 1;
+    var_4.hidewheninmenu = 1;
+    var_4.hidewhendead = 1;
     var_4.alpha = 0.05;
     var_5 = maps\_hud_util::_id_2401( "timer", 0.5 );
-    var_5.hindlegstraceoffset = 1;
+    var_5.hidewheninmenu = 1;
     var_5 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, var_1 + var_0 );
-    var_5.space = 0.5;
+    var_5.sort = 0.5;
     var_5 settext( &"SCRIPT_PLATFORM_CHEAT_USETOSLOWMO" );
 
     for ( var_6 = 0; var_6 < 100; var_6++ )
@@ -431,13 +431,13 @@ slowmomode( var_0 )
     if ( level.slowmo_mode_enabled )
     {
         level._id_8637 thread gamespeed_proc();
-        level.playercardbackground allowmelee( 0 );
+        level.player allowmelee( 0 );
         thread slowmo_hintprint();
     }
     else
     {
         level notify( "disable_slowmo" );
-        level.playercardbackground allowmelee( 1 );
+        level.player allowmelee( 1 );
         level._id_8637 thread gamespeed_reset();
         level.cheatshowslowmohint = 0;
     }
@@ -450,7 +450,7 @@ gamespeed_proc()
 
     for (;;)
     {
-        level.playercardbackground waittill( "_cheat_player_press_slowmo" );
+        level.player waittill( "_cheat_player_press_slowmo" );
         level.cheatshowslowmohint = 0;
         _id_8649();
 
@@ -470,19 +470,19 @@ gamespeed_reset_on_death()
 {
     level notify( "gamespeed_reset_on_death" );
     level endon( "gamespeed_reset_on_death" );
-    level.playercardbackground waittill( "death" );
+    level.player waittill( "death" );
     thread gamespeed_reset();
 }
 
 gamespeed_slowmo()
 {
-    level.playercardbackground thread common_scripts\utility::_id_6975( "h1_slowmo_cheat_heartbeat" );
+    level.player thread common_scripts\utility::_id_6975( "h1_slowmo_cheat_heartbeat" );
     setslowmotion( self._id_8A53, self._id_8A56, self._id_56A9 );
 }
 
 gamespeed_reset()
 {
-    level.playercardbackground thread common_scripts\utility::_id_8EA1( "h1_slowmo_cheat_heartbeat" );
+    level.player thread common_scripts\utility::_id_8EA1( "h1_slowmo_cheat_heartbeat" );
 
     if ( !common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
         setslowmotion( self._id_8A56, self._id_8A53, self._id_56AA );
@@ -501,7 +501,7 @@ slowmomodesuspend()
         {
             level notify( "disable_slowmo" );
             level._id_8637 thread gamespeed_reset();
-            level.playercardbackground allowmelee( 1 );
+            level.player allowmelee( 1 );
         }
 
         wait 0.05;
@@ -518,14 +518,14 @@ slowmomoderesume()
             level._id_8637 thread gamespeed_slowmo();
 
         level._id_8637 thread gamespeed_proc();
-        level.playercardbackground allowmelee( 0 );
+        level.player allowmelee( 0 );
         level.sloweddown = undefined;
     }
 }
 
 chaplinmode( var_0 )
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return;
 
     if ( var_0 )
@@ -544,7 +544,7 @@ chaplinmode( var_0 )
         level notify( "disable_chaplin" );
         level notify( "disable_chaplin_grain" );
         chaplin_grain_end();
-        level.playercardbackground stopshellshock();
+        level.player stopshellshock();
         _func_144( "default_night" );
         setomnvar( "ui_ragtimewarefare_overlay", 0 );
         level.visionsets["chaplin"] = 0;
@@ -562,33 +562,33 @@ chaplinmode( var_0 )
 chaplin_titlecard_create_background()
 {
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "black", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 1;
     var_0.foreground = 1;
-    var_0.space = 0;
+    var_0.sort = 0;
     return var_0;
 }
 
 chaplin_titlecard_create_text( var_0 )
 {
     var_1 = newhudelem();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = -40;
+    var_1.x = 0;
+    var_1.y = -40;
     var_1.alignx = "center";
     var_1.aligny = "middle";
-    var_1.hostquits = "center";
-    var_1.visionsetnight = "middle";
+    var_1.horzalign = "center";
+    var_1.vertalign = "middle";
     var_1.foreground = 1;
     var_1 settext( var_0 );
     var_1.fontscale = 3;
     var_1.alpha = 1;
-    var_1.space = 1;
+    var_1.sort = 1;
     var_1.color = ( 0.976, 0.796, 0.412 );
     return var_1;
 }
@@ -622,7 +622,7 @@ chaplin_proc()
 
     for (;;)
     {
-        level.playercardbackground shellshock( "chaplincheat", 60, 1 );
+        level.player shellshock( "chaplincheat", 60, 1 );
         wait 0.5;
 
         if ( !common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
@@ -640,7 +640,7 @@ chaplin_proc()
 
 chaplin_grain_start()
 {
-    level.cheatgrainlooper = spawn( "script_model", level.playercardbackground geteye() );
+    level.cheatgrainlooper = spawn( "script_model", level.player geteye() );
     level.cheatgrainlooper setmodel( "tag_origin" );
     level.cheatgrainlooper hide();
     playfxontag( level._effect["grain_test"], level.cheatgrainlooper, "tag_origin" );
@@ -661,7 +661,7 @@ chaplin_grain_proc()
 
     for (;;)
     {
-        level.cheatgrainlooper.origin = level.playercardbackground geteye() + 50 * anglestoforward( level.playercardbackground getplayerangles() );
+        level.cheatgrainlooper.origin = level.player geteye() + 50 * anglestoforward( level.player getplayerangles() );
         wait 0.01;
     }
 }
@@ -797,7 +797,7 @@ handgun_mode_init()
 
 handgun_mode_update( var_0 )
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return;
 
     level.cheat_handgun = common_scripts\utility::_id_9294( var_0, 1, 0 );
@@ -816,10 +816,10 @@ handgun_monitor()
 
     for (;;)
     {
-        if ( level.playercardbackground issplitscreenplayer() == 1 && level.playercardbackground getcurrentweapon() == level.cheat_handgun_weaponname )
-            level.playercardbackground maps\_utility::_id_6C65( 0, "cheat_handgun" );
-        else if ( level.playercardbackground issplitscreenplayer() == 0 && level.playercardbackground getcurrentweapon() != level.cheat_handgun_weaponname )
-            level.playercardbackground maps\_utility::_id_6C65( 1, "cheat_handgun" );
+        if ( level.player issplitscreenplayer() == 1 && level.player getcurrentweapon() == level.cheat_handgun_weaponname )
+            level.player maps\_utility::_id_6C65( 0, "cheat_handgun" );
+        else if ( level.player issplitscreenplayer() == 0 && level.player getcurrentweapon() != level.cheat_handgun_weaponname )
+            level.player maps\_utility::_id_6C65( 1, "cheat_handgun" );
 
         wait 0.05;
     }
@@ -832,10 +832,10 @@ handgun_monitor_reload()
 
     for (;;)
     {
-        if ( level.playercardbackground isreloading() )
+        if ( level.player isreloading() )
         {
-            level.playercardbackground givemaxammo( level.cheat_handgun_weaponname );
-            level.playercardbackground setweaponammoclip( level.cheat_handgun_weaponname, weaponclipsize( level.cheat_handgun_weaponname ) );
+            level.player givemaxammo( level.cheat_handgun_weaponname );
+            level.player setweaponammoclip( level.cheat_handgun_weaponname, weaponclipsize( level.cheat_handgun_weaponname ) );
         }
 
         wait 0.05;
@@ -844,41 +844,41 @@ handgun_monitor_reload()
 
 givehandgun()
 {
-    level.cheat_handgun_currentweapon = level.playercardbackground getcurrentweapon();
-    level.playercardbackground giveweapon( level.cheat_handgun_weaponname );
-    level.playercardbackground givemaxammo( level.cheat_handgun_weaponname );
-    level.playercardbackground switchtoweaponimmediate( level.cheat_handgun_weaponname );
+    level.cheat_handgun_currentweapon = level.player getcurrentweapon();
+    level.player giveweapon( level.cheat_handgun_weaponname );
+    level.player givemaxammo( level.cheat_handgun_weaponname );
+    level.player switchtoweaponimmediate( level.cheat_handgun_weaponname );
     thread handgun_monitor();
     thread handgun_monitor_reload();
 }
 
 takehandgun()
 {
-    if ( level.playercardbackground issplitscreenplayer() == 0 )
-        level.playercardbackground maps\_utility::_id_6C65( 1, "cheat_handgun" );
+    if ( level.player issplitscreenplayer() == 0 )
+        level.player maps\_utility::_id_6C65( 1, "cheat_handgun" );
 
-    var_0 = level.playercardbackground getcurrentweapon();
+    var_0 = level.player getcurrentweapon();
     var_1 = 0;
 
     if ( var_0 == level.cheat_handgun_weaponname && level.cheat_handgun_currentweapon != "none" )
     {
-        var_2 = level.playercardbackground getweaponslistall();
+        var_2 = level.player getweaponslistall();
 
         foreach ( var_4 in var_2 )
         {
             if ( var_4 == level.cheat_handgun_currentweapon )
             {
-                level.playercardbackground switchtoweaponimmediate( var_4 );
+                level.player switchtoweaponimmediate( var_4 );
                 var_1 = 1;
                 break;
             }
         }
 
         if ( !var_1 && var_2.size > 0 )
-            level.playercardbackground switchtoweaponimmediate( var_2[0] );
+            level.player switchtoweaponimmediate( var_2[0] );
     }
 
-    level.playercardbackground takeweapon( level.cheat_handgun_weaponname );
+    level.player takeweapon( level.cheat_handgun_weaponname );
     self notify( "handgun_removed" );
 }
 
@@ -903,28 +903,28 @@ lemonade_mode_update( var_0 )
 
 givelemonade()
 {
-    level.cheat_lemonade_currentlethal = level.playercardbackground getoffhandprimaryclass();
+    level.cheat_lemonade_currentlethal = level.player getoffhandprimaryclass();
 
     if ( isdefined( level.cheat_lemonade_currentlethal ) && level.cheat_lemonade_currentlethal != "none" )
     {
-        var_0 = level.playercardbackground getweaponammoclip( level.cheat_lemonade_currentlethal );
-        level.playercardbackground takeweapon( level.cheat_lemonade_currentlethal );
-        level.playercardbackground setoffhandprimaryclass( level.cheat_lemonade_weaponname );
-        level.playercardbackground giveweapon( level.cheat_lemonade_weaponname );
-        level.playercardbackground setweaponammoclip( level.cheat_lemonade_weaponname, var_0 );
+        var_0 = level.player getweaponammoclip( level.cheat_lemonade_currentlethal );
+        level.player takeweapon( level.cheat_lemonade_currentlethal );
+        level.player setoffhandprimaryclass( level.cheat_lemonade_weaponname );
+        level.player giveweapon( level.cheat_lemonade_weaponname );
+        level.player setweaponammoclip( level.cheat_lemonade_weaponname, var_0 );
     }
 }
 
 takelemonade()
 {
-    var_0 = level.playercardbackground getweaponammoclip( level.cheat_lemonade_weaponname );
-    level.playercardbackground takeweapon( level.cheat_lemonade_weaponname );
+    var_0 = level.player getweaponammoclip( level.cheat_lemonade_weaponname );
+    level.player takeweapon( level.cheat_lemonade_weaponname );
 
     if ( isdefined( level.cheat_lemonade_currentlethal ) )
     {
-        level.playercardbackground setoffhandprimaryclass( level.cheat_lemonade_currentlethal );
-        level.playercardbackground giveweapon( level.cheat_lemonade_currentlethal );
-        level.playercardbackground setweaponammoclip( level.cheat_lemonade_currentlethal, var_0 );
+        level.player setoffhandprimaryclass( level.cheat_lemonade_currentlethal );
+        level.player giveweapon( level.cheat_lemonade_currentlethal );
+        level.player setweaponammoclip( level.cheat_lemonade_currentlethal, var_0 );
     }
 }
 
@@ -932,7 +932,7 @@ tracksuit_mode_init()
 {
     level.tracksuit_mode_enabled = 0;
 
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
     {
         level.tracksuit_mode_model = "body_zakhaev_viktor_collar_ac130";
         level.tracksuit_mode_head = "head_zakhaev_viktor_ac130";
@@ -987,7 +987,7 @@ add_tracksuit()
 
     self.tracksuitmode = 1;
 
-    if ( isdefined( self.weapon_switch_invalid ) && !isdefined( self.ignoreweaponintracksuitmode ) && self.classname != "script_model" )
+    if ( isdefined( self.weapon ) && !isdefined( self.ignoreweaponintracksuitmode ) && self.classname != "script_model" )
     {
         if ( isdefined( self.a ) && isdefined( self.a._id_0979 ) )
             animscripts\combat_utility::_id_315E();
@@ -1005,13 +1005,13 @@ add_tracksuit()
         self.a._id_7597 = 1;
         thread animscripts\shared::_id_766B();
         self.primaryweapon = level.tracksuit_mode_weapon;
-        self.weapon_switch_invalid = level.tracksuit_mode_weapon;
+        self.weapon = level.tracksuit_mode_weapon;
         self._id_560F = level.tracksuit_mode_weapon;
         self.tracksuitmode_previoussecondary = self.secondaryweapon;
         self.secondaryweapon = "none";
     }
 
-    if ( self.motiontrackerenabled == level.tracksuit_mode_model || self.motiontrackerenabled == "body_zakhaev_viktor" )
+    if ( self.model == level.tracksuit_mode_model || self.model == "body_zakhaev_viktor" )
         return;
 
     if ( isdefined( self._id_475D ) )
@@ -1027,7 +1027,7 @@ add_tracksuit()
         self detach( self.headmodel );
     }
 
-    self.tracksuitmode_previousmodel = self.motiontrackerenabled;
+    self.tracksuitmode_previousmodel = self.model;
     self setmodel( level.tracksuit_mode_model );
     self attach( level.tracksuit_mode_head );
     self.headmodel = level.tracksuit_mode_head;
@@ -1082,9 +1082,9 @@ remove_tracksuit()
 
 tracksuit_should_equipweapon()
 {
-    foreach ( var_1 in self.weeklychallengeid )
+    foreach ( var_1 in self.weaponinfo )
     {
-        if ( var_1.precache != "none" )
+        if ( var_1.position != "none" )
             return 1;
     }
 

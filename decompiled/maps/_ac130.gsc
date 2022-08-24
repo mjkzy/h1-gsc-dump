@@ -23,7 +23,7 @@ init()
 {
     setsaveddvar( "scr_dof_enable", "0" );
     setsaveddvar( "con_subtitleExtraDark", 1 );
-    level.ac130 = spawn( "script_model", level.playercardbackground getorigin() );
+    level.ac130 = spawn( "script_model", level.player getorigin() );
     level.ac130 setmodel( "c130_zoomrig" );
     level.ac130.angles = ( 0.0, 115.0, 0.0 );
     level.ac130 hide();
@@ -120,8 +120,8 @@ init()
     level._id_2235["45"] = cos( 45 );
     level._id_2235["5"] = cos( 5 );
     maps\_utility::enable_scuff_footsteps_sound( 0 );
-    level.playercardbackground takeallweapons();
-    level.playercardbackground.ignoretriggers = 1;
+    level.player takeallweapons();
+    level.player.ignoreme = 1;
     level.textimagealpha = 0.55;
     level.badplaceradius["ac130_25mm"] = 800;
     level.badplaceradius["ac130_40mm"] = 1000;
@@ -174,17 +174,17 @@ init()
     common_scripts\utility::_id_383D( "player_changed_thermal" );
     common_scripts\utility::_id_383D( "player_changed_thermal_back" );
     common_scripts\utility::_id_383D( "player_changed_weapons_back" );
-    level.playercardbackground takeallweapons();
+    level.player takeallweapons();
 
     if ( getdvar( "ac130_alternate_controls" ) == "0" )
     {
-        level.playercardbackground giveweapon( "ac130_105mm" );
-        level.playercardbackground switchtoweapon( "ac130_105mm" );
+        level.player giveweapon( "ac130_105mm" );
+        level.player switchtoweapon( "ac130_105mm" );
     }
     else
     {
-        level.playercardbackground giveweapon( "ac130_105mm_alt" );
-        level.playercardbackground switchtoweapon( "ac130_105mm_alt" );
+        level.player giveweapon( "ac130_105mm_alt" );
+        level.player switchtoweapon( "ac130_105mm_alt" );
     }
 
     setammo();
@@ -254,51 +254,51 @@ _id_65F6()
     delay_overlay();
     level._id_4AEC = [];
     level._id_4AEC["crosshairs"] = newhudelem();
-    level._id_4AEC["crosshairs"].xpmaxmultipliertimeplayed = 0;
-    level._id_4AEC["crosshairs"]._id_0538 = 0;
+    level._id_4AEC["crosshairs"].x = 0;
+    level._id_4AEC["crosshairs"].y = 0;
     level._id_4AEC["crosshairs"].alignx = "center";
     level._id_4AEC["crosshairs"].aligny = "middle";
-    level._id_4AEC["crosshairs"].hostquits = "center";
-    level._id_4AEC["crosshairs"].visionsetnight = "middle";
+    level._id_4AEC["crosshairs"].horzalign = "center";
+    level._id_4AEC["crosshairs"].vertalign = "middle";
     level._id_4AEC["crosshairs"] setshader( "ac130_overlay_105mm", 640, 480 );
-    level._id_4AEC["crosshairs"].space = -2;
+    level._id_4AEC["crosshairs"].sort = -2;
 
     if ( getdvar( "ac130_hud_text_misc" ) == "1" && !isdefined( level._id_244D ) )
     {
         level._id_4AEC["hud_text_top"] = newhudelem();
-        level._id_4AEC["hud_text_top"].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 54 );
-        level._id_4AEC["hud_text_top"]._id_0538 = _1080tovirtualcoords( 123 );
+        level._id_4AEC["hud_text_top"].x = _1080tovirtualcoords( 54 );
+        level._id_4AEC["hud_text_top"].y = _1080tovirtualcoords( 123 );
         level._id_4AEC["hud_text_top"].alignx = "left";
         level._id_4AEC["hud_text_top"].aligny = "top";
-        level._id_4AEC["hud_text_top"].hostquits = "left_adjustable";
-        level._id_4AEC["hud_text_top"].visionsetnight = "top_adjustable";
+        level._id_4AEC["hud_text_top"].horzalign = "left_adjustable";
+        level._id_4AEC["hud_text_top"].vertalign = "top_adjustable";
         level._id_4AEC["hud_text_top"] setshader( "ac130_overlay_top_left_txt", _1080tovirtualcoords( 672 ), _1080tovirtualcoords( 64 ) );
         level._id_4AEC["hud_text_top"].alpha = level.textimagealpha;
         level._id_4AEC["hud_text_left"] = newhudelem();
-        level._id_4AEC["hud_text_left"].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 64 );
-        level._id_4AEC["hud_text_left"]._id_0538 = _1080tovirtualcoords( 183 );
+        level._id_4AEC["hud_text_left"].x = _1080tovirtualcoords( 64 );
+        level._id_4AEC["hud_text_left"].y = _1080tovirtualcoords( 183 );
         level._id_4AEC["hud_text_left"].alignx = "left";
         level._id_4AEC["hud_text_left"].aligny = "top";
-        level._id_4AEC["hud_text_left"].hostquits = "left_adjustable";
-        level._id_4AEC["hud_text_left"].visionsetnight = "top_adjustable";
+        level._id_4AEC["hud_text_left"].horzalign = "left_adjustable";
+        level._id_4AEC["hud_text_left"].vertalign = "top_adjustable";
         level._id_4AEC["hud_text_left"] setshader( "ac130_overlay_left_side_txt", _1080tovirtualcoords( 180 ), _1080tovirtualcoords( 360 ) );
         level._id_4AEC["hud_text_left"].alpha = level.textimagealpha;
         level._id_4AEC["hud_text_right"] = newhudelem();
-        level._id_4AEC["hud_text_right"].xpmaxmultipliertimeplayed = _1080tovirtualcoords( -57 );
-        level._id_4AEC["hud_text_right"]._id_0538 = _1080tovirtualcoords( 186 );
+        level._id_4AEC["hud_text_right"].x = _1080tovirtualcoords( -57 );
+        level._id_4AEC["hud_text_right"].y = _1080tovirtualcoords( 186 );
         level._id_4AEC["hud_text_right"].alignx = "right";
         level._id_4AEC["hud_text_right"].aligny = "top";
-        level._id_4AEC["hud_text_right"].hostquits = "right_adjustable";
-        level._id_4AEC["hud_text_right"].visionsetnight = "top_adjustable";
+        level._id_4AEC["hud_text_right"].horzalign = "right_adjustable";
+        level._id_4AEC["hud_text_right"].vertalign = "top_adjustable";
         level._id_4AEC["hud_text_right"] setshader( "ac130_overlay_right_side_txt", _1080tovirtualcoords( 64 ), _1080tovirtualcoords( 748 ) );
         level._id_4AEC["hud_text_right"].alpha = level.textimagealpha;
         level._id_4AEC["hud_text_bottom"] = newhudelem();
-        level._id_4AEC["hud_text_bottom"].xpmaxmultipliertimeplayed = -13;
-        level._id_4AEC["hud_text_bottom"]._id_0538 = _1080tovirtualcoords( -21 );
+        level._id_4AEC["hud_text_bottom"].x = -13;
+        level._id_4AEC["hud_text_bottom"].y = _1080tovirtualcoords( -21 );
         level._id_4AEC["hud_text_bottom"].alignx = "center";
         level._id_4AEC["hud_text_bottom"].aligny = "bottom";
-        level._id_4AEC["hud_text_bottom"].hostquits = "center_adjustable";
-        level._id_4AEC["hud_text_bottom"].visionsetnight = "bottom_adjustable";
+        level._id_4AEC["hud_text_bottom"].horzalign = "center_adjustable";
+        level._id_4AEC["hud_text_bottom"].vertalign = "bottom_adjustable";
         level._id_4AEC["hud_text_bottom"] setshader( level.bottom_shader, _1080tovirtualcoords( 328 ), _1080tovirtualcoords( 64 ) );
         level._id_4AEC["hud_text_bottom"].alpha = level.textimagealpha;
     }
@@ -306,12 +306,12 @@ _id_65F6()
     if ( getdvar( "ac130_hud_text_thermal" ) == "1" && !isdefined( level._id_244D ) )
     {
         level._id_4AEC["thermal_mode"] = newhudelem();
-        level._id_4AEC["thermal_mode"].xpmaxmultipliertimeplayed = _1080tovirtualcoords( -250 );
-        level._id_4AEC["thermal_mode"]._id_0538 = _1080tovirtualcoords( 178 );
+        level._id_4AEC["thermal_mode"].x = _1080tovirtualcoords( -250 );
+        level._id_4AEC["thermal_mode"].y = _1080tovirtualcoords( 178 );
         level._id_4AEC["thermal_mode"].alignx = "right";
         level._id_4AEC["thermal_mode"].aligny = "top";
-        level._id_4AEC["thermal_mode"].hostquits = "right_adjustable";
-        level._id_4AEC["thermal_mode"].visionsetnight = "top_adjustable";
+        level._id_4AEC["thermal_mode"].horzalign = "right_adjustable";
+        level._id_4AEC["thermal_mode"].vertalign = "top_adjustable";
         level._id_4AEC["thermal_mode"] setshader( level.whot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
         level._id_4AEC["thermal_mode"].alpha = level.textimagealpha;
     }
@@ -319,28 +319,28 @@ _id_65F6()
     if ( getdvar( "ac130_hud_text_weapons" ) == "1" && !isdefined( level._id_244D ) )
     {
         level._id_4AEC["weapon_text"][0] = newhudelem();
-        level._id_4AEC["weapon_text"][0].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 60 );
-        level._id_4AEC["weapon_text"][0]._id_0538 = _1080tovirtualcoords( -83 );
+        level._id_4AEC["weapon_text"][0].x = _1080tovirtualcoords( 60 );
+        level._id_4AEC["weapon_text"][0].y = _1080tovirtualcoords( -83 );
         level._id_4AEC["weapon_text"][0].alignx = "left";
         level._id_4AEC["weapon_text"][0].aligny = "bottom";
-        level._id_4AEC["weapon_text"][0].hostquits = "left_adjustable";
-        level._id_4AEC["weapon_text"][0].visionsetnight = "bottom_adjustable";
+        level._id_4AEC["weapon_text"][0].horzalign = "left_adjustable";
+        level._id_4AEC["weapon_text"][0].vertalign = "bottom_adjustable";
         level._id_4AEC["weapon_text"][0] setshader( "ac130_overlay_105mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
         level._id_4AEC["weapon_text"][1] = newhudelem();
-        level._id_4AEC["weapon_text"][1].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 45 );
-        level._id_4AEC["weapon_text"][1]._id_0538 = _1080tovirtualcoords( -145 );
+        level._id_4AEC["weapon_text"][1].x = _1080tovirtualcoords( 45 );
+        level._id_4AEC["weapon_text"][1].y = _1080tovirtualcoords( -145 );
         level._id_4AEC["weapon_text"][1].alignx = "left";
         level._id_4AEC["weapon_text"][1].aligny = "bottom";
-        level._id_4AEC["weapon_text"][1].hostquits = "left_adjustable";
-        level._id_4AEC["weapon_text"][1].visionsetnight = "bottom_adjustable";
+        level._id_4AEC["weapon_text"][1].horzalign = "left_adjustable";
+        level._id_4AEC["weapon_text"][1].vertalign = "bottom_adjustable";
         level._id_4AEC["weapon_text"][1] setshader( "ac130_overlay_40mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
         level._id_4AEC["weapon_text"][2] = newhudelem();
-        level._id_4AEC["weapon_text"][2].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 46 );
-        level._id_4AEC["weapon_text"][2]._id_0538 = _1080tovirtualcoords( -207 );
+        level._id_4AEC["weapon_text"][2].x = _1080tovirtualcoords( 46 );
+        level._id_4AEC["weapon_text"][2].y = _1080tovirtualcoords( -207 );
         level._id_4AEC["weapon_text"][2].alignx = "left";
         level._id_4AEC["weapon_text"][2].aligny = "bottom";
-        level._id_4AEC["weapon_text"][2].hostquits = "left_adjustable";
-        level._id_4AEC["weapon_text"][2].visionsetnight = "bottom_adjustable";
+        level._id_4AEC["weapon_text"][2].horzalign = "left_adjustable";
+        level._id_4AEC["weapon_text"][2].vertalign = "bottom_adjustable";
         level._id_4AEC["weapon_text"][2] setshader( "ac130_overlay_25mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
     }
 
@@ -348,44 +348,44 @@ _id_65F6()
     thread overlay_coords();
     thread blink_hud_elem( 0 );
     level._id_4AEC["grain"] = newhudelem();
-    level._id_4AEC["grain"].xpmaxmultipliertimeplayed = 0;
-    level._id_4AEC["grain"]._id_0538 = 0;
+    level._id_4AEC["grain"].x = 0;
+    level._id_4AEC["grain"].y = 0;
     level._id_4AEC["grain"].alignx = "left";
     level._id_4AEC["grain"].aligny = "top";
-    level._id_4AEC["grain"].hostquits = "fullscreen";
-    level._id_4AEC["grain"].visionsetnight = "fullscreen";
+    level._id_4AEC["grain"].horzalign = "fullscreen";
+    level._id_4AEC["grain"].vertalign = "fullscreen";
     level._id_4AEC["grain"] setshader( "ac130_overlay_grain", 640, 480 );
     level._id_4AEC["grain"].alpha = 0.4;
-    level._id_4AEC["grain"].space = -3;
+    level._id_4AEC["grain"].sort = -3;
     level._id_4AEC["zoom_blur"] = newhudelem();
-    level._id_4AEC["zoom_blur"].xpmaxmultipliertimeplayed = 0;
-    level._id_4AEC["zoom_blur"]._id_0538 = 0;
+    level._id_4AEC["zoom_blur"].x = 0;
+    level._id_4AEC["zoom_blur"].y = 0;
     level._id_4AEC["zoom_blur"].alignx = "left";
     level._id_4AEC["zoom_blur"].aligny = "top";
-    level._id_4AEC["zoom_blur"].hostquits = "fullscreen";
-    level._id_4AEC["zoom_blur"].visionsetnight = "fullscreen";
+    level._id_4AEC["zoom_blur"].horzalign = "fullscreen";
+    level._id_4AEC["zoom_blur"].vertalign = "fullscreen";
     level._id_4AEC["zoom_blur"].alpha = 0.0;
-    level._id_4AEC["zoom_blur"].space = 6;
+    level._id_4AEC["zoom_blur"].sort = 6;
     level._id_4AEC["screen_overlay"] = newhudelem();
-    level._id_4AEC["screen_overlay"].xpmaxmultipliertimeplayed = 0;
-    level._id_4AEC["screen_overlay"]._id_0538 = 0;
+    level._id_4AEC["screen_overlay"].x = 0;
+    level._id_4AEC["screen_overlay"].y = 0;
     level._id_4AEC["screen_overlay"].alignx = "left";
     level._id_4AEC["screen_overlay"].aligny = "top";
-    level._id_4AEC["screen_overlay"].hostquits = "fullscreen";
-    level._id_4AEC["screen_overlay"].visionsetnight = "fullscreen";
+    level._id_4AEC["screen_overlay"].horzalign = "fullscreen";
+    level._id_4AEC["screen_overlay"].vertalign = "fullscreen";
     level._id_4AEC["screen_overlay"] setshader( "h1_ac130_screen_overlay", 640, 480 );
     level._id_4AEC["screen_overlay"].alpha = 1.0;
-    level._id_4AEC["screen_overlay"].space = -2;
+    level._id_4AEC["screen_overlay"].sort = -2;
     level._id_4AEC["screen_distort"] = newhudelem();
-    level._id_4AEC["screen_distort"].xpmaxmultipliertimeplayed = 0;
-    level._id_4AEC["screen_distort"]._id_0538 = 0;
+    level._id_4AEC["screen_distort"].x = 0;
+    level._id_4AEC["screen_distort"].y = 0;
     level._id_4AEC["screen_distort"].alignx = "left";
     level._id_4AEC["screen_distort"].aligny = "top";
-    level._id_4AEC["screen_distort"].hostquits = "fullscreen";
-    level._id_4AEC["screen_distort"].visionsetnight = "fullscreen";
+    level._id_4AEC["screen_distort"].horzalign = "fullscreen";
+    level._id_4AEC["screen_distort"].vertalign = "fullscreen";
     level._id_4AEC["screen_distort"] setshader( "h1_ac130_distort", 640, 480 );
     level._id_4AEC["screen_distort"].alpha = 1.0;
-    level._id_4AEC["screen_distort"].space = 5;
+    level._id_4AEC["screen_distort"].sort = 5;
     thread ac130shellshock();
     thread blur_thread();
 }
@@ -490,16 +490,16 @@ hud_timer()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         level._id_4AEC["timer"][var_1] = newhudelem();
-        level._id_4AEC["timer"][var_1].xpmaxmultipliertimeplayed = var_0[var_1] * -1;
-        level._id_4AEC["timer"][var_1]._id_0538 = _1080tovirtualcoords( 87 ) * -1;
+        level._id_4AEC["timer"][var_1].x = var_0[var_1] * -1;
+        level._id_4AEC["timer"][var_1].y = _1080tovirtualcoords( 87 ) * -1;
         level._id_4AEC["timer"][var_1].alignx = "right";
         level._id_4AEC["timer"][var_1].aligny = "bottom";
-        level._id_4AEC["timer"][var_1].hostquits = "right_adjustable";
-        level._id_4AEC["timer"][var_1].visionsetnight = "bottom_adjustable";
+        level._id_4AEC["timer"][var_1].horzalign = "right_adjustable";
+        level._id_4AEC["timer"][var_1].vertalign = "bottom_adjustable";
         level._id_4AEC["timer"][var_1].alpha = level.textimagealpha;
     }
 
-    level._id_4AEC["timer"][4]._id_0538 = _1080tovirtualcoords( 80 ) * -1;
+    level._id_4AEC["timer"][4].y = _1080tovirtualcoords( 80 ) * -1;
     level waittill( "start_clock" );
     var_2 = gettime();
     level._id_4AEC["timer"][4] setshader( "ac130_overlay_timer_txt", _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 64 ) );
@@ -569,39 +569,39 @@ overlay_coords()
     for ( var_2 = 0; var_2 < var_0; var_2++ )
     {
         level._id_4AEC["coordinate_long"][var_2] = newhudelem();
-        level._id_4AEC["coordinate_long"][var_2].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 340 + var_2 * 40 ) * -1;
-        level._id_4AEC["coordinate_long"][var_2]._id_0538 = _1080tovirtualcoords( 80 );
+        level._id_4AEC["coordinate_long"][var_2].x = _1080tovirtualcoords( 340 + var_2 * 40 ) * -1;
+        level._id_4AEC["coordinate_long"][var_2].y = _1080tovirtualcoords( 80 );
         level._id_4AEC["coordinate_long"][var_2].alignx = "right";
         level._id_4AEC["coordinate_long"][var_2].aligny = "top";
-        level._id_4AEC["coordinate_long"][var_2].hostquits = "right_adjustable";
-        level._id_4AEC["coordinate_long"][var_2].visionsetnight = "top_adjustable";
+        level._id_4AEC["coordinate_long"][var_2].horzalign = "right_adjustable";
+        level._id_4AEC["coordinate_long"][var_2].vertalign = "top_adjustable";
         level._id_4AEC["coordinate_lat"][var_2] = newhudelem();
-        level._id_4AEC["coordinate_lat"][var_2].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 70 + var_2 * 40 ) * -1;
-        level._id_4AEC["coordinate_lat"][var_2]._id_0538 = _1080tovirtualcoords( 80 );
+        level._id_4AEC["coordinate_lat"][var_2].x = _1080tovirtualcoords( 70 + var_2 * 40 ) * -1;
+        level._id_4AEC["coordinate_lat"][var_2].y = _1080tovirtualcoords( 80 );
         level._id_4AEC["coordinate_lat"][var_2].alignx = "right";
         level._id_4AEC["coordinate_lat"][var_2].aligny = "top";
-        level._id_4AEC["coordinate_lat"][var_2].hostquits = "right_adjustable";
-        level._id_4AEC["coordinate_lat"][var_2].visionsetnight = "top_adjustable";
+        level._id_4AEC["coordinate_lat"][var_2].horzalign = "right_adjustable";
+        level._id_4AEC["coordinate_lat"][var_2].vertalign = "top_adjustable";
     }
 
     for ( var_2 = 0; var_2 < var_1; var_2++ )
     {
         level._id_4AEC["coordinate_agl_txt"][var_2] = newhudelem();
-        level._id_4AEC["coordinate_agl_txt"][var_2].xpmaxmultipliertimeplayed = _1080tovirtualcoords( 220 + var_2 * 40 ) * -1;
-        level._id_4AEC["coordinate_agl_txt"][var_2]._id_0538 = _1080tovirtualcoords( 134 );
+        level._id_4AEC["coordinate_agl_txt"][var_2].x = _1080tovirtualcoords( 220 + var_2 * 40 ) * -1;
+        level._id_4AEC["coordinate_agl_txt"][var_2].y = _1080tovirtualcoords( 134 );
         level._id_4AEC["coordinate_agl_txt"][var_2].alignx = "right";
         level._id_4AEC["coordinate_agl_txt"][var_2].aligny = "top";
-        level._id_4AEC["coordinate_agl_txt"][var_2].hostquits = "right_adjustable";
-        level._id_4AEC["coordinate_agl_txt"][var_2].visionsetnight = "top_adjustable";
+        level._id_4AEC["coordinate_agl_txt"][var_2].horzalign = "right_adjustable";
+        level._id_4AEC["coordinate_agl_txt"][var_2].vertalign = "top_adjustable";
     }
 
     level._id_4AEC["coordinate_agl"] = newhudelem();
-    level._id_4AEC["coordinate_agl"].xpmaxmultipliertimeplayed = _1080tovirtualcoords( -58 );
-    level._id_4AEC["coordinate_agl"]._id_0538 = _1080tovirtualcoords( 124 );
+    level._id_4AEC["coordinate_agl"].x = _1080tovirtualcoords( -58 );
+    level._id_4AEC["coordinate_agl"].y = _1080tovirtualcoords( 124 );
     level._id_4AEC["coordinate_agl"].alignx = "right";
     level._id_4AEC["coordinate_agl"].aligny = "top";
-    level._id_4AEC["coordinate_agl"].hostquits = "right_adjustable";
-    level._id_4AEC["coordinate_agl"].visionsetnight = "top_adjustable";
+    level._id_4AEC["coordinate_agl"].horzalign = "right_adjustable";
+    level._id_4AEC["coordinate_agl"].vertalign = "top_adjustable";
     level._id_4AEC["coordinate_agl"] setshader( level.agl_shader, _1080tovirtualcoords( 144 ), _1080tovirtualcoords( 64 ) );
     level._id_4AEC["coordinate_agl"].alpha = level.textimagealpha;
     level endon( "post_effects_disabled" );
@@ -609,8 +609,8 @@ overlay_coords()
 
     for (;;)
     {
-        var_3 = numbertoshaders( abs( level.playercardbackground.origin[0] ) );
-        var_4 = numbertoshaders( abs( level.playercardbackground.origin[1] ) );
+        var_3 = numbertoshaders( abs( level.player.origin[0] ) );
+        var_4 = numbertoshaders( abs( level.player.origin[1] ) );
 
         for ( var_2 = 0; var_2 < var_0; var_2++ )
         {
@@ -632,11 +632,11 @@ overlay_coords()
             level._id_4AEC["coordinate_lat"][var_2].alpha = 0;
         }
 
-        var_5 = physicstrace( level.playercardbackground.origin, level.playercardbackground.origin - ( 0.0, 0.0, 100000.0 ) );
+        var_5 = physicstrace( level.player.origin, level.player.origin - ( 0.0, 0.0, 100000.0 ) );
 
         if ( isdefined( var_5 ) && isdefined( var_5[2] ) )
         {
-            var_6 = ( level.playercardbackground.origin[2] - var_5[2] ) * 1.5;
+            var_6 = ( level.player.origin[2] - var_5[2] ) * 1.5;
             var_7 = numbertoshaders( var_6 );
 
             for ( var_2 = 0; var_2 < var_1; var_2++ )
@@ -666,7 +666,7 @@ ac130shellshock()
 
     for (;;)
     {
-        level.playercardbackground shellshock( "ac130", var_0 );
+        level.player shellshock( "ac130", var_0 );
         wait(var_0);
     }
 }
@@ -698,11 +698,11 @@ _id_7603( var_0 )
 
 attachplayer()
 {
-    level.playercardbackground playerlinktodelta( level.ac130, "tag_player", 1.0, 65, 65, 40, 40 );
+    level.player playerlinktodelta( level.ac130, "tag_player", 1.0, 65, 65, 40, 40 );
     wait 0.05;
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground setplayerangles( level.ac130 gettagangles( "tag_player" ) );
+    level.player allowprone( 0 );
+    level.player allowcrouch( 0 );
+    level.player setplayerangles( level.ac130 gettagangles( "tag_player" ) );
     setsaveddvar( "ammoCounterHide", "1" );
     setsaveddvar( "hud_showStance", 0 );
 }
@@ -844,40 +844,40 @@ _id_1C85()
     level.ac130_weapon[0] = spawnstruct();
     level.ac130_weapon[0]._id_65F6 = "ac130_overlay_105mm";
     level.ac130_weapon[0].fov = "55";
-    level.ac130_weapon[0].nearz = "105mm";
+    level.ac130_weapon[0].name = "105mm";
     level.ac130_weapon[0]._id_8F53 = &"AC130_HUD_WEAPON_105MM";
     level.ac130_weapon[0]._id_4AE7 = -20;
     level.ac130_weapon[0].blur = "h1_ac130_blur_105mm";
     level.ac130_weapon[1] = spawnstruct();
     level.ac130_weapon[1]._id_65F6 = "ac130_overlay_40mm";
     level.ac130_weapon[1].fov = "25";
-    level.ac130_weapon[1].nearz = "40mm";
+    level.ac130_weapon[1].name = "40mm";
     level.ac130_weapon[1]._id_8F53 = &"AC130_HUD_WEAPON_40MM";
     level.ac130_weapon[1]._id_4AE7 = -40;
     level.ac130_weapon[1].blur = "h1_ac130_blur_40mm";
     level.ac130_weapon[2] = spawnstruct();
     level.ac130_weapon[2]._id_65F6 = "ac130_overlay_25mm";
     level.ac130_weapon[2].fov = "10";
-    level.ac130_weapon[2].nearz = "25mm";
+    level.ac130_weapon[2].name = "25mm";
     level.ac130_weapon[2]._id_8F53 = &"AC130_HUD_WEAPON_25MM";
     level.ac130_weapon[2]._id_4AE7 = -60;
     level.ac130_weapon[2].blur = "h1_ac130_blur_25mm";
 
     if ( getdvar( "ac130_alternate_controls" ) == "0" )
     {
-        level.ac130_weapon[0].weapon_switch_invalid = "ac130_105mm";
-        level.ac130_weapon[1].weapon_switch_invalid = "ac130_40mm";
-        level.ac130_weapon[2].weapon_switch_invalid = "ac130_25mm";
+        level.ac130_weapon[0].weapon = "ac130_105mm";
+        level.ac130_weapon[1].weapon = "ac130_40mm";
+        level.ac130_weapon[2].weapon = "ac130_25mm";
     }
     else
     {
-        level.ac130_weapon[0].weapon_switch_invalid = "ac130_105mm_alt";
-        level.ac130_weapon[1].weapon_switch_invalid = "ac130_40mm_alt";
-        level.ac130_weapon[2].weapon_switch_invalid = "ac130_25mm_alt";
+        level.ac130_weapon[0].weapon = "ac130_105mm_alt";
+        level.ac130_weapon[1].weapon = "ac130_40mm_alt";
+        level.ac130_weapon[2].weapon = "ac130_25mm_alt";
     }
 
     var_0 = 0;
-    level._id_252D = level.ac130_weapon[var_0].nearz;
+    level._id_252D = level.ac130_weapon[var_0].name;
     thread fire_screenshake();
 
     if ( isdefined( level._id_244D ) )
@@ -887,7 +887,7 @@ _id_1C85()
 
     for (;;)
     {
-        level.playercardbackground waittill( "switch_ac130_weapons" );
+        level.player waittill( "switch_ac130_weapons" );
 
         if ( isdefined( level.doing_cinematic ) )
         {
@@ -895,13 +895,13 @@ _id_1C85()
             continue;
         }
 
-        level.playercardbackground notify( "shot weapon" );
+        level.player notify( "shot weapon" );
         var_0++;
 
         if ( var_0 >= level.ac130_weapon.size )
             var_0 = 0;
 
-        level._id_252D = level.ac130_weapon[var_0].nearz;
+        level._id_252D = level.ac130_weapon[var_0].name;
 
         if ( isdefined( level.ac130_weapon[var_0].blur ) )
         {
@@ -912,18 +912,18 @@ _id_1C85()
             level._id_4AEC["zoom_blur"].alpha = 0.0;
 
         level._id_4AEC["crosshairs"] setshader( level.ac130_weapon[var_0]._id_65F6, 640, 480 );
-        thread blink_crosshairs( level.ac130_weapon[var_0].weapon_switch_invalid );
+        thread blink_crosshairs( level.ac130_weapon[var_0].weapon );
         thread blink_hud_elem( var_0 );
 
         if ( getdvar( "ac130_alternate_controls" ) == "0" )
             setsaveddvar( "cg_fov", level.ac130_weapon[var_0].fov );
 
-        level.playercardbackground takeallweapons();
-        level.playercardbackground giveweapon( level.ac130_weapon[var_0].weapon_switch_invalid );
-        level._id_6D93 = level.ac130_weapon[var_0].weapon_switch_invalid;
-        level.playercardbackground switchtoweapon( level.ac130_weapon[var_0].weapon_switch_invalid );
+        level.player takeallweapons();
+        level.player giveweapon( level.ac130_weapon[var_0].weapon );
+        level._id_6D93 = level.ac130_weapon[var_0].weapon;
+        level.player switchtoweapon( level.ac130_weapon[var_0].weapon );
         setammo();
-        level.playercardbackground thread maps\_utility::_id_69C4( "ac130_weapon_switch" );
+        level.player thread maps\_utility::_id_69C4( "ac130_weapon_switch" );
 
         if ( var_0 == 0 )
             common_scripts\utility::_id_383F( "player_changed_weapons_back" );
@@ -991,16 +991,16 @@ weaponfiredthread()
 {
     for (;;)
     {
-        level.playercardbackground waittill( "weapon_fired" );
-        var_0 = level.playercardbackground getweaponslistprimaries();
+        level.player waittill( "weapon_fired" );
+        var_0 = level.player getweaponslistprimaries();
 
         if ( !level.weaponreadytofire[var_0[0]] )
             continue;
 
         if ( var_0[0] == "ac130_105mm" )
-            level.playercardbackground playsound( "ac130_105mm_fire" );
+            level.player playsound( "ac130_105mm_fire" );
         else if ( var_0[0] == "ac130_40mm" )
-            level.playercardbackground playsound( "ac130_40mm_fire" );
+            level.player playsound( "ac130_40mm_fire" );
 
         thread blink_crosshairs( var_0[0] );
         thread weaponreload( var_0[0] );
@@ -1009,18 +1009,18 @@ weaponfiredthread()
 
 ac130_25mm_loop_fire_sound()
 {
-    var_0 = spawn( "script_origin", level.playercardbackground.origin );
-    var_0 linkto( level.playercardbackground );
+    var_0 = spawn( "script_origin", level.player.origin );
+    var_0 linkto( level.player );
 
     for (;;)
     {
-        var_1 = level.playercardbackground getweaponslistprimaries();
+        var_1 = level.player getweaponslistprimaries();
 
-        if ( level.playercardbackground isfiring() && var_1[0] == "ac130_25mm" && !level.playercardbackground ismeleeing() )
+        if ( level.player isfiring() && var_1[0] == "ac130_25mm" && !level.player ismeleeing() )
         {
             var_0 playloopsound( "ac130_25mm_fire" );
 
-            while ( level.playercardbackground isfiring() )
+            while ( level.player isfiring() )
                 wait 0.05;
 
             var_0 stoploopsound();
@@ -1033,14 +1033,14 @@ ac130_25mm_loop_fire_sound()
 
 ac130_25mm_loop_rumble()
 {
-    var_0 = spawn( "script_origin", level.playercardbackground.origin );
-    var_0 linkto( level.playercardbackground );
+    var_0 = spawn( "script_origin", level.player.origin );
+    var_0 linkto( level.player );
     var_1 = 0;
 
     for (;;)
     {
-        var_2 = level.playercardbackground getweaponslistprimaries();
-        var_3 = level.playercardbackground isfiring() && var_2[0] == "ac130_25mm";
+        var_2 = level.player getweaponslistprimaries();
+        var_3 = level.player isfiring() && var_2[0] == "ac130_25mm";
 
         if ( !var_1 && var_3 )
             var_0 playrumblelooponentity( "ac130_25mm_fire" );
@@ -1065,7 +1065,7 @@ invertthermal()
     if ( check_disable_screen_fx() )
         return;
 
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     maps\_utility::_id_7F00( "ac130", 0 );
     var_0 = "0";
 
@@ -1077,7 +1077,7 @@ invertthermal()
 
     for (;;)
     {
-        level.playercardbackground waittill( "switch thermal" );
+        level.player waittill( "switch thermal" );
 
         if ( isdefined( level.doing_cinematic ) )
         {
@@ -1121,19 +1121,19 @@ setammo()
     else
         var_0 = 0;
 
-    var_1 = level.playercardbackground getweaponslistprimaries();
+    var_1 = level.player getweaponslistprimaries();
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         if ( level.weaponreadytofire[var_1[var_2]] )
-            level.playercardbackground setweaponammoclip( var_1[var_2], var_0 );
+            level.player setweaponammoclip( var_1[var_2], var_0 );
     }
 }
 
 failmissionforengaging()
 {
     level endon( "clear_to_engage" );
-    level.playercardbackground waittill( "weapon_fired" );
+    level.player waittill( "weapon_fired" );
     wait 2;
 
     if ( !common_scripts\utility::_id_382E( "mission_failed" ) )
@@ -1155,7 +1155,7 @@ nofirecrosshair()
 
     for (;;)
     {
-        while ( level.playercardbackground attackbuttonpressed() )
+        while ( level.player attackbuttonpressed() )
         {
             if ( isdefined( level.doing_cinematic ) )
             {
@@ -1185,7 +1185,7 @@ fire_screenshake()
 {
     for (;;)
     {
-        level.playercardbackground waittill( "weapon_fired" );
+        level.player waittill( "weapon_fired" );
 
         if ( level._id_252D == "105mm" )
         {
@@ -1193,14 +1193,14 @@ fire_screenshake()
                 continue;
 
             thread gun_fired_and_ready_105mm();
-            earthquake( 0.2, 1, level.playercardbackground.origin, 1000 );
+            earthquake( 0.2, 1, level.player.origin, 1000 );
         }
         else if ( level._id_252D == "40mm" )
         {
             if ( getdvar( "ac130_pre_engagement_mode" ) == "2" && !common_scripts\utility::_id_382E( "clear_to_engage" ) )
                 continue;
 
-            earthquake( 0.1, 0.5, level.playercardbackground.origin, 1000 );
+            earthquake( 0.1, 0.5, level.player.origin, 1000 );
         }
 
         wait 0.05;
@@ -1272,7 +1272,7 @@ _id_843F()
 {
     for (;;)
     {
-        level.playercardbackground waittill( "projectile_impact", var_0, var_1, var_2 );
+        level.player waittill( "projectile_impact", var_0, var_1, var_2 );
         thread shotfiredfriendlyproximity( var_0, var_1 );
 
         if ( issubstr( tolower( var_0 ), "105" ) )
@@ -1349,14 +1349,14 @@ shotfireddarkscreenoverlay()
     if ( !isdefined( level._id_25F4 ) )
     {
         level._id_25F4 = newhudelem();
-        level._id_25F4.xpmaxmultipliertimeplayed = 0;
-        level._id_25F4._id_0538 = 0;
+        level._id_25F4.x = 0;
+        level._id_25F4.y = 0;
         level._id_25F4.alignx = "left";
         level._id_25F4.aligny = "top";
-        level._id_25F4.hostquits = "fullscreen";
-        level._id_25F4.visionsetnight = "fullscreen";
+        level._id_25F4.horzalign = "fullscreen";
+        level._id_25F4.vertalign = "fullscreen";
         level._id_25F4 setshader( "black", 640, 480 );
-        level._id_25F4.space = -10;
+        level._id_25F4.sort = -10;
         level._id_25F4.alpha = 0.0;
     }
 
@@ -1380,10 +1380,10 @@ add_beacon_effect( var_0, var_1 )
 
     for (;;)
     {
-        if ( isdefined( var_1 ) && var_1 && isdefined( self.angles ) && isdefined( level.playercardbackground ) )
+        if ( isdefined( var_1 ) && var_1 && isdefined( self.angles ) && isdefined( level.player ) )
         {
             var_3 = self.angles;
-            var_4 = level.playercardbackground.angles;
+            var_4 = level.player.angles;
             var_5 = anglesdelta( var_4, var_3 );
 
             if ( var_5 < 30.0 || var_5 > 90.0 )
@@ -1400,15 +1400,15 @@ add_beacon_effect( var_0, var_1 )
 
 vehicle_thermal_models()
 {
-    if ( !isdefined( self.motiontrackerenabled ) )
+    if ( !isdefined( self.model ) )
         return;
 
-    if ( self.motiontrackerenabled == "vehicle_pickup_roobars" )
+    if ( self.model == "vehicle_pickup_roobars" )
     {
 
     }
 
-    if ( self.motiontrackerenabled == "vehicle_ch46e_opened_door" )
+    if ( self.model == "vehicle_ch46e_opened_door" )
         self setmodel( "vehicle_ch46e_opened_door_ac130" );
 }
 
@@ -1469,7 +1469,7 @@ enemy_killed_thread( var_0 )
 
     var_0 waittill( "death", var_1 );
 
-    if ( isdefined( var_1 ) && var_1 == level.playercardbackground )
+    if ( isdefined( var_1 ) && var_1 == level.player )
         level.enemieskilledbyplayer++;
 
     if ( getdvar( "ac130_ragdoll_deaths" ) == "1" )
@@ -1516,7 +1516,7 @@ context_sensative_dialog_guy_in_sight_check()
         if ( !isalive( var_0[var_1] ) )
             continue;
 
-        if ( common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), var_0[var_1].origin, level._id_2235["5"] ) )
+        if ( common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), var_0[var_1].origin, level._id_2235["5"] ) )
             return 1;
 
         wait 0.05;
@@ -1534,7 +1534,7 @@ context_sensative_dialog_guy_crawling()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 0.0, 1.0, 0.0 ) );
+                thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 0.0, 1.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_crawl" );
@@ -1550,7 +1550,7 @@ context_sensative_dialog_guy_pain_falling()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
+                thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_pain" );
@@ -1566,7 +1566,7 @@ context_sensative_dialog_guy_pain()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
+                thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_pain" );
@@ -1583,7 +1583,7 @@ context_sensative_dialog_secondary_explosion_vehicle()
         if ( isdefined( var_0 ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.playercardbackground.origin, var_0, 5.0, ( 0.0, 0.0, 1.0 ) );
+                thread _id_26AB( level.player.origin, var_0, 5.0, ( 0.0, 0.0, 1.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "explosion", "secondary" );
@@ -1595,7 +1595,7 @@ context_sensative_dialog_kill( var_0, var_1 )
     if ( !isdefined( var_1 ) )
         return;
 
-    if ( var_1 != level.playercardbackground )
+    if ( var_1 != level.player )
         return;
 
     level.enemieskilledintimewindow++;
@@ -1604,7 +1604,7 @@ context_sensative_dialog_kill( var_0, var_1 )
     if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
     {
         if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-            thread _id_26AB( level.playercardbackground.origin, var_0.origin, 5.0, ( 1.0, 1.0, 0.0 ) );
+            thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 1.0, 1.0, 0.0 ) );
     }
 }
 
@@ -1697,7 +1697,7 @@ context_sensative_dialog_vehiclespawn( var_0 )
     thread context_sensative_dialog_vehicledeath( var_0 );
     var_0 endon( "death" );
 
-    while ( !common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), var_0.origin, level._id_2235["45"] ) )
+    while ( !common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), var_0.origin, level._id_2235["45"] ) )
         wait 0.5;
 
     context_sensative_dialog_play_random_group_sound( "vehicle", "incoming" );
@@ -1861,8 +1861,8 @@ playaliasoverradio( var_0 )
         return 0;
 
     level.radio_in_use = 1;
-    level.playercardbackground playlocalsound( var_0, "playSoundOverRadio_done" );
-    level.playercardbackground waittill( "playSoundOverRadio_done" );
+    level.player playlocalsound( var_0, "playSoundOverRadio_done" );
+    level.player waittill( "playSoundOverRadio_done" );
     level.radio_in_use = 0;
     level.lastradiotransmission = gettime();
     level notify( "radio_not_in_use" );
@@ -1896,14 +1896,14 @@ debug_friendly_count()
     if ( !isdefined( level.friendlycounthudelem ) )
     {
         level.friendlycounthudelem = newhudelem();
-        level.friendlycounthudelem.xpmaxmultipliertimeplayed = 0;
-        level.friendlycounthudelem._id_0538 = 0;
+        level.friendlycounthudelem.x = 0;
+        level.friendlycounthudelem.y = 0;
         level.friendlycounthudelem.fontscale = 2.5;
         level.friendlycounthudelem.alignx = "left";
         level.friendlycounthudelem.aligny = "bottom";
-        level.friendlycounthudelem.hostquits = "left";
-        level.friendlycounthudelem.visionsetnight = "bottom";
-        level.friendlycounthudelem.land = &"AC130_DEBUG_FRIENDLY_COUNT";
+        level.friendlycounthudelem.horzalign = "left";
+        level.friendlycounthudelem.vertalign = "bottom";
+        level.friendlycounthudelem.label = &"AC130_DEBUG_FRIENDLY_COUNT";
         level.friendlycounthudelem.alpha = 1;
     }
 

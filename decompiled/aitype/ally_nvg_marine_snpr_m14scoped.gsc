@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "colt45";
     self._id_855D = "colt45";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "m14_scoped";
+    self.weapon = "m14_scoped";
 
     switch ( codescripts\character::_id_3E43( 2 ) )
     {
@@ -52,15 +52,15 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_usmc_zach_nod::prestigedoublexp();
-    character\character_sp_usmc_sami_nod::prestigedoublexp();
+    character\character_sp_usmc_zach_nod::precache();
+    character\character_sp_usmc_sami_nod::precache();
     precacheitem( "m14_scoped" );
     precacheitem( "colt45" );
     precacheitem( "colt45" );

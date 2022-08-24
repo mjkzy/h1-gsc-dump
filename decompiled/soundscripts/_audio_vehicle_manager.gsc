@@ -175,14 +175,14 @@ _id_1188( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_4 = soundscripts\_audio::_id_0F30( var_0, var_4 );
     var_5 = soundscripts\_audio::_id_0F30( "alias", var_5 );
     var_10 = spawnstruct();
-    var_10.nearz = var_4;
+    var_10.name = var_4;
     var_10._id_35F5 = var_1;
     var_10._id_0D5F = var_5;
     var_10._id_0D5E = var_6;
     var_10._id_6F21 = _id_11C5();
     var_10._id_6681 = [];
     var_10 _id_11D6( var_2, var_3 );
-    self._id_586A._id_588F[var_10.nearz] = var_10;
+    self._id_586A._id_588F[var_10.name] = var_10;
     self._id_586A._id_5878 = var_10;
 }
 
@@ -337,7 +337,7 @@ _id_118A( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_7 = [ var_4 ];
 
     var_11 = spawnstruct();
-    var_11.nearz = var_0;
+    var_11.name = var_0;
     var_11._id_0D5E = var_7;
     var_11._id_0D5F = var_5;
     var_11._id_2FB4 = var_1;
@@ -346,7 +346,7 @@ _id_118A( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_11._id_6681 = [];
     var_11._id_86D9 = [];
     var_11 _id_11D6();
-    self._id_6497._id_64A2[var_11.nearz] = var_11;
+    self._id_6497._id_64A2[var_11.name] = var_11;
     self._id_6497._id_649D = var_11;
 }
 
@@ -383,12 +383,12 @@ _id_1186( var_0, var_1, var_2, var_3, var_4 )
     var_6._id_588F = [];
     var_6._id_6F21 = _id_11C5();
     var_6._id_6681 = [];
-    var_6.nearz = var_0;
+    var_6.name = var_0;
     var_6._id_20E0 = var_1;
     var_3 = soundscripts\_audio::_id_0F30( self._id_13A3._id_279C._id_8691, var_3 );
     var_4 = soundscripts\_audio::_id_0F30( self._id_13A3._id_279C._id_868C, var_4 );
     var_6 _id_11D6( var_3, var_4 );
-    self._id_13A3._id_13A6[var_6.nearz] = var_6;
+    self._id_13A3._id_13A6[var_6.name] = var_6;
     self._id_13A3._id_13A5 = var_6;
 
     if ( isarray( var_2 ) )
@@ -478,7 +478,7 @@ _id_118F( var_0, var_1, var_2, var_3, var_4 )
         var_4 *= 1000;
 
     var_5 = spawnstruct();
-    var_5.nearz = var_0;
+    var_5.name = var_0;
     var_5._id_4DD3 = [ var_1, var_2 ];
     var_5._id_6FBE = soundscripts\_audio::_id_0F30( self._id_8D59._id_279C._id_6FBE, var_3 );
     var_5._id_5C34 = soundscripts\_audio::_id_0F30( self._id_8D59._id_279C._id_5C34, var_4 );
@@ -493,9 +493,9 @@ _id_118E( var_0, var_1, var_2 )
         var_1 *= 1000;
 
     var_3 = self._id_8D59._id_4437;
-    var_4 = var_3.nearz;
+    var_4 = var_3.name;
     var_5 = spawnstruct();
-    var_5.nearz = var_0;
+    var_5.name = var_0;
     var_5._id_9719 = [];
     var_5._id_6FBE = soundscripts\_audio::_id_0F30( var_3._id_6FBE, var_2 );
     var_5._id_5C34 = soundscripts\_audio::_id_0F30( var_3._id_5C34, var_1 );
@@ -816,7 +816,7 @@ _id_11AC( var_0, var_1, var_2, var_3, var_4 )
         var_9._id_24CF = var_6 _id_11AD( var_8 );
         var_9._id_86D9 = [];
         var_9._id_9F3C = 1.0;
-        var_6._id_5876[var_8.nearz] = var_9;
+        var_6._id_5876[var_8.name] = var_9;
     }
 
     var_6._id_649A = [];
@@ -827,7 +827,7 @@ _id_11AC( var_0, var_1, var_2, var_3, var_4 )
         var_9._id_704A = var_8;
         var_9._id_24CF = var_6 _id_11AD( var_8 );
         var_9._id_86D9 = [];
-        var_6._id_649A[var_8.nearz] = var_9;
+        var_6._id_649A[var_8.name] = var_9;
     }
 
     var_6._id_13A4 = [];
@@ -837,7 +837,7 @@ _id_11AC( var_0, var_1, var_2, var_3, var_4 )
         var_9 = spawnstruct();
         var_9._id_704A = var_8;
         var_9._id_24CF = var_6 _id_11AD( var_8 );
-        var_6._id_13A4[var_8.nearz] = var_9;
+        var_6._id_13A4[var_8.name] = var_9;
     }
 
     var_6._id_8D5A = [];
@@ -994,14 +994,14 @@ _id_11EF()
         {
             if ( var_5._id_697F == 1 )
             {
-                var_6 = var_5._id_704A.nearz;
+                var_6 = var_5._id_704A.name;
                 var_0 _id_11D0( var_5, var_3 );
                 var_0 _id_11ED( var_5 );
             }
         }
 
         var_3 = gettime();
-        var_8 = distance2d( var_0._id_9C78.origin, level.playercardbackground.origin );
+        var_8 = distance2d( var_0._id_9C78.origin, level.player.origin );
 
         if ( var_8 < 400 )
             var_9 = 1.0;
@@ -1149,7 +1149,7 @@ _id_11DD( var_0, var_1, var_2, var_3 )
 {
     var_4 = self;
     var_5 = var_4 _id_11CA();
-    var_6 = var_0._id_704A.nearz;
+    var_6 = var_0._id_704A.name;
     var_4 notify( var_6 );
     var_4 endon( var_6 );
     level endon( "msg_snd_vehicle_stop" );
@@ -1269,7 +1269,7 @@ _id_11E5( var_0, var_1, var_2 )
 
         var_12 = 0;
         var_11 = gettime();
-        var_24 = distance2d( var_3._id_9C78.origin, level.playercardbackground.origin );
+        var_24 = distance2d( var_3._id_9C78.origin, level.player.origin );
 
         if ( var_24 < 400 )
             var_25 = 1.0;
@@ -1494,13 +1494,13 @@ _id_11E7( var_0, var_1 )
 _id_4E48()
 {
     var_0 = _id_11CA();
-    return distance2d( var_0.origin, level.playercardbackground.origin );
+    return distance2d( var_0.origin, level.player.origin );
 }
 
 _id_4E47()
 {
     var_0 = _id_11CA();
-    return distance( var_0.origin, level.playercardbackground.origin );
+    return distance( var_0.origin, level.player.origin );
 }
 
 _id_4E57()
@@ -1520,7 +1520,7 @@ _id_4E54()
 {
     var_0 = _id_11CA();
     var_1 = var_0 vehicle_getvelocity();
-    var_2 = level.playercardbackground getvelocity();
+    var_2 = level.player getvelocity();
     var_3 = var_1 - var_2;
     var_4 = length( var_3 ) * 0.0568182;
     return var_4;
@@ -1551,19 +1551,19 @@ _id_4E4C()
 _id_4E49()
 {
     var_0 = _id_11CA();
-    return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.playercardbackground.origin, level.playercardbackground getvelocity() );
+    return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.player.origin, level.player getvelocity() );
 }
 
 _id_4E4A()
 {
     var_0 = _id_11CA();
-    return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.playercardbackground.origin, level.playercardbackground getvelocity(), 2, 5 );
+    return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.player.origin, level.player getvelocity(), 2, 5 );
 }
 
 _id_4E4B()
 {
     var_0 = _id_11CA();
-    return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.playercardbackground.origin, level.playercardbackground getvelocity(), 1, 0.5 );
+    return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.player.origin, level.player getvelocity(), 1, 0.5 );
 }
 
 _id_1192( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -1772,7 +1772,7 @@ _id_4E77()
     var_1 = abs( var_1 );
     var_1 = clamp( var_1, 0, 90 );
     var_1 = _id_11D3( var_1, 0, 90 );
-    var_2 = level.playercardbackground getnormalizedcameramovement();
+    var_2 = level.player getnormalizedcameramovement();
     var_3 = abs( var_2[0] );
     return 0;
 }
@@ -1787,7 +1787,7 @@ _id_4E78()
     var_3 = length2d( ( var_1, var_2, 0 ) );
     var_3 = clamp( var_3, 0, 135 );
     var_4 = _id_11D3( var_3, 0, 135 );
-    var_5 = level.playercardbackground getnormalizedcameramovement();
+    var_5 = level.player getnormalizedcameramovement();
     var_6 = length2d( var_5 );
     return var_4 * var_6;
 }
@@ -1829,7 +1829,7 @@ _id_4E65()
 
 _id_4E7C()
 {
-    var_0 = level.playercardbackground getnormalizedcameramovement();
+    var_0 = level.player getnormalizedcameramovement();
     var_1 = abs( var_0[0] );
     var_2 = abs( var_0[1] );
 
@@ -1908,9 +1908,9 @@ _id_11CB( var_0 )
 {
     var_1 = self;
     var_2 = var_0._id_704A;
-    var_1 _id_11A8( var_2.nearz );
+    var_1 _id_11A8( var_2.name );
     var_1 _id_11F0( var_0 );
-    var_1 _id_11D8( var_2.nearz );
+    var_1 _id_11D8( var_2.name );
 }
 
 _id_11F0( var_0 )
@@ -1929,7 +1929,7 @@ _id_11F0( var_0 )
         var_6 = 0;
         var_7 = var_5[1];
 
-        for ( var_8 = var_3.nearz; _id_11AA( var_0._id_86D9 ) && var_6 < var_7; var_6 += 0.1 )
+        for ( var_8 = var_3.name; _id_11AA( var_0._id_86D9 ) && var_6 < var_7; var_6 += 0.1 )
         {
             var_9 = var_0 _id_11BF();
             var_10 = var_2 _id_11CF( var_6, var_3._id_2FB4 );

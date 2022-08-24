@@ -47,13 +47,13 @@ main()
 
     foreach ( var_6 in var_0 )
     {
-        if ( isdefined( level._id_0BEB[var_6.motiontrackerenabled] ) )
+        if ( isdefined( level._id_0BEB[var_6.model] ) )
         {
-            var_6 thread [[ level._id_0BEB[var_6.motiontrackerenabled] ]]();
+            var_6 thread [[ level._id_0BEB[var_6.model] ]]();
             continue;
         }
 
-        var_7 = getarraykeys( level.anim_prop_models[var_6.motiontrackerenabled] );
+        var_7 = getarraykeys( level.anim_prop_models[var_6.model] );
         var_8 = 0;
 
         foreach ( var_10 in var_7 )
@@ -78,17 +78,17 @@ _id_4D79()
         return;
 
     level._id_A32C = spawnstruct();
-    level._id_A32C.reached_wait_speed = 0.4;
-    level._id_A32C.wildcardslots = 1;
+    level._id_A32C.rate = 0.4;
+    level._id_A32C.weight = 1;
     level._id_A32C._id_9C65 = 0.2;
 }
 
 _id_5D3B()
 {
-    if ( !isdefined( level.anim_prop_models[self.motiontrackerenabled] ) )
+    if ( !isdefined( level.anim_prop_models[self.model] ) )
     {
-        if ( !_id_0AFB( level._id_4C78, self.motiontrackerenabled ) )
-            level._id_4C78[level._id_4C78.size] = self.motiontrackerenabled;
+        if ( !_id_0AFB( level._id_4C78, self.model ) )
+            level._id_4C78[level._id_4C78.size] = self.model;
     }
 }
 
@@ -109,9 +109,9 @@ _id_0AFB( var_0, var_1 )
 _id_0C64()
 {
     self useanimtree( #animtree );
-    var_0 = getarraykeys( level.anim_prop_models[self.motiontrackerenabled] );
+    var_0 = getarraykeys( level.anim_prop_models[self.model] );
     var_1 = var_0[randomint( var_0.size )];
-    var_2 = level.anim_prop_models[self.motiontrackerenabled][var_1];
+    var_2 = level.anim_prop_models[self.model][var_1];
     self _meth_814d( var_2, 1, self _meth_8151( var_2 ), 1 );
     self setanimtime( var_2, randomfloatrange( 0, 1 ) );
 }
@@ -132,15 +132,15 @@ _id_0C66()
 _id_14A6( var_0 )
 {
     level endon( "windchange" );
-    var_1 = level._id_A32C.wildcardslots;
-    var_2 = level._id_A32C.reached_wait_speed + randomfloat( level._id_A32C._id_9C65 );
-    self _meth_814d( level.anim_prop_models[self.motiontrackerenabled]["still"], 1, self _meth_8151( level.anim_prop_models[self.motiontrackerenabled]["still"] ), var_2 );
-    self _meth_814d( level.anim_prop_models[self.motiontrackerenabled][var_0], var_1, self _meth_8151( level.anim_prop_models[self.motiontrackerenabled][var_0] ), var_2 );
+    var_1 = level._id_A32C.weight;
+    var_2 = level._id_A32C.rate + randomfloat( level._id_A32C._id_9C65 );
+    self _meth_814d( level.anim_prop_models[self.model]["still"], 1, self _meth_8151( level.anim_prop_models[self.model]["still"] ), var_2 );
+    self _meth_814d( level.anim_prop_models[self.model][var_0], var_1, self _meth_8151( level.anim_prop_models[self.model][var_0] ), var_2 );
 }
 
 heliwind_check_should_track()
 {
-    var_0 = getarraykeys( level.anim_prop_models[self.motiontrackerenabled] );
+    var_0 = getarraykeys( level.anim_prop_models[self.model] );
     return common_scripts\utility::_id_0CE4( var_0, "heli" );
 }
 
@@ -233,15 +233,15 @@ heliwind_track()
 heliwind_animate_tree()
 {
     self useanimtree( #animtree );
-    self _meth_814d( level.anim_prop_models[self.motiontrackerenabled]["strong"], 1.0, 0.05, 1.0 );
-    self _meth_814d( level.anim_prop_models[self.motiontrackerenabled]["heli"], 0.0, 0.05, 1.0 );
-    self _meth_8144( level.anim_prop_models[self.motiontrackerenabled]["still"], 0.0 );
+    self _meth_814d( level.anim_prop_models[self.model]["strong"], 1.0, 0.05, 1.0 );
+    self _meth_814d( level.anim_prop_models[self.model]["heli"], 0.0, 0.05, 1.0 );
+    self _meth_8144( level.anim_prop_models[self.model]["still"], 0.0 );
     var_0 = 0.15;
     var_1 = 0.0;
 
     for (;;)
     {
-        var_2 = self _meth_8152( level.anim_prop_models[self.motiontrackerenabled]["heli"] );
+        var_2 = self _meth_8152( level.anim_prop_models[self.model]["heli"] );
         var_3 = self.heliwind_weight - var_2;
         var_4 = clamp( var_3, -1 * self.heliwind_max_delta, self.heliwind_max_delta );
         var_5 = var_2 + var_4;
@@ -249,9 +249,9 @@ heliwind_animate_tree()
         if ( var_5 != var_1 )
         {
             var_1 = var_5;
-            self _meth_814d( level.anim_prop_models[self.motiontrackerenabled]["strong"], 1.0 - var_5, var_0, 1.0 );
-            self _meth_814d( level.anim_prop_models[self.motiontrackerenabled]["heli"], var_5, var_0, 1.0 );
-            self _meth_814d( level.anim_prop_models[self.motiontrackerenabled]["still"], 0.0, 0.0, 1.0 );
+            self _meth_814d( level.anim_prop_models[self.model]["strong"], 1.0 - var_5, var_0, 1.0 );
+            self _meth_814d( level.anim_prop_models[self.model]["heli"], var_5, var_0, 1.0 );
+            self _meth_814d( level.anim_prop_models[self.model]["still"], 0.0, 0.0, 1.0 );
             wait(var_0);
             continue;
         }
@@ -267,7 +267,7 @@ heliwind_init_spawn_tracker()
 
     foreach ( var_2 in var_0 )
     {
-        if ( isdefined( var_2.visionsetnaked ) )
+        if ( isdefined( var_2.vehicletype ) )
         {
             if ( var_2 maps\_vehicle::_id_5118() )
                 var_2 thread heliwind_track_heli_alive();

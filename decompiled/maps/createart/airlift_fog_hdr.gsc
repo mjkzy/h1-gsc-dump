@@ -447,8 +447,8 @@ main()
 _id_8FCC()
 {
     var_0 = maps\_utility::_id_23DB( "default" );
-    var_0.precache = ( -17.1551, 56.7753, 0.0 );
+    var_0.position = ( -17.1551, 56.7753, 0.0 );
     var_0 = maps\_utility::_id_23DB( "nuke" );
-    var_0.precache = ( -10.9, 79.785, 0.0 );
+    var_0.position = ( -10.9, 79.785, 0.0 );
     maps\_art::_id_8FCD( "default", 0 );
 }

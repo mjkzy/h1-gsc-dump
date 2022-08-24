@@ -66,18 +66,18 @@ main()
 squatouttransition()
 {
     self _meth_8193( "face angle", self.angles[1] );
-    self.noncombat = 1;
+    self.nododgemove = 1;
     self setflaggedanimknoballrestart( "cowerend", animscripts\utility::_id_5863( "grenade", "cower_squat_up" ), %body, 1, 0.4 );
     animscripts\shared::_id_2D06( "cowerend" );
     self._id_2564 = undefined;
     self.a._id_5F5B = "stop";
-    self.noncombat = 0;
+    self.nododgemove = 0;
     animscripts\exit_node::_id_8D2E();
 }
 
 end_script()
 {
-    self.scope_center = 1;
+    self.safetochangescript = 1;
 }
 
 _id_9898( var_0 )
@@ -85,7 +85,7 @@ _id_9898( var_0 )
     if ( randomint( 2 ) == 0 )
         return 0;
 
-    if ( self.start_move != "none" )
+    if ( self.stairsstate != "none" )
         return 0;
 
     var_1 = undefined;
@@ -101,9 +101,9 @@ _id_9898( var_0 )
     if ( !self _meth_81c7( var_3 ) )
         return 0;
 
-    self.scope_center = 0;
+    self.safetochangescript = 0;
     self setflaggedanimknoballrestart( "cowerstart", var_1, %body, 1, 0.2 );
     animscripts\shared::_id_2D06( "cowerstart" );
-    self.scope_center = 1;
+    self.safetochangescript = 1;
     return 1;
 }

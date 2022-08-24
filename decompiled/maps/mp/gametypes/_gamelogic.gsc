@@ -75,7 +75,7 @@ onforfeit( var_0 )
     level._id_39B8 = 1;
 
     if ( isplayer( var_3 ) )
-        logstring( "forfeit, win: " + var_3 getxuid() + "(" + var_3.nearz + ")" );
+        logstring( "forfeit, win: " + var_3 getxuid() + "(" + var_3.name + ")" );
     else
         logstring( "forfeit, win: " + var_3 + ", allies: " + game["teamScores"]["allies"] + ", opfor: " + game["teamScores"]["axis"] );
 
@@ -155,7 +155,7 @@ _id_2786( var_0 )
     else
     {
         var_1 = maps\mp\_utility::_id_3FFC();
-        logstring( "last one alive, win: " + var_1.nearz );
+        logstring( "last one alive, win: " + var_1.name );
         level._id_374D = "none";
         thread _id_315F( var_1, game["end_reason"]["enemies_eliminated"] );
     }
@@ -190,7 +190,7 @@ _id_2787()
         var_0 = maps\mp\gametypes\_gamescores::_id_3FC9();
 
         if ( isdefined( var_0 ) )
-            logstring( "time limit, win: " + var_0.nearz );
+            logstring( "time limit, win: " + var_0.name );
         else
             logstring( "time limit, tie" );
     }
@@ -237,7 +237,7 @@ _id_39BC()
         var_0 = maps\mp\gametypes\_gamescores::_id_3FC9();
 
         if ( isdefined( var_0 ) )
-            logstring( "host ended game, win: " + var_0.nearz );
+            logstring( "host ended game, win: " + var_0.name );
         else
             logstring( "host ended game, tie" );
     }
@@ -289,7 +289,7 @@ _id_64E6()
         var_1 = maps\mp\gametypes\_gamescores::_id_3FC9();
 
         if ( isdefined( var_1 ) )
-            logstring( "scorelimit, win: " + var_1.nearz );
+            logstring( "scorelimit, win: " + var_1.name );
         else
             logstring( "scorelimit, tie" );
     }
@@ -723,14 +723,14 @@ _id_8FDE( var_0 )
 
     foreach ( var_4 in level.players )
     {
-        if ( var_4.killstreakrestricted > var_1 )
-            var_1 = var_4.killstreakrestricted;
+        if ( var_4.kills > var_1 )
+            var_1 = var_4.kills;
 
         if ( var_4.deaths < var_2 )
             var_2 = var_4.deaths;
     }
 
-    if ( var_0.killstreakrestricted >= var_1 && var_0.deaths <= var_2 && var_0.killstreakrestricted > 0 && !isai( var_0 ) )
+    if ( var_0.kills >= var_1 && var_0.deaths <= var_2 && var_0.kills > 0 && !isai( var_0 ) )
         var_0 maps\mp\gametypes\_misions::_id_6FF6( "ch_superstar" );
 }
 
@@ -750,7 +750,7 @@ _id_1D07()
                 if ( var_4.team != var_2 )
                     continue;
 
-                switch ( var_1.land )
+                switch ( var_1.label )
                 {
                     case "_a":
                         var_4 maps\mp\gametypes\_misions::_id_6FF6( "ch_dom_alphalock" );
@@ -1079,7 +1079,7 @@ setplayerrank( var_0 )
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( !isdefined( var_0.killstreakrestricted ) || !isdefined( var_0.deaths ) )
+    if ( !isdefined( var_0.kills ) || !isdefined( var_0.deaths ) )
         return;
 
     var_1 = var_0.timeplayed["total"] / 60.0;
@@ -1088,7 +1088,7 @@ setplayerrank( var_0 )
     if ( !var_2 )
         return;
 
-    var_3 = var_0.killstreakrestricted;
+    var_3 = var_0.kills;
     var_4 = var_0.deaths;
     var_5 = float( var_3 - var_4 ) * 1000.0;
     var_6 = int( var_5 / var_1 );
@@ -1712,7 +1712,7 @@ _id_19F9()
     level._id_6F09 = 0;
     level._id_6F0A = 0;
     level._id_6E89 = 0;
-    level.invalid_parent = 0;
+    level.intermission = 0;
     setdvar( "bg_compassShowEnemies", getdvar( "scr_game_forceuav" ) );
 
     if ( !isdefined( game["gamestarted"] ) )
@@ -2329,7 +2329,7 @@ _id_3F1A()
         if ( isdefined( var_5 ) && ( var_5 == "allies" || var_5 == "axis" ) )
         {
             var_0[var_5] += var_4.score;
-            var_1[var_5] += var_4.killstreakrestricted;
+            var_1[var_5] += var_4.kills;
             var_2[var_5] += var_4.deaths;
         }
     }
@@ -2504,13 +2504,13 @@ recordendgamecomscoreeventforplayer( var_0, var_1 )
     if ( isdefined( var_11 ) && isdefined( var_12 ) && var_12 != "" )
     {
         var_13 = var_0 maps\mp\gametypes\_class::_id_4009( var_11, var_12, undefined, undefined, 1 );
-        var_3 = var_13.primaryattachment3;
-        var_4 = var_13.primaryoffhand;
-        var_5 = var_13.secondaryattachments;
-        var_6 = var_13.secondaryoffhand;
+        var_3 = var_13.primary;
+        var_4 = var_13.primaryattachkit;
+        var_5 = var_13.secondary;
+        var_6 = var_13.secondaryattachkit;
         var_7 = var_13.equipment;
-        var_8 = var_13.oldtime;
-        var_9 = arraytostring( var_13.persistentperksunlocked );
+        var_8 = var_13.offhand;
+        var_9 = arraytostring( var_13.perks );
         var_10 = "";
     }
 
@@ -2944,7 +2944,7 @@ _id_315F( var_0, var_1, var_2 )
     }
 
     maps\mp\_utility::_id_56DA( "block_notifies" );
-    level.invalid_parent = 1;
+    level.intermission = 1;
     level notify( "spawning_intermission" );
 
     foreach ( var_5 in level.players )
@@ -3303,9 +3303,9 @@ _id_6FFC()
         if ( isdefined( level.iszombiegame ) && level.iszombiegame )
             var_2.clientmatchdataid = var_2 getentitynumber();
 
-        setclientmatchdata( "players", var_2.clientmatchdataid, "name", maps\mp\gametypes\_playerlogic::extractplayername( var_2.nearz ) );
-        setclientmatchdata( "players", var_2.clientmatchdataid, "clanTag", maps\mp\gametypes\_playerlogic::extractclantag( var_2.nearz ) );
-        setclientmatchdata( "players", var_2.clientmatchdataid, "xuid", var_2.zonly_physics );
+        setclientmatchdata( "players", var_2.clientmatchdataid, "name", maps\mp\gametypes\_playerlogic::extractplayername( var_2.name ) );
+        setclientmatchdata( "players", var_2.clientmatchdataid, "clanTag", maps\mp\gametypes\_playerlogic::extractclantag( var_2.name ) );
+        setclientmatchdata( "players", var_2.clientmatchdataid, "xuid", var_2.xuid );
         var_3 = 0;
         var_4 = 0;
 
@@ -3654,7 +3654,7 @@ _id_9B07()
     }
 
     var_3 = maps\mp\_utility::gettimeutc_for_stat_recording();
-    var_4 = self.killstreakrestricted;
+    var_4 = self.kills;
     var_5 = self.deaths;
     self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "combatRecord", "trend", var_1 - 1, "timestamp", var_3 );
     self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "combatRecord", "trend", var_1 - 1, "kills", var_4 );
@@ -3668,7 +3668,7 @@ _id_9B04()
     _id_7F3C( "timeStampLastGame", var_0 );
     _id_4C3E( "numMatches", 1 );
     _id_4C3E( "timePlayed", self.timeplayed["total"] );
-    _id_4C3E( "kills", self.killstreakrestricted );
+    _id_4C3E( "kills", self.kills );
     _id_4C3E( "deaths", self.deaths );
     _id_4C3E( "xpEarned", self.pers["summary"]["xp"] );
 
@@ -3714,8 +3714,8 @@ _id_9B06()
         if ( var_0 == 0 )
             var_0 = 1;
 
-        var_1 = int( self.killstreakrestricted / var_0 ) * 1000;
-        _id_7F3D( "mostkills", self.killstreakrestricted );
+        var_1 = int( self.kills / var_0 ) * 1000;
+        _id_7F3D( "mostkills", self.kills );
         _id_7F3D( "bestkdr", var_1 );
     }
     else if ( level.gametype == "ctf" )
@@ -3797,7 +3797,7 @@ _id_9B06()
     {
         _id_9B04();
         var_11 = maps\mp\_utility::_id_408F( "contagious" );
-        var_12 = self.killstreakrestricted - var_11;
+        var_12 = self.kills - var_11;
         _id_4C3E( "infectedKills", var_12 );
         _id_4C3E( "survivorKills", var_11 );
         _id_7F3D( "mostInfectedKills", var_12 );

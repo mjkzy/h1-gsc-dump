@@ -59,7 +59,7 @@ _id_4521()
     {
         if ( !isdefined( self._id_799F ) || !self._id_799F )
         {
-            var_2 = distance( self.origin, level.playercardbackground.origin );
+            var_2 = distance( self.origin, level.player.origin );
 
             if ( var_0 && var_2 > var_1 )
             {

@@ -118,9 +118,9 @@ oncarrybombdrop( var_0, var_1 )
 
 createbombzoneobject( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_6 = getentarray( var_3._not_team, "targetname" );
+    var_6 = getentarray( var_3.target, "targetname" );
     var_7 = maps\mp\gametypes\_gameobjects::createuseobject( var_0, var_3, var_6, ( 0.0, 0.0, 64.0 ) );
-    var_7.land = var_7 maps\mp\gametypes\_gameobjects::_id_3FFA();
+    var_7.label = var_7 maps\mp\gametypes\_gameobjects::_id_3FFA();
     var_7 resetbombzone( var_4, var_1, var_2, var_5 );
     var_7._id_6242 = 1;
     var_7._id_4B53 = "bombZone";
@@ -156,8 +156,8 @@ resetbombzone( var_0, var_1, var_2, var_3 )
 
     if ( var_3 )
     {
-        var_4 += self.land;
-        var_5 += self.land;
+        var_4 += self.label;
+        var_5 += self.label;
     }
 
     maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", var_4 );
@@ -191,8 +191,8 @@ setupzonefordefusing( var_0 )
 
     if ( var_0 )
     {
-        var_1 += self.land;
-        var_2 += self.land;
+        var_1 += self.label;
+        var_2 += self.label;
     }
 
     maps\mp\gametypes\_gameobjects::allowuse( "friendly" );

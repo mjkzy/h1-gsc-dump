@@ -68,7 +68,7 @@ main()
     if ( !isdefined( self._id_6175 ) )
         self _meth_81c9( var_4, var_5 );
 
-    self.radarshowenemydirection = 0;
+    self.pushable = 0;
     var_7 = 0.3;
     var_8 = 0.2;
 

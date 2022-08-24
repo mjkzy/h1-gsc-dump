@@ -54,7 +54,7 @@ __create_dynamic_dof_struct( var_0 )
     var_1._id_90C3 = undefined;
     var_1._id_6379 = undefined;
     var_1.should_autofocus = 0;
-    var_1.nearz = var_0;
+    var_1.name = var_0;
     var_1.require_visible = 0;
     var_1._id_5C33 = 0;
     var_1._id_5A13 = 100000;
@@ -277,19 +277,19 @@ dyndof_system_start( var_0 )
     if ( !isdefined( level.player_dynamic_dof_settings ) && level.player_dynamic_dof_settings.settings_list.size <= 0 )
         return;
 
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a5();
     var_1 = "";
 
     while ( level.player_dynamic_dof_settings.active )
     {
-        var_2 = level.playercardbackground getplayerangles();
+        var_2 = level.player getplayerangles();
         var_3 = var_2[1];
 
-        if ( isdefined( level.playercardbackground.owner ) )
-            var_2 = combineangles( level.playercardbackground.owner.angles, level.playercardbackground.angles );
+        if ( isdefined( level.player.owner ) )
+            var_2 = combineangles( level.player.owner.angles, level.player.angles );
 
         var_4 = anglestoforward( var_2 );
-        var_5 = level.playercardbackground.origin + ( 0, 0, level.playercardbackground _meth_82ef() );
+        var_5 = level.player.origin + ( 0, 0, level.player _meth_82ef() );
 
         if ( isdefined( level.player_dynamic_dof_settings.view_pos ) )
             var_5 = level.player_dynamic_dof_settings.view_pos;
@@ -316,7 +316,7 @@ dyndof_system_start( var_0 )
 
                 if ( isdefined( var_8._id_90C3 ) )
                 {
-                    if ( !maps\_utility::_id_4749( var_8.reference_entity.motiontrackerenabled, var_8._id_90C3 ) )
+                    if ( !maps\_utility::_id_4749( var_8.reference_entity.model, var_8._id_90C3 ) )
                     {
                         if ( !isdefined( var_8.reference_entity.headmodel ) )
                         {
@@ -407,14 +407,14 @@ dyndof_system_start( var_0 )
             if ( var_24 < 1 )
                 var_24 = 1;
 
-            level.playercardbackground _meth_84a7( var_6.fstop, var_24, var_6.focus_speed, var_6.aperture_speed );
+            level.player _meth_84a7( var_6.fstop, var_24, var_6.focus_speed, var_6.aperture_speed );
             var_25 = var_6.fstop * var_6.view_model_fstop_scale;
 
             if ( var_25 > 512 )
                 var_25 = 512;
 
-            level.playercardbackground _meth_84b8( var_25, var_24 );
-            var_1 = var_6.nearz;
+            level.player _meth_84b8( var_25, var_24 );
+            var_1 = var_6.name;
         }
 
         wait 0.05;
@@ -426,7 +426,7 @@ __dyndof_bullet_trace_ignore_glass( var_0, var_1, var_2 )
     var_3 = 1;
     var_4 = var_0;
     var_5 = undefined;
-    var_6 = level.playercardbackground;
+    var_6 = level.player;
 
     for ( var_7 = 0; var_3 && var_7 < 10; var_7++ )
     {
@@ -473,7 +473,7 @@ dyndof_system_end()
     level notify( "end_dynamic_dof" );
     setsaveddvar( "r_dof_physical_bokehEnable", 0 );
     level.player_dynamic_dof_settings = undefined;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 cinematic_sequence( var_0 )
@@ -582,7 +582,7 @@ __cinseq_activate_key( var_0 )
         __cinseq_start_screen_shake( var_0.screen_shake_struct );
 
     if ( isdefined( var_0.fov_value ) && isdefined( var_0.fov_lerp_duration ) )
-        level.playercardbackground lerpfov( var_0.fov_value, var_0.fov_lerp_duration );
+        level.player lerpfov( var_0.fov_value, var_0.fov_lerp_duration );
 
     var_0 __cinseq_handle_dyndofs();
 
@@ -597,7 +597,7 @@ __cinseq_activate_key( var_0 )
 
 __cinseq_start_screen_shake( var_0 )
 {
-    level.playercardbackground _meth_83fc( var_0.pitch_scale, var_0._id_A3B7, var_0.roll_scale, var_0.duration, var_0.duration_fade_up, var_0.duration_fade_down, var_0.rank, var_0.frequency_pitch, var_0.frequency_roll, var_0.frequency_yaw, var_0._id_3583 );
+    level.player _meth_83fc( var_0.pitch_scale, var_0._id_A3B7, var_0.roll_scale, var_0.duration, var_0.duration_fade_up, var_0.duration_fade_down, var_0.radius, var_0.frequency_pitch, var_0.frequency_roll, var_0.frequency_yaw, var_0._id_3583 );
 }
 
 __cinseq_call_custom_func( var_0 )
@@ -632,7 +632,7 @@ __cinseq_call_custom_func( var_0 )
 __cinematic_sequence_create_key( var_0 )
 {
     var_1 = spawnstruct();
-    var_1.nearz = var_0;
+    var_1.name = var_0;
     var_1.start_dynamic_dof = 0;
     var_1.dyndof_use_bokeh = 0;
     var_1.end_dynamic_dof = 0;
@@ -705,7 +705,7 @@ cinseq_create_screen_shake_struct()
     var_0.duration = 0;
     var_0.duration_fade_up = 0;
     var_0.duration_fade_down = 0;
-    var_0.rank = 0;
+    var_0.radius = 0;
     var_0.frequency_pitch = 1;
     var_0.frequency_yaw = 1;
     var_0.frequency_roll = 1;
@@ -778,7 +778,7 @@ __cinseq_handle_dyndofs()
 
 __cinseq_set_dyn_dof_from_struct( var_0 )
 {
-    var_1 = dyndof( var_0.nearz );
+    var_1 = dyndof( var_0.name );
 
     if ( isdefined( var_1 ) )
     {
@@ -907,7 +907,7 @@ cinseq_key_rumble( var_0, var_1 )
     if ( isdefined( var_0 ) )
     {
         if ( !isdefined( var_1 ) )
-            var_1 = level.playercardbackground;
+            var_1 = level.player;
 
         self.rumble_name = var_0;
         self._id_767B = var_1;
@@ -924,7 +924,7 @@ __cinseq_dyndof_verify_create_setting( var_0 )
     if ( !isdefined( self.dyndof_list[var_0] ) )
     {
         self.dyndof_list[var_0] = spawnstruct();
-        self.dyndof_list[var_0].nearz = var_0;
+        self.dyndof_list[var_0].name = var_0;
     }
 
     return self.dyndof_list[var_0];

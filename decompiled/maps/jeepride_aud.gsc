@@ -37,7 +37,7 @@ _id_2110()
     soundscripts\_audio::_id_7EC8( "shg" );
     soundscripts\_snd_filters::_id_8757( "med_occlusion" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_jeepride_global" );
-    level.playercardbackground disablefocus( 0 );
+    level.player disablefocus( 0 );
     soundsettimescalefactor( "music", 0 );
     soundsettimescalefactor( "foley", 0.2 );
 }
@@ -184,7 +184,7 @@ clear_whitescreen_mix()
 
 start_hind_shoots_the_tanker_mix()
 {
-    level.playercardbackground playsound( "scn_last_hind_flyby_boom" );
+    level.player playsound( "scn_last_hind_flyby_boom" );
     soundscripts\_audio_mix_manager::_id_5CF2( "hind_shoots_the_tanker_mix" );
 }
 
@@ -192,7 +192,7 @@ aud_start_slowmo_mix()
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "hind_shoots_the_tanker_mix" );
     soundscripts\_audio_mix_manager::_id_5CF2( "slow_motion_mix" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_player_tanker_explo_wake_up" );
+    level.player thread maps\_utility::_id_69C4( "scn_player_tanker_explo_wake_up" );
 }
 
 start_rescue_mix()
@@ -208,7 +208,7 @@ start_bridge_collapse_mix()
     soundscripts\_audio_mix_manager::_id_5CF6( "bridge_uaz_crash_mix" );
     soundscripts\_audio_mix_manager::_id_5CF2( "bridge_collapsing_mix" );
     thread handle_bridge_collapse_mix();
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_bridge_collapse" );
+    level.player thread maps\_utility::_id_69C4( "scn_bridge_collapse" );
 }
 
 handle_bridge_collapse_mix()
@@ -222,13 +222,13 @@ start_post_bridge_explosion()
 {
     soundscripts\_audio_zone_manager::_id_122C( 1 );
     soundscripts\_snd_filters::_id_86DB( "post_bridge_exp_filter", 0.5 );
-    level.playercardbackground thread common_scripts\utility::_id_6975( "flashbang_tinnitus_loop", undefined, 0.5, 2 );
+    level.player thread common_scripts\utility::_id_6975( "flashbang_tinnitus_loop", undefined, 0.5, 2 );
 }
 
 stop_post_bridge_explosion()
 {
     soundscripts\_snd_filters::_id_86DC( 4 );
-    level.playercardbackground common_scripts\utility::_id_8EA1( "flashbang_tinnitus_loop" );
+    level.player common_scripts\utility::_id_8EA1( "flashbang_tinnitus_loop" );
     wait 4;
     soundscripts\_audio_zone_manager::_id_122C( 0 );
 }
@@ -236,7 +236,7 @@ stop_post_bridge_explosion()
 start_last_whitescreen_mix()
 {
     wait 0.3;
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_last_whitescreen_stinger" );
+    level.player thread maps\_utility::_id_69C4( "scn_last_whitescreen_stinger" );
     soundscripts\_audio_mix_manager::_id_5CF6( "rescue_mix" );
     soundscripts\_audio_mix_manager::_id_5CF2( "last_whitescreen_mix" );
 }
@@ -314,7 +314,7 @@ passby_sfx()
 {
     self endon( "death" );
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "hind":
         case "mi28":
@@ -346,10 +346,10 @@ vehicleisclose( var_0, var_1 )
     var_2 = distance( var_0.origin, var_1.origin );
     var_3 = 4800;
 
-    if ( isdefined( var_0.vehicle_mount ) && var_0.vehicle_mount > 0 )
+    if ( isdefined( var_0.veh_speed ) && var_0.veh_speed > 0 )
     {
-        var_4 = var_0.vehicle_mount * 63360 / 60 / 60;
-        var_5 = level.playersride.vehicle_mount * 63360 / 60 / 60;
+        var_4 = var_0.veh_speed * 63360 / 60 / 60;
+        var_5 = level.playersride.veh_speed * 63360 / 60 / 60;
         var_3 = var_4 * 2.3 + var_5 * 2.3;
     }
 
@@ -358,7 +358,7 @@ vehicleisclose( var_0, var_1 )
 
 passby_get_aliases()
 {
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "bmp":
         case "bm21_troops":

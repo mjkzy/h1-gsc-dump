@@ -101,7 +101,7 @@ _id_1DD1()
 
 _id_5237()
 {
-    self._id_523A = getentarray( self._not_team, "targetname" );
+    self._id_523A = getentarray( self.target, "targetname" );
     self._id_5236 = getent( "civilian_jet_flyto", "targetname" );
     self._id_32D2 = getentarray( "engine_fx", "targetname" );
     self._id_389F = getentarray( "flash_fx", "targetname" );
@@ -208,7 +208,7 @@ _id_5235()
     {
         var_11 = spawn( "script_model", var_10.origin );
         var_11 setmodel( "tag_origin" );
-        var_11.color = var_10.script_parentname;
+        var_11.color = var_10.script_noteworthy;
         var_11.angles = var_10.angles;
         var_4[var_4.size] = var_11;
     }
@@ -361,21 +361,21 @@ _id_9D84()
     level endon( "game_ended" );
     self endon( "death" );
     self setcursorhint( "HINT_ACTIVATE" );
-    self._id_9EC7 = getent( self._not_team, "targetname" );
-    var_0 = getent( self._id_9EC7._not_team, "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
-    var_2 = getent( var_1._not_team, "targetname" );
+    self._id_9EC7 = getent( self.target, "targetname" );
+    var_0 = getent( self._id_9EC7.target, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
+    var_2 = getent( var_1.target, "targetname" );
     self._id_9EC4 = var_2.origin;
-    var_3 = getent( var_2._not_team, "targetname" );
+    var_3 = getent( var_2.target, "targetname" );
     self._id_9EC5 = var_3.origin;
 
-    if ( isdefined( var_3._not_team ) )
-        self._id_9EBE = getent( var_3._not_team, "targetname" ).origin;
+    if ( isdefined( var_3.target ) )
+        self._id_9EBE = getent( var_3.target, "targetname" ).origin;
 
     self._id_9EC7 setcandamage( 1 );
-    self._id_9EC8 = self._id_9EC7.motiontrackerenabled;
-    self._id_9EBB = self._id_9EC7.script_parentname;
-    self._id_9ECE = var_0.motiontrackerenabled;
+    self._id_9EC8 = self._id_9EC7.model;
+    self._id_9EBB = self._id_9EC7.script_noteworthy;
+    self._id_9ECE = var_0.model;
     self._id_9ED0 = var_0.origin;
     self._id_9ECF = var_0.angles;
     self._id_9ED2 = var_1.origin;
@@ -518,12 +518,12 @@ _id_3A27()
 _id_5BBA()
 {
     level endon( "game_ended" );
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     var_0 enablegrenadetouchdamage();
-    var_1 = getent( var_0._not_team, "targetname" );
-    var_2 = getent( var_1._not_team, "targetname" );
-    var_3 = getent( var_2._not_team, "targetname" );
-    var_4 = getent( var_3._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
+    var_2 = getent( var_1.target, "targetname" );
+    var_3 = getent( var_2.target, "targetname" );
+    var_4 = getent( var_3.target, "targetname" );
     var_5 = [];
     var_6 = min( var_1.origin[0], var_2.origin[0] );
     var_5[0] = var_6;
@@ -631,7 +631,7 @@ _id_5BBD( var_0, var_1, var_2 )
 
         foreach ( var_5 in var_3 )
         {
-            if ( isdefined( var_5.motiontrackerenabled ) && ( var_5.motiontrackerenabled == var_1 || var_5.motiontrackerenabled == var_2 ) )
+            if ( isdefined( var_5.model ) && ( var_5.model == var_1 || var_5.model == var_2 ) )
             {
                 if ( _id_5121( var_5, var_0 ) )
                     thread _id_A2C8( var_5, var_0 );
@@ -767,18 +767,18 @@ _id_5EF1()
     level endon( "game_ended" );
     self._id_5F95 = 1;
     self._id_575E = 0;
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     common_scripts\utility::_id_6166( [ "com_two_light_fixture_off", "com_two_light_fixture_on" ], ::precachemodel );
 
     foreach ( var_2 in var_0 )
     {
         var_2._id_5743 = [];
-        var_3 = getent( var_2._not_team, "targetname" );
+        var_3 = getent( var_2.target, "targetname" );
 
-        if ( !isdefined( var_3._not_team ) )
+        if ( !isdefined( var_3.target ) )
             continue;
 
-        var_2._id_5743 = getentarray( var_3._not_team, "targetname" );
+        var_2._id_5743 = getentarray( var_3.target, "targetname" );
     }
 
     for (;;)
@@ -851,8 +851,8 @@ _id_65B7()
     level endon( "game_ended" );
     self._id_5F95 = 1;
     self._id_575E = 0;
-    var_0 = getent( self._not_team, "targetname" );
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     common_scripts\utility::_id_6166( [ "com_two_light_fixture_off", "com_two_light_fixture_on" ], ::precachemodel );
 
     for (;;)
@@ -911,7 +911,7 @@ _id_2C91()
 {
     level endon( "game_ended" );
     self._id_5F95 = 1;
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
     for (;;)
     {
@@ -941,7 +941,7 @@ _id_2C91()
 
 _id_976F()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     self._id_2D5E = var_0;
     self._id_2D5C = _id_4152( vectornormalize( self getorigin() - var_0 getorigin() ) );
     var_0._id_131A = var_0.angles[1];
@@ -997,7 +997,7 @@ _id_9BEA()
     if ( self.classname != "trigger_use_touch" )
         return;
 
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     self._id_575E = 1;
 
     foreach ( var_2 in var_0 )
@@ -1035,11 +1035,11 @@ _id_67F1( var_0 )
 
     if ( isdefined( self._id_21CE ) )
     {
-        var_1 = getent( self._id_21CE._not_team, "targetname" );
+        var_1 = getent( self._id_21CE.target, "targetname" );
 
         if ( isdefined( var_1 ) )
         {
-            var_2 = getent( var_1._not_team, "targetname" );
+            var_2 = getent( var_1.target, "targetname" );
 
             if ( isdefined( var_2 ) )
             {
@@ -1047,7 +1047,7 @@ _id_67F1( var_0 )
                 var_2 setlightintensity( 0 );
                 var_0._id_21D4 = var_1;
                 var_0._id_8C41 = var_1.origin;
-                var_0.lockorientation = var_2;
+                var_0.light = var_2;
                 var_3 = self._id_21CE.angles + ( 0.0, 90.0, 0.0 );
                 var_4 = anglestoforward( var_3 );
                 var_0._id_313E = var_0._id_8C41 + var_4 * 30;
@@ -1058,7 +1058,7 @@ _id_67F1( var_0 )
 
 _id_3E1D( var_0 )
 {
-    if ( !isdefined( var_0._not_team ) )
+    if ( !isdefined( var_0.target ) )
     {
         var_1 = getentarray( "destructible_toy", "targetname" );
         var_2 = var_1[0];
@@ -1074,7 +1074,7 @@ _id_3E1D( var_0 )
     }
     else
     {
-        var_2 = getent( var_0._not_team, "targetname" );
+        var_2 = getent( var_0.target, "targetname" );
 
         if ( isdefined( var_2 ) )
             var_2 setcandamage( 1 );
@@ -1146,7 +1146,7 @@ _id_67F3()
 _id_7427( var_0 )
 {
     var_0._id_21D4 moveto( var_0._id_8C41, 0.2 );
-    var_0.lockorientation setlightintensity( 0 );
+    var_0.light setlightintensity( 0 );
 }
 
 _id_67F0()
@@ -1161,7 +1161,7 @@ _id_67F0()
     wait 1.8;
     var_0 moveto( self._id_8C41, 1.6 );
     wait 1.6;
-    var_1 = self.lockorientation;
+    var_1 = self.light;
     var_2 = 0.2;
     var_3 = var_2 / 0.05;
 
@@ -1184,7 +1184,7 @@ _id_67F2()
     self._id_21CE endon( "light_on" );
     self._id_21CE endon( "FX_State_Change0" );
     self._id_21CE endon( "death" );
-    var_0 = self.lockorientation;
+    var_0 = self.light;
     var_1 = 0.2;
     var_2 = var_1 / 0.05;
 
@@ -1225,12 +1225,12 @@ _id_366A( var_0 )
     var_2 = 20000;
     var_3 = 1.0;
 
-    if ( isdefined( self.sprint_begin ) )
-        var_3 = self.sprint_begin;
+    if ( isdefined( self.speed ) )
+        var_3 = self.speed;
 
     if ( var_0 == "slow" )
     {
-        if ( isdefined( self.script_parentname ) && self.script_parentname == "lockedspeed" )
+        if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "lockedspeed" )
             var_1 = 180;
         else
             var_1 = randomfloatrange( 100 * var_3, 360 * var_3 );
@@ -1244,7 +1244,7 @@ _id_366A( var_0 )
 
     }
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "lockedspeed" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "lockedspeed" )
         wait 0;
     else
         wait(randomfloatrange( 0, 1 ));
@@ -1406,36 +1406,36 @@ _id_99D3()
     self._id_25A7 = undefined;
     self._id_6378 = undefined;
 
-    if ( issubstr( self.motiontrackerenabled, "cinematic" ) )
+    if ( issubstr( self.model, "cinematic" ) )
     {
         self._id_6378 = "com_tv1_cinematic";
         self._id_25A7 = "com_tv1_cinematic_d";
     }
-    else if ( issubstr( self.motiontrackerenabled, "1" ) )
+    else if ( issubstr( self.model, "1" ) )
     {
         self._id_6378 = "com_tv1";
         self._id_64BC = "com_tv1_testpattern";
         self._id_25A7 = "com_tv1_d";
     }
-    else if ( issubstr( self.motiontrackerenabled, "2" ) )
+    else if ( issubstr( self.model, "2" ) )
     {
         self._id_25A7 = "com_tv2_d";
         self._id_6378 = "com_tv2";
         self._id_64BC = "com_tv2_testpattern";
     }
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
         if ( isdefined( level._id_2AAF ) )
         {
-            var_0 = getent( self._not_team, "targetname" );
+            var_0 = getent( self.target, "targetname" );
 
             if ( isdefined( var_0 ) )
                 var_0 delete();
         }
         else
         {
-            self._id_9C1A = getent( self._not_team, "targetname" );
+            self._id_9C1A = getent( self.target, "targetname" );
             self._id_9C1A usetriggerrequirelookat();
             self._id_9C1A setcursorhint( "HINT_NOICON" );
         }
@@ -1466,7 +1466,7 @@ _id_99D6()
         self._id_9C1A waittill( "trigger" );
         self notify( "off" );
 
-        if ( self.motiontrackerenabled == self._id_6378 )
+        if ( self.model == self._id_6378 )
         {
             self setmodel( self._id_64BC );
 
@@ -1508,7 +1508,7 @@ _id_8628()
     if ( !isdefined( self._id_651C ) )
         self._id_651C = 1;
 
-    var_0 = getentarray( self._not_team, "script_linkname" );
+    var_0 = getentarray( self.target, "script_linkname" );
     var_1 = [];
 
     foreach ( var_3 in var_0 )
@@ -1561,7 +1561,7 @@ _id_2D46( var_0 )
 {
     self._id_8C42 = self.origin;
     self._id_8629 = "closed";
-    var_1 = getent( self._not_team, "targetname" );
+    var_1 = getent( self.target, "targetname" );
     self._id_6517 = var_1.origin;
     self._id_651E = distance( self._id_6517, self.origin ) / var_0;
 }

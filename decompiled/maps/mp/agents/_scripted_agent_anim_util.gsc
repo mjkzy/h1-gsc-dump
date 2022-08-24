@@ -173,7 +173,7 @@ _id_3EFD( var_0, var_1, var_2 )
 
     var_11 = spawnstruct();
     var_11._id_A3B1 = var_7;
-    var_11._id_053B = var_8;
+    var_11.z = var_8;
     return var_11;
 }
 
@@ -222,10 +222,10 @@ _id_3440( var_0 )
 
 isstatelocked()
 {
-    return self.stencil_twosided;
+    return self.statelocked;
 }
 
 setstatelocked( var_0, var_1 )
 {
-    self.stencil_twosided = var_0;
+    self.statelocked = var_0;
 }

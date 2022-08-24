@@ -29,7 +29,7 @@ _id_86F4()
         thread _id_86F8();
         _id_86C6();
         soundscripts\_snd_hud::_id_86F2();
-        _id_8759( level.script_context );
+        _id_8759( level.script );
         soundscripts\_snd_filters::_id_8704();
         soundscripts\_snd_filters::_id_86DD();
         soundscripts\_snd_timescale::_id_877C();
@@ -128,14 +128,14 @@ _id_8708( var_0, var_1 )
 _id_86DF()
 {
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "white", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.space = 1;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.sort = 1;
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 1.0;
     var_0.foreground = 1;
     wait 0.05;
@@ -169,7 +169,7 @@ _id_877B()
 _id_86EE( var_0 )
 {
     var_1 = spawnstruct();
-    var_1.nearz = "throttle_waiter";
+    var_1.name = "throttle_waiter";
     var_1.count = 0;
     var_1._id_7437 = 0;
     var_2 = 10;
@@ -249,7 +249,7 @@ _id_871B( var_0, var_1, var_2, var_3, var_4 )
                         if ( var_16 )
                         {
                             var_12 = spawnstruct();
-                            var_12.nearz = var_15;
+                            var_12.name = var_15;
                             var_12._id_8034 = [];
                             var_13 = var_15;
                         }

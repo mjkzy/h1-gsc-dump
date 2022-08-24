@@ -51,9 +51,9 @@ _id_4658( var_0 )
         case "fs_bk_r_lg":
             var_1 = undefined;
 
-            if ( isdefined( self.gunshot_teammate ) )
+            if ( isdefined( self.groundtype ) )
             {
-                var_1 = self.gunshot_teammate;
+                var_1 = self.groundtype;
                 self._id_55A7 = var_1;
             }
             else if ( isdefined( self._id_55A7 ) )
@@ -233,11 +233,11 @@ _id_72F3()
 
 _id_61C7( var_0, var_1 )
 {
-    if ( !isdefined( self.script_context ) )
+    if ( !isdefined( self.script ) )
         return;
 
-    if ( isdefined( anim._id_37BF[self.script_context] ) )
-        thread [[ anim._id_37BF[self.script_context] ]]();
+    if ( isdefined( anim._id_37BF[self.script] ) )
+        thread [[ anim._id_37BF[self.script] ]]();
     else
         thread [[ ::_id_840D ]]();
 }
@@ -391,23 +391,23 @@ _id_61CE( var_0, var_1 )
 {
     if ( issubstr( var_0, "left" ) )
     {
-        animscripts\shared::_id_6869( self.weapon_switch_invalid, "left" );
+        animscripts\shared::_id_6869( self.weapon, "left" );
         self notify( "weapon_switch_done" );
     }
     else if ( issubstr( var_0, "right" ) )
     {
-        animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+        animscripts\shared::_id_6869( self.weapon, "right" );
         self notify( "weapon_switch_done" );
     }
     else if ( issubstr( var_0, "none" ) )
-        animscripts\shared::_id_6869( self.weapon_switch_invalid, "none" );
+        animscripts\shared::_id_6869( self.weapon, "none" );
 }
 
 notetracksecondaryguntorighthand( var_0, var_1 )
 {
     self notify( "weapon_switch_done" );
     thread placeweapononkillanimscript( self.secondaryweapon, "right" );
-    self.weapon_switch_invalid = self.secondaryweapon;
+    self.weapon = self.secondaryweapon;
 }
 
 placeweapononkillanimscript( var_0, var_1 )
@@ -421,33 +421,33 @@ placeweapononkillanimscript( var_0, var_1 )
 _id_61CD( var_0, var_1 )
 {
     animscripts\shared::_id_2F6B();
-    self._id_560F = self.weapon_switch_invalid;
+    self._id_560F = self.weapon;
 }
 
 _id_61D0( var_0, var_1 )
 {
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "chest" );
+    animscripts\shared::_id_6869( self.weapon, "chest" );
 }
 
 _id_61CF( var_0, var_1 )
 {
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "back" );
-    self.weapon_switch_invalid = animscripts\utility::_id_409A();
-    self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+    animscripts\shared::_id_6869( self.weapon, "back" );
+    self.weapon = animscripts\utility::_id_409A();
+    self._id_18B0 = weaponclipsize( self.weapon );
 }
 
 _id_61DA( var_0, var_1 )
 {
     animscripts\shared::_id_6869( self._id_855D, "right" );
-    self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+    self._id_18B0 = weaponclipsize( self.weapon );
     self notify( "weapon_switch_done" );
 }
 
 _id_61DB( var_0, var_1 )
 {
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "none" );
-    self.weapon_switch_invalid = animscripts\utility::_id_409A();
-    self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+    animscripts\shared::_id_6869( self.weapon, "none" );
+    self.weapon = animscripts\utility::_id_409A();
+    self._id_18B0 = weaponclipsize( self.weapon );
 }
 
 _id_61C5( var_0, var_1 )
@@ -605,7 +605,7 @@ _id_61F5( var_0, var_1 )
                     var_5 = randomint( 8 );
                     var_6 = var_2[var_5];
 
-                    if ( maps\_utility::_id_4749( self.motiontrackerenabled, var_6 ) )
+                    if ( maps\_utility::_id_4749( self.model, var_6 ) )
                     {
                         if ( !isdefined( self._id_10F2 ) )
                             self._id_10F2 = 0;
@@ -628,7 +628,7 @@ _id_61F5( var_0, var_1 )
             {
                 foreach ( var_6 in var_2 )
                 {
-                    if ( isdefined( var_6 ) && maps\_utility::_id_4749( self.motiontrackerenabled, var_6 ) )
+                    if ( isdefined( var_6 ) && maps\_utility::_id_4749( self.model, var_6 ) )
                     {
                         if ( !isdefined( self._id_10F2 ) )
                             self._id_10F2 = 0;
@@ -652,8 +652,8 @@ _id_61F5( var_0, var_1 )
 
 _id_2566( var_0, var_1 )
 {
-    if ( isdefined( self.gunshot_teammate ) )
-        var_2 = self.gunshot_teammate;
+    if ( isdefined( self.groundtype ) )
+        var_2 = self.groundtype;
     else
         var_2 = "dirt";
 
@@ -668,7 +668,7 @@ _id_2566( var_0, var_1 )
         return;
 
     if ( isai( self ) && isdefined( var_3.fx ) )
-        playfxontag( var_3.fx, self, var_3.tag_aim_animated );
+        playfxontag( var_3.fx, self, var_3.tag );
 
     if ( !isdefined( var_3._id_88A4 ) && !isdefined( var_3._id_88A6 ) )
         return;
@@ -683,8 +683,8 @@ _id_2566( var_0, var_1 )
 
 _id_61C9( var_0, var_1 )
 {
-    if ( isdefined( self.gunshot_teammate ) )
-        var_2 = self.gunshot_teammate;
+    if ( isdefined( self.groundtype ) )
+        var_2 = self.groundtype;
     else
         var_2 = "dirt";
 
@@ -693,8 +693,8 @@ _id_61C9( var_0, var_1 )
 
 _id_61D2( var_0, var_1 )
 {
-    if ( isdefined( self.gunshot_teammate ) )
-        var_2 = self.gunshot_teammate;
+    if ( isdefined( self.groundtype ) )
+        var_2 = self.groundtype;
     else
         var_2 = "dirt";
 
@@ -708,18 +708,18 @@ _id_61C2( var_0, var_1 )
 
 _id_61C6( var_0, var_1 )
 {
-    if ( self.script_context != "reactions" )
+    if ( self.script != "reactions" )
         self _meth_8193( "face enemy" );
-    else if ( isdefined( self.enemy ) && distancesquared( self.enemy.origin, self.recipename ) < 4096 )
+    else if ( isdefined( self.enemy ) && distancesquared( self.enemy.origin, self.reactiontargetpos ) < 4096 )
         self _meth_8193( "face enemy" );
     else
-        self _meth_8193( "face point", self.recipename );
+        self _meth_8193( "face point", self.reactiontargetpos );
 }
 
 notetrackcrouchtoprone( var_0, var_1 )
 {
-    if ( isdefined( self.gunshot_teammate ) )
-        var_2 = self.gunshot_teammate;
+    if ( isdefined( self.groundtype ) )
+        var_2 = self.groundtype;
     else
         var_2 = "default";
 
@@ -744,8 +744,8 @@ _id_61C1( var_0, var_1 )
     if ( issubstr( var_0, "large" ) )
         var_2 = "_large";
 
-    if ( isdefined( self.gunshot_teammate ) )
-        var_3 = self.gunshot_teammate;
+    if ( isdefined( self.groundtype ) )
+        var_3 = self.groundtype;
     else
         var_3 = "dirt";
 
@@ -785,7 +785,7 @@ _id_61E3()
 {
     self._id_7590 = spawn( "script_model", self.origin );
 
-    if ( issubstr( tolower( self.weapon_switch_invalid ), "panzerfaust" ) )
+    if ( issubstr( tolower( self.weapon ), "panzerfaust" ) )
         self._id_7590 setmodel( "weapon_panzerfaust3_missle" );
     else
         self._id_7590 setmodel( "projectile_rpg7" );
@@ -806,13 +806,13 @@ _id_61E4()
     if ( isai( self ) && !isalive( self ) )
         return;
 
-    if ( maps\_utility::_id_4749( getweaponmodel( self.weapon_switch_invalid ), "tag_rocket" ) )
+    if ( maps\_utility::_id_4749( getweaponmodel( self.weapon ), "tag_rocket" ) )
         self showpart( "tag_rocket" );
 }
 
 _id_466C( var_0, var_1, var_2, var_3 )
 {
-    if ( isai( self ) && self.unlockpoints == "dog" )
+    if ( isai( self ) && self.type == "dog" )
     {
         if ( _id_4659( var_0 ) )
             return;
@@ -1046,7 +1046,7 @@ _id_6D9F( var_0, var_1 )
         var_2 = _id_3DF2();
         var_3 = undefined;
 
-        if ( !isdefined( self.gunshot_teammate ) )
+        if ( !isdefined( self.groundtype ) )
         {
             if ( !isdefined( self._id_55A7 ) )
             {
@@ -1058,8 +1058,8 @@ _id_6D9F( var_0, var_1 )
         }
         else
         {
-            var_3 = self.gunshot_teammate;
-            self._id_55A7 = self.gunshot_teammate;
+            var_3 = self.groundtype;
+            self._id_55A7 = self.groundtype;
         }
 
         var_4 = "J_Ball_RI";
@@ -1135,7 +1135,7 @@ _id_840D()
         animscripts\utility::_id_83F2();
         animscripts\combat_utility::_id_275F();
 
-        if ( weaponclass( self.weapon_switch_invalid ) == "rocketlauncher" )
+        if ( weaponclass( self.weapon ) == "rocketlauncher" )
             self.a._id_7594--;
     }
 }

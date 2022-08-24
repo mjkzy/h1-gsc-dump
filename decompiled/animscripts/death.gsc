@@ -169,7 +169,7 @@ _id_2CE4()
     var_0 = 10;
     var_1 = common_scripts\_destructible::_id_3F4C( self.damagemod );
 
-    if ( isdefined( self.attacker ) && self.attacker == level.playercardbackground && var_1 == "melee" )
+    if ( isdefined( self.attacker ) && self.attacker == level.player && var_1 == "melee" )
         var_0 = 5;
 
     var_2 = self.damagetaken;
@@ -191,7 +191,7 @@ _id_2CE4()
         var_5 *= var_3;
 
     if ( self.forceragdollimmediate )
-        var_5 += self.primary * 20 * 10;
+        var_5 += self.prevanimdelta * 20 * 10;
 
     if ( isdefined( self._id_70DD ) )
         var_5 += self._id_70DD * 10;
@@ -268,7 +268,7 @@ _id_594E( var_0 )
 {
     while ( isdefined( var_0 ) )
     {
-        if ( self istouching( var_0 ) && isdefined( level.playercardbackground._id_594D ) )
+        if ( self istouching( var_0 ) && isdefined( level.player._id_594D ) )
         {
             maps\_utility::_id_41DD( "LEVEL_12A" );
             break;
@@ -383,7 +383,7 @@ _id_6A3E( var_0 )
 {
     self endon( "killanimscript" );
 
-    if ( self.start_move != "none" )
+    if ( self.stairsstate != "none" )
         return;
 
     if ( isdefined( var_0 ) )
@@ -606,7 +606,7 @@ _id_481F( var_0 )
         if ( !isdefined( self ) )
             return;
 
-        if ( distancesquared( self.origin, level.playercardbackground.origin ) > 262144 )
+        if ( distancesquared( self.origin, level.player.origin ) > 262144 )
             break;
 
         wait 30;
@@ -710,7 +710,7 @@ _id_8493( var_0, var_1, var_2, var_3 )
             return 0;
     }
 
-    if ( animscripts\utility::_id_51AC( var_0 ) && self.maxturnspeed < var_2 )
+    if ( animscripts\utility::_id_51AC( var_0 ) && self.maxhealth < var_2 )
         return 1;
 
     if ( animscripts\utility::_id_51A3( var_0 ) && _id_50C2( var_3, 512 ) )
@@ -796,10 +796,10 @@ _id_3EEE()
     var_1 = angleclamp180( self.damageyaw - var_0 );
     var_2 = self.a._id_6E5A;
 
-    if ( !isdefined( self.attacker ) || self.attacker != level.playercardbackground )
+    if ( !isdefined( self.attacker ) || self.attacker != level.player )
         return;
 
-    var_3 = level.playercardbackground getstance();
+    var_3 = level.player getstance();
     var_4 = [];
 
     if ( var_1 < -135 || var_1 > 135 )
@@ -1049,7 +1049,7 @@ _id_40E8()
     if ( var_0.size == 0 )
         var_0[var_0.size] = animscripts\utility::_id_5863( "death", "stand_backup_default" );
 
-    if ( !self.a._id_2B18 && self.start_move == "none" && !isdefined( self.a._id_665A ) )
+    if ( !self.a._id_2B18 && self.stairsstate == "none" && !isdefined( self.a._id_665A ) )
     {
         var_3 = randomint( var_0.size + var_1.size );
 
@@ -1108,7 +1108,7 @@ _id_3F0F()
 
 _id_3803()
 {
-    if ( !isdefined( self.weapon_switch_invalid ) || !animscripts\utility::_id_9C35() || !weaponisauto( self.weapon_switch_invalid ) || self.diequietly || animscripts\utility::_id_9C36() )
+    if ( !isdefined( self.weapon ) || !animscripts\utility::_id_9C35() || !weaponisauto( self.weapon ) || self.diequietly || animscripts\utility::_id_9C36() )
         return 0;
 
     if ( self.a._id_A2E2["right"] == "none" )

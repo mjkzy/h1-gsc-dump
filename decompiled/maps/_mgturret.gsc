@@ -61,48 +61,48 @@ _id_6E4A()
     self endon( "death" );
     self.goalradius = level._id_2780;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getnode( self._not_team, "targetname" );
+        var_0 = getnode( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
         {
-            if ( isdefined( var_0.rank ) )
-                self.goalradius = var_0.rank;
+            if ( isdefined( var_0.radius ) )
+                self.goalradius = var_0.radius;
 
             self _meth_81a9( var_0 );
         }
     }
 
-    while ( !isdefined( self.node_relinquished ) )
+    while ( !isdefined( self.node ) )
         wait 0.05;
 
     var_1 = undefined;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getnode( self._not_team, "targetname" );
+        var_0 = getnode( self.target, "targetname" );
         var_1 = var_0;
     }
 
     if ( !isdefined( var_1 ) )
-        var_1 = self.node_relinquished;
+        var_1 = self.node;
 
     if ( !isdefined( var_1 ) )
         return;
 
-    if ( var_1.unlockpoints != "Turret" )
+    if ( var_1.type != "Turret" )
         return;
 
     var_2 = _id_4104();
-    var_2[self.node_relinquished.origin + ""] = undefined;
+    var_2[self.node.origin + ""] = undefined;
 
     if ( isdefined( var_2[var_1.origin + ""] ) )
         return;
 
     var_3 = var_1._id_9940;
 
-    if ( isdefined( var_3.reticle ) )
+    if ( isdefined( var_3.reserved ) )
         return;
 
     _id_741E( var_3 );
@@ -118,8 +118,8 @@ _id_6E4A()
 _id_5BCC()
 {
     self waittill( "trigger" );
-    level notify( self.teambalanced );
-    level._id_5BCC[self.teambalanced] = 1;
+    level notify( self.targetname );
+    level._id_5BCC[self.targetname] = 1;
     self delete();
 }
 
@@ -174,7 +174,7 @@ _id_5975( var_0 )
     self waittill( "auto_ai" );
     var_0 notify( "stopfiring" );
     var_0 setmode( "auto_ai" );
-    var_0 settargetentity( level.playercardbackground );
+    var_0 settargetentity( level.player );
 }
 
 _id_192C( var_0 )
@@ -384,10 +384,10 @@ _id_0663()
     if ( !isdefined( self._id_3864 ) )
         self._id_3864 = 0;
 
-    if ( !isdefined( self.teambalanced ) )
+    if ( !isdefined( self.targetname ) )
         return;
 
-    var_0 = getnode( self.teambalanced, "target" );
+    var_0 = getnode( self.targetname, "target" );
 
     if ( !isdefined( var_0 ) )
         return;
@@ -407,7 +407,7 @@ _id_0663()
         {
             var_1 = 0;
 
-            if ( isdefined( var_0.teambalanced ) || self._id_3864 )
+            if ( isdefined( var_0.targetname ) || self._id_3864 )
                 self waittill( "get new user" );
         }
 
@@ -458,20 +458,20 @@ _id_5BCB()
     if ( !isdefined( self._id_0905 ) )
         self._id_0905 = "manual_ai";
 
-    var_0 = getnode( self._not_team, "targetname" );
+    var_0 = getnode( self.target, "targetname" );
 
     if ( !isdefined( var_0 ) )
         return;
 
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_1._id_6581 = var_0.origin;
 
-    if ( isdefined( var_1._not_team ) )
+    if ( isdefined( var_1.target ) )
     {
-        if ( !isdefined( level._id_5BCC ) || !isdefined( level._id_5BCC[var_1._not_team] ) )
+        if ( !isdefined( level._id_5BCC ) || !isdefined( level._id_5BCC[var_1.target] ) )
         {
-            level._id_5BCC[var_1._not_team] = 0;
-            getent( var_1._not_team, "targetname" ) thread _id_5BCC();
+            level._id_5BCC[var_1.target] = 0;
+            getent( var_1.target, "targetname" ) thread _id_5BCC();
         }
 
         var_2 = 1;
@@ -496,9 +496,9 @@ _id_5BCB()
         var_3 thread _id_5BC4( var_1 );
         var_3 waittill( "death" );
 
-        if ( isdefined( self.script_lightset ) )
+        if ( isdefined( self.script_delay ) )
         {
-            wait(self.script_lightset);
+            wait(self.script_delay);
             continue;
         }
 
@@ -541,7 +541,7 @@ _id_5BC6( var_0, var_1, var_2 )
     {
         for (;;)
         {
-            _id_5F3E( var_0, "auto_ai", level.playercardbackground );
+            _id_5F3E( var_0, "auto_ai", level.player );
             self waittill( "manual_ai" );
             thread _id_5BC5( var_0, var_1 );
             self waittill( "auto_ai" );
@@ -554,10 +554,10 @@ _id_6BF2()
     if ( !isdefined( level._id_6ABD ) )
         return 0;
 
-    if ( level.playercardbackground getstance() == "prone" )
+    if ( level.player getstance() == "prone" )
         return 1;
 
-    if ( level._id_6ABE == "cow" && level.playercardbackground getstance() == "crouch" )
+    if ( level._id_6ABE == "cow" && level.player getstance() == "crouch" )
         return 1;
 
     return 0;
@@ -565,9 +565,9 @@ _id_6BF2()
 
 _id_8AF9()
 {
-    if ( level.playercardbackground getstance() == "prone" )
+    if ( level.player getstance() == "prone" )
         return ( 0.0, 0.0, 5.0 );
-    else if ( level.playercardbackground getstance() == "crouch" )
+    else if ( level.player getstance() == "crouch" )
         return ( 0.0, 0.0, 25.0 );
 
     return ( 0.0, 0.0, 50.0 );
@@ -577,18 +577,18 @@ _id_5BC5( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "auto_ai" );
-    self.pantssize = 1;
+    self.pacifist = 1;
     self _meth_81aa( var_0._id_6581 );
     self.goalradius = level._id_58D9;
     self waittill( "goal" );
 
     if ( var_1 )
     {
-        if ( !level._id_5BCC[var_0._not_team] )
-            level waittill( var_0._not_team );
+        if ( !level._id_5BCC[var_0.target] )
+            level waittill( var_0.target );
     }
 
-    self.pantssize = 0;
+    self.pacifist = 0;
     var_0 setmode( "auto_ai" );
     var_0 cleartargetentity();
     var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
@@ -642,7 +642,7 @@ _id_5BC5( var_0, var_1 )
         {
             for ( var_13 = 0; var_13 < 1; var_13 += var_10 )
             {
-                var_2.origin = var_7 * ( 1.0 - var_13 ) + ( level.playercardbackground getorigin() + _id_8AF9() ) * var_13;
+                var_2.origin = var_7 * ( 1.0 - var_13 ) + ( level.player getorigin() + _id_8AF9() ) * var_13;
 
                 if ( _id_6BF2() )
                     var_13 = 2;
@@ -650,14 +650,14 @@ _id_5BC5( var_0, var_1 )
                 wait(var_9);
             }
 
-            var_14 = level.playercardbackground getorigin();
+            var_14 = level.player getorigin();
 
             while ( !_id_6BF2() )
             {
-                var_2.origin = level.playercardbackground getorigin();
+                var_2.origin = level.player getorigin();
                 var_15 = var_2.origin - var_14;
                 var_2.origin = var_2.origin + var_15 + _id_8AF9();
-                var_14 = level.playercardbackground getorigin();
+                var_14 = level.player getorigin();
                 wait 0.1;
             }
 
@@ -665,9 +665,9 @@ _id_5BC5( var_0, var_1 )
             {
                 var_11 = gettime() + 1500 + randomfloat( 4000 );
 
-                while ( _id_6BF2() && isdefined( level._id_6ABD._not_team ) && gettime() < var_11 )
+                while ( _id_6BF2() && isdefined( level._id_6ABD.target ) && gettime() < var_11 )
                 {
-                    var_16 = getentarray( level._id_6ABD._not_team, "targetname" );
+                    var_16 = getentarray( level._id_6ABD.target, "targetname" );
                     var_16 = var_16[randomint( var_16.size )];
                     var_2.origin = var_16.origin + ( randomfloat( 30 ) - 15, randomfloat( 30 ) - 15, randomfloat( 40 ) - 60 );
                     wait 0.1;
@@ -704,9 +704,9 @@ _id_5BC5( var_0, var_1 )
             {
                 if ( !var_0._id_6C2D )
                 {
-                    var_0 settargetentity( level.playercardbackground );
+                    var_0 settargetentity( level.player );
                     var_0._id_6C2D = 1;
-                    var_3._id_9197 = level.playercardbackground;
+                    var_3._id_9197 = level.player;
                 }
 
                 wait 0.2;
@@ -721,7 +721,7 @@ _id_5BC5( var_0, var_1 )
             {
                 if ( isdefined( level._id_6ABD ) )
                 {
-                    var_16 = getentarray( level._id_6ABD._not_team, "targetname" );
+                    var_16 = getentarray( level._id_6ABD.target, "targetname" );
                     var_16 = var_16[randomint( var_16.size )];
                     var_2.origin = var_16.origin + ( randomfloat( 30 ) - 15, randomfloat( 30 ) - 15, randomfloat( 40 ) - 60 );
                     var_0 settargetentity( var_2 );
@@ -849,11 +849,11 @@ _id_9958( var_0, var_1 )
     {
         if ( var_2[var_3] _meth_8161( var_0.origin ) && var_2[var_3] _meth_8190( var_1 ) )
         {
-            var_4 = var_2[var_3].key2;
-            var_2[var_3].key2 = 0;
+            var_4 = var_2[var_3].keepclaimednodeifvalid;
+            var_2[var_3].keepclaimednodeifvalid = 0;
 
             if ( !var_2[var_3] _meth_81f3( var_0 ) )
-                var_2[var_3].key2 = var_4;
+                var_2[var_3].keepclaimednodeifvalid = var_4;
         }
     }
 }
@@ -1104,7 +1104,7 @@ _id_7820( var_0 )
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
     {
-        if ( isdefined( var_1[var_3].teambalanced ) )
+        if ( isdefined( var_1[var_3].targetname ) )
             continue;
 
         if ( isdefined( var_1[var_3]._id_51FF ) )
@@ -1120,13 +1120,13 @@ _id_7820( var_0 )
     {
         var_5 = var_0[var_4];
 
-        if ( var_5.unlockpoints == "Path" )
+        if ( var_5.type == "Path" )
             continue;
 
-        if ( var_5.unlockpoints == "Begin" )
+        if ( var_5.type == "Begin" )
             continue;
 
-        if ( var_5.unlockpoints == "End" )
+        if ( var_5.type == "End" )
             continue;
 
         var_6 = anglestoforward( ( 0, var_5.angles[1], 0 ) );
@@ -1144,20 +1144,20 @@ _id_7820( var_0 )
 
             var_5._id_99B3 = spawn( "script_origin", var_8.origin );
             var_5._id_99B3.angles = var_8.angles;
-            var_5._id_99B3.node_relinquished = var_5;
-            var_5._id_99B3.light = 45;
-            var_5._id_99B3.rocket = 45;
-            var_5._id_99B3.touching_platform = 15;
+            var_5._id_99B3.node = var_5;
+            var_5._id_99B3.leftarc = 45;
+            var_5._id_99B3.rightarc = 45;
+            var_5._id_99B3.toparc = 15;
             var_5._id_99B3.bottomarc = 15;
 
-            if ( isdefined( var_8.light ) )
-                var_5._id_99B3.light = min( var_8.light, 45 );
+            if ( isdefined( var_8.leftarc ) )
+                var_5._id_99B3.leftarc = min( var_8.leftarc, 45 );
 
-            if ( isdefined( var_8.rocket ) )
-                var_5._id_99B3.rocket = min( var_8.rocket, 45 );
+            if ( isdefined( var_8.rightarc ) )
+                var_5._id_99B3.rightarc = min( var_8.rightarc, 45 );
 
-            if ( isdefined( var_8.touching_platform ) )
-                var_5._id_99B3.touching_platform = min( var_8.touching_platform, 15 );
+            if ( isdefined( var_8.toparc ) )
+                var_5._id_99B3.toparc = min( var_8.toparc, 15 );
 
             if ( isdefined( var_8.bottomarc ) )
                 var_5._id_99B3.bottomarc = min( var_8.bottomarc, 15 );
@@ -1175,7 +1175,7 @@ _id_1126( var_0 )
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
     {
-        if ( !isdefined( var_1[var_3].teambalanced ) || tolower( var_1[var_3].teambalanced ) != "find_mgTurret" )
+        if ( !isdefined( var_1[var_3].targetname ) || tolower( var_1[var_3].targetname ) != "find_mgTurret" )
             continue;
 
         if ( !isdefined( var_1[var_3]._id_3584 ) )
@@ -1192,13 +1192,13 @@ _id_1126( var_0 )
     {
         var_5 = var_0[var_4];
 
-        if ( var_5.unlockpoints == "Path" )
+        if ( var_5.type == "Path" )
             continue;
 
-        if ( var_5.unlockpoints == "Begin" )
+        if ( var_5.type == "Begin" )
             continue;
 
-        if ( var_5.unlockpoints == "End" )
+        if ( var_5.type == "End" )
             continue;
 
         var_6 = anglestoforward( ( 0, var_5.angles[1], 0 ) );
@@ -1218,7 +1218,7 @@ _id_1126( var_0 )
                 continue;
 
             var_5._id_9940 = var_8;
-            var_8.node_relinquished = var_5;
+            var_8.node = var_5;
             var_8._id_519E = 1;
             var_2[var_7[var_3]] = undefined;
         }
@@ -1455,13 +1455,13 @@ _id_3EA9( var_0 )
     var_1["saw_bipod_stand"] = level._id_5BBF["bipod_stand_setup"];
     var_1["saw_bipod_crouch"] = level._id_5BBF["bipod_crouch_setup"];
     var_1["saw_bipod_prone"] = level._id_5BBF["bipod_prone_setup"];
-    return var_1[var_0.weeklychallengeid];
+    return var_1[var_0.weaponinfo];
 }
 #using_animtree("generic_human");
 
 _id_76BE( var_0 )
 {
-    var_1 = self.helmet;
+    var_1 = self.health;
     var_0 endon( "turret_deactivate" );
     self._id_5BC2 = var_0;
     self endon( "death" );
@@ -1469,10 +1469,10 @@ _id_76BE( var_0 )
     var_2 = _id_3EA9( var_0 );
     self._id_99B5 = "weapon_mg42_carry";
     self notify( "kill_get_gun_back_on_killanimscript_thread" );
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "none" );
+    animscripts\shared::_id_6869( self.weapon, "none" );
 
     if ( self _meth_813f() )
-        self.helmet = 1;
+        self.health = 1;
 
     self._id_76AF = %saw_gunner_run_fast;
     self._id_2485 = %saw_gunner_run_fast;
@@ -1494,7 +1494,7 @@ _id_76BE( var_0 )
     self notify( "kill_turret_detach_thread" );
 
     if ( self _meth_813f() )
-        self.helmet = var_1;
+        self.health = var_1;
 
     if ( soundexists( "weapon_setup" ) )
         thread common_scripts\utility::_id_69C2( "weapon_setup" );
@@ -1547,7 +1547,7 @@ _id_99A0()
         return;
     }
 
-    var_2 = self.node_relinquished;
+    var_2 = self.node;
 
     if ( !isdefined( var_2 ) || !maps\_utility::_id_503B( var_1, var_2 ) )
     {
@@ -1564,7 +1564,7 @@ _id_99A0()
 
     var_5 = var_2._id_9940;
 
-    if ( isdefined( var_5.reticle ) )
+    if ( isdefined( var_5.reserved ) )
         return;
 
     _id_741E( var_5 );
@@ -1625,10 +1625,10 @@ _id_4104()
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( !isdefined( var_1[var_2].node_relinquished ) )
+        if ( !isdefined( var_1[var_2].node ) )
             continue;
 
-        var_0[var_1[var_2].node_relinquished.origin + ""] = 1;
+        var_0[var_1[var_2].node.origin + ""] = 1;
     }
 
     return var_0;
@@ -1640,7 +1640,7 @@ _id_375C( var_0 )
     var_2 = [];
     var_3 = getarraykeys( var_1 );
     var_4 = _id_4104();
-    var_4[self.node_relinquished.origin + ""] = undefined;
+    var_4[self.node.origin + ""] = undefined;
 
     for ( var_5 = 0; var_5 < var_3.size; var_5++ )
     {
@@ -1656,10 +1656,10 @@ _id_375C( var_0 )
             if ( var_1[var_6]._id_3584 + "" != var_7[var_8] )
                 continue;
 
-            if ( isdefined( var_1[var_6].reticle ) )
+            if ( isdefined( var_1[var_6].reserved ) )
                 continue;
 
-            if ( isdefined( var_4[var_1[var_6].node_relinquished.origin + ""] ) )
+            if ( isdefined( var_4[var_1[var_6].node.origin + ""] ) )
                 continue;
 
             if ( distance( self.goalpos, var_1[var_6].origin ) > self.goalradius )
@@ -1710,12 +1710,12 @@ _id_6E4C()
     _id_780D();
     var_0 = 1;
     self._id_519E = 1;
-    self.reticle = undefined;
+    self.reserved = undefined;
 
     if ( isdefined( self._id_51FF ) )
         return;
 
-    if ( self.specialgrenade & var_0 )
+    if ( self.spawnflags & var_0 )
         return;
 
     _id_4866();
@@ -1763,7 +1763,7 @@ _id_996E( var_0 )
 _id_3153( var_0 )
 {
     _id_A0C5( var_0 );
-    var_0.reticle = undefined;
+    var_0.reserved = undefined;
 }
 
 _id_A0C5( var_0 )
@@ -1775,6 +1775,6 @@ _id_A0C5( var_0 )
 
 _id_741E( var_0 )
 {
-    var_0.reticle = self;
+    var_0.reserved = self;
     thread _id_3153( var_0 );
 }

@@ -27,7 +27,7 @@ _id_271E()
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        if ( !( var_0[var_3].specialgrenade & 2 ) && ( isdefined( var_0[var_3]._not_team ) && getnodearray( var_0[var_3]._not_team, "targetname" ).size > 0 || isdefined( var_0[var_3].teambalanced ) && getnodearray( var_0[var_3].teambalanced, "target" ).size > 0 ) )
+        if ( !( var_0[var_3].spawnflags & 2 ) && ( isdefined( var_0[var_3].target ) && getnodearray( var_0[var_3].target, "targetname" ).size > 0 || isdefined( var_0[var_3].targetname ) && getnodearray( var_0[var_3].targetname, "target" ).size > 0 ) )
         {
             var_2[var_1] = var_0[var_3];
             var_1++;
@@ -42,7 +42,7 @@ _id_271E()
         {
             for ( var_3 = 0; var_3 < var_2.size; var_3++ )
             {
-                if ( distance( level.playercardbackground getorigin(), var_2[var_3].origin ) < 1500 )
+                if ( distance( level.player getorigin(), var_2[var_3].origin ) < 1500 )
                 {
 
                 }
@@ -126,7 +126,7 @@ _id_2697()
         if ( !isalive( var_1 ) )
             continue;
 
-        if ( isdefined( var_1.leanamount ) )
+        if ( isdefined( var_1.lastenemysightpos ) )
         {
 
         }
@@ -140,23 +140,23 @@ _id_2697()
 
             var_4 = var_1.origin + ( 0.0, 0.0, 54.0 );
 
-            if ( isdefined( var_1.node_relinquished ) )
+            if ( isdefined( var_1.node ) )
             {
-                if ( var_1.node_relinquished.unlockpoints == "Cover Left" )
+                if ( var_1.node.type == "Cover Left" )
                 {
                     var_5 = 1;
-                    var_4 = anglestoright( var_1.node_relinquished.angles );
+                    var_4 = anglestoright( var_1.node.angles );
                     var_4 *= -32;
                     var_4 = ( var_4[0], var_4[1], 64 );
-                    var_4 = var_1.node_relinquished.origin + var_4;
+                    var_4 = var_1.node.origin + var_4;
                 }
-                else if ( var_1.node_relinquished.unlockpoints == "Cover Right" )
+                else if ( var_1.node.type == "Cover Right" )
                 {
                     var_5 = 1;
-                    var_4 = anglestoright( var_1.node_relinquished.angles );
+                    var_4 = anglestoright( var_1.node.angles );
                     var_4 *= 32;
                     var_4 = ( var_4[0], var_4[1], 64 );
-                    var_4 = var_1.node_relinquished.origin + var_4;
+                    var_4 = var_1.node.origin + var_4;
                 }
             }
 
@@ -175,7 +175,7 @@ _id_2697()
 
     }
 
-    if ( isdefined( var_1.leanamount ) )
+    if ( isdefined( var_1.lastenemysightpos ) )
     {
 
     }
@@ -291,7 +291,7 @@ _id_2DE1()
 {
     for (;;)
     {
-        _id_2DD0( level.playercardbackground.origin, level.playercardbackground getplayerangles(), ( 1.0, 1.0, 1.0 ) );
+        _id_2DD0( level.player.origin, level.player getplayerangles(), ( 1.0, 1.0, 1.0 ) );
         wait 0.05;
     }
 }
@@ -350,16 +350,16 @@ _id_9E20( var_0, var_1 )
 
 _id_2689()
 {
-    level.playercardbackground.ignoretriggers = 1;
+    level.player.ignoreme = 1;
     var_0 = getallnodes();
     var_1 = [];
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( var_0[var_2].unlockpoints == "Cover Left" )
+        if ( var_0[var_2].type == "Cover Left" )
             var_1[var_1.size] = var_0[var_2];
 
-        if ( var_0[var_2].unlockpoints == "Cover Right" )
+        if ( var_0[var_2].type == "Cover Right" )
             var_1[var_1.size] = var_0[var_2];
     }
 
@@ -373,7 +373,7 @@ _id_2689()
     level._id_20D4 = [];
 
     for ( var_2 = 0; var_2 < level._id_2735.size; var_2++ )
-        level._id_2735[var_2].teambalanced = "blah";
+        level._id_2735[var_2].targetname = "blah";
 
     var_4 = 0;
 
@@ -468,7 +468,7 @@ _id_22C2()
 
     if ( isalive( var_0 ) )
     {
-        var_0.ignoretriggers = 1;
+        var_0.ignoreme = 1;
         var_0.team = "neutral";
         var_0 _meth_81aa( var_0.origin );
         thread _id_2426( self.origin );
@@ -581,7 +581,7 @@ _id_3D3F()
         return "none";
 
     if ( length( var_1 ) == 0 )
-        var_1 = self.visionsetnakedduration;
+        var_1 = self.velocity;
 
     var_2 = vectordot( vectornormalize( var_0 ), vectornormalize( var_1 ) );
     var_2 = clamp( var_2, -1, 1 );
@@ -685,7 +685,7 @@ _id_7AF7( var_0 )
         return var_1;
     }
 
-    if ( !isdefined( var_0.script_context ) )
+    if ( !isdefined( var_0.script ) )
     {
         var_1 = common_scripts\utility::_id_0CDA( var_1, "Undefined" );
         return var_1;
@@ -700,7 +700,7 @@ _id_7AF7( var_0 )
     if ( isdefined( self._id_056F ) && self._id_056F != "default_stealth_state" )
         var_1 = common_scripts\utility::_id_0CDA( var_1, "stealth" );
 
-    switch ( var_0.script_context )
+    switch ( var_0.script )
     {
         case "stop":
         case "move":
@@ -715,7 +715,7 @@ _id_7AF7( var_0 )
         case "grenade_cower":
         case "grenade_return_throw":
         case "<custom>":
-            var_1 = common_scripts\utility::_id_0CDA( var_1, var_0.script_context );
+            var_1 = common_scripts\utility::_id_0CDA( var_1, var_0.script );
             break;
         case "cover_crouch":
         case "cover_stand":
@@ -729,13 +729,13 @@ _id_7AF7( var_0 )
             var_1 = common_scripts\utility::_id_0CDA( var_1, "cover" );
             break;
         default:
-            if ( common_scripts\utility::_id_8F55( var_0.script_context, "mantle" ) != -1 )
+            if ( common_scripts\utility::_id_8F55( var_0.script, "mantle" ) != -1 )
             {
                 var_1 = common_scripts\utility::_id_0CDA( var_1, "mantle" );
                 break;
             }
 
-            var_1 = common_scripts\utility::_id_0CDA( var_1, var_0.script_context );
+            var_1 = common_scripts\utility::_id_0CDA( var_1, var_0.script );
             break;
     }
 
@@ -851,7 +851,7 @@ _id_8507()
             var_2 = level._id_949C;
 
         if ( !isdefined( var_1 ) )
-            var_3 = level.playercardbackground geteye();
+            var_3 = level.player geteye();
 
         var_4 = bullettrace( var_2, var_3, 0, undefined );
     }
@@ -862,37 +862,37 @@ _id_2680()
     var_0 = newhudelem();
     var_0.alignx = "left";
     var_0.aligny = "middle";
-    var_0.xpmaxmultipliertimeplayed = 10;
-    var_0._id_0538 = 100;
-    var_0.land = &"DEBUG_DRONES";
+    var_0.x = 10;
+    var_0.y = 100;
+    var_0.label = &"DEBUG_DRONES";
     var_0.alpha = 0;
     var_1 = newhudelem();
     var_1.alignx = "left";
     var_1.aligny = "middle";
-    var_1.xpmaxmultipliertimeplayed = 10;
-    var_1._id_0538 = 115;
-    var_1.land = &"DEBUG_ALLIES";
+    var_1.x = 10;
+    var_1.y = 115;
+    var_1.label = &"DEBUG_ALLIES";
     var_1.alpha = 0;
     var_2 = newhudelem();
     var_2.alignx = "left";
     var_2.aligny = "middle";
-    var_2.xpmaxmultipliertimeplayed = 10;
-    var_2._id_0538 = 130;
-    var_2.land = &"DEBUG_AXIS";
+    var_2.x = 10;
+    var_2.y = 130;
+    var_2.label = &"DEBUG_AXIS";
     var_2.alpha = 0;
     var_3 = newhudelem();
     var_3.alignx = "left";
     var_3.aligny = "middle";
-    var_3.xpmaxmultipliertimeplayed = 10;
-    var_3._id_0538 = 145;
-    var_3.land = &"DEBUG_VEHICLES";
+    var_3.x = 10;
+    var_3.y = 145;
+    var_3.label = &"DEBUG_VEHICLES";
     var_3.alpha = 0;
     var_4 = newhudelem();
     var_4.alignx = "left";
     var_4.aligny = "middle";
-    var_4.xpmaxmultipliertimeplayed = 10;
-    var_4._id_0538 = 160;
-    var_4.land = &"DEBUG_TOTAL";
+    var_4.x = 10;
+    var_4.y = 160;
+    var_4.label = &"DEBUG_TOTAL";
     var_4.alpha = 0;
     var_5 = "off";
 
@@ -940,7 +940,7 @@ _id_2680()
 _id_6265()
 {
     if ( !self.damageshield )
-        self kill( ( 0.0, 0.0, -500.0 ), level.playercardbackground, level.playercardbackground );
+        self kill( ( 0.0, 0.0, -500.0 ), level.player, level.player );
 }
 
 _id_26B1()
@@ -955,7 +955,7 @@ _id_1A13()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        var_2 = getent( var_0[var_1]._not_team, "targetname" );
+        var_2 = getent( var_0[var_1].target, "targetname" );
         var_0[var_1]._id_6599 = var_2.origin;
         var_0[var_1].angles = vectortoangles( var_2.origin - var_0[var_1].origin );
     }
@@ -1002,7 +1002,7 @@ _id_1A13()
             var_10 = vectortoangles( ( var_9[0], var_9[1], var_9[2] ) - ( var_8[0], var_8[1], var_8[2] ) );
             var_11 = ( 0, var_10[1], 0 );
             var_12 = anglestoforward( var_11 );
-            var_10 = vectornormalize( var_9 - level.playercardbackground.origin );
+            var_10 = vectornormalize( var_9 - level.player.origin );
             var_13 = vectordot( var_12, var_10 );
 
             if ( var_13 < 0.85 )
@@ -1018,12 +1018,12 @@ _id_1A13()
             continue;
         }
 
-        var_14 = distance( level.playercardbackground.origin, var_6[0].origin );
+        var_14 = distance( level.player.origin, var_6[0].origin );
         var_15 = var_6[0];
 
         for ( var_1 = 1; var_1 < var_6.size; var_1++ )
         {
-            var_16 = distance( level.playercardbackground.origin, var_6[var_1].origin );
+            var_16 = distance( level.player.origin, var_6[var_1].origin );
 
             if ( var_16 > var_14 )
                 continue;
@@ -1127,7 +1127,7 @@ _id_9B37()
         {
             level._id_5C75 = var_1;
             level._id_5C74 = var_2;
-            var_3 = level.playercardbackground;
+            var_3 = level.player;
             var_4 = getentarray( var_2, "targetname" );
 
             if ( var_4.size == 2 )
@@ -1248,10 +1248,10 @@ _id_3F29()
     {
         var_0[var_0.size] = var_1;
 
-        if ( !isdefined( var_1 ) || !isdefined( var_1._not_team ) )
+        if ( !isdefined( var_1 ) || !isdefined( var_1.target ) )
             break;
 
-        var_1 = getent( var_1._not_team, "targetname" );
+        var_1 = getent( var_1.target, "targetname" );
 
         if ( isdefined( var_1 ) && var_1 == var_0[0] )
         {
@@ -1374,7 +1374,7 @@ _id_2DAA( var_0, var_1 )
                 else
                     var_7 = "N-" + var_2[var_3];
 
-                if ( isdefined( var_5[var_6]._id_2043 ) && var_5[var_6]._id_2043 == level.playercardbackground )
+                if ( isdefined( var_5[var_6]._id_2043 ) && var_5[var_6]._id_2043 == level.player )
                     var_7 += " (p)";
             }
         }
@@ -1385,8 +1385,8 @@ _id_3E91()
 {
     if ( self.team == "allies" )
     {
-        if ( isdefined( self.node_relinquished ) && isdefined( self.node_relinquished._id_7975 ) )
-            return self.node_relinquished._id_7975;
+        if ( isdefined( self.node ) && isdefined( self.node._id_7975 ) )
+            return self.node._id_7975;
 
         var_0 = self _meth_81ae();
 
@@ -1396,8 +1396,8 @@ _id_3E91()
 
     if ( self.team == "axis" )
     {
-        if ( isdefined( self.node_relinquished ) && isdefined( self.node_relinquished._id_7976 ) )
-            return self.node_relinquished._id_7976;
+        if ( isdefined( self.node ) && isdefined( self.node._id_7976 ) )
+            return self.node._id_7976;
 
         var_0 = self _meth_81ae();
 
@@ -1410,8 +1410,8 @@ _id_9891()
 {
     var_0 = ( 0.0, 0.0, 0.0 );
 
-    if ( isdefined( self.node_relinquished ) )
-        var_0 = self.node_relinquished.origin;
+    if ( isdefined( self.node ) )
+        var_0 = self.node.origin;
     else if ( isdefined( self _meth_81ae() ) )
     {
         var_1 = self _meth_81ae();
@@ -1462,9 +1462,9 @@ _id_2B6B( var_0, var_1 )
         return;
 
     var_2 = 0;
-    var_2 += self.threatsightdelayfalloff;
+    var_2 += self.threatbias;
     var_3 = 0;
-    var_3 += var_0.threatsightdelayfalloff;
+    var_3 += var_0.threatbias;
     var_4 = undefined;
 
     if ( isdefined( var_1 ) )
@@ -1478,16 +1478,16 @@ _id_2B6B( var_0, var_1 )
         }
     }
 
-    if ( var_0.ignoretriggers || var_3 < -900000 )
+    if ( var_0.ignoreme || var_3 < -900000 )
         var_3 = "Ignore";
 
-    if ( self.ignoretriggers || var_2 < -900000 )
+    if ( self.ignoreme || var_2 < -900000 )
         var_2 = "Ignore";
 
     var_5 = 20;
     var_6 = ( 1.0, 0.5, 0.2 );
     var_7 = ( 0.2, 0.5, 1.0 );
-    var_8 = !isplayer( self ) && self.pantssize;
+    var_8 = !isplayer( self ) && self.pacifist;
 
     for ( var_9 = 0; var_9 <= var_5; var_9++ )
     {
@@ -1566,8 +1566,8 @@ _id_2DA8()
         for ( var_10 = 0; var_10 < var_1[var_2[var_4]]; var_10++ )
         {
             var_11 = newhudelem();
-            var_11.xpmaxmultipliertimeplayed = var_6 + 25 * var_10;
-            var_11._id_0538 = var_7;
+            var_11.x = var_6 + 25 * var_10;
+            var_11.y = var_7;
             var_11 setshader( "white", 16, 16 );
             var_11.alignx = "left";
             var_11.aligny = "bottom";
@@ -1584,7 +1584,7 @@ _id_6D20()
 {
     for (;;)
     {
-        if ( isdefined( level.playercardbackground.node_relinquished ) )
+        if ( isdefined( level.player.node ) )
         {
 
         }
@@ -1655,11 +1655,11 @@ _id_0766( var_0, var_1, var_2 )
     var_3 = newhudelem();
     var_3.alignx = "left";
     var_3.aligny = "middle";
-    var_3.xpmaxmultipliertimeplayed = var_0;
-    var_3._id_0538 = var_1;
+    var_3.x = var_0;
+    var_3.y = var_1;
     var_3.alpha = 1;
     var_3.fontscale = 1;
-    var_3.land = var_2;
+    var_3.label = var_2;
     level._id_0C84[level._id_0C84.size] = var_3;
     return var_3;
 }
@@ -1685,7 +1685,7 @@ _id_502E( var_0, var_1, var_2 )
 
 _id_2B41()
 {
-    if ( distance( level.playercardbackground.origin, self.origin ) > 1500 )
+    if ( distance( level.player.origin, self.origin ) > 1500 )
         return;
 
     level._id_0C8B[level._id_0C8B.size] = self;
@@ -1817,10 +1817,10 @@ _id_1CA4( var_0 )
     level notify( "new_chasecam" );
     level endon( "new_chasecam" );
     var_0 endon( "death" );
-    level.playercardbackground unlink();
-    level.playercardbackground playerlinktoblend( level._id_1C97, "tag_origin", 2, 0.5, 0.5 );
+    level.player unlink();
+    level.player playerlinktoblend( level._id_1C97, "tag_origin", 2, 0.5, 0.5 );
     wait 2;
-    level.playercardbackground playerlinktodelta( level._id_1C97, "tag_origin", 1, 180, 180, 180, 180 );
+    level.player playerlinktodelta( level._id_1C97, "tag_origin", 1, 180, 180, 180, 180 );
 
     for (;;)
     {
@@ -1834,7 +1834,7 @@ _id_1CA4( var_0 )
         var_3 = anglestoforward( var_2 );
         var_3 *= 200;
         var_1 += var_3;
-        var_2 = level.playercardbackground getplayerangles();
+        var_2 = level.player getplayerangles();
         var_3 = anglestoforward( var_2 );
         var_3 *= -200;
         level._id_1C97 moveto( var_1 + var_3, 0.2 );
@@ -1867,7 +1867,7 @@ _id_6F9F( var_0 )
     _id_076C( "origin", self.origin[0] + " " + self.origin[1] + " " + self.origin[2] );
     _id_076C( "angles", self.angles[0] + " " + self.angles[1] + " " + self.angles[2] );
     _id_076C( "targetname", "helper_model" );
-    _id_076C( "model", self.motiontrackerenabled );
+    _id_076C( "model", self.model );
     _id_076C( "classname", "script_model" );
     _id_076C( "spawnflags", "4" );
     _id_076C( "_color", "0.443137 0.443137 1.000000" );
@@ -1883,9 +1883,9 @@ _id_2DB1( var_0 )
 
 _id_2DB2()
 {
-    var_0 = level.playercardbackground getplayerangles();
+    var_0 = level.player getplayerangles();
     var_1 = anglestoforward( var_0 );
-    var_2 = level.playercardbackground geteye();
+    var_2 = level.player geteye();
     var_3 = self geteye();
     var_4 = vectortoangles( var_3 - var_2 );
     var_5 = anglestoforward( var_4 );
@@ -1903,18 +1903,18 @@ _id_4EA6()
     foreach ( var_2 in var_0 )
     {
         var_2.destructible_type = "explodable_barrel";
-        var_3 = var_2.motiontrackerenabled + "2";
+        var_3 = var_2.model + "2";
         precachemodel( var_3 );
         var_2 setmodel( var_3 );
 
-        if ( isdefined( var_2._not_team ) )
+        if ( isdefined( var_2.target ) )
         {
-            var_4 = getent( var_2._not_team, "targetname" );
+            var_4 = getent( var_2.target, "targetname" );
 
             if ( isdefined( var_4 ) )
                 var_4._id_799A = "pre";
 
-            var_2.teambalanced = "destructible_toy";
+            var_2.targetname = "destructible_toy";
         }
     }
 }

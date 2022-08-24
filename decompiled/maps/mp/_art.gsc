@@ -66,8 +66,8 @@ _id_215C()
 
     foreach ( var_2 in var_0 )
     {
-        if ( isdefined( var_2.script_zone ) )
-            _id_215D( var_2.script_zone );
+        if ( isdefined( var_2.script_visionset ) )
+            _id_215D( var_2.script_visionset );
 
         if ( isdefined( var_2._id_7B1F ) )
             _id_215D( var_2._id_7B1F );
@@ -93,7 +93,7 @@ _id_23E0( var_0 )
         level._id_9E73 = [];
 
     var_1 = spawnstruct();
-    var_1.nearz = var_0;
+    var_1.name = var_0;
     level._id_9E73[var_0] = var_1;
     return var_1;
 }
@@ -132,7 +132,7 @@ _id_23DF( var_0 )
         level._id_9E6D = [];
 
     var_1 = spawnstruct();
-    var_1.nearz = var_0;
+    var_1.name = var_0;
     var_1._id_85CD = 0;
     var_1._id_85CF = 0;
     var_1._id_85CE = 0;
@@ -146,7 +146,7 @@ _id_23DF( var_0 )
 _id_7E34( var_0, var_1 )
 {
     level._id_9E72._id_9E6B = var_0;
-    level._id_9E72.titleunlocked = var_1;
+    level._id_9E72.time = var_1;
     var_2 = _id_3D76( var_0 );
 
     if ( getdvarint( "scr_art_tweak" ) != 0 )
@@ -181,15 +181,15 @@ _id_4AC6()
         var_1[var_7].aligny = "middle";
         var_1[var_7].foreground = 1;
         var_1[var_7].fontscale = 2;
-        var_1[var_7].space = 20;
+        var_1[var_7].sort = 20;
 
         if ( var_7 == var_3 )
             var_1[var_7].alpha = 1;
         else
             var_1[var_7].alpha = var_6;
 
-        var_1[var_7].xpmaxmultipliertimeplayed = 20;
-        var_1[var_7]._id_0538 = var_4;
+        var_1[var_7].x = 20;
+        var_1[var_7].y = var_4;
         var_1[var_7] _id_0641( "." );
 
         if ( var_7 == var_3 )
@@ -371,7 +371,7 @@ _id_4CF3()
     {
         level._id_3961 = spawnstruct();
         level._id_3961._id_3964 = "";
-        level._id_3961.titleunlocked = 0;
+        level._id_3961.time = 0;
     }
 }
 
@@ -379,19 +379,19 @@ _id_6CCC()
 {
     var_0 = level._id_9E72._id_9E6B;
     level._id_9E72._id_9E6B = "";
-    level._id_9E72.titleunlocked = "";
+    level._id_9E72.time = "";
     _id_4CF3();
     level._id_3961._id_3964 = "";
-    level._id_3961.titleunlocked = "";
+    level._id_3961.time = "";
     _id_7F44( var_0 );
 }
 
 _id_1949( var_0, var_1 )
 {
-    var_2 = level.playercardbackground buttonpressed( var_0 );
+    var_2 = level.player buttonpressed( var_0 );
 
     if ( !var_2 )
-        var_2 = level.playercardbackground buttonpressed( var_1 );
+        var_2 = level.player buttonpressed( var_1 );
 
     if ( !isdefined( level._id_1963[var_0] ) )
         level._id_1963[var_0] = 0;
@@ -415,7 +415,7 @@ _id_0D36()
 
 _id_0D2D()
 {
-    return common_scripts\utility::_id_36B8( "\\share\\raw\\vision\\" + level.script_context + ".vision", 1 );
+    return common_scripts\utility::_id_36B8( "\\share\\raw\\vision\\" + level.script + ".vision", 1 );
 }
 
 _id_0D35()
@@ -425,7 +425,7 @@ _id_0D35()
 
 _id_0D2C()
 {
-    return common_scripts\utility::_id_36B8( "\\share\\raw\\maps\\createart\\" + level.script_context + "_art.gsc", 1 );
+    return common_scripts\utility::_id_36B8( "\\share\\raw\\maps\\createart\\" + level.script + "_art.gsc", 1 );
 }
 
 _id_0D2E()
@@ -438,9 +438,9 @@ _id_0D2E()
     common_scripts\utility::_id_36B7( "\\t/$" );
 
     if ( isusinghdr() )
-        common_scripts\utility::_id_36B7( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script_context + "_fog_hdr::main;" );
+        common_scripts\utility::_id_36B7( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script + "_fog_hdr::main;" );
     else
-        common_scripts\utility::_id_36B7( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script_context + "_fog::main;" );
+        common_scripts\utility::_id_36B7( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script + "_fog::main;" );
 
     common_scripts\utility::_id_36B7( "\\t$/" );
 }
@@ -456,7 +456,7 @@ _id_23C7( var_0 )
         level._id_570B = [];
 
     var_1 = spawnstruct();
-    var_1.nearz = var_0;
+    var_1.name = var_0;
     level._id_570B[var_0] = var_1;
     return var_1;
 }

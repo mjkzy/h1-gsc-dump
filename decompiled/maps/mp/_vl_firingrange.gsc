@@ -83,7 +83,7 @@ getlanespawnarray()
 
     foreach ( var_3 in var_0 )
     {
-        var_4 = int( var_3.script_parentname );
+        var_4 = int( var_3.script_noteworthy );
         var_1[var_4] = var_3;
     }
 
@@ -97,21 +97,21 @@ gettargetarray( var_0, var_1, var_2, var_3 )
 
     foreach ( var_7 in var_4 )
     {
-        var_8 = int( var_7.script_parentname );
+        var_8 = int( var_7.script_noteworthy );
 
         if ( maps\mp\_utility::_id_5092( var_2 ) )
         {
             var_9 = var_7;
-            var_7 = getent( var_9._not_team, "targetname" );
+            var_7 = getent( var_9.target, "targetname" );
             var_7._id_5F68 = var_9;
             var_9._id_8D38 = var_9.origin;
-            var_10 = common_scripts\utility::_id_40FB( var_9._not_team, "targetname" );
+            var_10 = common_scripts\utility::_id_40FB( var_9.target, "targetname" );
             var_9._id_31BC = var_10.origin;
         }
         else if ( maps\mp\_utility::_id_5092( var_3 ) )
         {
             var_7._id_8D38 = var_7.origin;
-            var_10 = common_scripts\utility::_id_40FB( var_7._not_team, "targetname" );
+            var_10 = common_scripts\utility::_id_40FB( var_7.target, "targetname" );
             var_7._id_31BC = var_10.origin;
             var_7._id_2B6C = distance( var_7._id_8D38, var_7._id_31BC );
         }
@@ -555,7 +555,7 @@ waittilltargetsdown()
 popupaimtarget( var_0, var_1 )
 {
     var_2 = level._id_3806.aim_targets[var_0];
-    var_2.unlockpoints = "human";
+    var_2.type = "human";
     self.targetsup++;
     var_2 thread targetpopup( ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, -90.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
@@ -565,7 +565,7 @@ popupaimtarget( var_0, var_1 )
 popupaimuptarget( var_0, var_1 )
 {
     var_2 = level._id_3806.aim_up_targets[var_0];
-    var_2.unlockpoints = "target";
+    var_2.type = "target";
     self.targetsup++;
     var_2 thread targetpopup( ( 0.0, 180.0, 179.0 ), ( 0.0, 180.0, 0.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
@@ -575,7 +575,7 @@ popupaimuptarget( var_0, var_1 )
 popupaimlefttarget( var_0, var_1 )
 {
     var_2 = level._id_3806.aim_left_targets[var_0];
-    var_2.unlockpoints = "target";
+    var_2.type = "target";
     self.targetsup++;
     var_2 thread targetpopup( ( 90.0, 0.0, -1.0 ), ( 90.0, 0.0, -180.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
@@ -585,7 +585,7 @@ popupaimlefttarget( var_0, var_1 )
 popupaimrighttarget( var_0, var_1 )
 {
     var_2 = level._id_3806.aim_right_targets[var_0];
-    var_2.unlockpoints = "target";
+    var_2.type = "target";
     self.targetsup++;
     var_2 thread targetpopup( ( 270.0, 180.0, 179.0 ), ( 270.0, 180.0, 0.0 ), 0.4, 0.2, var_1 );
     var_2 waittill( "down" );
@@ -595,7 +595,7 @@ popupaimrighttarget( var_0, var_1 )
 popuptargetclip( var_0, var_1 )
 {
     var_2 = level._id_3806.target_clips[var_0];
-    var_2.unlockpoints = "target";
+    var_2.type = "target";
     self.targetsup++;
     var_2 thread targetpopup( ( 0.0, 180.0, 179.0 ), ( 0.0, 180.0, 90.0 ), 0.2, 0.1, var_1, 1 );
     var_2 waittill( "down" );
@@ -605,7 +605,7 @@ popuptargetclip( var_0, var_1 )
 popupaimmovetarget( var_0, var_1 )
 {
     var_2 = level._id_3806.aim_move_targets[var_0];
-    var_2.unlockpoints = "human";
+    var_2.type = "human";
     self.targetsup++;
     var_2 thread targetpopup( ( 0.0, 0.0, 0.0 ), ( 0.0, 90.0, 0.0 ), 0.4, 0.2, var_1, 0, 1 );
     var_2 waittill( "down" );
@@ -617,21 +617,21 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     self.active = 1;
     var_7 = 0;
 
-    if ( var_7 && self.unlockpoints == "human" )
+    if ( var_7 && self.type == "human" )
     {
-        self.helmet = 100;
-        self.maxturnspeed = 100;
+        self.health = 100;
+        self.maxhealth = 100;
     }
     else
     {
-        self.helmet = 1;
-        self.maxturnspeed = 1;
+        self.health = 1;
+        self.maxhealth = 1;
     }
 
-    self.persistentperksunlocked = [];
+    self.perks = [];
 
     if ( maps\mp\_utility::_id_5092( var_4 ) )
-        self.persistentperksunlocked["specialty_armorvest"] = 1;
+        self.perks["specialty_armorvest"] = 1;
 
     self setcandamage( 1 );
     self _meth_8491( 1 );
@@ -651,15 +651,15 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( isdefined( self._id_0973 ) )
     {
         self._id_0973 _meth_81b9();
-        self._id_0973.helmet = 9999;
-        self._id_0973.maxturnspeed = 9999;
+        self._id_0973.health = 9999;
+        self._id_0973.maxhealth = 9999;
         self._id_0973 show();
         self._id_0973 solid();
     }
 
     common_scripts\utility::_id_A087( "death", "reset" );
     self.active = undefined;
-    self.persistentperksunlocked = undefined;
+    self.perks = undefined;
     self motionblurhqenable();
     targetdamageoff();
     self unlink();
@@ -799,14 +799,14 @@ targetmoveback()
 
 targetdamagecallback( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
 {
-    if ( self.helmet <= 0 )
+    if ( self.health <= 0 )
         return;
 
     var_12 = _id_4028( var_5, var_11, var_1 );
     var_13 = float( var_2 ) * var_12;
     var_13 = int( var_13 );
     var_13 = maps\mp\perks\_perks::_id_198D( self, var_1, var_13, var_4, var_5, var_6, var_7, var_8, var_0 );
-    var_14 = self.helmet - var_13;
+    var_14 = self.health - var_13;
     var_14 = maps\mp\_utility::_id_7651( var_14, 0 );
 
     if ( isdefined( var_1 ) )
@@ -1040,7 +1040,7 @@ _id_8D3C( var_0 )
     level endon( "shutdown_targets" );
     level notify( "start_round" );
     level._id_3806._id_2598 = 0;
-    level._id_3806.titleunlocked = 0;
+    level._id_3806.time = 0;
     level._id_3806._id_844C = 0;
     level._id_3806._id_844B = 0;
     level._id_3806._id_67C5 = 0;
@@ -1136,24 +1136,24 @@ _id_5ED7( var_0 )
 
         if ( var_4 > 9999.9 )
         {
-            level._id_3806.titleunlocked = 0;
-            var_0 setclientomnvar( "ui_vlobby_round_timer", level._id_3806.titleunlocked );
+            level._id_3806.time = 0;
+            var_0 setclientomnvar( "ui_vlobby_round_timer", level._id_3806.time );
             var_0 setclientomnvar( "ui_vlobby_round_state", 0 );
             thread _id_8550( level._id_3806._id_7658, var_0 );
             return;
         }
         else if ( var_4 < 0 )
         {
-            level._id_3806.titleunlocked = 0;
-            var_0 setclientomnvar( "ui_vlobby_round_timer", level._id_3806.titleunlocked );
+            level._id_3806.time = 0;
+            var_0 setclientomnvar( "ui_vlobby_round_timer", level._id_3806.time );
             var_0 setclientomnvar( "ui_vlobby_round_state", 0 );
             thread _id_8550( level._id_3806._id_7658, var_0 );
             return;
         }
         else
         {
-            level._id_3806.titleunlocked = var_4;
-            var_0 setclientomnvar( "ui_vlobby_round_timer", level._id_3806.titleunlocked );
+            level._id_3806.time = var_4;
+            var_0 setclientomnvar( "ui_vlobby_round_timer", level._id_3806.time );
         }
 
         waittillframeend;
@@ -1263,10 +1263,10 @@ watermelonthink()
     if ( !isdefined( var_0 ) )
         return;
 
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_1 show();
     var_1 solid();
-    var_2 = getent( var_1._not_team, "targetname" );
+    var_2 = getent( var_1.target, "targetname" );
     var_2 _meth_81b9();
 
     if ( !isdefined( var_2._id_8D33 ) )

@@ -462,7 +462,7 @@ setupdepotpropent( var_0, var_1, var_2, var_3 )
     if ( !isdefined( level.depotpropents ) )
         level.depotpropents = [];
 
-    level.depotpropents[var_0.motiontrackerenabled] = var_0;
+    level.depotpropents[var_0.model] = var_0;
 }
 
 depotinithiddensceneprops()
@@ -1454,7 +1454,7 @@ scenedepotpropnotetracks()
 
 scenerundepotpropeffect( var_0 )
 {
-    var_1 = level.depotpropents[var_0.motiontrackerenabled];
+    var_1 = level.depotpropents[var_0.model];
     playfxontag( common_scripts\utility::_id_3FA8( var_0.fxref ), var_1, var_0.tagname );
 
     if ( maps\mp\_utility::_id_5092( var_0.islooping ) )
@@ -1481,7 +1481,7 @@ depotaddpropnotetrackfx( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     var_6 = level.depotpropnotetrackfx.size;
     level.depotpropnotetrackfx[var_6] = spawnstruct();
-    level.depotpropnotetrackfx[var_6].motiontrackerenabled = var_0;
+    level.depotpropnotetrackfx[var_6].model = var_0;
     level.depotpropnotetrackfx[var_6].startnotetrack = var_1;
     level.depotpropnotetrackfx[var_6].stopnotetrack = var_5;
     level.depotpropnotetrackfx[var_6].fxref = var_2;
@@ -1549,12 +1549,12 @@ depotsetupseasonal()
         var_4 = "head_graves_lackey";
         var_5 = "body_graves_lackey";
 
-        if ( isdefined( level.depotlackey ) && ( level.depotlackey.headshots != var_4 || level.depotlackey.bodymodel != var_5 ) )
+        if ( isdefined( level.depotlackey ) && ( level.depotlackey.head != var_4 || level.depotlackey.bodymodel != var_5 ) )
         {
-            level.depotlackey detach( level.depotlackey.headshots );
+            level.depotlackey detach( level.depotlackey.head );
             level.depotlackey setmodel( var_5 );
             level.depotlackey attach( var_4 );
-            level.depotlackey.headshots = var_4;
+            level.depotlackey.head = var_4;
             level.depotlackey.bodymodel = var_5;
         }
     }
@@ -1576,9 +1576,9 @@ depotsetupseasonal()
         if ( isdefined( level.depotlackey ) )
         {
             var_7 = "head_graves_lackey_irish";
-            level.depotlackey detach( level.depotlackey.headshots );
+            level.depotlackey detach( level.depotlackey.head );
             level.depotlackey attach( var_7 );
-            level.depotlackey.headshots = var_7;
+            level.depotlackey.head = var_7;
         }
     }
 

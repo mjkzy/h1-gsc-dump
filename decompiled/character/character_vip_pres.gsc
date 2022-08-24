@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_civ_vip_president" );
     precachemodel( "head_civ_vip_president" );

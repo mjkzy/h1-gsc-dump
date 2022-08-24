@@ -43,7 +43,7 @@ _id_19EE()
         var_2 thread _id_4A3A();
 
         if ( isplayer( var_2 ) )
-            var_2 setclientomnvar( "ui_session_state", var_2.sharpturnlookaheaddist );
+            var_2 setclientomnvar( "ui_session_state", var_2.sessionstate );
     }
 
     setdvar( "ui_game_state", game["state"] );
@@ -85,8 +85,8 @@ _id_4A37( var_0 )
     if ( isdefined( var_0.entity_number ) )
         var_1 = var_0.entity_number;
 
-    if ( isplayer( var_0 ) && isdefined( var_0.nearz ) )
-        var_2 = var_0.nearz;
+    if ( isplayer( var_0 ) && isdefined( var_0.name ) )
+        var_2 = var_0.name;
 
     if ( isplayer( var_0 ) )
         return "player <" + var_2 + "> (entNum " + var_1 + " )";

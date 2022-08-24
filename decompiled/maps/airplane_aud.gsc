@@ -142,12 +142,12 @@ update_wind_mix()
     {
         self waittill( "trigger", var_0 );
 
-        if ( var_0 != level.playercardbackground )
+        if ( var_0 != level.player )
             continue;
 
         aud_add_wind_door_mix();
 
-        while ( self istouching( level.playercardbackground ) )
+        while ( self istouching( level.player ) )
             wait 0.05;
 
         aud_remove_wind_door_mix();
@@ -212,8 +212,8 @@ aud_final_jump_mix_and_sounds()
     thread soundscripts\_audio_mix_manager::_id_5CF9( "second_floor_mix" );
     thread soundscripts\_audio_mix_manager::_id_5CF6( "armed_bomb_vo_mix" );
     thread soundscripts\_audio_mix_manager::_id_5CF2( "final_jump_mix" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "end_jump_plane" );
-    level.playercardbackground thread common_scripts\utility::_id_6975( "ext_wind_lp_front" );
+    level.player thread maps\_utility::_id_69C4( "end_jump_plane" );
+    level.player thread common_scripts\utility::_id_6975( "ext_wind_lp_front" );
 }
 
 mission_failed_fade_out()

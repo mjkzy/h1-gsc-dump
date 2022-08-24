@@ -56,41 +56,41 @@ air_support_update_arrow_coords( var_0, var_1 )
     var_3[0] = spawnstruct();
     var_3[0].offsetup = 0;
     var_3[0].offsetright = 0;
-    var_3[0].wildcardslots = 4;
+    var_3[0].weight = 4;
     var_3[1] = spawnstruct();
     var_3[1].offsetup = 0;
     var_3[1].offsetright = 15;
-    var_3[1].wildcardslots = 1;
+    var_3[1].weight = 1;
     var_3[2] = spawnstruct();
     var_3[2].offsetup = 0;
     var_3[2].offsetright = -15;
-    var_3[2].wildcardslots = 1;
+    var_3[2].weight = 1;
     var_3[3] = spawnstruct();
     var_3[3].offsetup = 10;
     var_3[3].offsetright = 10;
-    var_3[3].wildcardslots = 2;
+    var_3[3].weight = 2;
     var_3[4] = spawnstruct();
     var_3[4].offsetup = -10;
     var_3[4].offsetright = 10;
-    var_3[4].wildcardslots = 2;
+    var_3[4].weight = 2;
     var_3[5] = spawnstruct();
     var_3[5].offsetup = -10;
     var_3[5].offsetright = -10;
-    var_3[5].wildcardslots = 2;
+    var_3[5].weight = 2;
     var_3[6] = spawnstruct();
     var_3[6].offsetup = 10;
     var_3[6].offsetright = -10;
-    var_3[6].wildcardslots = 2;
+    var_3[6].weight = 2;
     var_4 = 0;
 
     for (;;)
     {
         wait 0.05;
-        var_5 = level.playercardbackground getplayerangles();
+        var_5 = level.player getplayerangles();
         var_6 = anglestoforward( var_5 );
         var_7 = anglestoup( var_5 );
         var_8 = anglestoright( var_5 );
-        var_9 = level.playercardbackground geteye();
+        var_9 = level.player geteye();
         var_10 = getdvar( var_1 ) == "1";
         var_11 = ( 0.0, 0.0, 0.0 );
 
@@ -117,22 +117,22 @@ air_support_update_arrow_coords( var_0, var_1 )
 
             var_16 = var_14.size;
             var_14[var_16] = spawnstruct();
-            var_14[var_16].precache = var_3[var_12]._id_948E["position"];
-            var_14[var_16].notifyname = var_3[var_12]._id_948E["normal"];
-            var_14[var_16].wildcardslots = var_3[var_12].wildcardslots;
-            var_15 += var_14[var_16].notifyname[2];
+            var_14[var_16].position = var_3[var_12]._id_948E["position"];
+            var_14[var_16].normal = var_3[var_12]._id_948E["normal"];
+            var_14[var_16].weight = var_3[var_12].weight;
+            var_15 += var_14[var_16].normal[2];
 
             if ( var_10 )
-                thread common_scripts\utility::_id_2DB8( var_9, var_14[var_16].precache, 0, 1, 0, 0.05 );
+                thread common_scripts\utility::_id_2DB8( var_9, var_14[var_16].position, 0, 1, 0, 0.05 );
         }
 
         if ( var_14.size == 0 )
         {
             var_14[0] = spawnstruct();
-            var_14[0].precache = var_3[0]._id_948E["position"];
-            var_14[0].notifyname = var_3[0]._id_948E["normal"];
-            var_14[0].wildcardslots = var_3[0].wildcardslots;
-            var_15 = var_14[0].notifyname[2];
+            var_14[0].position = var_3[0]._id_948E["position"];
+            var_14[0].normal = var_3[0]._id_948E["normal"];
+            var_14[0].weight = var_3[0].weight;
+            var_15 = var_14[0].normal[2];
         }
 
         var_15 /= var_14.size;
@@ -181,8 +181,8 @@ air_support_average_coords( var_0 )
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        var_1 += var_0[var_3].precache * var_0[var_3].wildcardslots;
-        var_2 += var_0[var_3].wildcardslots;
+        var_1 += var_0[var_3].position * var_0[var_3].weight;
+        var_2 += var_0[var_3].weight;
     }
 
     if ( var_2 > 0 )
@@ -198,8 +198,8 @@ air_support_average_normals( var_0 )
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        var_1 += var_0[var_3].notifyname * var_0[var_3].wildcardslots;
-        var_2 += var_0[var_3].wildcardslots;
+        var_1 += var_0[var_3].normal * var_0[var_3].weight;
+        var_2 += var_0[var_3].weight;
     }
 
     if ( var_2 > 0 )
@@ -210,12 +210,12 @@ air_support_average_normals( var_0 )
 
 air_support_find_best_floor( var_0 )
 {
-    var_1 = var_0[0].notifyname;
+    var_1 = var_0[0].normal;
 
     for ( var_2 = 1; var_2 < var_0.size; var_2++ )
     {
-        if ( var_0[var_2].notifyname[2] > var_1[2] )
-            var_1 = var_0[var_2].notifyname;
+        if ( var_0[var_2].normal[2] > var_1[2] )
+            var_1 = var_0[var_2].normal;
     }
 
     return var_1;
@@ -223,12 +223,12 @@ air_support_find_best_floor( var_0 )
 
 air_support_find_best_ceiling( var_0 )
 {
-    var_1 = var_0[0].notifyname;
+    var_1 = var_0[0].normal;
 
     for ( var_2 = 1; var_2 < var_0.size; var_2++ )
     {
-        if ( var_0[var_2].notifyname[2] < var_1[2] )
-            var_1 = var_0[var_2].notifyname;
+        if ( var_0[var_2].normal[2] < var_1[2] )
+            var_1 = var_0[var_2].normal;
     }
 
     return var_1;

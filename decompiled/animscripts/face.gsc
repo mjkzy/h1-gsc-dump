@@ -483,7 +483,7 @@ _id_3D66()
     else
         self._id_35B0++;
 
-    if ( isdefined( self._id_35B0 ) && self._id_35B0 > 4 && isdefined( self.script_context ) && self.script_context != "scripted" && self.script_context != "death" )
+    if ( isdefined( self._id_35B0 ) && self._id_35B0 > 4 && isdefined( self.script ) && self.script != "scripted" && self.script != "death" )
     {
         var_5 = _id_6D9B( undefined, "idle", undefined );
 

@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_arab_regular_coup_b" );
     precachemodel( "head_sp_arab_regular_ski_mask" );

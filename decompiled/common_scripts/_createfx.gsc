@@ -274,7 +274,7 @@ _id_2407()
     level._createfx.grenade = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     level._createfx.grenade.fx = loadfx( "vfx/explosion/frag_grenade_default" );
     level._createfx.grenade._id_8899 = "null";
-    level._createfx.grenade.rank = 256;
+    level._createfx.grenade.radius = 256;
     wait 0.05;
     common_scripts\utility::_id_383D( "createfx_saving" );
     common_scripts\utility::_id_383D( "createfx_started" );
@@ -298,7 +298,7 @@ _id_4D07()
     level._createfx._id_7C65 = [];
     level._createfx._id_7C66 = [];
     level._createfx._id_52CC = 0;
-    level._createfx.reached_wait_speed = 1;
+    level._createfx.rate = 1;
     level._createfx._id_86BD = 0;
     level._createfx._id_86BE = 0;
     level._createfx._id_57F0 = 0;
@@ -399,15 +399,15 @@ _id_241B()
     common_scripts\utility::_id_383F( "createfx_started" );
 
     if ( !level.mp_createfx )
-        var_0 = level.playercardbackground.origin;
+        var_0 = level.player.origin;
 
     var_1 = undefined;
     level._id_3B83 = 0;
     common_scripts\_createfxmenu::_id_7FAA( "none" );
     level._id_2414 = 0;
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = -120;
-    var_2._id_0538 = 200;
+    var_2.x = -120;
+    var_2.y = 200;
     var_2.foreground = 0;
     var_2 setshader( "black", 250, 160 );
     var_2.alpha = 0;
@@ -426,12 +426,12 @@ _id_241B()
     for (;;)
     {
         var_7 = 0;
-        var_8 = anglestoright( level.playercardbackground getplayerangles() );
-        var_9 = anglestoforward( level.playercardbackground getplayerangles() );
-        var_10 = anglestoup( level.playercardbackground getplayerangles() );
+        var_8 = anglestoright( level.player getplayerangles() );
+        var_9 = anglestoforward( level.player getplayerangles() );
+        var_10 = anglestoup( level.player getplayerangles() );
         var_11 = 0.85;
         var_12 = var_9 * 750;
-        level._id_2416 = bullettrace( level.playercardbackground geteye(), level.playercardbackground geteye() + var_12, 0, undefined );
+        level._id_2416 = bullettrace( level.player geteye(), level.player geteye() + var_12, 0, undefined );
         var_13 = undefined;
         level._id_1958 = [];
         level._id_194E = [];
@@ -522,7 +522,7 @@ _id_241B()
         for ( var_19 = 0; var_19 < level._id_2417.size; var_19++ )
         {
             var_4 = level._id_2417[var_19];
-            var_20 = level.playercardbackground getvieworigin();
+            var_20 = level.player getvieworigin();
             var_21 = vectornormalize( var_4.v["origin"] - var_20 );
             var_22 = vectordot( var_9, var_21 );
 
@@ -632,15 +632,15 @@ _id_7E9C()
         var_0.foreground = 1;
         var_0.fontscale = 1.2;
         var_0.alpha = 1.0;
-        var_0.xpmaxmultipliertimeplayed = 120;
-        var_0._id_0538 = 420;
+        var_0.x = 120;
+        var_0.y = 420;
         var_1 = newhudelem();
         var_1.alignx = "left";
         var_1.foreground = 1;
         var_1.fontscale = 1.2;
         var_1.alpha = 1.0;
-        var_1.xpmaxmultipliertimeplayed = 120;
-        var_1._id_0538 = 420;
+        var_1.x = 120;
+        var_1.y = 420;
         var_0._id_4ADA = var_1;
         level._createfx._id_6C1E = var_0;
     }
@@ -762,8 +762,8 @@ _id_596D( var_0, var_1, var_2, var_3, var_4 )
 
 draw_origin( var_0, var_1 )
 {
-    var_2 = level.playercardbackground getvieworigin();
-    var_3 = level.playercardbackground getplayerangles();
+    var_2 = level.player getvieworigin();
+    var_3 = level.player getplayerangles();
     var_4 = level._createfx._id_2058[self.v["type"]][var_1];
     var_5 = 0;
     var_6 = 1;
@@ -881,7 +881,7 @@ _id_4609( var_0 )
         {
             _id_60A9( "selected_ents" );
             _id_7EDB( "Mode:", "move" );
-            _id_7EDB( "Move Rate( -/+ ):", level._createfx.reached_wait_speed );
+            _id_7EDB( "Move Rate( -/+ ):", level._createfx.rate );
 
             if ( level._createfx._id_86BD )
             {
@@ -952,7 +952,7 @@ _id_4609( var_0 )
             {
                 var_9 = level._createfx._id_7C66[var_7];
 
-                if ( isdefined( var_9.motiontrackerenabled ) )
+                if ( isdefined( var_9.model ) )
                     continue;
 
                 var_9.v["origin"] += var_8;
@@ -1011,34 +1011,34 @@ _id_5D4E()
     if ( _id_194C( "=" ) )
     {
         if ( var_0 )
-            level._createfx.reached_wait_speed += 0.025;
+            level._createfx.rate += 0.025;
         else if ( var_1 )
         {
-            if ( level._createfx.reached_wait_speed < 1 )
-                level._createfx.reached_wait_speed = 1;
+            if ( level._createfx.rate < 1 )
+                level._createfx.rate = 1;
             else
-                level._createfx.reached_wait_speed += 10;
+                level._createfx.rate += 10;
         }
         else
-            level._createfx.reached_wait_speed += 0.1;
+            level._createfx.rate += 0.1;
     }
     else if ( _id_194C( "-" ) )
     {
         if ( var_0 )
-            level._createfx.reached_wait_speed -= 0.025;
+            level._createfx.rate -= 0.025;
         else if ( var_1 )
         {
-            if ( level._createfx.reached_wait_speed > 1 )
-                level._createfx.reached_wait_speed = 1;
+            if ( level._createfx.rate > 1 )
+                level._createfx.rate = 1;
             else
-                level._createfx.reached_wait_speed = 0.1;
+                level._createfx.rate = 0.1;
         }
         else
-            level._createfx.reached_wait_speed -= 0.1;
+            level._createfx.rate -= 0.1;
     }
 
-    level._createfx.reached_wait_speed = clamp( level._createfx.reached_wait_speed, 0.025, 100 );
-    _id_7EDB( "Move Rate( -/+ ):", level._createfx.reached_wait_speed );
+    level._createfx.rate = clamp( level._createfx.rate, 0.025, 100 );
+    _id_7EDB( "Move Rate( -/+ ):", level._createfx.rate );
 }
 
 _id_93C4()
@@ -1232,7 +1232,7 @@ _id_2DAF()
         for ( var_2 = 0; var_2 < level._id_2417.size; var_2++ )
         {
             var_3 = level._id_2417[var_2];
-            var_3._id_2DDB = distancesquared( level.playercardbackground.origin, var_3.v["origin"] ) <= var_1;
+            var_3._id_2DDB = distancesquared( level.player.origin, var_3.v["origin"] ) <= var_1;
             var_0++;
 
             if ( var_0 > 100 )
@@ -1284,7 +1284,7 @@ _id_75F2( var_0, var_1 )
         {
             var_5 = level._createfx._id_7C66[var_4];
 
-            if ( isdefined( var_5.motiontrackerenabled ) )
+            if ( isdefined( var_5.model ) )
                 continue;
 
             var_5.v["origin"] = var_1[var_4].origin;
@@ -1379,7 +1379,7 @@ _id_5F26()
     {
         var_4 = level._createfx._id_7C66[var_3];
 
-        if ( isdefined( var_4.motiontrackerenabled ) )
+        if ( isdefined( var_4.model ) )
             continue;
 
         var_4.v["origin"] -= var_2;
@@ -1780,13 +1780,13 @@ _id_2406( var_0 )
 
 _id_3E5C()
 {
-    var_0 = level.playercardbackground getplayerangles()[1];
+    var_0 = level.player getplayerangles()[1];
     var_1 = ( 0, var_0, 0 );
     var_2 = anglestoright( var_1 );
     var_3 = anglestoforward( var_1 );
     var_4 = anglestoup( var_1 );
     var_5 = 0;
-    var_6 = level._createfx.reached_wait_speed;
+    var_6 = level._createfx.rate;
 
     if ( _id_1959( "DPAD_UP" ) )
     {
@@ -1849,7 +1849,7 @@ _id_3E5C()
 _id_7DBB()
 {
     if ( !level._createfx._id_86BE )
-        var_0 = level._createfx.reached_wait_speed;
+        var_0 = level._createfx.rate;
     else
         var_0 = 90;
 
@@ -2068,8 +2068,8 @@ _id_8904()
 {
     playfx( level._createfx.grenade.fx, level._id_2416["position"] );
     level._createfx.grenade playsound( level._createfx.grenade._id_8899 );
-    radiusdamage( level._id_2416["position"], level._createfx.grenade.rank, 50, 5, undefined, "MOD_EXPLOSIVE" );
-    level notify( "code_damageradius", undefined, level._createfx.grenade.rank, level._id_2416["position"] );
+    radiusdamage( level._id_2416["position"], level._createfx.grenade.radius, 50, 5, undefined, "MOD_EXPLOSIVE" );
+    level notify( "code_damageradius", undefined, level._createfx.grenade.radius, level._id_2416["position"] );
 }
 
 _id_84D7()
@@ -2104,10 +2104,10 @@ _id_A35E( var_0, var_1 )
 
     if ( getdvarint( "scr_map_exploder_dump" ) )
     {
-        if ( !isdefined( var_0.motiontrackerenabled ) )
+        if ( !isdefined( var_0.model ) )
             return;
     }
-    else if ( isdefined( var_0.motiontrackerenabled ) )
+    else if ( isdefined( var_0.model ) )
         return;
 
     if ( var_0.v["type"] == "loopfx" )
@@ -2451,13 +2451,13 @@ _id_073A( var_0 )
 
     if ( !isdefined( level._id_195A[var_0] ) )
     {
-        if ( level.playercardbackground buttonpressed( var_0 ) )
+        if ( level.player buttonpressed( var_0 ) )
         {
             level._id_195A[var_0] = 1;
             level._id_1958[var_0] = 1;
         }
     }
-    else if ( !level.playercardbackground buttonpressed( var_0 ) )
+    else if ( !level.player buttonpressed( var_0 ) )
         level._id_195A[var_0] = undefined;
 }
 
@@ -2480,7 +2480,7 @@ _id_1962( var_0 )
     if ( _id_52D3( var_0 ) )
         return 0;
 
-    return level.playercardbackground buttonpressed( var_0 );
+    return level.player buttonpressed( var_0 );
 }
 
 _id_194D( var_0, var_1 )
@@ -2535,10 +2535,10 @@ _id_4CFE()
             var_5._id_57F4 = 0;
             var_5.foreground = 1;
             var_5.fontscale = 1.4;
-            var_5.space = 20 - var_4;
+            var_5.sort = 20 - var_4;
             var_5.alpha = 1;
-            var_5.xpmaxmultipliertimeplayed = 0 + var_0[var_4];
-            var_5._id_0538 = 60 + var_1[var_4] + var_2 * 15;
+            var_5.x = 0 + var_0[var_4];
+            var_5.y = 60 + var_1[var_4] + var_2 * 15;
 
             if ( var_4 > 0 )
                 var_5.color = ( 0.0, 0.0, 0.0 );
@@ -2558,10 +2558,10 @@ _id_4CFE()
         var_5._id_57F4 = 0;
         var_5.foreground = 1;
         var_5.fontscale = 1.4;
-        var_5.space = 20 - var_4;
+        var_5.sort = 20 - var_4;
         var_5.alpha = 1;
-        var_5.xpmaxmultipliertimeplayed = 320 + var_0[var_4];
-        var_5._id_0538 = 80 + var_1[var_4];
+        var_5.x = 320 + var_0[var_4];
+        var_5.y = 80 + var_1[var_4];
 
         if ( var_4 > 0 )
             var_5.color = ( 0.0, 0.0, 0.0 );
@@ -2580,10 +2580,10 @@ _id_4CCE()
     var_0.aligny = "middle";
     var_0.foreground = 1;
     var_0.fontscale = 2;
-    var_0.space = 20;
+    var_0.sort = 20;
     var_0.alpha = 1;
-    var_0.xpmaxmultipliertimeplayed = 320;
-    var_0._id_0538 = 233;
+    var_0.x = 320;
+    var_0.y = 233;
 }
 
 _id_1EB9()
@@ -2655,8 +2655,8 @@ _id_60AA( var_0 )
     var_1.foreground = 1;
     var_1.fontscale = 1.2;
     var_1.alpha = 1;
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 320 + var_0 * 15;
+    var_1.x = 0;
+    var_1.y = 320 + var_0 * 15;
     return var_1;
 }
 
@@ -2686,8 +2686,8 @@ _id_7EDB( var_0, var_1, var_2 )
         else
         {
             var_4 = _id_60AA( level._createfx._id_93EB.size );
-            var_4.xpmaxmultipliertimeplayed += 110;
-            var_4._id_0538 = var_3._id_0538;
+            var_4.x += 110;
+            var_4.y = var_3.y;
             var_3._id_9C54 = var_4;
         }
 
@@ -2795,11 +2795,11 @@ _id_3A0D()
         var_1 = 200;
     }
 
-    var_2 = anglestoforward( level.playercardbackground getplayerangles() );
+    var_2 = anglestoforward( level.player getplayerangles() );
     var_3 = var_2 * ( -1 * var_1 );
-    var_4 = level.playercardbackground geteye();
-    var_5 = var_4 - level.playercardbackground.origin;
-    level.playercardbackground setorigin( var_0 + var_3 - var_5 );
+    var_4 = level.player geteye();
+    var_5 = var_4 - level.player.origin;
+    level.player setorigin( var_0 + var_3 - var_5 );
 }
 
 _id_1E96()
@@ -2924,7 +2924,7 @@ _id_21DA( var_0 )
                     var_3.v["stoppable"] = var_0[var_2].v["stoppable"];
                 }
 
-                var_3.motiontrackerenabled = var_0[var_2].motiontrackerenabled;
+                var_3.model = var_0[var_2].model;
                 var_1[var_2] = var_3;
             }
 
@@ -2942,7 +2942,7 @@ _id_73B3( var_0 )
 
     foreach ( var_4, var_3 in level._id_2417 )
     {
-        if ( isdefined( var_3.motiontrackerenabled ) && var_3.motiontrackerenabled == var_0 )
+        if ( isdefined( var_3.model ) && var_3.model == var_0 )
             continue;
 
         var_1[var_1.size] = var_3;

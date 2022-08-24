@@ -34,7 +34,7 @@ _id_41CA()
         level._id_1A3D = "american";
 
     var_0 = maps\_loadout_code::_id_3DCC();
-    level.playercardbackground maps\_loadout_code::_id_7F46();
+    level.player maps\_loadout_code::_id_7F46();
     level._id_46F3 = 0;
     maps\_loadout_code::_id_67D9( "sniperescape", "scoutsniper" );
     maps\_loadout_code::_id_67D9( "launchfacility_a", "icbm" );

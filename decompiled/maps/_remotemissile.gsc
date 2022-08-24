@@ -631,7 +631,7 @@ text_labelcreate( var_0, var_1 )
 {
     level.text2 = maps\_hud_util::_id_23ED( "objective", 1.85 );
     level.text2 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, -120 );
-    level.text2.land = var_0;
+    level.text2.label = var_0;
     level.text2 setvalue( var_1 );
     level.text2.color = ( 0.85, 0.85, 0.85 );
     level.text2.alpha = 0.75;
@@ -1053,7 +1053,7 @@ missile_kill_vehicle( var_0 )
     level endon( "delayed_remote_missile_exploded" );
     var_1 = undefined;
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "btr80":
         case "btr80_physics":
@@ -1565,8 +1565,8 @@ staticeffect( var_0 )
     var_1.origin = self.origin;
     var_1 playsound( "predator_drone_static", "sounddone" );
     var_2 = newclienthudelem( self );
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2 setshader( "ac130_overlay_grain", 640, 480 );
     wait(var_0);
     var_2 destroy();

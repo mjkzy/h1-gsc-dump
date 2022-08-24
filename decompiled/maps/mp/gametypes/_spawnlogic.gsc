@@ -125,7 +125,7 @@ calculatespawntospawnsights()
         foreach ( var_7 in level.spawnpoints )
         {
             var_8 = var_7.origin + var_0;
-            var_9 = spawnsighttrace( var_2, var_5, var_8, var_2.info_player_start );
+            var_9 = spawnsighttrace( var_2, var_5, var_8, var_2.index );
 
             if ( var_9 > 0.95 )
             {
@@ -308,7 +308,7 @@ cananyplayerseeffaspawnpoint( var_0 )
 
     foreach ( var_4 in level.players )
     {
-        if ( var_4.sharpturnlookaheaddist != "playing" )
+        if ( var_4.sessionstate != "playing" )
             continue;
 
         if ( !maps\mp\_utility::_id_5189( var_4 ) )
@@ -338,7 +338,7 @@ getstartspawnffa( var_0 )
 
         foreach ( var_3 in var_1 )
         {
-            if ( isdefined( var_3.script_parentname ) && var_3.script_parentname == "start_spawn" )
+            if ( isdefined( var_3.script_noteworthy ) && var_3.script_noteworthy == "start_spawn" )
                 level.ffastartspawnpoints[var_0][level.ffastartspawnpoints[var_0].size] = var_3;
         }
     }
@@ -595,13 +595,13 @@ updateactiveplayerlist()
     {
         var_4.isactiveplayer = 0;
 
-        if ( isplayer( var_4 ) && var_2 && ( var_4.sharpturnlookaheaddist == "playing" || var_4.sharpturnlookaheaddist == "dead" ) )
+        if ( isplayer( var_4 ) && var_2 && ( var_4.sessionstate == "playing" || var_4.sessionstate == "dead" ) )
             level._id_0719++;
 
         if ( !maps\mp\_utility::_id_5189( var_4 ) )
             continue;
 
-        if ( isplayer( var_4 ) && var_4.sharpturnlookaheaddist != "playing" )
+        if ( isplayer( var_4 ) && var_4.sessionstate != "playing" )
             continue;
 
         var_4._id_89ED = _id_40DE( var_4 );
@@ -665,19 +665,19 @@ spawnpointclientsightupdate()
                 var_12 = 0;
 
                 if ( var_9 )
-                    var_12 = var_8.titleunlocked;
+                    var_12 = var_8.time;
                 else if ( var_11 )
-                    var_12 = var_10.titleunlocked;
+                    var_12 = var_10.time;
 
                 if ( var_7 <= var_12 )
                     continue;
 
-                var_13 = var_4 clientspawnsighttracepassed( var_6.info_player_start, var_6.classname );
+                var_13 = var_4 clientspawnsighttracepassed( var_6.index, var_6.classname );
 
                 if ( var_13 >= 1.0 )
                 {
                     if ( var_9 )
-                        var_8.titleunlocked = var_7;
+                        var_8.time = var_7;
                     else
                     {
                         if ( var_11 )
@@ -692,7 +692,7 @@ spawnpointclientsightupdate()
                 if ( var_13 >= 0.5 && level._id_0719 <= 8 )
                 {
                     if ( var_11 )
-                        var_10.titleunlocked = var_7;
+                        var_10.time = var_7;
                     else
                     {
                         if ( var_9 )
@@ -755,7 +755,7 @@ _id_8A02()
                 var_8 = var_4.origin + ( 0, 0, var_7._id_89EE );
                 var_9 = var_7._id_8A13;
                 removespawnsightsfromspawnforplayer( var_4, var_7 );
-                var_10 = spawnsighttrace( var_4, var_8, var_9, var_4.info_player_start );
+                var_10 = spawnsighttrace( var_4, var_8, var_9, var_4.index );
                 var_0++;
                 var_5++;
 
@@ -962,8 +962,8 @@ addfullsightspawnforplayer( var_0, var_1, var_2 )
     var_1._id_89ED = _id_40DE( var_1 );
     var_0._id_3AE2[var_1._id_89ED]++;
     var_3 = spawnstruct();
-    var_3.playercardbackground = var_1;
-    var_3.titleunlocked = var_2;
+    var_3.player = var_1;
+    var_3.time = var_2;
     var_3.team = var_1._id_89ED;
     var_0.fullsightsplayers[var_1.guid] = var_3;
 }
@@ -976,8 +976,8 @@ addcornersightspawnforplayer( var_0, var_1, var_2 )
     var_1._id_89ED = _id_40DE( var_1 );
     var_0._id_222B[var_1._id_89ED]++;
     var_3 = spawnstruct();
-    var_3.playercardbackground = var_1;
-    var_3.titleunlocked = var_2;
+    var_3.player = var_1;
+    var_3.time = var_2;
     var_3.team = var_1._id_89ED;
     var_0.cornersightsplayers[var_1.guid] = var_3;
 }
@@ -1010,7 +1010,7 @@ _id_07EE( var_0, var_1 )
         if ( var_0._id_3AE2[var_4] )
             continue;
 
-        var_5 = spawnsighttrace( var_0, var_0._id_856B, var_3.origin + ( 0.0, 0.0, 50.0 ), var_0.info_player_start );
+        var_5 = spawnsighttrace( var_0, var_0._id_856B, var_3.origin + ( 0.0, 0.0, 50.0 ), var_0.index );
 
         if ( !var_5 )
             continue;

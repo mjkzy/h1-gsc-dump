@@ -22,7 +22,7 @@
 main()
 {
     level._id_99E2 = 1;
-    level.playercardbackground = getentarray( "player", "classname" )[0];
+    level.player = getentarray( "player", "classname" )[0];
 
     if ( isusinghdr() )
         maps\createart\launchfacility_a_fog_hdr::main();

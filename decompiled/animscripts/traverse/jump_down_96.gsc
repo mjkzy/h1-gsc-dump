@@ -21,9 +21,9 @@
 
 main()
 {
-    if ( self.unlockpoints == "human" )
+    if ( self.type == "human" )
         jump_down_human();
-    else if ( self.unlockpoints == "dog" )
+    else if ( self.type == "dog" )
         animscripts\traverse\shared::_id_2CA8( 96, 7 );
 }
 #using_animtree("generic_human");

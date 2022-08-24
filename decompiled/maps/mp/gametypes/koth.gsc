@@ -155,7 +155,7 @@ hintstruct( var_0, var_1 )
 {
     var_2 = spawnstruct();
     var_2._id_8F1D = var_0;
-    var_2.info_player_start = var_1;
+    var_2.index = var_1;
     return var_2;
 }
 
@@ -476,7 +476,7 @@ onradiocapture( var_0 )
 
     foreach ( var_3 in self._id_940D[var_1] )
     {
-        var_4 = var_3.playercardbackground;
+        var_4 = var_3.player;
         var_4 maps\mp\_events::hqcaptureevent();
     }
 
@@ -510,7 +510,7 @@ onradiodestroy( var_0 )
 
     foreach ( var_4 in self._id_940D[var_1] )
     {
-        var_5 = var_4.playercardbackground;
+        var_5 = var_4.player;
 
         if ( !level.hqclassicmode )
         {
@@ -671,7 +671,7 @@ setupradios()
         var_5._id_9820 = var_5._id_9754.origin;
         var_7 = [];
         var_7[0] = var_5;
-        var_8 = getentarray( var_5._not_team, "targetname" );
+        var_8 = getentarray( var_5.target, "targetname" );
 
         for ( var_6 = 0; var_6 < var_8.size; var_6++ )
             var_7[var_7.size] = var_8[var_6];

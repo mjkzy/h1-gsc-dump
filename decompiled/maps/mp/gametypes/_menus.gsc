@@ -205,7 +205,7 @@ _id_A226()
 
 teamchangeisfactionchange()
 {
-    return self.sharpturnlookaheaddist == "playing" && level.gametype == "dm";
+    return self.sessionstate == "playing" && level.gametype == "dm";
 }
 
 watchforopenteamselectmenu()
@@ -340,7 +340,7 @@ _id_112A()
     if ( maps\mp\_utility::iscoop() )
     {
         thread _id_8027( "allies" );
-        self.sharpturnnotifydist = "allies";
+        self.sessionteam = "allies";
     }
     else if ( self _meth_842d() && !maps\mp\_utility::_id_4FA6() )
         thread _id_801A();
@@ -405,7 +405,7 @@ _id_8027( var_0 )
         if ( var_1 )
             self._id_4745 = 0;
 
-        if ( self.sharpturnlookaheaddist == "playing" )
+        if ( self.sessionstate == "playing" )
         {
             self.switching_teams = 1;
             self.joining_team = var_0;
@@ -415,14 +415,14 @@ _id_8027( var_0 )
         addtoteam( var_0 );
         maps\mp\gametypes\_class::cac_setlastteam( var_0 );
 
-        if ( self.sharpturnlookaheaddist == "playing" )
+        if ( self.sessionstate == "playing" )
             self suicide();
 
         _id_A018();
         _id_31BF();
     }
 
-    if ( self.sharpturnlookaheaddist == "spectator" )
+    if ( self.sessionstate == "spectator" )
     {
         if ( game["state"] == "postgame" )
             return;
@@ -537,7 +537,7 @@ _id_1398( var_0 )
 
         _id_31BF();
 
-        if ( self.sharpturnlookaheaddist == "spectator" )
+        if ( self.sessionstate == "spectator" )
         {
             if ( game["state"] == "postgame" )
                 return;
@@ -559,7 +559,7 @@ _id_1398( var_0 )
     {
         thread _id_1968();
 
-        if ( self.sharpturnlookaheaddist == "spectator" && maps\mp\_utility::ishodgepodgeph() )
+        if ( self.sessionstate == "spectator" && maps\mp\_utility::ishodgepodgeph() )
         {
             if ( game["state"] == "postgame" )
                 return;
@@ -714,7 +714,7 @@ _id_5BB1( var_0 )
     if ( maps\mp\_utility::ishodgepodgeph() && game["roundsPlayed"] > 0 )
         return;
 
-    if ( self.sharpturnlookaheaddist == "playing" )
+    if ( self.sessionstate == "playing" )
     {
         if ( isdefined( self.pers["lastClass"] ) && isdefined( self.pers["class"] ) )
         {
@@ -790,11 +790,11 @@ addtoteam( var_0, var_1, var_2 )
     if ( !getdvarint( "party_playersCoop", 0 ) && ( !maps\mp\_utility::_id_59E3() || isbot( self ) || istestclient( self ) || !maps\mp\_utility::_id_0AB0() || getdvarint( "force_ranking" ) ) )
     {
         if ( level.teambased )
-            self.sharpturnnotifydist = var_0;
+            self.sessionteam = var_0;
         else if ( var_0 == "spectator" )
-            self.sharpturnnotifydist = "spectator";
+            self.sessionteam = "spectator";
         else
-            self.sharpturnnotifydist = "none";
+            self.sessionteam = "none";
     }
 
     if ( game["state"] != "postgame" )

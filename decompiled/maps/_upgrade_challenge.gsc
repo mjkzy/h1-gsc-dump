@@ -23,8 +23,8 @@ init()
 {
     _id_9BB8();
 
-    if ( isdefined( level.playercardbackground ) )
-        _id_9BB7( level.playercardbackground );
+    if ( isdefined( level.player ) )
+        _id_9BB7( level.player );
 }
 
 _id_9BB8()
@@ -224,9 +224,9 @@ _id_9BB0( var_0 )
 
 _id_20BF( var_0 )
 {
-    if ( isdefined( level.playercardbackground ) )
+    if ( isdefined( level.player ) )
     {
-        var_1 = level.playercardbackground;
+        var_1 = level.player;
         var_2 = int( var_1 _meth_8212( "sp_upgradePoints" ) );
         var_3 = var_2 + var_0;
 
@@ -237,9 +237,9 @@ _id_20BF( var_0 )
 
 _id_20BE( var_0, var_1 )
 {
-    if ( isdefined( level.playercardbackground ) )
+    if ( isdefined( level.player ) )
     {
-        var_2 = level.playercardbackground;
+        var_2 = level.player;
         var_3 = level._id_9BAD[level._id_9BAF[var_0]];
         var_4 = 0;
 
@@ -270,9 +270,9 @@ _id_20BE( var_0, var_1 )
 
 _id_20C0()
 {
-    if ( isdefined( level.playercardbackground ) )
+    if ( isdefined( level.player ) )
     {
-        var_0 = level.playercardbackground;
+        var_0 = level.player;
         _id_20BF( var_0._id_8D77["upgradePoints"] );
 
         if ( isdefined( level._id_9BAF ) )

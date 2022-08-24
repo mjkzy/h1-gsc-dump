@@ -39,30 +39,30 @@ _id_A310( var_0 )
     var_3 = var_1["spread"];
     var_4 = var_1["radius"];
     var_5 = var_1["offset"];
-    level.playercardbackground setwhizbyprobabilities( var_2[0], var_2[1], var_2[2] );
-    level.playercardbackground setwhizbyspreads( var_3[0], var_3[1], var_3[2] );
-    level.playercardbackground setwhizbyradii( var_4[0], var_4[1], var_4[2] );
-    level.playercardbackground setwhizbyoffset( var_5 );
+    level.player setwhizbyprobabilities( var_2[0], var_2[1], var_2[2] );
+    level.player setwhizbyspreads( var_3[0], var_3[1], var_3[2] );
+    level.player setwhizbyradii( var_4[0], var_4[1], var_4[2] );
+    level.player setwhizbyoffset( var_5 );
 }
 
 _id_A311( var_0, var_1, var_2 )
 {
-    level.playercardbackground setwhizbyprobabilities( var_0, var_1, var_2 );
+    level.player setwhizbyprobabilities( var_0, var_1, var_2 );
 }
 
 _id_A313( var_0, var_1, var_2 )
 {
-    level.playercardbackground setwhizbyspreads( var_0, var_1, var_2 );
+    level.player setwhizbyspreads( var_0, var_1, var_2 );
 }
 
 _id_A312( var_0, var_1, var_2 )
 {
-    level.playercardbackground setwhizbyradii( var_0, var_1, var_2 );
+    level.player setwhizbyradii( var_0, var_1, var_2 );
 }
 
 _id_A30F( var_0 )
 {
-    level.playercardbackground setwhizbyoffset( var_0 );
+    level.player setwhizbyoffset( var_0 );
 }
 
 _id_A318( var_0 )

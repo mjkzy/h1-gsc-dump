@@ -237,7 +237,7 @@ _id_51FE( var_0 )
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( var_0.helmet < 1 )
+    if ( var_0.health < 1 )
         return 0;
 
     return 1;
@@ -248,15 +248,15 @@ _id_A30B( var_0, var_1, var_2 )
     var_3 = self;
 
     if ( !isplayer( var_3 ) )
-        var_3 = level.playercardbackground;
+        var_3 = level.player;
 
     if ( !isdefined( var_2 ) )
         var_2 = 1;
 
     var_4 = newclienthudelem( var_3 );
     var_4 setshader( "white", 1280, 720 );
-    var_4.hostquits = "fullscreen";
-    var_4.visionsetnight = "fullscreen";
+    var_4.horzalign = "fullscreen";
+    var_4.vertalign = "fullscreen";
     var_4.alpha = var_2;
     wait(var_0);
     var_4 fadeovertime( var_1 );
@@ -268,12 +268,12 @@ _id_35EA( var_0, var_1, var_2, var_3 )
     var_4 = self;
 
     if ( !isplayer( var_4 ) )
-        var_4 = level.playercardbackground;
+        var_4 = level.player;
 
     var_4._id_1171 = newclienthudelem( var_4 );
     var_4._id_1171 setshader( "black", 1280, 720 );
-    var_4._id_1171.hostquits = "fullscreen";
-    var_4._id_1171.visionsetnight = "fullscreen";
+    var_4._id_1171.horzalign = "fullscreen";
+    var_4._id_1171.vertalign = "fullscreen";
     var_4._id_1171.alpha = var_2;
     wait(var_0);
     var_4._id_1171 fadeovertime( var_1 );
@@ -293,7 +293,7 @@ _id_23D4( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         var_7 = _id_3E40( -60, undefined, undefined, 1, var_4, var_5 );
 
     var_8 = var_7 _id_4ADE( var_0, var_1 );
-    var_8.land = var_2;
+    var_8.label = var_2;
     return var_8;
 }
 
@@ -332,18 +332,18 @@ _id_3E40( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     var_8.alignx = "left";
     var_8.aligny = "middle";
-    var_8.hostquits = "right";
-    var_8.visionsetnight = "top";
-    var_8.xpmaxmultipliertimeplayed = var_6;
-    var_8._id_0538 = var_7;
+    var_8.horzalign = "right";
+    var_8.vertalign = "top";
+    var_8.x = var_6;
+    var_8.y = var_7;
     var_8.fontscale = 1.6;
     var_8.color = var_4;
     var_8.font = "objective";
     var_8.glowcolor = var_5;
     var_8.glowalpha = 1;
     var_8.foreground = 1;
-    var_8.hindlegstraceoffset = 0;
-    var_8.high_priority = 1;
+    var_8.hidewheninmenu = 0;
+    var_8.hidewhendead = 1;
     return var_8;
 }
 
@@ -351,15 +351,15 @@ _id_4ADE( var_0, var_1 )
 {
     self.alignx = "center";
     self.aligny = "top";
-    self.hostquits = "center";
-    self.visionsetnight = "middle";
-    self.xpmaxmultipliertimeplayed = var_1;
-    self._id_0538 = -160 + 15 * var_0;
+    self.horzalign = "center";
+    self.vertalign = "middle";
+    self.x = var_1;
+    self.y = -160 + 15 * var_0;
     self.font = "objective";
     self.foreground = 1;
-    self.hindlegstraceoffset = 1;
-    self.high_priority = 1;
-    self.space = 2;
+    self.hidewheninmenu = 1;
+    self.hidewhendead = 1;
+    self.sort = 2;
     self.fontscale = 1.15;
     return self;
 }
@@ -645,7 +645,7 @@ _id_4BFE( var_0, var_1, var_2, var_3 )
 
         if ( var_6 maps\_vehicle::_id_51FD() )
         {
-            var_6 dodamage( var_6.helmet * 2, var_2 );
+            var_6 dodamage( var_6.health * 2, var_2 );
             continue;
         }
 
@@ -830,15 +830,15 @@ _id_5916( var_0 )
 
 _id_4FAF( var_0, var_1 )
 {
-    if ( !isdefined( level.playercardbackground._id_8F85 ) )
+    if ( !isdefined( level.player._id_8F85 ) )
     {
-        level.playercardbackground._id_8F85 = [];
+        level.player._id_8F85 = [];
         level._id_8F84 = 0;
     }
 
-    var_2 = newclienthudelem( level.playercardbackground );
-    var_2.xpmaxmultipliertimeplayed = 320;
-    var_2._id_0538 = 325;
+    var_2 = newclienthudelem( level.player );
+    var_2.x = 320;
+    var_2.y = 325;
     var_2.alignx = "center";
     var_2.aligny = "middle";
     var_2.fontscale = 1.5;
@@ -847,12 +847,12 @@ _id_4FAF( var_0, var_1 )
     var_2.color = ( 1.0, 1.0, 1.0 );
     var_2.glowcolor = ( 0.6, 0.6, 0.9 );
     var_2.glowalpha = 0.4;
-    var_2.space = -10;
+    var_2.sort = -10;
     var_2.font = "objective";
-    level.playercardbackground._id_8F85[level.playercardbackground._id_8F85.size] = var_2;
+    level.player._id_8F85[level.player._id_8F85.size] = var_2;
     level notify( "new_subtitle_created" );
-    level.playercardbackground thread _id_2838( 10, var_2, level._id_8F84 );
-    level.playercardbackground thread _id_84F2( var_2, level._id_8F84 );
+    level.player thread _id_2838( 10, var_2, level._id_8F84 );
+    level.player thread _id_84F2( var_2, level._id_8F84 );
     level._id_8F84 = ( level._id_8F84 + 1 ) % 10;
 
     if ( isdefined( var_1 ) )
@@ -877,7 +877,7 @@ _id_84F2( var_0, var_1 )
             break;
 
         var_0 moveovertime( 0.35 );
-        var_0._id_0538 = 325 + var_3 * var_4;
+        var_0.y = 325 + var_3 * var_4;
         var_0.color = ( 1.0, 1.0, 1.0 );
         var_0.glowalpha = 0;
         var_0.alpha = 0.9 - var_3 / 5;
@@ -922,21 +922,21 @@ _id_3E6F( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( !isdefined( var_9 ) )
         var_9 = "middle";
 
-    var_12 = newclienthudelem( level.playercardbackground );
+    var_12 = newclienthudelem( level.player );
     var_12.alignx = var_3;
     var_12.aligny = var_4;
-    var_12.hostquits = var_8;
-    var_12.visionsetnight = var_9;
-    var_12.xpmaxmultipliertimeplayed = var_10;
-    var_12._id_0538 = var_11;
+    var_12.horzalign = var_8;
+    var_12.vertalign = var_9;
+    var_12.x = var_10;
+    var_12.y = var_11;
     var_12.fontscale = 1.6;
     var_12.color = var_6;
     var_12.font = "objective";
     var_12.glowcolor = var_7;
     var_12.glowalpha = 1;
     var_12.foreground = 1;
-    var_12.hindlegstraceoffset = 1;
-    var_12.high_priority = 1;
+    var_12.hidewheninmenu = 1;
+    var_12.hidewhendead = 1;
     return var_12;
 }
 

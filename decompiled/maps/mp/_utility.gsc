@@ -21,8 +21,8 @@
 
 _id_3537()
 {
-    if ( isdefined( self.script_lightset ) )
-        wait(self.script_lightset);
+    if ( isdefined( self.script_delay ) )
+        wait(self.script_delay);
 
     self playsound( level._id_78BA[self._id_7ACA] );
 }
@@ -350,7 +350,7 @@ _id_07FF( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
     foreach ( var_11 in self._id_58A6 )
     {
-        if ( var_11.nearz == var_0 )
+        if ( var_11.name == var_0 )
         {
             if ( var_11._id_92B2 == var_1 && var_11._id_6FBE == var_3 )
                 return;
@@ -366,16 +366,16 @@ _id_07FF( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
         self._id_58A6[self._id_58A6.size] = var_9;
     }
 
-    var_9.nearz = var_0;
+    var_9.name = var_0;
     var_9._id_92B2 = var_1;
-    var_9.titleunlocked = var_2;
+    var_9.time = var_2;
     var_9._id_0843 = gettime();
     var_9._id_6FBE = var_3;
     var_9._id_8534 = var_4;
     var_9._id_8497 = var_5;
     var_9._id_35F9 = var_6;
     var_9._id_35FA = var_7;
-    var_9.highlyawareradius = var_8;
+    var_9.hidewhenindemo = var_8;
     _id_8896();
 }
 
@@ -385,7 +385,7 @@ _id_73BB( var_0 )
     {
         for ( var_1 = self._id_58A6.size; var_1 > 0; var_1-- )
         {
-            if ( self._id_58A6[var_1 - 1].nearz != var_0 )
+            if ( self._id_58A6[var_1 - 1].name != var_0 )
                 continue;
 
             var_2 = self._id_58A6[var_1 - 1];
@@ -455,7 +455,7 @@ _id_9B31()
         self._id_58A4 settext( var_0._id_92B2 );
         self._id_58A4.alpha = 0.85;
         self._id_58AB.alpha = 1;
-        self._id_58A4.highlyawareradius = var_0.highlyawareradius;
+        self._id_58A4.hidewhenindemo = var_0.hidewhenindemo;
 
         if ( var_0._id_8497 )
         {
@@ -463,14 +463,14 @@ _id_9B31()
             self._id_58A4.alpha = var_0._id_35F9;
         }
 
-        if ( var_0.titleunlocked > 0 && var_0._id_8534 )
-            self._id_58AB settimer( max( var_0.titleunlocked - ( gettime() - var_0._id_0843 ) / 1000, 0.1 ) );
+        if ( var_0.time > 0 && var_0._id_8534 )
+            self._id_58AB settimer( max( var_0.time - ( gettime() - var_0._id_0843 ) / 1000, 0.1 ) );
         else
         {
-            if ( var_0.titleunlocked > 0 && !var_0._id_8534 )
+            if ( var_0.time > 0 && !var_0._id_8534 )
             {
                 self._id_58AB settext( "" );
-                self._id_58A4 fadeovertime( min( var_0.titleunlocked, 60 ) );
+                self._id_58A4 fadeovertime( min( var_0.time, 60 ) );
                 self._id_58A4.alpha = 0;
                 thread _id_1EF8( var_0 );
                 thread _id_1EDF( var_0 );
@@ -489,13 +489,13 @@ _id_1EF8( var_0 )
     self endon( "disconnect" );
     level endon( "game_ended" );
     self waittill( "death" );
-    _id_1EF5( var_0.nearz );
+    _id_1EF5( var_0.name );
 }
 
 _id_1EDF( var_0 )
 {
-    wait(var_0.titleunlocked);
-    _id_1EF5( var_0.nearz );
+    wait(var_0.time);
+    _id_1EF5( var_0.name );
     self notify( "message_cleared" );
 }
 
@@ -830,7 +830,7 @@ _id_7FEA( var_0, var_1 )
 {
     var_2 = self._id_8D77["stats_" + var_0];
     var_2._id_9C53 = var_1;
-    var_2.titleunlocked = gettime();
+    var_2.time = gettime();
 }
 
 _id_408F( var_0 )
@@ -840,7 +840,7 @@ _id_408F( var_0 )
 
 _id_4090( var_0 )
 {
-    return self._id_8D77["stats_" + var_0].titleunlocked;
+    return self._id_8D77["stats_" + var_0].time;
 }
 
 _id_7FEB( var_0, var_1 )
@@ -1508,15 +1508,15 @@ _id_1E28( var_0 )
 _id_1EF2()
 {
     self.forcespectatorclient = -1;
-    self.killstreak = -1;
+    self.killcamentity = -1;
     self.archivetime = 0;
-    self.radarmode = 0;
-    self.speechcommand = 0;
+    self.psoffsettime = 0;
+    self.spectatekillcam = 0;
 }
 
 _id_5129()
 {
-    return self.speechcommand;
+    return self.spectatekillcam;
 }
 
 _id_51E8( var_0 )
@@ -1730,7 +1730,7 @@ _id_7816()
             continue;
 
         var_4 = spawnstruct();
-        var_4.nearz = var_3;
+        var_4.name = var_3;
         var_4._id_1F99 = self getweaponammoclip( var_3, "right" );
         var_4._id_1F98 = self getweaponammoclip( var_3, "left" );
         var_4._id_8E5E = self getweaponammostock( var_3 );
@@ -1751,17 +1751,17 @@ _id_74A7()
 
     foreach ( var_2 in var_0._id_A2E6 )
     {
-        _id_05C0( var_2.nearz, int( tablelookup( "mp/camoTable.csv", 1, self._id_57E0, 0 ) ) );
-        self setweaponammoclip( var_2.nearz, var_2._id_1F99, "right" );
+        _id_05C0( var_2.name, int( tablelookup( "mp/camoTable.csv", 1, self._id_57E0, 0 ) ) );
+        self setweaponammoclip( var_2.name, var_2._id_1F99, "right" );
 
-        if ( issubstr( var_2.nearz, "akimbo" ) )
-            self setweaponammoclip( var_2.nearz, var_2._id_1F98, "left" );
+        if ( issubstr( var_2.name, "akimbo" ) )
+            self setweaponammoclip( var_2.name, var_2._id_1F98, "left" );
 
-        self setweaponammostock( var_2.nearz, var_2._id_8E5E );
+        self setweaponammostock( var_2.name, var_2._id_8E5E );
     }
 
     foreach ( var_6, var_5 in var_0._id_06F3 )
-        _id_0634( var_6, var_5.unlockpoints, var_5.j_exoclav04_r );
+        _id_0634( var_6, var_5.type, var_5.item );
 
     if ( self getcurrentweapon() == "none" )
     {
@@ -1789,8 +1789,8 @@ _id_7F6C( var_0 )
 
 _id_0634( var_0, var_1, var_2 )
 {
-    self._id_7811[var_0].unlockpoints = var_1;
-    self._id_7811[var_0].j_exoclav04_r = var_2;
+    self._id_7811[var_0].type = var_1;
+    self._id_7811[var_0].item = var_2;
     self setactionslot( var_0, var_1, var_2 );
 }
 
@@ -1807,7 +1807,7 @@ _id_72FD( var_0, var_1 )
     var_2 = "scr_" + level.gametype + "_" + var_0;
     level._id_A214[var_2] = spawnstruct();
     level._id_A214[var_2]._id_9C53 = getdvarint( var_2, var_1 );
-    level._id_A214[var_2].unlockpoints = "int";
+    level._id_A214[var_2].type = "int";
     level._id_A214[var_2]._id_6237 = "update_" + var_0;
 }
 
@@ -1816,7 +1816,7 @@ _id_72FC( var_0, var_1 )
     var_2 = "scr_" + level.gametype + "_" + var_0;
     level._id_A214[var_2] = spawnstruct();
     level._id_A214[var_2]._id_9C53 = getdvarfloat( var_2, var_1 );
-    level._id_A214[var_2].unlockpoints = "float";
+    level._id_A214[var_2].type = "float";
     level._id_A214[var_2]._id_6237 = "update_" + var_0;
 }
 
@@ -1825,7 +1825,7 @@ _id_72FB( var_0, var_1 )
     var_2 = "scr_" + level.gametype + "_" + var_0;
     level._id_A214[var_2] = spawnstruct();
     level._id_A214[var_2]._id_9C53 = getdvar( var_2, var_1 );
-    level._id_A214[var_2].unlockpoints = "string";
+    level._id_A214[var_2].type = "string";
     level._id_A214[var_2]._id_6237 = "update_" + var_0;
 }
 
@@ -1853,9 +1853,9 @@ _id_9BA3()
 
         foreach ( var_2 in var_0 )
         {
-            if ( level._id_A214[var_2].unlockpoints == "string" )
+            if ( level._id_A214[var_2].type == "string" )
                 var_3 = _id_409E( var_2, level._id_A214[var_2]._id_9C53 );
-            else if ( level._id_A214[var_2].unlockpoints == "float" )
+            else if ( level._id_A214[var_2].type == "float" )
                 var_3 = _id_3F9D( var_2, level._id_A214[var_2]._id_9C53 );
             else
                 var_3 = _id_3FDB( var_2, level._id_A214[var_2]._id_9C53 );
@@ -2258,7 +2258,7 @@ _id_05C0( var_0, var_1, var_2 )
 
 _hasperk( var_0 )
 {
-    if ( isdefined( self.persistentperksunlocked ) && isdefined( self.persistentperksunlocked[var_0] ) )
+    if ( isdefined( self.perks ) && isdefined( self.perks[var_0] ) )
         return 1;
 
     return 0;
@@ -2271,7 +2271,7 @@ _id_41F8( var_0, var_1, var_2 )
 
 _id_063C( var_0, var_1, var_2 )
 {
-    self.persistentperksunlocked[var_0] = 1;
+    self.perks[var_0] = 1;
     self._id_67D2[var_0] = var_0;
     self._id_67D4[var_0] = var_1;
 
@@ -2288,7 +2288,7 @@ _id_063C( var_0, var_1, var_2 )
 
 _unsetperk( var_0 )
 {
-    self.persistentperksunlocked[var_0] = undefined;
+    self.perks[var_0] = undefined;
     self._id_67D2[var_0] = undefined;
     self._id_67D4[var_0] = undefined;
     self._id_67D3[var_0] = undefined;
@@ -2302,13 +2302,13 @@ _unsetperk( var_0 )
 
 _id_056B()
 {
-    foreach ( var_2, var_1 in self.persistentperksunlocked )
+    foreach ( var_2, var_1 in self.perks )
     {
         if ( isdefined( level._id_67D5[var_2] ) )
             self [[ level._id_67D5[var_2] ]]();
     }
 
-    self.persistentperksunlocked = [];
+    self.perks = [];
     self._id_67D2 = [];
     self._id_67D4 = [];
     self._id_67D3 = [];
@@ -3328,14 +3328,14 @@ _id_A0ED( var_0, var_1 )
 
     for (;;)
     {
-        if ( self.helmet != self.maxturnspeed )
+        if ( self.health != self.maxhealth )
             var_2 = 0;
         else
             var_2 += var_1;
 
         wait(var_1);
 
-        if ( self.helmet == self.maxturnspeed && var_2 >= var_0 )
+        if ( self.health == self.maxhealth && var_2 >= var_0 )
             break;
     }
 
@@ -3698,7 +3698,7 @@ _id_9C4F( var_0, var_1 )
         return 0;
     }
 
-    if ( isdefined( self.left ) && !_hasperk( "specialty_finalstand" ) )
+    if ( isdefined( self.laststand ) && !_hasperk( "specialty_finalstand" ) )
     {
         if ( !( isdefined( var_1 ) && var_1 ) )
             self clientiprintlnbold( &"MP_UNAVILABLE_IN_LASTSTAND" );
@@ -3978,7 +3978,7 @@ _id_8510()
     if ( ishodgepodgeph() )
         return 1;
 
-    if ( _id_59E3() && self.sharpturnnotifydist != "none" )
+    if ( _id_59E3() && self.sessionteam != "none" )
         var_0 = 0;
     else if ( !_id_59E3() && !forceautoassign() && _id_0AB0() )
         var_0 = 1;
@@ -4152,16 +4152,16 @@ _id_7265( var_0 )
     if ( !getdvarint( "camera_thirdPerson" ) && !isdefined( level.ishorde ) )
     {
         self._id_52A6 = newclienthudelem( self );
-        self._id_52A6.xpmaxmultipliertimeplayed = 0;
-        self._id_52A6._id_0538 = 0;
+        self._id_52A6.x = 0;
+        self._id_52A6.y = 0;
         self._id_52A6.alignx = "left";
         self._id_52A6.aligny = "top";
-        self._id_52A6.hostquits = "fullscreen";
-        self._id_52A6.visionsetnight = "fullscreen";
+        self._id_52A6.horzalign = "fullscreen";
+        self._id_52A6.vertalign = "fullscreen";
         self._id_52A6 setshader( level._id_52AD["juggernaut"]._id_65F6, 640, 480 );
-        self._id_52A6.space = -10;
+        self._id_52A6.sort = -10;
         self._id_52A6.archived = 1;
-        self._id_52A6.hidewheninmenu = 1;
+        self._id_52A6.hidein3rdperson = 1;
     }
 
     if ( level.gametype != "jugg" || isdefined( level._id_59E9 ) && level._id_59E9 )
@@ -4180,8 +4180,8 @@ _id_7265( var_0 )
 
 _id_9B69( var_0 )
 {
-    var_1 = self.sharpturnlookaheaddist;
-    self.sharpturnlookaheaddist = var_0;
+    var_1 = self.sessionstate;
+    self.sessionstate = var_0;
     self setclientomnvar( "ui_session_state", var_0 );
 
     if ( var_1 != var_0 )
@@ -4210,7 +4210,7 @@ _id_51CC()
 
     foreach ( var_2 in var_0 )
     {
-        if ( var_2 != self && ( !isdefined( var_2.left ) || !var_2.left ) )
+        if ( var_2 != self && ( !isdefined( var_2.laststand ) || !var_2.laststand ) )
             return 0;
     }
 
@@ -4223,7 +4223,7 @@ _id_53B0( var_0 )
 
     foreach ( var_3 in var_1 )
     {
-        if ( isdefined( var_3.left ) && var_3.left )
+        if ( isdefined( var_3.laststand ) && var_3.laststand )
             var_3 thread maps\mp\gametypes\_damage::_id_2A52( randomintrange( 1, 3 ) );
     }
 }
@@ -4410,8 +4410,8 @@ _id_7EA5()
     if ( isdefined( var_0 ) )
     {
         self.pers["rankxp"] = var_0._id_713C;
-        self.pers["prestige"] = var_0.prestigeshoptokens;
-        self.pers["prestige_fake"] = var_0.prestigeshoptokens;
+        self.pers["prestige"] = var_0.prestige;
+        self.pers["prestige_fake"] = var_0.prestige;
     }
 }
 
@@ -4430,29 +4430,29 @@ _id_7DF3()
 
     }
 
-    if ( !isdefined( level.xuid ) )
-        level.xuid = getdvar( "xenonGame" ) == "true";
+    if ( !isdefined( level.xenon ) )
+        level.xenon = getdvar( "xenonGame" ) == "true";
     else
     {
 
     }
 
-    if ( !isdefined( level.pushable ) )
-        level.pushable = getdvar( "ps3Game" ) == "true";
+    if ( !isdefined( level.ps3 ) )
+        level.ps3 = getdvar( "ps3Game" ) == "true";
     else
     {
 
     }
 
-    if ( !isdefined( level.xpmultiplier ) )
-        level.xpmultiplier = getdvar( "xb3Game" ) == "true";
+    if ( !isdefined( level.xb3 ) )
+        level.xb3 = getdvar( "xb3Game" ) == "true";
     else
     {
 
     }
 
-    if ( !isdefined( level.radaralwayson ) )
-        level.radaralwayson = getdvar( "ps4Game" ) == "true";
+    if ( !isdefined( level.ps4 ) )
+        level.ps4 = getdvar( "ps4Game" ) == "true";
     else
     {
 
@@ -4461,7 +4461,7 @@ _id_7DF3()
 
 _id_502F()
 {
-    if ( level.xpmultiplier || level.radaralwayson || !level.console )
+    if ( level.xb3 || level.ps4 || !level.console )
         return 1;
     else
         return 0;
@@ -4469,7 +4469,7 @@ _id_502F()
 
 _id_7F5E( var_0, var_1, var_2 )
 {
-    if ( !isdefined( level.console ) || !isdefined( level.xpmultiplier ) || !isdefined( level.radaralwayson ) )
+    if ( !isdefined( level.console ) || !isdefined( level.xb3 ) || !isdefined( level.ps4 ) )
         _id_7DF3();
 
     if ( _id_502F() )
@@ -4605,7 +4605,7 @@ _id_3E34( var_0, var_1 )
 
         if ( !var_1 )
         {
-            if ( isdefined( var_5.team ) && var_5.team == "spectator" || var_5.sharpturnlookaheaddist == "spectator" )
+            if ( isdefined( var_5.team ) && var_5.team == "spectator" || var_5.sessionstate == "spectator" )
             {
                 var_7 = var_5 getspectatingplayer();
 
@@ -4619,7 +4619,7 @@ _id_3E34( var_0, var_1 )
 
         if ( !var_0 )
         {
-            if ( var_5.killstreak == var_2 )
+            if ( var_5.killcamentity == var_2 )
                 var_6 = 1;
         }
 
@@ -4877,7 +4877,7 @@ _id_05D2( var_0, var_1, var_2, var_3 )
             var_6._id_6FBE += 0.01;
 
             if ( var_6._id_310D )
-                var_6._id_32D5 _meth_80c3( var_6._id_6FBE, var_6.playercardbackground, var_6.team );
+                var_6._id_32D5 _meth_80c3( var_6._id_6FBE, var_6.player, var_6.team );
 
             if ( var_4 == -1 )
                 var_4 = var_5;
@@ -4890,8 +4890,8 @@ _id_05D2( var_0, var_1, var_2, var_3 )
     var_7 = spawnstruct();
     var_7._id_32D5 = self;
     var_7._id_6FBE = var_0;
-    var_7.unlockpoints = var_1;
-    var_7.playercardbackground = var_2;
+    var_7.type = var_1;
+    var_7.player = var_2;
     var_7.team = var_3;
     var_7._id_310D = 1;
     level._id_4234 = common_scripts\utility::_id_0CED( level._id_4234, var_7, var_4 );
@@ -4923,7 +4923,7 @@ _id_5942()
                 var_2._id_6FBE -= 0.01;
 
                 if ( var_2._id_310D )
-                    var_2._id_32D5 _meth_80c3( var_2._id_6FBE, var_2.playercardbackground, var_2.team );
+                    var_2._id_32D5 _meth_80c3( var_2._id_6FBE, var_2.player, var_2.team );
             }
         }
     }
@@ -4954,7 +4954,7 @@ _id_3110()
         {
             if ( !var_1._id_310D )
             {
-                var_1._id_32D5 _meth_80c3( var_1._id_6FBE, var_1.playercardbackground, var_1.team );
+                var_1._id_32D5 _meth_80c3( var_1._id_6FBE, var_1.player, var_1.team );
                 var_1._id_310D = 1;
             }
 
@@ -5113,15 +5113,15 @@ hardpointvisualsswap( var_0, var_1 )
 
     foreach ( var_4 in var_2 )
     {
-        var_5 = var_1 + "_" + var_4.script_parentname;
+        var_5 = var_1 + "_" + var_4.script_noteworthy;
         var_6 = getent( var_5, "targetname" );
 
         if ( !isdefined( var_6 ) )
             continue;
 
-        var_6.script_parentname = var_4.script_parentname;
+        var_6.script_noteworthy = var_4.script_noteworthy;
         var_6._id_79F4 = "hp";
-        var_6.teambalanced = var_4.teambalanced;
+        var_6.targetname = var_4.targetname;
         var_4 delete();
     }
 }
@@ -5158,7 +5158,7 @@ hardpointtriggerswap( var_0, var_1 )
     if ( !var_10 istouching( var_2 ) )
         var_10.origin = var_2.origin;
 
-    var_2.teambalanced = "hp_zone_trigger";
+    var_2.targetname = "hp_zone_trigger";
     var_4 delete();
 }
 
@@ -5194,7 +5194,7 @@ headquarterstriggerswap( var_0, var_1 )
     if ( !var_10 istouching( var_2 ) )
         var_10.origin = var_2.origin;
 
-    var_2.teambalanced = "radiotrigger";
+    var_2.targetname = "radiotrigger";
     var_4 delete();
 }
 
@@ -5231,7 +5231,7 @@ headquartersradiomove( var_0, var_1, var_2 )
     if ( var_6 )
         var_4.angles = var_2;
 
-    var_13 = getentarray( var_4._not_team, "targetname" );
+    var_13 = getentarray( var_4.target, "targetname" );
 
     foreach ( var_15 in var_13 )
     {
@@ -5275,7 +5275,7 @@ demolitionsitemove( var_0, var_1, var_2 )
 
     foreach ( var_10 in var_3 )
     {
-        if ( isdefined( var_10.script_model ) && var_10.script_model == var_0 )
+        if ( isdefined( var_10.script_label ) && var_10.script_label == var_0 )
         {
             var_8 = var_10;
 
@@ -5292,8 +5292,8 @@ demolitionsitemove( var_0, var_1, var_2 )
     if ( !isdefined( var_8 ) )
         return;
 
-    var_12 = getentarray( var_8._not_team, "targetname" );
-    var_13 = getent( var_12[0]._not_team, "targetname" );
+    var_12 = getentarray( var_8.target, "targetname" );
+    var_13 = getent( var_12[0].target, "targetname" );
     var_14 = getent( "dd_bombzone_clip" + var_0, "targetname" );
     var_15 = undefined;
     var_16 = undefined;
@@ -5436,7 +5436,7 @@ gameplayactivewatch()
         {
             foreach ( var_2 in level.players )
             {
-                var_3 = isdefined( var_2.sharpturnlookaheaddist ) && ( var_2.sharpturnlookaheaddist == "playing" || var_2.sharpturnlookaheaddist == "dead" );
+                var_3 = isdefined( var_2.sessionstate ) && ( var_2.sessionstate == "playing" || var_2.sessionstate == "dead" );
 
                 if ( var_3 && !isai( var_2 ) && !istestclient( var_2 ) )
                     var_0++;
@@ -5553,7 +5553,7 @@ streamcarrierweaponstoplayers( var_0, var_1, var_2 )
         var_16 = weaponclass( var_15 );
         var_17 = spawnstruct();
         var_17.team = var_18;
-        var_17.weapon_switch_invalid = var_15;
+        var_17.weapon = var_15;
         var_3[var_18][var_16] = var_17;
     }
 
@@ -5635,7 +5635,7 @@ getnextspectateclient()
     var_0 = _func_302();
     var_1 = self getentitynumber();
 
-    for ( var_2 = common_scripts\utility::mod_explosive( var_1 + 1, var_0 ); var_2 != var_1; var_2 = common_scripts\utility::mod_explosive( var_2 + 1, var_0 ) )
+    for ( var_2 = common_scripts\utility::mod( var_1 + 1, var_0 ); var_2 != var_1; var_2 = common_scripts\utility::mod( var_2 + 1, var_0 ) )
     {
         if ( self _meth_857e( var_2 ) )
             break;
@@ -5657,7 +5657,7 @@ streamspectatorweaponsforclient( var_0 )
 {
     var_1 = spawnstruct();
     var_1.team = var_0.team;
-    var_1.weapon_switch_invalid = var_0.primaryweapon;
+    var_1.weapon = var_0.primaryweapon;
     var_2 = var_0 _meth_857f();
     return self _meth_8420( var_1, var_2 );
 }

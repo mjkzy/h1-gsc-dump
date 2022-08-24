@@ -61,7 +61,7 @@ _id_5F05()
         wait 1;
 }
 
-stopsoonnotifydist()
+stop()
 {
     cover();
 }

@@ -83,7 +83,7 @@ activate_intro()
 
     common_scripts\utility::_id_383F( "introscreen_activate" );
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "ac130":
             ac130_intro();
@@ -159,7 +159,7 @@ flying_intro()
 {
     thread flying_intro_dvars();
     thread weapon_pullout();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     var_0 = 16000;
     var_1 = 1;
     var_2 = 0;
@@ -167,7 +167,7 @@ flying_intro()
 
     if ( var_1 )
     {
-        switch ( level.script_context )
+        switch ( level.script )
         {
             case "bog_a":
                 cinematicingamesync( "bog_a_fade" );
@@ -201,14 +201,14 @@ flying_intro()
         _id_4F90( level.introscreen_lines );
     }
 
-    thread flying_intro_force_streaming_center( level.playercardbackground.origin );
-    var_4 = level.playercardbackground.origin;
-    level.playercardbackground.origin = var_4 + ( 0, 0, var_0 );
+    thread flying_intro_force_streaming_center( level.player.origin );
+    var_4 = level.player.origin;
+    level.player.origin = var_4 + ( 0, 0, var_0 );
     var_5 = spawn( "script_model", ( 69.0, 69.0, 69.0 ) );
-    var_5.origin = level.playercardbackground.origin;
+    var_5.origin = level.player.origin;
     var_5 setmodel( "tag_origin" );
-    var_5.angles = level.playercardbackground.angles;
-    level.playercardbackground playerlinktoabsolute( var_5 );
+    var_5.angles = level.player.angles;
+    level.player playerlinktoabsolute( var_5 );
     var_5.angles = ( var_5.angles[0] + 89, var_5.angles[1], 0 );
     wait(var_2);
     var_5 moveto( var_4 + ( 0.0, 0.0, 0.0 ), 2, 0, 2 );
@@ -223,11 +223,11 @@ flying_intro()
     wait 0.5;
     common_scripts\utility::_id_383F( "pullup_weapon" );
     wait 0.2;
-    level.playercardbackground unlink();
-    level.playercardbackground freezecontrols( 0 );
-    thread common_scripts\utility::_id_69C2( "ui_screen_trans_in", level.playercardbackground.origin );
+    level.player unlink();
+    level.player freezecontrols( 0 );
+    thread common_scripts\utility::_id_69C2( "ui_screen_trans_in", level.player.origin );
     wait 0.2;
-    thread common_scripts\utility::_id_69C2( "ui_screen_trans_out", level.playercardbackground.origin );
+    thread common_scripts\utility::_id_69C2( "ui_screen_trans_out", level.player.origin );
     wait 0.2;
     common_scripts\utility::_id_383F( "introscreen_complete" );
     wait 2;
@@ -240,7 +240,7 @@ flying_intro_force_streaming_center( var_0 )
 
     for (;;)
     {
-        level.playercardbackground _meth_8237( var_0 );
+        level.player _meth_8237( var_0 );
         wait 0.01;
     }
 }
@@ -257,7 +257,7 @@ cargoship_intro_dvars()
 cargoship_intro()
 {
     thread cargoship_intro_dvars();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     cinematicingamesync( "cargoship_fade" );
     wait 0.4;
     level notify( "intro_movie_done" );
@@ -266,19 +266,19 @@ cargoship_intro()
     introscreen_generic_white_fade_in( 1.75 );
     _id_4F90( level.introscreen_lines );
     wait 1;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 jeepride_intro()
 {
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     cinematicingamesync( "jeepride_fade" );
     _id_4F90( level.introscreen_lines );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 airlift_intro_dvars()
@@ -291,19 +291,19 @@ airlift_intro_dvars()
 airlift_intro()
 {
     thread airlift_intro_dvars();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     cinematicingamesync( "airlift_fade" );
     _id_4F90( level.introscreen_lines );
     wait 2;
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     level notify( "introscreen_black" );
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.x = 0;
+    var_0.y = 0;
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.foreground = 1;
-    var_0.space = level.background_sort;
+    var_0.sort = level.background_sort;
     var_0 setshader( "white", 640, 480 );
     wait 1;
     var_0 fadeovertime( 1.5 );
@@ -312,7 +312,7 @@ airlift_intro()
     wait 1;
     common_scripts\utility::_id_383F( "introscreen_complete" );
     thread maps\_utility::_id_114E( 1 );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 village_defend_intro_dvars()
@@ -325,24 +325,24 @@ village_defend_intro_dvars()
 village_defend_intro()
 {
     thread village_defend_intro_dvars();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.x = 0;
+    var_0.y = 0;
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.foreground = 1;
-    var_0.space = level.background_sort;
+    var_0.sort = level.background_sort;
     var_0 setshader( "black", 640, 480 );
     wait 0.25;
     var_1 = newhudelem();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 0;
+    var_1.x = 0;
+    var_1.y = 0;
     var_1.alignx = "center";
     var_1.aligny = "middle";
-    var_1.hostquits = "center";
-    var_1.visionsetnight = "middle";
-    var_1.space = level.intro_text_sort;
+    var_1.horzalign = "center";
+    var_1.vertalign = "middle";
+    var_1.sort = level.intro_text_sort;
     var_1.foreground = 1;
     var_1 settext( &"VILLAGE_DEFEND_PRESENT_DAY" );
     var_1.fontscale = 1.6;
@@ -359,12 +359,12 @@ village_defend_intro()
     var_0 fadeovertime( 1.5 );
     var_0.alpha = 0;
     wait 1;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     setsaveddvar( "compass", 1 );
     setsaveddvar( "ammoCounterHide", "0" );
     setsaveddvar( "hud_showStance", 1 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 scoutsniper_intro()
@@ -376,22 +376,22 @@ scoutsniper_intro()
     maps\_utility::_id_7F00( "grayscale" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.x = 0;
+    var_0.y = 0;
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.foreground = 1;
-    var_0.space = level.background_sort;
+    var_0.sort = level.background_sort;
     var_0 setshader( "black", 640, 480 );
     wait 0.25;
     var_1 = newhudelem();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 0;
+    var_1.x = 0;
+    var_1.y = 0;
     var_1.alignx = "center";
     var_1.aligny = "middle";
-    var_1.hostquits = "center";
-    var_1.visionsetnight = "middle";
-    var_1.space = level.intro_text_sort;
+    var_1.horzalign = "center";
+    var_1.vertalign = "middle";
+    var_1.sort = level.intro_text_sort;
     var_1.foreground = 1;
     var_1 settext( &"SCOUTSNIPER_15_YEARS_AGO" );
     var_1.fontscale = 1.6;
@@ -410,7 +410,7 @@ scoutsniper_intro()
     maps\_utility::_id_7F00( "scoutsniper_start", 1 );
     wait 8.0;
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     wait 0.5;
     setsaveddvar( "compass", 1 );
     setsaveddvar( "ammoCounterHide", "0" );
@@ -419,11 +419,11 @@ scoutsniper_intro()
 
 scoutsniperintroplayer()
 {
-    var_0 = level.playercardbackground getplayerangles();
+    var_0 = level.player getplayerangles();
     wait 1;
-    level.playercardbackground setstance( "crouch" );
-    level.playercardbackground freezecontrols( 1 );
-    level.playercardbackground setplayerangles( var_0 );
+    level.player setstance( "crouch" );
+    level.player freezecontrols( 1 );
+    level.player setplayerangles( var_0 );
 }
 
 scoutsniperintrodvars()
@@ -436,17 +436,17 @@ scoutsniperintrodvars()
 
 ac130_intro()
 {
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     _id_4F90( level.introscreen_lines );
     level notify( "introscreen_black" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.x = 0;
+    var_0.y = 0;
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.foreground = 1;
-    var_0.space = level.background_sort;
+    var_0.sort = level.background_sort;
     var_0 setshader( "black", 640, 480 );
     wait 4.0;
     level notify( "introscreen_almost_complete" );
@@ -455,10 +455,10 @@ ac130_intro()
     var_0 fadeovertime( 1.5 );
     var_0.alpha = 0;
     wait 1;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     setsaveddvar( "hud_showStance", 0 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 aftermath_intro()
@@ -477,7 +477,7 @@ hunted_intro_dvars()
 hunted_intro()
 {
     thread hunted_intro_dvars();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     _id_4F90( level.introscreen_lines );
     cinematicingamesync( "hunted_fade" );
     wait 1;
@@ -486,9 +486,9 @@ hunted_intro()
     introscreen_generic_white_fade_in( 2 );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     wait 1;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 launchfacility_b_intro_dvars()
@@ -504,15 +504,15 @@ launchfacility_b_intro_dvars()
 launchfacility_b_intro()
 {
     thread launchfacility_b_intro_dvars();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     _id_4F90( level.introscreen_lines );
     introscreen_generic_white_fade_in( 1 );
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     wait 1;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 ambush_intro_dvars()
@@ -525,7 +525,7 @@ ambush_intro_dvars()
 ambush_intro()
 {
     thread ambush_intro_dvars();
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     _id_4F90( level.introscreen_lines );
     cinematicingamesync( "ambush_fade" );
     wait 2;
@@ -537,25 +537,25 @@ ambush_intro()
     setsaveddvar( "ammoCounterHide", "0" );
     setsaveddvar( "hud_showStance", 1 );
     wait 1;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 armada_intro()
 {
     setsaveddvar( "hud_drawhud", "0" );
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     _id_4F91( 0.2, 0.2 );
     _id_4F90( level.introscreen_lines );
     wait 3;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     wait 2;
     common_scripts\utility::_id_383F( "introscreen_complete" );
     wait 2;
     maps\_utility::_id_1143( "levelstart" );
     wait 4;
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
 }
 
 _id_4F90( var_0 )
@@ -587,12 +587,12 @@ _id_4F92( var_0, var_1, var_2 )
         var_2 = 1.5;
 
     var_3 = newhudelem();
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = 0;
-    var_3.hostquits = "fullscreen";
-    var_3.visionsetnight = "fullscreen";
+    var_3.x = 0;
+    var_3.y = 0;
+    var_3.horzalign = "fullscreen";
+    var_3.vertalign = "fullscreen";
     var_3.foreground = 1;
-    var_3.space = level.background_sort;
+    var_3.sort = level.background_sort;
     var_3 setshader( var_0, 640, 480 );
     wait(var_1);
     var_3 fadeovertime( 1.5 );
@@ -608,13 +608,13 @@ introscreen_create_line( var_0 )
         var_2 -= 60;
 
     var_3 = newhudelem();
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = var_2;
+    var_3.x = 0;
+    var_3.y = var_2;
     var_3.alignx = "center";
     var_3.aligny = "middle";
-    var_3.hostquits = "center";
-    var_3.visionsetnight = "middle";
-    var_3.space = level.intro_text_sort;
+    var_3.horzalign = "center";
+    var_3.vertalign = "middle";
+    var_3.sort = level.intro_text_sort;
     var_3.foreground = 1;
     var_3.fontscale = 1.75;
     var_3 settext( var_0 );
@@ -649,19 +649,19 @@ _cornerlinethread( var_0, var_1, var_2, var_3 )
 
     var_4 = _cornerlinethread_height();
     var_5 = newhudelem();
-    var_5.xpmaxmultipliertimeplayed = 30.7;
-    var_5._id_0538 = var_4 - 8.7;
+    var_5.x = 30.7;
+    var_5.y = var_4 - 8.7;
     var_5.alignx = "left";
     var_5.aligny = "bottom";
-    var_5.hostquits = "left_adjustable";
-    var_5.visionsetnight = "bottom_adjustable";
-    var_5.space = level.intro_text_sort;
+    var_5.horzalign = "left_adjustable";
+    var_5.vertalign = "bottom_adjustable";
+    var_5.sort = level.intro_text_sort;
     var_5.foreground = 1;
     var_5 settext( var_0 );
     var_5.alpha = 0;
     var_5 fadeovertime( 0.2 );
     var_5.alpha = 1;
-    var_5.hindlegstraceoffset = 1;
+    var_5.hidewheninmenu = 1;
     var_5.fontscale = 1.25;
     var_5.color = ( 0.8, 1.0, 0.8 );
     var_5.font = "objective";
@@ -706,10 +706,10 @@ _id_4AE2( var_0 )
 
 weapon_pullout()
 {
-    var_0 = level.playercardbackground getweaponslistall()[0];
-    level.playercardbackground disableweapons();
+    var_0 = level.player getweaponslistall()[0];
+    level.player disableweapons();
     common_scripts\utility::_id_384A( "pullup_weapon" );
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
 }
 
 revive_ammo_counter()
@@ -735,7 +735,7 @@ introscreen_add_line( var_0 )
 
 should_revive_ammo_counter()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "airlift":
         case "ac130":
@@ -752,7 +752,7 @@ should_revive_ammo_counter()
 
 initialize_strings()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "ac130":
             introscreen_add_line( &"AC130_INTROSCREEN_LINE_1" );

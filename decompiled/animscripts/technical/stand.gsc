@@ -44,8 +44,8 @@ _id_9208()
 
 _id_99B4( var_0 )
 {
-    self.light = 180;
-    self.rocket = 180;
+    self.leftarc = 180;
+    self.rightarc = 180;
     self useanimtree( #animtree );
     self._id_07F5 = %saw_gunner_idle_mg;
     self._id_07F4 = %saw_gunner_firing_mg_add;

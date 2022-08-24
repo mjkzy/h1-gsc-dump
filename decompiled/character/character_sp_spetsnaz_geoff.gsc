@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_spetsnaz_assault_yuri" );
     precachemodel( "head_spetsnaz_assault_geoff" );

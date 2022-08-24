@@ -46,7 +46,7 @@ main()
 
         if ( isdefined( self._id_6F7A ) )
         {
-            self.turret_not_on_target = self._id_6F7A;
+            self.turnrate = self._id_6F7A;
             self._id_6F7A = undefined;
         }
     }
@@ -80,8 +80,8 @@ randomattackidle()
             if ( abs( var_1 ) > 10 )
             {
                 self _meth_8193( "face enemy" );
-                self._id_6F7A = self.turret_not_on_target;
-                self.turret_not_on_target = 0.3;
+                self._id_6F7A = self.turnrate;
+                self.turnrate = 0.3;
 
                 if ( var_1 > 0 )
                     var_2 = %german_shepherd_rotate_ccw;
@@ -90,7 +90,7 @@ randomattackidle()
 
                 self setflaggedanimrestart( "dog_turn", var_2, 1, 0.2, 1.0 );
                 animscripts\shared::_id_2D06( "dog_turn" );
-                self.turret_not_on_target = self._id_6F7A;
+                self.turnrate = self._id_6F7A;
                 self._id_6F7A = undefined;
                 self _meth_8144( %german_shepherd_rotate_cw, 0.2 );
                 self _meth_8144( %german_shepherd_rotate_ccw, 0.2 );
@@ -163,8 +163,8 @@ _id_585C( var_0 )
     self _meth_8144( %german_shepherd_look_6, 0 );
     self _meth_8144( %german_shepherd_look_8, 0 );
     self _meth_8177();
-    self.riotshield_hit = 90;
-    self.lifecount = -90;
+    self.rightaimlimit = 90;
+    self.leftaimlimit = -90;
     self _meth_814e( anim._id_2CD2[var_0][2], 1, 0 );
     self _meth_814e( anim._id_2CD2[var_0][4], 1, 0 );
     self _meth_814e( anim._id_2CD2[var_0][6], 1, 0 );

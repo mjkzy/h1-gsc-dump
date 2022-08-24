@@ -29,7 +29,7 @@ orientmodehack_axis( var_0 )
 
     for (;;)
     {
-        var_0 _meth_8193( "face angle", vectortoangles( level.playercardbackground.origin - var_0.origin )[1] );
+        var_0 _meth_8193( "face angle", vectortoangles( level.player.origin - var_0.origin )[1] );
         wait 0.05;
     }
 }
@@ -40,14 +40,14 @@ player_fudge_move_rotate_to( var_0, var_1, var_2, var_3 )
         var_2 = 1;
 
     var_3 unlink();
-    var_4 = distance( level.playercardbackground.origin, var_0 );
+    var_4 = distance( level.player.origin, var_0 );
     var_5 = var_4 / var_2;
     var_6 = var_5 * 0.05;
     var_7 = var_5 * 0.05;
     var_3 moveto( var_0, var_5, var_6, var_7 );
     var_3 rotateto( var_1, var_5, var_6, var_7 );
     wait(var_5);
-    level.playercardbackground unlink();
+    level.player unlink();
 }
 
 attacknow()
@@ -62,7 +62,7 @@ player_link_update( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = level.playerlinkinfluence;
 
-    level.playercardbackground playerlinkto( level.playerlinkmodel, "polySurface1", var_0 );
+    level.player playerlinkto( level.playerlinkmodel, "polySurface1", var_0 );
 }
 
 player_link_update_delta( var_0 )
@@ -70,7 +70,7 @@ player_link_update_delta( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = level.playerlinkinfluence;
 
-    level.playercardbackground playerlinktodelta( level.playerlinkmodel, "polySurface1", var_0 );
+    level.player playerlinktodelta( level.playerlinkmodel, "polySurface1", var_0 );
 }
 
 fake_position( var_0, var_1 )
@@ -79,7 +79,7 @@ fake_position( var_0, var_1 )
 
     if ( var_1 == 999 )
     {
-        level.playercardbackground unlink();
+        level.player unlink();
         level.playerlinkmodel = var_0;
     }
     else
@@ -171,7 +171,7 @@ put_stinger_guy_here( var_0 )
 
 in_getweaponslist( var_0 )
 {
-    var_1 = level.playercardbackground getweaponslistall();
+    var_1 = level.player getweaponslistall();
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -201,13 +201,13 @@ rpg_spot( var_0 )
     while ( !in_getweaponslist( var_2 ) )
         wait 0.05;
 
-    level.playercardbackground givemaxammo( var_2 );
+    level.player givemaxammo( var_2 );
     common_scripts\utility::_id_383F( "rpg_taken" );
-    var_4 = level.playercardbackground getweaponammostock( "rpg" );
+    var_4 = level.player getweaponammostock( "rpg" );
 
     if ( getdvar( "player_sustainAmmo" ) == "0" )
     {
-        while ( level.playercardbackground getweaponammostock( "rpg" ) == var_4 && var_4 )
+        while ( level.player getweaponammostock( "rpg" ) == var_4 && var_4 )
             wait 0.05;
     }
 
@@ -220,19 +220,19 @@ lookattopickup( var_0 )
     while ( isdefined( var_0 ) )
         waittillframeend;
 
-    level.playercardbackground disableweaponpickup();
+    level.player disableweaponpickup();
 
     while ( isdefined( self ) )
     {
-        if ( isdefined( level.playercardbackground worldpointtoscreenpos( self.origin, 65 ) ) )
-            level.playercardbackground enableweaponpickup();
+        if ( isdefined( level.player worldpointtoscreenpos( self.origin, 65 ) ) )
+            level.player enableweaponpickup();
         else
-            level.playercardbackground disableweaponpickup();
+            level.player disableweaponpickup();
 
         waittillframeend;
     }
 
-    level.playercardbackground enableweaponpickup();
+    level.player enableweaponpickup();
 }
 
 registerdroppedweapon()
@@ -241,7 +241,7 @@ registerdroppedweapon()
 
     for (;;)
     {
-        level.playercardbackground waittill( "pickup", var_0, var_1 );
+        level.player waittill( "pickup", var_0, var_1 );
         self.jeepride_linked_weapon = var_1;
     }
 }
@@ -282,7 +282,7 @@ rider_drone_toai( var_0, var_1, var_2, var_3 )
 
 rider_droneai( var_0, var_1, var_2 )
 {
-    if ( !( isdefined( self.script_parentname ) && self.script_parentname == "whackamole_guy" ) )
+    if ( !( isdefined( self.script_noteworthy ) && self.script_noteworthy == "whackamole_guy" ) )
         return;
 
     self endon( "death" );
@@ -343,7 +343,7 @@ apply_truckjunk_loc( var_0, var_1 )
         if ( isdefined( var_1[var_2]._id_7ADC ) )
             var_0 thread fake_position( var_3, var_1[var_2]._id_7ADC );
 
-        if ( isdefined( var_1[var_2].script_parentname ) && var_1[var_2].script_parentname == "loosejunk" )
+        if ( isdefined( var_1[var_2].script_noteworthy ) && var_1[var_2].script_noteworthy == "loosejunk" )
             var_3 thread loosejunk( var_0 );
     }
 }
@@ -354,7 +354,7 @@ process_vehicles_spawned()
     {
         self waittill( "spawned", var_0 );
 
-        if ( var_0.visionsetnaked == "bmp" )
+        if ( var_0.vehicletype == "bmp" )
             continue;
 
         if ( var_0._id_7AEF == "allies" )
@@ -394,10 +394,10 @@ kill_stupid_vehicle_threads()
 
 _id_6AC6()
 {
-    level.playercardbackground waittill( "death" );
+    level.player waittill( "death" );
     common_scripts\utility::_id_0D13( maps\_vehicle::get_script_vehicles(), ::deadplayer_stop );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
 }
 
 deadplayer_stop()
@@ -428,7 +428,7 @@ spawners_setup()
     if ( common_scripts\utility::_id_382E( "end_ride" ) )
         return;
 
-    if ( isdefined( var_0.a._id_7594 ) && var_0.a._id_7594 && var_0.weapon_switch_invalid == "stinger_speedy" )
+    if ( isdefined( var_0.a._id_7594 ) && var_0.a._id_7594 && var_0.weapon == "stinger_speedy" )
         var_0 thread rocket_handle();
 
     var_0.a._id_2B18 = 1;
@@ -495,9 +495,9 @@ _id_7DD2()
     self.a._id_0CD8["add_turn_aim_left"] = %exposed_turn_aim_4;
     self.a._id_0CD8["add_turn_aim_right"] = %exposed_turn_aim_6;
     self._id_993A = 35;
-    self.riotshield_hit = 45;
-    self.lifecount = -45;
-    self.useable = 45;
+    self.rightaimlimit = 45;
+    self.leftaimlimit = -45;
+    self.upaimlimit = 45;
     self.downaimlimit = -45;
     self.turnleft180limit = -130;
     self.turnright180limit = 130;
@@ -641,7 +641,7 @@ rpg_guy_animcustom()
         return;
 
     self _meth_81ea();
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     self._id_83F6 = self.enemy;
     self._id_840F = self._id_83F6.origin;
     level thread vehicle_dropflare( self.hindenemy, self.attractorent );
@@ -693,18 +693,18 @@ rocket_handle()
         var_0.rocketmen = [];
 
     var_0.rocketmen[var_0.rocketmen.size] = self;
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     self.a._id_7594 = 400;
     var_1 = self.a._id_7594;
 
     for (;;)
     {
-        self.ignoreforfixednodesafecheck = 1;
+        self.ignoreall = 1;
 
         while ( !isdefined( self.hindenemy ) )
             wait 0.05;
 
-        self.ignoreforfixednodesafecheck = 0;
+        self.ignoreall = 0;
         self _meth_819e( ::rpg_guy_animcustom );
 
         while ( isdefined( self._id_83F6 ) && isdefined( self.hindenemy ) )
@@ -742,7 +742,7 @@ magic_missileguy_magiccrouch()
 
 magic_missileguy_spawner()
 {
-    var_0 = getvehiclenode( self._not_team, "targetname" );
+    var_0 = getvehiclenode( self.target, "targetname" );
     var_0 waittill( "trigger", var_1 );
 
     if ( isdefined( var_1.magic_missile_guy ) )
@@ -751,7 +751,7 @@ magic_missileguy_spawner()
     level._id_8A1C = ::save_fail_on_rpgguy;
     var_2 = var_1.rpgguyspot;
     self.origin = var_2.origin;
-    self.angles = vectortoangles( level.playercardbackground geteye() - self.origin );
+    self.angles = vectortoangles( level.player geteye() - self.origin );
     var_3 = maps\_utility::_id_2F29( self );
     var_4 = getentarray( "assist_brush", "targetname" )[0];
     var_4 notsolid();
@@ -762,8 +762,8 @@ magic_missileguy_spawner()
     var_5 = "polySurface1";
     var_3 linkto( var_2, var_5, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_1.magic_missile_guy = var_3;
-    var_6 = spawn( "script_model", level.playercardbackground geteye() );
-    var_6.origin = level.playercardbackground geteye() + maps\_utility::vector_multiply( anglestoforward( self.angles ), 64 );
+    var_6 = spawn( "script_model", level.player geteye() );
+    var_6.origin = level.player geteye() + maps\_utility::vector_multiply( anglestoforward( self.angles ), 64 );
     var_6 hide();
     var_6 setmodel( "fx" );
     var_6 linkto( level.playersride );
@@ -783,7 +783,7 @@ reset_autosave_condition()
 magic_missileguy_takehits( var_0, var_1 )
 {
     self setcandamage( 1 );
-    self.helmet = 4000;
+    self.health = 4000;
     var_0 endon( "death" );
     var_2 = 100;
 
@@ -794,7 +794,7 @@ magic_missileguy_takehits( var_0, var_1 )
         if ( isplayer( var_4 ) )
             break;
 
-        self.helmet = 4000;
+        self.health = 4000;
     }
 
     player_link_update();
@@ -944,12 +944,12 @@ fake_rpg_shot( var_0, var_1 )
     var_4 thread common_scripts\utility::_id_69C2( "magic_missile_guy_rocket_exp", var_4.origin );
     playfx( level._effect["rpg_explode"], var_4.origin );
     radiusdamage( var_4.origin, 400, 150, 26 );
-    level.playercardbackground playrumbleonentity( "tank_rumble" );
-    earthquake( 0.8, 0.8, level.playercardbackground.origin, 2000 );
+    level.player playrumbleonentity( "tank_rumble" );
+    earthquake( 0.8, 0.8, level.player.origin, 2000 );
     wait 0.01;
     var_4 delete();
 
-    if ( !isalive( level.playercardbackground ) )
+    if ( !isalive( level.player ) )
         setomnvar( "ui_go_black", 1.0 );
 }
 
@@ -991,7 +991,7 @@ can_cannon()
 
     for (;;)
     {
-        if ( level.playercardbackground usebuttonpressed() )
+        if ( level.player usebuttonpressed() )
             fire_can();
 
         wait 0.05;
@@ -1000,9 +1000,9 @@ can_cannon()
 
 fire_can()
 {
-    var_0 = spawn( "script_model", level.playercardbackground geteye() );
+    var_0 = spawn( "script_model", level.player geteye() );
     var_0 setmodel( "com_trashcan_metal" );
-    var_1 = maps\_utility::vector_multiply( vectornormalize( anglestoforward( level.playercardbackground getplayerangles() ) ), level.cannonpower );
+    var_1 = maps\_utility::vector_multiply( vectornormalize( anglestoforward( level.player getplayerangles() ) ), level.cannonpower );
     var_0 physicslaunch( var_0.origin + ( 0.0, 0.0, 17.0 ), var_1 + ( 0.0, 0.0, 17.0 ) );
     wait 0.05;
 }
@@ -1145,7 +1145,7 @@ jeepride_flares_fire_burst( var_0, var_1, var_2, var_3 )
 
     for ( var_4 = 0; var_4 < var_1; var_4++ )
     {
-        playfx( level._id_3891[var_0.visionsetnaked], var_0 gettagorigin( "tag_light_belly" ) );
+        playfx( level._id_3891[var_0.vehicletype], var_0 gettagorigin( "tag_light_belly" ) );
         wait 0.05;
     }
 }
@@ -1158,16 +1158,16 @@ do_or_die()
         return;
 
     wait 0.45;
-    playfx( level._effect["rpg_explode"], level.playercardbackground.origin );
-    level._id_6D79 thread common_scripts\utility::_id_69C2( "explo_metal_rand", level.playercardbackground geteye(), 1 );
-    level.playercardbackground enablehealthshield( 0 );
-    radiusdamage( level.playercardbackground.origin, 8, level.playercardbackground.helmet + 5, level.playercardbackground.helmet + 5 );
-    level.playercardbackground enablehealthshield( 1 );
+    playfx( level._effect["rpg_explode"], level.player.origin );
+    level._id_6D79 thread common_scripts\utility::_id_69C2( "explo_metal_rand", level.player geteye(), 1 );
+    level.player enablehealthshield( 0 );
+    radiusdamage( level.player.origin, 8, level.player.health + 5, level.player.health + 5 );
+    level.player enablehealthshield( 1 );
 }
 
 loosejunk( var_0 )
 {
-    self.helmet = 700;
+    self.health = 700;
     self setcandamage( 1 );
     var_0 endon( "junk_throw" );
 
@@ -1175,7 +1175,7 @@ loosejunk( var_0 )
     {
         self waittill( "damage", var_1, var_2, var_3, var_4 );
 
-        if ( !isplayer( var_2 ) && self.helmet > 100 )
+        if ( !isplayer( var_2 ) && self.health > 100 )
             continue;
 
         self unlink();
@@ -1186,7 +1186,7 @@ loosejunk( var_0 )
         self.physlaunched = 1;
         self physicslaunch( self.origin + var_6, maps\_utility::vector_multiply( var_3, 10 ) + ( 0.0, 0.0, 20.0 ) + var_7 );
 
-        if ( self.motiontrackerenabled == "me_corrugated_metal2x4" )
+        if ( self.model == "me_corrugated_metal2x4" )
             thread maps\_utility::_id_69C4( "scn_bmp21_metalplates" );
 
         return;
@@ -1209,20 +1209,20 @@ junk_throw()
 
     for ( var_0 = 0; var_0 < self._id_9882.size; var_0++ )
     {
-        if ( isdefined( self._id_9882[var_0]._id_7ADC ) || self._id_9882[var_0].motiontrackerenabled == "axis" )
+        if ( isdefined( self._id_9882[var_0]._id_7ADC ) || self._id_9882[var_0].model == "axis" )
             continue;
 
         var_1 = 17;
         var_2 = 80000;
         var_3 = randomfloat( 0.7 );
 
-        if ( self._id_9882[var_0].motiontrackerenabled == "com_barrel_blue" || self._id_9882[var_0].motiontrackerenabled == "com_barrel_black" || self._id_9882[var_0].motiontrackerenabled == "com_plasticcase_beige_big" )
+        if ( self._id_9882[var_0].model == "com_barrel_blue" || self._id_9882[var_0].model == "com_barrel_black" || self._id_9882[var_0].model == "com_plasticcase_beige_big" )
         {
             var_2 = 660000;
             var_1 = 23;
             var_3 = randomfloat( 1 );
         }
-        else if ( self._id_9882[var_0].motiontrackerenabled == "me_corrugated_metal2x4" )
+        else if ( self._id_9882[var_0].model == "me_corrugated_metal2x4" )
         {
             var_2 = 1000;
             var_1 = 0;
@@ -1275,10 +1275,10 @@ destructible_assistance()
     self waittill( "trigger", var_0 );
     var_0 maps\_vehicle::_id_4258();
     var_0 notify( "stop_friendlyfire_shield" );
-    var_0.helmet = 1;
+    var_0.health = 1;
 
     if ( var_0 common_scripts\utility::_id_50F2() )
-        var_0 notify( "damage", 5000, level.playercardbackground, ( 1.0, 1.0, 1.0 ), var_0.origin, "mod_explosive", var_0.motiontrackerenabled, undefined );
+        var_0 notify( "damage", 5000, level.player, ( 1.0, 1.0, 1.0 ), var_0.origin, "mod_explosive", var_0.model, undefined );
     else
         var_0 notify( "death" );
 }
@@ -1338,7 +1338,7 @@ heli_mg_burst( var_0 )
 
 playerinhelitargetsights_orrandom( var_0 )
 {
-    var_1 = distance( var_0.origin, level.playercardbackground.origin ) < 32;
+    var_1 = distance( var_0.origin, level.player.origin ) < 32;
 
     if ( !var_1 && randomint( 25 ) > 18 )
         var_1 = 1;
@@ -1379,7 +1379,7 @@ shootnearest_non_hero_friend()
     if ( !var_1.size )
         return;
 
-    var_3 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_1 );
+    var_3 = common_scripts\utility::_id_3F33( level.player.origin, var_1 );
     shootspotoncewithmissile( var_3 gettagorigin( "J_Head" ) );
 }
 
@@ -1410,7 +1410,7 @@ shootenemytarget( var_0, var_1 )
     var_3 = var_0;
     var_4 = 0;
 
-    while ( self.helmet > 0 )
+    while ( self.health > 0 )
     {
         if ( level.lock_on_player )
         {
@@ -1484,7 +1484,7 @@ shootenemytarget( var_0, var_1 )
 
 missile_offshoot()
 {
-    var_0 = common_scripts\utility::_id_40FB( self._not_team, "targetname" );
+    var_0 = common_scripts\utility::_id_40FB( self.target, "targetname" );
     self._id_7942 = "missile";
     var_0.offshoot_ent = self;
     self.oldmissiletype = 0;
@@ -1496,7 +1496,7 @@ sound_emitter()
 {
     var_0 = common_scripts\utility::_id_3DC3();
     var_1 = undefined;
-    var_2 = self.script_parentname;
+    var_2 = self.script_noteworthy;
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
@@ -1523,7 +1523,7 @@ sound_emitter_single( var_0 )
 
 ambient_setter()
 {
-    var_0 = getvehiclenode( self._not_team, "targetname" );
+    var_0 = getvehiclenode( self.target, "targetname" );
     self hide();
     var_1 = self.ambient;
     var_0 waittill( "trigger" );
@@ -1543,7 +1543,7 @@ whackamole_unload( var_0 )
     self waittill( "unloading" );
     var_0._id_28B4 = undefined;
     var_0 _meth_81ce( "crouch", "stand", "prone" );
-    var_0.ignoreforfixednodesafecheck = 0;
+    var_0.ignoreall = 0;
     wait 1;
     var_0 unlink();
 }
@@ -1598,7 +1598,7 @@ whackamole_on( var_0 )
     var_0.whackamole_on = 1;
     var_0._id_28B4 = "stand";
     var_0 _meth_81ce( "stand" );
-    var_0.ignoreforfixednodesafecheck = 0;
+    var_0.ignoreall = 0;
     var_0 thread animscripts\utility::_id_9AF5();
     self.whackamolecount++;
 }
@@ -1609,7 +1609,7 @@ whackamole_off( var_0 )
     var_0 endon( "death" );
     var_0.whackamole_on = 0;
     var_0._id_28B4 = "crouch";
-    var_0.ignoreforfixednodesafecheck = 1;
+    var_0.ignoreall = 1;
     var_0 _meth_81ce( "crouch" );
     var_0 thread animscripts\utility::_id_9AF5();
     var_0._id_18B0 = 0;
@@ -1671,12 +1671,12 @@ ghetto_tag()
     if ( !isdefined( level.ghettotag ) )
         level.ghettotag = [];
 
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
-    if ( !isdefined( level.ghettotag[var_0.motiontrackerenabled] ) )
-        level.ghettotag[var_0.motiontrackerenabled] = [];
+    if ( !isdefined( level.ghettotag[var_0.model] ) )
+        level.ghettotag[var_0.model] = [];
 
-    level.ghettotag[var_0.motiontrackerenabled][level.ghettotag[var_0.motiontrackerenabled].size] = maps\_vehicle_code::_id_418A( var_0 );
+    level.ghettotag[var_0.model][level.ghettotag[var_0.model].size] = maps\_vehicle_code::_id_418A( var_0 );
 }
 
 trigger_sparks_on()
@@ -1702,8 +1702,8 @@ attack_dummy_path()
     var_0 = setup_throwchain_dummy_path( self );
     var_1 = 0;
 
-    if ( isdefined( self.script_lightset ) )
-        var_1 = self.script_lightset;
+    if ( isdefined( self.script_delay ) )
+        var_1 = self.script_delay;
 
     var_2 = getent( self._id_7A26, "script_linkname" );
     var_2 waittill( "trigger", var_3 );
@@ -1750,7 +1750,7 @@ ai_rpg_tunnel_stop()
     level endon( "bridge_zakhaev_setup" );
     var_0 = getaiarray( "allies", "neutral" );
 
-    while ( level.playercardbackground istouching( self ) )
+    while ( level.player istouching( self ) )
     {
         foreach ( var_2 in var_0 )
         {
@@ -1774,7 +1774,7 @@ fliptruck_ghettoanimate()
 {
     var_0 = setup_throwchain( self );
     var_1 = getvehiclenode( self._id_7A26, "script_linkname" );
-    var_2 = getvehiclenode( var_1.teambalanced, "target" );
+    var_2 = getvehiclenode( var_1.targetname, "target" );
     var_2 waittill( "trigger", var_3 );
     var_4 = gettime();
     var_5 = var_3.origin;
@@ -1786,8 +1786,8 @@ fliptruck_ghettoanimate()
 
     if ( var_3 == level.playersride )
     {
-        level.playercardbackground unlink();
-        level.playercardbackground playerlinktodelta( level.playerlinkmodel, "polySurface1", level.playerlinkinfluence );
+        level.player unlink();
+        level.player playerlinktodelta( level.playerlinkmodel, "polySurface1", level.playerlinkinfluence );
     }
 
     if ( isdefined( level.fxplay_model ) )
@@ -1813,7 +1813,7 @@ jeepride_custom_vehicle_to_dummy( var_0, var_1 )
     self notify( "kill_treads_forever" );
     maps\jeepride_fx::transfer_ghettotag_to( var_0, undefined, var_1 );
 
-    if ( self.visionsetnaked == "bm21_troops" )
+    if ( self.vehicletype == "bm21_troops" )
     {
         self notify( "stop_tire_deflate" );
         var_0 thread kill_all_guys_on_animend();
@@ -1885,7 +1885,7 @@ animated_crash( var_0, var_1, var_2 )
     {
         var_5 = var_0.angles;
         var_6 = var_0.origin;
-        var_7 = var_0.motiontrackerenabled;
+        var_7 = var_0.model;
         var_0 hide();
         var_8 = var_0;
         var_0 = spawn( "script_model", var_6 );
@@ -1963,7 +1963,7 @@ _id_37BA( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_1 ) )
         var_1 = 1;
 
-    if ( self.visionsetnaked == "hind" )
+    if ( self.vehicletype == "hind" )
     {
         var_4[0] = "tag_missile_left";
         var_4[1] = "tag_missile_right";
@@ -2009,7 +2009,7 @@ _id_37BA( var_0, var_1, var_2, var_3 )
             thread maps\_utility::_id_69C5( "scn_bridge_weap_hind_rocket_fire", var_4[var_6] );
         }
 
-        if ( isdefined( var_2.visionsetnaked ) && var_2.visionsetnaked == "hind" )
+        if ( isdefined( var_2.vehicletype ) && var_2.vehicletype == "hind" )
             var_9 _meth_81dc( var_2, ( 0.0, 0.0, -56.0 ) );
         else if ( var_2.oldmissiletype )
             var_9 _meth_81dc( var_2, ( 80.0, 20.0, -200.0 ) );
@@ -2026,23 +2026,23 @@ _id_37BA( var_0, var_1, var_2, var_3 )
 
 script_playerlink_org()
 {
-    if ( isdefined( level.playercardbackground.script_linker_model ) )
-        return level.playercardbackground.script_linker_model;
+    if ( isdefined( level.player.script_linker_model ) )
+        return level.player.script_linker_model;
 
-    level.playercardbackground.script_linker_model = spawn( "script_model", level.playercardbackground.origin );
-    level.playercardbackground.script_linker_model setmodel( "axis" );
-    return level.playercardbackground.script_linker_model;
+    level.player.script_linker_model = spawn( "script_model", level.player.origin );
+    level.player.script_linker_model setmodel( "axis" );
+    return level.player.script_linker_model;
 }
 
 view_turn( var_0, var_1 )
 {
     var_1 = 1;
     var_2 = script_playerlink_org();
-    var_2.angles = level.playercardbackground getplayerangles();
-    var_3 = spawn( "script_origin", level.playercardbackground.origin );
-    var_3.origin = level.playercardbackground geteye();
-    var_3.angles = level.playercardbackground getplayerangles();
-    level.playercardbackground playerlinktoabsolute( var_2, "polySurface1" );
+    var_2.angles = level.player getplayerangles();
+    var_3 = spawn( "script_origin", level.player.origin );
+    var_3.origin = level.player geteye();
+    var_3.angles = level.player getplayerangles();
+    level.player playerlinktoabsolute( var_2, "polySurface1" );
     var_4 = vectortoangles( vectornormalize( var_0 - var_3.origin ) );
     var_5 = 0.5;
     var_2 rotateto( var_4, var_5, 0.2, 0.2 );
@@ -2072,7 +2072,7 @@ delaythread_loc( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 twobuttonspressed( var_0, var_1 )
 {
-    return level.playercardbackground buttonpressed( var_0 ) && level.playercardbackground buttonpressed( var_1 );
+    return level.player buttonpressed( var_0 ) && level.player buttonpressed( var_1 );
 }
 
 jeepride_start_dumphandle()
@@ -2127,7 +2127,7 @@ sync_vehicle()
 {
     var_0 = level.vehicle_spawners[self._id_9A29];
     var_1 = self;
-    var_2 = getvehiclenode( self._not_team, "targetname" );
+    var_2 = getvehiclenode( self.target, "targetname" );
     var_3 = maps\_vehicle::_id_9D41( var_0 );
     var_3 notify( "newpath" );
     var_3.origin = self.origin + ( 0.0, 0.0, 555.0 );
@@ -2138,10 +2138,10 @@ sync_vehicle()
     if ( isdefined( var_1._id_79FD ) )
         var_3 maps\jeepride_fx::apply_ghettotag();
 
-    if ( isdefined( var_1.script_lightset ) )
-        level.startdelay = var_1.script_lightset;
+    if ( isdefined( var_1.script_delay ) )
+        level.startdelay = var_1.script_delay;
 
-    var_4 = getvehiclenode( var_2.script_parentname, "targetname" );
+    var_4 = getvehiclenode( var_2.script_noteworthy, "targetname" );
     var_3 setswitchnode( var_2, var_4 );
     var_3._id_0DF6 = var_4;
     var_3 thread maps\_vehicle::_id_9D17();
@@ -2157,7 +2157,7 @@ hillbump()
     if ( common_scripts\utility::_id_382E( "slam_zoom_done" ) )
     {
         level.playersride playrumbleonentity( "tank_rumble" );
-        thread common_scripts\utility::_id_69C2( "jeepride_grassride_thud", level.playercardbackground.origin, 1 );
+        thread common_scripts\utility::_id_69C2( "jeepride_grassride_thud", level.player.origin, 1 );
     }
 
     for ( var_1 = 0; var_1 < 6; var_1++ )
@@ -2171,10 +2171,10 @@ hillbump()
         var_0 joltbody( var_0.origin + ( 23.0, 33.0, 64.0 ), 0.6 );
 
         if ( var_0 == level.playersride )
-            earthquake( 0.15, 1, level.playercardbackground.origin, 1000 );
+            earthquake( 0.15, 1, level.player.origin, 1000 );
 
         wait(0.2 + randomfloat( 0.2 ));
-        thread common_scripts\utility::_id_69C2( "jeepride_grassride_through", level.playercardbackground.origin, 1 );
+        thread common_scripts\utility::_id_69C2( "jeepride_grassride_through", level.player.origin, 1 );
     }
 }
 
@@ -2200,8 +2200,8 @@ sideswipe()
     var_1 = distance( var_0.origin, level.playersride.origin );
     var_2 = maps\_utility::vector_multiply( vectornormalize( var_0.origin - level.playersride.origin ), var_1 / 2 ) + level.playersride.origin + ( 0.0, 0.0, 48.0 );
     level.playersride maps\_utility::_id_69C4( "jeepride_sideswipe" );
-    earthquake( 0.45, 1, level.playercardbackground.origin, 1000 );
-    level.playercardbackground playrumbleonentity( "tank_rumble" );
+    earthquake( 0.45, 1, level.player.origin, 1000 );
+    level.player playrumbleonentity( "tank_rumble" );
 }
 
 jolter()
@@ -2307,12 +2307,12 @@ setfxplayer()
 
 exploder_hack()
 {
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
     var_0 = self._id_79BF;
     var_1 = undefined;
-    var_2 = getentarray( self._not_team, "targetname" );
+    var_2 = getentarray( self.target, "targetname" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
@@ -2341,7 +2341,7 @@ exploder_damager_trigger_by_hind()
         if ( !isdefined( var_1 ) )
             continue;
 
-        if ( isdefined( var_1.visionsetnaked ) && var_1.visionsetnaked == "hind" )
+        if ( isdefined( var_1.vehicletype ) && var_1.vehicletype == "hind" )
             self notify( "trigger" );
     }
 }
@@ -2357,7 +2357,7 @@ exploder_loc( var_0, var_1 )
 
 exploder_animate()
 {
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
     var_0 = self._id_79BF;
@@ -2366,12 +2366,12 @@ exploder_animate()
         var_0 = self._id_7AA6;
 
     exploder_linktargets();
-    var_1 = common_scripts\utility::_id_40FB( self._not_team, "targetname" );
+    var_1 = common_scripts\utility::_id_40FB( self.target, "targetname" );
 
     if ( !isdefined( var_1 ) )
         return;
 
-    self._not_team = undefined;
+    self.target = undefined;
     var_2 = setup_throwchain( var_1 );
     level waittill( "exploded_" + var_0 );
     var_3 = spawn( "script_model", var_1.origin );
@@ -2387,7 +2387,7 @@ exploder_animate()
     if ( isdefined( level.exploder_fast[var_0] ) && level.exploder_fast[var_0] )
         var_4 = 1;
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "movekiller" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "movekiller" )
         thread enable_move_killer();
 
     ghetto_animate_through_chain( var_2, var_3, undefined, undefined, var_4 );
@@ -2400,7 +2400,7 @@ exploder_tankersparker_links()
 
     for ( var_1 = 0; var_1 < self.linkedtargets.size; var_1++ )
     {
-        if ( self.linkedtargets[var_1].motiontrackerenabled == "axis" )
+        if ( self.linkedtargets[var_1].model == "axis" )
             var_0[var_0.size] = self.linkedtargets[var_1];
     }
 
@@ -2439,11 +2439,11 @@ enable_move_killer()
 
     for (;;)
     {
-        if ( level.playercardbackground istouching( self ) )
+        if ( level.player istouching( self ) )
         {
-            level.playercardbackground enablehealthshield( 0 );
-            radiusdamage( level.playercardbackground.origin, 8, level.playercardbackground.helmet + 5, level.playercardbackground.helmet + 5 );
-            level.playercardbackground enablehealthshield( 1 );
+            level.player enablehealthshield( 0 );
+            radiusdamage( level.player.origin, 8, level.player.health + 5, level.player.health + 5 );
+            level.player enablehealthshield( 1 );
         }
 
         wait 0.05;
@@ -2457,15 +2457,15 @@ exploder_showlinks()
 
     for ( var_0 = 0; var_0 < self.linkedtargets.size; var_0++ )
     {
-        if ( isdefined( self.linkedtargets[var_0].script_parentname ) && self.linkedtargets[var_0].script_parentname == "tanker_sparkers" )
+        if ( isdefined( self.linkedtargets[var_0].script_noteworthy ) && self.linkedtargets[var_0].script_noteworthy == "tanker_sparkers" )
         {
             self.is_end_tanker = 1;
             continue;
         }
-        else if ( self.linkedtargets[var_0].motiontrackerenabled == "axis" )
+        else if ( self.linkedtargets[var_0].model == "axis" )
             continue;
 
-        if ( self.motiontrackerenabled == "axis" )
+        if ( self.model == "axis" )
             continue;
 
         self.linkedtargets[var_0] show();
@@ -2474,7 +2474,7 @@ exploder_showlinks()
 
 exploder_linktargets()
 {
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -2525,16 +2525,16 @@ smokey_transition( var_0, var_1, var_2 )
 smoke_transition_elem( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = newhudelem();
-    var_7.space = var_6;
-    var_7.xpmaxmultipliertimeplayed = var_0;
-    var_7._id_0538 = var_1;
+    var_7.sort = var_6;
+    var_7.x = var_0;
+    var_7.y = var_1;
     var_8 = 1;
     var_9 = 1;
 
-    if ( var_7.xpmaxmultipliertimeplayed > 0 )
+    if ( var_7.x > 0 )
         var_8 = -1;
 
-    if ( var_7._id_0538 > 0 )
+    if ( var_7.y > 0 )
         var_9 = -1;
 
     var_10 = randomintrange( 200, 1200 ) * var_8;
@@ -2544,13 +2544,13 @@ smoke_transition_elem( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7 setshader( "jeepride_smoke_transition_overlay", var_13, var_13 );
     var_7.alignx = "center";
     var_7.aligny = "middle";
-    var_7.hostquits = "center";
-    var_7.visionsetnight = "middle";
+    var_7.horzalign = "center";
+    var_7.vertalign = "middle";
     var_7.alpha = 0;
     var_7.foreground = 1;
     var_7 moveovertime( var_2 + var_3 + var_4 );
-    var_7.xpmaxmultipliertimeplayed += var_10;
-    var_7._id_0538 += var_11;
+    var_7.x += var_10;
+    var_7.y += var_11;
     var_14 = randomfloatrange( 4, 6 );
     var_13 = int( var_13 * var_14 );
 
@@ -2579,9 +2579,9 @@ setup_throwchain_dummy_path( var_0 )
         var_2[var_1] = var_0;
         var_1++;
 
-        if ( isdefined( var_0._not_team ) )
+        if ( isdefined( var_0.target ) )
         {
-            var_0 = common_scripts\utility::_id_40FD( var_0._not_team, "targetname" )[0];
+            var_0 = common_scripts\utility::_id_40FD( var_0.target, "targetname" )[0];
             continue;
         }
 
@@ -2597,7 +2597,7 @@ setup_throwchain_dummy_path( var_0 )
 setup_throwchain_dummy_path_clearjunkvars()
 {
     self.angles = undefined;
-    self.motiontrackerenabled = undefined;
+    self.model = undefined;
 }
 
 setup_throwchain( var_0 )
@@ -2615,9 +2615,9 @@ setup_throwchain( var_0 )
         var_2[var_1] = var_0;
         var_1++;
 
-        if ( isdefined( var_0._not_team ) )
+        if ( isdefined( var_0.target ) )
         {
-            var_0 = common_scripts\utility::_id_40FD( var_0._not_team, "targetname" )[0];
+            var_0 = common_scripts\utility::_id_40FD( var_0.target, "targetname" )[0];
             continue;
         }
 
@@ -2632,7 +2632,7 @@ setup_throwchain( var_0 )
 
 setup_throwchain_clearjunkvars()
 {
-    self.motiontrackerenabled = undefined;
+    self.model = undefined;
 }
 
 ghetto_animate_through_chain( var_0, var_1, var_2, var_3, var_4 )
@@ -2663,8 +2663,8 @@ ghetto_animate_through_chain( var_0, var_1, var_2, var_3, var_4 )
         var_10 = var_0[var_6 + 1];
         var_11 = 0;
 
-        if ( isdefined( var_9.sprint_begin ) )
-            var_2 = var_9.sprint_begin;
+        if ( isdefined( var_9.speed ) )
+            var_2 = var_9.speed;
 
         var_12 = var_2;
 
@@ -2686,10 +2686,10 @@ ghetto_animate_through_chain( var_0, var_1, var_2, var_3, var_4 )
 
         if ( isdefined( var_9._id_7A99 ) && var_9._id_7A99 == "badplace" )
         {
-            if ( !isdefined( var_9.rank ) )
-                var_9.rank = 600;
+            if ( !isdefined( var_9.radius ) )
+                var_9.radius = 600;
 
-            badplace_cylinder( "dummypath_badplace", 1, var_9.origin, var_9.rank, 512, "allies", "axis" );
+            badplace_cylinder( "dummypath_badplace", 1, var_9.origin, var_9.radius, 512, "allies", "axis" );
         }
 
         if ( isdefined( var_9._id_79DA ) )
@@ -2697,8 +2697,8 @@ ghetto_animate_through_chain( var_0, var_1, var_2, var_3, var_4 )
 
         if ( !var_3 )
         {
-            if ( isdefined( var_9.script_lightset ) )
-                wait(var_9.script_lightset);
+            if ( isdefined( var_9.script_delay ) )
+                wait(var_9.script_delay);
         }
 
         if ( isdefined( var_9._id_7ACA ) )
@@ -2709,13 +2709,13 @@ ghetto_animate_through_chain( var_0, var_1, var_2, var_3, var_4 )
                 var_1 thread maps\_utility::_id_69C4( var_9._id_7ACA );
         }
 
-        if ( isdefined( var_9.script_parentname ) )
+        if ( isdefined( var_9.script_noteworthy ) )
         {
-            if ( var_9.script_parentname == "gravity" )
+            if ( var_9.script_noteworthy == "gravity" )
                 var_5 = 1;
         }
 
-        if ( var_1.motiontrackerenabled == "vehicle_uaz_open_for_ride" && var_6 == 0 )
+        if ( var_1.model == "vehicle_uaz_open_for_ride" && var_6 == 0 )
             var_1 thread ride_smoker();
 
         if ( isdefined( var_9._id_792A ) )
@@ -2740,11 +2740,11 @@ ghetto_animate_through_chain( var_0, var_1, var_2, var_3, var_4 )
         if ( isdefined( var_10._id_79A0 ) )
             _id_79A0( var_10._id_79A0 );
 
-        if ( isdefined( var_10.script_parentname ) )
+        if ( isdefined( var_10.script_noteworthy ) )
         {
-            level notify( var_10.script_parentname );
+            level notify( var_10.script_noteworthy );
 
-            if ( var_10.script_parentname == "delete" )
+            if ( var_10.script_noteworthy == "delete" )
             {
                 self delete();
                 return;
@@ -2772,14 +2772,14 @@ _id_79A0( var_0 )
 
 bridge_bumper()
 {
-    var_0 = spawn( "script_origin", level.playercardbackground.origin );
-    var_0 linkto( level.playercardbackground );
+    var_0 = spawn( "script_origin", level.player.origin );
+    var_0 linkto( level.player );
 
     for (;;)
     {
         level waittill( "bridge_bump" );
         var_0 playrumbleonentity( "jeepride_bridgesink" );
-        earthquake( 0.25, 1, level.playercardbackground.origin, 1000 );
+        earthquake( 0.25, 1, level.player.origin, 1000 );
     }
 }
 
@@ -2825,7 +2825,7 @@ movewithrate( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     if ( var_4 )
     {
-        self movegravity( self.visionsetnakedduration, var_8 );
+        self movegravity( self.velocity, var_8 );
         self rotateto( var_1, var_8, var_10, var_11 );
 
         if ( isdefined( self.linkedobject.linkedtargets ) )
@@ -2869,7 +2869,7 @@ movewithrate( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( !isdefined( self ) )
         return;
 
-    self.visionsetnakedduration = maps\_utility::vector_multiply( var_9, var_7 / var_8 );
+    self.velocity = maps\_utility::vector_multiply( var_9, var_7 / var_8 );
     self.movefinished = 1;
 }
 
@@ -2881,7 +2881,7 @@ clear_all_vehicles_but_heros_and_hind()
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( var_0[var_2].visionsetnaked == "hind" )
+        if ( var_0[var_2].vehicletype == "hind" )
         {
             self notify( "gunner_new_target" );
             continue;
@@ -2956,7 +2956,7 @@ clearenemy_loc()
 
 tire_deflate()
 {
-    if ( self.visionsetnaked != "bm21_troops" )
+    if ( self.vehicletype != "bm21_troops" )
         return;
 
     if ( common_scripts\utility::_id_382E( "end_ride" ) )
@@ -3057,18 +3057,18 @@ vehicle_turret_think()
     var_1[1] = level.griggs;
     var_1[2] = level._id_3C61;
     var_2 = undefined;
-    self setturrettargetent( level.playercardbackground );
+    self setturrettargetent( level.player );
     thread vehicle_mgmanage();
 
     for (;;)
     {
         wait 0.05;
-        var_0 = level.playercardbackground;
+        var_0 = level.player;
 
         if ( isdefined( var_0 ) && isplayer( var_0 ) )
         {
             var_3 = 0;
-            var_3 = sighttracepassed( self gettagorigin( "tag_flash" ), level.playercardbackground geteye(), 1, self );
+            var_3 = sighttracepassed( self gettagorigin( "tag_flash" ), level.player geteye(), 1, self );
 
             if ( !var_3 )
                 var_0 = vehicle_get_target( var_1 );
@@ -3133,19 +3133,19 @@ vehicle_get_target( var_0 )
 
 vehicle_badplacer()
 {
-    var_0 = getvehiclenode( self._not_team, "targetname" );
+    var_0 = getvehiclenode( self.target, "targetname" );
     var_0 waittill( "trigger", var_1 );
     var_2 = 500;
 
-    if ( isdefined( self.rank ) )
-        var_2 = self.rank;
+    if ( isdefined( self.radius ) )
+        var_2 = self.radius;
 
     var_3 = 3;
 
     if ( isdefined( self._id_7A8E ) )
         var_3 = self._id_7A8E;
 
-    badplace_cylinder( "badplacer_" + var_0.teambalanced, var_3, self.origin, var_2, 300, "allies", "axis" );
+    badplace_cylinder( "badplacer_" + var_0.targetname, var_3, self.origin, var_2, 300, "allies", "axis" );
 }
 
 path_array_setup_loc( var_0 )
@@ -3159,9 +3159,9 @@ path_array_setup_loc( var_0 )
         var_3[var_2] = var_0;
         var_2++;
 
-        if ( isdefined( var_0._not_team ) )
+        if ( isdefined( var_0.target ) )
         {
-            var_0 = [[ var_1 ]]( var_0._not_team );
+            var_0 = [[ var_1 ]]( var_0.target );
             continue;
         }
 
@@ -3344,11 +3344,11 @@ guy_hide_attack_left_standing( var_0, var_1 )
 
 remember_weaponsondeath( var_0 )
 {
-    if ( !isdefined( self.weapon_switch_invalid ) )
+    if ( !isdefined( self.weapon ) )
         return;
 
     var_1 = [];
-    var_1[0] = "weapon_" + self.weapon_switch_invalid;
+    var_1[0] = "weapon_" + self.weapon;
     var_1[1] = "weapon_" + self.primaryweapon;
     var_1[2] = "weapon_" + self.secondaryweapon;
     level.potentialweaponitems = maps\_utility::_id_0CF2( level.potentialweaponitems, var_1 );
@@ -3434,10 +3434,10 @@ hidemeuntilflag()
 
 ishero()
 {
-    if ( !isdefined( self.script_parentname ) )
+    if ( !isdefined( self.script_noteworthy ) )
         return 0;
 
-    return self.script_parentname == "price" || self.script_parentname == "griggs" || self.script_parentname == "gaz" || self.script_parentname == "medic";
+    return self.script_noteworthy == "price" || self.script_noteworthy == "griggs" || self.script_noteworthy == "gaz" || self.script_noteworthy == "medic";
 }
 
 crazy_bmp()
@@ -3494,7 +3494,7 @@ blead( var_0 )
         var_0 = 45;
 
     var_1 = maps\_utility::_id_4417( self gettagorigin( "J_Head" ) );
-    var_1 += maps\_utility::vector_multiply( vectornormalize( common_scripts\utility::_id_38C9( level.playercardbackground.origin ) - common_scripts\utility::_id_38C9( var_1 ) ), var_0 );
+    var_1 += maps\_utility::vector_multiply( vectornormalize( common_scripts\utility::_id_38C9( level.player.origin ) - common_scripts\utility::_id_38C9( var_1 ) ), var_0 );
     wait 0.5;
     playfx( level._effect["bloodpool"], var_1 + ( 15.0, 35.0, 0.0 ), ( 0.0, 0.0, 1.0 ) );
 }
@@ -3565,7 +3565,7 @@ exploder_phys()
     if ( self.classname != "script_model" )
         return;
 
-    if ( !issubstr( self.motiontrackerenabled, "com_debris" ) )
+    if ( !issubstr( self.model, "com_debris" ) )
         return;
 
     level waittill( "exploded_" + self._id_79BF );
@@ -3578,7 +3578,7 @@ layer_of_death_ai_mode( var_0, var_1 )
     self._id_1300 = var_0;
 
     if ( var_1 )
-        self.favoriteenemy = level.playercardbackground;
+        self.favoriteenemy = level.player;
     else
         self.favoriteenemy = undefined;
 }
@@ -3692,7 +3692,7 @@ set_layer_of_death( var_0 )
     level.last_layer_of_death = var_0;
     var_1 = layer_of_death_getlayer( var_0 );
     common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::layer_of_death_ai_mode, var_1["baseaccuracy"], var_1["playerisfavoriteenemy"] );
-    level.playercardbackground.threatsightdelayfalloff = var_1["threatbias"];
+    level.player.threatbias = var_1["threatbias"];
     level notify( "layer_of_death" );
 
     if ( var_0 == 4 )
@@ -3932,7 +3932,7 @@ hind_bombplayer()
             var_4 = 200;
             var_5 = 300;
 
-            if ( level.playercardbackground.helmet != level.playercardbackground.maxturnspeed )
+            if ( level.player.health != level.player.maxhealth )
             {
                 var_4 = 400;
                 var_5 = 600;
@@ -3940,7 +3940,7 @@ hind_bombplayer()
 
             var_6 = undefined;
 
-            if ( level.playercardbackground.helmet == level.playercardbackground.maxturnspeed )
+            if ( level.player.health == level.player.maxhealth )
                 var_6 = nearby_non_hero();
 
             if ( isdefined( var_3 ) )
@@ -3948,10 +3948,10 @@ hind_bombplayer()
             else if ( isdefined( var_6 ) )
                 var_7 = var_6[var_2].origin;
             else
-                var_7 = random_outer_box( level.playercardbackground.origin, var_4, var_5 );
+                var_7 = random_outer_box( level.player.origin, var_4, var_5 );
 
             if ( player_in_blastradius() )
-                var_7 = level.playercardbackground geteye();
+                var_7 = level.player geteye();
 
             var_0 shootspotoncewithmissile( var_7 );
         }
@@ -3962,7 +3962,7 @@ hind_bombplayer()
 
 player_in_blastradius()
 {
-    if ( distance( ( -36286.3, -17573.5, 0.0 ), common_scripts\utility::_id_38C9( level.playercardbackground.origin ) ) < 962.438 )
+    if ( distance( ( -36286.3, -17573.5, 0.0 ), common_scripts\utility::_id_38C9( level.player.origin ) ) < 962.438 )
         return 1;
 
     return 0;
@@ -3991,7 +3991,7 @@ nearby_destry_at_end_vehicle()
 {
     var_0 = undefined;
 
-    if ( level.playercardbackground.helmet != level.playercardbackground.maxturnspeed )
+    if ( level.player.health != level.player.maxhealth )
         return var_0;
 
     var_1 = gettime() + 10000;
@@ -4007,7 +4007,7 @@ nearby_destry_at_end_vehicle()
     if ( !var_3.size )
         return var_0;
 
-    var_0 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_3, 500 );
+    var_0 = common_scripts\utility::_id_3F33( level.player.origin, var_3, 500 );
     return var_0;
 }
 
@@ -4021,7 +4021,7 @@ drag_shots()
     level endon( "stop_drag_shots" );
     var_0 = 4;
     var_1 = 0.4;
-    var_2 = getent( self._not_team, "targetname" );
+    var_2 = getent( self.target, "targetname" );
     var_3 = self.origin;
     var_4 = var_2.origin;
 
@@ -4110,10 +4110,10 @@ ride_smoker()
 
 player_kill()
 {
-    level.playercardbackground enablehealthshield( 0 );
-    level.playercardbackground disableinvulnerability();
-    level.playercardbackground kill();
-    level.playercardbackground enablehealthshield( 1 );
+    level.player enablehealthshield( 0 );
+    level.player disableinvulnerability();
+    level.player kill();
+    level.player enablehealthshield( 1 );
 }
 
 _id_17F9()
@@ -4127,9 +4127,9 @@ _id_17F9()
 
 player_fudge_rotateto( var_0, var_1 )
 {
-    var_2 = spawn( "script_origin", level.playercardbackground.origin );
-    var_2.origin = level.playercardbackground geteye();
-    var_2.angles = level.playercardbackground getplayerangles();
+    var_2 = spawn( "script_origin", level.player.origin );
+    var_2.origin = level.player geteye();
+    var_2.angles = level.player getplayerangles();
 
     if ( !isdefined( var_1 ) )
         var_1 = 0.5;
@@ -4139,7 +4139,7 @@ player_fudge_rotateto( var_0, var_1 )
 
     for ( var_4 = 0; var_4 < var_3; var_4++ )
     {
-        level.playercardbackground setplayerangles( var_2.angles );
+        level.player setplayerangles( var_2.angles );
         wait 0.05;
     }
 }
@@ -4178,13 +4178,13 @@ exp_fade_overlay( var_0, var_1 )
 _id_23D0( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
+    var_2.x = 0;
+    var_2.y = 0;
     var_2 setshader( var_0, 640, 480 );
     var_2.alignx = "left";
     var_2.aligny = "top";
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2.foreground = 1;
     var_2.alpha = var_1;
 
@@ -4212,12 +4212,12 @@ rescue_scene_patrol_01()
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( isdefined( var_0[var_2].rescue_patroler ) && var_0[var_2].rescue_patroler == self.teambalanced )
+        if ( isdefined( var_0[var_2].rescue_patroler ) && var_0[var_2].rescue_patroler == self.targetname )
             var_1[var_1.size] = var_0[var_2];
     }
 
     var_3 = common_scripts\utility::_id_3CCB( self.origin, var_0, var_1, 1 )[0];
-    var_3.rescue_patroler = self.teambalanced;
+    var_3.rescue_patroler = self.targetname;
 
     if ( isdefined( var_3._id_750E ) )
     {
@@ -4227,8 +4227,8 @@ rescue_scene_patrol_01()
 
     var_3 _meth_81ca( self.origin, ( 0.0, 0.0, 0.0 ) );
 
-    if ( isdefined( self._not_team ) )
-        var_3 thread maps\_patrol::_id_66FC( self._not_team );
+    if ( isdefined( self.target ) )
+        var_3 thread maps\_patrol::_id_66FC( self.target );
 }
 
 flag_sound( var_0 )
@@ -4248,7 +4248,7 @@ fake_water_tread()
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( var_0[var_2].visionsetnaked == "hind" )
+        if ( var_0[var_2].vehicletype == "hind" )
             var_1 = var_0[var_2];
     }
 
@@ -4276,7 +4276,7 @@ crashed_vehicles_setup()
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = getentarray( var_2.script_parentname, "script_noteworthy" );
+        var_3 = getentarray( var_2.script_noteworthy, "script_noteworthy" );
         var_3 = common_scripts\utility::_id_0CF7( var_3, var_0 );
         common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_0798, ::delete_crashed_vehicle, var_2 );
     }
@@ -4287,10 +4287,10 @@ delete_crashed_vehicle( var_0 )
     var_0 waittill( "trigger" );
     maps\_vehicle::_id_4258();
     self notify( "stop_friendlyfire_shield" );
-    self.helmet = 1;
+    self.health = 1;
 
     if ( common_scripts\utility::_id_50F2() )
-        self notify( "damage", 5000, level.playercardbackground, ( 1.0, 1.0, 1.0 ), self.origin, "mod_explosive", self.motiontrackerenabled, undefined );
+        self notify( "damage", 5000, level.player, ( 1.0, 1.0, 1.0 ), self.origin, "mod_explosive", self.model, undefined );
     else
         self notify( "death" );
 }
@@ -4327,13 +4327,13 @@ limp()
 {
     level endon( "stop_limp" );
     level._id_4413 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground playersetgroundreferenceent( level._id_4413 );
+    level.player playersetgroundreferenceent( level._id_4413 );
     var_0 = 0;
     var_1 = 0;
 
     for (;;)
     {
-        var_2 = level.playercardbackground getvelocity();
+        var_2 = level.player getvelocity();
         var_3 = abs( var_2[0] ) + abs( var_2[1] );
 
         if ( var_3 < 10 )
@@ -4368,8 +4368,8 @@ _id_085A( var_0 )
 {
     var_1 = var_0[0];
     var_2 = var_0[2];
-    var_3 = anglestoright( level.playercardbackground.angles );
-    var_4 = anglestoforward( level.playercardbackground.angles );
+    var_3 = anglestoright( level.player.angles );
+    var_4 = anglestoforward( level.player.angles );
     var_5 = ( var_3[0], 0, var_3[1] * -1 );
     var_6 = ( var_4[0], 0, var_4[1] * -1 );
     var_7 = maps\_utility::vector_multiply( var_5, var_1 );
@@ -4400,26 +4400,26 @@ helicopter_show_crash_seq()
 set_final_visionset()
 {
     maps\_utility::_id_9E6C( "jeepride_end_3", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride_end_3" );
+    level.player maps\_utility::set_light_set_player( "jeepride_end_3" );
 }
 
 set_final_visionset_griggsdeath()
 {
     wait 2.1;
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride_end_2" );
+    level.player maps\_utility::set_light_set_player( "jeepride_end_2" );
 }
 
 set_final_visionset_zakaev()
 {
     maps\_utility::_id_9E6C( "jeepride_end_2", 54 );
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride_end_2" );
+    level.player maps\_utility::set_light_set_player( "jeepride_end_2" );
 }
 
 set_final_visionset_rescue()
 {
     maps\_utility::_id_9E6C( "jeepride_end_2", 2 );
     wait 28;
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride_end_3" );
+    level.player maps\_utility::set_light_set_player( "jeepride_end_3" );
 }
 
 bloodtrail_spawn()
@@ -4490,17 +4490,17 @@ player_speedscaling_bridge_seq()
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 2.0 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 2.0 );
     level.player_speed = 200;
-    level.playercardbackground setmovespeedscale( 0.3 );
+    level.player setmovespeedscale( 0.3 );
     wait 7;
-    level.playercardbackground setmovespeedscale( 0.5 );
+    level.player setmovespeedscale( 0.5 );
     wait 2;
-    level.playercardbackground setmovespeedscale( 0.6 );
+    level.player setmovespeedscale( 0.6 );
     wait 2;
-    level.playercardbackground setmovespeedscale( 0.7 );
+    level.player setmovespeedscale( 0.7 );
     wait 1;
-    level.playercardbackground setmovespeedscale( 0.8 );
+    level.player setmovespeedscale( 0.8 );
     wait 1;
-    level.playercardbackground setmovespeedscale( 1 );
+    level.player setmovespeedscale( 1 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 0 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 0 );
 }

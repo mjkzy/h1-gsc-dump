@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_ultra_nationalist_assault_f" );
     precachemodel( "head_spetsnaz_assault_derik" );

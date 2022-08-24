@@ -1133,7 +1133,7 @@ _id_1634( var_0, var_1 )
             if ( isdefined( var_1._id_9CC4 ) )
                 return var_1._id_9CC4;
 
-            if ( isdefined( var_1.unlockpoints ) && ( var_1.unlockpoints == "remote" || var_1.unlockpoints == "odin" ) )
+            if ( isdefined( var_1.type ) && ( var_1.type == "remote" || var_1.type == "odin" ) )
                 return var_1;
 
             if ( isdefined( var_1.owner ) )
@@ -1200,7 +1200,7 @@ _id_15A7( var_0 )
     if ( !issubstr( var_0.code_classname, "trigger_use" ) )
         return;
 
-    if ( !isdefined( var_0._not_team ) )
+    if ( !isdefined( var_0.target ) )
         return;
 
     if ( isdefined( var_0._id_170B ) )
@@ -1209,7 +1209,7 @@ _id_15A7( var_0 )
     if ( !isdefined( var_0._id_9BE9 ) )
         return;
 
-    var_1 = getnodearray( var_0._not_team, "targetname" );
+    var_1 = getnodearray( var_0.target, "targetname" );
 
     if ( var_1.size != 1 )
         return;
@@ -1227,7 +1227,7 @@ _id_15A5( var_0 )
     if ( !issubstr( var_0.code_classname, "trigger_damage" ) )
         return;
 
-    var_1 = getnodearray( var_0._not_team, "targetname" );
+    var_1 = getnodearray( var_0.target, "targetname" );
 
     if ( var_1.size != 2 )
         return;
@@ -1366,17 +1366,17 @@ _id_16C3( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     foreach ( var_8, var_7 in level._id_16C6 )
     {
-        if ( var_7.owner == self && var_7.nearz == var_0 )
+        if ( var_7.owner == self && var_7.name == var_0 )
         {
-            self notify( var_7.nearz );
+            self notify( var_7.name );
             level._id_16C6[var_8] = undefined;
         }
     }
 
     var_7 = spawnstruct();
     var_7.owner = self;
-    var_7.nearz = var_0;
-    var_7._id_603E = var_7.nearz + "_done";
+    var_7.name = var_0;
+    var_7._id_603E = var_7.name + "_done";
     var_7._id_3AE4 = var_1;
     var_7._id_6691 = var_2;
     var_7._id_6692 = var_3;

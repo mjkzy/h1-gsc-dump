@@ -266,7 +266,7 @@ anim_human()
 
 play_soz_vo( var_0, var_1 )
 {
-    level.car.passenger.headshots thread maps\_utility::_id_69C4( var_1 );
+    level.car.passenger.head thread maps\_utility::_id_69C4( var_1 );
 }
 
 play_soz_foley( var_0, var_1 )
@@ -526,21 +526,21 @@ playerdeath( var_0 )
 {
     playfxontag( common_scripts\utility::_id_3FA8( "execution_muzzleflash" ), var_0, "tag_flash" );
     playfxontag( common_scripts\utility::_id_3FA8( "execution_shell_eject" ), var_0, "tag_brass" );
-    level.playercardbackground playrumbleonentity( "grenade_rumble" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "assassination_shot" );
+    level.player playrumbleonentity( "grenade_rumble" );
+    level.player thread maps\_utility::_id_69C4( "assassination_shot" );
     wait 0.1;
     var_1 = newhudelem();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 0;
+    var_1.x = 0;
+    var_1.y = 0;
     var_1 setshader( "black", 640, 480 );
     var_1.alignx = "left";
     var_1.aligny = "top";
-    var_1.hostquits = "fullscreen";
-    var_1.visionsetnight = "fullscreen";
+    var_1.horzalign = "fullscreen";
+    var_1.vertalign = "fullscreen";
     var_1.alpha = 1;
-    var_1.space = 1;
+    var_1.sort = 1;
     level notify( "player_death" );
-    level.playercardbackground shellshock( "coup_death", 10 );
+    level.player shellshock( "coup_death", 10 );
     soundscripts\_snd::_id_870C( "start_coup_player_death_mix" );
     wait 4.5;
     maps\_utility::_id_60D6();
@@ -551,7 +551,7 @@ playerthrownincar( var_0 )
     wait 0.3;
     soundscripts\_snd::_id_870C( "aud_coup_car_open" );
     wait 0.25;
-    level.playercardbackground playrumbleonentity( "grenade_rumble" );
+    level.player playrumbleonentity( "grenade_rumble" );
     wait 1.8;
     level.leftguard maps\_utility::_id_69C4( "coup_ab0_move_generic_custom" );
 }
@@ -560,7 +560,7 @@ playerhit( var_0 )
 {
     wait 0.15;
     soundscripts\_snd::_id_870C( "aud_add_stunned_car_event" );
-    level.playercardbackground playrumbleonentity( "grenade_rumble" );
+    level.player playrumbleonentity( "grenade_rumble" );
     setblur( 40, 0.1 );
     maps\_utility::_id_7F00( "coup_hit", 0 );
     setsaveddvar( "r_glow_allowed_script_forced", "0" );
@@ -577,21 +577,21 @@ playerpulledfromcar( var_0 )
     wait 2.15;
     soundscripts\_snd::_id_870C( "aud_coup_car_thrown_out" );
     wait 2.0;
-    level.playercardbackground playrumbleonentity( "grenade_rumble" );
+    level.player playrumbleonentity( "grenade_rumble" );
 }
 
 playerkicked( var_0 )
 {
     wait 0.65;
-    level.playercardbackground playrumbleonentity( "grenade_rumble" );
+    level.player playrumbleonentity( "grenade_rumble" );
 }
 
 playerhitdamage( var_0 )
 {
-    var_1 = level.playercardbackground.helmet * 0.1;
-    var_2 = level.playercardbackground.helmet - var_1;
+    var_1 = level.player.health * 0.1;
+    var_2 = level.player.health - var_1;
     var_3 = var_2 / getdvarfloat( "player_damageMultiplier" );
-    level.playercardbackground dodamage( var_3, level.playercardbackground.origin );
+    level.player dodamage( var_3, level.player.origin );
 }
 
 _id_6C6A( var_0, var_1 )
@@ -607,10 +607,10 @@ _id_6C6A( var_0, var_1 )
 
         var_2 = var_1 / var_0;
 
-        if ( var_2 > level.playercardbackground._id_4441.healthoverlaycutoff )
+        if ( var_2 > level.player._id_4441.healthoverlaycutoff )
             continue;
 
-        level.playercardbackground maps\_utility::_id_69C4( "breathing_hurt" );
+        level.player maps\_utility::_id_69C4( "breathing_hurt" );
         wait(0.1 + randomfloat( 0.8 ));
     }
 }
@@ -750,21 +750,21 @@ crowdfireweapon( var_0 )
 
 shootciviliantrashstumble( var_0 )
 {
-    magicbullet( var_0.weapon_switch_invalid, var_0 gettagorigin( "tag_flash" ), level.runner geteye() );
+    magicbullet( var_0.weapon, var_0 gettagorigin( "tag_flash" ), level.runner geteye() );
 }
 
 shootcivilianinterrogation1( var_0 )
 {
-    magicbullet( var_0.weapon_switch_invalid, var_0 gettagorigin( "tag_flash" ), level.suspect_5b gettagorigin( "tag_stowed_back" ) );
+    magicbullet( var_0.weapon, var_0 gettagorigin( "tag_flash" ), level.suspect_5b gettagorigin( "tag_stowed_back" ) );
 }
 
 shootcivilianexecution( var_0 )
 {
-    var_1 = common_scripts\utility::_id_3DF3( "target_" + var_0._not_team );
+    var_1 = common_scripts\utility::_id_3DF3( "target_" + var_0.target );
 
     for ( var_2 = 0; var_2 < 6; var_2++ )
     {
-        magicbullet( var_0.weapon_switch_invalid, var_0 gettagorigin( "tag_flash" ), var_1.origin );
+        magicbullet( var_0.weapon, var_0 gettagorigin( "tag_flash" ), var_1.origin );
         wait(randomfloatrange( 0.1, 0.3 ));
     }
 }

@@ -58,13 +58,13 @@ _id_76ED( var_0, var_1 )
         else
             var_2 = var_0._id_35F8;
 
-        level.playercardbackground setreverb( var_0._id_6FBE, var_0._id_75DE, var_0._id_2FA3, var_0._id_A2FB, var_2 );
+        level.player setreverb( var_0._id_6FBE, var_0._id_75DE, var_0._id_2FA3, var_0._id_A2FB, var_2 );
     }
 }
 
 _id_76F3( var_0, var_1 )
 {
-    if ( isdefined( level.playercardbackground._id_32D8 ) && isdefined( level.playercardbackground._id_32D8["player_has_red_flashing_overlay"] ) && level.playercardbackground maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( isdefined( level.player._id_32D8 ) && isdefined( level.player._id_32D8["player_has_red_flashing_overlay"] ) && level.player maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
     {
         if ( isdefined( var_0 ) && var_0 != "none" )
         {
@@ -93,7 +93,7 @@ _id_76F3( var_0, var_1 )
 
     if ( ( isdefined( var_0 ) && var_0 == "none" || !isdefined( var_0 ) ) && isdefined( level._id_055B._id_24F8 ) )
     {
-        level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
+        level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
         level._id_055B._id_24F8 = undefined;
         level._id_055B._id_74EC._id_24F8 = "";
         return;
@@ -144,7 +144,7 @@ _id_76FA( var_0, var_1 )
 _id_76EE()
 {
     level._id_74F2 = "";
-    level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 2 );
+    level.player deactivatereverb( "snd_enveffectsprio_level", 2 );
     level._id_055B._id_24F8 = undefined;
     level._id_055B._id_74EC._id_24F8 = "";
 }
@@ -211,7 +211,7 @@ _id_76F9( var_0, var_1 )
 
 _id_76F5()
 {
-    while ( !isdefined( level.playercardbackground ) )
+    while ( !isdefined( level.player ) )
         wait 0.5;
 
     _id_76ED( level._id_055B._id_74EC._id_2789 );
@@ -248,7 +248,7 @@ _id_76F8( var_0 )
         level._id_055B._id_74EC._id_6F1F[var_0] = var_2;
     }
 
-    var_1.nearz = var_0;
+    var_1.name = var_0;
     var_1._id_75DE = var_2["roomtype"];
     var_1._id_2FA3 = var_2["drylevel"];
     var_1._id_A2FB = var_2["wetlevel"];

@@ -26,7 +26,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_complete_sp_spetsnaz_boris_sp_ac130" );
 }

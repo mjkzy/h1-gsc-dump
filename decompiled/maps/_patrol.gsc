@@ -53,9 +53,9 @@ _id_66FC( var_0, var_1, var_2 )
     var_6[0] = maps\_utility::_id_7E4B;
 
     if ( isdefined( var_0 ) )
-        self._not_team = var_0;
+        self.target = var_0;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
         var_7 = 1;
         var_8 = _id_3E8A();
@@ -104,8 +104,8 @@ _id_66FC( var_0, var_1, var_2 )
         self._id_5545 = var_10;
         [[ var_6[var_11] ]]( var_10 );
 
-        if ( isdefined( var_10.rank ) && var_10.rank > 0 )
-            self.goalradius = var_10.rank;
+        if ( isdefined( var_10.radius ) && var_10.radius > 0 )
+            self.goalradius = var_10.radius;
         else
             self.goalradius = 32;
 
@@ -229,15 +229,15 @@ is_patrolling()
     {
         if ( isdefined( var_1 ) && self _meth_8152( var_1 ) != 0.0 )
         {
-            self.veh_collision = 1;
-            self.pccg = 70.0;
-            self.melee_hit_react = 19.0;
-            self.sharpturntooclosetodestdist = 0.94;
+            self.usepathsmoothingvalues = 1;
+            self.pathlookaheaddist = 70.0;
+            self.maxturnspeed = 19.0;
+            self.sharpturn = 0.94;
             return 1;
         }
     }
 
-    self.veh_collision = 0;
+    self.usepathsmoothingvalues = 0;
     return 0;
 }
 
@@ -358,8 +358,8 @@ _id_3E8A()
 {
     var_0 = [];
 
-    if ( isdefined( self._not_team ) )
-        var_0 = getentarray( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_0 = getentarray( self.target, "targetname" );
 
     return var_0;
 }
@@ -368,8 +368,8 @@ _id_3E8C()
 {
     var_0 = [];
 
-    if ( isdefined( self._not_team ) )
-        var_0 = getnodearray( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_0 = getnodearray( self.target, "targetname" );
 
     return var_0;
 }

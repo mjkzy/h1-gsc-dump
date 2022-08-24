@@ -31,10 +31,10 @@ main()
 
 init_rats()
 {
-    if ( !isdefined( self.script_parentname ) )
+    if ( !isdefined( self.script_noteworthy ) )
         return;
 
-    switch ( self.script_parentname )
+    switch ( self.script_noteworthy )
     {
         case "frantic":
             thread run_rat( "h1_mp_rat_frantic_idle", [ "h1_mp_rat_death_01", "h1_mp_rat_death_01" ] );
@@ -54,7 +54,7 @@ run_rat( var_0, var_1 )
         precachempanim( var_3 );
 
     self setcandamage( 1 );
-    self.helmet = 1;
+    self.health = 1;
     self _meth_8277( var_0 );
     self waittill( "damage", var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
     playfx( common_scripts\utility::_id_3FA8( "animated_rat_death" ), self.origin, ( 0.0, 0.0, 1.0 ) );

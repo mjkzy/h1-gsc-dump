@@ -468,7 +468,7 @@ getaliveplayersonteam( var_0 )
 
     foreach ( var_3 in level.players )
     {
-        if ( isdefined( var_3 ) && isalive( var_3 ) && ( !isdefined( var_3.sharpturnlookaheaddist ) || var_3.sharpturnlookaheaddist == "playing" ) )
+        if ( isdefined( var_3 ) && isalive( var_3 ) && ( !isdefined( var_3.sessionstate ) || var_3.sessionstate == "playing" ) )
         {
             if ( !isdefined( var_0 ) || var_3.team == var_0 )
                 var_1[var_1.size] = var_3;
@@ -715,7 +715,7 @@ botmmlogic()
     {
         wait 0.05;
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             continue;
 
         if ( maps\mp\_utility::_id_5092( self.isslasher ) || level.mm_teamscores["allies"] == 1 )
@@ -731,7 +731,7 @@ botmmlogic()
             if ( self bothasscriptgoal() )
                 self botclearscriptgoal();
 
-            self.ignoreforfixednodesafecheck = 1;
+            self.ignoreall = 1;
 
             if ( gettime() > self.next_bad_place_time )
             {
@@ -744,7 +744,7 @@ botmmlogic()
 
         if ( gettime() > self.next_hide_time )
         {
-            self.ignoreforfixednodesafecheck = 0;
+            self.ignoreall = 0;
             var_4 = getnodesinradius( self.origin, 900, 0, 300 );
             var_5 = self botnodepick( var_4, var_4.size * 0.15, "node_hide_anywhere" );
 
@@ -1014,31 +1014,31 @@ killrangeindicator()
 {
     self endon( "disconnect" );
     self.killindicator = maps\mp\gametypes\_hud_util::_id_2401( "objective", 1 );
-    self.killindicator.land = &"MP_RANGE_KILL_INDICATOR";
+    self.killindicator.label = &"MP_RANGE_KILL_INDICATOR";
     self.killindicator setvalue( 0 );
-    self.killindicator.xpmaxmultipliertimeplayed = 0;
-    self.killindicator._id_0538 = 20;
+    self.killindicator.x = 0;
+    self.killindicator.y = 20;
     self.killindicator.alignx = "center";
     self.killindicator.aligny = "middle";
-    self.killindicator.hostquits = "center_adjustable";
-    self.killindicator.visionsetnight = "middle";
+    self.killindicator.horzalign = "center_adjustable";
+    self.killindicator.vertalign = "middle";
     self.killindicator.archived = 1;
     self.killindicator.fontscale = 1;
     self.killindicator.alpha = 0;
     self.killindicator.glowalpha = 0.5;
-    self.killindicator.hindlegstraceoffset = 0;
+    self.killindicator.hidewheninmenu = 0;
     self.maxkillindicator = maps\mp\gametypes\_hud_util::_id_2401( "objective", 1 );
-    self.maxkillindicator.xpmaxmultipliertimeplayed = -6;
-    self.maxkillindicator._id_0538 = 2;
+    self.maxkillindicator.x = -6;
+    self.maxkillindicator.y = 2;
     self.maxkillindicator.alignx = "right";
     self.maxkillindicator.aligny = "top";
-    self.maxkillindicator.hostquits = "right_adjustable";
-    self.maxkillindicator.visionsetnight = "top_adjustable";
-    self.maxkillindicator.land = &"MP_MAX_KILL_INDICATOR";
+    self.maxkillindicator.horzalign = "right_adjustable";
+    self.maxkillindicator.vertalign = "top_adjustable";
+    self.maxkillindicator.label = &"MP_MAX_KILL_INDICATOR";
     self.maxkillindicator setvalue( 0 );
     self.maxkillindicator.alpha = 0;
     self.maxkillindicator.archived = 0;
-    self.maxkillindicator.hindlegstraceoffset = 1;
+    self.maxkillindicator.hidewheninmenu = 1;
     thread hidekillindicator();
 }
 
@@ -1070,17 +1070,17 @@ onsniperonlyplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7
 matchbestkillrangeindicator()
 {
     level.maxmatchindicator = maps\mp\gametypes\_hud_util::_id_243D( "objective", 1 );
-    level.maxmatchindicator.xpmaxmultipliertimeplayed = -6;
-    level.maxmatchindicator._id_0538 = 14;
+    level.maxmatchindicator.x = -6;
+    level.maxmatchindicator.y = 14;
     level.maxmatchindicator.alignx = "right";
     level.maxmatchindicator.aligny = "top";
-    level.maxmatchindicator.hostquits = "right_adjustable";
-    level.maxmatchindicator.visionsetnight = "top_adjustable";
-    level.maxmatchindicator.land = &"MP_MAX_MATCH_INDICATOR";
+    level.maxmatchindicator.horzalign = "right_adjustable";
+    level.maxmatchindicator.vertalign = "top_adjustable";
+    level.maxmatchindicator.label = &"MP_MAX_MATCH_INDICATOR";
     level.maxmatchindicator setvalue( 0 );
     level.maxmatchindicator.alpha = 0;
     level.maxmatchindicator.archived = 0;
-    level.maxmatchindicator.hindlegstraceoffset = 1;
+    level.maxmatchindicator.hidewheninmenu = 1;
 }
 
 initsnipersonly()

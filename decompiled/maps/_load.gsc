@@ -109,8 +109,8 @@ main()
     level._id_2BDE = [];
     level._id_06BD = [];
 
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 
     set_dynent_playerwakeupradius();
     precacheshader( "black" );
@@ -140,7 +140,7 @@ main()
     common_scripts\utility::_id_383D( "respawn_friendlies" );
     common_scripts\utility::_id_383D( "missionfailed" );
     common_scripts\utility::_id_383D( "auto_adjust_initialized" );
-    level.playercardbackground maps\_utility::_id_32DD( "_radiation_poisoning" );
+    level.player maps\_utility::_id_32DD( "_radiation_poisoning" );
     common_scripts\utility::_id_383D( "gameskill_selected" );
     common_scripts\utility::_id_383D( "battlechatter_on_thread_waiting" );
     common_scripts\utility::_id_383D( "start_is_set" );
@@ -162,10 +162,10 @@ main()
 
     foreach ( var_3, var_2 in level._id_8F60 )
     {
-        if ( !isdefined( var_2.teambalanced ) )
+        if ( !isdefined( var_2.targetname ) )
             continue;
 
-        if ( var_2.teambalanced == "delete_on_load" )
+        if ( var_2.targetname == "delete_on_load" )
             level._id_8F60[var_3] = undefined;
     }
 
@@ -195,7 +195,7 @@ main()
 
     foreach ( var_5 in level.players )
     {
-        var_5.maxturnspeed = level.playercardbackground.helmet;
+        var_5.maxhealth = level.player.health;
         var_5._id_83BD = 0;
         var_5._id_4FAD = 0;
         var_5 thread _id_A263();
@@ -392,17 +392,17 @@ main()
 
     foreach ( var_10, var_9 in level._id_5CE0._id_56E5 )
     {
-        if ( var_9.nearz == level.script_context )
+        if ( var_9.name == level.script )
         {
             setsaveddvar( "ui_currentLevelIndex", var_10 );
             break;
         }
     }
 
-    if ( level.script_context == level._id_5CE0._id_56E5[0].nearz && !level.playercardbackground _meth_8212( "hasEverPlayed_SP" ) )
+    if ( level.script == level._id_5CE0._id_56E5[0].name && !level.player _meth_8212( "hasEverPlayed_SP" ) )
         maps\_utility::_id_27EF( 0.1, ::_id_9AC0 );
 
-    var_11 = level.playercardbackground _meth_8211( "gameskill" );
+    var_11 = level.player _meth_8211( "gameskill" );
     var_12 = level._id_2A63[int( var_11 )];
     setspmatchdata( "start_difficulty", var_12 );
     setspmatchdata( "final_difficulty", var_12 );
@@ -411,12 +411,12 @@ main()
     level thread maps\_utility::_id_8C0F();
     level notify( "load_finished" );
     _id_76B4();
-    level.playercardbackground thread maps\_utility::_id_5820();
+    level.player thread maps\_utility::_id_5820();
 }
 
 _id_9AC0()
 {
-    level.playercardbackground _meth_8213( "hasEverPlayed_SP", 1 );
+    level.player _meth_8213( "hasEverPlayed_SP", 1 );
     updategamerprofile();
 }
 
@@ -431,7 +431,7 @@ _id_76B4()
 
 set_dynent_playerwakeupradius()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":
@@ -582,14 +582,14 @@ _id_352F( var_0 )
 
     if ( isdefined( var_0._id_796E ) && randomfloat( 1 ) > var_0._id_796E )
     {
-        if ( !var_0 maps\_utility::script_lightset() )
+        if ( !var_0 maps\_utility::script_delay() )
             wait 4;
 
         level thread _id_352F( var_0 );
         return;
     }
 
-    if ( !var_0 maps\_utility::script_lightset() && isdefined( var_0._id_79C0 ) )
+    if ( !var_0 maps\_utility::script_delay() && isdefined( var_0._id_79C0 ) )
         wait(var_0._id_79C0);
 
     common_scripts\_exploder::_id_3528( var_0._id_79BF );
@@ -602,7 +602,7 @@ _id_1266( var_0 )
         level._id_126A = 0;
 
     level._id_126A++;
-    badplace_cylinder( "badplace" + level._id_126A, -1, var_0.origin, var_0.rank, 1024 );
+    badplace_cylinder( "badplace" + level._id_126A, -1, var_0.origin, var_0.radius, 1024 );
 }
 
 _id_6C83()
@@ -620,15 +620,15 @@ _id_6C83()
 
 _id_5982()
 {
-    if ( isdefined( level._id_3004[level.script_context] ) )
-        return level._id_3004[level.script_context];
+    if ( isdefined( level._id_3004[level.script] ) )
+        return level._id_3004[level.script];
     else
         return 0;
 }
 
 _id_9741()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     self._id_972A = var_0.origin[2];
     self._id_972B = var_0.origin[2] - self.origin[2];
     var_0 delete();
@@ -650,7 +650,7 @@ _id_6806()
 _id_6807()
 {
     var_0 = self getorigin();
-    var_1 = "piano_" + self.script_parentname;
+    var_1 = "piano_" + self.script_noteworthy;
     self sethintstring( &"SCRIPT_PLATFORM_PIANO" );
 
     for (;;)
@@ -662,7 +662,7 @@ _id_6807()
 
 _id_A29C()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     var_1 = var_0.origin[2];
     var_0 = undefined;
     level._id_28AC = 8;
@@ -674,23 +674,23 @@ _id_A29C()
     {
         wait 0.05;
 
-        if ( !level.playercardbackground._id_4FAD && var_2 )
+        if ( !level.player._id_4FAD && var_2 )
         {
             var_2 = 0;
-            level.playercardbackground allowprone( 1 );
-            level.playercardbackground allowcrouch( 1 );
-            level.playercardbackground allowstand( 1 );
+            level.player allowprone( 1 );
+            level.player allowcrouch( 1 );
+            level.player allowstand( 1 );
             thread _id_A29D( level._id_278A );
         }
 
         self waittill( "trigger" );
-        level.playercardbackground._id_4FAD = 1;
+        level.player._id_4FAD = 1;
         var_2 = 1;
 
-        while ( level.playercardbackground istouching( self ) )
+        while ( level.player istouching( self ) )
         {
-            level.playercardbackground._id_4FAD = 1;
-            var_3 = level.playercardbackground getorigin();
+            level.player._id_4FAD = 1;
+            var_3 = level.player getorigin();
             var_4 = var_3[2] - var_1;
 
             if ( var_4 > 0 )
@@ -704,19 +704,19 @@ _id_A29C()
             thread _id_A29D( var_5 );
 
             if ( abs( var_4 ) > level._id_28AB )
-                level.playercardbackground allowcrouch( 0 );
+                level.player allowcrouch( 0 );
             else
-                level.playercardbackground allowcrouch( 1 );
+                level.player allowcrouch( 1 );
 
             if ( abs( var_4 ) > level._id_28AC )
-                level.playercardbackground allowprone( 0 );
+                level.player allowprone( 0 );
             else
-                level.playercardbackground allowprone( 1 );
+                level.player allowprone( 1 );
 
             wait 0.5;
         }
 
-        level.playercardbackground._id_4FAD = 0;
+        level.player._id_4FAD = 0;
         wait 0.05;
     }
 }
@@ -764,8 +764,8 @@ _id_4C43( var_0 )
     var_1 = newhudelem();
     var_1.alignx = "left";
     var_1.aligny = "middle";
-    var_1.xpmaxmultipliertimeplayed = 10;
-    var_1._id_0538 = 400;
+    var_1.x = 10;
+    var_1.y = 400;
     var_1 settext( var_0 );
     var_1.alpha = 0;
     var_1.fontscale = 3;
@@ -969,8 +969,8 @@ _id_23D9( var_0, var_1 )
     var_5 = newhudelem();
     var_5.alignx = "left";
     var_5.aligny = "middle";
-    var_5.xpmaxmultipliertimeplayed = 80;
-    var_5._id_0538 = 80 + var_1 * 18;
+    var_5.x = 80;
+    var_5.y = 80 + var_1 * 18;
     var_5 settext( var_0 );
     var_5.alpha = 0;
     var_5.foreground = 1;
@@ -1055,7 +1055,7 @@ _id_2B56()
 
     for (;;)
     {
-        if ( !level.playercardbackground buttonpressed( "F10" ) )
+        if ( !level.player buttonpressed( "F10" ) )
             level._id_2B57 = 0;
 
         if ( var_11 != var_7 )
@@ -1066,24 +1066,24 @@ _id_2B56()
 
         if ( !var_8 )
         {
-            if ( level.playercardbackground buttonpressed( "UPARROW" ) || level.playercardbackground buttonpressed( "DPAD_UP" ) || level.playercardbackground buttonpressed( "APAD_UP" ) )
+            if ( level.player buttonpressed( "UPARROW" ) || level.player buttonpressed( "DPAD_UP" ) || level.player buttonpressed( "APAD_UP" ) )
             {
                 var_8 = 1;
                 var_7--;
             }
         }
-        else if ( !level.playercardbackground buttonpressed( "UPARROW" ) && !level.playercardbackground buttonpressed( "DPAD_UP" ) && !level.playercardbackground buttonpressed( "APAD_UP" ) )
+        else if ( !level.player buttonpressed( "UPARROW" ) && !level.player buttonpressed( "DPAD_UP" ) && !level.player buttonpressed( "APAD_UP" ) )
             var_8 = 0;
 
         if ( !var_9 )
         {
-            if ( level.playercardbackground buttonpressed( "DOWNARROW" ) || level.playercardbackground buttonpressed( "DPAD_DOWN" ) || level.playercardbackground buttonpressed( "APAD_DOWN" ) )
+            if ( level.player buttonpressed( "DOWNARROW" ) || level.player buttonpressed( "DPAD_DOWN" ) || level.player buttonpressed( "APAD_DOWN" ) )
             {
                 var_9 = 1;
                 var_7++;
             }
         }
-        else if ( !level.playercardbackground buttonpressed( "DOWNARROW" ) && !level.playercardbackground buttonpressed( "DPAD_DOWN" ) && !level.playercardbackground buttonpressed( "APAD_DOWN" ) )
+        else if ( !level.player buttonpressed( "DOWNARROW" ) && !level.player buttonpressed( "DPAD_DOWN" ) && !level.player buttonpressed( "APAD_DOWN" ) )
             var_9 = 0;
 
         if ( var_7 < 0 )
@@ -1092,13 +1092,13 @@ _id_2B56()
         if ( var_7 >= var_0.size )
             var_7 = 0;
 
-        if ( level.playercardbackground buttonpressed( "BUTTON_B" ) )
+        if ( level.player buttonpressed( "BUTTON_B" ) )
         {
             _id_8B87( var_1, var_2 );
             break;
         }
 
-        if ( level.playercardbackground buttonpressed( "kp_enter" ) || level.playercardbackground buttonpressed( "BUTTON_A" ) || level.playercardbackground buttonpressed( "enter" ) )
+        if ( level.player buttonpressed( "kp_enter" ) || level.player buttonpressed( "BUTTON_A" ) || level.player buttonpressed( "enter" ) )
         {
             if ( var_0[var_7] == "cancel" )
             {
@@ -1394,8 +1394,8 @@ _id_57C3()
             }
 
             var_7 = game["character" + var_0 - 1];
-            maps\_utility::prestigedoublexp( var_7["model"] );
-            maps\_utility::prestigedoublexp( var_7["model"] );
+            maps\_utility::precache( var_7["model"] );
+            maps\_utility::precache( var_7["model"] );
             var_4[var_6] thread maps\_utility::_id_894D( game["character" + var_0 - 1] );
             var_5--;
             var_6++;
@@ -1441,7 +1441,7 @@ _id_6AC7()
     setdvar( "player_died_recently", "0" );
     thread _id_6ACC();
     level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
-    level.playercardbackground maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    level.player maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
     maps\_utility::_id_2BDD();
     var_0 = [];
     var_0[0] = 70;
@@ -1522,7 +1522,7 @@ _id_4D06()
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
         level.players[var_0]._id_9A29 = "player" + var_0;
 
-    level.playercardbackground = level.players[0];
+    level.player = level.players[0];
 
     if ( level.players.size > 1 )
         level._id_6C5B = level.players[1];
@@ -1909,9 +1909,9 @@ _id_1E42()
         var_1 switchtoweapon( "claymore" );
     }
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_6 = getentarray( self._not_team, "targetname" );
+        var_6 = getentarray( self.target, "targetname" );
 
         foreach ( var_8 in var_6 )
             var_8 delete();
@@ -1986,9 +1986,9 @@ _id_0B73()
     var_1 setshader( "waypoint_ammo", 1, 1 );
     var_1.alpha = 0;
     var_1.color = ( 1.0, 1.0, 1.0 );
-    var_1.xpmaxmultipliertimeplayed = self.origin[0];
-    var_1._id_0538 = self.origin[1];
-    var_1._id_053B = self.origin[2] + 16;
+    var_1.x = self.origin[0];
+    var_1.y = self.origin[1];
+    var_1.z = self.origin[2] + 16;
     var_1 setwaypoint( 1, 1 );
     self._id_0B70 = var_1;
     self._id_0B74 = var_0;
@@ -2052,21 +2052,21 @@ _id_0B72( var_0 )
 
 _id_A337()
 {
-    var_0 = getglass( self._not_team );
+    var_0 = getglass( self.target );
 
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        if ( self.script_parentname == "ondamage" || self.script_parentname == "ondamage_appear" )
+        if ( self.script_noteworthy == "ondamage" || self.script_noteworthy == "ondamage_appear" )
         {
-            if ( self.script_parentname == "ondamage_appear" )
+            if ( self.script_noteworthy == "ondamage_appear" )
                 self hide();
 
             level waittillmatch( "glass_damaged", var_0 );
 
-            if ( self.script_parentname == "ondamage_appear" )
+            if ( self.script_noteworthy == "ondamage_appear" )
             {
                 self show();
                 level waittillmatch( "glass_destroyed", var_0 );
@@ -2190,11 +2190,11 @@ _id_2BC8()
     if ( !var_0.size )
         return;
 
-    var_0 = sortbydistance( var_0, level.playercardbackground.origin );
+    var_0 = sortbydistance( var_0, level.player.origin );
 
     if ( level._id_8C36 == "no_game" )
     {
-        level.playercardbackground maps\_utility::_id_923E( var_0[0] );
+        level.player maps\_utility::_id_923E( var_0[0] );
         return;
     }
 
@@ -2209,16 +2209,16 @@ _id_2BC8()
         if ( var_1 != var_4._id_7ADD )
             continue;
 
-        if ( isdefined( var_4.script_zone ) )
-            maps\_utility::_id_9E6E( var_4.script_zone, 0 );
+        if ( isdefined( var_4.script_visionset ) )
+            maps\_utility::_id_9E6E( var_4.script_visionset, 0 );
 
-        level.playercardbackground maps\_utility::_id_923E( var_4 );
+        level.player maps\_utility::_id_923E( var_4 );
         var_2 = 1;
         break;
     }
 
     if ( !var_2 )
-        level.playercardbackground maps\_utility::_id_923E( var_0[0] );
+        level.player maps\_utility::_id_923E( var_0[0] );
 }
 
 _id_4CB2()

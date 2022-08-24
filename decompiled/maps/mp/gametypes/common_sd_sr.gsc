@@ -86,9 +86,9 @@ _id_64C2( var_0 )
     maps\mp\gametypes\common_bomb_gameobject::oncarrybombpickup( var_0, game["attackers"] );
 
     if ( var_0.team == "allies" )
-        var_0.offense_level = 1;
+        var_0.objective = 1;
     else
-        var_0.offense_level = 2;
+        var_0.objective = 2;
 
     if ( isdefined( level.carrierloadouts ) && isdefined( level.carrierloadouts[var_0.team] ) )
     {
@@ -151,11 +151,11 @@ _id_1549()
     {
         for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         {
-            var_5 = var_3[var_4].script_model;
+            var_5 = var_3[var_4].script_label;
 
             for ( var_6 = 0; var_6 < var_2.size; var_6++ )
             {
-                if ( var_2[var_6].script_model == var_5 )
+                if ( var_2[var_6].script_label == var_5 )
                 {
                     _id_7397( var_2[var_6] );
                     break;
@@ -174,22 +174,22 @@ _id_1549()
     for ( var_7 = 0; var_7 < var_2.size; var_7++ )
     {
         var_0 = var_2[var_7];
-        var_1 = getentarray( var_2[var_7]._not_team, "targetname" );
+        var_1 = getentarray( var_2[var_7].target, "targetname" );
         var_8 = undefined;
 
         if ( !level._id_5FE2 )
             var_8 = level._id_7B74;
 
         var_9 = maps\mp\gametypes\common_bomb_gameobject::createbombzoneobject( game["defenders"], "enemy", "any", var_0, var_8, 1 );
-        maps\mp\_utility::_id_7FAE( var_9, "waypoint_esports_snd_target" + var_9.land + "_white" );
+        maps\mp\_utility::_id_7FAE( var_9, "waypoint_esports_snd_target" + var_9.label + "_white" );
         var_9._id_6454 = ::_id_6454;
         var_9._id_648E = ::_id_648E;
         var_9.onuse = ::_id_64FB;
         var_9._id_6459 = ::_id_6459;
         level._id_1555[level._id_1555.size] = var_9;
-        var_9._id_1538 = getent( var_1[0]._not_team, "targetname" );
+        var_9._id_1538 = getent( var_1[0].target, "targetname" );
         var_9._id_1538.origin += ( 0.0, 0.0, -10000.0 );
-        var_9._id_1538.land = var_9.land;
+        var_9._id_1538.label = var_9.label;
         var_9._id_1538 _meth_852a( 1 );
     }
 
@@ -229,20 +229,20 @@ _id_7397( var_0 )
         if ( !isdefined( var_3._id_79F4 ) || var_3._id_79F4 != "bombzone" )
             continue;
 
-        if ( !isdefined( var_3.script_model ) )
+        if ( !isdefined( var_3.script_label ) )
             continue;
 
-        if ( issubstr( var_3.script_model, var_0.script_model ) && issubstr( var_3.script_model, var_0.teambalanced ) )
+        if ( issubstr( var_3.script_label, var_0.script_label ) && issubstr( var_3.script_label, var_0.targetname ) )
             var_3 delete();
     }
 
-    var_5 = getentarray( var_0._not_team, "targetname" );
+    var_5 = getentarray( var_0.target, "targetname" );
 
     foreach ( var_7 in var_5 )
     {
-        if ( isdefined( var_7._not_team ) )
+        if ( isdefined( var_7.target ) )
         {
-            var_8 = getentarray( var_7._not_team, "targetname" );
+            var_8 = getentarray( var_7.target, "targetname" );
 
             foreach ( var_10 in var_8 )
                 var_10 delete();
@@ -335,7 +335,7 @@ _id_1546( var_0 )
 _id_1545( var_0, var_1 )
 {
     level._id_1545 = 1;
-    var_1.offense_level = 0;
+    var_1.objective = 0;
     level._id_27BB = int( gettime() + level._id_1551 * 1000 );
     setgameendtime( level._id_27BB );
     setomnvar( "ui_bomb_timer", 1 );
@@ -363,7 +363,7 @@ _id_1545( var_0, var_1 )
     var_3.origin = level._id_7B75.origin;
     var_4 = [];
     var_5 = maps\mp\gametypes\_gameobjects::createuseobject( game["defenders"], var_3, var_4, ( 0.0, 0.0, 32.0 ) );
-    var_5.land = var_2;
+    var_5.label = var_2;
     var_5 maps\mp\gametypes\common_bomb_gameobject::setupzonefordefusing( 1 );
     var_5._id_6454 = ::_id_6454;
     var_5._id_648E = ::_id_648E;
@@ -402,7 +402,7 @@ _id_1545( var_0, var_1 )
 
 isbombsiteb()
 {
-    return self.land == "_b" || self.land == "_B";
+    return self.label == "_b" || self.label == "_B";
 }
 
 setbombendtime( var_0, var_1 )

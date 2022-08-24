@@ -67,7 +67,7 @@ _id_139E()
         return;
 
     common_scripts\utility::_id_383F( "game_saving" );
-    var_0 = "levelshots / autosave / autosave_" + level.script_context + "start";
+    var_0 = "levelshots / autosave / autosave_" + level.script + "start";
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", var_0, 1 );
     setdvar( "ui_grenade_death", "0" );
     common_scripts\utility::_id_3831( "game_saving" );
@@ -102,7 +102,7 @@ _id_1169( var_0 )
 
     var_0 waittill( "trigger" );
     var_2 = var_0._id_7951;
-    var_3 = "levelshots / autosave / autosave_" + level.script_context + var_2;
+    var_3 = "levelshots / autosave / autosave_" + level.script + var_2;
     _id_9896( var_2, var_1, var_3 );
 
     if ( isdefined( var_0 ) )
@@ -155,14 +155,14 @@ _id_115F( var_0 )
 
 _id_055D()
 {
-    var_0 = "levelshots / autosave / autosave_" + level.script_context + "start";
+    var_0 = "levelshots / autosave / autosave_" + level.script + "start";
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", var_0, 1 );
     _id_1153( 0 );
 }
 
 _id_055E()
 {
-    var_0 = "levelshots / autosave / autosave_" + level.script_context + "start";
+    var_0 = "levelshots / autosave / autosave_" + level.script + "start";
 
     if ( getdvarint( "g_reloading" ) == 0 )
     {
@@ -266,7 +266,7 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         return 0;
 
     level endon( "nextmission" );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
 
     if ( maps\_utility::_id_500C() )
         level._id_6C5B endon( "death" );
@@ -346,7 +346,7 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                 return 0;
             }
 
-            if ( level.script_context == "scoutsniper" && isdefined( var_6 ) && var_6 == "cargo2" )
+            if ( level.script == "scoutsniper" && isdefined( var_6 ) && var_6 == "cargo2" )
             {
                 if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) )
                     continue;
@@ -456,7 +456,7 @@ _id_1161( var_0, var_1 )
 
 _id_1167( var_0 )
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return 1;
 
     if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
@@ -500,7 +500,7 @@ _id_1160()
     if ( isdefined( level._id_611B ) && level._id_611B )
         return 1;
 
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return 1;
 
     if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
@@ -522,7 +522,7 @@ _id_1160()
 
 _id_1165()
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return 1;
 
     if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
@@ -531,7 +531,7 @@ _id_1165()
     if ( maps\_utility::_id_32DC( "laststand_downed" ) && maps\_utility::_id_32D8( "laststand_downed" ) )
         return 0;
 
-    var_0 = self.helmet / self.maxturnspeed;
+    var_0 = self.health / self.maxhealth;
 
     if ( var_0 < 0.5 )
         return 0;
@@ -547,7 +547,7 @@ _id_1165()
 
 _id_116B( var_0 )
 {
-    if ( level.script_context == "ac130" )
+    if ( level.script == "ac130" )
         return 1;
 
     if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
@@ -563,7 +563,7 @@ _id_116B( var_0 )
         if ( !isplayer( var_3.enemy ) )
             continue;
 
-        if ( var_3.unlockpoints == "dog" )
+        if ( var_3.type == "dog" )
         {
             foreach ( var_5 in level.players )
             {
@@ -574,7 +574,7 @@ _id_116B( var_0 )
             continue;
         }
 
-        if ( isdefined( var_3._id_5B36 ) && isdefined( var_3._id_5B36._not_team ) && isplayer( var_3._id_5B36._not_team ) )
+        if ( isdefined( var_3._id_5B36 ) && isdefined( var_3._id_5B36.target ) && isplayer( var_3._id_5B36.target ) )
             return 0;
 
         var_7 = [[ level._id_1152 ]]( var_3 );

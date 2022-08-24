@@ -260,7 +260,7 @@ main()
     level.aspawners = getspawnerarray();
     level.aroutenodes = getnodearray( "flanking_route", "targetname" );
     level.airstrikecalledrecently = 0;
-    level.airstriker = level.playercardbackground;
+    level.airstriker = level.player;
     level.maxai = 32;
     level.reqslots = 8;
     level.detectioncycletime = 45;
@@ -338,8 +338,8 @@ stash_counter()
 
     while ( var_0 < 8 )
     {
-        level.playercardbackground waittill( "weapon_fired" );
-        var_1 = level.playercardbackground getcurrentweapon();
+        level.player waittill( "weapon_fired" );
+        var_1 = level.player getcurrentweapon();
 
         if ( var_1 == "rpg_player" )
             var_0++;
@@ -370,7 +370,7 @@ start_village_defend()
     soundscripts\_snd::_id_870C( "aud_start_default_checkpoint" );
     thread intro();
     level._id_8BE1 = 1;
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     setignoremegroup( "axis", "allies" );
     setignoremegroup( "allies", "axis" );
     setignoremegroup( "player", "axis" );
@@ -379,7 +379,7 @@ start_village_defend()
 start_southern_hill()
 {
     soundscripts\_snd::_id_870C( "aud_start_southern_hill_checkpoint" );
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     setignoremegroup( "axis", "allies" );
     setignoremegroup( "allies", "axis" );
     setignoremegroup( "player", "axis" );
@@ -388,7 +388,7 @@ start_southern_hill()
     common_scripts\utility::_id_383F( "objective_player_on_ridgeline" );
     common_scripts\utility::_id_383F( "objective_on_ridgeline" );
     var_0 = getnode( "player_southern_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     var_1 = getnode( "price_southern_start", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C _meth_81c9( var_1.origin );
@@ -410,7 +410,7 @@ start_minigun_fallback()
     common_scripts\utility::_id_383F( "objective_on_ridgeline" );
     common_scripts\utility::_id_383F( "southern_hill_killzone_detonate" );
     var_0 = getnode( "player_southern_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     var_1 = getnode( "price_southern_start", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C _meth_81c9( var_1.origin );
@@ -436,7 +436,7 @@ start_minigun()
     common_scripts\utility::_id_383F( "objective_price_orders_minigun" );
     common_scripts\utility::_id_383F( "southern_hill_smoke_entry" );
     var_0 = getnode( "player_start_minigun", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     var_1 = getnode( "fallback_price", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C _meth_81c9( var_1.origin );
@@ -462,7 +462,7 @@ start_helidrop()
     common_scripts\utility::_id_383F( "objective_minigun_baglimit_done" );
     common_scripts\utility::_id_383F( "divert_for_clacker" );
     var_0 = getnode( "player_start_minigun", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     var_1 = getnode( "fallback_price", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C _meth_81c9( var_1.origin );
@@ -488,7 +488,7 @@ start_clackers()
     common_scripts\utility::_id_383F( "objective_detonators" );
     common_scripts\utility::_id_383F( "detonators_activate" );
     var_0 = getnode( "player_start_clacker", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     thread southern_hill_mortars_killtimer();
     thread minigun_primary_attack();
     thread minigun_smokescreens();
@@ -516,7 +516,7 @@ start_field_fallback()
     common_scripts\utility::_id_383F( "objective_armor_arrival" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
     var_0 = getnode( "player_start_clacker", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     thread southern_hill_mortars_killtimer();
     thread minigun_primary_attack();
     thread minigun_smokescreens();
@@ -541,7 +541,7 @@ start_javelin()
     common_scripts\utility::_id_383F( "barn_assault_begins" );
     common_scripts\utility::_id_383F( "objective_armor_arrival" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
-    level.playercardbackground setorigin( ( 1021.0, 7309.0, 1006.0 ) );
+    level.player setorigin( ( 1021.0, 7309.0, 1006.0 ) );
     thread saw_gunner_friendly();
 }
 
@@ -567,7 +567,7 @@ start_final_battle()
     common_scripts\utility::_id_383F( "airstrikes_ready" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
     common_scripts\utility::_id_383F( "start_final_battle" );
-    level.playercardbackground setorigin( ( 1021.0, 7309.0, 1006.0 ) );
+    level.player setorigin( ( 1021.0, 7309.0, 1006.0 ) );
     thread saw_gunner_friendly();
     var_0 = getentarray( "barbed_wire_detonator", "targetname" );
     thread minigun_barbed_wire_detonate( "southern_hill_barbed_wire_wall_1", var_0 );
@@ -599,7 +599,7 @@ start_seaknight()
     common_scripts\utility::_id_383F( "airstrikes_ready" );
     common_scripts\utility::_id_383F( "storm_the_tavern" );
     common_scripts\utility::_id_383F( "rescue_chopper_ingress" );
-    level.playercardbackground setorigin( ( -64.0, -1904.0, -80.0 ) );
+    level.player setorigin( ( -64.0, -1904.0, -80.0 ) );
     thread saw_gunner_friendly();
     var_0 = getentarray( "barbed_wire_detonator", "targetname" );
     thread minigun_barbed_wire_detonate( "southern_hill_barbed_wire_wall_1", var_0 );
@@ -641,7 +641,7 @@ intro()
     {
         var_0[var_1] _meth_81ce( "crouch" );
         var_0[var_1]._id_2AF3 = 1;
-        var_0[var_1].index = 1;
+        var_0[var_1].ignoresuppression = 1;
     }
 
     var_2 = getentarray( "introTrig", "targetname" );
@@ -664,7 +664,7 @@ intro()
     wait 1;
     level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "spreadout" );
     common_scripts\utility::_id_383F( "objective_price_orders_southern_hill" );
-    thread intro_ridgeline_check( level.playercardbackground, "player_southern_start" );
+    thread intro_ridgeline_check( level.player, "player_southern_start" );
     thread intro_ridgeline_check( level._id_6F7C, "price_southern_start" );
     thread intro_hillpatrol_check();
     maps\_utility::_id_70C4( "justsaywhen" );
@@ -687,8 +687,8 @@ intro_church_tower_explode()
 
     for ( var_2 = 0; var_2 < 20; var_2++ )
     {
-        if ( level.playercardbackground istouching( var_1 ) )
-            level.playercardbackground kill();
+        if ( level.player istouching( var_1 ) )
+            level.player kill();
 
         wait 0.05;
     }
@@ -704,7 +704,7 @@ intro_hillpatrol_check()
 intro_ridgeline_check( var_0, var_1 )
 {
     var_2 = getnode( var_1, "targetname" );
-    var_3 = length( level.playercardbackground.origin - var_2.origin );
+    var_3 = length( level.player.origin - var_2.origin );
 
     while ( var_3 > 128 )
     {
@@ -799,52 +799,52 @@ magic_sniper()
         {
             var_6 = var_3[var_5];
 
-            if ( !isdefined( var_6.teambalanced ) || !isdefined( var_6.script_parentname ) )
+            if ( !isdefined( var_6.targetname ) || !isdefined( var_6.script_noteworthy ) )
                 continue;
 
-            if ( var_6.script_parentname == "spawnGas" )
+            if ( var_6.script_noteworthy == "spawnGas" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( var_6.script_parentname == "spawnRoad" )
+            if ( var_6.script_noteworthy == "spawnRoad" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( var_6.script_parentname == "spawnRock" )
+            if ( var_6.script_noteworthy == "spawnRock" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( isdefined( var_6.teambalanced ) && var_6.teambalanced == "vanguard" )
+            if ( isdefined( var_6.targetname ) && var_6.targetname == "vanguard" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( var_6.script_parentname == "spawnHillFence" )
+            if ( var_6.script_noteworthy == "spawnHillFence" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( var_6.script_parentname == "spawnHillChurch" )
+            if ( var_6.script_noteworthy == "spawnHillChurch" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( var_6.script_parentname == "spawnHillGraveyard" )
+            if ( var_6.script_noteworthy == "spawnHillGraveyard" )
             {
                 common_scripts\utility::_id_07A5( var_4, var_6 );
                 continue;
             }
 
-            if ( var_6.script_parentname == "spawnHillFlank" )
+            if ( var_6.script_noteworthy == "spawnHillFlank" )
                 common_scripts\utility::_id_07A5( var_4, var_6 );
         }
 
@@ -921,7 +921,7 @@ southern_hill_vanguard_nav()
     self endon( "death" );
     var_0 = undefined;
 
-    if ( !isdefined( self.script_parentname ) )
+    if ( !isdefined( self.script_noteworthy ) )
         var_0 = getnode( "default_vanguard_dest", "targetname" );
     else
     {
@@ -929,7 +929,7 @@ southern_hill_vanguard_nav()
 
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
         {
-            if ( self.script_parentname == var_1[var_2].script_parentname )
+            if ( self.script_noteworthy == var_1[var_2].script_noteworthy )
             {
                 var_0 = var_1[var_2];
                 break;
@@ -974,7 +974,7 @@ southern_hill_intro()
     level endon( "intro_hill_interrupted" );
     common_scripts\utility::_id_384A( "objective_player_on_ridgeline" );
     common_scripts\utility::_id_384A( "objective_on_ridgeline" );
-    var_0 = length( level.playercardbackground.origin - level._id_6F7C.origin );
+    var_0 = length( level.player.origin - level._id_6F7C.origin );
 
     if ( var_0 < 512 )
     {
@@ -1064,8 +1064,8 @@ southern_hill_killzone_sequence()
     {
         var_0[var_0.size] = var_2;
 
-        if ( isdefined( var_2._not_team ) )
-            var_2 = getent( var_2._not_team, "targetname" );
+        if ( isdefined( var_2.target ) )
+            var_2 = getent( var_2.target, "targetname" );
         else
             break;
 
@@ -1076,8 +1076,8 @@ southern_hill_killzone_sequence()
     {
         var_1[var_1.size] = var_3;
 
-        if ( isdefined( var_3._not_team ) )
-            var_3 = getent( var_3._not_team, "targetname" );
+        if ( isdefined( var_3.target ) )
+            var_3 = getent( var_3.target, "targetname" );
         else
             break;
 
@@ -1159,7 +1159,7 @@ southern_hill_ambush_mg()
 southern_hill_mg_targeting()
 {
     level endon( "sawgunner_moving" );
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     var_1 = 0;
 
     for (;;)
@@ -1286,7 +1286,7 @@ saw_gunner_friendly()
     var_1 = getnode( "fallback_sasGunner", "targetname" );
     level.sasgunner _meth_81a9( var_1 );
     level.sasgunner thread hero();
-    level.sasgunner.index = 1;
+    level.sasgunner.ignoresuppression = 1;
     common_scripts\utility::_id_384A( "objective_minigun_baglimit_done" );
 }
 
@@ -1377,7 +1377,7 @@ southern_hill_mortars_timing( var_0, var_1, var_2 )
         for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         {
             var_5 = var_3[var_4];
-            var_6 = distance( level.playercardbackground.origin, var_5.origin );
+            var_6 = distance( level.player.origin, var_5.origin );
 
             if ( var_6 > var_2 )
             {
@@ -1404,14 +1404,14 @@ southern_hill_mortars_killplayer()
 
     for (;;)
     {
-        if ( level.playercardbackground istouching( var_0 ) )
+        if ( level.player istouching( var_0 ) )
         {
             wait 2;
 
-            if ( level.playercardbackground istouching( var_0 ) )
+            if ( level.player istouching( var_0 ) )
             {
-                thread southern_hill_mortar_detonate( level.playercardbackground );
-                level.playercardbackground kill();
+                thread southern_hill_mortar_detonate( level.player );
+                level.player kill();
             }
         }
 
@@ -1442,11 +1442,11 @@ minigun_fallback()
     level._id_6F7C common_scripts\utility::_id_27CD( randomfloatrange( 0.5, 1.25 ), ::_meth_81a9, var_4 );
     maps\_utility::_id_70C4( "easternroadlocked" );
     level._id_6F7C._id_1300 = 1;
-    level._id_6F7C.index = 1;
+    level._id_6F7C.ignoresuppression = 1;
     var_0._id_1300 = 1;
-    var_0.index = 1;
+    var_0.ignoresuppression = 1;
     var_1._id_1300 = 1;
-    var_1.index = 1;
+    var_1.ignoresuppression = 1;
     thread maps\village_defend_code::friendly_pushplayer( "off" );
     wait 5;
     thread intro_church_tower_explode();
@@ -1647,15 +1647,15 @@ minigun_barbed_wire_detonate( var_0, var_1 )
     {
         var_4 = var_1[var_3];
 
-        if ( !isdefined( var_4.script_parentname ) )
+        if ( !isdefined( var_4.script_noteworthy ) )
             continue;
 
-        if ( var_4.script_parentname != var_0 )
+        if ( var_4.script_noteworthy != var_0 )
             continue;
 
         playfx( level.megaexplosion, var_4.origin );
         var_4 playsound( "explo_mine" );
-        earthquake( 0.5, 0.5, level.playercardbackground.origin, 1250 );
+        earthquake( 0.5, 0.5, level.player.origin, 1250 );
         radiusdamage( var_4.origin, 256, 1000, 500 );
     }
 
@@ -1683,8 +1683,8 @@ minigun_firstuse_check()
             continue;
         }
 
-        if ( level.playercardbackground common_scripts\utility::_id_5064() )
-            level.playercardbackground thread maps\_utility::_id_2B4A( "minigun_spin_left_trigger" );
+        if ( level.player common_scripts\utility::_id_5064() )
+            level.player thread maps\_utility::_id_2B4A( "minigun_spin_left_trigger" );
     }
 }
 
@@ -1704,13 +1704,13 @@ minigun_arming_check()
 
         wait 1;
 
-        if ( isdefined( var_1 ) && level.playercardbackground != var_1 || !isdefined( var_1 ) )
+        if ( isdefined( var_1 ) && level.player != var_1 || !isdefined( var_1 ) )
         {
             var_2 = [];
             var_2 = getaiarray( "axis" );
         }
 
-        if ( isdefined( var_1 ) && level.playercardbackground == var_1 )
+        if ( isdefined( var_1 ) && level.player == var_1 )
         {
             if ( !common_scripts\utility::_id_382E( "objective_player_uses_minigun" ) )
             {
@@ -1730,7 +1730,7 @@ heli_destroyed( var_0 )
     var_1 = maps\_vehicle::waittill_vehiclespawn( var_0 );
     var_1 waittill( "death", var_2 );
 
-    if ( isdefined( var_2 ) && var_2 == level.playercardbackground )
+    if ( isdefined( var_2 ) && var_2 == level.player )
     {
         level.fly_swatter_kill_count++;
 
@@ -1821,17 +1821,17 @@ hunt_player( var_0 )
         var_0 waittill( "unloaded" );
 
     self.goalradius = 1800;
-    self.pathlookaheaddist = 1800;
-    self.pathrandompercent = 1800;
+    self.pathenemyfightdist = 1800;
+    self.pathenemylookahead = 1800;
     var_1 = getent( "player_in_blackhawk_detector", "targetname" );
     var_2 = getnode( "bait_crashsite", "targetname" );
 
     while ( self.goalradius > 640 )
     {
-        if ( level.playercardbackground istouching( var_1 ) )
+        if ( level.player istouching( var_1 ) )
             self _meth_81a9( var_2 );
         else
-            self _meth_81aa( level.playercardbackground.origin );
+            self _meth_81aa( level.player.origin );
 
         self.goalradius *= level.encroachrate;
         self waittill( "goal" );
@@ -1850,13 +1850,13 @@ helidrop_clacker_divert( var_0 )
     self notify( "going_to_baitnode" );
     var_1 = undefined;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        if ( self.script_parentname == "helidrop_bait_grassyknoll" && !common_scripts\utility::_id_382E( "farslope_exploded" ) )
+        if ( self.script_noteworthy == "helidrop_bait_grassyknoll" && !common_scripts\utility::_id_382E( "farslope_exploded" ) )
             var_1 = getnode( "bait_farslope", "targetname" );
-        else if ( self.script_parentname == "helidrop_bait_grassyknoll" && common_scripts\utility::_id_382E( "farslope_exploded" ) && !common_scripts\utility::_id_382E( "nearslope_exploded" ) )
+        else if ( self.script_noteworthy == "helidrop_bait_grassyknoll" && common_scripts\utility::_id_382E( "farslope_exploded" ) && !common_scripts\utility::_id_382E( "nearslope_exploded" ) )
             var_1 = getnode( "bait_nearslope", "targetname" );
-        else if ( self.script_parentname == "helidrop_bait_grassyknoll" && common_scripts\utility::_id_382E( "farslope_exploded" ) && common_scripts\utility::_id_382E( "nearslope_exploded" ) )
+        else if ( self.script_noteworthy == "helidrop_bait_grassyknoll" && common_scripts\utility::_id_382E( "farslope_exploded" ) && common_scripts\utility::_id_382E( "nearslope_exploded" ) )
         {
             if ( common_scripts\utility::_id_382E( "fall_back_to_barn" ) )
                 common_scripts\utility::_id_384A( "storm_the_tavern" );
@@ -1864,18 +1864,18 @@ helidrop_clacker_divert( var_0 )
             thread hunt_player();
             return;
         }
-        else if ( self.script_parentname == "helidrop_bait_crashsite" && !common_scripts\utility::_id_382E( "crashsite_exploded" ) )
+        else if ( self.script_noteworthy == "helidrop_bait_crashsite" && !common_scripts\utility::_id_382E( "crashsite_exploded" ) )
             var_1 = getnode( "bait_crashsite", "targetname" );
-        else if ( self.script_parentname == "helidrop_bait_crashsite" && common_scripts\utility::_id_382E( "crashsite_exploded" ) && !common_scripts\utility::_id_382E( "cliffside_exploded" ) )
+        else if ( self.script_noteworthy == "helidrop_bait_crashsite" && common_scripts\utility::_id_382E( "crashsite_exploded" ) && !common_scripts\utility::_id_382E( "cliffside_exploded" ) )
             var_1 = getnode( "bait_crashsite", "targetname" );
-        else if ( self.script_parentname == "helidrop_bait_crashsite" && common_scripts\utility::_id_382E( "crashsite_exploded" ) && common_scripts\utility::_id_382E( "cliffside_exploded" ) )
+        else if ( self.script_noteworthy == "helidrop_bait_crashsite" && common_scripts\utility::_id_382E( "crashsite_exploded" ) && common_scripts\utility::_id_382E( "cliffside_exploded" ) )
             var_1 = getnode( "bait_crashsite", "targetname" );
-        else if ( self.script_parentname == "helidrop_bait_trees" && !common_scripts\utility::_id_382E( "cliffside_exploded" ) )
+        else if ( self.script_noteworthy == "helidrop_bait_trees" && !common_scripts\utility::_id_382E( "cliffside_exploded" ) )
             var_1 = getnode( "bait_trees", "targetname" );
 
-        if ( self.script_parentname == "helidrop_bait_trees" && common_scripts\utility::_id_382E( "cliffside_exploded" ) && !common_scripts\utility::_id_382E( "crashsite_exploded" ) )
+        if ( self.script_noteworthy == "helidrop_bait_trees" && common_scripts\utility::_id_382E( "cliffside_exploded" ) && !common_scripts\utility::_id_382E( "crashsite_exploded" ) )
             var_1 = getnode( "bait_crashsite", "targetname" );
-        else if ( self.script_parentname == "spawnHillFlank" )
+        else if ( self.script_noteworthy == "spawnHillFlank" )
             var_1 = getnode( "bait_nearslope", "targetname" );
         else
         {
@@ -1903,7 +1903,7 @@ helidrop_clacker_divert( var_0 )
         return;
     }
 
-    var_2 = distance( level.playercardbackground.origin, self.origin );
+    var_2 = distance( level.player.origin, self.origin );
     wait 0.5;
     var_3 = distance( var_1.origin, self.origin );
 
@@ -2017,10 +2017,10 @@ clacker_init()
 
     for ( var_4 = 0; var_4 < var_0.size; var_4++ )
     {
-        if ( !isdefined( var_0[var_4]._not_team ) )
+        if ( !isdefined( var_0[var_4].target ) )
             continue;
 
-        var_2 = getentarray( var_0[var_4]._not_team, "targetname" );
+        var_2 = getentarray( var_0[var_4].target, "targetname" );
 
         for ( var_5 = 0; var_5 < var_2.size; var_5++ )
         {
@@ -2051,14 +2051,14 @@ clacker_init()
 clacker_marker_setup()
 {
     var_0 = [];
-    var_1 = getent( self._not_team, "targetname" );
+    var_1 = getent( self.target, "targetname" );
 
     for (;;)
     {
         var_0[var_0.size] = var_1;
 
-        if ( isdefined( var_1._not_team ) )
-            var_1 = getent( var_1._not_team, "targetname" );
+        if ( isdefined( var_1.target ) )
+            var_1 = getent( var_1.target, "targetname" );
         else
             break;
 
@@ -2070,8 +2070,8 @@ clacker_marker_setup()
 
 clacker_standby( var_0 )
 {
-    var_1 = getent( self.teambalanced, "target" );
-    var_2 = getent( self.script_parentname, "targetname" );
+    var_1 = getent( self.targetname, "target" );
+    var_2 = getent( self.script_noteworthy, "targetname" );
     common_scripts\utility::_id_384A( "detonators_activate" );
     self show();
     var_3 = var_1._id_79D9;
@@ -2087,10 +2087,10 @@ clacker_standby( var_0 )
             wait 0.05;
 
         level notify( "picked_up_new_clacker" );
-        var_4 = level.playercardbackground getcurrentweapon();
+        var_4 = level.player getcurrentweapon();
 
         if ( var_4 != "c4" )
-            level.playercardbackground.clacker_current_weapon = var_4;
+            level.player.clacker_current_weapon = var_4;
 
         thread clacker_noc4( var_1, var_2 );
         thread clacker_enable( var_1, var_2, var_0 );
@@ -2104,12 +2104,12 @@ clacker_markers( var_0, var_1 )
 
     while ( isdefined( var_0 ) )
     {
-        if ( level.playercardbackground istouching( var_0 ) )
+        if ( level.player istouching( var_0 ) )
         {
 
         }
 
-        while ( isdefined( var_0 ) && level.playercardbackground istouching( var_0 ) )
+        while ( isdefined( var_0 ) && level.player istouching( var_0 ) )
         {
             if ( !isdefined( var_2 ) || var_2.size <= 0 )
                 var_2 = clacker_markers_init_fx( var_1 );
@@ -2153,16 +2153,16 @@ clacker_markers_init_fx( var_0 )
 clacker_markers_monitor_fx()
 {
     self endon( "death" );
-    level.playercardbackground endon( "detonate" );
+    level.player endon( "detonate" );
     var_0 = 0;
     var_1 = 0;
 
     for (;;)
     {
-        var_2 = level.playercardbackground getcurrentweapon();
+        var_2 = level.player getcurrentweapon();
 
         if ( var_2 != "c4" )
-            level.playercardbackground.clacker_current_weapon = var_2;
+            level.player.clacker_current_weapon = var_2;
 
         if ( common_scripts\utility::_id_382E( "putting_clacker_away" ) )
             var_2 = "putting_clacker_away";
@@ -2191,18 +2191,18 @@ clacker_markers_monitor_fx()
 
 clacker_enable( var_0, var_1, var_2 )
 {
-    if ( level.playercardbackground istouching( var_1 ) )
+    if ( level.player istouching( var_1 ) )
     {
         self hide();
         common_scripts\utility::_id_383F( "got_the_clacker" );
-        level.playercardbackground enableweapons();
-        level.playercardbackground maps\_c4::switch_to_detonator();
+        level.player enableweapons();
+        level.player maps\_c4::switch_to_detonator();
         thread clacker_drop( var_0, var_1 );
         var_3 = var_0._id_79D9;
         common_scripts\utility::_id_3831( var_3 );
         thread clacker_fire( var_0, var_1, var_2 );
 
-        while ( level.playercardbackground getcurrentweapon() != "c4" )
+        while ( level.player getcurrentweapon() != "c4" )
             wait 0.05;
 
         common_scripts\utility::_id_3831( "got_the_clacker" );
@@ -2211,9 +2211,9 @@ clacker_enable( var_0, var_1, var_2 )
 
 clacker_drop( var_0, var_1 )
 {
-    while ( isdefined( var_1 ) && level.playercardbackground istouching( var_1 ) && !common_scripts\utility::_id_382E( "got_the_clacker" ) )
+    while ( isdefined( var_1 ) && level.player istouching( var_1 ) && !common_scripts\utility::_id_382E( "got_the_clacker" ) )
     {
-        var_2 = level.playercardbackground getcurrentweapon();
+        var_2 = level.player getcurrentweapon();
 
         if ( var_2 != "c4" )
             thread clacker_disable( var_0, var_1 );
@@ -2224,7 +2224,7 @@ clacker_drop( var_0, var_1 )
 
 clacker_notouch( var_0, var_1 )
 {
-    while ( isdefined( var_1 ) && level.playercardbackground istouching( var_1 ) )
+    while ( isdefined( var_1 ) && level.player istouching( var_1 ) )
         wait 0.1;
 
     thread clacker_disable( var_0, var_1 );
@@ -2232,15 +2232,15 @@ clacker_notouch( var_0, var_1 )
 
 clacker_noc4( var_0, var_1 )
 {
-    while ( level.playercardbackground getcurrentweapon() != "c4" )
+    while ( level.player getcurrentweapon() != "c4" )
         wait 0.05;
 
-    while ( isdefined( var_1 ) && level.playercardbackground istouching( var_1 ) )
+    while ( isdefined( var_1 ) && level.player istouching( var_1 ) )
     {
-        if ( level.playercardbackground getcurrentweapon() != "c4" )
+        if ( level.player getcurrentweapon() != "c4" )
         {
             thread clacker_disable( var_0, var_1 );
-            level.playercardbackground takeweapon( "c4" );
+            level.player takeweapon( "c4" );
             break;
         }
 
@@ -2265,63 +2265,63 @@ clacker_reset_player_weapon()
 {
     level endon( "picked_up_new_clacker" );
 
-    if ( !( level.playercardbackground getcurrentweapon() == "c4" ) )
+    if ( !( level.player getcurrentweapon() == "c4" ) )
         return;
 
     common_scripts\utility::_id_383F( "putting_clacker_away" );
-    var_0 = level.playercardbackground getweaponslistprimaries()[0];
+    var_0 = level.player getweaponslistprimaries()[0];
 
-    if ( isdefined( level.playercardbackground.clacker_current_weapon ) && level.playercardbackground hasweapon( level.playercardbackground.clacker_current_weapon ) )
+    if ( isdefined( level.player.clacker_current_weapon ) && level.player hasweapon( level.player.clacker_current_weapon ) )
     {
-        var_0 = level.playercardbackground.clacker_current_weapon;
-        level.playercardbackground.clacker_current_weapon = undefined;
+        var_0 = level.player.clacker_current_weapon;
+        level.player.clacker_current_weapon = undefined;
     }
 
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     wait 1.0;
-    level.playercardbackground takeweapon( "c4" );
+    level.player takeweapon( "c4" );
     common_scripts\utility::_id_3831( "putting_clacker_away" );
     wait 0.1;
-    level.playercardbackground enableweapons();
-    level.playercardbackground switchtoweapon( var_0 );
+    level.player enableweapons();
+    level.player switchtoweapon( var_0 );
 }
 
 clacker_fire( var_0, var_1, var_2 )
 {
     level endon( "detclacker_disarm" );
-    level.playercardbackground waittill( "detonate" );
+    level.player waittill( "detonate" );
     common_scripts\utility::_id_383F( "clacker_has_been_exercised" );
 
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( self.script_parentname == "detonator_nearslope" )
+    if ( self.script_noteworthy == "detonator_nearslope" )
         common_scripts\utility::_id_383F( "nearslope_exploded" );
 
-    if ( self.script_parentname == "detonator_farslope" )
+    if ( self.script_noteworthy == "detonator_farslope" )
         common_scripts\utility::_id_383F( "farslope_exploded" );
 
-    if ( self.script_parentname == "detonator_crashsite" )
+    if ( self.script_noteworthy == "detonator_crashsite" )
         common_scripts\utility::_id_383F( "crashsite_exploded" );
 
-    if ( self.script_parentname == "detonator_cliffside" )
+    if ( self.script_noteworthy == "detonator_cliffside" )
         common_scripts\utility::_id_383F( "cliffside_exploded" );
 
-    thread killzone_detonation( var_2, level.playercardbackground );
-    earthquake( 0.5, 2, level.playercardbackground.origin, 1650 );
+    thread killzone_detonation( var_2, level.player );
+    earthquake( 0.5, 2, level.player.origin, 1650 );
     thread clacker_reset_player_weapon();
     var_3 = undefined;
     var_4 = undefined;
-    var_5 = getentarray( var_0._not_team, "targetname" );
+    var_5 = getentarray( var_0.target, "targetname" );
 
     for ( var_6 = 0; var_6 < var_5.size; var_6++ )
     {
         var_3 = var_5[var_6];
 
-        if ( !isdefined( var_3.script_parentname ) )
+        if ( !isdefined( var_3.script_noteworthy ) )
             continue;
 
-        if ( !( var_3.script_parentname == "clacker_objective_marker" ) )
+        if ( !( var_3.script_noteworthy == "clacker_objective_marker" ) )
             continue;
 
         var_4 = var_3;
@@ -2375,7 +2375,7 @@ player_interior_detect_init()
     {
         for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         {
-            if ( level.playercardbackground istouching( var_0[var_2] ) )
+            if ( level.player istouching( var_0[var_2] ) )
                 level.playerindoors = 1;
             else
                 var_1++;
@@ -2422,12 +2422,12 @@ enemy_interior_grenadeswap()
         if ( level.playerindoors )
         {
             self.grenadeammo = 6;
-            self.groundentchanged = "flash_grenade";
+            self.grenadeweapon = "flash_grenade";
         }
         else
         {
             self.grenadeammo = 6;
-            self.groundentchanged = "fraggrenade";
+            self.grenadeweapon = "fraggrenade";
             break;
         }
 
@@ -2442,7 +2442,7 @@ enemy_loadout_reset()
     common_scripts\utility::_id_384A( "farm_reached" );
     wait 0.5;
     self.grenadeammo = 6;
-    self.groundentchanged = "fraggrenade";
+    self.grenadeweapon = "fraggrenade";
 }
 
 javelin_init()
@@ -2473,7 +2473,7 @@ tanks_init()
 tanks_engage( var_0 )
 {
     self endon( "death" );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_1 = undefined;
     var_2 = undefined;
 
@@ -2504,7 +2504,7 @@ tanks_engage( var_0 )
     for (;;)
     {
         var_2 waittill( "trigger" );
-        self _meth_825d( level.playercardbackground.origin + ( 0.0, 0.0, 72.0 ) );
+        self _meth_825d( level.player.origin + ( 0.0, 0.0, 72.0 ) );
         common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 8.0 );
         self fireweapon();
         wait 4;
@@ -2515,7 +2515,7 @@ tanks_deploy( var_0 )
 {
     var_1 = maps\_vehicle::_id_8979( var_0 );
     var_1 thread tanks_engage( var_0 );
-    var_1._id_5BD5[0].maxvisibledist = 6000;
+    var_1._id_5BD5[0].maxrange = 6000;
     level.tankid++;
     var_2 = level.tankid;
     var_1 thread tank_ping( var_2 );
@@ -2693,16 +2693,16 @@ return_trip_friendly_boost()
 airstrike_command()
 {
     common_scripts\utility::_id_384A( "airstrikes_ready" );
-    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0.0, 110.0, 0.0 ) );
+    thread _id_1A0B( level.player.origin, 1, ( 0.0, 110.0, 0.0 ) );
     wait 1.2;
-    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0.0, 96.0, 0.0 ) );
+    thread _id_1A0B( level.player.origin, 1, ( 0.0, 96.0, 0.0 ) );
     wait 1;
-    thread _id_1A0B( level.playercardbackground.origin, 1, ( 0.0, 126.0, 0.0 ) );
+    thread _id_1A0B( level.player.origin, 1, ( 0.0, 126.0, 0.0 ) );
     wait 5;
     maps\_utility::_id_70C4( "casready" );
     thread airstrike_hint_pc();
-    level.playercardbackground giveweapon( "airstrike_support" );
-    level.playercardbackground setactionslot( 2, "weapon", "airstrike_support" );
+    level.player giveweapon( "airstrike_support" );
+    level.player setactionslot( 2, "weapon", "airstrike_support" );
     thread airstrike_support();
     wait 3;
     common_scripts\utility::_id_383F( "falcon_one_finished_talking" );
@@ -2837,13 +2837,13 @@ _id_6302()
     objective_current( 9 );
     maps\_utility::_id_1143( "get_to_the_choppah" );
     maps\_utility::arcademode_checkpoint( 7, "g" );
-    var_6 = length( level._id_6F7C.origin - level.playercardbackground.origin );
+    var_6 = length( level._id_6F7C.origin - level.player.origin );
     var_7 = getent( "price_seaknight_doppel", "targetname" );
-    var_8 = length( level._id_3C61.origin - level.playercardbackground.origin );
+    var_8 = length( level._id_3C61.origin - level.player.origin );
     var_9 = getent( "gaz_seaknight_doppel", "targetname" );
-    var_10 = length( level.redshirt.origin - level.playercardbackground.origin );
+    var_10 = length( level.redshirt.origin - level.player.origin );
     var_11 = getent( "redshirt_seaknight_doppel", "targetname" );
-    var_12 = length( level.sasgunner.origin - level.playercardbackground.origin );
+    var_12 = length( level.sasgunner.origin - level.player.origin );
     var_13 = getent( "sasGunner_seaknight_doppel", "targetname" );
     var_14 = [];
     var_14[0] = level._id_6F7C;
@@ -2927,7 +2927,7 @@ objective_stopwatch()
 
     level.hudelem = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
     level.hudelem setpulsefx( 30, 900000, 700 );
-    level.hudelem._id_92B2.land = &"VILLAGE_DEFEND_HELICOPTER_EXTRACTION";
+    level.hudelem._id_92B2.label = &"VILLAGE_DEFEND_HELICOPTER_EXTRACTION";
     level.hudelem settenthstimer( var_0 );
     wait(level._id_8F0D * 60);
     maps\_hud_util::destroy_countdown_hud( level.hudelem );
@@ -2941,7 +2941,7 @@ lz_warning_timer()
     level.hudelem = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
     level.hudelem setpulsefx( 30, level.lz_warning_time * 1000, 700 );
     level.hudelem thread warning_effect();
-    level.hudelem._id_92B2.land = &"VILLAGE_DEFEND_HELICOPTER_WARNING";
+    level.hudelem._id_92B2.label = &"VILLAGE_DEFEND_HELICOPTER_WARNING";
     level.hudelem settenthstimer( var_0 );
     common_scripts\utility::_id_3856( "player_made_it", level.lz_warning_time );
     level.hudelem notify( "stop_LZ_warning" );
@@ -3100,7 +3100,7 @@ countdown_events()
         common_scripts\utility::_id_384A( "seaknight_unboardable" );
         wait 3;
 
-        if ( !common_scripts\utility::_id_382E( "player_made_it" ) && isalive( level.playercardbackground ) )
+        if ( !common_scripts\utility::_id_382E( "player_made_it" ) && isalive( level.player ) )
         {
             setdvar( "ui_deadquote", &"VILLAGE_DEFEND_YOU_DIDNT_REACH_THE_HELICOPTER" );
             maps\_utility::_id_5CDF();
@@ -3125,7 +3125,7 @@ seaknight_music()
 {
     common_scripts\utility::_id_384A( "open_bay_doors" );
     musicstop( 4 );
-    level.playercardbackground playsound( "h1_village_defend_get_to_lz_music_end" );
+    level.player playsound( "h1_village_defend_get_to_lz_music_end" );
     wait 5.1;
     maps\_utility::_id_6008( "village_defend_escape" );
 }
@@ -3139,13 +3139,13 @@ rescue_chopper()
     common_scripts\utility::_id_384A( "seaknight_can_be_boarded" );
     var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = level.seaknight1 gettagorigin( "tag_door_rear" );
-    var_0.rank = 27.7311;
+    var_0.radius = 27.7311;
 
     for (;;)
     {
         wait 0.05;
 
-        if ( distance( level.playercardbackground.origin, var_0.origin ) >= var_0.rank )
+        if ( distance( level.player.origin, var_0.origin ) >= var_0.radius )
             continue;
         else
             break;
@@ -3173,20 +3173,20 @@ rescue_chopper()
         var_1 = getent( "intro_tank_tower_target", "targetname" );
         var_1 playsound( level.sniperfx );
         wait 0.1;
-        level.playercardbackground kill();
+        level.player kill();
     }
 }
 
 rescue_teleport_friendlies()
 {
     wait 2;
-    var_0 = length( level._id_6F7C.origin - level.playercardbackground.origin );
+    var_0 = length( level._id_6F7C.origin - level.player.origin );
     var_1 = getent( "price_seaknight_doppel", "targetname" );
-    var_2 = length( level._id_3C61.origin - level.playercardbackground.origin );
+    var_2 = length( level._id_3C61.origin - level.player.origin );
     var_3 = getent( "gaz_seaknight_doppel", "targetname" );
-    var_4 = length( level.redshirt.origin - level.playercardbackground.origin );
+    var_4 = length( level.redshirt.origin - level.player.origin );
     var_5 = getent( "redshirt_seaknight_doppel", "targetname" );
-    var_6 = length( level.sasgunner.origin - level.playercardbackground.origin );
+    var_6 = length( level.sasgunner.origin - level.player.origin );
     var_7 = getent( "sasGunner_seaknight_doppel", "targetname" );
     var_8 = 1800;
 
@@ -3239,7 +3239,7 @@ rescue_failsafe()
 
 rescue_ride()
 {
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     var_0 = maps\_utility::_id_88D1( "player_carry" );
     var_0 hide();
     level.seaknight1 maps\_anim::_id_0BC7( var_0, "village_player_getin", "tag_detach" );
@@ -3248,8 +3248,8 @@ rescue_ride()
     var_1 = [];
     var_1[var_1.size] = var_0;
     level.seaknight1 maps\_anim::_id_0C18( var_1, "village_player_getin", "tag_detach" );
-    level.playercardbackground enableweapons();
-    level.playercardbackground playerlinktodelta( var_0, "tag_player", 1, 20, 45, 5, 25 );
+    level.player enableweapons();
+    level.player playerlinktodelta( var_0, "tag_player", 1, 20, 45, 5, 25 );
 }
 
 _id_5FFB()
@@ -3286,15 +3286,15 @@ killzone_detonation( var_0, var_1 )
         var_6 = level.killzonesfx[var_2];
         playfx( var_5, var_4.origin );
         var_4 playsound( var_6 );
-        earthquake( 0.1, 0.5, level.playercardbackground.origin, 1250 );
+        earthquake( 0.1, 0.5, level.player.origin, 1250 );
 
         if ( !isdefined( var_1 ) )
             radiusdamage( var_4.origin, 240, 100500, 100500 );
         else
             radiusdamage( var_4.origin, 240, 100500, 100500, var_1 );
 
-        var_7 = isdefined( var_1 ) && var_1 == level.playercardbackground;
-        var_8 = distancesquared( level.playercardbackground.origin, var_4.origin ) <= 2250000;
+        var_7 = isdefined( var_1 ) && var_1 == level.player;
+        var_8 = distancesquared( level.player.origin, var_4.origin ) <= 2250000;
 
         if ( var_7 || var_8 )
         {
@@ -3303,11 +3303,11 @@ killzone_detonation( var_0, var_1 )
             var_11 = common_scripts\utility::_id_9294( var_7, "generic_attack_heavy_500", "generic_attack_heavy_1000" );
 
             if ( var_3 == var_0.size - 1 )
-                level.playercardbackground playrumbleonentity( var_11 );
+                level.player playrumbleonentity( var_11 );
             else if ( randomint( 3 ) == 0 )
-                level.playercardbackground playrumbleonentity( var_9 );
+                level.player playrumbleonentity( var_9 );
             else
-                level.playercardbackground playrumbleonentity( var_10 );
+                level.player playrumbleonentity( var_10 );
         }
 
         var_2++;
@@ -3357,9 +3357,9 @@ followscriptedpath( var_0, var_1, var_2 )
     {
         var_3[var_3.size] = var_0;
 
-        if ( isdefined( var_0._not_team ) )
+        if ( isdefined( var_0.target ) )
         {
-            var_0 = getnode( var_0._not_team, "targetname" );
+            var_0 = getnode( var_0.target, "targetname" );
             continue;
         }
 
@@ -3373,18 +3373,18 @@ followscriptedpath( var_0, var_1, var_2 )
         var_0 = var_3[var_4];
         self _meth_81a9( var_0 );
 
-        if ( isdefined( var_0.rank ) )
-            self.goalradius = var_0.rank;
+        if ( isdefined( var_0.radius ) )
+            self.goalradius = var_0.radius;
 
         if ( isdefined( var_0._id_7AD9 ) )
             self _meth_81ce( var_0._id_7AD9 );
 
         self waittill( "goal" );
 
-        if ( !isdefined( var_0._not_team ) )
+        if ( !isdefined( var_0.target ) )
             self notify( "reached_last_node_in_chain" );
 
-        if ( !isdefined( var_0.script_parentname ) )
+        if ( !isdefined( var_0.script_noteworthy ) )
             continue;
 
         wait 0.1;
@@ -3414,8 +3414,8 @@ hero()
 {
     thread maps\_utility::_id_58D7();
     self _meth_81a7( 1 );
-    self.ikweight = 1;
-    self.index = 1;
+    self.ignorerandombulletdamage = 1;
+    self.ignoresuppression = 1;
 }
 
 encroach_start( var_0, var_1, var_2, var_3, var_4 )
@@ -3428,9 +3428,9 @@ encroach_start( var_0, var_1, var_2, var_3, var_4 )
 
     for ( var_8 = 0; var_8 < var_5.size; var_8++ )
     {
-        if ( isdefined( var_5[var_8].script_parentname ) )
+        if ( isdefined( var_5[var_8].script_noteworthy ) )
         {
-            if ( var_5[var_8].script_parentname == var_3 )
+            if ( var_5[var_8].script_noteworthy == var_3 )
                 var_6[var_6.size] = var_5[var_8];
         }
     }
@@ -3479,9 +3479,9 @@ encroach_nav( var_0, var_1 )
         {
             var_2[var_2.size] = var_3;
 
-            if ( isdefined( var_3._not_team ) )
+            if ( isdefined( var_3.target ) )
             {
-                var_5 = getnodearray( var_3._not_team, "targetname" );
+                var_5 = getnodearray( var_3.target, "targetname" );
                 var_4 = randomint( var_5.size );
                 var_3 = var_5[var_4];
                 continue;
@@ -3515,7 +3515,7 @@ southern_hill_mortar_detonate( var_0 )
     wait 0.7;
     playfx( var_1, var_0.origin );
     var_0 playsound( "mortar_explosion" );
-    earthquake( 0.35, 0.5, level.playercardbackground.origin, 1250 );
+    earthquake( 0.35, 0.5, level.player.origin, 1250 );
     radiusdamage( var_0.origin, 256, 1000, 500 );
 }
 
@@ -3561,23 +3561,23 @@ player_detection_volume_init()
 
 player_detection_collect( var_0 )
 {
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     var_2 = [];
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
-        var_2 = getentarray( var_1[var_3]._not_team, "targetname" );
+        var_2 = getentarray( var_1[var_3].target, "targetname" );
 
     return var_1;
 }
 
 player_spawnproc_ents_collect( var_0 )
 {
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     var_2 = [];
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
     {
-        var_4 = getentarray( var_1[var_3]._not_team, "targetname" );
+        var_4 = getentarray( var_1[var_3].target, "targetname" );
         var_2[var_2.size] = var_4;
     }
 
@@ -3598,7 +3598,7 @@ player_detection_loop( var_0, var_1, var_2 )
 
         if ( var_6 >= level.reqslots )
         {
-            if ( level.playercardbackground istouching( var_0 ) )
+            if ( level.player istouching( var_0 ) )
             {
                 thread ai_spawnprocessor( var_0, var_1, var_2 );
 
@@ -3630,10 +3630,10 @@ ai_spawn_control_set_create( var_0, var_1, var_2 )
     {
         var_5 = level.aspawners[var_4];
 
-        if ( !isdefined( var_5.teambalanced ) )
+        if ( !isdefined( var_5.targetname ) )
             continue;
 
-        if ( var_5.teambalanced == var_0._not_team )
+        if ( var_5.targetname == var_0.target )
             var_3[var_3.size] = var_5;
     }
 
@@ -3645,10 +3645,10 @@ ai_spawn_control_set_create( var_0, var_1, var_2 )
     {
         var_8 = var_7[var_4];
 
-        if ( !isdefined( var_8.script_parentname ) )
+        if ( !isdefined( var_8.script_noteworthy ) )
             continue;
 
-        if ( var_8.script_parentname == "smoke_generator" )
+        if ( var_8.script_noteworthy == "smoke_generator" )
         {
             var_6 = var_8;
             break;
@@ -3662,10 +3662,10 @@ ai_spawn_control_set_create( var_0, var_1, var_2 )
     {
         var_11 = level.aroutenodes[var_4];
 
-        if ( !isdefined( var_11.script_parentname ) )
+        if ( !isdefined( var_11.script_noteworthy ) )
             continue;
 
-        if ( var_11.script_parentname == var_10 )
+        if ( var_11.script_noteworthy == var_10 )
         {
             var_9 = var_11;
             break;
@@ -3681,7 +3681,7 @@ ai_spawn_and_attack( var_0, var_1, var_2, var_3 )
     {
         playfx( level.smokegrenade, var_1.origin );
         wait(level.smokebuildtime);
-        var_4 = length( level.playercardbackground.origin - var_1.origin );
+        var_4 = length( level.player.origin - var_1.origin );
 
         if ( var_4 < level.smokespawnsafedist )
             return;
@@ -3718,8 +3718,8 @@ ai_flank_route( var_0 )
     {
         self _meth_81a9( var_0 );
 
-        if ( isdefined( var_0.rank ) )
-            self.goalradius = var_0.rank;
+        if ( isdefined( var_0.radius ) )
+            self.goalradius = var_0.radius;
 
         self waittill( "goal" );
 
@@ -3729,7 +3729,7 @@ ai_flank_route( var_0 )
             wait(var_1);
         }
 
-        if ( !isdefined( var_0._not_team ) )
+        if ( !isdefined( var_0.target ) )
         {
             if ( common_scripts\utility::_id_382E( "fall_back_to_barn" ) )
                 common_scripts\utility::_id_384A( "storm_the_tavern" );
@@ -3738,7 +3738,7 @@ ai_flank_route( var_0 )
             break;
         }
 
-        var_0 = getnode( var_0._not_team, "targetname" );
+        var_0 = getnode( var_0.target, "targetname" );
     }
 }
 
@@ -3748,11 +3748,11 @@ ai_reacquire_player( var_0 )
 
     for (;;)
     {
-        if ( !level.playercardbackground istouching( var_0 ) )
+        if ( !level.player istouching( var_0 ) )
         {
             wait(level.volumedesertiontime);
 
-            if ( !level.playercardbackground istouching( var_0 ) )
+            if ( !level.player istouching( var_0 ) )
             {
                 self notify( "reacquire_player" );
                 wait 0.5;
@@ -3776,7 +3776,7 @@ return_trip_enemy_acc_prep()
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_1 = getentarray( var_0[var_2]._not_team, "targetname" );
+        var_1 = getentarray( var_0[var_2].target, "targetname" );
         common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::return_trip_enemy_acc );
         var_1 = undefined;
         var_1 = [];
@@ -3798,7 +3798,7 @@ airstrike_hint_console()
     level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, -15, 196 );
     level._id_4B40 = maps\_hud_util::_id_2420( "hud_arrow_down", 24, 24 );
     level._id_4B40 maps\_hud_util::_id_7FEE( "TOP", undefined, -15.5, 170 );
-    level._id_4B40.space = 1;
+    level._id_4B40.sort = 1;
     level._id_4B40.color = ( 1.0, 1.0, 0.0 );
     level._id_4B40.alpha = 0.7;
     wait 4;
@@ -3856,13 +3856,13 @@ airstrike_support()
 
     for (;;)
     {
-        while ( level.playercardbackground getcurrentweapon() != "airstrike_support" )
+        while ( level.player getcurrentweapon() != "airstrike_support" )
         {
-            level.playerpreviousweapon = level.playercardbackground getcurrentweapon();
+            level.playerpreviousweapon = level.player getcurrentweapon();
             wait 0.05;
         }
 
-        var_0 = level.playercardbackground getweaponammostock( "airstrike_support" );
+        var_0 = level.player getweaponammostock( "airstrike_support" );
 
         if ( !isdefined( var_0 ) )
             break;
@@ -3871,7 +3871,7 @@ airstrike_support()
 
         thread airstrike_support_activate();
 
-        while ( level.playercardbackground getcurrentweapon() == "airstrike_support" )
+        while ( level.player getcurrentweapon() == "airstrike_support" )
             wait 0.05;
 
         level notify( "air_support_canceled" );
@@ -3902,11 +3902,11 @@ airstrike_support_deactive()
 airstrike_support_paint_target()
 {
     level endon( "air_support_canceled" );
-    level.playercardbackground waittill( "weapon_fired" );
+    level.player waittill( "weapon_fired" );
     common_scripts\utility::_id_383F( "airstrike_in_progress" );
     maps\_friendlyfire::_id_9932();
     level.activeairstrikes++;
-    var_0 = level.playercardbackground getweaponammostock( "airstrike_support" );
+    var_0 = level.player getweaponammostock( "airstrike_support" );
 
     if ( !isdefined( var_0 ) )
         level notify( "no_airstrike_ammo" );
@@ -3914,14 +3914,14 @@ airstrike_support_paint_target()
         level notify( "no_airstrike_ammo" );
 
     thread airstrike_support_mark();
-    var_1 = level.playercardbackground getweaponslistprimaries();
+    var_1 = level.player getweaponslistprimaries();
 
     if ( isdefined( var_1[0] ) && var_1[0] == level.playerpreviousweapon )
-        level.playercardbackground switchtoweapon( var_1[0] );
+        level.player switchtoweapon( var_1[0] );
     else if ( isdefined( var_1[1] ) && var_1[1] == level.playerpreviousweapon )
-        level.playercardbackground switchtoweapon( var_1[1] );
+        level.player switchtoweapon( var_1[1] );
     else
-        level.playercardbackground switchtoweapon( var_1[0] );
+        level.player switchtoweapon( var_1[0] );
 
     var_2 = level.airstrikeattackarrow.origin;
     thread airstrike_support_launch( var_2 );
@@ -3940,15 +3940,15 @@ airstrike_support_paint_target()
 
 airstrike_support_weapon_refresh()
 {
-    while ( level.playercardbackground getcurrentweapon() == "airstrike_support" )
+    while ( level.player getcurrentweapon() == "airstrike_support" )
         waittillframeend;
 
-    var_0 = level.playercardbackground getweaponammostock( "airstrike_support" );
+    var_0 = level.player getweaponammostock( "airstrike_support" );
     var_0--;
-    level.playercardbackground takeweapon( "airstrike_support" );
-    level.playercardbackground giveweapon( "airstrike_support" );
-    level.playercardbackground setactionslot( 2, "weapon", "airstrike_support" );
-    level.playercardbackground setweaponammostock( "airstrike_support", var_0 );
+    level.player takeweapon( "airstrike_support" );
+    level.player giveweapon( "airstrike_support" );
+    level.player setactionslot( 2, "weapon", "airstrike_support" );
+    level.player setweaponammostock( "airstrike_support", var_0 );
 }
 
 airstrike_support_launch( var_0 )
@@ -3971,7 +3971,7 @@ _id_1A0B( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_2 ) )
     {
-        var_4 = var_0 - level.playercardbackground.origin;
+        var_4 = var_0 - level.player.origin;
         var_5 = vectortoangles( var_4 );
         var_6 = var_5[1];
         var_7 = 75;
@@ -4085,9 +4085,9 @@ _id_6A38()
 
 callstrike_planesound( var_0, var_1 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
 
-    while ( !_id_91D1( var_0, level.playercardbackground.origin ) )
+    while ( !_id_91D1( var_0, level.player.origin ) )
         wait 0.05;
 
     var_0 maps\_utility::_id_69C4( "veh_mig29_passby" );
@@ -4215,13 +4215,13 @@ friendly_player_tracking_nav()
     {
         wait(randomfloatrange( 3, 5 ));
 
-        if ( level.playercardbackground istouching( var_0 ) )
+        if ( level.player istouching( var_0 ) )
         {
             self _meth_81a9( var_1 );
             continue;
         }
 
-        self _meth_81aa( level.playercardbackground.origin );
+        self _meth_81aa( level.player.origin );
     }
 }
 

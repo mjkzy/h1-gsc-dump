@@ -21,7 +21,7 @@
 
 main()
 {
-    if ( self.unlockpoints == "dog" )
+    if ( self.type == "dog" )
         _id_861F();
     else
         _id_8620();

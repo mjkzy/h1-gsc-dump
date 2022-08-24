@@ -30,12 +30,12 @@ _id_4CB8()
     if ( getdvar( "bcs_enable" ) == "off" )
     {
         anim._id_1CA5 = 0;
-        anim.playercardbackground._id_1CA5 = 0;
+        anim.player._id_1CA5 = 0;
         return;
     }
 
     anim._id_1CA5 = 1;
-    anim.playercardbackground._id_1CA5 = 0;
+    anim.player._id_1CA5 = 0;
 
     if ( getdvar( "bcs_filterThreat" ) == "" )
         setdvar( "bcs_filterThreat", "off" );
@@ -266,7 +266,7 @@ _id_854B()
     anim.landmarks = undefined;
     anim._id_9BF9 = undefined;
     anim._id_1CA5 = 0;
-    anim.playercardbackground._id_1CA5 = 0;
+    anim.player._id_1CA5 = 0;
     level._id_132D = undefined;
 
     for ( var_0 = 0; var_0 < anim._id_8AC9.size; var_0++ )
@@ -321,7 +321,7 @@ _id_4D5E()
     var_0._id_8ADA[var_0._id_8ADA.size] = "::initContact";
 
     for ( var_1 = 0; var_1 < anim._id_8ACE.size; var_1++ )
-        var_0 thread _id_4DA3( anim._id_8ACE[var_1].stand );
+        var_0 thread _id_4DA3( anim._id_8ACE[var_1].squadname );
 
     var_0 thread animscripts\battlechatter_ai::_id_8AD7();
     var_0 thread animscripts\battlechatter_ai::_id_8AD3();
@@ -385,7 +385,7 @@ _id_854E()
     }
 
     for ( var_1 = 0; var_1 < anim._id_8ACE.size; var_1++ )
-        var_0 _id_854F( anim._id_8ACE[var_1].stand );
+        var_0 _id_854F( anim._id_8ACE[var_1].squadname );
 
     var_0._id_1CA5 = 0;
 }
@@ -429,7 +429,7 @@ _id_1356()
 _id_3109()
 {
     _id_4CB8();
-    anim.playercardbackground thread animscripts\battlechatter_ai::_id_0850();
+    anim.player thread animscripts\battlechatter_ai::_id_0850();
     var_0 = getaiarray();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
@@ -510,7 +510,7 @@ _id_6DE3()
     self._id_24C5 = self._id_1CA6["threat"];
     var_0 = self._id_1CA6["threat"]._id_9317;
 
-    if ( !isalive( var_0 ) || isdefined( var_0._id_1A07 ) && isdefined( var_0._id_1A07[self._id_8AB0.stand] ) )
+    if ( !isalive( var_0 ) || isdefined( var_0._id_1A07 ) && isdefined( var_0._id_1A07[self._id_8AB0.squadname] ) )
         return;
 
     anim thread _id_5808( self, "threat" );
@@ -518,7 +518,7 @@ _id_6DE3()
     switch ( self._id_1CA6["threat"]._id_33DD )
     {
         case "infantry":
-            if ( var_0 == level.playercardbackground || !isdefined( var_0 _meth_8198() ) )
+            if ( var_0 == level.player || !isdefined( var_0 _meth_8198() ) )
                 _id_932B( var_0 );
 
             break;
@@ -534,13 +534,13 @@ _id_6DE3()
     if ( !isalive( var_0 ) )
         return;
 
-    var_0._id_1A07[self._id_8AB0.stand] = spawnstruct();
-    var_0._id_1A07[self._id_8AB0.stand]._id_8A97 = self;
-    var_0._id_1A07[self._id_8AB0.stand]._id_9333 = self._id_1CA6["threat"]._id_33DD;
-    var_0._id_1A07[self._id_8AB0.stand]._id_351C = gettime() + 3000;
+    var_0._id_1A07[self._id_8AB0.squadname] = spawnstruct();
+    var_0._id_1A07[self._id_8AB0.squadname]._id_8A97 = self;
+    var_0._id_1A07[self._id_8AB0.squadname]._id_9333 = self._id_1CA6["threat"]._id_33DD;
+    var_0._id_1A07[self._id_8AB0.squadname]._id_351C = gettime() + 3000;
 
     if ( isdefined( var_0._id_8AB0 ) )
-        self._id_8AB0._id_8AD0[var_0._id_8AB0.stand]._id_1A07 = 1;
+        self._id_8AB0._id_8AD0[var_0._id_8AB0.squadname]._id_1A07 = 1;
 }
 
 _id_932B( var_0, var_1 )
@@ -627,12 +627,12 @@ _id_932B( var_0, var_1 )
                 if ( isdefined( var_4._id_1342 ) && _id_1ADE( var_4._id_1342 ) )
                 {
                     var_2 _id_0802( var_4._id_1342 );
-                    var_2.lootnew = var_4;
+                    var_2.looktarget = var_4;
                 }
                 else if ( isdefined( var_4._id_1346 ) )
                 {
                     var_2 _id_0822( var_4._id_1346 );
-                    var_2.lootnew = var_4;
+                    var_2.looktarget = var_4;
                 }
 
                 var_2 _id_081A( 1.0, "attack", "infantry" );
@@ -659,12 +659,12 @@ _id_932B( var_0, var_1 )
                 if ( isdefined( var_4._id_1342 ) && _id_1ADE( var_4._id_1342 ) )
                 {
                     var_2 _id_0802( var_4._id_1342 );
-                    var_2.lootnew = var_4;
+                    var_2.looktarget = var_4;
                 }
                 else if ( isdefined( var_4._id_1346 ) )
                 {
                     var_2 _id_0822( var_4._id_1346 );
-                    var_2.lootnew = var_4;
+                    var_2.looktarget = var_4;
                 }
 
                 var_2 _id_081A( 1.0, "attack", "infantry" );
@@ -849,7 +849,7 @@ responseacknowledge( var_0, var_1 )
 
     var_2 = _id_23EB();
     var_2 _id_0825( 1.0, "ack", var_1 );
-    var_2.lootnew = var_0;
+    var_2.looktarget = var_0;
     _id_6DD0( var_2 );
 }
 
@@ -859,7 +859,7 @@ responsekillconfirm( var_0, var_1 )
     self endon( "removed from battleChatter" );
     var_2 = _id_23EB();
     var_2 _id_0825( 1.0, "killfirm", "infantry" );
-    var_2.lootnew = var_0;
+    var_2.looktarget = var_0;
     _id_6DD0( var_2 );
 }
 
@@ -912,13 +912,13 @@ _id_657E( var_0, var_1 )
         if ( isdefined( var_1 ) && isdefined( var_1._id_1342 ) && _id_1ADE( var_1._id_1342 ) )
         {
             var_2 _id_0802( var_1._id_1342 );
-            var_2.lootnew = var_1;
+            var_2.looktarget = var_1;
             var_1 animscripts\battlechatter_ai::_id_0826( "ack", "follow", self, 1.0 );
         }
         else if ( isdefined( var_1 ) && isdefined( var_1._id_1346 ) )
         {
             var_2 _id_0822( var_1._id_1346 );
-            var_2.lootnew = var_1;
+            var_2.looktarget = var_1;
             var_1 animscripts\battlechatter_ai::_id_0826( "ack", "follow", self, 1.0 );
         }
         else
@@ -961,18 +961,18 @@ ordercover( var_0, var_1 )
         if ( isdefined( var_1 ) && isdefined( var_1._id_1346 ) )
         {
             var_2 _id_0822( var_1._id_1346 );
-            var_2.lootnew = var_1;
+            var_2.looktarget = var_1;
         }
     }
     else if ( isdefined( var_1 ) && isdefined( var_1._id_1342 ) && _id_1ADE( var_1._id_1342 ) )
     {
         var_2 _id_0802( var_1._id_1342 );
-        var_2.lootnew = var_1;
+        var_2.looktarget = var_1;
     }
     else if ( isdefined( var_1 ) && isdefined( var_1._id_1346 ) )
     {
         var_2 _id_0822( var_1._id_1346 );
-        var_2.lootnew = var_1;
+        var_2.looktarget = var_1;
     }
 
     var_2 _id_081A( 1.0, "cover", var_0 );
@@ -1016,13 +1016,13 @@ _id_4C64( var_0, var_1 )
 
     if ( var_1 == "coverme" && isalive( var_0 ) && isdefined( var_0._id_1342 ) && _id_1ADE( var_0._id_1342 ) )
     {
-        if ( var_0 == level.playercardbackground || self._id_2243 != "US" )
+        if ( var_0 == level.player || self._id_2243 != "US" )
             var_1 = "generic";
         else
         {
             var_1 = var_0._id_1342;
             var_0 animscripts\battlechatter_ai::_id_0826( "ack", "covering", self, 0.9 );
-            var_2.lootnew = var_0;
+            var_2.looktarget = var_0;
         }
     }
     else
@@ -1077,7 +1077,7 @@ _id_6A3B()
     self endon( "death" );
     self endon( "removed from battleChatter" );
     self._id_24C5 = self._id_1CA6["custom"];
-    anim thread _id_5808( self, self._id_24C5.unlockpoints, 1 );
+    anim thread _id_5808( self, self._id_24C5.type, 1 );
     _id_6DD0( self._id_2558 );
     self notify( "done speaking" );
     self._id_2557 = undefined;
@@ -1136,13 +1136,13 @@ _id_6DD0( var_0, var_1 )
             }
 
             self playsoundasmaster( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-            thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.lootnew );
+            thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.looktarget );
             self waittill( var_0._id_88A9[var_2] );
             continue;
         }
 
         self playsound( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-        thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.lootnew );
+        thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.looktarget );
         self waittill( var_0._id_88A9[var_2] );
     }
 
@@ -1199,7 +1199,7 @@ _id_9B0A( var_0, var_1 )
 
         for ( var_3 = 0; var_3 < self._id_5BA6.size; var_3++ )
         {
-            if ( self._id_5BA6[var_3] != var_1 && isalive( self._id_5BA6[var_3].enemy ) && isdefined( self._id_5BA6[var_3].enemy._id_8AB0 ) && self._id_5BA6[var_3].enemy._id_8AB0.stand == var_0 )
+            if ( self._id_5BA6[var_3] != var_1 && isalive( self._id_5BA6[var_3].enemy ) && isdefined( self._id_5BA6[var_3].enemy._id_8AB0 ) && self._id_5BA6[var_3].enemy._id_8AB0.squadname == var_0 )
                 var_2 = 1;
         }
 
@@ -1218,7 +1218,7 @@ _id_1ADD( var_0, var_1, var_2, var_3 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( self == level.playercardbackground )
+    if ( self == level.player )
         return 0;
 
     if ( !isdefined( self._id_132D ) || !self._id_132D )
@@ -1494,7 +1494,7 @@ _id_1340()
     if ( _id_5103() )
         return 0;
 
-    return animscripts\utility::_id_51AC( self.weapon_switch_invalid );
+    return animscripts\utility::_id_51AC( self.weapon );
 }
 
 _id_5103()
@@ -1507,7 +1507,7 @@ _id_5103()
     if ( !isdefined( var_0 ) )
         return 1;
 
-    if ( var_0.unlockpoints[0] == "C" && var_0.unlockpoints[1] == "o" && var_0.unlockpoints[2] == "v" )
+    if ( var_0.type[0] == "C" && var_0.type[1] == "o" && var_0.type[2] == "v" )
         return 0;
 
     return 1;
@@ -1520,7 +1520,7 @@ isclaimednodecover()
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( var_0.unlockpoints[0] == "C" && var_0.unlockpoints[1] == "o" && var_0.unlockpoints[2] == "v" )
+    if ( var_0.type[0] == "C" && var_0.type[1] == "o" && var_0.type[2] == "v" )
         return 1;
 
     return 0;
@@ -1544,12 +1544,12 @@ isclaimednodewindow()
 
 isnodecover()
 {
-    var_0 = self.node_relinquished;
+    var_0 = self.node;
 
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( var_0.unlockpoints[0] == "C" && var_0.unlockpoints[1] == "o" && var_0.unlockpoints[2] == "v" )
+    if ( var_0.type[0] == "C" && var_0.type[1] == "o" && var_0.type[2] == "v" )
         return 1;
 
     return 0;
@@ -1568,7 +1568,7 @@ _id_5164()
 _id_133E()
 {
     if ( isplayer( self ) )
-        var_0 = self.node_relinquished;
+        var_0 = self.node;
     else
         var_0 = animscripts\utility::_id_3F2F();
 }
@@ -1578,7 +1578,7 @@ _id_4030()
     if ( self.team == "axis" )
         var_0 = self._id_0986;
     else if ( self.team == "allies" )
-        var_0 = self.nearz;
+        var_0 = self.name;
     else
         var_0 = undefined;
 
@@ -1930,7 +1930,7 @@ adddirectionalias( var_0, var_1, var_2, var_3, var_4 )
 
 getdirectionaliasplayerrelative( var_0 )
 {
-    var_1 = getdirectionreferenceside( level.playercardbackground.origin, var_0.origin, anglestoforward( level.playercardbackground.angles ) );
+    var_1 = getdirectionreferenceside( level.player.origin, var_0.origin, anglestoforward( level.player.angles ) );
     var_1 = "relative_" + var_1;
     self._id_2A6D = self.owner._id_2243 + "_" + self.owner._id_6252 + "_direction_" + var_1;
     return self._id_2A6D;
@@ -2111,10 +2111,10 @@ threattracker()
 
         for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         {
-            if ( !level.playercardbackground _id_6E26( var_0[var_3].origin ) )
+            if ( !level.player _id_6E26( var_0[var_3].origin ) )
                 continue;
 
-            if ( distance( level.playercardbackground.origin, var_0[var_3].origin ) > 2048 )
+            if ( distance( level.player.origin, var_0[var_3].origin ) > 2048 )
                 continue;
 
             var_4 = "";
@@ -2212,7 +2212,7 @@ _id_2DD3( var_0, var_1, var_2, var_3 )
 {
     for (;;)
     {
-        if ( distance( level.playercardbackground.origin, var_1 ) > 2048 )
+        if ( distance( level.player.origin, var_1 ) > 2048 )
         {
             wait 0.1;
             continue;
@@ -2226,13 +2226,13 @@ _id_2DD2( var_0, var_1, var_2 )
 {
     for (;;)
     {
-        if ( distance( level.playercardbackground.origin, var_0 ) > 2048 )
+        if ( distance( level.player.origin, var_0 ) > 2048 )
         {
             wait 0.1;
             continue;
         }
 
-        var_3 = _id_3F5A( level.playercardbackground.origin, var_0 );
+        var_3 = _id_3F5A( level.player.origin, var_0 );
         wait 0.05;
     }
 }

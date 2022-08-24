@@ -331,13 +331,13 @@ _id_64C4( var_0 )
 
     if ( var_1 == "allies" )
     {
-        var_0.offense_level = 1;
+        var_0.objective = 1;
         level._id_1219 = 2;
         level._id_1218 = var_0 getentitynumber();
     }
     else
     {
-        var_0.offense_level = 2;
+        var_0.objective = 2;
         level._id_0A84 = 2;
         level._id_0A83 = var_0 getentitynumber();
     }
@@ -451,7 +451,7 @@ _id_2442( var_0 )
             return;
         }
 
-        var_4 = spawn( "trigger_radius", var_2.origin, 0, 96, var_2.hidewhendead );
+        var_4 = spawn( "trigger_radius", var_2.origin, 0, 96, var_2.height );
         var_2 = var_4;
         var_3[0] setmodel( level._id_3866[var_0] );
         var_3[0]._id_63C7 = var_3[0] setcontents( 0 );
@@ -501,7 +501,7 @@ _id_2442( var_0 )
         var_8._id_4273 = ::_id_426E;
         var_8._id_1AFB = ::_id_1AF8;
         var_8._id_4273 = ::_id_4272;
-        var_8._id_63DF = var_2.rank;
+        var_8._id_63DF = var_2.radius;
         var_8.origin = var_2.origin;
         var_8.highestspawndistratio = 0.0;
 
@@ -568,14 +568,14 @@ _id_6454( var_0 )
     var_1 = var_0.pers["team"];
 
     if ( var_1 == maps\mp\gametypes\_gameobjects::_id_4078() )
-        self.trigger.rank = 1024;
+        self.trigger.radius = 1024;
     else
-        self.trigger.rank = self._id_63DF;
+        self.trigger.radius = self._id_63DF;
 }
 
 _id_648E( var_0, var_1, var_2 )
 {
-    self.trigger.rank = self._id_63DF;
+    self.trigger.radius = self._id_63DF;
 }
 
 _id_64C2( var_0 )
@@ -733,7 +733,7 @@ _id_646F( var_0 )
 
     if ( isdefined( var_0 ) )
     {
-        var_0.offense_level = 0;
+        var_0.objective = 0;
 
         if ( isdefined( var_0.carryflag ) )
             var_0 _id_2980();
@@ -830,7 +830,7 @@ onuse( var_0 )
 
     if ( isdefined( var_0 ) )
     {
-        var_0.offense_level = 0;
+        var_0.objective = 0;
 
         if ( isdefined( var_0.carryflag ) )
             var_0 _id_2980();
@@ -1224,16 +1224,16 @@ _id_4034( var_0 )
     if ( !isdefined( var_4 ) || var_4 == -1 )
         var_4 = distancesquared( level._id_91EF["axis"].origin, var_0.origin );
 
-    if ( isdefined( var_0.script_parentname ) )
+    if ( isdefined( var_0.script_noteworthy ) )
     {
-        if ( game["switchedsides"] && var_0.script_parentname == "axis_override" || !game["switchedsides"] && var_0.script_parentname == "allies_override" )
+        if ( game["switchedsides"] && var_0.script_noteworthy == "axis_override" || !game["switchedsides"] && var_0.script_noteworthy == "allies_override" )
         {
             var_2 = "allies";
             var_0.friendlyflag = level._id_91EF["allies"];
             var_0.friendlyflagdist = var_3;
             var_0.enemyflagdist = var_4;
         }
-        else if ( game["switchedsides"] && var_0.script_parentname == "allies_override" || !game["switchedsides"] && var_0.script_parentname == "axis_override" )
+        else if ( game["switchedsides"] && var_0.script_noteworthy == "allies_override" || !game["switchedsides"] && var_0.script_noteworthy == "axis_override" )
         {
             var_2 = "axis";
             var_0.friendlyflag = level._id_91EF["axis"];

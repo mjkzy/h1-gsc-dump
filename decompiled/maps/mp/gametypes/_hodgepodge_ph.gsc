@@ -377,80 +377,80 @@ propcontrolshud()
     self endon( "disconnect" );
     var_0 = 26;
     self.propchangecounter = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
-    self.propchangecounter.land = &"MP_PH_CHANGESLEFT";
+    self.propchangecounter.label = &"MP_PH_CHANGESLEFT";
     self.propchangecounter setvalue( 0 );
-    self.propchangecounter.xpmaxmultipliertimeplayed = -5;
-    self.propchangecounter._id_0538 = var_0;
+    self.propchangecounter.x = -5;
+    self.propchangecounter.y = var_0;
     self.propchangecounter.alignx = "right";
     self.propchangecounter.aligny = "top";
-    self.propchangecounter.hostquits = "right_adjustable";
-    self.propchangecounter.visionsetnight = "top_adjustable";
+    self.propchangecounter.horzalign = "right_adjustable";
+    self.propchangecounter.vertalign = "top_adjustable";
     self.propchangecounter.archived = 1;
     self.propchangecounter.fontscale = 1;
     self.propchangecounter.alpha = 1;
     self.propchangecounter.glowalpha = 0;
-    self.propchangecounter.hindlegstraceoffset = 0;
+    self.propchangecounter.hidewheninmenu = 0;
     var_0 += 12;
     self.changepropkey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
-    self.changepropkey.land = &"MP_PH_CHANGE";
-    self.changepropkey.xpmaxmultipliertimeplayed = -5;
-    self.changepropkey._id_0538 = var_0;
+    self.changepropkey.label = &"MP_PH_CHANGE";
+    self.changepropkey.x = -5;
+    self.changepropkey.y = var_0;
     self.changepropkey.alignx = "right";
     self.changepropkey.aligny = "top";
-    self.changepropkey.hostquits = "right_adjustable";
-    self.changepropkey.visionsetnight = "top_adjustable";
+    self.changepropkey.horzalign = "right_adjustable";
+    self.changepropkey.vertalign = "top_adjustable";
     self.changepropkey.archived = 1;
     self.changepropkey.fontscale = 1;
     self.changepropkey.alpha = 1;
     self.changepropkey.glowalpha = 0;
-    self.changepropkey.hindlegstraceoffset = 0;
+    self.changepropkey.hidewheninmenu = 0;
     var_0 += 12;
     self.lockpropkey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
-    self.lockpropkey.land = &"MP_PH_LOCK";
-    self.lockpropkey.xpmaxmultipliertimeplayed = -5;
-    self.lockpropkey._id_0538 = var_0;
+    self.lockpropkey.label = &"MP_PH_LOCK";
+    self.lockpropkey.x = -5;
+    self.lockpropkey.y = var_0;
     self.lockpropkey.alignx = "right";
     self.lockpropkey.aligny = "top";
-    self.lockpropkey.hostquits = "right_adjustable";
-    self.lockpropkey.visionsetnight = "top_adjustable";
+    self.lockpropkey.horzalign = "right_adjustable";
+    self.lockpropkey.vertalign = "top_adjustable";
     self.lockpropkey.archived = 1;
     self.lockpropkey.fontscale = 1;
     self.lockpropkey.alpha = 1;
     self.lockpropkey.glowalpha = 0;
-    self.lockpropkey.hindlegstraceoffset = 0;
+    self.lockpropkey.hidewheninmenu = 0;
     var_0 += 12;
     self.matchslopekey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
 
     if ( common_scripts\utility::_id_5064() )
-        self.matchslopekey.land = &"MP_PH_SLOPE";
+        self.matchslopekey.label = &"MP_PH_SLOPE";
     else
-        self.matchslopekey.land = &"MP_PH_SLOPE_PC";
+        self.matchslopekey.label = &"MP_PH_SLOPE_PC";
 
-    self.matchslopekey.xpmaxmultipliertimeplayed = -5;
-    self.matchslopekey._id_0538 = var_0;
+    self.matchslopekey.x = -5;
+    self.matchslopekey.y = var_0;
     self.matchslopekey.alignx = "right";
     self.matchslopekey.aligny = "top";
-    self.matchslopekey.hostquits = "right_adjustable";
-    self.matchslopekey.visionsetnight = "top_adjustable";
+    self.matchslopekey.horzalign = "right_adjustable";
+    self.matchslopekey.vertalign = "top_adjustable";
     self.matchslopekey.archived = 1;
     self.matchslopekey.fontscale = 1;
     self.matchslopekey.alpha = 1;
     self.matchslopekey.glowalpha = 0;
-    self.matchslopekey.hindlegstraceoffset = 0;
+    self.matchslopekey.hidewheninmenu = 0;
     var_0 += 12;
     self.abilitykey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
     setnewabilityhud();
-    self.abilitykey.xpmaxmultipliertimeplayed = -5;
-    self.abilitykey._id_0538 = var_0;
+    self.abilitykey.x = -5;
+    self.abilitykey.y = var_0;
     self.abilitykey.alignx = "right";
     self.abilitykey.aligny = "top";
-    self.abilitykey.hostquits = "right_adjustable";
-    self.abilitykey.visionsetnight = "top_adjustable";
+    self.abilitykey.horzalign = "right_adjustable";
+    self.abilitykey.vertalign = "top_adjustable";
     self.abilitykey.archived = 1;
     self.abilitykey.fontscale = 1;
     self.abilitykey.alpha = 1;
     self.abilitykey.glowalpha = 0;
-    self.abilitykey.hindlegstraceoffset = 0;
+    self.abilitykey.hidewheninmenu = 0;
     thread updatetextongamepadchange();
 }
 
@@ -460,33 +460,33 @@ pkcontrolshud()
     self endon( "disconnect" );
     var_0 = 38;
     self.pkexplodekey = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
-    self.pkexplodekey.land = &"MP_PK_EXPLODELKEY";
-    self.pkexplodekey.xpmaxmultipliertimeplayed = -5;
-    self.pkexplodekey._id_0538 = var_0;
+    self.pkexplodekey.label = &"MP_PK_EXPLODELKEY";
+    self.pkexplodekey.x = -5;
+    self.pkexplodekey.y = var_0;
     self.pkexplodekey.alignx = "right";
     self.pkexplodekey.aligny = "top";
-    self.pkexplodekey.hostquits = "right_adjustable";
-    self.pkexplodekey.visionsetnight = "top_adjustable";
+    self.pkexplodekey.horzalign = "right_adjustable";
+    self.pkexplodekey.vertalign = "top_adjustable";
     self.pkexplodekey.archived = 1;
     self.pkexplodekey.fontscale = 1;
     self.pkexplodekey.alpha = 0;
     self.pkexplodekey.glowalpha = 0;
-    self.pkexplodekey.hindlegstraceoffset = 0;
+    self.pkexplodekey.hidewheninmenu = 0;
     var_0 += 12;
     self.pklivesleft = maps\mp\gametypes\_hud_util::_id_2401( "objective", 0.9 );
-    self.pklivesleft.land = &"MP_PK_LIVESLEFT";
+    self.pklivesleft.label = &"MP_PK_LIVESLEFT";
     self.pklivesleft setvalue( 3 );
-    self.pklivesleft.xpmaxmultipliertimeplayed = -5;
-    self.pklivesleft._id_0538 = var_0;
+    self.pklivesleft.x = -5;
+    self.pklivesleft.y = var_0;
     self.pklivesleft.alignx = "right";
     self.pklivesleft.aligny = "top";
-    self.pklivesleft.hostquits = "right_adjustable";
-    self.pklivesleft.visionsetnight = "top_adjustable";
+    self.pklivesleft.horzalign = "right_adjustable";
+    self.pklivesleft.vertalign = "top_adjustable";
     self.pklivesleft.archived = 1;
     self.pklivesleft.fontscale = 1;
     self.pklivesleft.alpha = 1;
     self.pklivesleft.glowalpha = 0;
-    self.pklivesleft.hindlegstraceoffset = 0;
+    self.pklivesleft.hidewheninmenu = 0;
 }
 
 updatetextongamepadchange()
@@ -510,14 +510,14 @@ updatetextongamepadchange()
             if ( var_1 )
             {
                 if ( !maps\mp\_utility::_id_5092( self.slopelocked ) )
-                    self.matchslopekey.land = &"MP_PH_SLOPE";
+                    self.matchslopekey.label = &"MP_PH_SLOPE";
                 else
-                    self.matchslopekey.land = &"MP_PH_SLOPED";
+                    self.matchslopekey.label = &"MP_PH_SLOPED";
             }
             else if ( !maps\mp\_utility::_id_5092( self.slopelocked ) )
-                self.matchslopekey.land = &"MP_PH_SLOPE_PC";
+                self.matchslopekey.label = &"MP_PH_SLOPE_PC";
             else
-                self.matchslopekey.land = &"MP_PH_SLOPED_PC";
+                self.matchslopekey.label = &"MP_PH_SLOPED_PC";
         }
 
         waittillframeend;
@@ -528,53 +528,53 @@ setuproundstarthud()
 {
     level.phcountdowntimer = maps\mp\gametypes\_hud_util::_id_243F( "objective", 1.4 );
     level.phcountdowntimer maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", undefined, 0, 50 );
-    level.phcountdowntimer.land = &"MP_PH_STARTS_IN";
+    level.phcountdowntimer.label = &"MP_PH_STARTS_IN";
     level.phcountdowntimer.alpha = 0;
     level.phcountdowntimer.archived = 0;
-    level.phcountdowntimer.hindlegstraceoffset = 1;
-    level.phcountdowntimer.space = 1;
+    level.phcountdowntimer.hidewheninmenu = 1;
+    level.phcountdowntimer.sort = 1;
     level.phwhistletimer = maps\mp\gametypes\_hud_util::_id_243F( "objective", 0.9 );
-    level.phwhistletimer.xpmaxmultipliertimeplayed = -6;
-    level.phwhistletimer._id_0538 = 2;
+    level.phwhistletimer.x = -6;
+    level.phwhistletimer.y = 2;
     level.phwhistletimer.alignx = "right";
     level.phwhistletimer.aligny = "top";
-    level.phwhistletimer.hostquits = "right_adjustable";
-    level.phwhistletimer.visionsetnight = "top_adjustable";
-    level.phwhistletimer.land = &"MP_PH_WHISTILE_IN";
+    level.phwhistletimer.horzalign = "right_adjustable";
+    level.phwhistletimer.vertalign = "top_adjustable";
+    level.phwhistletimer.label = &"MP_PH_WHISTILE_IN";
     level.phwhistletimer.alpha = 0;
     level.phwhistletimer.archived = 0;
-    level.phwhistletimer.hindlegstraceoffset = 1;
+    level.phwhistletimer.hidewheninmenu = 1;
     level.phwhistletimer settimer( 120 );
     level.whistling = maps\mp\gametypes\_hud_util::_id_243D( "objective", 1 );
-    level.whistling.land = &"MP_PH_WHISTLING";
-    level.whistling.xpmaxmultipliertimeplayed = -5;
-    level.whistling._id_0538 = 2;
+    level.whistling.label = &"MP_PH_WHISTLING";
+    level.whistling.x = -5;
+    level.whistling.y = 2;
     level.whistling.alignx = "right";
     level.whistling.aligny = "top";
-    level.whistling.hostquits = "right_adjustable";
-    level.whistling.visionsetnight = "top_adjustable";
+    level.whistling.horzalign = "right_adjustable";
+    level.whistling.vertalign = "top_adjustable";
     level.whistling.archived = 1;
     level.whistling.alpha = 0;
     level.whistling.glowalpha = 0.2;
-    level.whistling.hindlegstraceoffset = 0;
+    level.whistling.hidewheninmenu = 0;
 
     if ( !isdefined( level.elim_hud ) )
         level.elim_hud = [];
 
     level.elim_hud = maps\mp\gametypes\_hud_util::_id_243D( "objective", 0.9 );
-    level.elim_hud.land = &"MP_PH_ALIVE";
+    level.elim_hud.label = &"MP_PH_ALIVE";
     level.elim_hud setvalue( 0 );
-    level.elim_hud.xpmaxmultipliertimeplayed = -5;
-    level.elim_hud._id_0538 = 14;
+    level.elim_hud.x = -5;
+    level.elim_hud.y = 14;
     level.elim_hud.alignx = "right";
     level.elim_hud.aligny = "top";
-    level.elim_hud.hostquits = "right_adjustable";
-    level.elim_hud.visionsetnight = "top_adjustable";
+    level.elim_hud.horzalign = "right_adjustable";
+    level.elim_hud.vertalign = "top_adjustable";
     level.elim_hud.archived = 1;
     level.elim_hud.fontscale = 1.0;
     level.elim_hud.alpha = 1;
     level.elim_hud.glowalpha = 0;
-    level.elim_hud.hindlegstraceoffset = 0;
+    level.elim_hud.hidewheninmenu = 0;
     level thread eliminatedhudmonitor();
 }
 
@@ -584,52 +584,52 @@ setupmadpropsstarthud()
         level.elim_hud = [];
 
     level.elim_hud = maps\mp\gametypes\_hud_util::_id_243D( "objective", 0.9 );
-    level.elim_hud.land = &"MP_PK_ALIVE";
+    level.elim_hud.label = &"MP_PK_ALIVE";
     level.elim_hud setvalue( 0 );
-    level.elim_hud.xpmaxmultipliertimeplayed = -5;
-    level.elim_hud._id_0538 = 14;
+    level.elim_hud.x = -5;
+    level.elim_hud.y = 14;
     level.elim_hud.alignx = "right";
     level.elim_hud.aligny = "top";
-    level.elim_hud.hostquits = "right_adjustable";
-    level.elim_hud.visionsetnight = "top_adjustable";
+    level.elim_hud.horzalign = "right_adjustable";
+    level.elim_hud.vertalign = "top_adjustable";
     level.elim_hud.archived = 1;
     level.elim_hud.fontscale = 1.0;
     level.elim_hud.alpha = 1;
     level.elim_hud.glowalpha = 0;
-    level.elim_hud.hindlegstraceoffset = 0;
+    level.elim_hud.hidewheninmenu = 0;
 
     if ( !isdefined( level.elim_hud_humans ) )
         level.elim_hud_humans = [];
 
     level.elim_hud_humans = maps\mp\gametypes\_hud_util::_id_243D( "objective", 0.9 );
-    level.elim_hud_humans.land = &"MP_PK_HUMANSALIVE";
+    level.elim_hud_humans.label = &"MP_PK_HUMANSALIVE";
     level.elim_hud_humans setvalue( 0 );
-    level.elim_hud_humans.xpmaxmultipliertimeplayed = -5;
-    level.elim_hud_humans._id_0538 = 26;
+    level.elim_hud_humans.x = -5;
+    level.elim_hud_humans.y = 26;
     level.elim_hud_humans.alignx = "right";
     level.elim_hud_humans.aligny = "top";
-    level.elim_hud_humans.hostquits = "right_adjustable";
-    level.elim_hud_humans.visionsetnight = "top_adjustable";
+    level.elim_hud_humans.horzalign = "right_adjustable";
+    level.elim_hud_humans.vertalign = "top_adjustable";
     level.elim_hud_humans.archived = 1;
     level.elim_hud_humans.fontscale = 1.0;
     level.elim_hud_humans.alpha = 1;
     level.elim_hud_humans.glowalpha = 0;
-    level.elim_hud_humans.hindlegstraceoffset = 0;
+    level.elim_hud_humans.hidewheninmenu = 0;
     level thread eliminatedhudmonitor();
     level.phcountdowntimer = maps\mp\gametypes\_hud_util::_id_243F( "objective", 1.4 );
     level.phcountdowntimer maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", undefined, 0, 50 );
-    level.phcountdowntimer.land = &"MP_PK_STARTS_IN";
+    level.phcountdowntimer.label = &"MP_PK_STARTS_IN";
     level.phcountdowntimer.alpha = 0;
     level.phcountdowntimer.archived = 0;
-    level.phcountdowntimer.hindlegstraceoffset = 1;
-    level.phcountdowntimer.space = 1;
+    level.phcountdowntimer.hidewheninmenu = 1;
+    level.phcountdowntimer.sort = 1;
     level.pkinvuln = maps\mp\gametypes\_hud_util::_id_243F( "objective", 1.4 );
     level.pkinvuln maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", undefined, 0, 50 );
-    level.pkinvuln.land = &"MP_PK_PROPSINVULN";
+    level.pkinvuln.label = &"MP_PK_PROPSINVULN";
     level.pkinvuln.alpha = 0;
     level.pkinvuln.archived = 0;
-    level.pkinvuln.hindlegstraceoffset = 1;
-    level.pkinvuln.space = 1;
+    level.pkinvuln.hidewheninmenu = 1;
+    level.pkinvuln.sort = 1;
 }
 
 eliminatedhudmonitor()
@@ -656,7 +656,7 @@ get_alive_nonspecating_players( var_0 )
 
     foreach ( var_3 in level.players )
     {
-        if ( isdefined( var_3 ) && isalive( var_3 ) && ( !isdefined( var_3.sharpturnlookaheaddist ) || var_3.sharpturnlookaheaddist == "playing" ) )
+        if ( isdefined( var_3 ) && isalive( var_3 ) && ( !isdefined( var_3.sessionstate ) || var_3.sessionstate == "playing" ) )
         {
             if ( !isdefined( var_0 ) || var_3.team == var_0 )
                 var_1[var_1.size] = var_3;
@@ -987,11 +987,11 @@ setupprop()
     self.prop _meth_8442( self.propent );
     self.prop _meth_8581();
     self.prop.owner = self;
-    self.prop.helmet = 10000;
+    self.prop.health = 10000;
     self.prop _meth_8491( 1 );
     self.prop._id_4C5C = var_0;
-    self.helmet = var_0.propsize;
-    self.maxturnspeed = self.helmet;
+    self.health = var_0.propsize;
+    self.maxhealth = self.health;
     thread setupkeybindings();
     thread setupdamage();
     childthread proplockwatch();
@@ -1027,11 +1027,11 @@ setupmadprops()
     self.prop _meth_8442( self.propent );
     self.prop _meth_8581();
     self.prop.owner = self;
-    self.prop.helmet = 10000;
+    self.prop.health = 10000;
     self.prop _meth_8491( 1 );
     self.prop._id_4C5C = var_0;
-    self.helmet = var_0.propsize;
-    self.maxturnspeed = self.helmet;
+    self.health = var_0.propsize;
+    self.maxhealth = self.health;
     thread setupkeybindings();
     thread setupdamage();
     childthread madpropswatch();
@@ -1108,7 +1108,7 @@ propwhistle()
             {
                 if ( var_2 * 2 + getteamplayersalive( game["defenders"] ) * 2500 >= maps\mp\gametypes\_gamelogic::_id_4131() - var_3 )
                 {
-                    level.phwhistletimer.land = &"MP_PH_FINAL_WHISTLE";
+                    level.phwhistletimer.label = &"MP_PH_FINAL_WHISTLE";
                     var_2 += getteamplayersalive( game["defenders"] ) * 2500;
                 }
 
@@ -1231,9 +1231,9 @@ proplockwatch()
                     self.propent set_pitch_roll_for_ground_normal( self.prop );
 
                 self.propent _meth_8442( self.propanchor );
-                var_3 = self.helmet / self.maxturnspeed;
-                self.maxturnspeed = int( self.prop._id_4C5C.propsize );
-                self.helmet = int( self.prop._id_4C5C.propsize * var_3 );
+                var_3 = self.health / self.maxhealth;
+                self.maxhealth = int( self.prop._id_4C5C.propsize );
+                self.health = int( self.prop._id_4C5C.propsize * var_3 );
                 setnewabilitycount();
                 self.abilitykey.alpha = 1;
                 self.changesleft--;
@@ -1260,9 +1260,9 @@ proplockwatch()
                 }
 
                 if ( common_scripts\utility::_id_5064() )
-                    self.matchslopekey.land = &"MP_PH_SLOPED";
+                    self.matchslopekey.label = &"MP_PH_SLOPED";
                 else
-                    self.matchslopekey.land = &"MP_PH_SLOPED_PC";
+                    self.matchslopekey.label = &"MP_PH_SLOPED_PC";
             }
             else
             {
@@ -1277,9 +1277,9 @@ proplockwatch()
                 }
 
                 if ( common_scripts\utility::_id_5064() )
-                    self.matchslopekey.land = &"MP_PH_SLOPE";
+                    self.matchslopekey.label = &"MP_PH_SLOPE";
                 else
-                    self.matchslopekey.land = &"MP_PH_SLOPE_PC";
+                    self.matchslopekey.label = &"MP_PH_SLOPE_PC";
             }
 
             continue;
@@ -1405,7 +1405,7 @@ unlockprop()
 
     self.propanchor _meth_8442( self );
     self._id_57FE = 0;
-    self.lockpropkey.land = &"MP_PH_LOCK";
+    self.lockpropkey.label = &"MP_PH_LOCK";
 }
 
 lockprop()
@@ -1422,7 +1422,7 @@ lockprop()
     }
 
     self._id_57FE = 1;
-    self.lockpropkey.land = &"MP_PH_LOCKED";
+    self.lockpropkey.label = &"MP_PH_LOCKED";
     self notify( "locked" );
 }
 
@@ -1560,18 +1560,18 @@ propspectateendwatch()
 createpropspecatehud()
 {
     self.spectatecommands = maps\mp\gametypes\_hud_util::_id_2401( "objective", 1 );
-    self.spectatecommands.land = &"MP_PH_SPECCOMMANDS";
-    self.spectatecommands.xpmaxmultipliertimeplayed = 20;
-    self.spectatecommands._id_0538 = -80;
+    self.spectatecommands.label = &"MP_PH_SPECCOMMANDS";
+    self.spectatecommands.x = 20;
+    self.spectatecommands.y = -80;
     self.spectatecommands.alignx = "center";
     self.spectatecommands.aligny = "middle";
-    self.spectatecommands.hostquits = "center_adjustable";
-    self.spectatecommands.visionsetnight = "bottom_adjustable";
+    self.spectatecommands.horzalign = "center_adjustable";
+    self.spectatecommands.vertalign = "bottom_adjustable";
     self.spectatecommands.archived = 1;
     self.spectatecommands.fontscale = 1;
     self.spectatecommands.alpha = 1;
     self.spectatecommands.glowalpha = 0.5;
-    self.spectatecommands.hindlegstraceoffset = 0;
+    self.spectatecommands.hidewheninmenu = 0;
 }
 
 destroypropspecatehud()
@@ -1667,7 +1667,7 @@ setnewabilityhud()
     switch ( self.currentability )
     {
         case "FLASH":
-            self.abilitykey.land = &"MP_PH_FLASH";
+            self.abilitykey.label = &"MP_PH_FLASH";
             break;
         default:
             break;
@@ -2215,7 +2215,7 @@ gamemodemodifyplayerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var
             var_2 *= level.matchrules_damagemultiplier;
 
         if ( level.matchrules_vampirism )
-            var_1.helmet = int( min( float( var_1.maxturnspeed ), float( var_1.helmet + 20 ) ) );
+            var_1.health = int( min( float( var_1.maxhealth ), float( var_1.health + 20 ) ) );
     }
 
     if ( self.team == game["defenders"] && isdefined( var_3 ) && var_3 == "MOD_FALLING" )
@@ -2278,13 +2278,13 @@ fadetoblackforxsec( var_0, var_1, var_2 )
 
     var_3 = newclienthudelem( self );
     var_3.foreground = 0;
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = 0;
+    var_3.x = 0;
+    var_3.y = 0;
     var_3 setshader( "black", 640, 480 );
     var_3.alignx = "left";
     var_3.aligny = "top";
-    var_3.hostquits = "fullscreen";
-    var_3.visionsetnight = "fullscreen";
+    var_3.horzalign = "fullscreen";
+    var_3.vertalign = "fullscreen";
     var_3.alpha = 0;
     waittillframeend;
     var_3 fadeovertime( var_1 );
@@ -2330,8 +2330,8 @@ attackerregenammo()
                 self setweaponammostock( var_1, var_2 + 1 );
             }
 
-            if ( self.helmet < 100 && self.helmet > 0 )
-                self.helmet = 100;
+            if ( self.health < 100 && self.health > 0 )
+                self.health = 100;
         }
 
         maps\mp\gametypes\_hostmigration::_id_A052( var_0 );
@@ -2461,7 +2461,7 @@ _id_A042()
     {
         wait 0.05;
 
-        if ( isdefined( self ) && ( self.sharpturnlookaheaddist == "spectator" || !maps\mp\_utility::_id_5189( self ) ) )
+        if ( isdefined( self ) && ( self.sessionstate == "spectator" || !maps\mp\_utility::_id_5189( self ) ) )
         {
             self.pers["lives"] = 1;
             maps\mp\gametypes\_playerlogic::_id_8998();

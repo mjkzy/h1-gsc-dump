@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "axis";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta";
     self._id_855D = "beretta";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 1024.0, 1250.0 );
     }
 
-    self.weapon_switch_invalid = "rpd_muzzle_small";
+    self.weapon = "rpd_muzzle_small";
 
     switch ( codescripts\character::_id_3E43( 6 ) )
     {
@@ -64,19 +64,19 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "axis" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_arab_regular_asad::prestigedoublexp();
-    character\character_sp_arab_regular_sadiq::prestigedoublexp();
-    character\character_sp_arab_regular_ski_mask::prestigedoublexp();
-    character\character_sp_arab_regular_ski_mask2::prestigedoublexp();
-    character\character_sp_arab_regular_suren::prestigedoublexp();
-    character\character_sp_arab_regular_yasir::prestigedoublexp();
+    character\character_sp_arab_regular_asad::precache();
+    character\character_sp_arab_regular_sadiq::precache();
+    character\character_sp_arab_regular_ski_mask::precache();
+    character\character_sp_arab_regular_ski_mask2::precache();
+    character\character_sp_arab_regular_suren::precache();
+    character\character_sp_arab_regular_yasir::precache();
     precacheitem( "rpd_muzzle_small" );
     precacheitem( "beretta" );
     precacheitem( "beretta" );

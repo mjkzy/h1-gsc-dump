@@ -178,13 +178,13 @@ initspawns()
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
         {
             spawnpointerror( var_2 );
             continue;
         }
 
-        switch ( var_2.script_parentname )
+        switch ( var_2.script_noteworthy )
         {
             case "defender":
                 level.spawn_defenders[level.spawn_defenders.size] = var_2;
@@ -409,19 +409,19 @@ verifybombzones( var_0 )
 
         foreach ( var_6 in var_0 )
         {
-            if ( issubstr( tolower( var_6.script_model ), "a" ) )
+            if ( issubstr( tolower( var_6.script_label ), "a" ) )
             {
                 var_2 = 1;
                 continue;
             }
 
-            if ( issubstr( tolower( var_6.script_model ), "b" ) )
+            if ( issubstr( tolower( var_6.script_label ), "b" ) )
             {
                 var_3 = 1;
                 continue;
             }
 
-            if ( issubstr( tolower( var_6.script_model ), "c" ) )
+            if ( issubstr( tolower( var_6.script_label ), "c" ) )
                 var_4 = 1;
         }
 
@@ -452,9 +452,9 @@ _id_1549()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_2 = var_0[var_1];
-        var_3 = getentarray( var_2._not_team, "targetname" );
-        var_4 = getent( var_3[0]._not_team, "targetname" );
-        var_5 = var_2.script_model;
+        var_3 = getentarray( var_2.target, "targetname" );
+        var_4 = getent( var_3[0].target, "targetname" );
+        var_5 = var_2.script_label;
         var_6 = getent( "dd_bombzone_clip" + var_5, "targetname" );
 
         if ( maps\mp\_utility::_id_4E3F() )
@@ -468,7 +468,7 @@ _id_1549()
                 continue;
             }
 
-            var_2.script_model = "_a";
+            var_2.script_label = "_a";
             var_7 = maps\mp\gametypes\common_bomb_gameobject::createbombzoneobject( "neutral", "any", "any", var_2, level.ddbomb, 0 );
             maps\mp\_utility::_id_7FAE( var_7, "waypoint_targetneutral" );
         }
@@ -588,39 +588,39 @@ _id_1545( var_0, var_1 )
     setbombtimerdvar();
     level._id_1545 = 1;
 
-    if ( var_0.land == "_a" )
+    if ( var_0.label == "_a" )
         level.aplanted = 1;
     else
         level.bplanted = 1;
 
-    dropbombmodel( var_1, var_0.land );
+    dropbombmodel( var_1, var_0.label );
 
     if ( maps\mp\_utility::_id_4E3F() )
         var_0 maps\mp\gametypes\_gameobjects::_id_7FDA( level._id_65B3[var_1.team] );
 
     var_0 maps\mp\gametypes\common_bomb_gameobject::setupzonefordefusing( !maps\mp\_utility::_id_4E3F() );
-    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level.ddbombmodel[var_0.land].origin + ( 0.0, 0.0, 1.0 ) );
+    var_0 maps\mp\gametypes\common_bomb_gameobject::onbombplanted( level.ddbombmodel[var_0.label].origin + ( 0.0, 0.0, 1.0 ) );
     var_0 _id_1552( var_0 );
     maps\mp\_utility::_id_7FAE( var_0, undefined );
     var_0._id_9345 maps\mp\gametypes\common_bomb_gameobject::_id_8F06();
     level.bombsplanted -= 1;
 
-    if ( var_0.land == "_a" )
+    if ( var_0.label == "_a" )
         level.aplanted = 0;
     else
         level.bplanted = 0;
 
     var_0 restarttimer();
     var_0 setbombtimerdvar();
-    setuibombtimer( var_0.land, 0 );
+    setuibombtimer( var_0.label, 0 );
 
     if ( level.gameended )
         return;
 
-    level notify( "bomb_exploded" + var_0.land );
+    level notify( "bomb_exploded" + var_0.label );
     level._id_1540 += 1;
     var_3 = var_0.curorigin;
-    level.ddbombmodel[var_0.land] delete();
+    level.ddbombmodel[var_0.label] delete();
     var_0 maps\mp\gametypes\common_bomb_gameobject::onbombexploded( var_3, 200, var_1 );
     var_0 maps\mp\gametypes\_gameobjects::_id_2B1E();
     var_4 = 0;
@@ -691,7 +691,7 @@ restarttimer()
 _id_1552( var_0 )
 {
     level endon( "game_ended" );
-    level endon( "bomb_defused" + var_0.land );
+    level endon( "bomb_defused" + var_0.label );
 
     if ( maps\mp\_utility::_id_4E3F() )
         var_0.waittime = level._id_1551;
@@ -715,15 +715,15 @@ _id_9AEB( var_0 )
 {
     level endon( "game_ended" );
     level endon( "disconnect" );
-    level endon( "bomb_defused" + var_0.land );
-    level endon( "bomb_exploded" + var_0.land );
+    level endon( "bomb_defused" + var_0.label );
+    level endon( "bomb_exploded" + var_0.label );
     var_1 = var_0.waittime * 1000 + gettime();
-    setuibombtimer( var_0.land, var_1 );
+    setuibombtimer( var_0.label, var_1 );
     level waittill( "host_migration_begin" );
     var_2 = maps\mp\gametypes\_hostmigration::_id_A0DD();
 
     if ( var_2 > 0 )
-        setuibombtimer( var_0.land, var_1 + var_2 );
+        setuibombtimer( var_0.label, var_1 + var_2 );
 }
 
 _id_1536( var_0 )
@@ -734,9 +734,9 @@ _id_1536( var_0 )
     level.bombsplanted -= 1;
     var_0 restarttimer();
     setbombtimerdvar();
-    setuibombtimer( var_0.land, 0 );
-    level notify( "bomb_defused" + var_0.land );
-    level.ddbombmodel[var_0.land] delete();
+    setuibombtimer( var_0.label, 0 );
+    level notify( "bomb_defused" + var_0.label );
+    level.ddbombmodel[var_0.label] delete();
 
     if ( maps\mp\_utility::_id_4E3F() )
     {

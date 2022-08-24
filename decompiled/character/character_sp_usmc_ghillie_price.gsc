@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_complete_sp_usmc_ghillie_price" );
     precachemodel( "head_usmc_ghillie_price" );

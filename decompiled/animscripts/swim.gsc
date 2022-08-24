@@ -25,9 +25,9 @@ _id_5F80()
     self _meth_8193( "face enemy or motion" );
 
     if ( animscripts\utility::_id_51B0() )
-        self.turret_not_on_target = 0.16;
+        self.turnrate = 0.16;
     else
-        self.turret_not_on_target = 0.03;
+        self.turnrate = 0.03;
 
     animscripts\utility::_id_9B2B();
 
@@ -68,9 +68,9 @@ _id_903B()
     self._id_9026 = undefined;
 
     if ( animscripts\utility::_id_51B0() )
-        self.turret_not_on_target = 0.16;
+        self.turnrate = 0.16;
     else
-        self.turret_not_on_target = 0.3;
+        self.turnrate = 0.3;
 }
 
 _id_9047()
@@ -85,7 +85,7 @@ _id_9046()
 
     if ( isdefined( self._id_6F7A ) )
     {
-        self.turret_not_on_target = self._id_6F7A;
+        self.turnrate = self._id_6F7A;
         self._id_6F7A = undefined;
     }
 }
@@ -125,23 +125,23 @@ _id_5F81()
             if ( self._id_9026._id_5F7E != "combat_forward" )
                 _id_5F86( "combat_forward" );
 
-            if ( isdefined( self._id_1341 ) && self._id_1341 && lengthsquared( self.visionsetnakedduration ) )
+            if ( isdefined( self._id_1341 ) && self._id_1341 && lengthsquared( self.velocity ) )
             {
-                var_0 = vectortoangles( self.visionsetnakedduration );
+                var_0 = vectortoangles( self.velocity );
 
                 if ( abs( angleclamp180( var_0[1] - self.angles[1] ) ) > 35 )
                 {
-                    self.turret_not_on_target = 0.18;
+                    self.turnrate = 0.18;
 
                     if ( animscripts\utility::_id_51B0() )
-                        self.turret_not_on_target = 0.2;
+                        self.turnrate = 0.2;
                 }
                 else
                 {
                     if ( animscripts\utility::_id_51B0() )
-                        self.turret_not_on_target = 0.16;
+                        self.turnrate = 0.16;
                     else
-                        self.turret_not_on_target = 0.03;
+                        self.turnrate = 0.03;
 
                     self._id_1341 = undefined;
                 }
@@ -244,11 +244,11 @@ _id_5F87()
     _id_9034();
 
     if ( animscripts\utility::_id_51B0() )
-        self.turret_not_on_target = 0.25;
+        self.turnrate = 0.25;
     else
     {
-        self.turret_not_on_target = 0.18;
-        self.keepclaimednode = 1;
+        self.turnrate = 0.18;
+        self.jumping = 1;
     }
 }
 
@@ -260,11 +260,11 @@ _id_5F88()
     self _meth_8144( %combatrun_right, 0.2 );
 
     if ( animscripts\utility::_id_51B0() )
-        self.turret_not_on_target = 0.16;
+        self.turnrate = 0.16;
     else
     {
-        self.turret_not_on_target = 0.03;
-        self.keepclaimednode = 0;
+        self.turnrate = 0.03;
+        self.jumping = 0;
     }
 
     self._id_1341 = 1;
@@ -322,8 +322,8 @@ _id_5F8E()
 
         if ( animscripts\utility::_id_51B0() )
         {
-            self.riotshield_hit = 90;
-            self.lifecount = -90;
+            self.rightaimlimit = 90;
+            self.leftaimlimit = -90;
         }
 
         animscripts\track::_id_9502( %w_aim_2, %w_aim_4, %w_aim_6, %w_aim_8 );
@@ -351,37 +351,37 @@ _id_9065()
     if ( isdefined( self._id_2B0E ) )
         return 0;
 
-    if ( !isdefined( self.pc ) )
+    if ( !isdefined( self.pathgoalpos ) )
         return 0;
 
-    var_0 = self.maxsightdistsqrd;
-    self.maxsightdistsqrd = 128;
+    var_0 = self.maxfaceenemydist;
+    self.maxfaceenemydist = 128;
 
     if ( !self _meth_8195() )
     {
-        self.maxsightdistsqrd = var_0;
+        self.maxfaceenemydist = var_0;
         return 0;
     }
 
-    self.maxsightdistsqrd = var_0;
+    self.maxfaceenemydist = var_0;
     var_1 = 10000;
 
     if ( animscripts\utility::_id_51B0() )
         var_1 = 32400;
 
-    if ( distancesquared( self.origin, self.pc ) < var_1 )
+    if ( distancesquared( self.origin, self.pathgoalpos ) < var_1 )
         return 0;
 
     if ( self.a._id_5F5B != "stop" )
         return 0;
 
-    if ( lengthsquared( self.primary ) > 1 )
+    if ( lengthsquared( self.prevanimdelta ) > 1 )
     {
-        var_2 = vectortoangles( self.primary );
+        var_2 = vectortoangles( self.prevanimdelta );
 
         if ( abs( angleclamp180( var_2[1] - self.angles[1] ) ) < 90 )
         {
-            var_3 = vectortoangles( self.lookforward );
+            var_3 = vectortoangles( self.lookaheaddir );
 
             if ( abs( angleclamp180( var_3[1] - self.angles[1] ) ) < 90 )
                 return 0;
@@ -406,7 +406,7 @@ _id_9045()
     var_1 = var_0._id_58C0;
     var_2 = var_0._id_58BE;
     var_3 = var_0._id_58BD;
-    var_4 = vectortoangles( self.lookforward );
+    var_4 = vectortoangles( self.lookaheaddir );
     var_5 = var_4 - var_3;
     var_6 = anglestoforward( var_5 );
     var_7 = animscripts\exit_node::_id_3F8B();
@@ -441,12 +441,12 @@ _id_9045()
             self _meth_8193( "face direction", var_6 );
 
         self._id_6F7A = 0.16;
-        self.turret_not_on_target = 5.0;
+        self.turnrate = 5.0;
         var_11 = 0.1;
         self setflaggedanimknoballrestart( "startturn", var_1, %body, 1, var_11, var_10 * self._id_5F65 );
         animscripts\shared::_id_2D06( "startturn" );
         var_11 = 0.5;
-        self.turret_not_on_target = 0.16;
+        self.turnrate = 0.16;
         self._id_6F7A = undefined;
         var_12 = getangledelta( var_1 );
         var_7 = animscripts\exit_node::_id_3F8B();
@@ -477,16 +477,16 @@ _id_9045()
     if ( animscripts\utility::_id_51B0() )
     {
         var_11 = 0.05;
-        self.turret_not_on_target = 0.16;
+        self.turnrate = 0.16;
         var_17 = 5.0;
     }
 
-    self._id_6F7A = self.turret_not_on_target;
-    self.turret_not_on_target = var_17;
+    self._id_6F7A = self.turnrate;
+    self.turnrate = var_17;
     self _meth_8193( "face direction", var_6 );
     self setflaggedanimknoballrestart( "startmove", var_2, %body, 1, var_11, var_10 * self._id_5F65 );
     animscripts\shared::_id_2D06( "startmove" );
-    self.turret_not_on_target = self._id_6F7A;
+    self.turnrate = self._id_6F7A;
     self._id_6F7A = undefined;
     self _meth_8193( "face default" );
     self _meth_8192( "none", 0 );
@@ -499,8 +499,8 @@ _id_9045()
         var_18 = 65536;
         var_19 = self.goalpos;
 
-        if ( isdefined( self.node_relinquished ) )
-            var_19 = self.node_relinquished.origin;
+        if ( isdefined( self.node ) )
+            var_19 = self.node.origin;
 
         if ( distance2dsquared( self.origin, var_19 ) > var_18 )
             self notify( "force_space_rotation_update", 0, 0, undefined, 1 );
@@ -540,7 +540,7 @@ _id_9032()
     var_3 = 0;
     var_4 = 0;
     var_5 = 0;
-    var_6 = vectortoangles( self.lookforward );
+    var_6 = vectortoangles( self.lookaheaddir );
     var_7 = animscripts\utility::_id_413B( var_1 );
 
     if ( animscripts\utility::_id_51B0() && var_7[2] )
@@ -550,8 +550,8 @@ _id_9032()
             var_8 = anglestoforward( var_7 );
             var_9 = self.goalpos;
 
-            if ( isdefined( self.node_relinquished ) )
-                var_9 = self.node_relinquished.origin;
+            if ( isdefined( self.node ) )
+                var_9 = self.node.origin;
 
             var_10 = rotatepointaroundvector( var_8, var_9 - self.origin, var_7[2] * -1 );
             var_11 = var_10 + self.origin;
@@ -565,7 +565,7 @@ _id_9032()
     var_13 = undefined;
     var_14 = undefined;
 
-    if ( isdefined( var_1 ) && isdefined( var_1.unlockpoints ) )
+    if ( isdefined( var_1 ) && isdefined( var_1.type ) )
     {
         var_14 = _id_903F( var_1 );
 
@@ -612,8 +612,8 @@ _id_9032()
     var_20 = _id_903D( var_17, var_18 );
     var_21 = var_14;
 
-    if ( !isdefined( var_21 ) && isdefined( self.primaryattachment1 ) && distance2dsquared( self.primaryattachment1.origin, self.origin ) < 36 )
-        var_21 = _id_903F( self.primaryattachment1 );
+    if ( !isdefined( var_21 ) && isdefined( self.prevnode ) && distance2dsquared( self.prevnode.origin, self.origin ) < 36 )
+        var_21 = _id_903F( self.prevnode );
 
     if ( var_19 == 4 && isdefined( var_21 ) )
     {
@@ -688,7 +688,7 @@ _id_9064()
     if ( isdefined( self._id_2AF3 ) && self._id_2AF3 )
         return;
 
-    self._id_9026._id_0D26 = self.pc;
+    self._id_9026._id_0D26 = self.pathgoalpos;
 
     if ( isdefined( self getnegotiationstartnode() ) )
         return;
@@ -706,7 +706,7 @@ _id_904A()
     self endon( "killanimscript" );
     self endon( "swim_killrestartlistener" );
     self waittill( "path_set" );
-    var_0 = isdefined( self.pc ) && isdefined( self._id_9026._id_0D26 ) && distancesquared( self.pc, self._id_9026._id_0D26 ) < 4;
+    var_0 = isdefined( self.pathgoalpos ) && isdefined( self._id_9026._id_0D26 ) && distancesquared( self.pathgoalpos, self._id_9026._id_0D26 ) < 4;
 
     if ( var_0 )
     {
@@ -721,7 +721,7 @@ _id_904A()
 _id_9031()
 {
     self notify( "swim_cancelapproach" );
-    self.streaktype = 0;
+    self.stopanimdistsq = 0;
 }
 
 _id_9070( var_0, var_1 )
@@ -733,9 +733,9 @@ _id_9070( var_0, var_1 )
     if ( var_3 <= var_2 )
         return;
 
-    self.streaktype = var_2;
+    self.stopanimdistsq = var_2;
     self waittill( "stop_soon" );
-    self.streaktype = 0;
+    self.stopanimdistsq = 0;
 }
 
 _id_902D()
@@ -745,11 +745,11 @@ _id_902D()
     self endon( "move_interrupt" );
     self endon( "swim_killrestartlistener" );
 
-    if ( !isdefined( self.pc ) )
+    if ( !isdefined( self.pathgoalpos ) )
         return;
 
     var_0 = _id_9040( "arrival_exposed" );
-    _id_9070( self.pc, var_0 );
+    _id_9070( self.pathgoalpos, var_0 );
     _id_9039();
 }
 
@@ -760,7 +760,7 @@ _id_902C()
     self endon( "swim_killrestartlistener" );
     var_0 = animscripts\cover_arrival::_id_3F00();
     self._id_0CBC = _id_903F( var_0 );
-    self.requirement_beat50waves = 1;
+    self.requestarrivalnotify = 1;
     self waittill( "cover_approach", var_1 );
     var_0 = animscripts\cover_arrival::_id_3F00();
     var_2 = _id_903F( var_0 );
@@ -770,7 +770,7 @@ _id_902C()
         if ( isdefined( var_0 ) )
             var_3 = var_0.origin;
         else
-            var_3 = self.pc;
+            var_3 = self.pathgoalpos;
 
         var_4 = var_3 - self.origin;
         var_5 = vectortoangles( var_4 );
@@ -794,10 +794,10 @@ _id_902C()
 _id_9039()
 {
     var_0 = animscripts\cover_arrival::_id_3F00();
-    var_1 = self.pc;
+    var_1 = self.pathgoalpos;
     var_2 = ( 0, self.angles[1], self.angles[2] );
 
-    if ( isdefined( var_0 ) && var_0.unlockpoints != "Path" && var_0.unlockpoints != "Path 3D" )
+    if ( isdefined( var_0 ) && var_0.type != "Path" && var_0.type != "Path 3D" )
         var_2 = _id_404A( var_0 );
     else if ( animscripts\cover_arrival::_id_35B8() )
         var_2 = vectortoangles( self.enemy.origin - var_1 );
@@ -871,7 +871,7 @@ _id_9038( var_0, var_1, var_2, var_3, var_4 )
 
     if ( var_8 > 4 )
     {
-        if ( var_8 < 12 || self.fixednode || !isdefined( self.node_relinquished ) || !animscripts\cover_arrival::_id_51D4() )
+        if ( var_8 < 12 || self.fixednode || !isdefined( self.node ) || !animscripts\cover_arrival::_id_51D4() )
         {
             self._id_9026._id_0D26 = var_5._id_58C2;
             self _meth_8162( var_5._id_58C2 );
@@ -884,8 +884,8 @@ _id_9038( var_0, var_1, var_2, var_3, var_4 )
                 {
                     if ( distancesquared( self.origin, var_5._id_58C2 ) < var_12 )
                     {
-                        self._id_6F7A = self.turret_not_on_target;
-                        self.turret_not_on_target = 0.1;
+                        self._id_6F7A = self.turnrate;
+                        self.turnrate = 0.1;
                         var_13 = calculatestartorientation( var_5._id_58BF, var_5._id_58BD, var_1, var_4 );
                         self notify( "force_space_rotation_update", 0, 0, var_13[1] );
                         break;
@@ -944,7 +944,7 @@ _id_9035()
 
     if ( animscripts\utility::_id_51B0() )
     {
-        self.turret_not_on_target = 0.16;
+        self.turnrate = 0.16;
         self._id_6F7A = undefined;
     }
 
@@ -962,7 +962,7 @@ _id_88B3()
     self endon( "abort_approach" );
     wait 0.22;
     self._id_6F7A = 0.16;
-    self.turret_not_on_target = 5.0;
+    self.turnrate = 5.0;
 }
 
 _id_903E( var_0, var_1, var_2, var_3, var_4 )
@@ -1120,7 +1120,7 @@ _id_903F( var_0 )
     if ( !isdefined( var_0 ) )
         return "exposed";
 
-    var_1 = var_0.unlockpoints;
+    var_1 = var_0.type;
 
     if ( !isdefined( var_1 ) )
         return "exposed";
@@ -1215,7 +1215,7 @@ _id_906F()
         }
         else
         {
-            if ( self.reload_start == 1 )
+            if ( self.relativedir == 1 )
             {
                 var_1 = [];
                 var_1["front"] = 1;
@@ -1381,7 +1381,7 @@ _id_9033()
 
 _id_906D()
 {
-    var_0 = clamp( self.leftaimlimit / 20.0, -1, 1 );
+    var_0 = clamp( self.leanamount / 20.0, -1, 1 );
 
     if ( var_0 > 0 )
     {
@@ -1401,7 +1401,7 @@ _id_906D()
     }
 
     self._id_6F6B = var_0;
-    var_0 = clamp( self.playedblackops2 / 25.0, -1, 1 );
+    var_0 = clamp( self.pitchamount / 25.0, -1, 1 );
 
     if ( var_0 > 0 )
     {
@@ -1425,7 +1425,7 @@ _id_906D()
 
 _id_9043( var_0 )
 {
-    switch ( var_0.unlockpoints )
+    switch ( var_0.type )
     {
         case "Cover Up 3D":
         case "Cover Left 3D":

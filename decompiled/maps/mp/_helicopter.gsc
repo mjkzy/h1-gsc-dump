@@ -60,15 +60,15 @@ heli_path_graph()
     {
         var_6 = [];
         var_7 = var_1[var_5];
-        var_8 = _id_3F86( var_7._not_team, "targetname" );
+        var_8 = _id_3F86( var_7.target, "targetname" );
 
         for ( var_9 = 0; var_9 < var_0.size; var_9++ )
         {
             var_10 = 0;
 
-            for ( var_11 = var_0[var_9]; isdefined( var_11._not_team ); var_11 = var_12 )
+            for ( var_11 = var_0[var_9]; isdefined( var_11.target ); var_11 = var_12 )
             {
-                var_12 = _id_3F86( var_11._not_team, "targetname" );
+                var_12 = _id_3F86( var_11.target, "targetname" );
 
                 if ( var_12.origin == var_8.origin )
                 {
@@ -78,20 +78,20 @@ heli_path_graph()
 
                 debug_print3d_simple( "+", var_11, ( 0.0, 0.0, -10.0 ) );
 
-                if ( isdefined( var_12._not_team ) )
+                if ( isdefined( var_12.target ) )
                 {
-                    var_13 = _id_3F86( var_12._not_team, "targetname" );
+                    var_13 = _id_3F86( var_12.target, "targetname" );
 
                     if ( isdefined( var_13 ) && isdefined( var_13.origin ) )
                         _id_26AB( var_12.origin, var_13.origin, ( 0.25, 0.5, 0.25 ) );
                 }
 
-                if ( isdefined( var_11.script_lightset ) )
-                    debug_print3d_simple( "Wait: " + var_11.script_lightset, var_11, ( 0.0, 0.0, 10.0 ) );
+                if ( isdefined( var_11.script_delay ) )
+                    debug_print3d_simple( "Wait: " + var_11.script_delay, var_11, ( 0.0, 0.0, 10.0 ) );
             }
 
             if ( var_10 )
-                var_6[var_6.size] = _id_3F86( var_0[var_9]._not_team, "targetname" );
+                var_6[var_6.size] = _id_3F86( var_0[var_9].target, "targetname" );
         }
 
         level.heli_paths[level.heli_paths.size] = var_6;
@@ -99,7 +99,7 @@ heli_path_graph()
 
     for ( var_5 = 0; var_5 < var_2.size; var_5++ )
     {
-        var_14 = _id_3F86( var_2[var_5]._not_team, "targetname" );
+        var_14 = _id_3F86( var_2[var_5].target, "targetname" );
         level.heli_loop_paths[level.heli_loop_paths.size] = var_14;
     }
 
@@ -108,8 +108,8 @@ heli_path_graph()
 
     for ( var_5 = 0; var_5 < var_4.size; var_5++ )
     {
-        if ( isdefined( var_4[var_5]._not_team ) )
-            var_15 = _id_3F86( var_4[var_5]._not_team, "targetname" );
+        if ( isdefined( var_4[var_5].target ) )
+            var_15 = _id_3F86( var_4[var_5].target, "targetname" );
         else
             var_15 = var_4[var_5];
 
@@ -243,7 +243,7 @@ heli_think( var_0, var_1, var_2, var_3 )
     var_7 thread _id_47BA();
     level.chopper = var_7;
     var_7.reached_dest = 0;
-    var_7.maxturnspeed = level._id_47D4;
+    var_7.maxhealth = level._id_47D4;
     var_7.waittime = level.heli_dest_wait;
     var_7.loopcount = 0;
     var_7.evasive = 0;
@@ -357,7 +357,7 @@ cantarget_turret( var_0 )
 {
     var_1 = 1;
 
-    if ( !isalive( var_0 ) || var_0.sharpturnlookaheaddist != "playing" )
+    if ( !isalive( var_0 ) || var_0.sessionstate != "playing" )
         return 0;
 
     if ( distance( var_0.origin, self.origin ) > level.heli_visual_range )
@@ -375,7 +375,7 @@ cantarget_turret( var_0 )
     if ( var_0.pers["team"] == "spectator" )
         return 0;
 
-    if ( isdefined( var_0.spectating_cycle ) && ( gettime() - var_0.spectating_cycle ) / 1000 <= level.heli_target_spawnprotection )
+    if ( isdefined( var_0.spawntime ) && ( gettime() - var_0.spawntime ) / 1000 <= level.heli_target_spawnprotection )
         return 0;
 
     var_2 = self.origin + ( 0.0, 0.0, -160.0 );
@@ -511,7 +511,7 @@ _id_47B1()
         else
             self.damagetaken += var_0;
 
-        if ( self.damagetaken > self.maxturnspeed )
+        if ( self.damagetaken > self.maxhealth )
         {
             var_1 notify( "destroyed_helicopter" );
             maps\mp\gametypes\_damage::_id_64B6( var_1, var_9, var_4, var_0, "helicopter_destroyed", undefined, "callout_destroyed_helicopter", 1 );
@@ -574,7 +574,7 @@ heli_health()
                 thread heli_evasive();
         }
 
-        if ( self.damagetaken > self.maxturnspeed )
+        if ( self.damagetaken > self.maxhealth )
         {
             self setdamagestage( 0 );
             thread _id_47AB();
@@ -583,7 +583,7 @@ heli_health()
         if ( self.damagetaken <= level.heli_armor )
             debug_print3d_simple( "Armor: " + level.heli_armor - self.damagetaken, self, ( 0.0, 0.0, 100.0 ), 20 );
         else
-            debug_print3d_simple( "Health: " + self.maxturnspeed - self.damagetaken, self, ( 0.0, 0.0, 100.0 ), 20 );
+            debug_print3d_simple( "Health: " + self.maxhealth - self.damagetaken, self, ( 0.0, 0.0, 100.0 ), 20 );
 
         wait 1;
     }
@@ -686,10 +686,10 @@ heli_fly( var_0 )
     var_1 = self.origin;
     wait 2;
 
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
         maps\mp\gametypes\_hostmigration::_id_A0DD();
-        var_2 = _id_3F86( var_0._not_team, "targetname" );
+        var_2 = _id_3F86( var_0.target, "targetname" );
         var_1 = var_2.origin + ( 0.0, 0.0, 30.0 );
 
         if ( isdefined( var_0._id_7930 ) && isdefined( var_0._id_7929 ) )
@@ -703,7 +703,7 @@ heli_fly( var_0 )
             var_4 = 15 + randomint( 15 );
         }
 
-        if ( !isdefined( var_2._not_team ) )
+        if ( !isdefined( var_2.target ) )
             var_5 = 1;
         else
             var_5 = 0;
@@ -719,13 +719,13 @@ heli_fly( var_0 )
         }
         else
         {
-            if ( isdefined( var_2.script_lightset ) )
+            if ( isdefined( var_2.script_delay ) )
                 var_5 = 1;
 
             self vehicle_setspeed( var_3, var_4 );
             self setgoalpos( var_1, var_5 );
 
-            if ( !isdefined( var_2.script_lightset ) )
+            if ( !isdefined( var_2.script_delay ) )
             {
                 self waittill( "near_goal" );
                 self notify( "path start" );
@@ -734,7 +734,7 @@ heli_fly( var_0 )
             {
                 self setgoalyaw( var_2.angles[1] );
                 self waittillmatch( "goal" );
-                heli_wait( var_2.script_lightset );
+                heli_wait( var_2.script_delay );
             }
         }
 
@@ -1059,12 +1059,12 @@ debug_print_target()
     if ( isdefined( level.heli_debug ) && level.heli_debug == 1.0 )
     {
         if ( isdefined( self._id_6F8C ) && isdefined( self._id_6F8C.threatlevel ) )
-            var_0 = "Primary: " + self._id_6F8C.nearz + " : " + self._id_6F8C.threatlevel;
+            var_0 = "Primary: " + self._id_6F8C.name + " : " + self._id_6F8C.threatlevel;
         else
             var_0 = "Primary: ";
 
         if ( isdefined( self._id_7BFC ) && isdefined( self._id_7BFC.threatlevel ) )
-            var_1 = "Secondary: " + self._id_7BFC.nearz + " : " + self._id_7BFC.threatlevel;
+            var_1 = "Secondary: " + self._id_7BFC.name + " : " + self._id_7BFC.threatlevel;
         else
             var_1 = "Secondary: ";
 

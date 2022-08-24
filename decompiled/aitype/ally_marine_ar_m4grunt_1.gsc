@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "colt45";
     self._id_855D = "colt45";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "m4_grunt";
+    self.weapon = "m4_grunt";
 
     switch ( codescripts\character::_id_3E43( 7 ) )
     {
@@ -67,20 +67,20 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_usmc_james::prestigedoublexp();
-    character\character_sp_usmc_sami::prestigedoublexp();
-    character\character_sp_usmc_at4::prestigedoublexp();
-    character\character_sp_usmc_ryan::prestigedoublexp();
-    character\character_sp_usmc_sami_goggles::prestigedoublexp();
-    character\character_sp_usmc_zach::prestigedoublexp();
-    character\character_sp_usmc_zach_goggles::prestigedoublexp();
+    character\character_sp_usmc_james::precache();
+    character\character_sp_usmc_sami::precache();
+    character\character_sp_usmc_at4::precache();
+    character\character_sp_usmc_ryan::precache();
+    character\character_sp_usmc_sami_goggles::precache();
+    character\character_sp_usmc_zach::precache();
+    character\character_sp_usmc_zach_goggles::precache();
     precacheitem( "m4_grunt" );
     precacheitem( "colt45" );
     precacheitem( "colt45" );

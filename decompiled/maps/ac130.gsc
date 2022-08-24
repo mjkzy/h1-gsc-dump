@@ -231,10 +231,10 @@ gameplay_hijack()
 
         foreach ( var_3 in var_1 )
         {
-            if ( var_3._id_9D45.teambalanced == "getaway_vehicle_1" )
+            if ( var_3._id_9D45.targetname == "getaway_vehicle_1" )
                 level.getaway_vehicle_1 = var_3;
 
-            if ( var_3._id_9D45.teambalanced == "getaway_vehicle_2" )
+            if ( var_3._id_9D45.targetname == "getaway_vehicle_2" )
                 level.getaway_vehicle_2 = var_3;
         }
 
@@ -467,13 +467,13 @@ _id_2D39( var_0 )
 {
     if ( var_0 )
     {
-        self.ignoretriggers = 1;
-        self.ignoreforfixednodesafecheck = 1;
+        self.ignoreme = 1;
+        self.ignoreall = 1;
     }
     else
     {
-        self.ignoretriggers = 0;
-        self.ignoreforfixednodesafecheck = 0;
+        self.ignoreme = 0;
+        self.ignoreall = 0;
     }
 }
 

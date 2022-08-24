@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "usp_silencer";
     self._id_855D = "usp_silencer";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "m14_scoped_silencer_woodland";
+    self.weapon = "m14_scoped_silencer_woodland";
     character\character_sp_usmc_ghillie_price::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_usmc_ghillie_price::prestigedoublexp();
+    character\character_sp_usmc_ghillie_price::precache();
     precacheitem( "m14_scoped_silencer_woodland" );
     precacheitem( "usp_silencer" );
     precacheitem( "usp_silencer" );

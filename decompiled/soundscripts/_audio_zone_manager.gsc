@@ -669,7 +669,7 @@ _id_123F( var_0, var_1 )
     var_2.context2 = var_5["context"];
     var_2._id_77DE = var_4["streamed_ambience"];
     var_2._id_77DF = var_5["streamed_ambience"];
-    var_6 = level._id_055B._id_25B3.positioninworld["zone"].size;
+    var_6 = level._id_055B._id_25B3.playing["zone"].size;
 
     if ( var_6 > 1 )
         soundscripts\_audio_dynamic_ambi::_id_25C2( 1.0, "zone" );

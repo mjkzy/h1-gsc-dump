@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_ultra_nationalist_assault_d" );
     precachemodel( "head_ultra_nationalist_fullwrap" );

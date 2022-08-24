@@ -39,7 +39,7 @@ _id_805E()
     for ( var_1 = 0; var_1 < level._id_09E2.size; var_1++ )
     {
         var_2 = level._id_09E2[var_1];
-        var_2.script_model = "zone_" + var_1;
+        var_2.script_label = "zone_" + var_1;
         var_2 thread maps\mp\bots\_bots_gametype_common::_id_5E23();
         var_3 = 0;
 
@@ -109,7 +109,7 @@ _id_164E()
     {
         wait 0.05;
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             continue;
 
         if ( !isdefined( level._id_A3DD ) || !isdefined( level.bot_gametype_zones_precached[level._id_A3DD getentitynumber()] ) )
@@ -138,10 +138,10 @@ _id_164E()
 
                 if ( !var_3 )
                 {
-                    var_4 = level._id_A3DD._id_A3E0.rank * 6;
+                    var_4 = level._id_A3DD._id_A3E0.radius * 6;
 
                     if ( var_2 < 5000 )
-                        var_4 = level._id_A3DD._id_A3E0.rank * 3;
+                        var_4 = level._id_A3DD._id_A3E0.radius * 3;
 
                     var_5 = distance( level._id_A3DD._id_A3E0._id_1C0F, self.origin );
 

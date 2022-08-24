@@ -28,7 +28,7 @@ exchange_turret_org()
 exchange_turret()
 {
     var_0 = getent( "turret2", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_0 makeunusable();
     var_0 hide();
     var_0.origin = var_1.origin;
@@ -43,22 +43,22 @@ exchange_turret()
 
     level.player_can_fire_turret_time = gettime() + 1000;
     common_scripts\utility::_id_383F( "player_is_on_turret" );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowstand( 0 );
+    level.player allowcrouch( 0 );
+    level.player allowstand( 0 );
     setsaveddvar( "r_lodFOVFixedScale", 0.6 );
 
     if ( !common_scripts\utility::_id_382E( "player_used_zoom" ) )
-        level.playercardbackground thread maps\_utility::_id_2B4A( "barrett" );
+        level.player thread maps\_utility::_id_2B4A( "barrett" );
 
     level._id_56D2 = 1;
-    var_2 = level.playercardbackground.origin + ( 0.0, 0.0, 60.0 );
+    var_2 = level.player.origin + ( 0.0, 0.0, 60.0 );
     common_scripts\utility::_id_384C( "player_gets_off_turret_fade", "hotel_destroyed" );
 
     if ( !common_scripts\utility::_id_382E( "hotel_destroyed" ) )
         thread blackscreendismountgun();
 
     common_scripts\utility::_id_384A( "player_gets_off_turret" );
-    level.playercardbackground enableturretdismount();
+    level.player enableturretdismount();
     var_3 = getent( "barrett_trigger", "targetname" );
     var_3 delete();
     var_0 delete();
@@ -67,12 +67,12 @@ exchange_turret()
     setsaveddvar( "ui_hideMap", "0" );
     setsaveddvar( "hud_showStance", 1 );
     common_scripts\utility::_id_3831( "player_is_on_turret" );
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowstand( 1 );
+    level.player allowcrouch( 1 );
+    level.player allowstand( 1 );
     level._id_56D2 = 0;
     setsaveddvar( "r_lodFOVFixedScale", 1 );
     setblur( 0, 0.05 );
-    level.playercardbackground setorigin( level.playercardbackground._id_659E + ( 0.0, 0.0, 90.0 ) );
+    level.player setorigin( level.player._id_659E + ( 0.0, 0.0, 90.0 ) );
 }
 
 update_goal_yaw( var_0 )
@@ -98,10 +98,10 @@ track_ent_chain( var_0 )
 
     for (;;)
     {
-        if ( !isdefined( var_1._not_team ) )
+        if ( !isdefined( var_1.target ) )
             break;
 
-        var_5 = getent( var_1._not_team, "targetname" );
+        var_5 = getent( var_1.target, "targetname" );
         var_6 = distance( var_5.origin, var_1.origin );
         var_7 = var_6 * var_4 / var_3;
 
@@ -136,7 +136,7 @@ exchange_trace_converter()
         common_scripts\utility::_id_384A( "player_is_on_turret" );
         maps\_utility::_id_9F8C( var_1, 1.0 );
 
-        if ( !level.playercardbackground attackbuttonpressed() )
+        if ( !level.player attackbuttonpressed() )
         {
             wait 0.05;
             continue;
@@ -145,7 +145,7 @@ exchange_trace_converter()
         thread exchange_player_fires();
         var_1 = gettime();
 
-        while ( level.playercardbackground attackbuttonpressed() )
+        while ( level.player attackbuttonpressed() )
             wait 0.05;
     }
 }
@@ -162,10 +162,10 @@ exchange_player_fires()
     var_4 = getstarttime();
     var_5 = ( var_4 - var_0 ) * ( var_3 - var_2 ) / ( var_1 - var_0 );
     var_5 += var_2;
-    level.playercardbackground shellshock( "barrett", 1.3 );
+    level.player shellshock( "barrett", 1.3 );
     level.fired_barrett = 1;
-    var_6 = level.playercardbackground getplayerangles();
-    var_7 = level.playercardbackground geteye();
+    var_6 = level.player getplayerangles();
+    var_7 = level.player geteye();
     var_8 = anglestoforward( var_6 );
     var_9 = var_7 + var_8 * 15000;
     var_10 = bullettrace( var_7, var_9, 0, undefined );
@@ -462,7 +462,7 @@ drawtrace( var_0, var_1 )
 
 exchange_bored_idle()
 {
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
         return;
 
     maps\_anim::_id_0BCE( self, "bored_idle" );
@@ -470,13 +470,13 @@ exchange_bored_idle()
 
 lean_and_smoke()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     var_0 maps\_anim::_id_0BCE( self, "smoke_idle" );
 }
 
 stand_and_smoke()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     var_0 maps\_anim::_id_0BCE( self, "smoking" );
 }
 
@@ -499,9 +499,9 @@ exchange_barrett_trigger()
 
     level._id_9E12 moveto( level._id_9E12.origin + ( 0.0, 0.0, 260.0 ), 0.1 );
     level._id_9E12 delete();
-    level.playercardbackground setplayerangles( ( 5.5, -65.06, 0.0 ) );
-    level.playercardbackground._id_659E = level.playercardbackground.origin;
-    var_1 useby( level.playercardbackground );
+    level.player setplayerangles( ( 5.5, -65.06, 0.0 ) );
+    level.player._id_659E = level.player.origin;
+    var_1 useby( level.player );
     thread maps\_utility::_id_114E( 1 );
     wait 1;
 
@@ -580,15 +580,15 @@ player_attach_to_barret_with_anim()
     thread blackscreengrabgun( 4.16 );
     level.player_intro_model thread common_scripts\utility::_id_69C2( "sniperescape_m82_foley", level.player_intro_model.origin );
     var_1 = 0.5;
-    level.playercardbackground lerpviewangleclamp( var_1 + 0.5, var_1 - 0.5, var_1 - 0.5, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( var_1 + 0.5, var_1 - 0.5, var_1 - 0.5, 0, 0, 0, 0 );
     wait(var_1);
     var_2 = 4.16 - var_1;
-    level.playercardbackground lerpviewangleclamp( 1.5, 1, 1, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( 1.5, 1, 1, 0, 0, 0, 0 );
     wait(var_2);
     wait 0.125;
     level.player_intro_model delete();
     setsaveddvar( "r_znear", var_0 );
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 player_attach_to_barret_with_script()
@@ -604,7 +604,7 @@ player_attach_to_barret_with_script()
 
 h1_playergrabbarrettlogic()
 {
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a5();
     var_0 = 0.05;
 
     for (;;)
@@ -612,27 +612,27 @@ h1_playergrabbarrettlogic()
         if ( common_scripts\utility::_id_382E( "player_grabbing_barrett_start" ) )
             break;
 
-        var_1 = level.playercardbackground getplayerangles();
+        var_1 = level.player getplayerangles();
         var_2 = var_1[0];
         var_3 = var_1[1];
         var_2 = angleclamp180( var_2 );
         var_3 = angleclamp180( var_3 );
 
         if ( var_2 < 12 && var_3 > -85 )
-            level.playercardbackground _meth_84a7( 2.9, 1000, 3.0, 3.0 );
+            level.player _meth_84a7( 2.9, 1000, 3.0, 3.0 );
         else if ( var_2 > 14 || var_3 < -87 )
-            level.playercardbackground _meth_84a7( 3.4, 32, 2.5, 2.5 );
+            level.player _meth_84a7( 3.4, 32, 2.5, 2.5 );
 
         wait(var_0);
     }
 
-    level.playercardbackground _meth_84a7( 4.4, 26, 2.0, 2.0 );
+    level.player _meth_84a7( 4.4, 26, 2.0, 2.0 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 4.4, 24, 2.5, 2.5 );
+    level.player _meth_84a7( 4.4, 24, 2.5, 2.5 );
     wait 0.65;
-    level.playercardbackground _meth_84a7( 4.9, 10, 0.5, 0.5 );
+    level.player _meth_84a7( 4.9, 10, 0.5, 0.5 );
     wait 1.65;
-    level.playercardbackground _meth_84a7( 5.4, 1, 2.0, 2.0 );
+    level.player _meth_84a7( 5.4, 1, 2.0, 2.0 );
     wait 1.0;
 }
 
@@ -653,7 +653,7 @@ sniper_text_countup( var_0, var_1, var_2, var_3, var_4 )
 
     for (;;)
     {
-        level.playercardbackground playsound( "ui_pulse_text_type" );
+        level.player playsound( "ui_pulse_text_type" );
         var_6 += var_7;
 
         if ( var_6 > var_0 )
@@ -680,18 +680,18 @@ sniper_text_init( var_0, var_1, var_2, var_3 )
 {
     var_4 = 15 * var_2;
     var_5 = newhudelem();
-    var_5.xpmaxmultipliertimeplayed = var_1 + 10;
-    var_5._id_0538 = var_4 + 10;
+    var_5.x = var_1 + 10;
+    var_5.y = var_4 + 10;
     var_5.alignx = "left";
     var_5.aligny = "top";
-    var_5.hostquits = "left";
-    var_5.visionsetnight = "top";
-    var_5.space = 1;
+    var_5.horzalign = "left";
+    var_5.vertalign = "top";
+    var_5.sort = 1;
     var_5.foreground = 1;
     var_5.alpha = 0;
     var_5 fadeovertime( 0.2 );
     var_5.alpha = 1;
-    var_5.hindlegstraceoffset = 1;
+    var_5.hidewheninmenu = 1;
     var_5.fontscale = 1;
     var_5.color = ( 0.8, 1.0, 0.8 );
     var_5.font = "objective";
@@ -721,13 +721,13 @@ hudelem_destroyer( var_0 )
 blackscreen( var_0 )
 {
     var_1 = newhudelem();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 0;
+    var_1.x = 0;
+    var_1.y = 0;
     var_1 setshader( "black", 640, 480 );
     var_1.alignx = "left";
     var_1.aligny = "top";
-    var_1.hostquits = "fullscreen";
-    var_1.visionsetnight = "fullscreen";
+    var_1.horzalign = "fullscreen";
+    var_1.vertalign = "fullscreen";
     var_1.alpha = 0;
     wait(var_0 - 1);
     var_1 fadeovertime( 1 );
@@ -742,13 +742,13 @@ blackscreen( var_0 )
 blackscreengrabgun( var_0 )
 {
     var_1 = newhudelem();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 0;
+    var_1.x = 0;
+    var_1.y = 0;
     var_1 setshader( "black", 640, 480 );
     var_1.alignx = "left";
     var_1.aligny = "top";
-    var_1.hostquits = "fullscreen";
-    var_1.visionsetnight = "fullscreen";
+    var_1.horzalign = "fullscreen";
+    var_1.vertalign = "fullscreen";
     var_1.alpha = 0;
     wait(var_0 - 0.15);
     var_1 fadeovertime( 0.15 );
@@ -763,13 +763,13 @@ blackscreengrabgun( var_0 )
 blackscreendismountgun()
 {
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "black", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
     var_0 fadeovertime( 0.3 );
     var_0.alpha = 1;
@@ -784,13 +784,13 @@ blackscreendismountgun()
 whitescreen()
 {
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "white", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 1;
     wait 0.05;
     setsaveddvar( "ui_hideMap", "1" );
@@ -805,13 +805,13 @@ whitescreen()
 
 stop_loop()
 {
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
     {
         self notify( "stop_loop" );
         return;
     }
 
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
     if ( isdefined( var_0 ) )
     {
@@ -819,7 +819,7 @@ stop_loop()
         return;
     }
 
-    var_0 = getnode( self._not_team, "targetname" );
+    var_0 = getnode( self.target, "targetname" );
 
     if ( isdefined( var_0 ) )
     {
@@ -846,7 +846,7 @@ exchange_baddie_main_think()
         thread exchange_baddie_runs_to_car();
 
     common_scripts\utility::_id_384A( "player_attacks_exchange" );
-    self notify( "bulletwhizby", level.playercardbackground );
+    self notify( "bulletwhizby", level.player );
     waittillframeend;
 
     if ( isdefined( self._id_750E ) )
@@ -1032,16 +1032,16 @@ exchange_guy_patrol_path()
     {
         self waittill( "goal" );
 
-        if ( !isdefined( self.node_relinquished ) )
+        if ( !isdefined( self.node ) )
             break;
 
-        if ( !isdefined( self.node_relinquished._not_team ) )
+        if ( !isdefined( self.node.target ) )
             break;
 
-        var_0 = getnode( self.node_relinquished._not_team, "targetname" );
+        var_0 = getnode( self.node.target, "targetname" );
 
-        if ( var_0.rank )
-            self.goalradius = var_0.rank;
+        if ( var_0.radius )
+            self.goalradius = var_0.radius;
         else
             self.goalradius = 16;
 
@@ -1054,12 +1054,12 @@ exchange_rider_gets_out()
     self endon( "death" );
     level endon( "player_attacks_exchange" );
     self waittill( "jumpedout" );
-    var_0 = getnode( self._not_team, "targetname" );
+    var_0 = getnode( self.target, "targetname" );
 
     if ( !isdefined( var_0 ) )
         return;
 
-    self.weapon_change = 1000;
+    self.walkdist = 1000;
     self.fixednode = 1;
     self _meth_81a9( var_0 );
     self._id_2B0E = 1;
@@ -1086,7 +1086,7 @@ exchange_uaz_preps_for_escape()
         self attachpath( var_1 );
     }
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "flashback_guys_uaz" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "flashback_guys_uaz" )
     {
         common_scripts\utility::_id_384A( "player_attacks_exchange" );
         wait 9;
@@ -1278,16 +1278,16 @@ blood_pool()
         if ( var_1 <= 0 )
             wait 0.3;
 
-        if ( !isdefined( var_0._not_team ) )
+        if ( !isdefined( var_0.target ) )
             return;
 
-        var_0 = getent( var_0._not_team, "targetname" );
+        var_0 = getent( var_0.target, "targetname" );
     }
 }
 
 zak_dies()
 {
-    self.helmet = 50000;
+    self.health = 50000;
     maps\_utility::_id_2AB1();
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 character\character_sp_zakhaev_onearm::main();
@@ -1376,7 +1376,7 @@ exchange_zak_and_guards_jab_it_up( var_0, var_1 )
     var_3.tracksuit_ignore = 1;
     var_3._id_0C72 = "zakhaev";
     var_3 maps\_utility::_id_7EAB( "run" );
-    var_3.ignoreforfixednodesafecheck = 1;
+    var_3.ignoreall = 1;
     var_3._id_2B0E = 1;
     var_3._id_2AF3 = 1;
     var_3 maps\_utility::_id_7065();
@@ -1445,13 +1445,13 @@ exchange_dof()
             exchange_scale_dof_while_on_turret();
 
         common_scripts\utility::_id_3857( "player_is_on_turret" );
-        level.playercardbackground setdepthoffield( 0, 0, 0, 0, 8, 8 );
+        level.player setdepthoffield( 0, 0, 0, 0, 8, 8 );
     }
 }
 
 exchange_scale_dof_while_on_turret()
 {
-    var_0 = maps\_cinematography::dyndof( "sniper_scope" ) maps\_cinematography::dyndof_values( 4, 50, 4, 1 ) maps\_cinematography::dyndof_autofocus( 1 ) maps\_cinematography::dyndof_view_pos( level.playercardbackground geteye() );
+    var_0 = maps\_cinematography::dyndof( "sniper_scope" ) maps\_cinematography::dyndof_values( 4, 50, 4, 1 ) maps\_cinematography::dyndof_autofocus( 1 ) maps\_cinematography::dyndof_view_pos( level.player geteye() );
     var_0 maps\_cinematography::dyndof_autofocus_add_ignore_entity( getent( "bullet_block", "targetname" ) );
     thread maps\_cinematography::dyndof_system_start( 1 );
     var_1 = 9000;
@@ -1563,7 +1563,7 @@ exchange_scale_dof_while_on_turret_preh1()
         else if ( var_2 < var_4 )
             var_2 = var_4;
 
-        level.playercardbackground setdepthoffield( 0, 0, var_17, var_2, 8, 8 );
+        level.player setdepthoffield( 0, 0, var_17, var_2, 8, 8 );
 
         if ( getdvarint( "r_dof_enable" ) != 1 )
             setblur( level.blur, 0.05 );
@@ -1691,7 +1691,7 @@ should_break_prone_hint()
 {
     var_0 = getent( "player_snipe_spot", "targetname" );
 
-    if ( distance( self.origin, var_0.origin ) >= var_0.rank )
+    if ( distance( self.origin, var_0.origin ) >= var_0.radius )
         return 1;
 
     return self getstance() == "prone";
@@ -1740,8 +1740,8 @@ clear_path_speed( var_0 )
 {
     var_1 = undefined;
 
-    if ( isdefined( self._not_team ) )
-        var_1 = getvehiclenode( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_1 = getvehiclenode( self.target, "targetname" );
     else
     {
         var_2 = strtok( self._id_7A26, " " );
@@ -1750,16 +1750,16 @@ clear_path_speed( var_0 )
 
     for (;;)
     {
-        if ( isdefined( var_1.sprint_begin ) )
+        if ( isdefined( var_1.speed ) )
         {
-            if ( var_1.sprint_begin < var_0 )
-                var_1.sprint_begin = var_0;
+            if ( var_1.speed < var_0 )
+                var_1.speed = var_0;
         }
 
-        if ( !isdefined( var_1._not_team ) )
+        if ( !isdefined( var_1.target ) )
             break;
 
-        var_1 = getvehiclenode( var_1._not_team, "targetname" );
+        var_1 = getvehiclenode( var_1.target, "targetname" );
     }
 }
 
@@ -1962,12 +1962,12 @@ exchange_heli_shoots_hotel()
 
 exchange_second_heli()
 {
-    thread maps\_vehicle_code::helipath( self._not_team, 45, 45 );
+    thread maps\_vehicle_code::helipath( self.target, 45, 45 );
 }
 
 exchange_heli_think( var_0, var_1 )
 {
-    thread maps\_vehicle_code::helipath( self._not_team, var_0, var_1 );
+    thread maps\_vehicle_code::helipath( self.target, var_0, var_1 );
     maps\_vehicle::_id_4259();
     thread exchange_heli_death_spiral();
     var_2 = common_scripts\utility::_id_3DBD();
@@ -2002,7 +2002,7 @@ exchange_heli_pilot( var_0, var_1, var_2, var_3 )
     var_4.no_magic_death = 1;
     var_4.allowdeath = 0;
     var_4.a._id_612E = 1;
-    var_4.helmet = 50000;
+    var_4.health = 50000;
     var_4 maps\_utility::_id_4462();
     var_4._id_47A3 = self;
     self.pilots[self.pilots.size] = var_4;
@@ -2067,7 +2067,7 @@ exchange_heli_death_spiral()
     maps\_utility::_id_27EF( 0.5, common_scripts\utility::_id_383F, "heli_destroyed" );
     wait 0.2;
     level notify( "weapon_master_barrett_kill" );
-    thread maps\_vehicle::_id_530E( self.motiontrackerenabled, 0 );
+    thread maps\_vehicle::_id_530E( self.model, 0 );
     maps\_vehicle_code::_id_4807();
     maps\_utility::arcademode_kill( self.origin, "explosive", 1000 );
     playfx( common_scripts\utility::_id_3FA8( "heli_explosion" ), self.origin );
@@ -2087,13 +2087,13 @@ exchange_claymore()
     var_0 = getent( "claymore_org", "targetname" );
     var_0.origin = ( 215.199, -10977.9, 1028.0 );
     var_0.angles = ( 0.0, 161.65, 0.0 );
-    level._id_6F7C.groundentchanged = "claymore";
+    level._id_6F7C.grenadeweapon = "claymore";
     level._id_6F7C magicgrenademanual( var_0.origin, ( 0.0, 0.0, 0.0 ), 9000 );
     var_1 = getentarray( "grenade", "classname" );
     var_2 = var_1[0];
     var_2.angles = var_0.angles;
     var_2 maps\_detonategrenades::_id_6A36();
-    level._id_6F7C.groundentchanged = "fraggrenade";
+    level._id_6F7C.grenadeweapon = "fraggrenade";
 }
 
 exchange_wind_flunctuates()
@@ -2167,8 +2167,8 @@ exchange_wind_flunctuates()
 
 hotel_rumble()
 {
-    playrumbleonposition( "crash_heli_rumble", level.playercardbackground.origin );
-    earthquake( 0.6, 3.6, level.playercardbackground.origin, 6000 );
+    playrumbleonposition( "crash_heli_rumble", level.player.origin );
+    earthquake( 0.6, 3.6, level.player.origin, 6000 );
 }
 
 blow_up_hotel()
@@ -2184,7 +2184,7 @@ blow_up_hotel()
     wait 1.5;
     maps\sniperescape_code::price_clears_dialogue();
     wait 0.5;
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_0 = 0.314286;
     var_1 = getent( "explosion_death_trigger", "targetname" );
 
@@ -2192,31 +2192,31 @@ blow_up_hotel()
     {
         var_1 thread deathtouch();
 
-        if ( !isdefined( var_1._not_team ) )
+        if ( !isdefined( var_1.target ) )
             break;
 
-        var_1 = getent( var_1._not_team, "targetname" );
+        var_1 = getent( var_1.target, "targetname" );
         wait(var_0);
     }
 }
 
 deathtouch()
 {
-    if ( !isalive( level.playercardbackground ) )
+    if ( !isalive( level.player ) )
         return;
 
     var_0 = 60;
 
     for ( var_1 = 0; var_1 < var_0; var_1++ )
     {
-        if ( level.playercardbackground istouching( self ) )
+        if ( level.player istouching( self ) )
         {
-            radiusdamage( level.playercardbackground.origin + ( 0.0, 0.0, 15.0 ), 16, 35, 35, level.playercardbackground );
+            radiusdamage( level.player.origin + ( 0.0, 0.0, 15.0 ), 16, 35, 35, level.player );
 
-            if ( level.playercardbackground.helmet <= 1 )
+            if ( level.player.health <= 1 )
             {
-                level.playercardbackground enablehealthshield( 0 );
-                level.playercardbackground unlink();
+                level.player enablehealthshield( 0 );
+                level.player unlink();
             }
         }
 
@@ -2340,11 +2340,11 @@ _hidepart( var_0 )
 
 barrett_intro()
 {
-    level.playercardbackground disableturretdismount();
+    level.player disableturretdismount();
     thread whitescreen();
-    level.playercardbackground disableweapons();
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowstand( 1 );
+    level.player disableweapons();
+    level.player allowcrouch( 0 );
+    level.player allowstand( 1 );
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = ( 791.7, -11707.8, 957.11 );
     var_0.angles = ( 17.38, -104.33, 0.0 );
@@ -2359,11 +2359,11 @@ barrett_intro()
 barrett_intro_with_anim()
 {
     level.barrett_intro_with_anim = 1;
-    level.player_intro_node = getent( level._id_6F7C._not_team, "targetname" );
+    level.player_intro_node = getent( level._id_6F7C.target, "targetname" );
     level.player_intro_model = maps\_utility::_id_88D1( "player_grab_barret" );
     level.player_intro_node maps\_anim::_id_0BC7( level.player_intro_model, "grab_barret_prep" );
     level.player_intro_node thread maps\_anim::_id_0BE1( level.player_intro_model, "grab_barret_idle" );
-    level.playercardbackground playerlinktodelta( level.player_intro_model, "tag_player", 1.0, 25, 30, 35, 50, 0 );
+    level.player playerlinktodelta( level.player_intro_model, "tag_player", 1.0, 25, 30, 35, 50, 0 );
 }
 
 barrett_intro_with_script( var_0 )
@@ -2408,13 +2408,13 @@ price_thinks_you_are_insane( var_0 )
 
 getplayerc4()
 {
-    var_0 = level.playercardbackground getweaponslistall();
+    var_0 = level.player getweaponslistall();
     var_1 = [];
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
         var_3 = var_0[var_2];
-        var_1[var_3] = level.playercardbackground getweaponammoclip( var_3 );
+        var_1[var_3] = level.player getweaponammoclip( var_3 );
     }
 
     var_4 = 0;
@@ -2429,21 +2429,21 @@ getplayerc4()
 flashback_guy_setup()
 {
     self endon( "death" );
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     self.allowdeath = 1;
 
     switch ( self._id_7ADC )
     {
         case 0:
             level.exchange_makarov = self;
-            self.nearz = "Makarov";
+            self.name = "Makarov";
             self.team = "axis";
             self._id_2652 = %uaz_rear_driver_death;
             self.tracksuit_ignore = 1;
             break;
         case 3:
             level.exchange_yuri = self;
-            self.nearz = "Yuri";
+            self.name = "Yuri";
             self.team = "allies";
             self._id_2652 = %uaz_passenger_death;
             thread codescripts\character::_id_7F88( "head_hero_yuri_a" );
@@ -2451,7 +2451,7 @@ flashback_guy_setup()
             break;
     }
 
-    thread flashback_guy_death( self.nearz );
+    thread flashback_guy_death( self.name );
 
     if ( getdvar( "enable_flashback_guy_nameplate" ) == "1" )
         thread maps\_hud_util::display_custom_nameplate( ::can_display_flashback_guy_name );
@@ -2592,7 +2592,7 @@ can_display_flashback_guy_name()
 
     var_1 = 0.075;
     var_2 = ( 0.0, 0.0, -8.0 );
-    var_3 = common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), self gettagorigin( "tag_eye" ) + var_2, cos( var_1 ) );
+    var_3 = common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), self gettagorigin( "tag_eye" ) + var_2, cos( var_1 ) );
 
     if ( !var_3 )
         return 0;
@@ -2600,8 +2600,8 @@ can_display_flashback_guy_name()
     var_4 = getent( "bullet_block", "targetname" );
     var_5 = maps\_vehicle::get_vehicle_from_targetname( "view_block_heli" );
     var_6 = 0;
-    var_7 = level.playercardbackground geteye() + 10000 * anglestoforward( level.playercardbackground getplayerangles() );
-    var_8 = bullettrace( level.playercardbackground geteye(), var_7, 1, var_4 );
+    var_7 = level.player geteye() + 10000 * anglestoforward( level.player getplayerangles() );
+    var_8 = bullettrace( level.player geteye(), var_7, 1, var_4 );
 
     if ( isdefined( var_8["entity"] ) && var_8["entity"] != self )
     {

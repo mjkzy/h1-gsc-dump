@@ -26,7 +26,7 @@ main()
     level.friendlyfire["enemy_kill_points"] = 250;
     level.friendlyfire["friend_kill_points"] = -650;
     level.friendlyfire["point_loss_interval"] = 1.25;
-    level.playercardbackground._id_669E = 0;
+    level.player._id_669E = 0;
     level._id_3AA7 = 0;
     level._id_3AA8 = 0;
     setdvarifuninitialized( "friendlyfire_dev_disabled", "0" );
@@ -71,7 +71,7 @@ _id_3A59( var_0 )
         if ( !isdefined( var_0 ) )
             return;
 
-        if ( var_0.helmet <= 0 )
+        if ( var_0.health <= 0 )
             return;
 
         var_1 = undefined;
@@ -111,7 +111,7 @@ _id_3A59( var_0 )
 
         if ( isdefined( level._id_3A9E ) )
         {
-            if ( isdefined( var_2 ) && isdefined( var_2.owner ) && var_2.owner == level.playercardbackground )
+            if ( isdefined( var_2 ) && isdefined( var_2.owner ) && var_2.owner == level.player )
                 var_8 = 1;
         }
 
@@ -142,10 +142,10 @@ _id_3A59( var_0 )
         if ( !isdefined( var_0.team ) )
             continue;
 
-        var_10 = var_0.team == level.playercardbackground.team;
+        var_10 = var_0.team == level.player.team;
         var_11 = undefined;
 
-        if ( isdefined( var_0.unlockpoints ) && var_0.unlockpoints == "civilian" )
+        if ( isdefined( var_0.type ) && var_0.type == "civilian" )
             var_11 = 1;
         else
             var_11 = issubstr( var_0.classname, "civilian" );
@@ -156,7 +156,7 @@ _id_3A59( var_0 )
         {
             if ( var_12 )
             {
-                level.playercardbackground._id_669E += level.friendlyfire["enemy_kill_points"];
+                level.player._id_669E += level.friendlyfire["enemy_kill_points"];
                 _id_669F();
                 return;
             }
@@ -182,12 +182,12 @@ _id_3A59( var_0 )
             if ( var_12 )
             {
                 if ( isdefined( var_0._id_3A3A ) )
-                    level.playercardbackground._id_669E += var_0._id_3A3A;
+                    level.player._id_669E += var_0._id_3A3A;
                 else
-                    level.playercardbackground._id_669E += level.friendlyfire["friend_kill_points"];
+                    level.player._id_669E += level.friendlyfire["friend_kill_points"];
             }
             else
-                level.playercardbackground._id_669E -= var_1;
+                level.player._id_669E -= var_1;
 
             _id_669F();
 
@@ -229,7 +229,7 @@ _id_3A57( var_0 )
     if ( level._id_3AA7 == 1 )
         return;
 
-    if ( level.playercardbackground._id_669E <= level.friendlyfire["min_participation"] )
+    if ( level.player._id_669E <= level.friendlyfire["min_participation"] )
         level thread _id_5CDD( var_0 );
 }
 
@@ -263,11 +263,11 @@ _id_780F()
 
 _id_669F()
 {
-    if ( level.playercardbackground._id_669E > level.friendlyfire["max_participation"] )
-        level.playercardbackground._id_669E = level.friendlyfire["max_participation"];
+    if ( level.player._id_669E > level.friendlyfire["max_participation"] )
+        level.player._id_669E = level.friendlyfire["max_participation"];
 
-    if ( level.playercardbackground._id_669E < level.friendlyfire["min_participation"] )
-        level.playercardbackground._id_669E = level.friendlyfire["min_participation"];
+    if ( level.player._id_669E < level.friendlyfire["min_participation"] )
+        level.player._id_669E = level.friendlyfire["min_participation"];
 }
 
 _id_66A0()
@@ -276,10 +276,10 @@ _id_66A0()
 
     for (;;)
     {
-        if ( level.playercardbackground._id_669E > 0 )
-            level.playercardbackground._id_669E--;
-        else if ( level.playercardbackground._id_669E < 0 )
-            level.playercardbackground._id_669E++;
+        if ( level.player._id_669E > 0 )
+            level.player._id_669E--;
+        else if ( level.player._id_669E < 0 )
+            level.player._id_669E++;
 
         wait(level.friendlyfire["point_loss_interval"]);
     }
@@ -303,9 +303,9 @@ _id_5CDD( var_0 )
     if ( getdvar( "friendlyfire_dev_disabled" ) == "1" )
         return;
 
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
 
-    if ( !isalive( level.playercardbackground ) )
+    if ( !isalive( level.player ) )
         return;
 
     level endon( "mine death" );
@@ -317,7 +317,7 @@ _id_5CDD( var_0 )
     setsaveddvar( "hud_showstance", 0 );
     setsaveddvar( "actionSlotsHide", 1 );
 
-    if ( isdefined( level.playercardbackground._id_3615 ) )
+    if ( isdefined( level.player._id_3615 ) )
         return;
 
     soundscripts\_snd::_id_870C( "friendly_fire_mission_failed" );
@@ -336,7 +336,7 @@ _id_5CDD( var_0 )
     if ( isdefined( level._id_2544 ) )
         thread maps\_player_death::_id_7E04( level._id_2544, 64, 64, 0 );
 
-    reconspatialevent( level.playercardbackground.origin, "script_friendlyfire: civilian %d", var_0 );
+    reconspatialevent( level.player.origin, "script_friendlyfire: civilian %d", var_0 );
     maps\_utility::_id_5CDF();
 }
 

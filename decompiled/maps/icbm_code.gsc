@@ -23,10 +23,10 @@ idle_anim_think()
 {
     self endon( "death" );
 
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
     if ( !isdefined( var_0._id_793C ) )
         return;
@@ -55,7 +55,7 @@ idle_anim_think()
     }
 
     self.allowdeath = 1;
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     self.ref_node = var_0;
 
     if ( var_0._id_793C == "sleep" )
@@ -78,8 +78,8 @@ icbm_friendly_state_hidden()
     self._id_0669._id_13A2._id_63CE = self.grenadeammo;
     self.grenadeammo = 0;
     self._id_39C7 = undefined;
-    self.ignoreforfixednodesafecheck = 1;
-    self.ignoretriggers = 1;
+    self.ignoreall = 1;
+    self.ignoreme = 1;
     maps\_utility::_id_2A74();
     waitframe;
     self.fixednode = 0;
@@ -100,8 +100,8 @@ icbm_friendly_state_spotted()
     self.grenadeammo = self._id_0669._id_13A2._id_63CE;
     self _meth_81ce( "prone", "crouch", "stand" );
     self _meth_8143();
-    self.ignoreforfixednodesafecheck = 0;
-    self.ignoretriggers = 0;
+    self.ignoreall = 0;
+    self.ignoreme = 0;
     maps\_utility::_id_2A8D();
     maps\_utility::_id_309A();
     self._id_2AF3 = 1;
@@ -171,7 +171,7 @@ stop_make_friendies_ignored()
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1].ignoretriggers = 0;
+        var_0[var_1].ignoreme = 0;
 }
 
 friendlies_fighting_nodes()
@@ -195,7 +195,7 @@ truck_setup()
     common_scripts\utility::_id_383F( "truck arived" );
     common_scripts\utility::_id_384A( "price_basement_door_anim_complete" );
 
-    if ( var_0.helmet > 0 )
+    if ( var_0.health > 0 )
         var_0 maps\_vehicle::_id_9D01( "all" );
 }
 
@@ -203,10 +203,10 @@ truck_guys_think()
 {
     self endon( "death" );
     level.truckguys[level.truckguys.size] = self;
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     common_scripts\utility::_id_384A( "truck_stopped" );
     wait 2;
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
 }
 
 ignore_truck_guys_till_truck_stopped()
@@ -341,15 +341,15 @@ min_spec_kill_fx()
 whitein()
 {
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "white", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 1;
-    var_0.space = 2;
+    var_0.sort = 2;
     var_1 = getent( "cloud", "targetname" );
     var_1 waittill( "trigger" );
     wait 1;
@@ -451,7 +451,7 @@ first_chopper_fly_over()
     }
 
     wait 1;
-    level.playercardbackground playsound( "h1_mi17_custom_flyby" );
+    level.player playsound( "h1_mi17_custom_flyby" );
     common_scripts\utility::_id_384A( "chopper_gone" );
     level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "move" );
     wait 1;
@@ -470,13 +470,13 @@ chopper_fail_mission()
     {
         for (;;)
         {
-            var_3 = level.playercardbackground getcurrentweapon();
-            var_4 = distancesquared( level.playercardbackground.origin, var_0.origin );
+            var_3 = level.player getcurrentweapon();
+            var_4 = distancesquared( level.player.origin, var_0.origin );
 
-            if ( var_4 < var_2 && level.playercardbackground attackbuttonpressed() && var_3 != "c4" )
+            if ( var_4 < var_2 && level.player attackbuttonpressed() && var_3 != "c4" )
             {
-                var_5 = anglestoforward( level.playercardbackground getplayerangles() );
-                var_6 = vectornormalize( var_0.origin - level.playercardbackground.origin );
+                var_5 = anglestoforward( level.player getplayerangles() );
+                var_6 = vectornormalize( var_0.origin - level.player.origin );
                 var_7 = vectordot( var_6, var_5 );
 
                 if ( var_7 > var_1 )
@@ -508,7 +508,7 @@ make_friendies_ignored()
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1].ignoretriggers = 1;
+        var_0[var_1].ignoreme = 1;
 }
 
 turn_off_flashlights()
@@ -525,18 +525,18 @@ turn_off_flashlights()
 ignoreme_till_close()
 {
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     common_scripts\utility::_id_0D13( level.friendlies, ::notify_at_range, self, 1200, "at_range" );
     level common_scripts\utility::_id_A087( "_stealth_spotted", "at_range" );
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
 }
 
 ignoreme_till_stealth_broken()
 {
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     common_scripts\utility::_id_384A( "_stealth_spotted" );
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
 }
 
 notify_at_range( var_0, var_1, var_2 )
@@ -561,7 +561,7 @@ price_think()
     level._id_6F7C = self;
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread maps\_utility::_id_58D7();
-    level._id_6F7C.invisible = 100;
+    level._id_6F7C.interval = 100;
     level.friendlies[level.friendlies.size] = self;
     level._id_6F7C maps\_utility::_id_5926();
 }
@@ -571,7 +571,7 @@ gaz_think()
     level._id_3C61 = self;
     level._id_3C61._id_0C72 = "gaz";
     level._id_3C61 thread maps\_utility::_id_58D7();
-    level._id_3C61.invisible = 100;
+    level._id_3C61.interval = 100;
     level.friendlies[level.friendlies.size] = self;
     level._id_3C61 maps\_utility::_id_5926();
 }
@@ -581,16 +581,16 @@ griggs_think()
     level.griggs = self;
     level.griggs._id_0C72 = "griggs";
     level.griggs thread maps\_utility::_id_58D7();
-    level.griggs.invisible = 100;
+    level.griggs.interval = 100;
     level.friendlies[level.friendlies.size] = self;
     level.griggs maps\_utility::_id_5926();
 }
 
 captured_griggs_think()
 {
-    self.pantssize = 1;
+    self.pacifist = 1;
     maps\_utility::_id_30B0();
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     level.griggs_node = getnode( "griggs_node", "targetname" );
     thread griggs_idle( level.griggs_node );
     wait 0.1;
@@ -636,18 +636,18 @@ price_rescue_anims()
 friendly_think()
 {
     self._id_0C72 = "generic";
-    self.invisible = 100;
+    self.interval = 100;
     thread maps\_utility::_id_7402();
     level.friendlies[level.friendlies.size] = self;
 
-    if ( self.spawntime.teambalanced == "chute_start_spawners" )
+    if ( self.spawner.targetname == "chute_start_spawners" )
         level.soldier = self;
 }
 
 respawned_friendly_think()
 {
     self._id_0C72 = "generic";
-    self.invisible = 100;
+    self.interval = 100;
     level.friendlies[level.friendlies.size] = self;
 }
 
@@ -657,7 +657,7 @@ kill_during_breach1( var_0, var_1 )
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( var_2[var_3].script_parentname == "interogation_buddy" )
+        if ( var_2[var_3].script_noteworthy == "interogation_buddy" )
             var_2[var_3] kill();
     }
 }
@@ -668,14 +668,14 @@ kill_during_breach2( var_0, var_1 )
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( var_2[var_3].script_parentname == "interogation_speaker" )
+        if ( var_2[var_3].script_noteworthy == "interogation_speaker" )
         {
             var_4 = level._id_6F7C;
 
             if ( distancesquared( level._id_6F7C.origin, var_2[var_3].origin ) > distancesquared( level._id_3C61.origin, var_2[var_3].origin ) )
                 var_4 = level._id_3C61;
 
-            magicbullet( var_4.weapon_switch_invalid, var_4 gettagorigin( "tag_flash" ), var_2[var_3] gettagorigin( "tag_eye" ) );
+            magicbullet( var_4.weapon, var_4 gettagorigin( "tag_flash" ), var_2[var_3] gettagorigin( "tag_eye" ) );
             var_2[var_3] kill();
         }
     }
@@ -684,19 +684,19 @@ kill_during_breach2( var_0, var_1 )
 parachute_player()
 {
     level thread maps\icbm_fx::playereffect();
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     level thread whitein();
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player allowcrouch( 0 );
     var_0 = getent( "para_start", "targetname" );
     var_1 = getent( "para_stop", "targetname" );
-    level.playercardbackground linkto( var_0 );
+    level.player linkto( var_0 );
     var_0 moveto( var_1.origin, 3, 0, 0 );
     var_0 waittill( "movedone" );
-    level.playercardbackground unlink();
-    level.playercardbackground enableweapons();
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground allowcrouch( 1 );
+    level.player unlink();
+    level.player enableweapons();
+    level.player allowprone( 1 );
+    level.player allowcrouch( 1 );
 }
 
 trigger_wait_and_set_flag( var_0 )
@@ -733,9 +733,9 @@ start_interogation()
 ignore_all_till_flag( var_0 )
 {
     self endon( "death" );
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     common_scripts\utility::_id_384A( var_0 );
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
 }
 
 interogation_speaker_think()
@@ -775,15 +775,15 @@ ai_hostile_think()
     self endon( "death" );
     self._id_0C72 = "hostile";
     self.allowdeath = 1;
-    self.ignoretriggers = 1;
-    self.helmet = 1;
+    self.ignoreme = 1;
+    self.health = 1;
     thread maps\_stealth_logic::_id_8DCA();
     level.knifekillnode maps\_anim::_id_0BFF( self, "phoneguy_idle_start" );
     level.knifekillnode thread maps\_anim::_id_0BE1( self, "phoneguy_idle", undefined, "stop_idle" );
     self waittill( "stealth_enemy_endon_alert" );
     self._id_67ED delete();
     self setthreatbiasgroup();
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
     level.knifekillnode notify( "stop_idle" );
 }
 
@@ -828,7 +828,7 @@ ai_hostile_knife_kill_finish_anim()
 
 set_ignore_all()
 {
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
 }
 
 ai_hostile_knife_kill_abort_think()
@@ -889,7 +889,7 @@ beehive_attack()
 
 _id_6509( var_0, var_1, var_2 )
 {
-    while ( distance( level.playercardbackground.origin, var_0.origin ) < 160 )
+    while ( distance( level.player.origin, var_0.origin ) < 160 )
         wait 0.1;
 
     if ( isdefined( var_2 ) )
@@ -913,23 +913,23 @@ beehive2_think()
     self endon( "death" );
     self.goalradius = 4;
 
-    if ( !isdefined( self.script_parentname ) )
+    if ( !isdefined( self.script_noteworthy ) )
         return;
 
-    if ( self.script_parentname == "door_dog_enemies" )
+    if ( self.script_noteworthy == "door_dog_enemies" )
     {
         level waittill( "dog_door_open" );
         self.goalradius = 3000;
     }
 
-    if ( self.script_parentname == "beehive2_enemies" )
+    if ( self.script_noteworthy == "beehive2_enemies" )
     {
-        self.ignoreforfixednodesafecheck = 1;
-        self.ignoretriggers = 1;
+        self.ignoreall = 1;
+        self.ignoreme = 1;
         level waittill( "beehive2_door_open" );
         self.goalradius = 3000;
-        self.ignoreforfixednodesafecheck = 0;
-        self.ignoretriggers = 0;
+        self.ignoreall = 0;
+        self.ignoreme = 0;
     }
 }
 
@@ -973,10 +973,10 @@ price_opens_door( var_0, var_1, var_2 )
     var_0 notify( "stop_idle" );
     var_0 thread maps\_anim::_id_0C24( level._id_6F7C, "hunted_open_barndoor" );
 
-    if ( var_1.teambalanced == "house01_front_door" )
+    if ( var_1.targetname == "house01_front_door" )
         soundscripts\_snd::_id_870C( "aud_open_fisrt_door" );
 
-    var_3 = getentarray( var_1._not_team, "targetname" );
+    var_3 = getentarray( var_1.target, "targetname" );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         var_3[var_4] linkto( var_1 );
@@ -1050,20 +1050,20 @@ tower_rumble()
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 0.0, "generic_attack_medium_500" );
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 4.0, "generic_attack_medium_1000" );
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 9.0, "generic_attack_heavy_1000" );
-    level.playercardbackground thread maps\_utility::rumble_sequence_play( var_0 );
+    level.player thread maps\_utility::rumble_sequence_play( var_0 );
     wait 6.0;
-    level.playercardbackground playrumblelooponentity( "generic_quake_loop" );
+    level.player playrumblelooponentity( "generic_quake_loop" );
     wait 2.5;
-    level.playercardbackground stoprumble( "generic_quake_loop" );
+    level.player stoprumble( "generic_quake_loop" );
 }
 
 tower_earthquakes()
 {
-    earthquake( 0.2, 0.5, level.playercardbackground.origin, 8000 );
+    earthquake( 0.2, 0.5, level.player.origin, 8000 );
     wait 4;
-    earthquake( 0.2, 1, level.playercardbackground.origin, 8000 );
+    earthquake( 0.2, 1, level.player.origin, 8000 );
     wait 5;
-    earthquake( 0.4, 3, level.playercardbackground.origin, 8000 );
+    earthquake( 0.4, 3, level.player.origin, 8000 );
 }
 
 tower_legbreak_fx( var_0 )
@@ -1188,10 +1188,10 @@ tower_interface()
 
     while ( !common_scripts\utility::_id_382E( "tower_destroyed" ) )
     {
-        var_0 = level.playercardbackground getcurrentweapon();
+        var_0 = level.player getcurrentweapon();
 
         if ( var_0 != "c4" )
-            level.playercardbackground switchtoweapon( "c4" );
+            level.player switchtoweapon( "c4" );
 
         wait 0.5;
     }
@@ -1229,7 +1229,7 @@ missile_launch01()
     var_2 = getent( "icbm_missile01", "targetname" );
     common_scripts\utility::_id_384A( "launch_01" );
     common_scripts\_exploder::_id_3528( 1 );
-    earthquake( 0.1, 8, level.playercardbackground.origin, 8000 );
+    earthquake( 0.1, 8, level.player.origin, 8000 );
     var_2 linkto( var_0 );
     var_0 moveto( var_1.origin, 50, 10, 0 );
     playfxontag( level._effect["smoke_geotrail_icbm"], var_2, "tag_nozzle" );
@@ -1245,7 +1245,7 @@ missile_launch02()
     common_scripts\utility::_id_384A( "launch_02" );
     wait 1.5;
     common_scripts\_exploder::_id_3528( 2 );
-    earthquake( 0.1, 8, level.playercardbackground.origin, 8000 );
+    earthquake( 0.1, 8, level.player.origin, 8000 );
     var_2 linkto( var_0 );
     var_0 moveto( var_1.origin, 50, 10, 0 );
     playfxontag( level._effect["smoke_geotrail_icbm"], var_2, "tag_nozzle" );

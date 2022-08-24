@@ -331,11 +331,11 @@ _id_64D6()
         if ( !isdefined( self._id_89E4 ) )
             self._id_89E4 = spawnstruct();
 
-        self._id_89E4.spectating_cycle = gettime();
+        self._id_89E4.spawntime = gettime();
         self._id_89E4._id_2596 = 0;
         self._id_89E4._id_25AC = 0;
         self._id_89E4._id_126D = 0;
-        var_0 = self._id_89E4.spectating_cycle;
+        var_0 = self._id_89E4.spawntime;
 
         if ( !isdefined( self._id_6282 ) )
             self._id_6282 = 0;
@@ -367,7 +367,7 @@ _id_64D6()
             }
         }
 
-        reconspatialevent( self.spectatekillcam, "script_mp_playerspawn: player_name %s, life_id %d, life_index %d, was_tactical_insertion %b, team %s, gameTime %d, version %f, script_file %s, randomSpawn %b, number_of_choices %d, last_update_time %d", self.nearz, self._id_56F7, self._id_6282, self.wasti, self.team, var_0, var_2, var_3, var_4, var_5, var_6 );
+        reconspatialevent( self.spawnpos, "script_mp_playerspawn: player_name %s, life_id %d, life_index %d, was_tactical_insertion %b, team %s, gameTime %d, version %f, script_file %s, randomSpawn %b, number_of_choices %d, last_update_time %d", self.name, self._id_56F7, self._id_6282, self.wasti, self.team, var_0, var_2, var_3, var_4, var_5, var_6 );
     }
 }
 
@@ -701,7 +701,7 @@ _id_2F99( var_0, var_1 )
     self.droppeddeathweapon = 1;
     var_9.owner = self;
     var_9._id_6638 = var_0;
-    var_9.teambalanced = "dropped_weapon";
+    var_9.targetname = "dropped_weapon";
     var_9 thread _id_A249();
     var_9 thread _id_285D();
 }
@@ -796,7 +796,7 @@ _id_A249()
     }
 
     var_3.owner = var_2;
-    var_3.teambalanced = "dropped_weapon";
+    var_3.targetname = "dropped_weapon";
     var_4 = var_3 _id_3FDC();
 
     if ( isdefined( var_2.primaryweapon ) && var_2.primaryweapon == var_4 )
@@ -1479,7 +1479,7 @@ _id_38AA( var_0, var_1, var_2 )
     var_6 = 40;
     var_7 = 11;
 
-    if ( !maps\mp\_utility::_id_5189( var_0 ) || var_0.sharpturnlookaheaddist != "playing" )
+    if ( !maps\mp\_utility::_id_5189( var_0 ) || var_0.sessionstate != "playing" )
         return;
 
     var_8 = distancesquared( var_1, var_0.origin );
@@ -2165,8 +2165,8 @@ _id_196E( var_0 )
 {
     self endon( "death" );
     self setcandamage( 1 );
-    self.maxturnspeed = 100000;
-    self.helmet = self.maxturnspeed;
+    self.maxhealth = 100000;
+    self.health = self.maxhealth;
     var_1 = undefined;
 
     for (;;)
@@ -2296,9 +2296,9 @@ _id_82FF()
         for ( var_0 = 0; var_0 < 4; var_0++ )
         {
             self.bombsquadicons[var_0] = newclienthudelem( self );
-            self.bombsquadicons[var_0].xpmaxmultipliertimeplayed = 0;
-            self.bombsquadicons[var_0]._id_0538 = 0;
-            self.bombsquadicons[var_0]._id_053B = 0;
+            self.bombsquadicons[var_0].x = 0;
+            self.bombsquadicons[var_0].y = 0;
+            self.bombsquadicons[var_0].z = 0;
             self.bombsquadicons[var_0].alpha = 0;
             self.bombsquadicons[var_0].archived = 1;
             self.bombsquadicons[var_0] setshader( "waypoint_bombsquad", 14, 14 );
@@ -2335,9 +2335,9 @@ _id_8512( var_0 )
         return;
 
     self.bombsquadids[var_1] = 1;
-    self.bombsquadicons[var_2].xpmaxmultipliertimeplayed = var_0.origin[0];
-    self.bombsquadicons[var_2]._id_0538 = var_0.origin[1];
-    self.bombsquadicons[var_2]._id_053B = var_0.origin[2] + 24 + 128;
+    self.bombsquadicons[var_2].x = var_0.origin[0];
+    self.bombsquadicons[var_2].y = var_0.origin[1];
+    self.bombsquadicons[var_2].z = var_0.origin[2] + 24 + 128;
     self.bombsquadicons[var_2] fadeovertime( 0.25 );
     self.bombsquadicons[var_2].alpha = 1;
     self.bombsquadicons[var_2].detectid = var_0.detectid;
@@ -2369,7 +2369,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
 
     for ( var_7 = 0; var_7 < var_6.size; var_7++ )
     {
-        if ( !isalive( var_6[var_7] ) || var_6[var_7].sharpturnlookaheaddist != "playing" )
+        if ( !isalive( var_6[var_7] ) || var_6[var_7].sessionstate != "playing" )
             continue;
 
         var_8 = maps\mp\_utility::_id_3D28( var_6[var_7] );
@@ -2435,7 +2435,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
 
         if ( var_9 < var_5 && ( !var_2 || _id_A2D6( var_0, var_11, var_3, var_17 ) ) )
         {
-            switch ( var_17.motiontrackerenabled )
+            switch ( var_17.model )
             {
                 case "mp_remote_turret":
                     var_4[var_4.size] = maps\mp\_utility::_id_3D29( var_17, var_11 );
@@ -2448,7 +2448,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
 
     foreach ( var_21 in var_19 )
     {
-        if ( var_21.motiontrackerenabled != "projectile_bouncing_betty_grenade" && var_21.motiontrackerenabled != "ims_scorpion_body" )
+        if ( var_21.model != "projectile_bouncing_betty_grenade" && var_21.model != "ims_scorpion_body" )
             continue;
 
         var_11 = var_21.origin + ( 0.0, 0.0, 32.0 );
@@ -3073,8 +3073,8 @@ _id_5C55()
     self endon( "mine_selfdestruct" );
     self endon( "death" );
     self setcandamage( 1 );
-    self.maxturnspeed = 100000;
-    self.helmet = self.maxturnspeed;
+    self.maxhealth = 100000;
+    self.health = self.maxhealth;
     var_0 = undefined;
 
     for (;;)
@@ -3406,7 +3406,7 @@ _id_5C50( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_5C52( var_0, var_1 )
 {
-    if ( isplayer( var_1 ) && isalive( var_1 ) && var_1.sharpturnlookaheaddist == "playing" )
+    if ( isplayer( var_1 ) && isalive( var_1 ) && var_1.sessionstate == "playing" )
         var_2 = var_1 maps\mp\_utility::_id_40E7();
     else if ( var_1.classname == "misc_turret" )
         var_2 = var_1.origin + ( 0.0, 0.0, 32.0 );
@@ -3760,7 +3760,7 @@ _id_7428()
 
     for (;;)
     {
-        if ( self.helmet >= 100 && isdefined( self._id_2583 ) && self._id_2583.size > 0 )
+        if ( self.health >= 100 && isdefined( self._id_2583 ) && self._id_2583.size > 0 )
             self._id_2583 = [];
 
         wait 0.05;

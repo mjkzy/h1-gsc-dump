@@ -148,13 +148,13 @@ player_heli_ropeanimoverride()
     var_5 = [];
     var_5["TAG_FastRope_RI"] = spawnstruct();
     self._id_0DE8 = var_5;
-    var_6 = spawn( "script_model", level.playercardbackground.origin );
+    var_6 = spawn( "script_model", level.player.origin );
     var_6 setmodel( var_1 );
     var_6 linkto( self, var_0, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_6 useanimtree( #animtree );
     thread player_heli_ropeanimoverride_idle( var_6, var_0, var_3 );
     self waittill( "unloading" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_armada_intro_foley" );
+    level.player thread maps\_utility::_id_69C4( "scn_armada_intro_foley" );
     thread maps\_vehicle_aianim::_id_0C74( var_6, var_0, var_4 );
     wait(getanimlength( var_4 ) - 1.8);
     var_6 unlink();

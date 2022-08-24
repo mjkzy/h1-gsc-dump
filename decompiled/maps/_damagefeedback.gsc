@@ -35,21 +35,21 @@ _id_4CCF()
     self._id_4AB7 = newclienthudelem( self );
     self._id_4AB7.alignx = "center";
     self._id_4AB7.aligny = "middle";
-    self._id_4AB7.hostquits = "center";
-    self._id_4AB7.visionsetnight = "middle";
+    self._id_4AB7.horzalign = "center";
+    self._id_4AB7.vertalign = "middle";
     self._id_4AB7.alpha = 0;
     self._id_4AB7.archived = 1;
     self._id_4AB7 setshader( "damage_feedback", 50, 100 );
-    self._id_4AB7._id_0538 = 25;
+    self._id_4AB7.y = 25;
     self._id_4AB8 = newclienthudelem( self );
     self._id_4AB8.alignx = "center";
     self._id_4AB8.aligny = "middle";
-    self._id_4AB8.hostquits = "center";
-    self._id_4AB8.visionsetnight = "middle";
+    self._id_4AB8.horzalign = "center";
+    self._id_4AB8.vertalign = "middle";
     self._id_4AB8.alpha = 0;
     self._id_4AB8.archived = 1;
     self._id_4AB8 setshader( "damage_feedback_headshot", 50, 100 );
-    self._id_4AB8._id_0538 = 25;
+    self._id_4AB8.y = 25;
 }
 
 _id_5E3F()
@@ -127,7 +127,7 @@ _id_9B0E( var_0 )
 
         if ( soundexists( var_1 ) )
         {
-            level.playercardbackground playlocalsound( var_1 );
+            level.player playlocalsound( var_1 );
             return;
         }
     }
@@ -154,7 +154,7 @@ _id_9B0D( var_0, var_1 )
         self._id_4AB8 fadeovertime( var_2 );
         self._id_4AB8.alpha = 0;
         var_3 = getdvarfloat( "cg_crosshairVerticalOffset" ) * 240;
-        self._id_4AB8._id_0538 = 25 - int( var_3 );
+        self._id_4AB8.y = 25 - int( var_3 );
     }
     else
     {
@@ -162,6 +162,6 @@ _id_9B0D( var_0, var_1 )
         self._id_4AB7 fadeovertime( var_2 );
         self._id_4AB7.alpha = 0;
         var_3 = getdvarfloat( "cg_crosshairVerticalOffset" ) * 240;
-        self._id_4AB7._id_0538 = 25 - int( var_3 );
+        self._id_4AB7.y = 25 - int( var_3 );
     }
 }

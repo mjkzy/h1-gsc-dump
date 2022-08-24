@@ -38,8 +38,8 @@ hiding_door_spawner()
 
     var_2 = getentarray( "hiding_door_guy_org", "targetname" );
     var_3 = common_scripts\utility::_id_3F33( self.origin, var_2 );
-    var_3.teambalanced = undefined;
-    var_4 = getentarray( var_3._not_team, "targetname" );
+    var_3.targetname = undefined;
+    var_4 = getentarray( var_3.target, "targetname" );
     var_5 = undefined;
     var_6 = undefined;
     var_7 = undefined;
@@ -64,11 +64,11 @@ hiding_door_spawner()
         }
     }
 
-    var_11 = getent( var_5._not_team, "targetname" );
+    var_11 = getent( var_5.target, "targetname" );
     var_12 = undefined;
 
-    if ( isdefined( var_11._not_team ) )
-        var_12 = getent( var_11._not_team, "targetname" );
+    if ( isdefined( var_11.target ) )
+        var_12 = getent( var_11.target, "targetname" );
 
     if ( isdefined( var_12 ) )
     {
@@ -101,9 +101,9 @@ hiding_door_spawner()
 
     var_14 = undefined;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_14 = getent( self._not_team, "targetname" );
+        var_14 = getent( self.target, "targetname" );
 
         if ( !issubstr( var_14.classname, "trigger" ) )
             var_14 = undefined;
@@ -113,8 +113,8 @@ hiding_door_spawner()
     {
         var_15 = 200;
 
-        if ( isdefined( self.rank ) )
-            var_15 = self.rank;
+        if ( isdefined( self.radius ) )
+            var_15 = self.radius;
 
         var_14 = spawn( "trigger_radius", var_3.origin, 0, var_15, 48 );
     }
@@ -137,7 +137,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
     self.grenadeammo = 2;
     maps\_utility::_id_7E06( "death_2" );
     self.allowdeath = 1;
-    self.helmet = 50000;
+    self.health = 50000;
     var_6 = [];
     var_6[var_6.size] = var_2;
     var_6[var_6.size] = self;
@@ -168,7 +168,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
 
     for (;;)
     {
-        var_9 = level.playercardbackground;
+        var_9 = level.player;
 
         if ( isdefined( self.enemy ) )
             var_9 = self.enemy;
@@ -220,7 +220,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
             var_0 notify( "push_player" );
             self notify( "charge" );
             self.allowdeath = 1;
-            self.helmet = 100;
+            self.health = 100;
             maps\_utility::_id_1EAB();
             var_0 maps\_anim::_id_0C18( var_6, var_11 );
             quit_door_behavior();
@@ -251,11 +251,11 @@ quit_door_behavior( var_0, var_1 )
 
     if ( var_0 )
     {
-        if ( !sighttracepassed( level.playercardbackground geteye(), self geteye(), 0, self ) )
+        if ( !sighttracepassed( level.player geteye(), self geteye(), 0, self ) )
             return 0;
     }
 
-    self.helmet = 100;
+    self.health = 100;
     maps\_utility::_id_1EAB();
     self.goalradius = 512;
     self _meth_81aa( self.origin );
@@ -270,12 +270,12 @@ player_entered_backdoor( var_0 )
     if ( var_0 != "behind" )
         return 0;
 
-    var_1 = distance( self.origin, level.playercardbackground.origin );
+    var_1 = distance( self.origin, level.player.origin );
 
     if ( var_1 > 250 )
         return 0;
 
-    if ( !sighttracepassed( level.playercardbackground geteye(), self geteye(), 0, self ) )
+    if ( !sighttracepassed( level.player geteye(), self geteye(), 0, self ) )
         return 0;
 
     return 1;
@@ -290,13 +290,13 @@ hiding_door_guy_should_charge( var_0, var_1, var_2 )
     if ( var_2 < var_3 )
         return 0;
 
-    if ( var_1 != level.playercardbackground )
+    if ( var_1 != level.player )
         return 0;
 
     if ( var_0 != "front" )
         return 0;
 
-    var_6 = distance( self.origin, level.playercardbackground.origin );
+    var_6 = distance( self.origin, level.player.origin );
 
     if ( var_6 < var_4 )
         return 0;
@@ -399,7 +399,7 @@ toggle_pushplayerclip_with_flag( var_0 )
 hiding_door_guy_grenade_throw( var_0 )
 {
     var_1 = var_0 gettagorigin( "J_Wrist_RI" );
-    var_2 = distance( level.playercardbackground.origin, var_0.origin ) * 2.0;
+    var_2 = distance( level.player.origin, var_0.origin ) * 2.0;
 
     if ( var_2 < 300 )
         var_2 = 300;
@@ -407,7 +407,7 @@ hiding_door_guy_grenade_throw( var_0 )
     if ( var_2 > 1000 )
         var_2 = 1000;
 
-    var_3 = vectornormalize( level.playercardbackground.origin - var_0.origin );
+    var_3 = vectornormalize( level.player.origin - var_0.origin );
     var_4 = var_3 * var_2;
     var_0 magicgrenademanual( var_1, var_4, randomfloatrange( 3.0, 5.0 ) );
 }
@@ -456,5 +456,5 @@ hiding_door_death_door_connections( var_0, var_1 )
 
 hiding_door_starts_open( var_0 )
 {
-    return isdefined( var_0.script_parentname ) && var_0.script_parentname == "starts_open";
+    return isdefined( var_0.script_noteworthy ) && var_0.script_noteworthy == "starts_open";
 }

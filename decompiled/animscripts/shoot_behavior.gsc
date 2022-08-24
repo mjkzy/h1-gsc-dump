@@ -36,7 +36,7 @@ _id_2743( var_0 )
     if ( !isdefined( self._id_1C86 ) )
         self._id_1C86 = 0;
 
-    var_1 = isdefined( self._id_22BA ) && self._id_22BA.unlockpoints != "Cover Prone" && self._id_22BA.unlockpoints != "Conceal Prone";
+    var_1 = isdefined( self._id_22BA ) && self._id_22BA.type != "Cover Prone" && self._id_22BA.type != "Conceal Prone";
 
     if ( var_1 )
         wait 0.05;
@@ -76,7 +76,7 @@ _id_2743( var_0 )
 
         var_5 = undefined;
 
-        if ( self.weapon_switch_invalid == "none" )
+        if ( self.weapon == "none" )
             _id_6147();
         else if ( animscripts\utility::_id_9C36() )
             var_5 = _id_766E();
@@ -137,7 +137,7 @@ _id_6147()
 
 _id_84B6()
 {
-    return !animscripts\combat_utility::issniper() && !animscripts\utility::_id_51A3( self.weapon_switch_invalid );
+    return !animscripts\combat_utility::issniper() && !animscripts\utility::_id_51A3( self.weapon );
 }
 
 _id_84A9()
@@ -167,7 +167,7 @@ _id_7512()
         {
             _id_59B1();
 
-            if ( ( self.psoffsettime || randomint( 5 ) > 0 ) && _id_84B6() )
+            if ( ( self.providecoveringfire || randomint( 5 ) > 0 ) && _id_84B6() )
                 self._id_840E = "suppress";
             else
                 self._id_840E = "ambush";
@@ -376,9 +376,9 @@ _id_6830()
 
 _id_59B1()
 {
-    if ( isdefined( self.enemy ) && !self._id_1C86 && self.script_context != "combat" )
+    if ( isdefined( self.enemy ) && !self._id_1C86 && self.script != "combat" )
     {
-        if ( isai( self.enemy ) && isdefined( self.enemy.script_context ) && ( self.enemy.script_context == "cover_stand" || self.enemy.script_context == "cover_crouch" ) )
+        if ( isai( self.enemy ) && isdefined( self.enemy.script ) && ( self.enemy.script == "cover_stand" || self.enemy.script == "cover_crouch" ) )
         {
             if ( isdefined( self.enemy.a._id_22AB ) && self.enemy.a._id_22AB == "hide" )
                 return;
@@ -397,7 +397,7 @@ _id_A223()
     {
         self waittill( "suppression" );
 
-        if ( self.suppressionwait > self._id_8FEC )
+        if ( self.suppressionmeter > self._id_8FEC )
         {
             if ( _id_71E7() )
             {
@@ -419,7 +419,7 @@ _id_71E7()
     if ( gettime() < self._id_22BC + 800 )
         return 0;
 
-    if ( isplayer( self.enemy ) && self.enemy.helmet < self.enemy.maxturnspeed * 0.5 )
+    if ( isplayer( self.enemy ) && self.enemy.health < self.enemy.maxhealth * 0.5 )
     {
         if ( gettime() < self._id_22BC + 3000 )
             return 0;
@@ -485,26 +485,26 @@ _id_8486()
 
 _id_800C()
 {
-    if ( isdefined( self._id_83F6.enemy ) && isdefined( self._id_83F6.enemy.tag_ai_aim_target ) )
+    if ( isdefined( self._id_83F6.enemy ) && isdefined( self._id_83F6.enemy.syncedmeleetarget ) )
         return _id_800A( "single", 0 );
 
     if ( animscripts\combat_utility::issniper() )
         return _id_800A( "single", 0 );
 
-    if ( animscripts\utility::_id_51A3( self.weapon_switch_invalid ) )
+    if ( animscripts\utility::_id_51A3( self.weapon ) )
         return _id_800A( "single", 0 );
 
-    if ( weaponclass( self.weapon_switch_invalid ) == "grenade" )
+    if ( weaponclass( self.weapon ) == "grenade" )
         return _id_800A( "single", 0 );
 
-    if ( weaponburstcount( self.weapon_switch_invalid ) > 0 )
+    if ( weaponburstcount( self.weapon ) > 0 )
         return _id_800A( "burst", 0 );
 
     if ( isdefined( self._id_529C ) && self._id_529C || isdefined( self._id_5A7A ) && self._id_5A7A )
         return _id_800A( "full", 1 );
 
     var_0 = distancesquared( self getshootatpos(), self._id_840F );
-    var_1 = weaponclass( self.weapon_switch_invalid ) == "mg";
+    var_1 = weaponclass( self.weapon ) == "mg";
 
     if ( var_1 )
         return _id_800A( "full", 0 );
@@ -518,7 +518,7 @@ _id_800C()
     }
     else if ( var_0 < 810000 || _id_8486() )
         return _id_800A( "burst", 1 );
-    else if ( self.psoffsettime || var_1 || var_0 < 2560000 )
+    else if ( self.providecoveringfire || var_1 || var_0 < 2560000 )
     {
         if ( _id_8491() )
             return _id_800A( "semi", 0 );
@@ -533,7 +533,7 @@ _id_800B()
 {
     var_0 = distancesquared( self getshootatpos(), self._id_840F );
 
-    if ( weaponissemiauto( self.weapon_switch_invalid ) )
+    if ( weaponissemiauto( self.weapon ) )
     {
         if ( var_0 < 2560000 )
             return _id_800A( "semi", 0 );
@@ -541,10 +541,10 @@ _id_800B()
         return _id_800A( "single", 0 );
     }
 
-    if ( weaponclass( self.weapon_switch_invalid ) == "mg" )
+    if ( weaponclass( self.weapon ) == "mg" )
         return _id_800A( "full", 0 );
 
-    if ( self.psoffsettime || var_0 < 1690000 )
+    if ( self.providecoveringfire || var_0 < 1690000 )
     {
         if ( _id_8491() )
             return _id_800A( "semi", 0 );
@@ -563,7 +563,7 @@ _id_800A( var_0, var_1 )
 
 _id_8491()
 {
-    if ( weaponclass( self.weapon_switch_invalid ) != "rifle" )
+    if ( weaponclass( self.weapon ) != "rifle" )
         return 0;
 
     if ( self.team != "allies" )
@@ -603,7 +603,7 @@ _id_87D5()
 
     for (;;)
     {
-        if ( self.weapon_switch_invalid == self.primaryweapon && animscripts\combat_utility::_id_6BFF() )
+        if ( self.weapon == self.primaryweapon && animscripts\combat_utility::_id_6BFF() )
         {
             if ( distancesquared( self.origin, self.enemy.origin ) > 65536 )
                 playfxontag( var_0, self, "tag_flash" );

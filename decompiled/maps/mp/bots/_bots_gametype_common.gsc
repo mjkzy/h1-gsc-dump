@@ -28,7 +28,7 @@ _id_15BE()
     foreach ( var_4 in level._id_1555 )
     {
         var_0[var_2] = common_scripts\utility::_id_710E( var_4._id_174F ).origin;
-        var_1[var_2] = "zone" + var_4.land;
+        var_1[var_2] = "zone" + var_4.label;
         var_2++;
     }
 
@@ -70,7 +70,7 @@ _id_15BF( var_0, var_1, var_2, var_3 )
             var_4[var_6] = var_0[var_10]._id_6071.origin;
         }
 
-        var_5[var_6] = var_1 + var_0[var_10].script_model;
+        var_5[var_6] = var_1 + var_0[var_10].script_label;
         var_6++;
     }
 
@@ -155,7 +155,7 @@ _id_15A3( var_0, var_1 )
 {
     if ( var_1.classname == "trigger_radius" )
     {
-        var_2 = getnodesinradius( var_1.origin, var_1.rank, 0, 100 );
+        var_2 = getnodesinradius( var_1.origin, var_1.radius, 0, 100 );
         var_3 = common_scripts\utility::_id_0CF7( var_2, var_0 );
 
         if ( var_3.size > 0 )
@@ -189,7 +189,7 @@ _id_15A3( var_0, var_1 )
             {
                 if ( ispointinvolume( var_11.origin + ( 0.0, 0.0, 40.0 ), var_1 ) || ispointinvolume( var_11.origin + ( 0.0, 0.0, 80.0 ), var_1 ) || ispointinvolume( var_11.origin + ( 0.0, 0.0, 120.0 ), var_1 ) )
                 {
-                    if ( var_11.unlockpoints != "Begin" && var_11.unlockpoints != "End" )
+                    if ( var_11.type != "Begin" && var_11.type != "End" )
                         var_0 = common_scripts\utility::_id_0CDA( var_0, var_11 );
                 }
             }
@@ -476,7 +476,7 @@ bot_get_valid_nodes_in_trigger( var_0 )
 
     foreach ( var_4 in var_1 )
     {
-        if ( !var_4 nodeisdisconnected() && var_4.unlockpoints != "Begin" && var_4.unlockpoints != "End" )
+        if ( !var_4 nodeisdisconnected() && var_4.type != "Begin" && var_4.type != "End" )
             var_2[var_2.size] = var_4;
     }
 
@@ -501,7 +501,7 @@ bot_cache_entrances_to_zones( var_0 )
         {
             var_10 = _id_A3E5( var_5, var_9[0], var_9[1] );
             var_1[var_3] = var_10.origin;
-            var_11 = var_5.script_model + "_" + var_6;
+            var_11 = var_5.script_label + "_" + var_6;
             var_2[var_3] = var_11;
             var_5._id_3320[var_5._id_3320.size] = var_11;
             var_3++;
@@ -526,7 +526,7 @@ _id_19D8( var_0 )
 
     var_1._id_1C0F = ( ( var_1._id_5C31[0] + var_1._id_5A10[0] ) / 2, ( var_1._id_5C31[1] + var_1._id_5A10[1] ) / 2, ( var_1._id_5C31[2] + var_1._id_5A10[2] ) / 2 );
     var_1._id_44FB = ( var_1._id_5A10[0] - var_1._id_1C0F[0], var_1._id_5A10[1] - var_1._id_1C0F[1], var_1._id_5A10[2] - var_1._id_1C0F[2] );
-    var_1.rank = max( var_1._id_44FB[0], var_1._id_44FB[1] );
+    var_1.radius = max( var_1._id_44FB[0], var_1._id_44FB[1] );
     return var_1;
 }
 

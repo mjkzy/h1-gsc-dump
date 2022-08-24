@@ -101,7 +101,7 @@ sea_objectbob_precalc( var_0, var_1 )
 
     if ( self.axial )
     {
-        var_4 = var_0.runto_arrived[0] * self.pratio * self._id_782D + var_0.runto_arrived[2] * self.rratio * self._id_782D;
+        var_4 = var_0.rotation[0] * self.pratio * self._id_782D + var_0.rotation[2] * self.rratio * self._id_782D;
 
         if ( var_2 < abs( var_4 ) )
         {
@@ -116,20 +116,20 @@ sea_objectbob_precalc( var_0, var_1 )
         self.ang = ( self.angles[0], self.angles[1], var_3 );
     }
     else
-        self.ang = var_0.runto_arrived * self._id_782D;
+        self.ang = var_0.rotation * self._id_782D;
 }
 
 sea_objectbob( var_0 )
 {
-    if ( isdefined( self.teambalanced ) )
+    if ( isdefined( self.targetname ) )
     {
-        var_1 = getentarray( self.teambalanced, "target" );
+        var_1 = getentarray( self.targetname, "target" );
 
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
             var_1[var_2] linkto( self );
     }
 
-    var_3 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
+    var_3 = common_scripts\utility::_id_40FD( self.target, "targetname" );
     var_4 = var_3[0].origin;
     var_5 = undefined;
     var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
@@ -237,7 +237,7 @@ sea_objectbob_logic( var_0, var_1 )
         if ( !isdefined( var_1._id_6685 ) )
             wait(var_1.waittime);
 
-        var_1 rotateto( var_1.ang, var_0.titleunlocked, var_0.titleunlocked * 0.5, var_0.titleunlocked * 0.5 );
+        var_1 rotateto( var_1.ang, var_0.time, var_0.time * 0.5, var_0.time * 0.5 );
 
         if ( var_0.sway == "sway1" )
             var_0 waittill( "sway2" );
@@ -248,7 +248,7 @@ sea_objectbob_logic( var_0, var_1 )
         if ( !isdefined( var_1._id_6685 ) )
             wait(var_1.waittime);
 
-        var_1 rotateto( var_1.ang, var_0.titleunlocked, var_0.titleunlocked * 0.5, var_0.titleunlocked * 0.5 );
+        var_1 rotateto( var_1.ang, var_0.time, var_0.time * 0.5, var_0.time * 0.5 );
     }
 }
 
@@ -263,10 +263,10 @@ sea_objectbob_follow( var_0 )
 
 sea_objectbob_findparent( var_0, var_1 )
 {
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
-    var_0._id_6685 = getent( self._not_team, "targetname" );
+    var_0._id_6685 = getent( self.target, "targetname" );
 
     if ( !isdefined( var_0._id_6685._id_577B ) )
         var_0._id_6685 waittill( "got_link" );
@@ -284,10 +284,10 @@ sea_objectbob_findparent( var_0, var_1 )
     {
         var_2 waittill( "precalcdone1" );
         wait(var_2.waittime - 0.05);
-        var_4 rotateto( var_2.ang, var_1.titleunlocked, var_1.titleunlocked * 0.5, var_1.titleunlocked * 0.5 );
+        var_4 rotateto( var_2.ang, var_1.time, var_1.time * 0.5, var_1.time * 0.5 );
         var_2 waittill( "precalcdone2" );
         wait(var_2.waittime - 0.05);
-        var_4 rotateto( var_2.ang, var_1.titleunlocked, var_1.titleunlocked * 0.5, var_1.titleunlocked * 0.5 );
+        var_4 rotateto( var_2.ang, var_1.time, var_1.time * 0.5, var_1.time * 0.5 );
     }
 }
 
@@ -303,29 +303,29 @@ sea_bob()
         var_0 = 0;
         var_1 = 0;
         var_2 = randomfloatrange( 2, 4 ) * level._sea_scale;
-        self.titleunlocked = randomfloatrange( 3, 4 );
-        self.runto_arrived = ( var_1, var_0, var_2 );
+        self.time = randomfloatrange( 3, 4 );
+        self.rotation = ( var_1, var_0, var_2 );
         self.sway = "sway1";
         self notify( "sway1" );
 
         if ( common_scripts\utility::_id_382E( "_sea_bob" ) )
-            level._sea_link rotateto( self.runto_arrived, self.titleunlocked, self.titleunlocked * 0.5, self.titleunlocked * 0.5 );
+            level._sea_link rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
 
-        self rotateto( self.runto_arrived, self.titleunlocked, self.titleunlocked * 0.5, self.titleunlocked * 0.5 );
+        self rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
         level._id_47A3.heightsea = 110;
         soundscripts\_snd::_id_870C( "aud_start_sway1" );
-        wait(self.titleunlocked);
-        self.runto_arrived *= -1;
+        wait(self.time);
+        self.rotation *= -1;
         self.sway = "sway2";
         self notify( "sway2" );
 
         if ( common_scripts\utility::_id_382E( "_sea_bob" ) )
-            level._sea_link rotateto( self.runto_arrived, self.titleunlocked, self.titleunlocked * 0.5, self.titleunlocked * 0.5 );
+            level._sea_link rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
 
-        self rotateto( self.runto_arrived, self.titleunlocked, self.titleunlocked * 0.5, self.titleunlocked * 0.5 );
+        self rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
         level._id_47A3.heightsea = 180;
         soundscripts\_snd::_id_870C( "aud_start_sway2" );
-        wait(self.titleunlocked);
+        wait(self.time);
     }
 }
 
@@ -373,7 +373,7 @@ sea_waves()
 
 sea_waves_fx( var_0, var_1 )
 {
-    wait(self.titleunlocked * 0.5);
+    wait(self.time * 0.5);
     var_2 = 2;
     var_3 = common_scripts\utility::_id_710E( sea_closestwavearray( var_0[var_1], var_2 ) );
 
@@ -402,7 +402,7 @@ sea_closestwavearray( var_0, var_1 )
     var_2 = [];
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
-        var_0[var_3]._sea_dist = distancesquared( var_0[var_3].origin, level.playercardbackground.origin );
+        var_0[var_3]._sea_dist = distancesquared( var_0[var_3].origin, level.player.origin );
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         var_2 = sea_closestwavelogic( var_2, var_0[var_3] );
@@ -455,8 +455,8 @@ sea_waves_setup()
     for ( var_5 = 0; var_5 < var_0.size; var_5++ )
     {
         var_0[var_5].forward = anglestoforward( var_0[var_5].angles );
-        var_0[var_5].upgradepurchased = anglestoup( var_0[var_5].angles );
-        var_0[var_5].riotshield_damaged = anglestoright( var_0[var_5].angles );
+        var_0[var_5].up = anglestoup( var_0[var_5].angles );
+        var_0[var_5].right = anglestoright( var_0[var_5].angles );
     }
 
     for ( var_5 = 0; var_5 < var_0.size; var_5++ )
@@ -520,11 +520,11 @@ sea_viewbob()
     for (;;)
     {
         common_scripts\utility::_id_384A( "_sea_viewbob" );
-        level.playercardbackground playersetgroundreferenceent( self );
+        level.player playersetgroundreferenceent( self );
 
         if ( common_scripts\utility::_id_382E( "_sea_viewbob" ) )
             level waittill( "_sea_viewbob" );
 
-        level.playercardbackground playersetgroundreferenceent( undefined );
+        level.player playersetgroundreferenceent( undefined );
     }
 }

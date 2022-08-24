@@ -379,7 +379,7 @@ updatecameralobby( var_0, var_1, var_2 )
 
     if ( !isdefined( var_5.angles ) )
     {
-        var_6 = common_scripts\utility::_id_40FB( var_5._not_team, "targetname" );
+        var_6 = common_scripts\utility::_id_40FB( var_5.target, "targetname" );
         var_7 = var_6.origin - var_5.origin;
         var_5.angles = vectortoangles( var_7 );
     }

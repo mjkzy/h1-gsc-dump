@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "axis";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta_muzzle_nodynlight";
     self._id_855D = "beretta_muzzle_nodynlight";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 512.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "ak47_muzzle_nodynlight";
+    self.weapon = "ak47_muzzle_nodynlight";
 
     switch ( codescripts\character::_id_3E43( 7 ) )
     {
@@ -67,20 +67,20 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "axis" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_spetsnaz_boris::prestigedoublexp();
-    character\character_sp_spetsnaz_demetry::prestigedoublexp();
-    character\character_sp_spetsnaz_vlad::prestigedoublexp();
-    character\character_sp_spetsnaz_yuri::prestigedoublexp();
-    character\character_sp_spetsnaz_collins::prestigedoublexp();
-    character\character_sp_spetsnaz_geoff::prestigedoublexp();
-    character\character_sp_spetsnaz_derik::prestigedoublexp();
+    character\character_sp_spetsnaz_boris::precache();
+    character\character_sp_spetsnaz_demetry::precache();
+    character\character_sp_spetsnaz_vlad::precache();
+    character\character_sp_spetsnaz_yuri::precache();
+    character\character_sp_spetsnaz_collins::precache();
+    character\character_sp_spetsnaz_geoff::precache();
+    character\character_sp_spetsnaz_derik::precache();
     precacheitem( "ak47_muzzle_nodynlight" );
     precacheitem( "beretta_muzzle_nodynlight" );
     precacheitem( "beretta_muzzle_nodynlight" );

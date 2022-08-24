@@ -135,7 +135,7 @@ _id_57B2( var_0 )
     var_0 thread _id_9CF6( 16, self );
     var_0 waittill( "near_goal" );
     badplace_delete( var_1 );
-    maps\_utility::script_lightset();
+    maps\_utility::script_delay();
     var_0 maps\_vehicle::_id_9D67();
     var_0 maps\_vehicle_code::_id_A0B8();
     var_0 vehicle_setspeed( 20, 8, 7 );
@@ -165,9 +165,9 @@ _id_7EBF( var_0, var_1, var_2 )
         maps\_utility::_id_32DA( "guy2_in_" + var_2 );
 
     var_3 = _id_3E6E( var_0, var_2 );
-    var_4 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+    var_4 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
     var_5 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
-    var_5 setmodel( self.motiontrackerenabled );
+    var_5 setmodel( self.model );
 
     if ( isdefined( self._id_60A8 ) )
         var_5.origin = self.origin;
@@ -220,12 +220,12 @@ _id_7EBF( var_0, var_1, var_2 )
 
 _id_3E6E( var_0, var_1 )
 {
-    var_2 = getnodearray( var_0._not_team, "targetname" );
+    var_2 = getnodearray( var_0.target, "targetname" );
     var_3 = [];
 
     foreach ( var_5 in var_2 )
     {
-        if ( var_5.script_parentname == "stage_" + var_1 )
+        if ( var_5.script_noteworthy == "stage_" + var_1 )
             var_3[var_3.size] = var_5;
     }
 
@@ -238,7 +238,7 @@ _id_3DAF()
 
     for (;;)
     {
-        var_1 = maps\_utility::_id_3F82( var_0._not_team, "targetname" );
+        var_1 = maps\_utility::_id_3F82( var_0.target, "targetname" );
 
         if ( isdefined( var_1._id_7B06 ) )
             return var_1;

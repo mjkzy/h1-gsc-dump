@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_arab_regular_al_asad" );
     precachemodel( "head_khaled_alasad" );

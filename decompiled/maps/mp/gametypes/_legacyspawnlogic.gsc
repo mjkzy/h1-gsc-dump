@@ -26,7 +26,7 @@ init()
 
 issupportedmap()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "mp_bog_summer":
         case "mp_cargoship":
@@ -121,18 +121,18 @@ getbestweightedspawnpoint( var_0 )
 
         for ( var_6 = 0; var_6 < var_0.size; var_6++ )
         {
-            if ( !isdefined( var_4 ) || var_0[var_6].wildcardslots > var_4 )
+            if ( !isdefined( var_4 ) || var_0[var_6].weight > var_4 )
             {
                 if ( positionwouldtelefrag( var_0[var_6].origin ) )
                     continue;
 
                 var_3 = [];
                 var_3[0] = var_0[var_6];
-                var_4 = var_0[var_6].wildcardslots;
+                var_4 = var_0[var_6].weight;
                 continue;
             }
 
-            if ( var_0[var_6].wildcardslots == var_4 )
+            if ( var_0[var_6].weight == var_4 )
             {
                 if ( positionwouldtelefrag( var_0[var_6].origin ) )
                     continue;
@@ -156,7 +156,7 @@ getbestweightedspawnpoint( var_0 )
             return var_5;
 
         var_7 = getlospenalty();
-        var_5.wildcardslots -= var_7;
+        var_5.weight -= var_7;
         var_5.lastsighttracetime = gettime();
     }
 }
@@ -188,7 +188,7 @@ getallotherplayers()
 
         var_2 = level.players[var_1];
 
-        if ( var_2.sharpturnlookaheaddist != "playing" || var_2 == self )
+        if ( var_2.sessionstate != "playing" || var_2 == self )
             continue;
 
         var_0[var_0.size] = var_2;
@@ -222,7 +222,7 @@ getallalliedandenemyplayers( var_0 )
 initweights( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1].wildcardslots = 0;
+        var_0[var_1].weight = 0;
 }
 
 _id_40D7( var_0, var_1 )
@@ -250,17 +250,17 @@ _id_40D7( var_0, var_1 )
         {
             var_9 = var_8.distsum[var_5];
             var_10 = var_8.distsum[var_6];
-            var_8.wildcardslots = ( var_10 - var_4 * var_9 ) / var_8.numplayersatlastupdate;
+            var_8.weight = ( var_10 - var_4 * var_9 ) / var_8.numplayersatlastupdate;
             continue;
         }
 
-        var_8.wildcardslots = 0;
+        var_8.weight = 0;
     }
 
     if ( isdefined( var_1 ) )
     {
         for ( var_7 = 0; var_7 < var_1.size; var_7++ )
-            var_1[var_7].wildcardslots += 25000;
+            var_1[var_7].weight += 25000;
     }
 
     _id_1201( var_0 );
@@ -302,7 +302,7 @@ getspawnpoint_dm( var_0 )
 
             var_10 = var_5 / var_1.size;
             var_11 = ( var_2 - var_10 ) / var_2;
-            var_0[var_4].wildcardslots = var_11 - var_6 * 2 + randomfloat( 0.2 );
+            var_0[var_4].weight = var_11 - var_6 * 2 + randomfloat( 0.2 );
         }
     }
 
@@ -357,7 +357,7 @@ avoidweapondamage( var_0 )
                 continue;
 
             if ( distancesquared( var_0[var_3].origin, level._id_4407[var_4].origin ) < var_2 )
-                var_0[var_3].wildcardslots -= var_1;
+                var_0[var_3].weight -= var_1;
         }
 
         if ( !isdefined( level.artillerydangercenter ) )
@@ -368,7 +368,7 @@ avoidweapondamage( var_0 )
         if ( var_5 > 0 )
         {
             var_6 = var_5 * var_1;
-            var_0[var_3].wildcardslots -= var_6;
+            var_0[var_3].weight -= var_6;
         }
     }
 }
@@ -420,7 +420,7 @@ spawnperframeupdate()
         {
             var_9 = level.players[var_8];
 
-            if ( var_9.sharpturnlookaheaddist != "playing" )
+            if ( var_9.sessionstate != "playing" )
                 continue;
 
             var_7++;
@@ -471,7 +471,7 @@ legacybullettracepassed( var_0, var_1, var_2 )
     if ( var_3 >= 1.0 )
         return bullettracepassed( var_0, var_1, 0, undefined );
     else
-        return spawnsighttrace( var_2, var_0, var_1, var_2.info_player_start ) >= var_3;
+        return spawnsighttrace( var_2, var_0, var_1, var_2.index ) >= var_3;
 }
 
 getlospenalty()
@@ -504,7 +504,7 @@ lastminutesighttraces( var_0 )
         if ( !isdefined( var_7 ) )
             continue;
 
-        if ( var_7.sharpturnlookaheaddist != "playing" )
+        if ( var_7.sessionstate != "playing" )
             continue;
 
         if ( var_7 == self )
@@ -562,7 +562,7 @@ avoidvisibleenemies( var_0, var_1 )
                 continue;
 
             var_5 = var_2 * var_0[var_4].sights[var_3];
-            var_0[var_4].wildcardslots -= var_5;
+            var_0[var_4].weight -= var_5;
         }
     }
     else
@@ -573,7 +573,7 @@ avoidvisibleenemies( var_0, var_1 )
                 continue;
 
             var_5 = var_2 * var_0[var_4].sights;
-            var_0[var_4].wildcardslots -= var_5;
+            var_0[var_4].weight -= var_5;
         }
     }
 }
@@ -607,7 +607,7 @@ avoidspawnreuse( var_0, var_1 )
             if ( var_7 < var_4 )
             {
                 var_8 = 1000 * ( 1 - var_7 / var_4 ) * ( 1 - var_6 / var_3 );
-                var_0[var_5].wildcardslots -= var_8;
+                var_0[var_5].weight -= var_8;
             }
             else
                 var_0[var_5].lastspawnedplayer = undefined;
@@ -631,7 +631,7 @@ _id_1201( var_0 )
     {
         if ( var_0[var_1] == self._id_55DD )
         {
-            var_0[var_1].wildcardslots -= 50000;
+            var_0[var_1].weight -= 50000;
             break;
         }
     }

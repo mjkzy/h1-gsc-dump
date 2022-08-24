@@ -42,12 +42,12 @@ exploderanim_think()
 anim_play()
 {
     var_0 = undefined;
-    var_1 = strtok( self.teambalanced, ":;, " );
+    var_1 = strtok( self.targetname, ":;, " );
 
     if ( var_1.size > 1 && isdefined( var_1[1] ) )
         var_0 = var_1[1];
     else
-        var_0 = self.motiontrackerenabled + "_anim";
+        var_0 = self.model + "_anim";
 
     var_2 = get_animtree( var_0 );
     maps\_utility::_id_0D61( var_2 );

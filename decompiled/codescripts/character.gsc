@@ -86,11 +86,11 @@ _id_7802()
 {
     var_0["gunHand"] = self._id_0BD4;
     var_0["gunInHand"] = self._id_0BD5;
-    var_0["model"] = self.motiontrackerenabled;
+    var_0["model"] = self.model;
     var_0["hatModel"] = self._id_475D;
 
-    if ( isdefined( self.nearz ) )
-        var_0["name"] = self.nearz;
+    if ( isdefined( self.name ) )
+        var_0["name"] = self.name;
     else
     {
 
@@ -116,7 +116,7 @@ _id_57BD( var_0 )
     self._id_475D = var_0["hatModel"];
 
     if ( isdefined( var_0["name"] ) )
-        self.nearz = var_0["name"];
+        self.name = var_0["name"];
     else
     {
 
@@ -129,7 +129,7 @@ _id_57BD( var_0 )
         self attach( var_1[var_3]["model"], var_1[var_3]["tag"] );
 }
 
-prestigedoublexp( var_0 )
+precache( var_0 )
 {
     if ( isdefined( var_0["name"] ) )
     {

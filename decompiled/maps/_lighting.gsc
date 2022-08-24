@@ -51,7 +51,7 @@ _id_33F3( var_0 )
     thread _id_33F2( 0, var_1 );
 
     for ( var_4 = 1; var_4 < var_1._id_96D5.size; var_4++ )
-        maps\_utility::_id_27EF( var_1.titleunlocked[var_4], ::_id_33F2, var_4, var_1 );
+        maps\_utility::_id_27EF( var_1.time[var_4], ::_id_33F2, var_4, var_1 );
 }
 
 _id_7B33( var_0, var_1 )
@@ -71,7 +71,7 @@ _id_7B33( var_0, var_1 )
         var_11 = var_0.color["curr"];
         var_12 = var_0._id_4E3E["curr"];
         var_13 = var_0._id_65BE["curr"];
-        var_14 = var_0.rank["curr"];
+        var_14 = var_0.radius["curr"];
         var_15 = var_0._id_5708;
 
         if ( isdefined( var_0._id_0DDE ) )
@@ -136,7 +136,7 @@ _id_33F2( var_0, var_1 )
         var_1.color["curr"] = var_1.color[var_0] * var_5 + var_1.color[var_3] * var_6;
         var_1._id_4E3E["curr"] = var_1._id_4E3E[var_0] * var_5 + var_1._id_4E3E[var_3] * var_6;
         var_1._id_65BE["curr"] = var_1._id_65BE[var_0] * var_5 + var_1._id_65BE[var_3] * var_6;
-        var_1.rank["curr"] = var_1.rank[var_0] * var_5 + var_1.rank[var_3] * var_6;
+        var_1.radius["curr"] = var_1.radius[var_0] * var_5 + var_1.radius[var_3] * var_6;
         wait 0.05;
     }
 
@@ -146,7 +146,7 @@ _id_33F2( var_0, var_1 )
     var_1.color["curr"] = var_1.color[var_0];
     var_1._id_4E3E["curr"] = var_1._id_4E3E[var_0];
     var_1._id_65BE["curr"] = var_1._id_65BE[var_0];
-    var_1.rank["curr"] = var_1.rank[var_0];
+    var_1.radius["curr"] = var_1.radius[var_0];
     var_1._id_8D56 = var_0;
 }
 
@@ -187,14 +187,14 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     var_11 = spawnstruct();
     var_11._id_5708 = var_1;
-    var_11.titleunlocked[0] = 0;
+    var_11.time[0] = 0;
     var_11._id_2A68[0] = var_3;
     var_11._id_6E57[0] = var_2;
     var_11.active = 1;
     var_11.color[0] = var_5;
     var_11._id_4E3E[0] = var_6;
     var_11._id_65BE[0] = var_7;
-    var_11.rank[0] = var_10;
+    var_11.radius[0] = var_10;
     var_11._id_4E9E[0] = var_4;
     var_11._id_96D5[0] = 0;
     var_11._id_2A68["curr"] = var_3;
@@ -202,7 +202,7 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_11.color["curr"] = var_5;
     var_11._id_4E3E["curr"] = var_6;
     var_11._id_65BE["curr"] = var_7;
-    var_11.rank["curr"] = var_10;
+    var_11.radius["curr"] = var_10;
     var_11._id_4E9E["curr"] = 0.1;
     var_11._id_8D56 = -1;
     var_11._id_6F80 = getent( var_0, "targetname" );
@@ -332,7 +332,7 @@ _id_7B32( var_0, var_1, var_2, var_3 )
 _id_7B2C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     var_10 = level._id_78B7[var_0];
-    var_11 = var_10.titleunlocked.size;
+    var_11 = var_10.time.size;
 
     if ( !isdefined( var_3 ) )
         var_3 = var_10._id_2A68[var_11 - 1];
@@ -353,16 +353,16 @@ _id_7B2C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
         var_7 = var_10._id_65BE[var_11 - 1];
 
     if ( !isdefined( var_8 ) )
-        var_8 = var_10.rank[var_11 - 1];
+        var_8 = var_10.radius[var_11 - 1];
 
-    var_10.titleunlocked[var_11] = var_1;
+    var_10.time[var_11] = var_1;
     var_10._id_6E57[var_11] = var_2;
     var_10._id_2A68[var_11] = var_3;
     var_10._id_4E9E[var_11] = var_4;
     var_10.color[var_11] = var_5;
     var_10._id_4E3E[var_11] = var_6;
     var_10._id_65BE[var_11] = var_7;
-    var_10.rank[var_11] = var_8;
+    var_10.radius[var_11] = var_8;
     var_10._id_96D5[var_11] = var_9;
 }
 
@@ -401,13 +401,13 @@ model_animation_light( var_0 )
 
     foreach ( var_14 in var_12 )
     {
-        if ( !isdefined( var_14._not_team ) )
+        if ( !isdefined( var_14.target ) )
             continue;
 
         var_14._id_0C72 = var_2;
         var_14 maps\_anim::_id_7F29();
         var_14 thread maps\_anim::_id_0BE1( var_14, var_3, var_4 );
-        var_15 = getent( var_14._not_team, "targetname" );
+        var_15 = getent( var_14.target, "targetname" );
         var_16 = common_scripts\utility::_id_8959();
         var_16 linkto( var_14, var_5, var_6, var_7 );
         var_15 thread maps\_utility::_id_5972( var_16 );
@@ -441,7 +441,7 @@ _id_5710()
         setsaveddvar( "r_tonemapMinExposureAdjust", -3.17 );
         setsaveddvar( "r_tonemapMaxExposureAdjust", 2.3 );
 
-        if ( level.radaralwayson )
+        if ( level.ps4 )
             setsaveddvar( "r_tonemapShoulder", 0.4 );
         else
             setsaveddvar( "r_tonemapShoulder", 0.94 );
@@ -468,27 +468,27 @@ _id_5710()
 
 _id_7919( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    var_8 = newclienthudelem( level.playercardbackground );
-    var_8.xpmaxmultipliertimeplayed = 0;
-    var_8._id_0538 = 0;
-    var_8.sprint_end = 1;
+    var_8 = newclienthudelem( level.player );
+    var_8.x = 0;
+    var_8.y = 0;
+    var_8.splatter = 1;
     var_8.alignx = "left";
     var_8.aligny = "top";
-    var_8.space = 1;
+    var_8.sort = 1;
     var_8.foreground = 0;
-    var_8.hostquits = "fullscreen";
-    var_8.visionsetnight = "fullscreen";
+    var_8.horzalign = "fullscreen";
+    var_8.vertalign = "fullscreen";
     var_8.alpha = var_4;
     var_8 thread _id_1E7A();
 
     if ( isdefined( var_5 ) )
-        var_8.xpmaxmultipliertimeplayed = var_5;
+        var_8.x = var_5;
 
     if ( isdefined( var_6 ) )
-        var_8._id_0538 = var_6;
+        var_8.y = var_6;
 
     if ( isdefined( var_7 ) )
-        var_8.space = var_7;
+        var_8.sort = var_7;
 
     if ( isarray( var_1 ) )
     {
@@ -568,20 +568,20 @@ _id_14B7()
 
 _id_2A6F()
 {
-    var_0 = newclienthudelem( level.playercardbackground );
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0 = newclienthudelem( level.player );
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "fullscreen_dirt_bottom", 640, 480 );
     var_0 setshader( "fullscreen_dirt_bottom_b", 640, 480 );
     var_0 setshader( "fullscreen_dirt_left", 640, 480 );
     var_0 setshader( "fullscreen_dirt_right", 640, 480 );
-    var_0.sprint_end = 1;
+    var_0.splatter = 1;
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.space = 1;
+    var_0.sort = 1;
     var_0.foreground = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 1;
     var_0 fadeovertime( 3 );
     var_0.alpha = 0;
@@ -591,23 +591,23 @@ _id_1509( var_0 )
 {
     self endon( "stop_mask_bob" );
     var_1 = 0;
-    var_2 = level.playercardbackground getplayerangles();
+    var_2 = level.player getplayerangles();
     var_3 = 0;
     var_4 = 0;
-    var_5 = var_0._id_0538;
-    var_6 = var_0.xpmaxmultipliertimeplayed;
+    var_5 = var_0.y;
+    var_6 = var_0.x;
     var_7 = 0.05;
 
     for (;;)
     {
         if ( isdefined( var_0 ) )
         {
-            var_8 = level.playercardbackground getplayerangles();
-            var_9 = level.playercardbackground getvelocity();
+            var_8 = level.player getplayerangles();
+            var_9 = level.player getvelocity();
             var_10 = var_9[2];
             var_9 -= var_9 * ( 0.0, 0.0, 1.0 );
             var_11 = length( var_9 );
-            var_12 = level.playercardbackground getstance();
+            var_12 = level.player getstance();
             var_13 = clamp( var_11, 0, 280 ) / 280;
             var_14 = 0.1 + var_13 * 0.25;
             var_15 = 0.1 + var_13 * 0.25;
@@ -624,7 +624,7 @@ _id_1509( var_0 )
 
             var_17 = 5.0;
             var_18 = 0.9;
-            var_19 = level.playercardbackground playerads();
+            var_19 = level.player playerads();
             var_20 = var_17 * ( 1.0 - var_19 ) + var_18 * var_19;
             var_20 *= ( 1 + var_13 * 2 );
             var_21 = 5;
@@ -643,8 +643,8 @@ _id_1509( var_0 )
             var_31 = var_30 - var_3;
             var_3 += clamp( var_31, -0.6, 0.6 );
             var_0 moveovertime( 0.05 );
-            var_0.xpmaxmultipliertimeplayed = var_6 + clamp( var_25 * var_22 + var_4 - var_21, 0 - 2 * var_21, 0 );
-            var_0._id_0538 = var_5 + clamp( var_26 * var_23 + var_3 - var_21, 0 - 2 * var_21, 0 );
+            var_0.x = var_6 + clamp( var_25 * var_22 + var_4 - var_21, 0 - 2 * var_21, 0 );
+            var_0.y = var_5 + clamp( var_26 * var_23 + var_3 - var_21, 0 - 2 * var_21, 0 );
             var_2 = var_8;
         }
 
@@ -670,24 +670,24 @@ _id_3C29( var_0, var_1, var_2, var_3 )
         maps\_hud_util::_id_35E3( var_1 );
 
     self._id_3C24 = newclienthudelem( self );
-    self._id_3C24.xpmaxmultipliertimeplayed = 0;
-    self._id_3C24._id_0538 = 0;
-    self._id_3C24.hostquits = "fullscreen";
-    self._id_3C24.visionsetnight = "fullscreen";
+    self._id_3C24.x = 0;
+    self._id_3C24.y = 0;
+    self._id_3C24.horzalign = "fullscreen";
+    self._id_3C24.vertalign = "fullscreen";
     self._id_3C24.foreground = 0;
-    self._id_3C24.space = -1;
+    self._id_3C24.sort = -1;
     self._id_3C24 setshader( "gasmask_overlay_delta2_top", 650, 138 );
     self._id_3C24.alpha = 1.0;
     self._id_3C25 = newclienthudelem( self );
-    self._id_3C25.xpmaxmultipliertimeplayed = 0;
-    self._id_3C25._id_0538 = 352;
-    self._id_3C25.hostquits = "fullscreen";
-    self._id_3C25.visionsetnight = "fullscreen";
+    self._id_3C25.x = 0;
+    self._id_3C25.y = 352;
+    self._id_3C25.horzalign = "fullscreen";
+    self._id_3C25.vertalign = "fullscreen";
     self._id_3C25.foreground = 0;
-    self._id_3C25.space = -1;
+    self._id_3C25.sort = -1;
     self._id_3C25 setshader( "gasmask_overlay_delta2_bottom", 650, 138 );
     self._id_3C25.alpha = 1.0;
-    level.playercardbackground maps\_utility::_id_27EF( 1.0, ::_id_3C23 );
+    level.player maps\_utility::_id_27EF( 1.0, ::_id_3C23 );
     thread _id_1509( self._id_3C24 );
     thread _id_1509( self._id_3C25 );
 
@@ -715,7 +715,7 @@ _id_3C27()
         self._id_3C25 = undefined;
     }
 
-    level.playercardbackground notify( "stop_breathing" );
+    level.player notify( "stop_breathing" );
     wait 0.25;
     maps\_hud_util::_id_35DC( 1.5 );
 }
@@ -1526,8 +1526,8 @@ _id_23AC( var_0, var_1, var_2 )
 
     var_3["start"] = var_1;
     var_3["end"] = var_2;
-    level.playercardbackground._id_9E1A = var_3["start"];
-    level.playercardbackground._id_9E19 = var_3["end"];
+    level.player._id_9E1A = var_3["start"];
+    level.player._id_9E19 = var_3["end"];
     level._id_05E0._id_2C79[var_0] = var_3;
 }
 
@@ -1563,8 +1563,8 @@ _id_14A0( var_0, var_1, var_2 )
     }
     else
     {
-        level.playercardbackground._id_9E1A = var_1["start"];
-        level.playercardbackground._id_9E19 = var_1["end"];
+        level.player._id_9E1A = var_1["start"];
+        level.player._id_9E19 = var_1["end"];
     }
 }
 
@@ -1579,27 +1579,27 @@ _id_56AE( var_0, var_1, var_2 )
     {
         if ( !var_3 )
         {
-            level.playercardbackground._id_9E1A += var_1;
+            level.player._id_9E1A += var_1;
 
-            if ( var_1 > 0 && level.playercardbackground._id_9E1A > var_0["start"] || var_1 < 0 && level.playercardbackground._id_9E1A < var_0["start"] )
+            if ( var_1 > 0 && level.player._id_9E1A > var_0["start"] || var_1 < 0 && level.player._id_9E1A < var_0["start"] )
             {
-                level.playercardbackground._id_9E1A = var_0["start"];
+                level.player._id_9E1A = var_0["start"];
                 var_3 = 1;
             }
         }
 
         if ( !var_4 )
         {
-            level.playercardbackground._id_9E19 += var_2;
+            level.player._id_9E19 += var_2;
 
-            if ( var_2 > 0 && level.playercardbackground._id_9E19 > var_0["end"] || var_2 < 0 && level.playercardbackground._id_9E19 < var_0["end"] )
+            if ( var_2 > 0 && level.player._id_9E19 > var_0["end"] || var_2 < 0 && level.player._id_9E19 < var_0["end"] )
             {
-                level.playercardbackground._id_9E19 = var_0["end"];
+                level.player._id_9E19 = var_0["end"];
                 var_4 = 1;
             }
         }
 
-        level.playercardbackground setviewmodeldepthoffield( level.playercardbackground._id_9E1A, level.playercardbackground._id_9E19 );
+        level.player setviewmodeldepthoffield( level.player._id_9E1A, level.player._id_9E19 );
         wait 0.05;
     }
 }
@@ -1675,17 +1675,17 @@ setup_emissive_modifiers()
 
     foreach ( var_2 in var_16 )
     {
-        var_18 = float( var_2.script_parentname ) * 0.01;
+        var_18 = float( var_2.script_noteworthy ) * 0.01;
         var_2 _meth_83a5( var_18, 0.0 );
     }
 }
 
 set_r_hbaodvars()
 {
-    if ( !level.perk1 )
+    if ( !level.pc )
         return;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "armada":
         case "airlift":

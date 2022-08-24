@@ -53,8 +53,8 @@ handle_aarea_takeover_lighting_init()
     common_scripts\utility::_id_384A( "aa_takeover" );
     maps\_utility::_id_7F00( "ambush_start", 0 );
     maps\_utility::_id_9E6E( "ambush_start", 0 );
-    level.playercardbackground _meth_848c( "clut_ambush_start", 1.0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "ambush_start" );
+    level.player _meth_848c( "clut_ambush_start", 1.0 );
+    level.player maps\_utility::set_light_set_player( "ambush_start" );
 }
 
 handle_takeover_fade()
@@ -100,7 +100,7 @@ handle_ambush_tower_blackout_lighting()
 
 handle_tower_fall_cinematic_fx_preh1()
 {
-    level.playercardbackground shellshock( "ambush_stunned", 20 );
+    level.player shellshock( "ambush_stunned", 20 );
 }
 
 handle_tower_fall_cinematic_fx()
@@ -146,16 +146,16 @@ setup_apartment_start_lighting()
 _id_23D0( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
+    var_2.x = 0;
+    var_2.y = 0;
     var_2 setshader( var_0, 640, 480 );
     var_2.alignx = "left";
     var_2.aligny = "top";
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2.alpha = var_1;
     var_2.foreground = 1;
-    var_2.space = 2;
+    var_2.sort = 2;
     return var_2;
 }
 
@@ -163,8 +163,8 @@ setup_daytime_lights()
 {
     maps\_utility::_id_7F00( "ambush", 0 );
     maps\_utility::_id_9E6E( "ambush", 0 );
-    level.playercardbackground _meth_848c( "clut_ambush_chase01", 1.0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "ambush" );
+    level.player _meth_848c( "clut_ambush_chase01", 1.0 );
+    level.player maps\_utility::set_light_set_player( "ambush" );
     var_0 = getent( "dawn_skydome", "targetname" );
     var_1 = getent( "day_skydome", "targetname" );
     var_0 delete();

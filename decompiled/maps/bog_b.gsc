@@ -230,9 +230,9 @@ bog_dialog()
     maps\_utility::_id_1332( "allies" );
     var_0 = [];
     var_0[0] = level._id_6F7C;
-    var_1 = maps\_utility::_id_3CEF( level.playercardbackground.origin, "allies", var_0 );
+    var_1 = maps\_utility::_id_3CEF( level.player.origin, "allies", var_0 );
     var_0[1] = var_1;
-    var_2 = maps\_utility::_id_3CEF( level.playercardbackground.origin, "allies", var_0 );
+    var_2 = maps\_utility::_id_3CEF( level.player.origin, "allies", var_0 );
 
     if ( !var_2 ishero() )
         var_2 thread maps\_utility::_id_58D7( undefined, undefined, 5.0 );
@@ -241,7 +241,7 @@ bog_dialog()
     var_2._id_0C72 = "marine2";
     var_1 maps\_anim::_id_0C24( var_1, "getyourass" );
     wait 1;
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["wereclear"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["wereclear"] );
     common_scripts\utility::_id_384A( "evemy_helicopter_reinforcement_spawned" );
     wait 8;
     var_2 maps\_anim::_id_0C24( var_2, "enemyair" );
@@ -255,7 +255,7 @@ bog_dialog()
             common_scripts\utility::_id_0CDA( var_0, var_4 );
     }
 
-    var_6 = maps\_utility::_id_3CEF( level.playercardbackground.origin, "allies", var_0 );
+    var_6 = maps\_utility::_id_3CEF( level.player.origin, "allies", var_0 );
     var_6._id_0C72 = "marine1";
     var_6 maps\_anim::_id_0C24( var_6, "rightflank" );
 
@@ -270,10 +270,10 @@ ishero()
     if ( !isdefined( self ) )
         return 0;
 
-    if ( !isdefined( self.script_parentname ) )
+    if ( !isdefined( self.script_noteworthy ) )
         return 0;
 
-    if ( self.script_parentname == "hero" )
+    if ( self.script_noteworthy == "hero" )
         return 1;
 
     return 0;
@@ -307,9 +307,9 @@ start_bog()
     thread tank_advancement_bog();
     thread first_friendly_advancement_trigger();
     thread bog_dialog();
-    level.playercardbackground.ignoretriggers = 1;
+    level.player.ignoreme = 1;
     wait 6;
-    level.playercardbackground.ignoretriggers = 0;
+    level.player.ignoreme = 0;
 }
 
 first_friendly_advancement_trigger()
@@ -329,8 +329,8 @@ start_arch()
     soundscripts\_snd::_id_870C( "aud_start_arch_checkpoint" );
     spawn_starting_friendlies( "friendly_starting_spawner_arch" );
     var_0 = getent( "playerstart_arch", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( ( 0, var_0.angles[1], 0 ) );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( ( 0, var_0.angles[1], 0 ) );
     wait 0.05;
     var_1 = getaiarray( "axis" );
 
@@ -355,8 +355,8 @@ start_alley()
     soundscripts\_snd::_id_870C( "aud_start_alley_checkpoint" );
     spawn_starting_friendlies( "friendly_starting_spawner_alley" );
     var_0 = getent( "playerstart_alley", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( ( 0, var_0.angles[1], 0 ) );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( ( 0, var_0.angles[1], 0 ) );
     waitframe;
     var_1 = getaiarray( "axis" );
 
@@ -402,8 +402,8 @@ start_ch46()
 {
     soundscripts\_snd::_id_870C( "aud_start_ch46_checkpoint" );
     var_0 = getent( "seaknight_land_location", "script_noteworthy" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( ( 0, var_0.angles[1], 0 ) );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( ( 0, var_0.angles[1], 0 ) );
     waitframe;
     var_1 = getaiarray( "axis" );
 
@@ -463,7 +463,7 @@ ignored_till_fastrope( var_0 )
 
     for ( var_2 = 0; var_2 < var_1._id_750A.size; var_2++ )
     {
-        var_1._id_750A[var_2].ignoretriggers = 1;
+        var_1._id_750A[var_2].ignoreme = 1;
         var_1._id_750A[var_2] thread ignored_by_tank_cannon();
     }
 
@@ -481,14 +481,14 @@ ignored_till_fastrope( var_0 )
         if ( !isalive( var_1._id_750A[var_2] ) )
             continue;
 
-        var_1._id_750A[var_2].ignoretriggers = 0;
+        var_1._id_750A[var_2].ignoreme = 0;
         var_1._id_750A[var_2] thread ignored_by_tank_cannon( 0 );
     }
 }
 
 stragglers_chase()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     self waittill( "trigger" );
     var_1 = getaiarray( "axis" );
 
@@ -498,7 +498,7 @@ stragglers_chase()
             continue;
 
         var_1[var_2].goalradius = 600;
-        var_1[var_2] _meth_81ab( level.playercardbackground );
+        var_1[var_2] _meth_81ab( level.player );
     }
 }
 
@@ -525,9 +525,9 @@ truck_tank_collide_think( var_0, var_1, var_2 )
     {
         var_4 waittill( "trigger", var_5 );
 
-        if ( var_5 == level.playercardbackground )
+        if ( var_5 == level.player )
         {
-            level.playercardbackground kill();
+            level.player kill();
             break;
         }
     }
@@ -537,7 +537,7 @@ chain_and_home()
 {
     self endon( "death" );
     self waittill( "reached_path_end" );
-    var_0 = distance( self.origin, level.playercardbackground.origin );
+    var_0 = distance( self.origin, level.player.origin );
 
     if ( var_0 > 1024 )
         var_0 = 1024;
@@ -546,7 +546,7 @@ chain_and_home()
     {
         wait 5;
         self.goalradius = var_0;
-        self _meth_81ab( level.playercardbackground );
+        self _meth_81ab( level.player );
         var_0 -= 175;
 
         if ( var_0 < 512 )
@@ -561,12 +561,12 @@ rpg_tank_shooter()
 {
     self endon( "death" );
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname != "rpg_tank_shooter_noignore" )
-        self.ignoretriggers = 1;
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy != "rpg_tank_shooter_noignore" )
+        self.ignoreme = 1;
 
     self waittill( "goal" );
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "rpg_tank_shooter_fall" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "rpg_tank_shooter_fall" )
     {
         if ( getdvar( "ragdoll_enable" ) == "1" )
             thread roof_guy_fall_on_death();
@@ -583,7 +583,7 @@ rpg_tank_shooter()
 roof_guy_fall_on_death()
 {
     self endon( "death" );
-    self.helmet = 10;
+    self.health = 10;
 
     for (;;)
     {
@@ -646,10 +646,10 @@ tank_turret_forward()
 ambush_ahead_dialog()
 {
     maps\_utility::_id_1332( "allies" );
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["possibleambush"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["possibleambush"] );
     wait 1;
     level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "watchrooftops" );
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["standclear"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["standclear"] );
     maps\_utility::_id_1333( "allies" );
     common_scripts\utility::_id_383F( "tank_clear_to_shoot" );
 }
@@ -689,8 +689,8 @@ playaliasoverradio( var_0 )
         return 0;
 
     level.radio_in_use = 1;
-    level.playercardbackground playlocalsound( var_0, "playSoundOverRadio_done" );
-    level.playercardbackground waittill( "playSoundOverRadio_done" );
+    level.player playlocalsound( var_0, "playSoundOverRadio_done" );
+    level.player waittill( "playSoundOverRadio_done" );
     level.radio_in_use = 0;
     level.lastradiotransmission = gettime();
     level notify( "radio_not_in_use" );
@@ -733,7 +733,7 @@ setupexploder( var_0, var_1, var_2 )
 
     for ( var_5 = 0; var_5 < var_4.size; var_5++ )
     {
-        if ( var_4[var_5].script_parentname == var_3.snumber )
+        if ( var_4[var_5].script_noteworthy == var_3.snumber )
             var_3.origin = var_4[var_5].origin;
     }
 
@@ -741,7 +741,7 @@ setupexploder( var_0, var_1, var_2 )
 
     for ( var_5 = 0; var_5 < var_6.size; var_5++ )
     {
-        if ( var_6[var_5].script_parentname == var_3.snumber )
+        if ( var_6[var_5].script_noteworthy == var_3.snumber )
             var_3.areatrig = var_6[var_5];
     }
 
@@ -761,7 +761,7 @@ getnextexploder( var_0 )
 
     for ( var_2 = 0; var_2 < level.exploderarray[var_0].size; var_2++ )
     {
-        if ( isdefined( level.exploderarray[var_0][var_2].areatrig ) && level.playercardbackground istouching( level.exploderarray[var_0][var_2].areatrig ) )
+        if ( isdefined( level.exploderarray[var_0][var_2].areatrig ) && level.player istouching( level.exploderarray[var_0][var_2].areatrig ) )
             continue;
 
         var_1[var_1.size] = var_2;
@@ -772,7 +772,7 @@ getnextexploder( var_0 )
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        var_3 = common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), level.exploderarray[var_0][var_1[var_2]].origin, level._id_2235["35"] );
+        var_3 = common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), level.exploderarray[var_0][var_1[var_2]].origin, level._id_2235["35"] );
 
         if ( var_3 )
             return var_1[var_2];
@@ -870,104 +870,104 @@ tank_shooting_exploder_dialog( var_0 )
     if ( var_0 == 105 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up1"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["2story1_ground"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up1"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["2story1_ground"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired1"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired1"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 104 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up2"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["2story1_2ndfloor"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up2"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["2story1_2ndfloor"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 102 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up3"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["3story11_2ndfloor"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up3"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["3story11_2ndfloor"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired3"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired3"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 103 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up4"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["3story1130_2ndfloor"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up4"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["3story1130_2ndfloor"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired1"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired1"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 100 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up1"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["3story11_2ndfloor"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up1"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["3story11_2ndfloor"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 101 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up1"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["3story1230_2ndfloor"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up1"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["3story1230_2ndfloor"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 200 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up1"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up1"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired2"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else if ( var_0 == 201 )
     {
         self.haltfire = 1;
-        level.playercardbackground playradiosound( level._id_78BA["tank_loader"]["up3"] );
+        level.player playradiosound( level._id_78BA["tank_loader"]["up3"] );
         self notify( "target_aquired" );
 
         while ( !isdefined( self.readytofire ) )
             wait 0.05;
 
-        level.playercardbackground playradiosound( level._id_78BA["tank_gunner"]["targetacquired1"] );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["fire"] );
+        level.player playradiosound( level._id_78BA["tank_gunner"]["targetacquired1"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["fire"] );
     }
     else
     {
@@ -1006,9 +1006,9 @@ alley_dumpster_sequence()
     foreach ( var_4 in level.alleyfriends )
     {
         var_4.grenadeawareness = 0;
-        var_4.ikweight = 1;
-        var_4._id_2AF7 = 1;
         var_4.ignorerandombulletdamage = 1;
+        var_4._id_2AF7 = 1;
+        var_4.ignoreexplosionevents = 1;
         var_4._id_2D38 = 1;
         var_4.a._id_2B20 = 1;
         var_4.allowpain = 0;
@@ -1146,13 +1146,13 @@ wait_to_reach_dumpster_node()
         wait 0.05;
 
     self.pushplayer = 1;
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
 
     while ( distancesquared( self.origin, var_0.origin ) > 100 )
         wait 0.05;
 
     self.pushplayer = undefined;
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
     wait 1.5;
     common_scripts\utility::_id_383F( "vasquez_in_position" );
 }
@@ -1277,7 +1277,7 @@ _id_391D()
     if ( getdvar( "bog_b_min_spec" ) == "1" )
         return;
 
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         thread flyby_go( var_0[var_1] );
@@ -1285,7 +1285,7 @@ _id_391D()
 
 flyby_go( var_0 )
 {
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_2 = ( ( var_0.origin[0] + var_1.origin[0] ) / 2, ( var_0.origin[1] + var_1.origin[1] ) / 2, 0 );
     var_3 = vectortoangles( var_1.origin - var_0.origin );
     var_4 = ( 0, var_3[1], 0 );
@@ -1411,12 +1411,12 @@ lastsequence()
     if ( getdvarint( "use_old_t72battle" ) )
     {
         wait 3.0;
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["switchmanual"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["switchmanual"] );
     }
     else
     {
         wait 4.0;
-        level.playercardbackground thread playradiosound( level._id_78BA["tank_commander"]["switchmanual"] );
+        level.player thread playradiosound( level._id_78BA["tank_commander"]["switchmanual"] );
         wait 2.5;
         level.abrams setturrettargetent( level.t72, ( 0.0, 0.0, 50.0 ) );
     }
@@ -1428,7 +1428,7 @@ lastsequence()
 
     common_scripts\utility::_id_384A( "tank_in_final_position" );
     common_scripts\utility::_id_384A( "tank_turret_aimed_at_t72" );
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["takeshot"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["takeshot"] );
     level.abrams clearturrettargetent();
     level.abrams setvehweapon( "m1a1_turret_blank" );
     wait 0.05;
@@ -1439,10 +1439,10 @@ lastsequence()
     level notify( "t72_exploded" );
     common_scripts\_exploder::_id_3528( 400 );
     soundscripts\_snd::_id_870C( "start_t72_wall_explode_mix" );
-    level.playercardbackground.ignoretriggers = 0;
+    level.player.ignoreme = 0;
 
     for ( var_0 = 0; var_0 < level.alleyfriends.size; var_0++ )
-        level.alleyfriends[var_0].ignoretriggers = 0;
+        level.alleyfriends[var_0].ignoreme = 0;
 
     var_1 = getentarray( "end_sequence_physics_explosion", "targetname" );
 
@@ -1458,7 +1458,7 @@ lastsequence()
     if ( getdvarint( "use_old_celebration" ) == 1 )
     {
         maps\_anim::_id_0C24( level._id_6F7C, "niceshootingpig" );
-        level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["comingthrough"] );
+        level.player playradiosound( level._id_78BA["tank_commander"]["comingthrough"] );
         common_scripts\utility::_id_383F( "abrams_advance_to_end_level" );
         wait 2;
     }
@@ -1468,8 +1468,8 @@ lastsequence()
         common_scripts\utility::_id_383F( "abrams_advance_to_end_level" );
     }
 
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["wethereyet"] );
-    level.playercardbackground playradiosound( level._id_78BA["hq_radio"]["statusover"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["wethereyet"] );
+    level.player playradiosound( level._id_78BA["hq_radio"]["statusover"] );
     level._id_6F7C._id_0C72 = "price";
     maps\_anim::_id_0C24( level._id_6F7C, "cargo" );
     level._id_6F7C notify( "stop_idle" );
@@ -1489,21 +1489,21 @@ t72_kill_player_trigger()
         if ( !isplayer( var_1 ) )
             continue;
 
-        var_2 = level.playercardbackground.helmet / 3;
+        var_2 = level.player.health / 3;
 
-        while ( isalive( level.playercardbackground ) )
+        while ( isalive( level.player ) )
         {
             wait 0.1;
 
             if ( isdefined( level.t72 ) )
             {
                 level.t72 thread maps\_utility::_id_69C4( "t72_fire" );
-                level.playercardbackground dodamage( var_2, level.t72.origin );
+                level.player dodamage( var_2, level.t72.origin );
                 continue;
             }
 
             thread common_scripts\utility::_id_69C2( "t72_fire", ( 6105.0, -3475.0, -60.0 ) );
-            level.playercardbackground dodamage( var_2, level.playercardbackground.origin );
+            level.player dodamage( var_2, level.player.origin );
         }
 
         level notify( "new_quote_string" );
@@ -1517,7 +1517,7 @@ t72_explosion_explode()
     var_0 = level.t72._id_5BD5;
     var_1 = spawn( "script_model", level.t72.origin );
     var_1.angles = level.t72.angles;
-    var_1 setmodel( level.t72.motiontrackerenabled );
+    var_1 setmodel( level.t72.model );
     level.t72 = var_1;
     var_1 = undefined;
     soundscripts\_snd::_id_870C( "start_t72_hit_mix" );
@@ -1609,8 +1609,8 @@ enemies_fall_back()
 
 enemies_fall_back_thread( var_0 )
 {
-    self.goalradius = var_0.rank;
-    self.helmet = 1;
+    self.goalradius = var_0.radius;
+    self.health = 1;
     self _meth_81a9( var_0 );
 }
 
@@ -1711,10 +1711,10 @@ finalgenericdialog_h1()
         if ( var_0[var_2] == level._id_6F7C )
             continue;
 
-        if ( isdefined( var_0[var_2].script_parentname ) && var_0[var_2].script_parentname == "doorblocker" )
+        if ( isdefined( var_0[var_2].script_noteworthy ) && var_0[var_2].script_noteworthy == "doorblocker" )
             continue;
 
-        if ( isdefined( var_0[var_2].script_parentname ) && var_0[var_2].script_parentname == "third_soldier" )
+        if ( isdefined( var_0[var_2].script_noteworthy ) && var_0[var_2].script_noteworthy == "third_soldier" )
             continue;
 
         var_1[var_1.size] = var_0[var_2];
@@ -1766,7 +1766,7 @@ friendlyreactionanims()
             continue;
         }
 
-        if ( isdefined( var_0[var_1].script_parentname ) && var_0[var_1].script_parentname == "doorblocker" )
+        if ( isdefined( var_0[var_1].script_noteworthy ) && var_0[var_1].script_noteworthy == "doorblocker" )
         {
             var_0[var_1] thread guard_react_and_celebrate();
             continue;
@@ -1780,7 +1780,7 @@ friendlyreactionanims()
             continue;
         }
 
-        if ( isdefined( var_0[var_1].script_parentname ) && var_0[var_1].script_parentname == "third_soldier" )
+        if ( isdefined( var_0[var_1].script_noteworthy ) && var_0[var_1].script_noteworthy == "third_soldier" )
         {
             var_0[var_1] thread maps\_anim::_id_0C24( var_0[var_1], "new_react" );
             continue;
@@ -1835,12 +1835,12 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
         var_4 = var_2;
 
     if ( isdefined( var_4 ) )
-        var_4.script_parentname = "third_soldier";
+        var_4.script_noteworthy = "third_soldier";
 
-    level.playercardbackground.ignoretriggers = 1;
+    level.player.ignoreme = 1;
 
     for ( var_5 = 0; var_5 < level.alleyfriends.size; var_5++ )
-        level.alleyfriends[var_5].ignoretriggers = 1;
+        level.alleyfriends[var_5].ignoreme = 1;
 
     remove_alley_seperation_clip();
     var_3 maps\_utility::_id_7E38( "b" );
@@ -1849,7 +1849,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     var_3 _meth_81a9( var_6 );
     var_3 thread doorblocker_anim_on_trigger( var_6 );
     var_3 thread doorblocker_reach_door();
-    var_3.script_parentname = "doorblocker";
+    var_3.script_noteworthy = "doorblocker";
     var_7 = getent( "doorblocker_clip", "targetname" );
     var_7.origin = var_3 gettagorigin( "tag_origin" );
     var_7.angles = var_3 gettagangles( "tag_origin" );
@@ -1931,24 +1931,24 @@ doorblocker_slow_trigger()
 
     while ( !common_scripts\utility::_id_382E( "doorblocker_reach_door" ) )
     {
-        if ( level.playercardbackground istouching( var_0 ) )
+        if ( level.player istouching( var_0 ) )
         {
-            if ( !isdefined( level.playercardbackground._id_3BC4 ) )
+            if ( !isdefined( level.player._id_3BC4 ) )
                 thread maps\_utility::_id_6C22( 124, 1 );
         }
-        else if ( isdefined( level.playercardbackground._id_3BC4 ) )
+        else if ( isdefined( level.player._id_3BC4 ) )
         {
-            maps\_utility::_id_6C22( level.playercardbackground._id_3BC4, 0.5 );
-            level.playercardbackground._id_3BC4 = undefined;
+            maps\_utility::_id_6C22( level.player._id_3BC4, 0.5 );
+            level.player._id_3BC4 = undefined;
         }
 
         waittillframeend;
     }
 
-    if ( isdefined( level.playercardbackground._id_3BC4 ) )
+    if ( isdefined( level.player._id_3BC4 ) )
     {
-        maps\_utility::_id_6C22( level.playercardbackground._id_3BC4, 0.5 );
-        level.playercardbackground._id_3BC4 = undefined;
+        maps\_utility::_id_6C22( level.player._id_3BC4, 0.5 );
+        level.player._id_3BC4 = undefined;
     }
 }
 
@@ -2060,7 +2060,7 @@ sustain_fire()
 
 vehicle_path_disconnector()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     var_0 notsolid();
     var_0.origin -= ( 0.0, 0.0, 1024.0 );
     var_1 = "tank_bad_place_brush_" + var_0 getentitynumber();
@@ -2097,7 +2097,7 @@ vehicle_reconnects_paths( var_0, var_1 )
 
 delete_ai_in_zone()
 {
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     self waittill( "trigger" );
     var_1 = getaiarray( "axis" );
 
@@ -2135,7 +2135,7 @@ autosave_when_trigger_cleared()
     }
 
     if ( !common_scripts\utility::_id_382E( "reached_alley_autosave" ) )
-        thread dosavegame( self.script_parentname );
+        thread dosavegame( self.script_noteworthy );
 }
 
 dosavegame( var_0 )
@@ -2193,7 +2193,7 @@ tank_advancement_bog()
 
     for ( var_2 = 0; var_2 < var_1 * 20; var_2++ )
     {
-        if ( common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), var_0.origin, level._id_2235["65"] ) )
+        if ( common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), var_0.origin, level._id_2235["65"] ) )
             break;
 
         wait 0.05;
@@ -2242,7 +2242,7 @@ tank_advancement_arch()
     level.abrams thread attack_troops();
     waittill_zone_clear( "tank_zone_1" );
     maps\_utility::_id_1332( "allies" );
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["movingup"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["movingup"] );
     wait 0.1;
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "roger" );
@@ -2259,12 +2259,12 @@ tank_advancement_arch()
     waittill_zone_clear( "tank_zone_2" );
     thread dosavegame( "tank_progress_corner" );
     maps\_utility::_id_1332( "allies" );
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["cleartoadvance"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["cleartoadvance"] );
     wait 0.1;
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "rogermoveup" );
     wait 0.1;
-    level.playercardbackground thread playradiosound( level._id_78BA["tank_commander"]["rogermoving"] );
+    level.player thread playradiosound( level._id_78BA["tank_commander"]["rogermoving"] );
     maps\_utility::_id_1333( "allies" );
     common_scripts\utility::_id_383F( "abrams_start_moving_after_city_fight" );
     level.abrams resumespeed( 3 );
@@ -2364,7 +2364,7 @@ disperse_allies_unevenly_to_seaknight()
         {
             if ( isdefined( level.alleyfriends[var_1] ) && isalive( level.alleyfriends[var_1] ) )
             {
-                level.alleyfriends[var_1].ignoreforfixednodesafecheck = 1;
+                level.alleyfriends[var_1].ignoreall = 1;
                 var_2 = getnodearray( "overlook_jumpdown_" + ( var_1 + 1 ), "script_noteworthy" );
                 var_3 = get_traverse_node_start( var_2 );
                 var_3 connectnode();
@@ -2404,7 +2404,7 @@ get_traverse_node_start( var_0 )
 {
     var_1 = undefined;
 
-    if ( var_0[0].unlockpoints == "Begin" )
+    if ( var_0[0].type == "Begin" )
         var_1 = var_0[0];
     else
         var_1 = var_0[1];
@@ -2438,7 +2438,7 @@ seaknight_dialog()
     var_0 = getent( "seaknight_almost_land_location", "script_noteworthy" );
     var_0 waittill( "trigger", var_1 );
     wait 5.0;
-    level.playercardbackground playradiosound( level._id_78BA["saknight"]["getonboard"] );
+    level.player playradiosound( level._id_78BA["saknight"]["getonboard"] );
     level._id_6F7C._id_0C72 = "price";
     maps\_anim::_id_0C24( level._id_6F7C, "fixonposition" );
     common_scripts\utility::_id_383F( "seaknight_dialog_done" );
@@ -2471,9 +2471,9 @@ enemy_retreat_think( var_0 )
 {
     self endon( "death" );
 
-    if ( isdefined( self.script_parentname ) && issubstr( self.script_parentname, "introchopper" ) )
+    if ( isdefined( self.script_noteworthy ) && issubstr( self.script_noteworthy, "introchopper" ) )
     {
-        if ( issubstr( self.script_parentname, "introchopper1" ) )
+        if ( issubstr( self.script_noteworthy, "introchopper1" ) )
             maps\_utility::_id_7E38( "p" );
         else
             maps\_utility::_id_7E38( "c" );
@@ -2482,7 +2482,7 @@ enemy_retreat_think( var_0 )
         maps\_utility::_id_1EB8();
     }
 
-    thread go_to_node_delayed( var_0, var_0.rank, randomfloat( 5.0 ) );
+    thread go_to_node_delayed( var_0, var_0.radius, randomfloat( 5.0 ) );
     thread ignored_by_tank_cannon();
 }
 
@@ -2547,10 +2547,10 @@ rotate_fan()
         self.turn_time = var_2 + var_1 * var_3;
     }
 
-    if ( !isdefined( self.script_parentname ) )
-        self.script_parentname = "z";
+    if ( !isdefined( self.script_noteworthy ) )
+        self.script_noteworthy = "z";
 
-    switch ( self.script_parentname )
+    switch ( self.script_noteworthy )
     {
         case "x":
             thread rotate_fan_loop( ( 0, 0, var_0 ), self.turn_time );
@@ -2586,13 +2586,13 @@ swap_crush_material( var_0 )
 
 rotate_crushed_truck_clip( var_0 )
 {
-    var_1 = getent( var_0.teambalanced + "_precrushed_clip", "targetname" );
+    var_1 = getent( var_0.targetname + "_precrushed_clip", "targetname" );
     var_1 rotateyaw( -15, 1.5 );
 }
 
 docomingthroughaudio( var_0 )
 {
-    level.playercardbackground playradiosound( level._id_78BA["tank_commander"]["comingthrough"] );
+    level.player playradiosound( level._id_78BA["tank_commander"]["comingthrough"] );
 }
 
 setasdestructible( var_0, var_1, var_2 )

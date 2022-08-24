@@ -219,13 +219,13 @@ initspawns()
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
         {
             spawnpointerror( var_2 );
             continue;
         }
 
-        switch ( var_2.script_parentname )
+        switch ( var_2.script_noteworthy )
         {
             case "axis":
                 level.spawn_axis[level.spawn_axis.size] = var_2;
@@ -356,9 +356,9 @@ shouldstreamcarrierclasstoplayer( var_0, var_1 )
 
 createbombzone( var_0, var_1 )
 {
-    var_2 = getentarray( var_1._not_team, "targetname" );
+    var_2 = getentarray( var_1.target, "targetname" );
     var_3 = maps\mp\gametypes\common_bomb_gameobject::createbombzoneobject( var_0, "enemy", "none", var_1, level._id_7749, 0 );
-    maps\mp\_utility::_id_7FAE( var_3, "waypoint_esports_sab_target" + var_3.land );
+    maps\mp\_utility::_id_7FAE( var_3, "waypoint_esports_sab_target" + var_3.label );
     var_3.onuse = ::onuse;
     var_3._id_6454 = ::_id_6454;
     var_3._id_648E = ::_id_648E;
@@ -625,9 +625,9 @@ sabforcerespawn()
     self notify( "force_spawn" );
     wait 0.05;
 
-    if ( self.sharpturnlookaheaddist != "playing" || self.helmet <= 0 )
+    if ( self.sessionstate != "playing" || self.health <= 0 )
     {
-        while ( self.helmet <= 0 )
+        while ( self.health <= 0 )
         {
             self notify( "force_spawn" );
 
@@ -636,7 +636,7 @@ sabforcerespawn()
                 self._id_1AB3 = 1;
                 maps\mp\_utility::_id_1EF2();
             }
-            else if ( self.sharpturnlookaheaddist == "spectator" && !self._id_A04D && !maps\mp\_utility::_id_5092( self._id_A04E ) )
+            else if ( self.sessionstate == "spectator" && !self._id_A04D && !maps\mp\_utility::_id_5092( self._id_A04E ) )
                 thread sabwaitandspawnclient();
 
             wait 0.25;
@@ -660,7 +660,7 @@ setplayersuddendeathvalues()
     self setclientdvars( "cg_deadChatWithDead", 1, "cg_deadChatWithTeam", 0, "cg_deadHearTeamLiving", 0, "cg_deadHearAllLiving", 0, "cg_everyoneHearsEveryone", 0 );
     maps\mp\_utility::_id_3BE1( "prematch_done" );
 
-    while ( self.sharpturnlookaheaddist != "playing" || self.helmet <= 0 )
+    while ( self.sessionstate != "playing" || self.health <= 0 )
         wait 0.05;
 
     thread maps\mp\gametypes\_hud_message::_id_8A68( "sab_overtime" );
@@ -730,7 +730,7 @@ _id_1536( var_0, var_1, var_2 )
 
     level notify( "bomb_defused" );
     var_0 maps\mp\gametypes\common_bomb_gameobject::resetbombzone( level._id_7749, "enemy", "none", 0 );
-    maps\mp\_utility::_id_7FAE( var_0, "waypoint_esports_sab_target" + var_0.land );
+    maps\mp\_utility::_id_7FAE( var_0, "waypoint_esports_sab_target" + var_0.label );
     level._id_7749 maps\mp\gametypes\_gameobjects::_id_0AA1( "any" );
     level._id_7749 maps\mp\gametypes\_gameobjects::_id_7FE2( var_1 );
 }

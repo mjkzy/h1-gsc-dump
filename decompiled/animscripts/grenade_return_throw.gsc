@@ -38,7 +38,7 @@ main()
 
     if ( var_1 )
     {
-        animscripts\shared::_id_6869( self.weapon_switch_invalid, "left" );
+        animscripts\shared::_id_6869( self.weapon, "left" );
         thread _id_7068();
         thread _id_622C( "throwanim", "grenade_left" );
         thread _id_622C( "throwanim", "grenade_right" );
@@ -62,7 +62,7 @@ main()
     if ( var_1 )
     {
         self notify( "put_weapon_back_in_right_hand" );
-        animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+        animscripts\shared::_id_6869( self.weapon, "right" );
     }
 }
 
@@ -104,17 +104,17 @@ getgrenadereturnanim()
 getgrenadereturnanim_h1()
 {
     var_0 = [];
-    var_1 = self.ground_slam_hit_player;
+    var_1 = self.grenadedanger;
 
-    if ( self.ground_slam )
-        var_1 = self.grenadeweapon - self.grenade.origin;
+    if ( self.grenade_unknown2 )
+        var_1 = self.grenade_unknown1 - self.grenade.origin;
 
     var_2 = length2d( var_1 );
 
     if ( var_2 > 0 )
         var_1 = ( var_1[0] / var_2, var_1[1] / var_2, 0 );
 
-    var_3 = length2dsquared( self.visionsetnakedduration );
+    var_3 = length2dsquared( self.velocity );
     var_4 = anglestoforward( self.angles );
 
     if ( var_3 > 1 )
@@ -128,21 +128,21 @@ getgrenadereturnanim_h1()
 
     if ( self.a._id_6E5A == "crouch" )
     {
-        if ( self.primaryattachment2 == "cover_left" )
+        if ( self.prevscript == "cover_left" )
         {
             if ( animscripts\corner::hasonekneeup() )
                 var_0 = animscripts\utility::_id_5863( "grenade", "return_cornercrl_1knee_throw" );
             else
                 var_0 = animscripts\utility::_id_5863( "grenade", "return_cornercrl_2knee_throw" );
         }
-        else if ( self.primaryattachment2 == "cover_right" )
+        else if ( self.prevscript == "cover_right" )
         {
             if ( animscripts\corner::hasonekneeup() )
                 var_0 = animscripts\utility::_id_5863( "grenade", "return_cornercrr_1knee_throw" );
             else
                 var_0 = animscripts\utility::_id_5863( "grenade", "return_cornercrr_2knee_throw" );
         }
-        else if ( self.primaryattachment2 == "cover_crouch" )
+        else if ( self.prevscript == "cover_crouch" )
             var_0 = animscripts\utility::_id_5863( "grenade", "return_covercrouch_throw" );
 
         if ( var_0.size == 0 )
@@ -172,7 +172,7 @@ _id_7068()
     self endon( "death" );
     self endon( "put_weapon_back_in_right_hand" );
     self waittill( "killanimscript" );
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+    animscripts\shared::_id_6869( self.weapon, "right" );
 }
 
 _id_622C( var_0, var_1 )

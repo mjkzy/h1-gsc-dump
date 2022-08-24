@@ -322,7 +322,7 @@ friendly_logic()
     for (;;)
     {
         self [[ var_0 ]]();
-        self.meleeattackdist = _id_3A4C();
+        self.maxvisibledist = _id_3A4C();
         wait 0.05;
     }
 }
@@ -488,7 +488,7 @@ _id_3A5E()
 
 _id_3A5F()
 {
-    return level.playercardbackground getstance();
+    return level.player getstance();
 }
 
 _id_3A5B()
@@ -710,7 +710,7 @@ _id_322C( var_0, var_1 )
         if ( !isdefined( var_2 ) )
             continue;
 
-        if ( var_2 == level.playercardbackground || isdefined( var_2.team ) && var_2.team != var_3 )
+        if ( var_2 == level.player || isdefined( var_2.team ) && var_2.team != var_3 )
             break;
     }
 
@@ -762,7 +762,7 @@ _id_328C()
 
         while ( isdefined( self.enemy ) )
         {
-            if ( distance( self.origin, self.enemy.origin ) > self.meleeattackdist )
+            if ( distance( self.origin, self.enemy.origin ) > self.maxvisibledist )
                 self _meth_816a();
 
             wait 0.25;
@@ -972,9 +972,9 @@ enemy_corpse_death()
     var_1 = level._id_0669._id_5836._id_222C._id_2232[level._id_0669._id_5836._id_29A1];
     var_2 = ( 0, 0, var_1 );
     var_3 = spawn( "script_origin", self.origin + var_2 );
-    var_3.teambalanced = "corpse";
+    var_3.targetname = "corpse";
     var_3._id_0908 = var_0;
-    var_3.script_parentname = var_3.teambalanced + "_" + var_3._id_0908;
+    var_3.script_noteworthy = var_3.targetname + "_" + var_3._id_0908;
     var_3 endon( "death" );
 
     while ( isdefined( self.origin ) )
@@ -1057,7 +1057,7 @@ _id_320A()
     if ( isdefined( self.enemy ) )
         var_0 = self.enemy;
     else
-        var_0 = level.playercardbackground;
+        var_0 = level.player;
 
     if ( !isdefined( var_0._id_0669._id_5836._id_8A93[self._id_0908] ) )
         var_0._id_0669._id_5836._id_8A93[self._id_0908] = 0;

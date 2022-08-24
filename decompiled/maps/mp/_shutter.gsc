@@ -160,7 +160,7 @@ _id_855A( var_0, var_1 )
 
 _id_A344( var_0 )
 {
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     var_2 = var_1[0].origin;
     var_3 = var_1[1].origin;
     var_4 = vectortoangles( var_2 - var_3 );

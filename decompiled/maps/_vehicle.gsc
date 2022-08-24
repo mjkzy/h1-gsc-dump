@@ -202,7 +202,7 @@ _id_1861( var_0, var_1, var_2, var_3, var_4 )
     var_5 = spawnstruct();
     var_5._id_782D = var_0;
     var_5.duration = var_1;
-    var_5.rank = var_2;
+    var_5.radius = var_2;
 
     if ( isdefined( var_3 ) )
         var_5._id_1318 = var_3;
@@ -226,7 +226,7 @@ _id_184D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     var_11 = spawnstruct();
     var_11._id_3018 = loadfx( var_0 );
-    var_11.tag_aim_animated = var_1;
+    var_11.tag = var_1;
     var_11._id_8899 = var_2;
     var_11._id_182E = var_5;
     var_11._id_27C0 = var_4;
@@ -241,8 +241,8 @@ _id_184D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
 _id_1844( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
 {
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 
     level._id_9F7B = var_1;
     level._id_9F56 = var_2;
@@ -282,7 +282,7 @@ swap_deathfx_effect_only( var_0, var_1, var_2, var_3 )
         if ( isdefined( var_6._id_3018 ) && isdefined( var_1 ) && var_6._id_3018 != loadfx( var_1 ) )
             continue;
 
-        if ( var_6.tag_aim_animated != var_2 )
+        if ( var_6.tag != var_2 )
             continue;
 
         if ( isdefined( var_3 ) )
@@ -487,7 +487,7 @@ _id_5BD3()
 
 _id_51FD()
 {
-    return isdefined( self.visionsetnaked );
+    return isdefined( self.vehicletype );
 }
 
 _id_185C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
@@ -503,7 +503,7 @@ _id_185C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     precachemodel( var_2 );
     precacheitem( var_3 );
     var_13 = spawnstruct();
-    var_13.tag_aim_animated = var_1;
+    var_13.tag = var_1;
     var_13._id_5CA0 = var_2;
     var_13._id_5CA1 = var_3;
     var_13._id_6EA3 = var_4;
@@ -531,9 +531,9 @@ _id_1872( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     precacheturret( var_0 );
     var_10 = spawnstruct();
     var_10._id_4C5C = var_0;
-    var_10.tag_aim_animated = var_1;
-    var_10.motiontrackerenabled = var_2;
-    var_10.maxvisibledist = var_3;
+    var_10.tag = var_1;
+    var_10.model = var_2;
+    var_10.maxrange = var_3;
     var_10._id_279B = var_4;
     var_10._id_284B = var_5;
     var_10._id_2794 = var_6;
@@ -706,10 +706,10 @@ vehicle_spawner_has_targetname( var_0, var_1 )
     if ( !isdefined( var_2 ) )
         return 0;
 
-    if ( !isdefined( var_2.teambalanced ) )
+    if ( !isdefined( var_2.targetname ) )
         return 0;
 
-    if ( var_2.teambalanced != var_1 )
+    if ( var_2.targetname != var_1 )
         return 0;
 
     return 1;
@@ -759,8 +759,8 @@ _id_1857( var_0, var_1, var_2, var_3, var_4, var_5 )
         return;
 
     var_6 = spawnstruct();
-    var_6.nearz = var_1;
-    var_6.tag_aim_animated = var_2;
+    var_6.name = var_1;
+    var_6.tag = var_2;
     var_6._id_27C0 = var_5;
     var_6._id_3018 = loadfx( var_3 );
     level._id_9CFE[var_0][var_1] = var_6;
@@ -772,8 +772,8 @@ _id_1857( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_1858( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 
     level._id_9F54 = var_0;
     _id_1857( var_0, var_1, var_2, var_3, var_4, var_5 );
@@ -850,8 +850,8 @@ _id_1849( var_0, var_1, var_2, var_3 )
 
 _id_186C( var_0, var_1, var_2, var_3 )
 {
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 
     if ( isdefined( var_2 ) )
         var_0 = var_2;
@@ -1158,7 +1158,7 @@ _id_1848( var_0, var_1 )
         return;
 
     var_2 = spawnstruct();
-    var_2.motiontrackerenabled = var_0;
+    var_2.model = var_0;
     var_2 maps\_utility::_id_6EBA( var_1 );
     level._id_2922[level._id_9F56] = var_1;
 }
@@ -1193,8 +1193,8 @@ _id_183F( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6 = spawnstruct();
     var_6._id_27C0 = var_0;
     var_6.duration = var_1;
-    var_6.hidewhendead = var_2;
-    var_6.rank = var_3;
+    var_6.height = var_2;
+    var_6.radius = var_3;
     var_6._id_91E7 = var_4;
     var_6._id_91E8 = var_5;
     level._id_9CA5[level._id_9F54] = var_6;
@@ -1309,16 +1309,16 @@ _id_9CCB()
         var_0 = common_scripts\utility::_id_0CDA( var_0, var_2 );
         var_2._id_2240 = 1;
 
-        if ( !isdefined( var_2._not_team ) )
+        if ( !isdefined( var_2.target ) )
             break;
 
         if ( !_id_5118() )
         {
-            var_2 = getvehiclenode( var_2._not_team, "targetname" );
+            var_2 = getvehiclenode( var_2.target, "targetname" );
             continue;
         }
 
-        var_2 = maps\_utility::_id_3F82( var_2._not_team, "targetname" );
+        var_2 = maps\_utility::_id_3F82( var_2.target, "targetname" );
     }
 
     return var_0;
@@ -1359,7 +1359,7 @@ _id_9D3F( var_0 )
         var_2 = 0;
 
     self endon( "death" );
-    childthread common_scripts\utility::_id_6168( ::playfxontag, var_2, var_1._id_3018, self, var_1.tag_aim_animated );
+    childthread common_scripts\utility::_id_6168( ::playfxontag, var_2, var_1._id_3018, self, var_1.tag );
     self._id_5744[var_0] = 1;
 }
 
@@ -1376,7 +1376,7 @@ _id_9D3E( var_0 )
     if ( !isdefined( var_1 ) )
         return;
 
-    stopfxontag( var_1._id_3018, self, var_1.tag_aim_animated );
+    stopfxontag( var_1._id_3018, self, var_1.tag );
     self._id_5744[var_0] = undefined;
 }
 
@@ -1433,11 +1433,11 @@ _id_1869( var_0 )
 _id_9D34( var_0 )
 {
     if ( isdefined( self._id_4786 ) )
-        self.helmet = var_0 + self._id_4786;
+        self.health = var_0 + self._id_4786;
     else
-        self.helmet = var_0;
+        self.health = var_0;
 
-    self._id_2516 = self.helmet;
+    self._id_2516 = self.health;
 }
 
 _id_1863( var_0 )
@@ -1472,7 +1472,7 @@ _id_9D58( var_0, var_1 )
     if ( !var_1 )
     {
         self._id_5D40 = spawn( "script_model", self.origin );
-        self._id_5D40 setmodel( self.motiontrackerenabled );
+        self._id_5D40 setmodel( self.model );
         self._id_5D40.origin = self.origin;
         self._id_5D40.angles = self.angles;
         self._id_5D40 useanimtree( #animtree );
@@ -1635,9 +1635,9 @@ tank_crush( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 
     if ( getdvar( "debug_tankcrush" ) == "1" )
     {
-        thread maps\_utility::_id_2DB9( level.playercardbackground, self.origin, 1, 0, 0, var_12 / 2 );
-        thread maps\_utility::_id_2DB9( level.playercardbackground, var_39, 0, 1, 0, var_12 / 2 );
-        thread maps\_utility::_id_2DBA( level.playercardbackground, var_32, 0, 0, 1, var_12 / 2 );
+        thread maps\_utility::_id_2DB9( level.player, self.origin, 1, 0, 0, var_12 / 2 );
+        thread maps\_utility::_id_2DB9( level.player, var_39, 0, 1, 0, var_12 / 2 );
+        thread maps\_utility::_id_2DBA( level.player, var_32, 0, 0, 1, var_12 / 2 );
     }
 
     if ( isdefined( var_6 ) && var_6 )
@@ -1672,15 +1672,15 @@ set_crush_vehicle_clips( var_0, var_1, var_2 )
 
     var_3 = [];
 
-    if ( isdefined( var_0 ) && isdefined( var_0.teambalanced ) )
-        var_3 = getentarray( var_0.teambalanced + "_" + var_1 + "_clip", "targetname" );
+    if ( isdefined( var_0 ) && isdefined( var_0.targetname ) )
+        var_3 = getentarray( var_0.targetname + "_" + var_1 + "_clip", "targetname" );
     else
     {
         var_4 = getentarray( "script_brushmodel", "classname" );
 
         foreach ( var_6 in var_4 )
         {
-            if ( isdefined( var_6.teambalanced ) && issubstr( var_6.teambalanced, var_1 ) )
+            if ( isdefined( var_6.targetname ) && issubstr( var_6.targetname, var_1 ) )
                 var_3 = common_scripts\utility::_id_0CDA( var_3, var_6 );
         }
     }
@@ -1760,10 +1760,10 @@ heli_squashes_stuff( var_0 )
 
         if ( isalive( var_1 ) )
         {
-            if ( var_1.team == "allies" && var_1 != level.playercardbackground )
+            if ( var_1.team == "allies" && var_1 != level.player )
                 continue;
 
-            var_1 dodamage( var_1.helmet + 150, ( 0.0, 0.0, 0.0 ) );
+            var_1 dodamage( var_1.health + 150, ( 0.0, 0.0, 0.0 ) );
         }
     }
 }

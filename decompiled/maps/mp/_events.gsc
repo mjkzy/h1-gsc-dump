@@ -120,7 +120,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
 
     self.lastkilltime = gettime();
     self._id_55B2 = var_1;
-    self.movedone = [];
+    self.modifiers = [];
     self.damagedplayers[var_5] = undefined;
     thread _id_9B55( var_0, var_2 );
 
@@ -132,7 +132,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
         if ( isdefined( var_1.throwinggrenade ) )
         {
             if ( var_1.throwinggrenade == "h1_fraggrenade_mp" )
-                self.movedone["cooking"] = 1;
+                self.modifiers["cooking"] = 1;
         }
 
         if ( weaponinventorytype( var_2 ) == "primary" )
@@ -180,7 +180,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
         if ( _id_5180( var_1, var_3 ) )
             _id_6E24( var_0, var_2, var_3 );
 
-        if ( self.helmet < 20 && self.helmet > 0 )
+        if ( self.health < 20 && self.health > 0 )
             _id_606F( var_2, var_3 );
 
         if ( common_scripts\utility::_id_5108() )
@@ -209,7 +209,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
             if ( maps\mp\_utility::_hasperk( "specialty_fastreload" ) )
                 sleightofhandevent( var_2 );
 
-            if ( maps\mp\_utility::_hasperk( "specialty_rof" ) && maps\mp\_utility::_id_5092( var_1.left ) )
+            if ( maps\mp\_utility::_hasperk( "specialty_rof" ) && maps\mp\_utility::_id_5092( var_1.laststand ) )
                 doubletapevent();
 
             if ( maps\mp\_utility::_hasperk( "specialty_twoprimaries" ) && var_2 == self.secondaryweapon )
@@ -218,7 +218,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
             if ( maps\mp\_utility::_hasperk( "specialty_bulletaccuracy" ) && self playerads() < 0.5 )
                 steadyaimevent();
 
-            if ( maps\mp\_utility::_hasperk( "specialty_pistoldeath" ) && maps\mp\_utility::_id_5092( self.left ) && maps\mp\_utility::_id_5092( var_1.left ) )
+            if ( maps\mp\_utility::_hasperk( "specialty_pistoldeath" ) && maps\mp\_utility::_id_5092( self.laststand ) && maps\mp\_utility::_id_5092( var_1.laststand ) )
                 laststandevent();
 
             if ( maps\mp\_utility::_hasperk( "specialty_holdbreath" ) && weaponclass( var_2 ) == "sniper" )
@@ -290,8 +290,8 @@ _id_5361( var_0, var_1, var_2 )
 {
     maps\mp\_utility::_id_4C2F( "kills", 1 );
     maps\mp\_utility::_id_4C2E( "kills", 1 );
-    self.killstreakrestricted = maps\mp\_utility::_id_4081( "kills" );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "kills", self.killstreakrestricted );
+    self.kills = maps\mp\_utility::_id_4081( "kills" );
+    maps\mp\gametypes\_persistence::_id_8D7A( "round", "kills", self.kills );
     maps\mp\_utility::_id_9B47( "kdRatio", "kills", "deaths" );
     var_3 = "kill";
 
@@ -481,7 +481,7 @@ _id_518F( var_0, var_1 )
 
 _id_5850( var_0, var_1, var_2 )
 {
-    self.movedone["longshot"] = 1;
+    self.modifiers["longshot"] = 1;
     maps\mp\_utility::_id_4C2F( "longshots", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "longshot", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "longshot" );
@@ -489,18 +489,18 @@ _id_5850( var_0, var_1, var_2 )
 
 _id_477E( var_0, var_1, var_2 )
 {
-    self.movedone["headshot"] = 1;
+    self.modifiers["headshot"] = 1;
     maps\mp\_utility::_id_4C2E( "headshots", 1 );
     maps\mp\_utility::_id_4C2F( "headshots", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "headshots", maps\mp\_utility::_id_1E29( self.pers["headshots"] ) );
-    self.height = maps\mp\_utility::_id_4081( "headshots" );
+    self.headshots = maps\mp\_utility::_id_4081( "headshots" );
     level thread maps\mp\gametypes\_rank::_id_1208( "headshot", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "headshot" );
 
     if ( !isdefined( self.headhuntercounter ) )
         self.headhuntercounter = 1;
 
-    if ( isdefined( self.height ) && self.height >= self.headhuntercounter * 10 )
+    if ( isdefined( self.headshots ) && self.headshots >= self.headhuntercounter * 10 )
     {
         maps\mp\gametypes\_misions::_id_6FF6( "ch_headhunter" );
         self.headhuntercounter++;
@@ -529,7 +529,7 @@ _id_9339()
 
 _id_117C( var_0, var_1, var_2 )
 {
-    self.movedone["avenger"] = 1;
+    self.modifiers["avenger"] = 1;
     maps\mp\_utility::_id_4C2F( "avengekills", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "avenger", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "avenger" );
@@ -538,7 +538,7 @@ _id_117C( var_0, var_1, var_2 )
 
 _id_0D78( var_0, var_1, var_2 )
 {
-    self.movedone["assistedsuicide"] = 1;
+    self.modifiers["assistedsuicide"] = 1;
     maps\mp\_utility::_id_4C2F( "assistedsuicide", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "assistedsuicide", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "assistedsuicide" );
@@ -546,7 +546,7 @@ _id_0D78( var_0, var_1, var_2 )
 
 _id_27AA( var_0, var_1, var_2 )
 {
-    self.movedone["defender"] = 1;
+    self.modifiers["defender"] = 1;
     maps\mp\_utility::_id_4C2F( "rescues", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "defender", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "defender" );
@@ -571,7 +571,7 @@ _id_0D52( var_0, var_1 )
 
 _id_6E87( var_0 )
 {
-    self.movedone["posthumous"] = 1;
+    self.modifiers["posthumous"] = 1;
     maps\mp\_utility::_id_4C2F( "posthumous", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "posthumous", self );
     thread maps\mp\_matchdata::_id_5838( var_0, "posthumous" );
@@ -605,7 +605,7 @@ _id_125C( var_0 )
 
 _id_74EA( var_0 )
 {
-    self.movedone["revenge"] = 1;
+    self.modifiers["revenge"] = 1;
     self.lastkilledby = undefined;
     maps\mp\_utility::_id_4C2F( "revengekills", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "revenge", self );
@@ -973,7 +973,7 @@ hqdestroyevent()
 
 _id_3816( var_0, var_1, var_2 )
 {
-    self.movedone["firstblood"] = 1;
+    self.modifiers["firstblood"] = 1;
     maps\mp\_utility::_id_4C2F( "firstblood", 1 );
     thread maps\mp\_utility::_id_91FA( "callout_firstblood", self );
     level thread maps\mp\gametypes\_rank::_id_1208( "firstblood", self, var_1, undefined, var_2 );
@@ -992,21 +992,21 @@ _id_50D0( var_0 )
 
 _id_1967( var_0, var_1, var_2, var_3 )
 {
-    self.movedone["buzzkill"] = var_1.pers["cur_kill_streak"];
+    self.modifiers["buzzkill"] = var_1.pers["cur_kill_streak"];
     maps\mp\_utility::_id_4C2F( "buzzkill", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "buzzkill", self, var_2, undefined, var_3 );
 }
 
 _id_64A1( var_0, var_1, var_2 )
 {
-    self.movedone["oneshotkill"] = 1;
+    self.modifiers["oneshotkill"] = 1;
     maps\mp\_utility::_id_4C2F( "oneshotkill", 1 );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_deadeye" );
 }
 
 _id_20B8( var_0, var_1, var_2 )
 {
-    self.movedone["comeback"] = 1;
+    self.modifiers["comeback"] = 1;
     maps\mp\_utility::_id_4C2F( "comebacks", 1 );
     level thread maps\mp\gametypes\_rank::_id_1208( "comeback", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "comeback" );
@@ -1149,7 +1149,7 @@ _id_1D24( var_0 )
 
 _id_1D1B( var_0 )
 {
-    var_1 = self.knife_off + 1;
+    var_1 = self.killstreakcount + 1;
 
     if ( var_1 % 5 && var_1 < 30 )
         return;

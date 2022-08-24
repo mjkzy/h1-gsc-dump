@@ -50,7 +50,7 @@ initdof()
 
 setdefaultdepthoffield()
 {
-    level.playercardbackground setdepthoffield( level._id_2C7B["nearStart"], level._id_2C7B["nearEnd"], level._id_2C7B["farStart"], level._id_2C7B["farEnd"], level._id_2C7B["nearBlur"], level._id_2C7B["farBlur"] );
+    level.player setdepthoffield( level._id_2C7B["nearStart"], level._id_2C7B["nearEnd"], level._id_2C7B["farStart"], level._id_2C7B["farEnd"], level._id_2C7B["nearBlur"], level._id_2C7B["farBlur"] );
 }
 
 _id_7F54( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -108,7 +108,7 @@ scripted_spawn2( var_0, var_1, var_2, var_3 )
 
         if ( var_3.classname == "actor_enemy_arab_AR_ak47" )
         {
-            if ( var_3.teambalanced == "carexit_rightguard" )
+            if ( var_3.targetname == "carexit_rightguard" )
                 var_4 setcurbstompcharacter();
             else
                 var_4 randomizeguardcharacter();
@@ -174,17 +174,17 @@ deletecharacter()
 
 pulsefadevision( var_0, var_1 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level.vision_totalpercent = 100;
     thread updatepulsefadeamount( var_0, var_1 );
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
+    var_2.x = 0;
+    var_2.y = 0;
     var_2 setshader( "black", 640, 480 );
     var_2.alignx = "left";
     var_2.aligny = "top";
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2.alpha = 0;
     var_3 = 1;
     var_4 = 4;
@@ -291,7 +291,7 @@ playspeech( var_0, var_1 )
     if ( isdefined( var_1 ) )
         printspeech( var_1 );
 
-    level.playercardbackground thread maps\_utility::_id_69C4( var_0 );
+    level.player thread maps\_utility::_id_69C4( var_0 );
 }
 
 playspeechcarradio( var_0, var_1 )

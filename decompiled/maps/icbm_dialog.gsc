@@ -29,7 +29,7 @@ dialog_intro()
     wait 0.5;
     level._id_3C61 maps\_anim::_id_0C21( level._id_3C61, "noidea" );
     wait 1;
-    level.playercardbackground playsound( "icbm_hqr_gettingabortcodes" );
+    level.player playsound( "icbm_hqr_gettingabortcodes" );
     wait 6;
     level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "wereonourway" );
     common_scripts\utility::_id_383F( "intro_dialog_done" );
@@ -46,7 +46,7 @@ dialog_intro_h1()
     foreach ( var_2 in var_0 )
     {
         if ( isdefined( var_2 ) )
-            var_2.kill_timestamp = 1;
+            var_2.keepnodeduringscriptedanim = 1;
     }
 
     var_4 = spawn( "script_origin", ( 9037.58, -21616.8, -683.706 ) );
@@ -59,13 +59,13 @@ dialog_intro_h1()
     level._id_6F7C waittillmatch( "single anim", "dialog" );
     level._id_3C61 waittillmatch( "single anim", "dialog" );
     level.soldier waittillmatch( "single anim", "radio_guy" );
-    level.playercardbackground playsound( "icbm_hqr_gettingabortcodes" );
+    level.player playsound( "icbm_hqr_gettingabortcodes" );
     level._id_6F7C waittillmatch( "single anim", "dialog" );
 
     foreach ( var_2 in var_0 )
     {
         if ( isdefined( var_2 ) )
-            var_2.kill_timestamp = 0;
+            var_2.keepnodeduringscriptedanim = 0;
     }
 
     common_scripts\utility::_id_383F( "intro_dialog_done" );
@@ -124,9 +124,9 @@ dialog_proceed_upstairs()
 
 dialog_rescue_breach()
 {
-    level.playercardbackground playsound( "icbm_pri_thisisplace" );
+    level.player playsound( "icbm_pri_thisisplace" );
     wait 3;
-    level.playercardbackground playsound( "icbm_pri_readytobreach" );
+    level.player playsound( "icbm_pri_readytobreach" );
 }
 
 tower_nag()
@@ -233,7 +233,7 @@ dialog_blow_up_tower()
 
 dialog_contacts_in_the_woods()
 {
-    while ( distance( level.playercardbackground.origin, self.origin ) > 2000 )
+    while ( distance( level.player.origin, self.origin ) > 2000 )
     {
         wait 1;
 
@@ -256,7 +256,7 @@ dialog_jackson_do_it()
     level endon( "tower_destroyed" );
     var_0 = getent( "tower", "targetname" );
     var_1 = getaiarray( "allies" );
-    var_1[var_1.size] = level.playercardbackground;
+    var_1[var_1.size] = level.player;
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {

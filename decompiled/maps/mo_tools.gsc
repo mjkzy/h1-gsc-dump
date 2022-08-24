@@ -49,12 +49,12 @@ get_ai( var_0, var_1, var_2 )
         switch ( var_2 )
         {
             case "targetname":
-                if ( isdefined( var_3[var_5].teambalanced ) && var_3[var_5].teambalanced == var_0 )
+                if ( isdefined( var_3[var_5].targetname ) && var_3[var_5].targetname == var_0 )
                     var_4[var_4.size] = var_3[var_5];
 
                 continue;
             case "script_noteworthy":
-                if ( isdefined( var_3[var_5].script_parentname ) && var_3[var_5].script_parentname == var_0 )
+                if ( isdefined( var_3[var_5].script_noteworthy ) && var_3[var_5].script_noteworthy == var_0 )
                     var_4[var_4.size] = var_3[var_5];
 
                 continue;
@@ -146,7 +146,7 @@ get_ents_within_dist( var_0, var_1, var_2 )
 
 _id_2D41( var_0, var_1, var_2, var_3 )
 {
-    var_1.ignoretriggers = 1;
+    var_1.ignoreme = 1;
     var_1._id_63DF = var_1.goalradius;
     var_1.goalradius = 16;
     var_4 = 0;
@@ -198,7 +198,7 @@ _id_2D41( var_0, var_1, var_2, var_3 )
 
     var_1._id_0C72 = var_1._id_63C4;
     var_1.goalradius = var_1._id_63DF;
-    var_1.ignoretriggers = 0;
+    var_1.ignoreme = 0;
 
     if ( !var_4 )
         var_1 maps\_utility::_id_9A61();
@@ -211,7 +211,7 @@ door_breach_door()
 {
     self notsolid();
 
-    if ( self.specialgrenade & 1 )
+    if ( self.spawnflags & 1 )
         self connectpaths();
 
     var_0 = 0;
@@ -299,24 +299,24 @@ player_fastrope_go( var_0 )
     var_1 setmodel( "fastrope_arms" );
     var_1.angles = var_0.angles;
     var_2 = spawn( "script_origin", var_0.origin );
-    var_2.angles = level.playercardbackground.angles;
+    var_2.angles = level.player.angles;
     var_1 linkto( var_2 );
     var_1._id_0C72 = "playerfastrope";
     var_1 useanimtree( #animtree );
-    level.playercardbackground allowlean( 0 );
-    level.playercardbackground freezecontrols( 1 );
-    level.playercardbackground playerlinktoabsolute( var_1, "tag_player" );
+    level.player allowlean( 0 );
+    level.player freezecontrols( 1 );
+    level.player playerlinktoabsolute( var_1, "tag_player" );
     playerweapontake();
     var_2 maps\_anim::_id_0C24( var_1, "fastrope_on" );
-    var_2 movez( ( var_0._id_7131 + 96 ) * -1, var_0.titleunlocked + 0.5 );
+    var_2 movez( ( var_0._id_7131 + 96 ) * -1, var_0.time + 0.5 );
     var_2 thread maps\_anim::_id_0BE1( var_1, "fastrope_loop", undefined, "stopanimscripted" );
-    wait(var_0.titleunlocked);
+    wait(var_0.time);
     var_2 notify( "stopanimscripted" );
-    level.playercardbackground maps\_anim::_id_0C24( var_1, "fastrope_off" );
+    level.player maps\_anim::_id_0C24( var_1, "fastrope_off" );
     playerweapongive();
-    level.playercardbackground unlink();
-    level.playercardbackground freezecontrols( 0 );
-    level.playercardbackground allowlean( 1 );
+    level.player unlink();
+    level.player freezecontrols( 0 );
+    level.player allowlean( 1 );
     var_2 delete();
     var_1 delete();
 }
@@ -375,7 +375,7 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
     {
         wait 0.5;
 
-        if ( var_4 == level.playercardbackground )
+        if ( var_4 == level.player )
             thread radio_msg_stack( var_5 );
         else
             var_4 thread maps\_utility::_id_69C4( var_5 );
@@ -384,7 +384,7 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
     {
         var_7 = getaiarray( "allies" );
         var_8 = [];
-        var_9 = maps\_utility::_id_3CFA( level.playercardbackground.origin, var_7, 1024 );
+        var_9 = maps\_utility::_id_3CFA( level.player.origin, var_7, 1024 );
 
         if ( !isdefined( var_9 ) )
         {
@@ -418,7 +418,7 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 playerweapongive()
 {
-    level.playercardbackground notify( "restore_player_weapons" );
+    level.player notify( "restore_player_weapons" );
 }
 
 playerweapontake()
@@ -428,14 +428,14 @@ playerweapontake()
 
 playerweapontakelogic()
 {
-    if ( isdefined( level.playercardbackground.weaponstaken ) )
+    if ( isdefined( level.player.weaponstaken ) )
         return;
 
-    level.playercardbackground.weaponstaken = 1;
-    level.playercardbackground disableweapons();
-    level.playercardbackground waittill( "restore_player_weapons" );
-    level.playercardbackground enableweapons();
-    level.playercardbackground.weaponstaken = undefined;
+    level.player.weaponstaken = 1;
+    level.player disableweapons();
+    level.player waittill( "restore_player_weapons" );
+    level.player enableweapons();
+    level.player.weaponstaken = undefined;
 }
 
 anim_single_stack( var_0, var_1 )
@@ -490,7 +490,7 @@ disable_cqbwalk_ign_demo_wrapper()
     maps\_utility::_id_2A8D();
 
     if ( !isdefined( self.a.cqbchangedontmodifyinterval ) || !self.a.cqbchangedontmodifyinterval )
-        self.invisible = 96;
+        self.interval = 96;
 }
 
 enable_cqbwalk_ign_demo_wrapper()
@@ -498,5 +498,5 @@ enable_cqbwalk_ign_demo_wrapper()
     maps\_utility::_id_30B0();
 
     if ( !isdefined( self.a.cqbchangedontmodifyinterval ) || !self.a.cqbchangedontmodifyinterval )
-        self.invisible = 50;
+        self.interval = 50;
 }

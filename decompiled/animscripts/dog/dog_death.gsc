@@ -48,8 +48,8 @@ main()
 
     self unlink();
 
-    if ( isdefined( self.enemy ) && isdefined( self.enemy.tag_ai_aim_target ) && self.enemy.tag_ai_aim_target == self )
-        self.enemy.tag_ai_aim_target = undefined;
+    if ( isdefined( self.enemy ) && isdefined( self.enemy.syncedmeleetarget ) && self.enemy.syncedmeleetarget == self )
+        self.enemy.syncedmeleetarget = undefined;
 
     self _meth_8144( %root, 0.2 );
     self setflaggedanimrestart( "dog_anim", %german_shepherd_death_front, 1, 0.2, 1 );

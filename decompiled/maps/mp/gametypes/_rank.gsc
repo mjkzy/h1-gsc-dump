@@ -315,7 +315,7 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( var_1 > 0 && !isdefined( self._id_5895 ) )
     {
         self._id_5895 = 1;
-        lootservicevalidateplaytime( self.zonly_physics );
+        lootservicevalidateplaytime( self.xuid );
     }
 
     var_6 = var_1;
@@ -345,7 +345,7 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
             {
                 if ( level.teambased && level._id_6274.team == self.team )
                     var_6 *= level._id_6274._id_A3A9;
-                else if ( !level.teambased && level._id_6274.playercardbackground == self )
+                else if ( !level.teambased && level._id_6274.player == self )
                     var_6 *= level._id_6274._id_A3A9;
 
                 var_6 = int( var_6 );

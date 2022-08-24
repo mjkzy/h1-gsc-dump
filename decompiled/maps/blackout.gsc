@@ -343,7 +343,7 @@ start_chess()
 {
     soundscripts\_snd::_id_870C( "start_chess_checkpoint" );
     var_0 = getent( "player_chess_org", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setorigin( var_0.origin );
     maps\_utility::_id_070A( "second_shack_trigger" );
     start_normal();
 }
@@ -405,8 +405,8 @@ walking_the_stream()
         level._id_3C61.fixednodesaferadius = 0;
         level._id_3C61 _meth_81a9( var_7 );
         level._id_3C61 _meth_81a7( 1 );
-        level._id_3C61.ignoreforfixednodesafecheck = 0;
-        level._id_6F7C.ignoreforfixednodesafecheck = 0;
+        level._id_3C61.ignoreall = 0;
+        level._id_6F7C.ignoreall = 0;
     }
 
     common_scripts\utility::_id_384A( "hut_cleared" );
@@ -423,8 +423,8 @@ walking_the_stream()
     if ( !common_scripts\utility::_id_382E( "high_alert" ) )
     {
         level._id_3C61.fixednodesaferadius = 32;
-        level._id_6F7C.ignoreforfixednodesafecheck = 1;
-        level._id_3C61.ignoreforfixednodesafecheck = 1;
+        level._id_6F7C.ignoreall = 1;
+        level._id_3C61.ignoreall = 1;
     }
 
     wait 0.4;
@@ -478,12 +478,12 @@ start_field()
     var_1 = getaiarray( "allies" );
     common_scripts\utility::_id_383F( "second_shacks" );
     var_2 = getent( "player_meeting_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -27000.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -27000.0 ) );
     var_3 = getent( "price_meeting_org", "targetname" );
     var_4 = getent( "price_meeting_org", "targetname" );
     level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
     level._id_3C61 _meth_81c9( var_4.origin, var_4.angles );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     maps\_utility::_id_070A( "meet_at_field" );
     level._id_3C61 maps\_utility::_id_7E38( "y" );
 }
@@ -653,17 +653,17 @@ _id_8C24()
     common_scripts\utility::_id_0CF0( var_1, maps\_utility::_id_284E );
     var_2 = getaiarray( "allies" );
     var_3 = getent( "player_overlook_org", "targetname" );
-    level.playercardbackground setorigin( var_3.origin + ( 0.0, 0.0, -27000.0 ) );
+    level.player setorigin( var_3.origin + ( 0.0, 0.0, -27000.0 ) );
     var_4 = getentarray( "friendly_overlook_org", "targetname" );
 
     for ( var_5 = 0; var_5 < var_2.size; var_5++ )
     {
-        var_2[var_5].ignoreforfixednodesafecheck = 1;
+        var_2[var_5].ignoreall = 1;
         var_2[var_5] _meth_81c9( var_4[var_5].origin, var_4[var_5].angles );
     }
 
     thread overlook_sniping();
-    level.playercardbackground setorigin( var_3.origin );
+    level.player setorigin( var_3.origin );
     wait 2;
     common_scripts\utility::_id_383F( "commence_attack" );
 }
@@ -691,7 +691,7 @@ overlook_sniping()
     common_scripts\utility::_id_383F( "bm21s_attack" );
     maps\_utility::_id_1143( "overlook" );
     maps\_utility::_id_27EF( 2, maps\blackout_code::display_sniper_hint );
-    level.playercardbackground.threatsightdelayfalloff = -350;
+    level.player.threatbias = -350;
     thread maps\blackout_code::turn_off_stealth();
     thread maps\blackout_code::hilltop_sniper();
     thread maps\blackout_code::overlook_player_mortarvision();
@@ -721,8 +721,8 @@ overlook_sniping()
     soundscripts\_snd::_id_870C( "aud_start_enemy_heli_mix" );
     wait 4.5;
     common_scripts\utility::_id_384A( "begin_the_breach" );
-    level.playercardbackground.threatsightdelayfalloff = 0;
-    level.playercardbackground.meleeattackdist = 2048;
+    level.player.threatbias = 0;
+    level.player.maxvisibledist = 2048;
 
     if ( getdvarint( "use_old_burning_house" ) == 1 )
     {
@@ -748,9 +748,9 @@ overlook_sniping()
     common_scripts\utility::_id_384A( "player_reaches_cliff_area" );
     level._id_3C61 maps\_utility::_id_27EF( 1.5, maps\_utility::_id_2A32, "helicopter_troops" );
     maps\_utility::_id_070A( "cliff_ground_forces" );
-    level._id_6F7C.ignoreforfixednodesafecheck = 0;
-    level._id_3C61.ignoreforfixednodesafecheck = 0;
-    level.kamarov.ignoreforfixednodesafecheck = 0;
+    level._id_6F7C.ignoreall = 0;
+    level._id_3C61.ignoreall = 0;
+    level.kamarov.ignoreall = 0;
     thread cliff_sniping();
     thread player_battles_towards_power_plant();
     common_scripts\utility::_id_384A( "power_plant_cleared" );
@@ -773,7 +773,7 @@ rider_damaged()
 {
     self waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
-    if ( isdefined( var_1 ) && var_1 == level.playercardbackground )
+    if ( isdefined( var_1 ) && var_1 == level.player )
         maps\_utility::arcademode_kill( self.origin, var_4, 60 );
 }
 
@@ -848,13 +848,13 @@ start_cliff()
     common_scripts\utility::_id_383F( "player_reaches_cliff_area" );
     wait 0.5;
     var_7 = getent( "player_cliff_org", "targetname" );
-    level.playercardbackground setorigin( var_7.origin + ( 0.0, 0.0, -27000.0 ) );
+    level.player setorigin( var_7.origin + ( 0.0, 0.0, -27000.0 ) );
     var_8 = getentarray( "friendly_cliff_org", "targetname" );
 
     for ( var_6 = 0; var_6 < var_1.size; var_6++ )
         var_1[var_6] _meth_81c9( var_8[var_6].origin, var_8[var_6].angles );
 
-    level.playercardbackground setorigin( var_7.origin );
+    level.player setorigin( var_7.origin );
 }
 
 cliff_sniping()
@@ -874,7 +874,7 @@ cliff_sniping()
     common_scripts\utility::_id_384A( "cliff_look" );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "power_plant_cleared", maps\_utility::_id_1143, "power_plant_cleared" );
     common_scripts\utility::_id_383F( "cliff_tanks_move" );
-    level.playercardbackground.ignoretriggers = 1;
+    level.player.ignoreme = 1;
     common_scripts\utility::_id_384A( "cliff_moveup" );
     maps\_utility::_id_070A( "cliff_allies_advance" );
     common_scripts\utility::_id_384A( "cliff_tank_path_end" );
@@ -958,13 +958,13 @@ start_farmhouse()
     common_scripts\utility::_id_383F( "player_reaches_cliff_area" );
     wait 0.5;
     var_2 = getent( "player_farmhouse_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -27000.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -27000.0 ) );
     var_3 = getentarray( "ally_farmhouse_org", "targetname" );
 
     for ( var_4 = 0; var_4 < var_0.size; var_4++ )
         var_0[var_4] _meth_81c9( var_3[var_4].origin, var_3[var_4].angles );
 
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     thread raid_farmhouse();
     common_scripts\_exploder::_id_3528( 300 );
 }
@@ -1010,14 +1010,14 @@ start_blackout()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0CF0( var_0, maps\_utility::_id_284E );
     var_1 = getent( "player_blackout_org", "targetname" );
-    level.playercardbackground setorigin( var_1.origin + ( 0.0, 0.0, -27000.0 ) );
+    level.player setorigin( var_1.origin + ( 0.0, 0.0, -27000.0 ) );
     var_2 = getaiarray( "allies" );
     var_3 = getentarray( "ally_blackout_org", "targetname" );
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
         var_2[var_4] _meth_81c9( var_3[var_4].origin, var_3[var_4].angles );
 
-    level.playercardbackground setorigin( var_1.origin );
+    level.player setorigin( var_1.origin );
     thread blackout_house();
     common_scripts\_exploder::_id_3528( 300 );
 }
@@ -1062,7 +1062,7 @@ blackout_house()
         common_scripts\utility::_id_384A( "player_at_blackout_door" );
     else
     {
-        while ( !common_scripts\utility::_id_382E( "player_at_blackout_door" ) && distancesquared( level._id_3C61.origin, level.playercardbackground.origin ) > 62500 )
+        while ( !common_scripts\utility::_id_382E( "player_at_blackout_door" ) && distancesquared( level._id_3C61.origin, level.player.origin ) > 62500 )
             wait 0.1;
     }
 
@@ -1125,11 +1125,11 @@ start_rescue()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0CF0( var_0, maps\_utility::_id_284E );
     var_1 = getent( "rescue_player_org", "targetname" );
-    level.playercardbackground setorigin( var_1.origin + ( 0.0, 0.0, -27000.0 ) );
+    level.player setorigin( var_1.origin + ( 0.0, 0.0, -27000.0 ) );
     var_2 = getent( "rescue_price_org", "targetname" );
     level._id_6F7C _meth_81c9( var_2.origin );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
     var_3 = getnode( "gaz_door_dead_node", "targetname" );
     level._id_3C61 _meth_81c9( var_3.origin );
     thread blackout_rescue();
@@ -1207,13 +1207,13 @@ blackout_rescue()
     common_scripts\utility::_id_0D13( var_7, maps\_headtracking::head_tracking_end );
     soundscripts\_snd::_id_870C( "start_player_gets_on_heli_mix" );
 
-    if ( isdefined( level.playercardbackground._id_60EA ) )
+    if ( isdefined( level.player._id_60EA ) )
         thread maps\_nightvision::force_remove_nightvision();
 
     var_6 delete();
     level._id_4AC8["text"].alpha = 0;
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground disableweapons();
+    level.player allowcrouch( 0 );
+    level.player disableweapons();
     var_8 = [];
     var_8[var_8.size] = level._id_3C61;
     var_8[var_8.size] = level.vip;
@@ -1221,7 +1221,7 @@ blackout_rescue()
     if ( getdvarint( "use_old_evac" ) != 1 )
     {
         var_5 attach( "viewmodel_m4m203_silencer_reflex", "tag_weapon_right" );
-        var_5 maps\_utility::_id_5699( level.playercardbackground, "tag_player", 0.5, 0.9, 70, 60, 40, 30 );
+        var_5 maps\_utility::_id_5699( level.player, "tag_player", 0.5, 0.9, 70, 60, 40, 30 );
         wait 0.5;
         var_5 show();
         var_0 thread maps\_anim::_id_0C24( var_5, "player_evac", "tag_detach" );
@@ -1239,7 +1239,7 @@ blackout_rescue()
     }
     else
     {
-        var_5 maps\_utility::_id_5699( level.playercardbackground, "tag_player", 0.5, 0.9, 90, 90, 90, 90 );
+        var_5 maps\_utility::_id_5699( level.player, "tag_player", 0.5, 0.9, 90, 90, 90, 90 );
         var_0 thread maps\_anim::_id_0C24( var_5, "player_evac", "tag_detach" );
         wait 2.5;
         common_scripts\utility::_id_0D13( var_8, maps\_utility::_id_05E1, var_0, "tag_detach" );
@@ -1257,11 +1257,11 @@ blackout_rescue()
 
 h1_rescueclimbheli_viewclamp_seq()
 {
-    level.playercardbackground lerpviewangleclamp( 0.7, 0, 0, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( 0.7, 0, 0, 0, 0, 0, 0 );
     wait 1.7;
-    level.playercardbackground lerpviewangleclamp( 1.0, 0, 0, 0, 30, 0, 25 );
+    level.player lerpviewangleclamp( 1.0, 0, 0, 0, 30, 0, 25 );
     wait 1.8;
-    level.playercardbackground lerpviewangleclamp( 1.0, 0, 0, 0, 60, 0, 25 );
+    level.player lerpviewangleclamp( 1.0, 0, 0, 0, 60, 0, 25 );
     wait 16.5;
 }
 
@@ -1269,10 +1269,10 @@ rescue_blackhawk_spotlight()
 {
     maps\blackout_code::helicopter_searchlight_on();
 
-    if ( distancesquared( self.origin, level.playercardbackground.origin ) < 25000000 )
+    if ( distancesquared( self.origin, level.player.origin ) < 25000000 )
     {
         self waittillmatch( "single anim", "spot_player" );
-        thread maps\blackout_code::spot_target( level.playercardbackground, undefined, 700 );
+        thread maps\blackout_code::spot_target( level.player, undefined, 700 );
     }
 
     self waittillmatch( "single anim", "spot_path" );

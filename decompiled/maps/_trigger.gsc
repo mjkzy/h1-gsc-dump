@@ -175,7 +175,7 @@ _id_4D53()
     {
         for ( var_10 = 0; var_10 < var_4.size; var_10++ )
         {
-            if ( var_4[var_10].specialgrenade & 32 )
+            if ( var_4[var_10].spawnflags & 32 )
                 thread maps\_spawner::_id_97F9( var_4[var_10] );
         }
     }
@@ -262,9 +262,9 @@ _id_4D53()
             if ( isdefined( var_4[var_10]._id_7A99 ) )
                 level thread maps\_colors::init_color_delay_info( var_4[var_10] );
 
-            if ( isdefined( var_4[var_10].teambalanced ) )
+            if ( isdefined( var_4[var_10].targetname ) )
             {
-                var_13 = var_4[var_10].teambalanced;
+                var_13 = var_4[var_10].targetname;
 
                 if ( isdefined( var_1[var_13] ) )
                     level thread [[ var_1[var_13] ]]( var_4[var_10] );
@@ -303,7 +303,7 @@ _id_976A( var_0 )
         if ( !isplayer( var_2 ) )
             continue;
 
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
         common_scripts\utility::_id_383F( var_1, var_2 );
     }
 }
@@ -318,7 +318,7 @@ _id_978C( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger" );
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
         common_scripts\utility::_id_3831( var_1 );
     }
 }
@@ -384,7 +384,7 @@ _id_978E( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_2 );
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
         common_scripts\utility::_id_383F( var_1, var_2 );
     }
 }
@@ -413,7 +413,7 @@ _id_978F( var_0 )
             break;
     }
 
-    var_0 maps\_utility::script_lightset();
+    var_0 maps\_utility::script_delay();
     common_scripts\utility::_id_383F( var_1 );
 }
 
@@ -435,7 +435,7 @@ _id_9791( var_0 )
         if ( var_0._id_6C32.size )
             continue;
 
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
         common_scripts\utility::_id_383F( var_1, var_2 );
     }
 }
@@ -458,7 +458,7 @@ _id_9792( var_0 )
 
 _id_979C( var_0 )
 {
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     var_2 = var_1[0];
     var_1 = undefined;
     var_2 endon( "death" );
@@ -475,7 +475,7 @@ _id_979C( var_0 )
 trigger_friendly_respawn_preh1( var_0 )
 {
     var_0 endon( "death" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_2 = undefined;
 
     if ( isdefined( var_1 ) )
@@ -485,7 +485,7 @@ trigger_friendly_respawn_preh1( var_0 )
     }
     else
     {
-        var_1 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+        var_1 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
         var_2 = var_1.origin;
     }
 
@@ -520,7 +520,7 @@ friendly_respawn_clear( var_0 )
 _id_9773( var_0 )
 {
     var_0 endon( "death" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_2 = undefined;
 
     if ( isdefined( var_1 ) )
@@ -530,7 +530,7 @@ _id_9773( var_0 )
     }
     else
     {
-        var_1 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+        var_1 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
         var_2 = var_1.origin;
     }
 
@@ -561,7 +561,7 @@ _id_9793( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_2 );
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
 
         if ( isalive( var_2 ) && var_2 istouching( var_0 ) && isdefined( var_0 ) )
             common_scripts\utility::_id_383F( var_1 );
@@ -623,13 +623,13 @@ trigger_multiple_interval_thread( var_0 )
         return;
 
     self.touching_trigger_multiple_interval = 1;
-    var_1 = self.invisible;
-    self.invisible = float( var_0._id_7A99 );
+    var_1 = self.interval;
+    self.interval = float( var_0._id_7A99 );
 
     while ( self istouching( var_0 ) )
         wait 0.05;
 
-    self.invisible = var_1;
+    self.interval = var_1;
     self.touching_trigger_multiple_interval = undefined;
 }
 
@@ -645,8 +645,8 @@ _id_7F03()
 _id_97D2( var_0 )
 {
     var_1 = [];
-    var_2 = common_scripts\utility::_id_40FD( var_0._not_team, "targetname" );
-    var_3 = getentarray( var_0._not_team, "targetname" );
+    var_2 = common_scripts\utility::_id_40FD( var_0.target, "targetname" );
+    var_3 = getentarray( var_0.target, "targetname" );
 
     foreach ( var_5 in var_3 )
     {
@@ -654,18 +654,18 @@ _id_97D2( var_0 )
         var_6.origin = var_5.origin;
         var_6._id_7A99 = var_5._id_7A99;
         var_6._id_7981 = var_5._id_7981;
-        var_6.rank = var_5.rank;
+        var_6.radius = var_5.radius;
         var_2[var_2.size] = var_6;
         var_5 delete();
     }
 
     var_0._id_6581 = var_2[0].origin;
     var_0 waittill( "trigger" );
-    var_0 maps\_utility::script_lightset();
+    var_0 maps\_utility::script_delay();
 
     foreach ( var_6 in var_2 )
     {
-        var_9 = var_6.rank;
+        var_9 = var_6.radius;
         var_10 = var_6._id_7A99;
         var_11 = var_6._id_7981;
 
@@ -699,7 +699,7 @@ _id_97D3( var_0 )
         if ( isdefined( var_2[var_3]._id_7AFC ) && var_2[var_3]._id_7AFC == var_1 )
         {
             var_2[var_3].goalradius = 800;
-            var_2[var_3] _meth_81ab( level.playercardbackground );
+            var_2[var_3] _meth_81ab( level.player );
             level thread maps\_spawner::_id_27DC( var_2[var_3] );
         }
     }
@@ -775,18 +775,18 @@ _id_9803( var_0 )
 
 _id_980A( var_0 )
 {
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
 
     foreach ( var_3 in var_1 )
     {
-        var_4 = getentarray( var_3._not_team, "targetname" );
+        var_4 = getentarray( var_3.target, "targetname" );
 
         foreach ( var_6 in var_4 )
         {
             if ( !issubstr( var_6.code_classname, "actor" ) )
                 continue;
 
-            if ( !( var_6.specialgrenade & 1 ) )
+            if ( !( var_6.spawnflags & 1 ) )
                 continue;
 
             var_6._id_2D1B = 1;
@@ -794,14 +794,14 @@ _id_980A( var_0 )
     }
 
     var_0 waittill( "trigger" );
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_vehicle_free_drive::_id_8976( undefined, 0, 1 ) );
 }
 
 _id_980C( var_0 )
 {
     var_0 waittill( "trigger" );
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
 
     foreach ( var_3 in var_1 )
     {
@@ -815,9 +815,9 @@ _id_3EA5()
     var_0 = [];
     var_1 = undefined;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_2 = getentarray( self._not_team, "targetname" );
+        var_2 = getentarray( self.target, "targetname" );
         var_3 = [];
 
         foreach ( var_5 in var_2 )
@@ -829,7 +829,7 @@ _id_3EA5()
                 var_0[var_0.size] = var_5;
         }
 
-        var_2 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
+        var_2 = common_scripts\utility::_id_40FD( self.target, "targetname" );
 
         foreach ( var_5 in var_2 )
             var_3[var_3.size] = var_5;
@@ -870,7 +870,7 @@ _id_97B1( var_0, var_1 )
     var_3 = var_0 _id_3EA5();
     var_4 = var_3["triggers"];
     var_5 = var_3["target_origin"];
-    var_6 = isdefined( var_0._id_79D3 ) || isdefined( var_0.script_parentname );
+    var_6 = isdefined( var_0._id_79D3 ) || isdefined( var_0.script_noteworthy );
     var_7 = undefined;
 
     if ( var_6 )
@@ -951,7 +951,7 @@ _id_9764( var_0 )
     var_3 = var_0 _id_3EA5();
     var_1 = var_3["triggers"];
     var_2 = var_3["target_origin"];
-    var_4 = isdefined( var_0._id_79D3 ) || isdefined( var_0.script_parentname );
+    var_4 = isdefined( var_0._id_79D3 ) || isdefined( var_0.script_noteworthy );
     var_5 = undefined;
 
     if ( var_4 )
@@ -983,7 +983,7 @@ _id_9764( var_0 )
 
         var_0 waittill( "trigger", var_8 );
 
-        while ( level.playercardbackground istouching( var_0 ) )
+        while ( level.player istouching( var_0 ) )
         {
             if ( !var_8 _id_1AF4( var_2, var_7 ) )
             {
@@ -1018,11 +1018,11 @@ _id_9808( var_0 )
 {
     var_1 = "not_set";
 
-    if ( isdefined( var_0.script_parentname ) )
-        var_1 = var_0.script_parentname;
+    if ( isdefined( var_0.script_noteworthy ) )
+        var_1 = var_0.script_noteworthy;
 
-    var_2 = getentarray( var_0._not_team, "targetname" );
-    var_0 thread _id_9809( var_0._not_team );
+    var_2 = getentarray( var_0.target, "targetname" );
+    var_0 thread _id_9809( var_0.target );
 
     for (;;)
     {
@@ -1065,9 +1065,9 @@ _id_975C( var_0 )
 {
     var_1 = undefined;
 
-    if ( isdefined( var_0._not_team ) )
+    if ( isdefined( var_0.target ) )
     {
-        var_2 = getentarray( var_0._not_team, "targetname" );
+        var_2 = getentarray( var_0.target, "targetname" );
 
         if ( issubstr( var_2[0].classname, "trigger" ) )
             var_1 = var_2[0];
@@ -1082,17 +1082,17 @@ _id_975C( var_0 )
 
     if ( isdefined( var_1 ) )
     {
-        if ( var_3.team != level.playercardbackground.team && level.playercardbackground istouching( var_0 ) )
-            var_4 = level.playercardbackground animscripts\battlechatter::_id_3F38( "custom" );
-        else if ( var_3.team == level.playercardbackground.team )
+        if ( var_3.team != level.player.team && level.player istouching( var_0 ) )
+            var_4 = level.player animscripts\battlechatter::_id_3F38( "custom" );
+        else if ( var_3.team == level.player.team )
         {
             var_5 = "axis";
 
-            if ( level.playercardbackground.team == "axis" )
+            if ( level.player.team == "axis" )
                 var_5 = "allies";
 
             var_6 = animscripts\battlechatter::_id_40DF( "custom", var_5 );
-            var_6 = common_scripts\utility::_id_3CCC( level.playercardbackground.origin, var_6 );
+            var_6 = common_scripts\utility::_id_3CCC( level.player.origin, var_6 );
 
             foreach ( var_8 in var_6 )
             {
@@ -1122,13 +1122,13 @@ _id_975C( var_0 )
 
 _id_1331( var_0 )
 {
-    return distancesquared( var_0, level.playercardbackground getorigin() ) <= 262144;
+    return distancesquared( var_0, level.player getorigin() ) <= 262144;
 }
 
 _id_980B( var_0 )
 {
     var_0 waittill( "trigger" );
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
 
     foreach ( var_3 in var_1 )
     {
@@ -1140,14 +1140,14 @@ _id_980B( var_0 )
 _id_9770( var_0 )
 {
     var_0 waittill( "trigger" );
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
     var_2 = [];
     var_2["left_door"] = -170;
     var_2["right_door"] = 170;
 
     foreach ( var_4 in var_1 )
     {
-        var_5 = var_2[var_4.script_parentname];
+        var_5 = var_2[var_4.script_noteworthy];
         var_4 connectpaths();
         var_4 rotateyaw( var_5, 1, 0, 0.5 );
     }
@@ -1155,7 +1155,7 @@ _id_9770( var_0 )
 
 _id_97A1( var_0 )
 {
-    var_1 = getglassarray( var_0._not_team );
+    var_1 = getglassarray( var_0.target );
 
     if ( !isdefined( var_1 ) || var_1.size == 0 )
         return;
@@ -1309,11 +1309,11 @@ _id_97DC( var_0, var_1, var_2 )
 _id_9406( var_0, var_1 )
 {
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     [[ var_1 ]]( 1 );
-    self.infinite_energy = 1;
+    self.ignoretriggers = 1;
     wait 1;
-    self.infinite_energy = 0;
+    self.ignoretriggers = 0;
 
     while ( self istouching( var_0 ) )
         wait 1;
@@ -1324,7 +1324,7 @@ _id_9406( var_0, var_1 )
 _id_97D8( var_0 )
 {
     var_0 waittill( "trigger" );
-    maps\_utility::_id_70BD( var_0.script_parentname );
+    maps\_utility::_id_70BD( var_0.script_noteworthy );
 }
 
 _id_9790( var_0 )
@@ -1347,7 +1347,7 @@ _id_9790( var_0 )
         if ( !isplayer( var_2 ) )
             continue;
 
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
         common_scripts\utility::_id_383F( var_1 );
     }
 }
@@ -1357,7 +1357,7 @@ _id_97C5( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_1 );
-        var_1 maps\_art::_id_8FCD( var_0.script_zone, var_0.script_lightset );
+        var_1 maps\_art::_id_8FCD( var_0.script_visionset, var_0.script_delay );
         waittillframeend;
     }
 }
@@ -1372,15 +1372,15 @@ trigger_multiple_visionset_preh1( var_0 )
     if ( isdefined( var_0._id_7B1F ) && isdefined( var_0._id_7B1E ) )
     {
         var_1 = 1;
-        var_3 = getent( var_0._not_team, "targetname" );
+        var_3 = getent( var_0.target, "targetname" );
 
         if ( !isdefined( var_3 ) )
-            var_3 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+            var_3 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
 
-        var_4 = getent( var_3._not_team, "targetname" );
+        var_4 = getent( var_3.target, "targetname" );
 
         if ( !isdefined( var_4 ) )
-            var_4 = common_scripts\utility::_id_40FB( var_3._not_team, "targetname" );
+            var_4 = common_scripts\utility::_id_40FB( var_3.target, "targetname" );
 
         var_3 = var_3.origin;
         var_4 = var_4.origin;
@@ -1415,14 +1415,14 @@ trigger_multiple_visionset_preh1( var_0 )
                 }
 
                 if ( var_7 < 0.5 )
-                    var_6 maps\_utility::_id_9E6E( var_0._id_7B1F, var_0.script_lightset );
+                    var_6 maps\_utility::_id_9E6E( var_0._id_7B1F, var_0.script_delay );
                 else
-                    var_6 maps\_utility::_id_9E6E( var_0._id_7B1E, var_0.script_lightset );
+                    var_6 maps\_utility::_id_9E6E( var_0._id_7B1E, var_0.script_delay );
 
                 continue;
             }
 
-            var_6 maps\_utility::_id_9E6E( var_0.script_zone, var_0.script_lightset );
+            var_6 maps\_utility::_id_9E6E( var_0.script_visionset, var_0.script_delay );
         }
     }
 }
@@ -1437,20 +1437,20 @@ _id_97C7( var_0, var_1 )
     var_6 = undefined;
 
     if ( !isdefined( level.default_visionset ) )
-        level.default_visionset = level.script_context;
+        level.default_visionset = level.script;
 
     if ( !isdefined( level.default_lightset ) )
-        level.default_lightset = level.script_context;
+        level.default_lightset = level.script;
 
     if ( !isdefined( level.default_clut ) )
-        level.default_clut = level.script_context;
+        level.default_clut = level.script;
 
-    if ( isdefined( var_0.script_zone ) )
+    if ( isdefined( var_0.script_visionset ) )
     {
 
     }
 
-    if ( isdefined( var_0.script_goal_changed ) )
+    if ( isdefined( var_0.script_clut ) )
     {
 
     }
@@ -1458,15 +1458,15 @@ _id_97C7( var_0, var_1 )
     if ( isdefined( var_0._id_7B1F ) && isdefined( var_0._id_7B1E ) )
     {
         var_3 = 1;
-        var_5 = getent( var_0._not_team, "targetname" );
+        var_5 = getent( var_0.target, "targetname" );
 
         if ( !isdefined( var_5 ) )
-            var_5 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+            var_5 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
 
-        var_6 = getent( var_5._not_team, "targetname" );
+        var_6 = getent( var_5.target, "targetname" );
 
         if ( !isdefined( var_6 ) )
-            var_6 = common_scripts\utility::_id_40FB( var_5._not_team, "targetname" );
+            var_6 = common_scripts\utility::_id_40FB( var_5.target, "targetname" );
 
         var_5 = var_5.origin;
         var_6 = var_6.origin;
@@ -1478,15 +1478,15 @@ _id_97C7( var_0, var_1 )
     {
         var_0 waittill( "trigger", var_7 );
 
-        if ( var_7 != level.playercardbackground )
+        if ( var_7 != level.player )
             continue;
 
-        level.playercardbackground.current_visionset_trigger_id = var_0.visionset_trigger_id;
+        level.player.current_visionset_trigger_id = var_0.visionset_trigger_id;
         var_8 = -1;
 
         for (;;)
         {
-            if ( level.playercardbackground istouching( var_0 ) )
+            if ( level.player istouching( var_0 ) )
             {
                 if ( !var_2 )
                 {
@@ -1496,28 +1496,28 @@ _id_97C7( var_0, var_1 )
                     {
                         var_9 = 0;
 
-                        while ( level.playercardbackground istouching( var_0 ) )
+                        while ( level.player istouching( var_0 ) )
                         {
-                            var_9 = maps\_utility::_id_3E3D( var_5, var_6, level.playercardbackground.origin, var_4 );
+                            var_9 = maps\_utility::_id_3E3D( var_5, var_6, level.player.origin, var_4 );
                             var_9 = clamp( var_9, 0, 1 );
 
                             if ( var_9 != var_8 )
                             {
                                 var_8 = var_9;
-                                level.playercardbackground _id_9E6F( var_0, var_9 );
+                                level.player _id_9E6F( var_0, var_9 );
                             }
 
                             wait 0.05;
                         }
                     }
-                    else if ( isdefined( var_0.script_zone ) )
-                        level.playercardbackground maps\_utility::_id_9E6E( var_0.script_zone, var_0.script_lightset );
+                    else if ( isdefined( var_0.script_visionset ) )
+                        level.player maps\_utility::_id_9E6E( var_0.script_visionset, var_0.script_delay );
 
-                    if ( isdefined( var_0.script_noteworthy ) )
-                        level.playercardbackground maps\_utility::set_light_set_player( var_0.script_noteworthy );
+                    if ( isdefined( var_0.script_lightset ) )
+                        level.player maps\_utility::set_light_set_player( var_0.script_lightset );
 
-                    if ( isdefined( var_0.script_goal_changed ) )
-                        level.playercardbackground _meth_848c( var_0.script_goal_changed, var_0.script_lightset );
+                    if ( isdefined( var_0.script_clut ) )
+                        level.player _meth_848c( var_0.script_clut, var_0.script_delay );
                 }
             }
             else
@@ -1531,18 +1531,18 @@ _id_97C7( var_0, var_1 )
                         if ( var_3 && can_reset_vision_type( var_0, "visionset" ) )
                         {
                             if ( var_8 < 0.5 )
-                                level.playercardbackground maps\_utility::_id_9E6E( var_0._id_7B1F, var_0.script_lightset );
+                                level.player maps\_utility::_id_9E6E( var_0._id_7B1F, var_0.script_delay );
                             else
-                                level.playercardbackground maps\_utility::_id_9E6E( var_0._id_7B1E, var_0.script_lightset );
+                                level.player maps\_utility::_id_9E6E( var_0._id_7B1E, var_0.script_delay );
                         }
-                        else if ( isdefined( var_0.script_zone ) && can_reset_vision_type( var_0, "visionset" ) )
-                            level.playercardbackground maps\_utility::_id_9E6E( level.default_visionset, var_0.script_lightset );
+                        else if ( isdefined( var_0.script_visionset ) && can_reset_vision_type( var_0, "visionset" ) )
+                            level.player maps\_utility::_id_9E6E( level.default_visionset, var_0.script_delay );
 
-                        if ( isdefined( var_0.script_noteworthy ) && can_reset_vision_type( var_0, "lightset" ) )
-                            level.playercardbackground maps\_utility::set_light_set_player( level.default_lightset );
+                        if ( isdefined( var_0.script_lightset ) && can_reset_vision_type( var_0, "lightset" ) )
+                            level.player maps\_utility::set_light_set_player( level.default_lightset );
 
-                        if ( isdefined( var_0.script_goal_changed ) && can_reset_vision_type( var_0, "clut" ) )
-                            level.playercardbackground _meth_848c( level.default_clut, var_0.script_lightset );
+                        if ( isdefined( var_0.script_clut ) && can_reset_vision_type( var_0, "clut" ) )
+                            level.player _meth_848c( level.default_clut, var_0.script_delay );
                     }
                 }
 
@@ -1587,7 +1587,7 @@ get_visionset_trigger( var_0 )
 
 can_reset_vision_type( var_0, var_1 )
 {
-    var_2 = get_visionset_trigger( level.playercardbackground.current_visionset_trigger_id );
+    var_2 = get_visionset_trigger( level.player.current_visionset_trigger_id );
 
     if ( !isdefined( var_2 ) )
         return 1;
@@ -1596,19 +1596,19 @@ can_reset_vision_type( var_0, var_1 )
         return 1;
 
     if ( var_1 == "visionset" )
-        return !isdefined( var_2.script_zone );
+        return !isdefined( var_2.script_visionset );
     else if ( var_1 == "lightset" )
-        return !isdefined( var_2.script_noteworthy );
+        return !isdefined( var_2.script_lightset );
     else if ( var_1 == "clut" )
-        return !isdefined( var_2.script_goal_changed );
+        return !isdefined( var_2.script_clut );
 
     return 0;
 }
 
 _id_4D75()
 {
-    if ( !isdefined( self.script_lightset ) )
-        self.script_lightset = 2;
+    if ( !isdefined( self.script_delay ) )
+        self.script_delay = 2;
 
     var_0 = maps\_utility::_id_3EBF( self._id_7B1F );
     var_1 = maps\_utility::_id_3EBF( self._id_7B1E );
@@ -1749,7 +1749,7 @@ _id_9E6F( var_0, var_1 )
     else
         self._id_9E72._id_9E6B = var_0._id_7B1E;
 
-    self._id_9E72.titleunlocked = 0;
+    self._id_9E72.time = 0;
 
     if ( var_0._id_7B1F == var_0._id_7B1E )
         return;
@@ -1821,13 +1821,13 @@ _id_9799( var_0 )
         return;
     }
 
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_2 = var_1.origin;
     var_3 = undefined;
 
-    if ( isdefined( var_1._not_team ) )
+    if ( isdefined( var_1.target ) )
     {
-        var_4 = getent( var_1._not_team, "targetname" );
+        var_4 = getent( var_1.target, "targetname" );
         var_3 = var_4.origin;
     }
     else
@@ -1840,9 +1840,9 @@ _id_9799( var_0 )
         var_0 waittill( "trigger", var_6 );
         var_7 = undefined;
 
-        while ( level.playercardbackground istouching( var_0 ) )
+        while ( level.player istouching( var_0 ) )
         {
-            var_7 = maps\_utility::_id_3E3D( var_2, var_3, level.playercardbackground.origin, var_5 );
+            var_7 = maps\_utility::_id_3E3D( var_2, var_3, level.player.origin, var_5 );
 
             if ( var_7 < 0 )
                 var_7 = 0;
@@ -1932,13 +1932,13 @@ trigger_fog_preh1( var_0 )
         }
     }
 
-    var_5 = getent( var_0._not_team, "targetname" );
+    var_5 = getent( var_0.target, "targetname" );
     var_6 = var_5.origin;
     var_7 = undefined;
 
-    if ( isdefined( var_5._not_team ) )
+    if ( isdefined( var_5.target ) )
     {
-        var_8 = getent( var_5._not_team, "targetname" );
+        var_8 = getent( var_5.target, "targetname" );
         var_7 = var_8.origin;
     }
     else
@@ -1981,7 +1981,7 @@ _id_97BF( var_0 )
         var_5 = var_0._id_79A4;
         var_6 = var_0._id_79A3;
         var_7 = var_0._id_79A2;
-        var_8 = var_0.script_lightset;
+        var_8 = var_0.script_delay;
 
         if ( var_2 != level._id_2C3D["base"]["goal"]["nearStart"] || var_3 != level._id_2C3D["base"]["goal"]["nearEnd"] || var_4 != level._id_2C3D["base"]["goal"]["nearBlur"] || var_5 != level._id_2C3D["base"]["goal"]["farStart"] || var_6 != level._id_2C3D["base"]["goal"]["farEnd"] || var_7 != level._id_2C3D["base"]["goal"]["farBlur"] )
         {
@@ -1996,7 +1996,7 @@ _id_97BF( var_0 )
 
 _id_97C6( var_0 )
 {
-    if ( level.xuid || level.pushable )
+    if ( level.xenon || level.ps3 )
         return;
 
     waitframe;
@@ -2006,7 +2006,7 @@ _id_97C6( var_0 )
         var_0 waittill( "trigger", var_1 );
         var_2 = var_0._id_7AF0;
         var_3 = var_0._id_7AF1;
-        var_4 = var_0.script_lightset;
+        var_4 = var_0.script_delay;
 
         if ( var_2 != level._id_929A._id_256C || var_3 != level._id_929A._id_256E )
         {
@@ -2084,10 +2084,10 @@ _id_97C2( var_0 )
 
     var_1 delete();
 
-    if ( !isdefined( var_0._not_team ) )
+    if ( !isdefined( var_0.target ) )
         return;
 
-    var_5 = getentarray( var_0._not_team, "targetname" );
+    var_5 = getentarray( var_0.target, "targetname" );
     var_0._id_3B76 = 1;
 
     foreach ( var_7 in var_5 )
@@ -2234,7 +2234,7 @@ _id_980F( var_0 )
         else
             var_1 maps\_utility::_id_32DD( "in_wake_volume" );
 
-        if ( distancesquared( var_1.origin, level.playercardbackground.origin ) < 9250000 )
+        if ( distancesquared( var_1.origin, level.player.origin ) < 9250000 )
         {
             if ( var_1 maps\_utility::_id_32D8( "in_wake_volume" ) )
                 continue;
@@ -2266,7 +2266,7 @@ _id_9F40( var_0 )
                 var_3 = self getvelocity();
 
             if ( isai( self ) )
-                var_3 = self.visionsetnakedduration;
+                var_3 = self.velocity;
 
             var_1 = distance( var_3, ( 0.0, 0.0, 0.0 ) );
 
@@ -2325,7 +2325,7 @@ _id_978B( var_0 )
         else
             var_1 maps\_utility::_id_32DD( "in_fallingwater_volume" );
 
-        if ( distancesquared( var_1.origin, level.playercardbackground.origin ) < 6250000 )
+        if ( distancesquared( var_1.origin, level.player.origin ) < 6250000 )
         {
             if ( var_1 maps\_utility::_id_32D8( "in_fallingwater_volume" ) )
                 continue;
@@ -2438,7 +2438,7 @@ _id_89A8( var_0, var_1, var_2 )
 
     var_3 = common_scripts\utility::_id_3FA8( var_0 );
     level._id_301F = common_scripts\utility::_id_8959();
-    level._id_301F linktoplayerview( level.playercardbackground, "tag_origin", var_1, var_2, 1 );
+    level._id_301F linktoplayerview( level.player, "tag_origin", var_1, var_2, 1 );
     level._id_301E = playfxontag( var_3, level._id_301F, "tag_origin" );
 }
 

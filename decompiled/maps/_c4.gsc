@@ -177,13 +177,13 @@ handle_clear_c4( var_0 )
     if ( !isdefined( self ) )
         return;
 
-    if ( isdefined( self.trigger.isradarblocked ) && self.trigger.isradarblocked )
+    if ( isdefined( self.trigger.inuse ) && self.trigger.inuse )
         self.trigger release_use_trigger();
 
     if ( isdefined( self ) )
         self delete();
 
-    level.playercardbackground thread remove_detonator();
+    level.player thread remove_detonator();
 }
 
 remove_detonator()
@@ -247,13 +247,13 @@ get_use_trigger()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isdefined( var_0[var_1].isradarblocked ) && var_0[var_1].isradarblocked )
+        if ( isdefined( var_0[var_1].inuse ) && var_0[var_1].inuse )
             continue;
 
-        if ( !isdefined( var_0[var_1].isradarblocked ) )
+        if ( !isdefined( var_0[var_1].inuse ) )
             var_0[var_1] enablelinkto();
 
-        var_0[var_1].isradarblocked = 1;
+        var_0[var_1].inuse = 1;
         var_0[var_1]._id_63DC = var_0[var_1].origin;
         return var_0[var_1];
     }
@@ -266,5 +266,5 @@ release_use_trigger()
 
     self.islinked = undefined;
     self.origin = self._id_63DC;
-    self.isradarblocked = 0;
+    self.inuse = 0;
 }

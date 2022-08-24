@@ -63,10 +63,10 @@ main()
 
 oil_spill_think()
 {
-    self._id_311C = _id_40FB( self._not_team, "targetname" );
-    self._id_8B20 = _id_40FB( self._id_311C._not_team, "targetname" );
+    self._id_311C = _id_40FB( self.target, "targetname" );
+    self._id_8B20 = _id_40FB( self._id_311C.target, "targetname" );
     self._id_12E4 = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
-    self.extra = getent( self._not_team, "targetname" );
+    self.extra = getent( self.target, "targetname" );
     self setcandamage( 1 );
 
     if ( isdefined( self._id_12E4 ) )
@@ -337,8 +337,8 @@ explodable_barrel_explode()
     var_8 = 250;
     var_9 = 250;
 
-    if ( isdefined( self.rank ) )
-        var_9 = self.rank;
+    if ( isdefined( self.radius ) )
+        var_9 = self.radius;
 
     if ( !isdefined( self._id_25A9 ) )
         self entityradiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_9, var_8, var_7, undefined, "MOD_EXPLOSIVE", "barrel_mp" );
@@ -385,9 +385,9 @@ _id_40FB( var_0, var_1 )
 
 breakable_clip()
 {
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
 
         if ( var_0.classname == "script_brushmodel" )
         {

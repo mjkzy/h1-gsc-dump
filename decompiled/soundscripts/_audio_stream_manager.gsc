@@ -45,7 +45,7 @@ _id_8656( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_4 ) )
         var_7 = max( var_4, 0 );
 
-    _id_8699( level._id_055B._id_8F2F._id_0B16._id_6F33, level._id_055B._id_8F2F._id_0B16._id_24CA.nearz, level._id_055B._id_8F2F._id_0B16._id_24CA._id_9F37, level._id_055B._id_8F2F._id_0B16._id_24CA._id_35D9 );
+    _id_8699( level._id_055B._id_8F2F._id_0B16._id_6F33, level._id_055B._id_8F2F._id_0B16._id_24CA.name, level._id_055B._id_8F2F._id_0B16._id_24CA._id_9F37, level._id_055B._id_8F2F._id_0B16._id_24CA._id_35D9 );
     _id_8699( level._id_055B._id_8F2F._id_0B16._id_24CA, var_0, var_7, var_6 );
     ambientplay( var_0, var_6, var_7 );
 }
@@ -70,7 +70,7 @@ _id_8655( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_3 ) )
         var_8 = max( var_3, 0 );
 
-    _id_8699( level._id_055B._id_8F2F._id_5FFB._id_6F33, level._id_055B._id_8F2F._id_5FFB._id_24CA.nearz, level._id_055B._id_8F2F._id_5FFB._id_24CA._id_9F37, level._id_055B._id_8F2F._id_5FFB._id_24CA._id_35D9 );
+    _id_8699( level._id_055B._id_8F2F._id_5FFB._id_6F33, level._id_055B._id_8F2F._id_5FFB._id_24CA.name, level._id_055B._id_8F2F._id_5FFB._id_24CA._id_9F37, level._id_055B._id_8F2F._id_5FFB._id_24CA._id_35D9 );
     _id_8699( level._id_055B._id_8F2F._id_5FFB._id_24CA, var_0, var_8, var_6 );
 
     if ( isdefined( var_4 ) )
@@ -94,12 +94,12 @@ _id_8658( var_0, var_1 )
         if ( isdefined( var_1 ) )
             var_3 = max( var_1, 0 );
 
-        if ( level._id_055B._id_8F2F._id_0B16._id_24CA.nearz == var_0 )
+        if ( level._id_055B._id_8F2F._id_0B16._id_24CA.name == var_0 )
         {
             level._id_055B._id_8F2F._id_0B16._id_24CA = level._id_055B._id_8F2F._id_0B16._id_6F33;
             _id_8697( level._id_055B._id_8F2F._id_0B16._id_6F33 );
         }
-        else if ( level._id_055B._id_8F2F._id_0B16._id_6F33.nearz == var_0 )
+        else if ( level._id_055B._id_8F2F._id_0B16._id_6F33.name == var_0 )
             _id_8697( level._id_055B._id_8F2F._id_0B16._id_6F33 );
 
         ambientstop( var_3, var_0 );
@@ -116,12 +116,12 @@ _id_865A( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_3 = max( var_1, 0 );
 
-    if ( level._id_055B._id_8F2F._id_5FFB._id_24CA.nearz == var_0 )
+    if ( level._id_055B._id_8F2F._id_5FFB._id_24CA.name == var_0 )
     {
         level._id_055B._id_8F2F._id_5FFB._id_24CA = level._id_055B._id_8F2F._id_5FFB._id_6F33;
         _id_8697( level._id_055B._id_8F2F._id_5FFB._id_6F33 );
     }
-    else if ( level._id_055B._id_8F2F._id_0B16._id_6F33.nearz == var_0 )
+    else if ( level._id_055B._id_8F2F._id_0B16._id_6F33.name == var_0 )
         _id_8697( level._id_055B._id_8F2F._id_5FFB._id_6F33 );
 
     musicstop( var_3, var_0 );
@@ -185,17 +185,17 @@ _id_8654( var_0 )
 
 _id_8651()
 {
-    return level._id_055B._id_8F2F._id_0B16._id_24CA.nearz;
+    return level._id_055B._id_8F2F._id_0B16._id_24CA.name;
 }
 
 _id_8652()
 {
-    return level._id_055B._id_8F2F._id_5FFB._id_24CA.nearz;
+    return level._id_055B._id_8F2F._id_5FFB._id_24CA.name;
 }
 
 _id_8699( var_0, var_1, var_2, var_3 )
 {
-    var_0.nearz = var_1;
+    var_0.name = var_1;
     var_0._id_9F37 = var_2;
     var_0._id_35D9 = var_3;
 }
@@ -203,7 +203,7 @@ _id_8699( var_0, var_1, var_2, var_3 )
 _id_8698()
 {
     var_0 = spawnstruct();
-    var_0.nearz = "";
+    var_0.name = "";
     var_0._id_9F37 = 0.0;
     var_0._id_35D9 = 0.0;
     return var_0;
@@ -211,7 +211,7 @@ _id_8698()
 
 _id_8697( var_0 )
 {
-    var_0.nearz = "";
+    var_0.name = "";
     var_0._id_9F37 = 0.0;
     var_0._id_35D9 = 0.0;
 }

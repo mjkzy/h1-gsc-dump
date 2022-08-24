@@ -48,8 +48,8 @@ _id_9999()
 
     self._id_0E48 = 30000;
 
-    if ( isdefined( self.rank ) )
-        self._id_0E48 = self.rank;
+    if ( isdefined( self.radius ) )
+        self._id_0E48 = self.radius;
 
     while ( !isdefined( level._id_1FFE ) )
         wait 0.05;

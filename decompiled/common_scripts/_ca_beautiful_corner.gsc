@@ -55,18 +55,18 @@ _id_1E5F()
 
 beautiful_player()
 {
-    level.playercardbackground takeallweapons();
-    level.playercardbackground disableoffhandweapons();
+    level.player takeallweapons();
+    level.player disableoffhandweapons();
 
     if ( isdefined( level.beautiful_weapon ) )
     {
-        level.playercardbackground giveweapon( level.beautiful_weapon );
-        level.playercardbackground switchtoweapon( level.beautiful_weapon );
+        level.player giveweapon( level.beautiful_weapon );
+        level.player switchtoweapon( level.beautiful_weapon );
     }
 
-    level.playercardbackground thread beautiful_player_ammo();
+    level.player thread beautiful_player_ammo();
     level._id_3AA7 = 1;
-    level.playercardbackground enableinvulnerability();
+    level.player enableinvulnerability();
 }
 
 beautiful_player_ammo()
@@ -108,10 +108,10 @@ beautiful_guys()
         if ( isdefined( level.beautiful_weapon ) )
             var_3 maps\_utility::_id_39D0( level.beautiful_weapon, "primary" );
 
-        if ( isdefined( var_2.script_parentname ) )
+        if ( isdefined( var_2.script_noteworthy ) )
         {
             var_3._id_0C72 = "beautiful_guy";
-            var_3 thread maps\_anim::_id_0BE1( var_3, var_2.script_parentname, undefined, "stop_idle" );
+            var_3 thread maps\_anim::_id_0BE1( var_3, var_2.script_noteworthy, undefined, "stop_idle" );
         }
     }
 }
@@ -142,17 +142,17 @@ beautiful_offset_view_origin( var_0, var_1 )
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( !isdefined( var_0.script_parentname ) )
+    if ( !isdefined( var_0.script_noteworthy ) )
         return;
 
-    if ( var_0.script_parentname != "view_pos" )
+    if ( var_0.script_noteworthy != "view_pos" )
         return;
 
     var_2 = spawnstruct();
     var_2.entity = var_0;
     var_2.forward = var_1[0];
-    var_2.riotshield_damaged = var_1[1];
-    var_2.upgradepurchased = var_1[2];
+    var_2.right = var_1[1];
+    var_2.up = var_1[2];
     var_2 maps\_utility::_id_9723();
 }
 
@@ -164,10 +164,10 @@ beautiful_view_init()
     common_scripts\utility::_id_383D( "beautiful_view_transitioning" );
     common_scripts\utility::_id_3831( "beautiful_view_transitioning" );
     level._id_148A = maps\_hud_util::_id_23A2( "black", 1 );
-    level._id_148A.space = 1000;
-    level.playercardbackground takeweapon( "beretta" );
-    level.playercardbackground takeweapon( "fraggrenade" );
-    level.playercardbackground takeweapon( "flash_grenade" );
+    level._id_148A.sort = 1000;
+    level.player takeweapon( "beretta" );
+    level.player takeweapon( "fraggrenade" );
+    level.player takeweapon( "flash_grenade" );
     beautiful_view_position( level.beautiful_views[level.beautiful_view_index] );
     wait 0.05;
     setsaveddvar( "compass", "0" );
@@ -175,8 +175,8 @@ beautiful_view_init()
     setsaveddvar( "hud_showStance", "0" );
     setsaveddvar( "actionSlotsHide", "1" );
     wait 0.5;
-    level.playercardbackground disableweapons();
-    level.playercardbackground freezecontrols( 1 );
+    level.player disableweapons();
+    level.player freezecontrols( 1 );
     wait 1.0;
     beautiful_view_fade_in();
 }
@@ -185,7 +185,7 @@ beautiful_view_move_request()
 {
     for (;;)
     {
-        while ( !( level.playercardbackground buttonpressed( "DPAD_UP" ) || level.playercardbackground buttonpressed( "HOME" ) ) )
+        while ( !( level.player buttonpressed( "DPAD_UP" ) || level.player buttonpressed( "HOME" ) ) )
             wait 0.05;
 
         if ( !common_scripts\utility::_id_382E( "beautiful_view_transitioning" ) )
@@ -218,7 +218,7 @@ beautiful_view_state_request()
 {
     for (;;)
     {
-        while ( !( level.playercardbackground buttonpressed( "DPAD_DOWN" ) || level.playercardbackground buttonpressed( "END" ) ) )
+        while ( !( level.player buttonpressed( "DPAD_DOWN" ) || level.player buttonpressed( "END" ) ) )
             wait 0.05;
 
         if ( !common_scripts\utility::_id_382E( "beautiful_view_transitioning" ) )
@@ -249,25 +249,25 @@ beautiful_view_fade_in()
     level._id_148A.alpha = 0;
 
     if ( !level.beautiful_view_static )
-        level.playercardbackground enableweapons();
+        level.player enableweapons();
 
     wait 0.3;
 
     if ( !level.beautiful_view_static )
-        level.playercardbackground freezecontrols( 0 );
+        level.player freezecontrols( 0 );
 
-    level.playercardbackground hidehud();
+    level.player hidehud();
 }
 
 beautiful_view_fade_out()
 {
-    level.playercardbackground showhud();
-    level.playercardbackground setstance( "stand" );
+    level.player showhud();
+    level.player setstance( "stand" );
     level._id_148A fadeovertime( 0.3 );
     level._id_148A.alpha = 1;
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     wait 0.3;
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     wait 0.1;
 }
 
@@ -277,21 +277,21 @@ beautiful_view_position( var_0 )
         maps\_utility::_id_9E6E( level.beautiful_visions[var_0], 0 );
 
     if ( level.beautiful_lightsets[var_0] != "" )
-        level.playercardbackground _meth_83be( level.beautiful_lightsets[var_0] );
+        level.player _meth_83be( level.beautiful_lightsets[var_0] );
 
     if ( level.beautiful_cluts[var_0] != "" )
-        level.playercardbackground _meth_848c( level.beautiful_cluts[var_0], 0 );
+        level.player _meth_848c( level.beautiful_cluts[var_0], 0 );
 
     if ( level.beautiful_view_static && isdefined( level.beautiful_dof[var_0] ) )
     {
         var_1 = level.beautiful_dof[var_0];
-        level.playercardbackground _meth_84a5();
-        level.playercardbackground _meth_84a7( var_1["fstop"], var_1["focus_distance"], var_1["focus_speed"], var_1["aperture_speed"] );
+        level.player _meth_84a5();
+        level.player _meth_84a7( var_1["fstop"], var_1["focus_distance"], var_1["focus_speed"], var_1["aperture_speed"] );
     }
     else
-        level.playercardbackground _meth_84a6();
+        level.player _meth_84a6();
 
-    level.playercardbackground setstance( "stand" );
+    level.player setstance( "stand" );
 
     if ( level.beautiful_view_static )
         beautiful_view_position_static( var_0 + "_static" );
@@ -301,19 +301,19 @@ beautiful_view_position( var_0 )
 
 beautiful_view_position_dynamic( var_0 )
 {
-    level.playercardbackground unlink();
+    level.player unlink();
     var_1 = getent( var_0, "targetname" );
 
     if ( !isdefined( var_1 ) )
         return;
 
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
 }
 
 beautiful_view_position_static( var_0 )
 {
-    level.playercardbackground unlink();
+    level.player unlink();
     var_1 = getent( var_0, "targetname" );
 
     if ( !isdefined( var_1 ) )
@@ -324,7 +324,7 @@ beautiful_view_position_static( var_0 )
 
     level.beautiful_view_ent.origin = var_1.origin;
     level.beautiful_view_ent.angles = var_1.angles;
-    level.playercardbackground setorigin( level.beautiful_view_ent.origin );
-    level.playercardbackground setplayerangles( level.beautiful_view_ent.angles );
-    level.playercardbackground playerlinktoabsolute( level.beautiful_view_ent, "tag_origin" );
+    level.player setorigin( level.beautiful_view_ent.origin );
+    level.player setplayerangles( level.beautiful_view_ent.angles );
+    level.player playerlinktoabsolute( level.beautiful_view_ent, "tag_origin" );
 }

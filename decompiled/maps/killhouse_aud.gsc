@@ -240,7 +240,7 @@ aud_jet_start_node_handler( var_0 )
 
 aud_vehicle_driveby_manager()
 {
-    if ( self.visionsetnaked == "bm21_troops" )
+    if ( self.vehicletype == "bm21_troops" )
     {
         soundscripts\_audio_mix_manager::_id_5CF2( "bm21_engine_mute" );
         thread maps\_utility::_id_69C4( "scn_bm21_break" );
@@ -255,7 +255,7 @@ aud_vehicle_driveby_manager()
 
 aud_vehicle_driveby_reset()
 {
-    if ( self.visionsetnaked == "bm21_troops" )
+    if ( self.vehicletype == "bm21_troops" )
     {
         soundscripts\_audio_mix_manager::_id_5CF6( "bm21_engine_mute" );
         thread maps\_utility::_id_69C4( "scn_bm21_start" );
@@ -264,7 +264,7 @@ aud_vehicle_driveby_reset()
 
 aud_bm21_tire_sounds()
 {
-    if ( self.visionsetnaked == "bm21_troops" )
+    if ( self.vehicletype == "bm21_troops" )
     {
         var_0 = aud_entity_link_on_tag( "scn_truck_passby_close_tire_left", self, "tag_wheel_back_left" );
         var_1 = aud_entity_link_on_tag( "scn_truck_passby_close_tire_right", self, "tag_wheel_back_right" );

@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 100;
-    self.groundentchanged = "fraggrenade";
+    self.health = 100;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "usp_silencer";
     self._id_855D = "usp_silencer";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "g36c";
+    self.weapon = "g36c";
     character\character_sp_sas_woodland_gaz::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_sas_woodland_gaz::prestigedoublexp();
+    character\character_sp_sas_woodland_gaz::precache();
     precacheitem( "g36c" );
     precacheitem( "usp_silencer" );
     precacheitem( "usp_silencer" );

@@ -35,8 +35,8 @@ dead_script()
 position_player()
 {
     var_0 = getent( "player_start_cobraflight", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
 }
 
 main()
@@ -124,7 +124,7 @@ main()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isdefined( var_0[var_1].script_parentname ) && getsubstr( var_0[var_1].script_parentname, 0, 10 ) == "colornodes" )
+        if ( isdefined( var_0[var_1].script_noteworthy ) && getsubstr( var_0[var_1].script_noteworthy, 0, 10 ) == "colornodes" )
             level.acolornodetriggers = common_scripts\utility::_id_0CDA( level.acolornodetriggers, var_0[var_1] );
     }
 
@@ -232,7 +232,7 @@ main()
     createthreatbiasgroup( "ambient_axis" );
     createthreatbiasgroup( "ambient_allies" );
     createthreatbiasgroup( "oblivious" );
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     setignoremegroup( "allies", "oblivious" );
     setignoremegroup( "axis", "oblivious" );
     setignoremegroup( "player", "oblivious" );
@@ -360,10 +360,10 @@ start_nuke()
     common_scripts\utility::_id_383F( "obj_rescue_pilot_complete" );
     common_scripts\utility::_id_383F( "obj_return_pilot_complete" );
     common_scripts\utility::_id_383F( "player_cobra_retreat_03" );
-    level.playercardbackground.deathinvulnerabletime = 10000;
+    level.player.deathinvulnerabletime = 10000;
     level.eplayerview = maps\_utility::_id_88D1( "player_carry" );
     level.eplayerview hide();
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     var_0 = getent( "seaknight_land_cobrastreets", "script_noteworthy" );
     var_0 waittill( "trigger", var_1 );
     level.seaknight maps\_utility::_id_9CB3();
@@ -451,23 +451,23 @@ h1_airlift_rumblesystem_cobracrash()
 
 h1_airlift_introdepthoffield()
 {
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 3.0, 1500, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 3.0, 1500, 9.0, 9.0 );
     thread h1_airlift_reloadm19();
     wait 110.0;
-    level.playercardbackground _meth_84a7( 2.4, 800, 0.1, 0.1 );
+    level.player _meth_84a7( 2.4, 800, 0.1, 0.1 );
     wait 15.0;
     common_scripts\utility::_id_384A( "start_tank_crush" );
     wait 0.7;
-    level.playercardbackground _meth_84a7( 1.4, 300, 1.0, 1.0 );
+    level.player _meth_84a7( 1.4, 300, 1.0, 1.0 );
     thread vfx_tank_water_splashes();
     wait 10.5;
-    level.playercardbackground _meth_84a7( 2.4, 2000, 0.25, 0.25 );
+    level.player _meth_84a7( 2.4, 2000, 0.25, 0.25 );
     wait 8.5;
     wait 12.0;
-    level.playercardbackground _meth_84a7( 3.0, 3000, 0.1, 0.1 );
+    level.player _meth_84a7( 3.0, 3000, 0.1, 0.1 );
     wait 10.0;
-    level.playercardbackground _meth_84a7( 3.0, 1500, 0.1, 0.1 );
+    level.player _meth_84a7( 3.0, 1500, 0.1, 0.1 );
 }
 
 h1_airlift_reloadm19()
@@ -476,7 +476,7 @@ h1_airlift_reloadm19()
 
     while ( common_scripts\utility::_id_382E( "reload_turret_start" ) != 1 )
     {
-        var_1 = level.playercardbackground getplayerangles();
+        var_1 = level.player getplayerangles();
         var_2 = var_1[0];
 
         if ( var_2 <= -180 )
@@ -486,47 +486,47 @@ h1_airlift_reloadm19()
             var_2 -= 360;
 
         if ( var_2 >= 18 )
-            level.playercardbackground _meth_84a7( 6.0, 26, 5.0, 4.0 );
+            level.player _meth_84a7( 6.0, 26, 5.0, 4.0 );
         else if ( var_2 <= 12 )
-            level.playercardbackground _meth_84a7( 3.0, 1500, 6.0, 5.0 );
+            level.player _meth_84a7( 3.0, 1500, 6.0, 5.0 );
 
         wait(var_0);
     }
 
-    level.playercardbackground thread maps\_utility::_id_69C4( "weap_mark19_reload" );
+    level.player thread maps\_utility::_id_69C4( "weap_mark19_reload" );
     wait 0.5;
     setsaveddvar( "r_mbEnable", 2 );
-    level.playercardbackground _meth_84a7( 4.0, 21, 8.0, 8.0 );
+    level.player _meth_84a7( 4.0, 21, 8.0, 8.0 );
     wait 0.4;
-    level.playercardbackground _meth_84a7( 3.4, 30, 2.3, 2.3 );
+    level.player _meth_84a7( 3.4, 30, 2.3, 2.3 );
     wait 0.65;
-    level.playercardbackground _meth_84a7( 3.4, 28, 1.5, 1.5 );
+    level.player _meth_84a7( 3.4, 28, 1.5, 1.5 );
     wait 1.65;
-    level.playercardbackground _meth_84a7( 4.0, 19, 2.3, 2.3 );
+    level.player _meth_84a7( 4.0, 19, 2.3, 2.3 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 3.4, 25, 2.5, 2.5 );
+    level.player _meth_84a7( 3.4, 25, 2.5, 2.5 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 4.5, 13, 2.5, 2.5 );
+    level.player _meth_84a7( 4.5, 13, 2.5, 2.5 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 6.0, 37, 2.7, 2.7 );
+    level.player _meth_84a7( 6.0, 37, 2.7, 2.7 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 12.0, 18, 2.5, 2.5 );
+    level.player _meth_84a7( 12.0, 18, 2.5, 2.5 );
     wait 0.85;
     setsaveddvar( "r_mbEnable", 0 );
-    level.playercardbackground _meth_84a7( 3.0, 1500, 6.0, 3.0 );
+    level.player _meth_84a7( 3.0, 1500, 6.0, 3.0 );
     wait 1.0;
 }
 
 h1_airlift_smoketowndepthoffield()
 {
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 3.0, 1500, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 3.0, 1500, 9.0, 9.0 );
     common_scripts\utility::_id_384A( "seaknightLandingInSmoketown" );
-    level.playercardbackground _meth_84a7( 3.0, 250, 0.1, 0.1 );
+    level.player _meth_84a7( 3.0, 250, 0.1, 0.1 );
     common_scripts\utility::_id_384A( "seaknight_landed_smoketown" );
-    level.playercardbackground _meth_84a7( 6.0, 500, 0.5, 0.5 );
+    level.player _meth_84a7( 6.0, 500, 0.5, 0.5 );
     wait 2.0;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 h1_airlift_rumblelogic( var_0, var_1 )
@@ -574,10 +574,10 @@ h1_airlift_rumblelogic( var_0, var_1 )
 
     if ( var_2 > 0 )
     {
-        earthquake( var_2, var_3, level.playercardbackground.origin, 10000 );
+        earthquake( var_2, var_3, level.player.origin, 10000 );
 
         if ( var_1 )
-            level.playercardbackground playrumbleonentity( var_4 );
+            level.player playrumbleonentity( var_4 );
     }
 }
 
@@ -855,7 +855,7 @@ plaza_flyover()
     common_scripts\utility::_id_383F( "start_tank_crush" );
     wait 10;
     var_5 = getent( "colornodes_plaza", "script_noteworthy" );
-    var_5 notify( "trigger", level.playercardbackground );
+    var_5 notify( "trigger", level.player );
     maps\jake_tools::_id_9810( "trig_spawn_hostiles_palace_assault" );
     level.seaknight thread maps\_utility::_id_69C4( "scn_seaknight_liftoff_plaza" );
     wait 2;
@@ -974,7 +974,7 @@ plaza_at4_sequence()
     var_1 attach( "weapon_AT4", "TAG_STOWED_BACK" );
     var_2 = getnode( "node_at4_guy", "targetname" );
     var_1 maps\jake_tools::_id_7ED8( "ignored" );
-    var_1.ignoretriggers = 1;
+    var_1.ignoreme = 1;
     var_1.grenadeawareness = 0;
     setignoremegroup( "ignored", "axis" );
     setignoremegroup( "axis", "ignored" );
@@ -1027,7 +1027,7 @@ double_rooftop_tank_destructible()
     self setcandamage( 1 );
     self waittill( "damage", var_0, var_1 );
     self setmodel( "h1_me_rooftop_tank_destroyed" );
-    var_2 = getent( self._not_team, "targetname" );
+    var_2 = getent( self.target, "targetname" );
     var_2 setmodel( "h1_me_rooftop_tank_destroyed" );
     var_3 = ( self.origin + var_2.origin ) / 2;
     playfx( level._effect["dual_propane_tank_explosion_airlift"], var_3 );
@@ -1194,7 +1194,7 @@ smoketown_ambient_friendlies_think()
 {
     self endon( "death" );
     maps\jake_tools::_id_7ED8( "ambient_allies" );
-    level.friendliesnames_smoketown_ambient = common_scripts\utility::_id_0CDA( level.friendliesnames_smoketown_ambient, self.nearz );
+    level.friendliesnames_smoketown_ambient = common_scripts\utility::_id_0CDA( level.friendliesnames_smoketown_ambient, self.name );
     thread smoketown_ambient_think();
 }
 
@@ -1290,8 +1290,8 @@ smoketown_land()
     {
         var_3 _meth_8565( 1 );
 
-        if ( var_3.nearz != "Lt. Vasquez" )
-            level.friendliesnames_ch46 = common_scripts\utility::_id_0CDA( level.friendliesnames_ch46, var_3.nearz );
+        if ( var_3.name != "Lt. Vasquez" )
+            level.friendliesnames_ch46 = common_scripts\utility::_id_0CDA( level.friendliesnames_ch46, var_3.name );
     }
 
     thread maps\_utility::_id_1143( "smoketown_start" );
@@ -1335,8 +1335,8 @@ smoketown_land()
     level.smokefriendlies = maps\_utility::_id_0D08( getentarray( "smoke_friendlies", "targetname" ), 1 );
     level.smokeleader = maps\jake_tools::_id_3F71( level.smokefriendlies, "smokeleader" );
     var_10 = "Cpt. ";
-    var_11 = strtok( level.smokeleader.nearz, " " );
-    level.smokeleader.nearz = var_10 + var_11[1];
+    var_11 = strtok( level.smokeleader.name, " " );
+    level.smokeleader.name = var_10 + var_11[1];
     level.smokeat4dude = maps\jake_tools::_id_3F71( level.smokefriendlies, "smoketown_at4_dude" );
     var_12 = maps\jake_tools::_id_3F71( level.smokefriendlies, "stair_friendly" );
     var_12 thread stair_friendly_think();
@@ -1347,10 +1347,10 @@ smoketown_land()
 
         foreach ( var_14 in level.friendliesnames_smoketown_ambient )
         {
-            if ( level.smokefriendlies[var_6].script_parentname == "smokeleader" )
+            if ( level.smokefriendlies[var_6].script_noteworthy == "smokeleader" )
                 var_6++;
 
-            level.smokefriendlies[var_6].nearz = var_14;
+            level.smokefriendlies[var_6].name = var_14;
             var_6++;
         }
     }
@@ -1359,7 +1359,7 @@ smoketown_land()
     level.smokefriendlies = common_scripts\utility::_id_0CF6( level.smokefriendlies, level.smokeat4dude );
 
     foreach ( var_3 in level.smokefriendlies )
-        level.friendliesnames_smoketown = common_scripts\utility::_id_0CDA( level.friendliesnames_smoketown, var_3.nearz );
+        level.friendliesnames_smoketown = common_scripts\utility::_id_0CDA( level.friendliesnames_smoketown, var_3.name );
 
     var_18 = getent( "smoketown_at4_hostile", "script_noteworthy" );
     var_19 = maps\jake_tools::spawndude( var_18, "stalingrad" );
@@ -1369,7 +1369,7 @@ smoketown_land()
     setignoremegroup( "ignored", "axis" );
     setignoremegroup( "axis", "ignored" );
     var_9 = getnode( "node_construction_rpg", "targetname" );
-    level.smokeat4dude.ignoretriggers = 1;
+    level.smokeat4dude.ignoreme = 1;
     level.smokeat4dude.grenadeawareness = 0;
     var_9 maps\_anim::_id_0BFF( level.smokeat4dude, "AT4_fire_short_start" );
     level.smokeat4dude attach( "weapon_AT4", "TAG_INHAND" );
@@ -1438,10 +1438,10 @@ junkyard_assault()
     maps\jake_tools::_id_981B( "colornodes_smoketown_end_initial", "script_noteworthy", 1 );
     maps\jake_tools::_id_981B( "colornodes_smoketown_end", "script_noteworthy", 1 );
     var_0 = getent( "colornodes_smoketown_end_initial", "script_noteworthy" );
-    var_0 notify( "trigger", level.playercardbackground );
+    var_0 notify( "trigger", level.player );
     common_scripts\utility::_id_384A( "player_smoketown_junkyard_hardpoint" );
     var_1 = getent( "killspawner_smoketown_house", "targetname" );
-    var_1 notify( "trigger", level.playercardbackground );
+    var_1 notify( "trigger", level.player );
     var_2 = getaiarray( "axis" );
     var_3 = getent( "volume_construction_yard_rear", "targetname" );
     var_4 = getent( "volume_construction_house_top_floor", "targetname" );
@@ -1490,7 +1490,7 @@ smoketown_lz_advance()
     disable_color_trigs();
     maps\jake_tools::_id_981B( "colornodes_smoketown_lz_initial", "script_noteworthy", 1 );
     var_0 = getent( "colornodes_smoketown_lz_initial", "script_noteworthy" );
-    var_0 notify( "trigger", level.playercardbackground );
+    var_0 notify( "trigger", level.player );
     maps\jake_tools::_id_981B( "colornodes_smoketown_lz", "script_noteworthy", 1 );
     common_scripts\utility::_id_384A( "player_smoketown_lz_alley" );
     maps\_utility::_id_27EF( 0, maps\_vehicle::_id_23DE, 42 );
@@ -1590,8 +1590,8 @@ smoketown_heli_destroy_failsafe()
     if ( !isdefined( level.smoketownmi17._id_235D ) )
         self notify( "death" );
 
-    var_1 = level.playercardbackground geteye();
-    var_2 = common_scripts\utility::_id_A347( var_1, level.playercardbackground getplayerangles(), var_0, level._id_2235["25"] );
+    var_1 = level.player geteye();
+    var_2 = common_scripts\utility::_id_A347( var_1, level.player getplayerangles(), var_0, level._id_2235["25"] );
 
     if ( var_2 )
         level.playerhasseenmi17crash = 1;
@@ -1643,7 +1643,7 @@ smoketown_at4_impact( var_0, var_1 )
     wait 1.1;
     var_0 maps\jake_tools::_id_4FA8( 0 );
     var_0._id_85BA = 1;
-    var_0 dodamage( var_0.helmet + 1000, var_0.origin );
+    var_0 dodamage( var_0.health + 1000, var_0.origin );
     missile_deleteattractor( var_1 );
     var_2 = getent( "smoketown_physics_explosion", "targetname" );
     thread common_scripts\utility::_id_69C2( "building_explosion3", var_2.origin );
@@ -1667,8 +1667,8 @@ aa_cobraflight_init()
 
 h1_depthoffield_cobraflight()
 {
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 3.0, 1500, 1.0, 1.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 3.0, 1500, 1.0, 1.0 );
     common_scripts\utility::_id_384A( "cobra_hit" );
     wait 0.15;
     var_0 = 0.5;
@@ -1677,27 +1677,27 @@ h1_depthoffield_cobraflight()
     for ( var_2 = ( 0.0, 0.0, 0.0 ); var_1 <= 48.5; var_1 += var_0 )
     {
         if ( var_1 > 17.0 && var_1 < 20.0 || var_1 > 27.0 && var_1 < 33.0 )
-            level.playercardbackground _meth_84a7( 3.0, 1000, 0.5, 0.5 );
+            level.player _meth_84a7( 3.0, 1000, 0.5, 0.5 );
         else
         {
             if ( isdefined( level._id_A33F.origin ) )
                 var_2 = level._id_A33F.origin;
 
-            var_3 = maps\_utility::_id_7612( distance( level.playercardbackground.origin, var_2 ), 0 );
-            level.playercardbackground _meth_84a7( 3.0, var_3, 1.0, 1.0 );
+            var_3 = maps\_utility::_id_7612( distance( level.player.origin, var_2 ), 0 );
+            level.player _meth_84a7( 3.0, var_3, 1.0, 1.0 );
         }
 
         wait(var_0);
     }
 
-    level.playercardbackground _meth_84a7( 3.0, 1000, 0.25, 0.25 );
+    level.player _meth_84a7( 3.0, 1000, 0.25, 0.25 );
     wait 4.0;
-    level.playercardbackground _meth_84a7( 3.0, 250, 0.1, 0.1 );
+    level.player _meth_84a7( 3.0, 250, 0.1, 0.1 );
     level.seaknight waittill( "landed" );
     wait 2.0;
-    level.playercardbackground _meth_84a7( 6.0, 500, 1.0, 1.0 );
+    level.player _meth_84a7( 6.0, 500, 1.0, 1.0 );
     wait 1.75;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 music_cobraflight()
@@ -1766,7 +1766,7 @@ cobra_flyover()
     level._id_A33F = maps\_vehicle::_id_8978( "wingmanCobraflight" );
     thread maps\_vehicle::_id_427A( level._id_A33F );
     var_0 = getent( "seaknight_land_smoketown2", "script_noteworthy" );
-    var_1 = var_0.sprint_begin;
+    var_1 = var_0.speed;
     var_2 = var_0._id_798B;
     var_3 = var_0._id_7929;
     level.seaknight vehicle_setspeed( var_1, var_3, var_2 );
@@ -1887,7 +1887,7 @@ cobra_crash_fx()
     var_4 = getent( "cobra_crash_end", "targetname" );
     common_scripts\utility::_id_384A( "cobra_hit" );
     playfxontag( common_scripts\utility::_id_3FA8( "cobra_crash_rocket_impact" ), self, "tail_rotor_jnt" );
-    earthquake( 0.5, 1.2, level.playercardbackground.origin, 8000 );
+    earthquake( 0.5, 1.2, level.player.origin, 8000 );
     setblur( 3.5, 0.1 );
     wait 0.1;
     setblur( 0.0, 1.0 );
@@ -1897,18 +1897,18 @@ cobra_crash_fx()
     thread maps\_mortar::bog_style_mortar_off( 2 );
     common_scripts\utility::_id_384A( "cobraCrash01" );
     thread maps\_utility::_id_69C4( "scn_airlift_cobra_exp2" );
-    earthquake( 0.4, 1, level.playercardbackground.origin, 8000 );
+    earthquake( 0.4, 1, level.player.origin, 8000 );
     exploder_trigger( 600, var_0.origin );
     playfxontag( common_scripts\utility::_id_3FA8( "cobra_hitting_first_roof" ), self, "tag_deathfx" );
     playfxontag( common_scripts\utility::_id_3FA8( "helicopter_rotor_damaged_fire_airlift" ), self, "tag_deathfx" );
     wait 6.8;
     thread maps\_utility::_id_69C4( "scn_airlift_cobra_exp3" );
-    earthquake( 0.3, 2, level.playercardbackground.origin, 8000 );
+    earthquake( 0.3, 2, level.player.origin, 8000 );
     exploder_trigger( 700, var_2.origin );
     wait 1.6;
     self notify( "stop soundmi17_helicopter_dying_loop" );
     self notify( "stop soundairlift_heli_alarm_loop" );
-    earthquake( 0.3, 3.5, level.playercardbackground.origin, 1000 );
+    earthquake( 0.3, 3.5, level.player.origin, 1000 );
     exploder_trigger( 800, var_4.origin );
     common_scripts\utility::_id_383F( "cobra_on_deck" );
     self notify( "crash_end" );
@@ -1989,7 +1989,7 @@ aa_cobrastreets_init()
 cobrastreets_kill()
 {
     level endon( "obj_rescue_pilot_complete" );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_0 = getent( "trig_cobrastreets_kill", "targetname" );
     var_0 thread cobrastreets_instakill();
     var_1 = getent( "cobrastreets_kill", "targetname" );
@@ -1999,11 +1999,11 @@ cobrastreets_kill()
     {
         wait 0.05;
 
-        if ( level.playercardbackground istouching( var_1 ) )
+        if ( level.player istouching( var_1 ) )
         {
             var_3 = randomintrange( 90, 127 );
-            level.playercardbackground viewkick( var_3, level.playercardbackground.origin );
-            level.playercardbackground dodamage( var_2, level.playercardbackground.origin );
+            level.player viewkick( var_3, level.player.origin );
+            level.player dodamage( var_2, level.player.origin );
             wait(randomfloatrange( 0.5, 1.7 ));
             var_2 += 30;
         }
@@ -2013,9 +2013,9 @@ cobrastreets_kill()
 cobrastreets_instakill()
 {
     level endon( "obj_rescue_pilot_complete" );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     self waittill( "trigger" );
-    level.playercardbackground dodamage( level.playercardbackground.helmet + 1000, level.playercardbackground.origin );
+    level.player dodamage( level.player.health + 1000, level.player.origin );
 }
 
 cobrastreets_crewchief_think()
@@ -2027,7 +2027,7 @@ cobrastreets_crewchief_think()
     level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_idle", "tag_detach", "stop_idle_crewchief", level.seaknight );
     common_scripts\utility::_id_384A( "player_cobra_retreat_03" );
 
-    while ( distancesquared( level.playercardbackground.origin, level.crewchief.origin ) > level.crewchiefrangesquared )
+    while ( distancesquared( level.player.origin, level.crewchief.origin ) > level.crewchiefrangesquared )
     {
         level.crewchief notify( "stop_idle_crewchief" );
         level.crewchief thread maps\_anim::_id_0BE1( level.crewchief, "crewchief_gun_shoot", "tag_detach", "stop_idle_crewchief", level.seaknight );
@@ -2177,12 +2177,12 @@ cobra_streetfight()
 
         foreach ( var_3 in level.afriendliesseaknight )
         {
-            if ( var_3.nearz != "Lt. Vasquez" )
+            if ( var_3.name != "Lt. Vasquez" )
             {
                 var_4 = level.friendliesnames_ch46[var_1];
 
                 if ( isdefined( var_4 ) )
-                    var_3.nearz = var_4;
+                    var_3.name = var_4;
 
                 var_1++;
             }
@@ -2209,7 +2209,7 @@ cobra_streetfight()
     level.deadpilot maps\_utility::_id_4462();
     level.deadpilot setcontents( 0 );
     level.deadpilot.allowdeath = 0;
-    level.deadpilot.ignoretriggers = 1;
+    level.deadpilot.ignoreme = 1;
     level.deadpilot.grenadeawareness = 0;
     var_8 = getent( "node_gunner_crash", "targetname" );
     var_8 thread maps\_anim::_id_0BE1( level.deadpilot, "deadpilot_idle", undefined, "stop_idle_deadpilot" );
@@ -2224,7 +2224,7 @@ cobra_streetfight()
             var_4 = level.friendliesnames_smoketown[var_1];
 
             if ( isdefined( var_4 ) )
-                var_3.nearz = var_4;
+                var_3.name = var_4;
 
             var_1++;
         }
@@ -2258,7 +2258,7 @@ cobra_streetfight()
     common_scripts\utility::_id_3831( "aa_cobra_rescue_section" );
     common_scripts\utility::_id_383F( "aa_cobra_escape_section" );
     maps\_utility::_id_27EF( 4, maps\_hud_util::_id_8AF5, 1 );
-    level.playercardbackground.deathinvulnerabletime = 10000;
+    level.player.deathinvulnerabletime = 10000;
     var_0 = getentarray( "trigger_cobra_retreat", "script_noteworthy" );
     common_scripts\utility::_id_0D13( var_0, common_scripts\utility::_id_97CE );
     maps\jake_tools::_id_981B( "colornodes_cobrastreets_start", "script_noteworthy", 0 );
@@ -2335,31 +2335,31 @@ cobra_streetfight()
     missile_deleteattractor( var_14 );
     maps\airlift_lighting::apply_lighting_pass_airlift( "airlift_cobra" );
     wait 4.4;
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
 }
 
 h1_grabbingpilot_dofsystem()
 {
-    level.playercardbackground thread maps\_utility::_id_69C4( "airlift_pickup_pilot_backpack" );
-    level.playercardbackground _meth_84a7( 2.0, 42, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 2.0, 42, 4.0, 4.0 );
+    level.player thread maps\_utility::_id_69C4( "airlift_pickup_pilot_backpack" );
+    level.player _meth_84a7( 2.0, 42, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 2.0, 42, 4.0, 4.0 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 2.5, 21.0, 1.6, 1.6 );
+    level.player _meth_84a7( 2.5, 21.0, 1.6, 1.6 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 3.0, 9.75, 1.7, 1.7 );
+    level.player _meth_84a7( 3.0, 9.75, 1.7, 1.7 );
     setsaveddvar( "r_mbEnable", 2 );
     wait 0.5;
     wait 0.15;
-    level.playercardbackground _meth_84a7( 2.0, 2325, 1.2, 1.2 );
+    level.player _meth_84a7( 2.0, 2325, 1.2, 1.2 );
     wait 3.0;
     var_0 = 0.1;
     var_1 = 0.0;
 
     while ( var_1 >= 0 )
     {
-        var_2 = maps\_utility::_id_7612( distance( level.playercardbackground.origin, level.seaknight.origin ), 0 );
-        level.playercardbackground _meth_84a7( 2.0, var_2, 1.0, 1.0 );
+        var_2 = maps\_utility::_id_7612( distance( level.player.origin, level.seaknight.origin ), 0 );
+        level.player _meth_84a7( 2.0, var_2, 1.0, 1.0 );
         wait(var_0);
         var_1 += var_0;
 
@@ -2368,18 +2368,18 @@ h1_grabbingpilot_dofsystem()
     }
 
     wait 1.0;
-    level.playercardbackground _meth_84a7( 2.5, 19, 1.7, 1.7 );
+    level.player _meth_84a7( 2.5, 19, 1.7, 1.7 );
     wait 1.15;
-    level.playercardbackground _meth_84a7( 3.5, 13.5, 2.5, 2.5 );
+    level.player _meth_84a7( 3.5, 13.5, 2.5, 2.5 );
     wait 0.65;
     setsaveddvar( "r_mbEnable", 0 );
-    level.playercardbackground _meth_84a7( 3.5, 11, 3.0, 3.0 );
+    level.player _meth_84a7( 3.5, 11, 3.0, 3.0 );
     wait 0.5;
     common_scripts\utility::_id_383F( "pilot_name_reappear" );
-    level.playercardbackground _meth_84a7( 3.5, 65, 1.0, 1.0 );
+    level.player _meth_84a7( 3.5, 65, 1.0, 1.0 );
     wait 1.5;
     setsaveddvar( "r_mbEnable", 2 );
-    level.playercardbackground _meth_84a7( 3.5, 120, 2.5, 2.5 );
+    level.player _meth_84a7( 3.5, 120, 2.5, 2.5 );
     wait 0.7;
     wait 1.0;
     setsaveddvar( "r_mbEnable", 0 );
@@ -2390,46 +2390,46 @@ h1_grabbingpilot_dofsystem()
     for ( var_4 = ( 0.0, 0.0, 0.0 ); var_1 <= 23.0; var_1 += var_0 )
     {
         var_3 = anglestoforward( level.seaknight.angles );
-        var_4 = level.playercardbackground getplayerangles();
+        var_4 = level.player getplayerangles();
         var_4 = anglestoforward( var_4 );
         var_5 = atan2( var_4[1], var_4[0] ) - atan2( var_3[1], var_3[0] );
         var_5 = angleclamp180( var_5 );
 
         if ( var_5 > -140 && var_5 < -120 )
-            level.playercardbackground _meth_84a7( 2.5, 53, 2.5, 2.5 );
+            level.player _meth_84a7( 2.5, 53, 2.5, 2.5 );
         else if ( var_5 < -145 || var_5 > 0 )
-            level.playercardbackground _meth_84a7( 2.5, 1500, 2.0, 2.0 );
+            level.player _meth_84a7( 2.5, 1500, 2.0, 2.0 );
 
         wait(var_0);
     }
 
-    level.playercardbackground _meth_84a7( 2.5, 1500, 1.0, 1.0 );
+    level.player _meth_84a7( 2.5, 1500, 1.0, 1.0 );
     wait 1.0;
-    level.playercardbackground lerpviewangleclamp( 0.5, 0, 0, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( 0.5, 0, 0, 0, 0, 0, 0 );
     common_scripts\utility::_id_384A( "nuke_explodes" );
     setsaveddvar( "r_mbEnable", 2 );
-    level.playercardbackground _meth_84a7( 2.5, 1500, 1.0, 1.0 );
+    level.player _meth_84a7( 2.5, 1500, 1.0, 1.0 );
     wait 6.5;
 
     if ( isdefined( level.crewchief ) )
         level.crewchief common_scripts\utility::_id_4853( "none" );
 
-    level.playercardbackground _meth_84a7( 3.0, 200, 2.0, 2.0 );
+    level.player _meth_84a7( 3.0, 200, 2.0, 2.0 );
     wait 1.65;
-    level.playercardbackground _meth_84a7( 3.5, 150, 2.0, 2.0 );
+    level.player _meth_84a7( 3.5, 150, 2.0, 2.0 );
     wait 1.35;
-    level.playercardbackground _meth_84a7( 4.0, 30, 4.0, 4.0 );
+    level.player _meth_84a7( 4.0, 30, 4.0, 4.0 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 4.0, 35, 0.8, 0.8 );
+    level.player _meth_84a7( 4.0, 35, 0.8, 0.8 );
     wait 2.5;
-    level.playercardbackground _meth_84a7( 3.5, 250, 4.0, 4.0 );
+    level.player _meth_84a7( 3.5, 250, 4.0, 4.0 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 3.5, 15, 4.0, 4.0 );
+    level.player _meth_84a7( 3.5, 15, 4.0, 4.0 );
     wait 0.65;
-    level.playercardbackground _meth_84a7( 3.0, 1000, 2.0, 2.0 );
+    level.player _meth_84a7( 3.0, 1000, 2.0, 2.0 );
     wait 1.0;
     wait 7.5;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -2571,19 +2571,19 @@ trigger_monitor_player_lean()
 
     for (;;)
     {
-        self.usepathsmoothingvalues = !level.playercardbackground isleaning();
+        self.useable = !level.player isleaning();
         waittillframeend;
     }
 }
 
 cobrapilot_think()
 {
-    self.usepathsmoothingvalues = 1;
+    self.useable = 1;
     thread cobrapilot_shoots_enemies();
     thread cobrapilot_change_facial_anim( "wounded_cockpit_shoot_facial", 1 );
     level.crashnode thread maps\_anim::_id_0BE1( self, "wounded_cockpit_shoot", undefined, "stop_idle_pilot" );
     common_scripts\utility::_id_384A( "player_near_crash_site" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self.grenadeawareness = 0;
     self setthreatbiasgroup( "oblivious" );
     thread cobrapilot_wave();
@@ -2601,7 +2601,7 @@ cobrapilot_think()
         self waittill( "trigger" );
         waittillframeend;
 
-        if ( !level.playercardbackground isleaning() )
+        if ( !level.player isleaning() )
         {
             self notify( "stop_monitor_lean" );
             break;
@@ -2609,22 +2609,22 @@ cobrapilot_think()
     }
 
     level.cobrapilot thread maps\_utility::_id_69C4( "scn_airlift_pilot_pullout" );
-    level.playercardbackground enableinvulnerability();
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowcrouch( 0 );
-    level.cobrapilot.usepathsmoothingvalues = 0;
-    level.playercardbackground disableweapons();
-    level.playercardbackground setmovespeedscale( 0.85 );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowsprint( 0 );
-    level.playercardbackground allowjump( 0 );
-    level.playercardbackground allowlean( 0 );
+    level.player enableinvulnerability();
+    level.player allowprone( 0 );
+    level.player allowcrouch( 0 );
+    level.cobrapilot.useable = 0;
+    level.player disableweapons();
+    level.player setmovespeedscale( 0.85 );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player allowsprint( 0 );
+    level.player allowjump( 0 );
+    level.player allowlean( 0 );
     level.eplayerview = maps\_utility::_id_88D1( "player_carry" );
     level.eplayerview hide();
     level.crashnode maps\_anim::_id_0BC7( level.eplayerview, "wounded_pullout" );
     level.eplayerview maps\_utility::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
-    level.playercardbackground playerlinktodelta( level.eplayerview, "tag_player", 1, 0, 0, 0, 0 );
+    level.player playerlinktodelta( level.eplayerview, "tag_player", 1, 0, 0, 0, 0 );
     common_scripts\utility::_id_383F( "pilot_taken_from_cockpit" );
     level.eplayerview show();
     level.oldnearclip = getdvar( "r_znear" );
@@ -2633,7 +2633,7 @@ cobrapilot_think()
     cobrapilot_change_facial_anim( "wounded_pullout_facial", 0 );
     level.crashnode thread maps\_anim::_id_0C24( level.cobrapilot, "wounded_pullout" );
     level.crashnode maps\_anim::_id_0C24( level.eplayerview, "wounded_pullout" );
-    level.playercardbackground disableinvulnerability();
+    level.player disableinvulnerability();
     level.seaknight thread maps\_vehicle_code::_id_5748( "back3" );
     level.seaknight thread maps\_vehicle_code::_id_5746( "back back2" );
     level aa_nuke_init();
@@ -2656,7 +2656,7 @@ cobrapilot_shoots_enemies()
         self waittillmatch( "looping anim", "end" );
         wait 0.8;
         var_1 = maps\jake_tools::spawndude( var_0, 1 );
-        var_1.ignoretriggers = 1;
+        var_1.ignoreme = 1;
         var_1 setthreatbiasgroup( "oblivious" );
         var_1 waittill( "goal" );
         self waittillmatch( "looping anim", "fire" );
@@ -2664,7 +2664,7 @@ cobrapilot_shoots_enemies()
         if ( !isdefined( var_1 ) )
             continue;
 
-        magicbullet( level.cobrapilot.weapon_switch_invalid, level.cobrapilot gettagorigin( "tag_flash" ), var_1 gettagorigin( "TAG_EYE" ) );
+        magicbullet( level.cobrapilot.weapon, level.cobrapilot gettagorigin( "tag_flash" ), var_1 gettagorigin( "TAG_EYE" ) );
         magicbullet( level.cobrapilot._id_855D, level.cobrapilot.origin, var_1 gettagorigin( "TAG_EYE" ) );
         playfxontag( common_scripts\utility::_id_3FA8( "headshot" ), var_1, "tag_eye" );
         var_1 kill();
@@ -2677,7 +2677,7 @@ cobrapilot_shoots_enemies_cleanup( var_0 )
 
     if ( isdefined( var_0 ) )
     {
-        var_0.ignoretriggers = 0;
+        var_0.ignoreme = 0;
         var_0 setthreatbiasgroup( "axis" );
     }
 }
@@ -2714,7 +2714,7 @@ dialogue_nuke()
     maps\_utility::_id_70C4( "airlift_mhp_inforchop" );
     wait 0.5;
     maps\_utility::_id_70C4( "airlift_hqr_confirmed" );
-    level.playercardbackground playsound( "airlift_nuke_radio_comm_shutoff" );
+    level.player playsound( "airlift_nuke_radio_comm_shutoff" );
     common_scripts\utility::_id_384A( "shockwave_about_to_hit_player" );
     level thread maps\_utility::_id_70BD( "airlift_vsq_hangon" );
 }
@@ -2734,7 +2734,7 @@ nuke_flight()
     }
 
     level.cobrapilot = maps\_utility::_id_88D1( "frnd" );
-    level.playercardbackground unlink();
+    level.player unlink();
     level.carryignoreentityfunction = ::carryignoreentity;
     maps\_move_with_animation::carrystart( level.cobrapilot, ::carryloopcondition );
     var_0 = getent( "trig_pilot_putdown", "targetname" );
@@ -2754,7 +2754,7 @@ nuke_flight()
     level.seaknight maps\_anim::_id_0C36( var_5, "wounded_putdown", "tag_detach" );
     var_6 = maps\jake_tools::spawndude( var_4, "stalingrad" );
     var_6 setcontents( 0 );
-    var_6.ignoretriggers = 1;
+    var_6.ignoreme = 1;
     var_6.grenadeawareness = 0;
     var_6 setthreatbiasgroup( "oblivious" );
     level.seaknight maps\_anim::_id_0BC7( var_6, "wounded_putdown", "tag_detach" );
@@ -2764,14 +2764,14 @@ nuke_flight()
     soundscripts\_snd::_id_870C( "set_ambient_helicopter" );
     common_scripts\utility::_id_383F( "player_putting_down_pilot" );
     thread cobrapilot_grunt();
-    level.playercardbackground enableinvulnerability();
+    level.player enableinvulnerability();
     level notify( "delete_pilots" );
     var_1 maps\_utility::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
     maps\_move_with_animation::carrystop();
     level.eplayerview delete();
     level.eplayerview = var_1;
     level.eplayerview show();
-    level.playercardbackground playerlinktodelta( level.eplayerview, "tag_player", 1, 0, 0, 0, 0 );
+    level.player playerlinktodelta( level.eplayerview, "tag_player", 1, 0, 0, 0, 0 );
     level.cobrapilot delete();
     level.cobrapilot = var_6;
     level.cobrapilot show();
@@ -2789,9 +2789,9 @@ nuke_flight()
 
     maps\_art::_id_8FCD( "nuke", 0 );
     level.eplayerview hide();
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
     level.eplayerview linkto( level.seaknight );
-    level.playercardbackground playerlinktodelta( level.eplayerview, "tag_player", 1, 20, 45, 5, 25 );
+    level.player playerlinktodelta( level.eplayerview, "tag_player", 1, 20, 45, 5, 25 );
     thread pelayo_in_seaknight_shooting();
     wait 1;
 
@@ -2855,8 +2855,8 @@ _id_6265()
     common_scripts\utility::_id_383F( "nuke_explodes" );
     soundscripts\_snd::_id_870C( "start_nuke_mix" );
     wait 0.5;
-    level.playercardbackground disableweapons();
-    level.playercardbackground playlocalsound( "airlift_nuke" );
+    level.player disableweapons();
+    level.player playlocalsound( "airlift_nuke" );
     common_scripts\_exploder::_id_3528( 666 );
     maps\airlift_lighting::apply_lighting_pass_airlift( "airlift_nuke_flash" );
     maps\_utility::_id_27EF( 0.25, maps\airlift_lighting::apply_lighting_pass_airlift, "airlift_nuke" );
@@ -2879,15 +2879,15 @@ _id_6265()
     wait 2;
     common_scripts\utility::_id_383F( "nuke_shockwave_hits" );
     soundscripts\_snd::_id_870C( "aud_add_nuke_heli_spin_mix" );
-    level.playercardbackground playrumblelooponentity( "tank_rumble" );
+    level.player playrumblelooponentity( "tank_rumble" );
     thread nuke_shockwave_blur();
     maps\airlift_lighting::apply_lighting_pass_airlift( "airlift_nuke_wavehit" );
     level.seaknight.yawspeed = 400;
     level.seaknight.yawaccel = 100;
     level.seaknight thread nuke_seaknight_spin();
     level.seaknight thread maps\_utility::_id_69C4( "ch46_helicopter_dying_loop" );
-    level.playercardbackground thread common_scripts\utility::_id_6975( "airlift_heli_alarm_loop" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "airlift_ch46_nuke_exp" );
+    level.player thread common_scripts\utility::_id_6975( "airlift_heli_alarm_loop" );
+    level.player thread maps\_utility::_id_69C4( "airlift_ch46_nuke_exp" );
     common_scripts\utility::_id_383F( "shockwave_hit_player" );
     playfxontag( common_scripts\utility::_id_3FA8( "airlift_nuke_dirt_helico" ), level.seaknight, "tag_origin" );
     wait 7;
@@ -2896,18 +2896,18 @@ _id_6265()
     level.seaknight setgoalpos( var_1.origin, 0 );
     wait 6.5;
     wait 1.5;
-    level.playercardbackground thread common_scripts\utility::_id_69C2( "airlift_ch46_nuke_crash" );
+    level.player thread common_scripts\utility::_id_69C2( "airlift_ch46_nuke_crash" );
     wait 0.5;
     level notify( "wibble_heli_check_stop" );
     soundscripts\_snd::_id_870C( "aud_add_nuke_blackscreen_mix" );
     var_2 = maps\jake_tools::_id_23D0( "black", 1 );
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     musicstop();
     ambientstop();
-    level.playercardbackground notify( "stop soundairlift_heli_alarm_loop" );
+    level.player notify( "stop soundairlift_heli_alarm_loop" );
     level.seaknight stopsounds();
-    level.playercardbackground stopsounds();
-    level.playercardbackground stoprumble( "tank_rumble" );
+    level.player stopsounds();
+    level.player stoprumble( "tank_rumble" );
     wait 0.1;
     level.seaknight delete();
     wait 4;
@@ -2920,15 +2920,15 @@ nuke_earthquake()
 
     while ( !common_scripts\utility::_id_382E( "shockwave_hit_player" ) )
     {
-        earthquake( 0.08, 0.05, level.playercardbackground.origin, 80000 );
+        earthquake( 0.08, 0.05, level.player.origin, 80000 );
         wait 0.05;
     }
 
-    earthquake( 0.5, 1, level.playercardbackground.origin, 80000 );
+    earthquake( 0.5, 1, level.player.origin, 80000 );
 
     for (;;)
     {
-        earthquake( 0.25, 0.05, level.playercardbackground.origin, 80000 );
+        earthquake( 0.25, 0.05, level.player.origin, 80000 );
         wait 0.05;
     }
 }
@@ -2944,7 +2944,7 @@ nuke_sunlight()
 
 nuke_shockwave_blur()
 {
-    earthquake( 0.3, 0.5, level.playercardbackground.origin, 80000 );
+    earthquake( 0.3, 0.5, level.player.origin, 80000 );
     setblur( 3, 0.1 );
     wait 1;
     setblur( 0, 0.5 );
@@ -2975,7 +2975,7 @@ nuke_choppers_think()
     self notify( "stop_default_behavior" );
 
     if ( getdvar( "debug_airlift" ) == "1" )
-        thread maps\jake_tools::_id_6FA6( self._id_9D45.teambalanced, undefined, 3.5, 100 );
+        thread maps\jake_tools::_id_6FA6( self._id_9D45.targetname, undefined, 3.5, 100 );
 
     self waittill( "crash" );
     var_0 = 0;
@@ -3155,16 +3155,16 @@ vehicle_delete_thread()
 {
     self endon( "death" );
 
-    if ( isdefined( self.script_parentname ) && getsubstr( self.script_parentname, 0, 10 ) == "deleteFlag" )
+    if ( isdefined( self.script_noteworthy ) && getsubstr( self.script_noteworthy, 0, 10 ) == "deleteFlag" )
     {
-        var_0 = getsubstr( self.script_parentname, 11 );
+        var_0 = getsubstr( self.script_noteworthy, 11 );
         common_scripts\utility::_id_384A( var_0 );
 
         for (;;)
         {
             wait 0.05;
-            var_1 = level.playercardbackground geteye();
-            var_2 = common_scripts\utility::_id_A347( var_1, level.playercardbackground getplayerangles(), self.origin, level._id_2235["25"] );
+            var_1 = level.player geteye();
+            var_2 = common_scripts\utility::_id_A347( var_1, level.player getplayerangles(), self.origin, level._id_2235["25"] );
 
             if ( !var_2 )
             {
@@ -3187,10 +3187,10 @@ vehicle_think()
     if ( maps\_vehicle::vehicle_spawner_has_targetname( var_0, "seaknightPlayer" ) )
         return;
 
-    if ( isdefined( var_0.visionsetnaked ) && var_0.visionsetnaked == "flare" )
+    if ( isdefined( var_0.vehicletype ) && var_0.vehicletype == "flare" )
         return;
 
-    if ( isdefined( var_0.visionsetnaked ) && var_0.visionsetnaked == "nuke" )
+    if ( isdefined( var_0.vehicletype ) && var_0.vehicletype == "nuke" )
         return;
 
     if ( self._id_7AEF == "axis" )
@@ -3208,11 +3208,11 @@ vehicle_think()
     var_0 thread vehicle_damage_think();
     var_0 thread vehicle_delete_thread();
 
-    if ( isdefined( var_0.script_parentname ) && var_0.script_parentname == "nuke_choppers" )
+    if ( isdefined( var_0.script_noteworthy ) && var_0.script_noteworthy == "nuke_choppers" )
         var_0 thread nuke_choppers_think();
     else
     {
-        switch ( var_0.visionsetnaked )
+        switch ( var_0.vehicletype )
         {
             case "zpu_antiair":
                 var_0 thread vehicle_zpu_think();
@@ -3298,8 +3298,8 @@ vehicle_cobra_think()
         self._id_6EF5 = undefined;
         var_3 = undefined;
 
-        if ( isdefined( self._id_251D ) && isdefined( self._id_251D._not_team ) )
-            var_3 = getent( self._id_251D._not_team, "targetname" );
+        if ( isdefined( self._id_251D ) && isdefined( self._id_251D.target ) )
+            var_3 = getent( self._id_251D.target, "targetname" );
 
         if ( isdefined( var_3 ) && isdefined( var_3._id_7A26 ) )
             self._id_6EF5 = getent( var_3._id_7A26, "script_linkname" );
@@ -3483,15 +3483,15 @@ vehicle_turret_think()
     {
         wait 0.05;
 
-        if ( distancesquared( level.playercardbackground.origin, self.origin ) > level.cannonrangesquared )
+        if ( distancesquared( level.player.origin, self.origin ) > level.cannonrangesquared )
             var_0 = undefined;
         else
-            var_0 = level.playercardbackground;
+            var_0 = level.player;
 
-        if ( isdefined( var_0 ) && var_0 == level.playercardbackground )
+        if ( isdefined( var_0 ) && var_0 == level.player )
         {
             var_1 = 0;
-            var_1 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0.0, 0.0, 150.0 ), 0, self );
+            var_1 = sighttracepassed( self.origin, level.player.origin + ( 0.0, 0.0, 150.0 ), 0, self );
 
             if ( !var_1 )
                 var_0 = undefined;
@@ -3515,9 +3515,9 @@ vehicle_turret_think()
             var_4 = randomfloatrange( 2, 3 );
             common_scripts\utility::_id_A0A0( "turret_rotate_stopped", var_4 );
 
-            if ( isdefined( var_0 ) && var_0 == level.playercardbackground )
+            if ( isdefined( var_0 ) && var_0 == level.player )
             {
-                var_5 = level.playercardbackground geteye();
+                var_5 = level.player geteye();
                 var_6 = 0;
 
                 if ( isdefined( level.seaknight ) )
@@ -3535,7 +3535,7 @@ vehicle_turret_think()
                     self notify( "stop_3dprint" );
             }
 
-            if ( isdefined( var_0 ) && var_0 != level.playercardbackground )
+            if ( isdefined( var_0 ) && var_0 != level.player )
             {
                 if ( !self.turretfiring )
                     thread vehicle_fire_main_cannon();
@@ -3553,7 +3553,7 @@ vehicle_get_target()
 {
     var_0 = undefined;
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "zpu_antiair":
             self.defaulttargets = common_scripts\utility::_id_0CF5( self.defaulttargets );
@@ -3574,7 +3574,7 @@ vehicle_fire_main_cannon()
     var_0 = undefined;
     var_1 = undefined;
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "zpu_antiair":
             var_0 = weaponfiretime( "bmp_turret" );
@@ -3617,7 +3617,7 @@ vehicle_damage_think()
     {
         self waittill( "damage", var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
         wait 0.05;
-        var_9 = vehicle_get_damage_type_and_attacker( var_6, var_2, var_3, self.visionsetnaked );
+        var_9 = vehicle_get_damage_type_and_attacker( var_6, var_2, var_3, self.vehicletype );
 
         if ( self._id_7AEF == "allies" )
         {
@@ -3625,7 +3625,7 @@ vehicle_damage_think()
                 thread maps\_friendlyfire::_id_5CDD();
         }
 
-        switch ( self.visionsetnaked )
+        switch ( self.vehicletype )
         {
             case "mi17":
                 if ( var_9 == "cobra_missile" )
@@ -3657,11 +3657,11 @@ vehicle_get_damage_type_and_attacker( var_0, var_1, var_2, var_3 )
     var_4 = undefined;
     var_5 = undefined;
 
-    if ( var_2 == level.playercardbackground )
+    if ( var_2 == level.player )
         var_4 = "player";
     else if ( isdefined( var_2.code_classname ) && var_2.code_classname == "script_vehicle" )
     {
-        switch ( var_2.visionsetnaked )
+        switch ( var_2.vehicletype )
         {
             case "cobra":
                 var_4 = "cobra";
@@ -3740,7 +3740,7 @@ vehicle_animated_seaknight_land( var_0, var_1, var_2 )
 
 seaknight_plaza_event( var_0 )
 {
-    if ( var_0.teambalanced == "seaknight_plaza_alt_landing" )
+    if ( var_0.targetname == "seaknight_plaza_alt_landing" )
         thread maps\airlift_aud::aud_seaknight_audio_event( "scn_airlift_left_plaza_seaknight", 1.0, 0, 0, 1.0, 0 );
     else
         thread maps\airlift_aud::aud_seaknight_audio_event( "scn_airlift_right_plaza_seaknight", 1.0, 0, 0, 1.0, 0 );
@@ -3778,7 +3778,7 @@ vehicle_seaknight_fake_load_think( var_0 )
     maps\_utility::_id_2A74();
     self _meth_81a7( 1 );
     self _meth_81a9( var_0 );
-    maps\jake_tools::_id_7F7F( var_0.rank );
+    maps\jake_tools::_id_7F7F( var_0.radius );
     self waittill( "goal" );
 
     if ( isdefined( self._id_58D7 ) )
@@ -3805,7 +3805,7 @@ vehicle_seaknight_idle_and_load_think( var_0 )
     var_2 = "ch46_load_" + var_0;
     self hide();
     maps\_utility::_id_08EB();
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self.grenadeawareness = 0;
     self setthreatbiasgroup( "oblivious" );
     level.seaknight waittill( "show_loaders" );
@@ -3815,7 +3815,7 @@ vehicle_seaknight_idle_and_load_think( var_0 )
         var_3 = level.friendliesnames_ch46[var_0];
 
         if ( isdefined( var_3 ) )
-            self.nearz = var_3;
+            self.name = var_3;
     }
 
     level.seaknight waittill( "load" );
@@ -3853,7 +3853,7 @@ seaknight_crewchief_think( var_0 )
     level.crewchief waittill( "player_returning_to_seaknight" );
     var_1 = 1;
 
-    while ( distancesquared( level.playercardbackground.origin, level.crewchief.origin ) > level.crewchiefrangesquared )
+    while ( distancesquared( level.player.origin, level.crewchief.origin ) > level.crewchiefrangesquared )
     {
         var_2 = undefined;
 
@@ -3967,7 +3967,7 @@ vehicle_canned_seaknight_fx( var_0, var_1 )
     self endon( "taking_off" );
     var_2 = undefined;
 
-    if ( var_1.teambalanced == "seaknight_plaza_alt_landing2" )
+    if ( var_1.targetname == "seaknight_plaza_alt_landing2" )
         var_2 = ( -240.0, 0.0, 0.0 );
     else
         var_2 = ( 0.0, 0.0, 0.0 );
@@ -3986,12 +3986,12 @@ aa_utility()
 
 _id_6AC6()
 {
-    level.playercardbackground waittill( "death" );
+    level.player waittill( "death" );
 
     if ( !level.onmark19 )
         return;
 
-    level.seaknight maps\_utility::_id_5699( level.playercardbackground, "tag_player", 0.05, 0.5, 90, 90, 90, 90 );
+    level.seaknight maps\_utility::_id_5699( level.player, "tag_player", 0.05, 0.5, 90, 90, 90, 90 );
 }
 
 rescue_timer( var_0 )
@@ -4002,7 +4002,7 @@ rescue_timer( var_0 )
     level._id_4AFE = 20;
     level._id_9373 = maps\_hud_util::_id_3D17( undefined, undefined, undefined, undefined, var_0 );
     level._id_9373 setpulsefx( 30, 900000, 700 );
-    level._id_9373._id_92B2.land = &"AIRLIFT_TIME_REMAINING";
+    level._id_9373._id_92B2.label = &"AIRLIFT_TIME_REMAINING";
     level._id_9373 settenthstimer( var_0 );
     thread timer_tick();
     wait(var_0);
@@ -4017,13 +4017,13 @@ timer_tick()
     for (;;)
     {
         wait 1;
-        level.playercardbackground thread maps\_utility::_id_69C4( "countdown_beep" );
+        level.player thread maps\_utility::_id_69C4( "countdown_beep" );
     }
 }
 
 mission_failed_out_of_time()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "kill_timer" );
     level notify( "mission failed" );
     soundscripts\_snd::_id_870C( "aud_add_failure_mix" );
@@ -4124,7 +4124,7 @@ player_mashing_buttons()
 
     while ( !common_scripts\utility::_id_382E( "obj_return_pilot_complete" ) )
     {
-        if ( level.playercardbackground attackbuttonpressed() || level.playercardbackground usebuttonpressed() || level.playercardbackground buttonpressed( "BUTTON_A" ) || level.playercardbackground buttonpressed( "BUTTON_B" ) || level.playercardbackground buttonpressed( "BUTTON_Y" ) )
+        if ( level.player attackbuttonpressed() || level.player usebuttonpressed() || level.player buttonpressed( "BUTTON_A" ) || level.player buttonpressed( "BUTTON_B" ) || level.player buttonpressed( "BUTTON_Y" ) )
             level notify( "player_mashing_buttons" );
 
         wait 0.05;
@@ -4202,8 +4202,8 @@ destructibles_think()
 
 badplace_volume_think()
 {
-    if ( self.script_parentname == "axis" || self.script_parentname == "allies" )
-        badplace_brush( self getentitynumber(), 0, self, self.script_parentname );
+    if ( self.script_noteworthy == "axis" || self.script_noteworthy == "allies" )
+        badplace_brush( self getentitynumber(), 0, self, self.script_noteworthy );
     else
     {
 
@@ -4216,7 +4216,7 @@ rpg_fake( var_0 )
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        var_3 = getent( var_1[var_2]._not_team, "targetname" );
+        var_3 = getent( var_1[var_2].target, "targetname" );
         magicbullet( "rpg", var_1[var_2].origin, var_3.origin );
         wait(randomfloatrange( 1, 2.5 ));
     }
@@ -4246,13 +4246,13 @@ waittill_trigger_seaknight_gun()
     thread seaknight_disable_lean_when_mounting();
     var_0 = getent( "trigger_seaknight_gun", "targetname" );
     var_0 waittill( "trigger" );
-    level.playercardbackground playsound( "scn_airlift_mounting_gun_plr_foley" );
+    level.player playsound( "scn_airlift_mounting_gun_plr_foley" );
 }
 
 initdifficulty()
 {
     level.invulnerabletimeseaknight = undefined;
-    level.invulnerabletimedefault = level.playercardbackground.deathinvulnerabletime;
+    level.invulnerabletimedefault = level.player.deathinvulnerabletime;
 
     switch ( level._id_3BFE )
     {
@@ -4275,16 +4275,16 @@ initdifficulty()
 
 player_invulnerable_time_tweak()
 {
-    level.playercardbackground.deathinvulnerabletime = level.invulnerabletimeseaknight;
+    level.player.deathinvulnerabletime = level.invulnerabletimeseaknight;
     level waittill( "player_off_turret" );
-    level.playercardbackground.deathinvulnerabletime = level.invulnerabletimedefault;
+    level.player.deathinvulnerabletime = level.invulnerabletimedefault;
 }
 
 spawn_trigger_dummy( var_0 )
 {
     var_1 = getent( var_0, "targetname" );
     var_2 = getent( var_1._id_7A26, "script_linkname" );
-    var_2 notify( "trigger", level.playercardbackground );
+    var_2 notify( "trigger", level.player );
 }
 
 deleteweapons()
@@ -4300,13 +4300,13 @@ ai_player_seek()
     if ( !isdefined( self ) )
         return;
 
-    var_0 = distance( self.origin, level.playercardbackground.origin );
+    var_0 = distance( self.origin, level.player.origin );
 
     for (;;)
     {
         wait 2;
         self.goalradius = var_0;
-        self _meth_81ab( level.playercardbackground );
+        self _meth_81ab( level.player );
         var_0 -= 175;
 
         if ( var_0 < 512 )
@@ -4320,7 +4320,7 @@ ai_player_seek()
 ai_fastrope_and_die()
 {
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
 
     while ( !isdefined( self._id_750E ) )
         wait 0.05;
@@ -4334,16 +4334,16 @@ ai_fastrope_and_die()
 ai_low_engage_dist_think()
 {
     self endon( "death" );
-    var_0 = self.pathlookaheaddist;
-    var_1 = self.pathrandompercent;
+    var_0 = self.pathenemyfightdist;
+    var_1 = self.pathenemylookahead;
     self.goalradius = 8;
-    self.pathlookaheaddist = 0;
-    self.pathrandompercent = 0;
-    self.index = 1;
+    self.pathenemyfightdist = 0;
+    self.pathenemylookahead = 0;
+    self.ignoresuppression = 1;
     self waittill( "goal" );
-    self.pathlookaheaddist = var_0;
-    self.pathrandompercent = var_1;
-    self.index = 0;
+    self.pathenemyfightdist = var_0;
+    self.pathenemylookahead = var_1;
+    self.ignoresuppression = 0;
 }
 
 _id_3F4C( var_0 )
@@ -4476,10 +4476,10 @@ seaknight_player_think( var_0 )
     {
         thread seaknight_player_dismount_gun();
         level waittill( "player_dismounted_from_gun" );
-        level.playercardbackground enableinvulnerability();
-        level.playercardbackground setorigin( var_2.origin );
-        level.playercardbackground setplayerangles( var_2.angles );
-        level.playercardbackground disableinvulnerability();
+        level.player enableinvulnerability();
+        level.player setorigin( var_2.origin );
+        level.player setplayerangles( var_2.angles );
+        level.player disableinvulnerability();
         level notify( "stop_seaknight_player_monitor" );
     }
 
@@ -4492,7 +4492,7 @@ seaknight_player_think( var_0 )
 exploder_trigs_mark19_think()
 {
     self endon( "exploder_detonated" );
-    var_0 = self.script_parentname;
+    var_0 = self.script_noteworthy;
     var_1 = 0;
     var_2 = undefined;
 
@@ -4634,7 +4634,7 @@ seaknight_fire_turret()
             self fireweapon();
             thread maps\airlift_anim::seaknight_turret_anim();
             thread maps\_anim::_id_0C24( level.playerview, "turret_fire_anim", "tag_barrel" );
-            earthquake( 0.25, 0.13, level.playercardbackground.origin, 200 );
+            earthquake( 0.25, 0.13, level.player.origin, 200 );
 
             if ( level.turretoverheat == 1 )
             {
@@ -4688,7 +4688,7 @@ overheat_overheated( var_0 )
 
     soundscripts\_snd::_id_870C( "aud_add_gun_overheat_mix" );
     level._id_781D = 0;
-    level.playercardbackground thread maps\_utility::_id_69C4( "weap_mark19_overheat" );
+    level.player thread maps\_utility::_id_69C4( "weap_mark19_overheat" );
     var_0 thread overheat_fx();
     level.overheat_flashing.alpha = 1;
     level.overheat_status.alpha = 0;
@@ -4869,14 +4869,14 @@ overheat_hud()
         level.overheat_bg = newhudelem();
         level.overheat_bg.alignx = "right";
         level.overheat_bg.aligny = "bottom";
-        level.overheat_bg.hostquits = "right";
-        level.overheat_bg.visionsetnight = "bottom";
-        level.overheat_bg.xpmaxmultipliertimeplayed = -29;
-        level.overheat_bg._id_0538 = -146;
+        level.overheat_bg.horzalign = "right";
+        level.overheat_bg.vertalign = "bottom";
+        level.overheat_bg.x = -29;
+        level.overheat_bg.y = -146;
         level.overheat_bg.alpha = 0.3;
         level.overheat_bg setshader( "h1_hud_temperature_border", 14, 114 );
-        level.overheat_bg.space = 5;
-        level.overheat_bg.hindlegstraceoffset = 1;
+        level.overheat_bg.sort = 5;
+        level.overheat_bg.hidewheninmenu = 1;
     }
 
     if ( !isdefined( level.overheat_bg_distort ) )
@@ -4884,14 +4884,14 @@ overheat_hud()
         level.overheat_bg_distort = newhudelem();
         level.overheat_bg_distort.alignx = "right";
         level.overheat_bg_distort.aligny = "bottom";
-        level.overheat_bg_distort.hostquits = "right";
-        level.overheat_bg_distort.visionsetnight = "bottom";
-        level.overheat_bg_distort.xpmaxmultipliertimeplayed = -29;
-        level.overheat_bg_distort._id_0538 = -146;
+        level.overheat_bg_distort.horzalign = "right";
+        level.overheat_bg_distort.vertalign = "bottom";
+        level.overheat_bg_distort.x = -29;
+        level.overheat_bg_distort.y = -146;
         level.overheat_bg_distort.alpha = 0.9;
         level.overheat_bg_distort setshader( "h1_hud_temperature_blur", 14, 114 );
-        level.overheat_bg_distort.space = 4;
-        level.overheat_bg_distort.hindlegstraceoffset = 1;
+        level.overheat_bg_distort.sort = 4;
+        level.overheat_bg_distort.hidewheninmenu = 1;
     }
 
     if ( !isdefined( level.overheat_icon ) )
@@ -4899,13 +4899,13 @@ overheat_hud()
         level.overheat_icon = newhudelem();
         level.overheat_icon.alignx = "right";
         level.overheat_icon.aligny = "bottom";
-        level.overheat_icon.hostquits = "right";
-        level.overheat_icon.visionsetnight = "bottom";
-        level.overheat_icon.xpmaxmultipliertimeplayed = -26;
-        level.overheat_icon._id_0538 = -126;
+        level.overheat_icon.horzalign = "right";
+        level.overheat_icon.vertalign = "bottom";
+        level.overheat_icon.x = -26;
+        level.overheat_icon.y = -126;
         level.overheat_icon setshader( "h1_hud_temperature_icon", 28, 28 );
-        level.overheat_icon.space = 6;
-        level.overheat_icon.hindlegstraceoffset = 1;
+        level.overheat_icon.sort = 6;
+        level.overheat_icon.hidewheninmenu = 1;
     }
 
     var_0 = -31;
@@ -4916,15 +4916,15 @@ overheat_hud()
         level.overheat_status = newhudelem();
         level.overheat_status.alignx = "right";
         level.overheat_status.aligny = "bottom";
-        level.overheat_status.hostquits = "right";
-        level.overheat_status.visionsetnight = "bottom";
-        level.overheat_status.xpmaxmultipliertimeplayed = var_0;
-        level.overheat_status._id_0538 = var_1;
+        level.overheat_status.horzalign = "right";
+        level.overheat_status.vertalign = "bottom";
+        level.overheat_status.x = var_0;
+        level.overheat_status.y = var_1;
         level.overheat_status setshader( "white", 10, 0 );
         level.overheat_status.color = ( 1.0, 0.9, 0.0 );
         level.overheat_status.alpha = 0;
-        level.overheat_status.space = 1;
-        level.overheat_status.hindlegstraceoffset = 1;
+        level.overheat_status.sort = 1;
+        level.overheat_status.hidewheninmenu = 1;
     }
 
     if ( !isdefined( level.overheat_status2 ) )
@@ -4932,15 +4932,15 @@ overheat_hud()
         level.overheat_status2 = newhudelem();
         level.overheat_status2.alignx = "right";
         level.overheat_status2.aligny = "bottom";
-        level.overheat_status2.hostquits = "right";
-        level.overheat_status2.visionsetnight = "bottom";
-        level.overheat_status2.xpmaxmultipliertimeplayed = var_0;
-        level.overheat_status2._id_0538 = var_1;
+        level.overheat_status2.horzalign = "right";
+        level.overheat_status2.vertalign = "bottom";
+        level.overheat_status2.x = var_0;
+        level.overheat_status2.y = var_1;
         level.overheat_status2 setshader( "white", 10, 1 );
         level.overheat_status2.color = ( 1.0, 0.9, 0.0 );
         level.overheat_status2.alpha = 0;
-        level.overheat_status2.space = 2;
-        level.overheat_status2.hindlegstraceoffset = 1;
+        level.overheat_status2.sort = 2;
+        level.overheat_status2.hidewheninmenu = 1;
     }
 
     if ( !isdefined( level.overheat_flashing ) )
@@ -4948,15 +4948,15 @@ overheat_hud()
         level.overheat_flashing = newhudelem();
         level.overheat_flashing.alignx = "right";
         level.overheat_flashing.aligny = "bottom";
-        level.overheat_flashing.hostquits = "right";
-        level.overheat_flashing.visionsetnight = "bottom";
-        level.overheat_flashing.xpmaxmultipliertimeplayed = var_0;
-        level.overheat_flashing._id_0538 = var_1;
+        level.overheat_flashing.horzalign = "right";
+        level.overheat_flashing.vertalign = "bottom";
+        level.overheat_flashing.x = var_0;
+        level.overheat_flashing.y = var_1;
         level.overheat_flashing setshader( "white", 10, level.overheat_hud_height_max );
         level.overheat_flashing.color = ( 0.8, 0.16, 0.0 );
         level.overheat_flashing.alpha = 0;
-        level.overheat_flashing.space = 3;
-        level.overheat_flashing.hindlegstraceoffset = 1;
+        level.overheat_flashing.sort = 3;
+        level.overheat_flashing.hidewheninmenu = 1;
     }
 }
 
@@ -4965,22 +4965,22 @@ seaknight_player_lerp_to_gun( var_0 )
     var_1 = level.seaknight gettagorigin( "tag_player" );
     var_2 = level.seaknight gettagangles( "tag_player" );
     var_2 *= ( 1.0, 1.0, -1.0 );
-    var_3 = level.playercardbackground.origin;
-    var_4 = level.playercardbackground getvelocity();
+    var_3 = level.player.origin;
+    var_4 = level.player getvelocity();
     var_5 = length( var_4 );
     var_6 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( var_0 ) && !var_0 )
     {
-        level.playercardbackground dontinterpolate();
+        level.player dontinterpolate();
         var_7 = var_5 / 16.9;
         var_6 = vectornormalize( var_4 ) * var_7;
     }
 
     var_8 = spawn( "script_origin", var_3 );
-    var_8.angles = level.playercardbackground getplayerangles();
+    var_8.angles = level.player getplayerangles();
     var_8.origin += var_6;
-    level.playercardbackground playerlinkto( var_8, "", 1, 0, 0, 0, 0 );
+    level.player playerlinkto( var_8, "", 1, 0, 0, 0, 0 );
     var_9 = gettime();
     var_10 = 80;
     var_11 = 250;
@@ -5012,7 +5012,7 @@ seaknight_player_lerp_to_gun( var_0 )
     wait(var_16 + 0.1);
 
     if ( isdefined( var_0 ) && !var_0 )
-        level.playercardbackground dontinterpolate();
+        level.player dontinterpolate();
 }
 
 seaknight_player_mount_gun( var_0, var_1 )
@@ -5020,8 +5020,8 @@ seaknight_player_mount_gun( var_0, var_1 )
     common_scripts\utility::_id_384A( "difficulty_initialized" );
     thread player_invulnerable_time_tweak();
     thread hud_hide( 1 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player allowcrouch( 0 );
 
     if ( isdefined( var_1 ) && var_1 )
         seaknight_player_intro_mount_gun();
@@ -5036,17 +5036,17 @@ seaknight_player_mount_gun( var_0, var_1 )
 
     if ( isdefined( var_0 ) )
     {
-        level.playercardbackground disableweapons();
+        level.player disableweapons();
         seaknight_player_lerp_to_gun( isdefined( var_1 ) && var_1 );
     }
 
-    level.seaknight useby( level.playercardbackground );
+    level.seaknight useby( level.player );
     level.seaknight thread seaknight_fire_turret();
 
     if ( !isdefined( var_1 ) || !var_1 )
     {
         var_2 = level.seaknight gettagangles( "tag_player" );
-        level.playercardbackground setplayerangles( var_2 + ( 0.0, 0.0, 0.0 ) );
+        level.player setplayerangles( var_2 + ( 0.0, 0.0, 0.0 ) );
     }
 
     thread perf_optimize_seaknight_inflight();
@@ -5054,24 +5054,24 @@ seaknight_player_mount_gun( var_0, var_1 )
 
 seaknight_player_intro_mount_gun()
 {
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     wait 3;
     level.playerview = maps\_utility::_id_88D1( "player_viewhands", level.seaknight.origin );
     level.playerview hide();
     level.playerview linkto( level.seaknight, "tag_detach" );
     level.seaknight maps\_anim::_id_0BC7( level.playerview, "turret_intro_anim", "tag_detach" );
-    level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1, 20, 20, 30, 50, 1 );
-    level.playercardbackground dontinterpolate();
+    level.player playerlinktodelta( level.playerview, "tag_player", 1, 20, 20, 30, 50, 1 );
+    level.player dontinterpolate();
     level.playerview show();
     level.seaknight thread maps\airlift_anim::seaknight_turret_anim_intro();
     level.seaknight thread maps\_anim::_id_0C24( level.playerview, "turret_intro_anim", "tag_detach" );
     var_0 = 11;
     wait(var_0);
     common_scripts\utility::_id_383F( "reload_turret_start" );
-    level.playercardbackground lerpviewangleclamp( 0.5, 0, 0, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( 0.5, 0, 0, 0, 0, 0, 0 );
     wait(getanimlength( level.playerview maps\_utility::_id_3EF5( "turret_intro_anim" ) ) - var_0);
     level.seaknight thread maps\airlift_anim::seaknight_turret_anim_idle();
-    level.playercardbackground dontinterpolate();
+    level.player dontinterpolate();
 }
 
 seaknight_disable_lean_when_mounting()
@@ -5083,7 +5083,7 @@ seaknight_disable_lean_when_mounting()
     {
         if ( level.playerinseaknight != var_0 )
         {
-            level.playercardbackground allowlean( !level.playerinseaknight );
+            level.player allowlean( !level.playerinseaknight );
             var_0 = level.playerinseaknight;
         }
 
@@ -5094,7 +5094,7 @@ seaknight_disable_lean_when_mounting()
 seaknight_death_think()
 {
     level endon( "player_off_turret" );
-    level.playercardbackground waittill( "death" );
+    level.player waittill( "death" );
     level.seaknight thread common_scripts\utility::_id_6975( "airlift_heli_alarm_loop" );
     level.seaknight notify( "death" );
 }
@@ -5160,23 +5160,23 @@ seaknight_player_dismount_gun()
     thread hud_hide( 0 );
     level notify( "player_off_turret" );
     level thread overheat_disable();
-    level.seaknight useby( level.playercardbackground );
-    level.playercardbackground unlink();
-    level.playercardbackground playerlinktodelta( level.seaknight, "tag_player", 1, 50, 50, 30, 45 );
+    level.seaknight useby( level.player );
+    level.player unlink();
+    level.player playerlinktodelta( level.seaknight, "tag_player", 1, 50, 50, 30, 45 );
     wait 0.05;
     level.seaknight turret_reset();
     level.seaknight maps\_utility::_id_5696( "tag_turret_exit", 1, 0.9, 25, 25, 45, 0 );
     level notify( "delete_rpgGuy" );
     turn_on_lights( "gamescom_perf", "script_noteworthy" );
-    level.playercardbackground unlink();
+    level.player unlink();
 
     if ( isdefined( level.playerview ) )
         level.playerview delete();
 
-    level.playercardbackground enableweapons();
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowlean( 1 );
+    level.player enableweapons();
+    level.player allowprone( 1 );
+    level.player allowcrouch( 1 );
+    level.player allowlean( 1 );
     thread seaknight_player_triggers();
     level notify( "player_dismounted_from_gun" );
 }
@@ -5196,7 +5196,7 @@ seaknight_player_triggers()
     var_0.origin = level.seaknight gettagorigin( "tag_door_rear" );
     var_1 = getent( "trigger_inside_seaknight", "targetname" );
     var_2 = anglestoforward( level.seaknight.angles );
-    var_3 = var_1.rank + var_0.rank + 35;
+    var_3 = var_1.radius + var_0.radius + 35;
     var_1.origin = level.seaknight gettagorigin( "tag_door_rear" ) + var_2 * var_3;
     level.trigger_seaknight_gun = getent( "trigger_seaknight_gun", "targetname" );
     level.trigger_seaknight_gun.origin = level.seaknight gettagorigin( "tag_turret_exit" );
@@ -5228,25 +5228,25 @@ seaknight_door_open_sound()
 
 playerweapontempremove()
 {
-    var_0 = level.playercardbackground getweaponslist();
-    var_1 = level.playercardbackground getweaponslistprimaries();
+    var_0 = level.player getweaponslist();
+    var_1 = level.player getweaponslistprimaries();
 
     if ( var_0.size > 0 )
     {
         for ( var_2 = 0; var_2 < var_0.size; var_2++ )
-            level.playercardbackground takeweapon( var_0[var_2] );
+            level.player takeweapon( var_0[var_2] );
     }
 
-    level.playercardbackground waittill( "restore_player_weapons" );
+    level.player waittill( "restore_player_weapons" );
 
     if ( var_0.size > 0 )
     {
         for ( var_2 = 0; var_2 < var_0.size; var_2++ )
-            level.playercardbackground giveweapon( var_0[var_2] );
+            level.player giveweapon( var_0[var_2] );
     }
 
     if ( isdefined( var_1[0] ) )
-        level.playercardbackground switchtoweapon( var_1[0] );
+        level.player switchtoweapon( var_1[0] );
 }
 
 hud_hide( var_0 )
@@ -5384,7 +5384,7 @@ ai_pilots_think( var_0 )
 {
     self endon( "death" );
     maps\_vehicle_aianim::_id_297A( self, "weapon_" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self.grenadeawareness = 0;
     self._id_0C72 = "drone";
     var_1 = undefined;
@@ -5411,7 +5411,7 @@ player_attacks_from_seaknight( var_0 )
 
 remove_enemiesgrenades_cobrastreets()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "pilot_taken_from_cockpit" );
 
     for (;;)
@@ -5448,16 +5448,16 @@ player_viewbody_animations_nukecrash()
     level.seaknight thread maps\_anim::_id_0BC7( level.playerbodyview, "player_nuke_crash", "tag_detach" );
     level.playerbodyview hide();
     common_scripts\utility::_id_384A( "nuke_explodes" );
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     level.seaknight thread maps\_anim::_id_0C24( level.playerbodyview, "player_nuke_crash", "tag_detach" );
     wait 0.25;
-    level.playercardbackground lerpviewangleclamp( 0.5, 0.1, 0.2, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( 0.5, 0.1, 0.2, 0, 0, 0, 0 );
     wait 0.25;
-    level.playercardbackground playerlinktodelta( level.playerbodyview, "tag_player", 1, 0, 0, 0, 0, 1 );
+    level.player playerlinktodelta( level.playerbodyview, "tag_player", 1, 0, 0, 0, 0, 1 );
     wait 0.15;
     level.playerbodyview show();
     wait 0.6;
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
 }
 
 disablech46turretfire()

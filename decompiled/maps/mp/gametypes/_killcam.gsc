@@ -43,7 +43,7 @@ _id_6EF9( var_0, var_1, var_2, var_3 )
             var_6 = var_1 _meth_841f( var_2 + var_4, var_3, var_5 );
             var_7 = spawnstruct();
             var_7.team = var_1.team;
-            var_7.weapon_switch_invalid = var_1._id_57DF;
+            var_7.weapon = var_1._id_57DF;
             var_8 = spawnstruct();
             var_8.cust = var_7;
             var_8._id_A2E6 = var_6;
@@ -252,14 +252,14 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
         var_13 visionsyncwithplayer( var_14 );
 
     maps\mp\_utility::_id_9B69( "spectator" );
-    self.speechcommand = 1;
+    self.spectatekillcam = 1;
 
     if ( isagent( var_13 ) )
         var_1 = var_14 getentitynumber();
 
     self _meth_852b( 0 );
     self.forcespectatorclient = var_1;
-    self.killstreak = -1;
+    self.killcamentity = -1;
     var_28 = _id_7F9B( var_0, var_1, var_2, var_4, var_14, var_20 );
 
     if ( !var_28 )
@@ -272,7 +272,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
     self.archivetime = var_26;
     self.killcamlength = var_22;
-    self.radarmode = var_9;
+    self.psoffsettime = var_9;
     self allowspectateteam( "allies", 1 );
     self allowspectateteam( "axis", 1 );
     self allowspectateteam( "freelook", 1 );
@@ -382,7 +382,7 @@ _id_7F9A( var_0, var_1, var_2 )
             wait(( var_2 - var_3 ) / 1000);
     }
 
-    self.killstreak = var_0;
+    self.killcamentity = var_0;
 }
 
 _id_A05B( var_0 )

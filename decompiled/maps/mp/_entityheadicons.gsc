@@ -147,16 +147,16 @@ _id_7F86( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
         if ( var_11 == "" )
         {
-            var_13.xpmaxmultipliertimeplayed = self.origin[0] + var_2[0];
-            var_13._id_0538 = self.origin[1] + var_2[1];
-            var_13._id_053B = self.origin[2] + var_2[2];
+            var_13.x = self.origin[0] + var_2[0];
+            var_13.y = self.origin[1] + var_2[1];
+            var_13.z = self.origin[2] + var_2[2];
             var_13 thread _id_52E0( self, var_2, var_6 );
         }
         else
         {
-            var_13.xpmaxmultipliertimeplayed = var_2[0];
-            var_13._id_0538 = var_2[1];
-            var_13._id_053B = var_2[2];
+            var_13.x = var_2[0];
+            var_13.y = var_2[1];
+            var_13.z = var_2[2];
             var_13 settargetent( self, var_11 );
         }
 
@@ -207,9 +207,9 @@ _id_52E0( var_0, var_1, var_2 )
         if ( var_3 != var_0.origin )
         {
             var_3 = var_0.origin;
-            self.xpmaxmultipliertimeplayed = var_3[0] + var_1[0];
-            self._id_0538 = var_3[1] + var_1[1];
-            self._id_053B = var_3[2] + var_1[2];
+            self.x = var_3[0] + var_1[0];
+            self.y = var_3[1] + var_1[1];
+            self.z = var_3[2] + var_1[2];
         }
 
         if ( var_2 > 0.05 )
@@ -269,16 +269,16 @@ _id_8028( var_0, var_1, var_2, var_3 )
     {
         if ( var_2 == "" )
         {
-            var_6.xpmaxmultipliertimeplayed = self.origin[0] + self._id_3318[0];
-            var_6._id_0538 = self.origin[1] + self._id_3318[1];
-            var_6._id_053B = self.origin[2] + self._id_3318[2];
+            var_6.x = self.origin[0] + self._id_3318[0];
+            var_6.y = self.origin[1] + self._id_3318[1];
+            var_6.z = self.origin[2] + self._id_3318[2];
             thread _id_52DE();
         }
         else
         {
-            var_6.xpmaxmultipliertimeplayed = self._id_3318[0];
-            var_6._id_0538 = self._id_3318[1];
-            var_6._id_053B = self._id_3318[2];
+            var_6.x = self._id_3318[0];
+            var_6.y = self._id_3318[1];
+            var_6.z = self._id_3318[2];
             var_6 settargetent( self, var_2 );
         }
     }
@@ -289,16 +289,16 @@ _id_8028( var_0, var_1, var_2, var_3 )
 
         if ( var_2 == "" )
         {
-            var_6.xpmaxmultipliertimeplayed = var_8[0];
-            var_6._id_0538 = var_8[1];
-            var_6._id_053B = var_8[2];
+            var_6.x = var_8[0];
+            var_6.y = var_8[1];
+            var_6.z = var_8[2];
             thread _id_52DE( var_3 );
         }
         else
         {
-            var_6.xpmaxmultipliertimeplayed = var_8[0];
-            var_6._id_0538 = var_8[1];
-            var_6._id_053B = var_8[2];
+            var_6.x = var_8[0];
+            var_6.y = var_8[1];
+            var_6.z = var_8[2];
             var_6 settargetent( self, var_2 );
         }
     }
@@ -348,16 +348,16 @@ _id_7FE5( var_0, var_1, var_2 )
 
     if ( var_2 == "" )
     {
-        var_5.xpmaxmultipliertimeplayed = self.origin[0] + self._id_3318[0];
-        var_5._id_0538 = self.origin[1] + self._id_3318[1];
-        var_5._id_053B = self.origin[2] + self._id_3318[2];
+        var_5.x = self.origin[0] + self._id_3318[0];
+        var_5.y = self.origin[1] + self._id_3318[1];
+        var_5.z = self.origin[2] + self._id_3318[2];
         thread _id_52DE();
     }
     else
     {
-        var_5.xpmaxmultipliertimeplayed = self._id_3318[0];
-        var_5._id_0538 = self._id_3318[1];
-        var_5._id_053B = self._id_3318[2];
+        var_5.x = self._id_3318[0];
+        var_5.y = self._id_3318[1];
+        var_5.z = self._id_3318[2];
         var_5 settargetent( self, var_2 );
     }
 
@@ -397,16 +397,16 @@ _id_9B24( var_0 )
 {
     if ( !isdefined( var_0 ) )
     {
-        self._id_3317.xpmaxmultipliertimeplayed = self.origin[0] + self._id_3318[0];
-        self._id_3317._id_0538 = self.origin[1] + self._id_3318[1];
-        self._id_3317._id_053B = self.origin[2] + self._id_3318[2];
+        self._id_3317.x = self.origin[0] + self._id_3318[0];
+        self._id_3317.y = self.origin[1] + self._id_3318[1];
+        self._id_3317.z = self.origin[2] + self._id_3318[2];
     }
     else
     {
         var_1 = anglestoup( self.angles );
         var_2 = self.origin + var_1 * 28;
-        self._id_3317.xpmaxmultipliertimeplayed = var_2[0];
-        self._id_3317._id_0538 = var_2[1];
-        self._id_3317._id_053B = var_2[2];
+        self._id_3317.x = var_2[0];
+        self._id_3317.y = var_2[1];
+        self._id_3317.z = var_2[2];
     }
 }

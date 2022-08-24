@@ -41,7 +41,7 @@ _id_45B5()
 
         for (;;)
         {
-            var_4 = distance( self.origin, level.playercardbackground.origin );
+            var_4 = distance( self.origin, level.player.origin );
 
             if ( !var_1 && var_4 < 5400 )
             {

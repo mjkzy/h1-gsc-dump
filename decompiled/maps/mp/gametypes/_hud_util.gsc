@@ -43,7 +43,7 @@ _id_407A()
 
 _id_07D8( var_0 )
 {
-    var_0.info_player_start = self._id_1D3D.size;
+    var_0.index = self._id_1D3D.size;
     self._id_1D3D[self._id_1D3D.size] = var_0;
 }
 
@@ -53,12 +53,12 @@ _id_7399( var_0 )
 
     if ( self._id_1D3D[self._id_1D3D.size - 1] != var_0 )
     {
-        self._id_1D3D[var_0.info_player_start] = self._id_1D3D[self._id_1D3D.size - 1];
-        self._id_1D3D[var_0.info_player_start].info_player_start = var_0.info_player_start;
+        self._id_1D3D[var_0.index] = self._id_1D3D[self._id_1D3D.size - 1];
+        self._id_1D3D[var_0.index].index = var_0.index;
     }
 
     self._id_1D3D[self._id_1D3D.size - 1] = undefined;
-    var_0.info_player_start = undefined;
+    var_0.index = undefined;
 }
 
 _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
@@ -117,13 +117,13 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
 
     if ( var_5 == level._id_99F4 )
     {
-        self.hostquits = var_6;
-        self.visionsetnight = var_7;
+        self.horzalign = var_6;
+        self.vertalign = var_7;
     }
     else
     {
-        self.hostquits = var_5.hostquits;
-        self.visionsetnight = var_5.visionsetnight;
+        self.horzalign = var_5.horzalign;
+        self.vertalign = var_5.vertalign;
     }
 
     if ( maps\mp\_utility::_id_8F5C( var_6, "_adjustable" ) == var_5.alignx )
@@ -133,7 +133,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     }
     else if ( var_6 == "center" || var_5.alignx == "center" )
     {
-        var_8 = int( var_5.win_streak / 2 );
+        var_8 = int( var_5.width / 2 );
 
         if ( var_6 == "left_adjustable" || var_5.alignx == "right" )
             var_9 = -1;
@@ -142,7 +142,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     }
     else
     {
-        var_8 = var_5.win_streak;
+        var_8 = var_5.width;
 
         if ( var_6 == "left_adjustable" )
             var_9 = -1;
@@ -150,7 +150,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
             var_9 = 1;
     }
 
-    self.xpmaxmultipliertimeplayed = var_5.xpmaxmultipliertimeplayed + var_8 * var_9;
+    self.x = var_5.x + var_8 * var_9;
 
     if ( maps\mp\_utility::_id_8F5C( var_7, "_adjustable" ) == var_5.aligny )
     {
@@ -159,7 +159,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     }
     else if ( var_7 == "middle" || var_5.aligny == "middle" )
     {
-        var_10 = int( var_5.hidewhendead / 2 );
+        var_10 = int( var_5.height / 2 );
 
         if ( var_7 == "top_adjustable" || var_5.aligny == "bottom" )
             var_11 = -1;
@@ -168,7 +168,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     }
     else
     {
-        var_10 = var_5.hidewhendead;
+        var_10 = var_5.height;
 
         if ( var_7 == "top_adjustable" )
             var_11 = -1;
@@ -176,9 +176,9 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
             var_11 = 1;
     }
 
-    self._id_0538 = var_5._id_0538 + var_10 * var_11;
-    self.xpmaxmultipliertimeplayed += self._id_A39F;
-    self._id_0538 += self._id_A3BA;
+    self.y = var_5.y + var_10 * var_11;
+    self.x += self._id_A39F;
+    self.y += self._id_A3BA;
 
     switch ( self._id_3026 )
     {
@@ -192,23 +192,23 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
 
 _id_7FEF( var_0, var_1, var_2, var_3 )
 {
-    self._id_12DB.hostquits = self.hostquits;
-    self._id_12DB.visionsetnight = self.visionsetnight;
+    self._id_12DB.horzalign = self.horzalign;
+    self._id_12DB.vertalign = self.vertalign;
     self._id_12DB.alignx = "left";
     self._id_12DB.aligny = self.aligny;
-    self._id_12DB._id_0538 = self._id_0538;
+    self._id_12DB.y = self.y;
 
     if ( self.alignx == "left" )
-        self._id_12DB.xpmaxmultipliertimeplayed = self.xpmaxmultipliertimeplayed;
+        self._id_12DB.x = self.x;
     else if ( self.alignx == "right" )
-        self._id_12DB.xpmaxmultipliertimeplayed = self.xpmaxmultipliertimeplayed - self.win_streak;
+        self._id_12DB.x = self.x - self.width;
     else
-        self._id_12DB.xpmaxmultipliertimeplayed = self.xpmaxmultipliertimeplayed - int( self.win_streak / 2 );
+        self._id_12DB.x = self.x - int( self.width / 2 );
 
     if ( self.aligny == "top" )
-        self._id_12DB._id_0538 = self._id_0538;
+        self._id_12DB.y = self.y;
     else if ( self.aligny == "bottom" )
-        self._id_12DB._id_0538 = self._id_0538;
+        self._id_12DB.y = self.y;
 
     _id_9AF7( self._id_12DB._id_3A08 );
 }
@@ -221,20 +221,20 @@ _id_9AF7( var_0, var_1 )
 
 _id_9AF8( var_0, var_1 )
 {
-    var_2 = int( self.win_streak * var_0 + 0.5 );
+    var_2 = int( self.width * var_0 + 0.5 );
 
     if ( !var_2 )
         var_2 = 1;
 
     self._id_12DB._id_3A08 = var_0;
-    self._id_12DB setshader( self._id_12DB._id_8392, var_2, self.hidewhendead );
+    self._id_12DB setshader( self._id_12DB._id_8392, var_2, self.height );
 
-    if ( isdefined( var_1 ) && var_2 < self.win_streak )
+    if ( isdefined( var_1 ) && var_2 < self.width )
     {
         if ( var_1 > 0 )
-            self._id_12DB scaleovertime( ( 1 - var_0 ) / var_1, self.win_streak, self.hidewhendead );
+            self._id_12DB scaleovertime( ( 1 - var_0 ) / var_1, self.width, self.height );
         else if ( var_1 < 0 )
-            self._id_12DB scaleovertime( var_0 / -1 * var_1, 1, self.hidewhendead );
+            self._id_12DB scaleovertime( var_0 / -1 * var_1, 1, self.height );
     }
 
     self._id_12DB._id_7143 = var_1;
@@ -248,10 +248,10 @@ _id_2401( var_0, var_1 )
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.basefontscale = var_1;
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
-    var_2.win_streak = 0;
-    var_2.hidewhendead = int( level._id_397D * var_1 );
+    var_2.x = 0;
+    var_2.y = 0;
+    var_2.width = 0;
+    var_2.height = int( level._id_397D * var_1 );
     var_2._id_A39F = 0;
     var_2._id_A3BA = 0;
     var_2._id_1D3D = [];
@@ -271,10 +271,10 @@ _id_243D( var_0, var_1, var_2 )
     var_3.font = var_0;
     var_3.fontscale = var_1;
     var_3.basefontscale = var_1;
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = 0;
-    var_3.win_streak = 0;
-    var_3.hidewhendead = int( level._id_397D * var_1 );
+    var_3.x = 0;
+    var_3.y = 0;
+    var_3.width = 0;
+    var_3.height = int( level._id_397D * var_1 );
     var_3._id_A39F = 0;
     var_3._id_A3BA = 0;
     var_3._id_1D3D = [];
@@ -294,10 +294,10 @@ _id_243F( var_0, var_1, var_2 )
     var_3.font = var_0;
     var_3.fontscale = var_1;
     var_3.basefontscale = var_1;
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = 0;
-    var_3.win_streak = 0;
-    var_3.hidewhendead = int( level._id_397D * var_1 );
+    var_3.x = 0;
+    var_3.y = 0;
+    var_3.width = 0;
+    var_3.height = int( level._id_397D * var_1 );
     var_3._id_A39F = 0;
     var_3._id_A3BA = 0;
     var_3._id_1D3D = [];
@@ -313,10 +313,10 @@ _id_2447( var_0, var_1 )
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.basefontscale = var_1;
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
-    var_2.win_streak = 0;
-    var_2.hidewhendead = int( level._id_397D * var_1 );
+    var_2.x = 0;
+    var_2.y = 0;
+    var_2.width = 0;
+    var_2.height = int( level._id_397D * var_1 );
     var_2._id_A39F = 0;
     var_2._id_A3BA = 0;
     var_2._id_1D3D = [];
@@ -329,12 +329,12 @@ _id_2420( var_0, var_1, var_2 )
 {
     var_3 = newclienthudelem( self );
     var_3._id_3026 = "icon";
-    var_3.xpmaxmultipliertimeplayed = 0;
-    var_3._id_0538 = 0;
-    var_3.win_streak = var_1;
-    var_3.hidewhendead = var_2;
-    var_3._id_1319 = var_3.win_streak;
-    var_3._id_130A = var_3.hidewhendead;
+    var_3.x = 0;
+    var_3.y = 0;
+    var_3.width = var_1;
+    var_3.height = var_2;
+    var_3._id_1319 = var_3.width;
+    var_3._id_130A = var_3.height;
     var_3._id_A39F = 0;
     var_3._id_A3BA = 0;
     var_3._id_1D3D = [];
@@ -358,12 +358,12 @@ _id_243E( var_0, var_1, var_2, var_3 )
         var_4 = newhudelem();
 
     var_4._id_3026 = "icon";
-    var_4.xpmaxmultipliertimeplayed = 0;
-    var_4._id_0538 = 0;
-    var_4.win_streak = var_1;
-    var_4.hidewhendead = var_2;
-    var_4._id_1319 = var_4.win_streak;
-    var_4._id_130A = var_4.hidewhendead;
+    var_4.x = 0;
+    var_4.y = 0;
+    var_4.width = var_1;
+    var_4.height = var_2;
+    var_4._id_1319 = var_4.width;
+    var_4._id_130A = var_4.height;
     var_4._id_A39F = 0;
     var_4._id_A3BA = 0;
     var_4._id_1D3D = [];
@@ -386,11 +386,11 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6 = newhudelem();
 
-    var_6.xpmaxmultipliertimeplayed = 0;
-    var_6._id_0538 = 0;
+    var_6.x = 0;
+    var_6.y = 0;
     var_6._id_3A08 = 0;
     var_6.color = var_0;
-    var_6.space = -2;
+    var_6.sort = -2;
     var_6._id_8392 = "progress_bar_fill";
     var_6 setshader( "progress_bar_fill", var_1, var_2 );
     var_6._id_483E = 0;
@@ -404,15 +404,15 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_7 = newhudelem();
 
     var_7._id_3026 = "bar";
-    var_7.xpmaxmultipliertimeplayed = 0;
-    var_7._id_0538 = 0;
-    var_7.win_streak = var_1;
-    var_7.hidewhendead = var_2;
+    var_7.x = 0;
+    var_7.y = 0;
+    var_7.width = var_1;
+    var_7.height = var_2;
     var_7._id_A39F = 0;
     var_7._id_A3BA = 0;
     var_7._id_12DB = var_6;
     var_7._id_1D3D = [];
-    var_7.space = -3;
+    var_7.sort = -3;
     var_7.color = ( 0.0, 0.0, 0.0 );
     var_7.alpha = 0.5;
     var_7 _id_7FDC( level._id_99F4 );
@@ -424,11 +424,11 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
 _id_23E5( var_0, var_1, var_2, var_3 )
 {
     var_4 = newclienthudelem( self );
-    var_4.xpmaxmultipliertimeplayed = 0;
-    var_4._id_0538 = 0;
+    var_4.x = 0;
+    var_4.y = 0;
     var_4._id_3A08 = 0;
     var_4.color = var_0;
-    var_4.space = -2;
+    var_4.sort = -2;
     var_4._id_8392 = "progress_bar_fill";
     var_4 setshader( "progress_bar_fill", var_1, var_2 );
     var_4._id_483E = 0;
@@ -438,13 +438,13 @@ _id_23E5( var_0, var_1, var_2, var_3 )
 
     var_5 = newclienthudelem( self );
     var_5._id_3026 = "bar";
-    var_5.win_streak = var_1;
-    var_5.hidewhendead = var_2;
+    var_5.width = var_1;
+    var_5.height = var_2;
     var_5._id_A39F = 0;
     var_5._id_A3BA = 0;
     var_5._id_12DB = var_4;
     var_5._id_1D3D = [];
-    var_5.space = -3;
+    var_5.sort = -3;
     var_5.color = ( 0.0, 0.0, 0.0 );
     var_5.alpha = 0.5;
     var_5 _id_7FDC( level._id_99F4 );
@@ -500,7 +500,7 @@ _id_2436( var_0, var_1 )
 
     var_2 = _id_2401( "hudbig", level.primaryprogressbarfontsize );
     var_2 _id_7FEE( "CENTER", undefined, level.primaryprogressbartextx + var_0, level._id_6F88 + var_1 );
-    var_2.space = -1;
+    var_2.sort = -1;
     return var_2;
 }
 
@@ -615,7 +615,7 @@ _id_28E9()
 
 _id_7F8D( var_0 )
 {
-    self setshader( var_0, self.win_streak, self.hidewhendead );
+    self setshader( var_0, self.width, self.height );
     self._id_8392 = var_0;
 }
 
@@ -631,18 +631,18 @@ _id_7F8E( var_0, var_1 )
 
 _id_8358( var_0 )
 {
-    self.win_streak = var_0;
+    self.width = var_0;
 }
 
 _id_7F89( var_0 )
 {
-    self.hidewhendead = var_0;
+    self.height = var_0;
 }
 
 _id_800F( var_0, var_1 )
 {
-    self.win_streak = var_0;
-    self.hidewhendead = var_1;
+    self.width = var_0;
+    self.height = var_1;
 }
 
 _id_9B01()
@@ -656,16 +656,16 @@ _id_9B01()
 
 _id_9718()
 {
-    self.xpmaxmultipliertimeplayed = self._id_A39F;
-    self._id_0538 = self._id_A3BA;
+    self.x = self._id_A39F;
+    self.y = self._id_A3BA;
 
     if ( self._id_3026 == "font" )
     {
         self.fontscale = self.basefontscale;
-        self.land = &"";
+        self.label = &"";
     }
     else if ( self._id_3026 == "icon" )
-        self setshader( self._id_8392, self.win_streak, self.hidewhendead );
+        self setshader( self._id_8392, self.width, self.height );
 
     self.alpha = 0;
 }
@@ -681,8 +681,8 @@ _id_9721( var_0 )
             self.fontscale = self.basefontscale;
             break;
         case "icon":
-            self setshader( self._id_8392, self.win_streak * 6, self.hidewhendead * 6 );
-            self scaleovertime( var_0, self.win_streak, self.hidewhendead );
+            self setshader( self._id_8392, self.width * 6, self.height * 6 );
+            self scaleovertime( var_0, self.width, self.height );
             break;
     }
 }
@@ -711,22 +711,22 @@ _id_971A( var_0, var_1 )
     switch ( var_1 )
     {
         case "left":
-            self.xpmaxmultipliertimeplayed += 1000;
+            self.x += 1000;
             break;
         case "right":
-            self.xpmaxmultipliertimeplayed -= 1000;
+            self.x -= 1000;
             break;
         case "up":
-            self._id_0538 -= 1000;
+            self.y -= 1000;
             break;
         case "down":
-            self._id_0538 += 1000;
+            self.y += 1000;
             break;
     }
 
     self moveovertime( var_0 );
-    self.xpmaxmultipliertimeplayed = self._id_A39F;
-    self._id_0538 = self._id_A3BA;
+    self.x = self._id_A39F;
+    self.y = self._id_A3BA;
 }
 
 _id_971B( var_0, var_1 )
@@ -755,8 +755,8 @@ _id_971B( var_0, var_1 )
 
     self.alpha = 1;
     self moveovertime( var_0 );
-    self.xpmaxmultipliertimeplayed = var_2;
-    self._id_0538 = var_3;
+    self.x = var_2;
+    self.y = var_3;
 }
 
 _id_9722( var_0 )
@@ -768,7 +768,7 @@ _id_9722( var_0 )
             self changefontscaleovertime( var_0 );
             self.fontscale = 6.3;
         case "icon":
-            self scaleovertime( var_0, self.win_streak * 6, self.hidewhendead * 6 );
+            self scaleovertime( var_0, self.width * 6, self.height * 6 );
             break;
     }
 }
@@ -869,10 +869,10 @@ _id_2B5E( var_0, var_1, var_2, var_3 )
 {
     var_4 = _id_2401( "hudbig", var_2 );
     var_4 _id_7FEE( "CENTER", "CENTER", 0, var_1 );
-    var_4.space = 1001;
+    var_4.sort = 1001;
     var_4.color = ( 1.0, 1.0, 1.0 );
     var_4.foreground = 0;
-    var_4.hindlegstraceoffset = 1;
+    var_4.hidewheninmenu = 1;
     var_4 settext( var_0 );
     common_scripts\utility::_id_A069( var_3, "joined_team", "death" );
 

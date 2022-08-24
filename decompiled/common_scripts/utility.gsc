@@ -142,7 +142,7 @@ _id_856D( var_0 )
     return -1;
 }
 
-mod_explosive( var_0, var_1 )
+mod( var_0, var_1 )
 {
     var_2 = int( var_0 / var_1 );
 
@@ -1080,40 +1080,40 @@ _id_8F63()
 
 _id_079F( var_0 )
 {
-    if ( isdefined( var_0.teambalanced ) )
+    if ( isdefined( var_0.targetname ) )
     {
-        if ( !isdefined( level._id_8F64["targetname"][var_0.teambalanced] ) )
-            level._id_8F64["targetname"][var_0.teambalanced] = [];
+        if ( !isdefined( level._id_8F64["targetname"][var_0.targetname] ) )
+            level._id_8F64["targetname"][var_0.targetname] = [];
 
-        var_1 = level._id_8F64["targetname"][var_0.teambalanced].size;
-        level._id_8F64["targetname"][var_0.teambalanced][var_1] = var_0;
+        var_1 = level._id_8F64["targetname"][var_0.targetname].size;
+        level._id_8F64["targetname"][var_0.targetname][var_1] = var_0;
     }
 
-    if ( isdefined( var_0._not_team ) )
+    if ( isdefined( var_0.target ) )
     {
-        if ( !isdefined( level._id_8F64["target"][var_0._not_team] ) )
-            level._id_8F64["target"][var_0._not_team] = [];
+        if ( !isdefined( level._id_8F64["target"][var_0.target] ) )
+            level._id_8F64["target"][var_0.target] = [];
 
-        var_1 = level._id_8F64["target"][var_0._not_team].size;
-        level._id_8F64["target"][var_0._not_team][var_1] = var_0;
+        var_1 = level._id_8F64["target"][var_0.target].size;
+        level._id_8F64["target"][var_0.target][var_1] = var_0;
     }
 
-    if ( isdefined( var_0.script_parentname ) )
+    if ( isdefined( var_0.script_noteworthy ) )
     {
-        if ( !isdefined( level._id_8F64["script_noteworthy"][var_0.script_parentname] ) )
-            level._id_8F64["script_noteworthy"][var_0.script_parentname] = [];
+        if ( !isdefined( level._id_8F64["script_noteworthy"][var_0.script_noteworthy] ) )
+            level._id_8F64["script_noteworthy"][var_0.script_noteworthy] = [];
 
-        var_1 = level._id_8F64["script_noteworthy"][var_0.script_parentname].size;
-        level._id_8F64["script_noteworthy"][var_0.script_parentname][var_1] = var_0;
+        var_1 = level._id_8F64["script_noteworthy"][var_0.script_noteworthy].size;
+        level._id_8F64["script_noteworthy"][var_0.script_noteworthy][var_1] = var_0;
     }
 
-    if ( isdefined( var_0.script_origin ) )
+    if ( isdefined( var_0.script_linkname ) )
     {
-        if ( !isdefined( level._id_8F64["script_linkname"][var_0.script_origin] ) )
-            level._id_8F64["script_linkname"][var_0.script_origin] = [];
+        if ( !isdefined( level._id_8F64["script_linkname"][var_0.script_linkname] ) )
+            level._id_8F64["script_linkname"][var_0.script_linkname] = [];
 
-        var_1 = level._id_8F64["script_linkname"][var_0.script_origin].size;
-        level._id_8F64["script_linkname"][var_0.script_origin][0] = var_0;
+        var_1 = level._id_8F64["script_linkname"][var_0.script_linkname].size;
+        level._id_8F64["script_linkname"][var_0.script_linkname][0] = var_0;
     }
 }
 
@@ -2330,7 +2330,7 @@ _id_06FD()
 _id_3E89( var_0 )
 {
     if ( !isdefined( var_0 ) )
-        var_0 = self._not_team;
+        var_0 = self.target;
 
     var_1 = getent( var_0, "targetname" );
 
@@ -2762,7 +2762,7 @@ _id_9A48( var_0 )
 
 _id_3E94()
 {
-    var_0 = level.script_context;
+    var_0 = level.script;
 
     if ( isdefined( level._id_927C ) )
         var_0 = level._id_927C;
@@ -3184,7 +3184,7 @@ _id_7E36( var_0, var_1 )
 
     if ( isdefined( var_0._id_0DB4 ) )
     {
-        if ( level.nextreadghosts1 && var_0._id_0DB4 )
+        if ( level.nextgen && var_0._id_0DB4 )
         {
             if ( isplayer( self ) )
                 self _meth_8224( var_1, var_0._id_0DC4, var_0._id_0DB7, var_0._id_0DB9, var_0._id_0DB8, var_0._id_0DB5, var_0._id_0DBD, var_0._id_0DB6, var_0._id_0DC2, var_0._id_0DB3, int( var_0._id_0DBF ), var_0._id_0DBE, var_0._id_0DC1, var_0._id_0DC0, var_0._id_0DC3, var_0._id_0DBB, var_0._id_0DBA, var_0._id_0DBC );
@@ -3327,13 +3327,13 @@ _id_4853( var_0 )
 
 hide_friendname_waittill_flag_or_notify( var_0 )
 {
-    if ( !isdefined( self.nearz ) )
+    if ( !isdefined( self.name ) )
         return;
 
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     self endon( "death" );
-    self._id_63B0 = self.nearz;
-    self.nearz = " ";
+    self._id_63B0 = self.name;
+    self.name = " ";
     level waittill( var_0 );
-    self.nearz = self._id_63B0;
+    self.name = self._id_63B0;
 }

@@ -240,14 +240,14 @@ aud_start_mix_suicide_slowmo()
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_drop_bloody_gun" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_suicide_slowmo" );
     soundscripts\_audio_zone_manager::_id_1233( 1 );
-    level.playercardbackground setreverb( "snd_enveffectsprio_level", "underwater", 1, 0.7, 0.5 );
+    level.player setreverb( "snd_enveffectsprio_level", "underwater", 1, 0.7, 0.5 );
 }
 
 aud_start_mix_ending()
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_suicide_slowmo" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_ending" );
-    level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
+    level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
     soundscripts\_audio_zone_manager::_id_1233( 0 );
 }
 

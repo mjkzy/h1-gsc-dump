@@ -554,10 +554,10 @@ _id_9BCA()
 
     foreach ( var_7 in level.players )
     {
-        var_0 += var_7.killstreakrestricted;
+        var_0 += var_7.kills;
         var_1 += var_7.deaths;
         var_2 += var_7.assists;
-        var_3 += var_7.height;
+        var_3 += var_7.headshots;
         var_4 += var_7.suicides;
     }
 

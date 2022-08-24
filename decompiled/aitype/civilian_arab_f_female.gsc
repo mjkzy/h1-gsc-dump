@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "neutral";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta";
     self._id_855D = "colt45";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "ak47";
+    self.weapon = "ak47";
     character\character_arab_civilian_f_fem::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "neutral" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_arab_civilian_f_fem::prestigedoublexp();
+    character\character_arab_civilian_f_fem::precache();
     precacheitem( "ak47" );
     precacheitem( "beretta" );
     precacheitem( "colt45" );

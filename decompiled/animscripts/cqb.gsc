@@ -34,7 +34,7 @@ _id_5F4C()
         self.a._id_6E5A = "stand";
     }
 
-    self.a._id_5F5B = self.mw3prestige;
+    self.a._id_5F5B = self.movemode;
     _id_22DF();
     self _meth_8144( %h1_stairs, 0.1 );
 
@@ -112,7 +112,7 @@ _id_29A6()
         return animscripts\utility::_id_5863( "cqb", var_0 );
     }
 
-    if ( self.mw3prestige == "walk" )
+    if ( self.movemode == "walk" )
         return animscripts\utility::_id_5863( "cqb", "move_f" );
 
     if ( isdefined( self.a._id_135B ) && self.a._id_135B )

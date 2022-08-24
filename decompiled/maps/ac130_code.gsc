@@ -374,10 +374,10 @@ friendly_run_into_chopper( var_0 )
     level.friendlies_not_in_chopper++;
     self.fixednode = 0;
     self.a._id_2B20 = 1;
-    self.ignoretriggers = 1;
-    self.ignoreforfixednodesafecheck = 1;
-    self.melee_fired = 0;
-    self.index = 1;
+    self.ignoreme = 1;
+    self.ignoreall = 1;
+    self.maxsightdistsqrd = 0;
+    self.ignoresuppression = 1;
     thread maps\_utility::_id_4BB0( 1 );
     self setcandamage( 0 );
     self.goalradius = 32;
@@ -485,10 +485,10 @@ civilian_car_riders_spawn_and_idle_start( var_0, var_1, var_2 )
     var_0.edriver = var_1 stalingradspawn();
     maps\_utility::_id_88F1( var_0.edriver );
     var_0.edriver maps\_utility::_id_4462();
-    var_0.edriver.ignoretriggers = 1;
-    var_0.edriver.ignoreforfixednodesafecheck = 1;
-    var_0.edriver.melee_fired = 0;
-    var_0.edriver.index = 1;
+    var_0.edriver.ignoreme = 1;
+    var_0.edriver.ignoreall = 1;
+    var_0.edriver.maxsightdistsqrd = 0;
+    var_0.edriver.ignoresuppression = 1;
     var_0.edriver thread maps\_utility::_id_4BB0( 1 );
     var_0.edriver.civilian = 1;
     var_0.edriver.melonhead_ignore = 1;
@@ -576,7 +576,7 @@ hijack_driver_flee()
 
     self.edriver waittillmatch( "single anim", "end" );
     self.edriver maps\_anim::_id_0C21( self.edriver, "runaway" );
-    var_0 = getnode( self.edriver._not_team, "targetname" );
+    var_0 = getnode( self.edriver.target, "targetname" );
     self.edriver _meth_8143();
     self.edriver _meth_81a9( var_0 );
 }
@@ -606,7 +606,7 @@ do_car_idle_after_hijack( var_0 )
 
 sim_destruction()
 {
-    if ( !isdefined( self.script_parentname ) )
+    if ( !isdefined( self.script_noteworthy ) )
         return;
 
     thread trigger_40mm_hit_timeframe();
@@ -622,7 +622,7 @@ sim_destruction()
         }
 
         if ( var_0 >= 999 )
-            common_scripts\_exploder::_id_3528( self.script_parentname );
+            common_scripts\_exploder::_id_3528( self.script_noteworthy );
 
         if ( var_0 == 990 )
         {
@@ -641,7 +641,7 @@ sim_destruction()
 
 destructible_building()
 {
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     var_1 = [];
     var_2 = [];
     var_3 = undefined;
@@ -654,11 +654,11 @@ destructible_building()
             continue;
         }
 
-        var_5 = getentarray( var_0[var_4]._not_team, "targetname" );
+        var_5 = getentarray( var_0[var_4].target, "targetname" );
 
         for ( var_6 = 0; var_6 < var_5.size; var_6++ )
         {
-            if ( isdefined( var_5[var_6].script_parentname ) && var_5[var_6].script_parentname == "exploderchunk" )
+            if ( isdefined( var_5[var_6].script_noteworthy ) && var_5[var_6].script_noteworthy == "exploderchunk" )
             {
                 var_2[var_2.size] = var_5[var_6];
                 continue;
@@ -713,7 +713,7 @@ destructible_building()
             var_2[var_4] show();
             var_12 = var_2[var_4].origin;
             var_13 = var_2[var_4].angles;
-            var_14 = getent( var_2[var_4]._not_team, "targetname" );
+            var_14 = getent( var_2[var_4].target, "targetname" );
             var_15 = var_14.origin - var_12;
             var_16 = var_15[0];
             var_17 = var_15[1];
@@ -767,7 +767,7 @@ trigger_40mm_hit_timeframe_wait( var_0, var_1 )
 
     if ( var_5 <= var_0 * 1000 )
     {
-        self notify( "damage", 999, level.playercardbackground, undefined, undefined, "MOD_PROJECTILE" );
+        self notify( "damage", 999, level.player, undefined, undefined, "MOD_PROJECTILE" );
         self notify( "deleting" );
     }
 }
@@ -775,12 +775,12 @@ trigger_40mm_hit_timeframe_wait( var_0, var_1 )
 get_exploder_anim_name()
 {
     var_0 = undefined;
-    var_1 = strtok( self.teambalanced, ":;, " );
+    var_1 = strtok( self.targetname, ":;, " );
 
     if ( var_1.size > 1 && isdefined( var_1[1] ) )
         var_0 = var_1[1];
     else
-        var_0 = self.motiontrackerenabled + "_anim";
+        var_0 = self.model + "_anim";
 
     return var_0;
 }
@@ -791,7 +791,7 @@ get_exploderanimhides_in_array( var_0 )
 
     foreach ( var_3 in level._id_353C[var_0] )
     {
-        if ( isdefined( var_3.teambalanced ) && issubstr( var_3.teambalanced, "exploderanimhide" ) )
+        if ( isdefined( var_3.targetname ) && issubstr( var_3.targetname, "exploderanimhide" ) )
             var_1[var_1.size] = var_3;
     }
 
@@ -826,7 +826,7 @@ exploderanimhide_think( var_0 )
         var_3 = level._id_78AC["exploder_script_model"][var_2];
         var_4 = getanimlength( var_3 );
         wait(var_4);
-        var_5 = getsubstr( var_1.motiontrackerenabled, 0, var_1.motiontrackerenabled.size - 1 ) + "_final";
+        var_5 = getsubstr( var_1.model, 0, var_1.model.size - 1 ) + "_final";
 
         if ( common_scripts\utility::_id_0CE4( level.ac130_exploder_finalstates, var_5 ) )
         {

@@ -194,7 +194,7 @@ _id_70CA( var_0 )
 
     self._id_061C = 1;
     maps\_utility::_id_9F8C( level._id_5541, 0.5 );
-    level.playercardbackground maps\_utility::_id_69C4( level._id_78B9[var_0] );
+    level.player maps\_utility::_id_69C4( level._id_78B9[var_0] );
     self._id_061C = undefined;
     level._id_5541 = gettime();
     self notify( "finished_radio" );
@@ -247,9 +247,9 @@ _id_05CC( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = getsticksconfig();
 
-    if ( level.playercardbackground common_scripts\utility::_id_5064() )
+    if ( level.player common_scripts\utility::_id_5064() )
     {
-        if ( isdefined( level.pushable ) && level.pushable || isdefined( level.radaralwayson ) && level.radaralwayson )
+        if ( isdefined( level.ps3 ) && level.ps3 || isdefined( level.ps4 ) && level.ps4 )
         {
             if ( issubstr( var_6, "southpaw" ) || var_5 && issubstr( var_6, "legacy" ) )
                 return var_4;
@@ -356,8 +356,8 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     var_15.alpha = 1.0;
     var_15 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 127 + var_10 );
     var_15.foreground = 0;
-    var_15.high_priority = 1;
-    var_15.hindlegstraceoffset = 1;
+    var_15.hidewhendead = 1;
+    var_15.hidewheninmenu = 1;
     var_15 settext( var_0 );
 
     if ( isdefined( level._id_48D9 ) && level._id_48D9 || isdefined( level._id_8637._id_8A56 ) && level._id_8637._id_8A56 < 0.1 )
@@ -430,14 +430,14 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
 _id_48FB( var_0 )
 {
-    level.playercardbackground notify( "HintDisplayHandlerEnd" );
-    level.playercardbackground endon( "HintDisplayHandlerEnd" );
-    level.playercardbackground maps\_utility::_id_32E4( "global_hint_in_use" );
-    level.playercardbackground maps\_utility::_id_32E0( "global_hint_in_use" );
+    level.player notify( "HintDisplayHandlerEnd" );
+    level.player endon( "HintDisplayHandlerEnd" );
+    level.player maps\_utility::_id_32E4( "global_hint_in_use" );
+    level.player maps\_utility::_id_32E0( "global_hint_in_use" );
 
-    while ( level.playercardbackground maps\_utility::_id_32D8( "global_hint_in_use" ) )
+    while ( level.player maps\_utility::_id_32D8( "global_hint_in_use" ) )
     {
-        if ( !level.playercardbackground common_scripts\utility::_id_5064() && isdefined( level._id_48D2[var_0]["pc"] ) )
+        if ( !level.player common_scripts\utility::_id_5064() && isdefined( level._id_48D2[var_0]["pc"] ) )
             level._id_24EC settext( level._id_48D2[var_0]["pc"] );
         else
         {
@@ -455,7 +455,7 @@ _id_48FB( var_0 )
 
 _id_48FA( var_0 )
 {
-    if ( !level.playercardbackground common_scripts\utility::_id_5064() && isdefined( level._id_48D2[var_0]["pc"] ) )
+    if ( !level.player common_scripts\utility::_id_5064() && isdefined( level._id_48D2[var_0]["pc"] ) )
         level._id_97A8[var_0] = level._id_48D2[var_0]["pc"];
     else
     {
@@ -470,7 +470,7 @@ _id_48FA( var_0 )
     if ( ( isdefined( level._id_48D2[var_0]["pc"] ) || isdefined( level._id_48D2[var_0]["southpaw"] ) ) && ![[ level._id_97A7[var_0] ]]() )
         thread _id_48FB( var_0 );
     else
-        level.playercardbackground notify( "HintDisplayHandlerEnd" );
+        level.player notify( "HintDisplayHandlerEnd" );
 }
 
 _id_28C4( var_0 )
@@ -508,14 +508,14 @@ _id_8514( var_0 )
 
     var_5 = maps\_hud_util::_id_23ED( "objective", 2 );
     var_5.alpha = 0.9;
-    var_5.xpmaxmultipliertimeplayed = 0;
-    var_5._id_0538 = -38;
+    var_5.x = 0;
+    var_5.y = -38;
     var_5.alignx = "center";
     var_5.aligny = "middle";
-    var_5.hostquits = "center";
-    var_5.visionsetnight = "middle";
+    var_5.horzalign = "center";
+    var_5.vertalign = "middle";
     var_5.foreground = 0;
-    var_5.high_priority = 1;
+    var_5.hidewhendead = 1;
     var_5 settext( var_0._id_8F53 );
     var_5.alpha = 0;
     var_5 fadeovertime( var_1 );
@@ -832,16 +832,16 @@ _id_9724( var_0 )
         var_0.origin += var_1 * self.forward;
     }
 
-    if ( isdefined( self.riotshield_damaged ) )
+    if ( isdefined( self.right ) )
     {
         var_2 = anglestoright( var_0.angles );
-        var_0.origin += var_2 * self.riotshield_damaged;
+        var_0.origin += var_2 * self.right;
     }
 
-    if ( isdefined( self.upgradepurchased ) )
+    if ( isdefined( self.up ) )
     {
         var_3 = anglestoup( var_0.angles );
-        var_0.origin += var_3 * self.upgradepurchased;
+        var_0.origin += var_3 * self.up;
     }
 
     if ( isdefined( self._id_A3B4 ) )
@@ -982,7 +982,7 @@ _id_2FE1( var_0, var_1 )
 {
     if ( !isdefined( var_0.classname ) )
     {
-        if ( !isdefined( var_0.unlockpoints ) )
+        if ( !isdefined( var_0.type ) )
             var_2 = maps\_spawner::_id_3E8E;
         else
             var_2 = maps\_spawner::_id_3E8C;
@@ -1120,12 +1120,12 @@ _id_3BC6( var_0 )
 
 _id_3BC1()
 {
-    return level.playercardbackground _meth_83f2();
+    return level.player _meth_83f2();
 }
 
 _id_3BC2( var_0 )
 {
-    level.playercardbackground _meth_83f3( var_0 );
+    level.player _meth_83f3( var_0 );
 }
 
 _id_5F75()
@@ -1301,9 +1301,9 @@ _id_2D7B( var_0, var_1, var_2 )
         var_6 = anglestoforward( var_3.angles );
         var_7 = anglestoright( var_3.angles );
         var_5 = ( var_5[1] * var_7[0] + var_5[0] * var_6[0], var_5[1] * var_7[1] + var_5[0] * var_6[1], 0 );
-        var_0.smoke += var_5 * var_1;
+        var_0.slidevelocity += var_5 * var_1;
         wait 0.05;
-        var_0.smoke *= ( 1 - var_2 );
+        var_0.slidevelocity *= ( 1 - var_2 );
     }
 }
 
@@ -1318,7 +1318,7 @@ _id_5307( var_0, var_1 )
         return;
 
     playfxontag( common_scripts\utility::_id_3FA8( "flesh_hit" ), self, "tag_eye" );
-    self kill( level.playercardbackground.origin );
+    self kill( level.player.origin );
 }
 
 _id_9AD8( var_0, var_1 )
@@ -1378,7 +1378,7 @@ _id_6FDF( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( self._id_12F0 ) )
         self._id_12F0 = 0;
 
-    var_5 = self.titleunlocked * 20;
+    var_5 = self.time * 20;
     var_6 = self._id_311C - self._id_8B20;
     self._id_8E6C = 0;
 
@@ -1449,14 +1449,14 @@ _id_07B4( var_0 )
 _id_7064( var_0 )
 {
     var_1 = spawnstruct();
-    precachemodel( var_0.motiontrackerenabled );
-    var_1._id_948C = var_0.motiontrackerenabled;
+    precachemodel( var_0.model );
+    var_1._id_948C = var_0.model;
     var_1.origin = var_0.origin;
     var_1.angles = var_0.angles;
-    var_1.script_parentname = var_0.script_parentname;
+    var_1.script_noteworthy = var_0.script_noteworthy;
     var_1._id_7A26 = var_0._id_7A26;
-    var_1.teambalanced = var_0.teambalanced;
-    var_1._not_team = var_0._not_team;
+    var_1.targetname = var_0.targetname;
+    var_1.target = var_0.target;
     var_1.destructible_type = var_0.destructible_type;
     var_1._id_7A7E = var_0._id_7A7E;
     var_0 maps\_utility::_id_6EBA( var_0.destructible_type );

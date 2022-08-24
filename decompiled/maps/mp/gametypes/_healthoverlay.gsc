@@ -60,7 +60,7 @@ _id_6CC4()
     self endon( "faux_spawn" );
     level endon( "game_ended" );
 
-    if ( self.helmet <= 0 )
+    if ( self.health <= 0 )
         return;
 
     var_0 = 0;
@@ -71,11 +71,11 @@ _id_6CC4()
     {
         self waittill( "damage", var_2, var_3, var_4, var_5, var_6 );
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             return;
 
         var_1 = gettime();
-        var_7 = self.helmet / self.maxturnspeed;
+        var_7 = self.health / self.maxhealth;
 
         if ( !isdefined( self._id_4792 ) )
             self.regenspeed = 1;
@@ -207,15 +207,15 @@ _id_4790( var_0, var_1 )
             if ( level.mw1_health_regen )
                 wait 0.05;
 
-            self.helmet = self.maxturnspeed;
+            self.health = self.maxhealth;
             break;
         }
         else if ( self.regenspeed == 0.75 )
         {
             wait 0.2;
 
-            if ( self.helmet < self.maxturnspeed )
-                self.helmet += 5;
+            if ( self.health < self.maxhealth )
+                self.health += 5;
             else
                 break;
         }
@@ -223,8 +223,8 @@ _id_4790( var_0, var_1 )
         {
             wait 0.05;
 
-            if ( self.helmet < self.maxturnspeed )
-                self.helmet += 2;
+            if ( self.health < self.maxhealth )
+                self.health += 2;
             else
                 break;
         }
@@ -232,8 +232,8 @@ _id_4790( var_0, var_1 )
         {
             wait 0.15;
 
-            if ( self.helmet < self.maxturnspeed )
-                self.helmet += 40;
+            if ( self.health < self.maxhealth )
+                self.health += 40;
             else
                 break;
         }
@@ -242,26 +242,26 @@ _id_4790( var_0, var_1 )
             if ( !level.mw1_health_regen )
                 wait 0.05;
 
-            if ( self.helmet < self.maxturnspeed )
+            if ( self.health < self.maxhealth )
             {
                 if ( level.mw1_health_regen )
                 {
-                    self.helmet += 10;
+                    self.health += 10;
 
-                    if ( self.helmet > self.maxturnspeed )
-                        self.helmet = self.maxturnspeed;
+                    if ( self.health > self.maxhealth )
+                        self.health = self.maxhealth;
 
                     wait 0.05;
                 }
                 else
-                    self.helmet += 1;
+                    self.health += 1;
             }
             else
                 break;
         }
 
-        if ( self.helmet > self.maxturnspeed )
-            self.helmet = self.maxturnspeed;
+        if ( self.health > self.maxhealth )
+            self.health = self.maxhealth;
     }
 
     maps\mp\gametypes\_damage::_id_7445();
@@ -301,10 +301,10 @@ _id_6D22()
     {
         wait 0.2;
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             return;
 
-        if ( self.helmet >= self.maxturnspeed * 0.55 )
+        if ( self.health >= self.maxhealth * 0.55 )
             continue;
 
         if ( level.healthregendisabled && gettime() > self.breathingstoptime )

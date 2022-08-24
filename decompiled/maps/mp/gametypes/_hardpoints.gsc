@@ -1105,7 +1105,7 @@ useteamuav( var_0, var_1 )
 useplayeruav( var_0, var_1 )
 {
     level endon( "game_ended" );
-    self.headicon = 1;
+    self.hasradar = 1;
     var_2 = spawnstruct();
     var_2.team = var_0;
     var_2.owner = self;
@@ -1117,7 +1117,7 @@ useplayeruav( var_0, var_1 )
 
     if ( isdefined( var_3 ) && var_3 == "expire" )
     {
-        self.headicon = 0;
+        self.hasradar = 0;
         self clientiprintln( &"MP_WAR_RADAR_EXPIRED" );
     }
 

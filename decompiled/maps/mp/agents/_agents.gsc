@@ -95,7 +95,7 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     maps\mp\agents\_agent_utility::_id_070B();
     self._id_55DF = gettime();
-    self.spectating_cycle = gettime();
+    self.spawntime = gettime();
     var_9 = var_6 + ( 0.0, 0.0, 25.0 );
     var_10 = var_6;
     var_11 = playerphysicstrace( var_9, var_10 );
@@ -255,14 +255,14 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( !isdefined( self ) || !maps\mp\_utility::_id_5189( self ) )
         return 0;
 
-    if ( isdefined( var_1 ) && var_1.classname == "script_origin" && isdefined( var_1.unlockpoints ) && var_1.unlockpoints == "soft_landing" )
+    if ( isdefined( var_1 ) && var_1.classname == "script_origin" && isdefined( var_1.type ) && var_1.type == "soft_landing" )
         return 0;
 
     if ( var_5 == "bouncingbetty_mp" && !maps\mp\gametypes\_weapons::_id_5C52( var_0, self ) )
         return 0;
 
     if ( isdefined( var_0 ) && isdefined( var_0.stuckenemyentity ) && var_0.stuckenemyentity == self )
-        var_2 = self.helmet + 1;
+        var_2 = self.health + 1;
 
     if ( var_2 <= 0 )
         return 0;
@@ -284,7 +284,7 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
             {
                 if ( var_5 == "trap_zm_mp" )
                     var_12 = "none";
-                else if ( var_2 < self.helmet )
+                else if ( var_2 < self.health )
                 {
                     switch ( var_8 )
                     {

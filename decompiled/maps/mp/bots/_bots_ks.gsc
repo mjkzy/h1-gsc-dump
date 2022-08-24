@@ -269,7 +269,7 @@ _id_166A( var_0, var_1 )
         var_20 = var_19.enemieslist.size * 100;
         var_21 = clamp( 1.0 - var_19.disttomapcenter / var_7, 0.0, 1.0 );
         var_20 += var_21 * 100;
-        var_19.wildcardslots = var_20;
+        var_19.weight = var_20;
     }
 
     var_23 = var_9;
@@ -280,7 +280,7 @@ _id_166A( var_0, var_1 )
     var_24 = 0;
 
     foreach ( var_19 in var_23 )
-        var_24 += var_19.wildcardslots;
+        var_24 += var_19.weight;
 
     if ( var_24 > 0 )
     {
@@ -290,7 +290,7 @@ _id_166A( var_0, var_1 )
         for ( var_29 = 0; var_27 >= 0; var_29++ )
         {
             var_28 = var_23[var_29];
-            var_27 -= var_28.wildcardslots;
+            var_27 -= var_28.weight;
         }
 
         var_14 = var_28.enemieslist;

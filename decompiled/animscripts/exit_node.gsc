@@ -80,7 +80,7 @@ _id_8D2E()
     if ( !var_3 && !isdefined( self.exittypefunc ) )
         var_2 = _id_29AB();
 
-    var_8 = ( -1 * self.lookforward[0], -1 * self.lookforward[1], 0 );
+    var_8 = ( -1 * self.lookaheaddir[0], -1 * self.lookaheaddir[1], 0 );
     var_9 = _id_401A( var_4 );
     var_10 = var_9._id_5A2F;
     var_11 = var_9._id_33E8;
@@ -106,7 +106,7 @@ _id_8D2E()
 
     var_16 = distancesquared( self.origin, self._id_22A6 ) * 1.25;
 
-    if ( distancesquared( self.origin, self.pc ) < var_16 )
+    if ( distancesquared( self.origin, self.pathgoalpos ) < var_16 )
         return;
 
     _id_2D04( var_2, var_13 );
@@ -114,24 +114,24 @@ _id_8D2E()
 
 _id_29AA( var_0 )
 {
-    if ( animscripts\utility::_id_502C() && var_0.unlockpoints == "Cover Crouch" )
+    if ( animscripts\utility::_id_502C() && var_0.type == "Cover Crouch" )
         return "free_run_out_of_cover_crouch";
 
     if ( animscripts\cover_arrival::_id_1AFC( var_0 ) )
     {
-        if ( var_0.unlockpoints == "Cover Stand" )
+        if ( var_0.type == "Cover Stand" )
             return "stand_saw";
 
-        if ( var_0.unlockpoints == "Cover Crouch" )
+        if ( var_0.type == "Cover Crouch" )
             return "crouch_saw";
-        else if ( var_0.unlockpoints == "Cover Prone" )
+        else if ( var_0.type == "Cover Prone" )
             return "prone_saw";
     }
 
-    if ( !isdefined( anim._id_0CB6[var_0.unlockpoints] ) )
+    if ( !isdefined( anim._id_0CB6[var_0.type] ) )
         return;
 
-    if ( isdefined( anim._id_740B[var_0.unlockpoints] ) && anim._id_740B[var_0.unlockpoints] != self.a._id_6E5A )
+    if ( isdefined( anim._id_740B[var_0.type] ) && anim._id_740B[var_0.type] != self.a._id_6E5A )
         return;
 
     var_1 = self.a._id_6E5A;
@@ -139,7 +139,7 @@ _id_29AA( var_0 )
     if ( var_1 == "prone" && !isdefined( self.enableproneexitnode ) )
         var_1 = "crouch";
 
-    var_2 = anim._id_0CB6[var_0.unlockpoints][var_1];
+    var_2 = anim._id_0CB6[var_0.type][var_1];
 
     if ( animscripts\cover_arrival::_id_9C11() && var_2 == "exposed" )
         var_2 = "exposed_ready";
@@ -150,7 +150,7 @@ _id_29AA( var_0 )
         {
             var_2 = "exposed_unstable";
 
-            if ( self.mw3prestige == "run" )
+            if ( self.movemode == "run" )
                 var_2 += "_run";
 
             return var_2;
@@ -159,7 +159,7 @@ _id_29AA( var_0 )
         {
             var_2 = "stand_unstable";
 
-            if ( self.mw3prestige == "run" )
+            if ( self.movemode == "run" )
                 var_2 += "_run";
 
             return var_2;
@@ -179,7 +179,7 @@ _id_29AA( var_0 )
 
 _id_1D23()
 {
-    if ( !isdefined( self.pc ) )
+    if ( !isdefined( self.pathgoalpos ) )
         return 0;
 
     if ( isdefined( self._id_2B0E ) && self._id_2B0E )
@@ -194,7 +194,7 @@ _id_1D23()
     if ( self.a._id_6E5A == "prone" && !isdefined( self.enableproneexitnode ) )
         return 0;
 
-    if ( self.start_move != "none" )
+    if ( self.stairsstate != "none" )
         return 0;
 
     if ( !self _meth_81cf( "stand" ) && !isdefined( self._id_4795 ) && !isdefined( self.enableproneexitnode ) )
@@ -220,7 +220,7 @@ _id_1D22( var_0, var_1 )
             return 0;
     }
 
-    if ( !isdefined( self._id_4795 ) && isdefined( self.enemy ) && vectordot( self.lookforward, self.enemy.origin - self.origin ) < 0 )
+    if ( !isdefined( self._id_4795 ) && isdefined( self.enemy ) && vectordot( self.lookaheaddir, self.enemy.origin - self.origin ) < 0 )
     {
         if ( animscripts\utility::_id_1AE2() && distancesquared( self.origin, self.enemy.origin ) < 90000 )
             return 0;
@@ -243,7 +243,7 @@ _id_29AB( var_0 )
     {
         var_0 = "exposed_unstable";
 
-        if ( self.mw3prestige == "run" )
+        if ( self.movemode == "run" )
             var_0 += "_run";
 
         return var_0;
@@ -261,10 +261,10 @@ _id_401A( var_0 )
 {
     var_1 = spawnstruct();
 
-    if ( isdefined( var_0 ) && isdefined( anim._id_5A2F[var_0.unlockpoints] ) )
+    if ( isdefined( var_0 ) && isdefined( anim._id_5A2F[var_0.type] ) )
     {
-        var_1._id_5A2F = anim._id_5A2F[var_0.unlockpoints];
-        var_1._id_33E8 = anim._id_33E8[var_0.unlockpoints];
+        var_1._id_5A2F = anim._id_5A2F[var_0.type];
+        var_1._id_33E8 = anim._id_33E8[var_0.type];
     }
     else
     {
@@ -382,7 +382,7 @@ donodeexitanimation_impl( var_0 )
     self endon( "should_stairs_transition" );
     var_1 = 0.2;
 
-    if ( self.tactical )
+    if ( self.swimmer )
         self _meth_8192( "nogravity", 0 );
     else
         self _meth_8192( "zonly_physics", 0 );
@@ -422,9 +422,9 @@ _id_3794( var_0, var_1 )
 
 _id_29A8( var_0, var_1 )
 {
-    if ( var_0.unlockpoints == "Cover Right" )
+    if ( var_0.type == "Cover Right" )
         var_1 = "heat_right";
-    else if ( var_0.unlockpoints == "Cover Left" )
+    else if ( var_0.type == "Cover Left" )
         var_1 = "heat_left";
 
     return var_1;
@@ -442,10 +442,10 @@ _id_3F8B()
     if ( animscripts\utility::_id_51B0() )
         var_1 = 1024;
 
-    if ( isdefined( self.node_relinquished ) && distancesquared( self.origin, self.node_relinquished.origin ) < var_1 )
-        var_0 = self.node_relinquished;
-    else if ( isdefined( self.primaryattachment1 ) && distancesquared( self.origin, self.primaryattachment1.origin ) < var_1 )
-        var_0 = self.primaryattachment1;
+    if ( isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < var_1 )
+        var_0 = self.node;
+    else if ( isdefined( self.prevnode ) && distancesquared( self.origin, self.prevnode.origin ) < var_1 )
+        var_0 = self.prevnode;
 
     if ( isdefined( var_0 ) && isdefined( self._id_4795 ) && animscripts\utility::_id_06C4( self.angles[1] - var_0.angles[1] ) > 30 )
         return undefined;

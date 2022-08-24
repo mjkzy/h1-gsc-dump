@@ -187,7 +187,7 @@ _id_9EB1()
     var_0 maps\mp\_vl_avatar::playerspawnlocalplayeravatar( var_7, var_2, var_5, var_6, var_1 );
     level._id_39B1 = undefined;
     var_9 = level._id_9EAB[level._id_9EA2];
-    var_9.playercardbackground = var_0;
+    var_9.player = var_0;
     var_9._id_7DAC = var_9._id_2236;
     var_0 playersetlobbyfovscale();
     var_0 thread playermonitordisconnect();
@@ -630,12 +630,12 @@ player_sticks_in_lefty_config( var_0 )
 
 player_get_right_stick( var_0 )
 {
-    if ( player_sticks_in_lefty_config( var_0.info_player_start ) )
+    if ( player_sticks_in_lefty_config( var_0.index ) )
         return var_0.unnormalizedleftstickangle;
     else
     {
         var_1 = self _meth_8449();
-        return var_1[var_0.info_player_start];
+        return var_1[var_0.index];
     }
 }
 
@@ -643,24 +643,24 @@ player_update_right_stick( var_0 )
 {
     var_1 = 0;
 
-    if ( player_sticks_in_lefty_config( var_0.info_player_start ) )
+    if ( player_sticks_in_lefty_config( var_0.index ) )
     {
         var_2 = self getnormalizedmovement();
         var_3 = 1;
 
-        if ( var_0.info_player_start == 1 )
+        if ( var_0.index == 1 )
             var_3 = -12;
         else
             var_3 = -5;
 
-        var_4 = var_2[var_0.info_player_start] * var_3;
+        var_4 = var_2[var_0.index] * var_3;
         var_0.unnormalizedleftstickangle = angleclamp( var_0.unnormalizedleftstickangle + var_4 );
         var_1 = var_0.unnormalizedleftstickangle;
     }
     else
     {
         var_2 = self _meth_8449();
-        var_1 = var_2[var_0.info_player_start];
+        var_1 = var_2[var_0.index];
     }
 
     return var_1;
@@ -673,13 +673,13 @@ resetrotationdata( var_0 )
     if ( !isdefined( var_0.rotateyawdata ) )
     {
         var_0.rotateyawdata = spawnstruct();
-        var_0.rotateyawdata.info_player_start = 1;
+        var_0.rotateyawdata.index = 1;
     }
 
     if ( !isdefined( var_0.rotaterolldata ) )
     {
         var_0.rotaterolldata = spawnstruct();
-        var_0.rotaterolldata.info_player_start = 0;
+        var_0.rotaterolldata.index = 0;
     }
 
     var_0.rotateyawdata.storedstick = 0;
@@ -913,7 +913,7 @@ _id_3F9E( var_0 )
 {
     foreach ( var_3, var_2 in level._id_9EAB )
     {
-        if ( isdefined( var_2._id_57D6 ) && isdefined( var_2._id_57D6.playercardpatch ) && var_2._id_57D6.playercardpatch == var_0 && !maps\mp\_utility::_id_5092( var_2.fakemember ) )
+        if ( isdefined( var_2._id_57D6 ) && isdefined( var_2._id_57D6.player_controller ) && var_2._id_57D6.player_controller == var_0 && !maps\mp\_utility::_id_5092( var_2.fakemember ) )
             return var_3;
     }
 
@@ -1007,7 +1007,7 @@ getfocusforxuid( var_0 )
 {
     foreach ( var_3, var_2 in level._id_9EAB )
     {
-        if ( isdefined( var_2._id_57D6 ) && var_2._id_57D6.zonly_physics == var_0 )
+        if ( isdefined( var_2._id_57D6 ) && var_2._id_57D6.xuid == var_0 )
             return var_3;
     }
 
@@ -1069,17 +1069,17 @@ updatelocalavatarloadouts( var_0 )
 
             foreach ( var_5 in var_0 )
             {
-                if ( var_2.controller == var_5.playercardpatch )
+                if ( var_2.controller == var_5.player_controller )
                 {
                     var_3 = var_5;
                     break;
                 }
             }
 
-            if ( isdefined( var_3 ) && var_2.zonly_physics != var_3.zonly_physics )
+            if ( isdefined( var_3 ) && var_2.xuid != var_3.xuid )
             {
                 var_2._id_57D6 = var_3;
-                var_2.zonly_physics = var_3.zonly_physics;
+                var_2.xuid = var_3.xuid;
             }
         }
     }
@@ -1095,11 +1095,11 @@ memberclasschanges( var_0 )
 
     foreach ( var_3 in var_0 )
     {
-        var_4 = maps\mp\_vl_avatar::get_avatar_for_xuid( var_3.zonly_physics );
+        var_4 = maps\mp\_vl_avatar::get_avatar_for_xuid( var_3.xuid );
 
         if ( isdefined( var_4 ) )
         {
-            if ( var_3.playercardpatch >= 0 )
+            if ( var_3.player_controller >= 0 )
             {
                 var_5 = maps\mp\_vl_avatar::get_ownerid_for_avatar( var_4 );
                 var_6 = !level.vl_active || !isdefined( var_4._id_57D6 ) && getdvarint( "virtualLobbyMode", 0 ) == 6;
@@ -1107,7 +1107,7 @@ memberclasschanges( var_0 )
                 if ( isdefined( var_4 ) )
                 {
                     var_4._id_57D6 = var_3;
-                    var_4.zonly_physics = var_3.zonly_physics;
+                    var_4.xuid = var_3.xuid;
                 }
 
                 if ( !var_6 )
@@ -1115,16 +1115,16 @@ memberclasschanges( var_0 )
             }
         }
 
-        var_7 = tablelookup( "mp/statstable.csv", 0, var_3.primaryattachment3, 4 );
-        var_8 = var_3.primaryoffhand;
-        var_9 = tablelookup( "mp/attachkits.csv", 0, var_3.primaryoffhand, 1 );
-        var_10 = var_3._not_primaryweapon;
-        var_11 = tablelookup( "mp/furniturekits.csv", 0, var_3._not_primaryweapon, 1 );
-        var_12 = var_3.primaryreticle;
-        var_13 = tablelookup( "mp/camoTable.csv", 0, var_3.primaryreticle, 1 );
-        var_14 = var_3.privatematchcustomclasses;
-        var_15 = tablelookup( "mp/reticleTable.csv", 0, var_3.privatematchcustomclasses, 1 );
-        var_16 = var_3.playerid;
+        var_7 = tablelookup( "mp/statstable.csv", 0, var_3.primary, 4 );
+        var_8 = var_3.primaryattachkit;
+        var_9 = tablelookup( "mp/attachkits.csv", 0, var_3.primaryattachkit, 1 );
+        var_10 = var_3.primaryfurniturekit;
+        var_11 = tablelookup( "mp/furniturekits.csv", 0, var_3.primaryfurniturekit, 1 );
+        var_12 = var_3.primarycamo;
+        var_13 = tablelookup( "mp/camoTable.csv", 0, var_3.primarycamo, 1 );
+        var_14 = var_3.primaryreticle;
+        var_15 = tablelookup( "mp/reticleTable.csv", 0, var_3.primaryreticle, 1 );
+        var_16 = var_3.playercardpatch;
         var_17 = var_16;
         var_18 = var_3._id_A7EB;
         var_19 = var_3._id_A7EC;
@@ -1136,14 +1136,14 @@ memberclasschanges( var_0 )
         var_21 = maps\mp\_utility::_id_3F11( var_20 );
         var_22 = [];
         var_22[level._id_2238["gender"]] = var_3.gender;
-        var_22[level._id_2238["shirt"]] = var_3.sightlatency;
-        var_22[level._id_2238["head"]] = var_3.headshots;
+        var_22[level._id_2238["shirt"]] = var_3.shirt;
+        var_22[level._id_2238["head"]] = var_3.head;
         var_22[level._id_2238["gloves"]] = var_3.gloves;
         var_23 = var_3._id_A7ED;
 
         if ( !isdefined( var_4 ) )
         {
-            var_5 = maps\mp\_vl_avatar::getnewlobbyavatarownerid( var_3.zonly_physics );
+            var_5 = maps\mp\_vl_avatar::getnewlobbyavatarownerid( var_3.xuid );
             var_24 = maps\mp\gametypes\vlobby::getspawnpoint( getconstlocalplayer() );
             var_4 = maps\mp\_vl_avatar::_id_88CE( var_1, var_24, var_20, var_22, var_23, var_3._id_A7E7, var_5, 0 );
             setdvar( "virtuallobbymembers", level._id_9EAB.size );
@@ -1151,28 +1151,28 @@ memberclasschanges( var_0 )
             var_4._id_A7EA = var_16;
             var_4 _meth_8577( var_19 );
             var_4._id_57D6 = var_3;
-            var_4.zonly_physics = var_3.zonly_physics;
+            var_4.xuid = var_3.xuid;
             var_4._id_5BA7 = gettime() + 4000;
 
-            if ( var_3.playercardpatch >= 0 )
-                var_4.controller = var_3.playercardpatch;
+            if ( var_3.player_controller >= 0 )
+                var_4.controller = var_3.player_controller;
 
             continue;
         }
 
         var_5 = maps\mp\_vl_avatar::get_ownerid_for_avatar( var_4 );
 
-        if ( var_3.playercardpatch >= 0 && isdefined( var_4.savedcostume ) )
+        if ( var_3.player_controller >= 0 && isdefined( var_4.savedcostume ) )
             var_22 = var_4.savedcostume;
 
-        if ( var_3.playercardpatch >= 0 || _id_57D7( var_4._id_57D6, var_3 ) || _id_2237( var_4._id_2236, var_22 ) )
+        if ( var_3.player_controller >= 0 || _id_57D7( var_4._id_57D6, var_3 ) || _id_2237( var_4._id_2236, var_22 ) )
         {
             var_25 = var_4.primaryweapon;
             var_4._id_57D6 = var_3;
             var_4.updateloadout = 1;
             var_4.updatecostume = var_22;
 
-            if ( var_3.playercardpatch >= 0 )
+            if ( var_3.player_controller >= 0 )
             {
                 thread updateavatarloadout( var_1, var_4 );
                 maps\mp\_vl_cac::updatefactionselection( var_3._id_A7E7 );
@@ -1204,12 +1204,12 @@ updateavatarloadout( var_0, var_1, var_2 )
     var_3 = var_1._id_57D6;
     var_4 = var_1.updatecostume;
     var_5 = maps\mp\_vl_avatar::get_ownerid_for_avatar( var_1 );
-    var_6 = tablelookup( "mp/statstable.csv", 0, var_3.primaryattachment3, 4 );
-    var_7 = tablelookup( "mp/attachkits.csv", 0, var_3.primaryoffhand, 1 );
-    var_8 = tablelookup( "mp/furniturekits.csv", 0, var_3._not_primaryweapon, 1 );
-    var_9 = var_3.primaryreticle;
-    var_10 = var_3.privatematchcustomclasses;
-    var_11 = var_3.playerid;
+    var_6 = tablelookup( "mp/statstable.csv", 0, var_3.primary, 4 );
+    var_7 = tablelookup( "mp/attachkits.csv", 0, var_3.primaryattachkit, 1 );
+    var_8 = tablelookup( "mp/furniturekits.csv", 0, var_3.primaryfurniturekit, 1 );
+    var_9 = var_3.primarycamo;
+    var_10 = var_3.primaryreticle;
+    var_11 = var_3.playercardpatch;
     var_1._id_A7EA = var_11;
     var_12 = var_3._id_A7EB;
     var_13 = var_3._id_A7EC;
@@ -1261,22 +1261,22 @@ _id_57D7( var_0, var_1 )
     if ( !isdefined( var_0 ) )
         return 1;
 
-    if ( var_0.primaryattachment3 != var_1.primaryattachment3 )
+    if ( var_0.primary != var_1.primary )
         return 1;
 
-    if ( var_0.primaryoffhand != var_1.primaryoffhand )
+    if ( var_0.primaryattachkit != var_1.primaryattachkit )
         return 1;
 
-    if ( var_0._not_primaryweapon != var_1._not_primaryweapon )
+    if ( var_0.primaryfurniturekit != var_1.primaryfurniturekit )
         return 1;
 
-    if ( var_0.primaryreticle != var_1.primaryreticle )
+    if ( var_0.primarycamo != var_1.primarycamo )
         return 1;
 
     if ( var_0._id_A7E7 != var_1._id_A7E7 )
         return 1;
 
-    if ( var_0.playerid != var_1.playerid )
+    if ( var_0.playercardpatch != var_1.playercardpatch )
         return 1;
 
     if ( var_0._id_A7EB != var_1._id_A7EB )
@@ -1329,7 +1329,7 @@ _id_66A8( var_0 )
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = var_2.zonly_physics;
+        var_3 = var_2.xuid;
         var_4 = maps\mp\_vl_avatar::get_avatar_for_xuid( var_3 );
 
         if ( isdefined( var_4 ) )
@@ -1338,7 +1338,7 @@ _id_66A8( var_0 )
             var_4._id_5BA2 = undefined;
         }
 
-        if ( var_2.primaryattachment3 >= 0 )
+        if ( var_2.primary >= 0 )
             scorepercentagecutoff( var_2 );
     }
 
@@ -1350,7 +1350,7 @@ scorepercentagecutoff( var_0 )
 {
     for ( var_1 = 0; var_1 < level._id_5A79.size; var_1++ )
     {
-        if ( level._id_5A79[var_1].zonly_physics == var_0.zonly_physics )
+        if ( level._id_5A79[var_1].xuid == var_0.xuid )
         {
             level._id_5A79[var_1] = var_0;
             var_0 = undefined;

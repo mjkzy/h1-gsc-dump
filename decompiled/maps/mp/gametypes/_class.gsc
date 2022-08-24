@@ -1113,25 +1113,25 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     var_33._id_21D9 = var_10;
     var_33._id_199A = var_9;
     var_33._id_5111 = var_12;
-    var_33.primaryattachment3 = var_15;
-    var_33.primaryoffhand = var_16;
-    var_33._not_primaryweapon = var_17;
-    var_33.primaryreticle = var_18;
-    var_33.privatematchcustomclasses = var_19;
-    var_18 = int( tablelookup( "mp/camoTable.csv", 1, var_33.primaryreticle, 0 ) );
-    var_19 = int( tablelookup( "mp/reticleTable.csv", 1, var_33.privatematchcustomclasses, 0 ) );
-    var_33._id_6F84 = _id_188C( var_33.primaryattachment3, var_33.primaryoffhand, var_33._not_primaryweapon, var_18, var_19, var_45 );
-    var_33.secondaryattachments = var_20;
-    var_33.secondaryoffhand = var_21;
-    var_33._not_secondaryweapon = var_22;
-    var_33.secondaryreticle = var_23;
-    var_33.sentry_manual = var_24;
-    var_23 = int( tablelookup( "mp/camoTable.csv", 1, var_33.secondaryreticle, 0 ) );
-    var_24 = int( tablelookup( "mp/reticleTable.csv", 1, var_33.sentry_manual, 0 ) );
-    var_33._id_7BFA = _id_188C( var_33.secondaryattachments, var_33.secondaryoffhand, var_33._not_secondaryweapon, var_23, var_24, var_45 );
+    var_33.primary = var_15;
+    var_33.primaryattachkit = var_16;
+    var_33.primaryfurniturekit = var_17;
+    var_33.primarycamo = var_18;
+    var_33.primaryreticle = var_19;
+    var_18 = int( tablelookup( "mp/camoTable.csv", 1, var_33.primarycamo, 0 ) );
+    var_19 = int( tablelookup( "mp/reticleTable.csv", 1, var_33.primaryreticle, 0 ) );
+    var_33._id_6F84 = _id_188C( var_33.primary, var_33.primaryattachkit, var_33.primaryfurniturekit, var_18, var_19, var_45 );
+    var_33.secondary = var_20;
+    var_33.secondaryattachkit = var_21;
+    var_33.secondaryfurniturekit = var_22;
+    var_33.secondarycamo = var_23;
+    var_33.secondaryreticle = var_24;
+    var_23 = int( tablelookup( "mp/camoTable.csv", 1, var_33.secondarycamo, 0 ) );
+    var_24 = int( tablelookup( "mp/reticleTable.csv", 1, var_33.secondaryreticle, 0 ) );
+    var_33._id_7BFA = _id_188C( var_33.secondary, var_33.secondaryattachkit, var_33.secondaryfurniturekit, var_23, var_24, var_45 );
     var_33.equipment = var_25;
-    var_33.oldtime = var_26;
-    var_33.persistentperksunlocked = var_11;
+    var_33.offhand = var_26;
+    var_33.perks = var_11;
     var_33.meleeweapon = var_28;
 
     if ( var_28 != "none" )
@@ -1174,31 +1174,31 @@ applyloadout()
         setclass( "copycat" );
 
     self._id_1E2F = var_0._id_1E2F;
-    self._id_57DF = var_0.primaryattachment3;
-    self._id_57E0 = int( tablelookup( "mp/camoTable.csv", 1, var_0.primaryreticle, 0 ) );
-    self._id_57E2 = var_0.secondaryattachments;
-    self._id_57E3 = int( tablelookup( "mp/camoTable.csv", 1, var_0.secondaryreticle, 0 ) );
+    self._id_57DF = var_0.primary;
+    self._id_57E0 = int( tablelookup( "mp/camoTable.csv", 1, var_0.primarycamo, 0 ) );
+    self._id_57E2 = var_0.secondary;
+    self._id_57E3 = int( tablelookup( "mp/camoTable.csv", 1, var_0.secondarycamo, 0 ) );
 
-    if ( !issubstr( var_0.primaryattachment3, "iw5" ) && !issubstr( var_0.primaryattachment3, "h1_" ) )
+    if ( !issubstr( var_0.primary, "iw5" ) && !issubstr( var_0.primary, "h1_" ) )
         self._id_57E0 = 0;
 
-    if ( !issubstr( var_0.secondaryattachments, "iw5" ) && !issubstr( var_0.secondaryattachments, "h1_" ) )
+    if ( !issubstr( var_0.secondary, "iw5" ) && !issubstr( var_0.secondary, "h1_" ) )
         self._id_57E3 = 0;
 
-    self._id_57E1 = int( tablelookup( "mp/reticleTable.csv", 1, var_0.privatematchcustomclasses, 0 ) );
-    self._id_57E4 = int( tablelookup( "mp/reticleTable.csv", 1, var_0.sentry_manual, 0 ) );
+    self._id_57E1 = int( tablelookup( "mp/reticleTable.csv", 1, var_0.primaryreticle, 0 ) );
+    self._id_57E4 = int( tablelookup( "mp/reticleTable.csv", 1, var_0.secondaryreticle, 0 ) );
 
-    if ( !issubstr( var_0.primaryattachment3, "iw5" ) && !issubstr( var_0.primaryattachment3, "h1_" ) )
+    if ( !issubstr( var_0.primary, "iw5" ) && !issubstr( var_0.primary, "h1_" ) )
         self._id_57E1 = 0;
 
-    if ( !issubstr( var_0.secondaryattachments, "iw5" ) && !issubstr( var_0.secondaryattachments, "h1_" ) )
+    if ( !issubstr( var_0.secondary, "iw5" ) && !issubstr( var_0.secondary, "h1_" ) )
         self._id_57E4 = 0;
 
     self.loadoutmelee = var_0.meleeweapon;
 
     if ( isdefined( var_0._id_529C ) && var_0._id_529C )
     {
-        self.helmet = self.maxturnspeed;
+        self.health = self.maxhealth;
         thread maps\mp\_utility::_id_7265( maps\mp\_utility::_id_5131() );
         self._id_5131 = 1;
         self._id_52AA = 0.7;
@@ -1259,19 +1259,19 @@ applyloadout()
         self setspawnweapon( maps\mp\_utility::_id_3E67( var_0 ) );
 
     self.pers["primaryWeapon"] = maps\mp\_utility::_id_3F11( var_5 );
-    self._id_57DD = var_0.oldtime;
-    self setoffhandsecondaryclass( var_0.oldtime );
+    self._id_57DD = var_0.offhand;
+    self setoffhandsecondaryclass( var_0.offhand );
 
     if ( !level.oldschool )
-        _id_41F5( var_0.oldtime );
+        _id_41F5( var_0.offhand );
 
     if ( level.oldschool )
-        self setweaponammoclip( var_0.oldtime, 0 );
+        self setweaponammoclip( var_0.offhand, 0 );
 
-    if ( var_0.oldtime != "specialty_null" && isdefined( self.perkscustom["specialgrenades_count"] ) )
+    if ( var_0.offhand != "specialty_null" && isdefined( self.perkscustom["specialgrenades_count"] ) )
     {
         var_4 = self.perkscustom["specialgrenades_count"];
-        self setweaponammoclip( var_0.oldtime, var_4 );
+        self setweaponammoclip( var_0.offhand, var_4 );
     }
 
     var_6 = var_5;
@@ -1469,7 +1469,7 @@ _id_912F( var_0 )
 
 _id_57D9( var_0 )
 {
-    var_1 = var_0.persistentperksunlocked;
+    var_1 = var_0.perks;
 
     for ( var_2 = 0; var_2 < 3; var_2++ )
         var_1[var_2] = maps\mp\perks\_perks::_id_9C4E( var_2, var_1[var_2] );

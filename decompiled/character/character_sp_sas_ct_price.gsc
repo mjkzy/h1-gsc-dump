@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sas_ct_assault_price" );
     precachemodel( "head_sas_ct_assault_price_mask_down" );

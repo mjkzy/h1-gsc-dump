@@ -21,18 +21,18 @@
 
 _id_9C2C()
 {
-    return weaponisauto( self.weapon_switch_invalid ) || weaponburstcount( self.weapon_switch_invalid ) > 0;
+    return weaponisauto( self.weapon ) || weaponburstcount( self.weapon ) > 0;
 }
 
 _id_9C38()
 {
-    return weaponissemiauto( self.weapon_switch_invalid );
+    return weaponissemiauto( self.weapon );
 }
 
 _id_116C()
 {
     if ( _id_9C2C() )
-        return 0.1 / weaponfiretime( self.weapon_switch_invalid );
+        return 0.1 / weaponfiretime( self.weapon );
     else
         return 0.5;
 }
@@ -40,7 +40,7 @@ _id_116C()
 _id_1934()
 {
     if ( _id_9C2C() )
-        return 0.1 / weaponfiretime( self.weapon_switch_invalid );
+        return 0.1 / weaponfiretime( self.weapon );
     else
         return 0.2;
 }
@@ -55,24 +55,24 @@ _id_83E9( var_0 )
     if ( !_id_9C2C() || isdefined( var_0 ) && var_0 == 1 )
     {
         var_1 = 0.5 + randomfloat( 1 );
-        return weaponfiretime( self.weapon_switch_invalid ) * var_1;
+        return weaponfiretime( self.weapon ) * var_1;
     }
     else
-        return weaponfiretime( self.weapon_switch_invalid );
+        return weaponfiretime( self.weapon );
 }
 
 _id_72B1()
 {
-    if ( self.weapon_switch_invalid == "none" )
+    if ( self.weapon == "none" )
     {
         self._id_18B0 = 0;
         return 0;
     }
 
     if ( !isdefined( self._id_18B0 ) )
-        self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+        self._id_18B0 = weaponclipsize( self.weapon );
     else
-        self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+        self._id_18B0 = weaponclipsize( self.weapon );
 
     if ( self._id_18B0 <= 0 )
         return 0;

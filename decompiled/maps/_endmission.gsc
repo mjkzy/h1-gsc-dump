@@ -78,7 +78,7 @@ _id_05FF()
 {
     level notify( "achievements_level_complete" );
     level._id_60D6 = 1;
-    level.playercardbackground enableinvulnerability();
+    level.player enableinvulnerability();
 
     if ( maps\_utility::_id_0CC3() )
     {
@@ -91,14 +91,14 @@ _id_05FF()
     setsaveddvar( "ui_nextMission", "1" );
     setdvar( "ui_showPopup", "0" );
     setdvar( "ui_popupString", "" );
-    game["previous_map"] = level.script_context;
-    maps\_gameskill::_id_1123( "aa_main_" + level.script_context );
-    var_0 = level._id_5CE0 _id_4000( level.script_context );
+    game["previous_map"] = level.script;
+    maps\_gameskill::_id_1123( "aa_main_" + level.script );
+    var_0 = level._id_5CE0 _id_4000( level.script );
 
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( level.script_context != "jeepride" && level.script_context != "airplane" )
+    if ( level.script != "jeepride" && level.script != "airplane" )
     {
         thread maps\_hud_util::_id_35E3( 1, undefined );
         soundscripts\_snd::_id_870C( "end_mission_fade_to_black" );
@@ -122,12 +122,12 @@ _id_05FF()
     level._id_5CE0 checkcampaigncompleted();
     var_2 = level._id_5CE0._id_56E5.size;
 
-    if ( level.script_context == "airplane" )
+    if ( level.script == "airplane" )
     {
         if ( getdvarint( "arcademode_full" ) )
         {
-            level.playercardbackground _meth_84ed( &"AIRPLANE_CAMPAIGN_COMPLETED" );
-            level.playercardbackground waittill( "menuresponse" );
+            level.player _meth_84ed( &"AIRPLANE_CAMPAIGN_COMPLETED" );
+            level.player waittill( "menuresponse" );
         }
 
         setsaveddvar( "ui_nextMission", "0" );
@@ -138,8 +138,8 @@ _id_05FF()
     {
         if ( var_1 != level._id_5CE0 isallmisioncompleted() )
         {
-            level.playercardbackground _meth_84ed( &"campaign_completed_popup" );
-            level.playercardbackground waittill( "menuresponse", var_3, var_4 );
+            level.player _meth_84ed( &"campaign_completed_popup" );
+            level.player waittill( "menuresponse", var_3, var_4 );
 
             if ( var_4 == "quit" )
             {
@@ -168,24 +168,24 @@ _id_05FF()
                 return;
             }
 
-            if ( level.script_context == "cargoship" )
+            if ( level.script == "cargoship" )
             {
                 changelevel( "blackout", level._id_5CE0 _id_3FDE( var_0 ) );
                 return;
             }
-            else if ( level.script_context == "airlift" )
+            else if ( level.script == "airlift" )
             {
                 changelevel( "village_assault", level._id_5CE0 _id_3FDE( var_0 ) );
                 return;
             }
-            else if ( level.script_context == "jeepride" )
+            else if ( level.script == "jeepride" )
             {
                 changelevel( "airplane", level._id_5CE0 _id_3FDE( var_0 ) );
                 return;
             }
         }
 
-        if ( level.script_context == "jeepride" )
+        if ( level.script == "jeepride" )
         {
             setdvar( "credits_load", "1" );
             changelevel( "simplecredits", level._id_5CE0 _id_3FDE( var_0 ) );
@@ -207,7 +207,7 @@ _id_9B73()
     var_0 = int( _id_4135() * 100 );
 
     if ( getdvarint( "mis_cheat" ) == 0 )
-        level.playercardbackground _meth_8213( "percentCompleteSP", var_0 );
+        level.player _meth_8213( "percentCompleteSP", var_0 );
 
     return var_0;
 }
@@ -232,7 +232,7 @@ _id_4135()
 
 _id_40F0( var_0 )
 {
-    var_1 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_1 = level.player _meth_8212( "missionHighestDifficulty" );
     var_2 = 0;
     var_3 = [];
     var_4 = 0;
@@ -274,27 +274,27 @@ _id_40F2()
 _id_40EF()
 {
     var_0 = 45;
-    var_1 = level.playercardbackground _meth_8212( "cheatPoints" ) / var_0 * 100;
+    var_1 = level.player _meth_8212( "cheatPoints" ) / var_0 * 100;
     return var_1;
 }
 
 _id_3FFF( var_0 )
 {
-    return int( level.playercardbackground _meth_8212( "missionHighestDifficulty" )[var_0] );
+    return int( level.player _meth_8212( "missionHighestDifficulty" )[var_0] );
 }
 
 _id_40CF( var_0 )
 {
-    return int( level.playercardbackground _meth_8212( "missionSOHighestDifficulty" )[var_0] );
+    return int( level.player _meth_8212( "missionSOHighestDifficulty" )[var_0] );
 }
 
 _id_7F9F( var_0 )
 {
-    var_1 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_1 = level.player _meth_8212( "missionHighestDifficulty" );
     var_2 = "";
     var_3 = level._id_3BFE;
 
-    if ( level.script_context == "killhouse" || level.script_context == "coup" || level.script_context == "aftermath" )
+    if ( level.script == "killhouse" || level.script == "coup" || level.script == "aftermath" )
         var_3 = 3;
 
     for ( var_4 = 0; var_4 < var_1.size; var_4++ )
@@ -334,7 +334,7 @@ _id_0636( var_0 )
     if ( getdvar( "mis_cheat" ) == "1" )
         return;
 
-    level.playercardbackground _meth_8213( "highestMission", var_0 );
+    level.player _meth_8213( "highestMission", var_0 );
 }
 
 _id_063A( var_0 )
@@ -345,12 +345,12 @@ _id_063A( var_0 )
     if ( getdvar( "mis_cheat" ) == "1" )
         return;
 
-    level.playercardbackground _meth_8213( "missionHighestDifficulty", var_0 );
+    level.player _meth_8213( "missionHighestDifficulty", var_0 );
 }
 
 _id_4002( var_0 )
 {
-    var_1 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_1 = level.player _meth_8212( "missionHighestDifficulty" );
     return int( var_1[var_0] );
 }
 
@@ -364,7 +364,7 @@ _id_4025( var_0 )
 
 _id_4014()
 {
-    var_0 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
     var_1 = 4;
 
     for ( var_2 = 0; var_2 < self._id_56E5.size; var_2++ )
@@ -378,7 +378,7 @@ _id_4014()
 
 isallmisioncompleted()
 {
-    var_0 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
 
     for ( var_1 = 0; var_1 < self._id_56E5.size; var_1++ )
     {
@@ -391,7 +391,7 @@ isallmisioncompleted()
 
 checkcampaigncompleted()
 {
-    var_0 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
     var_1 = 1;
     var_2 = 1;
 
@@ -424,7 +424,7 @@ _id_07FD( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = self._id_56E5.size;
     self._id_56E5[var_7] = spawnstruct();
-    self._id_56E5[var_7].nearz = var_0;
+    self._id_56E5[var_7].name = var_0;
     self._id_56E5[var_7]._id_52E4 = var_1;
     self._id_56E5[var_7]._id_06DF = var_2;
     self._id_56E5[var_7]._id_85C2 = var_3;
@@ -444,7 +444,7 @@ _id_4000( var_0 )
 {
     foreach ( var_3, var_2 in self._id_56E5 )
     {
-        if ( var_2.nearz == var_0 )
+        if ( var_2.name == var_0 )
             return var_3;
     }
 
@@ -453,7 +453,7 @@ _id_4000( var_0 )
 
 _id_4001( var_0 )
 {
-    return self._id_56E5[var_0].nearz;
+    return self._id_56E5[var_0].name;
 }
 
 _id_3FDE( var_0 )
@@ -549,7 +549,7 @@ _id_403E()
 
 _id_3988()
 {
-    var_0 = level.playercardbackground _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
     var_1 = "";
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
@@ -563,14 +563,14 @@ _id_3988()
         var_1 += 0;
     }
 
-    level.playercardbackground _meth_8213( "missionHighestDifficulty", var_1 );
-    level.playercardbackground _meth_8213( "highestMission", 20 );
+    level.player _meth_8213( "missionHighestDifficulty", var_1 );
+    level.player _meth_8213( "highestMission", 20 );
 }
 
 _id_1EE2()
 {
-    level.playercardbackground _meth_8213( "missionHighestDifficulty", "00000000000000000000000000000000000000000000000000" );
-    level.playercardbackground _meth_8213( "highestMission", 1 );
+    level.player _meth_8213( "missionHighestDifficulty", "00000000000000000000000000000000000000000000000000" );
+    level.player _meth_8213( "highestMission", 1 );
 }
 
 _id_2452()
@@ -584,8 +584,8 @@ _id_3139( var_0 )
         return;
 
     soundscripts\_snd::_id_870C( "finish_mission_fade", var_0 );
-    var_1 = maps\_hud_util::_id_23A2( "black", 0, level.playercardbackground );
-    var_1.space = 100;
+    var_1 = maps\_hud_util::_id_23A2( "black", 0, level.player );
+    var_1.sort = 100;
     var_1 fadeovertime( var_0 );
     var_1.alpha = 1;
     wait(var_0);

@@ -30,7 +30,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_arab_regular_sadiq" );
     precachemodel( "head_sp_arab_regular_sadiq" );

@@ -58,7 +58,7 @@ playerspawnlocalplayeravatar( var_0, var_1, var_2, var_3, var_4 )
     var_8._id_A7EA = var_6.emblemindex;
     var_8 _meth_8577( var_6._id_A7EC );
     var_8.controller = var_4;
-    var_8.zonly_physics = var_0;
+    var_8.xuid = var_0;
     setdvar( "virtuallobbymembers", level._id_9EAB.size );
 }
 
@@ -73,9 +73,9 @@ _id_7DB2( var_0, var_1 )
     maps\mp\agents\_agent_utility::_id_7DB1( var_0 );
     self.agent_gameparticipant = 0;
     self.isactive = 1;
-    self.spectating_cycle = gettime();
+    self.spawntime = gettime();
     self.issniper = 0;
-    self.sharpturnnotifydist = var_1;
+    self.sessionteam = var_1;
 }
 
 alloc_avatar()
@@ -187,7 +187,7 @@ _id_88CE( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         if ( isdefined( var_10 ) )
         {
             var_13 attach( var_10 );
-            var_13.headshots = var_10;
+            var_13.head = var_10;
         }
     }
     else
@@ -401,11 +401,11 @@ _id_84C0()
 
 get_xuid_for_avatar( var_0 )
 {
-    if ( isdefined( var_0.zonly_physics ) )
-        return var_0.zonly_physics;
+    if ( isdefined( var_0.xuid ) )
+        return var_0.xuid;
 
     if ( isdefined( var_0._id_57D6 ) )
-        return var_0._id_57D6.zonly_physics;
+        return var_0._id_57D6.xuid;
 
     return "";
 }
@@ -414,10 +414,10 @@ get_avatar_for_xuid( var_0 )
 {
     foreach ( var_2 in level._id_9EAB )
     {
-        if ( isdefined( var_2.zonly_physics ) && var_2.zonly_physics == var_0 )
+        if ( isdefined( var_2.xuid ) && var_2.xuid == var_0 )
             return var_2;
 
-        if ( isdefined( var_2._id_57D6 ) && var_2._id_57D6.zonly_physics == var_0 )
+        if ( isdefined( var_2._id_57D6 ) && var_2._id_57D6.xuid == var_0 )
             return var_2;
     }
 
@@ -587,8 +587,8 @@ attachprimaryweapon( var_0 )
 {
     var_1 = undefined;
 
-    if ( isdefined( var_0.playercardbackground ) )
-        var_1 = var_0.playercardbackground;
+    if ( isdefined( var_0.player ) )
+        var_1 = var_0.player;
 
     var_2 = "tag_weapon_right";
 

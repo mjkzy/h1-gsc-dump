@@ -23,7 +23,7 @@ _id_33BF( var_0 )
 {
     var_0 endon( "death" );
 
-    while ( var_0.helmet > 0 )
+    while ( var_0.health > 0 )
     {
         var_0 waittill( "missile_lock", var_1 );
         var_2 = _id_33B9( var_0, "random" );

@@ -28,7 +28,7 @@ near_tv()
         self waittill( "trigger" );
         common_scripts\utility::_id_383F( "near_tv" );
 
-        while ( level.playercardbackground istouching( self ) )
+        while ( level.player istouching( self ) )
             wait 1;
 
         stopcinematicingame();
@@ -80,14 +80,14 @@ flashbang_hint()
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         if ( isalive( var_1[var_2] ) )
-            var_1[var_2] dodamage( var_1[var_2].helmet + 100, var_1[var_2].origin );
+            var_1[var_2] dodamage( var_1[var_2].health + 100, var_1[var_2].origin );
     }
 }
 
 flag_on_flash()
 {
     notifyoncommand( "player_flash", "-smoke" );
-    level.playercardbackground waittill( "player_flash" );
+    level.player waittill( "player_flash" );
     common_scripts\utility::_id_383F( "player_has_flashed" );
 }
 
@@ -148,7 +148,7 @@ pickup_technical_custombadplace()
 
     self endon( "delete" );
     var_1 = getent( "PickupTechnicalBadBlaceVolume", "targetname" );
-    var_2 = isdefined( level._id_9CE0[self.motiontrackerenabled] ) && level._id_9CE0[self.motiontrackerenabled];
+    var_2 = isdefined( level._id_9CE0[self.model] ) && level._id_9CE0[self.model];
     var_3 = 0.1;
     var_4 = 17;
     var_5 = 17;
@@ -206,7 +206,7 @@ pickup_check_damage()
     {
         self waittill( "damage", var_0, var_1 );
 
-        if ( var_1 == level.playercardbackground )
+        if ( var_1 == level.player )
         {
             self.player_damage_done += var_0;
             continue;
@@ -219,7 +219,7 @@ pickup_check_damage()
 
 pickup_check_death()
 {
-    while ( isdefined( self.motiontrackerenabled ) && self.motiontrackerenabled != "vehicle_pickup_technical_destroyed" )
+    while ( isdefined( self.model ) && self.model != "vehicle_pickup_technical_destroyed" )
         waittillframeend;
 
     self notify( "pickup_death" );
@@ -253,14 +253,14 @@ pickup_technical_think()
 
     for (;;)
     {
-        var_2 = level.playercardbackground istouching( var_1 );
-        var_3 = isdefined( var_0.motiontrackerenabled ) && var_0.motiontrackerenabled == "vehicle_pickup_technical_destroyed";
-        var_4 = var_2 || var_3 || var_0._id_0DF4[0].helmet <= 0;
+        var_2 = level.player istouching( var_1 );
+        var_3 = isdefined( var_0.model ) && var_0.model == "vehicle_pickup_technical_destroyed";
+        var_4 = var_2 || var_3 || var_0._id_0DF4[0].health <= 0;
 
         if ( var_4 )
         {
             if ( var_2 )
-                level.playercardbackground kill();
+                level.player kill();
 
             var_1 delete();
             break;
@@ -388,9 +388,9 @@ remove_technical_enemies_from_array( var_0 )
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        if ( isdefined( var_0[var_3].script_parentname ) )
+        if ( isdefined( var_0[var_3].script_noteworthy ) )
         {
-            if ( var_0[var_3].script_parentname == "technical_enemies" )
+            if ( var_0[var_3].script_noteworthy == "technical_enemies" )
                 continue;
         }
 

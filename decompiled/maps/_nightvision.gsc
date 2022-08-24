@@ -71,8 +71,8 @@ _id_60EB()
     {
         self waittill( "night_vision_on" );
         _id_60E8();
-        var_0 = spawnfx( level.nightvision_distortion_effect, level.playercardbackground.origin );
-        var_1 = spawnfx( level.nightvision_phosphor_effect, level.playercardbackground.origin );
+        var_0 = spawnfx( level.nightvision_distortion_effect, level.player.origin );
+        var_1 = spawnfx( level.nightvision_phosphor_effect, level.player.origin );
         triggerfx( var_0 );
         triggerfx( var_1 );
         setomnvar( "ui_nightvision", 1 );
@@ -88,23 +88,23 @@ _id_60EB()
 _id_60E2( var_0 )
 {
     if ( !isdefined( var_0 ) )
-        var_0 = level.playercardbackground;
+        var_0 = level.player;
 
     return isdefined( var_0._id_60E6 );
 }
 
 _id_60E8()
 {
-    level.playercardbackground _meth_848d( "disabled", 0 );
+    level.player _meth_848d( "disabled", 0 );
     self._id_60EA = 1;
     maps\_utility::_id_32DE( "nightvision_on" );
     self._id_60E6 = 1;
     thread h1_view_weapon_laser_update();
-    level.playercardbackground _meth_83bf( level.nightvisionlightset, 0 );
+    level.player _meth_83bf( level.nightvisionlightset, 0 );
 
     if ( maps\_utility::_id_32D8( "nightvision_dlight_enabled" ) )
     {
-        level._id_60E3 = spawnfx( level._id_60E4, level.playercardbackground.origin );
+        level._id_60E3 = spawnfx( level._id_60E4, level.player.origin );
         triggerfx( level._id_60E3 );
     }
 
@@ -194,8 +194,8 @@ _id_60E7()
     self notify( "nightvision_shellshock_off" );
     maps\_utility::_id_32DA( "nightvision_on" );
     self._id_60E6 = undefined;
-    level.playercardbackground _meth_83c0();
-    level.playercardbackground _meth_848e( 0 );
+    level.player _meth_83c0();
+    level.player _meth_848e( 0 );
     var_0 = 0;
 
     for ( var_1 = 0; var_1 < level.players.size; var_1++ )
@@ -240,11 +240,11 @@ _id_8451()
 
 force_remove_nightvision()
 {
-    level.playercardbackground forceviewmodelanimation( level.playercardbackground getcurrentweapon(), "nvg_up" );
+    level.player forceviewmodelanimation( level.player getcurrentweapon(), "nvg_up" );
     wait 0.5;
     setsaveddvar( "nightVisionDisableEffects", 1 );
     wait 0.5;
-    level.playercardbackground nightvisiongogglesforceoff();
+    level.player nightvisiongogglesforceoff();
     wait 1;
     setsaveddvar( "nightVisionDisableEffects", 0 );
 }
@@ -256,16 +256,16 @@ monitor_blowouts()
 
     for (;;)
     {
-        level.playercardbackground maps\_utility::_id_32E0( "nightvision_on" );
+        level.player maps\_utility::_id_32E0( "nightvision_on" );
         thread maps\_utility::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_nvg_value, 0.25 );
-        level.playercardbackground maps\_utility::_id_32E4( "nightvision_on" );
+        level.player maps\_utility::_id_32E4( "nightvision_on" );
         thread maps\_utility::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_default_value, 0.25 );
     }
 }
 
 monitor_blowouts_getvalue( var_0 )
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "blackout":
             return 0.1;

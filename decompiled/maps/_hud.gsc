@@ -22,14 +22,14 @@
 init()
 {
     level._id_99F4 = spawnstruct();
-    level._id_99F4.hostquits = "left";
-    level._id_99F4.visionsetnight = "top";
+    level._id_99F4.horzalign = "left";
+    level._id_99F4.vertalign = "top";
     level._id_99F4.alignx = "left";
     level._id_99F4.aligny = "top";
-    level._id_99F4.xpmaxmultipliertimeplayed = 0;
-    level._id_99F4._id_0538 = 0;
-    level._id_99F4.win_streak = 0;
-    level._id_99F4.hidewhendead = 0;
+    level._id_99F4.x = 0;
+    level._id_99F4.y = 0;
+    level._id_99F4.width = 0;
+    level._id_99F4.height = 0;
     level._id_99F4._id_1D3D = [];
 
     if ( level.console )

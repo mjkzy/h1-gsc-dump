@@ -94,9 +94,9 @@ update_fade_angle_lights()
     var_0 = 45.0;
     var_1 = 135.0;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_2 = strtok( self.script_parentname, "-" );
+        var_2 = strtok( self.script_noteworthy, "-" );
 
         if ( isdefined( var_2[0] ) )
             var_0 = float( var_2[0] );
@@ -113,7 +113,7 @@ update_fade_angle_lights()
 
     for (;;)
     {
-        var_8 = level.playercardbackground.origin - self.origin + var_6 * self.rank * 0.75;
+        var_8 = level.player.origin - self.origin + var_6 * self.radius * 0.75;
         var_8 = vectornormalize( ( var_8[0], var_8[1], 0.0 ) );
         var_9 = vectordot( var_7, var_8 );
         var_10 = ( clamp( ( var_9 + 1.0 ) * 0.5, var_3, var_4 ) - var_3 ) / var_5;
@@ -187,14 +187,14 @@ handle_flight_going_down()
 
     var_0 = _id_23D0( "black", 0 );
     var_1 = _id_23D0( "overlay_hunted_red", 0 );
-    var_1.space = 0;
-    var_0.space = 1;
+    var_1.sort = 0;
+    var_0.sort = 1;
     maps\_cinematography::dyndof_system_clear_all();
     var_2 = create_crash_cinseq( var_0 );
     var_2 thread maps\_cinematography::cinseq_start_sequence();
     common_scripts\utility::_id_384A( "blackhawk_hit" );
     thread common_scripts\_exploder::_id_3528( 44 );
-    level.playercardbackground playrumbleonentity( "blackhawk_down_crash_rumble" );
+    level.player playrumbleonentity( "blackhawk_down_crash_rumble" );
     common_scripts\utility::_id_384A( "blackhawk_down" );
     var_1 destroy();
     var_0 thread fade_overlay( 0, 4 );
@@ -204,8 +204,8 @@ handle_flight_going_down_preh1()
 {
     var_0 = _id_23D0( "black", 0 );
     var_1 = _id_23D0( "overlay_hunted_red", 0 );
-    var_1.space = 0;
-    var_0.space = 1;
+    var_1.sort = 0;
+    var_0.sort = 1;
     wait 4;
     var_1 thread exp_fade_overlay( 1, 4.5 );
     var_0 thread exp_fade_overlay( 0.5, 4.5 );
@@ -385,7 +385,7 @@ handle_wakeup_done()
     common_scripts\utility::_id_384A( "wakeup_done" );
     thread post_crash_flashlight_off();
     set_specular_scale( 2.3, 1 );
-    level.playercardbackground maps\_utility::set_light_set_player( "heli_crash" );
+    level.player maps\_utility::set_light_set_player( "heli_crash" );
 }
 
 post_crash_flashlight_off()
@@ -466,7 +466,7 @@ handle_ac130_lighting_init()
 
     foreach ( var_3 in var_0 )
     {
-        if ( var_3.motiontrackerenabled == "vehicle_t72_tank" )
+        if ( var_3.model == "vehicle_t72_tank" )
         {
             var_1 = var_3._id_555C;
             break;
@@ -526,13 +526,13 @@ handle_ac130_lighting_init()
 _id_23D0( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
+    var_2.x = 0;
+    var_2.y = 0;
     var_2 setshader( var_0, 640, 480 );
     var_2.alignx = "left";
     var_2.aligny = "top";
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2.alpha = var_1;
     var_2.foreground = 1;
     return var_2;
@@ -607,7 +607,7 @@ visionset_trigger( var_0 )
     {
         self waittill( "trigger" );
         var_0 notify( "new_visionset" );
-        maps\_utility::_id_7F00( self.script_parentname, self.script_lightset );
+        maps\_utility::_id_7F00( self.script_noteworthy, self.script_delay );
         var_0 waittill( "new_visionset" );
     }
 }
@@ -642,21 +642,21 @@ apply_lighting_pass_hunted_outside( var_0 )
         var_0 = 5.0;
 
     maps\_utility::_id_9E6E( "hunted", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "hunted" );
-    level.playercardbackground _meth_848c( "clut_hunted", var_0 );
+    level.player maps\_utility::set_light_set_player( "hunted" );
+    level.player _meth_848c( "clut_hunted", var_0 );
 }
 
 apply_lighting_pass_hunted_inside()
 {
     maps\_utility::_id_9E6E( "hunted_barn_interior", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "barn_interior" );
-    level.playercardbackground _meth_848c( "clut_hunted", 5 );
+    level.player maps\_utility::set_light_set_player( "barn_interior" );
+    level.player _meth_848c( "clut_hunted", 5 );
     maps\_utility::_id_7F00( "hunted_barn_interior", 6 );
 }
 
 apply_lighting_pass_hunted_helicrash()
 {
-    level.playercardbackground maps\_utility::set_light_set_player( "heli_crash" );
+    level.player maps\_utility::set_light_set_player( "heli_crash" );
 }
 
 _id_8106()

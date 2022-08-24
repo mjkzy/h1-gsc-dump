@@ -82,7 +82,7 @@ main()
     if ( getdvar( "arcademode_full" ) == "1" )
         precacheleaderboards( "LB_AM_FULLCHALLENGE" );
     else
-        precacheleaderboards( "LB_AM_" + level.script_context );
+        precacheleaderboards( "LB_AM_" + level.script );
 
     level._id_422E = ::player_kill;
     level._id_4226 = ::player_damage_ads;
@@ -91,13 +91,13 @@ main()
     level.arcademode_maxlives = 10;
     level.arcademode_rewarded_lives = 0;
 
-    if ( getdvar( "arcademode_lives" ) == "" || getdvar( "arcademode_full" ) != "1" || level.script_context == "cargoship" )
+    if ( getdvar( "arcademode_lives" ) == "" || getdvar( "arcademode_full" ) != "1" || level.script == "cargoship" )
     {
         setdvar( "arcademode_lives", 2 );
         level.arcademode_rewarded_lives = 2;
     }
 
-    if ( getdvar( "arcademode_full" ) == "1" && level.script_context == "cargoship" )
+    if ( getdvar( "arcademode_full" ) == "1" && level.script == "cargoship" )
     {
         setdvar( "arcademode_lives", 5 );
         level.arcademode_rewarded_lives = 5;
@@ -111,7 +111,7 @@ main()
     setdvar( "arcademode_died", 0 );
     setdvar( "arcademode_score", 0 );
 
-    if ( getdvar( "arcademode_combined_score" ) == "" || getdvar( "arcademode_full" ) == "1" && level.script_context == "cargoship" )
+    if ( getdvar( "arcademode_combined_score" ) == "" || getdvar( "arcademode_full" ) == "1" && level.script == "cargoship" )
         setdvar( "arcademode_combined_score", 0 );
 
     var_2 = arcademode_get_level_time();
@@ -175,8 +175,8 @@ arcademode_get_level_time()
     var_1["airplane"] = 4;
     var_2 = 1;
 
-    if ( isdefined( var_1[level.script_context] ) )
-        var_0 = var_1[level.script_context];
+    if ( isdefined( var_1[level.script] ) )
+        var_0 = var_1[level.script];
 
     level.arcademode_difficultytimerscale = var_2;
     return var_0;
@@ -186,7 +186,7 @@ arcademode_death_detection()
 {
     level endon( "arcademode_complete" );
     level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
-    level.playercardbackground maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    level.player maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
     maps\_utility::_id_2BDD();
     setdvar( "arcademode_died", 1 );
     var_0 = getdvarint( "arcademode_lives" );
@@ -210,27 +210,27 @@ arcademode_death_detection()
         return;
     }
 
-    if ( isalive( level.playercardbackground ) )
+    if ( isalive( level.player ) )
         missionfailed();
 }
 
 arcademode_update_timer()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_0 = newhudelem();
     var_0.foreground = 1;
     var_0.alignx = "right";
     var_0.aligny = "top";
-    var_0.hostquits = "right";
-    var_0.visionsetnight = "top";
-    var_0.xpmaxmultipliertimeplayed = -21.6667;
-    var_0._id_0538 = 38.9778;
-    var_0.space = level.arcademode_hud_sort;
+    var_0.horzalign = "right";
+    var_0.vertalign = "top";
+    var_0.x = -21.6667;
+    var_0.y = 38.9778;
+    var_0.sort = level.arcademode_hud_sort;
     var_0.fontscale = 1.5;
     var_0.color = ( 1.0, 1.0, 1.0 );
     var_0.font = "objective";
     var_0 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
-    var_0.hindlegstraceoffset = 1;
+    var_0.hidewheninmenu = 1;
     level._id_0CC4 = var_0;
     level endon( "arcadeMode_remove_timer" );
     var_1 = level.arcademode_time;
@@ -243,7 +243,7 @@ arcademode_update_timer()
 
 arcademode_update_lives()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "missionfailed" );
     level.arcademode_lives_hud = [];
 
@@ -276,7 +276,7 @@ arcademode_update_lives()
                 var_2 = var_3;
                 setdvar( "arcademode_earned_lives", var_3 );
                 setdvar( "arcademode_lives", var_3 );
-                level.playercardbackground thread common_scripts\utility::_id_69C2( "h1_arcademode_life_lost", level.playercardbackground geteye() );
+                level.player thread common_scripts\utility::_id_69C2( "h1_arcademode_life_lost", level.player geteye() );
             }
 
             arcademode_redraw_lives( var_2 );
@@ -309,7 +309,7 @@ arcademode_checkpoint_print()
     arcademode_convert_extra_lives();
     var_0 = 800;
     var_1 = 0.8;
-    level.playercardbackground thread common_scripts\utility::_id_69C2( "arcademode_checkpoint", level.playercardbackground geteye() );
+    level.player thread common_scripts\utility::_id_69C2( "arcademode_checkpoint", level.player geteye() );
     thread draw_checkpoint( 0, var_1, 1 );
     thread draw_checkpoint_scanlines( 0, var_1, 1 );
     thread draw_checkpoint_flare();
@@ -319,16 +319,16 @@ draw_lives_earned_flare( var_0, var_1, var_2, var_3 )
 {
     var_4 = newhudelem();
     var_4.foreground = 1;
-    var_4.xpmaxmultipliertimeplayed = var_1 + var_0 * var_3 - 10;
-    var_4._id_0538 = var_2 + 10;
+    var_4.x = var_1 + var_0 * var_3 - 10;
+    var_4.y = var_2 + 10;
     var_4 setshader( "h1_arcademode_lives_earned_flare", 26, 26 );
     var_4.alignx = "center";
     var_4.aligny = "middle";
-    var_4.hostquits = "right";
-    var_4.visionsetnight = "top";
-    var_4.space = level.arcademode_hud_sort + 10 - 1;
+    var_4.horzalign = "right";
+    var_4.vertalign = "top";
+    var_4.sort = level.arcademode_hud_sort + 10 - 1;
     var_4.alpha = 0;
-    var_4.hindlegstraceoffset = 1;
+    var_4.hidewheninmenu = 1;
     var_4 fadeovertime( 0.05 );
     var_4.alpha = 0.4;
     wait 0.05;
@@ -456,22 +456,22 @@ arcademode_add_kill( var_0, var_1, var_2, var_3, var_4, var_5 )
     level endon( "arcademode_stop_kill_streak_art" );
     var_6 = newhudelem();
     var_6.foreground = 1;
-    var_6.xpmaxmultipliertimeplayed = var_1 + var_0 * var_3;
+    var_6.x = var_1 + var_0 * var_3;
 
     if ( level.arcademode_kills_hud.size == 0 )
-        level.arcademode_kill_zero_x_location = var_6.xpmaxmultipliertimeplayed;
+        level.arcademode_kill_zero_x_location = var_6.x;
 
-    var_6._id_0538 = var_2;
+    var_6.y = var_2;
     var_6 setshader( "arcademode_kill", var_4, var_4 );
     var_6.alignx = "right";
     var_6.aligny = "top";
-    var_6.hostquits = "right";
-    var_6.visionsetnight = "top";
-    var_6.space = var_5;
+    var_6.horzalign = "right";
+    var_6.vertalign = "top";
+    var_6.sort = var_5;
     var_6.color = level.color_cool_green;
     var_6.glowcolor = level.color_cool_green_glow;
     var_6.glowalpha = 1;
-    var_6.hindlegstraceoffset = 1;
+    var_6.hidewheninmenu = 1;
     var_7 = 0;
     level.arcademode_kills_hud[level.arcademode_kills_hud.size] = var_6;
 
@@ -485,7 +485,7 @@ arcademode_add_kill( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     for (;;)
     {
-        if ( var_6.xpmaxmultipliertimeplayed == level.arcademode_kill_zero_x_location )
+        if ( var_6.x == level.arcademode_kill_zero_x_location )
         {
             var_8 = 4;
 
@@ -513,7 +513,7 @@ arcademode_add_kill( var_0, var_1, var_2, var_3, var_4, var_5 )
         level waittill( "arcademode_decrement_kill_streak" );
         wait 0.05;
         var_6 moveovertime( 0.5 );
-        var_6.xpmaxmultipliertimeplayed -= var_3;
+        var_6.x -= var_3;
 
         if ( var_7 )
         {
@@ -528,18 +528,18 @@ get_streak_hud( var_0, var_1, var_2, var_3 )
 {
     var_4 = newhudelem();
     var_4.foreground = 1;
-    var_4.xpmaxmultipliertimeplayed = var_0 + -4;
-    var_4._id_0538 = var_1 + 14;
+    var_4.x = var_0 + -4;
+    var_4.y = var_1 + 14;
     var_4.alignx = "right";
     var_4.aligny = "top";
-    var_4.hostquits = "right";
-    var_4.visionsetnight = "top";
+    var_4.horzalign = "right";
+    var_4.vertalign = "top";
     var_4.color = level.color_cool_green;
-    var_4.space = level.arcademode_hud_sort - 1;
+    var_4.sort = level.arcademode_hud_sort - 1;
     var_4.alpha = 0;
     var_4.glowcolor = level.color_cool_green_glow;
     var_4.glowalpha = 0;
-    var_4.hindlegstraceoffset = 1;
+    var_4.hidewheninmenu = 1;
     var_4 setshader( "white", var_2, var_3 );
     return var_4;
 }
@@ -586,7 +586,7 @@ arcademode_add_kill_streak_time( var_0 )
     {
         var_4 = get_streak_hud( 0, 0, var_6, var_1 );
         var_5 = get_streak_hud( 3, 3, var_6, var_1 );
-        var_5.space -= 1;
+        var_5.sort -= 1;
         var_5.alpha = 0.0;
         var_5.color = ( 0.0, 0.0, 0.0 );
     }
@@ -671,7 +671,7 @@ arcademode_add_kill_streak()
         if ( var_1 != level.arcademode_kill_streak_current_multiplier )
         {
             level notify( "arcademode_new_kill_streak" );
-            level.playercardbackground playsound( "arcademode_" + level.arcademode_kill_streak_current_multiplier + "x" );
+            level.player playsound( "arcademode_" + level.arcademode_kill_streak_current_multiplier + "x" );
             thread arcademode_draw_multiplier();
         }
 
@@ -741,9 +741,9 @@ get_score_backer( var_0, var_1, var_2 )
     var_3 setshader( "h1_arcademode_scanelines_border", 50, 50 );
     var_3.alignx = "right";
     var_3.aligny = "top";
-    var_3.hostquits = "right";
-    var_3.visionsetnight = "top";
-    var_3.space = -100;
+    var_3.horzalign = "right";
+    var_3.vertalign = "top";
+    var_3.sort = -100;
     var_3.alpha = 1.0;
     return var_3;
 }
@@ -752,31 +752,31 @@ get_hud_score()
 {
     var_0 = newhudelem();
     var_0.foreground = 1;
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 10.2222;
+    var_0.x = 0;
+    var_0.y = 10.2222;
     var_0.alignx = "right";
     var_0.aligny = "top";
-    var_0.hostquits = "right";
-    var_0.visionsetnight = "top";
+    var_0.horzalign = "right";
+    var_0.vertalign = "top";
     var_0.score = 0;
     var_0.font = "objective";
     var_0.fontscale = 2.8;
-    var_0.space = level.arcademode_hud_sort;
+    var_0.sort = level.arcademode_hud_sort;
     var_0 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
-    var_0.hindlegstraceoffset = 1;
+    var_0.hidewheninmenu = 1;
     return var_0;
 }
 
 arcademode_update_score()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level.arcademode_hud_digits = 10;
     level.arcademode_hud_scores = [];
 
     for ( var_0 = 0; var_0 < level.arcademode_hud_digits; var_0++ )
     {
         level.arcademode_hud_scores[level.arcademode_hud_scores.size] = get_hud_score();
-        level.arcademode_hud_scores[level.arcademode_hud_scores.size - 1].xpmaxmultipliertimeplayed = var_0 * -17 + -21.6667;
+        level.arcademode_hud_scores[level.arcademode_hud_scores.size - 1].x = var_0 * -17 + -21.6667;
     }
 
     level.arcademode_hud_score_backer = get_score_backer();
@@ -880,10 +880,10 @@ hud_draw_score_for_elements( var_0, var_1 )
     }
 
     level.arcademode_hud_score_backer setshader( "h1_arcademode_scanelines_border", 50 + ( var_2.size - 1 ) * 22, 50 );
-    level.arcademode_hud_score_backer.xpmaxmultipliertimeplayed = -5.16667 + ( var_2.size - 1 ) * 2.4;
+    level.arcademode_hud_score_backer.x = -5.16667 + ( var_2.size - 1 ) * 2.4;
 
     if ( !common_scripts\utility::_id_382E( "arcademode_complete" ) )
-        level.playercardbackground thread common_scripts\utility::_id_69C2( "h1_arcademode_add_counter_pt", level.playercardbackground geteye() );
+        level.player thread common_scripts\utility::_id_69C2( "h1_arcademode_add_counter_pt", level.player geteye() );
 }
 
 hud_draw_score_for_elements_align_left( var_0, var_1 )
@@ -913,18 +913,18 @@ arcademode_add_life( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = newhudelem();
     var_6.foreground = 1;
-    var_6.xpmaxmultipliertimeplayed = var_1 + var_0 * var_3;
-    var_6._id_0538 = var_2;
+    var_6.x = var_1 + var_0 * var_3;
+    var_6.y = var_2;
     var_6 setshader( "arcademode_life", var_4, var_4 );
     var_6.alignx = "center";
     var_6.aligny = "middle";
-    var_6.hostquits = "right";
-    var_6.visionsetnight = "top";
-    var_6.space = var_5;
+    var_6.horzalign = "right";
+    var_6.vertalign = "top";
+    var_6.sort = var_5;
     var_6.color = ( 1.0, 1.0, 1.0 );
     var_6.glowalpha = 0;
     var_6.alpha = 0;
-    var_6.hindlegstraceoffset = 1;
+    var_6.hidewheninmenu = 1;
     level.arcademode_lives_hud[level.arcademode_lives_hud.size] = var_6;
 }
 
@@ -1021,12 +1021,12 @@ new_ending_hud( var_0, var_1, var_2, var_3 )
 {
     var_4 = newhudelem();
     var_4.foreground = 1;
-    var_4.xpmaxmultipliertimeplayed = var_2;
-    var_4._id_0538 = var_3;
+    var_4.x = var_2;
+    var_4.y = var_3;
     var_4.alignx = var_0;
     var_4.aligny = "middle";
-    var_4.hostquits = var_0;
-    var_4.visionsetnight = "middle";
+    var_4.horzalign = var_0;
+    var_4.vertalign = "middle";
     var_4.fontscale = 3;
 
     if ( getdvar( "widescreen" ) == "1" )
@@ -1039,8 +1039,8 @@ new_ending_hud( var_0, var_1, var_2, var_3 )
     var_4.alpha = 0;
     var_4 fadeovertime( var_1 );
     var_4.alpha = 1;
-    var_4.hindlegstraceoffset = 1;
-    var_4.space = level.arcademode_hud_sort + 10;
+    var_4.hidewheninmenu = 1;
+    var_4.sort = level.arcademode_hud_sort + 10;
     level.arcademode_ending_hud[level.arcademode_ending_hud.size] = var_4;
     return var_4;
 }
@@ -1049,8 +1049,8 @@ extra_lives_display_border()
 {
     var_0 = new_ending_hud( "center", 0.001, 0, 97.7778 );
     var_0 setshader( "h1_arcademode_livesmessage_border", 210, 112 );
-    var_0.space = level.arcademode_hud_sort + 10 - 1;
-    var_0.visionsetnight = "top_adjustable";
+    var_0.sort = level.arcademode_hud_sort + 10 - 1;
+    var_0.vertalign = "top_adjustable";
     var_0.alpha = 0;
     var_0 fadeovertime( 0.15 );
     var_0.alpha = 1;
@@ -1072,8 +1072,8 @@ extra_lives_display_flare()
 {
     var_0 = new_ending_hud( "center", 0.001, 0, 97.7778 );
     var_0 setshader( "h1_arcademode_lives_message_flare", 145, 26 );
-    var_0.space = level.arcademode_hud_sort + 10 + 1;
-    var_0.visionsetnight = "top_adjustable";
+    var_0.sort = level.arcademode_hud_sort + 10 + 1;
+    var_0.vertalign = "top_adjustable";
     var_0.alpha = 0;
     var_0 fadeovertime( 0.05 );
     var_0.alpha = 1;
@@ -1101,12 +1101,12 @@ extra_lives_display_flare()
 extra_lives_display( var_0 )
 {
     wait 0.5;
-    level.playercardbackground thread common_scripts\utility::_id_69C2( "arcademode_extralife", level.playercardbackground geteye() );
+    level.player thread common_scripts\utility::_id_69C2( "arcademode_extralife", level.player geteye() );
     var_1 = new_ending_hud( "center", 0.001, 0, 97.7778 );
     var_1.fontscale = 1.7;
-    var_1.visionsetnight = "top_adjustable";
+    var_1.vertalign = "top_adjustable";
     var_1 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.5, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
-    var_1.land = &"SCRIPT_EXTRA_LIFE";
+    var_1.label = &"SCRIPT_EXTRA_LIFE";
     var_1 setvalue( var_0 );
     thread extra_lives_display_border();
     thread extra_lives_display_flare();
@@ -1134,20 +1134,20 @@ extra_lives_sizzle()
 {
     var_0 = new_ending_hud( "center", 0.2, 0, -100 );
     var_0.alpha = randomfloatrange( 0.1, 0.45 );
-    var_0.space -= 1;
+    var_0.sort -= 1;
     var_0 settext( &"SCRIPT_EXTRA_LIFE" );
     var_0 maps\_utility::_id_27EF( 3, ::_id_35E3, 1 );
     var_0 endon( "death" );
-    var_1 = var_0.xpmaxmultipliertimeplayed;
-    var_2 = var_0._id_0538;
+    var_1 = var_0.x;
+    var_2 = var_0.y;
     var_3 = 20;
 
     for (;;)
     {
         var_4 = randomfloatrange( 0.1, 0.2 );
         var_0 moveovertime( var_4 );
-        var_0.xpmaxmultipliertimeplayed = var_1 + randomfloatrange( var_3 * -1, var_3 );
-        var_0._id_0538 = var_2 + randomfloatrange( var_3 * -1, var_3 );
+        var_0.x = var_1 + randomfloatrange( var_3 * -1, var_3 );
+        var_0.y = var_2 + randomfloatrange( var_3 * -1, var_3 );
         wait(var_4);
     }
 }
@@ -1195,7 +1195,7 @@ arcademode_add_points( var_0, var_1, var_2, var_3 )
         var_9 = level.arcademode_killcolors[var_2];
     }
 
-    level.playercardbackground pointpulse( var_3 );
+    level.player pointpulse( var_3 );
 }
 
 arcademode_add_point_towards_extra_life()
@@ -1225,33 +1225,33 @@ arcademode_set_origin_in_radius()
     var_0 = 60;
     var_1 = 90;
 
-    if ( level.playercardbackground.pointpulseindex > 0 )
+    if ( level.player.pointpulseindex > 0 )
     {
-        if ( level.playercardbackground.pointpulseindex == 1 )
+        if ( level.player.pointpulseindex == 1 )
         {
             var_2 = randomint( 1 );
-            level.playercardbackground.thirdpointpulseside = 1 - var_2;
+            level.player.thirdpointpulseside = 1 - var_2;
 
             if ( var_2 )
                 var_1 = 45;
             else
                 var_1 = 135;
         }
-        else if ( level.playercardbackground.pointpulseindex == 2 )
+        else if ( level.player.pointpulseindex == 2 )
         {
-            var_2 = level.playercardbackground.thirdpointpulseside;
+            var_2 = level.player.thirdpointpulseside;
 
             if ( var_2 )
                 var_1 = 45;
             else
                 var_1 = 135;
         }
-        else if ( level.playercardbackground.pointpulseindex <= 4 )
+        else if ( level.player.pointpulseindex <= 4 )
         {
             var_1 = randomfloatrange( 0, 180 );
             var_0 = randomfloatrange( 60, 120 );
         }
-        else if ( level.playercardbackground.pointpulseindex <= 8 )
+        else if ( level.player.pointpulseindex <= 8 )
         {
             var_1 = randomfloatrange( 0, 180 );
             var_0 = randomfloatrange( 60, 160 );
@@ -1263,8 +1263,8 @@ arcademode_set_origin_in_radius()
         }
     }
 
-    self.xpmaxmultipliertimeplayed = var_0 * cos( var_1 );
-    self._id_0538 = 0 - var_0 * sin( var_1 );
+    self.x = var_0 * cos( var_1 );
+    self.y = 0 - var_0 * sin( var_1 );
 }
 
 pointpulse( var_0 )
@@ -1272,18 +1272,18 @@ pointpulse( var_0 )
     if ( var_0 == 0 )
         return;
 
-    if ( !isdefined( level.playercardbackground.pointpulsecount ) )
+    if ( !isdefined( level.player.pointpulsecount ) )
     {
-        level.playercardbackground.pointpulsecount = 0;
-        level.playercardbackground.pointpulseindex = 0;
+        level.player.pointpulsecount = 0;
+        level.player.pointpulseindex = 0;
     }
 
     if ( !common_scripts\utility::_id_382E( "arcademode_complete" ) )
-        level.playercardbackground thread common_scripts\utility::_id_69C2( "h1_arcademode_pulse_score", level.playercardbackground geteye() );
+        level.player thread common_scripts\utility::_id_69C2( "h1_arcademode_pulse_score", level.player geteye() );
 
     var_1 = newhudelem();
-    var_1.hostquits = "center";
-    var_1.visionsetnight = "middle";
+    var_1.horzalign = "center";
+    var_1.vertalign = "middle";
     var_1.alignx = "center";
     var_1.aligny = "middle";
     var_1 arcademode_set_origin_in_radius();
@@ -1291,22 +1291,22 @@ pointpulse( var_0 )
     var_1.fontscale = 1.5;
     var_1.archived = 0;
     var_1.color = ( 1.0, 1.0, 1.0 );
-    var_1.space = 4;
+    var_1.sort = 4;
     var_2 = level.arcademode_kill_streak_current_multiplier;
-    level.playercardbackground.pointpulsecount++;
-    level.playercardbackground.pointpulseindex++;
+    level.player.pointpulsecount++;
+    level.player.pointpulseindex++;
     wait 0.05;
 
     if ( var_0 <= 0 )
     {
-        var_1.land = &"";
+        var_1.label = &"";
         var_1.color = ( 1.0, 0.0, 0.0 );
         var_1.glowcolor = ( 0.0, 0.0, 0.0 );
         var_1.glowalpha = 0;
     }
     else
     {
-        var_1.land = &"SCRIPT_PLUS";
+        var_1.label = &"SCRIPT_PLUS";
         var_1.color = ( 1.0, 1.0, 1.0 );
         var_1 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     }
@@ -1321,17 +1321,17 @@ pointpulse( var_0 )
     var_1.fontscale = var_3;
     wait 0.05;
     var_1 moveovertime( 1.75 );
-    var_1._id_0538 -= 20;
+    var_1.y -= 20;
     var_1 changefontscaleovertime( var_6 );
     var_1.fontscale = var_5;
     wait(var_6);
     var_1 fadeovertime( 1.0 );
     var_1.alpha = 0;
     wait 1.0;
-    level.playercardbackground.pointpulsecount--;
+    level.player.pointpulsecount--;
 
-    if ( level.playercardbackground.pointpulsecount == 0 )
-        level.playercardbackground.pointpulseindex = 0;
+    if ( level.player.pointpulsecount == 0 )
+        level.player.pointpulseindex = 0;
 
     var_1 destroy();
 }
@@ -1355,8 +1355,8 @@ set_circular_origin()
     if ( common_scripts\utility::_id_2006() )
         var_2 *= -1;
 
-    self.xpmaxmultipliertimeplayed = var_1;
-    self._id_0538 = var_2;
+    self.x = var_1;
+    self.y = var_2;
 }
 
 arcademode_add_points_for_mod( var_0 )
@@ -1440,8 +1440,8 @@ end_mission()
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
     {
         var_1 = level.players[var_0];
-        var_1.maxturnspeed = 0;
-        var_1.helmet = 1;
+        var_1.maxhealth = 0;
+        var_1.health = 1;
     }
 
     changelevel( "" );
@@ -1456,13 +1456,13 @@ create_total_score_hud( var_0, var_1 )
         var_3 = get_hud_score();
         level.arcademode_hud_total_scores[level.arcademode_hud_total_scores.size] = var_3;
         level.arcademode_ending_hud[level.arcademode_ending_hud.size] = var_3;
-        var_3.xpmaxmultipliertimeplayed = 0;
-        var_3._id_0538 = var_1;
-        var_3.space = level.arcademode_hud_sort + 10;
+        var_3.x = 0;
+        var_3.y = var_1;
+        var_3.sort = level.arcademode_hud_sort + 10;
         var_3.alignx = "left";
         var_3.aligny = "middle";
-        var_3.hostquits = "fullscreen";
-        var_3.visionsetnight = "middle";
+        var_3.horzalign = "fullscreen";
+        var_3.vertalign = "middle";
         var_3.fontscale = 1.875;
         var_3.alpha = 0;
         var_3 fadeovertime( 1.0 );
@@ -1508,29 +1508,29 @@ rescale_ending_huds( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     for ( var_9 = 0; var_9 < level.arcademode_hud_digits; var_9++ )
     {
-        level.arcademode_hud_mission_scores[var_9].xpmaxmultipliertimeplayed = 320 + var_9 * ( -9 * var_6 ) + var_8;
+        level.arcademode_hud_mission_scores[var_9].x = 320 + var_9 * ( -9 * var_6 ) + var_8;
 
         if ( isdefined( level.arcademode_hud_total_scores ) )
-            level.arcademode_hud_total_scores[var_9].xpmaxmultipliertimeplayed = 320 + var_9 * ( -9 * var_6 ) + var_8;
+            level.arcademode_hud_total_scores[var_9].x = 320 + var_9 * ( -9 * var_6 ) + var_8;
     }
 
     var_10 = 11.6667 + var_7;
-    level._id_0CC4[0].xpmaxmultipliertimeplayed = 320 + var_10 + 0 * var_6;
-    level._id_0CC4[1].xpmaxmultipliertimeplayed = 320 + var_10 + 8.3 * var_6;
-    level._id_0CC4[2].xpmaxmultipliertimeplayed = 320 + var_10 + 16.6 * var_6;
-    level._id_0CC4[3].xpmaxmultipliertimeplayed = 320 + var_10 + 21 * var_6;
-    level._id_0CC4[4].xpmaxmultipliertimeplayed = 320 + var_10 + 29.6 * var_6;
+    level._id_0CC4[0].x = 320 + var_10 + 0 * var_6;
+    level._id_0CC4[1].x = 320 + var_10 + 8.3 * var_6;
+    level._id_0CC4[2].x = 320 + var_10 + 16.6 * var_6;
+    level._id_0CC4[3].x = 320 + var_10 + 21 * var_6;
+    level._id_0CC4[4].x = 320 + var_10 + 29.6 * var_6;
     var_11 = 58.5;
     var_12 = var_11 - ( 10 - var_3 ) * 13 * 0.5;
 
     for ( var_9 = 0; var_9 < level.arcademode_maxlives; var_9++ )
-        level.arcademode_lives_hud[var_9].xpmaxmultipliertimeplayed = ( var_9 * -13 + var_12 ) * var_6;
+        level.arcademode_lives_hud[var_9].x = ( var_9 * -13 + var_12 ) * var_6;
 
     if ( isdefined( var_0 ) )
-        var_0.xpmaxmultipliertimeplayed = 320 + var_7;
+        var_0.x = 320 + var_7;
 
-    var_1.xpmaxmultipliertimeplayed = 320 + var_7;
-    var_2.xpmaxmultipliertimeplayed = 320 + var_7;
+    var_1.x = 320 + var_7;
+    var_2.x = 320 + var_7;
 
     if ( level.arcademode_success )
         var_4 setshader( "h1_arcademode_scanelines_border", int( 344 * var_6 ), 65 );
@@ -1581,7 +1581,7 @@ arcademode_ends()
     thread player_invul_forever();
     thread black_background( var_3 );
     wait(var_3 + 0.25);
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     var_4 = 1;
     var_5 = 0;
 
@@ -1600,8 +1600,8 @@ arcademode_ends()
     var_15 = new_ending_hud( "center", 0.1, 0, var_6 );
     var_15.fontscale = 3;
     var_16 = new_ending_hud( "center", 0.1, 320, var_6 + 5 );
-    var_16.hostquits = "fullscreen";
-    var_16.space = var_15.space - 1;
+    var_16.horzalign = "fullscreen";
+    var_16.sort = var_15.sort - 1;
     var_16.alpha = 1;
     level.screen_width = getscreenwidth();
     level.screen_height = getscreenheight();
@@ -1613,7 +1613,7 @@ arcademode_ends()
         var_15 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
         var_16 setshader( "h1_arcademode_scanelines_border", int( 344 * var_17 ), 65 );
         var_15 settext( &"SCRIPT_MISSION_COMPLETE" );
-        level.playercardbackground playsound( "h1_arcademode_mission_success" );
+        level.player playsound( "h1_arcademode_mission_success" );
         thread ending_screen_mission_complete_flourish( var_6 );
     }
     else
@@ -1623,12 +1623,12 @@ arcademode_ends()
         var_15 settext( level.arcademode_failurestring );
         var_16 setshader( "h1_arcademode_scanelines_border", int( 216 * var_17 ), 65 );
         var_16.color = ( 1.0, 0.15, 0.16 );
-        level.playercardbackground playsound( "h1_arcademode_mission_fail" );
+        level.player playsound( "h1_arcademode_mission_fail" );
     }
 
     var_18 = new_ending_hud( "center", 0.1, 0, var_6 + 20 );
     var_18 setshader( "h1_arcademode_scanelines_border_end_title", int( 291 * var_17 ), 4 );
-    var_18.space = var_15.space - 1;
+    var_18.sort = var_15.sort - 1;
     var_18.alpha = 1;
     wait 1.0;
     var_19 = getdvarint( "arcademode_lives" );
@@ -1645,8 +1645,8 @@ arcademode_ends()
     for ( var_21 = 0; var_21 < level.arcademode_maxlives; var_21++ )
     {
         arcademode_add_life( var_21, 0, var_14, 0, 64, level.arcademode_hud_sort + 10 );
-        level.arcademode_lives_hud[var_21].hostquits = "center";
-        level.arcademode_lives_hud[var_21].visionsetnight = "middle";
+        level.arcademode_lives_hud[var_21].horzalign = "center";
+        level.arcademode_lives_hud[var_21].vertalign = "middle";
     }
 
     arcademode_redraw_lives( var_19 );
@@ -1657,7 +1657,7 @@ arcademode_ends()
     {
         var_23 = new_ending_hud( "center", var_4, 0, var_7 );
         var_23.alignx = "right";
-        var_23.hostquits = "fullscreen";
+        var_23.horzalign = "fullscreen";
         var_23.fontscale = 1.875;
         var_23.color = ( 1.0, 1.0, 1.0 );
         var_23 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
@@ -1669,7 +1669,7 @@ arcademode_ends()
 
     var_24 = new_ending_hud( "center", var_4, 0, var_9 );
     var_24.alignx = "right";
-    var_24.hostquits = "fullscreen";
+    var_24.horzalign = "fullscreen";
     var_24.fontscale = 1.875;
     var_24.color = ( 1.0, 1.0, 1.0 );
     var_24 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
@@ -1681,13 +1681,13 @@ arcademode_ends()
         var_25 = get_hud_score();
         level.arcademode_hud_mission_scores[level.arcademode_hud_mission_scores.size] = var_25;
         level.arcademode_ending_hud[level.arcademode_ending_hud.size] = var_25;
-        var_25.xpmaxmultipliertimeplayed = 0;
-        var_25._id_0538 = var_10;
-        var_25.space = level.arcademode_hud_sort + 10;
+        var_25.x = 0;
+        var_25.y = var_10;
+        var_25.sort = level.arcademode_hud_sort + 10;
         var_25.alignx = "left";
         var_25.aligny = "middle";
-        var_25.hostquits = "fullscreen";
-        var_25.visionsetnight = "middle";
+        var_25.horzalign = "fullscreen";
+        var_25.vertalign = "middle";
         var_25.fontscale = 1.875;
         var_25.alpha = 0;
         var_25 fadeovertime( var_4 );
@@ -1703,7 +1703,7 @@ arcademode_ends()
     var_27 = var_2;
     var_28 = new_ending_hud( "center", var_4, 0, var_12 );
     var_28.alignx = "right";
-    var_28.hostquits = "fullscreen";
+    var_28.horzalign = "fullscreen";
     var_28.fontscale = 1.7;
     var_28.color = ( 1.0, 1.0, 1.0 );
     var_28 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
@@ -1719,8 +1719,8 @@ arcademode_ends()
     for ( var_21 = 0; var_21 < 5; var_21++ )
     {
         level._id_0CC4[var_21].alignx = "left";
-        level._id_0CC4[var_21].hostquits = "fullscreen";
-        level._id_0CC4[var_21].visionsetnight = "middle";
+        level._id_0CC4[var_21].horzalign = "fullscreen";
+        level._id_0CC4[var_21].vertalign = "middle";
         level._id_0CC4[var_21].fontscale = 1.7;
         level._id_0CC4[var_21].fontscale = 1.7;
         level._id_0CC4[var_21].color = ( 1.0, 1.0, 1.0 );
@@ -1763,7 +1763,7 @@ arcademode_ends()
 
         if ( var_32 <= 0 )
         {
-            level.playercardbackground playsound( "h1_arcademode_ending_mission_pts" );
+            level.player playsound( "h1_arcademode_ending_mission_pts" );
             var_32 = 3;
         }
 
@@ -1808,7 +1808,7 @@ arcademode_ends()
 
             if ( var_32 <= 0 )
             {
-                level.playercardbackground playsound( "h1_arcademode_ending_time_pts" );
+                level.player playsound( "h1_arcademode_ending_time_pts" );
                 var_32 = 3;
             }
 
@@ -1851,7 +1851,7 @@ arcademode_ends()
             }
 
             var_30 += var_34;
-            level.playercardbackground playsound( "h1_arcademode_ending_lives_pts" );
+            level.player playsound( "h1_arcademode_ending_lives_pts" );
             hud_draw_score_for_elements_align_left( int( var_30 ), level.arcademode_hud_mission_scores );
             arcademode_redraw_lives( var_19 );
             wait 0.6;
@@ -1911,19 +1911,19 @@ arcademode_ends()
             if ( !level.arcademode_success )
                 var_58 = 1;
 
-            if ( level.script_context == "airplane" )
+            if ( level.script == "airplane" )
                 var_58 = 1;
 
             if ( var_58 )
                 var_53 = 1;
         }
 
-        var_59 = level.playercardbackground getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore" );
+        var_59 = level.player getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore" );
 
         if ( var_22 > var_59 )
-            level.playercardbackground setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore", var_22 );
+            level.player setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore", var_22 );
 
-        level.playercardbackground uploadscore( "LB_AM_FULLCHALLENGE", getdvarint( var_54 ) );
+        level.player uploadscore( "LB_AM_FULLCHALLENGE", getdvarint( var_54 ) );
     }
     else
     {
@@ -1946,19 +1946,19 @@ arcademode_ends()
         var_60["launchfacility_b"] = 15;
         var_60["jeepride"] = 16;
         var_60["airplane"] = 17;
-        var_61 = var_60[level.script_context];
+        var_61 = var_60[level.script];
 
         if ( isdefined( var_61 ) )
         {
-            var_59 = level.playercardbackground getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script_context );
+            var_59 = level.player getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script );
 
             if ( var_30 > var_59 )
             {
                 var_53 = 1;
-                level.playercardbackground setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script_context, var_30 );
+                level.player setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script, var_30 );
             }
 
-            level.playercardbackground uploadscore( "LB_AM_" + level.script_context, var_30 );
+            level.player uploadscore( "LB_AM_" + level.script, var_30 );
         }
     }
 
@@ -1977,7 +1977,7 @@ arcademode_ends()
         var_62 setpulsefx( 30, 3000, 1000 );
         var_63 = new_ending_hud( "center", var_4, 0, var_13 + 0.5 );
         var_63 setshader( "h1_arcademode_livesmessage_border", int( 313 * var_17 ), 135 );
-        var_63.space = var_62.space - 1;
+        var_63.sort = var_62.sort - 1;
         var_63 fadeovertime( 0.05 );
         var_63.alpha = 1;
         wait 3.0;
@@ -2021,9 +2021,9 @@ arcademode_ends()
     wait 1;
 
     if ( getdvar( "arcademode_full" ) == "1" )
-        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script_context + ", gameskill: " + level._id_3BFE + ", total: " + var_22 );
+        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script + ", gameskill: " + level._id_3BFE + ", total: " + var_22 );
     else
-        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script_context + ", gameskill: " + level._id_3BFE );
+        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script + ", gameskill: " + level._id_3BFE );
 
     setdvar( "arcademode_combined_score", var_22 );
 
@@ -2058,8 +2058,8 @@ arcademode_end_boost( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8 setpulsefx( 30, 10000, 1000 );
     var_9 = new_ending_hud( "center", 0.15, 320, var_5 + 0.5 );
     var_9 setshader( "h1_arcademode_livesmessage_border", int( 330 * var_7 ), 135 );
-    var_9.hostquits = "fullscreen";
-    var_9.space = var_8.space - 1;
+    var_9.horzalign = "fullscreen";
+    var_9.sort = var_8.sort - 1;
     var_9 fadeovertime( 0.05 );
     var_9.alpha = 1;
     wait 0.05;
@@ -2101,7 +2101,7 @@ arcademode_end_boost( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 
         if ( var_10 <= 0 )
         {
-            level.playercardbackground playsound( var_4 );
+            level.player playsound( var_4 );
             var_10 = 3;
         }
 
@@ -2119,14 +2119,14 @@ black_background( var_0 )
 {
     var_1 = newhudelem();
     var_1.foreground = 1;
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 0;
+    var_1.x = 0;
+    var_1.y = 0;
     var_1 setshader( "black", 640, 480 );
     var_1.alignx = "left";
     var_1.aligny = "top";
-    var_1.hostquits = "fullscreen";
-    var_1.visionsetnight = "fullscreen";
-    var_1.space = level.arcademode_hud_sort + 5;
+    var_1.horzalign = "fullscreen";
+    var_1.vertalign = "fullscreen";
+    var_1.sort = level.arcademode_hud_sort + 5;
     var_1.alpha = 0;
 
     if ( var_0 > 0 )
@@ -2139,9 +2139,9 @@ player_invul_forever()
 {
     for (;;)
     {
-        level.playercardbackground enableinvulnerability();
-        level.playercardbackground.deathinvulnerabletime = 70000;
-        level.playercardbackground.ignoretriggers = 1;
+        level.player enableinvulnerability();
+        level.player.deathinvulnerabletime = 70000;
+        level.player.ignoreme = 1;
         var_0 = getaispeciesarray( "all", "all" );
         common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5E, 1 );
         wait 0.05;
@@ -2171,7 +2171,7 @@ draw_checkpoint( var_0, var_1, var_2 )
 {
     var_0 *= var_2;
     var_3 = new_ending_hud( "center", 0.001, var_0, 73.3333 );
-    var_3.visionsetnight = "top_adjustable";
+    var_3.vertalign = "top_adjustable";
     var_3.fontscale = 2.5;
     var_3.color = ( 1.0, 1.0, 1.0 );
     var_3.font = "objective";
@@ -2221,9 +2221,9 @@ draw_checkpoint_scanlines( var_0, var_1, var_2 )
 {
     var_0 *= var_2;
     var_3 = new_ending_hud( "center", 0.1, var_0, 73.3333 );
-    var_3.visionsetnight = "top_adjustable";
+    var_3.vertalign = "top_adjustable";
     var_3 setshader( "h1_arcademode_scanelines_border", 384, 48 );
-    var_3.space -= 2;
+    var_3.sort -= 2;
     var_3.alpha = 0.25;
     var_3.alpha = 0;
     wait 0.15;
@@ -2266,9 +2266,9 @@ draw_checkpoint_scanlines( var_0, var_1, var_2 )
 draw_checkpoint_flare()
 {
     var_0 = new_ending_hud( "center", 0.001, 0, 73.3333 );
-    var_0.visionsetnight = "top_adjustable";
+    var_0.vertalign = "top_adjustable";
     var_0 setshader( "h1_arcademode_checkpoint_flare", 326, 23 );
-    var_0.space = level.arcademode_hud_sort + 10 - 1;
+    var_0.sort = level.arcademode_hud_sort + 10 - 1;
     var_0.alpha = 0;
     var_0 fadeovertime( 0.05 );
     var_0.alpha = 1;
@@ -2331,7 +2331,7 @@ arcademode_killstreak_complete_display()
 
     var_0 = new_ending_hud( "right", 0.2, -21.6667, 80.0 );
     var_0.aligny = "top";
-    var_0.visionsetnight = "top";
+    var_0.vertalign = "top";
     var_0.glowalpha = 0;
     var_0 setpulsefx( 5, 3000, 1000 );
     var_0.fontscale = 0.75;
@@ -2341,12 +2341,12 @@ arcademode_killstreak_complete_display()
 
     if ( level.arcademode_kill_streak_current_multiplier >= 8 )
     {
-        level.playercardbackground thread common_scripts\utility::_id_69C2( "arcademode_kill_streak_won", level.playercardbackground geteye() );
+        level.player thread common_scripts\utility::_id_69C2( "arcademode_kill_streak_won", level.player geteye() );
         var_0 settext( &"SCRIPT_STREAK_COMPLETE" );
     }
     else
     {
-        level.playercardbackground thread common_scripts\utility::_id_69C2( "arcademode_kill_streak_lost", level.playercardbackground geteye() );
+        level.player thread common_scripts\utility::_id_69C2( "arcademode_kill_streak_lost", level.player geteye() );
         var_0 settext( &"SCRIPT_STREAK_BONUS_LOST" );
     }
 
@@ -2388,23 +2388,23 @@ get_hud_multi()
     var_1 = newhudelem();
     var_1.alignx = "right";
     var_1.aligny = "top";
-    var_1.hostquits = "right";
-    var_1.visionsetnight = "top";
+    var_1.horzalign = "right";
+    var_1.vertalign = "top";
     var_1 thread arcademode_draw_multiplier_kill();
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = 76.3333;
+    var_1.x = 0;
+    var_1.y = 76.3333;
     var_1.font = "objective";
     var_1.fontscale = 2.25;
     var_1.archived = 0;
     var_1.foreground = 1;
-    var_1.hindlegstraceoffset = 1;
+    var_1.hidewheninmenu = 1;
     var_1.color = level.arcademode_streak_color[level.arcademode_kill_streak_current_multiplier - 1];
     var_1 _meth_8347( -0.1, 0, 0, -0.001, ( 0.0, 0.0, 0.0 ), 0.5, -0.1, 0, ( 0.0, 0.0, 0.0 ), 0.75 );
-    var_1.space = level.arcademode_hud_sort;
-    var_1.land = &"SCRIPT_X";
+    var_1.sort = level.arcademode_hud_sort;
+    var_1.label = &"SCRIPT_X";
     var_1 setvalue( level.arcademode_kill_streak_current_multiplier );
     var_1 moveovertime( var_0 );
-    var_1.xpmaxmultipliertimeplayed = -21.6667;
+    var_1.x = -21.6667;
     var_1.alpha = 0.25;
     var_1 fadeovertime( var_0 );
     var_1.alpha = 1.0;
@@ -2416,50 +2416,50 @@ get_hud_multi_emphasis()
     var_0 = newhudelem();
     var_0.alignx = "right";
     var_0.aligny = "middle";
-    var_0.hostquits = "right";
-    var_0.visionsetnight = "top";
-    var_0.xpmaxmultipliertimeplayed = -21.6667;
-    var_0._id_0538 = 89.3333;
+    var_0.horzalign = "right";
+    var_0.vertalign = "top";
+    var_0.x = -21.6667;
+    var_0.y = 89.3333;
     var_0.font = "objective";
     var_0.fontscale = 2.25;
     var_0.archived = 0;
     var_0.foreground = 1;
-    var_0.hindlegstraceoffset = 1;
+    var_0.hidewheninmenu = 1;
     var_0.color = level.arcademode_streak_color[level.arcademode_kill_streak_current_multiplier - 1];
     var_0 _meth_8347( -0.6, 0, 0, 0, ( 0.0, 0.0, 0.0 ), 0.0, -0.6, 0, var_0.color, 1.0 );
-    var_0.space = level.arcademode_hud_sort;
-    var_0.land = &"SCRIPT_X";
+    var_0.sort = level.arcademode_hud_sort;
+    var_0.label = &"SCRIPT_X";
     var_0 setvalue( level.arcademode_kill_streak_current_multiplier );
     var_0.alpha = 0.0;
     var_1 = 2;
     var_2 = newhudelem();
     var_2.alignx = "right";
     var_2.aligny = "top";
-    var_2.hostquits = "right";
-    var_2.visionsetnight = "top";
+    var_2.horzalign = "right";
+    var_2.vertalign = "top";
     var_2 thread arcademode_draw_multiplier_kill();
     var_2 setshader( "h1_arcademode_numberstreak_circles", 22 * var_1, 27 * var_1 );
-    var_2.xpmaxmultipliertimeplayed = 38;
-    var_2._id_0538 = 72.3333;
+    var_2.x = 38;
+    var_2.y = 72.3333;
     var_2.archived = 0;
     var_2.foreground = 1;
-    var_2.hindlegstraceoffset = 1;
+    var_2.hidewheninmenu = 1;
     var_2.color = level.arcademode_streak_color[level.arcademode_kill_streak_current_multiplier - 1];
-    var_2.space = level.arcademode_hud_sort - 1;
+    var_2.sort = level.arcademode_hud_sort - 1;
     var_3 = newhudelem();
     var_3.alignx = "right";
     var_3.aligny = "top";
-    var_3.hostquits = "right";
-    var_3.visionsetnight = "top";
+    var_3.horzalign = "right";
+    var_3.vertalign = "top";
     var_3 thread arcademode_draw_multiplier_kill();
     var_3 setshader( "h1_arcademode_numberstreak_glow", 64, 64 );
-    var_3.xpmaxmultipliertimeplayed = 0.833332;
-    var_3._id_0538 = 60.3333;
+    var_3.x = 0.833332;
+    var_3.y = 60.3333;
     var_3.archived = 0;
     var_3.foreground = 1;
-    var_3.hindlegstraceoffset = 1;
+    var_3.hidewheninmenu = 1;
     var_3.color = level.arcademode_streak_color[level.arcademode_kill_streak_current_multiplier - 1];
-    var_3.space = level.arcademode_hud_sort - 1;
+    var_3.sort = level.arcademode_hud_sort - 1;
     var_4 = 0.2;
     var_2.alpha = 1;
     var_2 scaleovertime( 0.4, 27 * var_1, 27 * var_1 );
@@ -2467,7 +2467,7 @@ get_hud_multi_emphasis()
     var_3 fadeovertime( 0.4 );
     var_5 = 0.1;
     var_2 moveovertime( var_5 );
-    var_2.xpmaxmultipliertimeplayed = -20.6667;
+    var_2.x = -20.6667;
     wait(var_5);
 
     if ( isdefined( var_0 ) )
@@ -2531,8 +2531,8 @@ arcademode_draw_mult_sizzle()
     wait 0.05;
     var_0 = 500;
     self moveovertime( 2 );
-    self.xpmaxmultipliertimeplayed += randomintrange( var_0 * -1, var_0 );
-    self._id_0538 += randomintrange( var_0 * -1, var_0 );
+    self.x += randomintrange( var_0 * -1, var_0 );
+    self.y += randomintrange( var_0 * -1, var_0 );
     wait 0.5;
     self fadeovertime( 1 );
     self.alpha = 0;

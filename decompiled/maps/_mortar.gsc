@@ -45,7 +45,7 @@ hurtgen_style()
         for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         {
             var_4 = ( var_2 + var_3 ) % var_0.size;
-            var_5 = distance( level.playercardbackground getorigin(), var_0[var_4].origin );
+            var_5 = distance( level.player getorigin(), var_0[var_4].origin );
             var_6 = undefined;
 
             if ( isdefined( level.foley ) )
@@ -89,7 +89,7 @@ railyard_style( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, v
 
     for ( var_13 = 0; var_13 < var_11.size; var_13++ )
     {
-        if ( isdefined( var_11[var_13]._not_team ) && var_9 == 0 )
+        if ( isdefined( var_11[var_13].target ) && var_9 == 0 )
             var_11[var_13] setup_mortar_terrain();
     }
 
@@ -116,7 +116,7 @@ railyard_style( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, v
             for ( var_13 = 0; var_13 < var_11.size; var_13++ )
             {
                 var_15 = ( var_13 + var_14 ) % var_11.size;
-                var_16 = distance( level.playercardbackground getorigin(), var_11[var_15].origin );
+                var_16 = distance( level.player getorigin(), var_11[var_15].origin );
 
                 if ( var_16 < var_1 && var_16 > var_2 && var_15 != var_12 )
                 {
@@ -147,11 +147,11 @@ script_mortargroup_style()
             var_4.origin = var_2[var_3].origin;
             var_4.angles = var_2[var_3].angles;
 
-            if ( isdefined( var_2[var_3].teambalanced ) )
-                var_4.teambalanced = var_2[var_3].teambalanced;
+            if ( isdefined( var_2[var_3].targetname ) )
+                var_4.targetname = var_2[var_3].targetname;
 
-            if ( isdefined( var_2[var_3]._not_team ) )
-                var_4._not_team = var_2[var_3]._not_team;
+            if ( isdefined( var_2[var_3].target ) )
+                var_4.target = var_2[var_3].target;
 
             level.mortars[var_2[var_3]._id_7A3E][level.mortars[var_2[var_3]._id_7A3E].size] = var_4;
             var_2[var_3] delete();
@@ -267,18 +267,18 @@ script_mortargroup_mortarzone()
 
         if ( randomint( 100 ) < 75 )
         {
-            var_12 = anglestoforward( level.playercardbackground.angles );
+            var_12 = anglestoforward( level.player.angles );
             var_13 = [];
 
             for ( var_14 = 0; var_14 < level.mortars[self._id_7A3E].size; var_14++ )
             {
-                if ( var_3 > 0 && distance( level.playercardbackground.origin, level.mortars[self._id_7A3E][var_14].origin ) > var_3 )
+                if ( var_3 > 0 && distance( level.player.origin, level.mortars[self._id_7A3E][var_14].origin ) > var_3 )
                     continue;
 
                 if ( is_lastblast( level.mortars[self._id_7A3E][var_14], var_0 ) )
                     continue;
 
-                var_15 = vectornormalize( level.mortars[self._id_7A3E][var_14].origin - level.playercardbackground.origin );
+                var_15 = vectornormalize( level.mortars[self._id_7A3E][var_14].origin - level.player.origin );
 
                 if ( vectordot( var_12, var_15 ) > 0.3 )
                     var_13[var_13.size] = var_14;
@@ -296,9 +296,9 @@ script_mortargroup_mortarzone()
 
         if ( var_2 && gettime() > var_1 )
         {
-            if ( isdefined( self._not_team ) )
+            if ( isdefined( self.target ) )
             {
-                var_16 = getent( self._not_team, "targetname" );
+                var_16 = getent( self.target, "targetname" );
 
                 if ( isdefined( var_16 ) )
                 {
@@ -325,16 +325,16 @@ is_lastblast( var_0, var_1 )
 
 script_mortargroup_domortar()
 {
-    if ( isdefined( self.teambalanced ) && isdefined( level.mortarthread[self.teambalanced] ) )
-        level thread [[ level.mortarthread[self.teambalanced] ]]( self );
+    if ( isdefined( self.targetname ) && isdefined( level.mortarthread[self.targetname] ) )
+        level thread [[ level.mortarthread[self.targetname] ]]( self );
     else
         thread activate_mortar( undefined, undefined, undefined, undefined, undefined, undefined, 1 );
 
     self waittill( "mortar" );
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
             var_0 notify( "trigger" );
@@ -377,11 +377,11 @@ trigger_targeted()
 
 trigger_targeted_mortars( var_0 )
 {
-    var_1 = getentarray( level.mortartrigger[var_0]._not_team, "targetname" );
+    var_1 = getentarray( level.mortartrigger[var_0].target, "targetname" );
 
     for (;;)
     {
-        if ( level.playercardbackground istouching( level.mortartrigger[var_0] ) )
+        if ( level.player istouching( level.mortartrigger[var_0] ) )
         {
             var_2 = randomint( var_1.size );
 
@@ -479,12 +479,12 @@ bunker_style_mortar_activate( var_0, var_1, var_2, var_3, var_4 )
     for (;;)
     {
         wait 0.05;
-        var_5 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_4 );
+        var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_4 );
 
         if ( !isdefined( level.mortarnoincomingsound ) )
             common_scripts\utility::_id_69C2( "mortar_incoming_bunker", var_5.origin );
 
-        var_5 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_4 );
+        var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_4 );
         thread common_scripts\utility::_id_69C2( "exp_artillery_underground", var_5.origin );
         common_scripts\utility::_id_0D13( var_0, ::bunker_style_mortar_explode );
 
@@ -516,16 +516,16 @@ bunker_style_mortar_explode( var_0, var_1 )
         var_2 = 1024;
 
     var_3 = var_2 * var_2;
-    var_4 = distancesquared( level.playercardbackground.origin, self.origin );
+    var_4 = distancesquared( level.player.origin, self.origin );
 
     if ( var_4 > var_3 )
         return;
 
     if ( isdefined( self.classname ) && self.classname == "trigger_radius" )
     {
-        if ( !level.playercardbackground istouching( self ) && distance( level.playercardbackground.origin, self.origin ) < level.mortardamagetriggerdist )
+        if ( !level.player istouching( self ) && distance( level.player.origin, self.origin ) < level.mortardamagetriggerdist )
         {
-            radiusdamage( self.origin, self.rank, 500, 500 );
+            radiusdamage( self.origin, self.radius, 500, 500 );
             self delete();
             return;
         }
@@ -630,7 +630,7 @@ bog_style_mortar_activate( var_0, var_1, var_2, var_3 )
             if ( isdefined( var_0[var_6].cooldown ) )
                 continue;
 
-            var_7 = distance( level.playercardbackground.origin, var_0[var_6].origin );
+            var_7 = distance( level.player.origin, var_0[var_6].origin );
 
             if ( var_7 < var_4 )
                 continue;
@@ -688,13 +688,13 @@ mortars_too_close( var_0, var_1 )
 
 mortar_within_player_fov( var_0 )
 {
-    var_1 = level.playercardbackground geteye();
+    var_1 = level.player geteye();
     var_2 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( level.playermortarfovoffset ) )
         var_2 = level.playermortarfovoffset;
 
-    var_3 = common_scripts\utility::_id_A347( var_1, level.playercardbackground getplayerangles() + var_2, self.origin, var_0 );
+    var_3 = common_scripts\utility::_id_A347( var_1, level.player getplayerangles() + var_2, self.origin, var_0 );
     return var_3;
 }
 
@@ -725,11 +725,11 @@ bog_style_mortar_explode( var_0, var_1 )
     playfx( level._effect["mortar"][self.script_fxid], self.origin );
 
     if ( isdefined( level.alwaysquake ) )
-        earthquake( 0.3, 1, level.playercardbackground.origin, 2000 );
+        earthquake( 0.3, 1, level.player.origin, 2000 );
 
     if ( getdvarint( "bog_camerashake" ) > 0 )
     {
-        if ( level.playercardbackground getcurrentweapon() == "dragunov" && level.playercardbackground playerads() > 0.8 )
+        if ( level.player getcurrentweapon() == "dragunov" && level.player playerads() > 0.8 )
             return;
 
         earthquake( 0.25, 0.75, self.origin, level.mortarearthquakeradius );
@@ -803,7 +803,7 @@ burnville_style_mortar()
 
     for (;;)
     {
-        if ( distance( level.playercardbackground getorigin(), self.origin ) < 600 )
+        if ( distance( level.player getorigin(), self.origin ) < 600 )
         {
             activate_mortar( undefined, undefined, undefined, undefined, undefined, undefined, 0 );
             break;
@@ -816,7 +816,7 @@ burnville_style_mortar()
 
     for (;;)
     {
-        if ( distance( level.playercardbackground getorigin(), self.origin ) < 1200 && distance( level.playercardbackground getorigin(), self.origin ) > 400 )
+        if ( distance( level.player getorigin(), self.origin ) < 1200 && distance( level.player getorigin(), self.origin ) > 400 )
         {
             activate_mortar( undefined, undefined, undefined, undefined, undefined, undefined, 0 );
             wait(3 + randomfloat( 14 ));
@@ -830,9 +830,9 @@ setup_mortar_terrain()
 {
     self.has_terrain = 0;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        self.terrain = getentarray( self._not_team, "targetname" );
+        self.terrain = getentarray( self.target, "targetname" );
         self.has_terrain = 1;
     }
     else
@@ -849,16 +849,16 @@ setup_mortar_terrain()
     {
         if ( isdefined( self._id_7A0E ) )
             self.hidden_terrain = getent( self._id_7A0E, "targetname" );
-        else if ( isdefined( self.terrain ) && isdefined( self.terrain[0]._not_team ) )
-            self.hidden_terrain = getent( self.terrain[0]._not_team, "targetname" );
+        else if ( isdefined( self.terrain ) && isdefined( self.terrain[0].target ) )
+            self.hidden_terrain = getent( self.terrain[0].target, "targetname" );
 
         if ( isdefined( self.hidden_terrain ) )
             self.hidden_terrain hide();
     }
     else if ( isdefined( self.has_terrain ) )
     {
-        if ( isdefined( self.terrain ) && isdefined( self.terrain[0]._not_team ) )
-            self.hidden_terrain = getent( self.terrain[0]._not_team, "targetname" );
+        if ( isdefined( self.terrain ) && isdefined( self.terrain[0].target ) )
+            self.hidden_terrain = getent( self.terrain[0].target, "targetname" );
 
         if ( isdefined( self.hidden_terrain ) )
             self.hidden_terrain hide();
@@ -921,7 +921,7 @@ mortar_boom( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( level.playermortar ) )
         return;
 
-    if ( distance( level.playercardbackground.origin, var_0 ) > 300 )
+    if ( distance( level.player.origin, var_0 ) > 300 )
         return;
 
     level.playermortar = 1;
@@ -1054,7 +1054,7 @@ generic_style( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     for ( var_11 = 0; var_11 < var_10.size; var_11++ )
     {
-        if ( isdefined( var_10[var_11]._not_team ) && !var_6 )
+        if ( isdefined( var_10[var_11].target ) && !var_6 )
             var_10[var_11] setup_mortar_terrain();
     }
 
@@ -1078,7 +1078,7 @@ generic_style( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                 for ( var_11 = 0; var_11 < var_10.size; var_11++ )
                 {
                     var_14 = ( var_11 + var_13 ) % var_10.size;
-                    var_15 = distance( level.playercardbackground getorigin(), var_10[var_14].origin );
+                    var_15 = distance( level.player getorigin(), var_10[var_14].origin );
 
                     if ( var_15 < var_8 && var_15 > var_9 && var_14 != var_7 )
                     {
@@ -1142,13 +1142,13 @@ explosion_activate( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_8 = undefined;
     var_9 = self;
 
-    if ( isdefined( self.iminrange ) && distance( level.playercardbackground.origin, self.origin ) < self.iminrange )
+    if ( isdefined( self.iminrange ) && distance( level.player.origin, self.origin ) < self.iminrange )
     {
         var_10 = getentarray( var_0, "targetname" );
 
         for ( var_11 = 0; var_11 < var_10.size; var_11++ )
         {
-            var_12 = distance( level.playercardbackground getorigin(), var_10[var_11].origin );
+            var_12 = distance( level.player getorigin(), var_10[var_11].origin );
 
             if ( var_12 > self.iminrange )
             {
@@ -1199,7 +1199,7 @@ explosion_boom( var_0, var_1, var_2, var_3 )
     playfx( level._effect[var_0], var_4 );
     earthquake( var_1, var_2, var_4, var_3 );
 
-    if ( distance( level.playercardbackground.origin, var_4 ) > 300 )
+    if ( distance( level.player.origin, var_4 ) > 300 )
         return;
 
     level.playermortar = 1;

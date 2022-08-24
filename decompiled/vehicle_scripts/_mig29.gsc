@@ -81,7 +81,7 @@ _id_6CD2( var_0 )
 
     var_3 = common_scripts\utility::_id_38C9( var_0.origin );
     var_4 = var_3 + anglestoforward( common_scripts\utility::_id_38C8( var_0.angles ) ) * ( var_2 * 100000 );
-    var_5 = pointonsegmentnearesttopoint( var_3, var_4, level.playercardbackground.origin );
+    var_5 = pointonsegmentnearesttopoint( var_3, var_4, level.player.origin );
     var_6 = distance( var_3, var_5 );
     var_7 = 3000;
 
@@ -94,7 +94,7 @@ _id_6CD2( var_0 )
 _id_6CD3( var_0 )
 {
     var_1 = anglestoforward( common_scripts\utility::_id_38C8( var_0.angles ) );
-    var_2 = vectornormalize( common_scripts\utility::_id_38C9( level.playercardbackground.origin ) - var_0.origin );
+    var_2 = vectornormalize( common_scripts\utility::_id_38C9( level.player.origin ) - var_0.origin );
     var_3 = vectordot( var_1, var_2 );
 
     if ( var_3 > 0 )

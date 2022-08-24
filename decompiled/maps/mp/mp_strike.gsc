@@ -39,7 +39,7 @@ fix_hp_zone_5()
     if ( level.gametype == "hp" )
     {
         var_0 = getentarray( "hp_zone_5", "targetname" );
-        var_0[2].script_parentname = "neutral";
+        var_0[2].script_noteworthy = "neutral";
     }
 }
 

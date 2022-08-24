@@ -21,7 +21,7 @@
 
 _id_781E( var_0 )
 {
-    var_1 = level.playercardbackground getcurrentweapon();
+    var_1 = level.player getcurrentweapon();
 
     if ( !isdefined( var_1 ) || var_1 == "none" )
     {
@@ -29,10 +29,10 @@ _id_781E( var_0 )
     }
 
     game["weaponstates"][var_0]["current"] = var_1;
-    var_2 = level.playercardbackground getcurrentoffhand();
+    var_2 = level.player getcurrentoffhand();
     game["weaponstates"][var_0]["offhand"] = var_2;
     game["weaponstates"][var_0]["list"] = [];
-    var_3 = level.playercardbackground getweaponslistall();
+    var_3 = level.player getweaponslistall();
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         game["weaponstates"][var_0]["list"][var_4]["name"] = var_3[var_4];
@@ -46,7 +46,7 @@ _id_74B1( var_0 )
     if ( !isdefined( game["weaponstates"][var_0] ) )
         return 0;
 
-    level.playercardbackground takeallweapons();
+    level.player takeallweapons();
 
     for ( var_1 = 0; var_1 < game["weaponstates"][var_0]["list"].size; var_1++ )
     {
@@ -64,8 +64,8 @@ _id_74B1( var_0 )
         if ( var_2 == "claymore" )
             continue;
 
-        level.playercardbackground giveweapon( var_2 );
-        level.playercardbackground givemaxammo( var_2 );
+        level.player giveweapon( var_2 );
+        level.player givemaxammo( var_2 );
     }
 
     if ( isdefined( level.legit_weapons ) )
@@ -73,17 +73,17 @@ _id_74B1( var_0 )
         var_2 = game["weaponstates"][var_0]["offhand"];
 
         if ( isdefined( level.legit_weapons[var_2] ) )
-            level.playercardbackground switchtooffhand( var_2 );
+            level.player switchtooffhand( var_2 );
 
         var_2 = game["weaponstates"][var_0]["current"];
 
         if ( isdefined( level.legit_weapons[var_2] ) )
-            level.playercardbackground switchtoweapon( var_2 );
+            level.player switchtoweapon( var_2 );
     }
     else
     {
-        level.playercardbackground switchtooffhand( game["weaponstates"][var_0]["offhand"] );
-        level.playercardbackground switchtoweapon( game["weaponstates"][var_0]["current"] );
+        level.player switchtooffhand( game["weaponstates"][var_0]["offhand"] );
+        level.player switchtoweapon( game["weaponstates"][var_0]["current"] );
     }
 
     return 1;
@@ -108,7 +108,7 @@ _id_3DCC()
     if ( isdefined( level._id_57D6 ) )
         return level._id_57D6;
 
-    return level.script_context;
+    return level.script;
 }
 
 _id_67D9( var_0, var_1 )
@@ -144,32 +144,32 @@ _id_57D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         if ( isdefined( var_1 ) )
         {
             level._id_2792 = var_1;
-            level.playercardbackground giveweapon( var_1 );
+            level.player giveweapon( var_1 );
         }
 
         if ( isdefined( var_2 ) )
-            level.playercardbackground giveweapon( var_2 );
+            level.player giveweapon( var_2 );
 
         if ( isdefined( var_1 ) )
-            level.playercardbackground switchtoweapon( var_1 );
+            level.player switchtoweapon( var_1 );
         else if ( isdefined( var_2 ) )
-            level.playercardbackground switchtoweapon( var_2 );
+            level.player switchtoweapon( var_2 );
     }
 
     if ( isdefined( var_3 ) )
     {
-        level.playercardbackground setoffhandprimaryclass( var_3 );
-        level.playercardbackground giveweapon( var_3 );
+        level.player setoffhandprimaryclass( var_3 );
+        level.player giveweapon( var_3 );
     }
 
     if ( isdefined( var_4 ) )
     {
-        level.playercardbackground setoffhandsecondaryclass( var_4 );
-        level.playercardbackground giveweapon( var_4 );
+        level.player setoffhandsecondaryclass( var_4 );
+        level.player giveweapon( var_4 );
     }
 
     if ( isdefined( var_5 ) )
-        level.playercardbackground setviewmodel( var_5 );
+        level.player setviewmodel( var_5 );
 
     if ( isdefined( var_6 ) )
         level._id_1A3D = var_6;
@@ -182,19 +182,19 @@ _id_57DB( var_0, var_1, var_2 )
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( level.script_context != var_0 )
+    if ( level.script != var_0 )
         return;
 
     if ( isdefined( var_1 ) )
     {
-        level.playercardbackground giveweapon( var_1 );
-        level.playercardbackground setactionslot( 2, "weapon", var_1 );
+        level.player giveweapon( var_1 );
+        level.player setactionslot( 2, "weapon", var_1 );
     }
 
     if ( isdefined( var_2 ) )
     {
-        level.playercardbackground giveweapon( var_2 );
-        level.playercardbackground setactionslot( 4, "weapon", var_2 );
+        level.player giveweapon( var_2 );
+        level.player setactionslot( 4, "weapon", var_2 );
     }
 }
 
@@ -215,7 +215,7 @@ _id_2783()
 
 loadoutcustomization()
 {
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "killhouse":
             loadout_killhouse();
@@ -274,56 +274,56 @@ loadoutcustomization()
 
 loadout_killhouse()
 {
-    level.playercardbackground setweaponammoclip( "fraggrenade", 0 );
-    level.playercardbackground setweaponammoclip( "flash_grenade", 0 );
+    level.player setweaponammoclip( "fraggrenade", 0 );
+    level.player setweaponammoclip( "flash_grenade", 0 );
 }
 
 loadout_blackout()
 {
-    level.playercardbackground givemaxammo( "m4m203_silencer_reflex" );
-    level.playercardbackground givemaxammo( "m14_scoped_silencer_woodland" );
+    level.player givemaxammo( "m4m203_silencer_reflex" );
+    level.player givemaxammo( "m14_scoped_silencer_woodland" );
 }
 
 loadout_scoutsniper()
 {
-    level.playercardbackground givemaxammo( "m14_scoped_silencer" );
-    level.playercardbackground givemaxammo( "usp_silencer" );
+    level.player givemaxammo( "m14_scoped_silencer" );
+    level.player givemaxammo( "usp_silencer" );
 }
 
 loadout_sniperescape()
 {
     if ( level._id_3BFE >= 2 )
     {
-        level.playercardbackground setweaponammoclip( "claymore", 10 );
-        level.playercardbackground setweaponammoclip( "c4", 6 );
+        level.player setweaponammoclip( "claymore", 10 );
+        level.player setweaponammoclip( "c4", 6 );
     }
     else
     {
-        level.playercardbackground setweaponammoclip( "claymore", 8 );
-        level.playercardbackground setweaponammoclip( "c4", 3 );
+        level.player setweaponammoclip( "claymore", 8 );
+        level.player setweaponammoclip( "c4", 3 );
     }
 }
 
 loadout_village_defend()
 {
-    level.playercardbackground givemaxammo( "claymore" );
+    level.player givemaxammo( "claymore" );
 }
 
 loadout_ambush()
 {
-    level.playercardbackground setweaponammostock( "remington700", 10 );
+    level.player setweaponammostock( "remington700", 10 );
 }
 
 loadout_launchfacility_a()
 {
-    level.playercardbackground givemaxammo( "claymore" );
+    level.player givemaxammo( "claymore" );
 }
 
 loadout_launchfacility_b()
 {
     var_0 = undefined;
     var_1 = 0;
-    var_2 = level.playercardbackground getweaponslistprimaries();
+    var_2 = level.player getweaponslistprimaries();
 
     foreach ( var_4 in var_2 )
     {
@@ -339,13 +339,13 @@ loadout_launchfacility_b()
 
     if ( isdefined( var_0 ) )
     {
-        level.playercardbackground takeweapon( var_0 );
+        level.player takeweapon( var_0 );
 
         if ( var_1 )
-            level.playercardbackground giveweapon( "usp_silencer" );
+            level.player giveweapon( "usp_silencer" );
         else
-            level.playercardbackground giveweapon( "m4m203_silencer_reflex" );
+            level.player giveweapon( "m4m203_silencer_reflex" );
 
-        level.playercardbackground switchtoweaponimmediate( "m4m203_silencer_reflex" );
+        level.player switchtoweaponimmediate( "m4m203_silencer_reflex" );
     }
 }

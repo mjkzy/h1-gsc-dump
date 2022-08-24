@@ -66,10 +66,10 @@ _id_422D( var_0, var_1, var_2, var_3, var_4 )
         if ( isdefined( var_4 ) )
             var_9.v["soundalias"] = var_4;
 
-        if ( !isdefined( var_8.script_parentname ) )
+        if ( !isdefined( var_8.script_noteworthy ) )
             continue;
 
-        var_10 = var_8.script_parentname;
+        var_10 = var_8.script_noteworthy;
 
         if ( !isdefined( level._id_05C3[var_10] ) )
             level._id_05C3[var_10] = [];

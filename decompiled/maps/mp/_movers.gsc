@@ -112,15 +112,15 @@ _id_7A56()
     self._id_5788 = [];
     var_0 = [];
 
-    if ( isdefined( self._not_team ) )
-        var_0 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_0 = common_scripts\utility::_id_40FD( self.target, "targetname" );
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
             continue;
 
-        switch ( var_2.script_parentname )
+        switch ( var_2.script_noteworthy )
         {
             case "origin":
                 if ( !isdefined( var_2.angles ) )
@@ -145,15 +145,15 @@ _id_7A56()
 
     var_4 = [];
 
-    if ( isdefined( self._not_team ) )
-        var_4 = getentarray( self._not_team, "targetname" );
+    if ( isdefined( self.target ) )
+        var_4 = getentarray( self.target, "targetname" );
 
     foreach ( var_2 in var_4 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
             continue;
 
-        var_6 = strtok( var_2.script_parentname, ";" );
+        var_6 = strtok( var_2.script_noteworthy, ";" );
 
         foreach ( var_8 in var_6 )
         {
@@ -265,25 +265,25 @@ _id_7A65()
     var_0 = [];
     var_1 = [];
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
-        var_1 = getentarray( self._not_team, "targetname" );
+        var_0 = common_scripts\utility::_id_40FD( self.target, "targetname" );
+        var_1 = getentarray( self.target, "targetname" );
     }
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
         var_3 = var_0[var_2];
 
-        if ( !isdefined( var_3.script_parentname ) )
-            var_3.script_parentname = "goal";
+        if ( !isdefined( var_3.script_noteworthy ) )
+            var_3.script_noteworthy = "goal";
 
-        switch ( var_3.script_parentname )
+        switch ( var_3.script_noteworthy )
         {
             case "ignore":
-                if ( isdefined( var_3._not_team ) )
+                if ( isdefined( var_3.target ) )
                 {
-                    var_4 = common_scripts\utility::_id_40FD( var_3._not_team, "targetname" );
+                    var_4 = common_scripts\utility::_id_40FD( var_3.target, "targetname" );
 
                     foreach ( var_6 in var_4 )
                         var_0[var_0.size] = var_6;
@@ -321,13 +321,13 @@ _id_7A65()
 
 _id_7A62( var_0 )
 {
-    if ( !isdefined( var_0.script_parentname ) )
+    if ( !isdefined( var_0.script_noteworthy ) )
         return;
 
     if ( var_0 _id_7A5A() && !isdefined( var_0._id_7A56 ) )
         var_0 waittill( "script_mover_init" );
 
-    var_1 = strtok( var_0.script_parentname, ";" );
+    var_1 = strtok( var_0.script_noteworthy, ";" );
 
     foreach ( var_3 in var_1 )
     {
@@ -844,7 +844,7 @@ _id_7A6A()
 
 _id_7A59()
 {
-    return isdefined( self.specialgrenade ) && self.specialgrenade & 1;
+    return isdefined( self.spawnflags ) && self.spawnflags & 1;
 }
 
 _id_7A58()

@@ -46,7 +46,7 @@ _id_80C6()
 _id_7E68()
 {
     maps\_utility::_id_9E6E( "jeepride", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride" );
-    level.playercardbackground _meth_848c( "clut_jeepride", 0.0 );
+    level.player maps\_utility::set_light_set_player( "jeepride" );
+    level.player _meth_848c( "clut_jeepride", 0.0 );
     setsaveddvar( "fx_cast_shadow", 0 );
 }

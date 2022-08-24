@@ -26,7 +26,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_complete_sp_sas_ct_ac130" );
 }

@@ -56,8 +56,8 @@ main()
     animscripts\utility::_id_4DD7( "combat" );
     self.a._id_0D29 = undefined;
 
-    if ( isdefined( self.node_relinquished ) && self.node_relinquished.unlockpoints == "Ambush" && self _meth_8163( self.node_relinquished ) )
-        self._id_0B6A = self.node_relinquished;
+    if ( isdefined( self.node ) && self.node.type == "Ambush" && self _meth_8163( self.node ) )
+        self._id_0B6A = self.node;
 
     _id_971E();
     _id_2C80();
@@ -81,7 +81,7 @@ _id_2C80()
     if ( self.team != "allies" )
         return;
 
-    if ( self _meth_81d2() && self.primaryattachment2 == "move" && self.a._id_6E5A == "stand" && !isdefined( self._id_2B12 ) )
+    if ( self _meth_81d2() && self.prevscript == "move" && self.a._id_6E5A == "stand" && !isdefined( self._id_2B12 ) )
     {
         if ( isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < squared( 128 ) )
             return;
@@ -91,7 +91,7 @@ _id_2C80()
 
         if ( isdefined( self.a._id_0CD8["surprise_stop"] ) )
             var_0 = animscripts\utility::_id_0C4E( "surprise_stop" );
-        else if ( self.tactical )
+        else if ( self.swimmer )
         {
             var_0 = animscripts\swim::_id_4100( "surprise_stop" );
 
@@ -115,12 +115,12 @@ transitionfromcoverstand()
         var_0 = undefined;
         var_1 = undefined;
 
-        if ( self.primaryattachment2 == "cover_right" )
+        if ( self.prevscript == "cover_right" )
         {
             var_0 = [ %corner_standr_alert_idle, %corner_standr_alert_twitch01, %corner_standr_alert_twitch04, %corner_standr_alert_twitch05, %corner_standr_alert_twitch06, %corner_standr_alert_twitch07 ];
             var_1 = "trans_from_corner_standr";
         }
-        else if ( self.primaryattachment2 == "cover_left" )
+        else if ( self.prevscript == "cover_left" )
         {
             var_0 = [ %corner_standl_alert_idle, %corner_standl_alert_twitch01, %corner_standl_alert_twitch03, %corner_standl_alert_twitch04, %corner_standl_alert_twitch06, %corner_standl_alert_twitch07 ];
             var_1 = "trans_from_corner_standl";
@@ -158,7 +158,7 @@ transitionfrompronemove()
         var_0 = undefined;
         var_1 = undefined;
 
-        if ( self.primaryattachment2 == "move" )
+        if ( self.prevscript == "move" )
         {
             self _meth_8192( "angle deltas", 0 );
             self _meth_8193( "face current" );
@@ -181,7 +181,7 @@ _id_971E()
 
         if ( self.a._id_6E5A == "crouch" )
         {
-            if ( self.primaryattachment2 == "cover_right" )
+            if ( self.prevscript == "cover_right" )
             {
                 _id_7444();
                 self _meth_8193( "face current" );
@@ -189,7 +189,7 @@ _id_971E()
                 self setflaggedanimknoballrestart( "transition", var_0, %animscript_root, 1, 0.2, 1 );
                 wait(getanimlength( var_0 ));
             }
-            else if ( self.primaryattachment2 == "cover_left" )
+            else if ( self.prevscript == "cover_left" )
             {
                 _id_7444();
                 self _meth_8193( "face current" );
@@ -206,7 +206,7 @@ _id_971E()
     if ( isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < 262144 )
         return;
 
-    if ( self.primaryattachment2 == "stop" && !animscripts\utility::_id_50E9() && self.a._id_6E5A == "stand" && !self _meth_8167() )
+    if ( self.prevscript == "stop" && !animscripts\utility::_id_50E9() && self.a._id_6E5A == "stand" && !self _meth_8167() )
     {
         _id_7444();
         var_0 = undefined;
@@ -269,18 +269,18 @@ _id_8F02()
 
 _id_7E0D()
 {
-    if ( self.tactical )
+    if ( self.swimmer )
     {
         if ( animscripts\utility::_id_51B0() )
         {
-            self.useable = 90;
+            self.upaimlimit = 90;
             self.downaimlimit = -90;
-            self.riotshield_hit = 45;
-            self.lifecount = -45;
+            self.rightaimlimit = 45;
+            self.leftaimlimit = -45;
         }
         else
         {
-            self.useable = 90;
+            self.upaimlimit = 90;
             self.downaimlimit = -120;
         }
     }
@@ -300,9 +300,9 @@ _id_7DB6()
 {
     _id_7E08();
 
-    if ( self.a._id_6E5A == "stand" && !self.tactical )
+    if ( self.a._id_6E5A == "stand" && !self.swimmer )
     {
-        self.useable = 60;
+        self.upaimlimit = 60;
         self.downaimlimit = -60;
     }
 
@@ -362,7 +362,7 @@ _id_358D( var_0 )
             return 1;
     }
 
-    if ( var_0 > 262144 && self.a._id_6E5A != "crouch" && self _meth_81cf( "crouch" ) && !self.tactical && !animscripts\utility::_id_9C3A() && !isdefined( self._id_4795 ) && gettime() >= self.a._id_2D2F && lengthsquared( self._id_83F7 ) < 10000 )
+    if ( var_0 > 262144 && self.a._id_6E5A != "crouch" && self _meth_81cf( "crouch" ) && !self.swimmer && !animscripts\utility::_id_9C3A() && !isdefined( self._id_4795 ) && gettime() >= self.a._id_2D2F && lengthsquared( self._id_83F7 ) < 10000 )
     {
         if ( !isdefined( self._id_840F ) || sighttracepassed( self.origin + ( 0.0, 0.0, 36.0 ), self._id_840F, 0, undefined ) )
         {
@@ -424,7 +424,7 @@ _id_358B( var_0 )
 _id_3590()
 {
     if ( isdefined( self._id_4795 ) && self _meth_8165() )
-        self _meth_81cb( self.nogrenadereturnthrow, self.node_relinquished.angles );
+        self _meth_81cb( self.nodeoffsetpos, self.node.angles );
 }
 
 _id_358F()
@@ -632,9 +632,9 @@ _id_1AF5()
             return 1;
     }
 
-    if ( isdefined( self.node_relinquished ) && isdefined( anim._id_50E4[self.node_relinquished.unlockpoints] ) )
+    if ( isdefined( self.node ) && isdefined( anim._id_50E4[self.node.type] ) )
     {
-        var_1 = angleclamp180( self.angles[1] - self.node_relinquished.angles[1] );
+        var_1 = angleclamp180( self.angles[1] - self.node.angles[1] );
 
         if ( _id_993D( var_1 ) )
             return 1;
@@ -646,8 +646,8 @@ _id_1AF5()
 
         if ( isdefined( var_2 ) )
             var_1 = angleclamp180( self.angles[1] - var_2[1] );
-        else if ( isdefined( self.node_relinquished ) )
-            var_1 = angleclamp180( self.angles[1] - self.node_relinquished.angles[1] );
+        else if ( isdefined( self.node ) )
+            var_1 = angleclamp180( self.angles[1] - self.node.angles[1] );
         else if ( isdefined( self.enemy ) )
         {
             var_2 = vectortoangles( self _meth_81c5( self.enemy ) - self.origin );
@@ -659,7 +659,7 @@ _id_1AF5()
     }
     else if ( isdefined( self._id_4795 ) && self _meth_8164() )
     {
-        var_1 = angleclamp180( self.angles[1] - self.node_relinquished.angles[1] );
+        var_1 = angleclamp180( self.angles[1] - self.node.angles[1] );
 
         if ( _id_993D( var_1 ) )
             return 1;
@@ -842,7 +842,7 @@ _id_2D88( var_0, var_1 )
 
     if ( isdefined( self._id_993E ) )
         self _meth_8192( "angle deltas", 0 );
-    else if ( isdefined( self.node_relinquished ) && isdefined( anim._id_50E3[self.node_relinquished.unlockpoints] ) && distancesquared( self.origin, self.node_relinquished.origin ) < 256 )
+    else if ( isdefined( self.node ) && isdefined( anim._id_50E3[self.node.type] ) && distancesquared( self.origin, self.node.origin ) < 256 )
         self _meth_8192( "angle deltas", 0 );
     else if ( _id_50B8( var_9 ) )
         _id_7444();
@@ -977,9 +977,9 @@ _id_2152()
     if ( self.grenadeammo <= 0 )
         return 0;
 
-    if ( isdefined( anim._id_933B ) && isalive( level.playercardbackground ) )
+    if ( isdefined( anim._id_933B ) && isalive( level.player ) )
     {
-        if ( _id_989B( level.playercardbackground, 200 ) )
+        if ( _id_989B( level.player, 200 ) )
             return 1;
     }
 
@@ -1143,7 +1143,7 @@ _id_3592( var_0 )
         if ( isdefined( self._id_8A35 ) )
         {
             var_1 = self [[ self._id_8A35 ]]();
-            self.key1 = 1;
+            self.keepclaimednode = 1;
         }
         else
         {
@@ -1156,7 +1156,7 @@ _id_3592( var_0 )
         thread _id_52E3();
         self._id_3798 = 0;
 
-        if ( weaponclass( self.weapon_switch_invalid ) == "pistol" )
+        if ( weaponclass( self.weapon ) == "pistol" )
             self _meth_8193( "face default" );
 
         _id_2D77( var_1, var_0 > 0.05 );
@@ -1167,7 +1167,7 @@ _id_3592( var_0 )
             animscripts\weaponlist::_id_72B1();
 
         self _meth_8144( %reload, 0.2 );
-        self.key1 = 0;
+        self.keepclaimednode = 0;
         self notify( "stop_trying_to_melee" );
         self.a._id_3593 = 0;
         self._id_3798 = undefined;
@@ -1188,7 +1188,7 @@ _id_2D77( var_0, var_1 )
 
     var_2 = 1;
 
-    if ( !animscripts\utility::_id_9C3A() && !animscripts\utility::_id_51A3( self.weapon_switch_invalid ) && isdefined( self.enemy ) && self _meth_81c2( self.enemy ) && distancesquared( self.enemy.origin, self.origin ) < 1048576 )
+    if ( !animscripts\utility::_id_9C3A() && !animscripts\utility::_id_51A3( self.weapon ) && isdefined( self.enemy ) && self _meth_81c2( self.enemy ) && distancesquared( self.enemy.origin, self.origin ) < 1048576 )
         var_2 = 1.2;
 
     var_3 = "reload_" + animscripts\combat_utility::_id_4143();
@@ -1445,7 +1445,7 @@ _id_989A()
         }
     }
 
-    if ( self.a._id_3593 && animscripts\combat_utility::_id_6089( 0.25 ) && self.enemy.helmet > self.enemy.maxturnspeed * 0.5 )
+    if ( self.a._id_3593 && animscripts\combat_utility::_id_6089( 0.25 ) && self.enemy.health > self.enemy.maxhealth * 0.5 )
     {
         self._id_7177 = 0;
         return;
@@ -1510,7 +1510,7 @@ _id_7444( var_0 )
     if ( !isdefined( var_1 ) )
         var_1 = 1;
 
-    if ( self.tactical )
+    if ( self.swimmer )
         self _meth_8192( "nogravity", var_1 );
     else
         self _meth_8192( "zonly_physics", var_1 );

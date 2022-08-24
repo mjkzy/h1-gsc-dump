@@ -81,7 +81,7 @@ super_radiation_trigger()
 updateradiationdosage()
 {
     self.radiation.triggers = [];
-    self.radiation.reached_wait_speed = 0;
+    self.radiation.rate = 0;
     self.radiation.ratepercent = 0;
     self.radiation._id_93F3 = 0;
     self.radiation.totalpercent = 0;
@@ -99,7 +99,7 @@ updateradiationdosage()
         {
             var_7 = self.radiation.triggers[var_6];
             var_8 = distance( self.origin, var_7.origin ) - 15;
-            var_5[var_6] = var_2 - var_2 / var_7.rank * var_8;
+            var_5[var_6] = var_2 - var_2 / var_7.radius * var_8;
         }
 
         var_9 = 0;
@@ -113,7 +113,7 @@ updateradiationdosage()
         if ( var_9 > var_2 )
             var_9 = var_2;
 
-        self.radiation.reached_wait_speed = var_9;
+        self.radiation.rate = var_9;
         self.radiation.ratepercent = ( var_9 - var_1 ) / var_4 * 100;
 
         if ( self.radiation.super_dose )
@@ -232,15 +232,15 @@ updateradiationratepercent()
     var_0 = 0.05;
     var_1 = newclienthudelem( self );
     var_1.fontscale = 1.2;
-    var_1.xpmaxmultipliertimeplayed = 670;
-    var_1._id_0538 = 350;
+    var_1.x = 670;
+    var_1.y = 350;
     var_1.alignx = "right";
-    var_1.land = "";
+    var_1.label = "";
     var_1.alpha = 0;
 
     for (;;)
     {
-        var_1.land = self.radiation.ratepercent;
+        var_1.label = self.radiation.ratepercent;
         wait(var_0);
     }
 }
@@ -254,24 +254,24 @@ updateradiationdosimeter()
     var_4 = self.origin;
     var_5 = newclienthudelem( self );
     var_5.fontscale = 1.2;
-    var_5.xpmaxmultipliertimeplayed = 676;
-    var_5._id_0538 = 360;
+    var_5.x = 676;
+    var_5.y = 360;
     var_5.alpha = 0;
     var_5.alignx = "right";
-    var_5.land = &"SCOUTSNIPER_MRHR";
+    var_5.label = &"SCOUTSNIPER_MRHR";
     var_5 thread updateradiationdosimetercolor( self );
 
     for (;;)
     {
-        if ( self.radiation.reached_wait_speed <= var_0 )
+        if ( self.radiation.rate <= var_0 )
         {
             var_6 = randomfloatrange( -0.001, 0.001 );
             var_5 setvalue( var_0 + var_6 );
         }
-        else if ( self.radiation.reached_wait_speed > var_1 )
+        else if ( self.radiation.rate > var_1 )
             var_5 setvalue( var_1 );
         else
-            var_5 setvalue( self.radiation.reached_wait_speed );
+            var_5 setvalue( self.radiation.rate );
 
         wait(var_2);
     }
@@ -286,7 +286,7 @@ updateradiationdosimetercolor( var_0 )
         var_2 = 1;
         var_3 = 0.13;
 
-        while ( var_0.radiation.reached_wait_speed >= 100 )
+        while ( var_0.radiation.rate >= 100 )
         {
             if ( var_2 <= 0 || var_2 >= 1 )
                 var_3 *= -1;
@@ -313,13 +313,13 @@ updateradiationblackout()
     level endon( "special_op_terminated" );
     self endon( "death" );
     var_0 = newclienthudelem( self );
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "black", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
     var_1 = 1;
     var_2 = 4;
@@ -409,7 +409,7 @@ first_radiation_dialogue()
     {
         maps\_utility::_id_32E0( "_radiation_poisoning" );
 
-        if ( level.script_context == "scoutsniper" || level.script_context == "co_scoutsniper" )
+        if ( level.script == "scoutsniper" || level.script == "co_scoutsniper" )
             level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_youdaft" );
 
         level notify( "radiation_warning" );

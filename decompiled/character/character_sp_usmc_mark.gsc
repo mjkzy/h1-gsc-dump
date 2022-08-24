@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_usmc_desert_assault_mark" );
     precachemodel( "head_usmc_marine_griggs" );

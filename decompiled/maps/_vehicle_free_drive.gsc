@@ -103,8 +103,8 @@ _id_1E59( var_0 )
 
     level._id_3248 = undefined;
 
-    if ( isdefined( level.playercardbackground._id_2E18 ) && isdefined( level.playercardbackground._id_2E18._id_7004 ) )
-        level.playercardbackground._id_2E18._id_7004 = undefined;
+    if ( isdefined( level.player._id_2E18 ) && isdefined( level.player._id_2E18._id_7004 ) )
+        level.player._id_2E18._id_7004 = undefined;
 }
 
 _id_8976( var_0, var_1, var_2, var_3 )
@@ -126,7 +126,7 @@ _id_8976( var_0, var_1, var_2, var_3 )
 
     if ( var_2 && var_3 )
     {
-        var_4 = getentarray( self._not_team, "targetname" );
+        var_4 = getentarray( self.target, "targetname" );
         var_5 = [];
 
         foreach ( var_7 in var_4 )
@@ -197,15 +197,15 @@ _id_3DE0( var_0 )
     var_0 = ( var_0[0], var_0[1], 0 );
     var_1 = common_scripts\utility::_id_3CCB( var_0, level._id_9CC6, undefined, 3 );
     var_2 = var_1[0];
-    var_3 = var_2.info_player_start;
+    var_3 = var_2.index;
 
-    if ( var_1[1].info_player_start < var_3 )
+    if ( var_1[1].index < var_3 )
     {
         var_2 = var_1[1];
-        var_3 = var_2.info_player_start;
+        var_3 = var_2.index;
     }
 
-    if ( var_1[2].info_player_start < var_3 )
+    if ( var_1[2].index < var_3 )
         var_2 = var_1[2];
 
     return var_2;
@@ -234,8 +234,8 @@ _id_23D1( var_0 )
     {
         var_5 = var_1;
 
-        if ( isdefined( var_1._not_team ) )
-            var_5 = common_scripts\utility::_id_40FB( var_1._not_team, "targetname" );
+        if ( isdefined( var_1.target ) )
+            var_5 = common_scripts\utility::_id_40FB( var_1.target, "targetname" );
 
         var_1.origin = _id_2F65( var_1.origin );
         var_2[var_2.size] = var_1;
@@ -251,7 +251,7 @@ _id_23D1( var_0 )
         var_1._id_65A8["right"] = var_6.origin;
         var_1._id_7566 = distance( var_1._id_65A8["right"], var_1._id_65A8["left"] );
         var_1._id_5C0F = ( var_1._id_65A8["left"] + var_1._id_65A8["right"] ) * 0.5;
-        var_1.info_player_start = var_3;
+        var_1.index = var_3;
         var_3++;
 
         if ( var_1 == var_5 )
@@ -289,7 +289,7 @@ _id_0743( var_0 )
 
     foreach ( var_3 in var_1 )
     {
-        var_4 = common_scripts\utility::_id_40FB( var_3._not_team, "targetname" );
+        var_4 = common_scripts\utility::_id_40FB( var_3.target, "targetname" );
         var_3.origin = _id_2F65( var_3.origin );
         var_4.origin = _id_2F65( var_4.origin );
         var_3._id_65B0 = var_4;
@@ -494,18 +494,18 @@ _id_9ACC()
     level endon( "stop_vehicle_free_path" );
     self._id_32D5 endon( "moving_obstacle_removed" );
     self._id_32D5 endon( "death" );
-    self.node_relinquished = self._id_32D5 _id_3DE0( self._id_32D5.origin );
-    var_0 = self._id_32D5 _id_3E3E( self._id_32D5.origin, self.node_relinquished._id_5C0F, self.node_relinquished._id_60BD._id_5C0F );
-    var_1 = self._id_32D5 _id_5F33( self.node_relinquished, var_0["progress"], var_0["offset"] );
-    self.node_relinquished = var_1.node_relinquished;
+    self.node = self._id_32D5 _id_3DE0( self._id_32D5.origin );
+    var_0 = self._id_32D5 _id_3E3E( self._id_32D5.origin, self.node._id_5C0F, self.node._id_60BD._id_5C0F );
+    var_1 = self._id_32D5 _id_5F33( self.node, var_0["progress"], var_0["offset"] );
+    self.node = var_1.node;
 
     for (;;)
     {
-        var_0 = self._id_32D5 _id_3E3E( self._id_32D5.origin, self.node_relinquished._id_5C0F, self.node_relinquished._id_60BD._id_5C0F );
-        var_1 = self._id_32D5 _id_5F33( self.node_relinquished, var_0["progress"], var_0["offset"] );
+        var_0 = self._id_32D5 _id_3E3E( self._id_32D5.origin, self.node._id_5C0F, self.node._id_60BD._id_5C0F );
+        var_1 = self._id_32D5 _id_5F33( self.node, var_0["progress"], var_0["offset"] );
 
-        if ( self.node_relinquished != var_1.node_relinquished )
-            self.node_relinquished = var_1.node_relinquished;
+        if ( self.node != var_1.node )
+            self.node = var_1.node;
 
         _id_9ACB();
         wait 0.1;
@@ -522,10 +522,10 @@ _id_9ACB()
     self._id_222A[2] = _id_2F65( self._id_32D5.origin + -1 * self._id_1757["width"] / 2 * var_1 + -1 * self._id_1757["length"] / 2 * var_0 );
     self._id_222A[3] = _id_2F65( self._id_32D5.origin + self._id_1757["width"] / 2 * var_1 + -1 * self._id_1757["length"] / 2 * var_0 );
     var_2 = [];
-    var_2[0] = _id_3E3E( self._id_222A[0], self.node_relinquished._id_5C0F, self.node_relinquished._id_60BD._id_5C0F );
-    var_2[1] = _id_3E3E( self._id_222A[1], self.node_relinquished._id_5C0F, self.node_relinquished._id_60BD._id_5C0F );
-    var_2[2] = _id_3E3E( self._id_222A[2], self.node_relinquished._id_5C0F, self.node_relinquished._id_60BD._id_5C0F );
-    var_2[3] = _id_3E3E( self._id_222A[3], self.node_relinquished._id_5C0F, self.node_relinquished._id_60BD._id_5C0F );
+    var_2[0] = _id_3E3E( self._id_222A[0], self.node._id_5C0F, self.node._id_60BD._id_5C0F );
+    var_2[1] = _id_3E3E( self._id_222A[1], self.node._id_5C0F, self.node._id_60BD._id_5C0F );
+    var_2[2] = _id_3E3E( self._id_222A[2], self.node._id_5C0F, self.node._id_60BD._id_5C0F );
+    var_2[3] = _id_3E3E( self._id_222A[3], self.node._id_5C0F, self.node._id_60BD._id_5C0F );
     var_3 = var_2[0]["offset"];
     var_4 = var_3;
     var_5 = var_2[0]["progress"];
@@ -558,7 +558,7 @@ _id_72E1( var_0, var_1, var_2, var_3 )
     var_5 = var_1;
     var_6 = var_2;
     var_7 = var_3;
-    var_8 = self.node_relinquished;
+    var_8 = self.node;
     var_9 = var_8;
 
     for (;;)
@@ -645,7 +645,7 @@ _id_0777( var_0, var_1, var_2, var_3, var_4 )
     if ( var_5._id_205B["min"] < 0 )
         var_5._id_205B["min"] = 0;
 
-    if ( var_0.info_player_start != 0 )
+    if ( var_0.index != 0 )
     {
 
     }
@@ -742,7 +742,7 @@ _id_7EFE()
     var_5 = _id_5F33( var_1, var_2["progress"], var_3 );
     var_6 = var_5._id_7000;
     var_7 = var_5._id_6379;
-    var_1 = var_5.node_relinquished;
+    var_1 = var_5.node;
     var_0._id_7004 = var_1;
     var_0._id_7000 = var_6;
 
@@ -752,7 +752,7 @@ _id_7EFE()
     var_8 = _id_5F33( var_1, var_6 + var_0._id_359F, var_7 );
     var_9 = var_8._id_7000;
     var_10 = var_8._id_6379;
-    var_11 = var_8.node_relinquished;
+    var_11 = var_8.node;
     var_12 = _id_3D4D( var_11, var_9 );
     var_13 = _id_3DFE( var_11, var_9, var_10, 1 );
     var_14 = 0;
@@ -800,7 +800,7 @@ _id_7EFE()
     var_18 = max( var_0._id_8D25 * var_17, level._id_3A25 );
     var_0 _meth_8229( var_0._id_31BC, var_18 );
 
-    if ( isdefined( level.playercardbackground._id_2E18 ) )
+    if ( isdefined( level.player._id_2E18 ) )
         var_0 _id_59DD( var_17 );
 }
 
@@ -942,16 +942,16 @@ _id_3E9A()
     if ( !isdefined( var_2 ) || !isdefined( self._id_7000 ) )
         return 0;
 
-    var_3 = maps\_utility::_id_3F82( var_2._not_team, "targetname" );
+    var_3 = maps\_utility::_id_3F82( var_2.target, "targetname" );
     var_0 = self._id_7000;
 
     for (;;)
     {
-        if ( !isdefined( var_2.teambalanced ) )
+        if ( !isdefined( var_2.targetname ) )
             break;
 
         var_3 = var_2;
-        var_2 = maps\_utility::_id_3F82( var_2.teambalanced, "target" );
+        var_2 = maps\_utility::_id_3F82( var_2.targetname, "target" );
 
         if ( !isdefined( var_2 ) )
             break;
@@ -965,7 +965,7 @@ _id_3E9A()
 
 _id_2B79()
 {
-    return distance2dsquared( self.origin, level.playercardbackground.origin );
+    return distance2dsquared( self.origin, level.player.origin );
 }
 
 _id_9CAC()
@@ -1009,15 +1009,15 @@ _id_A343( var_0 )
 
 _id_59DD( var_0 )
 {
-    if ( !isdefined( level.playercardbackground._id_2E18._id_7004 ) )
-        level.playercardbackground._id_2E18._id_7004 = _id_3DE0( level.playercardbackground._id_2E18.origin );
+    if ( !isdefined( level.player._id_2E18._id_7004 ) )
+        level.player._id_2E18._id_7004 = _id_3DE0( level.player._id_2E18.origin );
 
-    var_1 = _id_3E3E( level.playercardbackground._id_2E18.origin, level.playercardbackground._id_2E18._id_7004._id_5C0F, level.playercardbackground._id_2E18._id_7004._id_60BD._id_5C0F );
-    var_2 = _id_5F33( level.playercardbackground._id_2E18._id_7004, var_1["progress"], var_1["offset"] );
+    var_1 = _id_3E3E( level.player._id_2E18.origin, level.player._id_2E18._id_7004._id_5C0F, level.player._id_2E18._id_7004._id_60BD._id_5C0F );
+    var_2 = _id_5F33( level.player._id_2E18._id_7004, var_1["progress"], var_1["offset"] );
     var_3 = var_2._id_7000;
     var_4 = var_2._id_6379;
-    level.playercardbackground._id_2E18._id_7004 = var_2.node_relinquished;
-    var_5 = _id_7002( self._id_7004, self._id_7000, var_2.node_relinquished, var_2._id_7000 );
+    level.player._id_2E18._id_7004 = var_2.node;
+    var_5 = _id_7002( self._id_7004, self._id_7000, var_2.node, var_2._id_7000 );
     var_5 -= self._id_6AA6;
 
     if ( var_5 < level._id_3A1D )
@@ -1043,7 +1043,7 @@ _id_59DD( var_0 )
         return;
 
     var_6 = _id_3DDF( var_5 );
-    var_7 = max( level.playercardbackground._id_2E18 vehicle_getspeed() * var_6, level._id_3A25 );
+    var_7 = max( level.player._id_2E18 vehicle_getspeed() * var_6, level._id_3A25 );
 
     if ( self vehicle_isphysveh() )
         self vehphys_setspeed( var_7 );
@@ -1081,13 +1081,13 @@ _id_3DDF( var_0 )
 
 _id_7002( var_0, var_1, var_2, var_3 )
 {
-    while ( var_0.info_player_start > var_2.info_player_start )
+    while ( var_0.index > var_2.index )
     {
         var_0 = var_0._id_6F41;
         var_1 += var_0._id_2B70;
     }
 
-    while ( var_2.info_player_start > var_0.info_player_start )
+    while ( var_2.index > var_0.index )
     {
         var_2 = var_2._id_6F41;
         var_3 += var_2._id_2B70;
@@ -1234,7 +1234,7 @@ _id_5F33( var_0, var_1, var_2 )
         break;
     }
 
-    var_3.node_relinquished = var_0;
+    var_3.node = var_0;
     var_3._id_7000 = var_1;
     var_3._id_6379 = var_2;
     return var_3;

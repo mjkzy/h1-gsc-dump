@@ -113,8 +113,8 @@ _id_2C97( var_0, var_1 )
     wait 1.5;
     thread _id_2C9A( var_0 );
     var_2 = newclienthudelem( var_0 );
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 15;
+    var_2.x = 0;
+    var_2.y = 15;
 
     if ( var_1 )
         var_2 setshader( "hud_hyena_melee", 50, 50 );
@@ -123,8 +123,8 @@ _id_2C97( var_0, var_1 )
 
     var_2.alignx = "center";
     var_2.aligny = "middle";
-    var_2.hostquits = "center";
-    var_2.visionsetnight = "middle";
+    var_2.horzalign = "center";
+    var_2.vertalign = "middle";
     var_2.foreground = 1;
     var_2.alpha = 0;
     var_2 fadeovertime( 1 );
@@ -136,12 +136,12 @@ _id_2C9A( var_0 )
     var_1 = var_0 maps\_hud_util::_id_23ED( "default", 1 );
     var_1.color = ( 1.0, 1.0, 1.0 );
     var_1 settext( level._id_2C98 );
-    var_1.xpmaxmultipliertimeplayed = 0;
-    var_1._id_0538 = -30;
+    var_1.x = 0;
+    var_1.y = -30;
     var_1.alignx = "center";
     var_1.aligny = "middle";
-    var_1.hostquits = "center";
-    var_1.visionsetnight = "middle";
+    var_1.horzalign = "center";
+    var_1.vertalign = "middle";
     var_1.foreground = 1;
     var_1.alpha = 0;
     var_1 fadeovertime( 1 );
@@ -207,7 +207,7 @@ _id_2CD3()
         if ( self._id_5B8B ismantling() )
             return undefined;
 
-        if ( self._id_5B8B.left && self._id_5B8B.ignoretriggers )
+        if ( self._id_5B8B.laststand && self._id_5B8B.ignoreme )
             return undefined;
     }
 
@@ -378,7 +378,7 @@ _id_5B81()
         self._id_5B8B _id_6C8F();
 
     var_0 = 30;
-    var_1 = self.micro_dlc_bits_next_gen + var_0;
+    var_1 = self.meleeattackdist + var_0;
 
     for (;;)
     {
@@ -394,7 +394,7 @@ _id_5B81()
             continue;
         }
 
-        if ( isdefined( self._id_5B8B.tag_ai_aim_target ) && self._id_5B8B.tag_ai_aim_target != self || isdefined( self._id_5B8B._id_6C50 ) && isdefined( self._id_5B8B._id_6C50._id_4E82 ) )
+        if ( isdefined( self._id_5B8B.syncedmeleetarget ) && self._id_5B8B.syncedmeleetarget != self || isdefined( self._id_5B8B._id_6C50 ) && isdefined( self._id_5B8B._id_6C50._id_4E82 ) )
         {
             if ( _id_1CFC( var_1 ) )
                 break;
@@ -413,7 +413,7 @@ _id_5B81()
 
         self _meth_8193( "face enemy" );
         self _meth_8192( "zonly_physics" );
-        self.scope_center = 0;
+        self.safetochangescript = 0;
         _id_6F19();
         self _meth_8144( %root, 0.1 );
         self _meth_81ff();
@@ -430,7 +430,7 @@ _id_5B81()
         {
             thread _id_2CAE();
             self._id_5B8B._id_0E28 = 1;
-            self._id_5B8B.left = 0;
+            self._id_5B8B.laststand = 0;
             self._id_5B8B._id_06DD = undefined;
             thread _id_1ECC();
             self setflaggedanimrestart( "meleeanim", %german_shepherd_attack_player, 1, 0.2, 1 );
@@ -443,14 +443,14 @@ _id_5B81()
             self unlink();
         }
 
-        self.scope_center = 1;
+        self.safetochangescript = 1;
         wait 0.05;
 
         if ( _id_1CFC( var_1 ) )
             break;
     }
 
-    self.scope_center = 1;
+    self.safetochangescript = 1;
     self _meth_8192( "none" );
 }
 
@@ -477,7 +477,7 @@ _id_2C92()
     if ( gettime() - self._id_5B8B._id_5596 > 8000 )
         self._id_5B8B._id_2CD5 = 0;
 
-    return self._id_5B8B._id_2CD5 < self._id_5B8B._id_4441._id_2CA7 && self._id_5B8B.helmet > 25;
+    return self._id_5B8B._id_2CD5 < self._id_5B8B._id_4441._id_2CA7 && self._id_5B8B.health > 25;
 }
 
 _id_84BC()
@@ -497,14 +497,14 @@ _id_5B92()
 
     self.enemy notify( "dog_attacks_ai" );
 
-    if ( isdefined( self.enemy.tag_ai_aim_target ) || _id_84BC() || !isai( self.enemy ) || isdefined( self.enemy._id_51DA ) )
+    if ( isdefined( self.enemy.syncedmeleetarget ) || _id_84BC() || !isai( self.enemy ) || isdefined( self.enemy._id_51DA ) )
         _id_20AC();
     else
     {
         self.enemy _id_7FBD( 500 );
-        self.scope_center = 0;
+        self.safetochangescript = 0;
         self _meth_8192( "zonly_physics" );
-        self.radarshowenemydirection = 0;
+        self.pushable = 0;
         self _meth_81ff();
         self._id_5B8C = !isdefined( self.enemy._id_58D7 ) && ( isdefined( self.enemy.a._id_2CE7 ) || isdefined( self._id_5B7F ) || randomint( 100 ) > 50 );
         var_0 = [];
@@ -543,7 +543,7 @@ _id_5B92()
                 break;
 
             if ( !self._id_5B8C && var_4 + 1 == var_2 )
-                self.helmet = 1;
+                self.health = 1;
 
             self setflaggedanimrestart( "meleeanim", var_1[var_4 + 1], 1, 0, 1 );
             animscripts\shared::_id_2D06( "meleeanim" );
@@ -557,8 +557,8 @@ _id_5B92()
             return;
         }
 
-        self.radarshowenemydirection = 1;
-        self.scope_center = 1;
+        self.pushable = 1;
+        self.safetochangescript = 1;
         self._id_38A8 = 0;
     }
 }
@@ -593,7 +593,7 @@ _id_20AD()
         {
             var_2 = var_0[var_1];
 
-            if ( !isdefined( var_2.tag_ai_aim_target ) || var_2.tag_ai_aim_target == self )
+            if ( !isdefined( var_2.syncedmeleetarget ) || var_2.syncedmeleetarget == self )
                 continue;
 
             var_3 = var_2.origin - self.origin;
@@ -618,7 +618,7 @@ _id_20AD()
 
 _id_4E92()
 {
-    return isdefined( self.enemy ) && isdefined( self.enemy.tag_ai_aim_target ) && self.enemy.tag_ai_aim_target == self;
+    return isdefined( self.enemy ) && isdefined( self.enemy.syncedmeleetarget ) && self.enemy.syncedmeleetarget == self;
 }
 
 _id_4680( var_0 )
@@ -632,11 +632,11 @@ _id_4680( var_0 )
     if ( self.enemy != self._id_65A6 )
         return 1;
 
-    if ( isdefined( self.enemy.tag_ai_aim_target ) )
+    if ( isdefined( self.enemy.syncedmeleetarget ) )
         return 1;
 
     self._id_38A8 = 1;
-    self.enemy.tag_ai_aim_target = self;
+    self.enemy.syncedmeleetarget = self;
     self.enemy _meth_819e( ::_id_5B97 );
 }
 
@@ -665,10 +665,10 @@ _id_6F19()
     level._id_2C99 = "nothing";
     var_0 = distance( self.origin, self.enemy.origin );
 
-    if ( var_0 > self.micro_dlc_bits_next_gen )
+    if ( var_0 > self.meleeattackdist )
     {
         var_1 = self.enemy.origin - self.origin;
-        var_2 = ( var_0 - self.micro_dlc_bits_next_gen ) / var_0;
+        var_2 = ( var_0 - self.meleeattackdist ) / var_0;
         var_1 = ( var_1[0] * var_2, var_1[1] * var_2, var_1[2] * var_2 );
         thread _id_0E4C( var_1 );
     }
@@ -717,7 +717,7 @@ show_prepare_dog_hint_h1()
     if ( isdefined( self._id_5B8B._id_2CCE ) )
         destroy_dog_hint();
 
-    if ( level.playercardbackground common_scripts\utility::_id_5064() )
+    if ( level.player common_scripts\utility::_id_5064() )
     {
         var_0 = 1.5;
 
@@ -747,74 +747,74 @@ show_prepare_dog_hint_h1()
         self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", var_0 );
         self._id_5B8B._id_2CCE.color = ( 1.0, 1.0, 1.0 );
         self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT" );
-        self._id_5B8B._id_2CCE.xpmaxmultipliertimeplayed = 0;
-        self._id_5B8B._id_2CCE._id_0538 = 20;
+        self._id_5B8B._id_2CCE.x = 0;
+        self._id_5B8B._id_2CCE.y = 20;
         self._id_5B8B._id_2CCE.alignx = "center";
         self._id_5B8B._id_2CCE.aligny = "middle";
-        self._id_5B8B._id_2CCE.hostquits = "center";
-        self._id_5B8B._id_2CCE.visionsetnight = "middle";
+        self._id_5B8B._id_2CCE.horzalign = "center";
+        self._id_5B8B._id_2CCE.vertalign = "middle";
         self._id_5B8B._id_2CCE.foreground = 1;
         self._id_5B8B._id_2CCE.alpha = 0.1;
-        self._id_5B8B._id_2CCE.space = -1;
+        self._id_5B8B._id_2CCE.sort = -1;
         self._id_5B8B.doghintstar = maps\_hud_util::_id_2420( "h1_dog_melee_prompt_star", 0, 0 );
         self._id_5B8B.doghintstar.color = ( 1.0, 1.0, 1.0 );
-        self._id_5B8B.doghintstar.xpmaxmultipliertimeplayed = 0;
-        self._id_5B8B.doghintstar._id_0538 = 20;
+        self._id_5B8B.doghintstar.x = 0;
+        self._id_5B8B.doghintstar.y = 20;
         self._id_5B8B.doghintstar.alignx = "center";
         self._id_5B8B.doghintstar.aligny = "middle";
-        self._id_5B8B.doghintstar.hostquits = "center";
-        self._id_5B8B.doghintstar.visionsetnight = "middle";
+        self._id_5B8B.doghintstar.horzalign = "center";
+        self._id_5B8B.doghintstar.vertalign = "middle";
         self._id_5B8B.doghintstar.foreground = 1;
         self._id_5B8B.doghintstar.alpha = 0;
-        self._id_5B8B.doghintstar.space = -2;
+        self._id_5B8B.doghintstar.sort = -2;
     }
     else
     {
         self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", 0.5 );
         self._id_5B8B._id_2CCE.color = ( 1.0, 1.0, 1.0 );
         self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD" );
-        self._id_5B8B._id_2CCE.xpmaxmultipliertimeplayed = 0;
-        self._id_5B8B._id_2CCE._id_0538 = 20;
+        self._id_5B8B._id_2CCE.x = 0;
+        self._id_5B8B._id_2CCE.y = 20;
         self._id_5B8B._id_2CCE.font = "timer";
         self._id_5B8B._id_2CCE.alignx = "center";
         self._id_5B8B._id_2CCE.aligny = "middle";
-        self._id_5B8B._id_2CCE.hostquits = "center";
-        self._id_5B8B._id_2CCE.visionsetnight = "middle";
+        self._id_5B8B._id_2CCE.horzalign = "center";
+        self._id_5B8B._id_2CCE.vertalign = "middle";
         self._id_5B8B._id_2CCE.foreground = 1;
         self._id_5B8B._id_2CCE.alpha = 0.25;
-        self._id_5B8B._id_2CCE.space = -1;
+        self._id_5B8B._id_2CCE.sort = -1;
         self._id_5B8B.doghintbackerblur = maps\_hud_util::_id_2420( "h1_hud_tutorial_blur", 225, 20 );
         self._id_5B8B.doghintbackerbordertop = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 225, 1 );
         self._id_5B8B.doghintbackerborderbottom = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 225, 1 );
-        self._id_5B8B.doghintbackerblur.xpmaxmultipliertimeplayed = 0;
-        self._id_5B8B.doghintbackerblur._id_0538 = 20;
-        self._id_5B8B.doghintbackerblur.space = -3;
+        self._id_5B8B.doghintbackerblur.x = 0;
+        self._id_5B8B.doghintbackerblur.y = 20;
+        self._id_5B8B.doghintbackerblur.sort = -3;
         self._id_5B8B.doghintbackerblur.alignx = "center";
         self._id_5B8B.doghintbackerblur.aligny = "middle";
-        self._id_5B8B.doghintbackerblur.hostquits = "center";
-        self._id_5B8B.doghintbackerblur.visionsetnight = "middle";
+        self._id_5B8B.doghintbackerblur.horzalign = "center";
+        self._id_5B8B.doghintbackerblur.vertalign = "middle";
         self._id_5B8B.doghintbackerblur.foreground = 1;
-        self._id_5B8B.doghintbackerblur.hindlegstraceoffset = 1;
+        self._id_5B8B.doghintbackerblur.hidewheninmenu = 1;
         self._id_5B8B.doghintbackerblur.alpha = 0.225;
-        self._id_5B8B.doghintbackerbordertop.xpmaxmultipliertimeplayed = 0;
-        self._id_5B8B.doghintbackerbordertop._id_0538 = 10;
-        self._id_5B8B.doghintbackerbordertop.space = -2;
+        self._id_5B8B.doghintbackerbordertop.x = 0;
+        self._id_5B8B.doghintbackerbordertop.y = 10;
+        self._id_5B8B.doghintbackerbordertop.sort = -2;
         self._id_5B8B.doghintbackerbordertop.alignx = "center";
         self._id_5B8B.doghintbackerbordertop.aligny = "middle";
-        self._id_5B8B.doghintbackerbordertop.hostquits = "center";
-        self._id_5B8B.doghintbackerbordertop.visionsetnight = "middle";
+        self._id_5B8B.doghintbackerbordertop.horzalign = "center";
+        self._id_5B8B.doghintbackerbordertop.vertalign = "middle";
         self._id_5B8B.doghintbackerbordertop.foreground = 1;
-        self._id_5B8B.doghintbackerbordertop.hindlegstraceoffset = 1;
+        self._id_5B8B.doghintbackerbordertop.hidewheninmenu = 1;
         self._id_5B8B.doghintbackerbordertop.alpha = 0.0125;
-        self._id_5B8B.doghintbackerborderbottom.xpmaxmultipliertimeplayed = 0;
-        self._id_5B8B.doghintbackerborderbottom._id_0538 = 30;
-        self._id_5B8B.doghintbackerborderbottom.space = -2;
+        self._id_5B8B.doghintbackerborderbottom.x = 0;
+        self._id_5B8B.doghintbackerborderbottom.y = 30;
+        self._id_5B8B.doghintbackerborderbottom.sort = -2;
         self._id_5B8B.doghintbackerborderbottom.alignx = "center";
         self._id_5B8B.doghintbackerborderbottom.aligny = "middle";
-        self._id_5B8B.doghintbackerborderbottom.hostquits = "center";
-        self._id_5B8B.doghintbackerborderbottom.visionsetnight = "middle";
+        self._id_5B8B.doghintbackerborderbottom.horzalign = "center";
+        self._id_5B8B.doghintbackerborderbottom.vertalign = "middle";
         self._id_5B8B.doghintbackerborderbottom.foreground = 1;
-        self._id_5B8B.doghintbackerborderbottom.hindlegstraceoffset = 1;
+        self._id_5B8B.doghintbackerborderbottom.hidewheninmenu = 1;
         self._id_5B8B.doghintbackerborderbottom.alpha = 0.0125;
     }
 
@@ -1061,10 +1061,10 @@ _id_5B97()
     self endon( "end_melee_struggle" );
     self endon( "end_melee_all" );
 
-    if ( !isdefined( self.tag_ai_aim_target ) )
+    if ( !isdefined( self.syncedmeleetarget ) )
         return;
 
-    self _meth_8193( "face point", self.tag_ai_aim_target.origin, 1 );
+    self _meth_8193( "face point", self.syncedmeleetarget.origin, 1 );
     self _meth_8192( "gravity" );
     self.a._id_6E5A = "stand";
     self.a._id_8A1A = "none";
@@ -1077,7 +1077,7 @@ _id_5B97()
     var_0[1] = %ai_attacked_german_shepherd_01_start_a;
     var_0[2] = %ai_attacked_german_shepherd_02_idle_a;
 
-    if ( self.tag_ai_aim_target._id_5B8C )
+    if ( self.syncedmeleetarget._id_5B8C )
     {
         var_0[3] = %ai_attacked_german_shepherd_03_push_a;
         var_0[4] = %ai_attacked_german_shepherd_04_middle_a;
@@ -1095,7 +1095,7 @@ _id_5B97()
     self _meth_8144( var_0[0], 0.1 );
     self setflaggedanimrestart( "aianim", var_0[1], 1, 0.1, 1 );
     wait 0.15;
-    self.tag_ai_aim_target linkto( self, "tag_sync", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    self.syncedmeleetarget linkto( self, "tag_sync", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     self waittillmatch( "aianim", "end" );
     self._id_5B8F = 1;
 
@@ -1110,7 +1110,7 @@ _id_5B97()
         self setflaggedanimrestart( "aianim", var_0[self._id_5B8F], 1, 0, 1 );
         animscripts\shared::_id_2D06( "aianim" );
 
-        if ( !isdefined( self.tag_ai_aim_target ) || !isalive( self.tag_ai_aim_target ) )
+        if ( !isdefined( self.syncedmeleetarget ) || !isalive( self.syncedmeleetarget ) )
         {
             if ( self._id_5B8F == 3 && var_1 == 5 )
             {
@@ -1142,12 +1142,12 @@ _id_5B9A()
     var_0[1] = %ai_attacked_german_shepherd_02_getup_a;
     var_0[2] = %ai_attacked_german_shepherd_02_getup_a;
 
-    if ( self.tag_ai_aim_target._id_5B8C )
+    if ( self.syncedmeleetarget._id_5B8C )
         var_0[4] = %ai_attacked_german_shepherd_04_getup_a;
 
     for (;;)
     {
-        if ( !isdefined( self.tag_ai_aim_target ) || !isalive( self.tag_ai_aim_target ) )
+        if ( !isdefined( self.syncedmeleetarget ) || !isalive( self.syncedmeleetarget ) )
             break;
 
         wait 0.1;
@@ -1169,7 +1169,7 @@ _id_5B9A()
 _id_5B99()
 {
     self _meth_8193( "face default" );
-    self.tag_ai_aim_target = undefined;
+    self.syncedmeleetarget = undefined;
     self._id_5B8F = undefined;
     self.allowpain = 1;
     _id_7FBD( 1000 );
@@ -1265,7 +1265,7 @@ _id_6D83( var_0 )
         var_1 hidehud();
 
     var_1 setstance( "stand" );
-    var_1.tag_ai_aim_target = var_0;
+    var_1.syncedmeleetarget = var_0;
     var_1._id_6C50 _id_6D81( var_1 );
     var_2 = var_0.origin - var_1.origin;
     self.angles = vectortoangles( var_2 );
@@ -1344,7 +1344,7 @@ _id_6D7B( var_0 )
     else
         setsaveddvar( "compass", 0 );
 
-    var_0.tag_ai_aim_target = undefined;
+    var_0.syncedmeleetarget = undefined;
     var_0._id_2C9D = undefined;
     _id_74B0( var_0 );
 }

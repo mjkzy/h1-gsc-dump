@@ -107,7 +107,7 @@ getspawnpoint( var_0 )
 
     foreach ( var_3 in var_2 )
     {
-        if ( var_3.script_parentname == "" + var_0 )
+        if ( var_3.script_noteworthy == "" + var_0 )
             break;
     }
 

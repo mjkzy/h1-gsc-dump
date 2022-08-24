@@ -37,7 +37,7 @@ _id_2441( var_0, var_1 )
 {
     anim._id_8AD5[var_0] = spawnstruct();
     var_2 = anim._id_8AD5[var_0];
-    var_2.stand = var_0;
+    var_2.squadname = var_0;
     var_2.team = _id_40E4( var_1 );
     var_2._id_856A = 0;
     var_2.origin = undefined;
@@ -196,7 +196,7 @@ _id_084F( var_0 )
     for ( var_2 = 0; var_2 < self._id_8AB0._id_5B9D.size; var_2++ )
     {
         var_3 = self._id_8AB0._id_5B9D[var_2];
-        self thread [[ var_3 ]]( self._id_8AB0.stand );
+        self thread [[ var_3 ]]( self._id_8AB0.squadname );
     }
 
     thread _id_5B9F();
@@ -237,11 +237,11 @@ _id_73AD()
     for ( var_2 = 0; var_2 < self._id_8AB0._id_5BA4.size; var_2++ )
     {
         var_4 = self._id_8AB0._id_5BA4[var_2];
-        self thread [[ var_4 ]]( var_0.stand );
+        self thread [[ var_4 ]]( var_0.squadname );
     }
 
     if ( var_0._id_5BA0 == 0 )
-        _id_286C( var_0.stand );
+        _id_286C( var_0.squadname );
 
     if ( isdefined( self ) )
     {
@@ -334,7 +334,7 @@ _id_9BA2()
 
 _id_8AD8()
 {
-    anim endon( "squad deleted " + self.stand );
+    anim endon( "squad deleted " + self.squadname );
     var_0 = 0.1;
 
     if ( level.currentgen )
@@ -428,12 +428,12 @@ _id_9B02()
     self._id_5124 = 0;
 
     for ( var_0 = 0; var_0 < anim._id_8ACE.size; var_0++ )
-        self._id_8AD0[anim._id_8ACE[var_0].stand]._id_5125 = 0;
+        self._id_8AD0[anim._id_8ACE[var_0].squadname]._id_5125 = 0;
 
     for ( var_0 = 0; var_0 < self._id_5BA6.size; var_0++ )
     {
         if ( isdefined( self._id_5BA6[var_0].enemy ) && isdefined( self._id_5BA6[var_0].enemy._id_8AB0 ) && self._id_5BA6[var_0]._id_20B5 > 0 )
-            self._id_8AD0[self._id_5BA6[var_0].enemy._id_8AB0.stand]._id_5125 = 1;
+            self._id_8AD0[self._id_5BA6[var_0].enemy._id_8AB0.squadname]._id_5125 = 1;
     }
 }
 
@@ -502,16 +502,16 @@ _id_9B74()
 {
     for ( var_0 = 0; var_0 < anim._id_8ACE.size; var_0++ )
     {
-        if ( !isdefined( self._id_8AD0[anim._id_8ACE[var_0].stand] ) )
+        if ( !isdefined( self._id_8AD0[anim._id_8ACE[var_0].squadname] ) )
         {
-            self._id_8AD0[anim._id_8ACE[var_0].stand] = spawnstruct();
-            self._id_8AD0[anim._id_8ACE[var_0].stand]._id_5125 = 0;
+            self._id_8AD0[anim._id_8ACE[var_0].squadname] = spawnstruct();
+            self._id_8AD0[anim._id_8ACE[var_0].squadname]._id_5125 = 0;
         }
 
         for ( var_1 = 0; var_1 < self._id_8AD9.size; var_1++ )
         {
             var_2 = self._id_8AD9[var_1];
-            self thread [[ var_2 ]]( anim._id_8ACE[var_0].stand );
+            self thread [[ var_2 ]]( anim._id_8ACE[var_0].squadname );
         }
     }
 }
@@ -598,7 +598,7 @@ _id_9B77()
 
 _id_9B36()
 {
-    anim endon( "squad deleted " + self.stand );
+    anim endon( "squad deleted " + self.squadname );
     var_0 = 0.05;
 
     if ( level.currentgen )
@@ -621,7 +621,7 @@ _id_9B36()
 
 _id_09AA( var_0 )
 {
-    if ( isdefined( self.leanamount ) )
+    if ( isdefined( self.lastenemysightpos ) )
     {
         if ( self._id_20B5 < 0 )
             self._id_20B5 = var_0;

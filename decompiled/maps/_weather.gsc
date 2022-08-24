@@ -304,8 +304,8 @@ _id_9343()
         wait 1;
 
     var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-    var_0.origin = level.playercardbackground.origin + ( 0.0, 0.0, 80.0 );
-    var_0 linkto( level.playercardbackground );
+    var_0.origin = level.player.origin + ( 0.0, 0.0, 80.0 );
+    var_0 linkto( level.player );
 
     if ( level._id_70FB <= 8 )
         var_0 playsound( "elm_thunder_distant", "sounddone" );

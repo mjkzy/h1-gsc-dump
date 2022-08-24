@@ -106,10 +106,10 @@ bot_dd_think()
             }
             else if ( self._id_759A == "defend_zone" )
             {
-                if ( !maps\mp\bots\_bots_util::_id_165E( level.ddbombmodel[self.current_bombzone.land].origin ) )
+                if ( !maps\mp\bots\_bots_util::_id_165E( level.ddbombmodel[self.current_bombzone.label].origin ) )
                 {
                     var_1["score_flags"] = "strongly_avoid_center";
-                    maps\mp\bots\_bots_strategy::_id_16C2( level.ddbombmodel[self.current_bombzone.land].origin, level._id_703F, var_1 );
+                    maps\mp\bots\_bots_strategy::_id_16C2( level.ddbombmodel[self.current_bombzone.label].origin, level._id_703F, var_1 );
                 }
             }
             else if ( self._id_759A == "investigate_someone_using_bomb" )

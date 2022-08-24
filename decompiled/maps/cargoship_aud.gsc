@@ -244,7 +244,7 @@ aud_start_mix_scn_explosion()
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_npc_pre_explosion" );
     soundscripts\_audio_zone_manager::_id_122C( 1 );
     soundscripts\_audio_zone_manager::_id_1233( 1 );
-    level.playercardbackground setreverb( "snd_enveffectsprio_level", "scn_cargo_explosion", 1, 0.7, 0.5 );
+    level.player setreverb( "snd_enveffectsprio_level", "scn_cargo_explosion", 1, 0.7, 0.5 );
     soundscripts\_snd_filters::_id_86DB( "scn_explosion_filter", 0.5 );
 }
 
@@ -254,8 +254,8 @@ aud_start_mix_escape()
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_escape" );
     soundscripts\_snd_filters::_id_86DC( 0.5 );
     soundscripts\_audio_zone_manager::_id_122C( 0 );
-    level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
-    level.playercardbackground setreverb( "snd_enveffectsprio_level", "hall_metal", 1, 0.4, 0.5 );
+    level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
+    level.player setreverb( "snd_enveffectsprio_level", "hall_metal", 1, 0.4, 0.5 );
     thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble", ( 333.375, -0.75, -99.156 ) );
     thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble_02", ( -1762.0, 103.0, -123.0 ) );
     thread aud_alarm_sound();
@@ -266,7 +266,7 @@ aud_start_mix_end()
     common_scripts\utility::_id_384A( "aud_mix_end" );
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_escape" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_end" );
-    level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
+    level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
     soundscripts\_audio_zone_manager::_id_1233( 0 );
 }
 
@@ -289,7 +289,7 @@ start_title_logo_mix()
 
 aud_start_sway1()
 {
-    level.playercardbackground thread maps\_utility::_id_69C4( "elm_cargo_metal_stress_l" );
+    level.player thread maps\_utility::_id_69C4( "elm_cargo_metal_stress_l" );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 894.75, -254.68, 427.8 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 839.41, 199.43, 465.56 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( -736.85, -175.85, 444.47 ) );
@@ -299,7 +299,7 @@ aud_start_sway1()
 
 aud_start_sway2()
 {
-    level.playercardbackground thread maps\_utility::_id_69C4( "elm_cargo_metal_stress_r" );
+    level.player thread maps\_utility::_id_69C4( "elm_cargo_metal_stress_r" );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 894.75, -254.68, 427.8 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( 839.41, 199.43, 465.56 ) );
     thread common_scripts\utility::_id_69C2( "elm_metal_crane_creak", ( -736.85, -175.85, 444.47 ) );

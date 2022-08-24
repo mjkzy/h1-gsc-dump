@@ -45,7 +45,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
     var_17 = 0.1;
     var_18 = 0;
 
-    if ( self.unlockpoints == "dog" )
+    if ( self.type == "dog" )
     {
         var_19 = 0;
         self._id_83F6 = self.enemy;
@@ -59,7 +59,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
         if ( isdefined( self._id_22A0 ) )
             var_20 = anim._id_22A1;
 
-        var_22 = self.script_context;
+        var_22 = self.script;
 
         if ( var_22 == "cover_multi" )
         {
@@ -123,15 +123,15 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
         if ( self.a._id_6E5A == "prone" )
         {
             var_32 = self.proneaimlimits;
-            var_30 = clamp( var_30, var_32.downaimlimit, var_32.useable );
-            var_31 = clamp( var_31, var_32.lifecount, var_32.riotshield_hit );
+            var_30 = clamp( var_30, var_32.downaimlimit, var_32.upaimlimit );
+            var_31 = clamp( var_31, var_32.leftaimlimit, var_32.rightaimlimit );
         }
         else
         {
             var_32 = spawnstruct();
-            var_32.riotshield_hit = self.riotshield_hit;
-            var_32.lifecount = self.lifecount;
-            var_32.useable = self.useable;
+            var_32.rightaimlimit = self.rightaimlimit;
+            var_32.leftaimlimit = self.leftaimlimit;
+            var_32.upaimlimit = self.upaimlimit;
             var_32.downaimlimit = self.downaimlimit;
         }
 
@@ -142,8 +142,8 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             var_35 = var_30 * sin( var_33 ) + var_31 * cos( var_33 );
             var_30 = var_34;
             var_31 = var_35;
-            var_30 = clamp( var_30, var_32.downaimlimit, var_32.useable );
-            var_31 = clamp( var_31, var_32.lifecount, var_32.riotshield_hit );
+            var_30 = clamp( var_30, var_32.downaimlimit, var_32.upaimlimit );
+            var_31 = clamp( var_31, var_32.leftaimlimit, var_32.rightaimlimit );
         }
 
         if ( var_10 > 0 )
@@ -151,7 +151,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             var_10 -= 1;
             var_11 = max( 10, var_11 - 5 );
         }
-        else if ( self.reload_start && self.reload_start != var_9 )
+        else if ( self.relativedir && self.relativedir != var_9 )
         {
             var_10 = 2;
             var_11 = 30;
@@ -160,8 +160,8 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             var_11 = 10;
 
         var_36 = squared( var_11 );
-        var_9 = self.reload_start;
-        var_37 = self.mw3prestige != "stop" || !var_8;
+        var_9 = self.relativedir;
+        var_37 = self.movemode != "stop" || !var_8;
 
         if ( var_37 )
         {
@@ -170,7 +170,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             if ( squared( var_38 ) > var_36 )
             {
                 var_31 = var_5 + clamp( var_38, -1 * var_11, var_11 );
-                var_31 = clamp( var_31, var_32.lifecount, var_32.riotshield_hit );
+                var_31 = clamp( var_31, var_32.leftaimlimit, var_32.rightaimlimit );
             }
 
             var_39 = var_30 - var_6;
@@ -178,7 +178,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             if ( squared( var_39 ) > var_36 )
             {
                 var_30 = var_6 + clamp( var_39, -1 * var_11, var_11 );
-                var_30 = clamp( var_30, var_32.downaimlimit, var_32.useable );
+                var_30 = clamp( var_30, var_32.downaimlimit, var_32.upaimlimit );
             }
         }
 
@@ -239,8 +239,8 @@ _id_9503( var_0, var_1 )
     var_4 = 0;
     var_5 = 0;
 
-    if ( isdefined( self.node_relinquished ) && isdefined( anim._id_50E4[self.node_relinquished.unlockpoints] ) && distancesquared( self.origin, self.node_relinquished.origin ) < 16 )
-        var_5 = angleclamp180( self.angles[1] - self.node_relinquished.angles[1] );
+    if ( isdefined( self.node ) && isdefined( anim._id_50E4[self.node.type] ) && distancesquared( self.origin, self.node.origin ) < 16 )
+        var_5 = angleclamp180( self.angles[1] - self.node.angles[1] );
     else
     {
         var_6 = self _meth_8196();
@@ -261,12 +261,12 @@ _id_9506( var_0, var_1 )
     var_3 = 0;
     var_4 = 0;
 
-    if ( self.start_move == "up" )
+    if ( self.stairsstate == "up" )
     {
         if ( !isdefined( self._id_5A7A ) || isdefined( self._id_5A7A ) && !self._id_5A7A )
             var_3 = -40;
     }
-    else if ( self.start_move == "down" )
+    else if ( self.stairsstate == "down" )
     {
         if ( !isdefined( self._id_5A7A ) || isdefined( self._id_5A7A ) && !self._id_5A7A )
         {
@@ -294,10 +294,10 @@ _id_9504( var_0, var_1, var_2 )
 {
     if ( isdefined( self._id_64E7 ) || isdefined( self._id_6450 ) )
     {
-        if ( var_1 > self.riotshield_hit || var_1 < self.lifecount )
+        if ( var_1 > self.rightaimlimit || var_1 < self.leftaimlimit )
             var_1 = 0;
 
-        if ( var_0 > self.useable || var_0 < self.downaimlimit )
+        if ( var_0 > self.upaimlimit || var_0 < self.downaimlimit )
             var_0 = 0;
     }
     else if ( var_2 && ( abs( var_1 ) > anim._id_5A26 || abs( var_0 ) > anim._id_5A25 ) )
@@ -307,12 +307,12 @@ _id_9504( var_0, var_1, var_2 )
     }
     else
     {
-        if ( self.hardcoremodeon )
+        if ( self.gunblockedbywall )
             var_1 = clamp( var_1, -10, 10 );
         else
-            var_1 = clamp( var_1, self.lifecount, self.riotshield_hit );
+            var_1 = clamp( var_1, self.leftaimlimit, self.rightaimlimit );
 
-        var_0 = clamp( var_0, self.downaimlimit, self.useable );
+        var_0 = clamp( var_0, self.downaimlimit, self.upaimlimit );
     }
 
     return ( var_0, var_1, 0 );
@@ -332,18 +332,18 @@ _id_9507( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 
     if ( var_6 > 0 )
     {
-        var_11 = clamp( var_6 / self.animaimlimit.riotshield_hit * self.a._id_097E, 0, 1 );
+        var_11 = clamp( var_6 / self.animaimlimit.rightaimlimit * self.a._id_097E, 0, 1 );
         var_10 = 1;
     }
     else if ( var_6 < 0 )
     {
-        var_9 = clamp( var_6 / self.animaimlimit.lifecount * self.a._id_097E, 0, 1 );
+        var_9 = clamp( var_6 / self.animaimlimit.leftaimlimit * self.a._id_097E, 0, 1 );
         var_10 = 1;
     }
 
     if ( var_5 > 0 )
     {
-        var_12 = var_5 / var_7.useable * self.a._id_097E;
+        var_12 = var_5 / var_7.upaimlimit * self.a._id_097E;
         var_10 = 1;
     }
     else if ( var_5 < 0 )

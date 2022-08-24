@@ -53,7 +53,7 @@ _id_814F( var_0 )
     if ( !isdefined( level._id_353C[var_1] ) )
         level._id_353C[var_1] = [];
 
-    var_2 = var_0.teambalanced;
+    var_2 = var_0.targetname;
 
     if ( !isdefined( var_2 ) )
         var_2 = "";
@@ -71,7 +71,7 @@ _id_814F( var_0 )
         var_0 hide();
         var_0 notsolid();
 
-        if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
+        if ( isdefined( var_0.spawnflags ) && var_0.spawnflags & 1 )
         {
             if ( isdefined( var_0._id_79A0 ) )
                 var_0 connectpaths();
@@ -85,18 +85,18 @@ _id_814F( var_0 )
         var_0 hide();
         var_0 notsolid();
 
-        if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
+        if ( isdefined( var_0.spawnflags ) && var_0.spawnflags & 1 )
             var_0 connectpaths();
 
         return;
     }
 
-    if ( exploder_model_is_anim_model( var_0 ) && issubstr( var_0.teambalanced, "exploderanimhide" ) )
+    if ( exploder_model_is_anim_model( var_0 ) && issubstr( var_0.targetname, "exploderanimhide" ) )
     {
         var_0 hide();
         var_0 notsolid();
 
-        if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
+        if ( isdefined( var_0.spawnflags ) && var_0.spawnflags & 1 )
             var_0 connectpaths();
 
         return;
@@ -204,7 +204,7 @@ _id_8313()
         var_4.v = [];
         var_4.v["origin"] = var_9.origin;
         var_4.v["angles"] = var_9.angles;
-        var_4.v["delay"] = var_9.script_lightset;
+        var_4.v["delay"] = var_9.script_delay;
         var_4.v["delay_post"] = var_9._id_798F;
         var_4.v["firefx"] = var_9._id_79CB;
         var_4.v["firefxdelay"] = var_9._id_79CC;
@@ -218,7 +218,7 @@ _id_8313()
         var_4.v["repeat"] = var_9._id_7AB6;
         var_4.v["delay_min"] = var_9._id_798E;
         var_4.v["delay_max"] = var_9._id_798D;
-        var_4.v["target"] = var_9._not_team;
+        var_4.v["target"] = var_9.target;
         var_4.v["ender"] = var_9._id_79B8;
         var_4.v["physics"] = var_9._id_7AA0;
         var_4.v["type"] = "exploder";
@@ -244,7 +244,7 @@ _id_8313()
         if ( !isdefined( var_4.v["delay"] ) )
             var_4.v["delay"] = 0;
 
-        if ( isdefined( var_9._not_team ) )
+        if ( isdefined( var_9.target ) )
         {
             var_11 = getentarray( var_4.v["target"], "targetname" )[0];
 
@@ -267,28 +267,28 @@ _id_8313()
 
         if ( !isdefined( var_9.code_classname ) )
         {
-            var_4.motiontrackerenabled = var_9;
+            var_4.model = var_9;
 
-            if ( isdefined( var_4.motiontrackerenabled._id_7A3C ) )
-                precachemodel( var_4.motiontrackerenabled._id_7A3C );
+            if ( isdefined( var_4.model._id_7A3C ) )
+                precachemodel( var_4.model._id_7A3C );
         }
-        else if ( var_9.code_classname == "script_brushmodel" || isdefined( var_9.motiontrackerenabled ) )
+        else if ( var_9.code_classname == "script_brushmodel" || isdefined( var_9.model ) )
         {
-            var_4.motiontrackerenabled = var_9;
-            var_4.motiontrackerenabled._id_2B34 = var_9._id_79A0;
+            var_4.model = var_9;
+            var_4.model._id_2B34 = var_9._id_79A0;
         }
 
-        if ( isdefined( var_9.teambalanced ) && isdefined( var_8[var_9.teambalanced] ) )
-            var_4.v["exploder_type"] = var_9.teambalanced;
-        else if ( isdefined( var_9.teambalanced ) && issubstr( var_9.teambalanced, "exploderanim" ) )
+        if ( isdefined( var_9.targetname ) && isdefined( var_8[var_9.targetname] ) )
+            var_4.v["exploder_type"] = var_9.targetname;
+        else if ( isdefined( var_9.targetname ) && issubstr( var_9.targetname, "exploderanim" ) )
             var_4.v["exploder_type"] = "exploderanim";
         else
             var_4.v["exploder_type"] = "normal";
 
         if ( isdefined( var_9._id_59D6 ) )
         {
-            var_4.v["masked_exploder"] = var_9.motiontrackerenabled;
-            var_4.v["masked_exploder_spawnflags"] = var_9.specialgrenade;
+            var_4.v["masked_exploder"] = var_9.model;
+            var_4.v["masked_exploder_spawnflags"] = var_9.spawnflags;
             var_4.v["masked_exploder_script_disconnectpaths"] = var_9._id_79A0;
             var_9 delete();
         }
@@ -353,22 +353,22 @@ _id_352E( var_0 )
 
 _id_3531( var_0 )
 {
-    return isdefined( var_0.teambalanced ) && var_0.teambalanced == "exploder";
+    return isdefined( var_0.targetname ) && var_0.targetname == "exploder";
 }
 
 _id_3532( var_0 )
 {
-    return var_0.motiontrackerenabled == "fx" && ( !isdefined( var_0.teambalanced ) || var_0.teambalanced != "exploderchunk" );
+    return var_0.model == "fx" && ( !isdefined( var_0.targetname ) || var_0.targetname != "exploderchunk" );
 }
 
 _id_3530( var_0 )
 {
-    return isdefined( var_0.teambalanced ) && var_0.teambalanced == "exploderchunk";
+    return isdefined( var_0.targetname ) && var_0.targetname == "exploderchunk";
 }
 
 exploder_model_is_anim_model( var_0 )
 {
-    return isdefined( var_0.teambalanced ) && issubstr( var_0.teambalanced, "exploderanim" );
+    return isdefined( var_0.targetname ) && issubstr( var_0.targetname, "exploderanim" );
 }
 
 _id_84CF( var_0 )
@@ -383,11 +383,11 @@ _id_84CF( var_0 )
         {
             foreach ( var_3 in var_1 )
             {
-                if ( !_id_3532( var_3.motiontrackerenabled ) && !_id_3531( var_3.motiontrackerenabled ) && !_id_3530( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled show();
+                if ( !_id_3532( var_3.model ) && !_id_3531( var_3.model ) && !_id_3530( var_3.model ) )
+                    var_3.model show();
 
                 if ( isdefined( var_3._id_1820 ) )
-                    var_3.motiontrackerenabled show();
+                    var_3.model show();
             }
 
             return;
@@ -411,13 +411,13 @@ _id_84CF( var_0 )
             if ( var_3.v["exploder"] + "" != var_0 )
                 continue;
 
-            if ( isdefined( var_3.motiontrackerenabled ) )
+            if ( isdefined( var_3.model ) )
             {
-                if ( !_id_3532( var_3.motiontrackerenabled ) && !_id_3531( var_3.motiontrackerenabled ) && !_id_3530( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled show();
+                if ( !_id_3532( var_3.model ) && !_id_3531( var_3.model ) && !_id_3530( var_3.model ) )
+                    var_3.model show();
 
                 if ( isdefined( var_3._id_1820 ) )
-                    var_3.motiontrackerenabled show();
+                    var_3.model show();
             }
         }
     }
@@ -514,8 +514,8 @@ _id_4850( var_0 )
         {
             foreach ( var_3 in var_1 )
             {
-                if ( isdefined( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled hide();
+                if ( isdefined( var_3.model ) )
+                    var_3.model hide();
             }
 
             return;
@@ -539,8 +539,8 @@ _id_4850( var_0 )
             if ( var_3.v["exploder"] + "" != var_0 )
                 continue;
 
-            if ( isdefined( var_3.motiontrackerenabled ) )
-                var_3.motiontrackerenabled hide();
+            if ( isdefined( var_3.model ) )
+                var_3.model hide();
         }
     }
 }
@@ -557,8 +557,8 @@ _id_280E( var_0 )
         {
             foreach ( var_3 in var_1 )
             {
-                if ( isdefined( var_3.motiontrackerenabled ) )
-                    var_3.motiontrackerenabled delete();
+                if ( isdefined( var_3.model ) )
+                    var_3.model delete();
             }
         }
     }
@@ -580,8 +580,8 @@ _id_280E( var_0 )
             if ( var_3.v["exploder"] + "" != var_0 )
                 continue;
 
-            if ( isdefined( var_3.motiontrackerenabled ) )
-                var_3.motiontrackerenabled delete();
+            if ( isdefined( var_3.model ) )
+                var_3.model delete();
         }
     }
 
@@ -651,13 +651,13 @@ _id_181E()
     else
         wait 0.05;
 
-    if ( !isdefined( self.motiontrackerenabled ) )
+    if ( !isdefined( self.model ) )
         return;
 
-    if ( isdefined( self.motiontrackerenabled.classname ) )
+    if ( isdefined( self.model.classname ) )
     {
-        if ( common_scripts\utility::_id_51AE() && self.motiontrackerenabled.specialgrenade & 1 )
-            self.motiontrackerenabled call [[ level._id_214E ]]();
+        if ( common_scripts\utility::_id_51AE() && self.model.spawnflags & 1 )
+            self.model call [[ level._id_214E ]]();
     }
 
     if ( level._id_2409 )
@@ -667,20 +667,20 @@ _id_181E()
 
         self._id_3527 = 1;
 
-        if ( isdefined( self.motiontrackerenabled ) && isdefined( self.motiontrackerenabled.classname ) )
+        if ( isdefined( self.model ) && isdefined( self.model.classname ) )
         {
-            self.motiontrackerenabled hide();
-            self.motiontrackerenabled notsolid();
+            self.model hide();
+            self.model notsolid();
         }
 
         var_1 = getdvarint( "createfx_exploder_waittime", 3 );
         wait(var_1);
         self._id_3527 = undefined;
 
-        if ( isdefined( self.motiontrackerenabled ) && isdefined( self.motiontrackerenabled.classname ) )
+        if ( isdefined( self.model ) && isdefined( self.model.classname ) )
         {
-            self.motiontrackerenabled show();
-            self.motiontrackerenabled solid();
+            self.model show();
+            self.model solid();
         }
 
         return;
@@ -691,8 +691,8 @@ _id_181E()
 
     waitframe;
 
-    if ( isdefined( self.motiontrackerenabled ) && isdefined( self.motiontrackerenabled.classname ) )
-        self.motiontrackerenabled delete();
+    if ( isdefined( self.model ) && isdefined( self.model.classname ) )
+        self.model delete();
 }
 
 _id_1821()
@@ -707,13 +707,13 @@ _id_1821()
 
     if ( !isdefined( var_0 ) )
     {
-        if ( isdefined( self.motiontrackerenabled ) )
-            self.motiontrackerenabled delete();
+        if ( isdefined( self.model ) )
+            self.model delete();
 
         return;
     }
 
-    self.motiontrackerenabled show();
+    self.model show();
 
     if ( isdefined( self.v["delay_post"] ) )
         wait(self.v["delay_post"]);
@@ -731,7 +731,7 @@ _id_1821()
     {
         var_9 = undefined;
 
-        if ( isdefined( var_0._not_team ) )
+        if ( isdefined( var_0.target ) )
             var_9 = var_0 common_scripts\utility::_id_3E89();
 
         if ( !isdefined( var_9 ) )
@@ -745,13 +745,13 @@ _id_1821()
             var_11 = ( var_9.origin - var_0.origin ) * self.v["physics"];
         }
 
-        self.motiontrackerenabled physicslaunch( var_10, var_11 );
+        self.model physicslaunch( var_10, var_11 );
         return;
     }
     else
     {
-        self.motiontrackerenabled rotatevelocity( ( var_5, var_6, var_7 ), 12 );
-        self.motiontrackerenabled movegravity( ( var_5, var_6, var_7 ), 12 );
+        self.model rotatevelocity( ( var_5, var_6, var_7 ), 12 );
+        self.model movegravity( ( var_5, var_6, var_7 ), 12 );
     }
 
     if ( level._id_2409 )
@@ -765,15 +765,15 @@ _id_1821()
         self._id_3527 = undefined;
         self.v["origin"] = var_1;
         self.v["angles"] = var_2;
-        self.motiontrackerenabled hide();
+        self.model hide();
         return;
     }
 
     self.v["exploder"] = undefined;
     wait 6;
 
-    if ( isdefined( self.motiontrackerenabled ) )
-        self.motiontrackerenabled delete();
+    if ( isdefined( self.model ) )
+        self.model delete();
 }
 
 _id_181F()
@@ -781,30 +781,30 @@ _id_181F()
     if ( isdefined( self.v["delay"] ) )
         wait(self.v["delay"]);
 
-    if ( !isdefined( self.motiontrackerenabled._id_7A3C ) )
+    if ( !isdefined( self.model._id_7A3C ) )
     {
-        self.motiontrackerenabled show();
-        self.motiontrackerenabled solid();
+        self.model show();
+        self.model solid();
     }
     else
     {
-        var_0 = self.motiontrackerenabled common_scripts\utility::_id_8959();
+        var_0 = self.model common_scripts\utility::_id_8959();
 
-        if ( isdefined( self.motiontrackerenabled.script_origin ) )
-            var_0.script_origin = self.motiontrackerenabled.script_origin;
+        if ( isdefined( self.model.script_linkname ) )
+            var_0.script_linkname = self.model.script_linkname;
 
-        var_0 setmodel( self.motiontrackerenabled._id_7A3C );
+        var_0 setmodel( self.model._id_7A3C );
         var_0 show();
     }
 
     self._id_1820 = 1;
 
-    if ( common_scripts\utility::_id_51AE() && !isdefined( self.motiontrackerenabled._id_7A3C ) && self.motiontrackerenabled.specialgrenade & 1 )
+    if ( common_scripts\utility::_id_51AE() && !isdefined( self.model._id_7A3C ) && self.model.spawnflags & 1 )
     {
-        if ( !isdefined( self.motiontrackerenabled._id_2B34 ) )
-            self.motiontrackerenabled call [[ level._id_214E ]]();
+        if ( !isdefined( self.model._id_2B34 ) )
+            self.model call [[ level._id_214E ]]();
         else
-            self.motiontrackerenabled call [[ level._id_2B39 ]]();
+            self.model call [[ level._id_2B39 ]]();
     }
 
     if ( level._id_2409 )
@@ -817,21 +817,21 @@ _id_181F()
         wait(var_1);
         self._id_3527 = undefined;
 
-        if ( !isdefined( self.motiontrackerenabled._id_7A3C ) )
+        if ( !isdefined( self.model._id_7A3C ) )
         {
-            self.motiontrackerenabled hide();
-            self.motiontrackerenabled notsolid();
+            self.model hide();
+            self.model notsolid();
         }
     }
 }
 
 exploder_anim()
 {
-    var_0 = self.motiontrackerenabled;
+    var_0 = self.model;
     var_0 show();
     var_0 solid();
 
-    if ( isdefined( var_0.specialgrenade ) && var_0.specialgrenade & 1 )
+    if ( isdefined( var_0.spawnflags ) && var_0.spawnflags & 1 )
         var_0 connectpaths();
 
     var_0 notify( "play_exploder_anim" );
@@ -843,7 +843,7 @@ _id_3536()
         return;
 
     _id_352C();
-    level.playercardbackground playrumbleonentity( self.v["rumble"] );
+    level.player playrumbleonentity( self.v["rumble"] );
 }
 
 _id_352C()
@@ -1062,7 +1062,7 @@ _id_1CB9()
     {
         var_1 = var_0.v["platform"];
 
-        if ( var_1 == "cg" && !level.currentgen || var_1 == "ng" && !level.nextreadghosts1 )
+        if ( var_1 == "cg" && !level.currentgen || var_1 == "ng" && !level.nextgen )
             return 0;
     }
 

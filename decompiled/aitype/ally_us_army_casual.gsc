@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 100;
-    self.groundentchanged = "";
+    self.health = 100;
+    self.grenadeweapon = "";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta";
     self._id_855D = "";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "m4_grunt";
+    self.weapon = "m4_grunt";
 
     switch ( codescripts\character::_id_3E43( 8 ) )
     {
@@ -70,21 +70,21 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_sas_woodland_soldier2_a::prestigedoublexp();
-    character\character_sp_sas_woodland_soldier2_b::prestigedoublexp();
-    character\character_sp_sas_woodland_soldier2_c::prestigedoublexp();
-    character\character_sp_sas_woodland_soldier2_d::prestigedoublexp();
-    character\character_sp_sas_woodland_soldier2_e::prestigedoublexp();
-    character\character_sp_sas_woodland_soldier2_f::prestigedoublexp();
-    character\character_sp_sas_woodland_afro_01::prestigedoublexp();
-    character\character_sp_sas_woodland_afro_02::prestigedoublexp();
+    character\character_sp_sas_woodland_soldier2_a::precache();
+    character\character_sp_sas_woodland_soldier2_b::precache();
+    character\character_sp_sas_woodland_soldier2_c::precache();
+    character\character_sp_sas_woodland_soldier2_d::precache();
+    character\character_sp_sas_woodland_soldier2_e::precache();
+    character\character_sp_sas_woodland_soldier2_f::precache();
+    character\character_sp_sas_woodland_afro_01::precache();
+    character\character_sp_sas_woodland_afro_02::precache();
     precacheitem( "m4_grunt" );
     precacheitem( "beretta" );
 }

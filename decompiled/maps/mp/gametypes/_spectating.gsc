@@ -80,11 +80,11 @@ updatemlgicons()
 
             if ( isdefined( var_1 ) )
             {
-                if ( isdefined( var_1.primaryattachment3 ) )
-                    self _meth_852c( var_1.primaryattachment3 );
+                if ( isdefined( var_1.primary ) )
+                    self _meth_852c( var_1.primary );
 
-                if ( isdefined( var_1.secondaryattachments ) )
-                    self _meth_852c( var_1.secondaryattachments );
+                if ( isdefined( var_1.secondary ) )
+                    self _meth_852c( var_1.secondary );
             }
         }
     }
@@ -150,7 +150,7 @@ _id_8019()
 
     var_1 = maps\mp\gametypes\_tweakables::_id_4142( "game", "spectatetype" );
     var_2 = maps\mp\gametypes\_tweakables::_id_4142( "game", "lockspectatepov" );
-    var_3 = self.sharpturnnotifydist;
+    var_3 = self.sessionteam;
 
     if ( var_1 == 1 )
     {
@@ -339,9 +339,9 @@ _id_9B71( var_0, var_1, var_2, var_3, var_4 )
 _id_9B70( var_0 )
 {
     var_1 = var_0._id_8A4C;
-    _id_9B71( "ui_mlg_loadout_primary_", var_1.primaryattachment3, [ var_1._id_6F82, var_1.primaryattachkit, var_1.primarycamo ], var_1.primaryoffhand, var_1._not_primaryweapon );
-    _id_9B71( "ui_mlg_loadout_secondary_", var_1.secondaryattachments, [ var_1._id_7BF7, var_1.secondarycamo ], var_1.secondaryoffhand, var_1._not_secondaryweapon );
-    var_2 = var_1.oldtime;
+    _id_9B71( "ui_mlg_loadout_primary_", var_1.primary, [ var_1._id_6F82, var_1.primaryattachment2, var_1.primaryattachment3 ], var_1.primaryattachkit, var_1.primaryfurniturekit );
+    _id_9B71( "ui_mlg_loadout_secondary_", var_1.secondary, [ var_1._id_7BF7, var_1.secondaryattachment2 ], var_1.secondaryattachkit, var_1.secondaryfurniturekit );
+    var_2 = var_1.offhand;
 
     if ( isdefined( var_2 ) )
         var_2 = tablelookuprownum( "mp/perkTable.csv", 1, var_2 );
@@ -363,7 +363,7 @@ _id_9B70( var_0 )
 
     for ( var_4 = 0; var_4 < 3; var_4++ )
     {
-        var_5 = var_1.persistentperksunlocked[var_4];
+        var_5 = var_1.perks[var_4];
 
         if ( isdefined( var_5 ) )
             var_5 = tablelookuprownum( "mp/perkTable.csv", 1, var_5 );

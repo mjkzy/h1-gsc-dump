@@ -80,7 +80,7 @@ watchforhostmigration()
         self waittill( "player_migrated" );
 
         foreach ( var_1 in level._id_A29A )
-            self _meth_84e2( var_1.script_parentname, var_1 );
+            self _meth_84e2( var_1.script_noteworthy, var_1 );
     }
 }
 
@@ -94,20 +94,20 @@ _id_64CD()
         var_0 thread watchforhostmigration();
 
         foreach ( var_2 in level._id_A29A )
-            var_0 _meth_84e2( var_2.script_parentname, var_2 );
+            var_0 _meth_84e2( var_2.script_noteworthy, var_2 );
     }
 }
 
 _id_23A5()
 {
-    var_0 = common_scripts\utility::_id_40FB( self._not_team, "targetname" );
+    var_0 = common_scripts\utility::_id_40FB( self.target, "targetname" );
     var_0.origin += ( 0, 0, level._id_A29B );
     var_1 = var_0 common_scripts\utility::_id_8959();
     var_1 show();
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_1.script_parentname = self.script_parentname;
+        var_1.script_noteworthy = self.script_noteworthy;
         level._id_A29A = common_scripts\utility::_id_0CDA( level._id_A29A, var_1 );
     }
 }
@@ -173,7 +173,7 @@ _id_497C( var_0 )
             wait 2.5;
 
             if ( !_id_4E85( var_0, 20 ) )
-                self dodamage( self.helmet, self.origin );
+                self dodamage( self.health, self.origin );
         }
 
         waittillframeend;
@@ -476,7 +476,7 @@ _id_408A()
 
 _id_415F( var_0 )
 {
-    var_1 = common_scripts\utility::_id_40FB( var_0._not_team, "targetname" );
+    var_1 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
     var_2 = var_1.origin[2];
     return var_2;
 }

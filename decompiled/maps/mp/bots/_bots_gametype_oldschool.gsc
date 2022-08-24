@@ -43,12 +43,12 @@ bot_oldschool_init()
 
         if ( bot_oldschool_pickup_isweapon( var_2 ) )
         {
-            var_3.unlockpoints = "weapon";
+            var_3.type = "weapon";
             var_3._id_A2DF = bot_oldschool_pickup_get_weapon_name( var_2 );
         }
         else if ( bot_oldschool_pickup_isperk( var_2 ) )
         {
-            var_3.unlockpoints = "perk";
+            var_3.type = "perk";
             var_3._id_67CF = bot_oldschool_pickup_get_perk_name( var_2 );
         }
 
@@ -218,7 +218,7 @@ bot_oldschool_init_pickups()
         var_4.origin = var_3.origin;
         var_4._id_6071 = var_3._id_6071;
         var_4._id_4411 = var_3._id_4411;
-        var_4.unlockpoints = var_3.unlockpoints;
+        var_4.type = var_3.type;
         var_4._id_A2DF = var_3._id_A2DF;
         var_4._id_67CF = var_3._id_67CF;
         var_4.respawntime = var_3.respawntime;
@@ -258,8 +258,8 @@ bot_oldschool_track_pickups_in_sight()
 
         foreach ( var_8 in self.pickup_array )
         {
-            if ( !isdefined( var_8.pitchamount ) )
-                var_8.pitchamount = bot_oldschool_get_pickup_ent_for_struct( var_8 );
+            if ( !isdefined( var_8.pickup ) )
+                var_8.pickup = bot_oldschool_get_pickup_ent_for_struct( var_8 );
 
             var_9 = 0;
 
@@ -292,7 +292,7 @@ bot_oldschool_track_pickups_in_sight()
             {
                 var_8.last_time_seen = var_4;
 
-                if ( !isdefined( var_8.pitchamount ) )
+                if ( !isdefined( var_8.pickup ) )
                 {
                     bot_oldschool_update_pickup_recharge_time( var_4, var_8 );
                     continue;
@@ -383,7 +383,7 @@ bot_oldschool_handle_pickup_goals()
 
         foreach ( var_7 in var_9 )
         {
-            if ( var_7.unlockpoints == "weapon" )
+            if ( var_7.type == "weapon" )
             {
                 var_13 = bot_oldschool_pickup_get_desired_weapon_pickup_action( var_7._id_A2DF );
 
@@ -398,7 +398,7 @@ bot_oldschool_handle_pickup_goals()
                 continue;
             }
 
-            if ( var_7.unlockpoints == "perk" )
+            if ( var_7.type == "perk" )
             {
                 if ( bot_oldschool_should_pickup_perk( var_7, var_10 ) )
                 {
@@ -903,7 +903,7 @@ bot_oldschool_pickup_isperk( var_0 )
 
 bot_oldschool_pickup_get_perk_name( var_0 )
 {
-    return var_0.script_parentname;
+    return var_0.script_noteworthy;
 }
 
 bot_oldschool_pickup_is_probably_visible( var_0, var_1, var_2, var_3 )
@@ -934,10 +934,10 @@ bot_oldschool_pickup_is_probably_visible( var_0, var_1, var_2, var_3 )
 
 bot_oldschool_pickup_trace_passed( var_0 )
 {
-    if ( sighttracepassed( self geteye(), var_0.origin + ( 0.0, 0.0, 30.0 ), 1, self, var_0.pitchamount, 0 ) )
+    if ( sighttracepassed( self geteye(), var_0.origin + ( 0.0, 0.0, 30.0 ), 1, self, var_0.pickup, 0 ) )
         return 1;
 
-    return sighttracepassed( self geteye(), var_0.origin, 1, self, var_0.pitchamount, 0 );
+    return sighttracepassed( self geteye(), var_0.origin, 1, self, var_0.pickup, 0 );
 }
 
 oldschool_attempt_camp_pickup()

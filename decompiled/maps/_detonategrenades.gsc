@@ -259,8 +259,8 @@ _id_1E49( var_0 )
 
     self makeentitysentient( var_0, 1 );
     self.attackeraccuracy = 2;
-    self.meleeattackdist = 750;
-    self.threatsightdelayfalloff = -1000;
+    self.maxvisibledist = 750;
+    self.threatbias = -1000;
 }
 
 _id_1E48()
@@ -377,10 +377,10 @@ _id_A006( var_0 )
 
 _id_196E( var_0 )
 {
-    self.helmet = 100;
+    self.health = 100;
     self setcandamage( 1 );
-    self.maxturnspeed = 100000;
-    self.helmet = self.maxturnspeed;
+    self.maxhealth = 100000;
+    self.health = self.maxhealth;
     var_1 = undefined;
 
     for (;;)
@@ -457,7 +457,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
 
     for ( var_5 = 0; var_5 < level.players.size; var_5++ )
     {
-        if ( !isalive( level.players[var_5] ) || level.players[var_5].sharpturnlookaheaddist != "playing" )
+        if ( !isalive( level.players[var_5] ) || level.players[var_5].sessionstate != "playing" )
             continue;
 
         var_6 = level.players[var_5].origin + ( 0.0, 0.0, 32.0 );

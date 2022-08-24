@@ -49,22 +49,22 @@ _id_2402()
 
 _id_3AEF( var_0 )
 {
-    return level.playercardbackground.origin;
+    return level.player.origin;
 }
 
 _id_19F0()
 {
     self waittill( "begin" );
 
-    if ( !isdefined( level.playercardbackground ) )
+    if ( !isdefined( level.player ) )
     {
         var_0 = getentarray( "mp_global_intermission", "classname" );
         var_1 = ( var_0[0].angles[0], var_0[0].angles[1], 0.0 );
         self spawnspectator( var_0[0].origin, var_1 );
         maps\mp\_utility::_id_9B69( "playing" );
-        self.maxturnspeed = 10000000;
-        self.helmet = 10000000;
-        level.playercardbackground = self;
+        self.maxhealth = 10000000;
+        self.health = 10000000;
+        level.player = self;
         thread common_scripts\_createfx::_id_241B();
     }
     else
@@ -74,5 +74,5 @@ _id_19F0()
 _id_3AED()
 {
     var_0 = level._createfx.player_speed / 190;
-    level.playercardbackground setmovespeedscale( var_0 );
+    level.player setmovespeedscale( var_0 );
 }

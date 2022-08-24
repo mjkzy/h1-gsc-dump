@@ -39,7 +39,7 @@ static_destructible_think()
         if ( var_5 != "MOD_MELEE" && var_5 != "MOD_IMPACT" )
         {
             playfxontag( self.destroyed_fx_id, var_0, "tag_origin" );
-            var_6 = getent( self._not_team, "targetname" );
+            var_6 = getent( self.target, "targetname" );
             var_6 delete();
             self delete();
             wait 15;

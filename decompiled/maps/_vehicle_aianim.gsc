@@ -24,7 +24,7 @@ _id_4492( var_0, var_1 )
     if ( !isdefined( self ) )
         return;
 
-    if ( !isdefined( self.visionsetnaked ) )
+    if ( !isdefined( self.vehicletype ) )
         return;
 
     var_2 = self.classname;
@@ -59,7 +59,7 @@ _id_4492( var_0, var_1 )
     }
 
     var_0._id_750E = self;
-    var_0._id_6587 = var_0.helmet;
+    var_0._id_6587 = var_0.health;
     var_0._id_9CE4 = var_6._id_4B63;
     var_0._id_9D48 = var_6._id_8B05;
 
@@ -201,7 +201,7 @@ _id_451F()
 
     var_1 = level._id_9C82[var_0].size;
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "ai_wait_go" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "ai_wait_go" )
         thread _id_0935();
 
     self._id_76E4 = [];
@@ -230,10 +230,10 @@ _id_4487( var_0, var_1 )
     var_0 setcandamage( 1 );
     var_0 endon( "death" );
     var_0.allowdeath = 0;
-    var_0.helmet = 10150;
+    var_0.health = 10150;
 
     if ( isdefined( var_0._id_7ADB ) )
-        var_0.helmet += var_0._id_7ADB;
+        var_0.health += var_0._id_7ADB;
 
     var_0 endon( "jumping_out" );
 
@@ -243,7 +243,7 @@ _id_4487( var_0, var_1 )
             wait 0.05;
     }
 
-    while ( var_0.helmet > 10000 )
+    while ( var_0.health > 10000 )
         var_0 waittill( "damage" );
 
     thread _id_448A( var_0, var_1 );
@@ -396,7 +396,7 @@ _id_44AE( var_0, var_1 )
 
 _id_9D07( var_0 )
 {
-    if ( isdefined( var_0.visionsetnaked ) && isdefined( var_0._id_9D08 ) )
+    if ( isdefined( var_0.vehicletype ) && isdefined( var_0._id_9D08 ) )
     {
         if ( var_0._id_750A.size == var_0._id_9D08 )
             var_0 maps\_utility::_id_32DE( "loaded" );
@@ -609,7 +609,7 @@ _id_2E07( var_0 )
 _id_21D5()
 {
     var_0 = spawn( "script_model", self.origin );
-    var_0 setmodel( self.motiontrackerenabled );
+    var_0 setmodel( self.model );
     var_1 = self getattachsize();
 
     for ( var_2 = 0; var_2 < var_1; var_2++ )
@@ -812,12 +812,12 @@ _id_44BB( var_0, var_1 )
     if ( isdefined( var_2._id_9D5F ) )
         maps\_vehicle_code::_id_05B3() _meth_814f( var_2._id_9D5F );
 
-    if ( isdefined( var_2.turret_on_vistarget ) )
+    if ( isdefined( var_2.turret_fire ) )
     {
         if ( isdefined( var_2._id_9959 ) )
-            _id_0C74( var_0, var_2._id_9959, var_2.turret_on_vistarget );
+            _id_0C74( var_0, var_2._id_9959, var_2.turret_fire );
         else
-            _id_0C74( var_0, var_2._id_85AE, var_2.turret_on_vistarget );
+            _id_0C74( var_0, var_2._id_85AE, var_2.turret_fire );
     }
 
     thread _id_449B( var_0, var_1 );
@@ -1135,7 +1135,7 @@ _id_4070( var_0, var_1, var_2 )
     var_3 = getanimlength( var_2 );
     var_4 = var_3 - 1.0;
 
-    if ( self.visionsetnaked == "mi17" )
+    if ( self.vehicletype == "mi17" )
         var_4 = var_3 - 0.5;
 
     var_5 = 2.5;
@@ -1212,17 +1212,17 @@ _id_406B( var_0, var_1, var_2 )
     if ( !isdefined( var_4._id_3680 ) || isdefined( self._id_3680[var_4._id_3680] ) || var_5 )
         return;
 
-    var_6 = var_0 gettagorigin( level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated );
-    var_7 = var_0 gettagangles( level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated );
+    var_6 = var_0 gettagorigin( level._id_9C8D[var_3][var_4._id_3680].tag );
+    var_7 = var_0 gettagangles( level._id_9C8D[var_3][var_4._id_3680].tag );
     self._id_3681[var_4._id_3680] = 1;
     var_8 = spawn( "script_model", var_6 );
     var_8.angles = var_7;
     var_8.origin = var_6;
-    var_8 setmodel( level._id_9C8D[var_3][var_4._id_3680].motiontrackerenabled );
+    var_8 setmodel( level._id_9C8D[var_3][var_4._id_3680].model );
     self._id_3680[var_4._id_3680] = var_8;
     var_8 useanimtree( #animtree );
-    var_8 linkto( var_0, level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    thread _id_4073( var_4, var_8, level._id_9C8D[var_3][var_4._id_3680].tag_aim_animated, level._id_9C8D[var_3][var_4._id_3680]._id_2F6D, var_2 );
+    var_8 linkto( var_0, level._id_9C8D[var_3][var_4._id_3680].tag, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    thread _id_4073( var_4, var_8, level._id_9C8D[var_3][var_4._id_3680].tag, level._id_9C8D[var_3][var_4._id_3680]._id_2F6D, var_2 );
     return var_8;
 }
 
@@ -1296,7 +1296,7 @@ _id_44BF( var_0, var_1 )
     }
 
     var_2 = _id_0BE9( self, var_1 );
-    var_3 = self.visionsetnaked;
+    var_3 = self.vehicletype;
 
     if ( isdefined( var_2._id_612E ) )
         var_0.a._id_612E = 0;
@@ -1411,7 +1411,7 @@ _id_44BF( var_0, var_1 )
     }
 
     if ( var_0 _id_846B() )
-        var_0.helmet = var_0._id_6587;
+        var_0.health = var_0._id_6587;
 
     var_0._id_6587 = undefined;
 
@@ -1458,7 +1458,7 @@ _id_44BF( var_0, var_1 )
             var_0 thread maps\_utility::_id_6976( var_2._id_406F );
 
         if ( isdefined( var_0._id_6D23 ) && isdefined( var_2._id_6B2A ) )
-            level.playercardbackground thread common_scripts\utility::_id_6975( var_2._id_6B2A );
+            level.player thread common_scripts\utility::_id_6975( var_2._id_6B2A );
 
         var_0 notify( "newanim" );
         var_0 notify( "jumping_out" );
@@ -1585,13 +1585,13 @@ _id_44BF( var_0, var_1 )
         }
 
         if ( isdefined( var_0._id_6D23 ) && isdefined( var_2._id_6B2A ) )
-            level.playercardbackground thread common_scripts\utility::_id_8EA1( var_2._id_6B2A );
+            level.player thread common_scripts\utility::_id_8EA1( var_2._id_6B2A );
 
         if ( isdefined( var_2._id_406F ) )
             var_0 thread common_scripts\utility::_id_8EA1( var_2._id_406F );
 
         if ( isdefined( var_0._id_6D23 ) && isdefined( var_2._id_6B29 ) )
-            level.playercardbackground thread maps\_utility::_id_69C4( var_2._id_6B29 );
+            level.player thread maps\_utility::_id_69C4( var_2._id_6B29 );
     }
     else if ( !isai( var_0 ) )
     {
@@ -1800,15 +1800,15 @@ _id_44AB( var_0 )
     if ( isdefined( var_0._id_7074 ) )
         return 0;
 
-    if ( !isdefined( var_0._not_team ) )
+    if ( !isdefined( var_0.target ) )
         return 1;
 
-    var_1 = getnodearray( var_0._not_team, "targetname" );
+    var_1 = getnodearray( var_0.target, "targetname" );
 
     if ( var_1.size > 1 )
         return 0;
 
-    var_2 = getent( var_0._not_team, "targetname" );
+    var_2 = getent( var_0.target, "targetname" );
 
     if ( isdefined( var_2 ) && var_2.classname == "info_volume" )
     {
@@ -1865,7 +1865,7 @@ _id_0C74( var_0, var_1, var_2, var_3, var_4, var_5 )
             return;
 
         var_0 _meth_8143();
-        var_0.invisible = 0;
+        var_0.interval = 0;
         var_0 thread _id_7290();
     }
     else
@@ -1891,8 +1891,8 @@ _id_7290()
     self endon( "death" );
     wait 2;
 
-    if ( isdefined( self ) && self.invisible == 0 )
-        self.invisible = 80;
+    if ( isdefined( self ) && self.interval == 0 )
+        self.interval = 80;
 }
 
 _id_0C75( var_0, var_1 )
@@ -1910,11 +1910,11 @@ _id_0C75( var_0, var_1 )
 
     var_2 = undefined;
     var_3 = undefined;
-    var_4 = var_1.helmet <= 0;
+    var_4 = var_1.health <= 0;
 
     for (;;)
     {
-        if ( !var_4 && !( isdefined( var_1 ) && var_1.helmet > 0 ) )
+        if ( !var_4 && !( isdefined( var_1 ) && var_1.health > 0 ) )
             break;
 
         var_0 waittill( "damage", var_2, var_3 );
@@ -1977,8 +1977,8 @@ _id_0C76( var_0, var_1, var_2 )
     if ( isdefined( var_0._id_7AE0 ) || isdefined( var_0._id_2E3F ) )
     {
         var_0 notsolid();
-        var_6 = getweaponmodel( var_0.weapon_switch_invalid );
-        var_7 = var_0.weapon_switch_invalid;
+        var_6 = getweaponmodel( var_0.weapon );
+        var_7 = var_0.weapon;
 
         if ( isdefined( var_6 ) )
         {
@@ -2340,7 +2340,7 @@ _id_21A2( var_0, var_1, var_2 )
 
     var_3 = spawn( "script_model", var_0.origin );
     var_3.angles = var_0.angles;
-    var_3 setmodel( var_0.motiontrackerenabled );
+    var_3 setmodel( var_0.model );
     var_4 = var_0 getattachsize();
 
     for ( var_5 = 0; var_5 < var_4 && ( var_2 || var_5 < 1 ); var_5++ )

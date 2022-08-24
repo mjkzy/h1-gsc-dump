@@ -108,7 +108,7 @@ _id_688F()
     {
         var_0 = self.v["platform"];
 
-        if ( var_0 == "cg" && !level.currentgen || var_0 == "ng" && !level.nextreadghosts1 || var_0 == "xenon" && !level.xuid || var_0 == "ps3" && !level.pushable || var_0 == "pc" && !level.perk1 || var_0 == "xb3" && !level.xpmultiplier || var_0 == "ps4" && !level.radaralwayson || var_0 == "pccg" && !level.perk2 || var_0 == "!cg" && level.currentgen || var_0 == "!ng" && level.nextreadghosts1 || var_0 == "!xenon" && level.xuid || var_0 == "!ps3" && level.pushable || var_0 == "!pc" && level.perk1 || var_0 == "!xb3" && level.xpmultiplier || var_0 == "!ps4" && level.radaralwayson || var_0 == "!pccg" && level.perk2 )
+        if ( var_0 == "cg" && !level.currentgen || var_0 == "ng" && !level.nextgen || var_0 == "xenon" && !level.xenon || var_0 == "ps3" && !level.ps3 || var_0 == "pc" && !level.pc || var_0 == "xb3" && !level.xb3 || var_0 == "ps4" && !level.ps4 || var_0 == "pccg" && !level.pccg || var_0 == "!cg" && level.currentgen || var_0 == "!ng" && level.nextgen || var_0 == "!xenon" && level.xenon || var_0 == "!ps3" && level.ps3 || var_0 == "!pc" && level.pc || var_0 == "!xb3" && level.xb3 || var_0 == "!ps4" && level.ps4 || var_0 == "!pccg" && level.pccg )
             return 0;
     }
 
@@ -153,7 +153,7 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_20.angles = vectortoangles( var_4 - var_2 );
     var_20._id_79BF = var_0;
     var_20.script_fxid = var_1;
-    var_20.script_lightset = var_3;
+    var_20.script_delay = var_3;
     var_20._id_79CB = var_5;
     var_20._id_79CC = var_6;
     var_20._id_79CD = var_7;
@@ -282,11 +282,11 @@ _id_23AF()
         common_scripts\utility::_id_384A( "createfx_started" );
 
     if ( isdefined( self._id_25CC ) )
-        level.playercardbackground _meth_847a( self._id_25CC._id_9A29 );
+        level.player _meth_847a( self._id_25CC._id_9A29 );
 
     self._id_25CC = spawnstruct();
     self._id_25CC common_scripts\utility::_id_0D6F();
-    level.playercardbackground _meth_8479( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self._id_25CC._id_9A29 );
+    level.player _meth_8479( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self._id_25CC._id_9A29 );
     return;
 }
 
@@ -501,12 +501,12 @@ _id_7F6E( var_0 )
 
 _id_811E()
 {
-    if ( !isdefined( self.script_fxid ) || !isdefined( self.script_fxcommand ) || !isdefined( self.script_lightset ) )
+    if ( !isdefined( self.script_fxid ) || !isdefined( self.script_fxcommand ) || !isdefined( self.script_delay ) )
         return;
 
-    if ( isdefined( self.motiontrackerenabled ) )
+    if ( isdefined( self.model ) )
     {
-        if ( self.motiontrackerenabled == "toilet" )
+        if ( self.model == "toilet" )
         {
             thread _id_1929();
             return;
@@ -515,9 +515,9 @@ _id_811E()
 
     var_0 = undefined;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_1 = getent( self._not_team, "targetname" );
+        var_1 = getent( self.target, "targetname" );
 
         if ( isdefined( var_1 ) )
             var_0 = var_1.origin;
@@ -534,13 +534,13 @@ _id_811E()
         var_3 = self._id_79F3;
 
     if ( self.script_fxcommand == "OneShotfx" )
-        _id_649F( self.script_fxid, self.origin, self.script_lightset, var_0 );
+        _id_649F( self.script_fxid, self.origin, self.script_delay, var_0 );
 
     if ( self.script_fxcommand == "loopfx" )
-        _id_587C( self.script_fxid, self.origin, self.script_lightset, var_0, var_2, var_3 );
+        _id_587C( self.script_fxid, self.origin, self.script_delay, var_0, var_2, var_3 );
 
     if ( self.script_fxcommand == "loopsound" )
-        _id_5890( self.script_fxid, self.origin, self.script_lightset );
+        _id_5890( self.script_fxid, self.origin, self.script_delay );
 
     self delete();
 }
@@ -721,8 +721,8 @@ _id_8892( var_0, var_1 )
 
     foreach ( var_5 in var_2 )
     {
-        var_9 = _id_9C71( var_5.v["origin"] - level.playercardbackground.origin );
-        var_10 = _id_9C71( var_0 - level.playercardbackground.origin );
+        var_9 = _id_9C71( var_5.v["origin"] - level.player.origin );
+        var_10 = _id_9C71( var_0 - level.player.origin );
         var_11 = vectornormalize( var_9 );
         var_12 = vectornormalize( var_10 );
         var_5._id_2D80 = vectordot( var_11, var_12 );

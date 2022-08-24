@@ -221,7 +221,7 @@ apply_ghettotag( var_0, var_1 )
         var_1 = "tag_body";
 
     if ( !isdefined( var_0 ) )
-        var_0 = self.motiontrackerenabled;
+        var_0 = self.model;
 
     if ( !isdefined( level.ghettotag ) || !isdefined( level.ghettotag[var_0] ) )
         return;
@@ -396,9 +396,9 @@ init_collapsing_bridge_parts()
     {
         foreach ( var_4 in var_0 )
         {
-            if ( isdefined( var_4._not_team ) )
+            if ( isdefined( var_4.target ) )
             {
-                var_5 = getentarray( var_4._not_team, "targetname" );
+                var_5 = getentarray( var_4.target, "targetname" );
 
                 foreach ( var_7 in var_5 )
                 {

@@ -139,10 +139,10 @@ cheatammoifnecessary_h1()
     if ( !self _meth_81c2( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) > 65536 )
         return 0;
 
-    self._id_18B0 = int( weaponclipsize( self.weapon_switch_invalid ) / 2 );
+    self._id_18B0 = int( weaponclipsize( self.weapon ) / 2 );
 
-    if ( self._id_18B0 > weaponclipsize( self.weapon_switch_invalid ) )
-        self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+    if ( self._id_18B0 > weaponclipsize( self.weapon ) )
+        self._id_18B0 = weaponclipsize( self.weapon );
 
     self._id_0B78 = gettime();
     self notify( "cheated_reload_level_stats" );
@@ -159,7 +159,7 @@ cheatammoifnecessary_cod3()
         if ( !isplayer( self.enemy ) )
             return 0;
 
-        if ( weaponclipsize( self.weapon_switch_invalid ) < 15 )
+        if ( weaponclipsize( self.weapon ) < 15 )
             return 0;
 
         if ( self.enemy maps\_utility::_id_32D8( "player_is_invulnerable" ) )
@@ -176,12 +176,12 @@ cheatammoifnecessary_cod3()
         return 0;
 
     if ( animscripts\utility::_id_50E9() )
-        self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+        self._id_18B0 = weaponclipsize( self.weapon );
     else
         self._id_18B0 = 10;
 
-    if ( self._id_18B0 > weaponclipsize( self.weapon_switch_invalid ) )
-        self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+    if ( self._id_18B0 > weaponclipsize( self.weapon ) )
+        self._id_18B0 = weaponclipsize( self.weapon );
 
     self.nextcheattime = gettime() + 4000;
     self notify( "cheated_reload_level_stats" );
@@ -211,7 +211,7 @@ _id_8417()
 
     if ( _id_514A() )
     {
-        if ( isdefined( self.enemy ) && isai( self.enemy ) && distancesquared( level.playercardbackground.origin, self.enemy.origin ) < 147456 )
+        if ( isdefined( self.enemy ) && isai( self.enemy ) && distancesquared( level.player.origin, self.enemy.origin ) < 147456 )
             self.enemy animscripts\battlechatter_ai::_id_0840( "infantry", self, 1.0 );
 
         if ( animscripts\utility::_id_9C36() && issentient( self.enemy ) )
@@ -403,7 +403,7 @@ _id_37EE( var_0, var_1, var_2 )
 
     self setflaggedanimknobrestart( var_3, var_0, 1, 0.2, var_4 );
     self _meth_81ed();
-    var_5 = weaponfiretime( self.weapon_switch_invalid );
+    var_5 = weaponfiretime( self.weapon );
     _id_37F0( var_3, var_0, var_1, var_2, var_5 );
     _id_4873();
 }
@@ -449,7 +449,7 @@ _id_37F0( var_0, var_1, var_2, var_3, var_4 )
     var_5 = 0;
     var_6 = getanimlength( var_1 );
     var_7 = animhasnotetrack( var_1, "fire" );
-    var_8 = weaponclass( self.weapon_switch_invalid ) == "rocketlauncher";
+    var_8 = weaponclass( self.weapon ) == "rocketlauncher";
     thread _id_37EF();
 
     while ( var_5 < var_3 && var_3 > 0 )
@@ -482,7 +482,7 @@ _id_37F0( var_0, var_1, var_2, var_3, var_4 )
         {
             self.a._id_7594--;
 
-            if ( issubstr( tolower( self.weapon_switch_invalid ), "rpg" ) || issubstr( tolower( self.weapon_switch_invalid ), "panzerfaust" ) )
+            if ( issubstr( tolower( self.weapon ), "rpg" ) || issubstr( tolower( self.weapon ), "panzerfaust" ) )
             {
                 self hidepart( "tag_rocket" );
                 self.a._id_7597 = 0;
@@ -550,9 +550,9 @@ _id_622F( var_0, var_1 )
 
 _id_51A9()
 {
-    if ( weaponburstcount( self.weapon_switch_invalid ) > 0 )
+    if ( weaponburstcount( self.weapon ) > 0 )
         return 0;
-    else if ( weaponisauto( self.weapon_switch_invalid ) )
+    else if ( weaponisauto( self.weapon ) )
         return 0;
 
     return 1;
@@ -606,13 +606,13 @@ _id_7263( var_0 )
 
 _id_6089( var_0 )
 {
-    if ( self.weapon_switch_invalid == "none" )
+    if ( self.weapon == "none" )
         return 0;
 
     if ( isdefined( self._id_615B ) )
     {
-        if ( self._id_18B0 < weaponclipsize( self.weapon_switch_invalid ) * 0.5 )
-            self._id_18B0 = int( weaponclipsize( self.weapon_switch_invalid ) * 0.5 );
+        if ( self._id_18B0 < weaponclipsize( self.weapon ) * 0.5 )
+            self._id_18B0 = int( weaponclipsize( self.weapon ) * 0.5 );
 
         if ( self._id_18B0 <= 0 )
             self._id_18B0 = 0;
@@ -623,7 +623,7 @@ _id_6089( var_0 )
     if ( animscripts\stairs_utility::stairstransitionpendingsince( 100 ) )
         return 0;
 
-    if ( self._id_18B0 <= weaponclipsize( self.weapon_switch_invalid ) * var_0 )
+    if ( self._id_18B0 <= weaponclipsize( self.weapon ) * var_0 )
     {
         if ( var_0 == 0 )
         {
@@ -645,7 +645,7 @@ _id_7066()
     animscripts\shared::_id_6869( self.primaryweapon, "right" );
 }
 
-rendertotexture( var_0, var_1 )
+reload( var_0, var_1 )
 {
     self endon( "killanimscript" );
 
@@ -794,13 +794,13 @@ _id_7F15( var_0 )
     if ( isplayer( var_0 ) )
     {
         self._id_071F._id_517C = 1;
-        self._id_071F.playercardbackground = var_0;
-        self._id_071F._id_9378 = self.groundentchanged;
+        self._id_071F.player = var_0;
+        self._id_071F._id_9378 = self.grenadeweapon;
     }
     else
     {
         self._id_071F._id_517C = 0;
-        self._id_071F._id_9378 = "AI_" + self.groundentchanged;
+        self._id_071F._id_9378 = "AI_" + self.grenadeweapon;
     }
 }
 
@@ -813,7 +813,7 @@ _id_7F80( var_0, var_1 )
 {
     if ( var_0._id_517C )
     {
-        var_2 = var_0.playercardbackground;
+        var_2 = var_0.player;
         var_3 = var_2._id_440D[var_0._id_9378];
         var_2._id_440D[var_0._id_9378] = max( var_1, var_3 );
     }
@@ -830,7 +830,7 @@ _id_3F55()
 
     if ( _id_9C32() )
     {
-        var_1 = self._id_071F.playercardbackground;
+        var_1 = self._id_071F.player;
         var_0 = gettime() + var_1._id_4441._id_6CB3 + randomint( var_1._id_4441._id_6CB4 );
     }
     else
@@ -842,7 +842,7 @@ _id_3F55()
 _id_3FB2( var_0 )
 {
     if ( var_0._id_517C )
-        return var_0.playercardbackground._id_440D[var_0._id_9378];
+        return var_0.player._id_440D[var_0._id_9378];
     else
         return anim._id_440D[var_0._id_9378];
 }
@@ -853,28 +853,28 @@ _id_2151( var_0 )
     {
         if ( gettime() < _id_3FB2( self._id_071F ) )
         {
-            if ( level.playercardbackground.ignoretriggers )
+            if ( level.player.ignoreme )
                 return var_0;
 
             var_1 = self getthreatbiasgroup();
-            var_2 = level.playercardbackground getthreatbiasgroup();
+            var_2 = level.player getthreatbiasgroup();
 
             if ( var_1 != "" && var_2 != "" && getthreatbias( var_2, var_1 ) < -10000 )
                 return var_0;
 
-            if ( self _meth_81c2( level.playercardbackground ) || isai( var_0 ) && var_0 _meth_81c2( level.playercardbackground ) )
+            if ( self _meth_81c2( level.player ) || isai( var_0 ) && var_0 _meth_81c2( level.player ) )
             {
                 if ( isdefined( self._id_22BA ) )
                 {
-                    var_3 = vectortoangles( level.playercardbackground.origin - self.origin );
+                    var_3 = vectortoangles( level.player.origin - self.origin );
                     var_4 = angleclamp180( self._id_22BA.angles[1] - var_3[1] );
                 }
                 else
-                    var_4 = animscripts\utility::_id_4177( level.playercardbackground.origin );
+                    var_4 = animscripts\utility::_id_4177( level.player.origin );
 
                 if ( abs( var_4 ) < 60 )
                 {
-                    var_0 = level.playercardbackground;
+                    var_0 = level.player;
                     _id_7F15( var_0 );
                 }
             }
@@ -938,7 +938,7 @@ isgrenadepossafe( var_0, var_1 )
 
     var_2 = 200;
 
-    if ( self.groundentchanged == "flash_grenade" )
+    if ( self.grenadeweapon == "flash_grenade" )
         var_2 = 512;
 
     var_3 = var_2 * var_2;
@@ -1000,7 +1000,7 @@ _id_989E( var_0, var_1, var_2, var_3 )
 
 _id_989D( var_0, var_1 )
 {
-    if ( self.weapon_switch_invalid == "mg42" || self.grenadeammo <= 0 )
+    if ( self.weapon == "mg42" || self.grenadeammo <= 0 )
         return 0;
 
     _id_7F15( var_0 );
@@ -1177,7 +1177,7 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
 {
     self endon( "killanimscript" );
 
-    if ( self.script_context == "combat" || self.script_context == "move" )
+    if ( self.script == "combat" || self.script == "move" )
         self _meth_8193( "face direction", var_1 );
 
     animscripts\battlechatter_ai::_id_33B1( "grenade" );
@@ -1202,7 +1202,7 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
 
         if ( var_6 == "end" )
         {
-            self._id_071F.playercardbackground._id_62A3--;
+            self._id_071F.player._id_62A3--;
             self notify( "dont_reduce_giptp_on_killanimscript" );
             return 0;
         }
@@ -1211,7 +1211,7 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
     self notify( "dont_reduce_giptp_on_killanimscript" );
 
     if ( _id_9C32() )
-        thread _id_A22F( self._id_071F.playercardbackground, var_2 );
+        thread _id_A22F( self._id_071F.player, var_2 );
 
     self _meth_81d6();
 
@@ -1220,7 +1220,7 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
 
     if ( var_3 )
     {
-        var_13 = self._id_071F.playercardbackground;
+        var_13 = self._id_071F.player;
 
         if ( var_13._id_62A3 > 1 || gettime() - var_13._id_55A4 < 2000 )
             var_13._id_440D["double_grenade"] = gettime() + min( 5000, var_13._id_4441._id_6C95 );
@@ -1259,7 +1259,7 @@ _id_A230( var_0 )
     var_2 = spawnstruct();
     var_2 thread _id_A231( 5 );
     var_2 endon( "watchGrenadeTowardsPlayerTimeout" );
-    var_3 = self.groundentchanged;
+    var_3 = self.grenadeweapon;
     var_4 = _id_3FAF();
 
     if ( !isdefined( var_4 ) )
@@ -1441,10 +1441,10 @@ _id_3F15()
 
 _id_9BF3( var_0 )
 {
-    var_1 = self.key2;
-    var_2 = self.key1;
-    self.key2 = 0;
-    self.key1 = 0;
+    var_1 = self.keepclaimednodeifvalid;
+    var_2 = self.keepclaimednode;
+    self.keepclaimednodeifvalid = 0;
+    self.keepclaimednode = 0;
 
     if ( self _meth_81f3( var_0 ) )
         return 1;
@@ -1453,8 +1453,8 @@ _id_9BF3( var_0 )
 
     }
 
-    self.key2 = var_1;
-    self.key1 = var_2;
+    self.keepclaimednodeifvalid = var_1;
+    self.keepclaimednode = var_2;
     return 0;
 }
 
@@ -1528,8 +1528,8 @@ _id_98A4( var_0 )
 
     if ( self _meth_81f8() )
     {
-        self.key2 = 0;
-        self.key1 = 0;
+        self.keepclaimednodeifvalid = 0;
+        self.keepclaimednode = 0;
         self.a._id_58DE = 1;
 
         if ( level._id_0883[self.team] == 0 )
@@ -1693,7 +1693,7 @@ _id_1D09()
     var_0 = self.enemy.origin - self.origin;
     var_1 = lengthsquared( ( var_0[0], var_0[1], 0 ) );
 
-    if ( self.groundentchanged == "flash_grenade" )
+    if ( self.grenadeweapon == "flash_grenade" )
         return var_1 < 589824;
 
     if ( isdefined( level.usinggrenadedistancechecks ) && level.usinggrenadedistancechecks )

@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "usp";
     self._id_855D = "usp";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "m16_basic";
+    self.weapon = "m16_basic";
 
     switch ( codescripts\character::_id_3E43( 12 ) )
     {
@@ -82,25 +82,25 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_sas_woodland_colon_a::prestigedoublexp();
-    character\character_sp_sas_woodland_colon_b::prestigedoublexp();
-    character\character_sp_sas_woodland_colon_c::prestigedoublexp();
-    character\character_sp_sas_woodland_colon_d::prestigedoublexp();
-    character\character_sp_sas_woodland_colon_e::prestigedoublexp();
-    character\character_sp_sas_woodland_colon_f::prestigedoublexp();
-    character\character_sp_sas_woodland_golden_a::prestigedoublexp();
-    character\character_sp_sas_woodland_golden_b::prestigedoublexp();
-    character\character_sp_sas_woodland_golden_c::prestigedoublexp();
-    character\character_sp_sas_woodland_golden_d::prestigedoublexp();
-    character\character_sp_sas_woodland_golden_e::prestigedoublexp();
-    character\character_sp_sas_woodland_golden_f::prestigedoublexp();
+    character\character_sp_sas_woodland_colon_a::precache();
+    character\character_sp_sas_woodland_colon_b::precache();
+    character\character_sp_sas_woodland_colon_c::precache();
+    character\character_sp_sas_woodland_colon_d::precache();
+    character\character_sp_sas_woodland_colon_e::precache();
+    character\character_sp_sas_woodland_colon_f::precache();
+    character\character_sp_sas_woodland_golden_a::precache();
+    character\character_sp_sas_woodland_golden_b::precache();
+    character\character_sp_sas_woodland_golden_c::precache();
+    character\character_sp_sas_woodland_golden_d::precache();
+    character\character_sp_sas_woodland_golden_e::precache();
+    character\character_sp_sas_woodland_golden_f::precache();
     precacheitem( "m16_basic" );
     precacheitem( "usp" );
     precacheitem( "usp" );

@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 149;
-    self.groundentchanged = "fraggrenade";
+    self.health = 149;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta";
     self._id_855D = "beretta";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "mp5";
+    self.weapon = "mp5";
     character\character_sp_pilot_velinda_woodland::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_pilot_velinda_woodland::prestigedoublexp();
+    character\character_sp_pilot_velinda_woodland::precache();
     precacheitem( "mp5" );
     precacheitem( "beretta" );
     precacheitem( "beretta" );

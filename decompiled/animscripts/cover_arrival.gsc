@@ -25,7 +25,7 @@ main()
     self endon( "killanimscript" );
     self endon( "abort_approach" );
 
-    if ( self.tactical )
+    if ( self.swimmer )
     {
         animscripts\swim::_id_9035();
         return;
@@ -83,7 +83,7 @@ _id_467F( var_0 )
 
 _id_51D4()
 {
-    if ( !isdefined( self.node_relinquished ) )
+    if ( !isdefined( self.node ) )
         return 0;
 
     if ( isdefined( self.enemy ) && self _meth_81c3( self.enemy, 1.5 ) && distancesquared( self.origin, self.enemy.origin ) < 250000 )
@@ -98,7 +98,7 @@ _id_06BE()
 
     for (;;)
     {
-        if ( !isdefined( self.node_relinquished ) )
+        if ( !isdefined( self.node ) )
             return;
 
         if ( _id_51D4() )
@@ -121,7 +121,7 @@ _id_1AFC( var_0 )
     if ( !isdefined( var_0._id_99B3 ) )
         return 0;
 
-    if ( var_0.unlockpoints != "Cover Stand" && var_0.unlockpoints != "Cover Prone" && var_0.unlockpoints != "Cover Crouch" )
+    if ( var_0.type != "Cover Stand" && var_0.type != "Cover Prone" && var_0.type != "Cover Crouch" )
         return 0;
 
     if ( isdefined( self.enemy ) && distancesquared( self.enemy.origin, var_0.origin ) < 65536 )
@@ -138,7 +138,7 @@ _id_29A9( var_0 )
     if ( isdefined( self._id_5A7A ) && self._id_5A7A )
         return "exposed";
 
-    var_1 = var_0.unlockpoints;
+    var_1 = var_0.type;
 
     if ( animscripts\utility::_id_502C() && var_1 == "Cover Crouch" )
         return "free_run_into_cover_crouch";
@@ -189,7 +189,7 @@ _id_29A9( var_0 )
         {
             var_5 = "exposed_unstable";
 
-            if ( self.mw3prestige == "run" )
+            if ( self.movemode == "run" )
                 var_5 += "_run";
 
             return var_5;
@@ -198,7 +198,7 @@ _id_29A9( var_0 )
         {
             var_5 = "stand_unstable";
 
-            if ( self.mw3prestige == "run" )
+            if ( self.movemode == "run" )
                 var_5 += "_run";
 
             return var_5;
@@ -241,7 +241,7 @@ _id_29A7( var_0 )
     {
         var_2 = "exposed_unstable";
 
-        if ( self.mw3prestige == "run" )
+        if ( self.movemode == "run" )
             var_2 += "_run";
 
         return var_2;
@@ -262,11 +262,11 @@ _id_19E4( var_0, var_1 )
 
 _id_3F00()
 {
-    if ( isdefined( self.secondaryattachment1 ) )
-        return self.secondaryattachment1;
+    if ( isdefined( self.scriptedarrivalent ) )
+        return self.scriptedarrivalent;
 
-    if ( isdefined( self.node_relinquished ) )
-        return self.node_relinquished;
+    if ( isdefined( self.node ) )
+        return self.node;
 
     return undefined;
 }
@@ -294,7 +294,7 @@ _id_3F01( var_0, var_1 )
         var_4 = anglestoright( ( 0, var_0._id_99B3.angles[1], 0 ) );
         var_2 = var_2 + var_3 * -37.36 - var_4 * 13.279;
     }
-    else if ( isdefined( self.secondaryattachment1 ) )
+    else if ( isdefined( self.scriptedarrivalent ) )
         var_2 = self.goalpos;
     else
         var_2 = var_0.origin;
@@ -341,9 +341,9 @@ _id_82FC( var_0 )
     }
 
     if ( var_0 )
-        self.requirement_beat50waves = 1;
+        self.requestarrivalnotify = 1;
 
-    if ( self.tactical == 1 )
+    if ( self.swimmer == 1 )
     {
         thread animscripts\swim::_id_9064();
         return;
@@ -358,7 +358,7 @@ _id_82FC( var_0 )
 
     thread _id_82FC( 0 );
     var_2 = "exposed";
-    var_3 = self.pc;
+    var_3 = self.pathgoalpos;
     var_4 = vectortoyaw( var_1 );
     var_5 = var_4;
     var_6 = _id_3F00();
@@ -423,10 +423,10 @@ _id_0CBE( var_0, var_1, var_2 )
 
     for (;;)
     {
-        if ( !isdefined( self.pc ) )
+        if ( !isdefined( self.pathgoalpos ) )
             _id_A026();
 
-        var_4 = distance( self.origin, self.pc );
+        var_4 = distance( self.origin, self.pathgoalpos );
 
         if ( isdefined( var_2 ) )
         {
@@ -445,7 +445,7 @@ _id_0CBE( var_0, var_1, var_2 )
 
         var_9 = self._id_5F65;
 
-        if ( level.script_context == "scoutsniper" && self _meth_8152( %h1_sprint_loop ) > 0.5 )
+        if ( level.script == "scoutsniper" && self _meth_8152( %h1_sprint_loop ) > 0.5 )
             var_9 *= 1.25;
 
         var_10 = ( var_4 - var_1 ) / 250 * var_9 - 0.1;
@@ -613,7 +613,7 @@ _id_2CEB()
         {
             common_scripts\utility::_id_A069( "goal_changed", "goal_changed_previous_frame" );
 
-            if ( isdefined( self._id_22A2 ) && isdefined( self.pc ) && distance2d( self._id_22A2, self.pc ) < 1 )
+            if ( isdefined( self._id_22A2 ) && isdefined( self.pathgoalpos ) && distance2d( self._id_22A2, self.pathgoalpos ) < 1 )
                 continue;
 
             break;
@@ -636,7 +636,7 @@ _id_A22D()
 
 _id_3589( var_0, var_1 )
 {
-    if ( !isdefined( self.pc ) )
+    if ( !isdefined( self.pathgoalpos ) )
         return 0;
 
     if ( isdefined( self._id_2AF3 ) && self._id_2AF3 )
@@ -649,7 +649,7 @@ _id_3589( var_0, var_1 )
     }
     else
     {
-        if ( !self.facemotion && ( !isdefined( var_0 ) || var_0.unlockpoints == "Path" || var_0.unlockpoints == "Path 3D" ) )
+        if ( !self.facemotion && ( !isdefined( var_0 ) || var_0.type == "Path" || var_0.type == "Path 3D" ) )
             return 0;
 
         if ( self.a._id_6E5A != "stand" )
@@ -659,7 +659,7 @@ _id_3589( var_0, var_1 )
     if ( _id_51D4() || isdefined( self._id_5575 ) && self._id_5575 + 500 > gettime() )
         return 0;
 
-    if ( !self _meth_81c7( self.pc, 1, 0, level.h1_arrival_ignores_player ) )
+    if ( !self _meth_81c7( self.pathgoalpos, 1, 0, level.h1_arrival_ignores_player ) )
         return 0;
 
     return 1;
@@ -669,7 +669,7 @@ _id_358A()
 {
     for (;;)
     {
-        if ( !isdefined( self.pc ) )
+        if ( !isdefined( self.pathgoalpos ) )
             _id_A026();
 
         var_0 = _id_3F00();
@@ -677,7 +677,7 @@ _id_358A()
         if ( isdefined( var_0 ) && !isdefined( self._id_4795 ) )
             var_1 = var_0.origin;
         else
-            var_1 = self.pc;
+            var_1 = self.pathgoalpos;
 
         var_2 = distance( self.origin, var_1 );
         var_3 = 0;
@@ -716,7 +716,7 @@ _id_35B8( var_0 )
     if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
         return self _meth_81c2( self.enemy );
 
-    return sighttracepassed( self.enemy getshootatpos(), self.pc + ( 0.0, 0.0, 60.0 ), 0, undefined );
+    return sighttracepassed( self.enemy getshootatpos(), self.pathgoalpos + ( 0.0, 0.0, 60.0 ), 0, undefined );
 }
 
 calculatelastminuteanimdistance( var_0, var_1, var_2, var_3, var_4 )
@@ -724,11 +724,11 @@ calculatelastminuteanimdistance( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( self._id_35B7 ) )
         var_1 = self.angles[1];
     else if ( _id_35B8( var_2 ) )
-        var_1 = vectortoyaw( self.enemy.origin - self.pc );
+        var_1 = vectortoyaw( self.enemy.origin - self.pathgoalpos );
     else
     {
         var_5 = isdefined( var_2 ) && var_3;
-        var_5 = var_5 && var_2.unlockpoints != "Path" && var_2.unlockpoints != "Path 3D" && ( var_2.unlockpoints != "Ambush" || !animscripts\utility::_id_7262() );
+        var_5 = var_5 && var_2.type != "Path" && var_2.type != "Path 3D" && ( var_2.type != "Ambush" || !animscripts\utility::_id_7262() );
 
         if ( var_5 )
             var_1 = animscripts\utility::_id_404B( var_2 );
@@ -771,7 +771,7 @@ calculatelastminuterequireddistsq( var_0 )
 
 calculateapproachdir()
 {
-    var_0 = vectornormalize( self.pc - self.origin );
+    var_0 = vectornormalize( self.pathgoalpos - self.origin );
     return var_0;
 }
 
@@ -806,7 +806,7 @@ _id_2CEA()
     {
         var_0 = "exposed_unstable";
 
-        if ( self.mw3prestige == "run" )
+        if ( self.movemode == "run" )
             var_0 += "_run";
     }
     else if ( _id_9C11() )
@@ -828,8 +828,8 @@ _id_2CEA()
 
     var_2 = _id_3F00();
 
-    if ( isdefined( var_2 ) && isdefined( self.pc ) && !isdefined( self._id_2AFC ) )
-        var_3 = distancesquared( self.pc, var_2.origin ) < var_1;
+    if ( isdefined( var_2 ) && isdefined( self.pathgoalpos ) && !isdefined( self._id_2AFC ) )
+        var_3 = distancesquared( self.pathgoalpos, var_2.origin ) < var_1;
     else
         var_3 = 0;
 
@@ -848,7 +848,7 @@ _id_2CEA()
 
     var_7 = calculatelastminuterequireddistsq( var_6 );
 
-    while ( isdefined( self.pc ) && isdefined( var_7 ) && distancesquared( self.origin, self.pc ) > var_7 )
+    while ( isdefined( self.pathgoalpos ) && isdefined( var_7 ) && distancesquared( self.origin, self.pathgoalpos ) > var_7 )
     {
         var_4 = calculateapproachdir();
         var_5 = calculatedesiredfacingyaw( var_4 );
@@ -863,23 +863,23 @@ _id_2CEA()
     if ( !_id_3589( var_2, var_3 ) )
         return;
 
-    var_8 = distance( self.origin, self.pc );
+    var_8 = distance( self.origin, self.pathgoalpos );
 
     if ( abs( var_8 - var_6 ) > 8 )
         return;
 
-    var_9 = vectortoyaw( self.pc - self.origin );
+    var_9 = vectortoyaw( self.pathgoalpos - self.origin );
 
     if ( isdefined( self._id_4795 ) && var_3 )
     {
         var_10 = var_5 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, self._id_0CBB );
-        var_11 = _id_3F06( self.pc, var_5, var_0, self._id_0CBB );
+        var_11 = _id_3F06( self.pathgoalpos, var_5, var_0, self._id_0CBB );
     }
     else if ( isdefined( self.a.forceapproachfacenodeyaw ) && self.a.forceapproachfacenodeyaw )
     {
         var_5 = var_2.angles[1];
         var_10 = var_5 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, self._id_0CBB );
-        var_11 = _id_3F06( self.pc, var_5, var_0, self._id_0CBB );
+        var_11 = _id_3F06( self.pathgoalpos, var_5, var_0, self._id_0CBB );
     }
     else if ( var_6 > 0 )
     {
@@ -897,7 +897,7 @@ _id_2CEA()
             var_10 = self.angles[1];
 
         var_14 = var_8 - var_6;
-        var_11 = self.origin + vectornormalize( self.pc - self.origin ) * var_14;
+        var_11 = self.origin + vectornormalize( self.pathgoalpos - self.origin ) * var_14;
     }
     else
     {
@@ -921,7 +921,7 @@ _id_A026()
 {
     for (;;)
     {
-        if ( isdefined( self.pc ) )
+        if ( isdefined( self.pathgoalpos ) )
             return;
 
         wait 0.1;
@@ -994,7 +994,7 @@ _id_2DCF( var_0 )
 
     for (;;)
     {
-        if ( !isdefined( self.node_relinquished ) )
+        if ( !isdefined( self.node ) )
             break;
 
         wait 0.05;

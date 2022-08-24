@@ -108,7 +108,7 @@ _id_324A( var_0 )
     if ( isdefined( self._id_7A9C ) )
     {
         if ( isdefined( self._id_5545 ) )
-            self._not_team = self._id_5545.teambalanced;
+            self.target = self._id_5545.targetname;
 
         thread maps\_patrol::_id_66FC();
     }
@@ -171,7 +171,7 @@ _id_08C7()
     if ( !isdefined( self._id_0669._id_13A2._id_33C0._id_2532 ) )
         return;
 
-    self._id_0669._id_13A2._id_33C0._id_2532.node_relinquished notify( "stop_loop" );
+    self._id_0669._id_13A2._id_33C0._id_2532.node notify( "stop_loop" );
     self _meth_8143();
     _id_08C6();
 }
@@ -179,9 +179,9 @@ _id_08C7()
 _id_0910( var_0, var_1, var_2, var_3 )
 {
     self._id_0669._id_13A2._id_33C0._id_2532 = spawnstruct();
-    self._id_0669._id_13A2._id_33C0._id_2532.node_relinquished = var_0;
+    self._id_0669._id_13A2._id_33C0._id_2532.node = var_0;
     self._id_0669._id_13A2._id_33C0._id_2532._id_0C6C = var_1;
-    self._id_0669._id_13A2._id_33C0._id_2532.tag_aim_animated = var_2;
+    self._id_0669._id_13A2._id_33C0._id_2532.tag = var_2;
     self._id_0669._id_13A2._id_33C0._id_2532._id_315B = var_3;
     thread _id_08B9( var_0, var_1, var_2, var_3 );
 }
@@ -404,8 +404,8 @@ _id_3223()
     if ( isdefined( self.enemy ) || isdefined( self.favoriteenemy ) )
         return;
 
-    self.ignoretriggers = 1;
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreme = 1;
+    self.ignoreall = 1;
     self.allowdeath = 1;
     thread maps\_anim::_id_0BCE( self, "_stealth_dog_sleeping", undefined, "stop_loop" );
 }
@@ -462,7 +462,7 @@ enemy_state_alert()
 _id_3265()
 {
     self.fovcosine = 0.01;
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
     self.diequietly = 0;
     maps\_utility::_id_1ED1();
     self.fixednode = 0;
@@ -476,7 +476,7 @@ _id_327D()
     level endon( var_1 );
     self endon( "death" );
     self.fovcosine = 0.01;
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
 
     if ( !self._id_0669._id_5836.dog )
     {
@@ -492,9 +492,9 @@ _id_327D()
         common_scripts\utility::_id_A0A0( "enemy", randomfloatrange( 1, 3 ) );
 
     if ( self._id_0669._id_5836.dog )
-        self.favoriteenemy = level.playercardbackground;
+        self.favoriteenemy = level.player;
     else if ( randomint( 100 ) > 25 )
-        self.favoriteenemy = level.playercardbackground;
+        self.favoriteenemy = level.player;
 
     thread enemy_spotted_clear_favorite();
 }
@@ -553,9 +553,9 @@ _id_31E8( var_0 )
 {
     self endon( "death" );
     self endon( "pain_death" );
-    var_1 = self._id_0669._id_13A2._id_33C0._id_2532.node_relinquished;
+    var_1 = self._id_0669._id_13A2._id_33C0._id_2532.node;
     var_2 = self._id_0669._id_13A2._id_33C0._id_2532._id_0C6C;
-    var_3 = self._id_0669._id_13A2._id_33C0._id_2532.tag_aim_animated;
+    var_3 = self._id_0669._id_13A2._id_33C0._id_2532.tag;
     var_4 = self._id_0669._id_13A2._id_33C0._id_2532._id_315B;
     maps\_utility::_id_32DE( "_stealth_behavior_reaction_anim" );
     self.allowdeath = 1;
@@ -653,7 +653,7 @@ _id_31ED( var_0 )
 _id_31EB( var_0 )
 {
     self.allowdeath = 1;
-    var_1 = level.playercardbackground;
+    var_1 = level.player;
 
     if ( isdefined( self.enemy ) )
         var_1 = self.enemy;
@@ -900,7 +900,7 @@ _id_328D()
     self endon( "death" );
     self endon( "pain_death" );
     self waittill( "pain" );
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
 }
 
 _id_31D8( var_0, var_1 )
@@ -1334,7 +1334,7 @@ enemy_get_closest_pathnodes( var_0, var_1 )
 
             for ( var_5 = 0; var_5 < var_2.size; var_5++ )
             {
-                if ( var_2[var_5].unlockpoints != "Path" )
+                if ( var_2[var_5].type != "Path" )
                     continue;
 
                 if ( distancesquared( var_2[var_5].origin, var_1 ) > var_4 )
@@ -1407,8 +1407,8 @@ _id_3A8A()
     self._id_0669._id_13A2._id_63CE = self.grenadeammo;
     self.grenadeammo = 0;
     self._id_39C7 = 0;
-    self.ignoreforfixednodesafecheck = 1;
-    self.ignoretriggers = 1;
+    self.ignoreall = 1;
+    self.ignoreme = 1;
     self._id_2AF3 = 0;
     self._id_2B0E = 0;
     maps\_utility::_id_2A74();
@@ -1424,7 +1424,7 @@ friendly_state_alert()
     self._id_0669._id_13A2._id_63CE = self.grenadeammo;
     self.grenadeammo = 0;
     self._id_39C7 = 0;
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     maps\_utility::_id_2A74();
     waitframe;
     self.fixednode = 0;
@@ -1439,8 +1439,8 @@ _id_3A8B()
     self.grenadeammo = self._id_0669._id_13A2._id_63CE;
     self _meth_81ce( "prone", "crouch", "stand" );
     self _meth_8143();
-    self.ignoreforfixednodesafecheck = 0;
-    self.ignoretriggers = 0;
+    self.ignoreall = 0;
+    self.ignoreme = 0;
     maps\_utility::_id_2A8D();
     maps\_utility::_id_309A();
     self._id_2AF3 = 1;
@@ -1713,15 +1713,15 @@ default_event_awareness_ended_cleanup()
         return;
 
     if ( isdefined( self._id_0669._id_13A2.alreadyignoreme ) && self._id_0669._id_13A2.alreadyignoreme )
-        self.ignoretriggers = 1;
+        self.ignoreme = 1;
 }
 
 default_event_awareness_setup()
 {
     self._id_0669._id_13A2.alreadysmartstance = maps\_utility::_id_32D8( "_stealth_stance_handler" );
-    self._id_0669._id_13A2.alreadyignoreme = self.ignoretriggers;
+    self._id_0669._id_13A2.alreadyignoreme = self.ignoreme;
     maps\_utility::_id_32DE( "_stealth_stance_handler" );
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
 }
 
 default_event_awareness_handle_changes()
@@ -1750,7 +1750,7 @@ default_event_awareness_cleanup()
         maps\_utility::_id_32DA( "_stealth_stance_handler" );
 
     if ( isdefined( self._id_0669._id_13A2.alreadyignoreme ) && self._id_0669._id_13A2.alreadyignoreme )
-        self.ignoretriggers = 1;
+        self.ignoreme = 1;
 }
 
 default_event_awareness_wait()

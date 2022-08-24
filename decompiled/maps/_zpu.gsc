@@ -45,7 +45,7 @@ main( var_0 )
 per_zpu_init()
 {
     self endon( "death" );
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     var_1 = [];
     common_scripts\utility::_id_383D( self._id_79D3 );
     var_2 = undefined;
@@ -62,13 +62,13 @@ per_zpu_init()
             continue;
         }
 
-        if ( isdefined( var_6.script_parentname ) && var_6.script_parentname == "dismount" )
+        if ( isdefined( var_6.script_noteworthy ) && var_6.script_noteworthy == "dismount" )
         {
             var_3 = var_6;
             continue;
         }
 
-        if ( isdefined( var_6.script_parentname ) && var_6.script_parentname == "kill_zpu_spawner" )
+        if ( isdefined( var_6.script_noteworthy ) && var_6.script_noteworthy == "kill_zpu_spawner" )
         {
             var_7 = var_6;
             var_7 thread zpu_cancel( self._id_79D3 );
@@ -147,7 +147,7 @@ monitor_gunner( var_0 )
 
 gunner_death_think( var_0 )
 {
-    self.helmet = 5000;
+    self.health = 5000;
     self endon( "dismount" );
     self waittill( "damage" );
 
@@ -242,7 +242,7 @@ zpugunner_dismount( var_0 )
     var_0 maps\_utility::_id_0D61();
     var_0 thread maps\_anim::_id_0C24( self, "dismount", "tag_driver" );
     wait 0.8;
-    self.helmet = 100;
+    self.health = 100;
     self notify( "dismount" );
     self._id_2652 = undefined;
     self unlink();

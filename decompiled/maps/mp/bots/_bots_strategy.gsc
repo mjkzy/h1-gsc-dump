@@ -374,7 +374,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         if ( isdefined( var_3["override_entrances"] ) && var_3["override_entrances"].size > 0 )
         {
             self._id_27B4 = var_3["override_entrances"];
-            self._id_27A3 = self.nearz + " " + gettime();
+            self._id_27A3 = self.name + " " + gettime();
 
             foreach ( var_8 in self._id_27B4 )
             {
@@ -661,7 +661,7 @@ _id_8158( var_0, var_1 )
     else
         var_2.origin = var_0.origin;
 
-    var_2.node_relinquished = var_0;
+    var_2.node = var_0;
     var_2._id_3A11 = 0;
     return var_2;
 }
@@ -792,7 +792,7 @@ _id_27AF()
             {
                 var_16 = self._id_57FD[var_26];
 
-                if ( nodesvisible( var_16.node_relinquished, var_24[var_12], 1 ) )
+                if ( nodesvisible( var_16.node, var_24[var_12], 1 ) )
                 {
                     var_25 = common_scripts\utility::_id_0CDA( var_25, var_24[var_12] );
                     var_26 = self._id_57FD.size;
@@ -811,7 +811,7 @@ _id_27AF()
 
             for ( var_12 = 0; var_12 < self._id_57FD.size; var_12++ )
             {
-                if ( nodesvisible( self._id_57FD[var_12].node_relinquished, var_27, 1 ) )
+                if ( nodesvisible( self._id_57FD[var_12].node, var_27, 1 ) )
                 {
                     if ( distance2dsquared( self._id_57FD[var_12].origin, var_27.origin ) > 3600 )
                         var_28 = common_scripts\utility::_id_0CDA( var_28, self._id_57FD[var_12] );
@@ -895,7 +895,7 @@ _id_5D70()
 
             for ( var_3 = 0; var_3 < self._id_57FD.size; var_3++ )
             {
-                if ( nodesvisible( var_1, self._id_57FD[var_3].node_relinquished, 1 ) )
+                if ( nodesvisible( var_1, self._id_57FD[var_3].node, 1 ) )
                 {
                     var_4 = common_scripts\utility::_id_A347( self.origin, self getplayerangles(), self._id_57FD[var_3].origin, var_2 );
                     var_5 = !var_4 || self._id_57FD[var_3]._id_3A11 < 17;
@@ -955,15 +955,15 @@ _id_7040()
             if ( !isdefined( var_7._id_5537 ) )
                 var_7._id_5537 = var_4 - 10001;
 
-            if ( var_7.helmet == 0 && isdefined( var_7._id_2671 ) && var_4 - var_7._id_2671 < 5000 )
+            if ( var_7.health == 0 && isdefined( var_7._id_2671 ) && var_4 - var_7._id_2671 < 5000 )
             {
                 if ( var_4 - var_7._id_5537 > 10000 && var_4 > var_0[var_8] )
                 {
-                    if ( isdefined( var_7.laststand ) && isdefined( var_7.laststand.team ) && var_7.laststand.team == common_scripts\utility::_id_3D4F( self.team ) )
+                    if ( isdefined( var_7.lastattacker ) && isdefined( var_7.lastattacker.team ) && var_7.lastattacker.team == common_scripts\utility::_id_3D4F( self.team ) )
                     {
                         if ( distancesquared( var_7.body.origin, self.origin ) < var_2 )
                         {
-                            self botgetimperfectenemyinfo( var_7.laststand, var_7.body.origin );
+                            self botgetimperfectenemyinfo( var_7.lastattacker, var_7.body.origin );
                             var_9 = getclosestnodeinsight( var_7.body.origin );
 
                             if ( isdefined( var_9 ) )
@@ -1662,7 +1662,7 @@ _id_A1E4( var_0 )
 _id_16A9( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawnstruct();
-    var_4.unlockpoints = var_0;
+    var_4.type = var_0;
     var_4._id_424F = var_1;
 
     if ( isdefined( self._id_64B9 ) )
@@ -1710,7 +1710,7 @@ _id_1649( var_0, var_1 )
     {
         foreach ( var_3 in self._id_90AF )
         {
-            if ( var_3.unlockpoints == var_0 )
+            if ( var_3.type == var_0 )
             {
                 if ( isdefined( var_1 ) && isdefined( var_3._id_62E1 ) )
                     return var_3._id_62E1 == var_1;
@@ -1733,7 +1733,7 @@ bot_get_active_tactical_goals_of_type( var_0 )
     {
         foreach ( var_3 in self._id_90AF )
         {
-            if ( !maps\mp\_utility::_id_5092( var_3._id_06BA ) && var_3.unlockpoints == var_0 )
+            if ( !maps\mp\_utility::_id_5092( var_3._id_06BA ) && var_3.type == var_0 )
                 var_1[var_1.size] = var_3;
         }
     }
@@ -1748,7 +1748,7 @@ _id_15A1( var_0, var_1 )
 
     foreach ( var_3 in self._id_90AF )
     {
-        if ( var_3.unlockpoints == var_0 )
+        if ( var_3.type == var_0 )
         {
             if ( isdefined( var_1 ) )
             {
@@ -1769,7 +1769,7 @@ _id_15F9()
 
     foreach ( var_1 in self._id_90AF )
     {
-        if ( var_1.unlockpoints != "map_interactive_object" )
+        if ( var_1.type != "map_interactive_object" )
             var_1._id_06BA = 1;
     }
 }

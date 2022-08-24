@@ -24,7 +24,7 @@ _id_2222( var_0, var_1 )
     self endon( "killanimscript" );
     self._id_0C50["exposed"]["stand"] = ::_id_7EC0;
     self._id_0C50["exposed"]["crouch"] = ::_id_7DFA;
-    self._id_22BA = self.node_relinquished;
+    self._id_22BA = self.node;
     self._id_2225 = var_0;
     self.a._id_2227 = "unknown";
     self.a._id_0979 = undefined;
@@ -41,9 +41,9 @@ _id_2222( var_0, var_1 )
         var_2._id_5F93 = animscripts\cover_behavior::_id_5F93;
 
     var_2._id_590A = ::_id_590A;
-    var_2.rendertotexture = ::_id_2228;
+    var_2.reload = ::_id_2228;
     var_2._id_5667 = ::_id_8E29;
-    var_2.lookaheaddist = ::_id_5860;
+    var_2.look = ::_id_5860;
     var_2._id_367E = ::_id_367E;
     var_2._id_4B63 = ::_id_4B63;
     var_2.grenade = ::_id_98A5;
@@ -108,9 +108,9 @@ _id_590A()
 
         if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
         {
-            if ( self.script_context == "cover_right" )
+            if ( self.script == "cover_right" )
                 var_1 = "crouch_r";
-            else if ( self.script_context == "cover_left" )
+            else if ( self.script == "cover_left" )
                 var_1 = "crouch_l";
         }
 
@@ -128,9 +128,9 @@ _id_590A()
 
             if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
             {
-                if ( self.script_context == "cover_right" )
+                if ( self.script == "cover_right" )
                     var_1 = "crouch_r";
-                else if ( self.script_context == "cover_left" )
+                else if ( self.script == "cover_left" )
                     var_1 = "crouch_l";
             }
         }
@@ -278,7 +278,7 @@ _id_8410()
     var_0 = self._id_22BA animscripts\utility::_id_4176( self._id_840F );
 
     if ( self.a._id_2227 == "over" )
-        return var_0 < self.lifecount || self.riotshield_hit < var_0;
+        return var_0 < self.leftaimlimit || self.rightaimlimit < var_0;
 
     if ( self._id_2225 == "up" )
         return var_0 < -50 || var_0 > 50;
@@ -309,7 +309,7 @@ _id_3F3D( var_0, var_1 )
 
     var_4 = [];
 
-    if ( isdefined( var_0 ) && self.a._id_6E5A == "crouch" && ( var_3 > self.lifecount && self.riotshield_hit > var_3 ) )
+    if ( isdefined( var_0 ) && self.a._id_6E5A == "crouch" && ( var_3 > self.leftaimlimit && self.rightaimlimit > var_3 ) )
         var_4 = var_0 getvalidcoverpeekouts();
 
     if ( self._id_2225 == "up" )
@@ -441,7 +441,7 @@ _id_1C83()
     if ( animscripts\utility::_id_51B0() && ( var_1 == "A_to_B" || var_1 == "B_to_A" ) )
         return 0;
 
-    var_3 = !self.tactical;
+    var_3 = !self.swimmer;
     var_4 = _id_4097();
 
     if ( !self _meth_81c7( var_4, var_3 ) )
@@ -651,12 +651,12 @@ _id_8E27()
     else
         self.a._id_8A1A = "none";
 
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_4 = 0;
     self._id_1C86 = 1;
     self notify( "done_changing_cover_pos" );
     var_5 = _id_8E28();
-    self.radarshowenemydirection = 0;
+    self.pushable = 0;
     self setflaggedanimknoballrestart( "stepout", var_3, %animscript_root, 1, 0.2, var_5 );
     _id_2221( var_3 );
     thread _id_2D13( "stepout" );
@@ -689,13 +689,13 @@ _id_8E27()
     self _meth_8144( %corner, 0.1 );
     self._id_1C86 = 0;
     self._id_22BC = gettime();
-    self.radarshowenemydirection = 1;
+    self.pushable = 1;
     return 1;
 }
 
 _id_8E29()
 {
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
 
     if ( isdefined( self._id_7109 ) && randomfloat( 1 ) < self._id_7109 )
     {
@@ -725,7 +725,7 @@ _id_8E29()
     }
 
     _id_74E1();
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
@@ -767,12 +767,12 @@ _id_7104()
     var_4 = animscripts\utility::_id_0C51( var_3 );
     var_5 = _id_4097( 48 );
 
-    if ( !self _meth_81c7( var_5, !self.tactical ) )
+    if ( !self _meth_81c7( var_5, !self.swimmer ) )
         return 0;
 
     self._id_22BC = gettime();
     _id_7F48();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     self._id_5187 = 1;
     self.a._id_6F4D = "rambo";
     self._id_1C86 = 1;
@@ -782,7 +782,7 @@ _id_7104()
     animscripts\shared::_id_2D06( "rambo" );
     self notify( "rambo_aim_end" );
     self._id_1C86 = 0;
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     self._id_55D1 = gettime();
     self._id_1C86 = 0;
     self._id_5187 = undefined;
@@ -906,7 +906,7 @@ _id_852E()
 
 _id_1ADB( var_0 )
 {
-    var_1 = !self.tactical;
+    var_1 = !self.swimmer;
 
     if ( var_0 )
     {
@@ -962,7 +962,7 @@ _id_74E1()
     else
         self.a._id_8A1A = "cover_right";
 
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     self _meth_8144( var_2, 0.2 );
 }
 
@@ -973,12 +973,12 @@ _id_14AB()
 
     behaviorstransitiontocorrectpose();
     _id_7F48();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_0 = animscripts\utility::_id_0C51( "blind_fire" );
     self setflaggedanimknoballrestart( "blindfire", var_0, %body, 1, 0, 1 );
     _id_2221( var_0 );
     animscripts\shared::_id_2D06( "blindfire" );
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
@@ -1037,9 +1037,9 @@ _id_98A5( var_0, var_1 )
     }
 
     _id_7F48();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_3 = animscripts\combat_utility::_id_989D( var_0, var_2 );
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return var_3;
 }
 
@@ -1054,7 +1054,7 @@ _id_5860( var_0 )
         return 0;
 
     _id_7F48();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
 
     if ( !_id_67B9() )
         return 0;
@@ -1072,7 +1072,7 @@ _id_5860( var_0 )
     _id_2221( var_1 );
     animscripts\shared::_id_2D06( "looking_end" );
     _id_7F48();
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
@@ -1094,9 +1094,9 @@ _id_5171()
     else
         var_1 += var_3 * 30;
 
-    if ( self.team == "allies" && level.playercardbackground maps\_utility::_id_50A9() )
+    if ( self.team == "allies" && level.player maps\_utility::_id_50A9() )
     {
-        if ( maps\_utility::_id_6B91( var_1, 0.95, undefined, level.playercardbackground ) )
+        if ( maps\_utility::_id_6B91( var_1, 0.95, undefined, level.player ) )
             return 0;
     }
 
@@ -1127,7 +1127,7 @@ _id_67B9()
 
 _id_1AEE()
 {
-    return self _meth_81c7( self._id_22BA.origin, !self.tactical );
+    return self _meth_81c7( self._id_22BA.origin, !self.swimmer );
 }
 
 _id_367E()
@@ -1145,7 +1145,7 @@ _id_2228()
 
     var_0 = "reload";
 
-    if ( animscripts\utility::_id_51A3( self.weapon_switch_invalid ) && animscripts\utility::_id_0C4F( "shotgun_reload" ) )
+    if ( animscripts\utility::_id_51A3( self.weapon ) && animscripts\utility::_id_0C4F( "shotgun_reload" ) )
         var_0 = "shotgun_reload";
 
     var_1 = animscripts\utility::_id_0C51( var_0 );
@@ -1161,7 +1161,7 @@ _id_2228()
 
 _id_516F( var_0, var_1 )
 {
-    var_2 = !self.tactical;
+    var_2 = !self.swimmer;
 
     if ( var_1 )
     {
@@ -1170,14 +1170,14 @@ _id_516F( var_0, var_1 )
         if ( !self _meth_81c7( var_3, var_2 ) )
             return 0;
 
-        if ( self.tactical )
+        if ( self.swimmer )
             return 1;
 
         return self _meth_81c8( var_3, animscripts\utility::_id_3EFC( var_0 ), var_2 );
     }
     else
     {
-        if ( self.tactical )
+        if ( self.swimmer )
             return 1;
 
         return self _meth_81c7( animscripts\utility::_id_3EFC( var_0 ), var_2 );
@@ -1192,7 +1192,7 @@ _id_4097( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = 36;
 
-    var_3 = self.script_context;
+    var_3 = self.script;
 
     if ( var_3 == "cover_multi" )
     {
@@ -1346,7 +1346,7 @@ _id_2DDD()
 
 _id_7EC0()
 {
-    if ( self.tactical && isdefined( self.node_relinquished ) )
+    if ( self.swimmer && isdefined( self.node ) )
     {
         _id_7ECC();
         return;
@@ -1409,7 +1409,7 @@ _id_7EC0()
 
 _id_7DFA()
 {
-    if ( self.tactical && isdefined( self.node_relinquished ) )
+    if ( self.swimmer && isdefined( self.node ) )
     {
         _id_7ECC();
         return;
@@ -1537,7 +1537,7 @@ _id_76C9()
 
 _id_7F48()
 {
-    if ( self.tactical )
+    if ( self.swimmer )
         self _meth_8192( "nogravity" );
     else
         self _meth_8192( "zonly_physics" );

@@ -86,7 +86,7 @@ ambientvolume()
         self waittill( "trigger" );
         activateambient( "interior" );
 
-        while ( level.playercardbackground istouching( self ) )
+        while ( level.player istouching( self ) )
             wait 0.1;
 
         activateambient( "exterior" );
@@ -117,9 +117,9 @@ _id_0B50( var_0, var_1, var_2 )
 
 ambientreverb( var_0 )
 {
-    level.playercardbackground setreverb( level._id_0B3D[var_0]["priority"], level._id_0B3D[var_0]["roomtype"], level._id_0B3D[var_0]["drylevel"], level._id_0B3D[var_0]["wetlevel"], level._id_0B3D[var_0]["fadetime"] );
+    level.player setreverb( level._id_0B3D[var_0]["priority"], level._id_0B3D[var_0]["roomtype"], level._id_0B3D[var_0]["drylevel"], level._id_0B3D[var_0]["wetlevel"], level._id_0B3D[var_0]["fadetime"] );
     level waittill( "new ambient event track" );
-    level.playercardbackground deactivatereverb( level._id_0B3D[var_0]["priority"], 2 );
+    level.player deactivatereverb( level._id_0B3D[var_0]["priority"], 2 );
 }
 
 setupeq( var_0, var_1, var_2 )
@@ -155,18 +155,18 @@ setup_eq_channels( var_0, var_1 )
         {
             if ( isdefined( var_5["type"][var_6] ) )
             {
-                level.playercardbackground seteq( var_4, var_1, var_6, var_5["type"][var_6], var_5["gain"][var_6], var_5["freq"][var_6], var_5["q"][var_6] );
+                level.player seteq( var_4, var_1, var_6, var_5["type"][var_6], var_5["gain"][var_6], var_5["freq"][var_6], var_5["q"][var_6] );
                 continue;
             }
 
-            level.playercardbackground deactivateeq( var_1, var_4, var_6 );
+            level.player deactivateeq( var_1, var_4, var_6 );
         }
     }
 }
 
 _id_262E( var_0 )
 {
-    level.playercardbackground deactivateeq( var_0 );
+    level.player deactivateeq( var_0 );
 }
 
 _id_0B51( var_0 )
@@ -179,15 +179,15 @@ _id_8B2C( var_0 )
     level notify( "new ambient event track" );
     level endon( "new ambient event track" );
 
-    if ( !isdefined( level.playercardbackground.soundent ) )
+    if ( !isdefined( level.player.soundent ) )
     {
-        level.playercardbackground.soundent = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-        level.playercardbackground.soundent.playingsound = 0;
+        level.player.soundent = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+        level.player.soundent.playingsound = 0;
     }
-    else if ( level.playercardbackground.soundent.playingsound )
-        level.playercardbackground.soundent waittill( "sounddone" );
+    else if ( level.player.soundent.playingsound )
+        level.player.soundent waittill( "sounddone" );
 
-    var_1 = level.playercardbackground.soundent;
+    var_1 = level.player.soundent;
     var_2 = level.ambienteventent[var_0]._id_5C1F;
     var_3 = level.ambienteventent[var_0]._id_7131;
     var_4 = 0;
@@ -204,8 +204,8 @@ _id_8B2C( var_0 )
             var_5 = ambientweight( var_0 );
 
         var_4 = var_5;
-        var_1.origin = level.playercardbackground.origin;
-        var_1 linkto( level.playercardbackground );
+        var_1.origin = level.player.origin;
+        var_1 linkto( level.player );
         var_1 playsound( level.ambienteventent[var_0].event_alias[var_5], "sounddone" );
         var_1.playingsound = 1;
         var_1 waittill( "sounddone" );
@@ -275,13 +275,13 @@ ambient_trigger()
         }
     }
 
-    var_3 = getent( self._not_team, "targetname" );
+    var_3 = getent( self.target, "targetname" );
     var_4 = var_3.origin;
     var_5 = undefined;
 
-    if ( isdefined( var_3._not_team ) )
+    if ( isdefined( var_3.target ) )
     {
-        var_6 = getent( var_3._not_team, "targetname" );
+        var_6 = getent( var_3.target, "targetname" );
         var_5 = var_6.origin;
     }
     else
@@ -292,7 +292,7 @@ ambient_trigger()
     var_9 = var_0[1];
     var_10 = 0.5;
 
-    if ( isdefined( self.teambalanced ) && self.teambalanced == "ambient_exit" )
+    if ( isdefined( self.targetname ) && self.targetname == "ambient_exit" )
         var_10 = 0;
 
     for (;;)
@@ -300,9 +300,9 @@ ambient_trigger()
         self waittill( "trigger", var_2 );
         var_11 = undefined;
 
-        while ( level.playercardbackground istouching( self ) )
+        while ( level.player istouching( self ) )
         {
-            var_11 = maps\_utility::_id_3E3D( var_4, var_5, level.playercardbackground.origin, var_7 );
+            var_11 = maps\_utility::_id_3E3D( var_4, var_5, level.player.origin, var_7 );
 
             if ( var_11 < 0 )
                 var_11 = 0;
@@ -341,7 +341,7 @@ ambient_trigger_sets_ambience_levels( var_0, var_1, var_2, var_3, var_4 )
 
     for (;;)
     {
-        var_5 = maps\_utility::_id_3E3D( var_0, var_1, level.playercardbackground.origin, var_2 );
+        var_5 = maps\_utility::_id_3E3D( var_0, var_1, level.player.origin, var_2 );
 
         if ( var_5 < 0 )
         {
@@ -369,7 +369,7 @@ set_ambience_blend( var_0, var_1, var_2 )
     if ( level._id_333D[level._id_333A] != var_1 )
         setup_eq_channels( var_1, level._id_333A );
 
-    level.playercardbackground seteqlerp( var_0, level._id_3339 );
+    level.player seteqlerp( var_0, level._id_3339 );
 
     if ( var_0 == 1 || var_0 == 0 )
         level.nextmsg = 0;
@@ -391,7 +391,7 @@ set_ambience_single( var_0 )
     if ( level._id_333D[level._id_3339] != var_0 )
         setup_eq_channels( var_0, level._id_3339 );
 
-    level.playercardbackground seteqlerp( 1, level._id_3339 );
+    level.player seteqlerp( 1, level._id_3339 );
 }
 
 ambience_hud( var_0, var_1, var_2 )
@@ -410,38 +410,38 @@ ambience_hud( var_0, var_1, var_2 )
         var_5 = newhudelem();
         var_5.alignx = "left";
         var_5.aligny = "bottom";
-        var_5.xpmaxmultipliertimeplayed = var_3 + 22;
-        var_5._id_0538 = var_4 + 10;
+        var_5.x = var_3 + 22;
+        var_5.y = var_4 + 10;
         var_5.color = ( 0.4, 0.9, 0.6 );
         level.amb_hud["inner"] = var_5;
         var_5 = newhudelem();
         var_5.alignx = "left";
         var_5.aligny = "bottom";
-        var_5.xpmaxmultipliertimeplayed = var_3;
-        var_5._id_0538 = var_4 + 10;
+        var_5.x = var_3;
+        var_5.y = var_4 + 10;
         var_5.color = ( 0.4, 0.9, 0.6 );
         level.amb_hud["frac_inner"] = var_5;
         var_5 = newhudelem();
         var_5.alignx = "left";
         var_5.aligny = "bottom";
-        var_5.xpmaxmultipliertimeplayed = var_3 + 22;
-        var_5._id_0538 = var_4;
+        var_5.x = var_3 + 22;
+        var_5.y = var_4;
         var_5.color = ( 0.4, 0.9, 0.6 );
         level.amb_hud["outer"] = var_5;
         var_5 = newhudelem();
         var_5.alignx = "left";
         var_5.aligny = "bottom";
-        var_5.xpmaxmultipliertimeplayed = var_3;
-        var_5._id_0538 = var_4;
+        var_5.x = var_3;
+        var_5.y = var_4;
         var_5.color = ( 0.4, 0.9, 0.6 );
         level.amb_hud["frac_outer"] = var_5;
     }
 
     if ( isdefined( var_2 ) )
     {
-        level.amb_hud["frac_outer"].land = int( 100 * ( 1 - var_0 ) );
+        level.amb_hud["frac_outer"].label = int( 100 * ( 1 - var_0 ) );
         level.amb_hud["frac_outer"].alpha = 1;
-        level.amb_hud["outer"].land = var_2;
+        level.amb_hud["outer"].label = var_2;
         level.amb_hud["outer"].alpha = 1;
     }
     else
@@ -452,7 +452,7 @@ ambience_hud( var_0, var_1, var_2 )
 
     level.amb_hud["outer"] fadeovertime( 0.5 );
     level.amb_hud["frac_outer"] fadeovertime( 0.5 );
-    level.amb_hud["frac_inner"].land = int( 100 * var_0 );
+    level.amb_hud["frac_inner"].label = int( 100 * var_0 );
     level.amb_hud["frac_inner"].alpha = 1;
     level.amb_hud["frac_inner"] fadeovertime( 0.5 );
     level.amb_hud["inner"] settext( var_1 );

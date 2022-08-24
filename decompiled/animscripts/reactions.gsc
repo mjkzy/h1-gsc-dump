@@ -103,7 +103,7 @@ _id_18B4()
         animscripts\notetracks::_id_2D0B( var_4, "reactanim" );
         self _meth_8144( %animscript_root, 0.1 );
 
-        if ( !var_1 && self.start_move == "none" && !isdefined( self._id_2A93 ) )
+        if ( !var_1 && self.stairsstate == "none" && !isdefined( self._id_2A93 ) )
         {
             var_5 = 1 + randomfloat( 0.2 );
             var_6 = animscripts\utility::_id_711E( %exposed_dive_grenade_b, %exposed_dive_grenade_f );
@@ -198,16 +198,16 @@ _id_4039()
     {
         var_1 = animscripts\utility::_id_5864( "cover_reactions" );
 
-        if ( isdefined( var_1[self.primaryattachment2] ) )
+        if ( isdefined( var_1[self.prevscript] ) )
         {
-            var_2 = anglestoforward( self.node_relinquished.angles );
-            var_3 = vectornormalize( self.recipename - self.origin );
+            var_2 = anglestoforward( self.node.angles );
+            var_3 = vectornormalize( self.reactiontargetpos - self.origin );
 
             if ( vectordot( var_2, var_3 ) < -0.5 )
             {
                 self _meth_8193( "face current" );
-                var_4 = randomint( var_1[self.primaryattachment2].size );
-                var_0 = var_1[self.primaryattachment2][var_4];
+                var_4 = randomint( var_1[self.prevscript].size );
+                var_0 = var_1[self.prevscript][var_4];
             }
         }
     }
@@ -232,14 +232,14 @@ _id_4039()
             var_5[1] = %exposed_idle_reactb;
         }
 
-        if ( isdefined( self.enemy ) && distancesquared( self.enemy.origin, self.recipename ) < 65536 )
+        if ( isdefined( self.enemy ) && distancesquared( self.enemy.origin, self.reactiontargetpos ) < 65536 )
             self _meth_8193( "face enemy" );
         else
-            self _meth_8193( "face point", self.recipename );
+            self _meth_8193( "face point", self.reactiontargetpos );
 
         if ( self.a._id_6E5A == "crouch" )
         {
-            var_3 = vectornormalize( self.recipename - self.origin );
+            var_3 = vectornormalize( self.reactiontargetpos - self.origin );
             var_6 = anglestoforward( self.angles );
 
             if ( vectordot( var_6, var_3 ) < -0.5 )

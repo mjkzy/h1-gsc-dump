@@ -156,8 +156,8 @@ main()
     maps\createart\jeepride_art::main();
     maps\jeepride_anim::main();
     maps\_load::main();
-    level.playercardbackground takeweapon( "fraggrenade" );
-    level.playercardbackground thread shock_ondeath_loc();
+    level.player takeweapon( "fraggrenade" );
+    level.player thread shock_ondeath_loc();
     maps\_drone_ai::init();
     maps\jeepride_lighting::main();
     maps\jeepride_aud::main();
@@ -195,9 +195,9 @@ main()
     getent( "medic", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_medic );
     getent( "ru1", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_ru1 );
     getent( "ru2", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_ru2 );
-    level.lock_on_player_ent = spawn( "script_model", level.playercardbackground.origin + ( 0.0, 0.0, 24.0 ) );
+    level.lock_on_player_ent = spawn( "script_model", level.player.origin + ( 0.0, 0.0, 24.0 ) );
     level.lock_on_player_ent setmodel( "fx" );
-    level.lock_on_player_ent linkto( level.playercardbackground );
+    level.lock_on_player_ent linkto( level.player );
     level.lock_on_player_ent hide();
     level.lock_on_player_ent._id_7942 = "missile";
     level.lock_on_player_ent._id_7AC2 = 4;
@@ -206,8 +206,8 @@ main()
     maps\_utility::_id_1332( "allies" );
     thread _id_6302();
     maps\jeepride_amb::main();
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowsprint( 0 );
+    level.player allowprone( 0 );
+    level.player allowsprint( 0 );
     common_scripts\utility::_id_0D13( maps\_vehicle_code::_id_05BE(), maps\jeepride_code::process_vehicles_spawned );
     common_scripts\utility::_id_0D13( getentarray( "missile_offshoot", "targetname" ), maps\jeepride_code::missile_offshoot );
     maps\jeepride_code::crashed_vehicles_setup();
@@ -341,7 +341,7 @@ main()
     thread bx_warmup_vfx_bridge();
     thread bx_performance_vfx_count();
     thread rpg_from_griggs();
-    level.playercardbackground maps\_utility::_id_27EF( 161, ::bodysense_bridgeexplosion );
+    level.player maps\_utility::_id_27EF( 161, ::bodysense_bridgeexplosion );
     maps\jeepride_code::helicopter_hide_crash_seq();
     maps\jeepride_code::bloodtrail_hide();
     maps\jeepride_code::disable_light_finalseq();
@@ -367,13 +367,13 @@ rpg_from_griggs()
 
 remove_rpg_models( var_0 )
 {
-    level.playercardbackground disableweaponpickup();
+    level.player disableweaponpickup();
     level notify( "newrpg" );
     wait 0.1;
     level.rpg delete();
     level.griggs detach( "projectile_rpg7", "tag_inhand" );
     level.griggs waittill( "rpgfromgriggs_griggs" );
-    level.playercardbackground enableweaponpickup();
+    level.player enableweaponpickup();
 }
 
 hide_weapons( var_0 )
@@ -394,24 +394,24 @@ hide_weapons( var_0 )
 bodysense_bridgeexplosion()
 {
     setsaveddvar( "ragdoll_use_linear_velocity", 0 );
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     var_0 = maps\_utility::_id_88D1( "playerview" );
-    var_1 = level.playercardbackground getorigin();
-    var_2 = level.playercardbackground getplayerangles();
+    var_1 = level.player getorigin();
+    var_2 = level.player getplayerangles();
     var_0.origin = var_1;
     var_0.angles = var_2;
-    var_0 linktoplayerview( level.playercardbackground, "tag_origin", ( 0.0, 0.0, -50.0 ), ( 0.0, 0.0, 0.0 ), 1 );
+    var_0 linktoplayerview( level.player, "tag_origin", ( 0.0, 0.0, -50.0 ), ( 0.0, 0.0, 0.0 ), 1 );
     var_0 maps\_anim::_id_0C24( var_0, "player_bridgeexplosion" );
-    level.playercardbackground unlink();
-    level.playercardbackground freezecontrols( 1 );
+    level.player unlink();
+    level.player freezecontrols( 1 );
     var_0 delete();
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
 }
 
 slam_zoom_sound()
 {
     wait 0.05;
-    level.playercardbackground playsound( "ui_camera_whoosh_in" );
+    level.player playsound( "ui_camera_whoosh_in" );
 }
 
 slam_zoom_intro()
@@ -420,18 +420,18 @@ slam_zoom_intro()
     maps\_utility::_id_8648();
     maps\_utility::_id_8643( 0.25 );
     maps\_utility::_id_8644( 0.25 );
-    level.playercardbackground freezecontrols( 1 );
-    level.playercardbackground disableweapons();
-    level.playercardbackground setplayerangles( ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
+    level.player freezecontrols( 1 );
+    level.player disableweapons();
+    level.player setplayerangles( ( 0.0, 0.0, 0.0 ) );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
     var_0 = getent( "slam_zoom_start", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" ).origin;
+    var_1 = getent( var_0.target, "targetname" ).origin;
     var_2 = var_0.origin;
     var_3 = spawn( "script_model", var_2 );
     var_3 setmodel( "tag_origin" );
     var_3.angles = vectortoangles( var_1 - var_2 );
-    level.playercardbackground playerlinktodelta( var_3, "tag_origin", 1, 0, 0, 0, 0 );
+    level.player playerlinktodelta( var_3, "tag_origin", 1, 0, 0, 0, 0 );
     wait 0.05;
     setsaveddvar( "cg_fov", 55 );
     var_4 = 4.5;
@@ -445,16 +445,16 @@ slam_zoom_intro()
     thread whitescreen();
     common_scripts\utility::_id_0CF0( getentarray( "slam_zoom_backdrop", "targetname" ), maps\_utility::_id_284E );
     wait 0.45;
-    level.playercardbackground setplayerangles( ( -8.4547, 171.59, 0.0 ) );
+    level.player setplayerangles( ( -8.4547, 171.59, 0.0 ) );
     maps\jeepride_code::player_link_update();
-    level.playercardbackground allowcrouch( 1 );
+    level.player allowcrouch( 1 );
     wait 0.05;
     maps\_utility::_id_863E();
     common_scripts\utility::_id_383F( "slam_zoom_done" );
-    thread common_scripts\utility::_id_69C2( "ui_screen_trans_in", level.playercardbackground.origin );
+    thread common_scripts\utility::_id_69C2( "ui_screen_trans_in", level.player.origin );
     wait 0.2;
-    level.playercardbackground enableweapons();
-    thread common_scripts\utility::_id_69C2( "ui_screen_trans_out", level.playercardbackground.origin );
+    level.player enableweapons();
+    thread common_scripts\utility::_id_69C2( "ui_screen_trans_out", level.player.origin );
     wait 2.2;
     level notify( "destroy_hud_elements" );
     var_3 delete();
@@ -465,13 +465,13 @@ whitescreen()
 {
     wait 0.2;
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "white", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
     var_0 fadeovertime( 0.15 );
     var_0.alpha = 1;
@@ -517,7 +517,7 @@ ride_start()
     thread maps\_vehicle::_id_23DE( 46 );
     thread maps\_vehicle::_id_7B3C( 45 );
     common_scripts\utility::_id_384A( "playersride_init" );
-    level.playersride._not_team = "playerspath";
+    level.playersride.target = "playerspath";
     level.playersride maps\_vehicle_code::_id_4062();
     thread slam_zoom_intro();
     thread maps\_vehicle::_id_427A( level.playersride );
@@ -607,15 +607,15 @@ time_triggers()
 
     thread maps\jeepride_code::delaythread_loc( 36, maps\jeepride_code::player_link_update_delta );
     thread maps\jeepride_code::delaythread_loc( 42, maps\jeepride_code::player_link_update );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 0.5, maps\_utility::_id_69C4, "scn_jeepride_dirt1_opening" );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 37, maps\_utility::_id_69C4, "scn_jeepride_dirt2_roadside" );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 82, maps\_utility::_id_69C4, "scn_jeepride_dirt3_medianskid" );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 94, maps\_utility::_id_69C4, "scn_jeepride_dirt4_medianslide" );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 113, maps\_utility::_id_69C4, "scn_jeepride_dirt5_mediancross" );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 91, maps\jeepride_code::player_link_update, 0.3 );
+    level.player thread maps\jeepride_code::delaythread_loc( 0.5, maps\_utility::_id_69C4, "scn_jeepride_dirt1_opening" );
+    level.player thread maps\jeepride_code::delaythread_loc( 37, maps\_utility::_id_69C4, "scn_jeepride_dirt2_roadside" );
+    level.player thread maps\jeepride_code::delaythread_loc( 82, maps\_utility::_id_69C4, "scn_jeepride_dirt3_medianskid" );
+    level.player thread maps\jeepride_code::delaythread_loc( 94, maps\_utility::_id_69C4, "scn_jeepride_dirt4_medianslide" );
+    level.player thread maps\jeepride_code::delaythread_loc( 113, maps\_utility::_id_69C4, "scn_jeepride_dirt5_mediancross" );
+    level.player thread maps\jeepride_code::delaythread_loc( 91, maps\jeepride_code::player_link_update, 0.3 );
     thread maps\jeepride_code::delaythread_loc( 122, maps\jeepride_code::fake_water_tread );
     thread maps\jeepride_code::delaythread_loc( 128, maps\jeepride_code::stop_fake_water_tread );
-    level.playercardbackground thread maps\jeepride_code::delaythread_loc( 96, common_scripts\utility::_id_69C2, "exp_tanker_vehicle" );
+    level.player thread maps\jeepride_code::delaythread_loc( 96, common_scripts\utility::_id_69C2, "exp_tanker_vehicle" );
 }
 
 dialog_ride_price()
@@ -625,7 +625,7 @@ dialog_ride_price()
 
     wait 1;
     level._id_6F7C maps\jeepride_code::delaythread_loc( 6.5 + level.intro_offsets_dialog_time, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_helistatus" );
-    level.playercardbackground maps\jeepride_code::delaythread_loc( 10 + level.intro_offsets_dialog_time, maps\_utility::_id_69C4, "jeepride_hqr_griggsisnthere" );
+    level.player maps\jeepride_code::delaythread_loc( 10 + level.intro_offsets_dialog_time, maps\_utility::_id_69C4, "jeepride_hqr_griggsisnthere" );
     level._id_6F7C maps\jeepride_code::delaythread_loc( 15 + level.intro_offsets_dialog_time, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_notgood" );
     level._id_6F7C maps\jeepride_code::delaythread_loc( 16 + level.intro_offsets_dialog_time, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_truckleft" );
     level._id_6F7C maps\jeepride_code::delaythread_loc( 48, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_coverrear" );
@@ -638,7 +638,7 @@ dialog_ride_price()
 
 dialog_bridge_radio()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     maps\_utility::_id_1333( "axis" );
     maps\_utility::_id_1332( "allies" );
     level._id_3C61 maps\_anim::_id_0C24( level._id_3C61, "jeepride_gaz_heavyattackbridge" );
@@ -700,20 +700,20 @@ blow_bridge()
         return;
 
     level.bridgeblown = 1;
-    level.playercardbackground thread maps\_utility::_id_69C6( "scn_player_jeep_bridge_crash" );
+    level.player thread maps\_utility::_id_69C6( "scn_player_jeep_bridge_crash" );
     thread bridge_blow_fx();
 }
 
 bridge_blow_fx()
 {
     earthquake( 1.5, 0.35, ( -35893.6, -15878.5, 460.0 ), 5000 );
-    level.playercardbackground playrumbleonentity( "tank_rumble" );
+    level.player playrumbleonentity( "tank_rumble" );
     thread bridge_blow_blur();
     common_scripts\_exploder::_id_3528( 54 );
     wait 0.55;
     maps\jeepride_code::exploder_loc( 3 );
     earthquake( 0.6, 0.3, ( -35893.6, -15878.5, 460.0 ), 5000 );
-    level.playercardbackground playrumbleonentity( "tank_rumble" );
+    level.player playrumbleonentity( "tank_rumble" );
     earthquake( 0.3, 1.0, ( -35893.6, -15878.5, 460.0 ), 5000 );
 }
 
@@ -773,7 +773,7 @@ dialog_get_off_your_ass()
 {
     var_0 = gettime();
     var_1 = gettime();
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_2 = 10000;
     var_3 = 4000;
     level endon( "newrpg" );
@@ -781,7 +781,7 @@ dialog_get_off_your_ass()
 
     for (;;)
     {
-        if ( level.playercardbackground getstance() == "stand" )
+        if ( level.player getstance() == "stand" )
             var_0 = gettime();
 
         var_4 = gettime();
@@ -804,15 +804,15 @@ allowallstances()
 bodysense_bridgecollapse()
 {
     setomnvar( "ui_jeepride_crash_recover", 1 );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
     maps\_utility::_id_9E6E( "jeepride_end", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride_end" );
+    level.player maps\_utility::set_light_set_player( "jeepride_end" );
     var_0 = maps\_utility::_id_88D1( "playerview" );
     var_1 = getent( "endpos", "targetname" );
     var_0.origin = var_1.origin;
     var_0.angles = var_1.angles;
-    level.playercardbackground playerlinktodelta( var_0, "tag_player", 0, 0, 0, 0, 0, 0 );
+    level.player playerlinktodelta( var_0, "tag_player", 0, 0, 0, 0, 0, 0 );
     var_0 thread maps\_anim::_id_0C24( var_0, "player_bridge" );
     soundscripts\_snd::_id_870C( "start_post_bridge_explosion" );
     bridge_visual_transition_phase2();
@@ -821,26 +821,26 @@ bodysense_bridgecollapse()
     soundscripts\_snd::_id_870C( "stop_post_bridge_explosion" );
     wait 8;
     setomnvar( "ui_jeepride_crash_recover", 0 );
-    level.playercardbackground unlink();
+    level.player unlink();
     var_0 delete();
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground freezecontrols( 0 );
+    level.player allowcrouch( 1 );
+    level.player allowprone( 1 );
+    level.player freezecontrols( 0 );
     thread checkmantle();
 }
 
 checkmantle()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level endon( "stop_mantle" );
 
-    while ( !level.playercardbackground ismantling() )
+    while ( !level.player ismantling() )
         waittillframeend;
 
-    var_0 = maps\_utility::_id_88D1( "playerview", level.playercardbackground.origin, level.playercardbackground.angles );
+    var_0 = maps\_utility::_id_88D1( "playerview", level.player.origin, level.player.angles );
     var_0 dontcastshadows();
-    var_1 = level.playercardbackground _meth_82ef() * -1.0;
-    var_0 linktoplayerview( level.playercardbackground, "tag_origin", ( 0, 0, var_1 ), ( 0.0, 0.0, 0.0 ), 0 );
+    var_1 = level.player _meth_82ef() * -1.0;
+    var_0 linktoplayerview( level.player, "tag_origin", ( 0, 0, var_1 ), ( 0.0, 0.0, 0.0 ), 0 );
     var_0 maps\_anim::_id_0C24( var_0, "player_bridge_mantle" );
     var_0 delete();
     wait 0.2;
@@ -855,7 +855,7 @@ bridge_transition()
     var_3 = getent( "bridge_startspot", "targetname" );
     wait 0.3;
     earthquake( 0.5, 0.4, var_3.origin, 10000 );
-    level.playercardbackground takeallweapons();
+    level.player takeallweapons();
     wait 0.3;
     earthquake( 0.3, 1, var_3.origin, 10000 );
     wait 0.75;
@@ -871,15 +871,15 @@ bridge_transition()
     bridge_visual_transition_phase1();
     common_scripts\utility::_id_0D13( getaiarray( "allies" ), maps\jeepride_code::clearenemy_loc );
     maps\jeepride_code::clear_all_vehicles_but_heros_and_hind();
-    level.playercardbackground unlink();
+    level.player unlink();
     var_5 = spawnstruct();
     var_5 thread maps\_utility::_id_3AF2( maps\_utility::player_fudge_moveto, var_3.origin, 280 );
     thread maps\jeepride_code::player_fudge_rotateto( var_3.angles, var_1 );
     setblur( 8.0, var_1 );
     wait(var_1);
-    level.playercardbackground allowstand( 1 );
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground allowsprint( 1 );
+    level.player allowstand( 1 );
+    level.player allowprone( 1 );
+    level.player allowsprint( 1 );
     common_scripts\utility::_id_383F( "bridge_section_start" );
     wait 3;
     thread play_bridge_collapse_vfx();
@@ -893,7 +893,7 @@ bridge_transition()
     thread maps\jeepride_code::player_speedscaling_bridge_seq();
     setblur( 0.0, var_2 * 0.5 );
     wait(var_2 * 0.7);
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     wait(var_2 * 0.3);
     setsaveddvar( "compass", "1" );
     wait 0.1;
@@ -905,19 +905,19 @@ bridge_transition()
 h1_bridgewakeup_dof_seq()
 {
     setblur( 0.0, 0.0 );
-    level.playercardbackground _meth_84a7( 2.0, 26, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a7( 2.0, 26, 9.0, 9.0 );
+    level.player _meth_84a5();
     setsaveddvar( "r_mbEnable", 2 );
     wait 3.65;
-    level.playercardbackground _meth_84a7( 2.5, 15.5, 0.5, 0.5 );
+    level.player _meth_84a7( 2.5, 15.5, 0.5, 0.5 );
     wait 1.5;
-    level.playercardbackground _meth_84a7( 1.5, 180, 3.0, 3.0 );
+    level.player _meth_84a7( 1.5, 180, 3.0, 3.0 );
     wait 4.15;
-    level.playercardbackground _meth_84a7( 1.5, 150, 0.5, 0.5 );
+    level.player _meth_84a7( 1.5, 150, 0.5, 0.5 );
     wait 5.85;
-    level.playercardbackground _meth_84a7( 16.0, 500, 0.5, 0.5 );
+    level.player _meth_84a7( 16.0, 500, 0.5, 0.5 );
     wait 3.0;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -1052,18 +1052,18 @@ h1_bridgecollapserumblesystem( var_0, var_1, var_2 )
     if ( var_3 == "normal" || var_3 == "sustain" )
     {
         if ( var_6 != "" )
-            level.playercardbackground playrumbleonentity( var_6 );
+            level.player playrumbleonentity( var_6 );
 
         earthquake( var_4, var_5, var_0, 10000 );
         wait(var_5);
 
         if ( var_6 == "tank_rumble" )
-            level.playercardbackground stoprumble( "tank_rumble" );
+            level.player stoprumble( "tank_rumble" );
     }
     else if ( var_3 == "fade" )
     {
         if ( var_6 != "" )
-            level.playercardbackground playrumbleonentity( var_6 );
+            level.player playrumbleonentity( var_6 );
 
         earthquake( var_4 * 0.6, var_5 / 4.0, var_0, 10000 );
         wait(var_5 / 4.0);
@@ -1071,7 +1071,7 @@ h1_bridgecollapserumblesystem( var_0, var_1, var_2 )
         wait(var_5 / 4.0);
 
         if ( var_6 == "tank_rumble" )
-            level.playercardbackground stoprumble( "tank_rumble" );
+            level.player stoprumble( "tank_rumble" );
 
         earthquake( var_4 * 0.5, var_5 / 4.0, var_0, 10000 );
         wait(var_5 / 4.0);
@@ -1134,7 +1134,7 @@ bridge_setupguys( var_0 )
     level._id_6F7C hide();
     setsaveddvar( "ai_friendlyFireBlockDuration", 0 );
     level._id_6F7C.a._id_2B20 = 1;
-    level._id_6F7C.index = 1;
+    level._id_6F7C.ignoresuppression = 1;
     maps\jeepride_code::guy_force_remove_from_vehicle( level.griggs._id_750E, level.griggs, var_5.origin );
     level.griggs unlink();
     level.griggs linkto( var_5, "polySurface1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
@@ -1187,10 +1187,10 @@ bridge_setupguys( var_0 )
     wait 2;
     common_scripts\utility::_id_383F( "stop_limp" );
 
-    if ( !isalive( level.playercardbackground ) )
+    if ( !isalive( level.player ) )
         return;
 
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level.griggs thread maps\_anim::_id_0C21( level.griggs, "jeepride_grg_bouttocollapse" );
     common_scripts\_exploder::_id_3528( 11 );
     maps\_utility::_id_070A( "allies_startcolor" );
@@ -1247,7 +1247,7 @@ bridge_combat()
     var_1 = getent( "bridge_combat_griggs", "targetname" );
     var_2 = getent( "bridge_combat_player", "targetname" );
     spawn_heros_for_start( var_0.origin, var_1.origin, var_1.origin + ( 0.0, 128.0, 0.0 ) );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     maps\_vehicle::_id_23DE( 66 );
     thread maps\jeepride_aud::play_mi17_unload_ennemies( "auto4413", "auto4416", 1 );
     thread maps\jeepride_aud::play_mi17_unload_ennemies( "auto5018", "auto5020", 2 );
@@ -1259,9 +1259,9 @@ bridge_combat()
     common_scripts\utility::_id_383F( "end_ride" );
     common_scripts\utility::_id_383F( "bridge_sequence" );
     common_scripts\utility::_id_383F( "bridge_section_start" );
-    level.playercardbackground allowstand( 1 );
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground allowsprint( 1 );
+    level.player allowstand( 1 );
+    level.player allowprone( 1 );
+    level.player allowsprint( 1 );
     wait 1;
     setup_bridge_defense();
     wait 0.1;
@@ -1290,7 +1290,7 @@ bridge_zak()
     var_0 = getent( "zak_price_spot", "targetname" );
     var_1 = getent( "zak_griggs_spot", "targetname" );
     var_2 = getent( "zak_player_spot", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     spawn_heros_for_start( var_0.origin, var_1.origin, var_2.origin );
     common_scripts\utility::_id_383F( "end_ride" );
     common_scripts\utility::_id_383F( "bridge_sequence" );
@@ -1354,7 +1354,7 @@ blow_up_at_end_node()
 
 switch_team_fordamage()
 {
-    if ( self.visionsetnaked == "hind" || self.visionsetnaked == "bmp" )
+    if ( self.vehicletype == "hind" || self.vehicletype == "bmp" )
         return;
 
     self._id_7AEF = "allies";
@@ -1366,7 +1366,7 @@ switch_team_fordamage()
         if ( isdefined( var_1.classname ) && var_1.classname == "misc_turret" )
             break;
 
-        if ( isdefined( var_1.visionsetnaked ) && ( var_1.visionsetnaked == "hind" || var_1.visionsetnaked == "bmp" ) )
+        if ( isdefined( var_1.vehicletype ) && ( var_1.vehicletype == "hind" || var_1.vehicletype == "bmp" ) )
             break;
     }
 
@@ -1412,14 +1412,14 @@ end_hind_action()
 {
     self waittill( "trigger", var_0 );
     level.hind = var_0;
-    var_0 setlookatent( level.playercardbackground );
-    var_0 setturrettargetent( level.playercardbackground );
+    var_0 setlookatent( level.player );
+    var_0 setturrettargetent( level.player );
     var_0 sethoverparams( 40, 20, 15 );
     common_scripts\utility::_id_383F( "end_action_hind" );
     level.lock_on_player_ent._id_7942 = "mg_burst";
     level.lock_on_player_ent unlink();
-    level.lock_on_player_ent.origin = level.playercardbackground geteye();
-    level.lock_on_player_ent linkto( level.playercardbackground );
+    level.lock_on_player_ent.origin = level.player geteye();
+    level.lock_on_player_ent linkto( level.player );
     var_0 endon( "stop_killing_theplayer" );
     wait 2;
     var_0 maps\jeepride_code::shootnearest_non_hero_friend();
@@ -1443,17 +1443,17 @@ random_around_player( var_0 )
     var_1 = -1 * var_0 + randomfloat( 2 * var_0 );
     var_2 = -1 * var_0 + randomfloat( 2 * var_0 );
     var_3 = 0;
-    return level.playercardbackground.origin + ( var_1, var_2, var_3 );
+    return level.player.origin + ( var_1, var_2, var_3 );
 }
 
 ignoreall_for_running_away()
 {
     self endon( "death" );
-    self.index = 1;
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoresuppression = 1;
+    self.ignoreall = 1;
     wait 3;
-    self.index = 0;
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoresuppression = 0;
+    self.ignoreall = 0;
 }
 
 _id_6302()
@@ -1519,7 +1519,7 @@ trigger_set_cover_from_heli()
 {
     level endon( "cover_from_heli" );
 
-    if ( !level.playercardbackground istouching( self ) )
+    if ( !level.player istouching( self ) )
         self waittill( "trigger" );
 
     common_scripts\utility::_id_383F( "cover_from_heli" );
@@ -1548,7 +1548,7 @@ dying_crawl()
 {
     self endon( "death" );
     self.holdingweapon = 0;
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "none" );
+    animscripts\shared::_id_6869( self.weapon, "none" );
 
     for (;;)
     {
@@ -1559,7 +1559,7 @@ dying_crawl()
 
 angletoplayer()
 {
-    return vectortoangles( level.playercardbackground.origin - self.origin );
+    return vectortoangles( level.player.origin - self.origin );
 }
 
 escape_shellshock_heartbeat()
@@ -1569,7 +1569,7 @@ escape_shellshock_heartbeat()
 
     for (;;)
     {
-        level.playercardbackground maps\_utility::_id_69C4( "breathing_heartbeat" );
+        level.player maps\_utility::_id_69C4( "breathing_heartbeat" );
 
         if ( var_0 > 0 )
             wait(var_0);
@@ -1581,24 +1581,24 @@ escape_shellshock_heartbeat()
 escape_shellshock_thing( var_0 )
 {
     maps\jeepride_code::exploder_loc( 14000 );
-    level.playercardbackground maps\_utility::_id_27EF( 1.5, maps\_utility::_id_69C4, "breathing_hurt_start" );
-    level.playercardbackground maps\_utility::_id_27EF( 2.5, maps\_utility::_id_69C4, "breathing_hurt" );
-    level.playercardbackground maps\_utility::_id_27EF( 4, maps\_utility::_id_69C4, "breathing_hurt" );
-    level.playercardbackground maps\_utility::_id_27EF( 5, maps\_utility::_id_69C4, "breathing_hurt" );
-    level.playercardbackground maps\_utility::_id_27EF( 13, maps\_utility::_id_69C4, "breathing_better" );
-    level.playercardbackground maps\_utility::_id_27EF( 16, maps\_utility::_id_69C4, "breathing_better" );
+    level.player maps\_utility::_id_27EF( 1.5, maps\_utility::_id_69C4, "breathing_hurt_start" );
+    level.player maps\_utility::_id_27EF( 2.5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.player maps\_utility::_id_27EF( 4, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.player maps\_utility::_id_27EF( 5, maps\_utility::_id_69C4, "breathing_hurt" );
+    level.player maps\_utility::_id_27EF( 13, maps\_utility::_id_69C4, "breathing_better" );
+    level.player maps\_utility::_id_27EF( 16, maps\_utility::_id_69C4, "breathing_better" );
     thread overlaysmoke();
     var_1 = maps\jeepride_code::_id_23D0( "black", 0 );
     var_1 thread maps\jeepride_code::exp_fade_overlay( 1, 0.55 );
-    earthquake( 0.65, 1, level.playercardbackground.origin, 1000 );
-    level.playercardbackground playrumbleonentity( "tank_rumble" );
+    earthquake( 0.65, 1, level.player.origin, 1000 );
+    level.player playrumbleonentity( "tank_rumble" );
     level thread maps\_utility::_id_61FD( "stop_heartbeat_sound", 18 );
-    level.playercardbackground freezecontrols( 1 );
-    level.playercardbackground disableweapons();
+    level.player freezecontrols( 1 );
+    level.player disableweapons();
     waitframe;
     wait 1;
-    level.playercardbackground playerlinktodelta( var_0, "tag_player", 1, 5, 5, 5, 5, 1 );
-    level.playercardbackground freezecontrols( 0 );
+    level.player playerlinktodelta( var_0, "tag_player", 1, 5, 5, 5, 5, 1 );
+    level.player freezecontrols( 0 );
     delete_all_non_heros();
     maps\jeepride_code::remove_all_weapons();
     clearallcorpses();
@@ -1608,7 +1608,7 @@ escape_shellshock_thing( var_0 )
     wait 1;
     wait 0.5;
     maps\jeepride_code::remove_all_weapons();
-    level.playercardbackground takeallweapons();
+    level.player takeallweapons();
     var_1 thread maps\jeepride_code::exp_fade_overlay( 0, 3 );
     maps\_utility::_id_27EF( 3.1, ::_destroy, var_1 );
     soundscripts\_snd::_id_870C( "aud_start_slowmo_mix" );
@@ -1637,7 +1637,7 @@ delete_all_non_heros()
 
 set_player_eye_target()
 {
-    var_0 = spawn( "script_origin", level.playercardbackground geteye() );
+    var_0 = spawn( "script_origin", level.player geteye() );
     var_0 thread maintain_player_eye_target();
     return var_0;
 }
@@ -1646,7 +1646,7 @@ maintain_player_eye_target()
 {
     for (;;)
     {
-        self.origin = level.playercardbackground geteye();
+        self.origin = level.player geteye();
         wait 0.05;
     }
 }
@@ -1683,12 +1683,12 @@ zakhaev_buddy2_execute_guy( var_0 )
     if ( !isalive( var_0 ) )
         return;
 
-    magicbullet( self.weapon_switch_invalid, self gettagorigin( "tag_flash" ), var_0 geteye() );
+    magicbullet( self.weapon, self gettagorigin( "tag_flash" ), var_0 geteye() );
 }
 
 bridge_zakhaev()
 {
-    if ( !isalive( level._id_6F7C ) || !isalive( level.griggs ) || !isalive( level._id_3C61 ) || !isalive( level.playercardbackground ) )
+    if ( !isalive( level._id_6F7C ) || !isalive( level.griggs ) || !isalive( level._id_3C61 ) || !isalive( level.player ) )
         return;
 
     setsaveddvar( "compass", "0" );
@@ -1719,9 +1719,9 @@ bridge_zakhaev()
     if ( !isdefined( level._id_3C61._id_58D7 ) )
         level._id_3C61 thread maps\_utility::_id_58D7();
 
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowjump( 0 );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player allowjump( 0 );
     var_4 = maps\_utility::_id_88D1( "playerview" );
     var_5 = getent( "player_drag_node", "targetname" );
     var_5 maps\_anim::_id_0BC7( var_4, "drag_player" );
@@ -1761,7 +1761,7 @@ bridge_zakhaev()
     thread maps\jeepride_code::set_final_visionset();
     var_8 = spawn( "script_model", level._id_6F7C.origin );
     var_8.origin = level._id_6F7C.origin;
-    var_8 setmodel( level._id_6F7C.motiontrackerenabled );
+    var_8 setmodel( level._id_6F7C.model );
 
     if ( isdefined( level._id_6F7C.headmodel ) )
         var_8 attach( level._id_6F7C.headmodel, "", 1 );
@@ -1775,13 +1775,13 @@ bridge_zakhaev()
     var_9 = getent( "end_friend_2", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_9 );
     var_9._id_0C72 = "end_friend_2";
-    var_9._id_0BE5 = getent( var_9._not_team, "targetname" );
+    var_9._id_0BE5 = getent( var_9.target, "targetname" );
     var_9.dropweapon = 0;
     var_10 = getent( "end_friend_3", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_10 );
     var_10.dropweapon = 0;
     var_10._id_0C72 = "end_friend_3";
-    var_10._id_0BE5 = getent( var_10._not_team, "targetname" );
+    var_10._id_0BE5 = getent( var_10.target, "targetname" );
     var_11[0] = var_8;
     var_12[0] = var_7;
     var_12[1] = var_4;
@@ -1814,7 +1814,7 @@ bridge_zakhaev()
     else
         thread bridge_zak_slomo_script_timed();
 
-    level.playercardbackground thread end_slowmo_on_death();
+    level.player thread end_slowmo_on_death();
     var_9 maps\_utility::_id_27EF( 1.3, ::_show );
     var_10 maps\_utility::_id_27EF( 1.3, ::_show );
     common_scripts\_exploder::_id_3528( "2001" );
@@ -1864,7 +1864,7 @@ bridge_zakhaev()
         var_18[var_19] thread end_scene_actor_unlink_on_death();
 
         if ( getdvar( "jeepride_multi_shot" ) == "off" )
-            var_18[var_19].helmet = 1;
+            var_18[var_19].health = 1;
         else
             var_18[var_19] thread stop_animscripted_on_damage();
 
@@ -1876,8 +1876,8 @@ bridge_zakhaev()
     level.attack_helidummy notsolid();
     var_9.allowdeath = 1;
     var_10.allowdeath = 1;
-    var_9.helmet = 1;
-    var_10.helmet = 1;
+    var_9.health = 1;
+    var_10.health = 1;
     var_5 thread maps\_anim::_id_0C24( level.attack_helidummy, "end_scene_01" );
     var_5 thread maps\_anim::_id_0C18( var_18, "end_scene_01" );
     maps\_utility::_id_27EF( 8.15, maps\jeepride_code::shot_in_the_head_point_blank, var_13, ( 3.0, -4.0, 6.0 ), ( 105.0, -80.0, 0.0 ) );
@@ -1895,14 +1895,14 @@ bridge_zakhaev()
     anim._id_83F3 = ::shot_counter;
     var_5 thread maps\_anim::_id_0C18( var_18, "end_scene_02" );
     var_4 waittillmatch( "single anim", "start_end" );
-    level.playercardbackground playerlinktodelta( var_4, "tag_player", 1, 45, 45, 45, 7 );
-    level.playercardbackground disableinvulnerability();
-    level.playercardbackground giveweapon( "colt45_zak_killer" );
-    level.playercardbackground givemaxammo( "colt45_zak_killer" );
-    level.playercardbackground switchtoweapon( "colt45_zak_killer" );
-    level.playercardbackground enableweapons();
-    level.playercardbackground allowmelee( 0 );
-    level.playercardbackground setviewmodel( "viewhands_sas_woodland" );
+    level.player playerlinktodelta( var_4, "tag_player", 1, 45, 45, 45, 7 );
+    level.player disableinvulnerability();
+    level.player giveweapon( "colt45_zak_killer" );
+    level.player givemaxammo( "colt45_zak_killer" );
+    level.player switchtoweapon( "colt45_zak_killer" );
+    level.player enableweapons();
+    level.player allowmelee( 0 );
+    level.player setviewmodel( "viewhands_sas_woodland" );
     setsaveddvar( "hud_drawhud", "1" );
     var_8 detach( "weapon_colt1911_black", "tag_weapon_right" );
     level.attack_helidummy hide();
@@ -1913,80 +1913,80 @@ bridge_zakhaev()
 
 h1_jeepride_bridgeending_dof_seq()
 {
-    level.playercardbackground _meth_84a7( 1.0, 50, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a7( 1.0, 50, 9.0, 9.0 );
+    level.player _meth_84a5();
     setsaveddvar( "r_mbEnable", 2 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 2.5, 16, 1.0, 1.0 );
+    level.player _meth_84a7( 2.5, 16, 1.0, 1.0 );
     wait 2.0;
-    level.playercardbackground _meth_84a7( 3.0, 40, 2.5, 2.5 );
+    level.player _meth_84a7( 3.0, 40, 2.5, 2.5 );
     wait 1.0;
     wait 4.5;
-    level.playercardbackground _meth_84a7( 3.5, 60, 1.0, 1.0 );
+    level.player _meth_84a7( 3.5, 60, 1.0, 1.0 );
     wait 5.5;
-    level.playercardbackground _meth_84a7( 3.8, 58, 2.0, 2.0 );
+    level.player _meth_84a7( 3.8, 58, 2.0, 2.0 );
     wait 1.5;
-    level.playercardbackground _meth_84a7( 1.5, 175, 1.5, 1.5 );
+    level.player _meth_84a7( 1.5, 175, 1.5, 1.5 );
     wait 0.75;
     thread maps\_utility::_id_5689( 1.25, 50 );
     wait 4.0;
     thread maps\_utility::_id_5689( 2.4, 55 );
     common_scripts\utility::_id_384A( "attack_heli" );
-    level.playercardbackground _meth_84a7( 1.5, 480, 1.0, 1.0 );
+    level.player _meth_84a7( 1.5, 480, 1.0, 1.0 );
     wait 2.75;
-    level.playercardbackground _meth_84a7( 1.8, 370, 0.5, 0.5 );
+    level.player _meth_84a7( 1.8, 370, 0.5, 0.5 );
     wait 4.5;
-    level.playercardbackground _meth_84a7( 1.5, 360, 4.5, 4.5 );
+    level.player _meth_84a7( 1.5, 360, 4.5, 4.5 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 1.8, 370, 4.5, 4.5 );
+    level.player _meth_84a7( 1.8, 370, 4.5, 4.5 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 1.2, 210, 0.7, 0.7 );
+    level.player _meth_84a7( 1.2, 210, 0.7, 0.7 );
     wait 3.5;
-    level.playercardbackground _meth_84a7( 2.0, 1500, 2.0, 2.0 );
+    level.player _meth_84a7( 2.0, 1500, 2.0, 2.0 );
     wait 3.5;
-    level.playercardbackground _meth_84a7( 2.0, 1600, 2.0, 2.0 );
+    level.player _meth_84a7( 2.0, 1600, 2.0, 2.0 );
     wait 1.0;
     thread maps\_utility::_id_5689( 1.35, 47 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 1.5, 180, 4.0, 4.0 );
+    level.player _meth_84a7( 1.5, 180, 4.0, 4.0 );
     wait 2.65;
-    level.playercardbackground _meth_84a7( 4.0, 23, 0.7, 0.7 );
+    level.player _meth_84a7( 4.0, 23, 0.7, 0.7 );
     thread maps\_utility::_id_5689( 2.0, 55 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 12.5, 205, 2.0, 2.0 );
+    level.player _meth_84a7( 12.5, 205, 2.0, 2.0 );
     wait 1.5;
     setsaveddvar( "r_mbEnable", 0 );
     common_scripts\utility::_id_384A( "all_end_scene_guys_dead" );
-    level.playercardbackground _meth_84a7( 4.5, 500, 0.3, 0.3 );
+    level.player _meth_84a7( 4.5, 500, 0.3, 0.3 );
     setsaveddvar( "r_mbEnable", 2 );
     wait 17.0;
-    level.playercardbackground _meth_84a7( 4.0, 250, 0.8, 0.8 );
+    level.player _meth_84a7( 4.0, 250, 0.8, 0.8 );
     common_scripts\utility::_id_384A( "kamarov_runs" );
     h1_endingrescuehidenames();
     wait 0.5;
-    level.playercardbackground _meth_84a7( 3.5, 24, 0.2, 0.2 );
+    level.player _meth_84a7( 3.5, 24, 0.2, 0.2 );
     wait 4.0;
-    level.playercardbackground _meth_84a7( 4.5, 13, 1.0, 1.0 );
+    level.player _meth_84a7( 4.5, 13, 1.0, 1.0 );
     wait 3.5;
-    level.playercardbackground _meth_84a7( 4.5, 50, 2.5, 2.5 );
+    level.player _meth_84a7( 4.5, 50, 2.5, 2.5 );
     wait 2.5;
-    level.playercardbackground _meth_84a7( 4.5, 60, 2.0, 2.0 );
+    level.player _meth_84a7( 4.5, 60, 2.0, 2.0 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 3.0, 600, 2.0, 2.0 );
+    level.player _meth_84a7( 3.0, 600, 2.0, 2.0 );
     wait 1.5;
-    level.playercardbackground _meth_84a7( 4.5, 40, 2.0, 2.0 );
+    level.player _meth_84a7( 4.5, 40, 2.0, 2.0 );
     wait 2.0;
     thread maps\_utility::_id_5689( 2.0, 70 );
     wait 3.5;
     thread maps\_utility::_id_5689( 2.5, 65 );
     wait 2.0;
-    level.playercardbackground _meth_84a7( 3.0, 135, 1.2, 1.2 );
+    level.player _meth_84a7( 3.0, 135, 1.2, 1.2 );
     wait 10.0;
-    level.playercardbackground _meth_84a7( 3.5, 70, 1.0, 1.0 );
+    level.player _meth_84a7( 3.5, 70, 1.0, 1.0 );
     wait 3.0;
-    level.playercardbackground _meth_84a7( 2.5, 300, 1.0, 1.0 );
+    level.player _meth_84a7( 2.5, 300, 1.0, 1.0 );
     wait 10.0;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -2043,7 +2043,7 @@ h1_endingcutsceneshakesystem( var_0 )
     var_5 = 0.07;
     var_6 = 0.11;
     var_7 = 0.2;
-    var_8 = level.playercardbackground getorigin();
+    var_8 = level.player getorigin();
 
     switch ( var_0 )
     {
@@ -2076,18 +2076,18 @@ h1_endingcutsceneshakesystem( var_0 )
     if ( var_1 == "normal" )
     {
         if ( var_4 != "" )
-            level.playercardbackground playrumbleonentity( var_4 );
+            level.player playrumbleonentity( var_4 );
 
         earthquake( var_2, var_3, var_8, 100 );
         wait(var_3);
 
         if ( var_4 == "tank_rumble" )
-            level.playercardbackground stoprumble( "tank_rumble" );
+            level.player stoprumble( "tank_rumble" );
     }
     else if ( var_1 == "fade" )
     {
         if ( var_4 != "" )
-            level.playercardbackground playrumbleonentity( var_4 );
+            level.player playrumbleonentity( var_4 );
 
         earthquake( var_2 * 0.6, var_3 / 4.0, var_8, 10000 );
         wait(var_3 / 4.0);
@@ -2095,7 +2095,7 @@ h1_endingcutsceneshakesystem( var_0 )
         wait(var_3 / 4.0);
 
         if ( var_4 == "tank_rumble" )
-            level.playercardbackground stoprumble( "tank_rumble" );
+            level.player stoprumble( "tank_rumble" );
 
         earthquake( var_2 * 0.5, var_3 / 4.0, var_8, 10000 );
         wait(var_3 / 4.0);
@@ -2121,7 +2121,7 @@ player_janxed_end_shot( var_0 )
 
     for (;;)
     {
-        while ( !level.playercardbackground isfiring() )
+        while ( !level.player isfiring() )
             wait 0.05;
 
         var_1 = undefined;
@@ -2134,21 +2134,21 @@ player_janxed_end_shot( var_0 )
 
         if ( isdefined( var_1 ) )
         {
-            var_1 kill( var_1 geteye(), level.playercardbackground );
+            var_1 kill( var_1 geteye(), level.player );
             var_0 = common_scripts\utility::_id_0CF6( var_0, var_1 );
         }
 
         if ( !var_0.size )
             break;
 
-        while ( level.playercardbackground isfiring() )
+        while ( level.player isfiring() )
             wait 0.05;
     }
 }
 
 janxed_end_shot( var_0 )
 {
-    return common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), var_0 geteye(), cos( 5 ) );
+    return common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), var_0 geteye(), cos( 5 ) );
 }
 
 arrival_disable()
@@ -2164,11 +2164,11 @@ offset_ent()
 
 h1_rescue_viewclamplerp()
 {
-    level.playercardbackground lerpviewangleclamp( 7, 0, 0, 33, 33, 33, 3 );
+    level.player lerpviewangleclamp( 7, 0, 0, 33, 33, 33, 3 );
     wait 6.5;
-    level.playercardbackground lerpviewangleclamp( 7, 0, 0, 19, 19, 19, 3 );
+    level.player lerpviewangleclamp( 7, 0, 0, 19, 19, 19, 3 );
     wait 6.5;
-    level.playercardbackground lerpviewangleclamp( 7, 0, 0, 5, 5, 5, 5 );
+    level.player lerpviewangleclamp( 7, 0, 0, 5, 5, 5, 5 );
 }
 
 bridge_rescue( var_0 )
@@ -2177,7 +2177,7 @@ bridge_rescue( var_0 )
     setsaveddvar( "hud_showstance", "0" );
     thread h1_rescue_viewclamplerp();
     maps\_utility::_id_27EF( 1, maps\_utility::_id_5689, 8, 65 );
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     common_scripts\utility::_id_383F( "music_rescue" );
     var_1 = getent( "rescue_price_spot", "targetname" );
     var_1 thread maps\_anim::_id_0BC7( level.pricedummy, "jeepride_CPR_price" );
@@ -2238,13 +2238,13 @@ bridge_rescue( var_0 )
 dialog_bbc()
 {
     wait 13;
-    level.playercardbackground maps\_utility::_id_69C4( "jeepride_bbc_missiletest" );
+    level.player maps\_utility::_id_69C4( "jeepride_bbc_missiletest" );
     wait 0.5;
-    level.playercardbackground maps\_utility::_id_69C4( "jeepride_bbc_unprotocols" );
+    level.player maps\_utility::_id_69C4( "jeepride_bbc_unprotocols" );
     wait 0.5;
-    level.playercardbackground maps\_utility::_id_69C4( "jeepride_bbc_rumors" );
+    level.player maps\_utility::_id_69C4( "jeepride_bbc_rumors" );
     wait 1;
-    level.playercardbackground maps\_utility::_id_69C4( "jeepride_bbc_calledoff" );
+    level.player maps\_utility::_id_69C4( "jeepride_bbc_calledoff" );
 }
 
 set_rescue_guy_pos()
@@ -2276,7 +2276,7 @@ stand_up()
 movenlink( var_0, var_1 )
 {
     lerp_player_view_to_position_oldstyle_loc( var_1 gettagorigin( "tag_player" ), var_1 gettagangles( "tag_camera" ), 0.9, 1, 0, 0, 0, 0 );
-    level.playercardbackground playerlinktodelta( var_1, "tag_player", 1, 5, 5, 5, 5 );
+    level.player playerlinktodelta( var_1, "tag_player", 1, 5, 5, 5, 5 );
 }
 
 movenlinkh1( var_0, var_1 )
@@ -2287,17 +2287,17 @@ movenlinkh1( var_0, var_1 )
 lerp_player_view_to_position_oldstyle_loc( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     var_9 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-    var_9.origin = level.playercardbackground maps\_utility::_id_3E24();
-    var_9.angles = level.playercardbackground getplayerangles();
+    var_9.origin = level.player maps\_utility::_id_3E24();
+    var_9.angles = level.player getplayerangles();
 
     if ( isdefined( var_8 ) )
-        level.playercardbackground playerlinktodelta( var_9, "", var_3, var_4, var_5, var_6, var_7, var_8 );
+        level.player playerlinktodelta( var_9, "", var_3, var_4, var_5, var_6, var_7, var_8 );
     else if ( isdefined( var_4 ) )
-        level.playercardbackground playerlinktodelta( var_9, "", var_3, var_4, var_5, var_6, var_7 );
+        level.player playerlinktodelta( var_9, "", var_3, var_4, var_5, var_6, var_7 );
     else if ( isdefined( var_3 ) )
-        level.playercardbackground playerlinktodelta( var_9, "", var_3 );
+        level.player playerlinktodelta( var_9, "", var_3 );
     else
-        level.playercardbackground playerlinktodelta( var_9 );
+        level.player playerlinktodelta( var_9 );
 
     var_9 moveto( var_0, var_2, var_2 * 0.25, var_2 * 0.25 );
     var_9 rotateto( var_1, var_2, var_2 * 0.25, var_2 * 0.25 );
@@ -2365,15 +2365,15 @@ h1_blinkblursystem( var_0, var_1, var_2 )
 h1_onefade( var_0, var_1, var_2, var_3 )
 {
     var_4 = newhudelem();
-    var_4.xpmaxmultipliertimeplayed = 0;
-    var_4._id_0538 = 0;
+    var_4.x = 0;
+    var_4.y = 0;
     var_4 setshader( "black", 640, 480 );
     var_4.alignx = "left";
     var_4.aligny = "top";
-    var_4.hostquits = "fullscreen";
-    var_4.visionsetnight = "fullscreen";
+    var_4.horzalign = "fullscreen";
+    var_4.vertalign = "fullscreen";
     var_4.alpha = 0;
-    var_4.space = 1;
+    var_4.sort = 1;
     var_4.foreground = 1;
     var_4 fadeovertime( var_0 );
     var_4.alpha = var_3;
@@ -2398,7 +2398,7 @@ earthquaker_small()
 
     for (;;)
     {
-        earthquake( var_0, randomfloatrange( 0.8, 1.0 ), level.playercardbackground.origin, 150 );
+        earthquake( var_0, randomfloatrange( 0.8, 1.0 ), level.player.origin, 150 );
         wait(randomfloatrange( 0.2, 0.4 ));
     }
 }
@@ -2425,7 +2425,7 @@ dof_focuser_tag( var_0, var_1, var_2, var_3, var_4 )
 
     for (;;)
     {
-        var_5 = distance( level.playercardbackground geteye(), var_0 gettagorigin( var_2 ) );
+        var_5 = distance( level.player geteye(), var_0 gettagorigin( var_2 ) );
         var_6 = 0;
         var_7 = var_5 - var_1;
 
@@ -2436,19 +2436,19 @@ dof_focuser_tag( var_0, var_1, var_2, var_3, var_4 )
         var_9 = var_8 + 35000;
         var_3 = 4;
         var_4 = 4;
-        level.playercardbackground setdepthoffield( var_6, var_7, var_8, var_9, var_3, var_4 );
+        level.player setdepthoffield( var_6, var_7, var_8, var_9, var_3, var_4 );
         wait 0.05;
     }
 }
 
 medic_focus( var_0 )
 {
-    var_1 = spawn( "script_model", level.playercardbackground.origin );
+    var_1 = spawn( "script_model", level.player.origin );
     var_1 setmodel( "tag_origin" );
 
     for (;;)
     {
-        var_1.angles = level.playercardbackground getplayerangles();
+        var_1.angles = level.player getplayerangles();
         var_2 = vectortoangles( vectornormalize( level.pricedummy.origin - var_1.origin ) );
         var_0 linkto( var_1 );
         var_0 rotateto( var_2, 0.05, 0, 0 );
@@ -2469,7 +2469,7 @@ player_takes_shots()
 
 shot_counter( var_0 )
 {
-    var_1 = common_scripts\utility::_id_A347( self gettagorigin( "tag_flash" ), self gettagangles( "tag_flash" ), level.playercardbackground geteye(), cos( 10 ) );
+    var_1 = common_scripts\utility::_id_A347( self gettagorigin( "tag_flash" ), self gettagangles( "tag_flash" ), level.player geteye(), cos( 10 ) );
 
     if ( !var_1 )
     {
@@ -2494,21 +2494,21 @@ shot_counter( var_0 )
         var_2 = 1;
 
     if ( var_2 )
-        level.playercardbackground enablehealthshield( 0 );
+        level.player enablehealthshield( 0 );
 
-    self _meth_81ea( 1, level.playercardbackground geteye() );
+    self _meth_81ea( 1, level.player geteye() );
 }
 
 bridge_zak_friendly_attack_heli()
 {
     level.hind thread maps\_vehicle::_id_9D17( getent( "hind_roll_in", "script_noteworthy" ) );
-    level.hind setlookatent( level.playercardbackground );
+    level.hind setlookatent( level.player );
     var_0 = maps\_vehicle::_id_23DE( 71 );
     level.attack_heli = undefined;
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( var_0[var_1].visionsetnaked == "mi28" )
+        if ( var_0[var_1].vehicletype == "mi28" )
         {
             level.attack_heli = var_0[var_1];
             break;
@@ -2561,7 +2561,7 @@ fake_missile( var_0 )
 bridge_zak_guys_dead( var_0 )
 {
     maps\_utility::_id_A07F( var_0 );
-    level.playercardbackground playsound( "scn_jeepride_last_gunshot" );
+    level.player playsound( "scn_jeepride_last_gunshot" );
     common_scripts\utility::_id_383F( "all_end_scene_guys_dead" );
 }
 
@@ -2597,7 +2597,7 @@ bridge_zak_slomo_script_timed()
     maps\_utility::_id_8644( 8.75 );
     maps\_utility::_id_27EF( 3, maps\_utility::_id_8641 );
     wait 5;
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     common_scripts\utility::_id_383F( "objective_finishedthelevel" );
     maps\_utility::_id_7F00( "jeepride", 10 );
     maps\_utility::_id_863E();
@@ -2616,7 +2616,7 @@ bridge_zak_slomo_script_timed_chaplincheat()
     common_scripts\utility::_id_383F( "rescue_choppers" );
     common_scripts\utility::_id_383F( "music_lastman" );
     wait 5;
-    level.playercardbackground disableweapons();
+    level.player disableweapons();
     common_scripts\utility::_id_383F( "objective_finishedthelevel" );
 }
 
@@ -2625,12 +2625,12 @@ fakeout_donotetracks_animscripts()
     self.a = spawnstruct();
     self.a._id_55D7 = gettime();
     self.a._id_18B0 = 500;
-    self.weapon_switch_invalid = "colt45";
+    self.weapon = "colt45";
     self.primaryweapon = "colt45";
     self.secondaryweapon = "colt45";
     self.a.issniper = 0;
     self.a._id_5CE3 = 0;
-    self.weapon_switch_invalid = "none";
+    self.weapon = "none";
 }
 
 shoot_loc( var_0 )
@@ -2678,9 +2678,9 @@ hind_shoots_the_tanker( var_0 )
     thread earthquaker( 10 );
 
     if ( !maps\jeepride_code::player_in_blastradius() )
-        level.playercardbackground enableinvulnerability();
+        level.player enableinvulnerability();
 
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_last_hind_flyby_stinger" );
+    level.player thread maps\_utility::_id_69C4( "scn_last_hind_flyby_stinger" );
     level.hind thread maps\jeepride_code::shootenemytarget( var_1 );
     level waittill( "bridge_blower" );
 
@@ -2689,7 +2689,7 @@ hind_shoots_the_tanker( var_0 )
 
     soundscripts\_snd::_id_870C( "start_hind_shoots_the_tanker_mix" );
     musicstop( 3.5 );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     level.hind notify( "stop_killing_theplayer" );
     level.hind notify( "gunner_new_target" );
     thread rumbler();
@@ -2704,7 +2704,7 @@ rumbler()
 
     for ( var_1 = 0; var_1 < var_0; var_1++ )
     {
-        level.playercardbackground playrumbleonentity( "tank_rumble" );
+        level.player playrumbleonentity( "tank_rumble" );
         wait(randomfloatrange( 0.2, 0.5 ));
     }
 }
@@ -2713,7 +2713,7 @@ earthquaker( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0; var_1++ )
     {
-        earthquake( 0.2, randomfloatrange( 1, 1.5 ), level.playercardbackground.origin, 50 );
+        earthquake( 0.2, randomfloatrange( 1, 1.5 ), level.player.origin, 50 );
         wait(randomfloatrange( 1, 1.5 ));
     }
 }
@@ -2723,12 +2723,12 @@ player_trackmissile( var_0, var_1 )
     level endon( "bridge_blower" );
     level waittill( "missile_tracker", var_2 );
     wait 0.5;
-    var_3 = spawn( "script_model", level.playercardbackground.origin );
+    var_3 = spawn( "script_model", level.player.origin );
     var_3 setmodel( "tag_origin" );
-    var_3.angles = level.playercardbackground getplayerangles();
-    level.playercardbackground playerlinktoabsolute( var_3, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground freezecontrols( 1 );
-    var_4 = vectortoangles( vectornormalize( var_1.origin - level.playercardbackground geteye() ) );
+    var_3.angles = level.player getplayerangles();
+    level.player playerlinktoabsolute( var_3, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    level.player freezecontrols( 1 );
+    var_4 = vectortoangles( vectornormalize( var_1.origin - level.player geteye() ) );
     var_5 = 0.5;
     var_3 rotateto( var_4, var_5, 0.2, 0.2 );
     wait(var_5);
@@ -2736,8 +2736,8 @@ player_trackmissile( var_0, var_1 )
 
 overlaysmoke()
 {
-    var_0 = spawn( "script_model", level.playercardbackground geteye() );
-    var_0.origin = level.playercardbackground geteye();
+    var_0 = spawn( "script_model", level.player geteye() );
+    var_0.origin = level.player geteye();
     var_0.angles = ( 0.0, 0.0, 0.0 );
     var_0 setmodel( "axis" );
     var_0 hide();
@@ -2757,10 +2757,10 @@ bridge_save()
 
     level notify( "stop_mantle" );
     maps\_utility::_id_9E6E( "jeepride_end_2", 6 );
-    level.playercardbackground maps\_utility::set_light_set_player( "jeepride_end_2" );
+    level.player maps\_utility::set_light_set_player( "jeepride_end_2" );
     setsaveddvar( "ai_friendlyFireBlockDuration", 250 );
     level._id_6F7C.a._id_2B20 = 0;
-    level._id_6F7C.index = 0;
+    level._id_6F7C.ignoresuppression = 0;
     thread maps\_utility::_id_1143( "bridge_save" );
 
     while ( !common_scripts\utility::_id_382E( "game_saving" ) )
@@ -2772,7 +2772,7 @@ bridge_save()
 bridge_save_check()
 {
     var_0 = getent( "bridge_save", "targetname" );
-    return distance( common_scripts\utility::_id_38C9( level.playercardbackground.origin ), common_scripts\utility::_id_38C9( var_0.origin ) ) < var_0.rank;
+    return distance( common_scripts\utility::_id_38C9( level.player.origin ), common_scripts\utility::_id_38C9( var_0.origin ) ) < var_0.radius;
 }
 
 shock_ondeath_loc()
@@ -2794,7 +2794,7 @@ bridge_rescue_start()
     var_0 = getent( "zak_price_spot", "targetname" );
     var_1 = getent( "zak_griggs_spot", "targetname" );
     var_2 = getent( "zak_player_spot", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     spawn_heros_for_start( var_0.origin, var_1.origin, var_2.origin );
     common_scripts\utility::_id_383F( "end_ride" );
     common_scripts\utility::_id_383F( "bridge_sequence" );
@@ -2830,21 +2830,21 @@ bridge_rescue_start()
     var_7 thread maps\_anim::_id_0C24( var_6, "drag_player" );
     var_7 thread maps\_anim::_id_0C13( var_6, "drag_player", 15 );
     level._id_56D2 = 1;
-    level.playercardbackground setdepthoffield( 0, 100, 3100, 19999, 8, 1.65 );
-    level.playercardbackground allowstand( 1 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowsprint( 0 );
+    level.player setdepthoffield( 0, 100, 3100, 19999, 8, 1.65 );
+    level.player allowstand( 1 );
+    level.player allowprone( 0 );
+    level.player allowsprint( 0 );
     wait 5;
     common_scripts\utility::_id_383F( "rescue_choppers" );
     common_scripts\utility::_id_383F( "music_rescue" );
-    level.playercardbackground playerlinktodelta( var_6, "tag_player", 1, 45, 45, 45, 3 );
+    level.player playerlinktodelta( var_6, "tag_player", 1, 45, 45, 45, 3 );
     bridge_rescue( var_6 );
 }
 
 bm21_unloader()
 {
-    var_0 = getvehiclenode( self.teambalanced, "target" );
-    var_1 = getvehiclenode( var_0.teambalanced, "target" );
+    var_0 = getvehiclenode( self.targetname, "target" );
+    var_1 = getvehiclenode( var_0.targetname, "target" );
     var_1 waittill( "trigger", var_2 );
     var_2 notify( "unload", "passengers" );
     self waittill( "trigger", var_2 );
@@ -2855,15 +2855,15 @@ bm21_unloader()
 
 autosave_now_loc( var_0 )
 {
-    if ( !isalive( level.playercardbackground ) )
+    if ( !isalive( level.player ) )
         return;
 
     if ( level._id_5CDE )
         return;
 
-    level.playercardbackground.attackeraccuracy = 0;
+    level.player.attackeraccuracy = 0;
     thread maps\_utility::_id_114E();
-    level.playercardbackground.attackeraccuracy = 1;
+    level.player.attackeraccuracy = 1;
 }
 
 start_first_hind()
@@ -2898,12 +2898,12 @@ fx_thing()
 
     for (;;)
     {
-        while ( !level.playercardbackground usebuttonpressed() )
+        while ( !level.player usebuttonpressed() )
             wait 0.05;
 
-        playfx( var_0, level.playercardbackground geteye() );
+        playfx( var_0, level.player geteye() );
 
-        while ( level.playercardbackground usebuttonpressed() )
+        while ( level.player usebuttonpressed() )
             wait 0.05;
     }
 }
@@ -2913,8 +2913,8 @@ framer( var_0, var_1 )
     var_2 = spawn( "script_model", var_0 );
     var_2.angles = var_1;
     var_2 setmodel( "tag_origin" );
-    level.playercardbackground unlink();
-    level.playercardbackground playerlinktodelta( var_2, "tag_origin", 1, 5, 5, 5, 5 );
+    level.player unlink();
+    level.player playerlinktodelta( var_2, "tag_origin", 1, 5, 5, 5, 5 );
     return var_2;
 }
 
@@ -2922,7 +2922,7 @@ beam_me_up()
 {
     var_0 = getent( "beam_me_up", "targetname" );
     var_0 hide();
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -2938,19 +2938,19 @@ beam_me_up_to_the_chopper( var_0 )
     var_1 = getent( "beam_me_up", "targetname" );
     var_2 = var_1.beam_me_uppers;
     var_1 show();
-    level.playercardbackground playrumbleonentity( "tank_rumble" );
+    level.player playrumbleonentity( "tank_rumble" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
         var_2[var_3] show();
 
     wait 1;
-    var_1 ghettolinkto( level.playercardbackground );
+    var_1 ghettolinkto( level.player );
 }
 
 ghettolinkto( var_0 )
 {
     self endon( "death" );
-    var_1 = spawn( "script_origin", level.playercardbackground.origin );
+    var_1 = spawn( "script_origin", level.player.origin );
     self linkto( var_1 );
 
     for (;;)
@@ -3051,7 +3051,7 @@ bx_vfx_wind_kill()
 bx_helicopter_death_vfx()
 {
     wait 0.15;
-    earthquake( 0.6, 0.45, level.playercardbackground.origin, 2500 );
+    earthquake( 0.6, 0.45, level.player.origin, 2500 );
     maps\jeepride_code::exploder_loc( 14010 );
     maps\_utility::_id_8E7E( 14020 );
     setblur( 1.6, 0.05 );
@@ -3117,7 +3117,7 @@ impact_sedan_car_vfx()
     var_0 waittill( "trigger", var_1 );
     playfxontag( level._effect["jeep_tire_hit_sedan"], var_1, "tag_headlight_left" );
     wait 0.35;
-    earthquake( 0.5, 0.5, level.playercardbackground.origin, 2500 );
+    earthquake( 0.5, 0.5, level.player.origin, 2500 );
 }
 
 reconnect_bridge_paths()

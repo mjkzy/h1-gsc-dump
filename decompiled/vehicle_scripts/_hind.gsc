@@ -75,7 +75,7 @@ _id_4521()
     {
         if ( !isdefined( self._id_799F ) || !self._id_799F )
         {
-            var_2 = distancesquared( self.origin, level.playercardbackground.origin );
+            var_2 = distancesquared( self.origin, level.player.origin );
 
             if ( var_0 && var_2 > var_1 )
             {
@@ -248,19 +248,19 @@ _id_7DDA()
 {
     var_0 = [];
     var_0["TAG_FastRope_LE"] = spawnstruct();
-    var_0["TAG_FastRope_LE"].motiontrackerenabled = "rope_test";
-    var_0["TAG_FastRope_LE"].tag_aim_animated = "TAG_FastRope_LE";
+    var_0["TAG_FastRope_LE"].model = "rope_test";
+    var_0["TAG_FastRope_LE"].tag = "TAG_FastRope_LE";
     var_0["TAG_FastRope_LE"]._id_4B79 = %bh_rope_idle_le;
     var_0["TAG_FastRope_LE"]._id_2F6D = %bh_rope_drop_le;
     var_0["TAG_FastRope_RI"] = spawnstruct();
-    var_0["TAG_FastRope_RI"].motiontrackerenabled = "rope_test_ri";
-    var_0["TAG_FastRope_RI"].tag_aim_animated = "TAG_FastRope_RI";
+    var_0["TAG_FastRope_RI"].model = "rope_test_ri";
+    var_0["TAG_FastRope_RI"].tag = "TAG_FastRope_RI";
     var_0["TAG_FastRope_RI"]._id_4B79 = %bh_rope_idle_ri;
     var_0["TAG_FastRope_RI"]._id_2F6D = %bh_rope_drop_ri;
     var_1 = getarraykeys( var_0 );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
-        precachemodel( var_0[var_1[var_2]].motiontrackerenabled );
+        precachemodel( var_0[var_1[var_2]].model );
 
     return var_0;
 }

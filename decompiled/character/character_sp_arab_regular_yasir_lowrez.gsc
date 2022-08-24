@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_arab_regular_yasir_h1_lowrez" );
     precachemodel( "head_sp_arab_regular_mowrap_h1_lowrez" );

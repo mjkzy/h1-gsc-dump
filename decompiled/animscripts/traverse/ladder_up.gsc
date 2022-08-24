@@ -22,7 +22,7 @@
 
 main()
 {
-    if ( isdefined( self.unlockpoints ) && self.unlockpoints == "dog" )
+    if ( isdefined( self.type ) && self.type == "dog" )
         return;
 
     animscripts\traverse\shared::_id_2D8D( undefined, %ladder_climbup, %ladder_climboff, "noclip", "crouch", "run" );

@@ -81,9 +81,9 @@ main( var_0 )
         if ( _id_2D05( var_0 ) )
             continue;
 
-        if ( isdefined( anim._id_933B ) && isalive( level.playercardbackground ) )
+        if ( isdefined( anim._id_933B ) && isalive( level.player ) )
         {
-            if ( _id_98A5( var_0, level.playercardbackground ) )
+            if ( _id_98A5( var_0, level.player ) )
                 continue;
         }
 
@@ -146,7 +146,7 @@ end_script( var_0 )
 
 _id_3F3E()
 {
-    if ( self.tactical )
+    if ( self.swimmer )
         return animscripts\swim::_id_404A( self._id_22BA );
 
     var_0 = ( self._id_22BA.angles[0], animscripts\utility::_id_404B( self._id_22BA ), self._id_22BA.angles[2] );
@@ -207,11 +207,11 @@ _id_0E4B( var_0, var_1 )
         if ( _id_5667( var_0, "ambush" ) )
             return;
     }
-    else if ( self.psoffsettime || gettime() >= var_1._id_60C5 )
+    else if ( self.providecoveringfire || gettime() >= var_1._id_60C5 )
     {
         var_2 = "suppress";
 
-        if ( !self.psoffsettime && gettime() - self._id_55FE > 5000 && randomint( 3 ) < 2 )
+        if ( !self.providecoveringfire && gettime() - self._id_55FE > 5000 && randomint( 3 ) < 2 )
             var_2 = "ambush";
         else if ( !animscripts\shoot_behavior::_id_84B6() )
             var_2 = "ambush";
@@ -318,9 +318,9 @@ _id_8FE6( var_0 )
 
         var_4 = _id_50FD() || animscripts\utility::_id_1AF0();
 
-        if ( var_4 && isdefined( anim._id_933B ) && isalive( level.playercardbackground ) )
+        if ( var_4 && isdefined( anim._id_933B ) && isalive( level.player ) )
         {
-            if ( _id_98A5( var_0, level.playercardbackground ) )
+            if ( _id_98A5( var_0, level.player ) )
                 continue;
         }
 
@@ -434,11 +434,11 @@ _id_A25F()
 
 _id_22BE( var_0, var_1 )
 {
-    if ( self._id_18B0 > weaponclipsize( self.weapon_switch_invalid ) * var_1 )
+    if ( self._id_18B0 > weaponclipsize( self.weapon ) * var_1 )
         return 0;
 
     self._id_518C = 1;
-    var_2 = _id_1A09( var_0.rendertotexture, "reload" );
+    var_2 = _id_1A09( var_0.reload, "reload" );
     self._id_518C = 0;
     return var_2;
 }
@@ -464,7 +464,7 @@ _id_5860( var_0 )
         return _id_585E( var_0 );
     else
     {
-        var_1 = _id_1A09( var_0.lookaheaddist, "look", 2 + randomfloat( 2 ) );
+        var_1 = _id_1A09( var_0.look, "look", 2 + randomfloat( 2 ) );
 
         if ( var_1 )
             return 1;
@@ -480,7 +480,7 @@ _id_585E( var_0 )
     if ( var_1 )
         return 1;
 
-    return _id_1A09( var_0.lookaheaddist, "look", 0 );
+    return _id_1A09( var_0.look, "look", 0 );
 }
 
 _id_4B63( var_0, var_1 )
@@ -638,7 +638,7 @@ _id_32B0()
 
     if ( isplayer( self.enemy ) )
     {
-        if ( isdefined( self.enemy.helmet ) && self.enemy.helmet < self.enemy.maxturnspeed )
+        if ( isdefined( self.enemy.health ) && self.enemy.health < self.enemy.maxhealth )
             return 1;
     }
     else if ( isai( self.enemy ) && self.enemy animscripts\utility::_id_51C3() )
@@ -778,9 +778,9 @@ _id_7ECD()
 
 _id_993F( var_0 )
 {
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
     {
-        var_1 = self.node_relinquished;
+        var_1 = self.node;
         var_2 = abs( angleclamp180( self.angles[1] - var_1.angles[1] + var_0 ) );
 
         if ( self.a._id_6E5A == "stand" && var_1 gethighestnodestance() != "stand" )
@@ -816,7 +816,7 @@ _id_993F( var_0 )
 
         if ( abs( var_7 ) > 45 )
         {
-            if ( self.tactical )
+            if ( self.swimmer )
                 _id_7ECD();
             else if ( self.a._id_6E5A == "stand" )
             {
@@ -864,24 +864,24 @@ _id_5F93()
         return 0;
     }
 
-    if ( !isdefined( self.node_relinquished ) )
+    if ( !isdefined( self.node ) )
         return 0;
 
-    if ( animscripts\utility::_id_515A( self.node_relinquished ) )
+    if ( animscripts\utility::_id_515A( self.node ) )
         return 0;
 
     if ( randomint( 3 ) == 0 )
         return 0;
 
-    if ( self.fixednode || self.doingambush || self.key1 || self.key2 )
+    if ( self.fixednode || self.doingambush || self.keepclaimednode || self.keepclaimednodeifvalid )
         return 0;
 
-    if ( distancesquared( self.origin, self.node_relinquished.origin ) > 256 )
+    if ( distancesquared( self.origin, self.node.origin ) > 256 )
         return 0;
 
     var_0 = self _meth_81ee();
 
-    if ( isdefined( var_0 ) && var_0 != self.node_relinquished && self _meth_81f3( var_0 ) )
+    if ( isdefined( var_0 ) && var_0 != self.node && self _meth_81f3( var_0 ) )
     {
         self._id_8547 = 1;
         self._id_8549 = var_0;

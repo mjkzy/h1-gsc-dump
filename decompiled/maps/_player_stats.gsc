@@ -146,10 +146,10 @@ _id_72DF( var_0, var_1, var_2, var_3 )
 
     var_4._id_8D77["kills"]++;
     var_4 _id_1B89( "kills", 1 );
-    var_6 = level.playercardbackground getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "kills_total" );
+    var_6 = level.player getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "kills_total" );
 
     if ( isdefined( var_6 ) )
-        level.playercardbackground setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "kills_total", var_6 + 1 );
+        level.player setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "kills_total", var_6 + 1 );
 
     if ( maps\_utility::_id_5083() )
         level notify( "specops_player_kill", var_4, var_0, var_2, var_3 );
@@ -219,7 +219,7 @@ _id_72DF( var_0, var_1, var_2, var_3 )
     if ( var_4 _id_5055( var_2 ) )
         var_4 _id_72E2( var_2 );
 
-    var_4._id_8D77["weapon"][var_2].killstreakrestricted++;
+    var_4._id_8D77["weapon"][var_2].kills++;
     var_4._id_8D77["career_kills_total"]++;
 
     if ( !var_10 )
@@ -353,10 +353,10 @@ _id_1BD7( var_0, var_1 )
 _id_72E2( var_0 )
 {
     self._id_8D77["weapon"][var_0] = spawnstruct();
-    self._id_8D77["weapon"][var_0].nearz = var_0;
+    self._id_8D77["weapon"][var_0].name = var_0;
     self._id_8D77["weapon"][var_0]._id_8446 = 0;
     self._id_8D77["weapon"][var_0]._id_8448 = 0;
-    self._id_8D77["weapon"][var_0].killstreakrestricted = 0;
+    self._id_8D77["weapon"][var_0].kills = 0;
     self._id_8D77["weapon"][var_0].deaths = 0;
 }
 
@@ -394,8 +394,8 @@ _id_7EC5()
             if ( !isdefined( var_3[var_7] ) )
                 break;
 
-            setdvar( "stats_" + var_0 + "_weapon" + ( var_7 + 1 ) + "_name", var_3[var_7].nearz );
-            setdvar( "stats_" + var_0 + "_weapon" + ( var_7 + 1 ) + "_kills", var_3[var_7].killstreakrestricted );
+            setdvar( "stats_" + var_0 + "_weapon" + ( var_7 + 1 ) + "_name", var_3[var_7].name );
+            setdvar( "stats_" + var_0 + "_weapon" + ( var_7 + 1 ) + "_kills", var_3[var_7].kills );
             setdvar( "stats_" + var_0 + "_weapon" + ( var_7 + 1 ) + "_shots", var_3[var_7]._id_8446 );
             setdvar( "stats_" + var_0 + "_weapon" + ( var_7 + 1 ) + "_accuracy", var_3[var_7].accuracy + "%" );
         }
@@ -427,7 +427,7 @@ _id_3EC8( var_0 )
 
         foreach ( var_6 in var_0 )
         {
-            if ( var_3.nearz == var_6.nearz )
+            if ( var_3.name == var_6.name )
             {
                 var_4 = 1;
                 break;
@@ -443,7 +443,7 @@ _id_3EC8( var_0 )
             continue;
         }
 
-        if ( var_3.killstreakrestricted > var_1.killstreakrestricted )
+        if ( var_3.kills > var_1.kills )
             var_1 = var_3;
     }
 

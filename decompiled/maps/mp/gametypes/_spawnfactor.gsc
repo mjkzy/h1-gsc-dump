@@ -227,13 +227,13 @@ _id_11FE( var_0 )
 
 _id_11FD( var_0 )
 {
-    if ( !isdefined( self.laststand ) || !isdefined( self.laststand.origin ) )
+    if ( !isdefined( self.lastattacker ) || !isdefined( self.lastattacker.origin ) )
         return 100;
 
-    if ( !maps\mp\_utility::_id_5189( self.laststand ) )
+    if ( !maps\mp\_utility::_id_5189( self.lastattacker ) )
         return 100;
 
-    var_1 = distancesquared( var_0.origin, self.laststand.origin );
+    var_1 = distancesquared( var_0.origin, self.lastattacker.origin );
 
     if ( var_1 > 4000000 )
         return 100;

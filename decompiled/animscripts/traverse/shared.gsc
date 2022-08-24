@@ -126,9 +126,9 @@ _id_2D86( var_0 )
     self._id_9740 = self.origin[2];
     var_5 = 0;
 
-    if ( isdefined( var_4 ) && isdefined( self.node_relinquished ) && self.node_relinquished.unlockpoints == var_0["coverType"] && distancesquared( self.node_relinquished.origin, var_2.origin ) < 625 )
+    if ( isdefined( var_4 ) && isdefined( self.node ) && self.node.type == var_0["coverType"] && distancesquared( self.node.origin, var_2.origin ) < 625 )
     {
-        if ( animscripts\utility::_id_06C4( self.node_relinquished.angles[1] - var_2.angles[1] ) > 160 )
+        if ( animscripts\utility::_id_06C4( self.node.angles[1] - var_2.angles[1] ) > 160 )
         {
             var_5 = 1;
             var_3 = var_4;
@@ -169,10 +169,10 @@ _id_2D86( var_0 )
 
     self.a._id_612E = 0;
 
-    if ( var_5 && isdefined( self.node_relinquished ) && distancesquared( self.origin, self.node_relinquished.origin ) < 256 )
+    if ( var_5 && isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 256 )
     {
         self.a._id_5F5B = "stop";
-        self _meth_81c9( self.node_relinquished.origin );
+        self _meth_81c9( self.node.origin );
     }
     else if ( isdefined( var_0["traverseStopsAtEnd"] ) )
         self.a._id_5F5B = "stop";

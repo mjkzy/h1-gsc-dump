@@ -215,7 +215,7 @@ _id_1735()
                     {
                         var_1 = spawnstruct();
                         var_1.origin = var_0.curorigin;
-                        var_1.tag_aim_animated = var_0;
+                        var_1.tag = var_0;
                         var_2[0] = var_1;
                         self._id_9107 = _id_15DD( var_2, self._id_9107 );
                     }
@@ -235,7 +235,7 @@ _id_15DD( var_0, var_1 )
 
         foreach ( var_7 in var_1 )
         {
-            if ( var_4.tag_aim_animated == var_7.tag_aim_animated && maps\mp\bots\_bots_util::_id_172A( var_4.origin, var_7.origin ) )
+            if ( var_4.tag == var_7.tag && maps\mp\bots\_bots_util::_id_172A( var_4.origin, var_7.origin ) )
             {
                 var_5 = 1;
                 break;
@@ -336,7 +336,7 @@ _id_1617( var_0, var_1, var_2 )
                 {
                     var_9 = spawnstruct();
                     var_9.origin = var_7.curorigin;
-                    var_9.tag_aim_animated = var_7;
+                    var_9.tag = var_7;
                     var_5 = common_scripts\utility::_id_0CDA( var_5, var_9 );
                 }
             }
@@ -379,15 +379,15 @@ _id_1610( var_0, var_1 )
 
         foreach ( var_5 in var_0 )
         {
-            var_6 = _id_3DF7( var_5.tag_aim_animated );
+            var_6 = _id_3DF7( var_5.tag );
 
             if ( !var_1 || var_6 < 2 )
             {
-                var_7 = distancesquared( var_5.tag_aim_animated._id_4411, self.origin );
+                var_7 = distancesquared( var_5.tag._id_4411, self.origin );
 
                 if ( var_7 < var_3 )
                 {
-                    var_2 = var_5.tag_aim_animated;
+                    var_2 = var_5.tag;
                     var_3 = var_7;
                 }
             }
@@ -403,9 +403,9 @@ _id_16CE( var_0 )
 
     foreach ( var_3 in var_0 )
     {
-        if ( var_3.tag_aim_animated maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) && maps\mp\bots\_bots_util::_id_172A( var_3.tag_aim_animated.curorigin, var_3.origin ) )
+        if ( var_3.tag maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) && maps\mp\bots\_bots_util::_id_172A( var_3.tag.curorigin, var_3.origin ) )
         {
-            if ( !_id_15D4( var_3.tag_aim_animated ) && var_3.tag_aim_animated._id_6445 )
+            if ( !_id_15D4( var_3.tag ) && var_3.tag._id_6445 )
                 var_1 = common_scripts\utility::_id_0CDA( var_1, var_3 );
         }
     }

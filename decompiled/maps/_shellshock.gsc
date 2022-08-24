@@ -45,40 +45,40 @@ internalmain( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6 = var_5;
 
-    var_7 = level.playercardbackground getorigin() + ( 0.0, 8.0, 2.0 );
+    var_7 = level.player getorigin() + ( 0.0, 8.0, 2.0 );
     var_8 = 320;
     var_9 = var_1 + randomint( var_2 );
     var_10 = var_3;
-    level.playercardbackground playsound( "weapons_rocket_explosion" );
+    level.player playsound( "weapons_rocket_explosion" );
     wait 0.25;
     radiusdamage( var_7, var_8, var_9, var_10 );
     earthquake( 0.75, 2, var_7, 2250 );
 
-    if ( isalive( level.playercardbackground ) )
+    if ( isalive( level.player ) )
     {
-        level.playercardbackground allowstand( 0 );
-        level.playercardbackground allowcrouch( 0 );
-        level.playercardbackground allowprone( 1 );
+        level.player allowstand( 0 );
+        level.player allowcrouch( 0 );
+        level.player allowprone( 1 );
         wait 0.15;
-        level.playercardbackground viewkick( 127, level.playercardbackground.origin );
-        level.playercardbackground shellshock( var_6, var_0 );
+        level.player viewkick( 127, level.player.origin );
+        level.player shellshock( var_6, var_0 );
 
         if ( !isdefined( var_4 ) )
-            level.playercardbackground thread playerhitable( var_0 );
+            level.player thread playerhitable( var_0 );
 
         wait 1.5;
-        level.playercardbackground allowstand( 1 );
-        level.playercardbackground allowcrouch( 1 );
+        level.player allowstand( 1 );
+        level.player allowcrouch( 1 );
     }
 }
 
 playerhitable( var_0 )
 {
     self._id_83BD = 1;
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self notify( "player is shell shocked" );
     self endon( "player is shell shocked" );
     wait(var_0 - 1);
     self._id_83BD = 0;
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
 }

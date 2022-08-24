@@ -55,8 +55,8 @@ main()
     setdvar( "use_old_meleestruggle", 1 );
     setsaveddvar( "r_specularColorScale", "2.42" );
     var_0 = getent( "real", "targetname" );
-    level.playercardbackground setplayerangles( var_0.angles );
-    level.playercardbackground setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
     setsaveddvar( "compassMaxRange", 2500 );
     precacheitem( "rpg_straight" );
     precacheitem( "cobra_ffar_bog_a_lite" );
@@ -144,7 +144,7 @@ main()
     createthreatbiasgroup( "friendlies_under_unreachable_enemies" );
     createthreatbiasgroup( "player_seeker" );
     createthreatbiasgroup( "player" );
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     setthreatbias( "player", "player_seeker", 15000 );
     maps\_utility::_id_4BB3( "pacifist_lower_level_enemies", "friendlies_flanking_apartment" );
     maps\_utility::_id_4BB3( "pacifist_lower_level_enemies", "allies" );
@@ -409,15 +409,15 @@ player_gets_ambushed()
     var_1 = var_0[0];
     var_2 = var_0[1];
     level._id_1ADC = 0;
-    level.playercardbackground endon( "death" );
-    var_1 settargetentity( level.playercardbackground );
-    var_2 settargetentity( level.playercardbackground );
+    level.player endon( "death" );
+    var_1 settargetentity( level.player );
+    var_2 settargetentity( level.player );
     var_1 thread maps\bog_a_code::manual_mg_fire();
     wait 0.15;
     var_2 thread maps\bog_a_code::manual_mg_fire();
     wait 1.0;
-    level.playercardbackground enablehealthshield( 0 );
-    level.playercardbackground kill();
+    level.player enablehealthshield( 0 );
+    level.player kill();
 }
 
 ambush_trigger()
@@ -540,7 +540,7 @@ price_tells_squad_to_flank_right()
         var_3 = 1;
 
         if ( common_scripts\utility::_id_382E( "price_flanks_apartment" ) )
-            var_3 = distance( level.playercardbackground.origin, level._id_6F7C.origin ) > 200;
+            var_3 = distance( level.player.origin, level._id_6F7C.origin ) > 200;
 
         if ( var_3 )
         {
@@ -597,16 +597,16 @@ wait_until_player_gets_close_or_progresses()
 
     level endon( "player_heads_towards_apartment" );
 
-    while ( distance( level.playercardbackground.origin, level._id_6F7C.origin ) > 115 )
+    while ( distance( level.player.origin, level._id_6F7C.origin ) > 115 )
         wait 1;
 }
 
 flanks_apartment()
 {
     maps\_utility::_id_7E38( "c" );
-    self.index = 1;
-    self.ignoretriggers = 0;
-    self.pantssize = 0;
+    self.ignoresuppression = 1;
+    self.ignoreme = 0;
+    self.pacifist = 0;
 
     if ( self getthreatbiasgroup() == "friendlies_flanking_apartment" )
         return;
@@ -686,7 +686,7 @@ additional_guys_chime_in()
 {
     var_0 = spawnstruct();
     var_0._id_44CE = getentarray( "initial_friendly", "targetname" );
-    var_0.info_player_start = 0;
+    var_0.index = 0;
     wait 3.5;
     var_0 maps\bog_a_code::set_talker();
     var_0._id_9133 thread maps\_anim::_id_0C24( var_0._id_9133, "move_it" );
@@ -721,7 +721,7 @@ apartment_second_floor()
     common_scripts\utility::_id_383F( "friendlies_storm_second_floor" );
     level._id_6F7C maps\_utility::_id_7E38( "p" );
     common_scripts\utility::_id_383F( "price_to_minigun" );
-    level._id_6F7C.index = 1;
+    level._id_6F7C.ignoresuppression = 1;
     maps\_utility::_id_4E8A( "b", "p" );
     var_0 = maps\_utility::_id_3D7A( "allies", "p" );
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E60, 1 );
@@ -833,7 +833,7 @@ player_mg_laser_hint()
         return;
 
     var_0 = getent( "laser_hint_ent", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_2 = var_0 maps\bog_a_code::get_laser();
     var_2.origin = var_0.origin;
     var_2.angles = vectortoangles( var_1.origin - var_0.origin );
@@ -922,14 +922,14 @@ javelin_guy_runs_in()
     self._id_2652 = maps\_utility::_id_3EF5( "death" );
     maps\_utility::_id_7EAB( "run" );
     thread maps\_utility::_id_58D7();
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "back" );
+    animscripts\shared::_id_6869( self.weapon, "back" );
     level.javelin_guy = self;
     maps\_utility::_id_5926();
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "weapon_javelin" );
     var_0 linkto( self, "tag_weapon_right", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.javmodel = var_0;
-    var_1 = getent( self._not_team, "targetname" );
+    var_1 = getent( self.target, "targetname" );
     var_1 maps\_anim::_id_0BFF( self, "hangout_arrival" );
     var_1 maps\_anim::_id_0C24( self, "hangout_arrival" );
     var_1 thread maps\_anim::_id_0BE1( self, "hangout_idle", undefined, "stop_looping" );
@@ -938,7 +938,7 @@ javelin_guy_runs_in()
     self _meth_8143();
     var_2 = getnode( "jav_drop", "targetname" );
     var_1.origin = var_2.origin;
-    self.ikweight = 1;
+    self.ignorerandombulletdamage = 1;
     maps\_utility::_id_2AC2();
     var_1 maps\_anim::_id_0BFF( self, "hangout_arrival" );
     var_1 maps\_anim::_id_0C24( self, "hangout_arrival" );
@@ -946,9 +946,9 @@ javelin_guy_runs_in()
     common_scripts\utility::_id_383F( "javelin_guy_in_position" );
     common_scripts\utility::_id_384A( "right_away_done" );
     var_3 = level.javelin_guy.origin;
-    level.javelin_guy.ignoretriggers = 0;
-    level.javelin_guy.threatsightdelayfalloff = 2342343;
-    level.javelin_guy.helmet = 1;
+    level.javelin_guy.ignoreme = 0;
+    level.javelin_guy.threatbias = 2342343;
+    level.javelin_guy.health = 1;
     level.javelin_guy.allowdeath = 1;
     level.javelin_guy maps\_utility::_id_8EA4();
     level.javelin_guy maps\_utility::_id_07BE( maps\_utility::_id_0694, 16 );
@@ -964,7 +964,7 @@ javelin_guy_runs_in()
     wait 2.0;
     thread common_scripts\utility::_id_69C2( "bog_a_gm1_westisdown", ( 9153.57, 64.5412, 80.0 ), 1 );
     level maps\_utility::_id_27EF( 4.0, common_scripts\utility::_id_383F, "west_is_down_done" );
-    level.playercardbackground.threatsightdelayfalloff = -450;
+    level.player.threatbias = -450;
     wait 2;
     var_4 = spawn( "weapon_javelin", ( 0.0, 0.0, 0.0 ), 1 );
     var_4.origin = var_0.origin;
@@ -1093,9 +1093,9 @@ laundryroom_saw_gunner()
     var_0 thread maps\_utility::_id_58D7();
     var_0 maps\_utility::_id_5926();
     var_0.goalradius = 4;
-    var_0.invisible = 0;
+    var_0.interval = 0;
     var_1 = getent( "friendly_enters_laundrymat", "targetname" );
-    var_2 = getnode( var_1._not_team, "targetname" );
+    var_2 = getnode( var_1.target, "targetname" );
     var_3 = getent( "window_ac_unit", "targetname" );
     var_3 playloopsound( "bog_ac_loop" );
     var_3._id_0C72 = "ac";
@@ -1121,7 +1121,7 @@ laundryroom_saw_gunner()
     var_0._id_4BB7 = undefined;
     maps\_utility::_id_27EF( 0, maps\_utility::_id_1143, "saw_gunner" );
     var_2 maps\_anim::_id_0C18( var_4, "setup" );
-    var_0.invisible = 96;
+    var_0.interval = 96;
     var_0 _meth_81aa( var_0.origin );
     var_0.goalradius = 32;
     var_0 thread saw_gunner_chatter();
@@ -1219,7 +1219,7 @@ right_away_line()
 bridge_wave_spawner_think()
 {
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self._id_2D3B = 1;
     self._id_2AF3 = 1;
 
@@ -1228,7 +1228,7 @@ bridge_wave_spawner_think()
 
     wait 1.2;
     common_scripts\utility::_id_383F( "overpass_guy_attacks!" );
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
     common_scripts\utility::_id_384A( "javelin_guy_in_position" );
     self._id_1300 = 1000;
     self.accuracy = 1000;
@@ -1245,10 +1245,10 @@ friendly_overpass_dialogue_response()
     common_scripts\utility::_id_3831( "aa_alley" );
     var_0 = getaiarray( "allies" );
     var_0 = maps\_utility::_id_735E( var_0 );
-    var_1 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_0 );
+    var_1 = common_scripts\utility::_id_3F33( level.player.origin, var_0 );
     var_1._id_0C72 = "guy_one";
     common_scripts\utility::_id_383F( "contact_on_the_overpado!" );
-    level.playercardbackground.end_nightvision_disable_hint = 1;
+    level.player.end_nightvision_disable_hint = 1;
     maps\_utility::_id_1143( "contact_on_the_overpass" );
     var_1 maps\_anim::_id_0C24( var_1, "contact_overpass" );
 }
@@ -1264,7 +1264,7 @@ defend_the_roof_with_javelin()
     var_2 = gettime();
     level.brieftime = gettime();
     maps\bog_a_code::set_all_ai_ignoreme( 0 );
-    level.playercardbackground.ignoretriggers = 0;
+    level.player.ignoreme = 0;
     thread friendly_overpass_dialogue_response();
     wait 15;
     common_scripts\utility::_id_384A( "jav_guy_ready_for_briefing" );
@@ -1282,7 +1282,7 @@ defend_the_roof_with_javelin()
     common_scripts\utility::_id_0D13( var_3, maps\bog_a_code::take_cover_against_overpass );
     var_3 = maps\_utility::remove_all_animnamed_guys_from_array( var_3 );
     var_3 = maps\_utility::_id_735E( var_3 );
-    var_4 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_3 );
+    var_4 = common_scripts\utility::_id_3F33( level.player.origin, var_3 );
     level.javelin_helper = var_4;
     var_4 thread maps\_utility::_id_58D7();
     var_4 maps\_utility::_id_5926();
@@ -1343,7 +1343,7 @@ flee_overpass()
     self.goalradius = 64;
     self endon( "death" );
     wait(randomfloat( 3.5 ));
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
 }
 
 shanty_opens()
@@ -1380,7 +1380,7 @@ shanty_opens()
     var_8 = getent( "shanty_run_trigger", "targetname" );
     var_8.trigger_num = 1;
     level.shanty_timer = 0;
-    level.playercardbackground.trigger_num = 0;
+    level.player.trigger_num = 0;
     var_8 thread shanty_run_drop_weapon();
     thread radio_heavy_fire_dialogue();
     common_scripts\utility::_id_384A( "shanty_progress" );
@@ -1389,7 +1389,7 @@ shanty_opens()
     common_scripts\utility::_id_0D13( var_9, maps\bog_a_code::magic_rpgs_fire_randomly );
     var_1 = getaiarray( "allies" );
     var_1 = maps\_utility::_id_735E( var_1 );
-    var_10 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_1 );
+    var_10 = common_scripts\utility::_id_3F33( level.player.origin, var_1 );
     var_10._id_0C72 = "generic";
     var_10 thread maps\_anim::_id_0C24( var_10, "other_side" );
     thread this_way_trigger();
@@ -1439,12 +1439,12 @@ run_until_ambush()
 
     for (;;)
     {
-        var_0 = getent( var_0._not_team, "targetname" );
-        self.goalradius = var_0.rank;
+        var_0 = getent( var_0.target, "targetname" );
+        self.goalradius = var_0.radius;
         self _meth_81aa( var_0.origin );
         self waittill( "goal" );
 
-        if ( !isdefined( var_0._not_team ) )
+        if ( !isdefined( var_0.target ) )
             break;
     }
 
@@ -1472,21 +1472,21 @@ run_down_street( var_0 )
     thread maps\_utility::_id_7402();
     thread stop_shield_when_player_runs_street();
     self endon( "death" );
-    self.invisible = 45;
-    self.radarshowenemydirection = 0;
+    self.interval = 45;
+    self.pushable = 0;
     self._id_2D3B = 1;
-    self.ikweight = 1;
+    self.ignorerandombulletdamage = 1;
     self._id_5F65 = self._id_79AC;
     run_until_ambush();
 
     if ( isdefined( var_0 ) )
         wait(var_0);
 
-    self.invisible = 96;
-    self.radarshowenemydirection = 1;
+    self.interval = 96;
+    self.pushable = 1;
     animscripts\init::_id_7DBE();
     self _meth_81ce( "stand", "crouch", "prone" );
-    self.index = 1;
+    self.ignoresuppression = 1;
     var_1 = anglestoforward( self.angles );
     var_2 = maps\_utility::vector_multiply( var_1, 130 );
     var_3 = gettime() + 1000;
@@ -1498,7 +1498,7 @@ run_down_street( var_0 )
     if ( var_4 > 0 )
         wait(var_4);
 
-    self.pantssize = 0;
+    self.pacifist = 0;
     self.goalradius = 4000;
 
     if ( !common_scripts\utility::_id_382E( "friendlies_move_up_the_bridge" ) )
@@ -1508,10 +1508,10 @@ run_down_street( var_0 )
         if ( !isdefined( self.dont_use_goal_volume ) )
             self _meth_81ac( var_5 );
 
-        while ( !isdefined( self.node_relinquished ) )
+        while ( !isdefined( self.node ) )
             wait 0.05;
 
-        self _meth_81a9( self.node_relinquished );
+        self _meth_81a9( self.node );
         self.goalradius = 32;
         self waittill( "goal" );
         self.reached_bridge_flee_spot = 1;
@@ -1525,7 +1525,7 @@ run_down_street( var_0 )
         return;
 
     common_scripts\utility::_id_384A( "friendlies_move_up_the_bridge" );
-    self.pantssize = 0;
+    self.pacifist = 0;
 }
 
 apartment_rubble_helicopter()
@@ -1550,7 +1550,7 @@ price_directs_players_upstairs()
 
     var_0 = getent( "price_sends_you_upstairs_trigger", "targetname" );
     var_0 waittill( "trigger" );
-    level.playercardbackground.end_nightvision_hint = 1;
+    level.player.end_nightvision_hint = 1;
 
     for (;;)
     {
@@ -1601,7 +1601,7 @@ move_in_on_goal( var_0 )
 {
     self endon( "death" );
     wait 10;
-    self.goalradius = var_0.rank;
+    self.goalradius = var_0.radius;
     self.goalheight = 64;
     self _meth_81a9( var_0 );
     var_1 = 300;
@@ -1653,7 +1653,7 @@ shanty_run_drop_weapon()
 
     var_2 = 0;
     var_3 = 0;
-    var_4 = level.playercardbackground getweaponslistprimaries();
+    var_4 = level.player getweaponslistprimaries();
     var_5 = 0;
 
     for ( var_6 = 0; var_6 < var_4.size; var_6++ )
@@ -1662,14 +1662,14 @@ shanty_run_drop_weapon()
         {
             var_3 = 1;
 
-            if ( issubstr( level.playercardbackground getcurrentweapon(), "avelin" ) )
+            if ( issubstr( level.player getcurrentweapon(), "avelin" ) )
             {
                 var_5 = 1;
-                level.playercardbackground disableweapons();
+                level.player disableweapons();
                 wait 1.5;
             }
 
-            level.playercardbackground takeweapon( "javelin" );
+            level.player takeweapon( "javelin" );
             continue;
         }
 
@@ -1680,13 +1680,13 @@ shanty_run_drop_weapon()
     if ( !var_3 )
         return;
 
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
 
     if ( !var_2 )
-        level.playercardbackground giveweapon( "m4_grenadier" );
+        level.player giveweapon( "m4_grenadier" );
 
     if ( var_5 )
-        level.playercardbackground switchtoweapon( "m4_grenadier" );
+        level.player switchtoweapon( "m4_grenadier" );
 }
 
 wait_then_go_to_target()

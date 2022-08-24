@@ -26,7 +26,7 @@ _id_86C4()
     _id_72E6();
     apply_common_globalmix();
     level._id_6015 = 0;
-    level.playercardbackground.radiation_state = "radiation_none";
+    level.player.radiation_state = "radiation_none";
     level._id_065D._id_2162 = [ [ "mute", 0 ], [ "slomo", 0 ], [ "deathsdoor", 0 ], [ "underwater", 0 ], [ "diveboat", 0 ], [ "wpn_int_med", 0 ], [ "bullet_metal_vehicle", 0 ], [ "bullet_whizby_glass", 0 ], [ "finale_handgun", 0 ] ];
     soundsettimescalefactor( "interface", 0 );
     soundsettimescalefactor( "notimescale", 0 );
@@ -73,7 +73,7 @@ _id_4C73()
 
 _id_4CFF()
 {
-    level._id_065D.veh_pathdir._id_8FF2 = [ "vehicle", "wood", "metal" ];
+    level._id_065D.veh_collision._id_8FF2 = [ "vehicle", "wood", "metal" ];
 }
 
 _id_4CBC()
@@ -204,10 +204,10 @@ _id_A35C( var_0 )
 
 _id_A356( var_0 )
 {
-    var_1 = soundscripts\_audio::_id_289E( "wpn_deam160_charge_hi", level.playercardbackground, "oneshot" );
+    var_1 = soundscripts\_audio::_id_289E( "wpn_deam160_charge_hi", level.player, "oneshot" );
     thread _id_A35B();
-    level.playercardbackground thread _id_A35D();
-    level.playercardbackground thread _id_A35A();
+    level.player thread _id_A35D();
+    level.player thread _id_A35A();
     level waittill( "aud_deam160_charge_break" );
 
     if ( isdefined( var_1 ) )
@@ -251,7 +251,7 @@ _id_A35A()
 _id_A35B()
 {
     level endon( "aud_deam160_charge_break" );
-    var_0 = soundscripts\_audio::_id_289E( "wpn_deam160_charge_hi_lp", level.playercardbackground, "loop", "aud_deam160_charge_break" );
+    var_0 = soundscripts\_audio::_id_289E( "wpn_deam160_charge_hi_lp", level.player, "loop", "aud_deam160_charge_break" );
     var_0 scalevolume( 0, 0.05 );
     wait 2;
 
@@ -266,7 +266,7 @@ _id_A357( var_0 )
 
 _id_A358()
 {
-    var_0 = soundscripts\_audio::_id_289E( "wpn_deam160_full_charge_beep_lp", level.playercardbackground, "loop", "aud_deam160_charge_break" );
+    var_0 = soundscripts\_audio::_id_289E( "wpn_deam160_full_charge_beep_lp", level.player, "loop", "aud_deam160_charge_break" );
     level waittill( "aud_deam160_charge_break" );
 }
 
@@ -349,19 +349,19 @@ _id_0FD2( var_0 )
 
 snd_ads_mix()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
 
     for (;;)
     {
-        while ( !level.playercardbackground maps\_utility::_id_50A9() )
+        while ( !level.player maps\_utility::_id_50A9() )
             wait 0.05;
 
-        if ( weaponclass( level.playercardbackground getcurrentweapon() ) == "sniper" )
+        if ( weaponclass( level.player getcurrentweapon() ) == "sniper" )
             soundscripts\_audio_mix_manager::_id_5CF2( "sniper_ads_mix" );
         else
             soundscripts\_audio_mix_manager::_id_5CF2( "ads_mix" );
 
-        while ( level.playercardbackground maps\_utility::_id_50A9() )
+        while ( level.player maps\_utility::_id_50A9() )
             wait 0.05;
 
         soundscripts\_audio_mix_manager::_id_5CF6( "ads_mix" );
@@ -399,7 +399,7 @@ _id_8717( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     while ( isdefined( self._id_0E57._id_601A ) )
     {
-        var_8 = distance( self.origin, level.playercardbackground.origin );
+        var_8 = distance( self.origin, level.player.origin );
 
         if ( var_8 < var_1 )
         {
@@ -682,7 +682,7 @@ _id_1579()
 
     var_0 = self;
 
-    if ( var_0 == level.playercardbackground )
+    if ( var_0 == level.player )
         level._id_065D._id_1572._id_5044 = 1;
 }
 
@@ -700,7 +700,7 @@ _id_1589( var_0 )
 
     var_3 = self;
 
-    if ( var_3 == level.playercardbackground )
+    if ( var_3 == level.player )
     {
         if ( level._id_065D._id_1572._id_5044 == 1 )
         {
@@ -747,7 +747,7 @@ _id_1578()
 {
     var_0 = self;
 
-    if ( level.script_context == "recovery" )
+    if ( level.script == "recovery" )
         soundscripts\_audio::_id_289E( "npc_boost_jump_rec", var_0 );
     else
         soundscripts\_audio::_id_289E( "npc_boost_jump", var_0 );
@@ -757,7 +757,7 @@ _id_1585()
 {
     var_0 = self;
 
-    if ( level.script_context == "recovery" )
+    if ( level.script == "recovery" )
         soundscripts\_audio::_id_289E( "npc_boost_land_med_rec", var_0 );
     else
         soundscripts\_audio::_id_289E( "npc_boost_land_med", var_0 );
@@ -789,7 +789,7 @@ _id_158D( var_0 )
     {
         level._id_0E57._id_1586 = 1;
         thread _id_1588();
-        level.playercardbackground soundscripts\_snd_playsound::_id_8742( "tac_pc_boost_land_assist_jet_lp", var_0, 0.1, 0.2 );
+        level.player soundscripts\_snd_playsound::_id_8742( "tac_pc_boost_land_assist_jet_lp", var_0, 0.1, 0.2 );
         level waittill( var_0 );
         var_2 = getlevelticks();
 
@@ -812,7 +812,7 @@ _id_158E()
 {
     for (;;)
     {
-        var_0 = length( level.playercardbackground getvelocity() );
+        var_0 = length( level.player getvelocity() );
         iprintlnbold( var_0 );
         wait 0.05;
     }
@@ -830,7 +830,7 @@ _id_1588()
     if ( !isdefined( level._id_0E57._id_1583 ) )
         level._id_0E57._id_1583 = 0;
 
-    var_3 = length( level.playercardbackground getvelocity() );
+    var_3 = length( level.player getvelocity() );
 
     if ( var_3 >= var_0 || level._id_0E57._id_1580 == 1 )
     {
@@ -973,8 +973,8 @@ _id_3474()
     if ( !common_scripts\utility::_id_382E( "snd_cloak_is_enabled" ) )
     {
         common_scripts\utility::_id_383F( "snd_cloak_is_enabled" );
-        soundscripts\_audio::_id_289E( "exo_cloak_enable_click", level.playercardbackground );
-        soundscripts\_audio::_id_289E( "exo_cloak_enable", level.playercardbackground );
+        soundscripts\_audio::_id_289E( "exo_cloak_enable_click", level.player );
+        soundscripts\_audio::_id_289E( "exo_cloak_enable", level.player );
         soundscripts\_audio::_id_2892( "exo_cloak_enable_wide", 0.4 );
     }
 
@@ -984,8 +984,8 @@ _id_3474()
 _id_3473()
 {
     common_scripts\utility::_id_3831( "snd_cloak_is_enabled" );
-    soundscripts\_audio::_id_289E( "exo_cloak_enable_click", level.playercardbackground );
-    soundscripts\_audio::_id_289E( "exo_cloak_disable", level.playercardbackground );
+    soundscripts\_audio::_id_289E( "exo_cloak_enable_click", level.player );
+    soundscripts\_audio::_id_289E( "exo_cloak_disable", level.player );
     soundscripts\_audio::_id_2892( "exo_cloak_disable_wide", 0.2 );
     wait 1;
     thread _id_3471();
@@ -1003,7 +1003,7 @@ _id_3470()
         var_2 = level._id_0571._id_1F9D;
 
         if ( var_2 <= 0.26 && var_0 > 0.26 )
-            var_1 = soundscripts\_audio::_id_289E( "exo_cloak_battery_low", level.playercardbackground, "loop", "notify_stop_exo_cloak_battery_low" );
+            var_1 = soundscripts\_audio::_id_289E( "exo_cloak_battery_low", level.player, "loop", "notify_stop_exo_cloak_battery_low" );
         else if ( var_2 >= 0.26 && var_0 < 0.26 )
             level notify( "notify_stop_exo_cloak_battery_low" );
 
@@ -1022,7 +1022,7 @@ _id_3470()
 _id_346F()
 {
     common_scripts\utility::_id_3831( "snd_cloak_is_enabled" );
-    soundscripts\_audio::_id_289E( "exo_cloak_disable", level.playercardbackground );
+    soundscripts\_audio::_id_289E( "exo_cloak_disable", level.player );
     soundscripts\_audio::_id_2892( "exo_cloak_battery_dead", 0.25 );
     wait 3;
     thread _id_3471();
@@ -1071,17 +1071,17 @@ _id_6247()
 
 _id_65E9()
 {
-    level.playercardbackground _meth_850d();
+    level.player _meth_850d();
     _id_86D3( "slomo" );
     soundscripts\_audio_zone_manager::_id_1233( 1 );
-    level.playercardbackground setreverb( "snd_enveffectsprio_level", "sewer", 1, 0.7, 1 );
+    level.player setreverb( "snd_enveffectsprio_level", "sewer", 1, 0.7, 1 );
     soundscripts\_audio_zone_manager::_id_122C( 1 );
     soundscripts\_snd_filters::_id_86DB( "overdrive", 1 );
     soundscripts\_audio_mix_manager::_id_5CF2( "overdrive", 1 );
     soundscripts\_snd_timescale::_id_875A( "overdrive_timescale" );
     soundscripts\_snd_playsound::_id_872B( "overdrive_start", undefined, undefined, 0.25 );
     soundscripts\_snd_playsound::_id_873F( "overdrive_loop", "kill_overdrive_loop", 1, 2 );
-    level.playercardbackground waittill( "death" );
+    level.player waittill( "death" );
     soundscripts\_audio_mix_manager::_id_5CF6( "overdrive", 2.5 );
     level notify( "kill_overdrive_loop" );
 }
@@ -1092,12 +1092,12 @@ _id_65E8()
     level notify( "kill_overdrive_loop" );
     soundscripts\_audio_mix_manager::_id_5CF6( "overdrive", 2 );
     soundscripts\_snd_timescale::_id_875A( "default" );
-    level.playercardbackground deactivatereverb( "snd_enveffectsprio_level", 1 );
+    level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
     soundscripts\_audio_zone_manager::_id_1233( 0 );
     soundscripts\_snd_filters::_id_86DC( 2 );
     soundscripts\_audio_zone_manager::_id_122C( 0 );
     _id_86CD( "slomo" );
-    level.playercardbackground _meth_850e();
+    level.player _meth_850e();
 }
 
 _id_8881()
@@ -1132,27 +1132,27 @@ aud_start_ragtime_warfare()
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "ragtime_warfare_cheat_mix" );
     soundsettimescalefactor( "music", 0 );
-    level.playercardbackground thread common_scripts\utility::_id_6975( "cheat_chaplin_music", undefined, undefined, 2 );
-    level.playercardbackground thread common_scripts\utility::_id_6975( "cheat_chaplin_projector_loop", undefined, undefined, 2 );
+    level.player thread common_scripts\utility::_id_6975( "cheat_chaplin_music", undefined, undefined, 2 );
+    level.player thread common_scripts\utility::_id_6975( "cheat_chaplin_projector_loop", undefined, undefined, 2 );
 }
 
 aud_stop_ragtime_warfare()
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "ragtime_warfare_cheat_mix" );
-    level.playercardbackground common_scripts\utility::_id_8EA1( "cheat_chaplin_music" );
-    level.playercardbackground common_scripts\utility::_id_8EA1( "cheat_chaplin_projector_loop" );
+    level.player common_scripts\utility::_id_8EA1( "cheat_chaplin_music" );
+    level.player common_scripts\utility::_id_8EA1( "cheat_chaplin_projector_loop" );
 }
 
 aud_radiation_shellshock( var_0, var_1 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     soundscripts\_audio_zone_manager::_id_122C( 1 );
 
-    if ( level.playercardbackground.radiation_state != var_0 )
+    if ( level.player.radiation_state != var_0 )
     {
-        level.playercardbackground.radiation_state = var_0;
+        level.player.radiation_state = var_0;
 
-        switch ( level.playercardbackground.radiation_state )
+        switch ( level.player.radiation_state )
         {
             case "radiation_high":
                 start_next_radiation_level( "rad_shellshock_high", "item_geigercounter_high", "breathing_hurt" );
@@ -1176,8 +1176,8 @@ start_next_radiation_level( var_0, var_1, var_2 )
     soundscripts\_snd_filters::_id_86DC( var_3 );
     soundscripts\_snd_filters::_id_86DB( var_0, var_3 );
     stop_shellshock_loop();
-    level.playercardbackground thread common_scripts\utility::_id_6975( var_1 );
-    level.playercardbackground playsound( var_2 );
+    level.player thread common_scripts\utility::_id_6975( var_1 );
+    level.player playsound( var_2 );
 }
 
 stop_radiation_level( var_0, var_1 )
@@ -1188,13 +1188,13 @@ stop_radiation_level( var_0, var_1 )
     wait 1.0;
     soundscripts\_audio_zone_manager::_id_122C( 0 );
     stop_shellshock_loop();
-    level.playercardbackground playsound( var_1 );
+    level.player playsound( var_1 );
 }
 
 stop_shellshock_loop()
 {
-    level.playercardbackground common_scripts\utility::_id_8EA1( "item_geigercounter_high" );
-    level.playercardbackground common_scripts\utility::_id_8EA1( "item_geigercounter_med" );
+    level.player common_scripts\utility::_id_8EA1( "item_geigercounter_high" );
+    level.player common_scripts\utility::_id_8EA1( "item_geigercounter_med" );
 }
 
 _id_351D( var_0, var_1 )
@@ -1244,9 +1244,9 @@ _id_86C0( var_0, var_1, var_2, var_3, var_4 )
     while ( isdefined( self ) )
     {
         if ( var_6 )
-            var_7 = distance( self.origin, level.playercardbackground.origin );
+            var_7 = distance( self.origin, level.player.origin );
         else
-            var_7 = distance2d( self.origin, level.playercardbackground.origin );
+            var_7 = distance2d( self.origin, level.player.origin );
 
         if ( var_7 < var_1 )
         {
@@ -1413,9 +1413,9 @@ _id_878A( var_0 )
         var_1 = var_0;
 
     if ( var_1 )
-        var_2 = distance( self.origin, level.playercardbackground.origin );
+        var_2 = distance( self.origin, level.player.origin );
     else
-        var_2 = distance2d( self.origin, level.playercardbackground.origin );
+        var_2 = distance2d( self.origin, level.player.origin );
 
     return var_2;
 }
@@ -1430,7 +1430,7 @@ _id_8787( var_0, var_1, var_2, var_3 )
     {
         if ( isarray( var_2 ) )
         {
-            var_7 = level.playercardbackground getvelocity();
+            var_7 = level.player getvelocity();
             var_8 = var_5 - var_7;
             var_9 = length( var_8 ) * 0.0568182;
 
@@ -1616,7 +1616,7 @@ _id_8791( var_0 )
     var_13 = var_0._id_351F;
     var_14 = var_0._id_4415;
     var_15 = var_0._id_4416;
-    var_16 = distance( level.playercardbackground.origin, var_1 );
+    var_16 = distance( level.player.origin, var_1 );
 
     if ( isdefined( var_4 ) && var_4 == 1 )
     {
@@ -1660,7 +1660,7 @@ _id_8791( var_0 )
         {
             var_22 = var_16 / var_10;
             var_23 = soundscripts\_audio::_id_289B( var_22, var_11 );
-            earthquake( var_23, var_12, level.playercardbackground.origin, var_10 );
+            earthquake( var_23, var_12, level.player.origin, var_10 );
         }
     }
 
@@ -1692,7 +1692,7 @@ _id_8747( var_0, var_1, var_2 )
 
 start_vehicle_shell_shock( var_0 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     var_1 = 1.0;
     soundscripts\_audio_zone_manager::_id_122C( 1 );
     soundscripts\_snd_filters::_id_86DB( "vehicle_shellshock", 0.5 );
@@ -1736,21 +1736,21 @@ _id_87B9( var_0, var_1, var_2 )
     if ( !isdefined( self.audio._id_6F40 ) )
         self.audio._id_6F40 = 0;
 
-    if ( !isdefined( level._id_065D.veh_pathdir ) )
+    if ( !isdefined( level._id_065D.veh_collision ) )
     {
-        level._id_065D.veh_pathdir = spawnstruct();
+        level._id_065D.veh_collision = spawnstruct();
         _id_4CFF();
-        level._id_065D.veh_pathdir._id_507A = 0;
-        level._id_065D.veh_pathdir._id_7913 = soundscripts\_audio::_id_0F30( 1, var_1["ScrapeEnabled"] );
-        level._id_065D.veh_pathdir._id_7915 = soundscripts\_audio::_id_0F30( 0.5, var_1["ScrapeSeperationTime"] );
-        level._id_065D.veh_pathdir._id_7914 = soundscripts\_audio::_id_0F30( 0.5, var_1["ScrapeFadeOutTime"] );
-        level._id_065D.veh_pathdir._id_7916 = soundscripts\_audio::_id_0F30( 0.05, var_1["ScrapeUpdateRate"] );
+        level._id_065D.veh_collision._id_507A = 0;
+        level._id_065D.veh_collision._id_7913 = soundscripts\_audio::_id_0F30( 1, var_1["ScrapeEnabled"] );
+        level._id_065D.veh_collision._id_7915 = soundscripts\_audio::_id_0F30( 0.5, var_1["ScrapeSeperationTime"] );
+        level._id_065D.veh_collision._id_7914 = soundscripts\_audio::_id_0F30( 0.5, var_1["ScrapeFadeOutTime"] );
+        level._id_065D.veh_collision._id_7916 = soundscripts\_audio::_id_0F30( 0.05, var_1["ScrapeUpdateRate"] );
     }
 
     if ( var_0["surface"] == "none" )
         var_0["surface"] = "vehicle";
 
-    var_3 = level._id_065D.veh_pathdir._id_8FF2;
+    var_3 = level._id_065D.veh_collision._id_8FF2;
 
     if ( isdefined( var_2 ) )
         var_3 = var_2;
@@ -1772,23 +1772,23 @@ _id_87B8( var_0 )
     var_7 = ( var_5[0], var_5[1], 0 );
     var_8 = length( var_7 );
     var_9 = abs( var_5[2] ) * self.audio._id_3669;
-    var_10 = distance( var_3, level.playercardbackground.origin );
+    var_10 = distance( var_3, level.player.origin );
     var_11 = gettime();
     var_12 = var_11 - self.audio._id_6F40;
     var_13 = undefined;
     var_14 = undefined;
     var_15 = 0;
 
-    if ( isdefined( level.playercardbackground._id_2E18 ) )
+    if ( isdefined( level.player._id_2E18 ) )
     {
-        var_13 = level.playercardbackground._id_2E18;
+        var_13 = level.player._id_2E18;
 
         if ( isdefined( var_2 ) && var_2 == var_13 || var_1 == var_13 )
         {
             var_14 = var_13;
             var_15 = 1;
 
-            if ( level._id_065D.veh_pathdir._id_507A )
+            if ( level._id_065D.veh_collision._id_507A )
                 thread _id_87C3();
         }
     }
@@ -1834,18 +1834,18 @@ _id_87B8( var_0 )
 
         if ( var_15 )
         {
-            if ( level._id_065D.veh_pathdir._id_7913 )
+            if ( level._id_065D.veh_collision._id_7913 )
             {
                 if ( var_12 <= self.audio._id_5C89 )
                 {
-                    level._id_065D.veh_pathdir._id_7911 = var_3;
+                    level._id_065D.veh_collision._id_7911 = var_3;
 
-                    if ( !level._id_065D.veh_pathdir._id_507A )
+                    if ( !level._id_065D.veh_collision._id_507A )
                         thread _id_87C2( var_13 );
                     else
                         return;
                 }
-                else if ( level._id_065D.veh_pathdir._id_507A )
+                else if ( level._id_065D.veh_collision._id_507A )
                     _id_87C4();
             }
         }
@@ -1910,29 +1910,29 @@ _id_87BF( var_0, var_1, var_2, var_3 )
 
 _id_87C2( var_0 )
 {
-    level._id_065D.veh_pathdir._id_507A = 1;
+    level._id_065D.veh_collision._id_507A = 1;
     level endon( "aud_stop_vehicle_scraping" );
 
-    while ( level._id_065D.veh_pathdir._id_507A )
+    while ( level._id_065D.veh_collision._id_507A )
     {
         if ( isdefined( var_0 ) )
         {
             var_1 = var_0.origin;
 
-            if ( isdefined( level._id_065D.veh_pathdir._id_7911 ) )
-                var_1 = level._id_065D.veh_pathdir._id_7911;
+            if ( isdefined( level._id_065D.veh_collision._id_7911 ) )
+                var_1 = level._id_065D.veh_collision._id_7911;
 
             var_2 = var_0.audio._id_9D74 + "_scrape";
             var_3 = soundscripts\_audio::_id_289E( var_2, var_0, undefined, undefined, undefined, undefined, var_1 );
 
-            if ( !isdefined( level._id_065D.veh_pathdir._id_7912 ) )
-                level._id_065D.veh_pathdir._id_7912 = [];
+            if ( !isdefined( level._id_065D.veh_collision._id_7912 ) )
+                level._id_065D.veh_collision._id_7912 = [];
 
-            level._id_065D.veh_pathdir._id_7912[level._id_065D.veh_pathdir._id_7912.size] = var_3;
+            level._id_065D.veh_collision._id_7912[level._id_065D.veh_collision._id_7912.size] = var_3;
         }
 
         wait 0.05;
-        wait(level._id_065D.veh_pathdir._id_7915);
+        wait(level._id_065D.veh_collision._id_7915);
     }
 }
 
@@ -1940,33 +1940,33 @@ _id_87C3()
 {
     level notify( "aud_vehicle_collision_scrape_timer_reset" );
     level endon( "aud_vehicle_collision_scrape_timer_reset" );
-    wait(level._id_065D.veh_pathdir._id_7916);
+    wait(level._id_065D.veh_collision._id_7916);
     waitframe;
     _id_87C4();
 }
 
 _id_87C4( var_0 )
 {
-    var_1 = level._id_065D.veh_pathdir._id_7914;
+    var_1 = level._id_065D.veh_collision._id_7914;
 
     if ( isdefined( var_0 ) )
         var_1 = var_0;
 
     level notify( "aud_stop_vehicle_scraping" );
-    level._id_065D.veh_pathdir._id_507A = 0;
+    level._id_065D.veh_collision._id_507A = 0;
 
-    if ( isdefined( level._id_065D.veh_pathdir._id_7912 ) )
+    if ( isdefined( level._id_065D.veh_collision._id_7912 ) )
     {
-        for ( var_2 = 0; var_2 < level._id_065D.veh_pathdir._id_7912.size; var_2++ )
+        for ( var_2 = 0; var_2 < level._id_065D.veh_collision._id_7912.size; var_2++ )
         {
-            if ( isdefined( level._id_065D.veh_pathdir._id_7912[var_2] ) )
+            if ( isdefined( level._id_065D.veh_collision._id_7912[var_2] ) )
             {
-                var_3 = level._id_065D.veh_pathdir._id_7912[var_2];
+                var_3 = level._id_065D.veh_collision._id_7912[var_2];
                 thread soundscripts\_audio::_id_0F1C( var_3, var_1 );
             }
         }
 
-        level._id_065D.veh_pathdir._id_7912 = undefined;
+        level._id_065D.veh_collision._id_7912 = undefined;
     }
 }
 
@@ -2053,10 +2053,10 @@ _id_8703( var_0, var_1 )
 
 _id_86D1( var_0, var_1, var_2, var_3 )
 {
-    level.playercardbackground notifyonplayercommand( "dpad_action_01", "+actionslot 1" );
-    level.playercardbackground notifyonplayercommand( "dpad_action_02", "+actionslot 2" );
-    level.playercardbackground notifyonplayercommand( "dpad_action_03", "+actionslot 3" );
-    level.playercardbackground notifyonplayercommand( "dpad_action_04", "+actionslot 4" );
+    level.player notifyonplayercommand( "dpad_action_01", "+actionslot 1" );
+    level.player notifyonplayercommand( "dpad_action_02", "+actionslot 2" );
+    level.player notifyonplayercommand( "dpad_action_03", "+actionslot 3" );
+    level.player notifyonplayercommand( "dpad_action_04", "+actionslot 4" );
     thread _id_8797( "dpad_action_01", var_0 );
     thread _id_8797( "dpad_action_02", var_1 );
     thread _id_8797( "dpad_action_03", var_2 );
@@ -2069,7 +2069,7 @@ _id_8797( var_0, var_1 )
     {
         for (;;)
         {
-            level.playercardbackground waittill( var_0 );
+            level.player waittill( var_0 );
 
             if ( isdefined( var_1 ) )
                 thread [[ var_1 ]]();
@@ -2089,10 +2089,10 @@ _id_8782( var_0, var_1, var_2 )
     {
         if ( var_1 )
         {
-            if ( distance( self.origin, level.playercardbackground.origin ) < var_0 )
+            if ( distance( self.origin, level.player.origin ) < var_0 )
                 var_3 = 1;
         }
-        else if ( distance2d( self.origin, level.playercardbackground.origin ) < var_0 )
+        else if ( distance2d( self.origin, level.player.origin ) < var_0 )
             var_3 = 1;
 
         wait(var_2);
@@ -2176,7 +2176,7 @@ _id_8781( var_0 )
 
         foreach ( var_3 in var_1 )
         {
-            if ( var_3 _meth_81c2( level.playercardbackground ) )
+            if ( var_3 _meth_81c2( level.player ) )
             {
                 if ( isstring( var_0 ) )
                     level notify( var_0 );
@@ -2196,7 +2196,7 @@ _id_86D7()
 
     foreach ( var_3 in var_1 )
     {
-        if ( var_3 _meth_81c2( level.playercardbackground ) )
+        if ( var_3 _meth_81c2( level.player ) )
         {
             var_0 = 1;
             break;

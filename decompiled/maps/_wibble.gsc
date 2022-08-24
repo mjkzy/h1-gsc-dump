@@ -61,7 +61,7 @@ setup_wibble_helis( var_0, var_1 )
 
                 foreach ( var_5 in level._id_4816 )
                 {
-                    var_6 = distancesquared( level.playercardbackground.origin, var_5.origin );
+                    var_6 = distancesquared( level.player.origin, var_5.origin );
 
                     if ( var_6 <= var_2 )
                     {
@@ -85,9 +85,9 @@ wibble_trigger_think( var_0, var_1, var_2 )
     {
         self waittill( "trigger" );
 
-        if ( self.script_parentname != level.current_wibble_location )
+        if ( self.script_noteworthy != level.current_wibble_location )
         {
-            switch ( self.script_parentname )
+            switch ( self.script_noteworthy )
             {
                 case "exterior":
                     if ( var_2 )
@@ -106,7 +106,7 @@ wibble_trigger_think( var_0, var_1, var_2 )
                     break;
             }
 
-            level.current_wibble_location = self.script_parentname;
+            level.current_wibble_location = self.script_noteworthy;
         }
     }
 }

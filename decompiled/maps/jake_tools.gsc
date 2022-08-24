@@ -22,14 +22,14 @@
 _id_23D0( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
+    var_2.x = 0;
+    var_2.y = 0;
     var_2 setshader( var_0, 640, 480 );
     var_2.alignx = "left";
     var_2.aligny = "top";
-    var_2.space = 1;
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.sort = 1;
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2.alpha = var_1;
     var_2.foreground = 1;
     return var_2;
@@ -40,7 +40,7 @@ _id_4855()
     self hide();
     self notsolid();
 
-    if ( self.specialgrenade & 1 )
+    if ( self.spawnflags & 1 )
         self connectpaths();
 }
 
@@ -65,7 +65,7 @@ _id_486B( var_0 )
                 var_2 hide();
                 var_2 notsolid();
 
-                if ( var_2.specialgrenade & 1 )
+                if ( var_2.spawnflags & 1 )
                     var_2 connectpaths();
 
                 continue;
@@ -106,22 +106,22 @@ _id_3CBD( var_0 )
     var_2 = self;
     var_3 = 0;
 
-    while ( isdefined( var_2._not_team ) )
+    while ( isdefined( var_2.target ) )
     {
         wait 0.05;
 
-        if ( isdefined( var_2._not_team ) )
+        if ( isdefined( var_2.target ) )
         {
             switch ( var_0 )
             {
                 case "vehiclenode":
-                    var_2 = getvehiclenode( var_2._not_team, "targetname" );
+                    var_2 = getvehiclenode( var_2.target, "targetname" );
                     break;
                 case "pathnode":
-                    var_2 = getnode( var_2._not_team, "targetname" );
+                    var_2 = getnode( var_2.target, "targetname" );
                     break;
                 case "ent":
-                    var_2 = getent( var_2._not_team, "targetname" );
+                    var_2 = getent( var_2.target, "targetname" );
                     break;
                 default:
             }
@@ -182,7 +182,7 @@ _id_A0AB( var_0, var_1 )
 {
     for (;;)
     {
-        if ( distance( var_0, level.playercardbackground.origin ) <= var_1 )
+        if ( distance( var_0, level.player.origin ) <= var_1 )
             break;
 
         wait 0.5;
@@ -230,13 +230,13 @@ _id_7E51( var_0, var_1 )
     if ( isdefined( var_0 ) )
         var_1 = getent( var_0, "targetname" );
 
-    var_2 = getnode( var_1._not_team, "targetname" );
+    var_2 = getnode( var_1.target, "targetname" );
     self._id_4254 = var_1;
     self _meth_81a9( var_2 );
     self.goalradius = 0;
 
-    if ( isdefined( var_2.rank ) )
-        self.goalradius = var_2.rank;
+    if ( isdefined( var_2.radius ) )
+        self.goalradius = var_2.radius;
 
     self _meth_81aa( var_1.origin );
     self _meth_81ac( var_1 );
@@ -302,7 +302,7 @@ _id_867F()
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         {
-            if ( var_0[var_1].motiontrackerenabled == "projectile_us_smoke_grenade" )
+            if ( var_0[var_1].model == "projectile_us_smoke_grenade" )
             {
                 if ( var_0[var_1] istouching( self ) )
                 {
@@ -366,7 +366,7 @@ _id_981B( var_0, var_1, var_2 )
 _id_9810( var_0 )
 {
     var_1 = getent( var_0, "targetname" );
-    var_1 notify( "trigger", level.playercardbackground );
+    var_1 notify( "trigger", level.player );
     var_1 common_scripts\utility::_id_97CC();
 }
 
@@ -384,37 +384,37 @@ _id_5852( var_0 )
 _id_7ED7( var_0 )
 {
     if ( !isdefined( self._id_63B8 ) )
-        self._id_63B8 = self.threatsightdelayfalloff;
+        self._id_63B8 = self.threatbias;
 
-    self.threatsightdelayfalloff = var_0;
+    self.threatbias = var_0;
 }
 
 _id_7F05( var_0 )
 {
     if ( !isdefined( self._id_63BF ) )
-        self._id_63BF = self.weapon_change;
+        self._id_63BF = self.walkdist;
 
-    self.weapon_change = var_0;
+    self.walkdist = var_0;
 }
 
 _id_7440()
 {
     if ( isdefined( self._id_63BF ) )
-        self.weapon_change = self._id_63BF;
+        self.walkdist = self._id_63BF;
 
     self._id_63BF = undefined;
 }
 
 _id_7E56( var_0 )
 {
-    self._id_63A5 = self.helmet;
-    self.helmet = var_0;
+    self._id_63A5 = self.health;
+    self.health = var_0;
 }
 
 _id_7430()
 {
     if ( isdefined( self._id_63A5 ) )
-        self.helmet = self._id_63A5;
+        self.health = self._id_63A5;
 }
 
 _id_7DD7( var_0 )
@@ -436,15 +436,15 @@ _id_7422()
 _id_7E72( var_0 )
 {
     if ( !isdefined( self._id_63AD ) )
-        self._id_63AD = self.melee_fired;
+        self._id_63AD = self.maxsightdistsqrd;
 
-    self.melee_fired = var_0;
+    self.maxsightdistsqrd = var_0;
 }
 
 _id_7432()
 {
     if ( isdefined( self._id_63AD ) )
-        self.melee_fired = self._id_63AD;
+        self.maxsightdistsqrd = self._id_63AD;
 
     self._id_63AD = undefined;
 }
@@ -503,15 +503,15 @@ _id_744C()
 _id_7F96( var_0 )
 {
     if ( !isdefined( self._id_63A9 ) )
-        self._id_63A9 = self.invisible;
+        self._id_63A9 = self.interval;
 
-    self.invisible = var_0;
+    self.interval = var_0;
 }
 
 _id_744D()
 {
     if ( isdefined( self._id_63A9 ) )
-        self.invisible = self._id_63A9;
+        self.interval = self._id_63A9;
 
     self._id_63A9 = undefined;
 }
@@ -537,7 +537,7 @@ _id_3CF2( var_0 )
     var_1 = undefined;
 
     if ( !isdefined( var_0 ) )
-        var_2 = level.playercardbackground getorigin();
+        var_2 = level.player getorigin();
     else
         var_2 = var_0 getorigin();
 
@@ -551,7 +551,7 @@ _id_3CF2( var_0 )
 
 _id_3CF3()
 {
-    var_0 = maps\_utility::_id_3CEE( level.playercardbackground getorigin(), "axis" );
+    var_0 = maps\_utility::_id_3CEE( level.player getorigin(), "axis" );
     return var_0;
 }
 
@@ -639,7 +639,7 @@ _id_3F71( var_0, var_1 )
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        if ( isdefined( var_0[var_3].script_parentname ) && var_0[var_3].script_parentname == var_1 )
+        if ( isdefined( var_0[var_3].script_noteworthy ) && var_0[var_3].script_noteworthy == var_1 )
             var_2 = var_0[var_3];
     }
 
@@ -654,7 +654,7 @@ _id_3F72( var_0, var_1 )
     {
         for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         {
-            if ( isdefined( var_0[var_3].script_parentname ) && var_0[var_3].script_parentname == var_1 )
+            if ( isdefined( var_0[var_3].script_noteworthy ) && var_0[var_3].script_noteworthy == var_1 )
                 var_2[var_2.size] = var_0[var_3];
         }
     }
@@ -673,7 +673,7 @@ _id_4284( var_0 )
 {
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    _id_7F7F( var_1.rank );
+    _id_7F7F( var_1.radius );
     self _meth_81a9( var_1 );
     self waittill( "goal" );
     _id_744C();
@@ -690,7 +690,7 @@ _id_4285( var_0 )
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
     self _meth_81a9( var_1 );
-    _id_7F7F( var_1.rank );
+    _id_7F7F( var_1.radius );
     self waittill( "goal" );
     self delete();
 }
@@ -706,7 +706,7 @@ _id_4286( var_0 )
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
     self _meth_81a9( var_1 );
-    _id_7F7F( var_1.rank );
+    _id_7F7F( var_1.radius );
     self waittill( "goal" );
     _id_7DD7( "guy" );
     self waittill( "stop_waiting_at_node" );
@@ -764,10 +764,10 @@ _id_428A( var_0 )
 {
     self endon( "death" );
     var_1 = getent( var_0, "targetname" );
-    var_2 = getnode( var_1._not_team, "targetname" );
+    var_2 = getnode( var_1.target, "targetname" );
     self _meth_81a9( var_2 );
     self _meth_81ac( var_1 );
-    self.goalradius = var_2.rank;
+    self.goalradius = var_2.radius;
 }
 
 _id_06B0()
@@ -803,10 +803,10 @@ _id_2D4C( var_0, var_1, var_2 )
         self playsound( level._id_78BA["snd_wood_door_kick"] );
 
     if ( self.classname == "script_brushmodel" )
-        var_3 = getent( self._not_team, "targetname" );
+        var_3 = getent( self.target, "targetname" );
     else
     {
-        var_4 = getent( self._not_team, "targetname" );
+        var_4 = getent( self.target, "targetname" );
         var_3 = getent( var_4._id_7A26, "script_linkname" );
     }
 
@@ -843,7 +843,7 @@ _id_2D44( var_0 )
         self connectpaths();
     else
     {
-        var_1 = getent( self._not_team, "targetname" );
+        var_1 = getent( self.target, "targetname" );
         var_1 hide();
         var_1 notsolid();
         var_1 connectpaths();

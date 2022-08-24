@@ -337,8 +337,8 @@ _id_7F62()
     if ( isdefined( self._id_315F ) )
         return;
 
-    self.maxturnspeed = maps\mp\gametypes\_tweakables::_id_4142( "player", "maxhealth" ) * 4;
-    self.helmet = self.maxturnspeed;
+    self.maxhealth = maps\mp\gametypes\_tweakables::_id_4142( "player", "maxhealth" ) * 4;
+    self.health = self.maxhealth;
     self._id_315F = 1;
     self._id_0E36[0] = "";
     self visionsetnakedforplayer( "end_game", 5 );
@@ -788,7 +788,7 @@ _id_7F97( var_0, var_1, var_2 )
         self._id_52AF maps\mp\gametypes\_hud_util::_id_7FDC( self._id_52B0 );
         self._id_52AF maps\mp\gametypes\_hud_util::_id_7FEE( "BOTTOM", "TOP" );
         self._id_52AF.archived = 1;
-        self._id_52AF.space = 1;
+        self._id_52AF.sort = 1;
         self._id_52AF.foreground = 1;
         self._id_52AF fadeovertime( 1.0 );
         self._id_52AF.alpha = 0.85;

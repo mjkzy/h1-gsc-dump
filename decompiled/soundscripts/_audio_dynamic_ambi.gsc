@@ -31,9 +31,9 @@ _id_25B6()
         level._id_055B._id_25B3._id_858B = 0;
         level._id_055B._id_25B3._id_6499 = 0;
         level._id_055B._id_25B3._id_7D9D = 1;
-        level._id_055B._id_25B3.positioninworld = [];
-        level._id_055B._id_25B3.positioninworld["zone"] = [];
-        level._id_055B._id_25B3.positioninworld["free"] = [];
+        level._id_055B._id_25B3.playing = [];
+        level._id_055B._id_25B3.playing["zone"] = [];
+        level._id_055B._id_25B3.playing["free"] = [];
         level._id_055B._id_25B3._id_20D6 = [];
         level._id_055B._id_25B3._id_1A04 = [];
         level._id_055B._id_25B3._id_6F1F = [];
@@ -88,9 +88,9 @@ _id_25C4( var_0, var_1, var_2 )
 _id_25B8( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnstruct();
-    var_5.nearz = var_0;
+    var_5.name = var_0;
     var_5._id_6E19 = var_1;
-    var_5.land = var_2;
+    var_5.label = var_2;
     var_5._id_5C22 = var_3;
     var_5._id_59FC = var_4;
     return var_5;
@@ -112,7 +112,7 @@ _id_25DD( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     for (;;)
     {
-        var_8 = distance( level.playercardbackground.origin, var_1 );
+        var_8 = distance( level.player.origin, var_1 );
 
         if ( var_8 < var_3 )
         {
@@ -160,13 +160,13 @@ _id_25C2( var_0, var_1 )
 
     if ( var_3 == "free" || var_3 == "all" )
     {
-        foreach ( var_6, var_5 in level._id_055B._id_25B3.positioninworld["free"] )
+        foreach ( var_6, var_5 in level._id_055B._id_25B3.playing["free"] )
             _id_25C3( var_6, var_2 );
     }
 
     if ( var_3 == "zone" || var_3 == "all" )
     {
-        foreach ( var_6, var_5 in level._id_055B._id_25B3.positioninworld["zone"] )
+        foreach ( var_6, var_5 in level._id_055B._id_25B3.playing["zone"] )
             _id_25C9( var_6, var_2 );
     }
 }
@@ -241,8 +241,8 @@ _id_25BA( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_2 = var_1;
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_2][var_0] ) )
-        level._id_055B._id_25B3.positioninworld[var_2][var_0]["paused"] = 1;
+    if ( isdefined( level._id_055B._id_25B3.playing[var_2][var_0] ) )
+        level._id_055B._id_25B3.playing[var_2][var_0]["paused"] = 1;
 }
 
 _id_25C6( var_0, var_1 )
@@ -252,9 +252,9 @@ _id_25C6( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_2 = var_1;
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_2][var_0] ) )
+    if ( isdefined( level._id_055B._id_25B3.playing[var_2][var_0] ) )
     {
-        level._id_055B._id_25B3.positioninworld[var_2][var_0]["paused"] = 0;
+        level._id_055B._id_25B3.playing[var_2][var_0]["paused"] = 0;
         level notify( var_2 + "_" + var_0 + "_event" );
     }
 }
@@ -266,7 +266,7 @@ _id_25B9( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_2 = var_1;
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_2][var_0] ) )
+    if ( isdefined( level._id_055B._id_25B3.playing[var_2][var_0] ) )
         level notify( var_2 + "_" + var_0 + "_event" );
 }
 
@@ -274,19 +274,19 @@ _id_25B7( var_0, var_1, var_2, var_3 )
 {
     var_4 = "free";
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_4][var_0] ) && isdefined( level._id_055B._id_25B3.positioninworld[var_4][var_1] ) )
+    if ( isdefined( level._id_055B._id_25B3.playing[var_4][var_0] ) && isdefined( level._id_055B._id_25B3.playing[var_4][var_1] ) )
     {
         var_2 = min( var_2, var_3 );
         var_3 = max( var_2, var_3 );
 
-        if ( !isdefined( level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"] ) )
-            level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"] = [];
+        if ( !isdefined( level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"] ) )
+            level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"] = [];
 
-        var_5 = level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"].size;
-        level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"][var_5] = spawnstruct();
-        level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"][var_5].nearz = var_1;
-        level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"][var_5]._id_5C22 = max( var_2, 0 );
-        level._id_055B._id_25B3.positioninworld[var_4][var_0]["linked_dambs"][var_5]._id_59FC = max( var_3, 0 );
+        var_5 = level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"].size;
+        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5] = spawnstruct();
+        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5].name = var_1;
+        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5]._id_5C22 = max( var_2, 0 );
+        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5]._id_59FC = max( var_3, 0 );
     }
 }
 
@@ -302,30 +302,30 @@ _id_25E7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     if ( isstring( var_2 ) )
         var_9 = var_2;
 
-    if ( !isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_9] ) )
+    if ( !isdefined( level._id_055B._id_25B3.playing[var_0][var_9] ) )
     {
         var_10 = _id_25D4( var_1 );
 
         if ( !isdefined( var_10 ) )
             return;
 
-        level._id_055B._id_25B3.positioninworld[var_0][var_9] = var_10;
-        level._id_055B._id_25B3.positioninworld[var_0][var_9]["prob_scale"] = var_8;
-        level._id_055B._id_25B3.positioninworld[var_0][var_9]["paused"] = 0;
+        level._id_055B._id_25B3.playing[var_0][var_9] = var_10;
+        level._id_055B._id_25B3.playing[var_0][var_9]["prob_scale"] = var_8;
+        level._id_055B._id_25B3.playing[var_0][var_9]["paused"] = 0;
 
         if ( isdefined( var_7 ) )
             _id_25E6( var_9, var_7 );
 
         if ( isdefined( var_5 ) )
         {
-            level._id_055B._id_25B3.positioninworld[var_0][var_9]["entity"] = var_5;
-            level._id_055B._id_25B3.positioninworld[var_0][var_9]["mode"] = var_6;
+            level._id_055B._id_25B3.playing[var_0][var_9]["entity"] = var_5;
+            level._id_055B._id_25B3.playing[var_0][var_9]["mode"] = var_6;
         }
 
         thread _id_25E4( var_0, var_9, var_4 );
     }
-    else if ( level._id_055B._id_25B3.positioninworld[var_0][var_9]["prob_scale"] != var_8 )
-        level._id_055B._id_25B3.positioninworld[var_0][var_9]["prob_scale"] = var_8;
+    else if ( level._id_055B._id_25B3.playing[var_0][var_9]["prob_scale"] != var_8 )
+        level._id_055B._id_25B3.playing[var_0][var_9]["prob_scale"] = var_8;
 }
 
 _id_25E6( var_0, var_1 )
@@ -334,16 +334,16 @@ _id_25E6( var_0, var_1 )
     {
         foreach ( var_3 in var_1 )
         {
-            _id_25E7( "free", var_3.nearz, var_3.land, undefined, var_3._id_6E19 );
-            _id_25BA( var_3.land );
-            _id_25B7( var_0, var_3.land, var_3._id_5C22, var_3._id_59FC );
+            _id_25E7( "free", var_3.name, var_3.label, undefined, var_3._id_6E19 );
+            _id_25BA( var_3.label );
+            _id_25B7( var_0, var_3.label, var_3._id_5C22, var_3._id_59FC );
         }
     }
     else
     {
-        _id_25E7( "free", var_1.nearz, var_1.land, undefined, var_1._id_6E19 );
-        _id_25BA( var_1.land );
-        _id_25B7( var_0, var_1.land, var_1._id_5C22, var_1._id_59FC );
+        _id_25E7( "free", var_1.name, var_1.label, undefined, var_1._id_6E19 );
+        _id_25BA( var_1.label );
+        _id_25B7( var_0, var_1.label, var_1._id_5C22, var_1._id_59FC );
     }
 }
 
@@ -356,18 +356,18 @@ _id_25E8( var_0, var_1, var_2 )
 
     if ( var_0 == "zone" && !isdefined( var_1 ) )
     {
-        if ( isdefined( level._id_055B._id_25B3.positioninworld[var_0] ) )
+        if ( isdefined( level._id_055B._id_25B3.playing[var_0] ) )
         {
-            foreach ( var_1, var_5 in level._id_055B._id_25B3.positioninworld[var_0] )
+            foreach ( var_1, var_5 in level._id_055B._id_25B3.playing[var_0] )
             {
-                level._id_055B._id_25B3.positioninworld[var_0][var_1]["fade"] = var_3;
+                level._id_055B._id_25B3.playing[var_0][var_1]["fade"] = var_3;
                 level notify( var_0 + "_" + var_1 + "_stop" );
             }
         }
     }
-    else if ( isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_1] ) )
+    else if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1] ) )
     {
-        level._id_055B._id_25B3.positioninworld[var_0][var_1]["fade"] = var_3;
+        level._id_055B._id_25B3.playing[var_0][var_1]["fade"] = var_3;
         level notify( var_0 + "_" + var_1 + "_stop" );
     }
 }
@@ -375,15 +375,15 @@ _id_25E8( var_0, var_1, var_2 )
 _id_25EB( var_0, var_1, var_2 )
 {
     level endon( var_0 + "_" + var_1 + "_stop" );
-    var_3 = level._id_055B._id_25B3.positioninworld[var_0][var_1]["event_time"];
+    var_3 = level._id_055B._id_25B3.playing[var_0][var_1]["event_time"];
     var_4 = min( var_3[0], var_3[1] );
     var_5 = max( var_3[0], var_3[1] );
     var_6 = undefined;
     var_7 = undefined;
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_1]["first_event"] ) )
+    if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["first_event"] ) )
     {
-        var_3 = level._id_055B._id_25B3.positioninworld[var_0][var_1]["first_event"];
+        var_3 = level._id_055B._id_25B3.playing[var_0][var_1]["first_event"];
         var_6 = min( var_3[0], var_3[1] );
         var_7 = max( var_3[0], var_3[1] );
     }
@@ -397,10 +397,10 @@ _id_25EB( var_0, var_1, var_2 )
 
     for (;;)
     {
-        if ( !level._id_055B._id_25B3.positioninworld[var_0][var_1]["paused"] )
+        if ( !level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
             wait(var_8);
 
-        if ( level._id_055B._id_25B3.positioninworld[var_0][var_1]["paused"] )
+        if ( level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
             level waittill( var_0 + "_" + var_1 + "_event" );
 
         var_9 = _id_25E3( var_0, var_1 );
@@ -448,7 +448,7 @@ _id_25E5( var_0, var_1, var_2, var_3, var_4 )
             else if ( isdefined( var_3 ) )
                 var_7 = spawn( "script_origin", var_3 );
             else
-                var_7 = spawn( "script_origin", level.playercardbackground.origin );
+                var_7 = spawn( "script_origin", level.player.origin );
 
             level._id_055B._id_25B3._id_586D++;
             var_7 playloopsound( var_6 );
@@ -457,7 +457,7 @@ _id_25E5( var_0, var_1, var_2, var_3, var_4 )
                 var_7 linkto( var_4 );
 
             var_8 = level._id_055B._id_25B3._id_858B;
-            level._id_055B._id_25B3.positioninworld[var_0][var_1]["single_loops"][var_8] = var_7;
+            level._id_055B._id_25B3.playing[var_0][var_1]["single_loops"][var_8] = var_7;
             level._id_055B._id_25B3._id_858B++;
         }
     }
@@ -485,8 +485,8 @@ _id_25D0( var_0, var_1, var_2, var_1 )
 
         if ( isarray( var_1["event_time"] ) )
         {
-            var_3.missile_fire = min( var_1["event_time"][0], var_1["event_time"][1] );
-            var_3.maxrange = max( var_1["event_time"][0], var_1["event_time"][1] );
+            var_3.min_time = min( var_1["event_time"][0], var_1["event_time"][1] );
+            var_3.max_time = max( var_1["event_time"][0], var_1["event_time"][1] );
         }
 
         if ( isarray( var_1["first_event"] ) )
@@ -536,14 +536,14 @@ _id_25D0( var_0, var_1, var_2, var_1 )
 
     var_3._id_9C20 = 0;
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_1][var_2]["entity"] ) )
+    if ( isdefined( level._id_055B._id_25B3.playing[var_1][var_2]["entity"] ) )
     {
         var_3._id_9C20 = 1;
-        var_3._id_32D5 = level._id_055B._id_25B3.positioninworld[var_1][var_2]["entity"];
-        var_3._id_5D35 = level._id_055B._id_25B3.positioninworld[var_1][var_2]["mode"];
+        var_3._id_32D5 = level._id_055B._id_25B3.playing[var_1][var_2]["entity"];
+        var_3._id_5D35 = level._id_055B._id_25B3.playing[var_1][var_2]["mode"];
     }
 
-    var_3._id_6FDA = level._id_055B._id_25B3.positioninworld[var_1][var_2]["prob_scale"];
+    var_3._id_6FDA = level._id_055B._id_25B3.playing[var_1][var_2]["prob_scale"];
     return var_3;
 }
 
@@ -602,7 +602,7 @@ _id_25CD( var_0, var_1, var_2, var_3 )
                 {
                     var_9 = randomfloatrange( var_0._id_5C24, var_0._id_59FE );
                     var_9 *= 0.5;
-                    var_10 = level.playercardbackground.origin;
+                    var_10 = level.player.origin;
 
                     if ( isdefined( var_3 ) )
                         var_10 = var_3;
@@ -643,7 +643,7 @@ _id_25DC( var_0 )
     if ( isdefined( var_0._id_380A ) )
         var_1 = randomfloatrange( var_0._id_380C, var_0._id_380B );
     else
-        var_1 = randomfloatrange( var_0.missile_fire, var_0.maxrange );
+        var_1 = randomfloatrange( var_0.min_time, var_0.max_time );
 
     return var_1;
 }
@@ -667,10 +667,10 @@ _id_25EA( var_0, var_1, var_2, var_3 )
 
         for (;;)
         {
-            if ( !level._id_055B._id_25B3.positioninworld[var_0][var_1]["paused"] )
+            if ( !level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
                 wait(var_5);
 
-            if ( level._id_055B._id_25B3.positioninworld[var_0][var_1]["paused"] )
+            if ( level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
                 level waittill( var_0 + "_" + var_1 + "_event" );
 
             if ( var_4._id_9C20 && !isdefined( var_4._id_32D5 ) )
@@ -679,22 +679,22 @@ _id_25EA( var_0, var_1, var_2, var_3 )
                 break;
             }
 
-            if ( isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_1]["linked_dambs"] ) )
+            if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["linked_dambs"] ) )
             {
-                foreach ( var_7 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["linked_dambs"] )
+                foreach ( var_7 in level._id_055B._id_25B3.playing[var_0][var_1]["linked_dambs"] )
                 {
                     var_8 = randomfloatrange( var_7._id_5C22, var_7._id_59FC );
-                    thread _id_25E9( var_7.nearz, var_8 );
+                    thread _id_25E9( var_7.name, var_8 );
                 }
             }
 
-            var_4._id_6FDA = level._id_055B._id_25B3.positioninworld[var_0][var_1]["prob_scale"];
+            var_4._id_6FDA = level._id_055B._id_25B3.playing[var_0][var_1]["prob_scale"];
             var_10 = _id_25CD( var_4, var_1, var_2, var_3 );
 
             if ( var_10._id_8FAC )
                 thread _id_25E1( var_0, var_1, var_10 );
 
-            var_5 = randomfloatrange( var_4.missile_fire, var_4.maxrange );
+            var_5 = randomfloatrange( var_4.min_time, var_4.max_time );
         }
     }
 }
@@ -704,11 +704,11 @@ _id_25EC( var_0, var_1, var_2, var_3 )
     level endon( var_0 + "_" + var_1 + "_stop" );
     var_3 waittill( "sounddone" );
 
-    if ( isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_1]["oneshots"][var_2] ) )
+    if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_2] ) )
     {
         var_3 delete();
         _id_275D();
-        level._id_055B._id_25B3.positioninworld[var_0][var_1]["oneshots"][var_2] = undefined;
+        level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_2] = undefined;
     }
 }
 
@@ -725,7 +725,7 @@ _id_25E1( var_0, var_1, var_2 )
 _id_25E0( var_0, var_1, var_2 )
 {
     level endon( var_0 + "_" + var_1 + "_stop" );
-    var_3 = level.playercardbackground.origin;
+    var_3 = level.player.origin;
 
     if ( isdefined( var_2._id_32D5 ) )
         var_3 = var_2._id_32D5.origin;
@@ -745,7 +745,7 @@ _id_25E0( var_0, var_1, var_2 )
         if ( !var_4._id_88AA )
         {
             var_5 = level._id_055B._id_25B3._id_6499;
-            level._id_055B._id_25B3.positioninworld[var_0][var_1]["oneshots"][var_5] = var_4;
+            level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_5] = var_4;
             level._id_055B._id_25B3._id_6499++;
             _id_4C3A();
 
@@ -784,7 +784,7 @@ _id_25DF( var_0, var_1, var_2 )
 
     if ( level._id_055B._id_25B3._id_3316 < level._id_055B._id_25B3._id_5A04 )
     {
-        var_3 = level.playercardbackground.origin;
+        var_3 = level.player.origin;
 
         if ( isdefined( var_2._id_32D5 ) )
             var_3 = var_2._id_32D5.origin;
@@ -827,7 +827,7 @@ _id_25DF( var_0, var_1, var_2 )
         if ( !var_13._id_88AA )
         {
             var_14 = level._id_055B._id_25B3._id_5875;
-            level._id_055B._id_25B3.positioninworld[var_0][var_1]["loops"][var_14] = var_13;
+            level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] = var_13;
             _id_4C3A();
             level._id_055B._id_25B3._id_5875++;
             var_15 = 0;
@@ -858,7 +858,7 @@ _id_25DF( var_0, var_1, var_2 )
 
             if ( !var_13._id_88AA )
             {
-                if ( isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_1]["loops"][var_14] ) )
+                if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] ) )
                 {
                     if ( isdefined( var_12 ) )
                     {
@@ -866,7 +866,7 @@ _id_25DF( var_0, var_1, var_2 )
                         var_17 playsound( var_12, "sounddone" );
                         var_18 = level._id_055B._id_25B3._id_6499;
                         level._id_055B._id_25B3._id_6499++;
-                        level._id_055B._id_25B3.positioninworld[var_0][var_1]["oneshots"][var_18] = var_17;
+                        level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_18] = var_17;
                         _id_4C3A();
                         thread _id_25EC( var_0, var_1, var_18, var_17 );
                     }
@@ -881,7 +881,7 @@ _id_25DF( var_0, var_1, var_2 )
                     }
 
                     _id_275D();
-                    level._id_055B._id_25B3.positioninworld[var_0][var_1]["loops"][var_14] = undefined;
+                    level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] = undefined;
                     return;
                 }
 
@@ -891,7 +891,7 @@ _id_25DF( var_0, var_1, var_2 )
             var_13 stoploopsound();
             var_13 delete();
             _id_275D();
-            level._id_055B._id_25B3.positioninworld[var_0][var_1]["loops"][var_14] = undefined;
+            level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] = undefined;
             return;
             return;
         }
@@ -907,7 +907,7 @@ _id_25E3( var_0, var_1 )
 {
     var_2 = 0;
 
-    foreach ( var_4 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["components"] )
+    foreach ( var_4 in level._id_055B._id_25B3.playing[var_0][var_1]["components"] )
     {
         var_5 = var_4[1];
         var_2 += var_5;
@@ -917,7 +917,7 @@ _id_25E3( var_0, var_1 )
     var_8 = 0.0;
     var_9 = undefined;
 
-    foreach ( var_4 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["components"] )
+    foreach ( var_4 in level._id_055B._id_25B3.playing[var_0][var_1]["components"] )
     {
         var_11 = var_8 + var_4[1];
 
@@ -1088,13 +1088,13 @@ _id_25D3( var_0 )
 
 _id_25E4( var_0, var_1, var_2 )
 {
-    level._id_055B._id_25B3.positioninworld[var_0][var_1]["loops"] = [];
-    level._id_055B._id_25B3.positioninworld[var_0][var_1]["single_loops"] = [];
-    level._id_055B._id_25B3.positioninworld[var_0][var_1]["oneshots"] = [];
+    level._id_055B._id_25B3.playing[var_0][var_1]["loops"] = [];
+    level._id_055B._id_25B3.playing[var_0][var_1]["single_loops"] = [];
+    level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"] = [];
 
-    if ( !isdefined( level._id_055B._id_25B3.positioninworld[var_0][var_1]["event_time"] ) )
+    if ( !isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["event_time"] ) )
     {
-        foreach ( var_4 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["components"] )
+        foreach ( var_4 in level._id_055B._id_25B3.playing[var_0][var_1]["components"] )
         {
             var_5 = _id_25D3( var_4 );
 
@@ -1111,16 +1111,16 @@ _id_25E4( var_0, var_1, var_2 )
     level waittill( var_0 + "_" + var_1 + "_stop" );
     wait 0.1;
 
-    foreach ( var_8 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["loops"] )
-        thread _id_25CE( var_8, level._id_055B._id_25B3.positioninworld[var_0][var_1]["fade"], 0 );
+    foreach ( var_8 in level._id_055B._id_25B3.playing[var_0][var_1]["loops"] )
+        thread _id_25CE( var_8, level._id_055B._id_25B3.playing[var_0][var_1]["fade"], 0 );
 
-    foreach ( var_8 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["single_loops"] )
-        thread _id_25CE( var_8, level._id_055B._id_25B3.positioninworld[var_0][var_1]["fade"], 1 );
+    foreach ( var_8 in level._id_055B._id_25B3.playing[var_0][var_1]["single_loops"] )
+        thread _id_25CE( var_8, level._id_055B._id_25B3.playing[var_0][var_1]["fade"], 1 );
 
-    foreach ( var_8 in level._id_055B._id_25B3.positioninworld[var_0][var_1]["oneshots"] )
-        thread _id_25CF( var_8, level._id_055B._id_25B3.positioninworld[var_0][var_1]["fade"] );
+    foreach ( var_8 in level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"] )
+        thread _id_25CF( var_8, level._id_055B._id_25B3.playing[var_0][var_1]["fade"] );
 
-    level._id_055B._id_25B3.positioninworld[var_0][var_1] = undefined;
+    level._id_055B._id_25B3.playing[var_0][var_1] = undefined;
 }
 
 _id_25CF( var_0, var_1 )

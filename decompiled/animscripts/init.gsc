@@ -21,19 +21,19 @@
 
 _id_4E32( var_0 )
 {
-    self.weeklychallengeid[var_0] = spawnstruct();
-    self.weeklychallengeid[var_0].precache = "none";
-    self.weeklychallengeid[var_0]._id_4723 = 1;
+    self.weaponinfo[var_0] = spawnstruct();
+    self.weaponinfo[var_0].position = "none";
+    self.weaponinfo[var_0]._id_4723 = 1;
 
     if ( getweaponclipmodel( var_0 ) != "" )
-        self.weeklychallengeid[var_0]._id_9BF2 = 1;
+        self.weaponinfo[var_0]._id_9BF2 = 1;
     else
-        self.weeklychallengeid[var_0]._id_9BF2 = 0;
+        self.weaponinfo[var_0]._id_9BF2 = 0;
 }
 
 _id_5208( var_0 )
 {
-    return isdefined( self.weeklychallengeid[var_0] );
+    return isdefined( self.weaponinfo[var_0] );
 }
 
 _id_7F7C()
@@ -69,7 +69,7 @@ main()
 {
     self.a = spawnstruct();
     self.a._id_54FB = 0;
-    self.primaryweapon = self.weapon_switch_invalid;
+    self.primaryweapon = self.weapon;
     _id_381E();
 
     if ( !isdefined( self.primaryweapon ) || self.primaryweapon == "" )
@@ -93,7 +93,7 @@ main()
     self.a._id_A2E3["right"] = "none";
     self.a._id_A2E3["chest"] = "none";
     self.a._id_A2E3["back"] = "none";
-    self._id_560F = self.weapon_switch_invalid;
+    self._id_560F = self.weapon;
     self._id_75DF = %animscript_root;
     thread _id_139C();
     var_0 = animscripts\utility::_id_9C36();
@@ -211,13 +211,13 @@ main()
     }
 
     self.proneaimlimits = spawnstruct();
-    self.proneaimlimits.riotshield_hit = 45;
-    self.proneaimlimits.lifecount = -45;
-    self.proneaimlimits.useable = 35;
+    self.proneaimlimits.rightaimlimit = 45;
+    self.proneaimlimits.leftaimlimit = -45;
+    self.proneaimlimits.upaimlimit = 35;
     self.proneaimlimits.downaimlimit = -35;
     self.animaimlimit = spawnstruct();
-    self.animaimlimit.riotshield_hit = 45;
-    self.animaimlimit.lifecount = -45;
+    self.animaimlimit.rightaimlimit = 45;
+    self.animaimlimit.leftaimlimit = -45;
     self.doaimidlethread = 1;
 
     if ( !isdefined( level._id_2B1C ) )
@@ -253,7 +253,7 @@ handleikevent()
         var_5 *= -1;
         var_9 = var_0;
 
-        if ( length2dsquared( self.visionsetnakedduration ) > 0.01 )
+        if ( length2dsquared( self.velocity ) > 0.01 )
             var_9 = -10;
 
         var_10 = 0;
@@ -506,7 +506,7 @@ _id_381E()
     animscripts\animset::_id_4C76();
     anim._id_9BFF = 0;
     maps\_load::_id_4D06();
-    level.playercardbackground._id_4FA7 = 0;
+    level.player._id_4FA7 = 0;
     level._id_60CB = randomint( 3 );
     level._id_55CC = 100;
     anim._id_2796 = ::empty;
@@ -558,7 +558,7 @@ _id_381E()
     anim._id_7C7A = animscripts\utility::_id_0CD8( 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5 );
     anim._id_126A = [];
     anim._id_1267 = 0;
-    anim.playercardbackground = getentarray( "player", "classname" )[0];
+    anim.player = getentarray( "player", "classname" )[0];
     _id_4D8C();
     _id_4E33();
     animscripts\cqb::_id_8308();
@@ -566,7 +566,7 @@ _id_381E()
     _id_7F7C();
     anim._id_5583 = -100000;
     _id_8335();
-    level.playercardbackground thread animscripts\combat_utility::_id_A250();
+    level.player thread animscripts\combat_utility::_id_A250();
     thread _id_09A7();
 }
 
@@ -578,9 +578,9 @@ _id_4DA9()
 _id_4D8C()
 {
     animscripts\squadmanager::_id_4D5F();
-    anim.playercardbackground thread animscripts\squadmanager::_id_081E();
+    anim.player thread animscripts\squadmanager::_id_081E();
     animscripts\battlechatter::_id_4CB8();
-    anim.playercardbackground thread animscripts\battlechatter_ai::_id_0850();
+    anim.player thread animscripts\battlechatter_ai::_id_0850();
     anim thread animscripts\battlechatter::_id_1356();
 }
 

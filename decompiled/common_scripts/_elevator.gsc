@@ -515,7 +515,7 @@ _id_184A()
 
     foreach ( var_4 in var_0 )
     {
-        var_5 = getent( var_4._not_team, "targetname" );
+        var_5 = getent( var_4.target, "targetname" );
         var_6 = [];
         var_6[0] = min( var_4.origin[0], var_5.origin[0] );
         var_6[1] = max( var_4.origin[0], var_5.origin[0] );
@@ -538,17 +538,17 @@ _id_184A()
                 if ( var_9.code_classname == "light" )
                     continue;
 
-                var_10 = getent( var_9._not_team, "targetname" );
+                var_10 = getent( var_9.target, "targetname" );
                 var_7._id_2FF4["housing"]["left_door"] = var_10;
                 var_7._id_2FF4["housing"]["left_door_opened_pos"] = var_10.origin;
-                var_11 = getent( var_10._not_team, "targetname" );
+                var_11 = getent( var_10.target, "targetname" );
                 var_7._id_2FF4["housing"]["right_door"] = var_11;
                 var_7._id_2FF4["housing"]["right_door_opened_pos"] = var_11.origin;
                 var_12 = ( var_10.origin - var_11.origin ) * ( 0.5, 0.5, 0.5 ) + var_11.origin;
                 var_7._id_2FF4["housing"]["door_closed_pos"] = var_12;
-                var_13 = getent( var_11._not_team, "targetname" );
+                var_13 = getent( var_11.target, "targetname" );
                 var_7._id_2FF4["housing"]["door_trigger"] = var_13;
-                var_14 = getent( var_13._not_team, "targetname" );
+                var_14 = getent( var_13.target, "targetname" );
                 var_7._id_2FF4["housing"]["inside_trigger"] = var_14;
                 var_14 _id_5917();
                 var_14._id_5EF4 = spawn( "trigger_radius", var_9.origin, 0, 64, 128 );
@@ -561,14 +561,14 @@ _id_184A()
         {
             if ( var_17 _id_5121( var_6 ) )
             {
-                var_18 = isdefined( var_17.script_parentname ) && var_17.script_parentname == "closed_for_lighting";
+                var_18 = isdefined( var_17.script_noteworthy ) && var_17.script_noteworthy == "closed_for_lighting";
                 var_19 = var_7._id_2FF4["outer_doorset"].size;
                 var_7._id_2FF4["outer_doorset"][var_19] = [];
                 var_7._id_2FF4["outer_doorset"][var_19]["door_closed_pos"] = var_17.origin;
-                var_20 = getent( var_17._not_team, "targetname" );
+                var_20 = getent( var_17.target, "targetname" );
                 var_7._id_2FF4["outer_doorset"][var_19]["left_door"] = var_20;
                 var_7._id_2FF4["outer_doorset"][var_19]["left_door_opened_pos"] = var_20.origin;
-                var_21 = getent( var_20._not_team, "targetname" );
+                var_21 = getent( var_20.target, "targetname" );
                 var_7._id_2FF4["outer_doorset"][var_19]["right_door"] = var_21;
                 var_7._id_2FF4["outer_doorset"][var_19]["right_door_opened_pos"] = var_21.origin;
 
@@ -872,7 +872,7 @@ _id_3D9E()
 
     foreach ( var_3 in var_0 )
     {
-        if ( isdefined( var_3.script_parentname ) && var_3.script_parentname == "play_musak" )
+        if ( isdefined( var_3.script_noteworthy ) && var_3.script_noteworthy == "play_musak" )
             var_1 = var_3;
     }
 

@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "dog.atr";
     self._id_07ED = "";
     self.team = "axis";
-    self.unlockpoints = "dog";
+    self.type = "dog";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 200;
-    self.groundentchanged = "fraggrenade";
+    self.health = 200;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "dog_bite";
     self._id_855D = "";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "dog_bite";
+    self.weapon = "dog_bite";
     character\character_sp_german_sheperd_dog::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "axis" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_german_sheperd_dog::prestigedoublexp();
+    character\character_sp_german_sheperd_dog::precache();
     precacheitem( "dog_bite" );
     precacheitem( "dog_bite" );
     precacheitem( "fraggrenade" );

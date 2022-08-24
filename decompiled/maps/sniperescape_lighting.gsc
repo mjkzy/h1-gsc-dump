@@ -50,8 +50,8 @@ _id_80C6()
 _id_7E68()
 {
     maps\_utility::_id_9E6E( "sniperescape", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "sniperescape" );
-    level.playercardbackground _meth_848c( "clut_sniperescape", 1.0 );
+    level.player maps\_utility::set_light_set_player( "sniperescape" );
+    level.player _meth_848c( "clut_sniperescape", 1.0 );
 }
 
 handle_player_on_sniper_rifle()
@@ -65,7 +65,7 @@ handle_player_on_sniper_rifle()
     foreach ( var_2 in var_0 )
         var_2 _meth_8494( "force_on" );
 
-    level.playercardbackground maps\_utility::set_light_set_player( "sniperescape_scope" );
+    level.player maps\_utility::set_light_set_player( "sniperescape_scope" );
     maps\_utility::_id_9E6E( "sniperescape_scope", 2 );
     common_scripts\utility::_id_384A( "player_gets_off_turret" );
     setsaveddvar( "sv_znear", "1.0" );
@@ -75,7 +75,7 @@ handle_player_on_sniper_rifle()
     foreach ( var_2 in var_0 )
         var_2 _meth_8494( "normal" );
 
-    level.playercardbackground maps\_utility::set_light_set_player( "sniperescape" );
+    level.player maps\_utility::set_light_set_player( "sniperescape" );
     maps\_utility::_id_9E6E( "sniperescape", 2 );
 }
 
@@ -181,7 +181,7 @@ loop_camera_shake()
     {
         var_1 = randomintrange( 0, var_0.size );
         var_2 = var_0[var_1];
-        level.playercardbackground _meth_83fc( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.rank, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
+        level.player _meth_83fc( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
         wait(var_0[var_1].duration - 0.5);
     }
 }

@@ -86,7 +86,7 @@ _id_4D10()
 
     waitframe;
 
-    if ( !_id_0CD0( self.motiontrackerenabled, self.classname ) )
+    if ( !_id_0CD0( self.model, self.classname ) )
     {
         maps\_vehicle::_id_5BD2();
 

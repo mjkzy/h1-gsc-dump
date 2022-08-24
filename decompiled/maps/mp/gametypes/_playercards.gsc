@@ -50,9 +50,9 @@ _id_64C8()
                 var_2 = var_0 getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "callingCardIndex" );
             }
 
-            var_0.playerid = var_1;
+            var_0.playercardpatch = var_1;
             var_0 _meth_8577( var_3 );
-            var_0.playerconnectionhistory = var_2;
+            var_0.playercardbackground = var_2;
         }
     }
 }

@@ -430,11 +430,11 @@ aud_start_dash_convoy_sequence()
 convoy_node_reached()
 {
     self waittill( "trigger", var_0 );
-    var_1 = "scn_scoutsniper_dash_" + self.script_parentname;
+    var_1 = "scn_scoutsniper_dash_" + self.script_noteworthy;
     var_0 thread maps\_utility::_id_69C4( var_1 );
-    var_2 = getvehiclenode( self.script_parentname + "_close", "script_noteworthy" );
+    var_2 = getvehiclenode( self.script_noteworthy + "_close", "script_noteworthy" );
     var_2 waittill( "trigger", var_0 );
-    var_1 = "scn_scoutsniper_dash_" + self.script_parentname + "_close";
+    var_1 = "scn_scoutsniper_dash_" + self.script_noteworthy + "_close";
     var_0 thread maps\_utility::_id_69C4( var_1 );
 }
 

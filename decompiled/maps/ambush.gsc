@@ -136,7 +136,7 @@ main()
     level.ai_friendlyfireblockduration = getdvarfloat( "ai_friendlyFireBlockDuration" );
     level thread ambush_streetlight();
     level thread fixednode_trigger_setup();
-    level.playercardbackground thread grenade_notifies();
+    level.player thread grenade_notifies();
     level thread setup_vehicle_pause_node();
     level thread ambush_tower_fall();
     level thread detonate_car_setup();
@@ -360,7 +360,7 @@ aarea_takeover_init()
     maps\_utility::_id_1332( "axis" );
     common_scripts\utility::_id_0D13( getentarray( "village_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     setup_friendlies( 3 );
-    level.playercardbackground set_playerspeed( 130 );
+    level.player set_playerspeed( 130 );
     common_scripts\utility::_id_0D13( level._id_8AB0, maps\_utility::_id_30B0 );
     common_scripts\utility::_id_0D13( get_generic_allies(), maps\_utility::_id_7402 );
     level thread guardtower_dead_enemies();
@@ -452,7 +452,7 @@ takeover_player()
     level thread set_flag_on_player_action( "takeover_force", 1, 1 );
     common_scripts\utility::_id_384A( "takeover_force" );
     soundscripts\_snd::_id_870C( "aud_stop_mix_stealth_ambush" );
-    level.playercardbackground set_playerspeed( 190, 3 );
+    level.player set_playerspeed( 190, 3 );
 }
 
 takeover_setup()
@@ -612,16 +612,16 @@ takeover_fade()
 {
     common_scripts\utility::_id_384A( "takeover_fade" );
     soundscripts\_snd::_id_870C( "aud_start_mix_fade_to_black" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "foley_plr_dress_up" );
+    level.player thread maps\_utility::_id_69C4( "foley_plr_dress_up" );
     thread hud_hide();
     wait 2;
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     common_scripts\utility::_id_384A( "takeover_fade_clear" );
     soundscripts\_snd::_id_870C( "aud_start_ambience_morning" );
     hud_string();
     common_scripts\utility::_id_383F( "takeover_fade_begin_fade_in" );
     soundscripts\_snd::_id_870C( "aud_stop_mix_fade_to_black" );
-    level.playercardbackground freezecontrols( 0 );
+    level.player freezecontrols( 0 );
     wait 2;
     thread hud_hide( 0 );
     wait 2;
@@ -631,7 +631,7 @@ takeover_fade()
 hud_string()
 {
     var_0 = maps\_hud_util::_id_2401( "objective", 1.5 );
-    var_0.space = 3;
+    var_0.sort = 3;
     var_0.fontscale = 1.6;
     var_0.color = ( 0.8, 1.0, 0.8 );
     var_0.glowcolor = ( 0.26, 0.65, 0.32 );
@@ -640,7 +640,7 @@ hud_string()
     var_0.foreground = 1;
     var_0 maps\_hud_util::_id_7FEE( "BOTTOM", undefined, 0, -150 );
     var_0 settext( &"AMBUSH_TWO_HOURS_LATER" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "ambush_fadetoblack_interlude_music" );
+    level.player thread maps\_utility::_id_69C4( "ambush_fadetoblack_interlude_music" );
     wait 5;
     var_0 destroy();
 }
@@ -728,7 +728,7 @@ ambush_helicopter()
     var_0 notsolid();
     var_0 linkto( level.helicopter, "tag_turret", ( -10.0, -10.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "h1_blackhawk_missile_luncher" );
-    var_1 = common_scripts\utility::_id_40FB( level.helicopter._not_team, "targetname" );
+    var_1 = common_scripts\utility::_id_40FB( level.helicopter.target, "targetname" );
     level.helicopter thread heli_path_speed();
     level.helicopter sethoverparams( 150, 120, 60 );
     var_2 = maps\_utility::_id_3F82( "heli_restart_avm", "script_noteworthy" );
@@ -754,7 +754,7 @@ ambush_helicopter()
 ambush_objective()
 {
     common_scripts\utility::_id_384A( "takeover_fade_done" );
-    objective_add( 3, "active", &"AMBUSH_OBJ_AMBUSH_CONVOY", level.playercardbackground.origin );
+    objective_add( 3, "active", &"AMBUSH_OBJ_AMBUSH_CONVOY", level.player.origin );
     objective_current( 3 );
     common_scripts\utility::_id_384A( "ambush_start" );
     objective_state( 3, "done" );
@@ -763,7 +763,7 @@ ambush_objective()
 ambush_badguy_spawn_function()
 {
     level.badguy = self;
-    self.nearz = "V. Zakhaev";
+    self.name = "V. Zakhaev";
     maps\_utility::_id_7DDF( 0 );
     self setthreatbiasgroup( "oblivious" );
     maps\_utility::_id_7E60( 1 );
@@ -854,38 +854,38 @@ ambush_caravan()
     {
         thread maps\_vehicle::_id_427A( var_0[var_1] );
 
-        if ( !isdefined( var_0[var_1].script_parentname ) )
+        if ( !isdefined( var_0[var_1].script_noteworthy ) )
             continue;
-        else if ( var_0[var_1].script_parentname == "ambush_jeep" )
+        else if ( var_0[var_1].script_noteworthy == "ambush_jeep" )
         {
             level.badguy_jeep = var_0[var_1];
             level.badguy_jeep thread maps\ambush_aud::aud_vehicle_engine_linear( "snc_ambush_badguy_jeep_engine_distant", "badguyjeep_close_node", "snc_ambush_badguy_jeep_engine_close" );
         }
-        else if ( var_0[var_1].script_parentname == "rear_truck" )
+        else if ( var_0[var_1].script_noteworthy == "rear_truck" )
         {
             level.rear_truck = var_0[var_1];
             level.rear_truck thread maps\ambush_aud::aud_vehicle_engine_linear( "snc_ambush_rear_truck_engine_distant", "reartruck_close_node", "snc_ambush_rear_truck_engine_close" );
         }
 
-        if ( var_0[var_1].script_parentname == "bm21" )
+        if ( var_0[var_1].script_noteworthy == "bm21" )
         {
             level.bm21 = var_0[var_1];
             level.bm21 thread maps\ambush_aud::aud_vehicle_engine_linear( "snc_ambush_bm21_engine_distant", "bm21_close_node", "snc_ambush_bm21_engine_close" );
         }
 
-        if ( var_0[var_1].script_parentname == "middle_bm21" )
+        if ( var_0[var_1].script_noteworthy == "middle_bm21" )
         {
             level.middle_bm21 = var_0[var_1];
             level.middle_bm21 thread maps\ambush_aud::aud_vehicle_engine_linear( "snc_ambush_middle_bm21_engine_distant", "bm21middle_close_node", "snc_ambush_middle_bm21_engine_close" );
         }
 
-        if ( var_0[var_1].script_parentname == "bmp" )
+        if ( var_0[var_1].script_noteworthy == "bmp" )
         {
             level.bmp = var_0[var_1];
             level.bmp thread maps\ambush_aud::aud_vehicle_engine_linear( "snc_ambush_bmp_engine_distant", "bmp_close_node", "snc_ambush_bmp_engine_close" );
         }
 
-        if ( var_0[var_1].script_parentname == "rear_bmp" )
+        if ( var_0[var_1].script_noteworthy == "rear_bmp" )
         {
             level.rear_bmp = var_0[var_1];
             level.rear_bmp thread maps\ambush_aud::aud_vehicle_engine_linear( "snc_ambush_rear_bmp_engine_distant", "rearbmp_close_node", "snc_ambush_rear_bmp_engine_close" );
@@ -922,7 +922,7 @@ ambush_caravan()
 ambush_streetlight()
 {
     var_0 = getent( "streetlight", "targetname" );
-    var_1 = getentarray( var_0._not_team, "targetname" );
+    var_1 = getentarray( var_0.target, "targetname" );
 
     if ( var_1[0].classname == "script_model" )
     {
@@ -967,10 +967,10 @@ bmp_pan_target( var_0 )
     self setturrettargetent( var_0 );
     self waittill( "turret_on_target" );
 
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
         wait 0.5;
-        var_0 = getent( var_0._not_team, "targetname" );
+        var_0 = getent( var_0.target, "targetname" );
         self setturrettargetent( var_0 );
         self waittill( "turret_on_target" );
     }
@@ -990,20 +990,20 @@ ambush_rockets()
     var_0[0].goalradius = 32;
     var_0[0] _meth_816b( var_1 );
     var_0[0].a._id_7594 = 1;
-    var_0[0].melee_fired = 67108864;
+    var_0[0].maxsightdistsqrd = 67108864;
     level.bmp thread destroy_rocket_target( var_0[0] );
     level.bmp maps\_vehicle::_id_4258();
     var_0[1] notify( "end_patrol" );
     var_0[1] maps\_utility::_id_7E60( 1 );
     var_0[1] _meth_81a9( getnode( "rear_truck_attack_node", "targetname" ) );
     var_0[1].goalradius = 32;
-    var_0[1].ignoreforfixednodesafecheck = 1;
+    var_0[1].ignoreall = 1;
     common_scripts\utility::_id_384A( "extra_guys_spawned" );
-    var_0[1].ignoreforfixednodesafecheck = 0;
+    var_0[1].ignoreall = 0;
     var_0[1] setstablemissile( 1 );
     var_0[1] _meth_816b( var_2 );
     var_0[1].a._id_7594 = 1;
-    var_0[1].melee_fired = 67108864;
+    var_0[1].maxsightdistsqrd = 67108864;
     level.rear_truck thread destroy_rocket_target( var_0[1] );
     level.rear_truck maps\_vehicle::_id_4258();
 }
@@ -1044,7 +1044,7 @@ ambush_price()
     soundscripts\_snd::_id_870C( "aud_start_mix_ambush" );
     common_scripts\utility::_id_3856( "ambush_start", 3 );
     level._id_6F7C setthreatbiasgroup( "allies" );
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
 }
 
 ambush_price_leadup()
@@ -1161,8 +1161,8 @@ ambush_setup()
     common_scripts\utility::_id_384A( "takeover_briefing_done" );
     level notify( "putout_fires" );
     var_0 = getent( "player_outofsight", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     common_scripts\utility::_id_383F( "takeover_fade_clear" );
     wait 0.1;
     common_scripts\_exploder::_id_3528( 2 );
@@ -1180,19 +1180,19 @@ ambush_setup()
     level.steve = _id_7B3C( "ambush_steve", "targetname", 1 );
     level.steve thread maps\_utility::_id_58D7();
     level.steve._id_0C72 = "steve";
-    level.steve.nearz = "Gaz";
+    level.steve.name = "Gaz";
     level.steve thread squad_init();
     level.steve.melonhead_ignore = 1;
     level.steve.tracksuit_ignore = 1;
     level.steve codescripts\character::_id_7F88( "head_spetsnaz_assault_vlad_facemask" );
     level.steve setthreatbiasgroup( "oblivious" );
-    level.steve.pantssize = 1;
+    level.steve.pacifist = 1;
     level.steve.a._id_55D7 = gettime();
     level.steve.team = "allies";
     level.steve._id_9F32 = "british";
     level.steve maps\_utility::_id_7DDF( 0 );
-    level.steve.ignoretriggers = 1;
-    level.steve.melee_fired = 4;
+    level.steve.ignoreme = 1;
+    level.steve.maxsightdistsqrd = 4;
     level.steve.no_ir_beacon = 1;
     var_1 = getnode( "startnodesteve_ambush", "targetname" );
     level.steve notify( "killanimscript" );
@@ -1201,20 +1201,20 @@ ambush_setup()
     level.steve.fixednode = 1;
     ambush_setup_enemy_allies();
     var_1 = getnode( "startnodeplayer_ambush", "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles + ( 13.0, 0.0, 0.0 ) );
-    level.playercardbackground setthreatbiasgroup( "oblivious" );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles + ( 13.0, 0.0, 0.0 ) );
+    level.player setthreatbiasgroup( "oblivious" );
     maps\_utility::_id_070A( "ambush_setup_color_init" );
 
-    if ( level.playercardbackground hasweapon( "remington700" ) )
+    if ( level.player hasweapon( "remington700" ) )
     {
-        level.playercardbackground takeweapon( "remington700" );
-        level.playercardbackground giveweapon( "rpd" );
-        level.playercardbackground switchtoweapon( "rpd" );
+        level.player takeweapon( "remington700" );
+        level.player giveweapon( "rpd" );
+        level.player switchtoweapon( "rpd" );
     }
 
-    level.playercardbackground setviewmodel( "viewhands_op_force" );
-    level.playercardbackground disableweapons();
+    level.player setviewmodel( "viewhands_op_force" );
+    level.player disableweapons();
     delete_dropped_weapons();
     clearallcorpses();
     common_scripts\utility::_id_0CDB( getentarray( "gate_open", "targetname" ), ::show );
@@ -1229,7 +1229,7 @@ ambush_setup()
 
     common_scripts\utility::_id_383F( "takeover_finalized_done" );
     common_scripts\utility::_id_384A( "takeover_fade_done" );
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
 }
 
 ambush_setup_enemy_allies()
@@ -1239,7 +1239,7 @@ ambush_setup_enemy_allies()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        level.names_copies[level.names_copies.size] = var_0[var_1].nearz;
+        level.names_copies[level.names_copies.size] = var_0[var_1].name;
         var_0[var_1] maps\_utility::_id_2ACC();
         var_0[var_1] delete();
     }
@@ -1254,23 +1254,23 @@ ambush_setup_enemy_allies()
 ambush_allied_axis_spawnfunc()
 {
     self setthreatbiasgroup( "oblivious" );
-    self.pantssize = 1;
+    self.pacifist = 1;
     self.a._id_55D7 = gettime();
     self.team = "allies";
     self._id_9F32 = "russian";
     maps\_utility::_id_7DDF( 0 );
-    self.ignoretriggers = 1;
-    self.melee_fired = 4;
+    self.ignoreme = 1;
+    self.maxsightdistsqrd = 4;
     self.no_ir_beacon = 1;
     thread maps\_utility::_id_58D7();
 
-    if ( isdefined( self.script_parentname ) && self.script_parentname == "delay_guy" )
+    if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "delay_guy" )
         thread ambush_delay();
 
     if ( level.names_copies.size > 0 )
     {
-        self.nearz = level.names_copies[level.names_copies.size - 1];
-        level.names_copies = common_scripts\utility::_id_0CF6( level.names_copies, self.nearz );
+        self.name = level.names_copies[level.names_copies.size - 1];
+        level.names_copies = common_scripts\utility::_id_0CF6( level.names_copies, self.name );
     }
     else
         maps\_names::_id_3DE2();
@@ -1282,9 +1282,9 @@ ambush_allied_axis_spawnfunc()
     if ( ( !isdefined( self._id_792E ) || self._id_792E != "rocket_man" ) && !is_kamarov() )
         maps\_utility::_id_8EA4();
 
-    self.pantssize = 0;
-    self.ignoretriggers = 0;
-    self.melee_fired = 67108864;
+    self.pacifist = 0;
+    self.ignoreme = 0;
+    self.maxsightdistsqrd = 67108864;
 
     if ( self._id_792E == "ground_man_upper" )
     {
@@ -1340,7 +1340,7 @@ ambush_delay()
     wait 1;
     var_1 = getent( "delay_fire_target", "targetname" );
     self _meth_816b( var_1 );
-    self.melee_fired = 67108864;
+    self.maxsightdistsqrd = 67108864;
     wait 1;
     self _meth_816a();
     maps\_utility::_id_7E38( "c" );
@@ -1400,7 +1400,7 @@ ambush_tower_fall()
     common_scripts\utility::_id_383F( "ambush_truck_hit" );
 
     if ( getdvarint( "use_old_tower" ) != 1 )
-        level.playercardbackground allowlean( 0 );
+        level.player allowlean( 0 );
 
     var_5 = getvehiclenode( "tower_collision", "script_noteworthy" );
     var_5 waittill( "trigger", var_6 );
@@ -1417,7 +1417,7 @@ ambush_tower_fall()
     }
 
     common_scripts\utility::_id_383F( "ambush_tower_fall" );
-    earthquake( 0.1, 0.5, level.playercardbackground.origin, 400 );
+    earthquake( 0.1, 0.5, level.player.origin, 400 );
     thread ambush_tower_rumble();
     level notify( "tower_fall_start" );
     var_1 rotateto( ( 5.0, 0.0, 0.0 ), 0.5, 0, 0.5 );
@@ -1431,7 +1431,7 @@ ambush_tower_fall()
     level.mark unlink();
     level notify( "tower_fall_unlink" );
     common_scripts\utility::_id_383F( "player_tower_hits_ground" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_ambush_tower_end" );
+    level.player thread maps\_utility::_id_69C4( "scn_ambush_tower_end" );
     level thread ambush_tower_blackout();
     wait 1;
 
@@ -1452,30 +1452,30 @@ ambush_tower_fall()
 
 ambush_tower_rumble()
 {
-    level.playercardbackground playrumbleonentity( "generic_attack_heavy_500" );
-    level.playercardbackground playrumblelooponentity( "generic_quake_loop" );
+    level.player playrumbleonentity( "generic_attack_heavy_500" );
+    level.player playrumblelooponentity( "generic_quake_loop" );
     common_scripts\utility::_id_384A( "player_tower_hits_ground" );
-    level.playercardbackground playrumbleonentity( "generic_attack_heavy_1500" );
-    level.playercardbackground stoprumble( "generic_quake_loop" );
+    level.player playrumbleonentity( "generic_attack_heavy_1500" );
+    level.player stoprumble( "generic_quake_loop" );
 }
 
 ambush_tower_fall_player( var_0 )
 {
-    level.playercardbackground endon( "death" );
-    level.playercardbackground disableweapons();
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground setcandamage( 0 );
+    level.player endon( "death" );
+    level.player disableweapons();
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player setcandamage( 0 );
     level waittill( "tower_fall_start" );
-    var_1 = spawn( "script_origin", level.playercardbackground.origin );
-    var_1.angles = ( 0, level.playercardbackground.angles[1], 0 );
+    var_1 = spawn( "script_origin", level.player.origin );
+    var_1.angles = ( 0, level.player.angles[1], 0 );
     var_1 linkto( var_0 );
     thread h1_towerfalling_dof();
     var_2 = maps\_utility::_id_88D1( "player_rig", var_1.origin, var_1.angles );
     var_2 hide();
     var_2 linkto( var_1 );
     var_1 thread maps\_anim::_id_0BC7( var_2, "ambush_plr_tower_fall" );
-    level.playercardbackground _meth_855e( var_2, "tag_player", 1, 0.4, 0.2, 0.2, 50, 50, 40, 10 );
+    level.player _meth_855e( var_2, "tag_player", 1, 0.4, 0.2, 0.2, 50, 50, 40, 10 );
     wait 0.4;
     var_2 show();
     var_1 thread maps\_anim::_id_0C24( var_2, "ambush_plr_tower_fall" );
@@ -1486,7 +1486,7 @@ ambush_tower_fall_player( var_0 )
     var_7 = var_3 * var_6;
     wait 0.25;
     var_8 = var_3 * var_4[0] - 0.25;
-    level.playercardbackground lerpviewangleclamp( var_8, 0, 0, 20, 20, 20, 10 );
+    level.player lerpviewangleclamp( var_8, 0, 0, 20, 20, 20, 10 );
     var_2 waittillmatch( "single anim", "rotation_start" );
     var_9 = -1 * ( var_1.angles[1] - 270 );
 
@@ -1495,20 +1495,20 @@ ambush_tower_fall_player( var_0 )
 
     var_10 = ( 0, var_9, 0 );
     var_1 _meth_8425( var_10, var_7 * 0.53, 1 );
-    level.playercardbackground lerpviewangleclamp( var_7 * 0.5, 0, 0, 0, 0, 0, 0 );
+    level.player lerpviewangleclamp( var_7 * 0.5, 0, 0, 0, 0, 0, 0 );
     level waittill( "tower_fall_unlink" );
     var_2 delete();
-    level.playercardbackground enableweapons();
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground setcandamage( 1 );
-    level.playercardbackground allowlean( 1 );
+    level.player enableweapons();
+    level.player allowcrouch( 1 );
+    level.player allowprone( 1 );
+    level.player setcandamage( 1 );
+    level.player allowlean( 1 );
 }
 
 h1_towerfalling_dof()
 {
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 2.4, 130, 1.0, 1.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 2.4, 130, 1.0, 1.0 );
     setsaveddvar( "r_mbEnable", 2 );
     level waittill( "tower_fall_unlink" );
     wait 0.25;
@@ -1563,24 +1563,24 @@ ambush_tower_swap()
 
 ambush_tower_blackout()
 {
-    level.playercardbackground setthreatbiasgroup( "oblivious" );
+    level.player setthreatbiasgroup( "oblivious" );
     var_0 = getent( "player_outofsight", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
-    level.playercardbackground enableinvulnerability();
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
+    level.player enableinvulnerability();
     wait 1;
     var_1 = getnode( "startnodemark_village", "targetname" );
     level.mark notify( "killanimscript" );
     level.mark _meth_81ca( var_1.origin, var_1.angles );
     var_2 = ( -439.0, -197.0, 9.0 );
     var_3 = ( -25.0, 40.0, 0.0 );
-    level.playercardbackground setorigin( var_2 );
-    level.playercardbackground setplayerangles( var_3 );
-    level.playercardbackground setstance( "prone" );
-    level.playercardbackground disableweapons();
-    level.playercardbackground allowstand( 0 );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground freezecontrols( 1 );
+    level.player setorigin( var_2 );
+    level.player setplayerangles( var_3 );
+    level.player setstance( "prone" );
+    level.player disableweapons();
+    level.player allowstand( 0 );
+    level.player allowcrouch( 0 );
+    level.player freezecontrols( 1 );
     wait 1;
     common_scripts\utility::_id_383F( "ambush_tower_blackout_come_to" );
     soundscripts\_snd::_id_870C( "aud_start_mix_tower_crash_stunned" );
@@ -1598,18 +1598,18 @@ ambush_tower_blackout()
     level.badguy_jeep notify( "death" );
     common_scripts\utility::_id_383F( "son_of_zakhaev_money_shot" );
     wait 8.35;
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_ambush_shellshock_out" );
+    level.player thread maps\_utility::_id_69C4( "scn_ambush_shellshock_out" );
     soundscripts\_snd::_id_870C( "aud_start_mix_zak_son_escape" );
     wait 2;
     level notify( "escape_cam_end" );
-    level.playercardbackground freezecontrols( 0 );
-    level.playercardbackground allowstand( 1 );
-    level.playercardbackground allowcrouch( 1 );
+    level.player freezecontrols( 0 );
+    level.player allowstand( 1 );
+    level.player allowcrouch( 1 );
     common_scripts\utility::_id_383F( "ambush_recovered" );
     wait 2;
-    level.playercardbackground enableweapons();
-    level.playercardbackground disableinvulnerability();
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player enableweapons();
+    level.player disableinvulnerability();
+    level.player setthreatbiasgroup( "player" );
 }
 
 ambush_recover_h1()
@@ -1620,10 +1620,10 @@ ambush_recover_h1()
     var_0 = spawn( "script_origin", level.badguy_jeep gettagorigin( "tag_driver" ) );
     var_0.angles = level.badguy_jeep gettagangles( "tag_driver" );
     var_1 = maps\_utility::_id_88D1( "player_rig" );
-    level.playercardbackground playerlinktodelta( var_1, "tag_player", 1, 0, 0, 0, 0, 1 );
+    level.player playerlinktodelta( var_1, "tag_player", 1, 0, 0, 0, 0, 1 );
     var_0 thread maps\_anim::_id_0C24( var_1, "vip_escape_player" );
     level waittill( "escape_cam_end" );
-    level.playercardbackground unlink();
+    level.player unlink();
     var_1 delete();
     setsaveddvar( "r_znear", level.oldnearclip );
     level.oldnearclip = undefined;
@@ -1633,7 +1633,7 @@ ambush_recover_h1()
 ambush_recover()
 {
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground playersetgroundreferenceent( var_0 );
+    level.player playersetgroundreferenceent( var_0 );
     var_1 = [];
     var_1[0]["angles"] = ( 10.0, -40.0, -10.0 );
     var_1[0]["time"] = ( 0.0, 0.0, 0.0 );
@@ -1675,7 +1675,7 @@ ambush_recover()
 
     var_0 rotateto( ( 0.0, 0.0, 0.0 ), 1, 0.5, 0.5 );
     var_0 waittill( "rotatedone" );
-    level.playercardbackground playersetgroundreferenceent( undefined );
+    level.player playersetgroundreferenceent( undefined );
 }
 
 main_objective()
@@ -1684,14 +1684,14 @@ main_objective()
     objective_add( 4, "active", &"AMBUSH_OBJ_CAPTURE_TARGET", var_0.origin );
     objective_current( 4 );
 
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
         var_0 waittill( "trigger" );
 
         if ( isdefined( var_0._id_79DA ) )
             common_scripts\utility::_id_384A( var_0._id_79DA );
 
-        var_0 = getent( var_0._not_team, "targetname" );
+        var_0 = getent( var_0.target, "targetname" );
         objective_position( 4, var_0.origin );
         objective_ring( 4 );
         level notify( "main_objective_updated" );
@@ -1756,7 +1756,7 @@ village_friendlies()
     level.steve = _id_7B3C( "steve", "targetname", 1 );
     level.steve thread maps\_utility::_id_58D7();
     level.steve._id_0C72 = "steve";
-    level.steve.nearz = "Gaz";
+    level.steve.name = "Gaz";
     level.steve thread squad_init();
     level.steve notify( "killanimscript" );
     level.steve _meth_81c9( getnode( "village_steve_teleport", "targetname" ).origin );
@@ -1846,7 +1846,7 @@ enemies_close( var_0 )
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( distance2d( level.playercardbackground.origin, var_1[var_2].origin ) < var_0 )
+        if ( distance2d( level.player.origin, var_1[var_2].origin ) < var_0 )
             return 1;
     }
 
@@ -1902,7 +1902,7 @@ village_badguy()
 badguy_health_shield()
 {
     var_0 = 1000000;
-    self.helmet += var_0;
+    self.health += var_0;
     self endon( "stop_death_fail" );
 
     for (;;)
@@ -1911,12 +1911,12 @@ badguy_health_shield()
 
         if ( isplayer( var_2 ) )
         {
-            if ( self.helmet < var_0 )
+            if ( self.health < var_0 )
                 break;
         }
     }
 
-    self.helmet = 150;
+    self.health = 150;
 }
 
 village_mark()
@@ -2254,7 +2254,7 @@ detonate_car_setup()
 detonate_car( var_0 )
 {
     level endon( "apartment_mg_destroyed" );
-    var_1 = getent( self._not_team, "targetname" );
+    var_1 = getent( self.target, "targetname" );
     var_2 = common_scripts\utility::_id_3F33( var_1.origin, var_0 );
     self waittill( "trigger" );
     var_2 common_scripts\_destructible::_id_3995();
@@ -2303,7 +2303,7 @@ aarea_apartment_init()
 apartment_slowdown()
 {
     common_scripts\utility::_id_384A( "apartment_roof_friendlies" );
-    level.playercardbackground thread set_playerspeed( 130, 6 );
+    level.player thread set_playerspeed( 130, 6 );
     common_scripts\utility::_id_384A( "apartment_roof" );
     var_0 = getaiarray( "allies" );
 
@@ -2375,7 +2375,7 @@ apartment_heli_damage_trig_think()
             break;
     }
 
-    common_scripts\_exploder::_id_3528( self.script_parentname );
+    common_scripts\_exploder::_id_3528( self.script_noteworthy );
     self delete();
 }
 
@@ -2457,15 +2457,15 @@ apartment_helicopter_ambient_turret_track( var_0, var_1, var_2 )
 {
     level endon( "ambient_turret_end" );
 
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
-        var_0 = getent( var_0._not_team, "targetname" );
+        var_0 = getent( var_0.target, "targetname" );
         var_3 = distance( var_0.origin, var_1.origin );
         var_4 = var_3 / var_2;
         var_1 moveto( var_0.origin, var_4 );
         var_1 waittill( "movedone" );
         var_0 notify( "trigger" );
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
     }
 }
 
@@ -2504,15 +2504,15 @@ apartment_helicopter_turret( var_0, var_1, var_2 )
 
 apartment_helicopter_turret_mg_nest( var_0, var_1, var_2 )
 {
-    while ( isdefined( var_0._not_team ) )
+    while ( isdefined( var_0.target ) )
     {
-        var_0 = getent( var_0._not_team, "targetname" );
+        var_0 = getent( var_0.target, "targetname" );
         var_3 = distance( var_0.origin, var_1.origin );
         var_4 = var_3 / var_2;
         var_1 moveto( var_0.origin, var_4 );
         var_1 waittill( "movedone" );
         var_0 notify( "trigger" );
-        var_0 maps\_utility::script_lightset();
+        var_0 maps\_utility::script_delay();
     }
 
     if ( !common_scripts\utility::_id_382E( "apartment_inside" ) )
@@ -2582,22 +2582,22 @@ apartment_badguy()
 badguy_immune_to_everything_but_player()
 {
     var_0 = 1000000;
-    self.helmet += var_0;
+    self.health += var_0;
     self endon( "death" );
 
     for (;;)
     {
         self waittill( "damage", var_1, var_2 );
 
-        if ( isdefined( var_2 ) && var_2 == level.playercardbackground )
+        if ( isdefined( var_2 ) && var_2 == level.player )
         {
-            if ( self.helmet < var_0 )
-                self kill( self.origin, level.playercardbackground );
+            if ( self.health < var_0 )
+                self kill( self.origin, level.player );
 
             continue;
         }
 
-        self.helmet += var_1;
+        self.health += var_1;
     }
 }
 
@@ -2665,7 +2665,7 @@ apartment_mg_nest()
     var_0 notify( "stop_firing" );
     var_5 = spawn( "script_model", var_0.origin );
     var_5.angles = var_0.angles;
-    var_5 setmodel( var_0.motiontrackerenabled );
+    var_5 setmodel( var_0.model );
     var_0 hide();
     wait 0.9;
     var_5 physicslaunch( var_5.origin + ( 0.0, -50.0, 0.0 ), ( 0.0, 600.0, 0.0 ) );
@@ -2713,7 +2713,7 @@ apartment_mg_nest_player_damage( var_0, var_1, var_2 )
 apartment_mg_nest_sandbag()
 {
     common_scripts\utility::_id_384A( "apartment_mg_destroyed" );
-    maps\_utility::script_lightset();
+    maps\_utility::script_delay();
     self physicslaunch( self.origin + ( 0.0, -10.0, 0.0 ), ( 0.0, 1500.0, 200.0 ) );
 }
 
@@ -2746,7 +2746,7 @@ apartment_mg_nest_2_explosion( var_0 )
     var_1 = self.origin - var_0;
     var_2 = var_1 * 800;
 
-    if ( issubstr( self.motiontrackerenabled, "metal" ) )
+    if ( issubstr( self.model, "metal" ) )
         var_2 /= 10;
 
     self physicslaunch( var_0, var_2 );
@@ -2763,9 +2763,9 @@ apartment_mg_killzone( var_0, var_1, var_2 )
         shoot_mg_targets();
         var_1 waittill( "trigger" );
         self notify( "stop_targeting" );
-        self settargetentity( level.playercardbackground );
+        self settargetentity( level.player );
 
-        while ( level.playercardbackground istouching( var_1 ) )
+        while ( level.player istouching( var_1 ) )
             wait 0.5;
     }
 }
@@ -2773,16 +2773,16 @@ apartment_mg_killzone( var_0, var_1, var_2 )
 apartment_mg_kill( var_0, var_1 )
 {
     level endon( var_1 );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     self waittill( "trigger" );
     level notify( "mg_player_kill" );
-    level.playercardbackground enablehealthshield( 0 );
+    level.player enablehealthshield( 0 );
     var_2 = getdvarfloat( "player_damagemultiplier" );
     var_3 = 25 / var_2;
 
     for (;;)
     {
-        level.playercardbackground dodamage( var_3, var_0.origin );
+        level.player dodamage( var_3, var_0.origin );
         wait 0.05;
     }
 }
@@ -2820,7 +2820,7 @@ apartment_suicide_price()
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread squad_init();
-    level._id_6F7C.nearz = "Captain Price";
+    level._id_6F7C.name = "Captain Price";
     var_0 = getnode( "price_roof_end", "targetname" );
     var_1 = getent( "price_roof_ent", "targetname" );
     level._id_6F7C.goalradius = 64;
@@ -2853,7 +2853,7 @@ apartment_suicide_badguy()
     level.badguy.allowdeath = 1;
     level.badguy.dropweapon = 0;
     level.badguy.grenadeammo = 0;
-    level.badguy.helmet = 10;
+    level.badguy.health = 10;
     var_0 = getent( "roof_anim_ent_3", "targetname" );
     var_0 maps\_anim::_id_0BC7( level.badguy, "jump" );
     common_scripts\utility::_id_384A( "apartment_suicide" );
@@ -2885,11 +2885,11 @@ apartment_suicide_badguy_h1()
     level.badguy.allowdeath = 1;
     level.badguy.dropweapon = 0;
     level.badguy.grenadeammo = 0;
-    level.badguy.helmet = 10;
+    level.badguy.health = 10;
     var_0 = getent( "roof_anim_ent_3", "targetname" );
     var_0 maps\_anim::_id_0BC7( level.badguy, "h1_climb_up" );
     common_scripts\utility::_id_384A( "apartment_suicide" );
-    level.playercardbackground thread flag_on_seeing_zakhaev_h1( "h1_player_seen_zakhaev", "stage3" );
+    level.player thread flag_on_seeing_zakhaev_h1( "h1_player_seen_zakhaev", "stage3" );
     thread set_flag_on_timeout_h1( "stage3", 20 );
     common_scripts\utility::_id_384C( "h1_player_seen_zakhaev", "stage3" );
 
@@ -2902,7 +2902,7 @@ apartment_suicide_badguy_h1()
     level.badguy notify( "single anim", "end" );
     level.badguy notify( "looping anim", "end" );
     var_0 maps\_anim::_id_0BC7( level.badguy, "h1_climb_back_down_die" );
-    level.playercardbackground thread flag_on_seeing_zakhaev_h1( "h1_player_seen_zakhaev_outside", "stage4" );
+    level.player thread flag_on_seeing_zakhaev_h1( "h1_player_seen_zakhaev_outside", "stage4" );
     thread set_flag_on_timeout_h1( "stage4", 10, "h1_player_seen_zakhaev_outside" );
     common_scripts\utility::_id_384C( "h1_player_seen_zakhaev_outside", "stage4" );
     thread listen_for_up_quickdeath_window_end_h1();
@@ -3020,8 +3020,8 @@ apartment_suicide_badguy_interrupt()
     if ( !isalive( level.badguy ) )
         return;
 
-    level.playercardbackground disableweapons();
-    level.playercardbackground thread set_playerspeed( 60, 0.25 );
+    level.player disableweapons();
+    level.player thread set_playerspeed( 60, 0.25 );
     level.badguy.allowdeath = 0;
     var_1 = getent( "roof_anim_ent_3", "targetname" );
 
@@ -3068,7 +3068,7 @@ apartment_suicide_badguy_interrupt()
     level.badguy.allowdeath = 1;
     level.badguy kill( ( 0.0, 0.0, 0.0 ) );
     level notify( "slowdown_done" );
-    level.playercardbackground thread set_playerspeed( 140, 2 );
+    level.player thread set_playerspeed( 140, 2 );
     common_scripts\utility::_id_383F( "apartment_suicide_done" );
 }
 
@@ -3092,13 +3092,13 @@ slowdown()
     var_1 = 1.2;
     maps\_utility::_id_8644( var_1 );
     maps\_utility::_id_8641();
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_ambush_suicide_end" );
+    level.player thread maps\_utility::_id_69C4( "scn_ambush_suicide_end" );
     soundscripts\_snd::_id_870C( "aud_start_mix_ending" );
     wait(var_1);
     maps\_utility::_id_863E();
 
     if ( var_0 )
-        level.playercardbackground notify( "_cheat_player_press_slowmo" );
+        level.player notify( "_cheat_player_press_slowmo" );
 }
 
 apartment_suicide_dialogue()
@@ -3235,7 +3235,7 @@ failed_to_pursue_trigger()
 
 badguy_spawn_function()
 {
-    self.nearz = "";
+    self.name = "";
     self._id_0C72 = "badguy";
     maps\_utility::_id_7DDF( 0 );
     self setthreatbiasgroup( "badguy" );
@@ -3257,11 +3257,11 @@ can_display_badguy_name()
 {
     var_0 = 3500;
 
-    if ( distancesquared( level.playercardbackground.origin, self.origin ) > var_0 * var_0 )
+    if ( distancesquared( level.player.origin, self.origin ) > var_0 * var_0 )
         return 0;
 
-    var_1 = level.playercardbackground geteye() + 6000 * anglestoforward( level.playercardbackground getplayerangles() );
-    var_2 = bullettrace( level.playercardbackground geteye(), var_1, 1, level.playercardbackground, 0, 0, 0, 0, 0 );
+    var_1 = level.player geteye() + 6000 * anglestoforward( level.player getplayerangles() );
+    var_2 = bullettrace( level.player geteye(), var_1, 1, level.player, 0, 0, 0, 0, 0 );
     return isdefined( var_2["entity"] ) && var_2["entity"] == self;
 }
 
@@ -3271,7 +3271,7 @@ badguy_died( var_0 )
         var_0 = 3;
 
     self endon( "stop_death_fail" );
-    self.helmet *= var_0;
+    self.health *= var_0;
     self waittill( "death" );
     soundscripts\_snd::_id_870C( "aud_start_mix_mission_failed" );
     setdvar( "ui_deadquote", "@AMBUSH_MISSIONFAIL_KILLED_TARGET" );
@@ -3281,19 +3281,19 @@ badguy_died( var_0 )
 badguy_proximity_kill()
 {
     self endon( "stop_proximity_kill" );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     self endon( "death" );
     var_0 = self._id_1300;
 
     for (;;)
     {
-        while ( distance2d( level.playercardbackground.origin, self.origin ) > 350 )
+        while ( distance2d( level.player.origin, self.origin ) > 350 )
             wait 0.1;
 
         self._id_1300 *= 10;
         setthreatbias( "player", "badguy", 100000 );
 
-        while ( distance2d( level.playercardbackground.origin, self.origin ) < 400 )
+        while ( distance2d( level.player.origin, self.origin ) < 400 )
             wait 0.1;
 
         self._id_1300 = var_0;
@@ -3333,7 +3333,7 @@ start_village()
     start_teleport_squad( "village" );
     common_scripts\utility::_id_383F( "takeover_done" );
     maps\ambush_lighting::setup_village_start_lighting();
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     maps\_utility::_id_070A( "ambush_attack_color_init" );
     common_scripts\utility::_id_0D13( getentarray( "takeover_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
     common_scripts\utility::_id_0D13( getentarray( "village_trigger", "script_noteworthy" ), common_scripts\utility::_id_97CC );
@@ -3367,7 +3367,7 @@ start_morpheus()
     setup_friendlies( 0 );
     start_teleport_squad( "morpheus" );
     maps\ambush_lighting::setup_morpheus_start_lighting();
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     maps\_utility::_id_070A( "village_retreat_2_color_init" );
     level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
     var_0 = common_scripts\utility::_id_40FB( "apartment_heli_start", "targetname" );
@@ -3381,7 +3381,7 @@ start_apartment()
     setup_friendlies( 0 );
     start_teleport_squad( "apartment" );
     maps\ambush_lighting::setup_apartment_start_lighting();
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     level.steve maps\_utility::_id_7E38( "g" );
     maps\_utility::_id_070A( "apartment_color_init" );
     level.helicopter = maps\_vehicle::_id_8978( "blackhawk" );
@@ -3400,11 +3400,11 @@ start_suicide()
     var_1 = getent( "startnodemark_suicide", "targetname" );
     level.mark _meth_81ca( var_1.origin );
     var_2 = getent( "startnodeplayer_suicide", "targetname" );
-    level.playercardbackground setorigin( var_2.origin );
-    level.playercardbackground setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
     maps\ambush_lighting::setup_apartment_start_lighting();
     level thread suicide_badguy_h1();
-    level.playercardbackground setthreatbiasgroup( "player" );
+    level.player setthreatbiasgroup( "player" );
     level.steve maps\_utility::_id_7E38( "g" );
     level.mark maps\_utility::_id_7E38( "g" );
     maps\_utility::_id_0709( "suicide_color_init" );
@@ -3426,18 +3426,18 @@ setup_friendlies( var_0 )
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C._id_0C72 = "price";
     level._id_6F7C thread squad_init();
-    level._id_6F7C.nearz = "Captain Price";
+    level._id_6F7C.name = "Captain Price";
     level.mark = _id_7B3C( "mark", "targetname", 1 );
     level.mark._id_795C = 0;
     level.mark thread maps\_utility::_id_58D7();
     level.mark._id_0C72 = "mark";
     level.mark thread squad_init();
     level.mark._id_132D = 0;
-    level.mark.nearz = "SSgt. Griggs";
+    level.mark.name = "SSgt. Griggs";
     level.steve = _id_7B3C( "steve", "targetname", 1 );
     level.steve thread maps\_utility::_id_58D7();
     level.steve._id_0C72 = "steve";
-    level.steve.nearz = "Gaz";
+    level.steve.name = "Gaz";
     level.steve thread squad_init();
     getent( "kamarov", "script_noteworthy" ) maps\_utility::_id_0798( ::kamarov );
     var_1 = getentarray( "allies", "targetname" );
@@ -3455,7 +3455,7 @@ kamarov()
 {
     self endon( "death" );
     level.kamarov = self;
-    self.nearz = "Sgt. Kamarov";
+    self.name = "Sgt. Kamarov";
     thread maps\_utility::_id_58D7();
     common_scripts\utility::_id_384A( "takeover_fade_clear" );
     maps\_utility::_id_8EA4();
@@ -3463,7 +3463,7 @@ kamarov()
 
 is_kamarov()
 {
-    return isdefined( self.nearz ) && self.nearz == "Sgt. Kamarov";
+    return isdefined( self.name ) && self.name == "Sgt. Kamarov";
 }
 
 squad_init()
@@ -3520,8 +3520,8 @@ scripted_array_spawn( var_0, var_1, var_2 )
 start_teleport_squad( var_0 )
 {
     var_1 = getnode( "startnodeplayer_" + var_0, "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
 
     for ( var_2 = 0; var_2 < level._id_8AB0.size; var_2++ )
     {
@@ -3553,8 +3553,8 @@ _id_8CC0( var_0 )
     self _meth_81aa( self.origin );
     self.goalradius = 0;
 
-    if ( isdefined( self.rank ) )
-        self.goalradius = var_0.rank;
+    if ( isdefined( self.radius ) )
+        self.goalradius = var_0.radius;
 
     self _meth_81a9( var_0 );
 }
@@ -3586,7 +3586,7 @@ delete_dropped_weapons()
 
         for ( var_3 = 0; var_3 < var_2.size; var_3++ )
         {
-            if ( isdefined( var_2[var_3].teambalanced ) )
+            if ( isdefined( var_2[var_3].targetname ) )
                 continue;
 
             var_2[var_3] delete();
@@ -3601,8 +3601,8 @@ shoot_mg_targets()
     self _meth_815a( 60 );
     self _meth_8158( 60 );
     self _meth_8157( 60 );
-    var_0 = getentarray( self._not_team, "targetname" );
-    var_0 = common_scripts\utility::_id_0CDA( var_0, level.playercardbackground );
+    var_0 = getentarray( self.target, "targetname" );
+    var_0 = common_scripts\utility::_id_0CDA( var_0, level.player );
     var_1 = undefined;
 
     for (;;)
@@ -3612,7 +3612,7 @@ shoot_mg_targets()
         else
             var_2 = undefined;
 
-        var_3 = common_scripts\utility::_id_3CCB( level.playercardbackground.origin, var_0, var_2, 3 );
+        var_3 = common_scripts\utility::_id_3CCB( level.player.origin, var_0, var_2, 3 );
         var_1 = common_scripts\utility::_id_710E( var_3 );
         self settargetentity( var_1 );
         wait(randomfloatrange( 1, 3 ));
@@ -3646,7 +3646,7 @@ manual_mg_fire( var_0, var_1, var_2, var_3 )
 
         if ( self.team != "allies" && randomint( 2 ) )
         {
-            while ( !bullettracepassed( self gettagorigin( "tag_flash" ), level.playercardbackground geteye(), 0, self ) )
+            while ( !bullettracepassed( self gettagorigin( "tag_flash" ), level.player geteye(), 0, self ) )
                 wait 0.05;
         }
 
@@ -3663,32 +3663,32 @@ set_playerspeed( var_0, var_1 )
 {
     var_2 = 190;
 
-    if ( !isdefined( level.playercardbackground._id_5F7A ) )
-        level.playercardbackground._id_5F7A = 1;
+    if ( !isdefined( level.player._id_5F7A ) )
+        level.player._id_5F7A = 1;
 
     if ( !isdefined( var_1 ) )
         var_1 = 0;
 
     var_3 = abs( int( var_1 * 4 ) );
     var_4 = var_0 / var_2;
-    var_5 = level.playercardbackground._id_5F7A - var_4;
+    var_5 = level.player._id_5F7A - var_4;
 
     for ( var_6 = 0; var_6 < var_3; var_6++ )
     {
-        level.playercardbackground._id_5F7A -= var_5 / var_3;
-        level.playercardbackground setmovespeedscale( level.playercardbackground._id_5F7A );
+        level.player._id_5F7A -= var_5 / var_3;
+        level.player setmovespeedscale( level.player._id_5F7A );
         wait 0.5;
     }
 
-    level.playercardbackground._id_5F7A = var_4;
-    level.playercardbackground setmovespeedscale( level.playercardbackground._id_5F7A );
+    level.player._id_5F7A = var_4;
+    level.player setmovespeedscale( level.player._id_5F7A );
 }
 
 grenade_notifies()
 {
     for (;;)
     {
-        level.playercardbackground waittill( "grenade_fire", var_0, var_1 );
+        level.player waittill( "grenade_fire", var_0, var_1 );
         var_0 thread notify_on_detonation( var_1 );
     }
 }
@@ -3698,7 +3698,7 @@ notify_on_detonation( var_0 )
     while ( isdefined( self ) )
         wait 0.1;
 
-    level.playercardbackground notify( var_0 );
+    level.player notify( var_0 );
 }
 
 set_flag_on_player_action( var_0, var_1, var_2 )
@@ -3712,7 +3712,7 @@ set_flag_on_player_action( var_0, var_1, var_2 )
 
     for (;;)
     {
-        var_3 = level.playercardbackground common_scripts\utility::_id_A070( "weapon_fired", "fraggrenade", "flash_grenade", "h1_cheatlemonade" );
+        var_3 = level.player common_scripts\utility::_id_A070( "weapon_fired", "fraggrenade", "flash_grenade", "h1_cheatlemonade" );
 
         if ( !isdefined( var_3 ) )
             break;
@@ -3737,7 +3737,7 @@ kill_ai( var_0, var_1 )
 {
     self endon( "death" );
     randomfloatrange( var_0, var_1 );
-    self kill( level.playercardbackground.origin );
+    self kill( level.player.origin );
 }
 
 hud_hide( var_0 )
@@ -3767,7 +3767,7 @@ vehicle_pause_node()
 {
     self waittill( "trigger", var_0 );
     var_0 vehicle_setspeed( 0, 60 );
-    wait(self.script_lightset);
+    wait(self.script_delay);
     var_0 resumespeed( 20 );
 }
 
@@ -3775,8 +3775,8 @@ _id_085A( var_0 )
 {
     var_1 = var_0[0];
     var_2 = var_0[2];
-    var_3 = anglestoright( level.playercardbackground.angles );
-    var_4 = anglestoforward( level.playercardbackground.angles );
+    var_3 = anglestoright( level.player.angles );
+    var_4 = anglestoforward( level.player.angles );
     var_5 = ( var_3[0], 0, var_3[1] * -1 );
     var_6 = ( var_4[0], 0, var_4[1] * -1 );
     var_7 = var_5 * var_1;
@@ -3788,8 +3788,8 @@ set_goalnode( var_0 )
 {
     self _meth_81a9( var_0 );
 
-    if ( isdefined( var_0.rank ) )
-        self.goalradius = var_0.rank;
+    if ( isdefined( var_0.radius ) )
+        self.goalradius = var_0.radius;
 }
 
 _id_2827()
@@ -3797,7 +3797,7 @@ _id_2827()
     self endon( "death" );
     self waittill( "goal" );
 
-    while ( self _meth_81c2( level.playercardbackground ) )
+    while ( self _meth_81c2( level.player ) )
         wait 1;
 
     self delete();
@@ -3811,7 +3811,7 @@ kill_guy( var_0 )
 
 heli_path_speed( var_0 )
 {
-    if ( isdefined( var_0 ) && isdefined( var_0.sprint_begin ) )
+    if ( isdefined( var_0 ) && isdefined( var_0.speed ) )
     {
         var_1 = 25;
         var_2 = undefined;
@@ -3819,7 +3819,7 @@ heli_path_speed( var_0 )
         if ( isdefined( var_0._id_798B ) )
             var_2 = var_0._id_798B;
 
-        var_3 = var_0.sprint_begin;
+        var_3 = var_0.speed;
 
         if ( isdefined( var_0._id_7929 ) )
             var_1 = var_0._id_7929;
@@ -3911,7 +3911,7 @@ vehicle_turret_think()
         if ( isdefined( var_0 ) && isplayer( var_0 ) )
         {
             var_2 = 0;
-            var_2 = sighttracepassed( self.origin, level.playercardbackground.origin + ( 0.0, 0.0, 150.0 ), 0, self );
+            var_2 = sighttracepassed( self.origin, level.player.origin + ( 0.0, 0.0, 150.0 ), 0, self );
 
             if ( !var_2 )
                 var_0 = vehicle_get_target( level.bmpexcluders );
@@ -4066,7 +4066,7 @@ bugfix_failsafe_triggerflag_morpheus_rpg()
     var_0 = ( -4736.0, -6592.0, -120.0 );
     var_1 = 350;
 
-    while ( common_scripts\utility::_id_2B73( level.playercardbackground.origin, var_0 ) > var_1 * var_1 )
+    while ( common_scripts\utility::_id_2B73( level.player.origin, var_0 ) > var_1 * var_1 )
         wait 0.25;
 
     common_scripts\utility::_id_383F( "morpheus_rpg" );

@@ -121,10 +121,10 @@ _id_2976( var_0 )
 
 _id_7037( var_0, var_1 )
 {
-    var_1 notify( "new_prop_rotation" + var_0.motiontrackerenabled );
-    var_1 endon( "new_prop_rotation" + var_0.motiontrackerenabled );
+    var_1 notify( "new_prop_rotation" + var_0.model );
+    var_1 endon( "new_prop_rotation" + var_0.model );
     var_0 endon( "death" );
-    var_1 maps\_utility::_id_075B( "new_prop_rotation" + var_0.motiontrackerenabled );
+    var_1 maps\_utility::_id_075B( "new_prop_rotation" + var_0.model );
     var_0 maps\_utility::_id_075B( "death" );
     maps\_utility::_id_07BE( maps\_utility::_id_A099, "stop_loop" );
     var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
@@ -134,10 +134,10 @@ _id_7037( var_0, var_1 )
 
 _id_7038( var_0, var_1 )
 {
-    var_1 notify( "new_prop_rotation" + var_0.motiontrackerenabled );
-    var_1 endon( "new_prop_rotation" + var_0.motiontrackerenabled );
+    var_1 notify( "new_prop_rotation" + var_0.model );
+    var_1 endon( "new_prop_rotation" + var_0.model );
     var_0 endon( "death" );
-    var_1 maps\_utility::_id_075B( "new_prop_rotation" + var_0.motiontrackerenabled );
+    var_1 maps\_utility::_id_075B( "new_prop_rotation" + var_0.model );
     var_0 maps\_utility::_id_075B( "death" );
     maps\_utility::_id_07BE( maps\_utility::_id_A099, "stop_loop" );
     var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
@@ -211,7 +211,7 @@ _id_418B()
 
     for (;;)
     {
-        while ( self.mw3prestige != "run" )
+        while ( self.movemode != "run" )
         {
             wait 0.2;
             continue;

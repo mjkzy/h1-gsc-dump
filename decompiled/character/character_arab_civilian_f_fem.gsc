@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "character_arab_civilian_lowres_f" );
     precachemodel( "character_arab_civilian_lowres_f_head" );

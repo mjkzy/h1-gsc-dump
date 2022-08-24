@@ -46,8 +46,8 @@ _id_80C6()
 _id_7E68()
 {
     maps\_utility::_id_9E6E( "launchfacility_b", 0 );
-    level.playercardbackground maps\_utility::set_light_set_player( "launchfacility_b" );
-    level.playercardbackground _meth_848c( "clut_launchfacility_b", 0.0 );
+    level.player maps\_utility::set_light_set_player( "launchfacility_b" );
+    level.player _meth_848c( "clut_launchfacility_b", 0.0 );
 }
 
 setup_spinning_ents()
@@ -82,9 +82,9 @@ emissive_pulsing()
     var_2 = 0.5;
     var_3 = 1.0;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_4 = strtok( self.script_parentname, " " );
+        var_4 = strtok( self.script_noteworthy, " " );
 
         if ( isdefined( var_4[0] ) )
             var_2 = float( var_4[0] );

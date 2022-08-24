@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_force_mark_woodland" );
     precachemodel( "head_force_assault_mark" );

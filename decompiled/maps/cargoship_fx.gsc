@@ -245,14 +245,14 @@ tv_fx()
         continue;
     }
 
-    if ( self.motiontrackerenabled == self._id_6378 && !isdefined( self._id_9C1A ) )
+    if ( self.model == self._id_6378 && !isdefined( self._id_9C1A ) )
         return;
 
     var_0 = undefined;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        switch ( self.script_parentname )
+        switch ( self.script_noteworthy )
         {
             case "bridge_tv":
             case "quarters_tv":
@@ -401,7 +401,7 @@ raincontrol()
     if ( level.jumpto == "start" )
         wait 40;
 
-    thread maps\_weather::_id_5734( ::notifyname, ::flash );
+    thread maps\_weather::_id_5734( ::normal, ::flash );
 }
 
 rampupsun()
@@ -429,7 +429,7 @@ rampupsun()
     }
 }
 
-notifyname()
+normal()
 {
     level.sea_foam hide();
     resetsunlight();
@@ -506,15 +506,15 @@ rainmask()
 rainmaskcheck()
 {
     self endon( "stopRainCheck" );
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
 
     for (;;)
     {
-        var_0 = level.playercardbackground getplayerangles()[0];
+        var_0 = level.player getplayerangles()[0];
 
         if ( var_0 < 50 && !isdefined( level.facemaskfx ) )
         {
-            level.facemaskfx = spawnfx( level._effect["screen_heavy_rain_cgoshp"], level.playercardbackground.origin );
+            level.facemaskfx = spawnfx( level._effect["screen_heavy_rain_cgoshp"], level.player.origin );
             triggerfx( level.facemaskfx );
         }
         else if ( isdefined( level.facemaskfx ) )
@@ -556,7 +556,7 @@ flash( var_0, var_1, var_2, var_3, var_4 )
 
     if ( common_scripts\utility::_id_382E( "cargohold_fx" ) )
     {
-        notifyname();
+        normal();
         return;
     }
 
@@ -607,10 +607,10 @@ flash( var_0, var_1, var_2, var_3, var_4 )
         }
 
         wait(randomfloatrange( 0.01, 0.04 ));
-        notifyname();
+        normal();
     }
 
-    notifyname();
+    normal();
 }
 
 do_flash( var_0, var_1, var_2, var_3, var_4 )
@@ -627,19 +627,19 @@ do_flash( var_0, var_1, var_2, var_3, var_4 )
         do_flash_loop( var_1, var_7, var_5 == 0 );
     }
 
-    level.playercardbackground maps\_utility::set_light_set_player( level.wanted_lightset, 1 );
+    level.player maps\_utility::set_light_set_player( level.wanted_lightset, 1 );
 }
 
 do_flash_loop( var_0, var_1, var_2 )
 {
     update_exploders();
     setsunlight( var_1[0], var_1[1], var_1[2] );
-    level.playercardbackground maps\_utility::set_light_set_player( "cargoship_lightning" );
+    level.player maps\_utility::set_light_set_player( "cargoship_lightning" );
 
     if ( var_2 )
         show_water();
 
     wait(var_0);
-    level.playercardbackground maps\_utility::set_light_set_player( "cargoship_lightning_soft" );
+    level.player maps\_utility::set_light_set_player( "cargoship_lightning_soft" );
     wait(var_0);
 }

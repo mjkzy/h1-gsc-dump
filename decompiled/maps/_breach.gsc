@@ -52,8 +52,8 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     self._id_472A = 1;
     self._id_472E = 0;
     self._id_4A35 = 0;
-    var_6 = getentarray( self.teambalanced, "targetname" );
-    var_7 = self.teambalanced;
+    var_6 = getentarray( self.targetname, "targetname" );
+    var_7 = self.targetname;
     self._id_7829 = "badplace_" + var_7;
     self._id_1261 = getent( "badplace_" + var_7, "targetname" );
 
@@ -104,10 +104,10 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     {
         var_8 = undefined;
 
-        if ( isdefined( self._not_team ) )
-            var_8 = getent( self._not_team, "targetname" );
+        if ( isdefined( self.target ) )
+            var_8 = getent( self.target, "targetname" );
 
-        if ( isdefined( var_8 ) && isdefined( var_8.script_parentname ) && var_8.script_parentname == "breach_anim_ent" )
+        if ( isdefined( var_8 ) && isdefined( var_8.script_noteworthy ) && var_8.script_noteworthy == "breach_anim_ent" )
             self._id_0C6D = var_8;
 
         self._id_3015 = getent( self._id_7A26, "script_linkname" );
@@ -119,14 +119,14 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         }
         else if ( self._id_3015.classname == "script_brushmodel" && !isdefined( self._id_0C6D ) )
         {
-            self.edoorpivot = getent( self._id_3015._not_team, "targetname" );
+            self.edoorpivot = getent( self._id_3015.target, "targetname" );
             self._id_3015._id_9C6F = anglestoforward( self.edoorpivot.angles );
         }
 
         if ( !isdefined( self._id_0C6D ) )
             self._id_0C6D = self.edoorpivot;
 
-        self._id_0C6D.unlockpoints = "Cover Right";
+        self._id_0C6D.type = "Cover Right";
         self._id_3017 = getent( self._id_3015._id_7A26, "script_linkname" );
         self._id_4B9A = self._id_3017._id_79BF;
 
@@ -134,7 +134,7 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         {
             var_9 = getent( self._id_3017._id_7A26, "script_linkname" );
 
-            if ( isdefined( var_9 ) && isdefined( var_9.script_parentname ) && var_9.script_parentname == "breached_door" )
+            if ( isdefined( var_9 ) && isdefined( var_9.script_noteworthy ) && var_9.script_noteworthy == "breached_door" )
                 self.ebreacheddoor = var_9;
         }
     }
@@ -144,7 +144,7 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( self._id_472E == 1 )
     {
         self._id_4404 = getent( "flashthrow_" + var_7, "targetname" );
-        self._id_43FE = getent( self._id_4404._not_team, "targetname" );
+        self._id_43FE = getent( self._id_4404.target, "targetname" );
     }
 
     thread _id_1767( var_0 );
@@ -200,7 +200,7 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     if ( isdefined( self._id_1261 ) )
-        badplace_cylinder( self._id_7829, -1, self._id_1261.origin, self._id_1261.rank, 200, "bad_guys" );
+        badplace_cylinder( self._id_7829, -1, self._id_1261.origin, self._id_1261.radius, 200, "bad_guys" );
 
     var_13 = getaiarray( "bad_guys" );
     var_14 = [];
@@ -315,7 +315,7 @@ _id_17BA( var_0, var_1, var_2 )
         var_0._id_0C6D maps\_anim::_id_0BD0( self, var_4 );
     else
     {
-        self.secondaryattachment1 = var_0._id_0C6D;
+        self.scriptedarrivalent = var_0._id_0C6D;
         var_0._id_0C6D maps\_anim::_id_0BD1( self, var_4 );
     }
 
@@ -323,7 +323,7 @@ _id_17BA( var_0, var_1, var_2 )
     var_0._id_0C6D thread maps\_anim::_id_0BCE( self, var_5, self._id_315B );
     self._id_7F7E = self.origin;
     var_0._id_17BB++;
-    self.secondaryattachment1 = undefined;
+    self.scriptedarrivalent = undefined;
     var_0 waittill( "execute_the_breach" );
 
     if ( !var_0._id_38C7 && isdefined( var_7 ) )
@@ -336,8 +336,8 @@ _id_17BA( var_0, var_1, var_2 )
         {
             var_8 = "J_Mid_LE_1";
             self attach( "projectile_m84_flashbang_grenade", var_8 );
-            var_9 = self.groundentchanged;
-            self.groundentchanged = "flash_grenade";
+            var_9 = self.grenadeweapon;
+            self.grenadeweapon = "flash_grenade";
             self.grenadeammo++;
 
             if ( var_3 == "02" )
@@ -348,7 +348,7 @@ _id_17BA( var_0, var_1, var_2 )
 
             self magicgrenade( var_0._id_4404.origin, var_0._id_43FE.origin, level._id_4B9D );
             self detach( "projectile_m84_flashbang_grenade", var_8 );
-            self.groundentchanged = var_9;
+            self.grenadeweapon = var_9;
             self.grenadeammo = 0;
         }
 
@@ -575,12 +575,12 @@ _id_41C7()
     self endon( "death" );
     self endon( "stop_infinite_ammo" );
 
-    while ( isdefined( self.weapon_switch_invalid ) )
+    while ( isdefined( self.weapon ) )
     {
-        if ( isdefined( self.weapon_switch_invalid ) && self.weapon_switch_invalid == "none" )
+        if ( isdefined( self.weapon ) && self.weapon == "none" )
             break;
 
-        self._id_18B0 = weaponclipsize( self.weapon_switch_invalid );
+        self._id_18B0 = weaponclipsize( self.weapon );
         wait 0.5;
     }
 }
@@ -662,7 +662,7 @@ _id_2D44()
         self connectpaths();
     else
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
         var_0 hide();
         var_0 notsolid();
         var_0 connectpaths();

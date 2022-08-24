@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_zakhaev_imran" );
     precachemodel( "head_zakhaev_imran" );

@@ -24,10 +24,10 @@ main()
 {
     self endon( "killanimscript" );
 
-    if ( isdefined( self.enemy ) && isdefined( self.enemy.tag_ai_aim_target ) && self.enemy.tag_ai_aim_target == self )
+    if ( isdefined( self.enemy ) && isdefined( self.enemy.syncedmeleetarget ) && self.enemy.syncedmeleetarget == self )
     {
         self unlink();
-        self.enemy.tag_ai_aim_target = undefined;
+        self.enemy.syncedmeleetarget = undefined;
     }
 
     self _meth_8144( %root, 0.2 );

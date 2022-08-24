@@ -85,7 +85,7 @@ main()
             var_0 = 1;
     }
 
-    if ( self.tactical && !isdefined( self.enemy ) )
+    if ( self.swimmer && !isdefined( self.enemy ) )
     {
         var_1 = animscripts\exit_node::_id_3F8B();
 
@@ -152,7 +152,7 @@ _id_993C( var_0 )
         var_4 = var_3[6];
 
     var_5 = getanimlength( var_4 );
-    var_6 = abs( var_2 ) / self.turret_not_on_target;
+    var_6 = abs( var_2 ) / self.turnrate;
     var_6 /= 1000;
     var_7 = var_5 / var_6;
     self _meth_8193( "face angle", var_0 );
@@ -218,7 +218,7 @@ _id_3F56()
     if ( isdefined( var_0 ) )
     {
         var_1 = var_0.angles[1];
-        var_2 = var_0.unlockpoints;
+        var_2 = var_0.type;
     }
     else
     {
@@ -243,12 +243,12 @@ _id_971F( var_0, var_1 )
 {
     var_2 = self _meth_8167();
 
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
     {
-        if ( self.node_relinquished doesnodeforcecombat() )
+        if ( self.node doesnodeforcecombat() )
             var_2 = 1;
 
-        if ( self.node_relinquished _meth_8564() )
+        if ( self.node _meth_8564() )
             var_2 = 0;
     }
 
@@ -275,12 +275,12 @@ _id_6DAA( var_0, var_1 )
 {
     var_2 = self _meth_8167();
 
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
     {
-        if ( self.node_relinquished doesnodeforcecombat() )
+        if ( self.node doesnodeforcecombat() )
             var_2 = 1;
 
-        if ( self.node_relinquished _meth_8564() )
+        if ( self.node _meth_8564() )
             var_2 = 0;
     }
 
@@ -357,7 +357,7 @@ _id_7028()
     }
     else if ( self.a._id_5F5B != "stop" )
     {
-        if ( self.primaryattachment2 == "move" && isdefined( self.movetransitionanimation ) && isdefined( self.movetransitionendpose ) && self.movetransitionendpose == "prone" )
+        if ( self.prevscript == "move" && isdefined( self.movetransitionanimation ) && isdefined( self.movetransitionendpose ) && self.movetransitionendpose == "prone" )
         {
             var_3 = getanimlength( self.movetransitionanimation ) * ( 1 - self _meth_8151( self.movetransitionanimation ) );
 

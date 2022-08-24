@@ -19,7 +19,7 @@
 
 */
 
-interval()
+initstructs()
 {
     level._id_8F60 = [];
 }

@@ -21,7 +21,7 @@
 
 main()
 {
-    if ( self.unlockpoints == "dog" )
+    if ( self.type == "dog" )
         animscripts\traverse\shared::_id_2CA9( 38.0, 5 );
     else
         _id_589D();

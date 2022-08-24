@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_usmc_desert_assault_james_at4" );
     precachemodel( "head_usmc_desert_support_james" );

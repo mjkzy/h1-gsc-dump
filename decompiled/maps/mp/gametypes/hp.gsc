@@ -167,7 +167,7 @@ _id_64C8()
     {
         level waittill( "connected", var_0 );
         var_0._id_3BFA = 0;
-        var_0.offense_level = 0;
+        var_0.objective = 0;
         var_0._id_940F = [];
     }
 }
@@ -277,7 +277,7 @@ _id_9B20()
         {
             var_2 = var_1;
 
-            if ( var_1.team == "spectator" || var_1.sharpturnlookaheaddist == "spectator" )
+            if ( var_1.team == "spectator" || var_1.sessionstate == "spectator" )
                 var_2 = var_1 getspectatingplayer();
 
             if ( !maps\mp\_utility::_id_5189( var_2 ) )
@@ -324,7 +324,7 @@ _id_7F7A( var_0, var_1 )
     {
         var_0 setclientomnvar( "ui_hardpoint", var_2 );
         var_0._id_3BFA = var_2;
-        var_0.offense_level = var_2;
+        var_0.objective = var_2;
     }
 }
 
@@ -470,7 +470,7 @@ _id_41B9( var_0, var_1, var_2, var_3 )
 
     for ( var_5 = 0; var_5 < var_4.size; var_5++ )
     {
-        var_6 = var_0[var_4[var_5]].playercardbackground;
+        var_6 = var_0[var_4[var_5]].player;
         var_6 _id_9AFB( var_3 );
 
         if ( !_id_519A( var_6 ) )
@@ -698,7 +698,7 @@ _id_1206( var_0, var_1 )
 
             for ( var_6 = 0; var_6 < var_5.size; var_6++ )
             {
-                var_7 = var_4[var_5[var_6]].playercardbackground;
+                var_7 = var_4[var_5[var_6]].player;
 
                 if ( !isplayer( var_7 ) )
                     continue;
@@ -822,13 +822,13 @@ _id_59F1( var_0, var_1 )
         var_6[0] = var_4;
         var_4.namedborders = [];
 
-        if ( isdefined( var_4._not_team ) )
+        if ( isdefined( var_4.target ) )
         {
-            var_7 = getentarray( var_4._not_team, "targetname" );
+            var_7 = getentarray( var_4.target, "targetname" );
 
             foreach ( var_9 in var_7 )
             {
-                var_10 = var_9.script_parentname;
+                var_10 = var_9.script_noteworthy;
 
                 if ( isdefined( var_10 ) )
                 {

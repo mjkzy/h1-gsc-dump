@@ -185,46 +185,46 @@ _id_9B39()
     {
         foreach ( var_1 in level.players )
         {
-            var_1.offense_level = 0;
+            var_1.objective = 0;
 
             foreach ( var_3 in level._id_2CF9 )
             {
                 if ( var_1 istouching( var_3._id_56D9 ) )
                 {
                     if ( var_3._id_62AF["axis"] * var_3._id_62AF["allies"] > 0 )
-                        var_1.offense_level = 1;
+                        var_1.objective = 1;
                     else if ( var_3._id_663A == "neutral" )
                     {
                         if ( var_1.team == "allies" )
-                            var_1.offense_level = 2;
+                            var_1.objective = 2;
                         else
-                            var_1.offense_level = 3;
+                            var_1.objective = 3;
                     }
                     else if ( var_3._id_663A == "allies" )
                     {
                         if ( var_1.team == "allies" )
-                            var_1.offense_level = 4;
+                            var_1.objective = 4;
                         else
-                            var_1.offense_level = 5;
+                            var_1.objective = 5;
                     }
                     else if ( var_3._id_663A == "axis" )
                     {
                         if ( var_1.team == "axis" )
-                            var_1.offense_level = 6;
+                            var_1.objective = 6;
                         else
-                            var_1.offense_level = 7;
+                            var_1.objective = 7;
                     }
 
-                    if ( var_1.offense_level > 0 )
+                    if ( var_1.objective > 0 )
                     {
-                        if ( var_3.land == "_b" )
+                        if ( var_3.label == "_b" )
                         {
-                            var_1.offense_level += 7;
+                            var_1.objective += 7;
                             continue;
                         }
 
-                        if ( var_3.land == "_c" )
-                            var_1.offense_level += 14;
+                        if ( var_3.label == "_c" )
+                            var_1.objective += 14;
                     }
                 }
             }
@@ -423,11 +423,11 @@ _id_2CF9()
     {
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
         {
-            var_3 = var_1[var_2].script_model;
+            var_3 = var_1[var_2].script_label;
 
             for ( var_4 = 0; var_4 < var_0.size; var_4++ )
             {
-                if ( var_0[var_4].script_model == var_3 )
+                if ( var_0[var_4].script_label == var_3 )
                 {
                     var_0[var_4] delete();
                     break;
@@ -449,8 +449,8 @@ _id_2CF9()
     {
         var_6 = level._id_386B[var_5];
 
-        if ( isdefined( var_6._not_team ) )
-            var_7[0] = getent( var_6._not_team, "targetname" );
+        if ( isdefined( var_6.target ) )
+            var_7[0] = getent( var_6.target, "targetname" );
         else
         {
             var_7[0] = spawn( "script_model", var_6.origin );
@@ -466,7 +466,7 @@ _id_2CF9()
         var_8 maps\mp\gametypes\_gameobjects::setusetime( level._id_2CF1 );
         var_8 maps\mp\gametypes\_gameobjects::_id_834B( &"MP_SECURING_POSITION" );
         var_9 = var_8 maps\mp\gametypes\_gameobjects::_id_3FFA();
-        var_8.land = var_9;
+        var_8.label = var_9;
         var_8 updatedomicon();
         var_8 maps\mp\gametypes\_gameobjects::_id_8352( "any" );
         var_8.onuse = ::onuse;
@@ -539,9 +539,9 @@ updatedomicon()
 
     if ( var_1 )
     {
-        domseticon( "enemy", "waypoint_contested" + self.land );
-        domseticon( "friendly", "waypoint_contested" + self.land );
-        domseticon( "mlg", "waypoint_contested" + self.land );
+        domseticon( "enemy", "waypoint_contested" + self.label );
+        domseticon( "friendly", "waypoint_contested" + self.label );
+        domseticon( "mlg", "waypoint_contested" + self.label );
     }
     else if ( var_2 != "neutral" )
     {
@@ -550,48 +550,48 @@ updatedomicon()
 
         if ( var_4 )
         {
-            domseticon( "enemy", "waypoint_taking" + self.land );
-            domseticon( "friendly", "waypoint_losing" + self.land );
+            domseticon( "enemy", "waypoint_taking" + self.label );
+            domseticon( "friendly", "waypoint_losing" + self.label );
 
             if ( var_2 == "allies" )
             {
-                domseticon( "mlg", "waypoint_esports_dom_blue_losing" + self.land );
+                domseticon( "mlg", "waypoint_esports_dom_blue_losing" + self.label );
                 return;
             }
 
-            domseticon( "mlg", "waypoint_esports_dom_red_losing" + self.land );
+            domseticon( "mlg", "waypoint_esports_dom_red_losing" + self.label );
             return;
             return;
         }
 
-        domseticon( "enemy", "waypoint_capture" + self.land );
-        domseticon( "friendly", "waypoint_defend" + self.land );
+        domseticon( "enemy", "waypoint_capture" + self.label );
+        domseticon( "friendly", "waypoint_defend" + self.label );
 
         if ( var_2 == "allies" )
         {
-            domseticon( "mlg", "waypoint_esports_dom_blue" + self.land );
+            domseticon( "mlg", "waypoint_esports_dom_blue" + self.label );
             return;
         }
 
-        domseticon( "mlg", "waypoint_esports_dom_red" + self.land );
+        domseticon( "mlg", "waypoint_esports_dom_red" + self.label );
         return;
         return;
     }
     else if ( var_0 )
     {
-        domseticon( "enemy", "waypoint_captureneutral" + self.land );
-        domseticon( "friendly", "waypoint_captureneutral" + self.land );
-        domseticon( "mlg", "waypoint_esports_dom_white" + self.land );
+        domseticon( "enemy", "waypoint_captureneutral" + self.label );
+        domseticon( "friendly", "waypoint_captureneutral" + self.label );
+        domseticon( "mlg", "waypoint_esports_dom_white" + self.label );
     }
     else
     {
-        domseticon( "enemy", "waypoint_taking" + self.land );
-        domseticon( "friendly", "waypoint_losing" + self.land );
+        domseticon( "enemy", "waypoint_taking" + self.label );
+        domseticon( "friendly", "waypoint_losing" + self.label );
 
         if ( self._id_62AF["allies"] )
-            domseticon( "mlg", "waypoint_esports_dom_blue_taking" + self.land );
+            domseticon( "mlg", "waypoint_esports_dom_blue_taking" + self.label );
         else
-            domseticon( "mlg", "waypoint_esports_dom_red_taking" + self.land );
+            domseticon( "mlg", "waypoint_esports_dom_red_taking" + self.label );
     }
 }
 
@@ -629,17 +629,17 @@ _id_6454( var_0 )
     maps\mp\gametypes\_gameobjects::setusetime( level._id_2CF1 );
 
     if ( var_1 == "neutral" )
-        _id_8D7D( "securing" + self.land, var_0.team );
+        _id_8D7D( "securing" + self.label, var_0.team );
     else
     {
         if ( var_1 == "allies" )
         {
-            level._id_0A7D[level._id_0A7D.size] = self.land;
+            level._id_0A7D[level._id_0A7D.size] = self.label;
             var_2 = "axis";
             return;
         }
 
-        level._id_1216[level._id_1216.size] = self.land;
+        level._id_1216[level._id_1216.size] = self.label;
         var_2 = "allies";
     }
 }
@@ -652,13 +652,13 @@ _id_64FC( var_0, var_1, var_2 )
     {
         if ( var_3 == "neutral" )
         {
-            _id_8D7D( "securing" + self.land, var_0 );
+            _id_8D7D( "securing" + self.label, var_0 );
             self._id_6F72 = maps\mp\_utility::getotherteam( var_0 );
         }
         else
         {
-            _id_8D7D( "losing" + self.land, var_3, 1 );
-            _id_8D7D( "securing" + self.land, var_0 );
+            _id_8D7D( "losing" + self.label, var_3, 1 );
+            _id_8D7D( "securing" + self.label, var_0 );
         }
 
         self._id_2A4E = 1;
@@ -667,10 +667,10 @@ _id_64FC( var_0, var_1, var_2 )
     {
         maps\mp\gametypes\_gameobjects::_id_7FDA( "neutral" );
         _id_9BA1();
-        _id_8D7D( "lost" + self.land, var_3, 1 );
+        _id_8D7D( "lost" + self.label, var_3, 1 );
         level thread maps\mp\_utility::_id_6DDD( "h1_mp_war_objective_taken", var_0 );
         level thread maps\mp\_utility::_id_6DDD( "h1_mp_war_objective_lost", var_3 );
-        _id_9B93( self.land, "neutral" );
+        _id_9B93( self.label, "neutral" );
         thread _id_41E7( self._id_940D[var_0] );
     }
 }
@@ -692,9 +692,9 @@ _id_648E( var_0, var_1, var_2 )
         var_1 setclientomnvar( "ui_capture_icon", 0 );
 
     if ( var_0 == "allies" )
-        common_scripts\utility::_id_0CF6( level._id_0A7D, self.land );
+        common_scripts\utility::_id_0CF6( level._id_0A7D, self.label );
     else
-        common_scripts\utility::_id_0CF6( level._id_1216, self.land );
+        common_scripts\utility::_id_0CF6( level._id_1216, self.label );
 }
 
 onnumtouchingchanged( var_0, var_1, var_2 )
@@ -805,8 +805,8 @@ onuse( var_0 )
     if ( var_2 == "neutral" )
     {
         var_5 = maps\mp\_utility::getotherteam( var_1 );
-        _id_8D7D( "secured" + self.land, var_1, 1 );
-        _id_8D7D( "enemy_has" + self.land, var_5, 1 );
+        _id_8D7D( "secured" + self.label, var_1, 1 );
+        _id_8D7D( "enemy_has" + self.label, var_5, 1 );
         level thread maps\mp\_utility::_id_6DDD( "h1_mp_war_objective_taken", var_1 );
     }
     else
@@ -818,8 +818,8 @@ onuse( var_0 )
         }
         else
         {
-            _id_8D7D( "secured" + self.land, var_1, 1 );
-            _id_8D7D( "lost" + self.land, var_2, 1 );
+            _id_8D7D( "secured" + self.label, var_1, 1 );
+            _id_8D7D( "lost" + self.label, var_2, 1 );
         }
 
         level thread maps\mp\_utility::_id_6DDD( "h1_mp_war_objective_taken", var_1 );
@@ -827,7 +827,7 @@ onuse( var_0 )
         level._id_13B2[var_2] = self._id_56D9;
     }
 
-    _id_9B93( self.land, var_1 );
+    _id_9B93( self.label, var_1 );
     forcecapturehudoff( self._id_940D[var_1] );
     thread _id_41E6( self._id_940D[var_1], var_4 );
 }
@@ -838,7 +838,7 @@ forcecapturehudoff( var_0 )
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        var_3 = var_0[var_1[var_2]].playercardbackground;
+        var_3 = var_0[var_1[var_2]].player;
 
         if ( !isplayer( var_3 ) )
             continue;
@@ -856,13 +856,13 @@ _id_41E6( var_0, var_1 )
         var_2 = var_2.owner;
 
     if ( isplayer( var_2 ) )
-        level thread maps\mp\_utility::_id_91FA( "callout_securedposition" + self.land, var_2 );
+        level thread maps\mp\_utility::_id_91FA( "callout_securedposition" + self.label, var_2 );
 
     var_3 = getarraykeys( var_0 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
-        var_2 = var_0[var_3[var_4]].playercardbackground;
+        var_2 = var_0[var_3[var_4]].player;
 
         if ( isdefined( var_2.owner ) )
             var_2 = var_2.owner;
@@ -885,13 +885,13 @@ _id_41E7( var_0 )
         var_1 = var_1.owner;
 
     if ( isplayer( var_1 ) )
-        level thread maps\mp\_utility::_id_91FA( "callout_neutralized_position" + self.land, var_1 );
+        level thread maps\mp\_utility::_id_91FA( "callout_neutralized_position" + self.label, var_1 );
 
     var_2 = getarraykeys( var_0 );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        var_1 = var_0[var_2[var_3]].playercardbackground;
+        var_1 = var_0[var_2[var_3]].player;
 
         if ( isdefined( var_1.owner ) )
             var_1 = var_1.owner;
@@ -1015,7 +1015,7 @@ _id_9B12()
 
         foreach ( var_20 in level._id_2CF9 )
         {
-            if ( var_20.land == "_a" )
+            if ( var_20.label == "_a" )
             {
                 if ( var_20._id_46E3 == 1 )
                     var_17 = 1;
@@ -1023,7 +1023,7 @@ _id_9B12()
                 continue;
             }
 
-            if ( var_20.land == "_c" )
+            if ( var_20.label == "_c" )
             {
                 if ( var_20._id_46E3 == 1 )
                     var_18 = 1;
@@ -1144,7 +1144,7 @@ _id_386D()
 {
     foreach ( var_1 in level._id_2CF9 )
     {
-        switch ( var_1.land )
+        switch ( var_1.label )
         {
             case "_a":
                 var_1._id_2D00 = 0;
@@ -1164,19 +1164,19 @@ _id_386D()
     {
         var_5.preferreddompoint = undefined;
 
-        if ( isdefined( var_5.script_parentname ) )
+        if ( isdefined( var_5.script_noteworthy ) )
         {
-            if ( var_5.script_parentname == "a_override" )
+            if ( var_5.script_noteworthy == "a_override" )
             {
                 var_5.preferreddompoint = 0;
                 continue;
             }
-            else if ( var_5.script_parentname == "b_override" )
+            else if ( var_5.script_noteworthy == "b_override" )
             {
                 var_5.preferreddompoint = 1;
                 continue;
             }
-            else if ( var_5.script_parentname == "c_override" )
+            else if ( var_5.script_noteworthy == "c_override" )
             {
                 var_5.preferreddompoint = 2;
                 continue;
@@ -1389,11 +1389,11 @@ flagsetuplegacy()
     var_0 = [];
 
     foreach ( var_2 in level._id_386B )
-        var_0[var_2.script_model] = var_2;
+        var_0[var_2.script_label] = var_2;
 
     var_4 = [];
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "mp_bog_summer":
         case "mp_bog":
@@ -1431,7 +1431,7 @@ flagsetuplegacy()
 
     foreach ( var_2 in level._id_386B )
     {
-        var_6 = var_4[var_2.script_model];
+        var_6 = var_4[var_2.script_label];
 
         foreach ( var_8 in var_6 )
             var_2.adjflags[var_2.adjflags.size] = var_0[var_8];

@@ -141,7 +141,7 @@ _id_646D()
 _id_23E9( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawnstruct();
-    var_4.unlockpoints = "carryObject";
+    var_4.type = "carryObject";
     var_4.curorigin = var_1.origin;
     var_4._id_663A = var_0;
     var_4._id_331C = var_1 getentitynumber();
@@ -244,11 +244,11 @@ _id_23E9( var_0, var_1, var_2, var_3 )
 
 deletecarryobject()
 {
-    if ( self.unlockpoints != "carryObject" )
+    if ( self.type != "carryObject" )
         return;
 
     var_0 = self;
-    var_0.unlockpoints = undefined;
+    var_0.type = undefined;
     var_0.curorigin = undefined;
     var_0._id_663A = undefined;
     var_0._id_331C = undefined;
@@ -587,7 +587,7 @@ _id_41F4( var_0 )
             self._id_1BB5 maps\mp\gametypes\_hud_util::_id_7FEE( "BOTTOM RIGHT", "BOTTOM RIGHT", -90, -110 );
         }
 
-        self._id_1BB5.hindlegstraceoffset = 1;
+        self._id_1BB5.hidewheninmenu = 1;
         thread _id_4870();
     }
 
@@ -946,7 +946,7 @@ _id_2874()
 createuseobject( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnstruct();
-    var_5.unlockpoints = "useObject";
+    var_5.type = "useObject";
     var_5.curorigin = var_1.origin;
     var_5._id_663A = var_0;
     var_5._id_331C = var_1 getentitynumber();
@@ -1258,9 +1258,9 @@ _id_3F79()
         {
             var_5 = self._id_940D[var_0][var_3[var_4]];
 
-            if ( maps\mp\_utility::_id_5189( var_5.playercardbackground ) && ( !isdefined( var_2 ) || var_5._id_8D41 < var_2 ) )
+            if ( maps\mp\_utility::_id_5189( var_5.player ) && ( !isdefined( var_2 ) || var_5._id_8D41 < var_2 ) )
             {
-                var_1 = var_5.playercardbackground;
+                var_1 = var_5.player;
                 var_2 = var_5._id_8D41;
             }
         }
@@ -1537,7 +1537,7 @@ _id_981C( var_0 )
     var_0 _setnumtouching( var_1, var_0._id_62AF[var_1] + 1 );
     var_2 = self.guid;
     var_3 = spawnstruct();
-    var_3.playercardbackground = self;
+    var_3.player = self;
     var_3._id_8D41 = gettime();
     var_0._id_940D[var_1][var_2] = var_3;
 
@@ -1599,7 +1599,7 @@ _id_50CA( var_0 )
 
     var_1 = distance2dsquared( self.origin, var_0.origin );
 
-    if ( var_1 < var_0.rank * var_0.rank )
+    if ( var_1 < var_0.radius * var_0.radius )
         return 1;
 
     return 0;
@@ -1788,17 +1788,17 @@ _id_9B98()
 
     foreach ( var_7 in self._id_940D[self._id_1E22] )
     {
-        if ( !isdefined( var_7.playercardbackground ) )
+        if ( !isdefined( var_7.player ) )
             continue;
 
-        if ( var_7.playercardbackground.pers["team"] != self._id_1E22 )
+        if ( var_7.player.pers["team"] != self._id_1E22 )
             continue;
 
-        if ( var_7.playercardbackground.objectivescaler == 1 )
+        if ( var_7.player.objectivescaler == 1 )
             continue;
 
-        var_0 *= var_7.playercardbackground.objectivescaler;
-        var_2 = var_7.playercardbackground.objectivescaler;
+        var_0 *= var_7.player.objectivescaler;
+        var_2 = var_7.player.objectivescaler;
     }
 
     self.userate = 0;
@@ -1859,7 +1859,7 @@ _id_9C02( var_0 )
         var_0 common_scripts\utility::_id_0587();
 
     self.curprogress = 0;
-    self.isradarblocked = 1;
+    self.inuse = 1;
     self.userate = 0;
 
     if ( isplayer( var_0 ) )
@@ -1899,7 +1899,7 @@ _id_9C02( var_0 )
             var_0._id_535F = 1;
     }
 
-    self.isradarblocked = 0;
+    self.inuse = 0;
     self.trigger releaseclaimedtrigger();
     return 0;
 }
@@ -1979,7 +1979,7 @@ _id_9C04( var_0, var_1 )
 
         if ( self.curprogress >= self._id_9C19 )
         {
-            self.isradarblocked = 0;
+            self.inuse = 0;
             var_0 clientreleasetrigger( self.trigger );
             var_0._id_1E23 = undefined;
 
@@ -2026,7 +2026,7 @@ _id_67E5( var_0 )
     var_3 = -1;
     var_4 = isdefined( level._id_4A39 );
 
-    while ( maps\mp\_utility::_id_5189( self ) && var_0.isradarblocked && !level.gameended )
+    while ( maps\mp\_utility::_id_5189( self ) && var_0.inuse && !level.gameended )
     {
         if ( var_3 != var_0.userate || var_4 != isdefined( level._id_4A39 ) )
         {
@@ -2167,7 +2167,7 @@ _id_9BA8( var_0, var_1 )
             else
                 var_5 setwaypoint( 1, 0 );
 
-            if ( self.unlockpoints == "carryObject" )
+            if ( self.type == "carryObject" )
             {
                 if ( isdefined( self._id_1BAF ) && !_id_84A1( var_0 ) )
                     var_5 settargetent( self._id_1BAF );
@@ -2262,7 +2262,7 @@ _id_9B08( var_0, var_1 )
         objective_icon( var_5, self._id_20D0[var_0] );
         objective_state( var_5, "active" );
 
-        if ( self.unlockpoints == "carryObject" )
+        if ( self.type == "carryObject" )
         {
             if ( maps\mp\_utility::_id_5189( self._id_1BAF ) && !_id_84A1( var_0 ) )
             {
@@ -2494,7 +2494,7 @@ _id_2B1E()
 {
     self notify( "disabled" );
 
-    if ( self.unlockpoints == "carryObject" )
+    if ( self.type == "carryObject" )
     {
         if ( isdefined( self._id_1BAF ) )
             self._id_1BAF _id_912E( self );
@@ -2509,7 +2509,7 @@ _id_2B1E()
 
 _id_3114()
 {
-    if ( self.unlockpoints == "carryObject" )
+    if ( self.type == "carryObject" )
     {
         for ( var_0 = 0; var_0 < self.visuals.size; var_0++ )
             self.visuals[var_0] show();
@@ -2652,7 +2652,7 @@ getnextobjid()
 
 _id_3FFA()
 {
-    var_0 = self.trigger.script_model;
+    var_0 = self.trigger.script_label;
 
     if ( !isdefined( var_0 ) )
     {

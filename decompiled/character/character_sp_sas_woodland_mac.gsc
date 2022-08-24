@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_sp_sas_woodland_assault_b" );
     precachemodel( "head_sp_sas_woodland_mac" );

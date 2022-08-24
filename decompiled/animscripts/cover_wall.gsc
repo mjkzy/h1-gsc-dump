@@ -108,10 +108,10 @@ _id_4C81()
 _id_229A( var_0 )
 {
     self endon( "killanimscript" );
-    self._id_22BA = self.node_relinquished;
+    self._id_22BA = self.node;
     self._id_22CB = var_0;
 
-    if ( !isdefined( self.node_relinquished._id_9940 ) )
+    if ( !isdefined( self.node._id_9940 ) )
         animscripts\cover_behavior::_id_993F( 0 );
 
     if ( var_0 == "crouch" )
@@ -128,31 +128,31 @@ _id_229A( var_0 )
     self.a._id_0979 = undefined;
     self _meth_8193( "face angle", self._id_22BA.angles[1] );
 
-    if ( isdefined( self.weapon_switch_invalid ) && animscripts\utility::_id_9C2E() && isdefined( self.node_relinquished ) && isdefined( self.node_relinquished._id_99B3 ) && canspawnturret() )
+    if ( isdefined( self.weapon ) && animscripts\utility::_id_9C2E() && isdefined( self.node ) && isdefined( self.node._id_99B3 ) && canspawnturret() )
     {
         if ( var_0 == "crouch" )
         {
-            if ( _id_5195( self.weapon_switch_invalid ) )
+            if ( _id_5195( self.weapon ) )
                 var_1 = "rpd_bipod_crouch";
             else
                 var_1 = "saw_bipod_crouch";
         }
-        else if ( _id_5195( self.weapon_switch_invalid ) )
+        else if ( _id_5195( self.weapon ) )
             var_1 = "rpd_bipod_stand";
         else
             var_1 = "saw_bipod_stand";
 
-        if ( _id_5195( self.weapon_switch_invalid ) )
+        if ( _id_5195( self.weapon ) )
             var_2 = "weapon_rpd_MG_Setup";
         else
             var_2 = "weapon_saw_MG_Setup";
 
-        if ( ismuzzleoptimizedsmall( self.weapon_switch_invalid ) && turretoptimizedsmallversionexists( var_1 ) )
+        if ( ismuzzleoptimizedsmall( self.weapon ) && turretoptimizedsmallversionexists( var_1 ) )
             var_1 += "_muzzle_small";
 
         _id_9C12( var_1, var_2, 0 );
     }
-    else if ( isdefined( self.node_relinquished ) && isdefined( self.node_relinquished._id_9940 ) )
+    else if ( isdefined( self.node ) && isdefined( self.node._id_9940 ) )
         _id_9C15();
 
     self _meth_8192( "normal" );
@@ -211,9 +211,9 @@ _id_229A( var_0 )
     if ( !self.fixednode )
         var_7._id_5F93 = animscripts\cover_behavior::_id_5F93;
 
-    var_7.rendertotexture = ::_id_22BE;
+    var_7.reload = ::_id_22BE;
     var_7._id_5667 = ::_id_6E49;
-    var_7.lookaheaddist = ::lookaheaddist;
+    var_7.look = ::look;
     var_7._id_367E = ::_id_367E;
     var_7._id_4B63 = ::_id_4B63;
     var_7._id_38DF = ::_id_38DF;
@@ -274,10 +274,10 @@ _id_22BE()
 {
     var_0 = animscripts\utility::_id_0C4E( "reload" );
 
-    if ( animscripts\utility::_id_51A3( self.weapon_switch_invalid ) && isdefined( self.a._id_0CD8["shotgun_reload"] ) )
+    if ( animscripts\utility::_id_51A3( self.weapon ) && isdefined( self.a._id_0CD8["shotgun_reload"] ) )
         var_0 = animscripts\utility::_id_0C4E( "shotgun_reload" );
 
-    var_1 = animscripts\combat_utility::rendertotexture( 2.0, var_0 );
+    var_1 = animscripts\combat_utility::reload( 2.0, var_0 );
 
     if ( isdefined( var_1 ) && var_1 )
         return 1;
@@ -287,7 +287,7 @@ _id_22BE()
 
 _id_6E49()
 {
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
 
     if ( isdefined( self._id_7109 ) && randomfloat( 1 ) < self._id_7109 )
     {
@@ -316,7 +316,7 @@ _id_6E49()
 
     _id_4240();
     self._id_22A0 = undefined;
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
@@ -390,7 +390,7 @@ _id_7104()
 
     self._id_22BC = gettime();
     _id_7F4E();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     self._id_5187 = 1;
     self.a._id_6F4D = "rambo";
     self._id_1C86 = 1;
@@ -401,7 +401,7 @@ _id_7104()
     animscripts\shared::_id_2D06( "rambo" );
     self notify( "rambo_aim_end" );
     self._id_1C86 = 0;
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     self._id_55D1 = gettime();
     self._id_1C86 = 0;
     self._id_5187 = undefined;
@@ -433,14 +433,14 @@ _id_38DF()
     var_0 = anglestoforward( self.angles );
     var_1 = self.origin + var_0 * -16;
 
-    if ( !self _meth_81c7( var_1, !self.tactical ) )
+    if ( !self _meth_81c7( var_1, !self.swimmer ) )
         return 0;
 
     _id_7F4E();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_2 = animscripts\utility::_id_0C51( "hide_idle_flinch" );
     _id_6DAC( var_2, 1 );
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
@@ -456,7 +456,7 @@ _id_6DAC( var_0, var_1 )
     animscripts\shared::_id_2D06( "idle" );
 }
 
-lookaheaddist( var_0 )
+look( var_0 )
 {
     if ( !isdefined( self.a._id_0CD8["hide_to_look"] ) )
         return 0;
@@ -512,12 +512,12 @@ _id_6E43()
     var_0 = _id_3F14();
     var_1 = 0.1;
     var_2 = animscripts\utility::_id_0C4E( "hide_2_" + var_0 );
-    var_3 = !self.tactical;
+    var_3 = !self.swimmer;
 
     if ( !self _meth_81c7( animscripts\utility::_id_3EFC( var_2 ), var_3 ) )
         return 0;
 
-    if ( self.script_context == "cover_crouch" && var_0 == "lean" )
+    if ( self.script == "cover_crouch" && var_0 == "lean" )
         self._id_22A0 = 1;
 
     if ( self._id_22CB == "crouch" )
@@ -669,9 +669,9 @@ _id_98A5( var_0, var_1 )
         var_2 = animscripts\utility::_id_0C51( "grenade_exposed" );
 
     _id_7F4E();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     var_3 = animscripts\combat_utility::_id_989D( var_0, var_2 );
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return var_3;
 }
 
@@ -681,10 +681,10 @@ _id_14AB()
         return 0;
 
     _id_7F4E();
-    self.key2 = 1;
+    self.keepclaimednodeifvalid = 1;
     self setflaggedanimknoballrestart( "blindfire", animscripts\utility::_id_0C51( "blind_fire" ), %body, 1, 0.2, 1 );
     animscripts\shared::_id_2D06( "blindfire" );
-    self.key2 = 0;
+    self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
@@ -703,14 +703,14 @@ _id_2449( var_0, var_1, var_2, var_3 )
 
     var_4 _meth_815c( 0 );
 
-    if ( isdefined( var_0.light ) )
-        var_4.light = var_0.light;
+    if ( isdefined( var_0.leftarc ) )
+        var_4.leftarc = var_0.leftarc;
 
-    if ( isdefined( var_0.rocket ) )
-        var_4.rocket = var_0.rocket;
+    if ( isdefined( var_0.rightarc ) )
+        var_4.rightarc = var_0.rightarc;
 
-    if ( isdefined( var_0.touching_platform ) )
-        var_4.touching_platform = var_0.touching_platform;
+    if ( isdefined( var_0.toparc ) )
+        var_4.toparc = var_0.toparc;
 
     if ( isdefined( var_0.bottomarc ) )
         var_4.bottomarc = var_0.bottomarc;
@@ -735,7 +735,7 @@ _id_9C12( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) )
         var_2 = 1;
 
-    var_3 = _id_2449( self.node_relinquished._id_99B3, var_0, var_1, var_2 );
+    var_3 = _id_2449( self.node._id_99B3, var_0, var_1, var_2 );
 
     if ( self _meth_818e( var_3 ) )
     {
@@ -752,7 +752,7 @@ _id_9C12( var_0, var_1, var_2 )
 
 _id_9C15()
 {
-    var_0 = self.node_relinquished._id_9940;
+    var_0 = self.node._id_9940;
 
     if ( !var_0._id_519E )
         return;
@@ -953,7 +953,7 @@ _id_40C9( var_0 )
 
 _id_7F4E()
 {
-    if ( self.tactical )
+    if ( self.swimmer )
         self _meth_8192( "nogravity" );
     else
         self _meth_8192( "zonly_physics" );

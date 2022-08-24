@@ -54,10 +54,10 @@ _id_2443( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6 = newteamhudelem( var_2 );
 
-    var_6.nearz = var_0;
-    var_6.xpmaxmultipliertimeplayed = var_1[0];
-    var_6._id_0538 = var_1[1];
-    var_6._id_053B = var_1[2];
+    var_6.name = var_0;
+    var_6.x = var_1[0];
+    var_6.y = var_1[1];
+    var_6.z = var_1[2];
     var_6.team = var_2;
     var_6._id_5109 = 0;
     var_6._id_51A5 = 1;
@@ -70,7 +70,7 @@ _id_2443( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_6.alpha = level._id_6314;
 
     var_6._id_1301 = var_6.alpha;
-    var_6.info_player_start = level._id_6315.size;
+    var_6.index = level._id_6315.size;
     level._id_6316[var_0] = var_6;
     level._id_6315[level._id_6315.size] = var_0;
     return var_6;
@@ -86,13 +86,13 @@ deleteobjpoint( var_0 )
         return;
     }
 
-    var_1 = var_0.info_player_start;
+    var_1 = var_0.index;
     var_2 = level._id_6315.size - 1;
     var_3 = _id_405D( var_2 );
-    level._id_6315[var_1] = var_3.nearz;
-    var_3.info_player_start = var_1;
+    level._id_6315[var_1] = var_3.name;
+    var_3.index = var_1;
     level._id_6315[var_2] = undefined;
-    level._id_6316[var_0.nearz] = undefined;
+    level._id_6316[var_0.name] = undefined;
     var_0 destroy();
 }
 
@@ -113,14 +113,14 @@ deleteallobjpoints()
 
 _id_9B44( var_0 )
 {
-    if ( self.xpmaxmultipliertimeplayed != var_0[0] )
-        self.xpmaxmultipliertimeplayed = var_0[0];
+    if ( self.x != var_0[0] )
+        self.x = var_0[0];
 
-    if ( self._id_0538 != var_0[1] )
-        self._id_0538 = var_0[1];
+    if ( self.y != var_0[1] )
+        self.y = var_0[1];
 
-    if ( self._id_053B != var_0[2] )
-        self._id_053B = var_0[2];
+    if ( self.z != var_0[2] )
+        self.z = var_0[2];
 }
 
 _id_7FD4( var_0, var_1 )

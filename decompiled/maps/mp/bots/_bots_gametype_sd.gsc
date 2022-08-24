@@ -137,7 +137,7 @@ _id_16D8()
     {
         wait(randomintrange( 1, 3 ) * 0.05);
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             continue;
 
         self._id_4700 = 1;
@@ -810,7 +810,7 @@ _id_3E6B( var_0 )
 
     for ( var_1 = 0; var_1 < level._id_1555.size; var_1++ )
     {
-        if ( level._id_1555[var_1].land == var_0 )
+        if ( level._id_1555[var_1].label == var_0 )
             return level._id_1555[var_1];
     }
 }

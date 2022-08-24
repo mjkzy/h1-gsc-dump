@@ -21,7 +21,7 @@
 
 start_court()
 {
-    level.playercardbackground setorigin( getnode( "start_leaving_apartment", "targetname" ).origin );
+    level.player setorigin( getnode( "start_leaving_apartment", "targetname" ).origin );
 }
 
 start_melee()
@@ -30,8 +30,8 @@ start_melee()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0D13( var_0, ::_id_2819 );
     thread melee_sequence();
-    level.playercardbackground setplayerangles( ( 0.0, 240.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 10181.9, 708.265, 100.567 ) );
+    level.player setplayerangles( ( 0.0, 240.0, 0.0 ) );
+    level.player setorigin( ( 10181.9, 708.265, 100.567 ) );
 }
 
 start_breach()
@@ -41,8 +41,8 @@ start_breach()
     var_0 = getaiarray( "axis" );
     common_scripts\utility::_id_0D13( var_0, ::_id_2819 );
     thread melee_sequence();
-    level.playercardbackground setplayerangles( ( 0.0, 180.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 9976.2, 423.6, 236.0 ) );
+    level.player setplayerangles( ( 0.0, 180.0, 0.0 ) );
+    level.player setorigin( ( 9976.2, 423.6, 236.0 ) );
     thread second_floor_door_breach_setup();
 
     for (;;)
@@ -67,8 +67,8 @@ second_floor_door_breach_setup()
 start_apart()
 {
     thread melee_sequence();
-    level.playercardbackground setplayerangles( ( 0.0, 240.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 10181.9, 708.265, 100.567 ) );
+    level.player setplayerangles( ( 0.0, 240.0, 0.0 ) );
+    level.player setorigin( ( 10181.9, 708.265, 100.567 ) );
 }
 
 spawn_guys_that_run_away( var_0 )
@@ -86,10 +86,10 @@ spawn_guy_that_runs_away()
         return;
 
     var_0 endon( "death" );
-    var_1 = var_0.pathlookaheaddist;
-    var_0.pathlookaheaddist = 0;
+    var_1 = var_0.pathenemyfightdist;
+    var_0.pathenemyfightdist = 0;
     var_0 waittill( "goal" );
-    var_0.pathlookaheaddist = var_1;
+    var_0.pathenemyfightdist = var_1;
 }
 
 delayed_spawn_and_kill( var_0, var_1 )
@@ -127,10 +127,10 @@ ai_walk_trigger()
 friendlies_wait_for_ambush_then_fight_back()
 {
     self endon( "death" );
-    self.pantssize = 1;
+    self.pacifist = 1;
     self.goalheight = 48;
     common_scripts\utility::_id_384A( "friendlies_take_fire" );
-    self.pantssize = 0;
+    self.pacifist = 0;
 }
 
 rooftop_damage_trigger()
@@ -181,10 +181,10 @@ bridge_runners()
         return;
 
     var_0 endon( "death" );
-    var_1 = getnode( var_0._not_team, "targetname" );
+    var_1 = getnode( var_0.target, "targetname" );
     var_0 _meth_81a9( var_1 );
-    var_0.invisible = 0;
-    var_0.index = 1;
+    var_0.interval = 0;
+    var_0.ignoresuppression = 1;
     var_0.goalradius = 64;
     var_0 waittill( "goal" );
 
@@ -334,7 +334,7 @@ targets_tank_thread( var_0 )
 becomes_vulnerable()
 {
     maps\_vehicle::_id_4258();
-    self.helmet = 1;
+    self.health = 1;
 }
 
 drives()
@@ -377,16 +377,16 @@ helicopter_drops_off_guys()
     common_scripts\utility::_id_0D13( var_0, ::heli_riders_spawn_and_delete );
     var_1 = getent( "heli_path", "targetname" );
     var_2 = maps\_vehicle::_id_8978( "heli" );
-    var_2.helmet = 10000000;
+    var_2.health = 10000000;
     var_2 vehicle_setspeed( 150, 35, 35 );
     var_2 neargoalnotifydist( 500 );
 
     for (;;)
     {
-        if ( !isdefined( var_1._not_team ) )
+        if ( !isdefined( var_1.target ) )
             break;
 
-        var_1 = getent( var_1._not_team, "targetname" );
+        var_1 = getent( var_1.target, "targetname" );
         var_2 setgoalyaw( var_1.angles[1] );
         var_2 setgoalpos( var_1.origin, 1 );
 
@@ -412,10 +412,10 @@ helicopter_drops_off_guys()
 
         var_2 vehicle_setspeed( 150, 25, 15 );
 
-        if ( !isdefined( var_1._not_team ) )
+        if ( !isdefined( var_1.target ) )
             break;
 
-        var_1 = getent( var_1._not_team, "targetname" );
+        var_1 = getent( var_1.target, "targetname" );
         var_2 setgoalyaw( var_1.angles[1] );
     }
 
@@ -468,9 +468,9 @@ heli_flies( var_0, var_1 )
 {
     self endon( "death" );
     self._id_7B04 = 0;
-    self.helmet = 10000000;
+    self.health = 10000000;
     self setturningability( 1 );
-    maps\_vehicle_code::helipath( self._not_team, var_0, var_1 );
+    maps\_vehicle_code::helipath( self.target, var_0, var_1 );
     self delete();
 }
 
@@ -499,7 +499,7 @@ aim_trigger_think()
 
 aimsatself( var_0 )
 {
-    var_1 = getent( self._not_team, "targetname" );
+    var_1 = getent( self.target, "targetname" );
     var_0 endon( "death" );
     var_0 maps\_utility::_id_22CF( var_1 );
 
@@ -542,10 +542,10 @@ ai_tells_trigger_he_died( var_0 )
 street_guys_run_for_it()
 {
     self endon( "death" );
-    var_0 = getnode( self._not_team, "targetname" );
+    var_0 = getnode( self.target, "targetname" );
     self _meth_81a9( var_0 );
     self.goalradius = 32;
-    self.index = 1;
+    self.ignoresuppression = 1;
     self setthreatbiasgroup( "street_guys" );
     common_scripts\utility::_id_384A( "street_guys_run" );
     maps\_utility::waitspread( 0, 3 );
@@ -554,14 +554,14 @@ street_guys_run_for_it()
     {
         self waittill( "goal" );
 
-        if ( !isdefined( var_0._not_team ) )
+        if ( !isdefined( var_0.target ) )
             break;
 
-        var_0 = getnode( var_0._not_team, "targetname" );
+        var_0 = getnode( var_0.target, "targetname" );
         self _meth_81a9( var_0 );
     }
 
-    if ( !self _meth_81c2( level.playercardbackground ) )
+    if ( !self _meth_81c2( level.player ) )
         self delete();
 }
 
@@ -571,16 +571,16 @@ ai_enters_apartment( var_0 )
     var_1 = getnode( "right_house_node", "targetname" );
     maps\_utility::waitspread( 0.01, 2.5 );
     self _meth_81a9( var_1 );
-    self.index = 1;
+    self.ignoresuppression = 1;
     self.goalradius = 32;
     self waittill( "goal" );
-    var_1 = getnode( var_1._not_team, "targetname" );
+    var_1 = getnode( var_1.target, "targetname" );
     self _meth_81a9( var_1 );
     self waittill( "goal" );
     var_1 = getnode( var_0, "targetname" );
     self _meth_81a9( var_1 );
     self waittill( "goal" );
-    self.index = 0;
+    self.ignoresuppression = 0;
     level.apartment_reach--;
 
     if ( !level.apartment_reach )
@@ -633,37 +633,37 @@ target_spot_delayed( var_0, var_1 )
 melee_sequence()
 {
     var_0 = getent( "start_melee", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
-    var_2 = getent( var_1._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
+    var_2 = getent( var_1.target, "targetname" );
     var_2._id_7A40 = 1;
     var_3 = getent( "melee_enemy_spawner", "targetname" );
     var_3._id_7A40 = 1;
-    var_4 = getnode( var_2._not_team, "targetname" );
+    var_4 = getnode( var_2.target, "targetname" );
     var_5 = getent( "player_breaks_melee_sequence", "targetname" );
     var_6 = getent( "melee_ai_trigger", "targetname" );
-    var_7 = getnode( var_3._not_team, "targetname" );
+    var_7 = getnode( var_3.target, "targetname" );
     var_0 waittill( "trigger" );
     var_8 = var_2 maps\_utility::_id_88C3();
 
     if ( maps\_utility::_id_88F1( var_8 ) )
         return;
 
-    var_8.ignoreforfixednodesafecheck = 1;
-    var_8.ignoretriggers = 1;
-    var_8.pathlookaheaddist = 0;
-    var_8.pathrandompercent = 0;
+    var_8.ignoreall = 1;
+    var_8.ignoreme = 1;
+    var_8.pathenemyfightdist = 0;
+    var_8.pathenemylookahead = 0;
     var_8.goalheight = 64;
     var_8.goalradius = 32;
-    var_8.ikweight = 1;
+    var_8.ignorerandombulletdamage = 1;
     var_9 = var_3 maps\_utility::_id_88C3();
 
     if ( maps\_utility::_id_88F1( var_9 ) )
         return;
 
-    var_9.ignoretriggers = 1;
-    var_9.ignoreforfixednodesafecheck = getdvarint( "use_old_meleestruggle" ) == 0;
+    var_9.ignoreme = 1;
+    var_9.ignoreall = getdvarint( "use_old_meleestruggle" ) == 0;
     var_9.goalradius = 32;
-    var_9.helmet = 1;
+    var_9.health = 1;
     var_9 _meth_81a7( 1 );
     var_9.dontavoidplayer = 1;
     var_9 setthreatbiasgroup( "melee_struggle_guy" );
@@ -686,7 +686,7 @@ melee_sequence()
     {
         if ( var_10 == var_8 && !common_scripts\utility::_id_382E( "player_interupts_melee_struggle" ) )
         {
-            var_8.ikweight = 0;
+            var_8.ignorerandombulletdamage = 0;
             melee_sequence_plays_out( var_8, var_9 );
 
             if ( isdefined( var_8 ) )
@@ -695,7 +695,7 @@ melee_sequence()
                 var_8 playsound( "bog_scn_melee_struggle_end" );
             }
 
-            if ( isalive( var_9 ) && !var_9 _meth_81c2( level.playercardbackground ) )
+            if ( isalive( var_9 ) && !var_9 _meth_81c2( level.player ) )
                 var_9 kill();
         }
         else if ( isalive( var_8 ) )
@@ -703,7 +703,7 @@ melee_sequence()
     }
     else
     {
-        var_8.ikweight = 0;
+        var_8.ignorerandombulletdamage = 0;
         melee_sequence_plays_out( var_8, var_9 );
 
         if ( isdefined( var_8 ) )
@@ -716,13 +716,13 @@ melee_sequence()
             var_8._id_2D3A = 0;
 
         if ( isalive( var_9 ) )
-            var_9.ignoreforfixednodesafecheck = 0;
+            var_9.ignoreall = 0;
     }
 
     if ( isalive( var_9 ) )
     {
         var_9._id_2652 = undefined;
-        var_9.ignoretriggers = 0;
+        var_9.ignoreme = 0;
         var_9 _meth_8143();
     }
 
@@ -734,9 +734,9 @@ melee_sequence()
         var_8 maps\_utility::_id_7E0B();
         var_8 maps\_utility::_id_7E38( "p" );
         var_8.a._id_612E = 0;
-        var_8.ignoreforfixednodesafecheck = 0;
-        var_8.ikweight = 0;
-        var_8.index = 1;
+        var_8.ignoreall = 0;
+        var_8.ignorerandombulletdamage = 0;
+        var_8.ignoresuppression = 1;
     }
     else
         maps\_utility::_id_4E8A( "b", "p" );
@@ -785,7 +785,7 @@ melee_sequence_plays_out( var_0, var_1 )
     var_1.allowdeath = 1;
     var_0.end_melee_animation = "stand_death";
     var_0 thread saved_from_melee( var_1 );
-    var_0.helmet = 1;
+    var_0.health = 1;
     var_0 thread maps\_anim::_id_0C24( var_0, "gah" );
     var_3 maps\_anim::_id_0C18( var_2, "melee" );
 }
@@ -878,11 +878,11 @@ threatbias_lower_trigger()
         self waittill( "trigger", var_0 );
 
         if ( !isdefined( var_0.normal_threatbias ) )
-            var_0.normal_threatbias = var_0.threatsightdelayfalloff;
-        else if ( var_0.normal_threatbias != var_0.threatsightdelayfalloff )
+            var_0.normal_threatbias = var_0.threatbias;
+        else if ( var_0.normal_threatbias != var_0.threatbias )
             continue;
 
-        var_0.threatsightdelayfalloff -= 1500;
+        var_0.threatbias -= 1500;
         wait 2;
     }
 }
@@ -898,7 +898,7 @@ threatbias_normal_trigger()
         if ( !isdefined( var_0.normal_threatbias ) )
             continue;
 
-        var_0.threatsightdelayfalloff = var_0.normal_threatbias;
+        var_0.threatbias = var_0.normal_threatbias;
         wait 2;
     }
 }
@@ -969,7 +969,7 @@ enable_pacifists_to_attack_me()
 ignores_unreachable_enemies()
 {
     self setthreatbiasgroup( "friendlies_flanking_apartment" );
-    self.index = 1;
+    self.ignoresuppression = 1;
 }
 
 set_threatbias_group( var_0 )
@@ -980,7 +980,7 @@ set_threatbias_group( var_0 )
 wait_until_its_time_to_flank()
 {
     var_0 = getent( "moveup_trigger", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_1 maps\_utility::_id_9FC8( 10 );
 }
 
@@ -1015,7 +1015,7 @@ tally_pacifists()
     {
         var_3 = var_0[var_2];
 
-        if ( var_3.pantssize )
+        if ( var_3.pacifist )
             var_1[var_3.team]++;
     }
 }
@@ -1067,8 +1067,8 @@ alley_smg_playerseeker()
     self _meth_8170( randomintrange( 100, 225 ), 0 );
     var_0 = randomintrange( 300, 400 );
     self _meth_8171( var_0, var_0 + 200 );
-    self.pathlookaheaddist = 185;
-    self.pathrandompercent = 185;
+    self.pathenemyfightdist = 185;
+    self.pathenemylookahead = 185;
 }
 
 alley_sniper_engagementdistance()
@@ -1092,7 +1092,7 @@ alley_close_smg_engagementdistance()
 toggle_alley_badplace()
 {
     var_0 = getent( "friendly_badplace_arc", "targetname" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     var_2 = var_0.origin;
     var_3 = var_2 - var_1.origin;
     var_0 delete();
@@ -1134,8 +1134,8 @@ start_bog()
     maps\_utility::_id_0CE5( var_0 );
     var_1 = force_spawn_guys_from_targetname( "bog_friendly_start" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7402 );
-    level.playercardbackground setplayerangles( ( 0.0, 241.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 6872.2, 547.4, 93.0 ) );
+    level.player setplayerangles( ( 0.0, 241.0, 0.0 ) );
+    level.player setorigin( ( 6872.2, 547.4, 93.0 ) );
     bog_is_under_attack();
 }
 
@@ -1169,8 +1169,8 @@ start_alley()
     var_1 = force_spawn_guys_from_targetname( "alley_friendly_spawners" );
     var_1 = maps\_utility::_id_7339( var_1, "g" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7402 );
-    level.playercardbackground setplayerangles( ( 0.0, 255.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 9838.94, 960.646, 76.0 ) );
+    level.player setplayerangles( ( 0.0, 255.0, 0.0 ) );
+    level.player setorigin( ( 9838.94, 960.646, 76.0 ) );
     thread maps\bog_a::open_laundrymat();
     common_scripts\utility::_id_383F( "alley_enemies_spawn" );
 }
@@ -1187,8 +1187,8 @@ start_javelin()
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     getent( "playerseeker_spawn_trigger", "script_noteworthy" ) delete();
-    level.playercardbackground setplayerangles( ( 0.0, 255.0, 0.0 ) );
-    level.playercardbackground setorigin( ( 8636.5, -578.8, 190.9 ) );
+    level.player setplayerangles( ( 0.0, 255.0, 0.0 ) );
+    level.player setorigin( ( 8636.5, -578.8, 190.9 ) );
     var_0 = getaiarray( "allies" );
     var_0 = common_scripts\utility::_id_0CF6( var_0, level._id_6F7C );
     maps\_utility::_id_0CE5( var_0 );
@@ -1265,12 +1265,12 @@ bridge_bmp_is_shot_at()
         if ( !isalive( self ) )
             break;
 
-        var_0 = self.helmet;
+        var_0 = self.health;
         self waittill( "damage", var_1, var_2, var_3, var_4, var_5 );
 
         if ( isdefined( var_2.classname ) && !isplayer( var_2 ) )
         {
-            self.helmet = var_0;
+            self.health = var_0;
             continue;
         }
 
@@ -1284,7 +1284,7 @@ bridge_bmp_is_shot_at()
         maps\_utility::arcademode_kill( self.origin, "explosive", 500 );
         level.javelin_helper maps\_utility::_id_27EF( 1, maps\_anim::_id_0C21, level.javelin_helper, "hit_target_" + level.bmps_killed_by_player );
         maps\_vehicle::_id_4258();
-        radiusdamage( self.origin, 150, self.helmet + 500, self.helmet + 500 );
+        radiusdamage( self.origin, 150, self.health + 500, self.health + 500 );
     }
 }
 
@@ -1296,7 +1296,7 @@ bridge_bmp_rolls_in( var_0, var_1 )
     target_set( var_2, var_3 );
     target_setattackmode( var_2, "top" );
     target_setjavelinonly( var_2, 1 );
-    var_2.helmet = 20000;
+    var_2.health = 20000;
     var_2 maps\_vehicle::_id_4259();
     var_2 thread bmp_drives_for_awhile();
     var_2 bridge_bmp_is_shot_at();
@@ -1365,7 +1365,7 @@ set_all_ai_ignoreme( var_0 )
     var_1 = getaiarray();
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
-        var_1[var_2].ignoretriggers = var_0;
+        var_1[var_2].ignoreme = var_0;
 }
 
 wait_until_mortars_are_dead()
@@ -1383,7 +1383,7 @@ mortar_trigger( var_0 )
     var_0.count++;
     self waittill( "trigger" );
     self.count = 0;
-    var_1 = getentarray( self._not_team, "targetname" );
+    var_1 = getentarray( self.target, "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::mortar_guys, self );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
     self waittill( "mortar_guys_are_dead" );
@@ -1407,11 +1407,11 @@ mortar_guys( var_0 )
 
 wait_until_its_time_to_breach_the_third_floor_room( var_0 )
 {
-    while ( distance( var_0.origin, level.playercardbackground.origin ) > 250 )
+    while ( distance( var_0.origin, level.player.origin ) > 250 )
     {
         wait 0.05;
 
-        if ( level.playercardbackground.origin[2] < var_0.origin[2] - 32 )
+        if ( level.player.origin[2] < var_0.origin[2] - 32 )
             return 0;
     }
 
@@ -1437,7 +1437,7 @@ magic_laser_light_show()
 
 magic_laser_lights()
 {
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     var_1 = var_0.size - 3;
     var_2 = getent( self._id_7A26, "script_linkname" );
 
@@ -1468,7 +1468,7 @@ street_laser_light_show()
 
 street_laser_lights()
 {
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
     var_1 = 4;
 
     if ( var_1 > var_0.size )
@@ -1580,10 +1580,10 @@ modulate_laser()
 
     for (;;)
     {
-        level.playercardbackground maps\_utility::_id_32E0( "nightvision_on" );
+        level.player maps\_utility::_id_32E0( "nightvision_on" );
         self.dolaser = 1;
         self laseron();
-        level.playercardbackground maps\_utility::_id_32E4( "nightvision_on" );
+        level.player maps\_utility::_id_32E4( "nightvision_on" );
         self.dolaser = 0;
         self laseroff();
     }
@@ -1686,14 +1686,14 @@ set_talker()
 {
     for (;;)
     {
-        self.info_player_start++;
+        self.index++;
 
-        if ( self.info_player_start >= self._id_44CE.size )
-            self.info_player_start = 0;
+        if ( self.index >= self._id_44CE.size )
+            self.index = 0;
 
-        if ( isalive( self._id_44CE[self.info_player_start] ) )
+        if ( isalive( self._id_44CE[self.index] ) )
         {
-            self._id_9133 = self._id_44CE[self.info_player_start];
+            self._id_9133 = self._id_44CE[self.index];
             return;
         }
     }
@@ -1711,7 +1711,7 @@ wait_then_go()
     self.goalheight = 64;
     self.goalradius = 32;
     wait 0.5;
-    var_0 = getnode( self._not_team, "targetname" );
+    var_0 = getnode( self.target, "targetname" );
     self _meth_81a9( var_0 );
 }
 
@@ -1739,7 +1739,7 @@ wait_while_enemies_are_alive_near_player()
         {
             var_3 = var_1[var_2];
 
-            if ( distance( var_3.origin, level.playercardbackground.origin ) < 240 )
+            if ( distance( var_3.origin, level.player.origin ) < 240 )
             {
                 var_0 = 1;
                 break;
@@ -1786,7 +1786,7 @@ clear_player_threatbias_vs_apartment_enemies()
 
 stick_me_to_my_spot()
 {
-    self.melee_fired = 0;
+    self.maxsightdistsqrd = 0;
     self _meth_81aa( self.origin );
     self.goalradius = 16;
 }
@@ -1794,11 +1794,11 @@ stick_me_to_my_spot()
 ignore_suppression_until_ambush()
 {
     self endon( "death" );
-    self.index = 1;
-    self.pantssize = 1;
+    self.ignoresuppression = 1;
+    self.pacifist = 1;
     common_scripts\utility::_id_384A( "friendlies_take_fire" );
-    self.pantssize = 0;
-    self.index = 0;
+    self.pacifist = 0;
+    self.ignoresuppression = 0;
 }
 
 increase_goal_radius_when_friendlies_flank()
@@ -1812,14 +1812,14 @@ increase_goal_radius_when_friendlies_flank()
     var_0 = randomintrange( 250, 350 );
     self _meth_8171( var_0, var_0 + 100 );
     self setthreatbiasgroup( "pacifist_lower_level_enemies" );
-    self.index = 1;
+    self.ignoresuppression = 1;
 }
 
 debug_player_damage()
 {
     for (;;)
     {
-        level.playercardbackground waittill( "damage", var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
+        level.player waittill( "damage", var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
         level.hitenemy = var_1;
         var_8 = 5;
     }
@@ -1832,7 +1832,7 @@ initial_friendly_setup()
     self._id_5F65 = 1;
     self.goalradius = 16;
     self _meth_81aa( self.origin );
-    self.pantssize = 1;
+    self.pacifist = 1;
 }
 
 bridge_friendly_spawns()
@@ -1843,22 +1843,22 @@ bridge_friendly_spawns()
         maps\_utility::_id_7E38( "y" );
 
     set_engagement_to_closer();
-    self.index = 1;
-    self.ikweight = 1;
-    self.pantssize = 1;
+    self.ignoresuppression = 1;
+    self.ignorerandombulletdamage = 1;
+    self.pacifist = 1;
     common_scripts\utility::_id_384A( "friendlies_move_up_the_bridge" );
-    self.pantssize = 0;
+    self.pacifist = 0;
 }
 
 small_pathenemy()
 {
-    self.pathlookaheaddist = 50;
-    self.pathrandompercent = 50;
+    self.pathenemyfightdist = 50;
+    self.pathenemylookahead = 50;
 }
 
 magic_rpgs_fire()
 {
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -1926,14 +1926,14 @@ waitspread_death( var_0 )
 slowdown()
 {
     self endon( "death" );
-    self.weapon_change = 5000;
+    self.walkdist = 5000;
     wait 0.4;
     self _meth_81aa( self.origin );
 }
 
 set_ignore_suppression( var_0 )
 {
-    self.index = var_0;
+    self.ignoresuppression = var_0;
 }
 
 wait_until_price_triggers_or_player_reaches_bridge_end()
@@ -1969,13 +1969,13 @@ wait_until_player_gets_close_or_enters_apartment()
 {
     level endon( "friendlies_move_into_apartment" );
 
-    while ( distance( self.origin, level.playercardbackground.origin ) > 128 )
+    while ( distance( self.origin, level.player.origin ) > 128 )
     {
-        if ( self _meth_81c2( level.playercardbackground ) )
+        if ( self _meth_81c2( level.player ) )
         {
-            var_0 = level.playercardbackground getplayerangles();
+            var_0 = level.player getplayerangles();
             var_1 = anglestoforward( var_0 );
-            var_2 = vectornormalize( self.origin - level.playercardbackground.origin );
+            var_2 = vectornormalize( self.origin - level.player.origin );
             var_3 = vectordot( var_1, var_2 );
 
             if ( var_3 > 0.8 )
@@ -2000,9 +2000,9 @@ cyan_guys_lead_player_to_apartment()
         thread maps\_utility::_id_58D7();
 
     common_scripts\utility::_id_384A( "pit_guys_cleared" );
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     common_scripts\utility::_id_384A( "friendlies_storm_second_floor" );
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
 }
 
 price_signals_player_into_apartment()
@@ -2076,12 +2076,12 @@ flank_guy()
     level.flank_guy = getent( "flank_guy", "targetname" );
     maps\_utility::_id_88F1( level.flank_guy );
     level.flank_guy.goalradius = 8;
-    level.flank_guy.pantssize = 1;
+    level.flank_guy.pacifist = 1;
     level.flank_guy _meth_81ce( "crouch" );
     level.flank_guy thread maps\_utility::_id_58D7();
-    level.flank_guy.ignoretriggers = 1;
+    level.flank_guy.ignoreme = 1;
     level.flank_guy maps\_utility::_id_5926();
-    level.flank_guy.index = 1;
+    level.flank_guy.ignoresuppression = 1;
 }
 
 rooftop_guys_attack()
@@ -2102,13 +2102,13 @@ rooftop_guys_attack()
 
 hint_guy_gets_the_players_attention()
 {
-    self.ignoretriggers = 1;
-    self.index = 1;
+    self.ignoreme = 1;
+    self.ignoresuppression = 1;
     self endon( "death" );
     wait 2.5;
     maps\_spawner::_id_4241();
     wait 3;
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
     self.goalradius = 2048;
 }
 
@@ -2175,7 +2175,7 @@ wait_until_player_nears_balcony()
     level.balcony_objective_org = ( 10216.3, 174.7, 239.5 );
     var_0 = ( level.balcony_objective_org[0], level.balcony_objective_org[1], 0 );
 
-    while ( distance( var_0, ( level.playercardbackground.origin[0], level.playercardbackground.origin[1], 0 ) ) > 200 )
+    while ( distance( var_0, ( level.player.origin[0], level.player.origin[1], 0 ) ) > 200 )
         wait 0.25;
 }
 
@@ -2216,7 +2216,7 @@ shoot_mg_targets()
 {
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "player_enters_apartment_rubble_area", maps\_utility::_id_7C82, "stop_firing" );
     thread stop_firing_when_shot();
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
 
     for (;;)
     {
@@ -2303,7 +2303,7 @@ cobra_crash()
 
         if ( isdefined( var_0._id_9D45 ) )
         {
-            if ( var_0._id_9D45.teambalanced != "heli_crash" )
+            if ( var_0._id_9D45.targetname != "heli_crash" )
                 continue;
         }
 
@@ -2311,7 +2311,7 @@ cobra_crash()
         var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
         var_1.origin = var_0.origin;
         var_1.angles = var_0.angles;
-        var_1 setmodel( var_0.motiontrackerenabled );
+        var_1 setmodel( var_0.model );
         var_1 useanimtree( #animtree );
         var_1 _meth_8140( "blah", var_1.origin, var_1.angles, %cobra_crash );
         var_0 delete();
@@ -2432,7 +2432,7 @@ die_soon( var_0 )
 
 player_has_javelin()
 {
-    var_0 = level.playercardbackground getweaponslistprimaries();
+    var_0 = level.player getweaponslistprimaries();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -2445,12 +2445,12 @@ player_has_javelin()
 
 player_using_javelin()
 {
-    return issubstr( level.playercardbackground getcurrentweapon(), "avelin" );
+    return issubstr( level.player getcurrentweapon(), "avelin" );
 }
 
 player_fires_javelin()
 {
-    return level.playercardbackground isfiring() && issubstr( level.playercardbackground getcurrentweapon(), "avelin" );
+    return level.player isfiring() && issubstr( level.player getcurrentweapon(), "avelin" );
 }
 
 overpass_baddies_attack()
@@ -2478,7 +2478,7 @@ die_asap()
 {
     self endon( "death" );
 
-    while ( self _meth_81c2( level.playercardbackground ) )
+    while ( self _meth_81c2( level.player ) )
         wait 0.2;
 
     self delete();
@@ -2486,9 +2486,9 @@ die_asap()
 
 shanty_run()
 {
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
         var_0.trigger_num = self.trigger_num + 1;
         var_0 thread shanty_run();
     }
@@ -2527,10 +2527,10 @@ shanty_allies_cqb_through()
     var_0 = getentarray( "shanty_destination", "targetname" );
     var_1 = common_scripts\utility::_id_710E( var_0 );
     self.goalradius = 128;
-    self.invisible = 0;
+    self.interval = 0;
     maps\_utility::_id_2A74();
     maps\_spawner::_id_4248( var_1 );
-    self.invisible = 96;
+    self.interval = 96;
 
     if ( self == level._id_6F7C )
     {
@@ -2554,7 +2554,7 @@ shanty_allies_cqb_through()
             if ( isdefined( self._id_58D7 ) )
                 maps\_utility::_id_8EA4();
 
-            self.helmet = 1;
+            self.health = 1;
             return;
         }
 
@@ -2593,7 +2593,7 @@ shanty_ai_think()
     maps\_utility::_id_2A74();
     self.trigger_num = 0;
     self endon( "death" );
-    self.invisible = 0;
+    self.interval = 0;
     self endon( "reached_shanty_end" );
 
     if ( self != level._id_6F7C )
@@ -2603,37 +2603,37 @@ shanty_ai_think()
     {
         waittill_new_trigger_num();
 
-        if ( level.playercardbackground.trigger_num - self.trigger_num >= 2 )
+        if ( level.player.trigger_num - self.trigger_num >= 2 )
         {
             self._id_5F65 = 1.21;
             continue;
         }
 
-        if ( level.playercardbackground.trigger_num - self.trigger_num == 1 )
+        if ( level.player.trigger_num - self.trigger_num == 1 )
         {
             self._id_5F65 = 1.1;
             continue;
         }
 
-        if ( level.playercardbackground.trigger_num - self.trigger_num == 0 )
+        if ( level.player.trigger_num - self.trigger_num == 0 )
         {
             self._id_5F65 = 1.0;
             continue;
         }
 
-        if ( level.playercardbackground.trigger_num - self.trigger_num == -1 )
+        if ( level.player.trigger_num - self.trigger_num == -1 )
         {
             self._id_5F65 = 1.0;
             continue;
         }
 
-        if ( level.playercardbackground.trigger_num - self.trigger_num == -2 )
+        if ( level.player.trigger_num - self.trigger_num == -2 )
         {
             self._id_5F65 = 1.0;
             continue;
         }
 
-        if ( level.playercardbackground.trigger_num - self.trigger_num <= -3 )
+        if ( level.player.trigger_num - self.trigger_num <= -3 )
         {
             var_0 = ( gettime() - level.shanty_timer ) * 0.001;
             var_1 = var_0 + randomfloatrange( 2, 3 );
@@ -2642,7 +2642,7 @@ shanty_ai_think()
             if ( var_1 > 0 )
                 wait(var_1);
 
-            if ( level.playercardbackground.trigger_num - self.trigger_num <= -3 )
+            if ( level.player.trigger_num - self.trigger_num <= -3 )
                 self _meth_81aa( self.origin );
         }
     }
@@ -2677,7 +2677,7 @@ magic_rpg_trigger()
 {
     level endon( "stop_shanty_rockets" );
     self waittill( "trigger" );
-    var_0 = getentarray( self._not_team, "targetname" );
+    var_0 = getentarray( self.target, "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -2942,7 +2942,7 @@ second_floor_door_breach_guys( var_0 )
         {
             var_8 = getent( "player_sees_breach_spawner", "targetname" );
 
-            while ( level.playercardbackground istouching( var_8 ) )
+            while ( level.player istouching( var_8 ) )
                 wait 0.1;
 
             var_6 = maps\_utility::get_guy_with_script_noteworthy_from_spawner( "second_floor_left_door_breach_guy" );
@@ -2987,22 +2987,22 @@ second_floor_door_breach_guys( var_0 )
     var_1 playsound( "wood_door_kick" );
     var_7.goalradius = 32;
     var_6.goalradius = 32;
-    var_7.threatsightdelayfalloff = 5500;
+    var_7.threatbias = 5500;
     var_7._id_1300 = 1000;
     var_6._id_1300 = 1000;
-    var_10 = spawn_guys_from_targetname( var_3._not_team );
+    var_10 = spawn_guys_from_targetname( var_3.target );
 
     for ( var_11 = 0; var_11 < var_10.size; var_11++ )
     {
         var_12 = var_10[var_11];
         var_12._id_1300 = 0;
         var_12.goalradius = 8;
-        var_12.helmet = 1;
-        var_12.pathlookaheaddist = 0;
-        var_12.pathrandompercent = 0;
+        var_12.health = 1;
+        var_12.pathenemyfightdist = 0;
+        var_12.pathenemylookahead = 0;
         var_12 _meth_81ce( "stand" );
 
-        if ( isdefined( var_12._not_team ) )
+        if ( isdefined( var_12.target ) )
             var_12 thread maps\bog_a::wait_then_go_to_target();
     }
 
@@ -3029,7 +3029,7 @@ second_floor_door_breach_guys( var_0 )
     var_3 = getnode( "second_floor_wait_node", "targetname" );
     var_6 _meth_81a9( var_3 );
     var_7 waittill( "goal" );
-    var_7.threatsightdelayfalloff = 0;
+    var_7.threatbias = 0;
     var_7 maps\_anim::_id_0C24( var_7, "clear" );
     var_7 maps\_anim::_id_0C24( var_7, "three_coming_out" );
     wait 1;
@@ -3070,7 +3070,7 @@ door_breach_guy_leaves( var_0 )
     maps\_utility::_id_2BDD();
     wait(randomfloat( 2 ));
     maps\_utility::_id_7E38( "g" );
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
 }
 
 second_floor_waittill_breach( var_0 )
@@ -3166,12 +3166,12 @@ disable_nvg()
 {
     common_scripts\utility::_id_384A( "player_enters_laundrymat" );
     wait 4.0;
-    level.playercardbackground maps\_utility::_id_2B4A( "disable_nvg" );
+    level.player maps\_utility::_id_2B4A( "disable_nvg" );
 }
 
 update_apartment_objective_position()
 {
     self waittill( "trigger" );
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
     objective_position( 2, var_0.origin );
 }

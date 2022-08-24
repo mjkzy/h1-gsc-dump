@@ -43,14 +43,14 @@ _id_4D7F()
     self.isagent = 1;
     self.wasti = 0;
     self.issniper = 0;
-    self.spectating_cycle = 0;
+    self.spawntime = 0;
     self.entity_number = self getentitynumber();
     self.agent_teamparticipant = 0;
     self.agent_gameparticipant = 0;
     self.canperformclienttraces = 0;
     self.agentname = undefined;
-    self.ignoreforfixednodesafecheck = 0;
-    self.ignoretriggers = 0;
+    self.ignoreall = 0;
+    self.ignoreme = 0;
     self detachall();
     _id_4DFF( 0 );
 }
@@ -64,9 +64,9 @@ _id_4DFF( var_0 )
         self.movespeedscaler = undefined;
         self.avoidkillstreakonspawntimer = undefined;
         self.guid = undefined;
-        self.nearz = undefined;
+        self.name = undefined;
         self._id_7811 = undefined;
-        self.persistentperksunlocked = undefined;
+        self.perks = undefined;
         self.weaponlist = undefined;
         self.omaclasschanged = undefined;
         self.objectivescaler = undefined;
@@ -75,8 +75,8 @@ _id_4DFF( var_0 )
         self._id_1E23 = undefined;
         self._id_1AD7 = undefined;
         self._id_535F = undefined;
-        self.sharpturnnotifydist = undefined;
-        self.sharpturnlookaheaddist = undefined;
+        self.sessionteam = undefined;
+        self.sessionstate = undefined;
         self._id_55DF = undefined;
         self._id_55DD = undefined;
         self.disabledweapon = undefined;
@@ -91,9 +91,9 @@ _id_4DFF( var_0 )
         self.movespeedscaler = level._id_1317;
         self.avoidkillstreakonspawntimer = 5;
         self.guid = maps\mp\_utility::_id_4144();
-        self.nearz = self.guid;
-        self.sharpturnnotifydist = self.team;
-        self.sharpturnlookaheaddist = "playing";
+        self.name = self.guid;
+        self.sessionteam = self.team;
+        self.sessionstate = "playing";
         self._id_83C6 = 0;
         self._id_83C5 = 0;
         self.agent_gameparticipant = 1;
@@ -350,10 +350,10 @@ _id_414D( var_0, var_1 )
 
 _id_5349( var_0 )
 {
-    var_0 dodamage( var_0.helmet + 500000, var_0.origin );
+    var_0 dodamage( var_0.health + 500000, var_0.origin );
 }
 
 _id_535A()
 {
-    self [[ _id_08A6( "on_damaged" ) ]]( level, undefined, self.helmet + 1, 0, "MOD_CRUSH", "none", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "none", 0 );
+    self [[ _id_08A6( "on_damaged" ) ]]( level, undefined, self.health + 1, 0, "MOD_CRUSH", "none", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "none", 0 );
 }

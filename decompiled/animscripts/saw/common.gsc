@@ -51,7 +51,7 @@ main( var_0 )
 
     var_5 = gettime();
     var_6 = "start";
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "none" );
+    animscripts\shared::_id_6869( self.weapon, "none" );
     var_0 show();
 
     if ( isdefined( var_0._id_098B ) )
@@ -158,7 +158,7 @@ _id_8F09()
 
     for (;;)
     {
-        if ( !isdefined( self.node_relinquished ) || distancesquared( self.origin, self.node_relinquished.origin ) > 4096 )
+        if ( !isdefined( self.node ) || distancesquared( self.origin, self.node.origin ) > 4096 )
             self _meth_818f();
 
         wait 0.25;
@@ -169,10 +169,10 @@ _id_6E8D( var_0 )
 {
     if ( var_0 == "pain" )
     {
-        if ( isdefined( self.node_relinquished ) && distancesquared( self.origin, self.node_relinquished.origin ) < 4096 )
+        if ( isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 4096 )
         {
             self.a._id_9C3C hide();
-            animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+            animscripts\shared::_id_6869( self.weapon, "right" );
             self.a._id_6E8D = ::_id_6E8B;
             return;
         }
@@ -188,19 +188,19 @@ _id_6E8D( var_0 )
 
     self.a._id_9C3C delete();
     self.a._id_9C3C = undefined;
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+    animscripts\shared::_id_6869( self.weapon, "right" );
 }
 
 _id_6E8B( var_0 )
 {
-    if ( !isdefined( self.node_relinquished ) || distancesquared( self.origin, self.node_relinquished.origin ) > 4096 )
+    if ( !isdefined( self.node ) || distancesquared( self.origin, self.node.origin ) > 4096 )
     {
         self _meth_818f();
         self.a._id_9C3C delete();
         self.a._id_9C3C = undefined;
 
-        if ( isdefined( self.weapon_switch_invalid ) && self.weapon_switch_invalid != "none" )
-            animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+        if ( isdefined( self.weapon ) && self.weapon != "none" )
+            animscripts\shared::_id_6869( self.weapon, "right" );
     }
     else if ( var_0 != "saw" )
         self.a._id_9C3C delete();
@@ -208,7 +208,7 @@ _id_6E8B( var_0 )
 
 _id_6F1D( var_0 )
 {
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, "right" );
+    animscripts\shared::_id_6869( self.weapon, "right" );
 }
 #using_animtree("generic_human");
 

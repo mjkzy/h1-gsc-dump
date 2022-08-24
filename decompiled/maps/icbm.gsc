@@ -27,15 +27,15 @@ dead_script()
     foreach ( var_2 in var_0 )
     {
         if ( var_2._id_79D3 == "player_is_inside" )
-            var_2.script_parentname = "skip_blockout_delete";
+            var_2.script_noteworthy = "skip_blockout_delete";
     }
 
     var_4 = getent( "sunrise2", "targetname" );
     var_5 = getent( "sunrise3", "targetname" );
     var_6 = getent( "sunrise4", "targetname" );
-    var_4.script_parentname = "skip_blockout_delete";
-    var_5.script_parentname = "skip_blockout_delete";
-    var_6.script_parentname = "skip_blockout_delete";
+    var_4.script_noteworthy = "skip_blockout_delete";
+    var_5.script_noteworthy = "skip_blockout_delete";
+    var_6.script_noteworthy = "skip_blockout_delete";
     common_scripts\_ca_blockout::init();
     maps\icbm_precache::main();
     maps\icbm_fx::main();
@@ -157,7 +157,7 @@ main()
     maps\_compass::setupminimap( "compass_map_icbm" );
     createthreatbiasgroup( "dogs" );
     createthreatbiasgroup( "icbm_friendlies" );
-    level.playercardbackground thread maps\_stealth_logic::stealth_ai();
+    level.player thread maps\_stealth_logic::stealth_ai();
     setignoremegroup( "icbm_friendlies", "dogs" );
     setignoremegroup( "dogs", "icbm_friendlies" );
     common_scripts\utility::_id_383D( "first_obj" );
@@ -361,8 +361,8 @@ landed_start()
     var_0 = getentarray( "chute_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
     var_1 = getent( "landed_start", "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
     common_scripts\utility::_id_383F( "landed" );
     wait 0.5;
     landed_to_basement_handler();
@@ -421,8 +421,8 @@ basement_start()
     var_0 = getentarray( "basement_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
     var_1 = getent( "basement_start", "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
     common_scripts\utility::_id_383F( "first_obj" );
     common_scripts\utility::_id_383F( "landed" );
     maps\_utility::_id_070A( "basement_door_nodes" );
@@ -533,8 +533,8 @@ house2_start()
     var_0 = getentarray( "house2_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
     var_1 = getent( "house2_start", "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
     common_scripts\utility::_id_383F( "first_obj" );
     common_scripts\utility::_id_383F( "price_basement_door_anim_complete" );
     common_scripts\utility::_id_383F( "soap_take_look" );
@@ -578,7 +578,7 @@ rescue_breach_setup()
     var_1 waittill( "trigger" );
     var_1 common_scripts\utility::_id_97CC();
     var_2 = getent( "doorknob4", "targetname" );
-    var_3 = getent( var_2._not_team, "targetname" );
+    var_3 = getent( var_2.target, "targetname" );
     var_2 linkto( var_3 );
     var_4 = getent( "door_safehouse_livingroom_model", "targetname" );
     var_4 linkto( var_3 );
@@ -598,7 +598,7 @@ rescue_breach_setup()
     level._id_3C61 maps\_utility::_id_309A();
     level._id_6F7C maps\_utility::_id_309A();
     maps\_utility::_id_070A( "post_breach_nodes" );
-    level.playercardbackground playsound( "icbm_pri_gogogo" );
+    level.player playsound( "icbm_pri_gogogo" );
 }
 
 fail_on_damage()
@@ -625,7 +625,7 @@ rescue_sequence()
     if ( getdvarint( "use_old_griggs_rescue" ) == 1 )
         maps\_utility::_id_980D( "player_is_behind_griggs", "targetname" );
     else
-        level.playercardbackground thread disable_weapon_when_near_griggs();
+        level.player thread disable_weapon_when_near_griggs();
 
     var_0 = getent( "grigs_use_trigger", "targetname" );
     var_0 thread player_cut_grigs_loose();
@@ -635,7 +635,7 @@ rescue_sequence()
     maps\_colors::assign_nodes_intelligently_for_team( "allies", 1 );
     maps\_utility::_id_070A( "griggs_loose_nodes" );
     wait 0.5;
-    level.griggs.invisible = 100;
+    level.griggs.interval = 100;
     level.griggs maps\_utility::_id_2A8D();
 }
 
@@ -645,21 +645,21 @@ disable_weapon_when_near_griggs()
 
     while ( !common_scripts\utility::_id_382E( "griggs_loose" ) )
     {
-        if ( !var_0 && distancesquared( level.playercardbackground.origin, level.griggs.origin ) < 15000 )
+        if ( !var_0 && distancesquared( level.player.origin, level.griggs.origin ) < 15000 )
         {
-            level.playercardbackground disableweapons();
+            level.player disableweapons();
             var_0 = 1;
         }
-        else if ( var_0 && distancesquared( level.playercardbackground.origin, level.griggs.origin ) > 15000 )
+        else if ( var_0 && distancesquared( level.player.origin, level.griggs.origin ) > 15000 )
         {
-            level.playercardbackground enableweapons();
+            level.player enableweapons();
             var_0 = 0;
         }
 
         waittillframeend;
     }
 
-    level.playercardbackground enableweapons();
+    level.player enableweapons();
 }
 
 allow_free_griggs_when_looking_in_position()
@@ -669,13 +669,13 @@ allow_free_griggs_when_looking_in_position()
     for (;;)
     {
         waittillframeend;
-        var_1 = common_scripts\utility::_id_A347( level.playercardbackground geteye(), level.playercardbackground getplayerangles(), level.griggs.origin, var_0 );
+        var_1 = common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), level.griggs.origin, var_0 );
 
-        if ( ( var_1 || level.playercardbackground islookingat( level.griggs ) ) && level.playercardbackground istouching( self ) && !level.playercardbackground isleaning() )
+        if ( ( var_1 || level.player islookingat( level.griggs ) ) && level.player istouching( self ) && !level.player isleaning() )
         {
             self sethintstring( &"ICBM_GRIGGSUSETRIGGER" );
 
-            if ( level.playercardbackground usebuttonpressed() )
+            if ( level.player usebuttonpressed() )
             {
                 self notify( "griggs_trigger_used" );
                 break;
@@ -711,9 +711,9 @@ player_cut_grigs_loose()
     else
     {
         thread h1_cutgriggsloose_dof();
-        level.playercardbackground allowlean( 0 );
-        level.playercardbackground allowcrouch( 0 );
-        level.playercardbackground allowprone( 0 );
+        level.player allowlean( 0 );
+        level.player allowcrouch( 0 );
+        level.player allowprone( 0 );
         level.player_rescue_model = maps\_utility::_id_88D1( "player_rescue_griggs_model" );
         level.player_rescue_model.origin = level.griggs_node.origin;
         level.player_rescue_model.angles = level.griggs_node.angles;
@@ -724,7 +724,7 @@ player_cut_grigs_loose()
         var_0 linkto( level.player_rescue_model, "tag_weapon" );
         level.griggs_node maps\_anim::_id_0BC7( level.player_rescue_model, "grigsby_rescue_player" );
         level.player_rescue_model maps\_utility::_id_5696( "tag_player", 0.5, 1, 0, 0, 0, 0 );
-        level.playercardbackground playerlinktodelta( level.player_rescue_model, "tag_player", 1, 0, 0, 0, 0, 1 );
+        level.player playerlinktodelta( level.player_rescue_model, "tag_player", 1, 0, 0, 0, 0, 1 );
         level.player_rescue_model show();
         level.griggs_node thread maps\_anim::_id_0C24( level.player_rescue_model, "grigsby_rescue_player" );
         level.griggs_node notify( "stop_idle" );
@@ -734,9 +734,9 @@ player_cut_grigs_loose()
         level.player_rescue_model waittillmatch( "single anim", "end" );
         var_0 delete();
         level.player_rescue_model delete();
-        level.playercardbackground allowlean( 1 );
-        level.playercardbackground allowcrouch( 1 );
-        level.playercardbackground allowprone( 1 );
+        level.player allowlean( 1 );
+        level.player allowcrouch( 1 );
+        level.player allowprone( 1 );
         common_scripts\utility::_id_383F( "griggs_loose" );
     }
 
@@ -749,17 +749,17 @@ player_cut_grigs_loose()
 
 h1_cutgriggsloose_dof()
 {
-    level.playercardbackground _meth_84a7( 16, 28, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 4.4, 15, 1.0, 1.0 );
+    level.player _meth_84a7( 16, 28, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 4.4, 15, 1.0, 1.0 );
     wait 1.35;
-    level.playercardbackground _meth_84a7( 4.4, 14, 3.0, 3.0 );
+    level.player _meth_84a7( 4.4, 14, 3.0, 3.0 );
     wait 0.5;
-    level.playercardbackground _meth_84a7( 3.4, 28, 2.0, 2.0 );
+    level.player _meth_84a7( 3.4, 28, 2.0, 2.0 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 16, 200, 2.0, 2.0 );
+    level.player _meth_84a7( 16, 200, 2.0, 2.0 );
     wait 1.35;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 rescued_start()
@@ -768,8 +768,8 @@ rescued_start()
     var_0 = getentarray( "rescue_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
     var_1 = getent( "rescue_start", "targetname" );
-    level.playercardbackground setorigin( var_1.origin );
-    level.playercardbackground setplayerangles( var_1.angles );
+    level.player setorigin( var_1.origin );
+    level.player setplayerangles( var_1.angles );
     thread maps\icbm_lighting::skip_to_sunrise2();
     common_scripts\utility::_id_383F( "first_obj" );
     common_scripts\utility::_id_383F( "price_basement_door_anim_complete" );
@@ -807,8 +807,8 @@ tower_start()
 {
     soundscripts\_snd::_id_870C( "start_tower_checkpoint" );
     var_0 = getent( "tower_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     var_1 = getentarray( "tower_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
     thread maps\icbm_lighting::skip_to_sunrise2();
@@ -887,15 +887,15 @@ second_c4_plant_check()
         if ( common_scripts\utility::_id_382E( "c4_planted" ) )
             break;
 
-        var_2 = level.playercardbackground getcurrentprimaryweapon() != "c4";
+        var_2 = level.player getcurrentprimaryweapon() != "c4";
 
         if ( var_0 != var_2 )
         {
             var_0 = var_2;
-            level.playercardbackground allowfire( var_0 );
+            level.player allowfire( var_0 );
         }
 
-        if ( level.playercardbackground attackbuttonpressed() && !var_0 && gettime() > var_1 )
+        if ( level.player attackbuttonpressed() && !var_0 && gettime() > var_1 )
         {
             thread maps\_utility::_id_48B0( &"ICBM_ONE_MORE_C4", 3 );
             var_1 = gettime() + 4000;
@@ -905,7 +905,7 @@ second_c4_plant_check()
     }
 
     thread maps\_utility::_id_48CB();
-    level.playercardbackground allowfire( 1 );
+    level.player allowfire( 1 );
 }
 
 c4_set()
@@ -955,8 +955,8 @@ fense_start()
 {
     soundscripts\_snd::_id_870C( "start_fense_checkpoint" );
     var_0 = getent( "fense_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     var_1 = getentarray( "fense_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
     thread maps\icbm_lighting::skip_to_sunrise2();
@@ -1050,8 +1050,8 @@ base_start()
     soundscripts\_snd::_id_870C( "start_base_checkpoint" );
     thread maps\icbm_lighting::skip_to_sunrise3();
     var_0 = getent( "base_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     var_1 = getentarray( "base_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
     common_scripts\utility::_id_383F( "first_obj" );
@@ -1069,8 +1069,8 @@ base2_start()
     soundscripts\_snd::_id_870C( "start_base2_checkpoint" );
     thread maps\icbm_lighting::skip_to_sunrise3();
     var_0 = getent( "base2_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     var_1 = getentarray( "base2_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
     common_scripts\utility::_id_383F( "first_obj" );
@@ -1166,7 +1166,7 @@ trucks_incoming()
     maps\_utility::_id_980D( "incoming_oldbase", "targetname" );
     soundscripts\_snd::_id_870C( "aud_start_bm21_scripted_sfx" );
     maps\_utility::_id_1143( "trucks_incoming" );
-    level.playercardbackground playsound( "icbm_gm5_3trucks" );
+    level.player playsound( "icbm_gm5_3trucks" );
 }
 
 base_to_second_squad_handler()
@@ -1188,8 +1188,8 @@ launch_start()
     soundscripts\_snd::_id_870C( "start_launch_checkpoint" );
     thread maps\icbm_lighting::skip_to_sunrise3();
     var_0 = getent( "launch_start", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     var_1 = getentarray( "launch_start_spawners", "targetname" );
     common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
     common_scripts\utility::_id_383F( "first_obj" );
@@ -1291,7 +1291,7 @@ dialog_treeline_hold_fire()
 
 missile_sounds()
 {
-    level.playercardbackground playsound( "scn_icbm_missile_launch" );
+    level.player playsound( "scn_icbm_missile_launch" );
     wait 4;
     var_0 = getent( "icbm_missile02", "targetname" );
     var_0 thread common_scripts\utility::_id_6975( "scn_icbm_missile1_loop" );
@@ -1305,11 +1305,11 @@ missile_rumble()
     var_0 = [];
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 3.5, "generic_attack_heavy_2000" );
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 12.2, "generic_attack_heavy_2000" );
-    level.playercardbackground thread maps\_utility::rumble_sequence_play( var_0, 0 );
+    level.player thread maps\_utility::rumble_sequence_play( var_0, 0 );
     wait 2.1;
-    level.playercardbackground playrumblelooponentity( "generic_ambient_loop" );
+    level.player playrumblelooponentity( "generic_ambient_loop" );
     wait 15.7;
-    level.playercardbackground stoprumble( "generic_ambient_loop" );
+    level.player stoprumble( "generic_ambient_loop" );
 }
 
 missile_launch()

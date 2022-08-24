@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "usp_silencer";
     self._id_855D = "usp_silencer";
@@ -39,7 +39,7 @@ main()
         self _meth_8171( 768.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "mp5";
+    self.weapon = "mp5";
 
     switch ( codescripts\character::_id_3E43( 5 ) )
     {
@@ -61,18 +61,18 @@ main()
     }
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_sas_woodland_mac::prestigedoublexp();
-    character\character_sp_sas_woodland_zied::prestigedoublexp();
-    character\character_sp_sas_woodland_peter::prestigedoublexp();
-    character\character_sp_sas_woodland_todd::prestigedoublexp();
-    character\character_sp_sas_woodland_hugh::prestigedoublexp();
+    character\character_sp_sas_woodland_mac::precache();
+    character\character_sp_sas_woodland_zied::precache();
+    character\character_sp_sas_woodland_peter::precache();
+    character\character_sp_sas_woodland_todd::precache();
+    character\character_sp_sas_woodland_hugh::precache();
     precacheitem( "mp5" );
     precacheitem( "usp_silencer" );
     precacheitem( "usp_silencer" );

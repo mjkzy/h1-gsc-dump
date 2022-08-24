@@ -256,7 +256,7 @@ abrams_audio_node()
     self waittill( "trigger", var_0 );
     var_0 endon( "death" );
 
-    switch ( self.teambalanced )
+    switch ( self.targetname )
     {
         case "auto33":
             var_0 thread maps\_utility::_id_69C4( "bog_b_m1a1_tank_move_01" );

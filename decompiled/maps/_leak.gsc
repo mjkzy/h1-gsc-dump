@@ -33,7 +33,7 @@ main()
 
 leak_setup()
 {
-    switch ( self.script_parentname )
+    switch ( self.script_noteworthy )
     {
         case "barrel_oil":
             leak_barrel_setup();
@@ -55,14 +55,14 @@ leak_setup()
 leak_barrel_setup()
 {
     self.a = self.origin;
-    self.upgradepurchased = anglestoup( self.angles );
+    self.up = anglestoup( self.angles );
     var_0 = anglestoup( ( 0.0, 90.0, 0.0 ) );
-    self._id_6581 = self.a + self.upgradepurchased * 22;
-    self.a += self.upgradepurchased * 1.5;
-    self.b = self.a + self.upgradepurchased * 41.4;
+    self._id_6581 = self.a + self.up * 22;
+    self.a += self.up * 1.5;
+    self.b = self.a + self.up * 41.4;
     self._id_9F3C = 25861.7;
     self.curvol = self._id_9F3C;
-    var_1 = vectordot( self.upgradepurchased, var_0 );
+    var_1 = vectordot( self.up, var_0 );
     var_2 = self.b;
 
     if ( var_1 < 0 )
@@ -76,7 +76,7 @@ leak_barrel_setup()
 leak_think()
 {
     self setcandamage( 1 );
-    self.canspawnpool = isdefined( level._effect["leak_interactive_pool"] ) && isdefined( level._effect["leak_interactive_pool"][self.script_parentname] );
+    self.canspawnpool = isdefined( level._effect["leak_interactive_pool"] ) && isdefined( level._effect["leak_interactive_pool"][self.script_noteworthy] );
     self endon( "drained" );
 
     for (;;)
@@ -101,9 +101,9 @@ leak_drain( var_0 )
     var_2 = undefined;
 
     if ( var_1 == self.a )
-        var_2 = self.upgradepurchased * -1;
+        var_2 = self.up * -1;
     else if ( var_1 == self.b )
-        var_2 = self.upgradepurchased;
+        var_2 = self.up;
     else
         var_2 = vectorfromlinetopoint( self.a, self.b, var_0 );
 
@@ -119,16 +119,16 @@ leak_drain( var_0 )
         if ( self.canspawnpool )
             thread leak_pool( var_0, var_2 );
 
-        thread common_scripts\utility::_id_69C2( level._id_0662["leak_interactive_leak"][self.script_parentname], var_0 );
+        thread common_scripts\utility::_id_69C2( level._id_0662["leak_interactive_leak"][self.script_noteworthy], var_0 );
 
         while ( self.curvol > var_4 )
         {
-            playfx( level._effect["leak_interactive_leak"][self.script_parentname], var_0, var_2 );
+            playfx( level._effect["leak_interactive_leak"][self.script_noteworthy], var_0, var_2 );
             self.curvol -= 100;
             wait 0.1;
         }
 
-        playfx( level._effect["leak_interactive_drain"][self.script_parentname], var_0, var_2 );
+        playfx( level._effect["leak_interactive_drain"][self.script_noteworthy], var_0, var_2 );
     }
 
     if ( self.curvol / self._id_9F3C <= 0.05 )
@@ -138,7 +138,7 @@ leak_drain( var_0 )
 leak_pool( var_0, var_1 )
 {
     self.canspawnpool = 0;
-    playfx( level._effect["leak_interactive_pool"][self.script_parentname], var_0, var_1 );
+    playfx( level._effect["leak_interactive_pool"][self.script_noteworthy], var_0, var_1 );
     wait 0.5;
     self.canspawnpool = 1;
 }
@@ -191,49 +191,49 @@ _id_6EDB()
 {
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "barrel_oil" )
+        if ( self[var_0].script_noteworthy != "barrel_oil" )
             continue;
 
-        level._effect["leak_interactive_leak"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_leak" );
-        level._effect["leak_interactive_pool"][self[var_0].script_parentname] = loadfx( "fx/misc/oilsplash_decal_spawner" );
-        level._effect["leak_interactive_drain"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_parentname] = "h1_oil_spill_start";
+        level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
+        level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
+        level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
+        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "barrel_acid" )
+        if ( self[var_0].script_noteworthy != "barrel_acid" )
             continue;
 
-        level._effect["leak_interactive_leak"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_leak" );
-        level._effect["leak_interactive_pool"][self[var_0].script_parentname] = loadfx( "fx/misc/oilsplash_decal_spawner" );
-        level._effect["leak_interactive_drain"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_parentname] = "h1_oil_spill_start";
+        level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
+        level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
+        level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
+        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "barrel_water" )
+        if ( self[var_0].script_noteworthy != "barrel_water" )
             continue;
 
-        level._effect["leak_interactive_leak"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_leak" );
-        level._effect["leak_interactive_pool"][self[var_0].script_parentname] = loadfx( "fx/misc/oilsplash_decal_spawner" );
-        level._effect["leak_interactive_drain"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_parentname] = "h1_oil_spill_start";
+        level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
+        level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
+        level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
+        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {
-        if ( self[var_0].script_parentname != "barrel_sludge" )
+        if ( self[var_0].script_noteworthy != "barrel_sludge" )
             continue;
 
-        level._effect["leak_interactive_leak"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_leak" );
-        level._effect["leak_interactive_pool"][self[var_0].script_parentname] = loadfx( "fx/misc/oilsplash_decal_spawner" );
-        level._effect["leak_interactive_drain"][self[var_0].script_parentname] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_parentname] = "h1_oil_spill_start";
+        level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
+        level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
+        level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
+        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 }

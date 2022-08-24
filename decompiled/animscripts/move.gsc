@@ -151,7 +151,7 @@ end_script()
 {
     if ( isdefined( self._id_63D1 ) )
     {
-        self.groundentchanged = self._id_63D1;
+        self.grenadeweapon = self._id_63D1;
         self._id_63D1 = undefined;
     }
 
@@ -167,7 +167,7 @@ end_script()
     self._id_5F56 = undefined;
     animscripts\run::_id_800D( 0 );
 
-    if ( self.tactical )
+    if ( self.swimmer )
         animscripts\swim::_id_9046();
 
     self _meth_8144( %head, 0.2 );
@@ -211,7 +211,7 @@ _id_414A( var_0 )
 
 _id_A1CF()
 {
-    switch ( self.primaryattachment2 )
+    switch ( self.prevscript )
     {
         case "cover_crouch":
         case "cover_stand":
@@ -236,7 +236,7 @@ _id_A1CF()
 
 _id_5F7D( var_0 )
 {
-    if ( self.mw3prestige == "run" )
+    if ( self.movemode == "run" )
         animscripts\battlechatter_ai::_id_33B5( var_0 );
 }
 
@@ -266,7 +266,7 @@ _id_9B3C( var_0 )
         {
             self.a._id_5F43 = animscripts\utility::_id_5864( var_0 );
 
-            if ( ( self.combatmode == "ambush" || self.combatmode == "ambush_nodes_only" ) && ( isdefined( self.pc ) && distancesquared( self.origin, self.pc ) > squared( 100 ) ) )
+            if ( ( self.combatmode == "ambush" || self.combatmode == "ambush_nodes_only" ) && ( isdefined( self.pathgoalpos ) && distancesquared( self.origin, self.pathgoalpos ) > squared( 100 ) ) )
             {
                 self._id_855F = 1;
                 animscripts\animset::_id_7DBA();
@@ -300,7 +300,7 @@ _id_5F58( var_0 )
             self.a._id_76D4++;
 
         var_1 = var_2;
-        var_3 = self.mw3prestige;
+        var_3 = self.movemode;
 
         if ( isdefined( self.overridemovemode ) )
             var_3 = self.overridemovemode;
@@ -346,7 +346,7 @@ _id_5F59( var_0 )
         self [[ self._id_6DF5 ]]();
     else if ( animscripts\utility::_id_848B() )
         animscripts\cqb::_id_5F4C();
-    else if ( self.tactical )
+    else if ( self.swimmer )
         animscripts\swim::_id_5F80();
     else if ( var_0 == "run" )
         animscripts\run::_id_5F70();
@@ -358,16 +358,16 @@ _id_5F59( var_0 )
 
 _id_5A61()
 {
-    if ( self.weapon_switch_invalid == "none" )
+    if ( self.weapon == "none" )
         return 0;
 
     if ( isdefined( self._id_5A7A ) && self._id_5A7A )
     {
-        if ( self.mw3prestige == "run" )
+        if ( self.movemode == "run" )
             return 0;
     }
 
-    var_0 = weaponclass( self.weapon_switch_invalid );
+    var_0 = weaponclass( self.weapon );
 
     if ( !animscripts\utility::_id_9C35() )
         return 0;
@@ -403,7 +403,7 @@ _id_841B()
     if ( isdefined( self._id_20B3 ) && isdefined( self._id_20B3["fire"] ) )
         self.a._id_0CD8["fire"] = self._id_20B3["fire"];
 
-    if ( isdefined( self.weapon_switch_invalid ) && animscripts\utility::_id_A2CF() )
+    if ( isdefined( self.weapon ) && animscripts\utility::_id_A2CF() )
         self.a._id_0CD8["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
 
     for (;;)
@@ -451,7 +451,7 @@ _id_7490( var_0 )
     self _meth_8144( %animscript_root, 0.1 );
     self _meth_8193( "face default" );
     self _meth_8192( "none", 0 );
-    self.requirement_beat50waves = 1;
+    self.requestarrivalnotify = 1;
     _id_5F57( !var_0 );
 }
 
@@ -476,7 +476,7 @@ _id_66D9()
 
     self.readyforpathchange = 0;
     self.ignoreearlypathchange = getdvarint( "ai_turnAnim_handleEarlyNotifies", 1 ) == 0;
-    self.turret_no_vis = 0;
+    self.turnanim_unknown = 0;
 
     for (;;)
     {
@@ -530,7 +530,7 @@ getturnaniminfo()
 {
     var_0 = 0;
 
-    if ( self.tactical )
+    if ( self.swimmer )
         var_1 = animscripts\swim::_id_4100( "turn" );
     else if ( animscripts\utility::_id_51DE() )
         var_1 = animscripts\utility::_id_5864( "unstable_run_turn" );
@@ -557,7 +557,7 @@ getturnaniminfo()
 
         var_0 = 0;
     }
-    else if ( self.mw3prestige == "walk" )
+    else if ( self.movemode == "walk" )
     {
         var_2 = "cqb_turn";
         var_0 = 1;
@@ -674,7 +674,7 @@ _id_66D7( var_0, var_1 )
 
 _id_66D4( var_0 )
 {
-    if ( !isdefined( self.pc ) )
+    if ( !isdefined( self.pathgoalpos ) )
         return 0;
 
     var_1 = getnotetracktimes( var_0, "code_move" );
@@ -688,13 +688,13 @@ _id_66D4( var_0 )
     var_3 = getmovedelta( var_0, 0, var_2 );
     var_4 = self localtoworldcoords( var_3 );
 
-    if ( isdefined( self._id_0D28 ) && squared( self._id_0D28 ) > distancesquared( self.pc, var_4 ) )
+    if ( isdefined( self._id_0D28 ) && squared( self._id_0D28 ) > distancesquared( self.pathgoalpos, var_4 ) )
         return 0;
 
     var_3 = getmovedelta( var_0, 0, 1 );
     var_5 = self localtoworldcoords( var_3 );
     var_5 = var_4 + vectornormalize( var_5 - var_4 ) * 20;
-    var_6 = !self.tactical;
+    var_6 = !self.swimmer;
     var_7 = self _meth_81c8( var_4, var_5, var_6, 1 );
     var_8 = !animscripts\utility::using_tight_turn_anims() && getdvarint( "ai_turnAnim_checkFullTrace", 0 );
 
@@ -734,7 +734,7 @@ _id_66D6()
     if ( gettime() > self._id_993B + 50 )
         return;
 
-    if ( self.tactical )
+    if ( self.swimmer )
         self _meth_8192( "nogravity", 0 );
     else
         self _meth_8192( "zonly_physics", 0 );
@@ -756,7 +756,7 @@ _id_66D6()
         var_1 = self._id_66F4;
 
     self notify( "turn_start" );
-    self.turret_no_vis = 1;
+    self.turnanim_unknown = 1;
     self setflaggedanimrestart( "turnAnim", var_0, 1, var_1, self._id_5F65 );
 
     if ( animscripts\utility::_id_51B0() )
@@ -779,7 +779,7 @@ _id_66D6()
 
     maps\_utility::_id_27CF( var_3, animscripts\stairs_utility::threadcheckstairstransition, var_0, 0, var_2, undefined, "inOnly" );
     animscripts\shared::_id_2D06( "turnAnim" );
-    self.turret_no_vis = 0;
+    self.turnanim_unknown = 0;
     self._id_4BB7 = undefined;
     self _meth_8193( "face motion" );
     self _meth_8192( "none", 0 );
@@ -839,13 +839,13 @@ _id_595D( var_0, var_1, var_2 )
         var_16 = transformmove( var_5, var_6, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), var_14, var_15 );
         var_17 = var_16["origin"];
         var_18 = var_16["angles"];
-        var_19 = self.lookforward;
-        var_20 = vectortoangles( self.lookforward )[1];
+        var_19 = self.lookaheaddir;
+        var_20 = vectortoangles( self.lookaheaddir )[1];
         var_21 = var_18[1];
         var_22 = angleclamp180( var_20 - var_21 );
         var_23 = var_22 * var_13;
         var_23 = abs( clamp( var_23, -1 * var_3, var_3 ) );
-        var_19 = vectorlerp( anglestoforward( var_18 ), self.lookforward, var_23 / var_3 * var_13 );
+        var_19 = vectorlerp( anglestoforward( var_18 ), self.lookaheaddir, var_23 / var_3 * var_13 );
         self _meth_8193( "face direction", var_19 );
         waittillframeend;
     }
@@ -854,7 +854,7 @@ _id_595D( var_0, var_1, var_2 )
 _id_66D5()
 {
     self._id_4BB7 = undefined;
-    self.turret_no_vis = 0;
+    self.turnanim_unknown = 0;
     self _meth_8193( "face default" );
     var_0 = [[ self._id_1D46 ]]();
     var_1 = 0.1;
@@ -865,7 +865,7 @@ _id_66D5()
     self _meth_8144( %animscript_root, var_1 );
     self _meth_8192( "none", 0 );
 
-    if ( self.tactical )
+    if ( self.swimmer )
         animscripts\swim::_id_9033();
 }
 
@@ -891,8 +891,8 @@ _id_2C2D()
 
 _id_9899( var_0, var_1 )
 {
-    var_2 = ( self.lookforward[1], -1 * self.lookforward[0], 0 );
-    var_3 = self.lookforward * var_1[0];
+    var_2 = ( self.lookaheaddir[1], -1 * self.lookaheaddir[0], 0 );
+    var_3 = self.lookaheaddir * var_1[0];
     var_4 = var_2 * var_1[1];
     var_5 = self.origin + var_3 - var_4;
     self _meth_81a7( 1 );
@@ -924,7 +924,7 @@ _id_0C6A()
 
         if ( animscripts\utility::_id_5124() )
         {
-            self.noncombat = 0;
+            self.nododgemove = 0;
             return;
         }
 
@@ -933,7 +933,7 @@ _id_0C6A()
 
         var_2 = vectornormalize( var_1 - self.origin );
 
-        if ( self.lookforward[0] * var_2[1] - var_2[0] * self.lookforward[1] > 0 )
+        if ( self.lookaheaddir[0] * var_2[1] - var_2[0] * self.lookaheaddir[1] > 0 )
         {
             if ( !_id_9899( self._id_2C2E, self._id_2C2F ) )
                 _id_9899( self._id_2C2A, self._id_2C2B );
@@ -953,7 +953,7 @@ _id_0C6A()
 
 _id_7F53( var_0, var_1 )
 {
-    self.noncombat = 1;
+    self.nododgemove = 1;
     self._id_2C2A = var_0;
     self._id_2C2E = var_1;
     var_2 = 1;
@@ -968,12 +968,12 @@ _id_7F53( var_0, var_1 )
         var_2 = getnotetracktimes( var_1, "code_move" )[0];
 
     self._id_2C2F = getmovedelta( var_1, 0, var_2 );
-    self.invisible = 80;
+    self.interval = 80;
 }
 
 _id_1EE8()
 {
-    self.noncombat = 0;
+    self.nododgemove = 0;
     self._id_2C2A = undefined;
     self._id_2C2E = undefined;
     self._id_2C2B = undefined;
@@ -1015,7 +1015,7 @@ _id_18B2()
         if ( isdefined( self._id_2AF7 ) )
             return;
 
-        if ( self.mw3prestige != "run" || !self.facemotion || self.a._id_6E5A != "stand" || isdefined( self._id_717B ) )
+        if ( self.movemode != "run" || !self.facemotion || self.a._id_6E5A != "stand" || isdefined( self._id_717B ) )
             continue;
 
         if ( animscripts\stairs_utility::isonstairs() )
@@ -1024,17 +1024,17 @@ _id_18B2()
         if ( !canreacttobulletsagain() )
             continue;
 
-        if ( !isdefined( self.enemy ) && !self.ignoreforfixednodesafecheck && self getthreatbiasgroup() != "oblivious" && isdefined( var_0.team ) && isenemyteam( self.team, var_0.team ) )
+        if ( !isdefined( self.enemy ) && !self.ignoreall && self getthreatbiasgroup() != "oblivious" && isdefined( var_0.team ) && isenemyteam( self.team, var_0.team ) )
         {
             self._id_A316 = var_0;
             self _meth_819e( animscripts\reactions::_id_18B4 );
             continue;
         }
 
-        if ( self.looktarget || self.lookright < 100 || self.lookright < anim.longestrunwizby )
+        if ( self.lookaheadhitsstairs || self.lookaheaddist < 100 || self.lookaheaddist < anim.longestrunwizby )
             continue;
 
-        if ( isdefined( self.pc ) && distancesquared( self.origin, self.pc ) < 10000 )
+        if ( isdefined( self.pathgoalpos ) && distancesquared( self.origin, self.pathgoalpos ) < 10000 )
         {
             wait 0.2;
             continue;
@@ -1049,7 +1049,7 @@ _id_18B2()
 
 _id_3E61( var_0, var_1 )
 {
-    var_2 = var_1.unlockpoints;
+    var_2 = var_1.type;
 
     if ( var_2 == "Cover Multi" )
         var_2 = animscripts\utility::_id_3F3F( var_1 );
@@ -1067,7 +1067,7 @@ _id_3E61( var_0, var_1 )
 _id_829F( var_0, var_1, var_2 )
 {
     var_3 = [];
-    var_4 = var_2.unlockpoints;
+    var_4 = var_2.type;
 
     if ( var_4 == "Cover Multi" )
         var_4 = animscripts\utility::_id_3F3F( var_2 );
@@ -1084,7 +1084,7 @@ _id_829F( var_0, var_1, var_2 )
         var_3["shuffle"] = animscripts\utility::_id_5863( "shuffle", "shuffle_to_cover_right" );
         var_3["shuffle_end"] = animscripts\utility::_id_5863( "shuffle", "shuffle_end_to_cover_right" );
     }
-    else if ( var_4 == "Cover Stand" && var_1.unlockpoints == var_4 )
+    else if ( var_4 == "Cover Stand" && var_1.type == var_4 )
     {
         if ( var_0 )
         {
@@ -1125,7 +1125,7 @@ _id_829F( var_0, var_1, var_2 )
 
 _id_5F4A( var_0, var_1 )
 {
-    if ( self.a._id_6E5A == "stand" && ( var_1.unlockpoints != "Cover Stand" || var_0.unlockpoints != "Cover Stand" ) )
+    if ( self.a._id_6E5A == "stand" && ( var_1.type != "Cover Stand" || var_0.type != "Cover Stand" ) )
     {
         self.a._id_6E5A = "crouch";
         return 0;
@@ -1136,7 +1136,7 @@ _id_5F4A( var_0, var_1 )
 
 _id_5F49( var_0 )
 {
-    if ( self.a._id_6E5A == "crouch" && var_0.unlockpoints == "Cover Stand" )
+    if ( self.a._id_6E5A == "crouch" && var_0.type == "Cover Stand" )
     {
         self.a._id_6E5A = "stand";
         return 0;
@@ -1154,14 +1154,14 @@ _id_5F48()
     self._id_8549 = undefined;
     self._id_8548 = 1;
 
-    if ( !isdefined( self.primaryattachment1 ) )
+    if ( !isdefined( self.prevnode ) )
         return;
 
-    if ( !isdefined( self.node_relinquished ) || !isdefined( var_0 ) || self.node_relinquished != var_0 )
+    if ( !isdefined( self.node ) || !isdefined( var_0 ) || self.node != var_0 )
         return;
 
-    var_1 = self.primaryattachment1;
-    var_2 = self.node_relinquished;
+    var_1 = self.prevnode;
+    var_2 = self.node;
     var_3 = var_2.origin - self.origin;
 
     if ( lengthsquared( var_3 ) < 1 )
@@ -1278,9 +1278,9 @@ _id_5F4D( var_0, var_1, var_2 )
 {
     var_3 = undefined;
 
-    if ( var_1.unlockpoints == "Cover Right" && var_2.unlockpoints == "Cover Left" && !var_0 )
+    if ( var_1.type == "Cover Right" && var_2.type == "Cover Left" && !var_0 )
         var_3 = %corner_standr_door_r2l;
-    else if ( var_1.unlockpoints == "Cover Left" && var_2.unlockpoints == "Cover Right" && var_0 )
+    else if ( var_1.type == "Cover Left" && var_2.type == "Cover Right" && var_0 )
         var_3 = %corner_standl_door_l2r;
 
     if ( !isdefined( var_3 ) )
@@ -1413,7 +1413,7 @@ getexpectedcurrentmoveanim()
         var_0["anim"] = animscripts\cqb::_id_29A6();
         var_0["updateTime"] = 0.2;
     }
-    else if ( self.mw3prestige == "walk" || self.a._id_5F5B == "walk" )
+    else if ( self.movemode == "walk" || self.a._id_5F5B == "walk" )
     {
         if ( isdefined( self.a._id_5F43 ) )
             var_0["anim"] = animscripts\walk::_id_415B( "straight" );

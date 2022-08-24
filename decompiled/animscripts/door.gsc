@@ -36,7 +36,7 @@ _id_2D62()
         wait 0.2;
     }
 
-    var_1 = var_0.unlockpoints == "Door Interior" || self _meth_81a5( var_0 );
+    var_1 = var_0.type == "Door Interior" || self _meth_81a5( var_0 );
 
     if ( var_1 )
         _id_2D5F( var_0 );
@@ -69,7 +69,7 @@ _id_2C31( var_0 )
 {
     thread _id_91F0();
 
-    if ( self.groundentchanged == "flash_grenade" )
+    if ( self.grenadeweapon == "flash_grenade" )
         self notify( "flashbang_thrown" );
 
     self _meth_8193( "face current" );
@@ -82,7 +82,7 @@ _id_2C31( var_0 )
     self waittill( "done_grenade_throw" );
     self _meth_8193( "face default" );
     self._id_5C7A = gettime() + 5000;
-    self.groundentchanged = self._id_63D1;
+    self.grenadeweapon = self._id_63D1;
     self._id_63D1 = undefined;
     animscripts\run::_id_315D();
     thread animscripts\move::_id_66D9();
@@ -97,7 +97,7 @@ _id_2D61( var_0, var_1, var_2, var_3, var_4 )
     var_7 = %cqb_stand_grenade_throw;
     var_8 = anglestoforward( var_0.angles );
 
-    if ( var_0.unlockpoints == "Door Interior" && !self _meth_81a5( var_0 ) )
+    if ( var_0.type == "Door Interior" && !self _meth_81a5( var_0 ) )
         var_8 = -1 * var_8;
 
     var_9 = ( var_0.origin[0], var_0.origin[1], var_0.origin[2] + 64 );
@@ -141,8 +141,8 @@ _id_2D61( var_0, var_1, var_2, var_3, var_4 )
             if ( vectordot( var_12, var_8 ) < 0 )
                 return;
 
-            self._id_63D1 = self.groundentchanged;
-            self.groundentchanged = var_1;
+            self._id_63D1 = self.grenadeweapon;
+            self.grenadeweapon = var_1;
             animscripts\combat_utility::_id_7F15( self.enemy );
 
             if ( !var_5 )

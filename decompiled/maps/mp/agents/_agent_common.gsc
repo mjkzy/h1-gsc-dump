@@ -102,6 +102,6 @@ _id_072F()
 _id_7DB0( var_0 )
 {
     self.agenthealth = var_0;
-    self.helmet = var_0;
-    self.maxturnspeed = var_0;
+    self.health = var_0;
+    self.maxhealth = var_0;
 }

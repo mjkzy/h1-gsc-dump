@@ -215,7 +215,7 @@ _id_8F31()
             {
                 var_8 = spawnstruct();
                 var_8.team = var_3;
-                var_8.weapon_switch_invalid = var_6._id_6F84;
+                var_8.weapon = var_6._id_6F84;
                 var_1[var_7] = var_8;
             }
         }
@@ -251,7 +251,7 @@ getstreaminfo( var_0 )
 {
     var_1 = spawnstruct();
     var_1.team = common_scripts\utility::_id_9294( isdefined( self.addtoteam ), self.addtoteam, self.team );
-    var_1.weapon_switch_invalid = var_0._id_6F84;
+    var_1.weapon = var_0._id_6F84;
     return var_1;
 }
 
@@ -445,16 +445,16 @@ _id_55ED()
         maps\mp\_utility::_unsetperk( "specialty_finalstand" );
 
     if ( level._id_2A55 )
-        self.health = "";
+        self.headicon = "";
 
     self setstance( "crouch" );
     self._id_74FD = 1;
     self notify( "revive" );
 
     if ( isdefined( self._id_8B04 ) )
-        self.maxturnspeed = self._id_8B04;
+        self.maxhealth = self._id_8B04;
 
-    self.helmet = self.maxturnspeed;
+    self.health = self.maxhealth;
     common_scripts\utility::_id_0594();
 
     if ( game["state"] == "postgame" )
@@ -728,11 +728,11 @@ _id_89FB( var_0, var_1 )
         maps\mp\_utility::_id_9B69( "playing" );
         maps\mp\_utility::_id_1EF2();
         self._id_1AB3 = undefined;
-        self.maxturnspeed = maps\mp\gametypes\_tweakables::_id_4142( "player", "maxhealth" );
-        self.helmet = self.maxturnspeed;
+        self.maxhealth = maps\mp\gametypes\_tweakables::_id_4142( "player", "maxhealth" );
+        self.health = self.maxhealth;
         self.friendlydamage = undefined;
         self._id_4745 = 1;
-        self.spectating_cycle = gettime();
+        self.spawntime = gettime();
         self._id_8A12 = maps\mp\_utility::_id_412E();
         self.wasti = !isdefined( var_2 );
         self._id_0891 = 0;
@@ -756,7 +756,7 @@ _id_89FB( var_0, var_1 )
 
     self.movespeedscaler = level._id_1317;
     self.inlaststand = 0;
-    self.left = undefined;
+    self.laststand = undefined;
     self._id_4C5A = undefined;
     self.disabledweapon = 0;
     self.disabledweaponswitch = 0;
@@ -806,7 +806,7 @@ _id_89FB( var_0, var_1 )
     else
         self._id_55DF = gettime();
 
-    self.spectatekillcam = var_7;
+    self.spawnpos = var_7;
     self spawnspectator( var_7, var_8 );
     maps\mp\_utility::_id_7F54( level._id_2C7B );
 
@@ -1185,10 +1185,10 @@ _id_19F3( var_0 )
     }
 
     maps\mp\gametypes\_gamelogic::setplayerrank( self );
-    reconevent( "script_mp_playerquit: player_name %s, player %d, gameTime %d", self.nearz, self.clientid, gettime() );
+    reconevent( "script_mp_playerquit: player_name %s, player %d, gameTime %d", self.name, self.clientid, gettime() );
     var_4 = self getentitynumber();
     var_5 = self.guid;
-    logprint( "Q;" + var_5 + ";" + var_4 + ";" + self.nearz + "\\n" );
+    logprint( "Q;" + var_5 + ";" + var_4 + ";" + self.name + "\\n" );
     thread maps\mp\_events::_id_2B36();
 
     if ( level.gameended )
@@ -1197,9 +1197,9 @@ _id_19F3( var_0 )
     if ( isdefined( self.team ) )
         _id_73AF();
 
-    if ( self.sharpturnlookaheaddist == "playing" && !( isdefined( self._id_3693 ) && self._id_3693 ) )
+    if ( self.sessionstate == "playing" && !( isdefined( self._id_3693 ) && self._id_3693 ) )
         _id_73A4( 1 );
-    else if ( self.sharpturnlookaheaddist == "spectator" || self.sharpturnlookaheaddist == "dead" )
+    else if ( self.sessionstate == "spectator" || self.sessionstate == "dead" )
         level thread maps\mp\gametypes\_gamelogic::_id_9B1F();
 }
 
@@ -1300,8 +1300,8 @@ _id_833B()
     for ( var_0 = 1; var_0 <= 4; var_0++ )
     {
         self._id_7811[var_0] = spawnstruct();
-        self._id_7811[var_0].unlockpoints = "";
-        self._id_7811[var_0].j_exoclav04_r = undefined;
+        self._id_7811[var_0].type = "";
+        self._id_7811[var_0].item = undefined;
     }
 
     if ( !level.console )
@@ -1309,8 +1309,8 @@ _id_833B()
         for ( var_0 = 5; var_0 <= 8; var_0++ )
         {
             self._id_7811[var_0] = spawnstruct();
-            self._id_7811[var_0].unlockpoints = "";
-            self._id_7811[var_0].j_exoclav04_r = undefined;
+            self._id_7811[var_0].type = "";
+            self._id_7811[var_0].item = undefined;
         }
     }
 }
@@ -1372,7 +1372,7 @@ _id_5842()
 
 truncateplayername( var_0 )
 {
-    if ( level.xpmultiplier && var_0.size > 18 )
+    if ( level.xb3 && var_0.size > 18 )
     {
         var_1 = common_scripts\utility::_id_8F55( var_0, "]" );
 
@@ -1418,7 +1418,7 @@ _id_19F0()
     self._id_2148 = 1;
 
     if ( self ishost() )
-        level.playercardbackground = self;
+        level.player = self;
 
     self._id_9C30 = self isusingonlinedataoffline();
     _id_4D98();
@@ -1428,7 +1428,7 @@ _id_19F0()
         level waittill( "eternity" );
 
     self.guid = self getguid();
-    self.zonly_physics = self getxuid();
+    self.xuid = self getxuid();
     self._id_93FB = 0;
     var_1 = 0;
 
@@ -1453,9 +1453,9 @@ _id_19F0()
     self.pers["suicideSpawnDelay"] = 0;
 
     if ( var_1 )
-        reconevent( "script_mp_playerjoin: player_name %s, player %d, gameTime %d", self.nearz, self.clientid, gettime() );
+        reconevent( "script_mp_playerjoin: player_name %s, player %d, gameTime %d", self.name, self.clientid, gettime() );
 
-    logprint( "J;" + self.guid + ";" + self getentitynumber() + ";" + self.nearz + "\\n" );
+    logprint( "J;" + self.guid + ";" + self getentitynumber() + ";" + self.name + "\\n" );
 
     if ( game["clientid"] <= 30 && game["clientid"] != getmatchdata( "playerCount" ) )
     {
@@ -1471,7 +1471,7 @@ _id_19F0()
         setmatchdata( "players", self.clientid, "playerID", "ucdIDLow", self ismlgspectator() );
         setmatchdata( "players", self.clientid, "playerID", "clanIDHigh", self getclanidhigh() );
         setmatchdata( "players", self.clientid, "playerID", "clanIDLow", self getclanidlow() );
-        setmatchdata( "players", self.clientid, "gamertag", truncateplayername( self.nearz ) );
+        setmatchdata( "players", self.clientid, "gamertag", truncateplayername( self.name ) );
         setmatchdata( "players", self.clientid, "isBot", isai( self ) );
         var_4 = self getentitynumber();
         setmatchdata( "players", self.clientid, "codeClientNum", maps\mp\_utility::_id_1E28( var_4 ) );
@@ -1498,7 +1498,7 @@ _id_19F0()
             var_6 = 0;
 
         if ( maps\mp\_utility::_id_59E3() && maps\mp\_utility::_id_0AB0() && !var_6 )
-            setmatchdata( "players", self.clientid, "team", self.sharpturnnotifydist );
+            setmatchdata( "players", self.clientid, "team", self.sessionteam );
 
         if ( maps\mp\_utility::_id_50B1( self ) )
         {
@@ -1524,7 +1524,7 @@ _id_19F0()
     if ( !isdefined( self.pers["cur_kill_streak"] ) )
     {
         self.pers["cur_kill_streak"] = 0;
-        self.knife_off = 0;
+        self.killstreakcount = 0;
         self setclientomnvar( "ks_count1", 0 );
     }
 
@@ -1590,14 +1590,14 @@ _id_19F0()
 
         if ( !isdefined( self.pers["team"] ) )
         {
-            if ( maps\mp\_utility::_id_59E3() && self.sharpturnnotifydist != "none" )
+            if ( maps\mp\_utility::_id_59E3() && self.sessionteam != "none" )
             {
                 thread _id_8A0E();
 
                 if ( isdefined( level._id_A048 ) && level._id_A048 )
                     maps\mp\_utility::_id_3A32( 1 );
 
-                thread maps\mp\gametypes\_menus::_id_8027( self.sharpturnnotifydist );
+                thread maps\mp\gametypes\_menus::_id_8027( self.sessionteam );
 
                 if ( maps\mp\_utility::_id_0AA2() )
                     thread _id_803C( 2 );
@@ -1786,7 +1786,7 @@ _id_4E01()
         maps\mp\gametypes\_persistence::_id_8D7A( "round", "kills", 0 );
     }
 
-    self.killstreakrestricted = maps\mp\_utility::_id_4081( "kills" );
+    self.kills = maps\mp\_utility::_id_4081( "kills" );
 
     if ( !isdefined( self.pers["headshots"] ) )
     {
@@ -1794,7 +1794,7 @@ _id_4E01()
         maps\mp\gametypes\_persistence::_id_8D7A( "round", "headshots", 0 );
     }
 
-    self.height = maps\mp\_utility::_id_4081( "headshots" );
+    self.headshots = maps\mp\_utility::_id_4081( "headshots" );
 
     if ( !isdefined( self.pers["assists"] ) )
     {
@@ -2176,7 +2176,7 @@ _id_A361( var_0 )
     if ( isai( var_0 ) )
         return;
 
-    reconevent( "script_PlayerSegments: percentTimeMoving %f, averageSpeed %f, averageKillDistance %f, playStyle %d, name %s", var_1, var_2, var_3, var_4, var_0.nearz );
+    reconevent( "script_PlayerSegments: percentTimeMoving %f, averageSpeed %f, averageKillDistance %f, playStyle %d, name %s", var_1, var_2, var_3, var_4, var_0.name );
 
     if ( !var_0 maps\mp\_utility::_id_7139() )
         return;

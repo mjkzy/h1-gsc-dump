@@ -37,7 +37,7 @@ _id_1D5C()
     self endon( "mg_off" );
     var_0 = cos( 55 );
 
-    while ( self.helmet > 0 )
+    while ( self.health > 0 )
     {
         var_1 = _id_3F7F( 16000, var_0, 1, 1 );
 
@@ -109,15 +109,15 @@ _id_47BE( var_0 )
 
 _id_4233()
 {
-    if ( !isdefined( self.visionsetnaked ) )
+    if ( !isdefined( self.vehicletype ) )
         return;
 
     var_0 = 0;
 
-    if ( self.visionsetnaked == "hind" || self.visionsetnaked == "hind_blackice" || self.visionsetnaked == "ny_harbor_hind" )
+    if ( self.vehicletype == "hind" || self.vehicletype == "hind_blackice" || self.vehicletype == "ny_harbor_hind" )
         var_0 = 1;
 
-    if ( self.visionsetnaked == "cobra" || self.visionsetnaked == "cobra_player" )
+    if ( self.vehicletype == "cobra" || self.vehicletype == "cobra_player" )
     {
         thread _id_0E07( "chopperpilot_hellfire", "cobra_Sidewinder" );
 
@@ -150,7 +150,7 @@ _id_389B( var_0 )
     notifyoncommand( "flare_button", "+usereload" );
     notifyoncommand( "flare_button", "+activate" );
 
-    while ( var_0.helmet > 0 )
+    while ( var_0.health > 0 )
     {
         if ( isdefined( var_0._id_6C7E ) )
             var_0._id_6820 waittill( "flare_button" );
@@ -178,7 +178,7 @@ _id_3897( var_0, var_1, var_2, var_3 )
 
     for ( var_5 = 0; var_5 < var_1; var_5++ )
     {
-        playfx( level._id_3891[var_0.visionsetnaked], var_0 gettagorigin( "tag_flare" ) );
+        playfx( level._id_3891[var_0.vehicletype], var_0 gettagorigin( "tag_flare" ) );
 
         if ( isdefined( var_0._id_6C7E ) )
         {
@@ -417,7 +417,7 @@ _id_83F0( var_0 )
 
     self setturrettargetent( var_0, var_1 );
 
-    while ( self.helmet > 0 )
+    while ( self.health > 0 )
     {
         var_2 = randomintrange( 1, 25 );
 

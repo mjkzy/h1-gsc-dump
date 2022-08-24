@@ -79,7 +79,7 @@ streamprimariesfunc()
     {
         var_6 = spawnstruct();
         var_6.team = var_5;
-        var_6.weapon_switch_invalid = var_1;
+        var_6.weapon = var_1;
         var_3[var_3.size] = var_6;
     }
 
@@ -101,8 +101,8 @@ deletepickups()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isdefined( var_0[var_1]._not_team ) )
-            getent( var_0[var_1]._not_team, "targetname" ) delete();
+        if ( isdefined( var_0[var_1].target ) )
+            getent( var_0[var_1].target, "targetname" ) delete();
 
         var_0[var_1] delete();
     }
@@ -175,11 +175,11 @@ converttoh1pickup( var_0 )
     var_1 = var_0.origin;
     var_2 = var_0.angles;
     var_3 = 19;
-    var_4 = var_0.teambalanced;
-    var_5 = converttoh1weaponclassname( var_0.classname, var_0.script_parentname );
+    var_4 = var_0.targetname;
+    var_5 = converttoh1weaponclassname( var_0.classname, var_0.script_noteworthy );
     var_6 = spawn( var_5, var_1, var_3 );
     var_6.angles = var_2;
-    var_6.teambalanced = var_4;
+    var_6.targetname = var_4;
     var_6._id_7A99 = var_0._id_7A99;
     var_0 delete();
 }
@@ -291,10 +291,10 @@ trackpickup( var_0, var_1 )
     var_4 = var_0.classname;
     var_5 = var_0.origin;
     var_6 = var_0.angles;
-    var_7 = var_0.specialgrenade;
-    var_8 = var_0.motiontrackerenabled;
-    var_9 = var_0.teambalanced;
-    var_10 = var_0.script_parentname;
+    var_7 = var_0.spawnflags;
+    var_8 = var_0.model;
+    var_9 = var_0.targetname;
+    var_10 = var_0.script_noteworthy;
     var_11 = 0;
     var_12 = 0;
     var_13 = undefined;
@@ -311,7 +311,7 @@ trackpickup( var_0, var_1 )
     else if ( var_4 == "script_model" )
     {
         var_12 = 1;
-        var_14 = var_0.script_parentname;
+        var_14 = var_0.script_noteworthy;
 
         if ( !isdefined( level.perkpickuphints[var_14] ) )
         {
@@ -319,7 +319,7 @@ trackpickup( var_0, var_1 )
             return;
         }
 
-        var_15 = getent( var_0._not_team, "targetname" );
+        var_15 = getent( var_0.target, "targetname" );
         var_16 = level.pickupperkrespawntime;
 
         if ( !getdvarint( "scr_game_perks" ) )
@@ -339,8 +339,8 @@ trackpickup( var_0, var_1 )
         return;
     }
 
-    if ( isdefined( var_0.script_lightset ) )
-        var_16 = var_0.script_lightset;
+    if ( isdefined( var_0.script_delay ) )
+        var_16 = var_0.script_delay;
 
     var_0.respawntime = var_16;
 
@@ -399,8 +399,8 @@ trackpickup( var_0, var_1 )
         wait(var_16);
         var_0 = spawn( var_4, var_5, var_7 );
         var_0.angles = var_6;
-        var_0.teambalanced = var_9;
-        var_0.script_parentname = var_10;
+        var_0.targetname = var_9;
+        var_0.script_noteworthy = var_10;
         var_0.groundpoint = var_2;
         var_0.respawntime = var_16;
 

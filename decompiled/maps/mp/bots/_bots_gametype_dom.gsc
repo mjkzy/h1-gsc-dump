@@ -134,7 +134,7 @@ _id_805C()
         var_3 thread monitor_flag_control();
         var_3 thread _id_5DA3();
 
-        if ( var_3.script_model != "_a" && var_3.script_model != "_b" && var_3.script_model != "_c" )
+        if ( var_3.script_label != "_a" && var_3.script_label != "_b" && var_3.script_label != "_c" )
         {
 
         }
@@ -909,7 +909,7 @@ _id_3D6E( var_0 )
     if ( isdefined( var_0._id_9258 ) )
         var_1 += ( var_0._id_9258 + "_" );
 
-    var_1 += ( "flag" + var_0.script_model );
+    var_1 += ( "flag" + var_0.script_label );
     return var_1;
 }
 
@@ -932,7 +932,7 @@ _id_3E69( var_0 )
 {
     for ( var_1 = 0; var_1 < level._id_386B.size; var_1++ )
     {
-        if ( level._id_386B[var_1].script_model == var_0 )
+        if ( level._id_386B[var_1].script_label == var_0 )
             return level._id_386B[var_1];
     }
 }

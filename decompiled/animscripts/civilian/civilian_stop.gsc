@@ -21,5 +21,5 @@
 
 main()
 {
-    animscripts\civilian::stopsoonnotifydist();
+    animscripts\civilian::stop();
 }

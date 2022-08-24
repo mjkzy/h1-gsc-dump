@@ -261,7 +261,7 @@ _id_0B86()
 
 _id_0B87()
 {
-    return level.playercardbackground.helmet;
+    return level.player.health;
 }
 
 _id_0B88()

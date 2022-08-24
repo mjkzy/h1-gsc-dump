@@ -63,7 +63,7 @@ main()
     maps\_stealth_behavior::main();
     maps\_load::_id_7E9E( "viewhands_player_marines" );
     setsaveddvar( "sv_znear", "1.0" );
-    level.playercardbackground allowstand( 0 );
+    level.player allowstand( 0 );
     animscripts\dog\dog_init::_id_4DAB();
     setsaveddvar( "ai_eventDistFootstep", "32" );
     setsaveddvar( "ai_eventDistFootstepWalk", "32" );
@@ -197,7 +197,7 @@ main()
     level._id_6F7C thread priceinit();
     level._id_6F7C _meth_81a7( 1 );
     level._id_6F7C.dontavoidplayer = 1;
-    level._id_6F7C.invisible = 0;
+    level._id_6F7C.interval = 0;
     level.price_sticky_target_time = 5000;
     maps\_utility::_id_1332( "allies" );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "player_looks_through_skylight", common_scripts\_exploder::_id_3528, 1 );
@@ -348,9 +348,9 @@ main()
     common_scripts\utility::_id_0CF0( var_7, maps\sniperescape_wounding::helicopter_broadcast );
     maps\sniperescape_code::create_price_dialogue_master();
     wait 0.05;
-    level.playercardbackground setplayerturretfov( 70 );
+    level.player setplayerturretfov( 70 );
     thread maps\sniperescape_exchange::player_learns_to_zoom();
-    level.playercardbackground allowstand( 1 );
+    level.player allowstand( 1 );
     level._id_6F7C thread monitor_macmellon();
     thread maps\_wibble::setup_wibble_triggers( 1, "seaknight_flies_in", "exterior", 0, 1 );
     thread set_combat_ads_lods_at_rappel();
@@ -365,9 +365,9 @@ monitor_macmellon()
     for (;;)
     {
         if ( level.melonhead_mode_enabled )
-            self.nearz = "Cpt. MacMellon";
+            self.name = "Cpt. MacMellon";
         else
-            self.nearz = "Cpt. MacMillan";
+            self.name = "Cpt. MacMillan";
 
         level waittill( "melonhead_mode_updated" );
     }
@@ -456,13 +456,13 @@ music_rescue()
 priceinit()
 {
     maps\_utility::_id_88F1( self );
-    self.psoffsettime = 0;
+    self.providecoveringfire = 0;
     thread maps\_utility::_id_58D7();
     self._id_1300 = 1000;
     self._id_5F65 = 1.21;
-    self.index = 1;
+    self.ignoresuppression = 1;
     self._id_0C72 = "price";
-    self.ikweight = 1;
+    self.ignorerandombulletdamage = 1;
     thread maps\_props::_id_418B();
 }
 
@@ -477,7 +477,7 @@ snipe()
     soundscripts\_snd::_id_870C( "start_default_checkpoint" );
     objective_add( maps\sniperescape_wounding::getobj( "zakhaev" ), "active", &"SNIPERESCAPE_ELIMINATE_IMRAN_ZAKHAEV", maps\sniperescape_exchange::exchange_turret_org() );
     setsaveddvar( "xanim_disableFootIKOutsidePlayerView", 0 );
-    level.playercardbackground setplayerangles( ( 9.8, -104.0, 0.0 ) );
+    level.player setplayerangles( ( 9.8, -104.0, 0.0 ) );
     maps\_utility::enable_scuff_footsteps_sound( 0 );
     thread maps\sniperescape_exchange::exchange_wind_flunctuates();
     thread maps\sniperescape_exchange::exchange_heli();
@@ -601,7 +601,7 @@ price_watches( var_0 )
     var_1 setmodel( level._id_78B5["binocs"] );
     var_1 linkto( self, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.binocs = var_1;
-    var_2 = getent( self._not_team, "targetname" );
+    var_2 = getent( self.target, "targetname" );
     var_2 maps\_anim::_id_0C24( self, "intro_spotter" );
     var_2 thread maps\_anim::_id_0BE1( self, "spotter_idle" );
 }
@@ -655,7 +655,7 @@ setup_rappel()
     var_2 thread maps\_anim::_id_0BC7( var_1, "rappel_start" );
     var_3 = getent( "bullet_block", "targetname" );
     var_3 delete();
-    var_4 = getent( level._id_6F7C._not_team, "targetname" );
+    var_4 = getent( level._id_6F7C.target, "targetname" );
     var_4 notify( "stop_loop" );
     level._id_6F7C _meth_8143();
     common_scripts\utility::_id_3831( "aa_snipe" );
@@ -671,7 +671,7 @@ trigger_monitor_player_lean()
 
     for (;;)
     {
-        if ( level.playercardbackground isleaning() )
+        if ( level.player isleaning() )
             common_scripts\utility::_id_97CC();
         else
             common_scripts\utility::_id_97CE();
@@ -702,7 +702,7 @@ _id_6BD0()
         var_4 waittill( "trigger" );
         waittillframeend;
 
-        if ( !level.playercardbackground isleaning() )
+        if ( !level.player isleaning() )
         {
             var_4 notify( "stop_monitor_lean" );
             break;
@@ -716,29 +716,29 @@ _id_6BD0()
     soundscripts\_snd::_id_870C( "rappel_foley_mix" );
     level.rappel_buffer = gettime();
     level._id_9373 = gettime();
-    level.playercardbackground thread maps\sniperescape_code::take_weapons();
+    level.player thread maps\sniperescape_code::take_weapons();
     thread rappel_rumble();
     maps\_utility::_id_27EF( 1.2, common_scripts\utility::_id_383F, "apartment_explosion" );
     setsaveddvar( "bg_scriptFullPitchRange", 1 );
     var_3 maps\_utility::_id_5696( "tag_player", 0.5, 0.9, 5, 5, 45, 0 );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground allowlean( 0 );
-    level.playercardbackground playerlinktodelta( var_3, "tag_player", 1.0, 0, 0, 0, 0 );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player allowlean( 0 );
+    level.player playerlinktodelta( var_3, "tag_player", 1.0, 0, 0, 0, 0 );
     var_3 show();
     var_0 thread maps\_anim::_id_0C24( var_3, "rappel" );
     var_0 thread maps\_anim::_id_0C24( var_1, "rappel_for_player" );
     var_0 waittill( "rappel" );
-    level.playercardbackground unlink();
+    level.player unlink();
     setsaveddvar( "cg_drawCrosshair", getdvar( "cg_drawCrosshairOption", 1 ) );
     setsaveddvar( "bg_scriptFullPitchRange", 0 );
-    level.playercardbackground allowcrouch( 1 );
-    level.playercardbackground allowprone( 1 );
-    level.playercardbackground allowlean( 1 );
+    level.player allowcrouch( 1 );
+    level.player allowprone( 1 );
+    level.player allowlean( 1 );
     var_3 delete();
     common_scripts\utility::_id_383F( "can_save" );
     maps\_utility::_id_62EC( maps\sniperescape_wounding::getobj( "hotel" ) );
-    level.playercardbackground maps\sniperescape_code::give_back_weapons();
+    level.player maps\sniperescape_code::give_back_weapons();
     maps\_utility::_id_27EF( 1.5, common_scripts\utility::_id_383F, "heli_moves_on" );
 }
 
@@ -751,7 +751,7 @@ rappel_rumble()
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 6.13, "generic_attack_light_2000" );
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 7.45, "generic_attack_light_2000" );
     var_0 = maps\_utility::rumble_sequence_add_key( var_0, 8.37, "generic_attack_medium_500" );
-    level.playercardbackground thread maps\_utility::rumble_sequence_play( var_0, 0 );
+    level.player thread maps\_utility::rumble_sequence_play( var_0, 0 );
 }
 
 rappel_out_of_hotel()
@@ -818,7 +818,7 @@ activate_chair_clip()
 {
     level endon( "player_rappels" );
 
-    while ( level.playercardbackground istouching( self ) )
+    while ( level.player istouching( self ) )
         waittillframeend;
 
     self solid();
@@ -861,11 +861,11 @@ start_run()
     var_2 = getent( "tele_org", "targetname" );
     level.move_in_trigger_used = [];
     common_scripts\utility::_id_76BB( "move_in_trigger", maps\sniperescape_code::move_in );
-    level.playercardbackground setplayerangles( ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
+    level.player setplayerangles( ( 0.0, 0.0, 0.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     thread battle_through_heat_area();
 }
 
@@ -923,11 +923,11 @@ start_apartment()
     common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apartment_org", "targetname" );
     var_2 = getent( "player_apartment_org", "targetname" );
-    level.playercardbackground setplayerangles( ( 0.0, 0.0, 0.0 ) );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
+    level.player setplayerangles( ( 0.0, 0.0, 0.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     thread the_apartment();
 }
@@ -942,7 +942,7 @@ the_apartment()
     level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "lose_them_in_apartment" );
     var_0 = getent( "price_explore_trigger", "targetname" );
     var_0 waittill( "trigger" );
-    var_1 = getent( var_0._not_team, "targetname" );
+    var_1 = getent( var_0.target, "targetname" );
     maps\_utility::_id_1143( "into_the_apartment" );
     maps\_utility::arcademode_checkpoint( 4, "b" );
     common_scripts\utility::_id_383F( "price_opens_door" );
@@ -1011,11 +1011,11 @@ start_wounding()
     common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apart_org", "targetname" );
     var_2 = getent( "player_apart_org", "targetname" );
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     level._id_6F7C _meth_81aa( level._id_6F7C.origin );
     level._id_6F7C maps\_utility::_id_30B0();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
@@ -1035,13 +1035,13 @@ _id_8B7C()
     common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apart_org", "targetname" );
     var_2 = getent( "player_wounding_org", "targetname" );
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_1.origin );
     var_3 = getnode( "price_wounding_node", "targetname" );
     var_3 maps\_anim::_id_0C43( level._id_6F7C, "crash" );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setorigin( var_2.origin );
     level._id_6F7C _meth_81aa( level._id_6F7C.origin );
     level._id_6F7C maps\_utility::_id_30B0();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
@@ -1065,13 +1065,13 @@ the_wounding()
     if ( !maps\sniperescape_wounding::player_is_enemy() && !common_scripts\utility::_id_382E( "wounding_enemy_detected" ) )
     {
         maps\sniperescape_wounding::price_goes_to_window_to_shoot();
-        level._id_6F7C.ignoretriggers = 0;
+        level._id_6F7C.ignoreme = 0;
     }
 
     level._id_6F7C _meth_81a7( 1 );
     level._id_6F7C maps\_utility::_id_309A();
     maps\_utility::_id_070A( "price_moves_to_window_trigger" );
-    level._id_6F7C.ignoreforfixednodesafecheck = 0;
+    level._id_6F7C.ignoreall = 0;
     maps\sniperescape_code::delete_wounding_sight_blocker();
     wait 2.5;
     common_scripts\utility::_id_3852( "patrol_guys_dead", "player_touches_wounding_clip" );
@@ -1090,7 +1090,7 @@ the_wounding()
     level._id_6F7C maps\_utility::_id_27EF( 2, maps\_anim::_id_0C21, level._id_6F7C, "more_behind" );
     level._id_6F7C maps\_utility::_id_27EF( 2, ::fight_enemies_behind );
     common_scripts\utility::_id_384A( "price_arrives_wait_more_behind_node" );
-    level._id_6F7C.meleeattackdist = 8000;
+    level._id_6F7C.maxvisibledist = 8000;
     thread maps\sniperescape_wounding::heli_attacks_price_new();
 }
 
@@ -1113,7 +1113,7 @@ fight_enemies_behind()
 
 surprisers_interval()
 {
-    self.invisible = 128;
+    self.interval = 128;
 }
 
 surprisers_goal()
@@ -1129,7 +1129,7 @@ heli_attacks_price()
     var_0 = getnode( "price_apartment_destination_node", "targetname" );
     var_1 = maps\_vehicle::_id_8979( "heli_price" );
     level.price_heli = var_1;
-    var_1 thread maps\_vehicle_code::helipath( var_1._not_team, 70, 70 );
+    var_1 thread maps\_vehicle_code::helipath( var_1.target, 70, 70 );
     wait 1;
     level._id_6F7C endon( "death" );
     level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "more_behind" );
@@ -1174,11 +1174,11 @@ start_wounded()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getnode( "price_apartment_destination_node", "targetname" );
     var_3 = getent( "player_post_wound_org", "targetname" );
-    level.playercardbackground setplayerangles( var_3.angles );
-    level.playercardbackground setorigin( var_3.origin + ( 0.0, 0.0, -34341.0 ) );
+    level.player setplayerangles( var_3.angles );
+    level.player setorigin( var_3.origin + ( 0.0, 0.0, -34341.0 ) );
     level._id_6F7C _meth_81c9( var_2.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setorigin( var_3.origin );
+    level.player setorigin( var_3.origin );
     level._id_6F7C maps\_utility::_id_2A74();
     thread wounded_combat();
 }
@@ -1239,11 +1239,11 @@ start_burnt()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_burnt_org", "targetname" );
     var_3 = getent( "price_burnt_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
     wait 0.05;
     thread maps\sniperescape_code::price_wounded_logic();
     thread enter_burnt_apartment();
@@ -1284,11 +1284,11 @@ start_pool()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_pool_org", "targetname" );
     var_3 = getent( "price_pool_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
     setdvar( "player_sees_pool_dogs", "" );
     wait 0.05;
     common_scripts\utility::_id_383F( "to_the_pool" );
@@ -1304,8 +1304,8 @@ _id_6E2F()
     common_scripts\utility::_id_383F( "price_calls_out_enemy_location" );
     maps\_utility::arcademode_checkpoint( 20, "d" );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "pool_lookat", common_scripts\utility::_id_383F, "player_looked_in_pool" );
-    var_0 = level.playercardbackground.meleeattackdist;
-    level.playercardbackground.meleeattackdist = 168;
+    var_0 = level.player.maxvisibledist;
+    level.player.maxvisibledist = 168;
     maps\_utility::_id_1143( "to_the_pool" );
     thread maps\sniperescape_code::price_line( "almost_there" );
     common_scripts\utility::_id_383F( "music_fairgrounds_fade" );
@@ -1326,7 +1326,7 @@ _id_6E2F()
     }
 
     common_scripts\utility::_id_384A( "player_enters_fairgrounds" );
-    level.playercardbackground.meleeattackdist = var_0;
+    level.player.maxvisibledist = var_0;
 }
 
 start_fair()
@@ -1346,11 +1346,11 @@ start_fair()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_fair_org", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
     wait 0.05;
     thread maps\sniperescape_code::price_wounded_logic();
     common_scripts\utility::_id_384A( "price_picked_up" );
@@ -1376,11 +1376,11 @@ start_fair_battle()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_gnoll", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
     wait 0.05;
     common_scripts\utility::_id_383F( "price_can_be_left" );
     thread maps\sniperescape_code::price_wounded_logic();
@@ -1469,7 +1469,7 @@ fairgrounds_after_prep()
     if ( getdvar( "claymore_hint" ) == "" )
     {
         setdvar( "claymore_hint", "claymore" );
-        var_1 = level.playercardbackground maps\_utility::_id_4088();
+        var_1 = level.player maps\_utility::_id_4088();
 
         if ( var_1 )
         {
@@ -1478,20 +1478,20 @@ fairgrounds_after_prep()
             else
                 thread maps\sniperescape_code::price_line( "use_claymores" );
 
-            level.playercardbackground thread maps\_utility::_id_2B4A( "claymore_plant" );
+            level.player thread maps\_utility::_id_2B4A( "claymore_plant" );
             wait 4;
         }
     }
     else if ( getdvar( "claymore_hint" ) == "claymore" )
     {
         setdvar( "claymore_hint", "c4" );
-        level.playercardbackground thread maps\sniperescape_code::c4_hint();
+        level.player thread maps\sniperescape_code::c4_hint();
     }
 
     thread maps\sniperescape_code::price_line( "find_a_good_snipe" );
     thread maps\sniperescape_code::price_line( "i_will_signal_in_30" );
     wait 4;
-    var_1 = level.playercardbackground maps\_utility::_id_4088();
+    var_1 = level.player maps\_utility::_id_4088();
     maps\sniperescape_wounding::wait_for_player_to_place_claymores();
 
     if ( maps\sniperescape_wounding::autosave_on_good_claymore_placement( var_1 ) )
@@ -1536,11 +1536,11 @@ start_seaknight()
     common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_gnoll", "targetname" );
-    level.playercardbackground setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
+    level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
     level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
     maps\sniperescape_wounding::plant_price();
-    level.playercardbackground setplayerangles( var_2.angles );
-    level.playercardbackground setorigin( var_2.origin );
+    level.player setplayerangles( var_2.angles );
+    level.player setorigin( var_2.origin );
     wait 0.05;
     thread maps\sniperescape_code::price_wounded_logic();
     common_scripts\utility::_id_383F( "player_enters_fairgrounds" );
@@ -1618,7 +1618,7 @@ seaknight_flies_in( var_0 )
     maps\_utility::_id_62EC( maps\sniperescape_wounding::getobj( "holdout" ) );
     var_12 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_12.origin = var_2 gettagorigin( "tag_door_rear" );
-    var_12.rank = 27.7311;
+    var_12.radius = 27.7311;
     objective_add( maps\sniperescape_wounding::getobj( "seaknight" ), "active", &"SNIPERESCAPE_GET_CPT_MACMILLAN_TO", var_12.origin );
     objective_current( maps\sniperescape_wounding::getobj( "seaknight" ) );
     common_scripts\utility::_id_383F( "can_manage_price" );
@@ -1655,7 +1655,7 @@ seaknight_flies_in( var_0 )
         common_scripts\utility::_id_3831( "aa_seaknight_rescue" );
         wait 2;
 
-        if ( isalive( level.playercardbackground ) )
+        if ( isalive( level.player ) )
             maps\_utility::_id_62EC( maps\sniperescape_wounding::getobj( "seaknight" ) );
 
         return;
@@ -1681,9 +1681,9 @@ bring_in_heli_spawners()
 heli_chaser_think()
 {
     self endon( "death" );
-    self.ignoreforfixednodesafecheck = 1;
+    self.ignoreall = 1;
     self waittill( "goal" );
-    self.ignoreforfixednodesafecheck = 0;
+    self.ignoreall = 0;
 }
 
 spawn_seaknight_crew()

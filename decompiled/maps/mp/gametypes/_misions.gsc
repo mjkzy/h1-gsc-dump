@@ -144,7 +144,7 @@ _id_3F2C( var_0 )
 
 _id_1C47( var_0 )
 {
-    var_1 = var_0.playercardbackground;
+    var_1 = var_0.player;
     var_1 _id_6FF6( "ch_assists" );
 }
 
@@ -155,10 +155,10 @@ _id_1C55( var_0 )
 
 _id_1C4F( var_0 )
 {
-    if ( isbot( var_0.playercardbackground ) )
+    if ( isbot( var_0.player ) )
         return;
 
-    var_1 = var_0.playercardbackground;
+    var_1 = var_0.player;
     var_1.pers[var_0._id_46CF]++;
 
     switch ( var_0._id_46CF )
@@ -361,12 +361,12 @@ _id_1C50( var_0 )
     var_2 = 0;
     var_3 = 0;
     var_4 = 1;
-    var_5[var_0._id_9E07.nearz] = var_0._id_9E07.nearz;
+    var_5[var_0._id_9E07.name] = var_0._id_9E07.name;
     var_6[var_0._id_9024] = var_0._id_9024;
     var_7 = 1;
     var_8 = [];
     var_9 = var_0._id_867C;
-    var_10 = var_0.titleunlocked;
+    var_10 = var_0.time;
     var_11 = 0;
 
     if ( isdefined( var_1.tookweaponfrom[var_0._id_9024] ) && !maps\mp\_utility::_id_5150( var_9 ) )
@@ -382,7 +382,7 @@ _id_1C50( var_0 )
     var_15 = 0;
     var_16 = 0;
 
-    if ( isdefined( var_0.movedone["longshot"] ) )
+    if ( isdefined( var_0.modifiers["longshot"] ) )
     {
         var_15 = 1;
         var_16++;
@@ -440,7 +440,7 @@ _id_1C50( var_0 )
         if ( maps\mp\_utility::_id_50D2( var_28._id_9024 ) && !maps\mp\_utility::_id_5150( var_28._id_867C ) )
             var_3++;
 
-        if ( isdefined( var_28.movedone["longshot"] ) )
+        if ( isdefined( var_28.modifiers["longshot"] ) )
             var_16++;
 
         if ( !isdefined( var_1.farsightchallengecounter ) )
@@ -458,7 +458,7 @@ _id_1C50( var_0 )
                 var_1 _id_6FF6( "ch_summer_precision_farsight" );
         }
 
-        if ( var_10 - var_28.titleunlocked < 10000 )
+        if ( var_10 - var_28.time < 10000 )
             var_4++;
 
         if ( isdefined( var_1.tookweaponfrom[var_28._id_9024] ) && !maps\mp\_utility::_id_5150( var_28._id_867C ) )
@@ -484,15 +484,15 @@ _id_1C50( var_0 )
             continue;
         }
 
-        if ( isdefined( level._id_648B[var_1.team] ) && var_28.titleunlocked > level._id_648B[var_1.team] )
+        if ( isdefined( level._id_648B[var_1.team] ) && var_28.time > level._id_648B[var_1.team] )
             var_2++;
 
         if ( isdefined( var_28._id_9E07 ) )
         {
-            if ( !isdefined( var_5[var_28._id_9E07.nearz] ) && !isdefined( var_6[var_28._id_9024] ) && !maps\mp\_utility::iskillstreakweapon( var_28._id_9024 ) )
+            if ( !isdefined( var_5[var_28._id_9E07.name] ) && !isdefined( var_6[var_28._id_9024] ) && !maps\mp\_utility::iskillstreakweapon( var_28._id_9024 ) )
                 var_7++;
 
-            var_5[var_28._id_9E07.nearz] = var_28._id_9E07.nearz;
+            var_5[var_28._id_9E07.name] = var_28._id_9E07.name;
         }
 
         var_6[var_28._id_9024] = var_28._id_9024;
@@ -951,14 +951,14 @@ _id_1C48( var_0, var_1, var_2, var_3 )
 
     if ( var_1.pers["bulletStreak"] == 2 )
     {
-        if ( isdefined( var_0.movedone["headshot"] ) )
+        if ( isdefined( var_0.modifiers["headshot"] ) )
         {
             foreach ( var_5 in var_1._id_5380 )
             {
-                if ( var_5.titleunlocked != var_2 )
+                if ( var_5.time != var_2 )
                     continue;
 
-                if ( !isdefined( var_0.movedone["headshot"] ) )
+                if ( !isdefined( var_0.modifiers["headshot"] ) )
                     continue;
 
                 var_1 _id_6FF6( "ch_allpro" );
@@ -1008,7 +1008,7 @@ _id_1C48( var_0, var_1, var_2, var_3 )
 
 _id_1C51( var_0 )
 {
-    var_1 = var_0.playercardbackground;
+    var_1 = var_0.player;
 
     if ( var_1.wasaliveatmatchstart )
     {
@@ -1053,14 +1053,14 @@ _id_1C52( var_0 )
     if ( !var_0._id_A342 )
         return;
 
-    var_1 = var_0.playercardbackground;
+    var_1 = var_0.player;
 
     if ( var_1.wasaliveatmatchstart )
     {
         switch ( level.gametype )
         {
             case "war":
-                if ( level.players.size >= 6 && var_1.killstreakrestricted > 0 )
+                if ( level.players.size >= 6 && var_1.kills > 0 )
                 {
                     if ( level.hardcoremode )
                     {
@@ -1122,7 +1122,7 @@ _id_6C82( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     if ( isplayer( var_1 ) )
     {
-        var_6._id_0E2E = isdefined( var_6.attacker.left );
+        var_6._id_0E2E = isdefined( var_6.attacker.laststand );
         var_6._id_0E32 = var_6.attacker isonground();
         var_6._id_0E35 = var_6.attacker getstance();
     }
@@ -1153,14 +1153,14 @@ _id_6CD7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     var_9._id_9024 = var_4;
     var_9._id_8AA5 = var_5;
     var_9._id_83CE = var_6;
-    var_9.titleunlocked = gettime();
-    var_9.movedone = var_7;
+    var_9.time = gettime();
+    var_9.modifiers = var_7;
     var_9.duetodisconnect = var_8;
     var_9._id_9E08 = var_9._id_9E07 isonground();
 
     if ( isplayer( var_1 ) )
     {
-        var_9._id_0E2E = isdefined( var_9.attacker.left );
+        var_9._id_0E2E = isdefined( var_9.attacker.laststand );
         var_9._id_0E32 = var_9.attacker isonground();
         var_9._id_0E35 = var_9.attacker getstance();
     }
@@ -1201,7 +1201,7 @@ _id_9D78( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7._id_4B54 = var_4;
     var_7._id_867C = var_5;
     var_7._id_9024 = var_6;
-    var_7.titleunlocked = gettime();
+    var_7.time = gettime();
     _id_2CFB( "vehicleKilled", var_7 );
 }
 
@@ -1225,7 +1225,7 @@ _id_A007( var_0 )
 _id_6C67()
 {
     var_0 = spawnstruct();
-    var_0.playercardbackground = self;
+    var_0.player = self;
     _id_2CFB( "playerAssist", var_0 );
 }
 
@@ -1235,7 +1235,7 @@ _id_9C01( var_0 )
     wait 0.05;
     maps\mp\_utility::_id_A0F4();
     var_1 = spawnstruct();
-    var_1.playercardbackground = self;
+    var_1.player = self;
     var_1._id_46CF = var_0;
     _id_2CFB( "playerHardpoint", var_1 );
 }
@@ -1255,7 +1255,7 @@ _id_7652( var_0 )
 
         for ( var_3 = 0; var_3 < level.placement[var_2].size; var_3++ )
         {
-            var_1.playercardbackground = level.placement[var_2][var_3];
+            var_1.player = level.placement[var_2][var_3];
             var_1._id_A342 = var_2 == var_0;
             var_1._id_685B = var_3;
             _id_2CFB( "roundEnd", var_1 );
@@ -1265,7 +1265,7 @@ _id_7652( var_0 )
 
         for ( var_3 = 0; var_3 < level.placement[var_2].size; var_3++ )
         {
-            var_1.playercardbackground = level.placement[var_2][var_3];
+            var_1.player = level.placement[var_2][var_3];
             var_1._id_A342 = var_2 == var_0;
             var_1._id_685B = var_3;
             _id_2CFB( "roundEnd", var_1 );
@@ -1275,8 +1275,8 @@ _id_7652( var_0 )
     {
         for ( var_3 = 0; var_3 < level.placement["all"].size; var_3++ )
         {
-            var_1.playercardbackground = level.placement["all"][var_3];
-            var_1._id_A342 = isdefined( var_0 ) && isplayer( var_0 ) && var_1.playercardbackground == var_0;
+            var_1.player = level.placement["all"][var_3];
+            var_1._id_A342 = isdefined( var_0 ) && isplayer( var_0 ) && var_1.player == var_0;
             var_1._id_685B = var_3;
             _id_2CFB( "roundEnd", var_1 );
         }
@@ -1554,7 +1554,7 @@ _id_6C89()
 
 _id_50BC()
 {
-    var_0 = self.helmet / self.maxturnspeed;
+    var_0 = self.health / self.maxhealth;
     return var_0 <= level.healthoverlaycutoff;
 }
 

@@ -64,10 +64,10 @@ light_geo_delete()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( !isdefined( var_0[var_1].script_parentname ) )
+        if ( !isdefined( var_0[var_1].script_noteworthy ) )
             continue;
 
-        if ( var_0[var_1].script_parentname == "tube_light_geo" )
+        if ( var_0[var_1].script_noteworthy == "tube_light_geo" )
             var_0[var_1] delete();
     }
 }
@@ -78,10 +78,10 @@ light_model_delete()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( !isdefined( var_0[var_1].script_parentname ) )
+        if ( !isdefined( var_0[var_1].script_noteworthy ) )
             continue;
 
-        if ( var_0[var_1].script_parentname == "tube_light_geo" )
+        if ( var_0[var_1].script_noteworthy == "tube_light_geo" )
             var_0[var_1] delete();
     }
 }

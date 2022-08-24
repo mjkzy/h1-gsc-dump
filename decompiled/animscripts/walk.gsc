@@ -23,7 +23,7 @@ _id_5F9C()
 {
     var_0 = undefined;
 
-    if ( isdefined( self.pc ) && distancesquared( self.origin, self.pc ) > 4096 )
+    if ( isdefined( self.pathgoalpos ) && distancesquared( self.origin, self.pathgoalpos ) > 4096 )
         var_0 = "stand";
 
     var_1 = [[ self._id_1D46 ]]( var_0 );

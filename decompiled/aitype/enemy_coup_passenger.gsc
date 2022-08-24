@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "axis";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta";
     self._id_855D = "beretta";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 512.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "uzi";
+    self.weapon = "uzi";
     character\character_sp_zakhaevs_son_coup::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "axis" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_zakhaevs_son_coup::prestigedoublexp();
+    character\character_sp_zakhaevs_son_coup::precache();
     precacheitem( "uzi" );
     precacheitem( "beretta" );
     precacheitem( "beretta" );

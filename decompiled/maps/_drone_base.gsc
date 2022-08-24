@@ -33,8 +33,8 @@ _id_2E58()
     {
         maps\_names::_id_3DE2();
 
-        if ( isdefined( self.nearz ) )
-            self setlookattext( self.nearz, &"" );
+        if ( isdefined( self.name ) )
+            self setlookattext( self.name, &"" );
     }
 
     if ( isdefined( level._id_2EFA ) )
@@ -72,14 +72,14 @@ _id_9302()
 
 _id_2E62()
 {
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
-    if ( isdefined( level._id_2E9E[self._not_team] ) )
+    if ( isdefined( level._id_2E9E[self.target] ) )
         return;
 
-    level._id_2E9E[self._not_team] = 1;
-    var_0 = self._not_team;
+    level._id_2E9E[self.target] = 1;
+    var_0 = self.target;
     var_1 = common_scripts\utility::_id_40FB( var_0, "targetname" );
 
     if ( !isdefined( var_1 ) )
@@ -96,10 +96,10 @@ _id_2E62()
 
         for (;;)
         {
-            if ( !isdefined( var_1._not_team ) )
+            if ( !isdefined( var_1.target ) )
                 break;
 
-            var_6 = common_scripts\utility::_id_40FD( var_1._not_team, "targetname" );
+            var_6 = common_scripts\utility::_id_40FD( var_1.target, "targetname" );
 
             if ( var_6.size )
                 break;
@@ -119,8 +119,8 @@ _id_2E62()
                 break;
 
             var_3[var_7.origin + ""] = 1;
-            var_2[var_1.teambalanced] = var_7.origin - var_1.origin;
-            var_1.angles = vectortoangles( var_2[var_1.teambalanced] );
+            var_2[var_1.targetname] = var_7.origin - var_1.origin;
+            var_1.angles = vectortoangles( var_2[var_1.targetname] );
             var_1 = var_7;
             var_5 = 1;
         }
@@ -129,7 +129,7 @@ _id_2E62()
             break;
     }
 
-    var_0 = self._not_team;
+    var_0 = self.target;
     var_1 = common_scripts\utility::_id_40FB( var_0, "targetname" );
     var_11 = var_1;
     var_3 = [];
@@ -141,13 +141,13 @@ _id_2E62()
 
         for (;;)
         {
-            if ( !isdefined( var_1._not_team ) )
+            if ( !isdefined( var_1.target ) )
                 return;
 
-            if ( !isdefined( var_2[var_1.teambalanced] ) )
+            if ( !isdefined( var_2[var_1.targetname] ) )
                 return;
 
-            var_6 = common_scripts\utility::_id_40FD( var_1._not_team, "targetname" );
+            var_6 = common_scripts\utility::_id_40FD( var_1.target, "targetname" );
 
             if ( var_6.size )
                 break;
@@ -166,10 +166,10 @@ _id_2E62()
             if ( !isdefined( var_7 ) )
                 break;
 
-            if ( isdefined( var_1.rank ) )
+            if ( isdefined( var_1.radius ) )
             {
-                var_14 = var_2[var_11.teambalanced];
-                var_15 = var_2[var_1.teambalanced];
+                var_14 = var_2[var_11.targetname];
+                var_15 = var_2[var_1.targetname];
                 var_16 = ( var_14 + var_15 ) * 0.5;
                 var_1.angles = vectortoangles( var_16 );
             }
@@ -186,9 +186,9 @@ _id_2E62()
 
 _id_0D63()
 {
-    if ( isdefined( self.unlockpoints ) )
+    if ( isdefined( self.type ) )
     {
-        if ( self.unlockpoints == "dog" )
+        if ( self.type == "dog" )
             _id_0D60();
         else
             _id_0D65();

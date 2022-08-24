@@ -24,13 +24,13 @@ carrystart( var_0, var_1, var_2 )
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 2.5 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 2.5 );
     level.eplayerview dontcastshadows();
-    level.eplayerview.origin = level.playercardbackground.origin;
-    level.eplayerview.angles = level.playercardbackground getplayerangles();
+    level.eplayerview.origin = level.player.origin;
+    level.eplayerview.angles = level.player getplayerangles();
 
     if ( isdefined( var_2 ) && var_2 )
     {
-        level.playercardbackground maps\_anim::_id_0BC7( level.eplayerview, "carry_idle" );
-        level.playercardbackground maps\_anim::_id_0BC7( var_0, "carry_idle" );
+        level.player maps\_anim::_id_0BC7( level.eplayerview, "carry_idle" );
+        level.player maps\_anim::_id_0BC7( var_0, "carry_idle" );
         wait 0.1;
     }
 
@@ -42,15 +42,15 @@ carrystart( var_0, var_1, var_2 )
     level.m_player_spot.angles = ( 0, level.m_player_rig.angles[1], 0 );
     level.m_player_spot thread maps\_anim::_id_0BE1( level.m_player_rig, "carry_idle" );
     level.m_player_rig thread maps\_anim::_id_0BE1( level.m_carried, "carry_idle" );
-    level.m_carried _meth_83ff( level.playercardbackground, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
-    level.m_player_rig _meth_83ff( level.playercardbackground, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
+    level.m_carried _meth_83ff( level.player, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
+    level.m_player_rig _meth_83ff( level.player, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
     wait 0.05;
     thread carrymoveloop( var_1 );
 }
 
 carrymoveloop( var_0 )
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level.m_player_spot endon( "death" );
     var_1 = 0.05;
     level.m_player_carry_moving = 0;
@@ -60,8 +60,8 @@ carrymoveloop( var_0 )
 
     while ( [[ var_0 ]]() )
     {
-        var_2 = level.playercardbackground isonladder();
-        var_4 = level.playercardbackground getnormalizedmovement();
+        var_2 = level.player isonladder();
+        var_4 = level.player getnormalizedmovement();
         var_5 = length( var_4 );
         var_3 = var_5 > 0;
         carryupdateanimation( var_2, var_3, var_5 );
@@ -124,12 +124,12 @@ carrystop()
 {
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 0.0 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 0.0 );
-    level.playercardbackground _meth_8573();
-    level.playercardbackground unlink();
+    level.player _meth_8573();
+    level.player unlink();
     level.m_carried unlink();
     level.m_carried = undefined;
     level.m_player_rig = undefined;
     level.m_player_spot delete();
     level.m_player_spot = undefined;
-    level.playercardbackground _meth_834a( 0 );
+    level.player _meth_834a( 0 );
 }

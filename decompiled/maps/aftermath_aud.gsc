@@ -99,20 +99,20 @@ aud_player_falls()
 
     if ( !isdefined( level.heartbeat_ent ) )
     {
-        level.heartbeat_ent = spawn( "script_origin", level.playercardbackground.origin );
-        level.heartbeat_ent linkto( level.playercardbackground );
+        level.heartbeat_ent = spawn( "script_origin", level.player.origin );
+        level.heartbeat_ent linkto( level.player );
     }
 
     level.heartbeat_ent stoploopsound();
-    level.playercardbackground playsound( "h1_heartbeat_fall" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_player_fall_impact" );
+    level.player playsound( "h1_heartbeat_fall" );
+    level.player thread maps\_utility::_id_69C4( "scn_player_fall_impact" );
 }
 
 aud_player_recover()
 {
     soundscripts\_snd_filters::_id_86DC( 2 );
     soundscripts\_audio_zone_manager::_id_122C( 0 );
-    level.playercardbackground thread maps\_utility::_id_69C4( "breathing_better" );
+    level.player thread maps\_utility::_id_69C4( "breathing_better" );
 }
 
 aud_player_dying_slowly()
@@ -127,9 +127,9 @@ aud_start_mix_player_dying()
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_player_dying_slowly" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_player_dying" );
     level.heartbeat_ent stoploopsound();
-    level.playercardbackground thread maps\_utility::_id_69C4( "h1_aftermath_final_stinger_front" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "heartbeat_death" );
-    level.playercardbackground thread common_scripts\utility::_id_8EA1( level.playerbreathalias );
+    level.player thread maps\_utility::_id_69C4( "h1_aftermath_final_stinger_front" );
+    level.player thread maps\_utility::_id_69C4( "heartbeat_death" );
+    level.player thread common_scripts\utility::_id_8EA1( level.playerbreathalias );
     wait 0.1;
     level.heartbeat_ent delete();
 }
@@ -137,9 +137,9 @@ aud_start_mix_player_dying()
 aud_player_walking_foley( var_0 )
 {
     if ( var_0 == "crouch" )
-        level.playercardbackground maps\_utility::_id_27EF( 0.4, maps\_utility::_id_69C4, "step_prone_gravel_aftermath" );
+        level.player maps\_utility::_id_27EF( 0.4, maps\_utility::_id_69C4, "step_prone_gravel_aftermath" );
     else if ( var_0 == "prone" )
-        level.playercardbackground maps\_utility::_id_27EF( 0.4, maps\_utility::_id_69C4, "step_prone_plr_gravel_aftermath" );
+        level.player maps\_utility::_id_27EF( 0.4, maps\_utility::_id_69C4, "step_prone_plr_gravel_aftermath" );
     else
-        level.playercardbackground maps\_utility::_id_27EF( 0.4, maps\_utility::_id_69C4, "step_crchwalk_plr_gravel_aftermath" );
+        level.player maps\_utility::_id_27EF( 0.4, maps\_utility::_id_69C4, "step_crchwalk_plr_gravel_aftermath" );
 }

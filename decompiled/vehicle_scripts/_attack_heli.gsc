@@ -116,7 +116,7 @@ _id_136E( var_0, var_1 )
 
         if ( !isdefined( var_0._id_60F0 ) )
         {
-            var_0._id_0E54 = missile_createattractorent( var_2, var_3, 10000, level.playercardbackground );
+            var_0._id_0E54 = missile_createattractorent( var_2, var_3, 10000, level.player );
 
             if ( maps\_utility::_id_500C() )
                 var_0._id_0E55 = missile_createattractorent( var_2, var_3, 10000, level._id_6C5B );
@@ -142,7 +142,7 @@ _id_136E( var_0, var_1 )
     var_0 _id_47B7();
     var_0 thread _id_298D();
 
-    switch ( var_0.visionsetnaked )
+    switch ( var_0.vehicletype )
     {
         case "hind":
         case "hind_blackice":
@@ -191,7 +191,7 @@ _id_47B7()
     var_0 = undefined;
     var_1 = undefined;
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "hind":
         case "hind_blackice":
@@ -224,7 +224,7 @@ _id_47B7()
     var_2 = spawnstruct();
     var_2.entity = self._id_91C4;
     var_2.forward = var_1;
-    var_2.upgradepurchased = var_0;
+    var_2.up = var_0;
     var_2 maps\_utility::_id_9723();
     self._id_91C4 linkto( self );
     self._id_91C4 thread _id_47B6( self );
@@ -315,7 +315,7 @@ _id_5319( var_0, var_1 )
 
     if ( !isdefined( var_0._id_4811 ) )
     {
-        switch ( var_0.visionsetnaked )
+        switch ( var_0.vehicletype )
         {
             case "mi17":
             case "nh90":
@@ -396,10 +396,10 @@ _id_47A9( var_0, var_1 )
         var_5 = var_4.origin;
         var_3 setlookatent( var_4 );
         var_6 = common_scripts\utility::_id_3F33( var_5, var_2 );
-        var_7 = getentarray( var_6._not_team, "targetname" );
+        var_7 = getentarray( var_6.target, "targetname" );
 
         if ( !isdefined( var_7 ) || var_7.size < 1 )
-            var_7 = common_scripts\utility::_id_40FD( var_6._not_team, "targetname" );
+            var_7 = common_scripts\utility::_id_40FD( var_6.target, "targetname" );
 
         var_8 = var_7[randomint( var_7.size )];
         var_3 setgoalpos( var_8.origin, 1 );
@@ -508,15 +508,15 @@ _id_47C8( var_0 )
 
 _id_6B6A( var_0 )
 {
-    if ( !level.playercardbackground _id_9C2B() )
+    if ( !level.player _id_9C2B() )
         return 0;
 
-    if ( !level.playercardbackground adsbuttonpressed() )
+    if ( !level.player adsbuttonpressed() )
         return 0;
 
-    var_1 = level.playercardbackground geteye();
+    var_1 = level.player geteye();
 
-    if ( sighttracepassed( var_1, var_0.origin, 0, level.playercardbackground ) )
+    if ( sighttracepassed( var_1, var_0.origin, 0, level.player ) )
         return 1;
 
     return 0;
@@ -706,7 +706,7 @@ _id_47D5()
     var_4 = undefined;
     var_5 = [];
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "mi28":
             var_0 = 1;
@@ -781,7 +781,7 @@ _id_6B6D( var_0 )
 
 _id_5C95()
 {
-    if ( distancesquared( self.origin, level.playercardbackground.origin ) > 9000000 )
+    if ( distancesquared( self.origin, level.player.origin ) > 9000000 )
         return;
 
     var_0 = self.origin;
@@ -1048,7 +1048,7 @@ _id_5C6F()
 
 _id_5C8A( var_0 )
 {
-    var_1 = anglestoforward( level.playercardbackground.angles );
+    var_1 = anglestoforward( level.player.angles );
     var_2 = var_1 * 400;
     var_3 = var_2 + common_scripts\utility::_id_712D( 50 );
     var_4 = randomintrange( 10, 20 );
@@ -1093,7 +1093,7 @@ _id_3DBF( var_0, var_1, var_2, var_3, var_4 )
     {
         for ( var_8 = 0; var_8 < var_6.size; var_8++ )
         {
-            if ( var_2[var_7].script_origin == var_6[var_8] )
+            if ( var_2[var_7].script_linkname == var_6[var_8] )
                 var_5[var_5.size] = var_2[var_7];
         }
     }
@@ -1205,10 +1205,10 @@ _id_257D()
     {
         var_1 = level.players[var_0];
         var_1._id_4AB7 = newclienthudelem( var_1 );
-        var_1._id_4AB7.hostquits = "center";
-        var_1._id_4AB7.visionsetnight = "middle";
-        var_1._id_4AB7.xpmaxmultipliertimeplayed = -12;
-        var_1._id_4AB7._id_0538 = -12;
+        var_1._id_4AB7.horzalign = "center";
+        var_1._id_4AB7.vertalign = "middle";
+        var_1._id_4AB7.x = -12;
+        var_1._id_4AB7.y = -12;
         var_1._id_4AB7.alpha = 0;
         var_1._id_4AB7.archived = 1;
         var_1._id_4AB7 setshader( "damage_feedback", 24, 48 );
@@ -1253,8 +1253,8 @@ _id_20BB( var_0 )
         wait 1;
 
     level._id_20BC = 1;
-    level.playercardbackground playsound( var_0, "sounddone" );
-    level.playercardbackground waittill( "sounddone" );
+    level.player playsound( var_0, "sounddone" );
+    level.player waittill( "sounddone" );
     wait 0.5;
     level._id_20BC = 0;
 }
@@ -1296,23 +1296,23 @@ _id_47E6( var_0 )
     if ( isdefined( var_0 ) )
         var_1 = var_0;
 
-    var_1.teambalanced = "original_ent";
+    var_1.targetname = "original_ent";
     self._id_5676 = spawn( "script_origin", var_1.origin );
     self._id_5676.origin = var_1.origin;
     self._id_5676.angles = var_1.angles;
-    self._id_5676.teambalanced = "left_ent";
+    self._id_5676.targetname = "left_ent";
     self._id_751E = spawn( "script_origin", var_1.origin );
     self._id_751E.origin = var_1.origin;
     self._id_751E.angles = var_1.angles;
-    self._id_751E.teambalanced = "right_ent";
+    self._id_751E.targetname = "right_ent";
     var_2 = spawnstruct();
     var_2.entity = self._id_5676;
-    var_2.riotshield_damaged = 250;
+    var_2.right = 250;
     var_2 maps\_utility::_id_9723();
     self._id_5676 linkto( self );
     var_3 = spawnstruct();
     var_3.entity = self._id_751E;
-    var_3.riotshield_damaged = -250;
+    var_3.right = -250;
     var_3 maps\_utility::_id_9723();
     self._id_751E linkto( self );
     var_4 = [];
@@ -1340,7 +1340,7 @@ _id_47E3( var_0 )
     self endon( "death" );
     self endon( "heli_players_dead" );
 
-    if ( self.visionsetnaked != "littlebird" )
+    if ( self.vehicletype != "littlebird" )
         return;
 
     thread _id_47ED( var_0 );
@@ -1350,7 +1350,7 @@ _id_47E3( var_0 )
     {
         wait 0.05;
 
-        switch ( self.visionsetnaked )
+        switch ( self.vehicletype )
         {
             case "littlebird":
             case "littlebird_spotlight":
@@ -1460,8 +1460,8 @@ _id_47B5( var_0 )
         self._id_6EF5 = undefined;
         var_4 = undefined;
 
-        if ( isdefined( self._id_251D ) && isdefined( self._id_251D._not_team ) )
-            var_4 = maps\_utility::_id_3F82( self._id_251D._not_team, "targetname" );
+        if ( isdefined( self._id_251D ) && isdefined( self._id_251D.target ) )
+            var_4 = maps\_utility::_id_3F82( self._id_251D.target, "targetname" );
 
         if ( isdefined( var_4 ) && isdefined( var_4._id_7A26 ) )
             self._id_6EF5 = maps\_utility::_id_3F82( var_4._id_7A26, "script_linkname" );
@@ -1470,7 +1470,7 @@ _id_47B5( var_0 )
         {
             var_1 = self._id_6EF5;
             var_2 = var_1._id_7AC2;
-            var_3 = var_1.script_lightset;
+            var_3 = var_1.script_delay;
             var_4 waittill( "trigger" );
         }
         else
@@ -1502,7 +1502,7 @@ _id_47EA( var_0, var_1, var_2 )
     thread _id_47E5( var_0 );
 
     if ( var_2 )
-        self setturrettargetent( level.playercardbackground );
+        self setturrettargetent( level.player );
     else if ( var_1 )
     {
         self endon( "death" );
@@ -1583,7 +1583,7 @@ _id_47BD( var_0, var_1, var_2, var_3 )
         var_0 = self._id_2FC5;
     }
 
-    switch ( self.visionsetnaked )
+    switch ( self.vehicletype )
     {
         case "mi28":
             var_6 = 0.5;
@@ -1635,7 +1635,7 @@ _id_47BD( var_0, var_1, var_2, var_3 )
 _id_1563()
 {
     self waittill( "trigger", var_0 );
-    var_1 = common_scripts\utility::_id_40FD( self._not_team, "targetname" );
+    var_1 = common_scripts\utility::_id_40FD( self.target, "targetname" );
     var_1 = maps\_utility::_id_0CEC( var_1 );
     _id_1562( var_0, var_1 );
 }
@@ -1654,7 +1654,7 @@ _id_1562( var_0, var_1 )
     var_2[0] = "tag_missile_right";
     var_2[1] = "tag_missile_left";
 
-    if ( var_0.visionsetnaked == "cobra" )
+    if ( var_0.vehicletype == "cobra" )
     {
         var_2[0] = "tag_store_L_1_a";
         var_2[1] = "tag_store_R_1_a";

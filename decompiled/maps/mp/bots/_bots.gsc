@@ -895,7 +895,7 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
             var_10._id_159E = var_9;
             var_10._id_71D4 = 0;
             var_10._id_06BA = 0;
-            var_10.info_player_start = var_8;
+            var_10.index = var_8;
             var_10._id_2A5F = var_5;
             var_7[var_7.size] = var_10;
             var_10._id_159E thread _id_88D7( var_1, var_2, var_10 );
@@ -925,7 +925,7 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_1621()
 {
-    if ( maps\mp\_utility::_id_59E3() && self.sharpturnnotifydist != "none" )
+    if ( maps\mp\_utility::_id_59E3() && self.sessionteam != "none" )
         var_0 = 0;
     else if ( !maps\mp\_utility::_id_59E3() && !maps\mp\_utility::forceautoassign() && maps\mp\_utility::_id_0AB0() )
         var_0 = 1;
@@ -1008,7 +1008,7 @@ _id_170F()
                 self notify( "luinotifyserver", "class_select", self._id_15D8 );
             }
 
-            if ( self.helmet == 0 )
+            if ( self.health == 0 )
                 self waittill( "spawned_player" );
 
             if ( isdefined( level.bot_funcs ) && isdefined( level.bot_funcs["know_enemies_on_start"] ) )
@@ -1053,7 +1053,7 @@ _id_7476()
     {
         while ( self._id_A04D )
         {
-            if ( self.sharpturnlookaheaddist == "spectator" )
+            if ( self.sessionstate == "spectator" )
             {
                 if ( getdvarint( "numlives" ) == 0 || self.pers["lives"] > 0 )
                     self _meth_837c( "use", 0.5 );
@@ -1082,7 +1082,7 @@ _id_163B()
             self.pers["prestige"] = 0;
 
         var_0._id_713C = self.pers["rankxp"];
-        var_0.prestigeshoptokens = self.pers["prestige"];
+        var_0.prestige = self.pers["prestige"];
         return var_0;
     }
 
@@ -1109,7 +1109,7 @@ _id_163B()
     }
 
     if ( isdefined( var_5 ) )
-        var_0.prestigeshoptokens = var_5;
+        var_0.prestige = var_5;
     else
     {
         if ( !isdefined( var_6 ) )
@@ -1117,7 +1117,7 @@ _id_163B()
 
         var_11 = var_6["prestige"];
         self.pers[var_3] = var_11;
-        var_0.prestigeshoptokens = var_11;
+        var_0.prestige = var_11;
     }
 
     return var_0;
@@ -1361,14 +1361,14 @@ _id_16D9( var_0 )
     {
         var_1 = undefined;
 
-        if ( var_0.teambalanced == "dropped_weapon" )
+        if ( var_0.targetname == "dropped_weapon" )
         {
             var_2 = 1;
             var_3 = self getweaponslistprimaries();
 
             foreach ( var_5 in var_3 )
             {
-                if ( var_0.motiontrackerenabled == getweaponmodel( var_5 ) )
+                if ( var_0.model == getweaponmodel( var_5 ) )
                     var_2 = 0;
             }
 
@@ -1396,12 +1396,12 @@ _id_847F( var_0 )
     if ( !isdefined( var_0._id_62E1 ) )
         return 1;
 
-    if ( var_0._id_62E1.teambalanced == "dropped_weapon" )
+    if ( var_0._id_62E1.targetname == "dropped_weapon" )
     {
         if ( maps\mp\bots\_bots_util::_id_1641() > 0 )
             return 1;
     }
-    else if ( var_0._id_62E1.teambalanced == "dropped_knife" )
+    else if ( var_0._id_62E1.targetname == "dropped_knife" )
     {
         if ( maps\mp\bots\_bots_util::_id_1650() )
         {
@@ -1564,10 +1564,10 @@ _id_171A()
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2.script_parentname ) )
+        if ( !isdefined( var_2.script_noteworthy ) )
             continue;
 
-        var_2 thread _id_1618( var_2.script_parentname );
+        var_2 thread _id_1618( var_2.script_noteworthy );
     }
 }
 

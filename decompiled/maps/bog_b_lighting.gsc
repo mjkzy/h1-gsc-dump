@@ -103,9 +103,9 @@ update_fade_angle_lights()
     var_1 = 135.0;
     var_2 = 3000000.0;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_3 = strtok( self.script_parentname, " " );
+        var_3 = strtok( self.script_noteworthy, " " );
 
         if ( isdefined( var_3[0] ) )
             var_0 = float( var_3[0] );
@@ -125,7 +125,7 @@ update_fade_angle_lights()
 
     for (;;)
     {
-        var_9 = level.playercardbackground.origin - self.origin + var_7 * self.rank * 0.75;
+        var_9 = level.player.origin - self.origin + var_7 * self.radius * 0.75;
         var_9 = vectornormalize( ( var_9[0], var_9[1], 0.0 ) );
         var_10 = vectordot( var_8, var_9 );
         var_11 = ( clamp( ( var_10 + 1.0 ) * 0.5, var_4, var_5 ) - var_4 ) / var_6;
@@ -148,9 +148,9 @@ update_fade_distance_lights()
     var_1 = 1000.0;
     var_2 = 100000.0;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        var_3 = strtok( self.script_parentname, " " );
+        var_3 = strtok( self.script_noteworthy, " " );
 
         if ( isdefined( var_3[0] ) )
             var_0 = float( var_3[0] );
@@ -164,7 +164,7 @@ update_fade_distance_lights()
 
     for (;;)
     {
-        var_4 = length( level.playercardbackground.origin - self.origin );
+        var_4 = length( level.player.origin - self.origin );
         var_5 = clamp( ( var_4 - var_0 ) / ( var_1 - var_0 ), 0.0, 1.0 );
         self setlightintensity( var_2 * var_5 );
         wait 0.05;
@@ -201,29 +201,29 @@ apply_lighting_pass_bog_outside( var_0 )
         var_0 = 5.0;
 
     maps\_utility::_id_9E6E( "bog_b", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "bog_b" );
-    level.playercardbackground _meth_848c( "clut_bog_b", var_0 );
+    level.player maps\_utility::set_light_set_player( "bog_b" );
+    level.player _meth_848c( "clut_bog_b", var_0 );
 }
 
 apply_lighting_pass_bog_inside()
 {
     maps\_utility::_id_9E6E( "bog_b_interior", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "bog_b_interior" );
-    level.playercardbackground _meth_848c( "clut_bog_b", 5 );
+    level.player maps\_utility::set_light_set_player( "bog_b_interior" );
+    level.player _meth_848c( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_street_part01()
 {
     maps\_utility::_id_9E6E( "bog_b", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "bog_b" );
-    level.playercardbackground _meth_848c( "clut_bog_b", 5 );
+    level.player maps\_utility::set_light_set_player( "bog_b" );
+    level.player _meth_848c( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_tank_sequence()
 {
     maps\_utility::_id_9E6E( "bog_b", 2 );
-    level.playercardbackground maps\_utility::set_light_set_player( "bog_b" );
-    level.playercardbackground _meth_848c( "clut_bog_b", 5 );
+    level.player maps\_utility::set_light_set_player( "bog_b" );
+    level.player _meth_848c( "clut_bog_b", 5 );
 }
 
 play_flickering_light()

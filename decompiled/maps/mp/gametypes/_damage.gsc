@@ -184,9 +184,9 @@ incrementkillstreak( var_0, var_1, var_2, var_3 )
         if ( var_0 maps\mp\_utility::_id_537A( var_1, var_3 ) )
         {
             var_0.pers["cur_kill_streak"]++;
-            var_0.knife_off = var_0.pers["cur_kill_streak"];
+            var_0.killstreakcount = var_0.pers["cur_kill_streak"];
             var_0 notify( "kill_streak_increased" );
-            var_0 setclientomnvar( "ks_count1", var_0.knife_off );
+            var_0 setclientomnvar( "ks_count1", var_0.killstreakcount );
 
             if ( isdefined( level.hardpointitems ) )
                 var_0 thread maps\mp\gametypes\_hardpoints::givehardpointitemforstreak();
@@ -476,7 +476,7 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             if ( var_24 == var_2 || level.teambased && var_24.team == var_2.team )
                 continue;
 
-            if ( var_2._id_0E2C[var_24.guid]._id_5606 + 2500 < gettime() && ( var_1 != var_2 && ( isdefined( var_2.left ) && var_2.left ) ) )
+            if ( var_2._id_0E2C[var_24.guid]._id_5606 + 2500 < gettime() && ( var_1 != var_2 && ( isdefined( var_2.laststand ) && var_2.laststand ) ) )
                 continue;
 
             if ( var_2._id_0E2C[var_24.guid].damage > 1 && !isdefined( var_22 ) )
@@ -493,10 +493,10 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         {
             var_1 = var_22;
             var_1._id_0D77 = 1;
-            var_5 = var_2._id_0E2C[var_22.guid].weapon_switch_invalid;
+            var_5 = var_2._id_0E2C[var_22.guid].weapon;
             var_6 = var_2._id_0E2C[var_22.guid]._id_9C68;
             var_7 = var_2._id_0E2C[var_22.guid]._id_83CE;
-            var_8 = var_2._id_0E2C[var_22.guid].radarmode;
+            var_8 = var_2._id_0E2C[var_22.guid].psoffsettime;
             var_4 = var_2._id_0E2C[var_22.guid]._id_867C;
             var_3 = var_2._id_0E2C[var_22.guid].damage;
             var_20 = var_2._id_0E2C[var_22.guid]._id_8AA5;
@@ -633,7 +633,7 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         if ( isdefined( var_0 ) && ( !isdefined( var_0._id_5169 ) || var_0._id_5169 == 0 ) )
         {
             _id_466B( self._id_56F7, var_1, var_0, var_5, var_4 );
-            var_2 thread maps\mp\gametypes\_misions::_id_6CD7( var_0, var_1, var_3, var_4, var_5, var_20, var_7, var_1.movedone, var_11 );
+            var_2 thread maps\mp\gametypes\_misions::_id_6CD7( var_0, var_1, var_3, var_4, var_5, var_20, var_7, var_1.modifiers, var_11 );
         }
 
         var_2.pers["cur_death_streak"]++;
@@ -671,7 +671,7 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_2._id_A1D1 = 1;
 
     var_2 _id_7456();
-    var_2.laststand = var_1;
+    var_2.lastattacker = var_1;
     var_2._id_55AF = var_0;
 
     if ( !isdefined( var_2._id_08A2 ) )
@@ -864,7 +864,7 @@ victimcorpsecontentsfixcollats( var_0 )
     self.body endon( "death" );
     var_1 = self._id_0E2C[var_0.guid]._id_9F44;
     var_2 = self._id_0E2C[var_0.guid]._id_9C68;
-    var_3 = self._id_0E2C[var_0.guid].weapon_switch_invalid;
+    var_3 = self._id_0E2C[var_0.guid].weapon;
     var_4 = self._id_0E2C[var_0.guid]._id_867C;
 
     if ( !isdefined( var_1 ) || !isdefined( var_2 ) || !isdefined( var_3 ) || !isdefined( var_4 ) )
@@ -1500,7 +1500,7 @@ _id_2C7C()
     {
         var_20 maps\mp\_utility::_id_74FA( 0 );
         var_20 setblurforplayer( 0, 0 );
-        var_20.killstreakcount = var_2 getentitynumber();
+        var_20.killcamentitylookat = var_2 getentitynumber();
 
         if ( isdefined( var_3 ) && isdefined( var_3._id_55DF ) )
             var_21 = ( gettime() - var_3._id_55DF ) / 1000.0;
@@ -1539,7 +1539,7 @@ _id_7456()
     self.humiliationfinderscounter = [];
     self.pers["cur_kill_streak"] = 0;
     self.pers["cur_kill_streak_for_nuke"] = 0;
-    self.knife_off = 0;
+    self.killstreakcount = 0;
     self setclientomnvar( "ks_count1", 0 );
     maps\mp\gametypes\_gameobjects::_id_2984();
 }
@@ -1559,7 +1559,7 @@ _id_3FDF( var_0, var_1, var_2 )
         case "bouncingbetty_mp":
             return var_1._id_534D;
         case "none":
-            if ( isdefined( var_1.teambalanced ) && var_1.teambalanced == "care_package" )
+            if ( isdefined( var_1.targetname ) && var_1.targetname == "care_package" )
                 return var_1._id_534D;
 
             break;
@@ -1729,7 +1729,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( !maps\mp\_utility::_id_5189( var_2 ) && !isdefined( var_2._id_4E3D ) )
         return "!isReallyAlive( victim )";
 
-    if ( isdefined( var_1 ) && var_1.classname == "script_origin" && isdefined( var_1.unlockpoints ) && var_1.unlockpoints == "soft_landing" )
+    if ( isdefined( var_1 ) && var_1.classname == "script_origin" && isdefined( var_1.type ) && var_1.type == "soft_landing" )
         return "soft_landing";
 
     if ( var_2 _id_5116( var_6 ) )
@@ -1840,7 +1840,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( game["state"] == "postgame" )
         return "game[ state ] == postgame";
 
-    if ( var_2.sharpturnnotifydist == "spectator" )
+    if ( var_2.sessionteam == "spectator" )
         return "victim.sessionteam == spectator";
 
     if ( isdefined( var_2.candocombat ) && !var_2.candocombat )
@@ -1872,7 +1872,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     var_18 = 0;
 
-    if ( var_2.helmet == var_2.maxturnspeed && ( !isdefined( var_2.left ) || !var_2.left ) || !isdefined( var_2.attackers ) && !isdefined( var_2.left ) )
+    if ( var_2.health == var_2.maxhealth && ( !isdefined( var_2.laststand ) || !var_2.laststand ) || !isdefined( var_2.attackers ) && !isdefined( var_2.laststand ) )
     {
         var_2.attackers = [];
         var_2._id_0E2C = [];
@@ -1908,9 +1908,9 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             var_6 = "destructible_car";
     }
 
-    if ( gettime() < var_2.spectating_cycle + level.killstreakspawnshield )
+    if ( gettime() < var_2.spawntime + level.killstreakspawnshield )
     {
-        var_20 = int( max( var_2.helmet / 4, 1 ) );
+        var_20 = int( max( var_2.health / 4, 1 ) );
 
         if ( var_3 >= var_20 && maps\mp\_utility::iskillstreakweapon( var_6 ) && !maps\mp\_utility::_id_5150( var_5 ) )
             var_3 = var_20;
@@ -2051,7 +2051,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             else if ( isdefined( var_1 ) && !isplayer( var_1 ) && isdefined( var_1._id_7C02 ) && isdefined( var_1._id_78CD ) && var_1._id_78CD )
                 _id_07CC( var_2, var_1._id_7C02, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
 
-            if ( var_5 == "MOD_EXPLOSIVE" || var_5 == "MOD_GRENADE_SPLASH" && var_3 < var_2.helmet )
+            if ( var_5 == "MOD_EXPLOSIVE" || var_5 == "MOD_GRENADE_SPLASH" && var_3 < var_2.health )
                 var_2 notify( "survived_explosion", var_1 );
 
             if ( isdefined( var_1 ) && isplayer( var_1 ) && isdefined( var_6 ) )
@@ -2128,10 +2128,10 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( isdefined( var_1 ) && var_1 != var_2 && !var_18 )
         level.usestartspawns = 0;
 
-    if ( var_2.sharpturnlookaheaddist != "dead" )
+    if ( var_2.sessionstate != "dead" )
     {
         var_25 = var_2 getentitynumber();
-        var_26 = var_2.nearz;
+        var_26 = var_2.name;
         var_27 = var_2.pers["team"];
         var_28 = var_2.guid;
         var_29 = "";
@@ -2140,7 +2140,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         {
             var_30 = var_1 getentitynumber();
             var_31 = var_1.guid;
-            var_32 = var_1.nearz;
+            var_32 = var_1.name;
             var_29 = var_1.pers["team"];
         }
         else
@@ -2153,7 +2153,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
         if ( isplayer( var_1 ) )
         {
-            var_33 = var_1.nearz;
+            var_33 = var_1.name;
             var_34 = var_1.origin;
             var_35 = var_1._id_56F7;
         }
@@ -2166,9 +2166,9 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
         var_36 = gettime();
 
-        if ( !isagent( var_2 ) && isdefined( var_2._id_89E4 ) && isdefined( var_2._id_89E4.spectating_cycle ) )
+        if ( !isagent( var_2 ) && isdefined( var_2._id_89E4 ) && isdefined( var_2._id_89E4.spawntime ) )
         {
-            var_37 = ( var_36 - var_2._id_89E4.spectating_cycle ) / 1000.0;
+            var_37 = ( var_36 - var_2._id_89E4.spawntime ) / 1000.0;
 
             if ( var_37 <= 3.0 && var_2._id_89E4._id_25AC == 0 )
             {
@@ -2196,9 +2196,9 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         else
             var_37 = -1;
 
-        if ( isdefined( var_1 ) && isdefined( var_1._id_89E4 ) && isdefined( var_1._id_89E4.spectating_cycle ) && isplayer( var_1 ) )
+        if ( isdefined( var_1 ) && isdefined( var_1._id_89E4 ) && isdefined( var_1._id_89E4.spawntime ) && isplayer( var_1 ) )
         {
-            var_38 = ( var_36 - var_1._id_89E4.spectating_cycle ) / 1000.0;
+            var_38 = ( var_36 - var_1._id_89E4.spawntime ) / 1000.0;
 
             if ( var_38 <= 3.0 && var_1._id_89E4._id_2596 == 0 )
             {
@@ -2227,7 +2227,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             var_38 = -1;
 
         if ( !isagent( var_2 ) )
-            reconspatialevent( var_2.origin, "script_mp_damage: player_name %s, player_angles %v, hit_loc %s, attacker_name %s, attacker_pos %v, damage %d, weapon %s, damage_type %s, gameTime %d, life_id %d, attacker_life_id %d, spawnToDamageReceivedTime %f, spawnToDamageDealtTime %f", var_2.nearz, var_2.angles, var_9, var_33, var_34, var_3, var_6, var_5, var_36, var_2._id_56F7, var_35, var_37, var_38 );
+            reconspatialevent( var_2.origin, "script_mp_damage: player_name %s, player_angles %v, hit_loc %s, attacker_name %s, attacker_pos %v, damage %d, weapon %s, damage_type %s, gameTime %d, life_id %d, attacker_life_id %d, spawnToDamageReceivedTime %f, spawnToDamageDealtTime %f", var_2.name, var_2.angles, var_9, var_33, var_34, var_3, var_6, var_5, var_36, var_2._id_56F7, var_35, var_37, var_38 );
 
         logprint( "D;" + var_28 + ";" + var_25 + ";" + var_27 + ";" + var_26 + ";" + var_31 + ";" + var_30 + ";" + var_29 + ";" + var_32 + ";" + var_6 + ";" + var_3 + ";" + var_5 + ";" + var_9 + "\\n" );
     }
@@ -2269,11 +2269,11 @@ _id_07CC( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
         var_0._id_0E2C[var_1.guid]._id_5184 = 1;
 
     var_0._id_0E2C[var_1.guid].damage += var_4;
-    var_0._id_0E2C[var_1.guid].weapon_switch_invalid = var_3;
+    var_0._id_0E2C[var_1.guid].weapon = var_3;
     var_0._id_0E2C[var_1.guid]._id_9F44 = var_5;
     var_0._id_0E2C[var_1.guid]._id_9C68 = var_6;
     var_0._id_0E2C[var_1.guid]._id_83CE = var_7;
-    var_0._id_0E2C[var_1.guid].radarmode = var_8;
+    var_0._id_0E2C[var_1.guid].psoffsettime = var_8;
     var_0._id_0E2C[var_1.guid]._id_867C = var_9;
     var_0._id_0E2C[var_1.guid]._id_0E2D = var_1;
     var_0._id_0E2C[var_1.guid]._id_5606 = gettime();
@@ -2341,7 +2341,7 @@ _id_379A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 {
     var_11 = 0;
 
-    if ( maps\mp\_utility::_id_51E3() && var_2 >= self.helmet && !( var_3 & level.idflags_stun ) && !isdefined( self._id_4E3D ) && !self _meth_851f() )
+    if ( maps\mp\_utility::_id_51E3() && var_2 >= self.health && !( var_3 & level.idflags_stun ) && !isdefined( self._id_4E3D ) && !self _meth_851f() )
         var_11 = 1;
 
     if ( isdefined( level.ishorde ) && level.ishorde )
@@ -2458,7 +2458,7 @@ _id_19F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
         var_11._id_8899 = "mp_last_stand";
         var_11.duration = 2.0;
         var_11._id_7454 = 1;
-        self.helmet = 1;
+        self.health = 1;
         thread maps\mp\gametypes\_hud_message::_id_622E( var_11 );
 
         if ( maps\mp\_utility::_hasperk( "specialty_finalstand" ) )
@@ -2612,7 +2612,7 @@ _id_55F2( var_0, var_1 )
     level endon( "game_ended" );
     level notify( "player_last_stand" );
     thread _id_55F6();
-    self.left = 1;
+    self.laststand = 1;
 
     if ( !var_1 && ( !isdefined( self._id_4C14 ) || !self._id_4C14 ) )
     {
@@ -2675,20 +2675,20 @@ _id_55F2( var_0, var_1 )
         wait(var_0 / 3);
         var_3.color = ( 1.0, 0.64, 0.0 );
 
-        while ( var_2.isradarblocked )
+        while ( var_2.inuse )
             wait 0.05;
 
         maps\mp\_utility::_id_6A3F();
         wait(var_0 / 3);
         var_3.color = ( 1.0, 0.0, 0.0 );
 
-        while ( var_2.isradarblocked )
+        while ( var_2.inuse )
             wait 0.05;
 
         maps\mp\_utility::_id_6A3F();
         wait(var_0 / 3);
 
-        while ( var_2.isradarblocked )
+        while ( var_2.inuse )
             wait 0.05;
 
         wait 0.05;
@@ -2709,11 +2709,11 @@ _id_5A3B( var_0, var_1 )
 
     for (;;)
     {
-        self.helmet -= 1;
-        self.maxturnspeed = var_0;
+        self.health -= 1;
+        self.maxhealth = var_0;
         wait 0.05;
-        self.maxturnspeed = 50;
-        self.helmet += 1;
+        self.maxhealth = 50;
+        self.health += 1;
         wait 0.5;
     }
 }
@@ -2722,7 +2722,7 @@ _id_55E7( var_0, var_1 )
 {
     if ( var_0 )
     {
-        self.left = undefined;
+        self.laststand = undefined;
         self._id_4C5A = 0;
         self notify( "revive" );
         maps\mp\_utility::_id_1EF5( "last_stand" );
@@ -2779,13 +2779,13 @@ _id_55E9()
 
     while ( !level.gameended )
     {
-        self.helmet = 2;
+        self.health = 2;
         wait 0.05;
-        self.helmet = 1;
+        self.health = 1;
         wait 0.5;
     }
 
-    self.helmet = self.maxturnspeed;
+    self.health = self.maxhealth;
 }
 
 _id_55F6()
@@ -2795,7 +2795,7 @@ _id_55F6()
     level endon( "game_ended" );
     self waittill( "death" );
     maps\mp\_utility::_id_1EF5( "last_stand" );
-    self.left = undefined;
+    self.laststand = undefined;
 }
 
 _id_5A5B( var_0, var_1, var_2 )
@@ -2982,7 +2982,7 @@ _id_74FE( var_0 )
     var_1 = var_0.team;
     self linkto( var_0, "tag_origin" );
     self.owner = var_0;
-    self.isradarblocked = 0;
+    self.inuse = 0;
     self makeusable();
     _id_9B96( var_1 );
     thread _id_9514( var_1 );
@@ -3065,7 +3065,7 @@ _id_7500( var_0 )
         if ( var_2 )
         {
             level thread maps\mp\gametypes\_rank::_id_1208( "reviver", var_1 );
-            self.owner.left = undefined;
+            self.owner.laststand = undefined;
             self.owner maps\mp\_utility::_id_1EF5( "last_stand" );
             self.owner.movespeedscaler = level._id_1317;
 
@@ -3073,7 +3073,7 @@ _id_7500( var_0 )
                 self.owner.movespeedscaler = maps\mp\_utility::_id_5761();
 
             self.owner common_scripts\utility::_id_0595();
-            self.owner.maxturnspeed = 100;
+            self.owner.maxhealth = 100;
             self.owner maps\mp\gametypes\_weapons::_id_9B3D();
             self.owner maps\mp\gametypes\_playerlogic::_id_55ED();
             self.owner maps\mp\_utility::_id_41F8( "specialty_pistoldeath", 0 );
@@ -3102,7 +3102,7 @@ reviveholdthink( var_0, var_1, var_2 )
         var_0 common_scripts\utility::_id_0587();
 
     self.curprogress = 0;
-    self.isradarblocked = 1;
+    self.inuse = 1;
     self.userate = 0;
 
     if ( isdefined( var_1 ) )
@@ -3117,7 +3117,7 @@ reviveholdthink( var_0, var_1, var_2 )
 
     thread reviveholdthink_cleanup( var_0, var_2, var_4 );
     var_5 = reviveholdthinkloop( var_0 );
-    self.isradarblocked = 0;
+    self.inuse = 0;
     var_4 delete();
 
     if ( isdefined( var_5 ) && var_5 )
@@ -3161,7 +3161,7 @@ _id_67E5( var_0 )
 
     var_2 = -1;
 
-    while ( maps\mp\_utility::_id_5189( self ) && isdefined( var_0 ) && var_0.isradarblocked && !level.gameended && isdefined( self ) )
+    while ( maps\mp\_utility::_id_5189( self ) && isdefined( var_0 ) && var_0.inuse && !level.gameended && isdefined( self ) )
     {
         if ( var_2 != var_0.userate )
         {
@@ -3202,7 +3202,7 @@ personalusebaroldstyle( var_0 )
     var_4 settext( &"MPUI_BEING_REVIVED" );
     var_5 = -1;
 
-    while ( maps\mp\_utility::_id_5189( self ) && isdefined( var_0 ) && var_0.isradarblocked && !level.gameended && isdefined( self ) )
+    while ( maps\mp\_utility::_id_5189( self ) && isdefined( var_0 ) && var_0.inuse && !level.gameended && isdefined( self ) )
     {
         if ( var_5 != var_0.userate )
         {
@@ -3258,7 +3258,7 @@ reviveholdthinkloop( var_0 )
 
         if ( self.curprogress >= self._id_9C19 )
         {
-            self.isradarblocked = 0;
+            self.inuse = 0;
             return maps\mp\_utility::_id_5189( var_0 );
         }
 
@@ -3270,7 +3270,7 @@ reviveholdthinkloop( var_0 )
 
 _id_19EF( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    if ( isdefined( self.lastdamagewasfromenemy ) && self.lastdamagewasfromenemy && var_2 >= self.helmet && isdefined( self.combathigh ) && self.combathigh == "specialty_endgame" )
+    if ( isdefined( self.lastdamagewasfromenemy ) && self.lastdamagewasfromenemy && var_2 >= self.health && isdefined( self.combathigh ) && self.combathigh == "specialty_endgame" )
     {
         maps\mp\_utility::_id_41F8( "specialty_endgame", 0 );
         return 0;
@@ -3290,7 +3290,7 @@ _id_3064( var_0 )
         var_4 = sin( var_2 ) * 16;
         var_5 = bullettrace( self.origin + ( var_3, var_4, 4 ), self.origin + ( var_3, var_4, -6 ), 1, self );
 
-        if ( isdefined( var_5["entity"] ) && isdefined( var_5["entity"].teambalanced ) && ( var_5["entity"].teambalanced == "destructible_vehicle" || var_5["entity"].teambalanced == "destructible_toy" ) )
+        if ( isdefined( var_5["entity"] ) && isdefined( var_5["entity"].targetname ) && ( var_5["entity"].targetname == "destructible_vehicle" || var_5["entity"].targetname == "destructible_toy" ) )
             var_1[var_1.size] = var_5["entity"];
     }
 
@@ -3298,7 +3298,7 @@ _id_3064( var_0 )
     {
         var_6 = spawn( "script_origin", self.origin );
         var_6 hide();
-        var_6.unlockpoints = "soft_landing";
+        var_6.type = "soft_landing";
         var_6._id_293A = var_1;
         radiusdamage( self.origin, 64, 100, 100, var_6 );
         wait 0.1;
@@ -3316,34 +3316,34 @@ _id_0602( var_0, var_1, var_2, var_3 )
 
         if ( var_7 == "spectator" )
         {
-            var_6 clientiprintln( &"MP_OBITUARY_NEUTRAL", var_1.nearz, var_0.nearz );
+            var_6 clientiprintln( &"MP_OBITUARY_NEUTRAL", var_1.name, var_0.name );
             continue;
         }
 
         if ( var_7 == var_4 )
         {
-            var_6 clientiprintln( &"MP_OBITUARY_ENEMY", var_1.nearz, var_0.nearz );
+            var_6 clientiprintln( &"MP_OBITUARY_ENEMY", var_1.name, var_0.name );
             continue;
         }
 
-        var_6 clientiprintln( &"MP_OBITUARY_FRIENDLY", var_1.nearz, var_0.nearz );
+        var_6 clientiprintln( &"MP_OBITUARY_FRIENDLY", var_1.name, var_0.name );
     }
 }
 
 _id_584A( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = self getentitynumber();
-    var_8 = self.nearz;
+    var_8 = self.name;
     var_9 = self.team;
     var_10 = self.guid;
 
     if ( isplayer( var_1 ) )
     {
         var_11 = var_1.guid;
-        var_12 = var_1.nearz;
+        var_12 = var_1.name;
         var_13 = var_1.team;
         var_14 = var_1 getentitynumber();
-        var_15 = var_1.zonly_physics + "(" + var_12 + ")";
+        var_15 = var_1.xuid + "(" + var_12 + ")";
     }
     else
     {
@@ -3371,7 +3371,7 @@ gamemodemodifyplayerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var
             var_2 *= level.matchrules_damagemultiplier;
 
         if ( level.matchrules_vampirism )
-            var_1.helmet = int( min( float( var_1.maxturnspeed ), float( var_1.helmet + 20 ) ) );
+            var_1.health = int( min( float( var_1.maxhealth ), float( var_1.health + 20 ) ) );
     }
 
     return var_2;
@@ -3393,8 +3393,8 @@ _id_7F65( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( self.classname ) && self.classname != "script_vehicle" )
         self _meth_8491( 1 );
 
-    self.helmet = 999999;
-    self.maxturnspeed = var_0;
+    self.health = 999999;
+    self.maxhealth = var_0;
     self.damagetaken = 0;
     self._id_1485 = var_4;
     self._id_259D = var_1;
@@ -3465,7 +3465,7 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             self._id_0E31[self._id_0E31.size] = var_1;
     }
 
-    if ( self.damagetaken >= self.maxturnspeed )
+    if ( self.damagetaken >= self.maxhealth )
     {
         if ( self._id_1485 && isplayer( var_1 ) )
             var_1 notify( "destroyed_killstreak", var_5 );
@@ -3515,7 +3515,7 @@ _id_4669( var_0, var_1, var_2 )
         case "bomb_site_mp":
         case "stinger_mp":
             self.largeprojectiledamage = 1;
-            var_3 = self.maxturnspeed + 1;
+            var_3 = self.maxhealth + 1;
             break;
     }
 
@@ -3548,7 +3548,7 @@ _id_4667( var_0, var_1, var_2 )
 {
     if ( maps\mp\_utility::_id_5150( var_1 ) )
     {
-        var_3 = int( self.maxturnspeed / 3 ) + 1;
+        var_3 = int( self.maxhealth / 3 ) + 1;
 
         if ( var_3 > var_2 )
             return var_3;

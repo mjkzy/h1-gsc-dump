@@ -152,7 +152,7 @@ getplayerxuidfromguid( var_0 )
     foreach ( var_2 in level.players )
     {
         if ( var_2.guid == var_0 )
-            return var_2.zonly_physics;
+            return var_2.xuid;
     }
 
     return "";

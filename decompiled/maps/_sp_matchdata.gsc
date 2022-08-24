@@ -69,10 +69,10 @@ _id_72DC( var_0, var_1 )
     var_2 = getspmatchdata( "checkpoints", "deaths_total" ) + 1;
     setspmatchdata( "checkpoints", "deaths_total", var_2 );
     maps\_utility::save_time_played();
-    var_3 = level.playercardbackground getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "deaths_total" );
+    var_3 = level.player getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "deaths_total" );
 
     if ( isdefined( var_3 ) )
-        level.playercardbackground setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "deaths_total", var_3 + 1 );
+        level.player setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "career", "deaths_total", var_3 + 1 );
 }
 
 _id_72D8()
@@ -112,11 +112,11 @@ _id_72E9()
 
 _id_56BD( var_0 )
 {
-    var_1 = level.playercardbackground _meth_84fb();
+    var_1 = level.player _meth_84fb();
     setspmatchdata( "timestamp_end", var_1 );
     setspmatchdata( "career", "level_completion_timestamp", var_0, var_1 );
     setspmatchdata( "career", "levels_completed", var_0, 1 );
-    var_2 = level.playercardbackground _meth_8211( "gameskill" );
+    var_2 = level.player _meth_8211( "gameskill" );
     var_3 = level._id_2A63[int( var_2 )];
     setspmatchdata( "final_difficulty", var_3 );
     maps\_utility::save_time_played();

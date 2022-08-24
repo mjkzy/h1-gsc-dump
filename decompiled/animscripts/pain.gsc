@@ -165,13 +165,13 @@ main()
 
     self.a._id_665F = gettime();
 
-    if ( self.start_move != "none" )
+    if ( self.stairsstate != "none" )
         self.a._id_665A = 1;
     else
         self.a._id_665A = undefined;
 
     if ( self.a._id_60DD )
-        self.helmet = 1;
+        self.health = 1;
 
     self notify( "anim entered pain" );
     self endon( "killanimscript" );
@@ -220,7 +220,7 @@ end_script()
         self.allowpain = 1;
 
         if ( !isdefined( self._id_6EEA ) )
-            self.ignoretriggers = 0;
+            self.ignoreme = 0;
 
         self._id_6EEA = undefined;
     }
@@ -262,13 +262,13 @@ _id_3F4B()
     if ( self.a._id_6E5A == "prone" )
         return;
 
-    if ( isdefined( self.laststand ) && isdefined( self.laststand.team ) && self.laststand.team == self.team )
+    if ( isdefined( self.lastattacker ) && isdefined( self.lastattacker.team ) && self.lastattacker.team == self.team )
         return;
 
     if ( !isdefined( self._id_25AF ) || gettime() - self.a._id_55C7 > 1500 )
         self._id_25AF = randomintrange( 2, 3 );
 
-    if ( isdefined( self.laststand ) && distancesquared( self.origin, self.laststand.origin ) < squared( 512 ) )
+    if ( isdefined( self.lastattacker ) && distancesquared( self.origin, self.lastattacker.origin ) < squared( 512 ) )
         self._id_25AF = 0;
 
     if ( self._id_25AF > 0 )
@@ -278,10 +278,10 @@ _id_3F4B()
         self._id_25B0 = 1;
         self.allowpain = 0;
 
-        if ( self.ignoretriggers )
+        if ( self.ignoreme )
             self._id_6EEA = 1;
         else
-            self.ignoretriggers = 1;
+            self.ignoreme = 1;
 
         if ( animscripts\utility::_id_9C3A() )
             animscripts\shared::_id_6869( self.primaryweapon, "right" );
@@ -347,7 +347,7 @@ _id_4079()
 
     if ( self.a._id_6E5A == "stand" )
     {
-        var_1 = isdefined( self.node_relinquished ) && distancesquared( self.origin, self.node_relinquished.origin ) < 4096;
+        var_1 = isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 4096;
 
         if ( !var_1 && self.a._id_5F5B == "run" && abs( self _meth_8194() ) < 60 )
             return _id_40BF();
@@ -470,12 +470,12 @@ _id_40EB()
 
 weaponanims()
 {
-    var_0 = getweaponmodel( self.weapon_switch_invalid );
+    var_0 = getweaponmodel( self.weapon );
 
     if ( isdefined( self.holdingweapon ) && !self.holdingweapon || var_0 == "" )
         return "none";
 
-    var_1 = weaponclass( self.weapon_switch_invalid );
+    var_1 = weaponclass( self.weapon );
 
     switch ( var_1 )
     {
@@ -522,7 +522,7 @@ getstandpainanim_preh1()
     }
     else
     {
-        var_1 = self.damagetaken / self.maxturnspeed;
+        var_1 = self.damagetaken / self.maxhealth;
 
         if ( var_1 > 0.4 && !animscripts\utility::_id_25A6( "left_hand", "right_hand", "left_foot", "right_foot", "helmet" ) )
             var_0[var_0.size] = %exposed_pain_2_crouch;
@@ -948,7 +948,7 @@ _id_238E()
     if ( self.a._id_2B18 || self.diequietly || self.damageshield )
         return 0;
 
-    if ( self.start_move != "none" )
+    if ( self.stairsstate != "none" )
         return 0;
 
     if ( isdefined( self.a._id_6451 ) )
@@ -962,16 +962,16 @@ _id_238E()
     if ( isdefined( self._id_39C2 ) )
     {
         _id_7F42( var_0 );
-        self.helmet = 10;
+        self.health = 10;
         thread _id_2391();
         self waittill( "killanimscript" );
         return 1;
     }
 
-    if ( self.helmet > 100 )
+    if ( self.health > 100 )
         return 0;
 
-    if ( var_0 && self.helmet < self.maxturnspeed * 0.4 )
+    if ( var_0 && self.health < self.maxhealth * 0.4 )
     {
         if ( gettime() < anim._id_60C8 )
             return 0;
@@ -1499,11 +1499,11 @@ _id_6F52( var_0 )
     self._id_584E = 1;
     self.a._id_2CE7 = 1;
     self notify( "long_death" );
-    self.helmet = 10000;
+    self.health = 10000;
     wait 0.75;
 
-    if ( self.helmet > 1 )
-        self.helmet = 1;
+    if ( self.health > 1 )
+        self.health = 1;
 
     wait 0.05;
     self._id_584E = undefined;
@@ -1513,7 +1513,7 @@ _id_6F52( var_0 )
     {
         wait 1.0;
 
-        if ( isdefined( level.playercardbackground ) && distancesquared( self.origin, level.playercardbackground.origin ) < 1048576 )
+        if ( isdefined( level.player ) && distancesquared( self.origin, level.player.origin ) < 1048576 )
         {
             anim._id_629A = randomintrange( 10, 30 );
             anim._id_60C7 = gettime() + randomintrange( 15000, 60000 );
@@ -1530,7 +1530,7 @@ _id_6F52( var_0 )
     {
         wait 1.0;
 
-        if ( isdefined( level.playercardbackground ) && distancesquared( self.origin, level.playercardbackground.origin ) < 490000 )
+        if ( isdefined( level.player ) && distancesquared( self.origin, level.player.origin ) < 490000 )
         {
             anim._id_6299 = randomintrange( 10, 30 );
             anim._id_60C6 = gettime() + randomintrange( 15000, 60000 );
@@ -1577,7 +1577,7 @@ _id_9897()
     if ( isdefined( self._id_2660 ) )
         return 0;
 
-    if ( distance( self.origin, level.playercardbackground.origin ) < 175 )
+    if ( distance( self.origin, level.player.origin ) < 175 )
         return 0;
 
     anim._id_60C6 = gettime() + 3000;
@@ -1593,7 +1593,7 @@ _id_2229()
     thread _id_6657();
     thread _id_6F52( "corner_grenade" );
     thread maps\_utility::_id_7DDF( 0 );
-    self.threatsightdelayfalloff = -1000;
+    self.threatbias = -1000;
     _id_664D( "corner_grenade_pain", animscripts\utility::_id_5863( "corner_grenade_death", "pain" ), %body, 1, 0.1 );
     self waittillmatch( "corner_grenade_pain", "dropgun" );
     animscripts\shared::_id_2F6C();
@@ -1647,7 +1647,7 @@ _id_2224( var_0, var_1 )
         var_6 = var_5["surfacetype"];
 
     thread _id_6DDB( "grenade_bounce_" + var_6, var_2 );
-    self.groundentchanged = "fraggrenade";
+    self.grenadeweapon = "fraggrenade";
     self magicgrenademanual( var_2, var_0, var_1 );
 }
 
@@ -1765,10 +1765,10 @@ _id_07F0( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     if ( !isdefined( self._id_5A7A ) || isdefined( self._id_5A7A ) && !self._id_5A7A )
     {
-        if ( var_0 < self.missile_passed_target )
+        if ( var_0 < self.minpaindamage )
             return;
     }
-    else if ( var_0 < self.missile_passed_target / 3 )
+    else if ( var_0 < self.minpaindamage / 3 )
         return;
 
     self._id_2CE5 = 1;

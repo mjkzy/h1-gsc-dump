@@ -24,7 +24,7 @@ init()
     if ( !isdefined( game["gamestarted"] ) )
     {
         setmatchdatadef( "mp/matchdata.ddl" );
-        setmatchdata( "map", level.script_context );
+        setmatchdata( "map", level.script );
 
         if ( level.hardcoremode )
         {
@@ -173,7 +173,7 @@ _id_583B( var_0, var_1 )
     setmatchdata( "killstreaks", var_2, "eventPos", 2, int( var_1[2] ) );
     setmatchdata( "killstreaks", var_2, "index", var_2 );
     self._id_2517 = var_2;
-    reconspatialevent( var_1, "script_mp_killstreak: eventType %s, player_name %s, player %d, gameTime %d", var_0, self.nearz, self.clientid, gettime() );
+    reconspatialevent( var_1, "script_mp_killstreak: eventType %s, player_name %s, player %d, gameTime %d", var_0, self.name, self.clientid, gettime() );
 }
 
 _id_5827( var_0, var_1 )
@@ -189,7 +189,7 @@ _id_5827( var_0, var_1 )
     setmatchdata( "events", var_2, "eventPos", 0, int( var_1[0] ) );
     setmatchdata( "events", var_2, "eventPos", 1, int( var_1[1] ) );
     setmatchdata( "events", var_2, "eventPos", 2, int( var_1[2] ) );
-    reconspatialevent( var_1, "script_mp_event: event_type %s, player_name %s, player %d, gameTime %d", var_0, self.nearz, self.clientid, gettime() );
+    reconspatialevent( var_1, "script_mp_event: event_type %s, player_name %s, player %d, gameTime %d", var_0, self.name, self.clientid, gettime() );
 }
 
 _id_5838( var_0, var_1 )
@@ -213,13 +213,13 @@ _id_5846( var_0 )
     if ( !_id_1ACE( self ) || !_id_1AD1( self._id_56F7 ) )
         return;
 
-    var_1 = gettime() - self.spectating_cycle;
+    var_1 = gettime() - self.spawntime;
     self._id_93FB += var_1;
     var_2 = maps\mp\_utility::_id_21A6( var_1 );
     setmatchdata( "lives", self._id_56F7, "player", self.clientid );
-    setmatchdata( "lives", self._id_56F7, "spawnPos", 0, int( self.spectatekillcam[0] ) );
-    setmatchdata( "lives", self._id_56F7, "spawnPos", 1, int( self.spectatekillcam[1] ) );
-    setmatchdata( "lives", self._id_56F7, "spawnPos", 2, int( self.spectatekillcam[2] ) );
+    setmatchdata( "lives", self._id_56F7, "spawnPos", 0, int( self.spawnpos[0] ) );
+    setmatchdata( "lives", self._id_56F7, "spawnPos", 1, int( self.spawnpos[1] ) );
+    setmatchdata( "lives", self._id_56F7, "spawnPos", 2, int( self.spawnpos[2] ) );
     setmatchdata( "lives", self._id_56F7, "team", self.team );
 
     if ( isdefined( self._id_8A12 ) )
@@ -383,9 +383,9 @@ _id_726D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 {
     var_14 = isbot( var_0 ) || istestclient( var_0 );
     var_15 = "_matchdata.gsc";
-    var_16 = var_0.spectating_cycle;
+    var_16 = var_0.spawntime;
     var_17 = var_0._id_24C3;
-    var_18 = var_0.nearz;
+    var_18 = var_0.name;
     reconevent( "script_mp_loadout_gear: script_file %s, gameTime %d, player_name %s, is_bot %b, class %s, primary_weapon %s, primary_attach_kit %s, primary_furniture_kit %s, primary_camo %s, secondary_weapon %s, secondary_attach_kit %s,  secondary_furniture_kit %s, secondary_camo %s, equipment %s, offhand %s", var_15, var_16, var_18, var_14, var_17, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
     reconevent( "script_mp_loadout_perks: script_file %s, gameTime %d, player_name %s, perk_1 %s, perk_2 %s, perk_3 %s", var_15, var_16, var_18, var_11, var_12, var_13 );
 }
@@ -787,7 +787,7 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_17 = "world";
 
     if ( isplayer( var_1 ) )
-        var_17 = var_1.nearz;
+        var_17 = var_1.name;
 
     var_18 = 1;
     var_19 = 0;
@@ -831,15 +831,15 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     if ( issubstr( var_8._id_A2DF, "loot" ) )
         var_23 = 1;
 
-    if ( isdefined( self._id_89E4 ) && isdefined( self._id_89E4.spectating_cycle ) )
-        var_25 = ( var_27 - self._id_89E4.spectating_cycle ) / 1000.0;
+    if ( isdefined( self._id_89E4 ) && isdefined( self._id_89E4.spawntime ) )
+        var_25 = ( var_27 - self._id_89E4.spawntime ) / 1000.0;
 
-    if ( isdefined( var_1._id_89E4 ) && isdefined( var_1._id_89E4.spectating_cycle ) && isplayer( var_1 ) )
-        var_26 = ( var_27 - var_1._id_89E4.spectating_cycle ) / 1000.0;
+    if ( isdefined( var_1._id_89E4 ) && isdefined( var_1._id_89E4.spawntime ) && isplayer( var_1 ) )
+        var_26 = ( var_27 - var_1._id_89E4.spawntime ) / 1000.0;
 
-    reconspatialevent( self.origin, "script_mp_playerdeath: player_name %s, life_id %d, angles %v, death_dot %f, is_jugg %b, is_killstreak %b, mod %s, gameTime %d, spawnToDeathTime %f, attackerAliveTime %f, attacker_life_id %d", self.nearz, self._id_56F7, self.angles, var_14, var_1 maps\mp\_utility::_id_5131(), maps\mp\_utility::iskillstreakweapon( var_8._id_A2E0 ), var_3, var_27, var_25, var_26, var_29 );
-    reconspatialevent( self.origin, "script_mp_weaponinfo: player_name %s, life_id %d, isbot %b, attacker_name %s, attacker %d, attacker_pos %v, distance %f, ads_fraction %f, is_jugg %b, is_killstreak %b, weapon_type %s, weapon_class %s, weapon_name %s, isLoot %b, attachKit %s, furnitureKit %s, numShots %d, soleAttacker %b, gameTime %d", self.nearz, self._id_56F7, var_20, var_17, var_28, var_1.origin, var_22, var_24, var_1 maps\mp\_utility::_id_5131(), maps\mp\_utility::iskillstreakweapon( var_8._id_A2E0 ), var_8._id_A2F3, var_8._id_A2D5, var_8._id_A2DF, var_23, var_8.attachkit, var_8.furniturekit, var_19, var_18, var_27 );
-    reconspatialevent( self.origin, "script_mp_weaponinfo_ext: player_name %s, life_id %d, gametime %d, version %f, victimWeapon %s, victimWeaponClass %s, killerIsBot %b", self.nearz, self._id_56F7, var_27, var_30, var_31, var_32, var_21 );
+    reconspatialevent( self.origin, "script_mp_playerdeath: player_name %s, life_id %d, angles %v, death_dot %f, is_jugg %b, is_killstreak %b, mod %s, gameTime %d, spawnToDeathTime %f, attackerAliveTime %f, attacker_life_id %d", self.name, self._id_56F7, self.angles, var_14, var_1 maps\mp\_utility::_id_5131(), maps\mp\_utility::iskillstreakweapon( var_8._id_A2E0 ), var_3, var_27, var_25, var_26, var_29 );
+    reconspatialevent( self.origin, "script_mp_weaponinfo: player_name %s, life_id %d, isbot %b, attacker_name %s, attacker %d, attacker_pos %v, distance %f, ads_fraction %f, is_jugg %b, is_killstreak %b, weapon_type %s, weapon_class %s, weapon_name %s, isLoot %b, attachKit %s, furnitureKit %s, numShots %d, soleAttacker %b, gameTime %d", self.name, self._id_56F7, var_20, var_17, var_28, var_1.origin, var_22, var_24, var_1 maps\mp\_utility::_id_5131(), maps\mp\_utility::iskillstreakweapon( var_8._id_A2E0 ), var_8._id_A2F3, var_8._id_A2D5, var_8._id_A2DF, var_23, var_8.attachkit, var_8.furniturekit, var_19, var_18, var_27 );
+    reconspatialevent( self.origin, "script_mp_weaponinfo_ext: player_name %s, life_id %d, gametime %d, version %f, victimWeapon %s, victimWeaponClass %s, killerIsBot %b", self.name, self._id_56F7, var_27, var_30, var_31, var_32, var_21 );
 
     if ( !isdefined( level._id_59E0 ) )
         level._id_59E0 = [];
@@ -1085,7 +1085,7 @@ _id_3BDB()
         if ( var_1._id_93FB > 0 )
         {
             var_4 = var_1 maps\mp\_utility::_id_4081( "score" ) / ( var_1._id_93FB / 60000 );
-            tournamentreportplayerspm( var_1.zonly_physics, var_4, var_1.team );
+            tournamentreportplayerspm( var_1.xuid, var_4, var_1.team );
         }
 
         var_1._id_93FB = 0;
@@ -1250,8 +1250,8 @@ _id_727B()
 
                 var_3 = "disconnected?";
 
-                if ( isdefined( var_1.nearz ) )
-                    var_3 = var_1.nearz;
+                if ( isdefined( var_1.name ) )
+                    var_3 = var_1.name;
 
                 var_4 = -1;
 

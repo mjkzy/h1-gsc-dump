@@ -112,7 +112,7 @@ updateinpartywithotherplayers()
 {
     if ( !isai( self ) && maps\mp\_utility::_id_59E3() )
     {
-        var_0 = _func_309( self.zonly_physics );
+        var_0 = _func_309( self.xuid );
 
         if ( !isdefined( self.inpartywithotherplayers ) || var_0 != self.inpartywithotherplayers )
         {
@@ -126,7 +126,7 @@ updateinpartywithotherplayers()
 _id_950B()
 {
     self endon( "disconnect" );
-    lootservicestarttrackingplaytime( self.zonly_physics );
+    lootservicestarttrackingplaytime( self.xuid );
     updateinpartywithotherplayers();
     self.timeplayed["allies"] = 0;
     self.timeplayed["axis"] = 0;
@@ -137,17 +137,17 @@ _id_950B()
     {
         if ( game["state"] == "playing" )
         {
-            if ( self.sharpturnnotifydist == "allies" )
+            if ( self.sessionteam == "allies" )
             {
                 self.timeplayed["allies"]++;
                 self.timeplayed["total"]++;
             }
-            else if ( self.sharpturnnotifydist == "axis" )
+            else if ( self.sessionteam == "axis" )
             {
                 self.timeplayed["axis"]++;
                 self.timeplayed["total"]++;
             }
-            else if ( self.sharpturnnotifydist == "spectator" )
+            else if ( self.sessionteam == "spectator" )
                 self.timeplayed["other"]++;
         }
 
@@ -511,7 +511,7 @@ _id_2242()
 _id_94BF()
 {
     self endon( "disconnect" );
-    lootservicestarttrackingplaytime( self.zonly_physics );
+    lootservicestarttrackingplaytime( self.xuid );
     updateinpartywithotherplayers();
     self.timeplayed["allies"] = 0;
     self.timeplayed["axis"] = 0;
@@ -521,12 +521,12 @@ _id_94BF()
     {
         if ( game["state"] == "playing" )
         {
-            if ( isdefined( self.pers["team"] ) && self.pers["team"] == "allies" && self.sharpturnnotifydist != "spectator" )
+            if ( isdefined( self.pers["team"] ) && self.pers["team"] == "allies" && self.sessionteam != "spectator" )
             {
                 self.timeplayed["allies"]++;
                 self.timeplayed["total"]++;
             }
-            else if ( isdefined( self.pers["team"] ) && self.pers["team"] == "axis" && self.sharpturnnotifydist != "spectator" )
+            else if ( isdefined( self.pers["team"] ) && self.pers["team"] == "axis" && self.sessionteam != "spectator" )
             {
                 self.timeplayed["axis"]++;
                 self.timeplayed["total"]++;

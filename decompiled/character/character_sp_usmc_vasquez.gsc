@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_usmc_desert_assault_vasquez" );
     precachemodel( "head_usmc_marine_vazquez" );

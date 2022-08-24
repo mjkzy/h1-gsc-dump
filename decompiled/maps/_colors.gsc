@@ -171,7 +171,7 @@ _id_427C()
     {
         var_2 = var_0[var_1];
 
-        if ( isalive( var_2._id_2043 ) && var_2._id_2043 != level.playercardbackground )
+        if ( isalive( var_2._id_2043 ) && var_2._id_2043 != level.player )
             continue;
 
         thread ai_sets_goal_with_delay( var_2 );
@@ -376,7 +376,7 @@ _id_6FBC( var_0, var_1, var_2 )
     for ( var_6 = 0; var_6 < var_3.size; var_6++ )
     {
         var_7 = var_3[var_6];
-        var_4 [[ level._id_203D[var_7.unlockpoints][var_5][var_0] ]]( var_7, level._id_558A[var_0][var_2] );
+        var_4 [[ level._id_203D[var_7.type][var_5][var_0] ]]( var_7, level._id_558A[var_0][var_2] );
     }
 
     var_4._id_2297 = common_scripts\utility::_id_0CF5( var_4._id_2297 );
@@ -558,22 +558,22 @@ _id_6AB9()
     {
         var_0 = undefined;
 
-        if ( !isdefined( level.playercardbackground.node_relinquished ) )
+        if ( !isdefined( level.player.node ) )
         {
             wait 0.05;
             continue;
         }
 
-        var_1 = level.playercardbackground.node_relinquished._id_2043;
-        var_0 = level.playercardbackground.node_relinquished;
-        var_0._id_2043 = level.playercardbackground;
+        var_1 = level.player.node._id_2043;
+        var_0 = level.player.node;
+        var_0._id_2043 = level.player;
 
         for (;;)
         {
-            if ( !isdefined( level.playercardbackground.node_relinquished ) )
+            if ( !isdefined( level.player.node ) )
                 break;
 
-            if ( level.playercardbackground.node_relinquished != var_0 )
+            if ( level.player.node != var_0 )
                 break;
 
             wait 0.05;
@@ -672,9 +672,9 @@ set_goal_and_volume( var_0 )
     self _meth_81a9( var_0 );
 
     if ( !self.fixednode )
-        self.goalradius = var_0.rank;
-    else if ( isdefined( var_0.rank ) )
-        self.goalradius = var_0.rank;
+        self.goalradius = var_0.radius;
+    else if ( isdefined( var_0.radius ) )
+        self.goalradius = var_0.radius;
 
     var_1 = level.colorcoded_volumes[self.team][self._id_250C];
 
@@ -789,10 +789,10 @@ _id_9FF7( var_0, var_1 )
 
 _id_6032()
 {
-    if ( !isdefined( self.node_relinquished ) )
+    if ( !isdefined( self.node ) )
         return 0;
 
-    return self.node_relinquished maps\_utility::script_lightset();
+    return self.node maps\_utility::script_delay();
 }
 
 _id_6FE5( var_0, var_1, var_2 )
@@ -803,7 +803,7 @@ _id_6FE5( var_0, var_1, var_2 )
 
     if ( isdefined( var_1 ) )
     {
-        var_1 maps\_utility::script_lightset();
+        var_1 maps\_utility::script_delay();
 
         if ( isdefined( var_1.colordelayinfo ) )
         {
@@ -827,7 +827,7 @@ _id_6FE5( var_0, var_1, var_2 )
     {
         self waittill( "node_taken", var_4 );
 
-        if ( var_4 == level.playercardbackground )
+        if ( var_4 == level.player )
             wait 0.05;
 
         var_0 = _id_3CD5();
@@ -876,7 +876,7 @@ process_stop_short_of_node( var_0 )
     self endon( "stopScript" );
     self endon( "death" );
 
-    if ( isdefined( self.node_relinquished ) )
+    if ( isdefined( self.node ) )
         return;
 
     if ( distance( var_0.origin, self.origin ) < 32 )
@@ -906,10 +906,10 @@ reached_node_but_could_not_claim_it( var_0 )
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
     {
-        if ( !isdefined( var_1[var_3].node_relinquished ) )
+        if ( !isdefined( var_1[var_3].node ) )
             continue;
 
-        if ( var_1[var_3].node_relinquished != var_0 )
+        if ( var_1[var_3].node != var_0 )
             continue;
 
         var_1[var_3] notify( "eject_from_my_node" );
@@ -1132,7 +1132,7 @@ _id_2050()
             continue;
         }
 
-        var_5 = common_scripts\utility::_id_3F33( level.playercardbackground.origin, var_4 );
+        var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_4 );
         waitframe;
 
         if ( !isalive( var_5 ) )
@@ -1175,7 +1175,7 @@ friendly_spawner_vision_checker()
             continue;
 
         var_1 = level._id_7474;
-        var_2 = level.playercardbackground.origin - var_1.origin;
+        var_2 = level.player.origin - var_1.origin;
 
         if ( length( var_2 ) < 200 )
         {
@@ -1183,7 +1183,7 @@ friendly_spawner_vision_checker()
             continue;
         }
 
-        var_3 = anglestoforward( ( 0, level.playercardbackground getplayerangles()[1], 0 ) );
+        var_3 = anglestoforward( ( 0, level.player getplayerangles()[1], 0 ) );
         var_4 = vectornormalize( var_2 );
         var_5 = vectordot( var_3, var_4 );
 

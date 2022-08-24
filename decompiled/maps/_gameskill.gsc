@@ -21,8 +21,8 @@
 
 _id_8010( var_0 )
 {
-    if ( !isdefined( level.script_context ) )
-        level.script_context = tolower( getdvar( "mapname" ) );
+    if ( !isdefined( level.script ) )
+        level.script = tolower( getdvar( "mapname" ) );
 
     if ( !isdefined( var_0 ) || var_0 == 0 )
     {
@@ -261,8 +261,8 @@ _id_9B21()
     foreach ( var_1 in level.players )
         var_1._id_3BFE = var_1 maps\_utility::_id_3E26();
 
-    level._id_3BFE = level.playercardbackground._id_3BFE;
-    level._id_8A48 = level.playercardbackground._id_3BFE;
+    level._id_3BFE = level.player._id_3BFE;
+    level._id_8A48 = level.player._id_3BFE;
 
     if ( isdefined( level._id_39B9 ) )
         level._id_3BFE = level._id_39B9;
@@ -312,7 +312,7 @@ _id_0C9F( var_0, var_1 )
     self._id_4441._id_4FAB = [[ var_0 ]]( "invulTime_postShield", var_1 );
     self._id_4441.playerhealth_regularregendelay = [[ var_0 ]]( "playerHealth_RegularRegenDelay", var_1 );
     self._id_4441._id_A353 = [[ var_0 ]]( "worthyDamageRatio", var_1 );
-    self.threatsightdelayfalloff = int( [[ var_0 ]]( "threatbias", var_1 ) );
+    self.threatbias = int( [[ var_0 ]]( "threatbias", var_1 ) );
     self._id_4441._id_584F = [[ var_0 ]]( "longRegenTime", var_1 );
     self._id_4441.healthoverlaycutoff = [[ var_0 ]]( "healthOverlayCutoff", var_1 );
     self._id_4441._id_72D3 = [[ var_0 ]]( "health_regenRate", var_1 );
@@ -335,7 +335,7 @@ _id_9AD3()
     if ( maps\_utility::_id_32D8( "player_zero_attacker_accuracy" ) )
         return;
 
-    self.ikweight = self._id_130B;
+    self.ignorerandombulletdamage = self._id_130B;
     self.attackeraccuracy = self._id_4441._id_6A64;
 }
 
@@ -394,7 +394,7 @@ _id_664A()
     if ( !isplayer( self.enemy ) )
         return 0;
 
-    if ( !isalive( level._id_6650 ) || level._id_6650.script_context != "pain" )
+    if ( !isalive( level._id_6650 ) || level._id_6650.script != "pain" )
         level._id_6650 = self;
 
     if ( self == level._id_6650 )
@@ -424,13 +424,13 @@ _id_7DAF()
             return;
         }
 
-        if ( self.script_context == "move" )
+        if ( self.script == "move" )
         {
             self.accuracy = anim._id_76A4 * self._id_1300;
             return;
         }
     }
-    else if ( self.script_context == "move" )
+    else if ( self.script == "move" )
     {
         self.accuracy = anim._id_76A4 * self._id_1300;
         return;
@@ -481,7 +481,7 @@ _id_7450()
     if ( !self _meth_813f() )
         return;
 
-    if ( self.weapon_switch_invalid == "none" )
+    if ( self.weapon == "none" )
         return;
 
     if ( !animscripts\weaponlist::_id_9C2C() && !animscripts\weaponlist::_id_9C38() )
@@ -562,7 +562,7 @@ _id_6CC4()
         wait 0.05;
         waitframe;
 
-        if ( self.helmet == self.maxturnspeed )
+        if ( self.health == self.maxhealth )
         {
             thread soundscripts\_audio::_id_7498();
 
@@ -575,12 +575,12 @@ _id_6CC4()
             continue;
         }
 
-        if ( self.helmet <= 0 )
+        if ( self.health <= 0 )
             return;
 
         var_8 = 0;
         var_9 = var_2;
-        var_10 = self.helmet / self.maxturnspeed;
+        var_10 = self.health / self.maxhealth;
 
         if ( var_10 <= self._id_4441.healthoverlaycutoff && self._id_6B4E > 1 )
         {
@@ -619,7 +619,7 @@ _id_6CC4()
             self._id_4B0B = 0;
         }
 
-        if ( self.helmet / self.maxturnspeed >= var_0 )
+        if ( self.health / self.maxhealth >= var_0 )
         {
             if ( gettime() - var_5 < self._id_4441.playerhealth_regularregendelay )
                 continue;
@@ -644,20 +644,20 @@ _id_6CC4()
                 return;
 
             self setnormalhealth( var_6 );
-            var_0 = self.helmet / self.maxturnspeed;
+            var_0 = self.health / self.maxhealth;
             continue;
         }
 
         var_0 = var_7;
         var_11 = var_0 - var_10 >= self._id_4441._id_A353;
 
-        if ( self.helmet <= 1 )
+        if ( self.health <= 1 )
         {
-            self setnormalhealth( 2 / self.maxturnspeed );
+            self setnormalhealth( 2 / self.maxhealth );
             var_11 = 1;
         }
 
-        var_0 = self.helmet / self.maxturnspeed;
+        var_0 = self.health / self.maxhealth;
         self notify( "hit_again" );
         var_1 = 0;
         var_5 = gettime();
@@ -696,7 +696,7 @@ _id_6CC4()
         else
             var_4 = self._id_4441._id_4FAC;
 
-        var_7 = self.helmet / self.maxturnspeed;
+        var_7 = self.health / self.maxhealth;
         thread _id_6CD0( var_4 );
     }
 }
@@ -726,7 +726,7 @@ _id_6CD0( var_0 )
     if ( var_0 > 0 )
     {
         self.attackeraccuracy = 0;
-        self.ikweight = 1;
+        self.ignorerandombulletdamage = 1;
         wait(var_0);
     }
 
@@ -793,7 +793,7 @@ healthoverlayalt()
     var_0.scalewidth = 640;
     var_0.scaleheight = 480;
 
-    switch ( level.script_context )
+    switch ( level.script )
     {
         case "airplane":
         case "blackout":
@@ -837,16 +837,16 @@ healthoverlayalt()
             break;
     }
 
-    var_0.xpmaxmultipliertimeplayed = 320;
-    var_0._id_0538 = 240;
+    var_0.x = 320;
+    var_0.y = 240;
     var_0 setshader( var_1, var_0.scalewidth, var_0.scaleheight );
-    var_0.sprint_end = 1;
+    var_0.splatter = 1;
     var_0.alignx = "center";
     var_0.aligny = "middle";
-    var_0.space = 1;
+    var_0.sort = 1;
     var_0.foreground = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
     thread _id_478B( var_0 );
 
@@ -855,7 +855,7 @@ healthoverlayalt()
         var_0 fadeovertime( 0.5 );
         var_0.alpha = 0;
 
-        if ( !isalive( level.playercardbackground ) )
+        if ( !isalive( level.player ) )
             break;
 
         maps\_utility::_id_32E0( "player_has_red_flashing_overlay" );
@@ -874,16 +874,16 @@ _id_4789()
 {
     self endon( "noHealthOverlay" );
     var_0 = newclienthudelem( self );
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "overlay_low_health", 640, 480 );
-    var_0.sprint_end = 1;
+    var_0.splatter = 1;
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.space = 1;
+    var_0.sort = 1;
     var_0.foreground = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
     thread _id_478B( var_0 );
 
@@ -892,7 +892,7 @@ _id_4789()
         var_0 fadeovertime( 0.5 );
         var_0.alpha = 0;
 
-        if ( !isalive( level.playercardbackground ) )
+        if ( !isalive( level.player ) )
             break;
 
         maps\_utility::_id_32E0( "player_has_red_flashing_overlay" );
@@ -911,16 +911,16 @@ bloodsplatter()
 {
     self endon( "noHealthOverlay" );
     var_0 = newclienthudelem( self );
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "h1_fullscreen_lit_bloodsplat_01", 640, 480 );
-    var_0.sprint_end = 1;
+    var_0.splatter = 1;
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.space = 3;
+    var_0.sort = 3;
     var_0.foreground = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.enablehudlighting = 1;
     var_0.color = ( 0.0, 0.0, 0.0 );
     var_0.alpha = 0;
@@ -932,7 +932,7 @@ bloodsplatter()
 
     for (;;)
     {
-        var_5 = clamp( self.helmet / self.maxturnspeed, 0, 1 );
+        var_5 = clamp( self.health / self.maxhealth, 0, 1 );
         var_6 = 1.0 - var_5;
 
         if ( var_1 > var_6 )
@@ -956,22 +956,22 @@ redhitflash()
 {
     self endon( "noHealthOverlay" );
     var_0 = newclienthudelem( self );
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "h1_screen_blood", 640, 480 );
-    var_0.sprint_end = 1;
+    var_0.splatter = 1;
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.space = 2;
+    var_0.sort = 2;
     var_0.foreground = 0;
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
     thread _id_478B( var_0 );
 
     for (;;)
     {
-        level.playercardbackground _id_A0E5();
+        level.player _id_A0E5();
 
         if ( !isalive( self ) )
             break;
@@ -1001,15 +1001,15 @@ compasshealthoverlay()
 {
     self endon( "noHealthOverlay" );
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 35;
+    var_0.x = 0;
+    var_0.y = 35;
     var_0 setshader( "overlay_low_health_compass", 336, 168 );
     var_0.alignx = "center";
     var_0.aligny = "bottom";
-    var_0.space = 1;
+    var_0.sort = 1;
     var_0.foreground = 0;
-    var_0.hostquits = "center";
-    var_0.visionsetnight = "bottom";
+    var_0.horzalign = "center";
+    var_0.vertalign = "bottom";
     var_0.alpha = 0;
 
     for (;;)
@@ -1074,22 +1074,22 @@ _id_0767( var_0 )
     else
         self.fontscale = 1.6;
 
-    self.xpmaxmultipliertimeplayed = 0;
-    self._id_0538 = -36;
+    self.x = 0;
+    self.y = -36;
     self.alignx = "center";
     self.aligny = "bottom";
-    self.hostquits = "center";
-    self.visionsetnight = "middle";
+    self.horzalign = "center";
+    self.vertalign = "middle";
 
     if ( !isdefined( self.background ) )
         return;
 
-    self.background.xpmaxmultipliertimeplayed = 0;
-    self.background._id_0538 = -40;
+    self.background.x = 0;
+    self.background.y = -40;
     self.background.alignx = "center";
     self.background.aligny = "middle";
-    self.background.hostquits = "center";
-    self.background.visionsetnight = "middle";
+    self.background.horzalign = "center";
+    self.background.vertalign = "middle";
 
     if ( level.console )
         self.background setshader( "popmenu_bg", 650, 52 );
@@ -1109,7 +1109,7 @@ _id_23E1()
     var_0.fontscale = 2;
     var_0.alpha = 1;
     var_0.color = ( 1.0, 0.9, 0.9 );
-    var_0.space = 1;
+    var_0.sort = 1;
     var_0.foreground = 1;
     return var_0;
 }
@@ -1123,8 +1123,8 @@ _id_A0E5()
 _id_28D4()
 {
     self endon( "being_destroyed" );
-    level.playercardbackground _id_A0E5();
-    var_0 = !isalive( level.playercardbackground );
+    level.player _id_A0E5();
+    var_0 = !isalive( level.player );
     thread _id_28D3( var_0 );
 }
 
@@ -1189,7 +1189,7 @@ pulseoverlay( var_0 )
     var_10 = max( var_2, var_5 );
     var_10 += max( var_3, var_8 );
     var_11 = "breathing_heartbeat";
-    level.playercardbackground playsound( var_11 );
+    level.player playsound( var_11 );
 
     for (;;)
     {
@@ -1293,7 +1293,7 @@ _id_8477()
     if ( self islinked() )
         return 0;
 
-    if ( self.ignoretriggers )
+    if ( self.ignoreme )
         return 0;
 
     if ( !_id_9110() )
@@ -1366,7 +1366,7 @@ redflashingoverlay( var_0 )
 
     var_2 = gettime() + self._id_4441._id_584F;
     _id_35EE( var_0, var_1, 0.8, 0.7, 0 );
-    level.playercardbackground playsound( "breathing_heartbeat" );
+    level.player playsound( "breathing_heartbeat" );
 
     while ( gettime() < var_2 && isalive( self ) && maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
     {
@@ -1414,7 +1414,7 @@ _id_745C()
 
 _id_4D65()
 {
-    var_0 = level.script_context == "cargoship" || level.script_context == "coup";
+    var_0 = level.script == "cargoship" || level.script == "coup";
 
     if ( self _meth_8212( "takeCoverWarnings" ) == -1 || var_0 )
         self _meth_8213( "takeCoverWarnings", 9 );
@@ -1458,8 +1458,8 @@ _id_06AA()
     thread _id_06AD();
     thread _id_06AB();
     common_scripts\utility::_id_383F( "auto_adjust_initialized" );
-    common_scripts\utility::_id_383D( "aa_main_" + level.script_context );
-    common_scripts\utility::_id_383F( "aa_main_" + level.script_context );
+    common_scripts\utility::_id_383D( "aa_main_" + level.script );
+    common_scripts\utility::_id_383F( "aa_main_" + level.script );
 }
 
 _id_06B1()
@@ -1472,16 +1472,16 @@ _id_06B1()
 
 _id_06AB()
 {
-    level.playercardbackground endon( "death" );
+    level.player endon( "death" );
     level._id_6A4E = 0;
 
     for (;;)
     {
-        if ( level.playercardbackground maps\_utility::_id_50A9() )
+        if ( level.player maps\_utility::_id_50A9() )
         {
             level._id_6A4E = gettime();
 
-            while ( level.playercardbackground maps\_utility::_id_50A9() )
+            while ( level.player maps\_utility::_id_50A9() )
                 wait 0.05;
 
             continue;
@@ -1495,10 +1495,10 @@ _id_06AD()
 {
     for (;;)
     {
-        level.playercardbackground waittill( "damage", var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+        level.player waittill( "damage", var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
         _id_06A5( "aa_player_damage_taken", var_0 );
 
-        if ( !isalive( level.playercardbackground ) )
+        if ( !isalive( level.player ) )
         {
             _id_06A5( "aa_deaths", 1 );
             return;
@@ -1604,7 +1604,7 @@ _id_1123( var_0 )
     var_23["gameskill"] = level._id_3BFE;
     level._id_1122[var_0] = var_23;
     var_24 = "Completed AA sequence: ";
-    var_24 += ( level.script_context + "/" + var_0 );
+    var_24 += ( level.script + "/" + var_0 );
     var_25 = getarraykeys( var_23 );
 
     for ( var_26 = 0; var_26 < var_25.size; var_26++ )
@@ -1696,7 +1696,7 @@ _id_06AC( var_0, var_1, var_2 )
 {
     _id_06A5( "aa_player_damage_dealt", var_0 );
 
-    if ( !level.playercardbackground maps\_utility::_id_50A9() )
+    if ( !level.player maps\_utility::_id_50A9() )
     {
         [[ level._id_4225 ]]( var_1, self.damagelocation, var_2 );
         return 0;

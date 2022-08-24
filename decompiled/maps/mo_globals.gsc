@@ -48,7 +48,7 @@ ai_generic_main()
 
 ai_special_parameters()
 {
-    if ( isdefined( self._not_team ) && isdefined( self._id_79E6 ) )
+    if ( isdefined( self.target ) && isdefined( self._id_79E6 ) )
         thread ai_nodebeforecolor_think();
 
     if ( !isdefined( self._id_7A99 ) )
@@ -161,7 +161,7 @@ ai_special_parameters()
 
 ai_nodebeforecolor_think()
 {
-    var_0 = getnode( self._not_team, "targetname" );
+    var_0 = getnode( self.target, "targetname" );
 
     if ( !isdefined( var_0 ) )
         return;
@@ -181,8 +181,8 @@ ai_nodebeforecolor_think()
     wait 0.05;
     var_1 _meth_81a9( var_0 );
 
-    if ( isdefined( var_0.rank ) )
-        var_1.goalradius = var_0.rank;
+    if ( isdefined( var_0.radius ) )
+        var_1.goalradius = var_0.radius;
 }
 
 ai_floodspawn_think()
@@ -413,7 +413,7 @@ ai_ignoreme_think()
 ai_ignoreme_think2()
 {
     self endon( "death" );
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
 
     if ( isdefined( self.stopignoretime ) )
         wait(self.stopignoretime);
@@ -429,7 +429,7 @@ ai_ignoreme_think2()
         }
     }
 
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
 }
 
 friendly_main()
@@ -507,11 +507,11 @@ friendly_spawner_think()
 
     level.friendly_globals.cur_num++;
 
-    if ( isdefined( self.script_parentname ) )
+    if ( isdefined( self.script_noteworthy ) )
     {
-        if ( self.script_parentname == "repel_friendlies" )
+        if ( self.script_noteworthy == "repel_friendlies" )
         {
-            var_1 = common_scripts\utility::_id_40FB( self.teambalanced, "target" );
+            var_1 = common_scripts\utility::_id_40FB( self.targetname, "target" );
             var_0 thread friendly_repel_spawner_think( var_1 );
         }
     }
@@ -568,7 +568,7 @@ friendly_force_spawner_think( var_0 )
 
 friendly_trigger_think()
 {
-    self.spawner_array = getentarray( self.teambalanced, "target" );
+    self.spawner_array = getentarray( self.targetname, "target" );
     self.spawner_index = 0;
 
     for ( var_0 = 0; var_0 < self.spawner_array.size; var_0++ )
@@ -590,7 +590,7 @@ friendly_trigger_think()
             }
         }
 
-        if ( isdefined( self.spawner_array[var_0].script_parentname ) && self.spawner_array[var_0].script_parentname == "repel_friendlies" )
+        if ( isdefined( self.spawner_array[var_0].script_noteworthy ) && self.spawner_array[var_0].script_noteworthy == "repel_friendlies" )
             friendly_repel_animload();
     }
 
@@ -651,20 +651,20 @@ interactive_precachefx()
     if ( !self.size )
         return;
 
-    if ( self[0].teambalanced == "crate_breakable" )
+    if ( self[0].targetname == "crate_breakable" )
     {
         level._effect["exp_crate1"] = loadfx( "props/crateExp_dust" );
         level._effect["exp_crate2"] = loadfx( "props/crateExp_ammo" );
         return;
     }
 
-    if ( self[0].teambalanced == "wall_breakable" )
+    if ( self[0].targetname == "wall_breakable" )
     {
         level._effect["exp_wall"] = loadfx( "props/wallExp_concrete" );
         return;
     }
 
-    if ( self[0].teambalanced == "fence_shootable" )
+    if ( self[0].targetname == "fence_shootable" )
     {
         level._effect["fence"] = loadfx( "impacts/small_metalhit_1" );
         return;
@@ -692,16 +692,16 @@ interactive_wallthink()
     var_0 = undefined;
     var_1 = undefined;
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_1 = getent( self._not_team, "targetname" );
+        var_1 = getent( self.target, "targetname" );
 
-        if ( isdefined( var_1.script_parentname ) && var_1.script_parentname == "doorframe" )
+        if ( isdefined( var_1.script_noteworthy ) && var_1.script_noteworthy == "doorframe" )
         {
             var_2 = self getorigin();
             var_3 = undefined;
 
-            if ( distance( var_2, var_1.origin ) < var_1.rank )
+            if ( distance( var_2, var_1.origin ) < var_1.radius )
                 var_3 = var_1.origin;
             else
             {
@@ -718,12 +718,12 @@ interactive_wallthink()
             var_0 = vectorfromlinetopoint( var_5, var_6, var_2 );
         }
 
-        if ( isdefined( var_1.script_parentname ) && var_1.script_parentname == "windowframe" )
+        if ( isdefined( var_1.script_noteworthy ) && var_1.script_noteworthy == "windowframe" )
         {
             var_2 = self getorigin();
             var_3 = undefined;
 
-            if ( distance( var_2, var_1.origin ) < var_1.rank )
+            if ( distance( var_2, var_1.origin ) < var_1.radius )
                 var_3 = var_1.origin;
             else
             {
@@ -794,9 +794,9 @@ interactive_cratethink()
 {
     self setcandamage( 1 );
 
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        self.debri = getent( self._not_team, "targetname" );
+        self.debri = getent( self.target, "targetname" );
         self.debri hide();
     }
 
@@ -855,8 +855,8 @@ auto_save_think()
 {
     self waittill( "trigger" );
 
-    if ( isdefined( self.script_parentname ) )
-        maps\_utility::_id_1143( self.script_parentname );
+    if ( isdefined( self.script_noteworthy ) )
+        maps\_utility::_id_1143( self.script_noteworthy );
     else
         maps\_utility::_id_1143( "default" );
 }
@@ -865,15 +865,15 @@ wall_breach_think()
 {
     var_0 = spawnstruct();
     var_0.on = self;
-    var_0.off = getent( var_0.on._not_team, "targetname" );
-    var_0.obj_glow = getentarray( var_0.off._not_team, "targetname" );
-    var_0.obj_mdl = getentarray( var_0.obj_glow[0]._not_team, "targetname" );
-    var_0.use_trig = getentarray( var_0.obj_mdl[0]._not_team, "targetname" );
-    var_0.whole = getent( var_0.use_trig[0]._not_team, "targetname" );
-    var_0._id_1819 = getent( var_0.whole._not_team, "targetname" );
+    var_0.off = getent( var_0.on.target, "targetname" );
+    var_0.obj_glow = getentarray( var_0.off.target, "targetname" );
+    var_0.obj_mdl = getentarray( var_0.obj_glow[0].target, "targetname" );
+    var_0.use_trig = getentarray( var_0.obj_mdl[0].target, "targetname" );
+    var_0.whole = getent( var_0.use_trig[0].target, "targetname" );
+    var_0._id_1819 = getent( var_0.whole.target, "targetname" );
 
-    if ( isdefined( var_0._id_1819._not_team ) )
-        var_0.chain = getent( var_0._id_1819._not_team, "targetname" );
+    if ( isdefined( var_0._id_1819.target ) )
+        var_0.chain = getent( var_0._id_1819.target, "targetname" );
 
     var_0.obj_glow[0] hide();
     var_0.obj_glow[1] hide();
@@ -881,7 +881,7 @@ wall_breach_think()
     var_0.obj_mdl[1] hide();
     var_0._id_1819 hide();
     var_0.whole disconnectpaths();
-    var_0.use_trig[0].titleunlocked = 4;
+    var_0.use_trig[0].time = 4;
     var_0.use_trig[0] sethintstring( level._id_8F58["hint_detpack"] );
     var_0.use_trig[1] sethintstring( level._id_8F58["hint_detpack"] );
     var_0 endon( "used" );
@@ -916,17 +916,17 @@ wall_breach_think2()
         self.whole delete();
         self._id_1819 show();
 
-        if ( self._id_1819.specialgrenade & 1 )
+        if ( self._id_1819.spawnflags & 1 )
             self._id_1819 disconnectpaths();
 
         return;
     }
 
     self.obj_mdl[0] playloopsound( "bomb_tick" );
-    var_0 = maps\_utility::_id_3E75( 60, self.use_trig[0].titleunlocked );
-    wait(self.use_trig[0].titleunlocked * 0.5);
+    var_0 = maps\_utility::_id_3E75( 60, self.use_trig[0].time );
+    wait(self.use_trig[0].time * 0.5);
     thread common_scripts\utility::_id_69C2( level.level_name + "_ge1_fireinhole", self.on getorigin() );
-    wait(self.use_trig[0].titleunlocked * 0.5);
+    wait(self.use_trig[0].time * 0.5);
     self.obj_mdl[0] stoploopsound( "bomb_tick" );
     var_0 destroy();
     playfx( level._effect["exp_breach"], self.obj_mdl[0].origin );
@@ -938,7 +938,7 @@ wall_breach_think2()
     self.obj_mdl[1] delete();
     self._id_1819 show();
 
-    if ( self._id_1819.specialgrenade & 1 )
+    if ( self._id_1819.spawnflags & 1 )
         self._id_1819 disconnectpaths();
 
     self.on delete();

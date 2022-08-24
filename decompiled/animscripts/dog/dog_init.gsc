@@ -25,12 +25,12 @@ main()
     self useanimtree( #animtree );
     _id_4DAB();
     animscripts\init::_id_381E();
-    self.index = 1;
-    self.nextreadblackops2 = 0;
+    self.ignoresuppression = 1;
+    self.newenemyreactiondistsq = 0;
     self._id_1CA5 = 0;
-    self.noncombat = 1;
+    self.nododgemove = 1;
     self._id_75DF = %root;
-    self.micro_dlc_bits_next_gen = 0;
+    self.meleeattackdist = 0;
     thread _id_7FA9();
     self.a = spawnstruct();
     self.a._id_6E5A = "stand";
@@ -39,13 +39,13 @@ main()
     animscripts\init::_id_7DBE();
     self._id_8FEC = 1;
     self._id_2AF3 = 0;
-    self.streaktype = anim._id_2CDE;
-    self.veh_boatbounce = 0;
-    self.turret_not_on_target = 0.2;
+    self.stopanimdistsq = anim._id_2CDE;
+    self.usechokepoints = 0;
+    self.turnrate = 0.2;
     thread animscripts\combat_utility::_id_5E5E();
-    self.pathlookaheaddist = 512;
+    self.pathenemyfightdist = 512;
     self _meth_8174( "dog" );
-    self.helmet = int( anim._id_2CA4 * self.helmet );
+    self.health = int( anim._id_2CA4 * self.health );
 }
 
 _id_7FA9()
@@ -55,9 +55,9 @@ _id_7FA9()
     for (;;)
     {
         if ( isdefined( self.enemy ) && isplayer( self.enemy ) )
-            self.micro_dlc_bits_next_gen = anim._id_2CC3;
+            self.meleeattackdist = anim._id_2CC3;
         else
-            self.micro_dlc_bits_next_gen = anim._id_2CC1;
+            self.meleeattackdist = anim._id_2CC1;
 
         self waittill( "enemy" );
     }

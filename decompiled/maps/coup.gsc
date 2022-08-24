@@ -35,7 +35,7 @@ dead_script()
 
 player_start()
 {
-    level.playercardbackground setorigin( ( 48.0, -618.0, 0.0 ) );
+    level.player setorigin( ( 48.0, -618.0, 0.0 ) );
 }
 
 main()
@@ -113,12 +113,12 @@ main()
     maps\_utility::_id_1332( "allies" );
     maps\_utility::_id_1332( "axis" );
     maps\_utility::_id_1332( "neutral" );
-    level.playercardbackground allowcrouch( 0 );
-    level.playercardbackground allowprone( 0 );
-    level.playercardbackground takeallweapons();
-    level.playercardbackground.ignoretriggers = 1;
-    level.playercardbackground enableinvulnerability();
-    level.playercardbackground allowlean( 0 );
+    level.player allowcrouch( 0 );
+    level.player allowprone( 0 );
+    level.player takeallweapons();
+    level.player.ignoreme = 1;
+    level.player enableinvulnerability();
+    level.player allowlean( 0 );
     level.playerview = maps\_utility::_id_88D1( "playerview" );
     level.handsrope = maps\_utility::_id_88D1( "rope_hands" );
     level.handsrope hide();
@@ -169,8 +169,8 @@ starttrashstumble()
 {
     soundscripts\_snd::_id_870C( "start_trashstumble_checkpoint" );
     var_0 = getent( "start_trashstumble", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     thread execdrive( 0.32 );
     common_scripts\utility::_id_383F( "drive" );
 }
@@ -186,8 +186,8 @@ startalley()
 {
     soundscripts\_snd::_id_870C( "start_alley_checkpoint" );
     var_0 = getent( "start_alley", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     thread execdrive( 0.55 );
     common_scripts\utility::_id_383F( "drive" );
 }
@@ -196,8 +196,8 @@ startshore()
 {
     soundscripts\_snd::_id_870C( "start_shore_checkpoint" );
     var_0 = getent( "start_shore", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     thread execdrive( 0.8 );
     common_scripts\utility::_id_383F( "drive" );
 }
@@ -206,8 +206,8 @@ startcarexit()
 {
     soundscripts\_snd::_id_870C( "start_carexit_checkpoint" );
     var_0 = getent( "start_carexit", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     thread execdrive( 0.88 );
     common_scripts\utility::_id_383F( "drive" );
 }
@@ -216,8 +216,8 @@ startending()
 {
     soundscripts\_snd::_id_870C( "start_ending_checkpoint" );
     var_0 = getent( "start_ending", "targetname" );
-    level.playercardbackground setorigin( var_0.origin );
-    level.playercardbackground setplayerangles( var_0.angles );
+    level.player setorigin( var_0.origin );
+    level.player setplayerangles( var_0.angles );
     thread execending();
 }
 
@@ -304,7 +304,7 @@ execintro()
     var_6 thread start_dog();
     var_0 maps\_anim::_id_0BC7( level.playerview, "intro" );
     var_0 thread maps\_anim::_id_0BC7( level.car, "intro" );
-    level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1 );
+    level.player playerlinktodelta( level.playerview, "tag_player", 1 );
     thread h1_couplerpviewangles( "intro" );
     var_0 thread maps\_anim::_id_0C24( var_2, "intro_rightguard" );
     var_0 thread maps\_anim::_id_0C24( var_1, "intro_leftguard" );
@@ -429,7 +429,7 @@ h1_couplerpviewangles( var_0 )
 
     if ( var_0 != "car_ride" )
     {
-        level.playercardbackground lerpviewangleclamp( var_1, 0, 0, var_3, var_2, var_4, var_5 );
+        level.player lerpviewangleclamp( var_1, 0, 0, var_3, var_2, var_4, var_5 );
         wait(var_1);
     }
 }
@@ -457,7 +457,7 @@ h1_couplerpviewangles_carridelogic()
         var_13 = level.car gettagorigin( "tag_wheel_back_left" );
         var_2 = var_12 - var_13;
         var_2 = vectornormalize( var_2 );
-        var_3 = level.playercardbackground getplayerangles();
+        var_3 = level.player getplayerangles();
         var_3 = anglestoforward( var_3 );
         var_3 = vectornormalize( var_3 );
         var_14 = atan2( var_3[1], var_3[0] ) - atan2( var_2[1], var_2[0] );
@@ -465,36 +465,36 @@ h1_couplerpviewangles_carridelogic()
         var_14 = abs( var_14 );
         var_15 = cos( var_14 / var_10 * 180 );
         var_16 = ( var_15 / 2 + 0.5 ) * var_11 + var_8;
-        level.playercardbackground lerpviewangleclamp( var_4, 0, 0, var_5, var_6, var_7, var_16 );
+        level.player lerpviewangleclamp( var_4, 0, 0, var_5, var_6, var_7, var_16 );
         wait(var_1);
     }
 }
 
 coupintro_depthoffield()
 {
-    level.playercardbackground _meth_84a7( 6.0, 110, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a7( 6.0, 110, 9.0, 9.0 );
+    level.player _meth_84a5();
     setsaveddvar( "r_mbenable", 2 );
     wait 15.5;
     thread h1_couplerpviewangles( "pushed_inside" );
-    level.playercardbackground _meth_84a7( 6.0, 110, 1.0, 1.0 );
+    level.player _meth_84a7( 6.0, 110, 1.0, 1.0 );
     wait 4.0;
     wait 0.65;
-    level.playercardbackground _meth_84a7( 3.0, 4, 2.0, 2.0 );
+    level.player _meth_84a7( 3.0, 4, 2.0, 2.0 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 6.0, 110, 3.0, 3.0 );
+    level.player _meth_84a7( 6.0, 110, 3.0, 3.0 );
     wait 1.35;
-    level.playercardbackground _meth_84a7( 4.0, 70, 1.0, 1.0 );
+    level.player _meth_84a7( 4.0, 70, 1.0, 1.0 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 1.0, 110, 8.0, 8.0 );
+    level.player _meth_84a7( 1.0, 110, 8.0, 8.0 );
     wait 1.65;
-    level.playercardbackground _meth_84a7( 5.0, 80, 1.5, 1.5 );
+    level.player _meth_84a7( 5.0, 80, 1.5, 1.5 );
     h1_couplerpviewangles( "viktor_stare" );
     wait 2.0;
     setsaveddvar( "r_mbenable", 0 );
-    level.playercardbackground _meth_84a7( 5.2, 40, 1.0, 1.0 );
+    level.player _meth_84a7( 5.2, 40, 1.0, 1.0 );
     wait 3.35;
-    level.playercardbackground _meth_84a7( 5.5, 110, 1.0, 1.0 );
+    level.player _meth_84a7( 5.5, 110, 1.0, 1.0 );
     h1_couplerpviewangles( "pre_car_ride" );
     wait 2.0;
     h1_drive_depthoffieldforcestart();
@@ -688,7 +688,7 @@ h1_drive_shakesandrumbleslogic( var_0 )
     var_6 = 0.07;
     var_7 = 0.12;
     var_8 = 0.17;
-    var_9 = level.playercardbackground getorigin();
+    var_9 = level.player getorigin();
 
     switch ( var_0 )
     {
@@ -794,18 +794,18 @@ h1_drive_shakesandrumbleslogic( var_0 )
     if ( var_1 == "normal" )
     {
         if ( var_5 != "" )
-            level.playercardbackground playrumbleonentity( var_5 );
+            level.player playrumbleonentity( var_5 );
 
         earthquake( var_2, var_4, var_9, 100 );
         wait(var_3);
 
         if ( var_5 == "tank_rumble" )
-            level.playercardbackground stoprumble( "tank_rumble" );
+            level.player stoprumble( "tank_rumble" );
     }
     else if ( var_1 == "fade" )
     {
         if ( var_5 != "" )
-            level.playercardbackground playrumbleonentity( var_5 );
+            level.player playrumbleonentity( var_5 );
 
         earthquake( var_2 * 0.6, var_4 / 4.0, var_9, 10000 );
         wait(var_3 / 4.0);
@@ -813,7 +813,7 @@ h1_drive_shakesandrumbleslogic( var_0 )
         wait(var_3 / 4.0);
 
         if ( var_5 == "tank_rumble" )
-            level.playercardbackground stoprumble( "tank_rumble" );
+            level.player stoprumble( "tank_rumble" );
 
         earthquake( var_2 * 0.5, var_4 / 4.0, var_9, 10000 );
         wait(var_3 / 4.0);
@@ -885,10 +885,10 @@ execdrive( var_0 )
     level.car.passenger = var_2;
     level.car._id_2E04._id_0C78 = 1;
     level.car.passenger._id_0C78 = 1;
-    level.car.passenger.headshots = spawn( "script_origin", level.car.passenger.origin + ( 20.0, 5.0, 50.0 ) );
+    level.car.passenger.head = spawn( "script_origin", level.car.passenger.origin + ( 20.0, 5.0, 50.0 ) );
     level.car.passenger.body = spawn( "script_origin", level.car.passenger.origin + ( 25.0, 12.0, 25.0 ) );
     level.car.passenger._id_67ED = spawn( "script_origin", level.car.passenger.origin + ( 22.0, 15.0, 35.0 ) );
-    level.car.passenger.headshots linkto( level.car.passenger );
+    level.car.passenger.head linkto( level.car.passenger );
     level.car.passenger.body linkto( level.car.passenger );
     level.car.passenger._id_67ED linkto( level.car.passenger );
     level.car.playerview = level.playerview;
@@ -912,7 +912,7 @@ execdrive( var_0 )
 
     level.car thread maps\_anim::_id_0C24( level.car._id_2E04, "cardriver_fulldrive" );
     level.car thread maps\_anim::_id_0C24( level.car.passenger, "carpassenger_fulldrive" );
-    level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1, 85, 85, 5, 5, 1 );
+    level.player playerlinktodelta( level.playerview, "tag_player", 1, 85, 85, 5, 5, 1 );
     thread h1_couplerpviewangles( "car_ride" );
 
     if ( isdefined( var_0 ) )
@@ -937,8 +937,8 @@ execdrive( var_0 )
 
 h1_drive_depthoffieldforcestart()
 {
-    level.playercardbackground _meth_84a7( 14.0, 50, 1.0, 1.0 );
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a7( 14.0, 50, 1.0, 1.0 );
+    level.player _meth_84a5();
 }
 
 execcarexit()
@@ -978,25 +978,25 @@ execcarexit()
     level.car._id_2E04 maps\_utility::_id_0C3D();
     level.car.passenger maps\_utility::_id_0C3D();
     var_5 = newhudelem();
-    var_5.xpmaxmultipliertimeplayed = 0;
-    var_5._id_0538 = 0;
+    var_5.x = 0;
+    var_5.y = 0;
     var_5 setshader( "black", 640, 480 );
     var_5.alignx = "left";
     var_5.aligny = "top";
-    var_5.hostquits = "fullscreen";
-    var_5.visionsetnight = "fullscreen";
+    var_5.horzalign = "fullscreen";
+    var_5.vertalign = "fullscreen";
     var_5.alpha = 0;
-    var_5.space = 1;
+    var_5.sort = 1;
     stopcinematicingame();
     setsaveddvar( "cg_cinematicFullScreen", level.cinematicvar );
     thread maps\coup_code::pulsefadevision( 26.95, 0 );
     soundscripts\_snd::_id_870C( "aud_exterior_to_bunker" );
     maps\_utility::_id_27EF( 28.5, soundscripts\_snd::_id_870C, "aud_bunker_to_exterior" );
-    level.playercardbackground shellshock( "coup_blackout1", 8 );
+    level.player shellshock( "coup_blackout1", 8 );
     thread music_end();
     var_5 maps\coup_code::_id_148C( 1, 6 );
     var_6 = getent( "deleteai_special", "script_noteworthy" );
-    var_6.origin = level.playercardbackground.origin;
+    var_6.origin = level.player.origin;
     wait 2;
     level notify( "handsrope_deleted" );
     level.handsrope delete();
@@ -1010,17 +1010,17 @@ execcarexit()
     var_1._id_0C72 = "human";
     var_0 maps\_anim::_id_0BC7( level.playerview, "intro" );
     var_7 = level.playerview gettagangles( "tag_player" );
-    level.playercardbackground setplayerangles( var_7 );
-    level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1 );
+    level.player setplayerangles( var_7 );
+    level.player playerlinktodelta( level.playerview, "tag_player", 1 );
     thread h1_couplerpviewangles( "corridors1" );
     var_0 thread maps\_anim::_id_0C24( var_2, "intro_rightguard" );
     var_0 thread maps\_anim::_id_0C24( var_1, "intro_leftguard" );
     var_0 thread maps\_anim::_id_0C24( level.playerview, "intro" );
-    level.dragsound = level.playercardbackground thread maps\coup_code::playlinkedsound( "scn_coup_drag_to_post" );
+    level.dragsound = level.player thread maps\coup_code::playlinkedsound( "scn_coup_drag_to_post" );
     level notify( "continue_credits" );
     var_5 maps\coup_code::_id_74B2( 5, 2.5 );
     wait 5;
-    level.playercardbackground shellshock( "coup_blackout2", 8 );
+    level.player shellshock( "coup_blackout2", 8 );
     var_5 maps\coup_code::_id_148C( 1, 6 );
     wait 2;
     var_8 = maps\coup_code::scripted_array_spawn( "ending_idleguards", "targetname", 1 );
@@ -1060,10 +1060,10 @@ execcarexit()
     var_0 thread maps\_anim::_id_0C24( var_2, "intro_rightguard" );
     var_0 thread maps\_anim::_id_0C24( var_1, "intro_leftguard" );
     var_0 thread maps\_anim::_id_0C24( level.playerview, "intro" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_walla_stadium" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_walla_stadium" );
     var_5 maps\coup_code::_id_74B2( 5, 2.5 );
     wait 5;
-    level.playercardbackground shellshock( "coup_blackout3", 8 );
+    level.player shellshock( "coup_blackout3", 8 );
     var_5 maps\coup_code::_id_148C( 1, 6 );
     wait 2;
     thread execending();
@@ -1076,38 +1076,38 @@ execcarexit()
 
 h1_grabbedfromcar_depthoffield()
 {
-    level.playercardbackground _meth_84a7( 10.0, 110, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 10.0, 110, 0.5, 0.5 );
+    level.player _meth_84a7( 10.0, 110, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 10.0, 110, 0.5, 0.5 );
     wait 3.15;
-    level.playercardbackground _meth_84a7( 2.5, 250, 2.0, 2.0 );
+    level.player _meth_84a7( 2.5, 250, 2.0, 2.0 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 2.5, 70, 1.0, 1.0 );
+    level.player _meth_84a7( 2.5, 70, 1.0, 1.0 );
     wait 1.5;
-    level.playercardbackground _meth_84a7( 3.5, 15, 0.8, 0.8 );
+    level.player _meth_84a7( 3.5, 15, 0.8, 0.8 );
     wait 1.3;
-    level.playercardbackground _meth_84a7( 3.0, 70, 1.5, 1.5 );
+    level.player _meth_84a7( 3.0, 70, 1.5, 1.5 );
     wait 1.35;
-    level.playercardbackground _meth_84a7( 3.2, 50, 1.5, 1.5 );
+    level.player _meth_84a7( 3.2, 50, 1.5, 1.5 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 1.0, 3000, 3.0, 3.0 );
+    level.player _meth_84a7( 1.0, 3000, 3.0, 3.0 );
     wait 0.6;
-    level.playercardbackground _meth_84a7( 2.5, 120, 1.5, 1.5 );
+    level.player _meth_84a7( 2.5, 120, 1.5, 1.5 );
     wait 1.5;
-    level.playercardbackground _meth_84a7( 3.0, 60, 1.5, 1.5 );
+    level.player _meth_84a7( 3.0, 60, 1.5, 1.5 );
     common_scripts\_exploder::_id_3528( "0221" );
     wait 0.65;
-    level.playercardbackground _meth_84a7( 3.2, 50, 1.5, 1.5 );
+    level.player _meth_84a7( 3.2, 50, 1.5, 1.5 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 4.0, 28, 4.0, 4.0 );
+    level.player _meth_84a7( 4.0, 28, 4.0, 4.0 );
     thread h1_kickinface_fadeout();
     wait 0.35;
     level.oldnearclip2 = getdvar( "r_znear" );
     setsaveddvar( "r_znear", 0.01 );
-    level.playercardbackground _meth_84a7( 4.5, 10, 4.0, 4.0 );
+    level.player _meth_84a7( 4.5, 10, 4.0, 4.0 );
     wait 0.35;
     wait 2.0;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 
     if ( isdefined( level.oldnearclip2 ) )
     {
@@ -1120,15 +1120,15 @@ h1_kickinface_fadeout()
 {
     wait 0.3;
     var_0 = newhudelem();
-    var_0.xpmaxmultipliertimeplayed = 0;
-    var_0._id_0538 = 0;
+    var_0.x = 0;
+    var_0.y = 0;
     var_0 setshader( "black", 640, 480 );
     var_0.alignx = "left";
     var_0.aligny = "top";
-    var_0.hostquits = "fullscreen";
-    var_0.visionsetnight = "fullscreen";
+    var_0.horzalign = "fullscreen";
+    var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
-    var_0.space = 1;
+    var_0.sort = 1;
     var_0.foreground = 1;
     var_0 fadeovertime( 0.2 );
     var_0.alpha = 1;
@@ -1140,12 +1140,12 @@ h1_draggingcorridors_depthoffield()
 {
     setsaveddvar( "r_mbenable", 2 );
     setomnvar( "ui_consciousness_init", 1 );
-    level.playercardbackground _meth_84a7( 10.0, 110, 9.0, 9.0 );
-    level.playercardbackground _meth_84a5();
+    level.player _meth_84a7( 10.0, 110, 9.0, 9.0 );
+    level.player _meth_84a5();
     wait 19.0;
     thread h1_couplerpviewangles( "corridors_zak" );
     wait 5.0;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
 }
 
 first_frame_delay_anim( var_0, var_1, var_2 )
@@ -1178,20 +1178,20 @@ execending()
     var_5 = maps\coup_code::scripted_spawn2( "ending_rightguard", "targetname", 1 );
     var_5._id_0C72 = "human";
     var_0 maps\_anim::_id_0BC7( level.playerview, "ending" );
-    level.playercardbackground unlink();
+    level.player unlink();
     var_6 = level.playerview gettagorigin( "tag_player" );
-    level.playercardbackground setorigin( var_6 );
-    level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1 );
+    level.player setorigin( var_6 );
+    level.player playerlinktodelta( level.playerview, "tag_player", 1 );
     thread h1_couplerpviewangles( "meet_zak" );
     level.dragsound delete();
     var_2 detach( "weapon_desert_eagle_silver_HR_promo", "tag_inhand" );
     var_0 thread maps\_anim::_id_0C24( var_2, "endtaunt" );
     var_0 maps\_anim::_id_0C24( level.playerview, "endtaunt" );
-    level.playercardbackground unlink();
-    level.playercardbackground playerlinktodelta( level.playerview, "tag_player", 1, 0, 0, 0, 0 );
+    level.player unlink();
+    level.player playerlinktodelta( level.playerview, "tag_player", 1, 0, 0, 0, 0 );
     thread h1_couplerpviewangles( "dragged_post" );
     setsaveddvar( "sm_sunSampleSizeNear", "0.25" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_drag_to_post_part2" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_drag_to_post_part2" );
     var_0 thread maps\_anim::_id_0C24( level.playerview, "ending" );
     var_0 thread maps\_anim::_id_0C24( var_4, "ending_leftguard" );
     var_0 thread maps\_anim::_id_0C24( var_5, "ending_rightguard" );
@@ -1212,52 +1212,52 @@ execending()
 
 h1_ending_dof()
 {
-    level.playercardbackground _meth_84a5();
-    level.playercardbackground _meth_84a7( 4.0, 50, 9.0, 9.0 );
+    level.player _meth_84a5();
+    level.player _meth_84a7( 4.0, 50, 9.0, 9.0 );
     wait 2.1666;
-    level.playercardbackground _meth_84a7( 12, 14, 9.0, 9.0 );
+    level.player _meth_84a7( 12, 14, 9.0, 9.0 );
     wait 0.6666;
     wait 2.5;
-    level.playercardbackground _meth_84a7( 8.0, 50, 4.0, 4.0 );
+    level.player _meth_84a7( 8.0, 50, 4.0, 4.0 );
     wait 0.8334;
     wait 1.8334;
-    level.playercardbackground _meth_84a7( 1.4, 600, 2.0, 2.0 );
+    level.player _meth_84a7( 1.4, 600, 2.0, 2.0 );
     wait 1.6666;
     wait 2.0;
-    level.playercardbackground _meth_84a7( 1.4, 180, 2.0, 2.0 );
+    level.player _meth_84a7( 1.4, 180, 2.0, 2.0 );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 1.4, 76, 0.8, 0.8 );
+    level.player _meth_84a7( 1.4, 76, 0.8, 0.8 );
     thread h1_couplerpviewangles( "turned_post" );
     wait 1.6666;
     wait 1.0;
-    level.playercardbackground _meth_84a7( 5.0, 30, 2.0, 2.0 );
+    level.player _meth_84a7( 5.0, 30, 2.0, 2.0 );
     wait 2.3334;
     wait 1.0;
-    level.playercardbackground _meth_84a7( 0.7, 200, 3.0, 1.0 );
+    level.player _meth_84a7( 0.7, 200, 3.0, 1.0 );
     thread h1_couplerpviewangles( "gun_exchange" );
     wait 1.5;
     wait 0.8334;
-    level.playercardbackground _meth_84a7( 0.55, 256, 2.0, 2.0 );
+    level.player _meth_84a7( 0.55, 256, 2.0, 2.0 );
     wait 1.8334;
     wait 3.0;
-    level.playercardbackground _meth_84a7( 0.7, 200, 3.0, 3.0 );
+    level.player _meth_84a7( 0.7, 200, 3.0, 3.0 );
     wait 1.5;
     wait 3.3334;
-    level.playercardbackground _meth_84a7( 5.0, 136, 1.0, 1.0 );
+    level.player _meth_84a7( 5.0, 136, 1.0, 1.0 );
     thread h1_couplerpviewangles( "alasad_shoot" );
     wait 1.0;
-    level.playercardbackground _meth_84a7( 4.5, 69, 1.0, 1.0 );
+    level.player _meth_84a7( 4.5, 69, 1.0, 1.0 );
     wait 1.5;
-    level.playercardbackground _meth_84a7( 4.0, 52, 6.0, 6.0 );
+    level.player _meth_84a7( 4.0, 52, 6.0, 6.0 );
     wait 0.65;
-    level.playercardbackground _meth_84a7( 5.0, 8.1, 3.5, 3.5 );
+    level.player _meth_84a7( 5.0, 8.1, 3.5, 3.5 );
     wait 0.85;
-    level.playercardbackground _meth_84a7( 5.2, 12, 5.0, 5.0 );
+    level.player _meth_84a7( 5.2, 12, 5.0, 5.0 );
     wait 0.35;
-    level.playercardbackground _meth_84a7( 5.5, 10, 3.0, 3.0 );
+    level.player _meth_84a7( 5.5, 10, 3.0, 3.0 );
     wait 0.85;
     wait 1.0;
-    level.playercardbackground _meth_84a6();
+    level.player _meth_84a6();
     setsaveddvar( "r_mbenable", 0 );
 }
 
@@ -1268,7 +1268,7 @@ intro_scuffle()
 
 intro_doors()
 {
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_intro_door" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_intro_door" );
     var_0 = getent( "intro_leftdoor", "targetname" );
     var_0.origin = ( -15.0, -510.0, 70.0 );
     var_0.angles += ( 0.0, 180.0, 0.0 );
@@ -1277,21 +1277,21 @@ intro_doors()
     var_1.angles += ( 0.0, 180.0, 0.0 );
     setsaveddvar( "r_glow_allowed_script_forced", 1 );
     var_2 = newhudelem();
-    var_2.xpmaxmultipliertimeplayed = 0;
-    var_2._id_0538 = 0;
+    var_2.x = 0;
+    var_2.y = 0;
     var_2 setshader( "black", 640, 480 );
     var_2.alignx = "left";
     var_2.aligny = "top";
-    var_2.hostquits = "fullscreen";
-    var_2.visionsetnight = "fullscreen";
+    var_2.horzalign = "fullscreen";
+    var_2.vertalign = "fullscreen";
     var_2.alpha = 1;
-    var_2.space = 1;
+    var_2.sort = 1;
     var_2.foreground = 1;
-    level.playercardbackground freezecontrols( 1 );
+    level.player freezecontrols( 1 );
     common_scripts\utility::_id_384A( "doors_open" );
-    level.playercardbackground freezecontrols( 0 );
-    level.playercardbackground playrumbleonentity( "grenade_rumble" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_drag_to_car" );
+    level.player freezecontrols( 0 );
+    level.player playrumbleonentity( "grenade_rumble" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_drag_to_car" );
     maps\_utility::_id_7F00( "coup_sunblind", 0.2 );
     var_2 fadeovertime( 0.5 );
     var_2.alpha = 0;
@@ -1303,16 +1303,16 @@ intro_doors()
 
 intro_speech()
 {
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_onenation_timing, maps\coup_code::playspeech, "coup_kaa_onenation", "Today, we rise again as one nation, in the face of betrayal and corruption!!!" );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_newera_timing, maps\coup_code::playspeech, "coup_kaa_newera", "We all trusted this man to deliver our great nation into a new era of prosperity..." );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_selfinterest_timing, maps\coup_code::playspeech, "coup_kaa_selfinterest", "...But like our monarchy before the Revolution, he has been colluding with the West with only self interest at heart!" );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_notenslaved_timing, maps\coup_code::playspeech, "coup_kaa_notenslaved", "Collusion breeds slavery!! And we shall not be enslaved!!!" );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_donotfear_timing, maps\coup_code::playspeech, "coup_kaa_donotfear", "The time has come to show our true strength. They underestimate our resolve. Let us show that we do not fear them." );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_freefromyoke_timing, maps\coup_code::playspeech, "coup_kaa_freefromyoke", "As one people, we shall free our brethren from the yoke of foreign oppression!" );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_armiesstrong_timing, maps\coup_code::playspeech, "coup_kaa_armiesstrong", "Our armies are strong, and our cause is just." );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_greatnation_timing, maps\coup_code::playspeech, "coup_kaa_greatnation", "As I speak, our armies are nearing their objectives, by which we will restore the independence of a once great nation." );
-    level.playercardbackground maps\_utility::_id_27EF( level.coup_kaa_begun_timing, maps\coup_code::playspeech, "coup_kaa_begun", "Our noble crusade has begun." );
-    level.playercardbackground maps\_utility::_id_27EF( 154, ::setmusic_p3_flag );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_onenation_timing, maps\coup_code::playspeech, "coup_kaa_onenation", "Today, we rise again as one nation, in the face of betrayal and corruption!!!" );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_newera_timing, maps\coup_code::playspeech, "coup_kaa_newera", "We all trusted this man to deliver our great nation into a new era of prosperity..." );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_selfinterest_timing, maps\coup_code::playspeech, "coup_kaa_selfinterest", "...But like our monarchy before the Revolution, he has been colluding with the West with only self interest at heart!" );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_notenslaved_timing, maps\coup_code::playspeech, "coup_kaa_notenslaved", "Collusion breeds slavery!! And we shall not be enslaved!!!" );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_donotfear_timing, maps\coup_code::playspeech, "coup_kaa_donotfear", "The time has come to show our true strength. They underestimate our resolve. Let us show that we do not fear them." );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_freefromyoke_timing, maps\coup_code::playspeech, "coup_kaa_freefromyoke", "As one people, we shall free our brethren from the yoke of foreign oppression!" );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_armiesstrong_timing, maps\coup_code::playspeech, "coup_kaa_armiesstrong", "Our armies are strong, and our cause is just." );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_greatnation_timing, maps\coup_code::playspeech, "coup_kaa_greatnation", "As I speak, our armies are nearing their objectives, by which we will restore the independence of a once great nation." );
+    level.player maps\_utility::_id_27EF( level.coup_kaa_begun_timing, maps\coup_code::playspeech, "coup_kaa_begun", "Our noble crusade has begun." );
+    level.player maps\_utility::_id_27EF( 154, ::setmusic_p3_flag );
 }
 
 setmusic_p3_flag()
@@ -1441,12 +1441,12 @@ drive_runners1()
 
 ignore( var_0 )
 {
-    self.ignoretriggers = 1;
+    self.ignoreme = 1;
     self.a._id_2B20 = 1;
     self.allowpain = 0;
     thread maps\_utility::_id_58D7();
     wait(var_0);
-    self.ignoretriggers = 0;
+    self.ignoreme = 0;
     self.a._id_2B20 = 0;
     self.allowpain = 1;
     maps\_utility::_id_8EA4();
@@ -1592,7 +1592,7 @@ drive_spraypaint1()
     var_1 = maps\coup_code::scripted_spawn2( "spraypaint1_civilian", "targetname", 1 );
     var_1._id_0C72 = "human";
     var_1._id_2B0E = 1;
-    var_1.ignoretriggers = 1;
+    var_1.ignoreme = 1;
     var_1 attach( "com_spray_can01", "tag_inhand" );
     var_2[0] = "run_panicked1";
     var_2[1] = "run_panicked2";
@@ -1845,7 +1845,7 @@ drive_welcoming_guards()
     common_scripts\utility::_id_384A( "welcoming_soldier" );
     var_0 thread maps\_anim::_id_0BE1( var_0, "crowdmember_soldier_welcome_4", undefined, "stop_loop" );
 
-    while ( distance2dsquared( var_0.origin, level.playercardbackground.origin ) > 19600 )
+    while ( distance2dsquared( var_0.origin, level.player.origin ) > 19600 )
         wait 0.1;
 
     wait 0.2;
@@ -1871,7 +1871,7 @@ drive_firingsquad()
     {
         var_1[var_4] maps\_utility::_id_08EB();
         var_1[var_4]._id_0C72 = "human";
-        var_5 = getnode( var_1[var_4]._not_team, "targetname" );
+        var_5 = getnode( var_1[var_4].target, "targetname" );
         var_1[var_4] _meth_81a9( var_5 );
         var_1[var_4].ignoreweaponintracksuitmode = 1;
     }
@@ -2003,7 +2003,7 @@ dumpsterhide( var_0, var_1, var_2 )
 drive_arrivewalla()
 {
     common_scripts\utility::_id_384A( "drive_arrivewalla" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_walla_arrive" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_walla_arrive" );
 }
 
 carjack( var_0, var_1, var_2 )
@@ -2060,7 +2060,7 @@ fenceclimb( var_0, var_1, var_2 )
 
     var_3 maps\_anim::_id_0BFF( var_4, "wall_climb" );
     var_3 thread maps\_anim::_id_0C24( var_4, "wall_climb" );
-    var_5 = getent( var_4._not_team, "targetname" );
+    var_5 = getent( var_4.target, "targetname" );
     var_4 thread maps\_spawner::_id_4248( var_5 );
     maps\coup_code::deleteentity( var_3 );
     var_4 thread maps\coup_code::deleteongoal();
@@ -2085,12 +2085,12 @@ passenger_event()
 {
     self waittill( "trigger" );
 
-    if ( isdefined( self.script_parentname ) && isdefined( level.passenger_events[self.script_parentname] ) )
+    if ( isdefined( self.script_noteworthy ) && isdefined( level.passenger_events[self.script_noteworthy] ) )
     {
-        if ( isdefined( level.passenger_events[self.script_parentname].animation ) )
+        if ( isdefined( level.passenger_events[self.script_noteworthy].animation ) )
         {
-            var_0 = level.passenger_events[self.script_parentname].animation._id_0C6C;
-            var_1 = level.passenger_events[self.script_parentname].animation._id_27C0;
+            var_0 = level.passenger_events[self.script_noteworthy].animation._id_0C6C;
+            var_1 = level.passenger_events[self.script_noteworthy].animation._id_27C0;
 
             if ( isdefined( var_1 ) )
                 level maps\_utility::_id_27EF( var_1, ::animthread, var_0 );
@@ -2098,10 +2098,10 @@ passenger_event()
                 thread animthread( var_0 );
         }
 
-        if ( isdefined( level.passenger_events[self.script_parentname]._id_29E7 ) )
+        if ( isdefined( level.passenger_events[self.script_noteworthy]._id_29E7 ) )
         {
-            var_2 = level.passenger_events[self.script_parentname]._id_29E7.soundalias;
-            var_3 = level.passenger_events[self.script_parentname]._id_29E7._id_27C0;
+            var_2 = level.passenger_events[self.script_noteworthy]._id_29E7.soundalias;
+            var_3 = level.passenger_events[self.script_noteworthy]._id_29E7._id_27C0;
 
             if ( isdefined( var_3 ) )
                 level maps\_utility::_id_27EF( var_3, ::dialogthread, var_2 );
@@ -2127,13 +2127,13 @@ loudspeaker_event()
 {
     self waittill( "trigger" );
 
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
-    var_0 = getent( self._not_team, "targetname" );
+    var_0 = getent( self.target, "targetname" );
 
-    if ( isdefined( var_0.script_parentname ) )
-        var_0 playsound( var_0.script_parentname );
+    if ( isdefined( var_0.script_noteworthy ) )
+        var_0 playsound( var_0.script_noteworthy );
 }
 
 crowdmember_setuptriggers()
@@ -2141,7 +2141,7 @@ crowdmember_setuptriggers()
     var_0 = common_scripts\utility::_id_3DBD();
     common_scripts\utility::_id_0CF0( var_0, ::crowdmember_triggerevent );
 
-    if ( !isdefined( self._not_team ) )
+    if ( !isdefined( self.target ) )
         return;
 
     var_1 = self._id_79B4;
@@ -2149,12 +2149,12 @@ crowdmember_setuptriggers()
     if ( !isdefined( var_1 ) )
         var_1 = 10;
 
-    var_2 = self.script_parentname;
+    var_2 = self.script_noteworthy;
 
     if ( !isdefined( var_2 ) )
         var_2 = "jeer";
 
-    var_3 = getentarray( self._not_team, "targetname" );
+    var_3 = getentarray( self.target, "targetname" );
     common_scripts\utility::_id_0D13( var_3, ::crowdmember_status, var_2, var_1 );
 }
 
@@ -2166,7 +2166,7 @@ crowdmember_triggerevent( var_0 )
     if ( !isdefined( var_1 ) )
         var_1 = 3;
 
-    var_2 = var_0.script_parentname;
+    var_2 = var_0.script_noteworthy;
 
     if ( !isdefined( var_2 ) )
         var_2 = "idle";
@@ -2196,8 +2196,8 @@ ending_speech()
 {
     var_0 = 13.25;
     var_1 = 27.6;
-    level.playercardbackground maps\_utility::_id_27EF( var_0, maps\coup_code::playalasadspeech, "coup_kaa_laywaste", "Just as they lay waste to our country, we shall lay waste to theirs." );
-    level.playercardbackground maps\_utility::_id_27EF( var_1, maps\coup_code::playalasadspeech, "coup_kaa_beginsa", "This is how it begins." );
+    level.player maps\_utility::_id_27EF( var_0, maps\coup_code::playalasadspeech, "coup_kaa_laywaste", "Just as they lay waste to our country, we shall lay waste to theirs." );
+    level.player maps\_utility::_id_27EF( var_1, maps\coup_code::playalasadspeech, "coup_kaa_beginsa", "This is how it begins." );
     maps\_utility::_id_27EF( var_0, ::subtitle, &"COUP_SUBTITLE_10", undefined, 3.8 );
     maps\_utility::_id_27EF( var_1, ::subtitle, &"COUP_SUBTITLE_11", undefined, 1.6 );
 }
@@ -2205,12 +2205,12 @@ ending_speech()
 ending_slowmo()
 {
     wait 29.0;
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_assassination_slomo_ant" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_assassination_slomo_ant" );
     wait 1.25;
     thread ending_heartbeat();
     soundscripts\_snd::_id_870C( "start_slowmo_mix" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_assassination_slomo_in" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_plr_vip_breathing_fear" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_assassination_slomo_in" );
+    level.player thread maps\_utility::_id_69C4( "scn_plr_vip_breathing_fear" );
     maps\_utility::_id_8648();
     var_0 = 3.5;
     var_1 = 1;
@@ -2227,7 +2227,7 @@ ending_slowmo()
     maps\_utility::_id_8641();
     maps\coup_code::printslowmo( "resuming normal speed" );
     soundscripts\_snd::_id_870C( "stop_slowmo_mix" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_assassination_slomo_out" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_assassination_slomo_out" );
     maps\_utility::_id_863E();
 }
 
@@ -2235,18 +2235,18 @@ ending_heartbeat()
 {
     level endon( "player_death" );
     wait 1.3;
-    level.playercardbackground thread maps\_utility::_id_69C4( "coup_breathing_heartbeat" );
-    level.playercardbackground thread maps\_utility::_id_69C4( "scn_coup_assassination_tension_rise" );
+    level.player thread maps\_utility::_id_69C4( "coup_breathing_heartbeat" );
+    level.player thread maps\_utility::_id_69C4( "scn_coup_assassination_tension_rise" );
     wait 0.05;
-    level.playercardbackground playrumbleonentity( "damage_light" );
+    level.player playrumbleonentity( "damage_light" );
     wait 0.95;
-    level.playercardbackground thread maps\_utility::_id_69C4( "coup_breathing_heartbeat" );
+    level.player thread maps\_utility::_id_69C4( "coup_breathing_heartbeat" );
     wait 0.05;
-    level.playercardbackground playrumbleonentity( "damage_light" );
+    level.player playrumbleonentity( "damage_light" );
     wait 1.1;
-    level.playercardbackground thread maps\_utility::_id_69C4( "coup_breathing_heartbeat" );
+    level.player thread maps\_utility::_id_69C4( "coup_breathing_heartbeat" );
     wait 0.05;
-    level.playercardbackground playrumbleonentity( "damage_light" );
+    level.player playrumbleonentity( "damage_light" );
 }
 
 _id_4DA6()
@@ -2381,8 +2381,8 @@ createpage( var_0, var_1, var_2 )
 {
     var_3 = spawnstruct();
     var_3.alignment = var_0;
-    var_3.xpmaxmultipliertimeplayed = var_1;
-    var_3._id_0538 = var_2;
+    var_3.x = var_1;
+    var_3.y = var_2;
     return var_3;
 }
 
@@ -2403,7 +2403,7 @@ addcredit( var_0, var_1 )
         self._id_6048 = [];
 
     var_2 = spawnstruct();
-    var_2.nearz = var_0;
+    var_2.name = var_0;
     var_2._id_2A6D = var_1;
     self._id_6048[self._id_6048.size] = var_2;
 }
@@ -2479,18 +2479,18 @@ displaypage( var_0 )
         {
             var_1[var_2] = newhudelem();
             var_1[var_2].alignx = var_0.alignment;
-            var_1[var_2].hostquits = var_0.alignment;
+            var_1[var_2].horzalign = var_0.alignment;
 
             if ( var_0.alignment == "left" )
-                var_1[var_2].xpmaxmultipliertimeplayed = var_0.xpmaxmultipliertimeplayed + var_2 * 46;
+                var_1[var_2].x = var_0.x + var_2 * 46;
             else if ( var_0.alignment == "right" )
-                var_1[var_2].xpmaxmultipliertimeplayed = var_0.xpmaxmultipliertimeplayed + var_2 * 46 - 138;
+                var_1[var_2].x = var_0.x + var_2 * 46 - 138;
 
-            var_1[var_2]._id_0538 = var_0._id_0538 + var_2 * 16;
-            var_1[var_2] settext( var_0._id_6048[var_2].nearz );
+            var_1[var_2].y = var_0.y + var_2 * 16;
+            var_1[var_2] settext( var_0._id_6048[var_2].name );
             var_1[var_2].font = "objective";
             var_1[var_2].fontscale = level.namesize;
-            var_1[var_2].space = 2;
+            var_1[var_2].sort = 2;
             var_1[var_2].color = ( 0.99, 0.97, 0.85 );
             var_1[var_2].glowcolor = ( 0.96, 0.81, 0.0 );
             var_1[var_2].glowalpha = 0.2;
@@ -2499,12 +2499,12 @@ displaypage( var_0 )
             if ( var_0._id_6048[var_2]._id_2A6D == "left" )
             {
                 var_1[var_2] moveovertime( 5 );
-                var_1[var_2].xpmaxmultipliertimeplayed -= 12;
+                var_1[var_2].x -= 12;
             }
             else if ( var_0._id_6048[var_2]._id_2A6D == "right" )
             {
                 var_1[var_2] moveovertime( 5 );
-                var_1[var_2].xpmaxmultipliertimeplayed += 12;
+                var_1[var_2].x += 12;
             }
 
             wait 0.6;
@@ -2565,7 +2565,7 @@ removedroneweapon()
 
 setweapon( var_0 )
 {
-    animscripts\shared::_id_6869( self.weapon_switch_invalid, var_0 );
+    animscripts\shared::_id_6869( self.weapon, var_0 );
 }
 
 _id_8027( var_0 )
@@ -2684,7 +2684,7 @@ ziptied( var_0, var_1 )
 {
     var_0._id_0C72 = "human";
     var_0 removedroneweapon();
-    var_2 = getent( var_0._not_team, "targetname" );
+    var_2 = getent( var_0.target, "targetname" );
     var_2 thread maps\_anim::_id_0BE1( var_0, "ziptie_civilian_idle" );
     maps\_utility::_id_27EF( var_1, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( var_1, maps\coup_code::deleteentity, var_2 );
@@ -2878,7 +2878,7 @@ removeweapon()
         {
             var_2 = self getattachmodelname( var_1 );
 
-            if ( var_2 == self.weapon_switch_invalid )
+            if ( var_2 == self.weapon )
                 self detach( var_2 );
         }
     }
@@ -2923,31 +2923,31 @@ subtitlesequence()
 subtitle( var_0, var_1, var_2, var_3 )
 {
     var_4 = newhudelem();
-    var_4.xpmaxmultipliertimeplayed = 0;
-    var_4._id_0538 = -64;
+    var_4.x = 0;
+    var_4.y = -64;
     var_4 settext( var_0 );
     var_4.font = "subtitle";
     var_4.fontscale = 1.0;
     var_4.alignx = "center";
     var_4.aligny = "middle";
-    var_4.hostquits = "center";
-    var_4.visionsetnight = "bottom";
-    var_4.space = 1;
+    var_4.horzalign = "center";
+    var_4.vertalign = "bottom";
+    var_4.sort = 1;
     var_5 = undefined;
 
     if ( isdefined( var_1 ) )
     {
         var_5 = newhudelem();
-        var_5.xpmaxmultipliertimeplayed = 0;
-        var_5._id_0538 = -50;
+        var_5.x = 0;
+        var_5.y = -50;
         var_5 settext( var_1 );
         var_5.font = "subtitle";
         var_5.fontscale = 1.0;
         var_5.alignx = "center";
         var_5.aligny = "middle";
-        var_5.hostquits = "center";
-        var_5.visionsetnight = "bottom";
-        var_5.space = 1;
+        var_5.horzalign = "center";
+        var_5.vertalign = "bottom";
+        var_5.sort = 1;
     }
 
     wait(var_2);

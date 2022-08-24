@@ -24,11 +24,11 @@ main()
     self._id_0C8E = "";
     self._id_07ED = "";
     self.team = "allies";
-    self.unlockpoints = "human";
+    self.type = "human";
     self._id_8F7D = "regular";
     self.accuracy = 0.2;
-    self.helmet = 150;
-    self.groundentchanged = "fraggrenade";
+    self.health = 150;
+    self.grenadeweapon = "fraggrenade";
     self.grenadeammo = 0;
     self.secondaryweapon = "beretta";
     self._id_855D = "beretta";
@@ -39,18 +39,18 @@ main()
         self _meth_8171( 512.0, 1024.0 );
     }
 
-    self.weapon_switch_invalid = "ak74u";
+    self.weapon = "ak74u";
     character\character_sp_opforce_vip::main();
 }
 
-spawntime()
+spawner()
 {
     self setspawnerteam( "allies" );
 }
 
-prestigedoublexp()
+precache()
 {
-    character\character_sp_opforce_vip::prestigedoublexp();
+    character\character_sp_opforce_vip::precache();
     precacheitem( "ak74u" );
     precacheitem( "beretta" );
     precacheitem( "beretta" );

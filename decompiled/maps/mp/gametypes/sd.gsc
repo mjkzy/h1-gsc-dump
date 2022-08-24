@@ -174,7 +174,7 @@ _id_64E9()
         if ( !var_0 )
         {
             self._id_50C8 = 0;
-            self.offense_level = 0;
+            self.objective = 0;
         }
     }
 

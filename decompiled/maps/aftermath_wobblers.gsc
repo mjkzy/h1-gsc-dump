@@ -26,9 +26,9 @@ main()
 
 setup_linked_ent()
 {
-    if ( isdefined( self._not_team ) )
+    if ( isdefined( self.target ) )
     {
-        var_0 = getent( self._not_team, "targetname" );
+        var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
             self linkto( var_0 );

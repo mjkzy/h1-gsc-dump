@@ -154,7 +154,7 @@ main()
     setdvar( "r_blurdstgaussianblurradius", 1 );
     setdvar( "r_dof_physical_bokehEnable", 0 );
 
-    if ( level.nextreadghosts1 )
+    if ( level.nextgen )
         setdvar( "sm_polygonOffsetPreset", 0 );
 
     _id_830E();
@@ -174,8 +174,8 @@ _id_352F( var_0 )
 
     if ( isdefined( var_0._id_796E ) && randomfloat( 1 ) > var_0._id_796E )
     {
-        if ( isdefined( var_0.script_lightset ) )
-            wait(var_0.script_lightset);
+        if ( isdefined( var_0.script_delay ) )
+            wait(var_0.script_delay);
         else
             wait 4;
 
@@ -202,20 +202,20 @@ _id_8313()
 
         if ( isdefined( var_0[var_2]._id_79BF ) )
         {
-            if ( var_0[var_2].motiontrackerenabled == "fx" && ( !isdefined( var_0[var_2].teambalanced ) || var_0[var_2].teambalanced != "exploderchunk" ) )
+            if ( var_0[var_2].model == "fx" && ( !isdefined( var_0[var_2].targetname ) || var_0[var_2].targetname != "exploderchunk" ) )
             {
                 var_0[var_2] hide();
                 continue;
             }
 
-            if ( isdefined( var_0[var_2].teambalanced ) && var_0[var_2].teambalanced == "exploder" )
+            if ( isdefined( var_0[var_2].targetname ) && var_0[var_2].targetname == "exploder" )
             {
                 var_0[var_2] hide();
                 var_0[var_2] notsolid();
                 continue;
             }
 
-            if ( isdefined( var_0[var_2].teambalanced ) && var_0[var_2].teambalanced == "exploderchunk" )
+            if ( isdefined( var_0[var_2].targetname ) && var_0[var_2].targetname == "exploderchunk" )
             {
                 var_0[var_2] hide();
                 var_0[var_2] notsolid();
@@ -272,7 +272,7 @@ _id_8313()
         var_7.v = [];
         var_7.v["origin"] = var_6.origin;
         var_7.v["angles"] = var_6.angles;
-        var_7.v["delay"] = var_6.script_lightset;
+        var_7.v["delay"] = var_6.script_delay;
         var_7.v["firefx"] = var_6._id_79CB;
         var_7.v["firefxdelay"] = var_6._id_79CC;
         var_7.v["firefxsound"] = var_6._id_79CD;
@@ -284,7 +284,7 @@ _id_8313()
         var_7.v["repeat"] = var_6._id_7AB6;
         var_7.v["delay_min"] = var_6._id_798E;
         var_7.v["delay_max"] = var_6._id_798D;
-        var_7.v["target"] = var_6._not_team;
+        var_7.v["target"] = var_6.target;
         var_7.v["ender"] = var_6._id_79B8;
         var_7.v["type"] = "exploder";
 
@@ -298,7 +298,7 @@ _id_8313()
         if ( !isdefined( var_7.v["delay"] ) )
             var_7.v["delay"] = 0;
 
-        if ( isdefined( var_6._not_team ) )
+        if ( isdefined( var_6.target ) )
         {
             var_8 = getentarray( var_7.v["target"], "targetname" )[0];
 
@@ -319,14 +319,14 @@ _id_8313()
             }
         }
 
-        if ( var_6.classname == "script_brushmodel" || isdefined( var_6.motiontrackerenabled ) )
+        if ( var_6.classname == "script_brushmodel" || isdefined( var_6.model ) )
         {
-            var_7.motiontrackerenabled = var_6;
-            var_7.motiontrackerenabled._id_2B34 = var_6._id_79A0;
+            var_7.model = var_6;
+            var_7.model._id_2B34 = var_6._id_79A0;
         }
 
-        if ( isdefined( var_6.teambalanced ) && isdefined( var_5[var_6.teambalanced] ) )
-            var_7.v["exploder_type"] = var_6.teambalanced;
+        if ( isdefined( var_6.targetname ) && isdefined( var_5[var_6.targetname] ) )
+            var_7.v["exploder_type"] = var_6.targetname;
         else
             var_7.v["exploder_type"] = "normal";
 
@@ -375,7 +375,7 @@ _id_830E()
         var_4 = var_2.origin + ( 0.0, 0.0, 128.0 );
         var_5 = bullettrace( var_3, var_4, 0, var_2 );
         var_2._id_534D = spawn( "script_model", var_5["position"] );
-        var_2._id_534D.teambalanced = "killCamEnt_destructible_vehicle";
+        var_2._id_534D.targetname = "killCamEnt_destructible_vehicle";
         var_2._id_534D setscriptmoverkillcam( "explosive" );
         var_2 thread _id_284C();
     }
@@ -388,7 +388,7 @@ _id_830E()
         var_4 = var_2.origin + ( 0.0, 0.0, 128.0 );
         var_5 = bullettrace( var_3, var_4, 0, var_2 );
         var_2._id_534D = spawn( "script_model", var_5["position"] );
-        var_2._id_534D.teambalanced = "killCamEnt_destructible_toy";
+        var_2._id_534D.targetname = "killCamEnt_destructible_toy";
         var_2._id_534D setscriptmoverkillcam( "explosive" );
         var_2 thread _id_284C();
     }
@@ -401,7 +401,7 @@ _id_830E()
         var_4 = var_2.origin + ( 0.0, 0.0, 128.0 );
         var_5 = bullettrace( var_3, var_4, 0, var_2 );
         var_2._id_534D = spawn( "script_model", var_5["position"] );
-        var_2._id_534D.teambalanced = "killCamEnt_explodable_barrel";
+        var_2._id_534D.targetname = "killCamEnt_explodable_barrel";
         var_2._id_534D setscriptmoverkillcam( "explosive" );
         var_2 thread _id_284C();
     }
@@ -462,9 +462,9 @@ _id_284D()
 
     foreach ( var_12 in var_10 )
     {
-        if ( isdefined( var_12._not_team ) )
+        if ( isdefined( var_12.target ) )
         {
-            var_0 = getentarray( var_12._not_team, "targetname" );
+            var_0 = getentarray( var_12.target, "targetname" );
 
             foreach ( var_2 in var_0 )
                 var_2 delete();

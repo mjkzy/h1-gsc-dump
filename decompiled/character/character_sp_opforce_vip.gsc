@@ -28,7 +28,7 @@ main()
     self setclothtype( "vestlight" );
 }
 
-prestigedoublexp()
+precache()
 {
     precachemodel( "body_spetsnaz_nikolai_informant" );
     precachemodel( "head_russian_loyalist_beatup_nikolai" );
