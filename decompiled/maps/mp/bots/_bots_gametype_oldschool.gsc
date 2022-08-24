@@ -214,7 +214,7 @@ bot_oldschool_init_pickups()
     foreach ( var_3 in level.bot_oldschool_pickup_struct_array )
     {
         var_4 = spawnstruct();
-        var_4._id_6685 = var_3;
+        var_4.parent = var_3;
         var_4.origin = var_3.origin;
         var_4._id_6071 = var_3._id_6071;
         var_4._id_4411 = var_3._id_4411;

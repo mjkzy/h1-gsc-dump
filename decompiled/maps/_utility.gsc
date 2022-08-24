@@ -6491,7 +6491,7 @@ _id_0757( var_0, var_1, var_2 )
     }
 
     level._id_2A18[var_3] = 1;
-    var_5 = maps\_hud_util::_id_2401( "default", 1.5 );
+    var_5 = maps\_hud_util::createfontstring( "default", 1.5 );
     var_5._id_57F4 = 0;
     var_5.alignx = "left";
     var_5.aligny = "top";
@@ -8835,8 +8835,8 @@ _id_48B0( var_0, var_1, var_2, var_3 )
         level._id_4903 maps\_hud_util::_id_28E9();
 
     maps\_hud_util::_id_0763( var_3, var_2, 0.5 );
-    level._id_4903 = maps\_hud_util::_id_2401( "timer", 0.5 );
-    level._id_4903 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 127 + var_4 );
+    level._id_4903 = maps\_hud_util::createfontstring( "timer", 0.5 );
+    level._id_4903 maps\_hud_util::setpoint( "TOP", undefined, 0, 127 + var_4 );
     level._id_4903.hidewheninmenu = 1;
     level._id_4903.hidewhendead = 1;
     level._id_4903.color = ( 1.0, 1.0, 1.0 );

@@ -596,7 +596,7 @@ text_titlecreate()
             var_0 = -110;
     }
 
-    level.text1 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, var_0 );
+    level.text1 maps\_hud_util::setpoint( "CENTER", undefined, 0, var_0 );
 }
 
 text_titlesettext( var_0 )
@@ -630,7 +630,7 @@ display_wait_to_fire( var_0 )
 text_labelcreate( var_0, var_1 )
 {
     level.text2 = maps\_hud_util::_id_23ED( "objective", 1.85 );
-    level.text2 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, -120 );
+    level.text2 maps\_hud_util::setpoint( "CENTER", undefined, 0, -120 );
     level.text2.label = var_0;
     level.text2 setvalue( var_1 );
     level.text2.color = ( 0.85, 0.85, 0.85 );
@@ -640,7 +640,7 @@ text_labelcreate( var_0, var_1 )
 text_noticecreate( var_0 )
 {
     level.text2 = maps\_hud_util::_id_23ED( "objective", 1.85 );
-    level.text2 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, -120 );
+    level.text2 maps\_hud_util::setpoint( "CENTER", undefined, 0, -120 );
     level.text2 settext( var_0 );
     level.text2.color = ( 0.85, 0.85, 0.85 );
     level.text2.alpha = 0.75;

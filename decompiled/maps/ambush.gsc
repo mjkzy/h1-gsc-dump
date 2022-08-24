@@ -630,7 +630,7 @@ takeover_fade()
 
 hud_string()
 {
-    var_0 = maps\_hud_util::_id_2401( "objective", 1.5 );
+    var_0 = maps\_hud_util::createfontstring( "objective", 1.5 );
     var_0.sort = 3;
     var_0.fontscale = 1.6;
     var_0.color = ( 0.8, 1.0, 0.8 );
@@ -638,7 +638,7 @@ hud_string()
     var_0.glowalpha = 0.2;
     var_0 setpulsefx( 60, 3500, 700 );
     var_0.foreground = 1;
-    var_0 maps\_hud_util::_id_7FEE( "BOTTOM", undefined, 0, -150 );
+    var_0 maps\_hud_util::setpoint( "BOTTOM", undefined, 0, -150 );
     var_0 settext( &"AMBUSH_TWO_HOURS_LATER" );
     level.player thread maps\_utility::_id_69C4( "ambush_fadetoblack_interlude_music" );
     wait 5;

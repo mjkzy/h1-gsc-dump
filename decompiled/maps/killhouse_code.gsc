@@ -248,9 +248,9 @@ compass_hint( var_0, var_1 )
     maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_MARKER", undefined, undefined, 1 );
     level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
     level._id_4B3E.hidewheninmenu = 1;
-    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 155 );
+    level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, 0, 155 );
     wait 5;
-    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
+    level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, 0, 425, 1.0 );
     level._id_4B3E scaleovertime( 1, 20, 20 );
     wait 0.85;
     level._id_4B3E fadeovertime( 0.15 );
@@ -265,7 +265,7 @@ compass_reminder()
     maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_REMINDER", undefined, undefined, 1 );
     level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
     level._id_4B3E.hidewheninmenu = 1;
-    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 155 );
+    level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, 0, 155 );
 
     for ( var_0 = 0; var_0 < 5; var_0++ )
     {
@@ -283,7 +283,7 @@ compass_reminder()
         }
     }
 
-    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 425, 1.0 );
+    level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, 0, 425, 1.0 );
     level._id_4B3E scaleovertime( 1, 20, 20 );
     wait 0.85;
     level._id_4B3E fadeovertime( 0.15 );

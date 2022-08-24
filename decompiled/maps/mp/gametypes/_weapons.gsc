@@ -166,7 +166,7 @@ _id_1550()
     for (;;)
     {
         self waittill( "grenade_fire", var_0, var_1 );
-        var_2 = maps\mp\_utility::_id_8F5C( var_1, "_lefthand" );
+        var_2 = maps\mp\_utility::strip_suffix( var_1, "_lefthand" );
 
         if ( var_2 == "h1_c4_mp" )
         {
@@ -362,8 +362,8 @@ _id_64D6()
                 if ( isdefined( self._id_89E4._id_89FD._id_6293 ) )
                     var_5 = self._id_89E4._id_89FD._id_6293;
 
-                if ( isdefined( self._id_89E4._id_89FD._id_5609 ) )
-                    var_6 = self._id_89E4._id_89FD._id_5609;
+                if ( isdefined( self._id_89E4._id_89FD.lastupdatetime ) )
+                    var_6 = self._id_89E4._id_89FD.lastupdatetime;
             }
         }
 
@@ -1211,7 +1211,7 @@ _id_139C()
 
     if ( isdefined( var_1 ) )
     {
-        var_3 = maps\mp\_utility::_id_8F5C( var_2, "_lefthand" );
+        var_3 = maps\mp\_utility::strip_suffix( var_2, "_lefthand" );
 
         if ( gettime() - var_0 > 1000 && var_3 == "h1_fraggrenade_mp" )
             var_1.iscooked = 1;
@@ -2181,7 +2181,7 @@ _id_196E( var_0 )
 
         if ( isdefined( var_10 ) )
         {
-            var_11 = maps\mp\_utility::_id_8F5C( var_10, "_lefthand" );
+            var_11 = maps\mp\_utility::strip_suffix( var_10, "_lefthand" );
 
             switch ( var_11 )
             {
@@ -2605,7 +2605,7 @@ _id_64FD( var_0, var_1, var_2, var_3, var_4 )
         thread _id_9C40( var_0 );
     else
     {
-        var_12 = maps\mp\_utility::_id_8F5C( var_1, "_lefthand" );
+        var_12 = maps\mp\_utility::strip_suffix( var_1, "_lefthand" );
 
         switch ( var_12 )
         {
@@ -3092,7 +3092,7 @@ _id_5C55()
 
         if ( isdefined( var_9 ) )
         {
-            var_10 = maps\mp\_utility::_id_8F5C( var_9, "_lefthand" );
+            var_10 = maps\mp\_utility::strip_suffix( var_9, "_lefthand" );
 
             switch ( var_10 )
             {

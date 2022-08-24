@@ -292,7 +292,7 @@ _id_9B71( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_1 ) )
     {
-        var_1 = maps\mp\_utility::_id_8F5C( var_1, "_mp" );
+        var_1 = maps\mp\_utility::strip_suffix( var_1, "_mp" );
         var_1 = tablelookuprownum( "mp/statsTable.csv", 4, var_1 );
     }
 

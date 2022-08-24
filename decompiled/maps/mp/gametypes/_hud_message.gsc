@@ -117,32 +117,32 @@ _id_4DF5()
         var_7 = 0;
     }
 
-    self._id_623A = maps\mp\gametypes\_hud_util::_id_2401( var_3, var_0 );
-    self._id_623A maps\mp\gametypes\_hud_util::_id_7FEE( var_4, undefined, var_7, var_6 );
+    self._id_623A = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_0 );
+    self._id_623A maps\mp\gametypes\_hud_util::setpoint( var_4, undefined, var_7, var_6 );
     self._id_623A.hidewheninmenu = 1;
     self._id_623A.archived = 0;
     self._id_623A.alpha = 0;
-    self._id_6238 = maps\mp\gametypes\_hud_util::_id_2401( var_3, var_1 );
-    self._id_6238 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_623A );
-    self._id_6238 maps\mp\gametypes\_hud_util::_id_7FEE( var_4, var_5, 0, 0 );
+    self._id_6238 = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_1 );
+    self._id_6238 maps\mp\gametypes\_hud_util::setParent( self._id_623A );
+    self._id_6238 maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
     self._id_6238.hidewheninmenu = 1;
     self._id_6238.archived = 0;
     self._id_6238.alpha = 0;
-    self._id_6239 = maps\mp\gametypes\_hud_util::_id_2401( var_3, var_1 );
-    self._id_6239 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_623A );
-    self._id_6239 maps\mp\gametypes\_hud_util::_id_7FEE( var_4, var_5, 0, 0 );
+    self._id_6239 = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_1 );
+    self._id_6239 maps\mp\gametypes\_hud_util::setParent( self._id_623A );
+    self._id_6239 maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
     self._id_6239.hidewheninmenu = 1;
     self._id_6239.archived = 0;
     self._id_6239.alpha = 0;
     self._id_622D = maps\mp\gametypes\_hud_util::_id_2420( "white", var_2, var_2 );
-    self._id_622D maps\mp\gametypes\_hud_util::_id_7FDC( self._id_6239 );
-    self._id_622D maps\mp\gametypes\_hud_util::_id_7FEE( var_4, var_5, 0, 0 );
+    self._id_622D maps\mp\gametypes\_hud_util::setParent( self._id_6239 );
+    self._id_622D maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
     self._id_622D.hidewheninmenu = 1;
     self._id_622D.archived = 0;
     self._id_622D.alpha = 0;
     self._id_6233 = maps\mp\gametypes\_hud_util::_id_2420( "white", var_2, var_2 );
-    self._id_6233 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_622D );
-    self._id_6233 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", "CENTER", 0, 0 );
+    self._id_6233 maps\mp\gametypes\_hud_util::setParent( self._id_622D );
+    self._id_6233 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, 0 );
     self._id_6233.hidewheninmenu = 1;
     self._id_6233.archived = 0;
     self._id_6233.alpha = 0;
@@ -319,7 +319,7 @@ _id_8521( var_0 )
 
     if ( isdefined( var_0._id_6239 ) )
     {
-        self._id_6239 maps\mp\gametypes\_hud_util::_id_7FDC( var_4 );
+        self._id_6239 maps\mp\gametypes\_hud_util::setParent( var_4 );
 
         if ( isdefined( var_0._id_92BA ) )
             self._id_6239.label = var_0._id_92BA;
@@ -339,7 +339,7 @@ _id_8521( var_0 )
 
     if ( isdefined( var_0._id_4B48 ) )
     {
-        self._id_622D maps\mp\gametypes\_hud_util::_id_7FDC( var_4 );
+        self._id_622D maps\mp\gametypes\_hud_util::setParent( var_4 );
 
         if ( level.splitscreen || self issplitscreenplayerprimary() )
             self._id_622D setshader( var_0._id_4B48, 30, 30 );
@@ -353,8 +353,8 @@ _id_8521( var_0 )
             self._id_622D fadeovertime( 0.15 );
             self._id_622D.alpha = 1;
             var_0._id_65F7 = 0;
-            self._id_6233 maps\mp\gametypes\_hud_util::_id_7FDC( self._id_622D );
-            self._id_6233 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", "CENTER", 0, var_0._id_65F7 );
+            self._id_6233 maps\mp\gametypes\_hud_util::setParent( self._id_622D );
+            self._id_6233 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, var_0._id_65F7 );
             self._id_6233 setshader( var_0._id_4B4C, 511, 511 );
             self._id_6233.alpha = 0;
             self._id_6233.color = game["colors"]["orange"];
@@ -906,15 +906,15 @@ _id_58A7()
         var_3 *= 1.5;
     }
 
-    self._id_58A4 = maps\mp\gametypes\_hud_util::_id_2401( var_0, var_2 );
+    self._id_58A4 = maps\mp\gametypes\_hud_util::createfontstring( var_0, var_2 );
     self._id_58A4 settext( "" );
     self._id_58A4.archived = 0;
     self._id_58A4.sort = 10;
     self._id_58A4.showinkillcam = 0;
-    self._id_58A4 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", level.lowertextyalign, 0, var_1 );
-    self._id_58AB = maps\mp\gametypes\_hud_util::_id_2401( "default", var_3 );
-    self._id_58AB maps\mp\gametypes\_hud_util::_id_7FDC( self._id_58A4 );
-    self._id_58AB maps\mp\gametypes\_hud_util::_id_7FEE( "TOP", "BOTTOM", 0, 0 );
+    self._id_58A4 maps\mp\gametypes\_hud_util::setpoint( "CENTER", level.lowertextyalign, 0, var_1 );
+    self._id_58AB = maps\mp\gametypes\_hud_util::createfontstring( "default", var_3 );
+    self._id_58AB maps\mp\gametypes\_hud_util::setParent( self._id_58A4 );
+    self._id_58AB maps\mp\gametypes\_hud_util::setpoint( "TOP", "BOTTOM", 0, 0 );
     self._id_58AB settext( "" );
     self._id_58AB.archived = 0;
     self._id_58AB.sort = 10;
@@ -941,8 +941,8 @@ _id_65B6( var_0 )
 _id_59E4( var_0 )
 {
     var_1 = self.team;
-    var_2 = maps\mp\gametypes\_hud_util::_id_2401( "bigfixed", 1.0 );
-    var_2 maps\mp\gametypes\_hud_util::_id_7FEE( "TOP", undefined, 0, 50 );
+    var_2 = maps\mp\gametypes\_hud_util::createfontstring( "bigfixed", 1.0 );
+    var_2 maps\mp\gametypes\_hud_util::setpoint( "TOP", undefined, 0, 50 );
     var_2.foreground = 1;
     var_2.glowalpha = 1;
     var_2.hidewheninmenu = 0;
@@ -963,8 +963,8 @@ _id_59E4( var_0 )
     }
 
     var_3 = maps\mp\gametypes\_hud_util::_id_2420( game["icons"][var_1], 64, 64 );
-    var_3 maps\mp\gametypes\_hud_util::_id_7FDC( var_2 );
-    var_3 maps\mp\gametypes\_hud_util::_id_7FEE( "TOP", "BOTTOM", 0, 30 );
+    var_3 maps\mp\gametypes\_hud_util::setParent( var_2 );
+    var_3 maps\mp\gametypes\_hud_util::setpoint( "TOP", "BOTTOM", 0, 30 );
     var_3.foreground = 1;
     var_3.hidewheninmenu = 0;
     var_3.archived = 0;

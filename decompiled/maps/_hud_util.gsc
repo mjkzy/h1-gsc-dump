@@ -19,26 +19,26 @@
 
 */
 
-_id_7FDC( var_0 )
+setParent( var_0 )
 {
-    if ( isdefined( self._id_6685 ) && self._id_6685 == var_0 )
+    if ( isdefined( self.parent ) && self.parent == var_0 )
         return;
 
-    if ( isdefined( self._id_6685 ) )
-        self._id_6685 _id_7399( self );
+    if ( isdefined( self.parent ) )
+        self.parent removechild( self );
 
-    self._id_6685 = var_0;
-    self._id_6685 _id_07D8( self );
+    self.parent = var_0;
+    self.parent addChild( self );
 
-    if ( isdefined( self._id_6E19 ) )
-        _id_7FEE( self._id_6E19, self._id_730A, self._id_A39F, self._id_A3BA );
+    if ( isdefined( self.point ) )
+        setpoint( self.point, self.relativePoint, self.xoffset, self.yoffset );
     else
-        _id_7FEE( "TOPLEFT" );
+        setpoint( "TOPLEFT" );
 }
 
-_id_407A()
+getParent()
 {
-    return self._id_6685;
+    return self.parent;
 }
 
 _id_739D()
@@ -49,7 +49,7 @@ _id_739D()
     self._id_1D3C = gettime();
     var_0 = [];
 
-    foreach ( var_3, var_2 in self._id_1D3D )
+    foreach ( var_3, var_2 in self.children )
     {
         if ( !isdefined( var_2 ) )
             continue;
@@ -58,36 +58,36 @@ _id_739D()
         var_0[var_0.size] = var_2;
     }
 
-    self._id_1D3D = var_0;
+    self.children = var_0;
 }
 
-_id_07D8( var_0 )
+addChild( var_0 )
 {
-    var_0.index = self._id_1D3D.size;
-    self._id_1D3D[self._id_1D3D.size] = var_0;
+    var_0.index = self.children.size;
+    self.children[self.children.size] = var_0;
     _id_739D();
 }
 
-_id_7399( var_0 )
+removechild( var_0 )
 {
-    var_0._id_6685 = undefined;
+    var_0.parent = undefined;
 
-    if ( self._id_1D3D[self._id_1D3D.size - 1] != var_0 )
+    if ( self.children[self.children.size - 1] != var_0 )
     {
-        self._id_1D3D[var_0.index] = self._id_1D3D[self._id_1D3D.size - 1];
-        self._id_1D3D[var_0.index].index = var_0.index;
+        self.children[var_0.index] = self.children[self.children.size - 1];
+        self.children[var_0.index].index = var_0.index;
     }
 
-    self._id_1D3D[self._id_1D3D.size - 1] = undefined;
+    self.children[self.children.size - 1] = undefined;
     var_0.index = undefined;
 }
 
-_id_7FEE( var_0, var_1, var_2, var_3, var_4 )
+setpoint( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_4 ) )
         var_4 = 0;
 
-    var_5 = _id_407A();
+    var_5 = getParent();
 
     if ( var_4 )
         self moveovertime( var_4 );
@@ -95,13 +95,13 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_2 ) )
         var_2 = 0;
 
-    self._id_A39F = var_2;
+    self.xoffset = var_2;
 
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    self._id_A3BA = var_3;
-    self._id_6E19 = var_0;
+    self.yoffset = var_3;
+    self.point = var_0;
     self.alignx = "center";
     self.aligny = "middle";
 
@@ -120,7 +120,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_1 ) )
         var_1 = var_0;
 
-    self._id_730A = var_1;
+    self.relativePoint = var_1;
     var_6 = "center";
     var_7 = "middle";
 
@@ -136,7 +136,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     if ( issubstr( var_1, "RIGHT" ) )
         var_6 = "right";
 
-    if ( var_5 == level._id_99F4 )
+    if ( var_5 == level.uiparent )
     {
         self.horzalign = var_6;
         self.vertalign = var_7;
@@ -198,33 +198,33 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     }
 
     self.y = var_5.y + var_10 * var_11;
-    self.x += self._id_A39F;
-    self.y += self._id_A3BA;
+    self.x += self.xoffset;
+    self.y += self.yoffset;
 
-    switch ( self._id_3026 )
+    switch ( self.elemtype )
     {
         case "bar":
-            _id_7FEF( var_0, var_1, var_2, var_3 );
+            setpointbar( var_0, var_1, var_2, var_3 );
             break;
     }
 
-    _id_9B01( var_4 );
+    updatechildren( var_4 );
 }
 
-_id_7FEF( var_0, var_1, var_2, var_3 )
+setpointbar( var_0, var_1, var_2, var_3 )
 {
-    self._id_12DB.horzalign = self.horzalign;
-    self._id_12DB.vertalign = self.vertalign;
-    self._id_12DB.alignx = "left";
-    self._id_12DB.aligny = self.aligny;
-    self._id_12DB.y = self._id_12DB.offset_y + self.y;
+    self.bar.horzalign = self.horzalign;
+    self.bar.vertalign = self.vertalign;
+    self.bar.alignx = "left";
+    self.bar.aligny = self.aligny;
+    self.bar.y = self.bar.offset_y + self.y;
 
     if ( self.alignx == "left" )
-        self._id_12DB.x = self._id_12DB.offset_x + self.x + self._id_A3A3;
+        self.bar.x = self.bar.offset_x + self.x + self._id_A3A3;
     else if ( self.alignx == "right" )
-        self._id_12DB.x = self._id_12DB.offset_x + self.x - ( self.width - self._id_A3A3 );
+        self.bar.x = self.bar.offset_x + self.x - ( self.width - self._id_A3A3 );
     else
-        self._id_12DB.x = self._id_12DB.offset_x + self.x - int( ( self.width - self._id_A3A3 * 2 ) / 2 );
+        self.bar.x = self.bar.offset_x + self.x - int( ( self.width - self._id_A3A3 * 2 ) / 2 );
 
     if ( isdefined( self.progress_bg_distort ) )
     {
@@ -236,116 +236,116 @@ _id_7FEF( var_0, var_1, var_2, var_3 )
         self.progress_bg_distort.aligny = self.aligny;
     }
 
-    _id_9AF7( self._id_12DB._id_3A08 );
+    updatebar( self.bar.frac );
 }
 
-_id_9AF7( var_0 )
+updatebar( var_0 )
 {
     var_1 = int( ( self.width - self._id_A3A3 * 2 ) * var_0 );
 
     if ( !var_1 )
         var_1 = 1;
 
-    self._id_12DB._id_3A08 = var_0;
-    self._id_12DB setshader( self._id_12DB._id_8392, var_1, self.height - self._id_A3BD * 2 );
+    self.bar.frac = var_0;
+    self.bar setshader( self.bar._id_8392, var_1, self.height - self._id_A3BD * 2 );
 }
 
 _id_486E( var_0 )
 {
     var_0 = common_scripts\utility::_id_9294( isdefined( var_0 ), var_0, 1 );
 
-    if ( var_0 || !isdefined( self._id_658B ) || !isdefined( self._id_12DB._id_658B ) )
+    if ( var_0 || !isdefined( self._id_658B ) || !isdefined( self.bar._id_658B ) )
     {
         self._id_658B = self.alpha;
-        self._id_12DB._id_658B = self._id_12DB.alpha;
+        self.bar._id_658B = self.bar.alpha;
     }
 
     self.alpha = common_scripts\utility::_id_9294( var_0, 0, self._id_658B );
-    self._id_12DB.alpha = common_scripts\utility::_id_9294( var_0, 0, self._id_12DB._id_658B );
+    self.bar.alpha = common_scripts\utility::_id_9294( var_0, 0, self.bar._id_658B );
 }
 
-_id_2401( var_0, var_1 )
+createfontstring( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2._id_3026 = "font";
+    var_2.elemtype = "font";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
     return var_2;
 }
 
 _id_23ED( var_0, var_1 )
 {
     var_2 = newclienthudelem( self );
-    var_2._id_3026 = "font";
+    var_2.elemtype = "font";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
     return var_2;
 }
 
 _id_23F1( var_0, var_1 )
 {
     var_2 = newclienthudelem( self );
-    var_2._id_3026 = "timer";
+    var_2.elemtype = "timer";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
     return var_2;
 }
 
-_id_243D( var_0, var_1 )
+createserverfontstring( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2._id_3026 = "font";
+    var_2.elemtype = "font";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
     return var_2;
 }
 
-_id_243F( var_0, var_1 )
+createservertimer( var_0, var_1 )
 {
     var_2 = newhudelem();
-    var_2._id_3026 = "timer";
+    var_2.elemtype = "timer";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
     return var_2;
 }
 
@@ -363,15 +363,15 @@ _id_23EF( var_0, var_1, var_2 )
 
 _id_2421( var_0, var_1, var_2, var_3 )
 {
-    var_0._id_3026 = "icon";
+    var_0.elemtype = "icon";
     var_0.x = 0;
     var_0.y = 0;
     var_0.width = var_2;
     var_0.height = var_3;
-    var_0._id_A39F = 0;
-    var_0._id_A3BA = 0;
-    var_0._id_1D3D = [];
-    var_0 _id_7FDC( level._id_99F4 );
+    var_0.xoffset = 0;
+    var_0.yoffset = 0;
+    var_0.children = [];
+    var_0 setParent( level.uiparent );
 
     if ( isdefined( var_1 ) )
         var_0 setshader( var_1, var_2, var_3 );
@@ -402,10 +402,10 @@ h1_createbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_8.color = ( 1.0, 0.9, 0.1 );
     var_8.alpha = 0.9;
     var_8.sort = 0;
-    var_8._id_3A08 = 0.25;
+    var_8.frac = 0.25;
     var_8._id_8392 = var_6;
     var_9 = newhudelem();
-    var_9._id_3026 = "bar";
+    var_9.elemtype = "bar";
     var_9.alignx = "center";
     var_9.aligny = "bottom";
     var_9.horzalign = "center";
@@ -419,10 +419,10 @@ h1_createbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_9.height = var_3;
     var_9._id_A3A3 = 2;
     var_9._id_A3BD = 3;
-    var_9._id_1D3D = [];
+    var_9.children = [];
     var_9.progress_bg_distort = var_7;
-    var_9._id_12DB = var_8;
-    var_9 _id_7FDC( level._id_99F4 );
+    var_9.bar = var_8;
+    var_9 setParent( level.uiparent );
     return var_9;
 }
 
@@ -443,7 +443,7 @@ _id_23E5( var_0, var_1, var_2, var_3, var_4 )
     var_5 = newhudelem();
     var_5.x = 2;
     var_5.y = 2;
-    var_5._id_3A08 = 0.25;
+    var_5.frac = 0.25;
     var_5._id_8392 = var_0;
     var_5.sort = -1;
     var_5 setshader( var_0, var_2 - 2, var_3 - 2 );
@@ -457,20 +457,20 @@ _id_23E5( var_0, var_1, var_2, var_3, var_4 )
     var_5.offset_x = 0;
     var_5.offset_y = 0;
     var_6 = newhudelem();
-    var_6._id_3026 = "bar";
+    var_6.elemtype = "bar";
     var_6.x = 0;
     var_6.y = 0;
     var_6.width = var_2;
     var_6.height = var_3;
-    var_6._id_A39F = 0;
-    var_6._id_A3BA = 0;
-    var_6._id_12DB = var_5;
-    var_6._id_1D3D = [];
+    var_6.xoffset = 0;
+    var_6.yoffset = 0;
+    var_6.bar = var_5;
+    var_6.children = [];
     var_6._id_A3A3 = 2;
     var_6._id_A3BD = 2;
     var_6.sort = -2;
     var_6.alpha = 0.5;
-    var_6 _id_7FDC( level._id_99F4 );
+    var_6 setParent( level.uiparent );
     var_6 setshader( var_1, var_2, var_3 );
     return var_6;
 }
@@ -486,7 +486,7 @@ _id_23F0( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_6 = common_scripts\utility::_id_9294( isdefined( var_6 ), var_6, 2 );
     var_7 = common_scripts\utility::_id_9294( isdefined( var_7 ), var_7, 2 );
     var_8 = var_0 _id_23EC( var_2, var_3, var_4, var_5, undefined, var_6, var_7 );
-    var_8 _id_7FEE( "CENTER", undefined, 0, var_1 );
+    var_8 setpoint( "CENTER", undefined, 0, var_1 );
     return var_8;
 }
 
@@ -501,7 +501,7 @@ _id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7 = newclienthudelem( self );
     var_7.x = 0 - var_5;
     var_7.y = 0 - var_6;
-    var_7._id_3A08 = 0.25;
+    var_7.frac = 0.25;
     var_7._id_8392 = var_0;
     var_7.sort = -1;
     var_7 setshader( var_0, var_2 - var_5 * 2, var_3 - var_6 * 2 );
@@ -513,27 +513,27 @@ _id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     }
 
     var_8 = newclienthudelem( self );
-    var_8._id_3026 = "bar";
+    var_8.elemtype = "bar";
     var_8.x = 0;
     var_8.y = 0;
     var_8.width = var_2;
     var_8.height = var_3;
-    var_8._id_A39F = -1 * var_5;
-    var_8._id_A3BA = 0;
-    var_8._id_12DB = var_7;
-    var_8._id_1D3D = [];
+    var_8.xoffset = -1 * var_5;
+    var_8.yoffset = 0;
+    var_8.bar = var_7;
+    var_8.children = [];
     var_8._id_A3A3 = var_5;
     var_8._id_A3BD = var_6;
     var_8.sort = -2;
     var_8.alpha = 0.5;
-    var_8 _id_7FDC( level._id_99F4 );
+    var_8 setParent( level.uiparent );
     var_8 setshader( var_1, var_2, var_3 );
     return var_8;
 }
 
 _id_7F72( var_0 )
 {
-    self._id_12DB._id_38B2 = var_0;
+    self.bar._id_38B2 = var_0;
 }
 
 _id_35E8( var_0, var_1 )
@@ -554,7 +554,7 @@ _id_38C6()
 
     for (;;)
     {
-        if ( self._id_3A08 >= self._id_38B2 )
+        if ( self.frac >= self._id_38B2 )
         {
             self fadeovertime( 0.3 );
             self.alpha = 0.2;
@@ -572,20 +572,20 @@ _id_38C6()
 
 _id_28E9()
 {
-    if ( isdefined( self._id_1D3D ) && self._id_1D3D.size )
+    if ( isdefined( self.children ) && self.children.size )
     {
         var_0 = [];
 
-        for ( var_1 = 0; var_1 < self._id_1D3D.size; var_1++ )
-            var_0[var_1] = self._id_1D3D[var_1];
+        for ( var_1 = 0; var_1 < self.children.size; var_1++ )
+            var_0[var_1] = self.children[var_1];
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-            var_0[var_1] _id_7FDC( _id_407A() );
+            var_0[var_1] setParent( getParent() );
     }
 
-    if ( isdefined( self._id_3026 ) && self._id_3026 == "bar" )
+    if ( isdefined( self.elemtype ) && self.elemtype == "bar" )
     {
-        self._id_12DB destroy();
+        self.bar destroy();
 
         if ( isdefined( self.progress_bg_distort ) )
             self.progress_bg_distort destroy();
@@ -615,12 +615,12 @@ _id_800F( var_0, var_1 )
     self.height = var_1;
 }
 
-_id_9B01( var_0 )
+updatechildren( var_0 )
 {
-    for ( var_1 = 0; var_1 < self._id_1D3D.size; var_1++ )
+    for ( var_1 = 0; var_1 < self.children.size; var_1++ )
     {
-        var_2 = self._id_1D3D[var_1];
-        var_2 _id_7FEE( var_2._id_6E19, var_2._id_730A, var_2._id_A39F, var_2._id_A3BA, var_0 );
+        var_2 = self.children[var_1];
+        var_2 setpoint( var_2.point, var_2.relativePoint, var_2.xoffset, var_2.yoffset, var_0 );
     }
 }
 
@@ -644,14 +644,14 @@ _id_23CB()
 {
     if ( level.console )
     {
-        var_0 = _id_2401( "default", 1.8 );
-        var_0 _id_7FEE( "CENTER", undefined, 0, 115 );
+        var_0 = createfontstring( "default", 1.8 );
+        var_0 setpoint( "CENTER", undefined, 0, 115 );
         var_0 settext( level._id_8F58["mantle"] );
     }
     else
     {
-        var_0 = _id_2401( "default", 1.6 );
-        var_0 _id_7FEE( "CENTER", undefined, 0, 115 );
+        var_0 = createfontstring( "default", 1.6 );
+        var_0 setpoint( "CENTER", undefined, 0, 115 );
         var_0 settext( level._id_8F58["mantle"] );
     }
 
@@ -687,15 +687,15 @@ _id_0763( var_0, var_1, var_2 )
         level.hintborderbottom = _id_2420( "h1_hud_tutorial_border", 560, 1 );
     }
 
-    level._id_48F3 _id_7FEE( "TOP", undefined, 0, var_3 + var_1 );
+    level._id_48F3 setpoint( "TOP", undefined, 0, var_3 + var_1 );
     level._id_48F3.sort = 1;
     level._id_48F3.hidewheninmenu = 1;
     level._id_48F3.hidewhendead = 1;
-    level.hintbordertop _id_7FEE( "TOP", undefined, 0, var_3 + var_1 );
+    level.hintbordertop setpoint( "TOP", undefined, 0, var_3 + var_1 );
     level.hintbordertop.sort = 1;
     level.hintbordertop.hidewheninmenu = 1;
     level.hintbordertop.hidewhendead = 1;
-    level.hintborderbottom _id_7FEE( "TOP", undefined, 0, var_3 + var_1 + var_4 );
+    level.hintborderbottom setpoint( "TOP", undefined, 0, var_3 + var_1 + var_4 );
     level.hintborderbottom.sort = 1;
     level.hintborderbottom.hidewheninmenu = 1;
     level.hintborderbottom.hidewhendead = 1;

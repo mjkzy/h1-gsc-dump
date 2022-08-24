@@ -354,7 +354,7 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     thread _id_28C4( var_15 );
     level endon( "friendlyfire_mission_fail" );
     var_15.alpha = 1.0;
-    var_15 maps\_hud_util::_id_7FEE( "TOP", undefined, 0, 127 + var_10 );
+    var_15 maps\_hud_util::setpoint( "TOP", undefined, 0, 127 + var_10 );
     var_15.foreground = 0;
     var_15.hidewhendead = 1;
     var_15.hidewheninmenu = 1;

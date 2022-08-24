@@ -176,7 +176,7 @@ _id_4E96()
     var_3.vertalign = "middle";
     var_3.foreground = 1;
     var_3.alpha = 0.0;
-    var_4 = maps\_hud_util::_id_2401( "objective", 1.5 );
+    var_4 = maps\_hud_util::createfontstring( "objective", 1.5 );
     var_4 _id_814B();
     var_4 setpulsefx( 19, var_0, var_1 );
     var_4 setvalue( intel_found_total() );

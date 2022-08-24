@@ -89,7 +89,7 @@ _id_25B8( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnstruct();
     var_5.name = var_0;
-    var_5._id_6E19 = var_1;
+    var_5.point = var_1;
     var_5.label = var_2;
     var_5._id_5C22 = var_3;
     var_5._id_59FC = var_4;
@@ -334,14 +334,14 @@ _id_25E6( var_0, var_1 )
     {
         foreach ( var_3 in var_1 )
         {
-            _id_25E7( "free", var_3.name, var_3.label, undefined, var_3._id_6E19 );
+            _id_25E7( "free", var_3.name, var_3.label, undefined, var_3.point );
             _id_25BA( var_3.label );
             _id_25B7( var_0, var_3.label, var_3._id_5C22, var_3._id_59FC );
         }
     }
     else
     {
-        _id_25E7( "free", var_1.name, var_1.label, undefined, var_1._id_6E19 );
+        _id_25E7( "free", var_1.name, var_1.label, undefined, var_1.point );
         _id_25BA( var_1.label );
         _id_25B7( var_0, var_1.label, var_1._id_5C22, var_1._id_59FC );
     }
@@ -571,7 +571,7 @@ _id_25CD( var_0, var_1, var_2, var_3 )
         else
         {
             var_4._id_09D6 = _id_25E2( var_2 );
-            var_4._id_6E19 = var_3;
+            var_4.point = var_3;
             var_4._id_32D5 = var_0._id_32D5;
             var_4._id_5D35 = var_0._id_5D35;
             var_5 = randomfloatrange( var_0._id_5C32, var_0._id_5A12 );
@@ -729,8 +729,8 @@ _id_25E0( var_0, var_1, var_2 )
 
     if ( isdefined( var_2._id_32D5 ) )
         var_3 = var_2._id_32D5.origin;
-    else if ( isdefined( var_2._id_6E19 ) )
-        var_3 = var_2._id_6E19;
+    else if ( isdefined( var_2.point ) )
+        var_3 = var_2.point;
 
     if ( level._id_055B._id_25B3._id_3316 < level._id_055B._id_25B3._id_5A04 )
     {
@@ -788,8 +788,8 @@ _id_25DF( var_0, var_1, var_2 )
 
         if ( isdefined( var_2._id_32D5 ) )
             var_3 = var_2._id_32D5.origin;
-        else if ( isdefined( var_2._id_6E19 ) )
-            var_3 = var_2._id_6E19;
+        else if ( isdefined( var_2.point ) )
+            var_3 = var_2.point;
 
         var_4 = var_2._id_09D6["name"];
         var_5 = _id_25D8( var_4 );

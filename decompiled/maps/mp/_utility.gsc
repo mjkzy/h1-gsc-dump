@@ -1688,7 +1688,7 @@ _id_3F75( var_0 )
     return ( getdvarfloat( "tempR" ), getdvarfloat( "tempG" ), getdvarfloat( "tempB" ) );
 }
 
-_id_8F5C( var_0, var_1 )
+strip_suffix( var_0, var_1 )
 {
     if ( var_0.size <= var_1.size )
         return var_0;
@@ -2278,7 +2278,7 @@ _id_063C( var_0, var_1, var_2 )
     if ( isdefined( level._id_67D1[var_0] ) )
         self thread [[ level._id_67D1[var_0] ]]();
 
-    var_3 = _id_8F5C( var_0, "_lefthand" );
+    var_3 = strip_suffix( var_0, "_lefthand" );
 
     if ( isdefined( var_2 ) )
         self setperk( var_0, !isdefined( level._id_7B45[var_3] ), var_1, var_2 );
@@ -2296,7 +2296,7 @@ _unsetperk( var_0 )
     if ( isdefined( level._id_67D5[var_0] ) )
         self thread [[ level._id_67D5[var_0] ]]();
 
-    var_1 = _id_8F5C( var_0, "_lefthand" );
+    var_1 = strip_suffix( var_0, "_lefthand" );
     self unsetperk( var_0, !isdefined( level._id_7B45[var_1] ) );
 }
 
@@ -2747,8 +2747,8 @@ getweaponclass( var_0 )
 
     if ( var_2 == "" )
     {
-        var_3 = _id_8F5C( var_0, "_lefthand" );
-        var_3 = _id_8F5C( var_3, "_mp" );
+        var_3 = strip_suffix( var_0, "_lefthand" );
+        var_3 = strip_suffix( var_3, "_mp" );
         var_2 = tablelookup( "mp/statstable.csv", 4, var_3, 2 );
     }
 

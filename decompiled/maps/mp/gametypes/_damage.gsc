@@ -1721,7 +1721,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         return "virtuallobbyactive";
 
     var_1 = maps\mp\_utility::_id_0683( var_1 );
-    var_11 = maps\mp\_utility::_id_8F5C( var_6, "_lefthand" );
+    var_11 = maps\mp\_utility::strip_suffix( var_6, "_lefthand" );
 
     if ( isdefined( var_5 ) && var_5 == "MOD_CRUSH" && isdefined( var_0 ) && isdefined( var_0.classname ) && var_0.classname == "script_vehicle" )
         return "crushed";
@@ -3209,8 +3209,8 @@ personalusebaroldstyle( var_0 )
             if ( var_0.curprogress > var_0._id_9C19 )
                 var_0.curprogress = var_0._id_9C19;
 
-            var_1 maps\mp\gametypes\_hud_util::_id_9AF7( var_0.curprogress / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0.userate );
-            var_3 maps\mp\gametypes\_hud_util::_id_9AF7( var_0.curprogress / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0.userate );
+            var_1 maps\mp\gametypes\_hud_util::updatebar( var_0.curprogress / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0.userate );
+            var_3 maps\mp\gametypes\_hud_util::updatebar( var_0.curprogress / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0.userate );
 
             if ( !var_0.userate )
             {
@@ -3430,7 +3430,7 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     if ( isdefined( var_5 ) )
     {
-        var_13 = maps\mp\_utility::_id_8F5C( var_5, "_lefthand" );
+        var_13 = maps\mp\_utility::strip_suffix( var_5, "_lefthand" );
 
         switch ( var_13 )
         {
@@ -3524,7 +3524,7 @@ _id_4669( var_0, var_1, var_2 )
 
 _id_4662( var_0, var_1, var_2 )
 {
-    var_3 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_3 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     if ( isexplosivedamagemod( var_1 ) )
     {

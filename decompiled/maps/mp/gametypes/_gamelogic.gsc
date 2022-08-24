@@ -3390,8 +3390,8 @@ _id_8356( var_0, var_1, var_2 )
 
     if ( var_3 == "weapon_grenade" || var_3 == "weapon_explosive" )
     {
-        var_4 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
-        var_4 = maps\mp\_utility::_id_8F5C( var_4, "_mp" );
+        var_4 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
+        var_4 = maps\mp\_utility::strip_suffix( var_4, "_mp" );
         maps\mp\gametypes\_persistence::_id_4C40( var_4, var_2, var_1 );
         maps\mp\_matchdata::_id_584C( var_4, var_2, var_1 );
         return;

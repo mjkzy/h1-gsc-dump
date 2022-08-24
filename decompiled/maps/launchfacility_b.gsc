@@ -1694,7 +1694,7 @@ setprogressbarprogress( var_0 )
     if ( var_0 > 1 )
         var_0 = 1;
 
-    self.progressbar maps\_hud_util::_id_9AF7( var_0 );
+    self.progressbar maps\_hud_util::updatebar( var_0 );
 }
 
 endprogressbar()
@@ -1707,14 +1707,14 @@ endprogressbar()
 createsecondaryprogressbar()
 {
     var_0 = maps\_hud_util::h1_createbar( level.secondaryprogressbarx, level.secondaryprogressbary, 114, 14, "h1_hud_upload_codes_border", "h1_hud_upload_codes_blur", "white" );
-    var_0 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, level.secondaryprogressbary );
+    var_0 maps\_hud_util::setpoint( "CENTER", undefined, 0, level.secondaryprogressbary );
     return var_0;
 }
 
 createsecondaryprogressbartext()
 {
-    var_0 = maps\_hud_util::_id_2401( "objective", level.secondaryprogressbarfontsize );
-    var_0 maps\_hud_util::_id_7FEE( "CENTER", undefined, 0, level.secondaryprogressbartexty );
+    var_0 = maps\_hud_util::createfontstring( "objective", level.secondaryprogressbarfontsize );
+    var_0 maps\_hud_util::setpoint( "CENTER", undefined, 0, level.secondaryprogressbartexty );
     return var_0;
 }
 

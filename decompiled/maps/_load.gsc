@@ -177,7 +177,7 @@ main()
     level._id_1263 = ::badplace_delete;
     level._id_50AC = ::isai;
     level._id_23EE = maps\_hud_util::_id_23ED;
-    level._id_4AFD = maps\_hud_util::_id_7FEE;
+    level._id_4AFD = maps\_hud_util::setpoint;
     level._id_5940 = ::makeentitysentient;
     level._id_3A26 = ::freeentitysentient;
     level._id_54FC = ::laseron;

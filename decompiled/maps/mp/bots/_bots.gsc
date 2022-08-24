@@ -1502,7 +1502,7 @@ _id_5E06()
     for (;;)
     {
         level waittill( "smoke", var_0, var_1 );
-        var_2 = maps\mp\_utility::_id_8F5C( var_1, "_lefthand" );
+        var_2 = maps\mp\_utility::strip_suffix( var_1, "_lefthand" );
 
         if ( var_2 == "h1_smokegrenade_mp" )
             var_0 thread _id_460E();

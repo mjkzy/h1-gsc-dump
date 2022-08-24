@@ -579,12 +579,12 @@ _id_41F4( var_0 )
         if ( level.splitscreen )
         {
             self._id_1BB5 = maps\mp\gametypes\_hud_util::_id_2420( var_0._id_1BB5, 33, 33 );
-            self._id_1BB5 maps\mp\gametypes\_hud_util::_id_7FEE( "BOTTOM RIGHT", "BOTTOM RIGHT", -50, -78 );
+            self._id_1BB5 maps\mp\gametypes\_hud_util::setpoint( "BOTTOM RIGHT", "BOTTOM RIGHT", -50, -78 );
         }
         else
         {
             self._id_1BB5 = maps\mp\gametypes\_hud_util::_id_2420( var_0._id_1BB5, 50, 50 );
-            self._id_1BB5 maps\mp\gametypes\_hud_util::_id_7FEE( "BOTTOM RIGHT", "BOTTOM RIGHT", -90, -110 );
+            self._id_1BB5 maps\mp\gametypes\_hud_util::setpoint( "BOTTOM RIGHT", "BOTTOM RIGHT", -90, -110 );
         }
 
         self._id_1BB5.hidewheninmenu = 1;
@@ -1627,7 +1627,7 @@ _id_9B51( var_0, var_1 )
         self._id_7041._id_55AC = 0;
     }
 
-    if ( self._id_7041._id_483E )
+    if ( self._id_7041.hidden )
     {
         self._id_7041 maps\mp\gametypes\_hud_util::_id_850A();
         self._id_7041._id_560B = undefined;
@@ -1645,7 +1645,7 @@ _id_9B51( var_0, var_1 )
             self._id_7042 settext( var_0._id_9C18 );
     }
 
-    if ( self._id_7042._id_483E )
+    if ( self._id_7042.hidden )
     {
         self._id_7042 maps\mp\gametypes\_hud_util::_id_850A();
         var_3 = var_0 _id_40B5( var_2 );
@@ -1670,7 +1670,7 @@ _id_9B51( var_0, var_1 )
         if ( var_0._id_52E1 && !var_4 && var_5 < 0 )
             var_5 = 0;
 
-        self._id_7041 maps\mp\gametypes\_hud_util::_id_9AF7( var_4, var_5 );
+        self._id_7041 maps\mp\gametypes\_hud_util::updatebar( var_4, var_5 );
         self._id_7041._id_560B = var_0.userate;
         self._id_7041._id_55AC = isdefined( level._id_4A39 );
     }
@@ -2041,7 +2041,7 @@ _id_67E5( var_0 )
 
             if ( isdefined( var_1 ) )
             {
-                var_1 maps\mp\gametypes\_hud_util::_id_9AF7( var_5, var_6 );
+                var_1 maps\mp\gametypes\_hud_util::updatebar( var_5, var_6 );
 
                 if ( !var_0.userate )
                 {

@@ -58,7 +58,7 @@ _id_5353( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( getdvar( "scr_killcam_time" ) == "" )
     {
-        var_7 = maps\mp\_utility::_id_8F5C( var_1, "_lefthand" );
+        var_7 = maps\mp\_utility::strip_suffix( var_1, "_lefthand" );
 
         if ( var_5 || var_1 == "artillery_mp" )
             var_8 = ( gettime() - var_0 ) / 1000 - var_2 - 0.1;
@@ -197,8 +197,8 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
                 var_25 = "iw5_combatknife";
             else
             {
-                var_25 = maps\mp\_utility::_id_8F5C( var_25, "_lefthand" );
-                var_25 = maps\mp\_utility::_id_8F5C( var_25, "_mp" );
+                var_25 = maps\mp\_utility::strip_suffix( var_25, "_lefthand" );
+                var_25 = maps\mp\_utility::strip_suffix( var_25, "_mp" );
             }
 
             self setclientomnvar( "ui_killcam_killedby_weapon", var_5 );

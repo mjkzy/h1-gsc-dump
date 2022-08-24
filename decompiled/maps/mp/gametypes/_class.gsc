@@ -1431,7 +1431,7 @@ _id_0581()
 
 _id_41F5( var_0 )
 {
-    var_1 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_1 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     switch ( var_1 )
     {
@@ -1450,7 +1450,7 @@ _id_41F5( var_0 )
 
 _id_912F( var_0 )
 {
-    var_1 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_1 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     switch ( var_1 )
     {
@@ -2887,7 +2887,7 @@ _id_50D6( var_0, var_1, var_2, var_3 )
 
 isperkequipment( var_0 )
 {
-    var_1 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_1 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     switch ( var_1 )
     {
@@ -2901,7 +2901,7 @@ isperkequipment( var_0 )
 
 isperkprimary( var_0 )
 {
-    var_1 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_1 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     switch ( var_1 )
     {
@@ -2914,7 +2914,7 @@ isperkprimary( var_0 )
 
 _id_51EA( var_0, var_1 )
 {
-    var_0 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_0 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     switch ( var_0 )
     {
@@ -2931,7 +2931,7 @@ _id_51EA( var_0, var_1 )
 
 _id_51F2( var_0, var_1 )
 {
-    var_0 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
+    var_0 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
     switch ( var_0 )
     {

@@ -19,54 +19,54 @@
 
 */
 
-_id_7FDC( var_0 )
+setParent( var_0 )
 {
-    if ( isdefined( self._id_6685 ) && self._id_6685 == var_0 )
+    if ( isdefined( self.parent ) && self.parent == var_0 )
         return;
 
-    if ( isdefined( self._id_6685 ) )
-        self._id_6685 _id_7399( self );
+    if ( isdefined( self.parent ) )
+        self.parent removechild( self );
 
-    self._id_6685 = var_0;
-    self._id_6685 _id_07D8( self );
+    self.parent = var_0;
+    self.parent addChild( self );
 
-    if ( isdefined( self._id_6E19 ) )
-        _id_7FEE( self._id_6E19, self._id_730A, self._id_A39F, self._id_A3BA );
+    if ( isdefined( self.point ) )
+        setpoint( self.point, self.relativePoint, self.xoffset, self.yoffset );
     else
-        _id_7FEE( "TOPLEFT" );
+        setpoint( "TOPLEFT" );
 }
 
-_id_407A()
+getParent()
 {
-    return self._id_6685;
+    return self.parent;
 }
 
-_id_07D8( var_0 )
+addChild( var_0 )
 {
-    var_0.index = self._id_1D3D.size;
-    self._id_1D3D[self._id_1D3D.size] = var_0;
+    var_0.index = self.children.size;
+    self.children[self.children.size] = var_0;
 }
 
-_id_7399( var_0 )
+removechild( var_0 )
 {
-    var_0._id_6685 = undefined;
+    var_0.parent = undefined;
 
-    if ( self._id_1D3D[self._id_1D3D.size - 1] != var_0 )
+    if ( self.children[self.children.size - 1] != var_0 )
     {
-        self._id_1D3D[var_0.index] = self._id_1D3D[self._id_1D3D.size - 1];
-        self._id_1D3D[var_0.index].index = var_0.index;
+        self.children[var_0.index] = self.children[self.children.size - 1];
+        self.children[var_0.index].index = var_0.index;
     }
 
-    self._id_1D3D[self._id_1D3D.size - 1] = undefined;
+    self.children[self.children.size - 1] = undefined;
     var_0.index = undefined;
 }
 
-_id_7FEE( var_0, var_1, var_2, var_3, var_4 )
+setpoint( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_4 ) )
         var_4 = 0;
 
-    var_5 = _id_407A();
+    var_5 = getParent();
 
     if ( var_4 )
         self moveovertime( var_4 );
@@ -74,13 +74,13 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_2 ) )
         var_2 = 0;
 
-    self._id_A39F = var_2;
+    self.xoffset = var_2;
 
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    self._id_A3BA = var_3;
-    self._id_6E19 = var_0;
+    self.yoffset = var_3;
+    self.point = var_0;
     self.alignx = "center";
     self.aligny = "middle";
 
@@ -99,7 +99,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_1 ) )
         var_1 = var_0;
 
-    self._id_730A = var_1;
+    self.relativePoint = var_1;
     var_6 = "center_adjustable";
     var_7 = "middle";
 
@@ -115,7 +115,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     if ( issubstr( var_1, "RIGHT" ) )
         var_6 = "right_adjustable";
 
-    if ( var_5 == level._id_99F4 )
+    if ( var_5 == level.uiparent )
     {
         self.horzalign = var_6;
         self.vertalign = var_7;
@@ -126,7 +126,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
         self.vertalign = var_5.vertalign;
     }
 
-    if ( maps\mp\_utility::_id_8F5C( var_6, "_adjustable" ) == var_5.alignx )
+    if ( maps\mp\_utility::strip_suffix( var_6, "_adjustable" ) == var_5.alignx )
     {
         var_8 = 0;
         var_9 = 0;
@@ -152,7 +152,7 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
 
     self.x = var_5.x + var_8 * var_9;
 
-    if ( maps\mp\_utility::_id_8F5C( var_7, "_adjustable" ) == var_5.aligny )
+    if ( maps\mp\_utility::strip_suffix( var_7, "_adjustable" ) == var_5.aligny )
     {
         var_10 = 0;
         var_11 = 0;
@@ -177,74 +177,74 @@ _id_7FEE( var_0, var_1, var_2, var_3, var_4 )
     }
 
     self.y = var_5.y + var_10 * var_11;
-    self.x += self._id_A39F;
-    self.y += self._id_A3BA;
+    self.x += self.xoffset;
+    self.y += self.yoffset;
 
-    switch ( self._id_3026 )
+    switch ( self.elemtype )
     {
         case "bar":
-            _id_7FEF( var_0, var_1, var_2, var_3 );
+            setpointbar( var_0, var_1, var_2, var_3 );
             break;
     }
 
-    _id_9B01();
+    updatechildren();
 }
 
-_id_7FEF( var_0, var_1, var_2, var_3 )
+setpointbar( var_0, var_1, var_2, var_3 )
 {
-    self._id_12DB.horzalign = self.horzalign;
-    self._id_12DB.vertalign = self.vertalign;
-    self._id_12DB.alignx = "left";
-    self._id_12DB.aligny = self.aligny;
-    self._id_12DB.y = self.y;
+    self.bar.horzalign = self.horzalign;
+    self.bar.vertalign = self.vertalign;
+    self.bar.alignx = "left";
+    self.bar.aligny = self.aligny;
+    self.bar.y = self.y;
 
     if ( self.alignx == "left" )
-        self._id_12DB.x = self.x;
+        self.bar.x = self.x;
     else if ( self.alignx == "right" )
-        self._id_12DB.x = self.x - self.width;
+        self.bar.x = self.x - self.width;
     else
-        self._id_12DB.x = self.x - int( self.width / 2 );
+        self.bar.x = self.x - int( self.width / 2 );
 
     if ( self.aligny == "top" )
-        self._id_12DB.y = self.y;
+        self.bar.y = self.y;
     else if ( self.aligny == "bottom" )
-        self._id_12DB.y = self.y;
+        self.bar.y = self.y;
 
-    _id_9AF7( self._id_12DB._id_3A08 );
+    updatebar( self.bar.frac );
 }
 
-_id_9AF7( var_0, var_1 )
+updatebar( var_0, var_1 )
 {
-    if ( self._id_3026 == "bar" )
-        _id_9AF8( var_0, var_1 );
+    if ( self.elemtype == "bar" )
+        updatebarscale( var_0, var_1 );
 }
 
-_id_9AF8( var_0, var_1 )
+updatebarscale( var_0, var_1 )
 {
     var_2 = int( self.width * var_0 + 0.5 );
 
     if ( !var_2 )
         var_2 = 1;
 
-    self._id_12DB._id_3A08 = var_0;
-    self._id_12DB setshader( self._id_12DB._id_8392, var_2, self.height );
+    self.bar.frac = var_0;
+    self.bar setshader( self.bar._id_8392, var_2, self.height );
 
     if ( isdefined( var_1 ) && var_2 < self.width )
     {
         if ( var_1 > 0 )
-            self._id_12DB scaleovertime( ( 1 - var_0 ) / var_1, self.width, self.height );
+            self.bar scaleovertime( ( 1 - var_0 ) / var_1, self.width, self.height );
         else if ( var_1 < 0 )
-            self._id_12DB scaleovertime( var_0 / -1 * var_1, 1, self.height );
+            self.bar scaleovertime( var_0 / -1 * var_1, 1, self.height );
     }
 
-    self._id_12DB._id_7143 = var_1;
-    self._id_12DB._id_5609 = gettime();
+    self.bar.rateofchange = var_1;
+    self.bar.lastupdatetime = gettime();
 }
 
-_id_2401( var_0, var_1 )
+createfontstring( var_0, var_1 )
 {
     var_2 = newclienthudelem( self );
-    var_2._id_3026 = "font";
+    var_2.elemtype = "font";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.basefontscale = var_1;
@@ -252,22 +252,22 @@ _id_2401( var_0, var_1 )
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
-    var_2._id_483E = 0;
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
+    var_2.hidden = 0;
     return var_2;
 }
 
-_id_243D( var_0, var_1, var_2 )
+createserverfontstring( var_0, var_1, var_2 )
 {
     if ( isdefined( var_2 ) )
         var_3 = newteamhudelem( var_2 );
     else
         var_3 = newhudelem();
 
-    var_3._id_3026 = "font";
+    var_3.elemtype = "font";
     var_3.font = var_0;
     var_3.fontscale = var_1;
     var_3.basefontscale = var_1;
@@ -275,22 +275,22 @@ _id_243D( var_0, var_1, var_2 )
     var_3.y = 0;
     var_3.width = 0;
     var_3.height = int( level._id_397D * var_1 );
-    var_3._id_A39F = 0;
-    var_3._id_A3BA = 0;
-    var_3._id_1D3D = [];
-    var_3 _id_7FDC( level._id_99F4 );
-    var_3._id_483E = 0;
+    var_3.xoffset = 0;
+    var_3.yoffset = 0;
+    var_3.children = [];
+    var_3 setParent( level.uiparent );
+    var_3.hidden = 0;
     return var_3;
 }
 
-_id_243F( var_0, var_1, var_2 )
+createservertimer( var_0, var_1, var_2 )
 {
     if ( isdefined( var_2 ) )
         var_3 = newteamhudelem( var_2 );
     else
         var_3 = newhudelem();
 
-    var_3._id_3026 = "timer";
+    var_3.elemtype = "timer";
     var_3.font = var_0;
     var_3.fontscale = var_1;
     var_3.basefontscale = var_1;
@@ -298,18 +298,18 @@ _id_243F( var_0, var_1, var_2 )
     var_3.y = 0;
     var_3.width = 0;
     var_3.height = int( level._id_397D * var_1 );
-    var_3._id_A39F = 0;
-    var_3._id_A3BA = 0;
-    var_3._id_1D3D = [];
-    var_3 _id_7FDC( level._id_99F4 );
-    var_3._id_483E = 0;
+    var_3.xoffset = 0;
+    var_3.yoffset = 0;
+    var_3.children = [];
+    var_3 setParent( level.uiparent );
+    var_3.hidden = 0;
     return var_3;
 }
 
-_id_2447( var_0, var_1 )
+createtimer( var_0, var_1 )
 {
     var_2 = newclienthudelem( self );
-    var_2._id_3026 = "timer";
+    var_2.elemtype = "timer";
     var_2.font = var_0;
     var_2.fontscale = var_1;
     var_2.basefontscale = var_1;
@@ -317,29 +317,29 @@ _id_2447( var_0, var_1 )
     var_2.y = 0;
     var_2.width = 0;
     var_2.height = int( level._id_397D * var_1 );
-    var_2._id_A39F = 0;
-    var_2._id_A3BA = 0;
-    var_2._id_1D3D = [];
-    var_2 _id_7FDC( level._id_99F4 );
-    var_2._id_483E = 0;
+    var_2.xoffset = 0;
+    var_2.yoffset = 0;
+    var_2.children = [];
+    var_2 setParent( level.uiparent );
+    var_2.hidden = 0;
     return var_2;
 }
 
 _id_2420( var_0, var_1, var_2 )
 {
     var_3 = newclienthudelem( self );
-    var_3._id_3026 = "icon";
+    var_3.elemtype = "icon";
     var_3.x = 0;
     var_3.y = 0;
     var_3.width = var_1;
     var_3.height = var_2;
     var_3._id_1319 = var_3.width;
     var_3._id_130A = var_3.height;
-    var_3._id_A39F = 0;
-    var_3._id_A3BA = 0;
-    var_3._id_1D3D = [];
-    var_3 _id_7FDC( level._id_99F4 );
-    var_3._id_483E = 0;
+    var_3.xoffset = 0;
+    var_3.yoffset = 0;
+    var_3.children = [];
+    var_3 setParent( level.uiparent );
+    var_3.hidden = 0;
 
     if ( isdefined( var_0 ) )
     {
@@ -357,18 +357,18 @@ _id_243E( var_0, var_1, var_2, var_3 )
     else
         var_4 = newhudelem();
 
-    var_4._id_3026 = "icon";
+    var_4.elemtype = "icon";
     var_4.x = 0;
     var_4.y = 0;
     var_4.width = var_1;
     var_4.height = var_2;
     var_4._id_1319 = var_4.width;
     var_4._id_130A = var_4.height;
-    var_4._id_A39F = 0;
-    var_4._id_A3BA = 0;
-    var_4._id_1D3D = [];
-    var_4 _id_7FDC( level._id_99F4 );
-    var_4._id_483E = 0;
+    var_4.xoffset = 0;
+    var_4.yoffset = 0;
+    var_4.children = [];
+    var_4 setParent( level.uiparent );
+    var_4.hidden = 0;
 
     if ( isdefined( var_0 ) )
     {
@@ -388,12 +388,12 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     var_6.x = 0;
     var_6.y = 0;
-    var_6._id_3A08 = 0;
+    var_6.frac = 0;
     var_6.color = var_0;
     var_6.sort = -2;
     var_6._id_8392 = "progress_bar_fill";
     var_6 setshader( "progress_bar_fill", var_1, var_2 );
-    var_6._id_483E = 0;
+    var_6.hidden = 0;
 
     if ( isdefined( var_3 ) )
         var_6._id_38B2 = var_3;
@@ -403,21 +403,21 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_7 = newhudelem();
 
-    var_7._id_3026 = "bar";
+    var_7.elemtype = "bar";
     var_7.x = 0;
     var_7.y = 0;
     var_7.width = var_1;
     var_7.height = var_2;
-    var_7._id_A39F = 0;
-    var_7._id_A3BA = 0;
-    var_7._id_12DB = var_6;
-    var_7._id_1D3D = [];
+    var_7.xoffset = 0;
+    var_7.yoffset = 0;
+    var_7.bar = var_6;
+    var_7.children = [];
     var_7.sort = -3;
     var_7.color = ( 0.0, 0.0, 0.0 );
     var_7.alpha = 0.5;
-    var_7 _id_7FDC( level._id_99F4 );
+    var_7 setParent( level.uiparent );
     var_7 setshader( "progress_bar_bg", var_1, var_2 );
-    var_7._id_483E = 0;
+    var_7.hidden = 0;
     return var_7;
 }
 
@@ -426,40 +426,40 @@ _id_23E5( var_0, var_1, var_2, var_3 )
     var_4 = newclienthudelem( self );
     var_4.x = 0;
     var_4.y = 0;
-    var_4._id_3A08 = 0;
+    var_4.frac = 0;
     var_4.color = var_0;
     var_4.sort = -2;
     var_4._id_8392 = "progress_bar_fill";
     var_4 setshader( "progress_bar_fill", var_1, var_2 );
-    var_4._id_483E = 0;
+    var_4.hidden = 0;
 
     if ( isdefined( var_3 ) )
         var_4._id_38B2 = var_3;
 
     var_5 = newclienthudelem( self );
-    var_5._id_3026 = "bar";
+    var_5.elemtype = "bar";
     var_5.width = var_1;
     var_5.height = var_2;
-    var_5._id_A39F = 0;
-    var_5._id_A3BA = 0;
-    var_5._id_12DB = var_4;
-    var_5._id_1D3D = [];
+    var_5.xoffset = 0;
+    var_5.yoffset = 0;
+    var_5.bar = var_4;
+    var_5.children = [];
     var_5.sort = -3;
     var_5.color = ( 0.0, 0.0, 0.0 );
     var_5.alpha = 0.5;
-    var_5 _id_7FDC( level._id_99F4 );
+    var_5 setParent( level.uiparent );
     var_5 setshader( "progress_bar_bg", var_1 + 4, var_2 + 4 );
-    var_5._id_483E = 0;
+    var_5.hidden = 0;
     return var_5;
 }
 
 _id_3F46()
 {
-    var_0 = self._id_12DB._id_3A08;
+    var_0 = self.bar.frac;
 
-    if ( isdefined( self._id_12DB._id_7143 ) )
+    if ( isdefined( self.bar.rateofchange ) )
     {
-        var_0 += ( gettime() - self._id_12DB._id_5609 ) * self._id_12DB._id_7143 / 1000;
+        var_0 += ( gettime() - self.bar.lastupdatetime ) * self.bar.rateofchange / 1000;
 
         if ( var_0 > 1 )
             var_0 = 1;
@@ -483,7 +483,7 @@ _id_2435( var_0, var_1 )
         var_1 += 20;
 
     var_2 = _id_23E5( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
-    var_2 _id_7FEE( "CENTER", undefined, level.primaryprogressbarx + var_0, level.primaryprogressbary + var_1 );
+    var_2 setpoint( "CENTER", undefined, level.primaryprogressbarx + var_0, level.primaryprogressbary + var_1 );
     return var_2;
 }
 
@@ -498,8 +498,8 @@ _id_2436( var_0, var_1 )
     if ( self issplitscreenplayerprimary() )
         var_1 += 20;
 
-    var_2 = _id_2401( "hudbig", level.primaryprogressbarfontsize );
-    var_2 _id_7FEE( "CENTER", undefined, level.primaryprogressbartextx + var_0, level._id_6F88 + var_1 );
+    var_2 = createfontstring( "hudbig", level.primaryprogressbarfontsize );
+    var_2 setpoint( "CENTER", undefined, level.primaryprogressbartextx + var_0, level.primaryProgressBarTextY + var_1 );
     var_2.sort = -1;
     return var_2;
 }
@@ -507,57 +507,57 @@ _id_2436( var_0, var_1 )
 _id_2444( var_0 )
 {
     var_1 = _id_243C( ( 1.0, 0.0, 0.0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
-    var_1 _id_7FEE( "TOP", undefined, 0, level.teamprogressbary );
+    var_1 setpoint( "TOP", undefined, 0, level.teamprogressbary );
     return var_1;
 }
 
 _id_2445( var_0 )
 {
-    var_1 = _id_243D( "default", level.teamprogressbarfontsize, var_0 );
-    var_1 _id_7FEE( "TOP", undefined, 0, level.teamprogressbartexty );
+    var_1 = createserverfontstring( "default", level.teamprogressbarfontsize, var_0 );
+    var_1 setpoint( "TOP", undefined, 0, level.teamprogressbartexty );
     return var_1;
 }
 
 _id_7F72( var_0 )
 {
-    self._id_12DB._id_38B2 = var_0;
+    self.bar._id_38B2 = var_0;
 }
 
 _id_4871()
 {
-    if ( self._id_483E )
+    if ( self.hidden )
         return;
 
-    self._id_483E = 1;
+    self.hidden = 1;
 
     if ( self.alpha != 0 )
         self.alpha = 0;
 
-    if ( self._id_3026 == "bar" || self._id_3026 == "bar_shader" )
+    if ( self.elemtype == "bar" || self.elemtype == "bar_shader" )
     {
-        self._id_12DB._id_483E = 1;
+        self.bar.hidden = 1;
 
-        if ( self._id_12DB.alpha != 0 )
-            self._id_12DB.alpha = 0;
+        if ( self.bar.alpha != 0 )
+            self.bar.alpha = 0;
     }
 }
 
 _id_850A()
 {
-    if ( !self._id_483E )
+    if ( !self.hidden )
         return;
 
-    self._id_483E = 0;
+    self.hidden = 0;
 
-    if ( self._id_3026 == "bar" || self._id_3026 == "bar_shader" )
+    if ( self.elemtype == "bar" || self.elemtype == "bar_shader" )
     {
         if ( self.alpha != 0.5 )
             self.alpha = 0.5;
 
-        self._id_12DB._id_483E = 0;
+        self.bar.hidden = 0;
 
-        if ( self._id_12DB.alpha != 1 )
-            self._id_12DB.alpha = 1;
+        if ( self.bar.alpha != 1 )
+            self.bar.alpha = 1;
     }
     else if ( self.alpha != 1 )
         self.alpha = 1;
@@ -567,14 +567,14 @@ _id_38C6()
 {
     self endon( "death" );
 
-    if ( !self._id_483E )
+    if ( !self.hidden )
         self.alpha = 1;
 
     for (;;)
     {
-        if ( self._id_3A08 >= self._id_38B2 )
+        if ( self.frac >= self._id_38B2 )
         {
-            if ( !self._id_483E )
+            if ( !self.hidden )
             {
                 self fadeovertime( 0.3 );
                 self.alpha = 0.2;
@@ -587,7 +587,7 @@ _id_38C6()
             continue;
         }
 
-        if ( !self._id_483E && self.alpha != 1 )
+        if ( !self.hidden && self.alpha != 1 )
             self.alpha = 1;
 
         wait 0.05;
@@ -598,17 +598,17 @@ _id_28E9()
 {
     var_0 = [];
 
-    for ( var_1 = 0; var_1 < self._id_1D3D.size; var_1++ )
+    for ( var_1 = 0; var_1 < self.children.size; var_1++ )
     {
-        if ( isdefined( self._id_1D3D[var_1] ) )
-            var_0[var_0.size] = self._id_1D3D[var_1];
+        if ( isdefined( self.children[var_1] ) )
+            var_0[var_0.size] = self.children[var_1];
     }
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] _id_7FDC( _id_407A() );
+        var_0[var_1] setParent( getParent() );
 
-    if ( self._id_3026 == "bar" || self._id_3026 == "bar_shader" )
-        self._id_12DB destroy();
+    if ( self.elemtype == "bar" || self.elemtype == "bar_shader" )
+        self.bar destroy();
 
     self destroy();
 }
@@ -645,26 +645,26 @@ _id_800F( var_0, var_1 )
     self.height = var_1;
 }
 
-_id_9B01()
+updatechildren()
 {
-    for ( var_0 = 0; var_0 < self._id_1D3D.size; var_0++ )
+    for ( var_0 = 0; var_0 < self.children.size; var_0++ )
     {
-        var_1 = self._id_1D3D[var_0];
-        var_1 _id_7FEE( var_1._id_6E19, var_1._id_730A, var_1._id_A39F, var_1._id_A3BA );
+        var_1 = self.children[var_0];
+        var_1 setpoint( var_1.point, var_1.relativePoint, var_1.xoffset, var_1.yoffset );
     }
 }
 
 _id_9718()
 {
-    self.x = self._id_A39F;
-    self.y = self._id_A3BA;
+    self.x = self.xoffset;
+    self.y = self.yoffset;
 
-    if ( self._id_3026 == "font" )
+    if ( self.elemtype == "font" )
     {
         self.fontscale = self.basefontscale;
         self.label = &"";
     }
-    else if ( self._id_3026 == "icon" )
+    else if ( self.elemtype == "icon" )
         self setshader( self._id_8392, self.width, self.height );
 
     self.alpha = 0;
@@ -672,7 +672,7 @@ _id_9718()
 
 _id_9721( var_0 )
 {
-    switch ( self._id_3026 )
+    switch ( self.elemtype )
     {
         case "timer":
         case "font":
@@ -692,7 +692,7 @@ _id_9717( var_0, var_1 )
     var_2 = int( var_0 ) * 1000;
     var_3 = int( var_1 ) * 1000;
 
-    switch ( self._id_3026 )
+    switch ( self.elemtype )
     {
         case "timer":
         case "font":
@@ -725,8 +725,8 @@ _id_971A( var_0, var_1 )
     }
 
     self moveovertime( var_0 );
-    self.x = self._id_A39F;
-    self.y = self._id_A3BA;
+    self.x = self.xoffset;
+    self.y = self.yoffset;
 }
 
 _id_971B( var_0, var_1 )
@@ -734,8 +734,8 @@ _id_971B( var_0, var_1 )
     if ( !isdefined( var_1 ) )
         var_1 = "left";
 
-    var_2 = self._id_A39F;
-    var_3 = self._id_A3BA;
+    var_2 = self.xoffset;
+    var_3 = self.yoffset;
 
     switch ( var_1 )
     {
@@ -761,7 +761,7 @@ _id_971B( var_0, var_1 )
 
 _id_9722( var_0 )
 {
-    switch ( self._id_3026 )
+    switch ( self.elemtype )
     {
         case "timer":
         case "font":
@@ -867,8 +867,8 @@ _id_1C4E( var_0, var_1 )
 
 _id_2B5E( var_0, var_1, var_2, var_3 )
 {
-    var_4 = _id_2401( "hudbig", var_2 );
-    var_4 _id_7FEE( "CENTER", "CENTER", 0, var_1 );
+    var_4 = createfontstring( "hudbig", var_2 );
+    var_4 setpoint( "CENTER", "CENTER", 0, var_1 );
     var_4.sort = 1001;
     var_4.color = ( 1.0, 1.0, 1.0 );
     var_4.foreground = 0;

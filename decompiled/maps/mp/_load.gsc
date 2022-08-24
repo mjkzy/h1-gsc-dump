@@ -43,8 +43,8 @@ main()
     }
 
     level.requiredmapaspectratio = getdvarfloat( "scr_RequiredMapAspectratio", 1 );
-    level._id_23EE = maps\mp\gametypes\_hud_util::_id_2401;
-    level._id_4AFD = maps\mp\gametypes\_hud_util::_id_7FEE;
+    level._id_23EE = maps\mp\gametypes\_hud_util::createfontstring;
+    level._id_4AFD = maps\mp\gametypes\_hud_util::setpoint;
     level._id_5656 = maps\mp\_utility::_id_5655;
     thread maps\mp\gametypes\_tweakables::init();
 

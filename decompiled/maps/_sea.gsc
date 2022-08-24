@@ -234,7 +234,7 @@ sea_objectbob_logic( var_0, var_1 )
         var_1 sea_objectbob_precalc( var_0, "sway1" );
         var_1 notify( "precalcdone1" );
 
-        if ( !isdefined( var_1._id_6685 ) )
+        if ( !isdefined( var_1.parent ) )
             wait(var_1.waittime);
 
         var_1 rotateto( var_1.ang, var_0.time, var_0.time * 0.5, var_0.time * 0.5 );
@@ -245,7 +245,7 @@ sea_objectbob_logic( var_0, var_1 )
         var_1 sea_objectbob_precalc( var_0, "sway2" );
         var_1 notify( "precalcdone2" );
 
-        if ( !isdefined( var_1._id_6685 ) )
+        if ( !isdefined( var_1.parent ) )
             wait(var_1.waittime);
 
         var_1 rotateto( var_1.ang, var_0.time, var_0.time * 0.5, var_0.time * 0.5 );
@@ -266,12 +266,12 @@ sea_objectbob_findparent( var_0, var_1 )
     if ( !isdefined( self.target ) )
         return;
 
-    var_0._id_6685 = getent( self.target, "targetname" );
+    var_0.parent = getent( self.target, "targetname" );
 
-    if ( !isdefined( var_0._id_6685._id_577B ) )
-        var_0._id_6685 waittill( "got_link" );
+    if ( !isdefined( var_0.parent._id_577B ) )
+        var_0.parent waittill( "got_link" );
 
-    var_2 = var_0._id_6685._id_577B;
+    var_2 = var_0.parent._id_577B;
     var_3 = var_0.origin;
     var_4 = spawn( "script_origin", var_2.origin );
     var_4.angles = var_2.angles;

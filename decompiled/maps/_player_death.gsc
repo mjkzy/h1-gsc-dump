@@ -247,7 +247,7 @@ _id_43E5( var_0, var_1 )
     _id_7E03( "" );
     wait 2.5;
     var_2 = newhudelem();
-    var_2._id_3026 = "font";
+    var_2.elemtype = "font";
     var_2.font = "default";
     var_2.fontscale = 1;
     var_2.x = 0;
@@ -266,7 +266,7 @@ _id_43E5( var_0, var_1 )
     if ( isdefined( var_1 ) )
     {
         var_2 = newhudelem();
-        var_2._id_3026 = "font";
+        var_2.elemtype = "font";
         var_2.font = "default";
         var_2.fontscale = 1;
         var_2.x = 0;

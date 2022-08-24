@@ -21,16 +21,16 @@
 
 init()
 {
-    level._id_99F4 = spawnstruct();
-    level._id_99F4.horzalign = "left";
-    level._id_99F4.vertalign = "top";
-    level._id_99F4.alignx = "left";
-    level._id_99F4.aligny = "top";
-    level._id_99F4.x = 0;
-    level._id_99F4.y = 0;
-    level._id_99F4.width = 0;
-    level._id_99F4.height = 0;
-    level._id_99F4._id_1D3D = [];
+    level.uiparent = spawnstruct();
+    level.uiparent.horzalign = "left";
+    level.uiparent.vertalign = "top";
+    level.uiparent.alignx = "left";
+    level.uiparent.aligny = "top";
+    level.uiparent.x = 0;
+    level.uiparent.y = 0;
+    level.uiparent.width = 0;
+    level.uiparent.height = 0;
+    level.uiparent.children = [];
     level._id_397D = 12;
     level.hud["allies"] = spawnstruct();
     level.hud["axis"] = spawnstruct();
@@ -38,7 +38,7 @@ init()
     level.primaryprogressbarx = 0;
     level.primaryprogressbarheight = 9;
     level.primaryprogressbarwidth = 120;
-    level._id_6F88 = -75;
+    level.primaryProgressBarTextY = -75;
     level.primaryprogressbartextx = 0;
     level.primaryprogressbarfontsize = 0.6;
     level.teamprogressbary = 32;
@@ -51,7 +51,7 @@ init()
     level.lowertextfontsize = 1.0;
 }
 
-_id_397F( var_0 )
+fontPulseInit( var_0 )
 {
     self.basefontscale = self.fontscale;
 
@@ -64,7 +64,7 @@ _id_397F( var_0 )
     self.outframes = 4;
 }
 
-_id_397E( var_0 )
+fontPulse( var_0 )
 {
     self notify( "fontPulse" );
     self endon( "fontPulse" );

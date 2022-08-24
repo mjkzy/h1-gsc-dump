@@ -1013,7 +1013,7 @@ hidekillindicator()
 killrangeindicator()
 {
     self endon( "disconnect" );
-    self.killindicator = maps\mp\gametypes\_hud_util::_id_2401( "objective", 1 );
+    self.killindicator = maps\mp\gametypes\_hud_util::createfontstring( "objective", 1 );
     self.killindicator.label = &"MP_RANGE_KILL_INDICATOR";
     self.killindicator setvalue( 0 );
     self.killindicator.x = 0;
@@ -1027,7 +1027,7 @@ killrangeindicator()
     self.killindicator.alpha = 0;
     self.killindicator.glowalpha = 0.5;
     self.killindicator.hidewheninmenu = 0;
-    self.maxkillindicator = maps\mp\gametypes\_hud_util::_id_2401( "objective", 1 );
+    self.maxkillindicator = maps\mp\gametypes\_hud_util::createfontstring( "objective", 1 );
     self.maxkillindicator.x = -6;
     self.maxkillindicator.y = 2;
     self.maxkillindicator.alignx = "right";
@@ -1069,7 +1069,7 @@ onsniperonlyplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7
 
 matchbestkillrangeindicator()
 {
-    level.maxmatchindicator = maps\mp\gametypes\_hud_util::_id_243D( "objective", 1 );
+    level.maxmatchindicator = maps\mp\gametypes\_hud_util::createserverfontstring( "objective", 1 );
     level.maxmatchindicator.x = -6;
     level.maxmatchindicator.y = 14;
     level.maxmatchindicator.alignx = "right";

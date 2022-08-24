@@ -446,7 +446,7 @@ _id_29AD( var_0, var_1 )
     var_7 = "";
 
     if ( maps\mp\_utility::iskillstreakweapon( var_0 ) )
-        var_7 = maps\mp\_utility::_id_8F5C( var_0, "_mp" );
+        var_7 = maps\mp\_utility::strip_suffix( var_0, "_mp" );
     else if ( var_0 == "destructible" )
         var_7 = var_0;
     else if ( isdefined( var_2 ) && ( var_2 == "primary" || var_2 == "altmode" || var_2 == "melee" ) && ( var_3 == "pistol" || var_3 == "smg" || var_3 == "rifle" || var_3 == "spread" || var_3 == "mg" || var_3 == "grenade" || var_3 == "rocketlauncher" || var_3 == "sniper" || var_3 == "cone" || var_3 == "beam" || var_3 == "shield" ) )
@@ -538,8 +538,8 @@ _id_29AD( var_0, var_1 )
     }
     else if ( var_2 == "item" || var_2 == "offhand" )
     {
-        var_7 = maps\mp\_utility::_id_8F5C( var_0, "_lefthand" );
-        var_7 = maps\mp\_utility::_id_8F5C( var_7, "_mp" );
+        var_7 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
+        var_7 = maps\mp\_utility::strip_suffix( var_7, "_mp" );
     }
     else
         var_7 = var_0;

@@ -747,7 +747,7 @@ _id_8A02()
 
         foreach ( var_4 in var_2 )
         {
-            var_4._id_5609 = gettime();
+            var_4.lastupdatetime = gettime();
             var_5 = 0;
 
             foreach ( var_7 in level.activeplayerlist )

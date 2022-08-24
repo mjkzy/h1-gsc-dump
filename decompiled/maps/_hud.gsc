@@ -21,16 +21,16 @@
 
 init()
 {
-    level._id_99F4 = spawnstruct();
-    level._id_99F4.horzalign = "left";
-    level._id_99F4.vertalign = "top";
-    level._id_99F4.alignx = "left";
-    level._id_99F4.aligny = "top";
-    level._id_99F4.x = 0;
-    level._id_99F4.y = 0;
-    level._id_99F4.width = 0;
-    level._id_99F4.height = 0;
-    level._id_99F4._id_1D3D = [];
+    level.uiparent = spawnstruct();
+    level.uiparent.horzalign = "left";
+    level.uiparent.vertalign = "top";
+    level.uiparent.alignx = "left";
+    level.uiparent.aligny = "top";
+    level.uiparent.x = 0;
+    level.uiparent.y = 0;
+    level.uiparent.width = 0;
+    level.uiparent.height = 0;
+    level.uiparent.children = [];
 
     if ( level.console )
         level._id_397D = 12;

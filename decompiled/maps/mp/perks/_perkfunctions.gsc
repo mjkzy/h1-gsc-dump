@@ -625,7 +625,7 @@ _id_6437( var_0 )
     var_1 = maps\mp\gametypes\_hud_util::_id_2435( 0, -25 );
     var_2 = maps\mp\gametypes\_hud_util::_id_2436( 0, -25 );
     var_2 settext( &"MPUI_CHANGING_KIT" );
-    var_1 maps\mp\gametypes\_hud_util::_id_9AF7( 0, 1 / var_0 );
+    var_1 maps\mp\gametypes\_hud_util::updatebar( 0, 1 / var_0 );
 
     for ( var_3 = 0; var_3 < var_0 && isalive( self ) && !level.gameended; var_3 += 0.05 )
         wait 0.05;
@@ -777,16 +777,16 @@ _id_7F97( var_0, var_1, var_2 )
 
     if ( !isdefined( var_2 ) || var_2 == 1 )
     {
-        self._id_52B0 = maps\mp\gametypes\_hud_util::_id_2447( "hudsmall", 1.0 );
-        self._id_52B0 maps\mp\gametypes\_hud_util::_id_7FEE( "CENTER", "CENTER", 0, var_3 );
+        self._id_52B0 = maps\mp\gametypes\_hud_util::createtimer( "hudsmall", 1.0 );
+        self._id_52B0 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, var_3 );
         self._id_52B0 settimer( var_1 );
         self._id_52B0.color = ( 0.8, 0.8, 0.0 );
         self._id_52B0.archived = 0;
         self._id_52B0.foreground = 1;
         self._id_52AF = maps\mp\gametypes\_hud_util::_id_2420( level._id_8A3D, var_4, var_4 );
         self._id_52AF.alpha = 0;
-        self._id_52AF maps\mp\gametypes\_hud_util::_id_7FDC( self._id_52B0 );
-        self._id_52AF maps\mp\gametypes\_hud_util::_id_7FEE( "BOTTOM", "TOP" );
+        self._id_52AF maps\mp\gametypes\_hud_util::setParent( self._id_52B0 );
+        self._id_52AF maps\mp\gametypes\_hud_util::setpoint( "BOTTOM", "TOP" );
         self._id_52AF.archived = 1;
         self._id_52AF.sort = 1;
         self._id_52AF.foreground = 1;

@@ -128,7 +128,7 @@ _id_6E50( var_0 )
             continue;
 
         if ( isdefined( var_10 ) )
-            var_11 = maps\mp\_utility::_id_8F5C( var_10, "_lefthand" );
+            var_11 = maps\mp\_utility::strip_suffix( var_10, "_lefthand" );
         else
             var_11 = undefined;
 

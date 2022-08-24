@@ -3793,18 +3793,18 @@ airstrike_hint_console()
 {
     maps\_utility::_id_48B0( &"VILLAGE_DEFEND_CLOSE_AIR_SUPPORT_STANDING" );
     level._id_4B3E = maps\_hud_util::_id_2420( "hud_dpad", 32, 32 );
-    level._id_4B3E maps\_hud_util::_id_7FEE( "TOP", undefined, -16, 165 );
+    level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, -16, 165 );
     level._id_4B3F = maps\_hud_util::_id_2420( "compass_objpoint_airstrike", 32, 32 );
-    level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, -15, 196 );
+    level._id_4B3F maps\_hud_util::setpoint( "TOP", undefined, -15, 196 );
     level._id_4B40 = maps\_hud_util::_id_2420( "hud_arrow_down", 24, 24 );
-    level._id_4B40 maps\_hud_util::_id_7FEE( "TOP", undefined, -15.5, 170 );
+    level._id_4B40 maps\_hud_util::setpoint( "TOP", undefined, -15.5, 170 );
     level._id_4B40.sort = 1;
     level._id_4B40.color = ( 1.0, 1.0, 0.0 );
     level._id_4B40.alpha = 0.7;
     wait 4;
-    level._id_4B3E maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
-    level._id_4B3F maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
-    level._id_4B40 maps\_hud_util::_id_7FEE( "CENTER", "BOTTOM", -320, -20, 1.0 );
+    level._id_4B3E maps\_hud_util::setpoint( "CENTER", "BOTTOM", -320, -20, 1.0 );
+    level._id_4B3F maps\_hud_util::setpoint( "CENTER", "BOTTOM", -320, -20, 1.0 );
+    level._id_4B40 maps\_hud_util::setpoint( "CENTER", "BOTTOM", -320, -20, 1.0 );
     level._id_4B3E scaleovertime( 1, 20, 20 );
     level._id_4B3F scaleovertime( 1, 20, 20 );
     level._id_4B40 scaleovertime( 1, 20, 20 );
@@ -3823,9 +3823,9 @@ airstrike_hint_pc()
     maps\_utility::_id_48B0( &"VILLAGE_DEFEND_CLOSE_AIR_SUPPORT_STANDING_PC" );
     setomnvar( "ui_display_hud_for_equipment_motion", 1 );
     level._id_4B3F = maps\_hud_util::_id_2420( "compass_objpoint_airstrike", 32, 32 );
-    level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, -15, 150 );
+    level._id_4B3F maps\_hud_util::setpoint( "TOP", undefined, -15, 150 );
     wait 4;
-    level._id_4B3F maps\_hud_util::_id_7FEE( "TOP", undefined, -320, 460, 1.0 );
+    level._id_4B3F maps\_hud_util::setpoint( "TOP", undefined, -320, 460, 1.0 );
     level._id_4B3F scaleovertime( 1, 20, 20 );
     wait 0.7;
     level._id_4B3F fadeovertime( 0.15 );
