@@ -115,7 +115,7 @@ _id_29A6()
     if ( self.movemode == "walk" )
         return animscripts\utility::_id_5863( "cqb", "move_f" );
 
-    if ( isdefined( self.a._id_135B ) && self.a._id_135B )
+    if ( isdefined( self.a.bdisablemovetwitch ) && self.a.bdisablemovetwitch )
         return animscripts\utility::_id_5863( "cqb", "straight" );
 
     if ( !isdefined( self.a._id_76D4 ) )
@@ -303,7 +303,7 @@ cqb_slowdownwatcher()
 cqb_slowdownscale( var_0 )
 {
     self.cqb_slowdown_scale = var_0;
-    self _meth_83c5( self.cqb_slowdown_anim, self._id_5F65 * self.cqb_slowdown_scale );
+    self _meth_83C5( self.cqb_slowdown_anim, self._id_5F65 * self.cqb_slowdown_scale );
 }
 
 cqb_slowdownwatcher_ender()

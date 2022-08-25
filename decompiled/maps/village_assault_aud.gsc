@@ -103,22 +103,22 @@ _id_5FFD( var_0, var_1 )
 
 start_default_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_town_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_alasad_barn_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_alasad_house_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 flying_intro_start()
@@ -132,25 +132,25 @@ flying_intro_check_end()
 {
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
     soundscripts\_audio_mix_manager::_id_5CF6( "flying_intro_mute", 1 );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_village_assault_ext2", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "trainstation_attic", "ambient_village_assault_ext2", 0.8 );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_village_assault_ext2", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "trainstation_attic", "ambient_village_assault_ext2", 0.8 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 increase_ambient()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_village_assault_ext3", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "exterior", "exterior3", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "trainstation_attic", "ambient_village_assault_ext3", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "trainstation_attic", "exterior3", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_village_assault_ext3", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "exterior", "exterior3", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "trainstation_attic", "ambient_village_assault_ext3", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "trainstation_attic", "exterior3", 0.8 );
 }
 
 settle_ambient()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_village_assault_ext1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "exterior", "exterior1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "trainstation_attic", "ambient_village_assault_ext1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "trainstation_attic", "exterior1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_village_assault_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "exterior", "exterior1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "trainstation_attic", "ambient_village_assault_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "trainstation_attic", "exterior1", 0.8 );
 }
 
 start_air_support_mix()

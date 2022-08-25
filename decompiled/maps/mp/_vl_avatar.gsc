@@ -41,7 +41,7 @@ init_avatar_pool()
         var_3 maps\mp\agents\_agent_common::_id_7DB0( 100 );
         var_3 botclearscriptenemy();
         var_3 botclearscriptgoal();
-        var_3 _id_15F9();
+        var_3 bot_disable_tactical_goals();
         var_3 botsetflag( "disable_movement", 1 );
         var_3 botsetflag( "disable_rotation", 1 );
         var_3.isfree = 1;
@@ -54,7 +54,7 @@ playerspawnlocalplayeravatar( var_0, var_1, var_2, var_3, var_4 )
     var_6 = maps\mp\gametypes\_class::_id_4009( var_5.pers["team"], var_1 );
     maps\mp\_vl_base::vlprintln( "adding xuid " + var_0 + "from vlobby_player" );
     var_7 = getnewlobbyavatarownerid( var_0 );
-    var_8 = _id_88CE( var_5, var_5._id_117A, var_6._id_6F84, var_2, var_3, undefined, var_7 );
+    var_8 = _id_88CE( var_5, var_5.avatar_spawnpoint, var_6._id_6F84, var_2, var_3, undefined, var_7 );
     var_8._id_A7EA = var_6.emblemindex;
     var_8 _meth_8577( var_6._id_A7EC );
     var_8.controller = var_4;
@@ -62,7 +62,7 @@ playerspawnlocalplayeravatar( var_0, var_1, var_2, var_3, var_4 )
     setdvar( "virtuallobbymembers", level._id_9EAB.size );
 }
 
-_id_15F9()
+bot_disable_tactical_goals()
 {
     self._id_2ADD = 1;
     self._id_90AF = [];
@@ -72,7 +72,7 @@ _id_7DB2( var_0, var_1 )
 {
     maps\mp\agents\_agent_utility::_id_7DB1( var_0 );
     self.agent_gameparticipant = 0;
-    self.isactive = 1;
+    self._id_50A6 = 1;
     self.spawntime = gettime();
     self.issniper = 0;
     self.sessionteam = var_1;
@@ -161,10 +161,10 @@ _id_88CE( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_12 = "none";
     var_13 = alloc_avatar();
     var_1._id_899F = var_13;
-    var_13._id_117A = var_1;
+    var_13.avatar_spawnpoint = var_1;
     var_13._id_2236 = var_3;
     var_13 _id_7DB2( var_11, var_12 );
-    var_14 = getgroundposition( var_13._id_117A.origin, 20, 512, 120 );
+    var_14 = getgroundposition( var_13.avatar_spawnpoint.origin, 20, 512, 120 );
     var_13._id_88D0 = ( var_1.angles[0], var_1.angles[1], var_1.angles[2] );
     var_13.angles = var_13._id_88D0;
     var_13 show();
@@ -266,7 +266,7 @@ _id_9FDB( var_0, var_1 )
     var_4 = maps\mp\_vl_cac::getfactionenvironment();
     var_0.costumeloaded = 0;
 
-    for ( var_5 = self _meth_84e6( var_0._id_2236, var_0.team, var_2, var_4 ); !var_5; var_5 = self _meth_84e6( var_0._id_2236, var_0.team, var_2, var_4 ) )
+    for ( var_5 = self _meth_84E6( var_0._id_2236, var_0.team, var_2, var_4 ); !var_5; var_5 = self _meth_84E6( var_0._id_2236, var_0.team, var_2, var_4 ) )
         waittillframeend;
 
     var_0.costumeloaded = 1;
@@ -459,8 +459,8 @@ removelobbyavatar( var_0 )
     var_0.headmodel = undefined;
     var_0 hideallparts();
 
-    if ( isdefined( var_0._id_117A._id_899F ) )
-        var_0._id_117A._id_899F = undefined;
+    if ( isdefined( var_0.avatar_spawnpoint._id_899F ) )
+        var_0.avatar_spawnpoint._id_899F = undefined;
 
     if ( isdefined( var_0._id_6F8F ) )
     {
@@ -511,9 +511,9 @@ _id_9E9E( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     var_5 takeallweapons();
     _id_9E9D( var_0, var_5, var_3, var_2, var_7, var_8 );
-    var_0 _meth_84b6( var_5._id_2236, maps\mp\_utility::_id_3F11( var_2 ) + "_mp", var_7, var_8 );
-    var_0 _meth_857c( var_4 );
-    var_5 _meth_857c( var_4 );
+    var_0 _meth_84B6( var_5._id_2236, maps\mp\_utility::_id_3F11( var_2 ) + "_mp", var_7, var_8 );
+    var_0 _meth_857C( var_4 );
+    var_5 _meth_857C( var_4 );
     var_5.primaryweapon = var_2;
     var_5._id_A7ED = var_4;
     maps\mp\_vl_base::waitstreamweapon( var_0, var_2, 0 );
@@ -552,12 +552,12 @@ avatarattachprimaryweapons()
             var_0.primaryweapon = self.primaryweapon;
             self._id_6F8F show();
             self._id_6F8F showallparts();
-            self._id_6F8F _meth_847f( self.primaryweapon );
+            self._id_6F8F _meth_847F( self.primaryweapon );
         }
         else if ( self._id_6F8F.primaryweapon != self.primaryweapon )
         {
             self._id_6F8F.primaryweapon = self.primaryweapon;
-            self._id_6F8F _meth_847f( self.primaryweapon );
+            self._id_6F8F _meth_847F( self.primaryweapon );
         }
 
         if ( isdefined( self._id_6F8F ) )
@@ -613,7 +613,7 @@ playerteleportavatarcao( var_0, var_1 )
 
 playerteleportavatartocac( var_0 )
 {
-    teleport_avatar( var_0, var_0._id_117A, self );
+    teleport_avatar( var_0, var_0.avatar_spawnpoint, self );
     var_0 agentplaycacanim();
 }
 

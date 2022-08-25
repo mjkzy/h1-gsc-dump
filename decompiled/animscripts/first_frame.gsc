@@ -27,7 +27,7 @@ main()
     self.pushable = 0;
     self _meth_8144( self._id_75DF, 0.3 );
     self _meth_8193( "face angle", self.angles[1] );
-    self _meth_814d( level._id_78AC[self._id_0553][self._id_05AD], 1, 0, 0 );
-    self._id_05AD = undefined;
+    self _meth_814D( level._id_78AC[self._animname][self._first_frame_anim], 1, 0, 0 );
+    self._first_frame_anim = undefined;
     self waittill( "killanimscript" );
 }

@@ -140,7 +140,7 @@ _id_8976( var_0, var_1, var_2, var_3 )
         var_5 = common_scripts\utility::_id_3CCB( self.origin, var_5 );
 
         foreach ( var_11, var_10 in var_5 )
-            var_10 thread maps\_utility::_id_0798( ::_id_44B0, self, var_11 );
+            var_10 thread maps\_utility::add_spawn_function( ::_id_44B0, self, var_11 );
 
         var_12 = maps\_utility::_id_8975();
         var_12 waittill( "guy_entered" );
@@ -167,7 +167,7 @@ _id_8976( var_0, var_1, var_2, var_3 )
     else
     {
         var_12 thread _id_5666( 0, var_0 );
-        var_12 thread maps\_vehicle_code::_id_05C6( var_12 );
+        var_12 thread maps\_vehicle_code::_gopath( var_12 );
     }
 
     return var_12;
@@ -213,13 +213,13 @@ _id_3DE0( var_0 )
 
 _id_44B0( var_0, var_1 )
 {
-    maps\_vehicle_code::_id_05FC( var_0, var_1 );
+    maps\_vehicle_code::_mount_snowmobile( var_0, var_1 );
 }
 
 _id_810E( var_0 )
 {
     var_1 = _id_23D1( var_0 );
-    _id_0743( var_1 );
+    add_collision_to_path( var_1 );
     return var_1;
 }
 
@@ -283,7 +283,7 @@ _id_23D1( var_0 )
     return var_2;
 }
 
-_id_0743( var_0 )
+add_collision_to_path( var_0 )
 {
     var_1 = common_scripts\utility::_id_40FD( "road_path_col", "targetname" );
 
@@ -301,12 +301,12 @@ _id_0743( var_0 )
         foreach ( var_3 in var_1 )
         {
             if ( !isdefined( var_3._id_5767 ) )
-                _id_0744( var_7, var_3 );
+                add_collision_to_path_node( var_7, var_3 );
         }
     }
 }
 
-_id_0744( var_0, var_1 )
+add_collision_to_path_node( var_0, var_1 )
 {
     if ( var_0 == var_0._id_60BD )
         return;
@@ -324,13 +324,13 @@ _id_0744( var_0, var_1 )
 
     if ( var_3["progress"] < var_4["progress"] )
     {
-        _id_0742( var_0, var_1, var_2 );
+        add_collision_offsets_to_path_ent( var_0, var_1, var_2 );
         var_0._id_2010[var_0._id_2010.size] = var_1;
         var_1._id_5767 = 1;
     }
     else
     {
-        _id_0742( var_0, var_2, var_1 );
+        add_collision_offsets_to_path_ent( var_0, var_2, var_1 );
         var_0._id_2010[var_0._id_2010.size] = var_2;
         var_1._id_5767 = 1;
     }
@@ -365,7 +365,7 @@ _id_92A5( var_0, var_1 )
     return 0;
 }
 
-_id_0742( var_0, var_1, var_2 )
+add_collision_offsets_to_path_ent( var_0, var_1, var_2 )
 {
     var_3 = var_2._id_7000 + 200;
     var_4 = var_1._id_7000 - level._id_3A18;
@@ -395,7 +395,7 @@ _id_0742( var_0, var_1, var_2 )
         var_13 = _id_3E5B( var_0, var_6 );
         var_14 = max( var_12, var_13 );
         var_15 = min( var_3, var_14 );
-        _id_07BC( var_0, var_15, var_4, var_5, var_6 );
+        add_vol_to_node( var_0, var_15, var_4, var_5, var_6 );
 
         if ( !isdefined( var_0._id_60BD ) || var_0 == var_0._id_60BD )
             break;
@@ -438,11 +438,11 @@ _id_0742( var_0, var_1, var_2 )
         var_6 = var_19["offset"];
         var_3 = max( var_18["progress"], var_19["progress"] );
         var_4 += var_3;
-        _id_07BC( var_0, var_3, var_4, var_5, var_6 );
+        add_vol_to_node( var_0, var_3, var_4, var_5, var_6 );
     }
 }
 
-_id_07BC( var_0, var_1, var_2, var_3, var_4 )
+add_vol_to_node( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnstruct();
     var_5._id_205B = [];
@@ -463,11 +463,11 @@ _id_07BC( var_0, var_1, var_2, var_3, var_4 )
     var_0._id_2013[var_0._id_2013.size] = var_5;
 }
 
-_id_0776( var_0, var_1 )
+add_moving_obstacle( var_0, var_1 )
 {
     var_2 = spawnstruct();
     var_2._id_32D5 = self;
-    var_2._id_1757 = var_0;
+    var_2.bounds = var_0;
 
     if ( isdefined( var_1 ) && var_1 == 1 )
         var_2 thread _id_736D();
@@ -517,10 +517,10 @@ _id_9ACB()
     var_0 = anglestoforward( self._id_32D5.angles );
     var_1 = anglestoright( self._id_32D5.angles );
     self._id_222A = [];
-    self._id_222A[0] = _id_2F65( self._id_32D5.origin + -1 * self._id_1757["width"] / 2 * var_1 + self._id_1757["length"] / 2 * var_0 );
-    self._id_222A[1] = _id_2F65( self._id_32D5.origin + self._id_1757["width"] / 2 * var_1 + self._id_1757["length"] / 2 * var_0 );
-    self._id_222A[2] = _id_2F65( self._id_32D5.origin + -1 * self._id_1757["width"] / 2 * var_1 + -1 * self._id_1757["length"] / 2 * var_0 );
-    self._id_222A[3] = _id_2F65( self._id_32D5.origin + self._id_1757["width"] / 2 * var_1 + -1 * self._id_1757["length"] / 2 * var_0 );
+    self._id_222A[0] = _id_2F65( self._id_32D5.origin + -1 * self.bounds["width"] / 2 * var_1 + self.bounds["length"] / 2 * var_0 );
+    self._id_222A[1] = _id_2F65( self._id_32D5.origin + self.bounds["width"] / 2 * var_1 + self.bounds["length"] / 2 * var_0 );
+    self._id_222A[2] = _id_2F65( self._id_32D5.origin + -1 * self.bounds["width"] / 2 * var_1 + -1 * self.bounds["length"] / 2 * var_0 );
+    self._id_222A[3] = _id_2F65( self._id_32D5.origin + self.bounds["width"] / 2 * var_1 + -1 * self.bounds["length"] / 2 * var_0 );
     var_2 = [];
     var_2[0] = _id_3E3E( self._id_222A[0], self.node._id_5C0F, self.node._id_60BD._id_5C0F );
     var_2[1] = _id_3E3E( self._id_222A[1], self.node._id_5C0F, self.node._id_60BD._id_5C0F );
@@ -571,7 +571,7 @@ _id_72E1( var_0, var_1, var_2, var_3 )
         if ( var_13 <= 0 )
             break;
 
-        _id_0777( var_9, var_13, var_1, var_2, var_3 );
+        add_moving_vol_to_node( var_9, var_13, var_1, var_2, var_3 );
 
         if ( !isdefined( var_9._id_60BD ) || var_9 == var_9._id_60BD )
             break;
@@ -618,7 +618,7 @@ _id_72E1( var_0, var_1, var_2, var_3 )
         if ( var_0 <= 0 )
             break;
 
-        _id_0777( var_9, var_0, var_1, var_2, var_3 );
+        add_moving_vol_to_node( var_9, var_0, var_1, var_2, var_3 );
     }
 }
 
@@ -629,12 +629,12 @@ _id_9A57()
         foreach ( var_3 in var_1._id_2011 )
         {
             if ( var_3.owner == self )
-                var_1._id_2011 = common_scripts\utility::_id_0CF6( var_1._id_2011, var_3 );
+                var_1._id_2011 = common_scripts\utility::array_remove( var_1._id_2011, var_3 );
         }
     }
 }
 
-_id_0777( var_0, var_1, var_2, var_3, var_4 )
+add_moving_vol_to_node( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnstruct();
     var_5._id_205B = [];
@@ -684,7 +684,7 @@ _id_9CBD( var_0, var_1 )
     var_0._id_359F = 0;
     var_0._id_5F0E = 0;
     var_0._id_66CE = gettime();
-    common_scripts\utility::_id_0D13( var_0._id_750A, ::_id_7507, var_0 );
+    common_scripts\utility::array_thread( var_0._id_750A, ::_id_7507, var_0 );
     var_0 thread _id_9CAC();
     _id_9AEC( var_0 );
 
@@ -816,7 +816,7 @@ _id_3DFE( var_0, var_1, var_2, var_3 )
     }
 
     var_9 = [];
-    var_10 = common_scripts\utility::_id_0CDD( var_0._id_2013, var_0._id_2011 );
+    var_10 = common_scripts\utility::array_combine( var_0._id_2013, var_0._id_2011 );
 
     foreach ( var_5 in var_10 )
     {
@@ -912,12 +912,12 @@ _id_9AEC( var_0 )
 
     if ( isalive( var_0 ) && !var_0._id_A343 )
     {
-        if ( !common_scripts\utility::_id_0CE4( level._id_3248, var_0 ) )
+        if ( !common_scripts\utility::array_contains( level._id_3248, var_0 ) )
         {
             level._id_3248[level._id_3248.size] = var_0;
 
             if ( 1 )
-                level._id_3248 = common_scripts\utility::_id_0D05( level._id_3248, ::_id_3E9A );
+                level._id_3248 = common_scripts\utility::array_sort_by_handler( level._id_3248, ::_id_3E9A );
         }
     }
 

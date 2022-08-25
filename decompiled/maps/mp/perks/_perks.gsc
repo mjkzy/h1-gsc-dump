@@ -299,7 +299,7 @@ _id_64D6()
     self.weaponlist = [];
 }
 
-_id_198D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+cac_modified_damage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) || !isplayer( var_1 ) || !maps\mp\_utility::_id_4FA6() && !isplayer( var_0 ) )
         return var_2;
@@ -318,7 +318,7 @@ _id_198D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
         if ( isdefined( var_0 ) && isplayer( var_0 ) && var_0 maps\mp\_utility::_hasperk( "specialty_armorvest" ) )
             var_10 = var_9;
         else
-            var_10 += var_2 * level._id_18AB;
+            var_10 += var_2 * level.bulletdamagemod;
     }
     else if ( isdefined( var_1 ) && var_1 maps\mp\_utility::_hasperk( "specialty_explosivedamage" ) && isexplosivedamagemod( var_3 ) )
     {
@@ -328,7 +328,7 @@ _id_198D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             var_10 += var_2 * level._id_3550;
     }
     else if ( isdefined( var_0 ) && isplayer( var_0 ) && var_0 maps\mp\_utility::_hasperk( "specialty_armorvest" ) )
-        var_10 -= var_2 * level._id_0CD3;
+        var_10 -= var_2 * level.armorvestmod;
     else
         var_10 = var_9;
 
@@ -351,14 +351,14 @@ _id_4DF8()
 {
     level._id_52A4 = 0.08;
     level._id_529B = 0.08;
-    level._id_0CD2 = 1.5;
+    level.armorpiercingmod = 1.5;
     level._id_72D2 = 0.25;
-    level._id_18AB = maps\mp\_utility::_id_3FDB( "perk_bulletDamage", 40 ) / 100;
+    level.bulletdamagemod = maps\mp\_utility::_id_3FDB( "perk_bulletDamage", 40 ) / 100;
     level._id_3550 = maps\mp\_utility::_id_3FDB( "perk_explosiveDamage", 25 ) / 100;
-    level._id_0CD3 = maps\mp\_utility::_id_3FDB( "perk_armorVest", 25 ) / 100;
+    level.armorvestmod = maps\mp\_utility::_id_3FDB( "perk_armorVest", 25 ) / 100;
 }
 
-_id_198F()
+cac_selector()
 {
 
 }
@@ -380,7 +380,7 @@ _id_41E3()
     self._id_89F9 = 0;
 }
 
-_id_0CAF()
+applyperks()
 {
     self setviewkickscale( 1.0 );
 
@@ -448,7 +448,7 @@ _id_0CAF()
 
     if ( maps\mp\_utility::_hasperk( "specialty_class_scavenger" ) )
     {
-        self._id_0B7B = 0.2;
+        self.ammopickup_scalar = 0.2;
         maps\mp\_utility::_id_41F8( "specialty_scavenger", 0 );
         maps\mp\_utility::_id_41F8( "specialty_bulletresupply", 0 );
         maps\mp\_utility::_id_41F8( "specialty_extraammo", 0 );

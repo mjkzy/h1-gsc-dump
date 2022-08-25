@@ -32,13 +32,13 @@ _id_A232()
 {
     level.c4explodethisframe = 0;
     self endon( "death" );
-    self._id_196D = [];
+    self.c4array = [];
     self.throwinggrenade = 0;
     thread _id_A203();
     thread _id_A206();
     thread _id_A20A();
-    thread _id_138D();
-    thread _id_137B();
+    thread begin_semtex_grenade_tracking();
+    thread begin_concussion_grenade_tracking();
 
     for (;;)
     {
@@ -47,21 +47,21 @@ _id_A232()
 
         if ( var_0 == "c4" )
         {
-            _id_1397();
+            beginc4tracking();
             continue;
         }
 
         if ( var_0 == "smoke_grenade_american" )
         {
-            _id_13A0();
+            beginsmokegrenadetracking();
             continue;
         }
 
-        _id_139C();
+        begingrenadetracking();
     }
 }
 
-_id_13A0()
+beginsmokegrenadetracking()
 {
     self waittill( "grenade_fire", var_0, var_1 );
 
@@ -71,7 +71,7 @@ _id_13A0()
     var_0 thread _id_8681();
 }
 
-_id_139B()
+beginflashgrenadetracking()
 {
     self.throwinggrenade = 0;
     var_0 = gettime();
@@ -94,7 +94,7 @@ _id_139B()
     }
 }
 
-_id_138D()
+begin_semtex_grenade_tracking()
 {
     for (;;)
     {
@@ -138,7 +138,7 @@ _id_7C7B( var_0 )
     if ( !isdefined( var_1 ) || !isalive( var_1 ) )
         return;
 
-    if ( var_1 maps\_vehicle::_id_5031() || var_1 maps\_vehicle_code::_id_0E29( var_0 ) )
+    if ( var_1 maps\_vehicle::_id_5031() || var_1 maps\_vehicle_code::attacker_isonmyteam( var_0 ) )
     {
         var_1._id_46FD = undefined;
         return;
@@ -147,7 +147,7 @@ _id_7C7B( var_0 )
     var_1 kill( var_1.origin, var_0 );
 }
 
-_id_137B()
+begin_concussion_grenade_tracking()
 {
     for (;;)
     {
@@ -181,7 +181,7 @@ _id_8681()
     level._id_8684--;
 }
 
-_id_139C()
+begingrenadetracking()
 {
     self endon( "death" );
     self waittill( "grenade_fire", var_0, var_1 );
@@ -194,7 +194,7 @@ _id_139C()
     self.throwinggrenade = 0;
 }
 
-_id_1397()
+beginc4tracking()
 {
     self endon( "death" );
     common_scripts\utility::_id_A069( "grenade_fire", "weapon_change" );
@@ -209,22 +209,22 @@ _id_A203()
 
         if ( var_1 == "c4" )
         {
-            if ( !self._id_196D.size )
+            if ( !self.c4array.size )
                 thread _id_A204();
 
-            self._id_196D[self._id_196D.size] = var_0;
+            self.c4array[self.c4array.size] = var_0;
             var_0.owner = self;
-            var_0 thread _id_196E();
-            thread _id_196F( var_0 );
+            var_0 thread c4damage();
+            thread c4death( var_0 );
             var_0 thread _id_6A35();
         }
     }
 }
 
-_id_196F( var_0 )
+c4death( var_0 )
 {
     var_0 waittill( "death" );
-    self._id_196D = maps\_utility::_id_0CFB( self._id_196D, var_0 );
+    self.c4array = maps\_utility::array_remove_nokeys( self.c4array, var_0 );
 }
 
 _id_A20A()
@@ -239,7 +239,7 @@ _id_A20A()
         if ( var_1 == "claymore" || var_1 == "claymore_mp" )
         {
             var_0.owner = self;
-            var_0 thread _id_196E( 1 );
+            var_0 thread c4damage( 1 );
             var_0 thread _id_1E48();
             var_0 thread _id_6A36();
         }
@@ -278,7 +278,7 @@ _id_1E48()
     if ( !isdefined( level._id_1E4A ) )
         level._id_1E4A = [];
 
-    level._id_1E4A = common_scripts\utility::_id_0CDA( level._id_1E4A, self );
+    level._id_1E4A = common_scripts\utility::array_add( level._id_1E4A, self );
 
     if ( !maps\_utility::_id_5083() && level._id_1E4A.size > 15 )
         level._id_1E4A[0] delete();
@@ -311,7 +311,7 @@ _id_1E48()
 _id_285A( var_0 )
 {
     self waittill( "death" );
-    level._id_1E4A = maps\_utility::_id_0CFB( level._id_1E4A, self );
+    level._id_1E4A = maps\_utility::array_remove_nokeys( level._id_1E4A, self );
     wait 0.05;
 
     if ( isdefined( var_0 ) )
@@ -329,13 +329,13 @@ _id_A206()
 
         if ( var_0 == "c4" )
         {
-            for ( var_1 = 0; var_1 < self._id_196D.size; var_1++ )
+            for ( var_1 = 0; var_1 < self.c4array.size; var_1++ )
             {
-                if ( isdefined( self._id_196D[var_1] ) )
-                    self._id_196D[var_1] thread _id_A006( 0.1 );
+                if ( isdefined( self.c4array[var_1] ) )
+                    self.c4array[var_1] thread _id_A006( 0.1 );
             }
 
-            self._id_196D = [];
+            self.c4array = [];
         }
     }
 }
@@ -354,15 +354,15 @@ _id_A205()
         {
             var_1 = [];
 
-            for ( var_2 = 0; var_2 < self._id_196D.size; var_2++ )
+            for ( var_2 = 0; var_2 < self.c4array.size; var_2++ )
             {
-                var_3 = self._id_196D[var_2];
+                var_3 = self.c4array[var_2];
 
-                if ( isdefined( self._id_196D[var_2] ) )
+                if ( isdefined( self.c4array[var_2] ) )
                     var_3 thread _id_A006( 0.1 );
             }
 
-            self._id_196D = var_1;
+            self.c4array = var_1;
             self notify( "detonated" );
         }
     }
@@ -375,7 +375,7 @@ _id_A006( var_0 )
     self detonate();
 }
 
-_id_196E( var_0 )
+c4damage( var_0 )
 {
     self.health = 100;
     self setcandamage( 1 );
@@ -613,7 +613,7 @@ _id_A204()
             if ( var_0 >= 0.5 )
                 continue;
 
-            if ( !self._id_196D.size )
+            if ( !self.c4array.size )
                 return;
 
             self notify( "alt_detonate" );

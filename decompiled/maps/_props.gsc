@@ -34,15 +34,15 @@ _id_7039( var_0, var_1 )
     return 0;
 }
 
-_id_0796( var_0 )
+add_smoking_notetracks( var_0 )
 {
     if ( _id_7039( var_0, "add_smoking_notetracks" ) )
         return;
 
-    maps\_anim::_id_0807( var_0, "attach cig", ::_id_0DDB );
-    maps\_anim::_id_0807( var_0, "detach cig", ::_id_2976 );
-    maps\_anim::_id_0807( var_0, "puff", ::_id_8682 );
-    maps\_anim::_id_0807( var_0, "exhale", ::_id_8680 );
+    maps\_anim::addnotetrack_customfunction( var_0, "attach cig", ::attach_cig );
+    maps\_anim::addnotetrack_customfunction( var_0, "detach cig", ::_id_2976 );
+    maps\_anim::addnotetrack_customfunction( var_0, "puff", ::_id_8682 );
+    maps\_anim::addnotetrack_customfunction( var_0, "exhale", ::_id_8680 );
     level._effect["cigar_glow"] = loadfx( "fx/fire/cigar_glow_far" );
     level._effect["cigar_glow_puff"] = loadfx( "fx/fire/cigar_glow_puff" );
     level._effect["cigar_smoke_puff"] = loadfx( "fx/smoke/cigarsmoke_puff_far" );
@@ -56,17 +56,17 @@ _id_2979( var_0 )
         var_0._id_1F96 delete();
 }
 
-_id_0793( var_0 )
+add_sit_load_ak_notetracks( var_0 )
 {
     if ( _id_7039( var_0, "add_cellphone_notetracks" ) )
         return;
 
-    maps\_anim::_id_0807( var_0, "attach clip left", ::_id_0DDD );
-    maps\_anim::_id_0807( var_0, "detach clip left", ::_id_2979 );
+    maps\_anim::addnotetrack_customfunction( var_0, "attach clip left", ::attach_clip );
+    maps\_anim::addnotetrack_customfunction( var_0, "detach clip left", ::_id_2979 );
     level._id_78B5["clip"] = "weapon_ak47_clip";
 }
 
-_id_0DDD( var_0 )
+attach_clip( var_0 )
 {
     var_0 notify( "new_prop_rotation" );
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
@@ -76,17 +76,17 @@ _id_0DDD( var_0 )
     thread _id_7037( var_1, var_0 );
 }
 
-_id_073F( var_0 )
+add_cellphone_notetracks( var_0 )
 {
     if ( _id_7039( var_0, "add_cellphone_notetracks" ) )
         return;
 
-    maps\_anim::_id_0807( var_0, "attach phone", ::_id_0DEA );
-    maps\_anim::_id_0807( var_0, "detach phone", ::_id_297D );
+    maps\_anim::addnotetrack_customfunction( var_0, "attach phone", ::attach_phone );
+    maps\_anim::addnotetrack_customfunction( var_0, "detach phone", ::_id_297D );
     level._id_78B5["cellphone"] = "com_cellphone_off";
 }
 
-_id_0DEA( var_0 )
+attach_phone( var_0 )
 {
     var_0 notify( "new_phone_rotation" );
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
@@ -102,7 +102,7 @@ _id_297D( var_0 )
         var_0._id_67ED delete();
 }
 
-_id_0DDB( var_0 )
+attach_cig( var_0 )
 {
     var_0 notify( "new_cigar_rotation" );
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
@@ -124,10 +124,10 @@ _id_7037( var_0, var_1 )
     var_1 notify( "new_prop_rotation" + var_0.model );
     var_1 endon( "new_prop_rotation" + var_0.model );
     var_0 endon( "death" );
-    var_1 maps\_utility::_id_075B( "new_prop_rotation" + var_0.model );
-    var_0 maps\_utility::_id_075B( "death" );
-    maps\_utility::_id_07BE( maps\_utility::_id_A099, "stop_loop" );
-    var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    var_1 maps\_utility::add_endon( "new_prop_rotation" + var_0.model );
+    var_0 maps\_utility::add_endon( "death" );
+    maps\_utility::add_wait( maps\_utility::_id_A099, "stop_loop" );
+    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
     maps\_utility::_id_2BDD();
     var_0 delete();
 }
@@ -137,10 +137,10 @@ _id_7038( var_0, var_1 )
     var_1 notify( "new_prop_rotation" + var_0.model );
     var_1 endon( "new_prop_rotation" + var_0.model );
     var_0 endon( "death" );
-    var_1 maps\_utility::_id_075B( "new_prop_rotation" + var_0.model );
-    var_0 maps\_utility::_id_075B( "death" );
-    maps\_utility::_id_07BE( maps\_utility::_id_A099, "stop_loop" );
-    var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    var_1 maps\_utility::add_endon( "new_prop_rotation" + var_0.model );
+    var_0 maps\_utility::add_endon( "death" );
+    maps\_utility::add_wait( maps\_utility::_id_A099, "stop_loop" );
+    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
     maps\_utility::_id_2BDD();
     var_0 thread _id_7036();
 }
@@ -222,7 +222,7 @@ _id_418B()
     }
 }
 
-_id_0DDC()
+attach_cig_self()
 {
-    _id_0DDB( self );
+    attach_cig( self );
 }

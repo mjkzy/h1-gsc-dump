@@ -39,7 +39,7 @@ _id_2110()
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_aftermath_global" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_intro_stinger" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_intro_radio_vo" );
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 _id_4D5B()
@@ -94,7 +94,7 @@ _id_5FFD( var_0, var_1 )
 
 aud_player_falls()
 {
-    soundscripts\_audio_zone_manager::_id_122C( 1 );
+    soundscripts\_audio_zone_manager::azm_set_filter_bypass( 1 );
     soundscripts\_snd_filters::_id_86DB( "blur_event_filter", 0.5 );
 
     if ( !isdefined( level.heartbeat_ent ) )
@@ -111,7 +111,7 @@ aud_player_falls()
 aud_player_recover()
 {
     soundscripts\_snd_filters::_id_86DC( 2 );
-    soundscripts\_audio_zone_manager::_id_122C( 0 );
+    soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
     level.player thread maps\_utility::_id_69C4( "breathing_better" );
 }
 

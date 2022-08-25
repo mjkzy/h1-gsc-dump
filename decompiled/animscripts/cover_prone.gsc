@@ -61,7 +61,7 @@ _id_4C7F()
     var_0["turn_right_45"] = %h1_prone_turn_r45;
     var_0["turn_right_90"] = %h1_prone_turn_r90;
     var_0["turn_right_180"] = %h1_prone_turn_180;
-    anim._id_0CCA["soldier"]["cover_prone"] = var_0;
+    anim.archetypes["soldier"]["cover_prone"] = var_0;
 }
 
 setanimmodedelayed( var_0 )
@@ -83,7 +83,7 @@ main()
         return;
     }
 
-    if ( isdefined( self.a._id_0D29 ) && self.a._id_0D29 == "prone_saw" )
+    if ( isdefined( self.a.arrivaltype ) && self.a.arrivaltype == "prone_saw" )
         animscripts\cover_wall::_id_9C12( "saw_bipod_prone", "weapon_saw_MG_Setup", 0 );
     else if ( isdefined( self.node._id_9940 ) )
         animscripts\cover_wall::_id_9C15();
@@ -99,7 +99,7 @@ main()
     self._id_22BA = self.node;
     self _meth_8193( "face angle", self.angles[1] );
     self.a._id_425B = 1;
-    self _meth_81fd( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    self _meth_81FD( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
 
     if ( self.a._id_6E5A != "prone" )
     {
@@ -117,7 +117,7 @@ main()
 
         if ( var_0 != 0 )
         {
-            var_1 = animscripts\utility::_id_06C4( self.angles[1] - self._id_22BA.angles[1] );
+            var_1 = animscripts\utility::absangleclamp180( self.angles[1] - self._id_22BA.angles[1] );
             var_2 = %h1_crawl_2_prone;
             var_3 = 0.4;
 
@@ -142,9 +142,9 @@ main()
         }
     }
 
-    thread animscripts\combat_utility::_id_0979();
+    thread animscripts\combat_utility::aimidlethread();
     _id_8333( 0.2 );
-    self _meth_814d( %prone_aim_5, 1, 0.1 );
+    self _meth_814D( %prone_aim_5, 1, 0.1 );
     self _meth_8193( "face angle", self.angles[1] );
     self _meth_8192( "zonly_physics" );
     _id_7022();
@@ -163,7 +163,7 @@ _id_4B87()
 
     for (;;)
     {
-        var_0 = animscripts\utility::_id_0C51( "prone_idle" );
+        var_0 = animscripts\utility::animarraypickrandom( "prone_idle" );
         self setflaggedanimlimited( "idle", var_0 );
         self waittillmatch( "idle", "end" );
         self _meth_8144( var_0, 0.2 );
@@ -172,8 +172,8 @@ _id_4B87()
 
 _id_9B50( var_0 )
 {
-    self _meth_81fe( animscripts\utility::_id_5863( "cover_prone", "legs_up" ), animscripts\utility::_id_5863( "cover_prone", "legs_down" ), 1, var_0, 1 );
-    self _meth_814d( %exposed_aiming, 1, 0.2 );
+    self _meth_81FE( animscripts\utility::_id_5863( "cover_prone", "legs_up" ), animscripts\utility::_id_5863( "cover_prone", "legs_down" ), 1, var_0, 1 );
+    self _meth_814D( %exposed_aiming, 1, 0.2 );
 }
 
 _id_2D88( var_0, var_1 )
@@ -181,7 +181,7 @@ _id_2D88( var_0, var_1 )
     var_2 = isdefined( self._id_840F );
     var_3 = 1;
     var_4 = 0.2;
-    var_5 = isdefined( self.enemy ) && !isdefined( self._id_993E ) && self _meth_81c3( self.enemy, 2 ) && distancesquared( self.enemy.origin, self.origin ) < 262144;
+    var_5 = isdefined( self.enemy ) && !isdefined( self._id_993E ) && self _meth_81C3( self.enemy, 2 ) && distancesquared( self.enemy.origin, self.origin ) < 262144;
 
     if ( self.a._id_7B46 + 500 > gettime() )
     {
@@ -213,7 +213,7 @@ _id_2D88( var_0, var_1 )
         var_7 = 45;
 
     var_8 = "turn_" + var_0 + "_" + var_7;
-    var_9 = animscripts\utility::_id_0C4E( var_8 );
+    var_9 = animscripts\utility::animarray( var_8 );
 
     if ( isdefined( self._id_993E ) )
         self _meth_8192( "angle deltas", 0 );
@@ -225,7 +225,7 @@ _id_2D88( var_0, var_1 )
         self _meth_8192( "angle deltas", 0 );
 
     self _meth_8149( %exposed_aiming, %body, 1, var_4 );
-    self _meth_814e( %turn, 1, var_4 );
+    self _meth_814E( %turn, 1, var_4 );
 
     if ( isdefined( self._id_4795 ) )
         var_3 = min( 1.0, var_3 );
@@ -233,7 +233,7 @@ _id_2D88( var_0, var_1 )
     self setflaggedanimknoblimitedrestart( "turn", var_9, 1, var_4, var_3 );
     self notify( "turning" );
     animscripts\combat::_id_2D89();
-    self _meth_814e( %turn, 0, 0.2 );
+    self _meth_814E( %turn, 0, 0.2 );
     self _meth_8144( %turn, 0.2 );
     self _meth_8145( %exposed_aiming, 1, 0.2, 1 );
 
@@ -268,7 +268,7 @@ _id_608A()
             var_1 += asin( -3 / var_3 );
     }
 
-    return animscripts\utility::_id_06C4( var_1 ) > self._id_993A;
+    return animscripts\utility::absangleclamp180( var_1 ) > self._id_993A;
 }
 
 _id_993D( var_0 )
@@ -341,7 +341,7 @@ _id_7022()
 
         var_1 = lengthsquared( self.origin - self._id_840F );
 
-        if ( self.a._id_6E5A != "crouch" && self _meth_81cf( "crouch" ) && var_1 < squared( 400 ) )
+        if ( self.a._id_6E5A != "crouch" && self _meth_81CF( "crouch" ) && var_1 < squared( 400 ) )
         {
             if ( var_1 < squared( 285 ) )
             {
@@ -360,7 +360,7 @@ _id_7022()
         if ( _id_7026( 0 ) )
             continue;
 
-        if ( animscripts\combat_utility::_id_0976() )
+        if ( animscripts\combat_utility::aimedatshootentorpos() )
         {
             animscripts\combat_utility::_id_8417();
             self _meth_8144( %add_fire, 0.2 );
@@ -373,13 +373,13 @@ _id_7022()
 
 _id_7026( var_0 )
 {
-    return animscripts\combat_utility::reload( var_0, animscripts\utility::_id_0C4E( "reload" ) );
+    return animscripts\combat_utility::reload( var_0, animscripts\utility::animarray( "reload" ) );
 }
 
 _id_80A3()
 {
     self _meth_8177( self.node );
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_prone" );
+    self.a.array = animscripts\utility::_id_5864( "cover_prone" );
 }
 
 _id_98A5( var_0, var_1 )
@@ -387,9 +387,9 @@ _id_98A5( var_0, var_1 )
     var_2 = undefined;
 
     if ( isdefined( var_1 ) && var_1 )
-        var_2 = animscripts\utility::_id_0C51( "grenade_safe" );
+        var_2 = animscripts\utility::animarraypickrandom( "grenade_safe" );
     else
-        var_2 = animscripts\utility::_id_0C51( "grenade_exposed" );
+        var_2 = animscripts\utility::animarraypickrandom( "grenade_exposed" );
 
     self _meth_8192( "zonly_physics" );
     self.keepclaimednodeifvalid = 1;
@@ -421,7 +421,7 @@ _id_8499()
     if ( isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 256 )
         return 0;
 
-    if ( isdefined( self.enemy ) && self _meth_81c2( self.enemy ) && !isdefined( self.grenade ) && animscripts\shared::_id_3EE4() < 20 )
+    if ( isdefined( self.enemy ) && self _meth_81C2( self.enemy ) && !isdefined( self.grenade ) && animscripts\shared::_id_3EE4() < 20 )
         return animscripts\move::_id_5A61();
 
     return 0;
@@ -436,9 +436,9 @@ _id_701F( var_0 )
     animscripts\combat_utility::_id_315E();
 
     if ( _id_8499() )
-        var_1 = animscripts\utility::_id_0C4E( self.a._id_6E5A + "_2_" + var_0 + "_firing" );
+        var_1 = animscripts\utility::animarray( self.a._id_6E5A + "_2_" + var_0 + "_firing" );
     else
-        var_1 = animscripts\utility::_id_0C4E( self.a._id_6E5A + "_2_" + var_0 );
+        var_1 = animscripts\utility::animarray( self.a._id_6E5A + "_2_" + var_0 );
 
     if ( var_0 == "prone" )
     {
@@ -447,7 +447,7 @@ _id_701F( var_0 )
 
     self setflaggedanimknoballrestart( "trans", var_1, %body, 1, 0.2, 1.0 );
     animscripts\shared::_id_2D06( "trans" );
-    self _meth_814b( animscripts\utility::_id_0C4E( "straight_level" ), %body, 1, 0.25 );
+    self _meth_814B( animscripts\utility::animarray( "straight_level" ), %body, 1, 0.25 );
     _id_8333( 0.25 );
 }
 
@@ -460,10 +460,10 @@ _id_3799( var_0 )
 _id_8333( var_0 )
 {
     self _meth_8149( %prone_aim_5, %body, 1, var_0 );
-    self _meth_814e( %prone_aim_2_add, 1, var_0 );
-    self _meth_814e( %prone_aim_4_add, 1, var_0 );
-    self _meth_814e( %prone_aim_6_add, 1, var_0 );
-    self _meth_814e( %prone_aim_8_add, 1, var_0 );
+    self _meth_814E( %prone_aim_2_add, 1, var_0 );
+    self _meth_814E( %prone_aim_4_add, 1, var_0 );
+    self _meth_814E( %prone_aim_6_add, 1, var_0 );
+    self _meth_814E( %prone_aim_8_add, 1, var_0 );
 }
 
 _id_702B( var_0, var_1, var_2 )

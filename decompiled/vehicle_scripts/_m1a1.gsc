@@ -22,27 +22,27 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "m1a1", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_m1a1_abrams", "vehicle_m1a1_abrams_dmg" );
-    maps\_vehicle::_id_1868( "tankblast" );
-    maps\_vehicle::_id_1849( %abrams_movement, %abrams_movement_backwards, 10 );
-    maps\_vehicle::_id_184B( "fx/distortion/abrams_exhaust" );
-    maps\_vehicle::_id_1847( "fx/dust/abrams_deck_dust" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "exp_armor_vehicle" );
-    maps\_vehicle::_id_1872( "m1a1_coaxial_mg", "tag_coax_mg", "vehicle_m1a1_abrams_PKT_Coaxial_MG" );
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_1865( "tank_rumble", 0.15, 4.5, 900, 1, 1 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_185A();
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::_id_184C( 0.33 );
+    maps\_vehicle::build_template( "m1a1", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_m1a1_abrams", "vehicle_m1a1_abrams_dmg" );
+    maps\_vehicle::build_shoot_shock( "tankblast" );
+    maps\_vehicle::build_drive( %abrams_movement, %abrams_movement_backwards, 10 );
+    maps\_vehicle::build_exhaust( "fx/distortion/abrams_exhaust" );
+    maps\_vehicle::build_deckdust( "fx/dust/abrams_deck_dust" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "exp_armor_vehicle" );
+    maps\_vehicle::build_turret( "m1a1_coaxial_mg", "tag_coax_mg", "vehicle_m1a1_abrams_PKT_Coaxial_MG" );
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_rumble( "tank_rumble", 0.15, 4.5, 900, 1, 1 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_mainturret();
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_frontarmor( 0.33 );
 }
 
 _id_4D10()
 {
-    if ( !isdefined( level._id_0E57.disable_m1a1_audio ) )
+    if ( !isdefined( level.aud.disable_m1a1_audio ) )
         _id_4521();
 }
 

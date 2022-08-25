@@ -39,15 +39,15 @@ _id_5208( var_0 )
 _id_7F7C()
 {
     anim._id_22A1 = 55;
-    anim._id_0985 = 10;
-    anim._id_0983 = 4096;
-    anim._id_0984 = 45;
-    anim._id_097B = 20;
+    anim.aimyawdifffartolerance = 10;
+    anim.aimyawdiffclosedistsq = 4096;
+    anim.aimyawdiffclosetolerance = 45;
+    anim.aimpitchdifftolerance = 20;
     anim.aimpitchdiffclosedistsq = 6400;
     anim.aimpitchdiffclosetolerance = 30;
     anim._id_6663 = 25;
-    anim._id_6661 = anim._id_0983;
-    anim._id_6662 = anim._id_0984;
+    anim._id_6661 = anim.aimyawdiffclosedistsq;
+    anim._id_6662 = anim.aimyawdiffclosetolerance;
     anim._id_665B = 30;
     anim._id_5A26 = 65;
     anim._id_5A25 = 65;
@@ -95,7 +95,7 @@ main()
     self.a._id_A2E3["back"] = "none";
     self._id_560F = self.weapon;
     self._id_75DF = %animscript_root;
-    thread _id_139C();
+    thread begingrenadetracking();
     var_0 = animscripts\utility::_id_9C36();
     self.a._id_6096 = var_0;
 
@@ -122,7 +122,7 @@ main()
     self.a._id_20AA = gettime();
     self.a._id_559E = gettime();
     self.a._id_8FE8 = 0;
-    self.a._id_2B18 = !self _meth_813f();
+    self.a._id_2B18 = !self _meth_813F();
     self.a._id_5856 = 0;
     self.a._id_665F = 0;
     self.a._id_55D7 = 0;
@@ -137,16 +137,16 @@ main()
     self.a._id_6E8D = undefined;
     self.a._id_8AF2 = "stand";
     self._id_1D46 = animscripts\utility::_id_1D45;
-    self._id_0550 = 0;
-    self._id_05DB = 0;
+    self._animactive = 0;
+    self._lastanimtime = 0;
     thread _id_32B6();
-    self._id_1300 = 1;
+    self.baseaccuracy = 1;
     self.a._id_5CE3 = 0;
     self.a._id_612E = 0;
     self.a._id_5CE3 = 0;
     self.a._id_5CE5 = 0;
     self.a._id_2B20 = 0;
-    self._id_06DC = 1;
+    self.accuracystationarymod = 1;
     self._id_1CA5 = 0;
     self._id_8569 = 0;
     self._id_8568 = 1;
@@ -174,8 +174,8 @@ main()
     else
         self._id_7120 = 128;
 
-    self._id_0B77 = 8000;
-    self._id_0B78 = 0;
+    self.ammocheatinterval = 8000;
+    self.ammocheattime = 0;
     animscripts\animset::_id_8283();
     self._id_33E5 = [];
     self._id_33E5["corner"] = 1;
@@ -231,8 +231,8 @@ handleikevent()
 {
     self endon( "death" );
     var_0 = -30;
-    self _meth_814e( %actor_ik_move_root, 0 );
-    self _meth_814e( %stand_exposed_ik_add, 1 );
+    self _meth_814E( %actor_ik_move_root, 0 );
+    self _meth_814E( %stand_exposed_ik_add, 1 );
     var_1 = 0;
 
     for (;;)
@@ -243,7 +243,7 @@ handleikevent()
         {
             if ( var_1 == 0 )
             {
-                self _meth_814e( %actor_ik_move_root, 0 );
+                self _meth_814E( %actor_ik_move_root, 0 );
                 var_1 = 1;
             }
 
@@ -328,12 +328,12 @@ handleikevent()
         if ( var_10 < 0 )
         {
             var_25 = var_10 / var_0;
-            self _meth_814e( %actor_ik_move_root, var_25 * var_2 );
+            self _meth_814E( %actor_ik_move_root, var_25 * var_2 );
             var_1 = 0;
         }
         else if ( var_1 == 0 )
         {
-            self _meth_814e( %actor_ik_move_root, 0 );
+            self _meth_814E( %actor_ik_move_root, 0 );
             var_1 = 1;
         }
     }
@@ -383,14 +383,14 @@ _id_7FBA()
         level waittill( "loadout complete" );
 
     maps\_names::_id_3DE2();
-    thread animscripts\squadmanager::_id_084F();
+    thread animscripts\squadmanager::addtosquad();
 }
 
 _id_6E2E()
 {
     for (;;)
     {
-        if ( self _meth_81cf( "stand" ) )
+        if ( self _meth_81CF( "stand" ) )
         {
             var_0[0] = "stand allowed";
             var_1[0] = ( 0.0, 1.0, 0.0 );
@@ -401,7 +401,7 @@ _id_6E2E()
             var_1[0] = ( 1.0, 0.0, 0.0 );
         }
 
-        if ( self _meth_81cf( "crouch" ) )
+        if ( self _meth_81CF( "crouch" ) )
         {
             var_0[1] = "crouch allowed";
             var_1[1] = ( 0.0, 1.0, 0.0 );
@@ -412,7 +412,7 @@ _id_6E2E()
             var_1[1] = ( 1.0, 0.0, 0.0 );
         }
 
-        if ( self _meth_81cf( "prone" ) )
+        if ( self _meth_81CF( "prone" ) )
         {
             var_0[2] = "prone allowed";
             var_1[2] = ( 0.0, 1.0, 0.0 );
@@ -435,13 +435,13 @@ _id_6E2E()
 
 _id_8340()
 {
-    if ( !isdefined( self._id_0C78 ) || !isdefined( self._id_5F65 ) )
+    if ( !isdefined( self.animplaybackrate ) || !isdefined( self._id_5F65 ) )
         _id_7DBE();
 }
 
 _id_7DBE()
 {
-    self._id_0C78 = 0.9 + randomfloat( 0.2 );
+    self.animplaybackrate = 0.9 + randomfloat( 0.2 );
     self._id_5F97 = 0.9 + randomfloat( 0.2 );
     self._id_5F65 = 1;
     self._id_855F = 1.35;
@@ -513,7 +513,7 @@ _id_381E()
     _id_4DA9();
     setdvar( "scr_expDeathMayMoveCheck", "on" );
     maps\_names::_id_8241();
-    anim._id_0C6E = 0;
+    anim.animflagnameindex = 0;
     animscripts\init_move_transitions::_id_4DF3();
     anim._id_20AE = 10000;
     anim._id_20AF = 6000;
@@ -553,11 +553,11 @@ _id_381E()
     level._id_6650 = undefined;
     animscripts\setposemovement::_id_4E02();
     animscripts\face::_id_4DEF();
-    anim._id_1931 = animscripts\utility::_id_0CD8( 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5 );
-    anim._id_3674 = animscripts\utility::_id_0CD8( 2, 3, 3, 3, 4, 4, 4, 5, 5 );
-    anim._id_7C7A = animscripts\utility::_id_0CD8( 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5 );
-    anim._id_126A = [];
-    anim._id_1267 = 0;
+    anim.burstfirenumshots = animscripts\utility::array( 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5 );
+    anim._id_3674 = animscripts\utility::array( 2, 3, 3, 3, 4, 4, 4, 5, 5 );
+    anim._id_7C7A = animscripts\utility::array( 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5 );
+    anim.badplaces = [];
+    anim.badplaceint = 0;
     anim.player = getentarray( "player", "classname" )[0];
     _id_4D8C();
     _id_4E33();
@@ -567,7 +567,7 @@ _id_381E()
     anim._id_5583 = -100000;
     _id_8335();
     level.player thread animscripts\combat_utility::_id_A250();
-    thread _id_09A7();
+    thread aiturnnotifies();
 }
 
 _id_4DA9()
@@ -578,10 +578,10 @@ _id_4DA9()
 _id_4D8C()
 {
     animscripts\squadmanager::_id_4D5F();
-    anim.player thread animscripts\squadmanager::_id_081E();
+    anim.player thread animscripts\squadmanager::addplayertosquad();
     animscripts\battlechatter::_id_4CB8();
-    anim.player thread animscripts\battlechatter_ai::_id_0850();
-    anim thread animscripts\battlechatter::_id_1356();
+    anim.player thread animscripts\battlechatter_ai::addtosystem();
+    anim thread animscripts\battlechatter::bcsdebugwaiter();
 }
 
 _id_4DA7()
@@ -633,16 +633,16 @@ _id_4D7D()
     level._id_5573["team3"] = ( 0.0, 0.0, 0.0 );
     level._id_5573["neutral"] = ( 0.0, 0.0, 0.0 );
     level._id_5571 = [];
-    level._id_0883 = [];
-    level._id_0883["axis"] = 0;
-    level._id_0883["allies"] = 0;
-    level._id_0883["team3"] = 0;
-    level._id_0883["neutral"] = 0;
-    level._id_0885 = 30000;
-    level._id_0884 = 3;
+    level.advancetoenemygroup = [];
+    level.advancetoenemygroup["axis"] = 0;
+    level.advancetoenemygroup["allies"] = 0;
+    level.advancetoenemygroup["team3"] = 0;
+    level.advancetoenemygroup["neutral"] = 0;
+    level.advancetoenemyinterval = 30000;
+    level.advancetoenemygroupmax = 3;
 }
 
-_id_09A7()
+aiturnnotifies()
 {
     var_0 = 0;
     var_1 = 3;
@@ -703,7 +703,7 @@ _id_7FBE()
     }
 }
 
-_id_139C()
+begingrenadetracking()
 {
     if ( isdefined( level._id_2B15 ) )
         return;

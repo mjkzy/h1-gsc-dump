@@ -26,7 +26,7 @@ main()
     var_0._id_4500 = 12289;
     var_0._id_7299 = 0.258821;
     var_0._id_43D8 = 0.309172;
-    var_0._id_14C5 = 0.350739;
+    var_0.blue = 0.350739;
     var_0._id_4774 = 12.029;
     var_0._id_5A47 = 1;
     var_0._id_971C = 0;
@@ -45,24 +45,24 @@ main()
     var_0._id_479F = 0;
     var_0._id_479E = 0;
     var_0._id_47A0 = 1000;
-    var_0._id_0DB4 = 1;
-    var_0._id_0DC4 = ( 0.446809, 0.446433, 0.446396 );
-    var_0._id_0DB7 = ( 0.422966, 0.537899, 0.649682 );
-    var_0._id_0DB9 = 0.0702613;
-    var_0._id_0DB8 = 0.012897;
-    var_0._id_0DB5 = 1;
-    var_0._id_0DBD = 5.8;
-    var_0._id_0DB6 = 800;
-    var_0._id_0DC2 = 400;
-    var_0._id_0DB3 = 2;
-    var_0._id_0DBF = 103612;
-    var_0._id_0DBE = 1;
-    var_0._id_0DC1 = 1.53992;
-    var_0._id_0DC0 = 720;
-    var_0._id_0DC3 = ( 0.581172, -0.39083, 0.713786 );
-    var_0._id_0DBB = 1;
-    var_0._id_0DBA = 150;
-    var_0._id_0DBC = 7000;
+    var_0.atmosfogenabled = 1;
+    var_0.atmosfogsunfogcolor = ( 0.446809, 0.446433, 0.446396 );
+    var_0.atmosfoghazecolor = ( 0.422966, 0.537899, 0.649682 );
+    var_0.atmosfoghazestrength = 0.0702613;
+    var_0.atmosfoghazespread = 0.012897;
+    var_0.atmosfogextinctionstrength = 1;
+    var_0.atmosfoginscatterstrength = 5.8;
+    var_0.atmosfoghalfplanedistance = 800;
+    var_0.atmosfogstartdistance = 400;
+    var_0.atmosfogdistancescale = 2;
+    var_0.atmosfogskydistance = 103612;
+    var_0.atmosfogskyangularfalloffenabled = 1;
+    var_0.atmosfogskyfalloffstartangle = 1.53992;
+    var_0.atmosfogskyfalloffanglerange = 720;
+    var_0.atmosfogsundirection = ( 0.581172, -0.39083, 0.713786 );
+    var_0.atmosfogheightfogenabled = 1;
+    var_0.atmosfogheightfogbaseheight = 150;
+    var_0.atmosfogheightfoghalfplanedistance = 7000;
 }
 
 _id_8317()

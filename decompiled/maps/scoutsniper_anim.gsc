@@ -21,9 +21,9 @@
 
 main()
 {
-    maps\_props::_id_0796( "generic" );
-    maps\_props::_id_073F( "generic" );
-    _id_0C7A();
+    maps\_props::add_smoking_notetracks( "generic" );
+    maps\_props::add_cellphone_notetracks( "generic" );
+    anims();
     _id_29E7();
     _id_66FC();
     dog();
@@ -39,7 +39,7 @@ _id_7A3D()
 }
 #using_animtree("generic_human");
 
-_id_0C7A()
+anims()
 {
     level._id_78AC["generic"]["pronehide_dive"] = %hunted_dive_2_pronehide_v1;
     level._id_78AC["generic"]["pronehide_idle"][0] = %hunted_pronehide_idle_v1;
@@ -109,31 +109,31 @@ _id_0C7A()
     else
     {
         level._id_78AC["price"]["scoutsniper_opening_price"] = %h1_scout_sniper_macmillan_intro;
-        maps\_anim::_id_080B( "price", "dialog", "scoutsniper_opening_price", "scoutsniper_mcm_radiation" );
-        maps\_anim::_id_080B( "price", "dialog", "scoutsniper_opening_price", "scoutsniper_mcm_followme" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "scoutsniper_opening_price", "scoutsniper_mcm_radiation" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "scoutsniper_opening_price", "scoutsniper_mcm_followme" );
     }
 
     level._id_78AC["price"]["container_runin"] = %h1_scout_sniper_macmillan_container_runin;
     level._id_78AC["price"]["container_idle"][0] = %h1_scout_sniper_macmillan_container_idle;
     level._id_78AC["price"]["container"] = %h1_scout_sniper_macmillan_container;
-    maps\_anim::_id_080B( "price", "dialog", "container", "scoutsniper_mcm_mysignal" );
-    maps\_anim::_id_080B( "price", "dialog", "container", "scoutsniper_mcm_hoooold" );
-    maps\_anim::_id_080B( "price", "dialog", "container", "scoutsniper_mcm_okgo" );
-    maps\_anim::_id_0807( "price", "door_push1", maps\scoutsniper_code::h1_dash_container_door_push1, "container" );
-    maps\_anim::_id_0807( "price", "door_push2", maps\scoutsniper_code::h1_dash_container_door_push2, "container" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "container", "scoutsniper_mcm_mysignal" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "container", "scoutsniper_mcm_hoooold" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "container", "scoutsniper_mcm_okgo" );
+    maps\_anim::addnotetrack_customfunction( "price", "door_push1", maps\scoutsniper_code::h1_dash_container_door_push1, "container" );
+    maps\_anim::addnotetrack_customfunction( "price", "door_push2", maps\scoutsniper_code::h1_dash_container_door_push2, "container" );
     level._id_78AC["price"]["jeep_cover_run_to_idle"] = %h1_scout_sniper_macmillan_jeep_cover_run_to_idle;
     level._id_78AC["price"]["jeep_cover_idle"][0] = %h1_scout_sniper_macmillan_jeep_cover_idle;
     level._id_78AC["price"]["jeep_cover"] = %h1_scout_sniper_macmillan_jeep_cover;
-    maps\_anim::_id_080B( "price", "dialog", "jeep_cover", "scoutsniper_mcm_letsgo2" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "jeep_cover", "scoutsniper_mcm_letsgo2" );
     level._id_78AC["price"]["heli_coming_02_long"] = %h1_scout_sniper_macmillan_heli_coming_02_long;
-    maps\_anim::_id_080B( "price", "dialog", "heli_coming_02_long", "scoutsniper_mcm_enemyheli" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "heli_coming_02_long", "scoutsniper_mcm_enemyheli" );
     level._id_78AC["price"]["heli_coming_cover_idle"] = %h1_scout_sniper_macmillan_heli_coming_cover_idle;
     level._id_78AC["price"]["heli_coming_cover_idle_v2"] = %h1_scout_sniper_macmillan_heli_coming_cover_idle_breaker;
     level._id_78AC["price"]["heli_coming_cover_exit"] = %h1_scout_sniper_macmillan_heli_coming_cover_exit;
     level._id_78AC["price"]["heli_coming_spotted"] = %h1_scout_sniper_macmillan_heli_coming_spotted;
-    maps\_anim::_id_080B( "price", "dialog", "heli_coming_spotted", "scoutsniper_mcm_spotted" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "heli_coming_spotted", "scoutsniper_mcm_spotted" );
     level._id_78AC["price"]["outtro"] = %h1_scout_sniper_macmillan_outtro;
-    maps\_anim::_id_080B( "price", "dialog", "outtro", "scoutsniper_mcm_thereshotel" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "outtro", "scoutsniper_mcm_thereshotel" );
     level._id_78AC["generic"]["cellphone_idle"][0] = %patrol_bored_idle_cellphone;
     level._id_78AC["generic"]["smoke_idle"][0] = %patrol_bored_idle_smoke;
     level._id_78AC["generic"]["lean_smoke_idle"][0] = %parabolic_leaning_guy_smoking_idle;
@@ -159,24 +159,24 @@ _id_0C7A()
     level._id_78AC["generic"]["corner_idle"][0] = %cornercrr_alert_idle;
     level._id_78AC["generic"]["corner_stand"] = %cornercrr_alert_2_stand;
     level._id_78AC["generic"]["cargo_attack_1"] = %melee_b_attack;
-    maps\_anim::_id_0807( "generic", "melee", maps\scoutsniper_code::melee_kill, "cargo_attack_1" );
+    maps\_anim::addnotetrack_customfunction( "generic", "melee", maps\scoutsniper_code::melee_kill, "cargo_attack_1" );
     level._id_78AC["generic"]["cargo_defend_1"] = %melee_b_defend;
-    maps\_anim::_id_0807( "generic", "no death", maps\scoutsniper_code::rag_doll_death, "cargo_defend_1" );
-    maps\_anim::_id_0807( "generic", "end", maps\scoutsniper_code::kill_self, "cargo_defend_1" );
-    maps\_anim::_id_0807( "generic", "no death", maps\scoutsniper_aud::cargo_guard_getting_hit, "cargo_defend_1" );
+    maps\_anim::addnotetrack_customfunction( "generic", "no death", maps\scoutsniper_code::rag_doll_death, "cargo_defend_1" );
+    maps\_anim::addnotetrack_customfunction( "generic", "end", maps\scoutsniper_code::kill_self, "cargo_defend_1" );
+    maps\_anim::addnotetrack_customfunction( "generic", "no death", maps\scoutsniper_aud::cargo_guard_getting_hit, "cargo_defend_1" );
     level._id_78AC["generic"]["cargo_attack_2"] = %melee_l_attack;
-    maps\_anim::_id_0807( "generic", "melee", maps\scoutsniper_code::melee_kill, "cargo_attack_2" );
+    maps\_anim::addnotetrack_customfunction( "generic", "melee", maps\scoutsniper_code::melee_kill, "cargo_attack_2" );
     level._id_78AC["generic"]["cargo_defend_2"] = %melee_l_defend;
-    maps\_anim::_id_0807( "generic", "no death", maps\scoutsniper_code::rag_doll_death, "cargo_defend_2" );
-    maps\_anim::_id_0807( "generic", "end", maps\scoutsniper_code::kill_self, "cargo_defend_2" );
+    maps\_anim::addnotetrack_customfunction( "generic", "no death", maps\scoutsniper_code::rag_doll_death, "cargo_defend_2" );
+    maps\_anim::addnotetrack_customfunction( "generic", "end", maps\scoutsniper_code::kill_self, "cargo_defend_2" );
     level._id_78AC["generic"]["bm21_unload1"] = %bm21_guy4_climbout;
     level._id_78AC["generic"]["bm21_unload2"] = %bm21_guy8_climbout;
     level._id_78AC["generic"]["balcony_death"] = %scout_sniper_balcony_death;
-    maps\_anim::_id_0807( "generic", "start_ragdoll", maps\scoutsniper_code::rag_doll, "balcony_death" );
+    maps\_anim::addnotetrack_customfunction( "generic", "start_ragdoll", maps\scoutsniper_code::rag_doll, "balcony_death" );
     level._id_78AC["generic"]["deadguy_throw1"] = %scout_sniper_bodydump_deadguy_throw1;
-    maps\_anim::_id_0807( "generic", "body_splash", maps\scoutsniper_code::body_splash, "deadguy_throw1" );
+    maps\_anim::addnotetrack_customfunction( "generic", "body_splash", maps\scoutsniper_code::body_splash, "deadguy_throw1" );
     level._id_78AC["generic"]["deadguy_throw2"] = %scout_sniper_bodydump_deadguy_throw2;
-    maps\_anim::_id_0807( "generic", "body_splash", maps\scoutsniper_code::body_splash, "deadguy_throw2" );
+    maps\_anim::addnotetrack_customfunction( "generic", "body_splash", maps\scoutsniper_code::body_splash, "deadguy_throw2" );
     level._id_78AC["generic"]["bodydump_guy1"] = %scout_sniper_bodydump_guy1;
     level._id_78AC["generic"]["bodydump_guy2"] = %scout_sniper_bodydump_guy2;
     level._id_78AC["generic"]["pilot_idle"][0] = %helicopter_pilot1_idle;

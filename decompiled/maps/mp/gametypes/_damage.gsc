@@ -99,8 +99,8 @@ _id_4690( var_0, var_1, var_2, var_3 )
 
 _id_4202( var_0 )
 {
-    var_1 = int( max( 0, maps\mp\gametypes\_gamescores::_id_05B8( self ) - var_0 ) );
-    maps\mp\gametypes\_gamescores::_id_063D( self, var_1 );
+    var_1 = int( max( 0, maps\mp\gametypes\_gamescores::_getplayerscore( self ) - var_0 ) );
+    maps\mp\gametypes\_gamescores::_setplayerscore( self, var_1 );
 }
 
 _id_4681( var_0, var_1 )
@@ -153,7 +153,7 @@ _id_4661( var_0 )
     if ( var_2 > 0 )
     {
         var_0.pers["teamKillPunish"] = 1;
-        var_0 maps\mp\_utility::_id_066F();
+        var_0 maps\mp\_utility::_suicide();
     }
 
     var_3 = maps\mp\gametypes\_tweakables::_id_4142( "team", "teamkillkicklimit" );
@@ -225,7 +225,7 @@ incrementkillstreak( var_0, var_1, var_2, var_3 )
 _id_466B( var_0, var_1, var_2, var_3, var_4 )
 {
     var_1 thread maps\mp\_events::_id_5360( var_0, self, var_3, var_4, var_2 );
-    var_1 _meth_83c4();
+    var_1 _meth_83C4();
 
     if ( var_4 == "MOD_HEAD_SHOT" )
     {
@@ -248,14 +248,14 @@ _id_466B( var_0, var_1, var_2, var_3, var_4 )
 
     var_6 = maps\mp\_flashgrenades::getlastflashbangattacker();
 
-    if ( maps\mp\_flashgrenades::_id_5107() && isdefined( maps\mp\_utility::_id_0683( var_6 ) ) && var_6 != var_1 )
+    if ( maps\mp\_flashgrenades::_id_5107() && isdefined( maps\mp\_utility::_validateattacker( var_6 ) ) && var_6 != var_1 )
         var_6 thread maps\mp\_events::_id_6FF4( self, "assist_flash" );
     else
         var_6 = undefined;
 
     var_7 = maps\mp\gametypes\_weapons::getlastconcussionattacker();
 
-    if ( maps\mp\gametypes\_weapons::isconcussed() && isdefined( maps\mp\_utility::_id_0683( var_7 ) ) && var_7 != var_1 )
+    if ( maps\mp\gametypes\_weapons::isconcussed() && isdefined( maps\mp\_utility::_validateattacker( var_7 ) ) && var_7 != var_1 )
         var_7 thread maps\mp\_events::_id_6FF4( self, "assist_concussion" );
     else
         var_7 = undefined;
@@ -264,7 +264,7 @@ _id_466B( var_0, var_1, var_2, var_3, var_4 )
     {
         foreach ( var_9 in self.attackers )
         {
-            if ( !isdefined( maps\mp\_utility::_id_0683( var_9 ) ) )
+            if ( !isdefined( maps\mp\_utility::_validateattacker( var_9 ) ) )
                 continue;
 
             if ( var_9 == var_1 )
@@ -300,7 +300,7 @@ _id_466B( var_0, var_1, var_2, var_3, var_4 )
             if ( !isdefined( var_13.owner ) || var_13.owner == var_1 )
                 continue;
 
-            if ( common_scripts\utility::_id_0CE4( var_11, var_13.owner ) )
+            if ( common_scripts\utility::array_contains( var_11, var_13.owner ) )
                 continue;
 
             var_11[var_11.size] = var_13.owner;
@@ -330,16 +330,16 @@ _id_517D( var_0 )
     return 0;
 }
 
-callback_playerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+callback_playerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     _id_6CD8( var_0, var_1, self, var_2, var_3, var_4, var_5, var_6, var_7, var_8, 0, 0 );
 }
 
-_id_19F4( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+callback_playergrenadesuicide( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     _id_25AE( var_0, var_4, var_3, var_2, 0, var_1 );
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
     {
         var_8 = 0;
 
@@ -351,11 +351,11 @@ _id_19F4( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         if ( var_8 )
             var_0 startlaststand();
 
-        [[ level._id_1A02 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 0 );
+        [[ level.callbackplayerlaststand ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 0 );
     }
 }
 
-_id_19ED()
+callback_entityoutofworld()
 {
     self delete();
 }
@@ -374,13 +374,13 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_2 [[ var_2._id_6EFA ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
 
     var_2 maps\mp\gametypes\_playerlogic::_id_7463();
-    var_2._id_06B7 = 0;
+    var_2.abilitychosen = 0;
     var_2._id_67D0 = 0;
     var_2._id_7C89 = 0;
-    var_1 = maps\mp\_utility::_id_0683( var_1 );
+    var_1 = maps\mp\_utility::_validateattacker( var_1 );
 
     if ( isdefined( var_1 ) )
-        var_1._id_0D77 = undefined;
+        var_1.assistedsuicide = undefined;
 
     if ( !isdefined( var_2.idflags ) )
     {
@@ -447,7 +447,7 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_2 _id_32D4();
         var_21 = var_1 == var_2;
         var_0 = var_2._id_55EC._id_3020;
-        var_1 = maps\mp\_utility::_id_0683( var_2._id_55EC.attacker );
+        var_1 = maps\mp\_utility::_validateattacker( var_2._id_55EC.attacker );
         var_3 = var_2._id_55EC._id_4B54;
         var_4 = var_2._id_55EC._id_867C;
         var_5 = var_2._id_55EC._id_9024;
@@ -467,44 +467,44 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
         foreach ( var_24 in self.attackers )
         {
-            if ( !isdefined( maps\mp\_utility::_id_0683( var_24 ) ) )
+            if ( !isdefined( maps\mp\_utility::_validateattacker( var_24 ) ) )
                 continue;
 
-            if ( !isdefined( var_2._id_0E2C[var_24.guid].damage ) )
+            if ( !isdefined( var_2.attackerdata[var_24.guid].damage ) )
                 continue;
 
             if ( var_24 == var_2 || level.teambased && var_24.team == var_2.team )
                 continue;
 
-            if ( var_2._id_0E2C[var_24.guid]._id_5606 + 2500 < gettime() && ( var_1 != var_2 && ( isdefined( var_2.laststand ) && var_2.laststand ) ) )
+            if ( var_2.attackerdata[var_24.guid]._id_5606 + 2500 < gettime() && ( var_1 != var_2 && ( isdefined( var_2.laststand ) && var_2.laststand ) ) )
                 continue;
 
-            if ( var_2._id_0E2C[var_24.guid].damage > 1 && !isdefined( var_22 ) )
+            if ( var_2.attackerdata[var_24.guid].damage > 1 && !isdefined( var_22 ) )
             {
                 var_22 = var_24;
                 continue;
             }
 
-            if ( isdefined( var_22 ) && var_2._id_0E2C[var_24.guid].damage > var_2._id_0E2C[var_22.guid].damage )
+            if ( isdefined( var_22 ) && var_2.attackerdata[var_24.guid].damage > var_2.attackerdata[var_22.guid].damage )
                 var_22 = var_24;
         }
 
         if ( isdefined( var_22 ) )
         {
             var_1 = var_22;
-            var_1._id_0D77 = 1;
-            var_5 = var_2._id_0E2C[var_22.guid].weapon;
-            var_6 = var_2._id_0E2C[var_22.guid]._id_9C68;
-            var_7 = var_2._id_0E2C[var_22.guid]._id_83CE;
-            var_8 = var_2._id_0E2C[var_22.guid].psoffsettime;
-            var_4 = var_2._id_0E2C[var_22.guid]._id_867C;
-            var_3 = var_2._id_0E2C[var_22.guid].damage;
-            var_20 = var_2._id_0E2C[var_22.guid]._id_8AA5;
+            var_1.assistedsuicide = 1;
+            var_5 = var_2.attackerdata[var_22.guid].weapon;
+            var_6 = var_2.attackerdata[var_22.guid]._id_9C68;
+            var_7 = var_2.attackerdata[var_22.guid]._id_83CE;
+            var_8 = var_2.attackerdata[var_22.guid].psoffsettime;
+            var_4 = var_2.attackerdata[var_22.guid]._id_867C;
+            var_3 = var_2.attackerdata[var_22.guid].damage;
+            var_20 = var_2.attackerdata[var_22.guid]._id_8AA5;
             var_0 = var_1;
         }
     }
     else if ( isdefined( var_1 ) )
-        var_1._id_0D77 = undefined;
+        var_1.assistedsuicide = undefined;
 
     if ( maps\mp\_utility::_id_5117( var_5, var_7, var_4, var_1 ) )
         var_4 = "MOD_HEAD_SHOT";
@@ -559,10 +559,10 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     var_29 = var_2 getcurrentweapon();
 
-    if ( !isdefined( var_2._id_08A2 ) )
+    if ( !isdefined( var_2.agentbody ) )
         var_2 thread [[ level._id_A2D8 ]]( var_1, var_4 );
     else
-        var_2._id_08A2 thread [[ level._id_A2D8 ]]( var_1, var_4 );
+        var_2.agentbody thread [[ level._id_A2D8 ]]( var_1, var_4 );
 
     if ( !var_10 )
         var_2 maps\mp\_utility::_id_9B69( "dead" );
@@ -621,7 +621,7 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     else
     {
         if ( var_4 == "MOD_GRENADE" && var_0 == var_1 || var_4 == "MOD_IMPACT" || var_4 == "MOD_GRENADE_SPLASH" || var_4 == "MOD_EXPLOSIVE" )
-            _id_07CC( var_2, var_1, var_0, var_5, var_3, ( 0.0, 0.0, 0.0 ), var_6, var_7, var_8, var_4 );
+            addattacker( var_2, var_1, var_0, var_5, var_3, ( 0.0, 0.0, 0.0 ), var_6, var_7, var_8, var_4 );
 
         var_36 = 1;
 
@@ -674,10 +674,10 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_2.lastattacker = var_1;
     var_2._id_55AF = var_0;
 
-    if ( !isdefined( var_2._id_08A2 ) )
+    if ( !isdefined( var_2.agentbody ) )
         var_2._id_5593 = var_2.origin;
     else
-        var_2._id_5593 = var_2._id_08A2.origin;
+        var_2._id_5593 = var_2.agentbody.origin;
 
     var_2._id_2671 = gettime();
     var_2._id_A152 = 0;
@@ -700,21 +700,21 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         {
             var_36 = 0;
 
-            if ( !isdefined( var_2._id_08A2 ) )
+            if ( !isdefined( var_2.agentbody ) )
                 var_9 = var_2 playerforcedeathanim( var_0, var_4, var_5, var_7, var_6 );
         }
 
         if ( var_11 )
         {
             var_36 = 0;
-            thread maps\mp\gametypes\_deathicons::_id_07DE( var_2, var_2, var_2.team, 5.0, var_1, 1 );
+            thread maps\mp\gametypes\_deathicons::adddeathicon( var_2, var_2, var_2.team, 5.0, var_1, 1 );
         }
         else if ( isdefined( var_2._id_487B ) && var_2._id_487B )
         {
             var_2 playerhide();
-            thread maps\mp\gametypes\_deathicons::_id_07DE( var_2, var_2, var_2.team, 5.0, var_1, 0 );
+            thread maps\mp\gametypes\_deathicons::adddeathicon( var_2, var_2, var_2.team, 5.0, var_1, 0 );
         }
-        else if ( !isdefined( var_2._id_08A2 ) )
+        else if ( !isdefined( var_2.agentbody ) )
         {
             var_2.body = var_2 cloneplayer( var_9, var_2.lastdroppableweapon );
 
@@ -725,12 +725,12 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                 var_2.body startragdoll();
 
             if ( !isdefined( var_2.switching_teams ) )
-                thread maps\mp\gametypes\_deathicons::_id_07DE( var_2.body, var_2, var_2.team, 5.0, var_1, 0 );
+                thread maps\mp\gametypes\_deathicons::adddeathicon( var_2.body, var_2, var_2.team, 5.0, var_1, 0 );
 
             thread _id_27EE( var_2.body, var_7, var_6, var_5, var_0, var_4 );
         }
         else if ( !isdefined( var_2.switching_teams ) )
-            thread maps\mp\gametypes\_deathicons::_id_07DE( var_2._id_08A2, var_2, var_2.team, 5.0, var_1, 0 );
+            thread maps\mp\gametypes\_deathicons::adddeathicon( var_2.agentbody, var_2, var_2.team, 5.0, var_1, 0 );
     }
 
     var_2 thread [[ level._id_64D3 ]]( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, self._id_56F7 );
@@ -858,14 +858,14 @@ _id_6CD8( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
 victimcorpsecontentsfixcollats( var_0 )
 {
-    if ( !isdefined( self.body ) || !isdefined( var_0 ) || !isdefined( self._id_0E2C ) || !isdefined( self._id_0E2C[var_0.guid] ) )
+    if ( !isdefined( self.body ) || !isdefined( var_0 ) || !isdefined( self.attackerdata ) || !isdefined( self.attackerdata[var_0.guid] ) )
         return;
 
     self.body endon( "death" );
-    var_1 = self._id_0E2C[var_0.guid]._id_9F44;
-    var_2 = self._id_0E2C[var_0.guid]._id_9C68;
-    var_3 = self._id_0E2C[var_0.guid].weapon;
-    var_4 = self._id_0E2C[var_0.guid]._id_867C;
+    var_1 = self.attackerdata[var_0.guid]._id_9F44;
+    var_2 = self.attackerdata[var_0.guid]._id_9C68;
+    var_3 = self.attackerdata[var_0.guid].weapon;
+    var_4 = self.attackerdata[var_0.guid]._id_867C;
 
     if ( !isdefined( var_1 ) || !isdefined( var_2 ) || !isdefined( var_3 ) || !isdefined( var_4 ) )
         return;
@@ -1364,7 +1364,7 @@ streamfinalkillcam()
     var_11 = var_10 + var_9;
     var_12 = maps\mp\gametypes\_killcam::_id_5353( var_5, var_6, var_11, 0, getkillcambuffertime(), var_7, 1 );
     var_13 = var_12 + var_11 + var_8 / 1000;
-    self _meth_852b( 1 );
+    self _meth_852B( 1 );
     thread maps\mp\gametypes\_killcam::_id_6EF9( level._id_373F[var_0], level._id_373F[var_0], var_13, "none" );
 }
 
@@ -1397,7 +1397,7 @@ resetonlystreamactive()
     foreach ( var_1 in level.players )
     {
         if ( !isai( var_1 ) )
-            var_1 _meth_852b( 0 );
+            var_1 _meth_852B( 0 );
     }
 }
 
@@ -1512,13 +1512,13 @@ _id_2C7C()
 
     wait 0.1;
 
-    while ( _id_0C98() )
+    while ( anyplayersinkillcam() )
         wait 0.05;
 
     endfinalkillcam();
 }
 
-_id_0C98()
+anyplayersinkillcam()
 {
     foreach ( var_1 in level.players )
     {
@@ -1571,7 +1571,7 @@ _id_3FDF( var_0, var_1, var_2 )
 
     if ( maps\mp\_utility::_id_50F3( var_2 ) || maps\mp\_utility::_id_50C9( var_2 ) )
     {
-        if ( isdefined( var_1._id_534D ) && !var_0 _id_0E2F() )
+        if ( isdefined( var_1._id_534D ) && !var_0 attackerinremotekillstreak() )
             return var_1._id_534D;
         else
             return undefined;
@@ -1583,7 +1583,7 @@ _id_3FDF( var_0, var_1, var_2 )
     return var_1;
 }
 
-_id_0E2F()
+attackerinremotekillstreak()
 {
     if ( !isdefined( self ) )
         return 0;
@@ -1633,7 +1633,7 @@ _id_4923( var_0, var_1, var_2, var_3, var_4 )
             var_0._id_25A2[var_6] = spawnstruct();
             var_0._id_25A2[var_6].damage = 0;
             var_0._id_25A2[var_6]._id_4922 = "";
-            var_0._id_25A2[var_6]._id_175E = 0;
+            var_0._id_25A2[var_6].bp = 0;
             var_0._id_25A2[var_6]._id_529A = 0;
             var_0._id_25A2[var_6]._id_204B = 0;
         }
@@ -1646,14 +1646,14 @@ _id_4923( var_0, var_1, var_2, var_3, var_4 )
     {
         var_0._id_25A2[var_6].damage = var_0._id_25A2[var_6 - 1].damage;
         var_0._id_25A2[var_6]._id_4922 = var_0._id_25A2[var_6 - 1]._id_4922;
-        var_0._id_25A2[var_6]._id_175E = var_0._id_25A2[var_6 - 1]._id_175E;
+        var_0._id_25A2[var_6].bp = var_0._id_25A2[var_6 - 1].bp;
         var_0._id_25A2[var_6]._id_529A = var_0._id_25A2[var_6 - 1]._id_529A;
         var_0._id_25A2[var_6]._id_204B = var_0._id_25A2[var_6 - 1]._id_204B;
     }
 
     var_0._id_25A2[0].damage = var_2;
     var_0._id_25A2[0]._id_4922 = var_3;
-    var_0._id_25A2[0]._id_175E = var_4 & level._id_4B5C;
+    var_0._id_25A2[0].bp = var_4 & level._id_4B5C;
     var_0._id_25A2[0]._id_529A = var_1 maps\mp\_utility::_id_5131();
 
     if ( isdefined( var_0._id_25A4 ) && var_0._id_25A4 != var_1 )
@@ -1675,7 +1675,7 @@ _id_4923( var_0, var_1, var_2, var_3, var_4 )
         {
             var_9 = var_8 + var_0._id_25A2[var_6]._id_4922;
 
-            if ( var_0._id_25A2[var_6]._id_175E )
+            if ( var_0._id_25A2[var_6].bp )
                 var_9 += " (BP)";
 
             if ( var_0._id_25A2[var_6]._id_529A )
@@ -1715,12 +1715,12 @@ victimcanupdatefinalattackerdata( var_0 )
     return self._id_55EC.attacker == var_0;
 }
 
-_id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+callback_playerdamage_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     if ( getdvarint( "virtuallobbyactive", 0 ) )
         return "virtuallobbyactive";
 
-    var_1 = maps\mp\_utility::_id_0683( var_1 );
+    var_1 = maps\mp\_utility::_validateattacker( var_1 );
     var_11 = maps\mp\_utility::strip_suffix( var_6, "_lefthand" );
 
     if ( isdefined( var_5 ) && var_5 == "MOD_CRUSH" && isdefined( var_0 ) && isdefined( var_0.classname ) && var_0.classname == "script_vehicle" )
@@ -1753,7 +1753,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( isdefined( var_1 ) && isdefined( var_1.gunner ) )
         var_1 = var_1.gunner;
 
-    var_12 = maps\mp\_utility::_id_0E30( var_2, var_1 );
+    var_12 = maps\mp\_utility::attackerishittingteam( var_2, var_1 );
     var_13 = isdefined( var_1 ) && isdefined( var_0 ) && isdefined( var_2 ) && isplayer( var_1 ) && var_1 == var_0 && var_1 == var_2 && !isdefined( var_0._id_6E29 );
 
     if ( var_13 )
@@ -1761,7 +1761,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     var_14 = 0.0;
 
-    if ( var_4 & level.idflags_stun )
+    if ( var_4 & level._id_4B61 )
     {
         var_14 = 0.0;
         var_3 = 0.0;
@@ -1782,7 +1782,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             if ( maps\mp\_utility::_id_50FE( var_6 ) )
                 var_16 = 25;
             else
-                var_16 = maps\mp\perks\_perks::_id_198D( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9 );
+                var_16 = maps\mp\perks\_perks::cac_modified_damage( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9 );
 
             var_2._id_83C6 += var_16;
 
@@ -1796,16 +1796,16 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             }
         }
 
-        if ( var_4 & level.idflags_shield_explosive_impact )
+        if ( var_4 & level._id_4B5E )
         {
             var_9 = "none";
 
-            if ( !( var_4 & level.idflags_shield_explosive_impact_huge ) )
+            if ( !( var_4 & level._id_4B5F ) )
                 var_3 *= 0.0;
         }
-        else if ( var_4 & level.idflags_shield_explosive_splash  )
+        else if ( var_4 & level._id_4B60 )
         {
-            if ( isdefined( var_0 ) && isdefined( var_0.stuckenemyentity ) && var_0.stuckenemyentity == var_2 )
+            if ( isdefined( var_0 ) && isdefined( var_0._id_8F6C ) && var_0._id_8F6C == var_2 )
                 var_3 = 51;
 
             var_9 = "none";
@@ -1823,13 +1823,13 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     }
 
     if ( !var_12 )
-        var_3 = maps\mp\perks\_perks::_id_198D( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9, var_0 );
+        var_3 = maps\mp\perks\_perks::cac_modified_damage( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9, var_0 );
 
     if ( isdefined( level.modifyplayerdamage ) )
         var_3 = [[ level.modifyplayerdamage ]]( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9 );
 
     var_17 = isdefined( var_1 ) && !isdefined( var_1.gunner ) && ( var_1.classname == "script_vehicle" || var_1.classname == "misc_turret" || var_1.classname == "script_model" );
-    var_12 = maps\mp\_utility::_id_0E30( var_2, var_1 );
+    var_12 = maps\mp\_utility::attackerishittingteam( var_2, var_1 );
 
     if ( !var_3 )
         return "!iDamage";
@@ -1856,7 +1856,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     {
         if ( var_5 == "MOD_CRUSH" )
         {
-            var_2 maps\mp\_utility::_id_066F();
+            var_2 maps\mp\_utility::_suicide();
             return "suicide crush";
         }
 
@@ -1868,14 +1868,14 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         self [[ level.bot_funcs["on_damaged"] ]]( var_1, var_3, var_5, var_6, var_0, var_9 );
 
     if ( !isdefined( var_8 ) )
-        var_4 |= level.idflags_no_knockback;
+        var_4 |= level._id_4B58;
 
     var_18 = 0;
 
     if ( var_2.health == var_2.maxhealth && ( !isdefined( var_2.laststand ) || !var_2.laststand ) || !isdefined( var_2.attackers ) && !isdefined( var_2.laststand ) )
     {
         var_2.attackers = [];
-        var_2._id_0E2C = [];
+        var_2.attackerdata = [];
     }
 
     if ( maps\mp\_utility::_id_5117( var_6, var_9, var_5, var_1 ) )
@@ -1921,7 +1921,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         if ( !level.teambased && var_17 && isdefined( var_1.owner ) && var_1.owner == var_2 )
         {
             if ( var_5 == "MOD_CRUSH" )
-                var_2 maps\mp\_utility::_id_066F();
+                var_2 maps\mp\_utility::_suicide();
 
             return "ffa suicide";
         }
@@ -1950,9 +1950,9 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                     if ( ( issubstr( var_6, "c4_" ) || issubstr( var_6, "claymore_" ) ) && isdefined( var_1 ) && isdefined( var_0.owner ) )
                     {
                         var_2._id_357E["returnToSender"] = var_0.owner == var_2;
-                        var_2._id_357E["counterKill"] = isdefined( var_0.wasdamaged );
-                        var_2._id_357E["chainKill"] = isdefined( var_0.waschained );
-                        var_2._id_357E["bulletPenetrationKill"] = isdefined( var_0.wasdamagedfrombulletpenetration );
+                        var_2._id_357E["counterKill"] = isdefined( var_0._id_A1C3 );
+                        var_2._id_357E["chainKill"] = isdefined( var_0._id_A1C0 );
+                        var_2._id_357E["bulletPenetrationKill"] = isdefined( var_0._id_A1C5 );
                         var_2._id_357E["cookedKill"] = 0;
                     }
 
@@ -1962,7 +1962,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
                 if ( var_21 )
                 {
-                    var_2._id_357E["cookedKill"] = isdefined( var_0.iscooked );
+                    var_2._id_357E["cookedKill"] = isdefined( var_0._id_50E8 );
                     var_2._id_357E["throwbackKill"] = isdefined( var_0._id_9337 );
                 }
 
@@ -2000,9 +2000,9 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                     var_3 = 1;
 
                 if ( var_2 maps\mp\_utility::_id_5131() )
-                    var_3 = maps\mp\perks\_perks::_id_198D( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9 );
+                    var_3 = maps\mp\perks\_perks::cac_modified_damage( var_2, var_1, var_3, var_5, var_6, var_7, var_8, var_9 );
 
-                var_2.lastdamagewasfromenemy = 0;
+                var_2._id_5591 = 0;
                 var_2 _id_379A( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_14 );
             }
             else if ( level.friendlyfire == 2 && maps\mp\_utility::_id_5189( var_1 ) )
@@ -2012,7 +2012,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                 if ( var_3 < 1 )
                     var_3 = 1;
 
-                var_1.lastdamagewasfromenemy = 0;
+                var_1._id_5591 = 0;
                 var_1.friendlydamage = 1;
                 var_1 _id_379A( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_14 );
                 var_1.friendlydamage = undefined;
@@ -2024,8 +2024,8 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                 if ( var_3 < 1 )
                     var_3 = 1;
 
-                var_2.lastdamagewasfromenemy = 0;
-                var_1.lastdamagewasfromenemy = 0;
+                var_2._id_5591 = 0;
+                var_1._id_5591 = 0;
                 var_2 _id_379A( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_14 );
 
                 if ( maps\mp\_utility::_id_5189( var_1 ) )
@@ -2044,12 +2044,12 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                 var_3 = 1;
 
             if ( isdefined( var_1 ) && isplayer( var_1 ) )
-                _id_07CC( var_2, var_1, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
+                addattacker( var_2, var_1, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
 
             if ( isdefined( var_1 ) && !isplayer( var_1 ) && isdefined( var_1.owner ) && ( !isdefined( var_1._id_78CD ) || !var_1._id_78CD ) )
-                _id_07CC( var_2, var_1.owner, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
+                addattacker( var_2, var_1.owner, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
             else if ( isdefined( var_1 ) && !isplayer( var_1 ) && isdefined( var_1._id_7C02 ) && isdefined( var_1._id_78CD ) && var_1._id_78CD )
-                _id_07CC( var_2, var_1._id_7C02, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
+                addattacker( var_2, var_1._id_7C02, var_0, var_6, var_3, var_7, var_8, var_9, var_10, var_5 );
 
             if ( var_5 == "MOD_EXPLOSIVE" || var_5 == "MOD_GRENADE_SPLASH" && var_3 < var_2.health )
                 var_2 notify( "survived_explosion", var_1 );
@@ -2059,12 +2059,12 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
             if ( var_2 victimcanupdatefinalattackerdata( var_1 ) )
             {
-                var_2._id_0E33 = undefined;
+                var_2.attackerposition = undefined;
 
                 if ( isdefined( var_1 ) && isplayer( var_1 ) && isdefined( var_6 ) && var_1 != var_2 )
-                    var_2._id_0E33 = var_1.origin;
+                    var_2.attackerposition = var_1.origin;
 
-                if ( issubstr( var_5, "MOD_GRENADE" ) && isdefined( var_0 ) && isdefined( var_0.iscooked ) )
+                if ( issubstr( var_5, "MOD_GRENADE" ) && isdefined( var_0 ) && isdefined( var_0._id_50E8 ) )
                     var_2._id_A1C2 = gettime();
                 else
                     var_2._id_A1C2 = undefined;
@@ -2075,12 +2075,12 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                     var_2._id_A1D0 = 0;
             }
 
-            var_2.lastdamagewasfromenemy = isdefined( var_1 ) && var_1 != var_2;
+            var_2._id_5591 = isdefined( var_1 ) && var_1 != var_2;
 
-            if ( var_2.lastdamagewasfromenemy )
+            if ( var_2._id_5591 )
             {
                 var_22 = gettime();
-                var_1.damagedplayers[var_2.guid] = var_22;
+                var_1._id_259A[var_2.guid] = var_22;
                 var_2._id_558F = var_22;
             }
 
@@ -2100,7 +2100,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         {
             if ( !maps\mp\_utility::_id_5189( var_2 ) )
                 var_24 = "killshot";
-            else if ( var_4 & level.idflags_stun )
+            else if ( var_4 & level._id_4B61 )
                 var_24 = "stun";
             else if ( isdefined( var_2._id_348F ) && var_2._id_348F == 1 )
                 var_24 = "hitmorehealth";
@@ -2182,14 +2182,14 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
                 var_2._id_89E4._id_25AC = 1;
 
-                if ( var_2._id_89E4._id_126D == 0 )
+                if ( var_2._id_89E4.badspawn == 0 )
                 {
                     if ( !isdefined( level._id_59E0["badSpawnByAnyMeansCount"] ) )
                         level._id_59E0["badSpawnByAnyMeansCount"] = 1;
                     else
                         level._id_59E0["badSpawnByAnyMeansCount"]++;
 
-                    var_2._id_89E4._id_126D = 1;
+                    var_2._id_89E4.badspawn = 1;
                 }
             }
         }
@@ -2212,14 +2212,14 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
                 var_1._id_89E4._id_2596 = 1;
 
-                if ( var_1._id_89E4._id_126D == 0 )
+                if ( var_1._id_89E4.badspawn == 0 )
                 {
                     if ( !isdefined( level._id_59E0["badSpawnByAnyMeansCount"] ) )
                         level._id_59E0["badSpawnByAnyMeansCount"] = 1;
                     else
                         level._id_59E0["badSpawnByAnyMeansCount"]++;
 
-                    var_1._id_89E4._id_126D = 1;
+                    var_1._id_89E4.badspawn = 1;
                 }
             }
         }
@@ -2235,7 +2235,7 @@ _id_19F2( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     _id_4923( var_1, var_2, var_3, var_9, var_4 );
 
     if ( isagent( self ) )
-        self [[ maps\mp\agents\_agent_utility::_id_08A6( "on_damaged_finished" ) ]]( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
+        self [[ maps\mp\agents\_agent_utility::agentfunc( "on_damaged_finished" ) ]]( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
 
     return "finished";
 }
@@ -2251,39 +2251,39 @@ _id_84BD( var_0 )
     return 1;
 }
 
-_id_07CC( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+addattacker( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    if ( !isdefined( var_0._id_0E2C ) )
-        var_0._id_0E2C = [];
+    if ( !isdefined( var_0.attackerdata ) )
+        var_0.attackerdata = [];
 
-    if ( !isdefined( var_0._id_0E2C[var_1.guid] ) )
+    if ( !isdefined( var_0.attackerdata[var_1.guid] ) )
     {
         var_0.attackers[var_1.guid] = var_1;
-        var_0._id_0E2C[var_1.guid] = spawnstruct();
-        var_0._id_0E2C[var_1.guid].damage = 0;
-        var_0._id_0E2C[var_1.guid]._id_0E2D = var_1;
-        var_0._id_0E2C[var_1.guid]._id_3822 = gettime();
+        var_0.attackerdata[var_1.guid] = spawnstruct();
+        var_0.attackerdata[var_1.guid].damage = 0;
+        var_0.attackerdata[var_1.guid].attackerent = var_1;
+        var_0.attackerdata[var_1.guid]._id_3822 = gettime();
     }
 
     if ( maps\mp\gametypes\_weapons::_id_5185( var_3 ) && !maps\mp\gametypes\_weapons::_id_51A7( var_3 ) )
-        var_0._id_0E2C[var_1.guid]._id_5184 = 1;
+        var_0.attackerdata[var_1.guid]._id_5184 = 1;
 
-    var_0._id_0E2C[var_1.guid].damage += var_4;
-    var_0._id_0E2C[var_1.guid].weapon = var_3;
-    var_0._id_0E2C[var_1.guid]._id_9F44 = var_5;
-    var_0._id_0E2C[var_1.guid]._id_9C68 = var_6;
-    var_0._id_0E2C[var_1.guid]._id_83CE = var_7;
-    var_0._id_0E2C[var_1.guid].psoffsettime = var_8;
-    var_0._id_0E2C[var_1.guid]._id_867C = var_9;
-    var_0._id_0E2C[var_1.guid]._id_0E2D = var_1;
-    var_0._id_0E2C[var_1.guid]._id_5606 = gettime();
+    var_0.attackerdata[var_1.guid].damage += var_4;
+    var_0.attackerdata[var_1.guid].weapon = var_3;
+    var_0.attackerdata[var_1.guid]._id_9F44 = var_5;
+    var_0.attackerdata[var_1.guid]._id_9C68 = var_6;
+    var_0.attackerdata[var_1.guid]._id_83CE = var_7;
+    var_0.attackerdata[var_1.guid].psoffsettime = var_8;
+    var_0.attackerdata[var_1.guid]._id_867C = var_9;
+    var_0.attackerdata[var_1.guid].attackerent = var_1;
+    var_0.attackerdata[var_1.guid]._id_5606 = gettime();
 
     if ( isdefined( var_2 ) && !isplayer( var_2 ) && isdefined( var_2.primaryweapon ) )
-        var_0._id_0E2C[var_1.guid]._id_8AA5 = var_2.primaryweapon;
+        var_0.attackerdata[var_1.guid]._id_8AA5 = var_2.primaryweapon;
     else if ( isdefined( var_1 ) && isplayer( var_1 ) && var_1 getcurrentprimaryweapon() != "none" )
-        var_0._id_0E2C[var_1.guid]._id_8AA5 = var_1 getcurrentprimaryweapon();
+        var_0.attackerdata[var_1.guid]._id_8AA5 = var_1 getcurrentprimaryweapon();
     else
-        var_0._id_0E2C[var_1.guid]._id_8AA5 = undefined;
+        var_0.attackerdata[var_1.guid]._id_8AA5 = undefined;
 
     if ( !isdefined( var_0._id_32AE ) )
         var_0._id_32AE = [];
@@ -2306,7 +2306,7 @@ _id_7445()
     _id_1EEC();
     wait 1.75;
     self.attackers = [];
-    self._id_0E2C = [];
+    self.attackerdata = [];
 }
 
 _id_1EEC()
@@ -2332,19 +2332,19 @@ _id_1EED()
     }
 }
 
-_id_19F1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+callback_playerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    var_10 = _id_19F2( var_0, var_1, self, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
+    var_10 = callback_playerdamage_internal( var_0, var_1, self, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
 }
 
 _id_379A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     var_11 = 0;
 
-    if ( maps\mp\_utility::_id_51E3() && var_2 >= self.health && !( var_3 & level.idflags_stun ) && !isdefined( self._id_4E3D ) && !self _meth_851f() )
+    if ( maps\mp\_utility::_id_51E3() && var_2 >= self.health && !( var_3 & level._id_4B61 ) && !isdefined( self._id_4E3D ) && !self _meth_851F() )
         var_11 = 1;
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         var_11 = 0;
 
     if ( var_11 || maps\mp\_utility::isrocketcorpse() )
@@ -2362,7 +2362,7 @@ _id_379A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     }
     else
     {
-        if ( !_id_19EF( var_0, var_1, var_2 - var_2 * var_10, var_3, var_4, var_5, var_6, var_7, var_8, var_9 ) )
+        if ( !callback_killingblow( var_0, var_1, var_2 - var_2 * var_10, var_3, var_4, var_5, var_6, var_7, var_8, var_9 ) )
             return;
 
         if ( !isalive( self ) )
@@ -2393,13 +2393,13 @@ finishplayerdamage_impactfxwrapper( var_0, var_1, var_2, var_3, var_4, var_5, va
     self _meth_8532( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
-_id_19F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+callback_playerlaststand( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     var_9 = spawnstruct();
     var_9._id_3020 = var_0;
     var_9.attacker = var_1;
     var_9._id_4B54 = var_2;
-    var_9._id_0E33 = var_1.origin;
+    var_9.attackerposition = var_1.origin;
 
     if ( var_1 == self )
         var_9._id_867C = "MOD_SUICIDE";
@@ -2436,7 +2436,7 @@ _id_19F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     {
         self._id_55EC = var_9;
         self._id_9C06 = 1;
-        maps\mp\_utility::_id_066F();
+        maps\mp\_utility::_suicide();
     }
     else
     {
@@ -2470,7 +2470,7 @@ _id_19F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             foreach ( var_14 in var_12 )
                 self takeweapon( var_14 );
 
-            common_scripts\utility::_id_0586();
+            common_scripts\utility::_disableusability();
             thread _id_3112();
             thread _id_55F2( 20, 1 );
         }
@@ -2480,9 +2480,9 @@ _id_19F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
             {
                 var_1 thread maps\mp\_events::_id_5361( self, var_4, var_3 );
                 self._id_55EC = var_9;
-                common_scripts\utility::_id_0587();
+                common_scripts\utility::_disableweapon();
                 thread _id_55F2( 20, 0 );
-                common_scripts\utility::_id_0586();
+                common_scripts\utility::_disableusability();
                 return;
             }
 
@@ -2524,11 +2524,11 @@ handlelaststandweaponsmwr( var_0 )
     }
 
     maps\mp\gametypes\_hardpoints::giveownedhardpointitem();
-    maps\mp\_utility::_id_05C0( var_0 );
+    maps\mp\_utility::_giveweapon( var_0 );
     self givemaxammo( var_0 );
     self switchtoweapon( var_0 );
-    common_scripts\utility::_id_0586();
-    self _meth_84bb();
+    common_scripts\utility::_disableusability();
+    self _meth_84BB();
 
     if ( var_2 )
         self setweaponammoclip( "h1_fraggrenade_mp", 1 );
@@ -2544,7 +2544,7 @@ _id_2A52( var_0 )
     level endon( "game_ended" );
     wait(var_0);
     self._id_9C06 = 1;
-    maps\mp\_utility::_id_066F();
+    maps\mp\_utility::_suicide();
 }
 
 _id_29B2()
@@ -2555,7 +2555,7 @@ _id_29B2()
     level endon( "game_ended" );
     self waittill( "detonate" );
     self._id_9C06 = 1;
-    _id_1970();
+    c4deathdetonate();
 }
 
 _id_29B1()
@@ -2565,17 +2565,17 @@ _id_29B1()
     self endon( "joined_team" );
     level endon( "game_ended" );
     self waittill( "death" );
-    _id_1970();
+    c4deathdetonate();
 }
 
-_id_1970()
+c4deathdetonate()
 {
     self playsound( "detpack_explo_default" );
-    self._id_1971 = playfx( level._id_196F, self.origin );
+    self.c4deatheffect = playfx( level.c4death, self.origin );
     radiusdamage( self.origin, 312, 100, 100, self );
 
     if ( isalive( self ) )
-        maps\mp\_utility::_id_066F();
+        maps\mp\_utility::_suicide();
 }
 
 _id_3112()
@@ -2735,7 +2735,7 @@ _id_55E7( var_0, var_1 )
     {
         self._id_9C06 = 1;
         self.beingrevived = 0;
-        maps\mp\_utility::_id_066F();
+        maps\mp\_utility::_suicide();
     }
 }
 
@@ -3064,15 +3064,15 @@ _id_7500( var_0 )
 
         if ( var_2 )
         {
-            level thread maps\mp\gametypes\_rank::_id_1208( "reviver", var_1 );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "reviver", var_1 );
             self.owner.laststand = undefined;
             self.owner maps\mp\_utility::_id_1EF5( "last_stand" );
-            self.owner.movespeedscaler = level._id_1317;
+            self.owner.movespeedscaler = level.baseplayermovescale;
 
             if ( self.owner maps\mp\_utility::_hasperk( "specialty_lightweight" ) )
                 self.owner.movespeedscaler = maps\mp\_utility::_id_5761();
 
-            self.owner common_scripts\utility::_id_0595();
+            self.owner common_scripts\utility::_enableweapon();
             self.owner.maxhealth = 100;
             self.owner maps\mp\gametypes\_weapons::_id_9B3D();
             self.owner maps\mp\gametypes\_playerlogic::_id_55ED();
@@ -3099,18 +3099,18 @@ reviveholdthink( var_0, var_1, var_2 )
         var_2 = 1;
 
     if ( var_2 )
-        var_0 common_scripts\utility::_id_0587();
+        var_0 common_scripts\utility::_disableweapon();
 
-    self.curprogress = 0;
+    self._id_24C9 = 0;
     self.inuse = 1;
-    self.userate = 0;
+    self._id_9C10 = 0;
 
     if ( isdefined( var_1 ) )
         self._id_9C19 = var_1;
     else
         self._id_9C19 = var_3;
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         var_0 thread personalusebaroldstyle( self );
     else
         var_0 thread _id_67E5( self );
@@ -3142,7 +3142,7 @@ reviveholdthink_cleanup( var_0, var_1, var_2 )
         var_0 unlink();
 
         if ( var_1 )
-            var_0 common_scripts\utility::_id_0595();
+            var_0 common_scripts\utility::_enableweapon();
     }
 }
 
@@ -3163,23 +3163,23 @@ _id_67E5( var_0 )
 
     while ( maps\mp\_utility::_id_5189( self ) && isdefined( var_0 ) && var_0.inuse && !level.gameended && isdefined( self ) )
     {
-        if ( var_2 != var_0.userate )
+        if ( var_2 != var_0._id_9C10 )
         {
-            if ( var_0.curprogress > var_0._id_9C19 )
-                var_0.curprogress = var_0._id_9C19;
+            if ( var_0._id_24C9 > var_0._id_9C19 )
+                var_0._id_24C9 = var_0._id_9C19;
 
-            if ( var_0.userate > 0 )
+            if ( var_0._id_9C10 > 0 )
             {
                 var_3 = gettime();
-                var_4 = var_0.curprogress / var_0._id_9C19;
-                var_5 = var_3 + ( 1 - var_4 ) * var_0._id_9C19 / var_0.userate;
+                var_4 = var_0._id_24C9 / var_0._id_9C19;
+                var_5 = var_3 + ( 1 - var_4 ) * var_0._id_9C19 / var_0._id_9C10;
                 self setclientomnvar( "ui_use_bar_end_time", int( var_5 ) );
 
                 if ( isdefined( var_1 ) )
                     var_1 setclientomnvar( "ui_use_bar_end_time", int( var_5 ) );
             }
 
-            var_2 = var_0.userate;
+            var_2 = var_0._id_9C10;
         }
 
         wait 0.05;
@@ -3194,55 +3194,55 @@ _id_67E5( var_0 )
 
 personalusebaroldstyle( var_0 )
 {
-    var_1 = maps\mp\gametypes\_hud_util::_id_2435();
-    var_2 = maps\mp\gametypes\_hud_util::_id_2436();
+    var_1 = maps\mp\gametypes\_hud_util::createPrimaryProgressBar();
+    var_2 = maps\mp\gametypes\_hud_util::createPrimaryProgressBarText();
     var_2 settext( &"MPUI_REVIVING" );
-    var_3 = var_0.owner maps\mp\gametypes\_hud_util::_id_2435();
-    var_4 = var_0.owner maps\mp\gametypes\_hud_util::_id_2436();
+    var_3 = var_0.owner maps\mp\gametypes\_hud_util::createPrimaryProgressBar();
+    var_4 = var_0.owner maps\mp\gametypes\_hud_util::createPrimaryProgressBarText();
     var_4 settext( &"MPUI_BEING_REVIVED" );
     var_5 = -1;
 
     while ( maps\mp\_utility::_id_5189( self ) && isdefined( var_0 ) && var_0.inuse && !level.gameended && isdefined( self ) )
     {
-        if ( var_5 != var_0.userate )
+        if ( var_5 != var_0._id_9C10 )
         {
-            if ( var_0.curprogress > var_0._id_9C19 )
-                var_0.curprogress = var_0._id_9C19;
+            if ( var_0._id_24C9 > var_0._id_9C19 )
+                var_0._id_24C9 = var_0._id_9C19;
 
-            var_1 maps\mp\gametypes\_hud_util::updatebar( var_0.curprogress / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0.userate );
-            var_3 maps\mp\gametypes\_hud_util::updatebar( var_0.curprogress / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0.userate );
+            var_1 maps\mp\gametypes\_hud_util::updatebar( var_0._id_24C9 / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0._id_9C10 );
+            var_3 maps\mp\gametypes\_hud_util::updatebar( var_0._id_24C9 / var_0._id_9C19, 1000 / var_0._id_9C19 * var_0._id_9C10 );
 
-            if ( !var_0.userate )
+            if ( !var_0._id_9C10 )
             {
-                var_1 maps\mp\gametypes\_hud_util::_id_4871();
-                var_2 maps\mp\gametypes\_hud_util::_id_4871();
-                var_3 maps\mp\gametypes\_hud_util::_id_4871();
-                var_4 maps\mp\gametypes\_hud_util::_id_4871();
+                var_1 maps\mp\gametypes\_hud_util::hideElem();
+                var_2 maps\mp\gametypes\_hud_util::hideElem();
+                var_3 maps\mp\gametypes\_hud_util::hideElem();
+                var_4 maps\mp\gametypes\_hud_util::hideElem();
             }
             else
             {
-                var_1 maps\mp\gametypes\_hud_util::_id_850A();
-                var_2 maps\mp\gametypes\_hud_util::_id_850A();
-                var_3 maps\mp\gametypes\_hud_util::_id_850A();
-                var_4 maps\mp\gametypes\_hud_util::_id_850A();
+                var_1 maps\mp\gametypes\_hud_util::showElem();
+                var_2 maps\mp\gametypes\_hud_util::showElem();
+                var_3 maps\mp\gametypes\_hud_util::showElem();
+                var_4 maps\mp\gametypes\_hud_util::showElem();
             }
         }
 
-        var_5 = var_0.userate;
+        var_5 = var_0._id_9C10;
         wait 0.05;
     }
 
     if ( isdefined( var_1 ) )
-        var_1 maps\mp\gametypes\_hud_util::_id_28E9();
+        var_1 maps\mp\gametypes\_hud_util::destroyElem();
 
     if ( isdefined( var_2 ) )
-        var_2 maps\mp\gametypes\_hud_util::_id_28E9();
+        var_2 maps\mp\gametypes\_hud_util::destroyElem();
 
     if ( isdefined( var_3 ) )
-        var_3 maps\mp\gametypes\_hud_util::_id_28E9();
+        var_3 maps\mp\gametypes\_hud_util::destroyElem();
 
     if ( isdefined( var_4 ) )
-        var_4 maps\mp\gametypes\_hud_util::_id_28E9();
+        var_4 maps\mp\gametypes\_hud_util::destroyElem();
 }
 
 reviveholdthinkloop( var_0 )
@@ -3251,12 +3251,12 @@ reviveholdthinkloop( var_0 )
     self.owner endon( "death" );
     self.owner endon( "disconnect" );
 
-    while ( maps\mp\_utility::_id_5189( var_0 ) && var_0 usebuttonpressed() && self.curprogress < self._id_9C19 && !( isdefined( var_0.inlaststand ) && var_0.inlaststand ) )
+    while ( maps\mp\_utility::_id_5189( var_0 ) && var_0 usebuttonpressed() && self._id_24C9 < self._id_9C19 && !( isdefined( var_0.inlaststand ) && var_0.inlaststand ) )
     {
-        self.curprogress += 50 * self.userate;
-        self.userate = 1;
+        self._id_24C9 += 50 * self._id_9C10;
+        self._id_9C10 = 1;
 
-        if ( self.curprogress >= self._id_9C19 )
+        if ( self._id_24C9 >= self._id_9C19 )
         {
             self.inuse = 0;
             return maps\mp\_utility::_id_5189( var_0 );
@@ -3268,9 +3268,9 @@ reviveholdthinkloop( var_0 )
     return 0;
 }
 
-_id_19EF( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+callback_killingblow( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    if ( isdefined( self.lastdamagewasfromenemy ) && self.lastdamagewasfromenemy && var_2 >= self.health && isdefined( self.combathigh ) && self.combathigh == "specialty_endgame" )
+    if ( isdefined( self._id_5591 ) && self._id_5591 && var_2 >= self.health && isdefined( self._id_20AB ) && self._id_20AB == "specialty_endgame" )
     {
         maps\mp\_utility::_id_41F8( "specialty_endgame", 0 );
         return 0;
@@ -3306,7 +3306,7 @@ _id_3064( var_0 )
     }
 }
 
-_id_0602( var_0, var_1, var_2, var_3 )
+_obituary( var_0, var_1, var_2, var_3 )
 {
     var_4 = var_0.team;
 
@@ -3396,12 +3396,12 @@ _id_7F65( var_0, var_1, var_2, var_3, var_4 )
     self.health = 999999;
     self.maxhealth = var_0;
     self.damagetaken = 0;
-    self._id_1485 = var_4;
+    self.biskillstreak = var_4;
     self._id_259D = var_1;
     self._id_258E = ::_id_6FF7;
     self._id_5D50 = var_3;
     self._id_646B = var_2;
-    self._id_0E31 = [];
+    self.attackerlist = [];
 }
 
 _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
@@ -3409,7 +3409,7 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( !isdefined( self ) )
         return;
 
-    if ( !( isdefined( level.ishorde ) && level.ishorde ) && !( isdefined( level.iszombiegame ) && level.iszombiegame ) && isdefined( var_1 ) && !maps\mp\_utility::_id_5112( var_1 ) )
+    if ( !( isdefined( level._id_511D ) && level._id_511D ) && !( isdefined( level.iszombiegame ) && level.iszombiegame ) && isdefined( var_1 ) && !maps\mp\_utility::_id_5112( var_1 ) )
         return;
 
     if ( isdefined( var_1 ) && !maps\mp\gametypes\_weapons::_id_3AA6( self.owner, var_1 ) )
@@ -3438,12 +3438,12 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                 return;
         }
 
-        if ( isdefined( level.ishorde ) && level.ishorde )
+        if ( isdefined( level._id_511D ) && level._id_511D )
             self.damageloc = var_11;
 
         var_12 = [[ self._id_5D50 ]]( var_1, var_5, var_4, var_2 );
 
-        if ( isdefined( level.ishorde ) && level.ishorde )
+        if ( isdefined( level._id_511D ) && level._id_511D )
             self.damageloc = undefined;
     }
 
@@ -3451,9 +3451,9 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         return 1;
 
     if ( isdefined( var_3 ) && var_3 & level._id_4B5C )
-        self.wasdamagedfrombulletpenetration = 1;
+        self._id_A1C5 = 1;
 
-    self.wasdamaged = 1;
+    self._id_A1C3 = 1;
     self.damagetaken += var_12;
     maps\mp\gametypes\_hardpoints::_id_539C( var_1, var_5, self );
 
@@ -3462,12 +3462,12 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_1 maps\mp\gametypes\_damagefeedback::_id_9B0C( self._id_259D );
 
         if ( _id_5159( var_1 ) )
-            self._id_0E31[self._id_0E31.size] = var_1;
+            self.attackerlist[self.attackerlist.size] = var_1;
     }
 
     if ( self.damagetaken >= self.maxhealth )
     {
-        if ( self._id_1485 && isplayer( var_1 ) )
+        if ( self.biskillstreak && isplayer( var_1 ) )
             var_1 notify( "destroyed_killstreak", var_5 );
 
         if ( self.classname == "script_vehicle" || self.classname == "script_model" )
@@ -3487,7 +3487,7 @@ _id_6FF7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
 _id_5159( var_0 )
 {
-    foreach ( var_2 in self._id_0E31 )
+    foreach ( var_2 in self.attackerlist )
     {
         if ( var_0 == var_2 )
             return 0;
@@ -3514,7 +3514,7 @@ _id_4669( var_0, var_1, var_2 )
     {
         case "bomb_site_mp":
         case "stinger_mp":
-            self.largeprojectiledamage = 1;
+            self._id_54C0 = 1;
             var_3 = self.maxhealth + 1;
             break;
     }
@@ -3562,7 +3562,7 @@ _id_4649( var_0, var_1, var_2, var_3 )
     if ( var_1 == "MOD_RIFLE_BULLET" || var_1 == "MOD_PISTOL_BULLET" )
     {
         if ( var_3 maps\mp\_utility::_hasperk( "specialty_armorpiercing" ) || maps\mp\_utility::_id_510C( var_0, var_1, var_3 ) )
-            return var_2 * level._id_0CD2;
+            return var_2 * level.armorpiercingmod;
     }
 
     return var_2;
@@ -3598,7 +3598,7 @@ _id_64B6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     {
         var_8 notify( "destroyed_killstreak", var_1 );
         var_8 maps\mp\_utility::_id_4C2F( var_4, 1 );
-        level thread maps\mp\gametypes\_rank::_id_1208( var_4, var_8, var_1, undefined, var_2 );
+        level thread maps\mp\gametypes\_rank::awardgameevent( var_4, var_8, var_1, undefined, var_2 );
 
         if ( isdefined( var_6 ) )
             level thread maps\mp\_utility::_id_91FA( var_6, var_8 );

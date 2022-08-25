@@ -27,10 +27,10 @@ main()
     anim_door();
     anim_trashcan();
     anim_dumpster();
-    _id_0BEE();
+    anim_props();
     anim_chickens();
     anim_dogs();
-    maps\_props::_id_0796( "human" );
+    maps\_props::add_smoking_notetracks( "human" );
 }
 #using_animtree("player");
 
@@ -49,11 +49,11 @@ anim_playerview()
     level._id_78AC["playerview"]["playerview_idle_smooth"] = %coup_opening_playerview_idle_smooth;
     level._id_78AC["playerview"]["playerview_idle_bumpy"] = %coup_opening_playerview_idle_bumpy;
     level._id_78AC["playerview"]["playerview_idle_static"] = %coup_opening_playerview_idle_static;
-    maps\_anim::_id_080C( "playerview", "start_car_rearview_mirror_video", "start_car_rearview_mirror_video" );
-    maps\_anim::_id_0807( "playerview", "throw_in_car", ::playerthrownincar, "intro" );
-    maps\_anim::_id_0807( "playerview", "hit", ::playerhit, "intro" );
-    maps\_anim::_id_0807( "playerview", "pulled_from_car", ::playerpulledfromcar, "carexit" );
-    maps\_anim::_id_0807( "playerview", "kick", ::playerkicked, "carexit" );
+    maps\_anim::addnotetrack_flag( "playerview", "start_car_rearview_mirror_video", "start_car_rearview_mirror_video" );
+    maps\_anim::addnotetrack_customfunction( "playerview", "throw_in_car", ::playerthrownincar, "intro" );
+    maps\_anim::addnotetrack_customfunction( "playerview", "hit", ::playerhit, "intro" );
+    maps\_anim::addnotetrack_customfunction( "playerview", "pulled_from_car", ::playerpulledfromcar, "carexit" );
+    maps\_anim::addnotetrack_customfunction( "playerview", "kick", ::playerkicked, "carexit" );
 }
 #using_animtree("generic_human");
 
@@ -136,9 +136,9 @@ anim_human()
     level._id_78AC["human"]["runinto_garage_left"] = %unarmed_runinto_garage_left;
     level._id_78AC["human"]["runinto_garage_right"] = %unarmed_runinto_garage_right;
     level._id_78AC["human"]["spraypainting"] = %coup_spraypainting_sequence;
-    maps\_anim::_id_0807( "human", "start_spray", ::fx_paint_spray_coup, "spraypainting" );
-    maps\_anim::_id_0807( "human", "end_spray", ::fx_stop_paint_spray_coup, "spraypainting" );
-    maps\_anim::_id_0807( "human", "drop_can", ::detach_paint_spray_coup, "spraypainting" );
+    maps\_anim::addnotetrack_customfunction( "human", "start_spray", ::fx_paint_spray_coup, "spraypainting" );
+    maps\_anim::addnotetrack_customfunction( "human", "end_spray", ::fx_stop_paint_spray_coup, "spraypainting" );
+    maps\_anim::addnotetrack_customfunction( "human", "drop_can", ::detach_paint_spray_coup, "spraypainting" );
     level._id_78AC["human"]["civiliankilled_tumblesoncar"] = %h1_coup_opening_car_driving_civiliangetskilled_runner;
     level._id_78AC["human"]["civiliankilled_guard_a"] = %h1_coup_opening_car_driving_civiliangetskilled_soldiera;
     level._id_78AC["human"]["civiliankilled_guard_b"] = %h1_coup_opening_car_driving_civiliangetskilled_soldierb;
@@ -186,8 +186,8 @@ anim_human()
     level._id_78AC["human"]["interrogation_guard_4"] = %h1_coup_civilians_interrogated_guard_v1;
     level._id_78AC["human"]["interrogation_guard_5b"] = %h1_coup_civilians_interrogated_guard_v2;
     level._id_78AC["human"]["interrogation_guard_5"] = %h1_coup_civilians_interrogated_guard_v3;
-    maps\_anim::_id_0805( "human", "interrogation_guard_5b", "scream", "coup_scream_female" );
-    maps\_anim::_id_0805( "human", "interrogation_guard_5b", "death", "coup_death_female" );
+    maps\_anim::addnotetrack_animsound( "human", "interrogation_guard_5b", "scream", "coup_scream_female" );
+    maps\_anim::addnotetrack_animsound( "human", "interrogation_guard_5b", "death", "coup_death_female" );
     level._id_78B1["generic"] = #animtree;
     level._id_78AC["generic"]["patrol_walk"] = %patrol_bored_patrolwalk;
     level._id_78AC["generic"]["patrol_walk_twitch"] = %patrol_bored_patrolwalk_twitch;
@@ -226,42 +226,42 @@ anim_human()
     level._id_78AC["human"]["execution_soldier_04"] = %h1_coup_21_execution_soldiers_04;
     level._id_78AC["human"]["execution_soldier_05"] = %h1_coup_21_execution_soldiers_05;
     level._id_78AC["human"]["execution_soldier_06"] = %h1_coup_21_execution_soldiers_06;
-    maps\_anim::_id_0807( "human", "execution_fire", ::shootcivilianexecution );
-    maps\_anim::_id_0807( "human", "melee", ::melee_kill, "sneakattack_attack_side" );
-    maps\_anim::_id_0807( "human", "no death", ::rag_doll_death, "sneakattack_defend_side" );
-    maps\_anim::_id_0807( "human", "end", ::kill_self, "sneakattack_defend_side" );
-    maps\_anim::_id_0807( "human", "melee", ::melee_kill, "sneakattack_attack_behind" );
-    maps\_anim::_id_0807( "human", "no death", ::rag_doll_death, "sneakattack_defend_behind" );
-    maps\_anim::_id_0807( "human", "end", ::kill_self, "sneakattack_defend_behind" );
-    maps\_anim::_id_0808( "human", "detach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_zakhaev" );
-    maps\_anim::_id_0806( "human", "attach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_alasad" );
-    maps\_anim::_id_0806( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
-    maps\_anim::_id_0808( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
-    maps\_anim::_id_0806( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
-    maps\_anim::_id_0808( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
-    maps\_anim::_id_0807( "human", "detach_cellphone", ::attach_phone_to_car, "carpassenger_fulldrive" );
-    maps\_anim::_id_0807( "human", "phone_ring", ::play_soz_ringtone, "carpassenger_fulldrive", "scn_coup_mobile_ring" );
-    maps\_anim::_id_0807( "human", "phone_dialog", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_wehavetraitor" );
-    maps\_anim::_id_0807( "human", "turn_left", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_turnlefthere" );
-    maps\_anim::_id_0807( "human", "turn_right", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_rightatintersection" );
-    maps\_anim::_id_0807( "human", "answer_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_02" );
-    maps\_anim::_id_0807( "human", "look_back_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_03" );
-    maps\_anim::_id_0807( "human", "throws_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_04" );
-    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gunup_fire" );
-    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_a" );
-    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_b" );
-    maps\_anim::_id_0807( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_soldier_welcome_3" );
-    maps\_anim::_id_0807( "human", "soz_foley", ::passengerlookback, "intro_leftguard" );
-    maps\_anim::_id_0807( "human", "closing_door", ::ambientcarinterior, "intro_leftguard" );
-    maps\_anim::_id_0807( "human", "door_open", ::ambientcarexterior, "carexit_leftguard" );
-    maps\_anim::_id_0807( "human", "fire_gun", ::playerdeath, "ending_alasad" );
-    maps\_anim::_id_080C( "car", "civiliankilled_tumblesoncar", "drive_trashstumble" );
-    maps\_anim::_id_080C( "car", "civilians_running_to_garage", "drive_runtogarage" );
-    maps\_anim::_id_0807( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_a" );
-    maps\_anim::_id_0807( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_b" );
-    maps\_anim::_id_080C( "human", "spawn_operator", "spawn_garage_operator", "civilians_running_garage" );
-    maps\_anim::_id_080C( "human", "animate_operator", "animate_garage_operator", "civilians_running_garage" );
-    maps\_anim::_id_0807( "human", "fire", ::shootcivilianinterrogation1, "interrogation_guard_5b" );
+    maps\_anim::addnotetrack_customfunction( "human", "execution_fire", ::shootcivilianexecution );
+    maps\_anim::addnotetrack_customfunction( "human", "melee", ::melee_kill, "sneakattack_attack_side" );
+    maps\_anim::addnotetrack_customfunction( "human", "no death", ::rag_doll_death, "sneakattack_defend_side" );
+    maps\_anim::addnotetrack_customfunction( "human", "end", ::kill_self, "sneakattack_defend_side" );
+    maps\_anim::addnotetrack_customfunction( "human", "melee", ::melee_kill, "sneakattack_attack_behind" );
+    maps\_anim::addnotetrack_customfunction( "human", "no death", ::rag_doll_death, "sneakattack_defend_behind" );
+    maps\_anim::addnotetrack_customfunction( "human", "end", ::kill_self, "sneakattack_defend_behind" );
+    maps\_anim::addnotetrack_detach( "human", "detach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_zakhaev" );
+    maps\_anim::addnotetrack_attach( "human", "attach gun", "weapon_desert_eagle_silver_HR_promo", "tag_inhand", "ending_alasad" );
+    maps\_anim::addnotetrack_attach( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
+    maps\_anim::addnotetrack_detach( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_phone" );
+    maps\_anim::addnotetrack_attach( "human", "attach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
+    maps\_anim::addnotetrack_detach( "human", "detach_cellphone", "com_cellphone_on", "tag_inhand", "carpassenger_fulldrive" );
+    maps\_anim::addnotetrack_customfunction( "human", "detach_cellphone", ::attach_phone_to_car, "carpassenger_fulldrive" );
+    maps\_anim::addnotetrack_customfunction( "human", "phone_ring", ::play_soz_ringtone, "carpassenger_fulldrive", "scn_coup_mobile_ring" );
+    maps\_anim::addnotetrack_customfunction( "human", "phone_dialog", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_wehavetraitor" );
+    maps\_anim::addnotetrack_customfunction( "human", "turn_left", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_turnlefthere" );
+    maps\_anim::addnotetrack_customfunction( "human", "turn_right", ::play_soz_vo, "carpassenger_fulldrive", "coup_ab4_rightatintersection" );
+    maps\_anim::addnotetrack_customfunction( "human", "answer_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_02" );
+    maps\_anim::addnotetrack_customfunction( "human", "look_back_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_03" );
+    maps\_anim::addnotetrack_customfunction( "human", "throws_phone", ::play_soz_foley, "carpassenger_fulldrive", "scn_coup_car_soz_foley_04" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gunup_fire" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_a" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_gundown_fire_b" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire_renamed", ::crowdfireweapon, "crowdmember_soldier_welcome_3" );
+    maps\_anim::addnotetrack_customfunction( "human", "soz_foley", ::passengerlookback, "intro_leftguard" );
+    maps\_anim::addnotetrack_customfunction( "human", "closing_door", ::ambientcarinterior, "intro_leftguard" );
+    maps\_anim::addnotetrack_customfunction( "human", "door_open", ::ambientcarexterior, "carexit_leftguard" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire_gun", ::playerdeath, "ending_alasad" );
+    maps\_anim::addnotetrack_flag( "car", "civiliankilled_tumblesoncar", "drive_trashstumble" );
+    maps\_anim::addnotetrack_flag( "car", "civilians_running_to_garage", "drive_runtogarage" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_a" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire", ::shootciviliantrashstumble, "civiliankilled_guard_b" );
+    maps\_anim::addnotetrack_flag( "human", "spawn_operator", "spawn_garage_operator", "civilians_running_garage" );
+    maps\_anim::addnotetrack_flag( "human", "animate_operator", "animate_garage_operator", "civilians_running_garage" );
+    maps\_anim::addnotetrack_customfunction( "human", "fire", ::shootcivilianinterrogation1, "interrogation_guard_5b" );
 }
 
 play_soz_vo( var_0, var_1 )
@@ -291,21 +291,21 @@ anim_vehicles()
     level._id_78AC["car"]["car_idle_bumpy"] = %coup_opening_car_driving_idle_bumpy;
     level._id_78AC["car"]["car_idle_static"] = %coup_opening_car_driving_idle_static;
     level._id_78AC["car"]["carexit"] = %coup_ending_drag_cardoor;
-    maps\_anim::_id_0805( "car", "coup_car_driving", "bump_front_01", "scn_coup_car_bump_front_01" );
-    maps\_anim::_id_0805( "car", "coup_car_driving", "big_turn_left_01", "scn_coup_car_turn_01" );
-    maps\_anim::_id_0805( "car", "coup_car_driving", "brake_civilian", "scn_coup_car_brake_01" );
-    maps\_anim::_id_0805( "car", "coup_car_driving", "big_turn_left_02", "scn_coup_car_turn_02" );
-    maps\_anim::_id_0805( "car", "coup_car_driving", "suspension_rattle_01", "scn_coup_car_suspension_rattle_front_01" );
-    maps\_anim::_id_0805( "car", "coup_car_driving", "big_turn_left_03", "scn_coup_car_turn_02" );
-    maps\_anim::_id_0805( "car", "coup_car_driving", "brake_end", "scn_coup_car_brake_02" );
-    maps\_anim::_id_0807( "car", "start_ride", ::play_engine, "coup_car_driving", "01" );
-    maps\_anim::_id_0807( "car", "start_ride", ::car_event, "coup_car_driving", "start_ride" );
-    maps\_anim::_id_0807( "car", "restart_ride", ::play_engine, "coup_car_driving", "02" );
-    maps\_anim::_id_0807( "car", "big_turn_left_01", ::car_event, "coup_car_driving", "big_turn_left_01" );
-    maps\_anim::_id_0807( "car", "brake_civilian", ::car_event, "coup_car_driving", "brake_civilian" );
-    maps\_anim::_id_0807( "car", "big_turn_left_02", ::car_event, "coup_car_driving", "big_turn_left_02" );
-    maps\_anim::_id_0807( "car", "big_turn_left_03", ::car_event, "coup_car_driving", "big_turn_left_03" );
-    maps\_anim::_id_0807( "car", "slowdown", ::car_event, "coup_car_driving", "slowdown" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "bump_front_01", "scn_coup_car_bump_front_01" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "big_turn_left_01", "scn_coup_car_turn_01" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "brake_civilian", "scn_coup_car_brake_01" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "big_turn_left_02", "scn_coup_car_turn_02" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "suspension_rattle_01", "scn_coup_car_suspension_rattle_front_01" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "big_turn_left_03", "scn_coup_car_turn_02" );
+    maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "brake_end", "scn_coup_car_brake_02" );
+    maps\_anim::addnotetrack_customfunction( "car", "start_ride", ::play_engine, "coup_car_driving", "01" );
+    maps\_anim::addnotetrack_customfunction( "car", "start_ride", ::car_event, "coup_car_driving", "start_ride" );
+    maps\_anim::addnotetrack_customfunction( "car", "restart_ride", ::play_engine, "coup_car_driving", "02" );
+    maps\_anim::addnotetrack_customfunction( "car", "big_turn_left_01", ::car_event, "coup_car_driving", "big_turn_left_01" );
+    maps\_anim::addnotetrack_customfunction( "car", "brake_civilian", ::car_event, "coup_car_driving", "brake_civilian" );
+    maps\_anim::addnotetrack_customfunction( "car", "big_turn_left_02", ::car_event, "coup_car_driving", "big_turn_left_02" );
+    maps\_anim::addnotetrack_customfunction( "car", "big_turn_left_03", ::car_event, "coup_car_driving", "big_turn_left_03" );
+    maps\_anim::addnotetrack_customfunction( "car", "slowdown", ::car_event, "coup_car_driving", "slowdown" );
     level._id_78AC["car"]["wheel_bigleft2center"] = %coup_driver_bigleft2center_car;
     level._id_78AC["car"]["wheel_bigleft_idle"] = %coup_driver_bigleft_idle_car;
     level._id_78AC["car"]["wheel_bigleftloop_idle"] = %coup_driver_bigleftloop_idle_car;
@@ -378,7 +378,7 @@ anim_dumpster()
 }
 #using_animtree("animated_props");
 
-_id_0BEE()
+anim_props()
 {
     level.anim_prop_models["foliage_tree_palm_bushy_2"]["still"] = %palmtree_bushy2_still;
     level.anim_prop_models["foliage_tree_palm_bushy_2"]["strong"] = %palmtree_bushy2_sway;
@@ -440,7 +440,7 @@ anim_dogs()
     level._id_78AC["dog"]["attackidle_growl"][0] = %german_shepherd_attackidle_growl;
     level._id_78AC["dog"]["attackidle_bark"][0] = %german_shepherd_attackidle_bark;
     level._id_78AC["dog"]["attackidle"][0] = %german_shepherd_attackidle;
-    maps\_anim::_id_0812( "dog", "fence", "fence_attack", "fence_smash" );
+    maps\_anim::addnotetrack_sound( "dog", "fence", "fence_attack", "fence_smash" );
 }
 
 car_normal( var_0 )
@@ -607,7 +607,7 @@ _id_6C6A( var_0, var_1 )
 
         var_2 = var_1 / var_0;
 
-        if ( var_2 > level.player._id_4441.healthoverlaycutoff )
+        if ( var_2 > level.player._id_4441._id_478D )
             continue;
 
         level.player maps\_utility::_id_69C4( "breathing_hurt" );
@@ -672,7 +672,7 @@ playdriveranim( var_0, var_1 )
     else
         self _meth_8145( maps\_utility::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
 
-    maps\_anim::_id_0C24( self._id_2E04, "cardriver_" + var_0, "tag_driver" );
+    maps\_anim::anim_single_solo( self._id_2E04, "cardriver_" + var_0, "tag_driver" );
 }
 
 loopdriveranim( var_0, var_1, var_2 )
@@ -689,7 +689,7 @@ loopdriveranim( var_0, var_1, var_2 )
     else
         self _meth_8145( maps\_utility::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
 
-    thread maps\_anim::_id_0BE1( self._id_2E04, "cardriver_" + var_0, "tag_driver", "stop_driver_loop" );
+    thread maps\_anim::anim_loop_solo( self._id_2E04, "cardriver_" + var_0, "tag_driver", "stop_driver_loop" );
 
     if ( isdefined( var_2 ) )
     {
@@ -700,13 +700,13 @@ loopdriveranim( var_0, var_1, var_2 )
 
 playpassengeranim( var_0 )
 {
-    maps\_anim::_id_0C24( self.passenger, var_0, "tag_passenger" );
+    maps\_anim::anim_single_solo( self.passenger, var_0, "tag_passenger" );
 }
 
 looppassengeranim( var_0, var_1 )
 {
     self notify( "stop_passenger_loop" );
-    thread maps\_anim::_id_0BE1( self.passenger, var_0, "tag_passenger", "stop_passenger_loop" );
+    thread maps\_anim::anim_loop_solo( self.passenger, var_0, "tag_passenger", "stop_passenger_loop" );
 
     if ( isdefined( var_1 ) )
         self waittillmatch( "single anim", var_1 );

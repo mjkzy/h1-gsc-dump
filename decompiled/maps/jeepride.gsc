@@ -58,8 +58,8 @@ main()
     level.ai_in_boundry = 0;
     level.last_layer_of_death = 0;
     level.nocompass = 1;
-    common_scripts\utility::_id_0CF0( getentarray( "delete_on_load", "targetname" ), maps\_utility::_id_284E );
-    common_scripts\utility::_id_0CF0( getentarray( "delete_on_load", "target" ), maps\_utility::_id_284E );
+    common_scripts\utility::array_levelthread( getentarray( "delete_on_load", "targetname" ), maps\_utility::_id_284E );
+    common_scripts\utility::array_levelthread( getentarray( "delete_on_load", "target" ), maps\_utility::_id_284E );
     level.defaultragdolltime = getdvarint( "ragdoll_max_life" );
     precacherumble( "tank_rumble" );
     precacherumble( "jeepride_bridgesink" );
@@ -84,15 +84,15 @@ main()
     precachemodel( "weapon_rpg7_no_rocket" );
     setomnvar( "ui_jeepride_init", 1 );
     maps\_utility::_id_278B( ::ride_start );
-    maps\_utility::_id_079C( "start", ::ride_start, &"STARTS_START" );
-    maps\_utility::_id_079C( "first_hind", ::start_first_hind, &"STARTS_FIRSTHIND" );
-    maps\_utility::_id_079C( "against_traffic", ::wip_start, &"STARTS_AGAINSTTRAFFIC" );
-    maps\_utility::_id_079C( "final_stretch", ::wip_start, &"STARTS_FINALSTRETCH" );
-    maps\_utility::_id_079C( "bridge_explode", ::bridge_explode_start, &"STARTS_BRIDGEEXPLODE" );
-    maps\_utility::_id_079C( "bridge_combat", ::bridge_combat, &"STARTS_BRIDGECOMBAT" );
-    maps\_utility::_id_079C( "bridge_zak", ::bridge_zak, &"STARTS_BRIDGEZAK" );
-    maps\_utility::_id_079C( "bridge_rescue", ::bridge_rescue_start, &"STARTS_BRIDGERESCUE" );
-    maps\_utility::_id_079C( "nowhere", ::start_nowhere, &"STARTS_NOWHERE" );
+    maps\_utility::add_start( "start", ::ride_start, &"STARTS_START" );
+    maps\_utility::add_start( "first_hind", ::start_first_hind, &"STARTS_FIRSTHIND" );
+    maps\_utility::add_start( "against_traffic", ::wip_start, &"STARTS_AGAINSTTRAFFIC" );
+    maps\_utility::add_start( "final_stretch", ::wip_start, &"STARTS_FINALSTRETCH" );
+    maps\_utility::add_start( "bridge_explode", ::bridge_explode_start, &"STARTS_BRIDGEEXPLODE" );
+    maps\_utility::add_start( "bridge_combat", ::bridge_combat, &"STARTS_BRIDGECOMBAT" );
+    maps\_utility::add_start( "bridge_zak", ::bridge_zak, &"STARTS_BRIDGEZAK" );
+    maps\_utility::add_start( "bridge_rescue", ::bridge_rescue_start, &"STARTS_BRIDGERESCUE" );
+    maps\_utility::add_start( "nowhere", ::start_nowhere, &"STARTS_NOWHERE" );
 
     if ( getdvar( "jeepride_smoke_shadow" ) == "" )
         setdvar( "jeepride_smoke_shadow", "off" );
@@ -131,10 +131,10 @@ main()
     if ( getdvar( "jeepride_crashrepro" ) == "off" && getdvar( "jeepride_recordeffects" ) == "off" )
         thread maps\jeepride_fx::jeepride_fxline();
 
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CC );
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers2", "script_noteworthy" ), common_scripts\utility::_id_97CC );
-    common_scripts\utility::_id_0D13( getentarray( "ambient_setter", "targetname" ), maps\jeepride_code::ambient_setter );
-    common_scripts\utility::_id_0D13( getentarray( "sound_emitter", "targetname" ), maps\jeepride_code::sound_emitter );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers2", "script_noteworthy" ), common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( getentarray( "ambient_setter", "targetname" ), maps\jeepride_code::ambient_setter );
+    common_scripts\utility::array_thread( getentarray( "sound_emitter", "targetname" ), maps\jeepride_code::sound_emitter );
     maps\jeepride_precache::main();
     maps\jeepride_fx::main();
     level.weaponclipmodels[0] = "weapon_ak47_clip";
@@ -184,17 +184,17 @@ main()
 
     if ( !isdefined( level.fxplay_model ) || getdvar( "jeepride_crashrepro" ) != "off" )
     {
-        common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "ghetto_tag", "targetname" ), maps\jeepride_code::ghetto_tag );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "sparks_on", "script_noteworthy" ), maps\jeepride_code::trigger_sparks_on );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "sparks_off", "script_noteworthy" ), maps\jeepride_code::trigger_sparks_off );
+        common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "ghetto_tag", "targetname" ), maps\jeepride_code::ghetto_tag );
+        common_scripts\utility::array_thread( getvehiclenodearray( "sparks_on", "script_noteworthy" ), maps\jeepride_code::trigger_sparks_on );
+        common_scripts\utility::array_thread( getvehiclenodearray( "sparks_off", "script_noteworthy" ), maps\jeepride_code::trigger_sparks_off );
     }
 
-    getent( "gaz", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_gaz );
-    getent( "price", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_price );
-    getent( "griggs", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_griggs );
-    getent( "medic", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_medic );
-    getent( "ru1", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_ru1 );
-    getent( "ru2", "script_noteworthy" ) maps\_utility::_id_0798( ::setup_ru2 );
+    getent( "gaz", "script_noteworthy" ) maps\_utility::add_spawn_function( ::setup_gaz );
+    getent( "price", "script_noteworthy" ) maps\_utility::add_spawn_function( ::setup_price );
+    getent( "griggs", "script_noteworthy" ) maps\_utility::add_spawn_function( ::setup_griggs );
+    getent( "medic", "script_noteworthy" ) maps\_utility::add_spawn_function( ::setup_medic );
+    getent( "ru1", "script_noteworthy" ) maps\_utility::add_spawn_function( ::setup_ru1 );
+    getent( "ru2", "script_noteworthy" ) maps\_utility::add_spawn_function( ::setup_ru2 );
     level.lock_on_player_ent = spawn( "script_model", level.player.origin + ( 0.0, 0.0, 24.0 ) );
     level.lock_on_player_ent setmodel( "fx" );
     level.lock_on_player_ent linkto( level.player );
@@ -203,22 +203,22 @@ main()
     level.lock_on_player_ent._id_7AC2 = 4;
     level.lock_on_player_ent.oldmissiletype = 0;
     level.lock_on_player = 0;
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     thread _id_6302();
     maps\jeepride_amb::main();
     level.player allowprone( 0 );
     level.player allowsprint( 0 );
-    common_scripts\utility::_id_0D13( maps\_vehicle_code::_id_05BE(), maps\jeepride_code::process_vehicles_spawned );
-    common_scripts\utility::_id_0D13( getentarray( "missile_offshoot", "targetname" ), maps\jeepride_code::missile_offshoot );
+    common_scripts\utility::array_thread( maps\_vehicle_code::_getvehiclespawnerarray(), maps\jeepride_code::process_vehicles_spawned );
+    common_scripts\utility::array_thread( getentarray( "missile_offshoot", "targetname" ), maps\jeepride_code::missile_offshoot );
     maps\jeepride_code::crashed_vehicles_setup();
-    common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "fliptruck_ghettoanimate", "targetname" ), maps\jeepride_code::fliptruck_ghettoanimate );
+    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "fliptruck_ghettoanimate", "targetname" ), maps\jeepride_code::fliptruck_ghettoanimate );
 
     if ( isdefined( level.fxplay_model ) )
     {
-        common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "attack_dummy_path", "targetname" ), maps\jeepride_code::attack_dummy_path );
-        common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "vehicle_badplacer", "targetname" ), maps\jeepride_code::vehicle_badplacer );
-        common_scripts\utility::_id_0D13( getentarray( "exploder", "targetname" ), maps\jeepride_code::exploder_animate );
-        common_scripts\utility::_id_0D13( getentarray( "exploder", "targetname" ), maps\jeepride_code::exploder_phys );
+        common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "attack_dummy_path", "targetname" ), maps\jeepride_code::attack_dummy_path );
+        common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "vehicle_badplacer", "targetname" ), maps\jeepride_code::vehicle_badplacer );
+        common_scripts\utility::array_thread( getentarray( "exploder", "targetname" ), maps\jeepride_code::exploder_animate );
+        common_scripts\utility::array_thread( getentarray( "exploder", "targetname" ), maps\jeepride_code::exploder_phys );
     }
 
     level.struct_remove = undefined;
@@ -231,30 +231,30 @@ main()
 
     if ( isdefined( level.fxplay_model ) )
     {
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "nodisconnectpaths", "script_noteworthy" ), maps\jeepride_code::nodisconnectpaths );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "crazy_bmp", "script_noteworthy" ), maps\jeepride_code::crazy_bmp );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "do_or_die", "script_noteworthy" ), maps\jeepride_code::do_or_die );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "hillbump", "script_noteworthy" ), maps\jeepride_code::hillbump );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "honker_initiate", "script_noteworthy" ), maps\jeepride_code::honker_initiate );
+        common_scripts\utility::array_thread( getvehiclenodearray( "nodisconnectpaths", "script_noteworthy" ), maps\jeepride_code::nodisconnectpaths );
+        common_scripts\utility::array_thread( getvehiclenodearray( "crazy_bmp", "script_noteworthy" ), maps\jeepride_code::crazy_bmp );
+        common_scripts\utility::array_thread( getvehiclenodearray( "do_or_die", "script_noteworthy" ), maps\jeepride_code::do_or_die );
+        common_scripts\utility::array_thread( getvehiclenodearray( "hillbump", "script_noteworthy" ), maps\jeepride_code::hillbump );
+        common_scripts\utility::array_thread( getvehiclenodearray( "honker_initiate", "script_noteworthy" ), maps\jeepride_code::honker_initiate );
     }
 
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "bm21_unloader", "script_noteworthy" ), ::bm21_unloader );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "attacknow", "script_noteworthy" ), maps\jeepride_code::attacknow );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "sideswipe", "script_noteworthy" ), maps\jeepride_code::sideswipe );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "destructible_assistance", "script_noteworthy" ), maps\jeepride_code::destructible_assistance );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "no_godmoderiders", "script_noteworthy" ), maps\jeepride_code::no_godmoderiders );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "jolter", "script_noteworthy" ), maps\jeepride_code::jolter );
+    common_scripts\utility::array_thread( getvehiclenodearray( "bm21_unloader", "script_noteworthy" ), ::bm21_unloader );
+    common_scripts\utility::array_thread( getvehiclenodearray( "attacknow", "script_noteworthy" ), maps\jeepride_code::attacknow );
+    common_scripts\utility::array_thread( getvehiclenodearray( "sideswipe", "script_noteworthy" ), maps\jeepride_code::sideswipe );
+    common_scripts\utility::array_thread( getvehiclenodearray( "destructible_assistance", "script_noteworthy" ), maps\jeepride_code::destructible_assistance );
+    common_scripts\utility::array_thread( getvehiclenodearray( "no_godmoderiders", "script_noteworthy" ), maps\jeepride_code::no_godmoderiders );
+    common_scripts\utility::array_thread( getvehiclenodearray( "jolter", "script_noteworthy" ), maps\jeepride_code::jolter );
 
     if ( isdefined( level.fxplay_model ) )
     {
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "clouds_off", "script_noteworthy" ), maps\jeepride_code::clouds_off );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "clouds_on", "script_noteworthy" ), maps\jeepride_code::clouds_on );
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "unloadmanager", "script_noteworthy" ), maps\jeepride_code::unloadmanager );
+        common_scripts\utility::array_thread( getvehiclenodearray( "clouds_off", "script_noteworthy" ), maps\jeepride_code::clouds_off );
+        common_scripts\utility::array_thread( getvehiclenodearray( "clouds_on", "script_noteworthy" ), maps\jeepride_code::clouds_on );
+        common_scripts\utility::array_thread( getvehiclenodearray( "unloadmanager", "script_noteworthy" ), maps\jeepride_code::unloadmanager );
     }
 
-    common_scripts\utility::_id_0D13( getentarray( "hindset", "script_noteworthy" ), ::hindset );
-    common_scripts\utility::_id_0D13( getentarray( "hindset_hindbombplayer", "script_noteworthy" ), ::hindset );
-    common_scripts\utility::_id_0D13( getentarray( "hindset_hindbombplayer", "script_noteworthy" ), maps\jeepride_code::hind_bombplayer );
+    common_scripts\utility::array_thread( getentarray( "hindset", "script_noteworthy" ), ::hindset );
+    common_scripts\utility::array_thread( getentarray( "hindset_hindbombplayer", "script_noteworthy" ), ::hindset );
+    common_scripts\utility::array_thread( getentarray( "hindset_hindbombplayer", "script_noteworthy" ), maps\jeepride_code::hind_bombplayer );
     getent( "end_hind_action", "script_noteworthy" ) thread end_hind_action();
     getvehiclenode( "end_bmp_action", "script_noteworthy" ) thread end_bmp_action();
     var_1 = getent( "AI_Stop_shooting", "targetname" );
@@ -262,30 +262,30 @@ main()
     var_2 = getent( "mountain_spawn", "targetname" );
     var_2 hide();
     var_2 maps\_utility::_id_27EF( 140, maps\jeepride_code::mountain_bridge );
-    common_scripts\utility::_id_0D13( getentarray( "Guardrail_Model", "targetname" ), maps\jeepride_code::guardrail_think );
+    common_scripts\utility::array_thread( getentarray( "Guardrail_Model", "targetname" ), maps\jeepride_code::guardrail_think );
 
     if ( isdefined( level.fxplay_model ) )
     {
-        common_scripts\utility::_id_0D13( getentarray( "magic_missileguy_spawner", "targetname" ), maps\jeepride_code::magic_missileguy_spawner );
-        common_scripts\utility::_id_0D13( getentarray( "stinger_me", "script_noteworthy" ), maps\jeepride_code::stinger_me );
-        common_scripts\utility::_id_0D13( getentarray( "stinger_me_nolock", "script_noteworthy" ), maps\jeepride_code::stinger_me, 0 );
-        common_scripts\utility::_id_0D13( getentarray( "all_allies_targetme", "script_noteworthy" ), maps\jeepride_code::all_allies_targetme );
-        common_scripts\utility::_id_0D13( getentarray( "heli_focusonplayer", "script_noteworthy" ), maps\jeepride_code::heli_focusonplayer );
-        common_scripts\utility::_id_0D13( getentarray( "exploder", "targetname" ), maps\jeepride_code::exploder_hack );
-        common_scripts\utility::_id_0D13( getentarray( "hidemeuntilflag", "script_noteworthy" ), maps\jeepride_code::hidemeuntilflag );
-        common_scripts\utility::_id_0D13( getspawnerarray(), maps\jeepride_code::spawners_setup );
-        common_scripts\utility::_id_0D13( getentarray( "layer_of_death0", "targetname" ), maps\jeepride_code::layer_of_death, 0 );
-        common_scripts\utility::_id_0D13( getentarray( "layer_of_death1", "targetname" ), maps\jeepride_code::layer_of_death, 1 );
-        common_scripts\utility::_id_0D13( getentarray( "layer_of_death2", "targetname" ), maps\jeepride_code::layer_of_death, 2 );
-        common_scripts\utility::_id_0D13( getentarray( "layer_of_death3", "targetname" ), maps\jeepride_code::layer_of_death, 3 );
-        common_scripts\utility::_id_0D13( getentarray( "layer_of_death4", "targetname" ), maps\jeepride_code::layer_of_death, 4 );
-        common_scripts\utility::_id_0D13( getentarray( "falltrigger", "targetname" ), maps\jeepride_code::_id_17F9 );
+        common_scripts\utility::array_thread( getentarray( "magic_missileguy_spawner", "targetname" ), maps\jeepride_code::magic_missileguy_spawner );
+        common_scripts\utility::array_thread( getentarray( "stinger_me", "script_noteworthy" ), maps\jeepride_code::stinger_me );
+        common_scripts\utility::array_thread( getentarray( "stinger_me_nolock", "script_noteworthy" ), maps\jeepride_code::stinger_me, 0 );
+        common_scripts\utility::array_thread( getentarray( "all_allies_targetme", "script_noteworthy" ), maps\jeepride_code::all_allies_targetme );
+        common_scripts\utility::array_thread( getentarray( "heli_focusonplayer", "script_noteworthy" ), maps\jeepride_code::heli_focusonplayer );
+        common_scripts\utility::array_thread( getentarray( "exploder", "targetname" ), maps\jeepride_code::exploder_hack );
+        common_scripts\utility::array_thread( getentarray( "hidemeuntilflag", "script_noteworthy" ), maps\jeepride_code::hidemeuntilflag );
+        common_scripts\utility::array_thread( getspawnerarray(), maps\jeepride_code::spawners_setup );
+        common_scripts\utility::array_thread( getentarray( "layer_of_death0", "targetname" ), maps\jeepride_code::layer_of_death, 0 );
+        common_scripts\utility::array_thread( getentarray( "layer_of_death1", "targetname" ), maps\jeepride_code::layer_of_death, 1 );
+        common_scripts\utility::array_thread( getentarray( "layer_of_death2", "targetname" ), maps\jeepride_code::layer_of_death, 2 );
+        common_scripts\utility::array_thread( getentarray( "layer_of_death3", "targetname" ), maps\jeepride_code::layer_of_death, 3 );
+        common_scripts\utility::array_thread( getentarray( "layer_of_death4", "targetname" ), maps\jeepride_code::layer_of_death, 4 );
+        common_scripts\utility::array_thread( getentarray( "falltrigger", "targetname" ), maps\jeepride_code::bridge_fall );
     }
     else
         level._id_2417 = [];
 
     if ( getdvar( "jeepride_startgen" ) != "off" )
-        common_scripts\utility::_id_0D13( getvehiclenodearray( "startgen", "script_noteworthy" ), maps\jeepride_code::startgen );
+        common_scripts\utility::array_thread( getvehiclenodearray( "startgen", "script_noteworthy" ), maps\jeepride_code::startgen );
 
     maps\_utility::_id_27EF( 185, maps\jeepride_code::falling_bridge_price );
     thread maps\jeepride_code::bridge_bumper();
@@ -334,7 +334,7 @@ main()
     level._id_3010["brace_fall"]["duration"] = 1.5;
     level._id_3010["brace_fall"]["radius"] = 2200;
     thread bridge_save();
-    common_scripts\utility::_id_0D13( getentarray( "notvehicle", "script_noteworthy" ), maps\jeepride_code::_id_2856 );
+    common_scripts\utility::array_thread( getentarray( "notvehicle", "script_noteworthy" ), maps\jeepride_code::_id_2856 );
     wait 0.05;
     setsaveddvar( "compass", "0" );
     thread bx_scripted_events_flags_vfx();
@@ -360,8 +360,8 @@ rpg_from_griggs()
     level.griggs attach( "projectile_rpg7", "tag_inhand" );
     level._id_6F7C thread hide_weapons();
     level.griggs thread hide_weapons();
-    level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "rpgfromgriggs_price", "tag_guy0" );
-    level.griggs maps\_anim::_id_0C24( level.griggs, "rpgfromgriggs_griggs", "tag_passenger" );
+    level._id_6F7C thread maps\_anim::anim_single_solo( level._id_6F7C, "rpgfromgriggs_price", "tag_guy0" );
+    level.griggs maps\_anim::anim_single_solo( level.griggs, "rpgfromgriggs_griggs", "tag_passenger" );
     level.griggs notify( "show_weapon" );
 }
 
@@ -401,7 +401,7 @@ bodysense_bridgeexplosion()
     var_0.origin = var_1;
     var_0.angles = var_2;
     var_0 linktoplayerview( level.player, "tag_origin", ( 0.0, 0.0, -50.0 ), ( 0.0, 0.0, 0.0 ), 1 );
-    var_0 maps\_anim::_id_0C24( var_0, "player_bridgeexplosion" );
+    var_0 maps\_anim::anim_single_solo( var_0, "player_bridgeexplosion" );
     level.player unlink();
     level.player freezecontrols( 1 );
     var_0 delete();
@@ -443,7 +443,7 @@ slam_zoom_intro()
     wait 0.525;
     wait 0.25;
     thread whitescreen();
-    common_scripts\utility::_id_0CF0( getentarray( "slam_zoom_backdrop", "targetname" ), maps\_utility::_id_284E );
+    common_scripts\utility::array_levelthread( getentarray( "slam_zoom_backdrop", "targetname" ), maps\_utility::_id_284E );
     wait 0.45;
     level.player setplayerangles( ( -8.4547, 171.59, 0.0 ) );
     maps\jeepride_code::player_link_update();
@@ -458,7 +458,7 @@ slam_zoom_intro()
     wait 2.2;
     level notify( "destroy_hud_elements" );
     var_3 delete();
-    maps\_utility::_id_1143( "levelstart" );
+    maps\_utility::autosave_by_name( "levelstart" );
 }
 
 whitescreen()
@@ -493,7 +493,7 @@ end_ride()
     if ( level._id_8C36 == "bridge_combat" || level._id_8C36 == "bridge_zak" || level._id_8C36 == "bridge_rescue" )
         return;
 
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CE );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CE );
 }
 
 getplayersride()
@@ -526,7 +526,7 @@ ride_start()
 wip_start()
 {
     soundscripts\_snd::_id_870C( "aud_against_traffic_checkpoint" );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( level._id_8C36, "script_noteworthy" ), maps\jeepride_code::sync_vehicle );
+    common_scripts\utility::array_thread( getvehiclenodearray( level._id_8C36, "script_noteworthy" ), maps\jeepride_code::sync_vehicle );
     common_scripts\utility::_id_384A( "playersride_init" );
     maps\jeepride_code::player_link_update();
 }
@@ -624,40 +624,40 @@ dialog_ride_price()
         return;
 
     wait 1;
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 6.5 + level.intro_offsets_dialog_time, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_helistatus" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 6.5 + level.intro_offsets_dialog_time, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_helistatus" );
     level.player maps\jeepride_code::delaythread_loc( 10 + level.intro_offsets_dialog_time, maps\_utility::_id_69C4, "jeepride_hqr_griggsisnthere" );
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 15 + level.intro_offsets_dialog_time, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_notgood" );
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 16 + level.intro_offsets_dialog_time, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_truckleft" );
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 48, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_coverrear" );
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 78, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_company" );
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 100, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_hind6oclock" );
-    level._id_6F7C maps\jeepride_code::delaythread_loc( 152, maps\_anim::_id_0C21, level._id_6F7C, "jeepride_pri_buggered" );
-    level._id_3C61 maps\jeepride_code::delaythread_loc( 155, maps\_anim::_id_0C21, level._id_3C61, "jeepride_gaz_goodenough" );
-    level._id_3C61 maps\jeepride_code::delaythread_loc( 161, maps\_anim::_id_0C21, level._id_3C61, "jeepride_gaz_stopbloodytruck" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 15 + level.intro_offsets_dialog_time, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_notgood" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 16 + level.intro_offsets_dialog_time, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_truckleft" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 48, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_coverrear" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 78, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_company" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 100, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_hind6oclock" );
+    level._id_6F7C maps\jeepride_code::delaythread_loc( 152, maps\_anim::anim_single_queue, level._id_6F7C, "jeepride_pri_buggered" );
+    level._id_3C61 maps\jeepride_code::delaythread_loc( 155, maps\_anim::anim_single_queue, level._id_3C61, "jeepride_gaz_goodenough" );
+    level._id_3C61 maps\jeepride_code::delaythread_loc( 161, maps\_anim::anim_single_queue, level._id_3C61, "jeepride_gaz_stopbloodytruck" );
 }
 
 dialog_bridge_radio()
 {
     level.player endon( "death" );
-    maps\_utility::_id_1333( "axis" );
-    maps\_utility::_id_1332( "allies" );
-    level._id_3C61 maps\_anim::_id_0C24( level._id_3C61, "jeepride_gaz_heavyattackbridge" );
+    maps\_utility::battlechatter_on( "axis" );
+    maps\_utility::battlechatter_off( "allies" );
+    level._id_3C61 maps\_anim::anim_single_solo( level._id_3C61, "jeepride_gaz_heavyattackbridge" );
     level.griggs maps\_utility::_id_69C4( "jeepride_hqr_workinonit" );
-    level._id_3C61 maps\_anim::_id_0C24( level._id_3C61, "jeepride_gaz_uselesswanker" );
+    level._id_3C61 maps\_anim::anim_single_solo( level._id_3C61, "jeepride_gaz_uselesswanker" );
     wait 2;
-    level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "jeepride_pri_sitreponhelis" );
-    level._id_3C61 maps\_anim::_id_0C24( level._id_3C61, "jeepride_gaz_wereonourown" );
+    level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "jeepride_pri_sitreponhelis" );
+    level._id_3C61 maps\_anim::anim_single_solo( level._id_3C61, "jeepride_gaz_wereonourown" );
     wait 3;
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
     wait 7.5;
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     wait 0.5;
     level.griggs maps\_utility::_id_69C4( "jeepride_kmr_couldusehelp" );
-    level._id_3C61 maps\_anim::_id_0C24( level._id_3C61, "jeepride_gaz_goodtohear" );
+    level._id_3C61 maps\_anim::anim_single_solo( level._id_3C61, "jeepride_gaz_goodtohear" );
     wait 1;
     level.griggs maps\_utility::_id_69C4( "jeepride_kmr_standbyalmostthere" );
     wait 1;
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
     wait 3;
     level.griggs maps\_utility::_id_69C4( "jeepride_grg_tankabouttoblow" );
 }
@@ -669,14 +669,14 @@ dialog_ride_griggs()
 
     maps\_utility::_id_27EF( 145, ::end_print_fx );
     wait 1;
-    level.griggs maps\jeepride_code::delaythread_loc( 9.5, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_hangon" );
-    level.griggs maps\jeepride_code::delaythread_loc( 12.5, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_truck6oclock" );
-    level.griggs maps\jeepride_code::delaythread_loc( 107, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_rpgfirehind" );
-    level.griggs maps\jeepride_code::delaythread_loc( 122, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_hind9oclock" );
-    level.griggs maps\jeepride_code::delaythread_loc( 127, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_hangon" );
-    level.griggs maps\jeepride_code::delaythread_loc( 132, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_rpgfirehind" );
-    level.griggs maps\jeepride_code::delaythread_loc( 147, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_hind12oclock" );
-    level.griggs maps\jeepride_code::delaythread_loc( 157, maps\_anim::_id_0C21, level.griggs, "jeepride_grg_takeoutbridge" );
+    level.griggs maps\jeepride_code::delaythread_loc( 9.5, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_hangon" );
+    level.griggs maps\jeepride_code::delaythread_loc( 12.5, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_truck6oclock" );
+    level.griggs maps\jeepride_code::delaythread_loc( 107, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_rpgfirehind" );
+    level.griggs maps\jeepride_code::delaythread_loc( 122, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_hind9oclock" );
+    level.griggs maps\jeepride_code::delaythread_loc( 127, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_hangon" );
+    level.griggs maps\jeepride_code::delaythread_loc( 132, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_rpgfirehind" );
+    level.griggs maps\jeepride_code::delaythread_loc( 147, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_hind12oclock" );
+    level.griggs maps\jeepride_code::delaythread_loc( 157, maps\_anim::anim_single_queue, level.griggs, "jeepride_grg_takeoutbridge" );
 }
 
 end_print_fx()
@@ -727,7 +727,7 @@ bridge_blow_blur()
 setup_gaz()
 {
     level._id_3C61 = self;
-    level._id_3C61._id_0C72 = "gaz";
+    level._id_3C61.animname = "gaz";
     level._id_3C61 thread maps\_utility::_id_58D7();
     level._id_3C61 thread maps\_utility::_id_5926();
 }
@@ -735,7 +735,7 @@ setup_gaz()
 setup_price()
 {
     level._id_6F7C = self;
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C thread maps\_utility::_id_5926();
 }
@@ -743,7 +743,7 @@ setup_price()
 setup_griggs()
 {
     level.griggs = self;
-    level.griggs._id_0C72 = "griggs";
+    level.griggs.animname = "griggs";
     level.griggs thread maps\_utility::_id_58D7();
     level.griggs thread maps\_utility::_id_5926();
 }
@@ -751,7 +751,7 @@ setup_griggs()
 setup_medic()
 {
     level.medic = self;
-    level.medic._id_0C72 = "medic";
+    level.medic.animname = "medic";
     level.medic thread maps\_utility::_id_58D7();
     level.medic thread maps\_utility::_id_5926();
 }
@@ -759,14 +759,14 @@ setup_medic()
 setup_ru1()
 {
     level.ru1 = self;
-    level.ru1._id_0C72 = "ru1";
+    level.ru1.animname = "ru1";
     level.ru1._id_7970 = 1;
 }
 
 setup_ru2()
 {
     level.ru2 = self;
-    level.ru2._id_0C72 = "ru2";
+    level.ru2.animname = "ru2";
 }
 
 dialog_get_off_your_ass()
@@ -789,7 +789,7 @@ dialog_get_off_your_ass()
         if ( var_4 - var_0 > var_3 && var_4 - var_1 > var_2 )
         {
             var_1 = gettime();
-            level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "jeepride_pri_getoffyour" );
+            level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "jeepride_pri_getoffyour" );
         }
 
         wait 0.05;
@@ -798,7 +798,7 @@ dialog_get_off_your_ass()
 
 allowallstances()
 {
-    self _meth_81ce( "stand", "crouch", "prone" );
+    self _meth_81CE( "stand", "crouch", "prone" );
 }
 
 bodysense_bridgecollapse()
@@ -813,7 +813,7 @@ bodysense_bridgecollapse()
     var_0.origin = var_1.origin;
     var_0.angles = var_1.angles;
     level.player playerlinktodelta( var_0, "tag_player", 0, 0, 0, 0, 0, 0 );
-    var_0 thread maps\_anim::_id_0C24( var_0, "player_bridge" );
+    var_0 thread maps\_anim::anim_single_solo( var_0, "player_bridge" );
     soundscripts\_snd::_id_870C( "start_post_bridge_explosion" );
     bridge_visual_transition_phase2();
     h1_bridgecollapserumbleseq();
@@ -839,9 +839,9 @@ checkmantle()
 
     var_0 = maps\_utility::_id_88D1( "playerview", level.player.origin, level.player.angles );
     var_0 dontcastshadows();
-    var_1 = level.player _meth_82ef() * -1.0;
+    var_1 = level.player _meth_82EF() * -1.0;
     var_0 linktoplayerview( level.player, "tag_origin", ( 0, 0, var_1 ), ( 0.0, 0.0, 0.0 ), 0 );
-    var_0 maps\_anim::_id_0C24( var_0, "player_bridge_mantle" );
+    var_0 maps\_anim::anim_single_solo( var_0, "player_bridge_mantle" );
     var_0 delete();
     wait 0.2;
     checkmantle();
@@ -869,7 +869,7 @@ bridge_transition()
     thread bridge_setupguys( var_0 );
     wait(var_0);
     bridge_visual_transition_phase1();
-    common_scripts\utility::_id_0D13( getaiarray( "allies" ), maps\jeepride_code::clearenemy_loc );
+    common_scripts\utility::array_thread( getaiarray( "allies" ), maps\jeepride_code::clearenemy_loc );
     maps\jeepride_code::clear_all_vehicles_but_heros_and_hind();
     level.player unlink();
     var_5 = spawnstruct();
@@ -897,27 +897,27 @@ bridge_transition()
     wait(var_2 * 0.3);
     setsaveddvar( "compass", "1" );
     wait 0.1;
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CE );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CE );
     thread autosave_now_loc();
-    maps\_utility::_id_070A( "bridge_enemies" );
+    maps\_utility::activate_trigger_with_targetname( "bridge_enemies" );
 }
 
 h1_bridgewakeup_dof_seq()
 {
     setblur( 0.0, 0.0 );
-    level.player _meth_84a7( 2.0, 26, 9.0, 9.0 );
-    level.player _meth_84a5();
+    level.player _meth_84A7( 2.0, 26, 9.0, 9.0 );
+    level.player _meth_84A5();
     setsaveddvar( "r_mbEnable", 2 );
     wait 3.65;
-    level.player _meth_84a7( 2.5, 15.5, 0.5, 0.5 );
+    level.player _meth_84A7( 2.5, 15.5, 0.5, 0.5 );
     wait 1.5;
-    level.player _meth_84a7( 1.5, 180, 3.0, 3.0 );
+    level.player _meth_84A7( 1.5, 180, 3.0, 3.0 );
     wait 4.15;
-    level.player _meth_84a7( 1.5, 150, 0.5, 0.5 );
+    level.player _meth_84A7( 1.5, 150, 0.5, 0.5 );
     wait 5.85;
-    level.player _meth_84a7( 16.0, 500, 0.5, 0.5 );
+    level.player _meth_84A7( 16.0, 500, 0.5, 0.5 );
     wait 3.0;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -1111,8 +1111,8 @@ bridge_visual_transition_phase2()
     var_0 maps\jeepride_code::bridge_linkto( "chunk_3", "j_chunk_03" );
     var_0 maps\jeepride_code::bridge_linkto( "chunk_2", "j_chunk_02" );
     var_0 maps\jeepride_code::bridge_linkto( "chunk_27", "joint27" );
-    var_0 maps\_utility::_id_0D61( "bridge_collapse" );
-    var_0 thread maps\_anim::_id_0C21( var_0, "bridge_collapsing" );
+    var_0 maps\_utility::assign_animtree( "bridge_collapse" );
+    var_0 thread maps\_anim::anim_single_queue( var_0, "bridge_collapsing" );
     reconnect_bridge_paths();
 }
 
@@ -1130,7 +1130,7 @@ bridge_setupguys( var_0 )
     level._id_6F7C unlink();
     maps\jeepride_code::guy_force_remove_from_vehicle( level._id_6F7C._id_750E, level._id_6F7C, var_4.origin );
     level._id_6F7C linkto( var_4, "polySurface1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    level._id_6F7C _meth_81c9( var_4.origin, ( 0.0, 0.0, 0.0 ) );
+    level._id_6F7C _meth_81C9( var_4.origin, ( 0.0, 0.0, 0.0 ) );
     level._id_6F7C hide();
     setsaveddvar( "ai_friendlyFireBlockDuration", 0 );
     level._id_6F7C.a._id_2B20 = 1;
@@ -1154,7 +1154,7 @@ bridge_setupguys( var_0 )
     var_7[var_7.size] = getent( "auto4044", "targetname" );
     var_7[var_7.size] = getent( "auto4184", "targetname" );
     var_7[var_7.size] = getent( "auto4300", "targetname" );
-    common_scripts\utility::_id_0D13( var_7, ::removetreadfx );
+    common_scripts\utility::array_thread( var_7, ::removetreadfx );
     var_8 = getaiarray( "allies" );
 
     for ( var_9 = 0; var_9 < var_8.size; var_9++ )
@@ -1176,13 +1176,13 @@ bridge_setupguys( var_0 )
     wait(var_0 - var_10);
     level._id_6F7C show();
     wait 3;
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "jeepride_pri_thebridge" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "jeepride_pri_thebridge" );
     wait 14;
     level.griggs unlink();
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C unlink();
     wait 2;
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C thread maps\_spawner::_id_4241( var_1 );
     wait 2;
     common_scripts\utility::_id_383F( "stop_limp" );
@@ -1191,9 +1191,9 @@ bridge_setupguys( var_0 )
         return;
 
     level.player endon( "death" );
-    level.griggs thread maps\_anim::_id_0C21( level.griggs, "jeepride_grg_bouttocollapse" );
+    level.griggs thread maps\_anim::anim_single_queue( level.griggs, "jeepride_grg_bouttocollapse" );
     common_scripts\_exploder::_id_3528( 11 );
-    maps\_utility::_id_070A( "allies_startcolor" );
+    maps\_utility::activate_trigger_with_targetname( "allies_startcolor" );
     common_scripts\utility::_id_383F( "music_bridge" );
     maps\_vehicle::_id_23DE( 66 );
     thread maps\jeepride_aud::play_mi17_scripted_sequence();
@@ -1228,9 +1228,9 @@ setup_bridge_defense()
     thread dialog_bridge_radio();
     remove_non_hero_shields();
     thread maps\jeepride_code::encroacher();
-    common_scripts\utility::_id_0D13( getaiarray(), ::allowallstances );
+    common_scripts\utility::array_thread( getaiarray(), ::allowallstances );
     wait 3;
-    maps\_utility::_id_070A( "bridgealliesinplace" );
+    maps\_utility::activate_trigger_with_targetname( "bridgealliesinplace" );
     common_scripts\utility::_id_3856( "no_more_drone_unloaders", 45 );
     var_1 = maps\_vehicle::_id_23DE( 72 );
     var_1 thread maps\jeepride_aud::play_last_hind_flyby();
@@ -1255,7 +1255,7 @@ bridge_combat()
     maps\jeepride_code::exploder_loc( 71, 1 );
     maps\jeepride_code::exploder_loc( 72, 1 );
     maps\jeepride_code::exploder_loc( 73 );
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CE );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CE );
     common_scripts\utility::_id_383F( "end_ride" );
     common_scripts\utility::_id_383F( "bridge_sequence" );
     common_scripts\utility::_id_383F( "bridge_section_start" );
@@ -1476,7 +1476,7 @@ enemys_run_to_safety()
     {
         var_0[var_3] maps\_utility::_id_2A74();
         var_0[var_3].goalradius = 32;
-        var_0[var_3] _meth_81aa( var_1[var_2].origin );
+        var_0[var_3] _meth_81AA( var_1[var_2].origin );
         var_0[var_3] thread ignoreall_for_running_away();
         var_2++;
 
@@ -1490,12 +1490,12 @@ end_action()
     common_scripts\utility::_id_384A( "end_action_bmp" );
     remove_non_hero_shields();
     common_scripts\utility::_id_384A( "end_action_hind" );
-    maps\_utility::_id_070A( "friends_fall_back" );
+    maps\_utility::activate_trigger_with_targetname( "friends_fall_back" );
     enemys_run_to_safety();
-    common_scripts\utility::_id_0D13( maps\_vehicle::get_script_vehicles(), ::switch_team_fordamage );
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CC );
-    common_scripts\utility::_id_0D13( getaiarray( "allies" ), ::ignoreall_for_running_away );
-    common_scripts\utility::_id_0D13( getentarray( "bridge_triggers2", "script_noteworthy" ), common_scripts\utility::_id_97CE );
+    common_scripts\utility::array_thread( maps\_vehicle::get_script_vehicles(), ::switch_team_fordamage );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers", "script_noteworthy" ), common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( getaiarray( "allies" ), ::ignoreall_for_running_away );
+    common_scripts\utility::array_thread( getentarray( "bridge_triggers2", "script_noteworthy" ), common_scripts\utility::_id_97CE );
     thread bridge_blow_trigger();
 }
 
@@ -1529,7 +1529,7 @@ attack_origin_with_targetname( var_0 )
 {
     var_1 = getent( var_0, "targetname" ).origin;
     badplace_cylinder( "tanktarget", 4, var_1, 750, 300, "allies", "axis" );
-    self _meth_825d( var_1 );
+    self _meth_825D( var_1 );
     self waittill( "turret_on_target" );
     maps\jeepride_code::vehicle_fire_main_cannon( 24 );
 }
@@ -1666,7 +1666,7 @@ hold_fordeath( var_0 )
 {
     self.origin = var_0.origin;
     self.angles = var_0.angles;
-    maps\_anim::_id_0BC7( var_0, "pain_pose" );
+    maps\_anim::anim_first_frame_solo( var_0, "pain_pose" );
 }
 
 end_scene_actor_unlink_on_death()
@@ -1698,17 +1698,17 @@ bridge_zakhaev()
     var_2 = getent( "zak_griggs_spot", "targetname" );
     var_3 = getent( "zak_price_spot_hide", "targetname" );
     maps\jeepride_code::kill_unload_que();
-    maps\_utility::_id_27EF( 1, maps\_utility::_id_0CC5 );
-    maps\_utility::_id_070A( "clear_fastropers" );
+    maps\_utility::_id_27EF( 1, maps\_utility::arcademode_stop_timer );
+    maps\_utility::activate_trigger_with_targetname( "clear_fastropers" );
     level._id_6F7C maps\_utility::_id_2A74();
     level._id_3C61 maps\_utility::_id_2A74();
     level.griggs maps\_utility::_id_2A74();
     level._id_6F7C.goalradius = 32;
     level._id_3C61.goalradius = 32;
     level.griggs.goalradius = 32;
-    level._id_6F7C _meth_81aa( var_3.origin );
-    level._id_3C61 _meth_81aa( var_1.origin );
-    level.griggs _meth_81aa( var_2.origin );
+    level._id_6F7C _meth_81AA( var_3.origin );
+    level._id_3C61 _meth_81AA( var_1.origin );
+    level.griggs _meth_81AA( var_2.origin );
 
     if ( !isdefined( level._id_6F7C._id_58D7 ) )
         level._id_6F7C thread maps\_utility::_id_58D7();
@@ -1724,16 +1724,16 @@ bridge_zakhaev()
     level.player allowjump( 0 );
     var_4 = maps\_utility::_id_88D1( "playerview" );
     var_5 = getent( "player_drag_node", "targetname" );
-    var_5 maps\_anim::_id_0BC7( var_4, "drag_player" );
+    var_5 maps\_anim::anim_first_frame_solo( var_4, "drag_player" );
     setsaveddvar( "nightVisionDisableEffects", 1 );
-    common_scripts\utility::_id_0D13( maps\_utility::_id_3FA9( "hawks" ), common_scripts\utility::_id_671F );
+    common_scripts\utility::array_thread( maps\_utility::_id_3FA9( "hawks" ), common_scripts\utility::_id_671F );
     thread music_zak_timing();
     hind_shoots_the_tanker( var_4.origin );
     setsaveddvar( "hud_showstance", 0 );
-    common_scripts\utility::_id_0D13( maps\_utility::_id_3FA9( "cloud_bank_far" ), common_scripts\utility::_id_671F );
+    common_scripts\utility::array_thread( maps\_utility::_id_3FA9( "cloud_bank_far" ), common_scripts\utility::_id_671F );
     waitframe;
     escape_shellshock_thing( var_4 );
-    thread maps\_utility::_id_114E();
+    thread maps\_utility::autosave_now();
     maps\jeepride_code::exploder_loc( 142 );
     maps\jeepride_code::exploder_loc( 143 );
     thread bx_warmup_vfx_end();
@@ -1741,7 +1741,7 @@ bridge_zakhaev()
     if ( level._id_8C36 != "bridge_zak" )
         level.hind notify( "gunner_new_target" );
 
-    common_scripts\utility::_id_0D13( maps\_vehicle::get_script_vehicles(), ::stop_thinking );
+    common_scripts\utility::array_thread( maps\_vehicle::get_script_vehicles(), ::stop_thinking );
     thread h1_jeepride_bridgeending_dof_seq();
     thread h1_jeepride_bridgeending_rumbles();
     thread h1_finalsequence_fade_seq();
@@ -1754,7 +1754,7 @@ bridge_zakhaev()
     maps\_vehicle_aianim::_id_297A( var_6, "weapon_" );
     level.griggs maps\_utility::_id_8EA4();
     var_7 = level.griggs maps\_vehicle_aianim::_id_21A2( level.griggs );
-    var_7._id_0C72 = "griggs";
+    var_7.animname = "griggs";
     var_7 maps\_anim::_id_7F29();
     level._id_6F7C maps\_utility::_id_8EA4();
     thread maps\jeepride_code::bloodtrail_spawn();
@@ -1768,20 +1768,20 @@ bridge_zakhaev()
 
     level._id_6F7C delete();
     level.pricedummy = var_8;
-    var_8._id_0C72 = "price";
+    var_8.animname = "price";
     var_8 maps\_anim::_id_7F29();
     maps\_vehicle_aianim::_id_297A( var_8, "weapon_" );
     var_8 attach( "weapon_colt1911_black", "tag_weapon_right" );
     var_9 = getent( "end_friend_2", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_9 );
-    var_9._id_0C72 = "end_friend_2";
-    var_9._id_0BE5 = getent( var_9.target, "targetname" );
+    var_9.animname = "end_friend_2";
+    var_9.anim_node = getent( var_9.target, "targetname" );
     var_9.dropweapon = 0;
     var_10 = getent( "end_friend_3", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_10 );
     var_10.dropweapon = 0;
-    var_10._id_0C72 = "end_friend_3";
-    var_10._id_0BE5 = getent( var_10.target, "targetname" );
+    var_10.animname = "end_friend_3";
+    var_10.anim_node = getent( var_10.target, "targetname" );
     var_11[0] = var_8;
     var_12[0] = var_7;
     var_12[1] = var_4;
@@ -1789,25 +1789,25 @@ bridge_zakhaev()
     maps\_utility::_id_27EF( 2, maps\_utility::_id_5689, 5, 55 );
     thread bridge_zak_friendly_attack_heli();
     waitframe;
-    var_5 thread maps\_anim::_id_0C18( var_12, "drag_player" );
+    var_5 thread maps\_anim::anim_single( var_12, "drag_player" );
     var_7 thread maps\jeepride_code::spawn_griggs_pistol();
     thread maps\jeepride_code::light_sequence_00();
     thread maps\jeepride_code::light_sequence_01();
     var_13 = var_6;
-    var_13._id_0C72 = "end_friend_1";
-    var_5 maps\_anim::_id_0BC7( var_13, "end_scene_01" );
+    var_13.animname = "end_friend_1";
+    var_5 maps\_anim::anim_first_frame_solo( var_13, "end_scene_01" );
     var_9 thread maps\jeepride_code::blead_on_death();
     var_9._id_2652 = %dying_crawl_death_v1;
-    var_9._id_0BE5 thread maps\_utility::_id_3AF2( maps\_anim::_id_0BE1, var_9, "pain_loop" );
+    var_9.anim_node thread maps\_utility::_id_3AF2( maps\_anim::anim_loop_solo, var_9, "pain_loop" );
     var_10 thread maps\jeepride_code::blead_on_death();
     var_10._id_2652 = %dying_back_death_v2;
-    var_10._id_0BE5 thread maps\_utility::_id_3AF2( maps\_anim::_id_0C24, var_10, "intopain" );
-    var_10._id_0BE5 thread maps\_utility::_id_3AF2( maps\_anim::_id_0BE1, var_10, "pain_loop" );
+    var_10.anim_node thread maps\_utility::_id_3AF2( maps\_anim::anim_single_solo, var_10, "intopain" );
+    var_10.anim_node thread maps\_utility::_id_3AF2( maps\_anim::anim_loop_solo, var_10, "pain_loop" );
     var_9 hide();
     var_10 hide();
-    maps\_utility::_id_27EF( 0.25, maps\_anim::_id_0C13, var_9, "intopain", 20 );
-    maps\_utility::_id_27EF( 0.25, maps\_anim::_id_0C13, var_10, "intopain", 20 );
-    var_0 thread maps\_anim::_id_0C18( var_11, "drag_player" );
+    maps\_utility::_id_27EF( 0.25, maps\_anim::anim_set_rate_single, var_9, "intopain", 20 );
+    maps\_utility::_id_27EF( 0.25, maps\_anim::anim_set_rate_single, var_10, "intopain", 20 );
+    var_0 thread maps\_anim::anim_single( var_11, "drag_player" );
 
     if ( getdvar( "chaplincheat" ) == "1" )
         thread bridge_zak_slomo_script_timed_chaplincheat();
@@ -1819,26 +1819,26 @@ bridge_zakhaev()
     var_10 maps\_utility::_id_27EF( 1.3, ::_show );
     common_scripts\_exploder::_id_3528( "2001" );
     var_4 waittillmatch( "single anim", "start_price" );
-    var_0 thread maps\_anim::_id_0C18( var_11, "jeepride_ending_price01" );
+    var_0 thread maps\_anim::anim_single( var_11, "jeepride_ending_price01" );
     var_4 waittillmatch( "single anim", "start_approach" );
     level notify( "stop_drag_shots" );
     level.hind thread maps\jeepride_aud::play_zak_enemy_heli_sfx();
     var_14 = getent( "zakhaev", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_14 );
-    var_14._id_0C72 = "zakhaev";
+    var_14.animname = "zakhaev";
     var_14.dropweapon = 0;
     var_14._id_6159 = 1;
     var_14._id_613F = 1;
     var_14.tracksuit_ignore = 1;
     var_15 = getent( "zakhaev_buddy1", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_15 );
-    var_15._id_0C72 = "zakhaev_buddy1";
+    var_15.animname = "zakhaev_buddy1";
     var_15.tracksuit_ignore = 1;
     var_15._id_6159 = 1;
     var_15._id_613F = 1;
     var_16 = getent( "zakhaev_buddy2", "targetname" ) stalingradspawn();
     maps\_utility::_id_88F1( var_16 );
-    var_16._id_0C72 = "zakhaev_buddy2";
+    var_16.animname = "zakhaev_buddy2";
     var_16.tracksuit_ignore = 1;
     var_16._id_6159 = 1;
     var_16._id_613F = 1;
@@ -1858,7 +1858,7 @@ bridge_zakhaev()
     {
         var_20 = spawn( "script_origin", var_18[var_19].origin );
         var_18[var_19] maps\_utility::_id_2A74();
-        var_18[var_19] _meth_81aa( var_18[var_19].origin );
+        var_18[var_19] _meth_81AA( var_18[var_19].origin );
         var_18[var_19].goalradius = 32;
         var_18[var_19] linkto( var_20 );
         var_18[var_19] thread end_scene_actor_unlink_on_death();
@@ -1878,22 +1878,22 @@ bridge_zakhaev()
     var_10.allowdeath = 1;
     var_9.health = 1;
     var_10.health = 1;
-    var_5 thread maps\_anim::_id_0C24( level.attack_helidummy, "end_scene_01" );
-    var_5 thread maps\_anim::_id_0C18( var_18, "end_scene_01" );
+    var_5 thread maps\_anim::anim_single_solo( level.attack_helidummy, "end_scene_01" );
+    var_5 thread maps\_anim::anim_single( var_18, "end_scene_01" );
     maps\_utility::_id_27EF( 8.15, maps\jeepride_code::shot_in_the_head_point_blank, var_13, ( 3.0, -4.0, 6.0 ), ( 105.0, -80.0, 0.0 ) );
     maps\_utility::_id_27EF( 13.1, maps\jeepride_code::shot_in_the_head_point_blank, var_9, ( -5.0, 2.0, 2.0 ), ( 42.0, -8.0, 0.0 ) );
     maps\_utility::_id_27EF( 8.65, maps\jeepride_code::shot_in_the_head_point_blank, var_10, ( -2.0, 3.0, 4.0 ), ( 100.0, 42.0, 0.0 ) );
     maps\_utility::_id_27EF( 0.72, common_scripts\utility::_id_383F, "attack_heli" );
     var_4 waittillmatch( "single anim", "start_price" );
-    thread maps\_utility::_id_114E();
+    thread maps\_utility::autosave_now();
     setomnvar( "ui_jeepride_firefight_recover", 0 );
-    var_0 thread maps\_anim::_id_0C18( var_11, "jeepride_ending_price02" );
+    var_0 thread maps\_anim::anim_single( var_11, "jeepride_ending_price02" );
     var_4 waittillmatch( "single anim", "start_end_badguys" );
-    var_18 = common_scripts\utility::_id_0CF6( var_18, var_13 );
+    var_18 = common_scripts\utility::array_remove( var_18, var_13 );
     level.player_takes_shots = 0;
     anim._id_37BF["scripted"] = ::shot_counter;
     anim._id_83F3 = ::shot_counter;
-    var_5 thread maps\_anim::_id_0C18( var_18, "end_scene_02" );
+    var_5 thread maps\_anim::anim_single( var_18, "end_scene_02" );
     var_4 waittillmatch( "single anim", "start_end" );
     level.player playerlinktodelta( var_4, "tag_player", 1, 45, 45, 45, 7 );
     level.player disableinvulnerability();
@@ -1913,80 +1913,80 @@ bridge_zakhaev()
 
 h1_jeepride_bridgeending_dof_seq()
 {
-    level.player _meth_84a7( 1.0, 50, 9.0, 9.0 );
-    level.player _meth_84a5();
+    level.player _meth_84A7( 1.0, 50, 9.0, 9.0 );
+    level.player _meth_84A5();
     setsaveddvar( "r_mbEnable", 2 );
     wait 0.5;
-    level.player _meth_84a7( 2.5, 16, 1.0, 1.0 );
+    level.player _meth_84A7( 2.5, 16, 1.0, 1.0 );
     wait 2.0;
-    level.player _meth_84a7( 3.0, 40, 2.5, 2.5 );
+    level.player _meth_84A7( 3.0, 40, 2.5, 2.5 );
     wait 1.0;
     wait 4.5;
-    level.player _meth_84a7( 3.5, 60, 1.0, 1.0 );
+    level.player _meth_84A7( 3.5, 60, 1.0, 1.0 );
     wait 5.5;
-    level.player _meth_84a7( 3.8, 58, 2.0, 2.0 );
+    level.player _meth_84A7( 3.8, 58, 2.0, 2.0 );
     wait 1.5;
-    level.player _meth_84a7( 1.5, 175, 1.5, 1.5 );
+    level.player _meth_84A7( 1.5, 175, 1.5, 1.5 );
     wait 0.75;
     thread maps\_utility::_id_5689( 1.25, 50 );
     wait 4.0;
     thread maps\_utility::_id_5689( 2.4, 55 );
     common_scripts\utility::_id_384A( "attack_heli" );
-    level.player _meth_84a7( 1.5, 480, 1.0, 1.0 );
+    level.player _meth_84A7( 1.5, 480, 1.0, 1.0 );
     wait 2.75;
-    level.player _meth_84a7( 1.8, 370, 0.5, 0.5 );
+    level.player _meth_84A7( 1.8, 370, 0.5, 0.5 );
     wait 4.5;
-    level.player _meth_84a7( 1.5, 360, 4.5, 4.5 );
+    level.player _meth_84A7( 1.5, 360, 4.5, 4.5 );
     wait 1.0;
-    level.player _meth_84a7( 1.8, 370, 4.5, 4.5 );
+    level.player _meth_84A7( 1.8, 370, 4.5, 4.5 );
     wait 1.0;
-    level.player _meth_84a7( 1.2, 210, 0.7, 0.7 );
+    level.player _meth_84A7( 1.2, 210, 0.7, 0.7 );
     wait 3.5;
-    level.player _meth_84a7( 2.0, 1500, 2.0, 2.0 );
+    level.player _meth_84A7( 2.0, 1500, 2.0, 2.0 );
     wait 3.5;
-    level.player _meth_84a7( 2.0, 1600, 2.0, 2.0 );
+    level.player _meth_84A7( 2.0, 1600, 2.0, 2.0 );
     wait 1.0;
     thread maps\_utility::_id_5689( 1.35, 47 );
     wait 0.5;
-    level.player _meth_84a7( 1.5, 180, 4.0, 4.0 );
+    level.player _meth_84A7( 1.5, 180, 4.0, 4.0 );
     wait 2.65;
-    level.player _meth_84a7( 4.0, 23, 0.7, 0.7 );
+    level.player _meth_84A7( 4.0, 23, 0.7, 0.7 );
     thread maps\_utility::_id_5689( 2.0, 55 );
     wait 1.0;
-    level.player _meth_84a7( 12.5, 205, 2.0, 2.0 );
+    level.player _meth_84A7( 12.5, 205, 2.0, 2.0 );
     wait 1.5;
     setsaveddvar( "r_mbEnable", 0 );
     common_scripts\utility::_id_384A( "all_end_scene_guys_dead" );
-    level.player _meth_84a7( 4.5, 500, 0.3, 0.3 );
+    level.player _meth_84A7( 4.5, 500, 0.3, 0.3 );
     setsaveddvar( "r_mbEnable", 2 );
     wait 17.0;
-    level.player _meth_84a7( 4.0, 250, 0.8, 0.8 );
+    level.player _meth_84A7( 4.0, 250, 0.8, 0.8 );
     common_scripts\utility::_id_384A( "kamarov_runs" );
     h1_endingrescuehidenames();
     wait 0.5;
-    level.player _meth_84a7( 3.5, 24, 0.2, 0.2 );
+    level.player _meth_84A7( 3.5, 24, 0.2, 0.2 );
     wait 4.0;
-    level.player _meth_84a7( 4.5, 13, 1.0, 1.0 );
+    level.player _meth_84A7( 4.5, 13, 1.0, 1.0 );
     wait 3.5;
-    level.player _meth_84a7( 4.5, 50, 2.5, 2.5 );
+    level.player _meth_84A7( 4.5, 50, 2.5, 2.5 );
     wait 2.5;
-    level.player _meth_84a7( 4.5, 60, 2.0, 2.0 );
+    level.player _meth_84A7( 4.5, 60, 2.0, 2.0 );
     wait 1.0;
-    level.player _meth_84a7( 3.0, 600, 2.0, 2.0 );
+    level.player _meth_84A7( 3.0, 600, 2.0, 2.0 );
     wait 1.5;
-    level.player _meth_84a7( 4.5, 40, 2.0, 2.0 );
+    level.player _meth_84A7( 4.5, 40, 2.0, 2.0 );
     wait 2.0;
     thread maps\_utility::_id_5689( 2.0, 70 );
     wait 3.5;
     thread maps\_utility::_id_5689( 2.5, 65 );
     wait 2.0;
-    level.player _meth_84a7( 3.0, 135, 1.2, 1.2 );
+    level.player _meth_84A7( 3.0, 135, 1.2, 1.2 );
     wait 10.0;
-    level.player _meth_84a7( 3.5, 70, 1.0, 1.0 );
+    level.player _meth_84A7( 3.5, 70, 1.0, 1.0 );
     wait 3.0;
-    level.player _meth_84a7( 2.5, 300, 1.0, 1.0 );
+    level.player _meth_84A7( 2.5, 300, 1.0, 1.0 );
     wait 10.0;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -2135,7 +2135,7 @@ player_janxed_end_shot( var_0 )
         if ( isdefined( var_1 ) )
         {
             var_1 kill( var_1 geteye(), level.player );
-            var_0 = common_scripts\utility::_id_0CF6( var_0, var_1 );
+            var_0 = common_scripts\utility::array_remove( var_0, var_1 );
         }
 
         if ( !var_0.size )
@@ -2180,11 +2180,11 @@ bridge_rescue( var_0 )
     level.player disableweapons();
     common_scripts\utility::_id_383F( "music_rescue" );
     var_1 = getent( "rescue_price_spot", "targetname" );
-    var_1 thread maps\_anim::_id_0BC7( level.pricedummy, "jeepride_CPR_price" );
+    var_1 thread maps\_anim::anim_first_frame_solo( level.pricedummy, "jeepride_CPR_price" );
     maps\_utility::_id_27EF( 3, common_scripts\utility::_id_383F, "slomo_done" );
     maps\jeepride_code::light_sequence_02();
     var_2 = getent( "player_drag_node", "targetname" );
-    var_2 thread maps\_anim::_id_0C24( var_0, "drag_player_wait" );
+    var_2 thread maps\_anim::anim_single_solo( var_0, "drag_player_wait" );
     var_3 = getent( "rescuenode", "script_noteworthy" );
     var_3 waittill( "trigger", var_4 );
     soundscripts\_snd::_id_870C( "start_rescue_mix" );
@@ -2200,10 +2200,10 @@ bridge_rescue( var_0 )
     var_8 = [];
     var_8[0] = var_6;
     var_8[1] = var_7;
-    common_scripts\utility::_id_0D13( var_8, ::arrival_disable );
+    common_scripts\utility::array_thread( var_8, ::arrival_disable );
     thread movenlinkh1( var_2, var_0 );
-    var_2 thread maps\_anim::_id_0BFF( var_6, "player_pickup" );
-    common_scripts\utility::_id_0D13( getentarray( "rescue_scene_patrol_01", "targetname" ), maps\jeepride_code::rescue_scene_patrol_01 );
+    var_2 thread maps\_anim::anim_reach_solo( var_6, "player_pickup" );
+    common_scripts\utility::array_thread( getentarray( "rescue_scene_patrol_01", "targetname" ), maps\jeepride_code::rescue_scene_patrol_01 );
     common_scripts\utility::_id_383F( "kamarov_runs" );
     var_4 sethoverparams( 0, 0, 0 );
     var_4 maps\_utility::_id_27EF( 6, maps\_vehicle::_id_9D17, getent( "chopper_rescuer", "targetname" ) );
@@ -2213,22 +2213,22 @@ bridge_rescue( var_0 )
     var_8[1] = var_7;
     var_8[2] = var_0;
     thread dof_focuser_tag( var_7, 30 );
-    var_2 thread maps\_anim::_id_0C18( var_8, "player_pickup" );
+    var_2 thread maps\_anim::anim_single( var_8, "player_pickup" );
     wait 9.7;
-    var_6 _meth_81aa( var_6.origin );
-    var_7 _meth_81aa( var_7.origin );
+    var_6 _meth_81AA( var_6.origin );
+    var_7 _meth_81AA( var_7.origin );
     var_9 = level.medic;
-    var_1 thread maps\_anim::_id_0BC7( var_9, "jeepride_CPR_medic" );
+    var_1 thread maps\_anim::anim_first_frame_solo( var_9, "jeepride_CPR_medic" );
     thread dof_focuser_tag( var_9, 30 );
     maps\_utility::_id_27EF( 3, common_scripts\utility::_id_383F, "rescue_chopper_adjust" );
     wait 4;
-    var_1 maps\_utility::_id_27EF( 3.5, maps\_anim::_id_0C24, var_9, "jeepride_CPR_medic" );
-    var_1 maps\_utility::_id_27EF( 3.5, maps\_anim::_id_0C24, level.pricedummy, "jeepride_CPR_price" );
+    var_1 maps\_utility::_id_27EF( 3.5, maps\_anim::anim_single_solo, var_9, "jeepride_CPR_medic" );
+    var_1 maps\_utility::_id_27EF( 3.5, maps\_anim::anim_single_solo, level.pricedummy, "jeepride_CPR_price" );
     maps\_utility::_id_27EF( 20, ::dof_focuser_tag, var_4, 100, "tag_ground", 7 );
     maps\_utility::_id_27EF( 13, ::beam_me_up_to_the_chopper, var_0 );
     maps\_utility::_id_27EF( 15, ::earthquaker_small );
     maps\_utility::_id_27EF( 5, ::dialog_bbc );
-    common_scripts\utility::_id_0D13( maps\_vehicle::get_script_vehicles(), maps\_vehicle::volume_down, 20 );
+    common_scripts\utility::array_thread( maps\_vehicle::get_script_vehicles(), maps\_vehicle::volume_down, 20 );
     overlay_cpr( var_5 );
     common_scripts\utility::_id_383F( "cpr_finished" );
     wait 19;
@@ -2261,14 +2261,14 @@ rescue_guy_pos( var_0 )
     var_1.origin = var_0.origin;
     var_1.angles = var_0.angles;
     self linkto( var_1, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     self _meth_8140( "animscripted", var_1.origin, var_1.angles, %crouch2stand );
     animscripts\shared::_id_2D06( "animscripted" );
 }
 
 stand_up()
 {
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     self _meth_8140( "animscripted", self.origin, self.angles, %crouch2stand );
     animscripts\shared::_id_2D06( "animscripted" );
 }
@@ -2473,7 +2473,7 @@ shot_counter( var_0 )
 
     if ( !var_1 )
     {
-        self _meth_81eb();
+        self _meth_81EB();
         return;
     }
 
@@ -2496,7 +2496,7 @@ shot_counter( var_0 )
     if ( var_2 )
         level.player enablehealthshield( 0 );
 
-    self _meth_81ea( 1, level.player geteye() );
+    self _meth_81EA( 1, level.player geteye() );
 }
 
 bridge_zak_friendly_attack_heli()
@@ -2518,7 +2518,7 @@ bridge_zak_friendly_attack_heli()
     level.attack_heli vehicle_turnengineoff();
     level.attack_helidummy = level.attack_heli maps\_vehicle::_id_9D58();
     level.attack_helidummy hide();
-    level.attack_helidummy._id_0C72 = "mi28";
+    level.attack_helidummy.animname = "mi28";
     level.attack_helidummy maps\_anim::_id_7F29();
     level.attack_helidummy thread maps\jeepride_anim::override_roto_anim();
     common_scripts\utility::_id_384A( "attack_heli" );
@@ -2624,7 +2624,7 @@ fakeout_donotetracks_animscripts()
 {
     self.a = spawnstruct();
     self.a._id_55D7 = gettime();
-    self.a._id_18B0 = 500;
+    self.a.bulletsinclip = 500;
     self.weapon = "colt45";
     self.primaryweapon = "colt45";
     self.secondaryweapon = "colt45";
@@ -2655,7 +2655,7 @@ shoot_loc( var_0 )
 
 price_bridge_crawl_anims( var_0 )
 {
-    var_0 maps\_anim::_id_0C24( level._id_6F7C, "wave_player_over" );
+    var_0 maps\_anim::anim_single_solo( level._id_6F7C, "wave_player_over" );
     level._id_6F7C _meth_8140( "animscripted", level._id_6F7C.origin, level._id_6F7C.angles, %stand2crouch_attack );
     level._id_6F7C waittillmatch( "animscripted", "end" );
     level._id_6F7C _meth_8140( "animscripted", level._id_6F7C.origin, level._id_6F7C.angles, %crouch2stand );
@@ -2761,7 +2761,7 @@ bridge_save()
     setsaveddvar( "ai_friendlyFireBlockDuration", 250 );
     level._id_6F7C.a._id_2B20 = 0;
     level._id_6F7C.ignoresuppression = 0;
-    thread maps\_utility::_id_1143( "bridge_save" );
+    thread maps\_utility::autosave_by_name( "bridge_save" );
 
     while ( !common_scripts\utility::_id_382E( "game_saving" ) )
         level waittill( "game_saving" );
@@ -2823,12 +2823,12 @@ bridge_rescue_start()
     thread maps\_vehicle::_id_23DE( 71 );
     level._id_6F7C maps\_utility::_id_8EA4();
     var_5 = maps\_vehicle_aianim::_id_21A2( level._id_6F7C );
-    var_5._id_0C72 = "price";
+    var_5.animname = "price";
     level.pricedummy = var_5;
     var_6 = maps\_utility::_id_88D1( "playerview" );
     var_7 = getent( "player_drag_node", "targetname" );
-    var_7 thread maps\_anim::_id_0C24( var_6, "drag_player" );
-    var_7 thread maps\_anim::_id_0C13( var_6, "drag_player", 15 );
+    var_7 thread maps\_anim::anim_single_solo( var_6, "drag_player" );
+    var_7 thread maps\_anim::anim_set_rate_single( var_6, "drag_player", 15 );
     level._id_56D2 = 1;
     level.player setdepthoffield( 0, 100, 3100, 19999, 8, 1.65 );
     level.player allowstand( 1 );
@@ -2862,7 +2862,7 @@ autosave_now_loc( var_0 )
         return;
 
     level.player.attackeraccuracy = 0;
-    thread maps\_utility::_id_114E();
+    thread maps\_utility::autosave_now();
     level.player.attackeraccuracy = 1;
 }
 
@@ -2870,7 +2870,7 @@ start_first_hind()
 {
     setsaveddvar( "ragdoll_max_life", level.defaultragdolltime );
     soundscripts\_snd::_id_870C( "aud_first_hind_checkpoint" );
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "attacknow_firsthind", "script_noteworthy" ), maps\jeepride_code::attacknow );
+    common_scripts\utility::array_thread( getvehiclenodearray( "attacknow_firsthind", "script_noteworthy" ), maps\jeepride_code::attacknow );
     wip_start();
 }
 
@@ -2999,12 +2999,12 @@ bx_scripted_events_flags_vfx()
 bx_warmup_vfx_bridge()
 {
     var_0 = maps\_utility::_id_3FA9( "smoke_column" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "smoke_column_black_far_jeepride" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_2" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_3" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_4" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cloud_mountain_liar" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "smoke_column_black_far_jeepride" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_2" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_3" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_4" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_mountain_liar" ) );
     var_1 = maps\_utility::_id_3FA9( "cloud_bank_far" );
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
@@ -3026,7 +3026,7 @@ bx_warmup_vfx_bridge()
 bx_warmup_vfx_end()
 {
     var_0 = maps\_utility::_id_3FA9( "bridge_amb_smk_2" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_4" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "bridge_amb_smk_4" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] common_scripts\utility::_id_671F();
@@ -3064,13 +3064,13 @@ bx_helicopter_death_vfx()
 bx_performance_vfx_count()
 {
     var_0 = maps\_utility::_id_3FA9( "cloud_bank_road_2" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cloud_bank_road_3" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cloud_bank_road_4" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "cloud_bank_road_5" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "leaves_fall_2" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "leaves_fall_3" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "leaves_fall_4" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "leaves_fall_5" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_bank_road_3" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_bank_road_4" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_bank_road_5" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "leaves_fall_2" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "leaves_fall_3" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "leaves_fall_4" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "leaves_fall_5" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] common_scripts\utility::_id_671F();
@@ -3089,7 +3089,7 @@ bx_performance_vfx_count()
 bx_performance_vfx_out( var_0, var_1, var_2 )
 {
     var_3 = maps\_utility::_id_3FA9( var_0 );
-    var_3 = common_scripts\utility::_id_0CDD( var_3, maps\_utility::_id_3FA9( var_1 ) );
+    var_3 = common_scripts\utility::array_combine( var_3, maps\_utility::_id_3FA9( var_1 ) );
     common_scripts\utility::_id_384A( var_2 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
@@ -3099,7 +3099,7 @@ bx_performance_vfx_out( var_0, var_1, var_2 )
 bx_performance_vfx_in( var_0, var_1, var_2 )
 {
     var_3 = maps\_utility::_id_3FA9( var_0 );
-    var_3 = common_scripts\utility::_id_0CDD( var_3, maps\_utility::_id_3FA9( var_1 ) );
+    var_3 = common_scripts\utility::array_combine( var_3, maps\_utility::_id_3FA9( var_1 ) );
     common_scripts\utility::_id_384A( var_2 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )

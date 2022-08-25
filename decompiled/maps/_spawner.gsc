@@ -26,16 +26,16 @@ main()
     createthreatbiasgroup( "axis" );
     createthreatbiasgroup( "team3" );
     createthreatbiasgroup( "civilian" );
-    maps\_anim::_id_0807( "generic", "rappel_pushoff_initial_npc", maps\_utility::_id_3098 );
-    maps\_anim::_id_0807( "generic", "ps_rappel_pushoff_initial_npc", maps\_utility::_id_3098 );
-    maps\_anim::_id_0807( "generic", "feet_on_ground", maps\_utility::_id_2A73 );
-    maps\_anim::_id_0807( "generic", "ps_rappel_clipout_npc", maps\_utility::_id_2A73 );
+    maps\_anim::addnotetrack_customfunction( "generic", "rappel_pushoff_initial_npc", maps\_utility::_id_3098 );
+    maps\_anim::addnotetrack_customfunction( "generic", "ps_rappel_pushoff_initial_npc", maps\_utility::_id_3098 );
+    maps\_anim::addnotetrack_customfunction( "generic", "feet_on_ground", maps\_utility::_id_2A73 );
+    maps\_anim::addnotetrack_customfunction( "generic", "ps_rappel_clipout_npc", maps\_utility::_id_2A73 );
 
     foreach ( var_1 in level.players )
         var_1 setthreatbiasgroup( "allies" );
 
-    level._id_05FE = 0;
-    level._id_054A = [];
+    level._nextcoverprint = 0;
+    level._ai_group = [];
     level._id_535B = 0;
     level._id_36A2 = 0;
     level._id_5CDE = 0;
@@ -73,10 +73,10 @@ main()
     if ( !isdefined( level._id_5A3A ) )
         level._id_5A3A = 11;
 
-    level._id_05E9 = 0;
+    level._max_script_health = 0;
     var_3 = getaispeciesarray();
-    common_scripts\utility::_id_0D13( var_3, ::_id_57BA );
-    level._id_08C4 = [];
+    common_scripts\utility::array_thread( var_3, ::_id_57BA );
+    level.ai_classname_in_level = [];
     level._id_2E9E = [];
     var_4 = getspawnerarray();
 
@@ -85,22 +85,22 @@ main()
 
     level._id_2E9E = undefined;
     thread _id_6FE9();
-    common_scripts\utility::_id_0D13( var_3, ::_id_8965 );
-    level._id_08C5 = getarraykeys( level._id_08C4 );
+    common_scripts\utility::array_thread( var_3, ::_id_8965 );
+    level.ai_classname_in_level_keys = getarraykeys( level.ai_classname_in_level );
 
-    for ( var_5 = 0; var_5 < level._id_08C5.size; var_5++ )
+    for ( var_5 = 0; var_5 < level.ai_classname_in_level_keys.size; var_5++ )
     {
-        if ( !issubstr( tolower( level._id_08C5[var_5] ), "rpg" ) )
+        if ( !issubstr( tolower( level.ai_classname_in_level_keys[var_5] ), "rpg" ) )
             continue;
 
         precacheitem( "rpg_player" );
         break;
     }
 
-    level._id_08C5 = undefined;
+    level.ai_classname_in_level_keys = undefined;
 }
 
-_id_09A8()
+aitype_check()
 {
 
 }
@@ -164,7 +164,7 @@ _id_890A()
     }
 }
 
-_id_08D4()
+ai_deathflag()
 {
     level._id_265B[self._id_7987]["ai"][self._id_9A29] = self;
     var_0 = self._id_9A29;
@@ -353,7 +353,7 @@ _id_97D4( var_0 )
         maps\_utility::_id_286F( var_1 );
 
     var_2 = _id_3E35( var_1 );
-    common_scripts\utility::_id_0D13( var_2, ::_id_97FB );
+    common_scripts\utility::array_thread( var_2, ::_id_97FB );
 }
 
 _id_3E35( var_0 )
@@ -618,8 +618,8 @@ _id_97D9()
 
 _id_38F1( var_0 )
 {
-    common_scripts\utility::_id_0D13( var_0, ::_id_38F0 );
-    common_scripts\utility::_id_0D13( var_0, ::_id_38F3 );
+    common_scripts\utility::array_thread( var_0, ::_id_38F0 );
+    common_scripts\utility::array_thread( var_0, ::_id_38F3 );
 }
 
 _id_7302( var_0 )
@@ -872,7 +872,7 @@ random_tire( var_0, var_1 )
     if ( level.cheattires.size == level.cheattires_max )
     {
         level.cheattires[0] delete();
-        level.cheattires = maps\_utility::_id_0CFA( level.cheattires, 0 );
+        level.cheattires = maps\_utility::array_remove_index( level.cheattires, 0 );
     }
 
     var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
@@ -889,7 +889,7 @@ random_tire( var_0, var_1 )
 
     if ( isdefined( var_2 ) )
     {
-        level.cheattires = common_scripts\utility::_id_0CF6( level.cheattires, var_2 );
+        level.cheattires = common_scripts\utility::array_remove( level.cheattires, var_2 );
         var_2 delete();
     }
 }
@@ -926,7 +926,7 @@ empty()
 
 _id_8942()
 {
-    level._id_08C4[self.classname] = 1;
+    level.ai_classname_in_level[self.classname] = 1;
 
     if ( isdefined( self._id_799E ) )
     {
@@ -952,39 +952,39 @@ _id_8942()
     {
         var_0 = self._id_792E;
 
-        if ( !isdefined( level._id_054A[var_0] ) )
-            _id_0956( var_0 );
+        if ( !isdefined( level._ai_group[var_0] ) )
+            aigroup_create( var_0 );
 
-        thread _id_095A( level._id_054A[var_0] );
+        thread aigroup_spawnerthink( level._ai_group[var_0] );
     }
 
     if ( isdefined( self._id_7992 ) )
     {
         var_1 = 0;
 
-        if ( isdefined( level._id_0549 ) )
+        if ( isdefined( level._ai_delete ) )
         {
-            if ( isdefined( level._id_0549[self._id_7992] ) )
-                var_1 = level._id_0549[self._id_7992].size;
+            if ( isdefined( level._ai_delete[self._id_7992] ) )
+                var_1 = level._ai_delete[self._id_7992].size;
         }
 
-        level._id_0549[self._id_7992][var_1] = self;
+        level._ai_delete[self._id_7992][var_1] = self;
     }
 
     if ( isdefined( self._id_7A0C ) )
     {
-        if ( self._id_7A0C > level._id_05E9 )
-            level._id_05E9 = self._id_7A0C;
+        if ( self._id_7A0C > level._max_script_health )
+            level._max_script_health = self._id_7A0C;
 
         var_1 = 0;
 
-        if ( isdefined( level._id_054B ) )
+        if ( isdefined( level._ai_health ) )
         {
-            if ( isdefined( level._id_054B[self._id_7A0C] ) )
-                var_1 = level._id_054B[self._id_7A0C].size;
+            if ( isdefined( level._ai_health[self._id_7A0C] ) )
+                var_1 = level._ai_health[self._id_7A0C].size;
         }
 
-        level._id_054B[self._id_7A0C][var_1] = self;
+        level._ai_health[self._id_7A0C][var_1] = self;
     }
 
     if ( isdefined( self._id_7987 ) )
@@ -994,10 +994,10 @@ _id_8942()
         _id_238C();
 
     if ( isdefined( self._id_7ACF ) )
-        _id_07B0();
+        add_to_spawngroup();
 
     if ( isdefined( self._id_7AB3 ) )
-        _id_0789();
+        add_random_killspawner_to_spawngroup();
 
     if ( !isdefined( self._id_8900 ) )
         self._id_8900 = [];
@@ -1015,10 +1015,10 @@ _id_8942()
 
         if ( isdefined( self._id_7992 ) )
         {
-            for ( var_3 = 0; var_3 < level._id_0549[self._id_7992].size; var_3++ )
+            for ( var_3 = 0; var_3 < level._ai_delete[self._id_7992].size; var_3++ )
             {
-                if ( level._id_0549[self._id_7992][var_3] != self )
-                    level._id_0549[self._id_7992][var_3] delete();
+                if ( level._ai_delete[self._id_7992][var_3] != self )
+                    level._ai_delete[self._id_7992][var_3] delete();
             }
         }
 
@@ -1037,7 +1037,7 @@ _id_8942()
 
 _id_8965( var_0 )
 {
-    level._id_08C4[self.classname] = 1;
+    level.ai_classname_in_level[self.classname] = 1;
     _id_8966( var_0 );
     self endon( "death" );
 
@@ -1174,7 +1174,7 @@ _id_8A49()
     if ( !maps\_utility::_id_5083() )
         return;
 
-    maps\_utility::_id_0749( ::_id_8A47 );
+    maps\_utility::add_damage_function( ::_id_8A47 );
     thread _id_5FE4();
 }
 
@@ -1185,7 +1185,7 @@ _id_5FE4()
     if ( !isdefined( self ) )
         return;
 
-    if ( !self _meth_813f() )
+    if ( !self _meth_813F() )
         return;
 
     if ( !isdefined( var_0 ) )
@@ -1343,7 +1343,7 @@ _id_2661()
     }
 }
 
-_id_08D3()
+ai_damage_think()
 {
     self._id_257E = [];
 
@@ -1403,7 +1403,7 @@ _id_8960()
     if ( self.type == "human" && !isdefined( level._id_2B13 ) )
         thread _id_2F42();
 
-    maps\_utility::_id_0749( maps\_gameskill::_id_111E );
+    maps\_utility::add_damage_function( maps\_gameskill::auto_adjust_enemy_death_detection );
 
     if ( isdefined( self._id_797B ) )
         self.combatmode = self._id_797B;
@@ -1426,12 +1426,12 @@ _id_8F7E()
     self._id_2D65 = 0.5;
 
     if ( !isdefined( self._id_792C ) )
-        self._id_1300 = 2;
+        self.baseaccuracy = 2;
 
-    self._id_08A8 = 1;
+    self.aggressivemode = 1;
     self.minpaindamage = 100;
-    maps\_utility::_id_0749( animscripts\pain::_id_07F0 );
-    maps\_utility::_id_0749( ::_id_664B );
+    maps\_utility::add_damage_function( animscripts\pain::additive_pain );
+    maps\_utility::add_damage_function( ::_id_664B );
     self._id_254A = ::_id_89C3;
 
     if ( isdefined( self.weapon ) && weaponclass( self.weapon ) != "rocketlauncher" )
@@ -1454,7 +1454,7 @@ _id_89C3()
 _id_8F81()
 {
     if ( !isdefined( self._id_792C ) )
-        self._id_1300 = 1.05;
+        self.baseaccuracy = 1.05;
 }
 
 _id_664B( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -1473,7 +1473,7 @@ _id_664B( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     }
 }
 
-_id_18A8( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+bullet_resistance( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( self ) || self.health <= 0 )
         return;
@@ -1484,9 +1484,9 @@ _id_18A8( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( !issubstr( var_4, "BULLET" ) )
         return;
 
-    var_7 = self._id_18A8;
+    var_7 = self.bullet_resistance;
 
-    if ( var_0 < self._id_18A8 )
+    if ( var_0 < self.bullet_resistance )
         var_7 = var_0;
 
     self.health += var_7;
@@ -1497,7 +1497,7 @@ _id_8967()
     maps\_gameskill::grenadeawareness();
 }
 
-_id_08F2()
+ai_lasers()
 {
     if ( !isalive( self ) )
         return;
@@ -1520,7 +1520,7 @@ _id_8968()
         self._id_2D3B = 1;
 
     if ( isdefined( self._id_7987 ) )
-        thread _id_08D4();
+        thread ai_deathflag();
 
     if ( isdefined( self._id_7941 ) )
         self.attackeraccuracy = self._id_7941;
@@ -1538,7 +1538,7 @@ _id_8968()
         self._id_85B9 = 1;
 
     if ( isdefined( self._id_7A21 ) )
-        thread _id_08F2();
+        thread ai_lasers();
 
     if ( isdefined( self._id_7982 ) )
     {
@@ -1585,7 +1585,7 @@ _id_8968()
         maps\_utility::_id_7DDF( self._id_795C );
 
     if ( isdefined( self._id_792C ) )
-        self._id_1300 = self._id_792C;
+        self.baseaccuracy = self._id_792C;
 
     if ( isdefined( self._id_7A15 ) )
         self.ignoreme = 1;
@@ -1596,7 +1596,7 @@ _id_8968()
     if ( isdefined( self._id_7A14 ) )
     {
         self.ignoreall = 1;
-        self _meth_816a();
+        self _meth_816A();
     }
 
     if ( isdefined( self._id_7AC4 ) )
@@ -1641,12 +1641,12 @@ _id_8968()
 
 _id_8966( var_0 )
 {
-    thread _id_08D3();
+    thread ai_damage_think();
     thread _id_9193();
     thread _id_263B();
     thread _id_8A49();
 
-    if ( !isdefined( level._id_08DD ) )
+    if ( !isdefined( level.ai_dont_glow_in_thermal ) )
         self thermaldrawenable();
 
     self._id_89C6 = undefined;
@@ -1670,7 +1670,7 @@ _id_8966( var_0 )
 
     if ( isdefined( self._id_7AA5 ) )
     {
-        self _meth_81ab( level.player );
+        self _meth_81AB( level.player );
         return;
     }
 
@@ -1708,7 +1708,7 @@ _id_8966( var_0 )
         if ( !isdefined( self._id_7AB2 ) )
             self.goalradius = 800;
 
-        self _meth_81ab( level.player );
+        self _meth_81AB( level.player );
         level thread _id_27DC( self );
         return;
     }
@@ -1719,7 +1719,7 @@ _id_8966( var_0 )
     if ( isdefined( self._id_7A40 ) && self._id_7A40 == 1 )
     {
         _id_7E49();
-        self _meth_81aa( self.origin );
+        self _meth_81AA( self.origin );
         return;
     }
 
@@ -1758,7 +1758,7 @@ _id_7B48()
         self setthreatbiasgroup( self.team );
 
     _id_4D37();
-    self._id_1300 = 1;
+    self.baseaccuracy = 1;
     maps\_gameskill::grenadeawareness();
     maps\_utility::_id_1EB8();
     self.interval = 96;
@@ -1779,7 +1779,7 @@ _id_7B48()
     self.goalradius = level._id_2780;
     self.goalheight = level._id_277F;
     self.ignoresuppression = 0;
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
 
     if ( isdefined( self._id_58D7 ) && self._id_58D7 )
         maps\_utility::_id_8EA4();
@@ -1845,17 +1845,17 @@ _id_7E4F()
         if ( isdefined( var_1 ) )
         {
             var_4 = var_1;
-            self _meth_81a9( var_4 );
+            self _meth_81A9( var_4 );
         }
         else if ( isdefined( var_2 ) )
         {
             var_4 = var_2;
-            self _meth_81aa( var_4.origin );
+            self _meth_81AA( var_4.origin );
         }
         else if ( isdefined( var_3 ) )
         {
             var_4 = var_3;
-            self _meth_81aa( var_4.origin );
+            self _meth_81AA( var_4.origin );
         }
 
         if ( isdefined( var_4.radius ) && var_4.radius != 0 )
@@ -1866,9 +1866,9 @@ _id_7E4F()
     }
 
     if ( isdefined( self.target ) )
-        self _meth_81ac( var_0 );
+        self _meth_81AC( var_0 );
     else
-        self _meth_81ad( var_0 );
+        self _meth_81AD( var_0 );
 }
 
 _id_3E8A( var_0 )
@@ -2104,7 +2104,7 @@ _id_4243( var_0 )
 {
     if ( var_0.classname == "info_volume" )
     {
-        self _meth_81ad( var_0 );
+        self _meth_81AD( var_0 );
         self notify( "go_to_node_new_goal" );
         return;
     }
@@ -2185,7 +2185,7 @@ _id_238B( var_0, var_1 )
             if ( isdefined( var_0.target ) )
             {
                 var_5 = [[ var_1 ]]( var_0.target );
-                var_3 = common_scripts\utility::_id_07A5( var_3, var_5 );
+                var_3 = common_scripts\utility::add_to_array( var_3, var_5 );
             }
         }
 
@@ -2271,7 +2271,7 @@ _id_7E49( var_0 )
         }
     }
 
-    if ( !isdefined( self _meth_81ae() ) )
+    if ( !isdefined( self _meth_81AE() ) )
     {
         if ( self.type == "civilian" )
             self.goalradius = 128;
@@ -2280,7 +2280,7 @@ _id_7E49( var_0 )
     }
 }
 
-_id_1170( var_0 )
+autotarget( var_0 )
 {
     for (;;)
     {
@@ -2316,13 +2316,13 @@ _id_597D( var_0 )
 
 _id_9BD0( var_0 )
 {
-    if ( self _meth_813f() && self.health == 150 )
+    if ( self _meth_813F() && self.health == 150 )
     {
         self.health = 100;
         self.a._id_2B18 = 1;
     }
 
-    self _meth_818e( var_0 );
+    self _meth_818E( var_0 );
 
     if ( isdefined( var_0.target ) && var_0.target != var_0.targetname )
     {
@@ -2336,7 +2336,7 @@ _id_9BD0( var_0 )
         }
 
         if ( isdefined( var_0._id_7953 ) )
-            var_0 thread _id_1170( var_2 );
+            var_0 thread autotarget( var_2 );
         else if ( isdefined( var_0._id_7A2A ) )
         {
             var_0 setmode( "manual_ai" );
@@ -2435,9 +2435,9 @@ _id_365E()
 _id_3659( var_0, var_1 )
 {
     self notify( "stop_going_to_node" );
-    self _meth_818f();
+    self _meth_818F();
     self.ignoresuppression = 1;
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
 
     if ( _id_6123( var_1 ) )
         self.goalradius = var_1.radius;
@@ -2469,7 +2469,7 @@ _id_60AD( var_0, var_1 )
     foreach ( var_4 in getallnodes() )
     {
         if ( isdefined( var_4._id_79C6 ) && var_4._id_79C6 == var_0 )
-            var_2 = common_scripts\utility::_id_07A5( var_2, var_4 );
+            var_2 = common_scripts\utility::add_to_array( var_2, var_4 );
     }
 
     if ( !isdefined( var_2 ) )
@@ -2520,7 +2520,7 @@ _id_60AD( var_0, var_1 )
     for ( var_7 = 0; var_7 < var_8.size; var_7++ )
     {
         if ( isdefined( var_8[var_7]._id_79C6 ) && var_8[var_7]._id_79C6 == var_0 || isdefined( var_8[var_7]._id_79C7 ) && isdefined( var_1 ) && var_8[var_7]._id_79C7 == var_1 )
-            var_9 = common_scripts\utility::_id_07A5( var_9, var_8[var_7] );
+            var_9 = common_scripts\utility::add_to_array( var_9, var_8[var_7] );
     }
 
     var_8 = undefined;
@@ -2603,7 +2603,7 @@ _id_3662( var_0 )
     _id_533E( var_0 );
 }
 
-_id_0D2A( var_0 )
+arrive( var_0 )
 {
     self waittill( "goal" );
 
@@ -2650,10 +2650,10 @@ _id_3658()
 {
     var_0 = getnode( self.target, "targetname" );
     self._id_22BB = var_0;
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
 
     if ( isdefined( self._id_7ABF ) )
-        thread _id_0D2A( var_0 );
+        thread arrive( var_0 );
     else if ( _id_6123( var_0 ) )
         self.goalradius = var_0.radius;
     else
@@ -2672,7 +2672,7 @@ _id_3658()
         {
             var_0 = getnode( var_0.target, "targetname" );
             self._id_22BB = var_0;
-            self _meth_81a9( var_0 );
+            self _meth_81A9( var_0 );
             thread _id_365E();
 
             if ( _id_6123( var_0 ) )
@@ -2755,7 +2755,7 @@ _id_3A90()
 {
     level._id_3A8F = 1;
     var_0 = getentarray( "friendly_wave", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::_id_7EBC, 0 );
+    common_scripts\utility::array_thread( var_0, ::_id_7EBC, 0 );
 
     if ( !isdefined( level._id_5A3A ) )
         level._id_5A3A = 7;
@@ -2819,7 +2819,7 @@ _id_3A90()
                 if ( isdefined( level._id_3ABF ) )
                     level thread [[ level._id_3ABF ]]( var_7 );
                 else
-                    var_7 _meth_81ab( level.player );
+                    var_7 _meth_81AB( level.player );
 
                 if ( var_5 )
                 {
@@ -2893,7 +2893,7 @@ _id_3A6F( var_0 )
     self waittill( "trigger" );
     self.useable = 0;
     self sethintstring( "" );
-    self _meth_818f();
+    self _meth_818F();
     self notify( "stopped_use_turret" );
     var_0 notify( "friendly_finished_using_mg42" );
 }
@@ -2945,7 +2945,7 @@ _id_3A6D( var_0, var_1 )
     self._id_63DF = self.goalradius;
     self.goalradius = 28;
     thread _id_6144();
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self.ignoresuppression = 1;
     self waittill( "goal" );
     self.goalradius = self._id_63DF;
@@ -2965,7 +2965,7 @@ _id_3A6D( var_0, var_1 )
     self._id_3A67 = var_0;
     thread _id_3A6F( var_0 );
     thread _id_3A68( var_0 );
-    self _meth_818e( var_0 );
+    self _meth_818E( var_0 );
 
     if ( isdefined( var_0.target ) )
     {
@@ -2978,7 +2978,7 @@ _id_3A6D( var_0, var_1 )
     for (;;)
     {
         if ( distance( self.origin, var_1.origin ) < 32 )
-            self _meth_818e( var_0 );
+            self _meth_818E( var_0 );
         else
             break;
 
@@ -3000,7 +3000,7 @@ _id_3A6A()
     self endon( "death" );
     var_0 = self._id_3A67;
     self._id_3A67 = undefined;
-    self _meth_818f();
+    self _meth_818F();
     self notify( "stopped_use_turret" );
     self.useable = 0;
     self.goalradius = self._id_63DF;
@@ -3014,7 +3014,7 @@ _id_3A6A()
     var_1 = getnode( var_0.target, "targetname" );
     var_2 = self.goalradius;
     self.goalradius = 8;
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     wait 2;
     self.goalradius = 384;
     return;
@@ -3028,7 +3028,7 @@ _id_3A6A()
             var_1 = getnode( var_1.target, "targetname" );
 
         if ( isdefined( var_1 ) )
-            self _meth_81a9( var_1 );
+            self _meth_81A9( var_1 );
     }
 
     self.goalradius = var_2;
@@ -3042,7 +3042,7 @@ _id_9193()
     if ( isdefined( level._id_56E2 ) && !level._id_56E2 )
         return;
 
-    maps\_utility::_id_0749( ::_id_9194 );
+    maps\_utility::add_damage_function( ::_id_9194 );
 }
 
 _id_9194( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -3087,8 +3087,8 @@ _id_667A( var_0, var_1, var_2, var_3, var_4 )
     else
         var_0._id_6679 = var_2;
 
-    var_0 _meth_81aa( var_0.origin );
-    var_0 _meth_81a9( var_1 );
+    var_0 _meth_81AA( var_0.origin );
+    var_0 _meth_81A9( var_1 );
     var_0.goalradius = 12;
     var_0 waittill( "goal" );
     var_0.goalradius = 28;
@@ -3138,13 +3138,13 @@ _id_A0D5()
 
 _id_3ABC()
 {
-    common_scripts\utility::_id_0D13( getentarray( self.target, "targetname" ), ::_id_3ABD, self );
+    common_scripts\utility::array_thread( getentarray( self.target, "targetname" ), ::_id_3ABD, self );
 
     for (;;)
     {
         self waittill( "trigger", var_2 );
 
-        if ( _id_071E() && _id_3FA6() == self )
+        if ( activefriendlyspawn() && _id_3FA6() == self )
             _id_9A75();
 
         self waittill( "friendly_wave_start", var_3 );
@@ -3168,7 +3168,7 @@ _id_38EA( var_0 )
 
     level._id_89CE = [];
     var_1 = getentarray( self.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::_id_38ED, var_0 );
+    common_scripts\utility::array_thread( var_1, ::_id_38ED, var_0 );
     var_2 = 0;
     var_3 = 0;
 
@@ -3273,8 +3273,8 @@ _id_38ED( var_0 )
     var_7 = self.origin;
     _id_38EE( var_6, var_3.size > 0, var_0 );
 
-    if ( isalive( var_6._id_08B4 ) )
-        var_6._id_08B4 waittill( "death" );
+    if ( isalive( var_6.ai ) )
+        var_6.ai waittill( "death" );
 
     if ( !isdefined( var_1 ) )
         return;
@@ -3369,13 +3369,13 @@ _id_38EE( var_0, var_1, var_2 )
                     var_7 maps\_utility::_id_30B0();
             }
 
-            thread _id_0856( var_7 );
+            thread addtowavespawner( var_7 );
             var_7 thread _id_38EB( self );
 
             if ( isdefined( self._id_792C ) )
-                var_7._id_1300 = self._id_792C;
+                var_7.baseaccuracy = self._id_792C;
 
-            var_0._id_08B4 = var_7;
+            var_0.ai = var_7;
             var_0 notify( "got_ai" );
             self waittill( "spawn_died", var_9, var_8 );
 
@@ -3391,7 +3391,7 @@ _id_38EE( var_0, var_1, var_2 )
             continue;
         }
 
-        if ( _id_6D8A( var_8 || var_1, var_0._id_08B4 ) )
+        if ( _id_6D8A( var_8 || var_1, var_0.ai ) )
             var_3--;
 
         if ( !var_2 )
@@ -3407,7 +3407,7 @@ _id_A0D7( var_0 )
     var_0 waittill( "death" );
 }
 
-_id_0856( var_0 )
+addtowavespawner( var_0 )
 {
     var_1 = self.targetname;
 
@@ -3418,9 +3418,9 @@ _id_0856( var_0 )
         level._id_89CE[var_1]._id_93F3 = 0;
     }
 
-    if ( !isdefined( self._id_07E1 ) )
+    if ( !isdefined( self.addedtowave ) )
     {
-        self._id_07E1 = 1;
+        self.addedtowave = 1;
         level._id_89CE[var_1]._id_93F3++;
     }
 
@@ -3502,13 +3502,13 @@ _id_38EC()
     var_0 = getnode( self.target, "targetname" );
 
     if ( isdefined( var_0 ) )
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
     else
     {
         var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
-            self _meth_81aa( var_0.origin );
+            self _meth_81AA( var_0.origin );
     }
 
     if ( isdefined( level._id_36AC ) )
@@ -3533,7 +3533,7 @@ _id_38EC()
         else
             break;
 
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
 
         if ( _id_6123( var_0 ) )
             self.goalradius = var_0.radius;
@@ -3558,7 +3558,7 @@ _id_38EC()
 
         if ( isdefined( var_2 ) && ( var_2.code_classname == "misc_mgturret" || var_2.code_classname == "misc_turret" ) )
         {
-            self _meth_81a9( var_0 );
+            self _meth_81A9( var_0 );
             self.goalradius = 4;
             self waittill( "goal" );
 
@@ -3584,7 +3584,7 @@ _id_38EC()
         }
     }
 
-    if ( !isdefined( self._id_79E9 ) && !isdefined( self _meth_81ae() ) )
+    if ( !isdefined( self._id_79E9 ) && !isdefined( self _meth_81AE() ) )
         self.goalradius = level._id_2780;
 }
 
@@ -3648,7 +3648,7 @@ _id_3A93()
 
         level notify( "new_friendly_trigger" );
         level._id_55A3 = self;
-        common_scripts\utility::_id_0D13( var_0, ::_id_3ABE );
+        common_scripts\utility::array_thread( var_0, ::_id_3ABE );
         wait 0.5;
     }
 }
@@ -3661,9 +3661,9 @@ _id_62FF()
     {
         var_0 = 0;
 
-        for ( var_1 = 0; var_1 < level._id_071A.size; var_1++ )
+        for ( var_1 = 0; var_1 < level.active_objective.size; var_1++ )
         {
-            if ( !issubstr( self._id_7A8A, level._id_071A[var_1] ) )
+            if ( !issubstr( self._id_7A8A, level.active_objective[var_1] ) )
                 continue;
 
             var_0 = 1;
@@ -3787,7 +3787,7 @@ _id_3A96()
 {
     level._id_3ABA = [];
     level._id_3ABB = [];
-    common_scripts\utility::_id_0D13( getentarray( "friendlychain", "targetname" ), ::_id_3A93 );
+    common_scripts\utility::array_thread( getentarray( "friendlychain", "targetname" ), ::_id_3A93 );
 }
 
 _id_9A75()
@@ -3804,7 +3804,7 @@ _id_9A75()
     level._id_3ABA = var_0;
     level._id_3ABB = var_1;
 
-    if ( _id_071E() )
+    if ( activefriendlyspawn() )
         return;
 
     common_scripts\utility::_id_3831( "spawning_friendlies" );
@@ -3815,7 +3815,7 @@ _id_3FA5()
     return level._id_3ABA[level._id_3ABA.size - 1];
 }
 
-_id_071E()
+activefriendlyspawn()
 {
     return level._id_3ABA.size > 0;
 }
@@ -3837,7 +3837,7 @@ _id_27E5()
     self endon( "death" );
     self endon( "leaveSquad" );
     wait 0.5;
-    self _meth_81ab( level.player );
+    self _meth_81AB( level.player );
 }
 
 _id_8A16( var_0 )
@@ -3913,22 +3913,22 @@ _id_2731( var_0, var_1, var_2 )
     }
 }
 
-_id_0956( var_0 )
+aigroup_create( var_0 )
 {
-    level._id_054A[var_0] = spawnstruct();
-    level._id_054A[var_0]._id_0949 = 0;
-    level._id_054A[var_0]._id_89CC = 0;
-    level._id_054A[var_0]._id_08B4 = [];
-    level._id_054A[var_0]._id_89CD = [];
+    level._ai_group[var_0] = spawnstruct();
+    level._ai_group[var_0].aicount = 0;
+    level._ai_group[var_0]._id_89CC = 0;
+    level._ai_group[var_0].ai = [];
+    level._ai_group[var_0]._id_89CD = [];
 }
 
-_id_095A( var_0 )
+aigroup_spawnerthink( var_0 )
 {
     self endon( "death" );
     self._id_2760 = 0;
     var_0._id_89CC++;
-    thread _id_0958( var_0 );
-    thread _id_0959( var_0 );
+    thread aigroup_spawnerdeath( var_0 );
+    thread aigroup_spawnerempty( var_0 );
 
     while ( self.count )
     {
@@ -3937,7 +3937,7 @@ _id_095A( var_0 )
         if ( maps\_utility::_id_88F1( var_1 ) )
             continue;
 
-        var_1 thread _id_0957( var_0 );
+        var_1 thread aigroup_soldierthink( var_0 );
     }
 
     waitframe;
@@ -3949,7 +3949,7 @@ _id_095A( var_0 )
     var_0._id_89CC--;
 }
 
-_id_0958( var_0 )
+aigroup_spawnerdeath( var_0 )
 {
     self waittill( "death" );
 
@@ -3959,7 +3959,7 @@ _id_0958( var_0 )
     var_0._id_89CC--;
 }
 
-_id_0959( var_0 )
+aigroup_spawnerempty( var_0 )
 {
     self endon( "death" );
     self waittill( "emptied spawner" );
@@ -3972,17 +3972,17 @@ _id_0959( var_0 )
     var_0._id_89CC--;
 }
 
-_id_0957( var_0 )
+aigroup_soldierthink( var_0 )
 {
-    var_0._id_0949++;
-    var_0._id_08B4[var_0._id_08B4.size] = self;
+    var_0.aicount++;
+    var_0.ai[var_0.ai.size] = self;
 
     if ( isdefined( self._id_7988 ) )
         _id_A0D6();
     else
         self waittill( "death" );
 
-    var_0._id_0949--;
+    var_0.aicount--;
 }
 
 _id_1A42( var_0 )
@@ -3998,7 +3998,7 @@ _id_1A42( var_0 )
 
         if ( isdefined( var_6 ) )
         {
-            var_2 = common_scripts\utility::_id_07A5( var_2, var_6 );
+            var_2 = common_scripts\utility::add_to_array( var_2, var_6 );
             continue;
         }
 
@@ -4007,11 +4007,11 @@ _id_1A42( var_0 )
         if ( !isdefined( var_7 ) )
             continue;
 
-        var_3 = common_scripts\utility::_id_07A5( var_3, var_7 );
+        var_3 = common_scripts\utility::add_to_array( var_3, var_7 );
     }
 
     var_0 waittill( "trigger" );
-    var_3 = common_scripts\utility::_id_0CF5( var_3 );
+    var_3 = common_scripts\utility::array_randomize( var_3 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         var_3[var_4]._id_1E1D = 0;
@@ -4033,13 +4033,13 @@ _id_1A42( var_0 )
 
         var_9.origin = var_3[var_8].origin;
         var_9.angles = var_3[var_8].angles;
-        var_9 maps\_utility::_id_0798( ::_id_1E1C, var_3[var_8] );
+        var_9 maps\_utility::add_spawn_function( ::_id_1E1C, var_3[var_8] );
         var_8++;
     }
 
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_0798, ::_id_1A40 );
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_0798, ::_id_5F41, var_3 );
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, ::_id_1A40 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, ::_id_5F41, var_3 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::_id_88C3 );
 }
 
 _id_1A40()
@@ -4071,7 +4071,7 @@ _id_5F41( var_0 )
                 for (;;)
                 {
                     self.goalradius = 180;
-                    self _meth_81aa( level.player.origin );
+                    self _meth_81AA( level.player.origin );
                     wait 1;
                 }
 
@@ -4081,7 +4081,7 @@ _id_5F41( var_0 )
 
         if ( var_1 )
         {
-            if ( self _meth_81c2( self.enemy ) )
+            if ( self _meth_81C2( self.enemy ) )
             {
                 wait 0.05;
                 continue;
@@ -4091,7 +4091,7 @@ _id_5F41( var_0 )
         }
         else
         {
-            if ( self _meth_81c2( self.enemy ) )
+            if ( self _meth_81C2( self.enemy ) )
                 var_1 = 1;
 
             wait 0.05;
@@ -4113,7 +4113,7 @@ _id_5F41( var_0 )
 
 _id_1E1C( var_0, var_1 )
 {
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self._id_1E1F = var_0;
     var_0._id_1E1D = 1;
 
@@ -4137,10 +4137,10 @@ _id_3770( var_0 )
 _id_38F4( var_0 )
 {
     var_1 = getentarray( var_0.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::_id_38F0 );
+    common_scripts\utility::array_thread( var_1, ::_id_38F0 );
     var_0 waittill( "trigger" );
     var_1 = getentarray( var_0.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::_id_38F3, var_0 );
+    common_scripts\utility::array_thread( var_1, ::_id_38F3, var_0 );
 }
 
 _id_38F0( var_0 )
@@ -4165,12 +4165,12 @@ _id_99E5( var_0 )
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
         var_2[var_3]._id_7A40 = 1;
-        var_2[var_3] maps\_utility::_id_0798( ::_id_9FF2, var_1 );
+        var_2[var_3] maps\_utility::add_spawn_function( ::_id_9FF2, var_1 );
     }
 
     var_0 waittill( "trigger" );
     var_2 = getentarray( var_1.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::_id_88C3 );
 }
 
 _id_9FF2( var_0 )
@@ -4252,9 +4252,9 @@ _id_38F3( var_0 )
 
         if ( !_id_6BF3( var_4, var_5 ) )
             self.count++;
-        else if ( isdefined( level._id_06CF ) )
+        else if ( isdefined( level.ac130_flood_respawn ) )
         {
-            if ( isdefined( level._id_06D0 ) && var_5 == level._id_06D0 )
+            if ( isdefined( level.ac130gunner ) && var_5 == level.ac130gunner )
             {
                 if ( randomint( 2 ) == 0 )
                     self.count++;
@@ -4341,7 +4341,7 @@ _id_7070( var_0 )
 
     var_2 = getentarray( self.target, "targetname" );
     self._id_89CD = 0;
-    common_scripts\utility::_id_0D13( var_2, ::_id_7071, self );
+    common_scripts\utility::array_thread( var_2, ::_id_7071, self );
     var_4 = randomint( var_2.size );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
@@ -4383,7 +4383,7 @@ _id_7070( var_0 )
 
         for ( var_3 = 0; var_3 < var_2.size; var_3++ )
         {
-            var_2 = common_scripts\utility::_id_0D01( var_2 );
+            var_2 = common_scripts\utility::array_removeundefined( var_2 );
 
             if ( !var_2.size )
             {
@@ -4511,11 +4511,11 @@ _id_7118( var_0 )
     }
 
     waitframe;
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::_id_14C1 );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::blowout_goalradius_on_pathend );
+    common_scripts\utility::array_thread( var_1, maps\_utility::_id_88C3 );
 }
 
-_id_14C1()
+blowout_goalradius_on_pathend()
 {
     if ( isdefined( self._id_79E9 ) )
         return;
@@ -4523,7 +4523,7 @@ _id_14C1()
     self endon( "death" );
     self waittill( "reached_path_end" );
 
-    if ( !isdefined( self _meth_81ae() ) )
+    if ( !isdefined( self _meth_81AE() ) )
         self.goalradius = level._id_2780;
 }
 
@@ -4550,12 +4550,12 @@ _id_8043()
         self._id_333B[var_0] = 0;
 }
 
-_id_08BA()
+ai_array()
 {
-    level._id_08BA[level._id_9A29] = self;
+    level.ai_array[level._id_9A29] = self;
     self waittill( "death" );
     waitframe;
-    level._id_08BA[level._id_9A29] = undefined;
+    level.ai_array[level._id_9A29] = undefined;
 }
 #using_animtree("generic_human");
 
@@ -4607,7 +4607,7 @@ _id_89C9( var_0 )
     var_4._id_9D1B = var_0._id_9D1B;
     var_4._id_8B09 = var_0._id_8B09;
     var_4._id_39B0 = var_0._id_39B0;
-    var_4 _meth_83bd( var_0 );
+    var_4 _meth_83BD( var_0 );
     var_1.origin = var_2;
     var_1.angles = var_3;
     var_0 delete();
@@ -4635,7 +4635,7 @@ _id_89C8( var_0 )
     var_4._id_9D1B = var_0._id_9D1B;
     var_4._id_8B09 = var_0._id_8B09;
     var_4._id_39B0 = var_0._id_39B0;
-    var_4 _meth_83bd( var_0 );
+    var_4 _meth_83BD( var_0 );
     var_1.origin = var_2;
     var_1.angles = var_3;
     var_0 delete();
@@ -4761,7 +4761,7 @@ _id_263C( var_0 )
 
 }
 
-_id_0789()
+add_random_killspawner_to_spawngroup()
 {
     var_0 = self._id_7AB3;
     var_1 = self._id_7AB4;
@@ -4775,7 +4775,7 @@ _id_0789()
     level._id_537C[var_0][var_1][self._id_3584] = self;
 }
 
-_id_07B0()
+add_to_spawngroup()
 {
     var_0 = self._id_7ACF;
     var_1 = self._id_7AD0;

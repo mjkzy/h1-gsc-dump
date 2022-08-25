@@ -57,7 +57,7 @@ _id_4C80()
     var_0["lean_single"] = %cornerstndr_lean_fire;
     var_0["lean_fire"] = %cornerstndr_lean_auto;
     var_0["exposed_2_alert"] = %h1_cornerstndr_exposedstand_2_alert;
-    anim._id_0CCA["soldier"]["cover_right_stand"] = var_0;
+    anim.archetypes["soldier"]["cover_right_stand"] = var_0;
     var_0 = [];
     var_0["alert_idle"] = %cornercrr_alert_idle;
     var_0["alert_idle_twitch"] = [ %cornercrr_alert_twitch_v1, %cornercrr_alert_twitch_v2, %cornercrr_alert_twitch_v3 ];
@@ -97,14 +97,14 @@ _id_4C80()
     var_0["lean_idle"] = [ %cornercrr_lean_idle ];
     var_0["lean_single"] = %cornercrr_lean_fire;
     var_0["lean_fire"] = %cornercrr_lean_auto;
-    anim._id_0CCA["soldier"]["cover_right_crouch"] = var_0;
+    anim.archetypes["soldier"]["cover_right_crouch"] = var_0;
 }
 
 main()
 {
-    self._id_0C50 = [];
-    self._id_0C50["hiding"]["stand"] = ::_id_7DD4;
-    self._id_0C50["hiding"]["crouch"] = ::_id_7DC7;
+    self.animarrayfuncs = [];
+    self.animarrayfuncs["hiding"]["stand"] = ::_id_7DD4;
+    self.animarrayfuncs["hiding"]["crouch"] = ::_id_7DC7;
     self endon( "killanimscript" );
     animscripts\utility::_id_4DD7( "cover_right" );
     animscripts\corner::_id_2222( "right", -90 );
@@ -119,18 +119,18 @@ end_script()
 _id_7DD4()
 {
     self._id_4884 = -90;
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_right_stand" );
+    self.a.array = animscripts\utility::_id_5864( "cover_right_stand" );
 
     if ( isdefined( anim._id_7108 ) )
     {
-        self.a._id_0CD8["rambo90"] = anim._id_7108._id_22C0;
-        self.a._id_0CD8["rambo45"] = anim._id_7108._id_22BF;
-        self.a._id_0CD8["grenade_rambo"] = anim._id_7108._id_22C1;
+        self.a.array["rambo90"] = anim._id_7108._id_22C0;
+        self.a.array["rambo45"] = anim._id_7108._id_22BF;
+        self.a.array["grenade_rambo"] = anim._id_7108._id_22C1;
     }
 }
 
 _id_7DC7()
 {
     self._id_4884 = -90;
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_right_crouch" );
+    self.a.array = animscripts\utility::_id_5864( "cover_right_crouch" );
 }

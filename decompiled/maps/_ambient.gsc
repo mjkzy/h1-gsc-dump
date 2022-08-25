@@ -46,11 +46,11 @@ init()
     add_zone( "tunnel" );
     add_zone( "underpass" );
 
-    if ( !isdefined( level._id_0B3D ) )
-        level._id_0B3D = [];
+    if ( !isdefined( level.ambient_reverb ) )
+        level.ambient_reverb = [];
 
-    if ( !isdefined( level._id_0B23 ) )
-        level._id_0B23 = [];
+    if ( !isdefined( level.ambient_eq ) )
+        level.ambient_eq = [];
 
     if ( !isdefined( level._id_3BA6 ) )
         level._id_3BA6 = 1;
@@ -59,9 +59,9 @@ init()
     level._id_333A = 1;
     level._id_333D[level._id_3339] = "";
     level._id_333D[level._id_333A] = "";
-    level._id_0B3A["interior"] = "";
-    level._id_0B3A["exterior"] = "";
-    level._id_0B3A["rain"] = "";
+    level.ambient_modifier["interior"] = "";
+    level.ambient_modifier["exterior"] = "";
+    level.ambient_modifier["rain"] = "";
     maps\_equalizer::loadpresets();
 }
 
@@ -70,13 +70,13 @@ activateambient( var_0 )
     level.ambient = var_0;
 
     if ( level.ambient == "exterior" )
-        var_0 += level._id_0B3A["exterior"];
+        var_0 += level.ambient_modifier["exterior"];
 
     if ( level.ambient == "interior" )
-        var_0 += level._id_0B3A["interior"];
+        var_0 += level.ambient_modifier["interior"];
 
-    ambientplay( level._id_0B47[var_0 + level._id_0B3A["rain"]], 1 );
-    thread _id_0B51( var_0 + level._id_0B3A["rain"] );
+    ambientplay( level.ambient_track[var_0 + level.ambient_modifier["rain"]], 1 );
+    thread ambienteventstart( var_0 + level.ambient_modifier["rain"] );
 }
 
 ambientvolume()
@@ -93,7 +93,7 @@ ambientvolume()
     }
 }
 
-_id_0B4F( var_0, var_1, var_2 )
+ambientdelay( var_0, var_1, var_2 )
 {
     if ( !isdefined( level.ambienteventent ) )
         level.ambienteventent[var_0] = spawnstruct();
@@ -104,7 +104,7 @@ _id_0B4F( var_0, var_1, var_2 )
     level.ambienteventent[var_0]._id_7131 = var_2 - var_1;
 }
 
-_id_0B50( var_0, var_1, var_2 )
+ambientevent( var_0, var_1, var_2 )
 {
     if ( !isdefined( level.ambienteventent[var_0].event_alias ) )
         var_3 = 0;
@@ -117,36 +117,36 @@ _id_0B50( var_0, var_1, var_2 )
 
 ambientreverb( var_0 )
 {
-    level.player setreverb( level._id_0B3D[var_0]["priority"], level._id_0B3D[var_0]["roomtype"], level._id_0B3D[var_0]["drylevel"], level._id_0B3D[var_0]["wetlevel"], level._id_0B3D[var_0]["fadetime"] );
+    level.player setreverb( level.ambient_reverb[var_0]["priority"], level.ambient_reverb[var_0]["roomtype"], level.ambient_reverb[var_0]["drylevel"], level.ambient_reverb[var_0]["wetlevel"], level.ambient_reverb[var_0]["fadetime"] );
     level waittill( "new ambient event track" );
-    level.player deactivatereverb( level._id_0B3D[var_0]["priority"], 2 );
+    level.player deactivatereverb( level.ambient_reverb[var_0]["priority"], 2 );
 }
 
 setupeq( var_0, var_1, var_2 )
 {
-    if ( !isdefined( level._id_0B23[var_0] ) )
-        level._id_0B23[var_0] = [];
+    if ( !isdefined( level.ambient_eq[var_0] ) )
+        level.ambient_eq[var_0] = [];
 
-    level._id_0B23[var_0][var_1] = var_2;
+    level.ambient_eq[var_0][var_1] = var_2;
 }
 
 setup_eq_channels( var_0, var_1 )
 {
     level._id_333D[var_1] = "exterior";
 
-    if ( !isdefined( level._id_0B23 ) || !isdefined( level._id_0B23[var_0] ) )
+    if ( !isdefined( level.ambient_eq ) || !isdefined( level.ambient_eq[var_0] ) )
     {
         _id_262E( var_1 );
         return;
     }
 
     level._id_333D[var_1] = var_0;
-    var_2 = getarraykeys( level._id_0B23[var_0] );
+    var_2 = getarraykeys( level.ambient_eq[var_0] );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
         var_4 = var_2[var_3];
-        var_5 = maps\_equalizer::getfilter( level._id_0B23[var_0][var_4] );
+        var_5 = maps\_equalizer::getfilter( level.ambient_eq[var_0][var_4] );
 
         if ( !isdefined( var_5 ) )
             continue;
@@ -169,7 +169,7 @@ _id_262E( var_0 )
     level.player deactivateeq( var_0 );
 }
 
-_id_0B51( var_0 )
+ambienteventstart( var_0 )
 {
     set_ambience_single( var_0 );
 }
@@ -193,7 +193,7 @@ _id_8B2C( var_0 )
     var_4 = 0;
     var_5 = 0;
 
-    if ( isdefined( level._id_0B3D[var_0] ) )
+    if ( isdefined( level.ambient_reverb[var_0] ) )
         thread ambientreverb( var_0 );
 
     for (;;)

@@ -24,7 +24,7 @@ bring_out_the_hounds()
     level endon( "break_for_apartment" );
     wait 20;
     var_0 = getentarray( "kill_dog_spawner", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::seek_player );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::seek_player );
 
     for (;;)
     {
@@ -63,7 +63,7 @@ seek_player()
 
     for (;;)
     {
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
         self.goalradius = 512;
         wait 1;
     }
@@ -84,7 +84,7 @@ pool_dog_think( var_0 )
     self.allowdeath = 1;
     var_2 = getent( self.target, "targetname" );
     self._id_60FA = 1;
-    var_2 thread maps\_anim::_id_0BCE( self, var_1 );
+    var_2 thread maps\_anim::anim_generic_loop( self, var_1 );
     wait 0.05;
     self setanimtime( maps\_utility::_id_3EF7( "dog_food_nonidle" ), randomfloat( 1 ) );
     self.goalheight = 512;
@@ -99,15 +99,15 @@ pool_dog_think( var_0 )
     self _meth_8143();
     self.goalradius = 20;
     var_3 = getent( "park_reinforce" + ( var_0 + 1 ), "targetname" );
-    self _meth_81aa( var_3.origin );
+    self _meth_81AA( var_3.origin );
 }
 
 dog_loop_sound()
 {
     common_scripts\utility::_id_383D( "dogs_disturbed" );
     self playloopsound( "anml_dogs_eating_body_loop" );
-    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "dogs_disturbed" );
-    maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    level maps\_utility::add_wait( common_scripts\utility::_id_384A, "dogs_disturbed" );
+    maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
     maps\_utility::_id_2BDD();
 
     if ( isalive( self ) )
@@ -354,7 +354,7 @@ player_boards_seaknight( var_0, var_1 )
         var_3 = level.eplayerview;
     }
 
-    var_0 maps\_anim::_id_0BC7( var_3, "wounded_seaknight_putdown", "tag_detach" );
+    var_0 maps\_anim::anim_first_frame_solo( var_3, "wounded_seaknight_putdown", "tag_detach" );
     var_3 linkto( var_0, "tag_detach" );
 
     if ( getdvarint( "use_old_crash_pickup" ) == 1 )
@@ -364,22 +364,22 @@ player_boards_seaknight( var_0, var_1 )
         level.price_carried delete();
 
     var_4 = getent( "price_spawner", "targetname" );
-    var_4._id_0C72 = "price";
+    var_4.animname = "price";
     var_4.origin = level.player.origin;
     var_4.count = 1;
     level._id_6F7C = var_4 stalingradspawn();
     maps\_utility::_id_88F1( level._id_6F7C );
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C setmodel( "body_complete_usmc_ghillie_price_damaged" );
     level._id_6F7C thread maps\sniperescape::monitor_macmellon();
     var_5 = [];
     var_5[var_5.size] = var_3;
     var_5[var_5.size] = level._id_6F7C;
-    maps\_utility::_id_0761( "axis", ::no_accuracy );
+    maps\_utility::add_global_spawn_function( "axis", ::no_accuracy );
     var_6 = getaiarray( "axis" );
-    common_scripts\utility::_id_0D13( var_6, ::no_accuracy );
+    common_scripts\utility::array_thread( var_6, ::no_accuracy );
     maps\_utility::_id_27EF( 0.5, common_scripts\utility::_id_383F, "player_putting_down_price_seaknight" );
-    var_0 maps\_anim::_id_0C18( var_5, "wounded_seaknight_putdown", "tag_detach" );
+    var_0 maps\_anim::anim_single( var_5, "wounded_seaknight_putdown", "tag_detach" );
     level._id_6F7C delete();
     level.player enableweapons();
     level.player playerlinktodelta( var_3, "tag_player", 1, 20, 45, 5, 25 );
@@ -388,9 +388,9 @@ player_boards_seaknight( var_0, var_1 )
 no_accuracy()
 {
     self endon( "death" );
-    self._id_1300 = 0;
+    self.baseaccuracy = 0;
     level waittill( "stop_having_low_accuracy" );
-    self._id_1300 = 1;
+    self.baseaccuracy = 1;
 }
 
 seaknight_leaving_warning( var_0 )
@@ -445,13 +445,13 @@ price_complains_until_he_is_picked_up()
 plant_price()
 {
     var_0 = physicstrace( level._id_6F7C.origin + ( 0.0, 0.0, 2.0 ), level._id_6F7C.origin + ( 0.0, 0.0, -100.0 ), level._id_6F7C );
-    level._id_6F7C _meth_81c9( var_0 );
+    level._id_6F7C _meth_81C9( var_0 );
 }
 
 player_gets_on_barret()
 {
     var_0 = getent( "turret2", "targetname" );
-    var_0 _meth_815c( -30 );
+    var_0 _meth_815C( -30 );
     var_0 restoredefaultdroppitch();
 
     for (;;)
@@ -574,11 +574,11 @@ pool_have_body()
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1.origin = var_0.origin;
     var_1.angles = var_0.angles;
-    var_1._id_0C72 = "dead_guy";
-    var_1 maps\_utility::_id_0D61();
+    var_1.animname = "dead_guy";
+    var_1 maps\_utility::assign_animtree();
     var_1 character\character_sp_spetsnaz_derik::main();
-    var_1 _meth_855d();
-    var_1 _meth_814d( var_1 maps\_utility::_id_3EF5( "pool_death" ), 1, 0, 1 );
+    var_1 _meth_855D();
+    var_1 _meth_814D( var_1 maps\_utility::_id_3EF5( "pool_death" ), 1, 0, 1 );
 }
 
 heat_helis_transport_guys_in()
@@ -597,8 +597,8 @@ heat_helis_transport_guys_in()
 
 fairground_patrollers()
 {
-    common_scripts\utility::_id_76B9( "fair_patroller_spawner", maps\_utility::_id_0798, ::fair_patroller_reset_sight_dist );
-    common_scripts\utility::_id_76B9( "fair_patroller_spawner", maps\_utility::_id_0798, ::fair_patroller_think );
+    common_scripts\utility::_id_76B9( "fair_patroller_spawner", maps\_utility::add_spawn_function, ::fair_patroller_reset_sight_dist );
+    common_scripts\utility::_id_76B9( "fair_patroller_spawner", maps\_utility::add_spawn_function, ::fair_patroller_think );
     common_scripts\utility::_id_384A( "pool_heli_attacks" );
     common_scripts\utility::_id_76B9( "fair_patroller_spawner", maps\_utility::_id_88C3 );
 }
@@ -616,14 +616,14 @@ fair_patroller_think()
     {
         self.pathenemyfightdist = 0;
         self.pathenemylookahead = 0;
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
         self.goalradius = var_0.radius;
         self.enemy waittill( "death" );
         maps\_utility::_id_7E0B();
         return;
     }
 
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = var_0.radius;
 }
 
@@ -854,16 +854,16 @@ spawn_blade( var_0 )
     var_6[var_6.size] = var_4;
     var_6[var_6.size] = var_5;
     var_1.blades = var_6;
-    common_scripts\utility::_id_0D13( var_6, ::linktoblade, var_1 );
+    common_scripts\utility::array_thread( var_6, ::linktoblade, var_1 );
     var_6[var_6.size] = var_1;
-    common_scripts\utility::_id_0D13( var_6, ::get_blade_clip );
-    var_1._id_0C72 = var_0;
+    common_scripts\utility::array_thread( var_6, ::get_blade_clip );
+    var_1.animname = var_0;
     return var_1;
 }
 
 get_blade_clip()
 {
-    var_0 = getentarray( "clip_" + self._id_0C72, "targetname" );
+    var_0 = getentarray( "clip_" + self.animname, "targetname" );
     var_1 = var_0[0];
     var_1.targetname = "used";
     var_1.origin = self.origin;
@@ -933,7 +933,7 @@ drawpos()
 rotor_blades( var_0 )
 {
     var_1 = spawn_blades();
-    var_0.node thread maps\_anim::_id_0C18( var_1, "spin" );
+    var_0.node thread maps\_anim::anim_single( var_1, "spin" );
     var_0 hidepart( "main_rotor_jnt" );
     var_0 hidepart( "tail_rotor_jnt" );
 }
@@ -1045,7 +1045,7 @@ heli_attacks_price_new()
         var_5[var_5.size] = var_1 add_dirtmodel( ( -20 + var_8 * var_9, 0, -70 ), ( 0.0, 90.0, 0.0 ) );
 
     level.price_heli = var_1;
-    var_1._id_0C72 = "mi28";
+    var_1.animname = "mi28";
     wait 1;
     level._id_6F7C endon( "death" );
     var_0 = getnode( "price_wounding_node", "targetname" );
@@ -1058,12 +1058,12 @@ heli_attacks_price_new()
     level._id_6F7C maps\_utility::_id_39D0( level._id_6F7C.primaryweapon, "primary" );
     level._id_6F7C._id_615B = 1;
     level._id_6F7C._id_6109 = 1;
-    maps\_utility::_id_07BE( ::wait_for_surprise_guys );
-    maps\_utility::_id_07BE( maps\_utility::_id_0694, 20 );
+    maps\_utility::add_wait( ::wait_for_surprise_guys );
+    maps\_utility::add_wait( maps\_utility::_wait, 20 );
     maps\_utility::_id_2BDD();
     common_scripts\utility::_id_383F( "crash_heli_shows_up" );
-    common_scripts\utility::_id_0D13( level._id_265B["surprise_guys_dead"]["ai"], ::surprisers_die_soon );
-    common_scripts\utility::_id_0D13( level._id_265B["patrol_guys_dead"]["ai"], ::surprisers_die_soon );
+    common_scripts\utility::array_thread( level._id_265B["surprise_guys_dead"]["ai"], ::surprisers_die_soon );
+    common_scripts\utility::array_thread( level._id_265B["patrol_guys_dead"]["ai"], ::surprisers_die_soon );
     soundscripts\_snd::_id_870C( "havoc_appear_mix" );
     var_11 = getent( "havoc_arrival_sfx", "targetname" );
     var_11 thread common_scripts\utility::_id_69C2( "h1_havoc_appear", var_11.origin );
@@ -1071,27 +1071,27 @@ heli_attacks_price_new()
     if ( getdvarint( "use_old_point_chopper" ) == 1 )
     {
         maps\_utility::_id_27EF( 3, maps\sniperescape_code::price_line, "incoming_helicopter" );
-        var_0 maps\_anim::_id_0C24( var_1, "entrance" );
-        var_0 thread maps\_anim::_id_0BE1( var_1, "idle", undefined, "heli_loop" );
-        var_0 maps\_anim::_id_0BFF( level._id_6F7C, "crash" );
+        var_0 maps\_anim::anim_single_solo( var_1, "entrance" );
+        var_0 thread maps\_anim::anim_loop_solo( var_1, "idle", undefined, "heli_loop" );
+        var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "crash" );
         common_scripts\utility::_id_3856( "surprise_guys_dead", 20 );
-        var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "precrash_idle", undefined, "price_loop" );
+        var_0 thread maps\_anim::anim_loop_solo( level._id_6F7C, "precrash_idle", undefined, "price_loop" );
     }
     else
     {
-        var_0 thread maps\_anim::_id_0C24( var_1, "entrance" );
+        var_0 thread maps\_anim::anim_single_solo( var_1, "entrance" );
         var_1 thread heli_to_idle_once_in_place( var_0 );
-        level._id_6F7C _meth_81ce( "stand" );
+        level._id_6F7C _meth_81CE( "stand" );
         common_scripts\utility::_id_3856( "surprise_guys_dead", 20 );
         level._id_6F7C.ignoreall = 1;
         level._id_6F7C.a.animreachcustomradius = 10;
-        thread maps\_anim::_id_0BFC( level._id_6F7C, 3 );
-        var_0 maps\_anim::_id_0BFF( level._id_6F7C, "crash" );
+        thread maps\_anim::anim_reach_failsafe( level._id_6F7C, 3 );
+        var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "crash" );
         level._id_6F7C.a.animreachcustomradius = undefined;
         var_12 = spawn( "script_origin", level._id_6F7C.origin );
         var_12.angles = ( 0.0, 35.0, 0.0 );
-        var_12 maps\_anim::_id_0C24( level._id_6F7C, "chopper_point" );
-        var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "precrash_idle", undefined, "price_loop" );
+        var_12 maps\_anim::anim_single_solo( level._id_6F7C, "chopper_point" );
+        var_0 thread maps\_anim::anim_loop_solo( level._id_6F7C, "precrash_idle", undefined, "price_loop" );
         level._id_6F7C.ignoreall = 0;
         level._id_6F7C._id_615B = undefined;
         level._id_6F7C._id_6109 = undefined;
@@ -1099,13 +1099,13 @@ heli_attacks_price_new()
 
     wait 1;
     var_0 notify( "price_loop" );
-    var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "fire_idle" );
+    var_0 thread maps\_anim::anim_loop_solo( level._id_6F7C, "fire_idle" );
     thread heli_shot_down_detection();
     level notify( "start_continues" );
     var_1 thread heli_fires_around_price();
     var_1 thread heli_kills_price();
     price_snipes_heli_until_player_does();
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
 
     if ( !isalive( level._id_6F7C ) )
         return;
@@ -1154,7 +1154,7 @@ heli_attacks_price_new()
     var_1 playloopsound( "havoc_helicopter_dying_loop" );
     var_1 thread dead_heli_pilots();
     var_2._id_86CE = 1;
-    var_0 thread maps\_anim::_id_0C18( var_10, "crash" );
+    var_0 thread maps\_anim::anim_single( var_10, "crash" );
     wait 18.5;
     var_1 notify( "stop" );
     thread maps\sniperescape::wounded_combat();
@@ -1172,7 +1172,7 @@ heli_to_idle_once_in_place( var_0 )
 {
     var_0 endon( "heli_loop" );
     self waittillmatch( "single anim", "end" );
-    var_0 thread maps\_anim::_id_0BE1( self, "idle", undefined, "heli_loop" );
+    var_0 thread maps\_anim::anim_loop_solo( self, "idle", undefined, "heli_loop" );
 }
 
 heli_rumbles()
@@ -1208,7 +1208,7 @@ blocking_fence_falls()
 
 heli_shoots_dirt( var_0 )
 {
-    common_scripts\utility::_id_0CF0( var_0, ::dirt_model_shoots_dirt );
+    common_scripts\utility::array_levelthread( var_0, ::dirt_model_shoots_dirt );
 }
 
 dirt_model_shoots_dirt( var_0 )
@@ -1331,7 +1331,7 @@ heli_hits_wall()
     thread common_scripts\_exploder::_id_3528( 66 );
     self stoploopsound();
     self playsound( "scn_se_havoc_downed" );
-    maps\_utility::_id_27EF( 0.1, maps\_utility::_id_058E, 0.4, 1.2, self.origin, 6000 );
+    maps\_utility::_id_27EF( 0.1, maps\_utility::_earthquake, 0.4, 1.2, self.origin, 6000 );
     thread tailfx();
 }
 
@@ -1342,7 +1342,7 @@ heli_hits_ground( var_0 )
     self _meth_8468( "mtl_h1_mi_28_glass", "mtl_h1_mi_28_glass_damaged" );
     self _meth_8468( "mtl_h1_mi_28_body", "mtl_h1_mi_28_body_damaged" );
     self _meth_8468( "mtl_h1_mi_28_details", "mtl_h1_mi_28_details_damaged" );
-    maps\_utility::_id_27EF( 0.1, maps\_utility::_id_058E, 0.6, 1.2, self.origin, 6000 );
+    maps\_utility::_id_27EF( 0.1, maps\_utility::_earthquake, 0.6, 1.2, self.origin, 6000 );
     var_0 thread maps\_vehicle::_id_9D01( "running" );
     self notify( "stop_enginefire_fx" );
     wait 0.8;
@@ -1508,7 +1508,7 @@ script_animator()
 check_for_price()
 {
     var_0 = level._id_265B["fair_snipers_died"]["ai"];
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E0B );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_7E0B );
 
     if ( !isalive( level._id_6F7C ) )
         return;
@@ -1579,16 +1579,16 @@ price_goes_to_window_to_shoot()
         return;
 
     level endon( "wounding_enemy_detected" );
-    maps\_utility::_id_1143( "standby" );
+    maps\_utility::autosave_by_name( "standby" );
     level._id_6F7C maps\_utility::_id_2A74();
     level._id_6F7C.ignoreall = 1;
-    level._id_6F7C _meth_816a();
+    level._id_6F7C _meth_816A();
     level._id_6F7C.ignoreme = 1;
-    level._id_6F7C maps\_utility::_id_27EF( 1.2, maps\_anim::_id_0C21, level._id_6F7C, "standby" );
+    level._id_6F7C maps\_utility::_id_27EF( 1.2, maps\_anim::anim_single_queue, level._id_6F7C, "standby" );
     var_0 = getent( "halt_node", "targetname" );
-    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "halt" );
-    var_0 maps\_anim::_id_0C24( level._id_6F7C, "halt" );
-    level._id_6F7C _meth_81a7( 1 );
+    var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "halt" );
+    var_0 maps\_anim::anim_single_solo( level._id_6F7C, "halt" );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C._id_2B0E = 1;
     wait 1;
     var_1 = level.player maps\_utility::_id_4088();
@@ -1600,7 +1600,7 @@ price_goes_to_window_to_shoot()
     }
 
     level._id_6F7C maps\_utility::_id_309A();
-    maps\_utility::_id_070A( "price_moves_to_window_trigger" );
+    maps\_utility::activate_trigger_with_targetname( "price_moves_to_window_trigger" );
     common_scripts\utility::_id_384A( "price_at_wounding_window" );
     wait 0.5;
     level._id_6F7C.ignoreme = 0;
@@ -1618,9 +1618,9 @@ price_snipes_heli_until_player_does()
     for (;;)
     {
         maps\sniperescape_code::price_line( "shoot_the_helicopter" );
-        level.price_heli maps\_utility::_id_07BE( maps\_utility::_id_A0AC, 0.995, 1.0, 1 );
+        level.price_heli maps\_utility::add_wait( maps\_utility::_id_A0AC, 0.995, 1.0, 1 );
         var_0 = randomfloatrange( 8, 12 );
-        maps\_utility::_id_07BE( maps\_utility::_id_0694, var_0 );
+        maps\_utility::add_wait( maps\_utility::_wait, var_0 );
         maps\_utility::_id_2BDD();
 
         if ( maps\_utility::_id_6B91( level.price_heli.origin, 0.995 ) )
@@ -1720,7 +1720,7 @@ price_death_failure()
 price_sets_stance()
 {
     level._id_6F7C waittill( "goal" );
-    level._id_6F7C _meth_81ce( "crouch" );
+    level._id_6F7C _meth_81CE( "crouch" );
 }
 
 player_becomes_invul_on_pickup()
@@ -1767,16 +1767,16 @@ dead_heli_pilots()
 {
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 linkto( self, "tag_gunner", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_0._id_0C72 = "dead_heli_pilot";
+    var_0.animname = "dead_heli_pilot";
     var_0 character\character_sp_spetsnaz_collins::main();
-    var_0 maps\_utility::_id_0D61();
-    var_0 _meth_814d( maps\_utility::_id_3EF7( "dead_gunner" ) );
+    var_0 maps\_utility::assign_animtree();
+    var_0 _meth_814D( maps\_utility::_id_3EF7( "dead_gunner" ) );
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 linkto( self, "tag_pilot", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_0._id_0C72 = "dead_heli_pilot";
+    var_0.animname = "dead_heli_pilot";
     var_0 character\character_sp_spetsnaz_geoff::main();
-    var_0 maps\_utility::_id_0D61();
-    var_0 _meth_814d( maps\_utility::_id_3EF7( "dead_pilot" ) );
+    var_0 maps\_utility::assign_animtree();
+    var_0 _meth_814D( maps\_utility::_id_3EF7( "dead_pilot" ) );
 }
 
 set_dog_threatbias_group()
@@ -1820,7 +1820,7 @@ wait_for_surprise_guys()
 
 player_cant_die()
 {
-    maps\_utility::_id_0CC5();
+    maps\_utility::arcademode_stop_timer();
     level.player endon( "death" );
 
     for (;;)

@@ -24,8 +24,8 @@ main()
 {
     setup_exploder_anims();
     exploder_script_model_anims();
-    maps\_props::_id_0796( "generic" );
-    maps\_props::_id_073F( "generic" );
+    maps\_props::add_smoking_notetracks( "generic" );
+    maps\_props::add_cellphone_notetracks( "generic" );
     maps\_hand_signals::_id_4DC4();
     level._id_78AC["generic"]["rappel_end"] = %sniper_escape_rappel_finish;
     level._id_78AC["generic"]["rappel_start"] = %blackout_rappel_start;
@@ -54,11 +54,11 @@ main()
     level._id_78B5["binocs"] = "weapon_binocular";
     level._id_78AC["gaz"]["powercut"] = %h1_blackout_gaz_powercut;
     level._id_78BA["gaz"]["powercut_dialog"] = "blackout_gaz_ivecutthepower";
-    maps\_anim::_id_0807( "gaz", "dialog", maps\blackout_code::gaz_play_powercut_generic_facial_anim, "powercut" );
+    maps\_anim::addnotetrack_customfunction( "gaz", "dialog", maps\blackout_code::gaz_play_powercut_generic_facial_anim, "powercut" );
     level._id_78AC["gaz"]["powercut_idle"][0] = %h1_blackout_gaz_powercut_idle;
-    maps\_anim::_id_080C( "price", "start_gaz", "start_cliff_scene_gaz" );
-    maps\_anim::_id_080C( "price", "start_kam", "start_cliff_scene_kamarov" );
-    maps\_anim::_id_080C( "kamarov", "drop binoculars", "kamarov_drops_binocs" );
+    maps\_anim::addnotetrack_flag( "price", "start_gaz", "start_cliff_scene_gaz" );
+    maps\_anim::addnotetrack_flag( "price", "start_kam", "start_cliff_scene_kamarov" );
+    maps\_anim::addnotetrack_flag( "kamarov", "drop binoculars", "kamarov_drops_binocs" );
     level._id_78AC["gaz"]["open_blackout_door"] = %h1_blackout_gaz_open_blackout_door;
 
     if ( getdvarint( "use_old_rappel_fight" ) == 1 )
@@ -87,12 +87,12 @@ main()
         level._id_78AC["kamarov"]["cliff_start_idle"][0] = %h1_blackout_kam_start;
         level._id_78AC["gaz"]["cliff_start_idle"][0] = %h1_blackout_gaz_cliff_start;
         level._id_78AC["kamarov"]["cliff_end_idle"][0] = %h1_blackout_kam_cliff_endidle;
-        maps\_anim::_id_080B( "gaz", "dialog", "cliff_start", "blackout_gaz_enoughsniping" );
-        maps\_anim::_id_080B( "kamarov", "dialog", "cliff_start", "blackout_kmr_outofmind" );
-        maps\_anim::_id_080B( "gaz", "dialog", "cliff_start", "blackout_gaz_whereishe" );
-        maps\_anim::_id_080B( "kamarov", "dialog", "cliff_start", "blackout_kmr_thehouse" );
-        maps\_anim::_id_080B( "gaz", "dialog", "cliff_start", "blackout_gaz_thatwasntsohard" );
-        maps\_anim::_id_080B( "price", "dialog", "cliff_start", "blackout_pri_reachthathouse" );
+        maps\_anim::addnotetrack_dialogue( "gaz", "dialog", "cliff_start", "blackout_gaz_enoughsniping" );
+        maps\_anim::addnotetrack_dialogue( "kamarov", "dialog", "cliff_start", "blackout_kmr_outofmind" );
+        maps\_anim::addnotetrack_dialogue( "gaz", "dialog", "cliff_start", "blackout_gaz_whereishe" );
+        maps\_anim::addnotetrack_dialogue( "kamarov", "dialog", "cliff_start", "blackout_kmr_thehouse" );
+        maps\_anim::addnotetrack_dialogue( "gaz", "dialog", "cliff_start", "blackout_gaz_thatwasntsohard" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "cliff_start", "blackout_pri_reachthathouse" );
     }
 
     if ( getdvarint( "use_old_meeting" ) == 1 )
@@ -106,21 +106,21 @@ main()
         level._id_78AC["kamarov"]["meeting"] = %h1_blackout_meeting_kamarov;
         level._id_78AC["kamarov"]["meeting_idle"][0] = %h1_blackout_meeting_kamarov_idle;
         level._id_78AC["gaz"]["meeting"] = %h1_blackout_meeting_gaz;
-        maps\_anim::_id_080B( "gaz", "dialog", "meeting", "blackout_gaz_bloodyrightyoudo" );
+        maps\_anim::addnotetrack_dialogue( "gaz", "dialog", "meeting", "blackout_gaz_bloodyrightyoudo" );
     }
 
-    maps\_anim::_id_0805( "kamarov", "cliff_start", "scn_blackout_kam_cliff", "scn_blackout_kam_cliff" );
-    maps\_anim::_id_0805( "gaz", "cliff_start", "scn_blackout_gaz_cliff", "scn_blackout_gaz_cliff" );
-    maps\_anim::_id_0805( "price", "meeting", "scn_blackout_price_meeting", "scn_blackout_price_meeting" );
-    maps\_anim::_id_0805( "kamarov", "meeting", "scn_blackout_kam_meeting", "scn_blackout_kam_meeting" );
-    maps\_anim::_id_0805( "kamarov", "meeting", "scn_blackout_kam_meeting_step", "scn_blackout_kam_meeting_step" );
-    maps\_anim::_id_0805( "gaz", "meeting", "scn_blackout_gaz_meeting", "scn_blackout_gaz_meeting" );
-    maps\_anim::_id_080B( "price", "dialog", "meeting", "blackout_pri_whattarget" );
-    maps\_anim::_id_080B( "price", "dialog", "meeting", "blackout_pri_beirut" );
+    maps\_anim::addnotetrack_animsound( "kamarov", "cliff_start", "scn_blackout_kam_cliff", "scn_blackout_kam_cliff" );
+    maps\_anim::addnotetrack_animsound( "gaz", "cliff_start", "scn_blackout_gaz_cliff", "scn_blackout_gaz_cliff" );
+    maps\_anim::addnotetrack_animsound( "price", "meeting", "scn_blackout_price_meeting", "scn_blackout_price_meeting" );
+    maps\_anim::addnotetrack_animsound( "kamarov", "meeting", "scn_blackout_kam_meeting", "scn_blackout_kam_meeting" );
+    maps\_anim::addnotetrack_animsound( "kamarov", "meeting", "scn_blackout_kam_meeting_step", "scn_blackout_kam_meeting_step" );
+    maps\_anim::addnotetrack_animsound( "gaz", "meeting", "scn_blackout_gaz_meeting", "scn_blackout_gaz_meeting" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "meeting", "blackout_pri_whattarget" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "meeting", "blackout_pri_beirut" );
     level._id_78BA["price"]["move_out"] = "blackout_pri_moveout";
-    maps\_anim::_id_080B( "kamarov", "dialog", "meeting", "blackout_kmr_welcome" );
-    maps\_anim::_id_080B( "kamarov", "dialog", "meeting", "blackout_kmr_valleybelow" );
-    maps\_anim::_id_080B( "kamarov", "dialog", "meeting", "blackout_kmr_oweyouone" );
+    maps\_anim::addnotetrack_dialogue( "kamarov", "dialog", "meeting", "blackout_kmr_welcome" );
+    maps\_anim::addnotetrack_dialogue( "kamarov", "dialog", "meeting", "blackout_kmr_valleybelow" );
+    maps\_anim::addnotetrack_dialogue( "kamarov", "dialog", "meeting", "blackout_kmr_oweyouone" );
     level._id_78AC["frnd"]["signal_assault_coverstand"] = %coverstand_hide_idle_wave02;
     level._id_78AC["frnd"]["signal_forward_coverstand"] = %coverstand_hide_idle_wave01;
     level._id_78AC["generic"]["surprise_1"] = %parabolic_chessgame_surprise_a;
@@ -154,17 +154,17 @@ main()
         level._id_78AC["price"]["evac"] = %h1_blackout_bh_evac_price;
         level._id_78AC["price"]["evac_flyaway"] = %h1_blackout_bh_evac_price_flyaway;
         level._id_78AC["price"]["evac_idle"][0] = %h1_blackout_bh_evac_price_idle;
-        maps\_anim::_id_0805( "vip", "evac", "scn_vip_evac_foley", "scn_vip_evac_foley" );
+        maps\_anim::addnotetrack_animsound( "vip", "evac", "scn_vip_evac_foley", "scn_vip_evac_foley" );
     }
 
-    maps\_anim::_id_080B( "vip", "dialog", "evac", "blackout_nkd_americansattacked" );
-    maps\_anim::_id_080B( "vip", "dialog", "evac", "blackout_nkd_makingamistake" );
-    maps\_anim::_id_080B( "price", "dialog", "evac_flyaway", "blackout_pri_invasion" );
+    maps\_anim::addnotetrack_dialogue( "vip", "dialog", "evac", "blackout_nkd_americansattacked" );
+    maps\_anim::addnotetrack_dialogue( "vip", "dialog", "evac", "blackout_nkd_makingamistake" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "evac_flyaway", "blackout_pri_invasion" );
 
     if ( getdvarint( "use_old_nikolai_rescue" ) == 1 )
     {
         level._id_78AC["price"]["rescue"] = %blackout_rescue_price;
-        maps\_anim::_id_0807( "price", "dialog", maps\blackout_code::vip_rescue_dialogue, "rescue" );
+        maps\_anim::addnotetrack_customfunction( "price", "dialog", maps\blackout_code::vip_rescue_dialogue, "rescue" );
         level._id_78AC["vip"]["idle"][0] = %blackout_vip_cower_idle;
         level._id_78AC["vip"]["rescue"] = %blackout_rescue_vip;
         level._id_78BA["vip"]["rescue"] = "scn_blackout_vip_rescue";
@@ -175,7 +175,7 @@ main()
     else
     {
         level._id_78AC["price"]["rescue"] = %h1_blackout_rescue_price;
-        maps\_anim::_id_0807( "price", "dialog", maps\blackout_code::vip_rescue_dialogue, "rescue" );
+        maps\_anim::addnotetrack_customfunction( "price", "dialog", maps\blackout_code::vip_rescue_dialogue, "rescue" );
         level._id_78AC["vip"]["idle"][0] = %h1_blackout_vip_cower_idle;
         level._id_78AC["vip"]["rescue"] = %h1_blackout_rescue_vip;
         level._id_78BA["vip"]["rescue"] = "scn_blackout_vip_rescue";
@@ -183,12 +183,12 @@ main()
         level._id_78AC["flashlight_guy"]["fl_death_local"] = %blackout_flashlightguy_death_local;
         level._id_78AC["flashlight_guy"]["search"] = %h1_blackout_flashlightguy_moment2death;
         level._id_78AC["flashlight_guy"]["fire_loop"][0] = %h1_blackout_flashlightguy_loop;
-        maps\_anim::_id_0805( "price", "rescue", "scn_price_rescue_get_flashlight", "scn_price_rescue_get_flashlight" );
-        maps\_anim::_id_0805( "price", "rescue", "scn_price_rescue_get_vip", "scn_price_rescue_get_vip" );
-        maps\_anim::_id_0805( "price", "rescue", "scn_price_rescue_get_weapon", "scn_price_rescue_get_weapon" );
+        maps\_anim::addnotetrack_animsound( "price", "rescue", "scn_price_rescue_get_flashlight", "scn_price_rescue_get_flashlight" );
+        maps\_anim::addnotetrack_animsound( "price", "rescue", "scn_price_rescue_get_vip", "scn_price_rescue_get_vip" );
+        maps\_anim::addnotetrack_animsound( "price", "rescue", "scn_price_rescue_get_weapon", "scn_price_rescue_get_weapon" );
     }
 
-    maps\_anim::_id_0807( "flashlight_guy", "fire", maps\blackout_code::flashlight_fire );
+    maps\_anim::addnotetrack_customfunction( "flashlight_guy", "fire", maps\blackout_code::flashlight_fire );
     level._id_78AC["generic"]["casual_patrol_jog"] = %patrol_jog;
     level._id_78AC["generic"]["casual_patrol_walk"] = %patrolwalk_tired;
     level._id_78AC["generic"]["combat_jog"] = %combat_jog;
@@ -240,15 +240,15 @@ main()
     level._id_78AC["generic"]["patrol_turn180"] = %patrol_bored_2_walk_180turn;
     level._id_78AC["generic"]["blind_fire_pistol"] = %blackout_blind_fire_pistol;
     level._id_78AC["generic"]["blind_fire_pistol_death"] = %blackout_blind_fire_pistol_death;
-    maps\_anim::_id_0818( "generic", "blind_hide_fire", "blackout_ru1_scream" );
+    maps\_anim::addonstart_animsound( "generic", "blind_hide_fire", "blackout_ru1_scream" );
     level._id_78AC["generic"]["blind_hide_fire"] = %blackout_blind_hide_fire;
     level._id_78AC["generic"]["blind_hide_fire_death"] = %blackout_blind_hide_fire_death;
-    maps\_anim::_id_0818( "generic", "blind_lightswitch", "blackout_ru1_electrician" );
+    maps\_anim::addonstart_animsound( "generic", "blind_lightswitch", "blackout_ru1_electrician" );
     level._id_78AC["generic"]["blind_lightswitch"] = %blackout_blind_lightswitch;
     level._id_78AC["generic"]["blind_lightswitch_death"] = %blackout_blind_lightswitch_death;
-    maps\_anim::_id_0812( "generic", "switch_up", "blind_lightswitch", "scn_blackout_lightswitch_on" );
-    maps\_anim::_id_0812( "generic", "switch_down", "blind_lightswitch", "scn_blackout_lightswitch_off" );
-    maps\_anim::_id_0818( "generic", "blind_wall_feel", "blackout_ru1_sasha" );
+    maps\_anim::addnotetrack_sound( "generic", "switch_up", "blind_lightswitch", "scn_blackout_lightswitch_on" );
+    maps\_anim::addnotetrack_sound( "generic", "switch_down", "blind_lightswitch", "scn_blackout_lightswitch_off" );
+    maps\_anim::addonstart_animsound( "generic", "blind_wall_feel", "blackout_ru1_sasha" );
     level._id_78AC["generic"]["blind_wall_feel"] = %blackout_blind_wall_feel;
     level._id_78AC["generic"]["blind_wall_feel_death"] = %blackout_blind_wall_feel_death;
     level._id_78BA["generic"]["breathing"] = "blackout_ru4_breathing";
@@ -264,7 +264,7 @@ main()
     if ( getdvarint( "use_old_captainprice_briefing" ) == 1 )
         level._id_78B2["price"]["expecting_us"] = %blackout_price_facial_moveout;
     else
-        maps\_anim::_id_080B( "price", "dialog", "captainpricebrief", "blackout_pri_halfaclick" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "captainpricebrief", "blackout_pri_halfaclick" );
 
     level._id_78BA["price"]["wont_shoot_us"] = "blackout_pri_shootatus";
     level._id_78BA["price"]["lets_get_to_it"] = "blackout_pri_gettoit";
@@ -324,7 +324,7 @@ _id_7A3D()
     level._id_78AC["chair"]["sleep_react"] = %parabolic_guard_sleeper_react_chair;
     level._id_78B1["chair"] = #animtree;
     level._id_78B5["chair"] = "com_folding_chair";
-    maps\_anim::_id_0807( "chair", "scn_relaxed_guard_chair_death", ::play_relaxed_guard_chair_death, "sleep_react" );
+    maps\_anim::addnotetrack_customfunction( "chair", "scn_relaxed_guard_chair_death", ::play_relaxed_guard_chair_death, "sleep_react" );
     level._id_78B1["rope"] = #animtree;
     level._id_78B5["rope"] = "rappelrope100_ri";
     level._id_78AC["player_rope"]["rappel_for_player"] = %sniper_escape_player_start_rappelrope100;
@@ -403,7 +403,7 @@ blackhawk_anims()
     level._id_78AC["blackhawk"]["idle"][0] = %blackout_bh_evac_heli_idle;
     level._id_78AC["blackhawk"]["landing"] = %h1_blackout_bh_evac_heli_land;
     level._id_78AC["blackhawk"]["take_off"] = %blackout_bh_evac_heli_takeoff;
-    maps\_anim::_id_0807( "blackhawk", "fade", ::blackout_missionsuccess );
+    maps\_anim::addnotetrack_customfunction( "blackhawk", "fade", ::blackout_missionsuccess );
     level._id_78AC["blackhawk"]["rotors"] = %bh_rotors;
     level._id_78B1["blackhawk"] = #animtree;
 }

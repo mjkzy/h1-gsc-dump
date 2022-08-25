@@ -27,7 +27,7 @@ checkforseason1start()
     if ( isdefined( level.iszombiegame ) && level.iszombiegame )
         return;
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         return;
 
     if ( !maps\mp\_utility::_id_7139() )

@@ -58,17 +58,17 @@ main()
     level.hintprintduration = 4.5;
     level.minimumfriendlycount = 3;
     level.minimumautosavefriendlycount = 5;
-    maps\_utility::_id_079C( "church", ::start_church, &"STARTS_CHURCH" );
-    maps\_utility::_id_079C( "field", ::start_field, &"STARTS_FIELD" );
-    maps\_utility::_id_079C( "hijack", ::start_hijack, &"STARTS_HIJACK" );
-    maps\_utility::_id_079C( "junkyard", ::start_junkyard, &"STARTS_JUNKYARD" );
+    maps\_utility::add_start( "church", ::start_church, &"STARTS_CHURCH" );
+    maps\_utility::add_start( "field", ::start_field, &"STARTS_FIELD" );
+    maps\_utility::add_start( "hijack", ::start_hijack, &"STARTS_HIJACK" );
+    maps\_utility::add_start( "junkyard", ::start_junkyard, &"STARTS_JUNKYARD" );
     maps\_utility::_id_278B( ::start_start );
     maps\ac130_code::scriptcalls();
     precachemodel( "vehicle_pickup_roobars_thermal" );
     precachemodel( "vehicle_ch46e_opened_door_ac130" );
-    var_0 = maps\_vehicle_code::_id_05BE();
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, maps\_ac130::vehicle_thermal_models );
-    common_scripts\utility::_id_0D13( vehicle_getarray(), maps\_ac130::vehicle_thermal_models );
+    var_0 = maps\_vehicle_code::_getvehiclespawnerarray();
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, maps\_ac130::vehicle_thermal_models );
+    common_scripts\utility::array_thread( vehicle_getarray(), maps\_ac130::vehicle_thermal_models );
     thread maps\_spawner::override_random_tire( "com_junktire_ac130" );
     wait 10;
     objective_add( 1, "current", &"AC130_OBJECTIVE_SUPPORT_FRIENDLIES", ( 0.0, 0.0, 0.0 ) );
@@ -210,7 +210,7 @@ driver_stop_anims()
 {
     self.edriver notify( "stop_idle" );
     waitframe;
-    thread maps\_anim::_id_0BE1( self.edriver, "stop", "tag_driver", "stop_idle" );
+    thread maps\_anim::anim_loop_solo( self.edriver, "stop", "tag_driver", "stop_idle" );
 }
 #using_animtree("vehicles");
 
@@ -246,7 +246,7 @@ gameplay_hijack()
         level.getaway_vehicle_1 vehicle_setspeed( 0, 10 );
         level.getaway_vehicle_2 vehicle_setspeed( 0, 10 );
         common_scripts\utility::_id_383F( "hijacked_vehicles_stopped" );
-        common_scripts\utility::_id_0D13( var_1, ::driver_stop_anims );
+        common_scripts\utility::array_thread( var_1, ::driver_stop_anims );
         wait 3;
         wait 2;
 
@@ -280,19 +280,19 @@ gameplay_hijack()
                     switch ( var_5 )
                     {
                         case 0:
-                            var_0[var_6][var_5]._id_0C72 = "hijacker_car1_guy1";
+                            var_0[var_6][var_5].animname = "hijacker_car1_guy1";
                             var_0[var_6][var_5]._id_85AE = "tag_driver";
                             break;
                         case 1:
-                            var_0[var_6][var_5]._id_0C72 = "hijacker_car1_guy2";
+                            var_0[var_6][var_5].animname = "hijacker_car1_guy2";
                             var_0[var_6][var_5]._id_85AE = "tag_passenger";
                             break;
                         case 2:
-                            var_0[var_6][var_5]._id_0C72 = "hijacker_car1_guy3";
+                            var_0[var_6][var_5].animname = "hijacker_car1_guy3";
                             var_0[var_6][var_5]._id_85AE = "tag_guy1";
                             break;
                         case 3:
-                            var_0[var_6][var_5]._id_0C72 = "hijacker_car1_guy4";
+                            var_0[var_6][var_5].animname = "hijacker_car1_guy4";
                             var_0[var_6][var_5]._id_85AE = "tag_guy0";
                             break;
                     }
@@ -303,19 +303,19 @@ gameplay_hijack()
                 switch ( var_5 )
                 {
                     case 0:
-                        var_0[var_6][var_5]._id_0C72 = "hijacker_car2_guy1";
+                        var_0[var_6][var_5].animname = "hijacker_car2_guy1";
                         var_0[var_6][var_5]._id_85AE = "tag_driver";
                         continue;
                     case 1:
-                        var_0[var_6][var_5]._id_0C72 = "hijacker_car2_guy2";
+                        var_0[var_6][var_5].animname = "hijacker_car2_guy2";
                         var_0[var_6][var_5]._id_85AE = "tag_passenger";
                         continue;
                     case 2:
-                        var_0[var_6][var_5]._id_0C72 = "hijacker_car2_guy3";
+                        var_0[var_6][var_5].animname = "hijacker_car2_guy3";
                         var_0[var_6][var_5]._id_85AE = "tag_guy1";
                         continue;
                     case 3:
-                        var_0[var_6][var_5]._id_0C72 = "hijacker_car2_guy4";
+                        var_0[var_6][var_5].animname = "hijacker_car2_guy4";
                         var_0[var_6][var_5]._id_85AE = "tag_guy0";
                         continue;
                 }
@@ -403,7 +403,7 @@ gameplay_junkyard1()
     if ( getdvar( "ac130_gameplay_enabled" ) == "1" )
     {
         maps\ac130_code::resetplayerkillcount();
-        common_scripts\utility::_id_0D13( getaiarray( "axis" ), maps\_utility::_id_7C71 );
+        common_scripts\utility::array_thread( getaiarray( "axis" ), maps\_utility::_id_7C71 );
         maps\ac130_code::spawn_enemies( "junkyard_spawn_trigger1" );
         wait 3;
         maps\ac130_code::spawn_enemies( "junkyard_spawn_trigger4" );
@@ -460,7 +460,7 @@ clear_to_engage( var_0 )
         wait(var_0);
 
     common_scripts\utility::_id_383F( "clear_to_engage" );
-    common_scripts\utility::_id_0D13( getaiarray(), ::_id_2D39, 0 );
+    common_scripts\utility::array_thread( getaiarray(), ::_id_2D39, 0 );
 }
 
 _id_2D39( var_0 )
@@ -482,7 +482,7 @@ dialog_opening()
     if ( getdvar( "ac130_enabled" ) == "0" )
         return;
 
-    common_scripts\utility::_id_0D13( getaiarray(), ::_id_2D39, 1 );
+    common_scripts\utility::array_thread( getaiarray(), ::_id_2D39, 1 );
     wait 2;
     maps\_ac130::playsoundoverradio( level._id_78BA["price"]["ac130_pri_towntoeast"], 1 );
     wait 1;

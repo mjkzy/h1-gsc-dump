@@ -121,7 +121,7 @@ delay_objective_after_intro()
 waters_think()
 {
     level.waters = getent( "waters", "script_noteworthy" );
-    level.waters._id_0C72 = "gaz";
+    level.waters.animname = "gaz";
     level.waters._id_2AF3 = 1;
     level.waters._id_2B0E = 1;
     level.waters.lastspeaktime = 0;
@@ -135,13 +135,13 @@ newcastle_think()
     common_scripts\utility::_id_384A( "spawn_frags" );
     var_0 = getent( "nwc", "script_noteworthy" );
     level.newcastle = var_0 maps\_utility::_id_88C3();
-    level.newcastle._id_0C72 = "nwc";
+    level.newcastle.animname = "nwc";
     level.newcastle._id_2AF3 = 1;
     level.newcastle._id_2B0E = 1;
     level.newcastle.lastspeaktime = 0;
     level.newcastle.lastnagtime = 0;
     level.newcastle.speaking = 0;
-    level.newcastle _meth_81a7( 1 );
+    level.newcastle _meth_81A7( 1 );
     level.newcastle maps\_utility::_id_2A8D();
     level.newcastle maps\_utility::_id_4462();
     level.newcastle maps\_utility::_id_7E45( "patrol_unarmed_walk" );
@@ -155,25 +155,25 @@ newcastle_think()
 mac_think()
 {
     level.mac = getent( "mac", "script_noteworthy" );
-    level.mac._id_0C72 = "mac";
+    level.mac.animname = "mac";
     level.mac._id_2AF3 = 1;
     level.mac._id_2B0E = 1;
     level.mac.lastspeaktime = 0;
     level.mac.lastnagtime = 0;
     level.mac.speaking = 0;
-    level.mac _meth_81a7( 1 );
+    level.mac _meth_81A7( 1 );
 }
 
 price_think()
 {
     level._id_6F7C = getent( "price", "script_noteworthy" );
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C._id_2AF3 = 1;
     level._id_6F7C._id_2B0E = 1;
     level._id_6F7C.lastspeaktime = 0;
     level._id_6F7C.lastnagtime = 0;
     level._id_6F7C.speaking = 0;
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
 }
 
 clear_hints_on_flag( var_0 )
@@ -213,7 +213,7 @@ objective_hints( var_0 )
     compass_hint();
     wait 2;
 
-    if ( level.console || level.player _meth_834c() )
+    if ( level.console || level.player _meth_834C() )
         keyhint( "objectives", 6.0 );
     else
         keyhint( "objectives_pc", 6.0 );
@@ -246,7 +246,7 @@ compass_hint( var_0, var_1 )
     _id_1EBE();
     level endon( "clearing_hints" );
     maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_MARKER", undefined, undefined, 1 );
-    level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
+    level._id_4B3E = maps\_hud_util::createIcon( "objective", 32, 32 );
     level._id_4B3E.hidewheninmenu = 1;
     level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, 0, 155 );
     wait 5;
@@ -263,7 +263,7 @@ compass_reminder()
     _id_1EBE();
     level endon( "clearing_hints" );
     maps\_utility::_id_48B0( &"KILLHOUSE_HINT_OBJECTIVE_REMINDER", undefined, undefined, 1 );
-    level._id_4B3E = maps\_hud_util::_id_2420( "objective", 32, 32 );
+    level._id_4B3E = maps\_hud_util::createIcon( "objective", 32, 32 );
     level._id_4B3E.hidewheninmenu = 1;
     level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, 0, 155 );
 
@@ -298,10 +298,10 @@ move_gaz_once_player_past()
     common_scripts\utility::_id_384A( "gaz_intro_done" );
     common_scripts\utility::_id_384A( "rifle_picked_up" );
     var_0 = getnode( "gaz_intro", "targetname" );
-    var_0 maps\_anim::_id_0C24( level.waters, "h1_killhouse_gaz_walkonstage" );
+    var_0 maps\_anim::anim_single_solo( level.waters, "h1_killhouse_gaz_walkonstage" );
     var_0 notify( "end_idle" );
     level.waters.ref_node = var_0;
-    var_0 thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
+    var_0 thread maps\_anim::anim_loop_solo( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
     common_scripts\utility::_id_383F( "gaz_in_idle_position" );
 }
 
@@ -311,7 +311,7 @@ move_gaz_fake()
     var_1 = spawn( "script_origin", var_0.origin + ( 0.0, 12.0, 0.0 ) );
     var_1.angles = var_0.angles;
     level.waters.ref_node = var_1;
-    level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
+    level.waters.ref_node thread maps\_anim::anim_loop_solo( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
     common_scripts\utility::_id_383F( "gaz_in_idle_position" );
 }
 
@@ -468,7 +468,7 @@ deck_start()
 deck_training()
 {
     var_0 = getentarray( "deck_target", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, ::cargoship_targets );
+    common_scripts\utility::array_thread( var_0, ::cargoship_targets );
     common_scripts\utility::_id_384A( "start_deck" );
     var_1 = getent( "area_two_one", "targetname" );
     var_2 = getent( "area_two_two", "targetname" );
@@ -483,7 +483,7 @@ deck_training()
     {
         common_scripts\utility::_id_384A( "price_reveal_done" );
         var_1 waittill( "trigger" );
-        thread maps\_utility::_id_1143( "starting_deck_attack" );
+        thread maps\_utility::autosave_by_name( "starting_deck_attack" );
 
         if ( var_8 )
         {
@@ -520,7 +520,7 @@ deck_training()
         var_6 waittill( "trigger" );
         level notify( "test_cleared" );
         setobjectivestate( "obj_deck", "done" );
-        thread maps\_utility::_id_1143( "completed_deck_attack" );
+        thread maps\_utility::autosave_by_name( "completed_deck_attack" );
         _id_53B1( 15.85, 1 );
     }
 }
@@ -546,12 +546,12 @@ get_randomized_targets()
 
         if ( isdefined( var_4 ) )
         {
-            var_1 = common_scripts\utility::_id_07A5( var_1, var_4 );
+            var_1 = common_scripts\utility::add_to_array( var_1, var_4 );
             continue;
         }
     }
 
-    var_1 = common_scripts\utility::_id_0CF5( var_1 );
+    var_1 = common_scripts\utility::array_randomize( var_1 );
     return var_1;
 }
 
@@ -844,12 +844,12 @@ _id_75E0()
         var_3 = maps\_utility::_id_88D1( "view_body" );
         var_3 hide();
         var_4 = getent( "training_rope_node", "targetname" );
-        var_4 thread maps\_anim::_id_0BC7( var_3, "training_rope" );
-        var_4 thread maps\_anim::_id_0C24( var_3, "training_rope" );
-        var_5 = getanimlength( level._id_78AC[var_3._id_0C72]["training_rope"] );
+        var_4 thread maps\_anim::anim_first_frame_solo( var_3, "training_rope" );
+        var_4 thread maps\_anim::anim_single_solo( var_3, "training_rope" );
+        var_5 = getanimlength( level._id_78AC[var_3.animname]["training_rope"] );
         var_6 = var_5 - 1.7;
         thread maps\_utility::_id_3840( "start_timer", var_6 );
-        level.player _meth_855e( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
+        level.player _meth_855E( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
         wait 0.35;
         var_3 show();
         var_4 waittill( "training_rope" );
@@ -1335,7 +1335,7 @@ scoldplayer( var_0 )
 execdialog( var_0, var_1 )
 {
     self.speaking = 1;
-    maps\_anim::_id_0C21( self, var_0 );
+    maps\_anim::anim_single_queue( self, var_0 );
     self.speaking = 0;
     self.lastspeaktime = gettime();
 
@@ -1387,7 +1387,7 @@ initactionchain( var_0 )
 
 actionchainthink( var_0 )
 {
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self waittill( "goal" );
     var_1 = var_0;
     var_2 = undefined;
@@ -1405,7 +1405,7 @@ actionchainthink( var_0 )
         while ( var_1 != var_2 )
         {
             var_1 = getnode( var_1.target, "targetname" );
-            self _meth_81a9( var_1 );
+            self _meth_81A9( var_1 );
             self waittill( "goal" );
         }
 
@@ -1423,7 +1423,7 @@ actionchainthink( var_0 )
     while ( isdefined( var_1.target ) )
     {
         var_1 = getnode( var_1.target, "targetname" );
-        self _meth_81a9( var_1 );
+        self _meth_81A9( var_1 );
         self waittill( "goal" );
     }
 }
@@ -1513,7 +1513,7 @@ movetargetdummy( var_0 )
             if ( !self.raised )
             {
                 self notify( "want_newMelon" );
-                self.aim_assist_target _meth_81b9();
+                self.aim_assist_target _meth_81B9();
                 var_1 = 0.25;
                 self playsound( "killhouse_target_up_metal" );
                 playfxontag( level._effect["dust_poof_radial_dummy_fng"], self, "tag_origin" );
@@ -1547,7 +1547,7 @@ movetargetdummy( var_0 )
                 self.raised = 0;
                 self playsound( "killhouse_target_up" );
                 playfxontag( level._effect["dust_poof_radial_dummy_fng"], self, "tag_origin" );
-                self.aim_assist_target _meth_81d7();
+                self.aim_assist_target _meth_81D7();
             }
 
             break;
@@ -1676,7 +1676,7 @@ target_down()
     self.health = 10;
     self playsound( "killhouse_target_up" );
     self._id_5F9E = 1;
-    self.aim_assist_target _meth_81d7();
+    self.aim_assist_target _meth_81D7();
     self setcandamage( 0 );
     self.orgent rotatepitch( -90, 0.25 );
     wait 0.5;
@@ -1720,7 +1720,7 @@ cargoship_targets()
         self setcandamage( 1 );
 
         if ( self.targetname != "friendly" )
-            var_3 _meth_81b9();
+            var_3 _meth_81B9();
 
         if ( var_0.script_noteworthy == "reverse" )
             var_0 rotatepitch( -90, 0.2 );
@@ -1749,7 +1749,7 @@ cargoship_targets()
             self playsound( "killhouse_buzzer" );
             self playsound( "killhouse_target_up" );
             playfxontag( level._effect["dust_puff_radial_dummy_down_fng"], var_1, "tag_origin" );
-            var_3 _meth_81d7();
+            var_3 _meth_81D7();
         }
 
         self notsolid();
@@ -2082,17 +2082,17 @@ inventory_guy_setup()
 {
     level endon( "DespawnGuysHangar1" );
     var_0 = getent( "inventory_guy", "targetname" );
-    var_0._id_0C72 = "generic";
+    var_0.animname = "generic";
     var_0 maps\_utility::_id_4462();
     var_0 attach( "com_clipboard_mocap", "tag_inhand" );
     var_0 attach( "characters_accessories_pencil", "tag_weapon_right" );
     var_1 = getentarray( "inventoryNode", "targetname" );
     var_2 = randomintrange( 0, var_1.size );
     var_3 = var_1[var_2];
-    var_3 thread maps\_anim::_id_0BE1( var_0, "guy_inventory_idle01", undefined, "1stPosDone" );
+    var_3 thread maps\_anim::anim_loop_solo( var_0, "guy_inventory_idle01", undefined, "1stPosDone" );
     common_scripts\utility::_id_384A( "inventoryNewPos" );
     var_3 notify( "1stPosDone" );
-    var_3 maps\_utility::_id_0C3D();
+    var_3 maps\_utility::anim_stopanimscripted();
 
     for ( var_4 = var_2; var_2 == var_4; var_2 = randomintrange( 0, var_1.size ) )
     {
@@ -2100,16 +2100,16 @@ inventory_guy_setup()
     }
 
     var_3 = var_1[var_2];
-    var_3 thread maps\_anim::_id_0BE1( var_0, "guy_inventory_idle01", undefined, "2ndPosDone" );
+    var_3 thread maps\_anim::anim_loop_solo( var_0, "guy_inventory_idle01", undefined, "2ndPosDone" );
 }
 
 chair_guy_setup()
 {
     var_0 = getent( "chair_guy", "script_noteworthy" );
     var_1 = getent( "chair_guy_origin", "script_noteworthy" );
-    var_0._id_0C72 = "generic";
+    var_0.animname = "generic";
     var_0 maps\_utility::_id_4462();
-    var_0 _meth_81c9( var_1.origin );
+    var_0 _meth_81C9( var_1.origin );
     var_0 specify_head_model( "head_sp_sas_woodland_colon" );
     var_1 thread chair_guy_think( var_0 );
 }
@@ -2122,14 +2122,14 @@ chair_guy_think( var_0 )
     var_3 = 0;
     var_4 = getent( "chair_guy_origin", "script_noteworthy" );
     var_5 = maps\_utility::_id_88D1( "chair", var_4.origin );
-    var_4 thread maps\_anim::_id_0C24( var_5, "chair_counting" );
+    var_4 thread maps\_anim::anim_single_solo( var_5, "chair_counting" );
 
     while ( !common_scripts\utility::_id_382E( "lootz_intro_start" ) )
-        var_1 maps\_anim::_id_0C24( var_0, "guy_chair_counting" );
+        var_1 maps\_anim::anim_single_solo( var_0, "guy_chair_counting" );
 
-    var_4 thread maps\_anim::_id_0C24( var_5, "chair_turnaround" );
-    var_1 maps\_anim::_id_0C24( var_0, "guy_chair_turnaround" );
-    var_4 thread maps\_anim::_id_0C24( var_5, "chair_idle" );
+    var_4 thread maps\_anim::anim_single_solo( var_5, "chair_turnaround" );
+    var_1 maps\_anim::anim_single_solo( var_0, "guy_chair_turnaround" );
+    var_4 thread maps\_anim::anim_single_solo( var_5, "chair_idle" );
 
     for (;;)
     {
@@ -2160,7 +2160,7 @@ chair_guy_think( var_0 )
         else
             var_3++;
 
-        var_1 maps\_anim::_id_0C24( var_0, var_6 );
+        var_1 maps\_anim::anim_single_solo( var_0, var_6 );
     }
 }
 
@@ -2408,13 +2408,13 @@ _id_1EBE()
     maps\_utility::_id_48CB( 0 );
 
     if ( isdefined( level._id_4B3E ) )
-        level._id_4B3E maps\_hud_util::_id_28E9();
+        level._id_4B3E maps\_hud_util::destroyElem();
 
     if ( isdefined( level._id_4B3F ) )
-        level._id_4B3F maps\_hud_util::_id_28E9();
+        level._id_4B3F maps\_hud_util::destroyElem();
 
     if ( isdefined( level._id_4B40 ) )
-        level._id_4B40 maps\_hud_util::_id_28E9();
+        level._id_4B40 maps\_hud_util::destroyElem();
 
     level notify( "clearing_hints" );
 }
@@ -2511,7 +2511,7 @@ wrongstallnag( var_0 )
     for (;;)
     {
         level waittill( "player_wrong_stall", var_1 );
-        level.marine2 maps\_anim::_id_0C24( level.marine2, "gotofour" );
+        level.marine2 maps\_anim::anim_single_solo( level.marine2, "gotofour" );
         wait 10.0;
     }
 }
@@ -2698,7 +2698,7 @@ move_mac()
 {
     self waittill( "trigger" );
     level.mac maps\_utility::_id_7E45( "jog" );
-    level.mac _meth_81a9( getnode( self.target, "targetname" ) );
+    level.mac _meth_81A9( getnode( self.target, "targetname" ) );
 }
 
 loop_obstacle()
@@ -2710,7 +2710,7 @@ loop_obstacle()
     }
 
     level.mac maps\_utility::_id_7E45( "walk", 1 );
-    level.mac _meth_81a9( getnode( "mac_start_node", "targetname" ) );
+    level.mac _meth_81A9( getnode( "mac_start_node", "targetname" ) );
     level.mac waittill( "goal" );
 }
 
@@ -2759,7 +2759,7 @@ obstacletrainingcoursethink( var_0, var_1 )
     if ( isdefined( var_1 ) )
         wait(var_1);
 
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self waittill( "goal" );
     common_scripts\utility::_id_384A( "start_course" );
     var_2["prone"] = ::set_allowed_stances_prone;
@@ -2772,7 +2772,7 @@ obstacletrainingcoursethink( var_0, var_1 )
     while ( isdefined( var_0.target ) )
     {
         var_0 = getnode( var_0.target, "targetname" );
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
         self waittill( "goal" );
 
         if ( !isdefined( var_0.script_noteworthy ) )
@@ -2786,18 +2786,18 @@ obstacletrainingcoursethink( var_0, var_1 )
 
 set_allowed_stances_prone()
 {
-    self _meth_81ce( "prone" );
+    self _meth_81CE( "prone" );
 }
 
 set_allowed_stances_all()
 {
-    self _meth_81ce( "prone", "stand", "crouch" );
+    self _meth_81CE( "prone", "stand", "crouch" );
 }
 
 set_allowed_stances_all_from_prone()
 {
-    self _meth_81ce( "prone", "stand", "crouch" );
-    maps\_anim::_id_0BC9( self, "prone_to_stand" );
+    self _meth_81CE( "prone", "stand", "crouch" );
+    maps\_anim::anim_generic( self, "prone_to_stand" );
     self._id_8B09 = 1;
 }
 
@@ -2909,11 +2909,11 @@ frag_too_low_hint()
 walk_to( var_0 )
 {
     maps\_utility::_id_7E45( "patrol_unarmed_walk" );
-    self._id_0C78 = 1.25;
+    self.animplaybackrate = 1.25;
     self.goalradius = 16;
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self waittill( "goal" );
-    self._id_0C78 = 1;
+    self.animplaybackrate = 1;
 }
 
 jog_to( var_0 )
@@ -2921,7 +2921,7 @@ jog_to( var_0 )
     level.newcastle _meth_8202();
     maps\_utility::_id_7E45( "RunNoGun_1" );
     self.goalradius = 16;
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self waittill( "goal" );
     level.newcastle _meth_8202( level.player, 1 );
 }
@@ -2938,9 +2938,9 @@ walk_to_debrief( var_0 )
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         var_1[var_2] maps\_utility::_id_7E45( "jog", 1 );
-        var_1[var_2] maps\_utility::_id_08EB();
-        var_1[var_2] maps\_utility::_id_0C3D();
-        var_0 thread maps\_anim::_id_0BF7( var_1[var_2], "debrief_idle_s" + ( var_2 + 1 ) + "_b", "debrief_idle_s" + ( var_2 + 1 ) + "_b", "stop_loop" );
+        var_1[var_2] maps\_utility::ai_ignore_everything();
+        var_1[var_2] maps\_utility::anim_stopanimscripted();
+        var_0 thread maps\_anim::anim_reach_and_idle_solo( var_1[var_2], "debrief_idle_s" + ( var_2 + 1 ) + "_b", "debrief_idle_s" + ( var_2 + 1 ) + "_b", "stop_loop" );
         wait 1;
     }
 
@@ -2950,8 +2950,8 @@ walk_to_debrief( var_0 )
 
 price_mask_up_gun_spawn()
 {
-    level._id_6F7C _meth_814e( level._id_78AC["price"]["price_mask_up"], 1 );
-    level._id_6F7C _meth_814e( level._id_78AC["price"]["price_mask_outloop"], 1 );
+    level._id_6F7C _meth_814E( level._id_78AC["price"]["price_mask_up"], 1 );
+    level._id_6F7C _meth_814E( level._id_78AC["price"]["price_mask_outloop"], 1 );
     level._id_6F7C animscripts\shared::_id_6869( level._id_6F7C.weapon, "right" );
 }
 
@@ -3041,22 +3041,22 @@ gaz_animation( var_0, var_1, var_2, var_3 )
     level.waters endon( "gaz_animation" );
     level.waters.ref_node notify( "stop_loop" );
     level.waters _meth_8143();
-    level.waters.ref_node maps\_anim::_id_0C24( level.waters, var_0 );
+    level.waters.ref_node maps\_anim::anim_single_solo( level.waters, var_0 );
 
     if ( isdefined( var_2 ) )
     {
         if ( var_3 == 1 )
         {
             level.waters.ref_node notify( "stop_loop" );
-            level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, var_2, undefined, "stop_loop" );
+            level.waters.ref_node thread maps\_anim::anim_loop_solo( level.waters, var_2, undefined, "stop_loop" );
             return;
         }
         else
-            level.waters.ref_node maps\_anim::_id_0C24( level.waters, var_2 );
+            level.waters.ref_node maps\_anim::anim_single_solo( level.waters, var_2 );
     }
 
     level.waters.ref_node notify( "stop_loop" );
-    level.waters.ref_node thread maps\_anim::_id_0BE1( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
+    level.waters.ref_node thread maps\_anim::anim_loop_solo( level.waters, "killhouse_gaz_idleB", undefined, "stop_loop" );
     level.waters _meth_8202( level.player, 1 );
 }
 
@@ -3071,9 +3071,9 @@ melontargetdummies()
     var_1 = getentarray( "aim_target", "targetname" );
     var_2 = getentarray( "aim_target_right", "targetname" );
     var_3 = getentarray( "cargoship_target", "script_noteworthy" );
-    var_4 = common_scripts\utility::_id_0CDD( var_0, var_1 );
-    var_4 = common_scripts\utility::_id_0CDD( var_4, var_2 );
-    var_4 = common_scripts\utility::_id_0CDD( var_4, var_3 );
+    var_4 = common_scripts\utility::array_combine( var_0, var_1 );
+    var_4 = common_scripts\utility::array_combine( var_4, var_2 );
+    var_4 = common_scripts\utility::array_combine( var_4, var_3 );
 
     foreach ( var_6 in var_4 )
         var_6 thread melonhead_monitor_targetdummy();

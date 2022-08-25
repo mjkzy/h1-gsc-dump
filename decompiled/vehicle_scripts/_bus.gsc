@@ -22,14 +22,14 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "bus", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1848( "vehicle_bus_destructable", "vehicle_bus_destructible" );
-    maps\_vehicle::_id_1849( %bus_driving_idle_forward, %bus_driving_idle_backward, 10 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "bus", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_destructible( "vehicle_bus_destructable", "vehicle_bus_destructible" );
+    maps\_vehicle::build_drive( %bus_driving_idle_forward, %bus_driving_idle_backward, 10 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

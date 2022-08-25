@@ -136,7 +136,7 @@ _id_A21E()
         if ( var_0 != "class_select" )
             continue;
 
-        if ( maps\mp\_utility::_id_5155() && self _meth_842d() && !maps\mp\_utility::_id_4FA6() )
+        if ( maps\mp\_utility::_id_5155() && self _meth_842D() && !maps\mp\_utility::_id_4FA6() )
         {
             self setclientomnvar( "ui_options_menu", 0 );
             continue;
@@ -151,7 +151,7 @@ _id_A21E()
         if ( isdefined( self._id_A04C ) && self._id_A04C )
             continue;
 
-        if ( !maps\mp\_utility::_id_0AA2() )
+        if ( !maps\mp\_utility::allowclasschoice() )
             continue;
 
         self setclientomnvar( "ui_options_menu", 0 );
@@ -242,7 +242,7 @@ _id_A22B()
         if ( maps\mp\_utility::_id_59E3() && !getdvarint( "force_ranking" ) && !self _meth_8586() )
             continue;
 
-        if ( var_1 != 3 && !teamchangeisfactionchange() && maps\mp\_utility::_id_0AA2() )
+        if ( var_1 != 3 && !teamchangeisfactionchange() && maps\mp\_utility::allowclasschoice() )
             thread _id_851C();
 
         if ( var_1 == 3 )
@@ -254,7 +254,7 @@ _id_A22B()
 
             if ( maps\mp\_utility::_id_5155() )
             {
-                self _meth_84fd( 1 );
+                self _meth_84FD( 1 );
                 self setclientomnvar( "ui_use_mlg_hud", 1 );
                 thread maps\mp\gametypes\_spectating::_id_8019();
             }
@@ -269,11 +269,11 @@ _id_A22B()
 
             if ( maps\mp\_utility::_id_5155() )
             {
-                self _meth_84fd( 0 );
+                self _meth_84FD( 0 );
                 self setclientomnvar( "ui_use_mlg_hud", 0 );
             }
 
-            if ( teamchangeisfactionchange() || !maps\mp\_utility::_id_0AA2() )
+            if ( teamchangeisfactionchange() || !maps\mp\_utility::allowclasschoice() )
                 thread maps\mp\gametypes\_playerlogic::_id_803C( -1 );
         }
 
@@ -314,7 +314,7 @@ _id_A22B()
 
         if ( var_1 == "random" )
         {
-            self thread [[ level._id_112A ]]();
+            self thread [[ level.autoassign ]]();
             continue;
         }
 
@@ -329,20 +329,20 @@ _id_851C()
     level endon( "game_ended" );
     common_scripts\utility::_id_A069( "joined_team", "selected_same_team" );
 
-    if ( maps\mp\_utility::ishodgepodgeph() && !maps\mp\_utility::_id_0AA2() )
+    if ( maps\mp\_utility::ishodgepodgeph() && !maps\mp\_utility::allowclasschoice() )
         return;
 
     self setclientomnvar( "ui_options_menu", 2 );
 }
 
-_id_112A()
+autoassign()
 {
     if ( maps\mp\_utility::iscoop() )
     {
         thread _id_8027( "allies" );
         self.sessionteam = "allies";
     }
-    else if ( self _meth_842d() && !maps\mp\_utility::_id_4FA6() )
+    else if ( self _meth_842D() && !maps\mp\_utility::_id_4FA6() )
         thread _id_801A();
     else
     {
@@ -465,7 +465,7 @@ _id_A018()
     level endon( "game_ended" );
     self._id_A04C = 1;
 
-    if ( maps\mp\_utility::_id_0AA2() )
+    if ( maps\mp\_utility::allowclasschoice() )
     {
         for (;;)
         {
@@ -520,19 +520,19 @@ _id_A018()
 
         self notify( "notWaitingToSelectClass" );
         self._id_A04C = 0;
-        _id_1968();
+        bypassclasschoice();
     }
 }
 
-_id_1398( var_0 )
+beginclasschoice( var_0 )
 {
     var_1 = self.pers["team"];
 
-    if ( maps\mp\_utility::_id_0AA2() )
+    if ( maps\mp\_utility::allowclasschoice() )
     {
         thread maps\mp\gametypes\_playerlogic::_id_803C( 2 );
 
-        if ( !self _meth_842d() || maps\mp\_utility::_id_4FA6() )
+        if ( !self _meth_842D() || maps\mp\_utility::_id_4FA6() )
             _id_A018();
 
         _id_31BF();
@@ -553,11 +553,11 @@ _id_1398( var_0 )
             thread maps\mp\gametypes\_spectating::_id_8019();
         }
 
-        self.connecttime = gettime();
+        self._id_214F = gettime();
     }
     else
     {
-        thread _id_1968();
+        thread bypassclasschoice();
 
         if ( self.sessionstate == "spectator" && maps\mp\_utility::ishodgepodgeph() )
         {
@@ -577,17 +577,17 @@ _id_1398( var_0 )
     }
 }
 
-_id_1968()
+bypassclasschoice()
 {
     maps\mp\gametypes\_class::_id_1EE7();
     self._id_7C68 = 1;
     self.class = "class0";
 
-    if ( isdefined( level._id_1969 ) )
-        self [[ level._id_1969 ]]();
+    if ( isdefined( level.bypassclasschoicefunc ) )
+        self [[ level.bypassclasschoicefunc ]]();
 }
 
-_id_13A1()
+beginteamchoice()
 {
     thread maps\mp\gametypes\_playerlogic::_id_803C( 1 );
 }
@@ -664,12 +664,12 @@ _id_5BB2( var_0 )
 
             self waittill( "streamClassComplete" );
             self clientiprintlnbold( "" );
-            self _meth_852b( 0 );
+            self _meth_852B( 0 );
         }
 
         maps\mp\gametypes\_class::setclass( self.pers["class"] );
         self.tag_stowed_back = undefined;
-        self.tag_stowed_hip = undefined;
+        self._id_90D3 = undefined;
         maps\mp\gametypes\_class::_id_41F1( self.pers["team"], self.pers["class"] );
 
         if ( !isdefined( self.spawnplayergivingloadout ) )
@@ -704,7 +704,7 @@ _id_5BB1( var_0 )
 
     if ( var_2 == "restricted" )
     {
-        _id_1398();
+        beginclasschoice();
         return;
     }
 
@@ -787,7 +787,7 @@ addtoteam( var_0, var_1, var_2 )
         self setclientomnvar( "ui_team_selected", getuiteamindex( "axis" ) );
     }
 
-    if ( !getdvarint( "party_playersCoop", 0 ) && ( !maps\mp\_utility::_id_59E3() || isbot( self ) || istestclient( self ) || !maps\mp\_utility::_id_0AB0() || getdvarint( "force_ranking" ) ) )
+    if ( !getdvarint( "party_playersCoop", 0 ) && ( !maps\mp\_utility::_id_59E3() || isbot( self ) || istestclient( self ) || !maps\mp\_utility::allowteamchoice() || getdvarint( "force_ranking" ) ) )
     {
         if ( level.teambased )
             self.sessionteam = var_0;
@@ -799,7 +799,7 @@ addtoteam( var_0, var_1, var_2 )
 
     if ( game["state"] != "postgame" )
     {
-        maps\mp\gametypes\_playerlogic::_id_0852();
+        maps\mp\gametypes\_playerlogic::addtoteamcount();
 
         if ( isdefined( var_2 ) && var_2 )
             maps\mp\gametypes\_playerlogic::_id_4C3C( self.team );

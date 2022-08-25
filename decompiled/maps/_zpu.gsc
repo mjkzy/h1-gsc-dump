@@ -38,7 +38,7 @@ main( var_0 )
     precacherumble( "zpu_rumble" );
     load_zpu_anims();
     load_zpugunner_anims();
-    common_scripts\utility::_id_0D13( var_1, ::per_zpu_init );
+    common_scripts\utility::array_thread( var_1, ::per_zpu_init );
     level.zpu_fx = loadfx( "fx/muzzleflashes/zpu_flash_wv" );
 }
 
@@ -129,9 +129,9 @@ waittill_death_or_dismount( var_0, var_1, var_2 )
 {
     var_1 endon( "death" );
     var_1 endon( "damage" );
-    var_0 maps\_utility::_id_07BE( maps\_utility::_id_A099, "trigger" );
-    var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "doFlashBanged" );
-    var_1 maps\_utility::_id_075B( "death" );
+    var_0 maps\_utility::add_wait( maps\_utility::_id_A099, "trigger" );
+    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "doFlashBanged" );
+    var_1 maps\_utility::add_endon( "death" );
     maps\_utility::_id_2BDD();
     var_1 waittillmatch( "looping anim", "end" );
     var_2 notify( "stop_looping" );
@@ -141,8 +141,8 @@ waittill_death_or_dismount( var_0, var_1, var_2 )
 monitor_gunner( var_0 )
 {
     self waittill( "death" );
-    var_0 _meth_814d( level._id_78AC[var_0._id_0C72]["fire_loop"][0], 1, 1, 0 );
-    var_0 _meth_814d( level._id_78AC[var_0._id_0C72]["fire_loop"][1], 1, 1, 0 );
+    var_0 _meth_814D( level._id_78AC[var_0.animname]["fire_loop"][0], 1, 1, 0 );
+    var_0 _meth_814D( level._id_78AC[var_0.animname]["fire_loop"][1], 1, 1, 0 );
 }
 
 gunner_death_think( var_0 )
@@ -157,7 +157,7 @@ gunner_death_think( var_0 )
     self notify( "dying_damage" );
     self.a._id_612E = 1;
     self._id_2652 = level._id_78AC["zpu_gunner"]["deathslouch"];
-    var_0 thread maps\_anim::_id_0C24( self, "deathslouch", "tag_driver" );
+    var_0 thread maps\_anim::anim_single_solo( self, "deathslouch", "tag_driver" );
     wait 0.5;
     maps\_utility::_id_2A51();
 }
@@ -188,8 +188,8 @@ load_zpu_anims()
     level._id_78B1["zpu_gun"] = #animtree;
     level._id_78AC["zpu_gun"]["fire_loop"][0] = %zpu_gun_fire_a;
     level._id_78AC["zpu_gun"]["fire_loop"][1] = %zpu_gun_fire_b;
-    maps\_anim::_id_0807( "zpu_gun", "fire_1", ::zpu_shoot1 );
-    maps\_anim::_id_0807( "zpu_gun", "fire_2", ::zpu_shoot2 );
+    maps\_anim::addnotetrack_customfunction( "zpu_gun", "fire_1", ::zpu_shoot1 );
+    maps\_anim::addnotetrack_customfunction( "zpu_gun", "fire_2", ::zpu_shoot2 );
 }
 #using_animtree("generic_human");
 
@@ -224,23 +224,23 @@ zpugunner_animation_think( var_0 )
     self endon( "dismount gunner" );
     var_0 endon( "dismount gunner" );
     var_0 endon( "new gunner" );
-    self._id_0C72 = "zpu_gunner";
-    var_0._id_0C72 = "zpu_gun";
-    var_0 maps\_utility::_id_0D61();
+    self.animname = "zpu_gunner";
+    var_0.animname = "zpu_gun";
+    var_0 maps\_utility::assign_animtree();
     var_1 = [];
-    var_1[var_1.size] = maps\_anim::_id_0BAB( var_0, "tag_driver" );
-    var_1[var_1.size] = var_0 maps\_anim::_id_0BAC();
-    var_0 thread maps\_anim::_id_0BDF( var_1, "fire_loop", "stop_looping" );
+    var_1[var_1.size] = maps\_anim::anim_at_entity( var_0, "tag_driver" );
+    var_1[var_1.size] = var_0 maps\_anim::anim_at_self();
+    var_0 thread maps\_anim::anim_loop_packet( var_1, "fire_loop", "stop_looping" );
 }
 
 zpugunner_dismount( var_0 )
 {
     self endon( "death" );
     self endon( "dying_damage" );
-    self._id_0C72 = "zpu_gunner";
-    var_0._id_0C72 = "zpu_gun";
-    var_0 maps\_utility::_id_0D61();
-    var_0 thread maps\_anim::_id_0C24( self, "dismount", "tag_driver" );
+    self.animname = "zpu_gunner";
+    var_0.animname = "zpu_gun";
+    var_0 maps\_utility::assign_animtree();
+    var_0 thread maps\_anim::anim_single_solo( self, "dismount", "tag_driver" );
     wait 0.8;
     self.health = 100;
     self notify( "dismount" );

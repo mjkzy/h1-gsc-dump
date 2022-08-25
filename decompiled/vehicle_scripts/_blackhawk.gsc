@@ -22,13 +22,13 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "blackhawk", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_blackhawk" );
-    maps\_vehicle::_id_1845( "vehicle_blackhawk_low" );
-    maps\_vehicle::_id_1845( "vehicle_blackhawk_low_thermal" );
-    maps\_vehicle::_id_1845( "vehicle_blackhawk_hero_sas_night" );
-    maps\_vehicle::_id_1849( %bh_rotors, undefined, 0 );
+    maps\_vehicle::build_template( "blackhawk", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_blackhawk" );
+    maps\_vehicle::build_deathmodel( "vehicle_blackhawk_low" );
+    maps\_vehicle::build_deathmodel( "vehicle_blackhawk_low_thermal" );
+    maps\_vehicle::build_deathmodel( "vehicle_blackhawk_hero_sas_night" );
+    maps\_vehicle::build_drive( %bh_rotors, undefined, 0 );
     var_3 = [];
     var_3["vehicle_blackhawk"] = "fx/explosions/helicopter_explosion";
     var_3["vehicle_blackhawk_sas_night"] = "fx/explosions/helicopter_explosion";
@@ -37,25 +37,25 @@ main( var_0, var_1, var_2 )
     var_3["vehicle_blackhawk_low"] = "fx/explosions/large_vehicle_explosion";
     var_3["vehicle_blackhawk_low_thermal"] = "fx/explosions/large_vehicle_explosion";
     var_4 = var_3[var_0];
-    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tag_engine_left", "blackhawk_helicopter_hit", undefined, undefined, undefined, 0.2, 1 );
-    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "elevator_jnt", "blackhawk_helicopter_secondary_exp", undefined, undefined, undefined, 0.5, 1 );
-    maps\_vehicle::_id_1842( "fx/fire/fire_smoke_trail_L", "elevator_jnt", "blackhawk_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
-    maps\_vehicle::_id_1842( "fx/explosions/aerial_explosion", "tag_engine_right", "blackhawk_helicopter_secondary_exp", undefined, undefined, undefined, 2.5, 1 );
-    maps\_vehicle::_id_1842( "fx/explosions/aerial_explosion", "tag_deathfx", "blackhawk_helicopter_secondary_exp", undefined, undefined, undefined, 4.0 );
-    maps\_vehicle::_id_1842( var_4, undefined, "blackhawk_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::_id_183B( ::_id_7DDA );
-    maps\_vehicle::_id_1873( ::_id_9A3D );
-    maps\_vehicle::_id_1857( var_2, "cockpit_blue_cargo01", "tag_light_cargo01", "fx/misc/aircraft_light_cockpit_red", "interior", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "cockpit_blue_cockpit01", "tag_light_cockpit01", "fx/misc/aircraft_light_cockpit_blue", "interior", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink_daylight", "running", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_white_blink_daylight", "running", 0.3 );
-    maps\_vehicle::_id_1857( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
-    maps\_vehicle::_id_1855();
+    maps\_vehicle::build_deathfx( "fx/explosions/grenadeexp_default", "tag_engine_left", "blackhawk_helicopter_hit", undefined, undefined, undefined, 0.2, 1 );
+    maps\_vehicle::build_deathfx( "fx/explosions/grenadeexp_default", "elevator_jnt", "blackhawk_helicopter_secondary_exp", undefined, undefined, undefined, 0.5, 1 );
+    maps\_vehicle::build_deathfx( "fx/fire/fire_smoke_trail_L", "elevator_jnt", "blackhawk_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
+    maps\_vehicle::build_deathfx( "fx/explosions/aerial_explosion", "tag_engine_right", "blackhawk_helicopter_secondary_exp", undefined, undefined, undefined, 2.5, 1 );
+    maps\_vehicle::build_deathfx( "fx/explosions/aerial_explosion", "tag_deathfx", "blackhawk_helicopter_secondary_exp", undefined, undefined, undefined, 4.0 );
+    maps\_vehicle::build_deathfx( var_4, undefined, "blackhawk_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_attach_models( ::_id_7DDA );
+    maps\_vehicle::build_unload_groups( ::_id_9A3D );
+    maps\_vehicle::build_light( var_2, "cockpit_blue_cargo01", "tag_light_cargo01", "fx/misc/aircraft_light_cockpit_red", "interior", 0.0 );
+    maps\_vehicle::build_light( var_2, "cockpit_blue_cockpit01", "tag_light_cockpit01", "fx/misc/aircraft_light_cockpit_blue", "interior", 0.0 );
+    maps\_vehicle::build_light( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink_daylight", "running", 0.0 );
+    maps\_vehicle::build_light( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_white_blink_daylight", "running", 0.3 );
+    maps\_vehicle::build_light( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
+    maps\_vehicle::build_light( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
+    maps\_vehicle::build_is_helicopter();
 }
 
 _id_4D10()

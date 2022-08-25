@@ -25,8 +25,8 @@ _id_9383( var_0 )
         return 0;
 
     var_1 = gettime() + var_0 * 1000;
-    var_2 = level.lastwave[self.pers["team"]];
-    var_3 = level.wavedelay[self.pers["team"]] * 1000;
+    var_2 = level._id_560E[self.pers["team"]];
+    var_3 = level._id_A2AB[self.pers["team"]] * 1000;
     var_4 = ( var_1 - var_2 ) / var_3;
     var_5 = ceil( var_4 );
     var_6 = var_2 + var_5 * var_3;
@@ -115,9 +115,9 @@ _id_5A62( var_0 )
     if ( isdefined( level.gamemodemayspawn ) )
         return [[ level.gamemodemayspawn ]]( var_0 );
 
-    if ( maps\mp\_utility::_id_3FAA() || isdefined( level.disablespawning ) )
+    if ( maps\mp\_utility::_id_3FAA() || isdefined( level._id_2B28 ) )
     {
-        if ( isdefined( level.disablespawning ) && level.disablespawning )
+        if ( isdefined( level._id_2B28 ) && level._id_2B28 )
             return 0;
 
         if ( var_0 && isdefined( self.pers["teamKillPunish"] ) && self.pers["teamKillPunish"] )
@@ -127,7 +127,7 @@ _id_5A62( var_0 )
             return 0;
         else if ( maps\mp\_utility::_id_3BE2() )
         {
-            if ( !level.ingraceperiod && !self._id_4745 && ( isdefined( level._id_0AAB ) && !level._id_0AAB ) )
+            if ( !level.ingraceperiod && !self._id_4745 && ( isdefined( level.allowlatecomers ) && !level.allowlatecomers ) )
                 return 0;
         }
 
@@ -195,7 +195,7 @@ _id_8F31()
     if ( isai( self ) || istestclient( self ) )
         return;
 
-    if ( maps\mp\_utility::_id_0AA2() )
+    if ( maps\mp\_utility::allowclasschoice() )
     {
         var_0 = [];
         var_1 = [];
@@ -284,12 +284,12 @@ streamclass( var_0, var_1, var_2 )
     var_4 = getstreaminfo( var_3 );
     var_5 = _id_3C60( 0, var_3 );
     var_0 = !self _meth_8420( var_4, var_5 ) && var_0;
-    self _meth_852b( 1 );
+    self _meth_852B( 1 );
 
     for ( self._id_1E41 = var_0; var_0; var_0 = !self _meth_8420( var_4, var_5 ) )
         waittillframeend;
 
-    self _meth_852b( 0 );
+    self _meth_852B( 0 );
     self._id_1E41 = 0;
     self notify( "streamClassComplete" );
 }
@@ -455,7 +455,7 @@ _id_55ED()
         self.maxhealth = self._id_8B04;
 
     self.health = self.maxhealth;
-    common_scripts\utility::_id_0594();
+    common_scripts\utility::_enableusability();
 
     if ( game["state"] == "postgame" )
         maps\mp\gametypes\_gamelogic::_id_3A35();
@@ -479,10 +479,10 @@ _id_40D1( var_0 )
     if ( !positionwouldtelefrag( var_0.origin ) )
         return var_0.origin;
 
-    if ( !isdefined( var_0._id_0B03 ) )
+    if ( !isdefined( var_0.alternates ) )
         return var_0.origin;
 
-    foreach ( var_2 in var_0._id_0B03 )
+    foreach ( var_2 in var_0.alternates )
     {
         if ( !positionwouldtelefrag( var_2 ) )
             return var_2;
@@ -504,7 +504,7 @@ _id_803C( var_0 )
     self endon( "disconnect" );
     self endon( "joined_spectators" );
 
-    while ( self _meth_842d() && !maps\mp\_utility::_id_4FA6() )
+    while ( self _meth_842D() && !maps\mp\_utility::_id_4FA6() )
         waittillframeend;
 
     self setclientomnvar( "ui_options_menu", var_0 );
@@ -576,7 +576,7 @@ _id_89FB( var_0, var_1 )
         thread _id_803C( 0 );
 
     self setclientomnvar( "ui_hud_shake", 0 );
-    self _meth_84af( 0 );
+    self _meth_84AF( 0 );
     self _meth_8526();
 
     if ( !level.ingraceperiod && !self._id_4729 )
@@ -614,12 +614,12 @@ _id_89FB( var_0, var_1 )
 
         maps\mp\gametypes\_teams::applycostume( self._id_57D6._id_6F84, self.team );
         var_5 = maps\mp\gametypes\_class::cao_getcharactercamoindex();
-        self _meth_857c( var_5 );
+        self _meth_857C( var_5 );
 
         if ( !self _meth_8420( var_4 ) )
         {
             self._id_A04E = 1;
-            self _meth_852b( 1 );
+            self _meth_852B( 1 );
             var_6 = gettime() + 3000;
 
             while ( gettime() < var_6 )
@@ -631,7 +631,7 @@ _id_89FB( var_0, var_1 )
                     break;
             }
 
-            self _meth_852b( 0 );
+            self _meth_852B( 0 );
 
             if ( gettime() >= var_6 )
             {
@@ -695,20 +695,20 @@ _id_89FB( var_0, var_1 )
     }
     else if ( isdefined( self._id_4817 ) && ( !isdefined( self._id_3821 ) || isdefined( self._id_3821 ) && self._id_3821 ) && level._id_6F09 > 0 && self.team == "allies" )
     {
-        while ( !isdefined( level._id_0A7E ) )
+        while ( !isdefined( level.allieschopper ) )
             wait 0.1;
 
-        var_7 = level._id_0A7E.origin;
-        var_8 = level._id_0A7E.angles;
+        var_7 = level.allieschopper.origin;
+        var_8 = level.allieschopper.angles;
         self._id_3821 = 0;
     }
     else if ( isdefined( self._id_4817 ) && ( !isdefined( self._id_3821 ) || isdefined( self._id_3821 ) && self._id_3821 ) && level._id_6F09 > 0 && self.team == "axis" )
     {
-        while ( !isdefined( level._id_1217 ) )
+        while ( !isdefined( level.axischopper ) )
             wait 0.1;
 
-        var_7 = level._id_1217.origin;
-        var_8 = level._id_1217.angles;
+        var_7 = level.axischopper.origin;
+        var_8 = level.axischopper.angles;
         self._id_3821 = 0;
     }
     else
@@ -734,9 +734,9 @@ _id_89FB( var_0, var_1 )
         self._id_4745 = 1;
         self.spawntime = gettime();
         self._id_8A12 = maps\mp\_utility::_id_412E();
-        self.wasti = !isdefined( var_2 );
-        self._id_0891 = 0;
-        self.damagedplayers = [];
+        self._id_A1D2 = !isdefined( var_2 );
+        self.afk = 0;
+        self._id_259A = [];
         self._id_53A5 = 1;
         self.objectivescaler = 1;
         self._id_1E24 = undefined;
@@ -754,13 +754,13 @@ _id_89FB( var_0, var_1 )
             self._id_A3A4 = self.pers["summary"]["xp"];
     }
 
-    self.movespeedscaler = level._id_1317;
+    self.movespeedscaler = level.baseplayermovescale;
     self.inlaststand = 0;
     self.laststand = undefined;
     self._id_4C5A = undefined;
-    self.disabledweapon = 0;
-    self.disabledweaponswitch = 0;
-    self.disabledoffhandweapons = 0;
+    self._id_2B0B = 0;
+    self._id_2B0C = 0;
+    self._id_2B05 = 0;
     common_scripts\utility::_id_7466();
     self._id_6C8A = [];
 
@@ -770,17 +770,17 @@ _id_89FB( var_0, var_1 )
         var_13 = self.pers["lives"];
 
         if ( var_13 == maps\mp\_utility::_id_3FAA() )
-            _id_084D();
+            addtolivescount();
 
         if ( var_13 )
             self.pers["lives"]--;
 
-        _id_0844();
+        addtoalivecount();
 
         if ( !var_12 || maps\mp\_utility::_id_3BE2() || maps\mp\_utility::_id_3BE2() && level.ingraceperiod && self._id_4729 )
             _id_73AB();
 
-        if ( !self.wasaliveatmatchstart )
+        if ( !self._id_A1BE )
         {
             var_14 = 20;
 
@@ -788,7 +788,7 @@ _id_89FB( var_0, var_1 )
                 var_14 = maps\mp\_utility::_id_412B() * 60 / 4;
 
             if ( level.ingraceperiod || maps\mp\_utility::_id_412C() < var_14 * 1000 )
-                self.wasaliveatmatchstart = 1;
+                self._id_A1BE = 1;
         }
     }
 
@@ -984,14 +984,14 @@ _id_89E9()
     self setclientdvar( "cg_everyoneHearsEveryone", 1 );
     var_0 = self.pers["postGameChallenges"];
 
-    if ( level.rankedmatch && ( self.bonusupdatetotal || isdefined( var_0 ) && var_0 ) )
+    if ( level.rankedmatch && ( self._id_6E8A || isdefined( var_0 ) && var_0 ) )
     {
-        if ( self.bonusupdatetotal )
+        if ( self._id_6E8A )
             self playlocalsound( "mp_level_up" );
         else if ( isdefined( var_0 ) )
             self playlocalsound( "mp_challenge_complete" );
 
-        if ( self.bonusupdatetotal > level._id_6E89 )
+        if ( self._id_6E8A > level._id_6E89 )
             level._id_6E89 = 1;
 
         if ( isdefined( var_0 ) && var_0 > level._id_6E89 )
@@ -1107,11 +1107,11 @@ _id_5848()
     if ( isdefined( self.pers["summary"] ) && isdefined( self.pers["summary"]["clanWarsXP"] ) )
         setmatchdata( "players", self.clientid, "clanWarsXp", self.pers["summary"]["clanWarsXP"] );
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         [[ level.hordeupdatetimestats ]]( self );
 }
 
-_id_19F3( var_0 )
+callback_playerdisconnect( var_0 )
 {
     if ( !isdefined( self._id_2148 ) )
         return;
@@ -1167,7 +1167,7 @@ _id_19F3( var_0 )
     maps\mp\_skill::processplayer();
     _id_73D2();
     maps\mp\gametypes\_spawnlogic::_id_73AC();
-    maps\mp\gametypes\_spawnlogic::removefromcharactersarray();
+    maps\mp\gametypes\_spawnlogic::_id_73A7();
     var_2 = self getentitynumber();
 
     if ( !level.teambased )
@@ -1244,7 +1244,7 @@ _id_4D98()
         setdvar( "cg_hudGrenadeIconMaxRangeFrag", 0 );
     }
 
-    if ( isdefined( level._id_0B0A ) && level._id_0B0A )
+    if ( isdefined( level.alwaysdrawfriendlynames ) && level.alwaysdrawfriendlynames )
         setdvar( "cg_drawFriendlyNamesAlways", 1 );
     else
         setdvar( "cg_drawFriendlyNamesAlways", 0 );
@@ -1407,13 +1407,13 @@ extractclantag( var_0 )
     return "";
 }
 
-_id_19F0()
+callback_playerconnect()
 {
     var_0 = _id_40A7();
     self setspectatedefaults( var_0.origin, var_0.angles );
     thread _id_6226();
     self waittill( "begin" );
-    self.connecttime = gettime();
+    self._id_214F = gettime();
     level notify( "connected", self );
     self._id_2148 = 1;
 
@@ -1481,7 +1481,7 @@ _id_19F0()
         setmatchdata( "players", self.clientid, "connectionIDChunkLow", var_3 );
         setmatchdata( "players", self.clientid, "connectionIDChunkHigh", var_2 );
         setmatchclientip( self, self.clientid );
-        setmatchdata( "players", self.clientid, "joinType", self _meth_84cb() );
+        setmatchdata( "players", self.clientid, "joinType", self _meth_84CB() );
         setmatchdata( "players", self.clientid, "connectTimeUTC", getsystemtime() );
         setmatchdata( "players", self.clientid, "isSplitscreen", issplitscreen() );
         _id_5842();
@@ -1497,7 +1497,7 @@ _id_19F0()
         else
             var_6 = 0;
 
-        if ( maps\mp\_utility::_id_59E3() && maps\mp\_utility::_id_0AB0() && !var_6 )
+        if ( maps\mp\_utility::_id_59E3() && maps\mp\_utility::allowteamchoice() && !var_6 )
             setmatchdata( "players", self.clientid, "team", self.sessionteam );
 
         if ( maps\mp\_utility::_id_50B1( self ) )
@@ -1542,8 +1542,8 @@ _id_19F0()
     self._id_4745 = 0;
     self._id_A04D = 0;
     self._id_A152 = 0;
-    self.wasaliveatmatchstart = 0;
-    self.movespeedscaler = level._id_1317;
+    self._id_A1BE = 0;
+    self.movespeedscaler = level.baseplayermovescale;
     self._id_53A5 = 1;
     self.objectivescaler = 1;
     self.issniper = 0;
@@ -1555,7 +1555,7 @@ _id_19F0()
     waitframe;
     level.players[level.players.size] = self;
     level notify( "playerCountChanged" );
-    maps\mp\gametypes\_spawnlogic::_id_084E();
+    maps\mp\gametypes\_spawnlogic::addtoparticipantsarray();
     maps\mp\gametypes\_spawnlogic::addtocharactersarray();
 
     if ( level.teambased )
@@ -1585,8 +1585,8 @@ _id_19F0()
             }
         }
 
-        if ( isdefined( level.onplayerconnectaudioinit ) )
-            [[ level.onplayerconnectaudioinit ]]();
+        if ( isdefined( level._id_64C9 ) )
+            [[ level._id_64C9 ]]();
 
         if ( !isdefined( self.pers["team"] ) )
         {
@@ -1599,26 +1599,26 @@ _id_19F0()
 
                 thread maps\mp\gametypes\_menus::_id_8027( self.sessionteam );
 
-                if ( maps\mp\_utility::_id_0AA2() )
+                if ( maps\mp\_utility::allowclasschoice() )
                     thread _id_803C( 2 );
 
                 thread _id_52EF();
                 return;
             }
-            else if ( !maps\mp\_utility::_id_59E3() && !maps\mp\_utility::forceautoassign() && maps\mp\_utility::_id_0AB0() )
+            else if ( !maps\mp\_utility::_id_59E3() && !maps\mp\_utility::forceautoassign() && maps\mp\_utility::allowteamchoice() )
             {
                 maps\mp\gametypes\_menus::_id_5BB5();
                 thread _id_803C( 1 );
 
-                if ( self _meth_842d() )
+                if ( self _meth_842D() )
                     maps\mp\_utility::_id_3A32( 1 );
             }
             else
             {
                 thread _id_8A0E();
-                self [[ level._id_112A ]]();
+                self [[ level.autoassign ]]();
 
-                if ( maps\mp\_utility::_id_0AA2() )
+                if ( maps\mp\_utility::allowclasschoice() )
                     thread _id_803C( 2 );
 
                 if ( maps\mp\_utility::_id_59E3() )
@@ -1641,23 +1641,23 @@ _id_19F0()
 
             if ( self.pers["team"] == "spectator" )
             {
-                if ( maps\mp\_utility::_id_0AB0() )
+                if ( maps\mp\_utility::allowteamchoice() )
                 {
-                    maps\mp\gametypes\_menus::_id_13A1();
+                    maps\mp\gametypes\_menus::beginteamchoice();
                     return;
                 }
 
-                self [[ level._id_112A ]]();
+                self [[ level.autoassign ]]();
                 return;
                 return;
             }
 
-            maps\mp\gametypes\_menus::_id_1398();
+            maps\mp\gametypes\_menus::beginclasschoice();
         }
     }
 }
 
-_id_19F8()
+callback_playermigrated()
 {
     if ( isdefined( self._id_2148 ) && self._id_2148 )
     {
@@ -1773,7 +1773,7 @@ _id_4E01()
     }
 
     self.score = int( min( maps\mp\_utility::_id_4081( "score" ), 65535 ) );
-    self.timeplayed["total"] = maps\mp\gametypes\_persistence::_id_8D6B( "round", "timePlayed" );
+    self._id_9372["total"] = maps\mp\gametypes\_persistence::_id_8D6B( "round", "timePlayed" );
 
     if ( !isdefined( self.pers["suicides"] ) )
         maps\mp\_utility::_id_4DF9( "suicides" );
@@ -1964,7 +1964,7 @@ _id_4E01()
         self.pers["prey_guid"] = "";
 }
 
-_id_0852()
+addtoteamcount()
 {
     level._id_91ED[self.team]++;
 
@@ -1998,25 +1998,25 @@ _id_73AF()
     }
 }
 
-_id_0844()
+addtoalivecount()
 {
     var_0 = self.team;
 
-    if ( !( isdefined( self._id_0B00 ) && self._id_0B00 ) )
+    if ( !( isdefined( self.alreadyaddedtoalivecount ) && self.alreadyaddedtoalivecount ) )
     {
         level._id_4745[var_0]++;
         _id_4C3C( var_0 );
     }
 
-    self._id_0B00 = undefined;
+    self.alreadyaddedtoalivecount = undefined;
 
-    if ( level._id_09DD["allies"] + level._id_09DD["axis"] > level._id_5A4D )
-        level._id_5A4D = level._id_09DD["allies"] + level._id_09DD["axis"];
+    if ( level.alivecount["allies"] + level.alivecount["axis"] > level._id_5A4D )
+        level._id_5A4D = level.alivecount["allies"] + level.alivecount["axis"];
 }
 
 _id_4C3C( var_0 )
 {
-    level._id_09DD[var_0]++;
+    level.alivecount[var_0]++;
 }
 
 _id_73A4( var_0 )
@@ -2035,10 +2035,10 @@ _id_73A4( var_0 )
 
 _id_275E( var_0 )
 {
-    level._id_09DD[var_0]--;
+    level.alivecount[var_0]--;
 }
 
-_id_084D()
+addtolivescount()
 {
     level._id_57B9[self.team] += self.pers["lives"];
 }
@@ -2166,7 +2166,7 @@ _id_A361( var_0 )
     var_1 = min( var_1, float( tablelookup( "mp/playerSegments.csv", 0, "MAX", 3 ) ) );
     var_2 = min( var_2, float( tablelookup( "mp/playerSegments.csv", 0, "MAX", 2 ) ) );
     var_3 = min( var_3, float( tablelookup( "mp/playerSegments.csv", 0, "MAX", 4 ) ) );
-    var_4 = _id_19E1( var_1, var_2, var_3 );
+    var_4 = calculatematchplaystyle( var_1, var_2, var_3 );
     setmatchdata( "players", var_0.clientid, "averageSpeedDuringMatch", var_2 );
     setmatchdata( "players", var_0.clientid, "percentageOfTimeMoving", var_1 );
     setmatchdata( "players", var_0.clientid, "averageKillDistance", var_3 );
@@ -2207,7 +2207,7 @@ _id_A361( var_0 )
     var_0 setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "combatRecord", "numPlayStyleTrends", var_6 );
 }
 
-_id_19E1( var_0, var_1, var_2 )
+calculatematchplaystyle( var_0, var_1, var_2 )
 {
     var_0 = _id_6162( var_0, float( tablelookup( "mp/playerSegments.csv", 0, "Mean", 3 ) ), float( tablelookup( "mp/playerSegments.csv", 0, "SD", 3 ) ) );
     var_1 = _id_6162( var_1, float( tablelookup( "mp/playerSegments.csv", 0, "Mean", 2 ) ), float( tablelookup( "mp/playerSegments.csv", 0, "SD", 2 ) ) );

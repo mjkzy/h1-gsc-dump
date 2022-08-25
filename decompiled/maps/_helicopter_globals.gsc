@@ -119,10 +119,10 @@ _id_4233()
 
     if ( self.vehicletype == "cobra" || self.vehicletype == "cobra_player" )
     {
-        thread _id_0E07( "chopperpilot_hellfire", "cobra_Sidewinder" );
+        thread attachmissiles( "chopperpilot_hellfire", "cobra_Sidewinder" );
 
         if ( isdefined( self._id_3AE1 ) )
-            self._id_3AE1 thread _id_0E07( "chopperpilot_hellfire", "cobra_Sidewinder" );
+            self._id_3AE1 thread attachmissiles( "chopperpilot_hellfire", "cobra_Sidewinder" );
 
         var_0 = 1;
     }
@@ -242,7 +242,7 @@ _id_389A( var_0, var_1 )
     if ( isdefined( var_0._id_4C2D ) )
     {
         for ( var_5 = 0; var_5 < var_0._id_4C2D.size; var_5++ )
-            var_0._id_4C2D[var_5] _meth_81dc( var_3 );
+            var_0._id_4C2D[var_5] _meth_81DC( var_3 );
     }
 
     wait(var_1);
@@ -264,7 +264,7 @@ _id_389A( var_0, var_1 )
         return;
 
     for ( var_5 = 0; var_5 < var_0._id_4C2D.size; var_5++ )
-        var_0._id_4C2D[var_5] _meth_81dc( var_0, var_6 );
+        var_0._id_4C2D[var_5] _meth_81DC( var_0, var_6 );
 }
 
 _id_3898( var_0 )
@@ -283,7 +283,7 @@ _id_5C8F( var_0, var_1 )
     if ( !isdefined( var_1._id_4C2D ) )
         return;
 
-    var_1._id_4C2D = common_scripts\utility::_id_0CF6( var_1._id_4C2D, var_0 );
+    var_1._id_4C2D = common_scripts\utility::array_remove( var_1._id_4C2D, var_0 );
 }
 
 _id_3F7F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -331,10 +331,10 @@ _id_3F7F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     }
 
     if ( isdefined( var_6 ) )
-        var_10 = maps\_utility::_id_0CE7( var_10, var_6 );
+        var_10 = maps\_utility::array_exclude( var_10, var_6 );
 
     if ( var_5 )
-        var_10 = common_scripts\utility::_id_0CF5( var_10 );
+        var_10 = common_scripts\utility::array_randomize( var_10 );
 
     var_13 = anglestoforward( self.angles );
 
@@ -473,7 +473,7 @@ _id_83F1( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 }
 
-_id_0E07( var_0, var_1, var_2, var_3 )
+attachmissiles( var_0, var_1, var_2, var_3 )
 {
     self._id_471C = 1;
     var_4 = [];
@@ -717,5 +717,5 @@ _id_5CBE( var_0 )
     wait(var_0);
 
     if ( isdefined( self ) )
-        self _meth_81de();
+        self _meth_81DE();
 }

@@ -89,7 +89,7 @@ _id_415B( var_0 )
 
     var_2 = animscripts\utility::_id_402D( var_0 );
 
-    if ( !animscripts\utility::_id_5124() && !( isdefined( self._id_6165 ) && self._id_6165 ) && !( isdefined( self.a._id_135B ) && self.a._id_135B ) )
+    if ( !animscripts\utility::_id_5124() && !( isdefined( self._id_6165 ) && self._id_6165 ) && !( isdefined( self.a.bdisablemovetwitch ) && self.a.bdisablemovetwitch ) )
     {
         var_3 = animscripts\utility::_id_402D( "straight_twitch" );
 

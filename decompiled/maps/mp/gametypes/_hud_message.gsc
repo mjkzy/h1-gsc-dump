@@ -134,28 +134,28 @@ _id_4DF5()
     self._id_6239.hidewheninmenu = 1;
     self._id_6239.archived = 0;
     self._id_6239.alpha = 0;
-    self._id_622D = maps\mp\gametypes\_hud_util::_id_2420( "white", var_2, var_2 );
+    self._id_622D = maps\mp\gametypes\_hud_util::createIcon( "white", var_2, var_2 );
     self._id_622D maps\mp\gametypes\_hud_util::setParent( self._id_6239 );
     self._id_622D maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
     self._id_622D.hidewheninmenu = 1;
     self._id_622D.archived = 0;
     self._id_622D.alpha = 0;
-    self._id_6233 = maps\mp\gametypes\_hud_util::_id_2420( "white", var_2, var_2 );
+    self._id_6233 = maps\mp\gametypes\_hud_util::createIcon( "white", var_2, var_2 );
     self._id_6233 maps\mp\gametypes\_hud_util::setParent( self._id_622D );
     self._id_6233 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, 0 );
     self._id_6233.hidewheninmenu = 1;
     self._id_6233.archived = 0;
     self._id_6233.alpha = 0;
-    self.doingsplash = [];
-    self.doingsplash[0] = undefined;
-    self.doingsplash[1] = undefined;
-    self.doingsplash[2] = undefined;
-    self.doingsplash[3] = undefined;
-    self.splashqueue = [];
-    self.splashqueue[0] = [];
-    self.splashqueue[1] = [];
-    self.splashqueue[2] = [];
-    self.splashqueue[3] = [];
+    self._id_2CE9 = [];
+    self._id_2CE9[0] = undefined;
+    self._id_2CE9[1] = undefined;
+    self._id_2CE9[2] = undefined;
+    self._id_2CE9[3] = undefined;
+    self._id_8A6B = [];
+    self._id_8A6B[0] = [];
+    self._id_8A6B[1] = [];
+    self._id_8A6B[2] = [];
+    self._id_8A6B[3] = [];
 }
 
 _id_63DB( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -183,30 +183,30 @@ _id_622E( var_0 )
     if ( !isdefined( var_0.type ) )
         var_0.type = "";
 
-    if ( !isdefined( self.doingsplash[var_1] ) )
+    if ( !isdefined( self._id_2CE9[var_1] ) )
     {
         thread _id_8521( var_0 );
         return;
     }
 
-    self.splashqueue[var_1][self.splashqueue[var_1].size] = var_0;
+    self._id_8A6B[var_1][self._id_8A6B[var_1].size] = var_0;
 }
 
 _id_2B40( var_0 )
 {
     waitframe;
-    var_1 = self.splashqueue[var_0][0];
+    var_1 = self._id_8A6B[var_0][0];
 
     if ( !isdefined( var_1 ) )
         return;
 
-    for ( var_2 = 1; var_2 < self.splashqueue[var_0].size; var_2++ )
-        self.splashqueue[var_0][var_2 - 1] = self.splashqueue[var_0][var_2];
+    for ( var_2 = 1; var_2 < self._id_8A6B[var_0].size; var_2++ )
+        self._id_8A6B[var_0][var_2 - 1] = self._id_8A6B[var_0][var_2];
 
-    self.splashqueue[var_0][var_2 - 1] = undefined;
+    self._id_8A6B[var_0][var_2 - 1] = undefined;
 
     if ( isdefined( var_1.name ) )
-        _id_06F0( var_1 );
+        actionnotify( var_1 );
     else
         _id_8521( var_1 );
 }
@@ -223,7 +223,7 @@ _id_7018()
     var_0.type = tablelookup( _id_3E83(), 0, var_1, 11 );
     var_0._id_8899 = tablelookup( _id_3E83(), 0, var_1, 9 );
     var_0._id_8631 = 0;
-    thread _id_06F0( var_0 );
+    thread actionnotify( var_0 );
 }
 
 _id_8521( var_0 )
@@ -240,16 +240,16 @@ _id_8521( var_0 )
         if ( isdefined( var_0.type ) && var_0.type == "rank" )
         {
             self setclientdvar( "ui_promotion", 1 );
-            self.bonusupdatetotal = 1;
+            self._id_6E8A = 1;
         }
 
-        if ( self.splashqueue[var_1].size )
+        if ( self._id_8A6B[var_1].size )
             thread _id_2B40( var_1 );
 
         return;
     }
 
-    self.doingsplash[var_1] = var_0;
+    self._id_2CE9[var_1] = var_0;
 
     if ( maps\mp\_utility::_id_5092( var_0._id_7454 ) )
         thread _id_7454();
@@ -380,9 +380,9 @@ _id_8521( var_0 )
         _id_A054( var_2 );
 
     self notify( "notifyMessageDone" );
-    self.doingsplash[var_1] = undefined;
+    self._id_2CE9[var_1] = undefined;
 
-    if ( self.splashqueue[var_1].size )
+    if ( self._id_8A6B[var_1].size )
         thread _id_2B40( var_1 );
 }
 
@@ -404,7 +404,7 @@ _id_21C7( var_0, var_1 )
     var_2._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
     var_2._id_565B = var_1;
     var_2._id_8631 = 0;
-    thread _id_06F0( var_2 );
+    thread actionnotify( var_2 );
 }
 
 _id_53A9( var_0, var_1, var_2, var_3, var_4 )
@@ -463,7 +463,7 @@ _id_53A9( var_0, var_1, var_2, var_3, var_4 )
             var_6._id_5D56 = tablelookuprownum( level._id_53DC, level._id_53D9, var_3[2] );
     }
 
-    thread _id_06F0( var_6 );
+    thread actionnotify( var_6 );
 }
 
 _id_1C64( var_0, var_1, var_2 )
@@ -509,7 +509,7 @@ _id_1C64( var_0, var_1, var_2 )
         var_7._id_6547 = var_4;
         var_7._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
         var_7._id_8631 = 0;
-        thread _id_06F0( var_7 );
+        thread actionnotify( var_7 );
     }
 }
 
@@ -572,7 +572,7 @@ _id_8A68( var_0, var_1, var_2 )
 
     var_4.killstreakslot = var_2;
     var_4._id_8631 = 0;
-    thread _id_06F0( var_4 );
+    thread actionnotify( var_4 );
 }
 
 _id_713B( var_0, var_1, var_2 )
@@ -610,7 +610,7 @@ _id_713B( var_0, var_1, var_2 )
     var_4.rank = var_1;
     var_4.prestige = var_2;
     var_4._id_8631 = 0;
-    thread _id_06F0( var_4 );
+    thread actionnotify( var_4 );
 }
 
 _id_6C6F( var_0, var_1, var_2 )
@@ -638,10 +638,10 @@ _id_6C6F( var_0, var_1, var_2 )
     if ( var_3.type == "playercard_splash" )
         var_3._id_8631 = 1;
 
-    thread _id_06F0( var_3 );
+    thread actionnotify( var_3 );
 }
 
-_id_06F0( var_0 )
+actionnotify( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -650,9 +650,9 @@ _id_06F0( var_0 )
     if ( !isdefined( var_0.type ) )
         var_0.type = "";
 
-    if ( !isdefined( self.doingsplash[var_1] ) )
+    if ( !isdefined( self._id_2CE9[var_1] ) )
     {
-        thread _id_06F1( var_0 );
+        thread actionnotifymessage( var_0 );
         return;
     }
     else
@@ -668,17 +668,17 @@ _id_06F0( var_0 )
                 self setclientomnvar( "ui_splash_killstreak_mod_2", -1 );
                 self setclientomnvar( "ui_splash_killstreak_mod_3", -1 );
                 self setclientomnvar( "ui_splash_killstreak_idx", -1 );
-                thread _id_06F1( var_0 );
+                thread actionnotifymessage( var_0 );
                 return;
             case "splash":
             case "killstreak_splash":
             case "killstreak_coop_splash":
-                if ( self.doingsplash[var_1].type != "splash" && self.doingsplash[var_1].type != "urgent_splash" && self.doingsplash[var_1].type != "killstreak_coop_splash" && self.doingsplash[var_1].type != "killstreak_splash" && self.doingsplash[var_1].type != "challenge_splash" && self.doingsplash[var_1].type != "promotion_splash" && self.doingsplash[var_1].type != "intel_splash" && self.doingsplash[var_1].type != "rankup_splash" )
+                if ( self._id_2CE9[var_1].type != "splash" && self._id_2CE9[var_1].type != "urgent_splash" && self._id_2CE9[var_1].type != "killstreak_coop_splash" && self._id_2CE9[var_1].type != "killstreak_splash" && self._id_2CE9[var_1].type != "challenge_splash" && self._id_2CE9[var_1].type != "promotion_splash" && self._id_2CE9[var_1].type != "intel_splash" && self._id_2CE9[var_1].type != "rankup_splash" )
                 {
                     self._id_6238.alpha = 0;
                     self._id_6239.alpha = 0;
                     self._id_622D.alpha = 0;
-                    thread _id_06F1( var_0 );
+                    thread actionnotifymessage( var_0 );
                     return;
                 }
 
@@ -688,16 +688,16 @@ _id_06F0( var_0 )
 
     if ( var_0.type == "challenge_splash" || var_0.type == "killstreak_splash" || var_0.type == "killstreak_coop_splash" )
     {
-        for ( var_2 = self.splashqueue[var_1].size; var_2 > 0; var_2-- )
-            self.splashqueue[var_1][var_2] = self.splashqueue[var_1][var_2 - 1];
+        for ( var_2 = self._id_8A6B[var_1].size; var_2 > 0; var_2-- )
+            self._id_8A6B[var_1][var_2] = self._id_8A6B[var_1][var_2 - 1];
 
-        self.splashqueue[var_1][0] = var_0;
+        self._id_8A6B[var_1][0] = var_0;
     }
     else
-        self.splashqueue[var_1][self.splashqueue[var_1].size] = var_0;
+        self._id_8A6B[var_1][self._id_8A6B[var_1].size] = var_0;
 }
 
-_id_06F1( var_0 )
+actionnotifymessage( var_0 )
 {
     self endon( "disconnect" );
     var_1 = var_0._id_8631;
@@ -707,7 +707,7 @@ _id_06F1( var_0 )
         if ( isdefined( var_0.type ) && ( var_0.type == "promotion_splash" || var_0.type == "promotion_weapon_splash" ) )
         {
             self setclientdvar( "ui_promotion", 1 );
-            self.bonusupdatetotal = 1;
+            self._id_6E8A = 1;
         }
         else if ( isdefined( var_0.type ) && var_0.type == "challenge_splash" )
         {
@@ -715,7 +715,7 @@ _id_06F1( var_0 )
             self setclientdvar( "ui_challenge_" + self.pers["postGameChallenges"] + "_ref", var_0.name );
         }
 
-        if ( self.splashqueue[var_1].size )
+        if ( self._id_8A6B[var_1].size )
             thread _id_2B40( var_1 );
 
         return;
@@ -809,7 +809,7 @@ _id_06F1( var_0 )
                 break;
         }
 
-        self.doingsplash[var_1] = var_0;
+        self._id_2CE9[var_1] = var_0;
 
         if ( isdefined( var_0._id_8899 ) && var_0._id_8899 != "" )
             self playlocalsound( var_0._id_8899 );
@@ -825,10 +825,10 @@ _id_06F1( var_0 )
         self notify( "actionNotifyMessage" + var_1 );
         self endon( "actionNotifyMessage" + var_1 );
         wait(var_3 + 0.5);
-        self.doingsplash[var_1] = undefined;
+        self._id_2CE9[var_1] = undefined;
     }
 
-    if ( self.splashqueue[var_1].size )
+    if ( self._id_8A6B[var_1].size )
         thread _id_2B40( var_1 );
 }
 
@@ -881,10 +881,10 @@ _id_7452()
     self._id_6238.alpha = 0;
     self._id_622D.alpha = 0;
     self._id_6233.alpha = 0;
-    self.doingsplash[0] = undefined;
-    self.doingsplash[1] = undefined;
-    self.doingsplash[2] = undefined;
-    self.doingsplash[3] = undefined;
+    self._id_2CE9[0] = undefined;
+    self._id_2CE9[1] = undefined;
+    self._id_2CE9[2] = undefined;
+    self._id_2CE9[3] = undefined;
 }
 
 _id_58A7()
@@ -962,7 +962,7 @@ _id_59E4( var_0 )
             break;
     }
 
-    var_3 = maps\mp\gametypes\_hud_util::_id_2420( game["icons"][var_1], 64, 64 );
+    var_3 = maps\mp\gametypes\_hud_util::createIcon( game["icons"][var_1], 64, 64 );
     var_3 maps\mp\gametypes\_hud_util::setParent( var_2 );
     var_3 maps\mp\gametypes\_hud_util::setpoint( "TOP", "BOTTOM", 0, 30 );
     var_3.foreground = 1;
@@ -972,24 +972,24 @@ _id_59E4( var_0 )
     var_3 fadeovertime( 0.5 );
     var_3.alpha = 1;
     wait 3.0;
-    var_2 maps\mp\gametypes\_hud_util::_id_28E9();
-    var_3 maps\mp\gametypes\_hud_util::_id_28E9();
+    var_2 maps\mp\gametypes\_hud_util::destroyElem();
+    var_3 maps\mp\gametypes\_hud_util::destroyElem();
 }
 
 _id_50F5()
 {
-    if ( isdefined( self.doingsplash ) )
+    if ( isdefined( self._id_2CE9 ) )
     {
-        if ( isdefined( self.doingsplash[0] ) )
+        if ( isdefined( self._id_2CE9[0] ) )
             return 1;
 
-        if ( isdefined( self.doingsplash[1] ) )
+        if ( isdefined( self._id_2CE9[1] ) )
             return 1;
 
-        if ( isdefined( self.doingsplash[2] ) )
+        if ( isdefined( self._id_2CE9[2] ) )
             return 1;
 
-        if ( isdefined( self.doingsplash[3] ) )
+        if ( isdefined( self._id_2CE9[3] ) )
             return 1;
     }
 
@@ -1055,7 +1055,7 @@ _id_91F9( var_0, var_1, var_2, var_3 )
 
         var_0 = "allies";
     }
-    else if ( self _meth_842d() )
+    else if ( self _meth_842D() )
         self setclientomnvar( "ui_round_end_title", game["round_end"]["spectator"] );
     else if ( isdefined( self.pers["team"] ) && var_0 == var_4 )
     {
@@ -1078,8 +1078,8 @@ _id_91F9( var_0, var_1, var_2, var_3 )
     }
     else if ( !maps\mp\_utility::_id_5194() || !maps\mp\_utility::_id_5160() )
     {
-        self setclientomnvar( "ui_round_end_friendly_score", maps\mp\gametypes\_gamescores::_id_05BD( var_4 ) );
-        self setclientomnvar( "ui_round_end_enemy_score", maps\mp\gametypes\_gamescores::_id_05BD( level._id_65B3[var_4] ) );
+        self setclientomnvar( "ui_round_end_friendly_score", maps\mp\gametypes\_gamescores::_getteamscore( var_4 ) );
+        self setclientomnvar( "ui_round_end_enemy_score", maps\mp\gametypes\_gamescores::_getteamscore( level._id_65B3[var_4] ) );
     }
     else
     {
@@ -1087,8 +1087,8 @@ _id_91F9( var_0, var_1, var_2, var_3 )
         self setclientomnvar( "ui_round_end_enemy_score", game["roundsWon"][level._id_65B3[var_4]] );
     }
 
-    if ( isdefined( self.matchbonus ) )
-        self setclientomnvar( "ui_round_end_match_bonus", self.matchbonus );
+    if ( isdefined( self._id_59DF ) )
+        self setclientomnvar( "ui_round_end_match_bonus", self._id_59DF );
 
     if ( isdefined( game["round_time_to_beat"] ) )
         self setclientomnvar( "ui_round_end_stopwatch", int( game["round_time_to_beat"] * 60 ) );
@@ -1105,7 +1105,7 @@ _id_65B5( var_0, var_1 )
         wait 0.05;
 
     self endon( "reset_outcome" );
-    var_2 = level.placement["all"];
+    var_2 = level._id_6861["all"];
     var_3 = var_2[0];
     var_4 = var_2[1];
     var_5 = var_2[2];
@@ -1128,8 +1128,8 @@ _id_65B5( var_0, var_1 )
 
     self setclientomnvar( "ui_round_end_reason", var_1 );
 
-    if ( isdefined( self.matchbonus ) )
-        self setclientomnvar( "ui_round_end_match_bonus", self.matchbonus );
+    if ( isdefined( self._id_59DF ) )
+        self setclientomnvar( "ui_round_end_match_bonus", self._id_59DF );
 
     self setclientomnvar( "ui_round_end", 1 );
     self waittill( "update_outcome" );
@@ -1173,7 +1173,7 @@ manageluasplashtimers()
             continue;
 
         var_0 = self.luasplashqueue[0];
-        self.luasplashqueue = maps\mp\_utility::_id_0CFA( self.luasplashqueue, 0 );
+        self.luasplashqueue = maps\mp\_utility::array_remove_index( self.luasplashqueue, 0 );
         self.luasplashcurrenttype = var_0.splashtype;
 
         if ( var_0.splashtype == level.lua_splash_type_killstreak )
@@ -1289,7 +1289,7 @@ insertluasplash( var_0, var_1 )
 
         if ( isdefined( var_4 ) )
         {
-            self.luasplashqueue = common_scripts\utility::_id_0CED( self.luasplashqueue, var_3, var_4 );
+            self.luasplashqueue = common_scripts\utility::array_insert( self.luasplashqueue, var_3, var_4 );
             self notify( "luaSplashTimerUpdate" );
             return;
         }

@@ -26,28 +26,28 @@ main()
     level._id_78BA["_breach_doorbreach_detpack"] = "detpack_explo_main";
     level._id_78BA["breach_wooden_door"] = "";
     level._id_78BA["breach_wood_door_kick"] = "wood_door_kick";
-    common_scripts\utility::_id_0CDB( getentarray( "breached_door", "script_noteworthy" ), ::hide );
-    common_scripts\utility::_id_0CDB( getentarray( "breached_door", "script_noteworthy" ), ::notsolid );
+    common_scripts\utility::array_call( getentarray( "breached_door", "script_noteworthy" ), ::hide );
+    common_scripts\utility::array_call( getentarray( "breached_door", "script_noteworthy" ), ::notsolid );
     common_scripts\utility::_id_383D( "begin_the_breach" );
 }
 
-_id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
+breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     self endon( "breach_abort" );
 
     if ( isdefined( var_5 ) && var_5 == 0 )
-        anim._id_37BF["scripted"] = ::_id_1783;
+        anim._id_37BF["scripted"] = ::breach_fire_straight;
 
     self._id_38C7 = 0;
     self._id_1FE1 = undefined;
-    self._id_0C6D = undefined;
-    self._id_17B6 = 0;
-    self._id_17BB = 0;
-    self._id_17BC = 0;
+    self.animent = undefined;
+    self.breached = 0;
+    self.breachers = 0;
+    self.breachersready = 0;
     self._id_858F = 0;
     self._id_71E3 = 0;
-    self._id_0941 = 0;
-    self._id_06C3 = 0;
+    self.aiareintheroom = 0;
+    self.abouttobebreached = 0;
     self._id_1EE9 = 0;
     self._id_472A = 1;
     self._id_472E = 0;
@@ -55,21 +55,21 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6 = getentarray( self.targetname, "targetname" );
     var_7 = self.targetname;
     self._id_7829 = "badplace_" + var_7;
-    self._id_1261 = getent( "badplace_" + var_7, "targetname" );
+    self.badplace = getent( "badplace_" + var_7, "targetname" );
 
-    if ( isdefined( self._id_1261 ) )
+    if ( isdefined( self.badplace ) )
     {
 
     }
 
-    self._id_17C8 = getent( "trigger_" + var_7, "targetname" );
+    self.breachtrigger = getent( "trigger_" + var_7, "targetname" );
 
     if ( !isdefined( var_4 ) )
         var_4 = 1;
 
-    if ( isdefined( self._id_17C8 ) )
+    if ( isdefined( self.breachtrigger ) )
     {
-        switch ( self._id_17C8.classname )
+        switch ( self.breachtrigger.classname )
         {
             case "trigger_use":
                 self._id_9812 = var_2;
@@ -108,7 +108,7 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
             var_8 = getent( self.target, "targetname" );
 
         if ( isdefined( var_8 ) && isdefined( var_8.script_noteworthy ) && var_8.script_noteworthy == "breach_anim_ent" )
-            self._id_0C6D = var_8;
+            self.animent = var_8;
 
         self._id_3015 = getent( self._id_7A26, "script_linkname" );
 
@@ -117,16 +117,16 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
             self.edoorpivot = spawn( "script_origin", self._id_3015.origin );
             self.edoorpivot.angles = self._id_3015.angles;
         }
-        else if ( self._id_3015.classname == "script_brushmodel" && !isdefined( self._id_0C6D ) )
+        else if ( self._id_3015.classname == "script_brushmodel" && !isdefined( self.animent ) )
         {
             self.edoorpivot = getent( self._id_3015.target, "targetname" );
             self._id_3015._id_9C6F = anglestoforward( self.edoorpivot.angles );
         }
 
-        if ( !isdefined( self._id_0C6D ) )
-            self._id_0C6D = self.edoorpivot;
+        if ( !isdefined( self.animent ) )
+            self.animent = self.edoorpivot;
 
-        self._id_0C6D.type = "Cover Right";
+        self.animent.type = "Cover Right";
         self._id_3017 = getent( self._id_3015._id_7A26, "script_linkname" );
         self._id_4B9A = self._id_3017._id_79BF;
 
@@ -139,7 +139,7 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         }
     }
     else if ( self._id_472A == 0 )
-        self._id_0C6D = getent( self._id_7A26, "script_linkname" );
+        self.animent = getent( self._id_7A26, "script_linkname" );
 
     if ( self._id_472E == 1 )
     {
@@ -147,9 +147,9 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         self._id_43FE = getent( self._id_4404.target, "targetname" );
     }
 
-    thread _id_1767( var_0 );
-    thread _id_1770( var_0 );
-    thread _id_17A0( var_1, var_4 );
+    thread breach_abort( var_0 );
+    thread breach_cleanup( var_0 );
+    thread breach_play_fx( var_1, var_4 );
     var_10 = 0;
 
     for ( var_11 = 0; var_11 < var_0.size; var_11++ )
@@ -172,24 +172,24 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         self._id_858F = 1;
 
     for ( var_11 = 0; var_11 < var_0.size; var_11++ )
-        var_0[var_11] thread _id_17BA( self, var_1, var_5 );
+        var_0[var_11] thread breacher_think( self, var_1, var_5 );
 
-    while ( self._id_17BB < var_0.size )
+    while ( self.breachers < var_0.size )
         wait 0.05;
 
     self notify( "ready_to_breach" );
     self._id_71E3 = 1;
 
-    if ( isdefined( self._id_17C8 ) )
+    if ( isdefined( self.breachtrigger ) )
     {
-        self._id_17C8 thread _id_17B1( self );
+        self.breachtrigger thread breach_trigger_think( self );
         self waittill( "execute_the_breach" );
     }
     else
         self notify( "execute_the_breach" );
 
     common_scripts\utility::_id_383F( "begin_the_breach" );
-    self._id_06C3 = 1;
+    self.abouttobebreached = 1;
 
     if ( isdefined( var_3 ) && var_3 == 1 )
     {
@@ -199,8 +199,8 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         self._id_4A35 = 1;
     }
 
-    if ( isdefined( self._id_1261 ) )
-        badplace_cylinder( self._id_7829, -1, self._id_1261.origin, self._id_1261.radius, 200, "bad_guys" );
+    if ( isdefined( self.badplace ) )
+        badplace_cylinder( self._id_7829, -1, self.badplace.origin, self.badplace.radius, 200, "bad_guys" );
 
     var_13 = getaiarray( "bad_guys" );
     var_14 = [];
@@ -212,9 +212,9 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     if ( var_14.size > 0 )
-        common_scripts\utility::_id_0D13( var_14, ::_id_1776, self );
+        common_scripts\utility::array_thread( var_14, ::breach_enemies_stunned, self );
 
-    while ( !self._id_0941 )
+    while ( !self.aiareintheroom )
         wait 0.05;
 
     self notify( "breach_complete" );
@@ -229,7 +229,7 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
         for ( var_11 = 0; var_11 < var_14.size; var_11++ )
         {
             if ( !isalive( var_14[var_11] ) )
-                var_14 = common_scripts\utility::_id_0CF6( var_14, var_14[var_11] );
+                var_14 = common_scripts\utility::array_remove( var_14, var_14[var_11] );
 
             if ( var_14.size == 0 )
                 self._id_1EE9 = 1;
@@ -237,24 +237,24 @@ _id_17AD( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 }
 
-_id_1774()
+breach_dont_fire()
 {
-    while ( self._id_17C3 == 1 )
+    while ( self.breaching == 1 )
     {
         self waittillmatch( "single anim", "fire" );
         self.a._id_55D7 = gettime();
     }
 }
 
-_id_17BA( var_0, var_1, var_2 )
+breacher_think( var_0, var_1, var_2 )
 {
-    self._id_17C3 = 1;
-    self._id_17B5 = undefined;
+    self.breaching = 1;
+    self.breachdonotfire = undefined;
 
     if ( !isdefined( var_2 ) )
         var_2 = 1;
 
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     thread _id_41C7();
     var_0 endon( "breach_abort" );
     self._id_315B = "stop_idle_" + self getentitynumber();
@@ -309,27 +309,27 @@ _id_17BA( var_0, var_1, var_2 )
             break;
     }
 
-    _id_17A7( 64 );
+    breach_set_goaladius( 64 );
 
     if ( !isdefined( self._id_9BF0 ) || self._id_9BF0 )
-        var_0._id_0C6D maps\_anim::_id_0BD0( self, var_4 );
+        var_0.animent maps\_anim::anim_generic_reach( self, var_4 );
     else
     {
-        self.scriptedarrivalent = var_0._id_0C6D;
-        var_0._id_0C6D maps\_anim::_id_0BD1( self, var_4 );
+        self.scriptedarrivalent = var_0.animent;
+        var_0.animent maps\_anim::anim_generic_reach_and_arrive( self, var_4 );
     }
 
-    var_0._id_0C6D maps\_anim::_id_0BC9( self, var_4 );
-    var_0._id_0C6D thread maps\_anim::_id_0BCE( self, var_5, self._id_315B );
+    var_0.animent maps\_anim::anim_generic( self, var_4 );
+    var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self._id_315B );
     self._id_7F7E = self.origin;
-    var_0._id_17BB++;
+    var_0.breachers++;
     self.scriptedarrivalent = undefined;
     var_0 waittill( "execute_the_breach" );
 
     if ( !var_0._id_38C7 && isdefined( var_7 ) )
     {
-        var_0._id_0C6D notify( self._id_315B );
-        var_0._id_0C6D thread maps\_anim::_id_0BC9( self, var_7 );
+        var_0.animent notify( self._id_315B );
+        var_0.animent thread maps\_anim::anim_generic( self, var_7 );
         wait 1;
 
         if ( var_3 == "02" || var_0._id_858F == 1 )
@@ -353,16 +353,16 @@ _id_17BA( var_0, var_1, var_2 )
         }
 
         self waittillmatch( "single anim", "end" );
-        var_0._id_0C6D thread maps\_anim::_id_0BCE( self, var_5, self._id_315B );
+        var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self._id_315B );
         wait 0.1;
     }
 
-    var_0._id_0C6D notify( self._id_315B );
+    var_0.animent notify( self._id_315B );
 
     if ( var_2 == 0 )
-        self._id_17B5 = 1;
+        self.breachdonotfire = 1;
 
-    var_0._id_0C6D thread maps\_anim::_id_0BC9( self, var_6 );
+    var_0.animent thread maps\_anim::anim_generic( self, var_6 );
 
     if ( var_1 == "explosive_breach_left" )
     {
@@ -376,7 +376,7 @@ _id_17BA( var_0, var_1, var_2 )
             var_0 notify( "detpack_about_to_blow" );
             self waittillmatch( "single anim", "explosion" );
             var_0 notify( "detpack_detonated" );
-            var_0._id_17B6 = 1;
+            var_0.breached = 1;
             var_0._id_3015 thread _id_2D4C( "explosive", var_0 );
             var_0 notify( "play_breach_fx" );
         }
@@ -401,24 +401,24 @@ _id_17BA( var_0, var_1, var_2 )
     self notify( "breach_complete" );
 
     if ( var_2 == 0 )
-        self._id_17B5 = undefined;
+        self.breachdonotfire = undefined;
 
     if ( isdefined( level._id_3A44 ) )
         self thread [[ level._id_3A44 ]]( var_0 );
 
-    var_0._id_0941 = 1;
-    self _meth_81a7( 0 );
-    _id_17A3();
+    var_0.aiareintheroom = 1;
+    self _meth_81A7( 0 );
+    breach_reset_animname();
 
     while ( !var_0._id_1EE9 )
         wait 0.05;
 
-    self._id_17C3 = 0;
+    self.breaching = 0;
 }
 
-_id_1783()
+breach_fire_straight()
 {
-    if ( isdefined( self._id_17B5 ) )
+    if ( isdefined( self.breachdonotfire ) )
         return;
 
     animscripts\notetracks::_id_37C7();
@@ -448,7 +448,7 @@ _id_889D( var_0 )
     thread common_scripts\utility::_id_69C2( "detpack_plant_arming", var_0.edoorpivot.origin );
 }
 
-_id_1776( var_0 )
+breach_enemies_stunned( var_0 )
 {
     self endon( "death" );
     var_0 endon( "breach_aborted" );
@@ -463,21 +463,21 @@ _id_1776( var_0 )
 
         var_1 = "exposed_flashbang_v" + level._id_8F75;
         self.allowdeath = 1;
-        maps\_anim::_id_0BCA( self, "gravity", var_1 );
-        _id_17A3();
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", var_1 );
+        breach_reset_animname();
     }
 }
 
-_id_17B1( var_0 )
+breach_trigger_think( var_0 )
 {
     var_0 endon( "execute_the_breach" );
     var_0 endon( "breach_aborted" );
-    thread _id_17B0( var_0 );
+    thread breach_trigger_cleanup( var_0 );
     self waittill( "trigger" );
     var_0 notify( "execute_the_breach" );
 }
 
-_id_17B0( var_0 )
+breach_trigger_cleanup( var_0 )
 {
     var_0 waittill( "execute_the_breach" );
     common_scripts\utility::_id_97CC();
@@ -486,39 +486,39 @@ _id_17B0( var_0 )
         var_0._id_3012 delete();
 }
 
-_id_1767( var_0 )
+breach_abort( var_0 )
 {
     self endon( "breach_complete" );
     self waittill( "breach_abort" );
     self._id_1EE9 = 1;
-    thread _id_1770( var_0 );
+    thread breach_cleanup( var_0 );
 }
 
-_id_1770( var_0 )
+breach_cleanup( var_0 )
 {
     while ( !self._id_1EE9 )
         wait 0.05;
 
-    if ( isdefined( self._id_1261 ) )
+    if ( isdefined( self.badplace ) )
         badplace_delete( self._id_7829 );
 
     while ( !self._id_1EE9 )
         wait 0.05;
 
-    common_scripts\utility::_id_0D13( var_0, ::_id_1768, self );
+    common_scripts\utility::array_thread( var_0, ::breach_ai_reset, self );
 }
 
-_id_1768( var_0 )
+breach_ai_reset( var_0 )
 {
     self endon( "death" );
-    _id_17A3();
-    _id_17A4();
-    var_0._id_0C6D notify( self._id_315B );
+    breach_reset_animname();
+    breach_reset_goaladius();
+    var_0.animent notify( self._id_315B );
     self notify( "stop_infinite_ammo" );
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
 }
 
-_id_17A0( var_0, var_1 )
+breach_play_fx( var_0, var_1 )
 {
     self endon( "breach_aborted" );
     self endon( "breach_complete" );
@@ -580,7 +580,7 @@ _id_41C7()
         if ( isdefined( self.weapon ) && self.weapon == "none" )
             break;
 
-        self._id_18B0 = weaponclipsize( self.weapon );
+        self.bulletsinclip = weaponclipsize( self.weapon );
         wait 0.5;
     }
 }
@@ -611,8 +611,8 @@ door_animation( var_0, var_1 )
         return;
 
     var_4 = common_scripts\utility::_id_9294( isdefined( var_1.ebreacheddoor ), var_1.ebreacheddoor, self );
-    var_4 maps\_utility::_id_0D61( var_2 );
-    var_4 thread maps\_anim::_id_0C24( var_4, var_3 );
+    var_4 maps\_utility::assign_animtree( var_2 );
+    var_4 thread maps\_anim::anim_single_solo( var_4, var_3 );
     var_1.isdooranimated = 1;
 }
 
@@ -698,7 +698,7 @@ _id_2D45( var_0 )
     var_3 delete();
 }
 
-_id_17A7( var_0 )
+breach_set_goaladius( var_0 )
 {
     if ( !isdefined( self._id_63A3 ) )
         self._id_63A3 = self.goalradius;
@@ -706,7 +706,7 @@ _id_17A7( var_0 )
     self.goalradius = var_0;
 }
 
-_id_17A4()
+breach_reset_goaladius()
 {
     if ( isdefined( self._id_63A3 ) )
         self.goalradius = self._id_63A3;
@@ -714,18 +714,18 @@ _id_17A4()
     self._id_63A3 = undefined;
 }
 
-_id_17A6( var_0 )
+breach_set_animname( var_0 )
 {
     if ( !isdefined( self._id_6395 ) )
-        self._id_6395 = self._id_0C72;
+        self._id_6395 = self.animname;
 
-    self._id_0C72 = var_0;
+    self.animname = var_0;
 }
 
-_id_17A3()
+breach_reset_animname()
 {
     if ( isdefined( self._id_6395 ) )
-        self._id_0C72 = self._id_6395;
+        self.animname = self._id_6395;
 
     self._id_6395 = undefined;
 }

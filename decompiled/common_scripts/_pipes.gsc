@@ -31,7 +31,7 @@ main()
     level.limit_pipe_fx = 32;
     var_0 thread _id_6EDB();
     var_0 thread _id_5BBE();
-    common_scripts\utility::_id_0D13( var_0, ::_id_682F );
+    common_scripts\utility::array_thread( var_0, ::_id_682F );
     var_1 = var_0;
     var_2 = getentarray( "pipe_break", "targetname" );
 
@@ -39,7 +39,7 @@ main()
     {
         var_2 pipebreakinit( var_1 );
         pipemasterinit( var_2 );
-        common_scripts\utility::_id_0D13( var_2, ::pipebreakthink );
+        common_scripts\utility::array_thread( var_2, ::pipebreakthink );
     }
 
     level.overlaymaskfxwastriggered = 0;
@@ -47,23 +47,23 @@ main()
 
 _id_5BBE()
 {
-    level._id_060F = [];
-    level._id_060F["MOD_UNKNOWN"] = ::_id_6827;
-    level._id_060F["MOD_PISTOL_BULLET"] = ::_id_6825;
-    level._id_060F["MOD_RIFLE_BULLET"] = ::_id_6825;
-    level._id_060F["MOD_GRENADE"] = ::_id_6827;
-    level._id_060F["MOD_GRENADE_SPLASH"] = ::_id_6827;
-    level._id_060F["MOD_PROJECTILE"] = ::_id_6827;
-    level._id_060F["MOD_PROJECTILE_SPLASH"] = ::_id_6827;
-    level._id_060F["MOD_MELEE"] = ::_id_6826;
-    level._id_060F["MOD_HEAD_SHOT"] = ::_id_6826;
-    level._id_060F["MOD_CRUSH"] = ::_id_6826;
-    level._id_060F["MOD_TELEFRAG"] = ::_id_6826;
-    level._id_060F["MOD_FALLING"] = ::_id_6826;
-    level._id_060F["MOD_SUICIDE"] = ::_id_6826;
-    level._id_060F["MOD_TRIGGER_HURT"] = ::_id_6827;
-    level._id_060F["MOD_EXPLOSIVE"] = ::_id_6827;
-    level._id_060F["MOD_IMPACT"] = ::_id_6826;
+    level._pipe_methods = [];
+    level._pipe_methods["MOD_UNKNOWN"] = ::_id_6827;
+    level._pipe_methods["MOD_PISTOL_BULLET"] = ::_id_6825;
+    level._pipe_methods["MOD_RIFLE_BULLET"] = ::_id_6825;
+    level._pipe_methods["MOD_GRENADE"] = ::_id_6827;
+    level._pipe_methods["MOD_GRENADE_SPLASH"] = ::_id_6827;
+    level._pipe_methods["MOD_PROJECTILE"] = ::_id_6827;
+    level._pipe_methods["MOD_PROJECTILE_SPLASH"] = ::_id_6827;
+    level._pipe_methods["MOD_MELEE"] = ::_id_6826;
+    level._pipe_methods["MOD_HEAD_SHOT"] = ::_id_6826;
+    level._pipe_methods["MOD_CRUSH"] = ::_id_6826;
+    level._pipe_methods["MOD_TELEFRAG"] = ::_id_6826;
+    level._pipe_methods["MOD_FALLING"] = ::_id_6826;
+    level._pipe_methods["MOD_SUICIDE"] = ::_id_6826;
+    level._pipe_methods["MOD_TRIGGER_HURT"] = ::_id_6827;
+    level._pipe_methods["MOD_EXPLOSIVE"] = ::_id_6827;
+    level._pipe_methods["MOD_IMPACT"] = ::_id_6826;
 }
 
 _id_6825( var_0, var_1 )
@@ -101,7 +101,7 @@ pipemasterinit( var_0 )
         var_2 = spawnstruct();
         var_2.name = "pipe master at (" + var_1.origin + ") position";
         var_1._id_59D8 = var_2;
-        level.pipe_breaks = common_scripts\utility::_id_0CF6( level.pipe_breaks, var_1 );
+        level.pipe_breaks = common_scripts\utility::array_remove( level.pipe_breaks, var_1 );
         var_2 pipemasteriterate( var_1 );
     }
 }
@@ -116,7 +116,7 @@ pipemasteriterate( var_0 )
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         var_1[var_2]._id_59D8 = self;
-        level.pipe_breaks = common_scripts\utility::_id_0CF6( level.pipe_breaks, var_1[var_2] );
+        level.pipe_breaks = common_scripts\utility::array_remove( level.pipe_breaks, var_1[var_2] );
     }
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
@@ -164,7 +164,7 @@ pipebreakinit( var_0 )
     for ( var_1 = 0; var_1 < self.size; var_1++ )
     {
         self[var_1].whole = common_scripts\utility::_id_3F33( self[var_1] getorigin(), var_0 );
-        var_0 = common_scripts\utility::_id_0CF6( var_0, self[var_1].whole );
+        var_0 = common_scripts\utility::array_remove( var_0, self[var_1].whole );
         self[var_1].fxnode = spawnstruct();
         self[var_1].fxnode.origin = self[var_1].origin;
         self[var_1].fxnode.forward = common_scripts\utility::vectorscale( anglestoright( self[var_1].angles ), -1 );
@@ -468,7 +468,7 @@ pipethink_logic( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( var_0 < var_1 )
     {
-        var_3 = self [[ level._id_060F[var_4] ]]( var_3, var_4 );
+        var_3 = self [[ level._pipe_methods[var_4] ]]( var_3, var_4 );
 
         if ( !isdefined( var_3 ) )
             return;
@@ -567,7 +567,7 @@ _id_682C( var_0, var_1 )
     if ( self.script_noteworthy != "fire" )
     {
         playfx( level._effect["pipe_interactive"][self.script_noteworthy], var_0, var_1 );
-        thread common_scripts\utility::_id_69C2( level._id_0662["pipe_interactive"][self.script_noteworthy], var_0 );
+        thread common_scripts\utility::_id_69C2( level._sound["pipe_interactive"][self.script_noteworthy], var_0 );
         return;
     }
 
@@ -610,7 +610,7 @@ pipeimpact()
         if ( var_4 == "MOD_MELEE" || var_4 == "MOD_IMPACT" )
             continue;
 
-        var_0 = self [[ level._id_060F[var_4] ]]( var_0, var_4 );
+        var_0 = self [[ level._pipe_methods[var_4] ]]( var_0, var_4 );
         var_3 = common_scripts\utility::vectorscale( var_3, -1 );
         playfx( level._effect["pipe_interactive"]["impact"], var_0, var_3 );
     }
@@ -646,7 +646,7 @@ _id_6EDB()
             continue;
 
         level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/pipe_steam" );
-        level._id_0662["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_steam_pipe_hit";
+        level._sound["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_steam_pipe_hit";
         level.pipe_fx_time[self[var_0].script_noteworthy] = 5;
         break;
     }
@@ -657,7 +657,7 @@ _id_6EDB()
             continue;
 
         level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "vfx/props/canister_steam" );
-        level._id_0662["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_steam_pipe_hit";
+        level._sound["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_steam_pipe_hit";
         level.pipe_fx_time[self[var_0].script_noteworthy] = 5;
         break;
     }
@@ -668,7 +668,7 @@ _id_6EDB()
             continue;
 
         level._effect["pipe_interactive"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/pipe_water" );
-        level._id_0662["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_water_pipe_hit";
+        level._sound["pipe_interactive"][self[var_0].script_noteworthy] = "mtl_water_pipe_hit";
         level.pipe_fx_time[self[var_0].script_noteworthy] = 2.6;
         break;
     }
@@ -725,7 +725,7 @@ update_pipe_fx_with_overrides()
             level._effect["pipe_interactive"][var_2] = loadfx( level.pipe_fx_override[var_2]["fx"] );
 
         if ( isdefined( level.pipe_fx_override[var_2]["sound"] ) )
-            level._id_0662["pipe_interactive"][var_2] = level.pipe_fx_override[var_2]["sound"];
+            level._sound["pipe_interactive"][var_2] = level.pipe_fx_override[var_2]["sound"];
 
         if ( isdefined( level.pipe_fx_override[var_2]["time"] ) )
             level.pipe_fx_time[var_2] = level.pipe_fx_override[var_2]["time"];

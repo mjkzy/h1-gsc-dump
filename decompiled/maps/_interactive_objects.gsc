@@ -85,7 +85,7 @@ main()
     }
 
     var_6 = getentarray( "glass", "targetname" );
-    var_6 = common_scripts\utility::_id_0CDD( var_6, getentarray( "glass", "script_noteworthy" ) );
+    var_6 = common_scripts\utility::array_combine( var_6, getentarray( "glass", "script_noteworthy" ) );
 
     if ( isdefined( var_6 ) && var_6.size > 0 )
     {
@@ -156,21 +156,21 @@ main()
     level._breakable_utility_modelarray = [];
     level._breakable_utility_modelindex = 0;
     level._breakable_utility_maxnum = var_9;
-    common_scripts\utility::_id_0D13( getentarray( "tincan", "targetname" ), ::tincan_think );
-    common_scripts\utility::_id_0D13( getentarray( "helmet_pop", "targetname" ), ::helmet_pop );
-    common_scripts\utility::_id_0D13( getentarray( "explodable_barrel", "targetname" ), ::explodable_barrel_think );
-    common_scripts\utility::_id_0D13( getentarray( "explodable_barrel", "script_noteworthy" ), ::explodable_barrel_think );
-    common_scripts\utility::_id_0D13( getentarray( "shuddering_entity", "targetname" ), ::shuddering_entity_think );
-    common_scripts\utility::_id_0D13( getentarray( "breakable box", "targetname" ), ::breakable_think );
-    common_scripts\utility::_id_0D13( getentarray( "breakable box", "script_noteworthy" ), ::breakable_think );
-    common_scripts\utility::_id_0D13( getentarray( "breakable", "targetname" ), ::breakable_think );
-    common_scripts\utility::_id_0D13( getentarray( "breakable_vase", "targetname" ), ::breakable_think );
-    common_scripts\utility::_id_0D13( getentarray( "oil_spill", "targetname" ), ::oil_spill_think );
-    common_scripts\utility::_id_0D13( getentarray( "glass", "targetname" ), ::glass_logic );
-    common_scripts\utility::_id_0D13( getentarray( "interactive_tv", "targetname" ), ::_id_99D3 );
-    common_scripts\utility::_id_0D13( getentarray( "destroyable_security_camera", "script_noteworthy" ), ::security_camera_logic );
-    common_scripts\utility::_id_0D13( getentarray( "hanging_object", "targetname" ), ::hanging_object_logic );
-    common_scripts\utility::_id_0D13( getentarray( "platestack", "targetname" ), ::destroy_platestack );
+    common_scripts\utility::array_thread( getentarray( "tincan", "targetname" ), ::tincan_think );
+    common_scripts\utility::array_thread( getentarray( "helmet_pop", "targetname" ), ::helmet_pop );
+    common_scripts\utility::array_thread( getentarray( "explodable_barrel", "targetname" ), ::explodable_barrel_think );
+    common_scripts\utility::array_thread( getentarray( "explodable_barrel", "script_noteworthy" ), ::explodable_barrel_think );
+    common_scripts\utility::array_thread( getentarray( "shuddering_entity", "targetname" ), ::shuddering_entity_think );
+    common_scripts\utility::array_thread( getentarray( "breakable box", "targetname" ), ::breakable_think );
+    common_scripts\utility::array_thread( getentarray( "breakable box", "script_noteworthy" ), ::breakable_think );
+    common_scripts\utility::array_thread( getentarray( "breakable", "targetname" ), ::breakable_think );
+    common_scripts\utility::array_thread( getentarray( "breakable_vase", "targetname" ), ::breakable_think );
+    common_scripts\utility::array_thread( getentarray( "oil_spill", "targetname" ), ::oil_spill_think );
+    common_scripts\utility::array_thread( getentarray( "glass", "targetname" ), ::glass_logic );
+    common_scripts\utility::array_thread( getentarray( "interactive_tv", "targetname" ), ::_id_99D3 );
+    common_scripts\utility::array_thread( getentarray( "destroyable_security_camera", "script_noteworthy" ), ::security_camera_logic );
+    common_scripts\utility::array_thread( getentarray( "hanging_object", "targetname" ), ::hanging_object_logic );
+    common_scripts\utility::array_thread( getentarray( "platestack", "targetname" ), ::destroy_platestack );
     misc_rotate_fans();
 }
 
@@ -188,7 +188,7 @@ security_camera_logic()
 
     self waittill( "damage", var_1, var_2, var_3, var_4, var_5 );
     self setmodel( var_0 );
-    playfxontag( level._id_17DD["security_camera_explode"], self, "tag_deathfx" );
+    playfxontag( level.breakables_fx["security_camera_explode"], self, "tag_deathfx" );
 
     if ( isdefined( level.breakables_sfx["security_camera_explode"] ) )
         thread maps\_utility::_id_69C6( level.breakables_sfx["security_camera_explode"] );
@@ -227,7 +227,7 @@ _id_99D3()
         if ( var_0.size )
         {
             self._id_57A7 = var_0[0];
-            level._id_99D2 = common_scripts\utility::_id_0CF6( level._id_99D2, self._id_57A7 );
+            level._id_99D2 = common_scripts\utility::array_remove( level._id_99D2, self._id_57A7 );
             self._id_57A9 = self._id_57A7 getlightintensity();
             self._id_57A7.tv = self;
         }
@@ -298,7 +298,7 @@ _id_99CF()
     if ( isdefined( self._id_57A7 ) )
         self._id_57A7 setlightintensity( 0 );
 
-    playfxontag( level._id_17DD["tv_explode"], self, "tag_fx" );
+    playfxontag( level.breakables_fx["tv_explode"], self, "tag_fx" );
 
     if ( isdefined( level.breakables_sfx["tv_explode"] ) )
         thread maps\_utility::_id_69C5( level.breakables_sfx["tv_explode"], "tag_fx" );
@@ -339,7 +339,7 @@ destroy_platestack()
 
         if ( var_5 != "MOD_MELEE" && var_5 != "MOD_IMPACT" )
         {
-            playfx( level._id_17DD["platestack_shatter"], self.origin );
+            playfx( level.breakables_fx["platestack_shatter"], self.origin );
 
             foreach ( var_7 in var_0 )
                 var_7 delete();
@@ -478,11 +478,11 @@ oil_spill_think()
 {
     self._id_311C = common_scripts\utility::_id_40FB( self.target, "targetname" );
     self._id_8B20 = common_scripts\utility::_id_40FB( self._id_311C.target, "targetname" );
-    self._id_12E4 = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
+    self.barrel = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
 
-    if ( isdefined( self._id_12E4 ) )
+    if ( isdefined( self.barrel ) )
     {
-        self._id_12E4.oilspill = 1;
+        self.barrel.oilspill = 1;
         thread oil_spill_burn_after();
     }
 
@@ -498,7 +498,7 @@ oil_spill_think()
             continue;
 
         self._id_25A9 = var_2;
-        playfx( level._id_17DD["oilspill"]["spark"], var_4, var_3 );
+        playfx( level.breakables_fx["oilspill"]["spark"], var_4, var_3 );
         var_0 = spawn( "script_origin", var_4 );
 
         if ( isdefined( level.breakables_sfx["oilspill"]["spark"] ) )
@@ -511,11 +511,11 @@ oil_spill_think()
         break;
     }
 
-    if ( isdefined( self._id_12E4 ) )
-        self._id_12E4 waittill( "exploding" );
+    if ( isdefined( self.barrel ) )
+        self.barrel waittill( "exploding" );
 
     if ( isdefined( level.breakables_sfx["oilspill"]["spark"] ) )
-        var_0 _meth_854d( level.breakables_sfx["oilspill"]["spark"] );
+        var_0 _meth_854D( level.breakables_sfx["oilspill"]["spark"] );
 
     self.extra delete();
     self hide();
@@ -528,7 +528,7 @@ oil_spill_burn_after()
 {
     for (;;)
     {
-        self._id_12E4 waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
+        self.barrel waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
         if ( var_4 == "MOD_MELEE" || var_4 == "MOD_IMPACT" )
             continue;
@@ -572,7 +572,7 @@ oil_spill_burn( var_0, var_1 )
 
         var_10.origin = var_0;
         var_12 = [];
-        var_8 = common_scripts\utility::_id_0D01( var_8 );
+        var_8 = common_scripts\utility::array_removeundefined( var_8 );
 
         for ( var_13 = 0; var_13 < var_8.size; var_13++ )
         {
@@ -588,23 +588,23 @@ oil_spill_burn( var_0, var_1 )
         }
 
         for ( var_13 = 0; var_13 < var_12.size; var_13++ )
-            var_8 = common_scripts\utility::_id_0CF6( var_8, var_12[var_13] );
+            var_8 = common_scripts\utility::array_remove( var_8, var_12[var_13] );
 
         wait 0.1;
     }
 
-    if ( !isdefined( self._id_12E4 ) )
+    if ( !isdefined( self.barrel ) )
         return;
 
     if ( distance( var_0, self._id_8B20.origin ) < 32 )
-        self._id_12E4 dodamage( 80 + randomfloat( 10 ), var_0 );
+        self.barrel dodamage( 80 + randomfloat( 10 ), var_0 );
 }
 
 oil_spill_burn_section( var_0 )
 {
     var_1 = 0;
     var_2 = 0;
-    playfx( level._id_17DD["oilspill"]["burn"], var_0 );
+    playfx( level.breakables_fx["oilspill"]["burn"], var_0 );
 
     if ( isdefined( level.breakables_sfx["oilspill"]["burn"] ) )
         thread maps\_utility::_id_6976( level.breakables_sfx["oilspill"]["burn"], undefined, 1, 1 );
@@ -669,7 +669,7 @@ explodable_barrel_burn()
     {
         if ( !var_1 )
         {
-            playfx( level._id_17DD["barrel"]["burn_start"], self.origin + var_5 );
+            playfx( level.breakables_fx["barrel"]["burn_start"], self.origin + var_5 );
 
             if ( isdefined( level.breakables_sfx["barrel"]["burn_start"] ) )
                 thread maps\_utility::_id_69C6( level.breakables_sfx["barrel"]["burn_start"] );
@@ -680,7 +680,7 @@ explodable_barrel_burn()
         if ( var_0 > 20 )
             var_0 = 0;
 
-        playfx( level._id_17DD["barrel"]["burn"], self.origin + var_6 );
+        playfx( level.breakables_fx["barrel"]["burn"], self.origin + var_6 );
 
         if ( isdefined( level.breakables_sfx["barrel"]["burn"] ) )
             var_7 thread maps\_utility::_id_6976( level.breakables_sfx["barrel"]["burn"], undefined, 1, 1 );
@@ -719,7 +719,7 @@ explodable_barrel_explode()
     }
 
     var_3 += ( 0.0, 0.0, 4.0 );
-    playfx( level._id_17DD["barrel"]["explode"], self.origin + var_3 );
+    playfx( level.breakables_fx["barrel"]["explode"], self.origin + var_3 );
 
     if ( isdefined( level.breakables_sfx["barrel"]["explode"] ) )
         thread maps\_utility::_id_69C6( level.breakables_sfx["barrel"]["explode"] );
@@ -810,7 +810,7 @@ tincan_think()
     var_3 = vectornormalize( self.origin - var_2 );
     var_3 = common_scripts\utility::vectorscale( var_3, 0.5 + randomfloat( 1 ) );
     self notify( "death" );
-    playfx( level._id_17DD["tincan"], self.origin, var_3 );
+    playfx( level.breakables_fx["tincan"], self.origin, var_3 );
 
     if ( isdefined( level.breakables_sfx["tincan"] ) )
         thread common_scripts\utility::_id_69C2( level.breakables_sfx["tincan"], self.origin );
@@ -1112,17 +1112,17 @@ breakable_logic( var_0 )
             else
                 var_3 = "bullet_large_vase";
 
-            var_4 = level._id_17DD["vase"];
+            var_4 = level.breakables_fx["vase"];
             break;
         case "wood box":
-            var_6 = randomint( level._id_17DD["box"].size );
+            var_6 = randomint( level.breakables_fx["box"].size );
 
             if ( isdefined( level.breakables_sfx["box"][var_6] ) )
                 var_3 = level.breakables_sfx["box"][var_6];
             else
                 var_3 = "bullet_large_crate";
 
-            var_4 = level._id_17DD["box"][var_6];
+            var_4 = level.breakables_fx["box"][var_6];
             var_5 = 1;
             break;
         case "bottle":
@@ -1131,7 +1131,7 @@ breakable_logic( var_0 )
             else
                 var_3 = "bullet_small_bottle";
 
-            var_4 = level._id_17DD["bottle"];
+            var_4 = level.breakables_fx["bottle"];
             break;
         case "plate":
             if ( isdefined( level.breakables_sfx["plate"] ) )
@@ -1189,7 +1189,7 @@ xenon_auto_aim()
 
     if ( isdefined( self.autoaim ) )
     {
-        level.console_auto_aim = common_scripts\utility::_id_0CF6( level.console_auto_aim, self.autoaim );
+        level.console_auto_aim = common_scripts\utility::array_remove( level.console_auto_aim, self.autoaim );
         thread xenon_remove_auto_aim();
     }
 }
@@ -1211,7 +1211,7 @@ xenon_remove_auto_aim( var_0 )
     self.autoaim thread xenon_enable_auto_aim( var_0 );
     self.dontremove = 1;
     self waittill( "damage", var_1, var_2 );
-    self.autoaim _meth_81d7();
+    self.autoaim _meth_81D7();
     self.autoaim delete();
 
     if ( self.dontremove )
@@ -1239,7 +1239,7 @@ xenon_enable_auto_aim( var_0 )
     if ( isdefined( self.recreate ) && self.recreate == 1 )
         self waittill( "recreate" );
 
-    self _meth_81b9();
+    self _meth_81B9();
 }
 
 breakable_clip()
@@ -1259,7 +1259,7 @@ breakable_clip()
         self.remove = getclosestent( self.origin, level.breakables_clip );
 
     if ( isdefined( self.remove ) )
-        level.breakables_clip = common_scripts\utility::_id_0CF6( level.breakables_clip, self.remove );
+        level.breakables_clip = common_scripts\utility::array_remove( level.breakables_clip, self.remove );
 }
 
 make_broken_peices( var_0, var_1 )
@@ -1401,7 +1401,7 @@ make_broken_peices( var_0, var_1 )
             return;
     }
 
-    common_scripts\utility::_id_0D13( var_5, ::pieces_move, var_0.origin );
+    common_scripts\utility::array_thread( var_5, ::pieces_move, var_0.origin );
 
     if ( isdefined( level.breakables_peicescollide[var_1] ) && level.breakables_peicescollide[var_1] == 1 )
     {
@@ -1413,7 +1413,7 @@ make_broken_peices( var_0, var_1 )
                 var_6 = var_5[var_7].origin[2];
         }
 
-        common_scripts\utility::_id_0D13( var_5, ::pieces_collision, var_6 );
+        common_scripts\utility::array_thread( var_5, ::pieces_collision, var_6 );
     }
     else
     {
@@ -1631,22 +1631,22 @@ setbreakablesfx( var_0, var_1, var_2, var_3 )
 
     if ( isdefined( var_1 ) )
     {
-        level._id_17DD[var_0][var_1] = loadfx( var_2 );
+        level.breakables_fx[var_0][var_1] = loadfx( var_2 );
         level.breakables_sfx[var_0][var_1] = var_3;
     }
     else
     {
-        level._id_17DD[var_0] = loadfx( var_2 );
+        level.breakables_fx[var_0] = loadfx( var_2 );
         level.breakables_sfx[var_0] = var_3;
     }
 }
 
 misc_rotate_fans()
 {
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate_slow", "targetname" ), ::_id_366A, "veryslow" );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A, "slow" );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate_fast", "targetname" ), ::_id_366A, "fast" );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate_custom", "targetname" ), ::fan_blade_rotate_custom );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_slow", "targetname" ), ::_id_366A, "veryslow" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A, "slow" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_fast", "targetname" ), ::_id_366A, "fast" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_custom", "targetname" ), ::fan_blade_rotate_custom );
 }
 
 _id_366A( var_0 )

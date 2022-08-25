@@ -29,19 +29,19 @@ anim_main()
     level._id_78AC["generic"]["fast_walk"] = %active_patrolwalk_gundown;
     level._id_78AC["generic"]["casual_killer_jog_A"] = %casual_killer_jog_a;
     level._id_78AC["price"]["reveal"] = %killhouse_sas_price;
-    maps\_anim::_id_080B( "price", "dialog", "reveal", "killhouse_pri_muppet" );
-    maps\_anim::_id_080B( "price", "dialog2", "reveal", "killhouse_pri_cqbtest" );
-    maps\_anim::_id_080B( "price", "dialog3", "reveal", "killhouse_pri_runsolo" );
-    maps\_anim::_id_080B( "price", "dialog4", "reveal", "killhouse_pri_record19sec" );
-    maps\_anim::_id_0807( "price", "dialog5", maps\killhouse::reveal_dialog_ladder, "reveal" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "reveal", "killhouse_pri_muppet" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog2", "reveal", "killhouse_pri_cqbtest" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog3", "reveal", "killhouse_pri_runsolo" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog4", "reveal", "killhouse_pri_record19sec" );
+    maps\_anim::addnotetrack_customfunction( "price", "dialog5", maps\killhouse::reveal_dialog_ladder, "reveal" );
     level._id_78AC["price"]["reveal_idle"][0] = %killhouse_sas_price_idle;
     level._id_78AC["price"]["debrief_p"] = %h1_killhouse_07_price;
     level._id_78AC["price"]["debrief_idle_s4_b"][0] = %h1_killhouse_07_price_idle;
     level._id_78AC["price"]["price_mask_up"] = %price_mask_up;
     level._id_78AC["price"]["price_mask_outloop"] = %h1_cargoship_price_mask_outloop;
-    maps\_anim::_id_080B( "sas1", "dialog", "reveal", "killhouse_sas4_fng" );
-    maps\_anim::_id_080B( "sas1", "dialog", "reveal", "killhouse_sas4_goeasy" );
-    maps\_anim::_id_080B( "price", "dialog", "debrief_p", "killhouse_pri_wheelsup" );
+    maps\_anim::addnotetrack_dialogue( "sas1", "dialog", "reveal", "killhouse_sas4_fng" );
+    maps\_anim::addnotetrack_dialogue( "sas1", "dialog", "reveal", "killhouse_sas4_goeasy" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "debrief_p", "killhouse_pri_wheelsup" );
     level._id_78AC["sas1"]["reveal"] = %killhouse_sas_1;
     level._id_78AC["sas1"]["reveal_idle"][0] = %killhouse_sas_1_idle;
     level._id_78AC["spectator"]["spectator_idle"][0] = %killhouse_woodland_sas_priceidle;
@@ -133,7 +133,7 @@ anim_main()
 
     level._id_78AC["gaz"]["intro"] = %killhouse_gaz_intro;
     level._id_78AC["gaz"]["intro_idle"][0] = %h1_killhouse_gaz_intro_idle;
-    maps\_anim::_id_080B( "gaz", "dialog", "intro", "killhouse_gaz_goodtosee" );
+    maps\_anim::addnotetrack_dialogue( "gaz", "dialog", "intro", "killhouse_gaz_goodtosee" );
     level._id_78AC["generic"]["training_sleeping_in_chair"][0] = %training_sleeping_in_chair;
     level._id_78AC["generic"]["training_basketball_rest"][0] = %training_basketball_rest;
     level._id_78AC["generic"]["training_basketball_guy1"][0] = %training_basketball_guy1;
@@ -230,7 +230,7 @@ anim_main()
     level._id_78AC["generic"]["jog_stop"] = %casual_killer_jog_stop;
     level._id_78AC["generic"]["prone_to_stand"] = %killhouse_course_prone_2_stand;
     anim_view_body();
-    _id_0BEE();
+    anim_props();
     anim_chair();
     maps\_patrol::init_patrol_animation_list();
 }
@@ -455,7 +455,7 @@ _id_29E7()
 }
 #using_animtree("animated_props");
 
-_id_0BEE()
+anim_props()
 {
     level.anim_prop_models["foliage_sequoia_tree_cut_12_animated"]["still"] = %foliage_sequoia_cut_12_still;
     level.anim_prop_models["foliage_sequoia_tree_cut_12_animated"]["strong"] = %foliage_sequoia_cut_12_sway;
@@ -484,8 +484,8 @@ play_idle_facial_anim( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = randomint( anim._id_35C1["idle"].size );
 
-    self _meth_814b( anim._id_35C1["idle"][var_0], %head, 1 );
-    self _meth_814e( %head, 1 );
+    self _meth_814B( anim._id_35C1["idle"][var_0], %head, 1 );
+    self _meth_814E( %head, 1 );
     wait(getanimlength( anim._id_35C1["idle"][var_0] ));
 }
 
@@ -499,15 +499,15 @@ gaz_face_think( var_0 )
         if ( var_0.speaking == 1 )
         {
             wait 0.1;
-            var_0 _meth_814a( %facial_idle_1, %head, 0.1, 0.1 );
-            var_0 _meth_814e( %head, 0.11, 0.1 );
+            var_0 _meth_814A( %facial_idle_1, %head, 0.1, 0.1 );
+            var_0 _meth_814E( %head, 0.11, 0.1 );
             continue;
         }
 
         if ( var_0.speaking == 0 )
         {
-            var_0 _meth_814c( %facial_idle_1, %head, 0.8 );
-            var_0 _meth_814e( %head, 0.8 );
+            var_0 _meth_814C( %facial_idle_1, %head, 0.8 );
+            var_0 _meth_814E( %head, 0.8 );
 
             for (;;)
             {
@@ -529,13 +529,13 @@ newcastle_face_think( var_0 )
         if ( var_0.speaking )
         {
             wait 0.4;
-            var_0 _meth_814a( %h1_killhouse_nwc_idle_facial, %newcastle_face, 0.1, 0.4 );
-            var_0 _meth_814e( %newcastle_face, 0.1, 0.4 );
+            var_0 _meth_814A( %h1_killhouse_nwc_idle_facial, %newcastle_face, 0.1, 0.4 );
+            var_0 _meth_814E( %newcastle_face, 0.1, 0.4 );
             continue;
         }
 
-        var_0 _meth_814c( %h1_killhouse_nwc_idle_facial, %newcastle_face, 0.8 );
-        var_0 _meth_814e( %newcastle_face, 0.8 );
+        var_0 _meth_814C( %h1_killhouse_nwc_idle_facial, %newcastle_face, 0.8 );
+        var_0 _meth_814E( %newcastle_face, 0.8 );
 
         for (;;)
         {

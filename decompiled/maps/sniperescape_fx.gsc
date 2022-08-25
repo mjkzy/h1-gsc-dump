@@ -21,8 +21,8 @@
 
 main()
 {
-    maps\_utility::_id_075A( "large", 0.3, 0.6, 6000 );
-    maps\_utility::_id_075A( "building_top", 1, 1, 6000 );
+    maps\_utility::add_earthquake( "large", 0.3, 0.6, 6000 );
+    maps\_utility::add_earthquake( "building_top", 1, 1, 6000 );
     level._effect["00_particle_shadow_animated_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_lrg_e" );
     level._effect["00_particle_shadow_animated_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_med_e" );
     level._effect["00_particle_shadow_animated_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_sm_e" );

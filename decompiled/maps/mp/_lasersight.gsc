@@ -58,10 +58,10 @@ _id_54FF()
                 self laseroff();
                 self._id_54DA = 0;
 
-                while ( !self _meth_84d8() && self isthrowinggrenade() )
+                while ( !self _meth_84D8() && self isthrowinggrenade() )
                     wait 0.05;
 
-                while ( self _meth_84d8() && self isthrowinggrenade() )
+                while ( self _meth_84D8() && self isthrowinggrenade() )
                     wait 0.05;
 
                 while ( self isthrowinggrenade() )

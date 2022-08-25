@@ -21,13 +21,13 @@
 
 main()
 {
-    _id_0C7A();
+    anims();
     _id_29F3();
     setup_exploder_anims();
 }
 #using_animtree("generic_human");
 
-_id_0C7A()
+anims()
 {
     level._id_78AC["frnd"]["spin"] = %combatwalk_f_spin;
     level._id_78AC["drone"]["pilot_idle"][0] = %helicopter_pilot1_idle;
@@ -75,8 +75,8 @@ _id_0C7A()
     level._id_78AC["frnd"]["crewchief_gun_shoot"][0] = %airlift_crewchief_gun_shoot;
     level._id_78AC["frnd"]["crewchief_gun_getin"][0] = %airlift_crewchief_gun_getin;
     level._id_78AC["frnd"]["crewchief_sucked_out"] = %airlift_crewchief_sucked_out;
-    maps\_anim::_id_0805( "frnd", "crewchief_sucked_out", "foley_pilot_sucked_out", "scn_airlift_nuke_pilot_foley" );
-    maps\_anim::_id_0810( "frnd", "foley_pilot_slipping_from_hand", "crewchief_sucked_out", "scn_airlift_nuke_plr_foley" );
+    maps\_anim::addnotetrack_animsound( "frnd", "crewchief_sucked_out", "foley_pilot_sucked_out", "scn_airlift_nuke_pilot_foley" );
+    maps\_anim::addnotetrack_playersound( "frnd", "foley_pilot_slipping_from_hand", "crewchief_sucked_out", "scn_airlift_nuke_plr_foley" );
     level._id_78AC["frnd"]["crewchief_getout_generic"][0] = %airlift_crewchief_getout;
     level._id_78AC["frnd"]["crewchief_getout_cobrastreets"][0] = %h1_airlift_landing_scene2_crewchief;
     level._id_78AC["frnd"]["crewchief_getout_smoketown"][0] = %airlift_crewchief_getout;
@@ -218,8 +218,8 @@ _id_6A5B()
     level._id_78AC["player_carry"]["wounded_putdown"] = %airlift_player_putdown;
     level._id_78AC["player_carry"]["carry_idle"] = [ %h1_airlift_player_carry_idle ];
     level._id_78AC["player_carry"]["carry_run"] = [ %h1_airlift_player_carry_run ];
-    maps\_anim::_id_0805( "player_carry", "carry_run", "drag_step_right", "airlift_plr_footstep_dragR" );
-    maps\_anim::_id_0805( "player_carry", "carry_run", "drag_step_left", "airlift_plr_footstep_dragL" );
+    maps\_anim::addnotetrack_animsound( "player_carry", "carry_run", "drag_step_right", "airlift_plr_footstep_dragR" );
+    maps\_anim::addnotetrack_animsound( "player_carry", "carry_run", "drag_step_left", "airlift_plr_footstep_dragL" );
     level._id_78B1["player_carry"] = #animtree;
     level._id_78B5["player_carry"] = "viewhands_player_usmc";
     level._id_78B1["player_viewbody"] = #animtree;
@@ -266,13 +266,13 @@ seaknight_anims()
 seaknight_turret_anim_init()
 {
     self useanimtree( #animtree );
-    self _meth_814d( %ch46_doors_close );
+    self _meth_814D( %ch46_doors_close );
 }
 
 seaknight_turret_anim_idle()
 {
     self useanimtree( #animtree );
-    self _meth_814d( %ch46_turret_idle );
+    self _meth_814D( %ch46_turret_idle );
 }
 
 seaknight_turret_anim()
@@ -287,7 +287,7 @@ seaknight_turret_anim_intro()
 {
     self endon( "death" );
     self useanimtree( #animtree );
-    self _meth_814d( %h1_airlift_intro_turret );
+    self _meth_814D( %h1_airlift_intro_turret );
 }
 
 seaknight_open_doors()

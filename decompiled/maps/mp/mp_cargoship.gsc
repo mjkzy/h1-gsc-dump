@@ -64,8 +64,8 @@ main()
 misc_rotate_fans()
 {
     precachempanim( "rotate_Z_L" );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate_custom", "targetname" ), ::fan_blade_rotate_custom );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_custom", "targetname" ), ::fan_blade_rotate_custom );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A );
 }
 
 fan_blade_rotate_custom()
@@ -100,7 +100,7 @@ animated_boats_precache()
     precachempanim( "h1_mp_lifeboat_idle_2" );
     precachempanim( "h1_mp_lifeboat_idle_3" );
     var_0 = getentarray( "animated_boat", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::animated_boats );
+    common_scripts\utility::array_thread( var_0, ::animated_boats );
 }
 #using_animtree("animated_props_dlc");
 

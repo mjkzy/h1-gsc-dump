@@ -62,7 +62,7 @@ _id_4DC1()
 
 _id_2E61()
 {
-    if ( level._id_2F1A[self.team]._id_0CD8.size >= level._id_59FF[self.team] )
+    if ( level._id_2F1A[self.team].array.size >= level._id_59FF[self.team] )
     {
         self delete();
         return;
@@ -114,8 +114,8 @@ _id_2E3B()
 
     var_0 = "stand";
 
-    if ( isdefined( self._id_0C80 ) && isdefined( level._id_2E22[self.team][self._id_0C80] ) && isdefined( level._id_2E22[self.team][self._id_0C80]["death"] ) )
-        var_0 = self._id_0C80;
+    if ( isdefined( self.animset ) && isdefined( level._id_2E22[self.team][self.animset] ) && isdefined( level._id_2E22[self.team][self.animset]["death"] ) )
+        var_0 = self.animset;
 
     var_1 = level._id_2E22[self.team][var_0]["death"];
 
@@ -267,11 +267,11 @@ _id_2E43()
 
 _id_2EB7( var_0 )
 {
-    if ( isdefined( anim._id_0CCA[var_0] ) )
+    if ( isdefined( anim.archetypes[var_0] ) )
     {
-        var_1 = anim._id_0CCA[var_0]["idle"]["stand"][0];
-        var_1 = common_scripts\utility::_id_0CDD( var_1, anim._id_0CCA[var_0]["idle"]["stand"][1] );
-        var_2 = anim._id_0CCA[var_0]["idle"]["stand"][0][0];
+        var_1 = anim.archetypes[var_0]["idle"]["stand"][0];
+        var_1 = common_scripts\utility::array_combine( var_1, anim.archetypes[var_0]["idle"]["stand"][1] );
+        var_2 = anim.archetypes[var_0]["idle"]["stand"][0][0];
         self._id_2E23 = var_2;
         self._id_2E24 = var_1;
         self._id_2E5D = 1;
@@ -343,7 +343,7 @@ _id_2E4A( var_0, var_1, var_2 )
 {
     self endon( "death" );
     self endon( "stop_drone_fighting" );
-    self._id_0C80 = var_0;
+    self.animset = var_0;
     self._id_A2EA = undefined;
     var_3 = randomintrange( 1, 4 );
 
@@ -528,9 +528,9 @@ _id_3CC9( var_0 )
         var_1 = self._id_2EAA;
 
     var_6 = spawnstruct();
-    var_6._id_0C04 = var_2;
+    var_6.anim_relative = var_2;
     var_6._id_76B7 = var_1;
-    var_6._id_0C44 = var_3;
+    var_6.anim_time = var_3;
     return var_6;
 }
 
@@ -562,7 +562,7 @@ _id_2E95()
 
     var_2 = _id_3CC9( var_1 );
     var_3 = var_2._id_76B7;
-    var_4 = var_2._id_0C04;
+    var_4 = var_2.anim_relative;
 
     if ( isdefined( self._id_2E96 ) )
     {
@@ -572,7 +572,7 @@ _id_2E95()
         {
             var_1 = var_2._id_76C4;
             var_3 = var_2._id_76B7;
-            var_4 = var_2._id_0C04;
+            var_4 = var_2.anim_relative;
         }
 
         var_2 = undefined;
@@ -616,8 +616,8 @@ _id_2E95()
 
                 }
 
-                if ( !isdefined( self._id_136C ) )
-                    self._id_136C = self._id_2EF7;
+                if ( !isdefined( self.beforestairanim ) )
+                    self.beforestairanim = self._id_2EF7;
 
                 var_13 = level._id_2E22[self.team]["stairs"][var_8];
                 _id_2E9F( var_13, self._id_5F65 );
@@ -665,7 +665,7 @@ _id_2E95()
                 {
                     var_1 = var_2._id_76C4;
                     var_3 = var_2._id_76B7;
-                    var_4 = var_2._id_0C04;
+                    var_4 = var_2.anim_relative;
 
                     if ( !var_4 )
                         thread _id_2E98( var_3 );
@@ -718,7 +718,7 @@ _id_2E95()
         {
             if ( isdefined( self._id_24BF["script_noteworthy"] ) && self._id_24BF["script_noteworthy"] == "stairs_end" )
             {
-                var_25 = self._id_136C;
+                var_25 = self.beforestairanim;
                 _id_2E9F( var_25, self._id_5F65 );
                 var_7 = 0;
                 var_8 = undefined;

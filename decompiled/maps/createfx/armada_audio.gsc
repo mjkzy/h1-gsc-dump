@@ -27,5 +27,5 @@ main()
 _id_4CB2()
 {
     waitframe;
-    maps\_anim::_id_0818( "razorwire_guy", "razor_setup", "armada_wire_drag" );
+    maps\_anim::addonstart_animsound( "razorwire_guy", "razor_setup", "armada_wire_drag" );
 }

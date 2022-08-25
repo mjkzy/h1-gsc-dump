@@ -64,7 +64,7 @@ ac130_tree_wobble( var_0 )
     var_1 = 1000.0;
     var_2 = clamp( var_0 / var_1, 0.5, 1.0 ) * randomfloatrange( 0.95, 1.05 );
     var_3 = self.ac130_tree_anims["sway"][randomint( self.ac130_tree_anims["sway"].size )];
-    self _meth_814d( var_3, var_2, 0.0, randomfloatrange( 0.75, 1.25 ) );
+    self _meth_814D( var_3, var_2, 0.0, randomfloatrange( 0.75, 1.25 ) );
     wait(getanimlength( var_3 ));
     self _meth_8144( var_3, 0.0 );
 }
@@ -84,7 +84,7 @@ ac130_tree_death()
 ac130_tree_think()
 {
     self endon( "death" );
-    self _meth_814d( self.ac130_tree_anims["still"], 1.0, 0.0, 1.0 );
+    self _meth_814D( self.ac130_tree_anims["still"], 1.0, 0.0, 1.0 );
 
     for (;;)
     {

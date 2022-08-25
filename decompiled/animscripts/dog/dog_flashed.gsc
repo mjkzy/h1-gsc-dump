@@ -29,11 +29,11 @@ main()
     var_0 = maps\_utility::_id_38A7();
 
     if ( var_0 > 2 && randomint( 100 ) > 60 )
-        self setflaggedanimrestart( "flashed_anim", %german_shepherd_run_pain, 1, 0.2, self._id_0C78 * 0.75 );
+        self setflaggedanimrestart( "flashed_anim", %german_shepherd_run_pain, 1, 0.2, self.animplaybackrate * 0.75 );
     else
-        self setflaggedanimrestart( "flashed_anim", %german_shepherd_run_flashbang_b, 1, 0.2, self._id_0C78 );
+        self setflaggedanimrestart( "flashed_anim", %german_shepherd_run_flashbang_b, 1, 0.2, self.animplaybackrate );
 
-    var_1 = getanimlength( %german_shepherd_run_flashbang_b ) * self._id_0C78;
+    var_1 = getanimlength( %german_shepherd_run_flashbang_b ) * self.animplaybackrate;
 
     if ( var_0 < var_1 )
         animscripts\notetracks::_id_2D0B( var_0, "flashed_anim" );

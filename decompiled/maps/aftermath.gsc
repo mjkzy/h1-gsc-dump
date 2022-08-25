@@ -90,7 +90,7 @@ main()
     if ( getdvarint( "aftermath_body_sense", 1 ) != 1 )
         setup_force_fall();
 
-    level.player_speed = 50;
+    level._id_6C19 = 50;
     level._id_4413 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     level.player playersetgroundreferenceent( level._id_4413 );
     level.player thread player_speed_over_time();
@@ -238,7 +238,7 @@ radiation_death()
     level.player allowstand( 0 );
     level.player allowcrouch( 0 );
     var_0 = level.player getplayerangles();
-    var_1 = _id_085A( ( 0, 90 - var_0[1], -25 - var_0[0] ) );
+    var_1 = adjust_angles_to_player( ( 0, 90 - var_0[1], -25 - var_0[0] ) );
     level._id_4413 rotateto( var_1, 6, 3, 1 );
     wait 4.5;
     var_2 = getent( "collapse_extra", "targetname" );
@@ -405,11 +405,11 @@ building_collapse()
     level notify( "stop_stumble" );
     thread common_scripts\utility::_id_69C2( "exp_building_collapse_dist", level.player.origin );
     var_2 = getentarray( var_0.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_2, ::collapse, var_0 );
+    common_scripts\utility::array_thread( var_2, ::collapse, var_0 );
     var_0 moveto( var_0.origin + ( 0.0, 0.0, -3000.0 ), 7, 4, 0 );
     wait 0.5;
     common_scripts\_exploder::_id_3528( 1 );
-    var_3 = _id_085A( ( 0.0, 0.0, -20.0 ) );
+    var_3 = adjust_angles_to_player( ( 0.0, 0.0, -20.0 ) );
     level._id_4413 rotateto( var_3, 2, 1, 1 );
     level._id_4413 waittill( "rotatedone" );
     wait 1;
@@ -458,11 +458,11 @@ player_speed_over_time()
 {
     for (;;)
     {
-        level.player setmovespeedscale( level.player_speed / 190 );
+        level.player setmovespeedscale( level._id_6C19 / 190 );
         wait 10;
-        level.player_speed--;
+        level._id_6C19--;
 
-        if ( level.player_speed < 30 )
+        if ( level._id_6C19 < 30 )
             return;
     }
 }
@@ -589,7 +589,7 @@ body_sense_wakeup_setup()
     level.player allowcrouch( 0 );
     level.player allowstand( 0 );
     level.player setstance( "prone" );
-    level.player_body_node maps\_anim::_id_0BC7( level.player_body, "jackson_wakeup" );
+    level.player_body_node maps\_anim::anim_first_frame_solo( level.player_body, "jackson_wakeup" );
     var_0 = level.player_body gettagorigin( "tag_camera" );
     var_0 -= ( 0.0, 0.0, 11.0 );
     level.player setorigin( var_0 );
@@ -604,7 +604,7 @@ body_sense_wakeup_start()
     level._id_4413.angles += ( 0.0, 0.0, -5.27285 );
     level.player_body show();
     level.player playerlinktodelta( level.player_body, "tag_player", 1, 0, 0, 0, 0, 1 );
-    level.player_body_node thread maps\_anim::_id_0C24( level.player_body, "jackson_wakeup" );
+    level.player_body_node thread maps\_anim::anim_single_solo( level.player_body, "jackson_wakeup" );
     thread h1_aftermathwakeupseq_dof();
     var_0 = 0.333;
     wait(getanimlength( level._id_78AC["player_body"]["jackson_wakeup"] ) - var_0);
@@ -623,20 +623,20 @@ body_sense_wakeup_start()
 h1_aftermathwakeupseq_dof()
 {
     wait 1.35;
-    level.player _meth_84a7( 2.4, 140, 9.0, 9.0 );
+    level.player _meth_84A7( 2.4, 140, 9.0, 9.0 );
     setsaveddvar( "r_mbEnable", 2 );
-    level.player _meth_84a5();
-    level.player _meth_84a7( 2.4, 21, 1.0, 1.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 2.4, 21, 1.0, 1.0 );
     wait 8.5;
-    level.player _meth_84a7( 3.4, 14, 2.0, 2.0 );
+    level.player _meth_84A7( 3.4, 14, 2.0, 2.0 );
     wait 2.3;
-    level.player _meth_84a7( 4.4, 11.5, 3.0, 3.0 );
+    level.player _meth_84A7( 4.4, 11.5, 3.0, 3.0 );
     wait 1.5;
     wait 1.5;
     setsaveddvar( "r_mbEnable", 0 );
 }
 
-_id_085A( var_0 )
+adjust_angles_to_player( var_0 )
 {
     var_1 = var_0[0];
     var_2 = var_0[2];
@@ -678,7 +678,7 @@ limp()
         else
             var_2 = 1.0;
 
-        var_6 = var_4 / level.player_speed;
+        var_6 = var_4 / level._id_6C19;
         var_7 = randomfloatrange( 3, 5 );
 
         if ( randomint( 100 ) < 20 )
@@ -712,7 +712,7 @@ player_jump_punishment()
 
         if ( getdvarint( "aftermath_body_sense", 1 ) == 1 )
         {
-            if ( !level.player _meth_83b1() )
+            if ( !level.player _meth_83B1() )
                 continue;
         }
         else
@@ -739,7 +739,7 @@ setup_force_fall()
     else
         var_0 = getentarray( "force_fall", "targetname" );
 
-    common_scripts\utility::_id_0D13( var_0, ::force_fall );
+    common_scripts\utility::array_thread( var_0, ::force_fall );
 }
 
 force_fall()
@@ -797,12 +797,12 @@ fall()
 stumble( var_0, var_1, var_2, var_3, var_4 )
 {
     level endon( "stop_stumble" );
-    var_0 = _id_085A( var_0 );
+    var_0 = adjust_angles_to_player( var_0 );
     level._id_4413 rotateto( var_0, var_1, var_1 / 4 * 3, var_1 / 4 );
     level._id_4413 waittill( "rotatedone" );
     var_5 = ( randomfloat( 4 ) - 4, randomfloat( 5 ), 0 );
     var_5 *= var_3;
-    var_5 = _id_085A( var_5 );
+    var_5 = adjust_angles_to_player( var_5 );
     level._id_4413 rotateto( var_5, var_2, 0, var_2 / 2 );
     level._id_4413 waittill( "rotatedone" );
 
@@ -817,13 +817,13 @@ _id_728D()
     if ( common_scripts\utility::_id_382E( "collapse" ) )
         return;
 
-    var_0 = _id_085A( ( -5.0, -5.0, 0.0 ) );
+    var_0 = adjust_angles_to_player( ( -5.0, -5.0, 0.0 ) );
     level._id_4413 rotateto( var_0, 0.6, 0.6, 0 );
     level._id_4413 waittill( "rotatedone" );
-    var_0 = _id_085A( ( -15.0, -20.0, 0.0 ) );
+    var_0 = adjust_angles_to_player( ( -15.0, -20.0, 0.0 ) );
     level._id_4413 rotateto( var_0, 2.5, 0, 2.5 );
     level._id_4413 waittill( "rotatedone" );
-    var_0 = _id_085A( ( 5.0, 5.0, 0.0 ) );
+    var_0 = adjust_angles_to_player( ( 5.0, 5.0, 0.0 ) );
     level._id_4413 rotateto( var_0, 2.5, 2, 0.5 );
     level._id_4413 waittill( "rotatedone" );
     level._id_4413 rotateto( ( 0.0, 0.0, 0.0 ), 1, 0.2, 0.8 );

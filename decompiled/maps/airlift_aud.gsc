@@ -119,31 +119,31 @@ _id_5FFD( var_0, var_1 )
 
 start_default_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_ext" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_ext" );
     soundscripts\_audio_mix_manager::_id_5CF2( "intro_chopper_mix" );
 }
 
 start_smoketown_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_ext" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_ext" );
     soundscripts\_audio_mix_manager::_id_5CF2( "heli_landing_field_mix" );
 }
 
 start_cobraflight_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
     soundscripts\_audio_mix_manager::_id_5CF2( "smoketown_operation_mix" );
 }
 
 start_cobrastreets_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_ext" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_ext" );
     soundscripts\_audio_mix_manager::_id_5CF2( "pilot_rescue_mix" );
 }
 
 start_nuke_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
     soundscripts\_audio_mix_manager::_id_5CF2( "escape_crash_mix" );
 }
 
@@ -159,17 +159,17 @@ intro_check_end()
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
     soundscripts\_audio_mix_manager::_id_5CF6( "airlift_intro_mute" );
     soundscripts\_audio_mix_manager::_id_5CF2( "intro_chopper_mix" );
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_ext" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_ext" );
 }
 
 set_ambient_helicopter()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_int" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_int" );
 }
 
 player_outside_seaknight()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_add_smoketown_operation_mix()
@@ -243,12 +243,12 @@ aud_add_failure_mix()
 
 set_context_int_for_seaknight()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_int", 0.5 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_int", 0.5 );
 }
 
 set_context_ext_for_seaknight()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight_ext", 0.5 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight_ext", 0.5 );
 }
 
 aud_seaknight_sound_node_spawner()

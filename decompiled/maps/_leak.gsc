@@ -28,7 +28,7 @@ main()
 
     var_0 thread _id_6EDB();
     var_0 thread _id_5BBE();
-    common_scripts\utility::_id_0D13( var_0, ::leak_setup );
+    common_scripts\utility::array_thread( var_0, ::leak_setup );
 }
 
 leak_setup()
@@ -119,7 +119,7 @@ leak_drain( var_0 )
         if ( self.canspawnpool )
             thread leak_pool( var_0, var_2 );
 
-        thread common_scripts\utility::_id_69C2( level._id_0662["leak_interactive_leak"][self.script_noteworthy], var_0 );
+        thread common_scripts\utility::_id_69C2( level._sound["leak_interactive_leak"][self.script_noteworthy], var_0 );
 
         while ( self.curvol > var_4 )
         {
@@ -197,7 +197,7 @@ _id_6EDB()
         level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
         level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
         level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
+        level._sound["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 
@@ -209,7 +209,7 @@ _id_6EDB()
         level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
         level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
         level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
+        level._sound["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 
@@ -221,7 +221,7 @@ _id_6EDB()
         level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
         level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
         level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
+        level._sound["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 
@@ -233,7 +233,7 @@ _id_6EDB()
         level._effect["leak_interactive_leak"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_leak" );
         level._effect["leak_interactive_pool"][self[var_0].script_noteworthy] = loadfx( "fx/misc/oilsplash_decal_spawner" );
         level._effect["leak_interactive_drain"][self[var_0].script_noteworthy] = loadfx( "fx/impacts/barrel_drain" );
-        level._id_0662["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
+        level._sound["leak_interactive_leak"][self[var_0].script_noteworthy] = "h1_oil_spill_start";
         break;
     }
 }

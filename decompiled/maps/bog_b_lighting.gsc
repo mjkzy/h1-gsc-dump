@@ -202,28 +202,28 @@ apply_lighting_pass_bog_outside( var_0 )
 
     maps\_utility::_id_9E6E( "bog_b", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b" );
-    level.player _meth_848c( "clut_bog_b", var_0 );
+    level.player _meth_848C( "clut_bog_b", var_0 );
 }
 
 apply_lighting_pass_bog_inside()
 {
     maps\_utility::_id_9E6E( "bog_b_interior", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b_interior" );
-    level.player _meth_848c( "clut_bog_b", 5 );
+    level.player _meth_848C( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_street_part01()
 {
     maps\_utility::_id_9E6E( "bog_b", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b" );
-    level.player _meth_848c( "clut_bog_b", 5 );
+    level.player _meth_848C( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_tank_sequence()
 {
     maps\_utility::_id_9E6E( "bog_b", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b" );
-    level.player _meth_848c( "clut_bog_b", 5 );
+    level.player _meth_848C( "clut_bog_b", 5 );
 }
 
 play_flickering_light()

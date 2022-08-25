@@ -21,8 +21,8 @@
 
 set_cloth_wibble( var_0 )
 {
-    _func_2e8( 0, "x", 1.0 );
-    _func_2e8( 0, "y", var_0 );
+    _func_2E8( 0, "x", 1.0 );
+    _func_2E8( 0, "y", var_0 );
 }
 
 setup_wibble_triggers( var_0, var_1, var_2, var_3, var_4 )
@@ -36,7 +36,7 @@ setup_wibble_triggers( var_0, var_1, var_2, var_3, var_4 )
         set_cloth_wibble( 0.5 );
 
     var_5 = getentarray( "trigger_wibble", "targetname" );
-    common_scripts\utility::_id_0D13( var_5, ::wibble_trigger_think, var_0, var_1, var_4 );
+    common_scripts\utility::array_thread( var_5, ::wibble_trigger_think, var_0, var_1, var_4 );
     thread setup_wibble_helis( var_0, var_1 );
 }
 
@@ -57,7 +57,7 @@ setup_wibble_helis( var_0, var_1 )
 
             if ( isdefined( level._id_4816 ) )
             {
-                level._id_4816 = common_scripts\utility::_id_0D01( level._id_4816 );
+                level._id_4816 = common_scripts\utility::array_removeundefined( level._id_4816 );
 
                 foreach ( var_5 in level._id_4816 )
                 {
@@ -116,5 +116,5 @@ wibble_add_heli_to_track( var_0 )
     if ( !isdefined( level._id_4816 ) )
         level._id_4816 = [];
 
-    level._id_4816 = common_scripts\utility::_id_0CDA( level._id_4816, var_0 );
+    level._id_4816 = common_scripts\utility::array_add( level._id_4816, var_0 );
 }

@@ -26,7 +26,7 @@ main()
 
     level._effect["animated_rat_death"] = loadfx( "vfx/blood/dlc_blood_splash_sm" );
     var_0 = getentarray( "animated_rat", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::init_rats );
+    common_scripts\utility::array_thread( var_0, ::init_rats );
 }
 
 init_rats()

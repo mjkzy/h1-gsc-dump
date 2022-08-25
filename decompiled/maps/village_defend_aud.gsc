@@ -120,68 +120,68 @@ _id_5FFD( var_0, var_1 )
 aud_start_default_checkpoint( var_0 )
 {
     start_ambience_0();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_southern_hill_checkpoint( var_0 )
 {
     start_ambience_3();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_minigun_fallback_checkpoint( var_0 )
 {
     start_ambush_smoke_screen_mix();
     start_ambience_4();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_minigun_checkpoint( var_0 )
 {
     aud_start_minigun_mix();
     start_ambience_4();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_helidrop_checkpoint( var_0 )
 {
     start_ambience_5();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_clackers_checkpoint( var_0 )
 {
     start_clacker_mix();
     start_ambience_5();
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 aud_start_field_fallback_checkpoint( var_0 )
 {
     start_fall_back_to_barn_mix();
     start_ambience_5();
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 aud_start_javelin_checkpoint( var_0 )
 {
     start_fall_back_to_barn_mix();
     start_ambience_5();
-    soundscripts\_audio_zone_manager::_id_123A( "javelin_barn" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "javelin_barn" );
 }
 
 aud_start_final_battle_checkpoint( var_0 )
 {
     start_fall_back_to_barn_mix();
     start_ambience_5();
-    soundscripts\_audio_zone_manager::_id_123A( "javelin_barn" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "javelin_barn" );
 }
 
 aud_start_seaknight_checkpoint( var_0 )
 {
     start_get_to_lz_mix();
     start_ambience_5();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 _id_4F77()
@@ -219,14 +219,14 @@ start_ambience_5()
 
 set_all_ambiences( var_0, var_1 )
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", var_0, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "exterior", var_1, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_wood_open", var_0, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "interior_wood_open", var_1, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "trainstation_attic", var_0, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "trainstation_attic", var_1, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "bell_tower", var_0, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "bell_tower", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "exterior", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_wood_open", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "interior_wood_open", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "trainstation_attic", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "trainstation_attic", var_1, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "bell_tower", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "bell_tower", var_1, 0.8 );
 }
 
 start_southern_hill_ambush_mix()
@@ -273,7 +273,7 @@ start_fall_back_to_barn_mix()
 start_inside_seaknight_mix()
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "get_to_lz_mix" );
-    soundscripts\_audio_zone_manager::_id_123A( "inside_seaknight" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_seaknight" );
 }
 
 start_get_to_lz_mix()
@@ -284,10 +284,10 @@ start_get_to_lz_mix()
 
 aud_open_door_meeting()
 {
-    if ( isdefined( level._id_0E57.javelin_barn_door_open_trigger ) )
+    if ( isdefined( level.aud.javelin_barn_door_open_trigger ) )
     {
         wait 1.5;
-        common_scripts\utility::_id_0D13( level._id_0E57.javelin_barn_door_open_trigger, common_scripts\utility::_id_97CE );
+        common_scripts\utility::array_thread( level.aud.javelin_barn_door_open_trigger, common_scripts\utility::_id_97CE );
     }
 
     var_0 = getent( "javelin_barn_transition_emitter_01", "targetname" );
@@ -304,6 +304,6 @@ external_ambiance_update()
 
 disable_azm_trigger_before_javelin_barn_door_open()
 {
-    level._id_0E57.javelin_barn_door_open_trigger = getentarray( "flag_before_javelin_barn_door_open", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( level._id_0E57.javelin_barn_door_open_trigger, common_scripts\utility::_id_97CC );
+    level.aud.javelin_barn_door_open_trigger = getentarray( "flag_before_javelin_barn_door_open", "script_noteworthy" );
+    common_scripts\utility::array_thread( level.aud.javelin_barn_door_open_trigger, common_scripts\utility::_id_97CC );
 }

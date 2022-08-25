@@ -29,17 +29,17 @@ _id_2402()
     level._id_3AF1 = common_scripts\_createfx::_id_748A;
     level._id_3AF0 = common_scripts\_createfx::_id_6FEC;
     level._id_3AED = ::_id_3AED;
-    level.mp_createfx = 1;
-    level._id_1A05 = common_scripts\utility::_id_9F36;
-    level._id_19FD = common_scripts\utility::_id_9F36;
-    level._id_19FF = common_scripts\utility::_id_9F36;
+    level._id_5FAC = 1;
+    level.callbackstartgametype = common_scripts\utility::_id_9F36;
+    level.callbackplayerconnect = common_scripts\utility::_id_9F36;
+    level.callbackplayerdisconnect = common_scripts\utility::_id_9F36;
     level.callbackplayerdamage = common_scripts\utility::_id_9F36;
-    level._id_1A01 = common_scripts\utility::_id_9F36;
-    level._id_19FB = common_scripts\utility::_id_9F36;
-    level._id_19FA = common_scripts\utility::_id_9F36;
-    level._id_1A02 = common_scripts\utility::_id_9F36;
-    level._id_19FD = ::_id_19F0;
-    level._id_1A03 = common_scripts\utility::_id_9F36;
+    level.callbackplayerkilled = common_scripts\utility::_id_9F36;
+    level.callbackentityoutofworld = common_scripts\utility::_id_9F36;
+    level.callbackcodeendgame = common_scripts\utility::_id_9F36;
+    level.callbackplayerlaststand = common_scripts\utility::_id_9F36;
+    level.callbackplayerconnect = ::callback_playerconnect;
+    level.callbackplayermigrated = common_scripts\utility::_id_9F36;
     maps\mp\gametypes\_gameobjects::main( [] );
     maps\mp\gametypes\_oldschool::deletepickups();
     thread common_scripts\_createfx::_id_3AE8();
@@ -52,7 +52,7 @@ _id_3AEF( var_0 )
     return level.player.origin;
 }
 
-_id_19F0()
+callback_playerconnect()
 {
     self waittill( "begin" );
 
@@ -73,6 +73,6 @@ _id_19F0()
 
 _id_3AED()
 {
-    var_0 = level._createfx.player_speed / 190;
+    var_0 = level._createfx._id_6C19 / 190;
     level.player setmovespeedscale( var_0 );
 }

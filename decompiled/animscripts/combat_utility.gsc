@@ -87,9 +87,9 @@ _id_3F1E()
         return randomfloatrange( 0.4, 0.9 );
 }
 
-_id_1930()
+burstdelay()
 {
-    if ( self._id_18B0 )
+    if ( self.bulletsinclip )
     {
         if ( self._id_8415 == "full" && !self._id_3672 )
         {
@@ -133,18 +133,18 @@ cheatammoifnecessary_h1()
     if ( animscripts\utility::_id_9C3A() || animscripts\utility::_id_9C36() )
         return 0;
 
-    if ( gettime() - self._id_0B78 < self._id_0B77 )
+    if ( gettime() - self.ammocheattime < self.ammocheatinterval )
         return 0;
 
-    if ( !self _meth_81c2( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) > 65536 )
+    if ( !self _meth_81C2( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) > 65536 )
         return 0;
 
-    self._id_18B0 = int( weaponclipsize( self.weapon ) / 2 );
+    self.bulletsinclip = int( weaponclipsize( self.weapon ) / 2 );
 
-    if ( self._id_18B0 > weaponclipsize( self.weapon ) )
-        self._id_18B0 = weaponclipsize( self.weapon );
+    if ( self.bulletsinclip > weaponclipsize( self.weapon ) )
+        self.bulletsinclip = weaponclipsize( self.weapon );
 
-    self._id_0B78 = gettime();
+    self.ammocheattime = gettime();
     self notify( "cheated_reload_level_stats" );
     return 1;
 }
@@ -172,23 +172,23 @@ cheatammoifnecessary_cod3()
     if ( isdefined( self.nextcheattime ) && gettime() < self.nextcheattime )
         return 0;
 
-    if ( !self _meth_81c2( self.enemy ) )
+    if ( !self _meth_81C2( self.enemy ) )
         return 0;
 
     if ( animscripts\utility::_id_50E9() )
-        self._id_18B0 = weaponclipsize( self.weapon );
+        self.bulletsinclip = weaponclipsize( self.weapon );
     else
-        self._id_18B0 = 10;
+        self.bulletsinclip = 10;
 
-    if ( self._id_18B0 > weaponclipsize( self.weapon ) )
-        self._id_18B0 = weaponclipsize( self.weapon );
+    if ( self.bulletsinclip > weaponclipsize( self.weapon ) )
+        self.bulletsinclip = weaponclipsize( self.weapon );
 
     self.nextcheattime = gettime() + 4000;
     self notify( "cheated_reload_level_stats" );
     return 1;
 }
 
-_id_0975()
+aimbutdontshoot()
 {
     for ( var_0 = int( 60.0 ); var_0 > 0; var_0-- )
     {
@@ -212,7 +212,7 @@ _id_8417()
     if ( _id_514A() )
     {
         if ( isdefined( self.enemy ) && isai( self.enemy ) && distancesquared( level.player.origin, self.enemy.origin ) < 147456 )
-            self.enemy animscripts\battlechatter_ai::_id_0840( "infantry", self, 1.0 );
+            self.enemy animscripts\battlechatter_ai::addthreatevent( "infantry", self, 1.0 );
 
         if ( animscripts\utility::_id_9C36() && issentient( self.enemy ) )
             wait(randomfloat( 2.0 ));
@@ -223,70 +223,70 @@ _id_8417()
     for (;;)
     {
         if ( !var_0 )
-            _id_1930();
+            burstdelay();
 
         var_0 = 0;
 
-        if ( _id_0975() )
+        if ( aimbutdontshoot() )
             break;
 
         if ( self._id_8415 == "full" )
         {
             if ( isdefined( self._id_5A7A ) && self._id_5A7A )
-                _id_37EE( animscripts\utility::_id_0C4E( "fire" ), 0, 100 );
+                _id_37EE( animscripts\utility::animarray( "fire" ), 0, 100 );
             else
-                _id_37EE( animscripts\utility::_id_0C4E( "fire" ), 1, animscripts\shared::_id_2742() );
+                _id_37EE( animscripts\utility::animarray( "fire" ), 1, animscripts\shared::_id_2742() );
         }
         else if ( self._id_8415 == "burst" || self._id_8415 == "semi" )
         {
             var_1 = animscripts\shared::_id_2741();
 
             if ( var_1 == 1 )
-                _id_37EE( animscripts\utility::_id_0C51( "single" ), 1, var_1 );
+                _id_37EE( animscripts\utility::animarraypickrandom( "single" ), 1, var_1 );
             else
-                _id_37EE( animscripts\utility::_id_0C4E( self._id_8415 + var_1 ), 1, var_1 );
+                _id_37EE( animscripts\utility::animarray( self._id_8415 + var_1 ), 1, var_1 );
         }
         else if ( self._id_8415 == "single" )
-            _id_37EE( animscripts\utility::_id_0C51( "single" ), 1, 1 );
+            _id_37EE( animscripts\utility::animarraypickrandom( "single" ), 1, 1 );
         else
             self waittill( "hell freezes over" );
 
-        if ( !self._id_18B0 )
+        if ( !self.bulletsinclip )
             break;
     }
 }
 
 _id_4143()
 {
-    anim._id_0C6E++;
-    return anim._id_0C6E;
+    anim.animflagnameindex++;
+    return anim.animflagnameindex;
 }
 #using_animtree("generic_human");
 
 _id_82F8( var_0 )
 {
-    self _meth_814d( %exposed_aiming, 1, var_0 );
-    self _meth_8146( animscripts\utility::_id_0C4E( "straight_level" ), 1, var_0 );
-    self _meth_8146( animscripts\utility::_id_0C4E( "add_aim_up" ), 1, var_0 );
-    self _meth_8146( animscripts\utility::_id_0C4E( "add_aim_down" ), 1, var_0 );
-    self _meth_8146( animscripts\utility::_id_0C4E( "add_aim_left" ), 1, var_0 );
-    self _meth_8146( animscripts\utility::_id_0C4E( "add_aim_right" ), 1, var_0 );
+    self _meth_814D( %exposed_aiming, 1, var_0 );
+    self _meth_8146( animscripts\utility::animarray( "straight_level" ), 1, var_0 );
+    self _meth_8146( animscripts\utility::animarray( "add_aim_up" ), 1, var_0 );
+    self _meth_8146( animscripts\utility::animarray( "add_aim_down" ), 1, var_0 );
+    self _meth_8146( animscripts\utility::animarray( "add_aim_left" ), 1, var_0 );
+    self _meth_8146( animscripts\utility::animarray( "add_aim_right" ), 1, var_0 );
     self._id_35C7 = animscripts\face::_id_6D9B( undefined, "aim", self._id_35C7 );
 }
 
 _id_8D17()
 {
-    if ( !isdefined( self.a._id_0979 ) )
+    if ( !isdefined( self.a.aimidlethread ) )
     {
         var_0 = 0.2;
 
-        if ( isdefined( self._id_097C ) )
-            var_0 = self._id_097C;
+        if ( isdefined( self.aimsetupblendtime ) )
+            var_0 = self.aimsetupblendtime;
 
         _id_82F8( var_0 );
 
         if ( self.doaimidlethread )
-            thread _id_0979();
+            thread aimidlethread();
 
         thread animscripts\track::_id_9512();
     }
@@ -301,31 +301,31 @@ _id_315E()
 
 _id_850C()
 {
-    if ( isdefined( self.a._id_0979 ) )
-        self _meth_814d( %add_idle, 0, 0.2 );
+    if ( isdefined( self.a.aimidlethread ) )
+        self _meth_814D( %add_idle, 0, 0.2 );
 
-    self _meth_814d( %add_fire, 1, 0.1 );
+    self _meth_814D( %add_fire, 1, 0.1 );
 }
 
 _id_4873()
 {
-    if ( isdefined( self.a._id_0979 ) )
-        self _meth_814d( %add_idle, 1, 0.2 );
+    if ( isdefined( self.a.aimidlethread ) )
+        self _meth_814D( %add_idle, 1, 0.2 );
 
-    self _meth_814d( %add_fire, 0, 0.1 );
+    self _meth_814D( %add_fire, 0, 0.1 );
 }
 
-_id_0979( var_0 )
+aimidlethread( var_0 )
 {
     self endon( "killanimscript" );
     self endon( "end_aim_idle_thread" );
 
-    if ( isdefined( self.a._id_0979 ) )
+    if ( isdefined( self.a.aimidlethread ) )
         return;
 
-    self.a._id_0979 = 1;
+    self.a.aimidlethread = 1;
     wait 0.1;
-    self _meth_814e( %add_idle, 1, 0.2 );
+    self _meth_814E( %add_idle, 1, 0.2 );
     var_1 = %add_idle;
     var_2 = 0;
 
@@ -334,9 +334,9 @@ _id_0979( var_0 )
         var_3 = "idle" + var_2;
 
         if ( isdefined( self.a._id_565E ) )
-            var_4 = animscripts\utility::_id_0C51( "lean_idle" );
-        else if ( animscripts\utility::_id_0C4F( "exposed_idle" ) )
-            var_4 = animscripts\utility::_id_0C51( "exposed_idle" );
+            var_4 = animscripts\utility::animarraypickrandom( "lean_idle" );
+        else if ( animscripts\utility::animarrayanyexist( "exposed_idle" ) )
+            var_4 = animscripts\utility::animarraypickrandom( "exposed_idle" );
         else
         {
             wait 0.5;
@@ -359,7 +359,7 @@ _id_0979( var_0 )
 _id_3156()
 {
     self notify( "end_aim_idle_thread" );
-    self.a._id_0979 = undefined;
+    self.a.aimidlethread = undefined;
     self _meth_8144( %add_idle, 0.1 );
 }
 
@@ -374,7 +374,7 @@ _id_8442()
         return 1.0;
 
     if ( animscripts\weaponlist::_id_9C2C() )
-        return animscripts\weaponlist::_id_116C() * 0.7;
+        return animscripts\weaponlist::autoshootanimrate() * 0.7;
 
     return 0.4;
 }
@@ -384,7 +384,7 @@ _id_37EE( var_0, var_1, var_2 )
     var_3 = "fireAnim_" + _id_4143();
     maps\_gameskill::_id_7450();
 
-    while ( !_id_0976() )
+    while ( !aimedatshootentorpos() )
         wait 0.05;
 
     _id_850C();
@@ -393,16 +393,16 @@ _id_37EE( var_0, var_1, var_2 )
     if ( isdefined( self._id_8414 ) )
         var_4 = self._id_8414;
     else if ( self._id_8415 == "full" )
-        var_4 = animscripts\weaponlist::_id_116C();
+        var_4 = animscripts\weaponlist::autoshootanimrate();
     else if ( self._id_8415 == "burst" )
-        var_4 = animscripts\weaponlist::_id_1934();
+        var_4 = animscripts\weaponlist::burstshootanimrate();
     else if ( animscripts\utility::_id_9C3A() )
         var_4 = 3.0;
     else if ( animscripts\utility::_id_9C39() )
         var_4 = shotgunfirerate_h1og();
 
     self setflaggedanimknobrestart( var_3, var_0, 1, 0.2, var_4 );
-    self _meth_81ed();
+    self _meth_81ED();
     var_5 = weaponfiretime( self.weapon );
     _id_37F0( var_3, var_0, var_1, var_2, var_5 );
     _id_4873();
@@ -422,7 +422,7 @@ _id_37EF()
 
         if ( !isdefined( var_0 ) )
         {
-            self _meth_83d8();
+            self _meth_83D8();
             return;
         }
 
@@ -459,13 +459,13 @@ _id_37F0( var_0, var_1, var_2, var_3, var_4 )
         if ( var_7 )
             self waittillmatch( var_0, "fire" );
 
-        if ( !self._id_18B0 )
+        if ( !self.bulletsinclip )
         {
             if ( !_id_1CAE() )
                 break;
         }
 
-        if ( !_id_0976() )
+        if ( !aimedatshootentorpos() )
             break;
 
         _id_83EB();
@@ -473,10 +473,10 @@ _id_37F0( var_0, var_1, var_2, var_3, var_4 )
         if ( isplayer( self.enemy ) && self.enemy maps\_utility::_id_32D8( "player_is_invulnerable" ) )
         {
             if ( randomint( 3 ) == 0 )
-                self._id_18B0--;
+                self.bulletsinclip--;
         }
         else
-            self._id_18B0--;
+            self.bulletsinclip--;
 
         if ( var_8 )
         {
@@ -505,39 +505,39 @@ _id_37F0( var_0, var_1, var_2, var_3, var_4 )
             wait(var_4 - var_9);
     }
 
-    self _meth_83d8();
+    self _meth_83D8();
 
     if ( var_2 )
         self notify( "fireAnimEnd" );
 }
 
-_id_0976()
+aimedatshootentorpos()
 {
     if ( !isdefined( self._id_840F ) )
         return 1;
 
-    var_0 = self _meth_81bd();
+    var_0 = self _meth_81BD();
     var_1 = animscripts\shared::_id_40C8();
     var_2 = vectortoangles( self._id_840F - var_1 );
-    var_3 = anim._id_0985;
+    var_3 = anim.aimyawdifffartolerance;
 
-    if ( isdefined( self._id_0978 ) )
-        var_3 = self._id_0978;
+    if ( isdefined( self.aimfaryawtolerance ) )
+        var_3 = self.aimfaryawtolerance;
 
-    var_4 = animscripts\utility::_id_06C4( var_0[1] - var_2[1] );
+    var_4 = animscripts\utility::absangleclamp180( var_0[1] - var_2[1] );
 
     if ( var_4 > var_3 )
     {
-        if ( distancesquared( self geteye(), self._id_840F ) > anim._id_0983 || var_4 > anim._id_0984 )
+        if ( distancesquared( self geteye(), self._id_840F ) > anim.aimyawdiffclosedistsq || var_4 > anim.aimyawdiffclosetolerance )
             return 0;
     }
 
-    var_5 = anim._id_097B;
+    var_5 = anim.aimpitchdifftolerance;
 
     if ( self.a._id_6E5A == "crouch" && distancesquared( self geteye(), self._id_840F ) < anim.aimpitchdiffclosedistsq )
         var_5 = anim.aimpitchdiffclosetolerance;
 
-    return animscripts\utility::_id_06C4( var_0[0] - var_2[0] ) <= var_5;
+    return animscripts\utility::absangleclamp180( var_0[0] - var_2[0] ) <= var_5;
 }
 
 _id_622F( var_0, var_1 )
@@ -573,8 +573,8 @@ _id_83EB()
 
 _id_275F()
 {
-    if ( self._id_18B0 )
-        self._id_18B0--;
+    if ( self.bulletsinclip )
+        self.bulletsinclip--;
 }
 
 _id_8443( var_0 )
@@ -611,11 +611,11 @@ _id_6089( var_0 )
 
     if ( isdefined( self._id_615B ) )
     {
-        if ( self._id_18B0 < weaponclipsize( self.weapon ) * 0.5 )
-            self._id_18B0 = int( weaponclipsize( self.weapon ) * 0.5 );
+        if ( self.bulletsinclip < weaponclipsize( self.weapon ) * 0.5 )
+            self.bulletsinclip = int( weaponclipsize( self.weapon ) * 0.5 );
 
-        if ( self._id_18B0 <= 0 )
-            self._id_18B0 = 0;
+        if ( self.bulletsinclip <= 0 )
+            self.bulletsinclip = 0;
 
         return 0;
     }
@@ -623,7 +623,7 @@ _id_6089( var_0 )
     if ( animscripts\stairs_utility::stairstransitionpendingsince( 100 ) )
         return 0;
 
-    if ( self._id_18B0 <= weaponclipsize( self.weapon ) * var_0 )
+    if ( self.bulletsinclip <= weaponclipsize( self.weapon ) * var_0 )
     {
         if ( var_0 == 0 )
         {
@@ -667,7 +667,7 @@ reload( var_0, var_1 )
         if ( self.a._id_6E5A == "prone" )
         {
             self setflaggedanimknoball( "reloadanim", %prone_reload, %body, 1, 0.1, 1 );
-            self _meth_81fe( %prone_legs_up, %prone_legs_down, 1, 0.1, 1 );
+            self _meth_81FE( %prone_legs_up, %prone_legs_down, 1, 0.1, 1 );
         }
         else
         {
@@ -683,7 +683,7 @@ reload( var_0, var_1 )
     return 1;
 }
 
-_id_07E3( var_0, var_1 )
+addgrenadethrowanimoffset( var_0, var_1 )
 {
     if ( !isdefined( anim._id_440A ) )
     {
@@ -698,31 +698,31 @@ _id_07E3( var_0, var_1 )
 
 _id_4DC3()
 {
-    _id_07E3( %exposed_grenadethrowb, ( 41.5391, 7.28883, 72.2128 ) );
-    _id_07E3( %exposed_grenadethrowc, ( 34.8849, -4.77048, 74.0488 ) );
-    _id_07E3( %corner_standl_grenade_a, ( 41.605, 6.80107, 81.4785 ) );
-    _id_07E3( %corner_standl_grenade_b, ( 24.1585, -14.7221, 29.2992 ) );
-    _id_07E3( %cornercrl_grenadea, ( 25.8988, -10.2811, 30.4813 ) );
-    _id_07E3( %cornercrl_grenadeb, ( 24.688, 45.0702, 64.377 ) );
-    _id_07E3( %corner_standr_grenade_a, ( 37.1254, -32.7053, 76.5745 ) );
-    _id_07E3( %corner_standr_grenade_b, ( 19.356, 15.5341, 16.5036 ) );
-    _id_07E3( %cornercrr_grenadea, ( 39.8857, 5.92472, 24.5878 ) );
-    _id_07E3( %covercrouch_grenadea, ( -1.6363, -0.693674, 60.1009 ) );
-    _id_07E3( %covercrouch_grenadeb, ( -1.6363, -0.693674, 60.1009 ) );
-    _id_07E3( %coverstand_grenadea, ( 10.8573, 7.12614, 77.2356 ) );
-    _id_07E3( %coverstand_grenadeb, ( 19.1804, 5.68214, 73.2278 ) );
-    _id_07E3( %prone_grenade_a, ( 12.2859, -1.3019, 33.4307 ) );
-    _id_07E3( %cqb_stand_grenade_throw, ( 35.7494, 26.6052, 37.7086 ) );
-    _id_07E3( %s1_covercrouch_grenadea, ( -15.5413, -16.7719, 19.4304 ) );
-    _id_07E3( %s1_coverstand_grenadea, ( 3.99694, -2.76588, 32.8777 ) );
-    _id_07E3( %s1_coverstand_grenadeb, ( 5.51904, 2.92983, 32.8406 ) );
-    _id_07E3( %s1_exposed_crouch_fast_grenade_1, ( 16.4611, -8.55309, 30.1018 ) );
-    _id_07E3( %s1_exposed_crouch_fast_grenade_2, ( 30.5886, -7.6374, 47.3139 ) );
-    _id_07E3( %s1_exposed_grenadethrowc, ( 13.433, -0.473915, 43.3545 ) );
-    _id_07E3( %s1_exposed_grenadethrowb, ( -31.425, -7.62042, 42.4334 ) );
-    _id_07E3( %s1_cornercrr_grenade_2, ( 37.4516, -2.01701, 22.6517 ) );
-    _id_07E3( %s1_corner_standl_grenade_a, ( 41.605, 6.80107, 81.4785 ) );
-    _id_07E3( %s1_cornercrr_grenadea, ( 39.8857, 5.92472, 24.5878 ) );
+    addgrenadethrowanimoffset( %exposed_grenadethrowb, ( 41.5391, 7.28883, 72.2128 ) );
+    addgrenadethrowanimoffset( %exposed_grenadethrowc, ( 34.8849, -4.77048, 74.0488 ) );
+    addgrenadethrowanimoffset( %corner_standl_grenade_a, ( 41.605, 6.80107, 81.4785 ) );
+    addgrenadethrowanimoffset( %corner_standl_grenade_b, ( 24.1585, -14.7221, 29.2992 ) );
+    addgrenadethrowanimoffset( %cornercrl_grenadea, ( 25.8988, -10.2811, 30.4813 ) );
+    addgrenadethrowanimoffset( %cornercrl_grenadeb, ( 24.688, 45.0702, 64.377 ) );
+    addgrenadethrowanimoffset( %corner_standr_grenade_a, ( 37.1254, -32.7053, 76.5745 ) );
+    addgrenadethrowanimoffset( %corner_standr_grenade_b, ( 19.356, 15.5341, 16.5036 ) );
+    addgrenadethrowanimoffset( %cornercrr_grenadea, ( 39.8857, 5.92472, 24.5878 ) );
+    addgrenadethrowanimoffset( %covercrouch_grenadea, ( -1.6363, -0.693674, 60.1009 ) );
+    addgrenadethrowanimoffset( %covercrouch_grenadeb, ( -1.6363, -0.693674, 60.1009 ) );
+    addgrenadethrowanimoffset( %coverstand_grenadea, ( 10.8573, 7.12614, 77.2356 ) );
+    addgrenadethrowanimoffset( %coverstand_grenadeb, ( 19.1804, 5.68214, 73.2278 ) );
+    addgrenadethrowanimoffset( %prone_grenade_a, ( 12.2859, -1.3019, 33.4307 ) );
+    addgrenadethrowanimoffset( %cqb_stand_grenade_throw, ( 35.7494, 26.6052, 37.7086 ) );
+    addgrenadethrowanimoffset( %s1_covercrouch_grenadea, ( -15.5413, -16.7719, 19.4304 ) );
+    addgrenadethrowanimoffset( %s1_coverstand_grenadea, ( 3.99694, -2.76588, 32.8777 ) );
+    addgrenadethrowanimoffset( %s1_coverstand_grenadeb, ( 5.51904, 2.92983, 32.8406 ) );
+    addgrenadethrowanimoffset( %s1_exposed_crouch_fast_grenade_1, ( 16.4611, -8.55309, 30.1018 ) );
+    addgrenadethrowanimoffset( %s1_exposed_crouch_fast_grenade_2, ( 30.5886, -7.6374, 47.3139 ) );
+    addgrenadethrowanimoffset( %s1_exposed_grenadethrowc, ( 13.433, -0.473915, 43.3545 ) );
+    addgrenadethrowanimoffset( %s1_exposed_grenadethrowb, ( -31.425, -7.62042, 42.4334 ) );
+    addgrenadethrowanimoffset( %s1_cornercrr_grenade_2, ( 37.4516, -2.01701, 22.6517 ) );
+    addgrenadethrowanimoffset( %s1_corner_standl_grenade_a, ( 41.605, 6.80107, 81.4785 ) );
+    addgrenadethrowanimoffset( %s1_cornercrr_grenadea, ( 39.8857, 5.92472, 24.5878 ) );
 }
 
 h1_grenade_attach_detach_listener( var_0 )
@@ -789,24 +789,24 @@ _id_933C()
 
 _id_7F15( var_0 )
 {
-    self._id_071F = spawnstruct();
+    self.activegrenadetimer = spawnstruct();
 
     if ( isplayer( var_0 ) )
     {
-        self._id_071F._id_517C = 1;
-        self._id_071F.player = var_0;
-        self._id_071F._id_9378 = self.grenadeweapon;
+        self.activegrenadetimer._id_517C = 1;
+        self.activegrenadetimer.player = var_0;
+        self.activegrenadetimer._id_9378 = self.grenadeweapon;
     }
     else
     {
-        self._id_071F._id_517C = 0;
-        self._id_071F._id_9378 = "AI_" + self.grenadeweapon;
+        self.activegrenadetimer._id_517C = 0;
+        self.activegrenadetimer._id_9378 = "AI_" + self.grenadeweapon;
     }
 }
 
 _id_9C32()
 {
-    return self._id_071F._id_517C;
+    return self.activegrenadetimer._id_517C;
 }
 
 _id_7F80( var_0, var_1 )
@@ -830,7 +830,7 @@ _id_3F55()
 
     if ( _id_9C32() )
     {
-        var_1 = self._id_071F.player;
+        var_1 = self.activegrenadetimer.player;
         var_0 = gettime() + var_1._id_4441._id_6CB3 + randomint( var_1._id_4441._id_6CB4 );
     }
     else
@@ -849,9 +849,9 @@ _id_3FB2( var_0 )
 
 _id_2151( var_0 )
 {
-    if ( !isplayer( var_0 ) && self _meth_813f() )
+    if ( !isplayer( var_0 ) && self _meth_813F() )
     {
-        if ( gettime() < _id_3FB2( self._id_071F ) )
+        if ( gettime() < _id_3FB2( self.activegrenadetimer ) )
         {
             if ( level.player.ignoreme )
                 return var_0;
@@ -862,7 +862,7 @@ _id_2151( var_0 )
             if ( var_1 != "" && var_2 != "" && getthreatbias( var_2, var_1 ) < -10000 )
                 return var_0;
 
-            if ( self _meth_81c2( level.player ) || isai( var_0 ) && var_0 _meth_81c2( level.player ) )
+            if ( self _meth_81C2( level.player ) || isai( var_0 ) && var_0 _meth_81C2( level.player ) )
             {
                 if ( isdefined( self._id_22BA ) )
                 {
@@ -922,10 +922,10 @@ _id_43FB( var_0 )
     if ( !_id_6036() )
         return 0;
 
-    if ( gettime() >= _id_3FB2( self._id_071F ) )
+    if ( gettime() >= _id_3FB2( self.activegrenadetimer ) )
         return 1;
 
-    if ( self._id_071F._id_517C && self._id_071F._id_9378 == "fraggrenade" )
+    if ( self.activegrenadetimer._id_517C && self.activegrenadetimer._id_9378 == "fraggrenade" )
         return _id_5A63( var_0 );
 
     return 0;
@@ -1031,7 +1031,7 @@ _id_989D( var_0, var_1 )
         else
         {
             if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-                var_3 = self _meth_81c5( var_0 );
+                var_3 = self _meth_81C5( var_0 );
             else
                 var_3 = var_0.origin;
 
@@ -1046,7 +1046,7 @@ _id_989D( var_0, var_1 )
     else
     {
         if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-            var_3 = self _meth_81c5( var_0 );
+            var_3 = self _meth_81C5( var_0 );
         else
             var_3 = var_0.origin;
 
@@ -1099,12 +1099,12 @@ _id_989F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( isdefined( var_1 ) )
     {
         if ( !isdefined( var_4 ) )
-            var_9 = self _meth_81a8( var_3, var_1, var_5, "min energy", "min time", "max time" );
+            var_9 = self _meth_81A8( var_3, var_1, var_5, "min energy", "min time", "max time" );
         else
-            var_9 = self _meth_81a8( var_3, var_1, var_5, "min time", "min energy" );
+            var_9 = self _meth_81A8( var_3, var_1, var_5, "min time", "min energy" );
     }
     else if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-        var_9 = self _meth_81a8( var_3, self _meth_81c5( var_0 ), var_5, "min energy", "min time", "max time" );
+        var_9 = self _meth_81A8( var_3, self _meth_81C5( var_0 ), var_5, "min energy", "min time", "max time" );
     else
     {
         var_10 = distance( var_0.origin, self.origin );
@@ -1119,9 +1119,9 @@ _id_989F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         }
 
         if ( !isdefined( var_4 ) )
-            var_9 = self _meth_81d3( var_3, var_11, "min energy", "min time", "max time" );
+            var_9 = self _meth_81D3( var_3, var_11, "min energy", "min time", "max time" );
         else
-            var_9 = self _meth_81d3( var_3, var_11, "min time", "min energy" );
+            var_9 = self _meth_81D3( var_3, var_11, "min time", "min energy" );
     }
 
     self.a._id_60CC = gettime() + randomintrange( 1000, 2000 );
@@ -1133,7 +1133,7 @@ _id_989F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
         self.grenadeawareness = 0;
         var_12 = _id_3F55();
-        _id_7F80( self._id_071F, min( gettime() + 3000, var_12 ) );
+        _id_7F80( self.activegrenadetimer, min( gettime() + 3000, var_12 ) );
         var_13 = 0;
 
         if ( _id_9C32() )
@@ -1144,7 +1144,7 @@ _id_989F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             if ( var_0._id_62A3 > 1 )
                 var_13 = 1;
 
-            if ( self._id_071F._id_9378 == "fraggrenade" )
+            if ( self.activegrenadetimer._id_9378 == "fraggrenade" )
             {
                 if ( var_0._id_62A3 <= 1 )
                     var_0._id_55A2 = gettime();
@@ -1193,7 +1193,7 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
 
         if ( var_6 == "grenade_left" || var_6 == "grenade_right" )
         {
-            var_5 = _id_0DFB( var_4, "TAG_INHAND" );
+            var_5 = attachgrenademodel( var_4, "TAG_INHAND" );
             self._id_511B = 1;
         }
 
@@ -1202,7 +1202,7 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
 
         if ( var_6 == "end" )
         {
-            self._id_071F.player._id_62A3--;
+            self.activegrenadetimer.player._id_62A3--;
             self notify( "dont_reduce_giptp_on_killanimscript" );
             return 0;
         }
@@ -1211,16 +1211,16 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
     self notify( "dont_reduce_giptp_on_killanimscript" );
 
     if ( _id_9C32() )
-        thread _id_A22F( self._id_071F.player, var_2 );
+        thread _id_A22F( self.activegrenadetimer.player, var_2 );
 
-    self _meth_81d6();
+    self _meth_81D6();
 
     if ( !_id_9C32() )
-        _id_7F80( self._id_071F, var_2 );
+        _id_7F80( self.activegrenadetimer, var_2 );
 
     if ( var_3 )
     {
-        var_13 = self._id_071F.player;
+        var_13 = self.activegrenadetimer.player;
 
         if ( var_13._id_62A3 > 1 || gettime() - var_13._id_55A4 < 2000 )
             var_13._id_440D["double_grenade"] = gettime() + min( 5000, var_13._id_4441._id_6C95 );
@@ -1241,8 +1241,8 @@ _id_2CD7( var_0, var_1, var_2, var_3 )
     self waittillmatch( "throwanim", "end" );
     self notify( "done_grenade_throw" );
     self notify( "weapon_switch_done" );
-    self _meth_814d( %exposed_modern, 1, 0.2 );
-    self _meth_814d( %exposed_aiming, 1 );
+    self _meth_814D( %exposed_modern, 1, 0.2 );
+    self _meth_814D( %exposed_aiming, 1 );
     self _meth_8144( var_0, 0.2 );
 }
 
@@ -1255,7 +1255,7 @@ _id_A22F( var_0, var_1 )
 
 _id_A230( var_0 )
 {
-    var_1 = self._id_071F;
+    var_1 = self.activegrenadetimer;
     var_2 = spawnstruct();
     var_2 thread _id_A231( 5 );
     var_2 endon( "watchGrenadeTowardsPlayerTimeout" );
@@ -1340,7 +1340,7 @@ _id_A231( var_0 )
     self notify( "watchGrenadeTowardsPlayerTimeout" );
 }
 
-_id_0DFB( var_0, var_1 )
+attachgrenademodel( var_0, var_1 )
 {
     self attach( var_0, var_1 );
     thread _id_2981( var_0, var_1 );
@@ -1423,7 +1423,7 @@ _id_585F()
 
 _id_3F15()
 {
-    var_0 = self _meth_81f1();
+    var_0 = self _meth_81F1();
 
     if ( !isdefined( var_0 ) )
         return undefined;
@@ -1446,7 +1446,7 @@ _id_9BF3( var_0 )
     self.keepclaimednodeifvalid = 0;
     self.keepclaimednode = 0;
 
-    if ( self _meth_81f3( var_0 ) )
+    if ( self _meth_81F3( var_0 ) )
         return 1;
     else
     {
@@ -1460,7 +1460,7 @@ _id_9BF3( var_0 )
 
 _id_849C()
 {
-    if ( level._id_0883[self.team] > 0 && level._id_0883[self.team] < level._id_0884 )
+    if ( level.advancetoenemygroup[self.team] > 0 && level.advancetoenemygroup[self.team] < level.advancetoenemygroupmax )
     {
         if ( gettime() - level._id_5574[self.team] > 4000 )
             return 0;
@@ -1487,16 +1487,16 @@ _id_1CF0()
     if ( _id_849C() )
         return 1;
 
-    if ( gettime() - level._id_5574[self.team] < level._id_0885 )
+    if ( gettime() - level._id_5574[self.team] < level.advancetoenemyinterval )
         return 0;
 
     if ( !issentient( self.enemy ) )
         return 0;
 
-    if ( level._id_0883[self.team] )
-        level._id_0883[self.team] = 0;
+    if ( level.advancetoenemygroup[self.team] )
+        level.advancetoenemygroup[self.team] = 0;
 
-    var_0 = isdefined( self._id_087E ) && self._id_087E;
+    var_0 = isdefined( self.advance_regardless_of_numbers ) && self.advance_regardless_of_numbers;
 
     if ( !var_0 && getaicount( self.team ) < getaicount( self.enemy.team ) )
         return 0;
@@ -1524,15 +1524,15 @@ _id_98A4( var_0 )
     if ( !_id_1CF0() )
         return 0;
 
-    self _meth_81f6( var_0 );
+    self _meth_81F6( var_0 );
 
-    if ( self _meth_81f8() )
+    if ( self _meth_81F8() )
     {
         self.keepclaimednodeifvalid = 0;
         self.keepclaimednode = 0;
         self.a._id_58DE = 1;
 
-        if ( level._id_0883[self.team] == 0 )
+        if ( level.advancetoenemygroup[self.team] == 0 )
         {
             level._id_5574[self.team] = gettime();
             level._id_5571[self.team] = self;
@@ -1540,7 +1540,7 @@ _id_98A4( var_0 )
 
         level._id_5573[self.team] = self.origin;
         level._id_5572[self.team] = self.enemy.origin;
-        level._id_0883[self.team]++;
+        level.advancetoenemygroup[self.team]++;
         return 1;
     }
 
@@ -1551,25 +1551,25 @@ _id_27DE( var_0 )
 {
     self endon( "death" );
     wait 0.5;
-    var_1 = "" + anim._id_1267;
+    var_1 = "" + anim.badplaceint;
     badplace_cylinder( var_1, 5, var_0, 16, 64, self.team );
-    anim._id_126A[anim._id_126A.size] = var_1;
+    anim.badplaces[anim.badplaces.size] = var_1;
 
-    if ( anim._id_126A.size >= 10 )
+    if ( anim.badplaces.size >= 10 )
     {
         var_2 = [];
 
-        for ( var_3 = 1; var_3 < anim._id_126A.size; var_3++ )
-            var_2[var_2.size] = anim._id_126A[var_3];
+        for ( var_3 = 1; var_3 < anim.badplaces.size; var_3++ )
+            var_2[var_2.size] = anim.badplaces[var_3];
 
-        badplace_delete( anim._id_126A[0] );
-        anim._id_126A = var_2;
+        badplace_delete( anim.badplaces[0] );
+        anim.badplaces = var_2;
     }
 
-    anim._id_1267++;
+    anim.badplaceint++;
 
-    if ( anim._id_1267 > 10 )
-        anim._id_1267 -= 20;
+    if ( anim.badplaceint > 10 )
+        anim.badplaceint -= 20;
 }
 
 _id_9C56( var_0, var_1, var_2 )
@@ -1585,7 +1585,7 @@ _id_3FBF()
     if ( !isdefined( self._id_840F ) )
         return 0;
 
-    var_0 = self _meth_81bd()[1] - animscripts\utility::_id_4171( self._id_840F );
+    var_0 = self _meth_81BD()[1] - animscripts\utility::_id_4171( self._id_840F );
     var_0 = angleclamp180( var_0 );
     return var_0;
 }
@@ -1595,7 +1595,7 @@ _id_3FBE()
     if ( !isdefined( self._id_840F ) )
         return 0;
 
-    var_0 = self _meth_81bd()[0] - vectortoangles( self._id_840F - self _meth_81bc() )[0];
+    var_0 = self _meth_81BD()[0] - vectortoangles( self._id_840F - self _meth_81BC() )[0];
     var_0 = angleclamp180( var_0 );
     return var_0;
 }
@@ -1674,7 +1674,7 @@ _id_A0EE()
         if ( var_0 == "none" )
             break;
 
-        if ( self _meth_82ed() >= weaponclipsize( var_0 ) )
+        if ( self _meth_82ED() >= weaponclipsize( var_0 ) )
             break;
     }
 
@@ -1814,7 +1814,7 @@ _id_6BFF()
 
     foreach ( var_2 in level.players )
     {
-        if ( !self _meth_81c2( var_2 ) )
+        if ( !self _meth_81C2( var_2 ) )
             continue;
 
         var_3 = var_2 geteye();
@@ -1838,7 +1838,7 @@ _id_6BFF()
 
 _id_3DB2( var_0 )
 {
-    var_1 = self _meth_81c5( var_0 );
+    var_1 = self _meth_81C5( var_0 );
     var_2 = var_0 getshootatpos() - var_0.origin;
     return var_1 + var_2;
 }

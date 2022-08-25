@@ -40,22 +40,22 @@ _id_28F8()
     var_0 = 40;
     var_1 = 0;
 
-    if ( isdefined( self.script_accumulate ) )
-        var_0 = self.script_accumulate;
+    if ( isdefined( self._id_792B ) )
+        var_0 = self._id_792B;
 
-    if ( isdefined( self.script_threshold ) )
-        var_1 = self.script_threshold;
+    if ( isdefined( self._id_7AF4 ) )
+        var_1 = self._id_7AF4;
 
-    if ( isdefined( self.script_destructable_area ) )
+    if ( isdefined( self._id_799B ) )
     {
-        var_2 = strtok( self.script_destructable_area, " " );
+        var_2 = strtok( self._id_799B, " " );
 
         for ( var_3 = 0; var_3 < var_2.size; var_3++ )
-            _id_14B1( var_2[var_3] );
+            blockarea( var_2[var_3] );
     }
 
-    if ( isdefined( self.script_fxid ) )
-        self.fx = loadfx( self.script_fxid );
+    if ( isdefined( self._id_79F1 ) )
+        self._id_3B23 = loadfx( self._id_79F1 );
 
     var_4 = 0;
     self setcandamage( 1 );
@@ -81,26 +81,26 @@ _id_28F7()
 {
     var_0 = self;
 
-    if ( isdefined( self.script_destructable_area ) )
+    if ( isdefined( self._id_799B ) )
     {
-        var_1 = strtok( self.script_destructable_area, " " );
+        var_1 = strtok( self._id_799B, " " );
 
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
             _id_99FC( var_1[var_2] );
     }
 
-    if ( isdefined( var_0.fx ) )
-        playfx( var_0.fx, var_0.origin + ( 0.0, 0.0, 6.0 ) );
+    if ( isdefined( var_0._id_3B23 ) )
+        playfx( var_0._id_3B23, var_0.origin + ( 0.0, 0.0, 6.0 ) );
 
     var_0 delete();
 }
 
-_id_14B1( var_0 )
+blockarea( var_0 )
 {
 
 }
 
-_id_14B2( var_0, var_1 )
+blockentsinarea( var_0, var_1 )
 {
 
 }

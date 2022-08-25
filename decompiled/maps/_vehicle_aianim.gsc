@@ -30,7 +30,7 @@ _id_4492( var_0, var_1 )
     var_2 = self.classname;
     var_3 = level._id_9C82[var_2];
     var_4 = level._id_9C82[var_2].size;
-    self._id_0DF4[self._id_0DF4.size] = var_0;
+    self.attachedguys[self.attachedguys.size] = var_0;
     var_5 = _id_7E9F( var_0, var_4 );
 
     if ( !isdefined( var_5 ) )
@@ -39,7 +39,7 @@ _id_4492( var_0, var_1 )
     if ( var_5 == 0 )
         var_0._id_2E18 = 1;
 
-    var_6 = _id_0BE9( self, var_5 );
+    var_6 = anim_pos( self, var_5 );
     self._id_9BFD[var_5] = 1;
     var_0._id_9D1B = var_5;
     var_0._id_9CE7 = 0;
@@ -102,11 +102,11 @@ _id_4492( var_0, var_1 )
 
     if ( isai( var_0 ) )
     {
-        var_0 _meth_81c9( var_7, var_8 );
+        var_0 _meth_81C9( var_7, var_8 );
         var_0.a._id_2B19 = var_0.a._id_2B18;
         var_0.a._id_2B18 = 1;
 
-        if ( isdefined( var_6._id_1433 ) && !var_6._id_1433 )
+        if ( isdefined( var_6.bhasgunwhileriding ) && !var_6.bhasgunwhileriding )
             var_0 maps\_utility::_id_4462();
 
         if ( _id_44AF( var_6 ) )
@@ -114,7 +114,7 @@ _id_4492( var_0, var_1 )
     }
     else
     {
-        if ( isdefined( var_6._id_1433 ) && !var_6._id_1433 )
+        if ( isdefined( var_6.bhasgunwhileriding ) && !var_6.bhasgunwhileriding )
             _id_297A( var_0, "weapon_" );
 
         var_0.origin = var_7;
@@ -194,7 +194,7 @@ _id_44AF( var_0 )
 _id_451F()
 {
     var_0 = self.classname;
-    self._id_0DF4 = [];
+    self.attachedguys = [];
 
     if ( !( isdefined( level._id_9C82 ) && isdefined( level._id_9C82[var_0] ) ) )
         return;
@@ -202,7 +202,7 @@ _id_451F()
     var_1 = level._id_9C82[var_0].size;
 
     if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "ai_wait_go" )
-        thread _id_0935();
+        thread ai_wait_go();
 
     self._id_76E4 = [];
     self._id_9BFD = [];
@@ -214,7 +214,7 @@ _id_451F()
     {
         self._id_9BFD[var_3] = 0;
 
-        if ( isdefined( self._id_7A81 ) && self._id_7A81 && isdefined( var_2[var_3]._id_1484 ) && var_2[var_3]._id_1484 )
+        if ( isdefined( self._id_7A81 ) && self._id_7A81 && isdefined( var_2[var_3].bisgunner ) && var_2[var_3].bisgunner )
             self._id_9BFD[1] = 1;
     }
 }
@@ -259,7 +259,7 @@ _id_448A( var_0, var_1 )
     _id_297A( var_0, "weapon_" );
     var_0 linkto( self, var_1._id_85AE, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0 notsolid();
-    thread _id_0C74( var_0, var_1._id_85AE, var_1.death );
+    thread animontag( var_0, var_1._id_85AE, var_1.death );
 
     if ( !isdefined( var_1._id_2640 ) )
         var_0 waittillmatch( "animontagdone", "start_ragdoll" );
@@ -300,7 +300,7 @@ _id_57BF( var_0, var_1, var_2 )
 
     maps\_utility::_id_32DA( "unloaded" );
     maps\_utility::_id_32DA( "loaded" );
-    common_scripts\utility::_id_0CF0( var_0, ::_id_3DA8, var_1, var_2 );
+    common_scripts\utility::array_levelthread( var_0, ::_id_3DA8, var_1, var_2 );
 }
 
 _id_5077( var_0 )
@@ -390,7 +390,7 @@ _id_44AE( var_0, var_1 )
     if ( var_2 != "enteredvehicle" && isdefined( var_0._id_39B7 ) )
         var_1._id_9BFD[var_0._id_39B7] = 0;
 
-    var_1._id_76E4 = common_scripts\utility::_id_0CF6( var_1._id_76E4, var_0 );
+    var_1._id_76E4 = common_scripts\utility::array_remove( var_1._id_76E4, var_0 );
     _id_9D07( var_1 );
 }
 
@@ -415,7 +415,7 @@ _id_9D1D()
     var_0 = self._id_750A;
     maps\_vehicle::_id_9D67();
     maps\_utility::_id_32E0( "unloaded" );
-    var_0 = maps\_utility::_id_0CFD( var_0 );
+    var_0 = maps\_utility::array_removedead( var_0 );
     thread maps\_vehicle::_id_9D05( var_0 );
 }
 
@@ -483,12 +483,12 @@ _id_44AC( var_0, var_1, var_2, var_3 )
             thread _id_736A( var_0 );
         }
     }
-    else if ( var_11._id_1174.size )
-        var_7 = common_scripts\utility::_id_3F33( var_0.origin, var_11._id_1174 );
+    else if ( var_11.availablepositions.size )
+        var_7 = common_scripts\utility::_id_3F33( var_0.origin, var_11.availablepositions );
     else
         var_7 = undefined;
 
-    if ( !var_11._id_1174.size && var_11._id_6151.size )
+    if ( !var_11.availablepositions.size && var_11._id_6151.size )
     {
         var_0 notify( "enteredvehicle" );
         var_1 _id_4492( var_0, var_4 );
@@ -506,12 +506,12 @@ _id_44AC( var_0, var_1, var_2, var_3 )
     var_0 maps\_utility::_id_7E3F();
     var_0 maps\_utility::_id_2A7A();
     var_0.goalradius = 16;
-    var_0 _meth_81aa( var_8 );
+    var_0 _meth_81AA( var_8 );
     var_0 waittill( "goal" );
     var_0 maps\_utility::_id_30A1();
     var_0 maps\_utility::_id_9A61();
     var_0 notify( "boarding_vehicle" );
-    var_13 = _id_0BE9( var_1, var_7._id_9D1B );
+    var_13 = anim_pos( var_1, var_7._id_9D1B );
 
     if ( isdefined( var_13._id_27C0 ) )
     {
@@ -568,7 +568,7 @@ _id_44AC( var_0, var_1, var_2, var_3 )
             var_1 _id_5781( var_0, var_13._id_85AE, var_13._id_85AF, var_13._id_579D );
         }
 
-        var_1 _id_0C74( var_0, var_13._id_85AE, var_13._id_3FD2, var_15, var_16 );
+        var_1 animontag( var_0, var_13._id_85AE, var_13._id_3FD2, var_15, var_16 );
     }
 
     var_0 notify( "enteredvehicle" );
@@ -630,7 +630,7 @@ _id_4482( var_0, var_1 )
         var_0 = maps\_utility::_id_9007( var_0 );
         var_2 = self.classname;
         var_3 = level._id_9C82[var_2].size;
-        var_4 = _id_0BE9( self, var_1 );
+        var_4 = anim_pos( self, var_1 );
         _id_5781( var_0, var_4._id_85AE, var_4._id_85AF, var_4._id_579D );
         var_0._id_9CE4 = var_4._id_4B63;
         thread _id_449B( var_0, var_1 );
@@ -656,7 +656,7 @@ _id_5781( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_0 linkto( var_6, var_1, var_2, ( 0.0, 0.0, 0.0 ) );
 }
 
-_id_0BE9( var_0, var_1 )
+anim_pos( var_0, var_1 )
 {
     return level._id_9C82[var_0.classname][var_1];
 }
@@ -668,7 +668,7 @@ _id_4489( var_0, var_1 )
     if ( !isdefined( self ) )
         return;
 
-    self._id_750A = common_scripts\utility::_id_0CF6( self._id_750A, var_0 );
+    self._id_750A = common_scripts\utility::array_remove( self._id_750A, var_0 );
     self._id_9BFD[var_1] = 0;
 }
 
@@ -713,7 +713,7 @@ _id_449A( var_0, var_1 )
 
 _id_44B1( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
@@ -725,18 +725,18 @@ _id_44B1( var_0, var_1 )
         var_4 = gettime() + 2000;
 
         while ( gettime() < var_4 && isdefined( var_0.enemy ) )
-            _id_0C74( var_0, var_2._id_85AE, var_0._id_9D48, undefined, undefined, "firing" );
+            animontag( var_0, var_2._id_85AE, var_0._id_9D48, undefined, undefined, "firing" );
 
         var_5 = randomint( 5 ) + 10;
 
         for ( var_6 = 0; var_6 < var_5; var_6++ )
-            _id_0C74( var_0, var_2._id_85AE, var_2._id_8B07 );
+            animontag( var_0, var_2._id_85AE, var_2._id_8B07 );
     }
 }
 
 _id_44B2( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( !isdefined( var_2._id_8B06 ) )
     {
@@ -744,7 +744,7 @@ _id_44B2( var_0, var_1 )
         return;
     }
 
-    _id_0C74( var_0, var_2._id_85AE, var_2._id_8B06 );
+    animontag( var_0, var_2._id_85AE, var_2._id_8B06 );
     var_0._id_8B09 = 0;
     thread _id_449B( var_0, var_1 );
 }
@@ -754,7 +754,7 @@ _id_2E05( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     for (;;)
     {
@@ -769,26 +769,26 @@ _id_2E05( var_0, var_1 )
 
 _id_44AA( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
 
     if ( isdefined( var_2._id_717C ) )
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_717C );
+        animontag( var_0, var_2._id_85AE, var_2._id_717C );
 
     thread _id_449B( var_0, var_1 );
 }
 
 _id_44BC( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
 
     for (;;)
-        _id_0C74( var_0, var_2._id_85AE, var_0._id_999D );
+        animontag( var_0, var_2._id_85AE, var_0._id_999D );
 }
 
 _id_44BD( var_0, var_1 )
@@ -796,10 +796,10 @@ _id_44BD( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     for (;;)
-        _id_0C74( var_0, var_2._id_85AE, var_0._id_999D );
+        animontag( var_0, var_2._id_85AE, var_0._id_999D );
 }
 
 _id_44BB( var_0, var_1 )
@@ -807,17 +807,17 @@ _id_44BB( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_9D5F ) )
-        maps\_vehicle_code::_id_05B3() _meth_814f( var_2._id_9D5F );
+        maps\_vehicle_code::_get_dummy() _meth_814F( var_2._id_9D5F );
 
     if ( isdefined( var_2.turret_fire ) )
     {
         if ( isdefined( var_2._id_9959 ) )
-            _id_0C74( var_0, var_2._id_9959, var_2.turret_fire );
+            animontag( var_0, var_2._id_9959, var_2.turret_fire );
         else
-            _id_0C74( var_0, var_2._id_85AE, var_2.turret_fire );
+            animontag( var_0, var_2._id_85AE, var_2.turret_fire );
     }
 
     thread _id_449B( var_0, var_1 );
@@ -837,7 +837,7 @@ _id_449B( var_0, var_1, var_2 )
     if ( !isdefined( var_0._id_9CE4 ) )
         return;
 
-    var_3 = _id_0BE9( self, var_1 );
+    var_3 = anim_pos( self, var_1 );
 
     if ( isdefined( var_3._id_5BD5 ) )
         return;
@@ -859,27 +859,27 @@ _id_6984( var_0, var_1 )
 {
     if ( isdefined( var_0._id_9CE5 ) )
     {
-        _id_0C74( var_0, var_1._id_85AE, var_0._id_9CE5 );
+        animontag( var_0, var_1._id_85AE, var_0._id_9CE5 );
         return;
     }
 
     if ( isdefined( var_1._id_4B7E ) )
     {
         var_2 = _id_712A( var_0, var_1._id_4B7E );
-        _id_0C74( var_0, var_1._id_85AE, var_0._id_9CE4[var_2] );
+        animontag( var_0, var_1._id_85AE, var_0._id_9CE4[var_2] );
         return;
     }
 
     if ( isdefined( var_0._id_6D23 ) && isdefined( var_1._id_6B52 ) )
     {
-        _id_0C74( var_0, var_1._id_85AE, var_1._id_6B52 );
+        animontag( var_0, var_1._id_85AE, var_1._id_6B52 );
         return;
     }
 
     if ( isdefined( var_1._id_9CE4 ) )
         thread _id_7F22( var_1._id_9CE4 );
 
-    _id_0C74( var_0, var_1._id_85AE, var_0._id_9CE4 );
+    animontag( var_0, var_1._id_85AE, var_0._id_9CE4 );
 }
 
 _id_712A( var_0, var_1 )
@@ -904,7 +904,7 @@ _id_712A( var_0, var_1 )
 
 _id_4490( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_2FB6 );
+    return isdefined( anim_pos( self, var_1 )._id_2FB6 );
 }
 
 _id_448F( var_0, var_1 )
@@ -912,14 +912,14 @@ _id_448F( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_2FB6 ) )
     {
         if ( isdefined( var_2._id_9CBE ) )
             thread _id_7F22( var_2._id_9CBE );
 
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_2FB6 );
+        animontag( var_0, var_2._id_85AE, var_2._id_2FB6 );
     }
 
     thread _id_449B( var_0, var_1 );
@@ -927,7 +927,7 @@ _id_448F( var_0, var_1 )
 
 _id_44C6( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_A2F7 );
+    return isdefined( anim_pos( self, var_1 )._id_A2F7 );
 }
 
 _id_44C5( var_0, var_1 )
@@ -935,14 +935,14 @@ _id_44C5( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_A2F7 ) )
     {
         if ( isdefined( var_2._id_9D6C ) )
             thread _id_7F22( var_2._id_9D6C );
 
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_A2F7 );
+        animontag( var_0, var_2._id_85AE, var_2._id_A2F7 );
     }
 
     thread _id_449B( var_0, var_1 );
@@ -953,10 +953,10 @@ _id_448D( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_2FBD ) )
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_2FBD );
+        animontag( var_0, var_2._id_85AE, var_2._id_2FBD );
 
     thread _id_448E( var_0, var_1 );
 }
@@ -966,20 +966,20 @@ _id_448E( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
     var_3 = _id_712A( var_0, var_2._id_2FBC );
 
     for (;;)
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_2FBB[var_3] );
+        animontag( var_0, var_2._id_85AE, var_2._id_2FBB[var_3] );
 }
 
 _id_4491( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_2FBE ) && var_0._id_2FBE )
     {
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_2FBF );
+        animontag( var_0, var_2._id_85AE, var_2._id_2FBF );
         var_0._id_2FBE = 0;
     }
 
@@ -989,9 +989,9 @@ _id_4491( var_0, var_1 )
 _id_44C1( var_0 )
 {
     self endon( "death" );
-    self._id_9A44 = common_scripts\utility::_id_0CDA( self._id_9A44, var_0 );
+    self._id_9A44 = common_scripts\utility::array_add( self._id_9A44, var_0 );
     var_0 common_scripts\utility::_id_A069( "death", "jumpedout" );
-    self._id_9A44 = common_scripts\utility::_id_0CF6( self._id_9A44, var_0 );
+    self._id_9A44 = common_scripts\utility::array_remove( self._id_9A44, var_0 );
 
     if ( !self._id_9A44.size )
     {
@@ -1069,7 +1069,7 @@ _id_4074( var_0, var_1, var_2 )
     self endon( "unloading" );
 
     for (;;)
-        _id_0C74( var_0, var_1, var_2 );
+        animontag( var_0, var_1, var_2 );
 }
 
 _id_4073( var_0, var_1, var_2, var_3, var_4 )
@@ -1082,11 +1082,11 @@ _id_4073( var_0, var_1, var_2, var_3, var_4 )
         self waittill( "unloading" );
     }
 
-    self._id_9A44 = common_scripts\utility::_id_0CDA( self._id_9A44, var_1 );
+    self._id_9A44 = common_scripts\utility::array_add( self._id_9A44, var_1 );
     thread _id_4070( var_1, var_2, var_3 );
 
     if ( !isdefined( self._id_235D ) )
-        _id_0C74( var_1, var_2, var_3 );
+        animontag( var_1, var_2, var_3 );
 
     var_1 unlink();
 
@@ -1096,7 +1096,7 @@ _id_4073( var_0, var_1, var_2, var_3, var_4 )
         return;
     }
 
-    self._id_9A44 = common_scripts\utility::_id_0CF6( self._id_9A44, var_1 );
+    self._id_9A44 = common_scripts\utility::array_remove( self._id_9A44, var_1 );
 
     if ( !self._id_9A44.size )
         self notify( "unloaded" );
@@ -1126,7 +1126,7 @@ _id_4071()
     while ( !isdefined( self._id_235D ) )
         wait 0.05;
 
-    common_scripts\utility::_id_0CF0( self._id_750A, maps\_utility::_id_284E );
+    common_scripts\utility::array_levelthread( self._id_750A, maps\_utility::_id_284E );
     self notify( "crashed_while_deploying" );
 }
 
@@ -1148,13 +1148,13 @@ _id_4070( var_0, var_1, var_2 )
     while ( !isdefined( self._id_235D ) )
         wait 0.05;
 
-    thread _id_0C74( var_0, var_1, var_2 );
+    thread animontag( var_0, var_1, var_2 );
     waitframe;
     var_0 setanimtime( var_2, var_4 / var_3 );
     var_6 = self;
 
-    if ( isdefined( self._id_06E0 ) )
-        var_6 = self._id_06E0;
+    if ( isdefined( self.achievement_attacker ) )
+        var_6 = self.achievement_attacker;
 
     for ( var_7 = 0; var_7 < self._id_750A.size; var_7++ )
     {
@@ -1173,7 +1173,7 @@ _id_4070( var_0, var_1, var_2 )
         self._id_750A[var_7]._id_39BF = 1;
 
         if ( isalive( self._id_750A[var_7] ) )
-            thread _id_0C76( self._id_750A[var_7], self, var_6 );
+            thread animontag_ragdoll_death_fall( self._id_750A[var_7], self, var_6 );
     }
 }
 
@@ -1186,7 +1186,7 @@ _id_7F22( var_0, var_1 )
         var_1 = 1;
 
     var_2 = getanimlength( var_0 );
-    var_3 = maps\_vehicle_code::_id_05B3();
+    var_3 = maps\_vehicle_code::_get_dummy();
     var_3 endon( "death" );
     var_3 setflaggedanimrestart( "vehicle_anim_flag", var_0, 1, 0, 1 );
     wait(var_2);
@@ -1202,9 +1202,9 @@ _id_406B( var_0, var_1, var_2 )
         var_2 = 1;
 
     var_3 = self.classname;
-    var_4 = _id_0BE9( self, var_1 );
+    var_4 = anim_pos( self, var_1 );
 
-    if ( isdefined( self._id_0DE8 ) && isdefined( self._id_0DE8[var_4._id_3680] ) )
+    if ( isdefined( self.attach_model_override ) && isdefined( self.attach_model_override[var_4._id_3680] ) )
         var_5 = 1;
     else
         var_5 = 0;
@@ -1269,7 +1269,7 @@ _id_44C0( var_0, var_1 )
         return;
     }
 
-    self._id_9A44 = common_scripts\utility::_id_0CDA( self._id_9A44, var_0 );
+    self._id_9A44 = common_scripts\utility::array_add( self._id_9A44, var_0 );
     var_2 = var_0 [[ var_0._id_2569 ]]( self, var_1 );
 
     if ( !var_2 )
@@ -1277,7 +1277,7 @@ _id_44C0( var_0, var_1 )
     else
         _id_448B( var_0, var_1 );
 
-    self._id_9A44 = common_scripts\utility::_id_0CF6( self._id_9A44, var_0 );
+    self._id_9A44 = common_scripts\utility::array_remove( self._id_9A44, var_0 );
     waitframe;
 
     if ( !self._id_9A44.size )
@@ -1295,7 +1295,7 @@ _id_44BF( var_0, var_1 )
         return;
     }
 
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
     var_3 = self.vehicletype;
 
     if ( isdefined( var_2._id_612E ) )
@@ -1307,7 +1307,7 @@ _id_44BF( var_0, var_1 )
         return;
     }
 
-    if ( !isdefined( var_2._id_4068 ) && !isdefined( var_2._id_14CB ) )
+    if ( !isdefined( var_2._id_4068 ) && !isdefined( var_2.bnoanimunload ) )
     {
         thread _id_449B( var_0, var_1 );
         return;
@@ -1391,20 +1391,20 @@ _id_44BF( var_0, var_1 )
     var_0._id_2653 = undefined;
     var_0 notify( "newanim" );
 
-    if ( isdefined( var_2._id_1433 ) && !var_2._id_1433 )
+    if ( isdefined( var_2.bhasgunwhileriding ) && !var_2.bhasgunwhileriding )
     {
         if ( !isdefined( var_0._id_2AAA ) )
             var_0 maps\_utility::_id_4461();
     }
 
     if ( isai( var_0 ) )
-        var_0 _meth_81a7( 1 );
+        var_0 _meth_81A7( 1 );
 
     var_9 = 0;
 
-    if ( isdefined( var_2._id_14CB ) )
+    if ( isdefined( var_2.bnoanimunload ) )
         var_9 = 1;
-    else if ( !isdefined( var_2._id_4068 ) || !isdefined( self._id_7B08 ) && ( isdefined( var_2._id_1484 ) && var_2._id_1484 ) || isdefined( self._id_7A1B ) && var_1 == 0 )
+    else if ( !isdefined( var_2._id_4068 ) || !isdefined( self._id_7B08 ) && ( isdefined( var_2.bisgunner ) && var_2.bisgunner ) || isdefined( self._id_7A1B ) && var_1 == 0 )
     {
         thread _id_449B( var_0, var_1 );
         return;
@@ -1491,7 +1491,7 @@ _id_44BF( var_0, var_1 )
 
         if ( var_13 )
         {
-            self._id_750A = common_scripts\utility::_id_0CDA( self._id_750A, var_0 );
+            self._id_750A = common_scripts\utility::array_add( self._id_750A, var_0 );
             thread _id_4489( var_0, var_1 );
             thread _id_44C1( var_0 );
             var_0._id_750E = self;
@@ -1508,19 +1508,19 @@ _id_44BF( var_0, var_1 )
 
         if ( isdefined( var_2._id_406C ) )
         {
-            _id_0C74( var_0, var_10, var_11 );
+            animontag( var_0, var_10, var_11 );
             var_14 = var_10;
 
             if ( isdefined( var_2._id_406D ) )
                 var_14 = var_2._id_406D;
 
-            _id_0C74( var_0, var_14, var_2._id_406C );
+            animontag( var_0, var_14, var_2._id_406C );
         }
         else if ( isdefined( var_2._id_667F ) )
         {
-            if ( !isdefined( self._id_0B96 ) )
+            if ( !isdefined( self.angle_offset ) )
             {
-                self._id_0B96 = 0;
+                self.angle_offset = 0;
                 self._id_6595 = ( 0.0, 0.0, 0.0 );
                 self._id_9A3B = 0.5;
             }
@@ -1534,15 +1534,15 @@ _id_44BF( var_0, var_1 )
                 return;
 
             var_15 = spawn( "script_model", self gettagorigin( var_10 ) );
-            var_15.angles = ( 0, self.angles[1] + self._id_0B96, 0 );
-            self._id_0B96 += 5;
+            var_15.angles = ( 0, self.angles[1] + self.angle_offset, 0 );
+            self.angle_offset += 5;
             var_15 setmodel( "tag_origin" );
             var_16 = maps\_utility::_id_4417( self.origin ) + ( 0, 0, self._id_9A3A );
             var_15.origin = var_16 + ( randomintrange( 10, 20 ), randomintrange( 10, 20 ), 0 );
             var_17 = spawn( "script_model", var_15.origin );
             var_17.angles = var_15.angles;
             var_17 setmodel( self._id_9A40 );
-            var_17._id_0C72 = "parachute";
+            var_17.animname = "parachute";
             var_17 useanimtree( level._id_78B1["parachute"] );
             var_17 hide();
             var_17 maps\_utility::_id_32DD( "parachute_open" );
@@ -1556,11 +1556,11 @@ _id_44BF( var_0, var_1 )
         }
         else
         {
-            var_0._id_0BBC = 1;
+            var_0.anim_end_early = 1;
 
             if ( isdefined( var_0.getout_ik ) )
             {
-                thread _id_0C74( var_0, var_10, var_11, undefined, undefined );
+                thread animontag( var_0, var_10, var_11, undefined, undefined );
                 var_0 thread wait_do_ik_on();
                 var_0.a._id_612E = 1;
                 var_18 = var_0 wait_interrupt_or_done();
@@ -1581,7 +1581,7 @@ _id_44BF( var_0, var_1 )
                 var_0.a._id_612E = 0;
             }
             else
-                _id_0C74( var_0, var_10, var_11, undefined, undefined );
+                animontag( var_0, var_10, var_11, undefined, undefined );
         }
 
         if ( isdefined( var_0._id_6D23 ) && isdefined( var_2._id_6B2A ) )
@@ -1604,7 +1604,7 @@ _id_44BF( var_0, var_1 )
         var_0 = maps\_utility::_id_9007( var_0 );
     }
 
-    self._id_750A = common_scripts\utility::_id_0CF6( self._id_750A, var_0 );
+    self._id_750A = common_scripts\utility::array_remove( self._id_750A, var_0 );
     self._id_9BFD[var_1] = 0;
     var_0._id_750E = undefined;
     var_0._id_2E18 = undefined;
@@ -1639,7 +1639,7 @@ _id_44BF( var_0, var_1 )
             if ( isdefined( var_0.a._id_2B19 ) )
                 var_0.a._id_2B18 = var_0.a._id_2B19;
             else
-                var_0.a._id_2B18 = !var_0 _meth_813f();
+                var_0.a._id_2B18 = !var_0 _meth_813F();
         }
 
         var_0._id_39B7 = undefined;
@@ -1654,17 +1654,17 @@ _id_44BF( var_0, var_1 )
             if ( isdefined( var_2._id_4076 ) )
             {
                 var_0._id_28B4 = var_2._id_4076;
-                var_0 _meth_81ce( "crouch" );
+                var_0 _meth_81CE( "crouch" );
                 var_0 thread animscripts\utility::_id_9AF5();
-                var_0 _meth_81ce( "stand", "crouch", "prone" );
+                var_0 _meth_81CE( "stand", "crouch", "prone" );
             }
 
-            var_0 _meth_81a7( 0 );
+            var_0 _meth_81A7( 0 );
 
             if ( _id_44AB( var_0 ) )
             {
                 var_0.goalradius = 600;
-                var_0 _meth_81aa( var_0.origin );
+                var_0 _meth_81AA( var_0.origin );
             }
         }
     }
@@ -1710,7 +1710,7 @@ _id_667F( var_0, var_1, var_2, var_3, var_4 )
     var_0 unlink();
     var_5 = var_1 gettagorigin( "tag_driver" );
     var_6 = var_1 gettagangles( "tag_driver" );
-    var_0 _meth_81ca( var_5, var_6 );
+    var_0 _meth_81CA( var_5, var_6 );
     var_0 linkto( var_1, "tag_driver" );
     var_1 _meth_8140( "parachute_unload", self.origin, self.angles, var_2 );
 
@@ -1770,7 +1770,7 @@ _id_667B( var_0, var_1 )
     if ( !var_1 maps\_utility::_id_32D8( "parachute_open" ) )
     {
         var_1 notify( "rider_dead" );
-        thread _id_0C76( var_0, undefined, var_3 );
+        thread animontag_ragdoll_death_fall( var_0, undefined, var_3 );
         wait 2;
         var_1 delete();
     }
@@ -1812,7 +1812,7 @@ _id_44AB( var_0 )
 
     if ( isdefined( var_2 ) && var_2.classname == "info_volume" )
     {
-        var_0 _meth_81ad( var_2 );
+        var_0 _meth_81AD( var_2 );
         return 0;
     }
     else if ( var_1.size == 1 )
@@ -1821,7 +1821,7 @@ _id_44AB( var_0 )
     return 1;
 }
 
-_id_0C74( var_0, var_1, var_2, var_3, var_4, var_5 )
+animontag( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_0 notify( "animontag_thread" );
     var_0 endon( "animontag_thread" );
@@ -1846,16 +1846,16 @@ _id_0C74( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     if ( isdefined( var_0._id_70DB ) && !isdefined( var_0._id_6115 ) )
-        level thread _id_0C75( var_0, self );
+        level thread animontag_ragdoll_death( var_0, self );
 
     var_0 _meth_8140( var_5, var_7, var_8, var_2 );
 
     if ( isai( var_0 ) )
         thread _id_2D06( var_0, var_6, var_5 );
 
-    if ( isdefined( var_0._id_0BBC ) )
+    if ( isdefined( var_0.anim_end_early ) )
     {
-        var_0._id_0BBC = undefined;
+        var_0.anim_end_early = undefined;
         var_9 = getanimlength( var_2 ) - 0.25;
 
         if ( var_9 > 0 )
@@ -1895,7 +1895,7 @@ _id_7290()
         self.interval = 80;
 }
 
-_id_0C75( var_0, var_1 )
+animontag_ragdoll_death( var_0, var_1 )
 {
     if ( isdefined( var_0._id_58D7 ) && var_0._id_58D7 )
         return;
@@ -1906,7 +1906,7 @@ _id_0C75( var_0, var_1 )
     var_0 endon( "anim_on_tag_done" );
 
     if ( !isdefined( var_0._id_1AF1 ) || !var_0._id_1AF1 )
-        thread _id_0C77( var_0, var_1 );
+        thread animontag_unloading_vehicle_explosion( var_0, var_1 );
 
     var_2 = undefined;
     var_3 = undefined;
@@ -1941,14 +1941,14 @@ _id_0C75( var_0, var_1 )
     if ( !isalive( var_0 ) )
         return;
 
-    thread _id_0C76( var_0, var_1, var_3 );
+    thread animontag_ragdoll_death_fall( var_0, var_1, var_3 );
 }
 
-_id_0C76( var_0, var_1, var_2 )
+animontag_ragdoll_death_fall( var_0, var_1, var_2 )
 {
     var_0._id_2652 = undefined;
     var_0._id_2660 = undefined;
-    var_0._id_0BB9 = 1;
+    var_0.anim_disablepain = 1;
 
     if ( isdefined( var_0._id_70DA ) )
     {
@@ -1969,7 +1969,7 @@ _id_0C76( var_0, var_1, var_2 )
 
     var_0._id_2652 = undefined;
     var_0._id_2660 = undefined;
-    var_0._id_0BB9 = 1;
+    var_0.anim_disablepain = 1;
     var_0 notify( "rope_death", var_2 );
     maps\_spawner::_id_263C( var_2 );
     var_0 kill( var_2.origin, var_2 );
@@ -2019,7 +2019,7 @@ _id_0C76( var_0, var_1, var_2 )
         var_0 startragdoll();
 }
 
-_id_0C77( var_0, var_1 )
+animontag_unloading_vehicle_explosion( var_0, var_1 )
 {
     var_0 endon( "anim_on_tag_done" );
     var_0 endon( "death" );
@@ -2070,7 +2070,7 @@ _id_2D06( var_0, var_1, var_2 )
     var_0 animscripts\shared::_id_2D06( var_2 );
 }
 
-_id_0C65( var_0, var_1, var_2, var_3 )
+animatemoveintoplace( var_0, var_1, var_2, var_3 )
 {
     var_0 _meth_8140( "movetospot", var_1, var_2, var_3 );
     var_0 waittillmatch( "movetospot", "end" );
@@ -2084,7 +2084,7 @@ _id_44C4( var_0, var_1, var_2 )
     if ( isdefined( self._id_610D ) )
         return;
 
-    var_3 = _id_0BE9( self, var_0._id_9D1B );
+    var_3 = anim_pos( self, var_0._id_9D1B );
     var_0._id_9C8E = var_1;
 
     if ( isdefined( var_3._id_3540 ) )
@@ -2125,7 +2125,7 @@ _id_44C4( var_0, var_1, var_2 )
 
 _id_44BA( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_9925 );
+    return isdefined( anim_pos( self, var_1 )._id_9925 );
 }
 
 _id_44B9( var_0, var_1 )
@@ -2133,12 +2133,12 @@ _id_44B9( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_9D5D ) )
         thread _id_7F22( var_2._id_9D5D );
 
-    _id_0C74( var_0, var_2._id_85AE, var_2._id_9925 );
+    animontag( var_0, var_2._id_85AE, var_2._id_9925 );
     thread _id_449B( var_0, var_1 );
 }
 
@@ -2147,18 +2147,18 @@ _id_44B7( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( isdefined( var_2._id_9D5C ) )
         thread _id_7F22( var_2._id_9D5C );
 
-    _id_0C74( var_0, var_2._id_85AE, var_2._id_990B );
+    animontag( var_0, var_2._id_85AE, var_2._id_990B );
     thread _id_449B( var_0, var_1 );
 }
 
 _id_44B8( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_990B );
+    return isdefined( anim_pos( self, var_1 )._id_990B );
 }
 
 _id_44B6( var_0, var_1 )
@@ -2177,7 +2177,7 @@ _id_44B5( var_0, var_1 )
         var_0._id_9CE5 = var_2._id_4B6C;
 }
 
-_id_0935()
+ai_wait_go()
 {
     self endon( "death" );
     self waittill( "loaded" );
@@ -2213,7 +2213,7 @@ _id_7E9F( var_0, var_1 )
 
 _id_44A4( var_0, var_1, var_2 )
 {
-    var_3 = _id_0BE9( self, var_1 );
+    var_3 = anim_pos( self, var_1 );
     var_4 = self._id_5BD5[var_3._id_5BD5];
 
     if ( !isalive( var_0 ) )
@@ -2226,7 +2226,7 @@ _id_44A4( var_0, var_1, var_2 )
         [[ var_3._id_66B4 ]]( self, var_0, var_1, var_4 );
 
     maps\_vehicle_code::_id_7EE3( var_4 );
-    var_4 _meth_815c( 0 );
+    var_4 _meth_815C( 0 );
     wait 0.1;
     var_0 endon( "guy_man_turret_stop" );
     level thread maps\_mgturret::_id_5BC8( var_4, maps\_utility::_id_3F58() );
@@ -2240,7 +2240,7 @@ _id_44A4( var_0, var_1, var_2 )
         for (;;)
         {
             if ( !isdefined( var_0 _meth_8198() ) )
-                var_0 _meth_818e( var_4 );
+                var_0 _meth_818E( var_4 );
 
             wait 1;
         }
@@ -2262,7 +2262,7 @@ _id_4483( var_0 )
         return;
 
     var_1 = var_0._id_9D1B;
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( !isdefined( var_2._id_3540 ) )
         return;
@@ -2361,12 +2361,12 @@ _id_21A2( var_0, var_1, var_2 )
 _id_9C88( var_0, var_1 )
 {
     self useanimtree( var_1 );
-    self _meth_814d( var_0 );
+    self _meth_814D( var_0 );
 }
 
 _id_9CD4( var_0 )
 {
-    var_1 = _id_0BE9( self, var_0 );
+    var_1 = anim_pos( self, var_0 );
     return _id_9CCE( var_1._id_3FD2, var_1._id_85AE, var_0 );
 }
 
@@ -2423,7 +2423,7 @@ _id_3CCF( var_0 )
     }
 
     var_5 = spawnstruct();
-    var_5._id_1174 = var_2;
+    var_5.availablepositions = var_2;
     var_5._id_6151 = var_3;
     return var_5;
 }
@@ -2473,12 +2473,12 @@ _id_846B()
 
 _id_44A9( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_6EAF );
+    return isdefined( anim_pos( self, var_1 )._id_6EAF );
 }
 
 _id_44A8( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( !isdefined( var_2._id_6EAF ) )
         return;
@@ -2486,15 +2486,15 @@ _id_44A8( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    _id_0C74( var_0, var_2._id_85AE, var_2._id_6EAF );
+    animontag( var_0, var_2._id_85AE, var_2._id_6EAF );
 
     for (;;)
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_6EB0 );
+        animontag( var_0, var_2._id_85AE, var_2._id_6EB0 );
 }
 
 _id_449C( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( !isdefined( var_2._id_4B64 ) )
         return;
@@ -2504,17 +2504,17 @@ _id_449C( var_0, var_1 )
     var_0 endon( "death" );
 
     for (;;)
-        _id_0C74( var_0, var_2._id_85AE, var_2._id_4B64 );
+        animontag( var_0, var_2._id_85AE, var_2._id_4B64 );
 }
 
 _id_449D( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_4B64 );
+    return isdefined( anim_pos( self, var_1 )._id_4B64 );
 }
 
 _id_449E( var_0, var_1 )
 {
-    var_2 = _id_0BE9( self, var_1 );
+    var_2 = anim_pos( self, var_1 );
 
     if ( !isdefined( var_2._id_4B64 ) )
         return;
@@ -2522,13 +2522,13 @@ _id_449E( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    _id_0C74( var_0, var_2._id_85AE, var_2._id_4B65 );
+    animontag( var_0, var_2._id_85AE, var_2._id_4B65 );
     thread _id_449B( var_0, var_1 );
 }
 
 _id_449F( var_0, var_1 )
 {
-    return isdefined( _id_0BE9( self, var_1 )._id_4B65 );
+    return isdefined( anim_pos( self, var_1 )._id_4B65 );
 }
 
 _id_8AE2( var_0 )
@@ -2544,7 +2544,7 @@ _id_94A4()
 
 }
 
-_id_0C57( var_0 )
+animate_guys( var_0 )
 {
     var_1 = [];
 
@@ -2579,12 +2579,12 @@ _id_44C3( var_0, var_1, var_2 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_3 = _id_0BE9( self, var_1 );
+    var_3 = anim_pos( self, var_1 );
 
-    if ( isdefined( var_3._id_0940[var_2] ) )
-        thread _id_7F22( var_3._id_0940[var_2] );
+    if ( isdefined( var_3.aianim_simple_vehicle[var_2] ) )
+        thread _id_7F22( var_3.aianim_simple_vehicle[var_2] );
 
-    _id_0C74( var_0, var_3._id_85AE, var_3._id_093F[var_2] );
+    animontag( var_0, var_3._id_85AE, var_3.aianim_simple[var_2] );
     _id_449B( var_0, var_1 );
 }
 
@@ -2619,7 +2619,7 @@ _id_2B2F()
 _id_448B( var_0, var_1 )
 {
     var_0 notify( "jumpedout" );
-    self._id_750A = common_scripts\utility::_id_0CF6( self._id_750A, var_0 );
+    self._id_750A = common_scripts\utility::array_remove( self._id_750A, var_0 );
     self._id_9BFD[var_1] = 0;
     var_0._id_750E = undefined;
     var_0._id_2E18 = undefined;

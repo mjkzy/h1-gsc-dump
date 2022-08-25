@@ -21,9 +21,9 @@
 
 _id_5705()
 {
-    if ( !isdefined( level._id_05E0 ) )
+    if ( !isdefined( level._light ) )
     {
-        level._id_05E0 = spawnstruct();
+        level._light = spawnstruct();
         _id_5710();
         _id_570D();
         _id_570E();
@@ -74,12 +74,12 @@ _id_7B33( var_0, var_1 )
         var_14 = var_0.radius["curr"];
         var_15 = var_0._id_5708;
 
-        if ( isdefined( var_0._id_0DDE ) )
+        if ( isdefined( var_0.attach_ent ) )
         {
-            var_19 = var_0._id_0DF0.origin;
-            var_20 = vectornormalize( anglestoforward( var_0._id_0DF0.angles ) );
-            var_21 = vectornormalize( anglestoup( var_0._id_0DF0.angles ) );
-            var_22 = vectornormalize( anglestoright( var_0._id_0DF0.angles ) );
+            var_19 = var_0.attach_tag.origin;
+            var_20 = vectornormalize( anglestoforward( var_0.attach_tag.angles ) );
+            var_21 = vectornormalize( anglestoup( var_0.attach_tag.angles ) );
+            var_22 = vectornormalize( anglestoright( var_0.attach_tag.angles ) );
             var_23 = vectornormalize( var_20 * var_8[0] + var_21 * var_8[2] - var_22 * var_8[1] );
             var_24 = var_20 * var_6[0] + var_21 * var_6[2] - var_22 * var_6[1];
             var_0._id_6F80 unlink();
@@ -95,7 +95,7 @@ _id_7B33( var_0, var_1 )
             if ( isdefined( var_0._id_2005 ) )
                 var_0._id_6F80.angles = vectortoangles( vectornormalize( var_0._id_2005 - var_0._id_6F80.origin ) );
 
-            var_0._id_6F80 linkto( var_0._id_0DF0 );
+            var_0._id_6F80 linkto( var_0.attach_tag );
         }
         else
         {
@@ -155,7 +155,7 @@ _id_8EBE( var_0 )
     var_1 = level._id_78B7[var_0];
     var_1.active = 0;
 
-    if ( isdefined( var_1._id_0DDE ) )
+    if ( isdefined( var_1.attach_ent ) )
     {
         if ( isdefined( var_1._id_6F80 ) )
             var_1._id_6F80 unlink();
@@ -206,8 +206,8 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_11._id_4E9E["curr"] = 0.1;
     var_11._id_8D56 = -1;
     var_11._id_6F80 = getent( var_0, "targetname" );
-    var_11._id_0DDE = undefined;
-    var_11._id_0DDA = undefined;
+    var_11.attach_ent = undefined;
+    var_11.attach_bone = undefined;
     var_12 = undefined;
 
     if ( isstring( var_8 ) )
@@ -215,7 +215,7 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         if ( isstring( var_8 ) )
         {
             var_12 = getent( var_8, "targetname" );
-            var_11._id_0DDE = var_12;
+            var_11.attach_ent = var_12;
         }
     }
     else
@@ -223,33 +223,33 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     if ( isdefined( var_12 ) )
     {
-        var_11._id_0DDE = var_12;
+        var_11.attach_ent = var_12;
 
-        if ( !isdefined( var_11._id_0DDE ) )
-            var_11._id_0DDE = undefined;
+        if ( !isdefined( var_11.attach_ent ) )
+            var_11.attach_ent = undefined;
 
-        if ( isdefined( var_9 ) && isdefined( var_11._id_0DDE ) )
-            var_11._id_0DDA = var_9;
+        if ( isdefined( var_9 ) && isdefined( var_11.attach_ent ) )
+            var_11.attach_bone = var_9;
         else
-            var_11._id_0DDA = undefined;
+            var_11.attach_bone = undefined;
 
-        var_11._id_0DF0 = common_scripts\utility::_id_8959();
+        var_11.attach_tag = common_scripts\utility::_id_8959();
 
         if ( isdefined( var_9 ) )
         {
-            var_11._id_0DF0.origin = var_12 gettagorigin( var_9 );
-            var_11._id_0DF0 linkto( var_12, var_9, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+            var_11.attach_tag.origin = var_12 gettagorigin( var_9 );
+            var_11.attach_tag linkto( var_12, var_9, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
         {
-            var_11._id_0DF0.origin = var_12.origin;
-            var_11._id_0DF0 linkto( var_12 );
+            var_11.attach_tag.origin = var_12.origin;
+            var_11.attach_tag linkto( var_12 );
         }
 
-        var_13 = var_11._id_0DF0.origin;
-        var_14 = vectornormalize( anglestoforward( var_11._id_0DF0.angles ) );
-        var_15 = vectornormalize( anglestoup( var_11._id_0DF0.angles ) );
-        var_16 = vectornormalize( anglestoright( var_11._id_0DF0.angles ) );
+        var_13 = var_11.attach_tag.origin;
+        var_14 = vectornormalize( anglestoforward( var_11.attach_tag.angles ) );
+        var_15 = vectornormalize( anglestoup( var_11.attach_tag.angles ) );
+        var_16 = vectornormalize( anglestoright( var_11.attach_tag.angles ) );
         var_17 = vectornormalize( var_14 * var_3[0] + var_15 * var_3[2] - var_16 * var_3[1] );
         var_18 = var_14 * var_2[0] + var_15 * var_2[2] - var_16 * var_2[1];
         var_11._id_6F80.angles = vectortoangles( var_17 );
@@ -261,12 +261,12 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             var_11._id_6F80 enablelinkto();
         }
 
-        var_11._id_6F80 linkto( var_11._id_0DF0 );
+        var_11._id_6F80 linkto( var_11.attach_tag );
     }
     else
     {
-        var_11._id_0DDE = undefined;
-        var_11._id_0DDA = undefined;
+        var_11.attach_ent = undefined;
+        var_11.attach_bone = undefined;
     }
 
     var_19 = 0;
@@ -404,9 +404,9 @@ model_animation_light( var_0 )
         if ( !isdefined( var_14.target ) )
             continue;
 
-        var_14._id_0C72 = var_2;
+        var_14.animname = var_2;
         var_14 maps\_anim::_id_7F29();
-        var_14 thread maps\_anim::_id_0BE1( var_14, var_3, var_4 );
+        var_14 thread maps\_anim::anim_loop_solo( var_14, var_3, var_4 );
         var_15 = getent( var_14.target, "targetname" );
         var_16 = common_scripts\utility::_id_8959();
         var_16 linkto( var_14, var_5, var_6, var_7 );
@@ -561,7 +561,7 @@ _id_1E7A()
     self destroy();
 }
 
-_id_14B7()
+blood_splatter_simple()
 {
 
 }
@@ -587,7 +587,7 @@ _id_2A6F()
     var_0.alpha = 0;
 }
 
-_id_1509( var_0 )
+bob_mask( var_0 )
 {
     self endon( "stop_mask_bob" );
     var_1 = 0;
@@ -688,8 +688,8 @@ _id_3C29( var_0, var_1, var_2, var_3 )
     self._id_3C25 setshader( "gasmask_overlay_delta2_bottom", 650, 138 );
     self._id_3C25.alpha = 1.0;
     level.player maps\_utility::_id_27EF( 1.0, ::_id_3C23 );
-    thread _id_1509( self._id_3C24 );
-    thread _id_1509( self._id_3C25 );
+    thread bob_mask( self._id_3C24 );
+    thread bob_mask( self._id_3C25 );
 
     if ( var_0 )
     {
@@ -761,8 +761,8 @@ _id_570F()
 
 _id_23B3( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level._id_05E0._id_38D3 ) )
-        level._id_05E0._id_38D3 = [];
+    if ( !isdefined( level._light._id_38D3 ) )
+        level._light._id_38D3 = [];
 
     var_6 = spawnstruct();
     var_6.color = var_1;
@@ -770,13 +770,13 @@ _id_23B3( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6._id_5A43 = var_3;
     var_6._id_5C42 = var_4;
     var_6._id_5A2C = var_5;
-    level._id_05E0._id_38D3[var_0] = var_6;
+    level._light._id_38D3[var_0] = var_6;
 }
 
 _id_3D71( var_0 )
 {
-    if ( isdefined( level._id_05E0._id_38D3 ) && isdefined( level._id_05E0._id_38D3[var_0] ) )
-        return level._id_05E0._id_38D3[var_0];
+    if ( isdefined( level._light._id_38D3 ) && isdefined( level._light._id_38D3[var_0] ) )
+        return level._light._id_38D3[var_0];
 
     return undefined;
 }
@@ -806,8 +806,8 @@ _id_694A( var_0, var_1 )
 
 _id_23B4( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level._id_05E0._id_38D4 ) )
-        level._id_05E0._id_38D4 = [];
+    if ( !isdefined( level._light._id_38D4 ) )
+        level._light._id_38D4 = [];
 
     var_6 = spawnstruct();
     var_6._id_2044 = var_1;
@@ -815,13 +815,13 @@ _id_23B4( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6._id_5C42 = var_3;
     var_6._id_5A2C = var_4;
     var_6._id_4E9E = var_5;
-    level._id_05E0._id_38D4[var_0] = var_6;
+    level._light._id_38D4[var_0] = var_6;
 }
 
 _id_3D72( var_0 )
 {
-    if ( isdefined( level._id_05E0._id_38D4 ) && isdefined( level._id_05E0._id_38D4[var_0] ) )
-        return level._id_05E0._id_38D4[var_0];
+    if ( isdefined( level._light._id_38D4 ) && isdefined( level._light._id_38D4[var_0] ) )
+        return level._light._id_38D4[var_0];
 
     return undefined;
 }
@@ -1198,8 +1198,8 @@ _id_5711()
 
 _id_23D3( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level._id_05E0._id_7050 ) )
-        level._id_05E0._id_7050 = [];
+    if ( !isdefined( level._light._id_7050 ) )
+        level._light._id_7050 = [];
 
     var_6 = spawnstruct();
     var_6._id_970F = var_1;
@@ -1207,13 +1207,13 @@ _id_23D3( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6._id_4E9E = var_3;
     var_6._id_2045 = var_4;
     var_6._id_627D = var_5;
-    level._id_05E0._id_7050[var_0] = var_6;
+    level._light._id_7050[var_0] = var_6;
 }
 
 _id_3E3F( var_0 )
 {
-    if ( isdefined( level._id_05E0._id_7050 ) && isdefined( level._id_05E0._id_7050[var_0] ) )
-        return level._id_05E0._id_7050[var_0];
+    if ( isdefined( level._light._id_7050 ) && isdefined( level._light._id_7050[var_0] ) )
+        return level._light._id_7050[var_0];
 
     return undefined;
 }
@@ -1476,8 +1476,8 @@ _id_570D()
 
 _id_23AB( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    if ( !isdefined( level._id_05E0._id_2C66 ) )
-        level._id_05E0._id_2C66 = [];
+    if ( !isdefined( level._light._id_2C66 ) )
+        level._light._id_2C66 = [];
 
     var_8 = [];
     var_8["nearStart"] = var_1;
@@ -1487,18 +1487,18 @@ _id_23AB( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8["farEnd"] = var_5;
     var_8["farBlur"] = var_6;
     var_8["bias"] = var_7;
-    level._id_05E0._id_2C66[var_0] = var_8;
+    level._light._id_2C66[var_0] = var_8;
 }
 
 _id_5703( var_0 )
 {
-    if ( isdefined( level._id_05E0._id_2C66 ) && isdefined( level._id_05E0._id_2C66[var_0] ) )
-        return level._id_05E0._id_2C66[var_0];
+    if ( isdefined( level._light._id_2C66 ) && isdefined( level._light._id_2C66[var_0] ) )
+        return level._light._id_2C66[var_0];
 }
 
-_id_1498( var_0, var_1, var_2 )
+blend_dof_presets( var_0, var_1, var_2 )
 {
-    if ( isdefined( level._id_05E0._id_2C66 ) )
+    if ( isdefined( level._light._id_2C66 ) )
     {
         var_3 = _id_5703( var_0 );
         var_4 = _id_5703( var_1 );
@@ -1521,31 +1521,31 @@ _id_570E()
 
 _id_23AC( var_0, var_1, var_2 )
 {
-    if ( !isdefined( level._id_05E0._id_2C79 ) )
-        level._id_05E0._id_2C79 = [];
+    if ( !isdefined( level._light._id_2C79 ) )
+        level._light._id_2C79 = [];
 
     var_3["start"] = var_1;
     var_3["end"] = var_2;
     level.player._id_9E1A = var_3["start"];
     level.player._id_9E19 = var_3["end"];
-    level._id_05E0._id_2C79[var_0] = var_3;
+    level._light._id_2C79[var_0] = var_3;
 }
 
 _id_5704( var_0 )
 {
-    if ( isdefined( level._id_05E0._id_2C79 ) && isdefined( level._id_05E0._id_2C79[var_0] ) )
-        return level._id_05E0._id_2C79[var_0];
+    if ( isdefined( level._light._id_2C79 ) && isdefined( level._light._id_2C79[var_0] ) )
+        return level._light._id_2C79[var_0];
 }
 
-_id_1499( var_0, var_1, var_2 )
+blend_dof_viewmodel_presets( var_0, var_1, var_2 )
 {
-    if ( isdefined( level._id_05E0._id_2C79 ) )
+    if ( isdefined( level._light._id_2C79 ) )
     {
         var_3 = _id_5704( var_0 );
         var_4 = _id_5704( var_1 );
 
         if ( isdefined( var_3 ) && isdefined( var_4 ) )
-            _id_14A0( var_3, var_4, var_2 );
+            blend_viewmodel_dof( var_3, var_4, var_2 );
         else
         {
 
@@ -1553,7 +1553,7 @@ _id_1499( var_0, var_1, var_2 )
     }
 }
 
-_id_14A0( var_0, var_1, var_2 )
+blend_viewmodel_dof( var_0, var_1, var_2 )
 {
     if ( var_2 > 0 )
     {
@@ -1606,7 +1606,7 @@ _id_56AE( var_0, var_1, var_2 )
 
 _id_5707()
 {
-    level._id_05E0._id_5BB9 = [];
+    level._light._id_5BB9 = [];
 }
 
 _id_56FF()
@@ -1616,21 +1616,21 @@ _id_56FF()
 
 _id_570A( var_0, var_1 )
 {
-    level._id_05E0._id_5BB9[var_0] = var_1;
+    level._light._id_5BB9[var_0] = var_1;
 }
 
 _id_5706( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( level._id_05E0._id_5BB9[var_0] ) )
+    if ( isdefined( level._light._id_5BB9[var_0] ) )
     {
         if ( isdefined( var_3 ) )
-            thread [[ level._id_05E0._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
+            thread [[ level._light._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
         else if ( isdefined( var_2 ) )
-            thread [[ level._id_05E0._id_5BB9[var_0] ]]( var_1, var_2 );
+            thread [[ level._light._id_5BB9[var_0] ]]( var_1, var_2 );
         else if ( isdefined( var_1 ) )
-            thread [[ level._id_05E0._id_5BB9[var_0] ]]( var_1 );
+            thread [[ level._light._id_5BB9[var_0] ]]( var_1 );
         else
-            thread [[ level._id_05E0._id_5BB9[var_0] ]]();
+            thread [[ level._light._id_5BB9[var_0] ]]();
     }
 }
 
@@ -1649,34 +1649,34 @@ setup_emissive_modifiers()
     var_0 = getentarray( "emissive_intensity_0", "targetname" );
 
     foreach ( var_2 in var_0 )
-        var_2 _meth_83a5( 0.0, 0.0 );
+        var_2 _meth_83A5( 0.0, 0.0 );
 
     var_4 = getentarray( "emissive_intensity_25", "targetname" );
 
     foreach ( var_2 in var_4 )
-        var_2 _meth_83a5( 0.25, 0.0 );
+        var_2 _meth_83A5( 0.25, 0.0 );
 
     var_7 = getentarray( "emissive_intensity_50", "targetname" );
 
     foreach ( var_2 in var_7 )
-        var_2 _meth_83a5( 0.5, 0.0 );
+        var_2 _meth_83A5( 0.5, 0.0 );
 
     var_10 = getentarray( "emissive_intensity_75", "targetname" );
 
     foreach ( var_2 in var_10 )
-        var_2 _meth_83a5( 0.75, 0.0 );
+        var_2 _meth_83A5( 0.75, 0.0 );
 
     var_13 = getentarray( "emissive_intensity_100", "targetname" );
 
     foreach ( var_2 in var_13 )
-        var_2 _meth_83a5( 1.0, 0.0 );
+        var_2 _meth_83A5( 1.0, 0.0 );
 
     var_16 = getentarray( "emissive_intensity", "targetname" );
 
     foreach ( var_2 in var_16 )
     {
         var_18 = float( var_2.script_noteworthy ) * 0.01;
-        var_2 _meth_83a5( var_18, 0.0 );
+        var_2 _meth_83A5( var_18, 0.0 );
     }
 }
 

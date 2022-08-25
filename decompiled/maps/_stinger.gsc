@@ -38,10 +38,10 @@ clearirtarget()
     if ( !isdefined( self.stinger ) )
         self.stinger = spawnstruct();
 
-    self.stinger.stingerlockstarttime = 0;
+    self.stinger._id_8E48 = 0;
     self.stinger.stingerlockstarted = 0;
     self.stinger.stingerlockfinalized = 0;
-    self.stinger.stingertarget = undefined;
+    self.stinger._id_8E5A = undefined;
     self notify( "stinger_irt_cleartarget" );
     self notify( "stop_lockon_sound" );
     self notify( "stop_locked_sound" );
@@ -99,35 +99,35 @@ stingerirtloop()
 
         if ( self.stinger.stingerlockfinalized )
         {
-            if ( !isstillvalidtarget( self.stinger.stingertarget ) )
+            if ( !isstillvalidtarget( self.stinger._id_8E5A ) )
             {
                 clearirtarget();
                 continue;
             }
 
             thread looplocallocksound( "stinger_clu_lock", 0.75 );
-            settargettooclose( self.stinger.stingertarget );
+            settargettooclose( self.stinger._id_8E5A );
             setnoclearance();
             continue;
         }
 
         if ( self.stinger.stingerlockstarted )
         {
-            if ( !isstillvalidtarget( self.stinger.stingertarget ) )
+            if ( !isstillvalidtarget( self.stinger._id_8E5A ) )
             {
                 clearirtarget();
                 continue;
             }
 
-            var_1 = gettime() - self.stinger.stingerlockstarttime;
+            var_1 = gettime() - self.stinger._id_8E48;
 
             if ( var_1 < var_0 )
                 continue;
 
             self notify( "stop_lockon_sound" );
             self.stinger.stingerlockfinalized = 1;
-            self weaponlockfinalize( self.stinger.stingertarget );
-            settargettooclose( self.stinger.stingertarget );
+            self weaponlockfinalize( self.stinger._id_8E5A );
+            settargettooclose( self.stinger._id_8E5A );
             setnoclearance();
             continue;
         }
@@ -137,8 +137,8 @@ stingerirtloop()
         if ( !isdefined( var_2 ) )
             continue;
 
-        self.stinger.stingertarget = var_2;
-        self.stinger.stingerlockstarttime = gettime();
+        self.stinger._id_8E5A = var_2;
+        self.stinger._id_8E48 = gettime();
         self.stinger.stingerlockstarted = 1;
         thread looplocalseeksound( "stinger_clu_aquiring_lock", 0.6 );
     }

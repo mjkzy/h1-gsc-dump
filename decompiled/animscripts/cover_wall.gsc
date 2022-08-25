@@ -29,8 +29,8 @@ _id_4C81()
     var_0["add_aim_right"] = %covercrouch_aim6_add;
     var_0["straight_level"] = %covercrouch_aim5;
     var_0["hide_idle"] = %covercrouch_hide_idle;
-    var_0["hide_idle_twitch"] = animscripts\utility::_id_0CD8( %covercrouch_twitch_2, %covercrouch_twitch_3, %covercrouch_twitch_4 );
-    var_0["hide_idle_flinch"] = animscripts\utility::_id_0CD8();
+    var_0["hide_idle_twitch"] = animscripts\utility::array( %covercrouch_twitch_2, %covercrouch_twitch_3, %covercrouch_twitch_4 );
+    var_0["hide_idle_flinch"] = animscripts\utility::array();
     var_0["hide_2_crouch"] = %covercrouch_hide_2_aim;
     var_0["hide_2_stand"] = %covercrouch_hide_2_stand;
     var_0["hide_2_lean"] = %covercrouch_hide_2_lean;
@@ -57,14 +57,14 @@ _id_4C81()
     var_0["burst4"] = %exposed_shoot_burst4;
     var_0["burst5"] = %exposed_shoot_burst5;
     var_0["burst6"] = %exposed_shoot_burst6;
-    var_0["blind_fire"] = animscripts\utility::_id_0CD8( %covercrouch_blindfire_1, %covercrouch_blindfire_2, %covercrouch_blindfire_3, %covercrouch_blindfire_4 );
+    var_0["blind_fire"] = animscripts\utility::array( %covercrouch_blindfire_1, %covercrouch_blindfire_2, %covercrouch_blindfire_3, %covercrouch_blindfire_4 );
     var_0["reload"] = %covercrouch_reload_hide;
     var_0["shotgun_reload"] = %shotgun_covercrouch_reload;
-    var_0["grenade_safe"] = animscripts\utility::_id_0CD8( %covercrouch_grenadea, %covercrouch_grenadeb );
-    var_0["grenade_exposed"] = animscripts\utility::_id_0CD8( %covercrouch_grenadea, %covercrouch_grenadeb );
-    var_0["exposed_idle"] = animscripts\utility::_id_0CD8( %exposed_idle_alert_v1, %exposed_idle_alert_v2, %exposed_idle_alert_v3 );
-    var_0["look"] = animscripts\utility::_id_0CD8( %covercrouch_hide_look );
-    anim._id_0CCA["soldier"]["cover_crouch"] = var_0;
+    var_0["grenade_safe"] = animscripts\utility::array( %covercrouch_grenadea, %covercrouch_grenadeb );
+    var_0["grenade_exposed"] = animscripts\utility::array( %covercrouch_grenadea, %covercrouch_grenadeb );
+    var_0["exposed_idle"] = animscripts\utility::array( %exposed_idle_alert_v1, %exposed_idle_alert_v2, %exposed_idle_alert_v3 );
+    var_0["look"] = animscripts\utility::array( %covercrouch_hide_look );
+    anim.archetypes["soldier"]["cover_crouch"] = var_0;
     var_0 = [];
     var_0["add_aim_up"] = %coverstandaim_aim8_add;
     var_0["add_aim_down"] = %coverstandaim_aim2_add;
@@ -72,8 +72,8 @@ _id_4C81()
     var_0["add_aim_right"] = %coverstandaim_aim6_add;
     var_0["straight_level"] = %coverstandaim_aim5;
     var_0["hide_idle"] = %coverstand_hide_idle;
-    var_0["hide_idle_twitch"] = animscripts\utility::_id_0CD8( %coverstand_hide_idle_twitch01, %coverstand_hide_idle_twitch03, %coverstand_hide_idle_twitch04, %coverstand_hide_idle_twitch05 );
-    var_0["hide_idle_flinch"] = animscripts\utility::_id_0CD8( %coverstand_react01, %coverstand_react02, %coverstand_react03, %coverstand_react04 );
+    var_0["hide_idle_twitch"] = animscripts\utility::array( %coverstand_hide_idle_twitch01, %coverstand_hide_idle_twitch03, %coverstand_hide_idle_twitch04, %coverstand_hide_idle_twitch05 );
+    var_0["hide_idle_flinch"] = animscripts\utility::array( %coverstand_react01, %coverstand_react02, %coverstand_react03, %coverstand_react04 );
     var_0["hide_2_stand"] = %coverstand_hide_2_aim;
     var_0["stand_2_hide"] = %coverstand_aim_2_hide;
     var_0["smg_hide_2_stand"] = %smg_coverstand_hide_2_aim;
@@ -86,23 +86,23 @@ _id_4C81()
     var_0["semi3"] = %coverstandaim_fire;
     var_0["semi4"] = %coverstandaim_fire;
     var_0["semi5"] = %coverstandaim_fire;
-    var_0["single"] = animscripts\utility::_id_0CD8( %coverstandaim_fire );
+    var_0["single"] = animscripts\utility::array( %coverstandaim_fire );
     var_0["burst2"] = %coverstandaim_autofire;
     var_0["burst3"] = %coverstandaim_autofire;
     var_0["burst4"] = %coverstandaim_autofire;
     var_0["burst5"] = %coverstandaim_autofire;
     var_0["burst6"] = %coverstandaim_autofire;
-    var_0["blind_fire"] = animscripts\utility::_id_0CD8( %coverstand_blindfire_1, %coverstand_blindfire_2 );
+    var_0["blind_fire"] = animscripts\utility::array( %coverstand_blindfire_1, %coverstand_blindfire_2 );
     var_0["reload"] = %coverstand_reloada;
-    var_0["look"] = animscripts\utility::_id_0CD8( %coverstand_look_quick, %coverstand_look_quick_v2 );
-    var_0["grenade_safe"] = animscripts\utility::_id_0CD8( %coverstand_grenadea, %coverstand_grenadeb );
-    var_0["grenade_exposed"] = animscripts\utility::_id_0CD8( %coverstand_grenadea, %coverstand_grenadeb );
-    var_0["exposed_idle"] = animscripts\utility::_id_0CD8( %exposed_idle_alert_v1, %exposed_idle_alert_v2, %exposed_idle_alert_v3 );
+    var_0["look"] = animscripts\utility::array( %coverstand_look_quick, %coverstand_look_quick_v2 );
+    var_0["grenade_safe"] = animscripts\utility::array( %coverstand_grenadea, %coverstand_grenadeb );
+    var_0["grenade_exposed"] = animscripts\utility::array( %coverstand_grenadea, %coverstand_grenadeb );
+    var_0["exposed_idle"] = animscripts\utility::array( %exposed_idle_alert_v1, %exposed_idle_alert_v2, %exposed_idle_alert_v3 );
     var_0["hide_to_look"] = %coverstand_look_moveup;
     var_0["look_idle"] = %coverstand_look_idle;
     var_0["look_to_hide"] = %coverstand_look_movedown;
     var_0["look_to_hide_fast"] = %coverstand_look_movedown_fast;
-    anim._id_0CCA["soldier"]["cover_stand"] = var_0;
+    anim.archetypes["soldier"]["cover_stand"] = var_0;
 }
 
 _id_229A( var_0 )
@@ -125,7 +125,7 @@ _id_229A( var_0 )
         self._id_22BA _id_4DA5();
     }
 
-    self.a._id_0979 = undefined;
+    self.a.aimidlethread = undefined;
     self _meth_8193( "face angle", self._id_22BA.angles[1] );
 
     if ( isdefined( self.weapon ) && animscripts\utility::_id_9C2E() && isdefined( self.node ) && isdefined( self.node._id_99B3 ) && canspawnturret() )
@@ -159,13 +159,13 @@ _id_229A( var_0 )
 
     if ( var_0 == "crouch" && self.a._id_6E5A == "stand" )
     {
-        var_3 = animscripts\utility::_id_0C4E( "stand_2_hide" );
+        var_3 = animscripts\utility::animarray( "stand_2_hide" );
 
         if ( animscripts\utility::_id_9C3B() )
-            var_3 = animscripts\utility::_id_0C4E( "smg_stand_2_hide" );
+            var_3 = animscripts\utility::animarray( "smg_stand_2_hide" );
 
         var_4 = getanimlength( var_3 );
-        self _meth_814b( var_3, %body, 1, 0.2, animscripts\combat_utility::_id_367A() );
+        self _meth_814B( var_3, %body, 1, 0.2, animscripts\combat_utility::_id_367A() );
         thread animscripts\shared::_id_5F94( self._id_22BA, var_4 );
         wait(var_4);
         self.a._id_22AB = "hide";
@@ -219,7 +219,7 @@ _id_229A( var_0 )
     var_7._id_38DF = ::_id_38DF;
     var_7.grenade = ::_id_98A5;
     var_7._id_4401 = ::_id_98A6;
-    var_7._id_14AB = ::_id_14AB;
+    var_7.blindfire = ::blindfire;
     animscripts\cover_behavior::main( var_7 );
 }
 
@@ -272,10 +272,10 @@ _id_80A4( var_0 )
 
 _id_22BE()
 {
-    var_0 = animscripts\utility::_id_0C4E( "reload" );
+    var_0 = animscripts\utility::animarray( "reload" );
 
-    if ( animscripts\utility::_id_51A3( self.weapon ) && isdefined( self.a._id_0CD8["shotgun_reload"] ) )
-        var_0 = animscripts\utility::_id_0C4E( "shotgun_reload" );
+    if ( animscripts\utility::_id_51A3( self.weapon ) && isdefined( self.a.array["shotgun_reload"] ) )
+        var_0 = animscripts\utility::animarray( "shotgun_reload" );
 
     var_1 = animscripts\combat_utility::reload( 2.0, var_0 );
 
@@ -341,7 +341,7 @@ _id_83EA()
             break;
         }
 
-        if ( !self._id_18B0 )
+        if ( !self.bulletsinclip )
             break;
 
         if ( self._id_22CB == "crouch" && _id_6086() )
@@ -355,9 +355,9 @@ _id_83EA()
 _id_8419()
 {
     if ( self._id_22CB == "crouch" )
-        thread _id_0B99();
+        thread anglerangethread();
 
-    thread animscripts\combat_utility::_id_0979();
+    thread animscripts\combat_utility::aimidlethread();
     animscripts\combat_utility::_id_8417();
 }
 
@@ -371,7 +371,7 @@ _id_7104()
     if ( randomint( 10 ) < 2 )
         var_0 = "rambo_fail";
 
-    if ( !animscripts\utility::_id_0C4F( var_0 ) )
+    if ( !animscripts\utility::animarrayanyexist( var_0 ) )
         return 0;
 
     if ( self._id_22CB == "crouch" && !self._id_22BA._id_2482 )
@@ -385,7 +385,7 @@ _id_7104()
     var_2 = anglestoforward( self.angles );
     var_3 = self.origin + var_2 * -16;
 
-    if ( !self _meth_81c7( var_3 ) )
+    if ( !self _meth_81C7( var_3 ) )
         return 0;
 
     self._id_22BC = gettime();
@@ -395,7 +395,7 @@ _id_7104()
     self.a._id_6F4D = "rambo";
     self._id_1C86 = 1;
     thread animscripts\shared::_id_7106( 0 );
-    var_4 = animscripts\utility::_id_0C51( var_0 );
+    var_4 = animscripts\utility::animarraypickrandom( var_0 );
     self setflaggedanimknoballrestart( "rambo", var_4, %body, 1, 0.2, 1 );
     _id_2299( var_4 );
     animscripts\shared::_id_2D06( "rambo" );
@@ -414,12 +414,12 @@ _id_4B63()
 
     for (;;)
     {
-        var_0 = randomint( 2 ) == 0 && animscripts\utility::_id_0C4F( "hide_idle_twitch" );
+        var_0 = randomint( 2 ) == 0 && animscripts\utility::animarrayanyexist( "hide_idle_twitch" );
 
         if ( var_0 )
-            var_1 = animscripts\utility::_id_0C51( "hide_idle_twitch" );
+            var_1 = animscripts\utility::animarraypickrandom( "hide_idle_twitch" );
         else
-            var_1 = animscripts\utility::_id_0C4E( "hide_idle" );
+            var_1 = animscripts\utility::animarray( "hide_idle" );
 
         _id_6DAC( var_1, var_0 );
     }
@@ -427,18 +427,18 @@ _id_4B63()
 
 _id_38DF()
 {
-    if ( !animscripts\utility::_id_0C4F( "hide_idle_flinch" ) )
+    if ( !animscripts\utility::animarrayanyexist( "hide_idle_flinch" ) )
         return 0;
 
     var_0 = anglestoforward( self.angles );
     var_1 = self.origin + var_0 * -16;
 
-    if ( !self _meth_81c7( var_1, !self.swimmer ) )
+    if ( !self _meth_81C7( var_1, !self.swimmer ) )
         return 0;
 
     _id_7F4E();
     self.keepclaimednodeifvalid = 1;
-    var_2 = animscripts\utility::_id_0C51( "hide_idle_flinch" );
+    var_2 = animscripts\utility::animarraypickrandom( "hide_idle_flinch" );
     _id_6DAC( var_2, 1 );
     self.keepclaimednodeifvalid = 0;
     return 1;
@@ -458,19 +458,19 @@ _id_6DAC( var_0, var_1 )
 
 look( var_0 )
 {
-    if ( !isdefined( self.a._id_0CD8["hide_to_look"] ) )
+    if ( !isdefined( self.a.array["hide_to_look"] ) )
         return 0;
 
     if ( !_id_67B9() )
         return 0;
 
-    animscripts\shared::_id_6DC1( animscripts\utility::_id_0C4E( "look_idle" ), var_0 );
+    animscripts\shared::_id_6DC1( animscripts\utility::animarray( "look_idle" ), var_0 );
     var_1 = undefined;
 
     if ( animscripts\utility::_id_51C3() )
-        var_1 = animscripts\utility::_id_0C4E( "look_to_hide_fast" );
+        var_1 = animscripts\utility::animarray( "look_to_hide_fast" );
     else
-        var_1 = animscripts\utility::_id_0C4E( "look_to_hide" );
+        var_1 = animscripts\utility::animarray( "look_to_hide" );
 
     self setflaggedanimknoballrestart( "looking_end", var_1, %body, 1, 0.1 );
     _id_2299( var_1 );
@@ -483,7 +483,7 @@ _id_67B9()
     if ( isdefined( self._id_22BA._id_79A9 ) )
         return 0;
 
-    var_0 = animscripts\utility::_id_0C4E( "hide_to_look" );
+    var_0 = animscripts\utility::animarray( "hide_to_look" );
     self setflaggedanimknoball( "looking_start", var_0, %body, 1, 0.2 );
     _id_2299( var_0 );
     animscripts\shared::_id_2D06( "looking_start" );
@@ -492,7 +492,7 @@ _id_67B9()
 
 _id_367E()
 {
-    var_0 = animscripts\utility::_id_0C51( "look" );
+    var_0 = animscripts\utility::animarraypickrandom( "look" );
     self setflaggedanimknoballrestart( "look", var_0, %body, 1, 0.1 );
     _id_2299( var_0 );
     animscripts\shared::_id_2D06( "look" );
@@ -511,10 +511,10 @@ _id_6E43()
 {
     var_0 = _id_3F14();
     var_1 = 0.1;
-    var_2 = animscripts\utility::_id_0C4E( "hide_2_" + var_0 );
+    var_2 = animscripts\utility::animarray( "hide_2_" + var_0 );
     var_3 = !self.swimmer;
 
-    if ( !self _meth_81c7( animscripts\utility::_id_3EFC( var_2 ), var_3 ) )
+    if ( !self _meth_81C7( animscripts\utility::_id_3EFC( var_2 ), var_3 ) )
         return 0;
 
     if ( self.script == "cover_crouch" && var_0 == "lean" )
@@ -586,42 +586,42 @@ _id_8041( var_0 )
     else
         var_1 = self.a._id_22AB;
 
-    self _meth_8149( animscripts\utility::_id_0C4E( var_1 + "_aim" ), %body, 1, var_0 );
+    self _meth_8149( animscripts\utility::animarray( var_1 + "_aim" ), %body, 1, var_0 );
 
     if ( var_1 == "crouch" )
     {
-        self _meth_814e( animscripts\utility::_id_5863( "cover_crouch", "add_aim_down" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "cover_crouch", "add_aim_left" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "cover_crouch", "add_aim_up" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "cover_crouch", "add_aim_right" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_crouch", "add_aim_down" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_crouch", "add_aim_left" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_crouch", "add_aim_up" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_crouch", "add_aim_right" ), 1, 0 );
     }
     else if ( var_1 == "stand" )
     {
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_down" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_left" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_up" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_right" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_down" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_left" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_up" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_right" ), 1, 0 );
     }
     else if ( var_1 == "stand_tall" )
     {
-        self _meth_814e( animscripts\utility::_id_5863( "old_default_stand", "add_aim_down" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "old_default_stand", "add_aim_left" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "old_default_stand", "add_aim_up" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "old_default_stand", "add_aim_right" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "old_default_stand", "add_aim_down" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "old_default_stand", "add_aim_left" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "old_default_stand", "add_aim_up" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "old_default_stand", "add_aim_right" ), 1, 0 );
     }
     else if ( var_1 == "lean" )
     {
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_down" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_left" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_up" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "default_stand", "add_aim_right" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_down" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_left" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_up" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "default_stand", "add_aim_right" ), 1, 0 );
     }
     else if ( var_1 == "over" )
     {
-        self _meth_814e( animscripts\utility::_id_5863( "cover_stand", "add_aim_down" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "cover_stand", "add_aim_left" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "cover_stand", "add_aim_up" ), 1, 0 );
-        self _meth_814e( animscripts\utility::_id_5863( "cover_stand", "add_aim_right" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_stand", "add_aim_down" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_stand", "add_aim_left" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_stand", "add_aim_up" ), 1, 0 );
+        self _meth_814E( animscripts\utility::_id_5863( "cover_stand", "add_aim_right" ), 1, 0 );
     }
 }
 
@@ -636,7 +636,7 @@ _id_4240()
     if ( self.team == "allies" )
         wait(randomfloatrange( 0.0, 1.0 ));
 
-    self setflaggedanimknoball( "go_to_hide", animscripts\utility::_id_0C4E( self.a._id_22AB + "_2_hide" ), %body, 1, 0.2, var_0 );
+    self setflaggedanimknoball( "go_to_hide", animscripts\utility::animarray( self.a._id_22AB + "_2_hide" ), %body, 1, 0.2, var_0 );
     self _meth_8144( %exposed_modern, 0.2 );
     animscripts\shared::_id_2D06( "go_to_hide" );
     self.a._id_22AB = "hide";
@@ -662,11 +662,11 @@ _id_98A5( var_0, var_1 )
     var_2 = undefined;
 
     if ( isdefined( self._id_7109 ) && randomfloat( 1.0 ) < self._id_7109 )
-        var_2 = animscripts\utility::_id_0C51( "grenade_rambo" );
+        var_2 = animscripts\utility::animarraypickrandom( "grenade_rambo" );
     else if ( isdefined( var_1 ) && var_1 )
-        var_2 = animscripts\utility::_id_0C51( "grenade_safe" );
+        var_2 = animscripts\utility::animarraypickrandom( "grenade_safe" );
     else
-        var_2 = animscripts\utility::_id_0C51( "grenade_exposed" );
+        var_2 = animscripts\utility::animarraypickrandom( "grenade_exposed" );
 
     _id_7F4E();
     self.keepclaimednodeifvalid = 1;
@@ -675,14 +675,14 @@ _id_98A5( var_0, var_1 )
     return var_3;
 }
 
-_id_14AB()
+blindfire()
 {
-    if ( !animscripts\utility::_id_0C4F( "blind_fire" ) )
+    if ( !animscripts\utility::animarrayanyexist( "blind_fire" ) )
         return 0;
 
     _id_7F4E();
     self.keepclaimednodeifvalid = 1;
-    self setflaggedanimknoballrestart( "blindfire", animscripts\utility::_id_0C51( "blind_fire" ), %body, 1, 0.2, 1 );
+    self setflaggedanimknoballrestart( "blindfire", animscripts\utility::animarraypickrandom( "blind_fire" ), %body, 1, 0.2, 1 );
     animscripts\shared::_id_2D06( "blindfire" );
     self.keepclaimednodeifvalid = 0;
     return 1;
@@ -695,13 +695,13 @@ _id_2449( var_0, var_1, var_2, var_3 )
 
     var_4 = spawnturret( "misc_turret", var_0.origin, var_1 );
     var_4.angles = var_0.angles;
-    var_4._id_098B = self;
+    var_4.aiowner = self;
     var_4 setmodel( var_2 );
 
     if ( var_3 )
         var_4 makeusable();
 
-    var_4 _meth_815c( 0 );
+    var_4 _meth_815C( 0 );
 
     if ( isdefined( var_0.leftarc ) )
         var_4.leftarc = var_0.leftarc;
@@ -737,7 +737,7 @@ _id_9C12( var_0, var_1, var_2 )
 
     var_3 = _id_2449( self.node._id_99B3, var_0, var_1, var_2 );
 
-    if ( self _meth_818e( var_3 ) )
+    if ( self _meth_818E( var_3 ) )
     {
         var_3 thread _id_2853( self );
 
@@ -765,70 +765,70 @@ _id_80AA( var_0 )
 {
     if ( animscripts\utility::_id_502C() )
     {
-        self.a._id_0CD8 = animscripts\utility::_id_5864( "free_run_cover_crouch" );
+        self.a.array = animscripts\utility::_id_5864( "free_run_cover_crouch" );
         return;
     }
 
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_crouch" );
+    self.a.array = animscripts\utility::_id_5864( "cover_crouch" );
 
     if ( animscripts\utility::_id_A2CF() )
     {
         if ( var_0 == "lean" || var_0 == "stand" )
-            self.a._id_0CD8["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
+            self.a.array["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
         else
-            self.a._id_0CD8["single"] = animscripts\utility::_id_5863( "shotgun_crouch", "single" );
+            self.a.array["single"] = animscripts\utility::_id_5863( "shotgun_crouch", "single" );
     }
 
     if ( isdefined( anim._id_7108 ) )
     {
-        self.a._id_0CD8["rambo"] = anim._id_7108._id_229D;
-        self.a._id_0CD8["rambo_fail"] = anim._id_7108._id_229E;
-        self.a._id_0CD8["grenade_rambo"] = anim._id_7108._id_229F;
+        self.a.array["rambo"] = anim._id_7108._id_229D;
+        self.a.array["rambo_fail"] = anim._id_7108._id_229E;
+        self.a.array["grenade_rambo"] = anim._id_7108._id_229F;
     }
 }
 
 _id_82B1( var_0 )
 {
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_stand" );
+    self.a.array = animscripts\utility::_id_5864( "cover_stand" );
 
     if ( var_0 != "over" )
     {
         if ( var_0 == "stand_tall" && maps\_utility::_id_76FF() )
         {
             var_1 = animscripts\utility::_id_5864( "old_default_stand" );
-            self.a._id_0CD8["stand_tall_aim"] = var_1["straight_level"];
+            self.a.array["stand_tall_aim"] = var_1["straight_level"];
         }
         else
             var_1 = animscripts\utility::_id_5864( "default_stand" );
 
-        self.a._id_0CD8["add_aim_left"] = var_1["add_aim_left"];
-        self.a._id_0CD8["add_aim_right"] = var_1["add_aim_right"];
-        self.a._id_0CD8["add_aim_up"] = var_1["add_aim_up"];
-        self.a._id_0CD8["add_aim_down"] = var_1["add_aim_down"];
-        self.a._id_0CD8["stand_aim"] = var_1["straight_level"];
-        self.a._id_0CD8["fire"] = var_1["fire_corner"];
-        self.a._id_0CD8["semi2"] = var_1["semi2"];
-        self.a._id_0CD8["semi3"] = var_1["semi3"];
-        self.a._id_0CD8["semi4"] = var_1["semi4"];
-        self.a._id_0CD8["semi5"] = var_1["semi5"];
+        self.a.array["add_aim_left"] = var_1["add_aim_left"];
+        self.a.array["add_aim_right"] = var_1["add_aim_right"];
+        self.a.array["add_aim_up"] = var_1["add_aim_up"];
+        self.a.array["add_aim_down"] = var_1["add_aim_down"];
+        self.a.array["stand_aim"] = var_1["straight_level"];
+        self.a.array["fire"] = var_1["fire_corner"];
+        self.a.array["semi2"] = var_1["semi2"];
+        self.a.array["semi3"] = var_1["semi3"];
+        self.a.array["semi4"] = var_1["semi4"];
+        self.a.array["semi5"] = var_1["semi5"];
 
         if ( animscripts\utility::_id_A2CF() )
-            self.a._id_0CD8["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
+            self.a.array["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
         else
-            self.a._id_0CD8["single"] = var_1["single"];
+            self.a.array["single"] = var_1["single"];
 
-        self.a._id_0CD8["burst2"] = var_1["burst2"];
-        self.a._id_0CD8["burst3"] = var_1["burst3"];
-        self.a._id_0CD8["burst4"] = var_1["burst4"];
-        self.a._id_0CD8["burst5"] = var_1["burst5"];
-        self.a._id_0CD8["burst6"] = var_1["burst6"];
+        self.a.array["burst2"] = var_1["burst2"];
+        self.a.array["burst3"] = var_1["burst3"];
+        self.a.array["burst4"] = var_1["burst4"];
+        self.a.array["burst5"] = var_1["burst5"];
+        self.a.array["burst6"] = var_1["burst6"];
     }
 
     if ( isdefined( anim._id_7108 ) )
     {
-        self.a._id_0CD8["rambo"] = anim._id_7108._id_22C3;
-        self.a._id_0CD8["rambo_fail"] = anim._id_7108._id_22C4;
-        self.a._id_0CD8["grenade_rambo"] = anim._id_7108._id_22C5;
+        self.a.array["rambo"] = anim._id_7108._id_22C3;
+        self.a.array["rambo_fail"] = anim._id_7108._id_22C4;
+        self.a.array["grenade_rambo"] = anim._id_7108._id_22C5;
     }
 }
 
@@ -845,13 +845,13 @@ _id_5884( var_0 )
         var_1 = getanimlength( %exposed_stand_2_coverstand_hide );
     }
     else
-        self _meth_814b( animscripts\utility::_id_0C4E( "hide_idle" ), %body, 1, var_0 );
+        self _meth_814B( animscripts\utility::animarray( "hide_idle" ), %body, 1, var_0 );
 
     self.a._id_22AB = "hide";
     return var_1;
 }
 
-_id_0B99()
+anglerangethread()
 {
     self endon( "killanimscript" );
     self notify( "newAngleRangeCheck" );
@@ -888,7 +888,7 @@ _id_3F14()
 
     if ( self._id_22CB == "stand" )
     {
-        if ( !self._id_22BA._id_58AE && ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" ) )
+        if ( !self._id_22BA._id_58AE && ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" ) )
         {
             var_0 = self._id_22BA getvalidcoverpeekouts();
             var_0[var_0.size] = "stand_tall";
@@ -897,7 +897,7 @@ _id_3F14()
         {
             var_0 = self._id_22BA getvalidcoverpeekouts();
 
-            if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
+            if ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
                 var_0[var_0.size] = "over";
             else
                 var_0[var_0.size] = "stand";
@@ -907,7 +907,7 @@ _id_3F14()
     {
         var_1 = _id_40C9( self._id_22BA.origin + animscripts\utility::_id_404D( self._id_22BA ) );
 
-        if ( self.a._id_0D83 )
+        if ( self.a.atconcealmentnode )
         {
             if ( var_1 > 30 )
                 return "lean";
@@ -932,7 +932,7 @@ _id_3F14()
 
     while ( var_2 < var_0.size )
     {
-        if ( !isdefined( self.a._id_0CD8["hide_2_" + var_0[var_2]] ) )
+        if ( !isdefined( self.a.array["hide_2_" + var_0[var_2]] ) )
         {
             var_0[var_2] = var_0[var_0.size - 1];
             var_0[var_0.size - 1] = undefined;

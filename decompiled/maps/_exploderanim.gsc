@@ -50,8 +50,8 @@ anim_play()
         var_0 = self.model + "_anim";
 
     var_2 = get_animtree( var_0 );
-    maps\_utility::_id_0D61( var_2 );
-    maps\_anim::_id_0C24( self, var_0 );
+    maps\_utility::assign_animtree( var_2 );
+    maps\_anim::anim_single_solo( self, var_0 );
 }
 
 get_animtree( var_0 )
@@ -62,7 +62,7 @@ get_animtree( var_0 )
     {
         var_3 = getarraykeys( level._id_78AC[level.exploder_animtrees[var_2]] );
 
-        if ( common_scripts\utility::_id_0CE4( var_3, var_0 ) )
+        if ( common_scripts\utility::array_contains( var_3, var_0 ) )
         {
             var_1 = level.exploder_animtrees[var_2];
             break;

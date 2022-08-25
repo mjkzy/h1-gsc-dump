@@ -47,7 +47,7 @@ _id_80C6()
 setup_lighting_triggers()
 {
     var_0 = getentarray( "script_lightset_change", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::lighting_trigger_think );
+    common_scripts\utility::array_thread( var_0, ::lighting_trigger_think );
 }
 
 lighting_trigger_think()
@@ -78,7 +78,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada", var_1 );
             maps\_utility::_id_9E6E( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_ride":
             if ( !isdefined( var_1 ) )
@@ -87,7 +87,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_ride", var_1 );
             maps\_utility::_id_9E6E( "armada_ride", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_ride" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_interior_HQ":
             if ( !isdefined( var_1 ) )
@@ -96,7 +96,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_hq", var_1 );
             maps\_utility::_id_9E6E( "armada_hq", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_interior_HQ" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_interior_TVStation":
             if ( !isdefined( var_1 ) )
@@ -105,7 +105,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_tvs", var_1 );
             maps\_utility::_id_9E6E( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_interior_TVStation" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Hall":
             if ( !isdefined( var_1 ) )
@@ -114,7 +114,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_tvs", var_1 );
             maps\_utility::_id_9E6E( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Hall" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Kitchen":
             if ( !isdefined( var_1 ) )
@@ -123,7 +123,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_tvs", var_1 );
             maps\_utility::_id_9E6E( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Kitchen" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Roof01":
             if ( !isdefined( var_1 ) )
@@ -132,7 +132,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_tvs", var_1 );
             maps\_utility::_id_9E6E( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Roof01" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Stairwell":
             if ( !isdefined( var_1 ) )
@@ -141,7 +141,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_tvs", var_1 );
             maps\_utility::_id_9E6E( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Stairwell" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Roof02":
             if ( !isdefined( var_1 ) )
@@ -150,7 +150,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada", var_1 );
             maps\_utility::_id_9E6E( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Roof02" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         case "armada_TVStation_End":
             if ( !isdefined( var_1 ) )
@@ -159,7 +159,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada_tvs", var_1 );
             maps\_utility::_id_9E6E( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_End" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
         default:
             if ( !isdefined( var_1 ) )
@@ -168,7 +168,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::_id_7F00( "armada", var_1 );
             maps\_utility::_id_9E6E( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada" );
-            level.player _meth_848c( "clut_armada", var_1 );
+            level.player _meth_848C( "clut_armada", var_1 );
             break;
     }
 
@@ -210,8 +210,8 @@ office_light_force_on()
 {
     var_0 = getentarray( "office_light_trigger_on", "targetname" );
     var_1 = getentarray( "office_light_trigger_off", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::office_light_trigger, self, "force_on" );
-    common_scripts\utility::_id_0D13( var_1, ::office_light_trigger, self, "force_off" );
+    common_scripts\utility::array_thread( var_0, ::office_light_trigger, self, "force_on" );
+    common_scripts\utility::array_thread( var_1, ::office_light_trigger, self, "force_off" );
 }
 
 office_light_trigger( var_0, var_1 )

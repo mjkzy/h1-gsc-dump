@@ -119,47 +119,47 @@ _id_5FFD( var_0, var_1 )
 
 start_intro_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_drive_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_doorkick_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_trashstumble_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_runners2_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_alley_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_shore_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_carexit_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle" );
 }
 
 start_ending_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 _id_4F77()
@@ -177,39 +177,39 @@ intro_check_end()
 
 aud_coup_enter_car()
 {
-    soundscripts\_audio_zone_manager::_id_123B( "exterior", 0.3 );
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle", 0.3 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle", 0.3 );
 }
 
 aud_coup_exit_car()
 {
-    soundscripts\_audio_zone_manager::_id_123B( "interior_vehicle", 0.3 );
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle_open", 0.3 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "interior_vehicle", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle_open", 0.3 );
 }
 
 aud_coup_car_open()
 {
-    soundscripts\_audio_zone_manager::_id_123B( "exterior", 0.3 );
-    soundscripts\_audio_zone_manager::_id_123B( "interior_vehicle", 0.3 );
-    soundscripts\_audio_zone_manager::_id_123A( "interior_vehicle_open", 0.3 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "interior_vehicle", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_vehicle_open", 0.3 );
 }
 
 aud_coup_car_thrown_out()
 {
-    soundscripts\_audio_zone_manager::_id_123B( "interior_vehicle_open", 0.3 );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "interior_vehicle_open", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior", 0.3 );
 }
 
 aud_exterior_to_bunker()
 {
-    soundscripts\_audio_zone_manager::_id_123B( "exterior", 0.3 );
-    soundscripts\_audio_zone_manager::_id_123A( "bunker", 0.3 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "bunker", 0.3 );
 }
 
 aud_bunker_to_exterior()
 {
-    soundscripts\_audio_zone_manager::_id_123B( "bunker", 5.5 );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior", 5.5 );
+    soundscripts\_audio_zone_manager::azm_stop_zone( "bunker", 5.5 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior", 5.5 );
 }
 
 start_slowmo_mix()
@@ -354,7 +354,7 @@ aud_stop_engine( var_0, var_1 )
 {
     self scalevolume( 0, var_1 );
     wait(var_1);
-    self _meth_854d( "scn_coup_car_move_engine_" + var_0 );
+    self _meth_854D( "scn_coup_car_move_engine_" + var_0 );
     self scalevolume( 1, 1 );
 }
 

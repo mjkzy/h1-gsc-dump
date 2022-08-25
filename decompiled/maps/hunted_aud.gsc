@@ -113,54 +113,54 @@ _id_5FFD( var_0, var_1 )
 aud_start_default_checkpoint( var_0 )
 {
     aud_set_exterior_level_0();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_crash_checkpoint( var_0 )
 {
     aud_set_exterior_level_0();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_path_checkpoint( var_0 )
 {
     aud_set_exterior_level_0();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_barn_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_field_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_basement_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_farm_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_creek_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_greenhouse_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_ac130_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 _id_4F77()
@@ -222,21 +222,21 @@ aud_ac130_sequence()
 
 aud_set_exterior_level_0()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_hunted_ext0", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "tunnel", "ambient_hunted_ext0", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_wood_open", "ambient_hunted_ext0", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_hunted_ext0", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "tunnel", "ambient_hunted_ext0", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_wood_open", "ambient_hunted_ext0", 0.8 );
 }
 
 aud_set_exterior_level_1()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_hunted_ext1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "tunnel", "ambient_hunted_ext1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_wood_open", "ambient_hunted_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_hunted_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "tunnel", "ambient_hunted_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_wood_open", "ambient_hunted_ext1", 0.8 );
 }
 
 aud_set_exterior_level_2()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_hunted_ext2", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "tunnel", "ambient_hunted_ext2", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_wood_open", "ambient_hunted_ext2", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_hunted_ext2", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "tunnel", "ambient_hunted_ext2", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_wood_open", "ambient_hunted_ext2", 0.8 );
 }

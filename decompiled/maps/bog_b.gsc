@@ -42,9 +42,9 @@ main()
     if ( getdvar( "bog_b_min_spec" ) == "1" )
         makeminspec();
 
-    maps\_utility::_id_079C( "arch", ::start_arch );
-    maps\_utility::_id_079C( "alley", ::start_alley );
-    maps\_utility::_id_079C( "ch46", ::start_ch46 );
+    maps\_utility::add_start( "arch", ::start_arch );
+    maps\_utility::add_start( "alley", ::start_alley );
+    maps\_utility::add_start( "ch46", ::start_ch46 );
     maps\_utility::_id_278B( ::start_bog );
     level.disallowlegswingwallhop = 1;
     level.weaponclipmodels = [];
@@ -97,8 +97,8 @@ main()
     precacherumble( "tank_impact" );
     precachemodel( "h1_bog_b_patch_concrete_slab" );
     maps\bog_b_precache::main();
-    maps\_vehicle::_id_186C( "bog_mortar", "vehicle_m1a1_abrams", undefined, "script_vehicle" );
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::build_template( "bog_mortar", "vehicle_m1a1_abrams", undefined, "script_vehicle" );
+    maps\_vehicle::build_life( 999, 500, 1500 );
     maps\createart\bog_b_art::main();
     maps\bog_b_fx::main();
     maps\_hiding_door_anims::main();
@@ -138,18 +138,18 @@ main()
     maps\_utility::_id_7E19( "y" );
     maps\_utility::_id_7E19( "g" );
     thread archway_color_trigger();
-    common_scripts\utility::_id_0D13( getentarray( "stragglers_chase", "targetname" ), ::stragglers_chase );
-    common_scripts\utility::_id_0D13( getentarray( "flyby", "targetname" ), ::_id_391D );
-    common_scripts\utility::_id_0D13( getentarray( "chain_and_home", "script_noteworthy" ), maps\_utility::_id_0798, ::chain_and_home );
-    common_scripts\utility::_id_0D13( getentarray( "archway_bog_reinforcer", "targetname" ), maps\_utility::_id_0798, ::ignored_by_tank_cannon );
-    common_scripts\utility::_id_0D13( getentarray( "rpg_tank_shooter", "script_noteworthy" ), maps\_utility::_id_0798, ::rpg_tank_shooter );
-    common_scripts\utility::_id_0D13( getentarray( "rpg_tank_shooter_fall", "script_noteworthy" ), maps\_utility::_id_0798, ::rpg_tank_shooter );
-    common_scripts\utility::_id_0D13( getentarray( "rpg_tank_shooter_noignore", "script_noteworthy" ), maps\_utility::_id_0798, ::rpg_tank_shooter );
-    common_scripts\utility::_id_0D13( getentarray( "vehicle_path_disconnector", "targetname" ), ::vehicle_path_disconnector );
-    common_scripts\utility::_id_0D13( getentarray( "delete_ai", "targetname" ), ::delete_ai_in_zone );
-    common_scripts\utility::_id_0D13( getentarray( "autosave_when_trigger_cleared", "targetname" ), ::autosave_when_trigger_cleared );
-    common_scripts\utility::_id_0D13( getentarray( "delete_all_axis", "script_noteworthy" ), ::delete_all_axis );
-    common_scripts\utility::_id_0D13( getentarray( "computer_des", "targetname" ), ::computer_destruct );
+    common_scripts\utility::array_thread( getentarray( "stragglers_chase", "targetname" ), ::stragglers_chase );
+    common_scripts\utility::array_thread( getentarray( "flyby", "targetname" ), ::_id_391D );
+    common_scripts\utility::array_thread( getentarray( "chain_and_home", "script_noteworthy" ), maps\_utility::add_spawn_function, ::chain_and_home );
+    common_scripts\utility::array_thread( getentarray( "archway_bog_reinforcer", "targetname" ), maps\_utility::add_spawn_function, ::ignored_by_tank_cannon );
+    common_scripts\utility::array_thread( getentarray( "rpg_tank_shooter", "script_noteworthy" ), maps\_utility::add_spawn_function, ::rpg_tank_shooter );
+    common_scripts\utility::array_thread( getentarray( "rpg_tank_shooter_fall", "script_noteworthy" ), maps\_utility::add_spawn_function, ::rpg_tank_shooter );
+    common_scripts\utility::array_thread( getentarray( "rpg_tank_shooter_noignore", "script_noteworthy" ), maps\_utility::add_spawn_function, ::rpg_tank_shooter );
+    common_scripts\utility::array_thread( getentarray( "vehicle_path_disconnector", "targetname" ), ::vehicle_path_disconnector );
+    common_scripts\utility::array_thread( getentarray( "delete_ai", "targetname" ), ::delete_ai_in_zone );
+    common_scripts\utility::array_thread( getentarray( "autosave_when_trigger_cleared", "targetname" ), ::autosave_when_trigger_cleared );
+    common_scripts\utility::array_thread( getentarray( "delete_all_axis", "script_noteworthy" ), ::delete_all_axis );
+    common_scripts\utility::array_thread( getentarray( "computer_des", "targetname" ), ::computer_destruct );
     thread maps\_utility::ai_team_run_twitch_think( "allies", "alley_cleared", undefined, "ch46", undefined );
     level.abrams = maps\_vehicle::waittill_vehiclespawn( "abrams" );
     var_0 = getent( "abrams_top_clip", "targetname" );
@@ -207,10 +207,10 @@ makeminspec()
     {
         if ( !isdefined( var_0[var_1]._id_7A39 ) )
         {
-            if ( isdefined( var_0[var_1]._id_1300 ) )
-                var_0[var_1]._id_1300 *= 1.3;
+            if ( isdefined( var_0[var_1].baseaccuracy ) )
+                var_0[var_1].baseaccuracy *= 1.3;
             else
-                var_0[var_1]._id_1300 = 1.2;
+                var_0[var_1].baseaccuracy = 1.2;
 
             continue;
         }
@@ -227,7 +227,7 @@ makeminspec()
 bog_dialog()
 {
     wait 4;
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     var_0 = [];
     var_0[0] = level._id_6F7C;
     var_1 = maps\_utility::_id_3CEF( level.player.origin, "allies", var_0 );
@@ -237,32 +237,32 @@ bog_dialog()
     if ( !var_2 ishero() )
         var_2 thread maps\_utility::_id_58D7( undefined, undefined, 5.0 );
 
-    var_1._id_0C72 = "marine1";
-    var_2._id_0C72 = "marine2";
-    var_1 maps\_anim::_id_0C24( var_1, "getyourass" );
+    var_1.animname = "marine1";
+    var_2.animname = "marine2";
+    var_1 maps\_anim::anim_single_solo( var_1, "getyourass" );
     wait 1;
     level.player playradiosound( level._id_78BA["tank_commander"]["wereclear"] );
     common_scripts\utility::_id_384A( "evemy_helicopter_reinforcement_spawned" );
     wait 8;
-    var_2 maps\_anim::_id_0C24( var_2, "enemyair" );
+    var_2 maps\_anim::anim_single_solo( var_2, "enemyair" );
     wait 0.05;
-    level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "grabrpg" );
+    level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "grabrpg" );
     wait 10;
 
     if ( isdefined( level.alleyfriends ) )
     {
         foreach ( var_4 in level.alleyfriends )
-            common_scripts\utility::_id_0CDA( var_0, var_4 );
+            common_scripts\utility::array_add( var_0, var_4 );
     }
 
     var_6 = maps\_utility::_id_3CEF( level.player.origin, "allies", var_0 );
-    var_6._id_0C72 = "marine1";
-    var_6 maps\_anim::_id_0C24( var_6, "rightflank" );
+    var_6.animname = "marine1";
+    var_6 maps\_anim::anim_single_solo( var_6, "rightflank" );
 
     if ( !var_2 ishero() )
         var_2 maps\_utility::_id_8EA4();
 
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
 }
 
 ishero()
@@ -443,12 +443,12 @@ spawn_starting_friendlies( var_0 )
             var_3 thread maps\_utility::_id_58D7( undefined, undefined, 5.0 );
     }
 
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C maps\_utility::_id_5926();
-    level.grigsby._id_0C72 = "grigsby";
+    level.grigsby.animname = "grigsby";
     level.grigsby maps\_utility::_id_5926();
     level.grigsby._id_8FEC = 1.0;
-    common_scripts\utility::_id_0D13( getaiarray( "allies" ), maps\_utility::_id_7402 );
+    common_scripts\utility::array_thread( getaiarray( "allies" ), maps\_utility::_id_7402 );
 }
 
 ignored_till_fastrope( var_0 )
@@ -498,7 +498,7 @@ stragglers_chase()
             continue;
 
         var_1[var_2].goalradius = 600;
-        var_1[var_2] _meth_81ab( level.player );
+        var_1[var_2] _meth_81AB( level.player );
     }
 }
 
@@ -546,7 +546,7 @@ chain_and_home()
     {
         wait 5;
         self.goalradius = var_0;
-        self _meth_81ab( level.player );
+        self _meth_81AB( level.player );
         var_0 -= 175;
 
         if ( var_0 < 512 )
@@ -572,11 +572,11 @@ rpg_tank_shooter()
             thread roof_guy_fall_on_death();
     }
 
-    self _meth_816b( level.abrams );
+    self _meth_816B( level.abrams );
     wait 10;
 
     if ( isdefined( self ) )
-        self _meth_816a();
+        self _meth_816A();
 }
 #using_animtree("generic_human");
 
@@ -615,7 +615,7 @@ attack_troops()
             continue;
 
         var_4 = var_0.origin + ( 0.0, 0.0, 32.0 );
-        self _meth_825d( var_4 );
+        self _meth_825D( var_4 );
 
         if ( getdvar( "bog_debug_tank" ) == "1" )
             thread maps\_utility::_id_2DBF( level.abrams.origin + ( 0.0, 0.0, 32.0 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
@@ -645,12 +645,12 @@ tank_turret_forward()
 
 ambush_ahead_dialog()
 {
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     level.player playradiosound( level._id_78BA["tank_commander"]["possibleambush"] );
     wait 1;
-    level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "watchrooftops" );
+    level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "watchrooftops" );
     level.player playradiosound( level._id_78BA["tank_commander"]["standclear"] );
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
     common_scripts\utility::_id_383F( "tank_clear_to_shoot" );
 }
 
@@ -680,7 +680,7 @@ playradiosound( var_0 )
         }
     }
 
-    level.radioforcedtransmissionqueue = maps\_utility::_id_0CFA( level.radioforcedtransmissionqueue, 0 );
+    level.radioforcedtransmissionqueue = maps\_utility::array_remove_index( level.radioforcedtransmissionqueue, 0 );
 }
 
 playaliasoverradio( var_0 )
@@ -717,7 +717,7 @@ shoot_buildings( var_0 )
         }
 
         shoot_exploder( level.exploderarray[var_0][var_1] );
-        level.exploderarray[var_0] = maps\_utility::_id_0CFA( level.exploderarray[var_0], var_1 );
+        level.exploderarray[var_0] = maps\_utility::array_remove_index( level.exploderarray[var_0], var_1 );
         wait(randomfloat( 6 ));
     }
 
@@ -785,7 +785,7 @@ shoot_exploder( var_0 )
 {
     level.abrams thread tank_shooting_exploder_dialog( var_0.inumber );
     level.abrams waittill( "target_aquired" );
-    level.abrams _meth_825d( var_0.origin );
+    level.abrams _meth_825D( var_0.origin );
     level.abrams common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 3.0 );
     level.abrams clearturrettargetent();
     level.abrams.readytofire = 1;
@@ -993,7 +993,7 @@ alley_dumpster_sequence()
     var_1 common_scripts\utility::_id_97CC();
     wait 0.05;
     var_2 = getnode( "vasquez_dumpster_node", "targetname" );
-    level._id_6F7C _meth_81a9( var_2 );
+    level._id_6F7C _meth_81A9( var_2 );
     level._id_6F7C.force_crouch = 1;
     wait 0.05;
     level._id_6F7C thread wait_to_reach_dumpster_node();
@@ -1013,7 +1013,7 @@ alley_dumpster_sequence()
         var_4.a._id_2B20 = 1;
         var_4.allowpain = 0;
         var_4._id_38A8 = 1;
-        var_4 _meth_81a7( 1 );
+        var_4 _meth_81A7( 1 );
     }
 
     var_6 = undefined;
@@ -1027,7 +1027,7 @@ alley_dumpster_sequence()
         break;
     }
 
-    var_6._id_0C72 = "dumpsterGuy";
+    var_6.animname = "dumpsterGuy";
     var_6 maps\_utility::_id_2A74();
     var_6 maps\_utility::_id_5926();
 
@@ -1035,7 +1035,7 @@ alley_dumpster_sequence()
         var_6 thread maps\_utility::_id_58D7();
 
     var_8 = getent( "dumpster", "targetname" );
-    var_8._id_0C72 = "dumpster";
+    var_8.animname = "dumpster";
     var_8 useanimtree( level._id_78B1["dumpster"] );
     var_9 = getent( "dumpster_clip", "targetname" );
     var_2 = spawn( "script_origin", var_8.origin );
@@ -1051,37 +1051,37 @@ alley_dumpster_sequence()
 
     var_6 thread maps\_utility::_id_7E60( 1 );
     level._id_6F7C thread maps\_utility::_id_7E60( 1 );
-    var_6 _meth_81ce( "crouch" );
-    var_2 maps\_anim::_id_0BFF( var_6, "dumpster_peek" );
+    var_6 _meth_81CE( "crouch" );
+    var_2 maps\_anim::anim_reach_solo( var_6, "dumpster_peek" );
     var_11 = [];
     var_11[var_11.size] = var_6;
     var_11[var_11.size] = var_8;
     var_8 thread maps\_utility::_id_69C4( "scn_bog_dumpster_peek" );
-    var_2 maps\_anim::_id_0C18( var_11, "dumpster_peek" );
-    var_2 thread maps\_anim::_id_0BE1( var_6, "dumpster_idle2", undefined, "stop_idle" );
+    var_2 maps\_anim::anim_single( var_11, "dumpster_peek" );
+    var_2 thread maps\_anim::anim_loop_solo( var_6, "dumpster_idle2", undefined, "stop_idle" );
     level thread dumpsterguy_push_condition1( var_6 );
     level thread dumpsterguy_push_condition2( var_6 );
     level thread dumpsterguy_push_condition3( var_6 );
     common_scripts\utility::_id_384A( "start_dumpster_push" );
     common_scripts\utility::_id_384A( "vasquez_in_position" );
     level._id_6F7C.overridemovemode = "run";
-    var_8 maps\_anim::_id_0BFF( level._id_6F7C, "dumpster_push" );
+    var_8 maps\_anim::anim_reach_solo( level._id_6F7C, "dumpster_push" );
     var_11[var_11.size] = level._id_6F7C;
     var_8 thread maps\_utility::_id_69C4( "scn_bog_dumpster_push" );
-    var_8 thread maps\_anim::_id_0C24( level._id_6F7C, "dumpster_push" );
+    var_8 thread maps\_anim::anim_single_solo( level._id_6F7C, "dumpster_push" );
     var_12 = 0.35;
     wait(var_12);
     var_6 notify( "stop_idle" );
     var_2 notify( "stop_idle" );
-    var_8 thread maps\_anim::_id_0C24( var_8, "dumpster_push" );
-    var_8 maps\_anim::_id_0C24( var_6, "dumpster_push" );
+    var_8 thread maps\_anim::anim_single_solo( var_8, "dumpster_push" );
+    var_8 maps\_anim::anim_single_solo( var_6, "dumpster_push" );
     level._id_6F7C.overridemovemode = undefined;
     level._id_6F7C.force_crouch = undefined;
     var_8 notify( "stop_updating_clip" );
     var_9 disconnectpaths();
-    var_6 _meth_81ce( "crouch", "stand", "prone" );
-    level._id_6F7C _meth_81a9( getnode( "dumpster_push_afternode_dumpsterguy", "targetname" ) );
-    var_6 _meth_81a9( getnode( "dumpster_push_afternode_vasquez", "targetname" ) );
+    var_6 _meth_81CE( "crouch", "stand", "prone" );
+    level._id_6F7C _meth_81A9( getnode( "dumpster_push_afternode_dumpsterguy", "targetname" ) );
+    var_6 _meth_81A9( getnode( "dumpster_push_afternode_vasquez", "targetname" ) );
     level._id_6F7C maps\_utility::_id_309A();
     var_6 maps\_utility::_id_309A();
     remove_alley_seperation_clip();
@@ -1179,26 +1179,26 @@ alley_door_kick( var_0 )
 {
     var_1[0] = var_0;
     var_1[1] = level._id_6F7C;
-    var_1[0]._id_0C72 = "alley_door_kicker_left";
-    var_1[1]._id_0C72 = "alley_door_kicker_right";
+    var_1[0].animname = "alley_door_kicker_left";
+    var_1[1].animname = "alley_door_kicker_right";
     var_2 = getent( "alley_door_scripted_node", "targetname" );
 
     if ( getdvarint( "use_old_door_breach" ) == 1 )
     {
         thread alley_door_guy1_idle( var_2, var_1[0] );
         alley_door_vasquez_wait_on_other( var_1[0], var_2.origin );
-        var_1[1]._id_0C72 = "alley_door_kicker_right";
-        var_2 maps\_anim::_id_0BFF( var_1[1], "enter" );
+        var_1[1].animname = "alley_door_kicker_right";
+        var_2 maps\_anim::anim_reach_solo( var_1[1], "enter" );
         common_scripts\utility::_id_384A( "door_idle_guy_idling" );
         var_1[0] notify( "stop_door_idle" );
-        var_1[0]._id_0C72 = "alley_door_kicker_left";
-        var_1[1]._id_0C72 = "alley_door_kicker_right";
-        var_2 maps\_anim::_id_0C18( var_1, "enter" );
+        var_1[0].animname = "alley_door_kicker_left";
+        var_1[1].animname = "alley_door_kicker_right";
+        var_2 maps\_anim::anim_single( var_1, "enter" );
     }
     else
     {
-        level._id_6F7C._id_0C72 = "price";
-        var_0._id_0C72 = "alley_breach_buddy";
+        level._id_6F7C.animname = "price";
+        var_0.animname = "alley_breach_buddy";
         var_3 = spawn( "script_origin", ( 3966.0, -4898.0, -111.97 ) );
         var_4 = [];
         var_4[0] = "at_alley_breach_price";
@@ -1216,12 +1216,12 @@ anim_reach_orient_and_play( var_0, var_1, var_2, var_3 )
     var_0 maps\_utility::_id_2A74();
     var_0 thread breach_cqb_wait();
     maps\_anim::anim_reach_and_arrive_facing_anim_solo( var_0, var_1, var_3, 0.3 );
-    common_scripts\utility::_id_383F( "at_" + var_1 + "_" + var_0._id_0C72 );
+    common_scripts\utility::_id_383F( "at_" + var_1 + "_" + var_0.animname );
 
     while ( !common_scripts\utility::_id_386B( var_2 ) )
         waittillframeend;
 
-    maps\_anim::_id_0C24( var_0, var_1 );
+    maps\_anim::anim_single_solo( var_0, var_1 );
     var_0 maps\_utility::_id_2A8D();
 }
 
@@ -1258,7 +1258,7 @@ alley_door_remove_player_clip( var_0 )
 
 alley_door_guy1_idle( var_0, var_1 )
 {
-    var_0 maps\_anim::_id_0BF7( var_1, "idle_reach", "idle", "stop_door_idle" );
+    var_0 maps\_anim::anim_reach_and_idle_solo( var_1, "idle_reach", "idle", "stop_door_idle" );
     common_scripts\utility::_id_383F( "door_idle_guy_idling" );
 }
 
@@ -1362,13 +1362,13 @@ teamssplitup()
             break;
     }
 
-    level._id_6F7C._id_0C72 = "price";
-    maps\_anim::_id_0C24( level._id_6F7C, "keeppinned" );
+    level._id_6F7C.animname = "price";
+    maps\_anim::anim_single_solo( level._id_6F7C, "keeppinned" );
 
     if ( isdefined( level.grigsby ) )
     {
-        level.grigsby._id_0C72 = "grigsby";
-        thread maps\_anim::_id_0C24( level.grigsby, "staysharp" );
+        level.grigsby.animname = "grigsby";
+        thread maps\_anim::anim_single_solo( level.grigsby, "staysharp" );
     }
 
     thread friendly_reinforcements_magic_bullet();
@@ -1401,10 +1401,10 @@ lastsequence()
     level._id_6F7C._id_615B = 1;
     common_scripts\utility::_id_384A( "ok_to_do_spotting" );
     maps\_utility::arcademode_checkpoint( 3.0, "t72" );
-    level._id_6F7C._id_0C72 = "price";
-    level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "casual_2_spot" );
-    level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "spot", undefined, "stop_idle" );
-    level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "t72behind" );
+    level._id_6F7C.animname = "price";
+    level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "casual_2_spot" );
+    level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "spot", undefined, "stop_idle" );
+    level._id_6F7C thread maps\_anim::anim_single_solo( level._id_6F7C, "t72behind" );
     wait 3;
     common_scripts\utility::_id_383F( "abrams_move_shoot_t72" );
 
@@ -1453,11 +1453,11 @@ lastsequence()
     level thread t72_explosion_explode();
     level thread enemies_fall_back();
     common_scripts\utility::_id_384A( "friendly_reactions_over" );
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
 
     if ( getdvarint( "use_old_celebration" ) == 1 )
     {
-        maps\_anim::_id_0C24( level._id_6F7C, "niceshootingpig" );
+        maps\_anim::anim_single_solo( level._id_6F7C, "niceshootingpig" );
         level.player playradiosound( level._id_78BA["tank_commander"]["comingthrough"] );
         common_scripts\utility::_id_383F( "abrams_advance_to_end_level" );
         wait 2;
@@ -1470,8 +1470,8 @@ lastsequence()
 
     level.player playradiosound( level._id_78BA["tank_commander"]["wethereyet"] );
     level.player playradiosound( level._id_78BA["hq_radio"]["statusover"] );
-    level._id_6F7C._id_0C72 = "price";
-    maps\_anim::_id_0C24( level._id_6F7C, "cargo" );
+    level._id_6F7C.animname = "price";
+    maps\_anim::anim_single_solo( level._id_6F7C, "cargo" );
     level._id_6F7C notify( "stop_idle" );
     level._id_6F7C._id_615B = undefined;
     thread seaknight();
@@ -1529,7 +1529,7 @@ t72_explosion_explode()
     level.t72 waittillmatch( "tank_explosion_anim1", "end" );
     level.t72 setmodel( "vehicle_t72_tank_d_animated_sequence" );
     earthquake( 0.6, 1.0, level.t72.origin, 8000 );
-    common_scripts\utility::_id_0D13( var_0, ::_id_9955 );
+    common_scripts\utility::array_thread( var_0, ::_id_9955 );
     level.t72 setflaggedanimknobrestart( "tank_explosion_anim2", level._id_78AC["tank"]["explosion2"], 1, 0.1, 1 );
     level.t72 waittillmatch( "tank_explosion_anim2", "turret_explosion" );
     soundscripts\_snd::_id_870C( "start_t72_explode_mix" );
@@ -1589,7 +1589,7 @@ abrams_aimat_t72()
     common_scripts\utility::_id_384A( "t72_in_final_position" );
     common_scripts\utility::_id_384A( "tank_in_final_position" );
     level.abrams notify( "stop_attacking_troops" );
-    level.abrams _meth_825d( level.t72.origin + ( 0.0, 0.0, 50.0 ) );
+    level.abrams _meth_825D( level.t72.origin + ( 0.0, 0.0, 50.0 ) );
 
     if ( getdvarint( "use_old_t72battle" ) )
         level.abrams common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 3.0 );
@@ -1603,20 +1603,20 @@ enemies_fall_back()
 {
     thread _id_537D( 8 );
     var_0 = getnode( "enemy_fallback_node", "targetname" );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::enemies_fall_back_thread, var_0 );
-    common_scripts\utility::_id_0D13( getaiarray( "allies" ), ::friendlies_become_awesome );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::enemies_fall_back_thread, var_0 );
+    common_scripts\utility::array_thread( getaiarray( "allies" ), ::friendlies_become_awesome );
 }
 
 enemies_fall_back_thread( var_0 )
 {
     self.goalradius = var_0.radius;
     self.health = 1;
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
 }
 
 friendlies_become_awesome()
 {
-    self._id_1300 = 5000;
+    self.baseaccuracy = 5000;
     self.grenadeammo = 0;
 }
 
@@ -1677,26 +1677,26 @@ finalgenericdialog()
     }
 
     level notify( "got 5 friendlies" );
-    var_1[0]._id_0C72 = "gm1";
-    var_1[1]._id_0C72 = "gm2";
-    var_1[2]._id_0C72 = "gm3";
-    var_1[3]._id_0C72 = "gm4";
-    var_1[4]._id_0C72 = "gm5";
+    var_1[0].animname = "gm1";
+    var_1[1].animname = "gm2";
+    var_1[2].animname = "gm3";
+    var_1[3].animname = "gm4";
+    var_1[4].animname = "gm5";
     common_scripts\utility::_id_384A( "t72_exploded" );
     soundscripts\_snd::_id_870C( "lastSequence_celebration_submix" );
     wait 2;
-    var_1[0]._id_0C72 = "gm1";
-    var_1[1]._id_0C72 = "gm2";
-    var_1[2]._id_0C72 = "gm3";
-    var_1[3]._id_0C72 = "gm4";
-    var_1[4]._id_0C72 = "gm5";
-    thread maps\_anim::_id_0C24( var_1[0], "wooyeah" );
+    var_1[0].animname = "gm1";
+    var_1[1].animname = "gm2";
+    var_1[2].animname = "gm3";
+    var_1[3].animname = "gm4";
+    var_1[4].animname = "gm5";
+    thread maps\_anim::anim_single_solo( var_1[0], "wooyeah" );
     wait 1.5;
-    thread maps\_anim::_id_0C24( var_1[1], "holyshit" );
+    thread maps\_anim::anim_single_solo( var_1[1], "holyshit" );
     wait 1.75;
-    thread maps\_anim::_id_0C24( var_1[3], "yeahwoo" );
+    thread maps\_anim::anim_single_solo( var_1[3], "yeahwoo" );
     wait 1.5;
-    thread maps\_anim::_id_0C24( var_1[4], "talkinabout" );
+    thread maps\_anim::anim_single_solo( var_1[4], "talkinabout" );
     wait 2.3;
     common_scripts\utility::_id_383F( "friendly_reactions_over" );
 }
@@ -1736,17 +1736,17 @@ finalgenericdialog_h1()
         var_1[var_1.size] = var_3;
     }
 
-    var_1[0]._id_0C72 = "gm2";
-    var_1[1]._id_0C72 = "gm4";
+    var_1[0].animname = "gm2";
+    var_1[1].animname = "gm4";
     common_scripts\utility::_id_384A( "t72_exploded" );
     soundscripts\_snd::_id_870C( "lastSequence_celebration_submix" );
     wait 2;
-    var_1[0]._id_0C72 = "gm2";
-    var_1[1]._id_0C72 = "gm4";
+    var_1[0].animname = "gm2";
+    var_1[1].animname = "gm4";
     wait 1.5;
-    thread maps\_anim::_id_0C24( var_1[0], "holyshit" );
+    thread maps\_anim::anim_single_solo( var_1[0], "holyshit" );
     wait 1.75;
-    thread maps\_anim::_id_0C24( var_1[1], "yeahwoo" );
+    thread maps\_anim::anim_single_solo( var_1[1], "yeahwoo" );
     wait 3.8;
     common_scripts\utility::_id_383F( "friendly_reactions_over" );
 }
@@ -1772,36 +1772,36 @@ friendlyreactionanims()
             continue;
         }
 
-        var_0[var_1]._id_0C72 = "casualcrouch";
+        var_0[var_1].animname = "casualcrouch";
 
         if ( getdvarint( "use_old_celebration" ) == 1 )
         {
-            var_0[var_1] thread maps\_anim::_id_0C24( var_0[var_1], "react" );
+            var_0[var_1] thread maps\_anim::anim_single_solo( var_0[var_1], "react" );
             continue;
         }
 
         if ( isdefined( var_0[var_1].script_noteworthy ) && var_0[var_1].script_noteworthy == "third_soldier" )
         {
-            var_0[var_1] thread maps\_anim::_id_0C24( var_0[var_1], "new_react" );
+            var_0[var_1] thread maps\_anim::anim_single_solo( var_0[var_1], "new_react" );
             continue;
         }
 
-        var_0[var_1] thread maps\_anim::_id_0C24( var_0[var_1], "react" );
+        var_0[var_1] thread maps\_anim::anim_single_solo( var_0[var_1], "react" );
     }
 }
 
 guard_react_and_celebrate()
 {
-    self._id_0C72 = "guard";
+    self.animname = "guard";
 
     if ( getdvarint( "use_old_celebration" ) == 1 )
     {
-        maps\_anim::_id_0C24( self, "react" );
+        maps\_anim::anim_single_solo( self, "react" );
         wait 1.0;
-        thread maps\_anim::_id_0C24( self, "celebrate" );
+        thread maps\_anim::anim_single_solo( self, "celebrate" );
     }
     else
-        maps\_anim::_id_0C24( self, "new_react" );
+        maps\_anim::anim_single_solo( self, "new_react" );
 }
 
 price_react_and_loop()
@@ -1809,11 +1809,11 @@ price_react_and_loop()
     self notify( "stop_idle" );
 
     if ( getdvarint( "use_old_celebration" ) == 1 )
-        maps\_anim::_id_0C24( self, "react" );
+        maps\_anim::anim_single_solo( self, "react" );
     else
-        maps\_anim::_id_0C24( self, "new_react" );
+        maps\_anim::anim_single_solo( self, "new_react" );
 
-    thread maps\_anim::_id_0BE1( self, "spot", undefined, "stop_idle" );
+    thread maps\_anim::anim_loop_solo( self, "spot", undefined, "stop_idle" );
 }
 
 advancealleyfriendliestoend( var_0, var_1, var_2 )
@@ -1846,7 +1846,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     var_3 maps\_utility::_id_7E38( "b" );
     var_3.goalradius = 16;
     var_6 = getnode( "door_blocker_node", "targetname" );
-    var_3 _meth_81a9( var_6 );
+    var_3 _meth_81A9( var_6 );
     var_3 thread doorblocker_anim_on_trigger( var_6 );
     var_3 thread doorblocker_reach_door();
     var_3.script_noteworthy = "doorblocker";
@@ -1858,7 +1858,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     thread doorblocker_slow_trigger();
     level._id_6F7C maps\_utility::_id_7E38( "o" );
     level._id_6F7C.goalradius = 16;
-    level._id_6F7C _meth_81a9( getnode( "price_last_node1", "targetname" ) );
+    level._id_6F7C _meth_81A9( getnode( "price_last_node1", "targetname" ) );
     level._id_6F7C waittill( "goal" );
 
     if ( isdefined( var_4 ) )
@@ -1866,7 +1866,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     else
         wait 4.0;
 
-    level._id_6F7C _meth_81a9( getnode( "price_last_node2", "targetname" ) );
+    level._id_6F7C _meth_81A9( getnode( "price_last_node2", "targetname" ) );
     level._id_6F7C waittill( "goal" );
     common_scripts\utility::_id_383F( "price_at_spotter" );
 }
@@ -1898,12 +1898,12 @@ doorblocker_anim_on_trigger( var_0 )
 {
     var_1 = getent( "door_block_trigger", "targetname" );
     var_1 waittill( "trigger" );
-    self._id_0C72 = "guard";
-    var_0 maps\_anim::_id_0BFF( self, "stop" );
+    self.animname = "guard";
+    var_0 maps\_anim::anim_reach_solo( self, "stop" );
     common_scripts\utility::_id_383F( "arrived_at_spotting" );
     thread disable_door_block_clip( getanimlength( level._id_78AC["guard"]["stop"] ) );
-    maps\_utility::_id_27EF( 0.8, maps\_anim::_id_0C21, self, "stop_snd" );
-    var_0 maps\_anim::_id_0C24( self, "stop" );
+    maps\_utility::_id_27EF( 0.8, maps\_anim::anim_single_queue, self, "stop_snd" );
+    var_0 maps\_anim::anim_single_solo( self, "stop" );
     getent( "last_color_order_trigger2", "targetname" ) notify( "trigger" );
     common_scripts\utility::_id_383F( "ok_to_do_spotting" );
 }
@@ -2143,7 +2143,7 @@ dosavegame( var_0 )
     if ( !savegame_redundancy_check() )
         return;
 
-    maps\_utility::_id_1143( var_0 );
+    maps\_utility::autosave_by_name( var_0 );
 }
 
 savegame_redundancy_check()
@@ -2220,9 +2220,9 @@ archway_color_trigger()
     var_2 = getvehiclenode( "truck_approach_crush_node", "script_noteworthy" );
     var_2 waittill( "trigger" );
     var_3 = getentarray( "pre_arch_friendly_advancement_trigger", "targetname" );
-    common_scripts\utility::_id_0D13( var_3, common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( var_3, common_scripts\utility::_id_97CC );
     var_0 common_scripts\utility::_id_97CE();
-    var_0 maps\_utility::_id_0706();
+    var_0 maps\_utility::activate_trigger();
     var_2 = getvehiclenode( "stop_for_city_fight1", "script_noteworthy" );
     var_2 waittill( "trigger" );
     var_0 common_scripts\utility::_id_97CC();
@@ -2241,12 +2241,12 @@ tank_advancement_arch()
     soundscripts\_snd::_id_870C( "start_increase_ambiance" );
     level.abrams thread attack_troops();
     waittill_zone_clear( "tank_zone_1" );
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     level.player playradiosound( level._id_78BA["tank_commander"]["movingup"] );
     wait 0.1;
-    level._id_6F7C._id_0C72 = "price";
-    level._id_6F7C thread maps\_anim::_id_0C24( level._id_6F7C, "roger" );
-    maps\_utility::_id_1333( "allies" );
+    level._id_6F7C.animname = "price";
+    level._id_6F7C thread maps\_anim::anim_single_solo( level._id_6F7C, "roger" );
+    maps\_utility::battlechatter_on( "allies" );
     level.abrams resumespeed( 3 );
     common_scripts\utility::_id_383F( "abrams_start_moving_after_city_fight" );
     var_0 = getvehiclenode( "stop_for_city_fight2", "script_noteworthy" );
@@ -2258,14 +2258,14 @@ tank_advancement_arch()
     level.abrams thread attack_troops();
     waittill_zone_clear( "tank_zone_2" );
     thread dosavegame( "tank_progress_corner" );
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     level.player playradiosound( level._id_78BA["tank_commander"]["cleartoadvance"] );
     wait 0.1;
-    level._id_6F7C._id_0C72 = "price";
-    level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "rogermoveup" );
+    level._id_6F7C.animname = "price";
+    level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "rogermoveup" );
     wait 0.1;
     level.player thread playradiosound( level._id_78BA["tank_commander"]["rogermoving"] );
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
     common_scripts\utility::_id_383F( "abrams_start_moving_after_city_fight" );
     level.abrams resumespeed( 3 );
     var_0 = getvehiclenode( "stop_for_city_fight3", "script_noteworthy" );
@@ -2386,11 +2386,11 @@ disperse_allies_unevenly_to_seaknight()
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         {
-            if ( !common_scripts\utility::_id_0CE4( level.alleyfriends, var_0[var_1] ) )
+            if ( !common_scripts\utility::array_contains( level.alleyfriends, var_0[var_1] ) )
                 var_0[var_1] thread maps\_utility::_id_7E38( "c" );
         }
 
-        common_scripts\utility::_id_0D13( var_0, ::look_at_player );
+        common_scripts\utility::array_thread( var_0, ::look_at_player );
     }
 }
 
@@ -2414,7 +2414,7 @@ get_traverse_node_start( var_0 )
 
 seaknight_doors_open()
 {
-    var_0 = maps\_vehicle_aianim::_id_0BE9( self, 1 );
+    var_0 = maps\_vehicle_aianim::anim_pos( self, 1 );
     thread maps\_vehicle_aianim::_id_7F22( var_0._id_9CD5, var_0._id_9CD6 );
     thread common_scripts\utility::_id_69C2( var_0._id_9CD7, self.origin );
 }
@@ -2439,8 +2439,8 @@ seaknight_dialog()
     var_0 waittill( "trigger", var_1 );
     wait 5.0;
     level.player playradiosound( level._id_78BA["saknight"]["getonboard"] );
-    level._id_6F7C._id_0C72 = "price";
-    maps\_anim::_id_0C24( level._id_6F7C, "fixonposition" );
+    level._id_6F7C.animname = "price";
+    maps\_anim::anim_single_solo( level._id_6F7C, "fixonposition" );
     common_scripts\utility::_id_383F( "seaknight_dialog_done" );
 }
 
@@ -2464,7 +2464,7 @@ bog_enemies_retreat()
     }
 
     var_4 = getent( "chopper_guy_pre_crush_trig", "targetname" );
-    var_4 maps\_utility::_id_0706();
+    var_4 maps\_utility::activate_trigger();
 }
 
 enemy_retreat_think( var_0 )

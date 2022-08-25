@@ -34,20 +34,20 @@ codecallback_agentadded()
 
 codecallback_agentdamaged( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    var_1 = maps\mp\_utility::_id_0683( var_1 );
-    self [[ maps\mp\agents\_agent_utility::_id_08A6( "on_damaged" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
+    var_1 = maps\mp\_utility::_validateattacker( var_1 );
+    self [[ maps\mp\agents\_agent_utility::agentfunc( "on_damaged" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
 }
 
 codecallback_agentkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
-    var_1 = maps\mp\_utility::_id_0683( var_1 );
-    self thread [[ maps\mp\agents\_agent_utility::_id_08A6( "on_killed" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+    var_1 = maps\mp\_utility::_validateattacker( var_1 );
+    self thread [[ maps\mp\agents\_agent_utility::agentfunc( "on_killed" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 }
 
 init()
 {
     _id_4D7E();
-    level thread _id_072F();
+    level thread add_agents_to_game();
 }
 
 _id_214C( var_0, var_1, var_2 )
@@ -56,7 +56,7 @@ _id_214C( var_0, var_1, var_2 )
 
     if ( isdefined( var_3 ) )
     {
-        var_3.connecttime = gettime();
+        var_3._id_214F = gettime();
 
         if ( isdefined( var_1 ) )
             var_3 maps\mp\agents\_agent_utility::_id_7DB1( var_1 );
@@ -67,7 +67,7 @@ _id_214C( var_0, var_1, var_2 )
             var_3._id_1E30 = var_2;
 
         if ( isdefined( level.agent_funcs[var_0]["onAIConnect"] ) )
-            var_3 [[ var_3 maps\mp\agents\_agent_utility::_id_08A6( "onAIConnect" ) ]]();
+            var_3 [[ var_3 maps\mp\agents\_agent_utility::agentfunc( "onAIConnect" ) ]]();
 
         var_3 maps\mp\gametypes\_spawnlogic::addtocharactersarray();
     }
@@ -81,7 +81,7 @@ _id_4D7E()
     level._id_628E = 0;
 }
 
-_id_072F()
+add_agents_to_game()
 {
     level endon( "game_ended" );
     level waittill( "connected", var_0 );

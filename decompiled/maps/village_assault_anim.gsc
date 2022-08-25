@@ -31,9 +31,9 @@ main()
     {
         level._id_78AC["price"]["opening"] = %h1_village_intro_price;
         level._id_78AC["opening_guy"]["opening"] = %h1_village_intro_contact;
-        maps\_anim::_id_080B( "price", "dialog", "opening", "vassault_pri_kamarovsman" );
-        maps\_anim::_id_080B( "price", "dialog", "opening", "vassault_pri_perfect" );
-        maps\_anim::_id_080B( "opening_guy", "dialog", "opening", "vassault_ru4_asadinvillage" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "opening", "vassault_pri_kamarovsman" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "opening", "vassault_pri_perfect" );
+        maps\_anim::addnotetrack_dialogue( "opening_guy", "dialog", "opening", "vassault_ru4_asadinvillage" );
     }
 
     level._id_78BA["price"]["kamarovsman"] = "vassault_pri_kamarovsman";
@@ -47,7 +47,7 @@ main()
     {
         level._id_78AC["price"]["interrogationA"] = %village_interrogationa_price;
         level._id_78AC["alasad"]["interrogationA"] = %village_interrogationa_zak;
-        maps\_anim::_id_0807( "price", "gun_2_chest", maps\village_assault_code::alasad_notetracks, "interrogationA" );
+        maps\_anim::addnotetrack_customfunction( "price", "gun_2_chest", maps\village_assault_code::alasad_notetracks, "interrogationA" );
         level._id_78AC["price"]["interrogationB"] = %village_interrogationb_price;
         level._id_78AC["gaz"]["interrogationB"] = %village_interrogationb_gaz;
         level._id_78AC["alasad"]["interrogationB"] = %village_interrogationb_zak;
@@ -58,14 +58,14 @@ main()
         level._id_78AC["price"]["interrogationA_idle"][0] = %h1_village_interrogationa_price_idle;
         level._id_78AC["price"]["interrogationA"] = %h1_village_interrogationa_price;
         level._id_78AC["alasad"]["interrogationA"] = %h1_village_interrogationa_zak;
-        maps\_anim::_id_0807( "price", "gun_2_chest", maps\village_assault_code::alasad_notetracks, "interrogationA" );
-        maps\_anim::_id_0807( "price", "dialog", ::price_interrogation_voiceover_genericfacial, "interrogationA" );
-        maps\_anim::_id_0807( "price", "punch", ::price_interrogation_punch_fx, "interrogationA" );
+        maps\_anim::addnotetrack_customfunction( "price", "gun_2_chest", maps\village_assault_code::alasad_notetracks, "interrogationA" );
+        maps\_anim::addnotetrack_customfunction( "price", "dialog", ::price_interrogation_voiceover_genericfacial, "interrogationA" );
+        maps\_anim::addnotetrack_customfunction( "price", "punch", ::price_interrogation_punch_fx, "interrogationA" );
         level._id_78AC["price"]["interrogationB"] = %h1_village_interrogationb_price;
-        maps\_anim::_id_0807( "price", "punch", ::price_interrogation_punch_fx, "interrogationB" );
+        maps\_anim::addnotetrack_customfunction( "price", "punch", ::price_interrogation_punch_fx, "interrogationB" );
         level._id_78AC["gaz"]["interrogationB"] = %h1_village_interrogationb_gaz;
         level._id_78AC["alasad"]["interrogationB"] = %h1_village_interrogationb_zak;
-        maps\_anim::_id_080B( "gaz", "dialog", "interrogationB", "vassault_gaz_cellphone" );
+        maps\_anim::addnotetrack_dialogue( "gaz", "dialog", "interrogationB", "vassault_gaz_cellphone" );
     }
 
     _id_7A3B();
@@ -158,7 +158,7 @@ _id_29E7()
 
 price_interrogation_voiceover_genericfacial( var_0 )
 {
-    var_0 maps\_anim::_id_0C21( var_0, "nogooddead" );
+    var_0 maps\_anim::anim_single_queue( var_0, "nogooddead" );
 }
 
 price_interrogation_punch_fx( var_0 )

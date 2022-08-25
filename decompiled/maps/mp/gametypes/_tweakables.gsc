@@ -24,28 +24,28 @@ _id_4140( var_0, var_1 )
     switch ( var_0 )
     {
         case "rule":
-            var_2 = level.rules[var_1]._id_2FCE;
+            var_2 = level._id_7674[var_1]._id_2FCE;
             break;
         case "game":
-            var_2 = level.gametweaks[var_1]._id_2FCE;
+            var_2 = level._id_3C02[var_1]._id_2FCE;
             break;
         case "team":
-            var_2 = level.teamtweaks[var_1]._id_2FCE;
+            var_2 = level._id_9205[var_1]._id_2FCE;
             break;
         case "player":
-            var_2 = level.playertweaks[var_1]._id_2FCE;
+            var_2 = level._id_6D74[var_1]._id_2FCE;
             break;
         case "class":
-            var_2 = level.classtweaks[var_1]._id_2FCE;
+            var_2 = level._id_1E40[var_1]._id_2FCE;
             break;
         case "weapon":
-            var_2 = level.weapontweaks[var_1]._id_2FCE;
+            var_2 = level._id_A2F2[var_1]._id_2FCE;
             break;
         case "hardpoint":
-            var_2 = level.hardpointtweaks[var_1]._id_2FCE;
+            var_2 = level._id_46CE[var_1]._id_2FCE;
             break;
         case "hud":
-            var_2 = level.hudtweaks[var_1]._id_2FCE;
+            var_2 = level._id_4AFF[var_1]._id_2FCE;
             break;
         default:
             var_2 = undefined;
@@ -61,28 +61,28 @@ _id_413F( var_0, var_1 )
     switch ( var_0 )
     {
         case "rule":
-            var_2 = level.rules[var_1]._id_2FCE;
+            var_2 = level._id_7674[var_1]._id_2FCE;
             break;
         case "game":
-            var_2 = level.gametweaks[var_1]._id_2FCE;
+            var_2 = level._id_3C02[var_1]._id_2FCE;
             break;
         case "team":
-            var_2 = level.teamtweaks[var_1]._id_2FCE;
+            var_2 = level._id_9205[var_1]._id_2FCE;
             break;
         case "player":
-            var_2 = level.playertweaks[var_1]._id_2FCE;
+            var_2 = level._id_6D74[var_1]._id_2FCE;
             break;
         case "class":
-            var_2 = level.classtweaks[var_1]._id_2FCE;
+            var_2 = level._id_1E40[var_1]._id_2FCE;
             break;
         case "weapon":
-            var_2 = level.weapontweaks[var_1]._id_2FCE;
+            var_2 = level._id_A2F2[var_1]._id_2FCE;
             break;
         case "hardpoint":
-            var_2 = level.hardpointtweaks[var_1]._id_2FCE;
+            var_2 = level._id_46CE[var_1]._id_2FCE;
             break;
         case "hud":
-            var_2 = level.hudtweaks[var_1]._id_2FCE;
+            var_2 = level._id_4AFF[var_1]._id_2FCE;
             break;
         default:
             var_2 = undefined;
@@ -97,28 +97,28 @@ _id_4142( var_0, var_1 )
     switch ( var_0 )
     {
         case "rule":
-            var_2 = level.rules[var_1]._id_9C53;
+            var_2 = level._id_7674[var_1]._id_9C53;
             break;
         case "game":
-            var_2 = level.gametweaks[var_1]._id_9C53;
+            var_2 = level._id_3C02[var_1]._id_9C53;
             break;
         case "team":
-            var_2 = level.teamtweaks[var_1]._id_9C53;
+            var_2 = level._id_9205[var_1]._id_9C53;
             break;
         case "player":
-            var_2 = level.playertweaks[var_1]._id_9C53;
+            var_2 = level._id_6D74[var_1]._id_9C53;
             break;
         case "class":
-            var_2 = level.classtweaks[var_1]._id_9C53;
+            var_2 = level._id_1E40[var_1]._id_9C53;
             break;
         case "weapon":
-            var_2 = level.weapontweaks[var_1]._id_9C53;
+            var_2 = level._id_A2F2[var_1]._id_9C53;
             break;
         case "hardpoint":
-            var_2 = level.hardpointtweaks[var_1]._id_9C53;
+            var_2 = level._id_46CE[var_1]._id_9C53;
             break;
         case "hud":
-            var_2 = level.hudtweaks[var_1]._id_9C53;
+            var_2 = level._id_4AFF[var_1]._id_9C53;
             break;
         default:
             var_2 = undefined;
@@ -133,28 +133,28 @@ _id_4141( var_0, var_1 )
     switch ( var_0 )
     {
         case "rule":
-            var_2 = level.rules[var_1]._id_560C;
+            var_2 = level._id_7674[var_1]._id_560C;
             break;
         case "game":
-            var_2 = level.gametweaks[var_1]._id_560C;
+            var_2 = level._id_3C02[var_1]._id_560C;
             break;
         case "team":
-            var_2 = level.teamtweaks[var_1]._id_560C;
+            var_2 = level._id_9205[var_1]._id_560C;
             break;
         case "player":
-            var_2 = level.playertweaks[var_1]._id_560C;
+            var_2 = level._id_6D74[var_1]._id_560C;
             break;
         case "class":
-            var_2 = level.classtweaks[var_1]._id_560C;
+            var_2 = level._id_1E40[var_1]._id_560C;
             break;
         case "weapon":
-            var_2 = level.weapontweaks[var_1]._id_560C;
+            var_2 = level._id_A2F2[var_1]._id_560C;
             break;
         case "hardpoint":
-            var_2 = level.hardpointtweaks[var_1]._id_560C;
+            var_2 = level._id_46CE[var_1]._id_560C;
             break;
         case "hud":
-            var_2 = level.hudtweaks[var_1]._id_560C;
+            var_2 = level._id_4AFF[var_1]._id_560C;
             break;
         default:
             var_2 = undefined;
@@ -169,28 +169,28 @@ _id_803A( var_0, var_1, var_2 )
     switch ( var_0 )
     {
         case "rule":
-            var_3 = level.rules[var_1]._id_2FCE;
+            var_3 = level._id_7674[var_1]._id_2FCE;
             break;
         case "game":
-            var_3 = level.gametweaks[var_1]._id_2FCE;
+            var_3 = level._id_3C02[var_1]._id_2FCE;
             break;
         case "team":
-            var_3 = level.teamtweaks[var_1]._id_2FCE;
+            var_3 = level._id_9205[var_1]._id_2FCE;
             break;
         case "player":
-            var_3 = level.playertweaks[var_1]._id_2FCE;
+            var_3 = level._id_6D74[var_1]._id_2FCE;
             break;
         case "class":
-            var_3 = level.classtweaks[var_1]._id_2FCE;
+            var_3 = level._id_1E40[var_1]._id_2FCE;
             break;
         case "weapon":
-            var_3 = level.weapontweaks[var_1]._id_2FCE;
+            var_3 = level._id_A2F2[var_1]._id_2FCE;
             break;
         case "hardpoint":
-            var_3 = level.hardpointtweaks[var_1]._id_2FCE;
+            var_3 = level._id_46CE[var_1]._id_2FCE;
             break;
         case "hud":
-            var_3 = level.hudtweaks[var_1]._id_2FCE;
+            var_3 = level._id_4AFF[var_1]._id_2FCE;
             break;
         default:
             var_3 = undefined;
@@ -205,28 +205,28 @@ _id_8039( var_0, var_1, var_2 )
     switch ( var_0 )
     {
         case "rule":
-            level.rules[var_1]._id_560C = var_2;
+            level._id_7674[var_1]._id_560C = var_2;
             break;
         case "game":
-            level.gametweaks[var_1]._id_560C = var_2;
+            level._id_3C02[var_1]._id_560C = var_2;
             break;
         case "team":
-            level.teamtweaks[var_1]._id_560C = var_2;
+            level._id_9205[var_1]._id_560C = var_2;
             break;
         case "player":
-            level.playertweaks[var_1]._id_560C = var_2;
+            level._id_6D74[var_1]._id_560C = var_2;
             break;
         case "class":
-            level.classtweaks[var_1]._id_560C = var_2;
+            level._id_1E40[var_1]._id_560C = var_2;
             break;
         case "weapon":
-            level.weapontweaks[var_1]._id_560C = var_2;
+            level._id_A2F2[var_1]._id_560C = var_2;
             break;
         case "hardpoint":
-            level.hardpointtweaks[var_1]._id_560C = var_2;
+            level._id_46CE[var_1]._id_560C = var_2;
             break;
         case "hud":
-            level.hudtweaks[var_1]._id_560C = var_2;
+            level._id_4AFF[var_1]._id_560C = var_2;
             break;
         default:
             break;
@@ -243,84 +243,84 @@ _id_72FA( var_0, var_1, var_2, var_3 )
     switch ( var_0 )
     {
         case "rule":
-            if ( !isdefined( level.rules[var_1] ) )
-                level.rules[var_1] = spawnstruct();
+            if ( !isdefined( level._id_7674[var_1] ) )
+                level._id_7674[var_1] = spawnstruct();
 
-            level.rules[var_1]._id_9C53 = var_3;
-            level.rules[var_1]._id_560C = var_3;
-            level.rules[var_1]._id_2FCE = var_2;
+            level._id_7674[var_1]._id_9C53 = var_3;
+            level._id_7674[var_1]._id_560C = var_3;
+            level._id_7674[var_1]._id_2FCE = var_2;
             break;
         case "game":
-            if ( !isdefined( level.gametweaks[var_1] ) )
-                level.gametweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_3C02[var_1] ) )
+                level._id_3C02[var_1] = spawnstruct();
 
-            level.gametweaks[var_1]._id_9C53 = var_3;
-            level.gametweaks[var_1]._id_560C = var_3;
-            level.gametweaks[var_1]._id_2FCE = var_2;
+            level._id_3C02[var_1]._id_9C53 = var_3;
+            level._id_3C02[var_1]._id_560C = var_3;
+            level._id_3C02[var_1]._id_2FCE = var_2;
             break;
         case "team":
-            if ( !isdefined( level.teamtweaks[var_1] ) )
-                level.teamtweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_9205[var_1] ) )
+                level._id_9205[var_1] = spawnstruct();
 
-            level.teamtweaks[var_1]._id_9C53 = var_3;
-            level.teamtweaks[var_1]._id_560C = var_3;
-            level.teamtweaks[var_1]._id_2FCE = var_2;
+            level._id_9205[var_1]._id_9C53 = var_3;
+            level._id_9205[var_1]._id_560C = var_3;
+            level._id_9205[var_1]._id_2FCE = var_2;
             break;
         case "player":
-            if ( !isdefined( level.playertweaks[var_1] ) )
-                level.playertweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_6D74[var_1] ) )
+                level._id_6D74[var_1] = spawnstruct();
 
-            level.playertweaks[var_1]._id_9C53 = var_3;
-            level.playertweaks[var_1]._id_560C = var_3;
-            level.playertweaks[var_1]._id_2FCE = var_2;
+            level._id_6D74[var_1]._id_9C53 = var_3;
+            level._id_6D74[var_1]._id_560C = var_3;
+            level._id_6D74[var_1]._id_2FCE = var_2;
             break;
         case "class":
-            if ( !isdefined( level.classtweaks[var_1] ) )
-                level.classtweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_1E40[var_1] ) )
+                level._id_1E40[var_1] = spawnstruct();
 
-            level.classtweaks[var_1]._id_9C53 = var_3;
-            level.classtweaks[var_1]._id_560C = var_3;
-            level.classtweaks[var_1]._id_2FCE = var_2;
+            level._id_1E40[var_1]._id_9C53 = var_3;
+            level._id_1E40[var_1]._id_560C = var_3;
+            level._id_1E40[var_1]._id_2FCE = var_2;
             break;
         case "weapon":
-            if ( !isdefined( level.weapontweaks[var_1] ) )
-                level.weapontweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_A2F2[var_1] ) )
+                level._id_A2F2[var_1] = spawnstruct();
 
-            level.weapontweaks[var_1]._id_9C53 = var_3;
-            level.weapontweaks[var_1]._id_560C = var_3;
-            level.weapontweaks[var_1]._id_2FCE = var_2;
+            level._id_A2F2[var_1]._id_9C53 = var_3;
+            level._id_A2F2[var_1]._id_560C = var_3;
+            level._id_A2F2[var_1]._id_2FCE = var_2;
             break;
         case "hardpoint":
-            if ( !isdefined( level.hardpointtweaks[var_1] ) )
-                level.hardpointtweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_46CE[var_1] ) )
+                level._id_46CE[var_1] = spawnstruct();
 
-            level.hardpointtweaks[var_1]._id_9C53 = var_3;
-            level.hardpointtweaks[var_1]._id_560C = var_3;
-            level.hardpointtweaks[var_1]._id_2FCE = var_2;
+            level._id_46CE[var_1]._id_9C53 = var_3;
+            level._id_46CE[var_1]._id_560C = var_3;
+            level._id_46CE[var_1]._id_2FCE = var_2;
             break;
         case "hud":
-            if ( !isdefined( level.hudtweaks[var_1] ) )
-                level.hudtweaks[var_1] = spawnstruct();
+            if ( !isdefined( level._id_4AFF[var_1] ) )
+                level._id_4AFF[var_1] = spawnstruct();
 
-            level.hudtweaks[var_1]._id_9C53 = var_3;
-            level.hudtweaks[var_1]._id_560C = var_3;
-            level.hudtweaks[var_1]._id_2FCE = var_2;
+            level._id_4AFF[var_1]._id_9C53 = var_3;
+            level._id_4AFF[var_1]._id_560C = var_3;
+            level._id_4AFF[var_1]._id_2FCE = var_2;
             break;
     }
 }
 
 init()
 {
-    level.clienttweakables = [];
-    level.tweakablesinitialized = 1;
-    level.rules = [];
-    level.gametweaks = [];
-    level.teamtweaks = [];
-    level.playertweaks = [];
-    level.classtweaks = [];
-    level.weapontweaks = [];
-    level.hardpointtweaks = [];
-    level.hudtweaks = [];
+    level._id_1F12 = [];
+    level._id_99E0 = 1;
+    level._id_7674 = [];
+    level._id_3C02 = [];
+    level._id_9205 = [];
+    level._id_6D74 = [];
+    level._id_1E40 = [];
+    level._id_A2F2 = [];
+    level._id_46CE = [];
+    level._id_4AFF = [];
 
     if ( level.console )
     {

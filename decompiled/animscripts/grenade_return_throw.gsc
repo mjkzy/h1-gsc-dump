@@ -43,19 +43,19 @@ main()
         thread _id_622C( "throwanim", "grenade_left" );
         thread _id_622C( "throwanim", "grenade_right" );
         self waittill( "grenade_pickup" );
-        self _meth_818d();
+        self _meth_818D();
         animscripts\battlechatter_ai::_id_33B1( "grenade" );
         self waittillmatch( "throwanim", "grenade_throw" );
     }
     else
     {
         self waittillmatch( "throwanim", "grenade_throw" );
-        self _meth_818d();
+        self _meth_818D();
         animscripts\battlechatter_ai::_id_33B1( "grenade" );
     }
 
     if ( isdefined( self.grenade ) )
-        self _meth_81d6();
+        self _meth_81D6();
 
     self waittillmatch( "throwanim", "finish" );
 
@@ -106,8 +106,8 @@ getgrenadereturnanim_h1()
     var_0 = [];
     var_1 = self.grenadedanger;
 
-    if ( self.grenade_unknown2 )
-        var_1 = self.grenade_unknown1 - self.grenade.origin;
+    if ( self._id_01D4 )
+        var_1 = self._id_01D3 - self.grenade.origin;
 
     var_2 = length2d( var_1 );
 

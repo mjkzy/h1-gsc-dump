@@ -22,7 +22,7 @@
 loadpresets()
 {
     level.eq_defs = [];
-    level._id_0B3D = [];
+    level.ambient_reverb = [];
     generic_eq();
     old_iw4_eq();
     generic_filters();
@@ -898,32 +898,32 @@ set_filter_q( var_0, var_1, var_2 )
 
 define_reverb( var_0 )
 {
-    level._id_0B3D[var_0] = [];
+    level.ambient_reverb[var_0] = [];
 }
 
 set_reverb_roomtype( var_0, var_1 )
 {
-    level._id_0B3D[var_0]["roomtype"] = var_1;
+    level.ambient_reverb[var_0]["roomtype"] = var_1;
 }
 
 set_reverb_drylevel( var_0, var_1 )
 {
-    level._id_0B3D[var_0]["drylevel"] = var_1;
+    level.ambient_reverb[var_0]["drylevel"] = var_1;
 }
 
 set_reverb_wetlevel( var_0, var_1 )
 {
-    level._id_0B3D[var_0]["wetlevel"] = var_1;
+    level.ambient_reverb[var_0]["wetlevel"] = var_1;
 }
 
 set_reverb_fadetime( var_0, var_1 )
 {
-    level._id_0B3D[var_0]["fadetime"] = var_1;
+    level.ambient_reverb[var_0]["fadetime"] = var_1;
 }
 
 set_reverb_priority( var_0, var_1 )
 {
-    level._id_0B3D[var_0]["priority"] = var_1;
+    level.ambient_reverb[var_0]["priority"] = var_1;
 }
 
 getfilter( var_0 )
@@ -939,46 +939,46 @@ getfilter( var_0 )
 
 add_channel_to_filter( var_0, var_1 )
 {
-    if ( !isdefined( level._id_0B23[var_0] ) )
-        level._id_0B23[var_0] = [];
+    if ( !isdefined( level.ambient_eq[var_0] ) )
+        level.ambient_eq[var_0] = [];
 
-    level._id_0B23[var_0][var_1] = 1;
+    level.ambient_eq[var_0][var_1] = 1;
 }
 
 add_all_channels_to_filter( var_0 )
 {
-    if ( !isdefined( level._id_0B23[var_0] ) )
-        level._id_0B23[var_0] = [];
+    if ( !isdefined( level.ambient_eq[var_0] ) )
+        level.ambient_eq[var_0] = [];
 
     var_1 = get_all_channels();
 
     foreach ( var_4, var_3 in var_1 )
-        level._id_0B23[var_0][var_4] = 1;
+        level.ambient_eq[var_0][var_4] = 1;
 }
 
 add_all_channels_but_music_and_mission( var_0 )
 {
-    if ( !isdefined( level._id_0B23[var_0] ) )
-        level._id_0B23[var_0] = [];
+    if ( !isdefined( level.ambient_eq[var_0] ) )
+        level.ambient_eq[var_0] = [];
 
     var_1 = get_all_channels();
     var_1["music"] = undefined;
     var_1["mission"] = undefined;
 
     foreach ( var_4, var_3 in var_1 )
-        level._id_0B23[var_0][var_4] = 1;
+        level.ambient_eq[var_0][var_4] = 1;
 }
 
 add_all_channels_but_music( var_0 )
 {
-    if ( !isdefined( level._id_0B23[var_0] ) )
-        level._id_0B23[var_0] = [];
+    if ( !isdefined( level.ambient_eq[var_0] ) )
+        level.ambient_eq[var_0] = [];
 
     var_1 = get_all_channels();
     var_1["music"] = undefined;
 
     foreach ( var_4, var_3 in var_1 )
-        level._id_0B23[var_0][var_4] = 1;
+        level.ambient_eq[var_0][var_4] = 1;
 }
 
 get_all_channels()

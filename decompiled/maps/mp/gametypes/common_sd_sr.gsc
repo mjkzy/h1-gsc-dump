@@ -28,16 +28,16 @@ _id_9B22()
 {
     level._id_688D = maps\mp\_utility::_id_2FCF( "planttime", 5, 0, 20 );
     level._id_27BF = maps\mp\_utility::_id_2FCF( "defusetime", 5, 0, 20 );
-    level._id_1551 = maps\mp\_utility::_id_2FCF( "bombtimer", 45, 1, 300 );
+    level.bombtimer = maps\mp\_utility::_id_2FCF( "bombtimer", 45, 1, 300 );
     level._id_5FE2 = maps\mp\_utility::_id_2FD0( "multibomb", 0, 0, 1 );
     level._id_8572 = maps\mp\_utility::_id_2FD0( "silentplant", 0, 0, 1 );
 }
 
 _id_517B( var_0 )
 {
-    if ( isdefined( level._id_1555 ) )
+    if ( isdefined( level.bombzones ) )
     {
-        foreach ( var_2 in level._id_1555 )
+        foreach ( var_2 in level.bombzones )
         {
             if ( distancesquared( self.origin, var_2.trigger.origin ) < 4096 )
                 return 0;
@@ -49,7 +49,7 @@ _id_517B( var_0 )
 
 onnormaldeath( var_0, var_1, var_2 )
 {
-    if ( game["state"] == "postgame" && ( var_0.team == game["defenders"] || !level._id_1545 ) )
+    if ( game["state"] == "postgame" && ( var_0.team == game["defenders"] || !level.bombplanted ) )
         var_1.finalkill = 1;
 
     if ( var_0._id_5174 || var_0._id_50EF )
@@ -96,18 +96,18 @@ _id_64C2( var_0 )
         var_0 thread maps\mp\_utility::applycarrierclass();
     }
 
-    if ( !level._id_1536 )
+    if ( !level.bombdefused )
     {
         maps\mp\_utility::_id_91FA( "callout_bombtaken", var_0, var_0.team );
         maps\mp\_utility::_id_564B( "bomb_taken", var_0.pers["team"] );
     }
 }
 
-_id_1549()
+bombs()
 {
-    level._id_1545 = 0;
-    level._id_1536 = 0;
-    level._id_1540 = 0;
+    level.bombplanted = 0;
+    level.bombdefused = 0;
+    level.bombexploded = 0;
     var_0 = getent( "sd_bomb_pickup_trig", "targetname" );
 
     if ( !isdefined( var_0 ) )
@@ -143,7 +143,7 @@ _id_1549()
         var_1[0] delete();
     }
 
-    level._id_1555 = [];
+    level.bombzones = [];
     var_2 = getentarray( "bombzone", "targetname" );
     var_3 = getentarray( "bombzone_augmented", "targetname" );
 
@@ -169,7 +169,7 @@ _id_1549()
             _id_7397( var_3[var_7] );
     }
 
-    var_2 = common_scripts\utility::_id_0CDD( var_2, var_3 );
+    var_2 = common_scripts\utility::array_combine( var_2, var_3 );
 
     for ( var_7 = 0; var_7 < var_2.size; var_7++ )
     {
@@ -186,24 +186,24 @@ _id_1549()
         var_9._id_648E = ::_id_648E;
         var_9.onuse = ::_id_64FB;
         var_9._id_6459 = ::_id_6459;
-        level._id_1555[level._id_1555.size] = var_9;
-        var_9._id_1538 = getent( var_1[0].target, "targetname" );
-        var_9._id_1538.origin += ( 0.0, 0.0, -10000.0 );
-        var_9._id_1538.label = var_9.label;
-        var_9._id_1538 _meth_852a( 1 );
+        level.bombzones[level.bombzones.size] = var_9;
+        var_9.bombdefusetrig = getent( var_1[0].target, "targetname" );
+        var_9.bombdefusetrig.origin += ( 0.0, 0.0, -10000.0 );
+        var_9.bombdefusetrig.label = var_9.label;
+        var_9.bombdefusetrig _meth_852A( 1 );
     }
 
-    for ( var_7 = 0; var_7 < level._id_1555.size; var_7++ )
+    for ( var_7 = 0; var_7 < level.bombzones.size; var_7++ )
     {
         var_10 = [];
 
-        for ( var_11 = 0; var_11 < level._id_1555.size; var_11++ )
+        for ( var_11 = 0; var_11 < level.bombzones.size; var_11++ )
         {
             if ( var_11 != var_7 )
-                var_10[var_10.size] = level._id_1555[var_11];
+                var_10[var_10.size] = level.bombzones[var_11];
         }
 
-        level._id_1555[var_7]._id_65B1 = var_10;
+        level.bombzones[var_7]._id_65B1 = var_10;
     }
 
     setomnvar( "ui_mlg_game_mode_status_1", 0 );
@@ -211,7 +211,7 @@ _id_1549()
 
 shouldstreamcarrierclasstoplayer( var_0, var_1 )
 {
-    if ( level._id_1545 )
+    if ( level.bombplanted )
         return 0;
 
     if ( isdefined( var_0._id_1BAF ) && var_0._id_1BAF == var_1 )
@@ -258,19 +258,19 @@ _id_64FB( var_0 )
 {
     if ( !maps\mp\gametypes\_gameobjects::_id_510F( var_0.pers["team"] ) )
     {
-        level thread _id_1545( self, var_0 );
+        level thread bombplanted( self, var_0 );
 
-        for ( var_1 = 0; var_1 < level._id_1555.size; var_1++ )
+        for ( var_1 = 0; var_1 < level.bombzones.size; var_1++ )
         {
-            if ( level._id_1555[var_1] == self )
+            if ( level.bombzones[var_1] == self )
             {
-                var_2 = level._id_1555[var_1] maps\mp\gametypes\_gameobjects::_id_3FFA();
-                maps\mp\_utility::_id_7FAE( level._id_1555[var_1], "waypoint_esports_snd_planted" + var_2 );
+                var_2 = level.bombzones[var_1] maps\mp\gametypes\_gameobjects::_id_3FFA();
+                maps\mp\_utility::_id_7FAE( level.bombzones[var_1], "waypoint_esports_snd_planted" + var_2 );
                 continue;
             }
 
-            level._id_1555[var_1] maps\mp\gametypes\_gameobjects::_id_2B1E();
-            maps\mp\_utility::_id_7FAE( level._id_1555[var_1], undefined );
+            level.bombzones[var_1] maps\mp\gametypes\_gameobjects::_id_2B1E();
+            maps\mp\_utility::_id_7FAE( level.bombzones[var_1], undefined );
         }
 
         var_0 maps\mp\gametypes\common_bomb_gameobject::onplayerplantbomb( 1, game["attackers"], game["defenders"] );
@@ -319,7 +319,7 @@ _id_648E( var_0, var_1, var_2 )
     maps\mp\gametypes\common_bomb_gameobject::onendusebomb( var_1, var_4 );
 }
 
-_id_1546( var_0 )
+bombplantedanim( var_0 )
 {
     var_0 endon( "death" );
     var_0 endon( "disconnect" );
@@ -332,17 +332,17 @@ _id_1546( var_0 )
     var_0 unlink();
 }
 
-_id_1545( var_0, var_1 )
+bombplanted( var_0, var_1 )
 {
-    level._id_1545 = 1;
+    level.bombplanted = 1;
     var_1.objective = 0;
-    level._id_27BB = int( gettime() + level._id_1551 * 1000 );
+    level._id_27BB = int( gettime() + level.bombtimer * 1000 );
     setgameendtime( level._id_27BB );
     setomnvar( "ui_bomb_timer", 1 );
 
     if ( !level._id_5FE2 )
     {
-        level._id_7B74 maps\mp\gametypes\_gameobjects::_id_0AA1( "none" );
+        level._id_7B74 maps\mp\gametypes\_gameobjects::allowcarry( "none" );
         level._id_7B74 maps\mp\gametypes\_gameobjects::_id_8352( "none" );
         maps\mp\_utility::_id_7FAE( level._id_7B74, undefined );
         level._id_7B74 maps\mp\gametypes\_gameobjects::_id_7F5D();
@@ -359,7 +359,7 @@ _id_1545( var_0, var_1 )
     var_0 maps\mp\gametypes\_gameobjects::allowuse( "none" );
     var_0 maps\mp\gametypes\_gameobjects::_id_8352( "none" );
     var_2 = var_0 maps\mp\gametypes\_gameobjects::_id_3FFA();
-    var_3 = var_0._id_1538;
+    var_3 = var_0.bombdefusetrig;
     var_3.origin = level._id_7B75.origin;
     var_4 = [];
     var_5 = maps\mp\gametypes\_gameobjects::createuseobject( game["defenders"], var_3, var_4, ( 0.0, 0.0, 32.0 ) );
@@ -376,23 +376,23 @@ _id_1545( var_0, var_1 )
     else if ( var_2 == "_b" || var_2 == "_B" )
         setomnvar( "ui_mlg_game_mode_status_1", 2 );
 
-    _id_1552( var_5 isbombsiteb() );
+    bombtimerwait( var_5 isbombsiteb() );
     setomnvar( "ui_bomb_timer", 0 );
     setbombendtime( 0, var_5 isbombsiteb() );
     var_0._id_9345 maps\mp\gametypes\common_bomb_gameobject::_id_8F06();
 
-    if ( level.gameended || level._id_1536 )
+    if ( level.gameended || level.bombdefused )
         return;
 
-    level._id_1540 = 1;
+    level.bombexploded = 1;
     setomnvar( "ui_mlg_game_mode_status_1", 0 );
     var_6 = level._id_7B75.origin;
     var_6 += ( 0.0, 0.0, 10.0 );
     level._id_7B75 hide();
     var_0 maps\mp\gametypes\common_bomb_gameobject::onbombexploded( var_6, 300, var_1 );
 
-    for ( var_7 = 0; var_7 < level._id_1555.size; var_7++ )
-        level._id_1555[var_7] maps\mp\gametypes\_gameobjects::_id_2B1E();
+    for ( var_7 = 0; var_7 < level.bombzones.size; var_7++ )
+        level.bombzones[var_7] maps\mp\gametypes\_gameobjects::_id_2B1E();
 
     var_5 maps\mp\gametypes\_gameobjects::_id_2B1E();
     setgameendtime( 0 );
@@ -413,14 +413,14 @@ setbombendtime( var_0, var_1 )
         setomnvar( "ui_bomb_timer_endtime", var_0 );
 }
 
-_id_1552( var_0 )
+bombtimerwait( var_0 )
 {
     level endon( "game_ended" );
     level endon( "bomb_defused" );
-    var_1 = int( level._id_1551 * 1000 + gettime() );
+    var_1 = int( level.bombtimer * 1000 + gettime() );
     setbombendtime( var_1, var_0 );
     level thread _id_4663( var_1, var_0 );
-    maps\mp\gametypes\_hostmigration::_id_A051( level._id_1551 );
+    maps\mp\gametypes\_hostmigration::_id_A051( level.bombtimer );
 }
 
 _id_4663( var_0, var_1 )
@@ -445,14 +445,14 @@ _id_646F( var_0 )
 _id_64FA( var_0 )
 {
     var_0 maps\mp\gametypes\common_bomb_gameobject::onplayerdefusebomb( getdefusetype( var_0 ), game["defenders"], game["attackers"] );
-    thread _id_1536( isbombsiteb() );
+    thread bombdefused( isbombsiteb() );
 }
 
 getdefusetype( var_0 )
 {
     var_1 = "defuse";
 
-    if ( isdefined( level._id_1544 ) && maps\mp\_utility::_id_5189( level._id_1544 ) )
+    if ( isdefined( level.bombowner ) && maps\mp\_utility::_id_5189( level.bombowner ) )
         var_1 = "ninja_defuse";
 
     if ( _id_5140( var_0 ) )
@@ -478,10 +478,10 @@ _id_5140( var_0 )
     return 1;
 }
 
-_id_1536( var_0 )
+bombdefused( var_0 )
 {
     maps\mp\gametypes\_gameobjects::_id_2B1E();
-    level._id_1536 = 1;
+    level.bombdefused = 1;
     setbombendtime( 0, var_0 );
     setomnvar( "ui_bomb_timer", 0 );
     setomnvar( "ui_mlg_game_mode_status_1", 0 );
@@ -524,7 +524,7 @@ _id_7B56( var_0, var_1 )
     {
         var_2 = 1;
 
-        foreach ( var_4 in level._id_1555 )
+        foreach ( var_4 in level.bombzones )
         {
             if ( isdefined( level._id_3743[var_0] ) && level._id_3743[var_0] == var_4._id_534E )
             {
@@ -546,15 +546,15 @@ _id_1CF1()
     wait 0.05;
     var_0 = 0;
 
-    if ( !level._id_09DD[game["attackers"]] )
+    if ( !level.alivecount[game["attackers"]] )
     {
-        level.spectateoverride[game["attackers"]]._id_0AA7 = 1;
+        level._id_8A4A[game["attackers"]].allowenemyspectate = 1;
         var_0 = 1;
     }
 
-    if ( !level._id_09DD[game["defenders"]] )
+    if ( !level.alivecount[game["defenders"]] )
     {
-        level.spectateoverride[game["defenders"]]._id_0AA7 = 1;
+        level._id_8A4A[game["defenders"]].allowenemyspectate = 1;
         var_0 = 1;
     }
 
@@ -573,19 +573,19 @@ onplayerdisconnect()
 
 _id_6466( var_0 )
 {
-    if ( level._id_1540 || level._id_1536 )
+    if ( level.bombexploded || level.bombdefused )
         return;
 
     if ( var_0 == "all" )
     {
-        if ( level._id_1545 )
+        if ( level.bombplanted )
             _id_7B56( game["attackers"], game["end_reason"][game["defenders"] + "_eliminated"] );
         else
             _id_7B56( game["defenders"], game["end_reason"][game["attackers"] + "_eliminated"] );
     }
     else if ( var_0 == game["attackers"] )
     {
-        if ( level._id_1545 )
+        if ( level.bombplanted )
             return;
 
         level thread _id_7B56( game["defenders"], game["end_reason"][game["attackers"] + "_eliminated"] );
@@ -596,7 +596,7 @@ _id_6466( var_0 )
 
 _id_64C0( var_0 )
 {
-    if ( level._id_1540 || level._id_1536 )
+    if ( level.bombexploded || level.bombdefused )
         return;
 
     var_1 = maps\mp\_utility::_id_3FFC( var_0 );

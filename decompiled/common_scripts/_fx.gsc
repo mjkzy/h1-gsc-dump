@@ -27,22 +27,22 @@ _id_4DBF()
     if ( !isdefined( level._id_3AE4["create_triggerfx"] ) )
         level._id_3AE4["create_triggerfx"] = ::_id_23DD;
 
-    if ( !isdefined( level._id_05B2 ) )
-        level._id_05B2 = spawnstruct();
+    if ( !isdefined( level._fx ) )
+        level._fx = spawnstruct();
 
     common_scripts\utility::_id_23C8( "createfx_looper", 20 );
     level._id_3BA6 = 1;
-    level._id_05B2._id_3539 = common_scripts\_exploder::_id_352A;
+    level._fx._id_3539 = common_scripts\_exploder::_id_352A;
     waitframe;
     waitframe;
-    level._id_05B2._id_3539 = common_scripts\_exploder::_id_3529;
-    level._id_05B2._id_7D9E = 0;
+    level._fx._id_3539 = common_scripts\_exploder::_id_3529;
+    level._fx._id_7D9E = 0;
 
     if ( getdvarint( "serverCulledSounds" ) == 1 )
-        level._id_05B2._id_7D9E = 1;
+        level._fx._id_7D9E = 1;
 
     if ( level._id_2409 )
-        level._id_05B2._id_7D9E = 0;
+        level._fx._id_7D9E = 0;
 
     if ( level._id_2409 )
         level waittill( "createfx_common_done" );
@@ -67,7 +67,7 @@ _id_4DBF()
                 var_1 thread _id_23C3();
                 break;
             case "reactive_fx":
-                var_1 _id_078A();
+                var_1 add_reactive_fx();
                 break;
             case "soundfx_dynamic":
                 var_1 thread _id_23AF();
@@ -152,7 +152,7 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_20.origin = var_2;
     var_20.angles = vectortoangles( var_4 - var_2 );
     var_20._id_79BF = var_0;
-    var_20.script_fxid = var_1;
+    var_20._id_79F1 = var_1;
     var_20.script_delay = var_3;
     var_20._id_79CB = var_5;
     var_20._id_79CC = var_6;
@@ -171,10 +171,10 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_21 *= 150;
     var_20._id_91D8 = var_2 + var_21;
 
-    if ( !isdefined( level._id_062E ) )
-        level._id_062E = [];
+    if ( !isdefined( level._script_exploders ) )
+        level._script_exploders = [];
 
-    level._id_062E[level._id_062E.size] = var_20;
+    level._script_exploders[level._script_exploders.size] = var_20;
 }
 
 _id_587C( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -218,7 +218,7 @@ _id_23CA()
         else
             var_1 = "stop_loop";
     }
-    else if ( level._id_05B2._id_7D9E && isdefined( self.v["server_culled"] ) )
+    else if ( level._fx._id_7D9E && isdefined( self.v["server_culled"] ) )
         var_0 = self.v["server_culled"];
 
     var_2 = self;
@@ -282,10 +282,10 @@ _id_23AF()
         common_scripts\utility::_id_384A( "createfx_started" );
 
     if ( isdefined( self._id_25CC ) )
-        level.player _meth_847a( self._id_25CC._id_9A29 );
+        level.player _meth_847A( self._id_25CC._id_9A29 );
 
     self._id_25CC = spawnstruct();
-    self._id_25CC common_scripts\utility::_id_0D6F();
+    self._id_25CC common_scripts\utility::assign_unique_id();
     level.player _meth_8479( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self._id_25CC._id_9A29 );
     return;
 }
@@ -501,14 +501,14 @@ _id_7F6E( var_0 )
 
 _id_811E()
 {
-    if ( !isdefined( self.script_fxid ) || !isdefined( self.script_fxcommand ) || !isdefined( self.script_delay ) )
+    if ( !isdefined( self._id_79F1 ) || !isdefined( self._id_79F0 ) || !isdefined( self.script_delay ) )
         return;
 
     if ( isdefined( self.model ) )
     {
         if ( self.model == "toilet" )
         {
-            thread _id_1929();
+            thread burnville_paratrooper_hack();
             return;
         }
     }
@@ -533,29 +533,29 @@ _id_811E()
     if ( isdefined( self._id_79F3 ) )
         var_3 = self._id_79F3;
 
-    if ( self.script_fxcommand == "OneShotfx" )
-        _id_649F( self.script_fxid, self.origin, self.script_delay, var_0 );
+    if ( self._id_79F0 == "OneShotfx" )
+        _id_649F( self._id_79F1, self.origin, self.script_delay, var_0 );
 
-    if ( self.script_fxcommand == "loopfx" )
-        _id_587C( self.script_fxid, self.origin, self.script_delay, var_0, var_2, var_3 );
+    if ( self._id_79F0 == "loopfx" )
+        _id_587C( self._id_79F1, self.origin, self.script_delay, var_0, var_2, var_3 );
 
-    if ( self.script_fxcommand == "loopsound" )
-        _id_5890( self.script_fxid, self.origin, self.script_delay );
+    if ( self._id_79F0 == "loopsound" )
+        _id_5890( self._id_79F1, self.origin, self.script_delay );
 
     self delete();
 }
 
-_id_1929()
+burnville_paratrooper_hack()
 {
     var_0 = ( 0, 0, self.angles[1] );
-    var_1 = level._effect[self.script_fxid];
+    var_1 = level._effect[self._id_79F1];
     var_2 = self.origin;
     wait 1;
-    level thread _id_192A( var_0, var_2, var_1 );
+    level thread burnville_paratrooper_hack_loop( var_0, var_2, var_1 );
     self delete();
 }
 
-_id_192A( var_0, var_1, var_2 )
+burnville_paratrooper_hack_loop( var_0, var_1, var_2 )
 {
     for (;;)
     {
@@ -621,10 +621,10 @@ _id_9D87( var_0 )
     if ( isdefined( level._effect[var_0] ) )
         return 1;
 
-    if ( !isdefined( level._id_05F3 ) )
-        level._id_05F3 = [];
+    if ( !isdefined( level._missing_fx ) )
+        level._missing_fx = [];
 
-    level._id_05F3[self.v["fxid"]] = var_0;
+    level._missing_fx[self.v["fxid"]] = var_0;
     _id_9D88( var_0 );
     return 0;
 }
@@ -634,7 +634,7 @@ _id_9D88( var_0 )
     level notify( "verify_effects_assignment_print" );
     level endon( "verify_effects_assignment_print" );
     wait 0.05;
-    var_1 = getarraykeys( level._id_05F3 );
+    var_1 = getarraykeys( level._missing_fx );
 
     foreach ( var_3 in var_1 )
     {
@@ -655,7 +655,7 @@ _id_64A0()
     [[ level._id_3AE4["create_triggerfx"] ]]();
 }
 
-_id_078A()
+add_reactive_fx()
 {
     if ( !_id_688F() )
         return;
@@ -663,16 +663,16 @@ _id_078A()
     if ( !common_scripts\utility::_id_51AE() && getdvar( "createfx" ) == "" )
         return;
 
-    if ( !isdefined( level._id_05B2._id_7190 ) )
+    if ( !isdefined( level._fx._id_7190 ) )
     {
-        level._id_05B2._id_7190 = 1;
+        level._fx._id_7190 = 1;
         level thread _id_718E();
     }
 
-    if ( !isdefined( level._id_05B2._id_718D ) )
-        level._id_05B2._id_718D = [];
+    if ( !isdefined( level._fx._id_718D ) )
+        level._fx._id_718D = [];
 
-    level._id_05B2._id_718D[level._id_05B2._id_718D.size] = self;
+    level._fx._id_718D[level._fx._id_718D.size] = self;
     self._id_60C0 = 3000;
 }
 
@@ -684,7 +684,7 @@ _id_718E()
             common_scripts\utility::_id_384A( "createfx_started" );
     }
 
-    level._id_05B2._id_718F = [];
+    level._fx._id_718F = [];
     var_0 = 256;
 
     for (;;)
@@ -707,7 +707,7 @@ _id_8892( var_0, var_1 )
     var_2 = [];
     var_3 = gettime();
 
-    foreach ( var_5 in level._id_05B2._id_718D )
+    foreach ( var_5 in level._fx._id_718D )
     {
         if ( var_5._id_60C0 > var_3 )
             continue;
@@ -782,17 +782,17 @@ _id_6998( var_0 )
 
 _id_3E4D()
 {
-    foreach ( var_1 in level._id_05B2._id_718F )
+    foreach ( var_1 in level._fx._id_718F )
     {
         if ( !var_1._id_506C )
             return var_1;
     }
 
-    if ( level._id_05B2._id_718F.size < 4 )
+    if ( level._fx._id_718F.size < 4 )
     {
         var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
         var_1._id_506C = 0;
-        level._id_05B2._id_718F[level._id_05B2._id_718F.size] = var_1;
+        level._fx._id_718F[level._fx._id_718F.size] = var_1;
         return var_1;
     }
 

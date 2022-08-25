@@ -33,7 +33,7 @@ air_support_create_arrow_ent()
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "wpn_h1_airsupport_marker" );
     var_0 useanimtree( #animtree );
-    var_0 _meth_814d( %h1_wpn_spl_airsupport_target_idle );
+    var_0 _meth_814D( %h1_wpn_spl_airsupport_target_idle );
     var_0._id_6379 = 4;
     playfxontag( level._effect["airsupport_marker_vfx"], var_0, "tag_fx" );
     return var_0;
@@ -44,7 +44,7 @@ air_support_create_selection_ent( var_0, var_1 )
     var_2 = spawn( "script_model", var_0 );
     var_2 setmodel( "wpn_h1_airsupport_marker_selected" );
     var_2 useanimtree( #animtree );
-    var_2 _meth_814d( %h1_wpn_spl_airsupport_target_selected );
+    var_2 _meth_814D( %h1_wpn_spl_airsupport_target_selected );
     var_2.angles = var_1;
     return var_2;
 }

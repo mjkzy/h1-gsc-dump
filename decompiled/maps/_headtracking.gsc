@@ -32,7 +32,7 @@ player_head_tracking()
 
         if ( distance( self.origin, level.player.origin ) <= 200 && maps\_utility::_id_6B91( self.origin ) )
         {
-            self _meth_81ba( 60, 60, randomfloatrange( 0.5, 2.0 ) );
+            self _meth_81BA( 60, 60, randomfloatrange( 0.5, 2.0 ) );
             self _meth_8202( level.player, 1, randomint( 5 ) == 0 );
             maps\_utility::waitspread( 5, 7 );
             self _meth_8203( 1 );

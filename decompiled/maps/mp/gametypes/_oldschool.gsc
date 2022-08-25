@@ -43,7 +43,7 @@ init()
 
     level.pickupperkrespawntime = getdvarfloat( "scr_os_pickupperkrespawntime" );
     oldschoolloadout();
-    level._id_1969 = ::_id_1969;
+    level.bypassclasschoicefunc = ::bypassclasschoicefunc;
     level.streamprimariesfunc = ::streamprimariesfunc;
     thread _id_4DFA();
     thread _id_64C8();
@@ -58,7 +58,7 @@ init()
     level.perkpickuphints["specialty_fastreload"] = &"PLATFORM_PICK_UP_SLEIGHT_OF_HAND";
 }
 
-_id_1969()
+bypassclasschoicefunc()
 {
     self.pers["class"] = "gamemode";
     self.pers["lastClass"] = "";
@@ -71,8 +71,8 @@ _id_1969()
 streamprimariesfunc()
 {
     var_0 = [ "axis", "allies" ];
-    var_1 = maps\mp\gametypes\_class::_id_188C( level.oldschool_loadout["loadoutPrimary"] );
-    var_2 = maps\mp\gametypes\_class::_id_188C( level.oldschool_loadout["loadoutSecondary"] );
+    var_1 = maps\mp\gametypes\_class::buildweaponname( level.oldschool_loadout["loadoutPrimary"] );
+    var_2 = maps\mp\gametypes\_class::buildweaponname( level.oldschool_loadout["loadoutSecondary"] );
     var_3 = [];
 
     foreach ( var_5 in var_0 )
@@ -143,7 +143,7 @@ converttoh1weaponclassname( var_0, var_1 )
         if ( var_2.size == 4 )
         {
             var_5 = "h1_" + var_3 + "_mp";
-            var_6 = _func_2f8( var_5 );
+            var_6 = _func_2F8( var_5 );
             var_7 = var_2[2] + "mwr";
 
             foreach ( var_9 in var_6 )

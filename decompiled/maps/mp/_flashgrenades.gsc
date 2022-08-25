@@ -53,7 +53,7 @@ _id_5E5E()
     self endon( "disconnect" );
     self notify( "monitorFlash" );
     self endon( "monitorFlash" );
-    self.flashendtime = 0;
+    self._id_38B1 = 0;
     var_0 = 6;
 
     for (;;)
@@ -63,7 +63,7 @@ _id_5E5E()
         if ( !isalive( self ) )
             continue;
 
-        if ( isdefined( self.usingremote ) )
+        if ( isdefined( self._id_9C34 ) )
             continue;
 
         if ( !isdefined( var_6 ) )
@@ -132,7 +132,7 @@ _id_5E5E()
 
         if ( var_8 && isdefined( self ) )
         {
-            thread _id_0CAD( var_9, var_10 );
+            thread applyflash( var_9, var_10 );
 
             if ( isdefined( var_4 ) && var_4 != self )
             {
@@ -148,36 +148,36 @@ _id_5E5E()
         }
 
         if ( var_7 && isdefined( var_4 ) )
-            var_4 thread _id_0CAD( var_9, var_10 );
+            var_4 thread applyflash( var_9, var_10 );
     }
 }
 
-_id_0CAD( var_0, var_1 )
+applyflash( var_0, var_1 )
 {
-    if ( !isdefined( self.flashduration ) || var_0 > self.flashduration )
-        self.flashduration = var_0;
+    if ( !isdefined( self._id_38AE ) || var_0 > self._id_38AE )
+        self._id_38AE = var_0;
 
-    if ( !isdefined( self.flashrumbleduration ) || var_1 > self.flashrumbleduration )
-        self.flashrumbleduration = var_1;
+    if ( !isdefined( self._id_38C4 ) || var_1 > self._id_38C4 )
+        self._id_38C4 = var_1;
 
     wait 0.05;
 
-    if ( isdefined( self.flashduration ) )
+    if ( isdefined( self._id_38AE ) )
     {
-        self shellshock( "flashbang_mp", self.flashduration );
-        self.flashendtime = gettime() + self.flashduration * 1000;
+        self shellshock( "flashbang_mp", self._id_38AE );
+        self._id_38B1 = gettime() + self._id_38AE * 1000;
     }
 
-    if ( isdefined( self.flashrumbleduration ) )
-        thread _id_38C5( self.flashrumbleduration );
+    if ( isdefined( self._id_38C4 ) )
+        thread _id_38C5( self._id_38C4 );
 
-    self.flashduration = undefined;
-    self.flashrumbleduration = undefined;
+    self._id_38AE = undefined;
+    self._id_38C4 = undefined;
 }
 
 _id_5107()
 {
-    return isdefined( self.flashendtime ) && gettime() < self.flashendtime;
+    return isdefined( self._id_38B1 ) && gettime() < self._id_38B1;
 }
 
 getlastflashbangattacker()

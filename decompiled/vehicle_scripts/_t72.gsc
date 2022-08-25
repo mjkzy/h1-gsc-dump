@@ -22,22 +22,22 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "t72", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_t72_tank", "vehicle_t72_tank_d_body", 0.5 );
-    maps\_vehicle::_id_1845( "vehicle_t72_tank_low", "vehicle_t72_tank_d_body", 0.5 );
-    maps\_vehicle::_id_1845( "vehicle_t72_tank_woodland", "vehicle_t72_tank_d_woodland_body", 0 );
-    maps\_vehicle::_id_1868( "tankblast" );
-    maps\_vehicle::_id_1849( %abrams_movement, %abrams_movement_backwards, 10 );
-    maps\_vehicle::_id_1842( "fx/explosions/vehicle_explosion_t72", "tag_deathfx", "exp_armor_vehicle", undefined, undefined, undefined, 0 );
-    maps\_vehicle::_id_1842( "fx/fire/firelp_large_pm", "tag_deathfx", "fire_metal_medium", undefined, undefined, 1, 0 );
-    maps\_vehicle::_id_1872( "t72_turret2", "tag_turret2", "vehicle_t72_tank_pkt_coaxial_mg" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_1865( "tank_rumble", 0.15, 4.5, 600, 1, 1 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_185A();
-    maps\_vehicle::_id_184C( 0.33 );
+    maps\_vehicle::build_template( "t72", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_t72_tank", "vehicle_t72_tank_d_body", 0.5 );
+    maps\_vehicle::build_deathmodel( "vehicle_t72_tank_low", "vehicle_t72_tank_d_body", 0.5 );
+    maps\_vehicle::build_deathmodel( "vehicle_t72_tank_woodland", "vehicle_t72_tank_d_woodland_body", 0 );
+    maps\_vehicle::build_shoot_shock( "tankblast" );
+    maps\_vehicle::build_drive( %abrams_movement, %abrams_movement_backwards, 10 );
+    maps\_vehicle::build_deathfx( "fx/explosions/vehicle_explosion_t72", "tag_deathfx", "exp_armor_vehicle", undefined, undefined, undefined, 0 );
+    maps\_vehicle::build_deathfx( "fx/fire/firelp_large_pm", "tag_deathfx", "fire_metal_medium", undefined, undefined, 1, 0 );
+    maps\_vehicle::build_turret( "t72_turret2", "tag_turret2", "vehicle_t72_tank_pkt_coaxial_mg" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_rumble( "tank_rumble", 0.15, 4.5, 600, 1, 1 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_mainturret();
+    maps\_vehicle::build_frontarmor( 0.33 );
 }
 
 _id_4D10()

@@ -69,7 +69,7 @@ flashbang_hint()
 {
     var_0 = getent( "flashbang_hint", "targetname" );
     var_0 waittill( "trigger" );
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "throwflash" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "throwflash" );
     wait 2;
 
     if ( !common_scripts\utility::_id_382E( "player_has_flashed" ) )
@@ -112,7 +112,7 @@ _id_6ACA()
 
 init_pickup_technical()
 {
-    var_0 = maps\_vehicle_code::_id_05BE();
+    var_0 = maps\_vehicle_code::_getvehiclespawnerarray();
 
     foreach ( var_2 in var_0 )
     {
@@ -126,7 +126,7 @@ init_pickup_technical()
 
 init_pickup_technical_badplace()
 {
-    var_0 = maps\_vehicle_code::_id_05BE();
+    var_0 = maps\_vehicle_code::_getvehiclespawnerarray();
 
     foreach ( var_2 in var_0 )
     {
@@ -173,8 +173,8 @@ pickup_technical_custombadplace()
         else
             var_7 = 500;
 
-        if ( isdefined( self._id_1268 ) )
-            var_7 *= self._id_1268;
+        if ( isdefined( self.badplacemodifier ) )
+            var_7 *= self.badplacemodifier;
 
         if ( var_2 )
             var_8 = anglestoforward( self gettagangles( "tag_turret" ) );
@@ -228,10 +228,10 @@ pickup_check_death()
 pickup_technical_think()
 {
     self waittill( "spawned", var_0 );
-    var_0._id_0DF4[0].a._id_2B20 = 1;
-    var_0._id_0DF4[0]._id_2AF7 = 1;
+    var_0.attachedguys[0].a._id_2B20 = 1;
+    var_0.attachedguys[0]._id_2AF7 = 1;
 
-    if ( maps\_utility::_id_0CC3() )
+    if ( maps\_utility::arcademode() )
         var_0 thread pickup_arcade_setup();
 
     var_0.tail_gate = spawn( "script_model", var_0 gettagorigin( "tag_rear_tailgate" ) );
@@ -255,7 +255,7 @@ pickup_technical_think()
     {
         var_2 = level.player istouching( var_1 );
         var_3 = isdefined( var_0.model ) && var_0.model == "vehicle_pickup_technical_destroyed";
-        var_4 = var_2 || var_3 || var_0._id_0DF4[0].health <= 0;
+        var_4 = var_2 || var_3 || var_0.attachedguys[0].health <= 0;
 
         if ( var_4 )
         {
@@ -276,7 +276,7 @@ init_heli_turrets()
     maps\_vehicle::waittill_vehiclespawn_noteworthy( "circling_heli" );
     wait 0.1;
     var_0 = get_vehiclearray( "circling_heli", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, ::setup_circling_heli_turret );
+    common_scripts\utility::array_thread( var_0, ::setup_circling_heli_turret );
 }
 
 circling_helis_fire()
@@ -284,14 +284,14 @@ circling_helis_fire()
     while ( level.heli_turrets.size == 0 )
         wait 1;
 
-    common_scripts\utility::_id_0D13( level.heli_turrets, ::circling_heli_minigun_firethread );
-    common_scripts\utility::_id_0D13( level.heli_turrets, ::heli_minigun_targetthread, 10 );
+    common_scripts\utility::array_thread( level.heli_turrets, ::circling_heli_minigun_firethread );
+    common_scripts\utility::array_thread( level.heli_turrets, ::heli_minigun_targetthread, 10 );
 }
 
 intro_helis_fire()
 {
-    common_scripts\utility::_id_0D13( level.heli_turrets, ::intro_heli_minigun_firethread );
-    common_scripts\utility::_id_0D13( level.heli_turrets, ::heli_minigun_targetthread, 2 );
+    common_scripts\utility::array_thread( level.heli_turrets, ::intro_heli_minigun_firethread );
+    common_scripts\utility::array_thread( level.heli_turrets, ::heli_minigun_targetthread, 2 );
     common_scripts\utility::_id_384A( "kill_rpgs" );
     level notify( "helis_stop_firing" );
 }

@@ -61,7 +61,7 @@ main()
     level._id_64F0 = maps\mp\gametypes\common_sd_sr::_id_64F0;
     level.onnormaldeath = maps\mp\gametypes\common_sd_sr::onnormaldeath;
     level._id_3BF5 = maps\mp\gametypes\common_sd_sr::_id_517B;
-    level._id_0AAB = 0;
+    level.allowlatecomers = 0;
 
     if ( level.matchrules_damagemultiplier || level.matchrules_vampirism )
         level.modifyplayerdamage = maps\mp\gametypes\_damage::gamemodemodifyplayerdamage;
@@ -136,7 +136,7 @@ onstartgametype()
     maps\mp\gametypes\_gameobjects::main( var_2 );
     thread maps\mp\gametypes\common_sd_sr::_id_9B22();
     maps\mp\_utility::setcarrierloadouts();
-    thread maps\mp\gametypes\common_sd_sr::_id_1549();
+    thread maps\mp\gametypes\common_sd_sr::bombs();
     thread maps\mp\gametypes\_spectating::allowallyteamspectating();
 }
 

@@ -21,19 +21,19 @@
 
 _id_4E2A()
 {
-    self.stingerstage = undefined;
-    self.stingertarget = undefined;
-    self.stingerlockstarttime = undefined;
-    self.stingerlostsightlinetime = undefined;
+    self._id_8E59 = undefined;
+    self._id_8E5A = undefined;
+    self._id_8E48 = undefined;
+    self._id_8E49 = undefined;
     thread _id_7460();
 }
 
 _id_745F()
 {
-    if ( !isdefined( self.stingeruseentered ) )
+    if ( !isdefined( self._id_8E5C ) )
         return;
 
-    self.stingeruseentered = undefined;
+    self._id_8E5C = undefined;
     self notify( "stop_javelin_locking_feedback" );
     self notify( "stop_javelin_locked_feedback" );
     self weaponlockfree();
@@ -61,7 +61,7 @@ _id_8E38( var_0 )
     if ( !self circle( var_0.origin, 65, 85 ) )
         return 0;
 
-    if ( isdefined( level.ac130 ) && self.stingertarget == level.ac130.planemodel && !isdefined( level.ac130player ) )
+    if ( isdefined( level.ac130 ) && self._id_8E5A == level.ac130._id_687C && !isdefined( level.ac130player ) )
         return 0;
 
     return 1;
@@ -74,10 +74,10 @@ _id_5894()
 
     for (;;)
     {
-        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self.stingertarget ) && self.stingertarget == level.chopper.gunner )
+        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.chopper.gunner )
             level.chopper.gunner playlocalsound( "missile_locking" );
 
-        if ( isdefined( level.ac130player ) && isdefined( self.stingertarget ) && self.stingertarget == level.ac130.planemodel )
+        if ( isdefined( level.ac130player ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.ac130._id_687C )
             level.ac130player playlocalsound( "missile_locking" );
 
         self playlocalsound( "stinger_locking" );
@@ -93,10 +93,10 @@ _id_5893()
 
     for (;;)
     {
-        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self.stingertarget ) && self.stingertarget == level.chopper.gunner )
+        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.chopper.gunner )
             level.chopper.gunner playlocalsound( "missile_locking" );
 
-        if ( isdefined( level.ac130player ) && isdefined( self.stingertarget ) && self.stingertarget == level.ac130.planemodel )
+        if ( isdefined( level.ac130player ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.ac130._id_687C )
             level.ac130player playlocalsound( "missile_locking" );
 
         self playlocalsound( "stinger_locked" );
@@ -141,16 +141,16 @@ _id_8862()
 {
     var_0 = 500;
 
-    if ( _id_5818( self.stingertarget ) )
+    if ( _id_5818( self._id_8E5A ) )
     {
-        self.stingerlostsightlinetime = 0;
+        self._id_8E49 = 0;
         return 1;
     }
 
-    if ( self.stingerlostsightlinetime == 0 )
-        self.stingerlostsightlinetime = gettime();
+    if ( self._id_8E49 == 0 )
+        self._id_8E49 = gettime();
 
-    var_1 = gettime() - self.stingerlostsightlinetime;
+    var_1 = gettime() - self._id_8E49;
 
     if ( var_1 >= var_0 )
     {
@@ -174,7 +174,7 @@ _id_4107()
             var_0[var_0.size] = level.chopper;
 
         if ( isdefined( level.ac130player ) && level.ac130player.team != self.team )
-            var_0[var_0.size] = level.ac130.planemodel;
+            var_0[var_0.size] = level.ac130._id_687C;
 
         if ( isdefined( level._id_46DF ) )
         {
@@ -229,7 +229,7 @@ _id_4107()
             var_0[var_0.size] = level.chopper;
 
         if ( isdefined( level.ac130player ) )
-            var_0[var_0.size] = level.ac130.planemodel;
+            var_0[var_0.size] = level.ac130._id_687C;
 
         if ( isdefined( level._id_46DF ) )
         {
@@ -309,14 +309,14 @@ _id_8E5B()
             continue;
         }
 
-        self.stingeruseentered = 1;
+        self._id_8E5C = 1;
 
-        if ( !isdefined( self.stingerstage ) )
-            self.stingerstage = 0;
+        if ( !isdefined( self._id_8E59 ) )
+            self._id_8E59 = 0;
 
-        _id_8E45( self.stingertarget );
+        _id_8E45( self._id_8E5A );
 
-        if ( self.stingerstage == 0 )
+        if ( self._id_8E59 == 0 )
         {
             var_2 = _id_4107();
 
@@ -345,15 +345,15 @@ _id_8E5B()
                 continue;
 
             thread _id_5894();
-            self.stingertarget = var_8[0];
-            self.stingerlockstarttime = gettime();
-            self.stingerstage = 1;
-            self.stingerlostsightlinetime = 0;
+            self._id_8E5A = var_8[0];
+            self._id_8E48 = gettime();
+            self._id_8E59 = 1;
+            self._id_8E49 = 0;
         }
 
-        if ( self.stingerstage == 1 )
+        if ( self._id_8E59 == 1 )
         {
-            if ( !_id_8E38( self.stingertarget ) )
+            if ( !_id_8E38( self._id_8E5A ) )
             {
                 _id_745F();
                 continue;
@@ -364,7 +364,7 @@ _id_8E5B()
             if ( !var_9 )
                 continue;
 
-            var_10 = gettime() - self.stingerlockstarttime;
+            var_10 = gettime() - self._id_8E48;
 
             if ( maps\mp\_utility::_hasperk( "specialty_fasterlockon" ) )
             {
@@ -376,18 +376,18 @@ _id_8E5B()
 
             self notify( "stop_javelin_locking_feedback" );
             thread _id_5893();
-            self weaponlockfinalize( self.stingertarget );
-            self.stingerstage = 2;
+            self weaponlockfinalize( self._id_8E5A );
+            self._id_8E59 = 2;
         }
 
-        if ( self.stingerstage == 2 )
+        if ( self._id_8E59 == 2 )
         {
             var_9 = _id_8862();
 
             if ( !var_9 )
                 continue;
 
-            if ( !_id_8E38( self.stingertarget ) )
+            if ( !_id_8E38( self._id_8E5A ) )
             {
                 _id_745F();
                 continue;

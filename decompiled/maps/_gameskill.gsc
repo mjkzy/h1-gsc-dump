@@ -55,12 +55,12 @@ _id_8010( var_0 )
             var_2 maps\_utility::_id_32DD( "global_hint_in_use" );
             var_2.pers = [];
 
-            if ( !isdefined( var_2._id_130B ) )
-                var_2._id_130B = 0;
+            if ( !isdefined( var_2.baseignorerandombulletdamage ) )
+                var_2.baseignorerandombulletdamage = 0;
 
-            var_2.disabledweapon = 0;
-            var_2.disabledweaponswitch = 0;
-            var_2.disabledusability = 0;
+            var_2._id_2B0B = 0;
+            var_2._id_2B0C = 0;
+            var_2._id_2B0A = 0;
         }
 
         level._id_2A63[0] = "easy";
@@ -148,8 +148,8 @@ _id_8010( var_0 )
     level._id_2A60["dog_hits_before_kill"]["normal"] = 1;
     level._id_2A60["dog_hits_before_kill"]["hardened"] = 0;
     level._id_2A60["dog_hits_before_kill"]["veteran"] = 0;
-    level._id_2A60["pain_test"]["easy"] = ::_id_0B07;
-    level._id_2A60["pain_test"]["normal"] = ::_id_0B07;
+    level._id_2A60["pain_test"]["easy"] = ::always_pain;
+    level._id_2A60["pain_test"]["normal"] = ::always_pain;
     level._id_2A60["pain_test"]["hardened"] = ::_id_6649;
     level._id_2A60["pain_test"]["veteran"] = ::_id_6649;
     level._id_2A60["missTimeConstant"]["easy"] = 1.0;
@@ -305,16 +305,16 @@ _id_3E63( var_0 )
     return level._id_2A63[var_0];
 }
 
-_id_0C9F( var_0, var_1 )
+apply_difficulty_frac_with_func( var_0, var_1 )
 {
     self._id_4441._id_4FAC = [[ var_0 ]]( "invulTime_preShield", var_1 );
     self._id_4441._id_4FAA = [[ var_0 ]]( "invulTime_onShield", var_1 );
     self._id_4441._id_4FAB = [[ var_0 ]]( "invulTime_postShield", var_1 );
-    self._id_4441.playerhealth_regularregendelay = [[ var_0 ]]( "playerHealth_RegularRegenDelay", var_1 );
+    self._id_4441._id_6CC3 = [[ var_0 ]]( "playerHealth_RegularRegenDelay", var_1 );
     self._id_4441._id_A353 = [[ var_0 ]]( "worthyDamageRatio", var_1 );
     self.threatbias = int( [[ var_0 ]]( "threatbias", var_1 ) );
     self._id_4441._id_584F = [[ var_0 ]]( "longRegenTime", var_1 );
-    self._id_4441.healthoverlaycutoff = [[ var_0 ]]( "healthOverlayCutoff", var_1 );
+    self._id_4441._id_478D = [[ var_0 ]]( "healthOverlayCutoff", var_1 );
     self._id_4441._id_72D3 = [[ var_0 ]]( "health_regenRate", var_1 );
     self._id_4441._id_6A64 = [[ var_0 ]]( "base_enemy_accuracy", var_1 );
     self.attackeraccuracy = self._id_4441._id_6A64;
@@ -335,11 +335,11 @@ _id_9AD3()
     if ( maps\_utility::_id_32D8( "player_zero_attacker_accuracy" ) )
         return;
 
-    self.ignorerandombulletdamage = self._id_130B;
+    self.ignorerandombulletdamage = self.baseignorerandombulletdamage;
     self.attackeraccuracy = self._id_4441._id_6A64;
 }
 
-_id_0CA0( var_0, var_1 )
+apply_difficulty_step_with_func( var_0, var_1 )
 {
     self._id_4441._id_5CE4 = [[ var_0 ]]( "missTimeConstant", var_1 );
     self._id_4441._id_5CE6 = [[ var_0 ]]( "missTimeDistanceFactor", var_1 );
@@ -349,8 +349,8 @@ _id_0CA0( var_0, var_1 )
 
 _id_7E12()
 {
-    _id_0C9F( ::_id_3DD0, 1 );
-    _id_0CA0( ::_id_3DCE, 1 );
+    apply_difficulty_frac_with_func( ::_id_3DD0, 1 );
+    apply_difficulty_step_with_func( ::_id_3DCE, 1 );
 }
 
 _id_3DCE( var_0, var_1 )
@@ -373,7 +373,7 @@ _id_3DCF( var_0, var_1 )
     return level._id_2A60[var_0][_id_3E63( level._id_3BFE )];
 }
 
-_id_0B07()
+always_pain()
 {
     return 0;
 }
@@ -426,17 +426,17 @@ _id_7DAF()
 
         if ( self.script == "move" )
         {
-            self.accuracy = anim._id_76A4 * self._id_1300;
+            self.accuracy = anim._id_76A4 * self.baseaccuracy;
             return;
         }
     }
     else if ( self.script == "move" )
     {
-        self.accuracy = anim._id_76A4 * self._id_1300;
+        self.accuracy = anim._id_76A4 * self.baseaccuracy;
         return;
     }
 
-    self.accuracy = self._id_1300;
+    self.accuracy = self.baseaccuracy;
 }
 
 _id_8011()
@@ -459,7 +459,7 @@ _id_8011()
         return;
     }
 
-    self.accuracy = ( 1 + 1 * self._id_8803 ) * self._id_1300;
+    self.accuracy = ( 1 + 1 * self._id_8803 ) * self.baseaccuracy;
     self._id_8803++;
 
     if ( level._id_3BFE < 1 && self._id_8803 == 1 )
@@ -478,7 +478,7 @@ _id_7442()
 
 _id_7450()
 {
-    if ( !self _meth_813f() )
+    if ( !self _meth_813F() )
         return;
 
     if ( self.weapon == "none" )
@@ -495,7 +495,7 @@ _id_7450()
 
     if ( !isplayer( self.enemy ) )
     {
-        self.accuracy = self._id_1300;
+        self.accuracy = self.baseaccuracy;
         return;
     }
 
@@ -518,7 +518,7 @@ _id_7FAD( var_0 )
 
     var_0 *= 1000;
     self.a._id_5CE3 = gettime() + var_0;
-    self.a._id_06DB = 1;
+    self.a.accuracygrowthmultiplier = 1;
 }
 
 _id_6CC9()
@@ -555,7 +555,7 @@ _id_6CC4()
     var_6 = 0;
     var_7 = 1;
     thread _id_6CC9();
-    self._id_1528 = 0;
+    self.bolthit = 0;
 
     for (;;)
     {
@@ -582,7 +582,7 @@ _id_6CC4()
         var_9 = var_2;
         var_10 = self.health / self.maxhealth;
 
-        if ( var_10 <= self._id_4441.healthoverlaycutoff && self._id_6B4E > 1 )
+        if ( var_10 <= self._id_4441._id_478D && self._id_6B4E > 1 )
         {
             var_2 = 1;
 
@@ -594,19 +594,19 @@ _id_6CC4()
                 if ( getdvarint( "cg_altDamageMode" ) == 0 )
                 {
                     if ( isusinghdr() )
-                        thread _id_14C8( 2, 2 );
+                        thread blurview( 2, 2 );
                     else
-                        thread _id_14C8( 3.6, 2 );
+                        thread blurview( 3.6, 2 );
                 }
                 else if ( isusinghdr() )
-                    thread _id_14C8( 40, 0.25 );
+                    thread blurview( 40, 0.25 );
                 else
-                    thread _id_14C8( 7.5, 0.67 );
+                    thread blurview( 7.5, 0.67 );
 
                 thread soundscripts\_audio::_id_7E07();
 
                 if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
-                    self _meth_823b();
+                    self _meth_823B();
 
                 maps\_utility::_id_32DE( "player_has_red_flashing_overlay" );
                 var_3 = 1;
@@ -621,7 +621,7 @@ _id_6CC4()
 
         if ( self.health / self.maxhealth >= var_0 )
         {
-            if ( gettime() - var_5 < self._id_4441.playerhealth_regularregendelay )
+            if ( gettime() - var_5 < self._id_4441._id_6CC3 )
                 continue;
 
             if ( var_2 )
@@ -667,14 +667,14 @@ _id_6CC4()
             if ( getdvarint( "cg_altDamageMode" ) == 0 )
             {
                 if ( isusinghdr() )
-                    thread _id_14C8( 2, 2 );
+                    thread blurview( 2, 2 );
                 else
-                    thread _id_14C8( 3.6, 2 );
+                    thread blurview( 3.6, 2 );
             }
             else if ( isusinghdr() )
-                thread _id_14C8( 4, 0.67 );
+                thread blurview( 4, 0.67 );
             else
-                thread _id_14C8( 7.5, 0.67 );
+                thread blurview( 7.5, 0.67 );
         }
 
         if ( !var_11 )
@@ -720,7 +720,7 @@ _id_72A8()
 
 _id_6CD0( var_0 )
 {
-    if ( isdefined( self.flashendtime ) && self.flashendtime > gettime() )
+    if ( isdefined( self._id_38B1 ) && self._id_38B1 > gettime() )
         var_0 *= _id_3F44( "flashbangedInvulFactor" );
 
     if ( var_0 > 0 )
@@ -739,7 +739,7 @@ _id_277A()
     if ( self.team == "allies" )
         self._id_2D65 = 0.6;
 
-    if ( self _meth_813f() )
+    if ( self _meth_813F() )
     {
         if ( level._id_3BFE >= 2 )
             self._id_2D65 = 0.8;
@@ -756,7 +756,7 @@ grenadeawareness()
         return;
     }
 
-    if ( self _meth_813f() )
+    if ( self _meth_813F() )
     {
         if ( level._id_3BFE >= 2 )
         {
@@ -772,7 +772,7 @@ grenadeawareness()
     }
 }
 
-_id_14C8( var_0, var_1 )
+blurview( var_0, var_1 )
 {
     if ( maps\_utility::_id_32D8( "player_no_auto_blur" ) )
         return;
@@ -1067,7 +1067,7 @@ compassflashingoverlay( var_0 )
     }
 }
 
-_id_0767( var_0 )
+add_hudelm_position_internal( var_0 )
 {
     if ( level.console )
         self.fontscale = 2;
@@ -1102,7 +1102,7 @@ _id_0767( var_0 )
 _id_23E1()
 {
     var_0 = newclienthudelem( self );
-    var_0 _id_0767();
+    var_0 add_hudelm_position_internal();
     var_0 thread _id_28D4();
     var_0 thread _id_28D5();
     var_0 settext( &"GAME_GET_TO_COVER" );
@@ -1138,7 +1138,7 @@ _id_28D5()
 _id_28D3( var_0 )
 {
     self notify( "being_destroyed" );
-    self._id_13AA = 1;
+    self.beingdestroyed = 1;
 
     if ( var_0 )
     {
@@ -1156,7 +1156,7 @@ _id_5A5A( var_0 )
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( isdefined( var_0._id_13AA ) )
+    if ( isdefined( var_0.beingdestroyed ) )
         return 0;
 
     return 1;
@@ -1352,7 +1352,7 @@ redflashingoverlayalt( var_0 )
     }
 
     if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
-        self _meth_823c();
+        self _meth_823C();
 }
 
 redflashingoverlay( var_0 )
@@ -1397,7 +1397,7 @@ redflashingoverlay( var_0 )
     }
 
     if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
-        self _meth_823c();
+        self _meth_823C();
 }
 
 _id_478B( var_0 )
@@ -1441,9 +1441,9 @@ _id_4C3B()
         self _meth_8213( "takeCoverWarnings", var_0 + 1 );
 }
 
-_id_06AA()
+aa_init_stats()
 {
-    level._id_88B2 = ::_id_1121;
+    level._id_88B2 = ::auto_adjust_new_zone;
     setdvar( "aa_player_kills", "0" );
     setdvar( "aa_enemy_deaths", "0" );
     setdvar( "aa_enemy_damage_taken", "0" );
@@ -1453,16 +1453,16 @@ _id_06AA()
     setdvar( "aa_time_tracking", "0" );
     setdvar( "aa_deaths", "0" );
     setdvar( "player_cheated", 0 );
-    level._id_1122 = [];
-    thread _id_06B1();
-    thread _id_06AD();
-    thread _id_06AB();
+    level.auto_adjust_results = [];
+    thread aa_time_tracking();
+    thread aa_player_health_tracking();
+    thread aa_player_ads_tracking();
     common_scripts\utility::_id_383F( "auto_adjust_initialized" );
     common_scripts\utility::_id_383D( "aa_main_" + level.script );
     common_scripts\utility::_id_383F( "aa_main_" + level.script );
 }
 
-_id_06B1()
+aa_time_tracking()
 {
     waitframe;
 
@@ -1470,7 +1470,7 @@ _id_06B1()
         wait 0.2;
 }
 
-_id_06AB()
+aa_player_ads_tracking()
 {
     level.player endon( "death" );
     level._id_6A4E = 0;
@@ -1491,36 +1491,36 @@ _id_06AB()
     }
 }
 
-_id_06AD()
+aa_player_health_tracking()
 {
     for (;;)
     {
         level.player waittill( "damage", var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
-        _id_06A5( "aa_player_damage_taken", var_0 );
+        aa_add_event( "aa_player_damage_taken", var_0 );
 
         if ( !isalive( level.player ) )
         {
-            _id_06A5( "aa_deaths", 1 );
+            aa_add_event( "aa_deaths", 1 );
             return;
         }
     }
 }
 
-_id_1121( var_0 )
+auto_adjust_new_zone( var_0 )
 {
-    if ( !isdefined( level._id_1120 ) )
-        level._id_1120 = [];
+    if ( !isdefined( level.auto_adjust_flags ) )
+        level.auto_adjust_flags = [];
 
     common_scripts\utility::_id_384A( "auto_adjust_initialized" );
-    level._id_1122[var_0] = [];
-    level._id_1120[var_0] = 0;
+    level.auto_adjust_results[var_0] = [];
+    level.auto_adjust_flags[var_0] = 0;
     common_scripts\utility::_id_384A( var_0 );
 
     if ( getdvar( "aa_zone" + var_0 ) == "" )
     {
         setdvar( "aa_zone" + var_0, "on" );
-        level._id_1120[var_0] = 1;
-        _id_06B2();
+        level.auto_adjust_flags[var_0] = 1;
+        aa_update_flags();
         setdvar( "start_time" + var_0, getdvar( "aa_time_tracking" ) );
         setdvar( "starting_player_kills" + var_0, getdvar( "aa_player_kills" ) );
         setdvar( "starting_deaths" + var_0, getdvar( "aa_deaths" ) );
@@ -1534,10 +1534,10 @@ _id_1121( var_0 )
         return;
 
     common_scripts\utility::_id_3857( var_0 );
-    _id_1123( var_0 );
+    auto_adust_zone_complete( var_0 );
 }
 
-_id_1123( var_0 )
+auto_adust_zone_complete( var_0 )
 {
     setdvar( "aa_zone" + var_0, "done" );
     var_1 = getdvarfloat( "start_time" + var_0 );
@@ -1548,8 +1548,8 @@ _id_1123( var_0 )
     var_6 = getdvarint( "aa_player_damage_dealt" + var_0 );
     var_7 = getdvarint( "aa_ads_damage_dealt" + var_0 );
     var_8 = getdvarint( "aa_deaths" + var_0 );
-    level._id_1120[var_0] = 0;
-    _id_06B2();
+    level.auto_adjust_flags[var_0] = 0;
+    aa_update_flags();
     var_9 = getdvarfloat( "aa_time_tracking" ) - var_1;
     var_10 = getdvarint( "aa_player_kills" ) - var_2;
     var_11 = getdvarint( "aa_enemy_deaths" ) - var_3;
@@ -1602,7 +1602,7 @@ _id_1123( var_0 )
     var_23["minutes"] = var_9 / 60;
     var_23["deaths"] = var_22;
     var_23["gameskill"] = level._id_3BFE;
-    level._id_1122[var_0] = var_23;
+    level.auto_adjust_results[var_0] = var_23;
     var_24 = "Completed AA sequence: ";
     var_24 += ( level.script + "/" + var_0 );
     var_25 = getarraykeys( var_23 );
@@ -1613,23 +1613,23 @@ _id_1123( var_0 )
     logstring( var_24 );
 }
 
-_id_06AE( var_0, var_1 )
+aa_print_vals( var_0, var_1 )
 {
     logstring( var_0 + ": " + var_1[var_0] );
 }
 
-_id_06B2()
+aa_update_flags()
 {
 
 }
 
-_id_06A5( var_0, var_1 )
+aa_add_event( var_0, var_1 )
 {
     var_2 = getdvarint( var_0 );
     setdvar( var_0, var_2 + var_1 );
 }
 
-_id_06A6( var_0, var_1 )
+aa_add_event_float( var_0, var_1 )
 {
     var_2 = getdvarfloat( var_0 );
     setdvar( var_0, var_2 + var_1 );
@@ -1664,9 +1664,9 @@ _id_3094( var_0, var_1, var_2 )
 
 }
 
-_id_111F( var_0, var_1, var_2, var_3 )
+auto_adjust_enemy_died( var_0, var_1, var_2, var_3 )
 {
-    _id_06A5( "aa_enemy_deaths", 1 );
+    aa_add_event( "aa_enemy_deaths", 1 );
 
     if ( !isdefined( var_1 ) )
         return;
@@ -1675,26 +1675,26 @@ _id_111F( var_0, var_1, var_2, var_3 )
         return;
 
     [[ level._id_422E ]]( var_2, self.damagelocation, var_3 );
-    _id_06A5( "aa_player_kills", 1 );
+    aa_add_event( "aa_player_kills", 1 );
 }
 
-_id_111E( var_0, var_1, var_2, var_3, var_4, var_5, var_0 )
+auto_adjust_enemy_death_detection( var_0, var_1, var_2, var_3, var_4, var_5, var_0 )
 {
     if ( !isalive( self ) || self.delayeddeath )
     {
-        _id_111F( var_1, var_2, var_5, var_4 );
+        auto_adjust_enemy_died( var_1, var_2, var_5, var_4 );
         return;
     }
 
     if ( !_id_6A63( var_2 ) )
         return;
 
-    _id_06AC( var_1, var_5, var_4 );
+    aa_player_attacks_enemy_with_ads( var_1, var_5, var_4 );
 }
 
-_id_06AC( var_0, var_1, var_2 )
+aa_player_attacks_enemy_with_ads( var_0, var_1, var_2 )
 {
-    _id_06A5( "aa_player_damage_dealt", var_0 );
+    aa_add_event( "aa_player_damage_dealt", var_0 );
 
     if ( !level.player maps\_utility::_id_50A9() )
     {
@@ -1702,18 +1702,18 @@ _id_06AC( var_0, var_1, var_2 )
         return 0;
     }
 
-    if ( !_id_1893( var_1 ) )
+    if ( !bullet_attack( var_1 ) )
     {
         [[ level._id_4225 ]]( var_1, self.damagelocation, var_2 );
         return 0;
     }
 
     [[ level._id_4226 ]]( var_1, self.damagelocation, var_2 );
-    _id_06A5( "aa_ads_damage_dealt", var_0 );
+    aa_add_event( "aa_ads_damage_dealt", var_0 );
     return 1;
 }
 
-_id_1893( var_0 )
+bullet_attack( var_0 )
 {
     if ( var_0 == "MOD_PISTOL_BULLET" )
         return 1;
@@ -1741,12 +1741,12 @@ _id_43E7( var_0 )
 
 }
 
-_id_14B6( var_0 )
+blood_splat_on_screen( var_0 )
 {
 
 }
 
-_id_075E( var_0, var_1, var_2 )
+add_fractional_data_point( var_0, var_1, var_2 )
 {
 
 }

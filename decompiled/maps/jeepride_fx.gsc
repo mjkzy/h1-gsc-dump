@@ -186,13 +186,13 @@ main()
     level._ak_impacts["asphalt"] = loadfx( "fx/impacts/large_asphalt" );
     level._ak_impacts["rubber"] = loadfx( "fx/impacts/default_hit" );
     level._ak_impacts["paintedmetal"] = loadfx( "fx/impacts/large_metal_painted_hit" );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/helicopter_explosion_jeepride", undefined, "hind_helicopter_hit", undefined, undefined, undefined, 0.1, 1 );
-    maps\_vehicle::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
-    maps\_vehicle::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
-    maps\_vehicle::_id_1844( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
-    maps\_vehicle::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
-    maps\_vehicle::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
-    maps\_vehicle::_id_1844( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/helicopter_explosion_jeepride", undefined, "hind_helicopter_hit", undefined, undefined, undefined, 0.1, 1 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_cover_destructible", "bm21_troops", "vehicle_bm21_cover_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
     _id_974C();
     thread init_collapsing_bridge_parts();
     maps\createfx\jeepride_fx::main();
@@ -246,7 +246,7 @@ remove_ghettotag()
     if ( !isdefined( self.ghettotags ) )
         return;
 
-    common_scripts\utility::_id_0D13( self.ghettotags, maps\jeepride_code::_id_2856 );
+    common_scripts\utility::array_thread( self.ghettotags, maps\jeepride_code::_id_2856 );
 
     if ( !isdefined( self ) )
         return;
@@ -379,7 +379,7 @@ remove_light_group_from_vehicle( var_0, var_1 )
         var_3 = level._id_9CFF[var_0]["all"];
 
         foreach ( var_5 in var_2 )
-            var_3 = common_scripts\utility::_id_0CF6( var_3, var_5 );
+            var_3 = common_scripts\utility::array_remove( var_3, var_5 );
 
         level._id_9CFF[var_0]["all"] = var_3;
         level._id_9CFF[var_0][var_1] = [];

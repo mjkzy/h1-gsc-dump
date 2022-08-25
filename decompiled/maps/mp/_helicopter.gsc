@@ -133,7 +133,7 @@ _id_3F87( var_0, var_1 )
     var_3 = getentarray( var_0, var_1 );
 
     if ( var_3.size > 0 )
-        var_2 = common_scripts\utility::_id_0CDD( var_2, var_3 );
+        var_2 = common_scripts\utility::array_combine( var_2, var_3 );
 
     return var_2;
 }
@@ -205,7 +205,7 @@ heli_get_dvar( var_0, var_1 )
 spawn_helicopter( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnhelicopter( var_0, var_1, var_2, var_3, var_4 );
-    var_5._id_0E54 = missile_createattractorent( var_5, level._id_47A7, level._id_47A6 );
+    var_5.attractor = missile_createattractorent( var_5, level._id_47A7, level._id_47A6 );
     return var_5;
 }
 
@@ -382,7 +382,7 @@ cantarget_turret( var_0 )
     var_3 = anglestoforward( self.angles );
     var_4 = var_2 + 144 * var_3;
 
-    if ( var_0 _meth_81db( var_4, self, 1 ) < level.heli_target_recognition )
+    if ( var_0 _meth_81DB( var_4, self, 1 ) < level.heli_target_recognition )
         return 0;
 
     return var_1;
@@ -469,7 +469,7 @@ _id_47B1()
     self endon( "crashing" );
     self endon( "leaving" );
     self.damagetaken = 0;
-    self._id_0E31 = [];
+    self.attackerlist = [];
 
     for (;;)
     {
@@ -499,7 +499,7 @@ _id_47B1()
         maps\mp\gametypes\_hardpoints::_id_539C( var_1, var_9, self );
 
         if ( maps\mp\gametypes\_damage::_id_5159( var_1 ) )
-            self._id_0E31[self._id_0E31.size] = var_1;
+            self.attackerlist[self.attackerlist.size] = var_1;
 
         if ( var_4 == "MOD_RIFLE_BULLET" || var_4 == "MOD_PISTOL_BULLET" )
         {
@@ -978,7 +978,7 @@ attack_primary()
                             self setturrettargetent( self._id_6F8C, ( 0.0, 0.0, 40.0 ) );
                     }
                     else if ( isdefined( self.targetlost ) && self.targetlost && isdefined( self.turret_last_pos ) )
-                        self _meth_825d( self.turret_last_pos );
+                        self _meth_825D( self.turret_last_pos );
                     else
                         self clearturrettargetent();
 
@@ -1032,7 +1032,7 @@ turret_target_flag( var_0 )
         var_1 = self.origin + ( 0.0, 0.0, -160.0 );
         var_2 = anglestoforward( self.angles );
         var_3 = var_1 + 144 * var_2;
-        var_4 = var_0 _meth_81db( var_3, self, 1 );
+        var_4 = var_0 _meth_81DB( var_3, self, 1 );
 
         if ( var_4 < level.heli_target_recognition )
             break;
@@ -1043,7 +1043,7 @@ turret_target_flag( var_0 )
     if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
     {
         self.turret_last_pos = var_0.origin + ( 0.0, 0.0, 40.0 );
-        self _meth_825d( self.turret_last_pos );
+        self _meth_825D( self.turret_last_pos );
         debug_print3d_simple( "Turret target lost at: " + self.turret_last_pos, self, ( 0.0, 0.0, -70.0 ), 60 );
         self.targetlost = 1;
     }

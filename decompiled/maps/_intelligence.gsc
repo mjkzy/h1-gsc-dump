@@ -78,7 +78,7 @@ remove_found_intel()
 
 _id_1CCD()
 {
-    return level.player _meth_823d( self._id_627D );
+    return level.player _meth_823D( self._id_627D );
 }
 
 _id_239B()
@@ -134,7 +134,7 @@ _id_9FB5()
 
 save_that_item_is_found()
 {
-    level.player _meth_823e( self._id_627D );
+    level.player _meth_823E( self._id_627D );
 }
 
 _id_3DFB( var_0 )
@@ -156,7 +156,7 @@ _id_4E96()
     level thread common_scripts\utility::_id_69C2( "intelligence_pickup", self.item.origin );
     var_0 = 3000;
     var_1 = 700;
-    var_2 = maps\_hud_util::_id_2420( "h1_hud_ammo_status_glow", 400, 75 );
+    var_2 = maps\_hud_util::createIcon( "h1_hud_ammo_status_glow", 400, 75 );
     var_2.color = ( 1.0, 0.95, 0.4 );
     var_2.x = 0;
     var_2.y = -65;
@@ -166,7 +166,7 @@ _id_4E96()
     var_2.vertalign = "middle";
     var_2.foreground = 1;
     var_2.alpha = 0.0;
-    var_3 = maps\_hud_util::_id_2420( "h1_hud_ammo_status_scanlines", 800, 75 );
+    var_3 = maps\_hud_util::createIcon( "h1_hud_ammo_status_scanlines", 800, 75 );
     var_3.color = ( 1.0, 0.85, 0.0 );
     var_3.x = 0;
     var_3.y = -65;
@@ -226,7 +226,7 @@ intel_found_total()
 
     for ( var_1 = 1; var_1 <= level.intel_items_total; var_1++ )
     {
-        if ( level.player _meth_823d( var_1 ) )
+        if ( level.player _meth_823D( var_1 ) )
             var_0++;
     }
 

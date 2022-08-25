@@ -106,64 +106,64 @@ _id_5FFD( var_0, var_1 )
 start_default_checkpoint( var_0 )
 {
     disable_azm_trigger_open_door_first_house();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood" );
 }
 
 start_landed_checkpoint( var_0 )
 {
     disable_azm_trigger_open_door_first_house();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood" );
 }
 
 start_basement_checkpoint( var_0 )
 {
     disable_azm_trigger_open_door_first_house();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood" );
 }
 
 start_house2_checkpoint( var_0 )
 {
     aud_open_fisrt_door();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood" );
 }
 
 start_rescued_checkpoint( var_0 )
 {
     aud_open_fisrt_door();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood" );
 }
 
 start_tower_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "field" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "field" );
 }
 
 start_fense_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "field" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "field" );
 }
 
 start_base_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood" );
 }
 
 start_base2_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "warehouse" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "warehouse" );
 }
 
 start_launch_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_wood_end" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_wood_end" );
 }
 
 aud_open_fisrt_door()
 {
-    if ( isdefined( level._id_0E57.door_first_house_trigger ) )
+    if ( isdefined( level.aud.door_first_house_trigger ) )
     {
         wait 1.5;
-        level._id_0E57.door_first_house_trigger common_scripts\utility::_id_97CE();
+        level.aud.door_first_house_trigger common_scripts\utility::_id_97CE();
     }
 
     var_0 = getent( "first_door_ambient_emitter_01", "targetname" );
@@ -238,6 +238,6 @@ handle_start_vehicle( var_0, var_1 )
 
 disable_azm_trigger_open_door_first_house()
 {
-    level._id_0E57.door_first_house_trigger = getent( "flag_before_open_door_first_house", "script_noteworthy" );
-    level._id_0E57.door_first_house_trigger common_scripts\utility::_id_97CC();
+    level.aud.door_first_house_trigger = getent( "flag_before_open_door_first_house", "script_noteworthy" );
+    level.aud.door_first_house_trigger common_scripts\utility::_id_97CC();
 }

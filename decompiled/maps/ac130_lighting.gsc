@@ -40,5 +40,5 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "ac130", 0 );
     level.player maps\_utility::set_light_set_player( "ac130" );
-    level.player _meth_848c( "clut_ac130", 0.0 );
+    level.player _meth_848C( "clut_ac130", 0.0 );
 }

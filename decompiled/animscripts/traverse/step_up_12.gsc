@@ -32,7 +32,7 @@ main()
 
     for ( var_5 = 0; var_5 < var_3; var_5++ )
     {
-        self _meth_81c9( self.origin + var_4 );
+        self _meth_81C9( self.origin + var_4 );
         wait 0.05;
     }
 

@@ -22,21 +22,21 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "small_wagon", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_small_wagon_white", "vehicle_small_wagon_d_white" );
-    maps\_vehicle::_id_1845( "vehicle_small_wagon_turq", "vehicle_small_wagon_d_turq" );
-    maps\_vehicle::_id_1845( "vehicle_small_wagon_green", "vehicle_small_wagon_d_green" );
-    maps\_vehicle::_id_1845( "vehicle_small_wagon_blue", "vehicle_small_wagon_d_blue" );
-    maps\_vehicle::_id_1848( "vehicle_small_wagon_white_destructible", "vehicle_small_wagon_white" );
-    maps\_vehicle::_id_1848( "vehicle_small_wagon_blue_destructible", "vehicle_small_wagon_blue" );
-    maps\_vehicle::_id_1848( "vehicle_small_wagon_green_destructible", "vehicle_small_wagon_green" );
-    maps\_vehicle::_id_1848( "vehicle_small_wagon_turq_destructible", "vehicle_small_wagon_turq" );
-    maps\_vehicle::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "small_wagon", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_small_wagon_white", "vehicle_small_wagon_d_white" );
+    maps\_vehicle::build_deathmodel( "vehicle_small_wagon_turq", "vehicle_small_wagon_d_turq" );
+    maps\_vehicle::build_deathmodel( "vehicle_small_wagon_green", "vehicle_small_wagon_d_green" );
+    maps\_vehicle::build_deathmodel( "vehicle_small_wagon_blue", "vehicle_small_wagon_d_blue" );
+    maps\_vehicle::build_destructible( "vehicle_small_wagon_white_destructible", "vehicle_small_wagon_white" );
+    maps\_vehicle::build_destructible( "vehicle_small_wagon_blue_destructible", "vehicle_small_wagon_blue" );
+    maps\_vehicle::build_destructible( "vehicle_small_wagon_green_destructible", "vehicle_small_wagon_green" );
+    maps\_vehicle::build_destructible( "vehicle_small_wagon_turq_destructible", "vehicle_small_wagon_turq" );
+    maps\_vehicle::build_drive( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

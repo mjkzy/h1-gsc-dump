@@ -23,8 +23,8 @@ init()
 {
     level._id_A3AA = _id_4170();
     level.xpscalewithparty = getxpscalewithparty();
-    level.scoreinfo = [];
-    level.ranktable = [];
+    level._id_A3A5 = [];
+    level._id_713A = [];
     level._id_5A50 = int( tablelookup( "mp/rankTable.csv", 0, "maxrank", 1 ) );
     level.maxprestige = int( tablelookup( "mp/rankIconTable.csv", 0, "maxPrestige", 1 ) );
     level.maxrankformaxprestige = int( tablelookup( "mp/rankTable.csv", 0, "maxrankformaxprestige", 1 ) );
@@ -36,16 +36,16 @@ init()
 
     for ( var_1 = tablelookup( "mp/rankTable.csv", 0, var_0, 1 ); isdefined( var_1 ) && var_1 != ""; var_1 = tablelookup( "mp/rankTable.csv", 0, var_0, 1 ) )
     {
-        level.ranktable[var_0][1] = tablelookup( "mp/rankTable.csv", 0, var_0, 1 );
-        level.ranktable[var_0][2] = tablelookup( "mp/rankTable.csv", 0, var_0, 2 );
-        level.ranktable[var_0][3] = tablelookup( "mp/rankTable.csv", 0, var_0, 3 );
-        level.ranktable[var_0][7] = tablelookup( "mp/rankTable.csv", 0, var_0, 7 );
+        level._id_713A[var_0][1] = tablelookup( "mp/rankTable.csv", 0, var_0, 1 );
+        level._id_713A[var_0][2] = tablelookup( "mp/rankTable.csv", 0, var_0, 2 );
+        level._id_713A[var_0][3] = tablelookup( "mp/rankTable.csv", 0, var_0, 3 );
+        level._id_713A[var_0][7] = tablelookup( "mp/rankTable.csv", 0, var_0, 7 );
         var_0++;
     }
 
-    level.maxxp = int( level.ranktable[level._id_5A50][7] );
-    level.maxxponext = int( level.ranktable[level._id_5A50][3] );
-    maps\mp\gametypes\_misions::_id_1878();
+    level.maxxp = int( level._id_713A[level._id_5A50][7] );
+    level.maxxponext = int( level._id_713A[level._id_5A50][3] );
+    maps\mp\gametypes\_misions::buildchallegeinfo();
     level thread _id_64C8();
 }
 
@@ -63,8 +63,8 @@ _id_64C8()
             if ( var_2 < 0 )
                 var_2 = 0;
 
-            var_3 = var_0 _meth_84fe() - var_2;
-            var_4 = var_0 _meth_84fe();
+            var_3 = var_0 _meth_84FE() - var_2;
+            var_4 = var_0 _meth_84FE();
         }
         else if ( isai( var_0 ) )
         {
@@ -89,20 +89,20 @@ _id_64C8()
         if ( !isdefined( var_0.pers["participation"] ) )
             var_0.pers["participation"] = 0;
 
-        var_5 = _func_2ec( var_0 _id_4137(), var_1 );
+        var_5 = _func_2EC( var_0 _id_4137(), var_1 );
         var_0.pers["rank"] = var_5;
 
         if ( isai( var_0 ) )
             var_0 maps\mp\_utility::set_rank_options_for_bot();
 
-        var_0.xpupdatetotal = 0;
-        var_0.bonusupdatetotal = 0;
+        var_0._id_A3AB = 0;
+        var_0._id_6E8A = 0;
         var_0._id_357F[0] = 0;
         var_0 setrank( var_5, var_1 );
         var_0 thread processprestigemasteryonspawn( var_1, var_2 );
         var_0 syncxpomnvars();
 
-        if ( var_0.clientid < level.maxlogclients )
+        if ( var_0.clientid < level._id_5A42 )
         {
             setmatchdata( "players", var_0.clientid, "Prestige", var_1 );
             setmatchdata( "players", var_0.clientid, "rankAtStart", maps\mp\_utility::_id_1E28( var_0.pers["rank"] ) );
@@ -179,7 +179,7 @@ getxpscalewithparty()
 
 _id_518A( var_0 )
 {
-    if ( isdefined( level.scoreinfo[var_0] ) )
+    if ( isdefined( level._id_A3A5[var_0] ) )
         return 1;
     else
         return 0;
@@ -187,25 +187,25 @@ _id_518A( var_0 )
 
 _id_72FF( var_0, var_1, var_2, var_3 )
 {
-    level.scoreinfo[var_0]["value"] = var_1;
-    level.scoreinfo[var_0]["allowPlayerScore"] = 0;
-    level.scoreinfo[var_0]["playSplash"] = 0;
+    level._id_A3A5[var_0]["value"] = var_1;
+    level._id_A3A5[var_0]["allowPlayerScore"] = 0;
+    level._id_A3A5[var_0]["playSplash"] = 0;
 
     if ( isdefined( var_2 ) && var_2 )
-        level.scoreinfo[var_0]["allowPlayerScore"] = 1;
+        level._id_A3A5[var_0]["allowPlayerScore"] = 1;
 
     if ( isdefined( var_3 ) && var_3 )
-        level.scoreinfo[var_0]["playSplash"] = 1;
+        level._id_A3A5[var_0]["playSplash"] = 1;
 }
 
-_id_0AAE( var_0 )
+allowplayerscore( var_0 )
 {
-    return level.scoreinfo[var_0]["allowPlayerScore"];
+    return level._id_A3A5[var_0]["allowPlayerScore"];
 }
 
 _id_84A4( var_0 )
 {
-    return level.scoreinfo[var_0]["playSplash"];
+    return level._id_A3A5[var_0]["playSplash"];
 }
 
 _id_40C1( var_0 )
@@ -215,7 +215,7 @@ _id_40C1( var_0 )
     if ( getdvar( var_1 ) != "" )
         return getdvarint( var_1 );
 
-    return level.scoreinfo[var_0]["value"];
+    return level._id_A3A5[var_0]["value"];
 }
 
 _id_40AF( var_0 )
@@ -226,7 +226,7 @@ _id_40AF( var_0 )
         return level.maxxp + ( var_1 - 1 ) * level.maxxponext;
     }
     else
-        return int( level.ranktable[var_0][2] );
+        return int( level._id_713A[var_0][2] );
 }
 
 _id_40B0( var_0 )
@@ -234,7 +234,7 @@ _id_40B0( var_0 )
     if ( var_0 > level._id_5A50 )
         return level.maxxponext;
     else
-        return int( level.ranktable[var_0][3] );
+        return int( level._id_713A[var_0][3] );
 }
 
 _id_40AE( var_0 )
@@ -245,7 +245,7 @@ _id_40AE( var_0 )
         return level.maxxp + var_1 * level.maxxponext;
     }
     else
-        return int( level.ranktable[var_0][7] );
+        return int( level._id_713A[var_0][7] );
 }
 
 _id_40AC( var_0 )
@@ -264,7 +264,7 @@ _id_40AD( var_0 )
         return int( tablelookup( "mp/rankTable.csv", 0, var_0, 13 ) );
 }
 
-_id_1208( var_0, var_1, var_2, var_3, var_4 )
+awardgameevent( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( maps\mp\_utility::_id_4FA6() )
         return;
@@ -274,7 +274,7 @@ _id_1208( var_0, var_1, var_2, var_3, var_4 )
 
     var_1 _id_41FF( var_0, undefined, var_2, var_4, undefined, var_3 );
 
-    if ( _id_0AAE( var_0 ) )
+    if ( allowplayerscore( var_0 ) )
         var_1 maps\mp\gametypes\_gamescores::_id_41FC( var_0, var_1, var_3 );
 }
 
@@ -351,7 +351,7 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
                 var_6 = int( var_6 );
             }
 
-            var_7 = self _meth_852e();
+            var_7 = self _meth_852E();
             break;
     }
 
@@ -437,7 +437,7 @@ _id_9B53()
 
     if ( var_1 <= level._id_5A50 )
     {
-        var_4 = level.ranktable[var_1][1];
+        var_4 = level._id_713A[var_1][1];
         var_5 = int( var_4[var_4.size - 1] );
 
         if ( var_5 > 1 )
@@ -491,8 +491,8 @@ _id_A3A6( var_0, var_1 )
         return;
     }
 
-    self.xpupdatetotal += var_1;
-    self setclientomnvar( "ui_points_popup", self.xpupdatetotal );
+    self._id_A3AB += var_1;
+    self setclientomnvar( "ui_points_popup", self._id_A3AB );
 
     if ( !isdefined( var_2 ) || isdefined( var_2 ) && var_2 == -1 )
     {
@@ -502,7 +502,7 @@ _id_A3A6( var_0, var_1 )
         self setclientomnvar( "ui_points_popup_event", var_2 );
 
     wait 1;
-    self.xpupdatetotal = 0;
+    self._id_A3AB = 0;
 }
 
 _id_40A9()
@@ -514,7 +514,7 @@ _id_40A9()
     if ( var_0 < _id_40AF( var_1 ) + _id_40B0( var_1 ) )
         return var_1;
     else
-        return _func_2ec( var_0, var_2 );
+        return _func_2EC( var_0, var_2 );
 }
 
 _id_409B()
@@ -580,7 +580,7 @@ processprestigemastery( var_0, var_1 )
     {
         var_4 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
         var_5 = var_4 >= 3;
-        self.pers["prestigeMaster2"] = self _meth_853e();
+        self.pers["prestigeMaster2"] = self _meth_853E();
 
         if ( isdefined( self.pers["prestigeMaster2"] ) && !var_5 )
             return "prestigeMaster2";
@@ -590,7 +590,7 @@ processprestigemastery( var_0, var_1 )
     {
         var_4 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
         var_5 = var_4 >= 2;
-        self.pers["prestigeMaster"] = self _meth_853e();
+        self.pers["prestigeMaster"] = self _meth_853E();
 
         if ( isdefined( self.pers["prestigeMaster"] ) && !var_5 )
             return "prestigeMaster";

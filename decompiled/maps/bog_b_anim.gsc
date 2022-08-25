@@ -37,9 +37,9 @@ main()
     level._id_78AC["alley_door_kicker_left"]["enter"] = %breach_kick_stackl1_enter;
     level._id_78AC["alley_door_kicker_right"]["enter"] = %breach_kick_kickerr1_enter;
     level._id_78BA["alley_door_kicker_right"]["enter"] = "bog_gm1_breaching";
-    maps\_anim::_id_0807( "alley_door_kicker_right", "kick", maps\bog_b::alley_dooropen );
+    maps\_anim::addnotetrack_customfunction( "alley_door_kicker_right", "kick", maps\bog_b::alley_dooropen );
     level._id_78AC["price"]["alley_breach"] = %h1_bog_b_vasquez_door_breach_vasquez;
-    maps\_anim::_id_0807( "price", "door_kick", maps\bog_b::alley_dooropen, "alley_breach" );
+    maps\_anim::addnotetrack_customfunction( "price", "door_kick", maps\bog_b::alley_dooropen, "alley_breach" );
     level._id_78AC["alley_breach_buddy"]["alley_breach"] = %h1_bog_b_vasquez_door_breach_soldier;
     level._id_78BA["alley_breach_buddy"]["alley_breach"] = "bog_gm1_breaching";
     level._id_78AC["guard"]["stop"] = %bog_b_guard_stop;
@@ -58,12 +58,12 @@ main()
     level._id_78AC["price"]["react"] = %bog_b_spotter_react;
     level._id_78AC["casualcrouch"]["react"] = %bog_b_casualcrouch_react;
     level._id_78AC["price"]["new_react"] = %h1_bog_b_cheers_vasquez_react;
-    maps\_anim::_id_080B( "price", "dialog", "new_react", "bog_pri_niceshootingpig" );
-    maps\_anim::_id_0807( "price", "radio", maps\bog_b::docomingthroughaudio, "new_react" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "new_react", "bog_pri_niceshootingpig" );
+    maps\_anim::addnotetrack_customfunction( "price", "radio", maps\bog_b::docomingthroughaudio, "new_react" );
     level._id_78AC["guard"]["new_react"] = %h1_bog_b_cheers_soldier_left;
-    maps\_anim::_id_080B( "guard", "dialog", "new_react", "bog_gm1_wooyeah" );
+    maps\_anim::addnotetrack_dialogue( "guard", "dialog", "new_react", "bog_gm1_wooyeah" );
     level._id_78AC["casualcrouch"]["new_react"] = %h1_bog_b_cheers_soldier_right;
-    maps\_anim::_id_080B( "casualcrouch", "dialog", "new_react", "bog_gm4_talkinabout" );
+    maps\_anim::addnotetrack_dialogue( "casualcrouch", "dialog", "new_react", "bog_gm4_talkinabout" );
 
     if ( !isdefined( level._id_78B1 ) )
         level._id_78B1 = [];
@@ -228,11 +228,11 @@ exploder_script_model_anims()
 shoot_m1a1_anim()
 {
     self _meth_8144( %abrams_shoot_kick, 0 );
-    self _meth_814f( %abrams_shoot_kick );
+    self _meth_814F( %abrams_shoot_kick );
 }
 
 shoot_t72_anim()
 {
     self _meth_8144( %t72_shoot_kick, 0 );
-    self _meth_814f( %t72_shoot_kick );
+    self _meth_814F( %t72_shoot_kick );
 }

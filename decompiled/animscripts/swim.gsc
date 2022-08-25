@@ -53,10 +53,10 @@ _id_902F()
     self._id_9026._id_8D65["track_none"] = [ ::_id_9047, ::_id_9047 ];
     self._id_9026._id_8D65["track_forward"] = [ ::_id_9068, ::_id_9069 ];
     self._id_9026._id_8D65["track_strafe"] = [ ::_id_906B, ::_id_906C ];
-    self _meth_814e( _id_4100( "aim_stand_D" ) );
-    self _meth_814e( _id_4100( "aim_stand_U" ) );
-    self _meth_814e( _id_4100( "aim_stand_L" ) );
-    self _meth_814e( _id_4100( "aim_stand_R" ) );
+    self _meth_814E( _id_4100( "aim_stand_D" ) );
+    self _meth_814E( _id_4100( "aim_stand_U" ) );
+    self _meth_814E( _id_4100( "aim_stand_L" ) );
+    self _meth_814E( _id_4100( "aim_stand_R" ) );
     self._id_2564 = ::_id_9045;
     self._id_67D8 = 1;
     self._id_66F5 = ::_id_9049;
@@ -125,7 +125,7 @@ _id_5F81()
             if ( self._id_9026._id_5F7E != "combat_forward" )
                 _id_5F86( "combat_forward" );
 
-            if ( isdefined( self._id_1341 ) && self._id_1341 && lengthsquared( self.velocity ) )
+            if ( isdefined( self.bclearstrafeturnrate ) && self.bclearstrafeturnrate && lengthsquared( self.velocity ) )
             {
                 var_0 = vectortoangles( self.velocity );
 
@@ -143,11 +143,11 @@ _id_5F81()
                     else
                         self.turnrate = 0.03;
 
-                    self._id_1341 = undefined;
+                    self.bclearstrafeturnrate = undefined;
                 }
             }
             else
-                self._id_1341 = undefined;
+                self.bclearstrafeturnrate = undefined;
 
             var_1 = _id_4100( "forward_aim" );
         }
@@ -267,7 +267,7 @@ _id_5F88()
         self.jumping = 0;
     }
 
-    self._id_1341 = 1;
+    self.bclearstrafeturnrate = 1;
 }
 
 _id_906A( var_0 )
@@ -282,10 +282,10 @@ _id_906A( var_0 )
 
 _id_9068()
 {
-    self _meth_814e( _id_4100( "aim_move_D" ) );
-    self _meth_814e( _id_4100( "aim_move_L" ) );
-    self _meth_814e( _id_4100( "aim_move_R" ) );
-    self _meth_814e( _id_4100( "aim_move_U" ) );
+    self _meth_814E( _id_4100( "aim_move_D" ) );
+    self _meth_814E( _id_4100( "aim_move_L" ) );
+    self _meth_814E( _id_4100( "aim_move_R" ) );
+    self _meth_814E( _id_4100( "aim_move_U" ) );
     thread _id_5F8E();
 }
 
@@ -315,9 +315,9 @@ _id_5F8E()
     self endon( "killanimscript" );
     self endon( "end_face_enemy_tracking" );
 
-    if ( !isdefined( self._id_0972 ) )
+    if ( !isdefined( self.aim_while_moving_thread ) )
     {
-        self._id_0972 = 1;
+        self.aim_while_moving_thread = 1;
         animscripts\combat::_id_7E08();
 
         if ( animscripts\utility::_id_51B0() )
@@ -514,10 +514,10 @@ _id_9045()
 
 _id_9060()
 {
-    self _meth_814e( _id_4100( "turn_add_l" ) );
-    self _meth_814e( _id_4100( "turn_add_r" ) );
-    self _meth_814e( _id_4100( "turn_add_u" ) );
-    self _meth_814e( _id_4100( "turn_add_d" ) );
+    self _meth_814E( _id_4100( "turn_add_l" ) );
+    self _meth_814E( _id_4100( "turn_add_r" ) );
+    self _meth_814E( _id_4100( "turn_add_u" ) );
+    self _meth_814E( _id_4100( "turn_add_d" ) );
     self._id_6F6B = 0;
     self._id_6F6A = 0;
 }
@@ -688,7 +688,7 @@ _id_9064()
     if ( isdefined( self._id_2AF3 ) && self._id_2AF3 )
         return;
 
-    self._id_9026._id_0D26 = self.pathgoalpos;
+    self._id_9026.arrivalpathgoalpos = self.pathgoalpos;
 
     if ( isdefined( self getnegotiationstartnode() ) )
         return;
@@ -706,7 +706,7 @@ _id_904A()
     self endon( "killanimscript" );
     self endon( "swim_killrestartlistener" );
     self waittill( "path_set" );
-    var_0 = isdefined( self.pathgoalpos ) && isdefined( self._id_9026._id_0D26 ) && distancesquared( self.pathgoalpos, self._id_9026._id_0D26 ) < 4;
+    var_0 = isdefined( self.pathgoalpos ) && isdefined( self._id_9026.arrivalpathgoalpos ) && distancesquared( self.pathgoalpos, self._id_9026.arrivalpathgoalpos ) < 4;
 
     if ( var_0 )
     {
@@ -759,7 +759,7 @@ _id_902C()
     self endon( "swim_cancelapproach" );
     self endon( "swim_killrestartlistener" );
     var_0 = animscripts\cover_arrival::_id_3F00();
-    self._id_0CBC = _id_903F( var_0 );
+    self.approachtype = _id_903F( var_0 );
     self.requestarrivalnotify = 1;
     self waittill( "cover_approach", var_1 );
     var_0 = animscripts\cover_arrival::_id_3F00();
@@ -843,7 +843,7 @@ _id_9038( var_0, var_1, var_2, var_3, var_4 )
 {
     self endon( "killanimscript" );
     self endon( "swim_cancelapproach" );
-    self._id_0CBC = var_0;
+    self.approachtype = var_0;
     var_5 = spawnstruct();
 
     if ( !_id_9037( var_5, var_0, var_1, var_2, var_3, var_4 ) )
@@ -873,7 +873,7 @@ _id_9038( var_0, var_1, var_2, var_3, var_4 )
     {
         if ( var_8 < 12 || self.fixednode || !isdefined( self.node ) || !animscripts\cover_arrival::_id_51D4() )
         {
-            self._id_9026._id_0D26 = var_5._id_58C2;
+            self._id_9026.arrivalpathgoalpos = var_5._id_58C2;
             self _meth_8162( var_5._id_58C2 );
 
             if ( animscripts\utility::_id_51B0() )
@@ -905,23 +905,23 @@ _id_9038( var_0, var_1, var_2, var_3, var_4 )
     if ( !_id_9037( var_5, var_0, var_1, var_14, var_3, var_4 ) )
         return;
 
-    self._id_9026._id_0D23 = var_5._id_58BE;
+    self._id_9026.arrivalanim = var_5._id_58BE;
 
     if ( animscripts\utility::_id_51B0() )
-        var_15 = self _meth_81e7( var_5._id_58C2, var_4[1] - var_5._id_58BD[1], var_4[0] - var_5._id_58BD[0], var_4, var_5._id_58BD );
+        var_15 = self _meth_81E7( var_5._id_58C2, var_4[1] - var_5._id_58BD[1], var_4[0] - var_5._id_58BD[0], var_4, var_5._id_58BD );
     else
-        self _meth_81e7( var_5._id_58C2, var_4[1] - var_5._id_58BD[1], var_4[0] - var_5._id_58BD[0] );
+        self _meth_81E7( var_5._id_58C2, var_4[1] - var_5._id_58BD[1], var_4[0] - var_5._id_58BD[0] );
 }
 
 _id_9035()
 {
     self endon( "killanimscript" );
     self endon( "abort_approach" );
-    var_0 = "arrival_" + self._id_0CBC;
-    var_1 = self._id_9026._id_0D23;
+    var_0 = "arrival_" + self.approachtype;
+    var_1 = self._id_9026.arrivalanim;
 
     if ( !self.fixednode )
-        thread animscripts\cover_arrival::_id_06BE();
+        thread animscripts\cover_arrival::abortapproachifthreatened();
 
     var_2 = 0.4;
 
@@ -940,7 +940,7 @@ _id_9035()
 
     self.a._id_6E5A = "stand";
     self.a._id_5F5B = "stop";
-    self.a._id_0D29 = self._id_0CBC;
+    self.a.arrivaltype = self.approachtype;
 
     if ( animscripts\utility::_id_51B0() )
     {
@@ -950,9 +950,9 @@ _id_9035()
 
     self _meth_8144( %animscript_root, 0.3 );
     self._id_5575 = undefined;
-    self._id_9026._id_0D23 = undefined;
+    self._id_9026.arrivalanim = undefined;
 
-    if ( animscripts\utility::_id_51B0() && self._id_0CBC == "exposed" )
+    if ( animscripts\utility::_id_51B0() && self.approachtype == "exposed" )
         self notify( "force_space_rotation_update", 0, 0, undefined, 1 );
 }
 
@@ -988,10 +988,10 @@ _id_9044( var_0, var_1, var_2, var_3, var_4 )
     if ( var_2 )
     {
         var_1 = rotatevector( var_1, var_4 ) + var_3;
-        return self _meth_81c8( var_3, var_1, 0, 1 );
+        return self _meth_81C8( var_3, var_1, 0, 1 );
     }
 
-    return self _meth_81c8( var_0, var_1, 0, 1 );
+    return self _meth_81C8( var_0, var_1, 0, 1 );
 }
 
 _id_9036( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
@@ -1082,13 +1082,13 @@ _id_903D( var_0, var_1 )
 
 _id_9040( var_0 )
 {
-    var_1 = anim._id_0CCA["soldier"]["swim"][var_0]["maxDelta"];
+    var_1 = anim.archetypes["soldier"]["swim"][var_0]["maxDelta"];
 
-    if ( isdefined( self._id_0C4D ) && self._id_0C4D != "soldier" )
+    if ( isdefined( self.animarchetype ) && self.animarchetype != "soldier" )
     {
-        if ( isdefined( anim._id_0CCA[self._id_0C4D]["swim"] ) && isdefined( anim._id_0CCA[self._id_0C4D]["swim"][var_0] ) )
+        if ( isdefined( anim.archetypes[self.animarchetype]["swim"] ) && isdefined( anim.archetypes[self.animarchetype]["swim"][var_0] ) )
         {
-            var_2 = anim._id_0CCA[self._id_0C4D]["swim"][var_0]["maxDelta"];
+            var_2 = anim.archetypes[self.animarchetype]["swim"][var_0]["maxDelta"];
 
             if ( var_2 > var_1 )
                 var_1 = var_2;
@@ -1256,10 +1256,10 @@ _id_9041()
 _id_9063( var_0, var_1, var_2, var_3 )
 {
     var_4 = _id_9041();
-    self _meth_814d( %combatrun_forward, var_0, var_4, 1, 1 );
-    self _meth_814d( %combatrun_backward, var_1, var_4, 1, 1 );
-    self _meth_814d( %combatrun_left, var_2, var_4, 1, 1 );
-    self _meth_814d( %combatrun_right, var_3, var_4, 1, 1 );
+    self _meth_814D( %combatrun_forward, var_0, var_4, 1, 1 );
+    self _meth_814D( %combatrun_backward, var_1, var_4, 1, 1 );
+    self _meth_814D( %combatrun_left, var_2, var_4, 1, 1 );
+    self _meth_814D( %combatrun_right, var_3, var_4, 1, 1 );
 
     if ( var_0 > 0 )
         return "front";
@@ -1337,10 +1337,10 @@ _id_906E()
 
 _id_9062( var_0, var_1, var_2, var_3 )
 {
-    self _meth_814d( %w_aim_4, var_2, 0.2, 1, 1 );
-    self _meth_814d( %w_aim_6, var_3, 0.2, 1, 1 );
-    self _meth_814d( %w_aim_8, var_0, 0.2, 1, 1 );
-    self _meth_814d( %w_aim_2, var_1, 0.2, 1, 1 );
+    self _meth_814D( %w_aim_4, var_2, 0.2, 1, 1 );
+    self _meth_814D( %w_aim_6, var_3, 0.2, 1, 1 );
+    self _meth_814D( %w_aim_8, var_0, 0.2, 1, 1 );
+    self _meth_814D( %w_aim_2, var_1, 0.2, 1, 1 );
 }
 
 _id_9049( var_0, var_1 )
@@ -1388,16 +1388,16 @@ _id_906D()
         if ( self._id_6F6B <= 0 && var_0 < 0.075 )
             var_0 = 0;
 
-        self _meth_814d( %add_turn_l, var_0, 0.2, 1, 1 );
-        self _meth_814d( %add_turn_r, 0.0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_l, var_0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_r, 0.0, 0.2, 1, 1 );
     }
     else
     {
         if ( self._id_6F6B >= 0 && var_0 > -0.075 )
             var_0 = 0;
 
-        self _meth_814d( %add_turn_l, 0, 0.2, 1, 1 );
-        self _meth_814d( %add_turn_r, 0 - var_0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_l, 0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_r, 0 - var_0, 0.2, 1, 1 );
     }
 
     self._id_6F6B = var_0;
@@ -1408,16 +1408,16 @@ _id_906D()
         if ( self._id_6F6A <= 0 && var_0 < 0.075 )
             var_0 = 0;
 
-        self _meth_814d( %add_turn_d, var_0, 0.2, 1, 1 );
-        self _meth_814d( %add_turn_u, 0.0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_d, var_0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_u, 0.0, 0.2, 1, 1 );
     }
     else
     {
         if ( self._id_6F6A >= 0 && var_0 > -0.075 )
             var_0 = 0;
 
-        self _meth_814d( %add_turn_d, 0, 0.2, 1, 1 );
-        self _meth_814d( %add_turn_u, 0 - var_0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_d, 0, 0.2, 1, 1 );
+        self _meth_814D( %add_turn_u, 0 - var_0, 0.2, 1, 1 );
     }
 
     self._id_6F6A = var_0;

@@ -37,9 +37,9 @@ main()
     {
         var_0 = undefined;
         var_0 = getrunanimweights();
-        self _meth_814f( %german_shepherd_run, var_0["center"], 0.2, 1 );
-        self _meth_814f( %german_shepherd_run_lean_l, var_0["left"], 0.1, 1 );
-        self _meth_814f( %german_shepherd_run_lean_r, var_0["right"], 0.1, 1 );
+        self _meth_814F( %german_shepherd_run, var_0["center"], 0.2, 1 );
+        self _meth_814F( %german_shepherd_run_lean_l, var_0["left"], 0.1, 1 );
+        self _meth_814F( %german_shepherd_run_lean_r, var_0["right"], 0.1, 1 );
         self _meth_8154( "dog_run", %german_shepherd_run_knob, 1, 0.2, self._id_5F65 );
         animscripts\notetracks::_id_2D0B( 0.1, "dog_run" );
     }
@@ -100,9 +100,9 @@ moveloopstep()
     {
         var_0 = getrunanimweights();
         self _meth_8144( %german_shepherd_walk, 0.3 );
-        self _meth_814d( %german_shepherd_run, var_0["center"], 0.2, 1 );
-        self _meth_814d( %german_shepherd_run_lean_l, var_0["left"], 0.1, 1 );
-        self _meth_814d( %german_shepherd_run_lean_r, var_0["right"], 0.1, 1 );
+        self _meth_814D( %german_shepherd_run, var_0["center"], 0.2, 1 );
+        self _meth_814D( %german_shepherd_run_lean_l, var_0["left"], 0.1, 1 );
+        self _meth_814D( %german_shepherd_run_lean_r, var_0["right"], 0.1, 1 );
         self _meth_8154( "dog_run", %german_shepherd_run_knob, 1, 0.2, self._id_5F65 );
         animscripts\notetracks::_id_2D0B( 0.2, "dog_run" );
     }
@@ -243,7 +243,7 @@ playmovestartanim()
         var_2 = distancesquared( self.origin, self.pathgoalpos ) < var_1 * var_1;
         var_3 = vectortoangles( self.lookaheaddir );
 
-        if ( !var_2 && self _meth_81c7( var_0 ) )
+        if ( !var_2 && self _meth_81C7( var_0 ) )
         {
             var_4 = angleclamp180( var_3[1] - self.angles[1] );
 
@@ -263,7 +263,7 @@ playmovestartanim()
             else
                 var_5 = 1;
 
-            self _meth_814f( anim.dogstartmoveanim[var_5], 1, 0.2, 1 );
+            self _meth_814F( anim.dogstartmoveanim[var_5], 1, 0.2, 1 );
             var_6 = self.angles[1] + anim.dogstartmoveangles[var_5];
             var_7 = angleclamp180( var_3[1] - var_6 );
             self _meth_8193( "face angle", self.angles[1] + var_7 );

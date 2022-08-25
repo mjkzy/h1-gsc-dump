@@ -41,9 +41,9 @@ main()
     var_1 = _id_7A4B();
 
     foreach ( var_3 in var_1 )
-        var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( var_3, "classname" ) );
+        var_0 = common_scripts\utility::array_combine( var_0, getentarray( var_3, "classname" ) );
 
-    common_scripts\utility::_id_0D13( var_0, ::_id_7A56 );
+    common_scripts\utility::array_thread( var_0, ::_id_7A56 );
 }
 
 _id_7A4B()
@@ -98,8 +98,8 @@ _id_7A43( var_0, var_1, var_2, var_3 )
         level._id_7A49[var_0] = [];
 
     var_4 = spawnstruct();
-    var_4._id_0C72 = var_1;
-    var_4._id_0C79 = var_2;
+    var_4.animname = var_1;
+    var_4.animref = var_2;
     level._id_7A49[var_0][var_3] = var_4;
 }
 
@@ -249,7 +249,7 @@ _id_7A5C( var_0 )
     }
 }
 
-_id_0B9F( var_0 )
+anglesclamp180( var_0 )
 {
     return ( angleclamp180( var_0[0] ), angleclamp180( var_0[1] ), angleclamp180( var_0[2] ) );
 }
@@ -525,9 +525,9 @@ _id_7A66( var_0, var_1 )
         thread _id_7A53();
 
     if ( isdefined( self._id_7B39 ) )
-        self _meth_8487( var_0._id_0C72, self._id_7B39.origin, self._id_7B39.angles, "script_mover_anim" );
+        self _meth_8487( var_0.animname, self._id_7B39.origin, self._id_7B39.angles, "script_mover_anim" );
     else
-        self _meth_8277( var_0._id_0C72, "script_mover_anim" );
+        self _meth_8277( var_0.animname, "script_mover_anim" );
 }
 
 _id_7A53()
@@ -601,7 +601,7 @@ _id_7A5D( var_0 )
             var_6 = 1;
         }
 
-        if ( _id_0B9F( var_8["angles"] ) != _id_0B9F( var_2.angles ) )
+        if ( anglesclamp180( var_8["angles"] ) != anglesclamp180( var_2.angles ) )
         {
             if ( var_3 <= 0 )
             {
@@ -690,7 +690,7 @@ _id_7A57()
     if ( !isdefined( self.angles ) )
         self.angles = ( 0.0, 0.0, 0.0 );
 
-    self.angles = _id_0B9F( self.angles );
+    self.angles = anglesclamp180( self.angles );
     _id_7A63( self._id_7A99 );
 }
 
@@ -891,7 +891,7 @@ _id_6C44()
 
         if ( isagent( self ) && isdefined( self.animclass ) )
         {
-            if ( self _meth_854b() == "noclip" )
+            if ( self _meth_854B() == "noclip" )
                 continue;
         }
 
@@ -1015,10 +1015,10 @@ _id_9A60( var_0 )
 
 _id_5F6D()
 {
-    if ( isdefined( level.ishorde ) && !isagent( self ) )
+    if ( isdefined( level._id_511D ) && !isagent( self ) )
         return;
 
-    maps\mp\_utility::_id_066F();
+    maps\mp\_utility::_suicide();
 }
 
 _id_6BCC( var_0 )

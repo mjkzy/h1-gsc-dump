@@ -1644,14 +1644,14 @@ context_sensative_dialog_kill_thread()
 
 context_sensative_dialog_locations()
 {
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_car", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "car" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_truck", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "truck" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_building", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "building" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_wall", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "wall" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_field", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "field" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_road", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "road" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_church", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "church" );
-    common_scripts\utility::_id_0D13( getentarray( "context_dialog_ditch", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "ditch" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_car", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "car" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_truck", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "truck" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_building", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "building" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_wall", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "wall" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_field", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "field" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_road", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "road" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_church", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "church" );
+    common_scripts\utility::array_thread( getentarray( "context_dialog_ditch", "targetname" ), ::context_sensative_dialog_locations_add_notify_event, "ditch" );
     thread context_sensative_dialog_locations_thread();
 }
 
@@ -1852,7 +1852,7 @@ playsoundoverradio( var_0, var_1, var_2 )
         }
     }
 
-    level.radioforcedtransmissionqueue = maps\_utility::_id_0CFA( level.radioforcedtransmissionqueue, 0 );
+    level.radioforcedtransmissionqueue = maps\_utility::array_remove_index( level.radioforcedtransmissionqueue, 0 );
 }
 
 playaliasoverradio( var_0 )

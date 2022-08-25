@@ -110,7 +110,7 @@ playerupdatecamera()
             var_2._id_256A = 1;
             level._id_9EA2 = var_3;
             var_7 = level._id_9EAB[var_3];
-            var_2._id_117A = var_7._id_117A;
+            var_2.avatar_spawnpoint = var_7.avatar_spawnpoint;
         }
 
         var_1._id_5D35 = var_1._id_60B3;
@@ -164,7 +164,7 @@ playerupdatecamera()
 _id_9EA7()
 {
     var_0 = self;
-    var_0 _meth_84a5();
+    var_0 _meth_84A5();
 }
 
 setavatarweaponroomdofdelayed( var_0 )
@@ -245,7 +245,7 @@ vl_dof_based_on_focus_weap_cac( var_0 )
 playervlsetphysicaldepthoffield( var_0, var_1 )
 {
     var_2 = level._id_1A3E._id_2C74;
-    self _meth_84a7( var_0, var_1, var_2, var_2 * 2 );
+    self _meth_84A7( var_0, var_1, var_2, var_2 * 2 );
     self notify( "playerVlSetPhysicalDepthOfField" );
 }
 
@@ -319,9 +319,9 @@ updatecameracacweap( var_0, var_1 )
 
 updatecameracac( var_0, var_1, var_2, var_3 )
 {
-    var_4 = var_2._id_117A.origin + anglestoforward( var_2._id_117A.angles ) * var_1.gamelobbygroup_camera_normaldistance;
+    var_4 = var_2.avatar_spawnpoint.origin + anglestoforward( var_2.avatar_spawnpoint.angles ) * var_1.gamelobbygroup_camera_normaldistance;
     var_5 = ( var_4[0], var_4[1], var_1.gamelobbygroup_camera_normalz );
-    var_6 = ( 0, var_2._id_117A.angles[1] + 180 + var_3, 0 );
+    var_6 = ( 0, var_2.avatar_spawnpoint.angles[1] + 180 + var_3, 0 );
     var_0._id_256A = 1;
     var_0 _id_1A30( var_5 );
     var_0 _id_1A44( var_6 );
@@ -361,9 +361,9 @@ updatecameraarmory( var_0, var_1, var_2, var_3 )
 
 updatecameraequip( var_0, var_1, var_2, var_3 )
 {
-    var_4 = var_2._id_117A.origin + anglestoforward( var_2._id_117A.angles ) * var_1.gamelobbygroup_camera_normaldistance;
+    var_4 = var_2.avatar_spawnpoint.origin + anglestoforward( var_2.avatar_spawnpoint.angles ) * var_1.gamelobbygroup_camera_normaldistance;
     var_5 = ( var_4[0], var_4[1], var_1.gamelobbygroup_camera_normalz );
-    var_6 = ( 0, var_2._id_117A.angles[1] + 180 + var_3, 0 );
+    var_6 = ( 0, var_2.avatar_spawnpoint.angles[1] + 180 + var_3, 0 );
     var_0._id_256A = 1;
     var_0 _id_1A30( var_5 );
     var_0 _id_1A44( var_6 );

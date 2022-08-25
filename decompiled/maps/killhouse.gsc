@@ -60,17 +60,17 @@ main()
     else
         maps\_utility::_id_278B( ::look_training );
 
-    maps\_utility::_id_079C( "inside", ::inside_start, &"STARTS_INSIDE" );
-    maps\_utility::_id_079C( "shoot", ::rifle_start, &"STARTS_SHOOT" );
-    maps\_utility::_id_079C( "timed", ::rifle_timed_start, &"STARTS_TIMED" );
-    maps\_utility::_id_079C( "sidearm", ::sidearm_start, &"STARTS_SIDEARM" );
-    maps\_utility::_id_079C( "frag", ::frag_start, &"STARTS_FRAG" );
-    maps\_utility::_id_079C( "launcher", ::launcher_start, &"STARTS_LAUNCHER" );
-    maps\_utility::_id_079C( "explosives", ::explosives_start, &"STARTS_C4" );
-    maps\_utility::_id_079C( "course", ::obstacle_start, &"STARTS_OBSTACLE" );
-    maps\_utility::_id_079C( "ship", ::reveal_start, &"STARTS_SHIP" );
-    maps\_utility::_id_079C( "mp5", ::cargoship_start, &"STARTS_MP5" );
-    maps\_utility::_id_079C( "debrief", ::debrief_start, &"STARTS_DEBRIEF" );
+    maps\_utility::add_start( "inside", ::inside_start, &"STARTS_INSIDE" );
+    maps\_utility::add_start( "shoot", ::rifle_start, &"STARTS_SHOOT" );
+    maps\_utility::add_start( "timed", ::rifle_timed_start, &"STARTS_TIMED" );
+    maps\_utility::add_start( "sidearm", ::sidearm_start, &"STARTS_SIDEARM" );
+    maps\_utility::add_start( "frag", ::frag_start, &"STARTS_FRAG" );
+    maps\_utility::add_start( "launcher", ::launcher_start, &"STARTS_LAUNCHER" );
+    maps\_utility::add_start( "explosives", ::explosives_start, &"STARTS_C4" );
+    maps\_utility::add_start( "course", ::obstacle_start, &"STARTS_OBSTACLE" );
+    maps\_utility::add_start( "ship", ::reveal_start, &"STARTS_SHIP" );
+    maps\_utility::add_start( "mp5", ::cargoship_start, &"STARTS_MP5" );
+    maps\_utility::add_start( "debrief", ::debrief_start, &"STARTS_DEBRIEF" );
     precacheshader( "objective" );
     precacheshader( "hud_icon_c4" );
     precacheshader( "hud_dpad" );
@@ -264,8 +264,8 @@ main()
     maps\_c4::main();
     maps\createart\killhouse_art::main();
     maps\_drone_ai::init();
-    maps\_utility::_id_1332( "allies" );
-    maps\_utility::_id_1332( "axis" );
+    maps\_utility::battlechatter_off( "allies" );
+    maps\_utility::battlechatter_off( "axis" );
     level.curobjective = 1;
     level._id_6302 = [];
     level.currentkeyhintactionname = "";
@@ -371,9 +371,9 @@ main()
     foreach ( var_8 in var_6 )
         var_8 thread maps\killhouse_code::ammorespawnthink( undefined, "usp" );
 
-    common_scripts\utility::_id_0D13( getentarray( "pickup_sidearm", "targetname" ), maps\killhouse_code::ammorespawnthink, "spawn_sidearms", "usp" );
-    common_scripts\utility::_id_0D13( var_1, maps\killhouse_code::ammorespawnthink, "spawn_frags", "fraggrenade", "got_frags" );
-    common_scripts\utility::_id_0D13( var_2, maps\killhouse_code::ammorespawnthink, "spawn_launcher", "alt_m16_grenadier" );
+    common_scripts\utility::array_thread( getentarray( "pickup_sidearm", "targetname" ), maps\killhouse_code::ammorespawnthink, "spawn_sidearms", "usp" );
+    common_scripts\utility::array_thread( var_1, maps\killhouse_code::ammorespawnthink, "spawn_frags", "fraggrenade", "got_frags" );
+    common_scripts\utility::array_thread( var_2, maps\killhouse_code::ammorespawnthink, "spawn_launcher", "alt_m16_grenadier" );
     level.gunprimary = "g36c";
     level.gunprimaryclipammo = 30;
     level.gunsidearm = "usp";
@@ -414,7 +414,7 @@ main()
     foreach ( var_23 in var_21 )
         var_23 maps\_vehicle::_id_9D02( "running" );
 
-    common_scripts\utility::_id_0D13( getentarray( "level_scripted_unloadnode", "script_noteworthy" ), maps\killhouse_code::level_scripted_unloadnode );
+    common_scripts\utility::array_thread( getentarray( "level_scripted_unloadnode", "script_noteworthy" ), maps\killhouse_code::level_scripted_unloadnode );
     thread maps\killhouse_code::setup_player_action_notifies();
     var_25 = getentarray( "launcher_aim_assist", "script_noteworthy" );
 
@@ -426,8 +426,8 @@ main()
 
     thread maps\killhouse_code::new_look_training_setup();
     var_26 = getaispeciesarray( "allies", "all" );
-    common_scripts\utility::_id_0D13( var_26, maps\_utility::_id_58D7 );
-    common_scripts\utility::_id_0D13( var_26, maps\killhouse_code::fail_on_damage );
+    common_scripts\utility::array_thread( var_26, maps\_utility::_id_58D7 );
+    common_scripts\utility::array_thread( var_26, maps\killhouse_code::fail_on_damage );
     thread maps\killhouse_code::glowing_rope();
     thread maps\killhouse_code::chair_guy_setup();
     thread maps\killhouse_code::firearmdepot_guy_think();
@@ -452,7 +452,7 @@ main()
 
     level.gaz_talk_anim_chance = 0;
     level._id_4C12 = [];
-    level._id_071A = [];
+    level.active_objective = [];
     setsaveddvar( "dynEnt_playerWakeUpRadius", 1000 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 1.0 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 1.0 );
@@ -487,7 +487,7 @@ levelstart_lighteffects()
     maps\_utility::_id_7F00( var_0 );
     maps\_utility::_id_395E( var_1 );
     level.player maps\_utility::set_light_set_player( var_2 );
-    level.player _meth_848c( var_3, 1 );
+    level.player _meth_848C( var_3, 1 );
 }
 
 shootingrange_vo_togetback()
@@ -843,13 +843,13 @@ humvee_walkers()
     var_1._id_2B0E = 1;
     var_4 = getent( "humvee_walkers_trigger", "targetname" );
     var_4 waittill( "trigger" );
-    var_0 _meth_81a9( var_2 );
+    var_0 _meth_81A9( var_2 );
     wait 0.35;
-    var_1 _meth_81a9( var_3 );
+    var_1 _meth_81A9( var_3 );
     var_0 maps\_utility::_id_7E4E( 5 );
     var_1 maps\_utility::_id_7E4E( 5 );
-    var_0 maps\_utility::_id_07BE( maps\_utility::_id_A099, "goal" );
-    var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "goal" );
+    var_0 maps\_utility::add_wait( maps\_utility::_id_A099, "goal" );
+    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "goal" );
     var_0 thread humvee_walker_think();
     var_1 thread humvee_walker_think();
     maps\_utility::_id_2BDC();
@@ -916,7 +916,7 @@ look_training()
         setdvar( "ui_start_inverted", 1 );
 
     wait 0.1;
-    level.player _meth_84ed( &"MENU_TYPE_INVERT_AXIS" );
+    level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS" );
     level.player freezecontrols( 1 );
     setblur( 2, 0.1 );
     level.player waittill( "menuresponse", var_1, var_2 );
@@ -952,7 +952,7 @@ look_training()
         }
 
         maps\killhouse_code::_id_1EBE();
-        level.player _meth_84ed( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
+        level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
         level.player freezecontrols( 1 );
         setblur( 2, 0.1 );
         level.player waittill( "menuresponse", var_1, var_2 );
@@ -976,7 +976,7 @@ rappel_heli_loop_system()
         var_1 maps\_vehicle::_id_9D02( "running" );
         wait 1;
         common_scripts\utility::_id_383F( "waiting_for_rappel_runners" );
-        var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "reached_dynamic_path_end" );
+        var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "reached_dynamic_path_end" );
         maps\_utility::_id_2BDC();
         wait(randomfloatrange( 10.0, 20.0 ));
     }
@@ -1052,7 +1052,7 @@ inside_start()
 door_to_rifle_handler()
 {
     var_0 = getnode( "gaz_intro", "targetname" );
-    var_0 thread maps\_anim::_id_0BC7( level.waters, "intro" );
+    var_0 thread maps\_anim::anim_first_frame_solo( level.waters, "intro" );
     common_scripts\utility::_id_384A( "introscreen_complete" );
     var_0 thread gaz_intro();
     level notify( "navigationTraining_end" );
@@ -1064,10 +1064,10 @@ door_to_rifle_handler()
 
 gaz_intro()
 {
-    maps\_anim::_id_0C24( level.waters, "intro" );
+    maps\_anim::anim_single_solo( level.waters, "intro" );
     level.waters _meth_8202( level.player, 1 );
     common_scripts\utility::_id_383F( "gaz_intro_done" );
-    thread maps\_anim::_id_0BE1( level.waters, "intro_idle", undefined, "end_idle" );
+    thread maps\_anim::anim_loop_solo( level.waters, "intro_idle", undefined, "end_idle" );
 }
 
 rifle_start()
@@ -1097,7 +1097,7 @@ rifletraining()
     common_scripts\utility::_id_384A( "gaz_intro_done" );
     level.waters _meth_8202();
     close_firing_range_door();
-    maps\_utility::_id_1143( "rifle_training" );
+    maps\_utility::autosave_by_name( "rifle_training" );
     maps\killhouse_code::setobjectivestate( "obj_rifle", "current" );
     maps\killhouse_code::setobjectivestring( "obj_rifle", &"KILLHOUSE_ENTER_STATION_NUMBER" );
     maps\killhouse_code::setobjectivelocation( "obj_rifle", getent( "obj_rifle_stall", "targetname" ) );
@@ -1195,7 +1195,7 @@ new_look_training_handler()
     if ( common_scripts\utility::_id_382E( "player_has_look_problem" ) )
     {
         wait 0.1;
-        level.player _meth_84ed( &"MENU_TYPE_INVERT_AXIS" );
+        level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS" );
         level.player freezecontrols( 1 );
         setblur( 2, 0.1 );
         level.player waittill( "menuresponse", var_4, var_5 );
@@ -1207,7 +1207,7 @@ new_look_training_handler()
             level.waters thread maps\killhouse_code::execdialog( "onemoretime" );
             var_1 maps\killhouse_code::new_look_wait_for_target( 90, -90 );
             var_0 maps\killhouse_code::new_look_wait_for_target( 90, -90 );
-            level.player _meth_84ed( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
+            level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
             level.player freezecontrols( 1 );
             setblur( 2, 0.1 );
             level.player waittill( "menuresponse", var_4, var_5 );
@@ -1476,7 +1476,7 @@ sidearm_training()
 {
     common_scripts\utility::_id_383F( "aa_sidearm_melee" );
     level notify( "sideArmTraining_begin" );
-    maps\_utility::_id_1143( "sidearm_training" );
+    maps\_utility::autosave_by_name( "sidearm_training" );
     common_scripts\utility::_id_383F( "spawn_sidearms" );
     thread maps\killhouse_code::gaz_animation( "killhouse_gaz_point_side" );
     level.waters maps\killhouse_code::execdialog( "getasidearm" );
@@ -1564,7 +1564,7 @@ melee_training()
     maps\killhouse_code::setobjectivestate( "obj_melee", "done" );
     level notify( "meleeTraining_end" );
     common_scripts\utility::_id_3831( "aa_sidearm_melee" );
-    maps\_utility::_id_1143( "melee_complete" );
+    maps\_utility::autosave_by_name( "melee_complete" );
 
     if ( level.short_training )
     {
@@ -1632,7 +1632,7 @@ infrontofvehiclescheck()
         var_1 maps\killhouse_aud::aud_bm21_tire_sounds();
     }
 
-    common_scripts\utility::_id_0D13( level.vehicletocheckarray, ::infrontofvehiclescheckplayerdist );
+    common_scripts\utility::array_thread( level.vehicletocheckarray, ::infrontofvehiclescheckplayerdist );
 
     for (;;)
     {
@@ -1697,15 +1697,15 @@ spawnwhendooropen()
     var_0 delete();
     var_1 delete();
     thread outside_blur();
-    common_scripts\utility::_id_0D13( getentarray( "ai_ambient", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_ambient_noprop_think );
-    maps\_utility::_id_0D0C( "patrol1", ::ai_patrol_think, 0, 1 );
-    maps\_utility::_id_0D0C( "jog1", ::ai_patrol_think, 1, 0 );
+    common_scripts\utility::array_thread( getentarray( "ai_ambient", "script_noteworthy" ), maps\_utility::add_spawn_function, ::ai_ambient_noprop_think );
+    maps\_utility::array_spawn_function_noteworthy( "patrol1", ::ai_patrol_think, 0, 1 );
+    maps\_utility::array_spawn_function_noteworthy( "jog1", ::ai_patrol_think, 1, 0 );
     get_joggers_start_pos();
     thread maps\killhouse_aud::aud_disable_bm21_idle();
     level.patroldudes = [];
     var_2 = getentarray( "friendlies_ambient", "targetname" );
-    var_2 = common_scripts\utility::_id_0CDD( var_2, getentarray( "friendlies_ambient_drill", "targetname" ) );
-    var_2 = common_scripts\utility::_id_0CDD( var_2, getentarray( "friendlies_ambient_guard", "targetname" ) );
+    var_2 = common_scripts\utility::array_combine( var_2, getentarray( "friendlies_ambient_drill", "targetname" ) );
+    var_2 = common_scripts\utility::array_combine( var_2, getentarray( "friendlies_ambient_guard", "targetname" ) );
     var_3 = getent( "ExplosiveTutoChecker", "targetname" );
     maps\_utility::_id_2F29( var_3, 1 );
 
@@ -1723,8 +1723,8 @@ spawnwhendooropen()
     thread joggers_formation();
     var_7 = maps\_vehicle::_id_23DE( 36 );
     var_8 = maps\_vehicle::_id_23DE( 33 );
-    common_scripts\utility::_id_0D13( var_7, ::monitor_vehicle_damage );
-    common_scripts\utility::_id_0D13( var_8, ::monitor_vehicle_damage );
+    common_scripts\utility::array_thread( var_7, ::monitor_vehicle_damage );
+    common_scripts\utility::array_thread( var_8, ::monitor_vehicle_damage );
     thread infrontofvehiclescheck();
     thread traffic();
     var_9 = maps\_vehicle::get_vehicle_from_targetname( "IntroSeaknight" );
@@ -1782,7 +1782,7 @@ dooropening_lighteffects()
     maps\_utility::_id_7F00( var_2, var_1 );
     maps\_utility::_id_395E( var_3, var_1 );
     level.player maps\_utility::set_light_set_player( var_4 );
-    level.player _meth_848c( var_5, var_1 );
+    level.player _meth_848C( var_5, var_1 );
     wait(var_1);
     var_1 = 3;
     var_2 = "killhouse";
@@ -1792,7 +1792,7 @@ dooropening_lighteffects()
     maps\_utility::_id_7F00( var_2, var_1 );
     maps\_utility::_id_395E( var_3, var_1 );
     level.player maps\_utility::set_light_set_player( var_4 );
-    level.player _meth_848c( var_5, var_1 );
+    level.player _meth_848C( var_5, var_1 );
     wait(var_1);
     var_0 common_scripts\utility::_id_97CE();
 }
@@ -1802,14 +1802,14 @@ bodysense_shootingrangedooropening()
     var_0 = getnode( "doorBodySensePos", "targetname" );
     level.playerview = maps\_utility::_id_88D1( "view_body_door" );
     level.playerview hide();
-    var_0 maps\_anim::_id_0BC7( level.playerview, "player_opendoor" );
+    var_0 maps\_anim::anim_first_frame_solo( level.playerview, "player_opendoor" );
     level.playerview maps\_utility::_id_5696( "tag_player", 1, 1, 0, 0, 0, 0 );
     level.player playerlinktodelta( level.playerview, "tag_player", 1, 0, 0, 0, 0 );
     level.bodysense_coll notsolid();
     var_1 = getent( "rifle_range_blockSun_coll", "targetname" );
     var_1 notsolid();
     level.playerview show();
-    var_0 maps\_anim::_id_0C24( level.playerview, "player_opendoor" );
+    var_0 maps\_anim::anim_single_solo( level.playerview, "player_opendoor" );
     level.player unlink();
     level.playerview delete();
     level.player setmovespeedscale( 1.0 );
@@ -2017,7 +2017,7 @@ frag_training()
     level notify( "fragTraining_begin" );
 
     if ( !common_scripts\utility::_id_382E( "cargoshipTutoDone" ) )
-        maps\_utility::_id_1143( "frag_training" );
+        maps\_utility::autosave_by_name( "frag_training" );
 
     common_scripts\utility::_id_383F( "start_frag_training" );
     common_scripts\utility::_id_384A( "near_grenade_area" );
@@ -2128,7 +2128,7 @@ launcher_trigger_think( var_0, var_1, var_2 )
     common_scripts\utility::_id_383D( var_0 );
     var_1.aim_assist = getent( var_1.script_noteworthy, "targetname" );
     var_1.light = getent( var_1.target, "targetname" );
-    var_1.aim_assist _meth_81b9();
+    var_1.aim_assist _meth_81B9();
 
     if ( !isdefined( var_2 ) )
         var_2 = 0;
@@ -2142,7 +2142,7 @@ launcher_trigger_think( var_0, var_1, var_2 )
 
         common_scripts\utility::_id_383F( var_0 );
         level.player playsound( "killhouse_buzzer" );
-        var_1.aim_assist _meth_81d7();
+        var_1.aim_assist _meth_81D7();
         return var_1;
     }
 }
@@ -2220,7 +2220,7 @@ launchertraining()
     level notify( "launcherTraining_begin" );
 
     if ( !common_scripts\utility::_id_382E( "cargoshipTutoDone" ) )
-        maps\_utility::_id_1143( "launcher_training" );
+        maps\_utility::autosave_by_name( "launcher_training" );
 
     common_scripts\utility::_id_383F( "spawn_launcher" );
 
@@ -2290,7 +2290,7 @@ launchertraining()
             var_1 notify( "flip_to_red" );
     }
 
-    common_scripts\utility::_id_0D13( getentarray( "gl_too_low", "targetname" ), ::gl_too_low_hint );
+    common_scripts\utility::array_thread( getentarray( "gl_too_low", "targetname" ), ::gl_too_low_hint );
     var_3 = getent( "launcher_damage_trigger1", "targetname" );
     var_4 = getent( "launcher_damage_trigger2", "targetname" );
     var_5 = getent( "launcher_damage_trigger3", "targetname" );
@@ -2393,7 +2393,7 @@ c4_training()
     level notify( "explosivesTraining_begin" );
 
     if ( !common_scripts\utility::_id_382E( "cargoshipTutoDone" ) )
-        maps\_utility::_id_1143( "c4_training" );
+        maps\_utility::autosave_by_name( "c4_training" );
 
     var_0 = maps\_utility::_id_3847( "explosives_pickup", getent( "c4_pickup", "targetname" ) );
     var_1 = getentarray( var_0.target, "targetname" );
@@ -2554,19 +2554,19 @@ obstacle_training()
 {
     var_0 = getent( "obstacle_course_prepare", "targetname" );
     var_1 = getent( "buddy1", "targetname" );
-    var_1 _meth_81a7( 1 );
+    var_1 _meth_81A7( 1 );
     var_1 maps\_utility::_id_2A8D();
     var_1._id_2AF3 = 1;
     var_1._id_2B0E = 1;
     var_2 = getnode( "obstacle_lane_node1", "targetname" );
     var_3 = getent( "buddy2", "targetname" );
-    var_3 _meth_81a7( 1 );
+    var_3 _meth_81A7( 1 );
     var_3 maps\_utility::_id_2A8D();
     var_3._id_2AF3 = 1;
     var_3._id_2B0E = 1;
     var_4 = getnode( "obstacle_lane_node2", "targetname" );
     var_5 = getent( "buddy3", "targetname" );
-    var_5 _meth_81a7( 1 );
+    var_5 _meth_81A7( 1 );
     var_5 maps\_utility::_id_2A8D();
     var_5._id_2AF3 = 1;
     var_5._id_2B0E = 1;
@@ -2578,11 +2578,11 @@ obstacle_training()
     var_5._id_2AF3 = 1;
     var_5.exitconditioncheckfunc = maps\killhouse_code::killhouse_guy_exitconditionoverride;
     var_0 waittill( "trigger" );
-    var_1 _meth_81a9( var_2 );
+    var_1 _meth_81A9( var_2 );
     wait 0.1;
-    var_3 _meth_81a9( var_4 );
+    var_3 _meth_81A9( var_4 );
     wait 0.1;
-    var_5 _meth_81a9( var_6 );
+    var_5 _meth_81A9( var_6 );
     getent( "obstacle_course_start", "targetname" ) waittill( "trigger" );
     var_7 = getent( "ai_obstacle_shooter", "targetname" );
     common_scripts\utility::_id_383F( "aa_obstacle" );
@@ -2597,7 +2597,7 @@ obstacle_training()
     var_7 thread ai_obstacle_course_shooter();
     maps\killhouse_code::setobjectivelocation( "obj_obstacle", getent( "obj_course_end", "targetname" ) );
     var_8 = getentarray( "move_mac", "targetname" );
-    common_scripts\utility::_id_0D13( var_8, maps\killhouse_code::move_mac );
+    common_scripts\utility::array_thread( var_8, maps\killhouse_code::move_mac );
     getent( "obstacleTraining_mantle", "targetname" ) waittill( "trigger" );
     thread maps\killhouse_code::keyhintmantle( 5.0 );
     common_scripts\utility::_id_384A( "obstacleTraining_crouch" );
@@ -2633,7 +2633,7 @@ obstacle_training()
 ai_obstacle_course_shooter()
 {
     var_0 = self stalingradspawn();
-    var_0 _meth_81a9( getnode( self.target, "targetname" ) );
+    var_0 _meth_81A9( getnode( self.target, "targetname" ) );
     var_0 waittill( "goal" );
     var_0 maps\_utility::_id_30B0();
     var_0.target_dummy = getent( "obstacle_shoot_target", "targetname" );
@@ -2648,7 +2648,7 @@ ai_obstacle_course_shooter()
             for ( var_2 = 0; var_2 < var_1; var_2++ )
             {
                 var_0._id_840F = var_0.target_dummy.origin;
-                var_0 _meth_81ea( 0.9, var_0.target_dummy.origin );
+                var_0 _meth_81EA( 0.9, var_0.target_dummy.origin );
                 wait 0.1;
             }
 
@@ -2738,17 +2738,17 @@ report_to_price()
     var_1 = getent( "sas1", "script_noteworthy" );
     var_2 = getent( "sas2", "script_noteworthy" );
     var_3 = getent( "sas3", "script_noteworthy" );
-    var_1._id_0C72 = "sas1";
-    var_2._id_0C72 = "sas2";
-    var_3._id_0C72 = "sas3";
+    var_1.animname = "sas1";
+    var_2.animname = "sas2";
+    var_3.animname = "sas3";
     var_1 maps\killhouse_code::specify_head_model( "head_sas_ct_assault_mitchel" );
     level.mocaporiginhangar3 = getent( "mocapRevealPos", "targetname" );
-    level.mocaporiginhangar3 thread maps\_anim::_id_0BE1( level._id_6F7C, "h1_price_before_reveal_idle", undefined, "stop_before_reveal" );
-    level.mocaporiginhangar3 thread maps\_anim::_id_0BE1( var_1, "h1_sas1_before_reveal_idle", undefined, "stop_before_reveal" );
-    level.mocaporiginhangar3 thread maps\_anim::_id_0BE1( var_2, "h1_sas2_before_reveal_idle", undefined, "stop_before_reveal" );
-    level.mocaporiginhangar3 thread maps\_anim::_id_0BE1( var_3, "h1_sas3_before_reveal_idle", undefined, "stop_before_reveal" );
+    level.mocaporiginhangar3 thread maps\_anim::anim_loop_solo( level._id_6F7C, "h1_price_before_reveal_idle", undefined, "stop_before_reveal" );
+    level.mocaporiginhangar3 thread maps\_anim::anim_loop_solo( var_1, "h1_sas1_before_reveal_idle", undefined, "stop_before_reveal" );
+    level.mocaporiginhangar3 thread maps\_anim::anim_loop_solo( var_2, "h1_sas2_before_reveal_idle", undefined, "stop_before_reveal" );
+    level.mocaporiginhangar3 thread maps\_anim::anim_loop_solo( var_3, "h1_sas3_before_reveal_idle", undefined, "stop_before_reveal" );
     var_4 = getent( "lovejoy", "targetname" );
-    var_4 _meth_81a7( 1 );
+    var_4 _meth_81A7( 1 );
     level.sas_blackkits = [];
     level.sas_blackkits[level.sas_blackkits.size] = var_1;
     level.sas_blackkits[level.sas_blackkits.size] = var_2;
@@ -2772,11 +2772,11 @@ report_to_price()
 reveal_anims( var_0, var_1 )
 {
     var_2 = getent( "looking_at_price", "targetname" );
-    level.mocaporiginhangar3 maps\_utility::_id_07BE( maps\_anim::_id_0C18, var_0, "reveal" );
-    level maps\_utility::_id_075F( common_scripts\utility::_id_383F, "reveal_done" );
+    level.mocaporiginhangar3 maps\_utility::add_wait( maps\_anim::anim_single, var_0, "reveal" );
+    level maps\_utility::add_func( common_scripts\utility::_id_383F, "reveal_done" );
     thread maps\_utility::_id_2BDC();
-    level.mocaporiginhangar3 maps\_utility::_id_07BE( maps\_anim::_id_0C24, level._id_6F7C, "reveal" );
-    level maps\_utility::_id_075F( common_scripts\utility::_id_383F, "price_reveal_done" );
+    level.mocaporiginhangar3 maps\_utility::add_wait( maps\_anim::anim_single_solo, level._id_6F7C, "reveal" );
+    level maps\_utility::add_func( common_scripts\utility::_id_383F, "price_reveal_done" );
     thread maps\_utility::_id_2BDC();
     wait 2;
     wait 3;
@@ -2788,10 +2788,10 @@ reveal_anims( var_0, var_1 )
     common_scripts\utility::_id_384A( "reveal_done" );
 
     foreach ( var_5 in var_0 )
-        level.mocaporiginhangar3 thread maps\_anim::_id_0BE1( var_5, "reveal_idle", undefined, "end_idle" );
+        level.mocaporiginhangar3 thread maps\_anim::anim_loop_solo( var_5, "reveal_idle", undefined, "end_idle" );
 
     common_scripts\utility::_id_384A( "price_reveal_done" );
-    level.mocaporiginhangar3 thread maps\_anim::_id_0BE1( level._id_6F7C, "reveal_idle", undefined, "end_idle" );
+    level.mocaporiginhangar3 thread maps\_anim::anim_loop_solo( level._id_6F7C, "reveal_idle", undefined, "end_idle" );
 }
 
 reveal_dialog_ladder( var_0 )
@@ -2831,7 +2831,7 @@ cargoship_training()
     level endon( "clear_course" );
     level endon( "mission failed" );
     var_0 = getentarray( "cargoship_target", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, maps\killhouse_code::cargoship_targets );
+    common_scripts\utility::array_thread( var_0, maps\killhouse_code::cargoship_targets );
     thread maps\killhouse_code::_id_75E0();
     thread maps\killhouse_code::timer_think();
     var_1 = getent( "top_of_rope_trigger", "targetname" );
@@ -2859,7 +2859,7 @@ cargoship_training()
     maps\killhouse_code::_id_1EBE();
     common_scripts\utility::_id_384A( "reveal_dialog_done" );
     wait 0.5;
-    thread maps\_utility::_id_1143( "ladder_top" );
+    thread maps\_utility::autosave_by_name( "ladder_top" );
     var_19 thread maps\killhouse_code::jumpoff_monitor();
 
     for (;;)
@@ -2922,7 +2922,7 @@ cargoship_training()
         maps\_utility::_id_27EF( 1.5, maps\killhouse_code::rope_obj, var_15 );
         common_scripts\utility::_id_383F( "activate_rope" );
         level notify( "show_glowing_rope" );
-        thread maps\_utility::_id_1143( "starting_bridge_attack" );
+        thread maps\_utility::autosave_by_name( "starting_bridge_attack" );
         level waittill( "starting_rope" );
         level notify( "hide_glowing_rope" );
         common_scripts\utility::_id_3831( "activate_rope" );
@@ -3151,7 +3151,7 @@ debrief()
     thread debrief_anims();
     thread h1_fadetoblackdifficultyselect( 2.5 );
     wait 12.5;
-    level.player _meth_84ed( &"difficulty_selection_menu_fng" );
+    level.player _meth_84ED( &"difficulty_selection_menu_fng" );
     level.player freezecontrols( 1 );
     setblur( 2, 0.1 );
     level.player waittill( "menuresponse", var_1, var_2 );
@@ -3192,7 +3192,7 @@ debrief_anims()
 
     for ( var_1 = 0; var_1 < level.sas_blackkits.size; var_1++ )
     {
-        var_0 thread maps\_anim::_id_0C24( level.sas_blackkits[var_1], "debrief_S" + ( var_1 + 1 ) );
+        var_0 thread maps\_anim::anim_single_solo( level.sas_blackkits[var_1], "debrief_S" + ( var_1 + 1 ) );
         level.sas_blackkits[var_1] maps\_utility::_id_1EB8();
         level.sas_blackkits[var_1]._id_250C = undefined;
         level.sas_blackkits[var_1].colororderednodeassign = undefined;
@@ -3203,7 +3203,7 @@ debrief_anims()
     level._id_6F7C._id_250C = undefined;
     level._id_6F7C.colororderednodeassign = undefined;
     level._id_6F7C maps\_utility::_id_7E50( 500 );
-    var_0 maps\_anim::_id_0C24( level._id_6F7C, "debrief_p" );
+    var_0 maps\_anim::anim_single_solo( level._id_6F7C, "debrief_p" );
 }
 
 music_control()
@@ -3253,18 +3253,18 @@ convoy_gate_pass( var_0, var_1, var_2, var_3, var_4, var_5 )
     foreach ( var_8 in var_0 )
         var_6[var_6.size] = maps\_vehicle::_id_8979( var_8 );
 
-    common_scripts\utility::_id_0D13( var_6, ::monitor_vehicle_damage );
+    common_scripts\utility::array_thread( var_6, ::monitor_vehicle_damage );
     var_10 = getvehiclenode( var_3, "targetname" );
     var_11 = getvehiclenode( var_4, "targetname" );
     var_12 = getvehiclenode( var_5, "targetname" );
 
-    while ( var_6[0] _meth_84b7() != var_10 )
+    while ( var_6[0] _meth_84B7() != var_10 )
         wait 0.2;
 
     thread open_gate( var_1 );
     level.convoyatgate = 1;
 
-    while ( var_6[0] _meth_84b7() != var_12 )
+    while ( var_6[0] _meth_84B7() != var_12 )
         wait 0.1;
 
     if ( !var_1.is_open )
@@ -3285,7 +3285,7 @@ convoy_gate_pass( var_0, var_1, var_2, var_3, var_4, var_5 )
         }
     }
 
-    while ( var_6[var_6.size - 1] _meth_84b7() != var_11 )
+    while ( var_6[var_6.size - 1] _meth_84B7() != var_11 )
         wait 0.2;
 
     while ( level.loopingtrucksatgate )
@@ -3340,7 +3340,7 @@ checkgate_needopenorclose( var_0 )
             if ( var_4.classname == "script_vehicle_corpse" )
                 continue;
 
-            var_5 = var_4 _meth_84b7();
+            var_5 = var_4 _meth_84B7();
 
             if ( isdefined( var_5 ) && isdefined( var_5.script_noteworthy ) )
             {
@@ -3460,17 +3460,17 @@ ai_spectator_setup()
     var_1 = getent( "spectatorSpawner", "targetname" );
     var_2 = var_1 stalingradspawn();
     var_2 maps\_utility::_id_4462();
-    var_2._id_0C72 = "spectator";
+    var_2.animname = "spectator";
     var_2.script_noteworthy = "spectator";
-    var_0 thread maps\_anim::_id_0BE1( var_2, "spectator_idle", undefined, "end_idle" );
+    var_0 thread maps\_anim::anim_loop_solo( var_2, "spectator_idle", undefined, "end_idle" );
 }
 
 ai_rifle_training_loop( var_0 )
 {
     var_1 = self stalingradspawn();
-    var_1 _meth_81a7( 1 );
-    var_1 _meth_81ce( "stand" );
-    var_1 _meth_81a9( getnode( self.target, "targetname" ) );
+    var_1 _meth_81A7( 1 );
+    var_1 _meth_81CE( "stand" );
+    var_1 _meth_81A9( getnode( self.target, "targetname" ) );
     var_1 waittill( "goal" );
     var_1 maps\_utility::_id_30B0();
     var_1.target_dummy = undefined;
@@ -3483,7 +3483,7 @@ ai_rifle_training_loop( var_0 )
         if ( !isdefined( var_1 ) )
             return;
 
-        var_1._id_615B = common_scripts\utility::_id_9294( var_1._id_18B0 < 15, undefined, 1 );
+        var_1._id_615B = common_scripts\utility::_id_9294( var_1.bulletsinclip < 15, undefined, 1 );
 
         if ( isdefined( var_1.a._id_3593 ) && var_1.a._id_3593 )
         {
@@ -3497,13 +3497,13 @@ ai_rifle_training_loop( var_0 )
 
             for ( var_3 = 0; var_3 < var_2; var_3++ )
             {
-                if ( var_1._id_18B0 == 0 || isdefined( var_1.a._id_3593 ) && var_1.a._id_3593 )
+                if ( var_1.bulletsinclip == 0 || isdefined( var_1.a._id_3593 ) && var_1.a._id_3593 )
                     break;
 
                 var_4 = var_1.target_dummy.aimed_pos_ent.origin;
                 var_1._id_840F = var_4;
-                var_1 _meth_81ea( 0.9, var_4 );
-                var_1._id_18B0--;
+                var_1 _meth_81EA( 0.9, var_4 );
+                var_1.bulletsinclip--;
                 wait 0.1;
             }
 
@@ -3611,9 +3611,9 @@ tower_guard_think()
     for (;;)
     {
         if ( var_2 )
-            self _meth_81a9( var_1[randomintrange( 0, var_1.size )] );
+            self _meth_81A9( var_1[randomintrange( 0, var_1.size )] );
         else
-            self _meth_81a9( var_0[randomintrange( 0, var_0.size )] );
+            self _meth_81A9( var_0[randomintrange( 0, var_0.size )] );
 
         var_2 = !var_2;
         self waittill( "goal" );
@@ -3641,21 +3641,21 @@ ai_ambient_think( var_0, var_1 )
         if ( var_0 == "training_basketball_guy2" )
         {
             var_5 = getent( "basketball", "targetname" );
-            var_5._id_0C72 = "basketball";
-            var_5 maps\_utility::_id_0D61();
-            self._id_3002 thread maps\_anim::_id_0BE1( var_5, "training_basketball_loop", "stop_idle" );
+            var_5.animname = "basketball";
+            var_5 maps\_utility::assign_animtree();
+            self._id_3002 thread maps\_anim::anim_loop_solo( var_5, "training_basketball_loop", "stop_idle" );
         }
 
-        self._id_3002 thread maps\_anim::_id_0BCE( self, var_0, "stop_idle" );
+        self._id_3002 thread maps\_anim::anim_generic_loop( self, var_0, "stop_idle" );
         var_3 = var_0 + "_go";
 
-        if ( _id_0BC1( var_3 ) )
+        if ( anim_exists( var_3 ) )
             var_0 = var_3;
         else
             var_3 = undefined;
     }
     else
-        self._id_3002 maps\_anim::_id_0BCC( self, var_0 );
+        self._id_3002 maps\_anim::anim_generic_first_frame( self, var_0 );
 
     if ( isdefined( self._id_79D3 ) )
     {
@@ -3672,12 +3672,12 @@ ai_ambient_think( var_0, var_1 )
     }
 
     if ( !var_4 )
-        self._id_3002 maps\_anim::_id_0BC9( self, var_0 );
+        self._id_3002 maps\_anim::anim_generic( self, var_0 );
 
     if ( isdefined( var_3 ) )
     {
         self._id_3002 notify( "stop_idle" );
-        self._id_3002 maps\_anim::_id_0BC9( self, var_3 );
+        self._id_3002 maps\_anim::anim_generic( self, var_3 );
     }
 
     switch ( var_0 )
@@ -3689,7 +3689,7 @@ ai_ambient_think( var_0, var_1 )
 
     if ( isdefined( var_2 ) )
     {
-        self _meth_81a9( var_2 );
+        self _meth_81A9( var_2 );
         wait 1;
         self._id_2AF3 = 0;
         self._id_2B0E = 0;
@@ -3699,16 +3699,16 @@ ai_ambient_think( var_0, var_1 )
             maps\_utility::_id_22DA( "off" );
     }
     else if ( isdefined( level._id_78AC["generic"][var_0 + "_idle"] ) )
-        self._id_3002 thread maps\_anim::_id_0BCE( self, var_0 + "_idle", "stop_idle" );
+        self._id_3002 thread maps\_anim::anim_generic_loop( self, var_0 + "_idle", "stop_idle" );
 
-    if ( _id_0BC1( var_0 + "_react" ) )
+    if ( anim_exists( var_0 + "_react" ) )
     {
         if ( !var_4 )
             var_0 += "_idle";
 
         var_6 = var_0 + "_react";
 
-        if ( _id_0BC1( var_0 + "_react2" ) )
+        if ( anim_exists( var_0 + "_react2" ) )
             var_7 = var_0 + "_react2";
         else
             var_7 = var_6;
@@ -3721,11 +3721,11 @@ ai_ambient_think( var_0, var_1 )
             waitframe;
 
             if ( randomint( 100 ) > 50 )
-                maps\_anim::_id_0BC9( self, var_6 );
+                maps\_anim::anim_generic( self, var_6 );
             else
-                maps\_anim::_id_0BC9( self, var_7 );
+                maps\_anim::anim_generic( self, var_7 );
 
-            thread maps\_anim::_id_0BCE( self, var_0, "stop_idle" );
+            thread maps\_anim::anim_generic_loop( self, var_0, "stop_idle" );
         }
     }
 }
@@ -3822,8 +3822,8 @@ ai_ambient_noprop_think()
         case "wounded_carry_fastwalk_carrier":
             var_4 = getent( self.target, "targetname" );
             var_5 = var_4 maps\_utility::_id_88C3();
-            self._id_3002 maps\_anim::_id_0BCC( self, var_0 );
-            self._id_3002 maps\_anim::_id_0BCC( var_5, "wounded_carry_fastwalk_wounded" );
+            self._id_3002 maps\_anim::anim_generic_first_frame( self, var_0 );
+            self._id_3002 maps\_anim::anim_generic_first_frame( var_5, "wounded_carry_fastwalk_wounded" );
             maps\_utility::_id_4462();
             var_5 maps\_utility::_id_4462();
             var_1 = 1;
@@ -3834,14 +3834,14 @@ ai_ambient_noprop_think()
 
             while ( distance( var_6.origin, self.origin ) > 128 )
             {
-                thread maps\_anim::_id_0BC9( self, var_0 );
-                maps\_anim::_id_0BC9( var_5, "wounded_carry_fastwalk_wounded" );
+                thread maps\_anim::anim_generic( self, var_0 );
+                maps\_anim::anim_generic( var_5, "wounded_carry_fastwalk_wounded" );
             }
 
-            thread maps\_anim::_id_0BC9( self, "wounded_carry_putdown_closet_carrier" );
-            maps\_anim::_id_0BC9( var_5, "wounded_carry_putdown_closet_wounded" );
-            thread maps\_anim::_id_0BCE( var_5, "wounded_carry_closet_idle_wounded" );
-            thread maps\_anim::_id_0BCE( self, "wounded_carry_closet_idle_carrier" );
+            thread maps\_anim::anim_generic( self, "wounded_carry_putdown_closet_carrier" );
+            maps\_anim::anim_generic( var_5, "wounded_carry_putdown_closet_wounded" );
+            thread maps\_anim::anim_generic_loop( var_5, "wounded_carry_closet_idle_wounded" );
+            thread maps\_anim::anim_generic_loop( self, "wounded_carry_closet_idle_carrier" );
             return;
         case "sitting_guard_loadAK_idle":
             maps\_utility::_id_4462();
@@ -3866,7 +3866,7 @@ ai_ambient_noprop_think()
         case "civilian_smoking_A":
         case "oilrig_balcony_smoke_idle":
         case "parabolic_leaning_guy_smoking_idle":
-            thread maps\_props::_id_0DDC();
+            thread maps\_props::attach_cig_self();
             break;
         case "roadkill_cover_radio_soldier2":
             break;
@@ -3920,7 +3920,7 @@ ai_ambient_ignored()
     self.grenadeawareness = 0;
 }
 
-_id_0BC1( var_0, var_1 )
+anim_exists( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = "generic";
@@ -3997,7 +3997,7 @@ patrol_simple( var_0, var_1 )
 {
     self endon( "end_patrol" );
     self.goalradius = 32;
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
     self.allowdeath = 1;
@@ -4037,43 +4037,43 @@ patrol_simple( var_0, var_1 )
         if ( isdefined( var_3._id_793C ) )
         {
             var_5 = "patrol_stop";
-            maps\_anim::_id_0BCA( self, "gravity", var_5 );
+            maps\_anim::anim_generic_custom_animmode( self, "gravity", var_5 );
 
             switch ( var_3._id_793C )
             {
                 case "pause":
                     var_6 = "patrol_idle_" + randomintrange( 1, 6 );
-                    maps\_anim::_id_0BC9( self, var_6 );
+                    maps\_anim::anim_generic( self, var_6 );
                     var_7 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_7 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_7 );
                     break;
                 case "turn180":
                     var_8 = "patrol_turn180";
-                    maps\_anim::_id_0BCA( self, "gravity", var_8 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_8 );
                     break;
                 case "smoke":
                     var_9 = "patrol_idle_smoke";
-                    maps\_anim::_id_0BC9( self, var_9 );
+                    maps\_anim::anim_generic( self, var_9 );
                     var_7 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_7 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_7 );
                     break;
                 case "stretch":
                     var_9 = "patrol_idle_stretch";
-                    maps\_anim::_id_0BC9( self, var_9 );
+                    maps\_anim::anim_generic( self, var_9 );
                     var_7 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_7 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_7 );
                     break;
                 case "checkphone":
                     var_9 = "patrol_idle_checkphone";
-                    maps\_anim::_id_0BC9( self, var_9 );
+                    maps\_anim::anim_generic( self, var_9 );
                     var_7 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_7 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_7 );
                     break;
                 case "phone":
                     var_9 = "patrol_idle_phone";
-                    maps\_anim::_id_0BC9( self, var_9 );
+                    maps\_anim::anim_generic( self, var_9 );
                     var_7 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_7 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_7 );
                     break;
             }
         }
@@ -4106,7 +4106,7 @@ teleport_joggers()
     {
         if ( isdefined( var_0[var_2].spawner ) )
         {
-            var_0[var_2] _meth_81ca( level.joggers_start_pos[var_1]._id_8C20, level.joggers_start_pos[var_1]._id_8B32 );
+            var_0[var_2] _meth_81CA( level.joggers_start_pos[var_1]._id_8C20, level.joggers_start_pos[var_1]._id_8B32 );
             var_1++;
         }
     }
@@ -4227,7 +4227,7 @@ outside_blur()
 ai_patrol_think( var_0, var_1 )
 {
     self endon( "death" );
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self.walkdist = 1000;
     self._id_2AF3 = 1;
 
@@ -4238,8 +4238,8 @@ ai_patrol_think( var_0, var_1 )
         self._id_6718 = var_3;
         self._id_6719 = var_3;
         var_4 = level._id_78AC["generic"]["runner_facial_" + var_2];
-        self _meth_814b( var_4, %head, 1 );
-        self _meth_814e( %head, 1 );
+        self _meth_814B( var_4, %head, 1 );
+        self _meth_814E( %head, 1 );
         maps\_utility::_id_4462();
         self.fixednode = 0;
         self.ignoresuppression = 1;
@@ -4264,8 +4264,8 @@ ai_specific_facial_anim( var_0, var_1 )
 
     for (;;)
     {
-        self _meth_814b( var_2, %head, 1 );
-        self _meth_814e( %head, 1 );
+        self _meth_814B( var_2, %head, 1 );
+        self _meth_814E( %head, 1 );
         wait(getanimlength( var_2 ));
     }
 }
@@ -4278,27 +4278,27 @@ sittingtalkingguy_think( var_0 )
     var_2._id_2B0E = 1;
     var_2 maps\_utility::_id_4462();
     var_2.grenadeawareness = 0;
-    var_2._id_0C72 = "generic";
+    var_2.animname = "generic";
     var_2 maps\_utility::_id_7E45( "patrol_walk_unarmed" );
     var_2 maps\_utility::_id_7E44( "patrol_unarmed_idle" );
     var_2 thread ai_ambient_facial();
     var_3 = getnode( "hangar2_ListenGuyStartNode", "targetname" );
     var_4 = getnode( "hangar2_ListenGuyEndNode", "targetname" );
-    var_2 _meth_81a9( var_3 );
+    var_2 _meth_81A9( var_3 );
     var_5 = getent( "SittingGuyPos", "targetname" );
     var_6 = var_0;
     var_6 maps\killhouse_code::specify_head_model( "head_sas_ct_assault_charles_nomask" );
     var_6 maps\_utility::_id_4462();
     var_6.grenadeawareness = 0;
-    var_6._id_0C72 = "generic";
-    var_5 thread maps\_anim::_id_0BE1( var_6, "civilian_sitting_talking_A_2_Idle", undefined, "end_idle" );
+    var_6.animname = "generic";
+    var_5 thread maps\_anim::anim_loop_solo( var_6, "civilian_sitting_talking_A_2_Idle", undefined, "end_idle" );
     var_6 thread ai_ambient_facial();
     common_scripts\utility::_id_384A( "approching_hangar2" );
     wait 1.5;
     var_5 notify( "end_idle" );
     var_6 thread ai_specific_facial_anim( "generic", "civilian_sitting_talking_A_2_facial" );
     var_6 maps\_utility::_id_69C4( "killhouse_nwc_thrilledtosee" );
-    var_2 _meth_81a9( var_4 );
+    var_2 _meth_81A9( var_4 );
     wait 1;
     var_6 maps\_utility::_id_69C4( "killhouse_nwc_goodluck" );
     var_6 thread ai_ambient_facial();

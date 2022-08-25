@@ -72,14 +72,14 @@ _id_4658( var_0 )
             if ( !isdefined( var_2 ) )
                 var_2 = "run";
 
-            var_3 = self _meth_83cb() || isdefined( self._id_2198 );
+            var_3 = self _meth_83CB() || isdefined( self._id_2198 );
 
             if ( var_3 )
                 self playsound( "dogstep_plr_" + var_2 + "_" + var_1 );
             else
                 self playsound( "dogstep_" + var_2 + "_" + var_1 );
 
-            if ( !isdefined( self._id_135A ) || self._id_135A )
+            if ( !isdefined( self.bdisablegearsounds ) || self.bdisablegearsounds )
             {
                 if ( issubstr( var_0, "front_left" ) || issubstr( var_0, "fr_l" ) )
                 {
@@ -222,9 +222,9 @@ _id_72F3()
     anim._id_61E5["space_jet_back_4"] = ::_id_61F4;
     anim._id_61E5["space_jet_random"] = ::_id_61F4;
 
-    if ( isdefined( level._id_0601 ) )
+    if ( isdefined( level._notetrackfx ) )
     {
-        var_0 = getarraykeys( level._id_0601 );
+        var_0 = getarraykeys( level._notetrackfx );
 
         foreach ( var_2 in var_0 )
             anim._id_61E5[var_2] = ::_id_2566;
@@ -354,7 +354,7 @@ _id_61E0( var_0, var_1 )
     if ( !issentient( self ) )
         return;
 
-    self _meth_81fd( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    self _meth_81FD( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
     animscripts\utility::_id_3308( 1.0 );
     _id_7FF0( "prone" );
 
@@ -369,7 +369,7 @@ _id_61DE( var_0, var_1 )
     if ( !issentient( self ) )
         return;
 
-    self _meth_81fd( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    self _meth_81FD( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
     animscripts\utility::_id_3308( 1.0 );
     _id_7FF0( "prone" );
     self.a._id_7021 = undefined;
@@ -383,7 +383,7 @@ _id_61DD( var_0, var_1 )
     _id_7FF0( "crouch" );
     self.a._id_6451 = 1;
     self.a._id_5F5B = "stop";
-    self _meth_81fd( -90, 90, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    self _meth_81FD( -90, 90, %prone_legs_down, %exposed_aiming, %prone_legs_up );
     animscripts\utility::_id_3308( 1.0 );
 }
 
@@ -433,13 +433,13 @@ _id_61CF( var_0, var_1 )
 {
     animscripts\shared::_id_6869( self.weapon, "back" );
     self.weapon = animscripts\utility::_id_409A();
-    self._id_18B0 = weaponclipsize( self.weapon );
+    self.bulletsinclip = weaponclipsize( self.weapon );
 }
 
 _id_61DA( var_0, var_1 )
 {
     animscripts\shared::_id_6869( self._id_855D, "right" );
-    self._id_18B0 = weaponclipsize( self.weapon );
+    self.bulletsinclip = weaponclipsize( self.weapon );
     self notify( "weapon_switch_done" );
 }
 
@@ -447,7 +447,7 @@ _id_61DB( var_0, var_1 )
 {
     animscripts\shared::_id_6869( self.weapon, "none" );
     self.weapon = animscripts\utility::_id_409A();
-    self._id_18B0 = weaponclipsize( self.weapon );
+    self.bulletsinclip = weaponclipsize( self.weapon );
 }
 
 _id_61C5( var_0, var_1 )
@@ -607,15 +607,15 @@ _id_61F5( var_0, var_1 )
 
                     if ( maps\_utility::_id_4749( self.model, var_6 ) )
                     {
-                        if ( !isdefined( self._id_10F2 ) )
-                            self._id_10F2 = 0;
+                        if ( !isdefined( self.audio_jet_counter ) )
+                            self.audio_jet_counter = 0;
 
-                        self._id_10F2++;
+                        self.audio_jet_counter++;
 
-                        if ( self._id_10F2 > 5 )
-                            self._id_10F2 = 0;
+                        if ( self.audio_jet_counter > 5 )
+                            self.audio_jet_counter = 0;
 
-                        if ( self._id_10F2 == 1 )
+                        if ( self.audio_jet_counter == 1 )
                             self playsound( "space_npc_jetpack_boost_ss" );
 
                         playfxontag( level._effect["space_jet_small"], self, var_6 );
@@ -630,15 +630,15 @@ _id_61F5( var_0, var_1 )
                 {
                     if ( isdefined( var_6 ) && maps\_utility::_id_4749( self.model, var_6 ) )
                     {
-                        if ( !isdefined( self._id_10F2 ) )
-                            self._id_10F2 = 0;
+                        if ( !isdefined( self.audio_jet_counter ) )
+                            self.audio_jet_counter = 0;
 
-                        self._id_10F2++;
+                        self.audio_jet_counter++;
 
-                        if ( self._id_10F2 > 5 )
-                            self._id_10F2 = 0;
+                        if ( self.audio_jet_counter > 5 )
+                            self.audio_jet_counter = 0;
 
-                        if ( self._id_10F2 == 1 )
+                        if ( self.audio_jet_counter == 1 )
                             self playsound( "space_npc_jetpack_boost_ss" );
 
                         playfxontag( level._effect["space_jet_small"], self, var_6 );
@@ -659,16 +659,16 @@ _id_2566( var_0, var_1 )
 
     var_3 = undefined;
 
-    if ( isdefined( level._id_0601[var_0][var_2] ) )
-        var_3 = level._id_0601[var_0][var_2];
-    else if ( isdefined( level._id_0601[var_0]["all"] ) )
-        var_3 = level._id_0601[var_0]["all"];
+    if ( isdefined( level._notetrackfx[var_0][var_2] ) )
+        var_3 = level._notetrackfx[var_0][var_2];
+    else if ( isdefined( level._notetrackfx[var_0]["all"] ) )
+        var_3 = level._notetrackfx[var_0]["all"];
 
     if ( !isdefined( var_3 ) )
         return;
 
-    if ( isai( self ) && isdefined( var_3.fx ) )
-        playfxontag( var_3.fx, self, var_3.tag );
+    if ( isai( self ) && isdefined( var_3._id_3B23 ) )
+        playfxontag( var_3._id_3B23, self, var_3.tag );
 
     if ( !isdefined( var_3._id_88A4 ) && !isdefined( var_3._id_88A6 ) )
         return;
@@ -893,7 +893,7 @@ _id_466C( var_0, var_1, var_2, var_3 )
 
             break;
         case "stop anim":
-            maps\_utility::_id_0C3D();
+            maps\_utility::anim_stopanimscripted();
             return var_0;
         case "break glass":
             level notify( "glass_break", self );
@@ -1151,16 +1151,16 @@ _id_37C7()
         return;
     }
 
-    var_0 = self _meth_81bc();
-    var_1 = anglestoforward( self _meth_81bd() );
+    var_0 = self _meth_81BC();
+    var_1 = anglestoforward( self _meth_81BD() );
     var_2 = var_0 + var_1 * 1000;
-    self _meth_81ea( 1, var_2 );
+    self _meth_81EA( 1, var_2 );
     animscripts\combat_utility::_id_275F();
 }
 
 _id_61C8( var_0, var_1 )
 {
-    if ( !isalive( self ) && self _meth_813f() )
+    if ( !isalive( self ) && self _meth_813F() )
     {
         if ( isdefined( self._id_1C7F ) )
             return;
@@ -1180,8 +1180,8 @@ _id_61C8( var_0, var_1 )
     if ( self.a._id_A2E2["right"] == "none" )
         return;
 
-    var_3 = self _meth_81bc();
-    var_4 = anglestoforward( self _meth_81bd() );
+    var_3 = self _meth_81BC();
+    var_4 = anglestoforward( self _meth_81BD() );
     var_5 = 10;
 
     if ( isdefined( self._id_5187 ) )
@@ -1189,7 +1189,7 @@ _id_61C8( var_0, var_1 )
 
     var_6 = 0;
 
-    if ( isalive( self.enemy ) && issentient( self.enemy ) && self _meth_81c1() )
+    if ( isalive( self.enemy ) && issentient( self.enemy ) && self _meth_81C1() )
     {
         var_7 = vectornormalize( self.enemy geteye() - var_3 );
 

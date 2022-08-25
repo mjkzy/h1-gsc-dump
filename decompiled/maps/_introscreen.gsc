@@ -311,7 +311,7 @@ airlift_intro()
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
     wait 1;
     common_scripts\utility::_id_383F( "introscreen_complete" );
-    thread maps\_utility::_id_114E( 1 );
+    thread maps\_utility::autosave_now( 1 );
     level.player freezecontrols( 0 );
 }
 
@@ -532,7 +532,7 @@ ambush_intro()
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     introscreen_generic_white_fade_in( 2 );
     common_scripts\utility::_id_383F( "introscreen_remove_submix" );
-    thread maps\_utility::_id_114E( 1 );
+    thread maps\_utility::autosave_now( 1 );
     setsaveddvar( "compass", 1 );
     setsaveddvar( "ammoCounterHide", "0" );
     setsaveddvar( "hud_showStance", 1 );
@@ -553,7 +553,7 @@ armada_intro()
     wait 2;
     common_scripts\utility::_id_383F( "introscreen_complete" );
     wait 2;
-    maps\_utility::_id_1143( "levelstart" );
+    maps\_utility::autosave_by_name( "levelstart" );
     wait 4;
     level.player enableweapons();
 }
@@ -621,7 +621,7 @@ introscreen_create_line( var_0 )
     var_3.alpha = 0;
     var_3 fadeovertime( 1.2 );
     var_3.alpha = 1;
-    common_scripts\utility::_id_0CED( level.introstring, var_3, 0 );
+    common_scripts\utility::array_insert( level.introstring, var_3, 0 );
 }
 
 introscreen_fadeouttext()

@@ -19,7 +19,7 @@
 
 */
 
-_id_0CD0( var_0, var_1 )
+armed( var_0, var_1 )
 {
     return issubstr( var_0, "armed" ) || issubstr( var_1, "armed" );
 }
@@ -27,7 +27,7 @@ _id_0CD0( var_0, var_1 )
 
 main( var_0, var_1, var_2 )
 {
-    if ( _id_0CD0( var_0, var_2 ) )
+    if ( armed( var_0, var_2 ) )
         vehicle_scripts\_attack_heli::_id_6EFB();
 
     if ( issubstr( var_2, "bench" ) )
@@ -36,37 +36,37 @@ main( var_0, var_1, var_2 )
         precachemodel( "vehicle_sentinel_littlebird_benchright" );
     }
 
-    maps\_vehicle::_id_186C( "littlebird", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_little_bird_armed" );
-    maps\_vehicle::_id_1845( "vehicle_little_bird_bench" );
+    maps\_vehicle::build_template( "littlebird", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_little_bird_armed" );
+    maps\_vehicle::build_deathmodel( "vehicle_little_bird_bench" );
 
     if ( issubstr( var_2, "kva" ) || issubstr( var_2, "atlas" ) || issubstr( var_2, "sentinel" ) )
-        maps\_vehicle::_id_1849( %mil_helicopter_littlebird_ai_rotors, undefined, 0, 3.0 );
+        maps\_vehicle::build_drive( %mil_helicopter_littlebird_ai_rotors, undefined, 0, 3.0 );
     else
-        maps\_vehicle::_id_1849( %mi28_rotors, undefined, 0, 3.0 );
+        maps\_vehicle::build_drive( %mi28_rotors, undefined, 0, 3.0 );
 
-    maps\_vehicle::_id_1842( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", "littlebird_helicopter_secondary_exp", undefined, undefined, undefined, 0.0, 1 );
-    maps\_vehicle::_id_1842( "vfx/trail/trail_fire_smoke_l", "tag_engine", "littlebird_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
-    maps\_vehicle::_id_1842( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", undefined, undefined, undefined, undefined, 2.5, 1 );
-    maps\_vehicle::_id_1842( "vfx/explosion/vehicle_littlebird_explosion_a", undefined, "littlebird_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
-    maps\_vehicle::_id_1864( "vfx/explosion/vehicle_littlebird_explosion_a", "tag_deathfx", "littlebird_helicopter_crash", undefined, undefined, undefined, undefined, 1, undefined, 0 );
-    maps\_vehicle::_id_1846( 0.8, 1.6, 2048 );
-    maps\_vehicle::_id_186E( var_2, "default", "vfx/treadfx/heli_dust_default" );
-    maps\_vehicle::_id_1856( 799 );
-    maps\_vehicle::_id_186A( "axis" );
-    maps\_vehicle::_id_185A();
-    maps\_vehicle::_id_1873( ::_id_9A3D );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_deathfx( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", "littlebird_helicopter_secondary_exp", undefined, undefined, undefined, 0.0, 1 );
+    maps\_vehicle::build_deathfx( "vfx/trail/trail_fire_smoke_l", "tag_engine", "littlebird_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
+    maps\_vehicle::build_deathfx( "fx/explosions/helicopter_explosion_secondary_small", "tag_engine", undefined, undefined, undefined, undefined, 2.5, 1 );
+    maps\_vehicle::build_deathfx( "vfx/explosion/vehicle_littlebird_explosion_a", undefined, "littlebird_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
+    maps\_vehicle::build_rocket_deathfx( "vfx/explosion/vehicle_littlebird_explosion_a", "tag_deathfx", "littlebird_helicopter_crash", undefined, undefined, undefined, undefined, 1, undefined, 0 );
+    maps\_vehicle::build_deathquake( 0.8, 1.6, 2048 );
+    maps\_vehicle::build_treadfx( var_2, "default", "vfx/treadfx/heli_dust_default" );
+    maps\_vehicle::build_life( 799 );
+    maps\_vehicle::build_team( "axis" );
+    maps\_vehicle::build_mainturret();
+    maps\_vehicle::build_unload_groups( ::_id_9A3D );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
     var_3 = randomfloatrange( 0, 1 );
-    maps\_vehicle::_id_1857( var_2, "white_blink", "TAG_LIGHT_BELLY", "vfx/lights/aircraft_light_white_blink", "running", var_3 );
-    maps\_vehicle::_id_1857( var_2, "red_blink1", "TAG_LIGHT_TAIL1", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
-    maps\_vehicle::_id_1857( var_2, "red_blink2", "TAG_LIGHT_TAIL2", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
-    maps\_vehicle::_id_1857( var_2, "headlight_nose", "tag_light_nose", "vfx/lights/headlight_gaz", "headlights", 0.0 );
+    maps\_vehicle::build_light( var_2, "white_blink", "TAG_LIGHT_BELLY", "vfx/lights/aircraft_light_white_blink", "running", var_3 );
+    maps\_vehicle::build_light( var_2, "red_blink1", "TAG_LIGHT_TAIL1", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
+    maps\_vehicle::build_light( var_2, "red_blink2", "TAG_LIGHT_TAIL2", "vfx/lights/aircraft_light_red_blink", "running", var_3 );
+    maps\_vehicle::build_light( var_2, "headlight_nose", "tag_light_nose", "vfx/lights/headlight_gaz", "headlights", 0.0 );
     var_4 = "littlebird_gunpod";
-    maps\_vehicle::_id_1872( var_4, "TAG_MINIGUN_ATTACH_LEFT", "vehicle_mil_helicopter_littlebird_gunpodleft" );
-    maps\_vehicle::_id_1872( var_4, "TAG_MINIGUN_ATTACH_RIGHT", "vehicle_mil_helicopter_littlebird_gunpodright" );
-    maps\_vehicle::_id_1855();
+    maps\_vehicle::build_turret( var_4, "TAG_MINIGUN_ATTACH_LEFT", "vehicle_mil_helicopter_littlebird_gunpodleft" );
+    maps\_vehicle::build_turret( var_4, "TAG_MINIGUN_ATTACH_RIGHT", "vehicle_mil_helicopter_littlebird_gunpodright" );
+    maps\_vehicle::build_is_helicopter();
     vehicle_scripts\_littlebird_landing::_id_4D0D();
 }
 
@@ -78,7 +78,7 @@ _id_4D10()
     self._id_2D30 = 1;
     self._id_9D08 = 6;
     thread vehicle_scripts\_littlebird_landing::_id_57B1();
-    thread _id_0DE7();
+    thread attach_littlebird_parts();
     thread maps\_vehicle::_id_9D02( "running" );
 
     if ( issubstr( self.classname, "sentinel" ) )
@@ -86,7 +86,7 @@ _id_4D10()
 
     waitframe;
 
-    if ( !_id_0CD0( self.model, self.classname ) )
+    if ( !armed( self.model, self.classname ) )
     {
         maps\_vehicle::_id_5BD2();
 
@@ -96,7 +96,7 @@ _id_4D10()
 
     thread vehicle_scripts\_littlebird_aud::_id_45B5();
     self._id_3069 = ::_id_57AE;
-    maps\_utility::_id_0749( ::_id_57AD );
+    maps\_utility::add_damage_function( ::_id_57AD );
 }
 
 _id_84C2()
@@ -117,7 +117,7 @@ _id_84F0()
     }
 }
 
-_id_0DE7()
+attach_littlebird_parts()
 {
     switch ( self.classname )
     {
@@ -244,8 +244,8 @@ _id_7F23()
     var_0[5]._id_6EB0 = %little_bird_prelanding_idle_guy1;
     var_0[6]._id_6EB0 = %little_bird_prelanding_idle_guy3;
     var_0[7]._id_6EB0 = %little_bird_prelanding_idle_guy2;
-    var_0[0]._id_1433 = 0;
-    var_0[1]._id_1433 = 0;
+    var_0[0].bhasgunwhileriding = 0;
+    var_0[1].bhasgunwhileriding = 0;
     return var_0;
 }
 
@@ -313,7 +313,7 @@ _id_57AE( var_0, var_1 )
     common_scripts\utility::_id_A069( "goal", "near_goal" );
     self notify( "stop_crash_loop_sound" );
     self notify( "crash_done" );
-    self._id_0B0C = 1;
+    self.alwaysrocketdeath = 1;
     self._id_3118 = 1;
     maps\_vehicle_code::_id_9CF0( var_0, var_1 );
 

@@ -26,21 +26,21 @@ _id_4CB6()
 
     _id_4D38();
     _id_4D78();
-    level.onplayerconnectaudioinit = ::onplayerconnectaudioinit;
+    level._id_64C9 = ::_id_64C9;
 }
 
-onplayerconnectaudioinit()
+_id_64C9()
 {
-    _id_0CA7( "default" );
-    _id_0CA9();
+    apply_reverb( "default" );
+    apply_whizby();
 }
 
 _id_4D38()
 {
-    _id_078C( "default", "generic", 0.15, 0.9, 2 );
+    add_reverb( "default", "generic", 0.15, 0.9, 2 );
 }
 
-_id_078C( var_0, var_1, var_2, var_3, var_4 )
+add_reverb( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = [];
     _id_5078( var_1 );
@@ -48,7 +48,7 @@ _id_078C( var_0, var_1, var_2, var_3, var_4 )
     var_5["wetlevel"] = var_2;
     var_5["drylevel"] = var_3;
     var_5["fadetime"] = var_4;
-    level.audio.reverb_settings[var_0] = var_5;
+    level.audio._id_74F1[var_0] = var_5;
 }
 
 _id_5078( var_0 )
@@ -56,36 +56,36 @@ _id_5078( var_0 )
 
 }
 
-_id_0CA7( var_0 )
+apply_reverb( var_0 )
 {
-    if ( !isdefined( level.audio.reverb_settings[var_0] ) )
-        var_1 = level.audio.reverb_settings["default"];
+    if ( !isdefined( level.audio._id_74F1[var_0] ) )
+        var_1 = level.audio._id_74F1["default"];
     else
-        var_1 = level.audio.reverb_settings[var_0];
+        var_1 = level.audio._id_74F1[var_0];
 
     self setreverb( "snd_enveffectsprio_level", var_1["roomtype"], var_1["drylevel"], var_1["wetlevel"], var_1["fadetime"] );
 }
 
 _id_4D78()
 {
-    level.audio.whizby_settings = [];
+    level.audio._id_A315 = [];
     _id_7F0A( 15.0, 30.0, 50.0 );
     _id_7F0B( 150.0, 250.0, 350.0 );
 }
 
 _id_7F0A( var_0, var_1, var_2 )
 {
-    level.audio.whizby_settings["radius"] = [ var_0, var_1, var_2 ];
+    level.audio._id_A315["radius"] = [ var_0, var_1, var_2 ];
 }
 
 _id_7F0B( var_0, var_1, var_2 )
 {
-    level.audio.whizby_settings["spread"] = [ var_0, var_1, var_2 ];
+    level.audio._id_A315["spread"] = [ var_0, var_1, var_2 ];
 }
 
-_id_0CA9()
+apply_whizby()
 {
-    var_0 = level.audio.whizby_settings;
+    var_0 = level.audio._id_A315;
     var_1 = var_0["spread"];
     var_2 = var_0["radius"];
     self setwhizbyspreads( var_1[0], var_1[1], var_1[2] );
@@ -459,7 +459,7 @@ _id_87B5( var_0, var_1, var_2 )
     }
 }
 
-_id_1029( var_0, var_1, var_2, var_3, var_4 )
+aud_print_3d_on_ent( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( self ) )
     {
@@ -497,7 +497,7 @@ _id_1029( var_0, var_1, var_2, var_3, var_4 )
         }
 
         if ( isdefined( var_4 ) )
-            thread _id_1117( var_4 );
+            thread audx_print_3d_timer( var_4 );
 
         self endon( "death" );
         self endon( "aud_stop_3D_print" );
@@ -514,7 +514,7 @@ _id_1029( var_0, var_1, var_2, var_3, var_4 )
     }
 }
 
-_id_1117( var_0 )
+audx_print_3d_timer( var_0 )
 {
     self endon( "death" );
     wait(var_0);

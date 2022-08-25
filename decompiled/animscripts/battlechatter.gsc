@@ -142,7 +142,7 @@ _id_4CB8()
     anim._id_33DE["custom"] = [];
     anim._id_33DE["direction"] = [];
 
-    if ( isdefined( level._id_0669 ) )
+    if ( isdefined( level._stealth ) )
     {
         anim._id_33D9["threat"]["self"] = 20000;
         anim._id_33D9["threat"]["squad"] = 30000;
@@ -205,21 +205,21 @@ _id_4CB8()
     anim.landmarks = getentarray( "trigger_landmark", "targetname" );
     anim._id_8AC9[anim._id_8AC9.size] = ::_id_4D5E;
     anim._id_8ACA[anim._id_8ACA.size] = "::init_squadBattleChatter";
-    anim.isteamspeaking["allies"] = 0;
+    anim._id_51D0["allies"] = 0;
     anim._id_51CF["allies"]["threat"] = 0;
     anim._id_51CF["allies"]["order"] = 0;
     anim._id_51CF["allies"]["reaction"] = 0;
     anim._id_51CF["allies"]["response"] = 0;
     anim._id_51CF["allies"]["inform"] = 0;
     anim._id_51CF["allies"]["custom"] = 0;
-    anim.isteamspeaking["axis"] = 0;
+    anim._id_51D0["axis"] = 0;
     anim._id_51CF["axis"]["threat"] = 0;
     anim._id_51CF["axis"]["order"] = 0;
     anim._id_51CF["axis"]["reaction"] = 0;
     anim._id_51CF["axis"]["response"] = 0;
     anim._id_51CF["axis"]["inform"] = 0;
     anim._id_51CF["axis"]["custom"] = 0;
-    anim.isteamspeaking["neutral"] = 0;
+    anim._id_51D0["neutral"] = 0;
     anim._id_51CF["neutral"]["threat"] = 0;
     anim._id_51CF["neutral"]["order"] = 0;
     anim._id_51CF["neutral"]["reaction"] = 0;
@@ -227,12 +227,12 @@ _id_4CB8()
     anim._id_51CF["neutral"]["inform"] = 0;
     anim._id_51CF["neutral"]["custom"] = 0;
 
-    if ( !isdefined( level._id_132D ) )
+    if ( !isdefined( level.battlechatter ) )
     {
-        level._id_132D = [];
-        level._id_132D["allies"] = 1;
-        level._id_132D["axis"] = 1;
-        level._id_132D["neutral"] = 1;
+        level.battlechatter = [];
+        level.battlechatter["allies"] = 1;
+        level.battlechatter["axis"] = 1;
+        level.battlechatter["neutral"] = 1;
     }
 
     anim._id_5602 = [];
@@ -267,7 +267,7 @@ _id_854B()
     anim._id_9BF9 = undefined;
     anim._id_1CA5 = 0;
     anim.player._id_1CA5 = 0;
-    level._id_132D = undefined;
+    level.battlechatter = undefined;
 
     for ( var_0 = 0; var_0 < anim._id_8AC9.size; var_0++ )
     {
@@ -313,7 +313,7 @@ _id_4D5E()
     var_0._id_5151["inform"] = 0;
     var_0._id_5151["custom"] = 0;
     var_0._id_5595 = "";
-    var_0._id_5B9D[var_0._id_5B9D.size] = animscripts\battlechatter_ai::_id_0850;
+    var_0._id_5B9D[var_0._id_5B9D.size] = animscripts\battlechatter_ai::addtosystem;
     var_0._id_5B9E[var_0._id_5B9E.size] = "::addToSystem";
     var_0._id_5BA4[var_0._id_5BA4.size] = animscripts\battlechatter_ai::_id_73AE;
     var_0._id_5BA5[var_0._id_5BA5.size] = "::removeFromSystem";
@@ -390,12 +390,12 @@ _id_854E()
     var_0._id_1CA5 = 0;
 }
 
-_id_1357()
+bcsenabled()
 {
     return anim._id_1CA5;
 }
 
-_id_1356()
+bcsdebugwaiter()
 {
     var_0 = getdvar( "bcs_enable" );
 
@@ -429,11 +429,11 @@ _id_1356()
 _id_3109()
 {
     _id_4CB8();
-    anim.player thread animscripts\battlechatter_ai::_id_0850();
+    anim.player thread animscripts\battlechatter_ai::addtosystem();
     var_0 = getaiarray();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] animscripts\battlechatter_ai::_id_0850();
+        var_0[var_1] animscripts\battlechatter_ai::addtosystem();
 }
 
 _id_2AF6()
@@ -452,22 +452,22 @@ _id_2AF6()
 
 _id_6A2E()
 {
-    if ( !_id_1357() )
+    if ( !bcsenabled() )
         return;
 
-    if ( !self._id_132D )
+    if ( !self.battlechatter )
         return;
 
     if ( self._id_51B3 )
         return;
 
-    if ( self._id_0550 > 0 )
+    if ( self._animactive > 0 )
         return;
 
     if ( self._id_8AB0._id_62AE >= self._id_8AB0._id_5A54 )
         return;
 
-    if ( anim.isteamspeaking[self.team] )
+    if ( anim._id_51D0[self.team] )
         return;
 
     if ( !isalive( self ) )
@@ -599,7 +599,7 @@ _id_932B( var_0, var_1 )
             }
 
             self._id_8AB0._id_5595 = var_3;
-            var_2 _id_0837( 1.0, "infantry", var_3 );
+            var_2 addthreatalias( 1.0, "infantry", var_3 );
         }
     }
     else if ( var_0 animscripts\pain::weaponanims() == "rocketlauncher" )
@@ -610,13 +610,13 @@ _id_932B( var_0, var_1 )
         var_2 _id_932D( var_0 );
     else if ( !isdefined( var_0 _id_400A() ) && !isdefined( var_0 getlandmark() ) )
     {
-        var_2 _id_0837( 1.0, "infantry", "generic" );
+        var_2 addthreatalias( 1.0, "infantry", "generic" );
         var_2 adddirectionalias( 1.0, "relative", var_0 );
         var_2 addareaalias( 0.5, var_0 );
     }
     else
     {
-        var_2 _id_0837( 1.0, "infantry", "generic" );
+        var_2 addthreatalias( 1.0, "infantry", "generic" );
 
         if ( var_2 addlocationalias( 1.0, var_0 ) )
         {
@@ -624,30 +624,30 @@ _id_932B( var_0, var_1 )
 
             if ( isdefined( var_4 ) )
             {
-                if ( isdefined( var_4._id_1342 ) && _id_1ADE( var_4._id_1342 ) )
+                if ( isdefined( var_4.bcname ) && _id_1ADE( var_4.bcname ) )
                 {
-                    var_2 _id_0802( var_4._id_1342 );
+                    var_2 addnamealias( var_4.bcname );
                     var_2.looktarget = var_4;
                 }
-                else if ( isdefined( var_4._id_1346 ) )
+                else if ( isdefined( var_4.bcrank ) )
                 {
-                    var_2 _id_0822( var_4._id_1346 );
+                    var_2 addrankalias( var_4.bcrank );
                     var_2.looktarget = var_4;
                 }
 
-                var_2 _id_081A( 1.0, "attack", "infantry" );
+                var_2 addorderalias( 1.0, "attack", "infantry" );
 
                 if ( _id_5164() )
-                    var_4 animscripts\battlechatter_ai::_id_0826( "ack", "yes", self, 0.9 );
+                    var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "yes", self, 0.9 );
                 else
-                    var_4 animscripts\battlechatter_ai::_id_0826( "ack", "norankyes", self, 0.9 );
+                    var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "norankyes", self, 0.9 );
             }
             else if ( randomfloat( 1 ) > 0.3 )
                 var_2 adddirectionalias( 1.0, "side", var_0, var_2.locationent getorigin() );
             else
             {
                 var_2 addareaalias( 0.5, var_0 );
-                var_2 _id_081A( 1.0, "attack", "infantry" );
+                var_2 addorderalias( 1.0, "attack", "infantry" );
             }
         }
         else if ( var_2 addlandmarkalias( 1.0, var_0 ) )
@@ -656,30 +656,30 @@ _id_932B( var_0, var_1 )
 
             if ( isdefined( var_4 ) )
             {
-                if ( isdefined( var_4._id_1342 ) && _id_1ADE( var_4._id_1342 ) )
+                if ( isdefined( var_4.bcname ) && _id_1ADE( var_4.bcname ) )
                 {
-                    var_2 _id_0802( var_4._id_1342 );
+                    var_2 addnamealias( var_4.bcname );
                     var_2.looktarget = var_4;
                 }
-                else if ( isdefined( var_4._id_1346 ) )
+                else if ( isdefined( var_4.bcrank ) )
                 {
-                    var_2 _id_0822( var_4._id_1346 );
+                    var_2 addrankalias( var_4.bcrank );
                     var_2.looktarget = var_4;
                 }
 
-                var_2 _id_081A( 1.0, "attack", "infantry" );
+                var_2 addorderalias( 1.0, "attack", "infantry" );
 
                 if ( _id_5164() )
-                    var_4 animscripts\battlechatter_ai::_id_0826( "ack", "yes", self, 0.9 );
+                    var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "yes", self, 0.9 );
                 else
-                    var_4 animscripts\battlechatter_ai::_id_0826( "ack", "norankyes", self, 0.9 );
+                    var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "norankyes", self, 0.9 );
             }
             else if ( randomfloat( 1 ) > 0.3 )
                 var_2 adddirectionalias( 1.0, "relative", var_0 );
             else
             {
                 var_2 addareaalias( 0.5, var_0 );
-                var_2 _id_081A( 1.0, "attack", "infantry" );
+                var_2 addorderalias( 1.0, "attack", "infantry" );
             }
         }
     }
@@ -722,11 +722,11 @@ _id_9329( var_0, var_1 )
                 var_3 = "generic";
         }
 
-        var_2 _id_0837( 1.0, "dog", var_3 );
+        var_2 addthreatalias( 1.0, "dog", var_3 );
     }
     else
     {
-        var_2 _id_0837( 1.0, "dog", "generic" );
+        var_2 addthreatalias( 1.0, "dog", "generic" );
         var_2 adddirectionalias( 1.0, "relative", var_0 );
     }
 
@@ -736,9 +736,9 @@ _id_9329( var_0, var_1 )
 _id_932D( var_0 )
 {
     if ( !isdefined( var_0 getlandmark() ) )
-        _id_0837( 1.0, "infantry", "exposed" );
+        addthreatalias( 1.0, "infantry", "exposed" );
     else
-        _id_0837( 1.0, "infantry", "generic" );
+        addthreatalias( 1.0, "infantry", "generic" );
 
     if ( addlandmarkalias( 1.0, var_0 ) )
         adddirectionalias( 0.5, "relative", var_0 );
@@ -748,7 +748,7 @@ _id_932D( var_0 )
 
 _id_932E( var_0 )
 {
-    _id_0837( 1.0, "rpg", "generic" );
+    addthreatalias( 1.0, "rpg", "generic" );
 
     if ( addareaalias( 0.5, var_0 ) && self.areadetail )
         return;
@@ -761,7 +761,7 @@ _id_932E( var_0 )
 
 threatinfantrymg( var_0 )
 {
-    _id_0837( 1.0, "mg", "generic" );
+    addthreatalias( 1.0, "mg", "generic" );
 
     if ( addareaalias( 0.5, var_0 ) && self.areadetail )
         return;
@@ -798,7 +798,7 @@ _id_7188( var_0, var_1 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_2 = _id_23EB();
-    var_2 _id_0823( 1.0, "casualty", "generic" );
+    var_2 addreactionalias( 1.0, "casualty", "generic" );
     _id_6DD0( var_2 );
 }
 
@@ -807,7 +807,7 @@ _id_718C( var_0, var_1 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_2 = _id_23EB();
-    var_2 _id_0836( 1.0, "taunt", "generic" );
+    var_2 addtauntalias( 1.0, "taunt", "generic" );
     _id_6DD0( var_2 );
 }
 
@@ -848,7 +848,7 @@ responseacknowledge( var_0, var_1 )
         return;
 
     var_2 = _id_23EB();
-    var_2 _id_0825( 1.0, "ack", var_1 );
+    var_2 addresponsealias( 1.0, "ack", var_1 );
     var_2.looktarget = var_0;
     _id_6DD0( var_2 );
 }
@@ -858,7 +858,7 @@ responsekillconfirm( var_0, var_1 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_2 = _id_23EB();
-    var_2 _id_0825( 1.0, "killfirm", "infantry" );
+    var_2 addresponsealias( 1.0, "killfirm", "infantry" );
     var_2.looktarget = var_0;
     _id_6DD0( var_2 );
 }
@@ -909,25 +909,25 @@ _id_657E( var_0, var_1 )
                 var_1 = var_3[var_4];
         }
 
-        if ( isdefined( var_1 ) && isdefined( var_1._id_1342 ) && _id_1ADE( var_1._id_1342 ) )
+        if ( isdefined( var_1 ) && isdefined( var_1.bcname ) && _id_1ADE( var_1.bcname ) )
         {
-            var_2 _id_0802( var_1._id_1342 );
+            var_2 addnamealias( var_1.bcname );
             var_2.looktarget = var_1;
-            var_1 animscripts\battlechatter_ai::_id_0826( "ack", "follow", self, 1.0 );
+            var_1 animscripts\battlechatter_ai::addresponseevent( "ack", "follow", self, 1.0 );
         }
-        else if ( isdefined( var_1 ) && isdefined( var_1._id_1346 ) )
+        else if ( isdefined( var_1 ) && isdefined( var_1.bcrank ) )
         {
-            var_2 _id_0822( var_1._id_1346 );
+            var_2 addrankalias( var_1.bcrank );
             var_2.looktarget = var_1;
-            var_1 animscripts\battlechatter_ai::_id_0826( "ack", "follow", self, 1.0 );
+            var_1 animscripts\battlechatter_ai::addresponseevent( "ack", "follow", self, 1.0 );
         }
         else
             level notify( "follow order", self );
 
-        var_2 _id_081A( 1.0, "move", var_0 );
+        var_2 addorderalias( 1.0, "move", var_0 );
     }
     else
-        var_2 _id_081A( 1.0, "move", var_0 );
+        var_2 addorderalias( 1.0, "move", var_0 );
 
     _id_6DD0( var_2 );
 }
@@ -937,7 +937,7 @@ _id_657D( var_0 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_1 = _id_23EB();
-    var_1 _id_081A( 1.0, "displace", var_0 );
+    var_1 addorderalias( 1.0, "displace", var_0 );
     _id_6DD0( var_1, 1 );
 }
 
@@ -946,7 +946,7 @@ _id_657C( var_0 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_1 = _id_23EB();
-    var_1 _id_081A( 1.0, "action", var_0 );
+    var_1 addorderalias( 1.0, "action", var_0 );
     _id_6DD0( var_1 );
 }
 
@@ -958,24 +958,24 @@ ordercover( var_0, var_1 )
 
     if ( randomfloat( 1 ) < 0.5 && _id_5164() )
     {
-        if ( isdefined( var_1 ) && isdefined( var_1._id_1346 ) )
+        if ( isdefined( var_1 ) && isdefined( var_1.bcrank ) )
         {
-            var_2 _id_0822( var_1._id_1346 );
+            var_2 addrankalias( var_1.bcrank );
             var_2.looktarget = var_1;
         }
     }
-    else if ( isdefined( var_1 ) && isdefined( var_1._id_1342 ) && _id_1ADE( var_1._id_1342 ) )
+    else if ( isdefined( var_1 ) && isdefined( var_1.bcname ) && _id_1ADE( var_1.bcname ) )
     {
-        var_2 _id_0802( var_1._id_1342 );
+        var_2 addnamealias( var_1.bcname );
         var_2.looktarget = var_1;
     }
-    else if ( isdefined( var_1 ) && isdefined( var_1._id_1346 ) )
+    else if ( isdefined( var_1 ) && isdefined( var_1.bcrank ) )
     {
-        var_2 _id_0822( var_1._id_1346 );
+        var_2 addrankalias( var_1.bcrank );
         var_2.looktarget = var_1;
     }
 
-    var_2 _id_081A( 1.0, "cover", var_0 );
+    var_2 addorderalias( 1.0, "cover", var_0 );
     _id_6DD0( var_2 );
 }
 
@@ -1014,21 +1014,21 @@ _id_4C64( var_0, var_1 )
     self endon( "removed from battleChatter" );
     var_2 = _id_23EB();
 
-    if ( var_1 == "coverme" && isalive( var_0 ) && isdefined( var_0._id_1342 ) && _id_1ADE( var_0._id_1342 ) )
+    if ( var_1 == "coverme" && isalive( var_0 ) && isdefined( var_0.bcname ) && _id_1ADE( var_0.bcname ) )
     {
         if ( var_0 == level.player || self._id_2243 != "US" )
             var_1 = "generic";
         else
         {
-            var_1 = var_0._id_1342;
-            var_0 animscripts\battlechatter_ai::_id_0826( "ack", "covering", self, 0.9 );
+            var_1 = var_0.bcname;
+            var_0 animscripts\battlechatter_ai::addresponseevent( "ack", "covering", self, 0.9 );
             var_2.looktarget = var_0;
         }
     }
     else
         var_1 = "generic";
 
-    var_2 _id_07E6( 1.0, "reloading", var_1 );
+    var_2 addinformalias( 1.0, "reloading", var_1 );
     _id_6DD0( var_2 );
 }
 
@@ -1037,7 +1037,7 @@ informsupressed( var_0 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_1 = _id_23EB();
-    var_1 _id_07E6( 1.0, "suppressed", var_0 );
+    var_1 addinformalias( 1.0, "suppressed", var_0 );
     _id_6DD0( var_1 );
 }
 
@@ -1050,7 +1050,7 @@ _id_4C62( var_0 )
     if ( var_0 == "grenade" )
         var_1._id_59D8 = 1;
 
-    var_1 _id_07E6( 1.0, "incoming", var_0 );
+    var_1 addinformalias( 1.0, "incoming", var_0 );
     _id_6DD0( var_1 );
 }
 
@@ -1059,7 +1059,7 @@ _id_4C61( var_0 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_1 = _id_23EB();
-    var_1 _id_07E6( 1.0, "attack", var_0 );
+    var_1 addinformalias( 1.0, "attack", var_0 );
     _id_6DD0( var_1 );
 }
 
@@ -1068,7 +1068,7 @@ informkillconfirm( var_0 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
     var_1 = _id_23EB();
-    var_1 _id_07E6( 1.0, "killfirm", "infantry" );
+    var_1 addinformalias( 1.0, "killfirm", "infantry" );
     _id_6DD0( var_1 );
 }
 
@@ -1092,28 +1092,28 @@ _id_6DD0( var_0, var_1 )
     if ( isdefined( var_1 ) )
         return;
 
-    if ( isdefined( level._id_0669 ) && self._id_9F32 == "british" )
+    if ( isdefined( level._stealth ) && self._id_9F32 == "british" )
     {
         for ( var_2 = 0; var_2 < var_0._id_88A9.size; var_2++ )
             var_0._id_88A9[var_2] += "_s";
     }
 
-    if ( _id_132E() )
+    if ( battlechatter_canprint() )
     {
         for ( var_2 = 0; var_2 < var_0._id_88A9.size; var_2++ )
-            _id_1335( var_0._id_88A9[var_2] );
+            battlechatter_print( var_0._id_88A9[var_2] );
 
         battlechatter_println( "" );
     }
 
-    thread _id_1336( var_0._id_88A9 );
+    thread battlechatter_printdump( var_0._id_88A9 );
 
     for ( var_2 = 0; var_2 < var_0._id_88A9.size; var_2++ )
     {
-        if ( !self._id_132D )
+        if ( !self.battlechatter )
             continue;
 
-        if ( self._id_0550 > 0 )
+        if ( self._animactive > 0 )
             continue;
 
         if ( _id_5105( self._id_24C5._id_33D8 ) )
@@ -1136,13 +1136,13 @@ _id_6DD0( var_0, var_1 )
             }
 
             self playsoundasmaster( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-            thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.looktarget );
+            thread maps\_anim::anim_facialfiller( var_0._id_88A9[var_2], var_0.looktarget );
             self waittill( var_0._id_88A9[var_2] );
             continue;
         }
 
         self playsound( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-        thread maps\_anim::_id_0BC4( var_0._id_88A9[var_2], var_0.looktarget );
+        thread maps\_anim::anim_facialfiller( var_0._id_88A9[var_2], var_0.looktarget );
         self waittill( var_0._id_88A9[var_2] );
     }
 
@@ -1173,12 +1173,12 @@ _id_5808( var_0, var_1, var_2 )
     var_0 thread _id_51B4( var_1 );
     var_3._id_5151[var_1] = 1;
     var_3._id_62AE++;
-    anim.isteamspeaking[var_4] = 1;
+    anim._id_51D0[var_4] = 1;
     anim._id_51CF[var_4][var_1] = 1;
     var_5 = var_0 common_scripts\utility::_id_A070( "death", "done speaking", "cancel speaking" );
     var_3._id_5151[var_1] = 0;
     var_3._id_62AE--;
-    anim.isteamspeaking[var_4] = 0;
+    anim._id_51D0[var_4] = 0;
     anim._id_51CF[var_4][var_1] = 0;
     anim._id_5602[var_4] = gettime();
 
@@ -1221,7 +1221,7 @@ _id_1ADD( var_0, var_1, var_2, var_3 )
     if ( self == level.player )
         return 0;
 
-    if ( !isdefined( self._id_132D ) || !self._id_132D )
+    if ( !isdefined( self.battlechatter ) || !self.battlechatter )
         return 0;
 
     if ( isdefined( var_2 ) && var_2 >= 1 )
@@ -1236,7 +1236,7 @@ _id_1ADD( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_1 ) && _id_99E7( var_0, var_1 ) )
         return 0;
 
-    if ( isdefined( var_1 ) && anim._id_33DC[var_0][var_1] < self._id_134D )
+    if ( isdefined( var_1 ) && anim._id_33DC[var_0][var_1] < self.bcs_minpriority )
         return 0;
 
     if ( self._id_9F32 == "british" )
@@ -1486,7 +1486,7 @@ _id_2D8B( var_0, var_1 )
     self._id_8AB0._id_60DF[var_0][var_1] = gettime() + anim._id_33DE[var_0][var_1];
 }
 
-_id_1340()
+bcissniper()
 {
     if ( isplayer( self ) )
         return 0;
@@ -1502,7 +1502,7 @@ _id_5103()
     if ( isdefined( _id_400A() ) )
         return 0;
 
-    var_0 = _id_133E();
+    var_0 = bcgetclaimednode();
 
     if ( !isdefined( var_0 ) )
         return 1;
@@ -1515,7 +1515,7 @@ _id_5103()
 
 isclaimednodecover()
 {
-    var_0 = _id_133E();
+    var_0 = bcgetclaimednode();
 
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1528,7 +1528,7 @@ isclaimednodecover()
 
 isclaimednodewindow()
 {
-    var_0 = _id_133E();
+    var_0 = bcgetclaimednode();
 
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1565,7 +1565,7 @@ _id_5164()
     return 0;
 }
 
-_id_133E()
+bcgetclaimednode()
 {
     if ( isplayer( self ) )
         var_0 = self.node;
@@ -1576,7 +1576,7 @@ _id_133E()
 _id_4030()
 {
     if ( self.team == "axis" )
-        var_0 = self._id_0986;
+        var_0 = self.ainame;
     else if ( self.team == "allies" )
         var_0 = self.name;
     else
@@ -1595,7 +1595,7 @@ _id_4030()
 
 _id_40A9()
 {
-    return self._id_0992;
+    return self.airank;
 }
 
 getclosestspeaker( var_0, var_1 )
@@ -1768,12 +1768,12 @@ _id_4151( var_0 )
     return ( var_1[0] / var_0.size, var_1[1] / var_0.size, var_1[2] / var_0.size );
 }
 
-_id_0802( var_0 )
+addnamealias( var_0 )
 {
     self._id_88A9[self._id_88A9.size] = self.owner._id_2243 + "_" + self.owner._id_6252 + "_name_" + var_0;
 }
 
-_id_0822( var_0 )
+addrankalias( var_0 )
 {
     self._id_88A9[self._id_88A9.size] = self.owner._id_2243 + "_" + self.owner._id_6252 + "_rank_" + var_0;
 }
@@ -1804,7 +1804,7 @@ addareaalias( var_0, var_1 )
     }
 
     var_2 = self.areaent._id_793E;
-    var_3 = var_1 _id_133E();
+    var_3 = var_1 bcgetclaimednode();
 
     if ( isdefined( var_3 ) && isdefined( var_3._id_793E ) )
     {
@@ -1833,7 +1833,7 @@ addlocationalias( var_0, var_1 )
         return 0;
 
     var_2 = self.locationent._id_7A27;
-    var_3 = var_1 _id_133E();
+    var_3 = var_1 bcgetclaimednode();
 
     if ( isdefined( var_3 ) && isdefined( var_3._id_7A27 ) )
         var_2 += ( "_" + var_3._id_7A27 );
@@ -1936,42 +1936,42 @@ getdirectionaliasplayerrelative( var_0 )
     return self._id_2A6D;
 }
 
-_id_0837( var_0, var_1, var_2 )
+addthreatalias( var_0, var_1, var_2 )
 {
     self._id_9317 = self.owner._id_2243 + "_" + self.owner._id_6252 + "_threat_" + var_1 + "_" + var_2;
     self._id_88A9[self._id_88A9.size] = self._id_9317;
     return 1;
 }
 
-_id_07E6( var_0, var_1, var_2 )
+addinformalias( var_0, var_1, var_2 )
 {
     self.inform = self.owner._id_2243 + "_" + self.owner._id_6252 + "_inform_" + var_1 + "_" + var_2;
     self._id_88A9[self._id_88A9.size] = self.inform;
     return 1;
 }
 
-_id_0825( var_0, var_1, var_2 )
+addresponsealias( var_0, var_1, var_2 )
 {
     self.response = self.owner._id_2243 + "_" + self.owner._id_6252 + "_response_" + var_1 + "_" + var_2;
     self._id_88A9[self._id_88A9.size] = self.response;
     return 1;
 }
 
-_id_0823( var_0, var_1, var_2 )
+addreactionalias( var_0, var_1, var_2 )
 {
     self._id_717C = self.owner._id_2243 + "_" + self.owner._id_6252 + "_reaction_" + var_1 + "_" + var_2;
     self._id_88A9[self._id_88A9.size] = self._id_717C;
     return 1;
 }
 
-_id_0836( var_0, var_1, var_2 )
+addtauntalias( var_0, var_1, var_2 )
 {
     self._id_717C = self.owner._id_2243 + "_" + self.owner._id_6252 + "_taunt";
     self._id_88A9[self._id_88A9.size] = self._id_717C;
     return 1;
 }
 
-_id_081A( var_0, var_1, var_2 )
+addorderalias( var_0, var_1, var_2 )
 {
     self.order = self.owner._id_2243 + "_" + self.owner._id_6252 + "_order_" + var_1 + "_" + var_2;
     self._id_88A9[self._id_88A9.size] = self.order;
@@ -2034,7 +2034,7 @@ _id_6E26( var_0 )
     return vectordot( var_1, var_0 - self.origin ) > 0.766;
 }
 
-_id_132E()
+battlechatter_canprint()
 {
     if ( getdvar( "debug_bcprint" ) == self.team || getdvar( "debug_bcprint" ) == "all" )
         return 1;
@@ -2042,7 +2042,7 @@ _id_132E()
     return 0;
 }
 
-_id_1335( var_0 )
+battlechatter_print( var_0 )
 {
 
 }
@@ -2054,7 +2054,7 @@ battlechatter_println( var_0 )
 
 battlechatter_print_internal( var_0, var_1 )
 {
-    if ( !_id_132E() )
+    if ( !battlechatter_canprint() )
         return;
 
     var_2 = "";
@@ -2065,17 +2065,17 @@ battlechatter_print_internal( var_0, var_1 )
     [[ var_1 ]]( var_2 + var_0 );
 }
 
-_id_132F()
+battlechatter_canprintdump()
 {
     return getdvar( "debug_bcprintdump" ) == "on";
 }
 
-_id_1336( var_0 )
+battlechatter_printdump( var_0 )
 {
 
 }
 
-_id_1337( var_0, var_1, var_2 )
+battlechatter_printdumpline( var_0, var_1, var_2 )
 {
 
 }
@@ -2158,7 +2158,7 @@ threattracker()
     }
 }
 
-_id_133D()
+bcdrawobjects()
 {
     for ( var_0 = 0; var_0 < anim.areas.size; var_0++ )
     {
@@ -2248,7 +2248,7 @@ _id_7451( var_0, var_1 )
         if ( !isalive( var_4 ) )
             continue;
 
-        if ( !isdefined( var_4._id_132D ) )
+        if ( !isdefined( var_4.battlechatter ) )
             continue;
 
         var_4._id_60DB[var_1] = gettime() + 350;
@@ -2306,7 +2306,7 @@ _id_40B4( var_0 )
 
     if ( !isplayer( var_0 ) )
     {
-        var_2 = var_0 _id_133E();
+        var_2 = var_0 bcgetclaimednode();
 
         if ( isdefined( var_2 ) )
             var_1 = var_2.angles;
@@ -2322,7 +2322,7 @@ _id_3CBF()
     if ( !isdefined( self ) )
         return var_0;
 
-    var_1 = anim._id_134A;
+    var_1 = anim.bcs_locations;
     var_2 = self getistouchingentities( var_1 );
 
     if ( !isdefined( var_2 ) )

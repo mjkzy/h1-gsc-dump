@@ -51,7 +51,7 @@ _id_7E68()
     setsaveddvar( "r_specularColorScale", "4.5" );
     maps\_utility::_id_9E6E( "village_assault", 0 );
     level.player maps\_utility::set_light_set_player( "village_assault" );
-    level.player _meth_848c( "clut_village_assault", 0.0 );
+    level.player _meth_848C( "clut_village_assault", 0.0 );
 }
 
 _id_8106()

@@ -44,13 +44,13 @@ init()
         setmatchdataid();
     }
 
-    level.maxlives = 285;
-    level.maxevents = 150;
-    level.maxkillstreaks = 64;
-    level.maxlogclients = 30;
+    level._id_5A40 = 285;
+    level._id_5A37 = 150;
+    level._id_5A3C = 64;
+    level._id_5A42 = 30;
     level._id_5A46 = 5;
-    level.maxnumchallengesperplayer = 10;
-    level.maxnumawardsperplayer = 10;
+    level._id_5A45 = 10;
+    level._id_5A41 = 10;
     level thread _id_3BDB();
 
     if ( getdvar( "virtualLobbyActive" ) != "1" )
@@ -83,7 +83,7 @@ _id_59EC()
         setmatchdata( "divisionMode", 1 );
 
     thread _id_581F();
-    thread _id_06D9();
+    thread accumulateplayerpingdata();
 }
 
 _id_581F()
@@ -121,7 +121,7 @@ _id_581F()
     }
 }
 
-_id_06D9()
+accumulateplayerpingdata()
 {
     level endon( "game_ended" );
 
@@ -275,7 +275,7 @@ _id_583C()
     var_1 = self._id_24C3;
     var_2 = 0;
 
-    for ( var_2 = 0; var_2 < level.maxnumawardsperplayer; var_2++ )
+    for ( var_2 = 0; var_2 < level._id_5A41; var_2++ )
     {
         var_3 = getmatchdata( "players", self.clientid, "loadouts", var_2, "slotUsed" );
 
@@ -290,7 +290,7 @@ _id_583C()
         }
     }
 
-    if ( var_2 == level.maxnumawardsperplayer )
+    if ( var_2 == level._id_5A41 )
         return var_0;
 
     setmatchdata( "players", self.clientid, "loadouts", var_2, "slotUsed", 1 );
@@ -323,20 +323,20 @@ _id_583C()
     else if ( issubstr( var_1, "custom" ) )
     {
         var_21 = maps\mp\_utility::_id_3F32( var_1 );
-        var_9 = maps\mp\gametypes\_class::_id_1985( var_21, 0 );
+        var_9 = maps\mp\gametypes\_class::cac_getweapon( var_21, 0 );
         var_10 = maps\mp\gametypes\_class::cac_getweaponattachkit( var_21, 0 );
         var_11 = maps\mp\gametypes\_class::cac_getweaponfurniturekit( var_21, 0 );
-        var_12 = maps\mp\gametypes\_class::_id_1989( var_21, 0 );
+        var_12 = maps\mp\gametypes\_class::cac_getweaponcamo( var_21, 0 );
 
         for ( var_19 = 0; var_19 < 3; var_19++ )
-            var_5[var_19] = maps\mp\gametypes\_class::_id_1984( var_21, var_19 );
+            var_5[var_19] = maps\mp\gametypes\_class::cac_getperk( var_21, var_19 );
 
-        var_14 = maps\mp\gametypes\_class::_id_1985( var_21, 1 );
+        var_14 = maps\mp\gametypes\_class::cac_getweapon( var_21, 1 );
         var_15 = maps\mp\gametypes\_class::cac_getweaponattachkit( var_21, 1 );
         var_16 = maps\mp\gametypes\_class::cac_getweaponfurniturekit( var_21, 1 );
-        var_17 = maps\mp\gametypes\_class::_id_1989( var_21, 1 );
-        var_6 = maps\mp\gametypes\_class::_id_197F( var_21, 0 );
-        var_7 = maps\mp\gametypes\_class::_id_1983( var_21 );
+        var_17 = maps\mp\gametypes\_class::cac_getweaponcamo( var_21, 1 );
+        var_6 = maps\mp\gametypes\_class::cac_getequipment( var_21, 0 );
+        var_7 = maps\mp\gametypes\_class::cac_getoffhand( var_21 );
         var_20 = maps\mp\gametypes\_class::cac_getmeleeweapon( var_21 );
     }
     else
@@ -395,7 +395,7 @@ _id_583E( var_0, var_1 )
     if ( !_id_1ACE( self ) || isplayer( var_1 ) && !_id_1ACE( var_1 ) || !_id_1AD1( var_0 ) )
         return;
 
-    if ( var_0 >= level.maxlives )
+    if ( var_0 >= level._id_5A40 )
         return;
 
     if ( isplayer( var_1 ) )
@@ -489,7 +489,7 @@ _id_29AD( var_0, var_1 )
                     if ( !maps\mp\_utility::_id_50BD( var_16 ) )
                         continue;
 
-                    var_17 = maps\mp\_utility::_id_0E02( var_16 );
+                    var_17 = maps\mp\_utility::attachmentmap_tobase( var_16 );
 
                     if ( var_14 <= 2 )
                     {
@@ -509,13 +509,13 @@ _id_29AD( var_0, var_1 )
 
             if ( isdefined( var_8[4] ) && maps\mp\_utility::_id_50BD( var_8[4] ) )
             {
-                var_17 = maps\mp\_utility::_id_0E02( var_8[4] );
+                var_17 = maps\mp\_utility::attachmentmap_tobase( var_8[4] );
                 var_4[0] = var_17;
             }
 
             if ( isdefined( var_8[5] ) && maps\mp\_utility::_id_50BD( var_8[5] ) )
             {
-                var_17 = maps\mp\_utility::_id_0E02( var_8[5] );
+                var_17 = maps\mp\_utility::attachmentmap_tobase( var_8[5] );
                 var_4[1] = var_17;
             }
         }
@@ -525,13 +525,13 @@ _id_29AD( var_0, var_1 )
 
             if ( isdefined( var_8[1] ) && var_2 != "altmode" )
             {
-                var_17 = maps\mp\_utility::_id_0E02( var_8[1] );
+                var_17 = maps\mp\_utility::attachmentmap_tobase( var_8[1] );
                 var_4[0] = var_17;
             }
 
             if ( isdefined( var_8[2] ) && var_2 != "altmode" )
             {
-                var_17 = maps\mp\_utility::_id_0E02( var_8[2] );
+                var_17 = maps\mp\_utility::attachmentmap_tobase( var_8[2] );
                 var_4[1] = var_17;
             }
         }
@@ -563,7 +563,7 @@ _id_5826( var_0, var_1 )
     if ( !isplayer( var_1 ) )
         return;
 
-    if ( var_0 >= level.maxlives )
+    if ( var_0 >= level._id_5A40 )
         return;
 
     if ( self._id_2515 > 0 )
@@ -604,17 +604,17 @@ _id_581E( var_0, var_1 )
 
     if ( isplayer( self ) && _id_1ACE( self ) )
     {
-        if ( isdefined( self._id_0E2C ) )
+        if ( isdefined( self.attackerdata ) )
         {
             var_2 = 0;
 
-            foreach ( var_4 in self._id_0E2C )
+            foreach ( var_4 in self.attackerdata )
             {
-                if ( isplayer( var_4._id_0E2D ) )
+                if ( isplayer( var_4.attackerent ) )
                 {
-                    if ( var_4._id_0E2D != var_1 )
+                    if ( var_4.attackerent != var_1 )
                     {
-                        setmatchdata( "lives", var_0, "assists", var_2, "assistingPlayerIndex", var_4._id_0E2D.clientid );
+                        setmatchdata( "lives", var_0, "assists", var_2, "assistingPlayerIndex", var_4.attackerent.clientid );
                         setmatchdata( "lives", var_0, "assists", var_2, "damage", maps\mp\_utility::_id_1E28( var_4.damage ) );
                         var_2++;
 
@@ -679,13 +679,13 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     if ( !_id_1ACE( self ) || isplayer( var_1 ) && !_id_1ACE( var_1 ) || !_id_1AD1( var_0 ) )
         return;
 
-    if ( var_0 >= level.maxlives )
+    if ( var_0 >= level._id_5A40 )
         return;
 
     if ( level.iszombiegame )
         return;
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         return;
 
     _id_583E( var_0, var_1 );
@@ -739,7 +739,7 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
             setmatchdata( "lives", var_0, "victimCurrentWeaponAtDeath", var_12._id_A2DF );
     }
 
-    if ( isdefined( self.tookweaponfrom ) && isdefined( self.tookweaponfrom[var_12._id_A2E0] ) )
+    if ( isdefined( self._id_680B ) && isdefined( self._id_680B[var_12._id_A2E0] ) )
         setmatchdata( "lives", var_0, "victimCurrentWeaponPickedUp", 1 );
 
     setmatchdata( "lives", var_0, "meansOfDeath", var_3 );
@@ -761,7 +761,7 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         var_14 = vectordot( var_15, var_16 );
         setmatchdata( "lives", var_0, "dotOfDeath", var_14 );
 
-        if ( isdefined( var_1.tookweaponfrom ) && isdefined( var_1.tookweaponfrom[var_8._id_A2E0] ) )
+        if ( isdefined( var_1._id_680B ) && isdefined( var_1._id_680B[var_8._id_A2E0] ) )
             setmatchdata( "lives", var_0, "killerCurrentWeaponPickedUp", 1 );
     }
     else
@@ -856,14 +856,14 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         else
             level._id_59E0["badSpawnDiedTooFastCount"]++;
 
-        if ( self._id_89E4._id_126D == 0 )
+        if ( self._id_89E4.badspawn == 0 )
         {
             if ( !isdefined( level._id_59E0["badSpawnByAnyMeansCount"] ) )
                 level._id_59E0["badSpawnByAnyMeansCount"] = 1;
             else
                 level._id_59E0["badSpawnByAnyMeansCount"]++;
 
-            self._id_89E4._id_126D = 1;
+            self._id_89E4.badspawn = 1;
         }
     }
 
@@ -874,14 +874,14 @@ _id_5845( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         else
             level._id_59E0["badSpawnKilledTooFastCount"]++;
 
-        if ( var_1._id_89E4._id_126D == 0 )
+        if ( var_1._id_89E4.badspawn == 0 )
         {
             if ( !isdefined( level._id_59E0["badSpawnByAnyMeansCount"] ) )
                 level._id_59E0["badSpawnByAnyMeansCount"] = 1;
             else
                 level._id_59E0["badSpawnByAnyMeansCount"]++;
 
-            var_1._id_89E4._id_126D = 1;
+            var_1._id_89E4.badspawn = 1;
         }
     }
 }
@@ -933,8 +933,8 @@ _id_31B7()
 
         _id_5847( var_1 );
 
-        if ( isdefined( var_1.detectedexploit ) && var_1.detectedexploit && var_1 maps\mp\_utility::_id_7139() )
-            var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "restXPGoal", var_1.detectedexploit );
+        if ( isdefined( var_1._id_2991 ) && var_1._id_2991 && var_1 maps\mp\_utility::_id_7139() )
+            var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "restXPGoal", var_1._id_2991 );
 
         var_2 = undefined;
         var_3 = 0;
@@ -1102,22 +1102,22 @@ _id_1ACE( var_0 )
     if ( !isdefined( var_1 ) )
         var_1 = "undefined";
 
-    return var_0.clientid < level.maxlogclients;
+    return var_0.clientid < level._id_5A42;
 }
 
 _id_1ACF()
 {
-    return getmatchdata( "eventCount" ) < level.maxevents;
+    return getmatchdata( "eventCount" ) < level._id_5A37;
 }
 
 _id_1AD0()
 {
-    return getmatchdata( "killstreakCount" ) < level.maxkillstreaks;
+    return getmatchdata( "killstreakCount" ) < level._id_5A3C;
 }
 
 _id_1AD1( var_0 )
 {
-    return getmatchdata( "lifeCount" ) < level.maxlives;
+    return getmatchdata( "lifeCount" ) < level._id_5A40;
 }
 
 _id_584C( var_0, var_1, var_2 )
@@ -1139,7 +1139,7 @@ _id_584C( var_0, var_1, var_2 )
     self.pers["mpWeaponStats"][var_0][var_1] = var_3;
 }
 
-_id_1877()
+buildbaseweaponlist()
 {
     var_0 = [];
     var_1 = 149;

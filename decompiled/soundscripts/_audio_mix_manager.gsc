@@ -21,19 +21,19 @@
 
 _id_5CFA()
 {
-    if ( !isdefined( level._id_055B ) )
-        level._id_055B = spawnstruct();
+    if ( !isdefined( level._audio ) )
+        level._audio = spawnstruct();
 
-    if ( !isdefined( level._id_055B._id_5CE8 ) )
-        level._id_055B._id_5CE8 = spawnstruct();
+    if ( !isdefined( level._audio._id_5CE8 ) )
+        level._audio._id_5CE8 = spawnstruct();
 
-    level._id_055B._id_5CE8._id_24D1 = undefined;
-    level._id_055B._id_5CE8._id_A3F3 = [];
+    level._audio._id_5CE8._id_24D1 = undefined;
+    level._audio._id_5CE8._id_A3F3 = [];
 }
 
 _id_5D00( var_0, var_1 )
 {
-    if ( !isdefined( level._id_055B._id_5CE8._id_24D1 ) || var_0 != level._id_055B._id_5CE8._id_24D1 )
+    if ( !isdefined( level._audio._id_5CE8._id_24D1 ) || var_0 != level._audio._id_5CE8._id_24D1 )
     {
         clearallsubmixes( 0.0 );
 
@@ -42,19 +42,19 @@ _id_5D00( var_0, var_1 )
         else
             addsoundsubmix( var_0 );
 
-        level._id_055B._id_5CE8._id_24D1 = var_0;
+        level._audio._id_5CE8._id_24D1 = var_0;
     }
 }
 
 _id_5D01( var_0 )
 {
-    foreach ( var_2 in level._id_055B._id_5CE8._id_A3F3 )
+    foreach ( var_2 in level._audio._id_5CE8._id_A3F3 )
     {
         if ( var_0 != var_2 )
         {
             makesoundsubmixunsticky( var_2 );
             clearsoundsubmix( var_2, 1.0 );
-            level._id_055B._id_5CE8._id_A3F3[var_2] = undefined;
+            level._audio._id_5CE8._id_A3F3[var_2] = undefined;
         }
     }
 
@@ -70,18 +70,18 @@ _id_5CF9( var_0, var_1 )
 
     if ( !isdefined( var_0 ) )
     {
-        foreach ( var_0 in level._id_055B._id_5CE8._id_A3F3 )
+        foreach ( var_0 in level._audio._id_5CE8._id_A3F3 )
         {
             makesoundsubmixunsticky( var_0 );
             clearsoundsubmix( var_0, var_2 );
-            level._id_055B._id_5CE8._id_A3F3[var_0] = undefined;
+            level._audio._id_5CE8._id_A3F3[var_0] = undefined;
         }
     }
-    else if ( isdefined( level._id_055B._id_5CE8._id_A3F3[var_0] ) )
+    else if ( isdefined( level._audio._id_5CE8._id_A3F3[var_0] ) )
     {
         makesoundsubmixunsticky( var_0 );
         clearsoundsubmix( var_0, var_2 );
-        level._id_055B._id_5CE8._id_A3F3[var_0] = undefined;
+        level._audio._id_5CE8._id_A3F3[var_0] = undefined;
     }
 }
 
@@ -113,7 +113,7 @@ _id_5CF4( var_0, var_1, var_2, var_3 )
 _id_5CF7( var_0 )
 {
     clearallsubmixes( var_0 );
-    level._id_055B._id_5CE8._id_24D1 = undefined;
+    level._audio._id_5CE8._id_24D1 = undefined;
 }
 
 _id_5CFB( var_0 )
@@ -162,8 +162,8 @@ _id_5CF6( var_0, var_1 )
     else
         clearsoundsubmix( var_0 );
 
-    if ( isdefined( level._id_055B._id_5CE8._id_24D1 ) && level._id_055B._id_5CE8._id_24D1 == var_0 )
-        level._id_055B._id_5CE8._id_24D1 = undefined;
+    if ( isdefined( level._audio._id_5CE8._id_24D1 ) && level._audio._id_5CE8._id_24D1 == var_0 )
+        level._audio._id_5CE8._id_24D1 = undefined;
 }
 
 _id_5CF1( var_0, var_1, var_2 )
@@ -238,10 +238,10 @@ _id_5CF5( var_0 )
 
 _id_5D02( var_0 )
 {
-    if ( !isdefined( level._id_055B._id_5CE8._id_A3F3[var_0] ) )
+    if ( !isdefined( level._audio._id_5CE8._id_A3F3[var_0] ) )
     {
         addsoundsubmix( var_0 );
         makesoundsubmixsticky( var_0 );
-        level._id_055B._id_5CE8._id_A3F3[var_0] = var_0;
+        level._audio._id_5CE8._id_A3F3[var_0] = var_0;
     }
 }

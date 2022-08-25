@@ -95,13 +95,13 @@ beautiful_guys()
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = var_2 maps\_shg_design_tools::_id_072C();
+        var_3 = var_2 maps\_shg_design_tools::actual_spawn();
 
         if ( !isdefined( var_3 ) )
             return;
 
         var_3 maps\_utility::_id_5926();
-        var_3 maps\_utility::_id_08EB();
+        var_3 maps\_utility::ai_ignore_everything();
         var_3 maps\_utility::_id_58D7();
         var_3._id_79EE = "none";
 
@@ -110,8 +110,8 @@ beautiful_guys()
 
         if ( isdefined( var_2.script_noteworthy ) )
         {
-            var_3._id_0C72 = "beautiful_guy";
-            var_3 thread maps\_anim::_id_0BE1( var_3, var_2.script_noteworthy, undefined, "stop_idle" );
+            var_3.animname = "beautiful_guy";
+            var_3 thread maps\_anim::anim_loop_solo( var_3, var_2.script_noteworthy, undefined, "stop_idle" );
         }
     }
 }
@@ -163,8 +163,8 @@ beautiful_view_init()
 
     common_scripts\utility::_id_383D( "beautiful_view_transitioning" );
     common_scripts\utility::_id_3831( "beautiful_view_transitioning" );
-    level._id_148A = maps\_hud_util::_id_23A2( "black", 1 );
-    level._id_148A.sort = 1000;
+    level.black_overlay = maps\_hud_util::_id_23A2( "black", 1 );
+    level.black_overlay.sort = 1000;
     level.player takeweapon( "beretta" );
     level.player takeweapon( "fraggrenade" );
     level.player takeweapon( "flash_grenade" );
@@ -245,8 +245,8 @@ beautiful_view_update( var_0 )
 beautiful_view_fade_in()
 {
     wait 0.1;
-    level._id_148A fadeovertime( 0.3 );
-    level._id_148A.alpha = 0;
+    level.black_overlay fadeovertime( 0.3 );
+    level.black_overlay.alpha = 0;
 
     if ( !level.beautiful_view_static )
         level.player enableweapons();
@@ -263,8 +263,8 @@ beautiful_view_fade_out()
 {
     level.player showhud();
     level.player setstance( "stand" );
-    level._id_148A fadeovertime( 0.3 );
-    level._id_148A.alpha = 1;
+    level.black_overlay fadeovertime( 0.3 );
+    level.black_overlay.alpha = 1;
     level.player disableweapons();
     wait 0.3;
     level.player freezecontrols( 1 );
@@ -277,19 +277,19 @@ beautiful_view_position( var_0 )
         maps\_utility::_id_9E6E( level.beautiful_visions[var_0], 0 );
 
     if ( level.beautiful_lightsets[var_0] != "" )
-        level.player _meth_83be( level.beautiful_lightsets[var_0] );
+        level.player _meth_83BE( level.beautiful_lightsets[var_0] );
 
     if ( level.beautiful_cluts[var_0] != "" )
-        level.player _meth_848c( level.beautiful_cluts[var_0], 0 );
+        level.player _meth_848C( level.beautiful_cluts[var_0], 0 );
 
     if ( level.beautiful_view_static && isdefined( level.beautiful_dof[var_0] ) )
     {
         var_1 = level.beautiful_dof[var_0];
-        level.player _meth_84a5();
-        level.player _meth_84a7( var_1["fstop"], var_1["focus_distance"], var_1["focus_speed"], var_1["aperture_speed"] );
+        level.player _meth_84A5();
+        level.player _meth_84A7( var_1["fstop"], var_1["focus_distance"], var_1["focus_speed"], var_1["aperture_speed"] );
     }
     else
-        level.player _meth_84a6();
+        level.player _meth_84A6();
 
     level.player setstance( "stand" );
 

@@ -28,13 +28,13 @@ main( var_0, var_1, var_2 )
         var_2 = "weapon_c4_obj";
 
     if ( !isdefined( var_0 ) )
-        level._id_196C = "c4";
+        level.c4_weaponname = "c4";
     else
-        level._id_196C = var_0;
+        level.c4_weaponname = var_0;
 
     precachemodel( var_1 );
     precachemodel( var_2 );
-    precacheitem( level._id_196C );
+    precacheitem( level.c4_weaponname );
 
     if ( isdefined( level.c4_explosion_fx_override ) )
         level._effect["c4_explosion"] = level.c4_explosion_fx_override;
@@ -192,14 +192,14 @@ remove_detonator()
     wait 1;
     var_0 = 0;
 
-    if ( level._id_196C == self getcurrentweapon() && isdefined( self._id_63C1 ) )
+    if ( level.c4_weaponname == self getcurrentweapon() && isdefined( self._id_63C1 ) )
     {
         if ( self._id_63C1 == "none" )
         {
             var_0 = 1;
             self switchtoweapon( self getweaponslistprimaries()[0] );
         }
-        else if ( self hasweapon( self._id_63C1 ) && self._id_63C1 != level._id_196C )
+        else if ( self hasweapon( self._id_63C1 ) && self._id_63C1 != level.c4_weaponname )
             self switchtoweapon( self._id_63C1 );
         else
             self switchtoweapon( self getweaponslistprimaries()[0] );
@@ -207,11 +207,11 @@ remove_detonator()
 
     self._id_63C1 = undefined;
 
-    if ( 0 != self getammocount( level._id_196C ) )
+    if ( 0 != self getammocount( level.c4_weaponname ) )
         return;
 
     self waittill( "weapon_change" );
-    self takeweapon( level._id_196C );
+    self takeweapon( level.c4_weaponname );
 }
 
 switch_to_detonator()
@@ -225,7 +225,7 @@ switch_to_detonator()
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( var_1[var_2] != level._id_196C )
+        if ( var_1[var_2] != level.c4_weaponname )
             continue;
 
         var_0 = var_1[var_2];
@@ -233,12 +233,12 @@ switch_to_detonator()
 
     if ( !isdefined( var_0 ) )
     {
-        self giveweapon( level._id_196C );
-        self setweaponammoclip( level._id_196C, 0 );
-        self setactionslot( 2, "weapon", level._id_196C );
+        self giveweapon( level.c4_weaponname );
+        self setweaponammoclip( level.c4_weaponname, 0 );
+        self setactionslot( 2, "weapon", level.c4_weaponname );
     }
 
-    self switchtoweapon( level._id_196C );
+    self switchtoweapon( level.c4_weaponname );
 }
 
 get_use_trigger()

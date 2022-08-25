@@ -124,6 +124,6 @@ _id_4DAB()
         var_2[var_2.size] = var_3 / var_1;
 
     level._id_2CAF = 0;
-    level._id_2CB0 = common_scripts\utility::_id_0CF5( var_2 );
+    level._id_2CB0 = common_scripts\utility::array_randomize( var_2 );
     setdvar( "friendlySaveFromDog", "0" );
 }

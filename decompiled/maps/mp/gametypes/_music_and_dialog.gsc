@@ -165,13 +165,13 @@ _id_64D6()
 
     if ( getdvar( "virtuallobbyactive" ) == "0" )
     {
-        if ( !level.splitscreen || level.splitscreen && !isdefined( level.playedstartingmusic ) )
+        if ( !level.splitscreen || level.splitscreen && !isdefined( level._id_6A41 ) )
         {
             if ( !maps\mp\_utility::issecondarysplitscreenplayer() )
                 self playlocalsound( game["music"]["spawn_" + self.team] );
 
             if ( level.splitscreen )
-                level.playedstartingmusic = 1;
+                level._id_6A41 = 1;
         }
 
         if ( isdefined( game["dialog"]["gametype"] ) && ( !level.splitscreen || self == level.players[0] ) )
@@ -348,7 +348,7 @@ _id_3C04()
     }
     else if ( var_0 == "axis" )
     {
-        if ( isdefined( level.ishorde ) )
+        if ( isdefined( level._id_511D ) )
             [[ level._id_49DE ]]();
         else
         {

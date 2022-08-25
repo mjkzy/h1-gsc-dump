@@ -23,11 +23,11 @@ _id_6EFB()
 {
     precacheitem( "turret_attackheli" );
     precacheitem( "missile_attackheli" );
-    _id_0E20();
+    attack_heli_fx();
     thread init();
 }
 
-_id_0E20()
+attack_heli_fx()
 {
     if ( getdvarint( "sm_enable" ) && getdvar( "r_zfeather" ) != "0" )
         level._effect["_attack_heli_spotlight"] = loadfx( "fx/misc/hunted_spotlight_model" );
@@ -37,7 +37,7 @@ _id_0E20()
 
 init()
 {
-    if ( isdefined( level._id_0E37 ) )
+    if ( isdefined( level.attackheliaiburstsize ) )
         return;
 
     while ( !isdefined( level._id_3BFE ) )
@@ -52,37 +52,37 @@ init()
     if ( !isdefined( level._id_2235["35"] ) )
         level._id_2235["35"] = cos( 35 );
 
-    if ( !isdefined( level._id_0E3F ) )
-        level._id_0E3F = 3500;
+    if ( !isdefined( level.attackhelirange ) )
+        level.attackhelirange = 3500;
 
-    if ( !isdefined( level._id_0E3B ) )
-        level._id_0E3B = 0;
+    if ( !isdefined( level.attackhelikillsai ) )
+        level.attackhelikillsai = 0;
 
-    if ( !isdefined( level._id_0E39 ) )
-        level._id_0E39 = cos( 30 );
+    if ( !isdefined( level.attackhelifov ) )
+        level.attackhelifov = cos( 30 );
 
-    level._id_0E37 = 1;
-    level._id_0E3C = 3;
-    level._id_0E40 = 6;
-    level._id_0E3D = 3;
+    level.attackheliaiburstsize = 1;
+    level.attackhelimemory = 3;
+    level.attackhelitargetreaquire = 6;
+    level.attackhelimovetime = 3;
 
     switch ( level._id_3BFE )
     {
         case 0:
-            level._id_0E3E = 9;
-            level._id_0E41 = 1;
+            level.attackheliplayerbreak = 9;
+            level.attackhelitimeout = 1;
             break;
         case 1:
-            level._id_0E3E = 7;
-            level._id_0E41 = 2;
+            level.attackheliplayerbreak = 7;
+            level.attackhelitimeout = 2;
             break;
         case 2:
-            level._id_0E3E = 5;
-            level._id_0E41 = 3;
+            level.attackheliplayerbreak = 5;
+            level.attackhelitimeout = 3;
             break;
         case 3:
-            level._id_0E3E = 3;
-            level._id_0E41 = 5;
+            level.attackheliplayerbreak = 3;
+            level.attackhelitimeout = 5;
             break;
     }
 }
@@ -93,11 +93,11 @@ _id_8B37( var_0 )
         var_0 = "kill_heli";
 
     var_1 = maps\_vehicle::_id_8979( var_0 );
-    var_1 = _id_136E( var_1 );
+    var_1 = begin_attack_heli_behavior( var_1 );
     return var_1;
 }
 
-_id_136E( var_0, var_1 )
+begin_attack_heli_behavior( var_0, var_1 )
 {
     var_0 endon( "death" );
     var_0 endon( "heli_players_dead" );
@@ -116,21 +116,21 @@ _id_136E( var_0, var_1 )
 
         if ( !isdefined( var_0._id_60F0 ) )
         {
-            var_0._id_0E54 = missile_createattractorent( var_2, var_3, 10000, level.player );
+            var_0.attractor = missile_createattractorent( var_2, var_3, 10000, level.player );
 
             if ( maps\_utility::_id_500C() )
-                var_0._id_0E55 = missile_createattractorent( var_2, var_3, 10000, level._id_6C5B );
+                var_0.attractor2 = missile_createattractorent( var_2, var_3, 10000, level._id_6C5B );
         }
     }
 
-    var_0 _meth_81b9();
+    var_0 _meth_81B9();
     var_0._id_8D26 = spawn( "script_origin", var_0.origin );
     var_0 thread common_scripts\utility::_id_2825( var_0._id_8D26 );
 
     if ( !isdefined( var_0._id_1D75 ) )
         var_0._id_1D75 = 0;
 
-    var_0._id_0AAF = 1;
+    var_0.allowshoot = 1;
     var_0._id_3805 = 0;
     var_0._id_5F9E = 1;
     var_0._id_51C8 = 0;
@@ -173,14 +173,14 @@ _id_136E( var_0, var_1 )
     if ( isdefined( var_0._id_7AD4 ) && var_0._id_7AD4 == 1 && !isdefined( var_0._id_8A85 ) )
         var_0 thread _id_47EA( undefined, 1 );
 
-    var_0 thread _id_0E1F();
+    var_0 thread attack_heli_cleanup();
     return var_0;
 }
 
 _id_298D()
 {
     foreach ( var_1 in level.players )
-        var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+        var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
 
     maps\_utility::_id_2BDD();
     self notify( "heli_players_dead" );
@@ -249,7 +249,7 @@ _id_8235()
         return;
 
     self._id_99BB = self._id_5BD5;
-    common_scripts\utility::_id_0D13( self._id_99BB, ::_id_57B6, self );
+    common_scripts\utility::array_thread( self._id_99BB, ::_id_57B6, self );
 }
 
 _id_47B6( var_0 )
@@ -269,7 +269,7 @@ _id_8B5E( var_0, var_1 )
     var_2._id_8D26 = spawn( "script_origin", var_2.origin );
     var_2 thread common_scripts\utility::_id_2825( var_2._id_8D26 );
     var_2._id_1D75 = 1;
-    var_2._id_0AAF = 1;
+    var_2.allowshoot = 1;
     var_2._id_3805 = 0;
     var_2 thread _id_6200();
     var_2 thread _id_6204();
@@ -282,7 +282,7 @@ _id_5319( var_0, var_1 )
     if ( !isdefined( var_0 ) )
     {
         var_0 = maps\_vehicle::_id_8979( "kill_heli" );
-        var_0._id_0AAF = 1;
+        var_0.allowshoot = 1;
         var_0._id_3805 = 0;
         var_0 thread _id_6200();
         var_0 thread _id_6204();
@@ -304,11 +304,11 @@ _id_5319( var_0, var_1 )
     if ( !isdefined( level._id_324D ) )
         level._id_324D = 0;
 
-    level._id_0E21 = undefined;
+    level.attack_heli_safe_volumes = undefined;
     var_3 = getentarray( "attack_heli_safe_volume", "script_noteworthy" );
 
     if ( var_3.size > 0 )
-        level._id_0E21 = var_3;
+        level.attack_heli_safe_volumes = var_3;
 
     if ( !level._id_324E )
         thread _id_29EE( var_0 );
@@ -475,9 +475,9 @@ _id_47C8( var_0 )
 
         foreach ( var_12 in var_8 )
         {
-            if ( var_6 _meth_81db( var_12.origin, var_2 ) != 1 )
+            if ( var_6 _meth_81DB( var_12.origin, var_2 ) != 1 )
             {
-                var_8 = common_scripts\utility::_id_0CF6( var_8, var_12 );
+                var_8 = common_scripts\utility::array_remove( var_8, var_12 );
                 continue;
             }
         }
@@ -501,7 +501,7 @@ _id_47C8( var_0 )
                 var_3 = var_9;
         }
 
-        var_17 = randomfloatrange( level._id_0E3D - 0.5, level._id_0E3D + 0.5 );
+        var_17 = randomfloatrange( level.attackhelimovetime - 0.5, level.attackhelimovetime + 0.5 );
         common_scripts\utility::_id_A0A0( "damage_by_player", var_17 );
     }
 }
@@ -528,8 +528,8 @@ _id_47E0()
     self endon( "death" );
     self endon( "heli_players_dead" );
     thread _id_47D5();
-    var_0 = level._id_0E3F * level._id_0E3F;
-    level._id_0E3A = 0;
+    var_0 = level.attackhelirange * level.attackhelirange;
+    level.attackheligraceperiod = 0;
 
     while ( isdefined( self ) )
     {
@@ -558,7 +558,7 @@ _id_47E0()
 
         if ( _id_47C9() )
         {
-            if ( !_id_47A8() || level._id_0E3A == 1 )
+            if ( !_id_47A8() || level.attackheligraceperiod == 1 )
             {
                 var_1 = _id_47C5();
                 self._id_338A = var_1;
@@ -604,7 +604,7 @@ _id_47E0()
         if ( isplayer( self._id_338A ) )
             thread _id_6B2E( self );
 
-        common_scripts\utility::_id_A0A0( "damage_by_player", level._id_0E40 );
+        common_scripts\utility::_id_A0A0( "damage_by_player", level.attackhelitargetreaquire );
     }
 }
 
@@ -612,9 +612,9 @@ _id_6B2E( var_0 )
 {
     level notify( "player_is_heli_target" );
     level endon( "player_is_heli_target" );
-    level._id_0E3A = 1;
-    var_0 common_scripts\utility::_id_A0A0( "damage_by_player", level._id_0E3E );
-    level._id_0E3A = 0;
+    level.attackheligraceperiod = 1;
+    var_0 common_scripts\utility::_id_A0A0( "damage_by_player", level.attackheliplayerbreak );
+    level.attackheligraceperiod = 0;
 }
 
 _id_47A8()
@@ -659,7 +659,7 @@ _id_47CA()
 
 _id_47C4()
 {
-    var_0 = maps\_helicopter_globals::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 1, 0, 1, level._id_0E38 );
+    var_0 = maps\_helicopter_globals::_id_3F7F( level.attackhelirange, level.attackhelifov, 1, 1, 0, 1, level.attackheliexcluders );
 
     if ( isdefined( var_0 ) && isplayer( var_0 ) )
         var_0 = self._id_91C4;
@@ -673,7 +673,7 @@ _id_47C4()
 _id_47C6()
 {
     var_0 = getaiarray( "allies" );
-    var_1 = maps\_helicopter_globals::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 0, 0, 0, var_0 );
+    var_1 = maps\_helicopter_globals::_id_3F7F( level.attackhelirange, level.attackhelifov, 1, 0, 0, 0, var_0 );
 
     if ( !isdefined( var_1 ) )
         var_1 = self._id_91C4;
@@ -683,7 +683,7 @@ _id_47C6()
 
 _id_47C5()
 {
-    var_0 = maps\_helicopter_globals::_id_3F7F( level._id_0E3F, level._id_0E39, 1, 1, 0, 1, level.players );
+    var_0 = maps\_helicopter_globals::_id_3F7F( level.attackhelirange, level.attackhelifov, 1, 1, 0, 1, level.players );
 
     if ( !isdefined( var_0 ) )
         var_0 = self._id_91C4;
@@ -802,7 +802,7 @@ _id_5CBE( var_0 )
     wait(var_0);
 
     if ( isdefined( self ) )
-        self _meth_81de();
+        self _meth_81DE();
 }
 
 _id_3D3A( var_0 )
@@ -826,7 +826,7 @@ _id_6200()
     for (;;)
     {
         self waittill( "disable_turret" );
-        self._id_0AAF = 0;
+        self.allowshoot = 0;
     }
 }
 
@@ -840,7 +840,7 @@ _id_6204()
     for (;;)
     {
         self waittill( "enable_turret" );
-        self._id_0AAF = 1;
+        self.allowshoot = 1;
     }
 }
 
@@ -856,7 +856,7 @@ _id_37B4()
         case "miniguns":
             var_0 = _id_3F20( self._id_338A );
 
-            if ( self._id_0AAF && !self._id_3805 )
+            if ( self.allowshoot && !self._id_3805 )
                 _id_9970( self._id_338A, var_0 );
 
             break;
@@ -871,7 +871,7 @@ _id_3F20( var_0 )
 
     if ( !isplayer( var_0 ) )
     {
-        var_1 = level._id_0E37;
+        var_1 = level.attackheliaiburstsize;
         return var_1;
     }
 
@@ -908,7 +908,7 @@ _id_9954( var_0, var_1, var_2 )
     {
         self setturrettargetent( var_0, common_scripts\utility::_id_712D( 50 ) + ( 0.0, 0.0, 32.0 ) );
 
-        if ( self._id_0AAF && !self._id_3805 )
+        if ( self.allowshoot && !self._id_3805 )
             self fireweapon();
 
         wait(var_2);
@@ -922,7 +922,7 @@ _id_9970( var_0, var_1, var_2 )
     self notify( "firing_miniguns" );
     self endon( "firing_miniguns" );
     var_3 = _id_3EAA();
-    common_scripts\utility::_id_0D13( var_3, ::_id_9971, var_0, self );
+    common_scripts\utility::array_thread( var_3, ::_id_9971, var_0, self );
 
     if ( !self._id_5C71 )
     {
@@ -947,7 +947,7 @@ _id_9970( var_0, var_1, var_2 )
 
     _id_5C6C( var_0, var_1 );
     var_3 = _id_3EAA();
-    common_scripts\utility::_id_0CDB( var_3, ::stopfiring );
+    common_scripts\utility::array_call( var_3, ::stopfiring );
     thread _id_5C6E( var_0 );
     self notify( "stopping_firing" );
 }
@@ -961,7 +961,7 @@ _id_5C6C( var_0, var_1 )
         self endon( "cant_see_player" );
 
     var_2 = _id_3EAA();
-    common_scripts\utility::_id_0CDB( var_2, ::startfiring );
+    common_scripts\utility::array_call( var_2, ::startfiring );
     wait(randomfloatrange( 1, 2 ));
 
     if ( isplayer( var_0 ) )
@@ -992,7 +992,7 @@ _id_91BE( var_0 )
         wait 0.5;
     }
 
-    wait(level._id_0E41);
+    wait(level.attackhelitimeout);
     self notify( "cant_see_player" );
 }
 
@@ -1003,7 +1003,7 @@ _id_9971( var_0, var_1 )
     self notify( "miniguns_have_new_target" );
     self endon( "miniguns_have_new_target" );
 
-    if ( !isplayer( var_0 ) && isai( var_0 ) && level._id_0E3B == 0 )
+    if ( !isplayer( var_0 ) && isai( var_0 ) && level.attackhelikillsai == 0 )
     {
         var_2 = spawn( "script_origin", var_0.origin + ( 0.0, 0.0, 100.0 ) );
         var_2 linkto( var_0 );
@@ -1059,7 +1059,7 @@ _id_5C8A( var_0 )
         var_3 = var_2 + common_scripts\utility::_id_712D( 50 );
         self setturrettargetent( var_0, var_3 );
 
-        if ( self._id_0AAF )
+        if ( self.allowshoot )
             self fireweapon();
 
         wait(var_5);
@@ -1102,7 +1102,7 @@ _id_3DBF( var_0, var_1, var_2, var_3, var_4 )
     {
         if ( var_10.origin[2] < var_4[2] )
         {
-            var_5 = common_scripts\utility::_id_0CF6( var_5, var_10 );
+            var_5 = common_scripts\utility::array_remove( var_5, var_10 );
             continue;
         }
     }
@@ -1155,7 +1155,7 @@ _id_1A4D( var_0 )
     self endon( "attacker_seen" );
     self._id_7C56 = var_0;
     self._id_47CC = var_0;
-    wait(level._id_0E3C);
+    wait(level.attackhelimemory);
     self._id_47CC = undefined;
     self._id_7C56 = undefined;
 }
@@ -1168,9 +1168,9 @@ _id_5037( var_0 )
             return 0;
     }
 
-    if ( isdefined( level._id_0E21 ) )
+    if ( isdefined( level.attack_heli_safe_volumes ) )
     {
-        foreach ( var_2 in level._id_0E21 )
+        foreach ( var_2 in level.attack_heli_safe_volumes )
         {
             if ( self istouching( var_2 ) )
                 return 1;
@@ -1371,7 +1371,7 @@ _id_47ED( var_0 )
     self endon( "death" );
     self endon( "heli_players_dead" );
     _id_47E6();
-    common_scripts\utility::_id_0D13( level._id_8A86, ::_id_47E4, self );
+    common_scripts\utility::array_thread( level._id_8A86, ::_id_47E4, self );
 
     if ( isdefined( var_0 ) )
         self thread [[ var_0 ]]();
@@ -1433,15 +1433,15 @@ _id_57B6( var_0 )
         thread _id_5C6F();
 }
 
-_id_0E1F()
+attack_heli_cleanup()
 {
     common_scripts\utility::_id_A087( "death", "crash_done" );
 
-    if ( isdefined( self._id_0E54 ) )
-        missile_deleteattractor( self._id_0E54 );
+    if ( isdefined( self.attractor ) )
+        missile_deleteattractor( self.attractor );
 
-    if ( isdefined( self._id_0E55 ) )
-        missile_deleteattractor( self._id_0E55 );
+    if ( isdefined( self.attractor2 ) )
+        missile_deleteattractor( self.attractor2 );
 }
 
 _id_47B5( var_0 )
@@ -1632,23 +1632,23 @@ _id_47BD( var_0, var_1, var_2, var_3 )
     self setvehweapon( var_4 );
 }
 
-_id_1563()
+boneyard_style_heli_missile_attack()
 {
     self waittill( "trigger", var_0 );
     var_1 = common_scripts\utility::_id_40FD( self.target, "targetname" );
-    var_1 = maps\_utility::_id_0CEC( var_1 );
-    _id_1562( var_0, var_1 );
+    var_1 = maps\_utility::array_index_by_script_index( var_1 );
+    boneyard_fire_at_targets( var_0, var_1 );
 }
 
-_id_1564()
+boneyard_style_heli_missile_attack_linked()
 {
     self waittill( "trigger", var_0 );
     var_1 = maps\_utility::_id_3DC0();
-    var_1 = maps\_utility::_id_0CEC( var_1 );
-    _id_1562( var_0, var_1 );
+    var_1 = maps\_utility::array_index_by_script_index( var_1 );
+    boneyard_fire_at_targets( var_0, var_1 );
 }
 
-_id_1562( var_0, var_1 )
+boneyard_fire_at_targets( var_0, var_1 )
 {
     var_2 = [];
     var_2[0] = "tag_missile_right";
@@ -1668,7 +1668,7 @@ _id_1562( var_0, var_1 )
         var_0 setvehweapon( "littlebird_FFAR" );
         var_0 setturrettargetent( var_3[var_4] );
         var_5 = var_0 fireweapon( var_2[var_4 % var_2.size], var_3[var_4], ( 0.0, 0.0, 0.0 ) );
-        var_5 common_scripts\utility::_id_27CD( 1, ::_meth_81de );
+        var_5 common_scripts\utility::_id_27CD( 1, ::_meth_81DE );
         wait(randomfloatrange( 0.2, 0.3 ));
     }
 

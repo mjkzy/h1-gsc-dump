@@ -173,20 +173,20 @@ _id_2D41( var_0, var_1, var_2, var_3 )
         var_0 = var_7;
     }
 
-    var_1._id_63C4 = var_1._id_0C72;
-    var_1._id_0C72 = "guy";
+    var_1._id_63C4 = var_1.animname;
+    var_1.animname = "guy";
 
     if ( var_3 == "kick" )
-        var_0 maps\_anim::_id_0BFF( var_1, var_3 );
+        var_0 maps\_anim::anim_reach_solo( var_1, var_3 );
     else
     {
-        var_1 _meth_81a9( var_0 );
+        var_1 _meth_81A9( var_0 );
         var_1 waittill( "goal" );
     }
 
-    var_0 thread maps\_anim::_id_0C24( var_1, var_3 );
+    var_0 thread maps\_anim::anim_single_solo( var_1, var_3 );
     var_1 waittillmatch( "single anim", "kick" );
-    common_scripts\utility::_id_0D13( var_2, ::door_breach_door );
+    common_scripts\utility::array_thread( var_2, ::door_breach_door );
 
     if ( var_3 == "kick" )
     {
@@ -196,7 +196,7 @@ _id_2D41( var_0, var_1, var_2, var_3 )
     else
         var_1 waittillmatch( "single anim", "end" );
 
-    var_1._id_0C72 = var_1._id_63C4;
+    var_1.animname = var_1._id_63C4;
     var_1.goalradius = var_1._id_63DF;
     var_1.ignoreme = 0;
 
@@ -301,18 +301,18 @@ player_fastrope_go( var_0 )
     var_2 = spawn( "script_origin", var_0.origin );
     var_2.angles = level.player.angles;
     var_1 linkto( var_2 );
-    var_1._id_0C72 = "playerfastrope";
+    var_1.animname = "playerfastrope";
     var_1 useanimtree( #animtree );
     level.player allowlean( 0 );
     level.player freezecontrols( 1 );
     level.player playerlinktoabsolute( var_1, "tag_player" );
     playerweapontake();
-    var_2 maps\_anim::_id_0C24( var_1, "fastrope_on" );
+    var_2 maps\_anim::anim_single_solo( var_1, "fastrope_on" );
     var_2 movez( ( var_0._id_7131 + 96 ) * -1, var_0.time + 0.5 );
-    var_2 thread maps\_anim::_id_0BE1( var_1, "fastrope_loop", undefined, "stopanimscripted" );
+    var_2 thread maps\_anim::anim_loop_solo( var_1, "fastrope_loop", undefined, "stopanimscripted" );
     wait(var_0.time);
     var_2 notify( "stopanimscripted" );
-    level.player maps\_anim::_id_0C24( var_1, "fastrope_off" );
+    level.player maps\_anim::anim_single_solo( var_1, "fastrope_off" );
     playerweapongive();
     level.player unlink();
     level.player freezecontrols( 0 );
@@ -361,7 +361,7 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
     {
         var_6.count = var_1.size;
         var_6 thread ai_clear_dialog_logic_check();
-        common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::ai_clear_dialog_logic_guy, var_6 );
+        common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::ai_clear_dialog_logic_guy, var_6 );
     }
 
     maps\_utility::_id_A07E( var_0 );
@@ -450,14 +450,14 @@ anim_single_stack_proc( var_0, var_1 )
     if ( !isdefined( level.anim_stack ) )
         level.anim_stack = [];
 
-    var_2 = "" + var_0._id_0908 + var_1;
+    var_2 = "" + var_0.ai_number + var_1;
     level.anim_stack[level.anim_stack.size] = var_2;
 
     while ( level.anim_stack[0] != var_2 )
         level waittill( "level_anim_stack_ready" );
 
-    maps\_anim::_id_0C24( var_0, var_1 );
-    level.anim_stack = common_scripts\utility::_id_0CF6( level.anim_stack, var_2 );
+    maps\_anim::anim_single_solo( var_0, var_1 );
+    level.anim_stack = common_scripts\utility::array_remove( level.anim_stack, var_2 );
     level notify( "level_anim_stack_ready" );
     self notify( "anim_single_done" );
 }
@@ -480,7 +480,7 @@ radio_msg_stack_proc( var_0 )
         level waittill( "level_radio_stack_ready" );
 
     maps\_utility::_id_70BD( var_0 );
-    level.radio_stack = common_scripts\utility::_id_0CF6( level.radio_stack, var_0 );
+    level.radio_stack = common_scripts\utility::array_remove( level.radio_stack, var_0 );
     level notify( "level_radio_stack_ready" );
     self notify( "radio_dialogue_done" );
 }

@@ -61,12 +61,12 @@ main()
     precacheshader( "h1_hud_timer_border" );
     precacheshader( "h1_timer_on_flare" );
     precacheshader( "h1_timer_warning_flare" );
-    maps\_utility::_id_079C( "warehouse", ::start_warehouse, &"STARTS_WAREHOUSE" );
-    maps\_utility::_id_079C( "launchtubes", ::start_launchtubes, &"STARTS_LAUNCHTUBES" );
-    maps\_utility::_id_079C( "vaultdoors", ::start_vaultdoors, &"STARTS_VAULTDOORS" );
-    maps\_utility::_id_079C( "controlroom", ::start_controlroom, &"STARTS_CONTROLROOM" );
-    maps\_utility::_id_079C( "escape", ::_id_8B9A, &"STARTS_ESCAPE1" );
-    maps\_utility::_id_079C( "elevator", ::start_elevator, &"STARTS_ELEVATOR" );
+    maps\_utility::add_start( "warehouse", ::start_warehouse, &"STARTS_WAREHOUSE" );
+    maps\_utility::add_start( "launchtubes", ::start_launchtubes, &"STARTS_LAUNCHTUBES" );
+    maps\_utility::add_start( "vaultdoors", ::start_vaultdoors, &"STARTS_VAULTDOORS" );
+    maps\_utility::add_start( "controlroom", ::start_controlroom, &"STARTS_CONTROLROOM" );
+    maps\_utility::add_start( "escape", ::_id_8B9A, &"STARTS_ESCAPE1" );
+    maps\_utility::add_start( "elevator", ::start_elevator, &"STARTS_ELEVATOR" );
     maps\_utility::_id_278B( ::start_default );
     level thread maps\createart\launchfacility_b_art::main();
     level thread maps\launchfacility_b_fx::main();
@@ -107,7 +107,7 @@ main()
     precachestring( &"LAUNCHFACILITY_B_HINT_UPLOAD_CODES" );
     precachestring( &"LAUNCHFACILITY_B_FOLLOW_PRICE" );
     precachestring( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     level.secondaryprogressbary = 75;
     level.secondaryprogressbarx = 0;
     level.secondaryprogressbarheight = 14;
@@ -121,21 +121,21 @@ main()
     level.elevator_upper = getent( "elevator_upper", "targetname" );
     level.wallexplosionsmall_fx = loadfx( "fx/explosions/wall_explosion_small" );
     var_0 = getent( "price", "script_noteworthy" );
-    var_0 maps\_utility::_id_0798( ::price_think );
+    var_0 maps\_utility::add_spawn_function( ::price_think );
     var_1 = getent( "grigsby", "script_noteworthy" );
-    var_1 maps\_utility::_id_0798( ::grigsby_think );
+    var_1 maps\_utility::add_spawn_function( ::grigsby_think );
     var_2 = getent( "team1", "script_noteworthy" );
-    var_2 maps\_utility::_id_0798( ::team1_think );
+    var_2 maps\_utility::add_spawn_function( ::team1_think );
     var_3 = getentarray( "vent_friendlies_group1", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_0798, ::vent_friendlies_group1_spawner_think );
+    common_scripts\utility::array_thread( var_3, maps\_utility::add_spawn_function, ::vent_friendlies_group1_spawner_think );
     var_4 = getentarray( "vent_enemies_group1", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_4, maps\_utility::_id_0798, ::vent_enemies_group1_spawner_think );
+    common_scripts\utility::array_thread( var_4, maps\_utility::add_spawn_function, ::vent_enemies_group1_spawner_think );
     var_5 = getentarray( "vent_friendlies_group2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_5, maps\_utility::_id_0798, ::vent_friendlies_group2_spawner_think );
+    common_scripts\utility::array_thread( var_5, maps\_utility::add_spawn_function, ::vent_friendlies_group2_spawner_think );
     var_6 = getentarray( "vent_enemies_group2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_6, maps\_utility::_id_0798, ::vent_enemies_group2_spawner_think );
+    common_scripts\utility::array_thread( var_6, maps\_utility::add_spawn_function, ::vent_enemies_group2_spawner_think );
     var_7 = getentarray( "gassed_runners", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_7, maps\_utility::_id_0798, ::warehouse_retreating_enemies_think );
+    common_scripts\utility::array_thread( var_7, maps\_utility::add_spawn_function, ::warehouse_retreating_enemies_think );
     common_scripts\utility::_id_383D( "aa_countdown_started" );
     common_scripts\utility::_id_383D( "aa_first_floor" );
     common_scripts\utility::_id_383D( "aa_warehouse" );
@@ -257,16 +257,16 @@ main()
 
 h1_typing_dof_start()
 {
-    level.player _meth_84a7( 16.0, 150, 9.0, 9.0 );
-    level.player _meth_84a5();
-    level.player _meth_84a7( 2.5, 25, 4.0, 4.0 );
+    level.player _meth_84A7( 16.0, 150, 9.0, 9.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 2.5, 25, 4.0, 4.0 );
 }
 
 h1_typing_dof_stop()
 {
-    level.player _meth_84a7( 16.0, 150, 4.0, 4.0 );
+    level.player _meth_84A7( 16.0, 150, 4.0, 4.0 );
     wait 0.5;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
 }
 
 start_default()
@@ -280,15 +280,15 @@ start_warehouse()
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "warehouse_price", "targetname" );
-    level._id_6F7C _meth_81c9( var_0.origin, var_0.angles );
+    level._id_6F7C _meth_81C9( var_0.origin, var_0.angles );
     var_1 = getent( "warehouse_grigsby", "targetname" );
-    level.grigsby _meth_81c9( var_1.origin, var_1.angles );
+    level.grigsby _meth_81C9( var_1.origin, var_1.angles );
     var_2 = getent( "warehouse_player", "targetname" );
     level.player setorigin( var_2.origin );
     level.player setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
-    maps\_utility::_id_070A( "warehouse_color_init" );
+    maps\_utility::activate_trigger_with_targetname( "warehouse_color_init" );
     wait 1;
     level._id_91E7[0] delete();
 }
@@ -299,9 +299,9 @@ start_launchtubes()
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "launchtubes_price", "targetname" );
-    level._id_6F7C _meth_81c9( var_0.origin, var_0.angles );
+    level._id_6F7C _meth_81C9( var_0.origin, var_0.angles );
     var_1 = getent( "launchtubes_grigsby", "targetname" );
-    level.grigsby _meth_81c9( var_1.origin, var_1.angles );
+    level.grigsby _meth_81C9( var_1.origin, var_1.angles );
     var_2 = getent( "launchtubes_player", "targetname" );
     level.player setorigin( var_2.origin );
     level.player setplayerangles( var_2.angles );
@@ -317,9 +317,9 @@ start_vaultdoors()
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "vaultdoors_price", "targetname" );
-    level._id_6F7C _meth_81c9( var_0.origin, var_0.angles );
+    level._id_6F7C _meth_81C9( var_0.origin, var_0.angles );
     var_1 = getent( "vaultdoors_grigsby", "targetname" );
-    level.grigsby _meth_81c9( var_1.origin, var_1.angles );
+    level.grigsby _meth_81C9( var_1.origin, var_1.angles );
     var_2 = getent( "vaultdoors_player", "targetname" );
     level.player setorigin( var_2.origin );
     level.player setplayerangles( var_2.angles );
@@ -327,7 +327,7 @@ start_vaultdoors()
     common_scripts\utility::_id_383F( "move_faster" );
     common_scripts\utility::_id_383F( "open_vault_doors" );
     level._id_6F7C maps\_utility::_id_7E38( "r" );
-    maps\_utility::_id_070A( "setup_for_vault_doors" );
+    maps\_utility::activate_trigger_with_targetname( "setup_for_vault_doors" );
     wait 1;
     level._id_91E7[0] delete();
 }
@@ -338,21 +338,21 @@ start_controlroom()
     common_scripts\utility::_id_383F( "begin_countdown" );
     level notify( "use_start" );
     var_0 = getent( "controlroom_price", "targetname" );
-    level._id_6F7C _meth_81c9( var_0.origin, var_0.angles );
+    level._id_6F7C _meth_81C9( var_0.origin, var_0.angles );
     var_1 = getent( "controlroom_grigsby", "targetname" );
-    level.grigsby _meth_81c9( var_1.origin, var_1.angles );
+    level.grigsby _meth_81C9( var_1.origin, var_1.angles );
     var_2 = getent( "controlroom_player", "targetname" );
     level.player setorigin( var_2.origin );
     level.player setplayerangles( var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     level thread hide_triggers( "attacking" );
-    maps\_utility::_id_070A( "protect_the_c4" );
+    maps\_utility::activate_trigger_with_targetname( "protect_the_c4" );
     common_scripts\utility::_id_383F( "update_objectives" );
     thread plant_the_c4();
     var_3 = getentarray( "team2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_88C3 );
-    maps\_utility::_id_070A( "control_room_friendlies_attack" );
+    common_scripts\utility::array_thread( var_3, maps\_utility::_id_88C3 );
+    maps\_utility::activate_trigger_with_targetname( "control_room_friendlies_attack" );
     wait 1;
     level._id_91E7[0] delete();
     var_4 = getent( "vault_door_left", "targetname" );
@@ -386,23 +386,23 @@ _id_8B9A()
     var_4 connectpaths();
     common_scripts\_exploder::_id_3528( 100 );
     var_5 = getent( "escape_price", "targetname" );
-    level._id_6F7C _meth_81c9( var_5.origin, var_5.angles );
+    level._id_6F7C _meth_81C9( var_5.origin, var_5.angles );
     var_6 = getent( "escape_grigsby", "targetname" );
-    level.grigsby _meth_81c9( var_6.origin, var_6.angles );
+    level.grigsby _meth_81C9( var_6.origin, var_6.angles );
     var_7 = getent( "escape_player", "targetname" );
     level.player setorigin( var_7.origin );
     level.player setplayerangles( var_7.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     var_8 = getentarray( "team2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_8, maps\_utility::_id_88C3 );
-    maps\_utility::_id_070A( "control_room_friendlies_attack" );
+    common_scripts\utility::array_thread( var_8, maps\_utility::_id_88C3 );
+    maps\_utility::activate_trigger_with_targetname( "control_room_friendlies_attack" );
     level thread show_triggers( "escape" );
     thread telemetry_doors_open();
     thread escape_doors_open();
     thread grigsby_warning();
     thread delete_controlroom_friendlies();
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "vehicledepot" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "vehicledepot" );
     thread follow_price();
     wait 1;
     level._id_91E7[0] delete();
@@ -416,13 +416,13 @@ start_elevator()
     level.player setorigin( var_0.origin );
     level.player setplayerangles( var_0.angles );
     var_1 = getent( "elevator_grigsby", "targetname" );
-    level._id_6F7C _meth_81ca( var_1.origin, var_1.angles );
+    level._id_6F7C _meth_81CA( var_1.origin, var_1.angles );
     var_2 = getent( "elevator_price", "targetname" );
-    level.grigsby _meth_81ca( var_2.origin, var_2.angles );
+    level.grigsby _meth_81CA( var_2.origin, var_2.angles );
     common_scripts\utility::_id_383F( "walk" );
     common_scripts\utility::_id_383F( "move_faster" );
     level thread show_triggers( "escape" );
-    maps\_utility::_id_1143( "start_elevator" );
+    maps\_utility::autosave_by_name( "start_elevator" );
     wait 1;
     level._id_91E7[0] delete();
 }
@@ -453,13 +453,13 @@ autosave_by_name_wraper( var_0, var_1 )
             return;
     }
 
-    maps\_utility::_id_1151( var_0, 12 );
+    maps\_utility::autosave_or_timeout( var_0, 12 );
 }
 
 price_think()
 {
     level._id_6F7C = self;
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C._id_2AF7 = 1;
     thread ai_duct();
@@ -468,7 +468,7 @@ price_think()
 grigsby_think()
 {
     level.grigsby = self;
-    level.grigsby._id_0C72 = "grigsby";
+    level.grigsby.animname = "grigsby";
     level.grigsby thread maps\_utility::_id_58D7();
     level.grigsby._id_2AF7 = 1;
     thread ai_duct();
@@ -479,7 +479,7 @@ team1_think()
     if ( !isdefined( level._id_91E7 ) )
         level._id_91E7 = [];
 
-    self._id_0C72 = "steve";
+    self.animname = "steve";
     level._id_91E7[level._id_91E7.size] = self;
     self._id_2AF7 = 1;
     thread ai_duct();
@@ -488,10 +488,10 @@ team1_think()
 vent_trigger_move_out()
 {
     wait 3;
-    maps\_utility::_id_070A( "move_out" );
+    maps\_utility::activate_trigger_with_targetname( "move_out" );
     common_scripts\utility::_id_383F( "aa_first_floor" );
     wait 1;
-    maps\_utility::_id_070A( "h1_move_out" );
+    maps\_utility::activate_trigger_with_targetname( "h1_move_out" );
 }
 
 vent_trigger_air_raid_siren()
@@ -609,7 +609,7 @@ obj_upload_the_abort_codes()
     var_0 = getent( "control_room_friendlies_group", "targetname" );
 
     if ( isdefined( var_0 ) )
-        var_0 maps\_utility::_id_0706();
+        var_0 maps\_utility::activate_trigger();
 
     hide_triggers( "control_room_friendlies_group" );
     maps\_utility::_id_70BD( "grg_clearR" );
@@ -700,7 +700,7 @@ countdown_begins()
     common_scripts\utility::_id_383F( "countdown_started" );
     common_scripts\utility::_id_383F( "aa_countdown_started" );
     maps\_utility::arcademode_checkpoint( 2, "a" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_copythat" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "pri_copythat" );
     level thread starttimer();
     common_scripts\utility::_id_383F( "music_start_countdown" );
     level.timer_start_time = gettime();
@@ -778,16 +778,16 @@ ai_duct()
 {
     self._id_38A8 = 1;
     self.interval = 24;
-    self _meth_81ce( "crouch" );
-    self._id_0CB7 = ::air_duct_check_cover_transition;
-    self._id_0CBD = ::air_duct_get_transition_type;
+    self _meth_81CE( "crouch" );
+    self.approachconditioncheckfunc = ::air_duct_check_cover_transition;
+    self.approachtypefunc = ::air_duct_get_transition_type;
     self.exitconditioncheckfunc = ::air_duct_check_cover_transition;
     self.exittypefunc = ::air_duct_get_transition_type;
     common_scripts\utility::_id_384A( "walk" );
     maps\_utility::_id_22DA( "on" );
-    self _meth_81ce( "stand", "crouch", "prone" );
-    self._id_0CB7 = undefined;
-    self._id_0CBD = undefined;
+    self _meth_81CE( "stand", "crouch", "prone" );
+    self.approachconditioncheckfunc = undefined;
+    self.approachtypefunc = undefined;
     self.exitconditioncheckfunc = undefined;
     self.exittypefunc = undefined;
     common_scripts\utility::_id_384A( "move_faster" );
@@ -810,9 +810,9 @@ vent_friendlies_group1_spawner_think()
     thread maps\_utility::_id_58D7();
     self.grenadeammo = 0;
     maps\_utility::_id_22DA( "on" );
-    self _meth_81ce( "stand", "crouch", "prone" );
+    self _meth_81CE( "stand", "crouch", "prone" );
     maps\_utility::_id_A066( "vent_enemies_group1" );
-    maps\_utility::_id_070A( "vent_friendlies_group1_move" );
+    maps\_utility::activate_trigger_with_targetname( "vent_friendlies_group1_move" );
     maps\_utility::_id_22DA( "off" );
     wait 1;
     common_scripts\utility::_id_A06A( self, "goal", level, "player_out_of_vents" );
@@ -840,7 +840,7 @@ vent_friendlies_group2_spawner_think()
 {
     thread maps\_utility::_id_58D7();
     maps\_utility::_id_A066( "vent_enemies_group2" );
-    maps\_utility::_id_070A( "vent_friendlies_group2_move" );
+    maps\_utility::activate_trigger_with_targetname( "vent_friendlies_group2_move" );
     wait 1;
     common_scripts\utility::_id_A06A( self, "goal", level, "player_out_of_vents" );
     maps\_utility::_id_8EA4();
@@ -876,28 +876,28 @@ vent_friendlies_vent_jump()
 {
     common_scripts\utility::_id_383F( "grisby_jump" );
     var_0 = getent( "vent_jump_animent", "targetname" );
-    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "vent_drop_l" );
-    var_0 maps\_anim::_id_0C24( level._id_6F7C, "vent_drop_l" );
+    var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "vent_drop_l" );
+    var_0 maps\_anim::anim_single_solo( level._id_6F7C, "vent_drop_l" );
     level._id_6F7C maps\_utility::_id_7E38( "r" );
     wait 0.5;
-    maps\_utility::_id_070A( "grigsby_price_setup_shower" );
+    maps\_utility::activate_trigger_with_targetname( "grigsby_price_setup_shower" );
 }
 
 vent_grisby_vent_jump()
 {
     common_scripts\utility::_id_384A( "grisby_jump" );
     var_0 = getent( "vent_jump_animent", "targetname" );
-    var_0 maps\_anim::_id_0BFF( level.grigsby, "vent_drop_r" );
-    var_0 maps\_anim::_id_0C24( level.grigsby, "vent_drop_r" );
+    var_0 maps\_anim::anim_reach_solo( level.grigsby, "vent_drop_r" );
+    var_0 maps\_anim::anim_single_solo( level.grigsby, "vent_drop_r" );
     level.grigsby maps\_utility::_id_7E38( "o" );
 }
 
 vent_team1_vent_jump()
 {
     var_0 = getent( "vent_jump_animent", "targetname" );
-    var_0 maps\_anim::_id_0C24( level._id_91E7[0], "vent_drop_team1" );
+    var_0 maps\_anim::anim_single_solo( level._id_91E7[0], "vent_drop_team1" );
     level._id_91E7[0] maps\_utility::_id_7E38( "y" );
-    maps\_utility::_id_070A( "team1_setup_shower" );
+    maps\_utility::activate_trigger_with_targetname( "team1_setup_shower" );
 }
 
 hide_triggers_1st_floor()
@@ -1014,12 +1014,12 @@ launchtubes_teleport_friendlies()
     hide_triggers( "countdown_remove" );
     var_1 = getent( "launchtubes_teleport_price", "targetname" );
     level._id_6F7C.a._id_2B20 = 1;
-    level._id_6F7C _meth_81ca( var_1.origin, var_1.angles );
+    level._id_6F7C _meth_81CA( var_1.origin, var_1.angles );
     level._id_6F7C.grenadeawareness = 0;
     var_2 = getent( "launchtubes_teleport_grigsby", "targetname" );
     level.grigsby.a._id_2B20 = 1;
-    level.grigsby _meth_81ca( var_2.origin, var_2.angles );
-    level.grigsby _meth_81a7( 1 );
+    level.grigsby _meth_81CA( var_2.origin, var_2.angles );
+    level.grigsby _meth_81A7( 1 );
     level.grigsby.grenadeawareness = 0;
     setsaveddvar( "ai_friendlyFireBlockDuration", 0 );
     common_scripts\utility::_id_383F( "price_close_door" );
@@ -1106,14 +1106,14 @@ run_to_the_door()
     var_2 linkto( var_1, "hinge_jnt", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_3 = getent( "shut_blast_door", "targetname" );
     wait 2;
-    var_1._id_0C72 = "door";
+    var_1.animname = "door";
     var_1 maps\_anim::_id_7F29();
-    var_0 maps\_anim::_id_0BC6( var_1, "blast_door_close", var_0.origin, var_0.angles );
+    var_0 maps\_anim::anim_first_frame_on_guy( var_1, "blast_door_close", var_0.origin, var_0.angles );
     wait 2;
     common_scripts\utility::_id_384A( "price_close_door" );
-    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "blast_door_runto" );
-    var_0 maps\_anim::_id_0C24( level._id_6F7C, "blast_door_runto" );
-    var_0 thread maps\_anim::_id_0BE1( level._id_6F7C, "blast_door_wave", undefined, "stop_idle" );
+    var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "blast_door_runto" );
+    var_0 maps\_anim::anim_single_solo( level._id_6F7C, "blast_door_runto" );
+    var_0 thread maps\_anim::anim_loop_solo( level._id_6F7C, "blast_door_wave", undefined, "stop_idle" );
     thread price_warning();
     level.player in_volume();
     var_0 notify( "stop_idle" );
@@ -1123,7 +1123,7 @@ run_to_the_door()
     var_4[0] = var_1;
     var_4[1] = level._id_6F7C;
     level thread launchtubes_hatch_close_sound();
-    var_0 maps\_anim::_id_0C18( var_4, "blast_door_close" );
+    var_0 maps\_anim::anim_single( var_4, "blast_door_close" );
     common_scripts\utility::_id_383F( "blast_door_player_clip_off" );
     common_scripts\utility::_id_383F( "open_vault_doors" );
     soundscripts\_snd::_id_870C( "start_vault_doors_mix" );
@@ -1212,8 +1212,8 @@ player_death_effect()
 kill_launchtube_steam_fx()
 {
     var_0 = maps\_utility::_id_3FA9( "steam_jet_med_loop" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "hallway_steam_loop" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3FA9( "steam_jet_med_loop_rand" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "hallway_steam_loop" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "steam_jet_med_loop_rand" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] common_scripts\utility::_id_671F();
@@ -1248,8 +1248,8 @@ guard_the_vaultdoors()
     var_1[0] = level._id_6F7C;
     var_1[1] = level.grigsby;
     level.grigsby _meth_8168( 0 );
-    var_0 maps\_anim::_id_0BF2( var_1, "guard_vaultdoors" );
-    var_0 maps\_anim::_id_0C18( var_1, "guard_vaultdoors" );
+    var_0 maps\_anim::anim_reach( var_1, "guard_vaultdoors" );
+    var_0 maps\_anim::anim_single( var_1, "guard_vaultdoors" );
 }
 
 returnexposedcrouch()
@@ -1270,9 +1270,9 @@ guard_the_vaultdoors_grigsby()
 {
     level endon( "open_vault_doors" );
     var_0 = getent( "guard_vaultdoors", "targetname" );
-    level.grigsby._id_0CBD = ::returnexposedcrouch;
+    level.grigsby.approachtypefunc = ::returnexposedcrouch;
     level.grigsby.a.dontstartaim = 1;
-    var_0 maps\_anim::_id_0BF5( level.grigsby, "guard_vaultdoors" );
+    var_0 maps\_anim::anim_reach_and_approach_solo( level.grigsby, "guard_vaultdoors" );
     common_scripts\utility::_id_383D( "vaultdoors_grigs_approach_done" );
     level.grigsby thread guard_the_vaultdoors_grigsby_wait_for_approach( var_0 );
 
@@ -1280,7 +1280,7 @@ guard_the_vaultdoors_grigsby()
         wait 0.05;
 
     level.grigsby.a.dontstartaim = undefined;
-    level.grigsby._id_0CBD = undefined;
+    level.grigsby.approachtypefunc = undefined;
 
     if ( !common_scripts\utility::_id_382E( "vaultdoors_grigs_approach_done" ) )
         self _meth_8168( 1 );
@@ -1298,7 +1298,7 @@ vault_doors_dialogue()
     if ( getdvarint( "use_old_vaultdoors" ) != 1 )
         return;
 
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_atdoor" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "pri_atdoor" );
     maps\_utility::_id_70BD( "workinonit" );
     wait 2;
     maps\_utility::_id_70BD( "almostthere" );
@@ -1308,10 +1308,10 @@ vault_doors_dialogue()
     wait 0.5;
     common_scripts\utility::_id_383F( "vault_doors_unlocked" );
     wait 8;
-    level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_shittinme" );
+    level.grigsby maps\_anim::anim_single_queue( level.grigsby, "grg_shittinme" );
     maps\_utility::_id_70BD( "pri_faster" );
     maps\_utility::_id_70BD( "gm1_trypulling" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_cheeky" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "pri_cheeky" );
     vault_door_scene_completed();
 }
 
@@ -1381,14 +1381,14 @@ vault_doors_team_ready()
 {
     level._id_6F7C maps\_utility::_id_7E38( "r" );
     level.grigsby maps\_utility::_id_7E38( "o" );
-    maps\_utility::_id_070A( "setup_for_vault_doors_opening" );
+    maps\_utility::activate_trigger_with_targetname( "setup_for_vault_doors_opening" );
 }
 
 spawn_utility_enemies()
 {
     common_scripts\utility::_id_384A( "vault_door_opened" );
     var_0 = getentarray( "utility_enemies", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
     thread blow_the_wall_dialogue();
 }
 
@@ -1397,16 +1397,16 @@ preparing_to_breach()
     level.player endon( "death" );
     maps\_utility::_id_A066( "utility_badies" );
     level thread hide_triggers( "attacking" );
-    maps\_utility::_id_070A( "protect_the_c4" );
+    maps\_utility::activate_trigger_with_targetname( "protect_the_c4" );
 }
 
 blow_the_wall_dialogue()
 {
     var_0 = getent( "plant_explosives_dialogue", "targetname" );
     var_0 waittill( "trigger" );
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "status" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "status" );
     maps\_utility::_id_70BD( "gm2_inposition" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_plantexplos" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "pri_plantexplos" );
     common_scripts\utility::_id_383F( "update_objectives" );
     thread plant_the_c4();
 
@@ -1435,7 +1435,7 @@ plant_the_c4()
     var_0 waittill( "c4_planted" );
     level notify( "wall_c4_planted" );
     thread griggs_c4_take_cover_path();
-    maps\_utility::_id_070A( "take_cover" );
+    maps\_utility::activate_trigger_with_targetname( "take_cover" );
     var_0 waittill( "c4_detonation" );
     thread blow_the_wall();
 }
@@ -1476,7 +1476,7 @@ blow_the_wall()
     common_scripts\utility::_id_3831( "aa_blow_the_wall" );
     common_scripts\utility::_id_383F( "aa_upload_them_codes" );
     wait 1;
-    maps\_utility::_id_070A( "breaching_control_room" );
+    maps\_utility::activate_trigger_with_targetname( "breaching_control_room" );
     maps\_utility::_id_70BD( "pri_gogogo2" );
     maps\_utility::_id_70BD( "movingin" );
     soundscripts\_snd::_id_870C( "start_control_room_mix" );
@@ -1486,16 +1486,16 @@ spawn_telemetry_enemies()
 {
     common_scripts\utility::_id_384A( "wall_destroyed" );
     var_0 = getentarray( "telemetry_enemies", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
 }
 
 spawn_telemetry_friendlies()
 {
     var_0 = getentarray( "team2", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::telemetry_friendlies_think );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::telemetry_friendlies_think );
     common_scripts\utility::_id_384A( "wall_destroyed" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
-    maps\_utility::_id_070A( "control_room_friendlies_attack" );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
+    maps\_utility::activate_trigger_with_targetname( "control_room_friendlies_attack" );
 }
 
 telemetry_friendlies_think()
@@ -1556,11 +1556,11 @@ upload_codes_h1()
         level.player allowlean( 0 );
         var_13 = maps\_utility::_id_88D1( "player" );
         var_13 hide();
-        var_7 maps\_anim::_id_0BC7( var_13, "typing_abort_codes" );
+        var_7 maps\_anim::anim_first_frame_solo( var_13, "typing_abort_codes" );
         var_13 maps\_utility::lerp_player_view_to_tag_smoothly( "tag_player", 0.5, 1, 0, 0, 0, 0 );
         var_13 show();
         level.player playsound( "scn_enter_code_typing" );
-        var_7 thread maps\_anim::_id_0C24( var_13, "typing_abort_codes" );
+        var_7 thread maps\_anim::anim_single_solo( var_13, "typing_abort_codes" );
         level.player startprogressbar( var_5 );
         level.player.progresstext settext( &"LAUNCHFACILITY_B_UPLOADING_CODES" );
         var_14 = 0;
@@ -1608,7 +1608,7 @@ upload_codes_h1()
     common_scripts\utility::_id_383F( "codes_uploaded" );
     common_scripts\utility::_id_3831( "aa_countdown_started" );
     common_scripts\utility::_id_3831( "aa_upload_them_codes" );
-    maps\_utility::_id_1143( "Codes have been uploaded" );
+    maps\_utility::autosave_by_name( "Codes have been uploaded" );
     maps\_utility::arcademode_checkpoint( 4, "e" );
 }
 
@@ -1679,7 +1679,7 @@ upload_codes()
     common_scripts\utility::_id_383F( "codes_uploaded" );
     common_scripts\utility::_id_3831( "aa_countdown_started" );
     common_scripts\utility::_id_3831( "aa_upload_them_codes" );
-    maps\_utility::_id_1143( "Codes have been uploaded" );
+    maps\_utility::autosave_by_name( "Codes have been uploaded" );
     maps\_utility::arcademode_checkpoint( 4, "e" );
 }
 
@@ -1700,8 +1700,8 @@ setprogressbarprogress( var_0 )
 endprogressbar()
 {
     self notify( "progress_bar_ended" );
-    self.progresstext maps\_hud_util::_id_28E9();
-    self.progressbar maps\_hud_util::_id_28E9();
+    self.progresstext maps\_hud_util::destroyElem();
+    self.progressbar maps\_hud_util::destroyElem();
 }
 
 createsecondaryprogressbar()
@@ -1735,9 +1735,9 @@ control_room_dialogue()
     common_scripts\utility::_id_383F( "zakhaev_leaving" );
     maps\_utility::_id_70BD( "checkfeed2" );
     maps\_utility::_id_70BD( "sendcoordinates" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "vehicledepot" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "vehicledepot" );
     thread follow_price();
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_outtahere" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "pri_outtahere" );
     common_scripts\utility::_id_383F( "aa_follow_price_end_level" );
     maps\_utility::_id_70BD( "exfilfromarea" );
 }
@@ -1855,11 +1855,11 @@ escape_doors_open()
 follow_price()
 {
     soundscripts\_snd::_id_870C( "start_escape_facility_mix" );
-    maps\_utility::_id_070A( "escape" );
+    maps\_utility::activate_trigger_with_targetname( "escape" );
     level thread obj_follow_price();
-    maps\_utility::_id_1143( "let's get out of here" );
+    maps\_utility::autosave_by_name( "let's get out of here" );
     maps\_utility::_id_A066( "hallway_escape" );
-    maps\_utility::_id_070A( "escape_hallway" );
+    maps\_utility::activate_trigger_with_targetname( "escape_hallway" );
 }
 
 grigsby_warning()
@@ -1867,7 +1867,7 @@ grigsby_warning()
     var_0 = getent( "incoming_enemy", "script_noteworthy" );
     var_0 waittill( "spawned" );
     wait 1;
-    level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_company" );
+    level.grigsby maps\_anim::anim_single_queue( level.grigsby, "grg_company" );
 }
 
 delete_controlroom_friendlies()
@@ -1884,7 +1884,7 @@ _id_3029()
     else
         wait 1;
 
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_movemove" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "pri_movemove" );
     level.anim_ent = getent( "tunnel_animent", "targetname" );
 
     if ( getdvarint( "use_old_elevator" ) == 1 )
@@ -1918,47 +1918,47 @@ elevator_player_clip()
 price_to_elevator( var_0 )
 {
     wait 2;
-    level.anim_ent maps\_anim::_id_0BFF( self, "h1_elevator_run_to_idle1" );
-    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_run_to_idle1" );
+    level.anim_ent maps\_anim::anim_reach_solo( self, "h1_elevator_run_to_idle1" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "h1_elevator_run_to_idle1" );
 
     if ( !common_scripts\utility::_id_382E( "player_in_elevator" ) )
-        level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle1", undefined, "stop_price_idle1" );
+        level.anim_ent thread maps\_anim::anim_loop_solo( self, "h1_elevator_idle1", undefined, "stop_price_idle1" );
 
     common_scripts\utility::_id_384A( "player_in_elevator" );
     level.anim_ent notify( "stop_price_idle1" );
-    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runin" );
-    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_entering" );
-    level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle2", undefined, "stop_price_idle2" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "h1_elevator_runin" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "h1_elevator_entering" );
+    level.anim_ent thread maps\_anim::anim_loop_solo( self, "h1_elevator_idle2", undefined, "stop_price_idle2" );
     common_scripts\utility::_id_384A( "all_in_elevator" );
     self linkto( level.anim_ent );
     common_scripts\utility::_id_384A( "elevator_dialogue" );
     level.anim_ent notify( "stop_price_idle2" );
-    level.anim_ent thread maps\_anim::_id_0C24( self, "h1_elevator_elevator" );
+    level.anim_ent thread maps\_anim::anim_single_solo( self, "h1_elevator_elevator" );
     var_1 = getent( "elevator_top", "targetname" );
     var_1 waittill( "trigger" );
     wait 2;
     self unlink( level.anim_ent );
-    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runout" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "h1_elevator_runout" );
     maps\_utility::_id_7E38( var_0 );
 }
 
 griggs_to_elevator( var_0 )
 {
-    level.anim_ent maps\_anim::_id_0BFF( self, "h1_elevator_runin" );
-    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runin" );
-    level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle1", undefined, "stop_griggs_idle1" );
+    level.anim_ent maps\_anim::anim_reach_solo( self, "h1_elevator_runin" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "h1_elevator_runin" );
+    level.anim_ent thread maps\_anim::anim_loop_solo( self, "h1_elevator_idle1", undefined, "stop_griggs_idle1" );
     common_scripts\utility::_id_384A( "all_in_elevator" );
     level.anim_ent notify( "stop_griggs_idle1" );
-    level.anim_ent thread maps\_anim::_id_0BE1( self, "h1_elevator_idle2", undefined, "stop_griggs_idle2" );
+    level.anim_ent thread maps\_anim::anim_loop_solo( self, "h1_elevator_idle2", undefined, "stop_griggs_idle2" );
     self linkto( level.anim_ent );
     common_scripts\utility::_id_384A( "elevator_dialogue" );
     level.anim_ent notify( "stop_griggs_idle2" );
-    level.anim_ent thread maps\_anim::_id_0C24( self, "h1_elevator_elevator" );
+    level.anim_ent thread maps\_anim::anim_single_solo( self, "h1_elevator_elevator" );
     var_1 = getent( "elevator_top", "targetname" );
     var_1 waittill( "trigger" );
     wait 2.5;
     self unlink( level.anim_ent );
-    level.anim_ent maps\_anim::_id_0C24( self, "h1_elevator_runout" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "h1_elevator_runout" );
     maps\_utility::_id_7E38( var_0 );
 }
 
@@ -1988,16 +1988,16 @@ check_elevator()
 
 ai_to_elevator( var_0 )
 {
-    level.anim_ent maps\_anim::_id_0BFF( self, "elevator_runin" );
-    level.anim_ent maps\_anim::_id_0C24( self, "elevator_runin" );
-    level.anim_ent thread maps\_anim::_id_0BE1( self, "elevator_idle", undefined, "stop_idle" );
+    level.anim_ent maps\_anim::anim_reach_solo( self, "elevator_runin" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "elevator_runin" );
+    level.anim_ent thread maps\_anim::anim_loop_solo( self, "elevator_idle", undefined, "stop_idle" );
     self linkto( level.anim_ent );
     var_1 = getent( "elevator_top", "targetname" );
     var_1 waittill( "trigger" );
     wait 2;
     self unlink( level.anim_ent );
     level.anim_ent notify( "stop_idle" );
-    level.anim_ent maps\_anim::_id_0C24( self, "elevator_runout" );
+    level.anim_ent maps\_anim::anim_single_solo( self, "elevator_runout" );
     maps\_utility::_id_7E38( var_0 );
 }
 
@@ -2024,9 +2024,9 @@ _id_3055()
     common_scripts\utility::_id_383F( "elevator_player_clip_on" );
     var_0 = getent( "elevator", "targetname" );
     var_1 = getentarray( "elevator_lights", "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::linkto_elevator, var_0 );
+    common_scripts\utility::array_thread( var_1, ::linkto_elevator, var_0 );
     var_2 = getentarray( "elevator_detail", "targetname" );
-    common_scripts\utility::_id_0D13( var_2, ::linkto_elevator, var_0 );
+    common_scripts\utility::array_thread( var_2, ::linkto_elevator, var_0 );
     level.elevator_door_inner_top = getent( "elevator_door_inner_top", "targetname" );
     level.elevator_door_inner_top linkto( var_0 );
     level.elevator_door_inner_bottom = getent( "elevator_door_inner_bottom", "targetname" );
@@ -2047,7 +2047,7 @@ _id_3055()
     var_0 playsound( "scn_elevator_move" );
     common_scripts\utility::_id_383F( "elevator_dialogue" );
     var_0 waittill( "movedone" );
-    maps\_utility::_id_1143( "On our way" );
+    maps\_utility::autosave_by_name( "On our way" );
     maps\_utility::arcademode_checkpoint( 3, "f" );
     level.elevator_door_inner_top = getent( "elevator_door_inner_top", "targetname" );
     level.elevator_door_inner_top unlink( var_0 );
@@ -2071,7 +2071,7 @@ elevator_dialogue()
 {
     common_scripts\utility::_id_384A( "elevator_dialogue" );
     var_0 = getent( "the_gaz_man", "script_noteworthy" );
-    var_0 maps\_utility::_id_0798( ::protect_gaz );
+    var_0 maps\_utility::add_spawn_function( ::protect_gaz );
 
     if ( getdvarint( "use_old_elevator" ) == 1 )
     {
@@ -2079,8 +2079,8 @@ elevator_dialogue()
         maps\_utility::_id_70BD( "takinfire" );
         maps\_utility::_id_70BD( "upthelift" );
         wait 1;
-        level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_ashot" );
-        level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "pri_getinline" );
+        level.grigsby maps\_anim::anim_single_queue( level.grigsby, "grg_ashot" );
+        level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "pri_getinline" );
     }
 }
 
@@ -2094,8 +2094,8 @@ vehical_depot()
     maps\_utility::_id_A066( "garage" );
     common_scripts\utility::_id_383F( "at_the_jeep" );
     wait 1.5;
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "letsgo" );
-    level.grigsby maps\_anim::_id_0C21( level.grigsby, "grg_move" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "letsgo" );
+    level.grigsby maps\_anim::anim_single_queue( level.grigsby, "grg_move" );
     common_scripts\utility::_id_383F( "level_end" );
     common_scripts\utility::_id_3831( "aa_follow_price_end_level" );
     maps\_utility::arcademode_checkpoint( 2, "g" );
@@ -2129,37 +2129,37 @@ airduct_fan_large()
 {
     var_0 = getent( "airduct_fan_large", "targetname" );
     var_0 useanimtree( #animtree );
-    var_0 _meth_814d( %icbm_turbofan176_spin, 1, 0.1, 1 );
+    var_0 _meth_814D( %icbm_turbofan176_spin, 1, 0.1, 1 );
 }
 
 airduct_fan_medium()
 {
     var_0 = getentarray( "airduct_fan_medium", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::medium_fans_think );
+    common_scripts\utility::array_thread( var_0, ::medium_fans_think );
 }
 
 medium_fans_think()
 {
     self useanimtree( #animtree );
-    self _meth_814d( %icbm_turbofan64_spin, 1, 0.1, 1.5 );
+    self _meth_814D( %icbm_turbofan64_spin, 1, 0.1, 1.5 );
 }
 
 airduct_fan_small()
 {
     var_0 = getentarray( "airduct_fan_small", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::small_fans_think );
+    common_scripts\utility::array_thread( var_0, ::small_fans_think );
 }
 
 small_fans_think()
 {
     self useanimtree( #animtree );
-    self _meth_814d( %icbm_turbofan50_spin, 1, 0.1, 1 );
+    self _meth_814D( %icbm_turbofan50_spin, 1, 0.1, 1 );
 }
 
 redlights()
 {
     var_0 = getentarray( "redlight", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::redlights_think );
+    common_scripts\utility::array_thread( var_0, ::redlights_think );
 }
 
 redlights_think()
@@ -2176,19 +2176,19 @@ redlights_think()
 redlight_spinner()
 {
     var_0 = getentarray( "horizonal_spinner", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::horizonal_spinners_think );
+    common_scripts\utility::array_thread( var_0, ::horizonal_spinners_think );
 }
 
 horizonal_spinners_think()
 {
     self useanimtree( #animtree );
-    self _meth_814d( %launchfacility_b_emergencylight, 1, 0.1, 1.0 );
+    self _meth_814D( %launchfacility_b_emergencylight, 1, 0.1, 1.0 );
 }
 
 wall_lights()
 {
     var_0 = getentarray( "wall_light", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::wall_lights_think );
+    common_scripts\utility::array_thread( var_0, ::wall_lights_think );
 }
 
 wall_lights_think()
@@ -2205,13 +2205,13 @@ wall_lights_think()
 wall_light_spinner()
 {
     var_0 = getentarray( "vertical_spinner", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::vertical_spinners_think );
+    common_scripts\utility::array_thread( var_0, ::vertical_spinners_think );
 }
 
 vertical_spinners_think()
 {
     self useanimtree( #animtree );
-    self _meth_814d( %launchfacility_b_emergencylight, 1, 0.1, 1.0 );
+    self _meth_814D( %launchfacility_b_emergencylight, 1, 0.1, 1.0 );
 }
 
 _id_5FFB()

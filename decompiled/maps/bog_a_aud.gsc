@@ -46,12 +46,12 @@ _id_4D5B()
 
 _id_4CF4()
 {
-    level._id_0E57.bog_faked_ambience_ent = getent( "amb_damb_bog_01", "targetname" );
+    level.aud.bog_faked_ambience_ent = getent( "amb_damb_bog_01", "targetname" );
 }
 
 _id_5625()
 {
-    common_scripts\utility::_id_0D13( getentarray( "trigger_sound_emitter", "script_noteworthy" ), ::trigger_sound_emitter );
+    common_scripts\utility::array_thread( getentarray( "trigger_sound_emitter", "script_noteworthy" ), ::trigger_sound_emitter );
 }
 
 _id_5618()
@@ -111,7 +111,7 @@ _id_5FFD( var_0, var_1 )
 
 start_ambush_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
     start_gunfire_damb_first_war_zone();
     start_gunfire_damb_bog();
     start_distant_alarm_sfx();
@@ -119,54 +119,54 @@ start_ambush_checkpoint( var_0 )
 
 start_melee_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
     start_gunfire_damb_first_war_zone();
     start_gunfire_damb_bog();
 }
 
 start_breach_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone_open" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone_open" );
     start_gunfire_damb_first_war_zone();
     start_gunfire_damb_bog();
 }
 
 start_alley_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
     start_gunfire_damb_first_war_zone();
     start_gunfire_damb_bog();
 }
 
 start_shanty_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
     start_gunfire_damb_first_war_zone();
     start_gunfire_damb_bog();
 }
 
 start_bog_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "underpass" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "underpass" );
     start_bog_combat_emitter();
     start_gunfire_damb_bog();
 }
 
 start_zpu_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_bog" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_bog" );
     start_gunfire_damb_bog();
 }
 
 start_cobra_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_bog" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_bog" );
     start_gunfire_damb_bog();
 }
 
 start_end_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_bog" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_bog" );
 }
 
 play_intro_scripted_cobra_pass_by()
@@ -200,13 +200,13 @@ stop_cobra_support_mix()
 
 set_bog_ambience_to_bog_end_ext0()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior_bog", "ambient_bog_end_ext0", 4 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior_bog", "ambient_bog_end_ext0", 4 );
 }
 
 start_shanty_open_audio()
 {
     soundscripts\_audio_dynamic_ambi::_id_25C4( "bog_gun_fire", "first_war_zone_gunfire", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior_javelin_square", "ambient_bog_ext0", 1.0 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior_javelin_square", "ambient_bog_ext0", 1.0 );
     start_bog_combat_emitter();
     thread play_chain_link_fence_sfx();
 }
@@ -250,7 +250,7 @@ trigger_sound_emitter()
 
 start_gunfire_damb_bog()
 {
-    soundscripts\_audio_dynamic_ambi::_id_25C0( "bog_gun_fire", level._id_0E57.bog_faked_ambience_ent.origin );
+    soundscripts\_audio_dynamic_ambi::_id_25C0( "bog_gun_fire", level.aud.bog_faked_ambience_ent.origin );
 }
 
 start_gunfire_damb_first_war_zone()
@@ -261,7 +261,7 @@ start_gunfire_damb_first_war_zone()
 
 start_bog_combat_emitter()
 {
-    level._id_0E57.bog_faked_ambience_ent thread common_scripts\utility::_id_6975( "emt_bog_a_bog_combat", undefined, 1.0, 5.0 );
+    level.aud.bog_faked_ambience_ent thread common_scripts\utility::_id_6975( "emt_bog_a_bog_combat", undefined, 1.0, 5.0 );
     thread monitor_stop_bog_combat_emitter();
 }
 
@@ -269,7 +269,7 @@ monitor_stop_bog_combat_emitter()
 {
     var_0 = getent( "stop_combat_emitter_sfx", "targetname" );
     var_0 waittill( "trigger" );
-    level._id_0E57.bog_faked_ambience_ent common_scripts\utility::_id_8EA1( "emt_bog_a_bog_combat" );
+    level.aud.bog_faked_ambience_ent common_scripts\utility::_id_8EA1( "emt_bog_a_bog_combat" );
 }
 
 handle_cobra_waypoint_audio( var_0 )

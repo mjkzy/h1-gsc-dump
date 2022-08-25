@@ -39,9 +39,9 @@ _id_64C8()
             if ( maps\mp\_utility::_id_4FA6() )
             {
                 var_4 = var_0 _meth_8568();
-                var_1 = _func_2fa( var_4, common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
-                var_3 = _func_2fa( var_4, common_scripts\utility::getstatsgroup_common(), "applyEmblemToCharacter" );
-                var_2 = _func_2fa( var_4, common_scripts\utility::getstatsgroup_common(), "callingCardIndex" );
+                var_1 = _func_2FA( var_4, common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
+                var_3 = _func_2FA( var_4, common_scripts\utility::getstatsgroup_common(), "applyEmblemToCharacter" );
+                var_2 = _func_2FA( var_4, common_scripts\utility::getstatsgroup_common(), "callingCardIndex" );
             }
             else
             {

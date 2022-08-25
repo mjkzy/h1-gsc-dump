@@ -167,7 +167,7 @@ script_mortargroup_style()
     if ( !isdefined( level.mortar ) )
         level.mortar = loadfx( "fx/explosions/artilleryExp_dirt_brown" );
 
-    var_5 = common_scripts\utility::_id_0CDD( getentarray( "trigger_multiple", "classname" ), getentarray( "trigger_radius", "classname" ) );
+    var_5 = common_scripts\utility::array_combine( getentarray( "trigger_multiple", "classname" ), getentarray( "trigger_radius", "classname" ) );
 
     for ( var_3 = 0; var_3 < var_5.size; var_3++ )
     {
@@ -408,7 +408,7 @@ bunker_style_mortar()
     var_4 = getentarray( "mortar_bunker", "targetname" );
 
     if ( isdefined( var_4 ) && var_4.size > 0 )
-        var_1 = maps\_utility::_id_0CF2( var_3, var_4 );
+        var_1 = maps\_utility::array_merge( var_3, var_4 );
     else
         var_1 = var_3;
 
@@ -443,8 +443,8 @@ bunker_style_mortar()
         thread bunker_style_mortar_think( var_0[var_5], var_3 );
 
     wait 0.05;
-    common_scripts\utility::_id_0D13( getentarray( "mortar_on", "targetname" ), ::bunker_style_mortar_trigger, "on" );
-    common_scripts\utility::_id_0D13( getentarray( "mortar_off", "targetname" ), ::bunker_style_mortar_trigger, "off" );
+    common_scripts\utility::array_thread( getentarray( "mortar_on", "targetname" ), ::bunker_style_mortar_trigger, "on" );
+    common_scripts\utility::array_thread( getentarray( "mortar_off", "targetname" ), ::bunker_style_mortar_trigger, "off" );
 }
 
 bunker_style_mortar_think( var_0, var_1 )
@@ -486,7 +486,7 @@ bunker_style_mortar_activate( var_0, var_1, var_2, var_3, var_4 )
 
         var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_4 );
         thread common_scripts\utility::_id_69C2( "exp_artillery_underground", var_5.origin );
-        common_scripts\utility::_id_0D13( var_0, ::bunker_style_mortar_explode );
+        common_scripts\utility::array_thread( var_0, ::bunker_style_mortar_explode );
 
         if ( !isdefined( level.mortarnoquake ) )
         {
@@ -498,7 +498,7 @@ bunker_style_mortar_activate( var_0, var_1, var_2, var_3, var_4 )
 
         level notify( "mortar_hit" );
         wait(randomfloatrange( var_1, var_2 ));
-        var_0 = common_scripts\utility::_id_0D01( var_0 );
+        var_0 = common_scripts\utility::array_removeundefined( var_0 );
     }
 }
 
@@ -532,7 +532,7 @@ bunker_style_mortar_explode( var_0, var_1 )
     }
     else
     {
-        playfx( level._effect["mortar"][self.script_fxid], self.origin );
+        playfx( level._effect["mortar"][self._id_79F1], self.origin );
 
         if ( var_4 < 262144 )
             thread common_scripts\utility::_id_69C2( "emt_single_ceiling_debris", self.origin );
@@ -576,8 +576,8 @@ bog_style_mortar()
         thread bog_style_mortar_think( var_0[var_3] );
 
     wait 0.05;
-    common_scripts\utility::_id_0D13( getentarray( "mortar_on", "targetname" ), ::bog_style_mortar_trigger, "on" );
-    common_scripts\utility::_id_0D13( getentarray( "mortar_off", "targetname" ), ::bog_style_mortar_trigger, "off" );
+    common_scripts\utility::array_thread( getentarray( "mortar_on", "targetname" ), ::bog_style_mortar_trigger, "on" );
+    common_scripts\utility::array_thread( getentarray( "mortar_off", "targetname" ), ::bog_style_mortar_trigger, "off" );
 }
 
 bog_style_mortar_think( var_0, var_1 )
@@ -717,12 +717,12 @@ bog_style_mortar_explode( var_0, var_1 )
     if ( isdefined( var_1 ) )
         thread common_scripts\utility::_id_69C2( var_1 );
     else
-        thread common_scripts\utility::_id_69C2( level._id_78BA["mortar"][self.script_fxid] );
+        thread common_scripts\utility::_id_69C2( level._id_78BA["mortar"][self._id_79F1] );
 
     setplayerignoreradiusdamage( 1 );
     radiusdamage( self.origin, level.mortardamageradius, 150, 50 );
     setplayerignoreradiusdamage( 0 );
-    playfx( level._effect["mortar"][self.script_fxid], self.origin );
+    playfx( level._effect["mortar"][self._id_79F1], self.origin );
 
     if ( isdefined( level.alwaysquake ) )
         earthquake( 0.3, 1, level.player.origin, 2000 );

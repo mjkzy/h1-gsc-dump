@@ -133,7 +133,7 @@ _id_2697()
 
         if ( isdefined( var_1._id_4279 ) )
         {
-            if ( var_1 _meth_813f() )
+            if ( var_1 _meth_813F() )
                 var_3 = ( 1.0, 0.0, 0.0 );
             else
                 var_3 = ( 0.0, 0.0, 1.0 );
@@ -369,7 +369,7 @@ _id_2689()
         var_3[var_2] delete();
 
     level._id_2735 = getspawnerarray();
-    level._id_0721 = [];
+    level.activenodes = [];
     level._id_20D4 = [];
 
     for ( var_2 = 0; var_2 < level._id_2735.size; var_2++ )
@@ -419,9 +419,9 @@ _id_22C2()
             var_1 = level._id_2735[var_2];
             var_3 = 0;
 
-            for ( var_4 = 0; var_4 < level._id_0721.size; var_4++ )
+            for ( var_4 = 0; var_4 < level.activenodes.size; var_4++ )
             {
-                if ( distance( level._id_0721[var_4].origin, self.origin ) > 250 )
+                if ( distance( level.activenodes[var_4].origin, self.origin ) > 250 )
                     continue;
 
                 var_3 = 1;
@@ -445,7 +445,7 @@ _id_22C2()
             if ( var_5 )
                 continue;
 
-            level._id_0721[level._id_0721.size] = self;
+            level.activenodes[level.activenodes.size] = self;
             var_1.origin = self.origin;
             var_1.angles = self.angles;
             var_1.count = 1;
@@ -470,7 +470,7 @@ _id_22C2()
     {
         var_0.ignoreme = 1;
         var_0.team = "neutral";
-        var_0 _meth_81aa( var_0.origin );
+        var_0 _meth_81AA( var_0.origin );
         thread _id_2426( self.origin );
         var_0 thread maps\_utility::_id_272C();
         thread _id_2427( var_0 );
@@ -485,15 +485,15 @@ _id_7393( var_0 )
 {
     var_1 = [];
 
-    for ( var_2 = 0; var_2 < level._id_0721.size; var_2++ )
+    for ( var_2 = 0; var_2 < level.activenodes.size; var_2++ )
     {
-        if ( level._id_0721[var_2] == var_0 )
+        if ( level.activenodes[var_2] == var_0 )
             continue;
 
-        var_1[var_1.size] = level._id_0721[var_2];
+        var_1[var_1.size] = level.activenodes[var_2];
     }
 
-    level._id_0721 = var_1;
+    level.activenodes = var_1;
 }
 
 _id_2426( var_0 )
@@ -681,24 +681,24 @@ _id_7AF7( var_0 )
 
     if ( !isai( var_0 ) )
     {
-        var_1 = common_scripts\utility::_id_0CDA( var_1, "Undefined" );
+        var_1 = common_scripts\utility::array_add( var_1, "Undefined" );
         return var_1;
     }
 
     if ( !isdefined( var_0.script ) )
     {
-        var_1 = common_scripts\utility::_id_0CDA( var_1, "Undefined" );
+        var_1 = common_scripts\utility::array_add( var_1, "Undefined" );
         return var_1;
     }
 
     if ( isdefined( self._id_7A9C ) && self._id_7A9C == 1 )
-        var_1 = common_scripts\utility::_id_0CDA( var_1, "patrol" );
+        var_1 = common_scripts\utility::array_add( var_1, "patrol" );
 
     if ( isdefined( self._id_51DA ) && self._id_51DA )
-        var_1 = common_scripts\utility::_id_0CDA( var_1, "traverse" );
+        var_1 = common_scripts\utility::array_add( var_1, "traverse" );
 
-    if ( isdefined( self._id_056F ) && self._id_056F != "default_stealth_state" )
-        var_1 = common_scripts\utility::_id_0CDA( var_1, "stealth" );
+    if ( isdefined( self._cloak_enemy_state ) && self._cloak_enemy_state != "default_stealth_state" )
+        var_1 = common_scripts\utility::array_add( var_1, "stealth" );
 
     switch ( var_0.script )
     {
@@ -715,7 +715,7 @@ _id_7AF7( var_0 )
         case "grenade_cower":
         case "grenade_return_throw":
         case "<custom>":
-            var_1 = common_scripts\utility::_id_0CDA( var_1, var_0.script );
+            var_1 = common_scripts\utility::array_add( var_1, var_0.script );
             break;
         case "cover_crouch":
         case "cover_stand":
@@ -726,21 +726,21 @@ _id_7AF7( var_0 )
         case "cover_swim_left":
         case "cover_swim_right":
         case "cover_swim_up":
-            var_1 = common_scripts\utility::_id_0CDA( var_1, "cover" );
+            var_1 = common_scripts\utility::array_add( var_1, "cover" );
             break;
         default:
             if ( common_scripts\utility::_id_8F55( var_0.script, "mantle" ) != -1 )
             {
-                var_1 = common_scripts\utility::_id_0CDA( var_1, "mantle" );
+                var_1 = common_scripts\utility::array_add( var_1, "mantle" );
                 break;
             }
 
-            var_1 = common_scripts\utility::_id_0CDA( var_1, var_0.script );
+            var_1 = common_scripts\utility::array_add( var_1, var_0.script );
             break;
     }
 
     if ( var_1.size > 1 )
-        var_1 = common_scripts\utility::_id_0D06( var_1, ::_id_7ADF );
+        var_1 = common_scripts\utility::array_sort_with_func( var_1, ::_id_7ADF );
 
     return var_1;
 }
@@ -753,7 +753,7 @@ _id_970D( var_0 )
     var_4 = getsubstr( var_0, var_2 + var_1.size, var_0.size );
     var_5 = var_4 + var_1 + var_3;
 
-    if ( isdefined( common_scripts\utility::_id_0CE8( level._id_9719, var_5 ) ) )
+    if ( isdefined( common_scripts\utility::array_find( level._id_9719, var_5 ) ) )
     {
         var_6 = [];
         var_6["reversed"] = var_5;
@@ -1047,7 +1047,7 @@ _id_7FED( var_0 )
     setdvar( "cl_freemove", "2" );
 }
 
-_id_0B9E()
+anglescheck()
 {
     for (;;)
     {
@@ -1299,7 +1299,7 @@ _id_2DDA( var_0, var_1, var_2 )
 
     for (;;)
     {
-        common_scripts\utility::_id_0CF0( var_17, common_scripts\utility::_id_6DF1 );
+        common_scripts\utility::array_levelthread( var_17, common_scripts\utility::_id_6DF1 );
         wait 0.05;
     }
 }
@@ -1342,7 +1342,7 @@ _id_2687()
 
         var_5 = var_3._id_250C;
 
-        if ( isdefined( var_3._id_13A8 ) && var_3._id_13A8 == 1 )
+        if ( isdefined( var_3.being_careful ) && var_3.being_careful == 1 )
             var_5 += " (c)";
 
         var_3 _id_9891();
@@ -1388,7 +1388,7 @@ _id_3E91()
         if ( isdefined( self.node ) && isdefined( self.node._id_7975 ) )
             return self.node._id_7975;
 
-        var_0 = self _meth_81ae();
+        var_0 = self _meth_81AE();
 
         if ( isdefined( var_0 ) && isdefined( var_0._id_7975 ) )
             return var_0._id_7975;
@@ -1399,7 +1399,7 @@ _id_3E91()
         if ( isdefined( self.node ) && isdefined( self.node._id_7976 ) )
             return self.node._id_7976;
 
-        var_0 = self _meth_81ae();
+        var_0 = self _meth_81AE();
 
         if ( isdefined( var_0 ) && isdefined( var_0._id_7976 ) )
             return var_0._id_7976;
@@ -1412,9 +1412,9 @@ _id_9891()
 
     if ( isdefined( self.node ) )
         var_0 = self.node.origin;
-    else if ( isdefined( self _meth_81ae() ) )
+    else if ( isdefined( self _meth_81AE() ) )
     {
-        var_1 = self _meth_81ae();
+        var_1 = self _meth_81AE();
         var_0 = var_1.origin;
     }
     else
@@ -1604,7 +1604,7 @@ _id_2724()
     for (;;)
     {
         var_0 = getaiarray();
-        common_scripts\utility::_id_0D13( var_0, ::_id_9E11 );
+        common_scripts\utility::array_thread( var_0, ::_id_9E11 );
         wait 0.05;
     }
 }
@@ -1646,11 +1646,11 @@ _id_204A()
 
 _id_2DA9( var_0 )
 {
-    var_1 = level._id_0D20["allies"][var_0];
-    common_scripts\utility::_id_0D13( var_1, ::_id_2DEA );
+    var_1 = level.arrays_of_colorcoded_nodes["allies"][var_0];
+    common_scripts\utility::array_thread( var_1, ::_id_2DEA );
 }
 
-_id_0766( var_0, var_1, var_2 )
+add_hud_line( var_0, var_1, var_2 )
 {
     var_3 = newhudelem();
     var_3.alignx = "left";
@@ -1660,27 +1660,27 @@ _id_0766( var_0, var_1, var_2 )
     var_3.alpha = 1;
     var_3.fontscale = 1;
     var_3.label = var_2;
-    level._id_0C84[level._id_0C84.size] = var_3;
+    level.animsound_hud_extralines[level.animsound_hud_extralines.size] = var_3;
     return var_3;
 }
 
 _id_3CBB( var_0 )
 {
-    if ( !isdefined( level._id_0C82[var_0._id_0C72] ) )
+    if ( !isdefined( level.animsound_aliases[var_0.animname] ) )
         return;
 
-    if ( !isdefined( level._id_0C82[var_0._id_0C72][var_0._id_0C6C] ) )
+    if ( !isdefined( level.animsound_aliases[var_0.animname][var_0.anime] ) )
         return;
 
-    if ( !isdefined( level._id_0C82[var_0._id_0C72][var_0._id_0C6C][var_0._id_6177] ) )
+    if ( !isdefined( level.animsound_aliases[var_0.animname][var_0.anime][var_0._id_6177] ) )
         return;
 
-    return level._id_0C82[var_0._id_0C72][var_0._id_0C6C][var_0._id_6177]["soundalias"];
+    return level.animsound_aliases[var_0.animname][var_0.anime][var_0._id_6177]["soundalias"];
 }
 
 _id_502E( var_0, var_1, var_2 )
 {
-    return isdefined( level._id_0C82[var_0][var_1][var_2]["created_by_animSound"] );
+    return isdefined( level.animsound_aliases[var_0][var_1][var_2]["created_by_animSound"] );
 }
 
 _id_2B41()
@@ -1688,7 +1688,7 @@ _id_2B41()
     if ( distance( level.player.origin, self.origin ) > 1500 )
         return;
 
-    level._id_0C8B[level._id_0C8B.size] = self;
+    level.animsounds_thisframe[level.animsounds_thisframe.size] = self;
 }
 
 _id_2678( var_0 )
@@ -1703,19 +1703,19 @@ _id_2679()
 
 _id_90D2( var_0, var_1 )
 {
-    if ( !isdefined( level._id_0C88 ) )
+    if ( !isdefined( level.animsound_tagged ) )
         return;
 
-    if ( !isdefined( level._id_0C88._id_0C8A[var_1] ) )
+    if ( !isdefined( level.animsound_tagged.animsounds[var_1] ) )
         return;
 
-    var_2 = level._id_0C88._id_0C8A[var_1];
+    var_2 = level.animsound_tagged.animsounds[var_1];
     var_3 = _id_3CBB( var_2 );
 
-    if ( !isdefined( var_3 ) || _id_502E( var_2._id_0C72, var_2._id_0C6C, var_2._id_6177 ) )
+    if ( !isdefined( var_3 ) || _id_502E( var_2.animname, var_2.anime, var_2._id_6177 ) )
     {
-        level._id_0C82[var_2._id_0C72][var_2._id_0C6C][var_2._id_6177]["soundalias"] = var_0;
-        level._id_0C82[var_2._id_0C72][var_2._id_0C6C][var_2._id_6177]["created_by_animSound"] = 1;
+        level.animsound_aliases[var_2.animname][var_2.anime][var_2._id_6177]["soundalias"] = var_0;
+        level.animsound_aliases[var_2.animname][var_2.anime][var_2._id_6177]["created_by_animSound"] = 1;
     }
 }
 
@@ -1852,7 +1852,7 @@ _id_9E16()
     }
 }
 
-_id_076C( var_0, var_1 )
+add_key( var_0, var_1 )
 {
 
 }
@@ -1864,16 +1864,16 @@ _id_6F9F( var_0 )
 
     level._id_9F04++;
     var_1 = "bridge_helpers";
-    _id_076C( "origin", self.origin[0] + " " + self.origin[1] + " " + self.origin[2] );
-    _id_076C( "angles", self.angles[0] + " " + self.angles[1] + " " + self.angles[2] );
-    _id_076C( "targetname", "helper_model" );
-    _id_076C( "model", self.model );
-    _id_076C( "classname", "script_model" );
-    _id_076C( "spawnflags", "4" );
-    _id_076C( "_color", "0.443137 0.443137 1.000000" );
+    add_key( "origin", self.origin[0] + " " + self.origin[1] + " " + self.origin[2] );
+    add_key( "angles", self.angles[0] + " " + self.angles[1] + " " + self.angles[2] );
+    add_key( "targetname", "helper_model" );
+    add_key( "model", self.model );
+    add_key( "classname", "script_model" );
+    add_key( "spawnflags", "4" );
+    add_key( "_color", "0.443137 0.443137 1.000000" );
 
     if ( isdefined( var_0 ) )
-        _id_076C( "script_noteworthy", var_0 );
+        add_key( "script_noteworthy", var_0 );
 }
 
 _id_2DB1( var_0 )
@@ -1895,7 +1895,7 @@ _id_2DB2()
 _id_4EA6()
 {
     var_0 = getentarray( "explodable_barrel", "targetname" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "explodable_barrel", "script_noteworthy" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "explodable_barrel", "script_noteworthy" ) );
 
     if ( !var_0.size )
         return;

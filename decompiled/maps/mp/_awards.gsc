@@ -75,7 +75,7 @@ _id_64C8()
         if ( !var_0._id_8D77.size )
         {
             foreach ( var_3, var_2 in level.awards )
-                var_0 maps\mp\_utility::_id_4E00( var_3, level.awards[var_3].defaultvalue );
+                var_0 maps\mp\_utility::_id_4E00( var_3, level.awards[var_3]._id_27A1 );
         }
 
         var_0.recentawards[0] = "none";
@@ -179,7 +179,7 @@ _id_4D8B()
 _id_4E28( var_0, var_1, var_2, var_3, var_4 )
 {
     level.awards[var_0] = spawnstruct();
-    level.awards[var_0].defaultvalue = var_1;
+    level.awards[var_0]._id_27A1 = var_1;
 
     if ( isdefined( var_2 ) )
         level.awards[var_0]._id_6FDD = var_2;
@@ -211,7 +211,7 @@ _id_7FDF( var_0 )
         self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "bests", var_0, var_2 );
 }
 
-_id_19DF( var_0 )
+calculatekd( var_0 )
 {
     var_1 = var_0 maps\mp\_utility::_id_408F( "kills" );
     var_2 = var_0 maps\mp\_utility::_id_408F( "deaths" );
@@ -232,19 +232,19 @@ _id_4136( var_0 )
     return var_1;
 }
 
-_id_19E6( var_0 )
+calculatespm( var_0 )
 {
-    if ( var_0.timeplayed["total"] < 1 )
+    if ( var_0._id_9372["total"] < 1 )
         return;
 
     var_1 = _id_4136( var_0 );
-    var_2 = var_0.timeplayed["total"];
+    var_2 = var_0._id_9372["total"];
     var_3 = var_1 / ( var_2 / 60 );
     var_0 maps\mp\_utility::_id_7FEA( "totalGameScore", var_1 );
     var_0 maps\mp\_utility::_id_7FEA( "scorePerMinute", var_3 );
 }
 
-_id_0D70()
+assignawards()
 {
     foreach ( var_1 in level.players )
     {
@@ -252,8 +252,8 @@ _id_0D70()
             return;
 
         var_1 maps\mp\_utility::_id_4C2F( "numMatchesRecorded", 1 );
-        _id_19DF( var_1 );
-        _id_19E6( var_1 );
+        calculatekd( var_1 );
+        calculatespm( var_1 );
     }
 
     foreach ( var_8, var_4 in level.awards )
@@ -389,7 +389,7 @@ _id_58AD( var_0 )
 
     foreach ( var_4 in level.players )
     {
-        if ( var_4._id_4745 && var_4.timeplayed["total"] >= var_2 )
+        if ( var_4._id_4745 && var_4._id_9372["total"] >= var_2 )
         {
             var_4 _id_41E1( var_0 );
             var_4 _id_7FDF( var_0 );
@@ -400,7 +400,7 @@ _id_58AD( var_0 )
 _id_8D7E( var_0 )
 {
     var_1 = maps\mp\_utility::_id_408F( var_0 );
-    var_2 = level.awards[var_0].defaultvalue;
+    var_2 = level.awards[var_0]._id_27A1;
 
     if ( var_1 == var_2 )
         return 0;

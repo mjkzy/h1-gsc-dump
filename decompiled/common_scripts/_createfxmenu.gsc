@@ -22,47 +22,47 @@
 _id_4D16()
 {
     level._createfx._id_654C = [];
-    _id_0819( "vector", "origin", "Origin", ( 0.0, 0.0, 0.0 ), "fx", 1 );
-    _id_0819( "vector", "angles", "Angles", ( 0.0, 0.0, 0.0 ), "fx", 1 );
-    _id_0819( "string", "fxid", "FX id", "nil", "fx" );
-    _id_0819( "float", "delay", "Repeat rate/start delay", 0.5, "fx" );
-    _id_0819( "string", "flag", "Flag", "nil", "exploder" );
-    _id_0819( "string", "platform", "Platform", "all", "all" );
-    _id_0819( "vector", "tintcolor", "Tint Color", ( 1.0, 1.0, 1.0 ), "fx" );
-    _id_0819( "float", "tintalpha", "Tint Alpha", 1.0, "fx" );
-    _id_0819( "vector", "fadein", "Fade In(base, range, 0)", ( 0.0, 0.0, 0.0 ), "fx" );
-    _id_0819( "vector", "fadeout", "Fade Out(base, range, 0)", ( 0.0, 0.0, 0.0 ), "fx" );
-    _id_0819( "float", "emissive", "Emissive", 1.0, "fx" );
-    _id_0819( "float", "sizescale", "Scale", 1.0, "fx" );
+    addoption( "vector", "origin", "Origin", ( 0.0, 0.0, 0.0 ), "fx", 1 );
+    addoption( "vector", "angles", "Angles", ( 0.0, 0.0, 0.0 ), "fx", 1 );
+    addoption( "string", "fxid", "FX id", "nil", "fx" );
+    addoption( "float", "delay", "Repeat rate/start delay", 0.5, "fx" );
+    addoption( "string", "flag", "Flag", "nil", "exploder" );
+    addoption( "string", "platform", "Platform", "all", "all" );
+    addoption( "vector", "tintcolor", "Tint Color", ( 1.0, 1.0, 1.0 ), "fx" );
+    addoption( "float", "tintalpha", "Tint Alpha", 1.0, "fx" );
+    addoption( "vector", "fadein", "Fade In(base, range, 0)", ( 0.0, 0.0, 0.0 ), "fx" );
+    addoption( "vector", "fadeout", "Fade Out(base, range, 0)", ( 0.0, 0.0, 0.0 ), "fx" );
+    addoption( "float", "emissive", "Emissive", 1.0, "fx" );
+    addoption( "float", "sizescale", "Scale", 1.0, "fx" );
 
-    if ( !level.mp_createfx )
+    if ( !level._id_5FAC )
     {
-        _id_0819( "string", "firefx", "2nd FX id", "nil", "exploder" );
-        _id_0819( "float", "firefxdelay", "2nd FX id repeat rate", 0.5, "exploder" );
-        _id_0819( "float", "firefxtimeout", "2nd FX timeout", 5, "exploder" );
-        _id_0819( "string", "firefxsound", "2nd FX soundalias", "nil", "exploder" );
-        _id_0819( "float", "damage", "Radius damage", 150, "exploder" );
-        _id_0819( "float", "damage_radius", "Radius of radius damage", 250, "exploder" );
-        _id_0819( "string", "earthquake", "Earthquake", "nil", "exploder" );
-        _id_0819( "string", "ender", "Level notify for ending 2nd FX", "nil", "exploder" );
+        addoption( "string", "firefx", "2nd FX id", "nil", "exploder" );
+        addoption( "float", "firefxdelay", "2nd FX id repeat rate", 0.5, "exploder" );
+        addoption( "float", "firefxtimeout", "2nd FX timeout", 5, "exploder" );
+        addoption( "string", "firefxsound", "2nd FX soundalias", "nil", "exploder" );
+        addoption( "float", "damage", "Radius damage", 150, "exploder" );
+        addoption( "float", "damage_radius", "Radius of radius damage", 250, "exploder" );
+        addoption( "string", "earthquake", "Earthquake", "nil", "exploder" );
+        addoption( "string", "ender", "Level notify for ending 2nd FX", "nil", "exploder" );
     }
 
-    _id_0819( "float", "delay_min", "Minimimum time between repeats", 1, "soundfx_interval" );
-    _id_0819( "float", "delay_max", "Maximum time between repeats", 2, "soundfx_interval" );
-    _id_0819( "int", "repeat", "Number of times to repeat", 5, "exploder" );
-    _id_0819( "string", "exploder", "Exploder", "1", "exploder" );
-    _id_0819( "string", "stop_on_exploder", "Stop on exploder", "1", "all" );
+    addoption( "float", "delay_min", "Minimimum time between repeats", 1, "soundfx_interval" );
+    addoption( "float", "delay_max", "Maximum time between repeats", 2, "soundfx_interval" );
+    addoption( "int", "repeat", "Number of times to repeat", 5, "exploder" );
+    addoption( "string", "exploder", "Exploder", "1", "exploder" );
+    addoption( "string", "stop_on_exploder", "Stop on exploder", "1", "all" );
     _id_813D();
-    _id_0819( "string", "soundalias", "Soundalias", "nil", "all" );
-    _id_0819( "string", "loopsound", "Loopsound", "nil", "exploder" );
-    _id_0819( "int", "reactive_radius", "Reactive Radius", 100, "reactive_fx", undefined, ::_id_4E7D );
-    _id_0819( "string", "ambiencename", "Ambience Name", "nil", "soundfx_dynamic" );
-    _id_0819( "int", "dynamic_distance", "Dynamic Max Distance", 1000, "soundfx_dynamic" );
+    addoption( "string", "soundalias", "Soundalias", "nil", "all" );
+    addoption( "string", "loopsound", "Loopsound", "nil", "exploder" );
+    addoption( "int", "reactive_radius", "Reactive Radius", 100, "reactive_fx", undefined, ::_id_4E7D );
+    addoption( "string", "ambiencename", "Ambience Name", "nil", "soundfx_dynamic" );
+    addoption( "int", "dynamic_distance", "Dynamic Max Distance", 1000, "soundfx_dynamic" );
 
-    if ( !level.mp_createfx )
+    if ( !level._id_5FAC )
     {
-        _id_0819( "string", "rumble", "Rumble", "nil", "exploder" );
-        _id_0819( "int", "stoppable", "Can be stopped from script", "1", "all" );
+        addoption( "string", "rumble", "Rumble", "nil", "exploder" );
+        addoption( "int", "stoppable", "Can be stopped from script", "1", "all" );
     }
 
     level._id_301A = 0;
@@ -122,9 +122,9 @@ _id_7FAA( var_0 )
 
 _id_23B9()
 {
-    if ( common_scripts\_createfx::_id_194C( "escape", "x" ) )
+    if ( common_scripts\_createfx::button_is_clicked( "escape", "x" ) )
     {
-        _id_05A5();
+        _exit_menu();
         return;
     }
 
@@ -134,46 +134,46 @@ _id_23B9()
 
 _id_5BAC()
 {
-    if ( common_scripts\_createfx::_id_194C( "1" ) )
+    if ( common_scripts\_createfx::button_is_clicked( "1" ) )
     {
         _id_7FAA( "create_oneshot" );
         _id_2DB3();
         return;
     }
-    else if ( common_scripts\_createfx::_id_194C( "2" ) )
+    else if ( common_scripts\_createfx::button_is_clicked( "2" ) )
     {
         _id_7FAA( "create_loopfx" );
         _id_2DB3();
         return;
     }
-    else if ( common_scripts\_createfx::_id_194C( "3" ) )
+    else if ( common_scripts\_createfx::button_is_clicked( "3" ) )
     {
         _id_7FAA( "create_loopsound" );
         var_0 = common_scripts\_createfx::_id_2429();
         _id_378E( var_0 );
         return;
     }
-    else if ( common_scripts\_createfx::_id_194C( "4" ) )
+    else if ( common_scripts\_createfx::button_is_clicked( "4" ) )
     {
         _id_7FAA( "create_exploder" );
         var_0 = common_scripts\_createfx::_id_242D();
         _id_378E( var_0 );
         return;
     }
-    else if ( common_scripts\_createfx::_id_194C( "5" ) )
+    else if ( common_scripts\_createfx::button_is_clicked( "5" ) )
     {
         _id_7FAA( "create_interval_sound" );
         var_0 = common_scripts\_createfx::_id_2422();
         _id_378E( var_0 );
         return;
     }
-    else if ( common_scripts\_createfx::_id_194C( "6" ) )
+    else if ( common_scripts\_createfx::button_is_clicked( "6" ) )
     {
         var_0 = common_scripts\_createfx::_id_2438();
         _id_378E( var_0 );
         return;
     }
-    else if ( common_scripts\_createfx::_id_194C( "7" ) )
+    else if ( common_scripts\_createfx::button_is_clicked( "7" ) )
     {
         var_0 = common_scripts\_createfx::_id_23F9();
         _id_378E( var_0 );
@@ -201,7 +201,7 @@ _id_5BAB()
 
 _id_5BAF()
 {
-    if ( common_scripts\_createfx::_id_194C( "m" ) )
+    if ( common_scripts\_createfx::button_is_clicked( "m" ) )
         _id_4C39();
 
     _id_5BAA();
@@ -217,7 +217,7 @@ _id_5BAF()
             level._createfx._id_52CC = 0;
         }
 
-        if ( common_scripts\_createfx::_id_194C( "a" ) )
+        if ( common_scripts\_createfx::button_is_clicked( "a" ) )
         {
             common_scripts\_createfx::_id_1ED6();
             _id_7FAA( "add_options" );
@@ -261,15 +261,15 @@ _id_5BB0()
 
 _id_60B8()
 {
-    return common_scripts\_createfx::_id_194C( "rightarrow" );
+    return common_scripts\_createfx::button_is_clicked( "rightarrow" );
 }
 
 _id_6F58()
 {
-    return common_scripts\_createfx::_id_194C( "leftarrow" );
+    return common_scripts\_createfx::button_is_clicked( "leftarrow" );
 }
 
-_id_05A5()
+_exit_menu()
 {
     common_scripts\_createfx::_id_1EB9();
     common_scripts\_createfx::_id_1EB5();
@@ -291,7 +291,7 @@ _id_5BAD()
         if ( var_4 == 10 )
             var_4 = 0;
 
-        if ( common_scripts\_createfx::_id_194C( var_4 + "" ) )
+        if ( common_scripts\_createfx::button_is_clicked( var_4 + "" ) )
         {
             var_1 = var_2[var_3];
             break;
@@ -306,7 +306,7 @@ _id_5BAD()
 
     if ( _id_5BA8( "change_fxid" ) )
     {
-        _id_0CA5( _id_3E02( "fxid" ), var_1 );
+        apply_option_to_selected_fx( _id_3E02( "fxid" ), var_1 );
         level._id_301A = 0;
         common_scripts\_createfx::_id_1EB9();
         _id_7FAA( "none" );
@@ -370,7 +370,7 @@ _id_5BAA()
         if ( var_5 == 10 )
             var_5 = 0;
 
-        if ( common_scripts\_createfx::_id_194C( var_5 + "" ) )
+        if ( common_scripts\_createfx::button_is_clicked( var_5 + "" ) )
         {
             _id_6F15( var_4, var_1 );
             break;
@@ -431,7 +431,7 @@ _id_5BAE()
 
         if ( isdefined( var_1 ) )
         {
-            _id_0CA5( var_0, var_1 );
+            apply_option_to_selected_fx( var_0, var_1 );
             return;
         }
 
@@ -439,7 +439,7 @@ _id_5BAE()
     }
 }
 
-_id_0CA5( var_0, var_1 )
+apply_option_to_selected_fx( var_0, var_1 )
 {
     common_scripts\_createfx::_id_780E();
 
@@ -489,7 +489,7 @@ _id_59D2( var_0, var_1 )
     return isdefined( level._id_241C[var_0][var_1] );
 }
 
-_id_0819( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+addoption( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = [];
     var_7["type"] = var_0;
@@ -591,9 +591,9 @@ _id_2B48( var_0 )
         if ( var_6 == 10 )
             var_6 = 0;
 
-        if ( common_scripts\_createfx::_id_194C( var_6 + "" ) )
+        if ( common_scripts\_createfx::button_is_clicked( var_6 + "" ) )
         {
-            _id_0781( var_5 );
+            add_option_to_selected_entities( var_5 );
             _id_5BB3();
             level._id_5519 = undefined;
             return;
@@ -611,7 +611,7 @@ _id_2B48( var_0 )
     common_scripts\_createfx::_id_7E42( "(x) Exit >" );
 }
 
-_id_0781( var_0 )
+add_option_to_selected_entities( var_0 )
 {
     var_1 = undefined;
 
@@ -854,7 +854,7 @@ _id_7C5A()
         if ( var_4 == 10 )
             var_4 = 0;
 
-        if ( common_scripts\_createfx::_id_194C( var_4 + "" ) )
+        if ( common_scripts\_createfx::button_is_clicked( var_4 + "" ) )
         {
             var_1 = var_2[var_3];
             break;

@@ -69,7 +69,7 @@ _id_2443( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6.alpha = level._id_6314;
 
-    var_6._id_1301 = var_6.alpha;
+    var_6.basealpha = var_6.alpha;
     var_6.index = level._id_6315.size;
     level._id_6316[var_0] = var_6;
     level._id_6315[level._id_6315.size] = var_0;
@@ -157,14 +157,14 @@ _id_8D18()
     while ( self._id_5109 )
     {
         self fadeovertime( 0.75 );
-        self.alpha = 0.35 * self._id_1301;
+        self.alpha = 0.35 * self.basealpha;
         wait 0.75;
         self fadeovertime( 0.75 );
-        self.alpha = self._id_1301;
+        self.alpha = self.basealpha;
         wait 0.75;
     }
 
-    self.alpha = self._id_1301;
+    self.alpha = self.basealpha;
 }
 
 _id_8EE6()

@@ -46,7 +46,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "scoutsniper", 0 );
     level.player maps\_utility::set_light_set_player( "scoutsniper" );
-    level.player _meth_848c( "clut_scoutsniper", 0.0 );
+    level.player _meth_848C( "clut_scoutsniper", 0.0 );
     setsaveddvar( "sm_sunShadowScale", "0.7" );
 }
 
@@ -54,8 +54,8 @@ handle_ghillie_wibble()
 {
     var_0 = 0.5;
     var_1 = 1;
-    _func_2e8( 0, "x", var_0 );
-    _func_2e8( 0, "y", var_1 );
+    _func_2E8( 0, "x", var_0 );
+    _func_2E8( 0, "y", var_1 );
 }
 
 handle_intro_cinematics()

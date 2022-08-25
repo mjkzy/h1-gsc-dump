@@ -49,8 +49,8 @@ _id_9EA6()
 _id_64E9()
 {
     thread _id_9EB1();
-    self _meth_84af( 1 );
-    self _meth_84fd( 0 );
+    self _meth_84AF( 1 );
+    self _meth_84FD( 0 );
     thread _id_5DBD();
 }
 
@@ -164,7 +164,7 @@ _id_9EB1()
     var_2 = getclassforloadout( var_1 );
     var_0._id_2522 = getlastcustomclass( var_1 );
     var_3 = maps\mp\gametypes\_class::cac_getlastgroupstring( var_1 );
-    var_4 = maps\mp\_utility::_id_197E();
+    var_4 = maps\mp\_utility::cac_getcustomclassloc();
 
     if ( var_3 != var_4 )
     {
@@ -193,7 +193,7 @@ _id_9EB1()
     var_0 thread playermonitordisconnect();
     var_0 thread playerhandletasksafternextsnapshot( var_8 );
     maps\mp\_utility::_id_9B69( "spectator" );
-    var_0 _meth_84cf( "mp_no_foley", 1 );
+    var_0 _meth_84CF( "mp_no_foley", 1 );
     var_0 playerchangecameramode( "game_lobby" );
     var_0 thread playermonitorluinotifies();
     var_0 thread playermonitorswitchtofiringrange();
@@ -289,39 +289,39 @@ setuploadoutcommonvl()
     if ( !isdefined( self.emblemloadout ) )
         self.emblemloadout = spawnstruct();
 
-    self.emblemloadout.emblemindex = _func_2fa( var_0, common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
-    self.emblemloadout.shouldapplyemblemtoweapon = _func_2fa( var_0, common_scripts\utility::getstatsgroup_common(), "applyEmblemToWeapon" );
-    self.emblemloadout.shouldapplyemblemtocharacter = _func_2fa( var_0, common_scripts\utility::getstatsgroup_common(), "applyEmblemToCharacter" );
+    self.emblemloadout.emblemindex = _func_2FA( var_0, common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
+    self.emblemloadout.shouldapplyemblemtoweapon = _func_2FA( var_0, common_scripts\utility::getstatsgroup_common(), "applyEmblemToWeapon" );
+    self.emblemloadout.shouldapplyemblemtocharacter = _func_2FA( var_0, common_scripts\utility::getstatsgroup_common(), "applyEmblemToCharacter" );
 
     if ( !isdefined( self.charactercamoloadout ) )
         self.charactercamoloadout = spawnstruct();
 
-    self.charactercamoloadout.camoindex = _func_2fa( var_0, common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
+    self.charactercamoloadout.camoindex = _func_2FA( var_0, common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
 }
 
 getloadoutvl( var_0, var_1 )
 {
     var_2 = self.vlcontroller;
     var_3 = [];
-    var_3["primary"] = maps\mp\gametypes\_class::_id_1985( var_1, 0, var_2 );
+    var_3["primary"] = maps\mp\gametypes\_class::cac_getweapon( var_1, 0, var_2 );
     var_3["primaryAttachKit"] = maps\mp\gametypes\_class::cac_getweaponattachkit( var_1, 0, var_2 );
     var_3["primaryFurnitureKit"] = maps\mp\gametypes\_class::cac_getweaponfurniturekit( var_1, 0, var_2 );
-    var_3["primaryCamo"] = maps\mp\gametypes\_class::_id_1989( var_1, 0, var_2 );
-    var_3["primaryReticle"] = maps\mp\gametypes\_class::_id_198A( var_1, 0, var_2 );
+    var_3["primaryCamo"] = maps\mp\gametypes\_class::cac_getweaponcamo( var_1, 0, var_2 );
+    var_3["primaryReticle"] = maps\mp\gametypes\_class::cac_getweaponreticle( var_1, 0, var_2 );
     var_3["primaryCamoNum"] = int( tablelookup( "mp/camoTable.csv", 1, var_3["primaryCamo"], 0 ) );
     var_3["primaryReticleNum"] = int( tablelookup( "mp/reticleTable.csv", 1, var_3["primaryReticle"], 0 ) );
-    var_3["secondary"] = maps\mp\gametypes\_class::_id_1985( var_1, 1, var_2 );
+    var_3["secondary"] = maps\mp\gametypes\_class::cac_getweapon( var_1, 1, var_2 );
     var_3["secondaryAttachKit"] = maps\mp\gametypes\_class::cac_getweaponattachkit( var_1, 1, var_2 );
     var_3["secondaryFurnitureKit"] = maps\mp\gametypes\_class::cac_getweaponfurniturekit( var_1, 1, var_2 );
-    var_3["secondaryCamo"] = maps\mp\gametypes\_class::_id_1989( var_1, 1, var_2 );
-    var_3["secondaryReticle"] = maps\mp\gametypes\_class::_id_198A( var_1, 1, var_2 );
+    var_3["secondaryCamo"] = maps\mp\gametypes\_class::cac_getweaponcamo( var_1, 1, var_2 );
+    var_3["secondaryReticle"] = maps\mp\gametypes\_class::cac_getweaponreticle( var_1, 1, var_2 );
     var_3["secondaryCamoNum"] = int( tablelookup( "mp/camoTable.csv", 1, var_3["secondaryCamo"], 0 ) );
     var_3["secondaryReticleNum"] = int( tablelookup( "mp/reticleTable.csv", 1, var_3["secondaryReticle"], 0 ) );
-    var_3["equipment"] = maps\mp\gametypes\_class::_id_197F( var_1, 0, var_2 );
-    var_3["offhand"] = maps\mp\gametypes\_class::_id_197F( var_1, 1, var_2 );
+    var_3["equipment"] = maps\mp\gametypes\_class::cac_getequipment( var_1, 0, var_2 );
+    var_3["offhand"] = maps\mp\gametypes\_class::cac_getequipment( var_1, 1, var_2 );
 
     for ( var_4 = 0; var_4 < 3; var_4++ )
-        var_3["perk" + var_4] = maps\mp\gametypes\_class::_id_1984( var_1, var_4, var_2 );
+        var_3["perk" + var_4] = maps\mp\gametypes\_class::cac_getperk( var_1, var_4, var_2 );
 
     var_3["meleeWeapon"] = maps\mp\gametypes\_class::cac_getmeleeweapon( var_1, var_2 );
     return var_3;
@@ -336,7 +336,7 @@ playerwaittillloadoutstreamed()
 {
     self.vlcontroller = level.caccontroller;
     var_0 = maps\mp\_utility::_id_3F32( "lobby" + self._id_2522 );
-    var_1 = maps\mp\_utility::_id_197E();
+    var_1 = maps\mp\_utility::cac_getcustomclassloc();
     var_2 = getloadoutvl( var_1, var_0 );
     var_3 = var_2["primary"];
     var_4 = var_2["primaryAttachKit"];
@@ -359,10 +359,10 @@ playerwaittillloadoutstreamed()
     var_14 = [];
 
     if ( isdefined( var_3 ) && var_3 != "specialty_null" )
-        var_14[var_14.size] = maps\mp\gametypes\_class::_id_188C( var_3, var_4, var_5, var_6, var_7, var_13 );
+        var_14[var_14.size] = maps\mp\gametypes\_class::buildweaponname( var_3, var_4, var_5, var_6, var_7, var_13 );
 
     if ( isdefined( var_8 ) && var_8 != "specialty_null" )
-        var_14[var_14.size] = maps\mp\gametypes\_class::_id_188C( var_8, var_9, var_10, var_11, var_12, var_13 );
+        var_14[var_14.size] = maps\mp\gametypes\_class::buildweaponname( var_8, var_9, var_10, var_11, var_12, var_13 );
 
     while ( var_14.size > 0 )
     {
@@ -388,9 +388,9 @@ playermonitorswitchtofiringrange()
             if ( var_1 == 1 && !level._id_4C03 )
             {
                 var_0 playerwaittillloadoutstreamed();
-                var_0 _meth_847d();
+                var_0 _meth_847D();
                 maps\mp\_vl_firingrange::_id_32F0( var_0 );
-                var_0 _meth_84d0( "mp_no_foley", 1 );
+                var_0 _meth_84D0( "mp_no_foley", 1 );
                 setdvar( "r_dof_physical_bokehEnable", 0 );
                 setdvar( "r_dof_physical_enable", 0 );
                 setdvar( "r_uiblurdstmode", 0 );
@@ -398,7 +398,7 @@ playermonitorswitchtofiringrange()
             }
             else if ( var_1 == 0 && level._id_4C03 )
             {
-                var_0 _meth_847e();
+                var_0 _meth_847E();
                 var_0 maps\mp\_vl_firingrange::_id_3807();
                 var_0 _id_2AC5();
                 resetplayeravatar();
@@ -408,7 +408,7 @@ playermonitorswitchtofiringrange()
 
                 var_0 notify( "enter_lobby" );
                 _id_3301( var_0 );
-                var_0 _meth_84cf( "mp_no_foley", 1 );
+                var_0 _meth_84CF( "mp_no_foley", 1 );
                 setdvar( "r_dof_physical_enable", 1 );
                 setdvar( "r_dof_physical_bokehEnable", 1 );
                 setdvar( "r_uiblurdstmode", 3 );
@@ -436,9 +436,9 @@ _id_3301( var_0 )
     maps\mp\_vl_firingrange::_id_2630();
     maps\mp\_vl_camera::cameralink( var_0._id_1A13, var_0 );
     var_0 playersetlobbyfovscale();
-    var_0 _meth_857a( 0 );
+    var_0 _meth_857A( 0 );
     var_0 stopshellshock();
-    var_0 _meth_84a5();
+    var_0 _meth_84A5();
 
     if ( isdefined( level._id_9EAB ) && isdefined( level._id_9EA2 ) && isdefined( level._id_9EAB[level._id_9EA2] ) )
         var_0 _id_6F0F( level._id_9EAB[level._id_9EA2], level._id_9EAB[level._id_9EA2].angles );
@@ -685,14 +685,14 @@ resetrotationdata( var_0 )
     var_0.rotateyawdata.storedstick = 0;
     var_0.rotateyawdata.storedangle = var_0.angles[1];
     var_0.rotateyawdata._id_93F3 = 0;
-    var_0.rotateyawdata._id_0845 = 0;
+    var_0.rotateyawdata.addtobaseangle = 0;
     var_0.rotateyawdata.lastangle = 0;
     var_0.rotateyawdata.lastdeltachanged = 0;
     var_0.rotateyawdata.unnormalizedleftstickangle = 0;
     var_0.rotaterolldata.storedstick = 0;
     var_0.rotaterolldata.storedangle = var_0.angles[2];
     var_0.rotaterolldata._id_93F3 = 0;
-    var_0.rotaterolldata._id_0845 = 0;
+    var_0.rotaterolldata.addtobaseangle = 0;
     var_0.rotaterolldata.lastangle = 0;
     var_0.rotaterolldata.lastchanged = 0;
     var_0.rotaterolldata.unnormalizedleftstickangle = 0;
@@ -763,7 +763,7 @@ handlerotateplayeravatar()
 resetplayeravatar()
 {
     var_0 = level._id_9EAB[level._id_9EA2];
-    var_0 setplayerangles( var_0._id_117A.angles );
+    var_0 setplayerangles( var_0.avatar_spawnpoint.angles );
 }
 
 handlerotateweaponavatar( var_0 )
@@ -842,22 +842,22 @@ getangleadd( var_0, var_1, var_2 )
     {
         if ( var_1 >= 270 )
         {
-            var_0._id_0845 += -360 * var_2;
+            var_0.addtobaseangle += -360 * var_2;
 
-            if ( var_0._id_0845 == -360 )
-                var_0._id_0845 = 0;
+            if ( var_0.addtobaseangle == -360 )
+                var_0.addtobaseangle = 0;
         }
         else if ( var_1 <= 100 )
         {
-            var_0._id_0845 += 360 * var_2;
+            var_0.addtobaseangle += 360 * var_2;
 
-            if ( var_0._id_0845 == 360 )
-                var_0._id_0845 = 0;
+            if ( var_0.addtobaseangle == 360 )
+                var_0.addtobaseangle = 0;
         }
     }
 
     var_0._id_93F3 = var_1;
-    var_3 = var_1 * var_2 + var_0._id_0845;
+    var_3 = var_1 * var_2 + var_0.addtobaseangle;
     return var_3;
 }
 
@@ -1132,7 +1132,7 @@ memberclasschanges( var_0 )
         if ( !var_18 )
             var_17 = -1;
 
-        var_20 = maps\mp\gametypes\_class::_id_188C( var_7, var_9, var_11, var_12, var_14, var_17 );
+        var_20 = maps\mp\gametypes\_class::buildweaponname( var_7, var_9, var_11, var_12, var_14, var_17 );
         var_21 = maps\mp\_utility::_id_3F11( var_20 );
         var_22 = [];
         var_22[level._id_2238["gender"]] = var_3.gender;
@@ -1218,7 +1218,7 @@ updateavatarloadout( var_0, var_1, var_2 )
     if ( !var_12 )
         var_11 = -1;
 
-    var_14 = maps\mp\gametypes\_class::_id_188C( var_6, var_7, var_8, var_9, var_10, var_11 );
+    var_14 = maps\mp\gametypes\_class::buildweaponname( var_6, var_7, var_8, var_9, var_10, var_11 );
     maps\mp\_vl_avatar::_id_9E9E( var_0, var_5, var_14, var_4, var_3._id_A7ED );
     var_1.updateloadout = undefined;
     var_1.updatecostume = undefined;
@@ -1339,14 +1339,14 @@ _id_66A8( var_0 )
         }
 
         if ( var_2.primary >= 0 )
-            scorepercentagecutoff( var_2 );
+            add_party_member_class_change( var_2 );
     }
 
     memberclasschanges( level._id_5A79 );
     level._id_5A79 = [];
 }
 
-scorepercentagecutoff( var_0 )
+add_party_member_class_change( var_0 )
 {
     for ( var_1 = 0; var_1 < level._id_5A79.size; var_1++ )
     {

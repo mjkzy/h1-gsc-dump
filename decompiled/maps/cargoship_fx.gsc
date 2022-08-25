@@ -222,9 +222,9 @@ main()
     level._effect["lightning"] = loadfx( "fx/weather/lightning" );
     level._effect["lightning_bolt"] = loadfx( "fx/weather/cin_lightning_bolt" );
     level._effect["destp_office_paper_stack_cgoshp"] = loadfx( "vfx/destructible/destp_office_paper_stack_01_dyndst" );
-    maps\_weather::_id_07FE( 10 );
-    maps\_weather::_id_07FE( 11 );
-    maps\_weather::_id_07FE( 12 );
+    maps\_weather::addlightningexploder( 10 );
+    maps\_weather::addlightningexploder( 11 );
+    maps\_weather::addlightningexploder( 12 );
     level._id_60CD = gettime() + 1;
     thread raincontrol();
     thread maps\_weather::_id_6D94();
@@ -233,7 +233,7 @@ main()
     thread rampupsun();
     thread rainmask();
     thread ocean_scenario_vfx();
-    common_scripts\utility::_id_0D13( getentarray( "interactive_tv", "targetname" ), ::tv_fx );
+    common_scripts\utility::array_thread( getentarray( "interactive_tv", "targetname" ), ::tv_fx );
     level.facemaskfx = undefined;
 }
 
@@ -468,7 +468,7 @@ init_exploders()
 {
     waitframe;
     level._waves_exploders = maps\_utility::_id_3FA9( "watersplash" );
-    level._waves_exploders = common_scripts\utility::_id_0CDD( level._waves_exploders, maps\_utility::_id_3FA9( "watersplash_2" ) );
+    level._waves_exploders = common_scripts\utility::array_combine( level._waves_exploders, maps\_utility::_id_3FA9( "watersplash_2" ) );
     level._lighting_exploders = maps\_utility::_id_3FA9( "lightning" );
 
     for ( var_0 = 0; var_0 < level._lighting_exploders.size; var_0++ )

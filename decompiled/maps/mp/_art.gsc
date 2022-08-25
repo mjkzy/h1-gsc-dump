@@ -98,12 +98,12 @@ _id_23E0( var_0 )
     return var_1;
 }
 
-_id_07BB()
+add_vision_sets_from_triggers()
 {
 
 }
 
-_id_07BA( var_0 )
+add_vision_set( var_0 )
 {
 
 }
@@ -115,7 +115,7 @@ _id_23AA( var_0 )
     var_1._id_4500 = 19391;
     var_1._id_7299 = 0.661137;
     var_1._id_43D8 = 0.554261;
-    var_1._id_14C5 = 0.454014;
+    var_1.blue = 0.454014;
     var_1._id_5A47 = 0.7;
     var_1._id_971C = 0;
     var_1._id_85CD = 0;
@@ -175,7 +175,7 @@ _id_4AC6()
 
     for ( var_7 = 0; var_7 < var_0; var_7++ )
     {
-        var_1[var_7] = _id_05FD();
+        var_1[var_7] = _newhudelem();
         var_1[var_7]._id_57F4 = 0;
         var_1[var_7].alignx = "left";
         var_1[var_7].aligny = "middle";
@@ -190,7 +190,7 @@ _id_4AC6()
 
         var_1[var_7].x = 20;
         var_1[var_7].y = var_4;
-        var_1[var_7] _id_0641( "." );
+        var_1[var_7] _settext( "." );
 
         if ( var_7 == var_3 )
             var_5 *= -1;
@@ -202,7 +202,7 @@ _id_4AC6()
     level._id_88B7 = var_1;
 }
 
-_id_05FD()
+_newhudelem()
 {
     if ( !isdefined( level._id_7B36 ) )
         level._id_7B36 = [];
@@ -212,11 +212,11 @@ _id_05FD()
     return var_0;
 }
 
-_id_0641( var_0 )
+_settext( var_0 )
 {
     self._id_71EA = var_0;
     self settext( "_" );
-    thread _id_0567();
+    thread _clearalltextafterhudelem();
     var_1 = 0;
 
     foreach ( var_3 in level._id_7B36 )
@@ -229,18 +229,18 @@ _id_0641( var_0 )
     }
 }
 
-_id_0567()
+_clearalltextafterhudelem()
 {
     if ( getdvar( "netconststrings_enabled" ) != "0" )
         return;
 
-    if ( level._id_0567 )
+    if ( level._clearalltextafterhudelem )
         return;
 
-    level._id_0567 = 1;
+    level._clearalltextafterhudelem = 1;
     self clearalltextafterhudelem();
     wait 0.05;
-    level._id_0567 = 0;
+    level._clearalltextafterhudelem = 0;
 }
 
 _id_7F82()
@@ -310,7 +310,7 @@ _id_7F44( var_0 )
     if ( level.currentgen )
     {
         var_2 = var_0 + "_cg";
-        var_3 = common_scripts\utility::_id_0CE8( var_1, var_2 );
+        var_3 = common_scripts\utility::array_find( var_1, var_2 );
 
         if ( isdefined( var_3 ) )
             var_0 = var_2;
@@ -329,28 +329,28 @@ _id_7F44( var_0 )
         }
     }
 
-    level._id_88B7[var_5] _id_0641( var_1[var_4] );
+    level._id_88B7[var_5] _settext( var_1[var_4] );
 
     for ( var_6 = 1; var_6 < level._id_88B7.size - var_5; var_6++ )
     {
         if ( var_4 - var_6 < 0 )
         {
-            level._id_88B7[var_5 + var_6] _id_0641( "." );
+            level._id_88B7[var_5 + var_6] _settext( "." );
             continue;
         }
 
-        level._id_88B7[var_5 + var_6] _id_0641( var_1[var_4 - var_6] );
+        level._id_88B7[var_5 + var_6] _settext( var_1[var_4 - var_6] );
     }
 
     for ( var_6 = 1; var_6 < level._id_88B7.size - var_5; var_6++ )
     {
         if ( var_4 + var_6 > var_1.size - 1 )
         {
-            level._id_88B7[var_5 - var_6] _id_0641( "." );
+            level._id_88B7[var_5 - var_6] _settext( "." );
             continue;
         }
 
-        level._id_88B7[var_5 - var_6] _id_0641( var_1[var_4 + var_6] );
+        level._id_88B7[var_5 - var_6] _settext( var_1[var_4 + var_6] );
     }
 
     vision_set_fog_changes_mp( var_1[var_4], 0 );
@@ -386,20 +386,20 @@ _id_6CCC()
     _id_7F44( var_0 );
 }
 
-_id_1949( var_0, var_1 )
+button_down( var_0, var_1 )
 {
     var_2 = level.player buttonpressed( var_0 );
 
     if ( !var_2 )
         var_2 = level.player buttonpressed( var_1 );
 
-    if ( !isdefined( level._id_1963[var_0] ) )
-        level._id_1963[var_0] = 0;
+    if ( !isdefined( level.buttons[var_0] ) )
+        level.buttons[var_0] = 0;
 
-    if ( gettime() < level._id_1963[var_0] )
+    if ( gettime() < level.buttons[var_0] )
         return 0;
 
-    level._id_1963[var_0] = gettime() + 400;
+    level.buttons[var_0] = gettime() + 400;
     return var_2;
 }
 
@@ -408,27 +408,27 @@ _id_2FC8()
 
 }
 
-_id_0D36()
+artstartvisionfileexport()
 {
     common_scripts\utility::_id_36B9();
 }
 
-_id_0D2D()
+artendvisionfileexport()
 {
     return common_scripts\utility::_id_36B8( "\\share\\raw\\vision\\" + level.script + ".vision", 1 );
 }
 
-_id_0D35()
+artstartfogfileexport()
 {
     common_scripts\utility::_id_36B9();
 }
 
-_id_0D2C()
+artendfogfileexport()
 {
     return common_scripts\utility::_id_36B8( "\\share\\raw\\maps\\createart\\" + level.script + "_art.gsc", 1 );
 }
 
-_id_0D2E()
+artfxprintlnfog()
 {
     common_scripts\utility::_id_36B7( "" );
     common_scripts\utility::_id_36B7( "\\t//* Fog section * " );
@@ -445,7 +445,7 @@ _id_0D2E()
     common_scripts\utility::_id_36B7( "\\t$/" );
 }
 
-_id_0D2B()
+art_print_fog()
 {
 
 }

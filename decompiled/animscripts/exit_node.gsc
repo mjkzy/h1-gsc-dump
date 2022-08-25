@@ -54,7 +54,7 @@ _id_8D2E()
 
             if ( !isdefined( anim._id_3594[var_2] ) && var_2 != "stand_unstable" && var_2 != "stand_unstable_run" && var_2 != "stand_saw" && var_2 != "crouch_saw" )
             {
-                var_6 = animscripts\utility::_id_06C4( self.angles[1] - animscripts\utility::_id_404B( var_4 ) );
+                var_6 = animscripts\utility::absangleclamp180( self.angles[1] - animscripts\utility::_id_404B( var_4 ) );
 
                 if ( var_6 < 5 )
                 {
@@ -85,7 +85,7 @@ _id_8D2E()
     var_10 = var_9._id_5A2F;
     var_11 = var_9._id_33E8;
     var_12 = spawnstruct();
-    _id_19E5( var_12, var_2, 0, var_1, var_8, var_10, var_11 );
+    calculatenodetransitionangles( var_12, var_2, 0, var_1, var_8, var_10, var_11 );
     _id_8897( var_12, var_10 );
     var_13 = -1;
     var_14 = 3;
@@ -128,7 +128,7 @@ _id_29AA( var_0 )
             return "prone_saw";
     }
 
-    if ( !isdefined( anim._id_0CB6[var_0.type] ) )
+    if ( !isdefined( anim.approach_types[var_0.type] ) )
         return;
 
     if ( isdefined( anim._id_740B[var_0.type] ) && anim._id_740B[var_0.type] != self.a._id_6E5A )
@@ -139,7 +139,7 @@ _id_29AA( var_0 )
     if ( var_1 == "prone" && !isdefined( self.enableproneexitnode ) )
         var_1 = "crouch";
 
-    var_2 = anim._id_0CB6[var_0.type][var_1];
+    var_2 = anim.approach_types[var_0.type][var_1];
 
     if ( animscripts\cover_arrival::_id_9C11() && var_2 == "exposed" )
         var_2 = "exposed_ready";
@@ -170,7 +170,7 @@ _id_29AA( var_0 )
     {
         var_3 = var_2 + "_cqb";
 
-        if ( isdefined( anim._id_0CCA["soldier"]["cover_exit"][var_3] ) )
+        if ( isdefined( anim.archetypes["soldier"]["cover_exit"][var_3] ) )
             var_2 = var_3;
     }
 
@@ -197,7 +197,7 @@ _id_1D23()
     if ( self.stairsstate != "none" )
         return 0;
 
-    if ( !self _meth_81cf( "stand" ) && !isdefined( self._id_4795 ) && !isdefined( self.enableproneexitnode ) )
+    if ( !self _meth_81CF( "stand" ) && !isdefined( self._id_4795 ) && !isdefined( self.enableproneexitnode ) )
         return 0;
 
     if ( !self _meth_8572( 100 ) )
@@ -275,7 +275,7 @@ _id_401A( var_0 )
     return var_1;
 }
 
-_id_19E5( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+calculatenodetransitionangles( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_0._id_9719 = [];
     var_0._id_970C = [];
@@ -342,10 +342,10 @@ _id_1D12( var_0, var_1, var_2, var_3, var_4 )
     var_11 = var_0 + var_9 - var_10;
     self._id_22A6 = var_11;
 
-    if ( !var_3 && !self _meth_81e9( var_11 ) )
+    if ( !var_3 && !self _meth_81E9( var_11 ) )
         return 0;
 
-    if ( !self _meth_81c8( self.origin, var_11 ) )
+    if ( !self _meth_81C8( self.origin, var_11 ) )
         return 0;
 
     if ( var_4 <= 6 || var_3 )
@@ -356,7 +356,7 @@ _id_1D12( var_0, var_1, var_2, var_3, var_4 )
     var_10 = var_7 * var_12[1];
     var_13 = var_11 + var_9 - var_10;
     self._id_22A6 = var_13;
-    return self _meth_81c8( var_11, var_13 );
+    return self _meth_81C8( var_11, var_13 );
 }
 
 _id_2D04( var_0, var_1 )
@@ -447,7 +447,7 @@ _id_3F8B()
     else if ( isdefined( self.prevnode ) && distancesquared( self.origin, self.prevnode.origin ) < var_1 )
         var_0 = self.prevnode;
 
-    if ( isdefined( var_0 ) && isdefined( self._id_4795 ) && animscripts\utility::_id_06C4( self.angles[1] - var_0.angles[1] ) > 30 )
+    if ( isdefined( var_0 ) && isdefined( self._id_4795 ) && animscripts\utility::absangleclamp180( self.angles[1] - var_0.angles[1] ) > 30 )
         return undefined;
 
     return var_0;

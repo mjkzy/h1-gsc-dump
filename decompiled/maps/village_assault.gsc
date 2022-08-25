@@ -40,9 +40,9 @@ main()
     }
 
     maps\village_assault_code::precachelevelstuff();
-    maps\_utility::_id_079C( "town", ::start_town, &"STARTS_TOWN" );
-    maps\_utility::_id_079C( "alasad_barn", ::start_alasad_barn, &"STARTS_ALASADBARN" );
-    maps\_utility::_id_079C( "alasad_house", ::start_alasad_house, &"STARTS_ALASADHOUSE" );
+    maps\_utility::add_start( "town", ::start_town, &"STARTS_TOWN" );
+    maps\_utility::add_start( "alasad_barn", ::start_alasad_barn, &"STARTS_ALASADBARN" );
+    maps\_utility::add_start( "alasad_house", ::start_alasad_house, &"STARTS_ALASADHOUSE" );
     maps\_utility::_id_278B( ::start_start );
     maps\village_assault_precache::main();
     maps\createart\village_assault_art::main();
@@ -62,7 +62,7 @@ main()
     maps\village_assault_lighting::main();
     maps\village_assault_aud::main();
     thread maps\village_assault_code::scriptcalls();
-    maps\_utility::_id_0764( "armor_damage", &"SCRIPT_ARMOR_DAMAGE", undefined );
+    maps\_utility::add_hint_string( "armor_damage", &"SCRIPT_ARMOR_DAMAGE", undefined );
     thread maps\village_assault_code::add_objective_building( "1" );
     thread maps\village_assault_code::add_objective_building( "2" );
     thread maps\village_assault_code::add_objective_building( "3" );
@@ -126,21 +126,21 @@ gameplay_start()
         var_0 notify( "trigger" );
 
     for ( var_1 = 0; var_1 < level.friendlies.size; var_1++ )
-        level.friendlies[var_1] _meth_81a7( 1 );
+        level.friendlies[var_1] _meth_81A7( 1 );
 
     getent( "pushplayer_off", "targetname" ) waittill( "trigger" );
 
     for ( var_1 = 0; var_1 < level.friendlies.size; var_1++ )
-        level.friendlies[var_1] _meth_81a7( 0 );
+        level.friendlies[var_1] _meth_81A7( 0 );
 }
 
 battlechatter_trigger_on()
 {
-    maps\_utility::_id_1332( "allies" );
-    maps\_utility::_id_1332( "axis" );
+    maps\_utility::battlechatter_off( "allies" );
+    maps\_utility::battlechatter_off( "axis" );
     getent( "battlechatter_on_trigger", "targetname" ) waittill( "trigger" );
-    maps\_utility::_id_1333( "allies" );
-    maps\_utility::_id_1333( "axis" );
+    maps\_utility::battlechatter_on( "allies" );
+    maps\_utility::battlechatter_on( "axis" );
     thread maps\village_assault_code::doautosave( "entered_town" );
     wait 60;
     thread maps\village_assault_code::air_support_hint_print_activate();

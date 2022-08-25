@@ -22,7 +22,7 @@
 minigun_player_anims()
 {
     level.minigun_node = getent( "minigun_anim_node", "targetname" );
-    maps\_anim::_id_0BC7( self, "use" );
+    maps\_anim::anim_first_frame_solo( self, "use" );
 
     for (;;)
     {
@@ -39,24 +39,24 @@ minigun_player_use()
     level.player allowcrouch( 1 );
     level.player allowstand( 0 );
     level.player disableweapons();
-    level.player _meth_84a5();
-    level.player _meth_84a7( 12.0, 500, 1.0, 1.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 12.0, 500, 1.0, 1.0 );
     level.eplayerview = maps\_utility::_id_88D1( "minigun_player", level.minigun_node.origin, level.minigun_node.angles );
     level.eplayerview hide();
-    level.minigun_node maps\_anim::_id_0BC7( level.eplayerview, "use_minigun" );
-    level.player _meth_855e( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
+    level.minigun_node maps\_anim::anim_first_frame_solo( level.eplayerview, "use_minigun" );
+    level.player _meth_855E( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
     level.minigun_previous_fov = getstarttime();
     level.player lerpfov( 55, 0.5 );
     wait 0.3;
     level.eplayerview show();
-    maps\_anim::_id_0BC7( self, "use" );
-    thread maps\_anim::_id_0C24( self, "use" );
-    level.minigun_node maps\_anim::_id_0C24( level.eplayerview, "use_minigun" );
+    maps\_anim::anim_first_frame_solo( self, "use" );
+    thread maps\_anim::anim_single_solo( self, "use" );
+    level.minigun_node maps\_anim::anim_single_solo( level.eplayerview, "use_minigun" );
     level.eplayerview hide();
     level.player unlink();
-    level.minigun_eye_height = level.player _meth_82ef();
-    level.player _meth_84c7( 0 );
-    self _meth_856c();
+    level.minigun_eye_height = level.player _meth_82EF();
+    level.player _meth_84C7( 0 );
+    self _meth_856C();
 }
 
 minigun_player_drop()
@@ -65,18 +65,18 @@ minigun_player_drop()
     var_1 = self gettagangles( "tag_flash" );
     var_2 = anglestoaxis( var_1 );
     var_3 = level.player geteye();
-    var_4 = level.player _meth_82ef();
+    var_4 = level.player _meth_82EF();
     var_5 = var_3 - var_0;
     var_6 = ( vectordot( var_5, var_2["forward"] ), vectordot( var_5, var_2["right"] ), vectordot( var_5, var_2["up"] ) );
     var_6 -= ( 0, 0, level.minigun_eye_height );
     level.eplayerview linkto( self, "tag_flash", var_6, ( 0.0, 0.0, 0.0 ) );
     level.player playerlinktoabsolute( level.eplayerview, undefined );
     waittillframeend;
-    self _meth_856d();
+    self _meth_856D();
     self waittill( "turret_returned_to_default" );
-    level.player _meth_84c8();
-    maps\_anim::_id_0BC7( self, "drop" );
-    thread maps\_anim::_id_0C24( self, "drop" );
+    level.player _meth_84C8();
+    maps\_anim::anim_first_frame_solo( self, "drop" );
+    thread maps\_anim::anim_single_solo( self, "drop" );
     level.eplayerview unlink();
     level.player enableweapons();
     var_7 = level.player getplayerangles();
@@ -87,7 +87,7 @@ minigun_player_drop()
     var_11 = playerphysicstrace( var_9, var_10 );
     level.eplayerview moveto( var_11, 0.5, 0.2, 0.2 );
     level.player lerpfov( level.minigun_previous_fov, 0.5 );
-    level.player _meth_84a6();
+    level.player _meth_84A6();
     wait 0.5;
     level.player unlink();
     level.eplayerview delete();
@@ -99,8 +99,8 @@ minigun_player_drop()
 minigun_think()
 {
     common_scripts\utility::_id_383D( "player_on_minigun" );
-    self._id_0C72 = "minigun";
-    maps\_utility::_id_0D61();
+    self.animname = "minigun";
+    maps\_utility::assign_animtree();
     thread minigun_console_hint();
     thread minigun_player_anims();
     thread minigun_used();
@@ -140,8 +140,8 @@ minigun_const()
     level.overheat_hud_height_max = 110;
     var_0 = getent( "minigun", "targetname" );
     var_0 _meth_8569( 150 );
-    var_0 _meth_815c( 0 );
-    var_0 _meth_856b( 1 );
+    var_0 _meth_815C( 0 );
+    var_0 _meth_856B( 1 );
 }
 
 minigun_rumble()
@@ -409,7 +409,7 @@ minigun_used()
             }
         }
 
-        self _meth_814d( maps\_utility::_id_3EF5( "spin" ), 1, 0.2, var_9 );
+        self _meth_814D( maps\_utility::_id_3EF5( "spin" ), 1, 0.2, var_9 );
         wait 0.05;
     }
 }
@@ -829,7 +829,7 @@ seaknight()
         if ( level.seaknight1._id_750A[var_3].classname == "actor_ally_hero_mark_woodland" )
         {
             level.griggs = level.seaknight1._id_750A[var_3];
-            level.griggs._id_0C72 = "griggs";
+            level.griggs.animname = "griggs";
         }
 
         level.seaknight1._id_750A[var_3] common_scripts\utility::_id_4853( "seaknight_show_names" );
@@ -849,7 +849,7 @@ seaknight()
     var_5 = missile_createrepulsorent( level.seaknight1, 5000, 1500 );
     level.seaknight1._id_2D30 = 1;
     level.seaknight1 sethoverparams( 0, 0, 0 );
-    level.seaknight1 _meth_814d( maps\_utility::_id_3EF7( "ch46_doors_open" ), 1 );
+    level.seaknight1 _meth_814D( maps\_utility::_id_3EF7( "ch46_doors_open" ), 1 );
     level.seaknight1 playsound( "seaknight_door_open" );
     level._id_9C82["script_vehicle_ch46e"][1]._id_9CD5 = undefined;
     level._id_9C82["script_vehicle_ch46e"][2]._id_4068 = level._id_78AC["generic"]["ch46_unload_2"];
@@ -943,7 +943,7 @@ seaknight_sas_load()
     self.ignoreall = 1;
     wait(randomfloatrange( 1.5, 3.2 ));
     var_0 = getnode( "seaknight_fakeramp_startpoint", "targetname" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self waittill( "goal" );
     self.nododgemove = 1;
 
@@ -951,7 +951,7 @@ seaknight_sas_load()
         self.goalradius = var_0.radius;
 
     var_1 = getnode( "seaknight_fakeramp_end", "targetname" );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self waittill( "goal" );
     level.sasseaknightboarded--;
 
@@ -970,11 +970,11 @@ seaknight_griggs_speech()
     else
         wait 5.5;
 
-    level.griggs maps\_anim::_id_0C21( level.griggs, "needaride" );
+    level.griggs maps\_anim::anim_single_queue( level.griggs, "needaride" );
     wait 0.45;
-    level.griggs maps\_anim::_id_0C21( level.griggs, "getonboard" );
+    level.griggs maps\_anim::anim_single_queue( level.griggs, "getonboard" );
     wait 2;
-    level.griggs maps\_anim::_id_0C21( level.griggs, "griggsletsgo" );
+    level.griggs maps\_anim::anim_single_queue( level.griggs, "griggsletsgo" );
 }
 
 vehicle_seaknight_idle_and_load_think( var_0 )
@@ -982,9 +982,9 @@ vehicle_seaknight_idle_and_load_think( var_0 )
     self endon( "death" );
     common_scripts\utility::_id_384A( "seaknight_guards_boarding" );
     var_1 = "ch46_load_" + var_0;
-    level.seaknight1 maps\_anim::_id_0BC9( self, var_1, "tag_detach" );
+    level.seaknight1 maps\_anim::anim_generic( self, var_1, "tag_detach" );
     var_2 = getent( "seaknight_guards_loading_org_" + var_0, "targetname" );
-    self _meth_81aa( var_2.origin );
+    self _meth_81AA( var_2.origin );
     self.goalradius = 4;
 
     if ( !common_scripts\utility::_id_382E( "player_made_it" ) )
@@ -1004,7 +1004,7 @@ vehicle_seaknight_idle_and_load_think( var_0 )
 
 seaknight_riders_erase()
 {
-    if ( isdefined( self._id_0C72 ) && self._id_0C72 == "griggs" )
+    if ( isdefined( self.animname ) && self.animname == "griggs" )
         return;
 
     self endon( "death" );
@@ -1028,16 +1028,16 @@ seaknightriders_standinplace()
     if ( !isai( self ) )
         return;
 
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     thread maps\village_defend::hero();
     self waittill( "jumpedout" );
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     waitframe;
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     self.goalradius = 4;
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self.pushable = 0;
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.grenadeawareness = 0;
     self.grenadeammo = 0;
     self.ignoresuppression = 1;
@@ -1054,13 +1054,13 @@ friendly_pushplayer( var_0 )
     {
         if ( var_0 == "on" )
         {
-            var_1[var_2] _meth_81a7( 1 );
+            var_1[var_2] _meth_81A7( 1 );
             var_1[var_2].dontavoidplayer = 1;
             var_1[var_2].pushable = 0;
             continue;
         }
 
-        var_1[var_2] _meth_81a7( 0 );
+        var_1[var_2] _meth_81A7( 0 );
         var_1[var_2].dontavoidplayer = 0;
         var_1[var_2].pushable = 1;
     }

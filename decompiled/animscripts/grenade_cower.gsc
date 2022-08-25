@@ -98,7 +98,7 @@ _id_9898( var_0 )
     var_2 = getmovedelta( var_1, 0, 0.5 );
     var_3 = self localtoworldcoords( var_2 );
 
-    if ( !self _meth_81c7( var_3 ) )
+    if ( !self _meth_81C7( var_3 ) )
         return 0;
 
     self.safetochangescript = 0;

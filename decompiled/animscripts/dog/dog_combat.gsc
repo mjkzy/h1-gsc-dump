@@ -148,7 +148,7 @@ _id_2C9A( var_0 )
     var_1.alpha = 1;
 }
 
-_id_0E43()
+attackmiss()
 {
     self _meth_8144( %root, 0.1 );
     var_0 = %german_shepherd_attack_player_miss_b;
@@ -164,7 +164,7 @@ _id_0E43()
         else
         {
             self._id_85C3 = 1;
-            thread _id_0E44();
+            thread attackmisstracktargetthread();
 
             if ( var_2[0] * var_1[1] - var_2[1] * var_1[0] > 0 )
                 var_0 = %german_shepherd_attack_player_miss_turnr;
@@ -179,7 +179,7 @@ _id_0E43()
     self notify( "stop tracking" );
 }
 
-_id_0E44()
+attackmisstracktargetthread()
 {
     self endon( "killanimscript" );
     wait 0.6;
@@ -214,10 +214,10 @@ _id_2CD3()
     if ( isdefined( self.enemy ) )
     {
         if ( distance2d( self.origin, self.enemy.origin ) < 32 )
-            return self _meth_81ec();
+            return self _meth_81EC();
     }
 
-    return self _meth_81ec( anglestoforward( self.angles ) );
+    return self _meth_81EC( anglestoforward( self.angles ) );
 }
 
 _id_4666( var_0 )
@@ -240,7 +240,7 @@ _id_4666( var_0 )
             }
             else
             {
-                _id_0E43();
+                attackmiss();
                 return 1;
             }
 
@@ -251,7 +251,7 @@ _id_4666( var_0 )
     }
 }
 
-_id_082A()
+addsafetyhealth()
 {
     var_0 = self._id_5B8B getnormalhealth();
 
@@ -282,7 +282,7 @@ _id_4668( var_0 )
     switch ( var_0 )
     {
         case "dog_melee":
-            var_1 = _id_082A();
+            var_1 = addsafetyhealth();
             var_2 = _id_2CD3();
 
             if ( isdefined( var_2 ) && isplayer( var_2 ) && isalive( self._id_5B8B ) )
@@ -301,7 +301,7 @@ _id_4668( var_0 )
                 if ( var_1 )
                     _id_73D7();
 
-                _id_0E43();
+                attackmiss();
                 return 1;
             }
 
@@ -317,7 +317,7 @@ _id_4668( var_0 )
             if ( level._id_2CAF >= level._id_2CB0.size )
             {
                 level._id_2CAF = 0;
-                level._id_2CB0 = common_scripts\utility::_id_0CF5( level._id_2CB0 );
+                level._id_2CB0 = common_scripts\utility::array_randomize( level._id_2CB0 );
             }
 
             self setflaggedanimlimited( "meleeanim", %german_shepherd_attack_player, 1, 0.2, var_3 );
@@ -416,7 +416,7 @@ _id_5B81()
         self.safetochangescript = 0;
         _id_6F19();
         self _meth_8144( %root, 0.1 );
-        self _meth_81ff();
+        self _meth_81FF();
         self._id_5B8B _id_7FBD( 500 );
 
         if ( _id_2C92() )
@@ -429,14 +429,14 @@ _id_5B81()
         else
         {
             thread _id_2CAE();
-            self._id_5B8B._id_0E28 = 1;
+            self._id_5B8B.attacked_by_dog = 1;
             self._id_5B8B.laststand = 0;
-            self._id_5B8B._id_06DD = undefined;
+            self._id_5B8B.achieve_downed_kills = undefined;
             thread _id_1ECC();
             self setflaggedanimrestart( "meleeanim", %german_shepherd_attack_player, 1, 0.2, 1 );
             self setflaggedanimrestart( "meleeanim", %german_shepherd_attack_player_late, 1, 0, 1 );
-            self _meth_814e( %attack_player, 1, 0, 1 );
-            self _meth_814e( %attack_player_late, 0.01, 0, 1 );
+            self _meth_814E( %attack_player, 1, 0, 1 );
+            self _meth_814E( %attack_player_late, 0.01, 0, 1 );
             animscripts\shared::_id_2D06( "meleeanim", ::_id_4668 );
             self notify( "dog_no_longer_melee_able" );
             self setcandamage( 1 );
@@ -457,7 +457,7 @@ _id_5B81()
 _id_1ECC()
 {
     self waittill( "death" );
-    self._id_5B8B._id_0E28 = undefined;
+    self._id_5B8B.attacked_by_dog = undefined;
 }
 
 _id_2C92()
@@ -505,7 +505,7 @@ _id_5B92()
         self.safetochangescript = 0;
         self _meth_8192( "zonly_physics" );
         self.pushable = 0;
-        self _meth_81ff();
+        self _meth_81FF();
         self._id_5B8C = !isdefined( self.enemy._id_58D7 ) && ( isdefined( self.enemy.a._id_2CE7 ) || isdefined( self._id_5B7F ) || randomint( 100 ) > 50 );
         var_0 = [];
         var_1[0] = %root;
@@ -610,7 +610,7 @@ _id_20AD()
             if ( var_4 < 30 )
             {
                 var_3 *= 3 / var_4;
-                self _meth_81cb( self.origin - var_3, ( 0.0, 30.0, 0.0 ) );
+                self _meth_81CB( self.origin - var_3, ( 0.0, 30.0, 0.0 ) );
             }
         }
     }
@@ -637,7 +637,7 @@ _id_4680( var_0 )
 
     self._id_38A8 = 1;
     self.enemy.syncedmeleetarget = self;
-    self.enemy _meth_819e( ::_id_5B97 );
+    self.enemy _meth_819E( ::_id_5B97 );
 }
 
 _id_1CFC( var_0 )
@@ -670,11 +670,11 @@ _id_6F19()
         var_1 = self.enemy.origin - self.origin;
         var_2 = ( var_0 - self.meleeattackdist ) / var_0;
         var_1 = ( var_1[0] * var_2, var_1[1] * var_2, var_1[2] * var_2 );
-        thread _id_0E4C( var_1 );
+        thread attackteleportthread( var_1 );
     }
 }
 
-_id_0E4C( var_0 )
+attackteleportthread( var_0 )
 {
     self endon( "death" );
     self endon( "killanimscript" );
@@ -683,7 +683,7 @@ _id_0E4C( var_0 )
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        self _meth_81c9( self.origin + var_2 );
+        self _meth_81C9( self.origin + var_2 );
         wait 0.05;
     }
 }
@@ -698,16 +698,16 @@ destroy_dog_hint()
     if ( !isdefined( self._id_5B8B._id_2CCE ) )
         return;
 
-    self._id_5B8B._id_2CCE maps\_hud_util::_id_28E9();
+    self._id_5B8B._id_2CCE maps\_hud_util::destroyElem();
 
     if ( isdefined( self._id_5B8B.doghintbackerblur ) )
     {
-        self._id_5B8B.doghintbackerblur maps\_hud_util::_id_28E9();
-        self._id_5B8B.doghintbackerbordertop maps\_hud_util::_id_28E9();
-        self._id_5B8B.doghintbackerborderbottom maps\_hud_util::_id_28E9();
+        self._id_5B8B.doghintbackerblur maps\_hud_util::destroyElem();
+        self._id_5B8B.doghintbackerbordertop maps\_hud_util::destroyElem();
+        self._id_5B8B.doghintbackerborderbottom maps\_hud_util::destroyElem();
     }
     else
-        self._id_5B8B.doghintstar maps\_hud_util::_id_28E9();
+        self._id_5B8B.doghintstar maps\_hud_util::destroyElem();
 
     level notify( "clearing_dog_hint" );
 }
@@ -756,7 +756,7 @@ show_prepare_dog_hint_h1()
         self._id_5B8B._id_2CCE.foreground = 1;
         self._id_5B8B._id_2CCE.alpha = 0.1;
         self._id_5B8B._id_2CCE.sort = -1;
-        self._id_5B8B.doghintstar = maps\_hud_util::_id_2420( "h1_dog_melee_prompt_star", 0, 0 );
+        self._id_5B8B.doghintstar = maps\_hud_util::createIcon( "h1_dog_melee_prompt_star", 0, 0 );
         self._id_5B8B.doghintstar.color = ( 1.0, 1.0, 1.0 );
         self._id_5B8B.doghintstar.x = 0;
         self._id_5B8B.doghintstar.y = 20;
@@ -783,9 +783,9 @@ show_prepare_dog_hint_h1()
         self._id_5B8B._id_2CCE.foreground = 1;
         self._id_5B8B._id_2CCE.alpha = 0.25;
         self._id_5B8B._id_2CCE.sort = -1;
-        self._id_5B8B.doghintbackerblur = maps\_hud_util::_id_2420( "h1_hud_tutorial_blur", 225, 20 );
-        self._id_5B8B.doghintbackerbordertop = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 225, 1 );
-        self._id_5B8B.doghintbackerborderbottom = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 225, 1 );
+        self._id_5B8B.doghintbackerblur = maps\_hud_util::createIcon( "h1_hud_tutorial_blur", 225, 20 );
+        self._id_5B8B.doghintbackerbordertop = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 225, 1 );
+        self._id_5B8B.doghintbackerborderbottom = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 225, 1 );
         self._id_5B8B.doghintbackerblur.x = 0;
         self._id_5B8B.doghintbackerblur.y = 20;
         self._id_5B8B.doghintbackerblur.sort = -3;
@@ -983,8 +983,8 @@ _id_2CAE()
                     {
                         self._id_5B8B _id_7E7B( var_1 );
                         self._id_5B8B._id_6C50 _id_6D7D();
-                        self _meth_814e( %attack_player, 0.01, 0.2, 1 );
-                        self _meth_814e( %attack_player_late, 1, 0.2, 1 );
+                        self _meth_814E( %attack_player, 0.01, 0.2, 1 );
+                        self _meth_814E( %attack_player_late, 1, 0.2, 1 );
 
                         if ( _id_503A() )
                         {
@@ -1184,7 +1184,7 @@ _id_6D82( var_0 )
     var_1 setmodel( level._id_6C51 );
     var_1 useanimtree( #animtree );
     var_1 hide();
-    var_1 _meth_855d();
+    var_1 _meth_855D();
     return var_1;
 }
 
@@ -1226,8 +1226,8 @@ _id_6D7C( var_0 )
     thread _id_6D7A( var_1 );
     self setflaggedanimrestart( "viewanim", %player_view_dog_knockdown );
     self setflaggedanimrestart( "viewanim", %player_view_dog_knockdown_late );
-    self _meth_814e( %knockdown, 1, 0, 1 );
-    self _meth_814e( %knockdown_late, 0.01, 0, 1 );
+    self _meth_814E( %knockdown, 1, 0, 1 );
+    self _meth_814E( %knockdown_late, 0.01, 0, 1 );
     animscripts\shared::_id_2D06( "viewanim", ::_id_466E );
     self dontinterpolate();
     self.dog = undefined;
@@ -1272,7 +1272,7 @@ _id_6D83( var_0 )
     self.angles = ( 0, self.angles[1], 0 );
     self._id_8CFF = self.angles;
     var_3 = var_1.origin;
-    var_4 = var_1 _meth_813e( var_1.origin );
+    var_4 = var_1 _meth_813E( var_1.origin );
 
     if ( isdefined( var_4 ) )
         self.origin = var_4;
@@ -1304,7 +1304,7 @@ _id_7819( var_0 )
 _id_6B2B()
 {
     self endon( "death" );
-    self _meth_847d();
+    self _meth_847D();
     self enableweapons();
 }
 
@@ -1336,7 +1336,7 @@ _id_6D7B( var_0 )
         {
             animscripts\shared::_id_2D06( "viewanim" );
             var_0 notify( "deathshield", 1000000, self.dog );
-            var_0 _meth_847d();
+            var_0 _meth_847D();
         }
 
         _id_6D84( var_0 );
@@ -1371,13 +1371,13 @@ _id_74B0( var_0 )
     var_0 allowcrouch( 1 );
     var_0 allowprone( 1 );
     var_0 freezecontrols( 0 );
-    var_0._id_0E28 = undefined;
+    var_0.attacked_by_dog = undefined;
 }
 
 _id_6D81( var_0 )
 {
     self showonclient( var_0 );
-    var_0 _meth_847e();
+    var_0 _meth_847E();
     var_0 disableweapons();
 }
 
@@ -1400,8 +1400,8 @@ _id_6D80( var_0 )
 
 _id_6D7D()
 {
-    self _meth_814e( %knockdown, 0.01, 0.2, 1 );
-    self _meth_814e( %knockdown_late, 1, 0.2, 1 );
+    self _meth_814E( %knockdown, 0.01, 0.2, 1 );
+    self _meth_814E( %knockdown_late, 1, 0.2, 1 );
 }
 
 _id_2CBB()

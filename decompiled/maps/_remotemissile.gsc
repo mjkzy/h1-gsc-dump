@@ -53,10 +53,10 @@ init()
     level.uav_struct.view_cone = 4;
     common_scripts\utility::_id_383D( "predator_missile_launch_allowed" );
     common_scripts\utility::_id_383F( "predator_missile_launch_allowed" );
-    maps\_utility::_id_0764( "hint_predator_drone_destroyed", &"HELLFIRE_DESTROYED", ::should_break_destroyed );
-    maps\_utility::_id_0764( "hint_predator_drone_4", &"HELLFIRE_USE_DRONE", ::should_break_use_drone );
-    maps\_utility::_id_0764( "hint_predator_drone_2", &"HELLFIRE_USE_DRONE_2", ::should_break_use_drone );
-    maps\_utility::_id_0764( "hint_predator_drone_not_available", &"HELLFIRE_DRONE_NOT_AVAILABLE", ::should_break_available );
+    maps\_utility::add_hint_string( "hint_predator_drone_destroyed", &"HELLFIRE_DESTROYED", ::should_break_destroyed );
+    maps\_utility::add_hint_string( "hint_predator_drone_4", &"HELLFIRE_USE_DRONE", ::should_break_use_drone );
+    maps\_utility::add_hint_string( "hint_predator_drone_2", &"HELLFIRE_USE_DRONE_2", ::should_break_use_drone );
+    maps\_utility::add_hint_string( "hint_predator_drone_not_available", &"HELLFIRE_DRONE_NOT_AVAILABLE", ::should_break_available );
 
     if ( isdefined( level.remotemissile_usethermal ) && level.remotemissile_usethermal )
         visionsetnight( "missilecam" );
@@ -67,7 +67,7 @@ init()
 
     setsaveddvar( "missileRemoteSpeedUp", "1000" );
     setsaveddvar( "missileRemoteSpeedTargetRange", "6000 12000" );
-    maps\_utility::_id_0761( "axis", ::missile_kill_ai );
+    maps\_utility::add_global_spawn_function( "axis", ::missile_kill_ai );
     common_scripts\utility::_id_383D( "uav_reloading" );
     common_scripts\utility::_id_383D( "uav_collecting_stats" );
     common_scripts\utility::_id_383D( "uav_enabled" );
@@ -833,7 +833,7 @@ uavremotelaunchersequence( var_0, var_1 )
         }
 
         var_0 freezecontrols( 0 );
-        var_0 _meth_847e();
+        var_0 _meth_847E();
         wait 0.05;
 
         if ( isdefined( level.activate_uav_hud_cb ) )
@@ -1161,7 +1161,7 @@ exitfromcamera_missile( var_0, var_1 )
             var_0 enableweapons();
 
         var_0 freezecontrols( 0 );
-        var_0 _meth_847d();
+        var_0 _meth_847D();
         wait 0.2;
         huditemsshow();
 
@@ -1184,7 +1184,7 @@ exitfromcamera_missile( var_0, var_1 )
         if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
-        var_0 _meth_847d();
+        var_0 _meth_847D();
         wait 0.5;
         huditemsshow();
 
@@ -1269,7 +1269,7 @@ exitfromcamera_uav( var_0, var_1 )
         if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
-        var_0 _meth_847d();
+        var_0 _meth_847D();
         wait 0.1;
         huditemsshow();
 
@@ -1293,7 +1293,7 @@ exitfromcamera_uav( var_0, var_1 )
         if ( !maps\_utility::_id_5062( var_0 ) )
             var_0 enableweapons();
 
-        var_0 _meth_847d();
+        var_0 _meth_847D();
         wait 0.5;
         huditemsshow();
         var_0 switchbacktomainweapon();

@@ -29,10 +29,10 @@ main()
     common_scripts\utility::_id_383F( "can_save" );
     common_scripts\utility::_id_383D( "disable_autosaves" );
 
-    if ( !isdefined( level._id_05A7 ) )
-        level._id_05A7 = [];
+    if ( !isdefined( level._extra_autosave_checks ) )
+        level._extra_autosave_checks = [];
 
-    level._id_1152 = ::_id_1152;
+    level.autosave_proximity_threat_func = ::autosave_proximity_threat_func;
 }
 
 _id_3F53()
@@ -50,7 +50,7 @@ _id_4032( var_0 )
     return var_1;
 }
 
-_id_139E()
+beginningoflevelsave()
 {
     common_scripts\utility::_id_384A( "introscreen_complete" );
 
@@ -76,13 +76,13 @@ _id_139E()
 _id_975A( var_0 )
 {
     var_0 waittill( "trigger" );
-    maps\_utility::_id_1154();
+    maps\_utility::autosave_stealth();
 }
 
 _id_975B( var_0 )
 {
     var_0 waittill( "trigger" );
-    maps\_utility::_id_1158();
+    maps\_utility::autosave_tactical();
 }
 
 _id_9758( var_0 )
@@ -90,10 +90,10 @@ _id_9758( var_0 )
     if ( !isdefined( var_0._id_7951 ) )
         var_0._id_7951 = 0;
 
-    _id_1169( var_0 );
+    autosaves_think( var_0 );
 }
 
-_id_1169( var_0 )
+autosaves_think( var_0 )
 {
     var_1 = _id_4032( var_0._id_7951 );
 
@@ -109,7 +109,7 @@ _id_1169( var_0 )
         var_0 delete();
 }
 
-_id_1166( var_0 )
+autosavenamethink( var_0 )
 {
     if ( maps\_utility::_id_5056() )
         return;
@@ -128,7 +128,7 @@ _id_1166( var_0 )
             return;
     }
 
-    maps\_utility::_id_1143( var_1 );
+    maps\_utility::autosave_by_name( var_1 );
 }
 
 _id_9759( var_0 )
@@ -136,7 +136,7 @@ _id_9759( var_0 )
     var_0 waittill( "trigger" );
 }
 
-_id_1168( var_0, var_1 )
+autosaveprint( var_0, var_1 )
 {
     if ( isdefined( var_1 ) )
         return;
@@ -144,7 +144,7 @@ _id_1168( var_0, var_1 )
     return;
 }
 
-_id_115F( var_0 )
+autosave_timeout( var_0 )
 {
     level endon( "trying_new_autosave" );
     level endon( "autosave_complete" );
@@ -153,25 +153,25 @@ _id_115F( var_0 )
     level notify( "autosave_timeout" );
 }
 
-_id_055D()
+_autosave_game_now_nochecks()
 {
     var_0 = "levelshots / autosave / autosave_" + level.script + "start";
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", var_0, 1 );
-    _id_1153( 0 );
+    autosave_recon( 0 );
 }
 
-_id_055E()
+_autosave_game_now_notrestart()
 {
     var_0 = "levelshots / autosave / autosave_" + level.script + "start";
 
     if ( getdvarint( "g_reloading" ) == 0 )
     {
         savegame( "levelstart", &"AUTOSAVE_LEVELSTART", var_0, 1 );
-        _id_1153( 0 );
+        autosave_recon( 0 );
     }
 }
 
-_id_055C( var_0 )
+_autosave_game_now( var_0 )
 {
     if ( isdefined( level._id_5CDE ) && level._id_5CDE )
         return;
@@ -222,7 +222,7 @@ _id_055C( var_0 )
 
     if ( _id_988F() )
     {
-        _id_1153( var_5 );
+        autosave_recon( var_5 );
 
         if ( !isdefined( var_0 ) )
             thread maps\_arcademode::arcademode_checkpoint_print();
@@ -235,10 +235,10 @@ _id_055C( var_0 )
     return 1;
 }
 
-_id_1150( var_0 )
+autosave_now_trigger( var_0 )
 {
     var_0 waittill( "trigger" );
-    maps\_utility::_id_114E();
+    maps\_utility::autosave_now();
 }
 
 _id_988F()
@@ -250,7 +250,7 @@ _id_988F()
     {
         var_1 = level.players[var_0];
 
-        if ( !var_1 _id_1165() )
+        if ( !var_1 autosavehealthcheck() )
             return 0;
     }
 
@@ -302,7 +302,7 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     for (;;)
     {
-        if ( _id_1161( undefined, var_4 ) )
+        if ( autosavecheck( undefined, var_4 ) )
         {
             var_11 = savegamenocommit( var_0, var_9, var_2, var_5 );
 
@@ -320,12 +320,12 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
             wait(var_7);
 
-            if ( !_id_1161( undefined, var_4 ) )
+            if ( !autosavecheck( undefined, var_4 ) )
                 continue;
 
             wait(var_8);
 
-            if ( !_id_1162() )
+            if ( !autosavecheck_not_picky() )
                 continue;
 
             if ( isdefined( var_3 ) )
@@ -352,7 +352,7 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                     continue;
             }
 
-            _id_1153( var_11 );
+            autosave_recon( var_11 );
             thread maps\_arcademode::arcademode_checkpoint_print();
             commitsave( var_11 );
             maps\_utility::save_time_played();
@@ -371,11 +371,11 @@ _id_9896( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
 _id_359B()
 {
-    foreach ( var_1 in level._id_05A7 )
+    foreach ( var_1 in level._extra_autosave_checks )
     {
         if ( ![[ var_1["func"] ]]() )
         {
-            _id_1168( "autosave failed: " + var_1["msg"] );
+            autosaveprint( "autosave failed: " + var_1["msg"] );
             return 1;
         }
     }
@@ -383,15 +383,15 @@ _id_359B()
     return 0;
 }
 
-_id_1162()
+autosavecheck_not_picky()
 {
-    return _id_1161( 0, 0 );
+    return autosavecheck( 0, 0 );
 }
 
-_id_1161( var_0, var_1 )
+autosavecheck( var_0, var_1 )
 {
-    if ( isdefined( level._id_1146 ) )
-        return [[ level._id_1146 ]]();
+    if ( isdefined( level.autosave_check_override ) )
+        return [[ level.autosave_check_override ]]();
 
     if ( isdefined( level._id_8A1C ) && ![[ level._id_8A1C ]]() )
         return 0;
@@ -418,16 +418,16 @@ _id_1161( var_0, var_1 )
     {
         var_3 = level.players[var_2];
 
-        if ( !var_3 _id_1165() )
+        if ( !var_3 autosavehealthcheck() )
             return 0;
 
-        if ( var_0 && !var_3 _id_1160() )
+        if ( var_0 && !var_3 autosaveammocheck() )
             return 0;
     }
 
-    if ( level._id_115E )
+    if ( level.autosave_threat_check_enabled )
     {
-        if ( !_id_116B( var_0 ) )
+        if ( !autosavethreatcheck( var_0 ) )
             return 0;
     }
 
@@ -435,7 +435,7 @@ _id_1161( var_0, var_1 )
     {
         var_3 = level.players[var_2];
 
-        if ( !var_3 _id_1167( var_0 ) )
+        if ( !var_3 autosaveplayercheck( var_0 ) )
             return 0;
     }
 
@@ -447,55 +447,55 @@ _id_1161( var_0, var_1 )
 
     if ( !issavesuccessful() )
     {
-        _id_1168( "autosave failed: save call was unsuccessful" );
+        autosaveprint( "autosave failed: save call was unsuccessful" );
         return 0;
     }
 
     return 1;
 }
 
-_id_1167( var_0 )
+autosaveplayercheck( var_0 )
 {
     if ( level.script == "ac130" )
         return 1;
 
-    if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
+    if ( isdefined( level.ac130gunner ) && level.ac130gunner == self )
         return 1;
 
     if ( self ismeleeing() && var_0 )
     {
-        _id_1168( "autosave failed:player is meleeing" );
+        autosaveprint( "autosave failed:player is meleeing" );
         return 0;
     }
 
     if ( self isthrowinggrenade() && var_0 )
     {
-        _id_1168( "autosave failed:player is throwing a grenade" );
+        autosaveprint( "autosave failed:player is throwing a grenade" );
         return 0;
     }
 
     if ( self isfiring() && var_0 )
     {
-        _id_1168( "autosave failed:player is firing" );
+        autosaveprint( "autosave failed:player is firing" );
         return 0;
     }
 
     if ( isdefined( self._id_83BD ) && self._id_83BD )
     {
-        _id_1168( "autosave failed:player is in shellshock" );
+        autosaveprint( "autosave failed:player is in shellshock" );
         return 0;
     }
 
     if ( common_scripts\utility::_id_5108() )
     {
-        _id_1168( "autosave failed:player is flashbanged" );
+        autosaveprint( "autosave failed:player is flashbanged" );
         return 0;
     }
 
     return 1;
 }
 
-_id_1160()
+autosaveammocheck()
 {
     if ( isdefined( level._id_611B ) && level._id_611B )
         return 1;
@@ -503,7 +503,7 @@ _id_1160()
     if ( level.script == "ac130" )
         return 1;
 
-    if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
+    if ( isdefined( level.ac130gunner ) && level.ac130gunner == self )
         return 1;
 
     var_0 = self getweaponslistprimaries();
@@ -516,16 +516,16 @@ _id_1160()
             return 1;
     }
 
-    _id_1168( "autosave failed: ammo too low" );
+    autosaveprint( "autosave failed: ammo too low" );
     return 0;
 }
 
-_id_1165()
+autosavehealthcheck()
 {
     if ( level.script == "ac130" )
         return 1;
 
-    if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
+    if ( isdefined( level.ac130gunner ) && level.ac130gunner == self )
         return 1;
 
     if ( maps\_utility::_id_32DC( "laststand_downed" ) && maps\_utility::_id_32D8( "laststand_downed" ) )
@@ -545,12 +545,12 @@ _id_1165()
     return 1;
 }
 
-_id_116B( var_0 )
+autosavethreatcheck( var_0 )
 {
     if ( level.script == "ac130" )
         return 1;
 
-    if ( isdefined( level._id_06D0 ) && level._id_06D0 == self )
+    if ( isdefined( level.ac130gunner ) && level.ac130gunner == self )
         return 1;
 
     var_1 = getaispeciesarray( "bad_guys", "all" );
@@ -577,7 +577,7 @@ _id_116B( var_0 )
         if ( isdefined( var_3._id_5B36 ) && isdefined( var_3._id_5B36.target ) && isplayer( var_3._id_5B36.target ) )
             return 0;
 
-        var_7 = [[ level._id_1152 ]]( var_3 );
+        var_7 = [[ level.autosave_proximity_threat_func ]]( var_3 );
 
         if ( var_7 == "return_even_if_low_accuracy" )
             return 0;
@@ -593,11 +593,11 @@ _id_116B( var_0 )
 
         if ( var_3.a._id_55D7 > gettime() - 500 )
         {
-            if ( var_0 || var_3 animscripts\utility::_id_1AE1( 0 ) && var_3 _meth_81c1( 0 ) )
+            if ( var_0 || var_3 animscripts\utility::_id_1AE1( 0 ) && var_3 _meth_81C1( 0 ) )
                 return 0;
         }
 
-        if ( isdefined( var_3.a._id_0979 ) && var_3 animscripts\utility::_id_1AE1( 0 ) && var_3 _meth_81c1( 0 ) )
+        if ( isdefined( var_3.a.aimidlethread ) && var_3 animscripts\utility::_id_1AE1( 0 ) && var_3 _meth_81C1( 0 ) )
             return 0;
     }
 
@@ -635,7 +635,7 @@ _id_3251()
     return 0;
 }
 
-_id_1152( var_0 )
+autosave_proximity_threat_func( var_0 )
 {
     foreach ( var_2 in level.players )
     {
@@ -652,7 +652,7 @@ _id_1152( var_0 )
     return "none";
 }
 
-_id_1153( var_0 )
+autosave_recon( var_0 )
 {
     if ( !maps\_utility::_id_5016() )
         return;

@@ -26,16 +26,16 @@ main()
     _id_4D79();
     thread heliwind_init_spawn_tracker();
     level._id_4C78 = [];
-    level._id_0BED = #animtree;
+    level.anim_prop_models_animtree = #animtree;
 
     if ( !isdefined( level.anim_prop_models ) )
         level.anim_prop_models = [];
 
-    if ( !isdefined( level._id_0BEB ) )
-        level._id_0BEB = [];
+    if ( !isdefined( level.anim_prop_init_threads ) )
+        level.anim_prop_init_threads = [];
 
     var_0 = getentarray( "animated_model", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::_id_5D3B );
+    common_scripts\utility::array_thread( var_0, ::_id_5D3B );
 
     if ( isdefined( level._id_4C78 ) && level._id_4C78.size )
     {
@@ -47,9 +47,9 @@ main()
 
     foreach ( var_6 in var_0 )
     {
-        if ( isdefined( level._id_0BEB[var_6.model] ) )
+        if ( isdefined( level.anim_prop_init_threads[var_6.model] ) )
         {
-            var_6 thread [[ level._id_0BEB[var_6.model] ]]();
+            var_6 thread [[ level.anim_prop_init_threads[var_6.model] ]]();
             continue;
         }
 
@@ -66,9 +66,9 @@ main()
         }
 
         if ( var_8 )
-            var_6 thread _id_0C66();
+            var_6 thread animatetreewind();
         else
-            var_6 thread _id_0C64();
+            var_6 thread animatemodel();
     }
 }
 
@@ -87,12 +87,12 @@ _id_5D3B()
 {
     if ( !isdefined( level.anim_prop_models[self.model] ) )
     {
-        if ( !_id_0AFB( level._id_4C78, self.model ) )
+        if ( !already_dumpped( level._id_4C78, self.model ) )
             level._id_4C78[level._id_4C78.size] = self.model;
     }
 }
 
-_id_0AFB( var_0, var_1 )
+already_dumpped( var_0, var_1 )
 {
     if ( var_0.size <= 0 )
         return 0;
@@ -106,17 +106,17 @@ _id_0AFB( var_0, var_1 )
     return 0;
 }
 
-_id_0C64()
+animatemodel()
 {
     self useanimtree( #animtree );
     var_0 = getarraykeys( level.anim_prop_models[self.model] );
     var_1 = var_0[randomint( var_0.size )];
     var_2 = level.anim_prop_models[self.model][var_1];
-    self _meth_814d( var_2, 1, self _meth_8151( var_2 ), 1 );
+    self _meth_814D( var_2, 1, self _meth_8151( var_2 ), 1 );
     self setanimtime( var_2, randomfloatrange( 0, 1 ) );
 }
 
-_id_0C66()
+animatetreewind()
 {
     thread heliwind_setup();
     self useanimtree( #animtree );
@@ -124,24 +124,24 @@ _id_0C66()
 
     for (;;)
     {
-        thread _id_14A6( var_0 );
+        thread blendtreeanims( var_0 );
         level waittill( "windchange", var_0 );
     }
 }
 
-_id_14A6( var_0 )
+blendtreeanims( var_0 )
 {
     level endon( "windchange" );
     var_1 = level._id_A32C.weight;
     var_2 = level._id_A32C.rate + randomfloat( level._id_A32C._id_9C65 );
-    self _meth_814d( level.anim_prop_models[self.model]["still"], 1, self _meth_8151( level.anim_prop_models[self.model]["still"] ), var_2 );
-    self _meth_814d( level.anim_prop_models[self.model][var_0], var_1, self _meth_8151( level.anim_prop_models[self.model][var_0] ), var_2 );
+    self _meth_814D( level.anim_prop_models[self.model]["still"], 1, self _meth_8151( level.anim_prop_models[self.model]["still"] ), var_2 );
+    self _meth_814D( level.anim_prop_models[self.model][var_0], var_1, self _meth_8151( level.anim_prop_models[self.model][var_0] ), var_2 );
 }
 
 heliwind_check_should_track()
 {
     var_0 = getarraykeys( level.anim_prop_models[self.model] );
-    return common_scripts\utility::_id_0CE4( var_0, "heli" );
+    return common_scripts\utility::array_contains( var_0, "heli" );
 }
 
 heliwind_setup()
@@ -233,8 +233,8 @@ heliwind_track()
 heliwind_animate_tree()
 {
     self useanimtree( #animtree );
-    self _meth_814d( level.anim_prop_models[self.model]["strong"], 1.0, 0.05, 1.0 );
-    self _meth_814d( level.anim_prop_models[self.model]["heli"], 0.0, 0.05, 1.0 );
+    self _meth_814D( level.anim_prop_models[self.model]["strong"], 1.0, 0.05, 1.0 );
+    self _meth_814D( level.anim_prop_models[self.model]["heli"], 0.0, 0.05, 1.0 );
     self _meth_8144( level.anim_prop_models[self.model]["still"], 0.0 );
     var_0 = 0.15;
     var_1 = 0.0;
@@ -249,9 +249,9 @@ heliwind_animate_tree()
         if ( var_5 != var_1 )
         {
             var_1 = var_5;
-            self _meth_814d( level.anim_prop_models[self.model]["strong"], 1.0 - var_5, var_0, 1.0 );
-            self _meth_814d( level.anim_prop_models[self.model]["heli"], var_5, var_0, 1.0 );
-            self _meth_814d( level.anim_prop_models[self.model]["still"], 0.0, 0.0, 1.0 );
+            self _meth_814D( level.anim_prop_models[self.model]["strong"], 1.0 - var_5, var_0, 1.0 );
+            self _meth_814D( level.anim_prop_models[self.model]["heli"], var_5, var_0, 1.0 );
+            self _meth_814D( level.anim_prop_models[self.model]["still"], 0.0, 0.0, 1.0 );
             wait(var_0);
             continue;
         }
@@ -293,5 +293,5 @@ heliwind_track_heli_alive()
             var_0 waittill( "crash_done" );
     }
 
-    level.anim_models_helis = common_scripts\utility::_id_0CF6( level.anim_models_helis, var_0 );
+    level.anim_models_helis = common_scripts\utility::array_remove( level.anim_models_helis, var_0 );
 }

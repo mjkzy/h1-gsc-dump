@@ -21,13 +21,13 @@
 
 _id_8653()
 {
-    level._id_055B._id_8F2F = spawnstruct();
-    level._id_055B._id_8F2F._id_5FFB = spawnstruct();
-    level._id_055B._id_8F2F._id_5FFB._id_24CA = _id_8698();
-    level._id_055B._id_8F2F._id_5FFB._id_6F33 = _id_8698();
-    level._id_055B._id_8F2F._id_0B16 = spawnstruct();
-    level._id_055B._id_8F2F._id_0B16._id_24CA = _id_8698();
-    level._id_055B._id_8F2F._id_0B16._id_6F33 = _id_8698();
+    level._audio._id_8F2F = spawnstruct();
+    level._audio._id_8F2F._id_5FFB = spawnstruct();
+    level._audio._id_8F2F._id_5FFB._id_24CA = _id_8698();
+    level._audio._id_8F2F._id_5FFB._id_6F33 = _id_8698();
+    level._audio._id_8F2F.ambience = spawnstruct();
+    level._audio._id_8F2F.ambience._id_24CA = _id_8698();
+    level._audio._id_8F2F.ambience._id_6F33 = _id_8698();
 }
 
 _id_8656( var_0, var_1, var_2, var_3, var_4 )
@@ -45,8 +45,8 @@ _id_8656( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_4 ) )
         var_7 = max( var_4, 0 );
 
-    _id_8699( level._id_055B._id_8F2F._id_0B16._id_6F33, level._id_055B._id_8F2F._id_0B16._id_24CA.name, level._id_055B._id_8F2F._id_0B16._id_24CA._id_9F37, level._id_055B._id_8F2F._id_0B16._id_24CA._id_35D9 );
-    _id_8699( level._id_055B._id_8F2F._id_0B16._id_24CA, var_0, var_7, var_6 );
+    _id_8699( level._audio._id_8F2F.ambience._id_6F33, level._audio._id_8F2F.ambience._id_24CA.name, level._audio._id_8F2F.ambience._id_24CA._id_9F37, level._audio._id_8F2F.ambience._id_24CA._id_35D9 );
+    _id_8699( level._audio._id_8F2F.ambience._id_24CA, var_0, var_7, var_6 );
     ambientplay( var_0, var_6, var_7 );
 }
 
@@ -70,8 +70,8 @@ _id_8655( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_3 ) )
         var_8 = max( var_3, 0 );
 
-    _id_8699( level._id_055B._id_8F2F._id_5FFB._id_6F33, level._id_055B._id_8F2F._id_5FFB._id_24CA.name, level._id_055B._id_8F2F._id_5FFB._id_24CA._id_9F37, level._id_055B._id_8F2F._id_5FFB._id_24CA._id_35D9 );
-    _id_8699( level._id_055B._id_8F2F._id_5FFB._id_24CA, var_0, var_8, var_6 );
+    _id_8699( level._audio._id_8F2F._id_5FFB._id_6F33, level._audio._id_8F2F._id_5FFB._id_24CA.name, level._audio._id_8F2F._id_5FFB._id_24CA._id_9F37, level._audio._id_8F2F._id_5FFB._id_24CA._id_35D9 );
+    _id_8699( level._audio._id_8F2F._id_5FFB._id_24CA, var_0, var_8, var_6 );
 
     if ( isdefined( var_4 ) )
     {
@@ -94,13 +94,13 @@ _id_8658( var_0, var_1 )
         if ( isdefined( var_1 ) )
             var_3 = max( var_1, 0 );
 
-        if ( level._id_055B._id_8F2F._id_0B16._id_24CA.name == var_0 )
+        if ( level._audio._id_8F2F.ambience._id_24CA.name == var_0 )
         {
-            level._id_055B._id_8F2F._id_0B16._id_24CA = level._id_055B._id_8F2F._id_0B16._id_6F33;
-            _id_8697( level._id_055B._id_8F2F._id_0B16._id_6F33 );
+            level._audio._id_8F2F.ambience._id_24CA = level._audio._id_8F2F.ambience._id_6F33;
+            _id_8697( level._audio._id_8F2F.ambience._id_6F33 );
         }
-        else if ( level._id_055B._id_8F2F._id_0B16._id_6F33.name == var_0 )
-            _id_8697( level._id_055B._id_8F2F._id_0B16._id_6F33 );
+        else if ( level._audio._id_8F2F.ambience._id_6F33.name == var_0 )
+            _id_8697( level._audio._id_8F2F.ambience._id_6F33 );
 
         ambientstop( var_3, var_0 );
     }
@@ -116,13 +116,13 @@ _id_865A( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_3 = max( var_1, 0 );
 
-    if ( level._id_055B._id_8F2F._id_5FFB._id_24CA.name == var_0 )
+    if ( level._audio._id_8F2F._id_5FFB._id_24CA.name == var_0 )
     {
-        level._id_055B._id_8F2F._id_5FFB._id_24CA = level._id_055B._id_8F2F._id_5FFB._id_6F33;
-        _id_8697( level._id_055B._id_8F2F._id_5FFB._id_6F33 );
+        level._audio._id_8F2F._id_5FFB._id_24CA = level._audio._id_8F2F._id_5FFB._id_6F33;
+        _id_8697( level._audio._id_8F2F._id_5FFB._id_6F33 );
     }
-    else if ( level._id_055B._id_8F2F._id_0B16._id_6F33.name == var_0 )
-        _id_8697( level._id_055B._id_8F2F._id_5FFB._id_6F33 );
+    else if ( level._audio._id_8F2F.ambience._id_6F33.name == var_0 )
+        _id_8697( level._audio._id_8F2F._id_5FFB._id_6F33 );
 
     musicstop( var_3, var_0 );
 }
@@ -144,8 +144,8 @@ _id_8659( var_0 )
     if ( isdefined( var_0 ) )
         var_1 = var_0;
 
-    _id_8697( level._id_055B._id_8F2F._id_5FFB._id_24CA );
-    _id_8697( level._id_055B._id_8F2F._id_5FFB._id_6F33 );
+    _id_8697( level._audio._id_8F2F._id_5FFB._id_24CA );
+    _id_8697( level._audio._id_8F2F._id_5FFB._id_6F33 );
     musicstop( var_1 );
 }
 
@@ -154,16 +154,16 @@ _id_8654( var_0 )
     var_1 = 0.009;
 
     if ( var_0.size == 1 )
-        _id_8699( level._id_055B._id_8F2F._id_0B16._id_24CA, var_0[0]._id_09D6, var_0[0]._id_9F37, var_0[0]._id_35D9 );
+        _id_8699( level._audio._id_8F2F.ambience._id_24CA, var_0[0].alias, var_0[0]._id_9F37, var_0[0]._id_35D9 );
     else if ( var_0.size == 2 )
     {
-        _id_8699( level._id_055B._id_8F2F._id_0B16._id_6F33, var_0[0]._id_09D6, var_0[0]._id_9F37, var_0[0]._id_35D9 );
-        _id_8699( level._id_055B._id_8F2F._id_0B16._id_24CA, var_0[1]._id_09D6, var_0[1]._id_9F37, var_0[1]._id_35D9 );
+        _id_8699( level._audio._id_8F2F.ambience._id_6F33, var_0[0].alias, var_0[0]._id_9F37, var_0[0]._id_35D9 );
+        _id_8699( level._audio._id_8F2F.ambience._id_24CA, var_0[1].alias, var_0[1]._id_9F37, var_0[1]._id_35D9 );
     }
 
     for ( var_6 = 0; var_6 < var_0.size; var_6++ )
     {
-        var_7 = var_0[var_6]._id_09D6;
+        var_7 = var_0[var_6].alias;
         var_8 = max( var_0[var_6]._id_9F37, 0 );
         var_9 = clamp( var_0[var_6]._id_35D9, 0, 1 );
 
@@ -185,12 +185,12 @@ _id_8654( var_0 )
 
 _id_8651()
 {
-    return level._id_055B._id_8F2F._id_0B16._id_24CA.name;
+    return level._audio._id_8F2F.ambience._id_24CA.name;
 }
 
 _id_8652()
 {
-    return level._id_055B._id_8F2F._id_5FFB._id_24CA.name;
+    return level._audio._id_8F2F._id_5FFB._id_24CA.name;
 }
 
 _id_8699( var_0, var_1, var_2, var_3 )

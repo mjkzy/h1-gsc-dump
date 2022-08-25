@@ -304,7 +304,7 @@ _id_24AB()
     level._id_91EF[game["attackers"]] = _id_2442( game["attackers"] );
     level._id_1B60[game["defenders"]] = _id_23E7( game["defenders"] );
     level._id_1B60[game["attackers"]] = _id_23E7( game["attackers"] );
-    _id_0D76();
+    assignteamspawns();
     _id_64E1( "allies" );
     _id_64E1( "axis" );
 }
@@ -313,13 +313,13 @@ _id_64E1( var_0 )
 {
     if ( var_0 == "allies" )
     {
-        level._id_0A84 = 0;
-        level._id_0A83 = -1;
+        level.alliesflagstatus = 0;
+        level.alliesflagcarrierclientnum = -1;
     }
     else
     {
-        level._id_1219 = 0;
-        level._id_1218 = -1;
+        level.axisflagstatus = 0;
+        level.axisflagcarrierclientnum = -1;
     }
 
     level notify( "update_flag_status" );
@@ -332,14 +332,14 @@ _id_64C4( var_0 )
     if ( var_1 == "allies" )
     {
         var_0.objective = 1;
-        level._id_1219 = 2;
-        level._id_1218 = var_0 getentitynumber();
+        level.axisflagstatus = 2;
+        level.axisflagcarrierclientnum = var_0 getentitynumber();
     }
     else
     {
         var_0.objective = 2;
-        level._id_0A84 = 2;
-        level._id_0A83 = var_0 getentitynumber();
+        level.alliesflagstatus = 2;
+        level.alliesflagcarrierclientnum = var_0 getentitynumber();
     }
 
     level notify( "update_flag_status" );
@@ -349,13 +349,13 @@ _id_6470( var_0 )
 {
     if ( var_0 == "allies" )
     {
-        level._id_0A84 = 1;
-        level._id_0A83 = -1;
+        level.alliesflagstatus = 1;
+        level.alliesflagcarrierclientnum = -1;
     }
     else
     {
-        level._id_1219 = 1;
-        level._id_1218 = -1;
+        level.axisflagstatus = 1;
+        level.axisflagcarrierclientnum = -1;
     }
 
     level notify( "update_flag_status" );
@@ -363,7 +363,7 @@ _id_6470( var_0 )
 
 _id_6D77()
 {
-    if ( !isdefined( self.team ) || !isdefined( level._id_0A84 ) )
+    if ( !isdefined( self.team ) || !isdefined( level.alliesflagstatus ) )
         return;
 
     var_0 = undefined;
@@ -373,17 +373,17 @@ _id_6D77()
 
     if ( self.team == "allies" || self.team == "spectator" )
     {
-        var_0 = level._id_0A84;
-        var_1 = level._id_0A83;
-        var_2 = level._id_1219;
-        var_3 = level._id_1218;
+        var_0 = level.alliesflagstatus;
+        var_1 = level.alliesflagcarrierclientnum;
+        var_2 = level.axisflagstatus;
+        var_3 = level.axisflagcarrierclientnum;
     }
     else if ( self.team == "axis" )
     {
-        var_0 = level._id_1219;
-        var_1 = level._id_1218;
-        var_2 = level._id_0A84;
-        var_3 = level._id_0A83;
+        var_0 = level.axisflagstatus;
+        var_1 = level.axisflagcarrierclientnum;
+        var_2 = level.alliesflagstatus;
+        var_3 = level.alliesflagcarrierclientnum;
     }
     else
         return;
@@ -472,7 +472,7 @@ _id_2442( var_0 )
 
         var_8 maps\mp\gametypes\_gameobjects::_id_802D( "enemy", &"MP_GRABBING_FLAG" );
         var_8 maps\mp\gametypes\_gameobjects::_id_802D( "friendly", &"MP_RETURNING_FLAG" );
-        var_8 maps\mp\gametypes\_gameobjects::_id_0AA1( "enemy" );
+        var_8 maps\mp\gametypes\_gameobjects::allowcarry( "enemy" );
         var_8 maps\mp\gametypes\_gameobjects::_id_8352( "none" );
         var_8 maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B42 );
         var_8 maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B43 );
@@ -492,7 +492,7 @@ _id_2442( var_0 )
             var_8._id_6313 = 2.5;
 
         var_8._id_630B = 1;
-        var_8._id_0AB5 = 1;
+        var_8.allowweapons = 1;
         var_8._id_740F = 1;
         var_8._id_64C2 = ::_id_64C2;
         var_8._id_64C3 = ::_id_64C2;
@@ -557,8 +557,8 @@ _id_23E7( var_0 )
     var_5 = var_2.origin + ( 0.0, 0.0, 32.0 );
     var_6 = var_2.origin + ( 0.0, 0.0, -32.0 );
     var_7 = bullettrace( var_5, var_6, 0, undefined );
-    var_4._id_1307 = var_7["position"];
-    var_4._id_1306 = var_7["normal"];
+    var_4.baseeffectpos = var_7["position"];
+    var_4.baseeffectforward = var_7["normal"];
     var_4 thread _id_1B5F();
     return var_4;
 }
@@ -608,7 +608,7 @@ _id_64C2( var_0 )
             var_0 thread maps\mp\_utility::applycarrierclass();
         }
         else
-            var_0 _id_0DFA( self );
+            var_0 attachflag( self );
 
         thread bringhomeflagvo( var_0, var_1 );
         thread getflagbackvo( var_2 );
@@ -695,10 +695,10 @@ getflagbackvo( var_0 )
 getflagstatus( var_0 )
 {
     if ( var_0 == "allies" )
-        return level._id_0A84;
+        return level.alliesflagstatus;
 
     if ( var_0 == "axis" )
-        return level._id_1219;
+        return level.axisflagstatus;
 }
 
 _id_74DE()
@@ -710,7 +710,7 @@ _id_646F( var_0 )
 {
     var_1 = maps\mp\gametypes\_gameobjects::_id_4078();
     var_2 = level._id_65B3[var_1];
-    maps\mp\gametypes\_gameobjects::_id_0AA1( "any" );
+    maps\mp\gametypes\_gameobjects::allowcarry( "any" );
     maps\mp\gametypes\_gameobjects::_id_8352( "any" );
     maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B4E );
     maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B4F );
@@ -765,7 +765,7 @@ _id_64E0()
 {
     var_0 = maps\mp\gametypes\_gameobjects::_id_4078();
     var_1 = level._id_65B3[var_0];
-    maps\mp\gametypes\_gameobjects::_id_0AA1( "enemy" );
+    maps\mp\gametypes\_gameobjects::allowcarry( "enemy" );
     maps\mp\gametypes\_gameobjects::_id_8352( "none" );
     maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B42 );
     maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B43 );
@@ -1024,7 +1024,7 @@ _id_A009( var_0 )
     self endon( "disconnect" );
     self endon( "death" );
     self waittill( "applyLoadout" );
-    _id_0DFA( var_0 );
+    attachflag( var_0 );
 }
 
 _id_6459( var_0 )
@@ -1070,7 +1070,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
             if ( var_13._id_663A == self.team )
             {
                 if ( var_14 < var_11 || var_15 < var_11 )
-                    var_1 thread maps\mp\_events::_id_0D52( self, var_9 );
+                    var_1 thread maps\mp\_events::assaultobjectiveevent( self, var_9 );
             }
         }
     }
@@ -1078,7 +1078,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
         _id_2980();
 }
 
-_id_0DFA( var_0 )
+attachflag( var_0 )
 {
     var_1 = level._id_65B3[self.pers["team"]];
     self attach( level.carryflag[var_1], "J_SpineUpper", 1 );
@@ -1139,11 +1139,11 @@ _id_2980()
     self.carryflag = undefined;
 }
 
-_id_0D76()
+assignteamspawns()
 {
     var_0 = maps\mp\gametypes\_spawnlogic::_id_40DD( "mp_ctf_spawn" );
-    level.teamspawnpoints["axis"] = [];
-    level.teamspawnpoints["allies"] = [];
+    level._id_9201["axis"] = [];
+    level._id_9201["allies"] = [];
 
     foreach ( var_2 in var_0 )
     {
@@ -1151,19 +1151,19 @@ _id_0D76()
 
         if ( var_2._id_91EA == "axis" )
         {
-            level.teamspawnpoints["axis"][level.teamspawnpoints["axis"].size] = var_2;
+            level._id_9201["axis"][level._id_9201["axis"].size] = var_2;
             continue;
         }
 
-        level.teamspawnpoints["allies"][level.teamspawnpoints["allies"].size] = var_2;
+        level._id_9201["allies"][level._id_9201["allies"].size] = var_2;
     }
 }
 
 _id_71EC()
 {
     var_0 = maps\mp\gametypes\_spawnlogic::_id_40DD( "mp_ctf_spawn" );
-    level.teamspawnpoints["axis"] = [];
-    level.teamspawnpoints["allies"] = [];
+    level._id_9201["axis"] = [];
+    level._id_9201["allies"] = [];
 
     foreach ( var_2 in var_0 )
     {
@@ -1171,11 +1171,11 @@ _id_71EC()
 
         if ( var_2._id_91EA == "axis" )
         {
-            level.teamspawnpoints["axis"][level.teamspawnpoints["axis"].size] = var_2;
+            level._id_9201["axis"][level._id_9201["axis"].size] = var_2;
             continue;
         }
 
-        level.teamspawnpoints["allies"][level.teamspawnpoints["allies"].size] = var_2;
+        level._id_9201["allies"][level._id_9201["allies"].size] = var_2;
     }
 }
 
@@ -1279,7 +1279,7 @@ _id_3860()
 _id_1B5F()
 {
     waitframe;
-    _id_3A99( level._id_385D, self._id_1307, self._id_1306 );
+    _id_3A99( level._id_385D, self.baseeffectpos, self.baseeffectforward );
 }
 
 _id_3A9A()
@@ -1328,12 +1328,12 @@ _id_1B5E()
             var_3 = var_1.visuals[0].origin + ( 0.0, 0.0, -32.0 );
             var_4 = bullettrace( var_2, var_3, 0, undefined );
             var_5 = vectortoangles( var_4["normal"] );
-            var_1._id_1306 = anglestoforward( var_5 );
-            var_1._id_1307 = var_4["position"];
+            var_1.baseeffectforward = anglestoforward( var_5 );
+            var_1.baseeffectpos = var_4["position"];
             var_1 thread _id_3860();
             var_6 = level._id_1B60[var_1._id_663A];
-            var_6._id_1306 = var_1._id_1306;
-            var_6._id_1307 = var_1._id_1307;
+            var_6.baseeffectforward = var_1.baseeffectforward;
+            var_6.baseeffectpos = var_1.baseeffectpos;
             var_6 thread _id_1B5F();
         }
     }

@@ -29,10 +29,10 @@ _id_1DDA( var_0, var_1 )
     var_2 = undefined;
 
     if ( var_0 < -60 && var_0 > -120 )
-        var_2 = level._id_78AC[self._id_0C72]["turn_left_90"];
+        var_2 = level._id_78AC[self.animname]["turn_left_90"];
 
     if ( var_0 > 60 && var_0 < 120 )
-        var_2 = level._id_78AC[self._id_0C72]["turn_right_90"];
+        var_2 = level._id_78AC[self.animname]["turn_right_90"];
 
     if ( isdefined( var_2 ) && animscripts\move::_id_66D4( var_2 ) )
         return var_2;

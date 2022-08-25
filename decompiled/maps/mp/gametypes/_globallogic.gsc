@@ -25,8 +25,8 @@ init()
     level.ps3 = getdvar( "ps3Game" ) == "true";
     level.xenon = getdvar( "xenonGame" ) == "true";
     level.console = getdvar( "consoleGame" ) == "true";
-    level.onlinegame = isonlinegame();
-    level.rankedmatch = level.onlinegame && !getdvarint( "xblive_privatematch" );
+    level._id_64B8 = isonlinegame();
+    level.rankedmatch = level._id_64B8 && !getdvarint( "xblive_privatematch" );
     level.script = tolower( getdvar( "mapname" ) );
 
     if ( getdvarint( "virtualLobbyActive", 0 ) )
@@ -47,7 +47,7 @@ init()
     level.killstreak_kills = 1;
     level._id_9386 = getdvarint( "scr_tispawndelay" );
 
-    if ( !isdefined( level.tweakablesinitialized ) )
+    if ( !isdefined( level._id_99E0 ) )
         maps\mp\gametypes\_tweakables::init();
 
     precachestring( &"MP_HALFTIME" );
@@ -70,12 +70,12 @@ init()
     level._id_44FF = "halftime";
     level._id_44FD = 0;
     level.halftimeonscorelimitsettimetobeat = 1;
-    level.laststatustime = 0;
-    level.waswinning = "none";
+    level._id_55FC = 0;
+    level._id_A1D4 = "none";
     level._id_55DC = 0;
-    level.placement["allies"] = [];
-    level.placement["axis"] = [];
-    level.placement["all"] = [];
+    level._id_6861["allies"] = [];
+    level._id_6861["axis"] = [];
+    level._id_6861["all"] = [];
     level._id_6E8C = 5.0;
     level._id_6D59 = [];
     _id_72EE();
@@ -83,9 +83,9 @@ init()
     level._id_91ED["allies"] = 0;
     level._id_91ED["axis"] = 0;
     level._id_91ED["spectator"] = 0;
-    level._id_09DD["allies"] = 0;
-    level._id_09DD["axis"] = 0;
-    level._id_09DD["spectator"] = 0;
+    level.alivecount["allies"] = 0;
+    level.alivecount["axis"] = 0;
+    level.alivecount["spectator"] = 0;
     level._id_57B9["allies"] = 0;
     level._id_57B9["axis"] = 0;
     level._id_648B = [];
@@ -100,9 +100,9 @@ _id_4D1D( var_0 )
     for ( var_1 = 0; var_1 < var_0; var_1++ )
     {
         var_2 = "team_" + var_1;
-        level.placement[var_2] = [];
+        level._id_6861[var_2] = [];
         level._id_91ED[var_2] = 0;
-        level._id_09DD[var_2] = 0;
+        level.alivecount[var_2] = 0;
         level._id_57B9[var_2] = 0;
         level._id_4745[var_2] = 0;
     }
@@ -120,17 +120,17 @@ _id_72EE()
 setupcallbacks()
 {
     level._id_64FE = ::_id_64FE;
-    level.getspawnpoint = ::_id_148E;
-    level._id_64E9 = ::_id_148E;
-    level._id_64E2 = ::_id_148E;
+    level.getspawnpoint = ::blank;
+    level._id_64E9 = ::blank;
+    level._id_64E2 = ::blank;
     level._id_64F0 = maps\mp\gametypes\_gamelogic::_id_2787;
     level._id_64B2 = maps\mp\gametypes\_gamelogic::_id_2785;
     level._id_6466 = maps\mp\gametypes\_gamelogic::_id_2784;
     level._id_64C0 = maps\mp\gametypes\_gamelogic::_id_2786;
-    level._id_64DA = ::_id_148E;
-    level.onstartgametype = ::_id_148E;
-    level._id_64D3 = ::_id_148E;
-    level._id_112A = maps\mp\gametypes\_menus::_id_112A;
+    level._id_64DA = ::blank;
+    level.onstartgametype = ::blank;
+    level._id_64D3 = ::blank;
+    level.autoassign = maps\mp\gametypes\_menus::autoassign;
 }
 
 _id_3FCF()
@@ -138,7 +138,7 @@ _id_3FCF()
     return maps\mp\gametypes\_gamelogic::_id_3FCF();
 }
 
-_id_148E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+blank( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
 
 }
@@ -180,7 +180,7 @@ _id_92B1()
 
 _id_64FE( var_0 )
 {
-    level thread maps\mp\gametypes\_rank::_id_1208( var_0, self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_0, self );
 }
 
 _id_2729( var_0, var_1 )

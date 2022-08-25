@@ -19,23 +19,23 @@
 
 */
 
-_id_15BE()
+bot_cache_entrances_to_bombzones()
 {
     var_0 = [];
     var_1 = [];
     var_2 = 0;
 
-    foreach ( var_4 in level._id_1555 )
+    foreach ( var_4 in level.bombzones )
     {
-        var_0[var_2] = common_scripts\utility::_id_710E( var_4._id_174F ).origin;
+        var_0[var_2] = common_scripts\utility::_id_710E( var_4.bottargets ).origin;
         var_1[var_2] = "zone" + var_4.label;
         var_2++;
     }
 
-    _id_15BD( var_0, var_1 );
+    bot_cache_entrances( var_0, var_1 );
 }
 
-_id_15BF( var_0, var_1, var_2, var_3 )
+bot_cache_entrances_to_gametype_array( var_0, var_1, var_2, var_3 )
 {
     wait 1.0;
     var_4 = [];
@@ -44,8 +44,8 @@ _id_15BF( var_0, var_1, var_2, var_3 )
 
     foreach ( var_10, var_8 in var_0 )
     {
-        if ( isdefined( var_0[var_10]._id_174E ) )
-            var_4[var_6] = var_0[var_10]._id_174E.origin;
+        if ( isdefined( var_0[var_10].bottarget ) )
+            var_4[var_6] = var_0[var_10].bottarget.origin;
         else
         {
             var_0[var_10]._id_6071 = getclosestnodeinsight( var_0[var_10].origin );
@@ -74,10 +74,10 @@ _id_15BF( var_0, var_1, var_2, var_3 )
         var_6++;
     }
 
-    _id_15BD( var_4, var_5, var_2, var_3 );
+    bot_cache_entrances( var_4, var_5, var_2, var_3 );
 }
 
-_id_15BD( var_0, var_1, var_2, var_3 )
+bot_cache_entrances( var_0, var_1, var_2, var_3 )
 {
     var_4 = !isdefined( var_2 ) || !var_2;
     var_5 = isdefined( var_3 ) && var_3;
@@ -143,23 +143,23 @@ _id_15BD( var_0, var_1, var_2, var_3 )
     }
     else
     {
-        level._id_3321 = common_scripts\utility::_id_0CDD( level._id_3321, var_0 );
-        level._id_3320 = common_scripts\utility::_id_0CDD( level._id_3320, var_1 );
-        level._id_3322 = common_scripts\utility::_id_0CE1( level._id_3322, var_10 );
+        level._id_3321 = common_scripts\utility::array_combine( level._id_3321, var_0 );
+        level._id_3320 = common_scripts\utility::array_combine( level._id_3320, var_1 );
+        level._id_3322 = common_scripts\utility::array_combine_non_integer_indices( level._id_3322, var_10 );
     }
 
     level._id_3323 = 1;
 }
 
-_id_15A3( var_0, var_1 )
+bot_add_missing_nodes( var_0, var_1 )
 {
     if ( var_1.classname == "trigger_radius" )
     {
         var_2 = getnodesinradius( var_1.origin, var_1.radius, 0, 100 );
-        var_3 = common_scripts\utility::_id_0CF7( var_2, var_0 );
+        var_3 = common_scripts\utility::array_remove_array( var_2, var_0 );
 
         if ( var_3.size > 0 )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, var_3 );
+            var_0 = common_scripts\utility::array_combine( var_0, var_3 );
     }
     else if ( var_1.classname == "trigger_multiple" || var_1.classname == "trigger_use_touch" )
     {
@@ -190,7 +190,7 @@ _id_15A3( var_0, var_1 )
                 if ( ispointinvolume( var_11.origin + ( 0.0, 0.0, 40.0 ), var_1 ) || ispointinvolume( var_11.origin + ( 0.0, 0.0, 80.0 ), var_1 ) || ispointinvolume( var_11.origin + ( 0.0, 0.0, 120.0 ), var_1 ) )
                 {
                     if ( var_11.type != "Begin" && var_11.type != "End" )
-                        var_0 = common_scripts\utility::_id_0CDA( var_0, var_11 );
+                        var_0 = common_scripts\utility::array_add( var_0, var_11 );
                 }
             }
         }
@@ -199,27 +199,27 @@ _id_15A3( var_0, var_1 )
     return var_0;
 }
 
-_id_16F1()
+bot_setup_bombzone_bottargets()
 {
     wait 1.0;
-    _id_16F2( level._id_1555 );
-    level._id_16EA = 1;
+    bot_setup_bot_targets( level.bombzones );
+    level.bot_set_bombzone_bottargets = 1;
 }
 
-_id_16F2( var_0 )
+bot_setup_bot_targets( var_0 )
 {
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2._id_174F ) )
-            var_2._id_174F = bot_get_valid_nodes_in_trigger( var_2.trigger );
+        if ( !isdefined( var_2.bottargets ) )
+            var_2.bottargets = bot_get_valid_nodes_in_trigger( var_2.trigger );
     }
 }
 
-_id_1625( var_0 )
+bot_gametype_get_num_players_on_team( var_0 )
 {
     var_1 = 0;
 
-    foreach ( var_3 in level.participants )
+    foreach ( var_3 in level._id_669D )
     {
         if ( maps\mp\_utility::_id_51CE( var_3 ) && isdefined( var_3.team ) && var_3.team == var_0 )
             var_1++;
@@ -228,32 +228,32 @@ _id_1625( var_0 )
     return var_1;
 }
 
-_id_1623( var_0, var_1, var_2 )
+bot_gametype_get_allied_attackers_for_team( var_0, var_1, var_2 )
 {
-    var_3 = _id_1626( "attacker", var_0 );
+    var_3 = bot_gametype_get_players_by_role( "attacker", var_0 );
 
     foreach ( var_5 in level.players )
     {
         if ( !isai( var_5 ) && isdefined( var_5.team ) && var_5.team == var_0 )
         {
             if ( var_5 bot_gametype_human_player_always_considered_attacker() || distancesquared( var_1, var_5.origin ) > squared( var_2 ) )
-                var_3 = common_scripts\utility::_id_0CDA( var_3, var_5 );
+                var_3 = common_scripts\utility::array_add( var_3, var_5 );
         }
     }
 
     return var_3;
 }
 
-_id_1624( var_0, var_1, var_2 )
+bot_gametype_get_allied_defenders_for_team( var_0, var_1, var_2 )
 {
-    var_3 = _id_1626( "defender", var_0 );
+    var_3 = bot_gametype_get_players_by_role( "defender", var_0 );
 
     foreach ( var_5 in level.players )
     {
         if ( !isai( var_5 ) && isdefined( var_5.team ) && var_5.team == var_0 )
         {
             if ( var_5 bot_gametype_human_player_always_considered_defender() || distancesquared( var_1, var_5.origin ) <= squared( var_2 ) )
-                var_3 = common_scripts\utility::_id_0CDA( var_3, var_5 );
+                var_3 = common_scripts\utility::array_add( var_3, var_5 );
         }
     }
 
@@ -276,18 +276,18 @@ bot_gametype_human_player_always_considered_defender()
     return 0;
 }
 
-_id_1629( var_0 )
+bot_gametype_set_role( var_0 )
 {
     self._id_759A = var_0;
     self botclearscriptgoal();
-    maps\mp\bots\_bots_strategy::_id_15EF();
+    maps\mp\bots\_bots_strategy::bot_defend_stop();
 }
 
-_id_1626( var_0, var_1 )
+bot_gametype_get_players_by_role( var_0, var_1 )
 {
     var_2 = [];
 
-    foreach ( var_4 in level.participants )
+    foreach ( var_4 in level._id_669D )
     {
         if ( isdefined( var_4.team ) && isalive( var_4 ) && maps\mp\_utility::_id_51CE( var_4 ) && var_4.team == var_1 && isdefined( var_4._id_759A ) && var_4._id_759A == var_0 )
             var_2[var_2.size] = var_4;
@@ -296,13 +296,13 @@ _id_1626( var_0, var_1 )
     return var_2;
 }
 
-_id_1627()
+bot_gametype_initialize_attacker_defender_role()
 {
-    var_0 = [[ level._id_161C ]]( self.team );
-    var_1 = [[ level._id_161D ]]( self.team );
-    var_2 = [[ level._id_161F ]]( self.team );
-    var_3 = [[ level._id_1622 ]]( self.team );
-    var_4 = level._id_16B2[self._id_67DF];
+    var_0 = [[ level.bot_gametype_allied_attackers_for_team ]]( self.team );
+    var_1 = [[ level.bot_gametype_allied_defenders_for_team ]]( self.team );
+    var_2 = [[ level.bot_gametype_attacker_limit_for_team ]]( self.team );
+    var_3 = [[ level.bot_gametype_defender_limit_for_team ]]( self.team );
+    var_4 = level.bot_personality_type[self._id_67DF];
 
     if ( var_4 == "active" )
     {
@@ -312,7 +312,7 @@ _id_1627()
 
             foreach ( var_7 in var_0 )
             {
-                if ( isai( var_7 ) && level._id_16B2[var_7._id_67DF] == "stationary" && var_7 bot_can_switch_to_defender() )
+                if ( isai( var_7 ) && level.bot_personality_type[var_7._id_67DF] == "stationary" && var_7 bot_can_switch_to_defender() )
                 {
                     var_7._id_759A = undefined;
                     var_5 = 1;
@@ -322,15 +322,15 @@ _id_1627()
 
             if ( var_5 )
             {
-                _id_1629( "attacker" );
+                bot_gametype_set_role( "attacker" );
                 return;
             }
 
-            _id_1629( "defender" );
+            bot_gametype_set_role( "defender" );
             return;
         }
         else
-            _id_1629( "attacker" );
+            bot_gametype_set_role( "attacker" );
     }
     else if ( var_4 == "stationary" )
     {
@@ -340,7 +340,7 @@ _id_1627()
 
             foreach ( var_10 in var_1 )
             {
-                if ( isai( var_10 ) && level._id_16B2[var_10._id_67DF] == "active" && var_10 bot_can_switch_to_attacker() )
+                if ( isai( var_10 ) && level.bot_personality_type[var_10._id_67DF] == "active" && var_10 bot_can_switch_to_attacker() )
                 {
                     var_10._id_759A = undefined;
                     var_5 = 1;
@@ -350,19 +350,19 @@ _id_1627()
 
             if ( var_5 )
             {
-                _id_1629( "defender" );
+                bot_gametype_set_role( "defender" );
                 return;
             }
 
-            _id_1629( "attacker" );
+            bot_gametype_set_role( "attacker" );
             return;
         }
         else
-            _id_1629( "defender" );
+            bot_gametype_set_role( "defender" );
     }
 }
 
-_id_161E()
+bot_gametype_attacker_defender_ai_director_update()
 {
     level notify( "bot_gametype_attacker_defender_ai_director_update" );
     level endon( "bot_gametype_attacker_defender_ai_director_update" );
@@ -378,10 +378,10 @@ _id_161E()
 
             foreach ( var_3 in var_0 )
             {
-                var_4 = [[ level._id_161C ]]( var_3 );
-                var_5 = [[ level._id_161D ]]( var_3 );
-                var_6 = [[ level._id_161F ]]( var_3 );
-                var_7 = [[ level._id_1622 ]]( var_3 );
+                var_4 = [[ level.bot_gametype_allied_attackers_for_team ]]( var_3 );
+                var_5 = [[ level.bot_gametype_allied_defenders_for_team ]]( var_3 );
+                var_6 = [[ level.bot_gametype_attacker_limit_for_team ]]( var_3 );
+                var_7 = [[ level.bot_gametype_defender_limit_for_team ]]( var_3 );
 
                 if ( var_4.size > var_6 )
                 {
@@ -392,19 +392,19 @@ _id_161E()
                     {
                         if ( isai( var_11 ) && var_11 bot_can_switch_to_defender() )
                         {
-                            if ( level._id_16B2[var_11._id_67DF] == "stationary" )
+                            if ( level.bot_personality_type[var_11._id_67DF] == "stationary" )
                             {
-                                var_11 _id_1629( "defender" );
+                                var_11 bot_gametype_set_role( "defender" );
                                 var_9 = 1;
                                 break;
                             }
                             else
-                                var_8 = common_scripts\utility::_id_0CDA( var_8, var_11 );
+                                var_8 = common_scripts\utility::array_add( var_8, var_11 );
                         }
                     }
 
                     if ( !var_9 && var_8.size > 0 )
-                        common_scripts\utility::_id_710E( var_8 ) _id_1629( "defender" );
+                        common_scripts\utility::_id_710E( var_8 ) bot_gametype_set_role( "defender" );
                 }
 
                 if ( var_5.size > var_7 )
@@ -416,19 +416,19 @@ _id_161E()
                     {
                         if ( isai( var_16 ) && var_16 bot_can_switch_to_attacker() )
                         {
-                            if ( level._id_16B2[var_16._id_67DF] == "active" )
+                            if ( level.bot_personality_type[var_16._id_67DF] == "active" )
                             {
-                                var_16 _id_1629( "attacker" );
+                                var_16 bot_gametype_set_role( "attacker" );
                                 var_14 = 1;
                                 break;
                             }
                             else
-                                var_13 = common_scripts\utility::_id_0CDA( var_13, var_16 );
+                                var_13 = common_scripts\utility::array_add( var_13, var_16 );
                         }
                     }
 
                     if ( !var_14 && var_13.size > 0 )
-                        common_scripts\utility::_id_710E( var_13 ) _id_1629( "attacker" );
+                        common_scripts\utility::_id_710E( var_13 ) bot_gametype_set_role( "attacker" );
                 }
             }
         }
@@ -457,13 +457,13 @@ bot_verify_and_cache_bombzones( var_0 )
 {
     var_1 = 0;
 
-    foreach ( var_3 in level._id_1555 )
+    foreach ( var_3 in level.bombzones )
     {
 
     }
 
     if ( !var_1 )
-        _id_15BE();
+        bot_cache_entrances_to_bombzones();
 
     return !var_1;
 }
@@ -471,7 +471,7 @@ bot_verify_and_cache_bombzones( var_0 )
 bot_get_valid_nodes_in_trigger( var_0 )
 {
     var_1 = getnodesintrigger( var_0 );
-    var_1 = _id_15A3( var_1, var_0 );
+    var_1 = bot_add_missing_nodes( var_1, var_0 );
     var_2 = [];
 
     foreach ( var_4 in var_1 )
@@ -493,7 +493,7 @@ bot_cache_entrances_to_zones( var_0 )
     {
         var_6 = 0;
         var_5._id_3320 = [];
-        var_5._id_A3E0 = _id_19D8( var_5 );
+        var_5._id_A3E0 = calculate_zone_node_extents( var_5 );
         var_5._id_1C10 = _id_A3E5( var_5, 0, 0 );
         var_7 = [ ( 0.0, 0.0, 0.0 ), ( 1.0, 1.0, 0.0 ), ( 1.0, -1.0, 0.0 ), ( -1.0, 1.0, 0.0 ), ( -1.0, -1.0, 0.0 ) ];
 
@@ -509,10 +509,10 @@ bot_cache_entrances_to_zones( var_0 )
         }
     }
 
-    _id_15BD( var_1, var_2, 1 );
+    bot_cache_entrances( var_1, var_2, 1 );
 }
 
-_id_19D8( var_0 )
+calculate_zone_node_extents( var_0 )
 {
     var_1 = spawnstruct();
     var_1._id_5C31 = ( 999999.0, 999999.0, 999999.0 );
@@ -602,7 +602,7 @@ _id_3759( var_0 )
     var_1 = undefined;
     var_2 = 999999999;
 
-    foreach ( var_4 in level._id_1555 )
+    foreach ( var_4 in level.bombzones )
     {
         var_5 = distancesquared( var_4.curorigin, var_0.origin );
 
@@ -620,7 +620,7 @@ _id_3DC9( var_0, var_1 )
 {
     var_2 = [];
 
-    foreach ( var_4 in level.participants )
+    foreach ( var_4 in level._id_669D )
     {
         if ( !isdefined( var_4.team ) )
             continue;
@@ -637,20 +637,20 @@ _id_3DC9( var_0, var_1 )
 
 get_bombzone_node_to_plant_on( var_0, var_1 )
 {
-    if ( var_0._id_174F.size >= 2 )
+    if ( var_0.bottargets.size >= 2 )
     {
         if ( var_1 )
-            var_2 = self _meth_837e( var_0._id_174F, "node_exposed" );
+            var_2 = self _meth_837E( var_0.bottargets, "node_exposed" );
         else
-            var_2 = self _meth_837e( var_0._id_174F, "node_hide_anywhere", "ignore_occupancy" );
+            var_2 = self _meth_837E( var_0.bottargets, "node_hide_anywhere", "ignore_occupancy" );
 
         var_3 = self botgetdifficultysetting( "strategyLevel" ) * 0.3;
         var_4 = ( self botgetdifficultysetting( "strategyLevel" ) + 1 ) * 0.15;
-        var_5 = common_scripts\utility::_id_0CF5( var_0._id_174F );
+        var_5 = common_scripts\utility::array_randomize( var_0.bottargets );
 
         foreach ( var_7 in var_5 )
         {
-            if ( !common_scripts\utility::_id_0CE4( var_2, var_7 ) )
+            if ( !common_scripts\utility::array_contains( var_2, var_7 ) )
                 var_2[var_2.size] = var_7;
         }
 
@@ -671,19 +671,19 @@ get_bombzone_node_to_plant_on( var_0, var_1 )
         return;
     }
     else
-        return var_0._id_174F[0];
+        return var_0.bottargets[0];
 }
 
 get_bombzone_node_to_defuse_on( var_0 )
 {
-    var_1 = self _meth_837e( var_0._id_174F, "node_hide_anywhere", "ignore_occupancy" );
+    var_1 = self _meth_837E( var_0.bottargets, "node_hide_anywhere", "ignore_occupancy" );
     var_2 = self botgetdifficultysetting( "strategyLevel" ) * 0.3;
     var_3 = ( self botgetdifficultysetting( "strategyLevel" ) + 1 ) * 0.15;
-    var_4 = common_scripts\utility::_id_0CF5( var_0._id_174F );
+    var_4 = common_scripts\utility::array_randomize( var_0.bottargets );
 
     foreach ( var_6 in var_4 )
     {
-        if ( !common_scripts\utility::_id_0CE4( var_1, var_6 ) )
+        if ( !common_scripts\utility::array_contains( var_1, var_6 ) )
             var_1[var_1.size] = var_6;
     }
 
@@ -716,8 +716,8 @@ bombzone_press_use( var_0, var_1, var_2, var_3 )
         childthread _id_6214();
     }
 
-    self _meth_837c( "use", var_0 );
-    var_5 = maps\mp\bots\_bots_util::_id_1724( var_0, var_1, "use_interrupted" );
+    self _meth_837C( "use", var_0 );
+    var_5 = maps\mp\bots\_bots_util::bot_usebutton_wait( var_0, var_1, "use_interrupted" );
     self botsetstance( "none" );
     self botclearbutton( "use" );
     var_6 = var_5 == var_1;
@@ -731,7 +731,7 @@ _id_621B()
 
     if ( !isdefined( var_1.team ) || var_1.team != self.team )
     {
-        var_2 = var_0._id_9C19 - var_0.curprogress;
+        var_2 = var_0._id_9C19 - var_0._id_24C9;
 
         if ( var_2 > 1000 )
             self notify( "use_interrupted" );

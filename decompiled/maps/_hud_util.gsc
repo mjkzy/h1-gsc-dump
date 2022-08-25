@@ -28,7 +28,7 @@ setParent( var_0 )
         self.parent removechild( self );
 
     self.parent = var_0;
-    self.parent addChild( self );
+    self.parent addchild( self );
 
     if ( isdefined( self.point ) )
         setpoint( self.point, self.relativePoint, self.xoffset, self.yoffset );
@@ -61,7 +61,7 @@ _id_739D()
     self.children = var_0;
 }
 
-addChild( var_0 )
+addchild( var_0 )
 {
     var_0.index = self.children.size;
     self.children[self.children.size] = var_0;
@@ -247,7 +247,7 @@ updatebar( var_0 )
         var_1 = 1;
 
     self.bar.frac = var_0;
-    self.bar setshader( self.bar._id_8392, var_1, self.height - self._id_A3BD * 2 );
+    self.bar setshader( self.bar.shader, var_1, self.height - self._id_A3BD * 2 );
 }
 
 _id_486E( var_0 )
@@ -349,7 +349,7 @@ createservertimer( var_0, var_1 )
     return var_2;
 }
 
-_id_2420( var_0, var_1, var_2 )
+createIcon( var_0, var_1, var_2 )
 {
     var_3 = newhudelem();
     return _id_2421( var_3, var_0, var_1, var_2 );
@@ -403,7 +403,7 @@ h1_createbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_8.alpha = 0.9;
     var_8.sort = 0;
     var_8.frac = 0.25;
-    var_8._id_8392 = var_6;
+    var_8.shader = var_6;
     var_9 = newhudelem();
     var_9.elemtype = "bar";
     var_9.alignx = "center";
@@ -426,7 +426,7 @@ h1_createbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     return var_9;
 }
 
-_id_23E5( var_0, var_1, var_2, var_3, var_4 )
+createBar( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = "white";
@@ -444,14 +444,14 @@ _id_23E5( var_0, var_1, var_2, var_3, var_4 )
     var_5.x = 2;
     var_5.y = 2;
     var_5.frac = 0.25;
-    var_5._id_8392 = var_0;
+    var_5.shader = var_0;
     var_5.sort = -1;
     var_5 setshader( var_0, var_2 - 2, var_3 - 2 );
 
     if ( isdefined( var_4 ) )
     {
-        var_5._id_38B2 = var_4;
-        var_5 thread _id_38C6();
+        var_5.flashFarc = var_4;
+        var_5 thread flashThread();
     }
 
     var_5.offset_x = 0;
@@ -502,14 +502,14 @@ _id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7.x = 0 - var_5;
     var_7.y = 0 - var_6;
     var_7.frac = 0.25;
-    var_7._id_8392 = var_0;
+    var_7.shader = var_0;
     var_7.sort = -1;
     var_7 setshader( var_0, var_2 - var_5 * 2, var_3 - var_6 * 2 );
 
     if ( isdefined( var_4 ) )
     {
-        var_7._id_38B2 = var_4;
-        var_7 thread _id_38C6();
+        var_7.flashFarc = var_4;
+        var_7 thread flashThread();
     }
 
     var_8 = newclienthudelem( self );
@@ -531,9 +531,9 @@ _id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     return var_8;
 }
 
-_id_7F72( var_0 )
+setFlashFrac( var_0 )
 {
-    self.bar._id_38B2 = var_0;
+    self.bar.flashFarc = var_0;
 }
 
 _id_35E8( var_0, var_1 )
@@ -547,14 +547,14 @@ _id_35E8( var_0, var_1 )
         wait(var_1);
 }
 
-_id_38C6()
+flashThread()
 {
     self endon( "death" );
     self.alpha = 1;
 
     for (;;)
     {
-        if ( self.frac >= self._id_38B2 )
+        if ( self.frac >= self.flashFarc )
         {
             self fadeovertime( 0.3 );
             self.alpha = 0.2;
@@ -570,7 +570,7 @@ _id_38C6()
     }
 }
 
-_id_28E9()
+destroyElem()
 {
     if ( isdefined( self.children ) && self.children.size )
     {
@@ -594,22 +594,22 @@ _id_28E9()
     self destroy();
 }
 
-_id_7F8D( var_0 )
+setIconShader( var_0 )
 {
     self setshader( var_0, self.width, self.height );
 }
 
-_id_8358( var_0 )
+setWidth( var_0 )
 {
     self.width = var_0;
 }
 
-_id_7F89( var_0 )
+setHeight( var_0 )
 {
     self.height = var_0;
 }
 
-_id_800F( var_0, var_1 )
+setSize( var_0, var_1 )
 {
     self.width = var_0;
     self.height = var_1;
@@ -660,7 +660,7 @@ _id_23CB()
     level._id_4AC8["text"] = var_0;
 }
 
-_id_0763( var_0, var_1, var_2 )
+add_hint_background( var_0, var_1, var_2 )
 {
     clear_hint_background();
 
@@ -674,17 +674,17 @@ _id_0763( var_0, var_1, var_2 )
     {
         var_3 = 121;
         var_4 = 38;
-        level._id_48F3 = _id_2420( "h1_hud_tutorial_blur", 560, 39 );
-        level.hintbordertop = _id_2420( "h1_hud_tutorial_border", 560, 1 );
-        level.hintborderbottom = _id_2420( "h1_hud_tutorial_border", 560, 1 );
+        level._id_48F3 = createIcon( "h1_hud_tutorial_blur", 560, 39 );
+        level.hintbordertop = createIcon( "h1_hud_tutorial_border", 560, 1 );
+        level.hintborderbottom = createIcon( "h1_hud_tutorial_border", 560, 1 );
     }
     else
     {
         var_3 = 121;
         var_4 = 24;
-        level._id_48F3 = _id_2420( "h1_hud_tutorial_blur", 560, 25 );
-        level.hintbordertop = _id_2420( "h1_hud_tutorial_border", 560, 1 );
-        level.hintborderbottom = _id_2420( "h1_hud_tutorial_border", 560, 1 );
+        level._id_48F3 = createIcon( "h1_hud_tutorial_blur", 560, 25 );
+        level.hintbordertop = createIcon( "h1_hud_tutorial_border", 560, 1 );
+        level.hintborderbottom = createIcon( "h1_hud_tutorial_border", 560, 1 );
     }
 
     level._id_48F3 setpoint( "TOP", undefined, 0, var_3 + var_1 );
@@ -750,13 +750,13 @@ fade_hint_background( var_0 )
 clear_hint_background()
 {
     if ( isdefined( level._id_48F3 ) )
-        level._id_48F3 _id_28E9();
+        level._id_48F3 destroyElem();
 
     if ( isdefined( level.hintbordertop ) )
-        level.hintbordertop _id_28E9();
+        level.hintbordertop destroyElem();
 
     if ( isdefined( level.hintborderbottom ) )
-        level.hintborderbottom _id_28E9();
+        level.hintborderbottom destroyElem();
 }
 
 get_stats_display_hud( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -780,7 +780,7 @@ get_stats_display_hud( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_8.x = var_6;
     var_8.y = var_7;
 
-    if ( maps\_utility::_id_0CC3() )
+    if ( maps\_utility::arcademode() )
     {
         var_8.alignx = "left";
         var_8.aligny = "top";
@@ -1275,9 +1275,9 @@ get_nameplate_color( var_0 )
 {
     var_1 = strtok( getdvar( var_0 ), " " );
     var_2 = [];
-    var_2 = common_scripts\utility::_id_0CDA( var_2, float( var_1[0] ) );
-    var_2 = common_scripts\utility::_id_0CDA( var_2, float( var_1[1] ) );
-    var_2 = common_scripts\utility::_id_0CDA( var_2, float( var_1[2] ) );
-    var_2 = common_scripts\utility::_id_0CDA( var_2, float( var_1[3] ) );
+    var_2 = common_scripts\utility::array_add( var_2, float( var_1[0] ) );
+    var_2 = common_scripts\utility::array_add( var_2, float( var_1[1] ) );
+    var_2 = common_scripts\utility::array_add( var_2, float( var_1[2] ) );
+    var_2 = common_scripts\utility::array_add( var_2, float( var_1[3] ) );
     return var_2;
 }

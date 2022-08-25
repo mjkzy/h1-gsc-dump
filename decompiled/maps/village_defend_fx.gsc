@@ -21,7 +21,7 @@
 
 main()
 {
-    level._id_099B = loadfx( "vfx/map/village_defend/village_defend_clusterbomb" );
+    level.airstrikefx = loadfx( "vfx/map/village_defend/village_defend_clusterbomb" );
     level.mortareffect = loadfx( "fx/explosions/artilleryExp_dirt_brown_va" );
     level.bombstrike = loadfx( "fx/explosions/wall_explosion_pm_a" );
     level.fx_airstrike_afterburner = loadfx( "fx/fire/jet_afterburner" );

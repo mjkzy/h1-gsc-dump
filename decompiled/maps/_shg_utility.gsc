@@ -56,9 +56,9 @@ _id_88FC( var_0, var_1, var_2, var_3 )
         if ( var_2 )
             var_15 thread maps\_utility::_id_7402();
 
-        var_15 _meth_81ca( var_11.origin, var_11.angles );
-        var_15 _meth_81aa( var_15.origin );
-        var_7 = common_scripts\utility::_id_0CDA( var_7, var_15 );
+        var_15 _meth_81CA( var_11.origin, var_11.angles );
+        var_15 _meth_81AA( var_15.origin );
+        var_7 = common_scripts\utility::array_add( var_7, var_15 );
         var_12++;
 
         if ( isdefined( var_3 ) && var_12 >= var_3 )
@@ -330,19 +330,19 @@ _id_219F()
     common_scripts\utility::_id_3831( "flag_conversation_in_progress" );
 }
 
-_id_0CE2( var_0, var_1 )
+array_combine_unique( var_0, var_1 )
 {
     var_2 = [];
 
     foreach ( var_4 in var_0 )
     {
-        if ( !isdefined( common_scripts\utility::_id_0CE8( var_2, var_4 ) ) )
+        if ( !isdefined( common_scripts\utility::array_find( var_2, var_4 ) ) )
             var_2[var_2.size] = var_4;
     }
 
     foreach ( var_4 in var_1 )
     {
-        if ( !isdefined( common_scripts\utility::_id_0CE8( var_2, var_4 ) ) )
+        if ( !isdefined( common_scripts\utility::array_find( var_2, var_4 ) ) )
             var_2[var_2.size] = var_4;
     }
 
@@ -452,10 +452,10 @@ _id_54C7()
         level notify( "laser_coordinates_received" );
         var_3 = undefined;
 
-        if ( isdefined( level._id_54E3 ) && isdefined( var_2 ) && common_scripts\utility::_id_0CE4( level._id_54E3, var_2 ) )
+        if ( isdefined( level._id_54E3 ) && isdefined( var_2 ) && common_scripts\utility::array_contains( level._id_54E3, var_2 ) )
         {
             var_3 = var_2;
-            level._id_54E3 = common_scripts\utility::_id_0CF6( level._id_54E3, var_2 );
+            level._id_54E3 = common_scripts\utility::array_remove( level._id_54E3, var_2 );
         }
         else
             var_3 = _id_4109( var_1 );
@@ -488,7 +488,7 @@ _id_4109( var_0 )
 
         if ( var_3 <= var_2.radius && var_4 <= var_2.height && var_4 >= 0 )
         {
-            level._id_54E4 = common_scripts\utility::_id_0CF6( level._id_54E4, var_2 );
+            level._id_54E4 = common_scripts\utility::array_remove( level._id_54E4, var_2 );
             return getent( var_2.target, "script_noteworthy" );
         }
     }
@@ -530,12 +530,12 @@ _id_54C3( var_0 )
         var_2 = _id_3D87( "geo_before", var_0._id_7A0A );
 
         if ( var_2.size > 0 )
-            common_scripts\utility::_id_0CDB( var_2, ::hide );
+            common_scripts\utility::array_call( var_2, ::hide );
 
         var_3 = _id_3D87( "geo_after", var_0._id_7A0A );
 
         if ( var_3.size > 0 )
-            common_scripts\utility::_id_0CDB( var_3, ::show );
+            common_scripts\utility::array_call( var_3, ::show );
     }
 
     wait(level.player._id_54EF);
@@ -772,9 +772,9 @@ _id_591F()
     if ( !isdefined( level._id_3078 ) )
         level._id_3078 = [];
 
-    level._id_3078 = common_scripts\utility::_id_0CDA( level._id_3078, self );
+    level._id_3078 = common_scripts\utility::array_add( level._id_3078, self );
     self waittill( "death" );
-    level._id_3078 = common_scripts\utility::_id_0CF6( level._id_3078, self );
+    level._id_3078 = common_scripts\utility::array_remove( level._id_3078, self );
 }
 
 _id_6955( var_0, var_1, var_2, var_3 )
@@ -976,7 +976,7 @@ _id_48BF( var_0 )
         case "ads":
             if ( level.pc )
                 return "^3[{+ads}]^7";
-            else if ( level.player _meth_834c() )
+            else if ( level.player _meth_834C() )
                 return "^3[{+speed_throw}]^7";
             else
                 return "^3[{+toggleads_throw}]^7";
@@ -1029,14 +1029,14 @@ _id_48BA( var_0, var_1 )
     }
 }
 
-_id_1950( var_0, var_1, var_2, var_3 )
+button_mash_dynamic_hint( var_0, var_1, var_2, var_3 )
 {
     self endon( var_2 );
     level.player endon( var_2 );
     self endon( "death" );
     thread maps\_utility::_id_48B0( var_0 );
     var_4 = var_1 + "_button_mash_dynamic_hint";
-    thread _id_195E( var_2, var_4, var_1, var_3 );
+    thread buttonmash_hint_cleanup( var_2, var_4, var_1, var_3 );
     level.player notifyonplayercommand( var_4, var_1 );
 
     if ( isdefined( var_3 ) )
@@ -1052,7 +1052,7 @@ _id_1950( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_195E( var_0, var_1, var_2, var_3 )
+buttonmash_hint_cleanup( var_0, var_1, var_2, var_3 )
 {
     self endon( "death" );
     common_scripts\utility::_id_A06A( self, var_0, level.player, var_0 );
@@ -1133,7 +1133,7 @@ _id_6A1C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     setomnvar( "ui_videolog_blur_bkgrnd", var_6 );
 
     if ( !isdefined( var_7 ) )
-        var_7 = level._id_065D._id_2791;
+        var_7 = level._snd._id_2791;
 
     cinematicingame( var_0, 0, var_7, 1 );
 

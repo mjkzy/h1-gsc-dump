@@ -21,12 +21,12 @@
 
 _id_6FFD()
 {
-    foreach ( var_1 in level.placement["all"] )
+    foreach ( var_1 in level._id_6861["all"] )
         var_1 _id_7FE8();
 
     if ( level.multiteambased )
     {
-        _id_1886( "multiteam" );
+        buildscoreboardtype( "multiteam" );
 
         foreach ( var_1 in level.players )
             var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "scoreboardType", "multiteam" );
@@ -55,8 +55,8 @@ _id_6FFD()
 
         if ( var_7 == "tied" )
         {
-            _id_1886( "allies" );
-            _id_1886( "axis" );
+            buildscoreboardtype( "allies" );
+            buildscoreboardtype( "axis" );
 
             foreach ( var_1 in level.players )
             {
@@ -76,7 +76,7 @@ _id_6FFD()
         }
         else
         {
-            _id_1886( var_7 );
+            buildscoreboardtype( var_7 );
 
             foreach ( var_1 in level.players )
                 var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "scoreboardType", var_7 );
@@ -84,7 +84,7 @@ _id_6FFD()
     }
     else
     {
-        _id_1886( "neutral" );
+        buildscoreboardtype( "neutral" );
 
         foreach ( var_1 in level.players )
             var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "scoreboardType", "neutral" );
@@ -102,7 +102,7 @@ _id_6FFD()
         if ( !var_1 maps\mp\_utility::_id_7139() )
             var_16 = var_1.pers["summary"]["xp"];
         else
-            var_16 = var_1 _meth_84fe() - var_1.pers["summary"]["matchStartXp"];
+            var_16 = var_1 _meth_84FE() - var_1.pers["summary"]["matchStartXp"];
 
         var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "totalXp", var_16 );
         var_1 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "scoreXp", var_1.pers["summary"]["score"] );
@@ -164,38 +164,38 @@ _id_7FE8()
 
     if ( var_0 <= 24 )
     {
-        setclientmatchdata( "players", self.clientmatchdataid, "score", self.pers["score"] );
+        setclientmatchdata( "players", self._id_1F10, "score", self.pers["score"] );
         var_1 = self.pers["kills"];
-        setclientmatchdata( "players", self.clientmatchdataid, "kills", var_1 );
+        setclientmatchdata( "players", self._id_1F10, "kills", var_1 );
 
         if ( level.gametype == "ctf" || level.gametype == "sr" || level.gametype == "gun" )
             var_2 = self.assists;
         else
             var_2 = self.pers["assists"];
 
-        setclientmatchdata( "players", self.clientmatchdataid, "assists", var_2 );
+        setclientmatchdata( "players", self._id_1F10, "assists", var_2 );
         var_3 = self.pers["deaths"];
-        setclientmatchdata( "players", self.clientmatchdataid, "deaths", var_3 );
+        setclientmatchdata( "players", self._id_1F10, "deaths", var_3 );
         var_4 = self.pers["headshots"];
-        setclientmatchdata( "players", self.clientmatchdataid, "headshots", var_4 );
+        setclientmatchdata( "players", self._id_1F10, "headshots", var_4 );
         var_5 = self.pers["team"];
-        setclientmatchdata( "players", self.clientmatchdataid, "team", var_5 );
+        setclientmatchdata( "players", self._id_1F10, "team", var_5 );
         var_6 = game[self.pers["team"]];
-        setclientmatchdata( "players", self.clientmatchdataid, "faction", var_6 );
+        setclientmatchdata( "players", self._id_1F10, "faction", var_6 );
         var_7 = self.pers["extrascore0"];
-        setclientmatchdata( "players", self.clientmatchdataid, "extrascore0", var_7 );
+        setclientmatchdata( "players", self._id_1F10, "extrascore0", var_7 );
         var_8 = self.pers["extrascore1"];
-        setclientmatchdata( "players", self.clientmatchdataid, "extrascore1", var_8 );
+        setclientmatchdata( "players", self._id_1F10, "extrascore1", var_8 );
         var_9 = 0;
 
         if ( isdefined( self.pers["division"] ) && isdefined( self.pers["division"]["index"] ) )
             var_9 = self.pers["division"]["index"];
 
-        setclientmatchdata( "players", self.clientmatchdataid, "division", var_9 );
+        setclientmatchdata( "players", self._id_1F10, "division", var_9 );
         var_10 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "callingCardIndex" );
-        setclientmatchdata( "players", self.clientmatchdataid, "callingCardIndex", var_10 );
+        setclientmatchdata( "players", self._id_1F10, "callingCardIndex", var_10 );
         var_11 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
-        setclientmatchdata( "players", self.clientmatchdataid, "emblemPatchIndex", var_11 );
+        setclientmatchdata( "players", self._id_1F10, "emblemPatchIndex", var_11 );
         var_0++;
         setclientmatchdata( "scoreboardPlayerCount", var_0 );
     }
@@ -205,7 +205,7 @@ _id_7FE8()
     }
 }
 
-_id_1886( var_0 )
+buildscoreboardtype( var_0 )
 {
     if ( var_0 == "multiteam" )
     {
@@ -213,9 +213,9 @@ _id_1886( var_0 )
 
         foreach ( var_3 in level.teamnamelist )
         {
-            foreach ( var_5 in level.placement[var_3] )
+            foreach ( var_5 in level._id_6861[var_3] )
             {
-                setclientmatchdata( "scoreboards", "multiteam", "scoreboard", var_1, var_5.clientmatchdataid );
+                setclientmatchdata( "scoreboards", "multiteam", "scoreboard", var_1, var_5._id_1F10 );
                 var_1++;
             }
         }
@@ -224,9 +224,9 @@ _id_1886( var_0 )
     {
         var_1 = 0;
 
-        foreach ( var_5 in level.placement["all"] )
+        foreach ( var_5 in level._id_6861["all"] )
         {
-            setclientmatchdata( "scoreboards", var_0, "scoreboard", var_1, var_5.clientmatchdataid );
+            setclientmatchdata( "scoreboards", var_0, "scoreboard", var_1, var_5._id_1F10 );
             var_1++;
         }
     }
@@ -235,15 +235,15 @@ _id_1886( var_0 )
         var_10 = maps\mp\_utility::getotherteam( var_0 );
         var_1 = 0;
 
-        foreach ( var_5 in level.placement[var_0] )
+        foreach ( var_5 in level._id_6861[var_0] )
         {
-            setclientmatchdata( "scoreboards", var_0, "scoreboard", var_1, var_5.clientmatchdataid );
+            setclientmatchdata( "scoreboards", var_0, "scoreboard", var_1, var_5._id_1F10 );
             var_1++;
         }
 
-        foreach ( var_5 in level.placement[var_10] )
+        foreach ( var_5 in level._id_6861[var_10] )
         {
-            setclientmatchdata( "scoreboards", var_0, "scoreboard", var_1, var_5.clientmatchdataid );
+            setclientmatchdata( "scoreboards", var_0, "scoreboard", var_1, var_5._id_1F10 );
             var_1++;
         }
     }

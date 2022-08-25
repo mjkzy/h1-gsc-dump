@@ -20,7 +20,7 @@
 */
 #using_animtree("generic_human");
 
-_id_087F( var_0, var_1 )
+advancedtraverse( var_0, var_1 )
 {
     self._id_28B4 = "crouch";
     animscripts\utility::_id_9AF5();
@@ -68,7 +68,7 @@ _id_925E( var_0 )
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        self _meth_81ca( self.origin + var_2 );
+        self _meth_81CA( self.origin + var_2 );
         wait 0.05;
     }
 }
@@ -92,7 +92,7 @@ _id_925F( var_0, var_1, var_2, var_3 )
 
     for ( var_5 = 0; var_5 < var_2; var_5++ )
     {
-        self _meth_81ca( self.origin + var_4 );
+        self _meth_81CA( self.origin + var_4 );
         wait 0.05;
     }
 
@@ -128,7 +128,7 @@ _id_2D86( var_0 )
 
     if ( isdefined( var_4 ) && isdefined( self.node ) && self.node.type == var_0["coverType"] && distancesquared( self.node.origin, var_2.origin ) < 625 )
     {
-        if ( animscripts\utility::_id_06C4( self.node.angles[1] - var_2.angles[1] ) > 160 )
+        if ( animscripts\utility::absangleclamp180( self.node.angles[1] - var_2.angles[1] ) > 160 )
         {
             var_5 = 1;
             var_3 = var_4;
@@ -172,7 +172,7 @@ _id_2D86( var_0 )
     if ( var_5 && isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 256 )
     {
         self.a._id_5F5B = "stop";
-        self _meth_81c9( self.node.origin );
+        self _meth_81C9( self.node.origin );
     }
     else if ( isdefined( var_0["traverseStopsAtEnd"] ) )
         self.a._id_5F5B = "stop";

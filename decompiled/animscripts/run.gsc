@@ -101,7 +101,7 @@ _id_40BD()
         return var_0;
     }
 
-    if ( animscripts\utility::_id_5124() || isdefined( self._id_6165 ) && self._id_6165 || isdefined( self.a._id_135B ) && self.a._id_135B )
+    if ( animscripts\utility::_id_5124() || isdefined( self._id_6165 ) && self._id_6165 || isdefined( self.a.bdisablemovetwitch ) && self.a.bdisablemovetwitch )
     {
         var_0 = animscripts\utility::_id_402D( "straight" );
         return var_0;
@@ -228,10 +228,10 @@ _id_76D6( var_0 )
     _id_4E05();
     runngun_animate( var_4, var_2 );
     _id_76B3( undefined );
-    self.a._id_0AA5 = gettime() + 500;
+    self.a.allowedpartialreloadontheruntime = gettime() + 500;
 
     if ( var_0 && isplayer( self.enemy ) )
-        self _meth_81ed();
+        self _meth_81ED();
 
     return 1;
 }
@@ -272,17 +272,17 @@ runngun_animate( var_0, var_1 )
             var_9 = ( var_3 - var_0 ) / var_0;
             var_9 = clamp( var_9, 0, 1 );
             self _meth_8144( var_4["F"], 0.2 );
-            self _meth_814e( var_4["L"], ( 1.0 - var_9 ) * var_1, 0.2 );
-            self _meth_814e( var_4["R"], ( 1.0 - var_9 ) * var_2, 0.2 );
-            self _meth_814e( var_4["LB"], var_9 * var_1, 0.2 );
-            self _meth_814e( var_4["RB"], var_9 * var_2, 0.2 );
+            self _meth_814E( var_4["L"], ( 1.0 - var_9 ) * var_1, 0.2 );
+            self _meth_814E( var_4["R"], ( 1.0 - var_9 ) * var_2, 0.2 );
+            self _meth_814E( var_4["LB"], var_9 * var_1, 0.2 );
+            self _meth_814E( var_4["RB"], var_9 * var_2, 0.2 );
         }
         else
         {
             var_9 = clamp( var_3 / var_0, 0, 1 );
-            self _meth_814e( var_4["F"], 1.0 - var_9, 0.2 );
-            self _meth_814e( var_4["L"], var_9 * var_1, 0.2 );
-            self _meth_814e( var_4["R"], var_9 * var_2, 0.2 );
+            self _meth_814E( var_4["F"], 1.0 - var_9, 0.2 );
+            self _meth_814E( var_4["L"], var_9 * var_1, 0.2 );
+            self _meth_814E( var_4["R"], var_9 * var_2, 0.2 );
 
             if ( var_0 < 1 )
             {
@@ -310,7 +310,7 @@ _id_76D7()
     _id_76B3( var_0 );
 
     if ( isplayer( self.enemy ) )
-        self _meth_81ed();
+        self _meth_81ED();
 
     animscripts\notetracks::_id_2D0B( 0.2, "runanim" );
     self _meth_8144( var_0, 0.2 );
@@ -427,7 +427,7 @@ _id_84B2()
     if ( !isdefined( self.enemy ) || !issentient( self.enemy ) )
         return 0;
 
-    if ( randomint( 100 ) < 25 && self _meth_81c4( self.enemy ) + 2000 > var_0 )
+    if ( randomint( 100 ) < 25 && self _meth_81C4( self.enemy ) + 2000 > var_0 )
     {
         self._id_25F1 = var_0 + 2000 + randomint( 1000 );
         return 1;
@@ -607,10 +607,10 @@ _id_40E5( var_0, var_1, var_2 )
 
 _id_35B6()
 {
-    if ( isdefined( self._id_0972 ) )
+    if ( isdefined( self.aim_while_moving_thread ) )
         return;
 
-    self._id_0972 = 1;
+    self.aim_while_moving_thread = 1;
     self endon( "killanimscript" );
     self endon( "end_face_enemy_tracking" );
     self _meth_8177();
@@ -618,10 +618,10 @@ _id_35B6()
 
     if ( isdefined( self._id_20B3 ) && isdefined( self._id_20B3["walk_aims"] ) )
     {
-        self _meth_814e( self._id_20B3["walk_aims"]["walk_aim_2"] );
-        self _meth_814e( self._id_20B3["walk_aims"]["walk_aim_4"] );
-        self _meth_814e( self._id_20B3["walk_aims"]["walk_aim_6"] );
-        self _meth_814e( self._id_20B3["walk_aims"]["walk_aim_8"] );
+        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_2"] );
+        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_4"] );
+        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_6"] );
+        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_8"] );
     }
     else
     {
@@ -631,14 +631,14 @@ _id_35B6()
             var_1 = "cqb";
 
         var_2 = animscripts\utility::_id_5864( var_1 );
-        self _meth_814e( var_2["aim_2"] );
-        self _meth_814e( var_2["aim_4"] );
-        self _meth_814e( var_2["aim_6"] );
-        self _meth_814e( var_2["aim_8"] );
+        self _meth_814E( var_2["aim_2"] );
+        self _meth_814E( var_2["aim_4"] );
+        self _meth_814E( var_2["aim_6"] );
+        self _meth_814E( var_2["aim_8"] );
 
         if ( isdefined( var_2["aim_5"] ) )
         {
-            self _meth_814e( var_2["aim_5"] );
+            self _meth_814E( var_2["aim_5"] );
             var_0 = %w_aim_5;
         }
     }
@@ -648,17 +648,17 @@ _id_35B6()
 
 _id_315D()
 {
-    self._id_0972 = undefined;
+    self.aim_while_moving_thread = undefined;
     self notify( "end_face_enemy_tracking" );
 }
 
 _id_800D( var_0 )
 {
-    var_1 = isdefined( self._id_182C );
+    var_1 = isdefined( self.bshootwhilemoving );
 
     if ( var_0 )
     {
-        self._id_182C = var_0;
+        self.bshootwhilemoving = var_0;
 
         if ( !var_1 )
         {
@@ -668,14 +668,14 @@ _id_800D( var_0 )
     }
     else
     {
-        self._id_182C = undefined;
+        self.bshootwhilemoving = undefined;
 
         if ( var_1 )
         {
             self notify( "end_shoot_while_moving" );
             self notify( "end_face_enemy_tracking" );
             self._id_83E7 = undefined;
-            self._id_0972 = undefined;
+            self.aim_while_moving_thread = undefined;
             self._id_76D6 = undefined;
         }
     }
@@ -695,20 +695,20 @@ _id_76E9()
     animscripts\move::_id_841B();
 }
 
-_id_0977()
+aimedsomewhatatenemy()
 {
     if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
         var_0 = animscripts\combat_utility::_id_3DB2( self.enemy );
     else
         var_0 = self.enemy getshootatpos();
 
-    var_1 = self _meth_81bd();
-    var_2 = vectortoangles( var_0 - self _meth_81bc() );
+    var_1 = self _meth_81BD();
+    var_2 = vectortoangles( var_0 - self _meth_81BC() );
 
-    if ( animscripts\utility::_id_06C4( var_1[1] - var_2[1] ) > 15 )
+    if ( animscripts\utility::absangleclamp180( var_1[1] - var_2[1] ) > 15 )
         return 0;
 
-    return animscripts\utility::_id_06C4( var_1[0] - var_2[0] ) <= 20;
+    return animscripts\utility::absangleclamp180( var_1[0] - var_2[0] ) <= 20;
 }
 
 _id_1AE9()
@@ -904,7 +904,7 @@ _id_2486()
 
 _id_8B11()
 {
-    var_0 = isdefined( self.a._id_0AA5 ) && self.a._id_0AA5 > gettime();
+    var_0 = isdefined( self.a.allowedpartialreloadontheruntime ) && self.a.allowedpartialreloadontheruntime > gettime();
     var_0 = var_0 || isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < 65536;
 
     if ( var_0 )
@@ -1045,10 +1045,10 @@ _id_9B5D( var_0, var_1, var_2, var_3 )
             if ( isdefined( self._id_8F1E ) )
                 var_4 = self._id_8F1E;
 
-            self _meth_814d( var_0, 1, var_4, 1, 1 );
-            self _meth_814d( var_1, 0, var_4, 1, 1 );
-            self _meth_814d( var_2, 0, var_4, 1, 1 );
-            self _meth_814d( var_3, 0, var_4, 1, 1 );
+            self _meth_814D( var_0, 1, var_4, 1, 1 );
+            self _meth_814D( var_1, 0, var_4, 1, 1 );
+            self _meth_814D( var_2, 0, var_4, 1, 1 );
+            self _meth_814D( var_3, 0, var_4, 1, 1 );
         }
     }
     else
@@ -1074,10 +1074,10 @@ _id_9B5D( var_0, var_1, var_2, var_3 )
         if ( var_6 < 0.001 )
             var_6 = 0.001;
 
-        self _meth_814d( var_0, var_6, var_4, 1, 1 );
-        self _meth_814d( var_1, var_5["back"], var_4, 1, 1 );
-        self _meth_814d( var_2, var_5["left"], var_4, 1, 1 );
-        self _meth_814d( var_3, var_5["right"], var_4, 1, 1 );
+        self _meth_814D( var_0, var_6, var_4, 1, 1 );
+        self _meth_814D( var_1, var_5["back"], var_4, 1, 1 );
+        self _meth_814D( var_2, var_5["left"], var_4, 1, 1 );
+        self _meth_814D( var_3, var_5["right"], var_4, 1, 1 );
     }
 }
 
@@ -1172,7 +1172,7 @@ _id_8444( var_0 )
     common_scripts\utility::_id_A069( "killanimscript", "movemode", "switchEnded", "complete_weapon_switch" );
     self._id_560F = self.weapon;
     animscripts\shared::_id_6869( var_0, "right" );
-    self._id_18B0 = weaponclipsize( self.weapon );
+    self.bulletsinclip = weaponclipsize( self.weapon );
 }
 
 _id_76B3( var_0 )

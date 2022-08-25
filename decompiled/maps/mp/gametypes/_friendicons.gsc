@@ -21,7 +21,7 @@
 
 init()
 {
-    level.drawfriend = 0;
+    level._id_2DD7 = 0;
     game["headicon_allies"] = maps\mp\gametypes\_teams::_id_4116( "allies" );
     game["headicon_axis"] = maps\mp\gametypes\_teams::_id_4116( "axis" );
     level thread _id_64C8();
@@ -67,7 +67,7 @@ _id_64D3()
 
 _id_850D()
 {
-    if ( level.drawfriend )
+    if ( level._id_2DD7 )
     {
         if ( self.pers["team"] == "allies" )
         {
@@ -84,11 +84,11 @@ _id_850D()
 
 _id_9B1D()
 {
-    var_0 = maps\mp\_utility::_id_3FDB( "scr_drawfriend", level.drawfriend );
+    var_0 = maps\mp\_utility::_id_3FDB( "scr_drawfriend", level._id_2DD7 );
 
-    if ( level.drawfriend != var_0 )
+    if ( level._id_2DD7 != var_0 )
     {
-        level.drawfriend = var_0;
+        level._id_2DD7 = var_0;
         _id_9B1C();
     }
 }
@@ -103,7 +103,7 @@ _id_9B1C()
 
         if ( isdefined( var_2.pers["team"] ) && var_2.pers["team"] != "spectator" && var_2.sessionstate == "playing" )
         {
-            if ( level.drawfriend )
+            if ( level._id_2DD7 )
             {
                 if ( var_2.pers["team"] == "allies" )
                 {

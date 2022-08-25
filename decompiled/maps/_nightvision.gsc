@@ -95,12 +95,12 @@ _id_60E2( var_0 )
 
 _id_60E8()
 {
-    level.player _meth_848d( "disabled", 0 );
+    level.player _meth_848D( "disabled", 0 );
     self._id_60EA = 1;
     maps\_utility::_id_32DE( "nightvision_on" );
     self._id_60E6 = 1;
     thread h1_view_weapon_laser_update();
-    level.player _meth_83bf( level.nightvisionlightset, 0 );
+    level.player _meth_83BF( level.nightvisionlightset, 0 );
 
     if ( maps\_utility::_id_32D8( "nightvision_dlight_enabled" ) )
     {
@@ -109,10 +109,10 @@ _id_60E8()
     }
 
     var_0 = getaiarray( "allies" );
-    common_scripts\utility::_id_0D13( var_0, ::_id_30CD );
+    common_scripts\utility::array_thread( var_0, ::_id_30CD );
 
     if ( !maps\_utility::_id_3416( "allies", ::_id_30CD ) )
-        maps\_utility::_id_0761( "allies", ::_id_30CD );
+        maps\_utility::add_global_spawn_function( "allies", ::_id_30CD );
 }
 
 has_laser_sight_nightvision( var_0 )
@@ -163,10 +163,10 @@ _id_588E()
 
     for (;;)
     {
-        if ( self _meth_843e( "tag_reflector_arm_le" ) != -1 )
+        if ( self _meth_843E( "tag_reflector_arm_le" ) != -1 )
             playfxontag( level._id_60E9, self, "tag_reflector_arm_le" );
 
-        if ( self _meth_843e( "tag_reflector_arm_ri" ) != -1 )
+        if ( self _meth_843E( "tag_reflector_arm_ri" ) != -1 )
             playfxontag( level._id_60E9, self, "tag_reflector_arm_ri" );
 
         wait 0.1;
@@ -194,8 +194,8 @@ _id_60E7()
     self notify( "nightvision_shellshock_off" );
     maps\_utility::_id_32DA( "nightvision_on" );
     self._id_60E6 = undefined;
-    level.player _meth_83c0();
-    level.player _meth_848e( 0 );
+    level.player _meth_83C0();
+    level.player _meth_848E( 0 );
     var_0 = 0;
 
     for ( var_1 = 0; var_1 < level.players.size; var_1++ )

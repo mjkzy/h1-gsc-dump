@@ -31,8 +31,8 @@ _id_4D0D()
 _id_4D0E()
 {
     waitframe;
-    common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "gag_stage_littlebird_unload", "script_noteworthy" ), ::_id_8121 );
-    common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "gag_stage_littlebird_load", "script_noteworthy" ), ::_id_8120 );
+    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "gag_stage_littlebird_unload", "script_noteworthy" ), ::_id_8121 );
+    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "gag_stage_littlebird_load", "script_noteworthy" ), ::_id_8120 );
 }
 
 _id_57B1()
@@ -51,10 +51,10 @@ _id_8AE9( var_0, var_1, var_2, var_3 )
     var_4 = "stage_littlebird_" + var_1;
     var_5 = [];
     var_5[0] = var_0;
-    var_3 maps\_anim::_id_0BD0( var_5[0], var_4, "tag_detach_" + var_1 );
-    var_3 maps\_anim::_id_0BC9( var_5[0], var_4, "tag_detach_" + var_1 );
+    var_3 maps\_anim::anim_generic_reach( var_5[0], var_4, "tag_detach_" + var_1 );
+    var_3 maps\_anim::anim_generic( var_5[0], var_4, "tag_detach_" + var_1 );
     maps\_utility::_id_32DE( "staged_guy_" + var_1 );
-    var_0 _meth_81aa( common_scripts\utility::_id_2F69( var_0.origin ) );
+    var_0 _meth_81AA( common_scripts\utility::_id_2F69( var_0.origin ) );
     var_0.goalradius = 16;
     maps\_utility::_id_32E0( "guy2_in_" + var_1 );
     thread maps\_vehicle_aianim::_id_57BF( [ var_0 ], undefined, var_1 );
@@ -112,7 +112,7 @@ _id_57B2( var_0 )
     badplace_delete( var_1 );
     badplace_cylinder( var_1, 30, self.origin, 200, 300, "axis", "allies", "neutral", "team3" );
     var_0 notify( "groupedanimevent", "pre_unload" );
-    var_0 thread maps\_vehicle_aianim::_id_0C57( "pre_unload" );
+    var_0 thread maps\_vehicle_aianim::animate_guys( "pre_unload" );
     var_0 vehicle_setspeed( 20, 22, 7 );
     var_0 notify( "nearing_landing" );
 
@@ -211,7 +211,7 @@ _id_7EBF( var_0, var_1, var_2 )
             var_11 maps\_spawner::_id_4244( var_10 );
         }
 
-        var_1 = common_scripts\utility::_id_0CF6( var_1, var_11 );
+        var_1 = common_scripts\utility::array_remove( var_1, var_11 );
     }
 
     thread _id_8AE9( var_8, var_2, var_7, var_5 );
@@ -293,6 +293,6 @@ _id_9CF6( var_0, var_1, var_2 )
     self sethoverparams( 0, 0, 0 );
     self cleargoalyaw();
     self settargetyaw( common_scripts\utility::_id_38C8( var_1.angles )[1] );
-    maps\_vehicle_code::_id_0646( maps\_utility::_id_4417( var_1.origin ) + ( 0, 0, var_2 ), 1 );
+    maps\_vehicle_code::_setvehgoalpos_wrap( maps\_utility::_id_4417( var_1.origin ) + ( 0, 0, var_2 ), 1 );
     self waittill( "goal" );
 }

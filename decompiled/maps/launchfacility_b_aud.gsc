@@ -106,37 +106,37 @@ _id_5FFD( var_0, var_1 )
 
 start_default_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "silo" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "silo" );
 }
 
 start_warehouse_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 start_launchtubes_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 start_vaultdoors_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 start_controlroom_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 start_escape_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "computer_room" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "computer_room" );
 }
 
 start_elevator_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "medium_room" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "medium_room" );
 }
 
 hallway_fighting_mix()

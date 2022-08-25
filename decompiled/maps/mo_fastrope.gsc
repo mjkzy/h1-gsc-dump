@@ -29,7 +29,7 @@ main()
     level.fastrope_globals.basename = "fastrope_vehicle";
     var_0 = getspawnerarray();
     fastrope_precache();
-    common_scripts\utility::_id_0D13( var_0, ::fastrope_setup );
+    common_scripts\utility::array_thread( var_0, ::fastrope_setup );
 }
 
 fastrope_override( var_0, var_1, var_2, var_3 )
@@ -38,14 +38,14 @@ fastrope_override( var_0, var_1, var_2, var_3 )
     level._id_78AC[var_4]["custom_all" + self.targetname] = var_1;
     level._id_78AC[var_4]["custom_ride" + self.targetname] = var_2;
     level._id_78AC[var_4]["custom_unload" + self.targetname] = var_3;
-    maps\_anim::_id_0807( var_4, "start", ::play_fastrope_start_sfx, "custom_unload" + self.targetname );
-    maps\_anim::_id_0807( var_4, "fastrope_end_sfx", ::play_fastrope_end_sfx, "custom_unload" + self.targetname );
-    maps\_anim::_id_0807( var_4, "custom_land", ::play_fastrope_land_sfx, "custom_unload" + self.targetname );
+    maps\_anim::addnotetrack_customfunction( var_4, "start", ::play_fastrope_start_sfx, "custom_unload" + self.targetname );
+    maps\_anim::addnotetrack_customfunction( var_4, "fastrope_end_sfx", ::play_fastrope_end_sfx, "custom_unload" + self.targetname );
+    maps\_anim::addnotetrack_customfunction( var_4, "custom_land", ::play_fastrope_land_sfx, "custom_unload" + self.targetname );
 }
 
 fastrope_override_vehicle( var_0, var_1 )
 {
-    level._id_78AC[self._id_0C72]["pathanim"] = var_0;
+    level._id_78AC[self.animname]["pathanim"] = var_0;
     self.pathnode = var_1;
 }
 
@@ -116,13 +116,13 @@ fastrope_ai_think( var_0 )
     var_1 = spawn( "script_origin", self.origin );
     var_1.angles = self.angles;
     self linkto( var_1 );
-    var_1._id_08B4 = self;
-    var_1._id_08B4 hide();
+    var_1.ai = self;
+    var_1.ai hide();
     var_0 fastrope_wait_que( var_1 );
 
     if ( isdefined( var_0.nounload ) && var_0.nounload == 1 )
     {
-        if ( var_1._id_08B4.seat_pos < 9 )
+        if ( var_1.ai.seat_pos < 9 )
         {
             var_0 fastrope_post_unload( var_1 );
             var_0._id_47A3 waittill( "unload_rest" );
@@ -132,11 +132,11 @@ fastrope_ai_think( var_0 )
         {
             var_0 fastrope_post_unload( var_1 );
 
-            if ( var_1._id_08B4.seat_pos == 10 )
+            if ( var_1.ai.seat_pos == 10 )
             {
                 common_scripts\utility::_id_384A( "heli_shoot_deck_windows" );
-                self.spawner._id_47A3.model notify( "stop_" + var_1._id_08B4.seat_index );
-                self.spawner._id_47A3.model thread maps\_anim::_id_0BE1( self, "minigun", "tag_detach" );
+                self.spawner._id_47A3.model notify( "stop_" + var_1.ai.seat_index );
+                self.spawner._id_47A3.model thread maps\_anim::anim_loop_solo( self, "minigun", "tag_detach" );
             }
 
             var_0._id_47A3._id_9C7E waittill( "reached_end_node" );
@@ -146,12 +146,12 @@ fastrope_ai_think( var_0 )
         }
     }
 
-    var_0._id_47A3 notify( "unload_" + var_1._id_08B4.side );
+    var_0._id_47A3 notify( "unload_" + var_1.ai.side );
     var_0 fastrope_pre_unload( var_1 );
     var_2 = "custom_unload" + var_0._id_47A3.targetname;
     var_3 = "custom_all" + var_0._id_47A3.targetname;
 
-    if ( isdefined( level._id_78AC[var_1._id_08B4._id_0C72][var_3] ) )
+    if ( isdefined( level._id_78AC[var_1.ai.animname][var_3] ) )
     {
         self waittillmatch( "single anim", "start" );
         thread maps\_utility::_id_69C4( "fastrope_start_npc" );
@@ -163,10 +163,10 @@ fastrope_ai_think( var_0 )
         thread maps\_utility::_id_69C4( "fastrope_end_npc" );
         self unlink();
     }
-    else if ( isdefined( level._id_78AC[var_1._id_08B4._id_0C72][var_2] ) )
+    else if ( isdefined( level._id_78AC[var_1.ai.animname][var_2] ) )
     {
-        thread fastrope_ai_think_hack( getanimlength( level._id_78AC[var_1._id_08B4._id_0C72][var_2] ) );
-        var_0._id_47A3.model thread maps\_anim::_id_0C24( self, var_2, "tag_detach" );
+        thread fastrope_ai_think_hack( getanimlength( level._id_78AC[var_1.ai.animname][var_2] ) );
+        var_0._id_47A3.model thread maps\_anim::anim_single_solo( self, var_2, "tag_detach" );
         self waittillmatch( "single anim", "start" );
         fastrope_calc( var_1 );
         var_0 thread fastrope_post_unload( var_1 );
@@ -175,10 +175,10 @@ fastrope_ai_think( var_0 )
     }
     else
     {
-        var_4 = 45 * var_1._id_08B4.index + 90;
-        var_5 = 360 * var_1._id_08B4.spin;
+        var_4 = 45 * var_1.ai.index + 90;
+        var_5 = 360 * var_1.ai.spin;
 
-        if ( var_1._id_08B4.side == "right" )
+        if ( var_1.ai.side == "right" )
             var_4 += 180;
 
         self unlink();
@@ -186,7 +186,7 @@ fastrope_ai_think( var_0 )
         var_1.angles = self.angles;
         var_1 linkto( self );
         var_0._id_47A3 thread fastrope_ropethink( self );
-        var_0._id_47A3.model thread maps\_anim::_id_0C24( self, "grab", "tag_detach" );
+        var_0._id_47A3.model thread maps\_anim::anim_single_solo( self, "grab", "tag_detach" );
         wait 2.5;
         fastrope_calc( var_1 );
         self waittillmatch( "single anim", "end" );
@@ -194,7 +194,7 @@ fastrope_ai_think( var_0 )
         self linkto( var_1 );
         fastrope_calc( var_1 );
         var_0 thread fastrope_post_unload( var_1 );
-        var_1 thread maps\_anim::_id_0BE1( self, "loop", undefined, "stopanimscripted" );
+        var_1 thread maps\_anim::anim_loop_solo( self, "loop", undefined, "stopanimscripted" );
         thread maps\_utility::_id_69C4( "fastrope_start_npc" );
         var_1 thread common_scripts\utility::_id_6975( "fastrope_loop_npc" );
         var_1 movez( var_1._id_7131 * -1, var_1.time );
@@ -203,7 +203,7 @@ fastrope_ai_think( var_0 )
         wait(var_1.time);
         var_1 notify( "stopanimscripted" );
         var_1.angles = self.angles;
-        var_1 maps\_anim::_id_0C24( self, "land" );
+        var_1 maps\_anim::anim_single_solo( self, "land" );
         var_1 notify( "stop soundfastrope_loop_npc" );
         thread maps\_utility::_id_69C4( "fastrope_end_npc" );
         self unlink();
@@ -211,21 +211,21 @@ fastrope_ai_think( var_0 )
 
     var_1 delete();
     wait 3;
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
 }
 
 fastrope_wait_que( var_0 )
 {
-    var_0._id_08B4 endon( "death" );
+    var_0.ai endon( "death" );
     fastrope_waiton_helicopter( var_0 );
 
-    if ( isdefined( level._id_78AC[var_0._id_08B4._id_0C72]["custom_unload" + self._id_47A3.targetname] ) )
+    if ( isdefined( level._id_78AC[var_0.ai.animname]["custom_unload" + self._id_47A3.targetname] ) )
         return;
 
-    if ( isdefined( level._id_78AC[var_0._id_08B4._id_0C72]["custom_all" + self._id_47A3.targetname] ) )
+    if ( isdefined( level._id_78AC[var_0.ai.animname]["custom_all" + self._id_47A3.targetname] ) )
         return;
 
-    if ( var_0._id_08B4.side == "left" )
+    if ( var_0.ai.side == "left" )
         wait 0.5;
 }
 #using_animtree("generic_human");
@@ -267,23 +267,23 @@ fastrope_ropethink( var_0 )
     var_5 = spawn( "script_model", self.model gettagorigin( var_4 ) );
     var_5.angles = self.model gettagangles( var_4 );
     var_5 setmodel( level._id_5D45["heli"]["rope"][var_1] );
-    var_5._id_0C72 = self._id_0C72;
+    var_5.animname = self.animname;
     var_5 useanimtree( #animtree );
     var_5 linkto( self.model, var_4 );
 
     if ( isdefined( level._id_78AC[self.targetname][var_3] ) )
     {
         var_6 = getanimlength( level._id_78AC[self.targetname][var_3] );
-        self.model thread maps\_anim::_id_0C24( var_5, var_3, var_4 );
+        self.model thread maps\_anim::anim_single_solo( var_5, var_3, var_4 );
         wait(var_6 - 1.5);
     }
     else
     {
-        self.model thread maps\_anim::_id_0BE1( var_5, var_2, var_4, "stop_" + var_2 );
+        self.model thread maps\_anim::anim_loop_solo( var_5, var_2, var_4, "stop_" + var_2 );
         self waittill( "unload_" + var_1 );
         self.model notify( "stop_" + var_2 );
         var_2 = "ropedrop" + var_1;
-        self.model thread maps\_anim::_id_0C24( var_5, var_2, var_4 );
+        self.model thread maps\_anim::anim_single_solo( var_5, var_2, var_4 );
 
         while ( self.que.size )
             self waittill( "check_fastrope_que" );
@@ -305,7 +305,7 @@ fastrope_post_unload( var_0 )
 {
     self._id_47A3._id_5605 = var_0.time;
     wait 0.1;
-    self._id_47A3.que = common_scripts\utility::_id_0CF6( self._id_47A3.que, self );
+    self._id_47A3.que = common_scripts\utility::array_remove( self._id_47A3.que, self );
     self._id_47A3 thread fastrope_que_check();
 }
 
@@ -317,7 +317,7 @@ fastrope_que_check()
 
 fastrope_waiton_helicopter( var_0 )
 {
-    var_0._id_08B4 endon( "death" );
+    var_0.ai endon( "death" );
     thread fastrope_attach_helicopter( var_0 );
 
     if ( !self._id_47A3.inflight )
@@ -331,17 +331,17 @@ fastrope_waiton_helicopter( var_0 )
 
 fastrope_attach_helicopter( var_0 )
 {
-    var_0._id_08B4 endon( "death" );
-    var_0._id_08B4 endon( "overtakenow" );
+    var_0.ai endon( "death" );
+    var_0.ai endon( "overtakenow" );
 
     for (;;)
     {
         if ( !self._id_47A3.inflight )
             self._id_47A3 waittill( "inflight" );
 
-        fastrope_find_seat( var_0._id_08B4 );
+        fastrope_find_seat( var_0.ai );
 
-        if ( !isdefined( var_0._id_08B4.seat_index ) )
+        if ( !isdefined( var_0.ai.seat_index ) )
         {
             self._id_47A3 waittill( "seat_open" );
             continue;
@@ -351,57 +351,57 @@ fastrope_attach_helicopter( var_0 )
     }
 
     self._id_47A3.model endon( "death" );
-    var_1 = var_0._id_08B4.seat_index;
-    var_0._id_08B4._id_0C72 = self._id_47A3.seats[var_1]._id_0C72;
-    var_0._id_08B4.index = self._id_47A3.seats[var_1].index;
-    var_0._id_08B4.side = self._id_47A3.seats[var_1].side;
-    var_0._id_08B4.spin = self._id_47A3.seats[var_1].spin;
+    var_1 = var_0.ai.seat_index;
+    var_0.ai.animname = self._id_47A3.seats[var_1].animname;
+    var_0.ai.index = self._id_47A3.seats[var_1].index;
+    var_0.ai.side = self._id_47A3.seats[var_1].side;
+    var_0.ai.spin = self._id_47A3.seats[var_1].spin;
     self._id_47A3.que[self._id_47A3.que.size] = self;
     var_0 moveto( self._id_47A3.model gettagorigin( "tag_detach" ), 0.05 );
     wait 0.1;
     var_0.angles = self._id_47A3.model gettagangles( "tag_detach" );
     var_0 linkto( self._id_47A3.model, "tag_detach" );
-    var_0._id_08B4 show();
-    var_0._id_08B4 linkto( self._id_47A3.model, "tag_detach" );
-    self._id_47A3 thread fastrope_ropethink( var_0._id_08B4 );
+    var_0.ai show();
+    var_0.ai linkto( self._id_47A3.model, "tag_detach" );
+    self._id_47A3 thread fastrope_ropethink( var_0.ai );
     self._id_47A3.model endon( "stop_" + var_1 );
 
-    if ( isdefined( level._id_78AC[var_0._id_08B4._id_0C72]["custom_all" + self._id_47A3.targetname] ) )
+    if ( isdefined( level._id_78AC[var_0.ai.animname]["custom_all" + self._id_47A3.targetname] ) )
     {
-        var_0._id_08B4 linkto( self._id_47A3.model, "tag_detach" );
-        var_0._id_08B4 _meth_81a7( 1 );
-        var_0 linkto( var_0._id_08B4 );
-        self._id_47A3.model thread maps\_anim::_id_0C24( var_0._id_08B4, "custom_all" + self._id_47A3.targetname, "tag_detach" );
+        var_0.ai linkto( self._id_47A3.model, "tag_detach" );
+        var_0.ai _meth_81A7( 1 );
+        var_0 linkto( var_0.ai );
+        self._id_47A3.model thread maps\_anim::anim_single_solo( var_0.ai, "custom_all" + self._id_47A3.targetname, "tag_detach" );
         var_0 notify( "custom_all" );
-        var_0._id_08B4 thread fastrope_ai_think_hack( getanimlength( level._id_78AC[var_0._id_08B4._id_0C72]["custom_all" + self._id_47A3.targetname] ), 0.25 );
+        var_0.ai thread fastrope_ai_think_hack( getanimlength( level._id_78AC[var_0.ai.animname]["custom_all" + self._id_47A3.targetname] ), 0.25 );
         return;
     }
 
-    if ( isdefined( level._id_78AC[var_0._id_08B4._id_0C72]["custom_ride" + self._id_47A3.targetname] ) )
+    if ( isdefined( level._id_78AC[var_0.ai.animname]["custom_ride" + self._id_47A3.targetname] ) )
     {
-        var_0._id_08B4 linkto( self._id_47A3.model, "tag_detach" );
-        var_0._id_08B4 _meth_81a7( 1 );
-        var_0 linkto( var_0._id_08B4 );
-        self._id_47A3.model maps\_anim::_id_0C24( var_0._id_08B4, "custom_ride" + self._id_47A3.targetname, "tag_detach" );
+        var_0.ai linkto( self._id_47A3.model, "tag_detach" );
+        var_0.ai _meth_81A7( 1 );
+        var_0 linkto( var_0.ai );
+        self._id_47A3.model maps\_anim::anim_single_solo( var_0.ai, "custom_ride" + self._id_47A3.targetname, "tag_detach" );
 
         if ( self._id_47A3._id_71D4 )
             return;
     }
 
-    self._id_47A3.model thread maps\_anim::_id_0BE1( var_0._id_08B4, "idle", "tag_detach", "stop_" + var_1 );
+    self._id_47A3.model thread maps\_anim::anim_loop_solo( var_0.ai, "idle", "tag_detach", "stop_" + var_1 );
 }
 
 fastrope_free_seat( var_0 )
 {
-    if ( !isdefined( level._id_78AC[var_0._id_08B4._id_0C72]["custom_all" + self._id_47A3.targetname] ) )
+    if ( !isdefined( level._id_78AC[var_0.ai.animname]["custom_all" + self._id_47A3.targetname] ) )
     {
-        self._id_47A3.model notify( "stop_" + var_0._id_08B4.seat_index );
-        var_0._id_08B4 _meth_8143();
-        var_0.origin = var_0._id_08B4.origin;
-        var_0.angles = var_0._id_08B4.angles;
+        self._id_47A3.model notify( "stop_" + var_0.ai.seat_index );
+        var_0.ai _meth_8143();
+        var_0.origin = var_0.ai.origin;
+        var_0.angles = var_0.ai.angles;
     }
 
-    self._id_47A3.seats[var_0._id_08B4.seat_index].taken = undefined;
+    self._id_47A3.seats[var_0.ai.seat_index].taken = undefined;
     self._id_47A3 notify( "seat_open" );
 }
 
@@ -462,7 +462,7 @@ fastrope_player_think()
         }
     }
 
-    self.que = common_scripts\utility::_id_0CED( self.que, level.player, var_1 );
+    self.que = common_scripts\utility::array_insert( self.que, level.player, var_1 );
     wait 2;
     level.player setplayerangles( ( 15.0, 70.0, 0.0 ) );
     self._id_9C7E waittill( "reached_wait_node" );
@@ -525,14 +525,14 @@ fastrope_player_unload_nolock()
     var_2 = 1;
     var_3 = anglestoforward( ( 0.0, 233.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_3, 30 );
-    self.que = common_scripts\utility::_id_0CF6( self.que, level.player );
+    self.que = common_scripts\utility::array_remove( self.que, level.player );
     thread fastrope_que_check();
     fastrope_calc( level.player );
     level.player.time += 1;
     self._id_5605 = level.player.time;
     var_4 = ( level.player._id_7131 + 100 ) * -1;
     var_1 moveto( ( 3220.0, 255.0, 435.0 ), level.player.time );
-    var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
+    var_1 thread maps\_anim::anim_loop_solo( var_0, "loop", undefined, "stopanimscripted" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     wait(level.player.time);
@@ -569,14 +569,14 @@ fastrope_player_unload_nolock2()
     var_2 = 1;
     var_3 = anglestoforward( ( 0.0, 233.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_3, 30 );
-    self.que = common_scripts\utility::_id_0CF6( self.que, level.player );
+    self.que = common_scripts\utility::array_remove( self.que, level.player );
     thread fastrope_que_check();
     fastrope_calc( level.player );
     level.player.time += 1;
     self._id_5605 = level.player.time;
     var_4 = ( level.player._id_7131 + 100 ) * -1;
     var_1 moveto( ( 3220.0, 300.0, 400.0 ), level.player.time );
-    var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
+    var_1 thread maps\_anim::anim_loop_solo( var_0, "loop", undefined, "stopanimscripted" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     var_5 = 0.5;
@@ -659,7 +659,7 @@ fastrope_player_unload_lock()
     var_2 = 1;
     var_3 = anglestoforward( ( 0.0, 233.0, 0.0 ) );
     var_3 = maps\_utility::vector_multiply( var_3, -50 );
-    self.que = common_scripts\utility::_id_0CF6( self.que, level.player );
+    self.que = common_scripts\utility::array_remove( self.que, level.player );
     thread fastrope_que_check();
     fastrope_calc( level.player );
     level.player.time += 0.5;
@@ -670,7 +670,7 @@ fastrope_player_unload_lock()
     var_7 = var_1.origin + var_3 + ( 0, 0, var_6 );
     var_1 rotateto( ( 80.0, 233.0, 0.0 ), var_2, var_2 * 0.5, var_2 * 0.5 );
     var_1 moveto( var_7, var_2 );
-    var_1 thread maps\_anim::_id_0BE1( var_0, "loop", undefined, "stopanimscripted" );
+    var_1 thread maps\_anim::anim_loop_solo( var_0, "loop", undefined, "stopanimscripted" );
     var_0 thread maps\_utility::_id_69C4( "fastrope_start_plr" );
     var_0 thread common_scripts\utility::_id_6975( "fastrope_loop_plr" );
     thread play_fast_rope_fx();
@@ -715,11 +715,11 @@ fastrope_player_attach()
     var_0 = spawn( "script_model", self.model gettagorigin( "tag_detach" ) );
     var_0 setmodel( level._id_5D45["player"]["fastrope"] );
     var_0 linkto( self.model, "tag_detach", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_0._id_0C72 = fastrope_animname( self.type, "player" );
+    var_0.animname = fastrope_animname( self.type, "player" );
     var_0 useanimtree( #animtree );
     var_0 hide();
     level.player playerlinktodelta( var_0, "tag_player", 1, 100, 100, 30, 60 );
-    self.model thread maps\_anim::_id_0C24( var_0, "ride", "tag_detach", self.model );
+    self.model thread maps\_anim::anim_single_solo( var_0, "ride", "tag_detach", self.model );
     level.player allowlean( 0 );
     level.player allowcrouch( 0 );
     level.player allowprone( 0 );
@@ -728,7 +728,7 @@ fastrope_player_attach()
     {
         var_1 = maps\_utility::_id_88D1( "fastrope_intro" );
         var_1 linkto( self.model, "tag_detach" );
-        self.model thread maps\_anim::_id_0C24( var_1, "opening", "tag_detach", self.model );
+        self.model thread maps\_anim::anim_single_solo( var_1, "opening", "tag_detach", self.model );
         level.player playerlinktodelta( var_1, "tag_player", 1, 65, 74, 30, 35, 1 );
         level.player.ropecamera = var_1;
 
@@ -764,8 +764,8 @@ fastrope_heli_fly()
 
     if ( isdefined( self.pathnode ) )
     {
-        var_0 = getstartorigin( self.pathnode.origin, self.pathnode.angles, level._id_78AC[self._id_0C72]["pathanim"] );
-        var_1 = getstartangles( self.pathnode.origin, self.pathnode.angles, level._id_78AC[self._id_0C72]["pathanim"] );
+        var_0 = getstartorigin( self.pathnode.origin, self.pathnode.angles, level._id_78AC[self.animname]["pathanim"] );
+        var_1 = getstartangles( self.pathnode.origin, self.pathnode.angles, level._id_78AC[self.animname]["pathanim"] );
         self._id_9C7E = spawn( "script_model", var_0 );
         self._id_9C7E.angles = var_1;
     }
@@ -789,9 +789,9 @@ fastrope_heli_fly()
 
     self.model linkto( self._id_9C7E, "tag_detach" );
     self.model useanimtree( #animtree );
-    self.model _meth_814d( level._id_78AC[fastrope_animname( self.type, "heli" )]["loop"][0] );
+    self.model _meth_814D( level._id_78AC[fastrope_animname( self.type, "heli" )]["loop"][0] );
     self.model.vehicletype = self.type;
-    self.model thread maps\_vehicle_code::_id_0995();
+    self.model thread maps\_vehicle_code::aircraft_wash_thread();
     self notify( "inflight" );
 
     if ( self.player )
@@ -842,10 +842,10 @@ fastrope_heli_waittill_unload()
         self._id_9C7E endon( "fake_wait_node" );
         wait 0.1;
         self.model thread common_scripts\utility::_id_6975( self.enginesnd );
-        self._id_9C7E._id_0C72 = self._id_0C72;
+        self._id_9C7E.animname = self.animname;
         self._id_9C7E useanimtree( #animtree );
         wait 1.15;
-        self.pathnode thread maps\_anim::_id_0C24( self._id_9C7E, "pathanim" );
+        self.pathnode thread maps\_anim::anim_single_solo( self._id_9C7E, "pathanim" );
         self._id_9C7E waittillmatch( "single anim", "stop" );
     }
     else
@@ -999,7 +999,7 @@ fastrope_heli_setup( var_0 )
     var_1 = spawnstruct();
     var_1._id_9C7E = undefined;
     var_1.targetname = fastrope_heliname( var_0 );
-    var_1._id_0C72 = var_1.targetname;
+    var_1.animname = var_1.targetname;
     var_1.startnode = getvehiclenode( var_0, "targetname" );
     var_1.stopnode = undefined;
     var_1._id_5605 = undefined;
@@ -1230,7 +1230,7 @@ fastrope_createseat( var_0, var_1 )
 {
     var_2 = spawnstruct();
     var_2.taken = undefined;
-    var_2._id_0C72 = fastrope_animname( var_0, var_1 );
+    var_2.animname = fastrope_animname( var_0, var_1 );
     var_2.side = fastrope_getside( var_0, var_1 );
     var_2.index = fastrope_getindex( var_0, var_1 );
     var_2.spin = fastrope_getspin( var_0, var_1 );

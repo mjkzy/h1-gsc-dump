@@ -242,7 +242,7 @@ dyndof_autofocus_add_ignore_entity( var_0 )
     if ( !isdefined( self.autofocus_ignore_list ) )
         self.autofocus_ignore_list = [];
 
-    self.autofocus_ignore_list = common_scripts\utility::_id_0CDA( self.autofocus_ignore_list, var_0 );
+    self.autofocus_ignore_list = common_scripts\utility::array_add( self.autofocus_ignore_list, var_0 );
     level.player_dynamic_dof_settings.settings_dirty = 1;
     return self;
 }
@@ -250,7 +250,7 @@ dyndof_autofocus_add_ignore_entity( var_0 )
 dyndof_autofocus_remove_ignore_entity( var_0 )
 {
     if ( isdefined( self.autofocus_ignore_list ) )
-        self.autofocus_ignore_list = common_scripts\utility::_id_0CF6( self.autofocus_ignore_list, var_0 );
+        self.autofocus_ignore_list = common_scripts\utility::array_remove( self.autofocus_ignore_list, var_0 );
 
     level.player_dynamic_dof_settings.settings_dirty = 1;
     return self;
@@ -277,7 +277,7 @@ dyndof_system_start( var_0 )
     if ( !isdefined( level.player_dynamic_dof_settings ) && level.player_dynamic_dof_settings.settings_list.size <= 0 )
         return;
 
-    level.player _meth_84a5();
+    level.player _meth_84A5();
     var_1 = "";
 
     while ( level.player_dynamic_dof_settings.active )
@@ -289,7 +289,7 @@ dyndof_system_start( var_0 )
             var_2 = combineangles( level.player.owner.angles, level.player.angles );
 
         var_4 = anglestoforward( var_2 );
-        var_5 = level.player.origin + ( 0, 0, level.player _meth_82ef() );
+        var_5 = level.player.origin + ( 0, 0, level.player _meth_82EF() );
 
         if ( isdefined( level.player_dynamic_dof_settings.view_pos ) )
             var_5 = level.player_dynamic_dof_settings.view_pos;
@@ -407,13 +407,13 @@ dyndof_system_start( var_0 )
             if ( var_24 < 1 )
                 var_24 = 1;
 
-            level.player _meth_84a7( var_6.fstop, var_24, var_6.focus_speed, var_6.aperture_speed );
+            level.player _meth_84A7( var_6.fstop, var_24, var_6.focus_speed, var_6.aperture_speed );
             var_25 = var_6.fstop * var_6.view_model_fstop_scale;
 
             if ( var_25 > 512 )
                 var_25 = 512;
 
-            level.player _meth_84b8( var_25, var_24 );
+            level.player _meth_84B8( var_25, var_24 );
             var_1 = var_6.name;
         }
 
@@ -443,7 +443,7 @@ __dyndof_bullet_trace_ignore_glass( var_0, var_1, var_2 )
 
         if ( isdefined( var_2 ) && isdefined( var_9 ) )
         {
-            if ( common_scripts\utility::_id_0CE4( var_2, var_9 ) )
+            if ( common_scripts\utility::array_contains( var_2, var_9 ) )
                 var_4 = var_5["position"] + var_10 * 2;
             else
                 var_3 = 0;
@@ -473,7 +473,7 @@ dyndof_system_end()
     level notify( "end_dynamic_dof" );
     setsaveddvar( "r_dof_physical_bokehEnable", 0 );
     level.player_dynamic_dof_settings = undefined;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
 }
 
 cinematic_sequence( var_0 )
@@ -597,7 +597,7 @@ __cinseq_activate_key( var_0 )
 
 __cinseq_start_screen_shake( var_0 )
 {
-    level.player _meth_83fc( var_0.pitch_scale, var_0._id_A3B7, var_0.roll_scale, var_0.duration, var_0.duration_fade_up, var_0.duration_fade_down, var_0.radius, var_0.frequency_pitch, var_0.frequency_roll, var_0.frequency_yaw, var_0._id_3583 );
+    level.player _meth_83FC( var_0.pitch_scale, var_0._id_A3B7, var_0.roll_scale, var_0.duration, var_0.duration_fade_up, var_0.duration_fade_down, var_0.radius, var_0.frequency_pitch, var_0.frequency_roll, var_0.frequency_yaw, var_0._id_3583 );
 }
 
 __cinseq_call_custom_func( var_0 )
@@ -855,7 +855,7 @@ cinseq_key_remove_dyndof( var_0 )
     if ( !isdefined( self.remove_dyn_dof_list ) )
         self.remove_dyn_dof_list = [];
 
-    self.remove_dyn_dof_list = common_scripts\utility::_id_0CDA( self.remove_dyn_dof_list, var_0 );
+    self.remove_dyn_dof_list = common_scripts\utility::array_add( self.remove_dyn_dof_list, var_0 );
     return self;
 }
 

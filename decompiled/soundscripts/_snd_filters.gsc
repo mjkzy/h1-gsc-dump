@@ -29,13 +29,13 @@ _id_86DD()
 
 _id_8755( var_0 )
 {
-    level._id_065D._id_24E4._id_5685 = var_0;
+    level._snd._id_24E4._id_5685 = var_0;
     level.player seteqlerp( var_0, 0 );
 }
 
 _id_86E2()
 {
-    return level._id_065D._id_24E4._id_5685;
+    return level._snd._id_24E4._id_5685;
 }
 
 _id_86F6()
@@ -45,35 +45,35 @@ _id_86F6()
     var_0._id_6048[0] = "";
     var_0._id_6048[1] = "";
     var_0._id_5685 = 0;
-    level._id_065D._id_24E4 = var_0;
+    level._snd._id_24E4 = var_0;
 }
 
 _id_86E3( var_0 )
 {
-    return level._id_065D._id_24E4._id_6048[var_0];
+    return level._snd._id_24E4._id_6048[var_0];
 }
 
 _id_8751( var_0, var_1 )
 {
-    level._id_065D._id_24E4._id_6048[var_0] = var_1;
+    level._snd._id_24E4._id_6048[var_0] = var_1;
 }
 
 _id_86F7()
 {
     var_0 = spawnstruct();
     var_0.name = "";
-    level._id_065D._id_24F2 = var_0;
+    level._snd._id_24F2 = var_0;
     _id_8752( "" );
 }
 
 _id_86E4()
 {
-    return level._id_065D._id_24F2.name;
+    return level._snd._id_24F2.name;
 }
 
 _id_8752( var_0 )
 {
-    level._id_065D._id_24F2.name = var_0;
+    level._snd._id_24F2.name = var_0;
 }
 
 _id_8704()
@@ -81,16 +81,16 @@ _id_8704()
     var_0 = soundscripts\_snd::_id_871B( "DSP bus", [ "sounddata/dspbuses.csv" ], 2, "name", "name" );
 
     if ( isdefined( var_0 ) )
-        level._id_065D._id_2FAE = var_0;
+        level._snd._id_2FAE = var_0;
     else
-        level._id_065D._id_2FAE = [];
+        level._snd._id_2FAE = [];
 }
 
 _id_86E6()
 {
     var_0 = [];
 
-    foreach ( var_2 in level._id_065D._id_2FAE )
+    foreach ( var_2 in level._snd._id_2FAE )
         var_0[var_0.size] = var_2.name;
 
     return var_0;
@@ -98,7 +98,7 @@ _id_86E6()
 
 _id_86FF( var_0 )
 {
-    return isdefined( level._id_065D._id_2FAE[var_0] );
+    return isdefined( level._snd._id_2FAE[var_0] );
 }
 
 _id_86E7()
@@ -108,11 +108,11 @@ _id_86E7()
 
 _id_8705()
 {
-    level._id_065D._id_36CD = spawnstruct();
+    level._snd._id_36CD = spawnstruct();
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script + ".csv";
-    level._id_065D._id_36CD._id_6F22 = soundscripts\_snd::_id_871B( "Filter", var_0, 6, "filter_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._snd._id_36CD._id_6F22 = soundscripts\_snd::_id_871B( "Filter", var_0, 6, "filter_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
 _id_8754( var_0, var_1, var_2 )
@@ -194,8 +194,8 @@ _id_86DC( var_0 )
 
 _id_86E8( var_0 )
 {
-    if ( isdefined( level._id_065D._id_36CD._id_6F22[var_0] ) )
-        return level._id_065D._id_36CD._id_6F22[var_0];
+    if ( isdefined( level._snd._id_36CD._id_6F22[var_0] ) )
+        return level._snd._id_36CD._id_6F22[var_0];
 
     return undefined;
 }
@@ -257,11 +257,11 @@ _id_86C2( var_0 )
 
 _id_8706()
 {
-    level._id_065D._id_6330 = spawnstruct();
+    level._snd._id_6330 = spawnstruct();
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script + ".csv";
-    level._id_065D._id_6330._id_6F22 = soundscripts\_snd::_id_871B( "Filter", var_0, 6, "occlusion_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._snd._id_6330._id_6F22 = soundscripts\_snd::_id_871B( "Filter", var_0, 6, "occlusion_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
 _id_8757( var_0 )
@@ -290,8 +290,8 @@ _id_8757( var_0 )
 
 _id_86EA( var_0 )
 {
-    if ( isdefined( level._id_065D._id_6330._id_6F22[var_0] ) )
-        return level._id_065D._id_6330._id_6F22[var_0];
+    if ( isdefined( level._snd._id_6330._id_6F22[var_0] ) )
+        return level._snd._id_6330._id_6F22[var_0];
 
     return undefined;
 }
@@ -332,7 +332,7 @@ _id_8758( var_0 )
 
 _id_86D2()
 {
-    level._id_065D._id_6330._id_501E = 1;
+    level._snd._id_6330._id_501E = 1;
 }
 
 _id_86CC()
@@ -349,23 +349,23 @@ _id_86CC()
 
 _id_86CB()
 {
-    level._id_065D._id_6330._id_501E = 0;
+    level._snd._id_6330._id_501E = 0;
     thread _id_86CC();
 }
 
 _id_86CF()
 {
-    level._id_065D._id_A3E1 = undefined;
+    level._snd._id_A3E1 = undefined;
 }
 
 _id_86D4()
 {
-    level._id_065D._id_A3E1 = 1;
+    level._snd._id_A3E1 = 1;
 }
 
 _id_86F0()
 {
-    return isdefined( level._id_065D._id_A3E1 );
+    return isdefined( level._snd._id_A3E1 );
 }
 
 _id_86D0()
@@ -381,10 +381,10 @@ _id_86D5()
     var_0 = undefined;
     var_1 = "default";
 
-    if ( isdefined( level._id_055B._id_A3E9._id_2507 ) && isdefined( level._id_055B._id_A3E9._id_A3F6[level._id_055B._id_A3E9._id_2507] ) )
+    if ( isdefined( level._audio._id_A3E9._id_2507 ) && isdefined( level._audio._id_A3E9._id_A3F6[level._audio._id_A3E9._id_2507] ) )
     {
-        var_2 = soundscripts\_audio_zone_manager::_id_121B();
-        var_3 = level._id_055B._id_A3E9._id_A3F6[var_2];
+        var_2 = soundscripts\_audio_zone_manager::azm_get_current_zone();
+        var_3 = level._audio._id_A3E9._id_A3F6[var_2];
 
         if ( isdefined( var_3["occlusion"] ) && var_3["occlusion"] != "none" )
             var_1 = var_3["occlusion"];

@@ -29,10 +29,10 @@ _id_8F6A( var_0, var_1 )
 {
     var_2 = var_0._id_8F61;
     var_3 = var_1._id_8F61;
-    self._id_0CD8[var_3] = var_0;
-    self._id_0CD8[var_2] = var_1;
-    self._id_0CD8[var_2]._id_8F61 = var_2;
-    self._id_0CD8[var_3]._id_8F61 = var_3;
+    self.array[var_3] = var_0;
+    self.array[var_2] = var_1;
+    self.array[var_2]._id_8F61 = var_2;
+    self.array[var_3]._id_8F61 = var_3;
 }
 
 _id_A05E( var_0, var_1 )
@@ -44,7 +44,7 @@ _id_A05E( var_0, var_1 )
     {
         var_2[0] = randomfloatrange( var_0, var_1 );
         level._id_9FE0 = var_2;
-        level._id_071C = undefined;
+        level.active_wait_spread = undefined;
         return;
     }
 
@@ -54,8 +54,8 @@ _id_A05E( var_0, var_1 )
     for ( var_3 = 1; var_3 < level._id_9FE1 - 1; var_3++ )
         var_2 = _id_A05F( var_2 );
 
-    level._id_9FE0 = common_scripts\utility::_id_0CF5( var_2 );
-    level._id_071C = undefined;
+    level._id_9FE0 = common_scripts\utility::array_randomize( var_2 );
+    level.active_wait_spread = undefined;
 }
 
 _id_A05F( var_0 )
@@ -120,7 +120,7 @@ _id_9FC3( var_0, var_1 )
 {
     var_2 = getentarray( var_0, var_1 );
     var_3 = spawnstruct();
-    common_scripts\utility::_id_0D13( var_2, ::_id_9FCA, var_3 );
+    common_scripts\utility::array_thread( var_2, ::_id_9FCA, var_3 );
     var_3 waittill( "trigger" );
 }
 
@@ -183,7 +183,7 @@ _id_70CA( var_0 )
 
     for (;;)
     {
-        if ( !isdefined( self._id_061C ) )
+        if ( !isdefined( self._radio_queue ) )
             break;
 
         self waittill( "finished_radio" );
@@ -192,10 +192,10 @@ _id_70CA( var_0 )
             return;
     }
 
-    self._id_061C = 1;
+    self._radio_queue = 1;
     maps\_utility::_id_9F8C( level._id_5541, 0.5 );
     level.player maps\_utility::_id_69C4( level._id_78B9[var_0] );
-    self._id_061C = undefined;
+    self._radio_queue = undefined;
     level._id_5541 = gettime();
     self notify( "finished_radio" );
 }
@@ -240,10 +240,10 @@ _id_48EA( var_0 )
 
 _id_48E2( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    return var_0 + _id_05CC( var_1, var_2, var_3, var_4, var_5, var_6 );
+    return var_0 + _hint_stick_get_config_suffix( var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
-_id_05CC( var_0, var_1, var_2, var_3, var_4, var_5 )
+_hint_stick_get_config_suffix( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = getsticksconfig();
 
@@ -265,14 +265,14 @@ _id_05CC( var_0, var_1, var_2, var_3, var_4, var_5 )
         return var_0;
 }
 
-_id_05CE( var_0, var_1 )
+_hint_stick_update_string( var_0, var_1 )
 {
     var_2 = var_1 + var_0;
     var_3 = level._id_97A7[var_2];
     level._id_48B4 = var_3;
 }
 
-_id_05CD( var_0, var_1 )
+_hint_stick_update_breakfunc( var_0, var_1 )
 {
     var_2 = var_1 + var_0;
     var_3 = level._id_97A8[var_2];
@@ -283,19 +283,19 @@ _id_48E3( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     level notify( "hint_change_config" );
     level endon( "hint_change_config" );
-    var_7 = _id_05CC( var_1, var_2, var_3, var_4, var_5, var_6 );
-    _id_05CE( var_7, var_0 );
-    _id_05CD( var_7, var_0 );
+    var_7 = _hint_stick_get_config_suffix( var_1, var_2, var_3, var_4, var_5, var_6 );
+    _hint_stick_update_string( var_7, var_0 );
+    _hint_stick_update_breakfunc( var_7, var_0 );
 
     while ( isdefined( level._id_24EC ) )
     {
-        var_8 = _id_05CC( var_1, var_2, var_3, var_4, var_5, var_6 );
+        var_8 = _hint_stick_get_config_suffix( var_1, var_2, var_3, var_4, var_5, var_6 );
 
         if ( var_8 != var_7 )
         {
             var_7 = var_8;
-            _id_05CE( var_7, var_0 );
-            _id_05CD( var_7, var_0 );
+            _hint_stick_update_string( var_7, var_0 );
+            _hint_stick_update_breakfunc( var_7, var_0 );
         }
 
         waittillframeend;
@@ -347,7 +347,7 @@ _id_490D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
     maps\_utility::_id_32DE( "global_hint_in_use" );
     self._id_24E9 = var_0;
-    maps\_hud_util::_id_0763( var_8, var_7 );
+    maps\_hud_util::add_hint_background( var_8, var_7 );
     var_15 = maps\_hud_util::_id_23ED( "timer", var_14 );
     level._id_24EC = var_15;
     level._id_48B4 = var_1;
@@ -643,7 +643,7 @@ _id_3AF6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
         if ( isdefined( var_0 ) && isdefined( var_0._id_3AF2 ) )
         {
-            var_0._id_3AF2 = common_scripts\utility::_id_0CF6( var_0._id_3AF2, self );
+            var_0._id_3AF2 = common_scripts\utility::array_remove( var_0._id_3AF2, self );
             var_0 notify( "level_function_stack_ready" );
         }
     }
@@ -662,7 +662,7 @@ _id_3AF7( var_0 )
 
     if ( isdefined( var_0 ) )
     {
-        var_0._id_3AF2 = common_scripts\utility::_id_0CF6( var_0._id_3AF2, self );
+        var_0._id_3AF2 = common_scripts\utility::array_remove( var_0._id_3AF2, self );
         var_0 notify( "level_function_stack_ready" );
     }
 }
@@ -705,14 +705,14 @@ _id_4D74( var_0 )
     return level._id_9E5C;
 }
 
-_id_0D19( var_0, var_1, var_2 )
+array_waitlogic1( var_0, var_1, var_2 )
 {
-    _id_0D1A( var_0, var_1, var_2 );
-    self._id_0558 = 0;
+    array_waitlogic2( var_0, var_1, var_2 );
+    self._array_wait = 0;
     self notify( "_array_wait" );
 }
 
-_id_0D1A( var_0, var_1, var_2 )
+array_waitlogic2( var_0, var_1, var_2 )
 {
     var_0 endon( var_1 );
     var_0 endon( "death" );
@@ -797,7 +797,7 @@ _id_A064( var_0, var_1 )
     self endon( "all_funcs_ended" );
     self endon( "any_funcs_aborted" );
     _id_33EC( var_0, var_1 );
-    self._id_06BB--;
+    self.abort_count--;
     self notify( "abort_func_ended" );
 }
 
@@ -809,13 +809,13 @@ _id_2BB5( var_0 )
         return;
 
     var_1 = 0;
-    self._id_06BB = var_0.size;
+    self.abort_count = var_0.size;
     var_2 = [];
-    common_scripts\utility::_id_0CF0( var_0, ::_id_A064, var_2 );
+    common_scripts\utility::array_levelthread( var_0, ::_id_A064, var_2 );
 
     for (;;)
     {
-        if ( self._id_06BB <= var_1 )
+        if ( self.abort_count <= var_1 )
             break;
 
         self waittill( "abort_func_ended" );
@@ -1014,7 +1014,7 @@ _id_2FE2( var_0 )
                 maps\_utility::_id_7E45( "DRS_sprint" );
 
             self notify( "stop_loop" );
-            maps\_utility::_id_0C3D();
+            maps\_utility::anim_stopanimscripted();
             maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
             break;
         case "run":
@@ -1032,7 +1032,7 @@ _id_2FE2( var_0 )
                 maps\_utility::_id_1ED1();
 
             self notify( "stop_loop" );
-            maps\_utility::_id_0C3D();
+            maps\_utility::anim_stopanimscripted();
             maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
             break;
         case "stop":
@@ -1053,7 +1053,7 @@ _id_2FE2( var_0 )
                 maps\_utility::_id_1ED1();
 
             self notify( "stop_loop" );
-            maps\_utility::_id_0C3D();
+            maps\_utility::anim_stopanimscripted();
             maps\_utility::_id_32DA( "dynamic_run_speed_stopped" );
             break;
         case "crouch":
@@ -1076,13 +1076,13 @@ _id_2FE5()
     maps\_utility::_id_32DE( "dynamic_run_speed_stopped" );
     self endon( "dynamic_run_speed_stopped" );
     var_0 = "DRS_run_2_stop";
-    maps\_anim::_id_0BCA( self, "gravity", var_0 );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_0 );
     maps\_utility::_id_32DA( "dynamic_run_speed_stopping" );
 
     while ( maps\_utility::_id_32D8( "dynamic_run_speed_stopped" ) )
     {
         var_1 = "DRS_stop_idle";
-        thread maps\_anim::_id_0BCE( self, var_1 );
+        thread maps\_anim::anim_generic_loop( self, var_1 );
 
         if ( isdefined( level._id_78AC["generic"]["signal_go"] ) )
             maps\_utility::_id_4697( "go" );
@@ -1120,12 +1120,12 @@ _id_3BC6( var_0 )
 
 _id_3BC1()
 {
-    return level.player _meth_83f2();
+    return level.player _meth_83F2();
 }
 
 _id_3BC2( var_0 )
 {
-    level.player _meth_83f3( var_0 );
+    level.player _meth_83F3( var_0 );
 }
 
 _id_5F75()
@@ -1164,42 +1164,42 @@ _id_5F77( var_0, var_1, var_2, var_3, var_4 )
         var_0 setmovespeedscale( var_2 );
 }
 
-_id_115D()
+autosave_tactical_setup()
 {
     if ( common_scripts\utility::_id_3839( "autosave_tactical_player_nade" ) )
         return;
 
     common_scripts\utility::_id_383D( "autosave_tactical_player_nade" );
-    level._id_115B = 0;
+    level.autosave_tactical_player_nades = 0;
     notifyoncommand( "autosave_player_nade", "+frag" );
     notifyoncommand( "autosave_player_nade", "-smoke" );
     notifyoncommand( "autosave_player_nade", "+smoke" );
-    common_scripts\utility::_id_0D13( level.players, ::_id_1159 );
+    common_scripts\utility::array_thread( level.players, ::autosave_tactical_grenade_check );
 }
 
-_id_1159()
+autosave_tactical_grenade_check()
 {
     for (;;)
     {
         self waittill( "autosave_player_nade" );
         common_scripts\utility::_id_383F( "autosave_tactical_player_nade" );
         self waittill( "grenade_fire", var_0 );
-        thread _id_115A( var_0 );
+        thread autosave_tactical_grenade_check_dieout( var_0 );
     }
 }
 
-_id_115A( var_0 )
+autosave_tactical_grenade_check_dieout( var_0 )
 {
-    level._id_115B++;
+    level.autosave_tactical_player_nades++;
     var_0 common_scripts\utility::_id_A0A0( "death", 10 );
-    level._id_115B--;
+    level.autosave_tactical_player_nades--;
     waitframe;
 
-    if ( !level._id_115B )
+    if ( !level.autosave_tactical_player_nades )
         common_scripts\utility::_id_3831( "autosave_tactical_player_nade" );
 }
 
-_id_115C()
+autosave_tactical_proc()
 {
     level notify( "autosave_tactical_proc" );
     level endon( "autosave_tactical_proc" );
@@ -1224,7 +1224,7 @@ _id_115C()
     }
 
     waitframe;
-    maps\_utility::_id_1143();
+    maps\_utility::autosave_by_name();
 }
 
 _id_6004( var_0, var_1, var_2, var_3 )
@@ -1375,8 +1375,8 @@ _id_6FDF( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( self._id_311C ) )
         self._id_311C = 1;
 
-    if ( !isdefined( self._id_12F0 ) )
-        self._id_12F0 = 0;
+    if ( !isdefined( self.base ) )
+        self.base = 0;
 
     var_5 = self.time * 20;
     var_6 = self._id_311C - self._id_8B20;
@@ -1386,7 +1386,7 @@ _id_6FDF( var_0, var_1, var_2, var_3, var_4 )
     {
         for ( var_7 = 0; var_7 <= var_5 && !self._id_8E6C; var_7++ )
         {
-            var_8 = self._id_12F0 + var_7 * var_6 / var_5;
+            var_8 = self.base + var_7 * var_6 / var_5;
             var_1 thread [[ var_0 ]]( var_8, var_2, var_3, var_4 );
             wait 0.05;
         }
@@ -1395,7 +1395,7 @@ _id_6FDF( var_0, var_1, var_2, var_3, var_4 )
     {
         for ( var_7 = 0; var_7 <= var_5 && !self._id_8E6C; var_7++ )
         {
-            var_8 = self._id_12F0 + var_7 * var_6 / var_5;
+            var_8 = self.base + var_7 * var_6 / var_5;
             var_1 thread [[ var_0 ]]( var_8, var_2, var_3 );
             wait 0.05;
         }
@@ -1404,7 +1404,7 @@ _id_6FDF( var_0, var_1, var_2, var_3, var_4 )
     {
         for ( var_7 = 0; var_7 <= var_5 && !self._id_8E6C; var_7++ )
         {
-            var_8 = self._id_12F0 + var_7 * var_6 / var_5;
+            var_8 = self.base + var_7 * var_6 / var_5;
             var_1 thread [[ var_0 ]]( var_8, var_2 );
             wait 0.05;
         }
@@ -1413,14 +1413,14 @@ _id_6FDF( var_0, var_1, var_2, var_3, var_4 )
     {
         for ( var_7 = 0; var_7 <= var_5 && !self._id_8E6C; var_7++ )
         {
-            var_8 = self._id_12F0 + var_7 * var_6 / var_5;
+            var_8 = self.base + var_7 * var_6 / var_5;
             var_1 thread [[ var_0 ]]( var_8 );
             wait 0.05;
         }
     }
 }
 
-_id_07B4( var_0 )
+add_trace_fx_proc( var_0 )
 {
     waitframe;
 
@@ -1430,8 +1430,8 @@ _id_07B4( var_0 )
     if ( !isdefined( level._id_9491 ) )
         level._id_9491[var_0] = [];
 
-    if ( isdefined( self.fx ) )
-        level._id_9491[var_0][self._id_8FF0]["fx"] = self.fx;
+    if ( isdefined( self._id_3B23 ) )
+        level._id_9491[var_0][self._id_8FF0]["fx"] = self._id_3B23;
 
     if ( isdefined( self._id_3B24 ) )
         level._id_9491[var_0][self._id_8FF0]["fx_array"] = self._id_3B24;
@@ -1525,7 +1525,7 @@ _id_A0F6( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     _id_27F1( var_0, var_1[1], var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
-_id_07BF()
+add_wait_asserter()
 {
     level notify( "kill_add_wait_asserter" );
     level endon( "kill_add_wait_asserter" );
@@ -1593,7 +1593,7 @@ _id_A0C3()
     }
 }
 
-_id_07B5()
+add_trigger_func_thread()
 {
     self._id_97A0 = [];
     self waittill( "trigger", var_0 );
@@ -1604,25 +1604,25 @@ _id_07B5()
         thread [[ var_3 ]]( var_0 );
 }
 
-_id_07AF( var_0 )
+add_to_radio( var_0 )
 {
     if ( !isdefined( level._id_78B9[var_0] ) )
         level._id_78B9[var_0] = var_0;
 }
 
-_id_07A9( var_0 )
+add_to_dialogue( var_0 )
 {
-    if ( !isdefined( level._id_78AC[self._id_0C72] ) )
-        level._id_78AC[self._id_0C72] = [];
+    if ( !isdefined( level._id_78AC[self.animname] ) )
+        level._id_78AC[self.animname] = [];
 
-    if ( !isdefined( level._id_78BA[self._id_0C72] ) )
-        level._id_78BA[self._id_0C72] = [];
+    if ( !isdefined( level._id_78BA[self.animname] ) )
+        level._id_78BA[self.animname] = [];
 
-    if ( !isdefined( level._id_78BA[self._id_0C72][var_0] ) )
-        level._id_78BA[self._id_0C72][var_0] = var_0;
+    if ( !isdefined( level._id_78BA[self.animname][var_0] ) )
+        level._id_78BA[self.animname][var_0] = var_0;
 }
 
-_id_07AA( var_0 )
+add_to_dialogue_generic( var_0 )
 {
     if ( !isdefined( level._id_78BA["generic"] ) )
         level._id_78BA["generic"] = [];
@@ -1664,7 +1664,7 @@ _id_3DB8()
     return getlevelticks() * 0.05;
 }
 
-_id_05AE( var_0, var_1 )
+_flag_wait_trigger( var_0, var_1 )
 {
     self endon( "death" );
 
@@ -1683,30 +1683,30 @@ _id_05AE( var_0, var_1 )
     }
 }
 
-_id_090F( var_0, var_1, var_2 )
+ai_save_ignore_setting( var_0, var_1, var_2 )
 {
     if ( isdefined( var_0 ) )
-        self._id_05CF[var_1] = var_0;
+        self._ignore_settings_old[var_1] = var_0;
     else
-        self._id_05CF[var_1] = "none";
+        self._ignore_settings_old[var_1] = "none";
 
     return var_2;
 }
 
-_id_090D( var_0, var_1 )
+ai_restore_ignore_setting( var_0, var_1 )
 {
-    if ( isdefined( self._id_05CF ) )
+    if ( isdefined( self._ignore_settings_old ) )
     {
-        if ( isstring( self._id_05CF[var_0] ) && self._id_05CF[var_0] == "none" )
+        if ( isstring( self._ignore_settings_old[var_0] ) && self._ignore_settings_old[var_0] == "none" )
             return var_1;
         else
-            return self._id_05CF[var_0];
+            return self._ignore_settings_old[var_0];
     }
 
     return var_1;
 }
 
-_id_0674()
+_tff_sync_triggers()
 {
     var_0 = getentarray( "tff_sync_trigger", "targetname" );
 
@@ -1714,10 +1714,10 @@ _id_0674()
         return;
 
     foreach ( var_2 in var_0 )
-        var_2 thread _id_0673();
+        var_2 thread _tff_sync_trigger_think();
 }
 
-_id_0673()
+_tff_sync_trigger_think()
 {
     self waittill( "trigger" );
     maps\_utility::_id_92D5();

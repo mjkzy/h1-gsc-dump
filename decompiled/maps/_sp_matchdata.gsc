@@ -112,7 +112,7 @@ _id_72E9()
 
 _id_56BD( var_0 )
 {
-    var_1 = level.player _meth_84fb();
+    var_1 = level.player _meth_84FB();
     setspmatchdata( "timestamp_end", var_1 );
     setspmatchdata( "career", "level_completion_timestamp", var_0, var_1 );
     setspmatchdata( "career", "levels_completed", var_0, 1 );
@@ -125,7 +125,7 @@ _id_56BD( var_0 )
 _id_2C3A( var_0 )
 {
     var_1 = [ "ammo", "iw5_bal27_sp", "iw5_ak12_sp", "iw5_hbra3_sp", "iw5_himar_sp", "iw5_arx160_sp", "iw5_m182spr_sp", "iw5_sn6_sp", "iw5_hmr9_sp", "iw5_mp11_sp", "iw5_sac3_sp", "iw5_asm1_sp", "iw5_kf5_sp", "iw5_mors_sp", "iw5_gm6_sp", "iw5_thor_sp", "iw5_uts19_sp", "iw5_maul_sp", "iw5_rhino_sp", "iw5_lsat_sp", "iw5_asaw_sp", "iw5_em1_sp", "iw5_epm3_sp", "iw5_titan45_sp", "iw5_pbw_sp", "iw5_vbr_sp", "iw5_rw1_sp", "iw5_microdronelauncher_sp", "iw5_stingerm7_sp", "iw5_mahem_sp", "iw5_maaws_sp", "unknown", "" ];
-    return common_scripts\utility::_id_0CE4( var_1, var_0 );
+    return common_scripts\utility::array_contains( var_1, var_0 );
 }
 
 _id_7F06( var_0, var_1 )

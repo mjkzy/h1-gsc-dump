@@ -22,25 +22,25 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "80s_wagon1", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_brn_destructible", "vehicle_80s_wagon1_brn" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_green_destructible", "vehicle_80s_wagon1_green" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_red_destructible", "vehicle_80s_wagon1_red" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_silv_destructible", "vehicle_80s_wagon1_silv" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_tan_destructible", "vehicle_80s_wagon1_tan" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_yel_destructible", "vehicle_80s_wagon1_yel" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_decayed_brn_destructible", "vehicle_80s_wagon1_decayed_brn" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_decayed_green_destructible", "vehicle_80s_wagon1_decayed_green" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_decayed_red_destructible", "vehicle_80s_wagon1_decayed_red" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_decayed_silv_destructible", "vehicle_80s_wagon1_decayed_silv" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_decayed_white_destructible", "vehicle_80s_wagon1_decayed_white" );
-    maps\_vehicle::_id_1848( "vehicle_80s_wagon1_decayed_yel_destructible", "vehicle_80s_wagon1_decayed_yel" );
-    maps\_vehicle::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "80s_wagon1", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_brn_destructible", "vehicle_80s_wagon1_brn" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_green_destructible", "vehicle_80s_wagon1_green" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_red_destructible", "vehicle_80s_wagon1_red" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_silv_destructible", "vehicle_80s_wagon1_silv" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_tan_destructible", "vehicle_80s_wagon1_tan" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_yel_destructible", "vehicle_80s_wagon1_yel" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_decayed_brn_destructible", "vehicle_80s_wagon1_decayed_brn" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_decayed_green_destructible", "vehicle_80s_wagon1_decayed_green" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_decayed_red_destructible", "vehicle_80s_wagon1_decayed_red" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_decayed_silv_destructible", "vehicle_80s_wagon1_decayed_silv" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_decayed_white_destructible", "vehicle_80s_wagon1_decayed_white" );
+    maps\_vehicle::build_destructible( "vehicle_80s_wagon1_decayed_yel_destructible", "vehicle_80s_wagon1_decayed_yel" );
+    maps\_vehicle::build_drive( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

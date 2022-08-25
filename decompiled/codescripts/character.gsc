@@ -30,7 +30,7 @@ _id_6EE1( var_0 )
         precachemodel( var_0[var_1] );
 }
 
-_id_0DFD( var_0, var_1 )
+attachhead( var_0, var_1 )
 {
     if ( !isdefined( level._id_1C8A ) )
         level._id_1C8A = [];
@@ -56,7 +56,7 @@ _id_7F88( var_0 )
     self.headmodel = var_0;
 }
 
-_id_0DFC( var_0, var_1 )
+attachhat( var_0, var_1 )
 {
     if ( !isdefined( level._id_1C89 ) )
         level._id_1C89 = [];
@@ -73,19 +73,19 @@ _id_0DFC( var_0, var_1 )
 _id_6099()
 {
     self detachall();
-    var_0 = self._id_0BD4;
+    var_0 = self.anim_gunhand;
 
     if ( !isdefined( var_0 ) )
         return;
 
-    self._id_0BD4 = "none";
+    self.anim_gunhand = "none";
     self [[ anim._id_7067 ]]( var_0 );
 }
 
 _id_7802()
 {
-    var_0["gunHand"] = self._id_0BD4;
-    var_0["gunInHand"] = self._id_0BD5;
+    var_0["gunHand"] = self.anim_gunhand;
+    var_0["gunInHand"] = self.anim_guninhand;
     var_0["model"] = self.model;
     var_0["hatModel"] = self._id_475D;
 
@@ -110,8 +110,8 @@ _id_7802()
 _id_57BD( var_0 )
 {
     self detachall();
-    self._id_0BD4 = var_0["gunHand"];
-    self._id_0BD5 = var_0["gunInHand"];
+    self.anim_gunhand = var_0["gunHand"];
+    self.anim_guninhand = var_0["gunInHand"];
     self setmodel( var_0["model"] );
     self._id_475D = var_0["hatModel"];
 

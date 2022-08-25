@@ -27,7 +27,7 @@ main()
     if ( isdefined( self.a._id_612E ) )
     {
         wait 1.1;
-        var_0 = self _meth_813e();
+        var_0 = self _meth_813E();
 
         if ( isdefined( var_0 ) )
         {

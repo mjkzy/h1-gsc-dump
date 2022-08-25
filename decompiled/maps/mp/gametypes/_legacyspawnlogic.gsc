@@ -203,19 +203,19 @@ getallalliedandenemyplayers( var_0 )
     {
         if ( self.pers["team"] == "allies" )
         {
-            var_0.allies = level._id_09DE["allies"];
-            var_0._id_31CA = level._id_09DE["axis"];
+            var_0.allies = level.aliveplayers["allies"];
+            var_0._id_31CA = level.aliveplayers["axis"];
         }
         else
         {
-            var_0.allies = level._id_09DE["axis"];
-            var_0._id_31CA = level._id_09DE["allies"];
+            var_0.allies = level.aliveplayers["axis"];
+            var_0._id_31CA = level.aliveplayers["allies"];
         }
     }
     else
     {
         var_0.allies = [];
-        var_0._id_31CA = level._id_0722;
+        var_0._id_31CA = level.activeplayers;
     }
 }
 
@@ -263,7 +263,7 @@ _id_40D7( var_0, var_1 )
             var_1[var_7].weight += 25000;
     }
 
-    _id_1201( var_0 );
+    avoidsamespawn( var_0 );
     avoidspawnreuse( var_0, 1 );
     avoidweapondamage( var_0 );
     avoidvisibleenemies( var_0, 1 );
@@ -306,7 +306,7 @@ getspawnpoint_dm( var_0 )
         }
     }
 
-    _id_1201( var_0 );
+    avoidsamespawn( var_0 );
     avoidspawnreuse( var_0, 0 );
     avoidweapondamage( var_0 );
     avoidvisibleenemies( var_0, 0 );
@@ -360,7 +360,7 @@ avoidweapondamage( var_0 )
                 var_0[var_3].weight -= var_1;
         }
 
-        if ( !isdefined( level.artillerydangercenter ) )
+        if ( !isdefined( level.artillerydangercenters ) )
             continue;
 
         var_5 = maps\mp\gametypes\_hardpoints::_id_3EE6( var_0[var_3].origin );
@@ -390,11 +390,11 @@ spawnperframeupdate()
             var_3 = 0;
         }
 
-        if ( !isdefined( level.spawnpoints ) )
+        if ( !isdefined( level._id_8A01 ) )
             return;
 
-        var_0 = ( var_0 + 1 ) % level.spawnpoints.size;
-        var_5 = level.spawnpoints[var_0];
+        var_0 = ( var_0 + 1 ) % level._id_8A01.size;
+        var_5 = level._id_8A01[var_0];
 
         if ( level.teambased )
         {
@@ -458,7 +458,7 @@ spawnperframeupdate()
         }
 
         var_3++;
-        var_15 = var_3 == level.spawnpoints.size;
+        var_15 = var_3 == level._id_8A01.size;
         var_16 = var_2 + var_7 > getdvarint( "legacySpawningMaxTraces", 18 );
         var_4 = var_15 || var_16;
     }
@@ -619,7 +619,7 @@ avoidspawnreuse( var_0, var_1 )
     }
 }
 
-_id_1201( var_0 )
+avoidsamespawn( var_0 )
 {
     if ( getdvar( "scr_spawnpointnewlogic" ) == "0" )
         return;

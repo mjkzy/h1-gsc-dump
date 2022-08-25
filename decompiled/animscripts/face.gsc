@@ -27,7 +27,7 @@ _id_4D96()
     if ( !isdefined( self.a._id_2510 ) )
     {
         self.a._id_2510 = 0;
-        self.a._id_4B7C = anim._id_09D2;
+        self.a._id_4B7C = anim.alertface;
         self._id_35BF = [];
         self._id_35BB = 0;
     }
@@ -389,7 +389,7 @@ _id_4DBC()
     anim._id_35C1["idle_blend"] = [ %facial_idle_blend_1, %facial_idle_blend_2, %facial_idle_blend_3 ];
 }
 
-_id_0C6F( var_0 )
+animhasfacialoverride( var_0 )
 {
     return animhasnotetrack( var_0, "facial_override" );
 }
@@ -404,17 +404,17 @@ _id_6D9B( var_0, var_1, var_2 )
     if ( !isdefined( self._id_35C6 ) )
         thread _id_35C3();
 
-    if ( isdefined( self._id_1359 ) && self._id_1359 )
+    if ( isdefined( self.bdisabledefaultfacialanims ) && self.bdisabledefaultfacialanims )
         self _meth_8144( %head, 0.2 );
     else
     {
-        if ( isdefined( var_0 ) && _id_0C6F( var_0 ) )
+        if ( isdefined( var_0 ) && animhasfacialoverride( var_0 ) )
         {
             self _meth_8144( %head, 0.2 );
             return;
         }
 
-        if ( self _meth_84ea() )
+        if ( self _meth_84EA() )
             var_1 += "_blend";
 
         if ( !isdefined( anim._id_35C1[var_1] ) )
@@ -454,10 +454,10 @@ _id_312E( var_0 )
 
 _id_3D66()
 {
-    if ( self _meth_843e( "jnt_eyelid_TL" ) == -1 || self _meth_843e( "tag_eye" ) == -1 )
+    if ( self _meth_843E( "jnt_eyelid_TL" ) == -1 || self _meth_843E( "tag_eye" ) == -1 )
         return;
 
-    if ( self _meth_843e( "jnt_eyelid_TR" ) == -1 )
+    if ( self _meth_843E( "jnt_eyelid_TR" ) == -1 )
         return;
 
     var_0 = self gettagangles( "tag_eye" );

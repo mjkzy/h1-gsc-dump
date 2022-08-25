@@ -55,7 +55,7 @@ bot_oldschool_init()
         level.bot_oldschool_pickup_struct_array[level.bot_oldschool_pickup_struct_array.size] = var_3;
     }
 
-    maps\mp\bots\_bots_util::_id_172D();
+    maps\mp\bots\_bots_util::bot_waittill_bots_enabled();
 
     if ( !isdefined( level.bot_oldschool_primary_weapon_priorities ) )
     {
@@ -189,14 +189,14 @@ bot_think_oldschool()
 
 bot_oldschool_pickup_get_nearest_node( var_0 )
 {
-    if ( !isdefined( var_0._id_19DB ) )
+    if ( !isdefined( var_0.calculated_nearest_node ) )
     {
         var_0._id_6071 = getclosestnodeinsight( var_0.origin );
 
         if ( !isdefined( var_0._id_6071 ) )
             var_0._id_6071 = getclosestnodeinsight( var_0.groundpoint );
 
-        var_0._id_19DB = 1;
+        var_0.calculated_nearest_node = 1;
     }
 
     return var_0._id_6071;
@@ -320,7 +320,7 @@ bot_oldschool_handle_pickup_goals()
     {
         wait 0.5;
 
-        if ( !isalive( self ) || maps\mp\_utility::_id_5092( self.inlaststand ) || maps\mp\bots\_bots_util::_id_1664() || self usebuttonpressed() )
+        if ( !isalive( self ) || maps\mp\_utility::_id_5092( self.inlaststand ) || maps\mp\bots\_bots_util::bot_is_remote_or_linked() || self usebuttonpressed() )
             continue;
 
         var_1 = maps\mp\bots\_bots_strategy::bot_get_active_tactical_goals_of_type( "oldschool_pickup" );
@@ -331,7 +331,7 @@ bot_oldschool_handle_pickup_goals()
             var_3 = 0;
 
             if ( var_1.size > 0 )
-                var_3 = maps\mp\bots\_bots_util::_id_172A( self botgetscriptgoal(), var_1[0]._id_62E1._id_4411 );
+                var_3 = maps\mp\bots\_bots_util::bot_vectors_are_equal( self botgetscriptgoal(), var_1[0]._id_62E1._id_4411 );
 
             if ( !var_3 )
             {
@@ -342,10 +342,10 @@ bot_oldschool_handle_pickup_goals()
             }
         }
 
-        if ( maps\mp\bots\_bots_strategy::_id_1649( "oldschool_pickup" ) && self.tactical_goal_in_action_thread )
+        if ( maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "oldschool_pickup" ) && self.tactical_goal_in_action_thread )
             continue;
 
-        if ( maps\mp\bots\_bots_util::_id_1650( 1000 ) )
+        if ( maps\mp\bots\_bots_util::bot_in_combat( 1000 ) )
             continue;
 
         if ( isdefined( self._id_759A ) && self._id_759A == "defuser" )
@@ -375,7 +375,7 @@ bot_oldschool_handle_pickup_goals()
 
             if ( var_2 == "critical" )
                 var_10 = "critical";
-            else if ( maps\mp\bots\_bots_util::_id_165D() || var_2 == "objective" )
+            else if ( maps\mp\bots\_bots_util::bot_is_defending() || var_2 == "objective" )
                 var_10 = "objective";
         }
 
@@ -415,7 +415,7 @@ bot_oldschool_handle_pickup_goals()
 
         if ( var_1.size > 0 )
         {
-            if ( isdefined( var_11 ) && maps\mp\bots\_bots_strategy::_id_1649( "oldschool_pickup", var_11["pickup_struct"] ) )
+            if ( isdefined( var_11 ) && maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "oldschool_pickup", var_11["pickup_struct"] ) )
                 continue;
 
             var_15 = distancesquared( self.origin, var_1[0]._id_62E1.origin );
@@ -423,7 +423,7 @@ bot_oldschool_handle_pickup_goals()
             if ( var_15 <= level.bot_oldschool_use_radius_sq )
                 continue;
 
-            maps\mp\bots\_bots_strategy::_id_15A1( "oldschool_pickup" );
+            maps\mp\bots\_bots_strategy::bot_abort_tactical_goal( "oldschool_pickup" );
             wait 0.25;
         }
 
@@ -442,19 +442,19 @@ bot_oldschool_handle_pickup_goals()
 
             if ( var_11["action"] == "pickup_weapon" )
             {
-                var_16._id_06ED = ::bot_oldschool_pickup_weapon;
+                var_16.action_thread = ::bot_oldschool_pickup_weapon;
                 var_16.optional_params = var_11["weapon_to_replace"];
             }
             else if ( var_11["action"] == "pickup_perk" )
-                var_16._id_06ED = ::bot_oldschool_pickup_perk;
+                var_16.action_thread = ::bot_oldschool_pickup_perk;
             else if ( var_11["action"] == "pickup_ammo" )
-                var_16._id_06ED = ::bot_oldschool_pickup_ammo;
+                var_16.action_thread = ::bot_oldschool_pickup_ammo;
             else
             {
 
             }
 
-            maps\mp\bots\_bots_strategy::_id_16A9( "oldschool_pickup", var_11["pickup_struct"]._id_4411, 20, var_16 );
+            maps\mp\bots\_bots_strategy::bot_new_tactical_goal( "oldschool_pickup", var_11["pickup_struct"]._id_4411, 20, var_16 );
             var_0 = var_10;
             continue;
         }
@@ -484,7 +484,7 @@ bot_oldschool_bot_remembers_pickup( var_0, var_1 )
             return 1;
     }
 
-    if ( maps\mp\bots\_bots_strategy::_id_1649( "oldschool_pickup", var_1 ) )
+    if ( maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "oldschool_pickup", var_1 ) )
         return 1;
 
     return 0;
@@ -593,7 +593,7 @@ bot_oldschool_should_pursue_pickup( var_0, var_1 )
             var_6 = maps\mp\bots\_bots_strategy::bot_get_active_tactical_goals_of_type( "oldschool_pickup" );
 
             if ( var_6.size == 1 )
-                var_5 = maps\mp\bots\_bots_util::_id_172A( var_3, var_6[0]._id_62E1._id_4411 );
+                var_5 = maps\mp\bots\_bots_util::bot_vectors_are_equal( var_3, var_6[0]._id_62E1._id_4411 );
 
             if ( !var_5 )
                 return 0;
@@ -615,9 +615,9 @@ bot_oldschool_should_pursue_pickup( var_0, var_1 )
 
 bot_oldschool_pickup_weapon( var_0 )
 {
-    if ( maps\mp\bots\_bots_util::_id_1650( 1000 ) )
+    if ( maps\mp\bots\_bots_util::bot_in_combat( 1000 ) )
     {
-        while ( maps\mp\bots\_bots_util::_id_1650( 1000 ) )
+        while ( maps\mp\bots\_bots_util::bot_in_combat( 1000 ) )
             wait 0.05;
     }
     else
@@ -640,7 +640,7 @@ bot_oldschool_pickup_weapon( var_0 )
             }
         }
 
-        self _meth_837c( "use", 1.0 );
+        self _meth_837C( "use", 1.0 );
         var_4 = gettime();
 
         while ( !self hasweapon( var_0._id_62E1._id_A2DF ) && gettime() - var_4 < 1000.0 || gettime() - var_4 <= 100 )
@@ -674,9 +674,9 @@ bot_oldschool_pickup_ammo( var_0 )
 
 bot_oldschool_pickup_perk( var_0 )
 {
-    if ( maps\mp\bots\_bots_util::_id_1650( 1000 ) )
+    if ( maps\mp\bots\_bots_util::bot_in_combat( 1000 ) )
     {
-        while ( maps\mp\bots\_bots_util::_id_1650( 1000 ) )
+        while ( maps\mp\bots\_bots_util::bot_in_combat( 1000 ) )
             wait 0.05;
     }
     else
@@ -687,7 +687,7 @@ bot_oldschool_pickup_perk( var_0 )
 
     if ( isdefined( var_0._id_62E1 ) && !bot_oldschool_pickup_is_recharging( gettime(), var_0._id_62E1 ) )
     {
-        self _meth_837c( "use", 1.0 );
+        self _meth_837C( "use", 1.0 );
         var_2 = gettime();
 
         while ( !maps\mp\_utility::_hasperk( var_0._id_62E1._id_67CF ) && gettime() - var_2 < 1000.0 || gettime() - var_2 <= 100 )
@@ -945,7 +945,7 @@ oldschool_attempt_camp_pickup()
     if ( randomfloat( 1.0 ) < 0.5 )
         return 0;
 
-    if ( maps\mp\bots\_bots_strategy::_id_1649( "oldschool_pickup" ) )
+    if ( maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "oldschool_pickup" ) )
         return 0;
 
     var_0 = [];

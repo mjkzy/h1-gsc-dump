@@ -163,20 +163,20 @@ main()
 
 globalfx_override()
 {
-    maps\_vehicle::_id_1857( "script_vehicle_bm21_cover_destructible", "headlight_truck_left2", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_bm21_cover_destructible", "headlight_truck_right2", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_bm21_mobile_bed_destructible", "headlight_truck_left2", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_bm21_mobile_bed_destructible", "headlight_truck_right2", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_bm21_mobile_cover", "headlight_truck_left2", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_bm21_mobile_cover", "headlight_truck_right2", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "headlight_truck_left", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "headlight_truck_right", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_truck_lf_night", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "parkinglight_truck_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_truck_rf_night", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "taillight_truck_right", "tag_taillight_right", "fx/misc/car_taillight_truck_r_night", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "taillight_truck_left", "tag_taillight_left", "fx/misc/car_taillight_truck_l_night", "headlights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "brakelight_truck_right", "tag_taillight_right", "fx/misc/car_brakelight_truck_r_night", "brakelights" );
-    maps\_vehicle::_id_1857( "script_vehicle_pickup_4door", "brakelight_truck_left", "tag_taillight_left", "fx/misc/car_brakelight_truck_l_night", "brakelights" );
+    maps\_vehicle::build_light( "script_vehicle_bm21_cover_destructible", "headlight_truck_left2", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_bm21_cover_destructible", "headlight_truck_right2", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_bm21_mobile_bed_destructible", "headlight_truck_left2", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_bm21_mobile_bed_destructible", "headlight_truck_right2", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_bm21_mobile_cover", "headlight_truck_left2", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_bm21_mobile_cover", "headlight_truck_right2", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "headlight_truck_left", "tag_headlight_left", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "headlight_truck_right", "tag_headlight_right", "vfx/lights/hunted/hunted_headlight", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_truck_lf_night", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "parkinglight_truck_right_f", "tag_parkinglight_right_f", "fx/misc/car_parkinglight_truck_rf_night", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "taillight_truck_right", "tag_taillight_right", "fx/misc/car_taillight_truck_r_night", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "taillight_truck_left", "tag_taillight_left", "fx/misc/car_taillight_truck_l_night", "headlights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "brakelight_truck_right", "tag_taillight_right", "fx/misc/car_brakelight_truck_r_night", "brakelights" );
+    maps\_vehicle::build_light( "script_vehicle_pickup_4door", "brakelight_truck_left", "tag_taillight_left", "fx/misc/car_brakelight_truck_l_night", "brakelights" );
     maps\_global_fx::override_global_fx( "me_streetlight_01_FX_origin", "vfx/map/hunted/hunted_street_lights", undefined, "hunted_street_lights" );
 }
 
@@ -406,8 +406,8 @@ ac130_gas_station()
     var_1 = getentarray( "gas_station_d", "targetname" );
     var_2 = getentarray( "big_explosion", "targetname" );
     var_3 = getentarray( "small_explosion", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::hide_ent );
-    common_scripts\utility::_id_0D13( var_1, ::swap_ent, ( 7680.0, 0.0, 0.0 ) );
+    common_scripts\utility::array_thread( var_0, ::hide_ent );
+    common_scripts\utility::array_thread( var_1, ::swap_ent, ( 7680.0, 0.0, 0.0 ) );
 }
 
 hide_ent( var_0 )

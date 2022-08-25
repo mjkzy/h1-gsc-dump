@@ -83,7 +83,7 @@ _id_4C86()
     var_0["melee_crouching_back"] = [ %melee_death_crouching_back ];
     var_0["melee_crouching_left"] = [ %melee_death_crouching_left ];
     var_0["melee_crouching_right"] = [ %melee_death_crouching_right ];
-    anim._id_0CCA["soldier"]["death"] = var_0;
+    anim.archetypes["soldier"]["death"] = var_0;
 }
 
 main()
@@ -93,7 +93,7 @@ main()
     var_0 = 0.3;
     self _meth_8144( %scripted_talking, var_0 );
     maps\_anim::_id_2B04( 0 );
-    self _meth_83f9();
+    self _meth_83F9();
 
     if ( self.a._id_612E == 1 )
         return;
@@ -227,10 +227,10 @@ _id_6589()
 {
     if ( ( self.damagemod == "MOD_MELEE" || self.damagemod == "MOD_MELEE_ALT" ) && isdefined( self.attacker ) )
     {
-        if ( isdefined( self._id_0B04 ) && isdefined( self._id_0B05 ) )
+        if ( isdefined( self.altmeleedeath ) && isdefined( self.altmeleevictimorientation ) )
         {
-            var_0 = self._id_0B05;
-            self._id_0B05 = undefined;
+            var_0 = self.altmeleevictimorientation;
+            self.altmeleevictimorientation = undefined;
         }
         else
             var_0 = _id_4064();
@@ -745,7 +745,7 @@ _id_3F4D()
 {
     if ( _id_8494( self.damagemod, self.attacker, self.damageweapon ) )
     {
-        self._id_0B04 = 1;
+        self.altmeleedeath = 1;
         var_0 = _id_3EEE();
 
         if ( isdefined( var_0 ) )
@@ -791,8 +791,8 @@ _id_3F4D()
 
 _id_3EEE()
 {
-    self._id_0B05 = _id_4064();
-    var_0 = self._id_0B05 - self.angles[1];
+    self.altmeleevictimorientation = _id_4064();
+    var_0 = self.altmeleevictimorientation - self.angles[1];
     var_1 = angleclamp180( self.damageyaw - var_0 );
     var_2 = self.a._id_6E5A;
 
@@ -807,28 +807,28 @@ _id_3EEE()
         var_4 = animscripts\utility::_id_5863( "death", "melee_exo_front_" + var_3 + "_" + var_2 );
 
         if ( animscripts\utility::_id_25A6( "head", "neck" ) )
-            var_4 = common_scripts\utility::_id_0CDD( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_front_head" ) );
+            var_4 = common_scripts\utility::array_combine( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_front_head" ) );
     }
     else if ( var_1 < 45 && var_1 > -45 )
     {
         var_4 = animscripts\utility::_id_5863( "death", "melee_exo_back_" + var_3 + "_" + var_2 );
 
         if ( animscripts\utility::_id_25A6( "head", "neck" ) )
-            var_4 = common_scripts\utility::_id_0CDD( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_back_head" ) );
+            var_4 = common_scripts\utility::array_combine( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_back_head" ) );
     }
     else if ( var_1 < -45 && var_1 > -135 )
     {
         var_4 = animscripts\utility::_id_5863( "death", "melee_exo_left_" + var_3 + "_" + var_2 );
 
         if ( animscripts\utility::_id_25A6( "head", "neck" ) )
-            var_4 = common_scripts\utility::_id_0CDD( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_left_head" ) );
+            var_4 = common_scripts\utility::array_combine( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_left_head" ) );
     }
     else
     {
         var_4 = animscripts\utility::_id_5863( "death", "melee_exo_right_" + var_3 + "_" + var_2 );
 
         if ( animscripts\utility::_id_25A6( "head", "neck" ) )
-            var_4 = common_scripts\utility::_id_0CDD( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_right_head" ) );
+            var_4 = common_scripts\utility::array_combine( var_4, animscripts\utility::_id_5863( "death", "melee_exo_" + var_2 + "_right_head" ) );
     }
 
     return var_4[randomint( var_4.size )];
@@ -948,7 +948,7 @@ _id_50B7( var_0 )
 
     var_2 = getmovedelta( var_0, 0, var_1 );
     var_3 = self localtoworldcoords( var_2 );
-    return !self _meth_81c7( var_3, 1, 1 );
+    return !self _meth_81C7( var_3, 1, 1 );
 }
 
 _id_40EA()
@@ -963,15 +963,15 @@ _id_40EA()
             var_0 = animscripts\utility::_id_5863( "death", "stand_pistol_front" );
 
         if ( self.damagelocation == "torso_upper" )
-            var_0 = common_scripts\utility::_id_0CDD( animscripts\utility::_id_5863( "death", "stand_pistol_torso_upper" ), var_0 );
+            var_0 = common_scripts\utility::array_combine( animscripts\utility::_id_5863( "death", "stand_pistol_torso_upper" ), var_0 );
         else if ( animscripts\utility::_id_25A6( "torso_lower", "left_leg_upper", "left_leg_lower", "right_leg_upper", "right_leg_lower" ) )
-            var_0 = common_scripts\utility::_id_0CDD( animscripts\utility::_id_5863( "death", "stand_pistol_torso_upper" ), var_0 );
+            var_0 = common_scripts\utility::array_combine( animscripts\utility::_id_5863( "death", "stand_pistol_torso_upper" ), var_0 );
 
         if ( !animscripts\utility::_id_25A6( "head", "neck", "helmet", "left_foot", "right_foot", "left_hand", "right_hand", "gun" ) && randomint( 2 ) == 0 )
-            var_0 = common_scripts\utility::_id_0CDD( animscripts\utility::_id_5863( "death", "stand_pistol_upper_body" ), var_0 );
+            var_0 = common_scripts\utility::array_combine( animscripts\utility::_id_5863( "death", "stand_pistol_upper_body" ), var_0 );
 
         if ( var_0.size == 0 || animscripts\utility::_id_25A6( "torso_lower", "torso_upper", "neck", "head", "helmet", "right_arm_upper", "left_arm_upper" ) )
-            var_0 = common_scripts\utility::_id_0CDD( animscripts\utility::_id_5863( "death", "stand_pistol_default" ), var_0 );
+            var_0 = common_scripts\utility::array_combine( animscripts\utility::_id_5863( "death", "stand_pistol_default" ), var_0 );
     }
 
     return var_0;
@@ -1013,35 +1013,35 @@ _id_40E8()
 
         if ( animscripts\utility::_id_25A6( "torso_upper" ) )
         {
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "stand_torso_upper" ) );
-            var_1 = common_scripts\utility::_id_0CDD( var_1, animscripts\utility::_id_5863( "death", "stand_torso_upper_extended" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "stand_torso_upper" ) );
+            var_1 = common_scripts\utility::array_combine( var_1, animscripts\utility::_id_5863( "death", "stand_torso_upper_extended" ) );
         }
 
         if ( self.damageyaw > 135 || self.damageyaw <= -135 )
         {
             if ( animscripts\utility::_id_25A6( "neck", "head", "helmet" ) )
             {
-                var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "stand_front_torso" ) );
-                var_1 = common_scripts\utility::_id_0CDD( var_1, animscripts\utility::_id_5863( "death", "stand_front_torso_extended" ) );
+                var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "stand_front_torso" ) );
+                var_1 = common_scripts\utility::array_combine( var_1, animscripts\utility::_id_5863( "death", "stand_front_torso_extended" ) );
             }
 
             if ( animscripts\utility::_id_25A6( "torso_upper" ) )
             {
-                var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "stand_front_torso" ) );
-                var_1 = common_scripts\utility::_id_0CDD( var_1, animscripts\utility::_id_5863( "death", "stand_front_torso_extended" ) );
+                var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "stand_front_torso" ) );
+                var_1 = common_scripts\utility::array_combine( var_1, animscripts\utility::_id_5863( "death", "stand_front_torso_extended" ) );
             }
         }
         else if ( self.damageyaw > -45 && self.damageyaw <= 45 )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "stand_back" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "stand_back" ) );
 
         var_2 = var_0.size > 0;
 
         if ( !var_2 || randomint( 100 ) < 15 )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "stand_default" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "stand_default" ) );
 
         if ( randomint( 100 ) < 10 && _id_3803() )
         {
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "stand_default_firing" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "stand_default_firing" ) );
             var_0 = _id_73E7( var_0 );
         }
     }
@@ -1083,13 +1083,13 @@ _id_3F41()
             var_0 = animscripts\utility::_id_5863( "death", "crouch_head" );
 
         if ( animscripts\utility::_id_25A6( "torso_upper", "torso_lower", "left_arm_upper", "right_arm_upper", "neck" ) )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "crouch_torso" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "crouch_torso" ) );
 
         if ( var_0.size < 2 )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "crouch_default1" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "crouch_default1" ) );
 
         if ( var_0.size < 2 )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "death", "crouch_default2" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "death", "crouch_default2" ) );
     }
 
     return var_0[randomint( var_0.size )];
@@ -1102,7 +1102,7 @@ _id_409C()
 
 _id_3F0F()
 {
-    var_0 = animscripts\utility::_id_0CD8( %dying_back_death_v1, %dying_back_death_v2, %dying_back_death_v3, %dying_back_death_v4 );
+    var_0 = animscripts\utility::array( %dying_back_death_v1, %dying_back_death_v2, %dying_back_death_v3, %dying_back_death_v4 );
     return var_0[randomint( var_0.size )];
 }
 
@@ -1195,7 +1195,7 @@ _id_6D97()
         var_2 = getmovedelta( var_1, 0, 1 );
         var_3 = self localtoworldcoords( var_2 );
 
-        if ( !self _meth_81c7( var_3, 0 ) )
+        if ( !self _meth_81C7( var_3, 0 ) )
             return 0;
     }
 

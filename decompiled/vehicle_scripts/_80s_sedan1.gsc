@@ -22,25 +22,25 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "80s_sedan1", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_brn", "vehicle_80s_sedan1_brn_destroyed" );
-    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_green", "vehicle_80s_sedan1_green_destroyed" );
-    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_red", "vehicle_80s_sedan1_red_destroyed" );
-    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_silv", "vehicle_80s_sedan1_silv_destroyed" );
-    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_tan", "vehicle_80s_sedan1_tan_destroyed" );
-    maps\_vehicle::_id_1845( "vehicle_80s_sedan1_yel", "vehicle_80s_sedan1_yel_destroyed" );
-    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_brn_destructible", "vehicle_80s_sedan1_brn" );
-    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_green_destructible", "vehicle_80s_sedan1_green" );
-    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_red_destructible", "vehicle_80s_sedan1_red" );
-    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_silv_destructible", "vehicle_80s_sedan1_silv" );
-    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_tan_destructible", "vehicle_80s_sedan1_tan" );
-    maps\_vehicle::_id_1848( "vehicle_80s_sedan1_yel_destructible", "vehicle_80s_sedan1_yel" );
-    maps\_vehicle::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "80s_sedan1", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_80s_sedan1_brn", "vehicle_80s_sedan1_brn_destroyed" );
+    maps\_vehicle::build_deathmodel( "vehicle_80s_sedan1_green", "vehicle_80s_sedan1_green_destroyed" );
+    maps\_vehicle::build_deathmodel( "vehicle_80s_sedan1_red", "vehicle_80s_sedan1_red_destroyed" );
+    maps\_vehicle::build_deathmodel( "vehicle_80s_sedan1_silv", "vehicle_80s_sedan1_silv_destroyed" );
+    maps\_vehicle::build_deathmodel( "vehicle_80s_sedan1_tan", "vehicle_80s_sedan1_tan_destroyed" );
+    maps\_vehicle::build_deathmodel( "vehicle_80s_sedan1_yel", "vehicle_80s_sedan1_yel_destroyed" );
+    maps\_vehicle::build_destructible( "vehicle_80s_sedan1_brn_destructible", "vehicle_80s_sedan1_brn" );
+    maps\_vehicle::build_destructible( "vehicle_80s_sedan1_green_destructible", "vehicle_80s_sedan1_green" );
+    maps\_vehicle::build_destructible( "vehicle_80s_sedan1_red_destructible", "vehicle_80s_sedan1_red" );
+    maps\_vehicle::build_destructible( "vehicle_80s_sedan1_silv_destructible", "vehicle_80s_sedan1_silv" );
+    maps\_vehicle::build_destructible( "vehicle_80s_sedan1_tan_destructible", "vehicle_80s_sedan1_tan" );
+    maps\_vehicle::build_destructible( "vehicle_80s_sedan1_yel_destructible", "vehicle_80s_sedan1_yel" );
+    maps\_vehicle::build_drive( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

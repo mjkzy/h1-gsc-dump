@@ -71,10 +71,10 @@ _id_422D( var_0, var_1, var_2, var_3, var_4 )
 
         var_10 = var_8.script_noteworthy;
 
-        if ( !isdefined( level._id_05C3[var_10] ) )
-            level._id_05C3[var_10] = [];
+        if ( !isdefined( level._global_fx_ents[var_10] ) )
+            level._global_fx_ents[var_10] = [];
 
-        level._id_05C3[var_10][level._id_05C3[var_10].size] = var_9;
+        level._global_fx_ents[var_10][level._global_fx_ents[var_10].size] = var_9;
     }
 }
 
@@ -83,7 +83,7 @@ init()
     if ( !isdefined( level._id_422D ) )
         level._id_422D = [];
 
-    level._id_05C3 = [];
+    level._global_fx_ents = [];
 
     if ( !isdefined( level.global_fx_override ) )
         level.global_fx_override = [];

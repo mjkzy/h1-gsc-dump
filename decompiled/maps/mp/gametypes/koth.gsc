@@ -209,7 +209,7 @@ initspawns()
 
     if ( !level.spawn_all.size )
     {
-        maps\mp\gametypes\_callbacksetup::_id_06BF();
+        maps\mp\gametypes\_callbacksetup::abortlevel();
         return;
     }
 }
@@ -689,7 +689,7 @@ setupradios()
         }
 
         common_scripts\utility::_id_334F( "Map errors. See above" );
-        maps\mp\gametypes\_callbacksetup::_id_06BF();
+        maps\mp\gametypes\_callbacksetup::abortlevel();
     }
     else
     {

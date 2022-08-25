@@ -54,8 +54,8 @@ _id_6540( var_0, var_1 )
     if ( var_0._id_6543 )
         return;
 
-    var_0 _meth_84a5( 3 );
-    var_0 _meth_84a7( 70, 0, 40, 80 );
+    var_0 _meth_84A5( 3 );
+    var_0 _meth_84A7( 70, 0, 40, 80 );
     var_0._id_6543 = 1;
 }
 
@@ -64,6 +64,6 @@ _id_6541( var_0 )
     if ( !var_0._id_6543 )
         return;
 
-    var_0 _meth_84a6();
+    var_0 _meth_84A6();
     var_0._id_6543 = 0;
 }

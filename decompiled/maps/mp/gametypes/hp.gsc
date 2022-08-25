@@ -456,7 +456,7 @@ _id_64FF( var_0 )
         }
     }
 
-    level thread _id_1206( var_1, self._id_557E );
+    level thread awardcapturepoints( var_1, self._id_557E );
     self._id_1B4B++;
     self._id_557E = var_1;
     maps\mp\gametypes\_gameobjects::_id_600A( 1 );
@@ -672,7 +672,7 @@ _id_5F9D( var_0 )
     level notify( "zone_moved" );
 }
 
-_id_1206( var_0, var_1 )
+awardcapturepoints( var_0, var_1 )
 {
     level endon( "game_ended" );
     level endon( "zone_destroyed" );
@@ -784,7 +784,7 @@ _id_8348()
         }
     }
 
-    level._id_09E2 = level._id_A3F6;
+    level.all_hp_zones = level._id_A3F6;
     return 1;
 }
 
@@ -922,7 +922,7 @@ _id_4045()
 
 _id_854A()
 {
-    level._id_A3F8 = common_scripts\utility::_id_0CF5( level._id_A3F6 );
+    level._id_A3F8 = common_scripts\utility::array_randomize( level._id_A3F6 );
 
     if ( level._id_A3DD == level._id_A3F8[0] )
         level._id_A3F8 = maps\mp\_utility::_id_9001( level._id_A3F8, 0, randomintrange( 1, level._id_A3F8.size ) );
@@ -981,7 +981,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
             return;
 
         if ( self.team == var_10 )
-            var_1 thread maps\mp\_events::_id_0D52( self, var_9 );
+            var_1 thread maps\mp\_events::assaultobjectiveevent( self, var_9 );
         else
         {
             var_1 maps\mp\gametypes\_misions::_id_6FF6( "ch_hp_zoneDefense" );
@@ -1011,8 +1011,8 @@ _id_9AFB( var_0 )
     self._id_6294++;
     var_1 = maps\mp\_utility::_id_412C() / 60000;
 
-    if ( isplayer( self ) && isdefined( self.timeplayed["total"] ) )
-        var_1 = max( self.timeplayed["total"], 1 ) / 60;
+    if ( isplayer( self ) && isdefined( self._id_9372["total"] ) )
+        var_1 = max( self._id_9372["total"], 1 ) / 60;
 
     self._id_1B44 = self._id_6294 / var_1;
 

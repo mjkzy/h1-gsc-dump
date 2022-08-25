@@ -21,21 +21,21 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "small_hatchback", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_small_hatchback_blue", "vehicle_small_hatchback_d_blue" );
-    maps\_vehicle::_id_1845( "vehicle_small_hatchback_green", "vehicle_small_hatchback_d_green" );
-    maps\_vehicle::_id_1845( "vehicle_small_hatchback_turq", "vehicle_small_hatchback_d_turq" );
-    maps\_vehicle::_id_1845( "vehicle_small_hatchback_white", "vehicle_small_hatchback_d_white" );
-    maps\_vehicle::_id_1848( "vehicle_small_hatch_blue_destructible", "vehicle_small_hatch_blue" );
-    maps\_vehicle::_id_1848( "vehicle_small_hatch_green_destructible", "vehicle_small_hatch_green" );
-    maps\_vehicle::_id_1848( "vehicle_small_hatch_turq_destructible", "vehicle_small_hatch_turq" );
-    maps\_vehicle::_id_1848( "vehicle_small_hatch_white_destructible", "vehicle_small_hatch_white" );
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "small_hatchback", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_small_hatchback_blue", "vehicle_small_hatchback_d_blue" );
+    maps\_vehicle::build_deathmodel( "vehicle_small_hatchback_green", "vehicle_small_hatchback_d_green" );
+    maps\_vehicle::build_deathmodel( "vehicle_small_hatchback_turq", "vehicle_small_hatchback_d_turq" );
+    maps\_vehicle::build_deathmodel( "vehicle_small_hatchback_white", "vehicle_small_hatchback_d_white" );
+    maps\_vehicle::build_destructible( "vehicle_small_hatch_blue_destructible", "vehicle_small_hatch_blue" );
+    maps\_vehicle::build_destructible( "vehicle_small_hatch_green_destructible", "vehicle_small_hatch_green" );
+    maps\_vehicle::build_destructible( "vehicle_small_hatch_turq_destructible", "vehicle_small_hatch_turq" );
+    maps\_vehicle::build_destructible( "vehicle_small_hatch_white_destructible", "vehicle_small_hatch_white" );
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

@@ -117,62 +117,62 @@ _id_5FFD( var_0, var_1 )
 start_default_checkpoint( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "snipe_before_heli_mix" );
-    soundscripts\_audio_zone_manager::_id_123A( "interior_snipe_building" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_snipe_building" );
 }
 
 start_rappel_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_run_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_apart_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_wounding_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 start_crash_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_wounded_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_burnt_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_pool_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "shower_room" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "shower_room" );
 }
 
 start_fair_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_fair_battle_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_seaknight_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_snipe_scoped_in_mix()

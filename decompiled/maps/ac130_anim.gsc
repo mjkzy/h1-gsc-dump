@@ -36,12 +36,12 @@ main()
     level._id_78AC["hijacker_car1_guy2"]["hijack"] = %ac130_carjack_2;
     level._id_78AC["hijacker_car1_guy3"]["hijack"] = %ac130_carjack_3;
     level._id_78AC["hijacker_car1_guy4"]["hijack"] = %ac130_carjack_4;
-    maps\_anim::_id_0807( "hijacker_car1_guy1", "start_others", maps\ac130_code::do_hijack_others );
+    maps\_anim::addnotetrack_customfunction( "hijacker_car1_guy1", "start_others", maps\ac130_code::do_hijack_others );
     level._id_78AC["hijacker_car2_guy1"]["hijack"] = %ac130_carjack_1b;
     level._id_78AC["hijacker_car2_guy2"]["hijack"] = %ac130_carjack_2;
     level._id_78AC["hijacker_car2_guy3"]["hijack"] = %ac130_carjack_3;
     level._id_78AC["hijacker_car2_guy4"]["hijack"] = %ac130_carjack_4;
-    maps\_anim::_id_0807( "hijacker_car2_guy1", "start_others", maps\ac130_code::do_hijack_others );
+    maps\_anim::addnotetrack_customfunction( "hijacker_car2_guy1", "start_others", maps\ac130_code::do_hijack_others );
     level._id_78AC["hijacker_car1_guy1"]["idle"][0] = %bm21_driver_idle;
     level._id_78AC["hijacker_car1_guy2"]["idle"][0] = %technical_passenger_idle;
     level._id_78AC["hijacker_car1_guy3"]["idle"][0] = %technical_passenger_idle;

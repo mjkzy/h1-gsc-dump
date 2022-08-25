@@ -23,10 +23,10 @@ _id_3FC9()
 {
     _id_9B49();
 
-    if ( !level.placement["all"].size )
+    if ( !level._id_6861["all"].size )
         return undefined;
     else
-        return level.placement["all"][0];
+        return level._id_6861["all"][0];
 }
 
 _id_3FCA( var_0 )
@@ -40,10 +40,10 @@ _id_3FCA( var_0 )
 
     for ( var_2 = 0; var_2 < var_0; var_2++ )
     {
-        if ( level.placement["all"].size == var_2 )
+        if ( level._id_6861["all"].size == var_2 )
             break;
 
-        var_1[var_2] = level.placement["all"][var_2];
+        var_1[var_2] = level._id_6861["all"][var_2];
     }
 
     return var_1;
@@ -52,12 +52,12 @@ _id_3FCA( var_0 )
 _id_4010()
 {
     _id_9B49();
-    var_0 = level.placement["all"];
+    var_0 = level._id_6861["all"];
     var_1 = [];
 
     foreach ( var_3 in var_0 )
     {
-        if ( var_3 == level.placement["all"][0] )
+        if ( var_3 == level._id_6861["all"][0] )
             continue;
 
         var_1[var_1.size] = var_3;
@@ -128,10 +128,10 @@ onplayerscore( var_0, var_1, var_2 )
     if ( !isdefined( var_3 ) )
         var_3 = maps\mp\gametypes\_rank::_id_40C1( var_0 );
 
-    var_1.pers["score"] += var_3 * level.objectivepointsmod;
+    var_1.pers["score"] += var_3 * level._id_6301;
 }
 
-_id_063D( var_0, var_1 )
+_setplayerscore( var_0, var_1 )
 {
     if ( var_1 == var_0.pers["score"] )
         return;
@@ -141,16 +141,16 @@ _id_063D( var_0, var_1 )
     var_0 thread maps\mp\gametypes\_gamelogic::_id_1D1A();
 }
 
-_id_05B8( var_0 )
+_getplayerscore( var_0 )
 {
     return var_0.pers["score"];
 }
 
 _id_420C( var_0, var_1 )
 {
-    var_1 *= level.objectivepointsmod;
-    _id_0640( var_0, _id_05BD( var_0 ) + var_1 );
-    level notify( "update_team_score", var_0, _id_05BD( var_0 ) );
+    var_1 *= level._id_6301;
+    _setteamscore( var_0, _getteamscore( var_0 ) + var_1 );
+    level notify( "update_team_score", var_0, _getteamscore( var_0 ) );
     thread _id_420D();
 }
 
@@ -161,19 +161,19 @@ _id_420D()
     waitframe;
     var_0 = _id_416F();
 
-    if ( !level.splitscreen && var_0 != "none" && var_0 != level.waswinning && gettime() - level.laststatustime > 5000 && maps\mp\_utility::_id_40C2() != 1 )
+    if ( !level.splitscreen && var_0 != "none" && var_0 != level._id_A1D4 && gettime() - level._id_55FC > 5000 && maps\mp\_utility::_id_40C2() != 1 )
     {
-        level.laststatustime = gettime();
+        level._id_55FC = gettime();
         maps\mp\_utility::_id_564B( "lead_taken", var_0, "status" );
 
-        if ( level.waswinning != "none" )
-            maps\mp\_utility::_id_564B( "lead_lost", level.waswinning, "status" );
+        if ( level._id_A1D4 != "none" )
+            maps\mp\_utility::_id_564B( "lead_lost", level._id_A1D4, "status" );
     }
 
     if ( var_0 != "none" )
     {
-        level.waswinning = var_0;
-        var_1 = _id_05BD( var_0 );
+        level._id_A1D4 = var_0;
+        var_1 = _getteamscore( var_0 );
         var_2 = maps\mp\_utility::_id_415E( "scorelimit" );
 
         if ( var_1 == 0 || var_2 == 0 )
@@ -213,7 +213,7 @@ _id_416F()
     return var_1;
 }
 
-_id_0640( var_0, var_1 )
+_setteamscore( var_0, var_1 )
 {
     if ( var_1 == game["teamScores"][var_0] )
         return;
@@ -235,14 +235,14 @@ _id_9B84( var_0 )
     var_1 = 0;
 
     if ( !maps\mp\_utility::_id_5194() || !maps\mp\_utility::_id_5160() )
-        var_1 = _id_05BD( var_0 );
+        var_1 = _getteamscore( var_0 );
     else
         var_1 = game["roundsWon"][var_0];
 
     setteamscore( var_0, var_1 );
 }
 
-_id_05BD( var_0 )
+_getteamscore( var_0 )
 {
     return game["teamScores"][var_0];
 }
@@ -268,29 +268,29 @@ _id_7C87()
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
     {
         level.players[var_0] updatedmscores();
-        level.players[var_0].updateddmscores = 1;
+        level.players[var_0]._id_9B0F = 1;
     }
 }
 
 _id_739E()
 {
     var_0 = 0;
-    var_1 = level.placement["all"].size;
+    var_1 = level._id_6861["all"].size;
     var_2 = 0;
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        if ( level.placement["all"][var_3] == self )
+        if ( level._id_6861["all"][var_3] == self )
             var_2 = 1;
 
         if ( var_2 )
-            level.placement["all"][var_3] = level.placement["all"][var_3 + 1];
+            level._id_6861["all"][var_3] = level._id_6861["all"][var_3 + 1];
     }
 
     if ( !var_2 )
         return;
 
-    level.placement["all"][var_1 - 1] = undefined;
+    level._id_6861["all"][var_1 - 1] = undefined;
 
     if ( level.multiteambased )
         _id_5FDE();
@@ -301,11 +301,11 @@ _id_739E()
         return;
     }
 
-    var_1 = level.placement["all"].size;
+    var_1 = level._id_6861["all"].size;
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        var_4 = level.placement["all"][var_3];
+        var_4 = level._id_6861["all"][var_3];
         var_4 notify( "update_outcome" );
     }
 }
@@ -339,7 +339,7 @@ _id_9B49()
         var_0[var_6 + 1] = var_2;
     }
 
-    level.placement["all"] = var_0;
+    level._id_6861["all"] = var_0;
 
     if ( level.multiteambased )
         _id_5FDE();
@@ -372,7 +372,7 @@ _id_9B82()
     var_0["allies"] = [];
     var_0["axis"] = [];
     var_0["spectator"] = [];
-    var_1 = level.placement["all"];
+    var_1 = level._id_6861["all"];
     var_2 = var_1.size;
 
     for ( var_3 = 0; var_3 < var_2; var_3++ )
@@ -382,8 +382,8 @@ _id_9B82()
         var_0[var_5][var_0[var_5].size] = var_4;
     }
 
-    level.placement["allies"] = var_0["allies"];
-    level.placement["axis"] = var_0["axis"];
+    level._id_6861["allies"] = var_0["allies"];
+    level._id_6861["axis"] = var_0["axis"];
 }
 
 _id_5FDE()
@@ -393,7 +393,7 @@ _id_5FDE()
     foreach ( var_2 in level.teamnamelist )
         var_0[var_2] = [];
 
-    var_4 = level.placement["all"];
+    var_4 = level._id_6861["all"];
     var_5 = var_4.size;
 
     for ( var_6 = 0; var_6 < var_5; var_6++ )
@@ -404,7 +404,7 @@ _id_5FDE()
     }
 
     foreach ( var_2 in level.teamnamelist )
-        level.placement[var_2] = var_0[var_2];
+        level._id_6861[var_2] = var_0[var_2];
 }
 
 _id_4DD5()
@@ -424,10 +424,10 @@ _id_4DD5()
             if ( !isdefined( var_4 ) )
                 continue;
 
-            if ( isdefined( var_4.updateddmscores ) )
+            if ( isdefined( var_4._id_9B0F ) )
                 continue;
 
-            var_4.updateddmscores = 1;
+            var_4._id_9B0F = 1;
             var_4 updatedmscores();
             var_1 = 1;
             wait 0.5;

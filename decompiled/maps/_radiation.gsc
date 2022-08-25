@@ -37,13 +37,13 @@ main()
 
     common_scripts\utility::_id_76BB( "radiation", ::updateradiationtriggers );
     common_scripts\utility::_id_76BB( "super_radiation", ::super_radiation_trigger );
-    common_scripts\utility::_id_0D13( level.players, ::updateradiationdosage );
-    common_scripts\utility::_id_0D13( level.players, ::updateradiationdosimeter );
-    common_scripts\utility::_id_0D13( level.players, ::updateradiationshock );
-    common_scripts\utility::_id_0D13( level.players, ::updateradiationblackout );
-    common_scripts\utility::_id_0D13( level.players, ::updateradiationsound );
-    common_scripts\utility::_id_0D13( level.players, ::updateradiationflag );
-    common_scripts\utility::_id_0D13( level.players, ::first_radiation_dialogue );
+    common_scripts\utility::array_thread( level.players, ::updateradiationdosage );
+    common_scripts\utility::array_thread( level.players, ::updateradiationdosimeter );
+    common_scripts\utility::array_thread( level.players, ::updateradiationshock );
+    common_scripts\utility::array_thread( level.players, ::updateradiationblackout );
+    common_scripts\utility::array_thread( level.players, ::updateradiationsound );
+    common_scripts\utility::array_thread( level.players, ::updateradiationflag );
+    common_scripts\utility::array_thread( level.players, ::first_radiation_dialogue );
 }
 
 updateradiationtriggers()
@@ -69,7 +69,7 @@ updateradiationtrigger_perplayer( var_0 )
         wait 0.05;
 
     var_0.radiation.inside = 0;
-    var_0.radiation.triggers = common_scripts\utility::_id_0CF6( var_0.radiation.triggers, self );
+    var_0.radiation.triggers = common_scripts\utility::array_remove( var_0.radiation.triggers, self );
 }
 
 super_radiation_trigger()

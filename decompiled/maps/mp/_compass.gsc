@@ -21,7 +21,7 @@
 
 setupminimap( var_0 )
 {
-    var_1 = level.requiredmapaspectratio;
+    var_1 = level._id_740C;
     var_2 = getentarray( "minimap_corner", "targetname" );
 
     if ( var_2.size != 2 )
@@ -80,7 +80,7 @@ setupminimap( var_0 )
         var_9 -= var_15;
     }
 
-    level.mapsize = vectordot( var_8 - var_9, var_6 );
+    level._id_5990 = vectordot( var_8 - var_9, var_6 );
     setminimap( var_0, var_8[0], var_8[1], var_9[0], var_9[1] );
 }
 

@@ -148,8 +148,8 @@ specialfeaturesmenu()
 
 tire_explosionmode_init()
 {
-    maps\_utility::_id_0761( "axis", ::tirecheat_dogs_enemy_spawned );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::tirecheat_dogs_enemy_spawned );
+    maps\_utility::add_global_spawn_function( "axis", ::tirecheat_dogs_enemy_spawned );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::tirecheat_dogs_enemy_spawned );
 }
 
 tirecheat_dogs_enemy_spawned()
@@ -376,9 +376,9 @@ slowmo_hintprint()
 
     level.cheatshowslowmohint = 1;
     var_1 = 180;
-    var_2 = maps\_hud_util::_id_2420( "h1_hud_tutorial_blur", 400, 25 );
-    var_3 = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 400, 1 );
-    var_4 = maps\_hud_util::_id_2420( "h1_hud_tutorial_border", 400, 1 );
+    var_2 = maps\_hud_util::createIcon( "h1_hud_tutorial_blur", 400, 25 );
+    var_3 = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 400, 1 );
+    var_4 = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 400, 1 );
     var_2 maps\_hud_util::setpoint( "TOP", undefined, 0, var_1 );
     var_2.sort = 1;
     var_2.hidewheninmenu = 1;
@@ -689,8 +689,8 @@ melonhead_mode_init()
     level.melonhead_mode_attachtag = "j_head";
     level.melonhead_mode_model = "me_fruit_watermelon_oblong";
     precachemodel( level.melonhead_mode_model );
-    maps\_utility::_id_0761( "axis", ::melonhead_monitor );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::melonhead_monitor );
+    maps\_utility::add_global_spawn_function( "axis", ::melonhead_monitor );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::melonhead_monitor );
 }
 
 melonhead_mode_update( var_0 )
@@ -948,8 +948,8 @@ tracksuit_mode_init()
     precachemodel( level.tracksuit_mode_head );
     precacheitem( level.tracksuit_mode_weapon );
     precacheitem( "rpg_player" );
-    maps\_utility::_id_0761( "axis", ::tracksuit_monitor );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::tracksuit_monitor );
+    maps\_utility::add_global_spawn_function( "axis", ::tracksuit_monitor );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::tracksuit_monitor );
 }
 
 tracksuit_mode_update( var_0 )
@@ -966,7 +966,7 @@ tracksuit_monitor()
     if ( isdefined( self.tracksuit_ignore ) && self.tracksuit_ignore )
         return;
 
-    if ( isdefined( self._id_0C8E ) && self._id_0C8E == "dog.atr" )
+    if ( isdefined( self.animtree ) && self.animtree == "dog.atr" )
         return;
 
     for (;;)
@@ -989,7 +989,7 @@ add_tracksuit()
 
     if ( isdefined( self.weapon ) && !isdefined( self.ignoreweaponintracksuitmode ) && self.classname != "script_model" )
     {
-        if ( isdefined( self.a ) && isdefined( self.a._id_0979 ) )
+        if ( isdefined( self.a ) && isdefined( self.a.aimidlethread ) )
             animscripts\combat_utility::_id_315E();
 
         self.tracksuitmode_previousprimary = animscripts\utility::_id_3EE5();
@@ -1065,7 +1065,7 @@ remove_tracksuit()
 
     if ( isdefined( self.tracksuitmode_previousprimary ) && !isdefined( self.ignoreweaponintracksuitmode ) )
     {
-        if ( isdefined( self.a ) && isdefined( self.a._id_0979 ) )
+        if ( isdefined( self.a ) && isdefined( self.a.aimidlethread ) )
             animscripts\combat_utility::_id_315E();
 
         if ( tracksuit_should_equipweapon() )

@@ -21,9 +21,9 @@
 
 init()
 {
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate_slow", "targetname" ), ::_id_366A, "veryslow" );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A, "slow" );
-    common_scripts\utility::_id_0D13( getentarray( "com_wall_fan_blade_rotate_fast", "targetname" ), ::_id_366A, "fast" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_slow", "targetname" ), ::_id_366A, "veryslow" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A, "slow" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_fast", "targetname" ), ::_id_366A, "fast" );
     var_0 = [];
     var_0["trigger_multiple_dyn_metal_detector"] = ::_id_5BBA;
     var_0["trigger_multiple_dyn_creaky_board"] = ::_id_2395;
@@ -32,7 +32,7 @@ init()
     var_0["trigger_radius_motion_light"] = ::_id_5EF1;
     var_0["trigger_radius_dyn_motion_dlight"] = ::_id_65B7;
     var_0["trigger_multiple_dog_bark"] = ::_id_2C91;
-    var_0["trigger_radius_bird_startle"] = ::_id_147F;
+    var_0["trigger_radius_bird_startle"] = ::bird_startle;
     var_0["trigger_multiple_dyn_motion_light"] = ::_id_5EF1;
     var_0["trigger_multiple_dyn_door"] = ::_id_976F;
     _id_6B59();
@@ -40,13 +40,13 @@ init()
     foreach ( var_4, var_2 in var_0 )
     {
         var_3 = getentarray( var_4, "classname" );
-        common_scripts\utility::_id_0D13( var_3, ::_id_981C );
-        common_scripts\utility::_id_0D13( var_3, var_2 );
+        common_scripts\utility::array_thread( var_3, ::_id_981C );
+        common_scripts\utility::array_thread( var_3, var_2 );
     }
 
-    common_scripts\utility::_id_0D13( getentarray( "vending_machine", "targetname" ), ::_id_9D84 );
-    common_scripts\utility::_id_0D13( getentarray( "toggle", "targetname" ), ::_id_9BEA );
-    common_scripts\utility::_id_0D13( getentarray( "sliding_door", "targetname" ), ::_id_8628 );
+    common_scripts\utility::array_thread( getentarray( "vending_machine", "targetname" ), ::_id_9D84 );
+    common_scripts\utility::array_thread( getentarray( "toggle", "targetname" ), ::_id_9BEA );
+    common_scripts\utility::array_thread( getentarray( "sliding_door", "targetname" ), ::_id_8628 );
     level thread _id_64C8();
     var_5 = getent( "civilian_jet_origin", "targetname" );
 
@@ -77,7 +77,7 @@ _id_6B59()
     }
 }
 
-_id_08ED()
+ai_init()
 {
     self._id_940F = [];
     thread _id_5F5F();
@@ -541,12 +541,12 @@ _id_5BBA()
     var_2 delete();
 
     if ( !common_scripts\utility::_id_51AE() )
-        self._id_09B3 = 7;
+        self.alarm_interval = 7;
     else
-        self._id_09B3 = 2;
+        self.alarm_interval = 2;
 
-    self._id_09B7 = 0;
-    self._id_09AF = 0;
+    self.alarm_playing = 0;
+    self.alarm_annoyance = 0;
     self._id_93E0 = 0;
     thread _id_5BBB( var_0 );
     thread _id_5BBC();
@@ -566,34 +566,34 @@ _id_6DD7( var_0, var_1, var_2, var_3 )
 {
     level endon( "game_ended" );
 
-    if ( !self._id_09B7 )
+    if ( !self.alarm_playing )
     {
-        self._id_09B7 = 1;
-        thread _id_0C92();
+        self.alarm_playing = 1;
+        thread annoyance_tracker();
 
-        if ( !self._id_09AF )
+        if ( !self.alarm_annoyance )
             self playsound( var_0 );
 
         playfx( var_1, var_2 );
         playfx( var_1, var_3 );
-        wait(self._id_09B3);
-        self._id_09B7 = 0;
+        wait(self.alarm_interval);
+        self.alarm_playing = 0;
     }
 }
 
-_id_0C92()
+annoyance_tracker()
 {
     level endon( "game_ended" );
 
     if ( !self._id_93E0 )
         return;
 
-    var_0 = self._id_09B3 + 0.15;
+    var_0 = self.alarm_interval + 0.15;
 
     if ( self._id_93E0 )
         self._id_93E0--;
     else
-        self._id_09AF = 1;
+        self.alarm_annoyance = 1;
 
     var_1 = gettime();
     var_2 = 7;
@@ -606,7 +606,7 @@ _id_0C92()
 
     if ( var_3 > var_2 * 1000 + 1150 )
     {
-        self._id_09AF = 0;
+        self.alarm_annoyance = 0;
         self._id_93E0 = 0;
     }
 }
@@ -654,7 +654,7 @@ _id_A2C8( var_0, var_1 )
     while ( _id_5121( var_0, var_1 ) )
     {
         self notify( "weapon_triggered" );
-        wait(self._id_09B3);
+        wait(self.alarm_interval);
     }
 }
 
@@ -698,7 +698,7 @@ _id_5BBB( var_0 )
     {
         var_0 waittill( "damage", var_1, var_2, var_3, var_4, var_5 );
 
-        if ( isdefined( var_5 ) && _id_09BD( var_5 ) )
+        if ( isdefined( var_5 ) && alarm_validate_damage( var_5 ) )
             self notify( "dmg_triggered" );
     }
 }
@@ -711,15 +711,15 @@ _id_5BBC()
     {
         self waittill( "trigger_enter" );
 
-        while ( _id_0C9B( self ) )
+        while ( anythingtouchingtrigger( self ) )
         {
             self notify( "touch_triggered" );
-            wait(self._id_09B3);
+            wait(self.alarm_interval);
         }
     }
 }
 
-_id_09BD( var_0 )
+alarm_validate_damage( var_0 )
 {
     var_1 = "mod_melee melee mod_grenade mod_projectile mod_explosive mod_impact";
     var_2 = strtok( var_1, " " );
@@ -785,7 +785,7 @@ _id_5EF1()
     {
         self waittill( "trigger_enter" );
 
-        while ( _id_0C9B( self ) )
+        while ( anythingtouchingtrigger( self ) )
         {
             var_5 = 0;
 
@@ -859,7 +859,7 @@ _id_65B7()
     {
         self waittill( "trigger_enter" );
 
-        while ( _id_0C9B( self ) )
+        while ( anythingtouchingtrigger( self ) )
         {
             var_2 = 0;
 
@@ -917,7 +917,7 @@ _id_2C91()
     {
         self waittill( "trigger_enter", var_1 );
 
-        while ( _id_0C9B( self ) )
+        while ( anythingtouchingtrigger( self ) )
         {
             var_2 = 0;
 
@@ -944,7 +944,7 @@ _id_976F()
     var_0 = getent( self.target, "targetname" );
     self._id_2D5E = var_0;
     self._id_2D5C = _id_4152( vectornormalize( self getorigin() - var_0 getorigin() ) );
-    var_0._id_131A = var_0.angles[1];
+    var_0.baseyaw = var_0.angles[1];
     var_1 = 1.0;
 
     for (;;)
@@ -952,12 +952,12 @@ _id_976F()
         self waittill( "trigger_enter", var_2 );
         var_0 thread _id_2D68( var_1, _id_3F6C( var_2 ) );
 
-        if ( _id_0C9B( self ) )
+        if ( anythingtouchingtrigger( self ) )
             self waittill( "trigger_empty" );
 
         wait 3.0;
 
-        if ( _id_0C9B( self ) )
+        if ( anythingtouchingtrigger( self ) )
             self waittill( "trigger_empty" );
 
         var_0 thread _id_2D5D( var_1 );
@@ -967,9 +967,9 @@ _id_976F()
 _id_2D68( var_0, var_1 )
 {
     if ( var_1 )
-        self rotateto( ( 0, self._id_131A + 90, 1 ), var_0, 0.1, 0.75 );
+        self rotateto( ( 0, self.baseyaw + 90, 1 ), var_0, 0.1, 0.75 );
     else
-        self rotateto( ( 0, self._id_131A - 90, 1 ), var_0, 0.1, 0.75 );
+        self rotateto( ( 0, self.baseyaw - 90, 1 ), var_0, 0.1, 0.75 );
 
     self playsound( "door_generic_house_open" );
     wait(var_0 + 0.05);
@@ -977,7 +977,7 @@ _id_2D68( var_0, var_1 )
 
 _id_2D5D( var_0 )
 {
-    self rotateto( ( 0, self._id_131A, 1 ), var_0 );
+    self rotateto( ( 0, self.baseyaw, 1 ), var_0 );
     self playsound( "door_generic_house_close" );
     wait(var_0 + 0.05);
 }
@@ -1024,7 +1024,7 @@ _id_9BEA()
     }
 }
 
-_id_147F()
+bird_startle()
 {
 
 }
@@ -1343,7 +1343,7 @@ _id_6D71( var_0, var_1, var_2 )
     var_0._id_940D[var_3] = undefined;
     var_0 notify( "trigger_leave", self );
 
-    if ( !_id_0C9B( var_0 ) )
+    if ( !anythingtouchingtrigger( var_0 ) )
         var_0 notify( "trigger_empty" );
 }
 
@@ -1376,7 +1376,7 @@ _id_5F5F()
     }
 }
 
-_id_0C9B( var_0 )
+anythingtouchingtrigger( var_0 )
 {
     return var_0._id_940D.size;
 }
@@ -1393,11 +1393,11 @@ _id_4EA4()
     if ( var_0.size )
     {
         common_scripts\utility::_id_6166( [ "com_tv2_d", "com_tv1_d", "com_tv1", "com_tv2", "com_tv1_testpattern", "com_tv2_testpattern" ], ::precachemodel );
-        level._id_17DD["tv_explode"] = loadfx( "fx/explosions/tv_explosion" );
+        level.breakables_fx["tv_explode"] = loadfx( "fx/explosions/tv_explosion" );
     }
 
     level._id_99D2 = getentarray( "interactive_tv_light", "targetname" );
-    common_scripts\utility::_id_0D13( getentarray( "interactive_tv", "targetname" ), ::_id_99D3 );
+    common_scripts\utility::array_thread( getentarray( "interactive_tv", "targetname" ), ::_id_99D3 );
 }
 
 _id_99D3()
@@ -1446,7 +1446,7 @@ _id_99D3()
     if ( var_1.size )
     {
         self._id_57A7 = var_1[0];
-        level._id_99D2 = common_scripts\utility::_id_0CF6( level._id_99D2, self._id_57A7 );
+        level._id_99D2 = common_scripts\utility::array_remove( level._id_99D2, self._id_57A7 );
         self._id_57A9 = self._id_57A7 getlightintensity();
     }
 
@@ -1496,7 +1496,7 @@ _id_99CF()
     if ( isdefined( self._id_57A7 ) )
         self._id_57A7 setlightintensity( 0 );
 
-    playfxontag( level._id_17DD["tv_explode"], self, "tag_fx" );
+    playfxontag( level.breakables_fx["tv_explode"], self, "tag_fx" );
     self playsound( "tv_shot_burst" );
 
     if ( isdefined( self._id_9C1A ) )
@@ -1522,7 +1522,7 @@ _id_8628()
         var_3 _id_2D46( self._id_651C );
     }
 
-    var_0 = common_scripts\utility::_id_0CF7( var_0, var_1 );
+    var_0 = common_scripts\utility::array_remove_array( var_0, var_1 );
 
     for (;;)
     {
@@ -1533,7 +1533,7 @@ _id_8628()
         }
 
         var_5 = vehicle_getarray();
-        var_6 = common_scripts\utility::_id_0CDD( level.characters, var_5 );
+        var_6 = common_scripts\utility::array_combine( level.characters, var_5 );
         var_7 = 0;
 
         foreach ( var_9 in var_6 )

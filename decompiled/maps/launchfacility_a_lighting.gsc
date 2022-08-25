@@ -43,7 +43,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "launchfacility_a", 5 );
     level.player maps\_utility::set_light_set_player( "launchfacility_a" );
-    level.player _meth_848c( "clut_launchfacility_a", 0.0 );
+    level.player _meth_848C( "clut_launchfacility_a", 0.0 );
     setsaveddvar( "r_specularcolorscale", "1.2" );
 }
 

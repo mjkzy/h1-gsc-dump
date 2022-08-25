@@ -103,12 +103,12 @@ main()
     maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_bmp_woodland", "fx/explosions/vehicle_explosion_bmp_fire", "tag_deathfx", "fx/fire/h1_fire_tank_wreck_lg" );
     maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_bmp_woodland", "fx/misc/empty", "tag_cargofire", "fx/fire/h1_fire_tank_wreck_lg" );
     maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_bmp_woodland", "fx/explosions/vehicle_explosion_bmp", "tag_deathfx", "fx/explosions/vehicle_explosion_bmp_launch_a" );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/grenadeexp_default", "tag_engine_left", "hind_helicopter_hit", undefined, undefined, undefined, 0.2, 1 );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/grenadeexp_default", "tail_rotor_jnt", "hind_helicopter_hit", undefined, undefined, undefined, 0.5, 1 );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/fire/fire_smoke_trail_L", "tail_rotor_jnt", "hind_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/aerial_explosion_launch_a", "tag_engine_right", "hind_helicopter_hit", undefined, undefined, undefined, 2.5, 1 );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/aerial_explosion_launch_a", "tag_deathfx", "hind_helicopter_hit", undefined, undefined, undefined, 4.0 );
-    maps\_vehicle::_id_1844( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/helicopter_explosion_hind_woodland", undefined, "hind_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/grenadeexp_default", "tag_engine_left", "hind_helicopter_hit", undefined, undefined, undefined, 0.2, 1 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/grenadeexp_default", "tail_rotor_jnt", "hind_helicopter_hit", undefined, undefined, undefined, 0.5, 1 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/fire/fire_smoke_trail_L", "tail_rotor_jnt", "hind_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/aerial_explosion_launch_a", "tag_engine_right", "hind_helicopter_hit", undefined, undefined, undefined, 2.5, 1 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/aerial_explosion_launch_a", "tag_deathfx", "hind_helicopter_hit", undefined, undefined, undefined, 4.0 );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_mi24p_hind_woodland", "hind", "vehicle_mi24p_hind_woodland", "fx/explosions/helicopter_explosion_hind_woodland", undefined, "hind_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
     maps\_vehicle::build_exploder_event_with_targetname( "hind_intro_flyby_01", "crash_done", 200, 0.5 );
     maps\createfx\launchfacility_a_fx::main();
     maps\createfx\launchfacility_a_sound::main();

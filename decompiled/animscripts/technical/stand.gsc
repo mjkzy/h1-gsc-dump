@@ -28,8 +28,8 @@ main()
     var_0 = self _meth_8198();
     var_0 thread _id_99B4( self );
     self._id_6F8E = %technicalgunner_aim;
-    self._id_07F5 = %technical_turret_driveidle;
-    self._id_07F4 = %technical_turret_firing;
+    self.additiveturretidle = %technical_turret_driveidle;
+    self.additiveturretfire = %technical_turret_firing;
     self._id_6658 = ::_id_9208;
     self._id_2652 = %technical_turret_death;
     thread animscripts\saw\common::main( var_0 );
@@ -47,8 +47,8 @@ _id_99B4( var_0 )
     self.leftarc = 180;
     self.rightarc = 180;
     self useanimtree( #animtree );
-    self._id_07F5 = %saw_gunner_idle_mg;
-    self._id_07F4 = %saw_gunner_firing_mg_add;
+    self.additiveturretidle = %saw_gunner_idle_mg;
+    self.additiveturretfire = %saw_gunner_firing_mg_add;
     self endon( "death" );
     var_0 waittill( "killanimscript" );
     self stopuseanimtree();

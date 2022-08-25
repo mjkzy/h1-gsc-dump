@@ -48,11 +48,11 @@ _id_6869( var_0, var_1, var_2 )
 
     if ( var_2 && ( var_1 == "left" || var_1 == "right" ) )
     {
-        _id_0E0C( var_0, var_1 );
+        attachweapon( var_0, var_1 );
         self.weapon = var_0;
     }
     else
-        _id_0E0C( var_0, var_1 );
+        attachweapon( var_0, var_1 );
 
     _id_9AF6();
 }
@@ -63,7 +63,7 @@ _id_2985( var_0 )
     self.weaponinfo[var_0].position = "none";
 }
 
-_id_0E0C( var_0, var_1 )
+attachweapon( var_0, var_1 )
 {
     self.weaponinfo[var_0].position = var_1;
     self.a._id_A2E2[var_1] = var_0;
@@ -270,7 +270,7 @@ _id_2F9B( var_0, var_1 )
     if ( issubstr( tolower( var_2 ), "mahem" ) )
         var_2 = "iw5_mahemplayer_sp_mahemscopebase";
 
-    self _meth_81c6( var_2, var_1, 0 );
+    self _meth_81C6( var_2, var_1, 0 );
     self endon( "end_weapon_drop_" + var_1 );
     wait 0.05;
 
@@ -358,13 +358,13 @@ _id_40C8()
 {
     if ( isdefined( self._id_9C08 ) )
     {
-        var_0 = self _meth_81be();
+        var_0 = self _meth_81BE();
         return ( var_0[0], var_0[1], self geteye()[2] );
     }
 
     if ( isdefined( self._id_9C07 ) && self._id_9C07 )
     {
-        if ( self _meth_843e( "tag_flash" ) != -1 )
+        if ( self _meth_843E( "tag_flash" ) != -1 )
         {
             var_1 = self gettagorigin( "tag_flash" );
 
@@ -406,8 +406,8 @@ _id_7107( var_0 )
     waitframe;
     self _meth_8144( %generic_aim_left, 0.2 );
     self _meth_8144( %generic_aim_right, 0.2 );
-    self _meth_814e( %generic_aim_45l, 1, 0.2 );
-    self _meth_814e( %generic_aim_45r, 1, 0.2 );
+    self _meth_814E( %generic_aim_45l, 1, 0.2 );
+    self _meth_814E( %generic_aim_45r, 1, 0.2 );
     var_1 = 0.2;
     var_2 = 0;
 
@@ -436,8 +436,8 @@ _id_7107( var_0 )
             if ( var_4 > 1 )
                 var_4 = 1;
 
-            self _meth_814e( %generic_aim_right, var_4, var_1 );
-            self _meth_814e( %generic_aim_left, 0, var_1 );
+            self _meth_814E( %generic_aim_right, var_4, var_1 );
+            self _meth_814E( %generic_aim_left, 0, var_1 );
         }
         else
         {
@@ -446,8 +446,8 @@ _id_7107( var_0 )
             if ( var_4 > 1 )
                 var_4 = 1;
 
-            self _meth_814e( %generic_aim_left, var_4, var_1 );
-            self _meth_814e( %generic_aim_right, 0, var_1 );
+            self _meth_814E( %generic_aim_left, var_4, var_1 );
+            self _meth_814E( %generic_aim_right, 0, var_1 );
         }
 
         wait(var_1);
@@ -466,20 +466,20 @@ _id_2741()
     else if ( self._id_3672 )
         var_0 = anim._id_3674[randomint( anim._id_3674.size )];
     else
-        var_0 = anim._id_1931[randomint( anim._id_1931.size )];
+        var_0 = anim.burstfirenumshots[randomint( anim.burstfirenumshots.size )];
 
-    if ( var_0 <= self._id_18B0 )
+    if ( var_0 <= self.bulletsinclip )
         return var_0;
 
-    if ( self._id_18B0 <= 0 )
+    if ( self.bulletsinclip <= 0 )
         return 1;
 
-    return self._id_18B0;
+    return self.bulletsinclip;
 }
 
 _id_2742()
 {
-    var_0 = self._id_18B0;
+    var_0 = self.bulletsinclip;
 
     if ( weaponclass( self.weapon ) == "mg" )
     {
@@ -617,11 +617,11 @@ _id_5F94( var_0, var_1 )
 
     if ( var_3 < 1 )
     {
-        self _meth_81cb( var_2 );
+        self _meth_81CB( var_2 );
         return;
     }
 
-    if ( var_3 > 256 && !self _meth_81c7( var_2, !self.swimmer ) )
+    if ( var_3 > 256 && !self _meth_81C7( var_2, !self.swimmer ) )
         return;
 
     self.keepclaimednodeifvalid = 1;
@@ -635,7 +635,7 @@ _id_5F94( var_0, var_1 )
         var_7 = vectornormalize( var_7 );
         var_8 = var_2 + var_7 * var_4;
         var_9 = var_8 + ( var_2 - var_8 ) * ( var_6 + 1 ) / var_5;
-        self _meth_81cb( var_9 );
+        self _meth_81CB( var_9 );
         wait 0.05;
     }
 

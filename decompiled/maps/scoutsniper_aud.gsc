@@ -121,57 +121,57 @@ _id_5FFD( var_0, var_1 )
 
 aud_start_intro_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_church_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_graveyard_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "church" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "church" );
 }
 
 aud_start_field_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_pond_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_cargo_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_dash_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "containor" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "containor" );
 }
 
 aud_start_town_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_dogs_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_center_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_start_end_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hall" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hall" );
 }
 
 _id_4F77()
@@ -185,7 +185,7 @@ intro_check_end()
 {
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
     soundscripts\_audio_mix_manager::_id_5CF6( "scoutsniper_intro_mute" );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_field_mix()
@@ -316,7 +316,7 @@ aud_start_graveyard_heli_scripted_sequence( var_0 )
     soundscripts\_audio_mix_manager::_id_5CF6( "graveyard_hind_mix" );
     var_1 scalevolume( 0, 2 );
     wait 2;
-    var_1 _meth_854d( "scn_scoutsniper_graveyard_hind_passby" );
+    var_1 _meth_854D( "scn_scoutsniper_graveyard_hind_passby" );
     var_2 stoprumble( "heli_loop" );
 }
 
@@ -328,7 +328,7 @@ aud_start_school_heli_scripted_sequence( var_0 )
     wait 2;
     soundscripts\_audio_mix_manager::_id_5CF6( "school_heli_mix" );
     wait 2;
-    self _meth_854d( "scn_scoutsniper_school_int_heli_flyby" );
+    self _meth_854D( "scn_scoutsniper_school_int_heli_flyby" );
 }
 
 monitor_end_node_reached()

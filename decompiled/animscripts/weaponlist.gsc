@@ -29,7 +29,7 @@ _id_9C38()
     return weaponissemiauto( self.weapon );
 }
 
-_id_116C()
+autoshootanimrate()
 {
     if ( _id_9C2C() )
         return 0.1 / weaponfiretime( self.weapon );
@@ -37,7 +37,7 @@ _id_116C()
         return 0.5;
 }
 
-_id_1934()
+burstshootanimrate()
 {
     if ( _id_9C2C() )
         return 0.1 / weaponfiretime( self.weapon );
@@ -65,22 +65,22 @@ _id_72B1()
 {
     if ( self.weapon == "none" )
     {
-        self._id_18B0 = 0;
+        self.bulletsinclip = 0;
         return 0;
     }
 
-    if ( !isdefined( self._id_18B0 ) )
-        self._id_18B0 = weaponclipsize( self.weapon );
+    if ( !isdefined( self.bulletsinclip ) )
+        self.bulletsinclip = weaponclipsize( self.weapon );
     else
-        self._id_18B0 = weaponclipsize( self.weapon );
+        self.bulletsinclip = weaponclipsize( self.weapon );
 
-    if ( self._id_18B0 <= 0 )
+    if ( self.bulletsinclip <= 0 )
         return 0;
     else
         return 1;
 }
 
-_id_07C1( var_0, var_1, var_2, var_3, var_4 )
+add_weapon( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 3.0;
@@ -92,13 +92,13 @@ _id_07C1( var_0, var_1, var_2, var_3, var_4 )
         var_4 = "rifle";
 
     var_0 = tolower( var_0 );
-    anim._id_09AC[var_0]["type"] = var_1;
-    anim._id_09AC[var_0]["time"] = var_2;
-    anim._id_09AC[var_0]["clipsize"] = var_3;
-    anim._id_09AC[var_0]["anims"] = var_4;
+    anim.aiweapon[var_0]["type"] = var_1;
+    anim.aiweapon[var_0]["time"] = var_2;
+    anim.aiweapon[var_0]["clipsize"] = var_3;
+    anim.aiweapon[var_0]["anims"] = var_4;
 }
 
-_id_0857( var_0 )
+addturret( var_0 )
 {
-    anim._id_09AC[tolower( var_0 )]["type"] = "turret";
+    anim.aiweapon[tolower( var_0 )]["type"] = "turret";
 }

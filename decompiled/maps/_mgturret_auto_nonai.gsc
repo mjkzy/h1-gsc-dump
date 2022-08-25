@@ -63,5 +63,5 @@ _id_7EE9( var_0, var_1, var_2 )
     var_4 = var_0 gettagangles( var_2._id_85AE );
 
     for (;;)
-        var_0 maps\_vehicle_aianim::_id_0C74( var_1, var_2._id_85AE, var_2._id_4B63 );
+        var_0 maps\_vehicle_aianim::animontag( var_1, var_2._id_85AE, var_2._id_4B63 );
 }

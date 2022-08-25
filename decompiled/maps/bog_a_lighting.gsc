@@ -56,7 +56,7 @@ _id_7E68()
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     maps\_utility::_id_9E6E( "bog_a", 0 );
     level.player maps\_utility::set_light_set_player( "bog_a" );
-    level.player _meth_848c( "clut_bog_a", 0.0 );
+    level.player _meth_848C( "clut_bog_a", 0.0 );
 }
 
 _id_8106()

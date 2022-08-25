@@ -70,14 +70,14 @@ main()
     level.weaponclipmodels[1] = "weapon_ak74u_clip";
     level.mig29_near_distance_override = 11880;
     maps\_utility::_id_278B( ::startintro );
-    maps\_utility::_id_079C( "drive", ::startdrive, &"STARTS_DRIVE" );
-    maps\_utility::_id_079C( "doorkick", ::startdoorkick, &"STARTS_DOORKICK" );
-    maps\_utility::_id_079C( "trashstumble", ::starttrashstumble, &"STARTS_TRASHSTUMBLE" );
-    maps\_utility::_id_079C( "runners2", ::startrunners2, &"STARTS_RUNNERS2" );
-    maps\_utility::_id_079C( "alley", ::startalley, &"STARTS_ALLEY2" );
-    maps\_utility::_id_079C( "shore", ::startshore, &"STARTS_SHORE" );
-    maps\_utility::_id_079C( "carexit", ::startcarexit, &"STARTS_CAREXIT" );
-    maps\_utility::_id_079C( "ending", ::startending, &"STARTS_END" );
+    maps\_utility::add_start( "drive", ::startdrive, &"STARTS_DRIVE" );
+    maps\_utility::add_start( "doorkick", ::startdoorkick, &"STARTS_DOORKICK" );
+    maps\_utility::add_start( "trashstumble", ::starttrashstumble, &"STARTS_TRASHSTUMBLE" );
+    maps\_utility::add_start( "runners2", ::startrunners2, &"STARTS_RUNNERS2" );
+    maps\_utility::add_start( "alley", ::startalley, &"STARTS_ALLEY2" );
+    maps\_utility::add_start( "shore", ::startshore, &"STARTS_SHORE" );
+    maps\_utility::add_start( "carexit", ::startcarexit, &"STARTS_CAREXIT" );
+    maps\_utility::add_start( "ending", ::startending, &"STARTS_END" );
     maps\coup_precache::main();
     animscripts\dog\dog_init::_id_4DAB();
     maps\coup_fx::main();
@@ -91,18 +91,18 @@ main()
     maps\_drone_civilian::init();
     maps\_drone_ai::init();
     maps\coup_code::deletecharactertriggers();
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "plane_sound", "script_noteworthy" ), vehicle_scripts\_mig29::_id_6877 );
-    common_scripts\utility::_id_0D13( getentarray( "civilian", "script_noteworthy" ), maps\_utility::_id_0798, ::removeweapon );
-    common_scripts\utility::_id_0D13( getentarray( "civilian_redshirt", "script_noteworthy" ), maps\_utility::_id_0798, ::setsightdist, 0 );
-    common_scripts\utility::_id_0D13( getentarray( "civilian_redshirt", "script_noteworthy" ), maps\_utility::_id_0798, ::_id_8027, "allies" );
-    common_scripts\utility::_id_0D13( getentarray( "civilian_redshirt", "script_noteworthy" ), maps\_utility::_id_0798, ::removeweapon );
-    common_scripts\utility::_id_0D13( getentarray( "civilian_attacker", "script_noteworthy" ), maps\_utility::_id_0798, ::_id_8027, "allies" );
-    common_scripts\utility::_id_0D13( getentarray( "civilian_firingsquad", "script_noteworthy" ), maps\_utility::_id_0798, ::_id_8027, "allies" );
-    common_scripts\utility::_id_0D13( getentarray( "loudspeaker_event", "targetname" ), ::loudspeaker_event );
-    common_scripts\utility::_id_0D13( getentarray( "delete_on_goal", "script_noteworthy" ), maps\_utility::_id_0798, maps\coup_code::deleteongoal );
-    common_scripts\utility::_id_0D13( getentarray( "intro_crowdmember", "targetname" ), ::blah );
-    common_scripts\utility::_id_0D13( getentarray( "endcrowd_crowdmember", "targetname" ), ::blah );
-    common_scripts\utility::_id_0D13( getentarray( "endcrowd_crowdwitness_gunup", "targetname" ), ::blah );
+    common_scripts\utility::array_thread( getvehiclenodearray( "plane_sound", "script_noteworthy" ), vehicle_scripts\_mig29::_id_6877 );
+    common_scripts\utility::array_thread( getentarray( "civilian", "script_noteworthy" ), maps\_utility::add_spawn_function, ::removeweapon );
+    common_scripts\utility::array_thread( getentarray( "civilian_redshirt", "script_noteworthy" ), maps\_utility::add_spawn_function, ::setsightdist, 0 );
+    common_scripts\utility::array_thread( getentarray( "civilian_redshirt", "script_noteworthy" ), maps\_utility::add_spawn_function, ::_id_8027, "allies" );
+    common_scripts\utility::array_thread( getentarray( "civilian_redshirt", "script_noteworthy" ), maps\_utility::add_spawn_function, ::removeweapon );
+    common_scripts\utility::array_thread( getentarray( "civilian_attacker", "script_noteworthy" ), maps\_utility::add_spawn_function, ::_id_8027, "allies" );
+    common_scripts\utility::array_thread( getentarray( "civilian_firingsquad", "script_noteworthy" ), maps\_utility::add_spawn_function, ::_id_8027, "allies" );
+    common_scripts\utility::array_thread( getentarray( "loudspeaker_event", "targetname" ), ::loudspeaker_event );
+    common_scripts\utility::array_thread( getentarray( "delete_on_goal", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\coup_code::deleteongoal );
+    common_scripts\utility::array_thread( getentarray( "intro_crowdmember", "targetname" ), ::blah );
+    common_scripts\utility::array_thread( getentarray( "endcrowd_crowdmember", "targetname" ), ::blah );
+    common_scripts\utility::array_thread( getentarray( "endcrowd_crowdwitness_gunup", "targetname" ), ::blah );
     common_scripts\utility::_id_383D( "drive" );
     common_scripts\utility::_id_383D( "doors_open" );
     common_scripts\utility::_id_383D( "ending" );
@@ -110,9 +110,9 @@ main()
     common_scripts\utility::_id_383D( "firingsquad_aiming" );
     common_scripts\utility::_id_383D( "start_dragged_aftercarexit" );
     common_scripts\utility::_id_383D( "stop_car_ride" );
-    maps\_utility::_id_1332( "allies" );
-    maps\_utility::_id_1332( "axis" );
-    maps\_utility::_id_1332( "neutral" );
+    maps\_utility::battlechatter_off( "allies" );
+    maps\_utility::battlechatter_off( "axis" );
+    maps\_utility::battlechatter_off( "neutral" );
     level.player allowcrouch( 0 );
     level.player allowprone( 0 );
     level.player takeallweapons();
@@ -123,7 +123,7 @@ main()
     level.handsrope = maps\_utility::_id_88D1( "rope_hands" );
     level.handsrope hide();
     level.car = maps\_utility::_id_88D1( "car" );
-    level.car._id_0C78 = 1;
+    level.car.animplaybackrate = 1;
     soundscripts\_snd::_id_870C( "aud_car_sound_node_spawner" );
     level.car_idle_engine_sound_node playloopsound( "scn_coup_car_idle_engine" );
     level.car_idle_engine_sound_node scalevolume( 0.71, 0 );
@@ -271,7 +271,7 @@ execintro()
 
     for ( var_10 = 0; var_10 < var_9.size; var_10++ )
     {
-        var_9[var_10]._id_0C72 = "human";
+        var_9[var_10].animname = "human";
         var_9[var_10].a = spawnstruct();
         var_9[var_10].a._id_A2E2["right"] = "defined";
         var_9[var_10] thread celebrate();
@@ -287,34 +287,34 @@ execintro()
     for ( var_10 = 0; var_10 < var_12.size; var_10++ )
     {
         var_13 = var_12[var_10];
-        var_13._id_0C72 = "dog";
-        var_13 thread maps\_anim::_id_0BE1( var_13, "eating" );
+        var_13.animname = "dog";
+        var_13 thread maps\_anim::anim_loop_solo( var_13, "eating" );
         maps\_utility::_id_27EF( 50, maps\coup_code::deleteentity, var_13 );
     }
 
-    var_2._id_0C72 = "human";
-    var_1._id_0C72 = "human";
-    var_4._id_0C72 = "human";
-    var_5._id_0C72 = "human";
-    var_6._id_0C72 = "dog";
-    var_7._id_0C72 = "human";
-    var_8._id_0C72 = "human";
-    var_5 thread maps\_props::_id_0DDC();
-    var_5 thread maps\_anim::_id_0BE1( var_5, "leaning_smoking_idle" );
+    var_2.animname = "human";
+    var_1.animname = "human";
+    var_4.animname = "human";
+    var_5.animname = "human";
+    var_6.animname = "dog";
+    var_7.animname = "human";
+    var_8.animname = "human";
+    var_5 thread maps\_props::attach_cig_self();
+    var_5 thread maps\_anim::anim_loop_solo( var_5, "leaning_smoking_idle" );
     var_6 thread start_dog();
-    var_0 maps\_anim::_id_0BC7( level.playerview, "intro" );
-    var_0 thread maps\_anim::_id_0BC7( level.car, "intro" );
+    var_0 maps\_anim::anim_first_frame_solo( level.playerview, "intro" );
+    var_0 thread maps\_anim::anim_first_frame_solo( level.car, "intro" );
     level.player playerlinktodelta( level.playerview, "tag_player", 1 );
     thread h1_couplerpviewangles( "intro" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "intro_rightguard" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "intro_leftguard" );
-    var_0 thread maps\_anim::_id_0C24( level.car, "intro" );
-    var_0 thread maps\_anim::_id_0C24( var_7, "intro_idle_soldier_left" );
-    var_0 thread maps\_anim::_id_0C24( var_8, "intro_idle_soldier_right" );
-    var_0 thread maps\_anim::_id_0C24( var_4, "intro_spittingguard" );
-    var_0 thread maps\_anim::_id_0C24( level.car.passenger, "intro_carpassenger" );
-    var_0 thread maps\_anim::_id_0C24( level.car._id_2E04, "intro_cardriver" );
-    var_0 thread maps\_anim::_id_0C24( level.playerview, "intro" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "intro_rightguard" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "intro_leftguard" );
+    var_0 thread maps\_anim::anim_single_solo( level.car, "intro" );
+    var_0 thread maps\_anim::anim_single_solo( var_7, "intro_idle_soldier_left" );
+    var_0 thread maps\_anim::anim_single_solo( var_8, "intro_idle_soldier_right" );
+    var_0 thread maps\_anim::anim_single_solo( var_4, "intro_spittingguard" );
+    var_0 thread maps\_anim::anim_single_solo( level.car.passenger, "intro_carpassenger" );
+    var_0 thread maps\_anim::anim_single_solo( level.car._id_2E04, "intro_cardriver" );
+    var_0 thread maps\_anim::anim_single_solo( level.playerview, "intro" );
     var_0 thread maps\coup_code::play_anim_on_ropehands( "intro", 0 );
     wait 32.9;
     var_2 thread maps\_utility::_id_69C4( "coup_ab1_move_generic_custom" );
@@ -472,29 +472,29 @@ h1_couplerpviewangles_carridelogic()
 
 coupintro_depthoffield()
 {
-    level.player _meth_84a7( 6.0, 110, 9.0, 9.0 );
-    level.player _meth_84a5();
+    level.player _meth_84A7( 6.0, 110, 9.0, 9.0 );
+    level.player _meth_84A5();
     setsaveddvar( "r_mbenable", 2 );
     wait 15.5;
     thread h1_couplerpviewangles( "pushed_inside" );
-    level.player _meth_84a7( 6.0, 110, 1.0, 1.0 );
+    level.player _meth_84A7( 6.0, 110, 1.0, 1.0 );
     wait 4.0;
     wait 0.65;
-    level.player _meth_84a7( 3.0, 4, 2.0, 2.0 );
+    level.player _meth_84A7( 3.0, 4, 2.0, 2.0 );
     wait 0.85;
-    level.player _meth_84a7( 6.0, 110, 3.0, 3.0 );
+    level.player _meth_84A7( 6.0, 110, 3.0, 3.0 );
     wait 1.35;
-    level.player _meth_84a7( 4.0, 70, 1.0, 1.0 );
+    level.player _meth_84A7( 4.0, 70, 1.0, 1.0 );
     wait 1.0;
-    level.player _meth_84a7( 1.0, 110, 8.0, 8.0 );
+    level.player _meth_84A7( 1.0, 110, 8.0, 8.0 );
     wait 1.65;
-    level.player _meth_84a7( 5.0, 80, 1.5, 1.5 );
+    level.player _meth_84A7( 5.0, 80, 1.5, 1.5 );
     h1_couplerpviewangles( "viktor_stare" );
     wait 2.0;
     setsaveddvar( "r_mbenable", 0 );
-    level.player _meth_84a7( 5.2, 40, 1.0, 1.0 );
+    level.player _meth_84A7( 5.2, 40, 1.0, 1.0 );
     wait 3.35;
-    level.player _meth_84a7( 5.5, 110, 1.0, 1.0 );
+    level.player _meth_84A7( 5.5, 110, 1.0, 1.0 );
     h1_couplerpviewangles( "pre_car_ride" );
     wait 2.0;
     h1_drive_depthoffieldforcestart();
@@ -824,15 +824,15 @@ h1_drive_shakesandrumbleslogic( var_0 )
 
 start_dog()
 {
-    thread maps\_anim::_id_0C24( self, "idle" );
+    thread maps\_anim::anim_single_solo( self, "idle" );
     wait 10;
-    thread maps\_anim::_id_0BE1( self, "attackidle_growl", undefined, "stop_growl" );
+    thread maps\_anim::anim_loop_solo( self, "attackidle_growl", undefined, "stop_growl" );
     wait 3.5;
     self notify( "stop_growl" );
-    thread maps\_anim::_id_0BE1( self, "attackidle_bark", undefined, "stop_bark" );
+    thread maps\_anim::anim_loop_solo( self, "attackidle_bark", undefined, "stop_bark" );
     wait 0.5;
     self notify( "stop_bark" );
-    thread maps\_anim::_id_0C24( self, "idle" );
+    thread maps\_anim::anim_single_solo( self, "idle" );
 }
 
 execdrive( var_0 )
@@ -872,19 +872,19 @@ execdrive( var_0 )
     thread animvarietyforshorerunners();
     thread animvarietyforalleyrunners();
     var_1 = maps\coup_code::scripted_spawn2( "car_driver", "targetname", 1 );
-    var_1._id_0C72 = "human";
+    var_1.animname = "human";
     var_1 linkto( level.car, "tag_driver" );
     var_1 thread maps\_utility::_id_58D7( 1 );
     var_1 removedroneweapon();
     var_2 = maps\coup_code::scripted_spawn2( "car_passenger", "targetname", 1 );
-    var_2._id_0C72 = "human";
+    var_2.animname = "human";
     var_2 linkto( level.car, "tag_passenger" );
     var_2 thread maps\_utility::_id_58D7( 1 );
     var_2.tracksuit_ignore = 1;
     level.car._id_2E04 = var_1;
     level.car.passenger = var_2;
-    level.car._id_2E04._id_0C78 = 1;
-    level.car.passenger._id_0C78 = 1;
+    level.car._id_2E04.animplaybackrate = 1;
+    level.car.passenger.animplaybackrate = 1;
     level.car.passenger.head = spawn( "script_origin", level.car.passenger.origin + ( 20.0, 5.0, 50.0 ) );
     level.car.passenger.body = spawn( "script_origin", level.car.passenger.origin + ( 25.0, 12.0, 25.0 ) );
     level.car.passenger._id_67ED = spawn( "script_origin", level.car.passenger.origin + ( 22.0, 15.0, 35.0 ) );
@@ -896,10 +896,10 @@ execdrive( var_0 )
     level.handsrope thread maps\coup_code::update_handsrope_lighting_origin();
     thread h1_drive_depthoffieldforcestart();
     level.playerview linkto( level.car, "tag_guy1" );
-    level.car thread maps\_anim::_id_0C24( level.playerview, "car_idle_fullbody" );
+    level.car thread maps\_anim::anim_single_solo( level.playerview, "car_idle_fullbody" );
     level.car thread maps\coup_code::play_anim_on_ropehands( "car_idle_fullbody", 1 );
     var_3 = getent( "car_events_node", "targetname" );
-    var_3 thread maps\_anim::_id_0C24( level.car, "coup_car_driving" );
+    var_3 thread maps\_anim::anim_single_solo( level.car, "coup_car_driving" );
 
     if ( isdefined( var_0 ) )
     {
@@ -910,14 +910,14 @@ execdrive( var_0 )
     if ( isdefined( var_0 ) )
         wait 0.1;
 
-    level.car thread maps\_anim::_id_0C24( level.car._id_2E04, "cardriver_fulldrive" );
-    level.car thread maps\_anim::_id_0C24( level.car.passenger, "carpassenger_fulldrive" );
+    level.car thread maps\_anim::anim_single_solo( level.car._id_2E04, "cardriver_fulldrive" );
+    level.car thread maps\_anim::anim_single_solo( level.car.passenger, "carpassenger_fulldrive" );
     level.player playerlinktodelta( level.playerview, "tag_player", 1, 85, 85, 5, 5, 1 );
     thread h1_couplerpviewangles( "car_ride" );
 
     if ( isdefined( var_0 ) )
     {
-        level.car thread maps\_anim::_id_0C24( level.playerview, "car_idle_fullbody" );
+        level.car thread maps\_anim::anim_single_solo( level.playerview, "car_idle_fullbody" );
         var_5 = [];
         var_5[0] = level.car._id_2E04;
         var_6 = [];
@@ -926,10 +926,10 @@ execdrive( var_0 )
         var_7[0] = level.car.playerview;
         var_8 = [];
         var_8[0] = level.handsrope;
-        maps\_utility::_id_27EF( 0.05, maps\_anim::_id_0C15, var_5, "cardriver_fulldrive", var_0 );
-        maps\_utility::_id_27EF( 0.05, maps\_anim::_id_0C15, var_6, "carpassenger_fulldrive", var_0 );
-        maps\_utility::_id_27EF( 0.05, maps\_anim::_id_0C15, var_7, "car_idle_fullbody", var_0 );
-        maps\_utility::_id_27EF( 0.05, maps\_anim::_id_0C15, var_8, "car_idle_fullbody_ropehands", var_0 );
+        maps\_utility::_id_27EF( 0.05, maps\_anim::anim_set_time, var_5, "cardriver_fulldrive", var_0 );
+        maps\_utility::_id_27EF( 0.05, maps\_anim::anim_set_time, var_6, "carpassenger_fulldrive", var_0 );
+        maps\_utility::_id_27EF( 0.05, maps\_anim::anim_set_time, var_7, "car_idle_fullbody", var_0 );
+        maps\_utility::_id_27EF( 0.05, maps\_anim::anim_set_time, var_8, "car_idle_fullbody_ropehands", var_0 );
     }
 
     thread execcarexit();
@@ -937,8 +937,8 @@ execdrive( var_0 )
 
 h1_drive_depthoffieldforcestart()
 {
-    level.player _meth_84a7( 14.0, 50, 1.0, 1.0 );
-    level.player _meth_84a5();
+    level.player _meth_84A7( 14.0, 50, 1.0, 1.0 );
+    level.player _meth_84A5();
 }
 
 execcarexit()
@@ -946,37 +946,37 @@ execcarexit()
     common_scripts\utility::_id_384A( "drive_carexit" );
     var_0 = getent( "carexit_node", "targetname" );
     var_1 = maps\coup_code::scripted_spawn2( "carexit_leftguard", "targetname", 1 );
-    var_1._id_0C72 = "human";
-    var_0 maps\_anim::_id_0BC7( var_1, "carexit_leftguard" );
-    var_1 thread maps\_anim::_id_0BE1( var_1, "stand_idle" );
+    var_1.animname = "human";
+    var_0 maps\_anim::anim_first_frame_solo( var_1, "carexit_leftguard" );
+    var_1 thread maps\_anim::anim_loop_solo( var_1, "stand_idle" );
     var_2 = maps\coup_code::scripted_spawn2( "carexit_rightguard", "targetname", 1 );
-    var_2._id_0C72 = "human";
-    var_0 maps\_anim::_id_0BC7( var_2, "carexit_rightguard" );
-    var_2 thread maps\_anim::_id_0BE1( var_2, "stand_idle" );
+    var_2.animname = "human";
+    var_0 maps\_anim::anim_first_frame_solo( var_2, "carexit_rightguard" );
+    var_2 thread maps\_anim::anim_loop_solo( var_2, "stand_idle" );
     level.car waittillmatch( "single anim", "end" );
-    var_0 thread maps\_anim::_id_0C24( level.car._id_2E04, "carexit_driver" );
-    var_0 thread maps\_anim::_id_0C24( level.car.passenger, "carexit_passenger" );
+    var_0 thread maps\_anim::anim_single_solo( level.car._id_2E04, "carexit_driver" );
+    var_0 thread maps\_anim::anim_single_solo( level.car.passenger, "carexit_passenger" );
     var_3 = maps\_utility::_id_88D1( "playerview" );
     var_3 hide();
-    var_0 maps\_anim::_id_0BC7( var_3, "carexit" );
+    var_0 maps\_anim::anim_first_frame_solo( var_3, "carexit" );
     thread h1_grabbedfromcar_depthoffield();
     thread h1_dragout_shakesandrumble();
     common_scripts\utility::_id_383F( "stop_car_ride" );
     thread h1_couplerpviewangles( "car_stops" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "carexit_leftguard" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "carexit_rightguard" );
-    var_0 thread maps\_anim::_id_0C24( level.car, "carexit" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "carexit_leftguard" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "carexit_rightguard" );
+    var_0 thread maps\_anim::anim_single_solo( level.car, "carexit" );
     var_4 = 2.2;
     soundscripts\_snd::_id_870C( "aud_shutoff_engine" );
-    level.car thread maps\_anim::_id_0C24( level.playerview, "carexit" );
+    level.car thread maps\_anim::anim_single_solo( level.playerview, "carexit" );
     level.car thread maps\coup_code::play_anim_on_ropehands( "carexit", 0 );
     maps\_utility::_id_27EF( 2, ::h1_couplerpviewangles, "pulled" );
     wait 4;
     common_scripts\utility::_id_383F( "music_part4" );
     wait(var_4);
     wait 6.8;
-    level.car._id_2E04 maps\_utility::_id_0C3D();
-    level.car.passenger maps\_utility::_id_0C3D();
+    level.car._id_2E04 maps\_utility::anim_stopanimscripted();
+    level.car.passenger maps\_utility::anim_stopanimscripted();
     var_5 = newhudelem();
     var_5.x = 0;
     var_5.y = 0;
@@ -994,7 +994,7 @@ execcarexit()
     maps\_utility::_id_27EF( 28.5, soundscripts\_snd::_id_870C, "aud_bunker_to_exterior" );
     level.player shellshock( "coup_blackout1", 8 );
     thread music_end();
-    var_5 maps\coup_code::_id_148C( 1, 6 );
+    var_5 maps\coup_code::blackout( 1, 6 );
     var_6 = getent( "deleteai_special", "script_noteworthy" );
     var_6.origin = level.player.origin;
     wait 2;
@@ -1006,42 +1006,42 @@ execcarexit()
     var_0 = getent( "enddrag1_node_h1", "targetname" );
     var_1 = maps\coup_code::scripted_spawn2( "enddrag_leftguard", "targetname", 1 );
     var_2 = maps\coup_code::scripted_spawn2( "enddrag_rightguard", "targetname", 1 );
-    var_2._id_0C72 = "human";
-    var_1._id_0C72 = "human";
-    var_0 maps\_anim::_id_0BC7( level.playerview, "intro" );
+    var_2.animname = "human";
+    var_1.animname = "human";
+    var_0 maps\_anim::anim_first_frame_solo( level.playerview, "intro" );
     var_7 = level.playerview gettagangles( "tag_player" );
     level.player setplayerangles( var_7 );
     level.player playerlinktodelta( level.playerview, "tag_player", 1 );
     thread h1_couplerpviewangles( "corridors1" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "intro_rightguard" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "intro_leftguard" );
-    var_0 thread maps\_anim::_id_0C24( level.playerview, "intro" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "intro_rightguard" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "intro_leftguard" );
+    var_0 thread maps\_anim::anim_single_solo( level.playerview, "intro" );
     level.dragsound = level.player thread maps\coup_code::playlinkedsound( "scn_coup_drag_to_post" );
     level notify( "continue_credits" );
     var_5 maps\coup_code::_id_74B2( 5, 2.5 );
     wait 5;
     level.player shellshock( "coup_blackout2", 8 );
-    var_5 maps\coup_code::_id_148C( 1, 6 );
+    var_5 maps\coup_code::blackout( 1, 6 );
     wait 2;
     var_8 = maps\coup_code::scripted_array_spawn( "ending_idleguards", "targetname", 1 );
 
     for ( var_9 = 0; var_9 < var_8.size; var_9++ )
-        var_8[var_9]._id_0C72 = "human";
+        var_8[var_9].animname = "human";
 
     var_10 = maps\coup_code::scripted_array_spawn( "ending_smokingguards", "targetname", 1 );
 
     for ( var_9 = 0; var_9 < var_10.size; var_9++ )
     {
-        var_10[var_9]._id_0C72 = "human";
-        var_10[var_9] thread maps\_props::_id_0DDC();
-        var_10[var_9] thread maps\_anim::_id_0BE1( var_10[var_9], "leaning_smoking_idle" );
+        var_10[var_9].animname = "human";
+        var_10[var_9] thread maps\_props::attach_cig_self();
+        var_10[var_9] thread maps\_anim::anim_loop_solo( var_10[var_9], "leaning_smoking_idle" );
     }
 
     var_11 = maps\coup_code::scripted_array_spawn( "ending_celebratingguards", "targetname", 1 );
 
     for ( var_9 = 0; var_9 < var_11.size; var_9++ )
     {
-        var_11[var_9]._id_0C72 = "human";
+        var_11[var_9].animname = "human";
         var_11[var_9].a = spawnstruct();
         var_11[var_9].a._id_A2E2["right"] = "defined";
         var_11[var_9] thread celebrate();
@@ -1049,22 +1049,22 @@ execcarexit()
 
     anim_variety_for_ending_crowd();
     level.zakhaev = maps\coup_code::scripted_spawn2( "ending_zakhaev", "targetname", 1 );
-    level.zakhaev._id_0C72 = "human";
+    level.zakhaev.animname = "human";
     level.zakhaev maps\_utility::_id_4462();
     level.zakhaev attach( "weapon_desert_eagle_silver_HR_promo", "tag_inhand" );
     level.zakhaev.tracksuit_ignore = 1;
     var_12 = getent( "tunnel_node", "targetname" );
     var_12 thread first_frame_delay_anim( level.zakhaev, "ending_zakhaev", 6 );
     var_0 = getent( "enddrag4_node_h1", "targetname" );
-    var_0 maps\_anim::_id_0BC7( level.playerview, "intro" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "intro_rightguard" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "intro_leftguard" );
-    var_0 thread maps\_anim::_id_0C24( level.playerview, "intro" );
+    var_0 maps\_anim::anim_first_frame_solo( level.playerview, "intro" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "intro_rightguard" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "intro_leftguard" );
+    var_0 thread maps\_anim::anim_single_solo( level.playerview, "intro" );
     level.player thread maps\_utility::_id_69C4( "scn_coup_walla_stadium" );
     var_5 maps\coup_code::_id_74B2( 5, 2.5 );
     wait 5;
     level.player shellshock( "coup_blackout3", 8 );
-    var_5 maps\coup_code::_id_148C( 1, 6 );
+    var_5 maps\coup_code::blackout( 1, 6 );
     wait 2;
     thread execending();
     var_1 delete();
@@ -1076,38 +1076,38 @@ execcarexit()
 
 h1_grabbedfromcar_depthoffield()
 {
-    level.player _meth_84a7( 10.0, 110, 9.0, 9.0 );
-    level.player _meth_84a5();
-    level.player _meth_84a7( 10.0, 110, 0.5, 0.5 );
+    level.player _meth_84A7( 10.0, 110, 9.0, 9.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 10.0, 110, 0.5, 0.5 );
     wait 3.15;
-    level.player _meth_84a7( 2.5, 250, 2.0, 2.0 );
+    level.player _meth_84A7( 2.5, 250, 2.0, 2.0 );
     wait 1.0;
-    level.player _meth_84a7( 2.5, 70, 1.0, 1.0 );
+    level.player _meth_84A7( 2.5, 70, 1.0, 1.0 );
     wait 1.5;
-    level.player _meth_84a7( 3.5, 15, 0.8, 0.8 );
+    level.player _meth_84A7( 3.5, 15, 0.8, 0.8 );
     wait 1.3;
-    level.player _meth_84a7( 3.0, 70, 1.5, 1.5 );
+    level.player _meth_84A7( 3.0, 70, 1.5, 1.5 );
     wait 1.35;
-    level.player _meth_84a7( 3.2, 50, 1.5, 1.5 );
+    level.player _meth_84A7( 3.2, 50, 1.5, 1.5 );
     wait 0.85;
-    level.player _meth_84a7( 1.0, 3000, 3.0, 3.0 );
+    level.player _meth_84A7( 1.0, 3000, 3.0, 3.0 );
     wait 0.6;
-    level.player _meth_84a7( 2.5, 120, 1.5, 1.5 );
+    level.player _meth_84A7( 2.5, 120, 1.5, 1.5 );
     wait 1.5;
-    level.player _meth_84a7( 3.0, 60, 1.5, 1.5 );
+    level.player _meth_84A7( 3.0, 60, 1.5, 1.5 );
     common_scripts\_exploder::_id_3528( "0221" );
     wait 0.65;
-    level.player _meth_84a7( 3.2, 50, 1.5, 1.5 );
+    level.player _meth_84A7( 3.2, 50, 1.5, 1.5 );
     wait 0.85;
-    level.player _meth_84a7( 4.0, 28, 4.0, 4.0 );
+    level.player _meth_84A7( 4.0, 28, 4.0, 4.0 );
     thread h1_kickinface_fadeout();
     wait 0.35;
     level.oldnearclip2 = getdvar( "r_znear" );
     setsaveddvar( "r_znear", 0.01 );
-    level.player _meth_84a7( 4.5, 10, 4.0, 4.0 );
+    level.player _meth_84A7( 4.5, 10, 4.0, 4.0 );
     wait 0.35;
     wait 2.0;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
 
     if ( isdefined( level.oldnearclip2 ) )
     {
@@ -1140,19 +1140,19 @@ h1_draggingcorridors_depthoffield()
 {
     setsaveddvar( "r_mbenable", 2 );
     setomnvar( "ui_consciousness_init", 1 );
-    level.player _meth_84a7( 10.0, 110, 9.0, 9.0 );
-    level.player _meth_84a5();
+    level.player _meth_84A7( 10.0, 110, 9.0, 9.0 );
+    level.player _meth_84A5();
     wait 19.0;
     thread h1_couplerpviewangles( "corridors_zak" );
     wait 5.0;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
 }
 
 first_frame_delay_anim( var_0, var_1, var_2 )
 {
-    maps\_anim::_id_0BC7( var_0, var_1 );
+    maps\_anim::anim_first_frame_solo( var_0, var_1 );
     wait(var_2);
-    maps\_anim::_id_0C24( var_0, var_1 );
+    maps\_anim::anim_single_solo( var_0, var_1 );
 }
 
 execending()
@@ -1166,7 +1166,7 @@ execending()
     var_0 = getent( "ending_node", "targetname" );
     var_1 = maps\coup_code::scripted_spawn2( "ending_alasad", "targetname", 1 );
     var_1 hide();
-    var_1._id_0C72 = "human";
+    var_1.animname = "human";
     var_1 removedroneweapon();
     level.alasad = var_1;
     level.alasad.tracksuit_ignore = 1;
@@ -1174,10 +1174,10 @@ execending()
     var_3 = var_2.origin + ( 0.0, 0.0, 50.0 );
     var_2 _meth_8477( var_3 );
     var_4 = maps\coup_code::scripted_spawn2( "ending_leftguard", "targetname", 1 );
-    var_4._id_0C72 = "human";
+    var_4.animname = "human";
     var_5 = maps\coup_code::scripted_spawn2( "ending_rightguard", "targetname", 1 );
-    var_5._id_0C72 = "human";
-    var_0 maps\_anim::_id_0BC7( level.playerview, "ending" );
+    var_5.animname = "human";
+    var_0 maps\_anim::anim_first_frame_solo( level.playerview, "ending" );
     level.player unlink();
     var_6 = level.playerview gettagorigin( "tag_player" );
     level.player setorigin( var_6 );
@@ -1185,22 +1185,22 @@ execending()
     thread h1_couplerpviewangles( "meet_zak" );
     level.dragsound delete();
     var_2 detach( "weapon_desert_eagle_silver_HR_promo", "tag_inhand" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "endtaunt" );
-    var_0 maps\_anim::_id_0C24( level.playerview, "endtaunt" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "endtaunt" );
+    var_0 maps\_anim::anim_single_solo( level.playerview, "endtaunt" );
     level.player unlink();
     level.player playerlinktodelta( level.playerview, "tag_player", 1, 0, 0, 0, 0 );
     thread h1_couplerpviewangles( "dragged_post" );
     setsaveddvar( "sm_sunSampleSizeNear", "0.25" );
     level.player thread maps\_utility::_id_69C4( "scn_coup_drag_to_post_part2" );
-    var_0 thread maps\_anim::_id_0C24( level.playerview, "ending" );
-    var_0 thread maps\_anim::_id_0C24( var_4, "ending_leftguard" );
-    var_0 thread maps\_anim::_id_0C24( var_5, "ending_rightguard" );
+    var_0 thread maps\_anim::anim_single_solo( level.playerview, "ending" );
+    var_0 thread maps\_anim::anim_single_solo( var_4, "ending_leftguard" );
+    var_0 thread maps\_anim::anim_single_solo( var_5, "ending_rightguard" );
     var_1 show();
-    var_0 thread maps\_anim::_id_0C24( var_1, "ending_alasad" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "ending_alasad" );
     level.playerview waittillmatch( "single anim", "anim_start" );
     var_2 attach( "weapon_desert_eagle_silver_HR_promo", "tag_inhand" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "ending_zakhaev" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "ending_alasad" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "ending_zakhaev" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "ending_alasad" );
 
     if ( isdefined( level.oldnearclip ) )
     {
@@ -1212,52 +1212,52 @@ execending()
 
 h1_ending_dof()
 {
-    level.player _meth_84a5();
-    level.player _meth_84a7( 4.0, 50, 9.0, 9.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 4.0, 50, 9.0, 9.0 );
     wait 2.1666;
-    level.player _meth_84a7( 12, 14, 9.0, 9.0 );
+    level.player _meth_84A7( 12, 14, 9.0, 9.0 );
     wait 0.6666;
     wait 2.5;
-    level.player _meth_84a7( 8.0, 50, 4.0, 4.0 );
+    level.player _meth_84A7( 8.0, 50, 4.0, 4.0 );
     wait 0.8334;
     wait 1.8334;
-    level.player _meth_84a7( 1.4, 600, 2.0, 2.0 );
+    level.player _meth_84A7( 1.4, 600, 2.0, 2.0 );
     wait 1.6666;
     wait 2.0;
-    level.player _meth_84a7( 1.4, 180, 2.0, 2.0 );
+    level.player _meth_84A7( 1.4, 180, 2.0, 2.0 );
     wait 1.0;
-    level.player _meth_84a7( 1.4, 76, 0.8, 0.8 );
+    level.player _meth_84A7( 1.4, 76, 0.8, 0.8 );
     thread h1_couplerpviewangles( "turned_post" );
     wait 1.6666;
     wait 1.0;
-    level.player _meth_84a7( 5.0, 30, 2.0, 2.0 );
+    level.player _meth_84A7( 5.0, 30, 2.0, 2.0 );
     wait 2.3334;
     wait 1.0;
-    level.player _meth_84a7( 0.7, 200, 3.0, 1.0 );
+    level.player _meth_84A7( 0.7, 200, 3.0, 1.0 );
     thread h1_couplerpviewangles( "gun_exchange" );
     wait 1.5;
     wait 0.8334;
-    level.player _meth_84a7( 0.55, 256, 2.0, 2.0 );
+    level.player _meth_84A7( 0.55, 256, 2.0, 2.0 );
     wait 1.8334;
     wait 3.0;
-    level.player _meth_84a7( 0.7, 200, 3.0, 3.0 );
+    level.player _meth_84A7( 0.7, 200, 3.0, 3.0 );
     wait 1.5;
     wait 3.3334;
-    level.player _meth_84a7( 5.0, 136, 1.0, 1.0 );
+    level.player _meth_84A7( 5.0, 136, 1.0, 1.0 );
     thread h1_couplerpviewangles( "alasad_shoot" );
     wait 1.0;
-    level.player _meth_84a7( 4.5, 69, 1.0, 1.0 );
+    level.player _meth_84A7( 4.5, 69, 1.0, 1.0 );
     wait 1.5;
-    level.player _meth_84a7( 4.0, 52, 6.0, 6.0 );
+    level.player _meth_84A7( 4.0, 52, 6.0, 6.0 );
     wait 0.65;
-    level.player _meth_84a7( 5.0, 8.1, 3.5, 3.5 );
+    level.player _meth_84A7( 5.0, 8.1, 3.5, 3.5 );
     wait 0.85;
-    level.player _meth_84a7( 5.2, 12, 5.0, 5.0 );
+    level.player _meth_84A7( 5.2, 12, 5.0, 5.0 );
     wait 0.35;
-    level.player _meth_84a7( 5.5, 10, 3.0, 3.0 );
+    level.player _meth_84A7( 5.5, 10, 3.0, 3.0 );
     wait 0.85;
     wait 1.0;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
     setsaveddvar( "r_mbenable", 0 );
 }
 
@@ -1333,10 +1333,10 @@ drive_talkingguards1()
     var_0 = getent( "talkingguards1_node", "targetname" );
     var_1 = maps\coup_code::scripted_spawn2( "talkingguards1_leftguard", "targetname", 1 );
     var_2 = maps\coup_code::scripted_spawn2( "talkingguards1_rightguard", "targetname", 1 );
-    var_1._id_0C72 = "human";
-    var_2._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0C24( var_1, "talkingguards_leftguard" );
-    var_0 thread maps\_anim::_id_0C24( var_2, "talkingguards_rightguard" );
+    var_1.animname = "human";
+    var_2.animname = "human";
+    var_0 thread maps\_anim::anim_single_solo( var_1, "talkingguards_leftguard" );
+    var_0 thread maps\_anim::anim_single_solo( var_2, "talkingguards_rightguard" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_1 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_2 );
@@ -1350,11 +1350,11 @@ drive_casualguards1()
     var_1 = maps\coup_code::scripted_spawn2( "casualguards1_idleguard1", "targetname", 1 );
     var_2 = maps\coup_code::scripted_spawn2( "casualguards1_idleguard2", "targetname", 1 );
     var_3 = maps\coup_code::scripted_spawn2( "casualguards1_dog", "targetname", 1 );
-    var_0._id_0C72 = "human";
-    var_3._id_0C72 = "dog";
-    var_0 thread maps\_props::_id_0DDC();
-    var_0 thread maps\_anim::_id_0BE1( var_0, "leaning_smoking_idle" );
-    var_3 thread maps\_anim::_id_0BE1( var_3, "sleeping" );
+    var_0.animname = "human";
+    var_3.animname = "dog";
+    var_0 thread maps\_props::attach_cig_self();
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "leaning_smoking_idle" );
+    var_3 thread maps\_anim::anim_loop_solo( var_3, "sleeping" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_1 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_2 );
@@ -1369,8 +1369,8 @@ drive_eatingdog1()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_2 = var_0[var_1];
-        var_2._id_0C72 = "dog";
-        var_2 thread maps\_anim::_id_0BE1( var_2, "eating" );
+        var_2.animname = "dog";
+        var_2 thread maps\_anim::anim_loop_solo( var_2, "eating" );
         maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_2 );
     }
 }
@@ -1413,9 +1413,9 @@ drive_runners1()
     var_2 = maps\coup_code::scripted_spawn2( "runners1_civilian3", "targetname", 1 );
     var_2 thread maps\coup_code::dropdead();
     var_1 maps\_utility::_id_7E43( "death_runners1" );
-    var_0._id_0C72 = "human";
-    var_1._id_0C72 = "human";
-    var_2._id_0C72 = "human";
+    var_0.animname = "human";
+    var_1.animname = "human";
+    var_2.animname = "human";
     var_0._id_2B0E = 1;
     var_1._id_2B0E = 1;
     var_2._id_2B0E = 1;
@@ -1425,9 +1425,9 @@ drive_runners1()
     var_1 setrandomrun( var_3 );
     var_2 setrandomrun( var_3 );
     var_4 = getent( "intro_node", "targetname" );
-    var_4 thread maps\_anim::_id_0C24( var_0, "civilians_running_02" );
-    var_4 thread maps\_anim::_id_0C24( var_1, "civilians_running_03" );
-    var_4 thread maps\_anim::_id_0C24( var_2, "civilians_running_04" );
+    var_4 thread maps\_anim::anim_single_solo( var_0, "civilians_running_02" );
+    var_4 thread maps\_anim::anim_single_solo( var_1, "civilians_running_03" );
+    var_4 thread maps\_anim::anim_single_solo( var_2, "civilians_running_04" );
     var_0 thread ignore( 11 );
     var_1 thread ignore( 7.5 );
     var_2 thread ignore( 4 );
@@ -1435,8 +1435,8 @@ drive_runners1()
     var_5 = maps\coup_code::scripted_spawn2( "runners1_guard1", "targetname", 1 );
     var_6 = maps\coup_code::scripted_spawn2( "runners1_guard2", "targetname", 1 );
     wait 5.25;
-    var_5._id_1300 = 1000;
-    var_6._id_1300 = 1000;
+    var_5.baseaccuracy = 1000;
+    var_6.baseaccuracy = 1000;
 }
 
 ignore( var_0 )
@@ -1479,49 +1479,49 @@ drive_interrogation1()
 {
     common_scripts\utility::_id_384A( "drive_interrogation1" );
     var_0 = maps\coup_code::scripted_spawn2( "interrogation1_guard_a", "targetname", 1 );
-    var_0._id_0C72 = "human";
+    var_0.animname = "human";
     var_1 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_a", "targetname", 1 );
-    var_1._id_0C72 = "human";
+    var_1.animname = "human";
     var_2 = maps\coup_code::scripted_spawn2( "interrogation1_guard_b", "targetname", 1 );
-    var_2._id_0C72 = "human";
+    var_2.animname = "human";
     var_3 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_b", "targetname", 1 );
-    var_3._id_0C72 = "human";
+    var_3.animname = "human";
     var_4 = maps\coup_code::scripted_spawn2( "interrogation1_guard_b2", "targetname", 1 );
-    var_4._id_0C72 = "human";
+    var_4.animname = "human";
     var_5 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_b2", "targetname", 1 );
-    var_5._id_0C72 = "human";
+    var_5.animname = "human";
     var_6 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_c", "targetname", 1 );
-    var_6._id_0C72 = "human";
+    var_6.animname = "human";
     var_7 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_c2", "targetname", 1 );
-    var_7._id_0C72 = "human";
+    var_7.animname = "human";
     var_8 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_d", "targetname", 1 );
-    var_8._id_0C72 = "human";
+    var_8.animname = "human";
     var_9 = maps\coup_code::scripted_spawn2( "interrogation1_suspect_d2", "targetname", 1 );
-    var_9._id_0C72 = "human";
+    var_9.animname = "human";
     var_10 = getent( "tag_interrogation_5", "targetname" );
     var_11 = maps\coup_code::scripted_spawn2( "ziptie5_civilian", "targetname", 1 );
-    var_11._id_0C72 = "human";
+    var_11.animname = "human";
     var_12 = maps\coup_code::scripted_spawn2( "ziptie5_guard", "targetname", 1 );
-    var_12._id_0C72 = "human";
+    var_12.animname = "human";
     var_13 = getent( "tag_interrogation_5b", "targetname" );
     level.suspect_5b = maps\coup_code::scripted_spawn2( "ziptie5b_civilian", "targetname", 1 );
-    level.suspect_5b._id_0C72 = "human";
+    level.suspect_5b.animname = "human";
     var_14 = maps\coup_code::scripted_spawn2( "ziptie5b_guard", "targetname", 1 );
-    var_14._id_0C72 = "human";
-    var_1 thread maps\_anim::_id_0C24( var_1, "interrogation_suspect_a" );
-    var_1 thread maps\_anim::_id_0C24( var_0, "interrogation_guard_a" );
-    var_3 maps\_utility::_id_27EF( 1.4, maps\_anim::_id_0C24, var_3, "interrogation_suspect_b" );
-    var_3 maps\_utility::_id_27EF( 1.4, maps\_anim::_id_0C24, var_2, "interrogation_guard_b" );
-    var_5 thread maps\_anim::_id_0C24( var_5, "interrogation_suspect_b" );
-    var_5 thread maps\_anim::_id_0C24( var_4, "interrogation_guard_b" );
-    var_6 thread maps\_anim::_id_0C24( var_6, "interrogation_suspect_c" );
-    var_7 thread maps\_anim::_id_0C24( var_7, "interrogation_suspect_c" );
-    var_8 thread maps\_anim::_id_0C24( var_8, "interrogation_suspect_d" );
-    var_9 thread maps\_anim::_id_0C24( var_9, "interrogation_suspect_d" );
-    var_10 maps\_utility::_id_27EF( 0.5, maps\_anim::_id_0C24, var_11, "interrogation_civilian_5" );
-    var_10 maps\_utility::_id_27EF( 0.5, maps\_anim::_id_0C24, var_12, "interrogation_guard_5" );
-    var_13 maps\_utility::_id_27EF( 1.5, maps\_anim::_id_0C24, level.suspect_5b, "interrogation_civilian_5b" );
-    var_13 maps\_utility::_id_27EF( 1.5, maps\_anim::_id_0C24, var_14, "interrogation_guard_5b" );
+    var_14.animname = "human";
+    var_1 thread maps\_anim::anim_single_solo( var_1, "interrogation_suspect_a" );
+    var_1 thread maps\_anim::anim_single_solo( var_0, "interrogation_guard_a" );
+    var_3 maps\_utility::_id_27EF( 1.4, maps\_anim::anim_single_solo, var_3, "interrogation_suspect_b" );
+    var_3 maps\_utility::_id_27EF( 1.4, maps\_anim::anim_single_solo, var_2, "interrogation_guard_b" );
+    var_5 thread maps\_anim::anim_single_solo( var_5, "interrogation_suspect_b" );
+    var_5 thread maps\_anim::anim_single_solo( var_4, "interrogation_guard_b" );
+    var_6 thread maps\_anim::anim_single_solo( var_6, "interrogation_suspect_c" );
+    var_7 thread maps\_anim::anim_single_solo( var_7, "interrogation_suspect_c" );
+    var_8 thread maps\_anim::anim_single_solo( var_8, "interrogation_suspect_d" );
+    var_9 thread maps\_anim::anim_single_solo( var_9, "interrogation_suspect_d" );
+    var_10 maps\_utility::_id_27EF( 0.5, maps\_anim::anim_single_solo, var_11, "interrogation_civilian_5" );
+    var_10 maps\_utility::_id_27EF( 0.5, maps\_anim::anim_single_solo, var_12, "interrogation_guard_5" );
+    var_13 maps\_utility::_id_27EF( 1.5, maps\_anim::anim_single_solo, level.suspect_5b, "interrogation_civilian_5b" );
+    var_13 maps\_utility::_id_27EF( 1.5, maps\_anim::anim_single_solo, var_14, "interrogation_guard_5b" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_2 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_4 );
@@ -1550,8 +1550,8 @@ drive_trashstumble()
     common_scripts\utility::_id_384A( "drive_trashstumble" );
     thread trashstumble_guards();
     level.runner = maps\coup_code::scripted_spawn2( "trashstumble_runner", "targetname", 1 );
-    level.runner._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0C24( level.runner, "civiliankilled_tumblesoncar" );
+    level.runner.animname = "human";
+    var_0 thread maps\_anim::anim_single_solo( level.runner, "civiliankilled_tumblesoncar" );
     wait 4;
     level.runner thread maps\_utility::_id_69C4( "scn_coup_civilian_tumblesoncar" );
     wait 2;
@@ -1565,10 +1565,10 @@ trashstumble_guards()
     var_0 = maps\coup_code::scripted_spawn2( "trashstumble_guard1", "targetname", 1 );
     var_1 = maps\coup_code::scripted_spawn2( "trashstumble_guard2", "targetname", 1 );
     var_2 = getent( "intro_node", "targetname" );
-    var_0._id_0C72 = "human";
-    var_1._id_0C72 = "human";
-    var_2 thread maps\_anim::_id_0C24( var_0, "civiliankilled_guard_a" );
-    var_2 thread maps\_anim::_id_0C24( var_1, "civiliankilled_guard_b" );
+    var_0.animname = "human";
+    var_1.animname = "human";
+    var_2 thread maps\_anim::anim_single_solo( var_0, "civiliankilled_guard_a" );
+    var_2 thread maps\_anim::anim_single_solo( var_1, "civiliankilled_guard_b" );
 }
 
 drive_casualguards2()
@@ -1576,9 +1576,9 @@ drive_casualguards2()
     common_scripts\utility::_id_384A( "drive_casualguards2" );
     var_0 = maps\coup_code::scripted_spawn2( "casualguards2_smokingguard", "targetname", 1 );
     var_1 = maps\coup_code::scripted_spawn2( "casualguards2_idleguard", "targetname", 1 );
-    var_0 thread maps\_props::_id_0DDC();
-    var_0._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0BE1( var_0, "leaning_smoking_idle" );
+    var_0 thread maps\_props::attach_cig_self();
+    var_0.animname = "human";
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "leaning_smoking_idle" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_1 );
     wait 2.7;
@@ -1590,14 +1590,14 @@ drive_spraypaint1()
     common_scripts\utility::_id_384A( "drive_spraypaint1" );
     var_0 = getent( "spraypaint1_node", "targetname" );
     var_1 = maps\coup_code::scripted_spawn2( "spraypaint1_civilian", "targetname", 1 );
-    var_1._id_0C72 = "human";
+    var_1.animname = "human";
     var_1._id_2B0E = 1;
     var_1.ignoreme = 1;
     var_1 attach( "com_spray_can01", "tag_inhand" );
     var_2[0] = "run_panicked1";
     var_2[1] = "run_panicked2";
     var_1 maps\_utility::_id_7EAB( var_2[randomint( 1 )], 1 );
-    var_0 maps\_anim::_id_0C24( var_1, "spraypainting" );
+    var_0 maps\_anim::anim_single_solo( var_1, "spraypainting" );
     var_1 thread maps\coup_code::deleteongoal();
 }
 
@@ -1607,11 +1607,11 @@ drive_sneakattack()
     thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 4176.0, 11140.0, 368.0 ) );
     thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 4176.0, 11140.0, 368.0 ) );
     var_0 = maps\coup_code::scripted_spawn2( "sneakattack_cower1", "targetname", 1 );
-    var_0._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0BE1( var_0, "cowerstand_pointidle" );
+    var_0.animname = "human";
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "cowerstand_pointidle" );
     var_1 = maps\coup_code::scripted_spawn2( "sneakattack_cower2", "targetname", 1 );
-    var_1._id_0C72 = "human";
-    var_1 thread maps\_anim::_id_0BE1( var_1, "cowerstand_pointidle" );
+    var_1.animname = "human";
+    var_1 thread maps\_anim::anim_loop_solo( var_1, "cowerstand_pointidle" );
     var_2 = maps\coup_code::scripted_spawn2( "sneakattack_attacker1", "targetname", 1 );
     var_3 = maps\coup_code::scripted_spawn2( "sneakattack_victim1", "targetname", 1 );
     var_4 = maps\coup_code::scripted_spawn2( "sneakattack_attacker2", "targetname", 1 );
@@ -1622,9 +1622,9 @@ drive_sneakattack()
     thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 3729.1, 12331.3, 368.0 ) );
     thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 3729.1, 12331.3, 368.0 ) );
     wait 1;
-    var_1 thread maps\_anim::_id_0C24( var_1, "cowerstand_react" );
+    var_1 thread maps\_anim::anim_single_solo( var_1, "cowerstand_react" );
     wait 1;
-    var_0 thread maps\_anim::_id_0C24( var_0, "cowerstand_react_to_crouch" );
+    var_0 thread maps\_anim::anim_single_solo( var_0, "cowerstand_react_to_crouch" );
     thread common_scripts\utility::_id_69C2( "coup_civilians_panic", ( 3582.1, 13134.3, 385.3 ) );
     thread common_scripts\utility::_id_69C2( "scn_coup_walla_soldiers_cheer_02", ( 3582.1, 13134.3, 385.3 ) );
 }
@@ -1639,11 +1639,11 @@ drive_ziptie4()
 
     var_2 = getent( "tag_ziptie4_replacing_generic", "targetname" );
     var_3 = maps\coup_code::scripted_spawn2( "ziptie4_civilian", "targetname", 1 );
-    var_3._id_0C72 = "human";
+    var_3.animname = "human";
     var_4 = maps\coup_code::scripted_spawn2( "ziptie4_guard", "targetname", 1 );
-    var_4._id_0C72 = "human";
-    var_2 maps\_utility::_id_27EF( 0.5, maps\_anim::_id_0C24, var_3, "interrogation_civilian_4" );
-    var_2 maps\_utility::_id_27EF( 0.5, maps\_anim::_id_0C24, var_4, "interrogation_guard_4" );
+    var_4.animname = "human";
+    var_2 maps\_utility::_id_27EF( 0.5, maps\_anim::anim_single_solo, var_3, "interrogation_civilian_4" );
+    var_2 maps\_utility::_id_27EF( 0.5, maps\_anim::anim_single_solo, var_4, "interrogation_guard_4" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_4 );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_3 );
     wait 2;
@@ -1669,9 +1669,9 @@ drive_runners2()
     var_6 thread maps\_utility::_id_58D7();
     wait 1.5;
     thread runners2deathsounds( var_0, var_1, var_2, var_3 );
-    var_4._id_1300 = 1000;
-    var_5._id_1300 = 1000;
-    var_6._id_1300 = 1000;
+    var_4.baseaccuracy = 1000;
+    var_5.baseaccuracy = 1000;
+    var_6.baseaccuracy = 1000;
     common_scripts\utility::_id_384A( "runners2_dead" );
     var_4 maps\_utility::_id_8EA4();
     var_5 maps\_utility::_id_8EA4();
@@ -1735,7 +1735,7 @@ drive_celebrators2()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        var_0[var_1]._id_0C72 = "human";
+        var_0[var_1].animname = "human";
         var_0[var_1] thread celebrate();
     }
 }
@@ -1747,15 +1747,15 @@ drive_casualguards3()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        var_0[var_1]._id_0C72 = "human";
-        var_0[var_1] thread maps\_props::_id_0DDC();
-        var_0[var_1] thread maps\_anim::_id_0BE1( var_0[var_1], "leaning_smoking_idle" );
+        var_0[var_1].animname = "human";
+        var_0[var_1] thread maps\_props::attach_cig_self();
+        var_0[var_1] thread maps\_anim::anim_loop_solo( var_0[var_1], "leaning_smoking_idle" );
     }
 
     var_2 = maps\coup_code::scripted_array_spawn( "casualguards3_idleguards", "targetname", 1 );
 
     for ( var_1 = 0; var_1 < var_2.size; var_1++ )
-        var_2[var_1]._id_0C72 = "human";
+        var_2[var_1].animname = "human";
 }
 
 drive_endcrowd()
@@ -1766,21 +1766,21 @@ drive_endcrowd()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        var_0[var_1]._id_0C72 = "human";
-        var_0[var_1] thread maps\_props::_id_0DDC();
-        var_0[var_1] thread maps\_anim::_id_0BE1( var_0[var_1], "leaning_smoking_idle" );
+        var_0[var_1].animname = "human";
+        var_0[var_1] thread maps\_props::attach_cig_self();
+        var_0[var_1] thread maps\_anim::anim_loop_solo( var_0[var_1], "leaning_smoking_idle" );
     }
 
     var_2 = maps\coup_code::scripted_array_spawn( "endcrowd_idleguards", "targetname", 1 );
 
     for ( var_1 = 0; var_1 < var_2.size; var_1++ )
-        var_2[var_1]._id_0C72 = "human";
+        var_2[var_1].animname = "human";
 
     var_3 = maps\coup_code::scripted_array_spawn( "endcrowd_crowdmember", "targetname", 1 );
 
     for ( var_1 = 0; var_1 < var_3.size; var_1++ )
     {
-        var_3[var_1]._id_0C72 = "human";
+        var_3[var_1].animname = "human";
         var_3[var_1].a = spawnstruct();
         var_3[var_1].a._id_A2E2["right"] = "defined";
         var_3[var_1] thread celebrate();
@@ -1794,31 +1794,31 @@ drive_endcrowd()
 
     foreach ( var_7 in var_4 )
     {
-        var_7._id_0C72 = "human";
+        var_7.animname = "human";
         var_1 = randomint( 3 );
         var_8 = randomfloat( 3 );
-        var_7 maps\_utility::_id_27EF( var_8, maps\_anim::_id_0BE1, var_7, var_5[var_1] );
+        var_7 maps\_utility::_id_27EF( var_8, maps\_anim::anim_loop_solo, var_7, var_5[var_1] );
     }
 
     var_10 = maps\coup_code::scripted_spawn2( "endcrowd_crowdwitness_taunt", "targetname", 1 );
-    var_10._id_0C72 = "human";
+    var_10.animname = "human";
     var_11 = maps\coup_code::scripted_spawn2( "endcrowd_crowdwitness_cuthroat_1", "targetname", 1 );
-    var_11._id_0C72 = "human";
+    var_11.animname = "human";
     var_12 = maps\coup_code::scripted_spawn2( "endcrowd_crowdwitness_cuthroat_2", "targetname", 1 );
-    var_12._id_0C72 = "human";
+    var_12.animname = "human";
     var_13 = maps\coup_code::scripted_spawn2( "endcrowd_idledog", "targetname", 1 );
-    var_13._id_0C72 = "dog";
+    var_13.animname = "dog";
     var_13 thread last_dog();
     common_scripts\utility::_id_384A( "drive_carstopping" );
-    var_10 thread maps\_anim::_id_0BE1( var_10, "crowdmember_witnessing_arrival_taunt" );
-    var_11 thread maps\_anim::_id_0BE1( var_11, "crowdmember_witnessing_arrival_cutroat_1" );
+    var_10 thread maps\_anim::anim_loop_solo( var_10, "crowdmember_witnessing_arrival_taunt" );
+    var_11 thread maps\_anim::anim_loop_solo( var_11, "crowdmember_witnessing_arrival_cutroat_1" );
     wait 0.8;
-    var_12 thread maps\_anim::_id_0BE1( var_12, "crowdmember_witnessing_arrival_cutroat_2" );
+    var_12 thread maps\_anim::anim_loop_solo( var_12, "crowdmember_witnessing_arrival_cutroat_2" );
     common_scripts\utility::_id_384A( "start_dragged_aftercarexit" );
-    common_scripts\utility::_id_0D13( var_0, maps\coup_code::deleteentity );
-    common_scripts\utility::_id_0D13( var_2, maps\coup_code::deleteentity );
-    common_scripts\utility::_id_0D13( var_3, maps\coup_code::deleteentity );
-    common_scripts\utility::_id_0D13( var_4, maps\coup_code::deleteentity );
+    common_scripts\utility::array_thread( var_0, maps\coup_code::deleteentity );
+    common_scripts\utility::array_thread( var_2, maps\coup_code::deleteentity );
+    common_scripts\utility::array_thread( var_3, maps\coup_code::deleteentity );
+    common_scripts\utility::array_thread( var_4, maps\coup_code::deleteentity );
     var_10 _meth_8143();
     var_11 _meth_8143();
     var_12 _meth_8143();
@@ -1831,9 +1831,9 @@ drive_endcrowd()
 
 last_dog()
 {
-    thread maps\_anim::_id_0C24( self, "idle" );
+    thread maps\_anim::anim_single_solo( self, "idle" );
     wait 25;
-    thread maps\_anim::_id_0BE1( self, "attackidle_bark", undefined, "stop_bark" );
+    thread maps\_anim::anim_loop_solo( self, "attackidle_bark", undefined, "stop_bark" );
     wait 8;
     self notify( "stop_bark" );
 }
@@ -1841,16 +1841,16 @@ last_dog()
 drive_welcoming_guards()
 {
     var_0 = maps\coup_code::scripted_spawn2( "endcrowd_soldier_welcome4", "targetname", 1 );
-    var_0._id_0C72 = "human";
+    var_0.animname = "human";
     common_scripts\utility::_id_384A( "welcoming_soldier" );
-    var_0 thread maps\_anim::_id_0BE1( var_0, "crowdmember_soldier_welcome_4", undefined, "stop_loop" );
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "crowdmember_soldier_welcome_4", undefined, "stop_loop" );
 
     while ( distance2dsquared( var_0.origin, level.player.origin ) > 19600 )
         wait 0.1;
 
     wait 0.2;
     var_0 notify( "stop_loop" );
-    var_0 thread maps\_anim::_id_0BE1( var_0, "stand_idle", undefined, "stop_loop" );
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "stand_idle", undefined, "stop_loop" );
 }
 
 drive_fastrope1()
@@ -1869,24 +1869,24 @@ drive_firingsquad()
 
     for ( var_4 = 0; var_4 < var_1.size; var_4++ )
     {
-        var_1[var_4] maps\_utility::_id_08EB();
-        var_1[var_4]._id_0C72 = "human";
+        var_1[var_4] maps\_utility::ai_ignore_everything();
+        var_1[var_4].animname = "human";
         var_5 = getnode( var_1[var_4].target, "targetname" );
-        var_1[var_4] _meth_81a9( var_5 );
+        var_1[var_4] _meth_81A9( var_5 );
         var_1[var_4].ignoreweaponintracksuitmode = 1;
     }
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
     {
-        var_2[var_4] maps\_utility::_id_08EB();
-        var_2[var_4]._id_0C72 = "human";
+        var_2[var_4] maps\_utility::ai_ignore_everything();
+        var_2[var_4].animname = "human";
         var_2[var_4] maps\_utility::_id_4462();
     }
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
-        var_3[var_4] maps\_utility::_id_08EB();
-        var_3[var_4]._id_0C72 = "human";
+        var_3[var_4] maps\_utility::ai_ignore_everything();
+        var_3[var_4].animname = "human";
         var_3[var_4] maps\_utility::_id_4462();
     }
 
@@ -1894,38 +1894,38 @@ drive_firingsquad()
 
     for ( var_4 = 0; var_4 < var_1.size; var_4++ )
     {
-        var_1[var_4] thread maps\_anim::_id_0C24( var_1[var_4], "execution_soldier_0" + ( var_4 + 1 ) );
-        var_1[var_4] thread maps\_anim::_id_0BB5( var_1[var_4], "gravity", "execution_soldier_0" + ( var_4 + 1 ) );
+        var_1[var_4] thread maps\_anim::anim_single_solo( var_1[var_4], "execution_soldier_0" + ( var_4 + 1 ) );
+        var_1[var_4] thread maps\_anim::anim_custom_animmode_solo( var_1[var_4], "gravity", "execution_soldier_0" + ( var_4 + 1 ) );
     }
 
-    var_2[0] thread maps\_anim::_id_0C24( var_2[0], "execution_victim_male_01_L" );
-    var_2[1] thread maps\_anim::_id_0C24( var_2[1], "execution_victim_male_01_R" );
-    var_2[2] thread maps\_anim::_id_0C24( var_2[2], "execution_victim_male_02_L" );
-    var_2[3] thread maps\_anim::_id_0C24( var_2[3], "execution_victim_male_03_L" );
-    var_2[0] thread maps\_anim::_id_0BB5( var_2[0], "gravity", "execution_victim_male_01_L" );
-    var_2[1] thread maps\_anim::_id_0BB5( var_2[1], "gravity", "execution_victim_male_01_R" );
-    var_2[2] thread maps\_anim::_id_0BB5( var_2[2], "gravity", "execution_victim_male_02_L" );
-    var_2[3] thread maps\_anim::_id_0BB5( var_2[3], "gravity", "execution_victim_male_03_L" );
+    var_2[0] thread maps\_anim::anim_single_solo( var_2[0], "execution_victim_male_01_L" );
+    var_2[1] thread maps\_anim::anim_single_solo( var_2[1], "execution_victim_male_01_R" );
+    var_2[2] thread maps\_anim::anim_single_solo( var_2[2], "execution_victim_male_02_L" );
+    var_2[3] thread maps\_anim::anim_single_solo( var_2[3], "execution_victim_male_03_L" );
+    var_2[0] thread maps\_anim::anim_custom_animmode_solo( var_2[0], "gravity", "execution_victim_male_01_L" );
+    var_2[1] thread maps\_anim::anim_custom_animmode_solo( var_2[1], "gravity", "execution_victim_male_01_R" );
+    var_2[2] thread maps\_anim::anim_custom_animmode_solo( var_2[2], "gravity", "execution_victim_male_02_L" );
+    var_2[3] thread maps\_anim::anim_custom_animmode_solo( var_2[3], "gravity", "execution_victim_male_03_L" );
     var_2[0] thread maps\_utility::_id_58D7();
     var_2[1] thread maps\_utility::_id_58D7();
     var_2[2] thread maps\_utility::_id_58D7();
     var_2[3] thread maps\_utility::_id_58D7();
-    var_0._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0C24( var_0, "execution_victim_captain" );
-    var_0 thread maps\_anim::_id_0BB5( var_0, "gravity", "execution_victim_captain" );
+    var_0.animname = "human";
+    var_0 thread maps\_anim::anim_single_solo( var_0, "execution_victim_captain" );
+    var_0 thread maps\_anim::anim_custom_animmode_solo( var_0, "gravity", "execution_victim_captain" );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
-        var_3[var_4] thread maps\_anim::_id_0C24( var_3[var_4], "execution_victim_female_0" + ( var_4 + 1 ) );
-        var_3[var_4] thread maps\_anim::_id_0BB5( var_3[var_4], "gravity", "execution_victim_female_0" + ( var_4 + 1 ) );
+        var_3[var_4] thread maps\_anim::anim_single_solo( var_3[var_4], "execution_victim_female_0" + ( var_4 + 1 ) );
+        var_3[var_4] thread maps\_anim::anim_custom_animmode_solo( var_3[var_4], "gravity", "execution_victim_female_0" + ( var_4 + 1 ) );
         var_3[var_4] thread maps\_utility::_id_58D7();
     }
 
     wait 7;
     firing_squad_civilian_death_sounds( var_2, var_3 );
     wait 3;
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_8EA4 );
-    common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_8EA4 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::_id_8EA4 );
+    common_scripts\utility::array_thread( var_3, maps\_utility::_id_8EA4 );
 }
 
 firing_squad_civilian_death_sounds( var_0, var_1 )
@@ -1983,10 +1983,10 @@ drive_phonering()
 dumpsterhide( var_0, var_1, var_2 )
 {
     var_3 = getent( var_0 + "_dumpster", "targetname" );
-    var_3._id_0C72 = "dumpster";
-    var_3 maps\_utility::_id_0D61();
+    var_3.animname = "dumpster";
+    var_3 maps\_utility::assign_animtree();
     var_4 = maps\coup_code::scripted_spawn2( var_0 + "_civilian", "targetname", 1 );
-    var_4._id_0C72 = "human";
+    var_4.animname = "human";
     var_4.origin = var_3.origin;
     var_4.angles = var_3.angles;
     var_4 removedroneweapon();
@@ -1994,8 +1994,8 @@ dumpsterhide( var_0, var_1, var_2 )
     if ( isdefined( var_1 ) )
         wait(var_1);
 
-    var_4 thread maps\_anim::_id_0C24( var_4, "dumpster_open" );
-    var_3 maps\_anim::_id_0C24( var_3, "dumpster_open" );
+    var_4 thread maps\_anim::anim_single_solo( var_4, "dumpster_open" );
+    var_3 maps\_anim::anim_single_solo( var_3, "dumpster_open" );
     var_4 delete();
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_3 );
 }
@@ -2009,25 +2009,25 @@ drive_arrivewalla()
 carjack( var_0, var_1, var_2 )
 {
     var_3 = maps\_vehicle::_id_8978( var_0 + "_car" );
-    var_3._id_0C72 = "uaz";
+    var_3.animname = "uaz";
     var_4 = maps\coup_code::scripted_spawn2( var_0 + "_victim", "targetname", 1 );
-    var_4._id_0C72 = "human";
+    var_4.animname = "human";
     var_5 = maps\coup_code::scripted_spawn2( var_0 + "_driver", "targetname", 1 );
-    var_5._id_0C72 = "human";
+    var_5.animname = "human";
     var_5.cartag = "tag_driver";
     var_6 = maps\coup_code::scripted_spawn2( var_0 + "_frontright", "targetname", 1 );
-    var_6._id_0C72 = "human";
+    var_6.animname = "human";
     var_6.cartag = "tag_passenger";
     var_7 = maps\coup_code::scripted_spawn2( var_0 + "_backleft", "targetname", 1 );
-    var_7._id_0C72 = "human";
+    var_7.animname = "human";
     var_7.cartag = "tag_guy1";
     var_8 = maps\coup_code::scripted_spawn2( var_0 + "_backright", "targetname", 1 );
-    var_8._id_0C72 = "human";
+    var_8.animname = "human";
     var_8.cartag = "tag_guy0";
-    var_3 maps\_anim::_id_0BC7( var_5, "carjack_driver", "tag_detach" );
-    var_3 maps\_anim::_id_0BC7( var_6, "carjack_frontright", "tag_detach" );
-    var_3 maps\_anim::_id_0BC7( var_8, "carjack_backright", "tag_detach" );
-    var_3 maps\_anim::_id_0BFF( var_7, "carjack_backleft", "tag_detach" );
+    var_3 maps\_anim::anim_first_frame_solo( var_5, "carjack_driver", "tag_detach" );
+    var_3 maps\_anim::anim_first_frame_solo( var_6, "carjack_frontright", "tag_detach" );
+    var_3 maps\_anim::anim_first_frame_solo( var_8, "carjack_backright", "tag_detach" );
+    var_3 maps\_anim::anim_reach_solo( var_7, "carjack_backleft", "tag_detach" );
 
     if ( isdefined( var_1 ) )
         wait(var_1);
@@ -2035,31 +2035,31 @@ carjack( var_0, var_1, var_2 )
     var_5 thread carjacker( var_3, "carjack_driver", "cardriver_idle" );
     var_6 thread carjacker( var_3, "carjack_frontright", "carpassenger_idle" );
     var_8 thread carjacker( var_3, "carjack_backright", "carpassenger_idle" );
-    var_3 thread maps\_anim::_id_0C24( var_4, "carjack_victim", "tag_detach" );
-    var_3 thread maps\_anim::_id_0C24( var_3, "carjack_driver_door" );
+    var_3 thread maps\_anim::anim_single_solo( var_4, "carjack_victim", "tag_detach" );
+    var_3 thread maps\_anim::anim_single_solo( var_3, "carjack_driver_door" );
     var_5 waittillmatch( "single anim", "start_others" );
     var_7 thread carjacker( var_3, "carjack_backleft", "carpassenger_idle" );
-    var_3 thread maps\_anim::_id_0C24( var_3, "carjack_others_door" );
+    var_3 thread maps\_anim::anim_single_solo( var_3, "carjack_others_door" );
 }
 
 carjacker( var_0, var_1, var_2 )
 {
-    var_0 maps\_anim::_id_0C24( self, var_1, "tag_detach" );
+    var_0 maps\_anim::anim_single_solo( self, var_1, "tag_detach" );
 }
 
 fenceclimb( var_0, var_1, var_2 )
 {
     var_3 = getent( var_0 + "_fenceclimb_node", "targetname" );
     var_4 = maps\coup_code::scripted_spawn2( var_0 + "_fenceclimb_civilian", "targetname", 1 );
-    var_4._id_0C72 = "human";
+    var_4.animname = "human";
     var_4._id_2B0E = 1;
     var_4 maps\_utility::_id_7EAB( "run_panicked2", 1 );
 
     if ( isdefined( var_1 ) )
         wait(var_1);
 
-    var_3 maps\_anim::_id_0BFF( var_4, "wall_climb" );
-    var_3 thread maps\_anim::_id_0C24( var_4, "wall_climb" );
+    var_3 maps\_anim::anim_reach_solo( var_4, "wall_climb" );
+    var_3 thread maps\_anim::anim_single_solo( var_4, "wall_climb" );
     var_5 = getent( var_4.target, "targetname" );
     var_4 thread maps\_spawner::_id_4248( var_5 );
     maps\coup_code::deleteentity( var_3 );
@@ -2070,13 +2070,13 @@ fencedog( var_0, var_1, var_2 )
 {
     var_3 = getent( var_0 + "_fencedog_node", "targetname" );
     var_4 = maps\coup_code::scripted_spawn2( var_0 + "_fencedog_dog", "targetname", 1 );
-    var_4._id_0C72 = "dog";
+    var_4.animname = "dog";
 
     if ( isdefined( var_1 ) )
         wait(var_1);
 
-    var_3 maps\_anim::_id_0BFF( var_4, "fence_attack" );
-    var_3 thread maps\_anim::_id_0C24( var_4, "fence_attack" );
+    var_3 maps\_anim::anim_reach_solo( var_4, "fence_attack" );
+    var_3 thread maps\_anim::anim_single_solo( var_4, "fence_attack" );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_3 );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_4 );
 }
@@ -2089,7 +2089,7 @@ passenger_event()
     {
         if ( isdefined( level.passenger_events[self.script_noteworthy].animation ) )
         {
-            var_0 = level.passenger_events[self.script_noteworthy].animation._id_0C6C;
+            var_0 = level.passenger_events[self.script_noteworthy].animation.anime;
             var_1 = level.passenger_events[self.script_noteworthy].animation._id_27C0;
 
             if ( isdefined( var_1 ) )
@@ -2139,7 +2139,7 @@ loudspeaker_event()
 crowdmember_setuptriggers()
 {
     var_0 = common_scripts\utility::_id_3DBD();
-    common_scripts\utility::_id_0CF0( var_0, ::crowdmember_triggerevent );
+    common_scripts\utility::array_levelthread( var_0, ::crowdmember_triggerevent );
 
     if ( !isdefined( self.target ) )
         return;
@@ -2155,7 +2155,7 @@ crowdmember_setuptriggers()
         var_2 = "jeer";
 
     var_3 = getentarray( self.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_3, ::crowdmember_status, var_2, var_1 );
+    common_scripts\utility::array_thread( var_3, ::crowdmember_status, var_2, var_1 );
 }
 
 crowdmember_triggerevent( var_0 )
@@ -2586,14 +2586,14 @@ setrandomrun( var_0 )
 kickdoor( var_0, var_1 )
 {
     self waittillmatch( "single anim", "kick" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "doorkick" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "doorkick" );
     var_1 playsound( "wood_door_kick" );
 }
 
 doorkick( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_0._id_0C72 = "human";
-    var_1._id_0C72 = "human";
+    var_0.animname = "human";
+    var_1.animname = "human";
     var_5 = 0;
     var_6 = 0;
     var_7 = cos( self.angles[1] );
@@ -2607,24 +2607,24 @@ doorkick( var_0, var_1, var_2, var_3, var_4 )
     var_14 = maps\_utility::_id_88D1( "door" );
     var_14.origin = var_13.origin;
     var_14.angles = var_13.angles;
-    var_13 thread maps\_anim::_id_0BC7( var_14, "doorkick" );
+    var_13 thread maps\_anim::anim_first_frame_solo( var_14, "doorkick" );
 
     if ( isdefined( var_4 ) )
     {
-        thread maps\_anim::_id_0BFF( var_0, "doorkick_left_idle" );
-        maps\_anim::_id_0BFF( var_1, "doorkick_right_idle" );
+        thread maps\_anim::anim_reach_solo( var_0, "doorkick_left_idle" );
+        maps\_anim::anim_reach_solo( var_1, "doorkick_right_idle" );
     }
 
-    thread maps\_anim::_id_0BC7( var_0, "doorkick_left_idle" );
-    thread maps\_anim::_id_0BC7( var_1, "doorkick_right_idle" );
+    thread maps\_anim::anim_first_frame_solo( var_0, "doorkick_left_idle" );
+    thread maps\_anim::anim_first_frame_solo( var_1, "doorkick_right_idle" );
 
     if ( isdefined( var_2 ) )
         wait(var_2);
 
     var_0 thread kickdoor( var_13, var_14 );
-    thread maps\_anim::_id_0C24( var_1, "doorkick_right_stepout_runin" );
-    maps\_anim::_id_0C24( var_0, "doorkick_left_stepout" );
-    maps\_anim::_id_0C24( var_0, "doorkick_left_runin" );
+    thread maps\_anim::anim_single_solo( var_1, "doorkick_right_stepout_runin" );
+    maps\_anim::anim_single_solo( var_0, "doorkick_left_stepout" );
+    maps\_anim::anim_single_solo( var_0, "doorkick_left_runin" );
     maps\_utility::_id_27EF( var_3, maps\coup_code::deleteentity, var_13 );
     maps\_utility::_id_27EF( var_3, maps\coup_code::deleteentity, var_14 );
     maps\_utility::_id_27EF( var_3, maps\coup_code::deleteentity, var_0 );
@@ -2654,16 +2654,16 @@ ziptie( var_0, var_1, var_2 )
     }
 
     var_9 = maps\coup_code::scripted_spawn2( var_0 + "_guard", "targetname", 1 );
-    var_9._id_0C72 = "human";
+    var_9.animname = "human";
     var_9.ignoreweaponintracksuitmode = 1;
 
     if ( var_8 )
         var_9 maps\coup_code::opfor_swaphead_for_facialanim();
 
     var_10 = maps\coup_code::scripted_spawn2( var_0 + "_civilian", "targetname", 1 );
-    var_10._id_0C72 = "human";
-    var_5 thread maps\_anim::_id_0BC7( var_9, var_3 );
-    var_5 thread maps\_anim::_id_0BC7( var_10, var_4 );
+    var_10.animname = "human";
+    var_5 thread maps\_anim::anim_first_frame_solo( var_9, var_3 );
+    var_5 thread maps\_anim::anim_first_frame_solo( var_10, var_4 );
 
     if ( isdefined( var_1 ) )
         wait(var_1);
@@ -2673,47 +2673,47 @@ ziptie( var_0, var_1, var_2 )
 
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_9 );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_10 );
-    var_5 thread maps\_anim::_id_0C24( var_9, var_3 );
-    var_5 maps\_anim::_id_0C24( var_10, var_4 );
+    var_5 thread maps\_anim::anim_single_solo( var_9, var_3 );
+    var_5 maps\_anim::anim_single_solo( var_10, var_4 );
 
     if ( var_7 == 1 )
-        var_5 maps\_anim::_id_0BE1( var_10, "ziptie_civilian_idle" );
+        var_5 maps\_anim::anim_loop_solo( var_10, "ziptie_civilian_idle" );
 }
 
 ziptied( var_0, var_1 )
 {
-    var_0._id_0C72 = "human";
+    var_0.animname = "human";
     var_0 removedroneweapon();
     var_2 = getent( var_0.target, "targetname" );
-    var_2 thread maps\_anim::_id_0BE1( var_0, "ziptie_civilian_idle" );
+    var_2 thread maps\_anim::anim_loop_solo( var_0, "ziptie_civilian_idle" );
     maps\_utility::_id_27EF( var_1, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( var_1, maps\coup_code::deleteentity, var_2 );
 }
 
 gunpoint_stand( var_0, var_1, var_2 )
 {
-    var_0._id_0C72 = "human";
-    var_1._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0BE1( var_0, "aim_straight" );
-    var_1 thread maps\_anim::_id_0BE1( var_1, "cowerstand_pointidle" );
+    var_0.animname = "human";
+    var_1.animname = "human";
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "aim_straight" );
+    var_1 thread maps\_anim::anim_loop_solo( var_1, "cowerstand_pointidle" );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_1 );
 }
 
 gunpoint_crouch( var_0, var_1, var_2 )
 {
-    var_0._id_0C72 = "human";
-    var_1._id_0C72 = "human";
-    var_0 thread maps\_anim::_id_0BE1( var_0, "aim_straight" );
-    var_1 thread maps\_anim::_id_0BE1( var_1, "cowercrouch_idle" );
+    var_0.animname = "human";
+    var_1.animname = "human";
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "aim_straight" );
+    var_1 thread maps\_anim::anim_loop_solo( var_1, "cowercrouch_idle" );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_0 );
     maps\_utility::_id_27EF( var_2, maps\coup_code::deleteentity, var_1 );
 }
 
 garage( var_0, var_1, var_2, var_3 )
 {
-    var_0._id_0C72 = "human";
-    var_1._id_0C72 = "human";
+    var_0.animname = "human";
+    var_1.animname = "human";
     var_1._id_2B0E = 1;
     var_4[0] = "run_panicked1";
     var_4[1] = "run_panicked2";
@@ -2722,11 +2722,11 @@ garage( var_0, var_1, var_2, var_3 )
     self.origin += var_5;
     var_2.origin += ( 0.0, 0.0, 51.013 );
     var_6 = getent( "intro_node", "targetname" );
-    var_6 thread maps\_anim::_id_0C24( var_1, "civilians_running_garage" );
+    var_6 thread maps\_anim::anim_single_solo( var_1, "civilians_running_garage" );
     common_scripts\utility::_id_384A( "spawn_garage_operator" );
-    maps\_anim::_id_0BC7( var_0, "close_garage_a" );
+    maps\_anim::anim_first_frame_solo( var_0, "close_garage_a" );
     common_scripts\utility::_id_384A( "animate_garage_operator" );
-    thread maps\_anim::_id_0C24( var_0, "close_garage_a" );
+    thread maps\_anim::anim_single_solo( var_0, "close_garage_a" );
     wait 1;
     var_2 linkto( var_0, "TAG_WEAPON_CHEST" );
     var_0 waittillmatch( "single anim", "end" );
@@ -2738,17 +2738,17 @@ garage( var_0, var_1, var_2, var_3 )
 
 windowshout( var_0 )
 {
-    var_0._id_0C72 = "human";
+    var_0.animname = "human";
     var_0 removedroneweapon();
-    var_0 thread maps\_anim::_id_0C24( var_0, "window_shout_a" );
+    var_0 thread maps\_anim::anim_single_solo( var_0, "window_shout_a" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
 }
 
 leaningguard( var_0 )
 {
-    var_0._id_0C72 = "leaning_guard";
-    var_0 thread maps\_props::_id_0DDC();
-    var_0 thread maps\_anim::_id_0BE1( var_0, "leaning_smoking_idle" );
+    var_0.animname = "leaning_guard";
+    var_0 thread maps\_props::attach_cig_self();
+    var_0 thread maps\_anim::anim_loop_solo( var_0, "leaning_smoking_idle" );
     maps\_utility::_id_27EF( 20, maps\coup_code::deleteentity, var_0 );
 }
 
@@ -2756,11 +2756,11 @@ attackside( var_0, var_1 )
 {
     var_2 = spawn( "script_origin", self.origin );
     var_2.angles = self.angles;
-    var_0._id_0C72 = "human";
-    self._id_0C72 = "human";
+    var_0.animname = "human";
+    self.animname = "human";
     var_0.favoriteenemy = self;
-    var_2 thread maps\_anim::_id_0C24( var_0, "sneakattack_attack_side" );
-    var_2 thread maps\_anim::_id_0C24( self, "sneakattack_defend_side" );
+    var_2 thread maps\_anim::anim_single_solo( var_0, "sneakattack_attack_side" );
+    var_2 thread maps\_anim::anim_single_solo( self, "sneakattack_defend_side" );
     maps\_utility::_id_27EF( var_1, maps\coup_code::deleteentity, var_0 );
 }
 
@@ -2768,12 +2768,12 @@ attackbehind( var_0, var_1 )
 {
     var_2 = spawn( "script_origin", self.origin );
     var_2.angles = self.angles;
-    var_0._id_0C72 = "human";
-    self._id_0C72 = "human";
+    var_0.animname = "human";
+    self.animname = "human";
     var_0.favoriteenemy = self;
-    var_2 maps\_anim::_id_0BFF( var_0, "sneakattack_attack_behind" );
-    var_2 thread maps\_anim::_id_0C24( var_0, "sneakattack_attack_behind" );
-    var_2 thread maps\_anim::_id_0C24( self, "sneakattack_defend_behind" );
+    var_2 maps\_anim::anim_reach_solo( var_0, "sneakattack_attack_behind" );
+    var_2 thread maps\_anim::anim_single_solo( var_0, "sneakattack_attack_behind" );
+    var_2 thread maps\_anim::anim_single_solo( self, "sneakattack_defend_behind" );
     maps\_utility::_id_27EF( var_1, maps\coup_code::deleteentity, var_0 );
 }
 
@@ -2810,8 +2810,8 @@ celebrate()
             self.crowdanims_starting = undefined;
         }
 
-        maps\_anim::_id_0C24( self, var_3 );
-        maps\_anim::_id_0C24( self, var_0[var_2]["idle"] );
+        maps\_anim::anim_single_solo( self, var_3 );
+        maps\_anim::anim_single_solo( self, var_0[var_2]["idle"] );
     }
 }
 
@@ -2853,7 +2853,7 @@ addpassengerevent( var_0, var_1, var_2, var_3 )
     if ( var_1 == "animation" )
     {
         var_4 = spawnstruct();
-        var_4._id_0C6C = var_2;
+        var_4.anime = var_2;
         var_4._id_27C0 = var_3;
         level.passenger_events[var_0].animation = var_4;
     }
@@ -3006,17 +3006,17 @@ anim_variety_for_ending_crowd()
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
         var_4 = var_2["1stfloor"][randomint( var_2["1stfloor"].size )];
-        var_0[var_3]._id_0C72 = "human";
+        var_0[var_3].animname = "human";
         var_5 = randomfloat( 3 );
-        var_0[var_3] maps\_utility::_id_27EF( var_5, maps\_anim::_id_0BE1, var_0[var_3], var_4 );
+        var_0[var_3] maps\_utility::_id_27EF( var_5, maps\_anim::anim_loop_solo, var_0[var_3], var_4 );
     }
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
     {
         var_4 = var_2["balcony"][randomint( var_2["balcony"].size )];
-        var_1[var_3]._id_0C72 = "human";
+        var_1[var_3].animname = "human";
         var_5 = randomfloat( 3 );
-        var_1[var_3] maps\_utility::_id_27EF( var_5, maps\_anim::_id_0BE1, var_1[var_3], var_4 );
+        var_1[var_3] maps\_utility::_id_27EF( var_5, maps\_anim::anim_loop_solo, var_1[var_3], var_4 );
     }
 }
 

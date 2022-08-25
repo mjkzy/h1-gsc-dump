@@ -19,7 +19,7 @@
 
 */
 
-_id_08A6( var_0 )
+agentfunc( var_0 )
 {
     return level.agent_funcs[self.agent_type][var_0];
 }
@@ -38,16 +38,16 @@ _id_4D7F()
 {
     self.agent_type = "player";
     self.pers = [];
-    self.hasdied = 0;
-    self.isactive = 0;
-    self.isagent = 1;
-    self.wasti = 0;
+    self._id_4726 = 0;
+    self._id_50A6 = 0;
+    self._id_50AB = 1;
+    self._id_A1D2 = 0;
     self.issniper = 0;
     self.spawntime = 0;
-    self.entity_number = self getentitynumber();
+    self._id_3314 = self getentitynumber();
     self.agent_teamparticipant = 0;
     self.agent_gameparticipant = 0;
-    self.canperformclienttraces = 0;
+    self._id_1AD6 = 0;
     self.agentname = undefined;
     self.ignoreall = 0;
     self.ignoreme = 0;
@@ -79,16 +79,16 @@ _id_4DFF( var_0 )
         self.sessionstate = undefined;
         self._id_55DF = undefined;
         self._id_55DD = undefined;
-        self.disabledweapon = undefined;
-        self.disabledweaponswitch = undefined;
-        self.disabledoffhandweapons = undefined;
-        self.disabledusability = undefined;
+        self._id_2B0B = undefined;
+        self._id_2B0C = undefined;
+        self._id_2B05 = undefined;
+        self._id_2B0A = undefined;
         self._id_83C6 = undefined;
         self._id_83C5 = undefined;
     }
     else
     {
-        self.movespeedscaler = level._id_1317;
+        self.movespeedscaler = level.baseplayermovescale;
         self.avoidkillstreakonspawntimer = 5;
         self.guid = maps\mp\_utility::_id_4144();
         self.name = self.guid;
@@ -103,13 +103,13 @@ _id_4DFF( var_0 )
         {
             self.objectivescaler = 1;
             maps\mp\gametypes\_gameobjects::_id_4D34();
-            self.disabledweapon = 0;
-            self.disabledweaponswitch = 0;
-            self.disabledoffhandweapons = 0;
+            self._id_2B0B = 0;
+            self._id_2B0C = 0;
+            self._id_2B05 = 0;
         }
     }
 
-    self.disabledusability = 1;
+    self._id_2B0A = 1;
 }
 
 _id_3FA2( var_0 )
@@ -120,12 +120,12 @@ _id_3FA2( var_0 )
     {
         foreach ( var_3 in level.agentarray )
         {
-            if ( ( !isdefined( var_3.isactive ) || !var_3.isactive ) && ( !isdefined( var_3._id_518D ) || !var_3._id_518D ) )
+            if ( ( !isdefined( var_3._id_50A6 ) || !var_3._id_50A6 ) && ( !isdefined( var_3._id_518D ) || !var_3._id_518D ) )
             {
                 if ( isdefined( var_3._id_A04A ) && var_3._id_A04A )
                     continue;
 
-                if ( isdefined( level.despawning_agents ) && common_scripts\utility::_id_0CE4( level.despawning_agents, var_3 ) )
+                if ( isdefined( level.despawning_agents ) && common_scripts\utility::array_contains( level.despawning_agents, var_3 ) )
                     continue;
 
                 var_1 = var_3;
@@ -142,9 +142,9 @@ _id_3FA2( var_0 )
     return var_1;
 }
 
-_id_070B()
+activateagent()
 {
-    self.isactive = 1;
+    self._id_50A6 = 1;
 }
 
 _id_2631()
@@ -160,18 +160,18 @@ _id_2632()
     if ( !isdefined( level.despawning_agents ) )
         level.despawning_agents = [];
 
-    if ( !common_scripts\utility::_id_0CE4( level.despawning_agents, self ) )
-        level.despawning_agents = common_scripts\utility::_id_0CDA( level.despawning_agents, self );
+    if ( !common_scripts\utility::array_contains( level.despawning_agents, self ) )
+        level.despawning_agents = common_scripts\utility::array_add( level.despawning_agents, self );
 
     if ( maps\mp\_utility::_id_5112( self ) )
         maps\mp\gametypes\_spawnlogic::_id_73AC();
 
-    maps\mp\gametypes\_spawnlogic::removefromcharactersarray();
+    maps\mp\gametypes\_spawnlogic::_id_73A7();
     wait 0.05;
-    self.isactive = 0;
-    self.hasdied = 0;
+    self._id_50A6 = 0;
+    self._id_4726 = 0;
     self.owner = undefined;
-    self.connecttime = undefined;
+    self._id_214F = undefined;
     self._id_A04A = undefined;
 
     foreach ( var_1 in level.characters )
@@ -190,7 +190,7 @@ _id_2632()
     self detachall();
     self notify( "disconnect" );
     self _meth_8486();
-    level.despawning_agents = common_scripts\utility::_id_0CF6( level.despawning_agents, self );
+    level.despawning_agents = common_scripts\utility::array_remove( level.despawning_agents, self );
 }
 
 _id_4054( var_0 )
@@ -211,7 +211,7 @@ _id_3ED9( var_0 )
 
     foreach ( var_3 in level.agentarray )
     {
-        if ( isdefined( var_3.isactive ) && var_3.isactive )
+        if ( isdefined( var_3._id_50A6 ) && var_3._id_50A6 )
         {
             if ( var_0 == "all" || var_3.agent_type == var_0 )
                 var_1[var_1.size] = var_3;
@@ -235,7 +235,7 @@ _id_4057( var_0, var_1 )
 
     foreach ( var_4 in level.agentarray )
     {
-        if ( isdefined( var_4.isactive ) && var_4.isactive )
+        if ( isdefined( var_4._id_50A6 ) && var_4._id_50A6 )
         {
             if ( isdefined( var_4.owner ) && var_4.owner == var_0 )
             {
@@ -255,14 +255,14 @@ _id_414D( var_0, var_1 )
     if ( !isdefined( var_2 ) || var_2.size == 0 )
         return undefined;
 
-    if ( isdefined( level.waterdeletez ) && isdefined( level.trigunderwater ) )
+    if ( isdefined( level._id_A297 ) && isdefined( level._id_9822 ) )
     {
         var_3 = var_2;
         var_2 = [];
 
         foreach ( var_5 in var_3 )
         {
-            if ( var_5.origin[2] > level.waterdeletez || !ispointinvolume( var_5.origin, level.trigunderwater ) )
+            if ( var_5.origin[2] > level._id_A297 || !ispointinvolume( var_5.origin, level._id_9822 ) )
                 var_2[var_2.size] = var_5;
         }
     }
@@ -344,7 +344,7 @@ _id_414D( var_0, var_1 )
         return var_14;
     }
 
-    if ( var_11.size > 0 && isdefined( level.ishorde ) )
+    if ( var_11.size > 0 && isdefined( level._id_511D ) )
         return var_11[0];
 }
 
@@ -355,5 +355,5 @@ _id_5349( var_0 )
 
 _id_535A()
 {
-    self [[ _id_08A6( "on_damaged" ) ]]( level, undefined, self.health + 1, 0, "MOD_CRUSH", "none", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "none", 0 );
+    self [[ agentfunc( "on_damaged" ) ]]( level, undefined, self.health + 1, 0, "MOD_CRUSH", "none", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "none", 0 );
 }

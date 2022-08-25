@@ -256,7 +256,7 @@ _id_21A8()
             var_3.v["type"] = "exploder";
             var_3.v["exploder"] = var_0;
             var_3.v["exploder_type"] = "normal";
-            var_3 common_scripts\utility::_id_06FD();
+            var_3 common_scripts\utility::activate_individual_exploder();
             continue;
         }
 
@@ -272,7 +272,7 @@ _id_2407()
     precacheshader( "black" );
     level._createfx = spawnstruct();
     level._createfx.grenade = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-    level._createfx.grenade.fx = loadfx( "vfx/explosion/frag_grenade_default" );
+    level._createfx.grenade._id_3B23 = loadfx( "vfx/explosion/frag_grenade_default" );
     level._createfx.grenade._id_8899 = "null";
     level._createfx.grenade.radius = 256;
     wait 0.05;
@@ -302,9 +302,9 @@ _id_4D07()
     level._createfx._id_86BD = 0;
     level._createfx._id_86BE = 0;
     level._createfx._id_57F0 = 0;
-    level._createfx._id_121A = 0;
+    level._createfx.axismode = 0;
     level._createfx._id_7C5A = 0;
-    level._createfx.player_speed = getdvarfloat( "g_speed" );
+    level._createfx._id_6C19 = getdvarfloat( "g_speed" );
     _id_7E9C();
 }
 
@@ -394,11 +394,11 @@ _id_241B()
 
     level._id_2408 = 1;
     level._id_5519 = undefined;
-    level._id_195A = [];
+    level.buttonisheld = [];
     var_0 = ( 0.0, 0.0, 0.0 );
     common_scripts\utility::_id_383F( "createfx_started" );
 
-    if ( !level.mp_createfx )
+    if ( !level._id_5FAC )
         var_0 = level.player.origin;
 
     var_1 = undefined;
@@ -433,20 +433,20 @@ _id_241B()
         var_12 = var_9 * 750;
         level._id_2416 = bullettrace( level.player geteye(), level.player geteye() + var_12, 0, undefined );
         var_13 = undefined;
-        level._id_1958 = [];
-        level._id_194E = [];
+        level.buttonclick = [];
+        level.button_is_kb = [];
         _id_6FE0();
-        var_14 = _id_194D( "ctrl", "BUTTON_LSHLDR" );
-        var_15 = _id_194C( "mouse1", "BUTTON_A" );
-        var_16 = _id_194D( "mouse1", "BUTTON_A" );
-        var_17 = _id_194D( "shift" );
+        var_14 = button_is_held( "ctrl", "BUTTON_LSHLDR" );
+        var_15 = button_is_clicked( "mouse1", "BUTTON_A" );
+        var_16 = button_is_held( "mouse1", "BUTTON_A" );
+        var_17 = button_is_held( "shift" );
         common_scripts\_createfxmenu::_id_23B9();
         var_18 = "F5";
 
         if ( getdvarint( "createfx_use_f4" ) )
             var_18 = "F4";
 
-        if ( _id_194C( var_18 ) )
+        if ( button_is_clicked( var_18 ) )
         {
 
         }
@@ -454,65 +454,65 @@ _id_241B()
         if ( getdvarint( "scr_createfx_dump" ) )
             _id_3C84();
 
-        if ( _id_194C( "F2" ) )
+        if ( button_is_clicked( "F2" ) )
             _id_93C9();
 
-        if ( _id_194C( "ins" ) )
+        if ( button_is_clicked( "ins" ) )
             _id_4E83();
 
-        if ( _id_194C( "del" ) )
+        if ( button_is_clicked( "del" ) )
             _id_282F();
 
-        if ( _id_194C( "escape" ) )
+        if ( button_is_clicked( "escape" ) )
             _id_1ED6();
 
-        if ( _id_194C( "rightarrow", "space" ) && !level._id_2410 )
+        if ( button_is_clicked( "rightarrow", "space" ) && !level._id_2410 )
             _id_7E89();
 
-        if ( _id_194C( "leftarrow" ) && !level._id_2410 )
+        if ( button_is_clicked( "leftarrow" ) && !level._id_2410 )
             _id_990D();
 
-        if ( _id_194C( "f" ) )
+        if ( button_is_clicked( "f" ) )
             _id_3A0D();
 
-        if ( _id_194C( "u" ) )
+        if ( button_is_clicked( "u" ) )
             _id_7C5B();
 
-        if ( _id_194C( "c" ) )
+        if ( button_is_clicked( "c" ) )
             _id_21A8();
 
         _id_5D4D();
 
-        if ( !var_14 && _id_194C( "g" ) )
+        if ( !var_14 && button_is_clicked( "g" ) )
         {
             _id_7C59( "exploder" );
             _id_7C59( "flag" );
         }
 
-        if ( _id_194C( "h", "F1" ) )
+        if ( button_is_clicked( "h", "F1" ) )
             _id_84D7();
 
-        if ( _id_194C( "BUTTON_LSTICK" ) )
+        if ( button_is_clicked( "BUTTON_LSTICK" ) )
             _id_21D6();
 
-        if ( _id_194C( "BUTTON_RSTICK" ) )
+        if ( button_is_clicked( "BUTTON_RSTICK" ) )
             _id_66BC();
 
-        if ( _id_194C( "z" ) )
+        if ( button_is_clicked( "z" ) )
             _id_9A23();
 
-        if ( _id_194C( "z" ) && var_17 )
+        if ( button_is_clicked( "z" ) && var_17 )
             _id_72A2();
 
         if ( var_14 )
         {
-            if ( _id_194C( "c" ) )
+            if ( button_is_clicked( "c" ) )
                 _id_21D6();
 
-            if ( _id_194C( "v" ) )
+            if ( button_is_clicked( "v" ) )
                 _id_66BC();
 
-            if ( _id_194C( "g" ) )
+            if ( button_is_clicked( "g" ) )
                 _id_8904();
         }
 
@@ -559,7 +559,7 @@ _id_241B()
         if ( var_7 )
             _id_9ADC();
 
-        if ( !level.mp_createfx )
+        if ( !level._id_5FAC )
             var_0 = [[ level._id_3AEF ]]( var_0 );
 
         var_1 = var_13;
@@ -584,40 +584,40 @@ _id_241B()
 _id_5D4D()
 {
     var_0 = 0;
-    var_1 = _id_194D( "ctrl" );
+    var_1 = button_is_held( "ctrl" );
 
-    if ( _id_194D( "." ) )
+    if ( button_is_held( "." ) )
     {
         if ( var_1 )
         {
-            if ( level._createfx.player_speed < 190 )
-                level._createfx.player_speed = 190;
+            if ( level._createfx._id_6C19 < 190 )
+                level._createfx._id_6C19 = 190;
             else
-                level._createfx.player_speed += 10;
+                level._createfx._id_6C19 += 10;
         }
         else
-            level._createfx.player_speed += 5;
+            level._createfx._id_6C19 += 5;
 
         var_0 = 1;
     }
-    else if ( _id_194D( "," ) )
+    else if ( button_is_held( "," ) )
     {
         if ( var_1 )
         {
-            if ( level._createfx.player_speed > 190 )
-                level._createfx.player_speed = 190;
+            if ( level._createfx._id_6C19 > 190 )
+                level._createfx._id_6C19 = 190;
             else
-                level._createfx.player_speed -= 10;
+                level._createfx._id_6C19 -= 10;
         }
         else
-            level._createfx.player_speed -= 5;
+            level._createfx._id_6C19 -= 5;
 
         var_0 = 1;
     }
 
     if ( var_0 )
     {
-        level._createfx.player_speed = clamp( level._createfx.player_speed, 5, 500 );
+        level._createfx._id_6C19 = clamp( level._createfx._id_6C19, 5, 500 );
         [[ level._id_3AED ]]();
         _id_7E9C();
     }
@@ -645,7 +645,7 @@ _id_7E9C()
         level._createfx._id_6C1E = var_0;
     }
 
-    level._createfx._id_6C1E._id_4ADA setvalue( level._createfx.player_speed );
+    level._createfx._id_6C1E._id_4ADA setvalue( level._createfx._id_6C19 );
 }
 
 _id_93C9()
@@ -923,18 +923,18 @@ _id_4609( var_0 )
             _id_7EDB( "Local Rotation( R ):", var_5, var_6 );
         }
 
-        if ( level._createfx._id_121A && level._createfx._id_7C66.size > 0 )
+        if ( level._createfx.axismode && level._createfx._id_7C66.size > 0 )
         {
             _id_7EDB( "Mode:", "rotate" );
             thread [[ level._id_3AF0 ]]();
 
-            if ( _id_194C( "p" ) )
+            if ( button_is_clicked( "p" ) )
                 _id_7423();
 
-            if ( _id_194C( "o" ) )
-                _id_0968();
+            if ( button_is_clicked( "o" ) )
+                aim_axis_of_selected_ents();
 
-            if ( _id_194C( "v" ) )
+            if ( button_is_clicked( "v" ) )
                 _id_21D0();
 
             for ( var_7 = 0; var_7 < level._createfx._id_7C66.size; var_7++ )
@@ -974,27 +974,27 @@ _id_4609( var_0 )
 
 _id_7C64( var_0 )
 {
-    if ( _id_194C( "BUTTON_X" ) )
+    if ( button_is_clicked( "BUTTON_X" ) )
         _id_93C4();
 
     _id_5D4E();
 
-    if ( _id_194C( "s" ) )
+    if ( button_is_clicked( "s" ) )
         _id_93DC();
 
-    if ( _id_194C( "l" ) )
+    if ( button_is_clicked( "l" ) )
         _id_93DD();
 
-    if ( _id_194C( "r" ) )
+    if ( button_is_clicked( "r" ) )
         _id_93D4();
 
-    if ( _id_194C( "end" ) )
+    if ( button_is_clicked( "end" ) )
     {
         _id_2F66();
         var_0 = 1;
     }
 
-    if ( _id_194C( "tab", "BUTTON_RSHLDR" ) )
+    if ( button_is_clicked( "tab", "BUTTON_RSHLDR" ) )
     {
         _id_5F26();
         var_0 = 1;
@@ -1005,10 +1005,10 @@ _id_7C64( var_0 )
 
 _id_5D4E()
 {
-    var_0 = _id_194D( "shift" );
-    var_1 = _id_194D( "ctrl" );
+    var_0 = button_is_held( "shift" );
+    var_1 = button_is_held( "ctrl" );
 
-    if ( _id_194C( "=" ) )
+    if ( button_is_clicked( "=" ) )
     {
         if ( var_0 )
             level._createfx.rate += 0.025;
@@ -1022,7 +1022,7 @@ _id_5D4E()
         else
             level._createfx.rate += 0.1;
     }
-    else if ( _id_194C( "-" ) )
+    else if ( button_is_clicked( "-" ) )
     {
         if ( var_0 )
             level._createfx.rate -= 0.025;
@@ -1043,7 +1043,7 @@ _id_5D4E()
 
 _id_93C4()
 {
-    level._createfx._id_121A = !level._createfx._id_121A;
+    level._createfx.axismode = !level._createfx.axismode;
 }
 
 _id_93DC()
@@ -1116,7 +1116,7 @@ _id_21D0()
     level._id_240E = 0;
 }
 
-_id_0968()
+aim_axis_of_selected_ents()
 {
     thread _id_780E();
     level notify( "new_ent_selection" );
@@ -1479,7 +1479,7 @@ _id_66BC()
     _id_1EB5();
 
     for ( var_0 = 0; var_0 < level._id_8F14.size; var_0++ )
-        _id_0731( level._id_8F14[var_0] );
+        add_and_select_entity( level._id_8F14[var_0] );
 
     _id_5F26();
     _id_9ADC();
@@ -1487,7 +1487,7 @@ _id_66BC()
     _id_21D6();
 }
 
-_id_0731( var_0 )
+add_and_select_entity( var_0 )
 {
     level._id_2417[level._id_2417.size] = var_0;
     _id_7C5F();
@@ -1582,7 +1582,7 @@ _id_6F98( var_0, var_1, var_2 )
         if ( !common_scripts\_createfxmenu::_id_59D2( var_4["mask"], var_0.v["type"] ) )
             continue;
 
-        if ( !level.mp_createfx )
+        if ( !level._id_5FAC )
         {
             if ( common_scripts\_createfxmenu::_id_59D2( "fx", var_0.v["type"] ) && var_5 == "fxid" )
                 continue;
@@ -1788,14 +1788,14 @@ _id_3E5C()
     var_5 = 0;
     var_6 = level._createfx.rate;
 
-    if ( _id_1959( "DPAD_UP" ) )
+    if ( buttondown( "DPAD_UP" ) )
     {
         if ( level._id_7C69 < 0 )
             level._id_7C69 = 0;
 
         level._id_7C69 += var_6;
     }
-    else if ( _id_1959( "DPAD_DOWN" ) )
+    else if ( buttondown( "DPAD_DOWN" ) )
     {
         if ( level._id_7C69 > 0 )
             level._id_7C69 = 0;
@@ -1805,14 +1805,14 @@ _id_3E5C()
     else
         level._id_7C69 = 0;
 
-    if ( _id_1959( "DPAD_RIGHT" ) )
+    if ( buttondown( "DPAD_RIGHT" ) )
     {
         if ( level._id_7C6A < 0 )
             level._id_7C6A = 0;
 
         level._id_7C6A += var_6;
     }
-    else if ( _id_1959( "DPAD_LEFT" ) )
+    else if ( buttondown( "DPAD_LEFT" ) )
     {
         if ( level._id_7C6A > 0 )
             level._id_7C6A = 0;
@@ -1822,14 +1822,14 @@ _id_3E5C()
     else
         level._id_7C6A = 0;
 
-    if ( _id_1959( "BUTTON_Y" ) )
+    if ( buttondown( "BUTTON_Y" ) )
     {
         if ( level._id_7C6B < 0 )
             level._id_7C6B = 0;
 
         level._id_7C6B += var_6;
     }
-    else if ( _id_1959( "BUTTON_B" ) )
+    else if ( buttondown( "BUTTON_B" ) )
     {
         if ( level._id_7C6B > 0 )
             level._id_7C6B = 0;
@@ -1853,14 +1853,14 @@ _id_7DBB()
     else
         var_0 = 90;
 
-    if ( _id_1959( "kp_uparrow", "DPAD_UP" ) )
+    if ( buttondown( "kp_uparrow", "DPAD_UP" ) )
     {
         if ( level._id_7C6C < 0 )
             level._id_7C6C = 0;
 
         level._id_7C6C += var_0;
     }
-    else if ( _id_1959( "kp_downarrow", "DPAD_DOWN" ) )
+    else if ( buttondown( "kp_downarrow", "DPAD_DOWN" ) )
     {
         if ( level._id_7C6C > 0 )
             level._id_7C6C = 0;
@@ -1870,14 +1870,14 @@ _id_7DBB()
     else
         level._id_7C6C = 0;
 
-    if ( _id_1959( "DPAD_LEFT" ) )
+    if ( buttondown( "DPAD_LEFT" ) )
     {
         if ( level._id_7C6E < 0 )
             level._id_7C6E = 0;
 
         level._id_7C6E += var_0;
     }
-    else if ( _id_1959( "DPAD_RIGHT" ) )
+    else if ( buttondown( "DPAD_RIGHT" ) )
     {
         if ( level._id_7C6E > 0 )
             level._id_7C6E = 0;
@@ -1887,14 +1887,14 @@ _id_7DBB()
     else
         level._id_7C6E = 0;
 
-    if ( _id_1959( "BUTTON_Y" ) )
+    if ( buttondown( "BUTTON_Y" ) )
     {
         if ( level._id_7C6D < 0 )
             level._id_7C6D = 0;
 
         level._id_7C6D += var_0;
     }
-    else if ( _id_1959( "BUTTON_B" ) )
+    else if ( buttondown( "BUTTON_B" ) )
     {
         if ( level._id_7C6D > 0 )
             level._id_7C6D = 0;
@@ -1949,18 +1949,18 @@ _id_8EA3()
 
 _id_3AE8()
 {
-    if ( !isdefined( level._id_0590 ) )
+    if ( !isdefined( level._effect_keys ) )
         var_0 = getarraykeys( level._effect );
     else
     {
         var_0 = getarraykeys( level._effect );
 
-        if ( var_0.size == level._id_0590.size )
-            return level._id_0590;
+        if ( var_0.size == level._effect_keys.size )
+            return level._effect_keys;
     }
 
-    var_0 = common_scripts\utility::_id_0AF9( var_0 );
-    level._id_0590 = var_0;
+    var_0 = common_scripts\utility::alphabetize( var_0 );
+    level._effect_keys = var_0;
     return var_0;
 }
 
@@ -1991,14 +1991,14 @@ _id_748A()
 
 _id_72C1()
 {
-    level._id_05B2._id_718D = undefined;
+    level._fx._id_718D = undefined;
 
     foreach ( var_1 in level._id_2417 )
     {
         if ( var_1.v["type"] == "reactive_fx" )
         {
             var_1 _id_7E40();
-            var_1 common_scripts\_fx::_id_078A();
+            var_1 common_scripts\_fx::add_reactive_fx();
         }
     }
 }
@@ -2066,7 +2066,7 @@ _id_6FEC()
 
 _id_8904()
 {
-    playfx( level._createfx.grenade.fx, level._id_2416["position"] );
+    playfx( level._createfx.grenade._id_3B23, level._id_2416["position"] );
     level._createfx.grenade playsound( level._createfx.grenade._id_8899 );
     radiusdamage( level._id_2416["position"], level._createfx.grenade.radius, 50, 5, undefined, "MOD_EXPLOSIVE" );
     level notify( "code_damageradius", undefined, level._createfx.grenade.radius, level._id_2416["position"] );
@@ -2118,7 +2118,7 @@ _id_A35E( var_0, var_1 )
 
     if ( var_0.v["type"] == "exploder" )
     {
-        if ( isdefined( var_0.v["exploder"] ) && !level.mp_createfx )
+        if ( isdefined( var_0.v["exploder"] ) && !level._id_5FAC )
             _id_1C19( var_2 + "ent = createExploderEx( \"" + var_0.v["fxid"] + "\", \"" + var_0.v["exploder"] + "\" );" );
         else
             _id_1C19( var_2 + "ent = createExploder( \"" + var_0.v["fxid"] + "\" );" );
@@ -2364,71 +2364,71 @@ _id_1C1A( var_0, var_1, var_2 )
 
 _id_6FE0()
 {
-    _id_073A( "mouse1" );
-    _id_073A( "BUTTON_RSHLDR" );
-    _id_073A( "BUTTON_LSHLDR" );
-    _id_073A( "BUTTON_RSTICK" );
-    _id_073A( "BUTTON_LSTICK" );
-    _id_073A( "BUTTON_A" );
-    _id_073A( "BUTTON_B" );
-    _id_073A( "BUTTON_X" );
-    _id_073A( "BUTTON_Y" );
-    _id_073A( "DPAD_UP" );
-    _id_073A( "DPAD_LEFT" );
-    _id_073A( "DPAD_RIGHT" );
-    _id_073A( "DPAD_DOWN" );
-    _id_076B( "shift" );
-    _id_076B( "ctrl" );
-    _id_076B( "escape" );
-    _id_076B( "F1" );
-    _id_076B( "F5" );
-    _id_076B( "F4" );
-    _id_076B( "F2" );
-    _id_076B( "a" );
-    _id_076B( "g" );
-    _id_076B( "c" );
-    _id_076B( "h" );
-    _id_076B( "i" );
-    _id_076B( "f" );
-    _id_076B( "k" );
-    _id_076B( "l" );
-    _id_076B( "m" );
-    _id_076B( "o" );
-    _id_076B( "p" );
-    _id_076B( "r" );
-    _id_076B( "s" );
-    _id_076B( "u" );
-    _id_076B( "v" );
-    _id_076B( "x" );
-    _id_076B( "y" );
-    _id_076B( "z" );
-    _id_076B( "del" );
-    _id_076B( "end" );
-    _id_076B( "tab" );
-    _id_076B( "ins" );
-    _id_076B( "add" );
-    _id_076B( "space" );
-    _id_076B( "enter" );
-    _id_076B( "1" );
-    _id_076B( "2" );
-    _id_076B( "3" );
-    _id_076B( "4" );
-    _id_076B( "5" );
-    _id_076B( "6" );
-    _id_076B( "7" );
-    _id_076B( "8" );
-    _id_076B( "9" );
-    _id_076B( "0" );
-    _id_076B( "-" );
-    _id_076B( "=" );
-    _id_076B( "," );
-    _id_076B( "." );
-    _id_076B( "[" );
-    _id_076B( "]" );
-    _id_076B( "leftarrow" );
-    _id_076B( "rightarrow" );
-    _id_076B( "uparrow" );
-    _id_076B( "downarrow" );
+    add_button( "mouse1" );
+    add_button( "BUTTON_RSHLDR" );
+    add_button( "BUTTON_LSHLDR" );
+    add_button( "BUTTON_RSTICK" );
+    add_button( "BUTTON_LSTICK" );
+    add_button( "BUTTON_A" );
+    add_button( "BUTTON_B" );
+    add_button( "BUTTON_X" );
+    add_button( "BUTTON_Y" );
+    add_button( "DPAD_UP" );
+    add_button( "DPAD_LEFT" );
+    add_button( "DPAD_RIGHT" );
+    add_button( "DPAD_DOWN" );
+    add_kb_button( "shift" );
+    add_kb_button( "ctrl" );
+    add_kb_button( "escape" );
+    add_kb_button( "F1" );
+    add_kb_button( "F5" );
+    add_kb_button( "F4" );
+    add_kb_button( "F2" );
+    add_kb_button( "a" );
+    add_kb_button( "g" );
+    add_kb_button( "c" );
+    add_kb_button( "h" );
+    add_kb_button( "i" );
+    add_kb_button( "f" );
+    add_kb_button( "k" );
+    add_kb_button( "l" );
+    add_kb_button( "m" );
+    add_kb_button( "o" );
+    add_kb_button( "p" );
+    add_kb_button( "r" );
+    add_kb_button( "s" );
+    add_kb_button( "u" );
+    add_kb_button( "v" );
+    add_kb_button( "x" );
+    add_kb_button( "y" );
+    add_kb_button( "z" );
+    add_kb_button( "del" );
+    add_kb_button( "end" );
+    add_kb_button( "tab" );
+    add_kb_button( "ins" );
+    add_kb_button( "add" );
+    add_kb_button( "space" );
+    add_kb_button( "enter" );
+    add_kb_button( "1" );
+    add_kb_button( "2" );
+    add_kb_button( "3" );
+    add_kb_button( "4" );
+    add_kb_button( "5" );
+    add_kb_button( "6" );
+    add_kb_button( "7" );
+    add_kb_button( "8" );
+    add_kb_button( "9" );
+    add_kb_button( "0" );
+    add_kb_button( "-" );
+    add_kb_button( "=" );
+    add_kb_button( "," );
+    add_kb_button( "." );
+    add_kb_button( "[" );
+    add_kb_button( "]" );
+    add_kb_button( "leftarrow" );
+    add_kb_button( "rightarrow" );
+    add_kb_button( "uparrow" );
+    add_kb_button( "downarrow" );
 }
 
 _id_5809( var_0 )
@@ -2441,38 +2441,38 @@ _id_5809( var_0 )
 
 _id_52D3( var_0 )
 {
-    return level._id_240D && isdefined( level._id_194E[var_0] );
+    return level._id_240D && isdefined( level.button_is_kb[var_0] );
 }
 
-_id_073A( var_0 )
+add_button( var_0 )
 {
     if ( _id_5809( var_0 ) )
         return;
 
-    if ( !isdefined( level._id_195A[var_0] ) )
+    if ( !isdefined( level.buttonisheld[var_0] ) )
     {
         if ( level.player buttonpressed( var_0 ) )
         {
-            level._id_195A[var_0] = 1;
-            level._id_1958[var_0] = 1;
+            level.buttonisheld[var_0] = 1;
+            level.buttonclick[var_0] = 1;
         }
     }
     else if ( !level.player buttonpressed( var_0 ) )
-        level._id_195A[var_0] = undefined;
+        level.buttonisheld[var_0] = undefined;
 }
 
-_id_076B( var_0 )
+add_kb_button( var_0 )
 {
-    level._id_194E[var_0] = 1;
-    _id_073A( var_0 );
+    level.button_is_kb[var_0] = 1;
+    add_button( var_0 );
 }
 
-_id_1959( var_0, var_1 )
+buttondown( var_0, var_1 )
 {
-    return _id_1962( var_0 ) || _id_1962( var_1 );
+    return buttonpressed_internal( var_0 ) || buttonpressed_internal( var_1 );
 }
 
-_id_1962( var_0 )
+buttonpressed_internal( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -2483,26 +2483,26 @@ _id_1962( var_0 )
     return level.player buttonpressed( var_0 );
 }
 
-_id_194D( var_0, var_1 )
+button_is_held( var_0, var_1 )
 {
     if ( isdefined( var_1 ) )
     {
-        if ( isdefined( level._id_195A[var_1] ) )
+        if ( isdefined( level.buttonisheld[var_1] ) )
             return 1;
     }
 
-    return isdefined( level._id_195A[var_0] );
+    return isdefined( level.buttonisheld[var_0] );
 }
 
-_id_194C( var_0, var_1 )
+button_is_clicked( var_0, var_1 )
 {
     if ( isdefined( var_1 ) )
     {
-        if ( isdefined( level._id_1958[var_1] ) )
+        if ( isdefined( level.buttonclick[var_1] ) )
             return 1;
     }
 
-    return isdefined( level._id_1958[var_0] );
+    return isdefined( level.buttonclick[var_0] );
 }
 
 _id_4CFE()
@@ -2762,7 +2762,7 @@ _id_816A()
             foreach ( var_1 in level._createfx._id_7C66 )
             {
                 if ( var_1.v["type"] == "exploder" )
-                    var_1 common_scripts\utility::_id_06FD();
+                    var_1 common_scripts\utility::activate_individual_exploder();
             }
 
             common_scripts\_createfxmenu::_id_2B46();
@@ -2827,7 +2827,7 @@ _id_748C()
     foreach ( var_1 in level._createfx._id_7C66 )
     {
         if ( isdefined( var_1 ) && var_1.v["type"] == "exploder" )
-            var_1 common_scripts\utility::_id_06FD();
+            var_1 common_scripts\utility::activate_individual_exploder();
     }
 }
 
@@ -2910,7 +2910,7 @@ _id_21DA( var_0 )
                 var_3.v["ambiencename"] = var_0[var_2].v["ambiencename"];
                 var_3.v["dynamic_distance"] = var_0[var_2].v["dynamic_distance"];
 
-                if ( !level.mp_createfx )
+                if ( !level._id_5FAC )
                 {
                     var_3.v["firefx"] = var_0[var_2].v["firefx"];
                     var_3.v["firefxdelay"] = var_0[var_2].v["firefxdelay"];

@@ -32,10 +32,10 @@ _id_1DCF()
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
     self._id_6094 = 1;
-    self._id_0B0D = 1;
+    self.alwaysrunforward = 1;
     self _meth_8193( "face default" );
     self.combatmode = "no_cover";
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
     self.a._id_71D0 = 1;
 
     if ( !isdefined( level._id_4DDE ) )
@@ -66,14 +66,14 @@ _id_1DCF()
 
     if ( isdefined( self._id_1DFD ) )
     {
-        self._id_0C72 = self._id_1DFD;
-        _id_0E09( self._id_1DFD );
+        self.animname = self._id_1DFD;
+        attachprops( self._id_1DFD );
         self.alertlevel = "noncombat";
         _id_8D31();
     }
     else
     {
-        self._id_0C72 = "default_civilian";
+        self.animname = "default_civilian";
         self.alertlevel = "alert";
         _id_8D04();
     }
@@ -84,7 +84,7 @@ _id_1DCF()
     self._id_7810 = 0;
 }
 
-_id_0E09( var_0 )
+attachprops( var_0 )
 {
     if ( isdefined( self._id_471B ) )
         return;
@@ -94,9 +94,9 @@ _id_0E09( var_0 )
 
     if ( isdefined( var_1 ) )
     {
-        self._id_0DF7 = var_1;
-        self._id_0DF8 = "tag_inhand";
-        self attach( self._id_0DF7, self._id_0DF8, 1 );
+        self.attachedpropmodel = var_1;
+        self.attachedproptag = "tag_inhand";
+        self attach( self.attachedpropmodel, self.attachedproptag, 1 );
         self._id_471B = 1;
     }
 }
@@ -105,15 +105,15 @@ _id_2983()
 {
     if ( isdefined( self._id_471B ) )
     {
-        self detach( self._id_0DF7, self._id_0DF8 );
-        var_0 = spawn( "script_model", self gettagorigin( self._id_0DF8 ) );
-        var_0.angles = self gettagangles( self._id_0DF8 );
-        var_0 setmodel( self._id_0DF7 );
+        self detach( self.attachedpropmodel, self.attachedproptag );
+        var_0 = spawn( "script_model", self gettagorigin( self.attachedproptag ) );
+        var_0.angles = self gettagangles( self.attachedproptag );
+        var_0 setmodel( self.attachedpropmodel );
         var_0 physicslaunch();
         var_0 thread _id_A019();
         self._id_471B = undefined;
-        self._id_0DF7 = undefined;
-        self._id_0DF8 = undefined;
+        self.attachedpropmodel = undefined;
+        self.attachedproptag = undefined;
     }
 }
 
@@ -154,16 +154,16 @@ _id_8D31()
         var_0 = %civilian_briefcase_walk_dodge_l;
         var_1 = %civilian_briefcase_walk_dodge_r;
 
-        if ( isdefined( level._id_78AC[self._id_0C72]["dodge_left"] ) )
-            var_0 = level._id_78AC[self._id_0C72]["dodge_left"];
+        if ( isdefined( level._id_78AC[self.animname]["dodge_left"] ) )
+            var_0 = level._id_78AC[self.animname]["dodge_left"];
 
-        if ( isdefined( level._id_78AC[self._id_0C72]["dodge_right"] ) )
-            var_1 = level._id_78AC[self._id_0C72]["dodge_right"];
+        if ( isdefined( level._id_78AC[self.animname]["dodge_right"] ) )
+            var_1 = level._id_78AC[self.animname]["dodge_right"];
 
         animscripts\move::_id_7F53( var_0, var_1 );
     }
 
-    if ( isdefined( level._id_78AC[self._id_0C72]["turn_left_90"] ) )
+    if ( isdefined( level._id_78AC[self.animname]["turn_left_90"] ) )
     {
         self._id_66F5 = animscripts\civilian\civilian_move::_id_1DDA;
         self._id_66F4 = 0.1;
@@ -172,13 +172,13 @@ _id_8D31()
     else
         maps\_utility::_id_2AEA();
 
-    self._id_76AF = level._id_78AC[self._id_0C72]["run_noncombat"];
+    self._id_76AF = level._id_78AC[self.animname]["run_noncombat"];
     self._id_A108 = self._id_76AF;
     self._id_76B1 = undefined;
 
-    if ( self._id_0C72 == "default_civilian" )
+    if ( self.animname == "default_civilian" )
     {
-        self._id_76AE = level._id_78AC[self._id_0C72]["run_weights_noncombat"];
+        self._id_76AE = level._id_78AC[self.animname]["run_weights_noncombat"];
         self._id_A107 = self._id_76AE;
     }
 }

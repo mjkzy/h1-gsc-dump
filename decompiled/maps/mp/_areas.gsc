@@ -21,10 +21,10 @@
 
 init()
 {
-    level.softlandingtriggers = getentarray( "trigger_multiple_softlanding", "classname" );
+    level._id_8860 = getentarray( "trigger_multiple_softlanding", "classname" );
     var_0 = getentarray( "destructible_vehicle", "targetname" );
 
-    foreach ( var_2 in level.softlandingtriggers )
+    foreach ( var_2 in level._id_8860 )
     {
         if ( var_2._id_7B05 != "car" )
             continue;
@@ -46,19 +46,19 @@ _id_64C8()
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0.softlanding = undefined;
+        var_0._id_885F = undefined;
         var_0 thread _id_8861();
     }
 }
 
 _id_6C9D( var_0 )
 {
-    self.softlanding = var_0;
+    self._id_885F = var_0;
 }
 
 _id_6CDF( var_0 )
 {
-    self.softlanding = undefined;
+    self._id_885F = undefined;
 }
 
 _id_8861()

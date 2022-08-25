@@ -40,7 +40,7 @@ init()
     level._id_305B = [];
     level._id_3033 = _id_303D( "scr_elevator_callbutton_link_v", "96" );
     level._id_3032 = _id_303D( "scr_elevator_callbutton_link_h", "256" );
-    _id_184A();
+    build_elevators();
     _id_6E5C();
     _id_3031();
 
@@ -249,7 +249,7 @@ _id_5D6C()
         {
             if ( var_8._id_3387 == "[A]" )
             {
-                var_8 _id_19E8( var_1 );
+                var_8 call_elevator( var_1 );
                 var_6 = 1;
 
                 if ( !level._id_302B )
@@ -262,7 +262,7 @@ _id_5D6C()
     }
 }
 
-_id_19E8( var_0 )
+call_elevator( var_0 )
 {
     self._id_5F91 = var_0;
     var_1 = _id_3D99();
@@ -507,7 +507,7 @@ _id_6516( var_0 )
     self notify( "opened_floor_" + var_0 + "_outer_doors" );
 }
 
-_id_184A()
+build_elevators()
 {
     var_0 = getentarray( "elevator_group", "targetname" );
     var_1 = getentarray( "elevator_housing", "targetname" );
@@ -633,7 +633,7 @@ _id_184A()
     foreach ( var_17 in var_2 )
         var_17 delete();
 
-    _id_183D();
+    build_call_buttons();
 
     if ( !level._id_3042 )
         _id_8140();
@@ -650,7 +650,7 @@ _id_184A()
     }
 }
 
-_id_183D()
+build_call_buttons()
 {
     level._id_3034 = getentarray( "elevator_call", "targetname" );
 

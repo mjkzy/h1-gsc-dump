@@ -300,7 +300,7 @@ onuse( var_0 )
         self.trigger playsound( "mp_kc_tag_collected" );
 
         if ( isplayer( self.attacker ) && self.attacker != var_0 )
-            level thread maps\mp\gametypes\_rank::_id_1208( "team_confirmed", self.attacker );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "team_confirmed", self.attacker );
 
         var_0 maps\mp\_events::_id_5356();
 

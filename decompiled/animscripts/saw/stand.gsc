@@ -28,8 +28,8 @@ main()
     var_0 = self _meth_8198();
     var_0 thread _id_99B4( self );
     self._id_6F8E = %standsawgunner_aim;
-    self._id_07F5 = %saw_gunner_idle;
-    self._id_07F4 = %saw_gunner_firing_add;
+    self.additiveturretidle = %saw_gunner_idle;
+    self.additiveturretfire = %saw_gunner_firing_add;
     thread animscripts\saw\common::main( var_0 );
 }
 #using_animtree("mg42");
@@ -37,8 +37,8 @@ main()
 _id_99B4( var_0 )
 {
     self useanimtree( #animtree );
-    self._id_07F5 = %saw_gunner_idle_mg;
-    self._id_07F4 = %saw_gunner_firing_mg_add;
+    self.additiveturretidle = %saw_gunner_idle_mg;
+    self.additiveturretfire = %saw_gunner_firing_mg_add;
     self endon( "death" );
     var_0 waittill( "killanimscript" );
     self stopuseanimtree();

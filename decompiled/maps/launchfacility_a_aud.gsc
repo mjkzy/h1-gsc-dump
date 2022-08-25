@@ -101,28 +101,28 @@ _id_5FFD( var_0, var_1 )
 
 start_default_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_container_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_tarmac_checkpoint( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "tarmac_mix" );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_gate_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_vents_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 flying_intro_start()
@@ -136,7 +136,7 @@ flying_intro_check_end()
 {
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
     soundscripts\_audio_mix_manager::_id_5CF6( "flying_intro_mute", 1 );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_gimme_sitrep_music_mix()

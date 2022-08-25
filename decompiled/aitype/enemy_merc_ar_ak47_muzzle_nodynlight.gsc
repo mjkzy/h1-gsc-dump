@@ -21,8 +21,8 @@
 
 main()
 {
-    self._id_0C8E = "";
-    self._id_07ED = "";
+    self.animtree = "";
+    self.additionalassets = "";
     self.team = "axis";
     self.type = "human";
     self._id_8F7D = "regular";

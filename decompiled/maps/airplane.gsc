@@ -85,13 +85,13 @@ main()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         if ( isdefined( var_0[var_1].script_noteworthy ) && getsubstr( var_0[var_1].script_noteworthy, 0, 10 ) == "colornodes" )
-            level.acolornodetriggers = common_scripts\utility::_id_0CDA( level.acolornodetriggers, var_0[var_1] );
+            level.acolornodetriggers = common_scripts\utility::array_add( level.acolornodetriggers, var_0[var_1] );
     }
 
-    maps\_utility::_id_079C( "breach", ::start_breach, &"STARTS_BREACH" );
-    maps\_utility::_id_079C( "vip", ::start_vip, &"STARTS_VIP" );
-    maps\_utility::_id_079C( "freefall", ::start_freefall, &"STARTS_FREEFALL" );
-    maps\_utility::_id_079C( "demo", ::start_demo, &"STARTS_DEMO" );
+    maps\_utility::add_start( "breach", ::start_breach, &"STARTS_BREACH" );
+    maps\_utility::add_start( "vip", ::start_vip, &"STARTS_VIP" );
+    maps\_utility::add_start( "freefall", ::start_freefall, &"STARTS_FREEFALL" );
+    maps\_utility::add_start( "demo", ::start_demo, &"STARTS_DEMO" );
     maps\_utility::_id_278B( ::start_default );
     thread no_grenade_death_hack();
     thread breach_compartment_setup();
@@ -115,7 +115,7 @@ main()
     else
         thread intro_fade_in_h1();
 
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     thread player_breach_jump();
     common_scripts\utility::_id_383D( "obj_rescue_vip_given" );
     common_scripts\utility::_id_383D( "obj_rescue_vip_complete" );
@@ -156,10 +156,10 @@ main()
     thread dialogue_clear();
     level._id_6D5E = 0.85;
     level.player setmovespeedscale( level._id_6D5E );
-    common_scripts\utility::_id_0D13( getentarray( "civilian", "script_noteworthy" ), ::ai_civilian_think );
+    common_scripts\utility::array_thread( getentarray( "civilian", "script_noteworthy" ), ::ai_civilian_think );
     level.org_view_roll = getent( "org_view_roll", "targetname" );
     level.arollers = [];
-    level.arollers = common_scripts\utility::_id_0CDA( level.arollers, level.org_view_roll );
+    level.arollers = common_scripts\utility::array_add( level.arollers, level.org_view_roll );
     thread airmasks();
     thread plane_tilt();
     createthreatbiasgroup( "player" );
@@ -172,9 +172,9 @@ main()
     setignoremegroup( "oblivious", "allies" );
     setignoremegroup( "oblivious", "axis" );
     setignoremegroup( "oblivious", "oblivious" );
-    common_scripts\utility::_id_0D13( getentarray( "human_shield", "targetname" ), maps\_utility::_id_0798, ::ai_human_shield_think );
-    common_scripts\utility::_id_0D13( getentarray( "patroller", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_patroller );
-    common_scripts\utility::_id_0D13( getentarray( "scripted_node_dummies", "targetname" ), maps\jake_tools::_id_4855 );
+    common_scripts\utility::array_thread( getentarray( "human_shield", "targetname" ), maps\_utility::add_spawn_function, ::ai_human_shield_think );
+    common_scripts\utility::array_thread( getentarray( "patroller", "script_noteworthy" ), maps\_utility::add_spawn_function, ::ai_patroller );
+    common_scripts\utility::array_thread( getentarray( "scripted_node_dummies", "targetname" ), maps\jake_tools::_id_4855 );
     thread airplane_destabilize();
     thread fx_management();
     thread maps\jake_tools::_id_486B();
@@ -277,7 +277,7 @@ intro_fade_in()
     var_3 notsolid();
     level.player enableweapons();
     level.player freezecontrols( 0 );
-    maps\_utility::_id_114F();
+    maps\_utility::autosave_now_silent();
     wait 2;
     var_0 destroy();
 }
@@ -295,7 +295,7 @@ intro_fade_in_h1()
     var_2 hide();
     var_2 notsolid();
     wait 0.1;
-    thread maps\_utility::_id_114F();
+    thread maps\_utility::autosave_now_silent();
     common_scripts\utility::_id_383F( "intro_fade_in_complete" );
     setomnvar( "ui_gasmask", 1 );
     var_0 fadeovertime( 1 );
@@ -335,7 +335,7 @@ intro_fade_in2()
     var_1.alpha = 0;
     level.player enableweapons();
     level.player freezecontrols( 0 );
-    maps\_utility::_id_114F();
+    maps\_utility::autosave_now_silent();
     wait 2;
     var_1 destroy();
     common_scripts\utility::_id_383F( "intro_fade_in_complete" );
@@ -359,7 +359,7 @@ _id_5FFB()
 
 stealth_intro()
 {
-    maps\_utility::_id_1332( "axis" );
+    maps\_utility::battlechatter_off( "axis" );
     level.player.ignoreme = 1;
 
     for ( var_0 = 0; var_0 < level._id_8AB0.size; var_0++ )
@@ -374,7 +374,7 @@ stealth_intro()
         common_scripts\utility::_id_383F( "enemies_alerted" );
 
     level thread maps\_utility::_id_70C4( "airplane_first_hostile_killed_2" );
-    maps\_utility::_id_1333( "axis" );
+    maps\_utility::battlechatter_on( "axis" );
     var_1 = getent( "colornodes_intro", "script_noteworthy" );
     var_1 notify( "trigger", level.player );
     level.player.ignoreme = 0;
@@ -392,7 +392,7 @@ intro_setup()
 {
     common_scripts\utility::_id_384A( "intro_fade_in_complete" );
     maps\jake_tools::_id_9810( "trig_spawn_patrollers" );
-    level._id_6F7C thread maps\_anim::_id_0BC9( level._id_6F7C, "enemy_cornerR" );
+    level._id_6F7C thread maps\_anim::anim_generic( level._id_6F7C, "enemy_cornerR" );
     var_0 = getent( "hostile_bathroom", "targetname" );
     var_0._id_79EB = 1;
     level.hostile_bathroom = var_0 maps\_utility::_id_88C3();
@@ -478,8 +478,8 @@ hull_breach_rumble( var_0, var_1 )
 
 fuselage_breached()
 {
-    common_scripts\utility::_id_0D13( getentarray( "animated_air_masks_breach", "targetname" ), ::animated_breach_entity, "air_mask", "air_masks_breach_fall", "air_masks_breach_loop", 1, 0, 0.9 );
-    common_scripts\utility::_id_0D13( getentarray( "animated_air_masks", "targetname" ), ::animated_breach_entity, "air_mask", "air_masks_fall", "air_masks_loop", 1, 0, 0.9 );
+    common_scripts\utility::array_thread( getentarray( "animated_air_masks_breach", "targetname" ), ::animated_breach_entity, "air_mask", "air_masks_breach_fall", "air_masks_breach_loop", 1, 0, 0.9 );
+    common_scripts\utility::array_thread( getentarray( "animated_air_masks", "targetname" ), ::animated_breach_entity, "air_mask", "air_masks_fall", "air_masks_loop", 1, 0, 0.9 );
     var_0 = getent( "breach_org1", "targetname" );
     var_1 = getent( "breach_org2", "targetname" );
     common_scripts\utility::_id_384A( "player_approaching_breach" );
@@ -487,7 +487,7 @@ fuselage_breached()
     if ( isdefined( level.macey._id_58D7 ) )
         level.macey maps\_utility::_id_8EA4();
 
-    common_scripts\utility::_id_0D13( getentarray( "breach_seats", "targetname" ), ::breach_seat, "fuselage_breached" );
+    common_scripts\utility::array_thread( getentarray( "breach_seats", "targetname" ), ::breach_seat, "fuselage_breached" );
     level.player thread maps\_utility::_id_69C4( "fuselage_stress" );
     level.player playrumblelooponentity( "generic_ambient_loop" );
     wait 0.5;
@@ -497,7 +497,7 @@ fuselage_breached()
     common_scripts\utility::_id_383F( "fuselage_about_to_blow" );
     wait 0.5;
     level.player playlocalsound( "airplane_seatbelt", "airplane_seatbelt_done" );
-    common_scripts\utility::_id_0D13( getentarray( "animated_center_console", "targetname" ), ::animated_breach_entity, "center_console", "center_console_open", "center_console_shake", 0, 1 );
+    common_scripts\utility::array_thread( getentarray( "animated_center_console", "targetname" ), ::animated_breach_entity, "center_console", "center_console_open", "center_console_shake", 0, 1 );
     level.player waittill( "airplane_seatbelt_done" );
     wait 0.5;
     level.player stoprumble( "generic_ambient_loop" );
@@ -515,9 +515,9 @@ fuselage_breached()
 
     thread hull_breach_rumble( var_0, 0 );
     var_2 = getentarray( "animated_compartment", "targetname" );
-    common_scripts\utility::_id_0D13( var_2, ::animated_breach_entity, "bin", "bin_open", "bin_shake", 0, 0 );
-    common_scripts\utility::_id_0D13( var_2, maps\airplane_aud::aud_animated_luggage );
-    common_scripts\utility::_id_0D13( getentarray( "animated_bathroom_door", "targetname" ), ::animated_bathroom_door );
+    common_scripts\utility::array_thread( var_2, ::animated_breach_entity, "bin", "bin_open", "bin_shake", 0, 0 );
+    common_scripts\utility::array_thread( var_2, maps\airplane_aud::aud_animated_luggage );
+    common_scripts\utility::array_thread( getentarray( "animated_bathroom_door", "targetname" ), ::animated_bathroom_door );
     thread breach_gravity_shift();
     thread airplane_tirescheat();
     var_0 playloopsound( "airplane_wind_loop" );
@@ -539,8 +539,8 @@ animated_breach_entity( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_5 ) )
         wait(var_5);
 
-    self._id_0C72 = var_0;
-    maps\_utility::_id_0D61();
+    self.animname = var_0;
+    maps\_utility::assign_animtree();
 
     if ( isdefined( self.script_noteworthy ) )
         common_scripts\utility::_id_384A( self.script_noteworthy );
@@ -558,25 +558,25 @@ animated_breach_entity( var_0, var_1, var_2, var_3, var_4, var_5 )
         maps\_utility::script_delay();
         self show();
         thread maps\_utility::_id_69C4( "scn_cargoship_mask_down" );
-        maps\_anim::_id_0C24( self, var_1 );
+        maps\_anim::anim_single_solo( self, var_1 );
         common_scripts\utility::_id_384A( "fuselage_breached" );
         maps\_utility::script_delay();
-        maps\_anim::_id_0BE1( self, var_2 );
+        maps\_anim::anim_loop_solo( self, var_2 );
     }
     else
     {
         maps\_utility::script_delay();
         self show();
-        maps\_anim::_id_0C24( self, var_1 );
-        maps\_anim::_id_0BE1( self, var_2 );
+        maps\_anim::anim_single_solo( self, var_1 );
+        maps\_anim::anim_loop_solo( self, var_2 );
     }
 }
 
 animated_bathroom_door()
 {
-    self._id_0C72 = "bathroom_door";
-    maps\_utility::_id_0D61();
-    maps\_anim::_id_0BE1( self, "bathroom_door_shake" );
+    self.animname = "bathroom_door";
+    maps\_utility::assign_animtree();
+    maps\_anim::anim_loop_solo( self, "bathroom_door_shake" );
 }
 
 breach_kill_ai()
@@ -713,9 +713,9 @@ airplane_tirescheat()
 final_roll()
 {
     thread gravity_shift( -25 );
-    common_scripts\utility::_id_0D13( level.arollers, ::rotate_rollers, -13 );
+    common_scripts\utility::array_thread( level.arollers, ::rotate_rollers, -13 );
     wait 6;
-    common_scripts\utility::_id_0D13( level.arollers, ::rotate_rollers, 13 );
+    common_scripts\utility::array_thread( level.arollers, ::rotate_rollers, 13 );
 }
 
 physicsshake()
@@ -732,13 +732,13 @@ physicsshake()
 plane_tilt()
 {
     common_scripts\utility::_id_384A( "fuselage_breached" );
-    common_scripts\utility::_id_0D13( level.arollers, ::rotate_rollers, 15 );
+    common_scripts\utility::array_thread( level.arollers, ::rotate_rollers, 15 );
     wait 6;
-    common_scripts\utility::_id_0D13( level.arollers, ::rotate_rollers, -13 );
+    common_scripts\utility::array_thread( level.arollers, ::rotate_rollers, -13 );
     wait 5;
-    common_scripts\utility::_id_0D13( level.arollers, ::rotate_rollers, 10 );
+    common_scripts\utility::array_thread( level.arollers, ::rotate_rollers, 10 );
     wait 5;
-    common_scripts\utility::_id_0D13( level.arollers, ::rotate_rollers, -12 );
+    common_scripts\utility::array_thread( level.arollers, ::rotate_rollers, -12 );
     wait 5;
     common_scripts\utility::_id_384A( "player_up_breach_stairs" );
 }
@@ -815,10 +815,10 @@ friendly_human_shield_setup()
 teleport_human_shield( var_0 )
 {
     maps\_utility::_id_2A74();
-    self _meth_81ca( var_0.origin, var_0.angles );
-    self _meth_81aa( self.origin );
+    self _meth_81CA( var_0.origin, var_0.angles );
+    self _meth_81AA( self.origin );
     maps\jake_tools::_id_7F7F( var_0.radius );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
 }
 
 humanshield()
@@ -843,8 +843,8 @@ humanshield()
     var_1 = 0.5;
     level.player thread maps\_utility::_id_69C4( "scn_slomo_in_front" );
     maps\_utility::_id_7F00( "airplane_slomo", 2 );
-    level.player _meth_848c( "clut_airplane_slomo", 2.0 );
-    level.player _meth_83be( "airplane_slomo" );
+    level.player _meth_848C( "clut_airplane_slomo", 2.0 );
+    level.player _meth_83BE( "airplane_slomo" );
     level.eplayerview maps\_utility::_id_5696( "tag_player", var_1, 1, 35, 35, 45, 45 );
     wait(var_1);
     common_scripts\utility::_id_383F( "player_looking_at_human_shield" );
@@ -893,8 +893,8 @@ humanshield()
     level.player setmovespeedscale( level._id_6D5E );
     level.player thread maps\_utility::_id_69C4( "scn_slomo_out_front" );
     maps\_utility::_id_7F00( "airplane", 2 );
-    level.player _meth_848c( "clut_airplane_top", 2.0 );
-    level.player _meth_83be( "airplane" );
+    level.player _meth_848C( "clut_airplane_top", 2.0 );
+    level.player _meth_83BE( "airplane" );
     level notify( "stop_player_heartbeat" );
 }
 
@@ -947,7 +947,7 @@ ai_human_shield_think()
     self.ignoreme = 1;
     maps\_utility::_id_7F71( 1 );
     self setthreatbiasgroup( "oblivious" );
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     maps\_utility::_id_7F71( 1 );
     thread human_shield_death_monitor();
     thread human_shield_pain_monitor();
@@ -957,7 +957,7 @@ ai_human_shield_think()
     {
         case "terrorist":
             self.allowdeath = 0;
-            self._id_0C72 = "terrorist";
+            self.animname = "terrorist";
             var_0 = level.hostage;
             break;
         case "hostage":
@@ -965,7 +965,7 @@ ai_human_shield_think()
             self._id_2AF3 = 1;
             self._id_2B0E = 1;
             self.team = "neutral";
-            self._id_0C72 = "hostage";
+            self.animname = "hostage";
             maps\_utility::_id_7EAB( "unarmed_run2" );
             self._id_2652 = level._id_78AC["hostage"]["human_shield_death"];
             var_0 = level.terrorist;
@@ -973,8 +973,8 @@ ai_human_shield_think()
             break;
     }
 
-    self _meth_81aa( self.origin );
-    level.nodeshield thread maps\_anim::_id_0BE1( self, "human_shield_idle", undefined, "stop_idle" );
+    self _meth_81AA( self.origin );
+    level.nodeshield thread maps\_anim::anim_loop_solo( self, "human_shield_idle", undefined, "stop_idle" );
     common_scripts\utility::_id_384A( "human_shield_over" );
 
     if ( isdefined( self ) )
@@ -1102,15 +1102,15 @@ human_shield_pain_monitor()
             else
             {
                 var_9 = maps\_vehicle_aianim::_id_21A2( self );
-                var_9._id_0C72 = "terrorist";
+                var_9.animname = "terrorist";
                 level.nodeshield notify( "stop_idle" );
                 var_9 thread headshot_fx();
-                level.nodeshield thread maps\_anim::_id_0C24( var_9, "human_shield_death" );
-                var_9._id_0C72 = "terrorist";
+                level.nodeshield thread maps\_anim::anim_single_solo( var_9, "human_shield_death" );
+                var_9.animname = "terrorist";
                 var_9 setcontents( 0 );
             }
 
-            level.nodeshield maps\_anim::_id_0C24( level.hostage, "human_shield_breakfree_partner_dead" );
+            level.nodeshield maps\_anim::anim_single_solo( level.hostage, "human_shield_breakfree_partner_dead" );
             break;
         }
         else if ( !common_scripts\utility::_id_382E( "terrorist_wounded" ) )
@@ -1123,8 +1123,8 @@ human_shield_pain_monitor()
             self.allowdeath = 1;
             thread human_shield_ter_wounded_failsafe();
             level.nodeshield notify( "stop_idle" );
-            level.nodeshield thread maps\_anim::_id_0C24( self, "human_shield_pain" );
-            level.nodeshield maps\_anim::_id_0C24( level.hostage, "human_shield_breakfree_partner_wounded" );
+            level.nodeshield thread maps\_anim::anim_single_solo( self, "human_shield_pain" );
+            level.nodeshield maps\_anim::anim_single_solo( level.hostage, "human_shield_breakfree_partner_wounded" );
             break;
         }
     }
@@ -1201,7 +1201,7 @@ freefall_ai_setup()
     if ( !isdefined( level.hostage ) )
     {
         level.hostage = maps\_utility::_id_894B( "hostage2" );
-        level.hostage._id_0C72 = "hostage";
+        level.hostage.animname = "hostage";
         level.hostage maps\_utility::_id_4462();
     }
 
@@ -1215,7 +1215,7 @@ freefall_ai_setup()
 ai_freefall_think( var_0 )
 {
     self endon( "death" );
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self setthreatbiasgroup( "oblivious" );
 
     if ( self == level.hostage )
@@ -1226,18 +1226,18 @@ ai_freefall_think( var_0 )
         self._id_2AF3 = 1;
     }
 
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
 
     if ( self == level.hostage )
     {
-        level.nodefreefall thread maps\_anim::_id_0BE1( self, "airplane_end_VIP_idle", undefined, "stop_idle" );
+        level.nodefreefall thread maps\_anim::anim_loop_solo( self, "airplane_end_VIP_idle", undefined, "stop_idle" );
         common_scripts\utility::_id_383F( "hostage_idling_for_freefall" );
     }
     else
     {
-        level.nodefreefall maps\_anim::_id_0BFF( self, "airplane_end_VIP_start" );
+        level.nodefreefall maps\_anim::anim_reach_solo( self, "airplane_end_VIP_start" );
         self _meth_8168( 1 );
-        self _meth_81ce( "crouch" );
+        self _meth_81CE( "crouch" );
     }
 
     level.freefallersready++;
@@ -1245,7 +1245,7 @@ ai_freefall_think( var_0 )
     common_scripts\utility::_id_384A( "exit_door_blown" );
 
     if ( self != level.hostage )
-        self _meth_81ce( "crouch", "stand", "prone" );
+        self _meth_81CE( "crouch", "stand", "prone" );
 
     while ( level.freefallersready < 2 )
         wait 0.05;
@@ -1256,7 +1256,7 @@ ai_freefall_think( var_0 )
     if ( self == level.hostage )
         level.nodefreefall notify( "stop_idle" );
 
-    level.nodefreefall maps\_anim::_id_0C24( self, "airplane_end_VIP" );
+    level.nodefreefall maps\_anim::anim_single_solo( self, "airplane_end_VIP" );
     common_scripts\utility::_id_383F( "hostage_jumped_out" );
 
     if ( isdefined( self._id_58D7 ) )
@@ -1303,10 +1303,10 @@ _id_3A27()
         var_1 = maps\_utility::_id_88D1( "worldbody" );
         var_1 hide();
         thread maps\airplane_aud::aud_final_jump_mix_and_sounds();
-        level.nodefreefall maps\_anim::_id_0BC7( var_1, "airplane_end_player" );
+        level.nodefreefall maps\_anim::anim_first_frame_solo( var_1, "airplane_end_player" );
         var_1 maps\_utility::lerp_player_view_to_tag_smoothly( "tag_player", 0.5, 1, 0, 0, 0, 0 );
         var_1 show();
-        level.nodefreefall thread maps\_anim::_id_0C24( var_1, "airplane_end_player" );
+        level.nodefreefall thread maps\_anim::anim_single_solo( var_1, "airplane_end_player" );
         wait 0.45;
         level.player playrumbleonentity( "generic_attack_heavy_1500" );
     }
@@ -1380,7 +1380,7 @@ white_flash( var_0 )
 
 exit_door_fx()
 {
-    common_scripts\utility::_id_0D13( level.fxexitdoor, maps\_utility::_id_748D );
+    common_scripts\utility::array_thread( level.fxexitdoor, maps\_utility::_id_748D );
     var_0 = getent( "exit_org1", "targetname" );
     var_1 = getent( "exit_org2", "targetname" );
     var_0 playloopsound( "airplane_wind_loop" );
@@ -1419,10 +1419,10 @@ plane_explodes()
     level.player freezecontrols( 1 );
     level.player shellshock( "nosound", 60, 0 );
 
-    if ( !maps\_utility::_id_0CC3() )
+    if ( !maps\_utility::arcademode() )
     {
         wait 4.0;
-        level.player _meth_84ed( &"AIRPLANE_CAMPAIGN_COMPLETED" );
+        level.player _meth_84ED( &"AIRPLANE_CAMPAIGN_COMPLETED" );
         level.player waittill( "menuresponse" );
     }
 
@@ -1455,18 +1455,18 @@ friendly_blows_door()
     level.grigsby maps\_utility::_id_2A74();
     level.grigsby.ignoreme = 1;
     level.grigsby.goalradius = 32;
-    level.grigsby _meth_81a7( 1 );
-    var_2 maps\_anim::_id_0BFF( level.grigsby, "C4_plant_start" );
+    level.grigsby _meth_81A7( 1 );
+    var_2 maps\_anim::anim_reach_solo( level.grigsby, "C4_plant_start" );
     common_scripts\utility::_id_383F( "exit_door_about_to_blow" );
-    level.grigsby _meth_81ce( "crouch" );
+    level.grigsby _meth_81CE( "crouch" );
     var_3 common_scripts\utility::_id_27CD( 1.8, ::show );
     var_3 thread maps\_utility::_id_69C4( "scn_bomb_plant" );
-    var_2 thread maps\_anim::_id_0C24( level.grigsby, "C4_plant" );
+    var_2 thread maps\_anim::anim_single_solo( level.grigsby, "C4_plant" );
     wait 3.5;
-    level.grigsby _meth_81ce( "crouch", "stand", "prone" );
+    level.grigsby _meth_81CE( "crouch", "stand", "prone" );
     level.grigsby.goalradius = 32;
     var_1 = getnode( "node_door_cover", "targetname" );
-    level.grigsby _meth_81a9( var_1 );
+    level.grigsby _meth_81A9( var_1 );
     level.grigsby common_scripts\utility::_id_A0A0( "goal", 3 );
     wait 1;
     common_scripts\_exploder::_id_3528( 100 );
@@ -1576,16 +1576,16 @@ hostile_down_timer()
 airmasks()
 {
     var_0 = getentarray( "airmask", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::airmask_think );
+    common_scripts\utility::array_thread( var_0, ::airmask_think );
     var_1 = getentarray( "airmask_breach", "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::airmask_breach_think );
+    common_scripts\utility::array_thread( var_1, ::airmask_breach_think );
 }
 
 airmask_think()
 {
     self.dummy = spawn( "script_origin", self.origin + ( 0.0, 0.0, 30.0 ) );
     self.dummy.angles = level.org_view_roll.angles;
-    level.arollers = common_scripts\utility::_id_0CDA( level.arollers, self.dummy );
+    level.arollers = common_scripts\utility::array_add( level.arollers, self.dummy );
     self linkto( self.dummy );
     self.dummy movez( 45, 0.1 );
     self hide();
@@ -1904,9 +1904,9 @@ airplane_destabilize()
 fx_management()
 {
     level.fxexitdoor = maps\_utility::_id_3FA9( "exit_door_dust" );
-    level.fxexitdoor = common_scripts\utility::_id_0CDD( level.fxexitdoor, maps\_utility::_id_3FA9( "exit_door_wind_suck" ) );
+    level.fxexitdoor = common_scripts\utility::array_combine( level.fxexitdoor, maps\_utility::_id_3FA9( "exit_door_wind_suck" ) );
     wait 0.5;
-    common_scripts\utility::_id_0D13( level.fxexitdoor, common_scripts\utility::_id_671F );
+    common_scripts\utility::array_thread( level.fxexitdoor, common_scripts\utility::_id_671F );
 }
 
 timer_start()
@@ -1989,7 +1989,7 @@ hostage_timer( var_0 )
     }
 
     if ( level._id_3BFE != 3 )
-        thread maps\_utility::_id_114E( 1 );
+        thread maps\_utility::autosave_now( 1 );
 
     level endon( "human_shield_over" );
     _id_53B1();
@@ -2083,7 +2083,7 @@ ai_think( var_0 )
 
 ai_allies_think()
 {
-    self._id_0C72 = "frnd";
+    self.animname = "frnd";
     maps\_utility::_id_7F71( 1 );
     maps\_utility::_id_30B0();
     maps\_utility::_id_2A85();
@@ -2120,7 +2120,7 @@ ai_civilian_think()
     if ( !isdefined( var_2._id_58D7 ) )
         var_2 thread maps\_utility::_id_58D7();
 
-    var_0 thread maps\_anim::_id_0BCE( var_2, var_1, undefined, "stop_idle" );
+    var_0 thread maps\_anim::anim_generic_loop( var_2, var_1, undefined, "stop_idle" );
 }
 
 ai_patroller()
@@ -2142,7 +2142,7 @@ ai_patroller()
         if ( common_scripts\utility::_id_382E( "enemies_alerted" ) )
             break;
 
-        if ( self _meth_81c2( level.player ) )
+        if ( self _meth_81C2( level.player ) )
         {
             if ( !common_scripts\utility::_id_382E( "enemies_alerted" ) )
                 common_scripts\utility::_id_383F( "enemies_alerted" );
@@ -2180,7 +2180,7 @@ ai_patroller_death()
 
 ai_axis_think()
 {
-    self._id_0C72 = "hostile";
+    self.animname = "hostile";
     thread ai_flashbang_detect();
 
     if ( !common_scripts\utility::_id_382E( "player_approach_human_shield" ) )
@@ -2253,7 +2253,7 @@ initprecache()
 
 disable_color_trigs()
 {
-    common_scripts\utility::_id_0D13( level.acolornodetriggers, common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( level.acolornodetriggers, common_scripts\utility::_id_97CC );
 }
 
 initfriendlies( var_0 )
@@ -2269,7 +2269,7 @@ initfriendlies( var_0 )
 
     for ( var_1 = 0; var_1 < level._id_8AB0.size; var_1++ )
     {
-        level._id_8AB0[var_1].a._id_135B = 1;
+        level._id_8AB0[var_1].a.bdisablemovetwitch = 1;
         level._id_8AB0[var_1]._id_9C07 = 1;
     }
 
@@ -2290,25 +2290,25 @@ initfriendlies( var_0 )
                 {
                     case "nodePrice":
                         level._id_6F7C maps\jake_tools::_id_8CC0( var_3[var_1] );
-                        var_2 = common_scripts\utility::_id_0CF6( var_2, level._id_6F7C );
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_1] );
+                        var_2 = common_scripts\utility::array_remove( var_2, level._id_6F7C );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_1] );
                         var_4++;
                         continue;
                     case "nodeGrigsby":
                         level.grigsby maps\jake_tools::_id_8CC0( var_3[var_1] );
-                        var_2 = common_scripts\utility::_id_0CF6( var_2, level.grigsby );
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_1] );
+                        var_2 = common_scripts\utility::array_remove( var_2, level.grigsby );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_1] );
                         var_4++;
                         continue;
                     case "nodeMacey":
                         level.macey maps\jake_tools::_id_8CC0( var_3[var_1] );
-                        var_2 = common_scripts\utility::_id_0CF6( var_2, level.macey );
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_1] );
+                        var_2 = common_scripts\utility::array_remove( var_2, level.macey );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_1] );
                         var_4++;
                         continue;
                     case "nodePlayer":
                         var_5 = var_3[var_1];
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_1] );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_1] );
                         var_4++;
                         continue;
                     default:
@@ -2358,7 +2358,7 @@ demo_setup()
         }
     }
 
-    maps\_utility::_id_1332();
+    maps\_utility::battlechatter_off();
     common_scripts\utility::_id_383F( "heroes_ready" );
 }
 
@@ -2419,13 +2419,13 @@ hallways_heroes( var_0, var_1, var_2, var_3, var_4 )
     }
 
     level endon( var_1 );
-    maps\_utility::_id_0D18( level._id_483C, "hallways_heroes_ready" );
+    maps\_utility::array_wait( level._id_483C, "hallways_heroes_ready" );
     common_scripts\utility::_id_384A( var_0 );
 }
 
 hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 {
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     level endon( var_1 );
     var_4 = getnodearray( var_0, "targetname" );
     var_5 = undefined;
@@ -2441,7 +2441,7 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 
     while ( isdefined( var_5 ) )
     {
-        self _meth_81a9( var_5 );
+        self _meth_81A9( var_5 );
 
         if ( var_5.radius )
             self.goalradius = var_5.radius;
@@ -2482,9 +2482,9 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
                     var_9.angles -= ( 0.0, 90.0, 0.0 );
             }
 
-            self._id_0C72 = "guy";
-            var_10 = getanimlength( level._id_78AC[self._id_0C72][var_3] );
-            var_9 thread maps\_anim::_id_0C24( self, var_3 );
+            self.animname = "guy";
+            var_10 = getanimlength( level._id_78AC[self.animname][var_3] );
+            var_9 thread maps\_anim::anim_single_solo( self, var_3 );
             wait(var_10 - 0.2);
             self _meth_8143();
             var_9 delete();
@@ -2536,9 +2536,9 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 
 decanim( var_0 )
 {
-    while ( self._id_0C78 != var_0 )
+    while ( self.animplaybackrate != var_0 )
     {
-        self._id_0C78 -= 0.05;
+        self.animplaybackrate -= 0.05;
         wait 0.1;
     }
 }

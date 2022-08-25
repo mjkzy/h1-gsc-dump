@@ -32,7 +32,7 @@ _id_4CEF()
     var_0.aim_move_targets = gettargetarray( "aim_move_target", undefined, 0, 1 );
     var_0.plywood_blockers = gettargetarray( "plywood" );
     var_0.target_clips = gettargetarray( "target_clip", undefined, 1 );
-    common_scripts\utility::_id_0D13( var_0.round_triggers, ::_id_97EB );
+    common_scripts\utility::array_thread( var_0.round_triggers, ::_id_97EB );
     var_0.lanelogic = [];
     var_0.lanelogic[0] = ::lane1logic;
     var_0.lanelogic[1] = ::lane2logic;
@@ -163,7 +163,7 @@ _id_9FE2( var_0 )
     var_0 setplayerangles( var_1.angles );
     var_0 maps\mp\_vl_base::playersetfovscale( 1.0 );
     var_0 thread playermonitorweaponforlane();
-    var_0 _meth_84a6();
+    var_0 _meth_84A6();
     level._id_3806._id_51A6 = 0;
     var_0 thread maps\mp\_vl_base::_id_9E55( 0, level.caccontroller, "lobby" + var_0._id_2522, 1 );
     maps\mp\_utility::_id_9B69( "playing" );
@@ -648,13 +648,13 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     thread targethandlestop();
 
-    if ( isdefined( self._id_0973 ) )
+    if ( isdefined( self.aimassist_target ) )
     {
-        self._id_0973 _meth_81b9();
-        self._id_0973.health = 9999;
-        self._id_0973.maxhealth = 9999;
-        self._id_0973 show();
-        self._id_0973 solid();
+        self.aimassist_target _meth_81B9();
+        self.aimassist_target.health = 9999;
+        self.aimassist_target.maxhealth = 9999;
+        self.aimassist_target show();
+        self.aimassist_target solid();
     }
 
     common_scripts\utility::_id_A087( "death", "reset" );
@@ -671,11 +671,11 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     else if ( maps\mp\_utility::_id_5092( var_6 ) )
         thread targetmoveback();
 
-    if ( isdefined( self._id_0973 ) )
+    if ( isdefined( self.aimassist_target ) )
     {
-        self._id_0973 _meth_81d7();
-        self._id_0973 hide();
-        self._id_0973 notsolid();
+        self.aimassist_target _meth_81D7();
+        self.aimassist_target hide();
+        self.aimassist_target notsolid();
     }
 
     self notify( "down" );
@@ -805,7 +805,7 @@ targetdamagecallback( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, va
     var_12 = _id_4028( var_5, var_11, var_1 );
     var_13 = float( var_2 ) * var_12;
     var_13 = int( var_13 );
-    var_13 = maps\mp\perks\_perks::_id_198D( self, var_1, var_13, var_4, var_5, var_6, var_7, var_8, var_0 );
+    var_13 = maps\mp\perks\_perks::cac_modified_damage( self, var_1, var_13, var_4, var_5, var_6, var_7, var_8, var_0 );
     var_14 = self.health - var_13;
     var_14 = maps\mp\_utility::_id_7651( var_14, 0 );
 
@@ -1051,7 +1051,7 @@ _id_8D3C( var_0 )
     self setclientomnvar( "ui_vlobby_round_accuracy", level._id_3806._id_67C5 );
     wait 0.5;
     self setclientomnvar( "ui_vlobby_round_state", 1 );
-    thread _id_0705( var_0 );
+    thread activate_targets( var_0 );
 }
 
 _id_8550( var_0, var_1 )
@@ -1098,7 +1098,7 @@ _id_7834()
                 continue;
             else
             {
-                level._id_3806._id_88AB = common_scripts\utility::_id_0CF9( level._id_3806._id_88AB );
+                level._id_3806._id_88AB = common_scripts\utility::array_remove_duplicates( level._id_3806._id_88AB );
 
                 foreach ( var_1 in level._id_3806._id_88AB )
                     var_1 scalevolume( 0, 0.5 );
@@ -1107,7 +1107,7 @@ _id_7834()
     }
 }
 
-_id_0705( var_0 )
+activate_targets( var_0 )
 {
     level endon( "shutdown_targets" );
     var_1 = self;
@@ -1267,7 +1267,7 @@ watermelonthink()
     var_1 show();
     var_1 solid();
     var_2 = getent( var_1.target, "targetname" );
-    var_2 _meth_81b9();
+    var_2 _meth_81B9();
 
     if ( !isdefined( var_2._id_8D33 ) )
         var_2._id_8D33 = var_2.origin;
@@ -1279,6 +1279,6 @@ watermelonthink()
     playfx( level._effect["watermelon"], var_1.origin );
     var_1 hide();
     var_1 notsolid();
-    var_2 _meth_81d7();
+    var_2 _meth_81D7();
     var_2.origin += ( 0.0, 0.0, -100.0 );
 }

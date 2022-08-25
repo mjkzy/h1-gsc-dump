@@ -40,7 +40,7 @@ _id_6EF9( var_0, var_1, var_2, var_3 )
         {
             var_4 = ( gettime() - var_4 ) / 1000;
             var_5 = maps\mp\gametypes\_playerlogic::_id_3C60();
-            var_6 = var_1 _meth_841f( var_2 + var_4, var_3, var_5 );
+            var_6 = var_1 _meth_841F( var_2 + var_4, var_3, var_5 );
             var_7 = spawnstruct();
             var_7.team = var_1.team;
             var_7.weapon = var_1._id_57DF;
@@ -49,7 +49,7 @@ _id_6EF9( var_0, var_1, var_2, var_3 )
             var_8._id_A2E6 = var_6;
             self.killcamstream = var_8;
             self _meth_8420( var_7, var_6 );
-            self _meth_852c( var_3 );
+            self _meth_852C( var_3 );
         }
     }
 }
@@ -164,7 +164,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
     self setclientomnvar( "ui_killcam_end_milliseconds", 0 );
 
-    if ( isagent( var_13 ) && !isdefined( var_13.isactive ) )
+    if ( isagent( var_13 ) && !isdefined( var_13._id_50A6 ) )
         return;
 
     if ( isplayer( var_14 ) )
@@ -257,7 +257,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     if ( isagent( var_13 ) )
         var_1 = var_14 getentitynumber();
 
-    self _meth_852b( 0 );
+    self _meth_852B( 0 );
     self.forcespectatorclient = var_1;
     self.killcamentity = -1;
     var_28 = _id_7F9B( var_0, var_1, var_2, var_4, var_14, var_20 );
@@ -342,10 +342,10 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
 _id_2C7D( var_0, var_1 )
 {
-    if ( isdefined( level.doingfinalkillcamfx ) )
+    if ( isdefined( level._id_2CE6 ) )
         return;
 
-    level.doingfinalkillcamfx = 1;
+    level._id_2CE6 = 1;
     var_2 = var_0;
 
     if ( var_2 > 1.0 )
@@ -357,7 +357,7 @@ _id_2C7D( var_0, var_1 )
     setslowmotion( 1.0, 0.25, var_2 );
     wait(var_2 + 0.5);
     setslowmotion( 0.25, 1, 1.0 );
-    level.doingfinalkillcamfx = undefined;
+    level._id_2CE6 = undefined;
 }
 
 _id_A0DF()

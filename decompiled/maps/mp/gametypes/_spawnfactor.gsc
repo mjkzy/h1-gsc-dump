@@ -45,7 +45,7 @@ _id_2470( var_0, var_1, var_2 )
     return var_3;
 }
 
-_id_11F5( var_0 )
+avoidcarepackages( var_0 )
 {
     foreach ( var_2 in level._id_1B9C )
     {
@@ -59,7 +59,7 @@ _id_11F5( var_0 )
     return 100;
 }
 
-_id_11FB( var_0 )
+avoidgrenades( var_0 )
 {
     foreach ( var_2 in level._id_4407 )
     {
@@ -73,7 +73,7 @@ _id_11FB( var_0 )
     return 100;
 }
 
-_id_11FF( var_0 )
+avoidmines( var_0 )
 {
     var_1 = level._id_5C5D;
 
@@ -104,9 +104,9 @@ _id_5102( var_0 )
     return var_1 != var_0.team;
 }
 
-_id_11F4( var_0 )
+avoidairstrikelocations( var_0 )
 {
-    if ( !isdefined( level.artillerydangercenter ) )
+    if ( !isdefined( level.artillerydangercenters ) )
         return 100;
 
     if ( !var_0._id_65D1 )
@@ -120,7 +120,7 @@ _id_11F4( var_0 )
     return 100;
 }
 
-_id_11F6( var_0 )
+avoidcornervisibleenemies( var_0 )
 {
     var_1 = "all";
 
@@ -133,7 +133,7 @@ _id_11F6( var_0 )
     return 100;
 }
 
-_id_11F9( var_0 )
+avoidfullvisibleenemies( var_0 )
 {
     var_1 = "all";
 
@@ -146,14 +146,14 @@ _id_11F9( var_0 )
     return 100;
 }
 
-_id_1203( var_0 )
+avoidtelefrag( var_0 )
 {
-    if ( isdefined( self._id_0AB1 ) )
+    if ( isdefined( self.allowtelefrag ) )
         return 100;
 
     if ( positionwouldtelefrag( var_0.origin ) )
     {
-        foreach ( var_2 in var_0._id_0B03 )
+        foreach ( var_2 in var_0.alternates )
         {
             if ( !positionwouldtelefrag( var_2 ) )
                 break;
@@ -165,7 +165,7 @@ _id_1203( var_0 )
     return 100;
 }
 
-_id_1201( var_0 )
+avoidsamespawn( var_0 )
 {
     if ( isdefined( self._id_55DD ) && self._id_55DD == var_0 )
         return 0;
@@ -173,7 +173,7 @@ _id_1201( var_0 )
     return 100;
 }
 
-_id_1200( var_0 )
+avoidrecentlyused( var_0 )
 {
     if ( isdefined( var_0._id_55DF ) )
     {
@@ -188,7 +188,7 @@ _id_1200( var_0 )
     return 100;
 }
 
-_id_11F8( var_0 )
+avoidenemyspawn( var_0 )
 {
     if ( isdefined( var_0._id_55DE ) && ( !level.teambased || var_0._id_55DE != self.team ) )
     {
@@ -211,7 +211,7 @@ avoidspawninzone( var_0, var_1 )
     return 100;
 }
 
-_id_11FE( var_0 )
+avoidlastdeathlocation( var_0 )
 {
     if ( !isdefined( self._id_5593 ) )
         return 100;
@@ -225,7 +225,7 @@ _id_11FE( var_0 )
     return var_2 * 100;
 }
 
-_id_11FD( var_0 )
+avoidlastattackerlocation( var_0 )
 {
     if ( !isdefined( self.lastattacker ) || !isdefined( self.lastattacker.origin ) )
         return 100;
@@ -253,7 +253,7 @@ _id_6EEC( var_0 )
     return var_2 * 100;
 }
 
-_id_11F7( var_0 )
+avoidenemiesbydistance( var_0 )
 {
     var_1 = "all";
 

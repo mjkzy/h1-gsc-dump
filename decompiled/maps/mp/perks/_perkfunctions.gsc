@@ -122,11 +122,11 @@ _id_9A6A()
 
 _id_7F2B()
 {
-    _id_116E();
-    _id_116F();
+    autospotadswatcher();
+    autospotdeathwatcher();
 }
 
-_id_116F()
+autospotdeathwatcher()
 {
     self waittill( "death" );
     self endon( "disconnect" );
@@ -141,7 +141,7 @@ _id_9A62()
     self autospotoverlayoff();
 }
 
-_id_116E()
+autospotadswatcher()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -297,7 +297,7 @@ _id_9A8F()
     self setaimspreadmovementscale( 1.0 );
 }
 
-_id_1496( var_0, var_1 )
+blastshieldusetracker( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -319,7 +319,7 @@ _id_67D6()
 {
     self endon( "disconnect" );
     self waittill( "death" );
-    self._id_0682 = undefined;
+    self._useperkenabled = undefined;
 }
 
 _id_7FFA()
@@ -340,7 +340,7 @@ _id_7F62()
     self.maxhealth = maps\mp\gametypes\_tweakables::_id_4142( "player", "maxhealth" ) * 4;
     self.health = self.maxhealth;
     self._id_315F = 1;
-    self._id_0E36[0] = "";
+    self.attackertable[0] = "";
     self visionsetnakedforplayer( "end_game", 5 );
     thread _id_3160( 7 );
     self._id_4729 = 1;
@@ -355,8 +355,8 @@ _id_9A6B()
     if ( !isdefined( self._id_3165 ) )
         return;
 
-    self._id_3165 maps\mp\gametypes\_hud_util::_id_28E9();
-    self._id_3162 maps\mp\gametypes\_hud_util::_id_28E9();
+    self._id_3165 maps\mp\gametypes\_hud_util::destroyElem();
+    self._id_3162 maps\mp\gametypes\_hud_util::destroyElem();
 }
 
 _id_3160( var_0 )
@@ -367,7 +367,7 @@ _id_3160( var_0 )
     level endon( "game_ended" );
     self endon( "stopEndGame" );
     wait(var_0 + 1);
-    maps\mp\_utility::_id_066F();
+    maps\mp\_utility::_suicide();
 }
 
 _id_8AFD()
@@ -406,7 +406,7 @@ _id_52CB()
 
 _id_9A8D()
 {
-    self.movespeedscaler = level._id_1317;
+    self.movespeedscaler = level.baseplayermovescale;
     self resetspreadoverride();
     maps\mp\gametypes\_weapons::_id_9B3D();
     self player_recoilscaleoff();
@@ -434,7 +434,7 @@ _id_7FA3( var_0 )
 
 _id_9A7D()
 {
-    self.movespeedscaler = level._id_1317;
+    self.movespeedscaler = level.baseplayermovescale;
     maps\mp\gametypes\_weapons::_id_9B3D();
 }
 
@@ -538,28 +538,28 @@ _id_7C70()
     self endon( "death" );
     self endon( "disconnect" );
     level endon( "game_ended" );
-    common_scripts\utility::_id_0588();
-    common_scripts\utility::_id_0585();
-    common_scripts\utility::_id_0586();
+    common_scripts\utility::_disableweaponswitch();
+    common_scripts\utility::_disableoffhandweapons();
+    common_scripts\utility::_disableusability();
     self openpopupmenu( game["menu_onemanarmy"] );
     thread _id_1FDD();
     self waittill( "menuresponse", var_0, var_1 );
-    common_scripts\utility::_id_0596();
-    common_scripts\utility::_id_0593();
-    common_scripts\utility::_id_0594();
+    common_scripts\utility::_enableweaponswitch();
+    common_scripts\utility::_enableoffhandweapons();
+    common_scripts\utility::_enableusability();
 
     if ( var_1 == "back" || !_id_5165( var_0 ) || maps\mp\_utility::_id_51E3() )
     {
         if ( self getcurrentweapon() == "onemanarmy_mp" )
         {
-            common_scripts\utility::_id_0588();
-            common_scripts\utility::_id_0585();
-            common_scripts\utility::_id_0586();
+            common_scripts\utility::_disableweaponswitch();
+            common_scripts\utility::_disableoffhandweapons();
+            common_scripts\utility::_disableusability();
             self switchtoweapon( common_scripts\utility::_id_3FFD() );
             self waittill( "weapon_change" );
-            common_scripts\utility::_id_0596();
-            common_scripts\utility::_id_0593();
-            common_scripts\utility::_id_0594();
+            common_scripts\utility::_enableweaponswitch();
+            common_scripts\utility::_enableoffhandweapons();
+            common_scripts\utility::_enableusability();
         }
 
         return;
@@ -574,9 +574,9 @@ _id_1FDD()
     self endon( "disconnect" );
     level endon( "game_ended" );
     self waittill( "death" );
-    common_scripts\utility::_id_0596();
-    common_scripts\utility::_id_0593();
-    common_scripts\utility::_id_0594();
+    common_scripts\utility::_enableweaponswitch();
+    common_scripts\utility::_enableoffhandweapons();
+    common_scripts\utility::_enableusability();
     self closepopupmenu();
 }
 
@@ -602,13 +602,13 @@ _id_41F6( var_0 )
     }
 
     thread _id_6437( var_1 );
-    common_scripts\utility::_id_0587();
-    common_scripts\utility::_id_0585();
-    common_scripts\utility::_id_0586();
+    common_scripts\utility::_disableweapon();
+    common_scripts\utility::_disableoffhandweapons();
+    common_scripts\utility::_disableusability();
     wait(var_1);
-    common_scripts\utility::_id_0595();
-    common_scripts\utility::_id_0593();
-    common_scripts\utility::_id_0594();
+    common_scripts\utility::_enableweapon();
+    common_scripts\utility::_enableoffhandweapons();
+    common_scripts\utility::_enableusability();
     self.omaclasschanged = 1;
     maps\mp\gametypes\_class::giveloadout( self.pers["team"], var_0, 0 );
 
@@ -622,16 +622,16 @@ _id_41F6( var_0 )
 _id_6437( var_0 )
 {
     self endon( "disconnect" );
-    var_1 = maps\mp\gametypes\_hud_util::_id_2435( 0, -25 );
-    var_2 = maps\mp\gametypes\_hud_util::_id_2436( 0, -25 );
+    var_1 = maps\mp\gametypes\_hud_util::createPrimaryProgressBar( 0, -25 );
+    var_2 = maps\mp\gametypes\_hud_util::createPrimaryProgressBarText( 0, -25 );
     var_2 settext( &"MPUI_CHANGING_KIT" );
     var_1 maps\mp\gametypes\_hud_util::updatebar( 0, 1 / var_0 );
 
     for ( var_3 = 0; var_3 < var_0 && isalive( self ) && !level.gameended; var_3 += 0.05 )
         wait 0.05;
 
-    var_1 maps\mp\gametypes\_hud_util::_id_28E9();
-    var_2 maps\mp\gametypes\_hud_util::_id_28E9();
+    var_1 maps\mp\gametypes\_hud_util::destroyElem();
+    var_2 maps\mp\gametypes\_hud_util::destroyElem();
 }
 
 _id_7F30()
@@ -783,7 +783,7 @@ _id_7F97( var_0, var_1, var_2 )
         self._id_52B0.color = ( 0.8, 0.8, 0.0 );
         self._id_52B0.archived = 0;
         self._id_52B0.foreground = 1;
-        self._id_52AF = maps\mp\gametypes\_hud_util::_id_2420( level._id_8A3D, var_4, var_4 );
+        self._id_52AF = maps\mp\gametypes\_hud_util::createIcon( level._id_8A3D, var_4, var_4 );
         self._id_52AF.alpha = 0;
         self._id_52AF maps\mp\gametypes\_hud_util::setParent( self._id_52B0 );
         self._id_52AF maps\mp\gametypes\_hud_util::setpoint( "BOTTOM", "TOP" );
@@ -827,7 +827,7 @@ _id_9A78( var_0 )
         }
         else
         {
-            self.movespeedscaler = level._id_1317;
+            self.movespeedscaler = level.baseplayermovescale;
 
             if ( maps\mp\_utility::_hasperk( "specialty_lightweight" ) )
                 self.movespeedscaler = maps\mp\_utility::_id_5761();

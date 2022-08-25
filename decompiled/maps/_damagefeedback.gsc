@@ -25,9 +25,9 @@ init()
     precacheshader( "damage_feedback_headshot" );
     maps\_utility::_id_30B2();
     maps\_utility::_id_30B3();
-    common_scripts\utility::_id_0D13( level.players, ::_id_4CCF );
-    common_scripts\utility::_id_0D13( level.players, maps\_utility::_id_3C8C );
-    common_scripts\utility::_id_0D13( level.players, ::_id_5E3F );
+    common_scripts\utility::array_thread( level.players, ::_id_4CCF );
+    common_scripts\utility::array_thread( level.players, maps\_utility::_id_3C8C );
+    common_scripts\utility::array_thread( level.players, ::_id_5E3F );
 }
 
 _id_4CCF()
@@ -54,7 +54,7 @@ _id_4CCF()
 
 _id_5E3F()
 {
-    maps\_utility::_id_0749( ::_id_259E );
+    maps\_utility::add_damage_function( ::_id_259E );
 }
 
 _id_8EF9()
@@ -66,7 +66,7 @@ _id_259E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     var_10 = 0;
 
-    if ( isdefined( self._id_18A8 ) )
+    if ( isdefined( self.bullet_resistance ) )
     {
         var_11 = [];
         var_11["MOD_PISTOL_BULLET"] = 1;
@@ -74,7 +74,7 @@ _id_259E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
         if ( isdefined( var_11[var_4] ) )
         {
-            if ( var_0 <= self._id_18A8 && ( !isdefined( self._id_5A7A ) || !self._id_5A7A || !isdefined( var_9 ) || !issubstr( var_9, "iw5_em1" ) ) )
+            if ( var_0 <= self.bullet_resistance && ( !isdefined( self._id_5A7A ) || !self._id_5A7A || !isdefined( var_9 ) || !issubstr( var_9, "iw5_em1" ) ) )
                 return;
         }
     }

@@ -50,7 +50,7 @@ main()
     var_0 = getentarray( "boat_sway", "script_noteworthy" );
 
     if ( isdefined( var_0 ) )
-        common_scripts\utility::_id_0D13( var_0, ::sea_objectbob, level._sea_org );
+        common_scripts\utility::array_thread( var_0, ::sea_objectbob, level._sea_org );
 
     thread sea_logic();
     return;
@@ -59,9 +59,9 @@ main()
 
 sea_animate()
 {
-    self._id_0C72 = "sea";
+    self.animname = "sea";
     self useanimtree( #animtree );
-    self _meth_814d( %cargoship_water );
+    self _meth_814D( %cargoship_water );
 }
 
 sea_logic()
@@ -427,13 +427,13 @@ sea_closestwavelogic( var_0, var_1 )
     {
         if ( var_0[var_2]._sea_dist > var_1._sea_dist )
         {
-            var_0 = common_scripts\utility::_id_0CED( var_0, var_1, var_2 );
+            var_0 = common_scripts\utility::array_insert( var_0, var_1, var_2 );
             break;
         }
     }
 
     if ( var_2 == var_0.size )
-        var_0 = common_scripts\utility::_id_0CDA( var_0, var_1 );
+        var_0 = common_scripts\utility::array_add( var_0, var_1 );
 
     return var_0;
 }
@@ -478,14 +478,14 @@ sea_waves_setup()
     for ( var_5 = 0; var_5 < var_4["right"].size; var_5++ )
     {
         var_7 = common_scripts\utility::_id_3F33( var_4["right"][var_5].origin, var_6, 64 );
-        var_6 = common_scripts\utility::_id_0CF6( var_6, var_7 );
+        var_6 = common_scripts\utility::array_remove( var_6, var_7 );
         var_4["right"][var_5]._id_3528 = var_7;
     }
 
     for ( var_5 = 0; var_5 < var_4["left"].size; var_5++ )
     {
         var_7 = common_scripts\utility::_id_3F33( var_4["left"][var_5].origin, var_6, 64 );
-        var_6 = common_scripts\utility::_id_0CF6( var_6, var_7 );
+        var_6 = common_scripts\utility::array_remove( var_6, var_7 );
         var_4["left"][var_5]._id_3528 = var_7;
     }
 

@@ -21,8 +21,8 @@
 
 main()
 {
-    level.inc = 0;
-    common_scripts\utility::_id_0CF0( getentarray( "wire", "targetname" ), ::_id_A344 );
+    level._id_4C13 = 0;
+    common_scripts\utility::array_levelthread( getentarray( "wire", "targetname" ), ::_id_A344 );
     var_0 = getentarray( "shutter_left", "targetname" );
     var_1 = getentarray( "shutter_right_open", "targetname" );
 
@@ -64,8 +64,8 @@ main()
 
     for (;;)
     {
-        common_scripts\utility::_id_0CF0( var_0, ::_id_8559, var_5 );
-        common_scripts\utility::_id_0CF0( var_4, ::_id_855A, var_5 );
+        common_scripts\utility::array_levelthread( var_0, ::_id_8559, var_5 );
+        common_scripts\utility::array_levelthread( var_4, ::_id_855A, var_5 );
         level waittill( "wind blows", var_5 );
     }
 }
@@ -86,7 +86,7 @@ _id_A333()
 
 _id_8559( var_0, var_1 )
 {
-    level.inc++;
+    level._id_4C13++;
     level endon( "wind blows" );
     var_2 = var_0._id_8D4A;
 
@@ -123,7 +123,7 @@ _id_8559( var_0, var_1 )
 
 _id_855A( var_0, var_1 )
 {
-    level.inc++;
+    level._id_4C13++;
     level endon( "wind blows" );
     var_2 = var_0._id_8D4A;
 

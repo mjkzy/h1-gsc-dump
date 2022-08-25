@@ -29,13 +29,13 @@ main()
     level._id_2C7B["nearBlur"] = 4.5;
     level._id_2C7B["farBlur"] = 0.05;
     level._id_24FC = "default";
-    level._id_0567 = 0;
+    level._clearalltextafterhudelem = 0;
     _id_2C58();
     _id_929B();
     precachemenu( "dev_vision_noloc" );
     precachemenu( "dev_vision_exec" );
     level._id_8A24 = [];
-    level._id_1963 = [];
+    level.buttons = [];
 
     if ( !isdefined( level._id_9E72 ) )
     {
@@ -70,7 +70,7 @@ _id_23AA( var_0 )
     var_1._id_4500 = 19391;
     var_1._id_7299 = 0.661137;
     var_1._id_43D8 = 0.554261;
-    var_1._id_14C5 = 0.454014;
+    var_1.blue = 0.454014;
     var_1._id_5A47 = 0.7;
     var_1._id_971C = 0;
     var_1._id_85CD = 0;
@@ -412,8 +412,8 @@ _id_2C67()
 
     foreach ( var_20 in var_15 )
     {
-        var_21 = var_20 _meth_840b();
-        var_22 = var_20 _meth_840c( var_3 );
+        var_21 = var_20 _meth_840B();
+        var_22 = var_20 _meth_840C( var_3 );
 
         if ( !var_21 && !var_22 )
             continue;
@@ -481,8 +481,8 @@ _id_2C68( var_0 )
 
     foreach ( var_13 in var_9 )
     {
-        var_14 = var_13 _meth_840b();
-        var_15 = var_13 _meth_840c( var_3 );
+        var_14 = var_13 _meth_840B();
+        var_15 = var_13 _meth_840C( var_3 );
 
         if ( !var_14 && !var_15 )
             continue;
@@ -528,14 +528,14 @@ dof_monitor_prone()
 
 dof_set_standing()
 {
-    level.player _meth_84a6();
+    level.player _meth_84A6();
 }
 
 dof_set_prone()
 {
-    level.player _meth_84a5();
-    level.player _meth_84a7( 3.0, 800.0, 20, 20 );
-    level.player _meth_84b8( 12.0, 900.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 3.0, 800.0, 20, 20 );
+    level.player _meth_84B8( 12.0, 900.0 );
 }
 
 _id_5226( var_0, var_1, var_2, var_3, var_4 )
@@ -629,7 +629,7 @@ _id_2C77()
             if ( var_0 > 0.0 )
             {
                 var_1 = _id_2C68( var_0 );
-                self _meth_84a8( var_1["start"], var_1["end"] );
+                self _meth_84A8( var_1["start"], var_1["end"] );
             }
 
             continue;

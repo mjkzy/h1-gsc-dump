@@ -50,6 +50,6 @@ _id_7E68()
     maps\_utility::_id_7F00( "killhouse_interior", 0.0 );
     maps\_utility::_id_9E6E( "killhouse_interior", 0 );
     level.player maps\_utility::set_light_set_player( "killhouse_interior" );
-    level.player _meth_848c( "clut_killhouse", 0.0 );
+    level.player _meth_848C( "clut_killhouse", 0.0 );
     setsaveddvar( "fx_cast_shadow", 0 );
 }

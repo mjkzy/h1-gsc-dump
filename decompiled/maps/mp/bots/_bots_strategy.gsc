@@ -19,9 +19,9 @@
 
 */
 
-_id_15ED()
+bot_defend_get_random_entrance_point_for_current_area()
 {
-    var_0 = _id_15EC( self._id_24BD );
+    var_0 = bot_defend_get_precalc_entrances_for_current_area( self._id_24BD );
 
     if ( isdefined( var_0 ) && var_0.size > 0 )
         return common_scripts\utility::_id_710E( var_0 ).origin;
@@ -29,15 +29,15 @@ _id_15ED()
     return undefined;
 }
 
-_id_15EC( var_0, var_1 )
+bot_defend_get_precalc_entrances_for_current_area( var_0, var_1 )
 {
     if ( isdefined( self._id_27A3 ) )
-        return maps\mp\bots\_bots_util::_id_162D( var_0, self._id_27A3, var_1 );
+        return maps\mp\bots\_bots_util::bot_get_entrances_for_stance_and_index( var_0, self._id_27A3, var_1 );
 
     return [];
 }
 
-_id_162B( var_0, var_1, var_2 )
+bot_get_ambush_trap_item( var_0, var_1, var_2 )
 {
     if ( self botgetdifficultysetting( "allowGrenades" ) == 0 )
         return undefined;
@@ -86,7 +86,7 @@ _id_162B( var_0, var_1, var_2 )
     }
 }
 
-_id_16E8( var_0, var_1, var_2, var_3, var_4 )
+bot_set_ambush_trap( var_0, var_1, var_2, var_3, var_4 )
 {
     self notify( "bot_set_ambush_trap" );
     self endon( "bot_set_ambush_trap" );
@@ -130,7 +130,7 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
 
             foreach ( var_14 in var_11 )
             {
-                if ( !isdefined( var_14._id_15AC ) )
+                if ( !isdefined( var_14.bot_ambush_end ) )
                     var_12[var_12.size] = var_14;
             }
 
@@ -156,11 +156,11 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
 
         if ( var_18 )
         {
-            var_19 = maps\mp\bots\_bots_util::_id_172E();
+            var_19 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail();
 
             if ( var_19 == "goal" )
             {
-                thread maps\mp\bots\_bots_util::_id_161A( "stand", 4.0 );
+                thread maps\mp\bots\_bots_util::bot_force_stance_for_time( "stand", 4.0 );
 
                 if ( !isdefined( self.enemy ) || !self botcanseeentity( self.enemy ) )
                 {
@@ -171,9 +171,9 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
                         var_20 = ( 0.0, 0.0, 55.0 );
 
                     if ( isdefined( var_16 ) )
-                        self _meth_836b( var_5.origin + var_20, 3.0, "script_forced" );
+                        self _meth_836B( var_5.origin + var_20, 3.0, "script_forced" );
                     else
-                        self _meth_836b( self.origin + var_20 + anglestoforward( self getplayerangles() ) * 50, 3.0, "script_forced" );
+                        self _meth_836B( self.origin + var_20 + anglestoforward( self getplayerangles() ) * 50, 3.0, "script_forced" );
 
                     self switchtoweapon( var_0["weap_name"] );
 
@@ -181,25 +181,25 @@ _id_16E8( var_0, var_1, var_2, var_3, var_4 )
                         wait 0.05;
 
                     bot_try_use_ambush_item( var_0["item_action"] );
-                    self._id_0B66 = undefined;
-                    thread _id_16E9( "grenade_fire" );
-                    thread _id_16E9( "missile_fire" );
+                    self.ambush_trap_ent = undefined;
+                    thread bot_set_ambush_trap_wait_fire( "grenade_fire" );
+                    thread bot_set_ambush_trap_wait_fire( "missile_fire" );
                     var_21 = common_scripts\utility::_id_9294( var_0["purpose"] == "tacticalinsertion", 6.0, 3.0 );
                     common_scripts\utility::_id_A073( var_21, "missile_fire", "grenade_fire" );
                     wait 0.05;
                     self notify( "ambush_trap_ent" );
 
-                    if ( isdefined( self._id_0B66 ) && var_0["purpose"] == "c4" )
-                        thread bot_watch_c4_detonate( self._id_0B66, 300 );
+                    if ( isdefined( self.ambush_trap_ent ) && var_0["purpose"] == "c4" )
+                        thread bot_watch_c4_detonate( self.ambush_trap_ent, 300 );
 
-                    self._id_0B66 = undefined;
+                    self.ambush_trap_ent = undefined;
                     wait(randomfloat( 0.25 ));
                     self notify( "bot_force_stance_for_time" );
                     self botsetstance( "none" );
                     self switchtoweapon( "none" );
                     self notify( "bot_disable_movement_for_time" );
                     self botsetflag( "disable_movement", 0 );
-                    self _meth_836b( undefined );
+                    self _meth_836B( undefined );
                 }
             }
 
@@ -216,12 +216,12 @@ bot_try_use_ambush_item( var_0 )
 
     for (;;)
     {
-        self _meth_837c( var_0 );
+        self _meth_837C( var_0 );
         wait 0.5;
     }
 }
 
-_id_16E9( var_0 )
+bot_set_ambush_trap_wait_fire( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -229,7 +229,7 @@ _id_16E9( var_0 )
     self endon( "ambush_trap_ent" );
     level endon( "game_ended" );
     self waittill( var_0, var_1 );
-    self._id_0B66 = var_1;
+    self.ambush_trap_ent = var_1;
 }
 
 bot_watch_c4_detonate( var_0, var_1 )
@@ -244,13 +244,13 @@ bot_watch_c4_detonate( var_0, var_1 )
     {
         if ( distancesquared( self.origin, var_0.origin ) > var_2 )
         {
-            var_3 = self _meth_817a( var_0.origin, 1.0 );
+            var_3 = self _meth_817A( var_0.origin, 1.0 );
 
             if ( var_3 < var_2 )
             {
-                self _meth_837c( "use", 0.25 );
+                self _meth_837C( "use", 0.25 );
                 wait 0.5;
-                self _meth_837c( "use", 0.25 );
+                self _meth_837C( "use", 0.25 );
                 return;
             }
         }
@@ -259,18 +259,18 @@ bot_watch_c4_detonate( var_0, var_1 )
     }
 }
 
-_id_15D1( var_0, var_1, var_2 )
+bot_capture_point( var_0, var_1, var_2 )
 {
-    thread _id_15F0( var_0, var_1, "capture", var_2 );
+    thread bot_defend_think( var_0, var_1, "capture", var_2 );
 }
 
-_id_15D2( var_0, var_1, var_2, var_3 )
+bot_capture_zone( var_0, var_1, var_2, var_3 )
 {
     var_3["capture_trigger"] = var_2;
-    thread _id_15F0( var_0, var_1, "capture_zone", var_3 );
+    thread bot_defend_think( var_0, var_1, "capture_zone", var_3 );
 }
 
-_id_16C2( var_0, var_1, var_2 )
+bot_protect_point( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) || !isdefined( var_2["min_goal_time"] ) )
         var_2["min_goal_time"] = 12;
@@ -278,10 +278,10 @@ _id_16C2( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) || !isdefined( var_2["max_goal_time"] ) )
         var_2["max_goal_time"] = 18;
 
-    thread _id_15F0( var_0, var_1, "protect", var_2 );
+    thread bot_defend_think( var_0, var_1, "protect", var_2 );
 }
 
-_id_16AD( var_0, var_1, var_2 )
+bot_patrol_area( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) || !isdefined( var_2["min_goal_time"] ) )
         var_2["min_goal_time"] = 0.0;
@@ -289,10 +289,10 @@ _id_16AD( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) || !isdefined( var_2["max_goal_time"] ) )
         var_2["max_goal_time"] = 0.01;
 
-    thread _id_15F0( var_0, var_1, "patrol", var_2 );
+    thread bot_defend_think( var_0, var_1, "patrol", var_2 );
 }
 
-_id_1646( var_0, var_1, var_2 )
+bot_guard_player( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) || !isdefined( var_2["min_goal_time"] ) )
         var_2["min_goal_time"] = 15;
@@ -300,10 +300,10 @@ _id_1646( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) || !isdefined( var_2["max_goal_time"] ) )
         var_2["max_goal_time"] = 20;
 
-    thread _id_15F0( var_0, var_1, "bodyguard", var_2 );
+    thread bot_defend_think( var_0, var_1, "bodyguard", var_2 );
 }
 
-_id_15F0( var_0, var_1, var_2, var_3 )
+bot_defend_think( var_0, var_1, var_2, var_3 )
 {
     self notify( "started_bot_defend_think" );
     self endon( "started_bot_defend_think" );
@@ -313,34 +313,34 @@ _id_15F0( var_0, var_1, var_2, var_3 )
     self endon( "defend_stop" );
     thread _id_27B0();
 
-    if ( isdefined( self._id_15F1 ) || self botgetscriptgoaltype() == "camp" )
+    if ( isdefined( self.bot_defending ) || self botgetscriptgoaltype() == "camp" )
         self botclearscriptgoal();
 
-    self._id_15F1 = 1;
-    self._id_15F7 = var_2;
+    self.bot_defending = 1;
+    self.bot_defending_type = var_2;
 
     if ( var_2 == "capture_zone" )
     {
-        self._id_15F5 = undefined;
-        self._id_15F3 = var_1;
-        self._id_15F6 = var_3["capture_trigger"];
+        self.bot_defending_radius = undefined;
+        self.bot_defending_nodes = var_1;
+        self.bot_defending_trigger = var_3["capture_trigger"];
     }
     else
     {
-        self._id_15F5 = var_1;
-        self._id_15F3 = undefined;
-        self._id_15F6 = undefined;
+        self.bot_defending_radius = var_1;
+        self.bot_defending_nodes = undefined;
+        self.bot_defending_trigger = undefined;
     }
 
     if ( maps\mp\_utility::_id_5112( var_0 ) )
     {
-        self._id_15EE = var_0;
+        self.bot_defend_player_guarding = var_0;
         childthread _id_5D82();
     }
     else
     {
-        self._id_15EE = undefined;
-        self._id_15F2 = var_0;
+        self.bot_defend_player_guarding = undefined;
+        self.bot_defending_center = var_0;
     }
 
     self botsetstance( "none" );
@@ -352,7 +352,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_3 ) )
     {
         self._id_27A3 = var_3["entrance_points_index"];
-        self._id_15F4 = var_3["override_origin_node"];
+        self.bot_defending_override_origin_node = var_3["override_origin_node"];
 
         if ( isdefined( var_3["score_flags"] ) )
         {
@@ -388,18 +388,18 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         self._id_27A6 = var_3["objective_radius"];
     }
 
-    if ( !isdefined( self._id_15EE ) )
+    if ( !isdefined( self.bot_defend_player_guarding ) )
     {
         var_10 = undefined;
 
         if ( isdefined( var_3 ) && isdefined( var_3["nearest_node_to_center"] ) )
             var_10 = var_3["nearest_node_to_center"];
 
-        if ( !isdefined( var_10 ) && isdefined( self._id_15F4 ) )
-            var_10 = self._id_15F4;
+        if ( !isdefined( var_10 ) && isdefined( self.bot_defending_override_origin_node ) )
+            var_10 = self.bot_defending_override_origin_node;
 
-        if ( !isdefined( var_10 ) && isdefined( self._id_15F6 ) && isdefined( self._id_15F6._id_6071 ) )
-            var_10 = self._id_15F6._id_6071;
+        if ( !isdefined( var_10 ) && isdefined( self.bot_defending_trigger ) && isdefined( self.bot_defending_trigger._id_6071 ) )
+            var_10 = self.bot_defending_trigger._id_6071;
 
         if ( !isdefined( var_10 ) )
             var_10 = getclosestnodeinsight( maps\mp\bots\_bots_util::_id_27A8() );
@@ -435,7 +435,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         self._id_6122 = var_10;
     }
 
-    var_16 = level._id_1611[var_2];
+    var_16 = level.bot_find_defend_node_func[var_2];
 
     if ( !isdefined( var_4 ) )
     {
@@ -445,7 +445,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
             var_4 = "objective";
     }
 
-    var_17 = maps\mp\bots\_bots_util::_id_165A();
+    var_17 = maps\mp\bots\_bots_util::bot_is_capturing();
 
     if ( var_2 == "protect" )
         childthread _id_7040();
@@ -457,9 +457,9 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         self._id_24BA = undefined;
         self._id_24BC = undefined;
         var_18 = isdefined( var_3["entrance_points_index"] ) && isarray( var_3["entrance_points_index"] );
-        self._id_24BD = _id_19C9( var_17, var_18 );
+        self._id_24BD = calculate_defend_stance( var_17, var_18 );
         var_19 = self botgetscriptgoaltype();
-        var_20 = maps\mp\bots\_bots_util::_id_1644( var_4, var_19 );
+        var_20 = maps\mp\bots\_bots_util::bot_goal_can_override( var_4, var_19 );
 
         if ( !var_20 )
         {
@@ -486,9 +486,9 @@ _id_15F0( var_0, var_1, var_2, var_3 )
         }
         else
         {
-            if ( isdefined( level._id_0886 ) && level._id_0886[self.team] )
+            if ( isdefined( level.aerial_danger_exists_for ) && level.aerial_danger_exists_for[self.team] )
             {
-                if ( !common_scripts\utility::_id_0CE4( self._id_27B5, "avoid_aerial_enemies" ) )
+                if ( !common_scripts\utility::array_contains( self._id_27B5, "avoid_aerial_enemies" ) )
                     self._id_27B5[self._id_27B5.size] = "avoid_aerial_enemies";
             }
 
@@ -500,14 +500,14 @@ _id_15F0( var_0, var_1, var_2, var_3 )
 
         if ( isdefined( self._id_24BB ) || isdefined( self._id_24BC ) )
         {
-            if ( var_23 && maps\mp\bots\_bots_util::_id_1662() && !isplayer( var_0 ) && isdefined( self._id_27A3 ) )
+            if ( var_23 && maps\mp\bots\_bots_util::bot_is_protecting() && !isplayer( var_0 ) && isdefined( self._id_27A3 ) )
             {
-                var_25 = _id_162B( "trap_directional", "trap", "c4" );
+                var_25 = bot_get_ambush_trap_item( "trap_directional", "trap", "c4" );
 
                 if ( isdefined( var_25 ) )
                 {
-                    var_26 = maps\mp\bots\_bots_util::_id_162D( undefined, self._id_27A3 );
-                    _id_16E8( var_25, var_26, self._id_6122 );
+                    var_26 = maps\mp\bots\_bots_util::bot_get_entrances_for_stance_and_index( undefined, self._id_27A3 );
+                    bot_set_ambush_trap( var_25, var_26, self._id_6122 );
                 }
             }
 
@@ -546,8 +546,8 @@ _id_15F0( var_0, var_1, var_2, var_3 )
             {
                 var_29 = self botgetscriptgoal();
 
-                if ( maps\mp\bots\_bots_util::_id_172A( var_29, var_28 ) )
-                    var_24 = maps\mp\bots\_bots_util::_id_172E( 20, "defend_force_node_recalculation" );
+                if ( maps\mp\bots\_bots_util::bot_vectors_are_equal( var_29, var_28 ) )
+                    var_24 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail( 20, "defend_force_node_recalculation" );
             }
 
             if ( var_24 == "goal" )
@@ -573,7 +573,7 @@ _id_15F0( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_19C9( var_0, var_1 )
+calculate_defend_stance( var_0, var_1 )
 {
     var_2 = "stand";
 
@@ -608,7 +608,7 @@ _id_19C9( var_0, var_1 )
 
         if ( var_8 && var_2 == "prone" )
         {
-            var_9 = _id_15EC( "prone" );
+            var_9 = bot_defend_get_precalc_entrances_for_current_area( "prone" );
             var_10 = _id_27A5( "prone" );
 
             if ( var_10.size >= var_9.size )
@@ -617,7 +617,7 @@ _id_19C9( var_0, var_1 )
 
         if ( var_8 && var_2 == "crouch" )
         {
-            var_11 = _id_15EC( "crouch" );
+            var_11 = bot_defend_get_precalc_entrances_for_current_area( "crouch" );
             var_12 = _id_27A5( "crouch" );
 
             if ( var_12.size >= var_11.size )
@@ -638,12 +638,12 @@ _id_847B( var_0 )
         if ( self botgetdifficultysetting( "strategyLevel" ) == 0 )
             return 0;
 
-        if ( self._id_15F7 == "capture_zone" && self istouching( self._id_15F6 ) )
+        if ( self.bot_defending_type == "capture_zone" && self istouching( self.bot_defending_trigger ) )
             return 0;
 
-        return distancesquared( self.origin, self._id_15F2 ) > var_2 * 0.75 * 0.75;
+        return distancesquared( self.origin, self.bot_defending_center ) > var_2 * 0.75 * 0.75;
     }
-    else if ( self _meth_8373() && distancesquared( self.origin, self._id_15F2 ) < var_2 )
+    else if ( self _meth_8373() && distancesquared( self.origin, self.bot_defending_center ) < var_2 )
     {
         var_3 = self botgetpathdist();
         return 0 <= var_3 && var_3 <= var_1;
@@ -694,7 +694,7 @@ _id_27AF()
 
         var_4 = self botgetscriptgoal();
 
-        if ( !maps\mp\bots\_bots_util::_id_172A( var_0, var_4 ) )
+        if ( !maps\mp\bots\_bots_util::bot_vectors_are_equal( var_0, var_4 ) )
             return;
 
         var_3 += 0.25;
@@ -722,45 +722,45 @@ _id_27AF()
         var_6 = level._id_703F;
 
     var_7 = var_6 * var_6;
-    var_8 = getnodesinradius( self._id_15F2, var_6, 0, 500 );
+    var_8 = getnodesinradius( self.bot_defending_center, var_6, 0, 500 );
 
     if ( var_8.size <= 0 )
         return;
 
     var_9 = 5 + self botgetdifficultysetting( "strategyLevel" ) * 2;
     var_10 = int( min( var_9, var_8.size ) );
-    var_11 = self _meth_836f( var_8, 15, var_10, "node_protect", maps\mp\bots\_bots_util::_id_27A8(), "ignore_occupancy" );
+    var_11 = self _meth_836F( var_8, 15, var_10, "node_protect", maps\mp\bots\_bots_util::_id_27A8(), "ignore_occupancy" );
 
     for ( var_12 = 0; var_12 < var_11.size; var_12++ )
     {
         var_13 = _id_8158( var_11[var_12] );
-        self._id_57FD = common_scripts\utility::_id_0CDA( self._id_57FD, var_13 );
+        self._id_57FD = common_scripts\utility::array_add( self._id_57FD, var_13 );
     }
 
     var_14 = botgetmemoryevents( 0, gettime() - 60000, 1, "death", 0, self );
 
     foreach ( var_16 in var_14 )
     {
-        if ( distancesquared( var_16, self._id_15F2 ) < var_7 )
+        if ( distancesquared( var_16, self.bot_defending_center ) < var_7 )
         {
             var_17 = getclosestnodeinsight( var_16 );
 
             if ( isdefined( var_17 ) )
             {
                 var_13 = _id_8158( var_17, var_16 );
-                self._id_57FD = common_scripts\utility::_id_0CDA( self._id_57FD, var_13 );
+                self._id_57FD = common_scripts\utility::array_add( self._id_57FD, var_13 );
             }
         }
     }
 
     if ( isdefined( self._id_27A3 ) )
     {
-        var_19 = maps\mp\bots\_bots_util::_id_162D( "stand", self._id_27A3 );
+        var_19 = maps\mp\bots\_bots_util::bot_get_entrances_for_stance_and_index( "stand", self._id_27A3 );
 
         for ( var_12 = 0; var_12 < var_19.size; var_12++ )
         {
             var_13 = _id_8158( var_19[var_12] );
-            self._id_57FD = common_scripts\utility::_id_0CDA( self._id_57FD, var_13 );
+            self._id_57FD = common_scripts\utility::array_add( self._id_57FD, var_13 );
         }
     }
 
@@ -775,7 +775,7 @@ _id_27AF()
 
     for ( var_23 = 1; var_23 < var_5.size - 2; var_23++ )
     {
-        maps\mp\bots\_bots_util::_id_172F();
+        maps\mp\bots\_bots_util::bot_waittill_out_of_combat_or_time();
         var_24 = getlinkednodes( var_5[var_23] );
 
         if ( var_24.size == 0 )
@@ -794,7 +794,7 @@ _id_27AF()
 
                 if ( nodesvisible( var_16.node, var_24[var_12], 1 ) )
                 {
-                    var_25 = common_scripts\utility::_id_0CDA( var_25, var_24[var_12] );
+                    var_25 = common_scripts\utility::array_add( var_25, var_24[var_12] );
                     var_26 = self._id_57FD.size;
                 }
             }
@@ -814,14 +814,14 @@ _id_27AF()
                 if ( nodesvisible( self._id_57FD[var_12].node, var_27, 1 ) )
                 {
                     if ( distance2dsquared( self._id_57FD[var_12].origin, var_27.origin ) > 3600 )
-                        var_28 = common_scripts\utility::_id_0CDA( var_28, self._id_57FD[var_12] );
+                        var_28 = common_scripts\utility::array_add( var_28, self._id_57FD[var_12] );
                 }
             }
 
             self botclearscriptgoal();
             self botsetscriptgoal( var_27, "critical" );
             childthread _id_5D71();
-            var_29 = maps\mp\bots\_bots_util::_id_172E( undefined, "cautious_approach_early_out" );
+            var_29 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail( undefined, "cautious_approach_early_out" );
             self notify( "stop_cautious_approach_early_out_monitor" );
 
             if ( var_29 == "cautious_approach_early_out" )
@@ -836,7 +836,7 @@ _id_27AF()
 
                     for ( var_30 = 0; var_28[var_12]._id_3A11 < 18 && var_30 < 3.6; var_30 += 0.25 )
                     {
-                        self _meth_836b( var_28[var_12].origin + ( 0, 0, self _meth_82ef() ), 0.25, "script_search" );
+                        self _meth_836B( var_28[var_12].origin + ( 0, 0, self _meth_82EF() ), 0.25, "script_search" );
                         wait 0.25;
                     }
                 }
@@ -861,11 +861,11 @@ _id_5D71()
     self endon( "stop_cautious_approach_early_out_monitor" );
     var_0 = undefined;
 
-    if ( isdefined( self._id_15F5 ) )
-        var_0 = self._id_15F5 * self._id_15F5;
-    else if ( isdefined( self._id_15F3 ) )
+    if ( isdefined( self.bot_defending_radius ) )
+        var_0 = self.bot_defending_radius * self.bot_defending_radius;
+    else if ( isdefined( self.bot_defending_nodes ) )
     {
-        var_1 = _id_15D3();
+        var_1 = bot_capture_zone_get_furthest_distance();
         var_0 = var_1 * var_1;
     }
 
@@ -873,7 +873,7 @@ _id_5D71()
 
     for (;;)
     {
-        if ( distancesquared( self.origin, self._id_15F2 ) < var_0 )
+        if ( distancesquared( self.origin, self.bot_defending_center ) < var_0 )
             self notify( "cautious_approach_early_out" );
 
         wait 0.05;
@@ -940,11 +940,11 @@ _id_7040()
     for (;;)
     {
         var_4 = gettime();
-        var_5 = _id_1640( self._id_15F2, var_3 );
+        var_5 = bot_get_teammates_in_radius( self.bot_defending_center, var_3 );
 
         foreach ( var_7 in var_5 )
         {
-            var_8 = var_7.entity_number;
+            var_8 = var_7._id_3314;
 
             if ( !isdefined( var_8 ) )
                 var_8 = var_7 getentitynumber();
@@ -989,9 +989,9 @@ _id_27B2()
 {
     if ( isdefined( self._id_27B4 ) )
         return self._id_27B4;
-    else if ( maps\mp\bots\_bots_util::_id_165A() )
-        return _id_15EC( self._id_24BD, 1 );
-    else if ( maps\mp\bots\_bots_util::_id_1662() || maps\mp\bots\_bots_util::_id_1659() )
+    else if ( maps\mp\bots\_bots_util::bot_is_capturing() )
+        return bot_defend_get_precalc_entrances_for_current_area( self._id_24BD, 1 );
+    else if ( maps\mp\bots\_bots_util::bot_is_protecting() || maps\mp\bots\_bots_util::bot_is_bodyguarding() )
     {
         var_0 = findentrances( self.origin );
         return var_0;
@@ -1007,7 +1007,7 @@ _id_27B6()
     var_0 = self _meth_8385();
     var_1 = undefined;
 
-    if ( maps\mp\bots\_bots_util::_id_165A() )
+    if ( maps\mp\bots\_bots_util::bot_is_capturing() )
     {
         var_2 = _id_27B2();
         var_1 = [];
@@ -1017,36 +1017,36 @@ _id_27B6()
             foreach ( var_4 in var_2 )
             {
                 if ( nodesvisible( var_0, var_4, 1 ) )
-                    var_1 = common_scripts\utility::_id_0CDA( var_1, var_4 );
+                    var_1 = common_scripts\utility::array_add( var_1, var_4 );
             }
         }
 
         if ( var_1.size == 0 )
             var_1 = findentrances( self.origin );
     }
-    else if ( maps\mp\bots\_bots_util::_id_1662() || maps\mp\bots\_bots_util::_id_1659() )
+    else if ( maps\mp\bots\_bots_util::bot_is_protecting() || maps\mp\bots\_bots_util::bot_is_bodyguarding() )
     {
         var_1 = _id_27B2();
 
         if ( isdefined( var_0 ) && !issubstr( self getcurrentweapon(), "riotshield" ) )
         {
             if ( nodesvisible( var_0, self._id_6122, 1 ) )
-                var_1 = common_scripts\utility::_id_0CDA( var_1, self._id_6122 );
+                var_1 = common_scripts\utility::array_add( var_1, self._id_6122 );
         }
     }
 
     if ( isdefined( var_1 ) )
     {
-        childthread maps\mp\bots\_bots_util::_id_1736( var_1 );
+        childthread maps\mp\bots\_bots_util::bot_watch_nodes( var_1 );
 
-        if ( maps\mp\bots\_bots_util::_id_1659() )
-            childthread _id_16A7();
+        if ( maps\mp\bots\_bots_util::bot_is_bodyguarding() )
+            childthread bot_monitor_watch_entrances_bodyguard();
         else
-            childthread _id_16A6();
+            childthread bot_monitor_watch_entrances_at_goal();
     }
 }
 
-_id_16A6()
+bot_monitor_watch_entrances_at_goal()
 {
     self notify( "bot_monitor_watch_entrances_at_goal" );
     self endon( "bot_monitor_watch_entrances_at_goal" );
@@ -1063,7 +1063,7 @@ _id_16A6()
         var_1 = 0.8;
         var_2 = 1.0;
 
-        if ( common_scripts\utility::_id_0CE4( self._id_27B5, "strict_los" ) )
+        if ( common_scripts\utility::array_contains( self._id_27B5, "strict_los" ) )
         {
             var_1 = 1.0;
             var_2 = 0.5;
@@ -1073,11 +1073,11 @@ _id_16A6()
         {
             if ( var_4 == self._id_6122 )
             {
-                var_4._id_A1E9[self.entity_number] = var_1;
+                var_4._id_A1E9[self._id_3314] = var_1;
                 continue;
             }
 
-            var_4._id_A1E9[self.entity_number] = var_2;
+            var_4._id_A1E9[self._id_3314] = var_2;
         }
 
         var_6 = isdefined( var_0 );
@@ -1090,18 +1090,18 @@ _id_16A6()
             if ( var_6 )
             {
                 var_8 = self [[ var_0 ]]( var_4 );
-                var_4._id_A1E9[self.entity_number] *= var_8;
+                var_4._id_A1E9[self._id_3314] *= var_8;
             }
 
             if ( _id_332E( var_4 ) )
-                var_4._id_A1E9[self.entity_number] *= 0.5;
+                var_4._id_A1E9[self._id_3314] *= 0.5;
         }
 
         wait(randomfloatrange( 0.5, 0.75 ));
     }
 }
 
-_id_16A7()
+bot_monitor_watch_entrances_bodyguard()
 {
     self notify( "bot_monitor_watch_entrances_bodyguard" );
     self endon( "bot_monitor_watch_entrances_bodyguard" );
@@ -1113,23 +1113,23 @@ _id_16A7()
 
     for (;;)
     {
-        var_0 = anglestoforward( self._id_15EE getplayerangles() ) * ( 1.0, 1.0, 0.0 );
+        var_0 = anglestoforward( self.bot_defend_player_guarding getplayerangles() ) * ( 1.0, 1.0, 0.0 );
         var_0 = vectornormalize( var_0 );
 
         foreach ( var_2 in self._id_A1EA )
         {
-            var_2._id_A1E9[self.entity_number] = 1.0;
-            var_3 = var_2.origin - self._id_15EE.origin;
+            var_2._id_A1E9[self._id_3314] = 1.0;
+            var_3 = var_2.origin - self.bot_defend_player_guarding.origin;
             var_3 = vectornormalize( var_3 );
             var_4 = vectordot( var_0, var_3 );
 
             if ( var_4 > 0.6 )
-                var_2._id_A1E9[self.entity_number] *= 0.33;
+                var_2._id_A1E9[self._id_3314] *= 0.33;
             else if ( var_4 > 0 )
-                var_2._id_A1E9[self.entity_number] *= 0.66;
+                var_2._id_A1E9[self._id_3314] *= 0.66;
 
             if ( !_id_332A( var_2 ) )
-                var_2._id_A1E9[self.entity_number] *= 0.5;
+                var_2._id_A1E9[self._id_3314] *= 0.5;
         }
 
         wait(randomfloatrange( 0.4, 0.6 ));
@@ -1196,7 +1196,7 @@ _id_6FBD( var_0 )
 
             if ( var_6 )
             {
-                var_1[var_4]._id_A1E9[self.entity_number] *= var_0;
+                var_1[var_4]._id_A1E9[self._id_3314] *= var_0;
                 var_1[var_4] = var_1[var_1.size - 1];
                 var_1[var_1.size - 1] = undefined;
                 var_4--;
@@ -1207,7 +1207,7 @@ _id_6FBD( var_0 )
 
 _id_332E( var_0 )
 {
-    var_1 = _id_163F( self._id_15F2 );
+    var_1 = bot_get_teammates_currently_defending_point( self.bot_defending_center );
 
     foreach ( var_3 in var_1 )
     {
@@ -1230,7 +1230,7 @@ _id_332F( var_0, var_1 )
     return 0;
 }
 
-_id_163F( var_0, var_1 )
+bot_get_teammates_currently_defending_point( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
     {
@@ -1241,30 +1241,30 @@ _id_163F( var_0, var_1 )
     }
 
     var_2 = [];
-    var_3 = _id_1640( var_0, var_1 );
+    var_3 = bot_get_teammates_in_radius( var_0, var_1 );
 
     foreach ( var_5 in var_3 )
     {
-        if ( !isai( var_5 ) || var_5 maps\mp\bots\_bots_util::_id_165E( var_0 ) )
-            var_2 = common_scripts\utility::_id_0CDA( var_2, var_5 );
+        if ( !isai( var_5 ) || var_5 maps\mp\bots\_bots_util::bot_is_defending_point( var_0 ) )
+            var_2 = common_scripts\utility::array_add( var_2, var_5 );
     }
 
     return var_2;
 }
 
-_id_1640( var_0, var_1 )
+bot_get_teammates_in_radius( var_0, var_1 )
 {
     var_2 = var_1 * var_1;
     var_3 = [];
 
-    for ( var_4 = 0; var_4 < level.participants.size; var_4++ )
+    for ( var_4 = 0; var_4 < level._id_669D.size; var_4++ )
     {
-        var_5 = level.participants[var_4];
+        var_5 = level._id_669D[var_4];
 
         if ( var_5 != self && isdefined( var_5.team ) && var_5.team == self.team && maps\mp\_utility::_id_51CE( var_5 ) )
         {
             if ( distancesquared( var_0, var_5.origin ) < var_2 )
-                var_3 = common_scripts\utility::_id_0CDA( var_3, var_5 );
+                var_3 = common_scripts\utility::array_add( var_3, var_5 );
         }
     }
 
@@ -1280,20 +1280,20 @@ _id_27B0()
     self waittill( "death" );
 
     if ( isdefined( self ) )
-        thread _id_15EF();
+        thread bot_defend_stop();
 }
 
-_id_15EF()
+bot_defend_stop()
 {
     self notify( "defend_stop" );
-    self._id_15F1 = undefined;
-    self._id_15F2 = undefined;
-    self._id_15F5 = undefined;
-    self._id_15F3 = undefined;
-    self._id_15F7 = undefined;
-    self._id_15F6 = undefined;
-    self._id_15F4 = undefined;
-    self._id_15EE = undefined;
+    self.bot_defending = undefined;
+    self.bot_defending_center = undefined;
+    self.bot_defending_radius = undefined;
+    self.bot_defending_nodes = undefined;
+    self.bot_defending_type = undefined;
+    self.bot_defending_trigger = undefined;
+    self.bot_defending_override_origin_node = undefined;
+    self.bot_defend_player_guarding = undefined;
     self._id_27B5 = undefined;
     self._id_6122 = undefined;
     self._id_27B3 = undefined;
@@ -1313,15 +1313,15 @@ _id_27A5( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level.participants )
+    foreach ( var_3 in level._id_669D )
     {
         if ( !isdefined( var_3.team ) )
             continue;
 
-        if ( var_3.team == self.team && var_3 != self && isai( var_3 ) && var_3 maps\mp\bots\_bots_util::_id_165D() && var_3._id_24BD == var_0 )
+        if ( var_3.team == self.team && var_3 != self && isai( var_3 ) && var_3 maps\mp\bots\_bots_util::bot_is_defending() && var_3._id_24BD == var_0 )
         {
-            if ( var_3._id_15F7 == self._id_15F7 && maps\mp\bots\_bots_util::_id_165E( var_3._id_15F2 ) )
-                var_1 = common_scripts\utility::_id_0CDA( var_1, var_3 );
+            if ( var_3.bot_defending_type == self.bot_defending_type && maps\mp\bots\_bots_util::bot_is_defending_point( var_3.bot_defending_center ) )
+                var_1 = common_scripts\utility::array_add( var_1, var_3 );
         }
     }
 
@@ -1332,17 +1332,17 @@ _id_5D82()
 {
     var_0 = 0;
     var_1 = 175;
-    var_2 = self._id_15EE.origin;
+    var_2 = self.bot_defend_player_guarding.origin;
     var_3 = 0;
     var_4 = 0;
 
     for (;;)
     {
-        if ( !isdefined( self._id_15EE ) )
-            thread _id_15EF();
+        if ( !isdefined( self.bot_defend_player_guarding ) )
+            thread bot_defend_stop();
 
-        self._id_15F2 = self._id_15EE.origin;
-        self._id_6122 = self._id_15EE _meth_8385();
+        self.bot_defending_center = self.bot_defend_player_guarding.origin;
+        self._id_6122 = self.bot_defend_player_guarding _meth_8385();
 
         if ( !isdefined( self._id_6122 ) )
             self._id_6122 = self _meth_8385();
@@ -1350,18 +1350,18 @@ _id_5D82()
         if ( self botgetscriptgoaltype() != "none" )
         {
             var_5 = self botgetscriptgoal();
-            var_6 = self._id_15EE getvelocity();
+            var_6 = self.bot_defend_player_guarding getvelocity();
             var_7 = lengthsquared( var_6 );
 
             if ( var_7 > 100 )
             {
                 var_0 = 0;
 
-                if ( distancesquared( var_2, self._id_15EE.origin ) > var_1 * var_1 )
+                if ( distancesquared( var_2, self.bot_defend_player_guarding.origin ) > var_1 * var_1 )
                 {
-                    var_2 = self._id_15EE.origin;
+                    var_2 = self.bot_defend_player_guarding.origin;
                     var_4 = 1;
-                    var_8 = vectornormalize( var_5 - self._id_15EE.origin );
+                    var_8 = vectornormalize( var_5 - self.bot_defend_player_guarding.origin );
                     var_9 = vectornormalize( var_6 );
 
                     if ( vectordot( var_8, var_9 ) < 0.1 )
@@ -1377,15 +1377,15 @@ _id_5D82()
 
                 if ( var_3 > 100 && var_4 )
                 {
-                    var_2 = self._id_15EE.origin;
+                    var_2 = self.bot_defend_player_guarding.origin;
                     var_4 = 0;
                 }
 
                 if ( var_0 > 0.5 )
                 {
-                    var_10 = distancesquared( var_5, self._id_15F2 );
+                    var_10 = distancesquared( var_5, self.bot_defending_center );
 
-                    if ( var_10 > self._id_15F5 * self._id_15F5 )
+                    if ( var_10 > self.bot_defending_radius * self.bot_defending_radius )
                     {
                         self notify( "defend_force_node_recalculation" );
                         wait 0.25;
@@ -1395,7 +1395,7 @@ _id_5D82()
 
             var_3 = var_7;
 
-            if ( abs( self._id_15EE.origin[2] - var_5[2] ) >= 50 )
+            if ( abs( self.bot_defend_player_guarding.origin[2] - var_5[2] ) >= 50 )
             {
                 self notify( "defend_force_node_recalculation" );
                 wait 0.25;
@@ -1408,8 +1408,8 @@ _id_5D82()
 
 _id_375F()
 {
-    var_0 = _id_15ED();
-    var_1 = maps\mp\bots\_bots_util::_id_1613( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F5, var_0 );
+    var_0 = bot_defend_get_random_entrance_point_for_current_area();
+    var_1 = maps\mp\bots\_bots_util::bot_find_node_to_capture_point( maps\mp\bots\_bots_util::_id_27A8(), self.bot_defending_radius, var_0 );
 
     if ( isdefined( var_1 ) )
     {
@@ -1427,15 +1427,15 @@ _id_375F()
         self._id_24BB = var_1;
     }
     else if ( isdefined( var_0 ) )
-        _id_1648( var_0, undefined );
+        bot_handle_no_valid_defense_node( var_0, undefined );
     else
-        _id_1648( undefined, maps\mp\bots\_bots_util::_id_27A8() );
+        bot_handle_no_valid_defense_node( undefined, maps\mp\bots\_bots_util::_id_27A8() );
 }
 
 _id_3760()
 {
-    var_0 = _id_15ED();
-    var_1 = maps\mp\bots\_bots_util::_id_1614( self._id_15F3, var_0 );
+    var_0 = bot_defend_get_random_entrance_point_for_current_area();
+    var_1 = maps\mp\bots\_bots_util::bot_find_node_to_capture_zone( self.bot_defending_nodes, var_0 );
 
     if ( isdefined( var_1 ) )
     {
@@ -1453,14 +1453,14 @@ _id_3760()
         self._id_24BB = var_1;
     }
     else if ( isdefined( var_0 ) )
-        _id_1648( var_0, undefined );
+        bot_handle_no_valid_defense_node( var_0, undefined );
     else
-        _id_1648( undefined, maps\mp\bots\_bots_util::_id_27A8() );
+        bot_handle_no_valid_defense_node( undefined, maps\mp\bots\_bots_util::_id_27A8() );
 }
 
 _id_3762()
 {
-    var_0 = maps\mp\bots\_bots_util::_id_1612( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F5 );
+    var_0 = maps\mp\bots\_bots_util::bot_find_node_that_protects_point( maps\mp\bots\_bots_util::_id_27A8(), self.bot_defending_radius );
 
     if ( isdefined( var_0 ) )
     {
@@ -1469,12 +1469,12 @@ _id_3762()
         self._id_24BB = var_0;
     }
     else
-        _id_1648( maps\mp\bots\_bots_util::_id_27A8(), undefined );
+        bot_handle_no_valid_defense_node( maps\mp\bots\_bots_util::_id_27A8(), undefined );
 }
 
 _id_375E()
 {
-    var_0 = maps\mp\bots\_bots_util::_id_1615( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F5 );
+    var_0 = maps\mp\bots\_bots_util::bot_find_node_to_guard_player( maps\mp\bots\_bots_util::_id_27A8(), self.bot_defending_radius );
 
     if ( isdefined( var_0 ) )
         self._id_24BB = var_0;
@@ -1492,7 +1492,7 @@ _id_375E()
 _id_3761()
 {
     var_0 = undefined;
-    var_1 = getnodesinradius( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F5, 0 );
+    var_1 = getnodesinradius( maps\mp\bots\_bots_util::_id_27A8(), self.bot_defending_radius, 0 );
 
     if ( isdefined( var_1 ) && var_1.size > 0 )
         var_0 = self botnodepick( var_1, 1 + var_1.size * 0.5, "node_traffic" );
@@ -1500,15 +1500,15 @@ _id_3761()
     if ( isdefined( var_0 ) )
         self._id_24BB = var_0;
     else
-        _id_1648( undefined, maps\mp\bots\_bots_util::_id_27A8() );
+        bot_handle_no_valid_defense_node( undefined, maps\mp\bots\_bots_util::_id_27A8() );
 }
 
-_id_1648( var_0, var_1 )
+bot_handle_no_valid_defense_node( var_0, var_1 )
 {
-    if ( self._id_15F7 == "capture_zone" )
-        self._id_24BC = maps\mp\bots\_bots_util::_id_16B6( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F3, ::_id_15CB );
+    if ( self.bot_defending_type == "capture_zone" )
+        self._id_24BC = maps\mp\bots\_bots_util::bot_pick_random_point_from_set( maps\mp\bots\_bots_util::_id_27A8(), self.bot_defending_nodes, ::bot_can_use_point_in_defend );
     else
-        self._id_24BC = maps\mp\bots\_bots_util::_id_16B7( maps\mp\bots\_bots_util::_id_27A8(), self._id_15F5, ::_id_15CB, 0.15, 0.9 );
+        self._id_24BC = maps\mp\bots\_bots_util::bot_pick_random_point_in_radius( maps\mp\bots\_bots_util::_id_27A8(), self.bot_defending_radius, ::bot_can_use_point_in_defend, 0.15, 0.9 );
 
     if ( isdefined( var_0 ) )
     {
@@ -1522,19 +1522,19 @@ _id_1648( var_0, var_1 )
     }
 }
 
-_id_15CB( var_0 )
+bot_can_use_point_in_defend( var_0 )
 {
-    if ( _id_15D5( var_0, 1, 1, 1 ) )
+    if ( bot_check_team_is_using_position( var_0, 1, 1, 1 ) )
         return 0;
 
     return 1;
 }
 
-_id_15D5( var_0, var_1, var_2, var_3 )
+bot_check_team_is_using_position( var_0, var_1, var_2, var_3 )
 {
-    for ( var_4 = 0; var_4 < level.participants.size; var_4++ )
+    for ( var_4 = 0; var_4 < level._id_669D.size; var_4++ )
     {
-        var_5 = level.participants[var_4];
+        var_5 = level._id_669D[var_4];
 
         if ( var_5.team == self.team && var_5 != self )
         {
@@ -1568,15 +1568,15 @@ _id_15D5( var_0, var_1, var_2, var_3 )
     return 0;
 }
 
-_id_15D3()
+bot_capture_zone_get_furthest_distance()
 {
     var_0 = 0;
 
-    if ( isdefined( self._id_15F3 ) )
+    if ( isdefined( self.bot_defending_nodes ) )
     {
-        foreach ( var_2 in self._id_15F3 )
+        foreach ( var_2 in self.bot_defending_nodes )
         {
-            var_3 = distance( self._id_15F2, var_2.origin );
+            var_3 = distance( self.bot_defending_center, var_2.origin );
             var_0 = max( var_3, var_0 );
         }
     }
@@ -1584,7 +1584,7 @@ _id_15D3()
     return var_0;
 }
 
-_id_1717()
+bot_think_tactical_goals()
 {
     self notify( "bot_think_tactical_goals" );
     self endon( "bot_think_tactical_goals" );
@@ -1596,11 +1596,11 @@ _id_1717()
 
     for (;;)
     {
-        if ( self._id_90AF.size > 0 && !maps\mp\bots\_bots_util::_id_1664() )
+        if ( self._id_90AF.size > 0 && !maps\mp\bots\_bots_util::bot_is_remote_or_linked() )
         {
             var_0 = self._id_90AF[0];
 
-            if ( !isdefined( var_0._id_06BA ) )
+            if ( !isdefined( var_0.abort ) )
             {
                 self notify( "start_tactical_goal" );
 
@@ -1617,15 +1617,15 @@ _id_1717()
                     self botclearscriptgoal();
 
                 self _meth_8352( var_0._id_424F, var_0._id_4250, var_1, var_0.goal_yaw, var_0._id_62F3, var_0.short_term_goal );
-                var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "stop_tactical_goal" );
+                var_2 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail( undefined, "stop_tactical_goal" );
                 self notify( "stop_goal_aborted_watch" );
 
                 if ( var_2 == "goal" )
                 {
-                    if ( isdefined( var_0._id_06ED ) )
+                    if ( isdefined( var_0.action_thread ) )
                     {
                         self.tactical_goal_in_action_thread = 1;
-                        self [[ var_0._id_06ED ]]( var_0 );
+                        self [[ var_0.action_thread ]]( var_0 );
                         self.tactical_goal_in_action_thread = 0;
                     }
                 }
@@ -1637,7 +1637,7 @@ _id_1717()
                     self [[ var_0._id_3151 ]]( var_0 );
             }
 
-            self._id_90AF = common_scripts\utility::_id_0CF6( self._id_90AF, var_0 );
+            self._id_90AF = common_scripts\utility::array_remove( self._id_90AF, var_0 );
         }
 
         wait 0.05;
@@ -1652,14 +1652,14 @@ _id_A1E4( var_0 )
 
     for (;;)
     {
-        if ( isdefined( var_0._id_06BA ) || isdefined( var_0._id_844D ) && self [[ var_0._id_844D ]]( var_0 ) )
+        if ( isdefined( var_0.abort ) || isdefined( var_0._id_844D ) && self [[ var_0._id_844D ]]( var_0 ) )
             self notify( "stop_tactical_goal" );
 
         wait 0.05;
     }
 }
 
-_id_16A9( var_0, var_1, var_2, var_3 )
+bot_new_tactical_goal( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawnstruct();
     var_4.type = var_0;
@@ -1667,7 +1667,7 @@ _id_16A9( var_0, var_1, var_2, var_3 )
 
     if ( isdefined( self._id_64B9 ) )
     {
-        if ( !common_scripts\utility::_id_0CE4( self._id_64B9, var_0 ) )
+        if ( !common_scripts\utility::array_contains( self._id_64B9, var_0 ) )
             return;
     }
 
@@ -1683,7 +1683,7 @@ _id_16A9( var_0, var_1, var_2, var_3 )
     var_4._id_8CC3 = var_3._id_8CC3;
     var_4._id_3151 = var_3._id_3151;
     var_4._id_844D = var_3._id_844D;
-    var_4._id_06ED = var_3._id_06ED;
+    var_4.action_thread = var_3.action_thread;
     var_4._id_62F3 = var_3._id_62F3;
     var_4.short_term_goal = var_3.short_term_goal;
     var_4.optional_params = var_3.optional_params;
@@ -1701,7 +1701,7 @@ _id_16A9( var_0, var_1, var_2, var_3 )
     self._id_90AF[var_5] = var_4;
 }
 
-_id_1649( var_0, var_1 )
+bot_has_tactical_goal( var_0, var_1 )
 {
     if ( !isdefined( self._id_90AF ) )
         return 0;
@@ -1733,7 +1733,7 @@ bot_get_active_tactical_goals_of_type( var_0 )
     {
         foreach ( var_3 in self._id_90AF )
         {
-            if ( !maps\mp\_utility::_id_5092( var_3._id_06BA ) && var_3.type == var_0 )
+            if ( !maps\mp\_utility::_id_5092( var_3.abort ) && var_3.type == var_0 )
                 var_1[var_1.size] = var_3;
         }
     }
@@ -1741,7 +1741,7 @@ bot_get_active_tactical_goals_of_type( var_0 )
     return var_1;
 }
 
-_id_15A1( var_0, var_1 )
+bot_abort_tactical_goal( var_0, var_1 )
 {
     if ( !isdefined( self._id_90AF ) )
         return;
@@ -1753,40 +1753,40 @@ _id_15A1( var_0, var_1 )
             if ( isdefined( var_1 ) )
             {
                 if ( isdefined( var_3._id_62E1 ) && var_3._id_62E1 == var_1 )
-                    var_3._id_06BA = 1;
+                    var_3.abort = 1;
 
                 continue;
             }
 
-            var_3._id_06BA = 1;
+            var_3.abort = 1;
         }
     }
 }
 
-_id_15F9()
+bot_disable_tactical_goals()
 {
     self._id_64B9[0] = "map_interactive_object";
 
     foreach ( var_1 in self._id_90AF )
     {
         if ( var_1.type != "map_interactive_object" )
-            var_1._id_06BA = 1;
+            var_1.abort = 1;
     }
 }
 
-_id_1604()
+bot_enable_tactical_goals()
 {
     self._id_64B9 = undefined;
 }
 
-_id_16A0()
+bot_melee_tactical_insertion_check()
 {
     var_0 = gettime();
 
     if ( !isdefined( self._id_553E ) || var_0 - self._id_553E > 1000 )
     {
         self._id_553E = var_0;
-        var_1 = _id_162B( "tacticalinsertion" );
+        var_1 = bot_get_ambush_trap_item( "tacticalinsertion" );
 
         if ( !isdefined( var_1 ) )
             return 0;
@@ -1814,7 +1814,7 @@ _id_16A0()
         if ( !isdefined( var_5 ) )
             return 0;
 
-        return _id_16E8( var_1, undefined, undefined, undefined, var_5 );
+        return bot_set_ambush_trap( var_1, undefined, undefined, undefined, var_5 );
     }
 
     return 0;

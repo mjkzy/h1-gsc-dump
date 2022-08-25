@@ -92,15 +92,15 @@ main()
     precacherumble( "generic_attack_heavy_1000" );
     maps\air_support_shared::air_support_precache();
     maps\_utility::_id_7DF3();
-    maps\_utility::_id_079C( "southern_hill", ::start_southern_hill, &"STARTS_SOUTHERNHILL" );
-    maps\_utility::_id_079C( "minigun_fallback", ::start_minigun_fallback, &"STARTS_MINIGUNFALLBACK" );
-    maps\_utility::_id_079C( "minigun", ::start_minigun, &"STARTS_MINIGUN" );
-    maps\_utility::_id_079C( "helidrop", ::start_helidrop, &"STARTS_HELIDROP" );
-    maps\_utility::_id_079C( "clackers", ::start_clackers, &"STARTS_CLACKERS" );
-    maps\_utility::_id_079C( "field_fallback", ::start_field_fallback, &"STARTS_FIELDFALLBACK" );
-    maps\_utility::_id_079C( "javelin", ::start_javelin, &"STARTS_JAVELIN" );
-    maps\_utility::_id_079C( "final_battle", ::start_final_battle, &"STARTS_FINALBATTLE" );
-    maps\_utility::_id_079C( "seaknight", ::start_seaknight, &"STARTS_SEAKNIGHT1" );
+    maps\_utility::add_start( "southern_hill", ::start_southern_hill, &"STARTS_SOUTHERNHILL" );
+    maps\_utility::add_start( "minigun_fallback", ::start_minigun_fallback, &"STARTS_MINIGUNFALLBACK" );
+    maps\_utility::add_start( "minigun", ::start_minigun, &"STARTS_MINIGUN" );
+    maps\_utility::add_start( "helidrop", ::start_helidrop, &"STARTS_HELIDROP" );
+    maps\_utility::add_start( "clackers", ::start_clackers, &"STARTS_CLACKERS" );
+    maps\_utility::add_start( "field_fallback", ::start_field_fallback, &"STARTS_FIELDFALLBACK" );
+    maps\_utility::add_start( "javelin", ::start_javelin, &"STARTS_JAVELIN" );
+    maps\_utility::add_start( "final_battle", ::start_final_battle, &"STARTS_FINALBATTLE" );
+    maps\_utility::add_start( "seaknight", ::start_seaknight, &"STARTS_SEAKNIGHT1" );
     maps\_utility::_id_278B( ::start_village_defend );
     createthreatbiasgroup( "player" );
     level.weaponclipmodels = [];
@@ -131,13 +131,13 @@ main()
     maps\_compass::setupminimap( "compass_map_village_defend" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C maps\_utility::_id_5926();
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_3C61 = getent( "redshirt2", "targetname" );
     level._id_3C61 maps\_utility::_id_5926();
-    level._id_3C61._id_0C72 = "gaz";
+    level._id_3C61.animname = "gaz";
     level.redshirt = getent( "redshirt1", "targetname" );
-    maps\_utility::_id_1332( "allies" );
-    maps\_utility::_id_1332( "axis" );
+    maps\_utility::battlechatter_off( "allies" );
+    maps\_utility::battlechatter_off( "axis" );
     setdvar( "village_defend_one_minute", "0" );
     common_scripts\utility::_id_383D( "intro_tank_fire_authorization" );
     common_scripts\utility::_id_383D( "church_tower_explodes" );
@@ -322,8 +322,8 @@ main()
     var_0[3] = 1.2;
     level.village_diff = var_0;
     level thread return_trip_enemy_acc_prep();
-    maps\_utility::_id_0764( "minigun_spin_left_trigger", &"SCRIPT_PLATFORM_SPOOL_MINIGUN", ::should_break_minigun_spin_hint );
-    maps\_utility::_id_0764( "minigun_spin_keyboard", &"SCRIPT_PLATFORM_SPOOL_MINIGUN_KEYBOARD", ::should_break_minigun_spin_hint );
+    maps\_utility::add_hint_string( "minigun_spin_left_trigger", &"SCRIPT_PLATFORM_SPOOL_MINIGUN", ::should_break_minigun_spin_hint );
+    maps\_utility::add_hint_string( "minigun_spin_keyboard", &"SCRIPT_PLATFORM_SPOOL_MINIGUN_KEYBOARD", ::should_break_minigun_spin_hint );
     level.playersafetyblocker = getent( "helo_safety_blocker", "targetname" );
     level.playersafetyblocker notsolid();
     level.playerheliblocker = getent( "heli_blocker", "targetname" );
@@ -391,7 +391,7 @@ start_southern_hill()
     level.player setorigin( var_0.origin );
     var_1 = getnode( "price_southern_start", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( var_1.origin );
+    level._id_6F7C _meth_81C9( var_1.origin );
     var_2 = getentarray( "introHillTrig", "targetname" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
@@ -413,7 +413,7 @@ start_minigun_fallback()
     level.player setorigin( var_0.origin );
     var_1 = getnode( "price_southern_start", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( var_1.origin );
+    level._id_6F7C _meth_81C9( var_1.origin );
     thread moveredshirts( "redshirt_southern_start1", "redshirt_southern_start2" );
     var_2 = getentarray( "introHillTrig", "targetname" );
 
@@ -439,8 +439,8 @@ start_minigun()
     level.player setorigin( var_0.origin );
     var_1 = getnode( "fallback_price", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( var_1.origin );
-    level._id_6F7C _meth_81a9( var_1 );
+    level._id_6F7C _meth_81C9( var_1.origin );
+    level._id_6F7C _meth_81A9( var_1 );
     thread moveredshirts( "fallback_redshirt1", "fallback_redshirt2" );
     thread southern_hill_mortars_killtimer();
     thread minigun_primary_attack();
@@ -465,8 +465,8 @@ start_helidrop()
     level.player setorigin( var_0.origin );
     var_1 = getnode( "fallback_price", "targetname" );
     level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81c9( var_1.origin );
-    level._id_6F7C _meth_81a9( var_1 );
+    level._id_6F7C _meth_81C9( var_1.origin );
+    level._id_6F7C _meth_81A9( var_1 );
     thread moveredshirts( "fallback_redshirt1", "fallback_redshirt2" );
     thread southern_hill_mortars_killtimer();
     thread minigun_primary_attack();
@@ -618,10 +618,10 @@ moveredshirts( var_0, var_1 )
     var_3 = getent( "redshirt2", "targetname" );
     var_4 = getnode( var_0, "targetname" );
     var_5 = getnode( var_1, "targetname" );
-    var_2 _meth_81c9( var_4.origin );
-    var_2 _meth_81a9( var_4 );
-    var_3 _meth_81c9( var_5.origin );
-    var_3 _meth_81a9( var_5 );
+    var_2 _meth_81C9( var_4.origin );
+    var_2 _meth_81A9( var_4 );
+    var_3 _meth_81C9( var_5.origin );
+    var_3 _meth_81A9( var_5 );
 }
 
 intro()
@@ -632,14 +632,14 @@ intro()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_0[var_1].dontavoidplayer = 1;
-        var_0[var_1]._id_1300 = 15;
+        var_0[var_1].baseaccuracy = 15;
     }
 
     var_0 = maps\_utility::_id_735E( var_0 );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        var_0[var_1] _meth_81ce( "crouch" );
+        var_0[var_1] _meth_81CE( "crouch" );
         var_0[var_1]._id_2AF3 = 1;
         var_0[var_1].ignoresuppression = 1;
     }
@@ -650,7 +650,7 @@ intro()
         var_2[var_1] notify( "trigger" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] _meth_81ce( "stand", "crouch", "prone" );
+        var_0[var_1] _meth_81CE( "stand", "crouch", "prone" );
 
     wait 18;
     var_3 = getnode( "price_intro_route", "targetname" );
@@ -662,7 +662,7 @@ intro()
     var_4 thread followscriptedpath( var_6, 0.75, "prone" );
     var_5 thread followscriptedpath( var_7, 0.75, "prone" );
     wait 1;
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "spreadout" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "spreadout" );
     common_scripts\utility::_id_383F( "objective_price_orders_southern_hill" );
     thread intro_ridgeline_check( level.player, "player_southern_start" );
     thread intro_ridgeline_check( level._id_6F7C, "price_southern_start" );
@@ -804,48 +804,48 @@ magic_sniper()
 
             if ( var_6.script_noteworthy == "spawnGas" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( var_6.script_noteworthy == "spawnRoad" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( var_6.script_noteworthy == "spawnRock" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( isdefined( var_6.targetname ) && var_6.targetname == "vanguard" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( var_6.script_noteworthy == "spawnHillFence" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( var_6.script_noteworthy == "spawnHillChurch" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( var_6.script_noteworthy == "spawnHillGraveyard" )
             {
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
                 continue;
             }
 
             if ( var_6.script_noteworthy == "spawnHillFlank" )
-                common_scripts\utility::_id_07A5( var_4, var_6 );
+                common_scripts\utility::add_to_array( var_4, var_6 );
         }
 
         if ( var_4.size == 0 )
@@ -904,7 +904,7 @@ southern_hill_vanguard_setup()
     {
         if ( isdefined( var_0[var_1] ) )
         {
-            var_0[var_1]._id_0C72 = "axis";
+            var_0[var_1].animname = "axis";
             var_0[var_1] maps\_utility::_id_7EAB( "patrolwalk_" + ( randomint( 5 ) + 1 ) );
             var_0[var_1] thread southern_hill_vanguard_nav();
             var_0[var_1] thread southern_hill_vanguard_wakeup();
@@ -937,7 +937,7 @@ southern_hill_vanguard_nav()
         }
     }
 
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = 2048;
     thread southern_hill_vanguard_aim();
 }
@@ -1013,8 +1013,8 @@ southern_hill_intro()
             {
                 var_4 = spawn( "script_origin", var_3.origin );
                 var_4.angles = var_3.angles;
-                var_3._id_0C72 = "detonator_guy";
-                var_4 maps\_anim::_id_0C24( var_3, "press_detonator" );
+                var_3.animname = "detonator_guy";
+                var_4 maps\_anim::anim_single_solo( var_3, "press_detonator" );
                 break;
             }
         }
@@ -1048,9 +1048,9 @@ southern_hill_ambush()
     setthreatbias( "axis", "allies", 0 );
     common_scripts\utility::_id_384A( "southern_hill_killzone_detonate" );
     wait 2;
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "openfire" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "openfire" );
     wait 1;
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
 }
 
 southern_hill_killzone_sequence()
@@ -1085,7 +1085,7 @@ southern_hill_killzone_sequence()
     }
 
     common_scripts\utility::_id_384A( "southern_hill_killzone_detonate" );
-    maps\_utility::_id_1333( "axis" );
+    maps\_utility::battlechatter_on( "axis" );
     thread killzone_detonation( var_0 );
     wait 1.25;
     thread killzone_detonation( var_1 );
@@ -1284,7 +1284,7 @@ saw_gunner_friendly()
         return;
 
     var_1 = getnode( "fallback_sasGunner", "targetname" );
-    level.sasgunner _meth_81a9( var_1 );
+    level.sasgunner _meth_81A9( var_1 );
     level.sasgunner thread hero();
     level.sasgunner.ignoresuppression = 1;
     common_scripts\utility::_id_384A( "objective_minigun_baglimit_done" );
@@ -1372,7 +1372,7 @@ southern_hill_mortars_timing( var_0, var_1, var_2 )
     level endon( var_1 );
     var_3 = getentarray( var_0, "targetname" );
 
-    for ( var_3 = common_scripts\utility::_id_0CF5( var_3 ); !common_scripts\utility::_id_382E( var_1 ); var_3 = common_scripts\utility::_id_0CF5( var_3 ) )
+    for ( var_3 = common_scripts\utility::array_randomize( var_3 ); !common_scripts\utility::_id_382E( var_1 ); var_3 = common_scripts\utility::array_randomize( var_3 ) )
     {
         for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         {
@@ -1422,7 +1422,7 @@ southern_hill_mortars_killplayer()
 minigun_fallback()
 {
     common_scripts\utility::_id_384A( "ridgeline_targeted" );
-    maps\_utility::_id_1143( "ridgeline_under_mortar_fire" );
+    maps\_utility::autosave_by_name( "ridgeline_under_mortar_fire" );
     var_0 = getent( "redshirt1", "targetname" );
     var_1 = getent( "redshirt2", "targetname" );
     var_2 = getnode( "fallback_redshirt1", "targetname" );
@@ -1431,21 +1431,21 @@ minigun_fallback()
     thread minigun_orders();
     wait 2;
     maps\_utility::_id_70C4( "twofallingback" );
-    var_0 _meth_81ce( "stand", "crouch", "prone" );
-    var_0 _meth_81a9( var_2 );
+    var_0 _meth_81CE( "stand", "crouch", "prone" );
+    var_0 _meth_81A9( var_2 );
     wait(randomfloatrange( 0.7, 1.2 ));
     maps\_utility::_id_70C4( "threeonthemove" );
-    var_1 _meth_81ce( "stand", "crouch", "prone" );
-    var_1 _meth_81a9( var_3 );
+    var_1 _meth_81CE( "stand", "crouch", "prone" );
+    var_1 _meth_81A9( var_3 );
     var_4 = getnode( "fallback_price", "targetname" );
-    level._id_6F7C _meth_81ce( "stand", "crouch", "prone" );
-    level._id_6F7C common_scripts\utility::_id_27CD( randomfloatrange( 0.5, 1.25 ), ::_meth_81a9, var_4 );
+    level._id_6F7C _meth_81CE( "stand", "crouch", "prone" );
+    level._id_6F7C common_scripts\utility::_id_27CD( randomfloatrange( 0.5, 1.25 ), ::_meth_81A9, var_4 );
     maps\_utility::_id_70C4( "easternroadlocked" );
-    level._id_6F7C._id_1300 = 1;
+    level._id_6F7C.baseaccuracy = 1;
     level._id_6F7C.ignoresuppression = 1;
-    var_0._id_1300 = 1;
+    var_0.baseaccuracy = 1;
     var_0.ignoresuppression = 1;
-    var_1._id_1300 = 1;
+    var_1.baseaccuracy = 1;
     var_1.ignoresuppression = 1;
     thread maps\village_defend_code::friendly_pushplayer( "off" );
     wait 5;
@@ -1480,7 +1480,7 @@ minigun_orders()
             maps\_utility::_id_70C4( "priceminiguninheli" );
 
         if ( var_0 == 4 )
-            level._id_3C61 maps\_anim::_id_0C21( level._id_3C61, "gazuseminigun" );
+            level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "gazuseminigun" );
 
         if ( var_0 == 5 )
         {
@@ -1590,7 +1590,7 @@ minigun_primary_attack()
     thread minigun_barbed_wire_detonate( "southern_hill_barbed_wire_wall_2", var_0 );
     wait 3;
     thread minigun_barbed_wire_detonate( "southern_hill_barbed_wire_wall_3", var_0 );
-    maps\_utility::_id_1143( "southwestern_flanking_assault" );
+    maps\_utility::autosave_by_name( "southwestern_flanking_assault" );
     thread minigun_breach_baglimit();
     var_1 = getnode( "southern_hill_breach_church", "targetname" );
     var_2 = getnode( "southern_hill_breach_graveyard", "targetname" );
@@ -1770,18 +1770,18 @@ helidrop()
     common_scripts\utility::_id_383F( "detonators_activate" );
     maps\_utility::_id_70C4( "nextdefensiveline" );
     var_1 = getnode( "clacker_fallback_price", "targetname" );
-    level._id_6F7C _meth_81a9( var_1 );
+    level._id_6F7C _meth_81A9( var_1 );
     level._id_6F7C thread hero_scripted_travel();
     var_2 = getent( "redshirt1", "targetname" );
     var_3 = getnode( "clacker_fallback_redshirt1", "targetname" );
-    var_2 _meth_81a9( var_3 );
+    var_2 _meth_81A9( var_3 );
     var_2 thread hero_scripted_travel();
     var_4 = getent( "redshirt2", "targetname" );
     var_5 = getnode( "clacker_fallback_redshirt2", "targetname" );
-    var_4 _meth_81a9( var_5 );
+    var_4 _meth_81A9( var_5 );
     var_4 thread hero_scripted_travel();
     var_6 = getnode( "clacker_fallback_sasGunner", "targetname" );
-    level.sasgunner _meth_81a9( var_6 );
+    level.sasgunner _meth_81A9( var_6 );
     level.sasgunner thread hero_scripted_travel();
     thread minigun_fallback_shouting_cancel();
     thread minigun_fallback_shouting();
@@ -1829,9 +1829,9 @@ hunt_player( var_0 )
     while ( self.goalradius > 640 )
     {
         if ( level.player istouching( var_1 ) )
-            self _meth_81a9( var_2 );
+            self _meth_81A9( var_2 );
         else
-            self _meth_81aa( level.player.origin );
+            self _meth_81AA( level.player.origin );
 
         self.goalradius *= level.encroachrate;
         self waittill( "goal" );
@@ -1908,7 +1908,7 @@ helidrop_clacker_divert( var_0 )
     var_3 = distance( var_1.origin, self.origin );
 
     if ( level.divertclackerrange < var_2 && var_3 < var_2 )
-        self _meth_81a9( var_1 );
+        self _meth_81A9( var_1 );
 
     common_scripts\utility::_id_384A( "fall_back_to_barn" );
 
@@ -1944,12 +1944,12 @@ tavern_storming_hints()
         wait 1;
 
         if ( var_0 < 1 )
-            level._id_3C61 maps\_anim::_id_0C21( level._id_3C61, "fallbackgeneric" );
+            level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "fallbackgeneric" );
 
         wait 1;
 
         if ( var_0 < 1 )
-            level._id_3C61 maps\_anim::_id_0C21( level._id_3C61, "fallbacktofarm3" );
+            level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "fallbacktofarm3" );
 
         wait 12;
         maps\_utility::_id_70C4( "fallbacktofarm2" );
@@ -1965,7 +1965,7 @@ tavern_stop_shouting()
     level notify( "stop_shouting_tavern" );
     common_scripts\utility::_id_383F( "player_running_to_farm" );
     common_scripts\utility::_id_383F( "can_save" );
-    maps\_utility::_id_1143( "running_to_farm" );
+    maps\_utility::autosave_by_name( "running_to_farm" );
 }
 
 clacker_primary_attack()
@@ -1981,7 +1981,7 @@ clacker_primary_attack()
     var_4 = getent( "nearfarslope_activation", "targetname" );
     var_4 waittill( "trigger" );
     common_scripts\utility::_id_383F( "player_entered_clacker_house_top_floor" );
-    maps\_utility::_id_1143( "player_entered_clacker_house" );
+    maps\_utility::autosave_by_name( "player_entered_clacker_house" );
     common_scripts\utility::_id_384A( "helidrop_started" );
 
     for (;;)
@@ -2334,7 +2334,7 @@ clacker_fire( var_0, var_1, var_2 )
         var_8 = var_7[var_6];
 
         if ( var_8 == var_4 )
-            var_7 = common_scripts\utility::_id_0CF6( var_7, var_8 );
+            var_7 = common_scripts\utility::array_remove( var_7, var_8 );
     }
 
     var_1 delete();
@@ -2358,7 +2358,7 @@ clacker_fire( var_0, var_1, var_2 )
     {
         common_scripts\utility::_id_383F( "fall_back_to_barn" );
         common_scripts\utility::_id_383F( "barn_assault_begins" );
-        maps\_utility::_id_1143( "clackers_all_used_up" );
+        maps\_utility::autosave_by_name( "clackers_all_used_up" );
         thread tavern_storming_delay();
     }
 }
@@ -2450,7 +2450,7 @@ javelin_init()
     common_scripts\utility::_id_384A( "fall_back_to_barn" );
     var_0 = spawn( "weapon_javelin", ( 1021.1, 7309.2, 1006.0 ), 1 );
     var_0.angles = ( 356.201, 346.91, -0.426635 );
-    var_0 thread maps\_utility::_id_076A( "kill_jav_glow" );
+    var_0 thread maps\_utility::add_jav_glow( "kill_jav_glow" );
     var_0 waittill( "trigger" );
     common_scripts\utility::_id_383F( "got_the_javelin" );
 }
@@ -2504,7 +2504,7 @@ tanks_engage( var_0 )
     for (;;)
     {
         var_2 waittill( "trigger" );
-        self _meth_825d( level.player.origin + ( 0.0, 0.0, 72.0 ) );
+        self _meth_825D( level.player.origin + ( 0.0, 0.0, 72.0 ) );
         common_scripts\utility::_id_A0A0( "turret_rotate_stopped", 8.0 );
         self fireweapon();
         wait 4;
@@ -2533,7 +2533,7 @@ tanks_deploy( var_0 )
         objective_string( 8, &"VILLAGE_DEFEND_DESTROY_THE_INCOMING", level.tankpop );
         objective_current( 8 );
         level notify( "tank_objectives_update" );
-        maps\_utility::_id_1151( "save_tank_destroyed_with_javelin", 10 );
+        maps\_utility::autosave_or_timeout( "save_tank_destroyed_with_javelin", 10 );
     }
     else
     {
@@ -2585,13 +2585,13 @@ field_fallback()
     var_4 = getnode( "field_fallback_price", "targetname" );
     var_5 = getnode( "field_fallback_sasGunner", "targetname" );
     common_scripts\utility::_id_384A( "fall_back_to_barn" );
-    var_0 _meth_81a9( var_2 );
+    var_0 _meth_81A9( var_2 );
     wait 2;
-    var_1 _meth_81a9( var_3 );
+    var_1 _meth_81A9( var_3 );
     wait 2;
-    level._id_6F7C _meth_81a9( var_4 );
+    level._id_6F7C _meth_81A9( var_4 );
     wait 5;
-    level.sasgunner _meth_81a9( var_5 );
+    level.sasgunner _meth_81A9( var_5 );
 }
 
 barn_fallback()
@@ -2603,13 +2603,13 @@ barn_fallback()
     var_4 = getnode( "barn_fallback_price", "targetname" );
     var_5 = getnode( "barn_fallback_sasGunner", "targetname" );
     common_scripts\utility::_id_384A( "got_the_javelin" );
-    var_0 _meth_81a9( var_1 );
+    var_0 _meth_81A9( var_1 );
     wait 1;
-    var_2 _meth_81a9( var_3 );
+    var_2 _meth_81A9( var_3 );
     wait 2;
-    level._id_6F7C _meth_81a9( var_4 );
+    level._id_6F7C _meth_81A9( var_4 );
     wait 3;
-    level.sasgunner _meth_81a9( var_5 );
+    level.sasgunner _meth_81A9( var_5 );
 }
 
 escape_fallback()
@@ -2624,10 +2624,10 @@ escape_fallback()
     common_scripts\utility::_id_384A( "arm_delaying_action" );
     var_0 waittill( "trigger" );
     common_scripts\utility::_id_383F( "lz_reached" );
-    var_3 _meth_81a9( var_4 );
-    level._id_6F7C _meth_81a9( var_5 );
-    level.sasgunner _meth_81a9( var_6 );
-    var_1 _meth_81a9( var_2 );
+    var_3 _meth_81A9( var_4 );
+    level._id_6F7C _meth_81A9( var_5 );
+    level.sasgunner _meth_81A9( var_6 );
+    var_1 _meth_81A9( var_2 );
 }
 
 final_battle()
@@ -2640,7 +2640,7 @@ final_battle()
         wait 5;
         common_scripts\utility::_id_384A( "falcon_one_finished_talking" );
         maps\_utility::_id_70C4( "etafourminutes" );
-        maps\_utility::_id_1143( "start_the_clock" );
+        maps\_utility::autosave_by_name( "start_the_clock" );
     }
 
     thread objective_stopwatch();
@@ -2654,7 +2654,7 @@ final_battle()
         {
             maps\_utility::_id_70C4( "pickingupSAMs" );
             thread escape_music();
-            level._id_3C61 maps\_anim::_id_0C21( level._id_3C61, "thatsjustgreat" );
+            level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "thatsjustgreat" );
             maps\_utility::_id_70C4( "lzbottomhill" );
             maps\_utility::_id_70C4( "takingthepiss" );
             maps\_utility::_id_70C4( "thenewlz" );
@@ -2677,16 +2677,16 @@ return_trip_friendly_boost()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         if ( level._id_3BFE == 0 )
-            var_0[var_1]._id_1300 = 12;
+            var_0[var_1].baseaccuracy = 12;
 
         if ( level._id_3BFE == 1 )
-            var_0[var_1]._id_1300 = 6;
+            var_0[var_1].baseaccuracy = 6;
 
         if ( level._id_3BFE == 2 )
-            var_0[var_1]._id_1300 = 2;
+            var_0[var_1].baseaccuracy = 2;
 
         if ( level._id_3BFE == 3 )
-            var_0[var_1]._id_1300 = 1.5;
+            var_0[var_1].baseaccuracy = 1.5;
     }
 }
 
@@ -2766,7 +2766,7 @@ _id_6302()
     objective_state( 2, "done" );
     objective_add( 3, "active", &"VILLAGE_DEFEND_DEFEND_THE_SOUTHERN_HILL", ( -732.0, -1473.0, 188.0 ) );
     objective_current( 3 );
-    maps\_utility::_id_1143( "ready_for_ambush" );
+    maps\_utility::autosave_by_name( "ready_for_ambush" );
     common_scripts\utility::_id_384A( "objective_price_orders_minigun" );
     objective_state( 3, "done" );
     common_scripts\utility::_id_3831( "aa_southernhill" );
@@ -2774,7 +2774,7 @@ _id_6302()
     objective_add( 4, "active", &"VILLAGE_DEFEND_FALL_BACK_AND_DEFEND", var_0.origin );
     objective_current( 4 );
     maps\_utility::arcademode_checkpoint( 4, "a" );
-    maps\_utility::_id_1143( "minigun_defense" );
+    maps\_utility::autosave_by_name( "minigun_defense" );
     common_scripts\utility::_id_384A( "objective_detonators" );
     objective_state( 4, "done" );
     common_scripts\utility::_id_3831( "aa_minigun" );
@@ -2782,7 +2782,7 @@ _id_6302()
     objective_add( 5, "active", &"VILLAGE_DEFEND_USE_THE_DETONATORS_IN", var_1[0].origin );
     objective_current( 5 );
     maps\_utility::arcademode_checkpoint( 5, "b" );
-    maps\_utility::_id_1143( "detonator_defense" );
+    maps\_utility::autosave_by_name( "detonator_defense" );
 
     for ( var_4 = 1; var_4 < var_1.size; var_4++ )
     {
@@ -2794,7 +2794,7 @@ _id_6302()
     objective_state( 5, "done" );
     common_scripts\utility::_id_3831( "aa_detonators" );
     common_scripts\utility::_id_383F( "aa_fallback" );
-    maps\_utility::_id_1143( "detonators_all_used_up" );
+    maps\_utility::autosave_by_name( "detonators_all_used_up" );
     objective_add( 6, "active", &"VILLAGE_DEFEND_FALL_BACK_TO_THE_FARM", var_2.origin );
     objective_current( 6 );
     maps\_utility::arcademode_checkpoint( 3.5, "c" );
@@ -2807,13 +2807,13 @@ _id_6302()
     objective_state( 6, "done" );
     common_scripts\utility::_id_3831( "aa_fallback" );
     common_scripts\utility::_id_383F( "aa_javelin" );
-    maps\_utility::_id_1143( "player_got_to_the_farm" );
+    maps\_utility::autosave_by_name( "player_got_to_the_farm" );
     objective_add( 7, "active", &"VILLAGE_DEFEND_GET_THE_JAVELIN_IN_THE", ( 1021.1, 7309.2, 1006.0 ) );
     objective_current( 7 );
     maps\_utility::arcademode_checkpoint( 2, "d" );
     common_scripts\utility::_id_384A( "got_the_javelin" );
     objective_state( 7, "done" );
-    maps\_utility::_id_1143( "got_javelin" );
+    maps\_utility::autosave_by_name( "got_javelin" );
     thread early_chopper();
     objective_add( 8, "active", "" );
     objective_string( 8, &"VILLAGE_DEFEND_DESTROY_THE_INCOMING", 4 );
@@ -2826,7 +2826,7 @@ _id_6302()
     objective_state( 8, "done" );
     common_scripts\utility::_id_3831( "aa_javelin" );
     common_scripts\utility::_id_383F( "aa_returntrip" );
-    maps\_utility::_id_1143( "tanks_cleared" );
+    maps\_utility::autosave_by_name( "tanks_cleared" );
     common_scripts\utility::_id_383F( "arm_delaying_action" );
     objective_add( 9, "active", &"VILLAGE_DEFEND_SURVIVE_UNTIL_THE_HELICOPTER" );
     objective_current( 9 );
@@ -2835,7 +2835,7 @@ _id_6302()
     common_scripts\utility::_id_384A( "objective_get_to_lz" );
     objective_add( 9, "active", &"VILLAGE_DEFEND_GET_TO_THE_LZ", var_3.origin );
     objective_current( 9 );
-    maps\_utility::_id_1143( "get_to_the_choppah" );
+    maps\_utility::autosave_by_name( "get_to_the_choppah" );
     maps\_utility::arcademode_checkpoint( 7, "g" );
     var_6 = length( level._id_6F7C.origin - level.player.origin );
     var_7 = getent( "price_seaknight_doppel", "targetname" );
@@ -2866,7 +2866,7 @@ _id_6302()
     objective_current( 11 );
     common_scripts\utility::_id_384A( "player_made_it" );
     maps\_utility::arcademode_checkpoint( 1.75, "h" );
-    maps\_utility::_id_1143( "inside_choppah" );
+    maps\_utility::autosave_by_name( "inside_choppah" );
     common_scripts\utility::_id_384A( "outtahere" );
     objective_state( 11, "done" );
     common_scripts\utility::_id_3831( "aa_returntrip" );
@@ -2903,7 +2903,7 @@ autosaves_safety( var_0, var_1, var_2 )
 
     if ( var_0 <= var_1 )
     {
-        maps\_utility::_id_1151( "return_trip_section", 10 );
+        maps\_utility::autosave_or_timeout( "return_trip_section", 10 );
 
         if ( var_2 )
             wait 3;
@@ -3242,12 +3242,12 @@ rescue_ride()
     level.player disableweapons();
     var_0 = maps\_utility::_id_88D1( "player_carry" );
     var_0 hide();
-    level.seaknight1 maps\_anim::_id_0BC7( var_0, "village_player_getin", "tag_detach" );
+    level.seaknight1 maps\_anim::anim_first_frame_solo( var_0, "village_player_getin", "tag_detach" );
     var_0 linkto( level.seaknight1, "tag_detach" );
     var_0 maps\_utility::_id_5696( "tag_player", 0.5, 0.9, 35, 35, 45, 0 );
     var_1 = [];
     var_1[var_1.size] = var_0;
-    level.seaknight1 maps\_anim::_id_0C18( var_1, "village_player_getin", "tag_detach" );
+    level.seaknight1 maps\_anim::anim_single( var_1, "village_player_getin", "tag_detach" );
     level.player enableweapons();
     level.player playerlinktodelta( var_0, "tag_player", 1, 20, 45, 5, 25 );
 }
@@ -3371,13 +3371,13 @@ followscriptedpath( var_0, var_1, var_2 )
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
         var_0 = var_3[var_4];
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
 
         if ( isdefined( var_0.radius ) )
             self.goalradius = var_0.radius;
 
         if ( isdefined( var_0._id_7AD9 ) )
-            self _meth_81ce( var_0._id_7AD9 );
+            self _meth_81CE( var_0._id_7AD9 );
 
         self waittill( "goal" );
 
@@ -3413,7 +3413,7 @@ friendly_setup()
 hero()
 {
     thread maps\_utility::_id_58D7();
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self.ignorerandombulletdamage = 1;
     self.ignoresuppression = 1;
 }
@@ -3492,7 +3492,7 @@ encroach_nav( var_0, var_1 )
 
         for ( var_6 = 0; var_6 < var_2.size; var_6++ )
         {
-            self _meth_81a9( var_2[var_6] );
+            self _meth_81A9( var_2[var_6] );
             self waittill( "goal" );
             wait(randomfloatrange( level.encroachminwait, level.encroachmaxwait ));
         }
@@ -3716,7 +3716,7 @@ ai_flank_route( var_0 )
 
     for (;;)
     {
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
 
         if ( isdefined( var_0.radius ) )
             self.goalradius = var_0.radius;
@@ -3777,7 +3777,7 @@ return_trip_enemy_acc_prep()
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
         var_1 = getentarray( var_0[var_2].target, "targetname" );
-        common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::return_trip_enemy_acc );
+        common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::return_trip_enemy_acc );
         var_1 = undefined;
         var_1 = [];
     }
@@ -3786,17 +3786,17 @@ return_trip_enemy_acc_prep()
 return_trip_enemy_acc()
 {
     common_scripts\utility::_id_384A( "start_final_battle" );
-    self._id_1300 = level.village_diff[level._id_3BFE];
+    self.baseaccuracy = level.village_diff[level._id_3BFE];
 }
 
 airstrike_hint_console()
 {
     maps\_utility::_id_48B0( &"VILLAGE_DEFEND_CLOSE_AIR_SUPPORT_STANDING" );
-    level._id_4B3E = maps\_hud_util::_id_2420( "hud_dpad", 32, 32 );
+    level._id_4B3E = maps\_hud_util::createIcon( "hud_dpad", 32, 32 );
     level._id_4B3E maps\_hud_util::setpoint( "TOP", undefined, -16, 165 );
-    level._id_4B3F = maps\_hud_util::_id_2420( "compass_objpoint_airstrike", 32, 32 );
+    level._id_4B3F = maps\_hud_util::createIcon( "compass_objpoint_airstrike", 32, 32 );
     level._id_4B3F maps\_hud_util::setpoint( "TOP", undefined, -15, 196 );
-    level._id_4B40 = maps\_hud_util::_id_2420( "hud_arrow_down", 24, 24 );
+    level._id_4B40 = maps\_hud_util::createIcon( "hud_arrow_down", 24, 24 );
     level._id_4B40 maps\_hud_util::setpoint( "TOP", undefined, -15.5, 170 );
     level._id_4B40.sort = 1;
     level._id_4B40.color = ( 1.0, 1.0, 0.0 );
@@ -3822,7 +3822,7 @@ airstrike_hint_pc()
 {
     maps\_utility::_id_48B0( &"VILLAGE_DEFEND_CLOSE_AIR_SUPPORT_STANDING_PC" );
     setomnvar( "ui_display_hud_for_equipment_motion", 1 );
-    level._id_4B3F = maps\_hud_util::_id_2420( "compass_objpoint_airstrike", 32, 32 );
+    level._id_4B3F = maps\_hud_util::createIcon( "compass_objpoint_airstrike", 32, 32 );
     level._id_4B3F maps\_hud_util::setpoint( "TOP", undefined, -15, 150 );
     wait 4;
     level._id_4B3F maps\_hud_util::setpoint( "TOP", undefined, -320, 460, 1.0 );
@@ -3839,13 +3839,13 @@ _id_1EBE()
     maps\_utility::_id_48CB( 0 );
 
     if ( isdefined( level._id_4B3E ) )
-        level._id_4B3E maps\_hud_util::_id_28E9();
+        level._id_4B3E maps\_hud_util::destroyElem();
 
     if ( isdefined( level._id_4B3F ) )
-        level._id_4B3F maps\_hud_util::_id_28E9();
+        level._id_4B3F maps\_hud_util::destroyElem();
 
     if ( isdefined( level._id_4B40 ) )
-        level._id_4B40 maps\_hud_util::_id_28E9();
+        level._id_4B40 maps\_hud_util::destroyElem();
 
     level notify( "clearing_hints" );
 }
@@ -3979,7 +3979,7 @@ _id_1A0B( var_0, var_1, var_2, var_3 )
         for (;;)
         {
             var_2 = ( 0, randomint( 360 ), 0 );
-            var_8 = animscripts\utility::_id_06C4( var_6 - var_2[1] );
+            var_8 = animscripts\utility::absangleclamp180( var_6 - var_2[1] );
 
             if ( var_8 < 180 - var_7 )
                 break;
@@ -4143,7 +4143,7 @@ callstrike_bombeffect( var_0, var_1, var_2 )
         var_3 = var_4;
         var_5 = var_3.origin;
         var_6 = var_3.angles;
-        playfxontag( level._id_099B, var_3, "tag_origin" );
+        playfxontag( level.airstrikefx, var_3, "tag_origin" );
         wait 1.6;
         var_7 = 12;
         var_8 = 5;
@@ -4217,11 +4217,11 @@ friendly_player_tracking_nav()
 
         if ( level.player istouching( var_0 ) )
         {
-            self _meth_81a9( var_1 );
+            self _meth_81A9( var_1 );
             continue;
         }
 
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
     }
 }
 

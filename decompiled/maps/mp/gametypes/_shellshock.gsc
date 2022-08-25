@@ -99,7 +99,7 @@ _id_2A70( var_0 )
     }
 }
 
-_id_14B8( var_0 )
+bloodeffect( var_0 )
 {
     self notify( "bloodEffect" );
     self endon( "bloodEffect" );
@@ -126,7 +126,7 @@ _id_14B8( var_0 )
     }
 }
 
-_id_14B9()
+bloodmeleeeffect()
 {
     self endon( "disconnect" );
     wait 0.5;
@@ -135,7 +135,7 @@ _id_14B9()
         common_scripts\utility::_id_A0A0( "death", 1.5 );
 }
 
-_id_196B()
+c4_earthquake()
 {
     thread _id_31B8();
     self endon( "end_explode" );
@@ -158,7 +158,7 @@ _id_196B()
     }
 }
 
-_id_12E5()
+barrel_earthquake()
 {
     var_0 = self.origin;
     playrumbleonposition( "grenade_rumble", var_0 );
@@ -179,7 +179,7 @@ _id_12E5()
     }
 }
 
-_id_0D32()
+artillery_earthquake()
 {
     var_0 = self.origin;
     playrumbleonposition( "artillery_rumble", self.origin );
@@ -220,7 +220,7 @@ _id_8E17( var_0 )
     }
 }
 
-_id_0999( var_0 )
+airstrike_earthquake( var_0 )
 {
     playrumbleonposition( "artillery_rumble", var_0 );
     earthquake( 0.7, 0.75, var_0, 1000 );

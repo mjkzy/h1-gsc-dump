@@ -34,5 +34,5 @@ main()
     self waittillmatch( "stepanim", "gravity on" );
     self _meth_8191( "gravity" );
     animscripts\shared::_id_2D06( "stepanim" );
-    self _meth_814b( %crouch_fastwalk_f, %body, 1, 0.1, 1 );
+    self _meth_814B( %crouch_fastwalk_f, %body, 1, 0.1, 1 );
 }

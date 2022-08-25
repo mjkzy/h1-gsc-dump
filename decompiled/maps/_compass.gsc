@@ -23,7 +23,7 @@ setupminimap( var_0, var_1 )
 {
     level._id_5C73 = var_0;
 
-    if ( !isdefined( level._id_05E5 ) && !isdefined( var_1 ) )
+    if ( !isdefined( level._loadstarted ) && !isdefined( var_1 ) )
     {
 
     }
@@ -97,7 +97,7 @@ setupminimap( var_0, var_1 )
     level._id_5980["right"] = var_9[0];
     level._id_5984 = level._id_5980["right"] - level._id_5980["left"];
     level._id_5981 = level._id_5980["top"] - level._id_5980["bottom"];
-    level.mapsize = vectordot( var_9 - var_10, var_7 );
+    level._id_5990 = vectordot( var_9 - var_10, var_7 );
     setminimap( var_0, var_9[0], var_9[1], var_10[0], var_10[1] );
 }
 

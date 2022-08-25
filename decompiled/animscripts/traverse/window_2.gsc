@@ -25,10 +25,10 @@ main()
     if ( self.type == "dog" )
         animscripts\traverse\shared::_id_2CBD( "wallhop", 40 );
     else
-        _id_0881( %windowclimb, 35 );
+        advancedwindowtraverse( %windowclimb, 35 );
 }
 
-_id_0881( var_0, var_1 )
+advancedwindowtraverse( var_0, var_1 )
 {
     var_2 = [];
     var_2["traverseAnim"] = var_0;

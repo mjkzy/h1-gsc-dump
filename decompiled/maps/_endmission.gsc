@@ -23,27 +23,27 @@ main()
 {
     var_0 = [];
     var_0 = _id_242B( "DEEP_AND_HARD" );
-    var_0 _id_07FD( "killhouse", 0, "EARN_A_WINGED_DAGGER", 1, undefined, undefined );
-    var_0 _id_07FD( "cargoship", 0, "MAKE_THE_JUMP", 1, "THE_PACKAGE", undefined );
-    var_0 _id_07FD( "coup", 0, undefined, 1, undefined, undefined );
-    var_0 _id_07FD( "blackout", 0, "DANCING_IN_THE_DARK", 1, "THE_RESCUE", undefined );
-    var_0 _id_07FD( "armada", 0, undefined, 1, "THE_SEARCH", undefined );
-    var_0 _id_07FD( "bog_a", 0, "SAVE_THE_BACON", 1, "THE_BOG", undefined );
-    var_0 _id_07FD( "hunted", 0, undefined, 1, "THE_ESCAPE", undefined );
-    var_0 _id_07FD( "ac130", 0, "DEATH_FROM_ABOVE", 1, "THE_ESCAPE", undefined );
-    var_0 _id_07FD( "bog_b", 0, undefined, 1, "THE_BOG", undefined );
-    var_0 _id_07FD( "airlift", 0, undefined, 1, "THE_FIRST_HORSEMAN", undefined );
-    var_0 _id_07FD( "aftermath", 0, undefined, 1, undefined, undefined );
-    var_0 _id_07FD( "village_assault", 0, "WRONG_NUMBER", 1, "THE_SECOND_HORSEMAN", undefined );
-    var_0 _id_07FD( "scoutsniper", 1, undefined, 1, "THE_SHOT", undefined );
-    var_0 _id_07FD( "sniperescape", 0, "PIGGYBACK_RIDE", 1, "THE_SHOT", undefined );
-    var_0 _id_07FD( "village_defend", 0, undefined, 1, "THE_THIRD_HORSEMAN", undefined );
-    var_0 _id_07FD( "ambush", 0, "DESPERATE_MEASURES", 1, "THE_THIRD_HORSEMAN", undefined );
-    var_0 _id_07FD( "icbm", 1, undefined, 1, "THE_ULTIMATUM", undefined );
-    var_0 _id_07FD( "launchfacility_a", 1, undefined, 1, "THE_ULTIMATUM", undefined );
-    var_0 _id_07FD( "launchfacility_b", 1, undefined, 1, "THE_ULTIMATUM", undefined );
-    var_0 _id_07FD( "jeepride", 0, undefined, 1, "THE_FOURTH_HORSEMAN", undefined );
-    var_0 _id_07FD( "airplane", 0, undefined, 1, "MILE_HIGH_CLUB", undefined );
+    var_0 addlevel( "killhouse", 0, "EARN_A_WINGED_DAGGER", 1, undefined, undefined );
+    var_0 addlevel( "cargoship", 0, "MAKE_THE_JUMP", 1, "THE_PACKAGE", undefined );
+    var_0 addlevel( "coup", 0, undefined, 1, undefined, undefined );
+    var_0 addlevel( "blackout", 0, "DANCING_IN_THE_DARK", 1, "THE_RESCUE", undefined );
+    var_0 addlevel( "armada", 0, undefined, 1, "THE_SEARCH", undefined );
+    var_0 addlevel( "bog_a", 0, "SAVE_THE_BACON", 1, "THE_BOG", undefined );
+    var_0 addlevel( "hunted", 0, undefined, 1, "THE_ESCAPE", undefined );
+    var_0 addlevel( "ac130", 0, "DEATH_FROM_ABOVE", 1, "THE_ESCAPE", undefined );
+    var_0 addlevel( "bog_b", 0, undefined, 1, "THE_BOG", undefined );
+    var_0 addlevel( "airlift", 0, undefined, 1, "THE_FIRST_HORSEMAN", undefined );
+    var_0 addlevel( "aftermath", 0, undefined, 1, undefined, undefined );
+    var_0 addlevel( "village_assault", 0, "WRONG_NUMBER", 1, "THE_SECOND_HORSEMAN", undefined );
+    var_0 addlevel( "scoutsniper", 1, undefined, 1, "THE_SHOT", undefined );
+    var_0 addlevel( "sniperescape", 0, "PIGGYBACK_RIDE", 1, "THE_SHOT", undefined );
+    var_0 addlevel( "village_defend", 0, undefined, 1, "THE_THIRD_HORSEMAN", undefined );
+    var_0 addlevel( "ambush", 0, "DESPERATE_MEASURES", 1, "THE_THIRD_HORSEMAN", undefined );
+    var_0 addlevel( "icbm", 1, undefined, 1, "THE_ULTIMATUM", undefined );
+    var_0 addlevel( "launchfacility_a", 1, undefined, 1, "THE_ULTIMATUM", undefined );
+    var_0 addlevel( "launchfacility_b", 1, undefined, 1, "THE_ULTIMATUM", undefined );
+    var_0 addlevel( "jeepride", 0, undefined, 1, "THE_FOURTH_HORSEMAN", undefined );
+    var_0 addlevel( "airplane", 0, undefined, 1, "MILE_HIGH_CLUB", undefined );
 
     if ( isdefined( level._id_31B6 ) )
     {
@@ -62,7 +62,7 @@ _id_2710()
     while ( getdvarint( "test_next_mission" ) < 1 )
         wait 3;
 
-    _id_05FF();
+    _nextmission();
 }
 
 _setmissiondvar( var_0, var_1 )
@@ -74,13 +74,13 @@ _setmissiondvar( var_0, var_1 )
         return;
 }
 
-_id_05FF()
+_nextmission()
 {
     level notify( "achievements_level_complete" );
     level._id_60D6 = 1;
     level.player enableinvulnerability();
 
-    if ( maps\_utility::_id_0CC3() )
+    if ( maps\_utility::arcademode() )
     {
         level.arcademode_success = 1;
         thread maps\_arcademode::arcademode_ends();
@@ -92,7 +92,7 @@ _id_05FF()
     setdvar( "ui_showPopup", "0" );
     setdvar( "ui_popupString", "" );
     game["previous_map"] = level.script;
-    maps\_gameskill::_id_1123( "aa_main_" + level.script );
+    maps\_gameskill::auto_adust_zone_complete( "aa_main_" + level.script );
     var_0 = level._id_5CE0 _id_4000( level.script );
 
     if ( !isdefined( var_0 ) )
@@ -126,7 +126,7 @@ _id_05FF()
     {
         if ( getdvarint( "arcademode_full" ) )
         {
-            level.player _meth_84ed( &"AIRPLANE_CAMPAIGN_COMPLETED" );
+            level.player _meth_84ED( &"AIRPLANE_CAMPAIGN_COMPLETED" );
             level.player waittill( "menuresponse" );
         }
 
@@ -138,7 +138,7 @@ _id_05FF()
     {
         if ( var_1 != level._id_5CE0 isallmisioncompleted() )
         {
-            level.player _meth_84ed( &"campaign_completed_popup" );
+            level.player _meth_84ED( &"campaign_completed_popup" );
             level.player waittill( "menuresponse", var_3, var_4 );
 
             if ( var_4 == "quit" )
@@ -159,7 +159,7 @@ _id_05FF()
     }
     else
     {
-        if ( maps\_utility::_id_0CC3() )
+        if ( maps\_utility::arcademode() )
         {
             if ( !getdvarint( "arcademode_full" ) )
             {
@@ -322,11 +322,11 @@ _id_7F9F( var_0 )
             var_5 = var_6;
     }
 
-    _id_0636( var_5 );
-    _id_063A( var_2 );
+    _sethighestmissionifnotcheating( var_5 );
+    _setmissiondiffstringifnotcheating( var_2 );
 }
 
-_id_0636( var_0 )
+_sethighestmissionifnotcheating( var_0 )
 {
     if ( maps\_cheat::is_cheating() || common_scripts\utility::_id_382E( "has_cheated" ) )
         return;
@@ -337,7 +337,7 @@ _id_0636( var_0 )
     level.player _meth_8213( "highestMission", var_0 );
 }
 
-_id_063A( var_0 )
+_setmissiondiffstringifnotcheating( var_0 )
 {
     if ( maps\_cheat::is_cheating() || common_scripts\utility::_id_382E( "has_cheated" ) )
         return;
@@ -420,13 +420,13 @@ _id_242B( var_0 )
     return var_1;
 }
 
-_id_07FD( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+addlevel( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = self._id_56E5.size;
     self._id_56E5[var_7] = spawnstruct();
     self._id_56E5[var_7].name = var_0;
     self._id_56E5[var_7]._id_52E4 = var_1;
-    self._id_56E5[var_7]._id_06DF = var_2;
+    self._id_56E5[var_7].achievement = var_2;
     self._id_56E5[var_7]._id_85C2 = var_3;
     self._id_56E5[var_7]._id_9D93 = var_4;
 
@@ -434,7 +434,7 @@ _id_07FD( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         self._id_56E5[var_7]._id_35E9 = var_5;
 }
 
-_id_0821( var_0 )
+addprereq( var_0 )
 {
     var_1 = self._id_6F1E.size;
     self._id_6F1E[var_1] = var_0;
@@ -463,7 +463,7 @@ _id_3FDE( var_0 )
 
 _id_3ED8( var_0 )
 {
-    return self._id_56E5[var_0]._id_06DF;
+    return self._id_56E5[var_0].achievement;
 }
 
 _id_4003( var_0 )
@@ -489,7 +489,7 @@ _id_4734( var_0 )
 
 _id_4713( var_0 )
 {
-    if ( isdefined( self._id_56E5[var_0]._id_06DF ) )
+    if ( isdefined( self._id_56E5[var_0].achievement ) )
         return 1;
     else
         return 0;

@@ -61,7 +61,7 @@ _id_5625()
     thread play_hind_post_tanker_explosion();
     thread play_hind_open_tunnel_arrival();
     thread play_hind_last_tunnel_scripted_sfx();
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "presideswipe", "script_noteworthy" ), ::presideswipe );
+    common_scripts\utility::array_thread( getvehiclenodearray( "presideswipe", "script_noteworthy" ), ::presideswipe );
 }
 
 _id_5618()
@@ -121,55 +121,55 @@ _id_5FFD( var_0, var_1 )
 aud_start_checkpoint( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "jeep_ride_mix" );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", undefined );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", undefined );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_first_hind_checkpoint( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "jeep_ride_mix" );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", undefined );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", undefined );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_against_traffic_checkpoint( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "jeep_ride_mix" );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", undefined );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", undefined );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_final_stretch_checkpoint( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "jeep_ride_mix" );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", undefined );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", undefined );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_bridge_explode_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", undefined );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", undefined );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_bridge_combat_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_bridge_zak_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_bridge_rescue_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_nowhere_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 remove_intro_mute()
@@ -204,7 +204,7 @@ start_rescue_mix()
 
 start_bridge_collapse_mix()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_jeepride_ext1", 0.1 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_jeepride_ext1", 0.1 );
     soundscripts\_audio_mix_manager::_id_5CF6( "bridge_uaz_crash_mix" );
     soundscripts\_audio_mix_manager::_id_5CF2( "bridge_collapsing_mix" );
     thread handle_bridge_collapse_mix();
@@ -220,7 +220,7 @@ handle_bridge_collapse_mix()
 
 start_post_bridge_explosion()
 {
-    soundscripts\_audio_zone_manager::_id_122C( 1 );
+    soundscripts\_audio_zone_manager::azm_set_filter_bypass( 1 );
     soundscripts\_snd_filters::_id_86DB( "post_bridge_exp_filter", 0.5 );
     level.player thread common_scripts\utility::_id_6975( "flashbang_tinnitus_loop", undefined, 0.5, 2 );
 }
@@ -230,7 +230,7 @@ stop_post_bridge_explosion()
     soundscripts\_snd_filters::_id_86DC( 4 );
     level.player common_scripts\utility::_id_8EA1( "flashbang_tinnitus_loop" );
     wait 4;
-    soundscripts\_audio_zone_manager::_id_122C( 0 );
+    soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
 }
 
 start_last_whitescreen_mix()
@@ -265,7 +265,7 @@ handle_scripted_sfx_node( var_0 )
         var_2 playsound( var_0[1] );
 
     if ( isdefined( var_0[2] ) )
-        var_2 _meth_854d( var_0[2] );
+        var_2 _meth_854D( var_0[2] );
 
     if ( isdefined( var_0[3] ) )
         soundscripts\_audio_mix_manager::_id_5CF2( var_0[3] );
@@ -518,7 +518,7 @@ tunnel_crash_truck02( var_0 )
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "bmp_accelerate_mix" );
     var_0 thread maps\_utility::_id_69C5( "scn_bmp_first_tunnel_crash_01", "body_animate_jnt" );
-    var_0 _meth_854d( "scn_sideswipe_bmp_accelerate_01" );
+    var_0 _meth_854D( "scn_sideswipe_bmp_accelerate_01" );
 }
 
 play_bridge_collapse_sfx( var_0, var_1 )

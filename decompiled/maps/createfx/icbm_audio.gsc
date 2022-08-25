@@ -27,5 +27,5 @@ main()
 _id_4CB2()
 {
     waitframe;
-    maps\_anim::_id_0818( "tower", "explosion", "scn_icbm_tower_exp_sweet" );
+    maps\_anim::addonstart_animsound( "tower", "explosion", "scn_icbm_tower_exp_sweet" );
 }

@@ -79,7 +79,7 @@ _id_4C9F()
     var_0["saw_stand"] = %saw_gunner_pain;
     var_0["saw_crouch"] = %saw_gunner_lowwall_pain_02;
     var_0["saw_prone"] = %saw_gunner_prone_pain;
-    anim._id_0CCA["soldier"]["pain"] = var_0;
+    anim.archetypes["soldier"]["pain"] = var_0;
     var_0 = [];
     var_0["prone_transition"] = [ %dying_crawl_2_back ];
     var_0["stand_transition"] = [ %dying_stand_2_back_v1, %dying_stand_2_back_v2 ];
@@ -101,20 +101,20 @@ _id_4C9F()
     var_0["longdeath"]["gut_l"] = [ [ %stand_2_longdeath_gut_l, %longdeath_gut_l_walk, %longdeath_gut_l_impact ] ];
     var_0["longdeath"]["gut_r"] = [ [ %stand_2_longdeath_gut_r, %longdeath_gut_r_walk, %longdeath_gut_r_impact ] ];
     var_0["longdeath"]["leg_b"] = [ [ %stand_2_longdeath_wander_leg_1, %longdeath_wander_leg_1, %longdeath_wander_leg_collapse_1, %longdeath_wander_leg_death ], [ %stand_2_longdeath_wander_leg_2, %longdeath_wander_leg_2, %longdeath_wander_leg_collapse_2, %longdeath_wander_leg_death ], [ %stand_2_longdeath_leg_wounded_b_1, %longdeath_leg_wounded_b_walk_1, %longdeath_leg_wounded_b_collapse_1 ], [ %stand_2_longdeath_leg_wounded_b_2, %longdeath_leg_wounded_b_walk_2, %longdeath_leg_wounded_b_collapse_2 ] ];
-    anim._id_0CCA["soldier"]["crawl_death"] = var_0;
+    anim.archetypes["soldier"]["crawl_death"] = var_0;
     var_0 = [];
     var_0["pain"] = %corner_standr_death_grenade_hit;
     var_0["idle"] = %corner_standr_death_grenade_idle;
     var_0["release"] = %corner_standr_death_grenade_slump;
     var_0["premature_death"] = [ %dying_back_death_v1, %dying_back_death_v2, %dying_back_death_v3, %dying_back_death_v4 ];
-    anim._id_0CCA["soldier"]["corner_grenade_death"] = var_0;
+    anim.archetypes["soldier"]["corner_grenade_death"] = var_0;
     var_0 = [];
     var_0["default"] = [ %pain_add_standing_belly, %pain_add_standing_left_arm, %pain_add_standing_right_arm ];
     var_0["left_arm"] = %pain_add_standing_left_arm;
     var_0["right_arm"] = %pain_add_standing_right_arm;
     var_0["left_leg"] = %pain_add_standing_left_leg;
     var_0["right_leg"] = %pain_add_standing_right_leg;
-    anim._id_0CCA["soldier"]["additive_pain"] = var_0;
+    anim.archetypes["soldier"]["additive_pain"] = var_0;
 }
 
 shouldplaypreh1painanim()
@@ -225,9 +225,9 @@ end_script()
         self._id_6EEA = undefined;
     }
 
-    if ( isdefined( self._id_14B4 ) )
+    if ( isdefined( self.blockingpain ) )
     {
-        self._id_14B4 = undefined;
+        self.blockingpain = undefined;
         self.allowpain = 1;
     }
 
@@ -376,7 +376,7 @@ removeblockedanims( var_0 )
         var_3 = getmovedelta( var_0[var_2], 0, 1 );
         var_4 = self localtoworldcoords( var_3 );
 
-        if ( self _meth_81c7( var_4 ) )
+        if ( self _meth_81C7( var_4 ) )
             var_1[var_1.size] = var_0[var_2];
     }
 
@@ -386,7 +386,7 @@ removeblockedanims( var_0 )
 getrunningforwardpainanim_preh1()
 {
     verifypreh1();
-    var_0 = animscripts\utility::_id_0CD8( %run_pain_fallonknee, %run_pain_fallonknee_02, %run_pain_fallonknee_03, %run_pain_stomach, %run_pain_stumble );
+    var_0 = animscripts\utility::array( %run_pain_fallonknee, %run_pain_fallonknee_02, %run_pain_fallonknee_03, %run_pain_stomach, %run_pain_stumble );
     var_0 = removeblockedanims( var_0 );
 
     if ( !var_0.size )
@@ -406,12 +406,12 @@ _id_40BF()
     var_2 = 0;
     var_3 = 0;
 
-    if ( self _meth_81c7( self localtoworldcoords( ( 300.0, 0.0, 0.0 ) ) ) )
+    if ( self _meth_81C7( self localtoworldcoords( ( 300.0, 0.0, 0.0 ) ) ) )
     {
         var_2 = 1;
         var_1 = 1;
     }
-    else if ( self _meth_81c7( self localtoworldcoords( ( 200.0, 0.0, 0.0 ) ) ) )
+    else if ( self _meth_81C7( self localtoworldcoords( ( 200.0, 0.0, 0.0 ) ) ) )
         var_1 = 1;
 
     if ( isdefined( self.a._id_2B1A ) )
@@ -424,7 +424,7 @@ _id_40BF()
         var_0 = animscripts\utility::_id_5863( "pain", "run_long" );
     else if ( var_1 )
         var_0 = animscripts\utility::_id_5863( "pain", "run_medium" );
-    else if ( self _meth_81c7( self localtoworldcoords( ( 120.0, 0.0, 0.0 ) ) ) )
+    else if ( self _meth_81C7( self localtoworldcoords( ( 120.0, 0.0, 0.0 ) ) ) )
         var_0 = animscripts\utility::_id_5863( "pain", "run_short" );
 
     if ( !var_0.size )
@@ -460,10 +460,10 @@ _id_40EB()
         var_0 = animscripts\utility::_id_5863( "pain", "pistol_right_arm_lower" );
 
     if ( var_0.size < 2 )
-        var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "pistol_default1" ) );
+        var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "pistol_default1" ) );
 
     if ( var_0.size < 2 )
-        var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "pistol_default2" ) );
+        var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "pistol_default2" ) );
 
     return var_0[randomint( var_0.size )];
 }
@@ -604,13 +604,13 @@ _id_40E9()
     if ( var_0.size < 2 )
     {
         if ( !self.a._id_2B18 )
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "default_long" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "default_long" ) );
         else
-            var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "default_short" ) );
+            var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "default_short" ) );
     }
 
     if ( var_1.size < 2 )
-        var_1 = common_scripts\utility::_id_0CDD( var_1, animscripts\utility::_id_5863( "pain", "default_extended" ) );
+        var_1 = common_scripts\utility::array_combine( var_1, animscripts\utility::_id_5863( "pain", "default_extended" ) );
 
     if ( !self.damageshield && !self.a._id_2B18 )
     {
@@ -659,13 +659,13 @@ _id_3F42()
     if ( !self.damageshield && !self.a._id_2B18 )
         var_0 = animscripts\utility::_id_5863( "pain", "crouch_longdeath" );
 
-    var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "crouch_default" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "crouch_default" ) );
 
     if ( animscripts\utility::_id_25A6( "left_hand", "left_arm_lower", "left_arm_upper" ) )
-        var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "crouch_left_arm" ) );
+        var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "crouch_left_arm" ) );
 
     if ( animscripts\utility::_id_25A6( "right_hand", "right_arm_lower", "right_arm_upper" ) )
-        var_0 = common_scripts\utility::_id_0CDD( var_0, animscripts\utility::_id_5863( "pain", "crouch_right_arm" ) );
+        var_0 = common_scripts\utility::array_combine( var_0, animscripts\utility::_id_5863( "pain", "crouch_right_arm" ) );
 
     return var_0[randomint( var_0.size )];
 }
@@ -694,12 +694,12 @@ playpainanim_preh1( var_0 )
     if ( isdefined( self._id_58D7 ) )
         var_1 = 1.5;
     else
-        var_1 = self._id_0C78;
+        var_1 = self.animplaybackrate;
 
     self setflaggedanimknoballrestart( "painanim", var_0, %body, 1, 0.1, var_1 );
 
     if ( self.a._id_6E5A == "prone" )
-        self _meth_81fe( %prone_legs_up, %prone_legs_down, 1, 0.1, 1 );
+        self _meth_81FE( %prone_legs_up, %prone_legs_down, 1, 0.1, 1 );
 
     if ( animhasnotetrack( var_0, "start_aim" ) )
     {
@@ -723,7 +723,7 @@ _id_6DCE( var_0 )
     _id_664D( "painanim", var_0, %body, 1, 0.1, var_1 );
 
     if ( self.a._id_6E5A == "prone" )
-        self _meth_81fe( %prone_legs_up, %prone_legs_down, 1, 0.1, 1 );
+        self _meth_81FE( %prone_legs_up, %prone_legs_down, 1, 0.1, 1 );
 
     if ( animhasnotetrack( var_0, "start_aim" ) )
     {
@@ -747,10 +747,10 @@ _id_6235( var_0 )
 _id_8A34()
 {
     self endon( "killanimscript" );
-    self._id_14B4 = 1;
+    self.blockingpain = 1;
     self.allowpain = 0;
     wait 0.5;
-    self._id_14B4 = undefined;
+    self.blockingpain = undefined;
     self.allowpain = 1;
 }
 
@@ -799,7 +799,7 @@ _id_8A33( var_0 )
 
             break;
         case "cover_right_stand_A":
-            if ( self._id_1C86 || isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
+            if ( self._id_1C86 || isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
                 var_2 = 0;
             else
             {
@@ -1042,7 +1042,7 @@ _id_50EC( var_0 )
 
     var_1 = getmovedelta( var_0, 0, 1 );
     var_2 = self localtoworldcoords( var_1 );
-    return self _meth_81c7( var_2 );
+    return self _meth_81C7( var_2 );
 }
 
 _id_2391()
@@ -1096,7 +1096,7 @@ _id_2391()
 
     while ( _id_84B3() )
     {
-        if ( animscripts\utility::_id_1AE1() && _id_0977() )
+        if ( animscripts\utility::_id_1AE1() && aimedsomewhatatenemy() )
         {
             var_1 = animscripts\utility::_id_5863( "crawl_death", "back_fire" );
             _id_664E( "back_idle_or_fire", var_1, 1, 0.2, 1.0 );
@@ -1117,7 +1117,7 @@ _id_2391()
 
         while ( var_3 > 0 )
         {
-            if ( animscripts\utility::_id_1AE1() && _id_0977() )
+            if ( animscripts\utility::_id_1AE1() && aimedsomewhatatenemy() )
                 break;
 
             var_4 = 0.5;
@@ -1201,7 +1201,7 @@ _id_8484( var_0 )
             return;
     }
 
-    if ( !self _meth_81c7( var_7 ) )
+    if ( !self _meth_81C7( var_7 ) )
         return;
 
     var_9 = animscripts\utility::_id_5863( "crawl_death", "longdeath" );
@@ -1224,7 +1224,7 @@ _id_8F6F()
         var_3 = anglestoforward( self.angles );
         var_4 = self.origin + var_3 * var_0;
 
-        if ( !self _meth_81c7( var_4 ) )
+        if ( !self _meth_81C7( var_4 ) )
             break;
 
         _id_664E( "stumblingPain", self.a._id_8F70[1] );
@@ -1389,8 +1389,8 @@ _id_2FD5()
         return;
 
     self._id_2FD4 = 1;
-    self _meth_814e( animscripts\utility::_id_5863( "crawl_death", "aim_4" ), 1, 0 );
-    self _meth_814e( animscripts\utility::_id_5863( "crawl_death", "aim_6" ), 1, 0 );
+    self _meth_814E( animscripts\utility::_id_5863( "crawl_death", "aim_4" ), 1, 0 );
+    self _meth_814E( animscripts\utility::_id_5863( "crawl_death", "aim_6" ), 1, 0 );
     var_0 = 0;
 
     for (;;)
@@ -1409,8 +1409,8 @@ _id_2FD5()
                 var_1 = -45.0;
 
             var_3 = var_1 / -45.0;
-            self _meth_814d( %dying_back_aim_4_wrapper, var_3, 0.05 );
-            self _meth_814d( %dying_back_aim_6_wrapper, 0, 0.05 );
+            self _meth_814D( %dying_back_aim_4_wrapper, var_3, 0.05 );
+            self _meth_814D( %dying_back_aim_6_wrapper, 0, 0.05 );
         }
         else
         {
@@ -1418,8 +1418,8 @@ _id_2FD5()
                 var_1 = 45.0;
 
             var_3 = var_1 / 45.0;
-            self _meth_814d( %dying_back_aim_6_wrapper, var_3, 0.05 );
-            self _meth_814d( %dying_back_aim_4_wrapper, 0, 0.05 );
+            self _meth_814D( %dying_back_aim_6_wrapper, var_3, 0.05 );
+            self _meth_814D( %dying_back_aim_4_wrapper, 0, 0.05 );
         }
 
         var_0 = var_1;
@@ -1442,7 +1442,7 @@ _id_464C( var_0 )
         if ( !animscripts\utility::_id_1AE1() )
             return 1;
 
-        if ( !_id_0977() )
+        if ( !aimedsomewhatatenemy() )
             return 1;
 
         animscripts\utility::_id_83F2();
@@ -1457,16 +1457,16 @@ _id_464C( var_0 )
     return 0;
 }
 
-_id_0977()
+aimedsomewhatatenemy()
 {
     if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
         var_0 = animscripts\combat_utility::_id_3DB2( self.enemy );
     else
         var_0 = self.enemy getshootatpos();
 
-    var_1 = self _meth_81bd();
-    var_2 = vectortoangles( var_0 - self _meth_81bc() );
-    var_3 = animscripts\utility::_id_06C4( var_1[1] - var_2[1] );
+    var_1 = self _meth_81BD();
+    var_2 = vectortoangles( var_0 - self _meth_81BC() );
+    var_3 = animscripts\utility::absangleclamp180( var_1[1] - var_2[1] );
 
     if ( var_3 > anim._id_6663 )
     {
@@ -1474,7 +1474,7 @@ _id_0977()
             return 0;
     }
 
-    return animscripts\utility::_id_06C4( var_1[0] - var_2[0] ) <= anim._id_665B;
+    return animscripts\utility::absangleclamp180( var_1[0] - var_2[0] ) <= anim._id_665B;
 }
 
 _id_32B1( var_0 )
@@ -1753,7 +1753,7 @@ _id_A215()
     }
 }
 
-_id_07F0( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+additive_pain( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     self endon( "death" );
 
@@ -1789,8 +1789,8 @@ _id_07F0( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         var_7 = var_8[randomint( var_8.size )];
     }
 
-    self _meth_814e( %add_pain, 1, 0.1, 1 );
-    self _meth_814e( var_7, 1, 0, 1 );
+    self _meth_814E( %add_pain, 1, 0.1, 1 );
+    self _meth_814E( var_7, 1, 0, 1 );
     wait 0.4;
     self _meth_8144( var_7, 0.2 );
     self _meth_8144( %add_pain, 0.2 );

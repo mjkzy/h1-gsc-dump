@@ -21,7 +21,7 @@
 
 _id_2E58()
 {
-    _id_0D63();
+    assign_drone_tree();
     self startusingheroonlylighting();
 
     if ( isdefined( self._id_7A41 ) )
@@ -43,7 +43,7 @@ _id_2E58()
     if ( !isdefined( self._id_79ED ) )
         level thread maps\_friendlyfire::_id_3A59( self );
 
-    if ( !isdefined( level._id_08DD ) )
+    if ( !isdefined( level.ai_dont_glow_in_thermal ) )
         _id_9302();
 }
 
@@ -184,25 +184,25 @@ _id_2E62()
     }
 }
 
-_id_0D63()
+assign_drone_tree()
 {
     if ( isdefined( self.type ) )
     {
         if ( self.type == "dog" )
-            _id_0D60();
+            assign_animals_tree();
         else
-            _id_0D65();
+            assign_generic_human_tree();
     }
 }
 #using_animtree("generic_human");
 
-_id_0D65()
+assign_generic_human_tree()
 {
     self useanimtree( #animtree );
 }
 #using_animtree("animals");
 
-_id_0D60()
+assign_animals_tree()
 {
     self useanimtree( #animtree );
 }

@@ -43,7 +43,7 @@ main( var_0 )
 ai_generic_main()
 {
     var_0 = getspawnerarray();
-    common_scripts\utility::_id_0D13( var_0, ::ai_special_parameters );
+    common_scripts\utility::array_thread( var_0, ::ai_special_parameters );
 }
 
 ai_special_parameters()
@@ -179,7 +179,7 @@ ai_nodebeforecolor_think()
     }
 
     wait 0.05;
-    var_1 _meth_81a9( var_0 );
+    var_1 _meth_81A9( var_0 );
 
     if ( isdefined( var_0.radius ) )
         var_1.goalradius = var_0.radius;
@@ -440,7 +440,7 @@ friendly_main()
     level.friendly_globals.cur_num = 0;
     level.friendly_globals.force_this_color = [];
     var_0 = getentarray( "friendly_spawner", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, ::friendly_trigger_think );
+    common_scripts\utility::array_thread( var_0, ::friendly_trigger_think );
     thread friendly_logic();
 }
 
@@ -478,7 +478,7 @@ friendly_cycle_spawner()
 
         if ( self.spawner_array[self.spawner_index] maps\_utility::_id_1CC0( level.friendly_globals.force_this_color[level.friendly_globals.force_this_color.size - 1] ) )
         {
-            level.friendly_globals.force_this_color = common_scripts\utility::_id_0CF6( level.friendly_globals.force_this_color, level.friendly_globals.force_this_color[level.friendly_globals.force_this_color.size - 1] );
+            level.friendly_globals.force_this_color = common_scripts\utility::array_remove( level.friendly_globals.force_this_color, level.friendly_globals.force_this_color[level.friendly_globals.force_this_color.size - 1] );
             break;
         }
 
@@ -550,11 +550,11 @@ friendly_repel_animload()
 friendly_repel_spawner_think( var_0 )
 {
     self endon( "death" );
-    self._id_0C72 = "repel_friendly";
-    thread maps\_anim::_id_0BE1( self, "aim", undefined, "stop_aim" );
+    self.animname = "repel_friendly";
+    thread maps\_anim::anim_loop_solo( self, "aim", undefined, "stop_aim" );
     wait(randomfloat( 1 ));
     self notify( "stop_aim" );
-    var_0 thread maps\_anim::_id_0C24( self, "rappel" );
+    var_0 thread maps\_anim::anim_single_solo( self, "rappel" );
 }
 
 friendly_force_spawner_think( var_0 )
@@ -634,16 +634,16 @@ interactive_main()
 {
     var_0 = getentarray( "crate_breakable", "targetname" );
     var_0 thread interactive_precachefx();
-    common_scripts\utility::_id_0D13( var_0, ::interactive_cratethink );
+    common_scripts\utility::array_thread( var_0, ::interactive_cratethink );
     var_1 = getentarray( "interactive_cardboard_box", "targetname" );
     var_1 thread interactive_precachefx();
-    common_scripts\utility::_id_0D13( var_1, ::interactive_cardboardboxthink );
+    common_scripts\utility::array_thread( var_1, ::interactive_cardboardboxthink );
     var_2 = getentarray( "wall_breakable", "targetname" );
     var_2 thread interactive_precachefx();
-    common_scripts\utility::_id_0D13( var_2, ::interactive_wallthink );
+    common_scripts\utility::array_thread( var_2, ::interactive_wallthink );
     var_3 = getentarray( "fence_shootable", "targetname" );
     var_3 thread interactive_precachefx();
-    common_scripts\utility::_id_0D13( var_3, ::interactive_fencethink );
+    common_scripts\utility::array_thread( var_3, ::interactive_fencethink );
 }
 
 interactive_precachefx()
@@ -836,7 +836,7 @@ interactive_cratethink()
 misc_main()
 {
     var_0 = getentarray( "autosave", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::auto_save_think );
+    common_scripts\utility::array_thread( var_0, ::auto_save_think );
     var_1 = getentarray( "wall_breach_check", "targetname" );
 
     if ( var_1.size )
@@ -846,7 +846,7 @@ misc_main()
         precacheshader( "objective" );
     }
 
-    common_scripts\utility::_id_0D13( var_1, ::wall_breach_think );
+    common_scripts\utility::array_thread( var_1, ::wall_breach_think );
     level._id_78AC["player_link"]["loop"][0] = %bh_fastrope_loop;
     level._id_78AC["player_link"]["land"] = %bh_fastrope_land;
 }
@@ -856,9 +856,9 @@ auto_save_think()
     self waittill( "trigger" );
 
     if ( isdefined( self.script_noteworthy ) )
-        maps\_utility::_id_1143( self.script_noteworthy );
+        maps\_utility::autosave_by_name( self.script_noteworthy );
     else
-        maps\_utility::_id_1143( "default" );
+        maps\_utility::autosave_by_name( "default" );
 }
 
 wall_breach_think()
@@ -870,16 +870,16 @@ wall_breach_think()
     var_0.obj_mdl = getentarray( var_0.obj_glow[0].target, "targetname" );
     var_0.use_trig = getentarray( var_0.obj_mdl[0].target, "targetname" );
     var_0.whole = getent( var_0.use_trig[0].target, "targetname" );
-    var_0._id_1819 = getent( var_0.whole.target, "targetname" );
+    var_0.broken = getent( var_0.whole.target, "targetname" );
 
-    if ( isdefined( var_0._id_1819.target ) )
-        var_0.chain = getent( var_0._id_1819.target, "targetname" );
+    if ( isdefined( var_0.broken.target ) )
+        var_0.chain = getent( var_0.broken.target, "targetname" );
 
     var_0.obj_glow[0] hide();
     var_0.obj_glow[1] hide();
     var_0.obj_mdl[0] hide();
     var_0.obj_mdl[1] hide();
-    var_0._id_1819 hide();
+    var_0.broken hide();
     var_0.whole disconnectpaths();
     var_0.use_trig[0].time = 4;
     var_0.use_trig[0] sethintstring( level._id_8F58["hint_detpack"] );
@@ -902,7 +902,7 @@ wall_breach_think()
 
 wall_breach_think2()
 {
-    maps\_utility::_id_0D18( self.use_trig, "trigger", 0 );
+    maps\_utility::array_wait( self.use_trig, "trigger", 0 );
     self notify( "used" );
     self.use_trig[0] common_scripts\utility::_id_97CC();
     self.use_trig[1] common_scripts\utility::_id_97CC();
@@ -914,10 +914,10 @@ wall_breach_think2()
     if ( isdefined( self.use_trig[0].jumptorandomtype ) || isdefined( self.use_trig[1].jumptorandomtype ) )
     {
         self.whole delete();
-        self._id_1819 show();
+        self.broken show();
 
-        if ( self._id_1819.spawnflags & 1 )
-            self._id_1819 disconnectpaths();
+        if ( self.broken.spawnflags & 1 )
+            self.broken disconnectpaths();
 
         return;
     }
@@ -936,10 +936,10 @@ wall_breach_think2()
     self.whole delete();
     self.obj_mdl[0] delete();
     self.obj_mdl[1] delete();
-    self._id_1819 show();
+    self.broken show();
 
-    if ( self._id_1819.spawnflags & 1 )
-        self._id_1819 disconnectpaths();
+    if ( self.broken.spawnflags & 1 )
+        self.broken disconnectpaths();
 
     self.on delete();
     self.off delete();

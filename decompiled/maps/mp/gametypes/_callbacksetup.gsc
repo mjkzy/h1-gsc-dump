@@ -26,7 +26,7 @@ codecallback_startgametype()
 
     if ( !isdefined( level._id_3C03 ) || !level._id_3C03 )
     {
-        [[ level._id_1A05 ]]();
+        [[ level.callbackstartgametype ]]();
         level._id_3C03 = 1;
     }
 }
@@ -37,13 +37,13 @@ codecallback_playerconnect()
         level waittill( "eternity" );
 
     self endon( "disconnect" );
-    [[ level._id_19FD ]]();
+    [[ level.callbackplayerconnect ]]();
 }
 
 codecallback_playerdisconnect( var_0 )
 {
     self notify( "disconnect" );
-    [[ level._id_19FF ]]( var_0 );
+    [[ level.callbackplayerdisconnect ]]( var_0 );
 }
 
 codecallback_playerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -55,27 +55,27 @@ codecallback_playerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_
 codecallback_playerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     self endon( "disconnect" );
-    [[ level._id_1A01 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+    [[ level.callbackplayerkilled ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 }
 
 codecallback_playergrenadesuicide( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     self endon( "disconnect" );
-    [[ level._id_1A00 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
+    [[ level.callbackplayergrenadesuicide ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 codecallback_entityoutofworld()
 {
     self endon( "disconnect" );
-    [[ level._id_19FB ]]();
+    [[ level.callbackentityoutofworld ]]();
 }
 
 codecallback_bullethitentity( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     self endon( "disconnect" );
 
-    if ( isdefined( self._id_18AC ) )
-        [[ self._id_18AC ]]( var_0, var_1, var_2, var_3, var_4, var_5 );
+    if ( isdefined( self.bullethitcallback ) )
+        [[ self.bullethitcallback ]]( var_0, var_1, var_2, var_3, var_4, var_5 );
 }
 
 codecallback_vehicledamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
@@ -97,24 +97,24 @@ codecallback_entitydamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_
 codecallback_codeendgame()
 {
     self endon( "disconnect" );
-    [[ level._id_19FA ]]();
+    [[ level.callbackcodeendgame ]]();
 }
 
 codecallback_playerlaststand( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     self endon( "disconnect" );
-    [[ level._id_1A02 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+    [[ level.callbackplayerlaststand ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 }
 
 codecallback_playermigrated()
 {
     self endon( "disconnect" );
-    [[ level._id_1A03 ]]();
+    [[ level.callbackplayermigrated ]]();
 }
 
 codecallback_hostmigration()
 {
-    [[ level._id_19FC ]]();
+    [[ level.callbackhostmigration ]]();
 }
 
 _id_2000( var_0, var_1 )
@@ -139,12 +139,12 @@ _id_830C()
 {
     level._id_4B5D = 1;
     level._id_4B57 = 2;
-    level.idflags_no_knockback = 4;
+    level._id_4B58 = 4;
     level._id_4B5C = 8;
-    level.idflags_stun = 16;
-    level.idflags_shield_explosive_impact = 32;
-    level.idflags_shield_explosive_impact_huge = 64;
-    level.idflags_shield_explosive_splash  = 128;
+    level._id_4B61 = 16;
+    level._id_4B5E = 32;
+    level._id_4B5F = 64;
+    level._id_4B60 = 128;
     level._id_4B5A = 256;
     level._id_4B59 = 512;
     level._id_4B5B = 1024;
@@ -158,37 +158,37 @@ setupcallbacks()
 
 _id_7F47()
 {
-    level._id_1A05 = maps\mp\gametypes\_gamelogic::_id_19F9;
-    level._id_19FD = maps\mp\gametypes\_playerlogic::_id_19F0;
-    level._id_19FF = maps\mp\gametypes\_playerlogic::_id_19F3;
-    level.callbackplayerdamage = maps\mp\gametypes\_damage::_id_19F1;
-    level._id_1A01 = maps\mp\gametypes\_damage::callback_playerdamage;
-    level._id_19FB = maps\mp\gametypes\_damage::_id_19ED;
-    level._id_1A00 = maps\mp\gametypes\_damage::_id_19F4;
-    level._id_19FA = maps\mp\gametypes\_gamelogic::_id_19EC;
-    level._id_1A02 = maps\mp\gametypes\_damage::_id_19F6;
-    level._id_1A03 = maps\mp\gametypes\_playerlogic::_id_19F8;
-    level._id_19FC = maps\mp\gametypes\_hostmigration::_id_19EE;
+    level.callbackstartgametype = maps\mp\gametypes\_gamelogic::callback_startgametype;
+    level.callbackplayerconnect = maps\mp\gametypes\_playerlogic::callback_playerconnect;
+    level.callbackplayerdisconnect = maps\mp\gametypes\_playerlogic::callback_playerdisconnect;
+    level.callbackplayerdamage = maps\mp\gametypes\_damage::callback_playerdamage;
+    level.callbackplayerkilled = maps\mp\gametypes\_damage::callback_playerkilled;
+    level.callbackentityoutofworld = maps\mp\gametypes\_damage::callback_entityoutofworld;
+    level.callbackplayergrenadesuicide = maps\mp\gametypes\_damage::callback_playergrenadesuicide;
+    level.callbackcodeendgame = maps\mp\gametypes\_gamelogic::callback_codeendgame;
+    level.callbackplayerlaststand = maps\mp\gametypes\_damage::callback_playerlaststand;
+    level.callbackplayermigrated = maps\mp\gametypes\_playerlogic::callback_playermigrated;
+    level.callbackhostmigration = maps\mp\gametypes\_hostmigration::callback_hostmigration;
 }
 
-_id_06BF()
+abortlevel()
 {
-    level._id_1A05 = ::_id_1A06;
-    level._id_19FD = ::_id_1A06;
-    level._id_19FF = ::_id_1A06;
-    level.callbackplayerdamage = ::_id_1A06;
-    level._id_1A01 = ::_id_1A06;
-    level._id_19FB = ::_id_1A06;
-    level._id_1A00 = ::_id_1A06;
-    level._id_19FA = ::_id_1A06;
-    level._id_1A02 = ::_id_1A06;
-    level._id_1A03 = ::_id_1A06;
-    level._id_19FC = ::_id_1A06;
+    level.callbackstartgametype = ::callbackvoid;
+    level.callbackplayerconnect = ::callbackvoid;
+    level.callbackplayerdisconnect = ::callbackvoid;
+    level.callbackplayerdamage = ::callbackvoid;
+    level.callbackplayerkilled = ::callbackvoid;
+    level.callbackentityoutofworld = ::callbackvoid;
+    level.callbackplayergrenadesuicide = ::callbackvoid;
+    level.callbackcodeendgame = ::callbackvoid;
+    level.callbackplayerlaststand = ::callbackvoid;
+    level.callbackplayermigrated = ::callbackvoid;
+    level.callbackhostmigration = ::callbackvoid;
     setdvar( "g_gametype", "dm" );
     exitlevel( 0 );
 }
 
-_id_1A06()
+callbackvoid()
 {
 
 }

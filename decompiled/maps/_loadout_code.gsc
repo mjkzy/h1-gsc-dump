@@ -124,7 +124,7 @@ _id_67D9( var_0, var_1 )
     if ( game["previous_map"] != var_1 )
         return;
 
-    level._id_05DE = 1;
+    level._lc_persists = 1;
     _id_74B1( var_1 );
     level._id_46F3 = 1;
 }
@@ -139,7 +139,7 @@ _id_57D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             return;
     }
 
-    if ( !isdefined( level._id_05DE ) )
+    if ( !isdefined( level._lc_persists ) )
     {
         if ( isdefined( var_1 ) )
         {

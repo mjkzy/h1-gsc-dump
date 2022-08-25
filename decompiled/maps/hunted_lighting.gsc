@@ -126,7 +126,7 @@ handle_heli_flight_lighting_init()
 {
     common_scripts\utility::_id_384A( "aa_flight" );
     var_0 = getent( "crash_blackhawk", "targetname" );
-    var_1 = var_0._id_555C._id_0DF4;
+    var_1 = var_0._id_555C.attachedguys;
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -598,7 +598,7 @@ setup_visionset_trigger()
 {
     var_0 = spawnstruct();
     var_1 = getentarray( "vision_trigger", "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::visionset_trigger, var_0 );
+    common_scripts\utility::array_thread( var_1, ::visionset_trigger, var_0 );
 }
 
 visionset_trigger( var_0 )
@@ -643,14 +643,14 @@ apply_lighting_pass_hunted_outside( var_0 )
 
     maps\_utility::_id_9E6E( "hunted", 2 );
     level.player maps\_utility::set_light_set_player( "hunted" );
-    level.player _meth_848c( "clut_hunted", var_0 );
+    level.player _meth_848C( "clut_hunted", var_0 );
 }
 
 apply_lighting_pass_hunted_inside()
 {
     maps\_utility::_id_9E6E( "hunted_barn_interior", 2 );
     level.player maps\_utility::set_light_set_player( "barn_interior" );
-    level.player _meth_848c( "clut_hunted", 5 );
+    level.player _meth_848C( "clut_hunted", 5 );
     maps\_utility::_id_7F00( "hunted_barn_interior", 6 );
 }
 

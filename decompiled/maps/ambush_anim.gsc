@@ -21,13 +21,13 @@
 
 main()
 {
-    _id_0C7A();
+    anims();
     setup_exploder_anims();
     exploder_script_model_anims();
 }
 #using_animtree("generic_human");
 
-_id_0C7A()
+anims()
 {
     level._id_78BA["price"]["ambush_pri_notbad"] = "ambush_pri_notbad";
     level._id_78BA["price"]["ambush_pri_onmymark"] = "ambush_pri_onmymark";
@@ -35,9 +35,9 @@ _id_0C7A()
     level._id_78BA["price"]["ambush_pri_cleartower"] = "ambush_pri_cleartower";
     level._id_78BA["price"]["ambush_pri_movemove"] = "ambush_pri_movemove";
     level._id_78AC["price"]["tower_briefing"] = %ambush_tower_briefing_guy1;
-    maps\_anim::_id_080B( "price", "dialog", "tower_briefing", "ambush_pri_sortedout" );
-    maps\_anim::_id_080B( "price", "dialog", "tower_briefing", "ambush_pri_keepbusy" );
-    maps\_anim::_id_080B( "price", "dialog", "tower_briefing", "ambush_pri_muchtime" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "tower_briefing", "ambush_pri_sortedout" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "tower_briefing", "ambush_pri_keepbusy" );
+    maps\_anim::addnotetrack_dialogue( "price", "dialog", "tower_briefing", "ambush_pri_muchtime" );
     level._id_78BA["price"]["ambush_pri_copythat"] = "ambush_pri_copythat";
     level._id_78BA["price"]["ambush_pri_youknow"] = "ambush_pri_youknow";
     level._id_78BA["price"]["ambush_pri_targetinjeep"] = "ambush_pri_targetinjeep";
@@ -102,8 +102,8 @@ _id_0C7A()
 
     if ( getdvarint( "use_old_griggs_tower" ) != 1 )
     {
-        maps\_anim::_id_080B( "mark", "dialog", "ambush_grg_tower_talk", "ambush_grg_likeaclown" );
-        maps\_anim::_id_080B( "mark", "dialog", "ambush_grg_tower_talk", "ambush_grg_nothinglikerussian" );
+        maps\_anim::addnotetrack_dialogue( "mark", "dialog", "ambush_grg_tower_talk", "ambush_grg_likeaclown" );
+        maps\_anim::addnotetrack_dialogue( "mark", "dialog", "ambush_grg_tower_talk", "ambush_grg_nothinglikerussian" );
     }
 
     level._id_78AC["generic"]["tower_briefing"] = %ambush_tower_briefing_guy2;
@@ -176,13 +176,13 @@ _id_0C7A()
     level._id_78AC["generic"]["det_school_enter_pt2_npc_deadbody_08"] = %det_school_enter_pt2_npc_deadbody_08;
     level._id_78AC["badguy"]["jump"] = %ambush_vip_son_jump;
     level._id_78AC["badguy"]["quick_jump"] = %ambush_vip_son_quickdeath;
-    maps\_anim::_id_080B( "badguy", "dialog", "jump", "ambush_soz_deadsoonanyway" );
+    maps\_anim::addnotetrack_dialogue( "badguy", "dialog", "jump", "ambush_soz_deadsoonanyway" );
     _id_6A5B();
     level._id_78AC["badguy"]["h1_climb_up"] = %h1_ambush_zakhaev_son_jump_pt1;
     level._id_78AC["badguy"]["h1_up_idle"][0] = %h1_ambush_zakhaev_son_idle;
     level._id_78AC["badguy"]["h1_quickdeath_up"] = %h1_ambush_zakhaev_son_quickdeath_up;
     level._id_78AC["badguy"]["h1_climb_back_down_die"] = %h1_ambush_zakhaev_son_jump_pt2;
-    maps\_anim::_id_080B( "badguy", "dialog", "h1_climb_back_down_die", "ambush_soz_deadsoonanyway" );
+    maps\_anim::addnotetrack_dialogue( "badguy", "dialog", "h1_climb_back_down_die", "ambush_soz_deadsoonanyway" );
     level._id_78AC["badguy"]["h1_quickdeath_down"] = %h1_ambush_zakhaev_son_quickdeath_down;
     bmp_anims();
 }

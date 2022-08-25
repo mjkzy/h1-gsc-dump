@@ -21,7 +21,7 @@
 
 main()
 {
-    common_scripts\utility::_id_0755( "vehicle_80s_sedan1_green", destructible_scripts\vehicle_80s_sedan1_green::main );
+    common_scripts\utility::add_destructible_type_function( "vehicle_80s_sedan1_green", destructible_scripts\vehicle_80s_sedan1_green::main );
     vehicle_scripts\_blackhawk::main( "vehicle_blackhawk_sas_night", undefined, "script_vehicle_blackhawk_sas_night" );
     vehicle_scripts\_bm21::main( "vehicle_bm21_mobile", undefined, "script_vehicle_bm21_mobile" );
     vehicle_scripts\_bmp::main( "vehicle_bmp_woodland", undefined, "script_vehicle_bmp_woodland" );

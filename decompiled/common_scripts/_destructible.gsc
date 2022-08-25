@@ -211,7 +211,7 @@ _id_291E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
 _id_3763()
 {
-    common_scripts\utility::_id_0D13( getentarray( "destructible", "targetname" ), ::_id_80B1 );
+    common_scripts\utility::array_thread( getentarray( "destructible", "targetname" ), ::_id_80B1 );
 }
 
 _id_6EBB()
@@ -245,7 +245,7 @@ _id_80B1( var_0 )
 
     var_1 = undefined;
     self._id_5D41 = 0;
-    _id_074B();
+    add_damage_owner_recorder();
     self.destuctableinfo = common_scripts\_destructible_types::maketype( self.destructible_type );
 
     if ( !var_0 )
@@ -283,7 +283,7 @@ _id_80B1( var_0 )
     thread _id_2932();
 }
 
-_id_074B()
+add_damage_owner_recorder()
 {
     self._id_6AC2 = 0;
     self._id_614F = 0;
@@ -541,22 +541,22 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                 var_19 useanimtree( var_28 );
                 var_29 = level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_17].v["animType"];
 
-                if ( !isdefined( self._id_0C7B ) )
-                    self._id_0C7B = [];
+                if ( !isdefined( self.animsapplied ) )
+                    self.animsapplied = [];
 
-                self._id_0C7B[self._id_0C7B.size] = var_27;
+                self.animsapplied[self.animsapplied.size] = var_27;
 
                 if ( isdefined( self._id_353D ) )
                 {
-                    if ( isdefined( self._id_0C7B ) )
+                    if ( isdefined( self.animsapplied ) )
                     {
-                        for ( var_9 = 0; var_9 < self._id_0C7B.size; var_9++ )
-                            var_19 _meth_8144( self._id_0C7B[var_9], 0 );
+                        for ( var_9 = 0; var_9 < self.animsapplied.size; var_9++ )
+                            var_19 _meth_8144( self.animsapplied[var_9], 0 );
                     }
                 }
 
                 if ( var_29 == "setanim" )
-                    var_19 _meth_814d( var_27, 1.0, 1.0, 1.0 );
+                    var_19 _meth_814D( var_27, 1.0, 1.0, 1.0 );
                 else if ( var_29 == "setanimknob" )
                     var_19 _meth_8145( var_27, 1.0, 1.0, 1.0 );
                 else
@@ -577,19 +577,19 @@ _id_2936( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
                 var_30 useanimtree( var_28 );
                 var_29 = level.destructible_type[self.destuctableinfo]._id_66A7[var_7][var_17].v["partAnimType"];
 
-                if ( !isdefined( self._id_0C7B ) )
-                    self._id_0C7B = [];
+                if ( !isdefined( self.animsapplied ) )
+                    self.animsapplied = [];
 
-                self._id_0C7B[self._id_0C7B.size] = var_27;
+                self.animsapplied[self.animsapplied.size] = var_27;
 
-                if ( isdefined( self._id_353D ) && isdefined( self._id_0C7B ) )
+                if ( isdefined( self._id_353D ) && isdefined( self.animsapplied ) )
                 {
-                    for ( var_9 = 0; var_9 < self._id_0C7B.size; var_9++ )
-                        var_30 _meth_8144( self._id_0C7B[var_9], 0 );
+                    for ( var_9 = 0; var_9 < self.animsapplied.size; var_9++ )
+                        var_30 _meth_8144( self.animsapplied[var_9], 0 );
                 }
 
                 if ( var_29 == "setanim" )
-                    var_30 _meth_814d( var_27, 1.0, 1.0, 1.0 );
+                    var_30 _meth_814D( var_27, 1.0, 1.0, 1.0 );
                 else if ( var_29 == "setanimknob" )
                     var_30 _meth_8145( var_27, 1.0, 1.0, 1.0 );
                 else
@@ -1095,7 +1095,7 @@ explode( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 arcademode_car_kill()
 {
-    if ( !maps\_utility::_id_0CC3() )
+    if ( !maps\_utility::arcademode() )
         return 0;
 
     if ( level.script == "ac130" )

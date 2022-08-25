@@ -59,9 +59,9 @@ main()
     level._id_64D3 = ::_id_64D3;
     level._id_64F0 = ::_id_64F0;
     level.onplayerscore = ::onplayerscore;
-    level._id_1969 = ::_id_446E;
+    level.bypassclasschoicefunc = ::_id_446E;
     level.streamprimariesfunc = ::streamprimariesfunc;
-    level._id_0D7B = 1;
+    level.assists_disabled = 1;
     level._id_7F2E = maps\mp\_utility::_id_3FDB( "scr_gun_setBackLevels", 1 );
     level._id_55A9 = 0;
 
@@ -418,7 +418,7 @@ _id_41F3( var_0 )
         waittillframeend;
 
     self takeallweapons();
-    maps\mp\_utility::_id_05C0( var_3 );
+    maps\mp\_utility::_giveweapon( var_3 );
 
     if ( isdefined( var_0 ) )
         self setspawnweapon( var_3 );
@@ -466,12 +466,12 @@ _id_403C()
     return var_2;
 }
 
-_id_07CB( var_0 )
+addattachments( var_0 )
 {
     if ( var_0 == "h1_rpg" )
         var_1 = "h1_rpg_mp";
     else
-        var_1 = maps\mp\gametypes\_class::_id_188C( var_0, "none", "none" );
+        var_1 = maps\mp\gametypes\_class::buildweaponname( var_0, "none", "none" );
 
     return var_1;
 }
@@ -558,7 +558,7 @@ guninfo( var_0, var_1, var_2, var_3 )
     if ( var_0 == "h1_rpg" )
         var_4.fullname = "h1_rpg_mp";
     else
-        var_4.fullname = maps\mp\gametypes\_class::_id_188C( var_0, var_5, "none" );
+        var_4.fullname = maps\mp\gametypes\_class::buildweaponname( var_0, var_5, "none" );
 
     level._id_4459[level._id_4459.size] = var_4;
 }
@@ -711,10 +711,10 @@ _id_7F83()
         default:
             break;
         case 1:
-            level._id_4459 = common_scripts\utility::_id_0CF5( level._id_4459 );
+            level._id_4459 = common_scripts\utility::array_randomize( level._id_4459 );
             break;
         case 2:
-            level._id_4459 = common_scripts\utility::_id_0D02( level._id_4459 );
+            level._id_4459 = common_scripts\utility::array_reverse( level._id_4459 );
             break;
     }
 

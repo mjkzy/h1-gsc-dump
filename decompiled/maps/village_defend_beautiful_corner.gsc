@@ -45,9 +45,9 @@ beautiful_corner()
 beautiful_corner_settings()
 {
     level.beautiful_weapon = "m4_gl_mp";
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_0" );
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_1" );
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_2" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_0" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_1" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_2" );
     level.beautiful_visions["beautiful_corner_0"] = "village_defend";
     level.beautiful_visions["beautiful_corner_1"] = "village_defend";
     level.beautiful_visions["beautiful_corner_2"] = "village_defend";

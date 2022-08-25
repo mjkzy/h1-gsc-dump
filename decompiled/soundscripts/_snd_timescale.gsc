@@ -27,21 +27,21 @@ _id_877C()
 
 _id_8753( var_0 )
 {
-    level._id_065D._id_937D._id_24F6 = var_0;
+    level._snd._id_937D._id_24F6 = var_0;
 }
 
 _id_86E5()
 {
-    return level._id_065D._id_937D._id_24F6;
+    return level._snd._id_937D._id_24F6;
 }
 
 _id_8707()
 {
-    level._id_065D._id_937D = spawnstruct();
+    level._snd._id_937D = spawnstruct();
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script + ".csv";
-    level._id_065D._id_937D._id_6F22 = soundscripts\_snd::_id_871B( "Timescale", var_0, 3, "timescale_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._snd._id_937D._id_6F22 = soundscripts\_snd::_id_871B( "Timescale", var_0, 3, "timescale_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
 _id_875A( var_0 )
@@ -57,8 +57,8 @@ _id_875A( var_0 )
 
 _id_86EF( var_0 )
 {
-    if ( isdefined( level._id_065D._id_937D._id_6F22 ) && isdefined( level._id_065D._id_937D._id_6F22[var_0] ) )
-        return level._id_065D._id_937D._id_6F22[var_0];
+    if ( isdefined( level._snd._id_937D._id_6F22 ) && isdefined( level._snd._id_937D._id_6F22[var_0] ) )
+        return level._snd._id_937D._id_6F22[var_0];
 
     return undefined;
 }

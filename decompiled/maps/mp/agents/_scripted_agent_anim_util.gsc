@@ -181,30 +181,30 @@ _id_6490( var_0, var_1 )
 {
     self notify( "killanimscript" );
 
-    if ( isdefined( self._id_0C69._id_64A5[var_0] ) )
-        self [[ self._id_0C69._id_64A5[var_0] ]]();
+    if ( isdefined( self.animcbs._id_64A5[var_0] ) )
+        self [[ self.animcbs._id_64A5[var_0] ]]();
 
     _id_3440( var_0 );
 
-    if ( !isdefined( self._id_0C69._id_648F[var_1] ) )
+    if ( !isdefined( self.animcbs._id_648F[var_1] ) )
         return;
 
     if ( var_0 == var_1 && var_1 != "traverse" )
         return;
 
-    self._id_09A3 = var_1;
+    self.aistate = var_1;
     _id_3305( var_1 );
-    self [[ self._id_0C69._id_648F[var_1] ]]();
+    self [[ self.animcbs._id_648F[var_1] ]]();
 }
 
 _id_3305( var_0 )
 {
-    self._id_09A3 = var_0;
+    self.aistate = var_0;
 
     switch ( var_0 )
     {
         case "idle":
-            self._id_1432 = 0;
+            self.bhasbadpath = 0;
             break;
         default:
             break;

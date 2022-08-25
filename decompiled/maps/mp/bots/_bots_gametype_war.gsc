@@ -27,7 +27,7 @@ main()
 
 _id_8072()
 {
-    level.bot_funcs["gametype_think"] = ::_id_1731;
+    level.bot_funcs["gametype_think"] = ::bot_war_think;
 }
 
 _id_8062()
@@ -35,7 +35,7 @@ _id_8062()
 
 }
 
-_id_1731()
+bot_war_think()
 {
     self notify( "bot_war_think" );
     self endon( "bot_war_think" );

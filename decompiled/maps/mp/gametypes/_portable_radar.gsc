@@ -52,9 +52,9 @@ _id_5EB2()
                 continue;
             }
 
-            self._id_6E4E = common_scripts\utility::_id_0D01( self._id_6E4E );
+            self._id_6E4E = common_scripts\utility::array_removeundefined( self._id_6E4E );
 
-            if ( self._id_6E4E.size >= level.maxperplayerexplosives )
+            if ( self._id_6E4E.size >= level._id_5A4A )
                 _id_2865( self._id_6E4E[0] );
 
             var_0 waittill( "missile_stuck" );
@@ -150,9 +150,9 @@ _id_6E50( var_0 )
             self.damagetaken += self.maxhealth;
 
         if ( isdefined( var_9 ) && var_9 & level._id_4B5C )
-            self.wasdamagedfrombulletpenetration = 1;
+            self._id_A1C5 = 1;
 
-        self.wasdamaged = 1;
+        self._id_A1C3 = 1;
         self.damagetaken += var_1;
 
         if ( isplayer( var_2 ) )

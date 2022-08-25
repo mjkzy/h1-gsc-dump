@@ -28,15 +28,15 @@ init()
 
 _id_8712()
 {
-    level._id_065D._id_2FDF = 0;
+    level._snd._id_2FDF = 0;
 
     if ( isdefined( level.players ) && level.players.size > 0 )
     {
         foreach ( var_1 in level.players )
         {
-            var_1 _meth_84cf( "mp_init_mix" );
+            var_1 _meth_84CF( "mp_init_mix" );
             wait 0.05;
-            var_1 _meth_84cf( "mp_pre_event_mix" );
+            var_1 _meth_84CF( "mp_pre_event_mix" );
             wait 0.05;
         }
     }
@@ -44,15 +44,15 @@ _id_8712()
 
 _id_8713()
 {
-    level._id_065D._id_2FDF = 1;
+    level._snd._id_2FDF = 1;
 
     if ( isdefined( level.players ) && level.players.size > 0 )
     {
         foreach ( var_1 in level.players )
         {
-            var_1 _meth_84d0( "mp_pre_event_mix" );
+            var_1 _meth_84D0( "mp_pre_event_mix" );
             wait 0.05;
-            var_1 _meth_84cf( "mp_post_event_mix" );
+            var_1 _meth_84CF( "mp_post_event_mix" );
             wait 0.05;
         }
     }
@@ -60,29 +60,29 @@ _id_8713()
 
 _id_8714()
 {
-    self _meth_84cf( "mp_init_mix" );
+    self _meth_84CF( "mp_init_mix" );
 
-    if ( !isdefined( level._id_065D._id_2FDF ) || !level._id_065D._id_2FDF )
-        self _meth_84cf( "mp_pre_event_mix" );
+    if ( !isdefined( level._snd._id_2FDF ) || !level._snd._id_2FDF )
+        self _meth_84CF( "mp_pre_event_mix" );
     else
     {
-        self _meth_84d0( "mp_pre_event_mix" );
-        self _meth_84cf( "mp_post_event_mix" );
+        self _meth_84D0( "mp_pre_event_mix" );
+        self _meth_84CF( "mp_post_event_mix" );
     }
 }
 
 _id_870D()
 {
-    if ( !isdefined( level._id_065D ) )
-        level._id_065D = spawnstruct();
+    if ( !isdefined( level._snd ) )
+        level._snd = spawnstruct();
 
-    if ( !isdefined( level._id_065D._id_5BB9 ) )
-        level._id_065D._id_5BB9 = [];
+    if ( !isdefined( level._snd._id_5BB9 ) )
+        level._snd._id_5BB9 = [];
 }
 
 _id_874D( var_0, var_1 )
 {
-    level._id_065D._id_5BB9[var_0] = var_1;
+    level._snd._id_5BB9[var_0] = var_1;
 }
 
 _id_8716( var_0, var_1, var_2 )
@@ -100,16 +100,16 @@ _id_8716( var_0, var_1, var_2 )
 
 _id_870C( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( level._id_065D._id_5BB9[var_0] ) )
+    if ( isdefined( level._snd._id_5BB9[var_0] ) )
     {
         if ( isdefined( var_3 ) )
-            thread [[ level._id_065D._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
+            thread [[ level._snd._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
         else if ( isdefined( var_2 ) )
-            thread [[ level._id_065D._id_5BB9[var_0] ]]( var_1, var_2 );
+            thread [[ level._snd._id_5BB9[var_0] ]]( var_1, var_2 );
         else if ( isdefined( var_1 ) )
-            thread [[ level._id_065D._id_5BB9[var_0] ]]( var_1 );
+            thread [[ level._snd._id_5BB9[var_0] ]]( var_1 );
         else
-            thread [[ level._id_065D._id_5BB9[var_0] ]]();
+            thread [[ level._snd._id_5BB9[var_0] ]]();
     }
 }
 

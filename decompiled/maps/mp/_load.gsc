@@ -21,10 +21,10 @@
 
 main()
 {
-    if ( isdefined( level._id_05E5 ) )
+    if ( isdefined( level._loadstarted ) )
         return;
 
-    level._id_05E5 = 1;
+    level._loadstarted = 1;
     level._id_9E56 = getdvarint( "virtualLobbyActive", 0 );
     maps\mp\_utility::_id_7DF3();
     level._id_2409 = getdvar( "createfx" ) != "";
@@ -34,7 +34,7 @@ main()
     maps\mp\_utility::_id_4DC1();
     level._id_3C9D = 0;
     level._id_3846 = spawnstruct();
-    level._id_3846 common_scripts\utility::_id_0D6F();
+    level._id_3846 common_scripts\utility::assign_unique_id();
 
     if ( !isdefined( level._id_382E ) )
     {
@@ -42,7 +42,7 @@ main()
         level._id_386C = [];
     }
 
-    level.requiredmapaspectratio = getdvarfloat( "scr_RequiredMapAspectratio", 1 );
+    level._id_740C = getdvarfloat( "scr_RequiredMapAspectratio", 1 );
     level._id_23EE = maps\mp\gametypes\_hud_util::createfontstring;
     level._id_4AFD = maps\mp\gametypes\_hud_util::setpoint;
     level._id_5656 = maps\mp\_utility::_id_5655;
@@ -268,7 +268,7 @@ _id_8313()
     for ( var_2 = 0; var_2 < var_3.size; var_2++ )
     {
         var_6 = var_3[var_2];
-        var_7 = common_scripts\utility::_id_23FE( var_6.script_fxid );
+        var_7 = common_scripts\utility::_id_23FE( var_6._id_79F1 );
         var_7.v = [];
         var_7.v["origin"] = var_6.origin;
         var_7.v["angles"] = var_6.angles;
@@ -288,10 +288,10 @@ _id_8313()
         var_7.v["ender"] = var_6._id_79B8;
         var_7.v["type"] = "exploder";
 
-        if ( !isdefined( var_6.script_fxid ) )
+        if ( !isdefined( var_6._id_79F1 ) )
             var_7.v["fxid"] = "No FX";
         else
-            var_7.v["fxid"] = var_6.script_fxid;
+            var_7.v["fxid"] = var_6._id_79F1;
 
         var_7.v["exploder"] = var_6._id_79BF;
 
@@ -349,7 +349,7 @@ _id_4B0C()
         foreach ( var_1 in level.players )
         {
             if ( var_1 istouching( self ) && maps\mp\_utility::_id_5189( var_1 ) )
-                var_1 maps\mp\_utility::_id_066F();
+                var_1 maps\mp\_utility::_suicide();
         }
 
         wait 0.5;

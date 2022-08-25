@@ -21,7 +21,7 @@
 
 main()
 {
-    _id_0C7A();
+    anims();
     setup_exploder_anims();
     blast_door();
     _id_6A5B();
@@ -29,7 +29,7 @@ main()
 }
 #using_animtree("generic_human");
 
-_id_0C7A()
+anims()
 {
     if ( getdvarint( "use_old_vent_drop" ) == 1 )
     {
@@ -56,14 +56,14 @@ _id_0C7A()
     else
     {
         level._id_78AC["price"]["guard_vaultdoors"] = %h1_launchfacility_b_wargame_door_price;
-        maps\_anim::_id_080B( "price", "dialog", "guard_vaultdoors", "launchfacility_b_pri_atdoor" );
-        maps\_anim::_id_0807( "price", "gaz_dialog1", ::play_gaz_doors1_roger, "guard_vaultdoors" );
-        maps\_anim::_id_0807( "price", "gaz_dialog2", ::play_gaz_doors2_standby, "guard_vaultdoors" );
-        maps\_anim::_id_0807( "price", "gaz_dialog3", ::play_gaz_doors3_gotit, "guard_vaultdoors" );
-        maps\_anim::_id_080B( "price", "dialog", "guard_vaultdoors", "launchfacility_b_pri_faster" );
-        maps\_anim::_id_0807( "price", "gaz_dialog4", ::play_gaz_doors4_negative, "guard_vaultdoors" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "guard_vaultdoors", "launchfacility_b_pri_atdoor" );
+        maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog1", ::play_gaz_doors1_roger, "guard_vaultdoors" );
+        maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog2", ::play_gaz_doors2_standby, "guard_vaultdoors" );
+        maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog3", ::play_gaz_doors3_gotit, "guard_vaultdoors" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "guard_vaultdoors", "launchfacility_b_pri_faster" );
+        maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog4", ::play_gaz_doors4_negative, "guard_vaultdoors" );
         level._id_78AC["grigsby"]["guard_vaultdoors"] = %h1_launchfacility_b_wargame_door_grigs;
-        maps\_anim::_id_080B( "grigsby", "griggs_dialog", "guard_vaultdoors", "launchfacility_b_grg_shittinme" );
+        maps\_anim::addnotetrack_dialogue( "grigsby", "griggs_dialog", "guard_vaultdoors", "launchfacility_b_grg_shittinme" );
     }
 
     level._id_78AC["grigsby"]["elevator_runin"] = %hunted_tunnel_guy1_runin;
@@ -87,10 +87,10 @@ _id_0C7A()
 
     if ( getdvarint( "use_old_elevator" ) != 1 )
     {
-        maps\_anim::_id_080B( "grigsby", "dialog", "h1_elevator_elevator", "launchfacility_b_grg_ashot" );
-        maps\_anim::_id_0807( "price", "gaz_dialog", ::play_gaz_elevator_radio, "h1_elevator_elevator" );
-        maps\_anim::_id_080B( "price", "radio_dialog", "h1_elevator_elevator", "launchfacility_b_pri_upthelift" );
-        maps\_anim::_id_080B( "price", "dialog", "h1_elevator_elevator", "launchfacility_b_pri_getinline" );
+        maps\_anim::addnotetrack_dialogue( "grigsby", "dialog", "h1_elevator_elevator", "launchfacility_b_grg_ashot" );
+        maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog", ::play_gaz_elevator_radio, "h1_elevator_elevator" );
+        maps\_anim::addnotetrack_dialogue( "price", "radio_dialog", "h1_elevator_elevator", "launchfacility_b_pri_upthelift" );
+        maps\_anim::addnotetrack_dialogue( "price", "dialog", "h1_elevator_elevator", "launchfacility_b_pri_getinline" );
     }
 
     level.scr_deadbody[1] = character\character_dead_russian_loyalist_a::main;
@@ -218,5 +218,5 @@ play_gaz_doors4_negative( var_0 )
 {
     thread play_gaz_doors4_negative_scenecompletedevent();
     maps\_utility::_id_70BD( "gm1_trypulling" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "pri_cheeky" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "pri_cheeky" );
 }

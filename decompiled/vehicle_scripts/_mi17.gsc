@@ -22,12 +22,12 @@
 main( var_0, var_1, var_2 )
 {
     vehicle_scripts\_mi17_noai::main( var_0, "mi17", var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::_id_183B( ::_id_7DDA );
-    maps\_vehicle::_id_1873( ::_id_9A3D );
-    maps\_vehicle::_id_1855();
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_attach_models( ::_id_7DDA );
+    maps\_vehicle::build_unload_groups( ::_id_9A3D );
+    maps\_vehicle::build_is_helicopter();
 }
 
 _id_4D10()
@@ -132,8 +132,8 @@ _id_7F23()
     var_0[0]._id_4B7E[1] = 100;
     var_0[0]._id_4B7E[2] = 100;
     var_0[0]._id_4B7E[3] = 100;
-    var_0[0]._id_1433 = 0;
-    var_0[9]._id_1433 = 0;
+    var_0[0].bhasgunwhileriding = 0;
+    var_0[9].bhasgunwhileriding = 0;
     var_0[9]._id_4B63[0] = %helicopter_pilot2_idle;
     var_0[9]._id_4B63[1] = %helicopter_pilot2_twitch_clickpannel;
     var_0[9]._id_4B63[2] = %helicopter_pilot2_twitch_lookoutside;

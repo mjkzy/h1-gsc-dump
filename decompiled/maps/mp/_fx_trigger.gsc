@@ -24,7 +24,7 @@ main()
     level.fx_trigger_info = [];
     var_0 = getentarray( "fx_trigger", "targetname" );
     var_1 = getentarray( "fx_trigger_reverse", "targetname" );
-    var_2 = common_scripts\utility::_id_0CDD( var_0, var_1 );
+    var_2 = common_scripts\utility::array_combine( var_0, var_1 );
 
     foreach ( var_4 in var_2 )
     {
@@ -69,7 +69,7 @@ fx_trigger_fx_ent_think( var_0 )
         {
             foreach ( var_2 in level.players )
             {
-                if ( !isdefined( common_scripts\utility::_id_0CE8( level.fx_trigger_info[var_0].players, var_2 ) ) )
+                if ( !isdefined( common_scripts\utility::array_find( level.fx_trigger_info[var_0].players, var_2 ) ) )
                     self showtoplayer( var_2 );
             }
 

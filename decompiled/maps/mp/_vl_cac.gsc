@@ -76,7 +76,7 @@ resetloadout( var_0 )
         level._id_9EA2 = var_2;
         thread maps\mp\_vl_base::_id_9E55( var_2, var_1, "lobby" + self._id_2522, 1 );
         var_4 = level._id_9EAB[level._id_9EA2];
-        level._id_1999 = var_3.primaryweapon;
+        level.cac_weapon = var_3.primaryweapon;
     }
 }
 
@@ -112,7 +112,7 @@ handlecacmodechange( var_0 )
 {
     if ( var_0 == 0 )
     {
-        if ( maps\mp\_utility::_id_5092( level._id_1975 ) )
+        if ( maps\mp\_utility::_id_5092( level.cac ) )
         {
             if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
                 handlecacweapmodechange( 0 );
@@ -121,18 +121,18 @@ handlecacmodechange( var_0 )
             maps\mp\_vl_base::resetplayeravatar();
             self notify( "handleRotateAvatar" );
             maps\mp\_vl_base::playerpopcameramode();
-            level._id_1975 = undefined;
+            level.cac = undefined;
         }
         else
             self notify( "handleRotateAvatar" );
     }
     else if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
         handlecacweapmodechange( 0 );
-    else if ( !maps\mp\_utility::_id_5092( level._id_1975 ) )
+    else if ( !maps\mp\_utility::_id_5092( level.cac ) )
     {
         maps\mp\_vl_base::resetplayeravatar();
         thread maps\mp\_vl_base::handlerotateplayeravatar();
-        level._id_1975 = 1;
+        level.cac = 1;
         maps\mp\_vl_camera::_id_382D();
         var_1 = level._id_9EAB[level._id_9EA2];
         maps\mp\_vl_avatar::playerteleportavatartocac( var_1 );
@@ -152,7 +152,7 @@ handleclassselect( var_0, var_1 )
         if ( var_3 > 0 )
             self._id_2522 = var_3;
 
-        var_4 = maps\mp\_utility::_id_197E();
+        var_4 = maps\mp\_utility::cac_getcustomclassloc();
         self.currentclassloc = var_4;
         var_5 = maps\mp\_vl_base::_id_3F9E( var_2 );
         var_6 = level._id_9EAB[var_5];
@@ -169,7 +169,7 @@ handleclassselect( var_0, var_1 )
             maps\mp\_vl_avatar::_id_4846( var_6 );
             maps\mp\_vl_camera::_id_7DDB( 1 );
             thread maps\mp\_vl_base::_id_9E55( var_5, var_2, var_7, 1 );
-            level._id_1999 = var_6.primaryweapon;
+            level.cac_weapon = var_6.primaryweapon;
             maps\mp\_vl_camera::playerupdatecamera();
             return;
         }
@@ -188,7 +188,7 @@ handleweaponhighlighted( var_0 )
     if ( var_2.size > 1 )
     {
         var_4 = int( var_2[0] );
-        var_2 = maps\mp\_utility::_id_0CFA( var_2, 0 );
+        var_2 = maps\mp\_utility::array_remove_index( var_2, 0 );
         var_3 = parseweaponhighlightedcategory( var_2[0] );
     }
 
@@ -258,10 +258,10 @@ handleweaponhighlighted( var_0 )
         }
         else
         {
-            var_18 = _func_2fa( var_4, common_scripts\utility::getstatsgroup_common(), "applyEmblemToWeapon" );
+            var_18 = _func_2FA( var_4, common_scripts\utility::getstatsgroup_common(), "applyEmblemToWeapon" );
 
             if ( var_18 )
-                var_17 = _func_2fa( var_4, common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
+                var_17 = _func_2FA( var_4, common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
         }
 
         var_19 = shouldhidecamoonweapon( var_4, var_7, var_10 );
@@ -434,7 +434,7 @@ setcacweapon( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     }
 
     level.cac_weapon_base = var_0;
-    level._id_1999 = var_8;
+    level.cac_weapon = var_8;
     updateweaponavatar( var_1 );
 }
 
@@ -443,7 +443,7 @@ buildweaponnamecac( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( issubstr( var_0, "meleebottle" ) || issubstr( var_0, "meleejun6" ) || issubstr( var_0, "meleejun5" ) )
         var_2 = "lby";
 
-    return maps\mp\gametypes\_class::_id_188C( var_0, var_1, var_2, var_3, var_4, var_5 );
+    return maps\mp\gametypes\_class::buildweaponname( var_0, var_1, var_2, var_3, var_4, var_5 );
 }
 
 has_suffix( var_0, var_1 )
@@ -540,7 +540,7 @@ getweaponavatarlocation( var_0, var_1 )
     if ( isdefined( self.fovscale ) )
         var_6 *= self.fovscale;
 
-    var_7 = self _meth_84ee( ( var_3, var_4, 0 ), var_6, var_2, 1 );
+    var_7 = self _meth_84EE( ( var_3, var_4, 0 ), var_6, var_2, 1 );
     return var_7;
 }
 
@@ -678,7 +678,7 @@ showloadingweaponavatar( var_0, var_1 )
 
     var_3 = strtok( var_0, "_" );
     var_4 = var_3[0] + "_" + var_3[1] + "loading_mp";
-    var_2 _meth_847f( var_4, 1 );
+    var_2 _meth_847F( var_4, 1 );
     var_2._id_A2C6 = var_0;
     var_2.category = var_1;
     var_5 = shouldplayidleanim( var_1 );
@@ -697,7 +697,7 @@ showloadingweaponavatar( var_0, var_1 )
         else
             var_2.akimboavatar show();
 
-        var_2.akimboavatar _meth_847f( var_4, 1 );
+        var_2.akimboavatar _meth_847F( var_4, 1 );
         weaponitemplayidleanim( var_2.akimboavatar, var_5 );
         var_2 _meth_8442( var_2.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
@@ -732,7 +732,7 @@ showweaponavatar( var_0 )
 
     if ( !isdefined( var_1 ) )
     {
-        var_1 = spawn( "weapon_" + level._id_1999, ( 0.0, 0.0, 0.0 ), 1 );
+        var_1 = spawn( "weapon_" + level.cac_weapon, ( 0.0, 0.0, 0.0 ), 1 );
         var_1.isweapon = 1;
         level.weaponavatarparent.savedweaponavatar = var_1;
         var_1.linker = spawngenericprop3avatar();
@@ -740,8 +740,8 @@ showweaponavatar( var_0 )
     else
         var_1 show();
 
-    var_1 _meth_847f( level._id_1999, 1 );
-    var_1._id_A2C6 = level._id_1999;
+    var_1 _meth_847F( level.cac_weapon, 1 );
+    var_1._id_A2C6 = level.cac_weapon;
     var_1.category = var_0;
     var_2 = shouldplayidleanim( var_0 );
     weaponitemplayidleanim( var_1, var_2 );
@@ -751,13 +751,13 @@ showweaponavatar( var_0 )
     {
         if ( !isdefined( var_1.akimboavatar ) )
         {
-            var_1.akimboavatar = spawn( "weapon_" + level._id_1999, ( 0.0, 0.0, 0.0 ), 1 );
+            var_1.akimboavatar = spawn( "weapon_" + level.cac_weapon, ( 0.0, 0.0, 0.0 ), 1 );
             var_1.akimboavatar _meth_8442( var_1.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
             var_1.akimboavatar show();
 
-        var_1.akimboavatar _meth_847f( level._id_1999, 1 );
+        var_1.akimboavatar _meth_847F( level.cac_weapon, 1 );
         weaponitemplayidleanim( var_1.akimboavatar, var_2 );
         var_1 _meth_8442( var_1.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
@@ -804,9 +804,9 @@ showperkavatar( var_0 )
     else
         var_1 show();
 
-    var_2 = getperkmodel( level._id_1999 );
+    var_2 = getperkmodel( level.cac_weapon );
     var_1 setmodel( var_2 );
-    var_1._id_A2C6 = level._id_1999;
+    var_1._id_A2C6 = level.cac_weapon;
     var_1.category = var_0;
     positionweaponavatar( var_1, var_0 );
     level.weaponavatarparent.weaponavatar = var_1;
@@ -834,7 +834,7 @@ updateweaponavatar( var_0 )
 
     hideloadingweaponavatar();
 
-    if ( level._id_1999 == "" || level._id_1999 == "none" || level._id_1999 == "specialty_null" )
+    if ( level.cac_weapon == "" || level.cac_weapon == "none" || level.cac_weapon == "specialty_null" )
     {
         hideperkavatar();
         hideweaponavatar();

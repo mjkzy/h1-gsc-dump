@@ -60,7 +60,7 @@ _id_4476( var_0 )
         if ( !isalive( self._id_24DF ) )
             continue;
 
-        if ( self _meth_81c2( self._id_24DF ) )
+        if ( self _meth_81C2( self._id_24DF ) )
             continue;
 
         self waittill( "saw_enemy" );
@@ -80,7 +80,7 @@ _id_83DC( var_0 )
     self._id_24DF endon( "death" );
     var_1 = self._id_24DF;
 
-    while ( self _meth_81c2( var_1 ) )
+    while ( self _meth_81C2( var_1 ) )
     {
         var_2 = vectortoangles( var_1 geteye() - var_0.origin );
         var_2 = anglestoforward( var_2 );
@@ -160,7 +160,7 @@ _id_23CC()
     level._id_5BC1[level._id_5BC1.size] = self;
     waitframe;
     var_0 = spawnstruct();
-    common_scripts\utility::_id_0D13( level._id_5BC1, ::_id_5BC0, var_0 );
+    common_scripts\utility::array_thread( level._id_5BC1, ::_id_5BC0, var_0 );
     var_1 = level._id_5BC1;
     level._id_5BC1 = undefined;
     var_0 waittill( "gunner_died" );
@@ -254,7 +254,7 @@ _id_8A91( var_0, var_1 )
     self endon( "new_enemy" );
     var_1 endon( "death" );
 
-    while ( self _meth_81c2( var_1 ) )
+    while ( self _meth_81C2( var_1 ) )
     {
         var_2 = vectortoangles( var_1 geteye() - var_0.origin );
         var_2 = anglestoforward( var_2 );
@@ -325,7 +325,7 @@ _id_7287()
     if ( !isalive( self.enemy ) )
         return;
 
-    if ( !self _meth_81c2( self.enemy ) )
+    if ( !self _meth_81C2( self.enemy ) )
         return;
 
     self._id_5524 = self.enemy geteye();

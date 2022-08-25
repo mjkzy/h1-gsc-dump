@@ -25,27 +25,27 @@ _id_4D73()
         return;
 
     maps\_vehicle_code::_id_816E();
-    level._id_4806 = common_scripts\utility::_id_0CDD( level._id_4806, maps\_utility::_id_40FE( "helicopter_crash_location", "targetname" ) );
-    common_scripts\utility::_id_0CF0( getentarray( "colmap_vehicle", "targetname" ), maps\_utility::_id_284E );
+    level._id_4806 = common_scripts\utility::array_combine( level._id_4806, maps\_utility::_id_40FE( "helicopter_crash_location", "targetname" ) );
+    common_scripts\utility::array_levelthread( getentarray( "colmap_vehicle", "targetname" ), maps\_utility::_id_284E );
     maps\_vehicle_code::_id_82E3();
-    common_scripts\utility::_id_0D13( getentarray( "truckjunk", "targetname" ), maps\_vehicle_code::_id_9882 );
-    common_scripts\utility::_id_0D13( getentarray( "truckjunk", "script_noteworthy" ), maps\_vehicle_code::_id_9882 );
-    common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "truckjunk", "targetname" ), maps\_vehicle_code::_id_9882 );
-    common_scripts\utility::_id_0D13( common_scripts\utility::_id_40FD( "truckjunk", "script_noteworthy" ), maps\_vehicle_code::_id_9882 );
+    common_scripts\utility::array_thread( getentarray( "truckjunk", "targetname" ), maps\_vehicle_code::_id_9882 );
+    common_scripts\utility::array_thread( getentarray( "truckjunk", "script_noteworthy" ), maps\_vehicle_code::_id_9882 );
+    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "truckjunk", "targetname" ), maps\_vehicle_code::_id_9882 );
+    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "truckjunk", "script_noteworthy" ), maps\_vehicle_code::_id_9882 );
     maps\_vehicle_code::_id_8042();
     maps\_vehicle_code::_id_82DC();
     var_0 = maps\_vehicle_code::_id_6ECF();
     maps\_vehicle_code::_id_82E4( var_0 );
 
     if ( isdefined( level._id_6545 ) )
-        common_scripts\utility::_id_0CF0( level._id_9D1C, ::_id_97D7 );
+        common_scripts\utility::array_levelthread( level._id_9D1C, ::_id_97D7 );
     else
-        common_scripts\utility::_id_0CF0( level._id_9D1C, maps\_vehicle_code::_id_97D5 );
+        common_scripts\utility::array_levelthread( level._id_9D1C, maps\_vehicle_code::_id_97D5 );
 
     level._id_9D1C = undefined;
     level._id_56E2 = getentarray( "script_vehicle", "code_classname" ).size > 0;
-    maps\_utility::_id_0764( "invulerable_frags", &"SCRIPT_INVULERABLE_FRAGS", undefined );
-    maps\_utility::_id_0764( "invulerable_bullets", &"SCRIPT_INVULERABLE_BULLETS", undefined );
+    maps\_utility::add_hint_string( "invulerable_frags", &"SCRIPT_INVULERABLE_FRAGS", undefined );
+    maps\_utility::add_hint_string( "invulerable_bullets", &"SCRIPT_INVULERABLE_BULLETS", undefined );
     common_scripts\utility::_id_23C8( "aircraft_wash_math" );
 
     if ( isdefined( level.helicopter_landed_fx_override ) )
@@ -64,7 +64,7 @@ _id_97D7( var_0 )
 
 _id_9D17( var_0, var_1, var_2 )
 {
-    return maps\_vehicle_code::_id_0689( var_0, var_1, var_2 );
+    return maps\_vehicle_code::_vehicle_paths( var_0, var_1, var_2 );
 }
 
 _id_23DE( var_0 )
@@ -79,17 +79,17 @@ _id_23DE( var_0 )
 
 _id_427A( var_0 )
 {
-    return maps\_vehicle_code::_id_05C6( var_0 );
+    return maps\_vehicle_code::_gopath( var_0 );
 }
 
 _id_7B3C( var_0 )
 {
-    return maps\_vehicle_code::_id_062F( var_0 );
+    return maps\_vehicle_code::_scripted_spawn( var_0 );
 }
 
 _id_9D41( var_0 )
 {
-    return maps\_vehicle_code::_id_068B( var_0 );
+    return maps\_vehicle_code::_vehicle_spawn( var_0 );
 }
 
 waittill_vehiclespawn( var_0 )
@@ -110,7 +110,7 @@ waittill_vehiclespawn_noteworthy( var_0 )
 
 _id_530E( var_0, var_1 )
 {
-    return maps\_vehicle_code::_id_05DA( var_0, var_1 );
+    return maps\_vehicle_code::_kill_fx( var_0, var_1 );
 }
 
 vehicle_flag_arrived( var_0 )
@@ -127,7 +127,7 @@ vehicle_flag_arrived( var_0 )
     }
 }
 
-_id_1862( var_0, var_1, var_2, var_3, var_4, var_5 )
+build_radiusdamage( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( level._id_9CAA ) )
         level._id_9CAA = [];
@@ -143,50 +143,50 @@ _id_1862( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6._id_7131 = var_1;
     var_6._id_5A2A = var_2;
     var_6._id_5C40 = var_3;
-    var_6._id_1488 = var_4;
+    var_6.bkillplayer = var_4;
     var_6._id_27C0 = var_5;
     level._id_9CAA[level._id_9F54] = var_6;
 }
 
-_id_1865( var_0, var_1, var_2, var_3, var_4, var_5 )
+build_rumble( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( level._id_9D2C ) )
         level._id_9D2C = [];
 
-    var_6 = _id_1861( var_1, var_2, var_3, var_4, var_5 );
+    var_6 = build_quake( var_1, var_2, var_3, var_4, var_5 );
     precacherumble( var_0 );
     var_6._id_7675 = var_0;
     level._id_9D2C[level._id_9F54] = var_6;
 }
 
-_id_1866( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+build_rumble_override( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( level._id_9D2D ) )
         level._id_9D2D = [];
 
-    var_7 = _id_1861( var_2, var_3, var_4, var_5, var_6 );
+    var_7 = build_quake( var_2, var_3, var_4, var_5, var_6 );
     precacherumble( var_1 );
     var_7._id_7675 = var_1;
     level._id_9D2D[var_0] = var_7;
 }
 
-_id_1867( var_0, var_1, var_2, var_3, var_4, var_5 )
+build_rumble_unique( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_6 = _id_1861( var_1, var_2, var_3, var_4, var_5 );
+    var_6 = build_quake( var_1, var_2, var_3, var_4, var_5 );
     var_6._id_7675 = var_0;
     self._id_9D2E = var_6;
     _id_9CF1();
     thread maps\_vehicle_code::_id_9D2C();
 }
 
-_id_1846( var_0, var_1, var_2 )
+build_deathquake( var_0, var_1, var_2 )
 {
     var_3 = level._id_9F54;
 
     if ( !isdefined( level._id_9CA6 ) )
         level._id_9CA6 = [];
 
-    level._id_9CA6[var_3] = _id_1861( var_0, var_1, var_2 );
+    level._id_9CA6[var_3] = build_quake( var_0, var_1, var_2 );
 }
 
 build_deathquake_with_classname( var_0, var_1, var_2, var_3 )
@@ -194,10 +194,10 @@ build_deathquake_with_classname( var_0, var_1, var_2, var_3 )
     if ( !isdefined( level._id_9CA6 ) )
         level._id_9CA6 = [];
 
-    level._id_9CA6[var_0] = _id_1861( var_1, var_2, var_3 );
+    level._id_9CA6[var_0] = build_quake( var_1, var_2, var_3 );
 }
 
-_id_1861( var_0, var_1, var_2, var_3, var_4 )
+build_quake( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = spawnstruct();
     var_5._id_782D = var_0;
@@ -205,7 +205,7 @@ _id_1861( var_0, var_1, var_2, var_3, var_4 )
     var_5.radius = var_2;
 
     if ( isdefined( var_3 ) )
-        var_5._id_1318 = var_3;
+        var_5.basetime = var_3;
 
     if ( isdefined( var_4 ) )
         var_5._id_711D = var_4;
@@ -213,7 +213,7 @@ _id_1861( var_0, var_1, var_2, var_3, var_4 )
     return var_5;
 }
 
-_id_184D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+build_fx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     if ( !isdefined( var_5 ) )
         var_5 = 0;
@@ -228,18 +228,18 @@ _id_184D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_11._id_3018 = loadfx( var_0 );
     var_11.tag = var_1;
     var_11._id_8899 = var_2;
-    var_11._id_182E = var_5;
+    var_11.bsoundlooping = var_5;
     var_11._id_27C0 = var_4;
     var_11._id_A00D = var_6;
     var_11._id_8D81 = var_7;
     var_11._id_6237 = var_8;
-    var_11._id_136B = var_3;
+    var_11.beffectlooping = var_3;
     var_11._id_7C77 = var_9;
     var_11._id_7340 = var_10;
     return var_11;
 }
 
-_id_1844( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
+build_deathfx_override( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
 {
     if ( !isdefined( level.script ) )
         level.script = tolower( getdvar( "mapname" ) );
@@ -260,7 +260,7 @@ _id_1844( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( !isdefined( level._id_9CA7[var_0] ) )
         level._id_9CA7[var_0] = [];
 
-    level._id_9CA7[var_0][level._id_9CA7[var_0].size] = _id_184D( var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 );
+    level._id_9CA7[var_0][level._id_9CA7[var_0].size] = build_fx( var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 );
     level._id_9F7A = undefined;
 }
 
@@ -297,7 +297,7 @@ swap_deathfx_effect_only( var_0, var_1, var_2, var_3 )
         return;
 }
 
-_id_1842( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+build_deathfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     var_11 = level._id_9F54;
 
@@ -307,18 +307,18 @@ _id_1842( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( !isdefined( level._id_9CA7[var_11] ) )
         level._id_9CA7[var_11] = [];
 
-    level._id_9CA7[var_11][level._id_9CA7[var_11].size] = _id_184D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
+    level._id_9CA7[var_11][level._id_9CA7[var_11].size] = build_fx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
 }
 
-_id_1843( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+build_deathfx_generic_script_model( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     var_11 = level._id_9F54;
     level._id_9F54 = "script_model";
-    _id_1842( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
+    build_deathfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
     level._id_9F54 = var_11;
 }
 
-_id_1841( var_0, var_1 )
+build_deathanim( var_0, var_1 )
 {
     override_deathanim( level._id_9F54, var_1, var_0 );
 }
@@ -452,17 +452,17 @@ _id_505C( var_0 )
     return level._id_9CA8[var_0];
 }
 
-_id_1864( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+build_rocket_deathfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     var_11 = level._id_9F54;
     level._id_9F54 = "rocket_death" + var_11;
-    _id_1842( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
+    build_deathfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
     level._id_9F54 = var_11;
 }
 
 _id_399A()
 {
-    return maps\_vehicle_code::_id_05AF();
+    return maps\_vehicle_code::_force_kill();
 }
 
 _id_4259()
@@ -477,12 +477,12 @@ _id_4258()
 
 _id_5BD2()
 {
-    return maps\_vehicle_code::_id_05EF();
+    return maps\_vehicle_code::_mgoff();
 }
 
 _id_5BD3()
 {
-    return maps\_vehicle_code::_id_05F0();
+    return maps\_vehicle_code::_mgon();
 }
 
 _id_51FD()
@@ -490,7 +490,7 @@ _id_51FD()
     return isdefined( self.vehicletype );
 }
 
-_id_185C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
+build_missile_launcher( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 )
 {
     if ( !isdefined( level._id_9D0D ) )
         level._id_9D0D = [];
@@ -517,7 +517,7 @@ _id_185C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     level._id_9D0D[var_12][level._id_9D0D[var_12].size] = var_13;
 }
 
-_id_1872( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+build_turret( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     if ( !isdefined( level._id_9D0C ) )
         level._id_9D0C = [];
@@ -547,12 +547,12 @@ _id_1872( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
 _id_9CEB()
 {
-    return maps\_vehicle_code::_id_0687();
+    return maps\_vehicle_code::_vehicle_is_crashing();
 }
 
 _id_5031()
 {
-    return maps\_vehicle_code::_id_05D6();
+    return maps\_vehicle_code::_is_godmode();
 }
 
 _id_9CF1()
@@ -574,7 +574,7 @@ _id_5F3A( var_0, var_1 )
 
         if ( isdefined( var_3._id_79FD ) )
         {
-            var_3 linkto( var_0, var_3._id_79FD, var_3._id_12FD, var_3._id_12F2 );
+            var_3 linkto( var_0, var_3._id_79FD, var_3.base_origin, var_3.base_angles );
             continue;
         }
 
@@ -610,7 +610,7 @@ _id_2FC3()
     if ( maps\_vehicle_code::_id_472F() )
     {
         self notify( "stop_kicking_up_dust" );
-        thread maps\_vehicle_code::_id_0995();
+        thread maps\_vehicle_code::aircraft_wash_thread();
     }
 
     return self._id_5D40;
@@ -628,7 +628,7 @@ _id_5F23( var_0 )
         if ( !isdefined( var_3 ) )
             continue;
 
-        var_4 = maps\_vehicle_aianim::_id_0BE9( self, var_3._id_9D1B );
+        var_4 = maps\_vehicle_aianim::anim_pos( self, var_3._id_9D1B );
 
         if ( isdefined( var_4._id_66B4 ) )
             continue;
@@ -638,7 +638,7 @@ _id_5F23( var_0 )
 
         if ( isai( var_3 ) )
         {
-            var_3 _meth_81ca( var_0 gettagorigin( var_4._id_85AE ) );
+            var_3 _meth_81CA( var_0 gettagorigin( var_4._id_85AE ) );
             continue;
         }
 
@@ -732,9 +732,9 @@ _id_897D( var_0 )
     return var_1;
 }
 
-_id_0994( var_0 )
+aircraft_wash( var_0 )
 {
-    thread maps\_vehicle_code::_id_0995( var_0 );
+    thread maps\_vehicle_code::aircraft_wash_thread( var_0 );
 }
 
 _id_9D6E()
@@ -747,7 +747,7 @@ _id_9D6D()
     maps\_vehicle_code::_id_A2FF( 0 );
 }
 
-_id_1857( var_0, var_1, var_2, var_3, var_4, var_5 )
+build_light( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( level._id_9CFE ) )
         level._id_9CFE = [];
@@ -770,18 +770,18 @@ _id_1857( var_0, var_1, var_2, var_3, var_4, var_5 )
         maps\_vehicle_code::_id_442A( var_0, var_1, var_4 );
 }
 
-_id_1858( var_0, var_1, var_2, var_3, var_4, var_5 )
+build_light_override( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( level.script ) )
         level.script = tolower( getdvar( "mapname" ) );
 
     level._id_9F54 = var_0;
-    _id_1857( var_0, var_1, var_2, var_3, var_4, var_5 );
+    build_light( var_0, var_1, var_2, var_3, var_4, var_5 );
     level._id_9F7A = 0;
     level._id_9D00[var_4] = 1;
 }
 
-_id_1850( var_0, var_1 )
+build_hideparts( var_0, var_1 )
 {
     if ( !isdefined( level._id_9CE3 ) )
         level._id_9CE3 = [];
@@ -789,7 +789,7 @@ _id_1850( var_0, var_1 )
     level._id_9CE3[var_0] = var_1;
 }
 
-_id_1845( var_0, var_1, var_2, var_3 )
+build_deathmodel( var_0, var_1, var_2, var_3 )
 {
     if ( var_0 != level._id_9F56 && level._id_9F56 != "script_model" )
         return;
@@ -815,13 +815,13 @@ _id_1845( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_1868( var_0 )
+build_shoot_shock( var_0 )
 {
     precacheshellshock( var_0 );
     level._id_9D39[level._id_9F54] = var_0;
 }
 
-_id_1853( var_0 )
+build_idle( var_0 )
 {
     if ( !isdefined( level._id_9CE6 ) )
         level._id_9CE6 = [];
@@ -832,7 +832,7 @@ _id_1853( var_0 )
     level._id_9CE6[level._id_9F56][level._id_9CE6[level._id_9F56].size] = var_0;
 }
 
-_id_1849( var_0, var_1, var_2, var_3 )
+build_drive( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 10;
@@ -848,7 +848,7 @@ _id_1849( var_0, var_1, var_2, var_3 )
         level._id_9CB9[level._id_9F56] = var_3;
 }
 
-_id_186C( var_0, var_1, var_2, var_3 )
+build_template( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( level.script ) )
         level.script = tolower( getdvar( "mapname" ) );
@@ -877,12 +877,12 @@ _id_186C( var_0, var_1, var_2, var_3 )
     level._id_9F54 = var_3;
 }
 
-_id_184B( var_0 )
+build_exhaust( var_0 )
 {
     level._id_9CC1[level._id_9F56] = loadfx( var_0 );
 }
 
-_id_186E( var_0, var_1, var_2, var_3, var_4 )
+build_treadfx( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_0 ) )
     {
@@ -901,34 +901,34 @@ _id_186E( var_0, var_1, var_2, var_3, var_4 )
     }
 }
 
-_id_1871( var_0, var_1, var_2, var_3, var_4 )
+build_treadfx_script_model( var_0, var_1, var_2, var_3, var_4 )
 {
-    _id_186E( var_0, var_1 + "_script_model", var_2, var_3, var_4 );
+    build_treadfx( var_0, var_1 + "_script_model", var_2, var_3, var_4 );
 }
 
-_id_1870( var_0, var_1 )
+build_treadfx_override_tags( var_0, var_1 )
 {
-    if ( !isdefined( level._id_0686 ) )
-        level._id_0686 = [];
+    if ( !isdefined( level._vehicle_effect_custom_param ) )
+        level._vehicle_effect_custom_param = [];
 
-    if ( !isdefined( level._id_0686[var_0] ) )
-        level._id_0686[var_0] = spawnstruct();
+    if ( !isdefined( level._vehicle_effect_custom_param[var_0] ) )
+        level._vehicle_effect_custom_param[var_0] = spawnstruct();
 
-    level._id_0686[var_0]._id_9106 = var_1;
+    level._vehicle_effect_custom_param[var_0]._id_9106 = var_1;
 }
 
-_id_186F( var_0, var_1 )
+build_treadfx_override_get_surface_function( var_0, var_1 )
 {
-    if ( !isdefined( level._id_0686 ) )
-        level._id_0686 = [];
+    if ( !isdefined( level._vehicle_effect_custom_param ) )
+        level._vehicle_effect_custom_param = [];
 
-    if ( !isdefined( level._id_0686[var_0] ) )
-        level._id_0686[var_0] = spawnstruct();
+    if ( !isdefined( level._vehicle_effect_custom_param[var_0] ) )
+        level._vehicle_effect_custom_param[var_0] = spawnstruct();
 
-    level._id_0686[var_0]._id_3E81 = var_1;
+    level._vehicle_effect_custom_param[var_0]._id_3E81 = var_1;
 }
 
-_id_183A( var_0, var_1 )
+build_all_treadfx( var_0, var_1 )
 {
     var_2 = _id_3E82();
 
@@ -938,8 +938,8 @@ _id_183A( var_0, var_1 )
 
 _id_7EFD( var_0, var_1, var_2, var_3, var_4 )
 {
-    if ( !isdefined( level._id_0685 ) )
-        level._id_0685 = [];
+    if ( !isdefined( level._vehicle_effect ) )
+        level._vehicle_effect = [];
 
     if ( !isdefined( level._vehicle_effect_name ) )
         level._vehicle_effect_name = [];
@@ -958,9 +958,9 @@ _id_7EFD( var_0, var_1, var_2, var_3, var_4 )
 
     if ( isdefined( var_2 ) )
         update_vehicle_effect( var_0, var_1, var_2, var_4 );
-    else if ( isdefined( level._id_0685[var_0] ) && isdefined( level._id_0685[var_0][var_1] ) )
+    else if ( isdefined( level._vehicle_effect[var_0] ) && isdefined( level._vehicle_effect[var_0][var_1] ) )
     {
-        level._id_0685[var_0][var_1] = undefined;
+        level._vehicle_effect[var_0][var_1] = undefined;
         level._vehicle_sound_effect[var_0][var_1] = var_4;
     }
 }
@@ -1004,14 +1004,14 @@ _id_3E82()
 
 update_vehicle_effect( var_0, var_1, var_2, var_3 )
 {
-    level._id_0685[var_0][var_1] = loadfx( var_2 );
+    level._vehicle_effect[var_0][var_1] = loadfx( var_2 );
     level._vehicle_effect_name[var_0][var_1] = var_2;
     level._vehicle_sound_effect[var_0][var_1] = var_3;
     var_4 = maps\_treadfx::get_surface_types_variation( var_1 );
 
     for ( var_5 = 0; var_5 < var_4.size; var_5++ )
     {
-        level._id_0685[var_0][var_4[var_5]] = loadfx( var_2 );
+        level._vehicle_effect[var_0][var_4[var_5]] = loadfx( var_2 );
         level._vehicle_effect_name[var_0][var_4[var_5]] = var_2;
         level._vehicle_sound_effect[var_0][var_4[var_5]] = var_3;
     }
@@ -1054,7 +1054,7 @@ switch_vehicle_fx( var_0, var_1 )
 
     foreach ( var_8 in var_2 )
     {
-        var_4 = level._id_0685[var_0][var_8];
+        var_4 = level._vehicle_effect[var_0][var_8];
         var_5 = level._vehicle_effect_name[var_0][var_8];
         var_3 = level._vehicle_effect_bank[var_1][var_8];
         override_vehicle_effect( var_0, var_8, var_5, var_4, var_3, var_1 );
@@ -1067,17 +1067,17 @@ switch_vehicle_fx( var_0, var_1 )
 
 override_vehicle_effect( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    level._id_0685[var_0][var_1] = var_4;
+    level._vehicle_effect[var_0][var_1] = var_4;
     level._vehicle_effect_name[var_0][var_1] = var_5;
     level._vehicle_effect_bank[var_2][var_1] = var_3;
 }
 
-_id_186A( var_0 )
+build_team( var_0 )
 {
     level._id_9D55[level._id_9F54] = var_0;
 }
 
-_id_185A( var_0, var_1, var_2, var_3 )
+build_mainturret( var_0, var_1, var_2, var_3 )
 {
     level._id_9CE0[level._id_9F56] = 1;
 
@@ -1094,17 +1094,17 @@ _id_185A( var_0, var_1, var_2, var_3 )
         level._id_9D0A[level._id_9F56][var_3] = 1;
 }
 
-_id_183C( var_0 )
+build_bulletshield( var_0 )
 {
     level._id_9C92[level._id_9F54] = var_0;
 }
 
-_id_184F( var_0 )
+build_grenadeshield( var_0 )
 {
     level._id_9CDB[level._id_9F54] = var_0;
 }
 
-_id_1839( var_0, var_1 )
+build_aianims( var_0, var_1 )
 {
     var_2 = level._id_9F54;
     level._id_9C82[var_2] = [[ var_0 ]]();
@@ -1121,22 +1121,22 @@ build_aianims_with_classname( var_0, var_1, var_2 )
         level._id_9C82[var_0] = [[ var_2 ]]( level._id_9C82[var_0] );
 }
 
-_id_184C( var_0 )
+build_frontarmor( var_0 )
 {
     level._id_9CC7[level._id_9F54] = var_0;
 }
 
-_id_183B( var_0 )
+build_attach_models( var_0 )
 {
     level._id_9C8D[level._id_9F54] = [[ var_0 ]]();
 }
 
-_id_1873( var_0 )
+build_unload_groups( var_0 )
 {
     level._id_9D69[level._id_9F54] = [[ var_0 ]]();
 }
 
-_id_1856( var_0, var_1, var_2 )
+build_life( var_0, var_1, var_2 )
 {
     var_3 = level._id_9F54;
     level._id_9CF9[var_3] = var_0;
@@ -1144,12 +1144,12 @@ _id_1856( var_0, var_1, var_2 )
     level._id_9CFA[var_3] = var_2;
 }
 
-_id_1847( var_0 )
+build_deckdust( var_0 )
 {
     level._id_9CB1[level._id_9F56] = loadfx( var_0 );
 }
 
-_id_1848( var_0, var_1 )
+build_destructible( var_0, var_1 )
 {
     if ( isdefined( level._id_9CA0 ) )
         return;
@@ -1163,7 +1163,7 @@ _id_1848( var_0, var_1 )
     level._id_2922[level._id_9F56] = var_1;
 }
 
-_id_1859( var_0 )
+build_localinit( var_0 )
 {
     level._id_9D76[level._id_9F7B][level._id_9F54] = var_0;
 }
@@ -1185,7 +1185,7 @@ _id_9D06( var_0, var_1, var_2 )
     maps\_vehicle_aianim::_id_57BF( var_3, var_1, var_2 );
 }
 
-_id_183F( var_0, var_1, var_2, var_3, var_4, var_5 )
+build_death_badplace( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( level._id_9CA5 ) )
         level._id_9CA5 = [];
@@ -1202,7 +1202,7 @@ _id_183F( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_5EFC( var_0, var_1 )
 {
-    return maps\_vehicle_code::_id_05FC( var_0, var_1 );
+    return maps\_vehicle_code::_mount_snowmobile( var_0, var_1 );
 }
 
 _id_8977()
@@ -1246,12 +1246,12 @@ _id_9CCD( var_0 )
 
 _id_9C7F( var_0 )
 {
-    return maps\_vehicle_aianim::_id_0C57( var_0 );
+    return maps\_vehicle_aianim::animate_guys( var_0 );
 }
 
 _id_9D67( var_0 )
 {
-    return maps\_vehicle_code::_id_068D( var_0 );
+    return maps\_vehicle_code::_vehicle_unload( var_0 );
 }
 
 _id_9D62()
@@ -1293,9 +1293,9 @@ _id_9CCB()
 {
     self endon( "death" );
     var_0 = [];
-    var_1 = self._id_0DF6;
+    var_1 = self.attachedpath;
 
-    if ( !isdefined( self._id_0DF6 ) )
+    if ( !isdefined( self.attachedpath ) )
         return var_0;
 
     var_2 = var_1;
@@ -1306,7 +1306,7 @@ _id_9CCB()
         if ( isdefined( var_2._id_2240 ) && var_2._id_2240 == 1 )
             break;
 
-        var_0 = common_scripts\utility::_id_0CDA( var_0, var_2 );
+        var_0 = common_scripts\utility::array_add( var_0, var_2 );
         var_2._id_2240 = 1;
 
         if ( !isdefined( var_2.target ) )
@@ -1383,21 +1383,21 @@ _id_9D3E( var_0 )
 _id_9D4D( var_0, var_1 )
 {
     self setswitchnode( var_0, var_1 );
-    self._id_0DF6 = var_1;
+    self.attachedpath = var_1;
     thread _id_9D17();
 }
 
 _id_9D4C( var_0, var_1, var_2 )
 {
-    return maps\_vehicle_code::_id_068C( var_0, var_1, var_2 );
+    return maps\_vehicle_code::_vehicle_stop_named( var_0, var_1, var_2 );
 }
 
 _id_9D1E( var_0 )
 {
-    return maps\_vehicle_code::_id_068A( var_0 );
+    return maps\_vehicle_code::_vehicle_resume_named( var_0 );
 }
 
-_id_1855( var_0 )
+build_is_helicopter( var_0 )
 {
     if ( !isdefined( level._id_4810 ) )
         level._id_4810 = [];
@@ -1408,18 +1408,18 @@ _id_1855( var_0 )
     level._id_4810[var_0] = 1;
 }
 
-_id_1854( var_0 )
+build_is_airplane( var_0 )
 {
-    if ( !isdefined( level._id_0997 ) )
-        level._id_0997 = [];
+    if ( !isdefined( level.airplane_list ) )
+        level.airplane_list = [];
 
     if ( !isdefined( var_0 ) )
         var_0 = level._id_9F7B;
 
-    level._id_0997[var_0] = 1;
+    level.airplane_list[var_0] = 1;
 }
 
-_id_1869( var_0 )
+build_single_tread( var_0 )
 {
     if ( !isdefined( level._id_9D40 ) )
         level._id_9D40 = [];
@@ -1440,7 +1440,7 @@ _id_9D34( var_0 )
     self._id_2516 = self.health;
 }
 
-_id_1863( var_0 )
+build_rider_death_func( var_0 )
 {
     if ( !isdefined( level._id_9D24 ) )
         level._id_9D24 = [];
@@ -1450,17 +1450,17 @@ _id_1863( var_0 )
 
 _id_5118()
 {
-    return maps\_vehicle_code::_id_05D8();
+    return maps\_vehicle_code::_ishelicopter();
 }
 
 _id_50B0()
 {
-    return maps\_vehicle_code::_id_05D7();
+    return maps\_vehicle_code::_isairplane();
 }
 
 _id_3D4B()
 {
-    return maps\_vehicle_code::_id_05B3();
+    return maps\_vehicle_code::_get_dummy();
 }
 #using_animtree("vehicles");
 
@@ -1503,13 +1503,13 @@ _id_9D58( var_0, var_1 )
     if ( maps\_vehicle_code::_id_472F() )
     {
         self notify( "stop_kicking_up_dust" );
-        thread maps\_vehicle_code::_id_0995( self._id_5D40 );
+        thread maps\_vehicle_code::aircraft_wash_thread( self._id_5D40 );
     }
 
     return self._id_5D40;
 }
 
-_id_1840( var_0 )
+build_death_jolt_delay( var_0 )
 {
     if ( !isdefined( level._id_9CA9 ) )
         level._id_9CA9 = [];
@@ -1570,10 +1570,10 @@ tank_crush( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8 linkto( var_32 );
     var_0 useanimtree( var_4 );
     var_8 useanimtree( var_4 );
-    var_34 = tank_crush_fx_validation( level._id_0685["tankcrush"]["window_med_left"], level._id_0685["tankcrush"]["window_med"] );
-    var_35 = tank_crush_fx_validation( level._id_0685["tankcrush"]["window_med_right"], level._id_0685["tankcrush"]["window_med"] );
-    var_36 = tank_crush_fx_validation( level._id_0685["tankcrush"]["window_large_back"], level._id_0685["tankcrush"]["window_large"] );
-    var_37 = tank_crush_fx_validation( level._id_0685["tankcrush"]["window_large_front"], level._id_0685["tankcrush"]["window_large"] );
+    var_34 = tank_crush_fx_validation( level._vehicle_effect["tankcrush"]["window_med_left"], level._vehicle_effect["tankcrush"]["window_med"] );
+    var_35 = tank_crush_fx_validation( level._vehicle_effect["tankcrush"]["window_med_right"], level._vehicle_effect["tankcrush"]["window_med"] );
+    var_36 = tank_crush_fx_validation( level._vehicle_effect["tankcrush"]["window_large_back"], level._vehicle_effect["tankcrush"]["window_large"] );
+    var_37 = tank_crush_fx_validation( level._vehicle_effect["tankcrush"]["window_large_front"], level._vehicle_effect["tankcrush"]["window_large"] );
 
     if ( tank_crush_has_notetracks( var_3 ) )
     {
@@ -1681,7 +1681,7 @@ set_crush_vehicle_clips( var_0, var_1, var_2 )
         foreach ( var_6 in var_4 )
         {
             if ( isdefined( var_6.targetname ) && issubstr( var_6.targetname, var_1 ) )
-                var_3 = common_scripts\utility::_id_0CDA( var_3, var_6 );
+                var_3 = common_scripts\utility::array_add( var_3, var_6 );
         }
     }
 

@@ -22,7 +22,7 @@
 main()
 {
     var_0 = getentarray( "static_destructible", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, ::static_destructible_think );
+    common_scripts\utility::array_thread( var_0, ::static_destructible_think );
 }
 
 static_destructible_think()

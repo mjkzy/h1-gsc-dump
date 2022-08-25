@@ -39,7 +39,7 @@ main()
         {
             self _meth_8193( "face current" );
             self _meth_8144( %german_shepherd_attackidle_knob, 0.2 );
-            self setflaggedanimrestart( "dog_idle", %german_shepherd_idle, 1, 0.2, self._id_0C78 );
+            self setflaggedanimrestart( "dog_idle", %german_shepherd_idle, 1, 0.2, self.animplaybackrate );
         }
 
         animscripts\shared::_id_2D06( "dog_idle" );
@@ -124,16 +124,16 @@ randomattackidle()
         var_5 = randomint( 100 );
 
         if ( var_5 < var_3 )
-            self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_b, 1, 0.2, self._id_0C78 );
+            self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_b, 1, 0.2, self.animplaybackrate );
         else
         {
             if ( var_5 < var_4 )
             {
-                self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_bark, 1, 0.2, self._id_0C78 );
+                self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_bark, 1, 0.2, self.animplaybackrate );
                 return;
             }
 
-            self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_growl, 1, 0.2, self._id_0C78 );
+            self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_growl, 1, 0.2, self.animplaybackrate );
         }
     }
 }
@@ -151,7 +151,7 @@ _id_846C()
     if ( !isalive( self.enemy ) )
         return 1;
 
-    return !self _meth_81c2( self.enemy );
+    return !self _meth_81C2( self.enemy );
 }
 
 _id_585C( var_0 )
@@ -165,10 +165,10 @@ _id_585C( var_0 )
     self _meth_8177();
     self.rightaimlimit = 90;
     self.leftaimlimit = -90;
-    self _meth_814e( anim._id_2CD2[var_0][2], 1, 0 );
-    self _meth_814e( anim._id_2CD2[var_0][4], 1, 0 );
-    self _meth_814e( anim._id_2CD2[var_0][6], 1, 0 );
-    self _meth_814e( anim._id_2CD2[var_0][8], 1, 0 );
+    self _meth_814E( anim._id_2CD2[var_0][2], 1, 0 );
+    self _meth_814E( anim._id_2CD2[var_0][4], 1, 0 );
+    self _meth_814E( anim._id_2CD2[var_0][6], 1, 0 );
+    self _meth_814E( anim._id_2CD2[var_0][8], 1, 0 );
     animscripts\track::_id_7F21( 1, 0.2 );
     animscripts\track::_id_9502( %german_shepherd_look_2, %german_shepherd_look_4, %german_shepherd_look_6, %german_shepherd_look_8 );
 }

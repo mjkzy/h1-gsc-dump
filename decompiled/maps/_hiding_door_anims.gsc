@@ -37,9 +37,9 @@ main()
     level._id_78AC["hiding_door"]["kick"] = %doorpeek_kick_door;
     level._id_78AC["hiding_door"]["open"] = %doorpeek_open_door;
     precachemodel( level._id_78B5["hiding_door"] );
-    maps\_anim::_id_0812( "hiding_door", "sound door death", "any", "scn_doorpeek_door_open_death" );
-    maps\_anim::_id_0812( "hiding_door", "sound door open", "any", "scn_doorpeek_door_open" );
-    maps\_anim::_id_0812( "hiding_door", "sound door slam", "any", "scn_doorpeek_door_slam" );
+    maps\_anim::addnotetrack_sound( "hiding_door", "sound door death", "any", "scn_doorpeek_door_open_death" );
+    maps\_anim::addnotetrack_sound( "hiding_door", "sound door open", "any", "scn_doorpeek_door_open" );
+    maps\_anim::addnotetrack_sound( "hiding_door", "sound door slam", "any", "scn_doorpeek_door_slam" );
     main_guy();
     thread _id_61E5();
 }
@@ -64,5 +64,5 @@ main_guy()
 _id_61E5()
 {
     wait 0.05;
-    maps\_anim::_id_0807( "hiding_door_guy", "grenade_throw", maps\_hiding_door::hiding_door_guy_grenade_throw );
+    maps\_anim::addnotetrack_customfunction( "hiding_door_guy", "grenade_throw", maps\_hiding_door::hiding_door_guy_grenade_throw );
 }

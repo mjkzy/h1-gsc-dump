@@ -107,7 +107,7 @@ _ipow( var_0, var_1 )
 _cube_root( var_0 )
 {
     var_1 = common_scripts\utility::_id_856D( var_0 );
-    var_2 = _func_0e5( log( abs( var_0 ) ) / 3 );
+    var_2 = _func_0E5( log( abs( var_0 ) ) / 3 );
     var_2 *= var_1;
     return var_2;
 }
@@ -250,14 +250,14 @@ _variance_error( var_0, var_1 )
 
 _norm_pdf( var_0 )
 {
-    return 0.398942 * _func_0e5( var_0 * var_0 * 0.5 * -1.0 );
+    return 0.398942 * _func_0E5( var_0 * var_0 * 0.5 * -1.0 );
 }
 
 _norm_cdf( var_0 )
 {
     var_1 = abs( 0.707107 * var_0 );
     var_2 = 1.0 / ( 1.0 + 0.5 * var_1 );
-    var_3 = var_2 * _func_0e5( var_1 * var_1 * -1 - 1.26551 + var_2 * ( 1.00002 + var_2 * ( 0.374092 + var_2 * ( 0.0967842 + var_2 * ( -0.186288 + var_2 * ( 0.278868 + var_2 * ( -1.1352 + var_2 * ( 1.48852 + var_2 * ( -0.822152 + var_2 * 0.170873 ) ) ) ) ) ) ) ) );
+    var_3 = var_2 * _func_0E5( var_1 * var_1 * -1 - 1.26551 + var_2 * ( 1.00002 + var_2 * ( 0.374092 + var_2 * ( 0.0967842 + var_2 * ( -0.186288 + var_2 * ( 0.278868 + var_2 * ( -1.1352 + var_2 * ( 1.48852 + var_2 * ( -0.822152 + var_2 * 0.170873 ) ) ) ) ) ) ) ) );
 
     if ( var_0 >= 0 )
         var_3 = 2.0 - var_3;
@@ -357,7 +357,7 @@ _updateskill()
             var_20 = 0.5;
         }
 
-        var_21 = 1.0 / ( 1.0 + _func_0e5( var_19 * -1.0 ) );
+        var_21 = 1.0 / ( 1.0 + _func_0E5( var_19 * -1.0 ) );
         var_12 += ( var_20 - var_21 ) / var_18;
         var_13 += sqrt( var_10 ) / var_18 * var_21 * ( 1.0 - var_21 ) / var_17;
         var_8 += var_15.begin_sos_rating * var_16;

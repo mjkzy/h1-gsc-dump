@@ -21,11 +21,11 @@
 
 _id_86F4()
 {
-    if ( !isdefined( level._id_065D ) )
+    if ( !isdefined( level._snd ) )
     {
-        level._id_065D = spawnstruct();
-        level._id_065D.guid = 0;
-        level._id_065D._id_2791 = 1.0;
+        level._snd = spawnstruct();
+        level._snd.guid = 0;
+        level._snd._id_2791 = 1.0;
         thread _id_86F8();
         _id_86C6();
         soundscripts\_snd_hud::_id_86F2();
@@ -41,24 +41,24 @@ _id_86F4()
 
 _id_86F8()
 {
-    level._id_065D._id_5029 = 1;
+    level._snd._id_5029 = 1;
     waitframe;
-    level._id_065D._id_5029 = 0;
+    level._snd._id_5029 = 0;
 }
 
 _id_8700()
 {
-    return level._id_065D._id_5029;
+    return level._snd._id_5029;
 }
 
 _id_870D()
 {
-    level._id_065D._id_5BB9 = [];
+    level._snd._id_5BB9 = [];
 }
 
 _id_874D( var_0, var_1 )
 {
-    level._id_065D._id_5BB9[var_0] = var_1;
+    level._snd._id_5BB9[var_0] = var_1;
 }
 
 _id_8716( var_0, var_1, var_2 )
@@ -76,16 +76,16 @@ _id_8716( var_0, var_1, var_2 )
 
 _id_870C( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( level._id_065D._id_5BB9[var_0] ) )
+    if ( isdefined( level._snd._id_5BB9[var_0] ) )
     {
         if ( isdefined( var_3 ) )
-            thread [[ level._id_065D._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
+            thread [[ level._snd._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
         else if ( isdefined( var_2 ) )
-            thread [[ level._id_065D._id_5BB9[var_0] ]]( var_1, var_2 );
+            thread [[ level._snd._id_5BB9[var_0] ]]( var_1, var_2 );
         else if ( isdefined( var_1 ) )
-            thread [[ level._id_065D._id_5BB9[var_0] ]]( var_1 );
+            thread [[ level._snd._id_5BB9[var_0] ]]( var_1 );
         else
-            thread [[ level._id_065D._id_5BB9[var_0] ]]();
+            thread [[ level._snd._id_5BB9[var_0] ]]();
     }
 }
 
@@ -116,8 +116,8 @@ _id_86EB()
 
 _id_8718()
 {
-    level._id_065D.guid++;
-    return level._id_065D.guid;
+    level._snd.guid++;
+    return level._snd.guid;
 }
 
 _id_8708( var_0, var_1 )
@@ -183,12 +183,12 @@ _id_86EE( var_0 )
 
 _id_8759( var_0 )
 {
-    level._id_065D._id_88B0 = var_0;
+    level._snd._id_88B0 = var_0;
 }
 
 _id_86EC()
 {
-    return level._id_065D._id_88B0;
+    return level._snd._id_88B0;
 }
 
 _id_871A( var_0, var_1, var_2 )

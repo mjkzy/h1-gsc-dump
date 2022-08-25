@@ -35,7 +35,7 @@ _id_8620()
     var_0["traverseToCoverAnim"] = %slide_across_car_2_cover;
     var_0["coverType"] = "Cover Crouch";
     var_0["traverseHeight"] = 38.0;
-    var_0["interruptDeathAnim"][0] = animscripts\utility::_id_0CD8( %slide_across_car_death );
+    var_0["interruptDeathAnim"][0] = animscripts\utility::array( %slide_across_car_death );
     var_0["traverseSound"] = "npc_car_slide_hood";
     var_0["traverseToCoverSound"] = "npc_car_slide_cover";
     animscripts\traverse\shared::_id_2D86( var_0 );

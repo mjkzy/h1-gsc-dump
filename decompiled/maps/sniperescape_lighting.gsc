@@ -51,7 +51,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "sniperescape", 0 );
     level.player maps\_utility::set_light_set_player( "sniperescape" );
-    level.player _meth_848c( "clut_sniperescape", 1.0 );
+    level.player _meth_848C( "clut_sniperescape", 1.0 );
 }
 
 handle_player_on_sniper_rifle()
@@ -181,7 +181,7 @@ loop_camera_shake()
     {
         var_1 = randomintrange( 0, var_0.size );
         var_2 = var_0[var_1];
-        level.player _meth_83fc( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
+        level.player _meth_83FC( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
         wait(var_0[var_1].duration - 0.5);
     }
 }

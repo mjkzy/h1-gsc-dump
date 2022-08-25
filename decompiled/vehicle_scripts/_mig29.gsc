@@ -21,18 +21,18 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "mig29", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_mig29_desert" );
-    maps\_vehicle::_id_1845( "vehicle_av8b_harrier_jet" );
+    maps\_vehicle::build_template( "mig29", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_mig29_desert" );
+    maps\_vehicle::build_deathmodel( "vehicle_av8b_harrier_jet" );
     buildmig29fx( "afterburner", "fx/fire/jet_afterburner" );
     buildmig29fx( "contrail", "fx/smoke/jet_contrail" );
     buildmig29fx( "contrail_02", "fx/smoke/jet_contrail_02" );
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_1865( "mig_rumble", 0.1, 0.2, 11300, 0.05, 0.05 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1854();
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_rumble( "mig_rumble", 0.1, 0.2, 11300, 0.05, 0.05 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_is_airplane();
 }
 
 _id_4D10()
@@ -200,7 +200,7 @@ _id_686E()
     var_2 = var_7;
     var_8 = var_2.origin;
     var_9 = var_2.angles;
-    playfxontag( level._id_099B, var_2, "tag_origin" );
+    playfxontag( level.airstrikefx, var_2, "tag_origin" );
     wait 1.6;
     var_10 = 12;
     var_11 = 5;

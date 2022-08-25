@@ -106,27 +106,27 @@ _id_5FFD( var_0, var_1 )
 
 aud_start_intro_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_small" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_small" );
 }
 
 aud_start_breach_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_large" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_large" );
 }
 
 aud_start_vip_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "second_floor_corridor" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "second_floor_corridor" );
 }
 
 aud_start_freefall_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "second_floor_large" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "second_floor_large" );
 }
 
 aud_start_demo_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_large" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_large" );
 }
 
 aud_wind_door_mix_manager()

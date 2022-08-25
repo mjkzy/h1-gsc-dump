@@ -37,23 +37,23 @@ main()
         return;
     }
 
-    var_0 = self._id_0CBB;
-    var_1 = animscripts\utility::_id_5863( "cover_trans", self._id_0CBC )[var_0];
+    var_0 = self.approachnumber;
+    var_1 = animscripts\utility::_id_5863( "cover_trans", self.approachtype )[var_0];
 
     if ( !isdefined( self._id_4795 ) )
-        thread _id_06BE();
+        thread abortapproachifthreatened();
 
     self _meth_8144( %body, 0.2 );
     self setflaggedanimrestart( "coverArrival", var_1, 1, 0.2, self._id_5F97 );
     animscripts\face::_id_6D9B( var_1, "run" );
     animscripts\shared::_id_2D06( "coverArrival", ::_id_467F );
-    var_2 = anim._id_0D24[self._id_0CBC];
+    var_2 = anim.arrivalendstance[self.approachtype];
 
     if ( isdefined( var_2 ) )
         self.a._id_6E5A = var_2;
 
     self.a._id_5F5B = "stop";
-    self.a._id_0D29 = self._id_0CBC;
+    self.a.arrivaltype = self.approachtype;
     self _meth_8144( %animscript_root, 0.2 );
     self._id_5575 = undefined;
 }
@@ -86,13 +86,13 @@ _id_51D4()
     if ( !isdefined( self.node ) )
         return 0;
 
-    if ( isdefined( self.enemy ) && self _meth_81c3( self.enemy, 1.5 ) && distancesquared( self.origin, self.enemy.origin ) < 250000 )
-        return !self _meth_81f4();
+    if ( isdefined( self.enemy ) && self _meth_81C3( self.enemy, 1.5 ) && distancesquared( self.origin, self.enemy.origin ) < 250000 )
+        return !self _meth_81F4();
 
     return 0;
 }
 
-_id_06BE()
+abortapproachifthreatened()
 {
     self endon( "killanimscript" );
 
@@ -149,7 +149,7 @@ _id_29A9( var_0 )
             self.cover = spawnstruct();
 
         var_2 = animscripts\cover_multi::_id_22B1( [ "over", [ "left", "right" ] ] );
-        self.cover._id_0D25 = var_2;
+        self.cover.arrivalnodetype = var_2;
         var_3 = animscripts\cover_multi::_id_22B4( var_0, var_2 );
         var_1 = animscripts\utility::_id_3F3F( var_0, var_3 );
     }
@@ -165,11 +165,11 @@ _id_29A9( var_0 )
             return "prone_saw";
     }
 
-    if ( !isdefined( anim._id_0CB6[var_1] ) )
+    if ( !isdefined( anim.approach_types[var_1] ) )
         return;
 
-    if ( isdefined( var_0._id_0D27 ) )
-        var_4 = var_0._id_0D27;
+    if ( isdefined( var_0.arrivalstance ) )
+        var_4 = var_0.arrivalstance;
     else if ( isdefined( var_0.classname ) && var_0.classname == "script_origin" )
         var_4 = "stand";
     else
@@ -178,7 +178,7 @@ _id_29A9( var_0 )
     if ( var_4 == "prone" )
         var_4 = "crouch";
 
-    var_5 = anim._id_0CB6[var_1][var_4];
+    var_5 = anim.approach_types[var_1][var_4];
 
     if ( _id_9C11() && var_5 == "exposed" )
         var_5 = "exposed_ready";
@@ -209,7 +209,7 @@ _id_29A9( var_0 )
     {
         var_6 = var_5 + "_cqb";
 
-        if ( isdefined( anim._id_0CCA["soldier"]["cover_trans"][var_6] ) )
+        if ( isdefined( anim.archetypes["soldier"]["cover_trans"][var_6] ) )
             var_5 = var_6;
     }
 
@@ -221,8 +221,8 @@ _id_29A7( var_0 )
     if ( isdefined( self._id_4795 ) )
         return "heat";
 
-    if ( isdefined( var_0._id_0D27 ) )
-        var_1 = var_0._id_0D27;
+    if ( isdefined( var_0.arrivalstance ) )
+        var_1 = var_0.arrivalstance;
     else
         var_1 = var_0 gethighestnodestance();
 
@@ -253,7 +253,7 @@ _id_29A7( var_0 )
     return var_2;
 }
 
-_id_19E4( var_0, var_1 )
+calculatenodeoffsetfromanimationdelta( var_0, var_1 )
 {
     var_2 = anglestoright( var_0 );
     var_3 = anglestoforward( var_0 );
@@ -320,7 +320,7 @@ _id_1CF2( var_0, var_1, var_2 )
 
     if ( var_0 == "stand" || var_0 == "crouch" || var_0 == "stand_unstable" )
     {
-        if ( animscripts\utility::_id_06C4( vectortoyaw( var_1 ) - var_2.angles[1] + 180 ) < 60 )
+        if ( animscripts\utility::absangleclamp180( vectortoyaw( var_1 ) - var_2.angles[1] + 180 ) < 60 )
             return 0;
     }
 
@@ -349,7 +349,7 @@ _id_82FC( var_0 )
         return;
     }
 
-    self.a._id_0D29 = undefined;
+    self.a.arrivaltype = undefined;
     thread _id_2CEB();
     self waittill( "cover_approach", var_1 );
 
@@ -399,9 +399,9 @@ _id_229C( var_0, var_1, var_2, var_3, var_4 )
     if ( self.a._id_6E5A != "stand" || self.a._id_5F5B != "run" && !animscripts\utility::_id_50EA() )
         return 0;
 
-    if ( animscripts\utility::_id_06C4( var_4 - self.angles[1] ) > 30 )
+    if ( animscripts\utility::absangleclamp180( var_4 - self.angles[1] ) > 30 )
     {
-        if ( isdefined( self.enemy ) && self _meth_81c2( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < 65536 )
+        if ( isdefined( self.enemy ) && self _meth_81C2( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < 65536 )
         {
             if ( vectordot( anglestoforward( self.angles ), self.enemy.origin - self.origin ) > 0 )
                 return 0;
@@ -414,7 +414,7 @@ _id_229C( var_0, var_1, var_2, var_3, var_4 )
     return 1;
 }
 
-_id_0CBE( var_0, var_1, var_2 )
+approachwaittillclose( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_0 ) )
         return;
@@ -432,12 +432,12 @@ _id_0CBE( var_0, var_1, var_2 )
         {
             var_5 = calculateapproachdir();
             var_6 = calculatedesiredfacingyaw( var_5 );
-            var_7 = calculatelastminuteanimdistance( var_5, var_6, var_0, 1, var_2._id_0CBC );
+            var_7 = calculatelastminuteanimdistance( var_5, var_6, var_0, 1, var_2.approachtype );
             var_8 = vectornormalize( var_2.approachpoint - self.origin );
-            var_3 = _id_1CF4( var_2.approachpoint, var_2.approachfinalyaw, var_2._id_0CBC, var_8, var_2._id_5A2F, var_2._id_33E8, var_2.arrivalfromfront );
+            var_3 = _id_1CF4( var_2.approachpoint, var_2.approachfinalyaw, var_2.approachtype, var_8, var_2._id_5A2F, var_2._id_33E8, var_2.arrivalfromfront );
 
-            if ( var_3._id_0CBB > 0 )
-                var_1 = length( animscripts\utility::_id_5868( "cover_trans_dist", var_2._id_0CBC, var_3._id_0CBB ) );
+            if ( var_3.approachnumber > 0 )
+                var_1 = length( animscripts\utility::_id_5868( "cover_trans_dist", var_2.approachtype, var_3.approachnumber ) );
         }
 
         if ( var_4 <= var_1 + 8 )
@@ -474,48 +474,48 @@ _id_8D06( var_0, var_1, var_2, var_3, var_4 )
     var_9 = vectordot( var_4, anglestoforward( var_5.angles ) ) >= 0;
     var_6 = _id_1CF4( var_1, var_3, var_0, var_4, var_7, var_8, var_9 );
 
-    if ( var_6._id_0CBB < 0 )
+    if ( var_6.approachnumber < 0 )
         return;
 
-    var_10 = var_6._id_0CBB;
+    var_10 = var_6.approachnumber;
 
     if ( var_10 <= 6 && var_9 )
     {
         self endon( "goal_changed" );
 
-        if ( isdefined( self._id_0C4D ) && isdefined( anim._id_0CCA[self._id_0C4D] ) && isdefined( anim._id_0CCA[self._id_0C4D]["CoverTransLongestDist"][var_0] ) )
-            self._id_0D28 = anim._id_0CCA[self._id_0C4D]["CoverTransLongestDist"][var_0];
-        else if ( isdefined( anim._id_0CCA["soldier"]["CoverTransLongestDist"][var_0] ) )
-            self._id_0D28 = anim._id_0CCA["soldier"]["CoverTransLongestDist"][var_0];
+        if ( isdefined( self.animarchetype ) && isdefined( anim.archetypes[self.animarchetype] ) && isdefined( anim.archetypes[self.animarchetype]["CoverTransLongestDist"][var_0] ) )
+            self.arrivalstartdist = anim.archetypes[self.animarchetype]["CoverTransLongestDist"][var_0];
+        else if ( isdefined( anim.archetypes["soldier"]["CoverTransLongestDist"][var_0] ) )
+            self.arrivalstartdist = anim.archetypes["soldier"]["CoverTransLongestDist"][var_0];
         else
-            self._id_0D28 = 8;
+            self.arrivalstartdist = 8;
 
-        _id_0CBE( var_5, self._id_0D28 );
+        approachwaittillclose( var_5, self.arrivalstartdist );
         var_11 = vectornormalize( var_1 - self.origin );
         var_6 = _id_1CF4( var_1, var_3, var_0, var_11, var_7, var_8, var_9 );
-        self._id_0D28 = length( animscripts\utility::_id_5868( "cover_trans_dist", var_0, var_10 ) );
+        self.arrivalstartdist = length( animscripts\utility::_id_5868( "cover_trans_dist", var_0, var_10 ) );
         var_12 = spawnstruct();
-        var_12._id_0CBC = var_0;
+        var_12.approachtype = var_0;
         var_12.approachpoint = var_1;
         var_12.arrivalfromfront = var_9;
         var_12._id_33E8 = var_8;
         var_12._id_5A2F = var_7;
         var_12.approachfinalyaw = var_3;
-        var_6 = _id_0CBE( var_5, self._id_0D28, var_12 );
+        var_6 = approachwaittillclose( var_5, self.arrivalstartdist, var_12 );
 
-        if ( !self _meth_81c7( var_1 ) )
+        if ( !self _meth_81C7( var_1 ) )
         {
-            self._id_0D28 = undefined;
+            self.arrivalstartdist = undefined;
             return;
         }
 
-        if ( var_6._id_0CBB < 0 )
+        if ( var_6.approachnumber < 0 )
         {
-            self._id_0D28 = undefined;
+            self.arrivalstartdist = undefined;
             return;
         }
 
-        var_10 = var_6._id_0CBB;
+        var_10 = var_6.approachnumber;
         var_13 = var_3 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, var_10 );
     }
     else
@@ -528,35 +528,35 @@ _id_8D06( var_0, var_1, var_2, var_3, var_4 )
             return;
     }
 
-    self._id_0CBB = var_10;
-    self._id_0CBC = var_0;
-    self._id_0D28 = undefined;
+    self.approachnumber = var_10;
+    self.approachtype = var_0;
+    self.arrivalstartdist = undefined;
 
     if ( animscripts\utility::using_cover_transition_angle_correction() )
     {
-        self._id_0D23 = animscripts\utility::_id_5863( "cover_trans", self._id_0CBC )[self._id_0CBB];
-        var_14 = animscripts\utility::_id_5868( "cover_trans_move_end", var_0, self._id_0CBB );
-        self.arrivalangles = self _meth_8567( self._id_22A2, var_13, 0, self._id_0D23, var_14 );
+        self.arrivalanim = animscripts\utility::_id_5863( "cover_trans", self.approachtype )[self.approachnumber];
+        var_14 = animscripts\utility::_id_5868( "cover_trans_move_end", var_0, self.approachnumber );
+        self.arrivalangles = self _meth_8567( self._id_22A2, var_13, 0, self.arrivalanim, var_14 );
     }
     else
-        self.arrivalangles = self _meth_81e7( self._id_22A2, var_13, 0 );
+        self.arrivalangles = self _meth_81E7( self._id_22A2, var_13, 0 );
 }
 
 _id_1CF4( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = spawnstruct();
-    animscripts\exit_node::_id_19E5( var_7, var_2, 1, var_1, var_3, var_4, var_5 );
+    animscripts\exit_node::calculatenodetransitionangles( var_7, var_2, 1, var_1, var_3, var_4, var_5 );
     animscripts\exit_node::_id_8897( var_7, var_4 );
     var_8 = spawnstruct();
     var_9 = ( 0.0, 0.0, 0.0 );
-    var_8._id_0CBB = -1;
+    var_8.approachnumber = -1;
     var_10 = 2;
 
     for ( var_11 = 1; var_11 <= var_10; var_11++ )
     {
-        var_8._id_0CBB = var_7._id_970C[var_11];
+        var_8.approachnumber = var_7._id_970C[var_11];
 
-        if ( !_id_1CF9( var_0, var_1, var_2, var_8._id_0CBB, var_6 ) )
+        if ( !_id_1CF9( var_0, var_1, var_2, var_8.approachnumber, var_6 ) )
             continue;
 
         break;
@@ -564,7 +564,7 @@ _id_1CF4( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     if ( var_11 > var_10 )
     {
-        var_8._id_0CBB = -1;
+        var_8.approachnumber = -1;
         return var_8;
     }
 
@@ -575,20 +575,20 @@ _id_1CF4( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     {
         if ( var_12 < var_13 )
         {
-            var_8._id_0CBB = -1;
+            var_8.approachnumber = -1;
             return var_8;
         }
 
         if ( !var_6 )
         {
             var_14 = vectornormalize( self._id_22A2 - self.origin );
-            var_15 = var_1 - animscripts\utility::_id_5868( "cover_trans_angles", var_2, var_8._id_0CBB );
+            var_15 = var_1 - animscripts\utility::_id_5868( "cover_trans_angles", var_2, var_8.approachnumber );
             var_16 = anglestoforward( ( 0, var_15, 0 ) );
             var_17 = vectordot( var_14, var_16 );
 
             if ( var_17 < 0.707 )
             {
-                var_8._id_0CBB = -1;
+                var_8.approachnumber = -1;
                 return var_8;
             }
         }
@@ -642,9 +642,9 @@ _id_3589( var_0, var_1 )
     if ( isdefined( self._id_2AF3 ) && self._id_2AF3 )
         return 0;
 
-    if ( isdefined( self._id_0CB7 ) )
+    if ( isdefined( self.approachconditioncheckfunc ) )
     {
-        if ( !self [[ self._id_0CB7 ]]( var_0 ) )
+        if ( !self [[ self.approachconditioncheckfunc ]]( var_0 ) )
             return 0;
     }
     else
@@ -659,7 +659,7 @@ _id_3589( var_0, var_1 )
     if ( _id_51D4() || isdefined( self._id_5575 ) && self._id_5575 + 500 > gettime() )
         return 0;
 
-    if ( !self _meth_81c7( self.pathgoalpos, 1, 0, level.h1_arrival_ignores_player ) )
+    if ( !self _meth_81C7( self.pathgoalpos, 1, 0, level.h1_arrival_ignores_player ) )
         return 0;
 
     return 1;
@@ -682,10 +682,10 @@ _id_358A()
         var_2 = distance( self.origin, var_1 );
         var_3 = 0;
 
-        if ( isdefined( self._id_0C4D ) && isdefined( anim._id_0CCA[self._id_0C4D] ) && isdefined( anim._id_0CCA[self._id_0C4D]["longestExposedApproachDist"] ) )
-            var_3 = anim._id_0CCA[self._id_0C4D]["longestExposedApproachDist"];
+        if ( isdefined( self.animarchetype ) && isdefined( anim.archetypes[self.animarchetype] ) && isdefined( anim.archetypes[self.animarchetype]["longestExposedApproachDist"] ) )
+            var_3 = anim.archetypes[self.animarchetype]["longestExposedApproachDist"];
         else
-            var_3 = anim._id_0CCA["soldier"]["longestExposedApproachDist"];
+            var_3 = anim.archetypes["soldier"]["longestExposedApproachDist"];
 
         if ( var_2 <= var_3 + 8 )
             break;
@@ -710,11 +710,11 @@ _id_35B8( var_0 )
     if ( isdefined( self._id_4795 ) && isdefined( var_0 ) )
         return 0;
 
-    if ( self.combatmode == "cover" && issentient( self.enemy ) && gettime() - self _meth_81c4( self.enemy ) > 15000 )
+    if ( self.combatmode == "cover" && issentient( self.enemy ) && gettime() - self _meth_81C4( self.enemy ) > 15000 )
         return 0;
 
     if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-        return self _meth_81c2( self.enemy );
+        return self _meth_81C2( self.enemy );
 
     return sighttracepassed( self.enemy getshootatpos(), self.pathgoalpos + ( 0.0, 0.0, 60.0 ), 0, undefined );
 }
@@ -742,7 +742,7 @@ calculatelastminuteanimdistance( var_0, var_1, var_2, var_3, var_4 )
     }
 
     var_7 = spawnstruct();
-    animscripts\exit_node::_id_19E5( var_7, var_4, 1, var_1, var_0, 9, -1 );
+    animscripts\exit_node::calculatenodetransitionangles( var_7, var_4, 1, var_1, var_0, 9, -1 );
     var_8 = 1;
 
     for ( var_9 = 2; var_9 <= 9; var_9++ )
@@ -751,14 +751,14 @@ calculatelastminuteanimdistance( var_0, var_1, var_2, var_3, var_4 )
             var_8 = var_9;
     }
 
-    self._id_0CBB = var_7._id_970C[var_8];
-    self._id_0CBC = var_4;
-    var_10 = animscripts\utility::_id_5868( "cover_trans", var_4, self._id_0CBB );
+    self.approachnumber = var_7._id_970C[var_8];
+    self.approachtype = var_4;
+    var_10 = animscripts\utility::_id_5868( "cover_trans", var_4, self.approachnumber );
 
     if ( !isdefined( var_10 ) || isdefined( self._id_2AF2 ) )
         return;
 
-    var_11 = length( animscripts\utility::_id_5868( "cover_trans_dist", var_4, self._id_0CBB ) );
+    var_11 = length( animscripts\utility::_id_5868( "cover_trans_dist", var_4, self.approachnumber ) );
     return var_11;
 }
 
@@ -800,8 +800,8 @@ _id_2CEA()
     var_0 = "exposed";
     var_1 = 1;
 
-    if ( isdefined( self._id_0CBD ) )
-        var_0 = self [[ self._id_0CBD ]]();
+    if ( isdefined( self.approachtypefunc ) )
+        var_0 = self [[ self.approachtypefunc ]]();
     else if ( animscripts\utility::_id_51DE() )
     {
         var_0 = "exposed_unstable";
@@ -833,7 +833,7 @@ _id_2CEA()
     else
         var_3 = 0;
 
-    if ( var_3 && !isdefined( self._id_0CBD ) )
+    if ( var_3 && !isdefined( self.approachtypefunc ) )
         var_0 = _id_29A7( var_2 );
 
     if ( isdefined( self._id_5A7A ) && self._id_5A7A )
@@ -857,7 +857,7 @@ _id_2CEA()
         wait 0.05;
     }
 
-    if ( isdefined( self._id_0D28 ) && self._id_0D28 < var_6 + 8 )
+    if ( isdefined( self.arrivalstartdist ) && self.arrivalstartdist < var_6 + 8 )
         return;
 
     if ( !_id_3589( var_2, var_3 ) )
@@ -872,25 +872,25 @@ _id_2CEA()
 
     if ( isdefined( self._id_4795 ) && var_3 )
     {
-        var_10 = var_5 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, self._id_0CBB );
-        var_11 = _id_3F06( self.pathgoalpos, var_5, var_0, self._id_0CBB );
+        var_10 = var_5 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, self.approachnumber );
+        var_11 = _id_3F06( self.pathgoalpos, var_5, var_0, self.approachnumber );
     }
     else if ( isdefined( self.a.forceapproachfacenodeyaw ) && self.a.forceapproachfacenodeyaw )
     {
         var_5 = var_2.angles[1];
-        var_10 = var_5 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, self._id_0CBB );
-        var_11 = _id_3F06( self.pathgoalpos, var_5, var_0, self._id_0CBB );
+        var_10 = var_5 - animscripts\utility::_id_5868( "cover_trans_angles", var_0, self.approachnumber );
+        var_11 = _id_3F06( self.pathgoalpos, var_5, var_0, self.approachnumber );
     }
     else if ( var_6 > 0 )
     {
-        var_12 = animscripts\utility::_id_5868( "cover_trans_dist", var_0, self._id_0CBB );
+        var_12 = animscripts\utility::_id_5868( "cover_trans_dist", var_0, self.approachnumber );
         var_13 = atan( var_12[1] / var_12[0] );
 
         if ( !isdefined( self._id_35B7 ) || self.facemotion )
         {
             var_10 = var_9 - var_13;
 
-            if ( animscripts\utility::_id_06C4( var_10 - self.angles[1] ) > 30 )
+            if ( animscripts\utility::absangleclamp180( var_10 - self.angles[1] ) > 30 )
                 return;
         }
         else
@@ -905,16 +905,16 @@ _id_2CEA()
         var_11 = self.origin;
     }
 
-    self._id_0CBC = var_0;
+    self.approachtype = var_0;
 
     if ( animscripts\utility::using_cover_transition_angle_correction() )
     {
-        self._id_0D23 = animscripts\utility::_id_5863( "cover_trans", self._id_0CBC )[self._id_0CBB];
-        var_15 = animscripts\utility::_id_5868( "cover_trans_move_end", var_0, self._id_0CBB );
-        self.arrivalangles = self _meth_8567( var_11, var_10, 0, self._id_0D23, var_15 );
+        self.arrivalanim = animscripts\utility::_id_5863( "cover_trans", self.approachtype )[self.approachnumber];
+        var_15 = animscripts\utility::_id_5868( "cover_trans_move_end", var_0, self.approachnumber );
+        self.arrivalangles = self _meth_8567( var_11, var_10, 0, self.arrivalanim, var_15 );
     }
     else
-        self.arrivalangles = self _meth_81e7( var_11, var_10, 0 );
+        self.arrivalangles = self _meth_81E7( var_11, var_10, 0 );
 }
 
 _id_A026()
@@ -953,23 +953,23 @@ _id_2560()
     if ( !isdefined( self._id_8D20 ) )
         return;
 
-    var_0 = self._id_0CBB;
+    var_0 = self.approachnumber;
     var_1 = self._id_8D20;
 
     if ( !isdefined( self._id_4795 ) )
-        thread _id_06BE();
+        thread abortapproachifthreatened();
 
     self _meth_8144( %body, 0.2 );
     self setflaggedanimrestart( "coverArrival", var_1, 1, 0.2, self._id_5F97 );
     animscripts\face::_id_6D9B( var_1, "run" );
     animscripts\shared::_id_2D06( "coverArrival", ::_id_467F );
-    var_2 = anim._id_0D24[self._id_0CBC];
+    var_2 = anim.arrivalendstance[self.approachtype];
 
     if ( isdefined( var_2 ) )
         self.a._id_6E5A = var_2;
 
     self.a._id_5F5B = "stop";
-    self.a._id_0D29 = self._id_0CBC;
+    self.a.arrivaltype = self.approachtype;
     self _meth_8144( %animscript_root, 0.3 );
     self._id_5575 = undefined;
 }
@@ -1031,7 +1031,7 @@ _id_1CF9( var_0, var_1, var_2, var_3, var_4 )
     if ( var_3 <= 6 && var_4 )
         return 1;
 
-    if ( !self _meth_81c8( var_5, var_0 ) )
+    if ( !self _meth_81C8( var_5, var_0 ) )
         return 0;
 
     if ( var_3 <= 6 || isdefined( anim._id_3594[var_2] ) )
@@ -1039,7 +1039,7 @@ _id_1CF9( var_0, var_1, var_2, var_3, var_4 )
 
     var_6 = _id_3F05( var_5, var_1, var_2, var_3 );
     self._id_22A2 = var_6;
-    return self _meth_81c8( var_6, var_5 );
+    return self _meth_81C8( var_6, var_5 );
 }
 
 _id_9C11()
@@ -1050,10 +1050,10 @@ _id_9C11()
     if ( !anim._id_71E1 )
         return 0;
 
-    if ( !isdefined( self._id_1944 ) )
+    if ( !isdefined( self.busereadyidle ) )
         return 0;
 
-    if ( !self._id_1944 )
+    if ( !self.busereadyidle )
         return 0;
 
     return 1;

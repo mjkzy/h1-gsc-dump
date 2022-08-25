@@ -21,7 +21,7 @@
 
 _id_40D7( var_0 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_1["primary"] = [];
     var_1["secondary"] = [];
     var_1["bad"] = [];
@@ -76,7 +76,7 @@ _id_78A8( var_0, var_1 )
 
 _id_40DC( var_0, var_1 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_2["primary"] = [];
     var_2["secondary"] = [];
     var_2["bad"] = [];
@@ -141,7 +141,7 @@ _id_78AB( var_0, var_1, var_2 )
     return var_3;
 }
 
-checkdynamicspawns( var_0 )
+_id_1CFA( var_0 )
 {
     if ( isdefined( level._id_2FF2 ) )
         var_0 = [[ level._id_2FF2 ]]( var_0 );
@@ -321,28 +321,28 @@ _id_4E16( var_0 )
 
 _id_2474( var_0 )
 {
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11F9, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidfullvisibleenemies, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11FB, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidgrenades, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11FF, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidmines, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11F4, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidairstrikelocations, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11F5, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidcarepackages, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_1203, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidtelefrag, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11F8, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidenemyspawn, var_0 ) )
         return "bad";
 
-    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::_id_11F6, var_0 ) )
+    if ( !maps\mp\gametypes\_spawnfactor::_id_2470( maps\mp\gametypes\_spawnfactor::avoidcornervisibleenemies, var_0 ) )
         return "secondary";
 
     return "primary";
@@ -352,15 +352,15 @@ _id_789D( var_0 )
 {
     var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.25, maps\mp\gametypes\_spawnfactor::_id_6EEC, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.25, maps\mp\gametypes\_spawnfactor::_id_1200, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.25, maps\mp\gametypes\_spawnfactor::avoidrecentlyused, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_11FE, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidlastdeathlocation, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_11FD, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidlastattackerlocation, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_1201, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidsamespawn, var_0 );
     var_0._id_9400 += var_1;
 }
 
@@ -370,13 +370,13 @@ _id_78A0( var_0, var_1 )
     var_0._id_9400 += var_2;
     var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_6EF0, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_2;
 }
 
 _id_40D4( var_0, var_1 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_2["primary"] = [];
     var_2["secondary"] = [];
     var_2["bad"] = [];
@@ -435,13 +435,13 @@ _id_789A( var_0, var_1 )
     var_0._id_9400 += var_2;
     var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_6EF0, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::_id_1200, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::avoidrecentlyused, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.5, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.5, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_11FE, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidlastdeathlocation, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_1201, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidsamespawn, var_0 );
     var_0._id_9400 += var_2;
 }
 
@@ -450,7 +450,7 @@ getspawnpoint_freeforall( var_0 )
     if ( maps\mp\gametypes\_legacyspawnlogic::uselegacyspawning() )
         return maps\mp\gametypes\_legacyspawnlogic::getspawnpoint_dm( var_0 );
 
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_1["primary"] = [];
     var_1["secondary"] = [];
     var_1["bad"] = [];
@@ -496,21 +496,21 @@ _id_78A6( var_0, var_1 )
 
 _id_789B( var_0 )
 {
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.5, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.5, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_1200, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::avoidrecentlyused, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_11FE, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidlastdeathlocation, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_11FD, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidlastattackerlocation, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_1201, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidsamespawn, var_0 );
     var_0._id_9400 += var_1;
 }
 
 _id_40DA( var_0 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_1["primary"] = [];
     var_1["secondary"] = [];
     var_1["bad"] = [];
@@ -565,19 +565,19 @@ _id_78AA( var_0, var_1 )
 
 _id_789F( var_0 )
 {
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 3.0, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 3.0, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_1;
     var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_6EEC, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::_id_11FE, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::avoidlastdeathlocation, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::_id_11FD, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::avoidlastattackerlocation, var_0 );
     var_0._id_9400 += var_1;
 }
 
 _id_40D6( var_0 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_1["primary"] = [];
     var_1["secondary"] = [];
     var_1["bad"] = [];
@@ -647,13 +647,13 @@ _id_789C( var_0 )
     var_0._id_9400 += var_1;
     var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_6EF0, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_1;
 }
 
 getspawnpoint_ctf( var_0, var_1 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_2["primary"] = [];
     var_2["secondary"] = [];
     var_2["bad"] = [];
@@ -711,9 +711,9 @@ scorespawns_ctf( var_0, var_1, var_2 )
 
 scorefactors_ctf( var_0, var_1 )
 {
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_1201, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidsamespawn, var_0 );
     var_0._id_9400 += var_2;
     var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.75, maps\mp\gametypes\_spawnfactor::avoidflagbydistance, var_0 );
     var_0._id_9400 += var_2;
@@ -724,7 +724,7 @@ _id_40D3( var_0, var_1 )
     if ( maps\mp\gametypes\_legacyspawnlogic::uselegacyspawning() )
         return maps\mp\gametypes\_legacyspawnlogic::_id_40D7( var_0 );
 
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_2["primary"] = [];
     var_2["secondary"] = [];
     var_2["bad"] = [];
@@ -782,15 +782,15 @@ _id_78A4( var_0, var_1, var_2 )
 
 _id_7899( var_0, var_1 )
 {
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_2;
-    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::_id_1201, var_0 );
+    var_2 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.25, maps\mp\gametypes\_spawnfactor::avoidsamespawn, var_0 );
     var_0._id_9400 += var_2;
 }
 
 _id_40D9( var_0 )
 {
-    var_0 = checkdynamicspawns( var_0 );
+    var_0 = _id_1CFA( var_0 );
     var_1["primary"] = [];
     var_1["secondary"] = [];
     var_1["bad"] = [];
@@ -846,6 +846,6 @@ _id_789E( var_0 )
     var_0._id_9400 += var_1;
     var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 1.0, maps\mp\gametypes\_spawnfactor::_id_6EEC, var_0 );
     var_0._id_9400 += var_1;
-    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::_id_11F7, var_0 );
+    var_1 = maps\mp\gametypes\_spawnfactor::_id_788B( 0.5, maps\mp\gametypes\_spawnfactor::avoidenemiesbydistance, var_0 );
     var_0._id_9400 += var_1;
 }

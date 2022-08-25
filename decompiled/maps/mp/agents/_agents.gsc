@@ -25,8 +25,8 @@ main()
         return;
 
     _id_8072();
-    level._id_1262 = ::badplace_cylinder;
-    level._id_1263 = ::badplace_delete;
+    level.badplace_cylinder_func = ::badplace_cylinder;
+    level.badplace_delete_func = ::badplace_delete;
     level thread maps\mp\agents\_agent_common::init();
 
     if ( !maps\mp\_utility::_id_4FA6() && !( isdefined( level.iszombiegame ) && level.iszombiegame ) )
@@ -42,10 +42,10 @@ _id_8072()
     {
         level.agent_funcs["player"] = [];
         level.agent_funcs["player"]["spawn"] = ::_id_88C2;
-        level.agent_funcs["player"]["think"] = maps\mp\bots\_bots_gametype_war::_id_1731;
+        level.agent_funcs["player"]["think"] = maps\mp\bots\_bots_gametype_war::bot_war_think;
         level.agent_funcs["player"]["on_killed"] = ::_id_643B;
         level.agent_funcs["player"]["on_damaged"] = ::_id_643A;
-        level.agent_funcs["player"]["on_damaged_finished"] = ::_id_0896;
+        level.agent_funcs["player"]["on_damaged_finished"] = ::agent_damage_finished;
     }
 }
 
@@ -55,12 +55,12 @@ _id_9FE6()
         wait 0.05;
 }
 
-_id_0768( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+add_humanoid_agent( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     var_9 = maps\mp\agents\_agent_common::_id_214C( var_0, var_1, var_2 );
 
     if ( isdefined( var_9 ) )
-        var_9 thread [[ var_9 maps\mp\agents\_agent_utility::_id_08A6( "spawn" ) ]]( var_3, var_4, var_5, var_6, var_7, var_8 );
+        var_9 thread [[ var_9 maps\mp\agents\_agent_utility::agentfunc( "spawn" ) ]]( var_3, var_4, var_5, var_6, var_7, var_8 );
 
     return var_9;
 }
@@ -72,7 +72,7 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     while ( !isdefined( level.getspawnpoint ) )
         waittillframeend;
 
-    if ( self.hasdied )
+    if ( self._id_4726 )
         wait(randomintrange( 6, 10 ));
 
     maps\mp\agents\_agent_utility::_id_4DFF( 1 );
@@ -93,7 +93,7 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
         self._id_55DD = var_8;
     }
 
-    maps\mp\agents\_agent_utility::_id_070B();
+    maps\mp\agents\_agent_utility::activateagent();
     self._id_55DF = gettime();
     self.spawntime = gettime();
     var_9 = var_6 + ( 0.0, 0.0, 25.0 );
@@ -106,35 +106,35 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     self _meth_8388( var_6, var_7 );
 
     if ( isdefined( var_5 ) )
-        self._id_0899 = var_5;
+        self.agent_override_difficulty = var_5;
 
-    if ( isdefined( self._id_0899 ) )
+    if ( isdefined( self.agent_override_difficulty ) )
     {
-        if ( self._id_0899 == "follow_code_and_dev_dvar" )
-            maps\mp\bots\_bots_util::_id_16EB( self botgetdifficulty(), 1 );
+        if ( self.agent_override_difficulty == "follow_code_and_dev_dvar" )
+            maps\mp\bots\_bots_util::bot_set_difficulty( self botgetdifficulty(), 1 );
         else
-            maps\mp\bots\_bots_util::_id_16EB( var_5 );
+            maps\mp\bots\_bots_util::bot_set_difficulty( var_5 );
     }
     else
-        maps\mp\bots\_bots_util::_id_16EB( self botgetdifficulty() );
+        maps\mp\bots\_bots_util::bot_set_difficulty( self botgetdifficulty() );
 
     if ( isdefined( var_3 ) && var_3 )
         self._id_9BE5 = 1;
 
     if ( isdefined( self._id_9BE5 ) && self._id_9BE5 )
     {
-        if ( !self.hasdied )
+        if ( !self._id_4726 )
         {
             var_12 = self botgetdifficultysetting( "advancedPersonality" );
 
             if ( isdefined( var_12 ) && var_12 != 0 )
-                maps\mp\bots\_bots_personality::_id_15B0();
+                maps\mp\bots\_bots_personality::bot_balance_personality();
         }
 
-        maps\mp\bots\_bots_personality::_id_15AD();
+        maps\mp\bots\_bots_personality::bot_assign_personality_functions();
     }
     else
-        maps\mp\bots\_bots_util::_id_16ED( "default" );
+        maps\mp\bots\_bots_util::bot_set_personality( "default" );
 
     _id_4DFC();
     maps\mp\agents\_agent_common::_id_7DB0( 100 );
@@ -152,20 +152,20 @@ _id_88C2( var_0, var_1, var_2, var_3, var_4, var_5 )
     self enableanimstate( 0 );
     self [[ level._id_64E9 ]]();
     maps\mp\gametypes\_class::giveloadout( self.team, self.class, 1 );
-    thread maps\mp\bots\_bots::_id_1719( 1 );
-    thread maps\mp\bots\_bots_strategy::_id_1717();
-    self thread [[ maps\mp\agents\_agent_utility::_id_08A6( "think" ) ]]();
+    thread maps\mp\bots\_bots::bot_think_watch_enemy( 1 );
+    thread maps\mp\bots\_bots_strategy::bot_think_tactical_goals();
+    self thread [[ maps\mp\agents\_agent_utility::agentfunc( "think" ) ]]();
 
-    if ( !self.hasdied )
-        maps\mp\gametypes\_spawnlogic::_id_084E();
+    if ( !self._id_4726 )
+        maps\mp\gametypes\_spawnlogic::addtoparticipantsarray();
 
-    if ( !self.hasdied )
+    if ( !self._id_4726 )
     {
         thread maps\mp\gametypes\_weapons::_id_64D6();
         thread maps\mp\gametypes\_battlechatter_mp::_id_64D6();
     }
 
-    self.hasdied = 0;
+    self._id_4726 = 0;
     thread maps\mp\gametypes\_healthoverlay::_id_6CC4();
 
     if ( isdefined( self._id_9BE5 ) && self._id_9BE5 && isdefined( self._id_7472 ) && self._id_7472 )
@@ -189,14 +189,14 @@ _id_28F0( var_0 )
     self suicide();
 }
 
-_id_0896( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+agent_damage_finished( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     if ( isdefined( var_0 ) || isdefined( var_1 ) )
     {
         if ( !isdefined( var_0 ) )
             var_0 = var_1;
 
-        if ( isdefined( self._id_0AB3 ) && !self._id_0AB3 )
+        if ( isdefined( self.allowvehicledamage ) && !self.allowvehicledamage )
         {
             if ( isdefined( var_0.classname ) && var_0.classname == "script_vehicle" )
                 return 0;
@@ -222,7 +222,7 @@ _id_0896( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( isdefined( var_10 ) )
         thread finishagentdamage_impactfxwrapper( var_10[0], var_10[1], var_10[2], var_10[3], var_10[4], var_10[5], var_10[6] );
 
-    if ( !isdefined( self.isactive ) )
+    if ( !isdefined( self._id_50A6 ) )
         self._id_A04A = 1;
 
     return 1;
@@ -241,7 +241,7 @@ finishagentdamage_impactfxwrapper( var_0, var_1, var_2, var_3, var_4, var_5, var
 _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     var_10 = isdefined( var_1 ) && isdefined( self.owner ) && self.owner == var_1;
-    var_11 = maps\mp\_utility::_id_0E30( self.owner, var_1 ) || var_10;
+    var_11 = maps\mp\_utility::attackerishittingteam( self.owner, var_1 ) || var_10;
 
     if ( level.teambased && var_11 && !level.friendlyfire )
         return 0;
@@ -261,7 +261,7 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( var_5 == "bouncingbetty_mp" && !maps\mp\gametypes\_weapons::_id_5C52( var_0, self ) )
         return 0;
 
-    if ( isdefined( var_0 ) && isdefined( var_0.stuckenemyentity ) && var_0.stuckenemyentity == self )
+    if ( isdefined( var_0 ) && isdefined( var_0._id_8F6C ) && var_0._id_8F6C == self )
         var_2 = self.health + 1;
 
     if ( var_2 <= 0 )
@@ -272,7 +272,7 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
     if ( isdefined( var_1 ) && var_1 != self && var_2 > 0 && ( !isdefined( var_8 ) || var_8 != "shield" ) )
     {
-        if ( var_3 & level.idflags_stun )
+        if ( var_3 & level._id_4B61 )
             var_12 = "stun";
         else if ( !maps\mp\gametypes\_damage::_id_84BD( var_5 ) )
             var_12 = "none";
@@ -315,7 +315,7 @@ _id_6439( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
         var_1 thread maps\mp\gametypes\_damagefeedback::_id_9B0C( var_12 );
     }
 
-    return self [[ maps\mp\agents\_agent_utility::_id_08A6( "on_damaged_finished" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
+    return self [[ maps\mp\agents\_agent_utility::agentfunc( "on_damaged_finished" ) ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
 }
 
 _id_643A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -325,7 +325,7 @@ _id_643A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( !level.teambased && var_10 )
         return 0;
 
-    maps\mp\gametypes\_damage::_id_19F1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
+    maps\mp\gametypes\_damage::callback_playerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
 }
 
 _id_643B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
@@ -338,12 +338,12 @@ _id_643B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     if ( isdefined( level._id_643B ) )
         [[ level._id_643B ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 
-    if ( self.isactive )
+    if ( self._id_50A6 )
     {
-        self.hasdied = 1;
+        self._id_4726 = 1;
 
         if ( maps\mp\_utility::_id_3FAA() != 1 && ( isdefined( self._id_7472 ) && self._id_7472 ) )
-            self thread [[ maps\mp\agents\_agent_utility::_id_08A6( "spawn" ) ]]();
+            self thread [[ maps\mp\agents\_agent_utility::agentfunc( "spawn" ) ]]();
         else
             maps\mp\agents\_agent_utility::_id_2631();
     }
@@ -354,7 +354,7 @@ _id_6442( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( var_9 )
         self thread [[ level._id_A2D8 ]]( var_1, var_3 );
 
-    self.body = self _meth_838b( var_8 );
+    self.body = self _meth_838B( var_8 );
     thread maps\mp\gametypes\_damage::_id_27EE( self.body, var_6, var_5, var_4, var_0, var_3 );
 }
 
@@ -362,7 +362,7 @@ _id_4DFC()
 {
     if ( isdefined( self._id_1E30 ) )
         self.class = self._id_1E30;
-    else if ( maps\mp\bots\_bots_loadout::_id_16F4() )
+    else if ( maps\mp\bots\_bots_loadout::bot_setup_loadout_callback() )
         self.class = "callback";
     else
         self.class = "class1";

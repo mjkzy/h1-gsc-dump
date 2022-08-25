@@ -21,16 +21,16 @@
 
 main()
 {
-    self._id_0C50 = [];
-    self._id_0C50["hiding"]["stand"] = ::_id_7F25;
-    self._id_0C50["hiding"]["crouch"] = ::_id_7F25;
+    self.animarrayfuncs = [];
+    self.animarrayfuncs["hiding"]["stand"] = ::_id_7F25;
+    self.animarrayfuncs["hiding"]["crouch"] = ::_id_7F25;
     self endon( "killanimscript" );
     animscripts\utility::_id_4DD7( "cover_swim_right" );
 
-    if ( !isdefined( self._id_0CBC ) || self._id_0CBC != "cover_corner_r" )
-        self._id_0CBC = "cover_corner_r";
+    if ( !isdefined( self.approachtype ) || self.approachtype != "cover_corner_r" )
+        self.approachtype = "cover_corner_r";
 
-    var_0 = anim._id_0CCA["soldier"]["swim"]["arrival_cover_corner_r_angleDelta"][4][4];
+    var_0 = anim.archetypes["soldier"]["swim"]["arrival_cover_corner_r_angleDelta"][4][4];
     animscripts\corner::_id_2222( "right", var_0[1] );
 }
 
@@ -42,7 +42,7 @@ end_script()
 
 _id_7F25()
 {
-    self.a._id_0CD8 = animscripts\swim::_id_4100( "cover_corner_r" );
-    var_0 = anim._id_0CCA["soldier"]["swim"]["arrival_cover_corner_r_angleDelta"][4][4];
+    self.a.array = animscripts\swim::_id_4100( "cover_corner_r" );
+    var_0 = anim.archetypes["soldier"]["swim"]["arrival_cover_corner_r_angleDelta"][4][4];
     self._id_4884 = var_0[1];
 }

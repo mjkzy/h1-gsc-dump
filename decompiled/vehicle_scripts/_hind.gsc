@@ -22,36 +22,36 @@
 
 main( var_0, var_1, var_2, var_3 )
 {
-    maps\_vehicle::_id_186C( "hind", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_mi24p_hind_desert" );
-    maps\_vehicle::_id_1845( "vehicle_mi24p_hind_woodland" );
-    maps\_vehicle::_id_1845( "vehicle_mi24p_hind_woodland_opened_door" );
+    maps\_vehicle::build_template( "hind", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_mi24p_hind_desert" );
+    maps\_vehicle::build_deathmodel( "vehicle_mi24p_hind_woodland" );
+    maps\_vehicle::build_deathmodel( "vehicle_mi24p_hind_woodland_opened_door" );
     var_4 = [];
     var_4["vehicle_mi24p_hind_desert"] = "fx/explosions/helicopter_explosion_hind_desert";
     var_4["vehicle_mi24p_hind_woodland"] = "fx/explosions/helicopter_explosion_hind_woodland";
     var_4["vehicle_mi24p_hind_woodland_opened_door"] = "fx/explosions/helicopter_explosion_hind_woodland";
     var_4["vehicle_mi24p_hind_chernobyl"] = "fx/explosions/helicopter_explosion_hind_woodland";
-    maps\_vehicle::_id_1849( %bh_rotors, undefined, 0 );
-    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tag_engine_left", "hind_helicopter_hit", undefined, undefined, undefined, 0.2, 1, undefined );
-    maps\_vehicle::_id_1842( "fx/explosions/grenadeexp_default", "tail_rotor_jnt", "hind_helicopter_secondary_exp", undefined, undefined, undefined, 0.5, 1, undefined );
-    maps\_vehicle::_id_1842( "fx/fire/fire_smoke_trail_L", "tail_rotor_jnt", "hind_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1, undefined );
-    maps\_vehicle::_id_1842( "fx/explosions/aerial_explosion", "tag_engine_right", "hind_helicopter_secondary_exp", undefined, undefined, undefined, 2.5, 1, undefined );
-    maps\_vehicle::_id_1842( "fx/explosions/aerial_explosion", "tag_deathfx", "hind_helicopter_secondary_exp", undefined, undefined, undefined, 4.0, undefined, undefined );
-    maps\_vehicle::_id_1842( var_4[var_0], undefined, "hind_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "axis" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::_id_183B( ::_id_7DDA );
-    maps\_vehicle::_id_1873( ::_id_9A3D );
-    maps\_vehicle::_id_1857( var_2, "cockpit_blue_cargo01", "tag_light_cargo01", "fx/misc/aircraft_light_cockpit_red", "interior", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "cockpit_blue_cockpit01", "tag_light_cockpit01", "fx/misc/aircraft_light_cockpit_blue", "interior", 0.1 );
-    maps\_vehicle::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink", "running", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_red_blink", "running", 0.3 );
-    maps\_vehicle::_id_1857( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
-    maps\_vehicle::_id_1855();
+    maps\_vehicle::build_drive( %bh_rotors, undefined, 0 );
+    maps\_vehicle::build_deathfx( "fx/explosions/grenadeexp_default", "tag_engine_left", "hind_helicopter_hit", undefined, undefined, undefined, 0.2, 1, undefined );
+    maps\_vehicle::build_deathfx( "fx/explosions/grenadeexp_default", "tail_rotor_jnt", "hind_helicopter_secondary_exp", undefined, undefined, undefined, 0.5, 1, undefined );
+    maps\_vehicle::build_deathfx( "fx/fire/fire_smoke_trail_L", "tail_rotor_jnt", "hind_helicopter_dying_loop", 1, 0.05, 1, 0.5, 1, undefined );
+    maps\_vehicle::build_deathfx( "fx/explosions/aerial_explosion", "tag_engine_right", "hind_helicopter_secondary_exp", undefined, undefined, undefined, 2.5, 1, undefined );
+    maps\_vehicle::build_deathfx( "fx/explosions/aerial_explosion", "tag_deathfx", "hind_helicopter_secondary_exp", undefined, undefined, undefined, 4.0, undefined, undefined );
+    maps\_vehicle::build_deathfx( var_4[var_0], undefined, "hind_helicopter_crash", undefined, undefined, undefined, -1, undefined, "stop_crash_loop_sound" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "axis" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_attach_models( ::_id_7DDA );
+    maps\_vehicle::build_unload_groups( ::_id_9A3D );
+    maps\_vehicle::build_light( var_2, "cockpit_blue_cargo01", "tag_light_cargo01", "fx/misc/aircraft_light_cockpit_red", "interior", 0.0 );
+    maps\_vehicle::build_light( var_2, "cockpit_blue_cockpit01", "tag_light_cockpit01", "fx/misc/aircraft_light_cockpit_blue", "interior", 0.1 );
+    maps\_vehicle::build_light( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink", "running", 0.0 );
+    maps\_vehicle::build_light( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_red_blink", "running", 0.3 );
+    maps\_vehicle::build_light( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.0 );
+    maps\_vehicle::build_light( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
+    maps\_vehicle::build_is_helicopter();
 }
 
 _id_4D10()
@@ -149,8 +149,8 @@ _id_7F23()
     var_0[1]._id_4B7E[1] = 100;
     var_0[1]._id_4B7E[2] = 100;
     var_0[1]._id_4B7E[3] = 100;
-    var_0[0]._id_1433 = 0;
-    var_0[1]._id_1433 = 0;
+    var_0[0].bhasgunwhileriding = 0;
+    var_0[1].bhasgunwhileriding = 0;
     var_0[2]._id_4B63 = %bh_1_idle;
     var_0[3]._id_4B63 = %bh_2_idle;
     var_0[4]._id_4B63 = %bh_4_idle;

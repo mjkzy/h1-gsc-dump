@@ -38,7 +38,7 @@ _id_8072()
 
 setup_bot_koth()
 {
-    maps\mp\bots\_bots_util::_id_172D();
+    maps\mp\bots\_bots_util::bot_waittill_bots_enabled();
     var_0 = 0;
 
     for ( var_1 = 0; var_1 < level.radios.size; var_1++ )
@@ -82,19 +82,19 @@ setup_bot_koth()
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_5 ] );
         level.bot_gametype_radios_precached[var_5 getentitynumber()] = 1;
-        level._id_1628 = 1;
+        level.bot_gametype_precaching_done = 1;
         thread bot_cache_entrances_to_other_radios( var_5 );
     }
 }
 
 bot_cache_entrances_to_other_radios( var_0 )
 {
-    for ( var_1 = common_scripts\utility::_id_0CF6( level.radios, var_0 ); var_1.size > 0; var_1 = common_scripts\utility::_id_0CF6( var_1, var_2 ) )
+    for ( var_1 = common_scripts\utility::array_remove( level.radios, var_0 ); var_1.size > 0; var_1 = common_scripts\utility::array_remove( var_1, var_2 ) )
     {
         var_2 = undefined;
         var_3 = find_current_radio();
 
-        if ( isdefined( var_3 ) && common_scripts\utility::_id_0CE4( var_1, var_3 ) )
+        if ( isdefined( var_3 ) && common_scripts\utility::array_contains( var_1, var_3 ) )
             var_2 = var_3;
         else
             var_2 = common_scripts\utility::_id_710E( var_1 );
@@ -112,7 +112,7 @@ bot_koth_think()
     self endon( "disconnect" );
     level endon( "game_ended" );
 
-    while ( !isdefined( level._id_1628 ) )
+    while ( !isdefined( level.bot_gametype_precaching_done ) )
         wait 0.05;
 
     self botsetflag( "separation", 0 );
@@ -180,7 +180,7 @@ find_current_radio()
 
 bot_is_capturing_koth_zone( var_0 )
 {
-    if ( !maps\mp\bots\_bots_util::_id_165A() )
+    if ( !maps\mp\bots\_bots_util::bot_is_capturing() )
         return 0;
 
     return isdefined( self._id_2507 ) && self._id_2507 == var_0;
@@ -188,7 +188,7 @@ bot_is_capturing_koth_zone( var_0 )
 
 bot_is_protecting_koth_zone( var_0 )
 {
-    if ( !maps\mp\bots\_bots_util::_id_1662() )
+    if ( !maps\mp\bots\_bots_util::bot_is_protecting() )
         return 0;
 
     return isdefined( self._id_2507 ) && self._id_2507 == var_0;
@@ -199,7 +199,7 @@ bot_capture_koth_zone( var_0 )
     self._id_2507 = var_0;
     var_1["entrance_points_index"] = var_0._id_3320;
     var_1["override_origin_node"] = var_0._id_1C10;
-    maps\mp\bots\_bots_strategy::_id_15D2( var_0.origin, var_0._id_6139, var_0._id_9754, var_1 );
+    maps\mp\bots\_bots_strategy::bot_capture_zone( var_0.origin, var_0._id_6139, var_0._id_9754, var_1 );
 }
 
 bot_protect_koth_zone( var_0 )
@@ -207,13 +207,13 @@ bot_protect_koth_zone( var_0 )
     self._id_2507 = var_0;
     var_1 = length( var_0._id_A3E0._id_44FB ) * 2;
     var_2["override_origin_node"] = var_0._id_1C10;
-    maps\mp\bots\_bots_strategy::_id_16C2( var_0._id_1C10.origin, var_1, var_2 );
+    maps\mp\bots\_bots_strategy::bot_protect_point( var_0._id_1C10.origin, var_1, var_2 );
 }
 
 bot_clear_koth_zone()
 {
-    if ( maps\mp\bots\_bots_util::_id_165D() )
-        maps\mp\bots\_bots_strategy::_id_15EF();
+    if ( maps\mp\bots\_bots_util::bot_is_defending() )
+        maps\mp\bots\_bots_strategy::bot_defend_stop();
 
     self._id_2507 = undefined;
 }

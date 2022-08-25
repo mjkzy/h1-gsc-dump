@@ -39,11 +39,11 @@ init()
     if ( !isdefined( level._id_2764 ) )
         _id_7F45( "iw5_underwater_mp" );
 
-    if ( !isdefined( level._id_0A9D ) )
-        level._id_0A9D = 1;
+    if ( !isdefined( level.allow_swimming ) )
+        level.allow_swimming = 1;
 
     if ( level._id_2764 == level._id_83B2 )
-        level._id_0A9D = 0;
+        level.allow_swimming = 0;
 
     if ( !isdefined( level._id_9074 ) )
         level._id_9074 = 48;
@@ -80,7 +80,7 @@ watchforhostmigration()
         self waittill( "player_migrated" );
 
         foreach ( var_1 in level._id_A29A )
-            self _meth_84e2( var_1.script_noteworthy, var_1 );
+            self _meth_84E2( var_1.script_noteworthy, var_1 );
     }
 }
 
@@ -94,7 +94,7 @@ _id_64CD()
         var_0 thread watchforhostmigration();
 
         foreach ( var_2 in level._id_A29A )
-            var_0 _meth_84e2( var_2.script_noteworthy, var_2 );
+            var_0 _meth_84E2( var_2.script_noteworthy, var_2 );
     }
 }
 
@@ -108,7 +108,7 @@ _id_23A5()
     if ( isdefined( self.script_noteworthy ) )
     {
         var_1.script_noteworthy = self.script_noteworthy;
-        level._id_A29A = common_scripts\utility::_id_0CDA( level._id_A29A, var_1 );
+        level._id_A29A = common_scripts\utility::array_add( level._id_A29A, var_1 );
     }
 }
 
@@ -142,7 +142,7 @@ _id_A24E()
     {
         self waittill( "trigger", var_0 );
 
-        if ( isdefined( level.ishorde ) && level.ishorde && isagent( var_0 ) && isdefined( var_0._id_494C ) && var_0._id_494C == "Quad" && !isdefined( var_0._id_4FAD ) )
+        if ( isdefined( level._id_511D ) && level._id_511D && isagent( var_0 ) && isdefined( var_0._id_494C ) && var_0._id_494C == "Quad" && !isdefined( var_0._id_4FAD ) )
             var_0 thread _id_497C( self );
 
         if ( !isplayer( var_0 ) && !isai( var_0 ) )
@@ -212,7 +212,7 @@ _id_6CD1( var_0 )
             self._id_9A04 = undefined;
             self._id_4EC2 = undefined;
             self._id_51C4 = undefined;
-            self.movespeedscaler = level._id_1317;
+            self.movespeedscaler = level.baseplayermovescale;
             maps\mp\gametypes\_weapons::_id_9B3D();
             self notify( "out_of_water" );
             break;
@@ -221,7 +221,7 @@ _id_6CD1( var_0 )
         if ( isdefined( self._id_4EC2 ) && _id_4E85( var_0, 32 ) )
         {
             self._id_4EC2 = undefined;
-            self.movespeedscaler = level._id_1317;
+            self.movespeedscaler = level.baseplayermovescale;
             maps\mp\gametypes\_weapons::_id_9B3D();
         }
 
@@ -230,9 +230,9 @@ _id_6CD1( var_0 )
             self._id_4EC2 = undefined;
 
             if ( isdefined( level.watermovescale ) )
-                self.movespeedscaler = level._id_1317 * level.watermovescale;
+                self.movespeedscaler = level.baseplayermovescale * level.watermovescale;
             else
-                self.movespeedscaler = level._id_1317;
+                self.movespeedscaler = level.baseplayermovescale;
 
             maps\mp\gametypes\_weapons::_id_9B3D();
         }
@@ -240,7 +240,7 @@ _id_6CD1( var_0 )
         if ( !isdefined( self._id_4EC2 ) && !_id_4E85( var_0, 32 ) )
         {
             self._id_4EC2 = 1;
-            self.movespeedscaler = 0.7 * level._id_1317;
+            self.movespeedscaler = 0.7 * level.baseplayermovescale;
             maps\mp\gametypes\_weapons::_id_9B3D();
         }
 
@@ -277,7 +277,7 @@ _id_6CD1( var_0 )
                 self [[ level.hordeonunderwater ]]( var_0 );
         }
 
-        if ( isdefined( self._id_9A04 ) && ( isdefined( self._id_51C4 ) || !isdefined( self._id_5201 ) ) && ( _id_4E85( var_0, level._id_9074 ) || self getstance() == "prone" || !level._id_0A9D ) )
+        if ( isdefined( self._id_9A04 ) && ( isdefined( self._id_51C4 ) || !isdefined( self._id_5201 ) ) && ( _id_4E85( var_0, level._id_9074 ) || self getstance() == "prone" || !level.allow_swimming ) )
         {
             self._id_5201 = 1;
             self._id_51C4 = undefined;
@@ -287,13 +287,13 @@ _id_6CD1( var_0 )
             {
                 _id_6C9A( "none" );
                 self allowfire( 0 );
-                self _meth_84bb();
+                self _meth_84BB();
             }
             else if ( !isdefined( level.iszombiegame ) || !isscriptedagent( self ) )
                 _id_6C9A( "shallow" );
         }
 
-        if ( isdefined( self._id_9A04 ) && ( isdefined( self._id_5201 ) || !isdefined( self._id_51C4 ) ) && ( !_id_4E85( var_0, level._id_9074 ) && self getstance() != "prone" && level._id_0A9D ) )
+        if ( isdefined( self._id_9A04 ) && ( isdefined( self._id_5201 ) || !isdefined( self._id_51C4 ) ) && ( !_id_4E85( var_0, level._id_9074 ) && self getstance() != "prone" && level.allow_swimming ) )
         {
             self._id_51C4 = 1;
             self._id_5201 = undefined;
@@ -303,7 +303,7 @@ _id_6CD1( var_0 )
             {
                 _id_6C9A( "none" );
                 self allowfire( 0 );
-                self _meth_84bb();
+                self _meth_84BB();
             }
             else if ( !isdefined( level.iszombiegame ) || !isscriptedagent( self ) )
                 _id_6C9A( "deep" );
@@ -360,7 +360,7 @@ _id_6D92()
     self._id_9A04 = undefined;
     self._id_4EC2 = undefined;
     self._id_A27B = undefined;
-    self.movespeedscaler = level._id_1317;
+    self.movespeedscaler = level.baseplayermovescale;
     maps\mp\gametypes\_weapons::_id_9B3D();
 }
 
@@ -410,7 +410,7 @@ _id_6CB9()
     self endon( "disconnect" );
     self endon( "above_water" );
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         self endon( "becameSpectator" );
 
     thread _id_64D2();
@@ -431,7 +431,7 @@ _id_64D2()
     self endon( "disconnect" );
     self endon( "above_water" );
 
-    if ( isdefined( level.ishorde ) && level.ishorde )
+    if ( isdefined( level._id_511D ) && level._id_511D )
         common_scripts\utility::_id_A069( "death", "becameSpectator" );
     else
         self waittill( "death" );
@@ -517,8 +517,8 @@ _id_6C9A( var_0 )
     }
 
     self disableweaponpickup();
-    common_scripts\utility::_id_0588();
-    common_scripts\utility::_id_0585();
+    common_scripts\utility::_disableweaponswitch();
+    common_scripts\utility::_disableoffhandweapons();
 }
 
 _id_6C8D()
@@ -532,8 +532,8 @@ _id_6C8D()
         var_0 = self._id_9A21;
         self notify( "end_swimming" );
         self enableweaponpickup();
-        common_scripts\utility::_id_0596();
-        common_scripts\utility::_id_0593();
+        common_scripts\utility::_enableweaponswitch();
+        common_scripts\utility::_enableoffhandweapons();
 
         if ( isdefined( self._id_5131 ) && self._id_5131 == 1 && isdefined( self._id_479B ) )
         {
@@ -543,12 +543,12 @@ _id_6C8D()
                 self disableoffhandweapons();
 
             if ( !isdefined( self._id_479B._id_4742 ) || self._id_479B._id_4742 == 0 )
-                self _meth_84bb();
+                self _meth_84BB();
             else
-                self _meth_84bc();
+                self _meth_84BC();
         }
 
-        if ( isdefined( level.ishorde ) && isplayer( self ) )
+        if ( isdefined( level._id_511D ) && isplayer( self ) )
             maps\mp\gametypes\_weapons::_id_74B3( "underwater" );
         else if ( isdefined( self._id_A27B ) )
             maps\mp\_utility::_id_907A( self._id_A27B );

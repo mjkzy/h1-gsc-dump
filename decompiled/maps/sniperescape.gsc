@@ -124,18 +124,18 @@ main()
     precacheshader( "h1_hud_tutorial_border" );
     level.heli_objective = precacheshader( "objective_heli" );
     level.last_price_kill = 0;
-    maps\_utility::_id_079C( "rappel", ::rappel_out_of_hotel, &"STARTS_RAPPEL" );
-    maps\_utility::_id_079C( "run", ::start_run, &"STARTS_RUN" );
-    maps\_utility::_id_079C( "apart", ::start_apartment, &"STARTS_APART" );
-    maps\_utility::_id_079C( "wounding", ::start_wounding, &"STARTS_WOUNDING" );
-    maps\_utility::_id_079C( "crash", ::_id_8B7C, &"STARTS_CRASH" );
-    maps\_utility::_id_079C( "wounded", ::start_wounded, &"STARTS_WOUNDED" );
-    maps\_utility::_id_079C( "burnt", ::start_burnt, &"STARTS_BURNT" );
-    maps\_utility::_id_079C( "pool", ::start_pool, &"STARTS_POOL" );
-    maps\_utility::_id_079C( "fair", ::start_fair, &"STARTS_FAIR" );
-    maps\_utility::_id_079C( "fair_battle", ::start_fair_battle, &"STARTS_FAIRBATTLE" );
-    maps\_utility::_id_079C( "fair_battle2", ::start_fair_battle, &"STARTS_FAIRBATTLE" );
-    maps\_utility::_id_079C( "seaknight", ::start_seaknight, &"STARTS_SEAKNIGHT" );
+    maps\_utility::add_start( "rappel", ::rappel_out_of_hotel, &"STARTS_RAPPEL" );
+    maps\_utility::add_start( "run", ::start_run, &"STARTS_RUN" );
+    maps\_utility::add_start( "apart", ::start_apartment, &"STARTS_APART" );
+    maps\_utility::add_start( "wounding", ::start_wounding, &"STARTS_WOUNDING" );
+    maps\_utility::add_start( "crash", ::_id_8B7C, &"STARTS_CRASH" );
+    maps\_utility::add_start( "wounded", ::start_wounded, &"STARTS_WOUNDED" );
+    maps\_utility::add_start( "burnt", ::start_burnt, &"STARTS_BURNT" );
+    maps\_utility::add_start( "pool", ::start_pool, &"STARTS_POOL" );
+    maps\_utility::add_start( "fair", ::start_fair, &"STARTS_FAIR" );
+    maps\_utility::add_start( "fair_battle", ::start_fair_battle, &"STARTS_FAIRBATTLE" );
+    maps\_utility::add_start( "fair_battle2", ::start_fair_battle, &"STARTS_FAIRBATTLE" );
+    maps\_utility::add_start( "seaknight", ::start_seaknight, &"STARTS_SEAKNIGHT" );
     maps\_utility::_id_278B( ::snipe );
     createthreatbiasgroup( "price" );
     createthreatbiasgroup( "dog" );
@@ -163,9 +163,9 @@ main()
     maps\sniperescape_aud::main();
     maps\_compass::setupminimap( "compass_map_sniperescape" );
     var_0 = getaiarray( "allies" );
-    common_scripts\utility::_id_0D13( var_0, maps\_stealth_logic::_id_3A66 );
+    common_scripts\utility::array_thread( var_0, maps\_stealth_logic::_id_3A66 );
     var_1 = getentarray( "actor_enemy_dog", "classname" );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, maps\sniperescape_wounding::set_dog_threatbias_group );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, maps\sniperescape_wounding::set_dog_threatbias_group );
     level._id_6302 = [];
     maps\sniperescape_wounding::addobj( "zakhaev" );
     maps\sniperescape_wounding::addobj( "future" );
@@ -178,10 +178,10 @@ main()
     maps\sniperescape_wounding::addobj( "holdout" );
     maps\sniperescape_wounding::addobj( "seaknight" );
     level._id_6302["wounded"] = level._id_6302["heat"];
-    maps\_utility::_id_0764( "claymore_plant", &"SCRIPT_LEARN_CLAYMORES", maps\sniperescape_exchange::should_break_claymores );
-    maps\_utility::_id_0764( "c4", &"SCRIPT_C4_USE", maps\sniperescape_exchange::should_break_c4 );
-    maps\_utility::_id_0764( "barrett", &"SNIPERESCAPE_PRESS_FORWARDS_OR_BACKWARDS", maps\sniperescape_exchange::should_break_zoom_hint );
-    maps\_utility::_id_0764( "where_is_he", &"SNIPERESCAPE_WHERE_IS_HE", maps\sniperescape_code::should_break_where_is_he );
+    maps\_utility::add_hint_string( "claymore_plant", &"SCRIPT_LEARN_CLAYMORES", maps\sniperescape_exchange::should_break_claymores );
+    maps\_utility::add_hint_string( "c4", &"SCRIPT_C4_USE", maps\sniperescape_exchange::should_break_c4 );
+    maps\_utility::add_hint_string( "barrett", &"SNIPERESCAPE_PRESS_FORWARDS_OR_BACKWARDS", maps\sniperescape_exchange::should_break_zoom_hint );
+    maps\_utility::add_hint_string( "where_is_he", &"SNIPERESCAPE_WHERE_IS_HE", maps\sniperescape_code::should_break_where_is_he );
     maps\sniperescape_code::set_c4_throw_binding();
 
     if ( level._id_8C36 != "sunset" )
@@ -190,16 +190,16 @@ main()
     maps\sniperescape_anim::main();
     level thread maps\sniperescape_amb::main();
     var_2 = getentarray( "curtain_left", "targetname" );
-    common_scripts\utility::_id_0D13( var_2, maps\sniperescape_code::curtain, "curtain_left" );
+    common_scripts\utility::array_thread( var_2, maps\sniperescape_code::curtain, "curtain_left" );
     var_3 = getentarray( "curtain_right", "targetname" );
-    common_scripts\utility::_id_0D13( var_3, maps\sniperescape_code::curtain, "curtain_right" );
+    common_scripts\utility::array_thread( var_3, maps\sniperescape_code::curtain, "curtain_right" );
     level._id_6F7C = getent( "price", "targetname" );
     level._id_6F7C thread priceinit();
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C.dontavoidplayer = 1;
     level._id_6F7C.interval = 0;
     level.price_sticky_target_time = 5000;
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "player_looks_through_skylight", common_scripts\_exploder::_id_3528, 1 );
     level.engagement_dist_func = [];
     maps\sniperescape_code::add_engagement_func( "actor_enemy_merc_SHTGN_winchester", maps\sniperescape_code::engagement_shotgun );
@@ -208,10 +208,10 @@ main()
     maps\sniperescape_code::add_engagement_func( "actor_enemy_merc_SNPR_dragunov", maps\sniperescape_code::engagement_sniper );
     maps\sniperescape_code::add_engagement_func( "actor_enemy_merc_SMG_skorpion", maps\sniperescape_code::engagement_smg );
     var_4 = getaiarray( "axis" );
-    common_scripts\utility::_id_0D13( var_4, maps\sniperescape_code::enemy_override );
-    maps\_utility::_id_0761( "axis", maps\sniperescape_code::enemy_override );
-    maps\_utility::_id_0761( "axis", maps\sniperescape_code::dog_check );
-    maps\_utility::_id_0761( "axis", maps\sniperescape_code::price_kill_check );
+    common_scripts\utility::array_thread( var_4, maps\sniperescape_code::enemy_override );
+    maps\_utility::add_global_spawn_function( "axis", maps\sniperescape_code::enemy_override );
+    maps\_utility::add_global_spawn_function( "axis", maps\sniperescape_code::dog_check );
+    maps\_utility::add_global_spawn_function( "axis", maps\sniperescape_code::price_kill_check );
     common_scripts\utility::_id_383D( "player_on_barret" );
     common_scripts\utility::_id_383D( "launch_zak" );
     common_scripts\utility::_id_383D( "player_is_on_turret" );
@@ -296,16 +296,16 @@ main()
     common_scripts\utility::_id_383D( "rescue_music_start" );
     common_scripts\utility::_id_383D( "zak_is_facing_player" );
     level.firstplay = 1;
-    maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "apartment_explosion" );
-    maps\_utility::_id_075F( maps\sniperescape_exchange::blow_up_hotel );
+    maps\_utility::add_wait( common_scripts\utility::_id_384A, "apartment_explosion" );
+    maps\_utility::add_func( maps\sniperescape_exchange::blow_up_hotel );
     thread maps\_utility::_id_2BDC();
-    maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "player_enters_fairgrounds" );
-    maps\_utility::_id_075F( maps\sniperescape_wounding::check_for_price );
+    maps\_utility::add_wait( common_scripts\utility::_id_384A, "player_enters_fairgrounds" );
+    maps\_utility::add_func( maps\sniperescape_wounding::check_for_price );
     thread maps\_utility::_id_2BDC();
     var_5 = getentarray( "group_1", "script_noteworthy" );
     var_6 = spawnstruct();
     var_6.count = 0;
-    common_scripts\utility::_id_0D13( var_5, maps\sniperescape_code::group1_enemies_think, var_6 );
+    common_scripts\utility::array_thread( var_5, maps\sniperescape_code::group1_enemies_think, var_6 );
     level.debounce_triggers = [];
     common_scripts\utility::_id_76BB( "leave_one", maps\sniperescape_code::leave_one_think );
     common_scripts\utility::_id_76BB( "heli_trigger", maps\sniperescape_code::heli_trigger );
@@ -339,13 +339,13 @@ main()
     common_scripts\utility::_id_76BB( "heli_dirt_mesh", maps\sniperescape_wounding::heli_dirt_mesh );
     common_scripts\utility::_id_76BB( "heli_dirt_mesh_hide", maps\sniperescape_wounding::heli_dirt_mesh_hide );
     common_scripts\utility::_id_76BB( "heli_fence_clip", maps\sniperescape_wounding::heli_fence_clip_delete );
-    common_scripts\utility::_id_76B9( "patrol_guy", maps\_utility::_id_0798, maps\sniperescape_code::patrol_guy );
-    common_scripts\utility::_id_76B9( "chopper_guys", maps\_utility::_id_0798, maps\sniperescape_code::chopper_guys_land );
-    common_scripts\utility::_id_76B9( "chase_chopper_guys", maps\_utility::_id_0798, maps\sniperescape_code::chase_chopper_guys_land );
-    common_scripts\utility::_id_76B9( "house_chase_spawner", maps\_utility::_id_0798, maps\sniperescape_code::house_chase_spawner );
+    common_scripts\utility::_id_76B9( "patrol_guy", maps\_utility::add_spawn_function, maps\sniperescape_code::patrol_guy );
+    common_scripts\utility::_id_76B9( "chopper_guys", maps\_utility::add_spawn_function, maps\sniperescape_code::chopper_guys_land );
+    common_scripts\utility::_id_76B9( "chase_chopper_guys", maps\_utility::add_spawn_function, maps\sniperescape_code::chase_chopper_guys_land );
+    common_scripts\utility::_id_76B9( "house_chase_spawner", maps\_utility::add_spawn_function, maps\sniperescape_code::house_chase_spawner );
     thread maps\sniperescape_code::handle_radiation_warning();
     var_7 = getarraykeys( level.heli_flag );
-    common_scripts\utility::_id_0CF0( var_7, maps\sniperescape_wounding::helicopter_broadcast );
+    common_scripts\utility::array_levelthread( var_7, maps\sniperescape_wounding::helicopter_broadcast );
     maps\sniperescape_code::create_price_dialogue_master();
     wait 0.05;
     level.player setplayerturretfov( 70 );
@@ -458,10 +458,10 @@ priceinit()
     maps\_utility::_id_88F1( self );
     self.providecoveringfire = 0;
     thread maps\_utility::_id_58D7();
-    self._id_1300 = 1000;
+    self.baseaccuracy = 1000;
     self._id_5F65 = 1.21;
     self.ignoresuppression = 1;
-    self._id_0C72 = "price";
+    self.animname = "price";
     self.ignorerandombulletdamage = 1;
     thread maps\_props::_id_418B();
 }
@@ -504,34 +504,34 @@ snipe()
     thread maps\sniperescape_exchange::flashback_guys_failure();
     thread maps\sniperescape_exchange::flashback_time_paradox_monitor();
     common_scripts\utility::_id_383F( "aa_snipe" );
-    common_scripts\utility::_id_76B9( "leaning_smoker", maps\_utility::_id_0798, maps\sniperescape_exchange::lean_and_smoke );
-    common_scripts\utility::_id_76B9( "standing_smoker", maps\_utility::_id_0798, maps\sniperescape_exchange::stand_and_smoke );
+    common_scripts\utility::_id_76B9( "leaning_smoker", maps\_utility::add_spawn_function, maps\sniperescape_exchange::lean_and_smoke );
+    common_scripts\utility::_id_76B9( "standing_smoker", maps\_utility::add_spawn_function, maps\sniperescape_exchange::stand_and_smoke );
     var_0 = getentarray( "exchange_rider", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, maps\_utility::_id_7E5D, 1 );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, maps\sniperescape_exchange::exchange_baddie_main_think );
-    common_scripts\utility::_id_76BB( "exchange_makarov", maps\_utility::_id_0798, maps\sniperescape_exchange::flashback_guy_setup );
-    common_scripts\utility::_id_76BB( "exchange_yuri", maps\_utility::_id_0798, maps\sniperescape_exchange::flashback_guy_setup );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, maps\_utility::_id_7E5D, 1 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, maps\sniperescape_exchange::exchange_baddie_main_think );
+    common_scripts\utility::_id_76BB( "exchange_makarov", maps\_utility::add_spawn_function, maps\sniperescape_exchange::flashback_guy_setup );
+    common_scripts\utility::_id_76BB( "exchange_yuri", maps\_utility::add_spawn_function, maps\sniperescape_exchange::flashback_guy_setup );
     var_1 = getentarray( "exchange_guard", "targetname" );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, maps\_utility::_id_7E5D, 1 );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, maps\sniperescape_exchange::exchange_baddie_main_think );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, maps\sniperescape_exchange::exchange_bored_idle );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, maps\_utility::_id_7E5D, 1 );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, maps\sniperescape_exchange::exchange_baddie_main_think );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, maps\sniperescape_exchange::exchange_bored_idle );
+    common_scripts\utility::array_thread( var_1, maps\_utility::_id_88C3 );
     var_2 = getentarray( "exchange_baddy", "targetname" );
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_0798, maps\_utility::_id_7E5D, 1 );
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_0798, maps\sniperescape_exchange::exchange_baddie_main_think );
-    var_3 = maps\_utility::_id_0D08( var_2 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, maps\_utility::_id_7E5D, 1 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, maps\sniperescape_exchange::exchange_baddie_main_think );
+    var_3 = maps\_utility::array_spawn( var_2 );
     level.exchanger_surprise_time = 0.5;
     var_4 = var_3[0];
     var_5 = var_3[1];
-    var_4._id_0C72 = "guard";
-    var_5._id_0C72 = "dealer";
+    var_4.animname = "guard";
+    var_5.animname = "dealer";
     var_4.main_baddie = 1;
     var_5.main_baddie = 1;
     var_6 = getent( "exchange_org", "targetname" );
-    var_6 thread maps\_anim::_id_0BDD( var_3, "exchange_idle" );
+    var_6 thread maps\_anim::anim_loop( var_3, "exchange_idle" );
     maps\sniperescape_exchange::exchange_zak_and_guards_jab_it_up( var_6, var_3 );
     var_6 notify( "stop_loop" );
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     common_scripts\utility::_id_3852( "player_attacks_exchange", "zakhaev_escaped" );
     musicstop( 3 );
     wait 0.25;
@@ -578,9 +578,9 @@ snipe()
 exchange_uaz()
 {
     var_0 = getentarray( "base_uaz", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\sniperescape_exchange::exchange_uaz_preps_for_escape );
+    common_scripts\utility::array_thread( var_0, maps\sniperescape_exchange::exchange_uaz_preps_for_escape );
     var_1 = maps\_vehicle::_id_897C( "uaz" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_exchange::exchange_uaz_preps_for_escape );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_exchange::exchange_uaz_preps_for_escape );
     var_2 = maps\sniperescape_wounding::get_ent_with_key_from_array( var_1, "zaks_ride", "script_noteworthy" );
     level.flashback_guys_uaz = maps\sniperescape_wounding::get_ent_with_key_from_array( var_1, "flashback_guys_uaz", "script_noteworthy" );
     level.flashback_guys_uaz thread maps\sniperescape_exchange::flashback_uaz_stop_while_driverdead();
@@ -588,7 +588,7 @@ exchange_uaz()
     var_3 linkto( var_2, "body_animate_jnt", ( -20.0, 0.0, 54.0 ), ( 0.0, 180.0, 0.0 ) );
     wait 2;
     common_scripts\utility::_id_384A( "player_on_barret" );
-    common_scripts\utility::_id_0CF0( var_1, maps\_vehicle::_id_427A );
+    common_scripts\utility::array_levelthread( var_1, maps\_vehicle::_id_427A );
     common_scripts\utility::_id_384A( "zak_arrives" );
     wait 2;
     common_scripts\utility::_id_383F( "exchange_uazs_arrive" );
@@ -596,14 +596,14 @@ exchange_uaz()
 
 price_watches( var_0 )
 {
-    self._id_0C72 = "price";
+    self.animname = "price";
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 setmodel( level._id_78B5["binocs"] );
     var_1 linkto( self, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.binocs = var_1;
     var_2 = getent( self.target, "targetname" );
-    var_2 maps\_anim::_id_0C24( self, "intro_spotter" );
-    var_2 thread maps\_anim::_id_0BE1( self, "spotter_idle" );
+    var_2 maps\_anim::anim_single_solo( self, "intro_spotter" );
+    var_2 thread maps\_anim::anim_loop_solo( self, "spotter_idle" );
 }
 
 price_talks()
@@ -652,14 +652,14 @@ setup_rappel()
     var_1 = maps\_utility::_id_88D1( "rope" );
     level._id_75E0 = var_1;
     var_2 = getnode( "price_rappel_node", "targetname" );
-    var_2 thread maps\_anim::_id_0BC7( var_1, "rappel_start" );
+    var_2 thread maps\_anim::anim_first_frame_solo( var_1, "rappel_start" );
     var_3 = getent( "bullet_block", "targetname" );
     var_3 delete();
     var_4 = getent( level._id_6F7C.target, "targetname" );
     var_4 notify( "stop_loop" );
     level._id_6F7C _meth_8143();
     common_scripts\utility::_id_3831( "aa_snipe" );
-    var_4 maps\_anim::_id_0C24( level._id_6F7C, "spotter_exit" );
+    var_4 maps\_anim::anim_single_solo( level._id_6F7C, "spotter_exit" );
 
     if ( isdefined( level.binocs ) )
         level.binocs delete();
@@ -684,13 +684,13 @@ _id_6BD0()
 {
     var_0 = getnode( "player_rappel_node", "targetname" );
     var_1 = maps\_utility::_id_88D1( "player_rope" );
-    var_0 thread maps\_anim::_id_0BC7( var_1, "rappel_for_player" );
+    var_0 thread maps\_anim::anim_first_frame_solo( var_1, "rappel_for_player" );
     var_2 = maps\_utility::_id_88D1( "player_rope_obj" );
-    var_0 thread maps\_anim::_id_0BC7( var_2, "rappel_for_player" );
+    var_0 thread maps\_anim::anim_first_frame_solo( var_2, "rappel_for_player" );
     var_2 hide();
     var_3 = maps\_utility::_id_88D1( "player_rappel" );
     var_3 hide();
-    var_0 maps\_anim::_id_0BC7( var_3, "rappel" );
+    var_0 maps\_anim::anim_first_frame_solo( var_3, "rappel" );
     var_4 = getent( "rappel_trigger", "targetname" );
     var_4.origin = ( 481.4, -10823.2, 1068.9 );
     var_4 sethintstring( &"SNIPERESCAPE_HOLD_1_TO_RAPPEL" );
@@ -726,8 +726,8 @@ _id_6BD0()
     level.player allowlean( 0 );
     level.player playerlinktodelta( var_3, "tag_player", 1.0, 0, 0, 0, 0 );
     var_3 show();
-    var_0 thread maps\_anim::_id_0C24( var_3, "rappel" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "rappel_for_player" );
+    var_0 thread maps\_anim::anim_single_solo( var_3, "rappel" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "rappel_for_player" );
     var_0 waittill( "rappel" );
     level.player unlink();
     setsaveddvar( "cg_drawCrosshair", getdvar( "cg_drawCrosshairOption", 1 ) );
@@ -764,7 +764,7 @@ rappel_out_of_hotel()
     common_scripts\utility::_id_383F( "player_can_rappel" );
 
     if ( getdvarint( "use_old_macmillan_rappel" ) == 1 )
-        var_0 thread maps\_anim::_id_0BFF( level._id_6F7C, "rappel_start" );
+        var_0 thread maps\_anim::anim_reach_solo( level._id_6F7C, "rappel_start" );
     else
         h1_handle_mac_run_past_chair();
 
@@ -779,7 +779,7 @@ rappel_out_of_hotel()
     if ( !common_scripts\utility::_id_382E( "price_starts_rappel" ) )
     {
         level.price_anim_start_time = gettime() + 100;
-        var_0 maps\_utility::_id_27EF( 0.1, maps\_anim::_id_0C18, var_1, "rappel_start" );
+        var_0 maps\_utility::_id_27EF( 0.1, maps\_anim::anim_single, var_1, "rappel_start" );
     }
 
     wait 0.15;
@@ -797,8 +797,8 @@ rappel_out_of_hotel()
 
     if ( var_5 < var_6 )
     {
-        level._id_6F7C maps\_anim::_id_0C0F( "rappel_start", var_6 );
-        level._id_75E0 maps\_anim::_id_0C0F( "rappel_start", var_6 );
+        level._id_6F7C maps\_anim::anim_self_set_time( "rappel_start", var_6 );
+        level._id_75E0 maps\_anim::anim_self_set_time( "rappel_start", var_6 );
     }
 
     level._id_6F7C common_scripts\utility::waittillend( "single anim" );
@@ -806,9 +806,9 @@ rappel_out_of_hotel()
     level.move_in_trigger_used = [];
     common_scripts\utility::_id_76BB( "move_in_trigger", maps\sniperescape_code::move_in );
     var_3 = getanimlength( level._id_6F7C maps\_utility::_id_3EF5( "rappel_end" ) );
-    var_0 thread maps\_anim::_id_0C18( var_1, "rappel_end" );
+    var_0 thread maps\_anim::anim_single( var_1, "rappel_end" );
     wait(var_3 - 0.5);
-    level._id_6F7C maps\_anim::_id_0C0F( "rappel_end", 1 );
+    level._id_6F7C maps\_anim::anim_self_set_time( "rappel_end", 1 );
     setsaveddvar( "phys_bulletspinscale", "3" );
     level._id_6F7C maps\_utility::_id_7E38( "r" );
     thread battle_through_heat_area();
@@ -831,17 +831,17 @@ price_climbs_until_player_rappels( var_0, var_1 )
     thread apartment_explosion();
     common_scripts\utility::_id_383F( "price_starts_rappel" );
     level.price_anim_start_time = gettime();
-    var_1 maps\_anim::_id_0C18( var_0, "rappel_start" );
+    var_1 maps\_anim::anim_single( var_0, "rappel_start" );
 
     if ( !common_scripts\utility::_id_382E( "player_rappels" ) )
     {
-        var_1 thread maps\_anim::_id_0BDD( var_0, "rappel_idle", "stop_idle" );
+        var_1 thread maps\_anim::anim_loop( var_0, "rappel_idle", "stop_idle" );
         common_scripts\utility::_id_384A( "player_rappels" );
         var_1 notify( "stop_idle" );
     }
 
     maps\_utility::arcademode_checkpoint( 5, "a" );
-    var_1 thread maps\_anim::_id_0C18( var_0, "rappel_end" );
+    var_1 thread maps\_anim::anim_single( var_0, "rappel_end" );
 }
 
 apartment_explosion()
@@ -856,14 +856,14 @@ start_run()
     thread _id_5FFB();
     thread maps\sniperescape_lighting::vision_glow_change();
     var_0 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_0, maps\sniperescape_code::delete_living );
     var_1 = getnode( "tele_node", "targetname" );
     var_2 = getent( "tele_org", "targetname" );
     level.move_in_trigger_used = [];
     common_scripts\utility::_id_76BB( "move_in_trigger", maps\sniperescape_code::move_in );
     level.player setplayerangles( ( 0.0, 0.0, 0.0 ) );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
-    level._id_6F7C _meth_81c9( var_1.origin );
+    level._id_6F7C _meth_81C9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setorigin( var_2.origin );
     thread battle_through_heat_area();
@@ -875,7 +875,7 @@ battle_through_heat_area()
     level._id_6F7C._id_2D3B = 1;
     thread maps\sniperescape_wounding::heat_helis_transport_guys_in();
     var_0 = getentarray( "weapons_dealer", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_0, maps\sniperescape_code::delete_living );
     thread maps\sniperescape_code::enemy_accuracy_assignment();
     var_1 = getentarray( "east_spawner", "targetname" );
     thread maps\sniperescape_code::heat_spawners_attack( var_1, "start_heat_spawners", "stop_heat_spawners" );
@@ -883,21 +883,21 @@ battle_through_heat_area()
     thread maps\sniperescape_code::heat_spawners_attack( var_2, "start_heat_spawners", "stop_heat_spawners" );
     wait 1;
     common_scripts\utility::_id_383F( "aa_heat" );
-    level._id_6F7C maps\_anim::_id_0C21( level._id_6F7C, "follow_me" );
+    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "follow_me" );
     objective_add( maps\sniperescape_wounding::getobj( "heat" ), "active", &"SNIPERESCAPE_REACH_THE_EXTRACTION", maps\sniperescape_code::extraction_point() );
     objective_current( maps\sniperescape_wounding::getobj( "heat" ) );
     thread maps\sniperescape_wounding::modify_objective_destination_babystep( maps\sniperescape_wounding::getobj( "heat" ) );
     level._id_9373 = gettime();
     maps\_utility::_id_27EF( 1, maps\sniperescape_code::price_line, "compromised" );
     maps\_utility::_id_27EF( 3, maps\sniperescape_code::price_line, "eta_20_min" );
-    maps\_utility::_id_27EF( 9.35, maps\_utility::_id_1143, "eta_20_min" );
+    maps\_utility::_id_27EF( 9.35, maps\_utility::autosave_by_name, "eta_20_min" );
     maps\_utility::_id_27EF( 5.5, maps\sniperescape_code::countdown, 20 );
     thread price_runs_for_woods_on_contact();
     common_scripts\utility::_id_384A( "start_heat_spawners" );
     maps\_vehicle::_id_8979( "introchopper1" );
     common_scripts\utility::_id_384A( "heat_enemies_back_off" );
     waitframe;
-    maps\_utility::_id_070A( "price_heads_for_apartment" );
+    maps\_utility::activate_trigger_with_targetname( "price_heads_for_apartment" );
     thread maps\sniperescape_code::defend_heat_area_until_enemies_leave();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     thread the_apartment();
@@ -920,12 +920,12 @@ start_apartment()
     objective_add( maps\sniperescape_wounding::getobj( "heat" ), "active", &"SNIPERESCAPE_FOLLOW_CPT_MACMILLAN", maps\sniperescape_code::extraction_point() );
     objective_current( maps\sniperescape_wounding::getobj( "heat" ) );
     var_0 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apartment_org", "targetname" );
     var_2 = getent( "player_apartment_org", "targetname" );
     level.player setplayerangles( ( 0.0, 0.0, 0.0 ) );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
-    level._id_6F7C _meth_81c9( var_1.origin );
+    level._id_6F7C _meth_81C9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setorigin( var_2.origin );
     level._id_6F7C maps\_utility::_id_7E38( "y" );
@@ -939,35 +939,35 @@ the_apartment()
     common_scripts\utility::_id_3831( "aa_heat" );
     thread maps\sniperescape_wounding::apartment_price_waits_for_dog_death();
     level notify( "stop_adjusting_enemy_accuracy" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "lose_them_in_apartment" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "lose_them_in_apartment" );
     var_0 = getent( "price_explore_trigger", "targetname" );
     var_0 waittill( "trigger" );
     var_1 = getent( var_0.target, "targetname" );
-    maps\_utility::_id_1143( "into_the_apartment" );
+    maps\_utility::autosave_by_name( "into_the_apartment" );
     maps\_utility::arcademode_checkpoint( 4, "b" );
     common_scripts\utility::_id_383F( "price_opens_door" );
     thread maps\sniperescape_code::player_touches_wounded_blocker();
-    maps\_utility::_id_070A( "price_opens_door" );
-    var_1 maps\_anim::_id_0BFF( level._id_6F7C, "spin" );
+    maps\_utility::activate_trigger_with_targetname( "price_opens_door" );
+    var_1 maps\_anim::anim_reach_solo( level._id_6F7C, "spin" );
     var_2 = getanimlength( level._id_6F7C maps\_utility::_id_3EF5( "spin" ) );
     var_2 *= 0.87;
-    var_1 thread maps\_anim::_id_0C24( level._id_6F7C, "spin" );
+    var_1 thread maps\_anim::anim_single_solo( level._id_6F7C, "spin" );
     wait(var_2);
     level._id_6F7C _meth_8143();
-    level._id_6F7C _meth_816a();
+    level._id_6F7C _meth_816A();
     level._id_6F7C thread maps\_utility::_id_7E5D( 1 );
     var_3 = getnode( "slow_door_macmillan_node", "targetname" );
-    var_3 maps\_anim::_id_0BFF( level._id_6F7C, "smooth_door_open_init" );
-    var_3 maps\_anim::_id_0C24( level._id_6F7C, "smooth_door_open_init" );
+    var_3 maps\_anim::anim_reach_solo( level._id_6F7C, "smooth_door_open_init" );
+    var_3 maps\_anim::anim_single_solo( level._id_6F7C, "smooth_door_open_init" );
     var_4 = getent( "slow_door", "targetname" );
     var_5 = getent( "slow_door_model", "targetname" );
     var_5 linkto( var_4 );
     var_4 thread maps\_utility::_id_6666();
-    var_3 maps\_anim::_id_0C24( level._id_6F7C, "smooth_door_open" );
+    var_3 maps\_anim::anim_single_solo( level._id_6F7C, "smooth_door_open" );
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     thread window_mantle_transition();
     common_scripts\utility::_id_384A( "fence_dog_attacks" );
-    level._id_6F7C _meth_816a();
+    level._id_6F7C _meth_816A();
     level._id_6F7C thread maps\_utility::_id_7E5D( 0 );
     thread maps\sniperescape_code::dog_attacks_fence();
     thread the_wounding();
@@ -1008,15 +1008,15 @@ start_wounding()
     objective_current( maps\sniperescape_wounding::getobj( "heat" ) );
     thread maps\sniperescape_code::countdown( 16 );
     var_0 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apart_org", "targetname" );
     var_2 = getent( "player_apart_org", "targetname" );
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
-    level._id_6F7C _meth_81c9( var_1.origin );
+    level._id_6F7C _meth_81C9( var_1.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setorigin( var_2.origin );
-    level._id_6F7C _meth_81aa( level._id_6F7C.origin );
+    level._id_6F7C _meth_81AA( level._id_6F7C.origin );
     level._id_6F7C maps\_utility::_id_30B0();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     thread the_wounding();
@@ -1032,24 +1032,24 @@ _id_8B7C()
     objective_current( maps\sniperescape_wounding::getobj( "heat" ) );
     thread maps\sniperescape_code::countdown( 16 );
     var_0 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_0, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_0, maps\sniperescape_code::delete_living );
     var_1 = getent( "price_apart_org", "targetname" );
     var_2 = getent( "player_wounding_org", "targetname" );
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -34341.0 ) );
-    level._id_6F7C _meth_81c9( var_1.origin );
+    level._id_6F7C _meth_81C9( var_1.origin );
     var_3 = getnode( "price_wounding_node", "targetname" );
-    var_3 maps\_anim::_id_0C43( level._id_6F7C, "crash" );
+    var_3 maps\_anim::anim_teleport_solo( level._id_6F7C, "crash" );
     maps\sniperescape_wounding::plant_price();
     level.player setorigin( var_2.origin );
-    level._id_6F7C _meth_81aa( level._id_6F7C.origin );
+    level._id_6F7C _meth_81AA( level._id_6F7C.origin );
     level._id_6F7C maps\_utility::_id_30B0();
     level._id_6F7C maps\_utility::_id_7E38( "y" );
     thread maps\sniperescape_code::player_touches_wounded_blocker();
     thread maps\sniperescape_wounding::heli_attacks_price_new();
     wait 1;
-    common_scripts\utility::_id_0D13( level._id_265B["surprise_guys_dead"]["ai"], maps\_utility::_id_7C71 );
-    common_scripts\utility::_id_0D13( level._id_265B["surprise_guys_dead"]["spawners"], maps\_utility::_id_7C71 );
+    common_scripts\utility::array_thread( level._id_265B["surprise_guys_dead"]["ai"], maps\_utility::_id_7C71 );
+    common_scripts\utility::array_thread( level._id_265B["surprise_guys_dead"]["spawners"], maps\_utility::_id_7C71 );
     common_scripts\utility::_id_383F( "surprise_guys_dead" );
     common_scripts\utility::_id_383F( "patrol_guys_dead" );
     level waittill( "start_continues" );
@@ -1068,9 +1068,9 @@ the_wounding()
         level._id_6F7C.ignoreme = 0;
     }
 
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C maps\_utility::_id_309A();
-    maps\_utility::_id_070A( "price_moves_to_window_trigger" );
+    maps\_utility::activate_trigger_with_targetname( "price_moves_to_window_trigger" );
     level._id_6F7C.ignoreall = 0;
     maps\sniperescape_code::delete_wounding_sight_blocker();
     wait 2.5;
@@ -1080,14 +1080,14 @@ the_wounding()
     level._id_6F7C.fixednode = 1;
     level._id_6F7C.goalradius = 32;
     var_0 = getnode( "price_wait_more_behind_node", "targetname" );
-    level._id_6F7C _meth_81a9( var_0 );
+    level._id_6F7C _meth_81A9( var_0 );
     thread confirm_price_at_goal();
     common_scripts\utility::_id_384A( "player_touches_wounding_clip" );
     var_1 = getentarray( "surprise_spawner", "targetname" );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::surprisers_interval );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::surprisers_goal );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_88C3 );
-    level._id_6F7C maps\_utility::_id_27EF( 2, maps\_anim::_id_0C21, level._id_6F7C, "more_behind" );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::surprisers_interval );
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::surprisers_goal );
+    common_scripts\utility::array_thread( var_1, maps\_utility::_id_88C3 );
+    level._id_6F7C maps\_utility::_id_27EF( 2, maps\_anim::anim_single_queue, level._id_6F7C, "more_behind" );
     level._id_6F7C maps\_utility::_id_27EF( 2, ::fight_enemies_behind );
     common_scripts\utility::_id_384A( "price_arrives_wait_more_behind_node" );
     level._id_6F7C.maxvisibledist = 8000;
@@ -1105,10 +1105,10 @@ fight_enemies_behind()
     level endon( "crash_heli_shows_up" );
 
     if ( common_scripts\utility::_id_382E( "price_arrives_wait_more_behind_node" ) )
-        maps\_anim::_id_0C24( self, "behind_turn" );
+        maps\_anim::anim_single_solo( self, "behind_turn" );
 
     var_0 = getnode( "price_more_behind_node", "targetname" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
 }
 
 surprisers_interval()
@@ -1132,15 +1132,15 @@ heli_attacks_price()
     var_1 thread maps\_vehicle_code::helipath( var_1.target, 70, 70 );
     wait 1;
     level._id_6F7C endon( "death" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "more_behind" );
-    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "wounded_begins" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "more_behind" );
+    var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "wounded_begins" );
     common_scripts\utility::_id_384A( "price_heli_in_position" );
-    var_0 maps\_anim::_id_0BFF( level._id_6F7C, "wounded_begins" );
+    var_0 maps\_anim::anim_reach_solo( level._id_6F7C, "wounded_begins" );
     maps\_utility::_id_27EF( 5.5, common_scripts\utility::_id_383F, "price_heli_moves_on" );
     var_2 = getent( "wounding_target", "targetname" );
     var_1 maps\_utility::_id_27EF( 6.5, maps\sniperescape_code::heli_shoots_rockets_at_ent, var_2 );
     maps\_utility::_id_27EF( 7.2, common_scripts\_exploder::_id_3528, 500 );
-    var_0 maps\_anim::_id_0C24( level._id_6F7C, "wounded_begins" );
+    var_0 maps\_anim::anim_single_solo( level._id_6F7C, "wounded_begins" );
     thread wounded_combat();
 }
 
@@ -1154,9 +1154,9 @@ price_waits_for_enemies_to_walk_past()
 
     level endon( "wounding_sight_blocker_deleted" );
     common_scripts\utility::_id_384A( "price_says_wait" );
-    maps\_utility::_id_1143( "standby" );
+    maps\_utility::autosave_by_name( "standby" );
     common_scripts\utility::_id_384A( "walked_past_price" );
-    level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, "now" );
+    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "now" );
 }
 
 start_wounded()
@@ -1171,12 +1171,12 @@ start_wounded()
     var_0 delete();
     thread maps\sniperescape_code::countdown( 13 );
     var_1 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_code::delete_living );
     var_2 = getnode( "price_apartment_destination_node", "targetname" );
     var_3 = getent( "player_post_wound_org", "targetname" );
     level.player setplayerangles( var_3.angles );
     level.player setorigin( var_3.origin + ( 0.0, 0.0, -34341.0 ) );
-    level._id_6F7C _meth_81c9( var_2.origin );
+    level._id_6F7C _meth_81C9( var_2.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setorigin( var_3.origin );
     level._id_6F7C maps\_utility::_id_2A74();
@@ -1187,13 +1187,13 @@ wounded_combat()
 {
     level._id_6F7C endon( "death" );
     maps\_spawner::_id_533A( 10 );
-    common_scripts\utility::_id_76B9( "flee_guy", maps\_utility::_id_0798, maps\sniperescape_code::flee_guy_runs );
-    common_scripts\utility::_id_76B9( "force_patrol", maps\_utility::_id_0798, maps\sniperescape_code::force_patrol_think );
-    maps\_utility::_id_0761( "axis", maps\sniperescape_code::on_the_run_enemies );
+    common_scripts\utility::_id_76B9( "flee_guy", maps\_utility::add_spawn_function, maps\sniperescape_code::flee_guy_runs );
+    common_scripts\utility::_id_76B9( "force_patrol", maps\_utility::add_spawn_function, maps\sniperescape_code::force_patrol_think );
+    maps\_utility::add_global_spawn_function( "axis", maps\sniperescape_code::on_the_run_enemies );
     common_scripts\utility::_id_76BB( "wounded_combat_trigger", maps\sniperescape_code::wounded_combat_trigger );
     thread maps\sniperescape_code::second_apartment_line();
     common_scripts\utility::_id_383F( "price_is_safe_after_wounding" );
-    maps\_utility::_id_1143( "carry_price" );
+    maps\_utility::autosave_by_name( "carry_price" );
     maps\sniperescape_code::kill_all_enemies();
     thread maps\sniperescape_code::price_line( "cant_move_3" );
     objective_string( maps\sniperescape_wounding::getobj( "wounded" ), &"SNIPERESCAPE_PICK_UP_CPT_MACMILLAN" );
@@ -1217,7 +1217,7 @@ escort_to_park()
     maps\sniperescape_code::set_objective_pos_to_extraction_point( maps\sniperescape_wounding::getobj( "wounded" ) );
     thread maps\sniperescape_code::enemy_zone_spawner();
     common_scripts\utility::_id_384A( "enter_burnt" );
-    maps\_utility::_id_1143( "entered_burnt" );
+    maps\_utility::autosave_by_name( "entered_burnt" );
     thread enter_burnt_apartment();
 }
 
@@ -1226,7 +1226,7 @@ start_burnt()
     soundscripts\_snd::_id_870C( "start_burnt_checkpoint" );
     thread _id_5FFB();
     common_scripts\utility::_id_383F( "first_pickup" );
-    maps\_utility::_id_0761( "axis", maps\sniperescape_code::on_the_run_enemies );
+    maps\_utility::add_global_spawn_function( "axis", maps\sniperescape_code::on_the_run_enemies );
     thread maps\sniperescape_lighting::vision_glow_change();
     objective_add( maps\sniperescape_wounding::getobj( "wounded" ), "active", &"SNIPERESCAPE_DRAG_MACMILLAN_BODILY", maps\sniperescape_code::extraction_point() );
     objective_current( maps\sniperescape_wounding::getobj( "wounded" ) );
@@ -1236,11 +1236,11 @@ start_burnt()
     var_0 delete();
     thread maps\sniperescape_code::countdown( 6 );
     var_1 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_burnt_org", "targetname" );
     var_3 = getent( "price_burnt_org", "targetname" );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
-    level._id_6F7C _meth_81c9( var_3.origin );
+    level._id_6F7C _meth_81C9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin );
@@ -1257,8 +1257,8 @@ enter_burnt_apartment()
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "spawn_spooky_dog", common_scripts\utility::_id_383F, "aa_burnt_apartment" );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "apartment_cleared", common_scripts\utility::_id_3831, "aa_burnt_apartment" );
     setdvar( "player_sees_pool_dogs", "" );
-    common_scripts\utility::_id_76B9( "apartment_guard", maps\_utility::_id_0798, maps\_utility::_id_7E24 );
-    common_scripts\utility::_id_76B9( "apartment_guard", maps\_utility::_id_0798, maps\_utility::_id_7DDD, 100 );
+    common_scripts\utility::_id_76B9( "apartment_guard", maps\_utility::add_spawn_function, maps\_utility::_id_7E24 );
+    common_scripts\utility::_id_76B9( "apartment_guard", maps\_utility::add_spawn_function, maps\_utility::_id_7DDD, 100 );
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "enter_burnt", maps\_utility::_id_1EB2, "player_hasnt_been_spooked" );
     thread maps\sniperescape_code::player_navigates_burnt_apartment();
     thread _id_6E2F();
@@ -1281,11 +1281,11 @@ start_pool()
     var_0 delete();
     thread maps\sniperescape_code::countdown( 8 );
     var_1 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_pool_org", "targetname" );
     var_3 = getent( "price_pool_org", "targetname" );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
-    level._id_6F7C _meth_81c9( var_3.origin );
+    level._id_6F7C _meth_81C9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin );
@@ -1306,7 +1306,7 @@ _id_6E2F()
     thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "pool_lookat", common_scripts\utility::_id_383F, "player_looked_in_pool" );
     var_0 = level.player.maxvisibledist;
     level.player.maxvisibledist = 168;
-    maps\_utility::_id_1143( "to_the_pool" );
+    maps\_utility::autosave_by_name( "to_the_pool" );
     thread maps\sniperescape_code::price_line( "almost_there" );
     common_scripts\utility::_id_383F( "music_fairgrounds_fade" );
     thread maps\sniperescape_wounding::pool_have_body();
@@ -1343,11 +1343,11 @@ start_fair()
     var_0 delete();
     thread maps\sniperescape_code::countdown( 20 );
     var_1 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_fair_org", "targetname" );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
-    level._id_6F7C _meth_81c9( var_3.origin );
+    level._id_6F7C _meth_81C9( var_3.origin );
     maps\sniperescape_wounding::plant_price();
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin );
@@ -1373,11 +1373,11 @@ start_fair_battle()
     var_0 connectpaths();
     var_0 delete();
     var_1 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_gnoll", "targetname" );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
-    level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
+    level._id_6F7C _meth_81C9( var_3.origin, var_3.angles );
     maps\sniperescape_wounding::plant_price();
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin );
@@ -1405,7 +1405,7 @@ fairgrounds_before_battle()
         common_scripts\utility::_id_3831( "player_reaches_extraction_point" );
     }
 
-    common_scripts\utility::_id_0D13( level._id_265B["fair_snipers_died"]["ai"], maps\sniperescape_code::fair_spawner_seeks_player );
+    common_scripts\utility::array_thread( level._id_265B["fair_snipers_died"]["ai"], maps\sniperescape_code::fair_spawner_seeks_player );
     common_scripts\utility::_id_384A( "fair_snipers_died" );
     maps\sniperescape_code::price_line( "waiting_for_signal" );
     wait 0.35;
@@ -1458,8 +1458,8 @@ fairgrounds_after_prep()
     common_scripts\utility::_id_383F( "first_pickup" );
     common_scripts\utility::_id_3831( "price_calls_out_enemy_location" );
     var_0 = getentarray( "chase_chopper_spawner", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, maps\sniperescape_code::fairground_enemies );
-    maps\_utility::_id_1143( "the_fairgrounds" );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, maps\sniperescape_code::fairground_enemies );
+    maps\_utility::autosave_by_name( "the_fairgrounds" );
     wait 2;
     maps\sniperescape_code::sniper_escape_initial_secondary_weapon_loadout();
 
@@ -1533,11 +1533,11 @@ start_seaknight()
     var_0 delete();
     thread maps\sniperescape_code::countdown( 8 );
     var_1 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_1, maps\sniperescape_code::delete_living );
+    common_scripts\utility::array_thread( var_1, maps\sniperescape_code::delete_living );
     var_2 = getent( "player_fair_org", "targetname" );
     var_3 = getent( "price_gnoll", "targetname" );
     level.player setorigin( var_2.origin + ( 0.0, 0.0, -5150.0 ) );
-    level._id_6F7C _meth_81c9( var_3.origin, var_3.angles );
+    level._id_6F7C _meth_81C9( var_3.origin, var_3.angles );
     maps\sniperescape_wounding::plant_price();
     level.player setplayerangles( var_2.angles );
     level.player setorigin( var_2.origin );
@@ -1586,12 +1586,12 @@ seaknight_flies_in( var_0 )
         var_2 thread maps\_debug::_id_2DDF();
     }
 
-    var_2._id_0C72 = "seaknight";
+    var_2.animname = "seaknight";
     var_2 thread maps\_vehicle_code::_id_7611();
     common_scripts\utility::_id_383F( "seaknight_flies_in" );
     level.seaknight = var_2;
     var_2 thread maps\sniperescape_code::seaknight_badplace();
-    var_2 maps\_utility::_id_0D61();
+    var_2 maps\_utility::assign_animtree();
     var_7 = getent( "seaknight_collmap", "targetname" );
     var_7 linkto( var_2, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     maps\_wibble::wibble_add_heli_to_track( level.seaknight );
@@ -1602,7 +1602,7 @@ seaknight_flies_in( var_0 )
     var_9 thread maps\_utility::_id_5972( var_2 );
     var_9 thread maps\_vehicle::heli_squashes_stuff( "seaknight_lands" );
     var_2 thread spawn_seaknight_crew();
-    var_3 maps\_anim::_id_0C24( var_2, "landing" );
+    var_3 maps\_anim::anim_single_solo( var_2, "landing" );
     common_scripts\utility::_id_383F( "seaknight_lands" );
     thread maps\sniperescape_code::fairbattle_autosave();
     thread maps\sniperescape_wounding::player_becomes_invul_on_pickup();
@@ -1610,10 +1610,10 @@ seaknight_flies_in( var_0 )
     var_10 = 60;
     thread maps\sniperescape_wounding::seaknight_leaving_warning( var_10 );
     common_scripts\utility::_id_3831( "can_save" );
-    maps\_utility::_id_0761( "axis", maps\sniperescape_wounding::_id_60FD );
+    maps\_utility::add_global_spawn_function( "axis", maps\sniperescape_wounding::_id_60FD );
     var_11 = getaiarray( "axis" );
-    common_scripts\utility::_id_0D13( var_11, maps\_utility::_id_7E52, 0 );
-    var_3 thread maps\_anim::_id_0BE1( var_2, "idle", undefined, "stop_idle" );
+    common_scripts\utility::array_thread( var_11, maps\_utility::_id_7E52, 0 );
+    var_3 thread maps\_anim::anim_loop_solo( var_2, "idle", undefined, "stop_idle" );
     var_9 delete();
     maps\_utility::_id_62EC( maps\sniperescape_wounding::getobj( "holdout" ) );
     var_12 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
@@ -1647,7 +1647,7 @@ seaknight_flies_in( var_0 )
     var_3 notify( "stop_idle" );
     common_scripts\utility::_id_383F( "seaknight_leaves" );
     var_7 delete();
-    var_3 thread maps\_anim::_id_0C24( var_2, "take_off" );
+    var_3 thread maps\_anim::anim_single_solo( var_2, "take_off" );
 
     if ( common_scripts\utility::_id_382E( "player_made_it_to_seaknight" ) )
     {
@@ -1673,8 +1673,8 @@ bring_in_heli_spawners()
     maps\_utility::_id_735B( "axis", maps\sniperescape_wounding::no_accuracy );
     level notify( "stop_having_low_accuracy" );
     var_0 = getentarray( "heli_chaser_spawner", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::heli_chaser_think );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::heli_chaser_think );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
     badplace_delete( "seaknight_badplace" );
 }
 
@@ -1689,7 +1689,7 @@ heli_chaser_think()
 spawn_seaknight_crew()
 {
     var_0 = getentarray( "seaknight_spawner", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::seaknight_defender );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::seaknight_defender );
     var_1 = self gettagorigin( "tag_detach" );
     var_2 = [];
 
@@ -1697,11 +1697,11 @@ spawn_seaknight_crew()
     {
         var_0[var_3].origin = var_1;
         var_4 = var_0[var_3] stalingradspawn();
-        var_4._id_0C72 = "guy" + ( var_3 + 1 );
+        var_4.animname = "guy" + ( var_3 + 1 );
         var_2[var_2.size] = var_4;
     }
 
-    thread maps\_anim::_id_0BC5( var_2, "unload", "tag_detach" );
+    thread maps\_anim::anim_first_frame( var_2, "unload", "tag_detach" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
@@ -1710,8 +1710,8 @@ spawn_seaknight_crew()
     }
 
     common_scripts\utility::_id_384A( "seaknight_lands" );
-    common_scripts\utility::_id_0D13( var_2, maps\_utility::_id_7C82, "stop_first_frame" );
-    maps\_anim::_id_0C18( var_2, "unload", "tag_detach" );
+    common_scripts\utility::array_thread( var_2, maps\_utility::_id_7C82, "stop_first_frame" );
+    maps\_anim::anim_single( var_2, "unload", "tag_detach" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
         var_2[var_3] unlink();
@@ -1721,15 +1721,15 @@ spawn_seaknight_crew()
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
         var_2[var_3] linkto( self, "tag_detach" );
-        var_2[var_3] maps\_utility::_id_08EB();
+        var_2[var_3] maps\_utility::ai_ignore_everything();
     }
 
-    thread maps\_anim::_id_0C18( var_2, "load", "tag_detach" );
+    thread maps\_anim::anim_single( var_2, "load", "tag_detach" );
     wait 0.05;
-    maps\_anim::_id_0C11( var_2, "load", 0 );
+    maps\_anim::anim_set_rate( var_2, "load", 0 );
     common_scripts\utility::_id_384A( "seaknight_prepares_to_leave" );
-    maps\_anim::_id_0C11( var_2, "load", 1 );
-    common_scripts\utility::_id_0D13( var_2, ::seaknight_guys_cleanup );
+    maps\_anim::anim_set_rate( var_2, "load", 1 );
+    common_scripts\utility::array_thread( var_2, ::seaknight_guys_cleanup );
     common_scripts\utility::_id_384A( "player_made_it_to_seaknight" );
     common_scripts\utility::_id_384A( "seaknight_leaves" );
 }
@@ -1743,19 +1743,19 @@ seaknight_guys_cleanup()
 
 seaknight_pilot()
 {
-    if ( isdefined( level.seaknight._id_0DF4[0] ) )
-        level.seaknight._id_0DF4[0] setmodel( "body_force_assault_pilot_woodland" );
+    if ( isdefined( level.seaknight.attachedguys[0] ) )
+        level.seaknight.attachedguys[0] setmodel( "body_force_assault_pilot_woodland" );
 }
 
 seaknight_defender()
 {
     thread maps\_utility::_id_58D7();
     self setthreatbiasgroup( "price" );
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     wait 1;
     self.a._id_6E5A = "crouch";
     self waittillmatch( "single anim", "end" );
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.goalradius = 16;
 }
 
@@ -1763,7 +1763,7 @@ h1_set_up_mac_run_rappel()
 {
     level.scripted_node_mac_run_rappel = spawn( "script_origin", ( 630.813, -11560.4, 998.389 ) );
     level.rappel_chair = maps\_utility::_id_88D1( "rappel_chair" );
-    level.scripted_node_mac_run_rappel maps\_anim::_id_0BC7( level.rappel_chair, "run_to_rappel" );
+    level.scripted_node_mac_run_rappel maps\_anim::anim_first_frame_solo( level.rappel_chair, "run_to_rappel" );
 }
 
 h1_handle_mac_run_past_chair()
@@ -1778,7 +1778,7 @@ h1_handle_mac_run_past_chair()
     var_0[var_0.size] = level.rappel_chair;
     var_1 = getent( "rappel_run_chair_clip", "targetname" );
     var_1 notsolid();
-    level.scripted_node_mac_run_rappel thread maps\_anim::_id_0C18( var_0, "run_to_rappel" );
+    level.scripted_node_mac_run_rappel thread maps\_anim::anim_single( var_0, "run_to_rappel" );
     level.rappel_chair waittillmatch( "single anim", "chair_out" );
     var_1 thread activate_chair_clip();
     level._id_6F7C waittillmatch( "single anim", "end" );

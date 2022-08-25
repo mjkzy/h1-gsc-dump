@@ -22,11 +22,11 @@
 init()
 {
     level.mw1_health_regen = 1;
-    level.healthoverlaycutoff = 0.55;
+    level._id_478D = 0.55;
     var_0 = 5;
     var_0 = maps\mp\gametypes\_tweakables::_id_4142( "player", "healthregentime" );
-    level.playerhealth_regularregendelay = var_0 * 1000;
-    level.healthregendisabled = level.playerhealth_regularregendelay <= 0;
+    level._id_6CC3 = var_0 * 1000;
+    level._id_478E = level._id_6CC3 <= 0;
     level thread _id_64C8();
 }
 
@@ -78,25 +78,25 @@ _id_6CC4()
         var_7 = self.health / self.maxhealth;
 
         if ( !isdefined( self._id_4792 ) )
-            self.regenspeed = 1;
+            self._id_72D4 = 1;
         else if ( self._id_4792 == 0.33 )
-            self.regenspeed = 0.75;
+            self._id_72D4 = 0.75;
         else if ( self._id_4792 == 0.66 )
-            self.regenspeed = 0.5;
+            self._id_72D4 = 0.5;
         else if ( self._id_4792 == 0.99 )
-            self.regenspeed = 0.3;
+            self._id_72D4 = 0.3;
         else
-            self.regenspeed = 1;
+            self._id_72D4 = 1;
 
-        if ( var_7 <= level.healthoverlaycutoff )
+        if ( var_7 <= level._id_478D )
             self.atbrinkofdeath = 1;
 
         thread _id_4790( var_1, var_7 );
-        thread _id_17E5( var_1, var_7, var_2, var_6 );
+        thread breathingmanager( var_1, var_7, var_2, var_6 );
     }
 }
 
-_id_17E5( var_0, var_1, var_2, var_3 )
+breathingmanager( var_0, var_1, var_2, var_3 )
 {
     self notify( "breathingManager" );
     self endon( "breathingManager" );
@@ -123,12 +123,12 @@ _id_17E5( var_0, var_1, var_2, var_3 )
 
     if ( level.mw1_health_regen )
     {
-        self.breathingstoptime = var_0 + 6000 * self.regenspeed;
+        self.breathingstoptime = var_0 + 6000 * self._id_72D4;
         return;
     }
 
-    self.breathingstoptime = var_0 + 3000 * self.regenspeed;
-    wait(7 * self.regenspeed);
+    self.breathingstoptime = var_0 + 3000 * self._id_72D4;
+    wait(7 * self._id_72D4);
 
     if ( !level.gameended && isdefined( self.atbrinkofdeath ) && self.atbrinkofdeath == 1 )
     {
@@ -184,14 +184,14 @@ _id_4790( var_0, var_1 )
     self endon( "goliath_equipped" );
     level endon( "game_ended" );
 
-    if ( level.healthregendisabled )
+    if ( level._id_478E )
         return;
 
     if ( !isdefined( self._id_4BB9 ) )
         self._id_4BB9 = 0;
 
     if ( self._id_4BB9 == 0 )
-        wait(level.playerhealth_regularregendelay / 1000 * self.regenspeed);
+        wait(level._id_6CC3 / 1000 * self._id_72D4);
     else
         self._id_4BB9 = 0;
 
@@ -210,7 +210,7 @@ _id_4790( var_0, var_1 )
             self.health = self.maxhealth;
             break;
         }
-        else if ( self.regenspeed == 0.75 )
+        else if ( self._id_72D4 == 0.75 )
         {
             wait 0.2;
 
@@ -219,7 +219,7 @@ _id_4790( var_0, var_1 )
             else
                 break;
         }
-        else if ( self.regenspeed == 0.5 )
+        else if ( self._id_72D4 == 0.5 )
         {
             wait 0.05;
 
@@ -228,7 +228,7 @@ _id_4790( var_0, var_1 )
             else
                 break;
         }
-        else if ( self.regenspeed == 0.3 )
+        else if ( self._id_72D4 == 0.3 )
         {
             wait 0.15;
 
@@ -237,7 +237,7 @@ _id_4790( var_0, var_1 )
             else
                 break;
         }
-        else if ( !isdefined( self.regenspeed ) || self.regenspeed == 1 )
+        else if ( !isdefined( self._id_72D4 ) || self._id_72D4 == 1 )
         {
             if ( !level.mw1_health_regen )
                 wait 0.05;
@@ -307,7 +307,7 @@ _id_6D22()
         if ( self.health >= self.maxhealth * 0.55 )
             continue;
 
-        if ( level.healthregendisabled && gettime() > self.breathingstoptime )
+        if ( level._id_478E && gettime() > self.breathingstoptime )
             continue;
 
         if ( maps\mp\_utility::_id_51E3() || maps\mp\_utility::_id_512B() )

@@ -67,9 +67,9 @@ main( var_0 )
         }
 
         if ( animscripts\utility::_id_51B0() )
-            self _meth_81cb( self._id_22BA.origin );
+            self _meth_81CB( self._id_22BA.origin );
         else
-            self _meth_81cb( self._id_22BA.origin, _id_3F3E() );
+            self _meth_81CB( self._id_22BA.origin, _id_3F3E() );
 
         if ( !var_3 )
         {
@@ -107,23 +107,23 @@ main( var_0 )
                     return;
             }
 
-            _id_0E4D( var_0 );
+            attackvisibleenemy( var_0 );
             continue;
         }
 
-        if ( isdefined( self._id_08A8 ) || _id_32B0() )
+        if ( isdefined( self.aggressivemode ) || _id_32B0() )
         {
-            if ( _id_0882() )
+            if ( advanceonhidingenemy() )
                 return;
         }
 
         if ( var_6 )
         {
-            _id_0E4B( var_0, var_2 );
+            attacksuppressableenemy( var_0, var_2 );
             continue;
         }
 
-        if ( _id_0E46( var_0, var_2 ) )
+        if ( attacknothingtodo( var_0, var_2 ) )
             return;
     }
 }
@@ -183,7 +183,7 @@ _id_2D05( var_0 )
     return 0;
 }
 
-_id_0E4D( var_0 )
+attackvisibleenemy( var_0 )
 {
     if ( distancesquared( self.origin, self.enemy.origin ) > 562500 )
     {
@@ -200,7 +200,7 @@ _id_0E4D( var_0 )
         _id_4B63( var_0 );
 }
 
-_id_0E4B( var_0, var_1 )
+attacksuppressableenemy( var_0, var_1 )
 {
     if ( self.doingambush )
     {
@@ -233,7 +233,7 @@ _id_0E4B( var_0, var_1 )
     _id_4B63( var_0 );
 }
 
-_id_0E46( var_0, var_1 )
+attacknothingtodo( var_0, var_1 )
 {
     if ( _id_22BE( var_0, 0.1 ) )
         return 0;
@@ -298,7 +298,7 @@ _id_8FE6( var_0 )
     while ( animscripts\utility::_id_51C3() )
     {
         var_2 = 0;
-        self _meth_81cb( self._id_22BA.origin );
+        self _meth_81CB( self._id_22BA.origin );
         var_3 = 1;
 
         if ( isdefined( self._id_3696 ) )
@@ -313,7 +313,7 @@ _id_8FE6( var_0 )
             }
         }
 
-        if ( self.a._id_0D83 && animscripts\utility::_id_1AE1() )
+        if ( self.a.atconcealmentnode && animscripts\utility::_id_1AE1() )
             return 0;
 
         var_4 = _id_50FD() || animscripts\utility::_id_1AF0();
@@ -329,7 +329,7 @@ _id_8FE6( var_0 )
 
         if ( self.team != "allies" && gettime() >= var_1 )
         {
-            if ( _id_14AB( var_0 ) )
+            if ( blindfire( var_0 ) )
             {
                 var_1 = gettime();
 
@@ -434,7 +434,7 @@ _id_A25F()
 
 _id_22BE( var_0, var_1 )
 {
-    if ( self._id_18B0 > weaponclipsize( self.weapon ) * var_1 )
+    if ( self.bulletsinclip > weaponclipsize( self.weapon ) * var_1 )
         return 0;
 
     self._id_518C = 1;
@@ -448,7 +448,7 @@ _id_5667( var_0, var_1 )
     thread animscripts\shoot_behavior::_id_2743( var_1 );
 
     if ( !self.fixednode && !self.doingambush )
-        thread _id_17E1();
+        thread breakoutofshootingifwanttomoveup();
 
     var_2 = _id_1A09( var_0._id_5667, "leaveCoverAndShoot" );
     self notify( "stop_deciding_how_to_shoot" );
@@ -457,7 +457,7 @@ _id_5667( var_0, var_1 )
 
 _id_5860( var_0 )
 {
-    if ( self.a._id_0D83 && animscripts\utility::_id_1AE1() )
+    if ( self.a.atconcealmentnode && animscripts\utility::_id_1AE1() )
         return 0;
 
     if ( self.a._id_5599 + 6000 > gettime() )
@@ -588,15 +588,15 @@ _id_98A5( var_0, var_1 )
         return _id_1A09( var_0.grenade, "grenade", var_1 );
 }
 
-_id_14AB( var_0 )
+blindfire( var_0 )
 {
     if ( !animscripts\utility::_id_1AAF() )
         return 0;
 
-    return _id_1A09( var_0._id_14AB, "blindfire" );
+    return _id_1A09( var_0.blindfire, "blindfire" );
 }
 
-_id_17E1()
+breakoutofshootingifwanttomoveup()
 {
     self endon( "killanimscript" );
     self endon( "stop_deciding_how_to_shoot" );
@@ -613,7 +613,7 @@ _id_17E1()
 
         if ( _id_32B0() )
         {
-            if ( _id_0882() )
+            if ( advanceonhidingenemy() )
                 return;
         }
 
@@ -687,7 +687,7 @@ _id_744E()
 
 _id_745B()
 {
-    if ( isdefined( self._id_08A8 ) )
+    if ( isdefined( self.aggressivemode ) )
         self._id_7C54 = gettime() + randomintrange( 500, 1000 );
     else
         self._id_7C54 = gettime() + randomintrange( 3000, 5000 );
@@ -695,15 +695,15 @@ _id_745B()
 
 _id_1AF2()
 {
-    return _id_0882();
+    return advanceonhidingenemy();
 }
 
-_id_0882()
+advanceonhidingenemy()
 {
     if ( self.fixednode || self.doingambush )
         return 0;
 
-    if ( isdefined( self._id_08A8 ) && gettime() >= self._id_7C54 )
+    if ( isdefined( self.aggressivemode ) && gettime() >= self._id_7C54 )
         return animscripts\combat_utility::_id_98A4( 0 );
 
     var_0 = 0;
@@ -736,7 +736,7 @@ copy_anim_array_to_a_array( var_0 )
     var_1 = animscripts\utility::_id_5864( var_0 );
 
     foreach ( var_4, var_3 in var_1 )
-        self.a._id_0CD8[var_4] = var_3;
+        self.a.array[var_4] = var_3;
 }
 
 set_cqb_standing_turns()
@@ -766,14 +766,14 @@ _id_7DFB()
 
 _id_7ECD()
 {
-    self.a._id_0CD8["turn_left_45"] = animscripts\swim::_id_4100( "turn_left_45" );
-    self.a._id_0CD8["turn_left_90"] = animscripts\swim::_id_4100( "turn_left_90" );
-    self.a._id_0CD8["turn_left_135"] = animscripts\swim::_id_4100( "turn_left_135" );
-    self.a._id_0CD8["turn_left_180"] = animscripts\swim::_id_4100( "turn_left_180" );
-    self.a._id_0CD8["turn_right_45"] = animscripts\swim::_id_4100( "turn_right_45" );
-    self.a._id_0CD8["turn_right_90"] = animscripts\swim::_id_4100( "turn_right_90" );
-    self.a._id_0CD8["turn_right_135"] = animscripts\swim::_id_4100( "turn_right_135" );
-    self.a._id_0CD8["turn_right_180"] = animscripts\swim::_id_4100( "turn_right_180" );
+    self.a.array["turn_left_45"] = animscripts\swim::_id_4100( "turn_left_45" );
+    self.a.array["turn_left_90"] = animscripts\swim::_id_4100( "turn_left_90" );
+    self.a.array["turn_left_135"] = animscripts\swim::_id_4100( "turn_left_135" );
+    self.a.array["turn_left_180"] = animscripts\swim::_id_4100( "turn_left_180" );
+    self.a.array["turn_right_45"] = animscripts\swim::_id_4100( "turn_right_45" );
+    self.a.array["turn_right_90"] = animscripts\swim::_id_4100( "turn_right_90" );
+    self.a.array["turn_right_135"] = animscripts\swim::_id_4100( "turn_right_135" );
+    self.a.array["turn_right_180"] = animscripts\swim::_id_4100( "turn_right_180" );
 }
 
 _id_993F( var_0 )
@@ -793,7 +793,7 @@ _id_993F( var_0 )
             var_3 = 1.5;
             var_4 = %exposed_stand_2_crouch;
 
-            if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
+            if ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
                 var_4 = %s1_exposed_stand_2_crouch;
 
             var_5 = getnotetracktimes( var_4, "anim_pose = \"crouch\"" )[0];
@@ -820,7 +820,7 @@ _id_993F( var_0 )
                 _id_7ECD();
             else if ( self.a._id_6E5A == "stand" )
             {
-                if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
+                if ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
                 {
                     if ( isdefined( self._id_22CB ) )
                     {
@@ -852,7 +852,7 @@ _id_993F( var_0 )
 
 _id_5F93()
 {
-    if ( self _meth_813f() )
+    if ( self _meth_813F() )
         return 0;
 
     if ( !isdefined( self.enemy ) )
@@ -879,9 +879,9 @@ _id_5F93()
     if ( distancesquared( self.origin, self.node.origin ) > 256 )
         return 0;
 
-    var_0 = self _meth_81ee();
+    var_0 = self _meth_81EE();
 
-    if ( isdefined( var_0 ) && var_0 != self.node && self _meth_81f3( var_0 ) )
+    if ( isdefined( var_0 ) && var_0 != self.node && self _meth_81F3( var_0 ) )
     {
         self._id_8547 = 1;
         self._id_8549 = var_0;

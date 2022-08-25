@@ -28,8 +28,8 @@ main()
     thread bmp_deathfx_override();
     thread mi17_deathfx_override();
     level.plane_bomb_explosion_overrides["plane_bomb_explosion1"] = loadfx( "fx/explosions/explosion_large_airlift" );
-    maps\_vehicle::_id_1844( "script_vehicle_t72_tank", "t72", "vehicle_t72_tank", "fx/explosions/grenade_flash", "tag_origin", "h1_exp_armor_vehicle" );
-    level._id_099B = loadfx( "fx/explosions/clusterbomb" );
+    maps\_vehicle::build_deathfx_override( "script_vehicle_t72_tank", "t72", "vehicle_t72_tank", "fx/explosions/grenade_flash", "tag_origin", "h1_exp_armor_vehicle" );
+    level.airstrikefx = loadfx( "fx/explosions/clusterbomb" );
     level._effect["airlift_mig_crash_explosion"] = loadfx( "vfx/explosion/airlift_mig_crash_explosion" );
     level._effect["barrel_destruct_airlift"] = loadfx( "vfx/explosion/barrel_destruct_airlift" );
     level._effect["vehicle_mi17_smoke_crashing_runner_airlift"] = loadfx( "vfx/explosion/vehicle_mi17_smoke_crashing_runner_airlift" );
@@ -179,8 +179,8 @@ main()
     level._effect["headshot"] = loadfx( "fx/impacts/flesh_hit_head_fatal_exit" );
     level._effect["heli_dust_default"] = loadfx( "fx/treadfx/heli_dust_airlift" );
     level._effect["palace_at4"] = loadfx( "fx/explosions/wall_explosion_pm_b_airlift" );
-    level._id_0685["tankcrush"]["window_med"] = loadfx( "fx/props/car_glass_med_tankcrush_no_exp" );
-    level._id_0685["tankcrush"]["window_large"] = loadfx( "vfx/unique/no_fx" );
+    level._vehicle_effect["tankcrush"]["window_med"] = loadfx( "fx/props/car_glass_med_tankcrush_no_exp" );
+    level._vehicle_effect["tankcrush"]["window_large"] = loadfx( "vfx/unique/no_fx" );
     level._effect["mortar"]["dirt_large"] = loadfx( "fx/explosions/artilleryExp_dirt_brown_2" );
     level._effect["mortar"]["dirt"] = loadfx( "fx/explosions/grenadeExp_dirt" );
     level._effect["mortar"]["mud"] = loadfx( "fx/explosions/grenadeExp_mud" );

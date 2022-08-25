@@ -22,16 +22,16 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "van", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_uaz_van", "vehicle_uaz_van" );
-    maps\_vehicle::_id_1862( ( 0.0, 0.0, 32.0 ), 300, 200, 100, 0 );
-    maps\_vehicle::_id_1849( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
-    maps\_vehicle::_id_1846( 1, 1.6, 500 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "axis" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "van", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_uaz_van", "vehicle_uaz_van" );
+    maps\_vehicle::build_radiusdamage( ( 0.0, 0.0, 32.0 ), 300, 200, 100, 0 );
+    maps\_vehicle::build_drive( %uaz_driving_idle_forward, %uaz_driving_idle_backward, 10 );
+    maps\_vehicle::build_deathquake( 1, 1.6, 500 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "axis" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

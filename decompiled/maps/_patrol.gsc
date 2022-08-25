@@ -32,7 +32,7 @@ _id_66FC( var_0, var_1, var_2 )
     thread _id_A083();
     self endon( "enemy" );
     self.goalradius = 32;
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
     self.allowdeath = 1;
@@ -117,7 +117,7 @@ _id_66FC( var_0, var_1, var_2 )
             if ( !isdefined( var_2 ) || var_2 == 0 )
             {
                 var_13 = "patrol_stop";
-                maps\_anim::_id_0BCA( self, "gravity", var_13 );
+                maps\_anim::anim_generic_custom_animmode( self, "gravity", var_13 );
             }
 
             switch ( var_10._id_793C )
@@ -128,13 +128,13 @@ _id_66FC( var_0, var_1, var_2 )
                     if ( var_14 == "patrol_idle_2" && !can_smoke() )
                         var_14 = "patrol_idle_" + randomintrange( 3, 6 );
 
-                    maps\_anim::_id_0BC9( self, var_14 );
+                    maps\_anim::anim_generic( self, var_14 );
                     var_15 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_15 );
                     break;
                 case "turn180":
                     var_16 = "patrol_turn180";
-                    maps\_anim::_id_0BCA( self, "gravity", var_16 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_16 );
                     break;
                 case "smoke":
                     var_17 = "patrol_idle_smoke";
@@ -142,27 +142,27 @@ _id_66FC( var_0, var_1, var_2 )
                     if ( !can_smoke() )
                         var_17 = "patrol_idle_" + randomintrange( 3, 6 );
 
-                    maps\_anim::_id_0BC9( self, var_17 );
+                    maps\_anim::anim_generic( self, var_17 );
                     var_15 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_15 );
                     break;
                 case "stretch":
                     var_17 = "patrol_idle_stretch";
-                    maps\_anim::_id_0BC9( self, var_17 );
+                    maps\_anim::anim_generic( self, var_17 );
                     var_15 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_15 );
                     break;
                 case "checkphone":
                     var_17 = "patrol_idle_checkphone";
-                    maps\_anim::_id_0BC9( self, var_17 );
+                    maps\_anim::anim_generic( self, var_17 );
                     var_15 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_15 );
                     break;
                 case "phone":
                     var_17 = "patrol_idle_phone";
-                    maps\_anim::_id_0BC9( self, var_17 );
+                    maps\_anim::anim_generic( self, var_17 );
                     var_15 = "patrol_start";
-                    maps\_anim::_id_0BCA( self, "gravity", var_15 );
+                    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_15 );
                     break;
             }
         }
@@ -331,10 +331,10 @@ _id_A078()
     self endon( "death" );
     _id_A079();
 
-    if ( !isdefined( self._id_0669 ) )
+    if ( !isdefined( self._stealth ) )
     {
         maps\_utility::_id_1ED1();
-        self _meth_81ce( "stand", "crouch", "prone" );
+        self _meth_81CE( "stand", "crouch", "prone" );
         self._id_2AF3 = 0;
         self._id_2B0E = 0;
         self _meth_8143();

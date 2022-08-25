@@ -19,7 +19,7 @@
 
 */
 
-_id_0C16( var_0, var_1 )
+anim_simple( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         return;
@@ -51,14 +51,14 @@ _id_4B55( var_0, var_1 )
     if ( _id_50B9( var_0 ) )
     {
         if ( isalive( self ) && self._id_5680 == "generic" )
-            var_1 maps\_anim::_id_0BCE( self, var_0, "stop_loop" );
+            var_1 maps\_anim::anim_generic_loop( self, var_0, "stop_loop" );
         else if ( isalive( self ) )
-            var_1 maps\_anim::_id_0BE1( self, var_0, "stop_loop" );
+            var_1 maps\_anim::anim_loop_solo( self, var_0, "stop_loop" );
     }
-    else if ( isalive( self ) && isdefined( self._id_0C72 ) && self._id_0C72 != "generic" )
-        var_1 maps\_anim::_id_0C24( self, var_0 );
+    else if ( isalive( self ) && isdefined( self.animname ) && self.animname != "generic" )
+        var_1 maps\_anim::anim_single_solo( self, var_0 );
     else if ( isalive( self ) )
-        var_1 maps\_anim::_id_0BC9( self, var_0 );
+        var_1 maps\_anim::anim_generic( self, var_0 );
 
     self notify( "anim_simple_done", var_0 );
 }
@@ -67,7 +67,7 @@ _id_50B9( var_0 )
 {
     if ( _id_50BA( var_0, "generic" ) )
         return 1;
-    else if ( isdefined( self._id_0C72 ) && _id_50BA( var_0, self._id_0C72 ) )
+    else if ( isdefined( self.animname ) && _id_50BA( var_0, self.animname ) )
         return 1;
 
     return 0;
@@ -102,8 +102,8 @@ _id_6215( var_0, var_1 )
     {
         while ( isdefined( var_0 ) && var_0.size > 0 )
         {
-            var_0 = maps\_utility::_id_0CFF( var_0 );
-            var_0 = common_scripts\utility::_id_0D01( var_0 );
+            var_0 = maps\_utility::array_removedead_or_dying( var_0 );
+            var_0 = common_scripts\utility::array_removeundefined( var_0 );
             waittillframeend;
         }
     }
@@ -141,16 +141,16 @@ _id_43CE( var_0, var_1, var_2, var_3, var_4 )
     self endon( "death" );
     var_5 = gettime() * 0.001;
 
-    if ( isdefined( self ) && !isdefined( self._id_0C9C ) )
-        self._id_0C9C = 0;
+    if ( isdefined( self ) && !isdefined( self.apex ) )
+        self.apex = 0;
 
     while ( isdefined( self ) && gettime() * 0.001 <= var_5 + var_2 )
     {
         self._id_5570 = self.origin[2];
-        self.origin = _id_0CC1( var_5, var_0, var_1, var_2, var_3, var_4 );
+        self.origin = arc_point( var_5, var_0, var_1, var_2, var_3, var_4 );
 
         if ( self.origin[2] < self._id_5570 )
-            self._id_0C9C = 1;
+            self.apex = 1;
 
         wait 0.05;
     }
@@ -158,7 +158,7 @@ _id_43CE( var_0, var_1, var_2, var_3, var_4 )
     self notify( "item_landed" );
 }
 
-_id_0CC1( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+arc_point( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( var_4 ) )
         var_4 = 386;
@@ -168,7 +168,7 @@ _id_0CC1( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     var_7 = var_4;
 
-    if ( self._id_0C9C )
+    if ( self.apex )
         var_7 = var_5;
 
     var_8 = var_7 * 0.5;
@@ -179,12 +179,12 @@ _id_0CC1( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     return var_11;
 }
 
-_id_0C3C( var_0, var_1, var_2 )
+anim_stop( var_0, var_1, var_2 )
 {
     if ( isdefined( var_0 ) )
-        var_0 maps\_utility::_id_0C3D();
+        var_0 maps\_utility::anim_stopanimscripted();
 
-    maps\_utility::_id_0C3D();
+    maps\_utility::anim_stopanimscripted();
 
     if ( isdefined( var_0 ) )
         var_0 notify( "stop_first_frame" );
@@ -222,14 +222,14 @@ _id_484C()
         level._id_24EC.alpha = 0;
 }
 
-_id_0C17( var_0, var_1, var_2 )
+anim_simple_notify( var_0, var_1, var_2 )
 {
     level waittill( var_2 );
 
-    if ( isdefined( var_0._id_0C72 ) && var_0._id_0C72 != "generic" )
+    if ( isdefined( var_0.animname ) && var_0.animname != "generic" )
         var_0 maps\_anim::_id_7F29();
 
-    _id_0C16( var_0, var_1 );
+    anim_simple( var_0, var_1 );
 }
 
 _id_51FE( var_0 )
@@ -270,14 +270,14 @@ _id_35EA( var_0, var_1, var_2, var_3 )
     if ( !isplayer( var_4 ) )
         var_4 = level.player;
 
-    var_4._id_1171 = newclienthudelem( var_4 );
-    var_4._id_1171 setshader( "black", 1280, 720 );
-    var_4._id_1171.horzalign = "fullscreen";
-    var_4._id_1171.vertalign = "fullscreen";
-    var_4._id_1171.alpha = var_2;
+    var_4.auxillary_hud = newclienthudelem( var_4 );
+    var_4.auxillary_hud setshader( "black", 1280, 720 );
+    var_4.auxillary_hud.horzalign = "fullscreen";
+    var_4.auxillary_hud.vertalign = "fullscreen";
+    var_4.auxillary_hud.alpha = var_2;
     wait(var_0);
-    var_4._id_1171 fadeovertime( var_1 );
-    var_4._id_1171.alpha = var_3;
+    var_4.auxillary_hud fadeovertime( var_1 );
+    var_4.auxillary_hud.alpha = var_3;
 }
 
 _id_23D4( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
@@ -370,13 +370,13 @@ _id_895A( var_0 )
         level._id_5E51 = [];
 
     var_1 = common_scripts\utility::_id_8959();
-    var_1 _id_0B9A( self );
+    var_1 angles_and_origin( self );
 
     if ( isdefined( var_0 ) )
         var_1._id_90BF = var_0;
 
     level._id_5E51[level._id_5E51.size] = var_1;
-    level._id_5E51 = common_scripts\utility::_id_0D01( level._id_5E51 );
+    level._id_5E51 = common_scripts\utility::array_removeundefined( level._id_5E51 );
     iprintln( level._id_5E51.size );
     return var_1;
 }
@@ -400,7 +400,7 @@ _id_736B( var_0 )
     }
 }
 
-_id_0B9A( var_0 )
+angles_and_origin( var_0 )
 {
     if ( isdefined( var_0.origin ) )
         self.origin = var_0.origin;
@@ -409,30 +409,30 @@ _id_0B9A( var_0 )
         self.angles = var_0.angles;
 }
 
-_id_0CE0( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+array_combine_multiple( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
-    var_9 = common_scripts\utility::_id_0CDD( var_0, var_1 );
+    var_9 = common_scripts\utility::array_combine( var_0, var_1 );
 
     if ( isdefined( var_2 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_2 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_2 );
 
     if ( isdefined( var_3 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_3 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_3 );
 
     if ( isdefined( var_4 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_4 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_4 );
 
     if ( isdefined( var_5 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_5 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_5 );
 
     if ( isdefined( var_6 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_6 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_6 );
 
     if ( isdefined( var_7 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_7 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_7 );
 
     if ( isdefined( var_8 ) )
-        var_9 = common_scripts\utility::_id_0CDD( var_9, var_8 );
+        var_9 = common_scripts\utility::array_combine( var_9, var_8 );
 
     return var_9;
 }
@@ -500,7 +500,7 @@ _id_407F( var_0, var_1, var_2, var_3, var_4 )
     return var_8;
 }
 
-_id_0B9D( var_0 )
+angles_origin( var_0 )
 {
     if ( isdefined( var_0.origin ) )
         self.origin = var_0.origin;
@@ -531,7 +531,7 @@ _id_67C6( var_0 )
     return 0;
 }
 
-_id_072C( var_0 )
+actual_spawn( var_0 )
 {
     if ( !isdefined( self.count ) || self.count < 1 )
         self.count = 1;
@@ -565,13 +565,13 @@ _id_88EC( var_0, var_1, var_2 )
     for ( var_5 = 0; var_5 < var_0; var_5++ )
     {
         var_6 = common_scripts\utility::_id_710E( var_3 );
-        var_7 = var_6 _id_072C();
+        var_7 = var_6 actual_spawn();
 
         if ( !isdefined( var_7 ) )
             continue;
 
         if ( isdefined( var_2 ) )
-            var_7 _meth_81ad( var_2 );
+            var_7 _meth_81AD( var_2 );
 
         var_4[var_4.size] = var_7;
         wait 0.1;
@@ -823,7 +823,7 @@ _id_4123( var_0, var_1 )
 _id_5916( var_0 )
 {
     var_1 = maps\_spawner::_id_89C1( var_0 );
-    var_1._id_0C72 = "generic";
+    var_1.animname = "generic";
     var_1 maps\_utility::_id_4462();
     return var_1;
 }
@@ -890,7 +890,7 @@ _id_2838( var_0, var_1, var_2 )
     var_3 = "delete_subtitle_hud" + var_2;
     level thread maps\_utility::_id_61FD( var_3, var_0 );
     level waittill( var_3 );
-    self._id_8F85 = common_scripts\utility::_id_0CF6( self._id_8F85, var_1 );
+    self._id_8F85 = common_scripts\utility::array_remove( self._id_8F85, var_1 );
     var_1 destroy();
 }
 

@@ -28,7 +28,7 @@ _id_2D62()
 
     for (;;)
     {
-        var_0 = self _meth_81a4();
+        var_0 = self _meth_81A4();
 
         if ( isdefined( var_0 ) )
             break;
@@ -36,7 +36,7 @@ _id_2D62()
         wait 0.2;
     }
 
-    var_1 = var_0.type == "Door Interior" || self _meth_81a5( var_0 );
+    var_1 = var_0.type == "Door Interior" || self _meth_81A5( var_0 );
 
     if ( var_1 )
         _id_2D5F( var_0 );
@@ -45,7 +45,7 @@ _id_2D62()
 
     for (;;)
     {
-        var_2 = self _meth_81a4();
+        var_2 = self _meth_81A4();
 
         if ( !isdefined( var_2 ) || var_2 != var_0 )
             break;
@@ -97,7 +97,7 @@ _id_2D61( var_0, var_1, var_2, var_3, var_4 )
     var_7 = %cqb_stand_grenade_throw;
     var_8 = anglestoforward( var_0.angles );
 
-    if ( var_0.type == "Door Interior" && !self _meth_81a5( var_0 ) )
+    if ( var_0.type == "Door Interior" && !self _meth_81A5( var_0 ) )
         var_8 = -1 * var_8;
 
     var_9 = ( var_0.origin[0], var_0.origin[1], var_0.origin[2] + 64 );
@@ -125,12 +125,12 @@ _id_2D61( var_0, var_1, var_2, var_3, var_4 )
         if ( _id_64E5( var_0, var_8 ) )
             return;
 
-        if ( !self _meth_81c3( self.enemy, 0.2 ) && self.a._id_6E5A == "stand" && _id_2B7A( self.enemy.origin - var_0.origin, 360000, 16384 ) )
+        if ( !self _meth_81C3( self.enemy, 0.2 ) && self.a._id_6E5A == "stand" && _id_2B7A( self.enemy.origin - var_0.origin, 360000, 16384 ) )
         {
             if ( isdefined( var_0._id_60C9 ) && var_0._id_60C9 > gettime() )
                 return;
 
-            if ( self _meth_81c1() )
+            if ( self _meth_81C1() )
                 return;
 
             var_12 = var_0.origin - self.origin;
@@ -164,7 +164,7 @@ _id_2D61( var_0, var_1, var_2, var_3, var_4 )
 
         var_6--;
         wait(var_4);
-        var_15 = self _meth_81a4();
+        var_15 = self _meth_81A4();
 
         if ( !isdefined( var_15 ) || var_15 != var_0 )
             return;
@@ -238,7 +238,7 @@ _id_2D5F( var_0 )
         if ( _id_2B7A( self.origin - var_0.origin, 562500, 25600 ) )
         {
             _id_2D61( var_0, "fraggrenade", 0, 302500, 0.3 );
-            var_0 = self _meth_81a4();
+            var_0 = self _meth_81A4();
 
             if ( !isdefined( var_0 ) )
                 return;

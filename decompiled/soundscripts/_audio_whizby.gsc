@@ -21,13 +21,13 @@
 
 _id_A30E()
 {
-    level._id_055B._id_A30D = spawnstruct();
-    level._id_055B._id_A30D._id_9BE7 = 0;
+    level._audio._id_A30D = spawnstruct();
+    level._audio._id_A30D._id_9BE7 = 0;
 }
 
 _id_A314()
 {
-    level._id_055B._id_A30D._id_9BE7 = 1;
+    level._audio._id_A30D._id_9BE7 = 1;
 }
 
 _id_A310( var_0 )

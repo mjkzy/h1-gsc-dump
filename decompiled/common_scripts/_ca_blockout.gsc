@@ -68,13 +68,13 @@ delete_multiple_trigger()
 delete_battlechatter_trigger()
 {
     var_0 = [];
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_radius", "code_classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_disk", "code_classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_multiple", "code_classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_lookat", "code_classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_once", "code_classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_use", "code_classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "trigger_damage", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_radius", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_disk", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_multiple", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_lookat", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_once", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_use", "code_classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "trigger_damage", "code_classname" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -154,9 +154,9 @@ delete_color_volumes()
 {
     var_0 = getallnodes();
     var_1 = [];
-    var_1 = common_scripts\utility::_id_0CDD( var_1, getentarray( "trigger_multiple", "classname" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, getentarray( "trigger_radius", "classname" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, getentarray( "trigger_once", "classname" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, getentarray( "trigger_multiple", "classname" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, getentarray( "trigger_radius", "classname" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, getentarray( "trigger_once", "classname" ) );
     var_2 = getentarray( "info_volume", "classname" );
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )

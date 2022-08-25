@@ -32,8 +32,8 @@ _id_4C8F()
     var_1["crouch_combat"][0] = %exposed_crouch_idle_alert_v1;
     var_1["crouch_combat"][1] = %exposed_crouch_idle_alert_v2;
     var_1["crouch_combat"][2] = %exposed_crouch_idle_alert_v3;
-    anim._id_0CCA["soldier"]["idle"] = var_0;
-    anim._id_0CCA["soldier"]["idle_add"] = var_1;
+    anim.archetypes["soldier"]["idle"] = var_0;
+    anim.archetypes["soldier"]["idle_add"] = var_1;
     var_0 = [];
     var_0["stand"][0] = [ 2, 1, 1 ];
     var_0["stand"][1] = [ 10, 4, 7, 4 ];
@@ -41,12 +41,12 @@ _id_4C8F()
     var_0["stand_cqb"][0] = [ 2, 1 ];
     var_0["crouch"][0] = [ 6 ];
     var_0["crouch_combat"][0] = [ 6 ];
-    anim._id_0CCA["soldier"]["idle_weights"] = var_0;
+    anim.archetypes["soldier"]["idle_weights"] = var_0;
     var_0 = [];
     var_0["stand"] = %casual_stand_idle_trans_in;
     var_0["crouch"] = %casual_crouch_idle_in;
     var_0["stand_smg"] = %smg_casual_stand_idle_trans_in;
-    anim._id_0CCA["soldier"]["idle_transitions"] = var_0;
+    anim.archetypes["soldier"]["idle_transitions"] = var_0;
 }
 
 main()
@@ -81,7 +81,7 @@ main()
     {
         if ( self.a._id_A2E2["right"] == "none" && self.a._id_A2E2["left"] == "none" )
             var_0 = 1;
-        else if ( angleclamp180( self _meth_81bd()[0] ) > 20 )
+        else if ( angleclamp180( self _meth_81BD()[0] ) > 20 )
             var_0 = 1;
     }
 
@@ -91,7 +91,7 @@ main()
 
         if ( isdefined( var_1 ) )
         {
-            self setflaggedanimknoballrestart( "idle", self._id_255D["stand"], %body, 1, 0.5, self._id_0C78 );
+            self setflaggedanimknoballrestart( "idle", self._id_255D["stand"], %body, 1, 0.5, self.animplaybackrate );
             _id_993C( var_1.angles[1] );
         }
         else
@@ -194,15 +194,15 @@ _id_8A30()
     for (;;)
     {
         if ( var_1.size == 0 )
-            var_1 = common_scripts\utility::_id_0CF5( var_0 );
+            var_1 = common_scripts\utility::array_randomize( var_0 );
 
         if ( var_1[0] == var_2 && var_1.size > 1 )
             var_2 = var_1[1];
         else
             var_2 = var_1[0];
 
-        var_1 = common_scripts\utility::_id_0CF6( var_1, var_2 );
-        self setflaggedanimrestart( "special_idle", var_2, 1, 0.2, self._id_0C78 );
+        var_1 = common_scripts\utility::array_remove( var_1, var_2 );
+        self setflaggedanimrestart( "special_idle", var_2, 1, 0.2, self.animplaybackrate );
         childthread animscripts\shared::_id_2D06( "special_idle" );
         self waittillmatch( "special_idle", "end" );
 
@@ -226,7 +226,7 @@ _id_3F56()
         var_2 = "node was undefined";
     }
 
-    animscripts\face::_id_7F8F( anim._id_09D2 );
+    animscripts\face::_id_7F8F( anim.alertface );
     var_3 = animscripts\utility::_id_1D45();
 
     if ( var_2 == "Cover Stand" || var_2 == "Conceal Stand" )
@@ -266,7 +266,7 @@ _id_971F( var_0, var_1 )
     if ( isdefined( var_3[var_0] ) )
     {
         var_4 = var_3[var_0];
-        self setflaggedanimknoballrestart( "idle_transition", var_4, %body, 1, 0.2, self._id_0C78 );
+        self setflaggedanimknoballrestart( "idle_transition", var_4, %body, 1, 0.2, self.animplaybackrate );
         animscripts\shared::_id_2D06( "idle_transition" );
     }
 }
@@ -296,7 +296,7 @@ _id_6DAA( var_0, var_1 )
     if ( isdefined( self._id_255D ) && isdefined( self._id_255D[var_0] ) )
     {
         if ( isarray( self._id_255D[var_0] ) )
-            var_4 = animscripts\utility::_id_0BAA( self._id_255D[var_0], self._id_255E[var_0] );
+            var_4 = animscripts\utility::anim_array( self._id_255D[var_0], self._id_255E[var_0] );
         else
         {
             var_4 = self._id_255D[var_0];
@@ -306,14 +306,14 @@ _id_6DAA( var_0, var_1 )
                 var_3 = self._id_255D[var_5];
         }
     }
-    else if ( isdefined( anim._id_71DD ) && ( var_0 == "stand" || var_0 == "stand_cqb" ) && isdefined( self._id_1944 ) && self._id_1944 == 1 )
-        var_4 = animscripts\utility::_id_0BAA( anim._id_71DD["stand"][0], anim._id_71DE["stand"][0] );
+    else if ( isdefined( anim._id_71DD ) && ( var_0 == "stand" || var_0 == "stand_cqb" ) && isdefined( self.busereadyidle ) && self.busereadyidle == 1 )
+        var_4 = animscripts\utility::anim_array( anim._id_71DD["stand"][0], anim._id_71DE["stand"][0] );
     else
     {
         var_6 = animscripts\utility::_id_5864( "idle" );
         var_7 = animscripts\utility::_id_5864( "idle_weights" );
         var_1 %= var_6[var_0].size;
-        var_4 = animscripts\utility::_id_0BAA( var_6[var_0][var_1], var_7[var_0][var_1] );
+        var_4 = animscripts\utility::anim_array( var_6[var_0][var_1], var_7[var_0][var_1] );
         var_8 = animscripts\utility::_id_5864( "idle_add" );
 
         if ( isdefined( var_8[var_0] ) )
@@ -334,11 +334,11 @@ _id_6DAA( var_0, var_1 )
     if ( isdefined( var_3 ) )
     {
         self _meth_8149( var_4, %body, 1, var_11, 1 );
-        self _meth_814d( %add_idle );
-        self setflaggedanimknoballrestart( "idle", var_3, %add_idle, 1, var_11, self._id_0C78 );
+        self _meth_814D( %add_idle );
+        self setflaggedanimknoballrestart( "idle", var_3, %add_idle, 1, var_11, self.animplaybackrate );
     }
     else
-        self setflaggedanimknoballrestart( "idle", var_4, %body, 1, var_11, self._id_0C78 );
+        self setflaggedanimknoballrestart( "idle", var_4, %body, 1, var_11, self.animplaybackrate );
 
     animscripts\shared::_id_2D06( "idle" );
 }
@@ -380,7 +380,7 @@ _id_7028()
 
         animscripts\shared::_id_2D06( "trans" );
         self.a._id_5F5B = "stop";
-        self _meth_81fd( -45, 45, %prone_legs_down, %exposed_modern, %prone_legs_up );
+        self _meth_81FD( -45, 45, %prone_legs_down, %exposed_modern, %prone_legs_up );
         return;
     }
 

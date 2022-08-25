@@ -22,17 +22,17 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "luxurysedan", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_luxurysedan", "vehicle_luxurysedan_destroy" );
-    maps\_vehicle::_id_1845( "vehicle_luxurysedan_test", "vehicle_luxurysedan_destroy" );
-    maps\_vehicle::_id_1845( "vehicle_luxurysedan_viewmodel", "vehicle_luxurysedan_destroy" );
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    maps\_vehicle::_id_1849( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "luxurysedan", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_luxurysedan", "vehicle_luxurysedan_destroy" );
+    maps\_vehicle::build_deathmodel( "vehicle_luxurysedan_test", "vehicle_luxurysedan_destroy" );
+    maps\_vehicle::build_deathmodel( "vehicle_luxurysedan_viewmodel", "vehicle_luxurysedan_destroy" );
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::build_drive( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

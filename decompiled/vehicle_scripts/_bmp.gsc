@@ -22,15 +22,15 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "bmp", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_bmp", "vehicle_bmp_dsty" );
-    maps\_vehicle::_id_1845( "vehicle_bmp_woodland", "vehicle_bmp_woodland_dsty" );
-    maps\_vehicle::_id_1845( "vehicle_bmp_woodland_low", "vehicle_bmp_dsty_low" );
-    maps\_vehicle::_id_1845( "vehicle_bmp_woodland_jeepride", "vehicle_bmp_dsty" );
-    maps\_vehicle::_id_1845( "vehicle_bmp_desert", "vehicle_bmp_dsty" );
-    maps\_vehicle::_id_1845( "vehicle_bmp_thermal", "vehicle_bmp_thermal_dsty" );
-    maps\_vehicle::_id_1845( "vehicle_bmp_low", "vehicle_bmp_dsty_low" );
+    maps\_vehicle::build_template( "bmp", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp", "vehicle_bmp_dsty" );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp_woodland", "vehicle_bmp_woodland_dsty" );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp_woodland_low", "vehicle_bmp_dsty_low" );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp_woodland_jeepride", "vehicle_bmp_dsty" );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp_desert", "vehicle_bmp_dsty" );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp_thermal", "vehicle_bmp_thermal_dsty" );
+    maps\_vehicle::build_deathmodel( "vehicle_bmp_low", "vehicle_bmp_dsty_low" );
     var_3 = [];
     var_3["vehicle_bmp"] = "fx/explosions/vehicle_explosion_bmp";
     var_3["vehicle_bmp_woodland"] = "fx/explosions/vehicle_explosion_bmp";
@@ -39,22 +39,22 @@ main( var_0, var_1, var_2 )
     var_3["vehicle_bmp_desert"] = "fx/explosions/vehicle_explosion_bmp";
     var_3["vehicle_bmp_thermal"] = "fx/explosions/large_vehicle_explosion_IR";
     var_3["vehicle_bmp_low"] = "fx/explosions/vehicle_explosion_bmp";
-    maps\_vehicle::_id_1842( "fx/explosions/vehicle_explosion_bmp_fire", "tag_deathfx", "fire_metal_large", undefined, undefined, 1, 0 );
-    maps\_vehicle::_id_1842( "fx/misc/empty", "tag_cargofire", undefined, undefined, undefined, 1, 0 );
-    maps\_vehicle::_id_1842( var_3[var_0], "tag_deathfx", "h1_exp_armor_vehicle", undefined, undefined, undefined, 0 );
-    maps\_vehicle::_id_1849( %bmp_movement, %bmp_movement_backwards, 10 );
+    maps\_vehicle::build_deathfx( "fx/explosions/vehicle_explosion_bmp_fire", "tag_deathfx", "fire_metal_large", undefined, undefined, 1, 0 );
+    maps\_vehicle::build_deathfx( "fx/misc/empty", "tag_cargofire", undefined, undefined, undefined, 1, 0 );
+    maps\_vehicle::build_deathfx( var_3[var_0], "tag_deathfx", "h1_exp_armor_vehicle", undefined, undefined, undefined, 0 );
+    maps\_vehicle::build_drive( %bmp_movement, %bmp_movement_backwards, 10 );
 
     if ( issubstr( var_0, "_low" ) )
-        maps\_vehicle::_id_1872( "bmp_turret2", "tag_turret2", "vehicle_bmp_machine_gun_low" );
+        maps\_vehicle::build_turret( "bmp_turret2", "tag_turret2", "vehicle_bmp_machine_gun_low" );
     else
-        maps\_vehicle::_id_1872( "bmp_turret2", "tag_turret2", "vehicle_bmp_machine_gun" );
+        maps\_vehicle::build_turret( "bmp_turret2", "tag_turret2", "vehicle_bmp_machine_gun" );
 
-    maps\_vehicle::_id_1862( ( 0.0, 0.0, 53.0 ), 512, 300, 20, 0 );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "axis" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::_id_184C( 0.33 );
+    maps\_vehicle::build_radiusdamage( ( 0.0, 0.0, 53.0 ), 512, 300, 20, 0 );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "axis" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_frontarmor( 0.33 );
 }
 
 _id_4D10()

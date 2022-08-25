@@ -104,13 +104,13 @@ main()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         if ( isdefined( var_0[var_1].script_noteworthy ) && getsubstr( var_0[var_1].script_noteworthy, 0, 10 ) == "colornodes" )
-            level.acolornodetriggers = common_scripts\utility::_id_0CDA( level.acolornodetriggers, var_0[var_1] );
+            level.acolornodetriggers = common_scripts\utility::array_add( level.acolornodetriggers, var_0[var_1] );
     }
 
-    maps\_utility::_id_079C( "container", ::start_container, &"STARTS_CONTAINER" );
-    maps\_utility::_id_079C( "tarmac", ::start_tarmac, &"STARTS_TARMAC" );
-    maps\_utility::_id_079C( "gate", ::start_gate, &"STARTS_GATE" );
-    maps\_utility::_id_079C( "vents", ::start_vents, &"STARTS_VENTS" );
+    maps\_utility::add_start( "container", ::start_container, &"STARTS_CONTAINER" );
+    maps\_utility::add_start( "tarmac", ::start_tarmac, &"STARTS_TARMAC" );
+    maps\_utility::add_start( "gate", ::start_gate, &"STARTS_GATE" );
+    maps\_utility::add_start( "vents", ::start_vents, &"STARTS_VENTS" );
     maps\_utility::_id_278B( ::start_default );
     level.weaponclipmodels = [];
     level.weaponclipmodels[0] = "weapon_m16_clip";
@@ -192,11 +192,11 @@ main()
     thread migs_flyby2();
     thread sniper_activity();
     thread vent_flashlights();
-    common_scripts\utility::_id_0D13( getvehiclenodearray( "plane_sound", "script_noteworthy" ), vehicle_scripts\_mig29::_id_6877 );
-    common_scripts\utility::_id_0D13( getentarray( "hostiles_container_runners", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_chain_and_seek );
-    common_scripts\utility::_id_0D13( getentarray( "hostiles_player_seek", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_player_seek );
-    common_scripts\utility::_id_0D13( getentarray( "hostiles_vehicle_support", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_vehicle_support );
-    common_scripts\utility::_id_0D13( getentarray( "enemy_rpd", "script_noteworthy" ), maps\_utility::_id_0798, ::ai_enemy_rpd );
+    common_scripts\utility::array_thread( getvehiclenodearray( "plane_sound", "script_noteworthy" ), vehicle_scripts\_mig29::_id_6877 );
+    common_scripts\utility::array_thread( getentarray( "hostiles_container_runners", "script_noteworthy" ), maps\_utility::add_spawn_function, ::ai_chain_and_seek );
+    common_scripts\utility::array_thread( getentarray( "hostiles_player_seek", "script_noteworthy" ), maps\_utility::add_spawn_function, ::ai_player_seek );
+    common_scripts\utility::array_thread( getentarray( "hostiles_vehicle_support", "script_noteworthy" ), maps\_utility::add_spawn_function, ::ai_vehicle_support );
+    common_scripts\utility::array_thread( getentarray( "enemy_rpd", "script_noteworthy" ), maps\_utility::add_spawn_function, ::ai_enemy_rpd );
     var_2 = [];
     var_2[0] = "bmp_02";
     var_2[1] = "bmp_03";
@@ -206,7 +206,7 @@ main()
     var_3 = getentarray( "c4_plant", "targetname" );
 
     if ( var_3.size > 0 )
-        common_scripts\utility::_id_0D13( var_3, ::c4_plant_think );
+        common_scripts\utility::array_thread( var_3, ::c4_plant_think );
 }
 
 _id_2674()
@@ -258,7 +258,7 @@ aa_approach_init()
     initfriendlies( "default" );
     thread _id_2A1A();
     thread dialogue_c4_hints();
-    maps\_utility::_id_1332( "allies" );
+    maps\_utility::battlechatter_off( "allies" );
     maps\jake_tools::_id_981B( "colornodes_approach", "script_noteworthy", 1 );
     maps\jake_tools::_id_981B( "colornodes_container", "script_noteworthy", 1 );
     thread alarm_sound_thread();
@@ -370,7 +370,7 @@ loudspeaker()
 _id_2A1A()
 {
     waitframe;
-    level.grigsby maps\_utility::_id_27EF( 1.5, maps\_anim::_id_0C24, level.grigsby, "spin" );
+    level.grigsby maps\_utility::_id_27EF( 1.5, maps\_anim::anim_single_solo, level.grigsby, "spin" );
     level.peoplespeaking = 1;
     level maps\_utility::_id_70C4( "launchfacility_a_hqr_stillworking" );
     common_scripts\utility::_id_383F( "obj_gain_access_given" );
@@ -378,7 +378,7 @@ _id_2A1A()
     common_scripts\utility::_id_384A( "hind_intro_dialogue" );
     var_0 = maps\jake_tools::_id_3CF2();
     level.peoplespeaking = 1;
-    maps\_utility::_id_1333( "allies" );
+    maps\_utility::battlechatter_on( "allies" );
     wait 3;
     level._id_6F7C maps\jake_tools::_id_2A05( "launchfacility_a_price_gogogo1" );
     level maps\_utility::_id_70C4( "launchfacility_a_recon_sniperteamtwo" );
@@ -535,7 +535,7 @@ firemg( var_0, var_1, var_2 )
 reach_container_area()
 {
     common_scripts\utility::_id_384A( "reach_container_area" );
-    thread maps\_utility::_id_1143( "container" );
+    thread maps\_utility::autosave_by_name( "container" );
     wait 2;
 }
 
@@ -551,12 +551,12 @@ container_heli_sequence()
     setignoremegroup( "axis", "ignored" );
     level.friendly_at4 maps\jake_tools::_id_7DD7( "frnd" );
     level.friendly_at4.ignoreme = 1;
-    var_0 maps\_anim::_id_0BFF( level.friendly_at4, "AT4_fire_start" );
-    level.friendly_at4 _meth_81ce( "crouch" );
+    var_0 maps\_anim::anim_reach_solo( level.friendly_at4, "AT4_fire_start" );
+    level.friendly_at4 _meth_81CE( "crouch" );
     common_scripts\utility::_id_384A( "friendly_shoots_down_heli_new" );
-    level.friendly_at4 _meth_81ce( "crouch", "stand", "prone" );
+    level.friendly_at4 _meth_81CE( "crouch", "stand", "prone" );
     level.friendly_at4 attach( "weapon_stinger", "TAG_INHAND" );
-    var_0 thread maps\_anim::_id_0C24( level.friendly_at4, "AT4_fire" );
+    var_0 thread maps\_anim::anim_single_solo( level.friendly_at4, "AT4_fire" );
     level.friendly_at4 waittillmatch( "single anim", "fire" );
     var_1 = level.friendly_at4 gettagorigin( "TAG_INHAND" );
     var_2 = magicbullet( "rpg_player", var_1, level.ehindintro.origin );
@@ -568,7 +568,7 @@ container_heli_sequence()
     var_5 = spawn( "script_model", var_3 );
     var_5 setmodel( "weapon_stinger" );
     var_5.angles = var_4;
-    var_0 thread maps\_anim::_id_0BE1( level.friendly_at4, "AT4_idle", undefined, "stop_idle" );
+    var_0 thread maps\_anim::anim_loop_solo( level.friendly_at4, "AT4_idle", undefined, "stop_idle" );
     common_scripts\utility::_id_384A( "migs_flyby1" );
 
     if ( isdefined( level.friendly_at4 ) )
@@ -595,15 +595,15 @@ container_heli_sequence2()
     setignoremegroup( "axis", "ignored" );
     level.friendly_at4 maps\jake_tools::_id_7DD7( "frnd" );
     level.friendly_at4.ignoreme = 1;
-    var_0 maps\_anim::_id_0BFF( level.friendly_at4, "RPG_conceal_idle_start" );
-    var_0 thread maps\_anim::_id_0BE1( level.friendly_at4, "RPG_conceal_idle", undefined, "stop_idle" );
+    var_0 maps\_anim::anim_reach_solo( level.friendly_at4, "RPG_conceal_idle_start" );
+    var_0 thread maps\_anim::anim_loop_solo( level.friendly_at4, "RPG_conceal_idle", undefined, "stop_idle" );
     common_scripts\utility::_id_384A( "friendly_shoots_down_heli" );
     var_0 notify( "stop_idle" );
-    var_0 maps\_anim::_id_0C24( level.friendly_at4, "RPG_conceal_2_standR" );
+    var_0 maps\_anim::anim_single_solo( level.friendly_at4, "RPG_conceal_2_standR" );
     var_1 = level.friendly_at4 gettagorigin( "TAG_WEAPON_RIGHT" );
     magicbullet( "rpg_player", var_1, level.ehindintro.origin );
-    level.friendly_at4 maps\_anim::_id_0C24( level.friendly_at4, "RPG_standR_2_conceal" );
-    var_0 thread maps\_anim::_id_0BE1( level.friendly_at4, "RPG_conceal_idle", undefined, "stop_idle" );
+    level.friendly_at4 maps\_anim::anim_single_solo( level.friendly_at4, "RPG_standR_2_conceal" );
+    var_0 thread maps\_anim::anim_loop_solo( level.friendly_at4, "RPG_conceal_idle", undefined, "stop_idle" );
     common_scripts\utility::_id_384A( "exit_container_area" );
 
     if ( isdefined( level.friendly_at4 ) )
@@ -873,7 +873,7 @@ gate_squad_advance_no_bmp()
         for ( var_3 = 0; var_3 < var_2.size; var_3++ )
             var_2[var_3].health = 1;
 
-        thread maps\_utility::_id_08D6( var_2, level.aideletedistance );
+        thread maps\_utility::ai_delete_when_out_of_sight( var_2, level.aideletedistance );
     }
 
     wait 2;
@@ -942,7 +942,7 @@ gate_player_participation()
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         var_0[var_2] common_scripts\utility::_id_97CE();
 
-    common_scripts\utility::_id_0D13( var_0, ::gate_right_reach_trig_wait );
+    common_scripts\utility::array_thread( var_0, ::gate_right_reach_trig_wait );
     level waittill( "level_ent_updated" );
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
@@ -958,7 +958,7 @@ gate_right_reach()
 {
     level endon( "reached_balcony" );
     var_0 = getentarray( "reached_right_gate", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::gate_right_reach_trig_wait );
+    common_scripts\utility::array_thread( var_0, ::gate_right_reach_trig_wait );
     level waittill( "level_ent_updated" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
@@ -970,7 +970,7 @@ gate_right_reach()
 gate_sequence()
 {
     common_scripts\utility::_id_384A( "gate_sequence_starting" );
-    thread maps\_utility::_id_1143( "right_gate" );
+    thread maps\_utility::autosave_by_name( "right_gate" );
     var_0 = level._id_32D5 stalingradspawn();
     maps\_utility::_id_88F1( var_0 );
     var_0 thread friendly_blows_gate();
@@ -992,7 +992,7 @@ c4_detonation_beep()
 
 gate_blowup()
 {
-    thread maps\_utility::_id_1143( "gate_being_blown" );
+    thread maps\_utility::autosave_by_name( "gate_being_blown" );
     var_0 = getentarray( "killspawners_gate", "script_noteworthy" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
@@ -1018,7 +1018,7 @@ gate_blowup()
         var_4[var_1] notify( "trigger", level.player );
 
     common_scripts\utility::_id_383F( "obj_gain_access_complete" );
-    thread maps\_utility::_id_1143( "gate_blown" );
+    thread maps\_utility::autosave_by_name( "gate_blown" );
     thread aa_tarmac_init();
     var_5 = getentarray( "volumes_perimeter", "script_noteworthy" );
     var_6 = [];
@@ -1030,7 +1030,7 @@ gate_blowup()
         var_7 = maps\jake_tools::_id_3EDE( "axis", undefined, var_5[var_1] );
 
         if ( var_7.size > 0 )
-            var_6 = maps\_utility::_id_0CF2( var_6, var_7 );
+            var_6 = maps\_utility::array_merge( var_6, var_7 );
     }
 
     if ( var_6.size > 0 )
@@ -1038,7 +1038,7 @@ gate_blowup()
         for ( var_1 = 0; var_1 < var_6.size; var_1++ )
             var_6[var_1].health = 1;
 
-        thread maps\_utility::_id_08D6( var_6, level.aideletedistance );
+        thread maps\_utility::ai_delete_when_out_of_sight( var_6, level.aideletedistance );
     }
 }
 
@@ -1046,7 +1046,7 @@ friendly_blows_gate()
 {
     self endon( "death" );
     maps\_utility::_id_2A74();
-    self._id_0C72 = "frnd";
+    self.animname = "frnd";
     maps\jake_tools::_id_4FA8( 1 );
     self.ignoreme = 1;
     maps\_utility::_id_7F71( 1 );
@@ -1055,9 +1055,9 @@ friendly_blows_gate()
     soundscripts\_snd::_id_870C( "start_blow_the_gate_mix" );
     var_0 = getent( "node_gate_destroy", "targetname" );
     var_1 = getnode( var_0.target, "targetname" );
-    var_0 maps\_anim::_id_0BFF( self, "C4_gate_plant_start" );
+    var_0 maps\_anim::anim_reach_solo( self, "C4_gate_plant_start" );
     var_2 = getent( "gate_explosives", "targetname" );
-    var_0 thread maps\_anim::_id_0C24( self, "C4_gate_plant" );
+    var_0 thread maps\_anim::anim_single_solo( self, "C4_gate_plant" );
     self waittillmatch( "single anim", "c4plant" );
     self attach( "weapon_c4", "TAG_INHAND" );
     self waittillmatch( "single anim", "c4swap" );
@@ -1070,7 +1070,7 @@ friendly_blows_gate()
     thread maps\jake_tools::_id_2A05( "launchfacility_a_marine2_gate_getback" );
     thread c4_detonation_beep();
     maps\jake_tools::_id_7F7F( var_1.radius );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self waittill( "goal" );
     wait 0.5;
     maps\jake_tools::_id_744C();
@@ -1100,7 +1100,7 @@ aa_tarmac_init()
     common_scripts\utility::_id_383F( "friendlies_past_killzone" );
     soundscripts\_snd::_id_870C( "start_tarmac_mix" );
     thread tarmac_colornodes_think();
-    common_scripts\utility::_id_0D13( level._id_8AB0, ::tarmac_friendly_engagement_think );
+    common_scripts\utility::array_thread( level._id_8AB0, ::tarmac_friendly_engagement_think );
     thread reach_tarmac_halfwaypoint();
     thread tarmac_objectives();
     thread obj_enemy_armor();
@@ -1215,7 +1215,7 @@ proceed_to_vents()
     level.grigsby.ignoresuppression = 1;
     thread aa_vents_init();
     var_0 = getaiarray( "axis" );
-    thread maps\_utility::_id_08D6( var_0, level.aideletedistance );
+    thread maps\_utility::ai_delete_when_out_of_sight( var_0, level.aideletedistance );
     common_scripts\utility::_id_383F( "player_near_launchtube_06" );
     wait 2;
     common_scripts\utility::_id_383F( "player_near_launchtube_05" );
@@ -1269,9 +1269,9 @@ blackhawk_think()
 {
     var_0 = maps\_vehicle::waittill_vehiclespawn( "blackhawk" );
     var_1 = var_0._id_750A;
-    common_scripts\utility::_id_0D13( var_1, ::ai_friendly_reinforcements_think, var_0 );
-    common_scripts\utility::_id_0D13( var_1, ::attach_saw, "chopperTeam" );
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7E60, 1 );
+    common_scripts\utility::array_thread( var_1, ::ai_friendly_reinforcements_think, var_0 );
+    common_scripts\utility::array_thread( var_1, ::attach_saw, "chopperTeam" );
+    common_scripts\utility::array_thread( var_1, maps\_utility::_id_7E60, 1 );
     var_0 waittill( "unloading" );
     common_scripts\utility::_id_383F( "blackhawk_dudes_unloaded" );
     wait 11;
@@ -1358,7 +1358,7 @@ vent_sequence()
     level.team01[2].rappelnode = var_1[0];
     var_6 = getent( "vent_02", "targetname" );
     var_6 thread vent_drop();
-    common_scripts\utility::_id_0D13( level.team01, ::friendly_vent_think, level.team01, "01", var_6, "01" );
+    common_scripts\utility::array_thread( level.team01, ::friendly_vent_think, level.team01, "01", var_6, "01" );
     level.team02_sawguysfinished = 0;
     level.team02_sawguysinposition = 0;
     level.team02_ventopen = 0;
@@ -1371,10 +1371,10 @@ vent_sequence()
     var_10 = getent( "vent_team_03", "targetname" );
     var_11 = getentarray( "node_rappel_team_3", "targetname" );
     var_12 = getentarray( "node_saw_team_3", "targetname" );
-    level.team02 = maps\_utility::_id_0CFD( level.team02 );
+    level.team02 = maps\_utility::array_removedead( level.team02 );
     level.team02 = common_scripts\utility::_id_3CCB( var_7.origin, level.team02, undefined, level.team02.size );
     common_scripts\utility::_id_384A( "blackhawk_dudes_unloaded" );
-    level.team03 = maps\_utility::_id_0CFD( level.team03 );
+    level.team03 = maps\_utility::array_removedead( level.team03 );
     level.team03 = common_scripts\utility::_id_3CCB( var_10.origin, level.team03, undefined, level.team03.size );
     level.team03[2].rappelnode = var_9[0];
     level.team03[3].rappelnode = var_9[1];
@@ -1431,21 +1431,21 @@ vent_sequence_preh1()
     level.team01[2].rappelnode = var_1[0];
     var_6 = getent( "vent_02", "targetname" );
     var_6 thread vent_drop();
-    common_scripts\utility::_id_0D13( level.team01, ::friendly_vent_think_preh1, level.team01, "01", var_6 );
+    common_scripts\utility::array_thread( level.team01, ::friendly_vent_think_preh1, level.team01, "01", var_6 );
     level.team02_sawguysfinished = 0;
     level.team02_sawguysinposition = 0;
     level.team02_ventopen = 0;
     var_0 = getent( "vent_team_02", "targetname" );
     var_7 = getentarray( "node_rappel_team_2", "targetname" );
     var_8 = getentarray( "node_saw_team_2", "targetname" );
-    level.team02 = maps\_utility::_id_0CFD( level.team02 );
+    level.team02 = maps\_utility::array_removedead( level.team02 );
     level.team02 = common_scripts\utility::_id_3CCB( var_0.origin, level.team02, undefined, level.team02.size );
     level.team02[0].rappelnode = var_8[0];
     level.team02[1].rappelnode = var_8[1];
     level.team02[2].rappelnode = var_7[0];
     var_6 = getent( "vent_03", "targetname" );
     var_6 thread vent_drop();
-    common_scripts\utility::_id_0D13( level.team02, ::friendly_vent_think_preh1, level.team02, "02", var_6 );
+    common_scripts\utility::array_thread( level.team02, ::friendly_vent_think_preh1, level.team02, "02", var_6 );
     level.team03_sawguysfinished = 0;
     level.team03_sawguysinposition = 0;
     level.team03_ventopen = 0;
@@ -1453,7 +1453,7 @@ vent_sequence_preh1()
     var_9 = getentarray( "node_rappel_team_3", "targetname" );
     var_10 = getentarray( "node_saw_team_3", "targetname" );
     common_scripts\utility::_id_384A( "blackhawk_dudes_unloaded" );
-    level.team03 = maps\_utility::_id_0CFD( level.team03 );
+    level.team03 = maps\_utility::array_removedead( level.team03 );
     level.team03 = common_scripts\utility::_id_3CCB( var_0.origin, level.team03, undefined, level.team03.size );
     level.team03[0].rappelnode = var_10[0];
     level.team03[1].rappelnode = var_10[1];
@@ -1461,7 +1461,7 @@ vent_sequence_preh1()
     level.team03[3].rappelnode = var_9[1];
     var_6 = getent( "vent_01", "targetname" );
     var_6 thread vent_drop();
-    common_scripts\utility::_id_0D13( level.team03, ::friendly_vent_think_preh1, level.team03, "03", var_6 );
+    common_scripts\utility::array_thread( level.team03, ::friendly_vent_think_preh1, level.team03, "03", var_6 );
 }
 
 saw_notify_start( var_0 )
@@ -1491,7 +1491,7 @@ saw_sound_and_fx( var_0, var_1, var_2 )
     self attach( "weapon_saw_rescue", "TAG_INHAND" );
     var_3 = self.rappelnode._id_7A99;
     var_4 = "saw_" + var_3 + "_object";
-    self _meth_814e( maps\_utility::_id_3EF6( var_4, "frnd" ), 1 );
+    self _meth_814E( maps\_utility::_id_3EF6( var_4, "frnd" ), 1 );
 
     if ( var_0 == "1" )
         thread maps\_utility::_id_69C4( level._id_78BA["launch_chopsaw1"] );
@@ -1558,12 +1558,12 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
 
     self.issawdude = 0;
     var_4 = undefined;
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self.hookedup = 0;
     var_5 = undefined;
     var_6 = undefined;
     var_7 = maps\_utility::_id_88D1( "rope" );
-    self.rappelnode thread maps\_anim::_id_0BC7( var_7, "rappel_setup_start" );
+    self.rappelnode thread maps\_anim::anim_first_frame_solo( var_7, "rappel_setup_start" );
     var_7 hide();
 
     switch ( var_3 )
@@ -1611,7 +1611,7 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
         }
         else
         {
-            self _meth_81a9( var_9 );
+            self _meth_81A9( var_9 );
             self waittill( "goal" );
         }
 
@@ -1657,13 +1657,13 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
 
         wait(randomfloatrange( 0.5, 0.75 ));
         self._id_2AF3 = 1;
-        self.rappelnode maps\_anim::_id_0BFF( self, "saw_" + var_8 + "_start" );
+        self.rappelnode maps\_anim::anim_reach_solo( self, "saw_" + var_8 + "_start" );
         level notify( "cutting_vents" );
         thread saw_sound_and_fx( var_8, var_2, var_4 );
-        self.rappelnode maps\_anim::_id_0C24( self, "saw_" + var_8 );
+        self.rappelnode maps\_anim::anim_single_solo( self, "saw_" + var_8 );
 
         if ( self.issawdude == 1 )
-            self _meth_81aa( self.origin );
+            self _meth_81AA( self.origin );
 
         thread vent_flag( var_3, var_6 );
     }
@@ -1693,7 +1693,7 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
     maps\_utility::_id_2A74();
 
     if ( self.issawdude == 0 )
-        self.rappelnode maps\_anim::_id_0BFF( self, var_10 );
+        self.rappelnode maps\_anim::anim_reach_solo( self, var_10 );
 
     if ( self.issawdude == 0 && !var_2 maps\_utility::_id_32D8( "vent_dropping" ) )
     {
@@ -1703,10 +1703,10 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
     }
 
     var_7 show();
-    self.rappelnode thread maps\_anim::_id_0C24( var_7, var_10 );
-    self.rappelnode maps\_anim::_id_0C24( self, var_10 );
-    self.rappelnode thread maps\_anim::_id_0BE1( self, var_11, undefined, "stop_idle" );
-    self.rappelnode thread maps\_anim::_id_0BE1( var_7, var_11, undefined, "stop_idle" );
+    self.rappelnode thread maps\_anim::anim_single_solo( var_7, var_10 );
+    self.rappelnode maps\_anim::anim_single_solo( self, var_10 );
+    self.rappelnode thread maps\_anim::anim_loop_solo( self, var_11, undefined, "stop_idle" );
+    self.rappelnode thread maps\_anim::anim_loop_solo( var_7, var_11, undefined, "stop_idle" );
     self.hookedup = 1;
     var_12 = 1;
 
@@ -1728,8 +1728,8 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
         wait(randomfloatrange( 1, 3 ));
 
     self.rappelnode notify( "stop_idle" );
-    self.rappelnode thread maps\_anim::_id_0C24( var_7, "rappel_drop" );
-    self.rappelnode maps\_anim::_id_0C24( self, "rappel_drop" );
+    self.rappelnode thread maps\_anim::anim_single_solo( var_7, "rappel_drop" );
+    self.rappelnode maps\_anim::anim_single_solo( self, "rappel_drop" );
 
     if ( isdefined( self._id_58D7 ) )
         maps\_utility::_id_8EA4();
@@ -1750,12 +1750,12 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
 
     self.issawdude = 0;
     var_3 = undefined;
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self.hookedup = 0;
     var_4 = undefined;
     var_5 = undefined;
     var_6 = maps\_utility::_id_88D1( "rope" );
-    self.rappelnode thread maps\_anim::_id_0BC7( var_6, "rappel_setup_start" );
+    self.rappelnode thread maps\_anim::anim_first_frame_solo( var_6, "rappel_setup_start" );
     var_6 hide();
 
     switch ( var_1 )
@@ -1788,7 +1788,7 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
             get_to_node_no_matter_what( var_8, 30 );
         else
         {
-            self _meth_81a9( var_8 );
+            self _meth_81A9( var_8 );
             self waittill( "goal" );
         }
 
@@ -1834,13 +1834,13 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
 
         wait(randomfloatrange( 0.5, 0.75 ));
         self._id_2AF3 = 1;
-        self.rappelnode maps\_anim::_id_0BFF( self, "saw_" + var_7 + "_start" );
+        self.rappelnode maps\_anim::anim_reach_solo( self, "saw_" + var_7 + "_start" );
         level notify( "cutting_vents" );
         thread saw_sound_and_fx( var_7, var_2, var_3 );
-        self.rappelnode maps\_anim::_id_0C24( self, "saw_" + var_7 );
+        self.rappelnode maps\_anim::anim_single_solo( self, "saw_" + var_7 );
 
         if ( self.issawdude == 1 )
-            self _meth_81aa( self.origin );
+            self _meth_81AA( self.origin );
 
         thread vent_flag( var_1, var_5 );
     }
@@ -1870,13 +1870,13 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
     maps\_utility::_id_2A74();
 
     if ( self.issawdude == 0 )
-        self.rappelnode maps\_anim::_id_0BFF( self, var_9 );
+        self.rappelnode maps\_anim::anim_reach_solo( self, var_9 );
 
     var_6 show();
-    self.rappelnode thread maps\_anim::_id_0C24( var_6, var_9 );
-    self.rappelnode maps\_anim::_id_0C24( self, var_9 );
-    self.rappelnode thread maps\_anim::_id_0BE1( self, var_10, undefined, "stop_idle" );
-    self.rappelnode thread maps\_anim::_id_0BE1( var_6, var_10, undefined, "stop_idle" );
+    self.rappelnode thread maps\_anim::anim_single_solo( var_6, var_9 );
+    self.rappelnode maps\_anim::anim_single_solo( self, var_9 );
+    self.rappelnode thread maps\_anim::anim_loop_solo( self, var_10, undefined, "stop_idle" );
+    self.rappelnode thread maps\_anim::anim_loop_solo( var_6, var_10, undefined, "stop_idle" );
     self.hookedup = 1;
     var_11 = 1;
 
@@ -1898,8 +1898,8 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
         wait(randomfloatrange( 1, 3 ));
 
     self.rappelnode notify( "stop_idle" );
-    self.rappelnode thread maps\_anim::_id_0C24( var_6, "rappel_drop" );
-    self.rappelnode maps\_anim::_id_0C24( self, "rappel_drop" );
+    self.rappelnode thread maps\_anim::anim_single_solo( var_6, "rappel_drop" );
+    self.rappelnode maps\_anim::anim_single_solo( self, "rappel_drop" );
 
     if ( isdefined( self._id_58D7 ) )
         maps\_utility::_id_8EA4();
@@ -1910,7 +1910,7 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
 get_to_node_no_matter_what( var_0, var_1 )
 {
     thread teleport_or_timeout( var_0, var_1 );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self waittill( "goal" );
     self.madeittogoal = 1;
 }
@@ -1933,7 +1933,7 @@ teleport_behind_player_back( var_0 )
 
         if ( !var_2 && !isdefined( self.madeittogoal ) )
         {
-            self _meth_81ca( var_0.origin, var_0.angles );
+            self _meth_81CA( var_0.origin, var_0.angles );
             break;
         }
     }
@@ -1941,8 +1941,8 @@ teleport_behind_player_back( var_0 )
 
 rope_anim( var_0, var_1, var_2, var_3 )
 {
-    var_0 maps\_anim::_id_0C24( var_1, var_2 );
-    var_0 thread maps\_anim::_id_0BE1( var_1, var_3, undefined, "stop_idle" );
+    var_0 maps\_anim::anim_single_solo( var_1, var_2 );
+    var_0 thread maps\_anim::anim_loop_solo( var_1, var_3, undefined, "stop_idle" );
 }
 
 vent_flag( var_0, var_1 )
@@ -2047,7 +2047,7 @@ _id_6BD0()
     thread player_squad_rappel();
     var_6 = maps\_utility::_id_88D1( "player_rappel" );
     var_6 hide();
-    var_0 maps\_anim::_id_0BC7( var_6, "rappel" );
+    var_0 maps\_anim::anim_first_frame_solo( var_6, "rappel" );
     var_6 maps\_utility::_id_5696( "tag_player", 0.5, 0.9, 35, 35, 45, 0 );
     level.player allowcrouch( 0 );
     level.player allowprone( 0 );
@@ -2055,9 +2055,9 @@ _id_6BD0()
     level.player common_scripts\utility::_id_27CD( 3.25, ::lerpviewangleclamp, 0.25, 0, 0, 5, 5, 45, 35 );
     var_6 show();
     var_1 show();
-    var_0 thread maps\_anim::_id_0C24( var_6, "rappel" );
+    var_0 thread maps\_anim::anim_single_solo( var_6, "rappel" );
     var_0 notify( "stop_idle" );
-    var_0 thread maps\_anim::_id_0C24( var_1, "rappel_for_player" );
+    var_0 thread maps\_anim::anim_single_solo( var_1, "rappel_for_player" );
 }
 
 rappel_rumble()
@@ -2100,7 +2100,7 @@ hind_attack()
 
 hind_sequence()
 {
-    thread maps\_utility::_id_1143( "hinds_closing" );
+    thread maps\_utility::autosave_by_name( "hinds_closing" );
 
     if ( !common_scripts\utility::_id_382E( "obj_rappel_complete" ) )
     {
@@ -2320,8 +2320,8 @@ friendly_breach_vent( var_0, var_1 )
     self endon( "death" );
     maps\_utility::_id_2A74();
     var_2 = getent( "node_scripted_vent_" + var_0, "script_noteworthy" );
-    var_2 maps\_anim::_id_0BFF( self, "C4_plant_start" );
-    var_2 maps\_anim::_id_0C24( self, "C4_plant" );
+    var_2 maps\_anim::anim_reach_solo( self, "C4_plant_start" );
+    var_2 maps\_anim::anim_single_solo( self, "C4_plant" );
     maps\_utility::_id_309A();
     wait 3;
 
@@ -2375,12 +2375,12 @@ initdifficulty()
     switch ( level.skill )
     {
         case "medium":
-            common_scripts\utility::_id_0D13( var_1, ::deleteweapons );
+            common_scripts\utility::array_thread( var_1, ::deleteweapons );
             break;
         case "hard":
         case "veteran":
-            common_scripts\utility::_id_0D13( var_1, ::deleteweapons );
-            common_scripts\utility::_id_0D13( var_2, ::deleteweapons );
+            common_scripts\utility::array_thread( var_1, ::deleteweapons );
+            common_scripts\utility::array_thread( var_2, ::deleteweapons );
             break;
     }
 }
@@ -2456,9 +2456,9 @@ rpg_ambient( var_0, var_1, var_2 )
     {
         var_3++;
         var_4 = common_scripts\utility::_id_3F91( level.player.origin, var_0 );
-        var_0 = common_scripts\utility::_id_0CF6( var_0, var_4 );
+        var_0 = common_scripts\utility::array_remove( var_0, var_4 );
         var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_1 );
-        var_1 = common_scripts\utility::_id_0CF6( var_1, var_5 );
+        var_1 = common_scripts\utility::array_remove( var_1, var_5 );
         magicbullet( "rpg", var_4.origin, var_5.origin );
         wait(randomfloatrange( 1.5, 2.5 ));
     }
@@ -2605,7 +2605,7 @@ launch_lid_alarm()
 
 disable_color_trigs()
 {
-    common_scripts\utility::_id_0D13( level.acolornodetriggers, common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( level.acolornodetriggers, common_scripts\utility::_id_97CC );
 }
 
 dialogue_loudspeaker( var_0 )
@@ -2685,7 +2685,7 @@ obj_enemy_armor_vehicle_think()
 {
     level.enemyarmorindex++;
     var_0 = level.enemyarmorindex;
-    level.enemyarmor = common_scripts\utility::_id_0CDA( level.enemyarmor, self );
+    level.enemyarmor = common_scripts\utility::array_add( level.enemyarmor, self );
     objective_string( 10, &"LAUNCHFACILITY_A_OBJ_ENEMY_ARMOR", level.enemyarmor.size );
     objective_additionalposition( 10, var_0, self.origin );
 
@@ -2702,7 +2702,7 @@ obj_enemy_armor_vehicle_think()
 obj_enemy_armor_vehicle_death( var_0 )
 {
     self waittill( "death" );
-    level.enemyarmor = common_scripts\utility::_id_0CF6( level.enemyarmor, self );
+    level.enemyarmor = common_scripts\utility::array_remove( level.enemyarmor, self );
     waitframe;
     objective_additionalposition( 10, var_0, ( 0.0, 0.0, 0.0 ) );
 
@@ -2813,7 +2813,7 @@ vehicle_bmp_death_wait()
 
 vehicle_bmp_think( var_0 )
 {
-    maps\_utility::_id_0764( "armor_damage", &"SCRIPT_ARMOR_DAMAGE", undefined, 1 );
+    maps\_utility::add_hint_string( "armor_damage", &"SCRIPT_ARMOR_DAMAGE", undefined, 1 );
     var_1 = maps\_vehicle::waittill_vehiclespawn( var_0 );
     target_set( var_1, ( 0.0, 0.0, 0.0 ) );
     target_setjavelinonly( var_1, 1 );
@@ -3066,7 +3066,7 @@ vehicle_turret_think()
         if ( isdefined( var_0 ) && isalive( var_0 ) )
         {
             var_3 = var_0.origin + ( 0.0, 0.0, 32.0 );
-            self _meth_825d( var_3 );
+            self _meth_825D( var_3 );
 
             if ( getdvar( "debug_bmp" ) == "1" )
                 thread maps\_utility::_id_2DBF( self.origin + ( 0.0, 0.0, 32.0 ), var_3, 1, 0, 0, self, "stop_drawing_line" );
@@ -3151,7 +3151,7 @@ vehicle_c4_think()
     var_5 = maps\jake_tools::_id_3CB9( 512, self.origin, "axis" );
 
     if ( isdefined( var_5 ) && var_5.size > 0 )
-        common_scripts\utility::_id_0D13( var_5, maps\jake_tools::_id_0926, 0.75 );
+        common_scripts\utility::array_thread( var_5, maps\jake_tools::ai_stun, 0.75 );
 
     thread _id_9CA1( var_0 );
 }
@@ -3171,11 +3171,11 @@ _id_9CA1( var_0 )
     var_1 = maps\jake_tools::_id_3CB9( 1024, self.origin, "axis" );
 
     if ( isdefined( var_1 ) && var_1.size > 0 )
-        common_scripts\utility::_id_0D13( var_1, maps\jake_tools::_id_0926, 0.85 );
+        common_scripts\utility::array_thread( var_1, maps\jake_tools::ai_stun, 0.85 );
 
     radiusdamage( self.origin, 256, level.maxbmpexplosiondmg, level.minbmpexplosiondmg );
     thread player_token_vehicle_damage( self.origin );
-    thread maps\_utility::_id_1143( "bmp_" + var_0 + "_destroyed" );
+    thread maps\_utility::autosave_by_name( "bmp_" + var_0 + "_destroyed" );
     wait 2;
     setplayerignoreradiusdamage( 0 );
 }
@@ -3194,9 +3194,9 @@ vehicle_enemies_setup()
     var_0 = getent( self._id_7A26, "script_linkname" );
     var_0 notify( "trigger", level.player );
     var_1 = getentarray( var_0._id_7A26, "script_linkname" );
-    common_scripts\utility::_id_0D13( var_1, ::vehicle_ai_killspawner_triggers_think, self );
+    common_scripts\utility::array_thread( var_1, ::vehicle_ai_killspawner_triggers_think, self );
     var_2 = getentarray( "triggers_" + self._id_9D45.targetname, "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_2, ::vehicle_ai_movement_triggers_think, self );
+    common_scripts\utility::array_thread( var_2, ::vehicle_ai_movement_triggers_think, self );
 }
 
 vehicle_ai_killspawner_triggers_think( var_0 )
@@ -3262,13 +3262,13 @@ vehicle_patrol_init()
     level.avehiclenodes = [];
     var_0 = getvehiclenodearray( "go_right", "script_noteworthy" );
     var_1 = getvehiclenodearray( "go_left", "script_noteworthy" );
-    level.avehiclenodes = maps\_utility::_id_0CF2( var_0, var_1 );
+    level.avehiclenodes = maps\_utility::array_merge( var_0, var_1 );
 }
 
 vehicle_patrol_think()
 {
     self endon( "death" );
-    var_0 = self._id_0DF6;
+    var_0 = self.attachedpath;
     self waittill( "reached_end_node" );
 
     switch ( self._id_9D45.targetname )
@@ -3300,14 +3300,14 @@ vehicle_patrol_think()
         var_8 = undefined;
         var_3 = var_0 maps\_utility::_id_3DB1( "vehiclenode" );
         var_2 = level.avehiclenodes;
-        var_2 = common_scripts\utility::_id_0CF6( var_2, var_3 );
+        var_2 = common_scripts\utility::array_remove( var_2, var_3 );
         var_9 = level.avehiclenodes;
         var_10 = var_3._id_7B18;
 
         for ( var_11 = 0; var_11 < var_9.size; var_11++ )
         {
             if ( var_9[var_11]._id_7B18 != var_10 )
-                var_2 = common_scripts\utility::_id_0CF6( var_2, var_9[var_11] );
+                var_2 = common_scripts\utility::array_remove( var_2, var_9[var_11] );
         }
 
         for ( var_11 = 0; var_11 < var_2.size; var_11++ )
@@ -3331,13 +3331,13 @@ vehicle_patrol_think()
         if ( isdefined( var_4 ) )
         {
             var_4._id_311C = var_4 maps\_utility::_id_3DB1( "vehiclenode" );
-            var_7 = common_scripts\utility::_id_0CDA( var_7, var_4._id_311C );
+            var_7 = common_scripts\utility::array_add( var_7, var_4._id_311C );
         }
 
         if ( isdefined( var_5 ) )
         {
             var_5._id_311C = var_5 maps\_utility::_id_3DB1( "vehiclenode" );
-            var_7 = common_scripts\utility::_id_0CDA( var_7, var_5._id_311C );
+            var_7 = common_scripts\utility::array_add( var_7, var_5._id_311C );
         }
 
         var_12 = undefined;
@@ -3422,7 +3422,7 @@ ai_think( var_0 )
 ai_allies_think()
 {
     self endon( "death" );
-    self._id_0C72 = "frnd";
+    self.animname = "frnd";
     thread ai_friendly_waittill_death();
 
     if ( !isdefined( self._id_58D7 ) )
@@ -3435,28 +3435,28 @@ ai_allies_think()
         switch ( self._id_79E6 )
         {
             case "r":
-                level.team01 = common_scripts\utility::_id_0CDA( level.team01, self );
+                level.team01 = common_scripts\utility::array_add( level.team01, self );
 
                 if ( getdvar( "debug_launch" ) == "1" )
                     thread maps\jake_tools::_id_6FA6( "Team 01" );
 
                 break;
             case "o":
-                level.team01 = common_scripts\utility::_id_0CDA( level.team01, self );
+                level.team01 = common_scripts\utility::array_add( level.team01, self );
 
                 if ( getdvar( "debug_launch" ) == "1" )
                     thread maps\jake_tools::_id_6FA6( "Wingman" );
 
                 break;
             case "y":
-                level.team02 = common_scripts\utility::_id_0CDA( level.team02, self );
+                level.team02 = common_scripts\utility::array_add( level.team02, self );
 
                 if ( getdvar( "debug_launch" ) == "1" )
                     thread maps\jake_tools::_id_6FA6( "Team 02" );
 
                 break;
             case "g":
-                level.team03 = common_scripts\utility::_id_0CDA( level.team03, self );
+                level.team03 = common_scripts\utility::array_add( level.team03, self );
 
                 if ( getdvar( "debug_launch" ) == "1" )
                     thread maps\jake_tools::_id_6FA6( "Team 03" );
@@ -3468,13 +3468,13 @@ ai_allies_think()
     for (;;)
     {
         self waittill( "damage", var_0, var_1 );
-        level.bmpexcluders = common_scripts\utility::_id_0CDA( level.bmpexcluders, self );
+        level.bmpexcluders = common_scripts\utility::array_add( level.bmpexcluders, self );
         self.ignoreme = 1;
         wait 1;
         self.a._id_2B20 = 1;
         wait(randomfloatrange( 3, 5 ));
         self.ignoreme = 0;
-        level.bmpexcluders = common_scripts\utility::_id_0CF6( level.bmpexcluders, self );
+        level.bmpexcluders = common_scripts\utility::array_remove( level.bmpexcluders, self );
         self.a._id_2B20 = 0;
     }
 }
@@ -3484,13 +3484,13 @@ ai_friendly_waittill_death()
     self waittill( "death" );
 
     if ( maps\_utility::_id_503B( level.bmpexcluders, self ) )
-        common_scripts\utility::_id_0CF6( level.bmpexcluders, self );
+        common_scripts\utility::array_remove( level.bmpexcluders, self );
 }
 
 ai_axis_think()
 {
     self endon( "death" );
-    self._id_0C72 = "hostile";
+    self.animname = "hostile";
     thread ai_axis_death();
     thread ai_axis_player_distance();
     thread ai_axis_sniper_fodder();
@@ -3640,7 +3640,7 @@ ai_in_volume_chase_player()
         if ( var_0[var_1] istouching( self ) )
         {
             var_0[var_1].goalradius = 600;
-            var_0[var_1] _meth_81ab( level.player );
+            var_0[var_1] _meth_81AB( level.player );
         }
     }
 }
@@ -3661,7 +3661,7 @@ ai_player_seek()
     {
         wait 2;
         self.goalradius = var_0;
-        self _meth_81ab( level.player );
+        self _meth_81AB( level.player );
         var_0 -= 175;
 
         if ( var_0 < 512 )
@@ -3695,28 +3695,28 @@ initfriendlies( var_0 )
     {
         case "default":
             level.friendly_at4 = maps\_utility::_id_894B( "friendly_at4" );
-            var_1 = maps\_utility::_id_0D08( getentarray( "friendly_support", "script_noteworthy" ) );
-            level._id_8AB0 = maps\_utility::_id_0CF2( level._id_8AB0, var_1 );
+            var_1 = maps\_utility::array_spawn( getentarray( "friendly_support", "script_noteworthy" ) );
+            level._id_8AB0 = maps\_utility::array_merge( level._id_8AB0, var_1 );
             break;
         case "container":
             level.friendly_at4 = maps\_utility::_id_894B( "friendly_at4" );
-            var_1 = maps\_utility::_id_0D08( getentarray( "friendly_support", "script_noteworthy" ) );
-            level._id_8AB0 = maps\_utility::_id_0CF2( level._id_8AB0, var_1 );
+            var_1 = maps\_utility::array_spawn( getentarray( "friendly_support", "script_noteworthy" ) );
+            level._id_8AB0 = maps\_utility::array_merge( level._id_8AB0, var_1 );
             break;
         case "gate":
-            var_1 = maps\_utility::_id_0D08( getentarray( "friendly_support", "script_noteworthy" ) );
-            level._id_8AB0 = maps\_utility::_id_0CF2( level._id_8AB0, var_1 );
+            var_1 = maps\_utility::array_spawn( getentarray( "friendly_support", "script_noteworthy" ) );
+            level._id_8AB0 = maps\_utility::array_merge( level._id_8AB0, var_1 );
             break;
         case "tarmac":
             break;
         case "vents":
-            var_1 = maps\_utility::_id_0D08( getentarray( "friendly_support", "script_noteworthy" ) );
-            level._id_8AB0 = maps\_utility::_id_0CF2( level._id_8AB0, var_1 );
+            var_1 = maps\_utility::array_spawn( getentarray( "friendly_support", "script_noteworthy" ) );
+            level._id_8AB0 = maps\_utility::array_merge( level._id_8AB0, var_1 );
             break;
         default:
     }
 
-    common_scripts\utility::_id_0D13( level.team01, ::attach_saw, "startTeam" );
+    common_scripts\utility::array_thread( level.team01, ::attach_saw, "startTeam" );
     var_2 = level._id_8AB0;
     var_3 = getnodearray( "nodeStart_" + var_0, "targetname" );
     var_4 = 0;
@@ -3734,19 +3734,19 @@ initfriendlies( var_0 )
                 {
                     case "nodePrice":
                         level._id_6F7C maps\jake_tools::_id_8CC0( var_3[var_6] );
-                        var_2 = common_scripts\utility::_id_0CF6( var_2, level._id_6F7C );
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_6] );
+                        var_2 = common_scripts\utility::array_remove( var_2, level._id_6F7C );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_6] );
                         var_4++;
                         continue;
                     case "nodeGrigsby":
                         level.grigsby maps\jake_tools::_id_8CC0( var_3[var_6] );
-                        var_2 = common_scripts\utility::_id_0CF6( var_2, level.grigsby );
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_6] );
+                        var_2 = common_scripts\utility::array_remove( var_2, level.grigsby );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_6] );
                         var_4++;
                         continue;
                     case "nodePlayer":
                         var_5 = var_3[var_6];
-                        var_3 = common_scripts\utility::_id_0CF6( var_3, var_3[var_6] );
+                        var_3 = common_scripts\utility::array_remove( var_3, var_3[var_6] );
                         var_4++;
                         continue;
                 }
@@ -3776,7 +3776,7 @@ attach_saw( var_0 )
 
     if ( self == level._id_6F7C || self == level.grigsby || var_0 == "chopperTeam" )
     {
-        if ( self _meth_843e( "TAG_STOWED_BACK" ) >= 0 )
+        if ( self _meth_843E( "TAG_STOWED_BACK" ) >= 0 )
         {
             var_1 = spawn( "script_model", self.origin );
             var_1 setmodel( "weapon_saw_rescue" );

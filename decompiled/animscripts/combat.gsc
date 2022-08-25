@@ -34,7 +34,7 @@ _id_4C7A()
     var_0["rpg_death_stagger"] = %rpg_stand_death_stagger;
     var_0["trans_from_corner_standr"] = %h1_cornerstndr_alert_2_exposedstand;
     var_0["trans_from_corner_standl"] = %h1_cornerstndl_alert_2_exposedstand;
-    anim._id_0CCA["soldier"]["combat"] = var_0;
+    anim.archetypes["soldier"]["combat"] = var_0;
 }
 
 main()
@@ -54,10 +54,10 @@ main()
     self endon( "killanimscript" );
     [[ self._id_33E5["exposed"] ]]();
     animscripts\utility::_id_4DD7( "combat" );
-    self.a._id_0D29 = undefined;
+    self.a.arrivaltype = undefined;
 
     if ( isdefined( self.node ) && self.node.type == "Ambush" && self _meth_8163( self.node ) )
-        self._id_0B6A = self.node;
+        self.ambushnode = self.node;
 
     _id_971E();
     _id_2C80();
@@ -72,7 +72,7 @@ main()
 
 end_script()
 {
-    self._id_0B6A = undefined;
+    self.ambushnode = undefined;
     _id_2061();
 }
 
@@ -81,16 +81,16 @@ _id_2C80()
     if ( self.team != "allies" )
         return;
 
-    if ( self _meth_81d2() && self.prevscript == "move" && self.a._id_6E5A == "stand" && !isdefined( self._id_2B12 ) )
+    if ( self _meth_81D2() && self.prevscript == "move" && self.a._id_6E5A == "stand" && !isdefined( self._id_2B12 ) )
     {
         if ( isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < squared( 128 ) )
             return;
 
-        if ( !isdefined( self.a._id_0CD8 ) )
+        if ( !isdefined( self.a.array ) )
             return;
 
-        if ( isdefined( self.a._id_0CD8["surprise_stop"] ) )
-            var_0 = animscripts\utility::_id_0C4E( "surprise_stop" );
+        if ( isdefined( self.a.array["surprise_stop"] ) )
+            var_0 = animscripts\utility::animarray( "surprise_stop" );
         else if ( self.swimmer )
         {
             var_0 = animscripts\swim::_id_4100( "surprise_stop" );
@@ -102,7 +102,7 @@ _id_2C80()
             var_0 = animscripts\utility::_id_5863( "combat", "surprise_stop" );
 
         _id_7444();
-        self setflaggedanimknoballrestart( "react", var_0, %animscript_root, 1, 0.2, self._id_0C78 );
+        self setflaggedanimknoballrestart( "react", var_0, %animscript_root, 1, 0.2, self.animplaybackrate );
         _id_2088( var_0, "run" );
         animscripts\shared::_id_2D06( "react" );
     }
@@ -174,7 +174,7 @@ _id_971E()
     if ( isdefined( self._id_8A2F ) || isdefined( self._id_255D ) )
         return;
 
-    if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
+    if ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
     {
         if ( !isdefined( self.enemy ) )
             return;
@@ -216,7 +216,7 @@ _id_971E()
         else
             var_0 = animscripts\utility::_id_5863( "combat", "trans_to_combat" );
 
-        self setflaggedanimknoballrestart( "transition", var_0, %animscript_root, 1, 0.2, 1.2 * self._id_0C78 );
+        self setflaggedanimknoballrestart( "transition", var_0, %animscript_root, 1, 0.2, 1.2 * self.animplaybackrate );
         _id_2088( var_0, "run" );
         animscripts\shared::_id_2D06( "transition" );
     }
@@ -238,7 +238,7 @@ _id_804F()
 
 _id_803F()
 {
-    if ( animscripts\utility::_id_9C3A() && self _meth_81cf( "stand" ) )
+    if ( animscripts\utility::_id_9C3A() && self _meth_81CF( "stand" ) )
         _id_971D( "stand" );
 
     _id_804F();
@@ -248,13 +248,13 @@ _id_803F()
     self _meth_8144( %animscript_root, 0.2 );
     var_0 = 0.2;
 
-    if ( isdefined( self._id_097C ) )
-        var_0 = self._id_097C;
+    if ( isdefined( self.aimsetupblendtime ) )
+        var_0 = self.aimsetupblendtime;
 
     animscripts\combat_utility::_id_82F8( var_0 );
 
     if ( self.doaimidlethread )
-        thread animscripts\combat_utility::_id_0979();
+        thread animscripts\combat_utility::aimidlethread();
 
     self.a._id_5B90 = "aim";
     _id_27ED();
@@ -350,7 +350,7 @@ _id_3591( var_0 )
 
 _id_358D( var_0 )
 {
-    if ( self.a._id_6E5A != "stand" && self _meth_81cf( "stand" ) )
+    if ( self.a._id_6E5A != "stand" && self _meth_81CF( "stand" ) )
     {
         if ( var_0 < 81225 )
         {
@@ -362,7 +362,7 @@ _id_358D( var_0 )
             return 1;
     }
 
-    if ( var_0 > 262144 && self.a._id_6E5A != "crouch" && self _meth_81cf( "crouch" ) && !self.swimmer && !animscripts\utility::_id_9C3A() && !isdefined( self._id_4795 ) && gettime() >= self.a._id_2D2F && lengthsquared( self._id_83F7 ) < 10000 )
+    if ( var_0 > 262144 && self.a._id_6E5A != "crouch" && self _meth_81CF( "crouch" ) && !self.swimmer && !animscripts\utility::_id_9C3A() && !isdefined( self._id_4795 ) && gettime() >= self.a._id_2D2F && lengthsquared( self._id_83F7 ) < 10000 )
     {
         if ( !isdefined( self._id_840F ) || sighttracepassed( self.origin + ( 0.0, 0.0, 36.0 ), self._id_840F, 0, undefined ) )
         {
@@ -393,7 +393,7 @@ _id_358C( var_0 )
 
     if ( animscripts\combat_utility::_id_6089( 0 ) )
     {
-        if ( !animscripts\utility::_id_9C3A() && !animscripts\utility::_id_9C36() && animscripts\utility::_id_9C33() && var_0 < 262144 && self _meth_81cf( "stand" ) )
+        if ( !animscripts\utility::_id_9C3A() && !animscripts\utility::_id_9C36() && animscripts\utility::_id_9C33() && var_0 < 262144 && self _meth_81CF( "stand" ) )
         {
             if ( self.a._id_6E5A != "stand" )
             {
@@ -416,7 +416,7 @@ _id_358B( var_0 )
 {
     if ( animscripts\utility::_id_9C3A() && self.a._id_6E5A == "stand" && !isdefined( self._id_39C7 ) )
     {
-        if ( var_0 > 262144 || self.combatmode == "ambush_nodes_only" && ( !isdefined( self.enemy ) || !self _meth_81c2( self.enemy ) ) )
+        if ( var_0 > 262144 || self.combatmode == "ambush_nodes_only" && ( !isdefined( self.enemy ) || !self _meth_81C2( self.enemy ) ) )
             _id_9080( animscripts\utility::_id_5863( "combat", "pistol_to_primary" ) );
     }
 }
@@ -424,7 +424,7 @@ _id_358B( var_0 )
 _id_3590()
 {
     if ( isdefined( self._id_4795 ) && self _meth_8165() )
-        self _meth_81cb( self.nodeoffsetpos, self.node.angles );
+        self _meth_81CB( self.nodeoffsetpos, self.node.angles );
 }
 
 _id_358F()
@@ -506,7 +506,7 @@ _id_358E()
             continue;
         }
 
-        if ( animscripts\combat_utility::_id_0976() )
+        if ( animscripts\combat_utility::aimedatshootentorpos() )
         {
             _id_8416();
             animscripts\combat_utility::_id_4873();
@@ -519,7 +519,7 @@ _id_358E()
 
 _id_3595()
 {
-    if ( !isdefined( self.enemy ) || !self _meth_81c2( self.enemy ) )
+    if ( !isdefined( self.enemy ) || !self _meth_81C2( self.enemy ) )
     {
         self endon( "enemy" );
         self endon( "shoot_behavior_change" );
@@ -532,7 +532,7 @@ _id_3595()
 
 _id_8B08()
 {
-    if ( isdefined( self.enemy ) && ( !self _meth_81c2( self.enemy ) || !self _meth_81c1() ) && sighttracepassed( self.origin + ( 0.0, 0.0, 64.0 ), self.enemy getshootatpos(), 0, undefined ) )
+    if ( isdefined( self.enemy ) && ( !self _meth_81C2( self.enemy ) || !self _meth_81C1() ) && sighttracepassed( self.origin + ( 0.0, 0.0, 64.0 ), self.enemy getshootatpos(), 0, undefined ) )
     {
         self.a._id_2D2F = gettime() + 3000;
         _id_971D( "stand" );
@@ -560,7 +560,7 @@ _id_608A()
             var_1 += asin( -3 / var_3 );
     }
 
-    return animscripts\utility::_id_06C4( var_1 ) > self._id_993A;
+    return animscripts\utility::absangleclamp180( var_1 ) > self._id_993A;
 }
 
 _id_A039()
@@ -576,7 +576,7 @@ _id_A039()
     if ( var_0 == "stand" && isdefined( self._id_4795 ) )
         return 0;
 
-    if ( !self _meth_81cf( var_0 ) )
+    if ( !self _meth_81CF( var_0 ) )
     {
         var_1 = "crouch";
 
@@ -591,7 +591,7 @@ _id_A039()
             var_2 = "crouch";
         }
 
-        if ( self _meth_81cf( var_1 ) )
+        if ( self _meth_81CF( var_1 ) )
         {
             if ( var_0 == "stand" && animscripts\utility::_id_9C3A() )
                 return 0;
@@ -599,7 +599,7 @@ _id_A039()
             _id_971D( var_1 );
             return 1;
         }
-        else if ( self _meth_81cf( var_2 ) )
+        else if ( self _meth_81CF( var_2 ) )
         {
             if ( var_0 == "stand" && animscripts\utility::_id_9C3A() )
                 return 0;
@@ -618,7 +618,7 @@ _id_A039()
 
 _id_1AF5()
 {
-    if ( self.a._id_6E5A != "stand" && self _meth_81cf( "stand" ) && _id_8B08() )
+    if ( self.a._id_6E5A != "stand" && self _meth_81CF( "stand" ) && _id_8B08() )
         return 1;
 
     var_0 = gettime();
@@ -639,7 +639,7 @@ _id_1AF5()
         if ( _id_993D( var_1 ) )
             return 1;
     }
-    else if ( isdefined( self.enemy ) && self _meth_81c3( self.enemy, 2 ) || var_0 > self.a._id_7B46 + 1200 )
+    else if ( isdefined( self.enemy ) && self _meth_81C3( self.enemy, 2 ) || var_0 > self.a._id_7B46 + 1200 )
     {
         var_1 = undefined;
         var_2 = self _meth_8196();
@@ -650,7 +650,7 @@ _id_1AF5()
             var_1 = angleclamp180( self.angles[1] - self.node.angles[1] );
         else if ( isdefined( self.enemy ) )
         {
-            var_2 = vectortoangles( self _meth_81c5( self.enemy ) - self.origin );
+            var_2 = vectortoangles( self _meth_81C5( self.enemy ) - self.origin );
             var_1 = angleclamp180( self.angles[1] - var_2[1] );
         }
 
@@ -789,7 +789,7 @@ _id_50F0( var_0 )
 {
     var_1 = getmovedelta( var_0, 0, 1 );
     var_2 = self localtoworldcoords( var_1 );
-    return self _meth_8161( var_2 ) && self _meth_81c7( var_2 );
+    return self _meth_8161( var_2 ) && self _meth_81C7( var_2 );
 }
 
 _id_50B8( var_0 )
@@ -804,7 +804,7 @@ _id_2D88( var_0, var_1 )
     var_2 = isdefined( self._id_840F );
     var_3 = 1;
     var_4 = 0.2;
-    var_5 = isdefined( self.enemy ) && !isdefined( self._id_993E ) && self _meth_81c3( self.enemy, 2 ) && distancesquared( self.enemy.origin, self.origin ) < 262144;
+    var_5 = isdefined( self.enemy ) && !isdefined( self._id_993E ) && self _meth_81C3( self.enemy, 2 ) && distancesquared( self.enemy.origin, self.origin ) < 262144;
 
     if ( self.a._id_7B46 + 500 > gettime() )
     {
@@ -838,7 +838,7 @@ _id_2D88( var_0, var_1 )
         var_7 = 45;
 
     var_8 = "turn_" + var_0 + "_" + var_7;
-    var_9 = animscripts\utility::_id_0C4E( var_8 );
+    var_9 = animscripts\utility::animarray( var_8 );
 
     if ( isdefined( self._id_993E ) )
         self _meth_8192( "angle deltas", 0 );
@@ -854,7 +854,7 @@ _id_2D88( var_0, var_1 )
     if ( !isdefined( self._id_993E ) )
         _id_9930( var_4 );
 
-    self _meth_814e( %turn, 1, var_4 );
+    self _meth_814E( %turn, 1, var_4 );
 
     if ( isdefined( self._id_4795 ) )
         var_3 = min( 1.0, var_3 );
@@ -869,7 +869,7 @@ _id_2D88( var_0, var_1 )
         thread _id_841C();
 
     _id_2D89();
-    self _meth_814e( %turn, 0, 0.2 );
+    self _meth_814E( %turn, 0, 0.2 );
 
     if ( !isdefined( self._id_993E ) )
         _id_992F( 0.2 );
@@ -914,8 +914,8 @@ _id_5949()
 
 _id_9930( var_0 )
 {
-    self _meth_814e( animscripts\utility::_id_0C4E( "straight_level" ), 0, var_0 );
-    self _meth_814d( %add_idle, 0, var_0 );
+    self _meth_814E( animscripts\utility::animarray( "straight_level" ), 0, var_0 );
+    self _meth_814D( %add_idle, 0, var_0 );
 
     if ( !animscripts\utility::_id_A2CF() )
         self _meth_8144( %add_fire, 0.2 );
@@ -923,8 +923,8 @@ _id_9930( var_0 )
 
 _id_992F( var_0 )
 {
-    self _meth_814e( animscripts\utility::_id_0C4E( "straight_level" ), 1, var_0 );
-    self _meth_814d( %add_idle, 1, var_0 );
+    self _meth_814E( animscripts\utility::animarray( "straight_level" ), 1, var_0 );
+    self _meth_814D( %add_idle, 1, var_0 );
 }
 
 _id_841C()
@@ -996,18 +996,18 @@ _id_989B( var_0, var_1 )
     if ( isdefined( self._id_2D34 ) || isdefined( var_0._id_2D2B ) )
         return 0;
 
-    if ( !isdefined( self.a._id_0CD8["exposed_grenade"] ) )
+    if ( !isdefined( self.a.array["exposed_grenade"] ) )
         return 0;
 
     var_3 = var_0.origin;
 
-    if ( !self _meth_81c2( var_0 ) )
+    if ( !self _meth_81C2( var_0 ) )
     {
         if ( isdefined( self.enemy ) && var_0 == self.enemy && isdefined( self._id_840F ) )
             var_3 = self._id_840F;
     }
 
-    if ( !self _meth_81c2( var_0 ) )
+    if ( !self _meth_81C2( var_0 ) )
         var_1 = 100;
 
     if ( distancesquared( self.origin, var_3 ) > var_1 * var_1 && self.a._id_6E5A == self.a._id_440C )
@@ -1018,7 +1018,7 @@ _id_989B( var_0, var_1 )
         {
             var_5 = [];
 
-            foreach ( var_7 in self.a._id_0CD8["exposed_grenade"] )
+            foreach ( var_7 in self.a.array["exposed_grenade"] )
             {
                 if ( _id_50F0( var_7 ) )
                     var_5[var_5.size] = var_7;
@@ -1026,12 +1026,12 @@ _id_989B( var_0, var_1 )
 
             if ( var_5.size > 0 )
             {
-                self _meth_814d( %exposed_aiming, 0, 0.1 );
+                self _meth_814D( %exposed_aiming, 0, 0.1 );
                 _id_2061();
                 self _meth_8192( "zonly_physics" );
                 animscripts\track::_id_7F21( 0, 0 );
                 var_2 = animscripts\combat_utility::_id_989D( var_0, var_5[randomint( var_5.size )] );
-                self _meth_814d( %exposed_aiming, 1, 0.1 );
+                self _meth_814D( %exposed_aiming, 1, 0.1 );
                 _id_2088( undefined, "aim" );
 
                 if ( var_2 )
@@ -1055,10 +1055,10 @@ _id_971D( var_0 )
 
     var_1 = self.a._id_6E5A + "_2_" + var_0;
 
-    if ( !isdefined( self.a._id_0CD8 ) )
+    if ( !isdefined( self.a.array ) )
         return;
 
-    var_2 = self.a._id_0CD8[var_1];
+    var_2 = self.a.array[var_1];
 
     if ( !isdefined( var_2 ) )
         return;
@@ -1147,10 +1147,10 @@ _id_3592( var_0 )
         }
         else
         {
-            var_1 = animscripts\utility::_id_0C51( "reload" );
+            var_1 = animscripts\utility::animarraypickrandom( "reload" );
 
-            if ( self.a._id_6E5A == "stand" && animscripts\utility::_id_0C4F( "reload_crouchhide" ) && common_scripts\utility::_id_2006() )
-                var_1 = animscripts\utility::_id_0C51( "reload_crouchhide" );
+            if ( self.a._id_6E5A == "stand" && animscripts\utility::animarrayanyexist( "reload_crouchhide" ) && common_scripts\utility::_id_2006() )
+                var_1 = animscripts\utility::animarraypickrandom( "reload_crouchhide" );
         }
 
         thread _id_52E3();
@@ -1184,11 +1184,11 @@ _id_2D77( var_0, var_1 )
     self endon( "abort_reload" );
 
     if ( var_1 )
-        thread _id_06C0();
+        thread abortreloadwhencanshoot();
 
     var_2 = 1;
 
-    if ( !animscripts\utility::_id_9C3A() && !animscripts\utility::_id_51A3( self.weapon ) && isdefined( self.enemy ) && self _meth_81c2( self.enemy ) && distancesquared( self.enemy.origin, self.origin ) < 1048576 )
+    if ( !animscripts\utility::_id_9C3A() && !animscripts\utility::_id_51A3( self.weapon ) && isdefined( self.enemy ) && self _meth_81C2( self.enemy ) && distancesquared( self.enemy.origin, self.origin ) < 1048576 )
         var_2 = 1.2;
 
     var_3 = "reload_" + animscripts\combat_utility::_id_4143();
@@ -1201,14 +1201,14 @@ _id_2D77( var_0, var_1 )
     self._id_3798 = 1;
 }
 
-_id_06C0()
+abortreloadwhencanshoot()
 {
     self endon( "abort_reload" );
     self endon( "killanimscript" );
 
     for (;;)
     {
-        if ( isdefined( self._id_83F6 ) && self _meth_81c2( self._id_83F6 ) )
+        if ( isdefined( self._id_83F6 ) && self _meth_81C2( self._id_83F6 ) )
             break;
 
         wait 0.05;
@@ -1299,7 +1299,7 @@ _id_466D( var_0 )
 {
     if ( var_0 == "pistol_pickup" )
     {
-        self _meth_8144( animscripts\utility::_id_0C4E( "straight_level" ), 0 );
+        self _meth_8144( animscripts\utility::animarray( "straight_level" ), 0 );
         animscripts\animset::_id_7DD2();
         thread _id_35B9( 0.25 );
     }
@@ -1341,7 +1341,7 @@ _id_4672( var_0 )
 {
     if ( var_0 == "pistol_putaway" )
     {
-        self _meth_8144( animscripts\utility::_id_0C4E( "straight_level" ), 0 );
+        self _meth_8144( animscripts\utility::animarray( "straight_level" ), 0 );
         animscripts\animset::_id_7DD2();
         thread animscripts\combat_utility::_id_7066();
     }
@@ -1364,7 +1364,7 @@ _id_464E( var_0 )
 
 _id_7669()
 {
-    if ( !animscripts\utility::_id_9C36() || self._id_18B0 == 0 )
+    if ( !animscripts\utility::_id_9C36() || self.bulletsinclip == 0 )
         return 0;
 
     if ( randomfloat( 1 ) > 0.5 )
@@ -1388,7 +1388,7 @@ _id_7179()
     {
         wait 0.2;
 
-        if ( isdefined( self.enemy ) && !self _meth_81c3( self.enemy, 2 ) )
+        if ( isdefined( self.enemy ) && !self _meth_81C3( self.enemy, 2 ) )
         {
             if ( self.combatmode == "ambush" || self.combatmode == "ambush_nodes_only" )
                 continue;
@@ -1418,9 +1418,9 @@ _id_989A()
 
     self._id_6F4E = self.enemy;
 
-    if ( self _meth_81c2( self.enemy ) )
+    if ( self _meth_81C2( self.enemy ) )
     {
-        if ( self _meth_81c1() || isdefined( self._id_900F ) )
+        if ( self _meth_81C1() || isdefined( self._id_900F ) )
         {
             self._id_7177 = 0;
             return;
@@ -1457,12 +1457,12 @@ _id_989A()
     switch ( self._id_7177 )
     {
         case 0:
-            if ( self _meth_81f5( 32 ) )
+            if ( self _meth_81F5( 32 ) )
                 return;
 
             break;
         case 1:
-            if ( self _meth_81f5( 64 ) )
+            if ( self _meth_81F5( 64 ) )
             {
                 self._id_7177 = 0;
                 return;
@@ -1470,7 +1470,7 @@ _id_989A()
 
             break;
         case 2:
-            if ( self _meth_81f5( 96 ) )
+            if ( self _meth_81F5( 96 ) )
             {
                 self._id_7177 = 0;
                 return;
@@ -1486,8 +1486,8 @@ _id_989A()
 
             break;
         case 4:
-            if ( !self _meth_81c2( self.enemy ) )
-                self _meth_81fa();
+            if ( !self _meth_81C2( self.enemy ) )
+                self _meth_81FA();
 
             break;
         default:

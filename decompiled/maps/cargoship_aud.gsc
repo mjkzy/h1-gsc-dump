@@ -69,13 +69,13 @@ _id_5618()
 _id_5617()
 {
     wait 0.1;
-    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_left", "emt_waves_crashing_far", ( 3649.9, -899.7, -13.0 ), ( -3582.0, -899.7, -13.0 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "ocean_emitter_right", "emt_waves_crashing_far", ( 3710.4, 893.8, -13.0 ), ( -3586.4, 896.9, -13.0 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center01 ", "emt_water_drop_metal", ( -1894.71, -27.25, -407.875 ), ( -1142.67, -20.391, -407.875 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center02 ", "emt_water_drop_metal", ( -963.804, -5.706, -407.875 ), ( -830.211, 2.213, -407.875 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center03 ", "emt_water_drop_metal", ( -548.97, 8.78, -407.875 ), ( 131.804, 11.023, -407.875 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center04 ", "emt_water_drop_metal", ( 549.98, 14.846, -407.875 ), ( 995.199, 22.681, -407.875 ), 0.5 );
-    thread soundscripts\_audio::_id_0FF4( "hangar_emitter_center05 ", "emt_water_drop_metal", ( 1255.19, 11.04, -407.875 ), ( 2497.56, 2.806, -407.875 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "ocean_emitter_left", "emt_waves_crashing_far", ( 3649.9, -899.7, -13.0 ), ( -3582.0, -899.7, -13.0 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "ocean_emitter_right", "emt_waves_crashing_far", ( 3710.4, 893.8, -13.0 ), ( -3586.4, 896.9, -13.0 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "hangar_emitter_center01 ", "emt_water_drop_metal", ( -1894.71, -27.25, -407.875 ), ( -1142.67, -20.391, -407.875 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "hangar_emitter_center02 ", "emt_water_drop_metal", ( -963.804, -5.706, -407.875 ), ( -830.211, 2.213, -407.875 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "hangar_emitter_center03 ", "emt_water_drop_metal", ( -548.97, 8.78, -407.875 ), ( 131.804, 11.023, -407.875 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "hangar_emitter_center04 ", "emt_water_drop_metal", ( 549.98, 14.846, -407.875 ), ( 995.199, 22.681, -407.875 ), 0.5 );
+    thread soundscripts\_audio::aud_play_line_emitter( "hangar_emitter_center05 ", "emt_water_drop_metal", ( 1255.19, 11.04, -407.875 ), ( 2497.56, 2.806, -407.875 ), 0.5 );
 }
 
 _id_23C4()
@@ -131,54 +131,54 @@ _id_5FFD( var_0, var_1 )
 aud_start_checkpoint()
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "intro_mix" );
-    soundscripts\_audio_zone_manager::_id_123A( "cargoship_inside_blackhawk" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "cargoship_inside_blackhawk" );
 }
 
 aud_bridge_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_deck_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_hallways_checkpoint()
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_moving_to_hallway" );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 aud_cargohold_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_metal" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_metal" );
 }
 
 aud_cargohold2_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar" );
 }
 
 aud_laststand_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar" );
 }
 
 aud_package_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar" );
 }
 
 aud_escape_checkpoint()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar" );
 }
 
 aud_end_checkpoint()
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_escape" );
-    soundscripts\_audio_zone_manager::_id_123A( "interior_metal" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_metal" );
 }
 
 _id_4F77()
@@ -196,7 +196,7 @@ intro_check_end()
 
 aud_get_out_blackhawk()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior", 0.3 );
 }
 
 aud_stop_intro_mix()
@@ -207,7 +207,7 @@ aud_stop_intro_mix()
 aud_get_in_seaknight()
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_final_jump" );
-    soundscripts\_audio_zone_manager::_id_123A( "cargoship_inside_seaknight", 0.3 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "cargoship_inside_seaknight", 0.3 );
 }
 
 aud_start_mix_deck_windows()
@@ -242,8 +242,8 @@ aud_start_mix_scn_explosion()
 {
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_scn_explosion" );
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_npc_pre_explosion" );
-    soundscripts\_audio_zone_manager::_id_122C( 1 );
-    soundscripts\_audio_zone_manager::_id_1233( 1 );
+    soundscripts\_audio_zone_manager::azm_set_filter_bypass( 1 );
+    soundscripts\_audio_zone_manager::azm_set_reverb_bypass( 1 );
     level.player setreverb( "snd_enveffectsprio_level", "scn_cargo_explosion", 1, 0.7, 0.5 );
     soundscripts\_snd_filters::_id_86DB( "scn_explosion_filter", 0.5 );
 }
@@ -253,7 +253,7 @@ aud_start_mix_escape()
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_scn_explosion" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_escape" );
     soundscripts\_snd_filters::_id_86DC( 0.5 );
-    soundscripts\_audio_zone_manager::_id_122C( 0 );
+    soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
     level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
     level.player setreverb( "snd_enveffectsprio_level", "hall_metal", 1, 0.4, 0.5 );
     thread common_scripts\utility::_id_697A( "ambient_cargo_escape_rumble", ( 333.375, -0.75, -99.156 ) );
@@ -267,7 +267,7 @@ aud_start_mix_end()
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_escape" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_end" );
     level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
-    soundscripts\_audio_zone_manager::_id_1233( 0 );
+    soundscripts\_audio_zone_manager::azm_set_reverb_bypass( 0 );
 }
 
 start_mix_final_jump()

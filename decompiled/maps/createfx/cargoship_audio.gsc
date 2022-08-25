@@ -27,5 +27,5 @@ main()
 _id_4CB2()
 {
     waitframe;
-    maps\_anim::_id_0818( "end_hands", "player_rescue", "cargoship_jumpforheli" );
+    maps\_anim::addonstart_animsound( "end_hands", "player_rescue", "cargoship_jumpforheli" );
 }

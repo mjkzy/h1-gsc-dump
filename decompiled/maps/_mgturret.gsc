@@ -70,7 +70,7 @@ _id_6E4A()
             if ( isdefined( var_0.radius ) )
                 self.goalradius = var_0.radius;
 
-            self _meth_81a9( var_0 );
+            self _meth_81A9( var_0 );
         }
     }
 
@@ -139,7 +139,7 @@ _id_5BD6( var_0 )
     for ( var_2 = 0; var_2 < var_3.size; var_2++ )
     {
         if ( isdefined( var_3[var_2]._id_7A35 ) && var_0._id_7A35 == var_3[var_2]._id_7A35 )
-            var_3[var_2]._id_0905 = "auto_ai";
+            var_3[var_2].ai_mode = "auto_ai";
     }
 
     maps\_spawner::_id_533E( var_0 );
@@ -177,7 +177,7 @@ _id_5975( var_0 )
     var_0 settargetentity( level.player );
 }
 
-_id_192C( var_0 )
+burst_fire_settings( var_0 )
 {
     if ( var_0 == "delay" )
         return 0.2;
@@ -189,7 +189,7 @@ _id_192C( var_0 )
         return 1.5;
 }
 
-_id_192D()
+burst_fire_unmanned()
 {
     self endon( "death" );
     self endon( "stop_burst_fire_unmanned" );
@@ -197,22 +197,22 @@ _id_192D()
     if ( isdefined( self._id_798E ) )
         var_0 = self._id_798E;
     else
-        var_0 = _id_192C( "delay" );
+        var_0 = burst_fire_settings( "delay" );
 
     if ( isdefined( self._id_798D ) )
         var_1 = self._id_798D - var_0;
     else
-        var_1 = _id_192C( "delay_range" );
+        var_1 = burst_fire_settings( "delay_range" );
 
     if ( isdefined( self._id_7968 ) )
         var_2 = self._id_7968;
     else
-        var_2 = _id_192C( "burst" );
+        var_2 = burst_fire_settings( "burst" );
 
     if ( isdefined( self._id_7967 ) )
         var_3 = self._id_7967 - var_2;
     else
-        var_3 = _id_192C( "burst_range" );
+        var_3 = burst_fire_settings( "burst_range" );
 
     var_4 = gettime();
     var_5 = "start";
@@ -334,14 +334,14 @@ _id_5BC4( var_0 )
     for (;;)
     {
         var_0 waittill( "startfiring" );
-        thread _id_192B( var_0 );
+        thread burst_fire( var_0 );
         var_0 startfiring();
         var_0 waittill( "stopfiring" );
         var_0 stopfiring();
     }
 }
 
-_id_192B( var_0, var_1 )
+burst_fire( var_0, var_1 )
 {
     var_0 endon( "stopfiring" );
     self endon( "stop_using_built_in_burst_fire" );
@@ -349,22 +349,22 @@ _id_192B( var_0, var_1 )
     if ( isdefined( var_0._id_798E ) )
         var_2 = var_0._id_798E;
     else
-        var_2 = _id_192C( "delay" );
+        var_2 = burst_fire_settings( "delay" );
 
     if ( isdefined( var_0._id_798D ) )
         var_3 = var_0._id_798D - var_2;
     else
-        var_3 = _id_192C( "delay_range" );
+        var_3 = burst_fire_settings( "delay_range" );
 
     if ( isdefined( var_0._id_7968 ) )
         var_4 = var_0._id_7968;
     else
-        var_4 = _id_192C( "burst" );
+        var_4 = burst_fire_settings( "burst" );
 
     if ( isdefined( var_0._id_7967 ) )
         var_5 = var_0._id_7967 - var_4;
     else
-        var_5 = _id_192C( "burst_range" );
+        var_5 = burst_fire_settings( "burst_range" );
 
     for (;;)
     {
@@ -379,7 +379,7 @@ _id_192B( var_0, var_1 )
     }
 }
 
-_id_0663()
+_spawner_mg42_think()
 {
     if ( !isdefined( self._id_3864 ) )
         self._id_3864 = 0;
@@ -455,8 +455,8 @@ _id_0663()
 
 _id_5BCB()
 {
-    if ( !isdefined( self._id_0905 ) )
-        self._id_0905 = "manual_ai";
+    if ( !isdefined( self.ai_mode ) )
+        self.ai_mode = "manual_ai";
 
     var_0 = getnode( self.target, "targetname" );
 
@@ -492,7 +492,7 @@ _id_5BCB()
             wait 1;
         }
 
-        var_3 thread _id_5BC6( var_1, var_2, self._id_0905 );
+        var_3 thread _id_5BC6( var_1, var_2, self.ai_mode );
         var_3 thread _id_5BC4( var_1 );
         var_3 waittill( "death" );
 
@@ -578,7 +578,7 @@ _id_5BC5( var_0, var_1 )
     self endon( "death" );
     self endon( "auto_ai" );
     self.pacifist = 1;
-    self _meth_81aa( var_0._id_6581 );
+    self _meth_81AA( var_0._id_6581 );
     self.goalradius = level._id_58D9;
     self waittill( "goal" );
 
@@ -784,7 +784,7 @@ _id_83DD( var_0 )
 
 _id_5F3E( var_0, var_1, var_2 )
 {
-    self _meth_81aa( var_0._id_6581 );
+    self _meth_81AA( var_0._id_6581 );
     self.goalradius = level._id_58D9;
     self waittill( "goal" );
 
@@ -798,7 +798,7 @@ _id_5F3E( var_0, var_1, var_2 )
             var_0 cleartargetentity();
     }
 
-    self _meth_818e( var_0 );
+    self _meth_818E( var_0 );
 }
 
 _id_9274( var_0, var_1 )
@@ -817,7 +817,7 @@ _id_9274( var_0, var_1 )
 
 _id_9999( var_0 )
 {
-    var_1 = getent( var_0._id_1125, "targetname" );
+    var_1 = getent( var_0.auto_mg42_target, "targetname" );
     var_2 = 0.5;
 
     if ( isdefined( var_1._id_7B02 ) )
@@ -852,7 +852,7 @@ _id_9958( var_0, var_1 )
             var_4 = var_2[var_3].keepclaimednodeifvalid;
             var_2[var_3].keepclaimednodeifvalid = 0;
 
-            if ( !var_2[var_3] _meth_81f3( var_0 ) )
+            if ( !var_2[var_3] _meth_81F3( var_0 ) )
                 var_2[var_3].keepclaimednodeifvalid = var_4;
         }
     }
@@ -896,7 +896,7 @@ _id_5BC8( var_0, var_1 )
     var_0.convergencetime = level._id_5BD9[var_1]["convergenceTime"];
     var_0.suppressiontime = level._id_5BD9[var_1]["suppressionTime"];
     var_0.accuracy = level._id_5BD9[var_1]["accuracy"];
-    var_0._id_09A2 = level._id_5BD9[var_1]["aiSpread"];
+    var_0.aispread = level._id_5BD9[var_1]["aiSpread"];
     var_0._id_6D5F = level._id_5BD9[var_1]["playerSpread"];
 }
 
@@ -988,8 +988,8 @@ _id_5BCA( var_0, var_1, var_2 )
                 break;
             }
 
-            if ( isdefined( self._id_0C47 ) )
-                [[ self._id_0C47 ]]();
+            if ( isdefined( self.anim_wait_func ) )
+                [[ self.anim_wait_func ]]();
 
             if ( var_0 )
                 self setmode( "manual" );
@@ -1066,16 +1066,16 @@ _id_3CDB( var_0, var_1 )
 
     for ( var_4 = 0; var_4 < level._id_2F1A[var_0]._id_55AE; var_4++ )
     {
-        if ( !isdefined( level._id_2F1A[var_0]._id_0CD8[var_4] ) )
+        if ( !isdefined( level._id_2F1A[var_0].array[var_4] ) )
             continue;
 
-        var_5 = vectortoangles( level._id_2F1A[var_0]._id_0CD8[var_4].origin - self.origin );
+        var_5 = vectortoangles( level._id_2F1A[var_0].array[var_4].origin - self.origin );
         var_6 = anglestoforward( var_5 );
 
         if ( vectordot( var_3, var_6 ) < var_1 )
             continue;
 
-        var_2 = level._id_2F1A[var_0]._id_0CD8[var_4];
+        var_2 = level._id_2F1A[var_0].array[var_4];
 
         if ( !bullettracepassed( self gettagorigin( "tag_flash" ), var_2 getcentroid(), 0, var_2 ) )
         {
@@ -1168,7 +1168,7 @@ _id_7820( var_0 )
     }
 }
 
-_id_1126( var_0 )
+auto_mgturretlink( var_0 )
 {
     var_1 = getentarray( "misc_turret", "code_classname" );
     var_2 = [];
@@ -1356,18 +1356,18 @@ _id_7281( var_0 )
     self endon( "death" );
     self endon( "end_mg_behavior" );
     self endon( "stop_updating_enemy_target_pos" );
-    var_0._id_17C9 = [];
+    var_0.bread_crumbs = [];
 
     for (;;)
     {
-        var_0._id_17C9[var_0._id_17C9.size] = self.origin + ( 0.0, 0.0, 50.0 );
+        var_0.bread_crumbs[var_0.bread_crumbs.size] = self.origin + ( 0.0, 0.0, 50.0 );
         wait 0.35;
     }
 }
 
-_id_0971( var_0, var_1 )
+aim_turret_at_ambush_point_or_visible_enemy( var_0, var_1 )
 {
-    if ( !isalive( self._id_24DF ) && self _meth_81c2( self._id_24DF ) )
+    if ( !isalive( self._id_24DF ) && self _meth_81C2( self._id_24DF ) )
     {
         var_1.origin = self._id_5524;
         return;
@@ -1375,9 +1375,9 @@ _id_0971( var_0, var_1 )
 
     var_2 = anglestoforward( var_0.angles );
 
-    for ( var_3 = var_1._id_17C9.size - 3; var_3 >= 0; var_3-- )
+    for ( var_3 = var_1.bread_crumbs.size - 3; var_3 >= 0; var_3-- )
     {
-        var_4 = var_1._id_17C9[var_3];
+        var_4 = var_1.bread_crumbs[var_3];
         var_5 = vectornormalize( var_4 - var_0.origin );
         var_6 = vectordot( var_2, var_5 );
 
@@ -1420,7 +1420,7 @@ _id_3751( var_0 )
     self notify( "stop_updating_enemy_target_pos" );
 
     if ( var_3 == "ambush" )
-        _id_0971( var_2, var_0 );
+        aim_turret_at_ambush_point_or_visible_enemy( var_2, var_0 );
 
     var_2 settargetentity( var_0 );
 }
@@ -1434,7 +1434,7 @@ _id_86BC( var_0 )
 
 _id_5665( var_0 )
 {
-    self _meth_818f();
+    self _meth_818F();
     animscripts\shared::_id_6869( self.primaryweapon, "none" );
     var_1 = _id_3EA9( var_0 );
     var_2 = getstartorigin( var_0.origin, var_0.angles, var_1 );
@@ -1445,7 +1445,7 @@ _id_5665( var_0 )
 
 _id_6810( var_0 )
 {
-    self _meth_818f();
+    self _meth_818F();
     self._id_9940 _id_4866();
 }
 
@@ -1471,7 +1471,7 @@ _id_76BE( var_0 )
     self notify( "kill_get_gun_back_on_killanimscript_thread" );
     animscripts\shared::_id_6869( self.weapon, "none" );
 
-    if ( self _meth_813f() )
+    if ( self _meth_813F() )
         self.health = 1;
 
     self._id_76AF = %saw_gunner_run_fast;
@@ -1493,7 +1493,7 @@ _id_76BE( var_0 )
 
     self notify( "kill_turret_detach_thread" );
 
-    if ( self _meth_813f() )
+    if ( self _meth_813F() )
         self.health = var_1;
 
     if ( soundexists( "weapon_setup" ) )
@@ -1579,7 +1579,7 @@ _id_99A0()
 
 _id_9BE8( var_0 )
 {
-    var_1 = self _meth_818e( var_0 );
+    var_1 = self _meth_818E( var_0 );
 
     if ( var_1 )
     {
@@ -1604,7 +1604,7 @@ _id_3E36( var_0 )
     var_1 = [];
     var_1[var_1.size] = ::_id_3764;
     var_1[var_1.size] = ::_id_3766;
-    var_1 = common_scripts\utility::_id_0CF5( var_1 );
+    var_1 = common_scripts\utility::array_randomize( var_1 );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -1728,7 +1728,7 @@ _id_4866()
     self hide();
     self._id_886E = 0;
     self makeunusable();
-    self _meth_815c( 0 );
+    self _meth_815C( 0 );
     thread _id_74A8();
 }
 

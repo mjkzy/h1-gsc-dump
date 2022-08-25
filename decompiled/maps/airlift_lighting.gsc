@@ -43,7 +43,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "airlift_intro", 0 );
     level.player maps\_utility::set_light_set_player( "airlift_Start" );
-    level.player _meth_848c( "clut_airlift", 0.0 );
+    level.player _meth_848C( "clut_airlift", 0.0 );
     setsaveddvar( "fx_cast_shadow", 0 );
 }
 
@@ -122,7 +122,7 @@ apply_lighting_pass_airlift( var_0 )
     maps\_utility::_id_7F00( var_2, var_1 );
     maps\_utility::_id_395E( var_3, var_1 );
     level.player maps\_utility::set_light_set_player( var_0 );
-    level.player _meth_848c( var_4, var_1 );
+    level.player _meth_848C( var_4, var_1 );
     level.current_light_set = var_0;
 }
 
@@ -139,7 +139,7 @@ shadow_triggers_setup()
     var_0 = getentarray( "turn_off_shadows", "targetname" );
     var_1 = getentarray( "shadow_trigger", "targetname" );
     level.current_shadow = "on";
-    common_scripts\utility::_id_0D13( var_1, ::shadow_trigger_think, var_0 );
+    common_scripts\utility::array_thread( var_1, ::shadow_trigger_think, var_0 );
 }
 
 shadow_trigger_think( var_0 )

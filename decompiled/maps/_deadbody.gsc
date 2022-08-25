@@ -51,7 +51,7 @@ trigger_body( var_0 )
 {
     self waittill( "trigger" );
     var_1 = getentarray( self.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, ::spawn_dead_body, var_0 );
+    common_scripts\utility::array_thread( var_1, ::spawn_dead_body, var_0 );
 }
 
 spawn_dead_body( var_0 )
@@ -81,11 +81,11 @@ spawn_dead_body( var_0 )
     var_2 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_2.origin = self.origin;
     var_2.angles = self.angles;
-    var_2._id_0C72 = "dead_guy";
-    var_2 maps\_utility::_id_0D61();
+    var_2.animname = "dead_guy";
+    var_2 maps\_utility::assign_animtree();
 
     if ( maps\_utility::is_h1_level() )
-        var_2 _meth_855d();
+        var_2 _meth_855D();
 
     if ( !h1_ragdollspecialcase( self ) )
         var_0 que_body( var_2 );
@@ -137,12 +137,12 @@ que_body( var_0 )
         return;
 
     self.bodies[0] delete();
-    self.bodies = common_scripts\utility::_id_0D01( self.bodies );
+    self.bodies = common_scripts\utility::array_removeundefined( self.bodies );
 }
 
 lookat_custom_death_anim( var_0 )
 {
-    maps\_anim::_id_0BC7( self, var_0 );
+    maps\_anim::anim_first_frame_solo( self, var_0 );
     wait 0.5;
     var_1 = cos( 45 );
     var_2 = 0;
@@ -160,7 +160,7 @@ lookat_custom_death_anim( var_0 )
         waittillframeend;
     }
 
-    maps\_anim::_id_0C24( self, var_0 );
+    maps\_anim::anim_single_solo( self, var_0 );
 }
 
 checksighttrace( var_0 )
@@ -206,7 +206,7 @@ set_deadbody_info()
 get_custom_deadbody( var_0 )
 {
     var_1 = strtok( var_0, ":, " );
-    var_1 = common_scripts\utility::_id_0CF6( var_1, var_1[0] );
+    var_1 = common_scripts\utility::array_remove( var_1, var_1[0] );
     var_2 = spawnstruct();
     var_2.body = var_1[0];
     var_2.head = var_1[1];

@@ -40,7 +40,7 @@ _id_269E()
 
 }
 
-_id_0CA3( var_0 )
+apply_friendly_fire_damage_modifier( var_0 )
 {
     level._id_3A9C = var_0;
 }

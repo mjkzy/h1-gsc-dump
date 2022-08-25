@@ -29,8 +29,8 @@ carrystart( var_0, var_1, var_2 )
 
     if ( isdefined( var_2 ) && var_2 )
     {
-        level.player maps\_anim::_id_0BC7( level.eplayerview, "carry_idle" );
-        level.player maps\_anim::_id_0BC7( var_0, "carry_idle" );
+        level.player maps\_anim::anim_first_frame_solo( level.eplayerview, "carry_idle" );
+        level.player maps\_anim::anim_first_frame_solo( var_0, "carry_idle" );
         wait 0.1;
     }
 
@@ -40,10 +40,10 @@ carrystart( var_0, var_1, var_2 )
     level.m_carried dontcastshadows();
     level.m_player_spot = level.m_player_rig common_scripts\utility::_id_8959();
     level.m_player_spot.angles = ( 0, level.m_player_rig.angles[1], 0 );
-    level.m_player_spot thread maps\_anim::_id_0BE1( level.m_player_rig, "carry_idle" );
-    level.m_player_rig thread maps\_anim::_id_0BE1( level.m_carried, "carry_idle" );
-    level.m_carried _meth_83ff( level.player, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
-    level.m_player_rig _meth_83ff( level.player, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
+    level.m_player_spot thread maps\_anim::anim_loop_solo( level.m_player_rig, "carry_idle" );
+    level.m_player_rig thread maps\_anim::anim_loop_solo( level.m_carried, "carry_idle" );
+    level.m_carried _meth_83FF( level.player, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
+    level.m_player_rig _meth_83FF( level.player, "tag_origin", ( 0.0, 0.0, -60.0 ), ( 0.0, 0.0, 0.0 ), 1, 0, 1, 0 );
     wait 0.05;
     thread carrymoveloop( var_1 );
 }
@@ -81,38 +81,38 @@ carryupdateanimation( var_0, var_1, var_2 )
             level.m_player_spot notify( "stop_loop" );
             level.m_player_rig notify( "stop_loop" );
             level.m_carried setanimtime( level.m_carried maps\_utility::_id_3EF5( "ladder_on" ), 0 );
-            level.m_player_spot thread maps\_anim::_id_0C24( level.m_player_rig, "ladder_on" );
-            level.m_player_rig thread maps\_anim::_id_0C24( level.m_carried, "ladder_on" );
+            level.m_player_spot thread maps\_anim::anim_single_solo( level.m_player_rig, "ladder_on" );
+            level.m_player_rig thread maps\_anim::anim_single_solo( level.m_carried, "ladder_on" );
         }
     }
     else if ( var_3 )
     {
-        level.m_player_spot thread maps\_anim::_id_0C24( level.m_player_rig, "ladder_off" );
-        level.m_player_rig thread maps\_anim::_id_0C24( level.m_carried, "ladder_off" );
+        level.m_player_spot thread maps\_anim::anim_single_solo( level.m_player_rig, "ladder_off" );
+        level.m_player_rig thread maps\_anim::anim_single_solo( level.m_carried, "ladder_off" );
     }
     else if ( !var_1 && var_4 )
     {
         level.m_player_spot notify( "stop_loop" );
         level.m_player_rig notify( "stop_loop" );
-        level.m_player_spot thread maps\_anim::_id_0BE1( level.m_player_rig, "carry_idle" );
-        level.m_player_rig thread maps\_anim::_id_0BE1( level.m_carried, "carry_idle" );
+        level.m_player_spot thread maps\_anim::anim_loop_solo( level.m_player_rig, "carry_idle" );
+        level.m_player_rig thread maps\_anim::anim_loop_solo( level.m_carried, "carry_idle" );
     }
     else if ( var_1 && !var_4 )
     {
         level.m_player_spot notify( "stop_loop" );
         level.m_player_rig notify( "stop_loop" );
-        level.m_player_spot thread maps\_anim::_id_0BE1( level.m_player_rig, "carry_run" );
-        level.m_player_rig thread maps\_anim::_id_0BE1( level.m_carried, "carry_run" );
+        level.m_player_spot thread maps\_anim::anim_loop_solo( level.m_player_rig, "carry_run" );
+        level.m_player_rig thread maps\_anim::anim_loop_solo( level.m_carried, "carry_run" );
     }
 
     var_5 = 0;
 
     if ( var_1 && !var_0 && !var_3 )
     {
-        var_6 = level.m_player_rig _meth_8151( level._id_78AC[level.m_player_rig._id_0C72]["carry_run"][0] );
-        level.m_carried setanimtime( level._id_78AC[level.m_carried._id_0C72]["carry_run"][0], var_6 );
-        level.m_player_rig setflaggedanim( "looping anim", level._id_78AC[level.m_player_rig._id_0C72]["carry_run"][0], 1, 0, var_2 );
-        level.m_carried setflaggedanim( "looping anim", level._id_78AC[level.m_carried._id_0C72]["carry_run"][0], 1, 0, var_2 );
+        var_6 = level.m_player_rig _meth_8151( level._id_78AC[level.m_player_rig.animname]["carry_run"][0] );
+        level.m_carried setanimtime( level._id_78AC[level.m_carried.animname]["carry_run"][0], var_6 );
+        level.m_player_rig setflaggedanim( "looping anim", level._id_78AC[level.m_player_rig.animname]["carry_run"][0], 1, 0, var_2 );
+        level.m_carried setflaggedanim( "looping anim", level._id_78AC[level.m_carried.animname]["carry_run"][0], 1, 0, var_2 );
         var_5 = 1;
     }
 
@@ -131,5 +131,5 @@ carrystop()
     level.m_player_rig = undefined;
     level.m_player_spot delete();
     level.m_player_spot = undefined;
-    level.player _meth_834a( 0 );
+    level.player _meth_834A( 0 );
 }

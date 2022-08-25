@@ -79,7 +79,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
     {
         _id_4C30();
 
-        if ( self _meth_843e( "tag_flash" ) == -1 )
+        if ( self _meth_843E( "tag_flash" ) == -1 )
         {
             wait 0.05;
             continue;
@@ -114,7 +114,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
         if ( var_29 )
             var_28 = self._id_8E2A;
 
-        var_7 = self _meth_81bf( var_23, var_27, var_26, var_12, var_28, var_29, var_25 );
+        var_7 = self _meth_81BF( var_23, var_27, var_26, var_12, var_28, var_29, var_25 );
         var_30 = var_7[0];
         var_31 = var_7[1];
         var_7 = undefined;
@@ -232,7 +232,7 @@ _id_9503( var_0, var_1 )
     if ( animscripts\utility::_id_7262() )
     {
         var_2 = self.enemy getshootatpos() - self.enemy.origin;
-        var_3 = self _meth_81c5( self.enemy ) + var_2;
+        var_3 = self _meth_81C5( self.enemy ) + var_2;
         return _id_9506( var_3 - var_0, var_1 );
     }
 
@@ -327,68 +327,68 @@ _id_9507( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_12 = 0;
     var_13 = 0.1;
 
-    if ( isdefined( self._id_0974 ) )
-        var_13 = self._id_0974;
+    if ( isdefined( self.aimblendtime ) )
+        var_13 = self.aimblendtime;
 
     if ( var_6 > 0 )
     {
-        var_11 = clamp( var_6 / self.animaimlimit.rightaimlimit * self.a._id_097E, 0, 1 );
+        var_11 = clamp( var_6 / self.animaimlimit.rightaimlimit * self.a.aimweight, 0, 1 );
         var_10 = 1;
     }
     else if ( var_6 < 0 )
     {
-        var_9 = clamp( var_6 / self.animaimlimit.leftaimlimit * self.a._id_097E, 0, 1 );
+        var_9 = clamp( var_6 / self.animaimlimit.leftaimlimit * self.a.aimweight, 0, 1 );
         var_10 = 1;
     }
 
     if ( var_5 > 0 )
     {
-        var_12 = var_5 / var_7.upaimlimit * self.a._id_097E;
+        var_12 = var_5 / var_7.upaimlimit * self.a.aimweight;
         var_10 = 1;
     }
     else if ( var_5 < 0 )
     {
-        var_8 = var_5 / var_7.downaimlimit * self.a._id_097E;
+        var_8 = var_5 / var_7.downaimlimit * self.a.aimweight;
         var_10 = 1;
     }
 
-    self _meth_814e( var_0, var_8, var_13, 1, 1 );
-    self _meth_814e( var_1, var_9, var_13, 1, 1 );
-    self _meth_814e( var_2, var_11, var_13, 1, 1 );
-    self _meth_814e( var_3, var_12, var_13, 1, 1 );
+    self _meth_814E( var_0, var_8, var_13, 1, 1 );
+    self _meth_814E( var_1, var_9, var_13, 1, 1 );
+    self _meth_814E( var_2, var_11, var_13, 1, 1 );
+    self _meth_814E( var_3, var_12, var_13, 1, 1 );
 
     if ( isdefined( var_4 ) )
-        self _meth_814e( var_4, var_10, var_13, 1, 1 );
+        self _meth_814E( var_4, var_10, var_13, 1, 1 );
 }
 
 _id_7F21( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) || var_1 <= 0 )
     {
-        self.a._id_097E = var_0;
-        self.a._id_0980 = var_0;
-        self.a._id_097F = var_0;
-        self.a._id_0982 = 0;
+        self.a.aimweight = var_0;
+        self.a.aimweight_start = var_0;
+        self.a.aimweight_end = var_0;
+        self.a.aimweight_transframes = 0;
     }
     else
     {
-        if ( !isdefined( self.a._id_097E ) )
-            self.a._id_097E = 0;
+        if ( !isdefined( self.a.aimweight ) )
+            self.a.aimweight = 0;
 
-        self.a._id_0980 = self.a._id_097E;
-        self.a._id_097F = var_0;
-        self.a._id_0982 = int( var_1 * 20 );
+        self.a.aimweight_start = self.a.aimweight;
+        self.a.aimweight_end = var_0;
+        self.a.aimweight_transframes = int( var_1 * 20 );
     }
 
-    self.a._id_0981 = 0;
+    self.a.aimweight_t = 0;
 }
 
 _id_4C30()
 {
-    if ( self.a._id_0981 < self.a._id_0982 )
+    if ( self.a.aimweight_t < self.a.aimweight_transframes )
     {
-        self.a._id_0981++;
-        var_0 = 1.0 * self.a._id_0981 / self.a._id_0982;
-        self.a._id_097E = self.a._id_0980 * ( 1 - var_0 ) + self.a._id_097F * var_0;
+        self.a.aimweight_t++;
+        var_0 = 1.0 * self.a.aimweight_t / self.a.aimweight_transframes;
+        self.a.aimweight = self.a.aimweight_start * ( 1 - var_0 ) + self.a.aimweight_end * var_0;
     }
 }

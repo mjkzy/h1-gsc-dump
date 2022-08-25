@@ -83,7 +83,7 @@ _id_486B( var_0 )
     }
 }
 
-_id_0907( var_0, var_1 )
+ai_notify( var_0, var_1 )
 {
     self endon( "death" );
     var_1 = int( var_1 * 1000 );
@@ -157,13 +157,13 @@ _id_3CB9( var_0, var_1, var_2 )
     for ( var_5 = 0; var_5 < var_3.size; var_5++ )
     {
         if ( distance( var_1, self.origin ) <= var_0 )
-            common_scripts\utility::_id_0CDA( var_4, var_3[var_5] );
+            common_scripts\utility::array_add( var_4, var_3[var_5] );
     }
 
     return var_4;
 }
 
-_id_0926( var_0 )
+ai_stun( var_0 )
 {
     self endon( "death" );
 
@@ -173,9 +173,9 @@ _id_0926( var_0 )
 
 _id_8CC0( var_0 )
 {
-    self _meth_81ca( var_0.origin, var_0.angles );
-    self _meth_81aa( self.origin );
-    self _meth_81a9( var_0 );
+    self _meth_81CA( var_0.origin, var_0.angles );
+    self _meth_81AA( self.origin );
+    self _meth_81A9( var_0 );
 }
 
 _id_A0AB( var_0, var_1 )
@@ -232,14 +232,14 @@ _id_7E51( var_0, var_1 )
 
     var_2 = getnode( var_1.target, "targetname" );
     self._id_4254 = var_1;
-    self _meth_81a9( var_2 );
+    self _meth_81A9( var_2 );
     self.goalradius = 0;
 
     if ( isdefined( var_2.radius ) )
         self.goalradius = var_2.radius;
 
-    self _meth_81aa( var_1.origin );
-    self _meth_81ac( var_1 );
+    self _meth_81AA( var_1.origin );
+    self _meth_81AC( var_1 );
 }
 
 _id_A0C0( var_0 )
@@ -253,7 +253,7 @@ _id_A0C0( var_0 )
 _id_742E()
 {
     self endon( "death" );
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self._id_4254 = undefined;
 }
 
@@ -358,9 +358,9 @@ _id_981B( var_0, var_1, var_2 )
     var_3 = getentarray( var_0, var_1 );
 
     if ( var_2 == 1 )
-        common_scripts\utility::_id_0D13( var_3, common_scripts\utility::_id_97CE );
+        common_scripts\utility::array_thread( var_3, common_scripts\utility::_id_97CE );
     else
-        common_scripts\utility::_id_0D13( var_3, common_scripts\utility::_id_97CC );
+        common_scripts\utility::array_thread( var_3, common_scripts\utility::_id_97CC );
 }
 
 _id_9810( var_0 )
@@ -370,7 +370,7 @@ _id_9810( var_0 )
     var_1 common_scripts\utility::_id_97CC();
 }
 
-_id_06A7()
+aa_ai_functions()
 {
 
 }
@@ -378,7 +378,7 @@ _id_06A7()
 _id_5852( var_0 )
 {
     var_1 = vectortoangles( self.origin - var_0.origin );
-    self _meth_816d( var_1[1] );
+    self _meth_816D( var_1[1] );
 }
 
 _id_7ED7( var_0 )
@@ -420,15 +420,15 @@ _id_7430()
 _id_7DD7( var_0 )
 {
     if ( !isdefined( self._id_6395 ) )
-        self._id_6395 = self._id_0C72;
+        self._id_6395 = self.animname;
 
-    self._id_0C72 = var_0;
+    self.animname = var_0;
 }
 
 _id_7422()
 {
     if ( isdefined( self._id_6395 ) )
-        self._id_0C72 = self._id_6395;
+        self.animname = self._id_6395;
 
     self._id_6395 = undefined;
 }
@@ -519,15 +519,15 @@ _id_744D()
 _id_7DAE( var_0 )
 {
     if ( !isdefined( self._id_6392 ) )
-        self._id_6392 = self._id_1300;
+        self._id_6392 = self.baseaccuracy;
 
-    self._id_1300 = var_0;
+    self.baseaccuracy = var_0;
 }
 
 _id_741F()
 {
     if ( isdefined( self._id_6392 ) )
-        self._id_1300 = self._id_6392;
+        self.baseaccuracy = self._id_6392;
 
     self._id_6392 = undefined;
 }
@@ -562,7 +562,7 @@ _id_443F( var_0, var_1 )
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
         if ( isdefined( var_2[var_3] ) )
-            var_0[var_3] _meth_81c9( var_2[var_3].origin );
+            var_0[var_3] _meth_81C9( var_2[var_3].origin );
     }
 }
 
@@ -612,7 +612,7 @@ _id_6251( var_0, var_1, var_2, var_3 )
         for ( var_6 = 0; var_6 < var_3.size; var_6++ )
         {
             if ( maps\_utility::_id_503B( var_5, var_3[var_6] ) )
-                var_5 = common_scripts\utility::_id_0CF6( var_5, var_3[var_6] );
+                var_5 = common_scripts\utility::array_remove( var_5, var_3[var_6] );
         }
     }
 
@@ -674,7 +674,7 @@ _id_4284( var_0 )
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
     _id_7F7F( var_1.radius );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self waittill( "goal" );
     _id_744C();
 }
@@ -689,7 +689,7 @@ _id_4285( var_0 )
 
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     _id_7F7F( var_1.radius );
     self waittill( "goal" );
     self delete();
@@ -705,7 +705,7 @@ _id_4286( var_0 )
 
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     _id_7F7F( var_1.radius );
     self waittill( "goal" );
     _id_7DD7( "guy" );
@@ -717,19 +717,19 @@ _id_39CF( var_0 )
 {
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self _meth_81a7( 1 );
-    self _meth_81a9( var_1 );
+    self _meth_81A7( 1 );
+    self _meth_81A9( var_1 );
     self waittill( "goal" );
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
     _id_744C();
 }
 
 _id_7FF4( var_0 )
 {
     if ( var_0 == "all" )
-        self _meth_81ce( "stand", "crouch", "prone" );
+        self _meth_81CE( "stand", "crouch", "prone" );
     else
-        self _meth_81ce( var_0 );
+        self _meth_81CE( var_0 );
 }
 
 _id_4FA8( var_0 )
@@ -765,12 +765,12 @@ _id_428A( var_0 )
     self endon( "death" );
     var_1 = getent( var_0, "targetname" );
     var_2 = getnode( var_1.target, "targetname" );
-    self _meth_81a9( var_2 );
-    self _meth_81ac( var_1 );
+    self _meth_81A9( var_2 );
+    self _meth_81AC( var_1 );
     self.goalradius = var_2.radius;
 }
 
-_id_06B0()
+aa_spawning_functions()
 {
 
 }
@@ -786,7 +786,7 @@ spawndude( var_0, var_1 )
     return var_2;
 }
 
-_id_06A8()
+aa_door_functions()
 {
 
 }

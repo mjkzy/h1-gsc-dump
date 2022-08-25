@@ -80,12 +80,12 @@ _id_64C8()
     {
         level waittill( "connected", var_0 );
         var_0.killedplayers = [];
-        var_0.damagedplayers = [];
-        var_0.lastkilledby = undefined;
-        var_0.recentkillcount = 0;
-        var_0.lastkilltime = 0;
-        var_0.greatestuniqueplayerkills = 0;
-        var_0.lastkilldogtime = 0;
+        var_0._id_259A = [];
+        var_0._id_55B1 = undefined;
+        var_0._id_7260 = 0;
+        var_0._id_55B6 = 0;
+        var_0.bulletstreak = 0;
+        var_0._id_558D = 0;
     }
 }
 
@@ -110,18 +110,18 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
 
     if ( maps\mp\_utility::_id_50CD( var_3 ) )
     {
-        if ( self.lastkilltime == var_8 )
-            self.greatestuniqueplayerkills++;
+        if ( self._id_55B6 == var_8 )
+            self.bulletstreak++;
         else
-            self.greatestuniqueplayerkills = 1;
+            self.bulletstreak = 1;
     }
     else
-        self.greatestuniqueplayerkills = 0;
+        self.bulletstreak = 0;
 
-    self.lastkilltime = gettime();
+    self._id_55B6 = gettime();
     self._id_55B2 = var_1;
     self.modifiers = [];
-    self.damagedplayers[var_5] = undefined;
+    self._id_259A[var_5] = undefined;
     thread _id_9B55( var_0, var_2 );
 
     if ( !maps\mp\_utility::iskillstreakweapon( var_2 ) )
@@ -147,8 +147,8 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
         if ( level._id_62A5 == 1 )
             _id_3816( var_0, var_2, var_3 );
 
-        if ( level.teambased && var_8 - var_1.lastkilltime < 3000 && var_1._id_55B2 != self )
-            _id_117C( var_0, var_2, var_3 );
+        if ( level.teambased && var_8 - var_1._id_55B6 < 3000 && var_1._id_55B2 != self )
+            avengedplayerevent( var_0, var_2, var_3 );
 
         if ( !isalive( self ) && self != var_1 && isdefined( self._id_2671 ) && self._id_2671 + 1200 < gettime() )
             _id_6E87( var_0 );
@@ -156,8 +156,8 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
         if ( self.pers["cur_death_streak"] > 3 )
             _id_20B8( var_0, var_2, var_3 );
 
-        if ( isdefined( self._id_0D77 ) && self._id_0D77 )
-            _id_0D78( var_0, var_2, var_3 );
+        if ( isdefined( self.assistedsuicide ) && self.assistedsuicide )
+            assistedsuicideevent( var_0, var_2, var_3 );
 
         if ( _id_514B( self, var_2, var_3, var_1 ) )
             _id_5850( var_0, var_2, var_3 );
@@ -166,16 +166,16 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
             _id_27AA( var_0, var_2, var_3 );
 
         if ( var_6 > 0 && _id_50D0( var_1 ) )
-            _id_1967( var_0, var_1, var_2, var_3 );
+            buzzkillevent( var_0, var_1, var_2, var_3 );
 
         if ( _id_5166( var_1, var_2, var_3 ) )
             _id_64A1( var_0, var_2, var_3 );
 
-        if ( isdefined( self.lastkilledby ) && self.lastkilledby == var_1 )
+        if ( isdefined( self._id_55B1 ) && self._id_55B1 == var_1 )
             _id_74EA( var_0 );
 
         if ( var_1.idflags & level._id_4B5C )
-            _id_18AD( var_0, var_2 );
+            bulletpenetrationevent( var_0, var_2 );
 
         if ( _id_5180( var_1, var_3 ) )
             _id_6E24( var_0, var_2, var_3 );
@@ -189,19 +189,19 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
         if ( _id_51D2( var_2, var_3 ) )
             _id_9310();
 
-        if ( self.greatestuniqueplayerkills == 2 )
+        if ( self.bulletstreak == 2 )
             _id_5FE6();
 
         if ( _id_50C5( var_1, var_2, var_3 ) )
-            _id_125C();
+            backstabevent();
 
         if ( _id_51D5( var_1, var_2, var_3 ) )
             _id_9339();
 
-        if ( isdefined( self.tookweaponfrom[var_2] ) && self.tookweaponfrom[var_2] == var_1 && !maps\mp\_utility::_id_5150( var_3 ) )
+        if ( isdefined( self._id_680B[var_2] ) && self._id_680B[var_2] == var_1 && !maps\mp\_utility::_id_5150( var_3 ) )
             _id_911F();
 
-        if ( maps\mp\_utility::_id_50CD( var_3 ) && !isdefined( self._id_0D77 ) )
+        if ( maps\mp\_utility::_id_50CD( var_3 ) && !isdefined( self.assistedsuicide ) )
         {
             if ( maps\mp\_utility::_hasperk( "specialty_bulletdamage" ) )
                 stoppingpowerevent();
@@ -253,7 +253,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
     self.killedplayers[var_5]++;
     addnemesisscoreforplayer( var_5, 1.0 );
     var_1.pers["killed_by"][var_7]++;
-    var_1.lastkilledby = self;
+    var_1._id_55B1 = self;
     var_1 addnemesisscoreforplayer( var_7, 1.5 );
 
     if ( self.pers["prey_guid"] == "" || self.pers["killed_players"][var_5] > self.pers["killed_players"][self.pers["prey_guid"]] )
@@ -267,8 +267,8 @@ _id_5180( var_0, var_1 )
         var_2 = self.origin;
         var_3 = 9216;
 
-        if ( isdefined( var_0._id_0E33 ) )
-            var_2 = var_0._id_0E33;
+        if ( isdefined( var_0.attackerposition ) )
+            var_2 = var_0.attackerposition;
 
         if ( distancesquared( var_2, var_0.origin ) < var_3 )
             return 1;
@@ -280,7 +280,7 @@ _id_5180( var_0, var_1 )
 _id_6E24( var_0, var_1, var_2 )
 {
     maps\mp\_utility::_id_4C2F( "pointblank", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "pointblank", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "pointblank", self, var_1, undefined, var_2 );
 
     if ( maps\mp\_utility::_hasperk( "specialty_quieter" ) )
         maps\mp\gametypes\_misions::_id_6FF6( "ch_deadsilence" );
@@ -313,12 +313,12 @@ _id_5361( var_0, var_1, var_2 )
         maps\mp\gametypes\_misions::_id_1C55( var_3 );
     }
 
-    level thread maps\mp\gametypes\_rank::_id_1208( var_3, self, var_1, var_0, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_3, self, var_1, var_0, var_2 );
 }
 
 _id_51D2( var_0, var_1 )
 {
-    if ( maps\mp\_utility::_id_5092( self._id_0D77 ) )
+    if ( maps\mp\_utility::_id_5092( self.assistedsuicide ) )
         return 0;
 
     if ( var_1 == "MOD_IMPACT" || var_1 == "MOD_HEAD_SHOT" )
@@ -347,20 +347,20 @@ _id_51D3( var_0 )
 _id_9310()
 {
     maps\mp\_utility::_id_4C2F( "think_fast", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "think_fast", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "think_fast", self );
 }
 
 _id_300B( var_0, var_1, var_2, var_3 )
 {
     maps\mp\_utility::_id_4C2F( var_0 + "_earned", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( var_0 + "_earned", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_0 + "_earned", self );
     thread maps\mp\gametypes\_hud_message::_id_53A9( var_0, var_1, undefined, var_2, var_3 );
 }
 
-_id_18AD( var_0, var_1 )
+bulletpenetrationevent( var_0, var_1 )
 {
     maps\mp\_utility::_id_4C2F( "bulletpenkills", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "bulletpen", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "bulletpen", self );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_xrayvision" );
 
     if ( maps\mp\_utility::_hasperk( "specialty_bulletpenetration" ) )
@@ -370,7 +370,7 @@ _id_18AD( var_0, var_1 )
 _id_5FE6()
 {
     maps\mp\_utility::_id_4C2F( "multiKillOneBullet", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "multiKillOneBullet", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "multiKillOneBullet", self );
 }
 
 _id_1D28( var_0, var_1, var_2 )
@@ -381,7 +381,7 @@ _id_1D28( var_0, var_1, var_2 )
 _id_606F( var_0, var_1 )
 {
     maps\mp\_utility::_id_4C2F( "near_death_kill", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "near_death_kill", self, var_0, undefined, var_1 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "near_death_kill", self, var_0, undefined, var_1 );
 
     if ( maps\mp\_utility::_hasperk( "specialty_armorvest" ) )
         maps\mp\gametypes\_misions::_id_6FF6( "ch_juggernaut" );
@@ -390,7 +390,7 @@ _id_606F( var_0, var_1 )
 _id_38B0( var_0, var_1 )
 {
     maps\mp\_utility::_id_4C2F( "flash_kill", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "flash_kill", self, var_0, undefined, var_1 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "flash_kill", self, var_0, undefined, var_1 );
 }
 
 _id_5166( var_0, var_1, var_2 )
@@ -404,7 +404,7 @@ _id_5166( var_0, var_1, var_2 )
     if ( maps\mp\_utility::_id_5150( var_2 ) )
         return 0;
 
-    if ( gettime() != var_0._id_0E2C[self.guid]._id_3822 )
+    if ( gettime() != var_0.attackerdata[self.guid]._id_3822 )
         return 0;
 
     var_3 = maps\mp\_utility::getweaponclass( var_1 );
@@ -417,15 +417,15 @@ _id_5166( var_0, var_1, var_2 )
 
 _id_514B( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( var_3._id_08A2 ) )
+    if ( isdefined( var_3.agentbody ) )
         return 0;
 
     var_4 = self.origin;
 
-    if ( isdefined( var_3._id_0E33 ) )
-        var_4 = var_3._id_0E33;
+    if ( isdefined( var_3.attackerposition ) )
+        var_4 = var_3.attackerposition;
 
-    if ( isalive( var_0 ) && !var_0 maps\mp\_utility::_id_51E3() && ( var_2 == "MOD_RIFLE_BULLET" || var_2 == "MOD_PISTOL_BULLET" || var_2 == "MOD_HEAD_SHOT" || issubstr( var_1, "exocrossbow" ) || issubstr( var_1, "m990" ) ) && !maps\mp\_utility::iskillstreakweapon( var_1 ) && !isdefined( var_0._id_0D77 ) )
+    if ( isalive( var_0 ) && !var_0 maps\mp\_utility::_id_51E3() && ( var_2 == "MOD_RIFLE_BULLET" || var_2 == "MOD_PISTOL_BULLET" || var_2 == "MOD_HEAD_SHOT" || issubstr( var_1, "exocrossbow" ) || issubstr( var_1, "m990" ) ) && !maps\mp\_utility::iskillstreakweapon( var_1 ) && !isdefined( var_0.assistedsuicide ) )
     {
         var_5 = maps\mp\_utility::getweaponclass( var_1 );
 
@@ -470,7 +470,7 @@ _id_518F( var_0, var_1 )
     if ( !level.teambased )
         return 0;
 
-    foreach ( var_4, var_3 in var_0.damagedplayers )
+    foreach ( var_4, var_3 in var_0._id_259A )
     {
         if ( var_4 != self.guid && var_1 - var_3 < 500 )
             return 1;
@@ -483,7 +483,7 @@ _id_5850( var_0, var_1, var_2 )
 {
     self.modifiers["longshot"] = 1;
     maps\mp\_utility::_id_4C2F( "longshots", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "longshot", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "longshot", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "longshot" );
 }
 
@@ -494,7 +494,7 @@ _id_477E( var_0, var_1, var_2 )
     maps\mp\_utility::_id_4C2F( "headshots", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "headshots", maps\mp\_utility::_id_1E29( self.pers["headshots"] ) );
     self.headshots = maps\mp\_utility::_id_4081( "headshots" );
-    level thread maps\mp\gametypes\_rank::_id_1208( "headshot", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "headshot", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "headshot" );
 
     if ( !isdefined( self.headhuntercounter ) )
@@ -524,23 +524,23 @@ _id_51D5( var_0, var_1, var_2 )
 _id_9339()
 {
     maps\mp\_utility::_id_4C2F( "throwback_kill", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "throwback_kill", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "throwback_kill", self );
 }
 
-_id_117C( var_0, var_1, var_2 )
+avengedplayerevent( var_0, var_1, var_2 )
 {
     self.modifiers["avenger"] = 1;
     maps\mp\_utility::_id_4C2F( "avengekills", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "avenger", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "avenger", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "avenger" );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_avenger" );
 }
 
-_id_0D78( var_0, var_1, var_2 )
+assistedsuicideevent( var_0, var_1, var_2 )
 {
     self.modifiers["assistedsuicide"] = 1;
     maps\mp\_utility::_id_4C2F( "assistedsuicide", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "assistedsuicide", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "assistedsuicide", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "assistedsuicide" );
 }
 
@@ -548,7 +548,7 @@ _id_27AA( var_0, var_1, var_2 )
 {
     self.modifiers["defender"] = 1;
     maps\mp\_utility::_id_4C2F( "rescues", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "defender", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "defender", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "defender" );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_savior" );
 }
@@ -558,14 +558,14 @@ _id_27AE( var_0, var_1 )
     maps\mp\_utility::_id_4C2F( "defends", 1 );
     maps\mp\_utility::_id_4C2E( "defends", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "defends", self.pers["defends"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "defend", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "defend", self );
     var_0 thread maps\mp\_matchdata::_id_5838( var_1, "assaulting" );
 }
 
-_id_0D52( var_0, var_1 )
+assaultobjectiveevent( var_0, var_1 )
 {
     maps\mp\_utility::_id_4C2F( "assault", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "assault", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "assault", self );
     var_0 thread maps\mp\_matchdata::_id_5838( var_1, "defending" );
 }
 
@@ -573,7 +573,7 @@ _id_6E87( var_0 )
 {
     self.modifiers["posthumous"] = 1;
     maps\mp\_utility::_id_4C2F( "posthumous", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "posthumous", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "posthumous", self );
     thread maps\mp\_matchdata::_id_5838( var_0, "posthumous" );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_afterlife" );
 }
@@ -596,19 +596,19 @@ _id_50C5( var_0, var_1, var_2 )
     return 0;
 }
 
-_id_125C( var_0 )
+backstabevent( var_0 )
 {
     maps\mp\_utility::_id_4C2F( "backstab", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "backstab", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "backstab", self );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_backstab" );
 }
 
 _id_74EA( var_0 )
 {
     self.modifiers["revenge"] = 1;
-    self.lastkilledby = undefined;
+    self._id_55B1 = undefined;
     maps\mp\_utility::_id_4C2F( "revengekills", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "revenge", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "revenge", self );
     thread maps\mp\_matchdata::_id_5838( var_0, "revenge" );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_revenge" );
 }
@@ -634,12 +634,12 @@ _id_5FE5( var_0, var_1, var_2, var_3 )
     switch ( var_1 )
     {
         case 2:
-            level thread maps\mp\gametypes\_rank::_id_1208( "doublekill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "doublekill", self );
             maps\mp\_utility::_id_4C2F( "doublekill", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_double" );
             break;
         case 3:
-            level thread maps\mp\gametypes\_rank::_id_1208( "triplekill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "triplekill", self );
             level thread maps\mp\_utility::_id_91FA( "callout_3xkill", self );
             maps\mp\_utility::_id_4C2F( "triplekill", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_triple" );
@@ -649,35 +649,35 @@ _id_5FE5( var_0, var_1, var_2, var_3 )
 
             break;
         case 4:
-            level thread maps\mp\gametypes\_rank::_id_1208( "fourkill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "fourkill", self );
             level thread maps\mp\_utility::_id_91FA( "callout_4xkill", self );
             maps\mp\_utility::_id_4C2F( "fourkill", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_quadra" );
             break;
         case 5:
-            level thread maps\mp\gametypes\_rank::_id_1208( "fivekill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "fivekill", self );
             level thread maps\mp\_utility::_id_91FA( "callout_5xkill", self );
             maps\mp\_utility::_id_4C2F( "fivekill", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_penta" );
             break;
         case 6:
-            level thread maps\mp\gametypes\_rank::_id_1208( "sixkill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "sixkill", self );
             level thread maps\mp\_utility::_id_91FA( "callout_6xkill", self );
             maps\mp\_utility::_id_4C2F( "sixkill", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_hexa" );
             break;
         case 7:
-            level thread maps\mp\gametypes\_rank::_id_1208( "sevenkill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "sevenkill", self );
             level thread maps\mp\_utility::_id_91FA( "callout_7xkill", self );
             maps\mp\_utility::_id_4C2F( "sevenkill", 1 );
             break;
         case 8:
-            level thread maps\mp\gametypes\_rank::_id_1208( "eightkill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "eightkill", self );
             level thread maps\mp\_utility::_id_91FA( "callout_8xkill", self );
             maps\mp\_utility::_id_4C2F( "eightkill", 1 );
             break;
         default:
-            level thread maps\mp\gametypes\_rank::_id_1208( "multikill", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "multikill", self );
             thread maps\mp\_utility::_id_91FA( "callout_9xpluskill", self );
             maps\mp\_utility::_id_4C2F( "multikill", 1 );
             break;
@@ -689,7 +689,7 @@ _id_5FE5( var_0, var_1, var_2, var_3 )
 _id_911F()
 {
     maps\mp\_utility::_id_4C2F( "take_and_kill", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "take_and_kill", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "take_and_kill", self );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_backfire" );
 
     if ( maps\mp\_utility::_id_4015() == "mp_bog_summer" )
@@ -707,7 +707,7 @@ _id_3868()
 {
     thread maps\mp\_utility::_id_91FA( "callout_flagpickup", self );
     maps\mp\_utility::_id_4C2F( "flagscarried", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "flag_pickup", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "flag_pickup", self );
     thread maps\mp\_matchdata::_id_5827( "pickup", self.origin );
 }
 
@@ -718,7 +718,7 @@ _id_385F()
     maps\mp\_utility::_id_4C2E( "captures", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
     maps\mp\_utility::_id_7F6B( self.pers["captures"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "flag_capture", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "flag_capture", self );
     thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
 }
 
@@ -729,14 +729,14 @@ _id_3869()
     maps\mp\_utility::_id_4C2E( "returns", 1 );
     self.assists = self.pers["returns"];
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "returns", self.pers["returns"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "flag_return", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "flag_return", self );
     thread maps\mp\_matchdata::_id_5827( "return", self.origin );
 }
 
 _id_53B6()
 {
     maps\mp\_utility::_id_4C2F( "killsasflagcarrier", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "kill_with_flag", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "kill_with_flag", self );
 }
 
 _id_5368( var_0 )
@@ -745,7 +745,7 @@ _id_5368( var_0 )
     maps\mp\_utility::_id_4C2F( "flagcarrierkills", 1 );
     maps\mp\_utility::_id_4C2E( "defends", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "defends", self.pers["defends"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "kill_flag_carrier", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "kill_flag_carrier", self );
     thread maps\mp\_matchdata::_id_5838( var_0, "carrying" );
 }
 
@@ -764,7 +764,7 @@ _id_5359( var_0 )
         maps\mp\gametypes\_misions::_id_6FF6( "ch_save_yourself" );
     }
 
-    level thread maps\mp\gametypes\_rank::_id_1208( var_1, self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_1, self );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_denial" );
 }
 
@@ -774,14 +774,14 @@ _id_5356()
     maps\mp\_utility::_id_4C2E( "confirmed", 1 );
     maps\mp\_utility::_id_7F6B( self.pers["confirmed"] );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "confirmed", self.pers["confirmed"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "kill_confirmed", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "kill_confirmed", self );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_collector" );
 }
 
 _id_90E0()
 {
     maps\mp\_utility::_id_4C2F( "tag_collector", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "tag_collector", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "tag_collector", self );
 }
 
 _id_5ED2( var_0 )
@@ -809,18 +809,18 @@ _id_5ED2( var_0 )
         var_0._id_90E1 = 0;
 }
 
-_id_1548()
+bombplantevent()
 {
     maps\mp\_utility::_id_4C2F( "bombsplanted", 1 );
     maps\mp\_utility::_id_4C2E( "plants", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "plants", self.pers["plants"] );
     maps\mp\_utility::_id_7F6B( self.pers["plants"] );
     level thread maps\mp\_utility::_id_91FA( "callout_bombplanted", self );
-    level thread maps\mp\gametypes\_rank::_id_1208( "plant", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "plant", self );
     thread maps\mp\_matchdata::_id_5827( "plant", self.origin );
 }
 
-_id_1537( var_0 )
+bombdefuseevent( var_0 )
 {
     maps\mp\_utility::_id_4C2F( "bombsdefused", 1 );
     maps\mp\_utility::_id_4C2E( "defuses", 1 );
@@ -832,11 +832,11 @@ _id_1537( var_0 )
     {
         maps\mp\_utility::_id_4C2F( var_0, 1 );
 
-        if ( var_0 == "ninja_defuse" && isdefined( level._id_1544 ) && level._id_1544._id_1547 + 6000 + level._id_27BF * 1000 > gettime() )
+        if ( var_0 == "ninja_defuse" && isdefined( level.bombowner ) && level.bombowner.bombplantedtime + 6000 + level._id_27BF * 1000 > gettime() )
             maps\mp\gametypes\_misions::_id_6FF6( "ch_ninja" );
     }
 
-    level thread maps\mp\gametypes\_rank::_id_1208( var_0, self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_0, self );
     thread maps\mp\_matchdata::_id_5827( "defuse", self.origin );
 }
 
@@ -848,26 +848,26 @@ _id_305C( var_0, var_1 )
     if ( var_0 )
     {
         maps\mp\_utility::_id_4C2F( "last_man_standing", 1 );
-        level thread maps\mp\gametypes\_rank::_id_1208( "last_man_standing", self );
+        level thread maps\mp\gametypes\_rank::awardgameevent( "last_man_standing", self );
     }
     else
-        level thread maps\mp\gametypes\_rank::_id_1208( "elimination", self );
+        level thread maps\mp\gametypes\_rank::awardgameevent( "elimination", self );
 }
 
-_id_1539()
+bombdetonateevent()
 {
     maps\mp\_utility::_id_4C2F( "targetsdestroyed", 1 );
     maps\mp\_utility::_id_4C2E( "destructions", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "destructions", self.pers["destructions"] );
     level thread maps\mp\_utility::_id_91FA( "callout_destroyed_objective", self );
-    level thread maps\mp\gametypes\_rank::_id_1208( "destroy", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "destroy", self );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_sd_destroyer" );
 }
 
 _id_4C34()
 {
     maps\mp\_utility::_id_4C2F( "levelup", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "gained_gun_score", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "gained_gun_score", self );
 }
 
 _id_2758()
@@ -875,7 +875,7 @@ _id_2758()
     maps\mp\_utility::_id_4C2F( "dejavu", 1 );
     maps\mp\_utility::_id_4C2E( "setbacks", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "setbacks", self.pers["setbacks"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "dropped_gun_score", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "dropped_gun_score", self );
 }
 
 _id_7F2C()
@@ -883,19 +883,19 @@ _id_7F2C()
     maps\mp\_utility::_id_4C2F( "humiliation", 1 );
     maps\mp\_utility::_id_4C2E( "humiliations", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "humiliations", self.pers["humiliations"] );
-    level thread maps\mp\gametypes\_rank::_id_1208( "dropped_enemy_gun_rank", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "dropped_enemy_gun_rank", self );
 }
 
 _id_70A1()
 {
     maps\mp\_utility::_id_4C2F( "gunslinger", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "quick_gun_rank", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "quick_gun_rank", self );
 }
 
 _id_7F2D()
 {
     maps\mp\_utility::_id_4C2F( "regicide", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "dropped_first_player_gun_rank", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "dropped_first_player_gun_rank", self );
 }
 
 _id_2CF0( var_0 )
@@ -912,21 +912,21 @@ _id_2CF0( var_0 )
         maps\mp\_utility::_id_4C2F( "opening_move", 1 );
     }
 
-    level thread maps\mp\gametypes\_rank::_id_1208( var_1, self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_1, self );
     thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_dom_aggression" );
 }
 
 _id_2CFC()
 {
-    level thread maps\mp\gametypes\_rank::_id_1208( "neutralize", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "neutralize", self );
 }
 
 _id_53B4( var_0, var_1 )
 {
     maps\mp\_utility::_id_4C2F( "assault", 1 );
     maps\mp\_utility::_id_4C2F( "kill_while_capture", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "kill_while_capture", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "kill_while_capture", self );
     var_0 thread maps\mp\_matchdata::_id_5838( var_1, "defending" );
 }
 
@@ -936,7 +936,7 @@ _id_7C06()
     maps\mp\_utility::_id_4C2E( "captures", 1 );
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
     level thread maps\mp\_utility::_id_91FA( "callout_hp_captured_by", self );
-    level thread maps\mp\gametypes\_rank::_id_1208( "hp_secure", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "hp_secure", self );
     thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
 }
 
@@ -954,7 +954,7 @@ hqcaptureevent()
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
     maps\mp\_utility::_id_7F6B( self.pers["captures"] );
     level thread maps\mp\_utility::_id_91FA( "callout_capturedhq", self );
-    level thread maps\mp\gametypes\_rank::_id_1208( "hq_secure", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "hq_secure", self );
     thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_hq_aggression" );
 }
@@ -966,7 +966,7 @@ hqdestroyevent()
     maps\mp\gametypes\_persistence::_id_8D7A( "round", "destructions", self.pers["destructions"] );
     maps\mp\_utility::_id_7F6C( self.pers["destructions"] );
     level thread maps\mp\_utility::_id_91FA( "callout_destroyedhq", self );
-    level thread maps\mp\gametypes\_rank::_id_1208( "hq_destroy", self );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "hq_destroy", self );
     thread maps\mp\_matchdata::_id_5827( "destroy", self.origin );
     maps\mp\gametypes\_misions::_id_6FF6( "ch_hq_destroyer" );
 }
@@ -976,7 +976,7 @@ _id_3816( var_0, var_1, var_2 )
     self.modifiers["firstblood"] = 1;
     maps\mp\_utility::_id_4C2F( "firstblood", 1 );
     thread maps\mp\_utility::_id_91FA( "callout_firstblood", self );
-    level thread maps\mp\gametypes\_rank::_id_1208( "firstblood", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "firstblood", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "firstblood" );
 }
 
@@ -990,11 +990,11 @@ _id_50D0( var_0 )
     return 0;
 }
 
-_id_1967( var_0, var_1, var_2, var_3 )
+buzzkillevent( var_0, var_1, var_2, var_3 )
 {
     self.modifiers["buzzkill"] = var_1.pers["cur_kill_streak"];
     maps\mp\_utility::_id_4C2F( "buzzkill", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "buzzkill", self, var_2, undefined, var_3 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "buzzkill", self, var_2, undefined, var_3 );
 }
 
 _id_64A1( var_0, var_1, var_2 )
@@ -1008,7 +1008,7 @@ _id_20B8( var_0, var_1, var_2 )
 {
     self.modifiers["comeback"] = 1;
     maps\mp\_utility::_id_4C2F( "comebacks", 1 );
-    level thread maps\mp\gametypes\_rank::_id_1208( "comeback", self, var_1, undefined, var_2 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( "comeback", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::_id_5838( var_0, "comeback" );
 }
 
@@ -1081,8 +1081,8 @@ _id_2B36()
         if ( isdefined( level.players[var_1].attackers ) && isdefined( level.players[var_1].attackers[var_0] ) )
             level.players[var_1].attackers[var_0] = undefined;
 
-        if ( isdefined( level.players[var_1]._id_0E2C ) && isdefined( level.players[var_1]._id_0E2C[var_0] ) )
-            level.players[var_1]._id_0E2C[var_0] = undefined;
+        if ( isdefined( level.players[var_1].attackerdata ) && isdefined( level.players[var_1].attackerdata[var_0] ) )
+            level.players[var_1].attackerdata[var_0] = undefined;
 
         if ( isdefined( level.players[var_1]._id_32AE ) && isdefined( level.players[var_1]._id_32AE[var_0] ) )
             level.players[var_1]._id_32AE[var_0] = undefined;
@@ -1098,7 +1098,7 @@ _id_9B55( var_0, var_1 )
     level endon( "game_ended" );
     self notify( "updateRecentKills" );
     self endon( "updateRecentKills" );
-    self.recentkillcount++;
+    self._id_7260++;
     var_2 = 0;
 
     if ( self playerads() >= 0.2 )
@@ -1106,18 +1106,18 @@ _id_9B55( var_0, var_1 )
 
     wait 2.0;
 
-    if ( self.recentkillcount > 1 )
-        _id_5FE5( var_0, self.recentkillcount, var_1, var_2 );
+    if ( self._id_7260 > 1 )
+        _id_5FE5( var_0, self._id_7260, var_1, var_2 );
 
-    self.recentkillcount = 0;
+    self._id_7260 = 0;
 }
 
 _id_1D24( var_0 )
 {
-    if ( isdefined( level.ishorde ) )
+    if ( isdefined( level._id_511D ) )
         return;
 
-    if ( !isdefined( self._id_0E31 ) )
+    if ( !isdefined( self.attackerlist ) )
         return;
 
     if ( !isdefined( var_0 ) )
@@ -1128,7 +1128,7 @@ _id_1D24( var_0 )
     if ( !isdefined( var_1 ) )
         var_1 = self;
 
-    foreach ( var_3 in self._id_0E31 )
+    foreach ( var_3 in self.attackerlist )
     {
         if ( !isdefined( var_3 ) )
             continue;
@@ -1143,7 +1143,7 @@ _id_1D24( var_0 )
             continue;
 
         var_3 maps\mp\_utility::_id_4C2F( "assist_killstreak_destroyed", 1 );
-        level thread maps\mp\gametypes\_rank::_id_1208( "assist_killstreak_destroyed", var_3 );
+        level thread maps\mp\gametypes\_rank::awardgameevent( "assist_killstreak_destroyed", var_3 );
     }
 }
 
@@ -1157,37 +1157,37 @@ _id_1D1B( var_0 )
     switch ( var_1 )
     {
         case 5:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak5", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak5", self );
             maps\mp\_utility::_id_4C2F( "killstreak5", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_bloodthirsty" );
             break;
         case 10:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak10", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak10", self );
             maps\mp\_utility::_id_4C2F( "killstreak10", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_merciless" );
             break;
         case 15:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak15", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak15", self );
             maps\mp\_utility::_id_4C2F( "killstreak15", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_ruthless" );
             break;
         case 20:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak20", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak20", self );
             maps\mp\_utility::_id_4C2F( "killstreak20", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_relentless" );
             break;
         case 25:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak25", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak25", self );
             maps\mp\_utility::_id_4C2F( "killstreak25", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_brutal" );
             break;
         case 30:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak30", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak30", self );
             maps\mp\_utility::_id_4C2F( "killstreak30", 1 );
             maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_vicious" );
             break;
         default:
-            level thread maps\mp\gametypes\_rank::_id_1208( "killstreak30plus", self );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak30plus", self );
             maps\mp\_utility::_id_4C2F( "killstreak30plus", 1 );
             break;
     }
@@ -1208,12 +1208,12 @@ _id_1D0C( var_0 )
     if ( var_1.size < 3 )
         return;
 
-    var_2 = common_scripts\utility::_id_0D06( var_1, ::_id_5079 );
+    var_2 = common_scripts\utility::array_sort_with_func( var_1, ::_id_5079 );
 
     if ( isdefined( var_2[0] ) && var_0 == var_2[0] )
     {
         maps\mp\_utility::_id_4C2F( "firstplacekill", 1 );
-        level thread maps\mp\gametypes\_rank::_id_1208( "firstplacekill", self );
+        level thread maps\mp\gametypes\_rank::awardgameevent( "firstplacekill", self );
         maps\mp\gametypes\_misions::_id_6FF6( "ch_kingslayer" );
     }
 }
@@ -1225,7 +1225,7 @@ _id_5079( var_0, var_1 )
 
 _id_6FF4( var_0, var_1 )
 {
-    if ( isdefined( level._id_0D7B ) && level._id_0D7B )
+    if ( isdefined( level.assists_disabled ) && level.assists_disabled )
         return;
 
     var_2 = "assist";
@@ -1243,7 +1243,7 @@ _id_6FF4( var_0, var_1 )
     if ( level.teambased && self.team == var_0.team )
         return;
 
-    level thread maps\mp\gametypes\_rank::_id_1208( var_2, self, undefined, var_0 );
+    level thread maps\mp\gametypes\_rank::awardgameevent( var_2, self, undefined, var_0 );
     var_0 maps\mp\_matchdata::_id_584B( self, var_2 );
 
     if ( var_2 == "assist" )

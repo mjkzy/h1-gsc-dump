@@ -112,46 +112,46 @@ _id_5FFD( var_0, var_1 )
 start_default_checkpoint( var_0 )
 {
     set_ambiance_level_00();
-    soundscripts\_audio_zone_manager::_id_123A( "inside_blackhawk" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_blackhawk" );
     soundscripts\_audio_mix_manager::_id_5CF2( "Intro_mix" );
 }
 
 start_ride_checkpoint( var_0 )
 {
     set_ambiance_level_00();
-    soundscripts\_audio_zone_manager::_id_123A( "inside_blackhawk" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "inside_blackhawk" );
     soundscripts\_audio_mix_manager::_id_5CF2( "Intro_mix" );
 }
 
 start_landed_checkpoint( var_0 )
 {
     set_ambiance_level_00();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_hq2tv_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "bunker" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "bunker" );
 }
 
 start_intel_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "bunker" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "bunker" );
 }
 
 start_tv_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_tank_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_stone" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_stone" );
 }
 
 start_end_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "interior_before_studio" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "interior_before_studio" );
 }
 
 stop_intro_mix()
@@ -162,32 +162,32 @@ stop_intro_mix()
 
 stop_inside_blackhawk_mix()
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 set_ambiance_level_00()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_armada_ext0", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1239( "inside_blackhawk", "ambient_armada_ext0", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1235( "exterior", "exterior", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1235( "inside_blackhawk", "exterior", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_armada_ext0", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "inside_blackhawk", "ambient_armada_ext0", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "exterior", "exterior", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "inside_blackhawk", "exterior", 0.05 );
 }
 
 set_ambiance_level_01()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_armada_ext1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "inside_blackhawk", "ambient_armada_ext1", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "exterior", "exterior1", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1235( "inside_blackhawk", "exterior1", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_armada_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "inside_blackhawk", "ambient_armada_ext1", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "exterior", "exterior1", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "inside_blackhawk", "exterior1", 0.05 );
 }
 
 set_ambiance_level_03()
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior", "ambient_armada_ext3", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "inside_blackhawk", "ambient_armada_ext3", 0.8 );
-    soundscripts\_audio_zone_manager::_id_1235( "exterior", "exterior3", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1235( "inside_blackhawk", "exterior3", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1236( "exterior", "exterior_parking", 1.2 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior", "ambient_armada_ext3", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "inside_blackhawk", "ambient_armada_ext3", 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "exterior", "exterior3", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "inside_blackhawk", "exterior3", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_mix( "exterior", "exterior_parking", 1.2 );
 }
 
 start_last_mig29_mix()

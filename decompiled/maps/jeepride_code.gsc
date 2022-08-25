@@ -273,9 +273,9 @@ rider_drone_toai( var_0, var_1, var_2, var_3 )
     var_4 linkto( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_1 thread local_drone_animontag( var_4, var_2, var_3 );
     var_4._id_28B4 = "crouch";
-    var_4 _meth_81ce( "crouch" );
+    var_4 _meth_81CE( "crouch" );
     var_4 thread animscripts\utility::_id_9AF5();
-    var_4 _meth_81ce( "stand", "crouch" );
+    var_4 _meth_81CE( "stand", "crouch" );
     thread whackamole( var_4 );
 }
 #using_animtree("generic_human");
@@ -395,7 +395,7 @@ kill_stupid_vehicle_threads()
 _id_6AC6()
 {
     level.player waittill( "death" );
-    common_scripts\utility::_id_0D13( maps\_vehicle::get_script_vehicles(), ::deadplayer_stop );
+    common_scripts\utility::array_thread( maps\_vehicle::get_script_vehicles(), ::deadplayer_stop );
     level.player allowcrouch( 0 );
     level.player allowprone( 0 );
 }
@@ -447,8 +447,8 @@ sethindtarget( var_0 )
     var_1.origin = var_0 gettagorigin( "tag_light_belly" ) + ( 0.0, 0.0, -24.0 );
     var_1 linkto( var_0 );
     var_1 thread attractorent_delete_on_vehicle_death( var_0 );
-    self _meth_816c();
-    self _meth_816b( var_1 );
+    self _meth_816C();
+    self _meth_816B( var_1 );
     self._id_83F6 = var_1;
     self._id_840F = self._id_83F6 getshootatpos();
     self.attractorent = var_1;
@@ -465,35 +465,35 @@ attractorent_delete_on_vehicle_death( var_0 )
 
 _id_7DD2()
 {
-    self.a._id_0CD8 = [];
-    self.a._id_0CD8["add_aim_up"] = %rpg_stand_aim_8;
-    self.a._id_0CD8["add_aim_down"] = %rpg_stand_aim_2;
-    self.a._id_0CD8["add_aim_left"] = %rpg_stand_aim_4;
-    self.a._id_0CD8["add_aim_right"] = %rpg_stand_aim_6;
-    self.a._id_0CD8["fire"] = %rpg_stand_fire;
-    self.a._id_0CD8["straight_level"] = %rpg_stand_aim_5;
-    self.a._id_0CD8["reload"] = animscripts\utility::_id_0CD8( %rpg_stand_reload );
-    self.a._id_0CD8["reload_crouchhide"] = animscripts\utility::_id_0CD8();
-    self.a._id_0CD8["exposed_idle"] = animscripts\utility::_id_0CD8( %rpg_stand_idle );
-    self.a._id_0CD8["single"] = animscripts\utility::_id_0CD8( %exposed_shoot_semi1 );
-    self.a._id_0CD8["crouch_2_stand"] = %exposed_crouch_2_stand;
-    self.a._id_0CD8["crouch_2_prone"] = %crouch_2_prone;
-    self.a._id_0CD8["stand_2_crouch"] = %exposed_stand_2_crouch;
-    self.a._id_0CD8["stand_2_prone"] = %stand_2_prone;
-    self.a._id_0CD8["prone_2_crouch"] = %prone_2_crouch;
-    self.a._id_0CD8["prone_2_stand"] = %prone_2_stand;
-    self.a._id_0CD8["turn_left_45"] = %exposed_tracking_turn45l;
-    self.a._id_0CD8["turn_left_90"] = %exposed_tracking_turn90l;
-    self.a._id_0CD8["turn_left_135"] = %exposed_tracking_turn135l;
-    self.a._id_0CD8["turn_left_180"] = %exposed_tracking_turn180l;
-    self.a._id_0CD8["turn_right_45"] = %exposed_tracking_turn45r;
-    self.a._id_0CD8["turn_right_90"] = %exposed_tracking_turn90r;
-    self.a._id_0CD8["turn_right_135"] = %exposed_tracking_turn135r;
-    self.a._id_0CD8["turn_right_180"] = %exposed_tracking_turn180l;
-    self.a._id_0CD8["add_turn_aim_up"] = %exposed_turn_aim_8;
-    self.a._id_0CD8["add_turn_aim_down"] = %exposed_turn_aim_2;
-    self.a._id_0CD8["add_turn_aim_left"] = %exposed_turn_aim_4;
-    self.a._id_0CD8["add_turn_aim_right"] = %exposed_turn_aim_6;
+    self.a.array = [];
+    self.a.array["add_aim_up"] = %rpg_stand_aim_8;
+    self.a.array["add_aim_down"] = %rpg_stand_aim_2;
+    self.a.array["add_aim_left"] = %rpg_stand_aim_4;
+    self.a.array["add_aim_right"] = %rpg_stand_aim_6;
+    self.a.array["fire"] = %rpg_stand_fire;
+    self.a.array["straight_level"] = %rpg_stand_aim_5;
+    self.a.array["reload"] = animscripts\utility::array( %rpg_stand_reload );
+    self.a.array["reload_crouchhide"] = animscripts\utility::array();
+    self.a.array["exposed_idle"] = animscripts\utility::array( %rpg_stand_idle );
+    self.a.array["single"] = animscripts\utility::array( %exposed_shoot_semi1 );
+    self.a.array["crouch_2_stand"] = %exposed_crouch_2_stand;
+    self.a.array["crouch_2_prone"] = %crouch_2_prone;
+    self.a.array["stand_2_crouch"] = %exposed_stand_2_crouch;
+    self.a.array["stand_2_prone"] = %stand_2_prone;
+    self.a.array["prone_2_crouch"] = %prone_2_crouch;
+    self.a.array["prone_2_stand"] = %prone_2_stand;
+    self.a.array["turn_left_45"] = %exposed_tracking_turn45l;
+    self.a.array["turn_left_90"] = %exposed_tracking_turn90l;
+    self.a.array["turn_left_135"] = %exposed_tracking_turn135l;
+    self.a.array["turn_left_180"] = %exposed_tracking_turn180l;
+    self.a.array["turn_right_45"] = %exposed_tracking_turn45r;
+    self.a.array["turn_right_90"] = %exposed_tracking_turn90r;
+    self.a.array["turn_right_135"] = %exposed_tracking_turn135r;
+    self.a.array["turn_right_180"] = %exposed_tracking_turn180l;
+    self.a.array["add_turn_aim_up"] = %exposed_turn_aim_8;
+    self.a.array["add_turn_aim_down"] = %exposed_turn_aim_2;
+    self.a.array["add_turn_aim_left"] = %exposed_turn_aim_4;
+    self.a.array["add_turn_aim_right"] = %exposed_turn_aim_6;
     self._id_993A = 35;
     self.rightaimlimit = 45;
     self.leftaimlimit = -45;
@@ -511,8 +511,8 @@ rpg_guy_animcustom_setup()
     self.a._id_5F5B = "stop";
     self._id_6F67 = 0.0;
     self _meth_8144( %root, 0.2 );
-    self _meth_814d( animscripts\utility::_id_0C4E( "straight_level" ) );
-    self _meth_814d( %add_idle );
+    self _meth_814D( animscripts\utility::animarray( "straight_level" ) );
+    self _meth_814D( %add_idle );
     self _meth_8144( %aim_4, 0.2 );
     self _meth_8144( %aim_6, 0.2 );
     self _meth_8144( %aim_2, 0.2 );
@@ -574,7 +574,7 @@ _id_4B87()
 
     for (;;)
     {
-        var_0 = animscripts\utility::_id_0C51( "exposed_idle" );
+        var_0 = animscripts\utility::animarraypickrandom( "exposed_idle" );
         self setflaggedanimlimited( "idle", var_0 );
         self waittillmatch( "idle", "end" );
         self _meth_8144( var_0, 0.2 );
@@ -640,7 +640,7 @@ rpg_guy_animcustom()
     if ( !has_hind_enemy() )
         return;
 
-    self _meth_81ea();
+    self _meth_81EA();
     self.ignoreall = 1;
     self._id_83F6 = self.enemy;
     self._id_840F = self._id_83F6.origin;
@@ -687,7 +687,7 @@ rocket_handle()
     var_0 = self._id_750E;
     self.rocketattachpos = self._id_9D1B;
     guy_force_remove_from_vehicle( var_0, self );
-    self _meth_81ce( "crouch", "stand" );
+    self _meth_81CE( "crouch", "stand" );
 
     if ( !isdefined( var_0.rocketmen ) )
         var_0.rocketmen = [];
@@ -705,7 +705,7 @@ rocket_handle()
             wait 0.05;
 
         self.ignoreall = 0;
-        self _meth_819e( ::rpg_guy_animcustom );
+        self _meth_819E( ::rpg_guy_animcustom );
 
         while ( isdefined( self._id_83F6 ) && isdefined( self.hindenemy ) )
             wait 0.05;
@@ -729,12 +729,12 @@ magic_missileguy_magiccrouch()
     self endon( "death" );
     self hide();
     self._id_28B4 = "crouch";
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     thread animscripts\utility::_id_9AF5();
     wait 1.5;
     self show();
     self._id_28B4 = "stand";
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     thread animscripts\utility::_id_9AF5();
     wait 3;
     self notify( "missileready" );
@@ -757,7 +757,7 @@ magic_missileguy_spawner()
     var_4 notsolid();
     var_4 unlink();
     var_4 linkto( var_3, "J_Head", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_4 _meth_81b9();
+    var_4 _meth_81B9();
     var_4 hide();
     var_5 = "polySurface1";
     var_3 linkto( var_2, var_5, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
@@ -769,7 +769,7 @@ magic_missileguy_spawner()
     var_6 linkto( level.playersride );
     player_link_update( 0.1 );
     var_3.delayeddeath = 0;
-    var_3 thread maps\_spawner::_id_08D3();
+    var_3 thread maps\_spawner::ai_damage_think();
     var_3 maps\_damagefeedback::_id_5E3F();
     var_3 thread magic_missileguy_takehits( var_1, var_6 );
     var_3 thread magic_missileguy_rpg( var_1, var_2, var_5, var_6 );
@@ -850,22 +850,22 @@ dialog_rpg()
     var_0[var_0.size] = "jeepride_pri_fireontruck";
     var_0[var_0.size] = "jeepride_pri_openfire";
     var_0[var_0.size] = "jeepride_pri_shootthattruck";
-    var_0 = common_scripts\utility::_id_0CF5( var_0 );
-    var_0 = common_scripts\utility::_id_0CF5( var_0 );
+    var_0 = common_scripts\utility::array_randomize( var_0 );
+    var_0 = common_scripts\utility::array_randomize( var_0 );
     var_2 = 0;
     var_3 = 0;
 
     for (;;)
     {
         level waittill( "rpg_truck" );
-        level.griggs thread maps\_anim::_id_0C21( level.griggs, var_1[var_3] );
+        level.griggs thread maps\_anim::anim_single_queue( level.griggs, var_1[var_3] );
         var_3++;
 
         if ( var_3 == var_1.size )
             var_3 = 0;
 
         level waittill( "rpg_truck" );
-        level._id_6F7C thread maps\_anim::_id_0C21( level._id_6F7C, var_0[var_2] );
+        level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, var_0[var_2] );
         var_2++;
 
         if ( var_2 == var_0.size )
@@ -1542,7 +1542,7 @@ whackamole_unload( var_0 )
     var_0 endon( "death" );
     self waittill( "unloading" );
     var_0._id_28B4 = undefined;
-    var_0 _meth_81ce( "crouch", "stand", "prone" );
+    var_0 _meth_81CE( "crouch", "stand", "prone" );
     var_0.ignoreall = 0;
     wait 1;
     var_0 unlink();
@@ -1572,7 +1572,7 @@ whackamole( var_0 )
     if ( var_0.team == "allies" )
     {
         var_0._id_28B4 = "crouch";
-        var_0 _meth_81ce( "crouch" );
+        var_0 _meth_81CE( "crouch" );
         var_0 thread animscripts\utility::_id_9AF5();
         return;
     }
@@ -1597,7 +1597,7 @@ whackamole_on( var_0 )
 {
     var_0.whackamole_on = 1;
     var_0._id_28B4 = "stand";
-    var_0 _meth_81ce( "stand" );
+    var_0 _meth_81CE( "stand" );
     var_0.ignoreall = 0;
     var_0 thread animscripts\utility::_id_9AF5();
     self.whackamolecount++;
@@ -1610,9 +1610,9 @@ whackamole_off( var_0 )
     var_0.whackamole_on = 0;
     var_0._id_28B4 = "crouch";
     var_0.ignoreall = 1;
-    var_0 _meth_81ce( "crouch" );
+    var_0 _meth_81CE( "crouch" );
     var_0 thread animscripts\utility::_id_9AF5();
-    var_0._id_18B0 = 0;
+    var_0.bulletsinclip = 0;
     self.whackamolecount--;
 }
 
@@ -1625,7 +1625,7 @@ whackamole_death( var_0 )
     self endon( "death" );
     var_0 waittill( "death" );
     thread whackamole_dialog();
-    self.whackamoleguys = common_scripts\utility::_id_0CF6( self.whackamoleguys, var_0 );
+    self.whackamoleguys = common_scripts\utility::array_remove( self.whackamoleguys, var_0 );
     self.whackamolecount--;
 
     if ( !isdefined( var_0 ) )
@@ -1662,7 +1662,7 @@ dialog_killconfirm()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         level waittill( "kill_confirm" );
-        level.griggs maps\_anim::_id_0C21( level.griggs, var_0[var_1] );
+        level.griggs maps\_anim::anim_single_queue( level.griggs, var_0[var_1] );
     }
 }
 
@@ -1739,7 +1739,7 @@ rpgers_to_dummy( var_0 )
 
     for ( var_1 = 0; var_1 < self.rocketmen.size; var_1++ )
     {
-        var_2 = maps\_vehicle_aianim::_id_0BE9( self, self.rocketmen[var_1].rocketattachpos );
+        var_2 = maps\_vehicle_aianim::anim_pos( self, self.rocketmen[var_1].rocketattachpos );
         self.rocketmen[var_1] linkto( self._id_9882[0], "polySurface1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 }
@@ -1765,9 +1765,9 @@ ai_rpg_tunnel_stop()
 falling_bridge_price()
 {
     var_0 = level._id_6F7C;
-    var_0 _meth_856f( 0 );
+    var_0 _meth_856F( 0 );
     wait 15;
-    var_0 _meth_856e();
+    var_0 _meth_856E();
 }
 
 fliptruck_ghettoanimate()
@@ -1826,10 +1826,10 @@ vehicle_killthrow_all_guys( var_0 )
         return;
 
     if ( isdefined( var_0._id_750A ) )
-        common_scripts\utility::_id_0D13( var_0._id_750A, ::killthrow );
+        common_scripts\utility::array_thread( var_0._id_750A, ::killthrow );
 
     if ( isdefined( var_0.whackamoleguys ) )
-        common_scripts\utility::_id_0D13( var_0.whackamoleguys, ::killthrow );
+        common_scripts\utility::array_thread( var_0.whackamoleguys, ::killthrow );
 
     if ( isdefined( var_0.magic_missile_guy ) )
         var_0.magic_missile_guy thread killthrow();
@@ -2010,11 +2010,11 @@ _id_37BA( var_0, var_1, var_2, var_3 )
         }
 
         if ( isdefined( var_2.vehicletype ) && var_2.vehicletype == "hind" )
-            var_9 _meth_81dc( var_2, ( 0.0, 0.0, -56.0 ) );
+            var_9 _meth_81DC( var_2, ( 0.0, 0.0, -56.0 ) );
         else if ( var_2.oldmissiletype )
-            var_9 _meth_81dc( var_2, ( 80.0, 20.0, -200.0 ) );
+            var_9 _meth_81DC( var_2, ( 80.0, 20.0, -200.0 ) );
         else
-            var_9 _meth_81dc( var_2 );
+            var_9 _meth_81DC( var_2 );
 
         if ( var_8 < var_1 - 1 )
             wait(var_5);
@@ -2143,7 +2143,7 @@ sync_vehicle()
 
     var_4 = getvehiclenode( var_2.script_noteworthy, "targetname" );
     var_3 setswitchnode( var_2, var_4 );
-    var_3._id_0DF6 = var_4;
+    var_3.attachedpath = var_4;
     var_3 thread maps\_vehicle::_id_9D17();
 }
 
@@ -2408,7 +2408,7 @@ exploder_tankersparker_links()
     wait 9;
     var_3 = 7;
 
-    for ( var_4 = 0; var_2 != self.origin; var_0 = common_scripts\utility::_id_0CF5( var_0 ) )
+    for ( var_4 = 0; var_2 != self.origin; var_0 = common_scripts\utility::array_randomize( var_0 ) )
     {
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         {
@@ -2829,7 +2829,7 @@ movewithrate( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         self rotateto( var_1, var_8, var_10, var_11 );
 
         if ( isdefined( self.linkedobject.linkedtargets ) )
-            common_scripts\utility::_id_0D13( self.linkedobject.linkedtargets, ::_notsolid );
+            common_scripts\utility::array_thread( self.linkedobject.linkedtargets, ::_notsolid );
 
         while ( self.origin[2] > var_0[2] + 512 )
             wait 0.05;
@@ -2922,19 +2922,19 @@ vehicle_clear_truckjunk()
     if ( !isdefined( var_0 ) )
         return;
 
-    common_scripts\utility::_id_0D13( self._id_9882, ::_id_2856 );
+    common_scripts\utility::array_thread( self._id_9882, ::_id_2856 );
 }
 
 guy_force_remove_from_vehicle( var_0, var_1, var_2 )
 {
     var_0 notify( "forcedremoval" );
-    var_0._id_750A = common_scripts\utility::_id_0CF6( var_0._id_750A, var_1 );
+    var_0._id_750A = common_scripts\utility::array_remove( var_0._id_750A, var_1 );
     var_0._id_9BFD[var_1._id_9D1B] = 0;
     var_1 notify( "jumpedout" );
     var_1 notify( "newanim" );
 
     if ( isai( var_1 ) )
-        var_1 _meth_81ce( "stand", "crouch", "prone" );
+        var_1 _meth_81CE( "stand", "crouch", "prone" );
 
     var_1._id_750E = undefined;
     var_1._id_2E18 = undefined;
@@ -2951,7 +2951,7 @@ startgen()
 
 clearenemy_loc()
 {
-    self _meth_816a();
+    self _meth_816A();
 }
 
 tire_deflate()
@@ -3077,7 +3077,7 @@ vehicle_turret_think()
         if ( isalive( var_0 ) )
         {
             var_4 = var_0.origin + ( 0.0, 0.0, 32.0 );
-            self _meth_825d( bulletspread( self gettagorigin( "tag_flash" ), var_4, 2.0 ) );
+            self _meth_825D( bulletspread( self gettagorigin( "tag_flash" ), var_4, 2.0 ) );
 
             if ( getdvar( "debug_bmp" ) == "1" )
                 thread maps\_utility::_id_2DBF( self.origin + ( 0.0, 0.0, 32.0 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
@@ -3178,16 +3178,16 @@ stop_looping_deathfx()
 
 guy_hidetoback_check( var_0, var_1 )
 {
-    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).hidetoback );
+    return isdefined( maps\_vehicle_aianim::anim_pos( self, var_1 ).hidetoback );
 }
 
 guy_hidetoback_startingback( var_0, var_1 )
 {
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hidetoback );
+    maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hidetoback );
     thread guy_back_attack( var_0, var_1 );
 }
 
@@ -3196,15 +3196,15 @@ guy_back_attack( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
 
     for (;;)
-        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.back_attack );
+        maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.back_attack );
 }
 
 guy_backtohide_check( var_0, var_1 )
 {
-    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).backtohide );
+    return isdefined( maps\_vehicle_aianim::anim_pos( self, var_1 ).backtohide );
 }
 
 guy_hide_starting_back( var_0, var_1 )
@@ -3212,8 +3212,8 @@ guy_hide_starting_back( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
-    maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.backtohide );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
+    maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.backtohide );
     thread guy_hide_attack_back( var_0, var_1 );
 }
 
@@ -3222,12 +3222,12 @@ guy_hide_startingleft( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
 
     if ( !isdefined( var_2.backtohide ) )
         return maps\_vehicle_aianim::_id_449B( var_0, var_1 );
 
-    maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.backtohide );
+    maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.backtohide );
     thread guy_hide_attack_left( var_0, var_1 );
 }
 
@@ -3236,8 +3236,8 @@ guy_backtohide( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
-    maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.backtohide );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
+    maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.backtohide );
     thread maps\_vehicle_aianim::_id_449B( var_0, var_1 );
 }
 
@@ -3246,19 +3246,19 @@ guy_react( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
-    maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.react );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
+    maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.react );
     thread maps\_vehicle_aianim::_id_449B( var_0, var_1 );
 }
 
 guy_react_check( var_0, var_1 )
 {
-    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).react );
+    return isdefined( maps\_vehicle_aianim::anim_pos( self, var_1 ).react );
 }
 
 guy_hide_attack_back_check( var_0, var_1 )
 {
-    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).hide_attack_back );
+    return isdefined( maps\_vehicle_aianim::anim_pos( self, var_1 ).hide_attack_back );
 }
 
 guy_hide_attack_back( var_0, var_1 )
@@ -3266,24 +3266,24 @@ guy_hide_attack_back( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
 
     for (;;)
     {
         if ( isdefined( var_2.hide_attack_back_occurrence ) )
         {
             var_3 = maps\_vehicle_aianim::_id_712A( var_0, var_2.hide_attack_back_occurrence );
-            maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_back[var_3] );
+            maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_back[var_3] );
             continue;
         }
 
-        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_back );
+        maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_back );
     }
 }
 
 guy_hide_attack_forward_check( var_0, var_1 )
 {
-    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).hide_attack_forward );
+    return isdefined( maps\_vehicle_aianim::anim_pos( self, var_1 ).hide_attack_forward );
 }
 
 guy_hide_attack_forward( var_0, var_1 )
@@ -3291,15 +3291,15 @@ guy_hide_attack_forward( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
 
     for (;;)
-        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_forward );
+        maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_forward );
 }
 
 guy_hide_attack_left_check( var_0, var_1 )
 {
-    return isdefined( maps\_vehicle_aianim::_id_0BE9( self, var_1 ).hide_attack_left );
+    return isdefined( maps\_vehicle_aianim::anim_pos( self, var_1 ).hide_attack_left );
 }
 
 guy_hide_attack_left( var_0, var_1 )
@@ -3307,18 +3307,18 @@ guy_hide_attack_left( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
 
     for (;;)
     {
         if ( isdefined( var_2.hide_attack_left_occurrence ) )
         {
             var_3 = maps\_vehicle_aianim::_id_712A( var_0, var_2.hide_attack_left_occurrence );
-            maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left[var_3] );
+            maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_left[var_3] );
             continue;
         }
 
-        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left );
+        maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_left );
     }
 }
 
@@ -3327,18 +3327,18 @@ guy_hide_attack_left_standing( var_0, var_1 )
     var_0 endon( "newanim" );
     self endon( "death" );
     var_0 endon( "death" );
-    var_2 = maps\_vehicle_aianim::_id_0BE9( self, var_1 );
+    var_2 = maps\_vehicle_aianim::anim_pos( self, var_1 );
 
     for (;;)
     {
         if ( isdefined( var_2.hide_attack_left_standing_occurrence ) )
         {
             var_3 = maps\_vehicle_aianim::_id_712A( var_0, var_2.hide_attack_left_standing_occurrence );
-            maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left_standing[var_3] );
+            maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_left_standing[var_3] );
             continue;
         }
 
-        maps\_vehicle_aianim::_id_0C74( var_0, var_2._id_85AE, var_2.hide_attack_left_standing );
+        maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, var_2.hide_attack_left_standing );
     }
 }
 
@@ -3351,16 +3351,16 @@ remember_weaponsondeath( var_0 )
     var_1[0] = "weapon_" + self.weapon;
     var_1[1] = "weapon_" + self.primaryweapon;
     var_1[2] = "weapon_" + self.secondaryweapon;
-    level.potentialweaponitems = maps\_utility::_id_0CF2( level.potentialweaponitems, var_1 );
+    level.potentialweaponitems = maps\_utility::array_merge( level.potentialweaponitems, var_1 );
 }
 
 remove_all_weapons()
 {
-    level.potentialweaponitems = common_scripts\utility::_id_0CDA( level.potentialweaponitems, "weapon_fraggrenade" );
-    level.potentialweaponitems = common_scripts\utility::_id_0CDA( level.potentialweaponitems, "weapon_brick_bomb" );
-    level.potentialweaponitems = common_scripts\utility::_id_0CDA( level.potentialweaponitems, "weapon_claymore" );
-    level.potentialweaponitems = common_scripts\utility::_id_0CDA( level.potentialweaponitems, "weapon_flash_grenade" );
-    level.potentialweaponitems = common_scripts\utility::_id_0CDA( level.potentialweaponitems, "weapon_smoke_grenade_american" );
+    level.potentialweaponitems = common_scripts\utility::array_add( level.potentialweaponitems, "weapon_fraggrenade" );
+    level.potentialweaponitems = common_scripts\utility::array_add( level.potentialweaponitems, "weapon_brick_bomb" );
+    level.potentialweaponitems = common_scripts\utility::array_add( level.potentialweaponitems, "weapon_claymore" );
+    level.potentialweaponitems = common_scripts\utility::array_add( level.potentialweaponitems, "weapon_flash_grenade" );
+    level.potentialweaponitems = common_scripts\utility::array_add( level.potentialweaponitems, "weapon_smoke_grenade_american" );
     var_0 = undefined;
 
     for ( var_1 = 0; var_1 < level.potentialweaponitems.size; var_1++ )
@@ -3370,7 +3370,7 @@ remove_all_weapons()
         if ( !var_0.size )
             continue;
 
-        common_scripts\utility::_id_0CF0( var_0, maps\_utility::_id_284E );
+        common_scripts\utility::array_levelthread( var_0, maps\_utility::_id_284E );
     }
 }
 
@@ -3454,13 +3454,13 @@ crazy_bmp()
 clouds_off()
 {
     self waittill( "trigger" );
-    common_scripts\utility::_id_0D13( maps\_utility::_id_3FA9( "cloud_bank_far" ), common_scripts\utility::_id_671F );
+    common_scripts\utility::array_thread( maps\_utility::_id_3FA9( "cloud_bank_far" ), common_scripts\utility::_id_671F );
 }
 
 clouds_on()
 {
     self waittill( "trigger" );
-    common_scripts\utility::_id_0D13( maps\_utility::_id_3FA9( "cloud_bank_far" ), maps\_utility::_id_748D );
+    common_scripts\utility::array_thread( maps\_utility::_id_3FA9( "cloud_bank_far" ), maps\_utility::_id_748D );
 }
 
 shot_in_the_head_point_blank( var_0, var_1, var_2 )
@@ -3575,7 +3575,7 @@ exploder_phys()
 
 layer_of_death_ai_mode( var_0, var_1 )
 {
-    self._id_1300 = var_0;
+    self.baseaccuracy = var_0;
 
     if ( var_1 )
         self.favoriteenemy = level.player;
@@ -3691,7 +3691,7 @@ set_layer_of_death( var_0 )
 
     level.last_layer_of_death = var_0;
     var_1 = layer_of_death_getlayer( var_0 );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::layer_of_death_ai_mode, var_1["baseaccuracy"], var_1["playerisfavoriteenemy"] );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::layer_of_death_ai_mode, var_1["baseaccuracy"], var_1["playerisfavoriteenemy"] );
     level.player.threatbias = var_1["threatbias"];
     level notify( "layer_of_death" );
 
@@ -3731,7 +3731,7 @@ encroacher()
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        maps\_utility::_id_070A( var_1[var_2] );
+        maps\_utility::activate_trigger_with_targetname( var_1[var_2] );
         wait(var_0);
     }
 }
@@ -3797,7 +3797,7 @@ bridge_vehiclde_drone_unloader()
 
         if ( !level.vehicles_with_drones[var_0]._id_750A.size )
         {
-            level.vehicles_with_drones = common_scripts\utility::_id_0CF6( level.vehicles_with_drones, level.vehicles_with_drones[var_0] );
+            level.vehicles_with_drones = common_scripts\utility::array_remove( level.vehicles_with_drones, level.vehicles_with_drones[var_0] );
             level.drone_unloader--;
         }
 
@@ -3827,8 +3827,8 @@ count_unload_que()
 
 kill_unload_que()
 {
-    common_scripts\utility::_id_0D13( maps\_vehicle::get_script_vehicles(), ::vehicle_enemies_with_drones_delete_on_unload );
-    common_scripts\utility::_id_0D13( level.vehicles_with_drones, ::kill_unload_que_single_vehicle );
+    common_scripts\utility::array_thread( maps\_vehicle::get_script_vehicles(), ::vehicle_enemies_with_drones_delete_on_unload );
+    common_scripts\utility::array_thread( level.vehicles_with_drones, ::kill_unload_que_single_vehicle );
 }
 
 vehicle_enemies_with_drones_delete_on_unload()
@@ -3842,7 +3842,7 @@ vehicle_enemies_with_drones_delete_on_unload()
 
 kill_unload_que_single_vehicle()
 {
-    common_scripts\utility::_id_0CF0( self._id_750A, maps\_utility::_id_284E );
+    common_scripts\utility::array_levelthread( self._id_750A, maps\_utility::_id_284E );
 }
 
 bridge_defence_bounds()
@@ -3908,12 +3908,12 @@ bridge_defence_bounds()
 
 heros_shields_off()
 {
-    common_scripts\utility::_id_0D13( maps\_utility::_id_3D94(), maps\_utility::_id_8EA4 );
+    common_scripts\utility::array_thread( maps\_utility::_id_3D94(), maps\_utility::_id_8EA4 );
 }
 
 heros_shields_on()
 {
-    common_scripts\utility::_id_0D13( maps\_utility::_id_3D94(), maps\_utility::_id_58D7 );
+    common_scripts\utility::array_thread( maps\_utility::_id_3D94(), maps\_utility::_id_58D7 );
 }
 
 hind_bombplayer()
@@ -4116,7 +4116,7 @@ player_kill()
     level.player enablehealthshield( 1 );
 }
 
-_id_17F9()
+bridge_fall()
 {
     self waittill( "trigger" );
     var_0 = 1.0;
@@ -4225,7 +4225,7 @@ rescue_scene_patrol_01()
         wait 0.05;
     }
 
-    var_3 _meth_81ca( self.origin, ( 0.0, 0.0, 0.0 ) );
+    var_3 _meth_81CA( self.origin, ( 0.0, 0.0, 0.0 ) );
 
     if ( isdefined( self.target ) )
         var_3 thread maps\_patrol::_id_66FC( self.target );
@@ -4260,7 +4260,7 @@ fake_water_tread()
     for (;;)
     {
         var_3 = ( var_1.origin[0], var_1.origin[1], 375 );
-        playfx( level._id_0685[var_1.classname]["water"], var_3 );
+        playfx( level._vehicle_effect[var_1.classname]["water"], var_3 );
         wait 0.1;
     }
 }
@@ -4277,8 +4277,8 @@ crashed_vehicles_setup()
     foreach ( var_2 in var_0 )
     {
         var_3 = getentarray( var_2.script_noteworthy, "script_noteworthy" );
-        var_3 = common_scripts\utility::_id_0CF7( var_3, var_0 );
-        common_scripts\utility::_id_0D13( var_3, maps\_utility::_id_0798, ::delete_crashed_vehicle, var_2 );
+        var_3 = common_scripts\utility::array_remove_array( var_3, var_0 );
+        common_scripts\utility::array_thread( var_3, maps\_utility::add_spawn_function, ::delete_crashed_vehicle, var_2 );
     }
 }
 
@@ -4311,11 +4311,11 @@ bridge_linkto( var_0, var_1 )
 stumble( var_0, var_1, var_2, var_3 )
 {
     level endon( "stop_stumble" );
-    var_0 = _id_085A( var_0 );
+    var_0 = adjust_angles_to_player( var_0 );
     level._id_4413 rotateto( var_0, var_1, var_1 / 4 * 3, var_1 / 4 );
     level._id_4413 waittill( "rotatedone" );
     var_4 = ( randomfloat( 4 ) - 4, randomfloat( 5 ), 0 );
-    var_4 = _id_085A( var_4 );
+    var_4 = adjust_angles_to_player( var_4 );
     level._id_4413 rotateto( var_4, var_2, 0, var_2 / 2 );
     level._id_4413 waittill( "rotatedone" );
 
@@ -4342,7 +4342,7 @@ limp()
             continue;
         }
 
-        var_4 = var_3 / level.player_speed;
+        var_4 = var_3 / level._id_6C19;
         var_5 = randomfloatrange( 3, 5 );
 
         if ( randomint( 100 ) < 20 )
@@ -4364,7 +4364,7 @@ limp()
     }
 }
 
-_id_085A( var_0 )
+adjust_angles_to_player( var_0 )
 {
     var_1 = var_0[0];
     var_2 = var_0[2];
@@ -4386,11 +4386,11 @@ helicopter_hide_crash_seq()
 helicopter_show_crash_seq()
 {
     var_0 = getent( "heli_destroy", "targetname" );
-    var_0._id_0C72 = "vehicles";
+    var_0.animname = "vehicles";
     var_0 maps\_anim::_id_7F29();
     wait 0.35;
     var_0 show();
-    var_0 thread maps\_anim::_id_0C24( var_0, "heli_crash" );
+    var_0 thread maps\_anim::anim_single_solo( var_0, "heli_crash" );
     playfxontag( level._effect["fire_trail_l_jeepride_rotor_tail"], var_0, "tag_fx_tail" );
     playfxontag( level._effect["fire_trail_l_jeepride"], var_0, "tag_fx_cabin" );
     playfxontag( level._effect["helicopter_rotor_damaged_fire_jeepride"], var_0, "tag_fx_cabin" );
@@ -4440,10 +4440,10 @@ spawn_griggs_pistol()
     self.scriptedweapon = "wpn_h1_pst_m1911_vm";
     self.scriptedweaponmodel = spawn( "script_model", ( 0.0, 0.0, 2.0 ) );
     self.scriptedweaponmodel setmodel( "wpn_h1_pst_m1911_vm" );
-    self.scriptedweaponmodel._id_0C72 = "pistol_griggs";
-    self.scriptedweaponmodel maps\_utility::_id_0D61();
+    self.scriptedweaponmodel.animname = "pistol_griggs";
+    self.scriptedweaponmodel maps\_utility::assign_animtree();
     var_0 = getent( "player_drag_node", "targetname" );
-    var_0 thread maps\_anim::_id_0C24( self.scriptedweaponmodel, "drag_pistol" );
+    var_0 thread maps\_anim::anim_single_solo( self.scriptedweaponmodel, "drag_pistol" );
 }
 
 light_sequence_00()
@@ -4489,7 +4489,7 @@ player_speedscaling_bridge_seq()
 {
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 2.0 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 2.0 );
-    level.player_speed = 200;
+    level._id_6C19 = 200;
     level.player setmovespeedscale( 0.3 );
     wait 7;
     level.player setmovespeedscale( 0.5 );

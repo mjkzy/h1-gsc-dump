@@ -29,7 +29,7 @@ main()
     anim_player();
     _id_29F3();
     anim_blackhawk();
-    _id_0BEE();
+    anim_props();
 }
 
 _id_29F3()
@@ -176,14 +176,14 @@ anim_gen_human()
     level._id_78AC["drunk"]["walk"] = %cargoship_drunk_sequence;
     level._id_78AC["drunk"]["death"] = %cargoship_drunk_sequence_death;
     level._id_78AC["price"]["bridge_breach"] = %h1_cgoship_bridge_breach_price;
-    maps\_anim::_id_0805( "price", "bridge_breach", "kick_door", "wood_door_kick" );
+    maps\_anim::addnotetrack_animsound( "price", "bridge_breach", "kick_door", "wood_door_kick" );
     level._id_78AC["price"]["stair_cover_exit"] = %h1_cgoship_stair_cover_exit_price;
     level._id_78AC["price"]["door_breach_setup"] = %shotgunbreach_cs_shoot_hinge;
     level._id_78AC["price"]["door_breach_setup_idle"][0] = %shotgunbreach_v1_shoot_hinge_idle;
     level._id_78AC["price"]["door_breach_idle"] = %shotgunbreach_v1_shoot_hinge_ready_idle;
     level._id_78AC["price"]["door_breach"] = %shotgunbreach_cs_shoot_hinge_runin;
     level._id_78AC["alavi"]["bridge_breach"] = %h1_cgoship_bridge_breach_ally;
-    maps\_anim::_id_0805( "alavi", "bridge_breach", "turn_wheel_start", "scn_cargoship_intro_breaching" );
+    maps\_anim::addnotetrack_animsound( "alavi", "bridge_breach", "turn_wheel_start", "scn_cargoship_intro_breaching" );
     level._id_78AC["alavi"]["bunkbed_approach"] = %h1_cgoship_bunkbed_approach_ally;
     level._id_78AC["alavi"]["door_breach_setup"] = %shotgunbreach_cs_stackb;
     level._id_78AC["alavi"]["door_breach_setup_idle"][0] = %breach_cargo_alavis_idle;
@@ -227,7 +227,7 @@ anim_gen_human()
     level._id_78AC["generic"]["signal_onme_cqb"] = %cqb_stand_wave_on_me;
     level._id_78AC["generic"]["signal_onme_crouch"] = %cqb_stand_wave_go_v1;
     level._id_78AC["generic"]["signal_go_crouch"] = %cqb_stand_wave_go_v1;
-    maps\_anim::_id_0805( "generic", "signal_onme", "foley_sound", "foly_waving_go" );
+    maps\_anim::addnotetrack_animsound( "generic", "signal_onme", "foley_sound", "foly_waving_go" );
     level._id_78AC["guy"]["coverstand_aim"] = %coverstand_hide_2_aim;
     level._id_78AC["guy"]["coverleft_crouch_aim"] = %cornercrl_alert_2_stand;
     level._id_78AC["guy"]["standaim2idle"] = %casual_stand_idle_trans_in;
@@ -288,15 +288,15 @@ anim_gen_human()
     level._id_78AC["generic"]["reach_price"] = %cargoship_ch46_rescue_load_3_alt;
     level._id_78AC["generic"]["rescue_price_idle"][0] = %cargoship_ch46_rescue_price_idle;
     level._id_78AC["generic"]["help_price"] = %cargoship_ch46_rescue_price_help;
-    maps\_anim::_id_080B( "generic", "dialog", "help_price", "cargoship_pri_gotcha" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog", "help_price", "cargoship_pri_gotcha" );
     level._id_78AC["generic"]["price_explosion"] = %cargoship_explosion_price;
-    maps\_anim::_id_080B( "generic", "dialog", "price_explosion", "cargoship_pri_weareleaving" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog", "price_explosion", "cargoship_pri_weareleaving" );
     level._id_78AC["generic"]["grigsby_explosion"] = %h1_cargoship_explosion_gaz;
-    maps\_anim::_id_080B( "generic", "dialog", "grigsby_explosion", "cargoship_grg_shipssinking" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog", "grigsby_explosion", "cargoship_grg_shipssinking" );
     level._id_78AC["generic"]["breach2_price_arrival"] = %cargoship_price_run2door;
     level._id_78AC["generic"]["breach2_price_idle"][0] = %cargoship_price_run2door_idle;
     level._id_78AC["generic"]["breach2_price_breach"] = %cargoship_price_runin;
-    maps\_anim::_id_0805( "generic", "breach2_price_breach", "sound_opendoor", "scn_door_cargoship_hatch_open" );
+    maps\_anim::addnotetrack_animsound( "generic", "breach2_price_breach", "sound_opendoor", "scn_door_cargoship_hatch_open" );
     level._id_78AC["generic"]["breach2_grigsby_arrival"] = %cargoship_grigsby_run2door;
     level._id_78AC["generic"]["breach2_grigsby_idle"][0] = %cargoship_grigsby_run2door_idle;
     level._id_78AC["generic"]["breach2_grigsby_breach"] = %cargoship_grigsby_runin;
@@ -304,8 +304,8 @@ anim_gen_human()
     level._id_78AC["generic"]["breach2_alavi_arrival"] = %cargoship_alavie_run2door;
     level._id_78AC["generic"]["breach2_alavi_idle"][0] = %cargoship_alavie_run2door_idle;
     level._id_78AC["generic"]["breach2_alavi_breach"] = %cargoship_alavie_runin;
-    maps\_anim::_id_0807( "generic", "gun_2_chest", maps\cargoship_code::carogship_shotgunpulla, "breach2_grigsby_talk" );
-    maps\_anim::_id_0807( "generic", "shotgun_pickup", maps\cargoship_code::carogship_shotgunpullb, "breach2_grigsby_talk" );
+    maps\_anim::addnotetrack_customfunction( "generic", "gun_2_chest", maps\cargoship_code::carogship_shotgunpulla, "breach2_grigsby_talk" );
+    maps\_anim::addnotetrack_customfunction( "generic", "shotgun_pickup", maps\cargoship_code::carogship_shotgunpullb, "breach2_grigsby_talk" );
     level._id_78AC["generic"]["breach2_door_breach"] = %cargoship_price_runin_door;
     level._id_78AC["generic"]["package_idle_waitinggunup"][0] = %exposed_aim_5;
     level._id_78AC["generic"]["package_idle_waitinggundown"][0] = %casual_stand_idle;
@@ -316,13 +316,13 @@ anim_gen_human()
     level._id_78AC["generic"]["package_grigs"] = %cargoship_open_cargo_guyl;
     level._id_78AC["generic"]["package_doorL"] = %cargoship_open_cargo_doorl;
     level._id_78AC["generic"]["package_doorR"] = %cargoship_open_cargo_doorr;
-    maps\_anim::_id_0805( "generic", "package_doorR", "sound", "door_cargo_container_pull_open" );
-    maps\_anim::_id_080B( "generic", "dialog", "package_opendoor_price", "cargoship_pri_inarabic" );
-    maps\_anim::_id_080B( "generic", "dialog", "package_opendoor_price", "cargoship_pri_readytosecure" );
-    maps\_anim::_id_080C( "generic", "radio", "radiomessage_notime", "package_opendoor_price" );
-    maps\_anim::_id_080B( "generic", "dialog2", "package_opendoor_price", "cargoship_pri_getmanifestmove" );
-    maps\_anim::_id_080C( "generic", "animend", "package_orders", "package_opendoor_price" );
-    maps\_anim::_id_080B( "generic", "dialog", "package_grigs", "cargoship_grg_fastmovers" );
+    maps\_anim::addnotetrack_animsound( "generic", "package_doorR", "sound", "door_cargo_container_pull_open" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog", "package_opendoor_price", "cargoship_pri_inarabic" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog", "package_opendoor_price", "cargoship_pri_readytosecure" );
+    maps\_anim::addnotetrack_flag( "generic", "radio", "radiomessage_notime", "package_opendoor_price" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog2", "package_opendoor_price", "cargoship_pri_getmanifestmove" );
+    maps\_anim::addnotetrack_flag( "generic", "animend", "package_orders", "package_opendoor_price" );
+    maps\_anim::addnotetrack_dialogue( "generic", "dialog", "package_grigs", "cargoship_grg_fastmovers" );
     level._id_78B1["escape"] = #animtree;
     level._id_78AC["escape"]["price_escape_1"] = %h1_cargoship_priceescape01;
     level._id_78AC["escape"]["price_escape_2"] = %h1_cargoship_priceescape02;
@@ -349,12 +349,12 @@ anim_player()
     level._id_78B5["player_viewbody"] = "worldbody_h1_sas_ct";
     level._id_78AC["player_viewbody"]["player_explosion"] = %cargoship_explosion_player;
     level._id_78AC["player_viewbody"]["player_explosion_start"] = %h1_cargoship_explosion_reaction_player;
-    maps\_anim::_id_080C( "player_viewbody", "fade_in", "shellshock_blinking", "player_explosion" );
-    maps\_anim::_id_080D( "player_viewbody", "fade_out", "shellshock_blinking", "player_explosion" );
-    maps\_anim::_id_080C( "player_viewbody", "blur_in", "shellshock_blur", "player_explosion" );
-    maps\_anim::_id_080D( "player_viewbody", "blur_out", "shellshock_blur", "player_explosion" );
-    maps\_anim::_id_0805( "fastrope_intro", "opening", "scn_cgo_intro_player_fastrope", "scn_cgo_intro_player_fastrope" );
-    maps\_anim::_id_0805( "player_viewbody", "player_explosion", "scn_cargo_explosion_foley", "scn_cargo_explosion_foley" );
+    maps\_anim::addnotetrack_flag( "player_viewbody", "fade_in", "shellshock_blinking", "player_explosion" );
+    maps\_anim::addnotetrack_flag_clear( "player_viewbody", "fade_out", "shellshock_blinking", "player_explosion" );
+    maps\_anim::addnotetrack_flag( "player_viewbody", "blur_in", "shellshock_blur", "player_explosion" );
+    maps\_anim::addnotetrack_flag_clear( "player_viewbody", "blur_out", "shellshock_blur", "player_explosion" );
+    maps\_anim::addnotetrack_animsound( "fastrope_intro", "opening", "scn_cgo_intro_player_fastrope", "scn_cgo_intro_player_fastrope" );
+    maps\_anim::addnotetrack_animsound( "player_viewbody", "player_explosion", "scn_cargo_explosion_foley", "scn_cargo_explosion_foley" );
 }
 #using_animtree("vehicles");
 
@@ -396,7 +396,7 @@ anim_sea()
     level._id_78AC["sea"]["waves"][0] = %cargoship_water;
 }
 
-_id_0BEE()
+anim_props()
 {
     level._id_78B1["bridge_door_anim"] = #animtree;
     level._id_78B5["bridge_door_anim"] = "cs_cargoship_door_PULL";

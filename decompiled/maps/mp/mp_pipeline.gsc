@@ -83,8 +83,8 @@ delete_botconnect_clip()
 
 misc_rotate_ceilingfans()
 {
-    common_scripts\utility::_id_0D13( getentarray( "fan_spin", "targetname" ), ::ceilingfan_rotate_custom );
-    common_scripts\utility::_id_0D13( getentarray( "fan_spin_slow", "targetname" ), ::ceilingfan_rotate_slow_custom );
+    common_scripts\utility::array_thread( getentarray( "fan_spin", "targetname" ), ::ceilingfan_rotate_custom );
+    common_scripts\utility::array_thread( getentarray( "fan_spin_slow", "targetname" ), ::ceilingfan_rotate_slow_custom );
 }
 
 ceilingfan_rotate_custom()

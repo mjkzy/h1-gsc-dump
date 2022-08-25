@@ -34,11 +34,11 @@ _id_4CA2()
     var_0["cover_crouch"] = [ %stand_cover_reaction_a, %stand_cover_reaction_b ];
     var_0["cover_left"] = [ %stand_cover_reaction_a, %stand_cover_reaction_b ];
     var_0["cover_right"] = [ %stand_cover_reaction_a, %stand_cover_reaction_b ];
-    anim._id_0CCA["soldier"]["cover_reactions"] = var_0;
+    anim.archetypes["soldier"]["cover_reactions"] = var_0;
     var_0 = [];
     var_0[0] = %run_wizby_a;
     var_0[1] = %run_wizby_b;
-    anim._id_0CCA["soldier"]["running_react_to_bullets"] = var_0;
+    anim.archetypes["soldier"]["running_react_to_bullets"] = var_0;
     anim.longestrunwizby = 0;
 
     foreach ( var_2 in var_0 )
@@ -54,7 +54,7 @@ _id_4CA2()
 
 _id_718A()
 {
-    thread _id_18B3();
+    thread bulletwhizbycheckloop();
 }
 
 _id_1AD9()
@@ -62,7 +62,7 @@ _id_1AD9()
     return !isdefined( self._id_55D2 ) || gettime() - self._id_55D2 > 2000;
 }
 
-_id_18B4()
+bulletwhizbyreaction()
 {
     var_0 = gettime();
     self endon( "killanimscript" );
@@ -152,7 +152,7 @@ _id_18B4()
     self _meth_8193( "face default" );
 }
 
-_id_18B3()
+bulletwhizbycheckloop()
 {
     self endon( "killanimscript" );
 
@@ -169,7 +169,7 @@ _id_18B3()
         if ( !isdefined( var_0.team ) || self.team == var_0.team )
             continue;
 
-        if ( isdefined( self._id_22BA ) || isdefined( self._id_0B6A ) )
+        if ( isdefined( self._id_22BA ) || isdefined( self.ambushnode ) )
             continue;
 
         if ( self.a._id_6E5A != "stand" )
@@ -179,7 +179,7 @@ _id_18B3()
             continue;
 
         self._id_A316 = var_0;
-        self _meth_819e( ::_id_18B4 );
+        self _meth_819E( ::bulletwhizbyreaction );
     }
 }
 
@@ -221,7 +221,7 @@ _id_4039()
             var_5[0] = %smg_exposed_backpedal;
             var_5[1] = %smg_exposed_idle_reactb;
         }
-        else if ( isdefined( self._id_0C4D ) && self._id_0C4D == "s1_soldier" )
+        else if ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
         {
             var_5[0] = %s1_exposed_backpedal;
             var_5[1] = %s1_exposed_idle_alert_v5;
@@ -303,7 +303,7 @@ _id_60AB()
     self.a._id_5F5B = "stop";
     self._id_6DB2 = 1;
 
-    if ( isdefined( self._id_0669 ) && self.alertlevel != "combat" )
+    if ( isdefined( self._stealth ) && self.alertlevel != "combat" )
         _id_8E1A();
     else
     {

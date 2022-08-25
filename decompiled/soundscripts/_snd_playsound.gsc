@@ -150,19 +150,19 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_14 = "sndx_play_alias_" + soundscripts\_snd::_id_8718();
     level endon( var_14 );
     var_5 endon( "death" );
-    var_6 = soundscripts\_audio::_id_0F30( undefined, var_6 );
-    var_7 = soundscripts\_audio::_id_0F30( 0.0, var_7 );
-    var_8 = soundscripts\_audio::_id_0F30( 0.1, var_8 );
-    var_9 = soundscripts\_audio::_id_0F30( 1.0, var_9 );
-    var_10 = soundscripts\_audio::_id_0F30( ( 0.0, 0.0, 0.0 ), var_10 );
-    var_11 = soundscripts\_audio::_id_0F30( 0, var_11 );
-    var_12 = soundscripts\_audio::_id_0F30( 0, var_12 );
+    var_6 = soundscripts\_audio::aud_get_optional_param( undefined, var_6 );
+    var_7 = soundscripts\_audio::aud_get_optional_param( 0.0, var_7 );
+    var_8 = soundscripts\_audio::aud_get_optional_param( 0.1, var_8 );
+    var_9 = soundscripts\_audio::aud_get_optional_param( 1.0, var_9 );
+    var_10 = soundscripts\_audio::aud_get_optional_param( ( 0.0, 0.0, 0.0 ), var_10 );
+    var_11 = soundscripts\_audio::aud_get_optional_param( 0, var_11 );
+    var_12 = soundscripts\_audio::aud_get_optional_param( 0, var_12 );
 
     if ( var_2 )
     {
         var_15 = "tag_origin";
 
-        if ( isdefined( var_13.model ) || var_13.model != "" || var_13 _meth_843e( var_15 ) < 0 )
+        if ( isdefined( var_13.model ) || var_13.model != "" || var_13 _meth_843E( var_15 ) < 0 )
             var_15 = "";
 
         var_5 linkto( var_13, var_15, var_10, ( 0.0, 0.0, 0.0 ) );
@@ -172,7 +172,7 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( var_11 > 0 )
     {
         if ( var_12 )
-            soundscripts\_audio::_id_1094( var_11 );
+            soundscripts\_audio::aud_slomo_wait( var_11 );
         else
             wait(var_11);
     }
@@ -247,8 +247,8 @@ _id_872A( var_0, var_1, var_2 )
     {
         self.guid = soundscripts\_snd::_id_8718();
         self._id_8702 = 1;
-        var_1 = soundscripts\_audio::_id_0F30( undefined, var_1 );
-        var_2 = soundscripts\_audio::_id_0F30( 0, var_2 );
+        var_1 = soundscripts\_audio::aud_get_optional_param( undefined, var_1 );
+        var_2 = soundscripts\_audio::aud_get_optional_param( 0, var_2 );
         self playsound( var_0, var_1, 0, var_2 );
     }
     else

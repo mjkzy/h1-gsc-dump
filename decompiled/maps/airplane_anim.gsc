@@ -21,7 +21,7 @@
 
 main()
 {
-    _id_0C7A();
+    anims();
     _id_29F3();
     exploder_script_model_anims();
     luggage_compartment_anims();
@@ -31,7 +31,7 @@ main()
 }
 #using_animtree("generic_human");
 
-_id_0C7A()
+anims()
 {
     level._id_78AC["frnd"]["C4_plant_start"] = %explosive_plant_knee;
     level._id_78AC["frnd"]["C4_plant"] = %explosive_plant_knee;
@@ -237,5 +237,5 @@ bathroom_door_anims()
 {
     level._id_78B1["bathroom_door"] = #animtree;
     level._id_78AC["bathroom_door"]["bathroom_door_shake"][0] = %h1_airplane_bathroom_door_animated_shake;
-    maps\_anim::_id_0805( "bathroom_door", "bathroom_door_shake", "start", "emt_metal_shake" );
+    maps\_anim::addnotetrack_animsound( "bathroom_door", "bathroom_door_shake", "start", "emt_metal_shake" );
 }

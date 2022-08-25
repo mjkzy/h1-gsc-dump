@@ -247,7 +247,7 @@ poststairsedge_restoreanimrate( var_0 )
 {
     self._id_5F65 = self.stairs_old_moveplaybackrate;
     self.stairs_old_moveplaybackrate = undefined;
-    self _meth_83c5( var_0, self._id_5F65 );
+    self _meth_83C5( var_0, self._id_5F65 );
 }
 
 poststairsedge_cleanup( var_0 )
@@ -311,7 +311,7 @@ waitforstairedge( var_0, var_1 )
             var_11 = self aiphysicstrace( var_9, var_10, 15, 30, 0, 1 );
 
             if ( var_11["fraction"] == 1 )
-                self _meth_81ca( var_8, self.angles, 100 );
+                self _meth_81CA( var_8, self.angles, 100 );
         }
     }
 

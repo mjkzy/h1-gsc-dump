@@ -22,22 +22,22 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "cobra", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_cobra_helicopter", "vehicle_cobra_helicopter_fly" );
-    maps\_vehicle::_id_1845( "vehicle_cobra_helicopter_fly", "vehicle_cobra_helicopter_fly" );
-    maps\_vehicle::_id_1849( %bh_rotors, undefined, 0, 3.0 );
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_185A();
-    maps\_vehicle::_id_1857( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.1 );
-    maps\_vehicle::_id_1857( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink", "running", 0.0 );
-    maps\_vehicle::_id_1857( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_white_blink", "running", 0.4 );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::_id_1855();
+    maps\_vehicle::build_template( "cobra", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_cobra_helicopter", "vehicle_cobra_helicopter_fly" );
+    maps\_vehicle::build_deathmodel( "vehicle_cobra_helicopter_fly", "vehicle_cobra_helicopter_fly" );
+    maps\_vehicle::build_drive( %bh_rotors, undefined, 0, 3.0 );
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "explo_metal_rand" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_mainturret();
+    maps\_vehicle::build_light( var_2, "wingtip_green", "tag_light_L_wing", "fx/misc/aircraft_light_wingtip_green", "running", 0.1 );
+    maps\_vehicle::build_light( var_2, "wingtip_red", "tag_light_R_wing", "fx/misc/aircraft_light_wingtip_red", "running", 0.0 );
+    maps\_vehicle::build_light( var_2, "white_blink", "tag_light_belly", "fx/misc/aircraft_light_white_blink", "running", 0.0 );
+    maps\_vehicle::build_light( var_2, "white_blink_tail", "tag_light_tail", "fx/misc/aircraft_light_white_blink", "running", 0.4 );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_is_helicopter();
 }
 
 _id_4D10()
@@ -104,8 +104,8 @@ _id_7F23()
 
     var_0[0]._id_85AE = "tag_pilot";
     var_0[1]._id_85AE = "tag_gunner";
-    var_0[0]._id_1433 = 0;
-    var_0[1]._id_1433 = 0;
+    var_0[0].bhasgunwhileriding = 0;
+    var_0[1].bhasgunwhileriding = 0;
     var_0[0]._id_4B63[0] = %helicopter_pilot1_idle;
     var_0[0]._id_4B63[1] = %helicopter_pilot1_twitch_clickpannel;
     var_0[0]._id_4B63[2] = %helicopter_pilot1_twitch_lookback;

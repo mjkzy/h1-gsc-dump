@@ -51,20 +51,20 @@ _id_4D5B()
 
 _id_4CF4()
 {
-    level._id_0E57.disable_m1a1_audio = 1;
-    level._id_0E57.abramsaudio = [];
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto33", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto34", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto70", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto73", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto76", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto87", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto88", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto138", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto183", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "auto298", "targetname" );
-    level._id_0E57.abramsaudio[level._id_0E57.abramsaudio.size] = getvehiclenode( "tank_path_4", "targetname" );
-    common_scripts\utility::_id_0D13( level._id_0E57.abramsaudio, ::abrams_audio_node );
+    level.aud.disable_m1a1_audio = 1;
+    level.aud.abramsaudio = [];
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto33", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto34", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto70", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto73", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto76", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto87", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto88", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto138", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto183", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "auto298", "targetname" );
+    level.aud.abramsaudio[level.aud.abramsaudio.size] = getvehiclenode( "tank_path_4", "targetname" );
+    common_scripts\utility::array_thread( level.aud.abramsaudio, ::abrams_audio_node );
 }
 
 _id_5625()
@@ -84,8 +84,8 @@ _id_5617()
 
 _id_23C4()
 {
-    level._id_0E57._id_3337 = [];
-    level._id_0E57._id_3337["example_envelop"] = [ [ 0.0, 0.0 ], [ 0.082, 0.426 ], [ 0.238, 0.736 ], [ 0.408, 0.844 ], [ 0.756, 0.953 ], [ 1.0, 1.0 ] ];
+    level.aud._id_3337 = [];
+    level.aud._id_3337["example_envelop"] = [ [ 0.0, 0.0 ], [ 0.082, 0.426 ], [ 0.238, 0.736 ], [ 0.408, 0.844 ], [ 0.756, 0.953 ], [ 1.0, 1.0 ] ];
 }
 
 _id_6ECB()
@@ -130,25 +130,25 @@ _id_5FFD( var_0, var_1 )
 start_default_checkpoint( var_0 )
 {
     set_exterior_streamed_ambience( "ambient_bog_ext3" );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_field" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_field" );
 }
 
 aud_start_arch_checkpoint( var_0 )
 {
     set_exterior_streamed_ambience( "ambient_bog_ext3" );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_field" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_field" );
 }
 
 aud_start_alley_checkpoint( var_0 )
 {
     start_decrease_ambiance();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_alley" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_alley" );
 }
 
 aud_start_ch46_checkpoint( var_0 )
 {
     start_decrease_ambiance();
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_field" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_field" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_seaknight_rescue" );
 }
 
@@ -164,7 +164,7 @@ flying_intro_check_end()
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
     soundscripts\_audio_mix_manager::_id_5CF6( "flying_intro_mute", 1 );
     set_exterior_streamed_ambience( "ambient_bog_ext3" );
-    soundscripts\_audio_zone_manager::_id_123A( "exterior_field" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior_field" );
 }
 
 start_increase_ambiance()
@@ -352,7 +352,7 @@ aud_final_tank_exp_debris()
 
 set_exterior_streamed_ambience( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_1239( "exterior_alley", var_0, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior_field", var_0, 0.8 );
-    soundscripts\_audio_zone_manager::_id_1239( "exterior_city", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior_alley", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior_field", var_0, 0.8 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior_city", var_0, 0.8 );
 }

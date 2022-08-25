@@ -27,9 +27,9 @@ main( var_0, var_1 )
     level._effect["flare_runner_intro"] = loadfx( "fx/misc/flare_start" );
     level._effect["flare_runner"] = loadfx( "fx/misc/flare" );
     level._effect["flare_runner_fizzout"] = loadfx( "fx/misc/flare_end" );
-    maps\_vehicle::_id_186C( "flare", var_0, var_1, "script_vehicle_flare" );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1856( 9999 );
+    maps\_vehicle::build_template( "flare", var_0, var_1, "script_vehicle_flare" );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_life( 9999 );
 }
 
 _id_4D10()

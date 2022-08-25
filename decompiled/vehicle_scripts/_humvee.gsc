@@ -21,16 +21,16 @@
 
 main( var_0, var_1, var_2 )
 {
-    maps\_vehicle::_id_186C( "humvee", var_0, var_1, var_2 );
-    maps\_vehicle::_id_1859( ::_id_4D10 );
-    maps\_vehicle::_id_1845( "vehicle_humvee_camo" );
-    maps\_vehicle::_id_1845( "vehicle_humvee_camo_50cal_doors" );
-    maps\_vehicle::_id_1845( "vehicle_humvee_camo_50cal_nodoors" );
-    maps\_vehicle::_id_1842( "fx/explosions/large_vehicle_explosion", undefined, "car_explode" );
-    maps\_vehicle::_id_186E();
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
-    maps\_vehicle::_id_186A( "allies" );
-    maps\_vehicle::_id_1839( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_template( "humvee", var_0, var_1, var_2 );
+    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_deathmodel( "vehicle_humvee_camo" );
+    maps\_vehicle::build_deathmodel( "vehicle_humvee_camo_50cal_doors" );
+    maps\_vehicle::build_deathmodel( "vehicle_humvee_camo_50cal_nodoors" );
+    maps\_vehicle::build_deathfx( "fx/explosions/large_vehicle_explosion", undefined, "car_explode" );
+    maps\_vehicle::build_treadfx();
+    maps\_vehicle::build_life( 999, 500, 1500 );
+    maps\_vehicle::build_team( "allies" );
+    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
 }
 
 _id_4D10()

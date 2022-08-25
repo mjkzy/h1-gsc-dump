@@ -63,19 +63,19 @@ init_depot()
     level.inventoryitemrarity["Epic"] = 5;
     level.raritycardfx = [];
     level.raritycardfx[level.inventoryitemrarity["Common"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Common"]].fx = "loot_card_trail_common";
+    level.raritycardfx[level.inventoryitemrarity["Common"]]._id_3B23 = "loot_card_trail_common";
     level.raritycardfx[level.inventoryitemrarity["Common"]]._id_7675 = "loot_crate_open_common";
     level.raritycardfx[level.inventoryitemrarity["Common"]]._id_3528 = 106;
     level.raritycardfx[level.inventoryitemrarity["Rare"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Rare"]].fx = "loot_card_trail_rare";
+    level.raritycardfx[level.inventoryitemrarity["Rare"]]._id_3B23 = "loot_card_trail_rare";
     level.raritycardfx[level.inventoryitemrarity["Rare"]]._id_7675 = "loot_crate_open_rare";
     level.raritycardfx[level.inventoryitemrarity["Rare"]]._id_3528 = 109;
     level.raritycardfx[level.inventoryitemrarity["Legendary"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Legendary"]].fx = "loot_card_trail_legendary";
+    level.raritycardfx[level.inventoryitemrarity["Legendary"]]._id_3B23 = "loot_card_trail_legendary";
     level.raritycardfx[level.inventoryitemrarity["Legendary"]]._id_7675 = "loot_crate_open_legendary";
     level.raritycardfx[level.inventoryitemrarity["Legendary"]]._id_3528 = 112;
     level.raritycardfx[level.inventoryitemrarity["Epic"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Epic"]].fx = "loot_card_trail_epic";
+    level.raritycardfx[level.inventoryitemrarity["Epic"]]._id_3B23 = "loot_card_trail_epic";
     level.raritycardfx[level.inventoryitemrarity["Epic"]]._id_7675 = "loot_crate_open_epic";
     level.raritycardfx[level.inventoryitemrarity["Epic"]]._id_3528 = 115;
     depotscenelightsoff();
@@ -86,7 +86,7 @@ depotaddstate( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( !isdefined( level.depotstates[var_0] ) )
         level.depotstates[var_0] = spawnstruct();
 
-    level.depotstates[var_0]._id_0C72 = var_1;
+    level.depotstates[var_0].animname = var_1;
     level.depotstates[var_0].animlabel = var_2;
     level.depotstates[var_0].canswitchtostatefunc = var_3;
     level.depotstates[var_0].switchingtostatefunc = var_4;
@@ -96,7 +96,7 @@ depotaddstate( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
 hasvisiteddepot()
 {
-    var_0 = _func_2fa( level.depotcontroller, common_scripts\utility::getstatsgroup_common(), "hasEverVisitedDepot" );
+    var_0 = _func_2FA( level.depotcontroller, common_scripts\utility::getstatsgroup_common(), "hasEverVisitedDepot" );
     return var_0;
 }
 
@@ -276,7 +276,7 @@ getcratemodel( var_0 )
 
 playerdepot_dof()
 {
-    self _meth_84a5();
+    self _meth_84A5();
     var_0 = 3.3;
     var_1 = 80.0;
 
@@ -307,7 +307,7 @@ playerdepot_dof()
         }
     }
 
-    self _meth_84a7( var_0, var_1 );
+    self _meth_84A7( var_0, var_1 );
 }
 
 playerenterdepot( var_0 )
@@ -726,8 +726,8 @@ depoteasteregginit()
 
 depotpurchaseinit()
 {
-    if ( isdefined( level.depotstates["purchase"]._id_0C72 ) )
-        level.depotstates["purchase"].origanimname = level.depotstates["purchase"]._id_0C72;
+    if ( isdefined( level.depotstates["purchase"].animname ) )
+        level.depotstates["purchase"].origanimname = level.depotstates["purchase"].animname;
 }
 
 depotcanswitchtopause( var_0 )
@@ -874,11 +874,11 @@ depotswitchingtogreetingfirst( var_0 )
 
 depotswitchingtogreeting( var_0 )
 {
-    var_1 = level.depotstates["greeting"]._id_0C72;
-    level.depotstates["greeting"]._id_0C72 = "greeting";
+    var_1 = level.depotstates["greeting"].animname;
+    level.depotstates["greeting"].animname = "greeting";
 
     if ( hascrossoverloot() && level.depotagent _meth_8558( "armory_" + level.depotscene + "_greeting_xover" ) )
-        level.depotstates["greeting"]._id_0C72 = "greeting_xover";
+        level.depotstates["greeting"].animname = "greeting_xover";
 }
 
 depotswitchingtoidle( var_0 )
@@ -935,10 +935,10 @@ depotswitchingtopurchase( var_0 )
     if ( level._id_1A3E._id_1A13.depotpos != "crate" )
         thread playertransitiontocrate();
 
-    level.depotstates["purchase"]._id_0C72 = level.depotstates["purchase"].origanimname;
+    level.depotstates["purchase"].animname = level.depotstates["purchase"].origanimname;
 
     if ( var_0 != "idle" )
-        level.depotstates["purchase"]._id_0C72 = undefined;
+        level.depotstates["purchase"].animname = undefined;
 }
 
 depotswitchingtopurchasewait( var_0 )
@@ -1143,8 +1143,8 @@ depotanimstatemachine()
                 self [[ level.depotstates[var_3].switchingtostatefunc ]]( var_0 );
                 level.depotstatefinished = 0;
                 var_0 = var_3;
-                var_5 = level.depotstates[var_3]._id_0C4C;
-                var_1 = depotplayscene( level.depotstates[var_3]._id_0C72, var_5, level.depotstates[var_3].animlabel );
+                var_5 = level.depotstates[var_3].animalias;
+                var_1 = depotplayscene( level.depotstates[var_3].animname, var_5, level.depotstates[var_3].animlabel );
             }
             else
                 setdepotstate( var_0 );
@@ -1299,7 +1299,7 @@ playertransitiontocrate()
 {
     var_0 = level._id_1A3E._id_1A13;
     var_0.depotpos = "crate";
-    self _meth_84a7( 2.2, 72.5 );
+    self _meth_84A7( 2.2, 72.5 );
     self playsound( "h1_ui_loot_cam_whoosh" );
     sceneplayanim( var_0.depotsceneent, var_0.depotsceneent.scriptednode, "h1_vlobby_armory_scene1_cam_zoomin", 1 );
     level.depotagent common_scripts\utility::_id_27CD( 1, ::stopsounds );
@@ -1385,7 +1385,7 @@ depotopenlootcrate()
 
             for ( var_2 = 0; var_2 < level.depotlootrarities.size && var_2 < level.depotlootcards.size; var_2++ )
             {
-                level.depotlootcards[var_2].rarity_fx = level._effect[level.raritycardfx[level.inventoryitemrarity["Common"]].fx];
+                level.depotlootcards[var_2].rarity_fx = level._effect[level.raritycardfx[level.inventoryitemrarity["Common"]]._id_3B23];
                 playfxontag( level.depotlootcards[var_2].rarity_fx, level.depotlootcards[var_2], "tag_card" );
                 var_1 = int( max( var_1, level.depotlootrarities[var_2] ) );
             }

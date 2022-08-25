@@ -22,10 +22,10 @@
 init()
 {
     _id_4E15();
-    level.teambalance = getdvarint( "scr_teambalance" );
-    level.maxclients = getdvarint( "sv_maxclients" );
+    level._id_91E9 = getdvarint( "scr_teambalance" );
+    level._id_5A29 = getdvarint( "sv_maxclients" );
     _id_7FE7();
-    level.freeplayers = [];
+    level._id_3A2A = [];
 
     if ( level.teambased )
     {
@@ -128,9 +128,9 @@ _id_950B()
     self endon( "disconnect" );
     lootservicestarttrackingplaytime( self.xuid );
     updateinpartywithotherplayers();
-    self.timeplayed["allies"] = 0;
-    self.timeplayed["axis"] = 0;
-    self.timeplayed["other"] = 0;
+    self._id_9372["allies"] = 0;
+    self._id_9372["axis"] = 0;
+    self._id_9372["other"] = 0;
     maps\mp\_utility::_id_3BE1( "prematch_done" );
 
     for (;;)
@@ -139,16 +139,16 @@ _id_950B()
         {
             if ( self.sessionteam == "allies" )
             {
-                self.timeplayed["allies"]++;
-                self.timeplayed["total"]++;
+                self._id_9372["allies"]++;
+                self._id_9372["total"]++;
             }
             else if ( self.sessionteam == "axis" )
             {
-                self.timeplayed["axis"]++;
-                self.timeplayed["total"]++;
+                self._id_9372["axis"]++;
+                self._id_9372["total"]++;
             }
             else if ( self.sessionteam == "spectator" )
-                self.timeplayed["other"]++;
+                self._id_9372["other"]++;
         }
 
         if ( !maps\mp\_utility::_id_5092( self.inpartywithotherplayers ) )
@@ -184,33 +184,33 @@ _id_9B4A()
     if ( !maps\mp\_utility::_id_7139() )
         return;
 
-    if ( self.timeplayed["allies"] )
+    if ( self._id_9372["allies"] )
     {
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedAllies", self.timeplayed["allies"] );
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self.timeplayed["allies"] );
-        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self.timeplayed["allies"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedAllies", self._id_9372["allies"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self._id_9372["allies"] );
+        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self._id_9372["allies"] );
     }
 
-    if ( self.timeplayed["axis"] )
+    if ( self._id_9372["axis"] )
     {
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOpfor", self.timeplayed["axis"] );
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self.timeplayed["axis"] );
-        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self.timeplayed["axis"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOpfor", self._id_9372["axis"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self._id_9372["axis"] );
+        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self._id_9372["axis"] );
     }
 
-    if ( self.timeplayed["other"] )
+    if ( self._id_9372["other"] )
     {
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOther", self.timeplayed["other"] );
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self.timeplayed["other"] );
-        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self.timeplayed["other"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOther", self._id_9372["other"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self._id_9372["other"] );
+        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self._id_9372["other"] );
     }
 
     if ( game["state"] == "postgame" )
         return;
 
-    self.timeplayed["allies"] = 0;
-    self.timeplayed["axis"] = 0;
-    self.timeplayed["other"] = 0;
+    self._id_9372["allies"] = 0;
+    self._id_9372["axis"] = 0;
+    self._id_9372["other"] = 0;
 }
 
 _id_9B86()
@@ -227,8 +227,8 @@ _id_9B80()
     {
         var_0 = getdvarint( "scr_teambalance" );
 
-        if ( level.teambalance != var_0 )
-            level.teambalance = getdvarint( "scr_teambalance" );
+        if ( level._id_91E9 != var_0 )
+            level._id_91E9 = getdvarint( "scr_teambalance" );
 
         wait 1;
     }
@@ -236,11 +236,11 @@ _id_9B80()
 
 _id_9B7F()
 {
-    level._id_91F4 = level.maxclients / 2;
+    level._id_91F4 = level._id_5A29 / 2;
     level thread _id_9B80();
     wait 0.15;
 
-    if ( level.teambalance && maps\mp\_utility::_id_5194() )
+    if ( level._id_91E9 && maps\mp\_utility::_id_5194() )
     {
         if ( isdefined( game["BalanceTeamsNextRound"] ) )
             iprintlnbold( &"MP_AUTOBALANCE_NEXT_ROUND" );
@@ -249,7 +249,7 @@ _id_9B7F()
 
         if ( isdefined( game["BalanceTeamsNextRound"] ) )
         {
-            level _id_1274();
+            level balanceteams();
             game["BalanceTeamsNextRound"] = undefined;
         }
         else if ( !_id_410A() )
@@ -261,7 +261,7 @@ _id_9B7F()
 
         for (;;)
         {
-            if ( level.teambalance )
+            if ( level._id_91E9 )
             {
                 if ( !_id_410A() )
                 {
@@ -269,7 +269,7 @@ _id_9B7F()
                     wait 15.0;
 
                     if ( !_id_410A() )
-                        level _id_1274();
+                        level balanceteams();
                 }
 
                 wait 59.0;
@@ -298,13 +298,13 @@ _id_410A()
             level.team["axis"]++;
     }
 
-    if ( level.team["allies"] > level.team["axis"] + level.teambalance || level.team["axis"] > level.team["allies"] + level.teambalance )
+    if ( level.team["allies"] > level.team["axis"] + level._id_91E9 || level.team["axis"] > level.team["allies"] + level._id_91E9 )
         return 0;
     else
         return 1;
 }
 
-_id_1274()
+balanceteams()
 {
     iprintlnbold( game["strings"]["autobalance"] );
     var_0 = [];
@@ -422,7 +422,7 @@ _id_6C81( var_0, var_1, var_2 )
     if ( isdefined( var_0 ) )
         var_0 = maps\mp\_utility::_id_3F11( var_0 ) + "_mp";
 
-    self _meth_84b6( self._id_2236, var_0, var_1, var_2 );
+    self _meth_84B6( self._id_2236, var_0, var_1, var_2 );
     self._id_9F32 = "american";
     self setclothtype( "vestlight" );
     return 1;
@@ -513,9 +513,9 @@ _id_94BF()
     self endon( "disconnect" );
     lootservicestarttrackingplaytime( self.xuid );
     updateinpartywithotherplayers();
-    self.timeplayed["allies"] = 0;
-    self.timeplayed["axis"] = 0;
-    self.timeplayed["other"] = 0;
+    self._id_9372["allies"] = 0;
+    self._id_9372["axis"] = 0;
+    self._id_9372["other"] = 0;
 
     for (;;)
     {
@@ -523,16 +523,16 @@ _id_94BF()
         {
             if ( isdefined( self.pers["team"] ) && self.pers["team"] == "allies" && self.sessionteam != "spectator" )
             {
-                self.timeplayed["allies"]++;
-                self.timeplayed["total"]++;
+                self._id_9372["allies"]++;
+                self._id_9372["total"]++;
             }
             else if ( isdefined( self.pers["team"] ) && self.pers["team"] == "axis" && self.sessionteam != "spectator" )
             {
-                self.timeplayed["axis"]++;
-                self.timeplayed["total"]++;
+                self._id_9372["axis"]++;
+                self._id_9372["total"]++;
             }
             else
-                self.timeplayed["other"]++;
+                self._id_9372["other"]++;
         }
 
         if ( !maps\mp\_utility::_id_5092( self.inpartywithotherplayers ) )
@@ -571,33 +571,33 @@ _id_9B1A()
     if ( isai( self ) )
         return;
 
-    if ( self.timeplayed["allies"] )
+    if ( self._id_9372["allies"] )
     {
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedAllies", self.timeplayed["allies"] );
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self.timeplayed["allies"] );
-        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self.timeplayed["allies"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedAllies", self._id_9372["allies"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self._id_9372["allies"] );
+        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self._id_9372["allies"] );
     }
 
-    if ( self.timeplayed["axis"] )
+    if ( self._id_9372["axis"] )
     {
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOpfor", self.timeplayed["axis"] );
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self.timeplayed["axis"] );
-        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self.timeplayed["axis"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOpfor", self._id_9372["axis"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self._id_9372["axis"] );
+        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self._id_9372["axis"] );
     }
 
-    if ( self.timeplayed["other"] )
+    if ( self._id_9372["other"] )
     {
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOther", self.timeplayed["other"] );
-        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self.timeplayed["other"] );
-        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self.timeplayed["other"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedOther", self._id_9372["other"] );
+        maps\mp\gametypes\_persistence::_id_8D51( "timePlayedTotal", self._id_9372["other"] );
+        maps\mp\gametypes\_persistence::_id_8D54( "round", "timePlayed", self._id_9372["other"] );
     }
 
     if ( game["state"] == "postgame" )
         return;
 
-    self.timeplayed["allies"] = 0;
-    self.timeplayed["axis"] = 0;
-    self.timeplayed["other"] = 0;
+    self._id_9372["allies"] = 0;
+    self._id_9372["axis"] = 0;
+    self._id_9372["other"] = 0;
 }
 
 _id_3FDD( var_0 )

@@ -24,8 +24,8 @@ _id_4C8B()
 {
     var_0 = [];
     var_0["flashed"] = [ %exposed_flashbang_v2, %exposed_flashbang_v4 ];
-    var_0["flashed"] = common_scripts\utility::_id_0CF5( var_0["flashed"] );
-    anim._id_0CCA["soldier"]["flashed"] = var_0;
+    var_0["flashed"] = common_scripts\utility::array_randomize( var_0["flashed"] );
+    anim.archetypes["soldier"]["flashed"] = var_0;
     anim._id_38A4["soldier"] = 0;
 }
 
@@ -33,18 +33,18 @@ _id_403A()
 {
     var_0 = "soldier";
 
-    if ( isdefined( self._id_0C4D ) && isdefined( anim._id_38A4[self._id_0C4D] ) )
-        var_0 = self._id_0C4D;
+    if ( isdefined( self.animarchetype ) && isdefined( anim._id_38A4[self.animarchetype] ) )
+        var_0 = self.animarchetype;
 
     anim._id_38A4[var_0]++;
 
-    if ( anim._id_38A4[var_0] >= anim._id_0CCA[var_0]["flashed"]["flashed"].size )
+    if ( anim._id_38A4[var_0] >= anim.archetypes[var_0]["flashed"]["flashed"].size )
     {
         anim._id_38A4[var_0] = 0;
-        anim._id_0CCA[var_0]["flashed"]["flashed"] = common_scripts\utility::_id_0CF5( anim._id_0CCA[var_0]["flashed"]["flashed"] );
+        anim.archetypes[var_0]["flashed"]["flashed"] = common_scripts\utility::array_randomize( anim.archetypes[var_0]["flashed"]["flashed"] );
     }
 
-    return anim._id_0CCA[var_0]["flashed"]["flashed"][anim._id_38A4[var_0]];
+    return anim.archetypes[var_0]["flashed"]["flashed"][anim._id_38A4[var_0]];
 }
 
 _id_38A5( var_0 )

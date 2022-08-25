@@ -26,7 +26,7 @@ init()
     if ( !_id_5A60() )
         return;
 
-    level.missioncallbacks = [];
+    level._id_5CDC = [];
     _id_72F2( "playerKilled", ::_id_1C50 );
     _id_72F2( "playerKilled", ::_id_1C57 );
     _id_72F2( "playerHardpoint", ::_id_1C4F );
@@ -128,10 +128,10 @@ _id_4DF2()
 
 _id_72F2( var_0, var_1 )
 {
-    if ( !isdefined( level.missioncallbacks[var_0] ) )
-        level.missioncallbacks[var_0] = [];
+    if ( !isdefined( level._id_5CDC[var_0] ) )
+        level._id_5CDC[var_0] = [];
 
-    level.missioncallbacks[var_0][level.missioncallbacks[var_0].size] = var_1;
+    level._id_5CDC[var_0][level._id_5CDC[var_0].size] = var_1;
 }
 
 _id_3F2C( var_0 )
@@ -369,7 +369,7 @@ _id_1C50( var_0 )
     var_10 = var_0.time;
     var_11 = 0;
 
-    if ( isdefined( var_1.tookweaponfrom[var_0._id_9024] ) && !maps\mp\_utility::_id_5150( var_9 ) )
+    if ( isdefined( var_1._id_680B[var_0._id_9024] ) && !maps\mp\_utility::_id_5150( var_9 ) )
         var_11++;
 
     var_12 = maps\mp\_utility::iskillstreakweapon( var_0._id_9024 );
@@ -391,18 +391,18 @@ _id_1C50( var_0 )
     var_17 = var_0.was_ads;
     var_18 = 0;
 
-    if ( var_1.recentkillcount == 2 )
+    if ( var_1._id_7260 == 2 )
         var_18 = 1;
 
     var_19 = 0;
 
-    if ( var_1.recentkillcount == 3 )
+    if ( var_1._id_7260 == 3 )
         var_19 = 1;
 
     var_20 = "";
 
-    if ( isdefined( var_0._id_0E35 ) )
-        var_20 = var_0._id_0E35;
+    if ( isdefined( var_0.attackerstance ) )
+        var_20 = var_0.attackerstance;
 
     var_21 = 0;
     var_22 = 0;
@@ -461,7 +461,7 @@ _id_1C50( var_0 )
         if ( var_10 - var_28.time < 10000 )
             var_4++;
 
-        if ( isdefined( var_1.tookweaponfrom[var_28._id_9024] ) && !maps\mp\_utility::_id_5150( var_28._id_867C ) )
+        if ( isdefined( var_1._id_680B[var_28._id_9024] ) && !maps\mp\_utility::_id_5150( var_28._id_867C ) )
         {
             if ( !isdefined( var_1.humiliationfinderscounter[var_28._id_9024] ) )
                 var_1.humiliationfinderscounter[var_28._id_9024] = 0;
@@ -567,7 +567,7 @@ _id_1C50( var_0 )
     else if ( var_34 == "mp_bog_summer" )
         var_1 _id_6FF6( "ch_summer_kills" );
 
-    if ( isdefined( var_1.tookweaponfrom[var_0._id_9024] ) )
+    if ( isdefined( var_1._id_680B[var_0._id_9024] ) )
     {
         if ( !maps\mp\_utility::_id_5150( var_9 ) )
             var_1 _id_6FF6( "ch_kills_stolen" );
@@ -624,12 +624,12 @@ _id_1C50( var_0 )
                 var_1 notify( "increment_ar_headshots" );
         }
 
-        if ( isdefined( level.challengeinfo["ch_marksman_" + var_30] ) && var_1 _id_3F2C( "ch_marksman_" + var_30 ) > 0 )
+        if ( isdefined( level._id_1C62["ch_marksman_" + var_30] ) && var_1 _id_3F2C( "ch_marksman_" + var_30 ) > 0 )
             var_1 _id_6FF6( "ch_marksman_" + var_30 );
 
         if ( var_14 )
         {
-            if ( isdefined( level.challengeinfo["ch_expert_" + var_30] ) && var_1 _id_3F2C( "ch_expert_" + var_30 ) > 0 )
+            if ( isdefined( level._id_1C62["ch_expert_" + var_30] ) && var_1 _id_3F2C( "ch_expert_" + var_30 ) > 0 )
                 var_1 _id_6FF6( "ch_expert_" + var_30 );
         }
     }
@@ -656,20 +656,20 @@ _id_1C50( var_0 )
                     var_1 _id_6FF6( "ch_summer_slasher" );
             }
 
-            var_35 = var_0._id_9E07._id_0BA0[1];
-            var_36 = var_1._id_0BA1[1];
+            var_35 = var_0._id_9E07.anglesondeath[1];
+            var_36 = var_1.anglesonkill[1];
             var_37 = angleclamp180( var_35 - var_36 );
 
             if ( abs( var_37 ) < 30 )
                 var_1 _id_6FF6( "ch_backstabber" );
 
-            if ( !var_0._id_0E32 )
+            if ( !var_0.attackeronground )
                 var_1 _id_6FF6( "ch_jump_slasher" );
 
-            if ( var_0._id_0E35 == "prone" )
+            if ( var_0.attackerstance == "prone" )
                 var_1 _id_6FF6( "ch_pronemelee" );
 
-            if ( !var_0._id_0E32 )
+            if ( !var_0.attackeronground )
                 var_1 _id_6FF6( "ch_jumpmelee" );
         }
 
@@ -931,22 +931,22 @@ _id_1C48( var_0, var_1, var_2, var_3 )
     if ( !var_0._id_9E08 )
         var_1 _id_6FF6( "ch_hardlanding" );
 
-    if ( !var_0._id_0E32 )
+    if ( !var_0.attackeronground )
         var_1.pers["midairStreak"]++;
 
     if ( var_1.pers["midairStreak"] == 2 )
         var_1 _id_6FF6( "ch_airborne" );
 
-    if ( var_2 < var_0._id_9E07.flashendtime )
+    if ( var_2 < var_0._id_9E07._id_38B1 )
         var_1 _id_6FF6( "ch_flashbangvet" );
 
-    if ( var_2 < var_1.flashendtime )
+    if ( var_2 < var_1._id_38B1 )
         var_1 _id_6FF6( "ch_blindfire" );
 
-    if ( var_2 < var_0._id_9E07.concussionendtime )
+    if ( var_2 < var_0._id_9E07._id_20DF )
         var_1 _id_6FF6( "ch_concussionvet" );
 
-    if ( var_2 < var_1.concussionendtime )
+    if ( var_2 < var_1._id_20DF )
         var_1 _id_6FF6( "ch_slowbutsure" );
 
     if ( var_1.pers["bulletStreak"] == 2 )
@@ -976,9 +976,9 @@ _id_1C48( var_0, var_1, var_2, var_3 )
 
     if ( var_3 == "weapon_pistol" )
     {
-        if ( isdefined( var_0._id_9E07._id_0E2C ) && isdefined( var_0._id_9E07._id_0E2C[var_1.guid] ) )
+        if ( isdefined( var_0._id_9E07.attackerdata ) && isdefined( var_0._id_9E07.attackerdata[var_1.guid] ) )
         {
-            if ( isdefined( var_0._id_9E07._id_0E2C[var_1.guid]._id_5184 ) )
+            if ( isdefined( var_0._id_9E07.attackerdata[var_1.guid]._id_5184 ) )
                 var_1 _id_6FF6( "ch_fastswap" );
         }
     }
@@ -987,12 +987,12 @@ _id_1C48( var_0, var_1, var_2, var_3 )
     {
         var_7 = maps\mp\_utility::_id_3F11( var_0._id_9024 );
 
-        if ( var_0._id_0E35 == "crouch" )
+        if ( var_0.attackerstance == "crouch" )
         {
             var_1 _id_6FF6( "ch_crouchshot" );
             var_1 _id_6FF6( "ch_crouch_" + var_7 );
         }
-        else if ( var_0._id_0E35 == "prone" )
+        else if ( var_0.attackerstance == "prone" )
         {
             var_1 _id_6FF6( "ch_proneshot" );
             var_1 _id_6FF6( "ch_prone_" + var_7 );
@@ -1010,7 +1010,7 @@ _id_1C51( var_0 )
 {
     var_1 = var_0.player;
 
-    if ( var_1.wasaliveatmatchstart )
+    if ( var_1._id_A1BE )
     {
         var_2 = var_1.pers["deaths"];
         var_3 = var_1.pers["kills"];
@@ -1025,7 +1025,7 @@ _id_1C51( var_0 )
         if ( var_2 == 0 && maps\mp\_utility::_id_412C() > 300000 )
             var_1 _id_6FF6( "ch_flawless" );
 
-        if ( level.placement["all"].size < 3 )
+        if ( level._id_6861["all"].size < 3 )
             return;
 
         if ( var_1.score > 0 )
@@ -1055,7 +1055,7 @@ _id_1C52( var_0 )
 
     var_1 = var_0.player;
 
-    if ( var_1.wasaliveatmatchstart )
+    if ( var_1._id_A1BE )
     {
         switch ( level.gametype )
         {
@@ -1122,15 +1122,15 @@ _id_6C82( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     if ( isplayer( var_1 ) )
     {
-        var_6._id_0E2E = isdefined( var_6.attacker.laststand );
-        var_6._id_0E32 = var_6.attacker isonground();
-        var_6._id_0E35 = var_6.attacker getstance();
+        var_6.attackerinlaststand = isdefined( var_6.attacker.laststand );
+        var_6.attackeronground = var_6.attacker isonground();
+        var_6.attackerstance = var_6.attacker getstance();
     }
     else
     {
-        var_6._id_0E2E = 0;
-        var_6._id_0E32 = 0;
-        var_6._id_0E35 = "stand";
+        var_6.attackerinlaststand = 0;
+        var_6.attackeronground = 0;
+        var_6.attackerstance = "stand";
     }
 
     _id_2CFB( "playerDamaged", var_6 );
@@ -1138,10 +1138,10 @@ _id_6C82( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_6CD7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
-    self._id_0BA0 = self getplayerangles();
+    self.anglesondeath = self getplayerangles();
 
     if ( isdefined( var_1 ) )
-        var_1._id_0BA1 = var_1 getplayerangles();
+        var_1.anglesonkill = var_1 getplayerangles();
 
     self endon( "disconnect" );
     var_9 = spawnstruct();
@@ -1160,15 +1160,15 @@ _id_6CD7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 
     if ( isplayer( var_1 ) )
     {
-        var_9._id_0E2E = isdefined( var_9.attacker.laststand );
-        var_9._id_0E32 = var_9.attacker isonground();
-        var_9._id_0E35 = var_9.attacker getstance();
+        var_9.attackerinlaststand = isdefined( var_9.attacker.laststand );
+        var_9.attackeronground = var_9.attacker isonground();
+        var_9.attackerstance = var_9.attacker getstance();
     }
     else
     {
-        var_9._id_0E2E = 0;
-        var_9._id_0E32 = 0;
-        var_9._id_0E35 = "stand";
+        var_9.attackerinlaststand = 0;
+        var_9.attackeronground = 0;
+        var_9.attackerstance = "stand";
     }
 
     var_10 = 0;
@@ -1253,9 +1253,9 @@ _id_7652( var_0 )
     {
         var_2 = "allies";
 
-        for ( var_3 = 0; var_3 < level.placement[var_2].size; var_3++ )
+        for ( var_3 = 0; var_3 < level._id_6861[var_2].size; var_3++ )
         {
-            var_1.player = level.placement[var_2][var_3];
+            var_1.player = level._id_6861[var_2][var_3];
             var_1._id_A342 = var_2 == var_0;
             var_1._id_685B = var_3;
             _id_2CFB( "roundEnd", var_1 );
@@ -1263,9 +1263,9 @@ _id_7652( var_0 )
 
         var_2 = "axis";
 
-        for ( var_3 = 0; var_3 < level.placement[var_2].size; var_3++ )
+        for ( var_3 = 0; var_3 < level._id_6861[var_2].size; var_3++ )
         {
-            var_1.player = level.placement[var_2][var_3];
+            var_1.player = level._id_6861[var_2][var_3];
             var_1._id_A342 = var_2 == var_0;
             var_1._id_685B = var_3;
             _id_2CFB( "roundEnd", var_1 );
@@ -1273,9 +1273,9 @@ _id_7652( var_0 )
     }
     else
     {
-        for ( var_3 = 0; var_3 < level.placement["all"].size; var_3++ )
+        for ( var_3 = 0; var_3 < level._id_6861["all"].size; var_3++ )
         {
-            var_1.player = level.placement["all"][var_3];
+            var_1.player = level._id_6861["all"][var_3];
             var_1._id_A342 = isdefined( var_0 ) && isplayer( var_0 ) && var_1.player == var_0;
             var_1._id_685B = var_3;
             _id_2CFB( "roundEnd", var_1 );
@@ -1291,18 +1291,18 @@ _id_2CFB( var_0, var_1 )
     if ( getdvarint( "disable_challenges" ) > 0 )
         return;
 
-    if ( !isdefined( level.missioncallbacks[var_0] ) )
+    if ( !isdefined( level._id_5CDC[var_0] ) )
         return;
 
     if ( isdefined( var_1 ) )
     {
-        for ( var_2 = 0; var_2 < level.missioncallbacks[var_0].size; var_2++ )
-            thread [[ level.missioncallbacks[var_0][var_2] ]]( var_1 );
+        for ( var_2 = 0; var_2 < level._id_5CDC[var_0].size; var_2++ )
+            thread [[ level._id_5CDC[var_0][var_2] ]]( var_1 );
     }
     else
     {
-        for ( var_2 = 0; var_2 < level.missioncallbacks[var_0].size; var_2++ )
-            thread [[ level.missioncallbacks[var_0][var_2] ]]();
+        for ( var_2 = 0; var_2 < level._id_5CDC[var_0].size; var_2++ )
+            thread [[ level._id_5CDC[var_0][var_2] ]]();
     }
 }
 
@@ -1413,7 +1413,7 @@ _id_55BC()
     if ( !_id_5A60() )
         return;
 
-    if ( !self.wasaliveatmatchstart )
+    if ( !self._id_A1BE )
         return;
 
     if ( self.teamkillsthisround > 0 )
@@ -1519,13 +1519,13 @@ _id_478F()
 
     thread _id_7446();
 
-    if ( isdefined( self.lastdamagewasfromenemy ) && self.lastdamagewasfromenemy )
+    if ( isdefined( self._id_5591 ) && self._id_5591 )
     {
-        self.healthregenerationstreak++;
+        self._id_4791++;
 
-        if ( self.healthregenerationstreak >= 5 )
+        if ( self._id_4791 >= 5 )
         {
-            self.healthregenerationstreak = 0;
+            self._id_4791 = 0;
             _id_6FF6( "ch_invincible" );
         }
     }
@@ -1543,19 +1543,19 @@ _id_7446()
 _id_6D5C()
 {
     self.brinkofdeathkillstreak = 0;
-    self.healthregenerationstreak = 0;
+    self._id_4791 = 0;
 }
 
 _id_6C89()
 {
     self.brinkofdeathkillstreak = 0;
-    self.healthregenerationstreak = 0;
+    self._id_4791 = 0;
 }
 
 _id_50BC()
 {
     var_0 = self.health / self.maxhealth;
-    return var_0 <= level.healthoverlaycutoff;
+    return var_0 <= level._id_478D;
 }
 
 _id_6FF6( var_0, var_1, var_2 )
@@ -1587,10 +1587,10 @@ _id_6FF6( var_0, var_1, var_2 )
     if ( var_4 == 0 )
         return;
 
-    if ( var_4 > level.challengeinfo[var_0]["targetval"].size )
+    if ( var_4 > level._id_1C62[var_0]["targetval"].size )
         return;
 
-    var_5 = maps\mp\gametypes\_hud_util::_id_1C4C( var_0 );
+    var_5 = maps\mp\gametypes\_hud_util::getDailyRef( var_0 );
 
     if ( isdefined( var_2 ) && var_2 )
         var_6 = var_1;
@@ -1601,7 +1601,7 @@ _id_6FF6( var_0, var_1, var_2 )
 
     var_7 = 0;
 
-    for ( var_8 = level.challengeinfo[var_0]["targetval"][var_4]; isdefined( var_8 ) && var_6 >= var_8; var_8 = level.challengeinfo[var_0]["targetval"][var_4 + var_7] )
+    for ( var_8 = level._id_1C62[var_0]["targetval"][var_4]; isdefined( var_8 ) && var_6 >= var_8; var_8 = level._id_1C62[var_0]["targetval"][var_4 + var_7] )
         var_7++;
 
     if ( var_5 < var_6 )
@@ -1615,7 +1615,7 @@ _id_6FF6( var_0, var_1, var_2 )
         {
             thread _id_4200( var_0, var_4 );
             var_10 = getchallengeid( var_0, var_4 );
-            self _meth_843f( var_10 );
+            self _meth_843F( var_10 );
             var_11 = common_scripts\utility::_id_93F2( var_10 );
             var_12 = int( getsubstr( var_11, 0, var_11.size - 2 ) );
 
@@ -1633,8 +1633,8 @@ _id_6FF6( var_0, var_1, var_2 )
             if ( !var_13 )
                 game["challengeStruct"]["challengesCompleted"][self.guid][game["challengeStruct"]["challengesCompleted"][self.guid].size] = var_12;
 
-            if ( var_4 >= level.challengeinfo[var_0]["targetval"].size && level.challengeinfo[var_0]["parent_challenge"] != "" )
-                _id_6FF6( level.challengeinfo[var_0]["parent_challenge"] );
+            if ( var_4 >= level._id_1C62[var_0]["targetval"].size && level._id_1C62[var_0]["parent_challenge"] != "" )
+                _id_6FF6( level._id_1C62[var_0]["parent_challenge"] );
 
             var_4++;
             var_7--;
@@ -1653,7 +1653,7 @@ _id_4200( var_0, var_1 )
 {
     self endon( "disconnect" );
     wait 0.25;
-    maps\mp\gametypes\_rank::_id_41FF( "challenge", level.challengeinfo[var_0]["reward"][var_1], undefined, undefined, var_0 );
+    maps\mp\gametypes\_rank::_id_41FF( "challenge", level._id_1C62[var_0]["reward"][var_1], undefined, undefined, var_0 );
 }
 
 _id_4016( var_0, var_1 )
@@ -1665,8 +1665,8 @@ getlastchallengetier( var_0 )
 {
     var_1 = 0;
 
-    if ( isdefined( level.challengeinfo[var_0] ) && isdefined( level.challengeinfo[var_0]["targetval"].size ) )
-        var_1 = level.challengeinfo[var_0]["targetval"].size;
+    if ( isdefined( level._id_1C62[var_0] ) && isdefined( level._id_1C62[var_0]["targetval"].size ) )
+        var_1 = level._id_1C62[var_0]["targetval"].size;
 
     return var_1;
 }
@@ -1795,7 +1795,7 @@ _id_9AFE()
 
     var_0 = 0;
 
-    foreach ( var_5, var_2 in level.challengeinfo )
+    foreach ( var_5, var_2 in level._id_1C62 )
     {
         var_0++;
 
@@ -1968,7 +1968,7 @@ _id_1C5C( var_0, var_1 )
     return var_2;
 }
 
-_id_1879( var_0, var_1 )
+buildchallengetableinfo( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = 0;
@@ -1986,12 +1986,12 @@ _id_1879( var_0, var_1 )
         if ( var_5 == "1" )
             continue;
 
-        level.challengeinfo[var_4] = [];
-        level.challengeinfo[var_4]["index"] = var_3;
-        level.challengeinfo[var_4]["type"] = var_1;
-        level.challengeinfo[var_4]["targetval"] = [];
-        level.challengeinfo[var_4]["reward"] = [];
-        level.challengeinfo[var_4]["parent_challenge"] = "";
+        level._id_1C62[var_4] = [];
+        level._id_1C62[var_4]["index"] = var_3;
+        level._id_1C62[var_4]["type"] = var_1;
+        level._id_1C62[var_4]["targetval"] = [];
+        level._id_1C62[var_4]["reward"] = [];
+        level._id_1C62[var_4]["parent_challenge"] = "";
 
         if ( _id_5205( var_4 ) )
         {
@@ -1999,17 +1999,17 @@ _id_1879( var_0, var_1 )
             var_7 = _id_4161( var_4 );
 
             if ( isdefined( var_6 ) )
-                level.challengeinfo[var_4]["weapon"] = var_6;
+                level._id_1C62[var_4]["weapon"] = var_6;
 
             if ( isdefined( var_7 ) )
-                level.challengeinfo[var_4]["attachment"] = var_7;
+                level._id_1C62[var_4]["attachment"] = var_7;
         }
         else if ( _id_513A( var_4 ) )
         {
             var_8 = _id_3FEB( var_4 );
 
             if ( isdefined( var_8 ) )
-                level.challengeinfo[var_4]["killstreak"] = var_8;
+                level._id_1C62[var_4]["killstreak"] = var_8;
         }
 
         for ( var_9 = 1; var_9 < 11; var_9++ )
@@ -2020,26 +2020,26 @@ _id_1879( var_0, var_1 )
             if ( var_10 == 0 )
                 break;
 
-            level.challengeinfo[var_4]["targetval"][var_9] = var_10;
-            level.challengeinfo[var_4]["reward"][var_9] = var_11;
+            level._id_1C62[var_4]["targetval"][var_9] = var_10;
+            level._id_1C62[var_4]["reward"][var_9] = var_11;
             var_2 += var_11;
         }
 
-        level.challengeinfo[var_4]["parent_challenge"] = _id_1C5C( var_0, var_4 );
+        level._id_1C62[var_4]["parent_challenge"] = _id_1C5C( var_0, var_4 );
     }
 
     return int( var_2 );
 }
 
-_id_1878()
+buildchallegeinfo()
 {
-    level.challengeinfo = [];
+    level._id_1C62 = [];
 
     if ( getdvar( "virtualLobbyActive" ) == "1" )
         return;
 
     var_0 = 0;
-    var_0 += _id_1879( "mp/allChallengesTable.csv", 0 );
+    var_0 += buildchallengetableinfo( "mp/allChallengesTable.csv", 0 );
 }
 
 _id_5EB4()
@@ -2104,14 +2104,14 @@ _id_6CBE()
 _id_5E24()
 {
     self endon( "disconnect" );
-    self._id_087B = 0.0;
+    self.adstime = 0.0;
 
     for (;;)
     {
         if ( self playerads() == 1 )
-            self._id_087B += 0.05;
+            self.adstime += 0.05;
         else
-            self._id_087B = 0.0;
+            self.adstime = 0.0;
 
         wait 0.05;
     }
@@ -2211,7 +2211,7 @@ _id_5EE1()
         if ( var_2 != "primary" )
             continue;
 
-        self.lastprimaryweaponswaptime = gettime();
+        self._id_55CD = gettime();
     }
 }
 
@@ -2226,7 +2226,7 @@ _id_5E5F()
         if ( isdefined( var_3 ) && self == var_3 )
             continue;
 
-        self.lastflashedtime = gettime();
+        self._id_55A1 = gettime();
     }
 }
 
@@ -2241,7 +2241,7 @@ _id_5E36()
         if ( self == var_0 )
             continue;
 
-        self.lastconcussedtime = gettime();
+        self._id_558B = gettime();
     }
 }
 

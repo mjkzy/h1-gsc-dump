@@ -22,7 +22,7 @@
 main()
 {
     setup_exploder_anims();
-    _id_0C7A();
+    anims();
     _id_29F3();
     _id_6BD0();
     _id_7A3D();
@@ -30,7 +30,7 @@ main()
 }
 #using_animtree("generic_human");
 
-_id_0C7A()
+anims()
 {
     level._id_78AC["frnd"]["spin"] = %combatwalk_f_spin;
     level._id_78AC["frnd"]["AT4_fire_start"] = %launchfacility_a_at4_fire;
@@ -57,14 +57,14 @@ _id_0C7A()
     level._id_78AC["frnd"]["saw_2"] = %launchfacility_a_saw_2;
     level._id_78AC["frnd"]["saw_1_object"] = %launchfacility_a_saw_1_object;
     level._id_78AC["frnd"]["saw_2_object"] = %launchfacility_a_saw_2_object;
-    maps\_anim::_id_0807( "frnd", "saw_pickup", maps\launchfacility_a::saw_notify_pickup, "saw_1" );
-    maps\_anim::_id_0807( "frnd", "start_sparks", maps\launchfacility_a::saw_notify_start, "saw_1" );
-    maps\_anim::_id_0807( "frnd", "stop", maps\launchfacility_a::saw_notify_stop, "saw_1" );
-    maps\_anim::_id_0807( "frnd", "switch", maps\launchfacility_a::saw_notify_switch, "saw_1" );
-    maps\_anim::_id_0807( "frnd", "saw_pickup", maps\launchfacility_a::saw_notify_pickup, "saw_2" );
-    maps\_anim::_id_0807( "frnd", "start_sparks", maps\launchfacility_a::saw_notify_start, "saw_2" );
-    maps\_anim::_id_0807( "frnd", "stop", maps\launchfacility_a::saw_notify_stop, "saw_2" );
-    maps\_anim::_id_0807( "frnd", "switch", maps\launchfacility_a::saw_notify_switch, "saw_2" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "saw_pickup", maps\launchfacility_a::saw_notify_pickup, "saw_1" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "start_sparks", maps\launchfacility_a::saw_notify_start, "saw_1" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "stop", maps\launchfacility_a::saw_notify_stop, "saw_1" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "switch", maps\launchfacility_a::saw_notify_switch, "saw_1" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "saw_pickup", maps\launchfacility_a::saw_notify_pickup, "saw_2" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "start_sparks", maps\launchfacility_a::saw_notify_start, "saw_2" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "stop", maps\launchfacility_a::saw_notify_stop, "saw_2" );
+    maps\_anim::addnotetrack_customfunction( "frnd", "switch", maps\launchfacility_a::saw_notify_switch, "saw_2" );
     level._id_78AC["frnd"]["rappel_setup_start"] = %launchfacility_a_setup_idle_1;
     level._id_78AC["frnd"]["rappel_setup_to_stand_1"] = %launchfacility_a_setup_2_rappel_1;
     level._id_78AC["frnd"]["rappel_setup_to_stand_2"] = %launchfacility_a_setup_2_rappel_2;
@@ -190,7 +190,7 @@ _id_6BD0()
     level._id_78AC["player_rappel"]["rappel"] = %launchfacility_a_player_rappel;
     level._id_78B1["player_rappel"] = #animtree;
     level._id_78B5["player_rappel"] = "worldbody_h1_sas_woodland";
-    maps\_anim::_id_0805( "player_rappel", "rappel", "start", "rappel_liftrope_clipin_npc" );
+    maps\_anim::addnotetrack_animsound( "player_rappel", "rappel", "start", "rappel_liftrope_clipin_npc" );
 }
 #using_animtree("script_model");
 

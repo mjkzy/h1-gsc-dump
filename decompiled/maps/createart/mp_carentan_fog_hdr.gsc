@@ -26,7 +26,7 @@ main()
     var_0._id_4500 = 19391;
     var_0._id_7299 = 1;
     var_0._id_43D8 = 0.925269;
-    var_0._id_14C5 = 0.847076;
+    var_0.blue = 0.847076;
     var_0._id_4774 = 12.2088;
     var_0._id_5A47 = 0.7;
     var_0._id_971C = 0;
@@ -41,7 +41,7 @@ main()
     var_0._id_4500 = 17885.6;
     var_0._id_7299 = 0.867188;
     var_0._id_43D8 = 0.925269;
-    var_0._id_14C5 = 0.847076;
+    var_0.blue = 0.847076;
     var_0._id_4774 = -8;
     var_0._id_5A47 = 1;
     var_0._id_971C = 0;
@@ -60,24 +60,24 @@ main()
     var_0._id_479F = 0;
     var_0._id_479E = 0;
     var_0._id_47A0 = 1000;
-    var_0._id_0DB4 = 1;
-    var_0._id_0DC4 = ( 0.469299, 0.867188, 0.804363 );
-    var_0._id_0DB7 = ( 0.715628, 0.90625, 1.0 );
-    var_0._id_0DB9 = 0.111597;
-    var_0._id_0DB8 = 0.00552888;
-    var_0._id_0DB5 = 0.400122;
-    var_0._id_0DBD = 14.25;
-    var_0._id_0DB6 = 46103;
-    var_0._id_0DC2 = 100.931;
-    var_0._id_0DB3 = 0.266722;
-    var_0._id_0DBF = 148032;
-    var_0._id_0DBE = 1;
-    var_0._id_0DC1 = 90;
-    var_0._id_0DC0 = 0;
-    var_0._id_0DC3 = ( 0.835756, 0.166909, 0.52312 );
-    var_0._id_0DBB = 1;
-    var_0._id_0DBA = 0;
-    var_0._id_0DBC = 496.096;
+    var_0.atmosfogenabled = 1;
+    var_0.atmosfogsunfogcolor = ( 0.469299, 0.867188, 0.804363 );
+    var_0.atmosfoghazecolor = ( 0.715628, 0.90625, 1.0 );
+    var_0.atmosfoghazestrength = 0.111597;
+    var_0.atmosfoghazespread = 0.00552888;
+    var_0.atmosfogextinctionstrength = 0.400122;
+    var_0.atmosfoginscatterstrength = 14.25;
+    var_0.atmosfoghalfplanedistance = 46103;
+    var_0.atmosfogstartdistance = 100.931;
+    var_0.atmosfogdistancescale = 0.266722;
+    var_0.atmosfogskydistance = 148032;
+    var_0.atmosfogskyangularfalloffenabled = 1;
+    var_0.atmosfogskyfalloffstartangle = 90;
+    var_0.atmosfogskyfalloffanglerange = 0;
+    var_0.atmosfogsundirection = ( 0.835756, 0.166909, 0.52312 );
+    var_0.atmosfogheightfogenabled = 1;
+    var_0.atmosfogheightfogbaseheight = 0;
+    var_0.atmosfogheightfoghalfplanedistance = 496.096;
 }
 
 _id_8317()

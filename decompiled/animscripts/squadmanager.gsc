@@ -94,7 +94,7 @@ _id_286C( var_0 )
     var_2 notify( "squad_deleting" );
 
     while ( var_2._id_5BA6.size )
-        var_2._id_5BA6[0] _id_084F( var_2._id_5BA6[0].team );
+        var_2._id_5BA6[0] addtosquad( var_2._id_5BA6[0].team );
 
     anim._id_8ACE[var_1] = anim._id_8ACE[anim._id_8ACE.size - 1];
     anim._id_8ACE[var_1]._id_8ACD = var_1;
@@ -114,7 +114,7 @@ _id_3C86()
     return var_0;
 }
 
-_id_081E( var_0 )
+addplayertosquad( var_0 )
 {
     if ( !isdefined( var_0 ) )
     {
@@ -141,7 +141,7 @@ _id_8AC8()
     else
         var_0 = self._id_7AD7 + self._id_79DD;
 
-    _id_084F( var_0 );
+    addtosquad( var_0 );
 }
 
 _id_40E4( var_0 )
@@ -154,7 +154,7 @@ _id_40E4( var_0 )
     return var_1;
 }
 
-_id_084F( var_0 )
+addtosquad( var_0 )
 {
     if ( !isdefined( var_0 ) )
     {
@@ -190,7 +190,7 @@ _id_084F( var_0 )
     if ( isdefined( level._id_57DA ) )
     {
         if ( self.team == "allies" && animscripts\battlechatter::_id_5164() )
-            _id_0817();
+            addofficertosquad();
     }
 
     for ( var_2 = 0; var_2 < self._id_8AB0._id_5B9D.size; var_2++ )
@@ -252,7 +252,7 @@ _id_73AD()
     self notify( "removed from squad" );
 }
 
-_id_0817()
+addofficertosquad()
 {
     var_0 = self._id_8AB0;
 
@@ -304,7 +304,7 @@ _id_6377()
     for ( var_0 = 0; var_0 < self._id_5BA6.size; var_0++ )
     {
         if ( self._id_5BA6[var_0] animscripts\battlechatter::_id_5164() )
-            self._id_5BA6[var_0] _id_0817();
+            self._id_5BA6[var_0] addofficertosquad();
     }
 }
 
@@ -536,7 +536,7 @@ _id_6FA9( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_09A9( var_0 )
+aiupdateanimstate( var_0 )
 {
     switch ( var_0 )
     {
@@ -611,15 +611,15 @@ _id_9B36()
             if ( !isalive( self._id_5BA6[var_1] ) )
                 continue;
 
-            self._id_5BA6[var_1] _id_09AA( var_0 );
-            self._id_5BA6[var_1] _id_09AB( var_0 );
+            self._id_5BA6[var_1] aiupdatecombat( var_0 );
+            self._id_5BA6[var_1] aiupdatesuppressed( var_0 );
         }
 
         wait(var_0);
     }
 }
 
-_id_09AA( var_0 )
+aiupdatecombat( var_0 )
 {
     if ( isdefined( self.lastenemysightpos ) )
     {
@@ -631,7 +631,7 @@ _id_09AA( var_0 )
         self._id_559D = gettime();
         return;
     }
-    else if ( self _meth_81d1() )
+    else if ( self _meth_81D1() )
     {
         self._id_20B5 += var_0;
         return;
@@ -643,7 +643,7 @@ _id_09AA( var_0 )
         self._id_20B5 -= var_0;
 }
 
-_id_09AB( var_0 )
+aiupdatesuppressed( var_0 )
 {
     if ( self._id_8FE4 )
     {
@@ -667,14 +667,14 @@ _id_09AB( var_0 )
 _id_4E29( var_0, var_1 )
 {
     self._id_8AD6[var_0] = spawnstruct();
-    self._id_8AD6[var_0]._id_070E = var_1;
-    self._id_8AD6[var_0].isactive = 0;
+    self._id_8AD6[var_0].activateratio = var_1;
+    self._id_8AD6[var_0]._id_50A6 = 0;
     self._id_8AD6[var_0]._id_628D = 0;
 }
 
 _id_745E( var_0 )
 {
-    self._id_8AD6[var_0].isactive = 0;
+    self._id_8AD6[var_0]._id_50A6 = 0;
     self._id_8AD6[var_0]._id_628D = 0;
 }
 
@@ -682,8 +682,8 @@ _id_7094( var_0 )
 {
     self._id_8AD6[var_0.a._id_8D56]._id_628D++;
 
-    if ( self._id_8AD6[var_0.a._id_8D56]._id_628D > self._id_8AD6[var_0.a._id_8D56]._id_070E * self._id_5BA6.size )
-        self._id_8AD6[var_0.a._id_8D56].isactive = 1;
+    if ( self._id_8AD6[var_0.a._id_8D56]._id_628D > self._id_8AD6[var_0.a._id_8D56].activateratio * self._id_5BA6.size )
+        self._id_8AD6[var_0.a._id_8D56]._id_50A6 = 1;
 }
 
 _id_7095( var_0, var_1 )
@@ -712,6 +712,6 @@ _id_7095( var_0, var_1 )
             break;
     }
 
-    if ( self._id_8AD6[var_1]._id_628D > self._id_8AD6[var_1]._id_070E * self._id_5BA6.size )
-        self._id_8AD6[var_1].isactive = 1;
+    if ( self._id_8AD6[var_1]._id_628D > self._id_8AD6[var_1].activateratio * self._id_5BA6.size )
+        self._id_8AD6[var_1]._id_50A6 = 1;
 }

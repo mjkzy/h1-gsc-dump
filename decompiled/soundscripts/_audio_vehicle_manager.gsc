@@ -19,22 +19,22 @@
 
 */
 
-_id_1181( var_0, var_1 )
+avm_add_oneshot( var_0, var_1 )
 {
 
 }
 
-_id_11A2()
+avm_init()
 {
-    if ( isdefined( level._id_055B._id_9EB3 ) )
+    if ( isdefined( level._audio._id_9EB3 ) )
         return;
 
-    if ( !isdefined( level._id_055B._id_9EB3 ) )
-        level._id_055B._id_9EB3 = spawnstruct();
+    if ( !isdefined( level._audio._id_9EB3 ) )
+        level._audio._id_9EB3 = spawnstruct();
 
-    var_0 = _id_11B1();
+    var_0 = avmx_get();
     var_0._id_4D6A = gettime();
-    var_0._id_1A04 = [];
+    var_0.callbacks = [];
     var_0._id_6F20 = [];
     var_0._id_6F22 = [];
     var_0._id_76DD = 0;
@@ -53,54 +53,54 @@ _id_11A2()
     soundscripts\_snd::_id_874D( "snd_register_vehicle", ::_id_874E );
     soundscripts\_snd::_id_874D( "snd_start_vehicle", ::_id_8771 );
     soundscripts\_snd::_id_874D( "snd_stop_vehicle", ::_id_8779 );
-    _id_11A3( "distance2d", ::_id_4E48 );
-    _id_11A3( "distance", ::_id_4E47 );
-    _id_11A3( "throttle", ::_id_4E57 );
-    _id_11A3( "speed", ::_id_4E55 );
-    _id_11A3( "relative_speed", ::_id_4E54 );
-    _id_11A3( "doppler", ::_id_4E49 );
-    _id_11A3( "doppler_exaggerated", ::_id_4E4A );
-    _id_11A3( "doppler_subtle", ::_id_4E4B );
-    _id_11A3( "speed_mph", ::_id_4E56 );
-    _id_11A3( "acceleration_g", ::_id_4E45 );
-    _id_11A3( "jerk_gps", ::_id_4E4C );
-    _id_11A3( "pitch", ::_id_4E51 );
-    _id_11A3( "yaw", ::_id_4E58 );
-    _id_11A3( "pitch_roll_max", ::_id_4E52 );
-    _id_11A3( "degrees_from_upright", ::_id_4E46 );
-    _id_11A3( "jetbike_thrust", ::_id_4E4F );
-    _id_11A3( "jetbike_drag", ::_id_4E4E );
-    _id_11A3( "jetbike_anti_slip", ::_id_4E4D );
-    _id_11A3( "jetbike_total_repulsor", ::_id_4E50 );
-    _id_11A3( "jetbike_height", ::_id_4E53 );
-    _id_11A3( "hovertank_anti_slip_magnitude", ::_id_4E6B );
-    _id_11A3( "hovertank_anti_slip_direction", ::_id_4E6A );
-    _id_11A3( "hovertank_auto_yaw_magnitude", ::_id_4E6E );
-    _id_11A3( "hovertank_auto_yaw_direction", ::_id_4E6D );
-    _id_11A3( "hovertank_repulsor_front_left", ::_id_4E71 );
-    _id_11A3( "hovertank_repulsor_front_right", ::_id_4E72 );
-    _id_11A3( "hovertank_repulsor_back_left", ::_id_4E6F );
-    _id_11A3( "hovertank_repulsor_back_right", ::_id_4E70 );
-    _id_11A3( "hovertank_throttle_magnitude", ::_id_4E76 );
-    _id_11A3( "hovertank_throttle_direction", ::_id_4E75 );
-    _id_11A3( "hovertank_uprighting", ::_id_4E79 );
-    _id_11A3( "hovertank_turret_yaw", ::_id_4E78 );
-    _id_11A3( "hovertank_turret_pitch", ::_id_4E77 );
-    _id_11A3( "diveboat_throttle", ::_id_4E66 );
-    _id_11A3( "diveboat_drag", ::_id_4E64 );
-    _id_11A3( "diveboat_drag_with_mph", ::_id_4E65 );
-    _id_11A3( "player_pdrone_look", ::_id_4E7C );
+    avm_register_callback( "distance2d", ::_id_4E48 );
+    avm_register_callback( "distance", ::_id_4E47 );
+    avm_register_callback( "throttle", ::_id_4E57 );
+    avm_register_callback( "speed", ::_id_4E55 );
+    avm_register_callback( "relative_speed", ::_id_4E54 );
+    avm_register_callback( "doppler", ::_id_4E49 );
+    avm_register_callback( "doppler_exaggerated", ::_id_4E4A );
+    avm_register_callback( "doppler_subtle", ::_id_4E4B );
+    avm_register_callback( "speed_mph", ::_id_4E56 );
+    avm_register_callback( "acceleration_g", ::_id_4E45 );
+    avm_register_callback( "jerk_gps", ::_id_4E4C );
+    avm_register_callback( "pitch", ::_id_4E51 );
+    avm_register_callback( "yaw", ::_id_4E58 );
+    avm_register_callback( "pitch_roll_max", ::_id_4E52 );
+    avm_register_callback( "degrees_from_upright", ::_id_4E46 );
+    avm_register_callback( "jetbike_thrust", ::_id_4E4F );
+    avm_register_callback( "jetbike_drag", ::_id_4E4E );
+    avm_register_callback( "jetbike_anti_slip", ::_id_4E4D );
+    avm_register_callback( "jetbike_total_repulsor", ::_id_4E50 );
+    avm_register_callback( "jetbike_height", ::_id_4E53 );
+    avm_register_callback( "hovertank_anti_slip_magnitude", ::_id_4E6B );
+    avm_register_callback( "hovertank_anti_slip_direction", ::_id_4E6A );
+    avm_register_callback( "hovertank_auto_yaw_magnitude", ::_id_4E6E );
+    avm_register_callback( "hovertank_auto_yaw_direction", ::_id_4E6D );
+    avm_register_callback( "hovertank_repulsor_front_left", ::_id_4E71 );
+    avm_register_callback( "hovertank_repulsor_front_right", ::_id_4E72 );
+    avm_register_callback( "hovertank_repulsor_back_left", ::_id_4E6F );
+    avm_register_callback( "hovertank_repulsor_back_right", ::_id_4E70 );
+    avm_register_callback( "hovertank_throttle_magnitude", ::_id_4E76 );
+    avm_register_callback( "hovertank_throttle_direction", ::_id_4E75 );
+    avm_register_callback( "hovertank_uprighting", ::_id_4E79 );
+    avm_register_callback( "hovertank_turret_yaw", ::_id_4E78 );
+    avm_register_callback( "hovertank_turret_pitch", ::_id_4E77 );
+    avm_register_callback( "diveboat_throttle", ::_id_4E66 );
+    avm_register_callback( "diveboat_drag", ::_id_4E64 );
+    avm_register_callback( "diveboat_drag_with_mph", ::_id_4E65 );
+    avm_register_callback( "player_pdrone_look", ::_id_4E7C );
 }
 
 _id_874E( var_0, var_1 )
 {
-    var_2 = _id_11B1();
+    var_2 = avmx_get();
     var_2._id_6F20[var_0] = var_1;
 }
 
 _id_8771( var_0 )
 {
-    var_1 = _id_11B1();
+    var_1 = avmx_get();
 
     if ( isstring( var_0 ) )
     {
@@ -110,83 +110,83 @@ _id_8771( var_0 )
     }
 
     var_2 = var_0._id_6F21;
-    var_3 = soundscripts\_audio::_id_0F30( var_1._id_2771, var_0._id_6BA1 );
-    var_4 = soundscripts\_audio::_id_0F30( var_1._id_2769, var_0._id_35F0 );
-    var_5 = soundscripts\_audio::_id_0F30( var_1._id_276A, var_0._id_35F5 );
-    var_6 = soundscripts\_audio::_id_0F30( var_1._id_2776, var_0._id_6379 );
-    var_7 = soundscripts\_audio::_id_0F30( undefined, var_0._id_4DD4 );
-    self._id_86FE = thread _id_11E1( var_2, var_3, var_4, var_5, var_6, var_7 );
+    var_3 = soundscripts\_audio::aud_get_optional_param( var_1._id_2771, var_0._id_6BA1 );
+    var_4 = soundscripts\_audio::aud_get_optional_param( var_1._id_2769, var_0._id_35F0 );
+    var_5 = soundscripts\_audio::aud_get_optional_param( var_1._id_276A, var_0._id_35F5 );
+    var_6 = soundscripts\_audio::aud_get_optional_param( var_1._id_2776, var_0._id_6379 );
+    var_7 = soundscripts\_audio::aud_get_optional_param( undefined, var_0._id_4DD4 );
+    self._id_86FE = thread avmx_start_instance( var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
 _id_8779( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = _id_11B1();
+    var_3 = avmx_get();
     var_4 = var_2._id_86FE;
     var_2._id_86FE = undefined;
-    var_5 = var_4 _id_11BC();
-    var_6 = soundscripts\_audio::_id_0F30( var_4._id_35F5, var_5._id_4777._id_35F5 );
-    var_4._id_35F5 = soundscripts\_audio::_id_0F30( var_6, var_0 );
-    var_1 = soundscripts\_audio::_id_0F30( 0, var_1 );
-    var_4 maps\_utility::_id_27EF( var_1, ::_id_11EA, var_4._id_35F5 );
+    var_5 = var_4 avmx_get_instance_preset();
+    var_6 = soundscripts\_audio::aud_get_optional_param( var_4._id_35F5, var_5._id_4777._id_35F5 );
+    var_4._id_35F5 = soundscripts\_audio::aud_get_optional_param( var_6, var_0 );
+    var_1 = soundscripts\_audio::aud_get_optional_param( 0, var_1 );
+    var_4 maps\_utility::_id_27EF( var_1, ::avmx_stop_instance, var_4._id_35F5 );
 }
 
-_id_1194()
+avm_create_vehicle_proxy()
 {
     var_0 = common_scripts\utility::_id_8959();
     var_0._id_9EC3 = 1;
     return var_0;
 }
 
-_id_11CD()
+avmx_is_vehicle_proxy()
 {
     return isdefined( self._id_9EC3 ) && self._id_9EC3 == 1;
 }
 
-_id_118C( var_0, var_1 )
+avm_begin_preset_def( var_0, var_1 )
 {
-    var_2 = _id_11B1();
-    _id_11E0( var_0 );
-    _id_11DA( var_1 );
+    var_2 = avmx_get();
+    avmx_set_preset_name( var_0 );
+    avmx_set_instance_init_callback( var_1 );
     var_2._id_9D66 = self;
 }
 
-_id_1187( var_0, var_1, var_2 )
+avm_begin_loop_data( var_0, var_1, var_2 )
 {
-    var_3 = _id_11B1();
+    var_3 = avmx_get();
     self._id_586A = spawnstruct();
     self._id_586A._id_588F = [];
     self._id_586A._id_279C = spawnstruct();
-    self._id_586A._id_279C._id_35F5 = soundscripts\_audio::_id_0F30( var_3._id_276A, var_0 );
-    self._id_586A._id_279C._id_8691 = soundscripts\_audio::_id_0F30( var_3._id_2775, var_1 );
-    self._id_586A._id_279C._id_868C = soundscripts\_audio::_id_0F30( var_3._id_2774, var_2 );
+    self._id_586A._id_279C._id_35F5 = soundscripts\_audio::aud_get_optional_param( var_3._id_276A, var_0 );
+    self._id_586A._id_279C._id_8691 = soundscripts\_audio::aud_get_optional_param( var_3._id_2775, var_1 );
+    self._id_586A._id_279C._id_868C = soundscripts\_audio::aud_get_optional_param( var_3._id_2774, var_2 );
 }
 
-_id_1188( var_0, var_1, var_2, var_3, var_4, var_5 )
+avm_begin_loop_def( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( isarray( var_0 ) )
         var_6 = var_0;
     else
         var_6 = [ var_0 ];
 
-    var_1 = soundscripts\_audio::_id_0F30( self._id_586A._id_279C._id_35F5, var_1 );
-    var_2 = soundscripts\_audio::_id_0F30( self._id_586A._id_279C._id_8691, var_2 );
-    var_3 = soundscripts\_audio::_id_0F30( self._id_586A._id_279C._id_868C, var_3 );
-    var_4 = soundscripts\_audio::_id_0F30( var_0, var_4 );
-    var_5 = soundscripts\_audio::_id_0F30( "alias", var_5 );
+    var_1 = soundscripts\_audio::aud_get_optional_param( self._id_586A._id_279C._id_35F5, var_1 );
+    var_2 = soundscripts\_audio::aud_get_optional_param( self._id_586A._id_279C._id_8691, var_2 );
+    var_3 = soundscripts\_audio::aud_get_optional_param( self._id_586A._id_279C._id_868C, var_3 );
+    var_4 = soundscripts\_audio::aud_get_optional_param( var_0, var_4 );
+    var_5 = soundscripts\_audio::aud_get_optional_param( "alias", var_5 );
     var_10 = spawnstruct();
     var_10.name = var_4;
     var_10._id_35F5 = var_1;
-    var_10._id_0D5F = var_5;
-    var_10._id_0D5E = var_6;
-    var_10._id_6F21 = _id_11C5();
+    var_10.asset_type = var_5;
+    var_10.asset_names = var_6;
+    var_10._id_6F21 = avmx_get_preset_name();
     var_10._id_6681 = [];
-    var_10 _id_11D6( var_2, var_3 );
+    var_10 avmx_preset_set_param_map_defaults( var_2, var_3 );
     self._id_586A._id_588F[var_10.name] = var_10;
     self._id_586A._id_5878 = var_10;
 }
 
-_id_11D5( var_0 )
+avmx_preset_determine_param_map_owner( var_0 )
 {
     var_1 = undefined;
 
@@ -194,23 +194,23 @@ _id_11D5( var_0 )
     {
         var_1 = self._id_586A._id_5878;
 
-        if ( isdefined( self._id_13A3 ) )
+        if ( isdefined( self.behavior_data ) )
         {
 
         }
     }
     else if ( isdefined( self._id_6497 ) && isdefined( self._id_6497._id_649D ) )
         var_1 = self._id_6497._id_649D;
-    else if ( isdefined( self._id_13A3 ) && isdefined( self._id_13A3._id_13A5 ) )
-        var_1 = self._id_13A3._id_13A5;
+    else if ( isdefined( self.behavior_data ) && isdefined( self.behavior_data.behavior_under_construction ) )
+        var_1 = self.behavior_data.behavior_under_construction;
 
     return var_1;
 }
 
-_id_11D4( var_0 )
+avmx_preset_determine_param_map_env_owner( var_0 )
 {
     var_1 = undefined;
-    var_2 = _id_11D5( var_0 );
+    var_2 = avmx_preset_determine_param_map_owner( var_0 );
 
     if ( isdefined( var_2 ) )
         var_1 = var_2._id_6E00;
@@ -218,20 +218,20 @@ _id_11D4( var_0 )
     return var_1;
 }
 
-_id_11D6( var_0, var_1 )
+avmx_preset_set_param_map_defaults( var_0, var_1 )
 {
-    var_2 = _id_11B1();
+    var_2 = avmx_get();
     self._id_6680 = spawnstruct();
-    var_3 = soundscripts\_audio::_id_0F30( var_2._id_2775, self._id_6680._id_8691 );
-    var_4 = soundscripts\_audio::_id_0F30( var_2._id_2774, self._id_6680._id_868C );
-    self._id_6680._id_8691 = soundscripts\_audio::_id_0F30( var_3, var_0 );
-    self._id_6680._id_868C = soundscripts\_audio::_id_0F30( var_4, var_1 );
+    var_3 = soundscripts\_audio::aud_get_optional_param( var_2._id_2775, self._id_6680._id_8691 );
+    var_4 = soundscripts\_audio::aud_get_optional_param( var_2._id_2774, self._id_6680._id_868C );
+    self._id_6680._id_8691 = soundscripts\_audio::aud_get_optional_param( var_3, var_0 );
+    self._id_6680._id_868C = soundscripts\_audio::aud_get_optional_param( var_4, var_1 );
     self._id_6680._id_4E7B = var_2._id_276D;
     self._id_6680._id_65C7 = var_2._id_276F;
     self._id_6680._id_4E7A = [];
 }
 
-_id_118B( var_0, var_1, var_2 )
+avm_begin_param_map( var_0, var_1, var_2 )
 {
     var_0 = tolower( var_0 );
     var_3 = var_0;
@@ -239,98 +239,98 @@ _id_118B( var_0, var_1, var_2 )
     if ( !isstring( var_3 ) )
         var_3 = "";
 
-    var_4 = _id_11D5( var_3 );
+    var_4 = avmx_preset_determine_param_map_owner( var_3 );
     var_3 = var_0;
     var_6 = spawnstruct();
     var_6._id_3337 = [];
     var_6._id_4E7B = var_0;
-    var_6._id_8691 = soundscripts\_audio::_id_0F30( var_4._id_6680._id_8691, var_1 );
-    var_6._id_868C = soundscripts\_audio::_id_0F30( var_4._id_6680._id_868C, soundscripts\_audio::_id_0F30( var_1, var_2 ) );
+    var_6._id_8691 = soundscripts\_audio::aud_get_optional_param( var_4._id_6680._id_8691, var_1 );
+    var_6._id_868C = soundscripts\_audio::aud_get_optional_param( var_4._id_6680._id_868C, soundscripts\_audio::aud_get_optional_param( var_1, var_2 ) );
     var_6._id_276F = var_4._id_6680._id_65C7;
-    var_6._id_8691 = _id_1190( var_6._id_8691, 0.1, 0.1 );
-    var_6._id_868C = _id_1190( var_6._id_868C, 0.1, 0.1 );
+    var_6._id_8691 = avm_change_smoothing_rate( var_6._id_8691, 0.1, 0.1 );
+    var_6._id_868C = avm_change_smoothing_rate( var_6._id_868C, 0.1, 0.1 );
     var_4._id_6681[var_3] = var_6;
     var_4._id_6E00 = var_6;
 }
 
-_id_1193( var_0, var_1 )
+avm_compute_smoothing_rc_from_alpha( var_0, var_1 )
 {
     return var_1 * ( 1 - var_0 ) / var_0;
 }
 
-_id_1191( var_0, var_1 )
+avm_compute_alpha_from_rc( var_0, var_1 )
 {
     return var_1 / ( var_0 + var_1 );
 }
 
-_id_1190( var_0, var_1, var_2 )
+avm_change_smoothing_rate( var_0, var_1, var_2 )
 {
-    var_3 = _id_1193( var_0, var_1 );
-    var_4 = _id_1191( var_3, var_2 );
+    var_3 = avm_compute_smoothing_rc_from_alpha( var_0, var_1 );
+    var_4 = avm_compute_alpha_from_rc( var_3, var_2 );
     return var_4;
 }
 
-_id_11A6( var_0, var_1, var_2 )
+avmx_add_behavior_shortcut_param_maps( var_0, var_1, var_2 )
 {
     foreach ( var_4 in var_0 )
     {
-        _id_118B( var_4, var_1, var_2 );
-        _id_119B();
+        avm_begin_param_map( var_4, var_1, var_2 );
+        avm_end_param_map();
     }
 }
 
-_id_1183( var_0, var_1, var_2 )
+avm_add_param_map_env( var_0, var_1, var_2 )
 {
     if ( isstring( var_1 ) )
-        var_2 = soundscripts\_audio::_id_0F30( var_1, var_2 );
+        var_2 = soundscripts\_audio::aud_get_optional_param( var_1, var_2 );
 
-    var_3 = _id_11D4( var_2 );
+    var_3 = avmx_preset_determine_param_map_env_owner( var_2 );
     var_4 = var_1;
 
     if ( !isstring( var_4 ) )
         var_4 = "???";
 
     var_5 = spawnstruct();
-    var_5._id_0D5D = var_1;
+    var_5.asset_name = var_1;
     var_5._id_65C7 = var_0;
     var_3._id_3337[var_2] = var_5;
 }
 
-_id_119B()
+avm_end_param_map()
 {
-    var_0 = _id_11D5( "UNKNOWN param_map being terminated by AVM_end_param_map()" );
+    var_0 = avmx_preset_determine_param_map_owner( "UNKNOWN param_map being terminated by AVM_end_param_map()" );
 
     if ( isdefined( var_0 ) )
         var_0._id_6E00 = undefined;
 }
 
-_id_1198()
+avm_end_loop_def()
 {
     self._id_586A._id_5878 = undefined;
 }
 
-_id_1197()
+avm_end_loop_data()
 {
 
 }
 
-_id_1189( var_0 )
+avm_begin_oneshot_data( var_0 )
 {
-    var_1 = _id_11B1();
+    var_1 = avmx_get();
     self._id_6497 = spawnstruct();
     self._id_6497._id_64A2 = [];
     self._id_6497._id_279C = spawnstruct();
-    self._id_6497._id_279C._id_35F5 = soundscripts\_audio::_id_0F30( var_1._id_276A, var_0 );
+    self._id_6497._id_279C._id_35F5 = soundscripts\_audio::aud_get_optional_param( var_1._id_276A, var_0 );
 }
 
-_id_118A( var_0, var_1, var_2, var_3, var_4, var_5 )
+avm_begin_oneshot_def( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_6 = _id_11B1();
-    var_1 = soundscripts\_audio::_id_0F30( undefined, var_1 );
-    var_2 = soundscripts\_audio::_id_0F30( self._id_6497._id_279C._id_35F5, var_2 );
-    var_3 = soundscripts\_audio::_id_0F30( 1, var_3 );
-    var_4 = soundscripts\_audio::_id_0F30( var_0, var_4 );
-    var_5 = soundscripts\_audio::_id_0F30( var_6._id_2768, var_5 );
+    var_6 = avmx_get();
+    var_1 = soundscripts\_audio::aud_get_optional_param( undefined, var_1 );
+    var_2 = soundscripts\_audio::aud_get_optional_param( self._id_6497._id_279C._id_35F5, var_2 );
+    var_3 = soundscripts\_audio::aud_get_optional_param( 1, var_3 );
+    var_4 = soundscripts\_audio::aud_get_optional_param( var_0, var_4 );
+    var_5 = soundscripts\_audio::aud_get_optional_param( var_6._id_2768, var_5 );
     var_7 = var_4;
 
     if ( isstring( var_4 ) )
@@ -338,88 +338,88 @@ _id_118A( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     var_11 = spawnstruct();
     var_11.name = var_0;
-    var_11._id_0D5E = var_7;
-    var_11._id_0D5F = var_5;
+    var_11.asset_names = var_7;
+    var_11.asset_type = var_5;
     var_11._id_2FB4 = var_1;
     var_11._id_35F5 = var_2;
     var_11._id_649C = var_3;
     var_11._id_6681 = [];
     var_11._id_86D9 = [];
-    var_11 _id_11D6();
+    var_11 avmx_preset_set_param_map_defaults();
     self._id_6497._id_64A2[var_11.name] = var_11;
     self._id_6497._id_649D = var_11;
 }
 
-_id_11DF( var_0 )
+avmx_set_oneshot_update_mode( var_0 )
 {
     var_1 = self._id_6497._id_649D;
     var_1._id_649E = var_0;
 }
 
-_id_119A()
+avm_end_oneshot_def()
 {
     self._id_6497._id_649D = undefined;
 }
 
-_id_1199()
+avm_end_oneshot_data()
 {
 
 }
 
-_id_1185( var_0, var_1 )
+avm_begin_behavior_data( var_0, var_1 )
 {
-    self._id_13A3 = spawnstruct();
-    self._id_13A3._id_13A6 = [];
-    self._id_13A3._id_279C = spawnstruct();
-    self._id_13A3._id_279C._id_8691 = var_0;
-    self._id_13A3._id_279C._id_868C = var_1;
+    self.behavior_data = spawnstruct();
+    self.behavior_data.behaviors = [];
+    self.behavior_data._id_279C = spawnstruct();
+    self.behavior_data._id_279C._id_8691 = var_0;
+    self.behavior_data._id_279C._id_868C = var_1;
 }
 
-_id_1186( var_0, var_1, var_2, var_3, var_4 )
+avm_begin_behavior_def( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = _id_11B1();
+    var_5 = avmx_get();
     var_6 = spawnstruct();
     var_6._id_64A2 = [];
     var_6._id_588F = [];
-    var_6._id_6F21 = _id_11C5();
+    var_6._id_6F21 = avmx_get_preset_name();
     var_6._id_6681 = [];
     var_6.name = var_0;
     var_6._id_20E0 = var_1;
-    var_3 = soundscripts\_audio::_id_0F30( self._id_13A3._id_279C._id_8691, var_3 );
-    var_4 = soundscripts\_audio::_id_0F30( self._id_13A3._id_279C._id_868C, var_4 );
-    var_6 _id_11D6( var_3, var_4 );
-    self._id_13A3._id_13A6[var_6.name] = var_6;
-    self._id_13A3._id_13A5 = var_6;
+    var_3 = soundscripts\_audio::aud_get_optional_param( self.behavior_data._id_279C._id_8691, var_3 );
+    var_4 = soundscripts\_audio::aud_get_optional_param( self.behavior_data._id_279C._id_868C, var_4 );
+    var_6 avmx_preset_set_param_map_defaults( var_3, var_4 );
+    self.behavior_data.behaviors[var_6.name] = var_6;
+    self.behavior_data.behavior_under_construction = var_6;
 
     if ( isarray( var_2 ) )
-        _id_11A6( var_2, self._id_13A3._id_279C._id_8691, self._id_13A3._id_279C._id_868C );
+        avmx_add_behavior_shortcut_param_maps( var_2, self.behavior_data._id_279C._id_8691, self.behavior_data._id_279C._id_868C );
 }
 
-_id_117F( var_0 )
+avm_add_init_state_callback( var_0 )
 {
-    self._id_13A3._id_13A5._id_4D60 = var_0;
+    self.behavior_data.behavior_under_construction._id_4D60 = var_0;
 }
 
-_id_117E( var_0 )
+avm_add_in_state_callback( var_0 )
 {
-    self._id_13A3._id_13A5._id_4C0E = var_0;
+    self.behavior_data.behavior_under_construction._id_4C0E = var_0;
 }
 
-_id_1182( var_0 )
+avm_add_oneshots( var_0 )
 {
     if ( isstring( var_0 ) )
         var_0 = [ var_0 ];
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = self._id_13A3._id_13A5;
+        var_3 = self.behavior_data.behavior_under_construction;
         var_3._id_64A2[var_2] = var_2;
     }
 }
 
-_id_1180( var_0 )
+avm_add_loops( var_0 )
 {
-    var_1 = self._id_13A3._id_13A5;
+    var_1 = self.behavior_data.behavior_under_construction;
 
     if ( !isdefined( var_0 ) || var_0.size == 0 )
         var_0 = "none";
@@ -449,30 +449,30 @@ _id_1180( var_0 )
     }
 }
 
-_id_1196()
+avm_end_behavior_def()
 {
-    self._id_13A3._id_13A5 = undefined;
+    self.behavior_data.behavior_under_construction = undefined;
 }
 
-_id_1195()
+avm_end_behavior_data()
 {
 
 }
 
-_id_118D( var_0, var_1 )
+avm_begin_state_data( var_0, var_1 )
 {
     if ( isdefined( var_0 ) )
         var_0 *= 1000;
 
-    var_2 = _id_11B1();
+    var_2 = avmx_get();
     self._id_8D59 = spawnstruct();
     self._id_8D59._id_8D5B = [];
     self._id_8D59._id_279C = spawnstruct();
-    self._id_8D59._id_279C._id_6FBE = soundscripts\_audio::_id_0F30( var_2._id_2772, var_1 );
-    self._id_8D59._id_279C._id_5C34 = soundscripts\_audio::_id_0F30( var_2._id_2777, var_0 );
+    self._id_8D59._id_279C._id_6FBE = soundscripts\_audio::aud_get_optional_param( var_2._id_2772, var_1 );
+    self._id_8D59._id_279C._id_5C34 = soundscripts\_audio::aud_get_optional_param( var_2._id_2777, var_0 );
 }
 
-_id_118F( var_0, var_1, var_2, var_3, var_4 )
+avm_begin_state_group( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_4 ) )
         var_4 *= 1000;
@@ -480,14 +480,14 @@ _id_118F( var_0, var_1, var_2, var_3, var_4 )
     var_5 = spawnstruct();
     var_5.name = var_0;
     var_5._id_4DD3 = [ var_1, var_2 ];
-    var_5._id_6FBE = soundscripts\_audio::_id_0F30( self._id_8D59._id_279C._id_6FBE, var_3 );
-    var_5._id_5C34 = soundscripts\_audio::_id_0F30( self._id_8D59._id_279C._id_5C34, var_4 );
+    var_5._id_6FBE = soundscripts\_audio::aud_get_optional_param( self._id_8D59._id_279C._id_6FBE, var_3 );
+    var_5._id_5C34 = soundscripts\_audio::aud_get_optional_param( self._id_8D59._id_279C._id_5C34, var_4 );
     var_5._id_8D67 = [];
     self._id_8D59._id_8D5B[var_0] = var_5;
     self._id_8D59._id_4437 = var_5;
 }
 
-_id_118E( var_0, var_1, var_2 )
+avm_begin_state_def( var_0, var_1, var_2 )
 {
     if ( isdefined( var_1 ) )
         var_1 *= 1000;
@@ -497,40 +497,40 @@ _id_118E( var_0, var_1, var_2 )
     var_5 = spawnstruct();
     var_5.name = var_0;
     var_5._id_9719 = [];
-    var_5._id_6FBE = soundscripts\_audio::_id_0F30( var_3._id_6FBE, var_2 );
-    var_5._id_5C34 = soundscripts\_audio::_id_0F30( var_3._id_5C34, var_1 );
-    var_5._id_6F21 = _id_11C5();
+    var_5._id_6FBE = soundscripts\_audio::aud_get_optional_param( var_3._id_6FBE, var_2 );
+    var_5._id_5C34 = soundscripts\_audio::aud_get_optional_param( var_3._id_5C34, var_1 );
+    var_5._id_6F21 = avmx_get_preset_name();
     var_3._id_8D67[var_0] = var_5;
     self._id_8D59._id_4437._id_8D64 = var_5;
 }
 
-_id_1184( var_0, var_1 )
+avm_add_state_transition( var_0, var_1 )
 {
     var_3 = self._id_8D59._id_4437._id_8D64;
     var_3._id_9719[var_3._id_9719.size] = [ var_0, var_1 ];
 }
 
-_id_119E()
+avm_end_state_def()
 {
     self._id_8D59._id_4437._id_8D64 = undefined;
 }
 
-_id_119F()
+avm_end_state_group()
 {
     self._id_8D59._id_4437 = undefined;
 }
 
-_id_119D()
+avm_end_state_data()
 {
 
 }
 
-_id_117D( var_0, var_1 )
+avm_add_envelope( var_0, var_1 )
 {
     if ( isstring( var_0 ) )
         var_0 = tolower( var_0 );
 
-    var_4 = _id_11B1();
+    var_4 = avmx_get();
 
     if ( !isdefined( self._id_3333 ) )
         self._id_3333 = [];
@@ -561,9 +561,9 @@ _id_117D( var_0, var_1 )
     self._id_3333[var_0] = var_5;
 }
 
-_id_119C()
+avm_end_preset_def()
 {
-    var_0 = _id_11B1();
+    var_0 = avmx_get();
     self._id_2156 = [];
 
     foreach ( var_8, var_2 in self._id_586A._id_588F )
@@ -572,7 +572,7 @@ _id_119C()
         var_4 = var_2;
 
         foreach ( var_7, var_6 in var_4._id_6681 )
-            self._id_2156[var_7] = _id_11B5( var_7 );
+            self._id_2156[var_7] = avmx_get_callback( var_7 );
     }
 
     foreach ( var_8, var_2 in self._id_6497._id_64A2 )
@@ -581,22 +581,22 @@ _id_119C()
         var_11 = var_2;
 
         foreach ( var_7, var_6 in var_11._id_6681 )
-            self._id_2156[var_7] = _id_11B5( var_7 );
+            self._id_2156[var_7] = avmx_get_callback( var_7 );
     }
 
-    foreach ( var_8, var_2 in self._id_13A3._id_13A6 )
+    foreach ( var_8, var_2 in self.behavior_data.behaviors )
     {
         var_14 = var_8;
         var_15 = var_2;
 
         foreach ( var_7, var_6 in var_15._id_6681 )
-            self._id_2156[var_7] = _id_11B5( var_7 );
+            self._id_2156[var_7] = avmx_get_callback( var_7 );
     }
 
     var_0._id_9D66 = undefined;
 }
 
-_id_11C1()
+avmx_get_master_volume()
 {
     return self._id_59D9;
 }
@@ -608,28 +608,28 @@ _id_9ED9()
 
 _id_9ED7()
 {
-    return _id_11BB();
+    return avmx_get_instance_name();
 }
 
-_id_11A4( var_0, var_1 )
+avm_set_instance_master_volume( var_0, var_1 )
 {
-    thread _id_11DB( var_0, var_1 );
+    thread avmx_set_instance_master_volume( var_0, var_1 );
 }
 
-_id_11DB( var_0, var_1 )
+avmx_set_instance_master_volume( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_2 _id_11BB();
-    var_4 = var_2 _id_11CA();
+    var_3 = var_2 avmx_get_instance_name();
+    var_4 = var_2 avmx_get_vehicle_entity();
     var_0 = clamp( var_0, 0, 1 );
-    var_1 = clamp( soundscripts\_audio::_id_0F30( 1, var_1 ), 0, 60 );
+    var_1 = clamp( soundscripts\_audio::aud_get_optional_param( 1, var_1 ), 0, 60 );
     var_5 = var_3;
     var_2 notify( var_5 );
     var_2 endon( var_5 );
     level endon( "msg_snd_vehicle_stop" );
-    level endon( "msg_snd_vehicle_stop_" + var_2 _id_11BB() );
+    level endon( "msg_snd_vehicle_stop_" + var_2 avmx_get_instance_name() );
     var_4 endon( "death" );
-    var_6 = _id_11A1();
+    var_6 = avm_get_update_rate();
     var_7 = var_0 - var_2._id_59D9;
     var_8 = max( 1, var_1 / var_6 );
     var_9 = var_7 / var_8;
@@ -655,12 +655,12 @@ _id_11DB( var_0, var_1 )
     }
 }
 
-_id_11A0( var_0 )
+avm_get_running_instance_count( var_0 )
 {
-    return _id_11B1()._id_76DD;
+    return avmx_get()._id_76DD;
 }
 
-_id_11A1()
+avm_get_update_rate()
 {
     return 0.1;
 }
@@ -668,7 +668,7 @@ _id_11A1()
 _id_9ED8( var_0 )
 {
     var_1 = 0;
-    var_2 = _id_11B1();
+    var_2 = avmx_get();
 
     if ( isstring( var_0 ) )
     {
@@ -689,52 +689,52 @@ _id_9ED8( var_0 )
     return var_1;
 }
 
-_id_11AE( var_0 )
+avmx_create_preset( var_0 )
 {
-    var_1 = _id_11B1();
+    var_1 = avmx_get();
     var_2 = var_1._id_6F20[var_0];
     var_3 = spawnstruct();
     var_3._id_4227 = spawnstruct();
     var_3._id_9C0F = spawnstruct();
     var_3._id_4777 = spawnstruct();
     var_3._id_4E88 = [];
-    var_3._id_4777._id_6F21 = soundscripts\_audio::_id_0F30( undefined, var_0 );
+    var_3._id_4777._id_6F21 = soundscripts\_audio::aud_get_optional_param( undefined, var_0 );
     var_3._id_4777._id_35F0 = var_1._id_2769;
     var_3._id_4777._id_35F5 = var_1._id_276A;
     var_3._id_4777._id_88A1 = var_1._id_2776;
     var_3 [[ var_2 ]]();
-    var_3 _id_11A9();
+    var_3 avmx_add_preset();
     return var_3;
 }
 
-_id_11A9()
+avmx_add_preset()
 {
-    var_0 = _id_11B1();
+    var_0 = avmx_get();
     var_0._id_6F22[self._id_4777._id_6F21] = self;
 }
 
 _id_9EDE()
 {
-    var_0 = _id_11B1();
+    var_0 = avmx_get();
     var_0._id_6F22[self._id_4777._id_6F21] = undefined;
 }
 
-_id_11A7()
+avmx_add_instance()
 {
-    var_0 = _id_11B1();
+    var_0 = avmx_get();
     var_0._id_6F22[self._id_6F21]._id_4E88[self._id_4E87] = self;
     var_0._id_76DD++;
 }
 
-_id_11D7()
+avmx_remove_instance()
 {
-    var_0 = _id_11B1();
+    var_0 = avmx_get();
     var_0._id_6F22[self._id_6F21]._id_4E88[self._id_4E87] = undefined;
 }
 
-_id_11B0( var_0 )
+avmx_generate_instance_name( var_0 )
 {
-    var_1 = self._id_4777._id_6F21 + "_" + _id_11A0();
+    var_1 = self._id_4777._id_6F21 + "_" + avm_get_running_instance_count();
 
     if ( isdefined( var_0 ) && var_0 == 1 )
         var_1 += "_player";
@@ -742,12 +742,12 @@ _id_11B0( var_0 )
     return var_1;
 }
 
-_id_11A3( var_0, var_1, var_2 )
+avm_register_callback( var_0, var_1, var_2 )
 {
-    _id_11B1()._id_1A04[var_0] = [ var_1, var_2 ];
+    avmx_get().callbacks[var_0] = [ var_1, var_2 ];
 }
 
-_id_11C0( var_0 )
+avmx_get_instance_state_struct( var_0 )
 {
     var_1 = self;
     var_2 = undefined;
@@ -763,13 +763,13 @@ _id_11C0( var_0 )
     return var_2;
 }
 
-_id_11B2( var_0 )
+avmx_get_behavior_instance_struct( var_0 )
 {
     var_1 = self;
-    return var_1._id_13A4[var_0];
+    return var_1.behavior_list[var_0];
 }
 
-_id_11C9( var_0 )
+avmx_get_state_preset_struct( var_0 )
 {
     var_1 = self;
     var_2 = undefined;
@@ -785,19 +785,19 @@ _id_11C9( var_0 )
     return var_2;
 }
 
-_id_11B3( var_0 )
+avmx_get_behavior_preset_struct( var_0 )
 {
     var_1 = self;
-    return var_1._id_13A3._id_13A6[var_0];
+    return var_1.behavior_data.behaviors[var_0];
 }
 
-_id_11AC( var_0, var_1, var_2, var_3, var_4 )
+avmx_create_instance_struct( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = self;
     var_6 = spawnstruct();
     var_6._id_9C0F = spawnstruct();
-    var_6._id_6F21 = var_5 _id_11C5();
-    var_6._id_4E87 = var_5 _id_11B0( var_4 );
+    var_6._id_6F21 = var_5 avmx_get_preset_name();
+    var_6._id_4E87 = var_5 avmx_generate_instance_name( var_4 );
     var_6._id_9C78 = var_0;
     var_6._id_35F0 = var_1;
     var_6._id_35F5 = var_2;
@@ -813,7 +813,7 @@ _id_11AC( var_0, var_1, var_2, var_3, var_4 )
         var_9 = spawnstruct();
         var_9._id_704A = var_8;
         var_9._id_697F = 0;
-        var_9._id_24CF = var_6 _id_11AD( var_8 );
+        var_9._id_24CF = var_6 avmx_create_param_io_struct( var_8 );
         var_9._id_86D9 = [];
         var_9._id_9F3C = 1.0;
         var_6._id_5876[var_8.name] = var_9;
@@ -825,19 +825,19 @@ _id_11AC( var_0, var_1, var_2, var_3, var_4 )
     {
         var_9 = spawnstruct();
         var_9._id_704A = var_8;
-        var_9._id_24CF = var_6 _id_11AD( var_8 );
+        var_9._id_24CF = var_6 avmx_create_param_io_struct( var_8 );
         var_9._id_86D9 = [];
         var_6._id_649A[var_8.name] = var_9;
     }
 
-    var_6._id_13A4 = [];
+    var_6.behavior_list = [];
 
-    foreach ( var_8 in var_5._id_13A3._id_13A6 )
+    foreach ( var_8 in var_5.behavior_data.behaviors )
     {
         var_9 = spawnstruct();
         var_9._id_704A = var_8;
-        var_9._id_24CF = var_6 _id_11AD( var_8 );
-        var_6._id_13A4[var_8.name] = var_9;
+        var_9._id_24CF = var_6 avmx_create_param_io_struct( var_8 );
+        var_6.behavior_list[var_8.name] = var_9;
     }
 
     var_6._id_8D5A = [];
@@ -861,63 +861,63 @@ _id_11AC( var_0, var_1, var_2, var_3, var_4 )
     return var_6;
 }
 
-_id_11E1( var_0, var_1, var_2, var_3, var_4, var_5 )
+avmx_start_instance( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = self;
 
-    if ( var_6 _id_11CD() == 0 )
+    if ( var_6 avmx_is_vehicle_proxy() == 0 )
         var_6 vehicle_turnengineoff();
 
-    var_7 = _id_11C4( var_0 );
+    var_7 = avmx_get_preset( var_0 );
 
     if ( !isdefined( var_7 ) )
-        var_7 = _id_11AE( var_0 );
+        var_7 = avmx_create_preset( var_0 );
 
-    var_8 = var_7 _id_11AC( var_6, var_2, var_3, var_4, var_1 );
-    var_8 _id_11A7();
-    var_8 thread _id_11EF();
-    var_8 thread _id_11CE( var_5 );
-    var_6 thread _id_11D1( var_8 );
+    var_8 = var_7 avmx_create_instance_struct( var_6, var_2, var_3, var_4, var_1 );
+    var_8 avmx_add_instance();
+    var_8 thread avmx_update_loops();
+    var_8 thread avmx_launch_state_machines( var_5 );
+    var_6 thread avmx_monitor_death( var_8 );
     return var_8;
 }
 
-_id_11EA( var_0 )
+avmx_stop_instance( var_0 )
 {
     if ( !isdefined( self._id_5085 ) )
     {
         self._id_5085 = 1;
         var_1 = self;
-        var_2 = var_1 _id_11BC();
-        var_3 = var_1 _id_11BB();
-        var_0 = max( 0.01, soundscripts\_audio::_id_0F30( var_1._id_35F5, var_0 ) );
+        var_2 = var_1 avmx_get_instance_preset();
+        var_3 = var_1 avmx_get_instance_name();
+        var_0 = max( 0.01, soundscripts\_audio::aud_get_optional_param( var_1._id_35F5, var_0 ) );
         level notify( "msg_snd_vehicle_stop_" + var_3 );
 
         foreach ( var_5 in var_1._id_5876 )
         {
-            var_6 = soundscripts\_audio::_id_0F30( var_5._id_704A._id_35F5, var_0 );
-            var_5 thread _id_11AF( var_6 );
+            var_6 = soundscripts\_audio::aud_get_optional_param( var_5._id_704A._id_35F5, var_0 );
+            var_5 thread avmx_fade_stop_and_delete_sound_obj( var_6 );
         }
 
         foreach ( var_9 in var_1._id_649A )
         {
-            var_6 = soundscripts\_audio::_id_0F30( var_9._id_704A._id_35F5, var_0 );
-            var_9 thread _id_11AF( var_6 );
+            var_6 = soundscripts\_audio::aud_get_optional_param( var_9._id_704A._id_35F5, var_0 );
+            var_9 thread avmx_fade_stop_and_delete_sound_obj( var_6 );
         }
 
         wait(var_0 + 0.05);
-        var_1 _id_11D7();
+        var_1 avmx_remove_instance();
     }
 }
 
-_id_11D1( var_0 )
+avmx_monitor_death( var_0 )
 {
-    var_1 = var_0 _id_11BB();
+    var_1 = var_0 avmx_get_instance_name();
     level endon( "msg_snd_vehicle_stop_" + var_1 );
     self waittill( "death" );
-    var_0 thread _id_11EA();
+    var_0 thread avmx_stop_instance();
 }
 
-_id_11AD( var_0 )
+avmx_create_param_io_struct( var_0 )
 {
     var_1 = self;
     var_2 = spawnstruct();
@@ -955,19 +955,19 @@ _id_9EDD( var_0 )
         var_0._id_67F7[var_4] = 1.0;
 }
 
-_id_11B6()
+avmx_get_current_instance_sound_item_input()
 {
     return self._id_24CF._id_8695;
 }
 
-_id_11BE()
+avmx_get_instance_sound_item_output()
 {
     return self._id_24CF._id_67F7;
 }
 
-_id_11BF()
+avmx_get_instance_sound_item_volume()
 {
-    var_0 = _id_11BE();
+    var_0 = avmx_get_instance_sound_item_output();
     var_1 = var_0["volume"];
 
     if ( !isdefined( var_1 ) )
@@ -976,27 +976,27 @@ _id_11BF()
     return var_1;
 }
 
-_id_11EF()
+avmx_update_loops()
 {
     var_0 = self;
-    var_1 = _id_11BC();
-    var_2 = _id_11CA();
+    var_1 = avmx_get_instance_preset();
+    var_2 = avmx_get_vehicle_entity();
     level endon( "msg_snd_vehicle_stop" );
-    level endon( "msg_snd_vehicle_stop_" + _id_11BB() );
+    level endon( "msg_snd_vehicle_stop_" + avmx_get_instance_name() );
     var_2 endon( "death" );
     var_3 = undefined;
 
     for (;;)
     {
-        var_0 _id_11EE();
+        var_0 avmx_update_loop_ducking_scalar();
 
         foreach ( var_5 in var_0._id_5876 )
         {
             if ( var_5._id_697F == 1 )
             {
                 var_6 = var_5._id_704A.name;
-                var_0 _id_11D0( var_5, var_3 );
-                var_0 _id_11ED( var_5 );
+                var_0 avmx_map_io( var_5, var_3 );
+                var_0 avmx_update_instance_loop_assets( var_5 );
             }
         }
 
@@ -1014,21 +1014,21 @@ _id_11EF()
     }
 }
 
-_id_11DC( var_0, var_1 )
+avmx_set_loop_play_state( var_0, var_1 )
 {
     var_2 = self;
 
-    switch ( var_0._id_704A._id_0D5F )
+    switch ( var_0._id_704A.asset_type )
     {
         case "alias":
             if ( var_1 == 1 && var_0._id_697F != 1 )
             {
-                var_2 _id_11E2( var_0 );
+                var_2 avmx_start_loop( var_0 );
                 var_0._id_697F = 1;
             }
             else if ( var_1 == 0 && var_0._id_697F != 0 )
             {
-                var_2 _id_11EB( var_0 );
+                var_2 avmx_stop_loop( var_0 );
                 var_0._id_697F = 0;
             }
             else
@@ -1046,17 +1046,17 @@ _id_11DC( var_0, var_1 )
     }
 }
 
-_id_11D0( var_0, var_1 )
+avmx_map_io( var_0, var_1 )
 {
     if ( var_0._id_704A._id_6681.size == 0 )
         return;
 
     var_2 = self;
-    var_3 = _id_11BC();
+    var_3 = avmx_get_instance_preset();
     var_4 = var_0._id_704A;
     var_5 = var_0._id_24CF;
     var_6 = gettime();
-    var_1 = soundscripts\_audio::_id_0F30( var_6 - 100, var_1 );
+    var_1 = soundscripts\_audio::aud_get_optional_param( var_6 - 100, var_1 );
     var_5._id_67F7 = [];
     var_7 = [];
 
@@ -1096,7 +1096,7 @@ _id_11D0( var_0, var_1 )
     }
 }
 
-_id_11EE()
+avmx_update_loop_ducking_scalar()
 {
     self._id_586B = 1.0;
 
@@ -1104,7 +1104,7 @@ _id_11EE()
         self._id_586B *= var_1;
 }
 
-_id_11ED( var_0 )
+avmx_update_instance_loop_assets( var_0 )
 {
     var_1 = self;
 
@@ -1125,11 +1125,11 @@ _id_11ED( var_0 )
         }
 
         foreach ( var_5 in var_0._id_86D9 )
-            var_5 _id_11F1( var_7, var_3 );
+            var_5 avmx_update_sound_ent_output_param( var_7, var_3 );
     }
 }
 
-_id_11A5( var_0, var_1, var_2 )
+avm_set_loop_mute_state( var_0, var_1, var_2 )
 {
     var_3 = self;
     var_4 = var_3._id_5876[var_0];
@@ -1138,22 +1138,22 @@ _id_11A5( var_0, var_1, var_2 )
     if ( var_1 == 1 )
         var_5 = 0;
 
-    var_2 = soundscripts\_audio::_id_0F30( 0.05, var_2 );
+    var_2 = soundscripts\_audio::aud_get_optional_param( 0.05, var_2 );
     var_6 = var_5 - var_4._id_9F3C;
-    var_7 = max( 1, var_2 / _id_11A1() );
+    var_7 = max( 1, var_2 / avm_get_update_rate() );
     var_8 = var_6 / var_7;
-    var_3 thread _id_11DD( var_4, var_5, var_8, _id_11A1() );
+    var_3 thread avmx_set_loop_volume( var_4, var_5, var_8, avm_get_update_rate() );
 }
 
-_id_11DD( var_0, var_1, var_2, var_3 )
+avmx_set_loop_volume( var_0, var_1, var_2, var_3 )
 {
     var_4 = self;
-    var_5 = var_4 _id_11CA();
+    var_5 = var_4 avmx_get_vehicle_entity();
     var_6 = var_0._id_704A.name;
     var_4 notify( var_6 );
     var_4 endon( var_6 );
     level endon( "msg_snd_vehicle_stop" );
-    level endon( "msg_snd_vehicle_stop_" + var_4 _id_11BB() );
+    level endon( "msg_snd_vehicle_stop_" + var_4 avmx_get_instance_name() );
     var_5 endon( "death" );
 
     for (;;)
@@ -1177,10 +1177,10 @@ _id_11DD( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_11CE( var_0 )
+avmx_launch_state_machines( var_0 )
 {
     var_1 = self;
-    var_2 = _id_11BC();
+    var_2 = avmx_get_instance_preset();
 
     foreach ( var_10, var_4 in var_2._id_8D59._id_8D5B )
     {
@@ -1192,25 +1192,25 @@ _id_11CE( var_0 )
         var_6 = var_5[0];
         var_7 = var_5[1];
         var_8 = var_1._id_8D5A[var_10][var_6];
-        var_9 = var_1._id_13A4[var_7];
-        var_1 _id_11D0( var_9 );
-        var_1 thread _id_11E5( var_8, var_9, 1 );
+        var_9 = var_1.behavior_list[var_7];
+        var_1 avmx_map_io( var_9 );
+        var_1 thread avmx_state_enter_action_function( var_8, var_9, 1 );
     }
 }
 
-_id_11E5( var_0, var_1, var_2 )
+avmx_state_enter_action_function( var_0, var_1, var_2 )
 {
     var_3 = self;
-    var_4 = var_3 _id_11BC();
+    var_4 = var_3 avmx_get_instance_preset();
     var_5 = var_0._id_704A;
-    var_6 = var_3 _id_11CA();
+    var_6 = var_3 avmx_get_vehicle_entity();
     level endon( "msg_snd_vehicle_stop" );
-    level endon( "msg_snd_vehicle_stop_" + _id_11BB() );
+    level endon( "msg_snd_vehicle_stop_" + avmx_get_instance_name() );
     var_6 endon( "death" );
     var_0._id_8CC5 = gettime();
-    var_3 _id_11E6( var_0, var_1 );
-    var_3 _id_11E8( var_0, var_1 );
-    var_3 _id_11E7( var_0, var_1 );
+    var_3 avmx_state_enter_action_init_data( var_0, var_1 );
+    var_3 avmx_state_enter_action_play_oneshots( var_0, var_1 );
+    var_3 avmx_state_enter_action_play_loops( var_0, var_1 );
 
     if ( isdefined( var_1._id_704A._id_4D60 ) )
         var_3 [[ var_1._id_704A._id_4D60 ]]( var_3._id_9C0F );
@@ -1226,7 +1226,7 @@ _id_11E5( var_0, var_1, var_2 )
     {
         if ( isdefined( var_1._id_704A._id_4C0E ) )
         {
-            var_3 _id_11D0( var_1 );
+            var_3 avmx_map_io( var_1 );
             var_3 [[ var_1._id_704A._id_4C0E ]]( var_1._id_24CF._id_8695, var_3._id_9C0F );
         }
 
@@ -1235,16 +1235,16 @@ _id_11E5( var_0, var_1, var_2 )
             var_15 = var_14[0];
             var_16 = var_14[1];
             var_17 = var_14[2];
-            var_18 = var_3 _id_11C0( var_15 );
-            var_19 = var_3 _id_11B2( var_16 );
+            var_18 = var_3 avmx_get_instance_state_struct( var_15 );
+            var_19 = var_3 avmx_get_behavior_instance_struct( var_16 );
             var_20 = var_18._id_704A;
             var_21 = var_19._id_704A;
 
             if ( gettime() - var_18._id_8CC5 < var_20._id_5C34 )
                 continue;
 
-            var_3 _id_11D0( var_19, var_11 );
-            var_22 = var_3 _id_11E4( var_18, var_19 );
+            var_3 avmx_map_io( var_19, var_11 );
+            var_22 = var_3 avmx_state_condition_function( var_18, var_19 );
 
             if ( isarray( var_22 ) )
             {
@@ -1281,20 +1281,20 @@ _id_11E5( var_0, var_1, var_2 )
         wait(0.1 * var_25);
     }
 
-    var_3 _id_11D9( var_8, var_9 );
-    var_26 = var_3 _id_11B4( var_8 );
+    var_3 avmx_set_behavior_oneshot_overrides( var_8, var_9 );
+    var_26 = var_3 avmx_get_behavior_restricted_oneshots( var_8 );
     var_27 = var_26.size > 0;
-    var_3 thread _id_11E9( var_1, var_27 );
+    var_3 thread avmx_state_exit_action_function( var_1, var_27 );
 
     if ( var_12 && !var_2 )
     {
 
     }
 
-    var_3 thread _id_11E5( var_7, var_8, 0 );
+    var_3 thread avmx_state_enter_action_function( var_7, var_8, 0 );
 }
 
-_id_11E6( var_0, var_1 )
+avmx_state_enter_action_init_data( var_0, var_1 )
 {
     var_2 = self;
     var_3 = var_1._id_704A;
@@ -1317,7 +1317,7 @@ _id_11E6( var_0, var_1 )
     }
 }
 
-_id_11E9( var_0, var_1 )
+avmx_state_exit_action_function( var_0, var_1 )
 {
     var_2 = self;
     var_3 = var_0._id_704A._id_64A2;
@@ -1334,7 +1334,7 @@ _id_11E9( var_0, var_1 )
             var_9 = var_6._id_704A._id_35F5;
 
             foreach ( var_12, var_11 in var_8 )
-                var_11 thread _id_11EC( var_9 );
+                var_11 thread avmx_stop_snd_ent( var_9 );
         }
     }
 }
@@ -1342,9 +1342,9 @@ _id_11E9( var_0, var_1 )
 _id_9EDB( var_0 )
 {
     var_1 = self;
-    var_0 = max( 0.01, soundscripts\_audio::_id_0F30( 0.05, var_0 ) );
+    var_0 = max( 0.01, soundscripts\_audio::aud_get_optional_param( 0.05, var_0 ) );
 
-    switch ( var_1._id_704A._id_0D5F )
+    switch ( var_1._id_704A.asset_type )
     {
         case "alias":
             foreach ( var_4, var_3 in var_1._id_86D9 )
@@ -1369,7 +1369,7 @@ _id_9EDB( var_0 )
     }
 }
 
-_id_11E4( var_0, var_1 )
+avmx_state_condition_function( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = self;
@@ -1377,10 +1377,10 @@ _id_11E4( var_0, var_1 )
     return var_2;
 }
 
-_id_11E8( var_0, var_1 )
+avmx_state_enter_action_play_oneshots( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_2 _id_11BC();
+    var_3 = var_2 avmx_get_instance_preset();
     var_4 = var_0._id_704A;
     var_5 = var_1._id_704A;
     var_6 = var_1._id_649B;
@@ -1392,60 +1392,60 @@ _id_11E8( var_0, var_1 )
     {
         var_9 = var_2._id_649A[var_8];
         var_10 = var_9._id_704A;
-        var_11 = var_2 _id_11C2( var_8 );
-        var_12 = var_2 _id_11C3( var_8 );
+        var_11 = var_2 avmx_get_oneshot_poly_mode( var_8 );
+        var_12 = var_2 avmx_get_oneshot_update_mode( var_8 );
 
-        if ( var_10._id_0D5F == "alias" )
+        if ( var_10.asset_type == "alias" )
         {
-            var_2 _id_11D0( var_9 );
+            var_2 avmx_map_io( var_9 );
 
-            for ( var_13 = 0; var_13 < var_10._id_0D5E.size; var_13++ )
+            for ( var_13 = 0; var_13 < var_10.asset_names.size; var_13++ )
             {
-                var_14 = var_2 _id_11E3( var_9, var_13 );
+                var_14 = var_2 avmx_start_oneshot_alias( var_9, var_13 );
 
                 foreach ( var_17, var_16 in var_9._id_24CF._id_67F7 )
-                    var_14 _id_11F1( var_17, var_16 );
+                    var_14 avmx_update_sound_ent_output_param( var_17, var_16 );
 
                 if ( var_12 )
-                    var_2 thread _id_11AB( var_9, var_14 );
+                    var_2 thread avmx_continuously_update_snd_ent( var_9, var_14 );
 
                 if ( var_11 == 1 || var_11 == 2 )
                     var_9._id_86D9[var_13] = var_14;
             }
 
-            var_2 thread _id_11CB( var_9 );
+            var_2 thread avmx_handle_oneshot_ducking( var_9 );
         }
     }
 }
 
-_id_11AB( var_0, var_1 )
+avmx_continuously_update_snd_ent( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_2 _id_11CA();
-    var_4 = _id_11A1();
+    var_3 = var_2 avmx_get_vehicle_entity();
+    var_4 = avm_get_update_rate();
     level endon( "msg_snd_vehicle_stop" );
-    level endon( "msg_snd_vehicle_stop_" + var_2 _id_11BB() );
+    level endon( "msg_snd_vehicle_stop_" + var_2 avmx_get_instance_name() );
     var_3 endon( "death" );
     wait(var_4);
 
     while ( isdefined( var_1 ) )
     {
-        var_2 _id_11D0( var_0 );
+        var_2 avmx_map_io( var_0 );
 
         if ( isdefined( var_1 ) )
         {
             foreach ( var_7, var_6 in var_0._id_24CF._id_67F7 )
-                var_1 _id_11F1( var_7, var_6 );
+                var_1 avmx_update_sound_ent_output_param( var_7, var_6 );
         }
 
         wait(var_4);
     }
 }
 
-_id_11E7( var_0, var_1 )
+avmx_state_enter_action_play_loops( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_2 _id_11BC();
+    var_3 = var_2 avmx_get_instance_preset();
     var_4 = var_0._id_704A;
     var_5 = var_1._id_704A;
     var_6 = var_5._id_588F;
@@ -1455,12 +1455,12 @@ _id_11E7( var_0, var_1 )
         if ( var_6[0] == "all" )
         {
             foreach ( var_9, var_8 in var_2._id_5876 )
-                _id_11DC( var_8, 1 );
+                avmx_set_loop_play_state( var_8, 1 );
         }
         else if ( var_6[0] == "none" )
         {
             foreach ( var_9, var_8 in var_2._id_5876 )
-                _id_11DC( var_8, 0 );
+                avmx_set_loop_play_state( var_8, 0 );
         }
         else
         {
@@ -1484,41 +1484,41 @@ _id_11E7( var_0, var_1 )
         }
 
         foreach ( var_9, var_8 in var_11 )
-            _id_11DC( var_8, 1 );
+            avmx_set_loop_play_state( var_8, 1 );
 
         foreach ( var_9, var_8 in var_12 )
-            _id_11DC( var_8, 0 );
+            avmx_set_loop_play_state( var_8, 0 );
     }
 }
 
 _id_4E48()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return distance2d( var_0.origin, level.player.origin );
 }
 
 _id_4E47()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return distance( var_0.origin, level.player.origin );
 }
 
 _id_4E57()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return var_0 vehicle_getthrottle();
 }
 
 _id_4E55()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = length( var_0 vehicle_getvelocity() * 0.0568182 );
     return var_1;
 }
 
 _id_4E54()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = var_0 vehicle_getvelocity();
     var_2 = level.player getvelocity();
     var_3 = var_1 - var_2;
@@ -1528,7 +1528,7 @@ _id_4E54()
 
 _id_4E56()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
 
     if ( isdefined( var_0._id_3653 ) )
         return var_0._id_3653;
@@ -1538,35 +1538,35 @@ _id_4E56()
 
 _id_4E45()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return length( var_0 maps\_shg_utility::_id_3D3B() ) * 0.00125;
 }
 
 _id_4E4C()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return length( var_0 maps\_shg_utility::_id_3D3C() ) * 0.00125;
 }
 
 _id_4E49()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.player.origin, level.player getvelocity() );
 }
 
 _id_4E4A()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.player.origin, level.player getvelocity(), 2, 5 );
 }
 
 _id_4E4B()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return dopplerpitch( var_0.origin, var_0 vehicle_getvelocity(), level.player.origin, level.player getvelocity(), 1, 0.5 );
 }
 
-_id_1192( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+avm_compute_doppler_pitch( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( var_4 ) )
         var_4 = 1;
@@ -1598,78 +1598,78 @@ _id_1192( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
 _id_4E51()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = var_0.angles[0];
     return var_1;
 }
 
 _id_4E58()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = var_0.angles[1];
     return var_1;
 }
 
 _id_4E52()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return max( abs( angleclamp180( var_0.angles[0] ) ), abs( angleclamp180( var_0.angles[2] ) ) );
 }
 
 _id_4E46()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return acos( anglestoup( var_0.angles )[2] );
 }
 
 _id_4E4F()
 {
-    var_0 = _id_11CA();
-    return var_0 _meth_844c();
+    var_0 = avmx_get_vehicle_entity();
+    return var_0 _meth_844C();
 }
 
 _id_4E4E()
 {
-    var_0 = _id_11CA();
-    return var_0 _meth_844d();
+    var_0 = avmx_get_vehicle_entity();
+    return var_0 _meth_844D();
 }
 
 _id_4E4D()
 {
-    var_0 = _id_11CA();
-    return var_0 _meth_844e();
+    var_0 = avmx_get_vehicle_entity();
+    return var_0 _meth_844E();
 }
 
 _id_4E50()
 {
-    var_0 = _id_11CA();
-    return var_0 _meth_844f();
+    var_0 = avmx_get_vehicle_entity();
+    return var_0 _meth_844F();
 }
 
 _id_4E53()
 {
     var_0 = 0;
-    var_1 = _id_11CA();
+    var_1 = avmx_get_vehicle_entity();
     var_2 = 0.1;
 
-    if ( _id_11CC() )
+    if ( avmx_is_player_mode() )
     {
-        if ( !isdefined( var_1._id_0B91 ) )
-            var_1._id_0B91 = 0;
+        if ( !isdefined( var_1.amv_jetbike_height_time ) )
+            var_1.amv_jetbike_height_time = 0;
 
         var_3 = gettime();
 
-        if ( var_3 > var_1._id_0B91 + var_2 )
+        if ( var_3 > var_1.amv_jetbike_height_time + var_2 )
         {
-            var_1._id_0B91 = var_3;
+            var_1.amv_jetbike_height_time = var_3;
             var_4 = bullettrace( var_1.origin, var_1.origin - ( 0.0, 0.0, 360.0 ), 0 );
-            var_1._id_0B92 = var_4["fraction"];
+            var_1.amv_jetbike_height_val = var_4["fraction"];
 
-            if ( !isdefined( var_1._id_0B92 ) )
-                var_1._id_0B92 = 0;
+            if ( !isdefined( var_1.amv_jetbike_height_val ) )
+                var_1.amv_jetbike_height_val = 0;
         }
 
-        var_0 = clamp( var_1._id_0B92, 0, 1.0 );
+        var_0 = clamp( var_1.amv_jetbike_height_val, 0, 1.0 );
     }
 
     return var_0;
@@ -1677,7 +1677,7 @@ _id_4E53()
 
 _id_4E69()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return var_0 _meth_8471();
 }
 
@@ -1695,7 +1695,7 @@ _id_4E6A()
 
 _id_4E6C()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return var_0 _meth_8473();
 }
 
@@ -1713,7 +1713,7 @@ _id_4E6D()
 
 _id_4E73()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return var_0 _meth_8470();
 }
 
@@ -1743,8 +1743,8 @@ _id_4E70()
 
 _id_4E74()
 {
-    var_0 = _id_11CA();
-    return var_0 _meth_846f();
+    var_0 = avmx_get_vehicle_entity();
+    return var_0 _meth_846F();
 }
 
 _id_4E76()
@@ -1761,17 +1761,17 @@ _id_4E75()
 
 _id_4E79()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     return var_0 _meth_8472();
 }
 
 _id_4E77()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = var_0._id_9940 _meth_8475();
     var_1 = abs( var_1 );
     var_1 = clamp( var_1, 0, 90 );
-    var_1 = _id_11D3( var_1, 0, 90 );
+    var_1 = avmx_normalize_ranged_value( var_1, 0, 90 );
     var_2 = level.player getnormalizedcameramovement();
     var_3 = abs( var_2[0] );
     return 0;
@@ -1779,14 +1779,14 @@ _id_4E77()
 
 _id_4E78()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = var_0._id_9940 _meth_8474();
     var_1 = abs( var_1 );
     var_2 = var_0._id_9940 _meth_8475();
     var_2 = abs( var_2 );
     var_3 = length2d( ( var_1, var_2, 0 ) );
     var_3 = clamp( var_3, 0, 135 );
-    var_4 = _id_11D3( var_3, 0, 135 );
+    var_4 = avmx_normalize_ranged_value( var_3, 0, 135 );
     var_5 = level.player getnormalizedcameramovement();
     var_6 = length2d( var_5 );
     return var_4 * var_6;
@@ -1794,19 +1794,19 @@ _id_4E78()
 
 _id_4E66()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
 
-    if ( isdefined( level._id_0E57._id_2B91 ) && level._id_0E57._id_2B91 == 1 )
+    if ( isdefined( level.aud._id_2B91 ) && level.aud._id_2B91 == 1 )
     {
-        level._id_0E57._id_2B93 *= 0.94;
-        return level._id_0E57._id_2B93;
+        level.aud._id_2B93 *= 0.94;
+        return level.aud._id_2B93;
     }
     else
     {
         var_1 = var_0 _meth_8512();
 
         if ( var_1 != 0 )
-            level._id_0E57._id_2B93 = var_1;
+            level.aud._id_2B93 = var_1;
 
         return var_1;
     }
@@ -1814,7 +1814,7 @@ _id_4E66()
 
 _id_4E64()
 {
-    var_0 = _id_11CA();
+    var_0 = avmx_get_vehicle_entity();
     var_1 = var_0 _meth_8513();
     return var_1;
 }
@@ -1839,27 +1839,27 @@ _id_4E7C()
         return var_2;
 }
 
-_id_11E3( var_0, var_1 )
+avmx_start_oneshot_alias( var_0, var_1 )
 {
     var_2 = self;
     var_3 = var_0._id_704A;
     var_4 = undefined;
-    var_5 = var_2 _id_11C6( var_3, var_1 );
+    var_5 = var_2 avmx_get_sound_alias( var_3, var_1 );
 
     if ( isstring( var_5 ) )
     {
-        var_6 = var_2 _id_11CA();
+        var_6 = var_2 avmx_get_vehicle_entity();
         var_4 = spawn( "script_origin", var_6.origin );
         var_4 linkto( var_6, "tag_origin", var_2._id_88A1, ( 0.0, 0.0, 0.0 ) );
         var_4 scalevolume( 0 );
         var_4 soundscripts\_snd_playsound::_id_872A( var_5, "sound_done" );
-        var_4 thread _id_11D2( "sound_done" );
+        var_4 thread avmx_monitor_oneshot_done( "sound_done" );
     }
 
     return var_4;
 }
 
-_id_11D2( var_0 )
+avmx_monitor_oneshot_done( var_0 )
 {
     self endon( "death" );
     self waittill( var_0 );
@@ -1868,28 +1868,28 @@ _id_11D2( var_0 )
         self delete();
 }
 
-_id_11CC()
+avmx_is_player_mode()
 {
     return isdefined( self._id_6BA1 ) && self._id_6BA1;
 }
 
-_id_11C6( var_0, var_1 )
+avmx_get_sound_alias( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_0._id_0D5E[soundscripts\_audio::_id_0F30( 0, var_1 )];
+    var_3 = var_0.asset_names[soundscripts\_audio::aud_get_optional_param( 0, var_1 )];
 
-    if ( isdefined( var_3 ) && var_2 _id_11CC() )
+    if ( isdefined( var_3 ) && var_2 avmx_is_player_mode() )
         var_3 += "_plr";
 
     return var_3;
 }
 
-_id_11C7( var_0 )
+avmx_get_sound_alias_count( var_0 )
 {
-    return var_0._id_0D5E.size;
+    return var_0.asset_names.size;
 }
 
-_id_11F1( var_0, var_1 )
+avmx_update_sound_ent_output_param( var_0, var_1 )
 {
     switch ( var_0 )
     {
@@ -1904,43 +1904,43 @@ _id_11F1( var_0, var_1 )
     }
 }
 
-_id_11CB( var_0 )
+avmx_handle_oneshot_ducking( var_0 )
 {
     var_1 = self;
     var_2 = var_0._id_704A;
-    var_1 _id_11A8( var_2.name );
-    var_1 _id_11F0( var_0 );
-    var_1 _id_11D8( var_2.name );
+    var_1 avmx_add_oneshot_ducking_scalar( var_2.name );
+    var_1 avmx_update_oneshot_duck_scalar( var_0 );
+    var_1 avmx_remove_oneshot_ducking_scalar( var_2.name );
 }
 
-_id_11F0( var_0 )
+avmx_update_oneshot_duck_scalar( var_0 )
 {
     var_1 = self;
-    var_2 = var_1 _id_11BC();
+    var_2 = var_1 avmx_get_instance_preset();
     var_3 = var_0._id_704A;
     level endon( "msg_snd_vehicle_stop" );
-    level endon( "msg_snd_vehicle_stop_" + var_1 _id_11BB() );
-    var_1 _id_11CA() endon( "death" );
+    level endon( "msg_snd_vehicle_stop_" + var_1 avmx_get_instance_name() );
+    var_1 avmx_get_vehicle_entity() endon( "death" );
 
     if ( isdefined( var_3._id_2FB4 ) )
     {
-        var_4 = var_2 _id_11B7( var_3._id_2FB4 );
-        var_5 = soundscripts\_audio::_id_0F2E( var_4 );
+        var_4 = var_2 avmx_get_envelope( var_3._id_2FB4 );
+        var_5 = soundscripts\_audio::aud_get_envelope_domain( var_4 );
         var_6 = 0;
         var_7 = var_5[1];
 
-        for ( var_8 = var_3.name; _id_11AA( var_0._id_86D9 ) && var_6 < var_7; var_6 += 0.1 )
+        for ( var_8 = var_3.name; avmx_are_all_defined( var_0._id_86D9 ) && var_6 < var_7; var_6 += 0.1 )
         {
-            var_9 = var_0 _id_11BF();
-            var_10 = var_2 _id_11CF( var_6, var_3._id_2FB4 );
+            var_9 = var_0 avmx_get_instance_sound_item_volume();
+            var_10 = var_2 avmx_map_input( var_6, var_3._id_2FB4 );
             var_10 = 1.0 - var_9 * ( 1.0 - var_10 );
-            var_1 _id_11DE( var_8, var_10 );
+            var_1 avmx_set_oneshot_ducking_scalar( var_8, var_10 );
             wait 0.1;
         }
     }
 }
 
-_id_11AA( var_0 )
+avmx_are_all_defined( var_0 )
 {
     var_1 = 1;
 
@@ -1956,80 +1956,80 @@ _id_11AA( var_0 )
     return var_1;
 }
 
-_id_11A8( var_0 )
+avmx_add_oneshot_ducking_scalar( var_0 )
 {
     self._id_6498[var_0] = 1.0;
 }
 
-_id_11D8( var_0 )
+avmx_remove_oneshot_ducking_scalar( var_0 )
 {
     self._id_6498[var_0] = undefined;
 }
 
-_id_11DE( var_0, var_1 )
+avmx_set_oneshot_ducking_scalar( var_0, var_1 )
 {
     self._id_6498[var_0] = var_1;
 }
 
-_id_11D3( var_0, var_1, var_2 )
+avmx_normalize_ranged_value( var_0, var_1, var_2 )
 {
     return ( var_0 - var_1 ) / ( var_2 - var_1 );
 }
 
-_id_11B1()
+avmx_get()
 {
-    return level._id_055B._id_9EB3;
+    return level._audio._id_9EB3;
 }
 
-_id_11B5( var_0 )
+avmx_get_callback( var_0 )
 {
-    return _id_11B1()._id_1A04[var_0][0];
+    return avmx_get().callbacks[var_0][0];
 }
 
-_id_11C5()
+avmx_get_preset_name()
 {
     return self._id_4777._id_6F21;
 }
 
-_id_11E0( var_0 )
+avmx_set_preset_name( var_0 )
 {
     self._id_4777._id_6F21 = var_0;
 }
 
-_id_11DA( var_0 )
+avmx_set_instance_init_callback( var_0 )
 {
     self._id_4227._id_4E86 = var_0;
 }
 
-_id_11BB()
+avmx_get_instance_name()
 {
     return self._id_4E87;
 }
 
-_id_11BD()
+avmx_get_instance_preset_name()
 {
     return self._id_6F21;
 }
 
-_id_11BC()
+avmx_get_instance_preset()
 {
-    return _id_11C4( self._id_6F21 );
+    return avmx_get_preset( self._id_6F21 );
 }
 
-_id_11C4( var_0 )
+avmx_get_preset( var_0 )
 {
-    var_1 = _id_11B1();
+    var_1 = avmx_get();
     return var_1._id_6F22[var_0];
 }
 
-_id_11BA( var_0, var_1 )
+avmx_get_instance( var_0, var_1 )
 {
     var_2 = undefined;
-    var_3 = _id_11B1();
+    var_3 = avmx_get();
 
     if ( isstring( var_1 ) )
     {
-        var_4 = _id_11C4( var_1 );
+        var_4 = avmx_get_preset( var_1 );
 
         if ( isdefined( var_4 ) )
             var_2 = var_4._id_4E88[var_0];
@@ -2052,37 +2052,37 @@ _id_11BA( var_0, var_1 )
     return var_2;
 }
 
-_id_11CA()
+avmx_get_vehicle_entity()
 {
     return self._id_9C78;
 }
 
-_id_11C8()
+avmx_get_sound_instance()
 {
     return self._id_86FE;
 }
 
-_id_11B8()
+avmx_get_fadein_time()
 {
     return self._id_4777._id_35F0;
 }
 
-_id_11B9()
+avmx_get_fadeout_time()
 {
     return self._id_4777._id_35F5;
 }
 
-_id_11D9( var_0, var_1 )
+avmx_set_behavior_oneshot_overrides( var_0, var_1 )
 {
     var_0._id_649B = var_1;
 }
 
-_id_11B4( var_0 )
+avmx_get_behavior_restricted_oneshots( var_0 )
 {
     var_1 = self;
     var_2 = [];
     var_3 = var_0._id_704A;
-    var_4 = _id_11C4( var_3._id_6F21 );
+    var_4 = avmx_get_preset( var_3._id_6F21 );
     var_5 = var_0._id_649B;
 
     if ( !isdefined( var_5 ) )
@@ -2090,21 +2090,21 @@ _id_11B4( var_0 )
 
     foreach ( var_7 in var_5 )
     {
-        if ( var_1 _id_11C2( var_7 ) == 1 )
+        if ( var_1 avmx_get_oneshot_poly_mode( var_7 ) == 1 )
             var_2[var_7] = var_7;
     }
 
     return var_2;
 }
 
-_id_11C2( var_0 )
+avmx_get_oneshot_poly_mode( var_0 )
 {
     var_1 = self;
     var_2 = var_1._id_649A[var_0]._id_704A;
     return var_2._id_649C;
 }
 
-_id_11C3( var_0 )
+avmx_get_oneshot_update_mode( var_0 )
 {
     var_1 = self;
     var_2 = 0;
@@ -2122,15 +2122,15 @@ _id_11C3( var_0 )
     return var_2;
 }
 
-_id_11B7( var_0 )
+avmx_get_envelope( var_0 )
 {
     return self._id_3333[var_0];
 }
 
-_id_11CF( var_0, var_1 )
+avmx_map_input( var_0, var_1 )
 {
     var_2 = self;
-    var_3 = var_2 _id_11B7( var_1 );
+    var_3 = var_2 avmx_get_envelope( var_1 );
 
     if ( isdefined( var_3._id_3335 ) )
         var_4 = [[ var_3._id_3335 ]]( var_0 );
@@ -2140,13 +2140,13 @@ _id_11CF( var_0, var_1 )
     return var_4;
 }
 
-_id_11E2( var_0 )
+avmx_start_loop( var_0 )
 {
     var_1 = self;
-    var_2 = var_1 _id_11BC();
-    var_3 = var_1 _id_11CA();
+    var_2 = var_1 avmx_get_instance_preset();
+    var_3 = var_1 avmx_get_vehicle_entity();
     var_4 = var_0._id_704A;
-    var_5 = var_2 _id_11C7( var_4 );
+    var_5 = var_2 avmx_get_sound_alias_count( var_4 );
     var_6 = var_1._id_88A1;
     var_7 = var_0._id_704A._id_35F5;
     var_8 = 1.0;
@@ -2155,7 +2155,7 @@ _id_11E2( var_0 )
 
     for ( var_9 = 0; var_9 < var_5; var_9++ )
     {
-        var_10 = var_1 _id_11C6( var_4, var_9 );
+        var_10 = var_1 avmx_get_sound_alias( var_4, var_9 );
         var_11 = spawn( "script_origin", var_3.origin );
         var_11 linkto( var_3, "tag_origin", var_6, ( 0.0, 0.0, 0.0 ) );
         var_11 scalevolume( 0 );
@@ -2164,20 +2164,20 @@ _id_11E2( var_0 )
     }
 }
 
-_id_11EB( var_0 )
+avmx_stop_loop( var_0 )
 {
     var_1 = self;
     var_2 = var_0._id_86D9;
     var_0._id_86D9 = [];
 
     foreach ( var_4 in var_2 )
-        var_4 thread _id_11EC( var_0._id_704A._id_35F5 );
+        var_4 thread avmx_stop_snd_ent( var_0._id_704A._id_35F5 );
 }
 
-_id_11EC( var_0 )
+avmx_stop_snd_ent( var_0 )
 {
     var_1 = self;
-    var_0 = max( 0.05, soundscripts\_audio::_id_0F30( 0.05, var_0 ) );
+    var_0 = max( 0.05, soundscripts\_audio::aud_get_optional_param( 0.05, var_0 ) );
 
     if ( isdefined( var_1 ) )
     {
@@ -2199,22 +2199,22 @@ _id_9EDC( var_0 )
     var_1 = self;
 
     foreach ( var_3 in var_1._id_5876 )
-        var_3 _id_11AF( var_0 );
+        var_3 avmx_fade_stop_and_delete_sound_obj( var_0 );
 
     foreach ( var_6 in var_1._id_649A )
-        var_6 _id_11AF( var_0 );
+        var_6 avmx_fade_stop_and_delete_sound_obj( var_0 );
 }
 
-_id_11AF( var_0 )
+avmx_fade_stop_and_delete_sound_obj( var_0 )
 {
     var_1 = self;
 
-    switch ( var_1._id_704A._id_0D5F )
+    switch ( var_1._id_704A.asset_type )
     {
         case "alias":
             foreach ( var_4, var_3 in var_1._id_86D9 )
             {
-                var_3 _id_11EC( var_0 );
+                var_3 avmx_stop_snd_ent( var_0 );
                 var_1._id_86D9[var_4] = undefined;
             }
 
@@ -2232,10 +2232,10 @@ _id_9EDA()
 
     foreach ( var_2 in var_0._id_5876 )
     {
-        switch ( var_2._id_704A._id_0D5F )
+        switch ( var_2._id_704A.asset_type )
         {
             case "alias":
-                var_2._id_86D9 thread _id_11EC( 0.05 );
+                var_2._id_86D9 thread avmx_stop_snd_ent( 0.05 );
                 var_2._id_86D9 = [];
                 continue;
             case "soundevent":
@@ -2250,7 +2250,7 @@ _id_9EDA()
     foreach ( var_5 in var_0._id_649A )
     {
         foreach ( var_7 in var_5._id_86D9 )
-            var_7 thread _id_11EC( 0.05 );
+            var_7 thread avmx_stop_snd_ent( 0.05 );
 
         var_5._id_86D9 = [];
     }
@@ -2276,11 +2276,11 @@ _id_A3B2( var_0 )
     return var_0 * 36;
 }
 
-_id_11F2()
+avmx_vehicle_getspeed()
 {
     var_0 = 0;
 
-    if ( _id_11CD() == 0 )
+    if ( avmx_is_vehicle_proxy() == 0 )
         var_0 = self vehicle_getspeed();
 
     return var_0;

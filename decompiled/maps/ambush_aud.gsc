@@ -135,14 +135,14 @@ start_village_checkpoint( var_0 )
 
 start_morpheus_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
     aud_start_ambience_war();
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_zak_son_escape" );
 }
 
 start_apartment_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
     aud_start_ambience_war();
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_zak_son_escape" );
 }
@@ -159,7 +159,7 @@ intro_check_end()
     common_scripts\utility::_id_384A( "introscreen_remove_submix" );
     soundscripts\_audio_mix_manager::_id_5CF6( "ambush_intro_mute" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_stealth" );
-    soundscripts\_audio_zone_manager::_id_123A( "junkyard" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "junkyard" );
 }
 
 aud_stop_mix_stealth_ambush()
@@ -239,7 +239,7 @@ aud_start_mix_suicide_slowmo()
 {
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_drop_bloody_gun" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_suicide_slowmo" );
-    soundscripts\_audio_zone_manager::_id_1233( 1 );
+    soundscripts\_audio_zone_manager::azm_set_reverb_bypass( 1 );
     level.player setreverb( "snd_enveffectsprio_level", "underwater", 1, 0.7, 0.5 );
 }
 
@@ -248,29 +248,29 @@ aud_start_mix_ending()
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_suicide_slowmo" );
     soundscripts\_audio_mix_manager::_id_5CF2( "mix_ending" );
     level.player deactivatereverb( "snd_enveffectsprio_level", 1 );
-    soundscripts\_audio_zone_manager::_id_1233( 0 );
+    soundscripts\_audio_zone_manager::azm_set_reverb_bypass( 0 );
 }
 
 aud_start_ambience_morning()
 {
-    soundscripts\_audio_zone_manager::_id_123C( 0.5 );
+    soundscripts\_audio_zone_manager::azm_stop_zones( 0.5 );
     wait 0.5;
-    soundscripts\_audio_zone_manager::_id_1235( "gas_station", "exterior_morning", 0.5 );
-    soundscripts\_audio_zone_manager::_id_1239( "gas_station", "ambient_ambush_morning_ext", 0.5 );
-    soundscripts\_audio_zone_manager::_id_123A( "gas_station" );
-    soundscripts\_audio_zone_manager::_id_1235( "junkyard", "exterior_morning", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1239( "junkyard", "ambient_ambush_morning_ext", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1235( "interior_vehicle", "exterior_morning", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_vehicle", "ambient_ambush_morning_ext", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1235( "interior_stone_open", "exterior_morning", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_stone_open", "ambient_ambush_int", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "gas_station", "exterior_morning", 0.5 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "gas_station", "ambient_ambush_morning_ext", 0.5 );
+    soundscripts\_audio_zone_manager::azm_start_zone( "gas_station" );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "junkyard", "exterior_morning", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "junkyard", "ambient_ambush_morning_ext", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "interior_vehicle", "exterior_morning", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_vehicle", "ambient_ambush_morning_ext", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "interior_stone_open", "exterior_morning", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_stone_open", "ambient_ambush_int", 0.05 );
 }
 
 aud_start_ambience_war()
 {
-    soundscripts\_audio_zone_manager::_id_123C();
-    soundscripts\_audio_zone_manager::_id_1235( "interior_stone_open", "exterior_war", 0.05 );
-    soundscripts\_audio_zone_manager::_id_1239( "interior_stone_open", "ambient_ambush_int", 0.05 );
+    soundscripts\_audio_zone_manager::azm_stop_zones();
+    soundscripts\_audio_zone_manager::azm_set_zone_dynamic_ambience( "interior_stone_open", "exterior_war", 0.05 );
+    soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "interior_stone_open", "ambient_ambush_int", 0.05 );
 }
 
 aud_russian_battle_chatter()
@@ -295,7 +295,7 @@ aud_start_ambush_heli_scripted_sequence( var_0 )
     wait 2;
     soundscripts\_audio_mix_manager::_id_5CF6( "mix_ambush_heli" );
     wait 2;
-    self _meth_854d( "scn_ambush_convoy_heli_reveal" );
+    self _meth_854D( "scn_ambush_convoy_heli_reveal" );
 }
 
 aud_vehicle_engine_linear( var_0, var_1, var_2 )
@@ -325,5 +325,5 @@ aud_dog_sequence()
     self waittill( "trigger", var_0 );
     var_0 playsound( "scn_ambush_junkyard_dog_atk" );
     var_0 waittill( "death" );
-    var_0 _meth_854d( "scn_ambush_junkyard_dog_atk" );
+    var_0 _meth_854D( "scn_ambush_junkyard_dog_atk" );
 }

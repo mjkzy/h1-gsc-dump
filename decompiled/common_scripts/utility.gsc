@@ -518,7 +518,7 @@ _id_A06B( var_0, var_1 )
     if ( !var_3 )
         self endon( "death" );
 
-    var_2 childthread _id_0676( var_1 );
+    var_2 childthread _timeout( var_1 );
     var_2 waittill( "returned", var_7 );
     var_2 notify( "die" );
     return var_7;
@@ -531,7 +531,7 @@ _id_A06C( var_0, var_1 )
     foreach ( var_4 in var_0 )
         childthread _id_A0BA( var_4, var_2 );
 
-    var_2 thread _id_0676( var_1 );
+    var_2 thread _timeout( var_1 );
     var_2 waittill( "returned", var_6 );
     var_2 notify( "die" );
     return var_6;
@@ -562,13 +562,13 @@ _id_A073( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( isdefined( var_6 ) )
         childthread _id_A0B9( var_6, var_7 );
 
-    var_7 childthread _id_0676( var_0 );
+    var_7 childthread _timeout( var_0 );
     var_7 waittill( "returned", var_8 );
     var_7 notify( "die" );
     return var_8;
 }
 
-_id_0676( var_0 )
+_timeout( var_0 )
 {
     self endon( "die" );
     wait(var_0);
@@ -594,7 +594,7 @@ _id_A074( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_5 ) )
         childthread _id_A0BA( var_5, var_6 );
 
-    var_6 childthread _id_0676( var_0 );
+    var_6 childthread _timeout( var_0 );
     var_6 waittill( "returned", var_7 );
     var_6 notify( "die" );
     return var_7;
@@ -653,10 +653,10 @@ _id_5108()
 {
     var_0 = gettime();
 
-    if ( isdefined( self.flashendtime ) && var_0 < self.flashendtime )
+    if ( isdefined( self._id_38B1 ) && var_0 < self._id_38B1 )
         return 1;
 
-    if ( isdefined( self.concussionendtime ) && var_0 < self.concussionendtime )
+    if ( isdefined( self._id_20DF ) && var_0 < self._id_20DF )
         return 1;
 
     return 0;
@@ -693,7 +693,7 @@ _id_4CF0()
         level._id_88B2 = ::_id_3093;
 
     level._id_3846 = spawnstruct();
-    level._id_3846 _id_0D6F();
+    level._id_3846 assign_unique_id();
 }
 
 _id_383D( var_0 )
@@ -745,7 +745,7 @@ _id_383F( var_0, var_1 )
         level notify( var_0 );
 }
 
-_id_0D6F()
+assign_unique_id()
 {
     self._id_9A29 = "generic" + level._id_3C9D;
     level._id_3C9D++;
@@ -787,7 +787,7 @@ _id_A087( var_0, var_1 )
     self waittill( var_1 );
 }
 
-_id_0D13( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+array_thread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     if ( !isdefined( var_2 ) )
     {
@@ -865,7 +865,7 @@ _id_0D13( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     }
 }
 
-_id_0CDB( var_0, var_1, var_2, var_3, var_4 )
+array_call( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_4 ) )
     {
@@ -925,14 +925,14 @@ _id_6166( var_0, var_1, var_2, var_3, var_4 )
         call [[ var_1 ]]( var_6 );
 }
 
-_id_0D16( var_0, var_1, var_2, var_3, var_4, var_5 )
+array_thread4( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    _id_0D13( var_0, var_1, var_2, var_3, var_4, var_5 );
+    array_thread( var_0, var_1, var_2, var_3, var_4, var_5 );
 }
 
-_id_0D17( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+array_thread5( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    _id_0D13( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+    array_thread( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
 _id_97CE( var_0, var_1 )
@@ -940,7 +940,7 @@ _id_97CE( var_0, var_1 )
     if ( isdefined( var_0 ) && isdefined( var_1 ) )
     {
         var_2 = getentarray( var_0, var_1 );
-        _id_0D13( var_2, ::_id_97CF );
+        array_thread( var_2, ::_id_97CF );
     }
     else
         _id_97CF();
@@ -959,7 +959,7 @@ _id_97CC( var_0, var_1 )
     if ( isdefined( var_0 ) && isdefined( var_1 ) )
     {
         var_2 = getentarray( var_0, var_1 );
-        _id_0D13( var_2, ::_id_97CD );
+        array_thread( var_2, ::_id_97CD );
     }
     else
         _id_97CD();
@@ -981,8 +981,8 @@ _id_7EDD( var_0 )
     if ( !isdefined( level._id_9794 ) )
         return;
 
-    level._id_9794[var_0] = _id_0D01( level._id_9794[var_0] );
-    _id_0D13( level._id_9794[var_0], ::_id_9AE8 );
+    level._id_9794[var_0] = array_removeundefined( level._id_9794[var_0] );
+    array_thread( level._id_9794[var_0], ::_id_9AE8 );
 }
 
 _id_9AE8()
@@ -1075,10 +1075,10 @@ _id_8F63()
     level._id_8F64["script_linkname"] = [];
 
     foreach ( var_1 in level._id_8F60 )
-        _id_079F( var_1 );
+        add_struct_to_global_array( var_1 );
 }
 
-_id_079F( var_0 )
+add_struct_to_global_array( var_0 )
 {
     if ( isdefined( var_0.targetname ) )
     {
@@ -1148,7 +1148,7 @@ _id_36BF( var_0 )
 
 }
 
-_id_0CF6( var_0, var_1 )
+array_remove( var_0, var_1 )
 {
     var_2 = [];
 
@@ -1161,15 +1161,15 @@ _id_0CF6( var_0, var_1 )
     return var_2;
 }
 
-_id_0CF7( var_0, var_1 )
+array_remove_array( var_0, var_1 )
 {
     foreach ( var_3 in var_1 )
-        var_0 = _id_0CF6( var_0, var_3 );
+        var_0 = array_remove( var_0, var_3 );
 
     return var_0;
 }
 
-_id_0D01( var_0 )
+array_removeundefined( var_0 )
 {
     var_1 = [];
 
@@ -1184,7 +1184,7 @@ _id_0D01( var_0 )
     return var_1;
 }
 
-_id_0CF9( var_0 )
+array_remove_duplicates( var_0 )
 {
     var_1 = [];
 
@@ -1211,7 +1211,7 @@ _id_0CF9( var_0 )
     return var_1;
 }
 
-_id_0CF0( var_0, var_1, var_2, var_3, var_4 )
+array_levelthread( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_4 ) )
     {
@@ -1241,7 +1241,7 @@ _id_0CF0( var_0, var_1, var_2, var_3, var_4 )
         thread [[ var_1 ]]( var_6 );
 }
 
-_id_0CEF( var_0, var_1, var_2, var_3, var_4 )
+array_levelcall( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_4 ) )
     {
@@ -1271,7 +1271,7 @@ _id_0CEF( var_0, var_1, var_2, var_3, var_4 )
         call [[ var_1 ]]( var_6 );
 }
 
-_id_07A5( var_0, var_1 )
+add_to_array( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         return var_0;
@@ -1690,7 +1690,7 @@ _id_909B( var_0, var_1 )
     return var_2;
 }
 
-_id_0CDD( var_0, var_1 )
+array_combine( var_0, var_1 )
 {
     var_2 = [];
 
@@ -1716,7 +1716,7 @@ array_combine_reverse_keys( var_0, var_1 )
 
     var_2 = [];
     var_3 = getarraykeys( var_0 );
-    var_3 = _id_0D02( var_3 );
+    var_3 = array_reverse( var_3 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
@@ -1725,7 +1725,7 @@ array_combine_reverse_keys( var_0, var_1 )
     }
 
     var_3 = getarraykeys( var_1 );
-    var_3 = _id_0D02( var_3 );
+    var_3 = array_reverse( var_3 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
@@ -1736,7 +1736,7 @@ array_combine_reverse_keys( var_0, var_1 )
     return var_2;
 }
 
-_id_0CE1( var_0, var_1 )
+array_combine_non_integer_indices( var_0, var_1 )
 {
     var_2 = [];
 
@@ -1749,7 +1749,7 @@ _id_0CE1( var_0, var_1 )
     return var_2;
 }
 
-_id_0CF5( var_0 )
+array_randomize( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -1762,13 +1762,13 @@ _id_0CF5( var_0 )
     return var_0;
 }
 
-_id_0CDA( var_0, var_1 )
+array_add( var_0, var_1 )
 {
     var_0[var_0.size] = var_1;
     return var_0;
 }
 
-_id_0CE9( var_0 )
+array_first( var_0 )
 {
     var_1 = undefined;
 
@@ -1781,7 +1781,7 @@ _id_0CE9( var_0 )
     return var_1;
 }
 
-_id_0CED( var_0, var_1, var_2 )
+array_insert( var_0, var_1, var_2 )
 {
     if ( var_2 == var_0.size )
     {
@@ -1807,7 +1807,7 @@ _id_0CED( var_0, var_1, var_2 )
     return var_3;
 }
 
-_id_0CE4( var_0, var_1 )
+array_contains( var_0, var_1 )
 {
     if ( var_0.size <= 0 )
         return 0;
@@ -1821,7 +1821,7 @@ _id_0CE4( var_0, var_1 )
     return 0;
 }
 
-_id_0CE8( var_0, var_1 )
+array_find( var_0, var_1 )
 {
     foreach ( var_4, var_3 in var_0 )
     {
@@ -1883,7 +1883,7 @@ _id_3DBD()
             var_4 = getentarray( var_3, "script_linkname" );
 
             if ( var_4.size > 0 )
-                var_0 = _id_0CDD( var_0, var_4 );
+                var_0 = array_combine( var_0, var_4 );
         }
     }
 
@@ -1903,7 +1903,7 @@ _id_3DC2()
             var_4 = getvehiclenodearray( var_3, "script_linkname" );
 
             if ( var_4.size > 0 )
-                var_0 = _id_0CDD( var_0, var_4 );
+                var_0 = array_combine( var_0, var_4 );
         }
     }
 
@@ -1930,25 +1930,25 @@ _id_3DC3()
 _id_76BB( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = getentarray( var_0, "targetname" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
     var_5 = _id_40FD( var_0, "targetname" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
     var_5 = call [[ level._id_4047 ]]( var_0, "targetname" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
     var_5 = getvehiclenodearray( var_0, "targetname" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
 }
 
 _id_76B9( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = getentarray( var_0, "script_noteworthy" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
     var_5 = _id_40FD( var_0, "script_noteworthy" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
     var_5 = call [[ level._id_4047 ]]( var_0, "script_noteworthy" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
     var_5 = getvehiclenodearray( var_0, "script_noteworthy" );
-    _id_0D13( var_5, var_1, var_2, var_3, var_4 );
+    array_thread( var_5, var_1, var_2, var_3, var_4 );
 }
 
 _id_2D9F( var_0, var_1, var_2 )
@@ -2068,79 +2068,79 @@ _id_6D76()
 
 _id_51E1()
 {
-    return !self.disabledusability;
+    return !self._id_2B0A;
 }
 
-_id_0586()
+_disableusability()
 {
-    if ( !isdefined( self.disabledusability ) )
-        self.disabledusability = 0;
+    if ( !isdefined( self._id_2B0A ) )
+        self._id_2B0A = 0;
 
-    self.disabledusability++;
+    self._id_2B0A++;
     self disableusability();
 }
 
-_id_0594()
+_enableusability()
 {
-    if ( !isdefined( self.disabledusability ) )
-        self.disabledusability = 0;
-    else if ( self.disabledusability > 0 )
+    if ( !isdefined( self._id_2B0A ) )
+        self._id_2B0A = 0;
+    else if ( self._id_2B0A > 0 )
     {
-        self.disabledusability--;
+        self._id_2B0A--;
 
-        if ( self.disabledusability == 0 )
+        if ( self._id_2B0A == 0 )
             self enableusability();
     }
 }
 
 _id_7466()
 {
-    self.disabledusability = 0;
+    self._id_2B0A = 0;
     self enableusability();
 }
 
-_id_0587()
+_disableweapon()
 {
-    if ( !isdefined( self.disabledweapon ) )
-        self.disabledweapon = 0;
+    if ( !isdefined( self._id_2B0B ) )
+        self._id_2B0B = 0;
 
-    self.disabledweapon++;
+    self._id_2B0B++;
     self disableweapons();
 }
 
-_id_0595()
+_enableweapon()
 {
-    if ( !isdefined( self.disabledweapon ) )
-        self.disabledweapon = 0;
+    if ( !isdefined( self._id_2B0B ) )
+        self._id_2B0B = 0;
 
-    self.disabledweapon--;
+    self._id_2B0B--;
 
-    if ( !self.disabledweapon )
+    if ( !self._id_2B0B )
         self enableweapons();
 }
 
 _id_5207()
 {
-    return !self.disabledweapon;
+    return !self._id_2B0B;
 }
 
-_id_0588()
+_disableweaponswitch()
 {
-    if ( !isdefined( self.disabledweaponswitch ) )
-        self.disabledweaponswitch = 0;
+    if ( !isdefined( self._id_2B0C ) )
+        self._id_2B0C = 0;
 
-    self.disabledweaponswitch++;
+    self._id_2B0C++;
     self disableweaponswitch();
 }
 
-_id_0596()
+_enableweaponswitch()
 {
-    if ( !isdefined( self.disabledweaponswitch ) )
-        self.disabledweaponswitch = 0;
+    if ( !isdefined( self._id_2B0C ) )
+        self._id_2B0C = 0;
 
-    self.disabledweaponswitch--;
+    self._id_2B0C--;
 
-    if ( !self.disabledweaponswitch )
+    if ( !self._id_2B0C )
     {
         if ( isdefined( level._id_49E4 ) && level._id_49E4 == 1 )
             return;
@@ -2151,43 +2151,43 @@ _id_0596()
 
 _id_5209()
 {
-    return !self.disabledweaponswitch;
+    return !self._id_2B0C;
 }
 
-_id_0585()
+_disableoffhandweapons()
 {
-    if ( !isdefined( self.disabledoffhandweapons ) )
-        self.disabledoffhandweapons = 0;
+    if ( !isdefined( self._id_2B05 ) )
+        self._id_2B05 = 0;
 
-    self.disabledoffhandweapons++;
+    self._id_2B05++;
     self disableoffhandweapons();
 }
 
-_id_0593()
+_enableoffhandweapons()
 {
-    if ( !isdefined( self.disabledoffhandweapons ) )
-        self.disabledoffhandweapons = 0;
+    if ( !isdefined( self._id_2B05 ) )
+        self._id_2B05 = 0;
 
-    self.disabledoffhandweapons--;
+    self._id_2B05--;
 
-    if ( !self.disabledoffhandweapons )
+    if ( !self._id_2B05 )
         self enableoffhandweapons();
 }
 
 _id_5163()
 {
-    return !self.disabledoffhandweapons;
+    return !self._id_2B05;
 }
 
-_id_0591( var_0, var_1 )
+_enabledetonate( var_0, var_1 )
 {
     if ( !self hasweapon( var_0 ) )
         return;
 
-    if ( self _meth_84c0( var_0 ) == var_1 )
+    if ( self _meth_84C0( var_0 ) == var_1 )
         return;
 
-    self _meth_84bf( var_0, var_1 );
+    self _meth_84BF( var_0, var_1 );
 
     if ( var_1 )
         self notify( "WeaponDetonateEnabled", var_0 );
@@ -2322,9 +2322,9 @@ _id_671F()
     common_scripts\_createfx::_id_8E8E();
 }
 
-_id_06FD()
+activate_individual_exploder()
 {
-    common_scripts\_exploder::_id_06FE();
+    common_scripts\_exploder::activate_individual_exploder_proc();
 }
 
 _id_3E89( var_0 )
@@ -2577,7 +2577,7 @@ _id_23FE( var_0 )
     return var_1;
 }
 
-_id_0AF9( var_0 )
+alphabetize( var_0 )
 {
     if ( var_0.size <= 1 )
         return var_0;
@@ -2770,7 +2770,7 @@ _id_3E94()
     return var_0;
 }
 
-_id_0D02( var_0 )
+array_reverse( var_0 )
 {
     var_1 = [];
 
@@ -2788,7 +2788,7 @@ _id_2B73( var_0, var_1 )
 _id_3CCC( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = _id_3CCB( var_0, var_1, var_2, var_3, var_4, var_5 );
-    var_6 = _id_0D02( var_6 );
+    var_6 = array_reverse( var_6 );
     return var_6;
 }
 
@@ -2859,7 +2859,7 @@ _id_5064()
 {
     if ( !level.console )
     {
-        var_0 = self _meth_834c();
+        var_0 = self _meth_834C();
 
         if ( isdefined( var_0 ) )
             return var_0;
@@ -2881,7 +2881,7 @@ _id_2F69( var_0, var_1, var_2 )
     return physicstrace( var_0 + ( 0, 0, var_1 ), var_0 + ( 0, 0, var_2 ) );
 }
 
-_id_0755( var_0, var_1 )
+add_destructible_type_function( var_0, var_1 )
 {
     if ( !isdefined( level._id_2911 ) )
         level._id_2911 = [];
@@ -2889,7 +2889,7 @@ _id_0755( var_0, var_1 )
     level._id_2911[var_0] = var_1;
 }
 
-_id_0756( var_0, var_1 )
+add_destructible_type_transient( var_0, var_1 )
 {
     if ( !isdefined( level._id_2935 ) )
         level._id_2935 = [];
@@ -2953,14 +2953,14 @@ _id_3315( var_0 )
 
 _id_5923( var_0, var_1 )
 {
-    if ( level.gametype == "aliens" && isdefined( level._id_09D9 ) )
-        return self [[ level._id_09D9 ]]( var_0, var_1 );
+    if ( level.gametype == "aliens" && isdefined( level.aliens_make_entity_sentient_func ) )
+        return self [[ level.aliens_make_entity_sentient_func ]]( var_0, var_1 );
 
     if ( isdefined( level.bot_funcs ) && isdefined( level.bot_funcs["bots_make_entity_sentient"] ) )
         return self [[ level.bot_funcs["bots_make_entity_sentient"] ]]( var_0, var_1 );
 }
 
-_id_08B5( var_0 )
+ai_3d_sighting_model( var_0 )
 {
     if ( isdefined( level.bot_funcs ) && isdefined( level.bot_funcs["ai_3d_sighting_model"] ) )
         return self [[ level.bot_funcs["ai_3d_sighting_model"] ]]( var_0 );
@@ -3032,7 +3032,7 @@ _id_3F91( var_0, var_1, var_2 )
 _id_5CA4( var_0, var_1, var_2 )
 {
     var_2 = _id_9294( isdefined( var_2 ), var_2, ( 0.0, 0.0, 0.0 ) );
-    self _meth_81dc( var_0, var_2 );
+    self _meth_81DC( var_0, var_2 );
 
     switch ( var_1 )
     {
@@ -3064,17 +3064,17 @@ _id_21A5( var_0 )
     {
         if ( isusinghdr() )
         {
-            var_1 = max( var_0._id_7299, max( var_0._id_43D8, var_0._id_14C5 ) );
+            var_1 = max( var_0._id_7299, max( var_0._id_43D8, var_0.blue ) );
             var_2 = _id_33E1( var_1 * getradiometricunit() );
 
             if ( var_1 > 0 )
             {
                 var_0._id_7299 /= var_1;
                 var_0._id_43D8 /= var_1;
-                var_0._id_14C5 /= var_1;
+                var_0.blue /= var_1;
                 var_0._id_7299 = _id_576F( var_0._id_7299 );
                 var_0._id_43D8 = _id_576F( var_0._id_43D8 );
-                var_0._id_14C5 = _id_576F( var_0._id_14C5 );
+                var_0.blue = _id_576F( var_0.blue );
                 var_0._id_4774 = var_2;
             }
             else
@@ -3090,7 +3090,7 @@ _id_21A5( var_0 )
         {
             if ( isusinghdr() )
             {
-                var_1 = max( var_0._id_7299, var_0._id_43D8, var_0._id_14C5 );
+                var_1 = max( var_0._id_7299, var_0._id_43D8, var_0.blue );
                 var_2 = _id_33E1( var_1 * getradiometricunit() );
 
                 if ( var_1 > 0 )
@@ -3100,7 +3100,7 @@ _id_21A5( var_0 )
                     var_0._id_8FBF /= var_1;
                     var_0._id_8FD9 = _id_576F( var_0._id_7299 );
                     var_0._id_8FD2 = _id_576F( var_0._id_43D8 );
-                    var_0._id_8FBF = _id_576F( var_0._id_14C5 );
+                    var_0._id_8FBF = _id_576F( var_0.blue );
                     var_0._id_4776 = var_2;
                     return;
                 }
@@ -3150,14 +3150,14 @@ _id_7E37( var_0, var_1 )
     if ( isdefined( var_0._id_8FD1 ) && var_0._id_8FD1 )
     {
         if ( !isplayer( self ) )
-            setexpfogext( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0._id_14C5, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_8FD9, var_0._id_8FD2, var_0._id_8FBF, var_0._id_4776, var_0._id_8FC6, var_0._id_8FBD, var_0._id_8FC9, var_0._id_615E, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
+            setexpfogext( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0.blue, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_8FD9, var_0._id_8FD2, var_0._id_8FBF, var_0._id_4776, var_0._id_8FC6, var_0._id_8FBD, var_0._id_8FC9, var_0._id_615E, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
         else
-            self _meth_8222( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0._id_14C5, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_8FD9, var_0._id_8FD2, var_0._id_8FBF, var_0._id_4776, var_0._id_8FC6, var_0._id_8FBD, var_0._id_8FC9, var_0._id_615E, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
+            self _meth_8222( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0.blue, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_8FD9, var_0._id_8FD2, var_0._id_8FBF, var_0._id_4776, var_0._id_8FC6, var_0._id_8FBD, var_0._id_8FC9, var_0._id_615E, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
     }
     else if ( !isplayer( self ) )
-        setexpfogext( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0._id_14C5, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
+        setexpfogext( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0.blue, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
     else
-        self _meth_8222( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0._id_14C5, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
+        self _meth_8222( var_0._id_8D08, var_0._id_4500, var_0._id_7299, var_0._id_43D8, var_0.blue, var_0._id_4774, var_0._id_5A47, var_1, var_0._id_85CD, var_0._id_85CF, var_0._id_85CE, var_0._id_479F, var_0._id_479E, var_0._id_47A0 );
 }
 
 _id_7E36( var_0, var_1 )
@@ -3182,14 +3182,14 @@ _id_7E36( var_0, var_1 )
     _id_21A5( var_0 );
     _id_21A4( var_0 );
 
-    if ( isdefined( var_0._id_0DB4 ) )
+    if ( isdefined( var_0.atmosfogenabled ) )
     {
-        if ( level.nextgen && var_0._id_0DB4 )
+        if ( level.nextgen && var_0.atmosfogenabled )
         {
             if ( isplayer( self ) )
-                self _meth_8224( var_1, var_0._id_0DC4, var_0._id_0DB7, var_0._id_0DB9, var_0._id_0DB8, var_0._id_0DB5, var_0._id_0DBD, var_0._id_0DB6, var_0._id_0DC2, var_0._id_0DB3, int( var_0._id_0DBF ), var_0._id_0DBE, var_0._id_0DC1, var_0._id_0DC0, var_0._id_0DC3, var_0._id_0DBB, var_0._id_0DBA, var_0._id_0DBC );
+                self _meth_8224( var_1, var_0.atmosfogsunfogcolor, var_0.atmosfoghazecolor, var_0.atmosfoghazestrength, var_0.atmosfoghazespread, var_0.atmosfogextinctionstrength, var_0.atmosfoginscatterstrength, var_0.atmosfoghalfplanedistance, var_0.atmosfogstartdistance, var_0.atmosfogdistancescale, int( var_0.atmosfogskydistance ), var_0.atmosfogskyangularfalloffenabled, var_0.atmosfogskyfalloffstartangle, var_0.atmosfogskyfalloffanglerange, var_0.atmosfogsundirection, var_0.atmosfogheightfogenabled, var_0.atmosfogheightfogbaseheight, var_0.atmosfogheightfoghalfplanedistance );
             else
-                setatmosfog( var_1, var_0._id_0DC4, var_0._id_0DB7, var_0._id_0DB9, var_0._id_0DB8, var_0._id_0DB5, var_0._id_0DBD, var_0._id_0DB6, var_0._id_0DC2, var_0._id_0DB3, int( var_0._id_0DBF ), var_0._id_0DBE, var_0._id_0DC1, var_0._id_0DC0, var_0._id_0DC3, var_0._id_0DBB, var_0._id_0DBA, var_0._id_0DBC );
+                setatmosfog( var_1, var_0.atmosfogsunfogcolor, var_0.atmosfoghazecolor, var_0.atmosfoghazestrength, var_0.atmosfoghazespread, var_0.atmosfogextinctionstrength, var_0.atmosfoginscatterstrength, var_0.atmosfoghalfplanedistance, var_0.atmosfogstartdistance, var_0.atmosfogdistancescale, int( var_0.atmosfogskydistance ), var_0.atmosfogskyangularfalloffenabled, var_0.atmosfogskyfalloffstartangle, var_0.atmosfogskyfalloffanglerange, var_0.atmosfogsundirection, var_0.atmosfogheightfogenabled, var_0.atmosfogheightfogbaseheight, var_0.atmosfogheightfoghalfplanedistance );
         }
         else
             _id_7E37( var_0, var_1 );
@@ -3198,7 +3198,7 @@ _id_7E36( var_0, var_1 )
         _id_7E37( var_0, var_1 );
 }
 
-_id_0760( var_0, var_1 )
+add_fx( var_0, var_1 )
 {
     if ( !isdefined( level._effect ) )
         level._effect = [];
@@ -3206,7 +3206,7 @@ _id_0760( var_0, var_1 )
     level._effect[var_0] = loadfx( var_1 );
 }
 
-_id_0D05( var_0, var_1 )
+array_sort_by_handler( var_0, var_1 )
 {
     for ( var_2 = 0; var_2 < var_0.size - 1; var_2++ )
     {
@@ -3224,7 +3224,7 @@ _id_0D05( var_0, var_1 )
     return var_0;
 }
 
-_id_0D06( var_0, var_1, var_2 )
+array_sort_with_func( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = -1;

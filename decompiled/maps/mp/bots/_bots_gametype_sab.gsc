@@ -44,17 +44,17 @@ bot_sab_start()
 
 setup_bot_sab()
 {
-    maps\mp\bots\_bots_gametype_common::_id_16F1();
-    maps\mp\bots\_bots_util::_id_172D();
+    maps\mp\bots\_bots_gametype_common::bot_setup_bombzone_bottargets();
+    maps\mp\bots\_bots_util::bot_waittill_bots_enabled();
     var_0 = maps\mp\bots\_bots_gametype_common::bot_verify_and_cache_bombzones( [ "_allies", "_axis" ] );
 
     if ( var_0 )
     {
-        foreach ( var_2 in level._id_1555 )
+        foreach ( var_2 in level.bombzones )
             var_2 thread maps\mp\bots\_bots_gametype_common::monitor_bombzone_control();
 
         level._id_703F = 600;
-        level._id_1628 = 1;
+        level.bot_gametype_precaching_done = 1;
     }
 }
 
@@ -67,7 +67,7 @@ bot_sab_think()
     level endon( "game_ended" );
     self endon( "owner_disconnect" );
 
-    while ( !isdefined( level._id_1628 ) )
+    while ( !isdefined( level.bot_gametype_precaching_done ) )
         wait 0.05;
 
     self botsetflag( "separation", 0 );
@@ -81,7 +81,7 @@ bot_sab_think()
     {
         wait 0.05;
 
-        if ( !level._id_1545 )
+        if ( !level.bombplanted )
         {
             var_3 = bot_sab_get_bomb_carrier();
 
@@ -90,28 +90,28 @@ bot_sab_think()
 
             if ( !isdefined( var_3 ) )
             {
-                if ( maps\mp\bots\_bots_util::_id_165D() )
-                    maps\mp\bots\_bots_strategy::_id_15EF();
+                if ( maps\mp\bots\_bots_util::bot_is_defending() )
+                    maps\mp\bots\_bots_strategy::bot_defend_stop();
 
                 self _meth_8352( level._id_7749.curorigin, 16, "critical" );
             }
             else if ( var_3 == self )
             {
-                var_4 = level._id_1555[common_scripts\utility::_id_3D4F( self.team )];
+                var_4 = level.bombzones[common_scripts\utility::_id_3D4F( self.team )];
                 clear_non_tactical_goal();
                 plant_bomb( var_4 );
             }
             else if ( var_3.team == self.team )
             {
-                if ( !maps\mp\bots\_bots_util::_id_165F( var_3 ) )
+                if ( !maps\mp\bots\_bots_util::bot_is_guarding_player( var_3 ) )
                 {
                     clear_non_tactical_goal();
-                    maps\mp\bots\_bots_strategy::_id_1646( var_3, 400 );
+                    maps\mp\bots\_bots_strategy::bot_guard_player( var_3, 400 );
                 }
             }
             else if ( gettime() > level._id_7749._id_5588 )
             {
-                var_5 = level._id_1555[self.team];
+                var_5 = level.bombzones[self.team];
 
                 if ( !isdefined( var_0 ) )
                 {
@@ -123,15 +123,15 @@ bot_sab_think()
                     else
                         var_0 = "defend_zone";
 
-                    if ( maps\mp\bots\_bots_util::_id_165D() )
-                        maps\mp\bots\_bots_strategy::_id_15EF();
+                    if ( maps\mp\bots\_bots_util::bot_is_defending() )
+                        maps\mp\bots\_bots_strategy::bot_defend_stop();
 
                     clear_non_tactical_goal();
                 }
 
                 if ( var_0 == "hunt_carrier" )
                 {
-                    if ( !maps\mp\bots\_bots_util::_id_172A( var_2, level._id_7749.curorigin ) )
+                    if ( !maps\mp\bots\_bots_util::bot_vectors_are_equal( var_2, level._id_7749.curorigin ) )
                     {
                         var_2 = level._id_7749.curorigin;
                         var_8 = var_2 - ( 0.0, 0.0, 75.0 );
@@ -140,13 +140,13 @@ bot_sab_think()
                         if ( var_9 )
                         {
                             var_10 = undefined;
-                            var_11 = getnodesonpath( var_8, common_scripts\utility::_id_710E( var_5._id_174F ).origin );
+                            var_11 = getnodesonpath( var_8, common_scripts\utility::_id_710E( var_5.bottargets ).origin );
 
                             if ( isdefined( var_11 ) && var_11.size > 0 )
                                 var_10 = var_11[int( var_11.size * randomfloatrange( 0.25, 0.75 ) )].origin;
 
                             if ( isdefined( var_10 ) && maps\mp\bots\_bots_personality::_id_3753( var_10, 512 ) )
-                                self botsetscriptgoal( self._id_6121, "guard", self._id_0B68 );
+                                self botsetscriptgoal( self._id_6121, "guard", self.ambush_yaw );
                             else
                                 var_9 = 0;
                         }
@@ -160,8 +160,8 @@ bot_sab_think()
                     if ( !bot_is_protecting_point( var_5.curorigin ) )
                     {
                         var_12["score_flags"] = "strict_los";
-                        var_12["override_origin_node"] = common_scripts\utility::_id_710E( var_5._id_174F );
-                        maps\mp\bots\_bots_strategy::_id_16C2( var_5.curorigin, level._id_703F, var_12 );
+                        var_12["override_origin_node"] = common_scripts\utility::_id_710E( var_5.bottargets );
+                        maps\mp\bots\_bots_strategy::bot_protect_point( var_5.curorigin, level._id_703F, var_12 );
                     }
                 }
             }
@@ -176,7 +176,7 @@ bot_sab_think()
             if ( !bot_is_protecting_point( level._id_7749.curorigin ) )
             {
                 var_12["score_flags"] = "strongly_avoid_center";
-                maps\mp\bots\_bots_strategy::_id_16C2( level._id_7749.curorigin, level._id_703F, var_12 );
+                maps\mp\bots\_bots_strategy::bot_protect_point( level._id_7749.curorigin, level._id_703F, var_12 );
             }
         }
         else
@@ -203,8 +203,8 @@ bot_sab_think()
             {
                 var_12["min_goal_time"] = 2;
                 var_12["max_goal_time"] = 4;
-                var_12["override_origin_node"] = common_scripts\utility::_id_710E( var_13._id_174F );
-                maps\mp\bots\_bots_strategy::_id_16C2( var_13.curorigin, level._id_703F, var_12 );
+                var_12["override_origin_node"] = common_scripts\utility::_id_710E( var_13.bottargets );
+                maps\mp\bots\_bots_strategy::bot_protect_point( var_13.curorigin, level._id_703F, var_12 );
             }
         }
     }
@@ -212,7 +212,7 @@ bot_sab_think()
 
 _id_3E56()
 {
-    if ( level._id_1545 )
+    if ( level.bombplanted )
         return level._id_27BB;
     else
         return gettime() + maps\mp\gametypes\_gamelogic::_id_4131();
@@ -229,7 +229,7 @@ plant_bomb( var_0 )
     self endon( "change_role" );
     var_1 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_plant_on( var_0, 0 );
     self _meth_8352( var_1.origin, 0, "critical" );
-    var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
+    var_2 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail( undefined, "change_role" );
 
     if ( var_2 == "goal" )
     {
@@ -238,7 +238,7 @@ plant_bomb( var_0 )
         var_5 = gettime() + var_4;
 
         if ( var_4 > 0 )
-            maps\mp\bots\_bots_util::_id_172F( var_4 );
+            maps\mp\bots\_bots_util::bot_waittill_out_of_combat_or_time( var_4 );
 
         var_6 = var_5 > 0 && gettime() >= var_5;
         var_7 = maps\mp\bots\_bots_gametype_common::bombzone_press_use( level._id_688D + 2, "bomb_planted", var_6 );
@@ -252,7 +252,7 @@ defuse_bomb( var_0 )
     self botsetpathingstyle( "scripted" );
     var_1 = maps\mp\bots\_bots_gametype_common::get_bombzone_node_to_defuse_on( var_0 ).origin;
     self _meth_8352( var_1, 20, "critical" );
-    var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
+    var_2 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail( undefined, "change_role" );
 
     if ( var_2 == "bad_path" )
     {
@@ -277,7 +277,7 @@ defuse_bomb( var_0 )
                 else
                     self _meth_8352( var_3[var_4].origin, 20, "critical" );
 
-                var_2 = maps\mp\bots\_bots_util::_id_172E( undefined, "change_role" );
+                var_2 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail( undefined, "change_role" );
 
                 if ( var_2 == "bad_path" )
                 {
@@ -297,7 +297,7 @@ defuse_bomb( var_0 )
         var_8 = gettime() + var_7;
 
         if ( var_7 > 0 )
-            maps\mp\bots\_bots_util::_id_172F( var_7 );
+            maps\mp\bots\_bots_util::bot_waittill_out_of_combat_or_time( var_7 );
 
         var_9 = var_8 > 0 && gettime() >= var_8;
         var_10 = maps\mp\bots\_bots_gametype_common::bombzone_press_use( level._id_27BF + 2, "bomb_defused", var_9 );
@@ -317,14 +317,14 @@ bot_sab_clear_role()
     self._id_759A = undefined;
     clear_non_tactical_goal();
     self botsetpathingstyle( undefined );
-    maps\mp\bots\_bots_strategy::_id_15EF();
+    maps\mp\bots\_bots_strategy::bot_defend_stop();
     self notify( "change_role" );
     self._id_27BC = 0;
 }
 
 bot_is_protecting_point( var_0 )
 {
-    return maps\mp\bots\_bots_util::_id_1662() && maps\mp\bots\_bots_util::_id_165E( var_0 );
+    return maps\mp\bots\_bots_util::bot_is_protecting() && maps\mp\bots\_bots_util::bot_is_defending_point( var_0 );
 }
 
 bot_sab_get_bomb_carrier()
@@ -361,7 +361,7 @@ bot_sab_get_bomb_defuser()
 
 bot_sab_get_zone_planted_on()
 {
-    foreach ( var_1 in level._id_1555 )
+    foreach ( var_1 in level.bombzones )
     {
         if ( var_1.bombplantedon )
             return var_1;
@@ -383,11 +383,11 @@ investigate_someone_using_bomb( var_0 )
     self endon( "disconnect" );
     level endon( "game_ended" );
 
-    if ( maps\mp\bots\_bots_util::_id_165D() )
-        maps\mp\bots\_bots_strategy::_id_15EF();
+    if ( maps\mp\bots\_bots_util::bot_is_defending() )
+        maps\mp\bots\_bots_strategy::bot_defend_stop();
 
-    self botsetscriptgoal( common_scripts\utility::_id_710E( var_0._id_174F ), "critical" );
-    var_1 = maps\mp\bots\_bots_util::_id_172E();
+    self botsetscriptgoal( common_scripts\utility::_id_710E( var_0.bottargets ), "critical" );
+    var_1 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail();
 
     if ( var_1 == "goal" )
     {

@@ -57,7 +57,7 @@ _id_4C7D()
     var_0["lean_single"] = %cornerstndl_lean_fire;
     var_0["lean_fire"] = %cornerstndl_lean_auto;
     var_0["exposed_2_alert"] = %h1_cornerstndl_exposedstand_2_alert;
-    anim._id_0CCA["soldier"]["cover_left_stand"] = var_0;
+    anim.archetypes["soldier"]["cover_left_stand"] = var_0;
     var_0 = [];
     var_0["alert_idle"] = %cornercrl_alert_idle;
     var_0["alert_idle_twitch"] = [];
@@ -94,14 +94,14 @@ _id_4C7D()
     var_0["lean_idle"] = [ %cornercrl_lean_idle ];
     var_0["lean_single"] = %cornercrl_lean_fire;
     var_0["lean_fire"] = %cornercrl_lean_auto;
-    anim._id_0CCA["soldier"]["cover_left_crouch"] = var_0;
+    anim.archetypes["soldier"]["cover_left_crouch"] = var_0;
 }
 
 main()
 {
-    self._id_0C50 = [];
-    self._id_0C50["hiding"]["stand"] = ::_id_7DD3;
-    self._id_0C50["hiding"]["crouch"] = ::_id_7DC6;
+    self.animarrayfuncs = [];
+    self.animarrayfuncs["hiding"]["stand"] = ::_id_7DD3;
+    self.animarrayfuncs["hiding"]["crouch"] = ::_id_7DC6;
     self endon( "killanimscript" );
     animscripts\utility::_id_4DD7( "cover_left" );
     animscripts\corner::_id_2222( "left", 90 );
@@ -116,18 +116,18 @@ end_script()
 _id_7DD3()
 {
     self._id_4884 = 90;
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_left_stand" );
+    self.a.array = animscripts\utility::_id_5864( "cover_left_stand" );
 
     if ( isdefined( anim._id_7108 ) )
     {
-        self.a._id_0CD8["rambo90"] = anim._id_7108._id_22A9;
-        self.a._id_0CD8["rambo45"] = anim._id_7108._id_22A8;
-        self.a._id_0CD8["grenade_rambo"] = anim._id_7108._id_22AA;
+        self.a.array["rambo90"] = anim._id_7108._id_22A9;
+        self.a.array["rambo45"] = anim._id_7108._id_22A8;
+        self.a.array["grenade_rambo"] = anim._id_7108._id_22AA;
     }
 }
 
 _id_7DC6()
 {
     self._id_4884 = 90;
-    self.a._id_0CD8 = animscripts\utility::_id_5864( "cover_left_crouch" );
+    self.a.array = animscripts\utility::_id_5864( "cover_left_crouch" );
 }

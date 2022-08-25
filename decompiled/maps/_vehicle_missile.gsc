@@ -46,10 +46,10 @@ _id_9999()
     if ( self._id_7AFF == 0 )
         return;
 
-    self._id_0E48 = 30000;
+    self.attackradius = 30000;
 
     if ( isdefined( self.radius ) )
-        self._id_0E48 = self.radius;
+        self.attackradius = self.radius;
 
     while ( !isdefined( level._id_1FFE ) )
         wait 0.05;
@@ -65,7 +65,7 @@ _id_9999()
     else if ( level._id_1FFE == "insane" )
         var_0 = 1.5;
 
-    self._id_0E48 *= var_0;
+    self.attackradius *= var_0;
 
     if ( getdvar( "cobrapilot_debug" ) == "1" )
         iprintln( "surface-to-air missile range difficultyScaler = " + var_0 );
@@ -74,7 +74,7 @@ _id_9999()
     {
         wait(2 + randomfloat( 1 ));
         var_1 = undefined;
-        var_1 = maps\_helicopter_globals::_id_3F7F( self._id_0E48, undefined, 0, 1 );
+        var_1 = maps\_helicopter_globals::_id_3F7F( self.attackradius, undefined, 0, 1 );
 
         if ( !isdefined( var_1 ) )
             continue;
@@ -84,12 +84,12 @@ _id_9999()
         if ( isdefined( var_1._id_7AED ) )
             var_2 += ( 0, 0, var_1._id_7AED );
 
-        self _meth_825d( var_2 );
+        self _meth_825D( var_2 );
         level thread _id_9984( self, 5.0 );
         self waittill( "turret_rotate_stopped" );
         self clearturrettargetent();
 
-        if ( distance( self.origin, var_1.origin ) > self._id_0E48 )
+        if ( distance( self.origin, var_1.origin ) > self.attackradius )
             continue;
 
         var_3 = 0;
@@ -139,7 +139,7 @@ _id_A346( var_0 )
 
     var_3 = var_2 * 2.5;
 
-    if ( var_1 <= self._id_0E48 + var_3 )
+    if ( var_1 <= self.attackradius + var_3 )
         return 1;
 
     return 0;
@@ -167,7 +167,7 @@ _id_37E1()
         if ( !isdefined( var_0._id_4C2D ) )
             var_0._id_4C2D = [];
 
-        var_0._id_4C2D = common_scripts\utility::_id_0CDA( var_0._id_4C2D, var_1 );
+        var_0._id_4C2D = common_scripts\utility::array_add( var_0._id_4C2D, var_1 );
         thread maps\_helicopter_globals::_id_5C8F( var_1, var_0 );
 
         if ( maps\_utility::_id_4749( self._id_5CBF, self._id_5CCA[self._id_5CBD] ) )

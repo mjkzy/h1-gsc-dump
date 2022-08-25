@@ -142,18 +142,18 @@ main()
     level.hearing_distance = 512;
     level.macmillan_exposed_cqb_radius = 8;
     maps\_utility::_id_278B( ::_id_8BE1 );
-    maps\_utility::_id_079C( "church", ::start_church, &"STARTS_CHURCH" );
-    maps\_utility::_id_079C( "church_x", ::start_church_x, &"STARTS_CHURCHX" );
-    maps\_utility::_id_079C( "graveyard", ::start_graveyard, &"STARTS_GRAVEYARD" );
-    maps\_utility::_id_079C( "graveyard_x", ::start_graveyard_x, &"STARTS_GRAVEYARDX" );
-    maps\_utility::_id_079C( "field", ::start_field, &"STARTS_FIELD" );
-    maps\_utility::_id_079C( "pond", ::start_pond, &"STARTS_POND" );
-    maps\_utility::_id_079C( "cargo", ::start_cargo, &"STARTS_CARGO" );
-    maps\_utility::_id_079C( "dash", ::start_dash, &"STARTS_DASH" );
-    maps\_utility::_id_079C( "town", ::start_town, &"STARTS_TOWN" );
-    maps\_utility::_id_079C( "dogs", ::start_dogs, &"STARTS_DOGS" );
-    maps\_utility::_id_079C( "center", ::start_center, &"STARTS_CENTER" );
-    maps\_utility::_id_079C( "end", ::start_end, &"STARTS_END" );
+    maps\_utility::add_start( "church", ::start_church, &"STARTS_CHURCH" );
+    maps\_utility::add_start( "church_x", ::start_church_x, &"STARTS_CHURCHX" );
+    maps\_utility::add_start( "graveyard", ::start_graveyard, &"STARTS_GRAVEYARD" );
+    maps\_utility::add_start( "graveyard_x", ::start_graveyard_x, &"STARTS_GRAVEYARDX" );
+    maps\_utility::add_start( "field", ::start_field, &"STARTS_FIELD" );
+    maps\_utility::add_start( "pond", ::start_pond, &"STARTS_POND" );
+    maps\_utility::add_start( "cargo", ::start_cargo, &"STARTS_CARGO" );
+    maps\_utility::add_start( "dash", ::start_dash, &"STARTS_DASH" );
+    maps\_utility::add_start( "town", ::start_town, &"STARTS_TOWN" );
+    maps\_utility::add_start( "dogs", ::start_dogs, &"STARTS_DOGS" );
+    maps\_utility::add_start( "center", ::start_center, &"STARTS_CENTER" );
+    maps\_utility::add_start( "end", ::start_end, &"STARTS_END" );
     setsaveddvar( "ai_friendlyFireBlockDuration", 0 );
     maps\createart\scoutsniper_art::main();
     maps\_drone_ai::init();
@@ -224,21 +224,21 @@ _id_4F43()
     common_scripts\utility::_id_384A( "initial_setup_done" );
     level.player disableweapons();
     var_0 = getent( "price_start_node", "targetname" );
-    var_0 thread maps\_anim::_id_0BC7( level._id_6F7C, "scoutsniper_opening_price" );
+    var_0 thread maps\_anim::anim_first_frame_solo( level._id_6F7C, "scoutsniper_opening_price" );
     wait 4;
     common_scripts\utility::_id_383F( "intro" );
     maps\_utility::_id_27EF( 12.5, ::giveweapons );
     maps\_utility::_id_27EF( 1, maps\scoutsniper_code::scoutsniper_music_loop, "scoutsniper_pripyat_music", 143, "field_clean_ai" );
-    common_scripts\utility::_id_0D13( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
-    common_scripts\utility::_id_0D13( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::mission_dialogue_kill );
-    common_scripts\utility::_id_0D13( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::_id_0798, maps\_patrol::enable_patrol_turn );
-    common_scripts\utility::_id_0D17( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_behavior::_id_08D2, "alert", "attack", maps\scoutsniper_code::intro_attack_logic );
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::idle_anim_think );
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::mission_dialogue_kill );
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\_patrol::enable_patrol_turn );
-    common_scripts\utility::_id_0D17( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_behavior::_id_08D2, "alert", "attack", maps\scoutsniper_code::intro_attack_logic );
-    common_scripts\utility::_id_0D13( getentarray( "tableguard_last_patrol", "targetname" ), maps\_utility::_id_0798, ::intro_lastguy_think );
+    common_scripts\utility::array_thread( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::mission_dialogue_kill );
+    common_scripts\utility::array_thread( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_patrol::enable_patrol_turn );
+    common_scripts\utility::array_thread5( getentarray( "patrollers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_behavior::ai_create_behavior_function, "alert", "attack", maps\scoutsniper_code::intro_attack_logic );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::idle_anim_think );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::mission_dialogue_kill );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_patrol::enable_patrol_turn );
+    common_scripts\utility::array_thread5( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_behavior::ai_create_behavior_function, "alert", "attack", maps\scoutsniper_code::intro_attack_logic );
+    common_scripts\utility::array_thread( getentarray( "tableguard_last_patrol", "targetname" ), maps\_utility::add_spawn_function, ::intro_lastguy_think );
     thread intro_handle_leave_area_flag();
     thread intro_handle_safezone_flag();
     thread intro_handle_last_patrol_clip();
@@ -270,17 +270,17 @@ _id_4F43()
     level._id_6F7C maps\_utility::_id_32DE( "_stealth_stance_handler" );
     level._id_6F7C intro_sneakup_patrollers();
     level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     level._id_6F7C.crouchtransitionoverridewait = undefined;
     maps\scoutsniper_code::try_save( "intro_patrollers_killed" );
     level._id_6F7C notify( "stop_path" );
     level._id_6F7C maps\_utility::_id_2A8D();
-    level._id_6F7C _meth_81a7( 0 );
+    level._id_6F7C _meth_81A7( 0 );
     thread maps\scoutsniper_code::intro_tableguys_event_awareness();
     level._id_6F7C intro_sneakup_tableguys();
     level._id_6F7C thread maps\scoutsniper_code::price_custom_detection( 120, undefined, 1 );
     level._id_6F7C intro_avoid_tableguys();
-    level._id_6F7C _meth_81ce( "stand", "crouch", "prone" );
+    level._id_6F7C _meth_81CE( "stand", "crouch", "prone" );
     level._id_6F7C intro_leave_area();
     maps\scoutsniper_code::try_save( "intro_last_patroller_killed" );
     level._id_6F7C thread intro_cleanup();
@@ -396,8 +396,8 @@ intro_runup( var_0 )
         return;
 
     level endon( "_stealth_spotted" );
-    self _meth_81ce( "stand" );
-    var_0 thread maps\_anim::_id_0C24( self, "scoutsniper_opening_price" );
+    self _meth_81CE( "stand" );
+    var_0 thread maps\_anim::anim_single_solo( self, "scoutsniper_opening_price" );
     var_1 = getent( "price_intro_path", "targetname" );
     var_2 = getanimlength( maps\_utility::_id_3EF5( "scoutsniper_opening_price" ) );
     wait(var_2 - 0.2);
@@ -419,9 +419,9 @@ intro_holdup()
 
     level endon( "intro_patrol_guys_dead" );
     var_0 = getnode( "price_intro_holdup", "targetname" );
-    var_0 maps\_anim::_id_0BD1( self, "stop2_exposed" );
+    var_0 maps\_anim::anim_generic_reach_and_arrive( self, "stop2_exposed" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_standby" );
-    var_0 thread maps\_anim::_id_0BC9( self, "stop2_exposed" );
+    var_0 thread maps\_anim::anim_generic( self, "stop2_exposed" );
     var_0 waittill( "stop2_exposed" );
     self.a._id_5F5B = "stop";
 }
@@ -437,19 +437,19 @@ intro_cqb_into_shack()
         return;
 
     level endon( "intro_patrol_guys_dead" );
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     maps\_utility::_id_30B0();
     var_0 = getnode( "price_intro_holdup2", "targetname" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_deadahead" );
-    var_0 thread maps\_anim::_id_0BC9( self, "enemy_exposed" );
+    var_0 thread maps\_anim::anim_generic( self, "enemy_exposed" );
     var_0 waittill( "enemy_exposed" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_staylow" );
-    var_0 thread maps\_anim::_id_0BC9( self, "down_exposed" );
+    var_0 thread maps\_anim::anim_generic( self, "down_exposed" );
     var_0 waittill( "down_exposed" );
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
 }
 
 intro_sneakup_patrollers()
@@ -483,7 +483,7 @@ intro_sneakup_patrollers()
     wait 3;
     maps\_utility::_id_32DA( "_stealth_stance_handler" );
     wait 0.1;
-    self _meth_81ce( "prone" );
+    self _meth_81CE( "prone" );
     wait 6.9;
     thread intro_sneakup_patrollers_kill_dialogue();
     common_scripts\utility::_id_384A( "intro_patrol_guys_dead" );
@@ -581,21 +581,21 @@ intro_sneakup_tableguys()
     self.ignoreall = 1;
     self._id_2AF3 = 0;
     self._id_2B0E = 0;
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     level maps\_utility::_id_27EF( 0.75, maps\_utility::_id_3AF2, maps\_utility::_id_70BD, "scoutsniper_mcm_move" );
     var_0 = getnode( "price_intro_tableguys_node1", "targetname" );
     var_1 = vectornormalize( var_0.origin - self.origin );
     maps\_stealth_behavior::_id_3A80( vectortoangles( var_1 ) );
     maps\_utility::_id_27EF( 0.25, maps\scoutsniper_code::dynamic_run_speed );
-    var_0 maps\_anim::_id_0BD1( self, "stop_cornerR" );
+    var_0 maps\_anim::anim_generic_reach_and_arrive( self, "stop_cornerR" );
     self notify( "stop_dynamic_run_speed" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_holdup" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "stop_cornerR" );
     self.ref_node waittill( "stop_cornerR" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_goaround" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "onme_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "onme_cornerR" );
     self.ref_node waittill( "onme_cornerR" );
     self._id_2564 = ::stand2run180r;
     var_0 = getnode( "price_intro_tableguys_node2", "targetname" );
@@ -616,12 +616,12 @@ intro_sneakup_tableguys()
     var_0 = getnode( "price_intro_tableguys_node3", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_4tangos" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "enemy_cornerR" );
-    self _meth_81aa( self.origin );
+    self.ref_node thread maps\_anim::anim_generic( self, "enemy_cornerR" );
+    self _meth_81AA( self.origin );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_donteven" );
 }
@@ -668,18 +668,18 @@ intro_avoid_tableguys()
         return;
 
     level endon( "intro_last_patrol_dead" );
-    self _meth_81ce( "stand" );
+    self _meth_81CE( "stand" );
     self._id_2AF3 = 0;
     self._id_2B0E = 0;
     var_0 = getnode( "price_intro_tableguys_node4", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
-    self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
+    self.ref_node maps\_anim::anim_generic_reach_and_arrive( self, "stop_cornerR" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_tangobycar" );
     intro_corpse_hide();
-    self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "stop_cornerR" );
     self.ref_node waittill( "stop_cornerR" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "enemy_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "enemy_cornerR" );
     self.ref_node waittill( "enemy_cornerR" );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     wait 2;
@@ -688,13 +688,13 @@ intro_avoid_tableguys()
 
 intro_corpse_hide()
 {
-    if ( !level._id_0669._id_5836._id_222C._id_0CD8.size )
+    if ( !level._stealth._id_5836._id_222C.array.size )
         return;
 
-    var_0 = level._id_0669._id_5836._id_222C._id_0CD8.size;
+    var_0 = level._stealth._id_5836._id_222C.array.size;
 
     for ( var_1 = 0; var_1 < var_0; var_1++ )
-        level._id_0669._id_5836._id_222C._id_0CD8[var_1].origin -= ( 0.0, 0.0, 10.0 );
+        level._stealth._id_5836._id_222C.array[var_1].origin -= ( 0.0, 0.0, 10.0 );
 }
 
 intro_leave_area()
@@ -712,14 +712,14 @@ intro_leave_area()
     var_0 = getnode( "price_intro_tableguys_node4", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
-    self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
+    self.ref_node maps\_anim::anim_generic_reach_and_arrive( self, "stop_cornerR" );
 
     if ( common_scripts\utility::_id_382E( "intro_last_patrol_dead" ) )
         maps\_utility::_id_70C9();
 
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_okgo" );
     wait 1.1;
-    self.ref_node thread maps\_anim::_id_0BC9( self, "moveout_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "moveout_cornerR" );
     self.ref_node waittill( "moveout_cornerR" );
     var_0 = getnode( "price_intro_leave_node", "targetname" );
     thread maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
@@ -757,7 +757,7 @@ intro_lastguy_think()
 
 intro_lastguy_death()
 {
-    level.intro_last_patroller_corpse_name = "corpse_" + self._id_0908;
+    level.intro_last_patroller_corpse_name = "corpse_" + self.ai_number;
     self waittill( "death" );
     common_scripts\utility::_id_383F( "intro_last_patrol_dead" );
 }
@@ -804,11 +804,11 @@ church_main()
     level._id_6F7C church_holdup();
     level._id_6F7C maps\_utility::_id_32DE( "_stealth_stance_handler" );
     level._id_6F7C church_sneakup();
-    level._id_6F7C _meth_81ce( "stand", "crouch", "prone" );
+    level._id_6F7C _meth_81CE( "stand", "crouch", "prone" );
     level._id_6F7C church_moveup_car();
     level._id_6F7C church_run_for_it();
     level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
-    level._id_6F7C _meth_81ce( "stand", "crouch", "prone" );
+    level._id_6F7C _meth_81CE( "stand", "crouch", "prone" );
 
     if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) )
     {
@@ -840,7 +840,7 @@ church_runup()
         return;
 
     level endon( "_stealth_spotted" );
-    self _meth_81ce( "stand", "crouch", "prone" );
+    self _meth_81CE( "stand", "crouch", "prone" );
 
     if ( common_scripts\utility::_id_382E( "church_area_clear" ) )
         return;
@@ -902,7 +902,7 @@ church_runup2()
 
     level endon( "church_run_for_it" );
     level endon( "event_awareness" );
-    self _meth_81ce( "stand", "crouch", "prone" );
+    self _meth_81CE( "stand", "crouch", "prone" );
     var_0 = getnode( "church_price_node2", "targetname" );
     maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
 }
@@ -930,19 +930,19 @@ church_holdup()
     level endon( "church_run_for_it" );
     level endon( "event_awareness" );
     var_0 = getnode( "church_price_node2", "targetname" );
-    var_0 maps\_anim::_id_0BD1( self, "stop_exposed" );
+    var_0 maps\_anim::anim_generic_reach_and_arrive( self, "stop_exposed" );
     thread church_holdup_dialogue( var_0 );
-    var_0 thread maps\_anim::_id_0BC9( self, "stop_exposed" );
+    var_0 thread maps\_anim::anim_generic( self, "stop_exposed" );
     var_0 waittill( "stop_exposed" );
     common_scripts\utility::_id_3852( "church_start_patroller_line", "church_patroller_dead" );
 
     if ( !common_scripts\utility::_id_382E( "church_patroller_dead" ) )
     {
-        var_0 thread maps\_anim::_id_0BC9( self, "enemy_exposed" );
+        var_0 thread maps\_anim::anim_generic( self, "enemy_exposed" );
         var_0 waittill( "enemy_exposed" );
     }
 
-    var_0 thread maps\_anim::_id_0BC9( self, "onme2_exposed" );
+    var_0 thread maps\_anim::anim_generic( self, "onme2_exposed" );
     var_0 waittill( "onme2_exposed" );
 }
 
@@ -1020,7 +1020,7 @@ church_sneakup()
     maps\_utility::_id_A10B();
     maps\_utility::_id_27EF( 3, maps\_utility::_id_A10C );
     maps\_utility::_id_27EF( 3, maps\_utility::_id_2A8D );
-    maps\_anim::_id_0BC9( self, "exposed_tracking_turn45R" );
+    maps\_anim::anim_generic( self, "exposed_tracking_turn45R" );
     var_0 = getnode( "church_price_sneakup", "targetname" );
     thread maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
 
@@ -1031,7 +1031,7 @@ church_sneakup()
     self waittill( "scoutsniper_path_end_reached" );
     maps\_utility::_id_32DA( "_stealth_stance_handler" );
     waitframe;
-    self _meth_81ce( "prone" );
+    self _meth_81CE( "prone" );
     thread church_sneakup_dialogue_nag();
     thread church_sneakup_dialogue_nag2();
     common_scripts\utility::_id_384A( "church_patroller_faraway" );
@@ -1238,7 +1238,7 @@ church_run_for_it()
 
     if ( !common_scripts\utility::_id_382E( "church_lookout_dead" ) )
     {
-        self _meth_81ce( "prone" );
+        self _meth_81CE( "prone" );
         level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_turnaround" );
         var_0 = ( 0.0, 45.0, 0.0 );
         var_1 = anglestoforward( var_0 );
@@ -1266,8 +1266,8 @@ church_run_for_it()
 church_run_for_it_commit()
 {
     common_scripts\utility::_id_383F( "church_run_for_it_commit" );
-    self _meth_81ce( "crouch", "stand", "prone" );
-    self _meth_81a7( 1 );
+    self _meth_81CE( "crouch", "stand", "prone" );
+    self _meth_81A7( 1 );
     maps\_utility::_id_7E45( "sprint", 1, 0 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_readygo" );
     self notify( "scoutsniper_mcm_readygo" );
@@ -1276,7 +1276,7 @@ church_run_for_it_commit()
     maps\_stealth_behavior::_id_3A80( vectortoangles( var_1 ), 1 );
     thread maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
     self waittill( "scoutsniper_path_end_reached" );
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
     maps\_utility::_id_1ED1();
     common_scripts\utility::_id_3831( "church_run_for_it_commit" );
 }
@@ -1300,8 +1300,8 @@ church_lookout()
     var_2["attack"] = maps\scoutsniper_code::church_lookout_stealth_behavior_alert_level_attack;
     var_3 = [];
     var_3["explode"] = maps\scoutsniper_code::church_lookout_stealth_behavior_explosion;
-    var_0 thread maps\_utility::_id_0798( maps\_stealth_logic::stealth_ai, undefined, var_2, var_1, var_3 );
-    var_0 thread maps\_utility::_id_0798( ::church_lookout_death );
+    var_0 thread maps\_utility::add_spawn_function( maps\_stealth_logic::stealth_ai, undefined, var_2, var_1, var_3 );
+    var_0 thread maps\_utility::add_spawn_function( ::church_lookout_death );
     common_scripts\utility::_id_384A( "church_intro" );
     maps\scoutsniper_code::scripted_array_spawn( "church_lookout", "script_noteworthy", 1 );
     waitframe;
@@ -1317,8 +1317,8 @@ church_lookout()
     var_4 maps\_stealth_behavior::ai_change_behavior_function( "alert", "alerted_once", maps\scoutsniper_code::church_lookout_stealth_behavior_alert_level_attack );
     var_4 notify( "_stealth_stop_stealth_logic" );
     var_5 = getent( "church_ladder_slide_node", "targetname" );
-    var_5 maps\_anim::_id_0BC9( var_4, "ladder_slide" );
-    var_4 _meth_81aa( var_4.origin );
+    var_5 maps\_anim::anim_generic( var_4, "ladder_slide" );
+    var_4 _meth_81AA( var_4.origin );
     var_4 thread maps\_stealth_behavior::_id_31F7();
     level._id_6F7C.ignoreme = 0;
     level._id_6F7C.ignoreall = 0;
@@ -1345,7 +1345,7 @@ church_lookout_wait()
 
 church_lookout_death()
 {
-    var_0 = "corpse_" + self._id_0908;
+    var_0 = "corpse_" + self.ai_number;
     self waittill( "death" );
     var_1 = getent( "doggie_clip", "targetname" );
     var_1 solid();
@@ -1356,7 +1356,7 @@ church_lookout_death()
     if ( isdefined( var_2 ) )
     {
         var_2 delete();
-        level._id_0669._id_5836._id_222C._id_0CD8 = common_scripts\utility::_id_0D01( level._id_0669._id_5836._id_222C._id_0CD8 );
+        level._stealth._id_5836._id_222C.array = common_scripts\utility::array_removeundefined( level._stealth._id_5836._id_222C.array );
     }
 
     common_scripts\utility::_id_383F( "church_lookout_dead" );
@@ -1377,9 +1377,9 @@ church_lookout_death()
 church_patroller()
 {
     var_0 = getent( "church_smoker", "script_noteworthy" );
-    var_0 thread maps\_utility::_id_0798( maps\_stealth_logic::stealth_ai );
-    var_0 thread maps\_utility::_id_0798( ::church_patroller_death );
-    var_0 thread maps\_utility::_id_0798( ::church_patroller_faraway_trig );
+    var_0 thread maps\_utility::add_spawn_function( maps\_stealth_logic::stealth_ai );
+    var_0 thread maps\_utility::add_spawn_function( ::church_patroller_death );
+    var_0 thread maps\_utility::add_spawn_function( ::church_patroller_faraway_trig );
     common_scripts\utility::_id_384A( "church_intro" );
     thread maps\scoutsniper_code::scripted_array_spawn( "church_smoker", "script_noteworthy", 1 );
 }
@@ -1425,7 +1425,7 @@ church_patroller_death()
     {
         var_1 = maps\_utility::_id_3DC5( "church_lookout", "script_noteworthy" );
 
-        if ( distance( var_0, var_1.origin ) > level._id_0669._id_5836._id_222C.sight_dist + 150 && !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
+        if ( distance( var_0, var_1.origin ) > level._stealth._id_5836._id_222C.sight_dist + 150 && !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
             common_scripts\utility::_id_383F( "church_run_for_it" );
         else if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) )
             return;
@@ -1461,7 +1461,7 @@ church_open_door()
     level endon( "_stealth_spotted" );
     self._id_2B0E = 0;
     self._id_2AF3 = 0;
-    self._id_0C72 = "generic";
+    self.animname = "generic";
     self _meth_8565( 1 );
 
     if ( common_scripts\utility::_id_382E( "church_and_intro_killed" ) )
@@ -1472,7 +1472,7 @@ church_open_door()
         maps\scoutsniper_code::scoutsniper_follow_path( var_3 );
         var_1 = "open_door_kick";
         var_2 = maps\scoutsniper_code::door_open_kick;
-        var_3 maps\_anim::_id_0BD1( self, var_1 );
+        var_3 maps\_anim::anim_generic_reach_and_arrive( self, var_1 );
         self.goalradius = 16;
     }
     else
@@ -1481,8 +1481,8 @@ church_open_door()
         var_1 = "open_door_slow";
         var_2 = maps\scoutsniper_code::door_open_slow;
         var_3 = getent( var_0, "targetname" );
-        var_3 maps\_anim::_id_0BD1( self, var_1 );
-        var_3 maps\_anim::_id_0BC7( self, var_1 );
+        var_3 maps\_anim::anim_generic_reach_and_arrive( self, var_1 );
+        var_3 maps\_anim::anim_first_frame_solo( self, var_1 );
     }
 
     while ( distance( level.player.origin, self.origin ) > 200 )
@@ -1498,7 +1498,7 @@ church_open_door_commit( var_0, var_1, var_2 )
         return;
 
     common_scripts\utility::_id_383F( "church_door_open" );
-    var_0 thread maps\_anim::_id_0C24( self, var_1 );
+    var_0 thread maps\_anim::anim_single_solo( self, var_1 );
     maps\_utility::_id_30B0();
     var_3 = getent( "church_door_front", "targetname" );
     var_4 = getent( "church_door_model", "targetname" );
@@ -1508,23 +1508,23 @@ church_open_door_commit( var_0, var_1, var_2 )
 
 church_walkthrough()
 {
-    self.a._id_135B = 1;
+    self.a.bdisablemovetwitch = 1;
     church_walkthrough_lookaround();
     common_scripts\utility::_id_3857( "_stealth_spotted" );
     common_scripts\utility::_id_384A( "church_lookout_dead" );
     var_0 = getnode( "church_price_backdoor_node", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
-    self.ref_node maps\_anim::_id_0BD1( self, "exposed_2_alert_cornerR" );
+    self.ref_node maps\_anim::anim_generic_reach_and_arrive( self, "exposed_2_alert_cornerR" );
     self _meth_8565( 0 );
     self._id_5F65 = 1.0;
 
     if ( !common_scripts\utility::_id_382E( "graveyard_get_down" ) && !common_scripts\utility::_id_382E( "graveyard_hear_that" ) )
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_coastclear" );
 
-    self.ref_node maps\_anim::_id_0BC9( self, "moveout_cornerR" );
+    self.ref_node maps\_anim::anim_generic( self, "moveout_cornerR" );
     maps\_utility::_id_2A8D();
-    self.a._id_135B = 0;
+    self.a.bdisablemovetwitch = 0;
     self.goalradius = 90;
     common_scripts\utility::_id_383F( "graveyard_moveup" );
 }
@@ -1541,7 +1541,7 @@ church_walkthrough_lookaround()
     self waittill( "goal" );
     maps\_utility::_id_30B0();
     common_scripts\utility::_id_383F( "church_ladder_slide" );
-    maps\_anim::_id_0BD2( self, "cqb_look_around" );
+    maps\_anim::anim_generic_run( self, "cqb_look_around" );
     self._id_5F65 = 0.75;
     var_1 = getnode( "church_price_backdoor_node", "targetname" );
     maps\_utility::_id_7E4D( var_1.origin );
@@ -1556,7 +1556,7 @@ graveyard_main()
     common_scripts\utility::_id_384A( "initial_setup_done" );
     common_scripts\utility::_id_383F( "graveyard" );
     maps\scoutsniper_code::try_save( "graveyard" );
-    common_scripts\utility::_id_0D13( getentarray( "church_breakable", "targetname" ), maps\scoutsniper_code::graveyard_church_breakable );
+    common_scripts\utility::array_thread( getentarray( "church_breakable", "targetname" ), maps\scoutsniper_code::graveyard_church_breakable );
     thread graveyard_hind();
     thread field_endmission();
     level._id_6F7C thread graveyard_waithind();
@@ -1569,7 +1569,7 @@ graveyard_main()
     }
 
     level._id_6F7C notify( "stop_loop" );
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     thread graveyard_backhalf();
 }
 
@@ -1602,23 +1602,23 @@ graveyard_moveup()
     maps\_utility::_id_27EF( 5, ::cleanup_graveyard_moveup );
 
     if ( getdvarint( "use_old_heli_coming" ) == 1 )
-        self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
+        self.ref_node maps\_anim::anim_generic_reach_and_arrive( self, "stop_cornerR" );
     else
     {
         if ( !isdefined( level.graveyard_price_hind_node ) )
             level.graveyard_price_hind_node = spawn( "script_origin", ( -8864.0, -4410.0, -167.0 ) );
 
-        self._id_0C72 = "price";
+        self.animname = "price";
 
         if ( !isdefined( self.did_not_get_to_wall ) )
-            level.graveyard_price_hind_node thread maps\_anim::_id_0BFF( self, "heli_coming_02_long" );
+            level.graveyard_price_hind_node thread maps\_anim::anim_reach_solo( self, "heli_coming_02_long" );
 
         common_scripts\utility::_id_384A( "graveyard_hind_ready" );
 
         if ( !isdefined( self.did_not_get_to_wall ) )
         {
             level._id_6F7C notify( "stop_dynamic_run_speed" );
-            self._id_0C72 = "price";
+            self.animname = "price";
             self waittill( "goal" );
         }
     }
@@ -1646,7 +1646,7 @@ graveyard_waithind()
     else
         h1_macmillan_heli_sequence();
 
-    self _meth_81ce( "prone", "crouch", "stand" );
+    self _meth_81CE( "prone", "crouch", "stand" );
     wait 0.5;
     common_scripts\utility::_id_383F( "graveyard_hind_gone" );
 }
@@ -1664,17 +1664,17 @@ old_macmillan_heli_sequence()
 
     if ( common_scripts\utility::_id_382E( "graveyard_price_at_wall" ) )
     {
-        self _meth_81ce( "crouch" );
-        maps\_anim::_id_0BC9( self, "corner_crouch" );
-        thread maps\_anim::_id_0BCE( self, "corner_idle", undefined, "stop_loop" );
+        self _meth_81CE( "crouch" );
+        maps\_anim::anim_generic( self, "corner_crouch" );
+        thread maps\_anim::anim_generic_loop( self, "corner_idle", undefined, "stop_loop" );
     }
     else
     {
-        self _meth_81ce( "prone" );
-        maps\_anim::_id_0BCA( self, "gravity", "pronehide_dive" );
+        self _meth_81CE( "prone" );
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_dive" );
     }
 
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_inshadows" );
 
@@ -1714,14 +1714,14 @@ h1_macmillan_heli_sequence()
     thread h1_macmillan_in_graveyard();
     level endon( "_stealth_spotted" );
     level notify( "h1_kill_default_spotted_dialogue" );
-    maps\_stealth_behavior::_id_08D2( "state", "spotted", ::h1_macmillan_graveyard_spotted );
+    maps\_stealth_behavior::ai_create_behavior_function( "state", "spotted", ::h1_macmillan_graveyard_spotted );
     common_scripts\utility::_id_3856( "graveyard_price_at_wall", 5 );
 
     if ( common_scripts\utility::_id_382E( "graveyard_price_at_wall" ) )
     {
-        self._id_0C72 = "price";
-        level.graveyard_price_hind_node maps\_anim::_id_0C24( self, "heli_coming_02_long" );
-        self._id_0C72 = "price";
+        self.animname = "price";
+        level.graveyard_price_hind_node maps\_anim::anim_single_solo( self, "heli_coming_02_long" );
+        self.animname = "price";
         thread h1_macmillan_heli_idle();
     }
     else
@@ -1737,18 +1737,18 @@ h1_macmillan_heli_sequence()
         if ( !common_scripts\utility::_id_382E( "graveyard_price_entered" ) )
         {
             var_0 = getnode( "macmillan_heli_prone_node", "targetname" );
-            level._id_6F7C _meth_81a9( var_0 );
+            level._id_6F7C _meth_81A9( var_0 );
             level._id_6F7C waittill( "goal" );
         }
 
         self _meth_8143();
-        self _meth_81ce( "prone" );
-        self._id_0C72 = "generic";
-        maps\_anim::_id_0BCA( self, "gravity", "pronehide_dive" );
-        thread maps\_anim::_id_0BCA( self, "gravity", "pronehide_idle" );
+        self _meth_81CE( "prone" );
+        self.animname = "generic";
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_dive" );
+        thread maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_idle" );
     }
 
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     wait 1;
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_inshadows" );
@@ -1760,16 +1760,16 @@ h1_macmillan_heli_sequence()
         wait 0.05;
 
     if ( isdefined( self.did_not_get_to_wall ) )
-        maps\_anim::_id_0BCA( self, "gravity", "prone_2_stand" );
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", "prone_2_stand" );
     else
     {
         self notify( "stop_heli_loop" );
-        self._id_0C72 = "price";
-        level.graveyard_price_hind_node thread maps\_anim::_id_0C24( self, "heli_coming_cover_exit" );
+        self.animname = "price";
+        level.graveyard_price_hind_node thread maps\_anim::anim_single_solo( self, "heli_coming_cover_exit" );
     }
 
-    self._id_0C72 = "generic";
-    maps\_stealth_behavior::_id_08D2( "state", "spotted", maps\_stealth_behavior::_id_3A8B );
+    self.animname = "generic";
+    maps\_stealth_behavior::ai_create_behavior_function( "state", "spotted", maps\_stealth_behavior::_id_3A8B );
     thread maps\scoutsniper_code::default_spotted_dialogue();
 
     if ( isdefined( self.did_not_get_to_wall ) )
@@ -1779,10 +1779,10 @@ h1_macmillan_heli_sequence()
 h1_macmillan_graveyard_spotted()
 {
     level._id_6F7C notify( "stop_heli_loop" );
-    self._id_1300 = self._id_0669._id_13A2.badaccuracy;
-    self.accuracy = self._id_0669._id_13A2.badaccuracy;
-    self.grenadeammo = self._id_0669._id_13A2._id_63CE;
-    self _meth_81ce( "prone", "crouch", "stand" );
+    self.baseaccuracy = self._stealth.behavior.badaccuracy;
+    self.accuracy = self._stealth.behavior.badaccuracy;
+    self.grenadeammo = self._stealth.behavior._id_63CE;
+    self _meth_81CE( "prone", "crouch", "stand" );
     self _meth_8143();
     self.ignoreall = 0;
     self.ignoreme = 0;
@@ -1790,22 +1790,22 @@ h1_macmillan_graveyard_spotted()
     maps\_utility::_id_309A();
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
 
     if ( isdefined( level._id_6F7C.did_not_get_to_wall ) )
     {
         maps\_utility::_id_70C9();
-        self _meth_81ce( "stand", "crouch", "prone" );
-        thread maps\_anim::_id_0BCA( self, "gravity", "prone_2_stand" );
+        self _meth_81CE( "stand", "crouch", "prone" );
+        thread maps\_anim::anim_generic_custom_animmode( self, "gravity", "prone_2_stand" );
         maps\_utility::_id_70BD( "scoutsniper_mcm_spotted" );
     }
     else
     {
-        level._id_6F7C._id_0C72 = "price";
-        level.graveyard_price_hind_node maps\_anim::_id_0C24( level._id_6F7C, "heli_coming_spotted" );
+        level._id_6F7C.animname = "price";
+        level.graveyard_price_hind_node maps\_anim::anim_single_solo( level._id_6F7C, "heli_coming_spotted" );
     }
 
-    level._id_6F7C._id_0C72 = "generic";
+    level._id_6F7C.animname = "generic";
 
     if ( !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
         wait 5;
@@ -1813,7 +1813,7 @@ h1_macmillan_graveyard_spotted()
     common_scripts\utility::_id_3857( "_stealth_spotted" );
     common_scripts\utility::_id_3857( "_stealth_event" );
     common_scripts\utility::_id_3857( "_stealth_alert" );
-    maps\_stealth_behavior::_id_08D2( "state", "spotted", maps\_stealth_behavior::_id_3A8B );
+    maps\_stealth_behavior::ai_create_behavior_function( "state", "spotted", maps\_stealth_behavior::_id_3A8B );
     thread maps\scoutsniper_code::default_spotted_dialogue();
 }
 
@@ -1825,11 +1825,11 @@ h1_macmillan_heli_idle()
     {
         if ( randomint( 3 ) == 0 )
         {
-            level.graveyard_price_hind_node maps\_anim::_id_0C24( self, "heli_coming_cover_idle_v2" );
+            level.graveyard_price_hind_node maps\_anim::anim_single_solo( self, "heli_coming_cover_idle_v2" );
             continue;
         }
 
-        level.graveyard_price_hind_node maps\_anim::_id_0C24( self, "heli_coming_cover_idle" );
+        level.graveyard_price_hind_node maps\_anim::anim_single_solo( self, "heli_coming_cover_idle" );
     }
 }
 
@@ -1932,8 +1932,8 @@ graveyard_hind_spot_enemy()
         var_4 = level.player.origin;
         var_5 = ( self.origin[0], self.origin[1], var_4[2] );
         var_6 = length( level.player getvelocity() );
-        var_7 = var_6 > 10 && level.player._id_0669._id_5836._id_8AF2 == "crouch";
-        var_8 = var_6 > 25 && level.player._id_0669._id_5836._id_8AF2 == "prone";
+        var_7 = var_6 > 10 && level.player._stealth._id_5836._id_8AF2 == "crouch";
+        var_8 = var_6 > 25 && level.player._stealth._id_5836._id_8AF2 == "prone";
 
         if ( distance( var_4, var_5 ) < var_3 && ( var_7 || var_8 ) )
         {
@@ -1947,7 +1947,7 @@ graveyard_hind_spot_enemy()
             if ( !isdefined( var_9["entity"] ) || !isplayer( var_9["entity"] ) )
                 continue;
         }
-        else if ( level.player._id_0669._id_5836._id_8AF2 == "prone" || level.player._id_0669._id_5836._id_8AF2 == "crouch" )
+        else if ( level.player._stealth._id_5836._id_8AF2 == "prone" || level.player._stealth._id_5836._id_8AF2 == "crouch" )
         {
             var_1 = 0;
             continue;
@@ -1978,8 +1978,8 @@ graveyard_hind_spot_enemy()
 
 graveyard_hind_kill_body( var_0 )
 {
-    maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
-    level maps\_utility::_id_07BE( maps\_utility::_id_A099, "_stealth_spotted" );
+    maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
+    level maps\_utility::add_wait( maps\_utility::_id_A099, "_stealth_spotted" );
     maps\_utility::_id_2BDD();
 
     if ( isdefined( self ) )
@@ -2013,7 +2013,7 @@ field_main()
     common_scripts\utility::_id_3857( "_stealth_spotted" );
     common_scripts\utility::_id_3857( "_stealth_event" );
     maps\scoutsniper_code::try_save( "field" );
-    level._id_6F7C _meth_81ce( "stand", "crouch", "prone" );
+    level._id_6F7C _meth_81CE( "stand", "crouch", "prone" );
     level._id_6F7C thread field_getdown();
     level._id_6F7C thread field_handle_price_spotted();
 
@@ -2088,13 +2088,13 @@ field_road()
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_staylow2" );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_go" );
     var_0 = getnode( "field_after_road_node", "targetname" );
-    var_0 maps\_anim::_id_0BD0( level._id_6F7C, "pronehide_dive" );
-    self _meth_81ce( "prone" );
-    maps\_anim::_id_0BCA( self, "gravity", "pronehide_dive" );
-    self _meth_81aa( self.origin );
+    var_0 maps\_anim::anim_generic_reach( level._id_6F7C, "pronehide_dive" );
+    self _meth_81CE( "prone" );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_dive" );
+    self _meth_81AA( self.origin );
     wait 1;
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_areaclear" );
-    self _meth_81ce( "stand", "crouch" );
+    self _meth_81CE( "stand", "crouch" );
     maps\_stealth_behavior::_id_3A80();
 }
 
@@ -2109,7 +2109,7 @@ field_moveup()
     var_1 = getdvarfloat( "scoutsniper_macmillan_sprintwait_field", 4 );
     maps\_utility::_id_27EF( var_1, maps\scoutsniper_code::dynamic_run_speed );
     thread maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     var_0 = getent( "field_price_stop_dynamic", "targetname" );
     var_0 waittill( "trigger" );
     self notify( "stop_dynamic_run_speed" );
@@ -2144,8 +2144,8 @@ field_moveup2()
     var_0 waittill( "trigger" );
     common_scripts\utility::_id_383F( "field_start" );
     self waittill( "scoutsniper_path_end_reached" );
-    self _meth_81ce( "prone" );
-    maps\_anim::_id_0BCA( self, "gravity", "pronehide_dive", undefined, undefined, 1 );
+    self _meth_81CE( "prone" );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_dive", undefined, undefined, 1 );
     self._id_2533["stop"] = ::field_custom_stop;
     self.custompronetopronetransitionfunc = ::field_custom_prone_to_prone;
     thread maps\_utility::_id_3840( "prone_hint", 2 );
@@ -2214,7 +2214,7 @@ field_creep()
     var_0 = getent( "field_price_clear", "targetname" );
     var_0 waittill( "trigger" );
     maps\_utility::_id_32DA( "_stealth_stance_handler" );
-    self _meth_81ce( "prone", "crouch", "stand" );
+    self _meth_81CE( "prone", "crouch", "stand" );
     common_scripts\utility::_id_383F( "field_price_done" );
     level.play_additionnal_fs_sfx = undefined;
 }
@@ -2288,14 +2288,14 @@ field_handle_enemys()
     var_7 = [];
     var_7["saw"] = maps\scoutsniper_code::field_enemy_awareness;
     var_7["found"] = maps\scoutsniper_code::field_enemy_awareness;
-    common_scripts\utility::_id_0D17( getentarray( "field_guard", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_5, undefined, var_7, var_6 );
-    common_scripts\utility::_id_0D17( getentarray( "field_guard2", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_5, undefined, var_7, var_6 );
-    common_scripts\utility::_id_0D13( getentarray( "field_guard", "script_noteworthy" ), maps\_utility::_id_0798, ::field_enemy_think );
-    common_scripts\utility::_id_0D13( getentarray( "field_guard2", "script_noteworthy" ), maps\_utility::_id_0798, ::field_enemy_think );
+    common_scripts\utility::array_thread5( getentarray( "field_guard", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_5, undefined, var_7, var_6 );
+    common_scripts\utility::array_thread5( getentarray( "field_guard2", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_5, undefined, var_7, var_6 );
+    common_scripts\utility::array_thread( getentarray( "field_guard", "script_noteworthy" ), maps\_utility::add_spawn_function, ::field_enemy_think );
+    common_scripts\utility::array_thread( getentarray( "field_guard2", "script_noteworthy" ), maps\_utility::add_spawn_function, ::field_enemy_think );
     common_scripts\utility::_id_384C( "field_spawn", "price_reach_field" );
 
     if ( !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
-        maps\_utility::_id_1332( "axis" );
+        maps\_utility::battlechatter_off( "axis" );
 
     thread maps\scoutsniper_code::scripted_array_spawn( "field_guard2", "script_noteworthy", 1 );
     thread maps\scoutsniper_code::scripted_array_spawn( "field_guard", "script_noteworthy", 1 );
@@ -2387,12 +2387,12 @@ field_enemy_custom_patrol_anim( var_0 )
     if ( !isdefined( level.field_patrol_anims ) )
     {
         level.field_patrol_anims = [];
-        level.field_patrol_anims = common_scripts\utility::_id_0CDA( level.field_patrol_anims, "h1_patrol_walk_01" );
-        level.field_patrol_anims = common_scripts\utility::_id_0CDA( level.field_patrol_anims, "h1_patrol_walk_02" );
-        level.field_patrol_anims = common_scripts\utility::_id_0CDA( level.field_patrol_anims, "h1_patrol_walk_03" );
-        level.field_patrol_anims = common_scripts\utility::_id_0CDA( level.field_patrol_anims, "h1_patrol_walk_04" );
-        level.field_patrol_anims = common_scripts\utility::_id_0CDA( level.field_patrol_anims, "h1_patrol_walk_05" );
-        level.field_patrol_anims = common_scripts\utility::_id_0CDA( level.field_patrol_anims, "patrol_walk" );
+        level.field_patrol_anims = common_scripts\utility::array_add( level.field_patrol_anims, "h1_patrol_walk_01" );
+        level.field_patrol_anims = common_scripts\utility::array_add( level.field_patrol_anims, "h1_patrol_walk_02" );
+        level.field_patrol_anims = common_scripts\utility::array_add( level.field_patrol_anims, "h1_patrol_walk_03" );
+        level.field_patrol_anims = common_scripts\utility::array_add( level.field_patrol_anims, "h1_patrol_walk_04" );
+        level.field_patrol_anims = common_scripts\utility::array_add( level.field_patrol_anims, "h1_patrol_walk_05" );
+        level.field_patrol_anims = common_scripts\utility::array_add( level.field_patrol_anims, "patrol_walk" );
     }
 
     var_1 = common_scripts\utility::mod( var_0, level.field_patrol_anims.size );
@@ -2424,7 +2424,7 @@ field_enemy_think()
     maps\_stealth_behavior::ai_change_behavior_function( "alert", "alerted_again", maps\scoutsniper_code::field_enemy_alert_level_2 );
     thread maps\scoutsniper_code::field_enemy_patrol_thread();
     wait 0.05;
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.goalradius = 4;
     wait 0.05;
     self.fixednode = 0;
@@ -2473,7 +2473,7 @@ field_enemy_think2()
         field_enemy_wait_to_run();
 
     var_0 = getnode( "field_endup_node", "targetname" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = 64;
     maps\_utility::_id_1ED1();
     maps\scoutsniper_code::waitontruegoal( var_0 );
@@ -2561,16 +2561,16 @@ pond_main()
     var_1 = [];
     var_1["saw"] = maps\scoutsniper_code::field_enemy_awareness;
     var_1["found"] = maps\scoutsniper_code::field_enemy_awareness;
-    common_scripts\utility::_id_0D17( getentarray( "pond_patrol", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, undefined, undefined, var_1, var_0 );
-    common_scripts\utility::_id_0D17( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, undefined, undefined, var_1, var_0 );
-    common_scripts\utility::_id_0D13( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::mission_dialogue_kill );
-    common_scripts\utility::_id_0D17( getentarray( "pond_backup", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, undefined, undefined, var_1, var_0 );
-    common_scripts\utility::_id_0D13( getentarray( "pond_backup", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::mission_dialogue_kill );
-    common_scripts\utility::_id_0D13( getentarray( "pond_backup", "script_noteworthy" ), maps\_utility::_id_0798, common_scripts\utility::_id_383F, "pond_backup_spawned" );
-    common_scripts\utility::_id_0D13( getentarray( "pond_patrol", "script_noteworthy" ), maps\_utility::_id_0798, ::pond_patrol );
-    common_scripts\utility::_id_0D13( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::_id_0798, ::pond_thrower );
-    common_scripts\utility::_id_0D13( getentarray( "pond_patrol", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::alert_on_grenade_body_impact );
-    common_scripts\utility::_id_0D13( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::alert_on_grenade_body_impact );
+    common_scripts\utility::array_thread5( getentarray( "pond_patrol", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, undefined, undefined, var_1, var_0 );
+    common_scripts\utility::array_thread5( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, undefined, undefined, var_1, var_0 );
+    common_scripts\utility::array_thread( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::mission_dialogue_kill );
+    common_scripts\utility::array_thread5( getentarray( "pond_backup", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, undefined, undefined, var_1, var_0 );
+    common_scripts\utility::array_thread( getentarray( "pond_backup", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::mission_dialogue_kill );
+    common_scripts\utility::array_thread( getentarray( "pond_backup", "script_noteworthy" ), maps\_utility::add_spawn_function, common_scripts\utility::_id_383F, "pond_backup_spawned" );
+    common_scripts\utility::array_thread( getentarray( "pond_patrol", "script_noteworthy" ), maps\_utility::add_spawn_function, ::pond_patrol );
+    common_scripts\utility::array_thread( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::add_spawn_function, ::pond_thrower );
+    common_scripts\utility::array_thread( getentarray( "pond_patrol", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::alert_on_grenade_body_impact );
+    common_scripts\utility::array_thread( getentarray( "pond_throwers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::alert_on_grenade_body_impact );
     thread pond_handle_kills( "pond_patrol_spawned", "pond_patrol", "pond_patrol_dead", "scoutsniper_mcm_toppedhim" );
     thread pond_handle_kills( "pond_thrower_spawned", "pond_throwers", "pond_thrower_dead", "scoutsniper_mcm_goodnight" );
     thread pond_handle_clear();
@@ -2582,7 +2582,7 @@ pond_main()
     common_scripts\utility::_id_384A( "pond" );
     soundscripts\_snd::_id_870C( "start_pond_mix" );
     thread maps\_stealth_behavior::default_event_awareness( maps\scoutsniper_code::default_event_awareness_dialogue );
-    level.player._id_066A = 0;
+    level.player._stealth_move_detection_cap = 0;
     level._id_6F7C maps\_utility::_id_32DD( "pond_in_position" );
     common_scripts\utility::_id_384A( "field_price_done" );
     maps\scoutsniper_code::try_save( "pond" );
@@ -2593,9 +2593,9 @@ pond_main()
         level._id_6F7C maps\_utility::_id_27EF( 0.1, maps\_utility::_id_58D7 );
 
     level._id_6F7C pond_betterview();
-    level.player._id_066A = undefined;
+    level.player._stealth_move_detection_cap = undefined;
     maps\scoutsniper_code::try_save( "pond2" );
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     level._id_6F7C maps\_utility::_id_30B0();
     level._id_6F7C thread pond_kill_patrol();
     level._id_6F7C thread pond_kill_thrower();
@@ -2607,7 +2607,7 @@ pond_main()
     if ( common_scripts\utility::_id_382E( "pond_enemies_dead" ) )
     {
         level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
-        level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+        level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     }
 
     level._id_6F7C maps\_utility::_id_2A8D();
@@ -2628,7 +2628,7 @@ pond_main()
         if ( common_scripts\utility::_id_382E( "pond_enemies_dead" ) )
         {
             level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
-            level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+            level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
         }
 
         if ( common_scripts\utility::_id_382E( "pond_enemies_dead" ) )
@@ -2691,7 +2691,7 @@ pond_patrol()
         return;
 
     self.goalradius = 4;
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
 
     if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) )
         return;
@@ -2749,19 +2749,19 @@ pond_moveup()
         return;
 
     level endon( "cargo" );
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_followme2" );
     var_0 = getnode( "pond_price_moveup_node", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles;
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     wait 1;
-    self.ref_node thread maps\_anim::_id_0BC9( self, "look_up_stand" );
+    self.ref_node thread maps\_anim::anim_generic( self, "look_up_stand" );
     self.ref_node waittill( "look_up_stand" );
     thread pond_price_hack();
-    thread maps\_anim::_id_0BCE( self, "look_idle_stand", undefined, "stop_loop" );
+    thread maps\_anim::anim_generic_loop( self, "look_idle_stand", undefined, "stop_loop" );
     maps\_utility::_id_27EF( 0.1, maps\scoutsniper_code::scoutsniper_music_loop, "scoutsniper_deadpool_music", 119, "dash_spawn" );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_buyout" );
     var_1 = [];
@@ -2777,7 +2777,7 @@ pond_moveup()
         maps\scoutsniper_code::mission_dialogue_array( var_2, var_1 );
 
     self notify( "stop_loop" );
-    thread maps\_anim::_id_0BC9( self, "look_down_stand" );
+    thread maps\_anim::anim_generic( self, "look_down_stand" );
     self waittill( "look_down_stand" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_betterview" );
     wait 1;
@@ -2811,23 +2811,23 @@ pond_betterview()
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, 90.0, 0.0 );
     self._id_2AF3 = 0;
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = 100;
     wait 1;
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     self waittill( "goal" );
-    self _meth_81ce( "crouch", "stand" );
-    self _meth_81a9( var_0 );
+    self _meth_81CE( "crouch", "stand" );
+    self _meth_81A9( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     common_scripts\utility::_id_A073( 1.0, "cover_arrival_finished" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "alert2look_cornerL" );
+    self.ref_node thread maps\_anim::anim_generic( self, "alert2look_cornerL" );
     self.ref_node waittill( "alert2look_cornerL" );
-    thread maps\_anim::_id_0BCE( self, "look_idle_cornerL", undefined, "stop_loop" );
+    thread maps\_anim::anim_generic_loop( self, "look_idle_cornerL", undefined, "stop_loop" );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_withoutalerting" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_sneakingpast" );
     self notify( "stop_loop" );
-    thread maps\_anim::_id_0BC9( self, "look2alert_cornerL" );
+    thread maps\_anim::anim_generic( self, "look2alert_cornerL" );
     self waittill( "look2alert_cornerL" );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_yourcall2" );
 }
@@ -3078,16 +3078,16 @@ cargo_main()
     level._id_6F7C endon( "death" );
     var_0 = [];
     var_0["attack"] = maps\scoutsniper_code::cargo_enemy_attack;
-    common_scripts\utility::_id_0D13( getentarray( "cargo_guys", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, undefined, var_0 );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_guys", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::alert_on_grenade_body_impact );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_smokers", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::idle_anim_think );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_smokers", "script_noteworthy" ), maps\_utility::_id_0798, common_scripts\utility::_id_383F, "cargo_smokers_spawned" );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_smokers", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::mission_dialogue_kill );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_sleeper", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::idle_anim_think );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_patrol_defend2", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::idle_anim_think );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_sleeper", "script_noteworthy" ), maps\_utility::_id_0798, ::cargo_sleeper );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_patrol", "script_noteworthy" ), maps\_utility::_id_0798, ::cargo_patrol_death );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_patrol_defend1", "script_noteworthy" ), maps\_utility::_id_0798, ::cargo_patrol_defend1_death );
+    common_scripts\utility::array_thread( getentarray( "cargo_guys", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, undefined, var_0 );
+    common_scripts\utility::array_thread( getentarray( "cargo_guys", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::alert_on_grenade_body_impact );
+    common_scripts\utility::array_thread( getentarray( "cargo_smokers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::idle_anim_think );
+    common_scripts\utility::array_thread( getentarray( "cargo_smokers", "script_noteworthy" ), maps\_utility::add_spawn_function, common_scripts\utility::_id_383F, "cargo_smokers_spawned" );
+    common_scripts\utility::array_thread( getentarray( "cargo_smokers", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::mission_dialogue_kill );
+    common_scripts\utility::array_thread( getentarray( "cargo_sleeper", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::idle_anim_think );
+    common_scripts\utility::array_thread( getentarray( "cargo_patrol_defend2", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::idle_anim_think );
+    common_scripts\utility::array_thread( getentarray( "cargo_sleeper", "script_noteworthy" ), maps\_utility::add_spawn_function, ::cargo_sleeper );
+    common_scripts\utility::array_thread( getentarray( "cargo_patrol", "script_noteworthy" ), maps\_utility::add_spawn_function, ::cargo_patrol_death );
+    common_scripts\utility::array_thread( getentarray( "cargo_patrol_defend1", "script_noteworthy" ), maps\_utility::add_spawn_function, ::cargo_patrol_defend1_death );
     thread cargo_enemies_death();
     thread maps\scoutsniper_code::cargo_handle_patroller();
     thread cargo_handle_defend1_flag();
@@ -3104,7 +3104,7 @@ cargo_main()
 
         if ( common_scripts\utility::_id_382E( "pond_enemies_dead" ) )
         {
-            level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+            level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
             level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
             level._id_6F7C thread maps\scoutsniper_code::dynamic_run_speed();
         }
@@ -3113,7 +3113,7 @@ cargo_main()
     for (;;)
     {
         level._id_6F7C cargo_moveup();
-        level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+        level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
         level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
         level._id_6F7C notify( "stop_dynamic_run_speed" );
         level._id_6F7C cargo_sneakup();
@@ -3121,21 +3121,21 @@ cargo_main()
         if ( common_scripts\utility::_id_382E( "cargo_smokers_spawned" ) )
             break;
 
-        level maps\_utility::_id_07BE( common_scripts\utility::_id_3857, "_stealth_spotted" );
-        level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "cargo_smokers_spawned" );
+        level maps\_utility::add_wait( common_scripts\utility::_id_3857, "_stealth_spotted" );
+        level maps\_utility::add_wait( common_scripts\utility::_id_384A, "cargo_smokers_spawned" );
         level maps\_utility::_id_2BDD();
         level._id_6F7C thread maps\scoutsniper_code::dynamic_run_speed();
     }
 
     level._id_6F7C _meth_8168( 1 );
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C cargo_attack1();
     level._id_6F7C _meth_8168( 0 );
-    level._id_6F7C _meth_81a7( 0 );
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81A7( 0 );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     level._id_6F7C cargo_waitmove();
     level._id_6F7C maps\_utility::_id_32DA( "_stealth_stance_handler" );
-    level._id_6F7C _meth_81ce( "prone", "crouch", "stand" );
+    level._id_6F7C _meth_81CE( "prone", "crouch", "stand" );
     level._id_6F7C notify( "stop_dynamic_run_speed" );
     maps\_utility::_id_27EF( 1, maps\scoutsniper_code::try_save, "cargo2" );
     level._id_6F7C cargo_slipby();
@@ -3196,7 +3196,7 @@ cargo_patrol_death()
     if ( !isdefined( self ) || !isalive( level._id_6F7C ) )
         return;
 
-    if ( level._id_6F7C _meth_81c2( self ) )
+    if ( level._id_6F7C _meth_81C2( self ) )
         level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_tangodown" );
 }
 
@@ -3206,10 +3206,10 @@ cargo_enemies_death()
     var_0 waittill( "trigger" );
     wait 0.1;
     var_1 = maps\_utility::_id_3DC6( "cargo_smokers", "script_noteworthy" );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3DC6( "cargo_sleeper", "script_noteworthy" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3DC6( "cargo_patrol", "script_noteworthy" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3DC6( "cargo_patrol_defend1", "script_noteworthy" ) );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, maps\_utility::_id_3DC6( "cargo_patrol_defend2", "script_noteworthy" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, maps\_utility::_id_3DC6( "cargo_sleeper", "script_noteworthy" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, maps\_utility::_id_3DC6( "cargo_patrol", "script_noteworthy" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, maps\_utility::_id_3DC6( "cargo_patrol_defend1", "script_noteworthy" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, maps\_utility::_id_3DC6( "cargo_patrol_defend2", "script_noteworthy" ) );
     maps\_utility::_id_A07E( var_1 );
     common_scripts\utility::_id_383F( "cargo_enemies_dead" );
 }
@@ -3225,7 +3225,7 @@ cargo_sleeper()
 cargo_patrol_defend1_death()
 {
     self _meth_8174();
-    var_0 = "corpse_" + self._id_0908;
+    var_0 = "corpse_" + self.ai_number;
     self waittill( "death" );
     common_scripts\utility::_id_383F( "cargo_patrol_defend1_dead" );
     waitframe;
@@ -3235,7 +3235,7 @@ cargo_patrol_defend1_death()
         return;
 
     var_1 delete();
-    level._id_0669._id_5836._id_222C._id_0CD8 = common_scripts\utility::_id_0D01( level._id_0669._id_5836._id_222C._id_0CD8 );
+    level._stealth._id_5836._id_222C.array = common_scripts\utility::array_removeundefined( level._stealth._id_5836._id_222C.array );
 }
 
 cargo_handle_defend1_flag()
@@ -3273,7 +3273,7 @@ cargo_sneakup()
     if ( !common_scripts\utility::_id_382E( "cargo_patrol_defend1_dead" ) )
     {
         var_0 = getent( "cargo_price_sneakup_node", "targetname" );
-        self _meth_81ce( "crouch" );
+        self _meth_81CE( "crouch" );
         maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
     }
 
@@ -3311,10 +3311,10 @@ cargo_sneakup_dialogue()
             wait 1.5;
             common_scripts\utility::_id_383F( "cargo_price_ready_to_attack1" );
         }
-        else if ( level._id_6F7C _meth_81c2( level.player ) )
+        else if ( level._id_6F7C _meth_81C2( level.player ) )
             level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_move" );
     }
-    else if ( level._id_6F7C _meth_81c2( level.player ) )
+    else if ( level._id_6F7C _meth_81C2( level.player ) )
         level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_move" );
 }
 
@@ -3362,12 +3362,12 @@ cargo_attack1_commit( var_0, var_1 )
     maps\_utility::_id_27EF( 0.15, maps\_utility::_id_70C9 );
     level._id_6F7C maps\_utility::_id_27EF( 0.2, maps\_utility::_id_3AF2, maps\_utility::_id_69C4, "scoutsniper_mcm_oisuzy" );
     soundscripts\_snd::_id_870C( "start_taking_guard_mix" );
-    var_2 = "scoutsniper_ru" + var_1._id_0669._id_13A2.sndnum + "_huh";
+    var_2 = "scoutsniper_ru" + var_1._stealth.behavior.sndnum + "_huh";
     var_1 maps\_utility::_id_27EF( 1, maps\_utility::_id_69C4, var_2 );
     self.favoriteenemy = var_1;
-    var_0 thread maps\_anim::_id_0BCA( var_1, "gravity", "cargo_defend_1" );
+    var_0 thread maps\_anim::anim_generic_custom_animmode( var_1, "gravity", "cargo_defend_1" );
     thread cargo_attack_commit_fail( var_1, var_0, "cargo_attack_1" );
-    var_0 thread maps\_anim::_id_0BCA( self, "gravity", "cargo_attack_1" );
+    var_0 thread maps\_anim::anim_generic_custom_animmode( self, "gravity", "cargo_attack_1" );
 }
 
 cargo_attack_commit_fail( var_0, var_1, var_2 )
@@ -3379,7 +3379,7 @@ cargo_attack_commit_fail( var_0, var_1, var_2 )
     self notify( "stop_animmode" );
     var_1 notify( "stop_animmode" );
     var_3 = "run_2_stop";
-    maps\_anim::_id_0BCA( self, "gravity", var_3 );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_3 );
 }
 
 cargo_waitmove()
@@ -3399,7 +3399,7 @@ cargo_waitmove()
     if ( !common_scripts\utility::_id_382E( "cargo_enemy_defend_moment_past" ) )
         return;
 
-    self _meth_81ce( "crouch" );
+    self _meth_81CE( "crouch" );
     maps\_utility::_id_32DE( "_stealth_stance_handler" );
     var_0 = common_scripts\utility::_id_382E( "cargo_defender1_away" ) || common_scripts\utility::_id_382E( "cargo_patrol_defend1_dead" );
 
@@ -3446,7 +3446,7 @@ cargo_slipby()
     var_1 = getnode( "cargo_price_slipby_3", "targetname" );
     self.ref_node.origin = var_1.origin;
     self.ref_node.angles = var_1.angles + ( 0.0, -90.0, 0.0 );
-    self.ref_node maps\_anim::_id_0BD1( self, "stop_cornerR" );
+    self.ref_node maps\_anim::anim_generic_reach_and_arrive( self, "stop_cornerR" );
     self.goalradius = level.macmillan_exposed_cqb_radius;
 
     while ( !maps\scoutsniper_code::wait_for_player( var_1, maps\scoutsniper_code::follow_path_get_node, var_0 ) )
@@ -3459,7 +3459,7 @@ cargo_slipby()
     var_1 = getnode( "cargo_price_slipby_4", "targetname" );
     self.ref_node.origin = var_1.origin;
     self.ref_node.angles = var_1.angles;
-    var_1 maps\_anim::_id_0BF4( self, "stop_cqb", undefined, undefined, "stand" );
+    var_1 maps\_anim::anim_reach_and_approach_node_solo( self, "stop_cqb", undefined, undefined, "stand" );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self._id_66F4 = undefined;
 
@@ -3536,47 +3536,47 @@ dash_main()
     var_2 = [];
     var_2["heard_scream"] = maps\scoutsniper_code::field_enemy_awareness;
     var_2["explode"] = maps\scoutsniper_code::field_enemy_awareness;
-    common_scripts\utility::_id_0D13( getentarray( "dash_intro_guy", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D13( getentarray( "dash_intro_guy2", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D13( getentarray( "dash_stander", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D17( getentarray( "dash_intro_guy", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_intro_runner", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_intro_runner );
-    common_scripts\utility::_id_0D13( getentarray( "dash_intro_patroller", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_intro_patrol );
-    common_scripts\utility::_id_0D17( getentarray( "dash_intro_guy2", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D17( getentarray( "dash_stander", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_stander", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_stander );
-    common_scripts\utility::_id_0D13( getentarray( "dash_bus_guys", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D17( getentarray( "dash_bus_guys", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_bus_idler", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_idler );
-    common_scripts\utility::_id_0D13( getentarray( "dash_bus_runner", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::deleteontruegoal );
-    common_scripts\utility::_id_0D13( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D17( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_crawl_patrol );
-    common_scripts\utility::_id_0D13( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::mission_dialogue_kill );
-    common_scripts\utility::_id_0D13( getentarray( "dash_on_road_guy", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D13( getentarray( "dash_on_road_guy2", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D17( getentarray( "dash_on_road_guy", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_on_road_guy", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::deleteontruegoal );
-    common_scripts\utility::_id_0D17( getentarray( "dash_on_road_guy2", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_on_road_guy2", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::deleteontruegoal );
-    common_scripts\utility::_id_0D13( getentarray( "dash_last_runner", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D13( getentarray( "dash_last_runner", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
-    common_scripts\utility::_id_0D13( getentarray( "dash_last_runner", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::deleteontruegoal );
-    common_scripts\utility::_id_0D13( getentarray( "dash_patroller", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D13( getentarray( "dash_idler", "targetname" ), maps\_utility::_id_0798, ::dash_kill_nosave );
-    common_scripts\utility::_id_0D17( getentarray( "dash_patroller", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D17( getentarray( "dash_idler", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_patroller", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_ai );
-    common_scripts\utility::_id_0D13( getentarray( "dash_idler", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_ai );
+    common_scripts\utility::array_thread( getentarray( "dash_intro_guy", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread( getentarray( "dash_intro_guy2", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread( getentarray( "dash_stander", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread5( getentarray( "dash_intro_guy", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_intro_runner", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_intro_runner );
+    common_scripts\utility::array_thread( getentarray( "dash_intro_patroller", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_intro_patrol );
+    common_scripts\utility::array_thread5( getentarray( "dash_intro_guy2", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread5( getentarray( "dash_stander", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_stander", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_stander );
+    common_scripts\utility::array_thread( getentarray( "dash_bus_guys", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread5( getentarray( "dash_bus_guys", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_bus_idler", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_idler );
+    common_scripts\utility::array_thread( getentarray( "dash_bus_runner", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::deleteontruegoal );
+    common_scripts\utility::array_thread( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread5( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_crawl_patrol );
+    common_scripts\utility::array_thread( getentarray( "dash_crawl_patroller", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::mission_dialogue_kill );
+    common_scripts\utility::array_thread( getentarray( "dash_on_road_guy", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread( getentarray( "dash_on_road_guy2", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread5( getentarray( "dash_on_road_guy", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_on_road_guy", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::deleteontruegoal );
+    common_scripts\utility::array_thread5( getentarray( "dash_on_road_guy2", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_on_road_guy2", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::deleteontruegoal );
+    common_scripts\utility::array_thread( getentarray( "dash_last_runner", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread( getentarray( "dash_last_runner", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( getentarray( "dash_last_runner", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::deleteontruegoal );
+    common_scripts\utility::array_thread( getentarray( "dash_patroller", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread( getentarray( "dash_idler", "targetname" ), maps\_utility::add_spawn_function, ::dash_kill_nosave );
+    common_scripts\utility::array_thread5( getentarray( "dash_patroller", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread5( getentarray( "dash_idler", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, var_0, undefined, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_patroller", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_ai );
+    common_scripts\utility::array_thread( getentarray( "dash_idler", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_ai );
     var_3 = [];
     var_3["reset"] = maps\scoutsniper_code::dash_sniper_alert;
     var_3["alerted_once"] = maps\scoutsniper_code::dash_sniper_alert;
     var_3["alerted_again"] = maps\scoutsniper_code::dash_sniper_attack;
     var_3["attack"] = maps\scoutsniper_code::dash_sniper_attack;
-    common_scripts\utility::_id_0D17( getentarray( "dash_sniper", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai, undefined, var_3, var_1, var_2 );
-    common_scripts\utility::_id_0D13( getentarray( "dash_sniper", "targetname" ), maps\_utility::_id_0798, maps\scoutsniper_code::dash_sniper_death );
-    common_scripts\utility::_id_0D13( getentarray( "dash_sniper", "targetname" ), maps\_utility::_id_0798, ::dash_sniper_approach );
-    common_scripts\utility::_id_0D13( getentarray( "dash_guard_check", "script_noteworthy" ), maps\scoutsniper_code::dash_run_check );
+    common_scripts\utility::array_thread5( getentarray( "dash_sniper", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai, undefined, var_3, var_1, var_2 );
+    common_scripts\utility::array_thread( getentarray( "dash_sniper", "targetname" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::dash_sniper_death );
+    common_scripts\utility::array_thread( getentarray( "dash_sniper", "targetname" ), maps\_utility::add_spawn_function, ::dash_sniper_approach );
+    common_scripts\utility::array_thread( getentarray( "dash_guard_check", "script_noteworthy" ), maps\scoutsniper_code::dash_run_check );
     var_4 = getent( "dash_intro_guy", "target" );
     thread maps\_utility::_id_7E2E( var_4, "dash_spawn" );
     thread maps\scoutsniper_code::dash_handle_price_stop_bullet_shield();
@@ -3608,7 +3608,7 @@ dash_main()
     thread dash_delay_save();
     level._id_6F7C._id_5F65 = 1;
     level._id_6F7C maps\_utility::_id_1ED1();
-    level._id_6F7C _meth_81ce( "stand", "crouch", "prone" );
+    level._id_6F7C _meth_81CE( "stand", "crouch", "prone" );
 
     if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) || common_scripts\utility::_id_382E( "_stealth_event" ) )
     {
@@ -3702,7 +3702,7 @@ dash_holdup()
 {
     self._id_2B0E = 0;
     self._id_2AF3 = 0;
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     var_0 = getnode( "dash_price_start_node", "targetname" );
     var_1 = spawn( "script_origin", ( 637.617, 340.97, -123.545 ) );
 
@@ -3710,10 +3710,10 @@ dash_holdup()
         maps\scoutsniper_code::scoutsniper_follow_path( var_0, 200 );
     else
     {
-        level._id_6F7C._id_0C72 = "price";
-        var_1 maps\_anim::_id_0BFF( self, "container_runin" );
-        var_1 maps\_anim::_id_0C24( self, "container_runin" );
-        var_1 thread maps\_anim::_id_0BE1( self, "container_idle", undefined, "stop_loop_price" );
+        level._id_6F7C.animname = "price";
+        var_1 maps\_anim::anim_reach_solo( self, "container_runin" );
+        var_1 maps\_anim::anim_single_solo( self, "container_runin" );
+        var_1 thread maps\_anim::anim_loop_solo( self, "container_idle", undefined, "stop_loop_price" );
 
         while ( distancesquared( level.player.origin, self.origin ) > 17000 )
             waittillframeend;
@@ -3740,7 +3740,7 @@ dash_holdup()
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_mysignal" );
     }
     else
-        var_1 maps\_anim::_id_0C24( self, "container" );
+        var_1 maps\_anim::anim_single_solo( self, "container" );
 }
 
 dash_run()
@@ -3797,19 +3797,19 @@ dash_crawl()
     }
     else
     {
-        level.jeep_cover_node maps\_anim::_id_0C24( self, "jeep_cover_run_to_idle" );
-        level.jeep_cover_node thread maps\_anim::_id_0BE1( self, "jeep_cover_idle", undefined, "stop_loop_price" );
+        level.jeep_cover_node maps\_anim::anim_single_solo( self, "jeep_cover_run_to_idle" );
+        level.jeep_cover_node thread maps\_anim::anim_loop_solo( self, "jeep_cover_idle", undefined, "stop_loop_price" );
 
         while ( distancesquared( level.player.origin, self.origin ) > 90000 )
             waittillframeend;
 
         level.jeep_cover_node notify( "stop_loop_price" );
-        self _meth_81ce( "prone" );
-        level.jeep_cover_node maps\_anim::_id_0C24( self, "jeep_cover" );
+        self _meth_81CE( "prone" );
+        level.jeep_cover_node maps\_anim::anim_single_solo( self, "jeep_cover" );
         thread maps\scoutsniper_code::crawl_path( var_0, 300, 1 );
     }
 
-    maps\_stealth_behavior::_id_08D2( "state", "spotted", maps\scoutsniper_code::dash_state_spotted );
+    maps\_stealth_behavior::ai_create_behavior_function( "state", "spotted", maps\scoutsniper_code::dash_state_spotted );
     var_1 = getent( "dash_first_truck_player_clip", "targetname" );
     var_1 notsolid();
     var_2 = getent( "dash_crawl_patroller1", "target" );
@@ -3842,7 +3842,7 @@ dash_crawl()
     if ( distance( level.player.origin, level._id_6F7C.origin ) < level.hearing_distance )
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_standbygo" );
 
-    maps\_stealth_behavior::_id_08D2( "state", "spotted", maps\_stealth_behavior::_id_3A8B );
+    maps\_stealth_behavior::ai_create_behavior_function( "state", "spotted", maps\_stealth_behavior::_id_3A8B );
     wait 4;
     var_3 = getent( "dash_last_truck_player_clip", "targetname" );
     var_3 notsolid();
@@ -3856,17 +3856,17 @@ dash_last()
     level endon( "_stealth_spotted" );
     var_0 = getnode( "dash_last_stretch1", "targetname" );
     self notify( "stop_loop" );
-    maps\_anim::_id_0BC9( self, "crawl_loop" );
-    maps\_anim::_id_0BC9( self, "pronecrawl2prone" );
+    maps\_anim::anim_generic( self, "crawl_loop" );
+    maps\_anim::anim_generic( self, "pronecrawl2prone" );
     var_1 = getanimlength( maps\_utility::_id_3EF7( "prone2stand" ) );
-    thread maps\_anim::_id_0BC9( self, "prone2stand" );
+    thread maps\_anim::anim_generic( self, "prone2stand" );
     wait(var_1 - 0.2);
     self _meth_8143();
-    self _meth_81ce( "stand", "crouch", "prone" );
+    self _meth_81CE( "stand", "crouch", "prone" );
     maps\_utility::_id_27EF( 0.5, maps\scoutsniper_code::scoutsniper_follow_path, var_0, 100 );
     thread maps\scoutsniper_code::price_custom_detection( 300, "price_run_to_dash_last_stretch2" );
     var_1 = getanimlength( maps\_utility::_id_3EF7( "stand2run" ) );
-    thread maps\_anim::_id_0BC9( self, "stand2run" );
+    thread maps\_anim::anim_generic( self, "stand2run" );
     wait(var_1 - 0.2);
     self _meth_8143();
 
@@ -3910,7 +3910,7 @@ dash_last()
     if ( distance( level.player.origin, level._id_6F7C.origin ) < level.hearing_distance )
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_holdfast" );
 
-    self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "stop_cornerR" );
     self.ref_node waittill( "stop_cornerR" );
     wait 0.5;
 
@@ -3918,7 +3918,7 @@ dash_last()
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_noonesaw" );
 
     wait 2.0;
-    self.ref_node thread maps\_anim::_id_0BC9( self, "onme_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "onme_cornerR" );
     self.ref_node waittill( "onme_cornerR" );
 }
 
@@ -3947,9 +3947,9 @@ dash_sniper()
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_dontmove" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "stop_cornerR" );
     self.ref_node waittill( "stop_cornerR" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "enemy_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "enemy_cornerR" );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_sniperahead" );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_giveaway" );
 
@@ -4000,8 +4000,8 @@ town_main()
     level._id_6F7C endon( "death" );
     common_scripts\utility::_id_384A( "initial_setup_done" );
     thread maps\scoutsniper_code::town_kill_dash_heli();
-    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "town_no_turning_back" );
-    level maps\_utility::_id_075F( maps\scoutsniper_code::scoutsniper_music_loop, "scoutsniper_abandoned_music", 117, "end_kill_music" );
+    level maps\_utility::add_wait( common_scripts\utility::_id_384A, "town_no_turning_back" );
+    level maps\_utility::add_func( maps\scoutsniper_code::scoutsniper_music_loop, "scoutsniper_abandoned_music", 117, "end_kill_music" );
     thread maps\_utility::_id_2BDC();
     common_scripts\utility::_id_384A( "town" );
     soundscripts\_snd::_id_870C( "start_town_mix" );
@@ -4095,11 +4095,11 @@ dogs_main()
         return;
 
     level._id_6F7C endon( "death" );
-    common_scripts\utility::_id_0D13( getentarray( "dogs_backup", "targetname" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
-    common_scripts\utility::_id_0D13( getentarray( "dogs_backup", "targetname" ), maps\_utility::_id_0798, ::dogs_backup );
-    common_scripts\utility::_id_0D13( getentarray( "dogs_food", "script_noteworthy" ), maps\_utility::_id_0798, ::dogs_food );
-    common_scripts\utility::_id_0D13( getentarray( "dogs_eater", "script_noteworthy" ), maps\_utility::_id_0798, ::dogs_eater );
-    common_scripts\utility::_id_0D13( getentarray( "dogs_eater", "script_noteworthy" ), maps\_utility::_id_0798, ::dogs_eater_death );
+    common_scripts\utility::array_thread( getentarray( "dogs_backup", "targetname" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( getentarray( "dogs_backup", "targetname" ), maps\_utility::add_spawn_function, ::dogs_backup );
+    common_scripts\utility::array_thread( getentarray( "dogs_food", "script_noteworthy" ), maps\_utility::add_spawn_function, ::dogs_food );
+    common_scripts\utility::array_thread( getentarray( "dogs_eater", "script_noteworthy" ), maps\_utility::add_spawn_function, ::dogs_eater );
+    common_scripts\utility::array_thread( getentarray( "dogs_eater", "script_noteworthy" ), maps\_utility::add_spawn_function, ::dogs_eater_death );
     common_scripts\utility::_id_384A( "initial_setup_done" );
     common_scripts\utility::_id_384A( "dogs" );
     soundscripts\_snd::_id_870C( "start_dogs_mix" );
@@ -4268,16 +4268,16 @@ dogs_moveup()
     self.ref_node.origin = self.origin;
     self.ref_node.angles = self.angles;
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_stop" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "stop2_exposed" );
+    self.ref_node thread maps\_anim::anim_generic( self, "stop2_exposed" );
     self.ref_node waittill( "stop2_exposed" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_wilddog" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "enemy_exposed" );
+    self.ref_node thread maps\_anim::anim_generic( self, "enemy_exposed" );
     self.ref_node waittill( "enemy_exposed" );
-    self.a._id_135B = 1;
+    self.a.bdisablemovetwitch = 1;
     var_0 = getent( "dogs_moveup_node2", "targetname" );
-    var_0 maps\_anim::_id_0BD0( self, "cqb_look_around" );
-    var_0 thread maps\_anim::_id_0BC9( self, "cqb_look_around" );
-    self.a._id_135B = 0;
+    var_0 maps\_anim::anim_generic_reach( self, "cqb_look_around" );
+    var_0 thread maps\_anim::anim_generic( self, "cqb_look_around" );
+    self.a.bdisablemovetwitch = 0;
     wait 1;
     var_0 = getnode( "dogs_moveup_node3", "targetname" );
     maps\scoutsniper_code::scoutsniper_follow_path( var_0 );
@@ -4313,7 +4313,7 @@ dogs_sneakpast()
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_clearright" );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_go" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "moveout_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "moveout_cornerR" );
     self.ref_node waittill( "moveout_cornerR" );
 }
 
@@ -4444,7 +4444,7 @@ center_moveup4()
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_move" );
-    self.ref_node thread maps\_anim::_id_0BC9( self, "moveout_cornerR" );
+    self.ref_node thread maps\_anim::anim_generic( self, "moveout_cornerR" );
     self.ref_node waittill( "moveout_cornerR" );
     maps\_utility::_id_30B0();
     var_0 = getnode( "center_node6", "targetname" );
@@ -4491,7 +4491,7 @@ end_moveup()
         maps\_utility::_id_2A8D();
         var_4 delete();
         var_0 = getnode( "end_node_end", "targetname" );
-        self _meth_81a9( var_0 );
+        self _meth_81A9( var_0 );
         self.goalradius = 16;
         wait 3;
     }
@@ -4499,10 +4499,10 @@ end_moveup()
     {
         wait 0.5;
         var_5 = spawn( "script_origin", ( 12681.0, 8698.45, -150.532 ) );
-        var_5 maps\_anim::_id_0BFF( level._id_6F7C, "outtro" );
+        var_5 maps\_anim::anim_reach_solo( level._id_6F7C, "outtro" );
         self notify( "stop_dynamic_run_speed" );
         var_6 = getanimlength( maps\_utility::_id_3EF5( "outtro" ) );
-        var_5 thread maps\_anim::_id_0C24( level._id_6F7C, "outtro" );
+        var_5 thread maps\_anim::anim_single_solo( level._id_6F7C, "outtro" );
         wait(var_6 - 1.5);
     }
 }
@@ -4544,10 +4544,10 @@ start_church()
 {
     soundscripts\_snd::_id_870C( "aud_start_church_checkpoint" );
     start_church_x();
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::idle_anim_think );
-    common_scripts\utility::_id_0D17( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_behavior::_id_08D2, "alert", "attack", maps\scoutsniper_code::intro_attack_logic );
-    common_scripts\utility::_id_0D13( getentarray( "tableguard_last_patrol", "targetname" ), maps\_utility::_id_0798, ::intro_lastguy_think );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::idle_anim_think );
+    common_scripts\utility::array_thread5( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_behavior::ai_create_behavior_function, "alert", "attack", maps\scoutsniper_code::intro_attack_logic );
+    common_scripts\utility::array_thread( getentarray( "tableguard_last_patrol", "targetname" ), maps\_utility::add_spawn_function, ::intro_lastguy_think );
     maps\_utility::_id_27EF( 0.1, maps\scoutsniper_code::scripted_array_spawn, "tableguards", "script_noteworthy", 1 );
     maps\_utility::_id_27EF( 0.1, maps\scoutsniper_code::scripted_array_spawn, "intro_dogs", "script_noteworthy", 1 );
     common_scripts\utility::_id_383F( "initial_setup_done" );
@@ -4568,9 +4568,9 @@ start_graveyard()
 {
     soundscripts\_snd::_id_870C( "aud_start_graveyard_checkpoint" );
     start_graveyard_x();
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
-    common_scripts\utility::_id_0D13( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::_id_0798, maps\scoutsniper_code::idle_anim_think );
-    common_scripts\utility::_id_0D13( getentarray( "tableguard_last_patrol", "targetname" ), maps\_utility::_id_0798, ::intro_lastguy_think );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( getentarray( "tableguards", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\scoutsniper_code::idle_anim_think );
+    common_scripts\utility::array_thread( getentarray( "tableguard_last_patrol", "targetname" ), maps\_utility::add_spawn_function, ::intro_lastguy_think );
     maps\_utility::_id_27EF( 0.1, maps\scoutsniper_code::scripted_array_spawn, "tableguards", "script_noteworthy", 1 );
     maps\_utility::_id_27EF( 0.1, maps\scoutsniper_code::scripted_array_spawn, "intro_dogs", "script_noteworthy", 1 );
 }
@@ -4707,7 +4707,7 @@ start_common()
     thread maps\scoutsniper_code::clean_previous_ai( "dash_clean_ai", "cargo_sleeper", "script_noteworthy" );
     thread maps\scoutsniper_code::clean_previous_ai( "town_no_turning_back" );
     thread maps\scoutsniper_code::clean_previous_ai( "dogs_delete_dogs" );
-    common_scripts\utility::_id_0D13( getentarray( "fake_radiation", "targetname" ), maps\scoutsniper_code::fake_radiation );
+    common_scripts\utility::array_thread( getentarray( "fake_radiation", "targetname" ), maps\scoutsniper_code::fake_radiation );
     common_scripts\utility::_id_97CC( "dogs_backup", "target" );
     common_scripts\utility::_id_97CC( "dash_bus_guys", "target" );
     common_scripts\utility::_id_97CC( "dash_last_runner", "target" );
@@ -4741,9 +4741,9 @@ initlevel()
     thread maps\_radiation::main();
     maps\scoutsniper_code::initpronedof();
     thread maps\scoutsniper_code::_id_6B33();
-    maps\_utility::_id_1332( "allies" );
-    maps\_utility::_id_1332( "axis" );
-    common_scripts\utility::_id_0D13( getentarray( "clip_nosight", "targetname" ), maps\scoutsniper_code::clip_nosight_logic );
+    maps\_utility::battlechatter_off( "allies" );
+    maps\_utility::battlechatter_off( "axis" );
+    common_scripts\utility::array_thread( getentarray( "clip_nosight", "targetname" ), maps\scoutsniper_code::clip_nosight_logic );
     common_scripts\utility::_id_97CC( "field_clean", "script_noteworthy" );
     createthreatbiasgroup( "price" );
     createthreatbiasgroup( "dog" );
@@ -4807,7 +4807,7 @@ initprice()
     level._id_6F7C maps\_utility::_id_2A74();
     level._id_6F7C setthreatbiasgroup( "allies" );
     level._id_6F7C thread maps\_stealth_logic::stealth_ai();
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C thread maps\_utility::_id_58D7();
     level._id_6F7C maps\_utility::_id_5926();
     level._id_6F7C thread maps\scoutsniper_code::price_death();
@@ -4845,7 +4845,7 @@ graveyard_hind_detect_damage()
     self.body = var_0;
     self hide();
     var_0 useanimtree( #animtree );
-    var_0 _meth_814d( %bh_rotors );
+    var_0 _meth_814D( %bh_rotors );
     thread graveyard_hind_kill_body( var_0 );
     var_0 setcandamage( 1 );
     var_0 waittill( "damage" );
@@ -4875,7 +4875,7 @@ dash_hind_detect_damage()
     var_0 hide();
     self.body = var_0;
     var_0 useanimtree( #animtree );
-    var_0 _meth_814d( %bh_rotors );
+    var_0 _meth_814D( %bh_rotors );
     thread graveyard_hind_kill_body( var_0 );
     var_0 setcandamage( 1 );
     var_0 waittill( "damage" );

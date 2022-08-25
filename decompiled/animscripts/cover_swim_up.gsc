@@ -21,14 +21,14 @@
 
 main()
 {
-    self._id_0C50 = [];
-    self._id_0C50["hiding"]["stand"] = ::_id_7F26;
-    self._id_0C50["hiding"]["crouch"] = ::_id_7F26;
+    self.animarrayfuncs = [];
+    self.animarrayfuncs["hiding"]["stand"] = ::_id_7F26;
+    self.animarrayfuncs["hiding"]["crouch"] = ::_id_7F26;
     self endon( "killanimscript" );
     animscripts\utility::_id_4DD7( "cover_swim_up" );
 
-    if ( !isdefined( self._id_0CBC ) || self._id_0CBC != "cover_u" )
-        self._id_0CBC = "cover_u";
+    if ( !isdefined( self.approachtype ) || self.approachtype != "cover_u" )
+        self.approachtype = "cover_u";
 
     animscripts\corner::_id_2222( "up", 0 );
 }
@@ -41,6 +41,6 @@ end_script()
 
 _id_7F26()
 {
-    self.a._id_0CD8 = animscripts\swim::_id_4100( "cover_u" );
+    self.a.array = animscripts\swim::_id_4100( "cover_u" );
     self._id_4884 = 0;
 }

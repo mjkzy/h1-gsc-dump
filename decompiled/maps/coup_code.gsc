@@ -27,7 +27,7 @@ _id_35F7( var_0, var_1, var_2 )
     wait(var_0);
 }
 
-_id_148C( var_0, var_1 )
+blackout( var_0, var_1 )
 {
     _id_35F7( var_0, 1, var_1 );
 }
@@ -160,7 +160,7 @@ deletecharacter()
 
     for ( var_1 = 0; var_1 < var_3.size; var_1++ )
     {
-        var_4 = level._id_2F1A[var_3[var_1]]._id_0CD8;
+        var_4 = level._id_2F1A[var_3[var_1]].array;
 
         for ( var_5 = 0; var_5 < var_4.size; var_5++ )
         {
@@ -457,7 +457,7 @@ play_anim_on_ropehands( var_0, var_1 )
     if ( var_1 )
         level.handsrope linkto( level.playerview );
 
-    maps\_anim::_id_0C24( level.handsrope, var_2 );
+    maps\_anim::anim_single_solo( level.handsrope, var_2 );
 
     if ( var_1 )
         level.handsrope unlink();

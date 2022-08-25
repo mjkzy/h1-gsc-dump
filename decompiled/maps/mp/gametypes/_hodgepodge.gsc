@@ -42,7 +42,7 @@ init()
     if ( level.hodgepodgemode == 9 )
     {
         level.oldschool = 0;
-        level.onstartgametype = ::_id_148E;
+        level.onstartgametype = ::blank;
     }
 
     level.hodgepodgeonstartgametype = level.onstartgametype;
@@ -50,7 +50,7 @@ init()
     level thread hodgepodgeonconnect();
 }
 
-_id_148E()
+blank()
 {
 
 }
@@ -103,8 +103,8 @@ initmmmode()
     level.callbackplayerdamage = ::mmcallbackplayerdamage;
     level._id_64D3 = ::onmmplayerkilled;
     level._id_64E9 = ::onmmspawnplayer;
-    level._id_112A = ::mmautoassign;
-    level._id_1969 = ::mmclass;
+    level.autoassign = ::mmautoassign;
+    level.bypassclasschoicefunc = ::mmclass;
     level.getspawnpoint = ::getmmspawnpoint;
     level._id_64C0 = ::mmononeleftevent;
     level._id_2D73 = 1;
@@ -119,8 +119,8 @@ initmmmode()
     level.mm_teamscores["axis"] = 0;
     level.mm_teamscores["allies"] = 0;
     _id_9B85();
-    level.spectateoverride["allies"]._id_0AA7 = 1;
-    level._id_0AAB = 0;
+    level._id_8A4A["allies"].allowenemyspectate = 1;
+    level.allowlatecomers = 0;
     setupdvarsmm();
     _id_8018();
     setclientnamemode( "auto_change" );
@@ -187,7 +187,7 @@ _id_64F0()
 mmawardxp()
 {
     level endon( "game_ended" );
-    level.scoreinfo["kill"]["value"] = 300;
+    level._id_A3A5["kill"]["value"] = 300;
     common_scripts\utility::_id_384A( "slasher_chosen" );
 
     for (;;)
@@ -202,7 +202,7 @@ mmawardxp()
             if ( !maps\mp\_utility::_id_5189( var_1 ) )
                 continue;
 
-            level thread maps\mp\gametypes\_rank::_id_1208( "still_alive", var_1 );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "still_alive", var_1 );
         }
     }
 }
@@ -315,7 +315,7 @@ chooseslasher()
 
         var_4.issurvivor = 1;
         var_4.isslasher = 0;
-        var_4 maps\mp\_utility::_id_056B();
+        var_4 maps\mp\_utility::_clearperks();
     }
 
     level._id_3BE2 = 1;
@@ -335,10 +335,10 @@ chooseslasher()
 
 switchtostartweapon( var_0 )
 {
-    var_1 = maps\mp\gametypes\_class::_id_188C( "h1_meleeshovel" );
+    var_1 = maps\mp\gametypes\_class::buildweaponname( "h1_meleeshovel" );
 
     if ( var_0 == "allies" )
-        var_1 = maps\mp\gametypes\_class::_id_188C( "h1_colt45" );
+        var_1 = maps\mp\gametypes\_class::buildweaponname( "h1_colt45" );
 
     waitframe;
     self takeallweapons();
@@ -584,7 +584,7 @@ mmcallbackplayerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 
             return;
     }
 
-    maps\mp\gametypes\_damage::_id_19F1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
+    maps\mp\gametypes\_damage::callback_playerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 );
 }
 
 onmmplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
@@ -816,7 +816,7 @@ giveprimaryonlynomelee()
 initrpgonly()
 {
     level._id_64E9 = ::onrpgspawnplayer;
-    level._id_1969 = ::rpgonlyclass;
+    level.bypassclasschoicefunc = ::rpgonlyclass;
     level.modifyplayerdamage = ::rpgonlymodifyplayerdamage;
     level.rpg_loadout = maps\mp\gametypes\_class::_id_3F7B();
     level.rpg_loadout["loadoutSecondary"] = "h1_rpg";

@@ -47,13 +47,13 @@ ph_init()
     else
     {
         level.getspawnpoint = ::getspawnpoint;
-        level._id_1969 = ::phclass;
+        level.bypassclasschoicefunc = ::phclass;
     }
 
     level.proplist = [];
     level.spawnproplist = [];
-    level._id_06B5 = [ "FLASH" ];
-    level._id_0AAB = 0;
+    level.abilities = [ "FLASH" ];
+    level.allowlatecomers = 0;
     level.startcheck = 0;
     populateproplist();
     ph_precache();
@@ -341,7 +341,7 @@ getpkspawnpoint()
 propspectateing()
 {
     level endon( "game_ended" );
-    level.spectateoverride[game["defenders"]]._id_0AA7 = 1;
+    level._id_8A4A[game["defenders"]].allowenemyspectate = 1;
     maps\mp\gametypes\_spectating::_id_9B72();
 }
 
@@ -776,7 +776,7 @@ _id_64E9()
             if ( !isdefined( self.pers["ability"] ) )
                 self.pers["ability"] = 0;
 
-            self.currentability = level._id_06B5[self.pers["ability"]];
+            self.currentability = level.abilities[self.pers["ability"]];
             self.abilitylocked = 0;
             setnewabilitycount();
             thread playerlastvalidpositionwatch();
@@ -1126,7 +1126,7 @@ getlivingplayersonteam( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level.participants )
+    foreach ( var_3 in level._id_669D )
     {
         if ( !isdefined( var_3.team ) )
             continue;
@@ -1205,7 +1205,7 @@ proplockwatch()
             if ( self.changesleft > 0 )
             {
                 self notify( "changed_prop" );
-                var_0 = common_scripts\utility::_id_0CF6( var_0, self.prop._id_4C5C );
+                var_0 = common_scripts\utility::array_remove( var_0, self.prop._id_4C5C );
                 self.prop._id_4C5C = common_scripts\utility::_id_710E( var_0 );
                 self.prop setmodel( self.prop._id_4C5C.modelname );
                 self.prop.xyzoffset = self.prop._id_4C5C.xyzoffset;
@@ -1863,7 +1863,7 @@ deleteallglass()
 {
     level endon( "game_ended" );
     level waittill( "prematch_over" );
-    var_0 = _func_30a();
+    var_0 = _func_30A();
 
     for ( var_1 = 0; var_1 < var_0; var_1++ )
         deleteglass( var_1 );
@@ -2153,7 +2153,7 @@ playertakegrenades()
 stillalivexp()
 {
     level endon( "game_ended" );
-    level.scoreinfo["kill"]["value"] = 300;
+    level._id_A3A5["kill"]["value"] = 300;
     level waittill( "props_hide_over" );
 
     for (;;)
@@ -2168,7 +2168,7 @@ stillalivexp()
             if ( !maps\mp\_utility::_id_5189( var_1 ) )
                 continue;
 
-            level thread maps\mp\gametypes\_rank::_id_1208( "still_alive", var_1 );
+            level thread maps\mp\gametypes\_rank::awardgameevent( "still_alive", var_1 );
         }
     }
 }
@@ -2420,7 +2420,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( var_10.team == game["attackers"] )
         thread respawnattacker();
     else
-        thread maps\mp\gametypes\_deathicons::_id_07DE( var_10.body, var_10, var_10.team, 5.0, var_1, 0 );
+        thread maps\mp\gametypes\_deathicons::adddeathicon( var_10.body, var_10, var_10.team, 5.0, var_1, 0 );
 
     if ( isdefined( var_1 ) && isplayer( var_1 ) && var_1 != var_10 && var_10.team != var_1.team )
         var_11 = 1;
@@ -2447,7 +2447,7 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 respawnattacker()
 {
     maps\mp\gametypes\_playerlogic::_id_4C3C( self.team );
-    self._id_0B00 = 1;
+    self.alreadyaddedtoalivecount = 1;
     thread _id_A042();
 }
 

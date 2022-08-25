@@ -27,19 +27,19 @@ main()
 
 _id_8072()
 {
-    level.bot_funcs["gametype_think"] = ::_id_15DE;
+    level.bot_funcs["gametype_think"] = ::bot_conf_think;
 }
 
 _id_805A()
 {
-    level._id_170A = 200;
-    level._id_1709 = 38;
+    level.bot_tag_obj_radius = 200;
+    level.bot_tag_allowable_jump_height = 38;
 
     if ( maps\mp\_utility::_id_50C4() )
-        level._id_1709 += 170;
+        level.bot_tag_allowable_jump_height += 170;
 }
 
-_id_15DE()
+bot_conf_think()
 {
     self notify( "bot_conf_think" );
     self endon( "bot_conf_think" );
@@ -48,7 +48,7 @@ _id_15DE()
     level endon( "game_ended" );
     self._id_60C2 = gettime() + 500;
     self._id_9107 = [];
-    childthread _id_1735();
+    childthread bot_watch_new_tags();
 
     if ( self._id_67DF == "camper" )
     {
@@ -67,12 +67,12 @@ _id_15DE()
         {
             var_2 = self botgetscriptgoal();
 
-            if ( maps\mp\bots\_bots_util::_id_172A( self._id_90BE._id_4411, var_2 ) )
+            if ( maps\mp\bots\_bots_util::bot_vectors_are_equal( self._id_90BE._id_4411, var_2 ) )
             {
                 if ( self _meth_8373() )
                     var_1 = 1;
             }
-            else if ( maps\mp\bots\_bots_strategy::_id_1649( "kill_tag" ) && self._id_90BE maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) )
+            else if ( maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "kill_tag" ) && self._id_90BE maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) )
             {
                 self._id_90BE = undefined;
                 var_0 = 0;
@@ -80,8 +80,8 @@ _id_15DE()
         }
 
         self botsetflag( "force_sprint", var_1 );
-        self._id_9107 = _id_16CE( self._id_9107 );
-        var_3 = _id_1610( self._id_9107, 1 );
+        self._id_9107 = bot_remove_invalid_tags( self._id_9107 );
+        var_3 = bot_find_best_tag_from_array( self._id_9107, 1 );
         var_4 = isdefined( var_3 );
 
         if ( var_0 && !var_4 || !var_0 && var_4 || var_0 && var_4 && self._id_90BE != var_3 )
@@ -90,7 +90,7 @@ _id_15DE()
             self botclearscriptgoal();
             self notify( "stop_camping_tag" );
             maps\mp\bots\_bots_personality::_id_1EA3();
-            maps\mp\bots\_bots_strategy::_id_15A1( "kill_tag" );
+            maps\mp\bots\_bots_strategy::bot_abort_tactical_goal( "kill_tag" );
         }
 
         if ( isdefined( self._id_90BE ) )
@@ -104,7 +104,7 @@ _id_15DE()
                 if ( maps\mp\bots\_bots_personality::_id_8476() )
                 {
                     if ( maps\mp\bots\_bots_personality::_id_3753( self._id_90BE._id_4411, 1000 ) )
-                        childthread _id_15C3( self._id_90BE, "camp" );
+                        childthread bot_camp_tag( self._id_90BE, "camp" );
                     else
                         self._id_20E8 = 0;
                 }
@@ -112,20 +112,20 @@ _id_15DE()
 
             if ( !self._id_20E8 )
             {
-                if ( !maps\mp\bots\_bots_strategy::_id_1649( "kill_tag" ) )
+                if ( !maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "kill_tag" ) )
                 {
                     var_5 = spawnstruct();
                     var_5._id_79FF = "objective";
-                    var_5._id_62F3 = level._id_170A;
-                    maps\mp\bots\_bots_strategy::_id_16A9( "kill_tag", self._id_90BE._id_4411, 25, var_5 );
+                    var_5._id_62F3 = level.bot_tag_obj_radius;
+                    maps\mp\bots\_bots_strategy::bot_new_tactical_goal( "kill_tag", self._id_90BE._id_4411, 25, var_5 );
                 }
             }
         }
 
         var_6 = 0;
 
-        if ( isdefined( self._id_07EB ) )
-            var_6 = self [[ self._id_07EB ]]();
+        if ( isdefined( self.additional_tactical_logic_func ) )
+            var_6 = self [[ self.additional_tactical_logic_func ]]();
 
         if ( !isdefined( self._id_90BE ) )
         {
@@ -136,15 +136,15 @@ _id_15DE()
         if ( gettime() > self._id_60C2 )
         {
             self._id_60C2 = gettime() + 500;
-            var_7 = _id_1617( 1 );
-            self._id_9107 = _id_15DD( var_7, self._id_9107 );
+            var_7 = bot_find_visible_tags( 1 );
+            self._id_9107 = bot_combine_tag_seen_arrays( var_7, self._id_9107 );
         }
 
         wait 0.05;
     }
 }
 
-_id_15D4( var_0 )
+bot_check_tag_above_head( var_0 )
 {
     if ( isdefined( var_0._id_6445 ) && var_0._id_6445 )
     {
@@ -156,7 +156,7 @@ _id_15D4( var_0 )
 
             if ( var_2 > 0 )
             {
-                if ( var_2 < level._id_1709 )
+                if ( var_2 < level.bot_tag_allowable_jump_height )
                 {
                     if ( !isdefined( self._id_5565 ) )
                         self._id_5565 = 0;
@@ -164,7 +164,7 @@ _id_15D4( var_0 )
                     if ( gettime() - self._id_5565 > 3000 )
                     {
                         self._id_5565 = gettime();
-                        thread _id_1668();
+                        thread bot_jump_for_tag();
                     }
                 }
                 else
@@ -179,23 +179,23 @@ _id_15D4( var_0 )
     return 0;
 }
 
-_id_1668()
+bot_jump_for_tag()
 {
     self endon( "death" );
     self endon( "disconnect" );
     self botsetstance( "stand" );
     wait 1.0;
-    self _meth_837c( "jump" );
+    self _meth_837C( "jump" );
     wait 0.5;
 
     if ( maps\mp\_utility::_id_50C4() )
-        self _meth_837c( "jump" );
+        self _meth_837C( "jump" );
 
     wait 0.5;
     self botsetstance( "none" );
 }
 
-_id_1735()
+bot_watch_new_tags()
 {
     for (;;)
     {
@@ -206,9 +206,9 @@ _id_1735()
         {
             if ( isdefined( var_0._id_9E07 ) && var_0._id_9E07 == self || isdefined( var_0.attacker ) && var_0.attacker == self )
             {
-                if ( !isdefined( var_0._id_6445 ) && !isdefined( var_0._id_19E7 ) )
+                if ( !isdefined( var_0._id_6445 ) && !isdefined( var_0.calculations_in_progress ) )
                 {
-                    thread _id_19D5( var_0 );
+                    thread calculate_tag_on_path_grid( var_0 );
                     _id_A0BC( var_0 );
 
                     if ( var_0._id_6445 )
@@ -217,7 +217,7 @@ _id_1735()
                         var_1.origin = var_0.curorigin;
                         var_1.tag = var_0;
                         var_2[0] = var_1;
-                        self._id_9107 = _id_15DD( var_2, self._id_9107 );
+                        self._id_9107 = bot_combine_tag_seen_arrays( var_2, self._id_9107 );
                     }
                 }
             }
@@ -225,7 +225,7 @@ _id_1735()
     }
 }
 
-_id_15DD( var_0, var_1 )
+bot_combine_tag_seen_arrays( var_0, var_1 )
 {
     var_2 = var_1;
 
@@ -235,7 +235,7 @@ _id_15DD( var_0, var_1 )
 
         foreach ( var_7 in var_1 )
         {
-            if ( var_4.tag == var_7.tag && maps\mp\bots\_bots_util::_id_172A( var_4.origin, var_7.origin ) )
+            if ( var_4.tag == var_7.tag && maps\mp\bots\_bots_util::bot_vectors_are_equal( var_4.origin, var_7.origin ) )
             {
                 var_5 = 1;
                 break;
@@ -243,21 +243,21 @@ _id_15DD( var_0, var_1 )
         }
 
         if ( !var_5 )
-            var_2 = common_scripts\utility::_id_0CDA( var_2, var_4 );
+            var_2 = common_scripts\utility::array_add( var_2, var_4 );
     }
 
     return var_2;
 }
 
-_id_1665( var_0, var_1, var_2 )
+bot_is_tag_visible( var_0, var_1, var_2 )
 {
-    if ( !var_0._id_19DB )
+    if ( !var_0.calculated_nearest_node )
     {
         var_0._id_6071 = getclosestnodeinsight( var_0.curorigin );
-        var_0._id_19DB = 1;
+        var_0.calculated_nearest_node = 1;
     }
 
-    if ( isdefined( var_0._id_19E7 ) )
+    if ( isdefined( var_0.calculations_in_progress ) )
         return 0;
 
     var_3 = var_0._id_6071;
@@ -275,7 +275,7 @@ _id_1665( var_0, var_1, var_2 )
             {
                 if ( var_4 )
                 {
-                    thread _id_19D5( var_0 );
+                    thread calculate_tag_on_path_grid( var_0 );
                     _id_A0BC( var_0 );
 
                     if ( !var_0._id_6445 )
@@ -290,7 +290,7 @@ _id_1665( var_0, var_1, var_2 )
     return 0;
 }
 
-_id_1617( var_0, var_1, var_2 )
+bot_find_visible_tags( var_0, var_1, var_2 )
 {
     var_3 = undefined;
 
@@ -318,18 +318,18 @@ _id_1617( var_0, var_1, var_2 )
 
                 if ( !var_0 || var_7.attacker == self )
                 {
-                    if ( !isdefined( var_7._id_19E7 ) )
+                    if ( !isdefined( var_7.calculations_in_progress ) )
                     {
                         if ( !isdefined( var_7._id_6445 ) )
                         {
-                            level thread _id_19D5( var_7 );
+                            level thread calculate_tag_on_path_grid( var_7 );
                             _id_A0BC( var_7 );
                         }
 
                         var_8 = distancesquared( self.origin, var_7._id_4411 ) < 1000000 && var_7._id_6445;
                     }
                 }
-                else if ( _id_1665( var_7, var_3, var_4 ) )
+                else if ( bot_is_tag_visible( var_7, var_3, var_4 ) )
                     var_8 = 1;
 
                 if ( var_8 )
@@ -337,7 +337,7 @@ _id_1617( var_0, var_1, var_2 )
                     var_9 = spawnstruct();
                     var_9.origin = var_7.curorigin;
                     var_9.tag = var_7;
-                    var_5 = common_scripts\utility::_id_0CDA( var_5, var_9 );
+                    var_5 = common_scripts\utility::array_add( var_5, var_9 );
                 }
             }
         }
@@ -346,11 +346,11 @@ _id_1617( var_0, var_1, var_2 )
     return var_5;
 }
 
-_id_19D5( var_0 )
+calculate_tag_on_path_grid( var_0 )
 {
     var_0 endon( "reset" );
-    var_0._id_19E7 = 1;
-    var_0._id_6445 = maps\mp\bots\_bots_util::_id_16BB( var_0.curorigin, undefined, level._id_1709 + 55 );
+    var_0.calculations_in_progress = 1;
+    var_0._id_6445 = maps\mp\bots\_bots_util::bot_point_is_on_pathgrid( var_0.curorigin, undefined, level.bot_tag_allowable_jump_height + 55 );
 
     if ( var_0._id_6445 )
     {
@@ -360,7 +360,7 @@ _id_19D5( var_0 )
             var_0._id_6445 = 0;
     }
 
-    var_0._id_19E7 = undefined;
+    var_0.calculations_in_progress = undefined;
 }
 
 _id_A0BC( var_0 )
@@ -369,7 +369,7 @@ _id_A0BC( var_0 )
         wait 0.05;
 }
 
-_id_1610( var_0, var_1 )
+bot_find_best_tag_from_array( var_0, var_1 )
 {
     var_2 = undefined;
 
@@ -397,16 +397,16 @@ _id_1610( var_0, var_1 )
     return var_2;
 }
 
-_id_16CE( var_0 )
+bot_remove_invalid_tags( var_0 )
 {
     var_1 = [];
 
     foreach ( var_3 in var_0 )
     {
-        if ( var_3.tag maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) && maps\mp\bots\_bots_util::_id_172A( var_3.tag.curorigin, var_3.origin ) )
+        if ( var_3.tag maps\mp\gametypes\_gameobjects::_id_1ACA( self.team ) && maps\mp\bots\_bots_util::bot_vectors_are_equal( var_3.tag.curorigin, var_3.origin ) )
         {
-            if ( !_id_15D4( var_3.tag ) && var_3.tag._id_6445 )
-                var_1 = common_scripts\utility::_id_0CDA( var_1, var_3 );
+            if ( !bot_check_tag_above_head( var_3.tag ) && var_3.tag._id_6445 )
+                var_1 = common_scripts\utility::array_add( var_1, var_3 );
         }
     }
 
@@ -417,7 +417,7 @@ _id_3DF7( var_0 )
 {
     var_1 = 0;
 
-    foreach ( var_3 in level.participants )
+    foreach ( var_3 in level._id_669D )
     {
         if ( !isdefined( var_3.team ) )
             continue;
@@ -440,7 +440,7 @@ _id_3DF7( var_0 )
     return var_1;
 }
 
-_id_15C3( var_0, var_1, var_2 )
+bot_camp_tag( var_0, var_1, var_2 )
 {
     self notify( "bot_camp_tag" );
     self endon( "bot_camp_tag" );
@@ -449,8 +449,8 @@ _id_15C3( var_0, var_1, var_2 )
     if ( isdefined( var_2 ) )
         self endon( var_2 );
 
-    self botsetscriptgoal( self._id_6121, var_1, self._id_0B68 );
-    var_3 = maps\mp\bots\_bots_util::_id_172E();
+    self botsetscriptgoal( self._id_6121, var_1, self.ambush_yaw );
+    var_3 = maps\mp\bots\_bots_util::bot_waittill_goal_or_fail();
 
     if ( var_3 == "goal" )
     {
@@ -459,8 +459,8 @@ _id_15C3( var_0, var_1, var_2 )
         if ( isdefined( var_4 ) )
         {
             var_5 = findentrances( self.origin );
-            var_5 = common_scripts\utility::_id_0CDA( var_5, var_4 );
-            childthread maps\mp\bots\_bots_util::_id_1736( var_5 );
+            var_5 = common_scripts\utility::array_add( var_5, var_4 );
+            childthread maps\mp\bots\_bots_util::bot_watch_nodes( var_5 );
         }
     }
 }

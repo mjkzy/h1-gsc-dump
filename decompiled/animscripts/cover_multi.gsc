@@ -50,12 +50,12 @@ _id_22B9()
 
     var_0 = self._id_22BA getvalidcoverpeekouts();
 
-    if ( isdefined( self.cover._id_0D25 ) )
+    if ( isdefined( self.cover.arrivalnodetype ) )
     {
-        if ( _id_22B5( self.cover._id_0D25, var_0 ) )
+        if ( _id_22B5( self.cover.arrivalnodetype, var_0 ) )
         {
-            var_1 = _id_22B6( self.cover._id_0D25 );
-            self.cover._id_0D25 = undefined;
+            var_1 = _id_22B6( self.cover.arrivalnodetype );
+            self.cover.arrivalnodetype = undefined;
             return;
         }
     }
@@ -128,7 +128,7 @@ _id_22B1( var_0, var_1 )
             continue;
         }
 
-        var_4 = common_scripts\utility::_id_0CF5( var_4 );
+        var_4 = common_scripts\utility::array_randomize( var_4 );
 
         for ( var_5 = 0; var_5 < var_4.size; var_5++ )
             var_2[var_2.size] = var_4[var_5];
@@ -283,7 +283,7 @@ _id_22AD( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 _id_22AC()
 {
-    if ( !isdefined( self.a._id_0CD8 ) || !isdefined( self.a._id_0CD8["alert_idle_back"] ) )
+    if ( !isdefined( self.a.array ) || !isdefined( self.a.array["alert_idle_back"] ) )
         return "forward";
 
     if ( common_scripts\utility::_id_2006() )
@@ -321,12 +321,12 @@ _id_22B0( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         var_6 += ( var_3 + "_" + var_4 );
 
-    var_7 = self._id_0C4D;
+    var_7 = self.animarchetype;
 
-    if ( !isdefined( var_7 ) || !isdefined( anim._id_0CCA[var_7]["cover_multi"] ) )
+    if ( !isdefined( var_7 ) || !isdefined( anim.archetypes[var_7]["cover_multi"] ) )
         var_7 = "soldier";
 
-    return anim._id_0CCA[var_7]["cover_multi"][var_6];
+    return anim.archetypes[var_7]["cover_multi"][var_6];
 }
 
 _id_4C7E()
@@ -355,5 +355,5 @@ _id_4C7E()
     var_0["left_crouch_to_crouch_back"] = undefined;
     var_0["left_crouch_to_crouch_forward"] = undefined;
     var_0["crouch"] = [];
-    anim._id_0CCA["soldier"]["cover_multi"] = var_0;
+    anim.archetypes["soldier"]["cover_multi"] = var_0;
 }

@@ -51,7 +51,7 @@ _id_4D1B()
     if ( !isdefined( anim._id_22A4 ) )
         anim._id_22A4 = [];
 
-    anim._id_0D24 = [];
+    anim.arrivalendstance = [];
 }
 #using_animtree("generic_human");
 
@@ -243,7 +243,7 @@ _id_4E1E()
     var_0["wall_over_40"][1] = %traverse_window_m_2_run;
     var_0["wall_over_40"][2] = %traverse_window_m_2_run;
     var_0["wall_over_40"][3] = %traverse_window_m_2_run;
-    anim._id_0CCA["soldier"]["cover_trans"] = var_0;
+    anim.archetypes["soldier"]["cover_trans"] = var_0;
 }
 
 _id_4E1F()
@@ -455,7 +455,7 @@ _id_4E1F()
     var_0["prone"][7] = %h1_crawlstart_l45;
     var_0["prone"][8] = %h1_crawlstart_f_codemove;
     var_0["prone"][9] = %h1_crawlstart_r45;
-    anim._id_0CCA["soldier"]["cover_exit"] = var_0;
+    anim.archetypes["soldier"]["cover_exit"] = var_0;
 }
 
 getmoveend( var_0 )
@@ -483,7 +483,7 @@ getmoveend( var_0 )
 
 _id_4E2F( var_0 )
 {
-    if ( !isdefined( anim._id_0CCA[var_0] ) )
+    if ( !isdefined( anim.archetypes[var_0] ) )
         return;
 
     var_1 = [];
@@ -518,7 +518,7 @@ _id_4E2F( var_0 )
     var_1[28] = "exposed_crouch_crouchwalk";
     var_1[29] = "prone";
 
-    if ( !isdefined( anim._id_0CCA[var_0]["cover_trans"] ) )
+    if ( !isdefined( anim.archetypes[var_0]["cover_trans"] ) )
         return;
 
     for ( var_2 = 1; var_2 <= 6; var_2++ )
@@ -530,46 +530,46 @@ _id_4E2F( var_0 )
         {
             var_4 = var_1[var_3];
 
-            if ( isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4] ) && isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2] ) )
+            if ( isdefined( anim.archetypes[var_0]["cover_trans"][var_4] ) && isdefined( anim.archetypes[var_0]["cover_trans"][var_4][var_2] ) )
             {
-                anim._id_0CCA[var_0]["cover_trans_dist"][var_4][var_2] = getmovedelta( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2], 0, 1 );
-                anim._id_0CCA[var_0]["cover_trans_angles"][var_4][var_2] = getangledelta( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2], 0, 1 );
-                anim._id_0CCA[var_0]["cover_trans_move_end"][var_4][var_2] = getmoveend( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2] );
+                anim.archetypes[var_0]["cover_trans_dist"][var_4][var_2] = getmovedelta( anim.archetypes[var_0]["cover_trans"][var_4][var_2], 0, 1 );
+                anim.archetypes[var_0]["cover_trans_angles"][var_4][var_2] = getangledelta( anim.archetypes[var_0]["cover_trans"][var_4][var_2], 0, 1 );
+                anim.archetypes[var_0]["cover_trans_move_end"][var_4][var_2] = getmoveend( anim.archetypes[var_0]["cover_trans"][var_4][var_2] );
             }
 
-            if ( isdefined( anim._id_0CCA[var_0]["cover_exit"][var_4] ) && isdefined( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2] ) )
+            if ( isdefined( anim.archetypes[var_0]["cover_exit"][var_4] ) && isdefined( anim.archetypes[var_0]["cover_exit"][var_4][var_2] ) )
             {
-                if ( animhasnotetrack( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], "code_move" ) )
-                    var_5 = getnotetracktimes( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], "code_move" )[0];
+                if ( animhasnotetrack( anim.archetypes[var_0]["cover_exit"][var_4][var_2], "code_move" ) )
+                    var_5 = getnotetracktimes( anim.archetypes[var_0]["cover_exit"][var_4][var_2], "code_move" )[0];
                 else
                     var_5 = 1;
 
-                anim._id_0CCA[var_0]["cover_exit_dist"][var_4][var_2] = getmovedelta( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], 0, var_5 );
-                anim._id_0CCA[var_0]["cover_exit_angles"][var_4][var_2] = getangledelta( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], 0, 1 );
+                anim.archetypes[var_0]["cover_exit_dist"][var_4][var_2] = getmovedelta( anim.archetypes[var_0]["cover_exit"][var_4][var_2], 0, var_5 );
+                anim.archetypes[var_0]["cover_exit_angles"][var_4][var_2] = getangledelta( anim.archetypes[var_0]["cover_exit"][var_4][var_2], 0, 1 );
             }
         }
     }
 
-    if ( !isdefined( anim._id_0CCA[var_0]["CoverTransLongestDist"] ) )
-        anim._id_0CCA[var_0]["CoverTransLongestDist"] = [];
+    if ( !isdefined( anim.archetypes[var_0]["CoverTransLongestDist"] ) )
+        anim.archetypes[var_0]["CoverTransLongestDist"] = [];
 
     for ( var_3 = 0; var_3 < var_1.size; var_3++ )
     {
         var_4 = var_1[var_3];
-        anim._id_0CCA[var_0]["CoverTransLongestDist"][var_4] = 0;
+        anim.archetypes[var_0]["CoverTransLongestDist"][var_4] = 0;
 
         for ( var_2 = 1; var_2 <= 6; var_2++ )
         {
-            if ( var_2 == 5 || !isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4] ) || !isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2] ) )
+            if ( var_2 == 5 || !isdefined( anim.archetypes[var_0]["cover_trans"][var_4] ) || !isdefined( anim.archetypes[var_0]["cover_trans"][var_4][var_2] ) )
                 continue;
 
-            var_6 = lengthsquared( anim._id_0CCA[var_0]["cover_trans_dist"][var_4][var_2] );
+            var_6 = lengthsquared( anim.archetypes[var_0]["cover_trans_dist"][var_4][var_2] );
 
-            if ( anim._id_0CCA[var_0]["CoverTransLongestDist"][var_4] < var_6 )
-                anim._id_0CCA[var_0]["CoverTransLongestDist"][var_4] = var_6;
+            if ( anim.archetypes[var_0]["CoverTransLongestDist"][var_4] < var_6 )
+                anim.archetypes[var_0]["CoverTransLongestDist"][var_4] = var_6;
         }
 
-        anim._id_0CCA[var_0]["CoverTransLongestDist"][var_4] = sqrt( anim._id_0CCA[var_0]["CoverTransLongestDist"][var_4] );
+        anim.archetypes[var_0]["CoverTransLongestDist"][var_4] = sqrt( anim.archetypes[var_0]["CoverTransLongestDist"][var_4] );
     }
 
     anim._id_3594["exposed"] = 1;
@@ -584,38 +584,38 @@ _id_4E2F( var_0 )
     anim._id_3594["exposed_smg"] = 1;
     anim._id_3594["heat"] = 1;
 
-    if ( !isdefined( anim._id_0CCA[var_0]["longestExposedApproachDist"] ) )
-        anim._id_0CCA[var_0]["longestExposedApproachDist"] = 0;
+    if ( !isdefined( anim.archetypes[var_0]["longestExposedApproachDist"] ) )
+        anim.archetypes[var_0]["longestExposedApproachDist"] = 0;
 
     foreach ( var_4, var_8 in anim._id_3594 )
     {
         for ( var_2 = 7; var_2 <= 9; var_2++ )
         {
-            if ( isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4] ) && isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2] ) )
+            if ( isdefined( anim.archetypes[var_0]["cover_trans"][var_4] ) && isdefined( anim.archetypes[var_0]["cover_trans"][var_4][var_2] ) )
             {
-                anim._id_0CCA[var_0]["cover_trans_dist"][var_4][var_2] = getmovedelta( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2], 0, 1 );
-                anim._id_0CCA[var_0]["cover_trans_angles"][var_4][var_2] = getangledelta( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2], 0, 1 );
-                anim._id_0CCA[var_0]["cover_trans_move_end"][var_4][var_2] = getmoveend( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2] );
+                anim.archetypes[var_0]["cover_trans_dist"][var_4][var_2] = getmovedelta( anim.archetypes[var_0]["cover_trans"][var_4][var_2], 0, 1 );
+                anim.archetypes[var_0]["cover_trans_angles"][var_4][var_2] = getangledelta( anim.archetypes[var_0]["cover_trans"][var_4][var_2], 0, 1 );
+                anim.archetypes[var_0]["cover_trans_move_end"][var_4][var_2] = getmoveend( anim.archetypes[var_0]["cover_trans"][var_4][var_2] );
             }
 
-            if ( isdefined( anim._id_0CCA[var_0]["cover_exit"][var_4] ) && isdefined( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2] ) )
+            if ( isdefined( anim.archetypes[var_0]["cover_exit"][var_4] ) && isdefined( anim.archetypes[var_0]["cover_exit"][var_4][var_2] ) )
             {
-                var_9 = animhasnotetrack( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], "code_move" );
-                var_5 = getnotetracktimes( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], "code_move" )[0];
-                anim._id_0CCA[var_0]["cover_exit_dist"][var_4][var_2] = getmovedelta( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], 0, var_5 );
-                anim._id_0CCA[var_0]["cover_exit_angles"][var_4][var_2] = getangledelta( anim._id_0CCA[var_0]["cover_exit"][var_4][var_2], 0, 1 );
+                var_9 = animhasnotetrack( anim.archetypes[var_0]["cover_exit"][var_4][var_2], "code_move" );
+                var_5 = getnotetracktimes( anim.archetypes[var_0]["cover_exit"][var_4][var_2], "code_move" )[0];
+                anim.archetypes[var_0]["cover_exit_dist"][var_4][var_2] = getmovedelta( anim.archetypes[var_0]["cover_exit"][var_4][var_2], 0, var_5 );
+                anim.archetypes[var_0]["cover_exit_angles"][var_4][var_2] = getangledelta( anim.archetypes[var_0]["cover_exit"][var_4][var_2], 0, 1 );
             }
         }
 
         for ( var_2 = 1; var_2 <= 9; var_2++ )
         {
-            if ( !isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4] ) || !isdefined( anim._id_0CCA[var_0]["cover_trans"][var_4][var_2] ) )
+            if ( !isdefined( anim.archetypes[var_0]["cover_trans"][var_4] ) || !isdefined( anim.archetypes[var_0]["cover_trans"][var_4][var_2] ) )
                 continue;
 
-            var_10 = length( anim._id_0CCA[var_0]["cover_trans_dist"][var_4][var_2] );
+            var_10 = length( anim.archetypes[var_0]["cover_trans_dist"][var_4][var_2] );
 
-            if ( var_10 > anim._id_0CCA[var_0]["longestExposedApproachDist"] )
-                anim._id_0CCA[var_0]["longestExposedApproachDist"] = var_10;
+            if ( var_10 > anim.archetypes[var_0]["longestExposedApproachDist"] )
+                anim.archetypes[var_0]["longestExposedApproachDist"] = var_10;
         }
     }
 }
@@ -623,49 +623,49 @@ _id_4E2F( var_0 )
 _id_4DF3()
 {
     _id_4D1B();
-    anim._id_0CB6 = [];
-    anim._id_0CB6["Cover Left"] = [];
-    anim._id_0CB6["Cover Left"]["stand"] = "left";
-    anim._id_0CB6["Cover Left"]["crouch"] = "left_crouch";
-    anim._id_0CB6["Cover Wide Left"] = anim._id_0CB6["Cover Left"];
+    anim.approach_types = [];
+    anim.approach_types["Cover Left"] = [];
+    anim.approach_types["Cover Left"]["stand"] = "left";
+    anim.approach_types["Cover Left"]["crouch"] = "left_crouch";
+    anim.approach_types["Cover Wide Left"] = anim.approach_types["Cover Left"];
     anim._id_5A2F["Cover Left"] = 9;
     anim._id_33E8["Cover Left"] = 9;
-    anim._id_0CB6["Cover Right"] = [];
-    anim._id_0CB6["Cover Right"]["stand"] = "right";
-    anim._id_0CB6["Cover Right"]["crouch"] = "right_crouch";
-    anim._id_0CB6["Cover Wide Right"] = anim._id_0CB6["Cover Right"];
+    anim.approach_types["Cover Right"] = [];
+    anim.approach_types["Cover Right"]["stand"] = "right";
+    anim.approach_types["Cover Right"]["crouch"] = "right_crouch";
+    anim.approach_types["Cover Wide Right"] = anim.approach_types["Cover Right"];
     anim._id_5A2F["Cover Right"] = 9;
     anim._id_33E8["Cover Right"] = 7;
-    anim._id_0CB6["Cover Crouch"] = [];
-    anim._id_0CB6["Cover Crouch"]["stand"] = "crouch";
-    anim._id_0CB6["Cover Crouch"]["crouch"] = "crouch";
-    anim._id_0CB6["Conceal Crouch"] = anim._id_0CB6["Cover Crouch"];
-    anim._id_0CB6["Cover Crouch Window"] = anim._id_0CB6["Cover Crouch"];
+    anim.approach_types["Cover Crouch"] = [];
+    anim.approach_types["Cover Crouch"]["stand"] = "crouch";
+    anim.approach_types["Cover Crouch"]["crouch"] = "crouch";
+    anim.approach_types["Conceal Crouch"] = anim.approach_types["Cover Crouch"];
+    anim.approach_types["Cover Crouch Window"] = anim.approach_types["Cover Crouch"];
     anim._id_5A2F["Cover Crouch"] = 6;
     anim._id_33E8["Cover Crouch"] = -1;
     anim._id_5A2F["Conceal Crouch"] = 6;
     anim._id_33E8["Conceal Crouch"] = -1;
-    anim._id_0CB6["Cover Stand"] = [];
-    anim._id_0CB6["Cover Stand"]["stand"] = "stand";
-    anim._id_0CB6["Cover Stand"]["crouch"] = "stand";
-    anim._id_0CB6["Conceal Stand"] = anim._id_0CB6["Cover Stand"];
+    anim.approach_types["Cover Stand"] = [];
+    anim.approach_types["Cover Stand"]["stand"] = "stand";
+    anim.approach_types["Cover Stand"]["crouch"] = "stand";
+    anim.approach_types["Conceal Stand"] = anim.approach_types["Cover Stand"];
     anim._id_5A2F["Cover Stand"] = 6;
     anim._id_33E8["Cover Stand"] = -1;
     anim._id_5A2F["Conceal Stand"] = 6;
     anim._id_33E8["Conceal Stand"] = -1;
-    anim._id_0CB6["Cover Prone"] = [];
-    anim._id_0CB6["Cover Prone"]["stand"] = "exposed";
-    anim._id_0CB6["Cover Prone"]["crouch"] = "exposed";
-    anim._id_0CB6["Conceal Prone"] = anim._id_0CB6["Cover Prone"];
+    anim.approach_types["Cover Prone"] = [];
+    anim.approach_types["Cover Prone"]["stand"] = "exposed";
+    anim.approach_types["Cover Prone"]["crouch"] = "exposed";
+    anim.approach_types["Conceal Prone"] = anim.approach_types["Cover Prone"];
     anim._id_33E8["Conceal Prone"] = -1;
-    anim._id_0CB6["Path"] = [];
-    anim._id_0CB6["Path"]["stand"] = "exposed";
-    anim._id_0CB6["Path"]["crouch"] = "exposed_crouch";
-    anim._id_0CB6["Guard"] = anim._id_0CB6["Path"];
-    anim._id_0CB6["Guard"]["prone"] = "prone";
-    anim._id_0CB6["Ambush"] = anim._id_0CB6["Path"];
-    anim._id_0CB6["Scripted"] = anim._id_0CB6["Path"];
-    anim._id_0CB6["Exposed"] = anim._id_0CB6["Path"];
+    anim.approach_types["Path"] = [];
+    anim.approach_types["Path"]["stand"] = "exposed";
+    anim.approach_types["Path"]["crouch"] = "exposed_crouch";
+    anim.approach_types["Guard"] = anim.approach_types["Path"];
+    anim.approach_types["Guard"]["prone"] = "prone";
+    anim.approach_types["Ambush"] = anim.approach_types["Path"];
+    anim.approach_types["Scripted"] = anim.approach_types["Path"];
+    anim.approach_types["Exposed"] = anim.approach_types["Path"];
     anim._id_50E3["Guard"] = 1;
     anim._id_50E3["Ambush"] = 1;
     anim._id_50E3["Exposed"] = 1;
@@ -712,31 +712,31 @@ _id_4DF3()
     if ( maps\_utility::_id_76FF() )
         _id_40E1( "s1_soldier" );
 
-    anim._id_0D24["left"] = "stand";
-    anim._id_0D24["left_cqb"] = "stand";
-    anim._id_0D24["right"] = "stand";
-    anim._id_0D24["right_cqb"] = "stand";
-    anim._id_0D24["stand"] = "stand";
-    anim._id_0D24["stand_saw"] = "stand";
-    anim._id_0D24["stand_unstable"] = "stand";
-    anim._id_0D24["exposed"] = "stand";
-    anim._id_0D24["exposed_cqb"] = "stand";
-    anim._id_0D24["exposed_smg"] = "stand";
-    anim._id_0D24["exposed_unstable"] = "stand";
-    anim._id_0D24["exposed_unstable_run"] = "stand";
-    anim._id_0D24["heat"] = "stand";
-    anim._id_0D24["left_crouch"] = "crouch";
-    anim._id_0D24["left_crouch_cqb"] = "crouch";
-    anim._id_0D24["right_crouch"] = "crouch";
-    anim._id_0D24["right_crouch_cqb"] = "crouch";
-    anim._id_0D24["crouch_saw"] = "crouch";
-    anim._id_0D24["crouch"] = "crouch";
-    anim._id_0D24["exposed_crouch"] = "crouch";
-    anim._id_0D24["exposed_crouch_crouchwalk"] = "crouch";
-    anim._id_0D24["exposed_crouch_cqb"] = "crouch";
-    anim._id_0D24["prone_saw"] = "prone";
-    anim._id_0D24["exposed_ready"] = "stand";
-    anim._id_0D24["exposed_ready_cqb"] = "stand";
+    anim.arrivalendstance["left"] = "stand";
+    anim.arrivalendstance["left_cqb"] = "stand";
+    anim.arrivalendstance["right"] = "stand";
+    anim.arrivalendstance["right_cqb"] = "stand";
+    anim.arrivalendstance["stand"] = "stand";
+    anim.arrivalendstance["stand_saw"] = "stand";
+    anim.arrivalendstance["stand_unstable"] = "stand";
+    anim.arrivalendstance["exposed"] = "stand";
+    anim.arrivalendstance["exposed_cqb"] = "stand";
+    anim.arrivalendstance["exposed_smg"] = "stand";
+    anim.arrivalendstance["exposed_unstable"] = "stand";
+    anim.arrivalendstance["exposed_unstable_run"] = "stand";
+    anim.arrivalendstance["heat"] = "stand";
+    anim.arrivalendstance["left_crouch"] = "crouch";
+    anim.arrivalendstance["left_crouch_cqb"] = "crouch";
+    anim.arrivalendstance["right_crouch"] = "crouch";
+    anim.arrivalendstance["right_crouch_cqb"] = "crouch";
+    anim.arrivalendstance["crouch_saw"] = "crouch";
+    anim.arrivalendstance["crouch"] = "crouch";
+    anim.arrivalendstance["exposed_crouch"] = "crouch";
+    anim.arrivalendstance["exposed_crouch_crouchwalk"] = "crouch";
+    anim.arrivalendstance["exposed_crouch_cqb"] = "crouch";
+    anim.arrivalendstance["prone_saw"] = "prone";
+    anim.arrivalendstance["exposed_ready"] = "stand";
+    anim.arrivalendstance["exposed_ready_cqb"] = "stand";
     anim._id_740B["Cover Stand"] = "stand";
     anim._id_740B["Conceal Stand"] = "stand";
     anim._id_740B["Cover Crouch"] = "crouch";
@@ -767,39 +767,39 @@ _id_40E2( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     for ( var_6 = var_1; var_6 <= var_2; var_6++ )
     {
-        if ( isdefined( anim._id_0CCA[var_0]["cover_trans"] ) )
+        if ( isdefined( anim.archetypes[var_0]["cover_trans"] ) )
         {
             foreach ( var_11, var_8 in var_4 )
             {
                 if ( issubstr( var_11, "heat" ) )
                     continue;
 
-                if ( isdefined( anim._id_0CCA[var_0]["cover_trans"][var_11] ) && isdefined( anim._id_0CCA[var_0]["cover_trans"][var_11][var_6] ) )
+                if ( isdefined( anim.archetypes[var_0]["cover_trans"][var_11] ) && isdefined( anim.archetypes[var_0]["cover_trans"][var_11][var_6] ) )
                 {
-                    var_9 = findbestsplittime( anim._id_0CCA[var_0]["cover_trans"][var_11][var_6], 1, var_3 );
-                    var_10 = getsplitdeltas( anim._id_0CCA[var_0]["cover_trans"][var_11][var_6], var_9 );
-                    anim._id_0CCA[var_0]["cover_trans_predist"][var_11][var_6] = var_10.predist;
-                    anim._id_0CCA[var_0]["cover_trans_dist"][var_11][var_6] = var_10.postdist;
-                    anim._id_0CCA[var_0]["cover_trans_angles"][var_11][var_6] = var_10.angledelta;
-                    anim._id_0CCA[var_0]["cover_trans_move_end"][var_11][var_6] = getmoveend( anim._id_0CCA[var_0]["cover_trans"][var_11][var_6] );
+                    var_9 = findbestsplittime( anim.archetypes[var_0]["cover_trans"][var_11][var_6], 1, var_3 );
+                    var_10 = getsplitdeltas( anim.archetypes[var_0]["cover_trans"][var_11][var_6], var_9 );
+                    anim.archetypes[var_0]["cover_trans_predist"][var_11][var_6] = var_10.predist;
+                    anim.archetypes[var_0]["cover_trans_dist"][var_11][var_6] = var_10.postdist;
+                    anim.archetypes[var_0]["cover_trans_angles"][var_11][var_6] = var_10.angledelta;
+                    anim.archetypes[var_0]["cover_trans_move_end"][var_11][var_6] = getmoveend( anim.archetypes[var_0]["cover_trans"][var_11][var_6] );
                 }
             }
         }
 
-        if ( isdefined( anim._id_0CCA[var_0]["cover_exit"] ) )
+        if ( isdefined( anim.archetypes[var_0]["cover_exit"] ) )
         {
             foreach ( var_11, var_8 in var_5 )
             {
                 if ( issubstr( var_11, "heat" ) )
                     continue;
 
-                if ( isdefined( anim._id_0CCA[var_0]["cover_exit"][var_11] ) && isdefined( anim._id_0CCA[var_0]["cover_exit"][var_11][var_6] ) )
+                if ( isdefined( anim.archetypes[var_0]["cover_exit"][var_11] ) && isdefined( anim.archetypes[var_0]["cover_exit"][var_11][var_6] ) )
                 {
-                    var_9 = findbestsplittime( anim._id_0CCA[var_0]["cover_exit"][var_11][var_6], 0, var_3 );
-                    var_10 = getsplitdeltas( anim._id_0CCA[var_0]["cover_exit"][var_11][var_6], var_9 );
-                    anim._id_0CCA[var_0]["cover_exit_dist"][var_11][var_6] = var_10.predist;
-                    anim._id_0CCA[var_0]["cover_exit_postdist"][var_11][var_6] = var_10.postdist;
-                    anim._id_0CCA[var_0]["cover_exit_angles"][var_11][var_6] = var_10.angledelta;
+                    var_9 = findbestsplittime( anim.archetypes[var_0]["cover_exit"][var_11][var_6], 0, var_3 );
+                    var_10 = getsplitdeltas( anim.archetypes[var_0]["cover_exit"][var_11][var_6], var_9 );
+                    anim.archetypes[var_0]["cover_exit_dist"][var_11][var_6] = var_10.predist;
+                    anim.archetypes[var_0]["cover_exit_postdist"][var_11][var_6] = var_10.postdist;
+                    anim.archetypes[var_0]["cover_exit_angles"][var_11][var_6] = var_10.angledelta;
                 }
             }
         }

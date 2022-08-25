@@ -28,7 +28,7 @@ setParent( var_0 )
         self.parent removechild( self );
 
     self.parent = var_0;
-    self.parent addChild( self );
+    self.parent addchild( self );
 
     if ( isdefined( self.point ) )
         setpoint( self.point, self.relativePoint, self.xoffset, self.yoffset );
@@ -41,7 +41,7 @@ getParent()
     return self.parent;
 }
 
-addChild( var_0 )
+addchild( var_0 )
 {
     var_0.index = self.children.size;
     self.children[self.children.size] = var_0;
@@ -227,7 +227,7 @@ updatebarscale( var_0, var_1 )
         var_2 = 1;
 
     self.bar.frac = var_0;
-    self.bar setshader( self.bar._id_8392, var_2, self.height );
+    self.bar setshader( self.bar.shader, var_2, self.height );
 
     if ( isdefined( var_1 ) && var_2 < self.width )
     {
@@ -325,7 +325,7 @@ createtimer( var_0, var_1 )
     return var_2;
 }
 
-_id_2420( var_0, var_1, var_2 )
+createIcon( var_0, var_1, var_2 )
 {
     var_3 = newclienthudelem( self );
     var_3.elemtype = "icon";
@@ -333,8 +333,8 @@ _id_2420( var_0, var_1, var_2 )
     var_3.y = 0;
     var_3.width = var_1;
     var_3.height = var_2;
-    var_3._id_1319 = var_3.width;
-    var_3._id_130A = var_3.height;
+    var_3.basewidth = var_3.width;
+    var_3.baseheight = var_3.height;
     var_3.xoffset = 0;
     var_3.yoffset = 0;
     var_3.children = [];
@@ -344,13 +344,13 @@ _id_2420( var_0, var_1, var_2 )
     if ( isdefined( var_0 ) )
     {
         var_3 setshader( var_0, var_1, var_2 );
-        var_3._id_8392 = var_0;
+        var_3.shader = var_0;
     }
 
     return var_3;
 }
 
-_id_243E( var_0, var_1, var_2, var_3 )
+createServerIcon( var_0, var_1, var_2, var_3 )
 {
     if ( isdefined( var_3 ) )
         var_4 = newteamhudelem( var_3 );
@@ -362,8 +362,8 @@ _id_243E( var_0, var_1, var_2, var_3 )
     var_4.y = 0;
     var_4.width = var_1;
     var_4.height = var_2;
-    var_4._id_1319 = var_4.width;
-    var_4._id_130A = var_4.height;
+    var_4.basewidth = var_4.width;
+    var_4.baseheight = var_4.height;
     var_4.xoffset = 0;
     var_4.yoffset = 0;
     var_4.children = [];
@@ -373,13 +373,13 @@ _id_243E( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_0 ) )
     {
         var_4 setshader( var_0, var_1, var_2 );
-        var_4._id_8392 = var_0;
+        var_4.shader = var_0;
     }
 
     return var_4;
 }
 
-_id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
+createServerBar( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( isdefined( var_4 ) )
         var_6 = newteamhudelem( var_4 );
@@ -391,12 +391,12 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6.frac = 0;
     var_6.color = var_0;
     var_6.sort = -2;
-    var_6._id_8392 = "progress_bar_fill";
+    var_6.shader = "progress_bar_fill";
     var_6 setshader( "progress_bar_fill", var_1, var_2 );
     var_6.hidden = 0;
 
     if ( isdefined( var_3 ) )
-        var_6._id_38B2 = var_3;
+        var_6.flashFarc = var_3;
 
     if ( isdefined( var_4 ) )
         var_7 = newteamhudelem( var_4 );
@@ -421,7 +421,7 @@ _id_243C( var_0, var_1, var_2, var_3, var_4, var_5 )
     return var_7;
 }
 
-_id_23E5( var_0, var_1, var_2, var_3 )
+createBar( var_0, var_1, var_2, var_3 )
 {
     var_4 = newclienthudelem( self );
     var_4.x = 0;
@@ -429,12 +429,12 @@ _id_23E5( var_0, var_1, var_2, var_3 )
     var_4.frac = 0;
     var_4.color = var_0;
     var_4.sort = -2;
-    var_4._id_8392 = "progress_bar_fill";
+    var_4.shader = "progress_bar_fill";
     var_4 setshader( "progress_bar_fill", var_1, var_2 );
     var_4.hidden = 0;
 
     if ( isdefined( var_3 ) )
-        var_4._id_38B2 = var_3;
+        var_4.flashFarc = var_3;
 
     var_5 = newclienthudelem( self );
     var_5.elemtype = "bar";
@@ -453,7 +453,7 @@ _id_23E5( var_0, var_1, var_2, var_3 )
     return var_5;
 }
 
-_id_3F46()
+getCurrentFraction()
 {
     var_0 = self.bar.frac;
 
@@ -471,7 +471,7 @@ _id_3F46()
     return var_0;
 }
 
-_id_2435( var_0, var_1 )
+createPrimaryProgressBar( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0;
@@ -482,12 +482,12 @@ _id_2435( var_0, var_1 )
     if ( self issplitscreenplayerprimary() )
         var_1 += 20;
 
-    var_2 = _id_23E5( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
+    var_2 = createBar( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
     var_2 setpoint( "CENTER", undefined, level.primaryprogressbarx + var_0, level.primaryprogressbary + var_1 );
     return var_2;
 }
 
-_id_2436( var_0, var_1 )
+createPrimaryProgressBarText( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0;
@@ -504,26 +504,26 @@ _id_2436( var_0, var_1 )
     return var_2;
 }
 
-_id_2444( var_0 )
+createTeamProgressBar( var_0 )
 {
-    var_1 = _id_243C( ( 1.0, 0.0, 0.0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
+    var_1 = createServerBar( ( 1.0, 0.0, 0.0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
     var_1 setpoint( "TOP", undefined, 0, level.teamprogressbary );
     return var_1;
 }
 
-_id_2445( var_0 )
+createTeamProgressBarText( var_0 )
 {
     var_1 = createserverfontstring( "default", level.teamprogressbarfontsize, var_0 );
     var_1 setpoint( "TOP", undefined, 0, level.teamprogressbartexty );
     return var_1;
 }
 
-_id_7F72( var_0 )
+setFlashFrac( var_0 )
 {
-    self.bar._id_38B2 = var_0;
+    self.bar.flashFarc = var_0;
 }
 
-_id_4871()
+hideElem()
 {
     if ( self.hidden )
         return;
@@ -542,7 +542,7 @@ _id_4871()
     }
 }
 
-_id_850A()
+showElem()
 {
     if ( !self.hidden )
         return;
@@ -563,7 +563,7 @@ _id_850A()
         self.alpha = 1;
 }
 
-_id_38C6()
+flashThread()
 {
     self endon( "death" );
 
@@ -572,7 +572,7 @@ _id_38C6()
 
     for (;;)
     {
-        if ( self.frac >= self._id_38B2 )
+        if ( self.frac >= self.flashFarc )
         {
             if ( !self.hidden )
             {
@@ -594,7 +594,7 @@ _id_38C6()
     }
 }
 
-_id_28E9()
+destroyElem()
 {
     var_0 = [];
 
@@ -613,33 +613,33 @@ _id_28E9()
     self destroy();
 }
 
-_id_7F8D( var_0 )
+setIconShader( var_0 )
 {
     self setshader( var_0, self.width, self.height );
-    self._id_8392 = var_0;
+    self.shader = var_0;
 }
 
-_id_3FD0( var_0 )
+getIconShader( var_0 )
 {
-    return self._id_8392;
+    return self.shader;
 }
 
-_id_7F8E( var_0, var_1 )
+setIconSize( var_0, var_1 )
 {
-    self setshader( self._id_8392, var_0, var_1 );
+    self setshader( self.shader, var_0, var_1 );
 }
 
-_id_8358( var_0 )
+setWidth( var_0 )
 {
     self.width = var_0;
 }
 
-_id_7F89( var_0 )
+setHeight( var_0 )
 {
     self.height = var_0;
 }
 
-_id_800F( var_0, var_1 )
+setSize( var_0, var_1 )
 {
     self.width = var_0;
     self.height = var_1;
@@ -654,7 +654,7 @@ updatechildren()
     }
 }
 
-_id_9718()
+transitionReset()
 {
     self.x = self.xoffset;
     self.y = self.yoffset;
@@ -665,12 +665,12 @@ _id_9718()
         self.label = &"";
     }
     else if ( self.elemtype == "icon" )
-        self setshader( self._id_8392, self.width, self.height );
+        self setshader( self.shader, self.width, self.height );
 
     self.alpha = 0;
 }
 
-_id_9721( var_0 )
+transitionZoomIn( var_0 )
 {
     switch ( self.elemtype )
     {
@@ -681,13 +681,13 @@ _id_9721( var_0 )
             self.fontscale = self.basefontscale;
             break;
         case "icon":
-            self setshader( self._id_8392, self.width * 6, self.height * 6 );
+            self setshader( self.shader, self.width * 6, self.height * 6 );
             self scaleovertime( var_0, self.width, self.height );
             break;
     }
 }
 
-_id_9717( var_0, var_1 )
+transitionPulseFXIn( var_0, var_1 )
 {
     var_2 = int( var_0 ) * 1000;
     var_3 = int( var_1 ) * 1000;
@@ -703,7 +703,7 @@ _id_9717( var_0, var_1 )
     }
 }
 
-_id_971A( var_0, var_1 )
+transitionSlideIn( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = "left";
@@ -729,7 +729,7 @@ _id_971A( var_0, var_1 )
     self.y = self.yoffset;
 }
 
-_id_971B( var_0, var_1 )
+transitionSlideOut( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = "left";
@@ -759,7 +759,7 @@ _id_971B( var_0, var_1 )
     self.y = var_3;
 }
 
-_id_9722( var_0 )
+transitionZoomOut( var_0 )
 {
     switch ( self.elemtype )
     {
@@ -773,17 +773,17 @@ _id_9722( var_0 )
     }
 }
 
-_id_9712( var_0 )
+transitionFadeIn( var_0 )
 {
     self fadeovertime( var_0 );
 
-    if ( isdefined( self._id_5A23 ) )
-        self.alpha = self._id_5A23;
+    if ( isdefined( self.maxAlpha ) )
+        self.alpha = self.maxAlpha;
     else
         self.alpha = 1;
 }
 
-_id_9713( var_0 )
+transitionFadeOut( var_0 )
 {
     self fadeovertime( 0.15 );
     self.alpha = 0;
@@ -811,7 +811,7 @@ _id_5206( var_0 )
     return 0;
 }
 
-_id_1C4C( var_0 )
+getDailyRef( var_0 )
 {
     if ( _id_5206( var_0 ) )
         return _id_6FFE( var_0 );
@@ -877,7 +877,7 @@ _id_2B5E( var_0, var_1, var_2, var_3 )
     common_scripts\utility::_id_A069( var_3, "joined_team", "death" );
 
     if ( isdefined( var_4 ) )
-        var_4 _id_28E9();
+        var_4 destroyElem();
 }
 
 _id_6FFE( var_0 )

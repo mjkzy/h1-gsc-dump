@@ -21,10 +21,10 @@
 
 init()
 {
-    if ( isdefined( level.initedentityheadicons ) )
+    if ( isdefined( level._id_4DB6 ) )
         return;
 
-    level.initedentityheadicons = 1;
+    level._id_4DB6 = 1;
 
     if ( level.multiteambased )
     {
@@ -49,8 +49,8 @@ _id_7F86( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     if ( maps\mp\_utility::_id_5112( var_0 ) && !isplayer( var_0 ) )
         return;
 
-    if ( !isdefined( self.entityheadicons ) )
-        self.entityheadicons = [];
+    if ( !isdefined( self._id_331A ) )
+        self._id_331A = [];
 
     if ( !isdefined( var_5 ) )
         var_5 = 1;
@@ -75,48 +75,48 @@ _id_7F86( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     if ( !isplayer( var_0 ) && var_0 == "none" )
     {
-        foreach ( var_14, var_13 in self.entityheadicons )
+        foreach ( var_14, var_13 in self._id_331A )
         {
             if ( isdefined( var_13 ) )
                 var_13 destroy();
 
-            self.entityheadicons[var_14] = undefined;
+            self._id_331A[var_14] = undefined;
         }
     }
     else
     {
         if ( isplayer( var_0 ) )
         {
-            if ( isdefined( self.entityheadicons[var_0.guid] ) )
+            if ( isdefined( self._id_331A[var_0.guid] ) )
             {
-                self.entityheadicons[var_0.guid] destroy();
-                self.entityheadicons[var_0.guid] = undefined;
+                self._id_331A[var_0.guid] destroy();
+                self._id_331A[var_0.guid] = undefined;
             }
 
             if ( var_1 == "" )
                 return;
 
-            if ( isdefined( self.entityheadicons[var_0.team] ) )
+            if ( isdefined( self._id_331A[var_0.team] ) )
             {
-                self.entityheadicons[var_0.team] destroy();
-                self.entityheadicons[var_0.team] = undefined;
+                self._id_331A[var_0.team] destroy();
+                self._id_331A[var_0.team] = undefined;
             }
 
             var_13 = newclienthudelem( var_0 );
-            self.entityheadicons[var_0.guid] = var_13;
+            self._id_331A[var_0.guid] = var_13;
         }
         else
         {
-            if ( isdefined( self.entityheadicons[var_0] ) )
+            if ( isdefined( self._id_331A[var_0] ) )
             {
-                self.entityheadicons[var_0] destroy();
-                self.entityheadicons[var_0] = undefined;
+                self._id_331A[var_0] destroy();
+                self._id_331A[var_0] = undefined;
             }
 
             if ( var_1 == "" )
                 return;
 
-            foreach ( var_14, var_16 in self.entityheadicons )
+            foreach ( var_14, var_16 in self._id_331A )
             {
                 if ( var_14 == "axis" || var_14 == "allies" )
                     continue;
@@ -125,13 +125,13 @@ _id_7F86( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
                 if ( var_17.team == var_0 )
                 {
-                    self.entityheadicons[var_14] destroy();
-                    self.entityheadicons[var_14] = undefined;
+                    self._id_331A[var_14] destroy();
+                    self._id_331A[var_14] = undefined;
                 }
             }
 
             var_13 = newteamhudelem( var_0 );
-            self.entityheadicons[var_0] = var_13;
+            self._id_331A[var_0] = var_13;
         }
 
         if ( !isdefined( var_3 ) || !isdefined( var_4 ) )
@@ -183,7 +183,7 @@ _id_28EE()
     self endon( "destroyIconsOnDeath" );
     self waittill( "death" );
 
-    foreach ( var_2, var_1 in self.entityheadicons )
+    foreach ( var_2, var_1 in self._id_331A )
     {
         if ( !isdefined( var_1 ) )
             continue;

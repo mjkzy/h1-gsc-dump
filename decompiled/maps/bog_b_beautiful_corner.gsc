@@ -27,8 +27,8 @@ beautiful_corner()
     setup_flags();
     common_scripts\_ca_blockout::init();
     maps\bog_b_precache::main();
-    maps\_vehicle::_id_186C( "bog_mortar", "vehicle_m1a1_abrams", undefined, "script_vehicle" );
-    maps\_vehicle::_id_1856( 999, 500, 1500 );
+    maps\_vehicle::build_template( "bog_mortar", "vehicle_m1a1_abrams", undefined, "script_vehicle" );
+    maps\_vehicle::build_life( 999, 500, 1500 );
     maps\createart\bog_b_art::main();
     maps\bog_b_fx::main();
     maps\_load::main();
@@ -74,11 +74,11 @@ beautiful_corner_settings()
 {
     level._id_78AC["beautiful_guy"]["bc_casual_idle"][0] = %casual_stand_idle;
     level.beautiful_weapon = "m4_gl_mp";
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_alley" );
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_store" );
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_apartment" );
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_backalley" );
-    level.beautiful_views = common_scripts\utility::_id_0CDA( level.beautiful_views, "beautiful_corner_griggs" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_alley" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_store" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_apartment" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_backalley" );
+    level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_griggs" );
     level.beautiful_visions["beautiful_corner_alley"] = "bog_b_street_part01";
     level.beautiful_visions["beautiful_corner_apartment"] = "bog_b";
     level.beautiful_visions["beautiful_corner_backalley"] = "bog_b_street_part01";
@@ -111,8 +111,8 @@ beautiful_corner_settings()
 remove_all_weapons()
 {
     var_0 = getentarray( "weapon_dragunov", "classname" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "weapon_rpg_player", "classname" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, getentarray( "weapon_saw", "classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "weapon_rpg_player", "classname" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, getentarray( "weapon_saw", "classname" ) );
 
     foreach ( var_2 in var_0 )
         var_2 delete();

@@ -42,7 +42,7 @@ _id_9B10()
 
 }
 
-_id_07DE( var_0, var_1, var_2, var_3, var_4, var_5 )
+adddeathicon( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !level.teambased )
         return;
@@ -66,8 +66,8 @@ _id_07DE( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( level.hardcoremode )
         return;
 
-    if ( isdefined( self.lastdeathicon ) )
-        self.lastdeathicon destroy();
+    if ( isdefined( self._id_5592 ) )
+        self._id_5592 destroy();
 
     var_7 = newteamhudelem( var_2 );
     var_7.x = var_6[0];
@@ -82,7 +82,7 @@ _id_07DE( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_7 setshader( "headicon_dead", 7, 7 );
 
     var_7 setwaypoint( 0 );
-    self.lastdeathicon = var_7;
+    self._id_5592 = var_7;
     var_7 thread _id_28F5( var_3 );
 }
 

@@ -114,7 +114,7 @@ getspawnpoint( var_0 )
     if ( !isdefined( var_3 ) )
         var_3 = var_2[0];
 
-    self._id_117A = var_3;
+    self.avatar_spawnpoint = var_3;
     return var_3;
 }
 

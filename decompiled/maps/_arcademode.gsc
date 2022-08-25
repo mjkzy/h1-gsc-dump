@@ -139,7 +139,7 @@ main()
         waitframe;
         waitframe;
         var_3 = getarraykeys( level.arcademode_multikills );
-        common_scripts\utility::_id_0CF0( var_3, ::arcademode_add_points_for_mod );
+        common_scripts\utility::array_levelthread( var_3, ::arcademode_add_points_for_mod );
         level.arcademode_multikills = var_4;
     }
 }
@@ -185,8 +185,8 @@ arcademode_get_level_time()
 arcademode_death_detection()
 {
     level endon( "arcademode_complete" );
-    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "missionfailed" );
-    level.player maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
+    level maps\_utility::add_wait( common_scripts\utility::_id_384A, "missionfailed" );
+    level.player maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
     maps\_utility::_id_2BDD();
     setdvar( "arcademode_died", 1 );
     var_0 = getdvarint( "arcademode_lives" );
@@ -231,7 +231,7 @@ arcademode_update_timer()
     var_0.font = "objective";
     var_0 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_0.hidewheninmenu = 1;
-    level._id_0CC4 = var_0;
+    level.arcademode_hud_timer = var_0;
     level endon( "arcadeMode_remove_timer" );
     var_1 = level.arcademode_time;
     var_0 settimer( var_1 - 0.1 );
@@ -303,7 +303,7 @@ arcademode_convert_extra_lives()
 
 arcademode_checkpoint_print()
 {
-    if ( !maps\_utility::_id_0CC3() )
+    if ( !maps\_utility::arcademode() )
         return;
 
     arcademode_convert_extra_lives();
@@ -722,8 +722,8 @@ arcademode_multiplier_maxed()
     musicstop();
     wait 0.05;
     musicplay( "airplane_alt_maximum_music" );
-    level maps\_utility::_id_07BE( maps\_utility::_id_0694, var_0 + 1 );
-    level maps\_utility::_id_07BE( maps\_utility::_id_A099, "lost_streak" );
+    level maps\_utility::add_wait( maps\_utility::_wait, var_0 + 1 );
+    level maps\_utility::add_wait( maps\_utility::_id_A099, "lost_streak" );
     maps\_utility::_id_2BDD();
     thread arcademode_reset_kill_streak();
     musicstop();
@@ -1515,11 +1515,11 @@ rescale_ending_huds( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     var_10 = 11.6667 + var_7;
-    level._id_0CC4[0].x = 320 + var_10 + 0 * var_6;
-    level._id_0CC4[1].x = 320 + var_10 + 8.3 * var_6;
-    level._id_0CC4[2].x = 320 + var_10 + 16.6 * var_6;
-    level._id_0CC4[3].x = 320 + var_10 + 21 * var_6;
-    level._id_0CC4[4].x = 320 + var_10 + 29.6 * var_6;
+    level.arcademode_hud_timer[0].x = 320 + var_10 + 0 * var_6;
+    level.arcademode_hud_timer[1].x = 320 + var_10 + 8.3 * var_6;
+    level.arcademode_hud_timer[2].x = 320 + var_10 + 16.6 * var_6;
+    level.arcademode_hud_timer[3].x = 320 + var_10 + 21 * var_6;
+    level.arcademode_hud_timer[4].x = 320 + var_10 + 29.6 * var_6;
     var_11 = 58.5;
     var_12 = var_11 - ( 10 - var_3 ) * 13 * 0.5;
 
@@ -1558,9 +1558,9 @@ arcademode_ends()
 
     var_0 = 0;
 
-    if ( isdefined( level._id_0CC6 ) )
+    if ( isdefined( level.arcademode_stoptime ) )
     {
-        var_0 = gettime() - level._id_0CC6;
+        var_0 = gettime() - level.arcademode_stoptime;
         var_0 *= 0.001;
     }
 
@@ -1708,23 +1708,23 @@ arcademode_ends()
     var_28.color = ( 1.0, 1.0, 1.0 );
     var_28 _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     var_28 settext( &"SCRIPT_TIME_REMAINING" );
-    level._id_0CC4 = [];
-    level._id_0CC4[0] = new_ending_hud( "center", var_4, 0, var_11 );
-    level._id_0CC4[1] = new_ending_hud( "center", var_4, 0, var_11 );
-    level._id_0CC4[2] = new_ending_hud( "center", var_4, 0, var_11 );
-    level._id_0CC4[2] settext( &"SCRIPT_COLON" );
-    level._id_0CC4[3] = new_ending_hud( "center", var_4, 0, var_11 );
-    level._id_0CC4[4] = new_ending_hud( "center", var_4, 0, var_11 );
+    level.arcademode_hud_timer = [];
+    level.arcademode_hud_timer[0] = new_ending_hud( "center", var_4, 0, var_11 );
+    level.arcademode_hud_timer[1] = new_ending_hud( "center", var_4, 0, var_11 );
+    level.arcademode_hud_timer[2] = new_ending_hud( "center", var_4, 0, var_11 );
+    level.arcademode_hud_timer[2] settext( &"SCRIPT_COLON" );
+    level.arcademode_hud_timer[3] = new_ending_hud( "center", var_4, 0, var_11 );
+    level.arcademode_hud_timer[4] = new_ending_hud( "center", var_4, 0, var_11 );
 
     for ( var_21 = 0; var_21 < 5; var_21++ )
     {
-        level._id_0CC4[var_21].alignx = "left";
-        level._id_0CC4[var_21].horzalign = "fullscreen";
-        level._id_0CC4[var_21].vertalign = "middle";
-        level._id_0CC4[var_21].fontscale = 1.7;
-        level._id_0CC4[var_21].fontscale = 1.7;
-        level._id_0CC4[var_21].color = ( 1.0, 1.0, 1.0 );
-        level._id_0CC4[var_21] _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
+        level.arcademode_hud_timer[var_21].alignx = "left";
+        level.arcademode_hud_timer[var_21].horzalign = "fullscreen";
+        level.arcademode_hud_timer[var_21].vertalign = "middle";
+        level.arcademode_hud_timer[var_21].fontscale = 1.7;
+        level.arcademode_hud_timer[var_21].fontscale = 1.7;
+        level.arcademode_hud_timer[var_21].color = ( 1.0, 1.0, 1.0 );
+        level.arcademode_hud_timer[var_21] _meth_8347( -0.6, 0, 0, 0, ( 0.247, 0.439, 0.094 ), 0.3, -0.1, 0, ( 0.302, 0.588, 0.047 ), 0.75 );
     }
 
     ending_set_time( var_26, var_27 );
@@ -1870,7 +1870,7 @@ arcademode_ends()
     else
     {
         for ( var_21 = 0; var_21 < 5; var_21++ )
-            level._id_0CC4[var_21] setpulsefx( 0, 0, 1000 );
+            level.arcademode_hud_timer[var_21] setpulsefx( 0, 0, 1000 );
 
         var_28 setpulsefx( 0, 0, 1000 );
         arcademode_redraw_lives( 0 );
@@ -2013,7 +2013,7 @@ arcademode_ends()
         wait 0.5;
 
         for ( var_21 = 0; var_21 < 5; var_21++ )
-            level._id_0CC4[var_21] setpulsefx( 0, 0, 1000 );
+            level.arcademode_hud_timer[var_21] setpulsefx( 0, 0, 1000 );
 
         var_28 setpulsefx( 0, 0, 1000 );
     }
@@ -2143,7 +2143,7 @@ player_invul_forever()
         level.player.deathinvulnerabletime = 70000;
         level.player.ignoreme = 1;
         var_0 = getaispeciesarray( "all", "all" );
-        common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5E, 1 );
+        common_scripts\utility::array_thread( var_0, maps\_utility::_id_7E5E, 1 );
         wait 0.05;
     }
 }
@@ -2161,10 +2161,10 @@ ending_set_time( var_0, var_1 )
         var_1 -= 10;
     }
 
-    level._id_0CC4[4] setvalue( var_1 );
-    level._id_0CC4[3] setvalue( var_3 );
-    level._id_0CC4[1] setvalue( var_0 );
-    level._id_0CC4[0] setvalue( var_2 );
+    level.arcademode_hud_timer[4] setvalue( var_1 );
+    level.arcademode_hud_timer[3] setvalue( var_3 );
+    level.arcademode_hud_timer[1] setvalue( var_0 );
+    level.arcademode_hud_timer[0] setvalue( var_2 );
 }
 
 draw_checkpoint( var_0, var_1, var_2 )

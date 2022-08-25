@@ -25,16 +25,16 @@ init()
     {
         foreach ( var_1 in level.teamnamelist )
         {
-            level.isteamspeaking[var_1] = 0;
-            level.speakers[var_1] = [];
+            level._id_51D0[var_1] = 0;
+            level._id_8A19[var_1] = [];
         }
     }
     else
     {
-        level.isteamspeaking["allies"] = 0;
-        level.isteamspeaking["axis"] = 0;
-        level.speakers["allies"] = [];
-        level.speakers["axis"] = [];
+        level._id_51D0["allies"] = 0;
+        level._id_51D0["axis"] = 0;
+        level._id_8A19["allies"] = [];
+        level._id_8A19["axis"] = [];
     }
 
     level.bcsounds = [];
@@ -46,19 +46,19 @@ init()
     level.bcsounds["c4_plant"] = "inform_attack_thwc4";
     level.bcsounds["claymore_plant"] = "inform_plant_claymore";
     level.bcsounds["kill"] = "inform_killfirm_infantry";
-    level._id_133F = [];
+    level.bcinfo = [];
 
-    foreach ( var_5, var_4 in level.speakers )
+    foreach ( var_5, var_4 in level._id_8A19 )
     {
         level._id_9F33[var_5]["m"] = 0;
         level._id_9F33[var_5]["fe"] = 0;
     }
 
     var_6 = getdvar( "g_gametype" );
-    level.istactical = 1;
+    level._id_51C7 = 1;
 
     if ( var_6 == "war" || var_6 == "conf" || var_6 == "dom" )
-        level.istactical = 0;
+        level._id_51C7 = 0;
 
     level thread _id_64C8();
 }
@@ -83,7 +83,7 @@ _id_64D6()
         if ( maps\mp\_utility::_id_5092( level._id_9E56 ) )
             continue;
 
-        self._id_133F = [];
+        self.bcinfo = [];
         var_0 = maps\mp\gametypes\_teams::_id_4120( self.team );
 
         if ( !isdefined( self.pers["voiceIndex"] ) )
@@ -205,7 +205,7 @@ _id_7826( var_0, var_1, var_2, var_3 )
     if ( isdefined( level._id_1CA7 ) && level._id_1CA7 )
         return;
 
-    if ( isdefined( var_0._id_133C ) && var_0._id_133C == 1 )
+    if ( isdefined( var_0.bcdisabled ) && var_0.bcdisabled == 1 )
         return;
 
     if ( _id_51B2( var_0 ) )
@@ -249,11 +249,11 @@ _id_2D7C( var_0, var_1, var_2 )
         var_2 = 0;
 
     var_3 = self.pers["team"];
-    level _id_0830( self, var_3 );
+    level addspeaker( self, var_3 );
 
-    if ( var_2 && ( !level.istactical || !maps\mp\_utility::_hasperk( "specialty_coldblooded" ) && ( isagent( self ) || self issighted() ) ) )
+    if ( var_2 && ( !level._id_51C7 || !maps\mp\_utility::_hasperk( "specialty_coldblooded" ) && ( isagent( self ) || self issighted() ) ) )
     {
-        if ( isagent( self ) || level._id_09DD[var_3] > 3 )
+        if ( isagent( self ) || level.alivecount[var_3] > 3 )
             thread _id_2D7D( var_0, var_3 );
     }
 
@@ -302,7 +302,7 @@ _id_2D82( var_0, var_1 )
         var_6 = self.origin;
         wait 0.5;
 
-        foreach ( var_8 in level.participants )
+        foreach ( var_8 in level._id_669D )
         {
             if ( !isdefined( var_8 ) )
                 continue;
@@ -358,9 +358,9 @@ _id_51B2( var_0, var_1 )
 
     if ( isdefined( var_0 ) && isdefined( var_0.team ) && var_0.team != "spectator" )
     {
-        for ( var_3 = 0; var_3 < level.speakers[var_0.team].size; var_3++ )
+        for ( var_3 = 0; var_3 < level._id_8A19[var_0.team].size; var_3++ )
         {
-            var_4 = level.speakers[var_0.team][var_3];
+            var_4 = level._id_8A19[var_0.team][var_3];
 
             if ( var_4 == var_0 )
                 return 1;
@@ -376,48 +376,48 @@ _id_51B2( var_0, var_1 )
     return 0;
 }
 
-_id_0830( var_0, var_1 )
+addspeaker( var_0, var_1 )
 {
-    level.speakers[var_1][level.speakers[var_1].size] = var_0;
+    level._id_8A19[var_1][level._id_8A19[var_1].size] = var_0;
 }
 
 _id_73DF( var_0, var_1 )
 {
     var_2 = [];
 
-    for ( var_3 = 0; var_3 < level.speakers[var_1].size; var_3++ )
+    for ( var_3 = 0; var_3 < level._id_8A19[var_1].size; var_3++ )
     {
-        if ( level.speakers[var_1][var_3] == var_0 )
+        if ( level._id_8A19[var_1][var_3] == var_0 )
             continue;
 
-        var_2[var_2.size] = level.speakers[var_1][var_3];
+        var_2[var_2.size] = level._id_8A19[var_1][var_3];
     }
 
-    level.speakers[var_1] = var_2;
+    level._id_8A19[var_1] = var_2;
 }
 
 _id_2AF6( var_0 )
 {
-    var_0._id_133C = 1;
+    var_0.bcdisabled = 1;
 }
 
 _id_3109( var_0 )
 {
-    var_0._id_133C = undefined;
+    var_0.bcdisabled = undefined;
 }
 
 _id_9AFF( var_0 )
 {
     var_1 = self.pers["team"];
-    self._id_133F["last_say_time"][var_0] = gettime();
-    level._id_133F["last_say_time"][var_1][var_0] = gettime();
-    level._id_133F["last_say_pos"][var_1][var_0] = self.origin;
+    self.bcinfo["last_say_time"][var_0] = gettime();
+    level.bcinfo["last_say_time"][var_1][var_0] = gettime();
+    level.bcinfo["last_say_pos"][var_1][var_0] = self.origin;
 }
 
 _id_400A()
 {
     var_0 = _id_3CBF();
-    var_0 = common_scripts\utility::_id_0CF5( var_0 );
+    var_0 = common_scripts\utility::array_randomize( var_0 );
 
     if ( var_0.size )
     {
@@ -440,7 +440,7 @@ _id_400A()
 _id_414B( var_0 )
 {
     var_1 = _id_3CBF();
-    var_1 = common_scripts\utility::_id_0CF5( var_1 );
+    var_1 = common_scripts\utility::array_randomize( var_1 );
 
     if ( var_1.size )
     {
@@ -462,7 +462,7 @@ _id_414B( var_0 )
 
 _id_3CBF()
 {
-    var_0 = anim._id_134A;
+    var_0 = anim.bcs_locations;
     var_1 = self getistouchingentities( var_0 );
     var_2 = [];
 
@@ -477,8 +477,8 @@ _id_3CBF()
 
 _id_9AA2()
 {
-    if ( isdefined( anim._id_134A ) )
-        anim._id_134A = common_scripts\utility::_id_0D01( anim._id_134A );
+    if ( isdefined( anim.bcs_locations ) )
+        anim.bcs_locations = common_scripts\utility::array_removeundefined( anim.bcs_locations );
 }
 
 _id_503C()
@@ -568,7 +568,7 @@ _id_3F24( var_0 )
 
     foreach ( var_4 in var_2 )
     {
-        if ( _id_50D4( var_4, var_0 ) && !isdefined( self.qafinished ) )
+        if ( _id_50D4( var_4, var_0 ) && !isdefined( self._id_7073 ) )
         {
             var_1 = var_4;
             break;
@@ -622,27 +622,27 @@ _id_409F( var_0, var_1 )
     return var_2;
 }
 
-_id_132E()
+battlechatter_canprint()
 {
     return 0;
 }
 
-_id_132F()
+battlechatter_canprintdump()
 {
     return 0;
 }
 
-_id_1335( var_0 )
+battlechatter_print( var_0 )
 {
 
 }
 
-_id_1336( var_0 )
+battlechatter_printdump( var_0 )
 {
 
 }
 
-_id_1330( var_0 )
+battlechatter_debugprint( var_0 )
 {
 
 }
@@ -652,7 +652,7 @@ _id_3EE9( var_0 )
 
 }
 
-_id_1337( var_0, var_1, var_2 )
+battlechatter_printdumpline( var_0, var_1, var_2 )
 {
 
 }

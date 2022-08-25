@@ -24,7 +24,7 @@ _id_70F9( var_0 )
     level notify( "rain_change", "hard", var_0 );
     level thread _id_70F8( 10, var_0 );
     wait(var_0 * 0.5);
-    level._id_0B3A["rain"] = "";
+    level.ambient_modifier["rain"] = "";
     wait(var_0 * 0.5);
 }
 
@@ -33,7 +33,7 @@ _id_70FF( var_0 )
     level notify( "rain_change", "hard", var_0 );
     level thread _id_70F8( 8, var_0 );
     wait(var_0 * 0.5);
-    level._id_0B3A["rain"] = "";
+    level.ambient_modifier["rain"] = "";
     wait(var_0 * 0.5);
 }
 
@@ -42,7 +42,7 @@ _id_70FE( var_0 )
     level notify( "rain_change", "light", var_0 );
     level thread _id_70F8( 5, var_0 );
     wait(var_0 * 0.5);
-    level._id_0B3A["rain"] = "light";
+    level.ambient_modifier["rain"] = "light";
     wait(var_0 * 0.5);
 }
 
@@ -51,7 +51,7 @@ _id_7100( var_0 )
     level notify( "rain_change", "none", var_0 );
     level thread _id_70F8( 0, var_0 );
     wait(var_0 * 0.5);
-    level._id_0B3A["rain"] = "norain";
+    level.ambient_modifier["rain"] = "norain";
     wait(var_0 * 0.5);
 }
 
@@ -123,7 +123,7 @@ _id_70F8( var_0, var_1 )
     }
 }
 
-_id_07FE( var_0 )
+addlightningexploder( var_0 )
 {
     if ( !isdefined( level._id_573F ) )
     {

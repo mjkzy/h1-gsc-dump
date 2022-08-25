@@ -27,8 +27,8 @@ move_in()
     {
         level.move_in_trigger_used[self.target] = 1;
         var_0 = spawn_guys_from_targetname( self.target );
-        common_scripts\utility::_id_0D13( var_0, ::stay_put );
-        common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5D, 1 );
+        common_scripts\utility::array_thread( var_0, ::stay_put );
+        common_scripts\utility::array_thread( var_0, maps\_utility::_id_7E5D, 1 );
         level.move_in_trigger_used[self.target] = var_0;
     }
 
@@ -45,8 +45,8 @@ move_in()
     }
 
     var_0 = maps\_utility::_id_733F( var_0 );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_7E5D, 0 );
-    common_scripts\utility::_id_0D13( var_0, ::ai_move_in );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_7E5D, 0 );
+    common_scripts\utility::array_thread( var_0, ::ai_move_in );
     self notify( "movein_trigger" + self.target );
 }
 
@@ -147,7 +147,7 @@ reacquire_player_pos()
 
     for (;;)
     {
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
         self.goalradius = 1500;
         wait 5;
     }
@@ -155,7 +155,7 @@ reacquire_player_pos()
 
 stay_put()
 {
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.goalradius = 64;
 }
 
@@ -165,22 +165,22 @@ debounce_think()
         return;
 
     var_0 = strtok( self._id_7A26, " " );
-    common_scripts\utility::_id_0CF0( var_0, ::add_trigger_to_debounce_list, self );
+    common_scripts\utility::array_levelthread( var_0, ::add_trigger_to_debounce_list, self );
     self waittill( "trigger" );
-    common_scripts\utility::_id_0CF0( var_0, ::delete_trigger_with_linkname );
-    common_scripts\utility::_id_0CF0( var_0, ::turn_off_triggers_from_links, 3 );
+    common_scripts\utility::array_levelthread( var_0, ::delete_trigger_with_linkname );
+    common_scripts\utility::array_levelthread( var_0, ::turn_off_triggers_from_links, 3 );
 
     for (;;)
     {
         self waittill( "trigger" );
-        common_scripts\utility::_id_0CF0( var_0, ::turn_off_triggers_from_links, 3 );
+        common_scripts\utility::array_levelthread( var_0, ::turn_off_triggers_from_links, 3 );
         wait 1;
     }
 }
 
 turn_off_triggers_from_links( var_0, var_1 )
 {
-    common_scripts\utility::_id_0D13( level.debounce_triggers[var_0], ::turn_off_trigger_for_time, var_1 );
+    common_scripts\utility::array_thread( level.debounce_triggers[var_0], ::turn_off_trigger_for_time, var_1 );
 }
 
 turn_off_trigger_for_time( var_0 )
@@ -203,7 +203,7 @@ delete_trigger_with_linkname( var_0 )
     if ( isdefined( var_1._id_7A26 ) )
     {
         var_2 = strtok( var_1._id_7A26, " " );
-        common_scripts\utility::_id_0CF0( var_2, ::remove_trigger_from_debounce_lists, var_1 );
+        common_scripts\utility::array_levelthread( var_2, ::remove_trigger_from_debounce_lists, var_1 );
         var_1 common_scripts\utility::_id_97CC();
     }
 }
@@ -321,7 +321,7 @@ group1_enemies_think( var_0 )
     var_0.count--;
 
     if ( var_0.count <= 1 )
-        maps\_utility::_id_0709( "group2_movein" );
+        maps\_utility::activate_trigger_with_noteworthy( "group2_movein" );
 }
 
 increment_count_and_spawn()
@@ -340,7 +340,7 @@ heat_spawners_attack( var_0, var_1, var_2 )
     if ( !isdefined( level._id_382E[var_2] ) )
         common_scripts\utility::_id_383D( var_2 );
 
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::chase_friendlies );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::chase_friendlies );
     var_3 = 1;
 
     if ( level._id_3BFE > 1 )
@@ -362,7 +362,7 @@ heat_spawners_attack( var_0, var_1, var_2 )
         if ( common_scripts\utility::_id_382E( var_2 ) )
             continue;
 
-        var_5 = common_scripts\utility::_id_0CF5( var_0 );
+        var_5 = common_scripts\utility::array_randomize( var_0 );
         spawn_limited_number_from_spawners( var_5, var_5, 3, var_3 );
         wait 0.05;
     }
@@ -414,7 +414,7 @@ enemy_accuracy_assignment()
         {
             if ( distance( level.player.origin, var_0[var_2].origin ) < 500 )
             {
-                var_0[var_2]._id_1300 = 1;
+                var_0[var_2].baseaccuracy = 1;
                 continue;
             }
 
@@ -454,11 +454,11 @@ enemy_accuracy_assignment()
         }
 
         for ( var_2 = 0; var_2 < var_7[var_5].size; var_2++ )
-            var_7[var_5][var_2]._id_1300 = 0.7;
+            var_7[var_5][var_2].baseaccuracy = 0.7;
 
         for ( var_2 = 0; var_2 < var_7[var_6].size; var_2++ )
         {
-            var_7[var_6][var_2]._id_1300 = 0.2;
+            var_7[var_6][var_2].baseaccuracy = 0.2;
             var_7[var_6][var_2].threatbias = 0;
         }
 
@@ -502,7 +502,7 @@ new_enemy_callout( var_0 )
     {
         var_3 = var_0[var_2];
 
-        if ( !var_3 _meth_81c2( level.player ) )
+        if ( !var_3 _meth_81C2( level.player ) )
             continue;
 
         if ( var_3._id_2D80 >= 0.2 )
@@ -519,7 +519,7 @@ new_enemy_callout( var_0 )
     {
         var_3 = var_0[var_2];
 
-        if ( !var_3 _meth_81c2( level.player ) )
+        if ( !var_3 _meth_81C2( level.player ) )
             continue;
 
         if ( !var_3 ai_is_near_teammates( var_1 ) )
@@ -718,15 +718,15 @@ patrol_guy()
     self.allowdeath = 1;
     maps\_utility::_id_7E45( "patrol_jog" );
     var_1 = getent( self.target, "targetname" );
-    maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
-    maps\_utility::_id_07BE( maps\_utility::_id_A099, "enemy" );
-    level maps\_utility::_id_075F( common_scripts\utility::_id_383F, "wounding_enemy_detected" );
+    maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
+    maps\_utility::add_wait( maps\_utility::_id_A099, "enemy" );
+    level maps\_utility::add_func( common_scripts\utility::_id_383F, "wounding_enemy_detected" );
     thread maps\_utility::_id_2BDD();
-    var_1 maps\_anim::_id_0BD0( self, var_0[self._id_7A18] );
+    var_1 maps\_anim::anim_generic_reach( self, var_0[self._id_7A18] );
 
     if ( !isdefined( self.enemy ) )
     {
-        maps\_anim::_id_0BCA( self, "gravity", var_0[self._id_7A18] );
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", var_0[self._id_7A18] );
         self._id_2AF3 = 1;
 
         if ( !isdefined( self.enemy ) )
@@ -748,7 +748,7 @@ patrol_guy()
 
     if ( isdefined( self.script_linkname ) && self.script_linkname == "house_enter_guy" )
     {
-        self _meth_81aa( level._id_6F7C.origin );
+        self _meth_81AA( level._id_6F7C.origin );
         self.goalradius = 16;
         self.pathenemyfightdist = 80;
         self.pathenemylookahead = 80;
@@ -758,7 +758,7 @@ patrol_guy()
     for (;;)
     {
         if ( isalive( self.enemy ) )
-            self _meth_81aa( self.enemy.origin );
+            self _meth_81AA( self.enemy.origin );
 
         wait 5;
     }
@@ -829,7 +829,7 @@ defend_heat_area_until_enemies_leave()
         common_scripts\utility::_id_3831( "player_defends_heat_area" );
         level notify( "player_goes_back_to_heat_area" );
         var_3 = getaispeciesarray( "axis", "all" );
-        common_scripts\utility::_id_0D13( var_3, ::reacquire_player_pos );
+        common_scripts\utility::array_thread( var_3, ::reacquire_player_pos );
         maps\_utility::_id_9FC0( "heat_enemies_back_off" );
     }
 }
@@ -885,7 +885,7 @@ wait_until_the_heat_defend_area_is_clear( var_0, var_1 )
         {
             common_scripts\utility::_id_383F( "heat_area_cleared" );
             var_4 = getnode( "enemy_flee_node", "targetname" );
-            common_scripts\utility::_id_0D13( var_2, ::flee_heat_area, var_4 );
+            common_scripts\utility::array_thread( var_2, ::flee_heat_area, var_4 );
             return;
         }
     }
@@ -896,7 +896,7 @@ flee_heat_area( var_0 )
     level endon( "player_goes_back_to_heat_area" );
     self notify( "stop_moving_in" );
     self notify( "stop_going_to_node" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = 64;
     self endon( "death" );
     self waittill( "goal" );
@@ -992,7 +992,7 @@ remove_drivers_from_array( var_0 )
 kill_all_enemies()
 {
     var_0 = getaiarray( "axis" );
-    common_scripts\utility::_id_0D13( var_0, ::die_soon );
+    common_scripts\utility::array_thread( var_0, ::die_soon );
 }
 
 kill_all_visible_enemies()
@@ -1120,12 +1120,12 @@ price_flees_grenades()
                 break;
 
             var_4 = 1;
-            level._id_6F7C maps\_anim::_id_0BB5( level._id_6F7C, "gravity", "wounded_crawl" );
+            level._id_6F7C maps\_anim::anim_custom_animmode_solo( level._id_6F7C, "gravity", "wounded_crawl" );
             insure_crawler_is_above_ground();
         }
     }
 
-    level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle" );
+    level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle" );
 }
 
 price_teleports_to_player()
@@ -1164,7 +1164,7 @@ underground()
 
 price_teleports_to_spot( var_0 )
 {
-    level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle" );
+    level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle" );
     price_teleports_to_org( var_0 );
     level._id_6F7C notify( "stop_loop" );
 }
@@ -1183,7 +1183,7 @@ insure_crawler_is_above_ground()
     if ( !underground() )
         return;
 
-    level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle" );
+    level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle" );
     price_teleports_to_player();
     level._id_6F7C notify( "stop_loop" );
     waitframe;
@@ -1226,13 +1226,13 @@ price_picks_target()
                     {
                         thread new_enemy_callout( var_3 );
                         price_turns_towards_guy( var_5 );
-                        level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+                        level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
                         return price_picks_target();
                     }
                 }
             }
 
-            level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+            level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
         }
 
         return 0;
@@ -1263,7 +1263,7 @@ price_targets_guy( var_0 )
     level.price_target_guy = var_0;
     level.price_target_time = gettime();
     level._id_6F7C.targetorg = var_1;
-    level._id_6F7C _meth_816b( var_1 );
+    level._id_6F7C _meth_816B( var_1 );
     var_1 endon( "death" );
     level._id_6F7C waittill( "death" );
     var_1 delete();
@@ -1391,7 +1391,7 @@ get_canshoot_array( var_0 )
 
     for ( var_4 = 0; var_4 < var_0.size; var_4++ )
     {
-        if ( !self _meth_81c0( var_0[var_4], var_3 ) )
+        if ( !self _meth_81C0( var_0[var_4], var_3 ) )
             continue;
 
         var_1[var_1.size] = var_0[var_4];
@@ -1406,7 +1406,7 @@ get_cansee_array( var_0 )
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( !self _meth_81c2( var_0[var_2] ) )
+        if ( !self _meth_81C2( var_0[var_2] ) )
             continue;
 
         var_1[var_1.size] = var_0[var_2];
@@ -1446,7 +1446,7 @@ price_moves_to_sniping_position()
 
         if ( var_7 > 32 )
         {
-            level._id_6F7C maps\_anim::_id_0BB5( level._id_6F7C, "gravity", "wounded_crawl" );
+            level._id_6F7C maps\_anim::anim_custom_animmode_solo( level._id_6F7C, "gravity", "wounded_crawl" );
             insure_crawler_is_above_ground();
 
             if ( distance( level._id_6F7C.origin, var_1 ) >= var_7 - 5 )
@@ -1484,7 +1484,7 @@ price_moves_to_sniping_position()
     var_5 = vectornormalize( var_8.origin - level._id_6F7C.origin );
     var_6 = vectordot( var_3, var_5 );
     waitframe;
-    level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+    level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
     common_scripts\utility::_id_3831( "price_moves_to_position" );
 }
 
@@ -1501,12 +1501,12 @@ price_aims_at( var_0 )
 
 price_turns_right()
 {
-    level._id_6F7C maps\_anim::_id_0BB5( level._id_6F7C, "gravity", "wounded_turn_right" );
+    level._id_6F7C maps\_anim::anim_custom_animmode_solo( level._id_6F7C, "gravity", "wounded_turn_right" );
 }
 
 price_turns_left()
 {
-    level._id_6F7C maps\_anim::_id_0BB5( level._id_6F7C, "gravity", "wounded_turn_left" );
+    level._id_6F7C maps\_anim::anim_custom_animmode_solo( level._id_6F7C, "gravity", "wounded_turn_left" );
 }
 
 idle_price_aim_at_player()
@@ -1539,7 +1539,7 @@ idle_until_price_has_target()
     level._id_6F7C endon( "death" );
     level._id_6F7C notify( "stop_loop" );
     waitframe;
-    level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+    level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
 
     if ( isdefined( level._id_6F7C.targetorg ) )
         level._id_6F7C.targetorg delete();
@@ -1591,7 +1591,7 @@ idle_until_price_has_target()
             {
                 level._id_6F7C notify( "stop_loop" );
                 waitframe;
-                level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+                level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
                 level._id_6F7C thread idle_price_aim_at_player();
             }
         }
@@ -1624,7 +1624,7 @@ fight_until_price_has_no_target()
         level._id_6F7C notify( "stop_loop" );
         waitframe;
         maps\_utility::_id_9F8C( var_5, 0.05 );
-        level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+        level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
     }
 }
 
@@ -1667,7 +1667,7 @@ price_fends_off_attacker( var_0 )
         {
             waitframe;
             var_4 = gettime();
-            level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+            level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
             level._id_6F7C common_scripts\utility::_id_A0A0( "on_target", 0.5 );
             maps\_utility::_id_9F8C( var_4, 0.05 );
             level._id_6F7C notify( "stop_loop" );
@@ -1678,11 +1678,11 @@ price_fends_off_attacker( var_0 )
             var_5 = level._id_6F7C gettagorigin( "tag_flash" );
             var_6 = level._id_6F7C getshootatpos() - var_5;
 
-            if ( level._id_6F7C _meth_81c0( level._id_6F7C.targetorg.origin, var_6 ) )
-                level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "wounded_fire" );
+            if ( level._id_6F7C _meth_81C0( level._id_6F7C.targetorg.origin, var_6 ) )
+                level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "wounded_fire" );
             else
             {
-                level._id_6F7C maps\_anim::_id_0BB5( level._id_6F7C, "gravity", "wounded_crawl" );
+                level._id_6F7C maps\_anim::anim_custom_animmode_solo( level._id_6F7C, "gravity", "wounded_crawl" );
                 insure_crawler_is_above_ground();
             }
         }
@@ -1723,11 +1723,11 @@ price_fights_enemies()
             var_1 = level._id_6F7C gettagorigin( "tag_flash" );
             var_2 = level._id_6F7C getshootatpos() - var_1;
 
-            if ( level._id_6F7C _meth_81c0( level._id_6F7C.targetorg.origin, var_2 ) )
+            if ( level._id_6F7C _meth_81C0( level._id_6F7C.targetorg.origin, var_2 ) )
             {
                 level._id_6F7C notify( "stop_loop" );
-                level._id_6F7C maps\_anim::_id_0C24( level._id_6F7C, "wounded_fire" );
-                level._id_6F7C thread maps\_anim::_id_0BE1( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
+                level._id_6F7C maps\_anim::anim_single_solo( level._id_6F7C, "wounded_fire" );
+                level._id_6F7C thread maps\_anim::anim_loop_solo( level._id_6F7C, "wounded_idle", undefined, "stop_loop" );
             }
         }
 
@@ -1892,7 +1892,7 @@ price_defends_his_spot_until_he_is_picked_up()
     if ( !common_scripts\utility::_id_382E( "first_pickup" ) )
     {
         var_0 = getnode( "price_wounding_node", "targetname" );
-        var_0 maps\_anim::_id_0BE1( level._id_6F7C, "crash_idle" );
+        var_0 maps\_anim::anim_loop_solo( level._id_6F7C, "crash_idle" );
     }
 
     for (;;)
@@ -1910,7 +1910,7 @@ price_slides_into_proper_putdown_position()
     var_0 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_0.origin = level._id_6F7C.origin;
     level._id_6F7C linkto( var_0 );
-    level._id_6F7C thread maps\_anim::_id_0BC7( level._id_6F7C, "wounded_idle_reach" );
+    level._id_6F7C thread maps\_anim::anim_first_frame_solo( level._id_6F7C, "wounded_idle_reach" );
     var_0 moveto( level.price_drop_point, 0.5, 0.2, 0.2 );
     level.price_drop_point = undefined;
     wait 0.5;
@@ -1931,7 +1931,7 @@ price_decides_if_he_can_be_picked_up()
         if ( level.player isleaning() )
             continue;
 
-        if ( isdefined( level.player._id_0E28 ) )
+        if ( isdefined( level.player.attacked_by_dog ) )
             continue;
 
         if ( common_scripts\utility::_id_382E( "price_wants_apartment_cleared" ) && !common_scripts\utility::_id_382E( "apartment_cleared" ) )
@@ -1958,7 +1958,7 @@ price_aims_at_his_enemy()
     var_0 = level._id_6F7C maps\_utility::_id_3EF5( "wounded_aim_left" );
     var_1 = level._id_6F7C maps\_utility::_id_3EF5( "wounded_aim_right" );
     var_2 = level._id_6F7C maps\_utility::_id_3EF5( "wounded_base" );
-    self _meth_814d( var_2, 1, 0, 1 );
+    self _meth_814D( var_2, 1, 0, 1 );
     level._id_6F7C.on_target = 0;
     var_3 = 0;
 
@@ -1990,8 +1990,8 @@ price_aims_at_his_enemy()
 
         var_7 = var_5 / 90;
         var_7 += 0.5;
-        self _meth_814d( var_0, 1 - var_7, 0.05 );
-        self _meth_814d( var_1, var_7, 0.05 );
+        self _meth_814D( var_0, 1 - var_7, 0.05 );
+        self _meth_814D( var_1, var_7, 0.05 );
         var_3 = var_5;
         wait 0.05;
     }
@@ -2161,7 +2161,7 @@ player_picks_up_price()
         var_1 = getnode( "price_wounding_node", "targetname" );
         var_2 = maps\_utility::_id_88D1( "player_carry" );
         var_2 hide();
-        var_1 maps\_anim::_id_0BC7( var_2, var_0 );
+        var_1 maps\_anim::anim_first_frame_solo( var_2, var_0 );
         wait 0.1;
         thread h1_pricecarry_pickup_dof_initial();
         var_3 = distance( var_2 gettagorigin( "tag_player" ), level.player.origin );
@@ -2184,7 +2184,7 @@ player_picks_up_price()
 
         }
 
-        var_1 maps\_anim::_id_0C18( var_5, var_0 );
+        var_1 maps\_anim::anim_single( var_5, var_0 );
         thread price_talks_as_he_is_picked_up();
         level.player unlink();
         var_2 delete();
@@ -2219,8 +2219,8 @@ player_picks_up_price()
     level._id_6F7C notify( "stop_loop" );
     var_2 = maps\_utility::_id_88D1( level.wounded_model );
     var_2 hide();
-    var_6 thread maps\_anim::_id_0BE1( level._id_6F7C, "pickup_idle", undefined, "stop_idle" );
-    var_6 maps\_anim::_id_0BC7( var_2, var_0 );
+    var_6 thread maps\_anim::anim_loop_solo( level._id_6F7C, "pickup_idle", undefined, "stop_idle" );
+    var_6 maps\_anim::anim_first_frame_solo( var_2, var_0 );
     wait 0.1;
     thread h1_pricecarry_pickup_dof_generic();
     level._id_6F7C maps\_headtracking::head_tracking_end( 0, 1 );
@@ -2259,11 +2259,11 @@ player_picks_up_price()
 
     if ( getdvarint( "use_old_crash_pickup" ) == 1 )
     {
-        var_6 thread maps\_anim::_id_0C18( var_5, var_0 );
+        var_6 thread maps\_anim::anim_single( var_5, var_0 );
         wait 2.0;
     }
     else
-        var_6 maps\_anim::_id_0C18( var_5, var_0 );
+        var_6 maps\_anim::anim_single( var_5, var_0 );
 
     var_6 notify( var_0 );
     var_8 = bullettrace( level.player.origin + ( 0.0, 0.0, 32.0 ), level.player.origin, 0, undefined );
@@ -2309,7 +2309,7 @@ player_puts_down_price()
     var_0 drop_to_floor();
     var_1 = maps\_utility::_id_88D1( level.wounded_model );
     var_1 hide();
-    var_0 maps\_anim::_id_0BC7( var_1, "wounded_putdown" );
+    var_0 maps\_anim::anim_first_frame_solo( var_1, "wounded_putdown" );
     wait 0.1;
     var_2 = var_1 gettagorigin( "tag_player" );
     var_3 = bullettrace( var_2 + ( 0.0, 0.0, 32.0 ), var_2, 0, undefined );
@@ -2331,12 +2331,12 @@ player_puts_down_price()
 
     var_4 = level.player.origin;
     var_5 = getent( "price_spawner", "targetname" );
-    var_5._id_0C72 = "price";
+    var_5.animname = "price";
     var_5 maps\_anim::_id_7EC3( "wounded_putdown", var_0.origin, var_0.angles );
     var_5.count = 1;
     level._id_6F7C = var_5 stalingradspawn();
     maps\_utility::_id_88F1( level._id_6F7C );
-    level._id_6F7C._id_0C72 = "price";
+    level._id_6F7C.animname = "price";
     level._id_6F7C setmodel( "body_complete_usmc_ghillie_price_damaged" );
     level._id_6F7C thread wounded_setup();
     level._id_6F7C thread maps\sniperescape::monitor_macmellon();
@@ -2356,7 +2356,7 @@ player_puts_down_price()
         var_4 = ( var_4[0], var_4[1], var_7[2] );
     }
 
-    var_0 maps\_anim::_id_0C18( var_6, "wounded_putdown" );
+    var_0 maps\_anim::anim_single( var_6, "wounded_putdown" );
     level.player unlink();
     var_0 delete();
     var_1 delete();
@@ -2379,7 +2379,7 @@ player_puts_down_price()
     maps\_hud_util::_id_8AF4();
     level notify( "price_dropped" );
     var_8 = getgroundposition( level.price_drop_point, 15 );
-    level._id_6F7C _meth_81ca( var_8, level._id_6F7C.angles, 100 );
+    level._id_6F7C _meth_81CA( var_8, level._id_6F7C.angles, 100 );
     level.price_drop_point = undefined;
     thread price_asks_to_be_picked_up_when_its_safe();
 
@@ -2396,14 +2396,14 @@ h1_pricecarry_pickup_dof_initial()
         return;
 
     wait 0.35;
-    level.player _meth_84a5();
-    level.player _meth_84a7( 10, 18, 1.0, 1.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 10, 18, 1.0, 1.0 );
     wait 1.0;
-    level.player _meth_84a7( 6, 20, 2.5, 2.5 );
+    level.player _meth_84A7( 6, 20, 2.5, 2.5 );
     wait 0.85;
-    level.player _meth_84a7( 6, 15, 2.5, 2.5 );
+    level.player _meth_84A7( 6, 15, 2.5, 2.5 );
     wait 0.85;
-    level.player _meth_84a7( 10, 110, 1.5, 1.5 );
+    level.player _meth_84A7( 10, 110, 1.5, 1.5 );
 }
 
 h1_pricecarry_pickup_dof_generic()
@@ -2412,12 +2412,12 @@ h1_pricecarry_pickup_dof_generic()
         return;
 
     wait 0.35;
-    level.player _meth_84a5();
-    level.player _meth_84a7( 10, 18, 1.0, 1.0 );
+    level.player _meth_84A5();
+    level.player _meth_84A7( 10, 18, 1.0, 1.0 );
     wait 1.0;
-    level.player _meth_84a7( 6, 20, 2.5, 2.5 );
+    level.player _meth_84A7( 6, 20, 2.5, 2.5 );
     wait 1.0;
-    level.player _meth_84a7( 10, 110, 1.5, 1.5 );
+    level.player _meth_84A7( 10, 110, 1.5, 1.5 );
 }
 
 h1_pricecarry_putdown_dof_generic()
@@ -2425,11 +2425,11 @@ h1_pricecarry_putdown_dof_generic()
     if ( common_scripts\utility::_id_382E( "faiground_battle_begins" ) )
         return;
 
-    level.player _meth_84a5();
+    level.player _meth_84A5();
     wait 0.5;
-    level.player _meth_84a7( 16, 110, 1.5, 1.5 );
+    level.player _meth_84A7( 16, 110, 1.5, 1.5 );
     wait 1.0;
-    level.player _meth_84a6();
+    level.player _meth_84A6();
 }
 
 carryloopcondition()
@@ -2540,7 +2540,7 @@ price_talks_if_enemies_get_near()
             if ( !isalive( var_2.enemy ) )
                 continue;
 
-            if ( var_2 _meth_81c2( level.player ) )
+            if ( var_2 _meth_81C2( level.player ) )
                 price_asks_to_be_put_down();
 
             wait 0.05;
@@ -2561,7 +2561,7 @@ price_talks_if_enemies_are_near()
         if ( !isalive( var_0 ) )
             continue;
 
-        if ( var_0 _meth_81c2( level.player ) )
+        if ( var_0 _meth_81C2( level.player ) )
             price_asks_to_be_put_down();
     }
 }
@@ -2629,7 +2629,7 @@ player_carries_price_until_he_drops_him()
         common_scripts\utility::_id_383F( "can_save" );
 
     if ( !common_scripts\utility::_id_382E( "enter_burnt" ) && !common_scripts\utility::_id_382E( "to_the_pool" ) )
-        maps\_utility::_id_1143( "on_the_run" );
+        maps\_utility::autosave_by_name( "on_the_run" );
 
     if ( isdefined( level._id_6F7C ) )
         level._id_6F7C delete();
@@ -2739,10 +2739,10 @@ wounded_setup()
     level.next_enemy_call_out = 0;
     level._id_6F7C.allowpain = 0;
     level._id_6F7C._id_38A8 = 1;
-    level._id_6F7C _meth_81a7( 1 );
+    level._id_6F7C _meth_81A7( 1 );
     level._id_6F7C.first_shot_time = gettime() + 2200;
     level._id_6F7C._id_2652 = level._id_6F7C maps\_utility::_id_3EF5( "wounded_death" );
-    level._id_6F7C._id_1300 = 1000;
+    level._id_6F7C.baseaccuracy = 1000;
     level._id_6F7C._id_2D3A = 1;
     max_price_health();
     level._id_6F7C.allowdeath = 1;
@@ -2750,7 +2750,7 @@ wounded_setup()
     level._id_6F7C.a._id_6E5A = "prone";
     level._id_6F7C sethintstring( &"SNIPERESCAPE_HOLD_1_TO_PICK_UP_CPT" );
     level._id_6F7C setthreatbiasgroup( "price" );
-    level._id_6F7C _meth_81aa( level._id_6F7C.origin );
+    level._id_6F7C _meth_81AA( level._id_6F7C.origin );
     level._id_6F7C.fastfire = 0;
     level._id_6F7C thread deathdetect();
 
@@ -2796,7 +2796,7 @@ fairground_price_adjustment()
 {
     level._id_6F7C endon( "death" );
 
-    if ( !isdefined( level._id_6F7C._id_0669 ) )
+    if ( !isdefined( level._id_6F7C._stealth ) )
         level._id_6F7C thread maps\_stealth_logic::friendly_logic();
 
     common_scripts\utility::_id_384A( "fairbattle_high_intensity" );
@@ -2826,7 +2826,7 @@ regenner()
 price_fires( var_0 )
 {
     self.a._id_55D7 = gettime();
-    self _meth_81ea( 0.25, level._id_6F7C.targetorg.origin );
+    self _meth_81EA( 0.25, level._id_6F7C.targetorg.origin );
     var_1[0] = 400;
     var_1[1] = 400;
     var_1[2] = 0;
@@ -2909,7 +2909,7 @@ enemy_zone_spawner()
 
         for ( var_1 = 0; var_1 < 2; var_1++ )
         {
-            var_0 = common_scripts\utility::_id_0CF5( var_0 );
+            var_0 = common_scripts\utility::array_randomize( var_0 );
             var_2--;
 
             if ( var_2 < 0 || var_2 >= level.zone_trigger.zone_spawners.size )
@@ -3019,13 +3019,13 @@ dog_attacks_fence()
     if ( maps\_utility::_id_88F1( var_2 ) )
         return;
 
-    var_2._id_0C72 = "dog";
+    var_2.animname = "dog";
     var_2.health = 5;
     var_2.allowdeath = 1;
     var_2 endon( "death" );
     var_2 thread apartment_dog_death();
     var_2.ignoreme = 1;
-    var_0 maps\_anim::_id_0C24( var_2, "fence_attack" );
+    var_0 maps\_anim::anim_single_solo( var_2, "fence_attack" );
     var_2.ignoreme = 0;
     var_2.health = 50;
     var_2 ai_move_in();
@@ -3184,13 +3184,13 @@ player_navigates_burnt_apartment()
         common_scripts\utility::_id_3831( "price_calls_out_enemy_location" );
         maps\_utility::_id_735B( "axis", ::on_the_run_enemies );
         var_1 = getaispeciesarray( "axis", "all" );
-        common_scripts\utility::_id_0D13( var_1, ::fall_back_and_delete, var_0 );
+        common_scripts\utility::array_thread( var_1, ::fall_back_and_delete, var_0 );
         common_scripts\utility::_id_3857( "enter_burnt" );
         common_scripts\utility::_id_383F( "price_calls_out_enemy_location" );
-        maps\_utility::_id_0761( "axis", ::on_the_run_enemies );
+        maps\_utility::add_global_spawn_function( "axis", ::on_the_run_enemies );
         level notify( "restarting_on_the_run" );
         var_1 = getaispeciesarray( "axis", "all" );
-        common_scripts\utility::_id_0D13( var_1, ::on_the_run_enemies );
+        common_scripts\utility::array_thread( var_1, ::on_the_run_enemies );
     }
 }
 
@@ -3198,15 +3198,15 @@ apartment_hunters()
 {
     common_scripts\utility::_id_384A( "apartment_hunters_start" );
     var_0 = getentarray( "apartment_hunter", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, ::apartment_hunter_think );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::apartment_hunter_think );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
 }
 
 apartment_hunter_think()
 {
     var_0 = getnode( "apartment_hunter_delete", "targetname" );
     self endon( "death" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = 32;
     self.interval = 0;
     self.ignoreall = 1;
@@ -3228,7 +3228,7 @@ fall_back_and_delete( var_0 )
     waitframe;
     self notify( "stop_moving_in" );
     var_1 = common_scripts\utility::_id_710E( var_0 );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self.goalradius = 64;
     self waittill( "goal" );
     self delete();
@@ -3241,12 +3241,12 @@ _id_2856()
 
 curtain( var_0 )
 {
-    maps\_utility::_id_0D61( "curtain" );
-    self _meth_814d( maps\_utility::_id_3EF5( var_0 ), 1, 0, 1 );
+    maps\_utility::assign_animtree( "curtain" );
+    self _meth_814D( maps\_utility::_id_3EF5( var_0 ), 1, 0, 1 );
 
     for (;;)
     {
-        self _meth_814d( maps\_utility::_id_3EF5( var_0 ), 1, 0, randomfloat( 0.7 ) );
+        self _meth_814D( maps\_utility::_id_3EF5( var_0 ), 1, 0, randomfloat( 0.7 ) );
         wait(randomfloat( 0.5 ));
     }
 }
@@ -3365,7 +3365,7 @@ burnt_spawners()
         if ( gettime() < var_1 )
             wait(( var_1 - gettime() ) * 0.001);
 
-        common_scripts\utility::_id_0D13( var_0, ::increment_count_and_spawn );
+        common_scripts\utility::array_thread( var_0, ::increment_count_and_spawn );
         var_1 = gettime() + 15000;
     }
 }
@@ -3378,14 +3378,14 @@ spooky_dog()
     if ( getdvar( "player_hasnt_been_spooked" ) == "" )
     {
         setdvar( "player_hasnt_been_spooked", "1" );
-        var_0 thread maps\_utility::_id_0798( ::spooky_dog_spawns );
+        var_0 thread maps\_utility::add_spawn_function( ::spooky_dog_spawns );
     }
     else
     {
         var_1 = getent( "dog_tele", "targetname" );
         var_0.origin = var_1.origin;
         var_0._id_7A40 = 1;
-        var_0 thread maps\_utility::_id_0798( ::spooky_dog_spawns_hidden );
+        var_0 thread maps\_utility::add_spawn_function( ::spooky_dog_spawns_hidden );
     }
 
     var_0 maps\_utility::_id_88C3();
@@ -3398,8 +3398,8 @@ spooky_dog_spawns_hidden()
     var_1 = getent( "dog_end_goal", "script_noteworthy" );
     self.favoriteenemy = level.player;
     thread maps\_spawner::_id_4248( var_1 );
-    var_0 maps\_utility::_id_07BE( maps\_utility::_id_A099, "trigger" );
-    level maps\_utility::_id_075F( common_scripts\utility::_id_383F, "price_wants_apartment_cleared" );
+    var_0 maps\_utility::add_wait( maps\_utility::_id_A099, "trigger" );
+    level maps\_utility::add_func( common_scripts\utility::_id_383F, "price_wants_apartment_cleared" );
     thread maps\_utility::_id_2BDC();
     spooky_deletes_on_trigger( var_0 );
 }
@@ -3445,7 +3445,7 @@ spooky_deletes_on_trigger( var_0, var_1 )
 
     if ( level.player istouching( var_0 ) )
     {
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
         self.goalradius = 1024;
         return;
     }
@@ -3457,14 +3457,14 @@ spooky_deletes_on_trigger( var_0, var_1 )
 spooky_sighting()
 {
     var_0 = getent( "spooky_sighting", "targetname" );
-    var_0 thread maps\_utility::_id_0798( ::spooky_dog_is_sighted );
+    var_0 thread maps\_utility::add_spawn_function( ::spooky_dog_is_sighted );
 }
 
 spooky_dog_is_sighted()
 {
     self endon( "death" );
     self waittill( "reached_path_end" );
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self.goalradius = 32;
     var_0 = getent( "spooky_dog_trigger", "targetname" );
     spooky_deletes_on_trigger( var_0, 0.1 );
@@ -3492,7 +3492,7 @@ set_go_line()
     self waittill( "trigger", var_0 );
 
     if ( isalive( var_0 ) )
-        var_0._id_0574 = self.script_noteworthy;
+        var_0._colors_go_line = self.script_noteworthy;
 }
 
 waittill_noteworthy_dies( var_0 )
@@ -3531,7 +3531,7 @@ flee_guy_runs()
 
     for (;;)
     {
-        if ( self _meth_81c2( level.player ) )
+        if ( self _meth_81C2( level.player ) )
             break;
 
         wait 0.05;
@@ -3539,11 +3539,11 @@ flee_guy_runs()
 
     wait 1.5;
     var_0 = getnode( self._id_7A26, "script_linkname" );
-    self _meth_81a9( var_0 );
+    self _meth_81A9( var_0 );
     self.goalradius = 64;
     self waittill( "goal" );
     self.ignoreall = 0;
-    self _meth_81aa( level.player.origin );
+    self _meth_81AA( level.player.origin );
     self.goalradius = 1024;
 }
 
@@ -3558,9 +3558,9 @@ force_patrol_think()
         self._id_2AF3 = 1;
         var_0 = get_patrol_anims();
         var_1 = getent( self.target, "targetname" );
-        var_1 maps\_anim::_id_0BD0( self, var_0[self._id_7A18] );
+        var_1 maps\_anim::anim_generic_reach( self, var_0[self._id_7A18] );
         self.a._id_5F5B = "run";
-        maps\_anim::_id_0BC9( self, var_0[self._id_7A18] );
+        maps\_anim::anim_generic( self, var_0[self._id_7A18] );
         self._id_2AF3 = 0;
     }
 
@@ -3569,7 +3569,7 @@ force_patrol_think()
 
 flicker_light()
 {
-    maps\_lights::_id_1928();
+    maps\_lights::burning_trash_fire();
 }
 
 price_fair_defendspot()
@@ -3741,20 +3741,20 @@ fair_guy_responds_to_invisible_attack()
         return;
 
     wait(randomfloatrange( 0.1, 0.8 ));
-    maps\_anim::_id_0BCA( self, "gravity", "prone_dive" );
-    thread maps\_anim::_id_0BCE( self, "prone_idle", undefined, "stop_loop" );
-    self _meth_81ce( "prone" );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", "prone_dive" );
+    thread maps\_anim::anim_generic_loop( self, "prone_idle", undefined, "stop_loop" );
+    self _meth_81CE( "prone" );
     var_0 = randomfloatrange( 0.1, 2 );
-    maps\_utility::_id_07BE( maps\_utility::_id_0694, var_0 );
-    maps\_utility::_id_07BE( ::player_gets_near );
-    maps\_utility::_id_075B( "death" );
+    maps\_utility::add_wait( maps\_utility::_wait, var_0 );
+    maps\_utility::add_wait( ::player_gets_near );
+    maps\_utility::add_endon( "death" );
     maps\_utility::_id_2BDD();
     wait 1;
     self notify( "stop_loop" );
     self _meth_8143();
     var_0 = randomfloatrange( 3, 4 );
-    maps\_utility::_id_07BE( maps\_utility::_id_32E0, "reached_run_point" );
-    maps\_utility::_id_07BE( maps\_utility::_id_0694, var_0 );
+    maps\_utility::add_wait( maps\_utility::_id_32E0, "reached_run_point" );
+    maps\_utility::add_wait( maps\_utility::_wait, var_0 );
     maps\_utility::_id_2BDD();
     maps\_utility::_id_32DE( "reached_run_point" );
 }
@@ -3842,7 +3842,7 @@ fair_guy_moves_in( var_0 )
         wait_until_near_player_or_run_point();
         self._id_2AF3 = 0;
         var_2 = getent( "park_reinforce", "targetname" );
-        self _meth_81aa( var_2.origin );
+        self _meth_81AA( var_2.origin );
     }
 
     fairground_attack_logic();
@@ -3917,7 +3917,7 @@ fairground_guy_modify_attack_based_on_player()
 
         if ( var_3 < var_0 )
         {
-            if ( self _meth_81c2( level.player ) )
+            if ( self _meth_81C2( level.player ) )
             {
                 fairguy_can_fight();
                 wait 5;
@@ -3970,7 +3970,7 @@ fair_zone_orgs_init()
 fair_zone_trigger()
 {
     var_0 = maps\_utility::_id_3DC0();
-    common_scripts\utility::_id_0D13( var_0, ::fair_zone_orgs_init );
+    common_scripts\utility::array_thread( var_0, ::fair_zone_orgs_init );
 
     for (;;)
     {
@@ -3996,7 +3996,7 @@ fairground_attack_logic()
     self endon( "death" );
     maps\_utility::_id_7E45( "sprint" );
     self.ignoreall = 0;
-    self _meth_81ce( "stand", "prone", "crouch" );
+    self _meth_81CE( "stand", "prone", "crouch" );
 
     if ( rpgguy() )
     {
@@ -4076,14 +4076,14 @@ fairground_zone_attack_behavior()
         var_0 = level.fairground_current_zone_org;
 
     wait 0.05;
-    self _meth_81aa( var_0.origin );
+    self _meth_81AA( var_0.origin );
     self.goalradius = var_0.radius;
     self waittill( "goal" );
 
     for (;;)
     {
         var_0 = common_scripts\utility::_id_3F33( level.player.origin, level.fairground_zone_orgs_all );
-        self _meth_81aa( var_0.origin );
+        self _meth_81AA( var_0.origin );
         var_1 = distance( self.origin, var_0.origin );
 
         if ( var_1 < 700 )
@@ -4102,7 +4102,7 @@ fairground_generic_attack_behavior()
     for (;;)
     {
         var_0 = getent( "enemy_fair_dest", "targetname" );
-        self _meth_81aa( var_0.origin );
+        self _meth_81AA( var_0.origin );
         self.goalradius = 3000;
 
         if ( !isalive( self.enemy ) )
@@ -4133,7 +4133,7 @@ fairground_generic_attack_behavior()
             wait 1;
         }
 
-        self _meth_81aa( self.node.origin );
+        self _meth_81AA( self.node.origin );
         self.goalradius = 64;
 
         if ( common_scripts\utility::_id_382E( "player_plays_nice" ) )
@@ -4156,7 +4156,7 @@ fairground_kill_mean_player_until_he_plays_nice()
             return;
         }
 
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
         self.goalradius = 1024;
         wait 5;
     }
@@ -4266,7 +4266,7 @@ delayed_patrol_anim( var_0 )
     self endon( "stop_animmode" );
     self endon( "death" );
     wait 0.5;
-    maps\_anim::_id_0BCA( self, "gravity", var_0 );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_0 );
 }
 
 remove_cant_see_player( var_0 )
@@ -4277,7 +4277,7 @@ remove_cant_see_player( var_0 )
     {
         var_3 = var_0[var_2];
 
-        if ( var_3 _meth_81c2( level.player ) )
+        if ( var_3 _meth_81C2( level.player ) )
             var_1[var_1.size] = var_3;
     }
 
@@ -4318,9 +4318,9 @@ wait_until_saw_enemy()
 fairground_price_dialogue()
 {
     level endon( "fairbattle_high_intensity" );
-    level._id_6F7C maps\_utility::_id_07BE( ::wait_until_saw_enemy );
-    maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "enemies_in_sight" );
-    maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "tangos_in_sight" );
+    level._id_6F7C maps\_utility::add_wait( ::wait_until_saw_enemy );
+    maps\_utility::add_wait( common_scripts\utility::_id_384A, "enemies_in_sight" );
+    maps\_utility::add_wait( common_scripts\utility::_id_384A, "tangos_in_sight" );
     maps\_utility::_id_2BDD();
     common_scripts\utility::_id_383F( "enemies_in_sight" );
     price_line( "let_them_get_closer" );
@@ -4408,7 +4408,7 @@ fairground_battle()
     var_0[1] = 0.7;
     var_0[2] = 0.85;
     var_0[3] = 0.85;
-    maps\_utility::_id_0761( "axis", ::all_guys_drop_grenades );
+    maps\_utility::add_global_spawn_function( "axis", ::all_guys_drop_grenades );
     level.price_sticky_target_time = 1000;
     anim._id_6A64 = var_0[level._id_3BFE];
     level.player.attackeraccuracy = anim._id_6A64;
@@ -4436,8 +4436,8 @@ fairground_battle()
     level.fairground_generic_count = 0;
     common_scripts\utility::_id_76BB( "fair_zone_trigger", ::fair_zone_trigger );
     common_scripts\utility::_id_76BB( "fair_zone_clear", ::fair_zone_clear );
-    level maps\_utility::_id_07BE( common_scripts\utility::_id_384A, "fairbattle_detected" );
-    level maps\_utility::_id_075F( maps\_utility::_id_7C82, "_stealth_stop_stealth_logic" );
+    level maps\_utility::add_wait( common_scripts\utility::_id_384A, "fairbattle_detected" );
+    level maps\_utility::add_func( maps\_utility::_id_7C82, "_stealth_stop_stealth_logic" );
     thread price_warns_player();
     common_scripts\utility::_id_3831( "open_fire" );
 
@@ -4448,35 +4448,35 @@ fairground_battle()
     }
 
     var_2 = getaispeciesarray( "axis", "all" );
-    common_scripts\utility::_id_0D13( var_2, ::die_soon );
+    common_scripts\utility::array_thread( var_2, ::die_soon );
 
     if ( isalive( level._id_6F7C ) )
-        level._id_6F7C _meth_816a();
+        level._id_6F7C _meth_816A();
 
     common_scripts\utility::_id_382F( "fairbattle_high_intensity" );
     setsaveddvar( "ai_eventDistGunShot", 4500 );
     thread maps\sniperescape_wounding::fairground_keep_player_out_of_pool();
     thread fairground_price_dialogue();
     thread fairground_player_visibility();
-    level._id_0669._id_5836._id_298E["hidden"]["stand"] = 2048;
+    level._stealth._id_5836._id_298E["hidden"]["stand"] = 2048;
     common_scripts\utility::_id_383F( "faiground_battle_begins" );
     common_scripts\utility::_id_383F( "aa_seaknight_rescue" );
     maps\_utility::_id_735B( "axis", ::enemy_override );
     var_3 = getentarray( "secondary_path", "script_noteworthy" );
-    common_scripts\utility::_id_0D13( var_3, ::secondary_path_think );
+    common_scripts\utility::array_thread( var_3, ::secondary_path_think );
     thread fairground_force_high_intensity();
     level.fair_paths = common_scripts\utility::_id_40FD( "fair_path", "targetname" );
     level.fair_paths_alt = common_scripts\utility::_id_40FD( "fair_path_alt", "targetname" );
     var_4 = getent( "field_ref_spot", "targetname" );
     level.fair_paths = common_scripts\utility::_id_3CCB( var_4.origin, level.fair_paths );
-    common_scripts\utility::_id_0D13( level.fair_paths, ::init_fair_paths );
+    common_scripts\utility::array_thread( level.fair_paths, ::init_fair_paths );
     level.fair_paths_alt = common_scripts\utility::_id_3CCB( var_4.origin, level.fair_paths_alt );
-    common_scripts\utility::_id_0D13( level.fair_paths_alt, ::init_fair_paths );
+    common_scripts\utility::array_thread( level.fair_paths_alt, ::init_fair_paths );
     level.fair_runners = 0;
     var_5 = getentarray( "fair_spawner", "targetname" );
-    common_scripts\utility::_id_0D13( var_5, maps\_utility::_id_0798, ::fair_spawner_think );
+    common_scripts\utility::array_thread( var_5, maps\_utility::add_spawn_function, ::fair_spawner_think );
     var_6 = getentarray( "fair_spawner_alt", "targetname" );
-    common_scripts\utility::_id_0D13( var_6, maps\_utility::_id_0798, ::fair_alt_spawner_think );
+    common_scripts\utility::array_thread( var_6, maps\_utility::add_spawn_function, ::fair_alt_spawner_think );
     level.player.ignoreme = 1;
     fairground_pre_detection();
     level.player.ignoreme = 0;
@@ -4724,7 +4724,7 @@ fairbattle_autosave()
                 continue;
         }
 
-        if ( maps\_utility::_id_114E() )
+        if ( maps\_utility::autosave_now() )
             return;
     }
 }
@@ -4769,7 +4769,7 @@ chopper_discussion()
 
 fairground_post_detection()
 {
-    maps\_utility::_id_1333( "axis" );
+    maps\_utility::battlechatter_on( "axis" );
     var_0 = [];
     var_0["intro_wave"] = ::spawn_intro_wave;
     var_0["lowbie_mixed"] = ::spawn_lowbie_mixed;
@@ -4891,7 +4891,7 @@ fairground_enemy_helis()
 
     for (;;)
     {
-        var_0 = common_scripts\utility::_id_0CF5( var_0 );
+        var_0 = common_scripts\utility::array_randomize( var_0 );
 
         for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         {
@@ -4941,7 +4941,7 @@ price_says_this_is_fine()
 secondary_path_think()
 {
     var_0 = getentarray( self.targetname, "targetname" );
-    var_0 = common_scripts\utility::_id_0CF6( var_0, self );
+    var_0 = common_scripts\utility::array_remove( var_0, self );
     var_0[var_0.size] = self;
     level._id_4242[self.targetname] = var_0;
 }
@@ -5166,7 +5166,7 @@ set_c4_throw_binding()
 
     if ( var_2["count"] )
     {
-        maps\_utility::_id_0764( "c4_throw", &"SCRIPT_HINT_THROW_C4_TOGGLE", maps\sniperescape_exchange::should_break_c4_throw );
+        maps\_utility::add_hint_string( "c4_throw", &"SCRIPT_HINT_THROW_C4_TOGGLE", maps\sniperescape_exchange::should_break_c4_throw );
         return;
     }
 
@@ -5175,9 +5175,9 @@ set_c4_throw_binding()
     if ( var_2["count"] )
     {
         if ( level.xenon || var_0 )
-            maps\_utility::_id_0764( "c4_throw", &"SCRIPT_HINT_THROW_C4_SPEED_TRIGGER", maps\sniperescape_exchange::should_break_c4_throw );
+            maps\_utility::add_hint_string( "c4_throw", &"SCRIPT_HINT_THROW_C4_SPEED_TRIGGER", maps\sniperescape_exchange::should_break_c4_throw );
         else
-            maps\_utility::_id_0764( "c4_throw", &"SCRIPT_HINT_THROW_C4_SPEED", maps\sniperescape_exchange::should_break_c4_throw );
+            maps\_utility::add_hint_string( "c4_throw", &"SCRIPT_HINT_THROW_C4_SPEED", maps\sniperescape_exchange::should_break_c4_throw );
 
         return;
     }
@@ -5186,11 +5186,11 @@ set_c4_throw_binding()
 
     if ( var_2["count"] )
     {
-        maps\_utility::_id_0764( "c4_throw", &"SCRIPT_HINT_THROW_C4", maps\sniperescape_exchange::should_break_c4_throw );
+        maps\_utility::add_hint_string( "c4_throw", &"SCRIPT_HINT_THROW_C4", maps\sniperescape_exchange::should_break_c4_throw );
         return;
     }
 
-    maps\_utility::_id_0764( "c4_throw", &"SCRIPT_HINT_THROW_C4_TOGGLE", maps\sniperescape_exchange::should_break_c4_throw );
+    maps\_utility::add_hint_string( "c4_throw", &"SCRIPT_HINT_THROW_C4_TOGGLE", maps\sniperescape_exchange::should_break_c4_throw );
 }
 
 c4_hint()
@@ -5259,7 +5259,7 @@ house_chase_spawner()
 
     for (;;)
     {
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
         wait 0.5;
     }
 }
@@ -5273,7 +5273,7 @@ fair_spawner_seeks_player()
 
     for (;;)
     {
-        self _meth_81aa( level.player.origin );
+        self _meth_81AA( level.player.origin );
         wait 5;
     }
 }

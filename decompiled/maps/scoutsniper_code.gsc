@@ -250,14 +250,14 @@ _id_2FE5()
     self endon( "dynamic_run_speed_stopped" );
     maps\_utility::_id_32E4( "_stealth_stance_handler" );
     var_0 = "run_2_stop";
-    maps\_anim::_id_0BCA( self, "gravity", var_0 );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", var_0 );
     maps\_utility::_id_32DA( "dynamic_run_speed_stopping" );
 
     while ( maps\_utility::_id_32D8( "dynamic_run_speed_stopped" ) )
     {
         maps\_utility::_id_32E4( "_stealth_stance_handler" );
         var_1 = "combat_idle";
-        thread maps\_anim::_id_0BCE( self, var_1, undefined, "stop_loop" );
+        thread maps\_anim::anim_generic_loop( self, var_1, undefined, "stop_loop" );
         wait(randomfloatrange( 12, 20 ));
         maps\_utility::_id_32E4( "_stealth_stance_handler" );
         self notify( "stop_loop" );
@@ -288,7 +288,7 @@ _id_2FE5()
         }
 
         var_2 = "moveup_exposed";
-        maps\_anim::_id_0BC9( self, var_2 );
+        maps\_anim::anim_generic( self, var_2 );
     }
 }
 
@@ -452,16 +452,16 @@ crawl_path( var_0, var_1, var_2 )
             }
             else
             {
-                self _meth_81aa( var_3.origin );
+                self _meth_81AA( var_3.origin );
                 self.goalradius = 16;
                 self waittill( "goal" );
-                self _meth_81ce( "prone" );
+                self _meth_81CE( "prone" );
                 var_7 = getent( var_3.target, "targetname" );
                 var_5 = var_7.origin - self.origin;
                 var_6 = vectortoangles( var_5 );
                 self.ref_node.origin = self.origin;
                 self.ref_node.angles = var_6;
-                self.ref_node maps\_anim::_id_0BC9( self, "stand2prone" );
+                self.ref_node maps\_anim::anim_generic( self, "stand2prone" );
                 self.crawl_ref_node = var_7;
                 thread crawl_anim();
             }
@@ -486,7 +486,7 @@ crawl_path( var_0, var_1, var_2 )
     self.ref_node notify( "stop_animmode" );
     self _meth_8143();
     self notify( "scoutsniper_path_end_reached" );
-    thread maps\_anim::_id_0BCE( self, "prone_idle_under_truck", undefined, "stop_loop" );
+    thread maps\_anim::anim_generic_loop( self, "prone_idle_under_truck", undefined, "stop_loop" );
 }
 
 crawl_anim( var_0 )
@@ -501,7 +501,7 @@ crawl_anim( var_0 )
     self.ref_node.origin = self.origin;
 
     if ( !isdefined( var_0 ) || var_0 == 0 )
-        self.ref_node maps\_anim::_id_0BC9( self, "prone2crawl" );
+        self.ref_node maps\_anim::anim_generic( self, "prone2crawl" );
 
     var_2 = "crawl_loop";
 
@@ -509,7 +509,7 @@ crawl_anim( var_0 )
     {
         var_1 = self.crawl_ref_node;
         self.ref_node.origin = self.origin;
-        self.ref_node maps\_anim::_id_0BC9( self, var_2 );
+        self.ref_node maps\_anim::anim_generic( self, var_2 );
     }
 }
 
@@ -533,7 +533,7 @@ crawl_anim_stop()
 {
     self endon( "crawl_anim" );
     self waittill( "stop_crawl_anim" );
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
 }
 
 node_have_delay()
@@ -752,7 +752,7 @@ vehicle_turret_think()
         if ( isdefined( var_0 ) && isalive( var_0 ) )
         {
             var_4 = var_0.origin + ( 0.0, 0.0, 32.0 );
-            self _meth_825d( var_4 );
+            self _meth_825D( var_4 );
 
             if ( getdvar( "debug_bmp" ) == "1" )
                 thread maps\_utility::_id_2DBF( self.origin + ( 0.0, 0.0, 32.0 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
@@ -902,8 +902,8 @@ scoutsniper_music_play( var_0, var_1 )
 teleport_actor( var_0 )
 {
     level.player setorigin( level.player.origin + ( 0.0, 0.0, -34341.0 ) );
-    self _meth_81c9( var_0.origin, var_0.angles );
-    self _meth_81aa( var_0.origin );
+    self _meth_81C9( var_0.origin, var_0.angles );
+    self _meth_81AA( var_0.origin );
 }
 
 teleport_player_to_start_point( var_0 )
@@ -952,7 +952,7 @@ clip_nosight_logic2()
 
 flashbang_from_corner( var_0, var_1, var_2, var_3 )
 {
-    var_1 thread maps\_anim::_id_0BC9( self, var_0 );
+    var_1 thread maps\_anim::anim_generic( self, var_0 );
     maps\_utility::_id_27EF( 3.5, ::flashbang_from_corner_nade, var_2, var_3 );
     var_1 waittill( var_0 );
 }
@@ -973,7 +973,7 @@ flashbang_from_corner_nade( var_0, var_1 )
 initdogs()
 {
     var_0 = getentarray( "stealth_dogs", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0798, maps\_stealth_logic::stealth_ai );
+    common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, maps\_stealth_logic::stealth_ai );
 }
 
 idle_anim_think()
@@ -1019,8 +1019,8 @@ idle_anim_think()
     {
         var_2 = maps\_utility::_id_88D1( "chair" );
         self._id_46E9 = 1;
-        self._id_0BEE = maps\_utility::_id_590F( var_2 );
-        var_0 thread maps\_anim::_id_0BC7( var_2, "sleep_react" );
+        self.anim_props = maps\_utility::_id_590F( var_2 );
+        var_0 thread maps\_anim::anim_first_frame_solo( var_2, "sleep_react" );
         var_0 maps\_stealth_logic::_id_8D89( self, var_1 + "idle", var_1 + "react" );
     }
     else
@@ -1092,7 +1092,7 @@ church_lookout_stealth_behavior_alert_level_investigate( var_0 )
 {
     var_1 = maps\_utility::_id_3DC5( "church_smoker", "script_noteworthy" );
     var_2 = ( -34245.0, -1550.0, 608.0 );
-    self _meth_81aa( var_2 );
+    self _meth_81AA( var_2 );
     self.goalradius = 16;
     maps\_stealth_behavior::_id_327E();
     thread maps\_stealth_behavior::_id_31F7();
@@ -1101,8 +1101,8 @@ church_lookout_stealth_behavior_alert_level_investigate( var_0 )
 
     if ( isdefined( var_1 ) && isalive( var_1 ) )
     {
-        if ( !isdefined( var_0._id_0669._id_5836._id_8A93[var_1._id_0908] ) )
-            var_0._id_0669._id_5836._id_8A93[var_1._id_0908] = 1;
+        if ( !isdefined( var_0._stealth._id_5836._id_8A93[var_1.ai_number] ) )
+            var_0._stealth._id_5836._id_8A93[var_1.ai_number] = 1;
 
         self playsound( "RU_0_reaction_casualty_generic" );
         var_1.favoriteenemy = var_0;
@@ -1125,7 +1125,7 @@ church_lookout_goto_bestpos( var_0, var_1 )
 
     var_2 = getentarray( "church_lookout_aware", "targetname" );
     var_2 = common_scripts\utility::_id_3CCB( var_0, var_2 );
-    self _meth_81aa( var_2[0].origin );
+    self _meth_81AA( var_2[0].origin );
     self.goalradius = var_1;
     self waittill( "goal" );
 }
@@ -1162,7 +1162,7 @@ church_lookout_fire()
 
                     for ( var_4 = 0; var_4 < var_3; var_4++ )
                     {
-                        self _meth_81ea();
+                        self _meth_81EA();
                         wait 0.05;
                     }
 
@@ -1195,10 +1195,10 @@ church_lookout_stealth_behavior_saw_corpse()
         var_0 = getent( level.intro_last_patroller_corpse_name, "script_noteworthy" );
 
         if ( isdefined( var_0 ) )
-            level._id_0669._id_5836._id_222C._id_0CD8 = common_scripts\utility::_id_0CF6( level._id_0669._id_5836._id_222C._id_0CD8, var_0 );
+            level._stealth._id_5836._id_222C.array = common_scripts\utility::array_remove( level._stealth._id_5836._id_222C.array, var_0 );
     }
 
-    var_0 = self._id_0669._id_5836._id_222C._id_2231;
+    var_0 = self._stealth._id_5836._id_222C._id_2231;
     maps\_utility::_id_1ED1();
     church_lookout_goto_bestpos( var_0.origin );
     wait 1;
@@ -1222,7 +1222,7 @@ church_lookout_stealth_behavior_explosion( var_0 )
     self endon( "_stealth_enemy_alert_level_change" );
     self endon( "death" );
     level endon( "_stealth_spotted" );
-    var_1 = self._id_0669._id_5836._id_33C0.awareness[var_0];
+    var_1 = self._stealth._id_5836._id_33C0.awareness[var_0];
     thread maps\_stealth_behavior::_id_31FD();
     church_lookout_goto_bestpos( var_1 );
 }
@@ -1656,7 +1656,7 @@ pond_inposition_takeshot( var_0, var_1 )
 
     level endon( "pond_enemies_dead" );
     self endon( "follow_path_new_goal" );
-    self _meth_81ce( "prone", "crouch" );
+    self _meth_81CE( "prone", "crouch" );
     maps\_utility::_id_32DA( "_stealth_stance_handler" );
     self.goalradius = 16;
     self waittill( "goal" );
@@ -1687,14 +1687,14 @@ field_bmp_make_followme()
 field_creep_player_calc_movement()
 {
     var_0 = length( self getvelocity() );
-    var_1 = self._id_0669._id_5836._id_8AF2;
+    var_1 = self._stealth._id_5836._id_8AF2;
     var_2 = var_1 == "prone" && var_0 == 0;
     return var_2;
 }
 
 field_handle_special_nodes()
 {
-    common_scripts\utility::_id_0D13( getentarray( "field_jog", "script_noteworthy" ), ::field_handle_special_nodes_jog );
+    common_scripts\utility::array_thread( getentarray( "field_jog", "script_noteworthy" ), ::field_handle_special_nodes_jog );
 }
 
 field_handle_special_nodes_jog()
@@ -1738,7 +1738,7 @@ field_enemy_walk_behind_bmp()
     self._id_2B0E = 1;
     self._id_2AF3 = 1;
     var_0 = maps\_vehicle::get_vehicle_from_targetname( self.target );
-    self _meth_81ab( var_0.followme );
+    self _meth_81AB( var_0.followme );
 
     for (;;)
     {
@@ -1747,10 +1747,10 @@ field_enemy_walk_behind_bmp()
         if ( distance( self.origin, var_0.followme.origin ) > 60 )
             continue;
 
-        maps\_anim::_id_0BCA( self, "gravity", "patrol_stop" );
-        self _meth_81aa( self.origin );
-        maps\_anim::_id_0BCA( self, "gravity", "patrol_start" );
-        self _meth_81ab( var_0.followme );
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", "patrol_stop" );
+        self _meth_81AA( self.origin );
+        maps\_anim::anim_generic_custom_animmode( self, "gravity", "patrol_start" );
+        self _meth_81AB( var_0.followme );
     }
 }
 
@@ -1774,19 +1774,19 @@ field_enemy_avoid_bmp_on_collision( var_0 )
         return;
 
     var_1 = self.goalpos;
-    maps\_anim::_id_0BCA( self, "gravity", "patrol_stop" );
-    self _meth_81aa( self.origin );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", "patrol_stop" );
+    self _meth_81AA( self.origin );
     self endon( "goal" );
 
     while ( distance( self.origin, var_0.origin ) <= 300 )
         wait 0.5;
 
-    maps\_anim::_id_0BCA( self, "gravity", "patrol_start" );
+    maps\_anim::anim_generic_custom_animmode( self, "gravity", "patrol_start" );
 
     if ( isdefined( self._id_5545 ) )
-        self _meth_81ab( self._id_5545 );
+        self _meth_81AB( self._id_5545 );
     else
-        self _meth_81aa( var_1 );
+        self _meth_81AA( var_1 );
 }
 
 field_enemy_death()
@@ -1814,7 +1814,7 @@ field_enemy_alert_level_1( var_0 )
     maps\_utility::_id_32DA( "_stealth_enemy_alert_level_action" );
     common_scripts\utility::_id_3857( "_stealth_found_corpse" );
 
-    if ( !isdefined( self._id_0669._id_5836._id_222C._id_2231 ) )
+    if ( !isdefined( self._stealth._id_5836._id_222C._id_2231 ) )
         thread maps\_stealth_behavior::_id_31F6();
 }
 
@@ -1853,7 +1853,7 @@ field_enemy_patrol_thread2()
     while ( distancesquared( level.player.origin, self.origin ) > var_1 )
         wait 0.1;
 
-    level.player._id_0669._id_5836._id_8A93[self._id_0908] = 2;
+    level.player._stealth._id_5836._id_8A93[self.ai_number] = 2;
     self.favoriteenemy = level.player;
 }
 
@@ -1866,10 +1866,10 @@ field_enemy_alert_level_2( var_0 )
     thread maps\_stealth_behavior::_id_31F7();
     common_scripts\utility::_id_383F( "field_stop_bmps" );
     maps\_utility::_id_1ED1();
-    self _meth_81aa( var_0.origin );
+    self _meth_81AA( var_0.origin );
     self.goalradius = 80;
     self waittill( "goal" );
-    level.player._id_0669._id_5836._id_8A93[self._id_0908] = 2;
+    level.player._stealth._id_5836._id_8A93[self.ai_number] = 2;
     self.favoriteenemy = var_0;
 }
 
@@ -1881,7 +1881,7 @@ field_enemy_awareness( var_0 )
     self notify( "stop_patrol_thread" );
     common_scripts\utility::_id_383F( "field_stop_bmps" );
     maps\_utility::_id_1ED1();
-    level.player._id_0669._id_5836._id_8A93[self._id_0908] = 2;
+    level.player._stealth._id_5836._id_8A93[self.ai_number] = 2;
     self.favoriteenemy = level.player;
 }
 
@@ -1924,8 +1924,8 @@ cargo_sleeper_wait_wakeup()
 
 cargo_handle_patroller()
 {
-    common_scripts\utility::_id_0D13( getentarray( "cargo_patrol_flag_set", "script_noteworthy" ), ::cargo_handle_patroller_flag, 1 );
-    common_scripts\utility::_id_0D13( getentarray( "cargo_patrol_flag_clear", "script_noteworthy" ), ::cargo_handle_patroller_flag, 0 );
+    common_scripts\utility::array_thread( getentarray( "cargo_patrol_flag_set", "script_noteworthy" ), ::cargo_handle_patroller_flag, 1 );
+    common_scripts\utility::array_thread( getentarray( "cargo_patrol_flag_clear", "script_noteworthy" ), ::cargo_handle_patroller_flag, 0 );
     var_0 = getent( "cargo_patrol_kill_flag", "script_noteworthy" );
     var_0 thread cargo_handle_patroller_kill_trig();
 }
@@ -1973,12 +1973,12 @@ cargo_insane_handle_use()
 
     for (;;)
     {
-        while ( level.player._id_0669._id_5836._id_8AF2 != "prone" )
+        while ( level.player._stealth._id_5836._id_8AF2 != "prone" )
             wait 0.05;
 
         common_scripts\utility::_id_97CC();
 
-        while ( level.player._id_0669._id_5836._id_8AF2 == "prone" )
+        while ( level.player._stealth._id_5836._id_8AF2 == "prone" )
             wait 0.05;
 
         common_scripts\utility::_id_97CE();
@@ -2047,7 +2047,7 @@ cargo_slipby_part2( var_0 )
     {
         level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_forwardclear" );
         level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_go" );
-        self.ref_node thread maps\_anim::_id_0BC9( self, "moveout_cornerR" );
+        self.ref_node thread maps\_anim::anim_generic( self, "moveout_cornerR" );
         self.ref_node waittill( "moveout_cornerR" );
     }
     else
@@ -2061,23 +2061,23 @@ cargo_slipby_part3( var_0 )
         if ( !( !common_scripts\utility::_id_382E( "cargo_patrol_away" ) && !common_scripts\utility::_id_382E( "cargo_patrol_dead" ) ) )
         {
             level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_shhh" );
-            self.ref_node thread maps\_anim::_id_0BC9( self, "stop_cqb" );
+            self.ref_node thread maps\_anim::anim_generic( self, "stop_cqb" );
             self.ref_node waittill( "stop_cqb" );
         }
 
         if ( !common_scripts\utility::_id_382E( "cargo_patrol_away" ) && !common_scripts\utility::_id_382E( "cargo_patrol_dead" ) )
         {
             level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_patrolthisway" );
-            self _meth_81ce( "prone" );
-            maps\_anim::_id_0BCA( self, "gravity", "stand2prone" );
-            self _meth_81aa( self.origin );
+            self _meth_81CE( "prone" );
+            maps\_anim::anim_generic_custom_animmode( self, "gravity", "stand2prone" );
+            self _meth_81AA( self.origin );
             common_scripts\utility::_id_384C( "cargo_patrol_dead", "cargo_patrol_away", "cargo_patrol_kill" );
-            self _meth_81ce( "prone", "crouch", "stand" );
+            self _meth_81CE( "prone", "crouch", "stand" );
             level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_moveup" );
         }
         else
         {
-            self.ref_node thread maps\_anim::_id_0BC9( self, "moveup_cqb" );
+            self.ref_node thread maps\_anim::anim_generic( self, "moveup_cqb" );
             level maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_stayhidden" );
             level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_moveup" );
         }
@@ -2321,7 +2321,7 @@ dash_crawl_patrol()
     else
         var_2 = "bm21_unload1";
 
-    var_1 maps\_anim::_id_0BC9( self, var_2, "tag_detach" );
+    var_1 maps\_anim::anim_generic( self, var_2, "tag_detach" );
     var_1 delete();
 }
 
@@ -2337,15 +2337,15 @@ dash_state_hidden()
     self.diequietly = 1;
 
     if ( !isdefined( self._id_6398 ) )
-        self._id_6398 = self._id_1300;
+        self._id_6398 = self.baseaccuracy;
 
     if ( !isdefined( self._id_6392 ) )
         self._id_6392 = self.accuracy;
 
-    self._id_1300 = self._id_6398;
+    self.baseaccuracy = self._id_6398;
     self.accuracy = self._id_6392;
     self.fixednode = 1;
-    self _meth_816a();
+    self _meth_816A();
 }
 
 dash_sniper_death()
@@ -2378,7 +2378,7 @@ dash_sniper_death()
 
     if ( maps\_utility::_id_32D8( "death_anim" ) )
     {
-        var_4 thread maps\_anim::_id_0BC9( self, "balcony_death" );
+        var_4 thread maps\_anim::anim_generic( self, "balcony_death" );
         maps\_utility::_id_27EF( 1.2, ::rag_doll, self );
     }
     else
@@ -2444,7 +2444,7 @@ dash_sniper_alert( var_0 )
 {
     var_1 = getnode( "dash_sniper_node", "targetname" );
     thread maps\_stealth_behavior::_id_31F7();
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self.goalradius = 32;
 }
 
@@ -2452,7 +2452,7 @@ dash_sniper_attack( var_0 )
 {
     var_1 = getnode( "dash_sniper_node", "targetname" );
     thread maps\_stealth_behavior::_id_31FA( var_0.origin );
-    self _meth_81a9( var_1 );
+    self _meth_81A9( var_1 );
     self.goalradius = 32;
 }
 
@@ -2486,9 +2486,9 @@ dash_hind()
     var_1 thread dash_hind_pilots( var_1._id_750A[1], "tag_passenger", "gunner_idle" );
     var_1 setmaxpitchroll( 25, 45 );
     var_1 sethoverparams( 128 );
-    var_1 maps\_utility::_id_07BE( maps\_utility::_id_A099, "death" );
-    level maps\_utility::_id_075F( common_scripts\utility::_id_383F, "dash_hind_down" );
-    level maps\_utility::_id_075F( common_scripts\utility::_id_3831, "dash_heli_agro" );
+    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
+    level maps\_utility::add_func( common_scripts\utility::_id_383F, "dash_hind_down" );
+    level maps\_utility::add_func( common_scripts\utility::_id_3831, "dash_heli_agro" );
     thread maps\_utility::_id_2BDC();
     level.hind = var_1;
     var_1 endon( "death" );
@@ -2501,9 +2501,9 @@ dash_hind()
 
 dash_hind_pilots( var_0, var_1, var_2 )
 {
-    var_0._id_0C72 = "generic";
+    var_0.animname = "generic";
     var_0 thread codescripts\character::_id_7F88( "head_spetsnaz_assault_geoff" );
-    thread maps\_anim::_id_0BCE( var_0, var_2, var_1 );
+    thread maps\_anim::anim_generic_loop( var_0, var_2, var_1 );
 }
 
 dash_hind_distance_logic()
@@ -2565,7 +2565,7 @@ dogs_eater_eat()
     self.ref_node notify( "stop_loop" );
     self.ref_node.angles = self.angles;
     self linkto( self.ref_node );
-    self.ref_node thread maps\_anim::_id_0BCE( self, "dog_idle" );
+    self.ref_node thread maps\_anim::anim_generic_loop( self, "dog_idle" );
     wait(randomfloatrange( 1, 3 ));
     self.ref_node notify( "stop_loop" );
     self.ref_node rotateto( self.ref_angles, 0.4 );
@@ -2573,7 +2573,7 @@ dogs_eater_eat()
     for (;;)
     {
         self playsound( "anml_dog_eating_body" );
-        self.ref_node maps\_anim::_id_0BC9( self, "dog_eating_single" );
+        self.ref_node maps\_anim::anim_generic( self, "dog_eating_single" );
     }
 }
 
@@ -2591,7 +2591,7 @@ dogs_eater_growl()
     self notify( "stop_loop" );
     self.ref_node notify( "stop_loop" );
     self _meth_8143();
-    self _meth_81aa( self gettagorigin( "tag_origin" ) );
+    self _meth_81AA( self gettagorigin( "tag_origin" ) );
     wait 0.05;
     self _meth_8193( "face angle", self.angles[1] );
     self stopsounds();
@@ -2614,7 +2614,7 @@ dogs_eater_bark()
     self stopsounds();
 }
 
-_id_17CF()
+break_glass()
 {
     wait(randomfloat( 0.5 ));
     var_0 = self getorigin();
@@ -2727,7 +2727,7 @@ field_waittill_player_passed_guards()
         var_0 = ( 0.0, 225.0, 0.0 );
         var_1 = anglestoforward( var_0 );
         var_2 = maps\_utility::_id_3DC6( "field_guard", "script_noteworthy" );
-        var_2 = common_scripts\utility::_id_0CDD( var_2, maps\_utility::_id_3DC6( "field_guard2", "script_noteworthy" ) );
+        var_2 = common_scripts\utility::array_combine( var_2, maps\_utility::_id_3DC6( "field_guard2", "script_noteworthy" ) );
         var_3 = 1;
 
         for ( var_4 = 0; var_4 < var_2.size; var_4++ )
@@ -2759,7 +2759,7 @@ kill_self( var_0 )
 melee_kill( var_0 )
 {
     var_0 playsound( "melee_swing_large" );
-    var_1 = "generic_pain_russian_" + var_0.favoriteenemy._id_0669._id_13A2.sndnum;
+    var_1 = "generic_pain_russian_" + var_0.favoriteenemy._stealth.behavior.sndnum;
     var_0.favoriteenemy playsound( var_1 );
     var_0.favoriteenemy playsound( "melee_hit" );
     var_0.favoriteenemy.allowdeath = 0;
@@ -2872,12 +2872,12 @@ player_prone_dof()
     {
         setdefaultdepthoffield();
 
-        while ( self._id_0669._id_5836._id_8AF2 != "prone" )
+        while ( self._stealth._id_5836._id_8AF2 != "prone" )
             wait 0.05;
 
         setpronedepthoffield();
 
-        while ( self._id_0669._id_5836._id_8AF2 == "prone" )
+        while ( self._stealth._id_5836._id_8AF2 == "prone" )
             wait 0.05;
     }
 }
@@ -2968,7 +2968,7 @@ try_save_proc( var_0 )
     while ( issubstr( "stinger", level.player getcurrentweapon() ) )
         wait 0.1;
 
-    maps\_utility::_id_1143( var_0 );
+    maps\_utility::autosave_by_name( var_0 );
 }
 
 _id_6B33()
@@ -3008,11 +3008,11 @@ jumptoactor( var_0 )
     self unlink();
     var_1 delete();
     self._id_588F = 0;
-    self _meth_81aa( var_0 );
+    self _meth_81AA( var_0 );
     self.goalradius = 16;
     common_scripts\utility::_id_A0A0( "goal", 1.25 );
     wait 0.1;
-    self _meth_81aa( var_0 );
+    self _meth_81AA( var_0 );
     self.goalradius = 16;
 }
 
@@ -3070,10 +3070,10 @@ pond_dump_bodies()
     for (;;)
     {
         var_2 notify( "single anim", "end" );
-        var_7 thread maps\_anim::_id_0BC9( var_2, "bodydump_guy1" );
+        var_7 thread maps\_anim::anim_generic( var_2, "bodydump_guy1" );
         var_7 thread pond_dump_createbody( "deadguy_throw1" );
         var_7 thread pond_dump_2nd( var_2 );
-        var_7 maps\_anim::_id_0BC9( var_3, "bodydump_guy2" );
+        var_7 maps\_anim::anim_generic( var_3, "bodydump_guy2" );
     }
 }
 
@@ -3099,19 +3099,19 @@ pond_create_body_pile( var_0, var_1, var_2 )
     var_3.angles = ( 0.0, 0.0, 0.0 );
     var_4 = pond_create_drone( var_3, var_0, ( 0.0, 0.0, 0.0 ) );
     var_4 useanimtree( #animtree );
-    var_4 _meth_814d( %covercrouch_death_1 );
+    var_4 _meth_814D( %covercrouch_death_1 );
     var_4 = pond_create_drone( var_3, var_0 + ( -25.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_4 useanimtree( #animtree );
-    var_4 _meth_814d( %covercrouch_death_2 );
+    var_4 _meth_814D( %covercrouch_death_2 );
     var_4 = pond_create_drone( var_3, var_0 + ( -20.0, 40.0, 0.0 ), ( 0.0, -135.0, 0.0 ) );
     var_4 useanimtree( #animtree );
-    var_4 _meth_814d( %covercrouch_death_3 );
+    var_4 _meth_814D( %covercrouch_death_3 );
 
     if ( !isdefined( var_2 ) )
     {
         var_4 = pond_create_drone( var_3, var_0 + ( -45.0, 20.0, -5.0 ), ( 6.0, 90.0, 0.0 ) );
         var_4 useanimtree( #animtree );
-        var_4 _meth_814d( %corner_standr_death_grenade_slump );
+        var_4 _meth_814D( %corner_standr_death_grenade_slump );
     }
 
     if ( isdefined( var_1 ) )
@@ -3199,7 +3199,7 @@ pond_dump_createbody( var_0 )
 
     var_2 endon( "ragdoll" );
     var_2 thread pond_dump_bodies_abort();
-    var_1 maps\_anim::_id_0BC9( var_2, var_0 );
+    var_1 maps\_anim::anim_generic( var_2, var_0 );
     var_2 delete();
 }
 
@@ -3320,7 +3320,7 @@ town_state_spotted()
     {
         self.diequietly = 0;
         maps\_utility::_id_1ED1();
-        self._id_1300 = 1;
+        self.baseaccuracy = 1;
         self.accuracy = 1;
         self.fixednode = 0;
         maps\_stealth_behavior::_id_327E();
@@ -3437,15 +3437,15 @@ play_sound_wait( var_0 )
 dash_state_spotted()
 {
     level endon( "_stealth_detection_level_change" );
-    self._id_1300 = self._id_0669._id_13A2.badaccuracy;
-    self.accuracy = self._id_0669._id_13A2.badaccuracy;
-    self.grenadeammo = self._id_0669._id_13A2._id_63CE;
+    self.baseaccuracy = self._stealth.behavior.badaccuracy;
+    self.accuracy = self._stealth.behavior.badaccuracy;
+    self.grenadeammo = self._stealth.behavior._id_63CE;
     self _meth_8143();
     self.ignoreme = 0;
     self._id_2AF3 = 1;
     self._id_2B0E = 1;
-    self _meth_81a7( 0 );
-    self _meth_81ce( "prone" );
+    self _meth_81A7( 0 );
+    self _meth_81CE( "prone" );
 }
 
 intro_attack_logic( var_0 )
@@ -3472,14 +3472,14 @@ intro_close_in_on_target()
     {
         var_1 = self.enemy.origin;
 
-        if ( self _meth_81c7( var_1 ) )
-            self _meth_81aa( var_1 );
+        if ( self _meth_81C7( var_1 ) )
+            self _meth_81AA( var_1 );
         else
         {
             var_2 = maps\_stealth_behavior::enemy_get_closest_pathnodes( 400, var_1 );
 
             if ( var_2.size )
-                self _meth_81aa( var_2[0].origin );
+                self _meth_81AA( var_2[0].origin );
         }
 
         self.goalradius = var_0;
@@ -3495,7 +3495,7 @@ clean_corpse( var_0 )
 {
     common_scripts\utility::_id_384A( var_0 );
 
-    if ( !level._id_0669._id_5836._id_222C._id_0CD8.size )
+    if ( !level._stealth._id_5836._id_222C.array.size )
         return;
 
     clearallcorpses();
@@ -3509,7 +3509,7 @@ field_handle_cleanup()
     level endon( "_stealth_spotted" );
     common_scripts\utility::_id_384A( "field_clean" );
     var_0 = maps\_utility::_id_3DC6( "field_guard", "script_noteworthy" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3DC6( "field_guard2", "script_noteworthy" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3DC6( "field_guard2", "script_noteworthy" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] thread field_handle_cleanup2();
@@ -3519,8 +3519,8 @@ pond_handle_behavior_change()
 {
     common_scripts\utility::_id_384A( "field_clean" );
     var_0 = maps\_utility::_id_3DC6( "pond_patrol", "script_noteworthy" );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3DC6( "pond_throwers", "script_noteworthy" ) );
-    var_0 = common_scripts\utility::_id_0CDD( var_0, maps\_utility::_id_3DC6( "pond_backup", "script_noteworthy" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3DC6( "pond_throwers", "script_noteworthy" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3DC6( "pond_backup", "script_noteworthy" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -3535,7 +3535,7 @@ field_handle_cleanup2()
     var_0 = 2500;
     var_1 = var_0 * var_0;
 
-    while ( distancesquared( level.player.origin, self.origin ) < var_1 || self _meth_81c2( level.player ) )
+    while ( distancesquared( level.player.origin, self.origin ) < var_1 || self _meth_81C2( level.player ) )
         wait 0.5;
 
     self delete();
@@ -3576,7 +3576,7 @@ printhint2( var_0 )
 {
     level.player endon( "death" );
 
-    while ( level.player._id_0669._id_5836._id_8AF2 != "prone" )
+    while ( level.player._stealth._id_5836._id_8AF2 != "prone" )
         wait 0.2;
 
     level.player notify( var_0 );
@@ -3832,7 +3832,7 @@ h1_dash_container_door_push2( var_0 )
     else
     {
         level.jeep_cover_node = spawn( "script_origin", ( 1927.02, -372.321, -85.683 ) );
-        level.jeep_cover_node maps\_anim::_id_0BFF( level._id_6F7C, "jeep_cover_run_to_idle" );
+        level.jeep_cover_node maps\_anim::anim_reach_solo( level._id_6F7C, "jeep_cover_run_to_idle" );
     }
 }
 

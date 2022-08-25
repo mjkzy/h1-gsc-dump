@@ -47,7 +47,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "launchfacility_b", 0 );
     level.player maps\_utility::set_light_set_player( "launchfacility_b" );
-    level.player _meth_848c( "clut_launchfacility_b", 0.0 );
+    level.player _meth_848C( "clut_launchfacility_b", 0.0 );
 }
 
 setup_spinning_ents()
@@ -72,7 +72,7 @@ setup_spinning_ents()
 setup_emissive_pulsing()
 {
     var_0 = getentarray( "emissive_pulsing", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::emissive_pulsing );
+    common_scripts\utility::array_thread( var_0, ::emissive_pulsing );
 }
 
 emissive_pulsing()
@@ -116,7 +116,7 @@ emissive_ramp( var_0, var_1, var_2, var_3, var_4 )
     {
         var_1 += var_2;
         var_1 = clamp( var_1, var_3, var_4 );
-        self _meth_83a5( var_1, 0.0 );
+        self _meth_83A5( var_1, 0.0 );
         var_5 += var_6;
         wait(var_6);
     }

@@ -104,62 +104,62 @@ _id_5FFD( var_0, var_1 )
 
 start_inside_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar1" );
 }
 
 start_look_training_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar1" );
 }
 
 start_rifle_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar1" );
 }
 
 start_rifle_timed_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar1" );
 }
 
 start_sidearm_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar1" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar1" );
 }
 
 start_frag_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_launcher_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_explosives_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_course_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_reveal_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "exterior" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "exterior" );
 }
 
 start_cargoship_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar2" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar2" );
 }
 
 start_debrief_start_checkpoint( var_0 )
 {
-    soundscripts\_audio_zone_manager::_id_123A( "hangar2" );
+    soundscripts\_audio_zone_manager::azm_start_zone( "hangar2" );
 }
 
 aud_deactivate_hangar_transition_zone()

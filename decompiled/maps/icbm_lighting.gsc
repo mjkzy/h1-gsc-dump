@@ -45,7 +45,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "icbm", 0 );
     level.player maps\_utility::set_light_set_player( "icbm" );
-    level.player _meth_848c( "clut_icbm", 0.0 );
+    level.player _meth_848C( "clut_icbm", 0.0 );
 }
 
 sun_rise_handling_init()
@@ -64,7 +64,7 @@ sun_rise_handling_init()
     thread handle_sunrise2_colors();
     wait 0.05;
     maps\_utility::_id_9E6E( "icbm_sunrise0", 0 );
-    level.player _meth_848c( "clut_icbm_sunrise0", 0.0 );
+    level.player _meth_848C( "clut_icbm_sunrise0", 0.0 );
     thread sunrise_lerp_loop();
 }
 
@@ -76,7 +76,7 @@ handle_sunrise2_colors()
     setsaveddvar( "sm_spotEnable", 1 );
     var_1 = var_0.interval;
     sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 0.65, 0.4 ), 1 ), var_1 );
-    level.player _meth_848c( "clut_icbm_sunrise2", var_1 );
+    level.player _meth_848C( "clut_icbm_sunrise2", var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise2", "icbm_sunrise_02", var_1 );
     thread stop_snow();
     thread handle_sunrise3_colors();
@@ -115,7 +115,7 @@ handle_sunrise3_colors()
     var_1 = var_0.interval;
     sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 0.8, 0.6 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise3", "icbm_sunrise_03", var_1 );
-    level.player _meth_848c( "clut_icbm_sunrise3", var_1 );
+    level.player _meth_848C( "clut_icbm_sunrise3", var_1 );
     thread handle_sunrise4_colors();
 }
 
@@ -138,7 +138,7 @@ handle_sunrise4_colors()
     var_1 = var_0.interval;
     sun_set_lerp_parameters( "sun", maps\_utility::vector_multiply( ( 1.0, 1.0, 1.0 ), 1 ), var_1 );
     set_exterior_vision_and_light_set( "icbm_sunrise4", "icbm_sunrise_04", var_1 );
-    level.player _meth_848c( "clut_icbm_sunrise4", var_1 );
+    level.player _meth_848C( "clut_icbm_sunrise4", var_1 );
 }
 
 skip_to_sunrise4()
@@ -163,11 +163,11 @@ launchvision()
     thread handle_launch_cinematic_effects();
     level.player maps\_utility::set_light_set_player( "icbm_launch" );
     maps\_utility::_id_9E6E( "icbm_launch", 0.5 );
-    level.player _meth_848c( "clut_icbm_launch", 0.5 );
+    level.player _meth_848C( "clut_icbm_launch", 0.5 );
     wait 2;
     maps\_utility::_id_9E6E( "icbm_sunrise4", 5 );
     level.player maps\_utility::set_light_set_player( "icbm_sunrise_04" );
-    level.player _meth_848c( "clut_icbm_sunrise4", 5 );
+    level.player _meth_848C( "clut_icbm_sunrise4", 5 );
     level notify( "missile_vision_done" );
 }
 

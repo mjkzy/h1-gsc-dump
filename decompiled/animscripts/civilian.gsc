@@ -33,8 +33,8 @@ cover()
 
     var_1 = undefined;
 
-    if ( isdefined( self._id_0C72 ) && isdefined( level._id_78AC[self._id_0C72] ) )
-        var_1 = level._id_78AC[self._id_0C72][var_0];
+    if ( isdefined( self.animname ) && isdefined( level._id_78AC[self.animname] ) )
+        var_1 = level._id_78AC[self.animname][var_0];
 
     if ( !isdefined( var_1 ) )
     {

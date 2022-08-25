@@ -44,7 +44,7 @@ _id_7E68()
 {
     maps\_utility::_id_9E6E( "airplane", 0 );
     level.player maps\_utility::set_light_set_player( "airplane" );
-    level.player _meth_848c( "airplane", 0.0 );
+    level.player _meth_848C( "airplane", 0.0 );
 }
 
 toggle_breach_lightset_triggers()

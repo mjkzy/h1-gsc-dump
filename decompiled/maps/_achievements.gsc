@@ -31,8 +31,8 @@ master_ninja_init()
 {
     common_scripts\utility::_id_383D( "master_ninja_melee_kill" );
     common_scripts\utility::_id_383D( "master_ninja_illegal_kill" );
-    maps\_utility::_id_0761( "axis", ::master_ninja_enemy_spawned );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::master_ninja_enemy_spawned );
+    maps\_utility::add_global_spawn_function( "axis", ::master_ninja_enemy_spawned );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::master_ninja_enemy_spawned );
     level thread master_ninja_mission_complete();
 }
 
@@ -92,11 +92,11 @@ retro_shooter_mission_complete()
 weapon_master_init()
 {
     var_0 = get_base_weapon_list();
-    maps\_utility::_id_0761( "axis", ::weapon_master_enemy_spawned );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::weapon_master_enemy_spawned );
-    var_1 = maps\_vehicle_code::_id_05BE();
-    common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_0798, ::weapon_master_vehicle_spawned );
-    common_scripts\utility::_id_0D13( vehicle_getarray(), ::weapon_master_vehicle_spawned );
+    maps\_utility::add_global_spawn_function( "axis", ::weapon_master_enemy_spawned );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::weapon_master_enemy_spawned );
+    var_1 = maps\_vehicle_code::_getvehiclespawnerarray();
+    common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::weapon_master_vehicle_spawned );
+    common_scripts\utility::array_thread( vehicle_getarray(), ::weapon_master_vehicle_spawned );
     thread weapon_master_barrett();
 }
 
@@ -197,7 +197,7 @@ weapon_master_vehicle_spawned()
 weapon_master_register_kill( var_0 )
 {
     var_0 = parse_weapon_name( var_0 );
-    var_1 = common_scripts\utility::_id_0CE8( get_base_weapon_list(), var_0 );
+    var_1 = common_scripts\utility::array_find( get_base_weapon_list(), var_0 );
 
     if ( !isdefined( var_1 ) )
         return;
@@ -234,8 +234,8 @@ weapon_master_check_success()
 
 i_hate_dogs_init()
 {
-    maps\_utility::_id_0761( "axis", ::i_hate_dogs_enemy_spawned );
-    common_scripts\utility::_id_0D13( getaiarray( "axis" ), ::i_hate_dogs_enemy_spawned );
+    maps\_utility::add_global_spawn_function( "axis", ::i_hate_dogs_enemy_spawned );
+    common_scripts\utility::array_thread( getaiarray( "axis" ), ::i_hate_dogs_enemy_spawned );
 }
 
 i_hate_dogs_enemy_spawned()

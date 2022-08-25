@@ -27,7 +27,7 @@ main()
 
 _id_8072()
 {
-    level.bot_funcs["gametype_think"] = ::_id_1647;
+    level.bot_funcs["gametype_think"] = ::bot_gun_think;
 }
 
 _id_805D()
@@ -39,7 +39,7 @@ bot_gun_pick_personality_from_weapon( var_0, var_1 )
 {
     if ( isdefined( var_0 ) )
     {
-        var_2 = level._id_1738[var_0];
+        var_2 = level.bot_weap_personality[var_0];
 
         if ( isdefined( var_2 ) )
         {
@@ -52,18 +52,18 @@ bot_gun_pick_personality_from_weapon( var_0, var_1 )
             {
                 var_4 = undefined;
 
-                if ( common_scripts\utility::_id_0CE4( var_3, var_1 ) )
+                if ( common_scripts\utility::array_contains( var_3, var_1 ) )
                     var_4 = var_1;
                 else
                     var_4 = common_scripts\utility::_id_710E( var_3 );
 
-                maps\mp\bots\_bots_util::_id_16ED( var_4 );
+                maps\mp\bots\_bots_util::bot_set_personality( var_4 );
             }
         }
     }
 }
 
-_id_1647()
+bot_gun_think()
 {
     self notify( "bot_gun_think" );
     self endon( "bot_gun_think" );

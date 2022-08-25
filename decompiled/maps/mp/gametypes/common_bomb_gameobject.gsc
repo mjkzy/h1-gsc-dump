@@ -52,7 +52,7 @@ getcarrybombvisuals( var_0 )
 createbombcarryobject( var_0, var_1, var_2, var_3 )
 {
     var_4 = maps\mp\gametypes\_gameobjects::_id_23E9( var_0, var_2, var_3, ( 0.0, 0.0, 32.0 ) );
-    var_4 maps\mp\gametypes\_gameobjects::_id_0AA1( var_1 );
+    var_4 maps\mp\gametypes\_gameobjects::allowcarry( var_1 );
     var_4 maps\mp\gametypes\_gameobjects::_id_8352( var_1 );
 
     if ( var_1 == "friendly" || var_1 == "any" )
@@ -67,7 +67,7 @@ createbombcarryobject( var_0, var_1, var_2, var_3 )
         var_4 maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", "waypoint_bomb" );
     }
 
-    var_4._id_0AB5 = 1;
+    var_4.allowweapons = 1;
     var_4._id_1AFB = ::canusebomb;
 
     foreach ( var_6 in var_3 )
@@ -244,7 +244,7 @@ onbegindefusebomb( var_0, var_1 )
 
 _id_6979( var_0 )
 {
-    var_1 = common_scripts\utility::_id_0CF6( level.players, var_0 );
+    var_1 = common_scripts\utility::array_remove( level.players, var_0 );
 
     if ( var_1.size )
         var_0 maps\mp\_utility::_id_6DC5( "snd_bomb_button_press_lp", undefined, var_1 );
@@ -269,7 +269,7 @@ onendusebomb( var_0, var_1 )
     }
 
     level thread _id_8EA2( var_0 );
-    var_0 _meth_854d( "weap_suitcase_raise_plr" );
+    var_0 _meth_854D( "weap_suitcase_raise_plr" );
 
     if ( var_1 && isdefined( self.hiddenmodel ) )
     {
@@ -281,8 +281,8 @@ onendusebomb( var_0, var_1 )
 onplayerplantbomb( var_0, var_1, var_2 )
 {
     self notify( "bomb_planted" );
-    thread maps\mp\_events::_id_1548();
-    self._id_1547 = gettime();
+    thread maps\mp\_events::bombplantevent();
+    self.bombplantedtime = gettime();
 
     if ( isplayer( self ) && var_0 )
     {
@@ -294,7 +294,7 @@ onplayerplantbomb( var_0, var_1, var_2 )
     maps\mp\_utility::_id_6DDD( game["bomb_planted_sound"], var_1 );
     maps\mp\_utility::_id_6DDD( game["bomb_planted_enemy_sound"], var_2 );
     maps\mp\_utility::_id_564B( "bomb_planted" );
-    level._id_1544 = self;
+    level.bombowner = self;
 }
 
 onbombplanted( var_0 )
@@ -314,7 +314,7 @@ _id_6DE5()
     self endon( "death" );
     self endon( "stop_ticking" );
     level endon( "game_ended" );
-    var_0 = level._id_1551;
+    var_0 = level.bombtimer;
 
     for (;;)
     {
@@ -353,11 +353,11 @@ _id_8F06()
 onplayerdefusebomb( var_0, var_1, var_2 )
 {
     self notify( "bomb_defused" );
-    thread maps\mp\_events::_id_1537( var_0 );
+    thread maps\mp\_events::bombdefuseevent( var_0 );
     maps\mp\_utility::_id_6DDD( game["bomb_disarm_sound"], var_1 );
     maps\mp\_utility::_id_6DDD( game["bomb_disarm_enemy_sound"], var_2 );
     maps\mp\_utility::_id_564B( "bomb_defused" );
-    level._id_1544 = undefined;
+    level.bombowner = undefined;
 }
 
 onbombexploded( var_0, var_1, var_2 )
@@ -365,7 +365,7 @@ onbombexploded( var_0, var_1, var_2 )
     if ( isdefined( var_2 ) )
     {
         self.visuals[0] entityradiusdamage( var_0, 512, var_1, 20, var_2, "MOD_EXPLOSIVE", "bomb_site_mp" );
-        var_2 thread maps\mp\_events::_id_1539();
+        var_2 thread maps\mp\_events::bombdetonateevent();
     }
     else
         self.visuals[0] entityradiusdamage( var_0, 512, var_1, 20, undefined, "MOD_EXPLOSIVE", "bomb_site_mp" );

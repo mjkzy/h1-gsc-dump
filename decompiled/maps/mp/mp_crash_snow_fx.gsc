@@ -52,7 +52,7 @@ main()
     level._effect["fire_campfire_small"] = loadfx( "vfx/fire/dlc/fire_campfire_small" );
     level._effect["snow_light_mp_bloc"] = loadfx( "fx/weather/snow_light_mp_bloc" );
     level._effect["deathfx_xmas_snow"] = loadfx( "vfx/map/mp_crash_snow/deathfx_xmas_snow" );
-    level._id_099B = loadfx( "fx/explosions/clusterbomb_christmas" );
+    level.airstrikefx = loadfx( "fx/explosions/clusterbomb_christmas" );
     level._effect["firelp_med_pm"] = loadfx( "fx/fire/firelp_med_pm_nodistort" );
     level._effect["dust_wind_fast"] = loadfx( "fx/weather/snow_wind" );
     level._effect["dust_wind_slow"] = loadfx( "fx/weather/snow_wind" );

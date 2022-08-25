@@ -21,39 +21,39 @@
 
 _id_25B6()
 {
-    if ( !isdefined( level._id_055B ) )
-        level._id_055B = spawnstruct();
+    if ( !isdefined( level._audio ) )
+        level._audio = spawnstruct();
 
-    if ( !isdefined( level._id_055B._id_25B3 ) )
+    if ( !isdefined( level._audio._id_25B3 ) )
     {
-        level._id_055B._id_25B3 = spawnstruct();
-        level._id_055B._id_25B3._id_5875 = 0;
-        level._id_055B._id_25B3._id_858B = 0;
-        level._id_055B._id_25B3._id_6499 = 0;
-        level._id_055B._id_25B3._id_7D9D = 1;
-        level._id_055B._id_25B3.playing = [];
-        level._id_055B._id_25B3.playing["zone"] = [];
-        level._id_055B._id_25B3.playing["free"] = [];
-        level._id_055B._id_25B3._id_20D6 = [];
-        level._id_055B._id_25B3._id_1A04 = [];
-        level._id_055B._id_25B3._id_6F1F = [];
-        level._id_055B._id_25B3._id_20D5 = [];
-        level._id_055B._id_25B3._id_5869 = [];
-        level._id_055B._id_25B3._id_9BE7 = 0;
-        level._id_055B._id_25B3._id_3316 = 0;
-        level._id_055B._id_25B3._id_586D = 0;
-        level._id_055B._id_25B3._id_5A04 = 15;
+        level._audio._id_25B3 = spawnstruct();
+        level._audio._id_25B3._id_5875 = 0;
+        level._audio._id_25B3._id_858B = 0;
+        level._audio._id_25B3._id_6499 = 0;
+        level._audio._id_25B3._id_7D9D = 1;
+        level._audio._id_25B3.playing = [];
+        level._audio._id_25B3.playing["zone"] = [];
+        level._audio._id_25B3.playing["free"] = [];
+        level._audio._id_25B3._id_20D6 = [];
+        level._audio._id_25B3.callbacks = [];
+        level._audio._id_25B3._id_6F1F = [];
+        level._audio._id_25B3._id_20D5 = [];
+        level._audio._id_25B3._id_5869 = [];
+        level._audio._id_25B3._id_9BE7 = 0;
+        level._audio._id_25B3._id_3316 = 0;
+        level._audio._id_25B3._id_586D = 0;
+        level._audio._id_25B3._id_5A04 = 15;
     }
 }
 
 _id_25BC( var_0 )
 {
-    level._id_055B._id_25B3._id_5A04 = var_0;
+    level._audio._id_25B3._id_5A04 = var_0;
 }
 
 _id_25C7()
 {
-    level._id_055B._id_25B3._id_9BE7 = 1;
+    level._audio._id_25B3._id_9BE7 = 1;
 }
 
 _id_25C8( var_0, var_1 )
@@ -160,13 +160,13 @@ _id_25C2( var_0, var_1 )
 
     if ( var_3 == "free" || var_3 == "all" )
     {
-        foreach ( var_6, var_5 in level._id_055B._id_25B3.playing["free"] )
+        foreach ( var_6, var_5 in level._audio._id_25B3.playing["free"] )
             _id_25C3( var_6, var_2 );
     }
 
     if ( var_3 == "zone" || var_3 == "all" )
     {
-        foreach ( var_6, var_5 in level._id_055B._id_25B3.playing["zone"] )
+        foreach ( var_6, var_5 in level._audio._id_25B3.playing["zone"] )
             _id_25C9( var_6, var_2 );
     }
 }
@@ -207,27 +207,27 @@ _id_25BB( var_0, var_1, var_2, var_3 )
 
 _id_25BD( var_0, var_1 )
 {
-    if ( !isdefined( level._id_055B._id_25B3._id_19EB ) )
-        level._id_055B._id_25B3._id_19EB = [];
+    if ( !isdefined( level._audio._id_25B3.callback ) )
+        level._audio._id_25B3.callback = [];
 
-    level._id_055B._id_25B3._id_19EB[var_0] = var_1;
+    level._audio._id_25B3.callback[var_0] = var_1;
 }
 
 _id_25BE( var_0, var_1 )
 {
     var_2 = [];
 
-    if ( isdefined( level._id_055B._id_25B3._id_6F1F[var_0] ) )
-        var_2 = level._id_055B._id_25B3._id_6F1F[var_0];
-    else if ( level._id_055B._id_25B3._id_9BE7 )
+    if ( isdefined( level._audio._id_25B3._id_6F1F[var_0] ) )
+        var_2 = level._audio._id_25B3._id_6F1F[var_0];
+    else if ( level._audio._id_25B3._id_9BE7 )
     {
         var_2 = _id_25D9( var_0, 1 );
-        level._id_055B._id_25B3._id_6F1F[var_0] = var_2;
+        level._audio._id_25B3._id_6F1F[var_0] = var_2;
     }
     else
     {
         var_2 = _id_25D9( var_0, 0 );
-        level._id_055B._id_25B3._id_6F1F[var_0] = var_2;
+        level._audio._id_25B3._id_6F1F[var_0] = var_2;
     }
 
     foreach ( var_4 in var_2["components"] )
@@ -241,8 +241,8 @@ _id_25BA( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_2 = var_1;
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_2][var_0] ) )
-        level._id_055B._id_25B3.playing[var_2][var_0]["paused"] = 1;
+    if ( isdefined( level._audio._id_25B3.playing[var_2][var_0] ) )
+        level._audio._id_25B3.playing[var_2][var_0]["paused"] = 1;
 }
 
 _id_25C6( var_0, var_1 )
@@ -252,9 +252,9 @@ _id_25C6( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_2 = var_1;
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_2][var_0] ) )
+    if ( isdefined( level._audio._id_25B3.playing[var_2][var_0] ) )
     {
-        level._id_055B._id_25B3.playing[var_2][var_0]["paused"] = 0;
+        level._audio._id_25B3.playing[var_2][var_0]["paused"] = 0;
         level notify( var_2 + "_" + var_0 + "_event" );
     }
 }
@@ -266,7 +266,7 @@ _id_25B9( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_2 = var_1;
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_2][var_0] ) )
+    if ( isdefined( level._audio._id_25B3.playing[var_2][var_0] ) )
         level notify( var_2 + "_" + var_0 + "_event" );
 }
 
@@ -274,19 +274,19 @@ _id_25B7( var_0, var_1, var_2, var_3 )
 {
     var_4 = "free";
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_4][var_0] ) && isdefined( level._id_055B._id_25B3.playing[var_4][var_1] ) )
+    if ( isdefined( level._audio._id_25B3.playing[var_4][var_0] ) && isdefined( level._audio._id_25B3.playing[var_4][var_1] ) )
     {
         var_2 = min( var_2, var_3 );
         var_3 = max( var_2, var_3 );
 
-        if ( !isdefined( level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"] ) )
-            level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"] = [];
+        if ( !isdefined( level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"] ) )
+            level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"] = [];
 
-        var_5 = level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"].size;
-        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5] = spawnstruct();
-        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5].name = var_1;
-        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5]._id_5C22 = max( var_2, 0 );
-        level._id_055B._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5]._id_59FC = max( var_3, 0 );
+        var_5 = level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"].size;
+        level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5] = spawnstruct();
+        level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5].name = var_1;
+        level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5]._id_5C22 = max( var_2, 0 );
+        level._audio._id_25B3.playing[var_4][var_0]["linked_dambs"][var_5]._id_59FC = max( var_3, 0 );
     }
 }
 
@@ -302,30 +302,30 @@ _id_25E7( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     if ( isstring( var_2 ) )
         var_9 = var_2;
 
-    if ( !isdefined( level._id_055B._id_25B3.playing[var_0][var_9] ) )
+    if ( !isdefined( level._audio._id_25B3.playing[var_0][var_9] ) )
     {
         var_10 = _id_25D4( var_1 );
 
         if ( !isdefined( var_10 ) )
             return;
 
-        level._id_055B._id_25B3.playing[var_0][var_9] = var_10;
-        level._id_055B._id_25B3.playing[var_0][var_9]["prob_scale"] = var_8;
-        level._id_055B._id_25B3.playing[var_0][var_9]["paused"] = 0;
+        level._audio._id_25B3.playing[var_0][var_9] = var_10;
+        level._audio._id_25B3.playing[var_0][var_9]["prob_scale"] = var_8;
+        level._audio._id_25B3.playing[var_0][var_9]["paused"] = 0;
 
         if ( isdefined( var_7 ) )
             _id_25E6( var_9, var_7 );
 
         if ( isdefined( var_5 ) )
         {
-            level._id_055B._id_25B3.playing[var_0][var_9]["entity"] = var_5;
-            level._id_055B._id_25B3.playing[var_0][var_9]["mode"] = var_6;
+            level._audio._id_25B3.playing[var_0][var_9]["entity"] = var_5;
+            level._audio._id_25B3.playing[var_0][var_9]["mode"] = var_6;
         }
 
         thread _id_25E4( var_0, var_9, var_4 );
     }
-    else if ( level._id_055B._id_25B3.playing[var_0][var_9]["prob_scale"] != var_8 )
-        level._id_055B._id_25B3.playing[var_0][var_9]["prob_scale"] = var_8;
+    else if ( level._audio._id_25B3.playing[var_0][var_9]["prob_scale"] != var_8 )
+        level._audio._id_25B3.playing[var_0][var_9]["prob_scale"] = var_8;
 }
 
 _id_25E6( var_0, var_1 )
@@ -356,18 +356,18 @@ _id_25E8( var_0, var_1, var_2 )
 
     if ( var_0 == "zone" && !isdefined( var_1 ) )
     {
-        if ( isdefined( level._id_055B._id_25B3.playing[var_0] ) )
+        if ( isdefined( level._audio._id_25B3.playing[var_0] ) )
         {
-            foreach ( var_1, var_5 in level._id_055B._id_25B3.playing[var_0] )
+            foreach ( var_1, var_5 in level._audio._id_25B3.playing[var_0] )
             {
-                level._id_055B._id_25B3.playing[var_0][var_1]["fade"] = var_3;
+                level._audio._id_25B3.playing[var_0][var_1]["fade"] = var_3;
                 level notify( var_0 + "_" + var_1 + "_stop" );
             }
         }
     }
-    else if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1] ) )
+    else if ( isdefined( level._audio._id_25B3.playing[var_0][var_1] ) )
     {
-        level._id_055B._id_25B3.playing[var_0][var_1]["fade"] = var_3;
+        level._audio._id_25B3.playing[var_0][var_1]["fade"] = var_3;
         level notify( var_0 + "_" + var_1 + "_stop" );
     }
 }
@@ -375,15 +375,15 @@ _id_25E8( var_0, var_1, var_2 )
 _id_25EB( var_0, var_1, var_2 )
 {
     level endon( var_0 + "_" + var_1 + "_stop" );
-    var_3 = level._id_055B._id_25B3.playing[var_0][var_1]["event_time"];
+    var_3 = level._audio._id_25B3.playing[var_0][var_1]["event_time"];
     var_4 = min( var_3[0], var_3[1] );
     var_5 = max( var_3[0], var_3[1] );
     var_6 = undefined;
     var_7 = undefined;
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["first_event"] ) )
+    if ( isdefined( level._audio._id_25B3.playing[var_0][var_1]["first_event"] ) )
     {
-        var_3 = level._id_055B._id_25B3.playing[var_0][var_1]["first_event"];
+        var_3 = level._audio._id_25B3.playing[var_0][var_1]["first_event"];
         var_6 = min( var_3[0], var_3[1] );
         var_7 = max( var_3[0], var_3[1] );
     }
@@ -397,10 +397,10 @@ _id_25EB( var_0, var_1, var_2 )
 
     for (;;)
     {
-        if ( !level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
+        if ( !level._audio._id_25B3.playing[var_0][var_1]["paused"] )
             wait(var_8);
 
-        if ( level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
+        if ( level._audio._id_25B3.playing[var_0][var_1]["paused"] )
             level waittill( var_0 + "_" + var_1 + "_event" );
 
         var_9 = _id_25E3( var_0, var_1 );
@@ -422,14 +422,14 @@ _id_25EB( var_0, var_1, var_2 )
 
             if ( var_11._id_8FAC )
             {
-                if ( level._id_055B._id_25B3._id_7D9D )
+                if ( level._audio._id_25B3._id_7D9D )
                     _id_25E1( var_0, var_1, var_11 );
                 else
                     thread _id_25E1( var_0, var_1, var_11 );
             }
         }
         else
-            soundscripts\_audio::_id_102D( "Dynamic ambience is playing back serially and using components which do not define oneshots or loops" );
+            soundscripts\_audio::aud_print_warning( "Dynamic ambience is playing back serially and using components which do not define oneshots or loops" );
 
         var_8 = randomfloatrange( var_4, var_5 );
     }
@@ -450,15 +450,15 @@ _id_25E5( var_0, var_1, var_2, var_3, var_4 )
             else
                 var_7 = spawn( "script_origin", level.player.origin );
 
-            level._id_055B._id_25B3._id_586D++;
+            level._audio._id_25B3._id_586D++;
             var_7 playloopsound( var_6 );
 
             if ( isdefined( var_4 ) )
                 var_7 linkto( var_4 );
 
-            var_8 = level._id_055B._id_25B3._id_858B;
-            level._id_055B._id_25B3.playing[var_0][var_1]["single_loops"][var_8] = var_7;
-            level._id_055B._id_25B3._id_858B++;
+            var_8 = level._audio._id_25B3._id_858B;
+            level._audio._id_25B3.playing[var_0][var_1]["single_loops"][var_8] = var_7;
+            level._audio._id_25B3._id_858B++;
         }
     }
 }
@@ -536,14 +536,14 @@ _id_25D0( var_0, var_1, var_2, var_1 )
 
     var_3._id_9C20 = 0;
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_1][var_2]["entity"] ) )
+    if ( isdefined( level._audio._id_25B3.playing[var_1][var_2]["entity"] ) )
     {
         var_3._id_9C20 = 1;
-        var_3._id_32D5 = level._id_055B._id_25B3.playing[var_1][var_2]["entity"];
-        var_3._id_5D35 = level._id_055B._id_25B3.playing[var_1][var_2]["mode"];
+        var_3._id_32D5 = level._audio._id_25B3.playing[var_1][var_2]["entity"];
+        var_3._id_5D35 = level._audio._id_25B3.playing[var_1][var_2]["mode"];
     }
 
-    var_3._id_6FDA = level._id_055B._id_25B3.playing[var_1][var_2]["prob_scale"];
+    var_3._id_6FDA = level._audio._id_25B3.playing[var_1][var_2]["prob_scale"];
     return var_3;
 }
 
@@ -566,11 +566,11 @@ _id_25CD( var_0, var_1, var_2, var_3 )
     {
         var_4._id_8FAC = 1;
 
-        if ( isdefined( level._id_055B._id_25B3._id_1A04[var_1] ) )
-            thread [[ level._id_055B._id_25B3._id_19EB[var_1] ]]();
+        if ( isdefined( level._audio._id_25B3.callbacks[var_1] ) )
+            thread [[ level._audio._id_25B3.callback[var_1] ]]();
         else
         {
-            var_4._id_09D6 = _id_25E2( var_2 );
+            var_4.alias = _id_25E2( var_2 );
             var_4.point = var_3;
             var_4._id_32D5 = var_0._id_32D5;
             var_4._id_5D35 = var_0._id_5D35;
@@ -667,10 +667,10 @@ _id_25EA( var_0, var_1, var_2, var_3 )
 
         for (;;)
         {
-            if ( !level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
+            if ( !level._audio._id_25B3.playing[var_0][var_1]["paused"] )
                 wait(var_5);
 
-            if ( level._id_055B._id_25B3.playing[var_0][var_1]["paused"] )
+            if ( level._audio._id_25B3.playing[var_0][var_1]["paused"] )
                 level waittill( var_0 + "_" + var_1 + "_event" );
 
             if ( var_4._id_9C20 && !isdefined( var_4._id_32D5 ) )
@@ -679,16 +679,16 @@ _id_25EA( var_0, var_1, var_2, var_3 )
                 break;
             }
 
-            if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["linked_dambs"] ) )
+            if ( isdefined( level._audio._id_25B3.playing[var_0][var_1]["linked_dambs"] ) )
             {
-                foreach ( var_7 in level._id_055B._id_25B3.playing[var_0][var_1]["linked_dambs"] )
+                foreach ( var_7 in level._audio._id_25B3.playing[var_0][var_1]["linked_dambs"] )
                 {
                     var_8 = randomfloatrange( var_7._id_5C22, var_7._id_59FC );
                     thread _id_25E9( var_7.name, var_8 );
                 }
             }
 
-            var_4._id_6FDA = level._id_055B._id_25B3.playing[var_0][var_1]["prob_scale"];
+            var_4._id_6FDA = level._audio._id_25B3.playing[var_0][var_1]["prob_scale"];
             var_10 = _id_25CD( var_4, var_1, var_2, var_3 );
 
             if ( var_10._id_8FAC )
@@ -704,11 +704,11 @@ _id_25EC( var_0, var_1, var_2, var_3 )
     level endon( var_0 + "_" + var_1 + "_stop" );
     var_3 waittill( "sounddone" );
 
-    if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_2] ) )
+    if ( isdefined( level._audio._id_25B3.playing[var_0][var_1]["oneshots"][var_2] ) )
     {
         var_3 delete();
         _id_275D();
-        level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_2] = undefined;
+        level._audio._id_25B3.playing[var_0][var_1]["oneshots"][var_2] = undefined;
     }
 }
 
@@ -716,7 +716,7 @@ _id_25E1( var_0, var_1, var_2 )
 {
     level endon( var_0 + "_" + var_1 + "_stop" );
 
-    if ( var_2._id_09D6["type"] == "loop" )
+    if ( var_2.alias["type"] == "loop" )
         _id_25DF( var_0, var_1, var_2 );
     else
         _id_25E0( var_0, var_1, var_2 );
@@ -732,21 +732,21 @@ _id_25E0( var_0, var_1, var_2 )
     else if ( isdefined( var_2.point ) )
         var_3 = var_2.point;
 
-    if ( level._id_055B._id_25B3._id_3316 < level._id_055B._id_25B3._id_5A04 )
+    if ( level._audio._id_25B3._id_3316 < level._audio._id_25B3._id_5A04 )
     {
         var_4 = spawn( "script_origin", var_3 + var_2._id_8C42 );
 
         if ( isdefined( var_2._id_32D5 ) && var_2._id_5D35 == "attach" )
             var_4 linkto( var_2._id_32D5 );
 
-        var_4 playsound( var_2._id_09D6["name"], "sounddone" );
-        var_4 thread soundscripts\_audio::_id_0EB6();
+        var_4 playsound( var_2.alias["name"], "sounddone" );
+        var_4 thread soundscripts\_audio::aud_check_sound_done();
 
         if ( !var_4._id_88AA )
         {
-            var_5 = level._id_055B._id_25B3._id_6499;
-            level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_5] = var_4;
-            level._id_055B._id_25B3._id_6499++;
+            var_5 = level._audio._id_25B3._id_6499;
+            level._audio._id_25B3.playing[var_0][var_1]["oneshots"][var_5] = var_4;
+            level._audio._id_25B3._id_6499++;
             _id_4C3A();
 
             if ( isdefined( var_2._id_313F ) && !isdefined( var_2.entity ) )
@@ -775,14 +775,14 @@ _id_25E0( var_0, var_1, var_2 )
         return;
     }
     else
-        soundscripts\_audio::_id_102D( "TRYING TO PLAY ONESHOT WITH DAMB REF COUNT AT MAXIMUM!" );
+        soundscripts\_audio::aud_print_warning( "TRYING TO PLAY ONESHOT WITH DAMB REF COUNT AT MAXIMUM!" );
 }
 
 _id_25DF( var_0, var_1, var_2 )
 {
     level endon( var_0 + "_" + var_1 + "_stop" );
 
-    if ( level._id_055B._id_25B3._id_3316 < level._id_055B._id_25B3._id_5A04 )
+    if ( level._audio._id_25B3._id_3316 < level._audio._id_25B3._id_5A04 )
     {
         var_3 = level.player.origin;
 
@@ -791,7 +791,7 @@ _id_25DF( var_0, var_1, var_2 )
         else if ( isdefined( var_2.point ) )
             var_3 = var_2.point;
 
-        var_4 = var_2._id_09D6["name"];
+        var_4 = var_2.alias["name"];
         var_5 = _id_25D8( var_4 );
 
         if ( !isdefined( var_5 ) )
@@ -822,14 +822,14 @@ _id_25DF( var_0, var_1, var_2 )
             var_13 scalevolume( 1.0, var_10 );
         }
 
-        var_13 thread soundscripts\_audio::_id_0EB6();
+        var_13 thread soundscripts\_audio::aud_check_sound_done();
 
         if ( !var_13._id_88AA )
         {
-            var_14 = level._id_055B._id_25B3._id_5875;
-            level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] = var_13;
+            var_14 = level._audio._id_25B3._id_5875;
+            level._audio._id_25B3.playing[var_0][var_1]["loops"][var_14] = var_13;
             _id_4C3A();
-            level._id_055B._id_25B3._id_5875++;
+            level._audio._id_25B3._id_5875++;
             var_15 = 0;
 
             if ( isdefined( var_2._id_5D35 ) && var_2._id_5D35 == "free" && isdefined( var_2._id_313F ) )
@@ -858,21 +858,21 @@ _id_25DF( var_0, var_1, var_2 )
 
             if ( !var_13._id_88AA )
             {
-                if ( isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] ) )
+                if ( isdefined( level._audio._id_25B3.playing[var_0][var_1]["loops"][var_14] ) )
                 {
                     if ( isdefined( var_12 ) )
                     {
                         var_17 = spawn( "script_origin", var_13.origin );
                         var_17 playsound( var_12, "sounddone" );
-                        var_18 = level._id_055B._id_25B3._id_6499;
-                        level._id_055B._id_25B3._id_6499++;
-                        level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"][var_18] = var_17;
+                        var_18 = level._audio._id_25B3._id_6499;
+                        level._audio._id_25B3._id_6499++;
+                        level._audio._id_25B3.playing[var_0][var_1]["oneshots"][var_18] = var_17;
                         _id_4C3A();
                         thread _id_25EC( var_0, var_1, var_18, var_17 );
                     }
 
                     if ( isdefined( var_11 ) )
-                        thread soundscripts\_audio::_id_0F19( var_13, var_11 );
+                        thread soundscripts\_audio::aud_fade_loop_out_and_delete( var_13, var_11 );
                     else
                     {
                         var_13 stoploopsound();
@@ -881,7 +881,7 @@ _id_25DF( var_0, var_1, var_2 )
                     }
 
                     _id_275D();
-                    level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] = undefined;
+                    level._audio._id_25B3.playing[var_0][var_1]["loops"][var_14] = undefined;
                     return;
                 }
 
@@ -891,7 +891,7 @@ _id_25DF( var_0, var_1, var_2 )
             var_13 stoploopsound();
             var_13 delete();
             _id_275D();
-            level._id_055B._id_25B3.playing[var_0][var_1]["loops"][var_14] = undefined;
+            level._audio._id_25B3.playing[var_0][var_1]["loops"][var_14] = undefined;
             return;
             return;
         }
@@ -900,14 +900,14 @@ _id_25DF( var_0, var_1, var_2 )
         return;
     }
     else
-        soundscripts\_audio::_id_102D( "TRYING TO PLAY LOOP WITH DAMB REF COUNT AT MAXIMUM!" );
+        soundscripts\_audio::aud_print_warning( "TRYING TO PLAY LOOP WITH DAMB REF COUNT AT MAXIMUM!" );
 }
 
 _id_25E3( var_0, var_1 )
 {
     var_2 = 0;
 
-    foreach ( var_4 in level._id_055B._id_25B3.playing[var_0][var_1]["components"] )
+    foreach ( var_4 in level._audio._id_25B3.playing[var_0][var_1]["components"] )
     {
         var_5 = var_4[1];
         var_2 += var_5;
@@ -917,7 +917,7 @@ _id_25E3( var_0, var_1 )
     var_8 = 0.0;
     var_9 = undefined;
 
-    foreach ( var_4 in level._id_055B._id_25B3.playing[var_0][var_1]["components"] )
+    foreach ( var_4 in level._audio._id_25B3.playing[var_0][var_1]["components"] )
     {
         var_11 = var_8 + var_4[1];
 
@@ -945,7 +945,7 @@ _id_25E2( var_0 )
     var_2 = var_0["oneshots"];
     var_3 = undefined;
 
-    if ( !isdefined( level._id_055B._id_25B3._id_20D6[var_0["name"]] ) )
+    if ( !isdefined( level._audio._id_25B3._id_20D6[var_0["name"]] ) )
     {
         var_3 = 0;
 
@@ -971,10 +971,10 @@ _id_25E2( var_0 )
             }
         }
 
-        level._id_055B._id_25B3._id_20D6[var_0["name"]] = var_3;
+        level._audio._id_25B3._id_20D6[var_0["name"]] = var_3;
     }
     else
-        var_3 = level._id_055B._id_25B3._id_20D6[var_0["name"]];
+        var_3 = level._audio._id_25B3._id_20D6[var_0["name"]];
 
     var_9 = randomfloatrange( 0.0, var_3 );
     var_10 = undefined;
@@ -1055,46 +1055,46 @@ _id_25D8( var_0 )
 {
     var_1 = [];
 
-    if ( isdefined( level._id_055B._id_25B3._id_5869[var_0] ) )
-        var_1 = level._id_055B._id_25B3._id_5869[var_0];
+    if ( isdefined( level._audio._id_25B3._id_5869[var_0] ) )
+        var_1 = level._audio._id_25B3._id_5869[var_0];
     else
         var_1 = _id_25D6( var_0, 1 );
 
     if ( !isdefined( var_1 ) || var_1.size == 0 )
         return;
 
-    level._id_055B._id_25B3._id_5869[var_0] = var_1;
+    level._audio._id_25B3._id_5869[var_0] = var_1;
     return var_1;
 }
 
 _id_25D3( var_0 )
 {
-    if ( !isdefined( level._id_055B._id_25B3._id_20D5 ) )
-        level._id_055B._id_25B3._id_20D5 = [];
+    if ( !isdefined( level._audio._id_25B3._id_20D5 ) )
+        level._audio._id_25B3._id_20D5 = [];
 
     var_1 = [];
 
-    if ( isdefined( level._id_055B._id_25B3._id_20D5[var_0] ) )
-        var_1 = level._id_055B._id_25B3._id_20D5[var_0];
+    if ( isdefined( level._audio._id_25B3._id_20D5[var_0] ) )
+        var_1 = level._audio._id_25B3._id_20D5[var_0];
 
     var_1 = _id_25D1( var_0, 1 );
 
     if ( !isdefined( var_1 ) || var_1.size == 0 )
         return;
 
-    level._id_055B._id_25B3._id_20D5[var_0] = var_1;
+    level._audio._id_25B3._id_20D5[var_0] = var_1;
     return var_1;
 }
 
 _id_25E4( var_0, var_1, var_2 )
 {
-    level._id_055B._id_25B3.playing[var_0][var_1]["loops"] = [];
-    level._id_055B._id_25B3.playing[var_0][var_1]["single_loops"] = [];
-    level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"] = [];
+    level._audio._id_25B3.playing[var_0][var_1]["loops"] = [];
+    level._audio._id_25B3.playing[var_0][var_1]["single_loops"] = [];
+    level._audio._id_25B3.playing[var_0][var_1]["oneshots"] = [];
 
-    if ( !isdefined( level._id_055B._id_25B3.playing[var_0][var_1]["event_time"] ) )
+    if ( !isdefined( level._audio._id_25B3.playing[var_0][var_1]["event_time"] ) )
     {
-        foreach ( var_4 in level._id_055B._id_25B3.playing[var_0][var_1]["components"] )
+        foreach ( var_4 in level._audio._id_25B3.playing[var_0][var_1]["components"] )
         {
             var_5 = _id_25D3( var_4 );
 
@@ -1111,16 +1111,16 @@ _id_25E4( var_0, var_1, var_2 )
     level waittill( var_0 + "_" + var_1 + "_stop" );
     wait 0.1;
 
-    foreach ( var_8 in level._id_055B._id_25B3.playing[var_0][var_1]["loops"] )
-        thread _id_25CE( var_8, level._id_055B._id_25B3.playing[var_0][var_1]["fade"], 0 );
+    foreach ( var_8 in level._audio._id_25B3.playing[var_0][var_1]["loops"] )
+        thread _id_25CE( var_8, level._audio._id_25B3.playing[var_0][var_1]["fade"], 0 );
 
-    foreach ( var_8 in level._id_055B._id_25B3.playing[var_0][var_1]["single_loops"] )
-        thread _id_25CE( var_8, level._id_055B._id_25B3.playing[var_0][var_1]["fade"], 1 );
+    foreach ( var_8 in level._audio._id_25B3.playing[var_0][var_1]["single_loops"] )
+        thread _id_25CE( var_8, level._audio._id_25B3.playing[var_0][var_1]["fade"], 1 );
 
-    foreach ( var_8 in level._id_055B._id_25B3.playing[var_0][var_1]["oneshots"] )
-        thread _id_25CF( var_8, level._id_055B._id_25B3.playing[var_0][var_1]["fade"] );
+    foreach ( var_8 in level._audio._id_25B3.playing[var_0][var_1]["oneshots"] )
+        thread _id_25CF( var_8, level._audio._id_25B3.playing[var_0][var_1]["fade"] );
 
-    level._id_055B._id_25B3.playing[var_0][var_1] = undefined;
+    level._audio._id_25B3.playing[var_0][var_1] = undefined;
 }
 
 _id_25CF( var_0, var_1 )
@@ -1149,7 +1149,7 @@ _id_25CE( var_0, var_1, var_2 )
     }
 
     if ( var_2 )
-        level._id_055B._id_25B3._id_586D--;
+        level._audio._id_25B3._id_586D--;
     else
         _id_275D();
 }
@@ -1577,25 +1577,25 @@ _id_25D4( var_0 )
 {
     var_1 = [];
 
-    if ( isdefined( level._id_055B._id_25B3._id_6F1F[var_0] ) )
-        var_1 = level._id_055B._id_25B3._id_6F1F[var_0];
+    if ( isdefined( level._audio._id_25B3._id_6F1F[var_0] ) )
+        var_1 = level._audio._id_25B3._id_6F1F[var_0];
     else
         var_1 = _id_25D9( var_0, 1 );
 
     if ( !isdefined( var_1 ) || var_1.size == 0 )
         return;
 
-    level._id_055B._id_25B3._id_6F1F[var_0] = var_1;
+    level._audio._id_25B3._id_6F1F[var_0] = var_1;
     var_1["name"] = var_0;
     return var_1;
 }
 
 _id_4C3A()
 {
-    level._id_055B._id_25B3._id_3316++;
+    level._audio._id_25B3._id_3316++;
 }
 
 _id_275D()
 {
-    level._id_055B._id_25B3._id_3316--;
+    level._audio._id_25B3._id_3316--;
 }

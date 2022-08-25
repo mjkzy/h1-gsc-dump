@@ -54,11 +54,11 @@ _id_2743( var_0 )
     if ( animscripts\combat_utility::issniper() )
         _id_745D();
 
-    if ( var_1 && ( !self.a._id_0D83 || !animscripts\utility::_id_1AE1() ) )
+    if ( var_1 && ( !self.a.atconcealmentnode || !animscripts\utility::_id_1AE1() ) )
         thread _id_A223();
 
     thread _id_76E6();
-    self._id_0B69 = undefined;
+    self.ambushendtime = undefined;
 
     for (;;)
     {
@@ -80,7 +80,7 @@ _id_2743( var_0 )
             _id_6147();
         else if ( animscripts\utility::_id_9C36() )
             var_5 = _id_766E();
-        else if ( animscripts\utility::_id_9C3A() || isdefined( self._id_0B0F ) )
+        else if ( animscripts\utility::_id_9C3A() || isdefined( self.alwaysusepistol ) )
             var_5 = _id_6830();
         else
             var_5 = _id_7510();
@@ -205,7 +205,7 @@ _id_7511( var_0 )
 
         if ( _id_84B4() )
         {
-            self._id_0B69 = undefined;
+            self.ambushendtime = undefined;
             self notify( "return_to_cover" );
             self._id_84A7 = 1;
         }
@@ -216,7 +216,7 @@ _id_7511( var_0 )
 
         if ( _id_84B4() )
         {
-            self._id_0B69 = undefined;
+            self.ambushendtime = undefined;
 
             if ( _id_84B6() )
                 self._id_840E = "suppress";
@@ -234,7 +234,7 @@ _id_7511( var_0 )
 
 _id_3EEF()
 {
-    if ( isdefined( self.enemy ) && self _meth_81c2( self.enemy ) )
+    if ( isdefined( self.enemy ) && self _meth_81C2( self.enemy ) )
     {
         _id_8009();
         return;
@@ -246,8 +246,8 @@ _id_3EEF()
     {
         if ( isdefined( self._id_22BA ) )
             var_0 = self._id_22BA.angles;
-        else if ( isdefined( self._id_0B6A ) )
-            var_0 = self._id_0B6A.angles;
+        else if ( isdefined( self.ambushnode ) )
+            var_0 = self.ambushnode.angles;
         else
             var_0 = self.angles;
     }
@@ -272,7 +272,7 @@ _id_7510()
         if ( _id_84A9() )
         {
             self._id_840E = "normal";
-            self._id_0B69 = undefined;
+            self.ambushendtime = undefined;
             return "retry";
         }
 
@@ -292,15 +292,15 @@ _id_7510()
 
 _id_84B4()
 {
-    if ( !isdefined( self._id_0B69 ) )
+    if ( !isdefined( self.ambushendtime ) )
     {
-        if ( self _meth_813f() )
-            self._id_0B69 = gettime() + randomintrange( 10000, 60000 );
+        if ( self _meth_813F() )
+            self.ambushendtime = gettime() + randomintrange( 10000, 60000 );
         else
-            self._id_0B69 = gettime() + randomintrange( 4000, 10000 );
+            self.ambushendtime = gettime() + randomintrange( 4000, 10000 );
     }
 
-    return self._id_0B69 < gettime();
+    return self.ambushendtime < gettime();
 }
 
 _id_766E()
@@ -353,7 +353,7 @@ _id_6830()
         if ( _id_84A9() )
         {
             self._id_840E = "normal";
-            self._id_0B69 = undefined;
+            self.ambushendtime = undefined;
             return "retry";
         }
 
@@ -362,13 +362,13 @@ _id_6830()
         self._id_8415 = "none";
         self._id_840F = animscripts\utility::_id_3F7E();
 
-        if ( !isdefined( self._id_0B69 ) )
-            self._id_0B69 = gettime() + randomintrange( 4000, 8000 );
+        if ( !isdefined( self.ambushendtime ) )
+            self.ambushendtime = gettime() + randomintrange( 4000, 8000 );
 
-        if ( self._id_0B69 < gettime() )
+        if ( self.ambushendtime < gettime() )
         {
             self._id_840E = "normal";
-            self._id_0B69 = undefined;
+            self.ambushendtime = undefined;
             return "retry";
         }
     }
@@ -413,7 +413,7 @@ _id_71E7()
     if ( self._id_1C86 )
         return 0;
 
-    if ( !isdefined( self.enemy ) || !self _meth_81c2( self.enemy ) )
+    if ( !isdefined( self.enemy ) || !self _meth_81C2( self.enemy ) )
         return 1;
 
     if ( gettime() < self._id_22BC + 800 )

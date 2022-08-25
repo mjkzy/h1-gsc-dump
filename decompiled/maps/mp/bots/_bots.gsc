@@ -32,13 +32,13 @@ main()
 
     _id_8072();
     maps\mp\bots\_bots_personality::_id_825A();
-    level._id_1262 = ::badplace_cylinder;
-    level._id_1263 = ::badplace_delete;
+    level.badplace_cylinder_func = ::badplace_cylinder;
+    level.badplace_delete_func = ::badplace_delete;
 
     if ( isdefined( level.bot_killstreak_setup_func ) )
         [[ level.bot_killstreak_setup_func ]]();
     else
-        maps\mp\bots\_bots_ks::_id_167A();
+        maps\mp\bots\_bots_ks::bot_killstreak_setup();
 
     maps\mp\bots\_bots_loadout::init();
     level thread init();
@@ -48,36 +48,36 @@ _id_8072()
 {
     level.bot_funcs = [];
     level.bot_funcs["bots_spawn"] = ::_id_88D8;
-    level.bot_funcs["bots_add_scavenger_bag"] = ::_id_15A4;
-    level.bot_funcs["bots_add_to_level_targets"] = maps\mp\bots\_bots_util::_id_15A6;
-    level.bot_funcs["bots_remove_from_level_targets"] = maps\mp\bots\_bots_util::_id_16CD;
-    level.bot_funcs["bots_make_entity_sentient"] = ::_id_1697;
-    level.bot_funcs["think"] = ::_id_170F;
+    level.bot_funcs["bots_add_scavenger_bag"] = ::bot_add_scavenger_bag;
+    level.bot_funcs["bots_add_to_level_targets"] = maps\mp\bots\_bots_util::bot_add_to_bot_level_targets;
+    level.bot_funcs["bots_remove_from_level_targets"] = maps\mp\bots\_bots_util::bot_remove_from_bot_level_targets;
+    level.bot_funcs["bots_make_entity_sentient"] = ::bot_make_entity_sentient;
+    level.bot_funcs["think"] = ::bot_think;
     level.bot_funcs["on_killed"] = ::_id_6440;
-    level.bot_funcs["should_do_killcam"] = ::_id_16F9;
-    level.bot_funcs["get_attacker_ent"] = maps\mp\bots\_bots_util::_id_1634;
-    level.bot_funcs["should_pickup_weapons"] = ::_id_16FB;
-    level.bot_funcs["on_damaged"] = ::_id_15E9;
+    level.bot_funcs["should_do_killcam"] = ::bot_should_do_killcam;
+    level.bot_funcs["get_attacker_ent"] = maps\mp\bots\_bots_util::bot_get_known_attacker;
+    level.bot_funcs["should_pickup_weapons"] = ::bot_should_pickup_weapons;
+    level.bot_funcs["on_damaged"] = ::bot_damage_callback;
     level.bot_funcs["gametype_think"] = ::_id_277D;
-    level.bot_funcs["leader_dialog"] = maps\mp\bots\_bots_util::_id_1681;
-    level.bot_funcs["player_spawned"] = ::_id_16BA;
+    level.bot_funcs["leader_dialog"] = maps\mp\bots\_bots_util::bot_leader_dialog;
+    level.bot_funcs["player_spawned"] = ::bot_player_spawned;
     level.bot_funcs["should_start_cautious_approach"] = maps\mp\bots\_bots_strategy::_id_847B;
-    level.bot_funcs["know_enemies_on_start"] = ::_id_167D;
-    level.bot_funcs["bot_get_rank_xp_and_prestige"] = ::_id_163B;
+    level.bot_funcs["know_enemies_on_start"] = ::bot_know_enemies_on_start;
+    level.bot_funcs["bot_get_rank_xp_and_prestige"] = ::bot_get_rank_xp_and_prestige;
     level.bot_funcs["bot_set_rank_options"] = ::bot_set_rank_options;
-    level.bot_funcs["ai_3d_sighting_model"] = ::_id_159F;
-    level.bot_funcs["dropped_weapon_think"] = ::_id_1716;
+    level.bot_funcs["ai_3d_sighting_model"] = ::bot_3d_sighting_model;
+    level.bot_funcs["dropped_weapon_think"] = ::bot_think_seek_dropped_weapons;
     level.bot_funcs["dropped_weapon_cancel"] = ::_id_847F;
     level.bot_funcs["crate_can_use"] = ::_id_2364;
-    level.bot_funcs["post_teleport"] = ::_id_16BC;
-    level._id_16C9 = [];
-    level._id_16C9["allies"] = maps\mp\bots\_bots_personality::_id_16C8;
-    level._id_16C9["axis"] = maps\mp\bots\_bots_personality::_id_16C8;
-    level._id_1611["capture"] = maps\mp\bots\_bots_strategy::_id_375F;
-    level._id_1611["capture_zone"] = maps\mp\bots\_bots_strategy::_id_3760;
-    level._id_1611["protect"] = maps\mp\bots\_bots_strategy::_id_3762;
-    level._id_1611["bodyguard"] = maps\mp\bots\_bots_strategy::_id_375E;
-    level._id_1611["patrol"] = maps\mp\bots\_bots_strategy::_id_3761;
+    level.bot_funcs["post_teleport"] = ::bot_post_teleport;
+    level.bot_random_path_function = [];
+    level.bot_random_path_function["allies"] = maps\mp\bots\_bots_personality::bot_random_path_default;
+    level.bot_random_path_function["axis"] = maps\mp\bots\_bots_personality::bot_random_path_default;
+    level.bot_find_defend_node_func["capture"] = maps\mp\bots\_bots_strategy::_id_375F;
+    level.bot_find_defend_node_func["capture_zone"] = maps\mp\bots\_bots_strategy::_id_3760;
+    level.bot_find_defend_node_func["protect"] = maps\mp\bots\_bots_strategy::_id_3762;
+    level.bot_find_defend_node_func["bodyguard"] = maps\mp\bots\_bots_strategy::_id_375E;
+    level.bot_find_defend_node_func["patrol"] = maps\mp\bots\_bots_strategy::_id_3761;
     maps\mp\bots\_bots_gametype_war::_id_8072();
 }
 
@@ -90,7 +90,7 @@ codecallback_leaderdialog( var_0, var_1 )
 init()
 {
     thread _id_5E06();
-    thread _id_171A();
+    thread bot_triggers();
     _id_4D93();
 
     if ( !_id_84AE() )
@@ -102,10 +102,10 @@ init()
     if ( var_0 == "enabled_fill_open" || var_0 == "enabled_fill_open_dev" )
     {
         setmatchdata( "hasBots", 1 );
-        level thread _id_15DF();
+        level thread bot_connect_monitor();
     }
     else
-        level thread _id_16A5();
+        level thread bot_monitor_team_limits();
 }
 
 _id_4D93()
@@ -116,12 +116,12 @@ _id_4D93()
     if ( !isdefined( level._id_237A ) )
         level._id_237A = 3000;
 
-    level._id_16AC = 3000;
-    level._id_16CF["recruit"] = "rpg_mp";
-    level._id_16CF["regular"] = "rpg_mp";
-    level._id_16CF["hardened"] = "rpg_mp";
-    level._id_16CF["veteran"] = "rpg_mp";
-    level._id_160A = "h1_ak47";
+    level.bot_out_of_combat_time = 3000;
+    level.bot_respawn_launcher_name["recruit"] = "rpg_mp";
+    level.bot_respawn_launcher_name["regular"] = "rpg_mp";
+    level.bot_respawn_launcher_name["hardened"] = "rpg_mp";
+    level.bot_respawn_launcher_name["veteran"] = "rpg_mp";
+    level.bot_fallback_weapon = "h1_ak47";
     level._id_A3EF = getzonecount();
     _id_4D94();
     level thread maps\mp\bots\_bots_gametype_oldschool::bot_oldschool_init();
@@ -134,53 +134,53 @@ _id_4D94()
     else
         var_0 = getallnodes();
 
-    level._id_169C = 0;
-    level._id_1699 = 0;
-    level._id_169D = 0;
-    level._id_169A = 0;
-    level._id_169E = 0;
-    level._id_169B = 0;
+    level.bot_map_min_x = 0;
+    level.bot_map_max_x = 0;
+    level.bot_map_min_y = 0;
+    level.bot_map_max_y = 0;
+    level.bot_map_min_z = 0;
+    level.bot_map_max_z = 0;
 
     if ( var_0.size > 1 )
     {
-        level._id_169C = var_0[0].origin[0];
-        level._id_1699 = var_0[0].origin[0];
-        level._id_169D = var_0[0].origin[1];
-        level._id_169A = var_0[0].origin[1];
-        level._id_169E = var_0[0].origin[2];
-        level._id_169B = var_0[0].origin[2];
+        level.bot_map_min_x = var_0[0].origin[0];
+        level.bot_map_max_x = var_0[0].origin[0];
+        level.bot_map_min_y = var_0[0].origin[1];
+        level.bot_map_max_y = var_0[0].origin[1];
+        level.bot_map_min_z = var_0[0].origin[2];
+        level.bot_map_max_z = var_0[0].origin[2];
 
         for ( var_1 = 1; var_1 < var_0.size; var_1++ )
         {
             var_2 = var_0[var_1].origin;
 
-            if ( var_2[0] < level._id_169C )
-                level._id_169C = var_2[0];
+            if ( var_2[0] < level.bot_map_min_x )
+                level.bot_map_min_x = var_2[0];
 
-            if ( var_2[0] > level._id_1699 )
-                level._id_1699 = var_2[0];
+            if ( var_2[0] > level.bot_map_max_x )
+                level.bot_map_max_x = var_2[0];
 
-            if ( var_2[1] < level._id_169D )
-                level._id_169D = var_2[1];
+            if ( var_2[1] < level.bot_map_min_y )
+                level.bot_map_min_y = var_2[1];
 
-            if ( var_2[1] > level._id_169A )
-                level._id_169A = var_2[1];
+            if ( var_2[1] > level.bot_map_max_y )
+                level.bot_map_max_y = var_2[1];
 
-            if ( var_2[2] < level._id_169E )
-                level._id_169E = var_2[2];
+            if ( var_2[2] < level.bot_map_min_z )
+                level.bot_map_min_z = var_2[2];
 
-            if ( var_2[2] > level._id_169B )
-                level._id_169B = var_2[2];
+            if ( var_2[2] > level.bot_map_max_z )
+                level.bot_map_max_z = var_2[2];
         }
     }
 
-    level._id_1698 = ( ( level._id_169C + level._id_1699 ) / 2, ( level._id_169D + level._id_169A ) / 2, ( level._id_169E + level._id_169B ) / 2 );
-    level._id_1729 = 1;
+    level.bot_map_center = ( ( level.bot_map_min_x + level.bot_map_max_x ) / 2, ( level.bot_map_min_y + level.bot_map_max_y ) / 2, ( level.bot_map_min_z + level.bot_map_max_z ) / 2 );
+    level.bot_variables_initialized = 1;
 }
 
-_id_16BC()
+bot_post_teleport()
 {
-    level._id_1729 = undefined;
+    level.bot_variables_initialized = undefined;
     _id_4D94();
 }
 
@@ -198,34 +198,34 @@ _id_72C0()
         if ( isbot( var_1 ) )
         {
             var_1._id_3344 = 1;
-            var_1._id_170E = var_1.team;
-            var_1._id_1703 = 1;
+            var_1.bot_team = var_1.team;
+            var_1.bot_spawned_before = 1;
             var_1 thread [[ level.bot_funcs["think"] ]]();
         }
     }
 }
 
-_id_16BA()
+bot_player_spawned()
 {
-    _id_16EC();
+    bot_set_loadout_class();
 }
 
-_id_16EC()
+bot_set_loadout_class()
 {
-    if ( !isdefined( self._id_15D8 ) )
+    if ( !isdefined( self.bot_class ) )
     {
-        if ( !_id_1620() )
+        if ( !bot_gametype_chooses_class() )
         {
-            while ( !isdefined( level._id_1695 ) )
+            while ( !isdefined( level.bot_loadouts_initialized ) )
                 wait 0.05;
 
             if ( isdefined( self._id_6613 ) )
-                self._id_15D8 = [[ self._id_6613 ]]();
+                self.bot_class = [[ self._id_6613 ]]();
             else
-                self._id_15D8 = maps\mp\bots\_bots_personality::_id_16F3();
+                self.bot_class = maps\mp\bots\_bots_personality::bot_setup_callback_class();
         }
         else
-            self._id_15D8 = self.class;
+            self.bot_class = self.class;
     }
 }
 
@@ -237,35 +237,35 @@ _id_A1F1()
 
         if ( !isai( var_0 ) && level.players.size > 0 )
         {
-            level._id_6D3C = common_scripts\utility::_id_0CDA( level._id_6D3C, var_0 );
-            childthread _id_174A( var_0 );
-            childthread _id_1749( var_0 );
-            childthread _id_174B( var_0 );
+            level._id_6D3C = common_scripts\utility::array_add( level._id_6D3C, var_0 );
+            childthread bots_notify_on_spawn( var_0 );
+            childthread bots_notify_on_disconnect( var_0 );
+            childthread bots_remove_from_array_on_notify( var_0 );
         }
     }
 }
 
-_id_174A( var_0 )
+bots_notify_on_spawn( var_0 )
 {
     var_0 endon( "bots_human_disconnected" );
 
-    while ( !common_scripts\utility::_id_0CE4( level.players, var_0 ) )
+    while ( !common_scripts\utility::array_contains( level.players, var_0 ) )
         wait 0.05;
 
     var_0 notify( "bots_human_spawned" );
 }
 
-_id_1749( var_0 )
+bots_notify_on_disconnect( var_0 )
 {
     var_0 endon( "bots_human_spawned" );
     var_0 waittill( "disconnect" );
     var_0 notify( "bots_human_disconnected" );
 }
 
-_id_174B( var_0 )
+bots_remove_from_array_on_notify( var_0 )
 {
     var_0 common_scripts\utility::_id_A069( "bots_human_spawned", "bots_human_disconnected" );
-    level._id_6D3C = common_scripts\utility::_id_0CF6( level._id_6D3C, var_0 );
+    level._id_6D3C = common_scripts\utility::array_remove( level._id_6D3C, var_0 );
 }
 
 _id_5DD8()
@@ -284,7 +284,7 @@ _id_5DD8()
     }
 }
 
-_id_15C5( var_0 )
+bot_can_join_team( var_0 )
 {
     if ( maps\mp\_utility::_id_59E3() )
         return 1;
@@ -298,9 +298,9 @@ _id_15C5( var_0 )
     return 0;
 }
 
-_id_15AA()
+bot_allowed_to_switch_teams()
 {
-    if ( isdefined( level._id_1744 ) && level._id_1744 )
+    if ( isdefined( level.bots_disable_team_switching ) && level.bots_disable_team_switching )
         return 0;
 
     if ( isdefined( level._id_59EA ) && level._id_59EA )
@@ -309,7 +309,7 @@ _id_15AA()
     return 1;
 }
 
-_id_15DF( var_0, var_1 )
+bot_connect_monitor( var_0, var_1 )
 {
     level endon( "game_ended" );
     self notify( "bot_connect_monitor" );
@@ -319,14 +319,14 @@ _id_15DF( var_0, var_1 )
     maps\mp\gametypes\_hostmigration::_id_A052( 0.5 );
     var_2 = 1.5;
 
-    if ( !isdefined( level._id_15DB ) )
-        level._id_15DB = 0;
+    if ( !isdefined( level.bot_cm_spawned_bots ) )
+        level.bot_cm_spawned_bots = 0;
 
-    if ( !isdefined( level._id_15DC ) )
-        level._id_15DC = 0;
+    if ( !isdefined( level.bot_cm_waited_players_time ) )
+        level.bot_cm_waited_players_time = 0;
 
-    if ( !isdefined( level._id_15DA ) )
-        level._id_15DA = 0;
+    if ( !isdefined( level.bot_cm_human_picked ) )
+        level.bot_cm_human_picked = 0;
 
     for (;;)
     {
@@ -336,7 +336,7 @@ _id_15DF( var_0, var_1 )
             continue;
         }
 
-        var_3 = isdefined( level._id_1748 ) || !level.teambased;
+        var_3 = isdefined( level.bots_ignore_team_balance ) || !level.teambased;
         var_4 = botgetteamlimit( 0 );
         var_5 = botgetteamlimit( 1 );
         var_6 = botgetteamdifficulty( 0 );
@@ -351,12 +351,12 @@ _id_15DF( var_0, var_1 )
         if ( isdefined( level.bot_last_team_enemy ) )
             var_12 = level.bot_last_team_enemy;
 
-        var_13 = _id_15D9();
+        var_13 = bot_client_counts();
         var_14 = _id_1BC7( var_13, "humans" );
 
         if ( var_14 > 1 )
         {
-            var_15 = _id_1632();
+            var_15 = bot_get_host_team();
 
             if ( !maps\mp\_utility::_id_59E3() && isdefined( var_15 ) && var_15 != "spectator" )
             {
@@ -381,7 +381,7 @@ _id_15DF( var_0, var_1 )
 
             if ( isdefined( var_18 ) )
             {
-                var_19 = var_18 _id_163A();
+                var_19 = var_18 bot_get_player_team();
 
                 if ( isdefined( var_19 ) && var_19 != "spectator" )
                 {
@@ -393,9 +393,9 @@ _id_15DF( var_0, var_1 )
 
         level.bot_last_team_ally = var_11;
         level.bot_last_team_enemy = var_12;
-        var_20 = maps\mp\bots\_bots_util::_id_163D();
-        var_21 = maps\mp\bots\_bots_util::_id_163D();
-        var_22 = maps\mp\bots\_bots_util::_id_162C();
+        var_20 = maps\mp\bots\_bots_util::bot_get_team_limit();
+        var_21 = maps\mp\bots\_bots_util::bot_get_team_limit();
+        var_22 = maps\mp\bots\_bots_util::bot_get_client_limit();
 
         if ( var_20 + var_21 < var_22 )
         {
@@ -445,27 +445,27 @@ _id_15DF( var_0, var_1 )
         var_33 = var_31 + var_32;
 
         if ( var_33 > 0 )
-            level._id_15DB = 1;
+            level.bot_cm_spawned_bots = 1;
 
         var_34 = 0;
 
-        if ( !level._id_15DA )
+        if ( !level.bot_cm_human_picked )
         {
-            var_34 = !_id_1633();
+            var_34 = !bot_get_human_picked_team();
 
             if ( !var_34 )
-                level._id_15DA = 1;
+                level.bot_cm_human_picked = 1;
         }
 
         if ( var_34 )
         {
             var_35 = !isonlinegame();
-            var_36 = !var_3 && var_5 != var_4 && !level._id_15DB && ( level._id_15DC < 10 || !maps\mp\_utility::_id_3BDD( "prematch_done" ) );
+            var_36 = !var_3 && var_5 != var_4 && !level.bot_cm_spawned_bots && ( level.bot_cm_waited_players_time < 10 || !maps\mp\_utility::_id_3BDD( "prematch_done" ) );
             var_37 = 0;
 
             if ( var_35 || var_36 || var_37 )
             {
-                level._id_15DC += var_2;
+                level.bot_cm_waited_players_time += var_2;
                 maps\mp\gametypes\_hostmigration::_id_A052( var_2 );
                 continue;
             }
@@ -479,9 +479,9 @@ _id_15DF( var_0, var_1 )
 
         for ( var_43 = [ -1, -1 ]; var_41 < var_22 && var_41 < var_42; var_40 = !var_40 )
         {
-            if ( var_40 && var_38 < var_4 && _id_15C5( var_11 ) )
+            if ( var_40 && var_38 < var_4 && bot_can_join_team( var_11 ) )
                 var_38++;
-            else if ( !var_40 && var_39 < var_5 && _id_15C5( var_12 ) )
+            else if ( !var_40 && var_39 < var_5 && bot_can_join_team( var_12 ) )
                 var_39++;
 
             var_41 = var_38 + var_39 + var_14;
@@ -492,16 +492,16 @@ _id_15DF( var_0, var_1 )
             var_43[var_40] = var_41;
         }
 
-        level._id_169F[var_11] = int( var_38 + var_23 + var_27 );
-        level._id_169F[var_12] = int( var_39 + var_24 + var_28 );
+        level.bot_max_players_on_team[var_11] = int( var_38 + var_23 + var_27 );
+        level.bot_max_players_on_team[var_12] = int( var_39 + var_24 + var_28 );
         _id_9AC6();
 
         if ( var_4 == var_5 && !var_3 && var_27 == 1 && var_28 == 0 && var_39 > 0 )
         {
-            if ( !isdefined( level._id_16C1 ) && maps\mp\_utility::_id_3BDD( "prematch_done" ) )
-                level._id_16C1 = gettime();
+            if ( !isdefined( level.bot_prematchdonetime ) && maps\mp\_utility::_id_3BDD( "prematch_done" ) )
+                level.bot_prematchdonetime = gettime();
 
-            if ( var_34 && ( !isdefined( level._id_16C1 ) || gettime() - level._id_16C1 < 10000 ) )
+            if ( var_34 && ( !isdefined( level.bot_prematchdonetime ) || gettime() - level.bot_prematchdonetime < 10000 ) )
                 var_39--;
         }
 
@@ -532,7 +532,7 @@ _id_15DF( var_0, var_1 )
                 var_46 = -1 * ( var_54 + var_45 );
             }
         }
-        else if ( !maps\mp\_utility::_id_59E3() && ( var_45 * var_46 < 0 && maps\mp\_utility::_id_3BDD( "prematch_done" ) && _id_15AA() ) )
+        else if ( !maps\mp\_utility::_id_59E3() && ( var_45 * var_46 < 0 && maps\mp\_utility::_id_3BDD( "prematch_done" ) && bot_allowed_to_switch_teams() ) )
         {
             var_55 = int( min( abs( var_45 ), abs( var_46 ) ) );
 
@@ -568,15 +568,15 @@ _id_15DF( var_0, var_1 )
 
         if ( var_7 != var_6 )
         {
-            _id_174C( var_12, var_7 );
-            _id_174C( var_11, var_6 );
+            bots_update_difficulty( var_12, var_7 );
+            bots_update_difficulty( var_11, var_6 );
         }
 
         maps\mp\gametypes\_hostmigration::_id_A052( var_2 );
     }
 }
 
-_id_16A5()
+bot_monitor_team_limits()
 {
     level endon( "game_ended" );
     self notify( "bot_monitor_team_limits" );
@@ -586,13 +586,13 @@ _id_16A5()
 
     for (;;)
     {
-        level._id_169F["allies"] = 0;
-        level._id_169F["axis"] = 0;
+        level.bot_max_players_on_team["allies"] = 0;
+        level.bot_max_players_on_team["axis"] = 0;
 
         foreach ( var_2 in level.players )
         {
             if ( isdefined( var_2.team ) && ( var_2.team == "allies" || var_2.team == "axis" ) )
-                level._id_169F[var_2.team]++;
+                level.bot_max_players_on_team[var_2.team]++;
         }
 
         _id_9AC6();
@@ -606,16 +606,16 @@ _id_9AC6()
     {
         foreach ( var_1 in level.agentarray )
         {
-            if ( isdefined( var_1.isactive ) && var_1.isactive )
+            if ( isdefined( var_1._id_50A6 ) && var_1._id_50A6 )
             {
                 if ( maps\mp\_utility::_id_51CE( var_1 ) && isdefined( var_1.team ) && ( var_1.team == "allies" || var_1.team == "axis" ) )
-                    level._id_169F[var_1.team]++;
+                    level.bot_max_players_on_team[var_1.team]++;
             }
         }
     }
 }
 
-_id_163A()
+bot_get_player_team()
 {
     if ( isdefined( self.team ) )
         return self.team;
@@ -626,18 +626,18 @@ _id_163A()
     return undefined;
 }
 
-_id_1632()
+bot_get_host_team()
 {
     foreach ( var_1 in level.players )
     {
         if ( !isai( var_1 ) && var_1 ishost() )
-            return var_1 _id_163A();
+            return var_1 bot_get_player_team();
     }
 
     return "spectator";
 }
 
-_id_1633()
+bot_get_human_picked_team()
 {
     var_0 = 0;
     var_1 = 0;
@@ -671,13 +671,13 @@ _id_6BB8( var_0 )
     if ( isdefined( var_0._id_8A4B ) && var_0._id_8A4B )
         return 1;
 
-    if ( var_0 _meth_842d() )
+    if ( var_0 _meth_842D() )
         return 1;
 
     return 0;
 }
 
-_id_15D9()
+bot_client_counts()
 {
     var_0 = [];
 
@@ -737,14 +737,14 @@ _id_5F03( var_0, var_1, var_2, var_3 )
 
         if ( isdefined( var_5._id_2148 ) && var_5._id_2148 && isbot( var_5 ) && var_5.team == var_1 )
         {
-            var_5._id_170E = var_2;
+            var_5.bot_team = var_2;
 
             if ( isdefined( var_3 ) )
-                var_5 maps\mp\bots\_bots_util::_id_16EB( var_3 );
+                var_5 maps\mp\bots\_bots_util::bot_set_difficulty( var_3 );
 
-            var_5 notify( "luinotifyserver", "team_select", _id_1696( var_2 ) );
+            var_5 notify( "luinotifyserver", "team_select", bot_lui_convert_team_to_int( var_2 ) );
             wait 0.05;
-            var_5 notify( "luinotifyserver", "class_select", var_5._id_15D8 );
+            var_5 notify( "luinotifyserver", "class_select", var_5.bot_class );
             var_0--;
 
             if ( var_0 <= 0 )
@@ -755,7 +755,7 @@ _id_5F03( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_174C( var_0, var_1 )
+bots_update_difficulty( var_0, var_1 )
 {
     foreach ( var_3 in level.players )
     {
@@ -765,14 +765,14 @@ _id_174C( var_0, var_1 )
         if ( isdefined( var_3._id_2148 ) && var_3._id_2148 && isbot( var_3 ) && var_3.team == var_0 )
         {
             if ( var_1 != var_3 botgetdifficulty() )
-                var_3 maps\mp\bots\_bots_util::_id_16EB( var_1 );
+                var_3 maps\mp\bots\_bots_util::bot_set_difficulty( var_1 );
         }
     }
 }
 
-_id_1603()
+bot_drop()
 {
-    kick( self.entity_number, "EXE_PLAYERKICKED_BOT_BALANCE" );
+    kick( self._id_3314, "EXE_PLAYERKICKED_BOT_BALANCE" );
     wait 0.1;
 }
 
@@ -793,8 +793,8 @@ _id_2F3E( var_0, var_1 )
 
         if ( !maps\mp\_utility::_id_5189( var_2[var_6] ) )
         {
-            var_2[var_6] _id_1603();
-            var_2 = common_scripts\utility::_id_0CF6( var_2, var_2[var_6] );
+            var_2[var_6] bot_drop();
+            var_2 = common_scripts\utility::array_remove( var_2, var_2[var_6] );
             var_0--;
         }
     }
@@ -804,12 +804,12 @@ _id_2F3E( var_0, var_1 )
         if ( var_0 <= 0 )
             break;
 
-        var_2[var_6] _id_1603();
+        var_2[var_6] bot_drop();
         var_0--;
     }
 }
 
-_id_1696( var_0 )
+bot_lui_convert_team_to_int( var_0 )
 {
     if ( var_0 == "axis" )
         return 0;
@@ -829,8 +829,8 @@ _id_88D7( var_0, var_1, var_2 )
     {
         if ( gettime() >= var_3 )
         {
-            kick( self.entity_number, "EXE_PLAYERKICKED_BOT_BALANCE" );
-            var_2._id_06BA = 1;
+            kick( self._id_3314, "EXE_PLAYERKICKED_BOT_BALANCE" );
+            var_2.abort = 1;
             return;
         }
 
@@ -838,7 +838,7 @@ _id_88D7( var_0, var_1, var_2 )
 
         if ( !isdefined( self ) )
         {
-            var_2._id_06BA = 1;
+            var_2.abort = 1;
             return;
         }
     }
@@ -847,16 +847,16 @@ _id_88D7( var_0, var_1, var_2 )
 
     if ( !isdefined( self ) )
     {
-        var_2._id_06BA = 1;
+        var_2.abort = 1;
         return;
     }
 
     self spawntestclient();
     self._id_3344 = 1;
-    self._id_170E = var_0;
+    self.bot_team = var_0;
 
     if ( isdefined( var_2._id_2A5F ) )
-        maps\mp\bots\_bots_util::_id_16EB( var_2._id_2A5F );
+        maps\mp\bots\_bots_util::bot_set_difficulty( var_2._id_2A5F );
 
     if ( isdefined( var_1 ) )
         self [[ var_1 ]]();
@@ -871,7 +871,7 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_7 = [];
     var_8 = var_7.size;
 
-    while ( level.players.size < maps\mp\bots\_bots_util::_id_162C() && var_7.size < var_0 && gettime() < var_6 )
+    while ( level.players.size < maps\mp\bots\_bots_util::bot_get_client_limit() && var_7.size < var_0 && gettime() < var_6 )
     {
         maps\mp\gametypes\_hostmigration::_id_A052( 0.05 );
         var_9 = addbot( "" );
@@ -892,13 +892,13 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
         else
         {
             var_10 = spawnstruct();
-            var_10._id_159E = var_9;
+            var_10.bot = var_9;
             var_10._id_71D4 = 0;
-            var_10._id_06BA = 0;
+            var_10.abort = 0;
             var_10.index = var_8;
             var_10._id_2A5F = var_5;
             var_7[var_7.size] = var_10;
-            var_10._id_159E thread _id_88D7( var_1, var_2, var_10 );
+            var_10.bot thread _id_88D7( var_1, var_2, var_10 );
             var_8++;
         }
     }
@@ -912,7 +912,7 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
 
         foreach ( var_10 in var_7 )
         {
-            if ( var_10._id_71D4 || var_10._id_06BA )
+            if ( var_10._id_71D4 || var_10.abort )
                 var_11++;
         }
 
@@ -923,11 +923,11 @@ _id_88D8( var_0, var_1, var_2, var_3, var_4, var_5 )
         self notify( var_4 );
 }
 
-_id_1621()
+bot_gametype_chooses_team()
 {
     if ( maps\mp\_utility::_id_59E3() && self.sessionteam != "none" )
         var_0 = 0;
-    else if ( !maps\mp\_utility::_id_59E3() && !maps\mp\_utility::forceautoassign() && maps\mp\_utility::_id_0AB0() )
+    else if ( !maps\mp\_utility::_id_59E3() && !maps\mp\_utility::forceautoassign() && maps\mp\_utility::allowteamchoice() )
         var_0 = 1;
     else
         var_0 = 0;
@@ -935,12 +935,12 @@ _id_1621()
     return !var_0;
 }
 
-_id_1620()
+bot_gametype_chooses_class()
 {
-    return isdefined( level._id_1746 ) && level._id_1746;
+    return isdefined( level.bots_gametype_handles_class_choice ) && level.bots_gametype_handles_class_choice;
 }
 
-_id_170F()
+bot_think()
 {
     self notify( "bot_think" );
     self endon( "bot_think" );
@@ -951,34 +951,34 @@ _id_170F()
 
     level._id_4722 = 1;
 
-    if ( _id_1621() )
-        self._id_170E = self.pers["team"];
+    if ( bot_gametype_chooses_team() )
+        self.bot_team = self.pers["team"];
 
-    var_0 = self._id_170E;
+    var_0 = self.bot_team;
 
     if ( !isdefined( var_0 ) )
         var_0 = self.pers["team"];
 
-    self.entity_number = self getentitynumber();
+    self._id_3314 = self getentitynumber();
     var_1 = 0;
 
-    if ( !isdefined( self._id_1703 ) )
+    if ( !isdefined( self.bot_spawned_before ) )
     {
         var_1 = 1;
-        self._id_1703 = 1;
+        self.bot_spawned_before = 1;
 
-        if ( !_id_1621() )
+        if ( !bot_gametype_chooses_team() )
         {
-            var_2 = self.pers["team"] != "spectator" && !isdefined( self._id_170E );
+            var_2 = self.pers["team"] != "spectator" && !isdefined( self.bot_team );
 
             if ( !var_2 )
             {
-                self notify( "luinotifyserver", "team_select", _id_1696( var_0 ) );
+                self notify( "luinotifyserver", "team_select", bot_lui_convert_team_to_int( var_0 ) );
                 wait 0.5;
 
                 if ( self.pers["team"] == "spectator" )
                 {
-                    _id_1603();
+                    bot_drop();
                     return;
                 }
             }
@@ -987,25 +987,25 @@ _id_170F()
 
     for (;;)
     {
-        maps\mp\bots\_bots_util::_id_16EB( self botgetdifficulty() );
+        maps\mp\bots\_bots_util::bot_set_difficulty( self botgetdifficulty() );
         self._id_2A5F = self botgetdifficulty();
         var_3 = self botgetdifficultysetting( "advancedPersonality" );
 
         if ( var_1 && isdefined( var_3 ) && var_3 != 0 )
-            maps\mp\bots\_bots_personality::_id_15B0();
+            maps\mp\bots\_bots_personality::bot_balance_personality();
 
-        maps\mp\bots\_bots_personality::_id_15AD();
+        maps\mp\bots\_bots_personality::bot_assign_personality_functions();
 
         if ( var_1 )
         {
-            _id_16EC();
+            bot_set_loadout_class();
 
-            if ( !_id_1620() )
+            if ( !bot_gametype_chooses_class() )
             {
                 if ( maps\mp\_utility::ishodgepodgeph() && var_0 == game["attackers"] && game["roundsPlayed"] > 0 )
                     wait 0.5;
 
-                self notify( "luinotifyserver", "class_select", self._id_15D8 );
+                self notify( "luinotifyserver", "class_select", self.bot_class );
             }
 
             if ( self.health == 0 )
@@ -1019,7 +1019,7 @@ _id_170F()
 
         maps\mp\bots\_bots_loadout::bot_modify_behavior_from_loadout();
         bot_modify_behavior_from_tweakables();
-        _id_16D0();
+        bot_restart_think_threads();
         wait 0.1;
         self waittill( "death" );
         _id_7476();
@@ -1056,7 +1056,7 @@ _id_7476()
             if ( self.sessionstate == "spectator" )
             {
                 if ( getdvarint( "numlives" ) == 0 || self.pers["lives"] > 0 )
-                    self _meth_837c( "use", 0.5 );
+                    self _meth_837C( "use", 0.5 );
             }
 
             wait 1.0;
@@ -1064,16 +1064,16 @@ _id_7476()
     }
 }
 
-_id_1667()
+bot_israndom()
 {
-    return self _meth_837b();
+    return self _meth_837B();
 }
 
-_id_163B()
+bot_get_rank_xp_and_prestige()
 {
     var_0 = spawnstruct();
 
-    if ( !_id_1667() )
+    if ( !bot_israndom() )
     {
         if ( !isdefined( self.pers["rankxp"] ) )
             self.pers["rankxp"] = 0;
@@ -1098,7 +1098,7 @@ _id_163B()
     else
     {
         if ( !isdefined( var_6 ) )
-            var_6 = _id_16CA( var_1 );
+            var_6 = bot_random_ranks_for_difficulty( var_1 );
 
         var_7 = var_6["rank"];
         var_8 = maps\mp\gametypes\_rank::_id_40AF( var_7 );
@@ -1113,7 +1113,7 @@ _id_163B()
     else
     {
         if ( !isdefined( var_6 ) )
-            var_6 = _id_16CA( var_1 );
+            var_6 = bot_random_ranks_for_difficulty( var_1 );
 
         var_11 = var_6["prestige"];
         self.pers[var_3] = var_11;
@@ -1123,12 +1123,12 @@ _id_163B()
     return var_0;
 }
 
-_id_159F( var_0 )
+bot_3d_sighting_model( var_0 )
 {
-    thread _id_15A0( var_0 );
+    thread bot_3d_sighting_model_thread( var_0 );
 }
 
-_id_15A0( var_0 )
+bot_3d_sighting_model_thread( var_0 )
 {
     var_0 endon( "disconnect" );
     self endon( "disconnect" );
@@ -1143,7 +1143,7 @@ _id_15A0( var_0 )
     }
 }
 
-_id_16CA( var_0 )
+bot_random_ranks_for_difficulty( var_0 )
 {
     var_1 = [];
     var_1["rank"] = 0;
@@ -1152,40 +1152,40 @@ _id_16CA( var_0 )
     if ( var_0 == "default" )
         return var_1;
 
-    if ( !isdefined( level._id_16D3 ) )
+    if ( !isdefined( level.bot_rnd_rank ) )
     {
-        level._id_16D3 = [];
-        level._id_16D3["recruit"][0] = 0;
-        level._id_16D3["recruit"][1] = 1;
-        level._id_16D3["regular"][0] = 20;
-        level._id_16D3["regular"][1] = 28;
-        level._id_16D3["hardened"][0] = 40;
-        level._id_16D3["hardened"][1] = 48;
-        level._id_16D3["veteran"][0] = 50;
-        level._id_16D3["veteran"][1] = 54;
+        level.bot_rnd_rank = [];
+        level.bot_rnd_rank["recruit"][0] = 0;
+        level.bot_rnd_rank["recruit"][1] = 1;
+        level.bot_rnd_rank["regular"][0] = 20;
+        level.bot_rnd_rank["regular"][1] = 28;
+        level.bot_rnd_rank["hardened"][0] = 40;
+        level.bot_rnd_rank["hardened"][1] = 48;
+        level.bot_rnd_rank["veteran"][0] = 50;
+        level.bot_rnd_rank["veteran"][1] = 54;
     }
 
-    if ( !isdefined( level._id_16D2 ) )
+    if ( !isdefined( level.bot_rnd_prestige ) )
     {
-        level._id_16D2 = [];
-        level._id_16D2["recruit"][0] = 0;
-        level._id_16D2["recruit"][1] = 0;
-        level._id_16D2["regular"][0] = 0;
-        level._id_16D2["regular"][1] = 0;
-        level._id_16D2["hardened"][0] = 0;
-        level._id_16D2["hardened"][1] = 0;
-        level._id_16D2["veteran"][0] = 0;
-        level._id_16D2["veteran"][1] = level.maxprestige;
+        level.bot_rnd_prestige = [];
+        level.bot_rnd_prestige["recruit"][0] = 0;
+        level.bot_rnd_prestige["recruit"][1] = 0;
+        level.bot_rnd_prestige["regular"][0] = 0;
+        level.bot_rnd_prestige["regular"][1] = 0;
+        level.bot_rnd_prestige["hardened"][0] = 0;
+        level.bot_rnd_prestige["hardened"][1] = 0;
+        level.bot_rnd_prestige["veteran"][0] = 0;
+        level.bot_rnd_prestige["veteran"][1] = level.maxprestige;
     }
 
-    var_1["rank"] = randomintrange( level._id_16D3[var_0][0], level._id_16D3[var_0][1] + 1 );
-    var_1["prestige"] = randomintrange( level._id_16D2[var_0][0], level._id_16D2[var_0][1] + 1 );
+    var_1["rank"] = randomintrange( level.bot_rnd_rank[var_0][0], level.bot_rnd_rank[var_0][1] + 1 );
+    var_1["prestige"] = randomintrange( level.bot_rnd_prestige[var_0][0], level.bot_rnd_prestige[var_0][1] + 1 );
     return var_1;
 }
 
 _id_2364( var_0 )
 {
-    if ( isagent( self ) && !isdefined( var_0._id_175D ) )
+    if ( isagent( self ) && !isdefined( var_0.boxtype ) )
         return 0;
 
     return 1;
@@ -1208,7 +1208,7 @@ _id_3DA3()
     return var_0;
 }
 
-_id_15E9( var_0, var_1, var_2, var_3, var_4, var_5 )
+bot_damage_callback( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( self ) || !isalive( self ) )
         return;
@@ -1237,7 +1237,7 @@ _id_15E9( var_0, var_1, var_2, var_3, var_4, var_5 )
                 return;
         }
 
-        var_6 = maps\mp\bots\_bots_util::_id_1634( var_0, var_4 );
+        var_6 = maps\mp\bots\_bots_util::bot_get_known_attacker( var_0, var_4 );
 
         if ( isdefined( var_6 ) )
             self botsetattacker( var_6 );
@@ -1248,7 +1248,7 @@ _id_6440( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     self botclearscriptenemy();
     self botclearscriptgoal();
-    var_10 = maps\mp\bots\_bots_util::_id_1634( var_1, var_0 );
+    var_10 = maps\mp\bots\_bots_util::bot_get_known_attacker( var_1, var_0 );
 
     if ( isdefined( var_10 ) && var_10.classname == "misc_turret" && isdefined( var_10.chopper ) )
         var_10 = var_10.chopper;
@@ -1262,7 +1262,7 @@ _id_6440( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     }
 }
 
-_id_16F9()
+bot_should_do_killcam()
 {
     var_5 = 0.0;
     var_6 = self botgetdifficulty();
@@ -1279,7 +1279,7 @@ _id_16F9()
     return randomfloat( 1.0 ) < 1.0 - var_5;
 }
 
-_id_16FB()
+bot_should_pickup_weapons()
 {
     if ( maps\mp\_utility::_id_5131() )
         return 0;
@@ -1287,18 +1287,18 @@ _id_16FB()
     return 1;
 }
 
-_id_16D0()
+bot_restart_think_threads()
 {
-    thread _id_1719();
-    thread maps\mp\bots\_bots_strategy::_id_1717();
+    thread bot_think_watch_enemy();
+    thread maps\mp\bots\_bots_strategy::bot_think_tactical_goals();
     self thread [[ level.bot_funcs["dropped_weapon_think"] ]]();
     thread maps\mp\bots\_bots_gametype_oldschool::bot_think_oldschool();
-    thread maps\mp\bots\_bots_ks::_id_1713();
-    thread maps\mp\bots\_bots_ks::_id_1718();
-    thread _id_1712();
+    thread maps\mp\bots\_bots_ks::bot_think_killstreak();
+    thread maps\mp\bots\_bots_ks::bot_think_watch_aerial_killstreak();
+    thread bot_think_gametype();
 }
 
-_id_1719( var_0 )
+bot_think_watch_enemy( var_0 )
 {
     var_1 = "spawned_player";
 
@@ -1324,7 +1324,7 @@ _id_1719( var_0 )
     }
 }
 
-_id_1716()
+bot_think_seek_dropped_weapons()
 {
     self notify( "bot_think_seek_dropped_weapons" );
     self endon( "bot_think_seek_dropped_weapons" );
@@ -1336,9 +1336,9 @@ _id_1716()
     {
         var_0 = 0;
 
-        if ( maps\mp\bots\_bots_util::_id_16AB() )
+        if ( maps\mp\bots\_bots_util::bot_out_of_ammo() )
         {
-            if ( self [[ level.bot_funcs["should_pickup_weapons"] ]]() && !maps\mp\bots\_bots_util::_id_1664() )
+            if ( self [[ level.bot_funcs["should_pickup_weapons"] ]]() && !maps\mp\bots\_bots_util::bot_is_remote_or_linked() )
             {
                 var_1 = getentarray( "dropped_weapon", "targetname" );
                 var_2 = common_scripts\utility::_id_3CCB( self.origin, var_1 );
@@ -1346,7 +1346,7 @@ _id_1716()
                 if ( var_2.size > 0 )
                 {
                     var_3 = var_2[0];
-                    _id_16D9( var_3 );
+                    bot_seek_dropped_weapon( var_3 );
                 }
             }
         }
@@ -1355,9 +1355,9 @@ _id_1716()
     }
 }
 
-_id_16D9( var_0 )
+bot_seek_dropped_weapon( var_0 )
 {
-    if ( maps\mp\bots\_bots_strategy::_id_1649( "seek_dropped_weapon", var_0 ) == 0 )
+    if ( maps\mp\bots\_bots_strategy::bot_has_tactical_goal( "seek_dropped_weapon", var_0 ) == 0 )
     {
         var_1 = undefined;
 
@@ -1373,21 +1373,21 @@ _id_16D9( var_0 )
             }
 
             if ( var_2 )
-                var_1 = ::_id_16B9;
+                var_1 = ::bot_pickup_weapon;
         }
 
         var_7 = spawnstruct();
         var_7._id_62E1 = var_0;
         var_7._id_79FE = 12;
         var_7._id_844D = level.bot_funcs["dropped_weapon_cancel"];
-        var_7._id_06ED = var_1;
-        maps\mp\bots\_bots_strategy::_id_16A9( "seek_dropped_weapon", var_0.origin, 100, var_7 );
+        var_7.action_thread = var_1;
+        maps\mp\bots\_bots_strategy::bot_new_tactical_goal( "seek_dropped_weapon", var_0.origin, 100, var_7 );
     }
 }
 
-_id_16B9( var_0 )
+bot_pickup_weapon( var_0 )
 {
-    self _meth_837c( "use", 2 );
+    self _meth_837C( "use", 2 );
     wait 2;
 }
 
@@ -1398,12 +1398,12 @@ _id_847F( var_0 )
 
     if ( var_0._id_62E1.targetname == "dropped_weapon" )
     {
-        if ( maps\mp\bots\_bots_util::_id_1641() > 0 )
+        if ( maps\mp\bots\_bots_util::bot_get_total_gun_ammo() > 0 )
             return 1;
     }
     else if ( var_0._id_62E1.targetname == "dropped_knife" )
     {
-        if ( maps\mp\bots\_bots_util::_id_1650() )
+        if ( maps\mp\bots\_bots_util::bot_in_combat() )
         {
             self._id_425A = undefined;
             return 1;
@@ -1413,7 +1413,7 @@ _id_847F( var_0 )
     return 0;
 }
 
-_id_167D()
+bot_know_enemies_on_start()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -1434,30 +1434,30 @@ _id_167D()
 
         if ( isdefined( var_3 ) && isdefined( self.team ) && isdefined( var_3.team ) && !isalliedsentient( self, var_3 ) )
         {
-            if ( !isdefined( var_3._id_1706 ) )
+            if ( !isdefined( var_3.bot_start_known_by_enemy ) )
                 var_0 = var_3;
 
-            if ( isai( var_3 ) && !isdefined( var_3._id_1705 ) )
+            if ( isai( var_3 ) && !isdefined( var_3.bot_start_know_enemy ) )
                 var_1 = var_3;
         }
     }
 
     if ( isdefined( var_0 ) )
     {
-        self._id_1705 = 1;
-        var_0._id_1706 = 1;
+        self.bot_start_know_enemy = 1;
+        var_0.bot_start_known_by_enemy = 1;
         self _meth_8169( var_0 );
     }
 
     if ( isdefined( var_1 ) )
     {
-        var_1._id_1705 = 1;
-        self._id_1706 = 1;
+        var_1.bot_start_know_enemy = 1;
+        self.bot_start_known_by_enemy = 1;
         var_1 _meth_8169( self );
     }
 }
 
-_id_1697( var_0, var_1 )
+bot_make_entity_sentient( var_0, var_1 )
 {
     if ( isdefined( var_1 ) )
         return self makeentitysentient( var_0, var_1 );
@@ -1465,7 +1465,7 @@ _id_1697( var_0, var_1 )
         return self makeentitysentient( var_0 );
 }
 
-_id_1712()
+bot_think_gametype()
 {
     self notify( "bot_think_gametype" );
     self endon( "bot_think_gametype" );
@@ -1483,7 +1483,7 @@ _id_277D()
 
 _id_5E06()
 {
-    maps\mp\bots\_bots_util::_id_172D();
+    maps\mp\bots\_bots_util::bot_waittill_bots_enabled();
     level.bot_smoke_sight_clip_small = getent( "smoke_grenade_sight_clip_small", "targetname" );
 
     if ( !isdefined( level.bot_smoke_sight_clip_small ) )
@@ -1529,36 +1529,36 @@ _id_460E()
     var_1 delete();
 }
 
-_id_15A4( var_0 )
+bot_add_scavenger_bag( var_0 )
 {
     var_1 = 0;
-    var_0._id_175D = "scavenger_bag";
-    var_0._id_175B = 1;
+    var_0.boxtype = "scavenger_bag";
+    var_0.boxtouchonly = 1;
 
-    if ( !isdefined( level._id_16D4 ) )
-        level._id_16D4 = [];
+    if ( !isdefined( level.bot_scavenger_bags ) )
+        level.bot_scavenger_bags = [];
 
-    foreach ( var_4, var_3 in level._id_16D4 )
+    foreach ( var_4, var_3 in level.bot_scavenger_bags )
     {
         if ( !isdefined( var_3 ) )
         {
             var_1 = 1;
-            level._id_16D4[var_4] = var_0;
+            level.bot_scavenger_bags[var_4] = var_0;
             break;
         }
     }
 
     if ( !var_1 )
-        level._id_16D4[level._id_16D4.size] = var_0;
+        level.bot_scavenger_bags[level.bot_scavenger_bags.size] = var_0;
 
-    foreach ( var_6 in level.participants )
+    foreach ( var_6 in level._id_669D )
     {
         if ( isai( var_6 ) && var_6 maps\mp\_utility::_hasperk( "specialty_scavenger" ) )
             var_6 notify( "new_crate_to_take" );
     }
 }
 
-_id_171A()
+bot_triggers()
 {
     var_0 = getentarray( "bot_flag_set", "targetname" );
 
@@ -1567,11 +1567,11 @@ _id_171A()
         if ( !isdefined( var_2.script_noteworthy ) )
             continue;
 
-        var_2 thread _id_1618( var_2.script_noteworthy );
+        var_2 thread bot_flag_trigger( var_2.script_noteworthy );
     }
 }
 
-_id_1618( var_0 )
+bot_flag_trigger( var_0 )
 {
     self endon( "death" );
 
@@ -1583,12 +1583,12 @@ _id_1618( var_0 )
         {
             var_1 notify( "flag_trigger_set_" + var_0 );
             var_1 botsetflag( var_0, 1 );
-            var_1 thread _id_1619( var_0 );
+            var_1 thread bot_flag_trigger_clear( var_0 );
         }
     }
 }
 
-_id_1619( var_0 )
+bot_flag_trigger_clear( var_0 )
 {
     self endon( "flag_trigger_set_" + var_0 );
     self endon( "death" );

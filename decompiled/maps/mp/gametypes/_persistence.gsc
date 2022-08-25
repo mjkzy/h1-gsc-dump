@@ -36,23 +36,23 @@ init()
 
 _id_4D95()
 {
-    self._id_1838 = [];
+    self.bufferedstats = [];
 
     if ( maps\mp\_utility::_id_7139() )
     {
-        self._id_1838["totalShots"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "totalShots" );
-        self._id_1838["accuracy"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "accuracy" );
-        self._id_1838["misses"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "misses" );
-        self._id_1838["hits"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "hits" );
-        self._id_1838["timePlayedAllies"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedAllies" );
-        self._id_1838["timePlayedOpfor"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedOpfor" );
-        self._id_1838["timePlayedOther"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedOther" );
-        self._id_1838["timePlayedTotal"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedTotal" );
+        self.bufferedstats["totalShots"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "totalShots" );
+        self.bufferedstats["accuracy"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "accuracy" );
+        self.bufferedstats["misses"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "misses" );
+        self.bufferedstats["hits"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "hits" );
+        self.bufferedstats["timePlayedAllies"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedAllies" );
+        self.bufferedstats["timePlayedOpfor"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedOpfor" );
+        self.bufferedstats["timePlayedOther"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedOther" );
+        self.bufferedstats["timePlayedTotal"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "timePlayedTotal" );
     }
 
-    self._id_1837 = [];
-    self._id_1837["round"] = [];
-    self._id_1837["round"]["timePlayed"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "timePlayed" );
+    self.bufferedchildstats = [];
+    self.bufferedchildstats["round"] = [];
+    self.bufferedchildstats["round"]["timePlayed"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "timePlayed" );
 }
 
 _id_8D68( var_0 )
@@ -126,7 +126,7 @@ _id_8D6B( var_0, var_1 )
     if ( !maps\mp\_utility::_id_7139() )
         return 0;
 
-    return self._id_1837[var_0][var_1];
+    return self.bufferedchildstats[var_0][var_1];
 }
 
 _id_8D7B( var_0, var_1, var_2 )
@@ -134,7 +134,7 @@ _id_8D7B( var_0, var_1, var_2 )
     if ( !maps\mp\_utility::_id_7139() )
         return;
 
-    self._id_1837[var_0][var_1] = var_2;
+    self.bufferedchildstats[var_0][var_1] = var_2;
 }
 
 _id_8D54( var_0, var_1, var_2 )
@@ -183,7 +183,7 @@ _id_8D69( var_0 )
     if ( !maps\mp\_utility::_id_7139() )
         return 0;
 
-    return self._id_1838[var_0];
+    return self.bufferedstats[var_0];
 }
 
 _id_8D79( var_0, var_1 )
@@ -191,7 +191,7 @@ _id_8D79( var_0, var_1 )
     if ( !maps\mp\_utility::_id_7139() )
         return;
 
-    self._id_1838[var_0] = var_1;
+    self.bufferedstats[var_0] = var_1;
 }
 
 _id_8D51( var_0, var_1 )
@@ -238,11 +238,11 @@ _id_A360()
 
     if ( var_0 )
     {
-        foreach ( var_3, var_2 in self._id_1838 )
+        foreach ( var_3, var_2 in self.bufferedstats )
             self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), var_3, var_2 );
     }
 
-    foreach ( var_3, var_2 in self._id_1837 )
+    foreach ( var_3, var_2 in self.bufferedchildstats )
     {
         foreach ( var_7, var_6 in var_2 )
         {
@@ -333,13 +333,13 @@ doesattachkitincludebaseattachment( var_0, var_1 )
 
 _id_9BA4()
 {
-    if ( !isdefined( self.trackingweaponname ) )
+    if ( !isdefined( self._id_94FB ) )
         return;
 
-    if ( self.trackingweaponname == "" || self.trackingweaponname == "none" )
+    if ( self._id_94FB == "" || self._id_94FB == "none" )
         return;
 
-    var_0 = self.trackingweaponname;
+    var_0 = self._id_94FB;
 
     if ( maps\mp\_utility::iskillstreakweapon( var_0 ) || maps\mp\_utility::_id_50FE( var_0 ) )
         return;
@@ -407,7 +407,7 @@ _id_9BA4()
         if ( self._id_94FD > 0 )
             _id_4C3D( var_1[0], "timeInUse", self._id_94FD );
 
-        self.trackingweaponname = "none";
+        self._id_94FB = "none";
         self._id_94FC = 0;
         self._id_94FA = 0;
         self._id_94F9 = 0;
@@ -467,7 +467,7 @@ _id_9BA4()
 
     foreach ( var_8 in var_6 )
     {
-        var_9 = maps\mp\_utility::_id_0E02( var_8 );
+        var_9 = maps\mp\_utility::attachmentmap_tobase( var_8 );
 
         if ( var_9 == "bloodmwr" )
             continue;
@@ -518,7 +518,7 @@ _id_9BA4()
             _id_4C3D( var_9, "deaths", self._id_94F6 );
     }
 
-    self.trackingweaponname = "none";
+    self._id_94FB = "none";
     self._id_94FC = 0;
     self._id_94FA = 0;
     self._id_94F9 = 0;
@@ -543,7 +543,7 @@ _id_9BCA()
     var_5 = 0;
 
     foreach ( var_7 in level.players )
-        var_5 += var_7.timeplayed["total"];
+        var_5 += var_7._id_9372["total"];
 
     incrementcounter( "global_minutes", int( var_5 / 60 ) );
 

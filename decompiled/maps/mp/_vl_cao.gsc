@@ -88,8 +88,8 @@ handlecaomodechange( var_0 )
             var_2 = maps\mp\_vl_cac::getfactionteam();
             var_3 = maps\mp\_vl_cac::getfactionenvironment();
             maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedcostume, var_1.primaryweapon, var_2, var_3 );
-            self _meth_857c( var_1.savedcharactercamoindex );
-            var_1 _meth_857c( var_1.savedcharactercamoindex );
+            self _meth_857C( var_1.savedcharactercamoindex );
+            var_1 _meth_857C( var_1.savedcharactercamoindex );
             var_1.savedcostume = undefined;
             var_1.savedcharactercamoindex = undefined;
         }
@@ -111,7 +111,7 @@ handlecaomodechange( var_0 )
         maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.primaryweapon, var_2, var_3 );
         var_1.savedcharactercamoindex = maps\mp\gametypes\_class::cao_getcharactercamoindex( var_0 );
         var_1._id_A7ED = var_1.savedcharactercamoindex;
-        var_1 _meth_857c( var_1._id_A7ED );
+        var_1 _meth_857C( var_1._id_A7ED );
         playerteleportavatartocao( var_1 );
         maps\mp\_vl_base::playerchangecameramode( "cao" );
         maps\mp\_vl_base::playersetlobbyfovscale();
@@ -132,7 +132,7 @@ handlecaomodechange( var_0 )
 
             if ( isdefined( var_1.savedcharactercamoindex ) )
             {
-                var_1 _meth_857c( var_1.savedcharactercamoindex );
+                var_1 _meth_857C( var_1.savedcharactercamoindex );
                 var_1._id_A7ED = var_1.savedcharactercamoindex;
             }
         }
@@ -154,7 +154,7 @@ handlebackfromcollections( var_0 )
     var_2 = maps\mp\_vl_cac::getfactionteam();
     var_3 = maps\mp\_vl_cac::getfactionenvironment();
     maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1._id_2236, var_1.primaryweapon, var_2, var_3 );
-    var_1 _meth_857c( var_1.savedcharactercamoindex );
+    var_1 _meth_857C( var_1.savedcharactercamoindex );
     playerteleportavatartocao( var_1 );
     maps\mp\_vl_base::playersetlobbyfovscale();
     maps\mp\_vl_base::weaponroomscenelightsupdate( "characters_personalization" );
@@ -229,7 +229,7 @@ handlecamopreview( var_0 )
     if ( isdefined( var_5 ) )
     {
         var_5._id_A7ED = var_3;
-        var_5 _meth_857c( var_5._id_A7ED );
+        var_5 _meth_857C( var_5._id_A7ED );
     }
 
     var_6 = "characters_personalization";
@@ -300,7 +300,7 @@ handlecollectionsmodechange( var_0, var_1 )
             var_2.savedcollectionscostume = undefined;
             var_2.savedcollectionscharactercamoindex = undefined;
 
-            if ( maps\mp\_utility::_id_5092( level._id_1975 ) )
+            if ( maps\mp\_utility::_id_5092( level.cac ) )
             {
                 maps\mp\_vl_avatar::showavataronly( var_2, 0 );
                 maps\mp\_vl_avatar::playerteleportavatartocac( var_2 );
@@ -329,8 +329,8 @@ playerresetavatarcollectionscamo()
 
     if ( isdefined( var_0 ) && isdefined( var_0.savedcollectionscharactercamoindex ) )
     {
-        self _meth_857c( var_0.savedcollectionscharactercamoindex );
-        var_0 _meth_857c( var_0.savedcollectionscharactercamoindex );
+        self _meth_857C( var_0.savedcollectionscharactercamoindex );
+        var_0 _meth_857C( var_0.savedcollectionscharactercamoindex );
         var_0._id_A7ED = var_0.savedcollectionscharactercamoindex;
     }
 }
@@ -429,8 +429,8 @@ handlearmorymodechange( var_0 )
                 var_3 = maps\mp\_vl_cac::getfactionteam();
                 var_4 = maps\mp\_vl_cac::getfactionenvironment();
                 maps\mp\_vl_avatar::_id_9E9D( self, var_1, var_1.savedarmorycostume, var_1.primaryweapon, var_3, var_4 );
-                self _meth_857c( var_1.savedarmorycharactercamoindex );
-                var_1 _meth_857c( var_1.savedarmorycharactercamoindex );
+                self _meth_857C( var_1.savedarmorycharactercamoindex );
+                var_1 _meth_857C( var_1.savedarmorycharactercamoindex );
                 var_1.savedarmorycostume = undefined;
                 var_1.savedarmorycharactercamoindex = undefined;
             }
@@ -617,7 +617,7 @@ handledepotcamoapply( var_0 )
     if ( isdefined( var_5 ) )
     {
         var_5._id_A7ED = var_3;
-        var_5 _meth_857c( var_5._id_A7ED );
-        self _meth_857c( var_5._id_A7ED );
+        var_5 _meth_857C( var_5._id_A7ED );
+        self _meth_857C( var_5._id_A7ED );
     }
 }

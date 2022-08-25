@@ -110,7 +110,7 @@ _id_3DCB()
         var_0["random_spawn"] = maps\_spawner::_id_7118;
     }
 
-    var_0["autosave_now"] = maps\_autosave::_id_1150;
+    var_0["autosave_now"] = maps\_autosave::autosave_now_trigger;
     var_0["trigger_autosave_tactical"] = maps\_autosave::_id_975B;
     var_0["trigger_autosave_stealth"] = maps\_autosave::_id_975A;
     var_0["trigger_unlock"] = ::_id_9808;
@@ -160,16 +160,16 @@ _id_4D53()
     foreach ( var_5, var_3 in var_0 )
     {
         var_4 = getentarray( var_5, "classname" );
-        common_scripts\utility::_id_0CF0( var_4, var_3 );
+        common_scripts\utility::array_levelthread( var_4, var_3 );
     }
 
     var_6 = getentarray( "trigger_multiple", "classname" );
     var_7 = getentarray( "trigger_radius", "classname" );
-    var_4 = maps\_utility::_id_0CF2( var_6, var_7 );
+    var_4 = maps\_utility::array_merge( var_6, var_7 );
     var_8 = getentarray( "trigger_disk", "classname" );
-    var_4 = maps\_utility::_id_0CF2( var_4, var_8 );
+    var_4 = maps\_utility::array_merge( var_4, var_8 );
     var_9 = getentarray( "trigger_once", "classname" );
-    var_4 = maps\_utility::_id_0CF2( var_4, var_9 );
+    var_4 = maps\_utility::array_merge( var_4, var_9 );
 
     if ( !maps\_utility::_id_5056() )
     {
@@ -218,7 +218,7 @@ _id_4D53()
                 level thread _id_97DF( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_7952 ) || isdefined( var_4[var_10]._id_7951 ) )
-                level thread maps\_autosave::_id_1166( var_4[var_10] );
+                level thread maps\_autosave::autosavenamethink( var_4[var_10] );
 
             if ( isdefined( var_4[var_10]._id_79C6 ) )
                 level thread maps\_spawner::_id_3662( var_4[var_10] );
@@ -407,7 +407,7 @@ _id_978F( var_0 )
 
         var_4 = [];
         var_4[var_4.size] = var_3;
-        var_2 = maps\_utility::_id_0CF2( var_2, var_4 );
+        var_2 = maps\_utility::array_merge( var_2, var_4 );
 
         if ( var_2.size == level.players.size )
             break;
@@ -430,7 +430,7 @@ _id_9791( var_0 )
     for (;;)
     {
         var_0 waittill( "trigger", var_2 );
-        var_0._id_6C32 = common_scripts\utility::_id_0CF6( var_0._id_6C32, var_2 );
+        var_0._id_6C32 = common_scripts\utility::array_remove( var_0._id_6C32, var_2 );
 
         if ( var_0._id_6C32.size )
             continue;
@@ -699,7 +699,7 @@ _id_97D3( var_0 )
         if ( isdefined( var_2[var_3]._id_7AFC ) && var_2[var_3]._id_7AFC == var_1 )
         {
             var_2[var_3].goalradius = 800;
-            var_2[var_3] _meth_81ab( level.player );
+            var_2[var_3] _meth_81AB( level.player );
             level thread maps\_spawner::_id_27DC( var_2[var_3] );
         }
     }
@@ -708,18 +708,18 @@ _id_97D3( var_0 )
 _id_97DF( var_0 )
 {
     var_1 = common_scripts\utility::_id_23B2( var_0._id_79D6 );
-    var_0 _id_07B2( var_1 );
+    var_0 add_tokens_to_trigger_flags( var_1 );
     var_0 common_scripts\utility::_id_9AE8();
 }
 
 _id_97E0( var_0 )
 {
     var_1 = common_scripts\utility::_id_23B2( var_0._id_79D9 );
-    var_0 _id_07B2( var_1 );
+    var_0 add_tokens_to_trigger_flags( var_1 );
     var_0 common_scripts\utility::_id_9AE8();
 }
 
-_id_07B2( var_0 )
+add_tokens_to_trigger_flags( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -795,7 +795,7 @@ _id_980A( var_0 )
 
     var_0 waittill( "trigger" );
     var_1 = getentarray( var_0.target, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, maps\_vehicle_free_drive::_id_8976( undefined, 0, 1 ) );
+    common_scripts\utility::array_thread( var_1, maps\_vehicle_free_drive::_id_8976( undefined, 0, 1 ) );
 }
 
 _id_980C( var_0 )
@@ -920,7 +920,7 @@ _id_97B1( var_0, var_1 )
 
             if ( var_14 >= var_2 )
             {
-                common_scripts\utility::_id_0D13( var_4, maps\_utility::_id_7C82, "trigger" );
+                common_scripts\utility::array_thread( var_4, maps\_utility::_id_7C82, "trigger" );
 
                 if ( var_6 )
                     common_scripts\utility::_id_383F( var_7, var_9 );
@@ -997,7 +997,7 @@ _id_9764( var_0 )
             if ( var_4 )
                 common_scripts\utility::_id_383F( var_5 );
 
-            common_scripts\utility::_id_0D13( var_1, maps\_utility::_id_7C82, "trigger" );
+            common_scripts\utility::array_thread( var_1, maps\_utility::_id_7C82, "trigger" );
             wait 0.5;
         }
     }
@@ -1026,11 +1026,11 @@ _id_9808( var_0 )
 
     for (;;)
     {
-        common_scripts\utility::_id_0D13( var_2, common_scripts\utility::_id_97CC );
+        common_scripts\utility::array_thread( var_2, common_scripts\utility::_id_97CC );
         var_0 waittill( "trigger" );
-        common_scripts\utility::_id_0D13( var_2, common_scripts\utility::_id_97CE );
+        common_scripts\utility::array_thread( var_2, common_scripts\utility::_id_97CE );
         _id_9F87( var_2, var_1 );
-        maps\_utility::_id_0CF4( var_2, "relock" );
+        maps\_utility::array_notify( var_2, "relock" );
     }
 }
 
@@ -1038,7 +1038,7 @@ _id_9809( var_0 )
 {
     self waittill( "death" );
     var_1 = getentarray( var_0, "targetname" );
-    common_scripts\utility::_id_0D13( var_1, common_scripts\utility::_id_97CC );
+    common_scripts\utility::array_thread( var_1, common_scripts\utility::_id_97CC );
 }
 
 _id_9F87( var_0, var_1 )
@@ -1100,7 +1100,7 @@ _id_975C( var_0 )
                 {
                     var_4 = var_8;
 
-                    if ( _id_1331( var_8.origin ) )
+                    if ( battlechatter_dist_check( var_8.origin ) )
                         break;
                 }
             }
@@ -1114,13 +1114,13 @@ _id_975C( var_0 )
     if ( !isdefined( var_4 ) )
         return;
 
-    if ( _id_1331( var_4.origin ) )
+    if ( battlechatter_dist_check( var_4.origin ) )
         return;
 
     var_4 maps\_utility::_id_2534( var_0._id_795D );
 }
 
-_id_1331( var_0 )
+battlechatter_dist_check( var_0 )
 {
     return distancesquared( var_0, level.player getorigin() ) <= 262144;
 }
@@ -1198,7 +1198,7 @@ _id_976C( var_0 )
 {
     var_0 waittill( "trigger" );
     var_1 = var_0 _id_3E59();
-    common_scripts\utility::_id_0D13( var_1, ::_id_2818 );
+    common_scripts\utility::array_thread( var_1, ::_id_2818 );
 }
 
 _id_3E59()
@@ -1225,7 +1225,7 @@ _id_3E59()
 _id_2818()
 {
     var_0 = _id_3E59();
-    common_scripts\utility::_id_0D13( var_0, ::_id_2818 );
+    common_scripts\utility::array_thread( var_0, ::_id_2818 );
     self delete();
 }
 
@@ -1277,7 +1277,7 @@ _id_9807( var_0 )
     var_1 = strtok( var_0._id_7A26, " " );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
-        common_scripts\utility::_id_0D13( getentarray( var_1[var_2], "script_linkname" ), common_scripts\utility::_id_97CC );
+        common_scripts\utility::array_thread( getentarray( var_1[var_2], "script_linkname" ), common_scripts\utility::_id_97CC );
 }
 
 _id_97AA( var_0 )
@@ -1517,7 +1517,7 @@ _id_97C7( var_0, var_1 )
                         level.player maps\_utility::set_light_set_player( var_0.script_lightset );
 
                     if ( isdefined( var_0.script_clut ) )
-                        level.player _meth_848c( var_0.script_clut, var_0.script_delay );
+                        level.player _meth_848C( var_0.script_clut, var_0.script_delay );
                 }
             }
             else
@@ -1542,7 +1542,7 @@ _id_97C7( var_0, var_1 )
                             level.player maps\_utility::set_light_set_player( level.default_lightset );
 
                         if ( isdefined( var_0.script_clut ) && can_reset_vision_type( var_0, "clut" ) )
-                            level.player _meth_848c( level.default_clut, var_0.script_delay );
+                            level.player _meth_848C( level.default_clut, var_0.script_delay );
                     }
                 }
 
@@ -1574,7 +1574,7 @@ get_visionset_trigger( var_0 )
         return undefined;
 
     var_1 = getentarray( "trigger_multiple_visionset", "classname" );
-    var_1 = common_scripts\utility::_id_0CDD( var_1, getentarray( "trigger_multiple_visionset_touch", "classname" ) );
+    var_1 = common_scripts\utility::array_combine( var_1, getentarray( "trigger_multiple_visionset_touch", "classname" ) );
 
     foreach ( var_3 in var_1 )
     {
@@ -1620,7 +1620,7 @@ _id_4D75()
     var_2._id_8D08 = var_1._id_8D08 - var_0._id_8D08;
     var_2._id_4500 = var_1._id_4500 - var_0._id_4500;
     var_2._id_7299 = var_1._id_7299 - var_0._id_7299;
-    var_2._id_14C5 = var_1._id_14C5 - var_0._id_14C5;
+    var_2.blue = var_1.blue - var_0.blue;
     var_2._id_43D8 = var_1._id_43D8 - var_0._id_43D8;
     var_2._id_4774 = var_1._id_4774 - var_0._id_4774;
     var_2._id_5A47 = var_1._id_5A47 - var_0._id_5A47;
@@ -1714,26 +1714,26 @@ _id_4D75()
     var_2._id_615F = var_15;
     var_2._id_615E = var_16 - var_15;
 
-    if ( isdefined( var_0._id_0DB4 ) && isdefined( var_1._id_0DB4 ) )
+    if ( isdefined( var_0.atmosfogenabled ) && isdefined( var_1.atmosfogenabled ) )
     {
-        var_2._id_0DB4 = var_0._id_0DB4;
-        var_2._id_0DC4 = var_1._id_0DC4 - var_0._id_0DC4;
-        var_2._id_0DB7 = var_1._id_0DB7 - var_0._id_0DB7;
-        var_2._id_0DB9 = var_1._id_0DB9 - var_0._id_0DB9;
-        var_2._id_0DB8 = var_1._id_0DB8 - var_0._id_0DB8;
-        var_2._id_0DB5 = var_1._id_0DB5 - var_0._id_0DB5;
-        var_2._id_0DBD = var_1._id_0DBD - var_0._id_0DBD;
-        var_2._id_0DB6 = var_1._id_0DB6 - var_0._id_0DB6;
-        var_2._id_0DC2 = var_1._id_0DC2 - var_0._id_0DC2;
-        var_2._id_0DB3 = var_1._id_0DB3 - var_0._id_0DB3;
-        var_2._id_0DBF = var_1._id_0DBF - var_0._id_0DBF;
-        var_2._id_0DBE = var_1._id_0DBE - var_0._id_0DBE;
-        var_2._id_0DC1 = var_1._id_0DC1 - var_0._id_0DC1;
-        var_2._id_0DC0 = var_1._id_0DC0 - var_0._id_0DC0;
-        var_2._id_0DC3 = var_1._id_0DC3 - var_0._id_0DC3;
-        var_2._id_0DBB = var_1._id_0DBB - var_0._id_0DBB;
-        var_2._id_0DBA = var_1._id_0DBA - var_0._id_0DBA;
-        var_2._id_0DBC = var_1._id_0DBC - var_0._id_0DBC;
+        var_2.atmosfogenabled = var_0.atmosfogenabled;
+        var_2.atmosfogsunfogcolor = var_1.atmosfogsunfogcolor - var_0.atmosfogsunfogcolor;
+        var_2.atmosfoghazecolor = var_1.atmosfoghazecolor - var_0.atmosfoghazecolor;
+        var_2.atmosfoghazestrength = var_1.atmosfoghazestrength - var_0.atmosfoghazestrength;
+        var_2.atmosfoghazespread = var_1.atmosfoghazespread - var_0.atmosfoghazespread;
+        var_2.atmosfogextinctionstrength = var_1.atmosfogextinctionstrength - var_0.atmosfogextinctionstrength;
+        var_2.atmosfoginscatterstrength = var_1.atmosfoginscatterstrength - var_0.atmosfoginscatterstrength;
+        var_2.atmosfoghalfplanedistance = var_1.atmosfoghalfplanedistance - var_0.atmosfoghalfplanedistance;
+        var_2.atmosfogstartdistance = var_1.atmosfogstartdistance - var_0.atmosfogstartdistance;
+        var_2.atmosfogdistancescale = var_1.atmosfogdistancescale - var_0.atmosfogdistancescale;
+        var_2.atmosfogskydistance = var_1.atmosfogskydistance - var_0.atmosfogskydistance;
+        var_2.atmosfogskyangularfalloffenabled = var_1.atmosfogskyangularfalloffenabled - var_0.atmosfogskyangularfalloffenabled;
+        var_2.atmosfogskyfalloffstartangle = var_1.atmosfogskyfalloffstartangle - var_0.atmosfogskyfalloffstartangle;
+        var_2.atmosfogskyfalloffanglerange = var_1.atmosfogskyfalloffanglerange - var_0.atmosfogskyfalloffanglerange;
+        var_2.atmosfogsundirection = var_1.atmosfogsundirection - var_0.atmosfogsundirection;
+        var_2.atmosfogheightfogenabled = var_1.atmosfogheightfogenabled - var_0.atmosfogheightfogenabled;
+        var_2.atmosfogheightfogbaseheight = var_1.atmosfogheightfogbaseheight - var_0.atmosfogheightfogbaseheight;
+        var_2.atmosfogheightfoghalfplanedistance = var_1.atmosfogheightfoghalfplanedistance - var_0.atmosfogheightfoghalfplanedistance;
     }
 
     self._id_9E7B = var_2;
@@ -1768,7 +1768,7 @@ _id_9E6F( var_0, var_1 )
     var_5._id_4500 = max( 1, var_5._id_4500 );
     var_5._id_7299 = var_2._id_7299 + var_4._id_7299 * var_1;
     var_5._id_43D8 = var_2._id_43D8 + var_4._id_43D8 * var_1;
-    var_5._id_14C5 = var_2._id_14C5 + var_4._id_14C5 * var_1;
+    var_5.blue = var_2.blue + var_4.blue * var_1;
     var_5._id_4774 = var_2._id_4774 + var_4._id_4774 * var_1;
     var_5._id_5A47 = var_2._id_5A47 + var_4._id_5A47 * var_1;
     var_5._id_85CD = var_2._id_85CD + var_4._id_85CD * var_1;
@@ -1788,26 +1788,26 @@ _id_9E6F( var_0, var_1 )
         var_5._id_615E = var_4._id_615F + var_4._id_615E * var_1;
     }
 
-    if ( isdefined( var_4._id_0DB4 ) )
+    if ( isdefined( var_4.atmosfogenabled ) )
     {
-        var_5._id_0DB4 = var_4._id_0DB4;
-        var_5._id_0DC4 = var_2._id_0DC4 + var_4._id_0DC4 * var_1;
-        var_5._id_0DB7 = var_2._id_0DB7 + var_4._id_0DB7 * var_1;
-        var_5._id_0DB9 = var_2._id_0DB9 + var_4._id_0DB9 * var_1;
-        var_5._id_0DB8 = var_2._id_0DB8 + var_4._id_0DB8 * var_1;
-        var_5._id_0DB5 = var_2._id_0DB5 + var_4._id_0DB5 * var_1;
-        var_5._id_0DBD = var_2._id_0DBD + var_4._id_0DBD * var_1;
-        var_5._id_0DB6 = var_2._id_0DB6 + var_4._id_0DB6 * var_1;
-        var_5._id_0DC2 = var_2._id_0DC2 + var_4._id_0DC2 * var_1;
-        var_5._id_0DB3 = var_2._id_0DB3 + var_4._id_0DB3 * var_1;
-        var_5._id_0DBF = var_2._id_0DBF + var_4._id_0DBF * var_1;
-        var_5._id_0DBE = int( var_2._id_0DBE + var_4._id_0DBE * var_1 );
-        var_5._id_0DC1 = var_2._id_0DC1 + var_4._id_0DC1 * var_1;
-        var_5._id_0DC0 = var_2._id_0DC0 + var_4._id_0DC0 * var_1;
-        var_5._id_0DC3 = var_2._id_0DC3 + var_4._id_0DC3 * var_1;
-        var_5._id_0DBB = int( var_2._id_0DBB + var_4._id_0DBB * var_1 );
-        var_5._id_0DBA = var_2._id_0DBA + var_4._id_0DBA * var_1;
-        var_5._id_0DBC = var_2._id_0DBC + var_4._id_0DBC * var_1;
+        var_5.atmosfogenabled = var_4.atmosfogenabled;
+        var_5.atmosfogsunfogcolor = var_2.atmosfogsunfogcolor + var_4.atmosfogsunfogcolor * var_1;
+        var_5.atmosfoghazecolor = var_2.atmosfoghazecolor + var_4.atmosfoghazecolor * var_1;
+        var_5.atmosfoghazestrength = var_2.atmosfoghazestrength + var_4.atmosfoghazestrength * var_1;
+        var_5.atmosfoghazespread = var_2.atmosfoghazespread + var_4.atmosfoghazespread * var_1;
+        var_5.atmosfogextinctionstrength = var_2.atmosfogextinctionstrength + var_4.atmosfogextinctionstrength * var_1;
+        var_5.atmosfoginscatterstrength = var_2.atmosfoginscatterstrength + var_4.atmosfoginscatterstrength * var_1;
+        var_5.atmosfoghalfplanedistance = var_2.atmosfoghalfplanedistance + var_4.atmosfoghalfplanedistance * var_1;
+        var_5.atmosfogstartdistance = var_2.atmosfogstartdistance + var_4.atmosfogstartdistance * var_1;
+        var_5.atmosfogdistancescale = var_2.atmosfogdistancescale + var_4.atmosfogdistancescale * var_1;
+        var_5.atmosfogskydistance = var_2.atmosfogskydistance + var_4.atmosfogskydistance * var_1;
+        var_5.atmosfogskyangularfalloffenabled = int( var_2.atmosfogskyangularfalloffenabled + var_4.atmosfogskyangularfalloffenabled * var_1 );
+        var_5.atmosfogskyfalloffstartangle = var_2.atmosfogskyfalloffstartangle + var_4.atmosfogskyfalloffstartangle * var_1;
+        var_5.atmosfogskyfalloffanglerange = var_2.atmosfogskyfalloffanglerange + var_4.atmosfogskyfalloffanglerange * var_1;
+        var_5.atmosfogsundirection = var_2.atmosfogsundirection + var_4.atmosfogsundirection * var_1;
+        var_5.atmosfogheightfogenabled = int( var_2.atmosfogheightfogenabled + var_4.atmosfogheightfogenabled * var_1 );
+        var_5.atmosfogheightfogbaseheight = var_2.atmosfogheightfogbaseheight + var_4.atmosfogheightfogbaseheight * var_1;
+        var_5.atmosfogheightfoghalfplanedistance = var_2.atmosfogheightfoghalfplanedistance + var_4.atmosfogheightfoghalfplanedistance * var_1;
     }
 
     common_scripts\utility::_id_7E36( var_5, 0.05 );
@@ -1877,7 +1877,7 @@ trigger_fog_preh1( var_0 )
         var_0._id_8FD0 = isdefined( var_3._id_8FD9 ) || isdefined( var_4._id_8FD9 );
         var_0._id_8C15 = var_3._id_8D08;
         var_0._id_8BA2 = var_3._id_4500;
-        var_0._id_8B66 = ( var_3._id_7299, var_3._id_43D8, var_3._id_14C5 );
+        var_0._id_8B66 = ( var_3._id_7299, var_3._id_43D8, var_3.blue );
         var_0._id_8BD0 = var_3._id_4774;
         var_0._id_8C1F = var_3._id_5A47;
         var_0._id_8C94 = var_3._id_85CD;
@@ -1905,7 +1905,7 @@ trigger_fog_preh1( var_0 )
 
         var_0._id_313B = var_4._id_8D08;
         var_0._id_3130 = var_4._id_4500;
-        var_0._id_3124 = ( var_4._id_7299, var_4._id_43D8, var_4._id_14C5 );
+        var_0._id_3124 = ( var_4._id_7299, var_4._id_43D8, var_4.blue );
         var_0._id_3135 = var_4._id_4774;
         var_0._id_313C = var_4._id_5A47;
         var_0._id_3144 = var_4._id_85CD;
@@ -2053,7 +2053,7 @@ _id_8627( var_0 )
         var_1 = var_0._id_7929;
 
     self endon( "cancel_sliding" );
-    maps\_utility::_id_139F( undefined, var_1 );
+    maps\_utility::beginsliding( undefined, var_1 );
 
     for (;;)
     {
@@ -2077,10 +2077,10 @@ _id_97FF( var_0 )
 _id_97C2( var_0 )
 {
     var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-    var_0.fx = [];
+    var_0._id_3B23 = [];
 
     foreach ( var_3 in level._id_2417 )
-        _id_0D64( var_3, var_0, var_1 );
+        assign_fx_to_trigger( var_3, var_0, var_1 );
 
     var_1 delete();
 
@@ -2113,7 +2113,7 @@ _id_97C1( var_0 )
         self waittill( "trigger" );
 
         if ( !var_0._id_3B76 )
-            common_scripts\utility::_id_0D13( var_0.fx, maps\_utility::_id_748D );
+            common_scripts\utility::array_thread( var_0._id_3B23, maps\_utility::_id_748D );
 
         wait 1;
     }
@@ -2126,13 +2126,13 @@ _id_97C0( var_0 )
         self waittill( "trigger" );
 
         if ( var_0._id_3B76 )
-            common_scripts\utility::_id_0D13( var_0.fx, common_scripts\utility::_id_671F );
+            common_scripts\utility::array_thread( var_0._id_3B23, common_scripts\utility::_id_671F );
 
         wait 1;
     }
 }
 
-_id_0D64( var_0, var_1, var_2 )
+assign_fx_to_trigger( var_0, var_1, var_2 )
 {
     if ( isdefined( var_0.v["soundalias"] ) && var_0.v["soundalias"] != "nil" )
     {
@@ -2143,7 +2143,7 @@ _id_0D64( var_0, var_1, var_2 )
     var_2.origin = var_0.v["origin"];
 
     if ( var_2 istouching( var_1 ) )
-        var_1.fx[var_1.fx.size] = var_0;
+        var_1._id_3B23[var_1._id_3B23.size] = var_0;
 }
 
 _id_97BE( var_0 )
@@ -2164,7 +2164,7 @@ _id_97BE( var_0 )
 
 _id_97C9( var_0 )
 {
-    common_scripts\utility::_id_0D13( level.players, ::_id_60F7, var_0 );
+    common_scripts\utility::array_thread( level.players, ::_id_60F7, var_0 );
 }
 
 _id_60F7( var_0 )
@@ -2193,7 +2193,7 @@ _id_60F7( var_0 )
 
 _id_97CA( var_0 )
 {
-    common_scripts\utility::_id_0D13( level.players, ::_id_610B, var_0 );
+    common_scripts\utility::array_thread( level.players, ::_id_610B, var_0 );
 }
 
 _id_610B( var_0 )
@@ -2259,7 +2259,7 @@ _id_9F40( var_0 )
             else
                 wait 0.15;
 
-            var_2 = var_0.script_fxid;
+            var_2 = var_0._id_79F1;
             var_3 = ( 0.0, 0.0, 0.0 );
 
             if ( isplayer( self ) )
@@ -2355,8 +2355,8 @@ _id_9F3E( var_0 )
     var_6 = int( var_5 * var_3 / 50 );
     var_7 = "null";
 
-    if ( isdefined( var_0.script_fxid ) )
-        var_7 = var_0.script_fxid;
+    if ( isdefined( var_0._id_79F1 ) )
+        var_7 = var_0._id_79F1;
 
     var_8 = "null";
 

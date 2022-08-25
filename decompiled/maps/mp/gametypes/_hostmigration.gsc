@@ -19,7 +19,7 @@
 
 */
 
-_id_19EE()
+callback_hostmigration()
 {
     level._id_4A38 = 0;
 
@@ -82,8 +82,8 @@ _id_4A37( var_0 )
     var_1 = -1;
     var_2 = "?";
 
-    if ( isdefined( var_0.entity_number ) )
-        var_1 = var_0.entity_number;
+    if ( isdefined( var_0._id_3314 ) )
+        var_1 = var_0._id_3314;
 
     if ( isplayer( var_0 ) && isdefined( var_0.name ) )
         var_2 = var_0.name;

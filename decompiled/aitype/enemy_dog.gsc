@@ -21,8 +21,8 @@
 
 main()
 {
-    self._id_0C8E = "dog.atr";
-    self._id_07ED = "";
+    self.animtree = "dog.atr";
+    self.additionalassets = "";
     self.team = "axis";
     self.type = "dog";
     self._id_8F7D = "regular";

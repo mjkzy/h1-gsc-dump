@@ -42,9 +42,9 @@ dragunov_scope_monitor( var_0 )
         var_6 = isdefined( var_3 ) && var_3 == "dragunov" && var_5;
 
         if ( var_6 && !var_2 )
-            level.player _meth_83bf( var_0, 0 );
+            level.player _meth_83BF( var_0, 0 );
         else if ( !var_6 && var_2 )
-            level.player _meth_83c0( 0 );
+            level.player _meth_83C0( 0 );
 
         var_2 = var_6;
         var_1 = var_4;

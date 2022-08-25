@@ -35,7 +35,7 @@ _id_4C88()
     var_0["semi3"] = %exposed_shoot_semi3;
     var_0["semi4"] = %exposed_shoot_semi4;
     var_0["semi5"] = %exposed_shoot_semi5;
-    anim._id_0CCA["soldier"]["shoot_while_moving"] = var_0;
+    anim.archetypes["soldier"]["shoot_while_moving"] = var_0;
     var_0 = [];
     var_0["shuffle_start_from_cover_left"] = %cornercrl_alert_2_shuffle;
     var_0["shuffle_start_from_cover_right"] = %cornercrr_alert_2_shuffle;
@@ -57,7 +57,7 @@ _id_4C88()
     var_0["shuffle_to_right_crouch"] = %covercrouch_shuffler;
     var_0["shuffle_end_to_right_stand"] = %coverstand_shuffler_2_hide;
     var_0["shuffle_end_to_right_crouch"] = %covercrouch_shuffler_2_hide;
-    anim._id_0CCA["soldier"]["shuffle"] = var_0;
+    anim.archetypes["soldier"]["shuffle"] = var_0;
 }
 
 _id_4CAC()
@@ -75,7 +75,7 @@ _id_4CAC()
     var_0["semi3"] = %smg_exposed_shoot_semi3;
     var_0["semi4"] = %smg_exposed_shoot_semi4;
     var_0["semi5"] = %smg_exposed_shoot_semi5;
-    anim._id_0CCA["soldier"]["smg_shoot_while_moving"] = var_0;
+    anim.archetypes["soldier"]["smg_shoot_while_moving"] = var_0;
 }
 
 main()
@@ -110,7 +110,7 @@ main()
         _id_5F48();
         _id_5F4B();
     }
-    else if ( isdefined( self._id_132D ) && self._id_132D )
+    else if ( isdefined( self.battlechatter ) && self.battlechatter )
     {
         var_2 = var_1;
         _id_5F7D( var_2 );
@@ -120,7 +120,7 @@ main()
     if ( animscripts\stairs_utility::using_h1_stairs_system() )
         thread animscripts\stairs_utility::lookaheadhitstairslistener();
 
-    thread _id_0C6A();
+    thread animdodgeobstaclelistener();
     var_3 = animscripts\utility::using_exit_node_to_cover_arrival_early_out();
 
     if ( var_3 )
@@ -138,7 +138,7 @@ main()
         _id_57A3();
 
     self._id_83E7 = undefined;
-    self._id_0972 = undefined;
+    self.aim_while_moving_thread = undefined;
     self._id_76D6 = undefined;
 
     if ( !isdefined( self.h1_melee_animations_enabled ) )
@@ -181,7 +181,7 @@ _id_5F53()
     self._id_9AC9 = undefined;
     self._id_9ACA = undefined;
     self._id_76DA = 0;
-    self._id_0D28 = undefined;
+    self.arrivalstartdist = undefined;
 }
 
 _id_414A( var_0 )
@@ -246,11 +246,11 @@ _id_5F57( var_0 )
     self notify( "abort_reload" );
 }
 
-_id_0CC8()
+archetypechanged()
 {
-    if ( isdefined( self._id_0C4D ) && self._id_0C4D != self._id_6F6E )
+    if ( isdefined( self.animarchetype ) && self.animarchetype != self._id_6F6E )
         return 1;
-    else if ( !isdefined( self._id_0C4D ) && self._id_6F6E != "none" )
+    else if ( !isdefined( self.animarchetype ) && self._id_6F6E != "none" )
         return 1;
 
     return 0;
@@ -258,7 +258,7 @@ _id_0CC8()
 
 _id_9B3C( var_0 )
 {
-    if ( var_0 != self._id_6F6F || _id_0CC8() )
+    if ( var_0 != self._id_6F6F || archetypechanged() )
     {
         if ( isdefined( self._id_2563 ) && isdefined( self._id_2563[var_0] ) )
             self.a._id_5F43 = self._id_2563[var_0];
@@ -277,8 +277,8 @@ _id_9B3C( var_0 )
 
         self._id_6F6F = var_0;
 
-        if ( isdefined( self._id_0C4D ) )
-            self._id_6F6E = self._id_0C4D;
+        if ( isdefined( self.animarchetype ) )
+            self._id_6F6E = self.animarchetype;
     }
 }
 
@@ -335,7 +335,7 @@ _id_1ECD()
 _id_5F59( var_0 )
 {
     self endon( "move_loop_restart" );
-    animscripts\face::_id_7F90( anim._id_09D2 );
+    animscripts\face::_id_7F90( anim.alertface );
 
     if ( animscripts\run::_id_5F06() )
         return;
@@ -397,26 +397,26 @@ _id_841B()
     if ( isdefined( var_0 ) )
     {
         foreach ( var_3, var_2 in var_0 )
-            self.a._id_0CD8[var_3] = var_2;
+            self.a.array[var_3] = var_2;
     }
 
     if ( isdefined( self._id_20B3 ) && isdefined( self._id_20B3["fire"] ) )
-        self.a._id_0CD8["fire"] = self._id_20B3["fire"];
+        self.a.array["fire"] = self._id_20B3["fire"];
 
     if ( isdefined( self.weapon ) && animscripts\utility::_id_A2CF() )
-        self.a._id_0CD8["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
+        self.a.array["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
 
     for (;;)
     {
-        if ( !self._id_18B0 )
+        if ( !self.bulletsinclip )
         {
             if ( animscripts\utility::_id_50EA() )
             {
-                self._id_0B78 = 0;
+                self.ammocheattime = 0;
                 animscripts\combat_utility::_id_1CAE();
             }
 
-            if ( !self._id_18B0 )
+            if ( !self.bulletsinclip )
             {
                 wait 0.5;
                 continue;
@@ -432,7 +432,7 @@ _id_8D40()
 {
     self endon( "killanimscript" );
     wait 0.05;
-    thread _id_18B2();
+    thread bulletwhizbycheck_whilemoving();
 
     if ( getdvarint( "ai_canMeleeWhilstMoving", 0 ) )
         thread _id_5B80();
@@ -476,7 +476,7 @@ _id_66D9()
 
     self.readyforpathchange = 0;
     self.ignoreearlypathchange = getdvarint( "ai_turnAnim_handleEarlyNotifies", 1 ) == 0;
-    self.turnanim_unknown = 0;
+    self._id_04CA = 0;
 
     for (;;)
     {
@@ -562,7 +562,7 @@ getturnaniminfo()
         var_2 = "cqb_turn";
         var_0 = 1;
 
-        if ( isdefined( self._id_0C4D ) && isdefined( anim._id_0CCA[self._id_0C4D]["walk_turn"] ) || isdefined( anim._id_0CCA["soldier"]["walk_turn"] ) )
+        if ( isdefined( self.animarchetype ) && isdefined( anim.archetypes[self.animarchetype]["walk_turn"] ) || isdefined( anim.archetypes["soldier"]["walk_turn"] ) )
         {
             var_2 = "walk_turn";
             var_0 = 0;
@@ -688,14 +688,14 @@ _id_66D4( var_0 )
     var_3 = getmovedelta( var_0, 0, var_2 );
     var_4 = self localtoworldcoords( var_3 );
 
-    if ( isdefined( self._id_0D28 ) && squared( self._id_0D28 ) > distancesquared( self.pathgoalpos, var_4 ) )
+    if ( isdefined( self.arrivalstartdist ) && squared( self.arrivalstartdist ) > distancesquared( self.pathgoalpos, var_4 ) )
         return 0;
 
     var_3 = getmovedelta( var_0, 0, 1 );
     var_5 = self localtoworldcoords( var_3 );
     var_5 = var_4 + vectornormalize( var_5 - var_4 ) * 20;
     var_6 = !self.swimmer;
-    var_7 = self _meth_81c8( var_4, var_5, var_6, 1 );
+    var_7 = self _meth_81C8( var_4, var_5, var_6, 1 );
     var_8 = !animscripts\utility::using_tight_turn_anims() && getdvarint( "ai_turnAnim_checkFullTrace", 0 );
 
     if ( !var_7 || !var_8 )
@@ -708,7 +708,7 @@ _id_66D4( var_0 )
     {
         var_3 = getmovedelta( var_0, 0, var_10[0] );
         var_11 = self localtoworldcoords( var_3 );
-        var_7 = self _meth_81c8( var_11, var_4, var_6, 1 );
+        var_7 = self _meth_81C8( var_11, var_4, var_6, 1 );
 
         if ( !var_7 )
             return 0;
@@ -720,7 +720,7 @@ _id_66D4( var_0 )
 
     }
 
-    var_7 = self _meth_81c8( self.origin, var_9, var_6, 1 );
+    var_7 = self _meth_81C8( self.origin, var_9, var_6, 1 );
     return var_7;
 }
 
@@ -756,7 +756,7 @@ _id_66D6()
         var_1 = self._id_66F4;
 
     self notify( "turn_start" );
-    self.turnanim_unknown = 1;
+    self._id_04CA = 1;
     self setflaggedanimrestart( "turnAnim", var_0, 1, var_1, self._id_5F65 );
 
     if ( animscripts\utility::_id_51B0() )
@@ -779,7 +779,7 @@ _id_66D6()
 
     maps\_utility::_id_27CF( var_3, animscripts\stairs_utility::threadcheckstairstransition, var_0, 0, var_2, undefined, "inOnly" );
     animscripts\shared::_id_2D06( "turnAnim" );
-    self.turnanim_unknown = 0;
+    self._id_04CA = 0;
     self._id_4BB7 = undefined;
     self _meth_8193( "face motion" );
     self _meth_8192( "none", 0 );
@@ -790,7 +790,7 @@ _id_66D6()
 
 _id_3F45()
 {
-    var_0 = self _meth_84eb();
+    var_0 = self _meth_84EB();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -854,7 +854,7 @@ _id_595D( var_0, var_1, var_2 )
 _id_66D5()
 {
     self._id_4BB7 = undefined;
-    self.turnanim_unknown = 0;
+    self._id_04CA = 0;
     self _meth_8193( "face default" );
     var_0 = [[ self._id_1D46 ]]();
     var_1 = 0.1;
@@ -871,7 +871,7 @@ _id_66D5()
 
 _id_2C2D()
 {
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
     self _meth_8192( "zonly_physics", 0 );
     self _meth_8144( %body, 0.2 );
     self setflaggedanimrestart( "dodgeAnim", self._id_2513, 1, 0.2, 1 );
@@ -883,7 +883,7 @@ _id_2C2D()
         animscripts\shared::_id_2D06( "dodgeAnim" );
 
     self _meth_8144( %civilian_dodge, 0.2 );
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
     self._id_2513 = undefined;
     self._id_5F56 = undefined;
     return 1;
@@ -895,9 +895,9 @@ _id_9899( var_0, var_1 )
     var_3 = self.lookaheaddir * var_1[0];
     var_4 = var_2 * var_1[1];
     var_5 = self.origin + var_3 - var_4;
-    self _meth_81a7( 1 );
+    self _meth_81A7( 1 );
 
-    if ( self _meth_81c7( var_5 ) )
+    if ( self _meth_81C7( var_5 ) )
     {
         self._id_2513 = var_0;
         self._id_5F56 = ::_id_2C2D;
@@ -905,11 +905,11 @@ _id_9899( var_0, var_1 )
         return 1;
     }
 
-    self _meth_81a7( 0 );
+    self _meth_81A7( 0 );
     return 0;
 }
 
-_id_0C6A()
+animdodgeobstaclelistener()
 {
     if ( !isdefined( self._id_2C2A ) || !isdefined( self._id_2C2E ) )
         return;
@@ -1001,7 +1001,7 @@ canreacttobulletsagain()
     return !isdefined( self.lastreacttobullettime ) || gettime() - self.lastreacttobullettime > getdvarint( "ai_reactToBulletCooldown" );
 }
 
-_id_18B2()
+bulletwhizbycheck_whilemoving()
 {
     self endon( "killanimscript" );
 
@@ -1027,7 +1027,7 @@ _id_18B2()
         if ( !isdefined( self.enemy ) && !self.ignoreall && self getthreatbiasgroup() != "oblivious" && isdefined( var_0.team ) && isenemyteam( self.team, var_0.team ) )
         {
             self._id_A316 = var_0;
-            self _meth_819e( animscripts\reactions::_id_18B4 );
+            self _meth_819E( animscripts\reactions::bulletwhizbyreaction );
             continue;
         }
 
@@ -1120,7 +1120,7 @@ _id_829F( var_0, var_1, var_2 )
             var_3["shuffle_end"] = animscripts\utility::_id_5863( "shuffle", "shuffle_end_to_right_crouch" );
     }
 
-    self.a._id_0CD8 = var_3;
+    self.a.array = var_3;
 }
 
 _id_5F4A( var_0, var_1 )
@@ -1182,9 +1182,9 @@ _id_5F48()
     _id_829F( var_5, var_1, var_2 );
     self _meth_8192( "zonly_physics", 0 );
     self _meth_8144( %body, var_6 );
-    var_7 = animscripts\utility::_id_0C4E( "shuffle_start" );
-    var_8 = animscripts\utility::_id_0C4E( "shuffle" );
-    var_9 = animscripts\utility::_id_0C4E( "shuffle_end" );
+    var_7 = animscripts\utility::animarray( "shuffle_start" );
+    var_8 = animscripts\utility::animarray( "shuffle" );
+    var_9 = animscripts\utility::animarray( "shuffle_end" );
 
     if ( animhasnotetrack( var_7, "finish" ) )
         var_10 = getnotetracktimes( var_7, "finish" )[0];
@@ -1253,7 +1253,7 @@ _id_5F48()
         animscripts\shared::_id_2D06( "shuffle_end" );
     }
 
-    self _meth_81cb( var_2.origin );
+    self _meth_81CB( var_2.origin );
     self _meth_8192( "normal" );
     self._id_8548 = undefined;
 }
@@ -1308,7 +1308,7 @@ _id_5F4D( var_0, var_1, var_2 )
     }
 
     animscripts\shared::_id_2D06( "sideToSide" );
-    self _meth_81cb( var_2.origin );
+    self _meth_81CB( var_2.origin );
     self _meth_8192( "none" );
     self _meth_8193( "face default" );
     self._id_8548 = undefined;
@@ -1329,7 +1329,7 @@ _id_8625( var_0, var_1 )
 
     while ( var_1 > 0 )
     {
-        self _meth_81cb( self.origin + var_0 );
+        self _meth_81CB( self.origin + var_0 );
         var_1--;
         wait 0.05;
     }

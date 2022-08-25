@@ -30,20 +30,20 @@ main()
 
     if ( var_0 )
     {
-        level._id_17DD["barrel"]["explode"] = loadfx( "fx/props/barrelExp" );
-        level._id_17DD["barrel"]["burn_start"] = loadfx( "vfx/map/mp_citystreets/barrel_ignite_01" );
-        level._id_17DD["barrel"]["burn"] = loadfx( "vfx/map/mp_citystreets/barrel_fire_top_01" );
+        level.breakables_fx["barrel"]["explode"] = loadfx( "fx/props/barrelExp" );
+        level.breakables_fx["barrel"]["burn_start"] = loadfx( "vfx/map/mp_citystreets/barrel_ignite_01" );
+        level.breakables_fx["barrel"]["burn"] = loadfx( "vfx/map/mp_citystreets/barrel_fire_top_01" );
     }
 
     var_2 = getentarray( "oil_spill", "targetname" );
 
     if ( isdefined( var_2 ) && var_2.size > 0 )
     {
-        level._id_17DD["oilspill"]["burn"] = loadfx( "fx/props/barrel_fire" );
-        level._id_17DD["oilspill"]["spark"] = loadfx( "fx/impacts/small_metalhit_1" );
+        level.breakables_fx["oilspill"]["burn"] = loadfx( "fx/props/barrel_fire" );
+        level.breakables_fx["oilspill"]["spark"] = loadfx( "fx/impacts/small_metalhit_1" );
     }
 
-    level._id_12E8 = "h1_redbarrel_exp";
+    level.barrelexpsound = "h1_redbarrel_exp";
     level.barrelhealth = 150;
     var_3 = 25;
     level.precachemodeltype = [];
@@ -57,21 +57,21 @@ main()
     level._breakable_utility_modelarray = [];
     level._breakable_utility_modelindex = 0;
     level._breakable_utility_maxnum = var_3;
-    common_scripts\utility::_id_0D13( getentarray( "explodable_barrel", "targetname" ), ::explodable_barrel_think );
-    common_scripts\utility::_id_0D13( getentarray( "oil_spill", "targetname" ), ::oil_spill_think );
+    common_scripts\utility::array_thread( getentarray( "explodable_barrel", "targetname" ), ::explodable_barrel_think );
+    common_scripts\utility::array_thread( getentarray( "oil_spill", "targetname" ), ::oil_spill_think );
 }
 
 oil_spill_think()
 {
     self._id_311C = _id_40FB( self.target, "targetname" );
     self._id_8B20 = _id_40FB( self._id_311C.target, "targetname" );
-    self._id_12E4 = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
+    self.barrel = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
     self.extra = getent( self.target, "targetname" );
     self setcandamage( 1 );
 
-    if ( isdefined( self._id_12E4 ) )
+    if ( isdefined( self.barrel ) )
     {
-        self._id_12E4.oilspill = 1;
+        self.barrel.oilspill = 1;
         thread oil_spill_burn_after();
     }
 
@@ -83,15 +83,15 @@ oil_spill_think()
             continue;
 
         self._id_25A9 = var_0;
-        playfx( level._id_17DD["oilspill"]["spark"], var_3, var_2 );
+        playfx( level.breakables_fx["oilspill"]["spark"], var_3, var_2 );
         thread oil_spill_burn_section( var_3 );
         thread oil_spill_burn( var_3, self._id_8B20.origin );
         thread oil_spill_burn( var_3, self._id_311C.origin );
         break;
     }
 
-    if ( isdefined( self._id_12E4 ) )
-        self._id_12E4 waittill( "exploding" );
+    if ( isdefined( self.barrel ) )
+        self.barrel waittill( "exploding" );
 
     self.extra delete();
     self hide();
@@ -125,7 +125,7 @@ oil_spill_burn_after()
 {
     for (;;)
     {
-        self._id_12E4 waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
+        self.barrel waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
         if ( var_4 == "MOD_MELEE" || var_4 == "MOD_IMPACT" )
             continue;
@@ -171,7 +171,7 @@ oil_spill_burn( var_0, var_1 )
 
         var_10.origin = var_0;
         var_12 = [];
-        var_8 = common_scripts\utility::_id_0D01( var_8 );
+        var_8 = common_scripts\utility::array_removeundefined( var_8 );
 
         for ( var_13 = 0; var_13 < var_8.size; var_13++ )
         {
@@ -192,12 +192,12 @@ oil_spill_burn( var_0, var_1 )
         }
 
         for ( var_13 = 0; var_13 < var_12.size; var_13++ )
-            var_8 = common_scripts\utility::_id_0CF6( var_8, var_12[var_13] );
+            var_8 = common_scripts\utility::array_remove( var_8, var_12[var_13] );
 
         wait 0.1;
     }
 
-    if ( !isdefined( self._id_12E4 ) )
+    if ( !isdefined( self.barrel ) )
         return;
 
     if ( distance( var_0, self._id_8B20.origin ) < 32 )
@@ -205,9 +205,9 @@ oil_spill_burn( var_0, var_1 )
         var_17 = 80 + randomfloat( 10 );
 
         if ( !isdefined( self._id_25A9 ) )
-            self entityradiusdamage( self._id_12E4.origin, 4, var_17, var_17 );
+            self entityradiusdamage( self.barrel.origin, 4, var_17, var_17 );
         else
-            self entityradiusdamage( self._id_12E4.origin, 4, var_17, var_17, self._id_25A9 );
+            self entityradiusdamage( self.barrel.origin, 4, var_17, var_17, self._id_25A9 );
     }
 }
 
@@ -215,7 +215,7 @@ oil_spill_burn_section( var_0 )
 {
     var_1 = 0;
     var_2 = 0;
-    playfx( level._id_17DD["oilspill"]["burn"], var_0 );
+    playfx( level.breakables_fx["oilspill"]["burn"], var_0 );
 
     while ( var_2 < 5 )
     {
@@ -288,14 +288,14 @@ explodable_barrel_burn()
         {
             if ( !var_1 )
             {
-                playfx( level._id_17DD["barrel"]["burn_start"], self.origin + var_5 );
+                playfx( level.breakables_fx["barrel"]["burn_start"], self.origin + var_5 );
                 var_1 = 1;
             }
 
             if ( var_0 > 20 )
                 var_0 = 0;
 
-            playfx( level._id_17DD["barrel"]["burn"], self.origin + var_6 );
+            playfx( level.breakables_fx["barrel"]["burn"], self.origin + var_6 );
 
             if ( var_0 == 0 )
                 self.damagetaken += ( 10 + randomfloat( 10 ) );
@@ -325,8 +325,8 @@ explodable_barrel_explode()
     }
 
     var_3 += ( 0.0, 0.0, 4.0 );
-    self playsound( level._id_12E8 );
-    playfx( level._id_17DD["barrel"]["explode"], self.origin + var_3 );
+    self playsound( level.barrelexpsound );
+    playfx( level.breakables_fx["barrel"]["explode"], self.origin + var_3 );
     level.barrelexplodingthisframe = 1;
 
     if ( isdefined( self.remove ) )
@@ -346,7 +346,7 @@ explodable_barrel_explode()
         self entityradiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_9, var_8, var_7, self._id_25A9, "MOD_EXPLOSIVE", "barrel_mp" );
 
     physicsexplosionsphere( self.origin + ( 0.0, 0.0, 30.0 ), var_9, var_9 / 2, var_6 );
-    maps\mp\gametypes\_shellshock::_id_12E5();
+    maps\mp\gametypes\_shellshock::barrel_earthquake();
 
     if ( randomint( 2 ) == 0 )
         self setmodel( "com_barrel_piece" );
@@ -400,5 +400,5 @@ breakable_clip()
         self.remove = getclosestent( self.origin, level.breakables_clip );
 
     if ( isdefined( self.remove ) )
-        level.breakables_clip = common_scripts\utility::_id_0CF6( level.breakables_clip, self.remove );
+        level.breakables_clip = common_scripts\utility::array_remove( level.breakables_clip, self.remove );
 }

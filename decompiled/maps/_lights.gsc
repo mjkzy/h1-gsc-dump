@@ -26,11 +26,11 @@ _id_4D7B()
     var_2 = getentarray( "generic_double_strobe", "targetname" );
     var_3 = getentarray( "burning_trash_fire", "targetname" );
     var_4 = getentarray( "scripted_light", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, ::_id_3C94 );
-    common_scripts\utility::_id_0D13( var_1, ::_id_3CA1 );
-    common_scripts\utility::_id_0D13( var_2, ::_id_3C8E );
-    common_scripts\utility::_id_0D13( var_3, ::_id_1928 );
-    common_scripts\utility::_id_0D13( var_4, ::_id_4D55 );
+    common_scripts\utility::array_thread( var_0, ::_id_3C94 );
+    common_scripts\utility::array_thread( var_1, ::_id_3CA1 );
+    common_scripts\utility::array_thread( var_2, ::_id_3C8E );
+    common_scripts\utility::array_thread( var_3, ::burning_trash_fire );
+    common_scripts\utility::array_thread( var_4, ::_id_4D55 );
 }
 
 _id_5049( var_0 )
@@ -324,9 +324,9 @@ _id_3C94()
     {
         foreach ( var_4 in self._id_57A6 )
         {
-            if ( isdefined( var_4 ) && isdefined( var_4.script_fxid ) )
+            if ( isdefined( var_4 ) && isdefined( var_4._id_79F1 ) )
             {
-                var_4._id_3018 = common_scripts\utility::_id_242E( var_4.script_fxid );
+                var_4._id_3018 = common_scripts\utility::_id_242E( var_4._id_79F1 );
                 var_6 = ( 0.0, 0.0, 0.0 );
                 var_7 = ( 0.0, 0.0, 0.0 );
 
@@ -598,7 +598,7 @@ _id_38D9( var_0, var_1 )
     }
 }
 
-_id_1928()
+burning_trash_fire()
 {
     if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
     {
@@ -919,9 +919,9 @@ _id_4D0C( var_0 )
     var_2 = undefined;
     var_3 = undefined;
 
-    if ( isdefined( var_0.script_fxid ) )
+    if ( isdefined( var_0._id_79F1 ) )
     {
-        var_1 = self.script_fxid;
+        var_1 = self._id_79F1;
         var_2 = var_0.origin;
         var_3 = var_0.angles;
     }
@@ -929,9 +929,9 @@ _id_4D0C( var_0 )
     {
         var_4 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
 
-        if ( isdefined( var_4 ) && isdefined( var_4.script_fxid ) )
+        if ( isdefined( var_4 ) && isdefined( var_4._id_79F1 ) )
         {
-            var_1 = var_4.script_fxid;
+            var_1 = var_4._id_79F1;
             var_2 = var_4.origin;
             var_3 = ( 0.0, 0.0, 0.0 );
 
@@ -991,7 +991,7 @@ _id_568D( var_0, var_1 )
     var_6[0] = self;
 
     if ( isdefined( self._id_578A ) )
-        var_6 = common_scripts\utility::_id_0CDD( var_6, self._id_578A );
+        var_6 = common_scripts\utility::array_combine( var_6, self._id_578A );
 
     foreach ( var_8 in var_6 )
     {
@@ -1002,7 +1002,7 @@ _id_568D( var_0, var_1 )
 
 _id_45B4( var_0 )
 {
-    var_1 = var_0 > self.script_threshold;
+    var_1 = var_0 > self._id_7AF4;
 
     foreach ( var_3 in self._id_57A6 )
     {
@@ -1092,13 +1092,13 @@ _id_276B()
 
 _id_7ED9( var_0 )
 {
-    if ( !isdefined( self.script_threshold ) )
-        self.script_threshold = var_0;
+    if ( !isdefined( self._id_7AF4 ) )
+        self._id_7AF4 = var_0;
 
     foreach ( var_2 in self._id_578A )
     {
-        if ( !isdefined( var_2.script_threshold ) )
-            var_2.script_threshold = self.script_threshold;
+        if ( !isdefined( var_2._id_7AF4 ) )
+            var_2._id_7AF4 = self._id_7AF4;
     }
 }
 

@@ -170,7 +170,7 @@ javelincluloop()
     for (;;)
     {
         wait 0.05;
-        var_0 = self _meth_82ed();
+        var_0 = self _meth_82ED();
 
         if ( !var_0 )
         {
@@ -262,14 +262,14 @@ init()
     level.locklength = 2000;
     setomnvar( "ui_javelin", 1 );
     precacheshader( "javelin_hud_target_offscreen" );
-    common_scripts\utility::_id_0D13( level.players, ::clearclutarget );
+    common_scripts\utility::array_thread( level.players, ::clearclutarget );
     setsaveddvar( "vehHudTargetSize", 30 );
     setsaveddvar( "vehHudTargetScreenEdgeClampBufferLeft", 95 );
     setsaveddvar( "vehHudTargetScreenEdgeClampBufferRight", 95 );
     setsaveddvar( "vehHudTargetScreenEdgeClampBufferTop", 139 );
     setsaveddvar( "vehHudTargetScreenEdgeClampBufferBottom", 134 );
     setsaveddvar( "vehHudTargetingCornerLockTime", level.locklength / 1000 );
-    common_scripts\utility::_id_0D13( level.players, ::javelintoggleloop );
+    common_scripts\utility::array_thread( level.players, ::javelintoggleloop );
 }
 
 looplocalseeksound( var_0, var_1 )

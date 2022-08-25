@@ -85,7 +85,7 @@ hiding_door_spawner()
 
     var_5 delete();
     var_13 = maps\_utility::_id_88D1( "hiding_door" );
-    var_3 thread maps\_anim::_id_0BC7( var_13, "fire_3" );
+    var_3 thread maps\_anim::anim_first_frame_solo( var_13, "fire_3" );
 
     if ( isdefined( var_6 ) )
     {
@@ -122,7 +122,7 @@ hiding_door_spawner()
     if ( isdefined( var_7 ) )
         badplace_brush( var_7 getentitynumber(), 0, var_7, "allies" );
 
-    maps\_utility::_id_0798( ::hiding_door_guy, var_3, var_14, var_13, var_11, var_7 );
+    maps\_utility::add_spawn_function( ::hiding_door_guy, var_3, var_14, var_13, var_11, var_7 );
 
     if ( isdefined( var_1 ) )
         thread hiding_door_spawner_cleanup( var_3, var_13, var_11, var_7 );
@@ -131,7 +131,7 @@ hiding_door_spawner()
 hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = hiding_door_starts_open( var_0 );
-    self._id_0C72 = "hiding_door_guy";
+    self.animname = "hiding_door_guy";
     self endon( "death" );
     self endon( "damage" );
     self.grenadeammo = 2;
@@ -145,9 +145,9 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
     thread hiding_door_death( var_2, var_0, self, var_3, var_4 );
 
     if ( var_5 )
-        var_0 thread maps\_anim::_id_0BDD( var_6, "idle" );
+        var_0 thread maps\_anim::anim_loop( var_6, "idle" );
     else
-        var_0 thread maps\_anim::_id_0BC5( var_6, "fire_3" );
+        var_0 thread maps\_anim::anim_first_frame( var_6, "fire_3" );
 
     if ( isdefined( var_1 ) )
     {
@@ -160,7 +160,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
     if ( var_5 )
     {
         var_0 notify( "stop_loop" );
-        var_0 maps\_anim::_id_0C18( var_6, "close" );
+        var_0 maps\_anim::anim_single( var_6, "close" );
     }
 
     var_7 = 0;
@@ -200,8 +200,8 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
         }
         else
         {
-            var_0 maps\_anim::_id_0C18( var_6, "open" );
-            var_0 maps\_anim::_id_0C18( var_6, "close" );
+            var_0 maps\_anim::anim_single( var_6, "open" );
+            var_0 maps\_anim::anim_single( var_6, "close" );
             var_7++;
             continue;
         }
@@ -212,7 +212,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
 
             if ( common_scripts\utility::_id_2006() )
             {
-                if ( self _meth_81c7( animscripts\utility::_id_3EFC( level._id_78AC[self._id_0C72]["kick"] ) ) )
+                if ( self _meth_81C7( animscripts\utility::_id_3EFC( level._id_78AC[self.animname]["kick"] ) ) )
                     var_11 = "kick";
             }
 
@@ -222,7 +222,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
             self.allowdeath = 1;
             self.health = 100;
             maps\_utility::_id_1EAB();
-            var_0 maps\_anim::_id_0C18( var_6, var_11 );
+            var_0 maps\_anim::anim_single( var_6, var_11 );
             quit_door_behavior();
             return;
         }
@@ -235,10 +235,10 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
 
         var_7 = 0;
         var_8++;
-        var_0 thread maps\_anim::_id_0C18( var_6, var_11 );
-        maps\_utility::_id_27EF( 0.05, maps\_anim::_id_0C15, var_6, var_11, 0.3 );
+        var_0 thread maps\_anim::anim_single( var_6, var_11 );
+        maps\_utility::_id_27EF( 0.05, maps\_anim::anim_set_time, var_6, var_11, 0.3 );
         var_0 waittill( var_11 );
-        var_0 thread maps\_anim::_id_0BC5( var_6, "open" );
+        var_0 thread maps\_anim::anim_first_frame( var_6, "open" );
         wait(randomfloatrange( 0.2, 1.0 ));
         var_0 notify( "stop_loop" );
     }
@@ -258,7 +258,7 @@ quit_door_behavior( var_0, var_1 )
     self.health = 100;
     maps\_utility::_id_1EAB();
     self.goalradius = 512;
-    self _meth_81aa( self.origin );
+    self _meth_81AA( self.origin );
     self notify( "quit_door_behavior" );
     self _meth_8143();
     self notify( "killanimscript" );
@@ -356,7 +356,7 @@ hiding_door_spawner_cleanup( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_1.played_death_anim ) )
     {
         var_1.played_death_anim = 1;
-        var_0 thread maps\_anim::_id_0C24( var_1, "death_2" );
+        var_0 thread maps\_anim::anim_single_solo( var_1, "death_2" );
     }
 }
 
@@ -371,7 +371,7 @@ hiding_door_guy_cleanup( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_2.played_death_anim ) )
     {
         var_2.played_death_anim = 1;
-        var_0 thread maps\_anim::_id_0C24( var_2, "death_2" );
+        var_0 thread maps\_anim::anim_single_solo( var_2, "death_2" );
     }
 }
 
@@ -423,12 +423,12 @@ hiding_door_death( var_0, var_1, var_2, var_3, var_4 )
 
     thread hiding_door_death_door_connections( var_3, var_4 );
     var_1 notify( "push_player" );
-    var_1 thread maps\_anim::_id_0C24( var_2, "death_2" );
+    var_1 thread maps\_anim::anim_single_solo( var_2, "death_2" );
 
     if ( !isdefined( var_0.played_death_anim ) )
     {
         var_0.played_death_anim = 1;
-        var_1 thread maps\_anim::_id_0C24( var_0, "death_2" );
+        var_1 thread maps\_anim::anim_single_solo( var_0, "death_2" );
     }
 
     var_2 maps\_cheat::melonhead_remove_melon( 1, 1 );

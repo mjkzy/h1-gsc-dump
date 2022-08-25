@@ -59,7 +59,7 @@ _id_7E68()
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     maps\_utility::_id_9E6E( "blackout_swamp_1", 0 );
     level.player maps\_utility::set_light_set_player( "blackout_swamp_1" );
-    level.player _meth_848c( "clut_blackout", 0.0 );
+    level.player _meth_848C( "clut_blackout", 0.0 );
     enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
 }
 
@@ -223,7 +223,7 @@ loop_camera_shake()
     {
         var_1 = randomintrange( 0, var_0.size );
         var_2 = var_0[var_1];
-        level.player _meth_83fc( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
+        level.player _meth_83FC( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
         wait(var_0[var_1].duration - 0.5);
     }
 }
@@ -232,8 +232,8 @@ handle_blackout_spotlights_off()
 {
     common_scripts\utility::_id_384A( "turn_off_blackout_spotlights" );
     var_0 = getentarray( "blackout_spotlight", "targetname" );
-    common_scripts\utility::_id_0D13( var_0, maps\blackout_code::record_old_intensity );
-    common_scripts\utility::_id_0D13( var_0, maps\_utility::_id_0639, 0 );
+    common_scripts\utility::array_thread( var_0, maps\blackout_code::record_old_intensity );
+    common_scripts\utility::array_thread( var_0, maps\_utility::_setlightintensity, 0 );
     maps\_utility::_id_2AC0( "blackout_light_org" );
 }
 
