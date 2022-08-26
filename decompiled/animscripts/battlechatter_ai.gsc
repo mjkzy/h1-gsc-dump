@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 addtosystem( var_0 )
 {
     self endon( "death" );
@@ -26,14 +8,14 @@ addtosystem( var_0 )
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    if ( self._id_1CA5 )
+    if ( self.chatinitialized )
         return;
 
-    if ( !isdefined( self._id_8AB0._id_1CA5 ) || !self._id_8AB0._id_1CA5 )
-        self._id_8AB0 animscripts\battlechatter::_id_4D5E();
+    if ( !isdefined( self.squad.chatinitialized ) || !self.squad.chatinitialized )
+        self.squad animscripts\battlechatter::init_squadbattlechatter();
 
-    self._id_32A8 = "infantry";
-    self._id_1A07 = [];
+    self.enemyclass = "infantry";
+    self.calledout = [];
 
     if ( isplayer( self ) )
     {
@@ -44,33 +26,33 @@ addtosystem( var_0 )
 
     if ( self.type == "dog" )
     {
-        self._id_32A8 = undefined;
+        self.enemyclass = undefined;
         self.battlechatter = 0;
         return;
     }
 
-    self._id_2243 = anim._id_2244[self._id_9F32];
+    self.countryid = anim.countryids[self.voice];
 
-    if ( isdefined( self._id_79EE ) )
+    if ( isdefined( self.script_friendname ) )
     {
-        var_1 = tolower( self._id_79EE );
+        var_1 = tolower( self.script_friendname );
 
         if ( issubstr( var_1, "grigsby" ) )
-            self._id_6252 = "grg";
+            self.npcid = "grg";
         else if ( issubstr( var_1, "griggs" ) )
-            self._id_6252 = "grg";
+            self.npcid = "grg";
         else if ( issubstr( var_1, "price" ) )
-            self._id_6252 = "pri";
+            self.npcid = "pri";
         else if ( issubstr( var_1, "gaz" ) )
-            self._id_6252 = "gaz";
+            self.npcid = "gaz";
         else
-            _id_7FC1();
+            setnpcid();
     }
     else
-        _id_7FC1();
+        setnpcid();
 
     thread ainameandrankwaiter();
-    _id_4C72();
+    init_aibattlechatter();
     thread aithreadthreader();
 }
 
@@ -94,9 +76,9 @@ aithreadthreader()
     thread aibattlechatterloop();
 }
 
-_id_7FC1()
+setnpcid()
 {
-    var_0 = anim._id_9BF9[self._id_9F32];
+    var_0 = anim.usedids[self.voice];
     var_1 = var_0.size;
     var_2 = randomintrange( 0, var_1 );
     var_3 = var_2;
@@ -107,19 +89,19 @@ _id_7FC1()
             var_3 = ( var_2 + var_4 ) % var_1;
     }
 
-    thread _id_6253( var_3 );
-    self._id_6252 = var_0[var_3]._id_6252;
+    thread npcidtracker( var_3 );
+    self.npcid = var_0[var_3].npcid;
 }
 
-_id_6253( var_0 )
+npcidtracker( var_0 )
 {
-    anim._id_9BF9[self._id_9F32][var_0].count++;
+    anim.usedids[self.voice][var_0].count++;
     self waittill( "death" );
 
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    anim._id_9BF9[self._id_9F32][var_0].count--;
+    anim.usedids[self.voice][var_0].count--;
 }
 
 aibattlechatterloop()
@@ -129,7 +111,7 @@ aibattlechatterloop()
 
     for (;;)
     {
-        animscripts\battlechatter::_id_6A2E();
+        animscripts\battlechatter::playbattlechatter();
         wait(0.3 + randomfloat( 0.2 ));
     }
 }
@@ -141,13 +123,13 @@ ainameandrankwaiter()
 
     for (;;)
     {
-        self.bcname = animscripts\battlechatter::_id_4030();
-        self.bcrank = animscripts\battlechatter::_id_40A9();
+        self.bcname = animscripts\battlechatter::getname();
+        self.bcrank = animscripts\battlechatter::getrank();
         self waittill( "set name and rank" );
     }
 }
 
-_id_73AE( var_0 )
+removefromsystem( var_0 )
 {
     if ( !isalive( self ) && animscripts\battlechatter::bcsenabled() )
     {
@@ -158,61 +140,61 @@ _id_73AE( var_0 )
     if ( isdefined( self ) )
     {
         self.battlechatter = 0;
-        self._id_1CA5 = 0;
+        self.chatinitialized = 0;
     }
 
     self notify( "removed from battleChatter" );
 
     if ( isdefined( self ) )
     {
-        self._id_1CA6 = undefined;
-        self._id_60DA = undefined;
-        self._id_60DB = undefined;
-        self._id_51B3 = undefined;
-        self._id_32A8 = undefined;
-        self._id_1A07 = undefined;
-        self._id_2243 = undefined;
-        self._id_6252 = undefined;
+        self.chatqueue = undefined;
+        self.nextsaytime = undefined;
+        self.nextsaytimes = undefined;
+        self.isspeaking = undefined;
+        self.enemyclass = undefined;
+        self.calledout = undefined;
+        self.countryid = undefined;
+        self.npcid = undefined;
     }
 }
 
-_id_4C72()
+init_aibattlechatter()
 {
-    self._id_1CA6 = [];
-    self._id_1CA6["threat"] = spawnstruct();
-    self._id_1CA6["threat"]._id_351C = 0;
-    self._id_1CA6["threat"]._id_6FBE = 0.0;
-    self._id_1CA6["response"] = spawnstruct();
-    self._id_1CA6["response"]._id_351C = 0;
-    self._id_1CA6["response"]._id_6FBE = 0.0;
-    self._id_1CA6["reaction"] = spawnstruct();
-    self._id_1CA6["reaction"]._id_351C = 0;
-    self._id_1CA6["reaction"]._id_6FBE = 0.0;
-    self._id_1CA6["inform"] = spawnstruct();
-    self._id_1CA6["inform"]._id_351C = 0;
-    self._id_1CA6["inform"]._id_6FBE = 0.0;
-    self._id_1CA6["order"] = spawnstruct();
-    self._id_1CA6["order"]._id_351C = 0;
-    self._id_1CA6["order"]._id_6FBE = 0.0;
-    self._id_1CA6["custom"] = spawnstruct();
-    self._id_1CA6["custom"]._id_351C = 0;
-    self._id_1CA6["custom"]._id_6FBE = 0.0;
-    self._id_60DA = gettime() + 50;
-    self._id_60DB["threat"] = 0;
-    self._id_60DB["reaction"] = 0;
-    self._id_60DB["response"] = 0;
-    self._id_60DB["inform"] = 0;
-    self._id_60DB["order"] = 0;
-    self._id_60DB["custom"] = 0;
-    self._id_51B3 = 0;
+    self.chatqueue = [];
+    self.chatqueue["threat"] = spawnstruct();
+    self.chatqueue["threat"].expiretime = 0;
+    self.chatqueue["threat"].priority = 0.0;
+    self.chatqueue["response"] = spawnstruct();
+    self.chatqueue["response"].expiretime = 0;
+    self.chatqueue["response"].priority = 0.0;
+    self.chatqueue["reaction"] = spawnstruct();
+    self.chatqueue["reaction"].expiretime = 0;
+    self.chatqueue["reaction"].priority = 0.0;
+    self.chatqueue["inform"] = spawnstruct();
+    self.chatqueue["inform"].expiretime = 0;
+    self.chatqueue["inform"].priority = 0.0;
+    self.chatqueue["order"] = spawnstruct();
+    self.chatqueue["order"].expiretime = 0;
+    self.chatqueue["order"].priority = 0.0;
+    self.chatqueue["custom"] = spawnstruct();
+    self.chatqueue["custom"].expiretime = 0;
+    self.chatqueue["custom"].priority = 0.0;
+    self.nextsaytime = gettime() + 50;
+    self.nextsaytimes["threat"] = 0;
+    self.nextsaytimes["reaction"] = 0;
+    self.nextsaytimes["response"] = 0;
+    self.nextsaytimes["inform"] = 0;
+    self.nextsaytimes["order"] = 0;
+    self.nextsaytimes["custom"] = 0;
+    self.isspeaking = 0;
     self.bcs_minpriority = 0.0;
 
-    if ( isdefined( self._id_795A ) && !self._id_795A )
+    if ( isdefined( self.script_battlechatter ) && !self.script_battlechatter )
         self.battlechatter = 0;
     else
         self.battlechatter = level.battlechatter[self.team];
 
-    self._id_1CA5 = 1;
+    self.chatinitialized = 1;
 }
 
 addthreatevent( var_0, var_1, var_2 )
@@ -220,29 +202,29 @@ addthreatevent( var_0, var_1, var_2 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( !animscripts\battlechatter::_id_1ADD( "threat", var_0, var_2 ) )
+    if ( !animscripts\battlechatter::cansay( "threat", var_0, var_2 ) )
         return;
 
-    if ( isdefined( var_1._id_1A07 ) && isdefined( var_1._id_1A07[self._id_8AB0.squadname] ) )
+    if ( isdefined( var_1.calledout ) && isdefined( var_1.calledout[self.squad.squadname] ) )
         return;
 
-    var_3 = animscripts\battlechatter::_id_23EA( "threat", var_0, var_2 );
+    var_3 = animscripts\battlechatter::createchatevent( "threat", var_0, var_2 );
 
     switch ( var_0 )
     {
         case "infantry":
-            var_3._id_9317 = var_1;
+            var_3.threat = var_1;
             break;
         case "vehicle":
-            var_3._id_9317 = var_1;
+            var_3.threat = var_1;
             break;
     }
 
-    if ( isdefined( var_1._id_8AB0 ) )
-        self._id_8AB0 animscripts\battlechatter::_id_9B0A( var_1._id_8AB0.squadname, self );
+    if ( isdefined( var_1.squad ) )
+        self.squad animscripts\battlechatter::updatecontact( var_1.squad.squadname, self );
 
-    self._id_1CA6["threat"] = undefined;
-    self._id_1CA6["threat"] = var_3;
+    self.chatqueue["threat"] = undefined;
+    self.chatqueue["threat"] = var_3;
 }
 
 addresponseevent( var_0, var_1, var_2, var_3 )
@@ -250,32 +232,32 @@ addresponseevent( var_0, var_1, var_2, var_3 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( !animscripts\battlechatter::_id_1ADD( "response", var_0, var_3, var_1 ) )
+    if ( !animscripts\battlechatter::cansay( "response", var_0, var_3, var_1 ) )
         return;
 
     if ( var_2 != level.player )
     {
-        if ( isstring( var_2._id_6252 ) && isstring( self._id_6252 ) && var_2._id_6252 == self._id_6252 )
+        if ( isstring( var_2.npcid ) && isstring( self.npcid ) && var_2.npcid == self.npcid )
             return;
-        else if ( !isstring( var_2._id_6252 ) && !isstring( self._id_6252 ) && var_2._id_6252 == self._id_6252 )
+        else if ( !isstring( var_2.npcid ) && !isstring( self.npcid ) && var_2.npcid == self.npcid )
             return;
     }
 
-    var_4 = animscripts\battlechatter::_id_23EA( "response", var_0, var_3 );
+    var_4 = animscripts\battlechatter::createchatevent( "response", var_0, var_3 );
 
     switch ( var_0 )
     {
         case "killfirm":
-            var_4._id_747E = var_2;
-            var_4._id_5D47 = var_1;
+            var_4.respondto = var_2;
+            var_4.modifier = var_1;
             break;
         case "ack":
-            var_4._id_747E = var_2;
-            var_4._id_5D47 = var_1;
+            var_4.respondto = var_2;
+            var_4.modifier = var_1;
     }
 
-    self._id_1CA6["response"] = undefined;
-    self._id_1CA6["response"] = var_4;
+    self.chatqueue["response"] = undefined;
+    self.chatqueue["response"] = var_4;
 }
 
 addinformevent( var_0, var_1, var_2, var_3 )
@@ -283,23 +265,23 @@ addinformevent( var_0, var_1, var_2, var_3 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( !animscripts\battlechatter::_id_1ADD( "inform", var_0, var_3, var_1 ) )
+    if ( !animscripts\battlechatter::cansay( "inform", var_0, var_3, var_1 ) )
         return;
 
-    var_4 = animscripts\battlechatter::_id_23EA( "inform", var_0, var_3 );
+    var_4 = animscripts\battlechatter::createchatevent( "inform", var_0, var_3 );
 
     switch ( var_0 )
     {
         case "reloading":
-            var_4._id_5D47 = var_1;
-            var_4._id_4C66 = var_2;
+            var_4.modifier = var_1;
+            var_4.informto = var_2;
             break;
         default:
-            var_4._id_5D47 = var_1;
+            var_4.modifier = var_1;
     }
 
-    self._id_1CA6["inform"] = undefined;
-    self._id_1CA6["inform"] = var_4;
+    self.chatqueue["inform"] = undefined;
+    self.chatqueue["inform"] = var_4;
 }
 
 addreactionevent( var_0, var_1, var_2, var_3 )
@@ -307,24 +289,24 @@ addreactionevent( var_0, var_1, var_2, var_3 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( !animscripts\battlechatter::_id_1ADD( "reaction", var_0, var_3, var_1 ) )
+    if ( !animscripts\battlechatter::cansay( "reaction", var_0, var_3, var_1 ) )
         return;
 
-    var_4 = animscripts\battlechatter::_id_23EA( "reaction", var_0, var_3 );
+    var_4 = animscripts\battlechatter::createchatevent( "reaction", var_0, var_3 );
 
     switch ( var_0 )
     {
         case "casualty":
-            var_4._id_71CF = var_2;
-            var_4._id_5D47 = var_1;
+            var_4.reactto = var_2;
+            var_4.modifier = var_1;
             break;
         case "taunt":
-            var_4._id_71CF = var_2;
-            var_4._id_5D47 = var_1;
+            var_4.reactto = var_2;
+            var_4.modifier = var_1;
     }
 
-    self._id_1CA6["reaction"] = undefined;
-    self._id_1CA6["reaction"] = var_4;
+    self.chatqueue["reaction"] = undefined;
+    self.chatqueue["reaction"] = var_4;
 }
 
 addorderevent( var_0, var_1, var_2, var_3 )
@@ -332,26 +314,26 @@ addorderevent( var_0, var_1, var_2, var_3 )
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( !animscripts\battlechatter::_id_1ADD( "order", var_0, var_3, var_1 ) )
+    if ( !animscripts\battlechatter::cansay( "order", var_0, var_3, var_1 ) )
         return;
 
     if ( isdefined( var_2 ) && var_2.type == "dog" )
         return;
 
-    var_4 = animscripts\battlechatter::_id_23EA( "order", var_0, var_3 );
-    var_4._id_5D47 = var_1;
-    var_4._id_6580 = var_2;
+    var_4 = animscripts\battlechatter::createchatevent( "order", var_0, var_3 );
+    var_4.modifier = var_1;
+    var_4.orderto = var_2;
 
     switch ( var_0 )
     {
 
     }
 
-    self._id_1CA6["order"] = undefined;
-    self._id_1CA6["order"] = var_4;
+    self.chatqueue["order"] = undefined;
+    self.chatqueue["order"] = var_4;
 }
 
-_id_8AD3()
+squadofficerwaiter()
 {
     anim endon( "battlechatter disabled" );
     anim endon( "squad deleted " + self.squadname );
@@ -360,10 +342,10 @@ _id_8AD3()
     {
         var_0 = undefined;
 
-        if ( self._id_6376.size )
-            var_1 = self._id_6376;
+        if ( self.officers.size )
+            var_1 = self.officers;
         else
-            var_1 = self._id_5BA6;
+            var_1 = self.members;
 
         var_2 = [];
 
@@ -375,7 +357,7 @@ _id_8AD3()
 
         if ( var_2.size )
         {
-            var_0 = common_scripts\utility::_id_3F33( level.player.origin, var_2 );
+            var_0 = common_scripts\utility::getclosest( level.player.origin, var_2 );
             var_0 aiofficerorders();
             var_0 waittill( "death" );
         }
@@ -390,10 +372,10 @@ getthreats( var_0 )
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( !isdefined( var_0[var_2]._id_32A8 ) )
+        if ( !isdefined( var_0[var_2].enemyclass ) )
             continue;
 
-        if ( !level.player animscripts\battlechatter::_id_6E26( var_0[var_2].origin ) )
+        if ( !level.player animscripts\battlechatter::pointinfov( var_0[var_2].origin ) )
             continue;
 
         var_0[var_2].threatid = var_1.size;
@@ -403,7 +385,7 @@ getthreats( var_0 )
     return var_1;
 }
 
-_id_8AD7()
+squadthreatwaiter()
 {
     anim endon( "battlechatter disabled" );
     anim endon( "squad deleted " + self.squadname );
@@ -418,9 +400,9 @@ _id_8AD7()
 
         var_1 = [];
 
-        for ( var_2 = 0; var_2 < self._id_5BA6.size; var_2++ )
+        for ( var_2 = 0; var_2 < self.members.size; var_2++ )
         {
-            if ( !isalive( self._id_5BA6[var_2] ) )
+            if ( !isalive( self.members[var_2] ) )
                 continue;
 
             if ( !var_0.size )
@@ -442,10 +424,10 @@ _id_8AD7()
                 if ( !isalive( var_0[var_3] ) )
                     continue;
 
-                if ( !self._id_5BA6[var_2] _meth_81C2( var_0[var_3] ) )
+                if ( !self.members[var_2] cansee( var_0[var_3] ) )
                     continue;
 
-                self._id_5BA6[var_2] addthreatevent( var_0[var_3]._id_32A8, var_0[var_3] );
+                self.members[var_2] addthreatevent( var_0[var_3].enemyclass, var_0[var_3] );
                 var_1[var_1.size] = var_0[var_3];
                 var_0[var_3] = undefined;
                 var_0[var_3] = var_0[var_0.size - 1];
@@ -477,7 +459,7 @@ flexiblethreatwaiter()
 
         var_1 = [];
 
-        for ( var_2 = 0; var_2 < self._id_5BA6.size; var_2++ )
+        for ( var_2 = 0; var_2 < self.members.size; var_2++ )
         {
             if ( !var_0.size )
             {
@@ -497,24 +479,24 @@ flexiblethreatwaiter()
 
                 if ( getdvar( "bcs_threatLimitTargettedBySelf" ) == "on" )
                 {
-                    if ( !isdefined( self._id_5BA6[var_2].enemy ) || var_0[var_3] != self._id_5BA6[var_2].enemy )
+                    if ( !isdefined( self.members[var_2].enemy ) || var_0[var_3] != self.members[var_2].enemy )
                         continue;
 
-                    if ( gettime() > self._id_5BA6[var_2]._id_559D + 2000 )
+                    if ( gettime() > self.members[var_2].lastenemysighttime + 2000 )
                         continue;
                 }
-                else if ( !self._id_5BA6[var_2] _meth_81C2( var_0[var_3] ) )
+                else if ( !self.members[var_2] cansee( var_0[var_3] ) )
                     continue;
 
                 if ( getdvar( "bcs_threatLimitSpeakerDist" ) != "off" )
                 {
                     var_4 = int( getdvar( "bcs_threatLimitSpeakerDist" ) );
 
-                    if ( distance( level.player.origin, self._id_5BA6[var_2].origin ) > var_4 )
+                    if ( distance( level.player.origin, self.members[var_2].origin ) > var_4 )
                         continue;
                 }
 
-                self._id_5BA6[var_2] addthreatevent( var_0[var_3]._id_32A8, var_0[var_3] );
+                self.members[var_2] addthreatevent( var_0[var_3].enemyclass, var_0[var_3] );
                 var_1[var_1.size] = var_0[var_3];
                 var_0[var_3] = undefined;
                 var_0[var_3] = var_0[var_0.size - 1];
@@ -546,7 +528,7 @@ filterthreats( var_0 )
 
         if ( getdvar( "bcs_threatLimitInPlayerFOV" ) == "on" )
         {
-            if ( !level.player animscripts\battlechatter::_id_6E26( var_0[var_2].origin ) )
+            if ( !level.player animscripts\battlechatter::pointinfov( var_0[var_2].origin ) )
                 continue;
         }
 
@@ -560,7 +542,7 @@ filterthreats( var_0 )
 
         if ( getdvar( "bcs_threatLimitInLocation" ) == "on" )
         {
-            if ( !isdefined( var_0[var_2] animscripts\battlechatter::_id_400A() ) && !isdefined( var_0[var_2] animscripts\battlechatter::getlandmark() ) )
+            if ( !isdefined( var_0[var_2] animscripts\battlechatter::getlocation() ) && !isdefined( var_0[var_2] animscripts\battlechatter::getlandmark() ) )
                 continue;
         }
 
@@ -587,24 +569,24 @@ randomthreatwaiter()
 
         var_0 = gettime();
 
-        for ( var_1 = 0; var_1 < self._id_5BA6.size; var_1++ )
+        for ( var_1 = 0; var_1 < self.members.size; var_1++ )
         {
-            if ( !isdefined( self._id_5BA6[var_1].enemy ) )
+            if ( !isdefined( self.members[var_1].enemy ) )
                 continue;
 
-            var_2 = self._id_5BA6[var_1].enemy;
+            var_2 = self.members[var_1].enemy;
 
             if ( !var_2.battlechatter )
                 continue;
 
-            if ( !isdefined( var_2 animscripts\battlechatter::_id_400A() ) && !isdefined( var_2 animscripts\battlechatter::getlandmark() ) )
+            if ( !isdefined( var_2 animscripts\battlechatter::getlocation() ) && !isdefined( var_2 animscripts\battlechatter::getlandmark() ) )
                 continue;
 
-            if ( var_0 > self._id_5BA6[var_1]._id_559D + 2000 )
+            if ( var_0 > self.members[var_1].lastenemysighttime + 2000 )
                 continue;
 
-            self._id_8AD0[var_2._id_8AB0.squadname]._id_1A07 = 1;
-            self._id_5BA6[var_1] addthreatevent( var_2._id_32A8, var_2 );
+            self.squadlist[var_2.squad.squadname].calledout = 1;
+            self.members[var_1] addthreatevent( var_2.enemyclass, var_2 );
         }
 
         wait 1.0;
@@ -623,30 +605,30 @@ aideathfriendly()
 
     if ( isdefined( self ) )
     {
-        for ( var_1 = 0; var_1 < self._id_8AB0._id_5BA6.size; var_1++ )
+        for ( var_1 = 0; var_1 < self.squad.members.size; var_1++ )
         {
-            if ( isalive( self._id_8AB0._id_5BA6[var_1] ) )
-                self._id_8AB0._id_5BA6[var_1] thread aideatheventthread();
+            if ( isalive( self.squad.members[var_1] ) )
+                self.squad.members[var_1] thread aideatheventthread();
         }
     }
 
-    if ( isalive( var_0 ) && issentient( var_0 ) && isdefined( var_0._id_8AB0 ) && var_0.battlechatter )
+    if ( isalive( var_0 ) && issentient( var_0 ) && isdefined( var_0.squad ) && var_0.battlechatter )
     {
-        if ( isdefined( var_0._id_1A07[var_0._id_8AB0.squadname] ) )
-            var_0._id_1A07[var_0._id_8AB0.squadname] = undefined;
+        if ( isdefined( var_0.calledout[var_0.squad.squadname] ) )
+            var_0.calledout[var_0.squad.squadname] = undefined;
 
-        for ( var_1 = 0; var_1 < self._id_8AB0._id_5BA6.size; var_1++ )
+        for ( var_1 = 0; var_1 < self.squad.members.size; var_1++ )
         {
-            if ( !isdefined( var_0._id_32A8 ) )
+            if ( !isdefined( var_0.enemyclass ) )
                 return;
 
-            if ( !isdefined( var_0 animscripts\battlechatter::_id_400A() ) && !isdefined( var_0 animscripts\battlechatter::getlandmark() ) )
+            if ( !isdefined( var_0 animscripts\battlechatter::getlocation() ) && !isdefined( var_0 animscripts\battlechatter::getlandmark() ) )
                 continue;
 
-            if ( gettime() > self._id_8AB0._id_5BA6[var_1]._id_559D + 2000 )
+            if ( gettime() > self.squad.members[var_1].lastenemysighttime + 2000 )
                 continue;
 
-            self._id_8AB0._id_5BA6[var_1] addthreatevent( var_0._id_32A8, var_0 );
+            self.squad.members[var_1] addthreatevent( var_0.enemyclass, var_0 );
         }
     }
 }
@@ -663,10 +645,10 @@ aideathenemy()
 {
     var_0 = self.attacker;
 
-    if ( !isalive( var_0 ) || !issentient( var_0 ) || !isdefined( var_0._id_8AB0 ) )
+    if ( !isalive( var_0 ) || !issentient( var_0 ) || !isdefined( var_0.squad ) )
         return;
 
-    if ( isdefined( self._id_1A07[var_0._id_8AB0.squadname] ) && isalive( self._id_1A07[var_0._id_8AB0.squadname]._id_8A97 ) && self._id_1A07[var_0._id_8AB0.squadname]._id_8A97 != var_0 && gettime() < self._id_1A07[var_0._id_8AB0.squadname]._id_351C )
+    if ( isdefined( self.calledout[var_0.squad.squadname] ) && isalive( self.calledout[var_0.squad.squadname].spotter ) && self.calledout[var_0.squad.squadname].spotter != var_0 && gettime() < self.calledout[var_0.squad.squadname].expiretime )
     {
         if ( var_0 == level.player )
             return;
@@ -690,8 +672,8 @@ aiofficerorders()
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( !isdefined( self._id_8AB0._id_1CA5 ) )
-        self._id_8AB0 waittill( "squad chat initialized" );
+    if ( !isdefined( self.squad.chatinitialized ) )
+        self.squad waittill( "squad chat initialized" );
 
     for (;;)
     {
@@ -738,13 +720,13 @@ aiflankerwaiter()
         if ( getdvar( "bcs_enable" ) == "off" )
             continue;
 
-        if ( isdefined( self._id_2557 ) )
+        if ( isdefined( self.customchatevent ) )
             return;
 
         begincustomevent();
         addthreataliasex( "infantry", "generic" );
         addgenericaliasex( "direction", "relative", var_0 );
-        _id_3158( 2000 );
+        endcustomevent( 2000 );
     }
 }
 
@@ -765,14 +747,14 @@ aidisplacewaiter()
         if ( getdvar( "bcs_enable" ) == "off" )
             continue;
 
-        if ( gettime() < self.a._id_665F + 4000 )
+        if ( gettime() < self.a.paintime + 4000 )
             continue;
 
         addresponseevent( "ack", "yes", level.player, 1.0 );
     }
 }
 
-_id_33B5( var_0 )
+evaluatemoveevent( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -796,19 +778,19 @@ _id_33B5( var_0 )
     if ( !isdefined( var_2 ) || distance( self.origin, var_2.origin ) > 800 )
         var_2 = animscripts\battlechatter::getclosestspeaker( "order" );
 
-    if ( isdefined( var_2 ) && distance( self.origin, var_2.origin ) < 800 && self._id_20B5 > 0.0 )
+    if ( isdefined( var_2 ) && distance( self.origin, var_2.origin ) < 800 && self.combattime > 0.0 )
     {
-        anim._id_5F63.origin = self.node.origin;
-        var_3 = anim._id_5F63 animscripts\battlechatter::getlandmark();
-        self._id_8AB0 animscripts\squadmanager::_id_9B77();
+        anim.moveorigin.origin = self.node.origin;
+        var_3 = anim.moveorigin animscripts\battlechatter::getlandmark();
+        self.squad animscripts\squadmanager::updatestates();
 
-        if ( isdefined( var_3 ) && soundexists( var_2._id_2243 + "_" + var_2._id_6252 + "_order_cover_" + var_3._id_7A20 ) )
+        if ( isdefined( var_3 ) && soundexists( var_2.countryid + "_" + var_2.npcid + "_order_cover_" + var_3.script_landmark ) )
         {
-            var_2 addorderevent( "cover", var_3._id_7A20, self );
+            var_2 addorderevent( "cover", var_3.script_landmark, self );
             return;
         }
 
-        if ( self._id_8AB0._id_8AD6["move"]._id_50A6 )
+        if ( self.squad.squadstates["move"].isactive )
         {
             var_2 addorderevent( "move", "forward", self );
             return;
@@ -820,11 +802,11 @@ _id_33B5( var_0 )
     }
     else if ( isdefined( var_2 ) && distance( self.origin, var_2.origin ) < 600 )
     {
-        if ( animscripts\battlechatter::_id_5164() )
+        if ( animscripts\battlechatter::isofficer() )
             addorderevent( "move", "follow", var_2 );
         else
         {
-            if ( self._id_20B5 < 0.0 )
+            if ( self.combattime < 0.0 )
                 return;
 
             addorderevent( "action", "coverme", var_2 );
@@ -832,7 +814,7 @@ _id_33B5( var_0 )
     }
     else if ( distance( self.origin, level.player.origin ) < 500 )
     {
-        if ( self._id_20B5 < 0.0 )
+        if ( self.combattime < 0.0 )
             return;
 
         addorderevent( "action", "coverme", level.player );
@@ -859,7 +841,7 @@ aifolloworderwaiter()
         if ( !isalive( var_0 ) )
             continue;
 
-        if ( !animscripts\battlechatter::_id_1ADD( "response" ) )
+        if ( !animscripts\battlechatter::cansay( "response" ) )
             continue;
 
         if ( distance( self.origin, var_0.origin ) < 600 )
@@ -867,7 +849,7 @@ aifolloworderwaiter()
     }
 }
 
-_id_33B6()
+evaluatereloadevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -883,7 +865,7 @@ _id_33B6()
     addinformevent( "reloading", "generic" );
 }
 
-_id_33B4()
+evaluatemeleeevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -897,7 +879,7 @@ _id_33B4()
     return 0;
 }
 
-_id_33B3()
+evaluatefiringevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -909,7 +891,7 @@ _id_33B3()
         return;
 }
 
-_id_33B7()
+evaluatesuppressionevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -917,13 +899,13 @@ _id_33B7()
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    if ( !self._id_8FE4 )
+    if ( !self.suppressed )
         return;
 
     addinformevent( "suppressed", "generic" );
 }
 
-_id_33B1( var_0 )
+evaluateattackevent( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -944,7 +926,7 @@ addsituationalorder()
     self endon( "death" );
     self endon( "removed from battleChatter" );
 
-    if ( self._id_8AB0._id_8AD6["combat"]._id_50A6 )
+    if ( self.squad.squadstates["combat"].isactive )
         addsituationalcombatorder();
     else
         addsituationalidleorder();
@@ -954,10 +936,10 @@ addsituationalidleorder()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_0 = self._id_8AB0;
-    var_0 animscripts\squadmanager::_id_9B77();
+    var_0 = self.squad;
+    var_0 animscripts\squadmanager::updatestates();
 
-    if ( var_0._id_8AD6["move"]._id_50A6 )
+    if ( var_0.squadstates["move"].isactive )
         addorderevent( "move", "generic" );
 }
 
@@ -965,14 +947,14 @@ addsituationalcombatorder()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_0 = self._id_8AB0;
-    var_0 animscripts\squadmanager::_id_9B77();
+    var_0 = self.squad;
+    var_0 animscripts\squadmanager::updatestates();
 
-    if ( var_0._id_8AD6["suppressed"]._id_50A6 )
+    if ( var_0.squadstates["suppressed"].isactive )
     {
-        if ( var_0._id_8AD6["move"]._id_50A6 )
+        if ( var_0.squadstates["move"].isactive )
             addorderevent( "cover", "generic" );
-        else if ( var_0._id_8AD6["cover"]._id_50A6 )
+        else if ( var_0.squadstates["cover"].isactive )
             addorderevent( "action", "grenade" );
         else if ( randomfloat( 1 ) > 0.5 )
             addorderevent( "displace", "generic" );
@@ -986,7 +968,7 @@ addsituationalcombatorder()
         else
             var_1 = getaiarray( "allies" );
 
-        if ( var_0._id_8AD6["attacking"]._id_50A6 )
+        if ( var_0.squadstates["attacking"].isactive )
         {
             var_2 = 0;
 
@@ -1005,7 +987,7 @@ addsituationalcombatorder()
             addorderevent( "action", "boost" );
             return;
         }
-        else if ( var_0._id_8AD6["combat"]._id_50A6 )
+        else if ( var_0.squadstates["combat"].isactive )
         {
             var_2 = 0;
 
@@ -1028,7 +1010,7 @@ begincustomevent()
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    self._id_2558 = animscripts\battlechatter::_id_23EB();
+    self.customchatphrase = animscripts\battlechatter::createchatphrase();
 }
 
 addthreataliasex( var_0, var_1 )
@@ -1036,7 +1018,7 @@ addthreataliasex( var_0, var_1 )
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    self._id_2558 animscripts\battlechatter::addthreatalias( 1.0, var_0, var_1 );
+    self.customchatphrase animscripts\battlechatter::addthreatalias( 1.0, var_0, var_1 );
 }
 
 addgenericaliasex( var_0, var_1, var_2 )
@@ -1044,24 +1026,24 @@ addgenericaliasex( var_0, var_1, var_2 )
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    self._id_2558 animscripts\battlechatter::addgenericalias( 1.0, var_0, var_1, var_2 );
+    self.customchatphrase animscripts\battlechatter::addgenericalias( 1.0, var_0, var_1, var_2 );
 }
 
-_id_3158( var_0, var_1 )
+endcustomevent( var_0, var_1 )
 {
     if ( !animscripts\battlechatter::bcsenabled() )
         return;
 
-    var_2 = animscripts\battlechatter::_id_23EA( "custom", "generic", 1.0 );
+    var_2 = animscripts\battlechatter::createchatevent( "custom", "generic", 1.0 );
 
     if ( isdefined( var_0 ) )
-        var_2._id_351C = gettime() + var_0;
+        var_2.expiretime = gettime() + var_0;
 
     if ( isdefined( var_1 ) )
         var_2.type = var_1;
     else
         var_2.type = "custom";
 
-    self._id_1CA6["custom"] = undefined;
-    self._id_1CA6["custom"] = var_2;
+    self.chatqueue["custom"] = undefined;
+    self.chatqueue["custom"] = var_2;
 }

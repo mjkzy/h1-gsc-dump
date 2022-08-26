@@ -1,38 +1,20 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
 main()
 {
-    level._id_78AC["dead_guy"]["death1"] = %exposed_death_nerve;
-    level._id_78AC["dead_guy"]["death2"] = %exposed_death_falltoknees;
-    level._id_78AC["dead_guy"]["death3"] = %exposed_death_headtwist;
-    level._id_78AC["dead_guy"]["death4"] = %exposed_crouch_death_twist;
-    level._id_78AC["dead_guy"]["death5"] = %exposed_crouch_death_fetal;
-    level._id_78AC["dead_guy"]["death6"] = %death_sitting_pose_v1;
-    level._id_78AC["dead_guy"]["death7"] = %death_sitting_pose_v2;
-    level._id_78AC["dead_guy"]["death8"] = %death_pose_on_desk;
-    level._id_78AC["dead_guy"]["death9"] = %death_pose_on_window;
-    level._id_78AC["dead_guy"]["death6_aftermath"] = %death_sitting_pose_v1_alt_aftermath;
-    level._id_78B1["dead_guy"] = #animtree;
+    level.scr_anim["dead_guy"]["death1"] = %exposed_death_nerve;
+    level.scr_anim["dead_guy"]["death2"] = %exposed_death_falltoknees;
+    level.scr_anim["dead_guy"]["death3"] = %exposed_death_headtwist;
+    level.scr_anim["dead_guy"]["death4"] = %exposed_crouch_death_twist;
+    level.scr_anim["dead_guy"]["death5"] = %exposed_crouch_death_fetal;
+    level.scr_anim["dead_guy"]["death6"] = %death_sitting_pose_v1;
+    level.scr_anim["dead_guy"]["death7"] = %death_sitting_pose_v2;
+    level.scr_anim["dead_guy"]["death8"] = %death_pose_on_desk;
+    level.scr_anim["dead_guy"]["death9"] = %death_pose_on_window;
+    level.scr_anim["dead_guy"]["death6_aftermath"] = %death_sitting_pose_v1_alt_aftermath;
+    level.scr_animtree["dead_guy"] = #animtree;
     level.dead_body_count = 1;
     var_0 = getdvarint( "ragdoll_max_simulating" ) - 6;
 
@@ -43,8 +25,8 @@ main()
 
     var_1 = spawnstruct();
     var_1.bodies = [];
-    common_scripts\utility::_id_76BB( "trigger_body", ::trigger_body, var_1 );
-    common_scripts\utility::_id_76BB( "dead_body", ::spawn_dead_body, var_1 );
+    common_scripts\utility::run_thread_on_targetname( "trigger_body", ::trigger_body, var_1 );
+    common_scripts\utility::run_thread_on_targetname( "dead_body", ::spawn_dead_body, var_1 );
 }
 
 trigger_body( var_0 )
@@ -66,8 +48,8 @@ spawn_dead_body( var_0 )
 
     var_1 = undefined;
 
-    if ( isdefined( self._id_7A18 ) )
-        var_1 = self._id_7A18;
+    if ( isdefined( self.script_index ) )
+        var_1 = self.script_index;
     else
     {
         level.dead_body_count++;
@@ -98,7 +80,7 @@ spawn_dead_body( var_0 )
     else
         var_2 [[ level.scr_deadbody[var_1] ]]();
 
-    if ( !isdefined( self._id_7AF8 ) )
+    if ( !isdefined( self.script_trace ) )
     {
         var_3 = bullettrace( var_2.origin + ( 0.0, 0.0, 5.0 ), var_2.origin + ( 0.0, 0.0, -64.0 ), 0, undefined );
         var_2.origin = var_3["position"];
@@ -121,10 +103,10 @@ spawn_dead_body( var_0 )
     }
     else
     {
-        var_2 setflaggedanim( "flag", var_2 maps\_utility::_id_3EF5( self.script_noteworthy ), 1, 0, 1 );
+        var_2 setflaggedanim( "flag", var_2 maps\_utility::getanim( self.script_noteworthy ), 1, 0, 1 );
         var_2 waittillmatch( "flag", "end" );
 
-        if ( !isdefined( self._id_7ADA ) )
+        if ( !isdefined( self.script_start ) )
             var_2 startragdoll();
     }
 }
@@ -149,7 +131,7 @@ lookat_custom_death_anim( var_0 )
 
     for (;;)
     {
-        if ( distancesquared( level.player.origin, self.origin ) > 5000 && ( !checksighttrace( self ) || !common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), self.origin + ( 0.0, 0.0, 12.0 ), var_1 ) ) )
+        if ( distancesquared( level.player.origin, self.origin ) > 5000 && ( !checksighttrace( self ) || !common_scripts\utility::within_fov( level.player geteye(), level.player getplayerangles(), self.origin + ( 0.0, 0.0, 12.0 ), var_1 ) ) )
             var_2 = 0;
         else
             var_2++;
@@ -157,7 +139,7 @@ lookat_custom_death_anim( var_0 )
         if ( var_2 > 5 )
             break;
 
-        waittillframeend;
+        waitframe();
     }
 
     maps\_anim::anim_single_solo( self, var_0 );
@@ -173,10 +155,10 @@ checksighttrace( var_0 )
 
 set_deadbody_info()
 {
-    if ( !isdefined( self._id_7A99 ) )
+    if ( !isdefined( self.script_parameters ) )
         return;
 
-    var_0 = strtok( self._id_7A99, "|" );
+    var_0 = strtok( self.script_parameters, "|" );
 
     foreach ( var_2 in var_0 )
     {
@@ -210,7 +192,7 @@ get_custom_deadbody( var_0 )
     var_2 = spawnstruct();
     var_2.body = var_1[0];
     var_2.head = var_1[1];
-    var_2._id_9F32 = var_1[2];
+    var_2.voice = var_1[2];
     var_2.clothtype = var_1[3];
     return var_2;
 }
@@ -226,7 +208,7 @@ custom_deadbody( var_0 )
     var_0 setmodel( self.custom_deadbody.body );
     var_0 attach( self.custom_deadbody.head, "", 1 );
     var_0.headmodel = self.custom_deadbody.head;
-    var_0._id_9F32 = self.custom_deadbody._id_9F32;
+    var_0.voice = self.custom_deadbody.voice;
     var_0 setclothtype( self.custom_deadbody.clothtype );
 }
 

@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 air_support_precache()
 {
     precachemodel( "wpn_h1_airsupport_marker" );
@@ -33,8 +15,8 @@ air_support_create_arrow_ent()
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "wpn_h1_airsupport_marker" );
     var_0 useanimtree( #animtree );
-    var_0 _meth_814D( %h1_wpn_spl_airsupport_target_idle );
-    var_0._id_6379 = 4;
+    var_0 setanim( %h1_wpn_spl_airsupport_target_idle );
+    var_0.offset = 4;
     playfxontag( level._effect["airsupport_marker_vfx"], var_0, "tag_fx" );
     return var_0;
 }
@@ -44,7 +26,7 @@ air_support_create_selection_ent( var_0, var_1 )
     var_2 = spawn( "script_model", var_0 );
     var_2 setmodel( "wpn_h1_airsupport_marker_selected" );
     var_2 useanimtree( #animtree );
-    var_2 _meth_814D( %h1_wpn_spl_airsupport_target_selected );
+    var_2 setanim( %h1_wpn_spl_airsupport_target_selected );
     var_2.angles = var_1;
     return var_2;
 }
@@ -101,10 +83,10 @@ air_support_update_arrow_coords( var_0, var_1 )
             if ( var_12 == 0 )
                 var_11 = var_13;
 
-            var_3[var_12]._id_948E = bullettrace( var_13, var_13 + var_6 * var_2, 0, var_0 );
+            var_3[var_12].trace = bullettrace( var_13, var_13 + var_6 * var_2, 0, var_0 );
 
             if ( var_10 )
-                thread common_scripts\utility::_id_2DB8( var_13, var_3[var_12]._id_948E["position"], 1, 1, 1, 0.05 );
+                thread common_scripts\utility::draw_line_for_time( var_13, var_3[var_12].trace["position"], 1, 1, 1, 0.05 );
         }
 
         var_14 = [];
@@ -112,25 +94,25 @@ air_support_update_arrow_coords( var_0, var_1 )
 
         for ( var_12 = 0; var_12 < var_3.size; var_12++ )
         {
-            if ( var_3[var_12]._id_948E["fraction"] == 1 )
+            if ( var_3[var_12].trace["fraction"] == 1 )
                 continue;
 
             var_16 = var_14.size;
             var_14[var_16] = spawnstruct();
-            var_14[var_16].position = var_3[var_12]._id_948E["position"];
-            var_14[var_16].normal = var_3[var_12]._id_948E["normal"];
+            var_14[var_16].position = var_3[var_12].trace["position"];
+            var_14[var_16].normal = var_3[var_12].trace["normal"];
             var_14[var_16].weight = var_3[var_12].weight;
             var_15 += var_14[var_16].normal[2];
 
             if ( var_10 )
-                thread common_scripts\utility::_id_2DB8( var_9, var_14[var_16].position, 0, 1, 0, 0.05 );
+                thread common_scripts\utility::draw_line_for_time( var_9, var_14[var_16].position, 0, 1, 0, 0.05 );
         }
 
         if ( var_14.size == 0 )
         {
             var_14[0] = spawnstruct();
-            var_14[0].position = var_3[0]._id_948E["position"];
-            var_14[0].normal = var_3[0]._id_948E["normal"];
+            var_14[0].position = var_3[0].trace["position"];
+            var_14[0].normal = var_3[0].trace["normal"];
             var_14[0].weight = var_3[0].weight;
             var_15 = var_14[0].normal[2];
         }
@@ -155,20 +137,20 @@ air_support_update_arrow_coords( var_0, var_1 )
 
         for ( var_23 = distance( var_22["position"], var_17 * 1.5 ); var_23 > distance( var_22["position"], var_17 ); var_22 = bullettrace( var_24, var_21, 0, var_0 ) )
         {
-            var_3[0]._id_948E = var_22;
+            var_3[0].trace = var_22;
             var_24 = var_22["position"] + var_6 * 10;
             var_23 = distance( var_22["position"], var_17 );
         }
 
-        var_17 = var_3[0]._id_948E["position"];
+        var_17 = var_3[0].trace["position"];
 
         if ( var_10 )
-            thread common_scripts\utility::_id_2DB8( var_9, var_17, 1, 0, 0, 0.05 );
+            thread common_scripts\utility::draw_line_for_time( var_9, var_17, 1, 0, 0, 0.05 );
 
         thread air_support_draw_arrow( var_0, var_17, var_20, var_8, var_4, var_19 );
 
         if ( var_10 )
-            maps\_debug::_id_2DD0( var_0.origin, var_0.angles );
+            maps\_debug::drawarrow( var_0.origin, var_0.angles );
 
         var_4 = 0.2;
     }
@@ -236,7 +218,7 @@ air_support_find_best_ceiling( var_0 )
 
 air_support_draw_arrow( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    var_1 += maps\_utility::vector_multiply( var_2, var_0._id_6379 );
+    var_1 += maps\_utility::vector_multiply( var_2, var_0.offset );
     var_0.origin = var_1;
 
     if ( var_5 )
@@ -247,14 +229,14 @@ air_support_draw_arrow( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
     else
     {
-        var_6 = common_scripts\utility::_id_9294( var_2[2] > 0, var_2, -1 * var_2 );
+        var_6 = common_scripts\utility::ter_op( var_2[2] > 0, var_2, -1 * var_2 );
         var_7 = -1 * var_3;
         var_9 = vectornormalize( vectorcross( var_6, var_7 ) );
         var_8 = axistoangles( var_9, var_7, var_6 );
     }
 
     if ( !var_5 )
-        var_8 -= ( 90.0, 0.0, 0.0 ) * common_scripts\utility::_id_856D( var_2[2] );
+        var_8 -= ( 90.0, 0.0, 0.0 ) * common_scripts\utility::sign( var_2[2] );
 
     if ( var_4 > 0 )
         var_0 rotateto( var_8, var_4 );

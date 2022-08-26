@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_788B( var_0, var_1, var_2, var_3 )
+score_factor( var_0, var_1, var_2, var_3 )
 {
     if ( isdefined( var_3 ) )
         var_4 = [[ var_1 ]]( var_2, var_3 );
@@ -28,12 +10,12 @@ _id_788B( var_0, var_1, var_2, var_3 )
 
     var_4 = clamp( var_4, 0, 100 );
     var_4 *= var_0;
-    var_2._id_2733[var_2._id_2733.size] = var_4;
-    var_2._id_93FF += 100 * var_0;
+    var_2.debugscoredata[var_2.debugscoredata.size] = var_4;
+    var_2.totalpossiblescore += 100 * var_0;
     return var_4;
 }
 
-_id_2470( var_0, var_1, var_2 )
+critical_factor( var_0, var_1, var_2 )
 {
     if ( isdefined( var_2 ) )
         var_3 = [[ var_0 ]]( var_1, var_2 );
@@ -41,13 +23,13 @@ _id_2470( var_0, var_1, var_2 )
         var_3 = [[ var_0 ]]( var_1 );
 
     var_3 = clamp( var_3, 0, 100 );
-    var_1._id_2721[var_1._id_2721.size] = var_3;
+    var_1.debugcriticaldata[var_1.debugcriticaldata.size] = var_3;
     return var_3;
 }
 
 avoidcarepackages( var_0 )
 {
-    foreach ( var_2 in level._id_1B9C )
+    foreach ( var_2 in level.carepackages )
     {
         if ( !isdefined( var_2 ) )
             continue;
@@ -61,9 +43,9 @@ avoidcarepackages( var_0 )
 
 avoidgrenades( var_0 )
 {
-    foreach ( var_2 in level._id_4407 )
+    foreach ( var_2 in level.grenades )
     {
-        if ( !isdefined( var_2 ) || !var_2 _id_5102( self ) )
+        if ( !isdefined( var_2 ) || !var_2 isexplosivedangeroustoplayer( self ) )
             continue;
 
         if ( distancesquared( var_0.origin, var_2.origin ) < 122500 )
@@ -75,11 +57,11 @@ avoidgrenades( var_0 )
 
 avoidmines( var_0 )
 {
-    var_1 = level._id_5C5D;
+    var_1 = level.mines;
 
     foreach ( var_3 in var_1 )
     {
-        if ( !isdefined( var_3 ) || !var_3 _id_5102( self ) )
+        if ( !isdefined( var_3 ) || !var_3 isexplosivedangeroustoplayer( self ) )
             continue;
 
         if ( distancesquared( var_0.origin, var_3.origin ) < 122500 )
@@ -89,7 +71,7 @@ avoidmines( var_0 )
     return 100;
 }
 
-_id_5102( var_0 )
+isexplosivedangeroustoplayer( var_0 )
 {
     if ( !level.teambased || level.friendlyfire || !isdefined( var_0.team ) )
         return 1;
@@ -109,10 +91,10 @@ avoidairstrikelocations( var_0 )
     if ( !isdefined( level.artillerydangercenters ) )
         return 100;
 
-    if ( !var_0._id_65D1 )
+    if ( !var_0.outside )
         return 100;
 
-    var_1 = maps\mp\gametypes\_hardpoints::_id_3EE6( var_0.origin );
+    var_1 = maps\mp\gametypes\_hardpoints::getairstrikedanger( var_0.origin );
 
     if ( var_1 > 0 )
         return 0;
@@ -125,9 +107,9 @@ avoidcornervisibleenemies( var_0 )
     var_1 = "all";
 
     if ( level.teambased )
-        var_1 = maps\mp\gametypes\_gameobjects::_id_3F81( self.team );
+        var_1 = maps\mp\gametypes\_gameobjects::getenemyteam( self.team );
 
-    if ( var_0._id_222B[var_1] > 0 )
+    if ( var_0.cornersights[var_1] > 0 )
         return 0;
 
     return 100;
@@ -138,9 +120,9 @@ avoidfullvisibleenemies( var_0 )
     var_1 = "all";
 
     if ( level.teambased )
-        var_1 = maps\mp\gametypes\_gameobjects::_id_3F81( self.team );
+        var_1 = maps\mp\gametypes\_gameobjects::getenemyteam( self.team );
 
-    if ( var_0._id_3AE2[var_1] > 0 )
+    if ( var_0.fullsights[var_1] > 0 )
         return 0;
 
     return 100;
@@ -167,7 +149,7 @@ avoidtelefrag( var_0 )
 
 avoidsamespawn( var_0 )
 {
-    if ( isdefined( self._id_55DD ) && self._id_55DD == var_0 )
+    if ( isdefined( self.lastspawnpoint ) && self.lastspawnpoint == var_0 )
         return 0;
 
     return 100;
@@ -175,9 +157,9 @@ avoidsamespawn( var_0 )
 
 avoidrecentlyused( var_0 )
 {
-    if ( isdefined( var_0._id_55DF ) )
+    if ( isdefined( var_0.lastspawntime ) )
     {
-        var_1 = gettime() - var_0._id_55DF;
+        var_1 = gettime() - var_0.lastspawntime;
 
         if ( var_1 > 4000 )
             return 100;
@@ -190,9 +172,9 @@ avoidrecentlyused( var_0 )
 
 avoidenemyspawn( var_0 )
 {
-    if ( isdefined( var_0._id_55DE ) && ( !level.teambased || var_0._id_55DE != self.team ) )
+    if ( isdefined( var_0.lastspawnteam ) && ( !level.teambased || var_0.lastspawnteam != self.team ) )
     {
-        var_1 = var_0._id_55DF + 500;
+        var_1 = var_0.lastspawntime + 500;
 
         if ( gettime() < var_1 )
             return 0;
@@ -213,10 +195,10 @@ avoidspawninzone( var_0, var_1 )
 
 avoidlastdeathlocation( var_0 )
 {
-    if ( !isdefined( self._id_5593 ) )
+    if ( !isdefined( self.lastdeathpos ) )
         return 100;
 
-    var_1 = distancesquared( var_0.origin, self._id_5593 );
+    var_1 = distancesquared( var_0.origin, self.lastdeathpos );
 
     if ( var_1 > 4000000 )
         return 100;
@@ -230,7 +212,7 @@ avoidlastattackerlocation( var_0 )
     if ( !isdefined( self.lastattacker ) || !isdefined( self.lastattacker.origin ) )
         return 100;
 
-    if ( !maps\mp\_utility::_id_5189( self.lastattacker ) )
+    if ( !maps\mp\_utility::isreallyalive( self.lastattacker ) )
         return 100;
 
     var_1 = distancesquared( var_0.origin, self.lastattacker.origin );
@@ -242,12 +224,12 @@ avoidlastattackerlocation( var_0 )
     return var_2 * 100;
 }
 
-_id_6EEC( var_0 )
+preferalliesbydistance( var_0 )
 {
-    if ( var_0._id_93FE[self.team] == 0 )
+    if ( var_0.totalplayers[self.team] == 0 )
         return 0;
 
-    var_1 = var_0._id_2B83[self.team] / var_0._id_93FE[self.team];
+    var_1 = var_0.distsumsquared[self.team] / var_0.totalplayers[self.team];
     var_1 = min( var_1, 3240000 );
     var_2 = 1 - var_1 / 3240000;
     return var_2 * 100;
@@ -258,12 +240,12 @@ avoidenemiesbydistance( var_0 )
     var_1 = "all";
 
     if ( level.teambased )
-        var_1 = maps\mp\gametypes\_gameobjects::_id_3F81( self.team );
+        var_1 = maps\mp\gametypes\_gameobjects::getenemyteam( self.team );
 
-    if ( var_0._id_93FE[var_1] == 0 )
+    if ( var_0.totalplayers[var_1] == 0 )
         return 100;
 
-    var_2 = min( var_0._id_5C45[var_1], 3240000 );
+    var_2 = min( var_0.mindistsquared[var_1], 3240000 );
     var_3 = var_2 / 3240000;
     return var_3 * 100;
 }
@@ -278,7 +260,7 @@ avoidflagbydistance( var_0 )
     return var_1 * 100;
 }
 
-_id_6EEE( var_0, var_1 )
+preferdompoints( var_0, var_1 )
 {
     if ( var_1[0] && var_0.preferreddompoint == 0 )
         return 100;
@@ -292,15 +274,15 @@ _id_6EEE( var_0, var_1 )
     return 0;
 }
 
-_id_6EED( var_0, var_1 )
+preferbyteambase( var_0, var_1 )
 {
-    if ( isdefined( var_0._id_91EA ) && var_0._id_91EA == var_1 )
+    if ( isdefined( var_0.teambase ) && var_0.teambase == var_1 )
         return 100;
 
     return 0;
 }
 
-_id_712C( var_0 )
+randomspawnscore( var_0 )
 {
     return randomintrange( 0, 99 );
 }
@@ -320,18 +302,18 @@ avoidzone( var_0, var_1 )
         return 0;
 }
 
-_id_6EF0( var_0 )
+preferplayeranchors( var_0 )
 {
     var_1 = self.team;
     var_2 = maps\mp\_utility::getotherteam( var_1 );
 
-    if ( var_0._id_606E[var_1] == 0 )
+    if ( var_0.nearbyplayers[var_1] == 0 )
         return 0;
 
-    if ( var_0._id_606E[var_2] == 0 )
+    if ( var_0.nearbyplayers[var_2] == 0 )
         return 100;
 
-    var_3 = var_0._id_606E[var_1] - var_0._id_606E[var_2];
+    var_3 = var_0.nearbyplayers[var_1] - var_0.nearbyplayers[var_2];
 
     if ( var_3 <= 0 )
         return 0;

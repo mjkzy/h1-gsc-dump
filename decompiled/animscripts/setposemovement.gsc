@@ -1,94 +1,76 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_7FF1( var_0, var_1 )
+setposemovement( var_0, var_1 )
 {
     if ( var_0 == "" )
     {
-        if ( self.a._id_6E5A == "prone" && ( var_1 == "walk" || var_1 == "run" ) )
+        if ( self.a.pose == "prone" && ( var_1 == "walk" || var_1 == "run" ) )
             var_0 = "crouch";
         else
-            var_0 = self.a._id_6E5A;
+            var_0 = self.a.pose;
     }
 
     if ( !isdefined( var_1 ) || var_1 == "" )
-        var_1 = self.a._id_5F5B;
+        var_1 = self.a.movement;
 
-    return [[ anim._id_7FF2[var_0][var_1] ]]();
+    return [[ anim.setposemovementfnarray[var_0][var_1] ]]();
 }
 
-_id_4E02()
+initposemovementfunctions()
 {
-    anim._id_7FF2["stand"]["stop"] = ::_id_8B17;
-    anim._id_7FF2["stand"]["walk"] = ::_id_8B1C;
-    anim._id_7FF2["stand"]["run"] = ::_id_8B0F;
-    anim._id_7FF2["crouch"]["stop"] = ::_id_248E;
-    anim._id_7FF2["crouch"]["walk"] = ::_id_2497;
-    anim._id_7FF2["crouch"]["run"] = ::_id_2484;
-    anim._id_7FF2["prone"]["stop"] = ::_id_7029;
-    anim._id_7FF2["prone"]["walk"] = ::_id_7034;
-    anim._id_7FF2["prone"]["run"] = ::_id_7027;
+    anim.setposemovementfnarray["stand"]["stop"] = ::standstop_begin;
+    anim.setposemovementfnarray["stand"]["walk"] = ::standwalk_begin;
+    anim.setposemovementfnarray["stand"]["run"] = ::standrun_begin;
+    anim.setposemovementfnarray["crouch"]["stop"] = ::crouchstop_begin;
+    anim.setposemovementfnarray["crouch"]["walk"] = ::crouchwalk_begin;
+    anim.setposemovementfnarray["crouch"]["run"] = ::crouchrun_begin;
+    anim.setposemovementfnarray["prone"]["stop"] = ::pronestop_begin;
+    anim.setposemovementfnarray["prone"]["walk"] = ::pronewalk_begin;
+    anim.setposemovementfnarray["prone"]["run"] = ::pronerun_begin;
 }
 
-_id_8B17()
+standstop_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
                     return 0;
                 case "walk":
-                    _id_8B1E();
+                    standwalktostand();
                     break;
                 default:
-                    _id_8B16();
+                    standruntostand();
                     break;
             }
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_2494();
+                    crouchtostand();
                     break;
                 case "walk":
-                    _id_2499();
+                    crouchwalktostand();
                     break;
                 default:
-                    _id_248C();
+                    crouchruntostand();
                     break;
             }
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_7031();
+                    pronetostand();
                     break;
                 default:
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
             }
 
@@ -98,12 +80,12 @@ _id_8B17()
     return 1;
 }
 
-_id_8B1C()
+standwalk_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
                     if ( animscripts\stairs_utility::isonstairs() )
@@ -120,10 +102,10 @@ _id_8B1C()
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_2496();
+                    crouchtostandwalk();
                     break;
                 case "walk":
                     blendintostandwalk();
@@ -135,13 +117,13 @@ _id_8B1C()
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_7033();
+                    pronetostandwalk();
                     break;
                 default:
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
             }
 
@@ -151,12 +133,12 @@ _id_8B1C()
     return 1;
 }
 
-_id_8B0F()
+standrun_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
                 case "walk":
@@ -170,23 +152,23 @@ _id_8B0F()
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    return _id_2495();
+                    return crouchtostandrun();
                 default:
                     return blendintostandrun();
             }
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_7032();
+                    pronetostandrun();
                     break;
                 default:
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
             }
 
@@ -196,49 +178,49 @@ _id_8B0F()
     return 1;
 }
 
-_id_248E()
+crouchstop_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_8B18();
+                    standtocrouch();
                     break;
                 case "walk":
-                    _id_8B1D();
+                    standwalktocrouch();
                     break;
                 case "run":
-                    _id_8B15();
+                    standruntocrouch();
                     break;
                 default:
             }
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
                     return 0;
                 case "walk":
-                    _id_2498();
+                    crouchwalktocrouch();
                     break;
                 case "run":
-                    _id_2488();
+                    crouchruntocrouch();
                     break;
                 default:
             }
 
             break;
         case "prone":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_702C();
+                    pronetocrouch();
                     break;
                 default:
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
             }
 
@@ -249,15 +231,15 @@ _id_248E()
     return 1;
 }
 
-_id_2497()
+crouchwalk_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_8B18();
+                    standtocrouch();
                     blendintocrouchwalk();
                     break;
                 case "walk":
@@ -270,10 +252,10 @@ _id_2497()
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_2490();
+                    crouchtocrouchwalk();
                     break;
                 case "walk":
                     return 0;
@@ -284,13 +266,13 @@ _id_2497()
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_702E();
+                    pronetocrouchwalk();
                     break;
                 default:
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
             }
 
@@ -300,15 +282,15 @@ _id_2497()
     return 1;
 }
 
-_id_2484()
+crouchrun_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_8B18();
+                    standtocrouch();
                     blendintocrouchrun();
                     break;
                 default:
@@ -318,10 +300,10 @@ _id_2484()
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_248F();
+                    crouchtocrouchrun();
                     break;
                 case "walk":
                     blendintocrouchrun();
@@ -332,13 +314,13 @@ _id_2484()
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_702D();
+                    pronetocrouchrun();
                     break;
                 default:
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
             }
 
@@ -348,50 +330,50 @@ _id_2484()
     return 1;
 }
 
-_id_7029()
+pronestop_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_8B19();
+                    standtoprone();
                     break;
                 case "walk":
-                    _id_8B19();
+                    standtoprone();
                     break;
                 case "run":
-                    _id_2489();
+                    crouchruntoprone();
                     break;
                 default:
             }
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_2491();
+                    crouchtoprone();
                     break;
                 case "walk":
-                    _id_2491();
+                    crouchtoprone();
                     break;
                 case "run":
-                    _id_2489();
+                    crouchruntoprone();
                     break;
                 default:
             }
 
             break;
         case "prone":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
                     return 0;
                 case "run":
                 case "walk":
-                    _id_7024();
+                    pronecrawltoprone();
                     break;
                 default:
             }
@@ -403,42 +385,42 @@ _id_7029()
     return 1;
 }
 
-_id_7034()
+pronewalk_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_8B1B();
+                    standtopronewalk();
                     break;
                 default:
-                    _id_248B();
+                    crouchruntopronewalk();
                     break;
             }
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_2493();
+                    crouchtopronewalk();
                     break;
                 default:
-                    _id_248B();
+                    crouchruntopronewalk();
                     break;
             }
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_7030();
+                    pronetopronerun();
                     break;
                 default:
-                    self.a._id_5F5B = "walk";
+                    self.a.movement = "walk";
                     return 0;
             }
 
@@ -448,42 +430,42 @@ _id_7034()
     return 1;
 }
 
-_id_7027()
+pronerun_begin()
 {
-    switch ( self.a._id_6E5A )
+    switch ( self.a.pose )
     {
         case "stand":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_8B1A();
+                    standtopronerun();
                     break;
                 default:
-                    _id_248A();
+                    crouchruntopronerun();
                     break;
             }
 
             break;
         case "crouch":
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_2492();
+                    crouchtopronerun();
                     break;
                 default:
-                    _id_248A();
+                    crouchruntopronerun();
                     break;
             }
 
             break;
         default:
-            switch ( self.a._id_5F5B )
+            switch ( self.a.movement )
             {
                 case "stop":
-                    _id_7030();
+                    pronetopronerun();
                     break;
                 default:
-                    self.a._id_5F5B = "run";
+                    self.a.movement = "run";
                     return 0;
             }
 
@@ -494,7 +476,7 @@ _id_7027()
 }
 #using_animtree("generic_human");
 
-_id_6A30( var_0, var_1, var_2, var_3 )
+playblendtransition( var_0, var_1, var_2, var_3 )
 {
     var_4 = gettime() + var_1 * 1000;
 
@@ -502,49 +484,49 @@ _id_6A30( var_0, var_1, var_2, var_3 )
         var_0 = var_0[randomint( var_0.size )];
 
     self setflaggedanimknoball( "blendTransition", var_0, %body, 1, var_1, 1 );
-    animscripts\notetracks::_id_2D0B( var_1 / 2, "blendTransition" );
-    self.a._id_6E5A = var_2;
-    self.a._id_5F5B = var_3;
+    animscripts\notetracks::donotetracksfortime( var_1 / 2, "blendTransition" );
+    self.a.pose = var_2;
+    self.a.movement = var_3;
     var_5 = ( var_4 - gettime() ) / 1000;
 
     if ( var_5 < 0.05 )
         var_5 = 0.05;
 
-    animscripts\notetracks::_id_2D0B( var_5, "blendTransition" );
+    animscripts\notetracks::donotetracksfortime( var_5, "blendTransition" );
 }
 
-_id_6DEA( var_0, var_1 )
+playtransitionstandwalk( var_0, var_1 )
 {
-    _id_6DE7( var_0, "stand", "walk", var_1 );
+    playtransitionanimation( var_0, "stand", "walk", var_1 );
 }
 
-_id_8B1E()
+standwalktostand()
 {
-    self.a._id_5F5B = "stop";
+    self.a.movement = "stop";
 }
 
-_id_8B1D()
+standwalktocrouch()
 {
-    _id_8B1E();
-    _id_8B18();
+    standwalktostand();
+    standtocrouch();
 }
 
-_id_8B16()
+standruntostand()
 {
-    self.a._id_5F5B = "stop";
+    self.a.movement = "stop";
 }
 
-_id_8B15()
+standruntocrouch()
 {
-    self.a._id_5F5B = "stop";
-    self.a._id_6E5A = "crouch";
+    self.a.movement = "stop";
+    self.a.pose = "crouch";
 }
 
-_id_6A31( var_0 )
+playblendtransitionstandrun( var_0 )
 {
     var_1 = 0.3;
 
-    if ( self.a._id_5F5B != "stop" )
+    if ( self.a.movement != "stop" )
     {
         self endon( "movemode" );
         var_1 = 1.0;
@@ -555,141 +537,141 @@ _id_6A31( var_0 )
     if ( var_2 != "none" )
         var_1 = 0.1;
 
-    _id_6A30( var_0, var_1, "stand", "run" );
+    playblendtransition( var_0, var_1, "stand", "run" );
 }
 
 blendintostandrun()
 {
     if ( !self.facemotion )
     {
-        self.a._id_5F5B = "run";
-        self.a._id_6E5A = "stand";
+        self.a.movement = "run";
+        self.a.pose = "stand";
         return 0;
     }
 
-    if ( isdefined( self._id_76AF ) )
+    if ( isdefined( self.run_overrideanim ) )
     {
-        self _meth_8144( %h1_stairs, 0.1 );
+        self clearanim( %h1_stairs, 0.1 );
 
         if ( animscripts\stairs_utility::isonstairs() )
         {
             var_0 = animscripts\stairs_utility::getstairsanimnameatgroundpos();
-            var_1 = animscripts\utility::_id_402D( var_0 );
-            _id_6A31( var_1 );
+            var_1 = animscripts\utility::getmoveanim( var_0 );
+            playblendtransitionstandrun( var_1 );
             return 1;
         }
 
-        _id_6A31( self._id_76AF );
+        playblendtransitionstandrun( self.run_overrideanim );
         return 1;
     }
 
     var_2 = 0.1;
 
-    if ( self.a._id_5F5B != "stop" && self.stairsstate == "none" )
+    if ( self.a.movement != "stop" && self.stairsstate == "none" )
         var_2 = 0.5;
 
-    if ( isdefined( self._id_8AA8 ) )
-        self _meth_8146( animscripts\utility::_id_402D( "sprint" ), 1, var_2, 1 );
+    if ( isdefined( self.sprint ) )
+        self setanimknoblimited( animscripts\utility::getmoveanim( "sprint" ), 1, var_2, 1 );
     else
-        self _meth_8146( animscripts\run::_id_40BD(), 1, var_2, 1 );
+        self setanimknoblimited( animscripts\run::getrunanim(), 1, var_2, 1 );
 
-    animscripts\run::_id_7FB7( animscripts\utility::_id_402D( "move_b" ), animscripts\utility::_id_402D( "move_l" ), animscripts\utility::_id_402D( "move_r" ), self._id_855F );
-    thread animscripts\run::_id_7F3E( "run" );
+    animscripts\run::setmovenonforwardanims( animscripts\utility::getmoveanim( "move_b" ), animscripts\utility::getmoveanim( "move_l" ), animscripts\utility::getmoveanim( "move_r" ), self.sidesteprate );
+    thread animscripts\run::setcombatstandmoveanimweights( "run" );
     wait 0.05;
-    _id_6A31( %combatrun );
+    playblendtransitionstandrun( %combatrun );
     return 1;
 }
 
 blendintostandwalk()
 {
-    if ( self.a._id_5F5B != "stop" )
+    if ( self.a.movement != "stop" )
         self endon( "movemode" );
 
-    if ( !isdefined( self.alwaysrunforward ) && self.a._id_6E5A != "prone" )
-        animscripts\run::_id_7FB7( animscripts\utility::_id_402D( "move_b" ), animscripts\utility::_id_402D( "move_l" ), animscripts\utility::_id_402D( "move_r" ) );
+    if ( !isdefined( self.alwaysrunforward ) && self.a.pose != "prone" )
+        animscripts\run::setmovenonforwardanims( animscripts\utility::getmoveanim( "move_b" ), animscripts\utility::getmoveanim( "move_l" ), animscripts\utility::getmoveanim( "move_r" ) );
 
-    self.a._id_6E5A = "stand";
-    self.a._id_5F5B = "walk";
+    self.a.pose = "stand";
+    self.a.movement = "walk";
 }
 
-_id_2494()
+crouchtostand()
 {
     var_0 = 1;
 
-    if ( isdefined( self._id_3682 ) )
+    if ( isdefined( self.faststand ) )
     {
         var_0 = 1.8;
-        self._id_3682 = undefined;
+        self.faststand = undefined;
     }
 
-    if ( animscripts\utility::_id_9C3A() )
-        _id_6DE7( %pistol_crouchaimstraight2stand, "stand", "stop", undefined, var_0 );
+    if ( animscripts\utility::usingsidearm() )
+        playtransitionanimation( %pistol_crouchaimstraight2stand, "stand", "stop", undefined, var_0 );
     else
     {
-        animscripts\utility::_id_7129();
-        _id_6DE7( %crouch2stand, "stand", "stop", undefined, var_0 );
+        animscripts\utility::randomizeidleset();
+        playtransitionanimation( %crouch2stand, "stand", "stop", undefined, var_0 );
     }
 }
 
-_id_2490()
+crouchtocrouchwalk()
 {
     blendintocrouchwalk();
 }
 
-_id_2496()
+crouchtostandwalk()
 {
-    _id_2490();
+    crouchtocrouchwalk();
     blendintostandwalk();
 }
 
-_id_2498()
+crouchwalktocrouch()
 {
-    self.a._id_5F5B = "stop";
+    self.a.movement = "stop";
 }
 
-_id_2499()
+crouchwalktostand()
 {
-    _id_2498();
-    _id_2494();
+    crouchwalktocrouch();
+    crouchtostand();
 }
 
-_id_2488()
+crouchruntocrouch()
 {
-    self.a._id_5F5B = "stop";
+    self.a.movement = "stop";
 }
 
-_id_248C()
+crouchruntostand()
 {
-    _id_2488();
-    _id_2494();
+    crouchruntocrouch();
+    crouchtostand();
 }
 
-_id_248F()
+crouchtocrouchrun()
 {
-    if ( self _meth_8152( %casual_crouch_idle ) != 0.0 || self _meth_8152( %casual_crouch_idle_in ) != 0.0 )
-        _id_6DE7( %casual_crouch_idle_out, "crouch", "stop" );
+    if ( self getanimweight( %casual_crouch_idle ) != 0.0 || self getanimweight( %casual_crouch_idle_in ) != 0.0 )
+        playtransitionanimation( %casual_crouch_idle_out, "crouch", "stop" );
 
     blendintocrouchrun();
 }
 
-_id_2495()
+crouchtostandrun()
 {
-    if ( self _meth_8152( %casual_crouch_idle ) != 0.0 || self _meth_8152( %casual_crouch_idle_in ) != 0.0 )
-        _id_6DE7( %casual_crouch_idle_out, "crouch", "stop" );
+    if ( self getanimweight( %casual_crouch_idle ) != 0.0 || self getanimweight( %casual_crouch_idle_in ) != 0.0 )
+        playtransitionanimation( %casual_crouch_idle_out, "crouch", "stop" );
 
-    _id_6DE7( %crouch_2run_f, "stand", "run" );
+    playtransitionanimation( %crouch_2run_f, "stand", "run" );
     return 1;
 }
 
 blendintocrouchrun()
 {
-    if ( isdefined( self._id_2485 ) )
-        _id_6A30( self._id_2485, 0.6, "crouch", "run" );
+    if ( isdefined( self.crouchrun_combatanim ) )
+        playblendtransition( self.crouchrun_combatanim, 0.6, "crouch", "run" );
     else
     {
         var_0 = %crouchrun;
         var_1 = 0.4;
-        var_2 = self.a._id_5F5B == "stop" && self.a._id_6E5A == "crouch";
+        var_2 = self.a.movement == "stop" && self.a.pose == "crouch";
 
         if ( var_2 )
         {
@@ -697,7 +679,7 @@ blendintocrouchrun()
             var_1 = 0.1;
         }
 
-        self _meth_8145( var_0, 1, var_1, self._id_5F65 );
+        self setanimknob( var_0, 1, var_1, self.moveplaybackrate );
 
         if ( var_2 )
         {
@@ -709,83 +691,83 @@ blendintocrouchrun()
             wait(var_3);
         }
 
-        if ( animscripts\utility::_id_9C3B() && self.a._id_5F5B == "run" && !( isdefined( self._id_2563 ) && isdefined( self._id_2563["run"] ) ) )
+        if ( animscripts\utility::usingsmg() && self.a.movement == "run" && !( isdefined( self.custommoveanimset ) && isdefined( self.custommoveanimset["run"] ) ) )
         {
             var_4 = "smg_crouch_run";
-            thread animscripts\run::_id_9B3B( "crouchrun", animscripts\utility::_id_5863( var_4, "crouch" ), animscripts\utility::_id_5863( var_4, "crouch_b" ), animscripts\utility::_id_5863( var_4, "crouch_l" ), animscripts\utility::_id_5863( var_4, "crouch_r" ) );
+            thread animscripts\run::updatemoveanimweights( "crouchrun", animscripts\utility::lookupanim( var_4, "crouch" ), animscripts\utility::lookupanim( var_4, "crouch_b" ), animscripts\utility::lookupanim( var_4, "crouch_l" ), animscripts\utility::lookupanim( var_4, "crouch_r" ) );
         }
         else
-            thread animscripts\run::_id_9B3B( "crouchrun", animscripts\utility::_id_402D( "crouch" ), animscripts\utility::_id_402D( "crouch_b" ), animscripts\utility::_id_402D( "crouch_l" ), animscripts\utility::_id_402D( "crouch_r" ) );
+            thread animscripts\run::updatemoveanimweights( "crouchrun", animscripts\utility::getmoveanim( "crouch" ), animscripts\utility::getmoveanim( "crouch_b" ), animscripts\utility::getmoveanim( "crouch_l" ), animscripts\utility::getmoveanim( "crouch_r" ) );
 
         wait 0.05;
-        _id_6A30( var_0, var_1, "crouch", "run" );
+        playblendtransition( var_0, var_1, "crouch", "run" );
     }
 }
 
-_id_702D()
+pronetocrouchrun()
 {
-    animscripts\move::_id_414A( 0.4 );
+    animscripts\move::getupifprone( 0.4 );
 }
 
-_id_7032()
+pronetostandrun()
 {
-    animscripts\move::_id_414A( 0.4 );
+    animscripts\move::getupifprone( 0.4 );
 }
 
-_id_702E()
+pronetocrouchwalk()
 {
-    animscripts\move::_id_414A( 0.4 );
+    animscripts\move::getupifprone( 0.4 );
 }
 
 blendintocrouchwalk()
 {
-    if ( isdefined( self._id_2485 ) )
+    if ( isdefined( self.crouchrun_combatanim ) )
     {
-        self _meth_8149( self._id_2485, %body, 1, 0.4 );
-        _id_6A30( self._id_2485, 0.6, "crouch", "walk" );
+        self setanimknoball( self.crouchrun_combatanim, %body, 1, 0.4 );
+        playblendtransition( self.crouchrun_combatanim, 0.6, "crouch", "walk" );
         self notify( "BlendIntoCrouchWalk" );
     }
     else
     {
-        self _meth_8145( %crouchrun, 1, 0.4, self._id_5F65 );
-        thread animscripts\run::_id_9B3B( "crouchrun", animscripts\utility::_id_402D( "crouch" ), animscripts\utility::_id_402D( "crouch_b" ), animscripts\utility::_id_402D( "crouch_l" ), animscripts\utility::_id_402D( "crouch_r" ) );
+        self setanimknob( %crouchrun, 1, 0.4, self.moveplaybackrate );
+        thread animscripts\run::updatemoveanimweights( "crouchrun", animscripts\utility::getmoveanim( "crouch" ), animscripts\utility::getmoveanim( "crouch_b" ), animscripts\utility::getmoveanim( "crouch_l" ), animscripts\utility::getmoveanim( "crouch_r" ) );
         wait 0.05;
-        _id_6A30( %crouchrun, 0.4, "crouch", "run" );
+        playblendtransition( %crouchrun, 0.4, "crouch", "run" );
     }
 }
 
-_id_8B18()
+standtocrouch()
 {
-    animscripts\utility::_id_7129();
+    animscripts\utility::randomizeidleset();
     var_0 = 1;
 
-    if ( isdefined( self._id_3679 ) )
+    if ( isdefined( self.fastcrouch ) )
     {
         var_0 = 1.8;
-        self._id_3679 = undefined;
+        self.fastcrouch = undefined;
     }
 
-    _id_6DE7( %exposed_stand_2_crouch, "crouch", "stop", undefined, var_0 );
+    playtransitionanimation( %exposed_stand_2_crouch, "crouch", "stop", undefined, var_0 );
 }
 
-_id_702C()
+pronetocrouch()
 {
-    animscripts\utility::_id_7129();
-    animscripts\move::_id_414A( 0.4 );
+    animscripts\utility::randomizeidleset();
+    animscripts\move::getupifprone( 0.4 );
 }
 
-_id_7031()
+pronetostand()
 {
-    animscripts\move::_id_414A( 0.4 );
+    animscripts\move::getupifprone( 0.4 );
 }
 
-_id_7033()
+pronetostandwalk()
 {
-    _id_7031();
+    pronetostand();
     blendintostandwalk();
 }
 
-_id_702F( var_0 )
+pronetopronemove( var_0 )
 {
     if ( isdefined( self.custompronetopronetransitionfunc ) )
     {
@@ -793,117 +775,117 @@ _id_702F( var_0 )
         return;
     }
 
-    _id_7025( 0.1 );
-    _id_6DE7( %h1_crawlstart_f, "prone", var_0, %prone_crawl );
-    animscripts\cover_prone::_id_9B50( 0.1 );
+    pronelegsstraighttree( 0.1 );
+    playtransitionanimation( %h1_crawlstart_f, "prone", var_0, %prone_crawl );
+    animscripts\cover_prone::updatepronewrapper( 0.1 );
 }
 
-_id_7030()
+pronetopronerun()
 {
-    _id_702F( "run" );
+    pronetopronemove( "run" );
 }
 
-_id_7024()
+pronecrawltoprone()
 {
-    _id_7025( 0.1 );
-    animscripts\cover_prone::_id_9B50( 0.1 );
-    _id_6DE7( %h1_crawl_2_prone, "prone", "stop", undefined, self._id_5F65 );
+    pronelegsstraighttree( 0.1 );
+    animscripts\cover_prone::updatepronewrapper( 0.1 );
+    playtransitionanimation( %h1_crawl_2_prone, "prone", "stop", undefined, self.moveplaybackrate );
 }
 
-_id_2491()
+crouchtoprone()
 {
-    self _meth_81FD( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
-    animscripts\utility::_id_3308( 1.0 );
-    _id_7025( 0.3 );
-    animscripts\cover_prone::_id_9B50( 0.1 );
-    _id_6DE7( %crouch_2_prone, "prone", "stop" );
+    self setproneanimnodes( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    animscripts\utility::enterpronewrapper( 1.0 );
+    pronelegsstraighttree( 0.3 );
+    animscripts\cover_prone::updatepronewrapper( 0.1 );
+    playtransitionanimation( %crouch_2_prone, "prone", "stop" );
 }
 
-_id_2493()
+crouchtopronewalk()
 {
-    _id_2491();
-    _id_7030();
+    crouchtoprone();
+    pronetopronerun();
 }
 
-_id_2492()
+crouchtopronerun()
 {
-    _id_2491();
-    _id_7030();
+    crouchtoprone();
+    pronetopronerun();
 }
 
-_id_8B19()
+standtoprone()
 {
     self endon( "entered_poseprone" );
     var_0 = 0.5;
-    thread _id_6DE9( %stand_2_prone, "prone", "stop", undefined, var_0 );
+    thread playtransitionanimationthread_withoutwaitsetstates( %stand_2_prone, "prone", "stop", undefined, var_0 );
     self waittillmatch( "transAnimDone2", "anim_pose = \"crouch\"" );
-    waitframe;
-    self _meth_81FD( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
-    animscripts\utility::_id_3308( var_0 );
-    self.a._id_5F5B = "stop";
-    animscripts\cover_prone::_id_9B50( 0.1 );
+    waittillframeend;
+    self setproneanimnodes( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    animscripts\utility::enterpronewrapper( var_0 );
+    self.a.movement = "stop";
+    animscripts\cover_prone::updatepronewrapper( 0.1 );
     self waittillmatch( "transAnimDone2", "end" );
-    _id_7025( 0.2 );
-    self _meth_814D( %prone_aim_idle, 1, 0.1 );
+    pronelegsstraighttree( 0.2 );
+    self setanim( %prone_aim_idle, 1, 0.1 );
 }
 
-_id_8B1B()
+standtopronewalk()
 {
-    _id_8B19();
-    _id_7030();
+    standtoprone();
+    pronetopronerun();
 }
 
-_id_8B1A()
+standtopronerun()
 {
-    _id_8B19();
-    _id_7030();
+    standtoprone();
+    pronetopronerun();
 }
 
-_id_2489()
+crouchruntoprone()
 {
     self notify( "stop_move_anim_update" );
-    self._id_9AC9 = undefined;
+    self.update_move_anim_type = undefined;
     var_0 = 0.5;
-    self _meth_81FD( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
-    animscripts\utility::_id_3308( var_0 );
-    _id_7025( 0.2 );
-    animscripts\cover_prone::_id_9B50( 0.1 );
-    var_1 = animscripts\utility::_id_40A0( self _meth_8194() );
+    self setproneanimnodes( -45, 45, %prone_legs_down, %exposed_aiming, %prone_legs_up );
+    animscripts\utility::enterpronewrapper( var_0 );
+    pronelegsstraighttree( 0.2 );
+    animscripts\cover_prone::updatepronewrapper( 0.1 );
+    var_1 = animscripts\utility::getquadrant( self getmotionangle() );
     var_2 = %crouch_2_prone;
     var_3 = getmovedelta( var_2, 0, 1 );
     var_4 = self localtoworldcoords( var_3 );
 
-    if ( self _meth_81C7( var_4 ) )
-        _id_6DE7( var_2, "prone", "stop", undefined, var_0 );
+    if ( self maymovetopoint( var_4 ) )
+        playtransitionanimation( var_2, "prone", "stop", undefined, var_0 );
     else
-        _id_6DE7( %crouch_2_prone_firing, "prone", "stop", undefined, var_0 );
+        playtransitionanimation( %crouch_2_prone_firing, "prone", "stop", undefined, var_0 );
 }
 
-_id_248B()
+crouchruntopronewalk()
 {
-    _id_2489();
-    _id_7030();
+    crouchruntoprone();
+    pronetopronerun();
 }
 
-_id_248A()
+crouchruntopronerun()
 {
-    _id_2489();
-    _id_7030();
+    crouchruntoprone();
+    pronetopronerun();
 }
 
-_id_6DE9( var_0, var_1, var_2, var_3, var_4 )
+playtransitionanimationthread_withoutwaitsetstates( var_0, var_1, var_2, var_3, var_4 )
 {
     self endon( "killanimscript" );
     self endon( "entered_pose" + var_1 );
-    _id_6DE8( var_0, var_1, var_2, var_3, var_4, 0 );
+    playtransitionanimationfunc( var_0, var_1, var_2, var_3, var_4, 0 );
 }
 
-_id_6DE7( var_0, var_1, var_2, var_3, var_4 )
+playtransitionanimation( var_0, var_1, var_2, var_3, var_4 )
 {
-    _id_6DE8( var_0, var_1, var_2, var_3, var_4, 1 );
+    playtransitionanimationfunc( var_0, var_1, var_2, var_3, var_4, 1 );
 }
 
-_id_6DE8( var_0, var_1, var_2, var_3, var_4, var_5 )
+playtransitionanimationfunc( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( var_4 ) )
         var_4 = 1;
@@ -912,52 +894,52 @@ _id_6DE8( var_0, var_1, var_2, var_3, var_4, var_5 )
     self.movetransitionendpose = var_1;
 
     if ( var_5 )
-        thread _id_A057( getanimlength( var_0 ) / 2.0, "killtimerscript", var_1 );
+        thread waitsetstates( getanimlength( var_0 ) / 2.0, "killtimerscript", var_1 );
 
     self setflaggedanimknoballrestart( "transAnimDone2", var_0, %body, 1, 0.2, var_4 );
 
-    if ( !isdefined( self.a._id_6E5A ) )
-        self._id_6E5A = "undefined";
+    if ( !isdefined( self.a.pose ) )
+        self.pose = "undefined";
 
-    if ( !isdefined( self.a._id_5F5B ) )
-        self._id_5F5B = "undefined";
+    if ( !isdefined( self.a.movement ) )
+        self.movement = "undefined";
 
     var_6 = "";
-    animscripts\shared::_id_2D06( "transAnimDone2", undefined, var_6 );
+    animscripts\shared::donotetracks( "transAnimDone2", undefined, var_6 );
     self notify( "killtimerscript" );
-    self.a._id_6E5A = var_1;
+    self.a.pose = var_1;
     self notify( "entered_pose" + var_1 );
-    self.a._id_5F5B = var_2;
+    self.a.movement = var_2;
     self.movetransitionanimation = undefined;
     self.movetransitionendpose = undefined;
 
     if ( isdefined( var_3 ) )
-        self _meth_8149( var_3, %body, 1, 0.3, var_4 );
+        self setanimknoball( var_3, %body, 1, 0.3, var_4 );
     else
-        self _meth_8144( var_0, 0.1 );
+        self clearanim( var_0, 0.1 );
 }
 
-_id_A057( var_0, var_1, var_2 )
+waitsetstates( var_0, var_1, var_2 )
 {
     self endon( "killanimscript" );
     self endon( "death" );
     self endon( var_1 );
-    var_3 = self.a._id_6E5A;
+    var_3 = self.a.pose;
     wait(var_0);
 
     if ( var_3 != "prone" && var_2 == "prone" )
     {
-        animscripts\cover_prone::_id_9B50( 0.1 );
-        animscripts\utility::_id_3308( 1.0 );
+        animscripts\cover_prone::updatepronewrapper( 0.1 );
+        animscripts\utility::enterpronewrapper( 1.0 );
     }
     else if ( var_3 == "prone" && var_2 != "prone" )
     {
-        animscripts\utility::_id_344B( 1.0 );
-        self _meth_8193( "face default" );
+        animscripts\utility::exitpronewrapper( 1.0 );
+        self orientmode( "face default" );
     }
 }
 
-_id_7025( var_0 )
+pronelegsstraighttree( var_0 )
 {
-    self _meth_8149( %prone_legsstraight, %body, 1, var_0, self._id_5F65 );
+    self setanimknoball( %prone_legsstraight, %body, 1, var_0, self.moveplaybackrate );
 }

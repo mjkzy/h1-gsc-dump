@@ -1,43 +1,25 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4D96()
+initcharacterface()
 {
-    if ( !anim._id_9BFF )
+    if ( !anim.usefacialanims )
         return;
 
-    if ( !isdefined( self.a._id_2510 ) )
+    if ( !isdefined( self.a.currentdialogimportance ) )
     {
-        self.a._id_2510 = 0;
-        self.a._id_4B7C = anim.alertface;
-        self._id_35BF = [];
-        self._id_35BB = 0;
+        self.a.currentdialogimportance = 0;
+        self.a.idleface = anim.alertface;
+        self.facewaiting = [];
+        self.facelastnotifynum = 0;
     }
 }
 
-_id_7824( var_0 )
+saygenericdialogue( var_0 )
 {
     var_1 = undefined;
 
-    switch ( self._id_9F32 )
+    switch ( self.voice )
     {
         case "delta":
         case "american":
@@ -48,11 +30,11 @@ _id_7824( var_0 )
         case "pmc":
         case "xslice":
             var_2 = "friendly";
-            var_3 = anim._id_62A1;
+            var_3 = anim.numfriendlyvoices;
             break;
         default:
             var_2 = "enemy";
-            var_3 = anim._id_629D;
+            var_3 = anim.numenemyvoices;
     }
 
     var_1 = 1 + self getentitynumber() % var_3;
@@ -89,9 +71,9 @@ _id_7824( var_0 )
 
     var_6 = undefined;
 
-    if ( isdefined( self._id_3CA9 ) )
+    if ( isdefined( self.generic_voice_override ) )
     {
-        var_6 = self._id_3CA9 + "_" + var_0 + "_" + var_2;
+        var_6 = self.generic_voice_override + "_" + var_0 + "_" + var_2;
 
         if ( !soundexists( var_6 ) )
             var_6 = "generic_" + var_0 + "_" + var_2;
@@ -99,44 +81,44 @@ _id_7824( var_0 )
     else
         var_6 = "generic_" + var_0 + "_" + var_2;
 
-    thread _id_6D9A( var_4, var_6, var_5 );
+    thread playfacethread( var_4, var_6, var_5 );
 }
 
-_id_7F90( var_0 )
+setidlefacedelayed( var_0 )
 {
-    animscripts\battlechatter::_id_6A2E();
-    self.a._id_4B7C = var_0;
+    animscripts\battlechatter::playbattlechatter();
+    self.a.idleface = var_0;
 }
 
-_id_7F8F( var_0 )
+setidleface( var_0 )
 {
-    if ( !anim._id_9BFF )
+    if ( !anim.usefacialanims )
         return;
 
-    animscripts\battlechatter::_id_6A2E();
-    self.a._id_4B7C = var_0;
-    _id_6DAD();
+    animscripts\battlechatter::playbattlechatter();
+    self.a.idleface = var_0;
+    playidleface();
 }
 
-_id_7828( var_0, var_1, var_2, var_3, var_4, var_5 )
+sayspecificdialogue( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    thread _id_6D9A( var_0, var_1, var_2, var_3, var_4, var_5 );
+    thread playfacethread( var_0, var_1, var_2, var_3, var_4, var_5 );
 }
 
-_id_1D41( var_0 )
-{
-    return;
-}
-
-_id_6DAD()
+chooseanimfromset( var_0 )
 {
     return;
 }
 
-_id_6D9A( var_0, var_1, var_2, var_3, var_4, var_5 )
+playidleface()
 {
-    self.a._id_35C4 = 1;
-    self.a._id_35C8 = 1;
+    return;
+}
+
+playfacethread( var_0, var_1, var_2, var_3, var_4, var_5 )
+{
+    self.a.facialanimdone = 1;
+    self.a.facialsounddone = 1;
 
     if ( isdefined( var_3 ) )
     {
@@ -149,23 +131,23 @@ _id_6D9A( var_0, var_1, var_2, var_3, var_4, var_5 )
             }
 
             self playsoundatviewheight( var_1, "animscript facesound" + var_3, 1 );
-            thread _id_A01C( var_3 );
+            thread waitforfacesound( var_3 );
         }
     }
     else
         self playsoundatviewheight( var_1 );
 
-    if ( !anim._id_9BFF )
+    if ( !anim.usefacialanims )
         return;
 
-    _id_4D96();
+    initcharacterface();
 
     if ( !isdefined( var_0 ) && !isdefined( var_1 ) )
     {
         if ( isdefined( var_3 ) )
         {
             wait 0;
-            self._id_35BD = "failed";
+            self.faceresult = "failed";
             self notify( var_3 );
         }
     }
@@ -189,128 +171,128 @@ _id_6D9A( var_0, var_1, var_2, var_3, var_4, var_5 )
             }
         }
 
-        if ( var_2 <= self.a._id_2510 && ( isdefined( var_4 ) && var_4 == "wait" ) )
+        if ( var_2 <= self.a.currentdialogimportance && ( isdefined( var_4 ) && var_4 == "wait" ) )
         {
-            var_6 = self._id_35BF.size;
-            var_7 = self._id_35BB + 1;
-            self._id_35BF[var_6]["facialanim"] = var_0;
-            self._id_35BF[var_6]["soundAlias"] = var_1;
-            self._id_35BF[var_6]["importance"] = var_2;
-            self._id_35BF[var_6]["notifyString"] = var_3;
-            self._id_35BF[var_6]["waitOrNot"] = var_4;
-            self._id_35BF[var_6]["timeToWait"] = var_5;
-            self._id_35BF[var_6]["notifyNum"] = var_7;
-            thread _id_6D98( "animscript face stop waiting " + self._id_35BF[var_6]["notifyNum"], "Face done waiting", "Face done waiting" );
+            var_6 = self.facewaiting.size;
+            var_7 = self.facelastnotifynum + 1;
+            self.facewaiting[var_6]["facialanim"] = var_0;
+            self.facewaiting[var_6]["soundAlias"] = var_1;
+            self.facewaiting[var_6]["importance"] = var_2;
+            self.facewaiting[var_6]["notifyString"] = var_3;
+            self.facewaiting[var_6]["waitOrNot"] = var_4;
+            self.facewaiting[var_6]["timeToWait"] = var_5;
+            self.facewaiting[var_6]["notifyNum"] = var_7;
+            thread playface_waitfornotify( "animscript face stop waiting " + self.facewaiting[var_6]["notifyNum"], "Face done waiting", "Face done waiting" );
 
             if ( isdefined( var_5 ) )
-                thread _id_6D99( var_5, "Face done waiting", "Face done waiting" );
+                thread playface_waitfortime( var_5, "Face done waiting", "Face done waiting" );
 
             self waittill( "Face done waiting" );
             var_6 = undefined;
 
-            for ( var_8 = 0; var_8 < self._id_35BF.size; var_8++ )
+            for ( var_8 = 0; var_8 < self.facewaiting.size; var_8++ )
             {
-                if ( self._id_35BF[var_8]["notifyNum"] == var_7 )
+                if ( self.facewaiting[var_8]["notifyNum"] == var_7 )
                 {
                     var_6 = var_8;
                     break;
                 }
             }
 
-            if ( self.a._id_35BE == "notify" )
-                _id_6D9A( self._id_35BF[var_6]["facialanim"], self._id_35BF[var_6]["soundAlias"], self._id_35BF[var_6]["importance"], self._id_35BF[var_6]["notifyString"] );
+            if ( self.a.facewaitforresult == "notify" )
+                playfacethread( self.facewaiting[var_6]["facialanim"], self.facewaiting[var_6]["soundAlias"], self.facewaiting[var_6]["importance"], self.facewaiting[var_6]["notifyString"] );
             else if ( isdefined( var_3 ) )
             {
-                self._id_35BD = "failed";
+                self.faceresult = "failed";
                 self notify( var_3 );
             }
 
-            for ( var_8 = var_6 + 1; var_8 < self._id_35BF.size; var_8++ )
+            for ( var_8 = var_6 + 1; var_8 < self.facewaiting.size; var_8++ )
             {
-                self._id_35BF[var_8 - 1]["facialanim"] = self._id_35BF[var_8]["facialanim"];
-                self._id_35BF[var_8 - 1]["soundAlias"] = self._id_35BF[var_8]["soundAlias"];
-                self._id_35BF[var_8 - 1]["importance"] = self._id_35BF[var_8]["importance"];
-                self._id_35BF[var_8 - 1]["notifyString"] = self._id_35BF[var_8]["notifyString"];
-                self._id_35BF[var_8 - 1]["waitOrNot"] = self._id_35BF[var_8]["waitOrNot"];
-                self._id_35BF[var_8 - 1]["timeToWait"] = self._id_35BF[var_8]["timeToWait"];
-                self._id_35BF[var_8 - 1]["notifyNum"] = self._id_35BF[var_8]["notifyNum"];
+                self.facewaiting[var_8 - 1]["facialanim"] = self.facewaiting[var_8]["facialanim"];
+                self.facewaiting[var_8 - 1]["soundAlias"] = self.facewaiting[var_8]["soundAlias"];
+                self.facewaiting[var_8 - 1]["importance"] = self.facewaiting[var_8]["importance"];
+                self.facewaiting[var_8 - 1]["notifyString"] = self.facewaiting[var_8]["notifyString"];
+                self.facewaiting[var_8 - 1]["waitOrNot"] = self.facewaiting[var_8]["waitOrNot"];
+                self.facewaiting[var_8 - 1]["timeToWait"] = self.facewaiting[var_8]["timeToWait"];
+                self.facewaiting[var_8 - 1]["notifyNum"] = self.facewaiting[var_8]["notifyNum"];
             }
 
-            self._id_35BF[self._id_35BF.size - 1] = undefined;
+            self.facewaiting[self.facewaiting.size - 1] = undefined;
         }
         else
         {
-            if ( var_2 >= self.a._id_2510 )
+            if ( var_2 >= self.a.currentdialogimportance )
             {
                 self notify( "end current face" );
                 self endon( "end current face" );
 
                 if ( isdefined( var_3 ) )
                 {
-                    if ( isdefined( self.a._id_2511 ) )
+                    if ( isdefined( self.a.currentdialognotifystring ) )
                     {
-                        self._id_35BD = "interrupted";
-                        self notify( self.a._id_2511 );
+                        self.faceresult = "interrupted";
+                        self notify( self.a.currentdialognotifystring );
                     }
                 }
 
-                self.a._id_2510 = var_2;
-                self.a._id_2512 = var_1;
-                self.a._id_2511 = var_3;
-                self.a._id_35C4 = 1;
-                self.a._id_35C8 = 1;
+                self.a.currentdialogimportance = var_2;
+                self.a.currentdialogsound = var_1;
+                self.a.currentdialognotifystring = var_3;
+                self.a.facialanimdone = 1;
+                self.a.facialsounddone = 1;
 
                 if ( isdefined( var_0 ) )
                 {
-                    maps\_anim::_id_2B04();
+                    maps\_anim::disabledefaultfacialanims();
                     self setflaggedanimknobrestart( "animscript faceanim", var_0, 1, 0.1, 1 );
-                    self.a._id_35C4 = 0;
-                    thread _id_A01D();
+                    self.a.facialanimdone = 0;
+                    thread waitforfacialanim();
                 }
                 else
-                    maps\_anim::_id_2B04( 0 );
+                    maps\_anim::disabledefaultfacialanims( 0 );
 
                 if ( isdefined( var_1 ) )
                 {
                     self playsoundatviewheight( var_1, "animscript facesound", 1 );
-                    self.a._id_35C8 = 0;
-                    thread _id_A01C();
+                    self.a.facialsounddone = 0;
+                    thread waitforfacesound();
                 }
 
-                while ( !self.a._id_35C4 || !self.a._id_35C8 )
+                while ( !self.a.facialanimdone || !self.a.facialsounddone )
                     self waittill( "animscript facedone" );
 
-                self.a._id_2510 = 0;
-                self.a._id_2512 = undefined;
-                self.a._id_2511 = undefined;
+                self.a.currentdialogimportance = 0;
+                self.a.currentdialogsound = undefined;
+                self.a.currentdialognotifystring = undefined;
 
                 if ( isdefined( var_3 ) )
                 {
-                    self._id_35BD = "finished";
+                    self.faceresult = "finished";
                     self notify( var_3 );
                 }
 
-                if ( isdefined( self._id_35BF ) && self._id_35BF.size > 0 )
+                if ( isdefined( self.facewaiting ) && self.facewaiting.size > 0 )
                 {
                     var_9 = 0;
                     var_10 = 1;
 
-                    for ( var_8 = 0; var_8 < self._id_35BF.size; var_8++ )
+                    for ( var_8 = 0; var_8 < self.facewaiting.size; var_8++ )
                     {
-                        if ( self._id_35BF[var_8]["importance"] > var_9 )
+                        if ( self.facewaiting[var_8]["importance"] > var_9 )
                         {
-                            var_9 = self._id_35BF[var_8]["importance"];
+                            var_9 = self.facewaiting[var_8]["importance"];
                             var_10 = var_8;
                         }
                     }
 
-                    self notify( "animscript face stop waiting " + self._id_35BF[var_10]["notifyNum"] );
+                    self notify( "animscript face stop waiting " + self.facewaiting[var_10]["notifyNum"] );
                     return;
                 }
 
                 if ( isai( self ) )
                 {
-                    _id_6DAD();
+                    playidleface();
                     return;
                 }
 
@@ -320,73 +302,73 @@ _id_6D9A( var_0, var_1, var_2, var_3, var_4, var_5 )
 
             if ( isdefined( var_3 ) )
             {
-                self._id_35BD = "failed";
+                self.faceresult = "failed";
                 self notify( var_3 );
             }
         }
     }
 }
 
-_id_A01D()
+waitforfacialanim()
 {
     self endon( "death" );
     self endon( "end current face" );
-    animscripts\shared::_id_2D06( "animscript faceanim" );
-    self.a._id_35C4 = 1;
+    animscripts\shared::donotetracks( "animscript faceanim" );
+    self.a.facialanimdone = 1;
     self notify( "animscript facedone" );
-    maps\_anim::_id_2B04( 0 );
+    maps\_anim::disabledefaultfacialanims( 0 );
 }
 
-_id_A01C( var_0 )
+waitforfacesound( var_0 )
 {
     self endon( "death" );
     self waittill( "animscript facesound" + var_0 );
     self notify( var_0 );
 }
 
-_id_6D98( var_0, var_1, var_2 )
+playface_waitfornotify( var_0, var_1, var_2 )
 {
     self endon( "death" );
     self endon( var_2 );
     self waittill( var_0 );
-    self.a._id_35BE = "notify";
+    self.a.facewaitforresult = "notify";
     self notify( var_1 );
 }
 
-_id_6D99( var_0, var_1, var_2 )
+playface_waitfortime( var_0, var_1, var_2 )
 {
     self endon( "death" );
     self endon( var_2 );
     wait(var_0);
-    self.a._id_35BE = "time";
+    self.a.facewaitforresult = "time";
     self notify( var_1 );
 }
 
-_id_4DEF()
+initlevelface()
 {
-    anim._id_62A1 = 8;
-    anim._id_629D = 8;
-    _id_4DBC();
+    anim.numfriendlyvoices = 8;
+    anim.numenemyvoices = 8;
+    initfacialanims();
 }
 #using_animtree("generic_human");
 
-_id_4DBC()
+initfacialanims()
 {
-    anim._id_35C1 = [];
-    anim._id_35C1["pain"] = [ %facial_pain_1, %facial_pain_2, %facial_pain_3, %facial_pain_4 ];
-    anim._id_35C1["aim"] = [ %facial_aim_1, %facial_aim_2 ];
-    anim._id_35C1["run"] = [ %facial_run_1, %facial_run_2 ];
-    anim._id_35C1["corner_stand_L"] = [ %facial_corner_stand_l_1, %facial_corner_stand_l_2 ];
-    anim._id_35C1["corner_stand_R"] = [ %facial_corner_stand_r_1, %facial_corner_stand_r_2 ];
-    anim._id_35C1["death"] = [ %facial_death_1, %facial_death_2, %facial_death_3, %facial_death_4 ];
-    anim._id_35C1["idle"] = [ %facial_idle_1, %facial_idle_2, %facial_idle_3 ];
-    anim._id_35C1["pain_blend"] = [ %facial_pain_blend_1, %facial_pain_blend_2, %facial_pain_blend_3, %facial_pain_blend_4 ];
-    anim._id_35C1["aim_blend"] = [ %facial_aim_blend_1, %facial_aim_blend_2 ];
-    anim._id_35C1["run_blend"] = [ %facial_run_blend_1, %facial_run_blend_2 ];
-    anim._id_35C1["corner_stand_L_blend"] = [ %facial_corner_stand_l_blend_1, %facial_corner_stand_l_blend_2 ];
-    anim._id_35C1["corner_stand_R_blend"] = [ %facial_corner_stand_r_blend_1, %facial_corner_stand_r_blend_2 ];
-    anim._id_35C1["death_blend"] = [ %facial_death_blend_1, %facial_death_blend_2, %facial_death_blend_3, %facial_death_blend_4 ];
-    anim._id_35C1["idle_blend"] = [ %facial_idle_blend_1, %facial_idle_blend_2, %facial_idle_blend_3 ];
+    anim.facial = [];
+    anim.facial["pain"] = [ %facial_pain_1, %facial_pain_2, %facial_pain_3, %facial_pain_4 ];
+    anim.facial["aim"] = [ %facial_aim_1, %facial_aim_2 ];
+    anim.facial["run"] = [ %facial_run_1, %facial_run_2 ];
+    anim.facial["corner_stand_L"] = [ %facial_corner_stand_l_1, %facial_corner_stand_l_2 ];
+    anim.facial["corner_stand_R"] = [ %facial_corner_stand_r_1, %facial_corner_stand_r_2 ];
+    anim.facial["death"] = [ %facial_death_1, %facial_death_2, %facial_death_3, %facial_death_4 ];
+    anim.facial["idle"] = [ %facial_idle_1, %facial_idle_2, %facial_idle_3 ];
+    anim.facial["pain_blend"] = [ %facial_pain_blend_1, %facial_pain_blend_2, %facial_pain_blend_3, %facial_pain_blend_4 ];
+    anim.facial["aim_blend"] = [ %facial_aim_blend_1, %facial_aim_blend_2 ];
+    anim.facial["run_blend"] = [ %facial_run_blend_1, %facial_run_blend_2 ];
+    anim.facial["corner_stand_L_blend"] = [ %facial_corner_stand_l_blend_1, %facial_corner_stand_l_blend_2 ];
+    anim.facial["corner_stand_R_blend"] = [ %facial_corner_stand_r_blend_1, %facial_corner_stand_r_blend_2 ];
+    anim.facial["death_blend"] = [ %facial_death_blend_1, %facial_death_blend_2, %facial_death_blend_3, %facial_death_blend_4 ];
+    anim.facial["idle_blend"] = [ %facial_idle_blend_1, %facial_idle_blend_2, %facial_idle_blend_3 ];
 }
 
 animhasfacialoverride( var_0 )
@@ -396,49 +378,49 @@ animhasfacialoverride( var_0 )
 
 clearfacialanim()
 {
-    self _meth_8144( %head, 0.2 );
+    self clearanim( %head, 0.2 );
 }
 
-_id_6D9B( var_0, var_1, var_2 )
+playfacialanim( var_0, var_1, var_2 )
 {
-    if ( !isdefined( self._id_35C6 ) )
-        thread _id_35C3();
+    if ( !isdefined( self.facialidlemonitor ) )
+        thread facial_idle_monitor_thread();
 
     if ( isdefined( self.bdisabledefaultfacialanims ) && self.bdisabledefaultfacialanims )
-        self _meth_8144( %head, 0.2 );
+        self clearanim( %head, 0.2 );
     else
     {
         if ( isdefined( var_0 ) && animhasfacialoverride( var_0 ) )
         {
-            self _meth_8144( %head, 0.2 );
+            self clearanim( %head, 0.2 );
             return;
         }
 
         if ( self _meth_84EA() )
             var_1 += "_blend";
 
-        if ( !isdefined( anim._id_35C1[var_1] ) )
+        if ( !isdefined( anim.facial[var_1] ) )
             return;
 
-        if ( isdefined( var_2 ) && var_2 >= 0 && var_2 < anim._id_35C1[var_1].size )
+        if ( isdefined( var_2 ) && var_2 >= 0 && var_2 < anim.facial[var_1].size )
             var_3 = var_2;
         else
-            var_3 = randomint( anim._id_35C1[var_1].size );
+            var_3 = randomint( anim.facial[var_1].size );
 
-        var_4 = anim._id_35C1[var_1][var_3];
-        self _meth_8145( var_4 );
+        var_4 = anim.facial[var_1][var_3];
+        self setanimknob( var_4 );
 
         if ( var_1 == "death" )
         {
             if ( isdefined( var_0 ) )
-                thread _id_312E( getanimlength( var_0 ) );
+                thread end_facial_on_death( getanimlength( var_0 ) );
             else
-                thread _id_312E();
+                thread end_facial_on_death();
         }
     }
 }
 
-_id_312E( var_0 )
+end_facial_on_death( var_0 )
 {
     var_1 = 1.0;
     var_2 = 0.2;
@@ -449,10 +431,10 @@ _id_312E( var_0 )
     wait(var_1);
 
     if ( isdefined( self ) )
-        self _meth_8144( %head, var_2 );
+        self clearanim( %head, var_2 );
 }
 
-_id_3D66()
+get_eye_relative_dir()
 {
     if ( self _meth_843E( "jnt_eyelid_TL" ) == -1 || self _meth_843E( "tag_eye" ) == -1 )
         return;
@@ -466,43 +448,43 @@ _id_3D66()
     var_3 = angleclamp180( abs( var_0[0] - var_1[0] ) );
     var_4 = angleclamp180( abs( var_0[0] - var_2[0] ) );
 
-    if ( !isdefined( self._id_6F3D ) )
-        self._id_6F3D = var_3;
+    if ( !isdefined( self.prev_eyel_diff ) )
+        self.prev_eyel_diff = var_3;
 
-    if ( !isdefined( self._id_6F3E ) )
-        self._id_6F3E = var_4;
+    if ( !isdefined( self.prev_eyer_diff ) )
+        self.prev_eyer_diff = var_4;
 
-    if ( !isdefined( self._id_35B0 ) )
-        self._id_35B0 = 0;
+    if ( !isdefined( self.eye_move_counter ) )
+        self.eye_move_counter = 0;
 
-    if ( angleclamp180( var_3 - self._id_6F3D ) > 5 || angleclamp180( var_4 - self._id_6F3E ) > 5 )
+    if ( angleclamp180( var_3 - self.prev_eyel_diff ) > 5 || angleclamp180( var_4 - self.prev_eyer_diff ) > 5 )
     {
-        self._id_6F3D = var_3;
-        self._id_6F3E = var_4;
+        self.prev_eyel_diff = var_3;
+        self.prev_eyer_diff = var_4;
     }
     else
-        self._id_35B0++;
+        self.eye_move_counter++;
 
-    if ( isdefined( self._id_35B0 ) && self._id_35B0 > 4 && isdefined( self.script ) && self.script != "scripted" && self.script != "death" )
+    if ( isdefined( self.eye_move_counter ) && self.eye_move_counter > 4 && isdefined( self.script ) && self.script != "scripted" && self.script != "death" )
     {
-        var_5 = _id_6D9B( undefined, "idle", undefined );
+        var_5 = playfacialanim( undefined, "idle", undefined );
 
         if ( isdefined( var_5 ) )
-            wait(getanimlength( anim._id_35C1["idle"][var_5] ));
+            wait(getanimlength( anim.facial["idle"][var_5] ));
 
-        self._id_35B0 = 0;
+        self.eye_move_counter = 0;
     }
 }
 
-_id_35C3()
+facial_idle_monitor_thread()
 {
     self endon( "death" );
     self endon( "killanimscript" );
-    self._id_35C6 = 1;
+    self.facialidlemonitor = 1;
 
     for (;;)
     {
-        _id_3D66();
+        get_eye_relative_dir();
         wait 0.35;
     }
 }

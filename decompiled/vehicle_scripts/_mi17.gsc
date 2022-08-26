@@ -1,42 +1,24 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main( var_0, var_1, var_2 )
 {
     vehicle_scripts\_mi17_noai::main( var_0, "mi17", var_2 );
-    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_localinit( ::init_local );
     maps\_vehicle::build_treadfx();
-    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::build_attach_models( ::_id_7DDA );
-    maps\_vehicle::build_unload_groups( ::_id_9A3D );
+    maps\_vehicle::build_aianims( ::setanims, ::set_vehicle_anims );
+    maps\_vehicle::build_attach_models( ::set_attached_models );
+    maps\_vehicle::build_unload_groups( ::unload_groups );
     maps\_vehicle::build_is_helicopter();
 }
 
-_id_4D10()
+init_local()
 {
-    self._id_65A7 = distance( self gettagorigin( "tag_origin" ), self gettagorigin( "tag_ground" ) );
-    self._id_367F = 710;
-    self._id_7957 = 0;
-    maps\_vehicle::_id_9D02( "running" );
-    thread _id_4521();
+    self.originheightoffset = distance( self gettagorigin( "tag_origin" ), self gettagorigin( "tag_ground" ) );
+    self.fastropeoffset = 710;
+    self.script_badplace = 0;
+    maps\_vehicle::vehicle_lights_on( "running" );
+    thread handle_audio();
     thread keep_ragdolls_alive();
 }
 
@@ -49,38 +31,38 @@ keep_ragdolls_alive()
     }
 }
 
-_id_4521()
+handle_audio()
 {
     self endon( "death" );
     var_0 = 0;
     var_1 = 12000;
-    vehicle_scripts\_mi17_aud::_id_86FA();
-    thread _id_5D80();
+    vehicle_scripts\_mi17_aud::snd_init_mi17();
+    thread monitor_death_stop_sounds();
 
     if ( isdefined( level.override_aud_mi17_dist_treshold ) )
         var_1 = level.override_aud_mi17_dist_treshold;
 
     for (;;)
     {
-        if ( !isdefined( self._id_799F ) || !self._id_799F )
+        if ( !isdefined( self.script_disablevehicleaudio ) || !self.script_disablevehicleaudio )
         {
             var_2 = distance( self.origin, level.player.origin );
 
             if ( var_0 && var_2 > var_1 )
             {
-                vehicle_scripts\_mi17_aud::_id_8777( 1.0 );
+                vehicle_scripts\_mi17_aud::snd_stop_mi17( 1.0 );
                 var_0 = 0;
                 wait 0.1;
             }
             else if ( !var_0 && var_2 < var_1 )
             {
-                vehicle_scripts\_mi17_aud::_id_876D();
+                vehicle_scripts\_mi17_aud::snd_start_mi17();
                 var_0 = 1;
             }
         }
         else if ( var_0 )
         {
-            vehicle_scripts\_mi17_aud::_id_8777( 1.0 );
+            vehicle_scripts\_mi17_aud::snd_stop_mi17( 1.0 );
             var_0 = 0;
         }
 
@@ -88,130 +70,130 @@ _id_4521()
     }
 }
 
-_id_5D80()
+monitor_death_stop_sounds()
 {
     self waittill( "death" );
-    vehicle_scripts\_mi17_aud::_id_8777( 1.0 );
+    vehicle_scripts\_mi17_aud::snd_stop_mi17( 1.0 );
 }
 #using_animtree("vehicles");
 
-_id_7EFA( var_0 )
+set_vehicle_anims( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1]._id_9CD5 = %mi17_heli_idle;
+        var_0[var_1].vehicle_getoutanim = %mi17_heli_idle;
 
     return var_0;
 }
 
-_id_7FE3( var_0 )
+setplayer_anims( var_0 )
 {
     return var_0;
 }
 #using_animtree("generic_human");
 
-_id_7F23()
+setanims()
 {
     var_0 = [];
 
     for ( var_1 = 0; var_1 < 10; var_1++ )
         var_0[var_1] = spawnstruct();
 
-    var_0[1]._id_4B63 = %mi17_1_idle;
-    var_0[2]._id_4B63 = %mi17_2_idle;
-    var_0[3]._id_4B63 = %mi17_3_idle;
-    var_0[4]._id_4B63 = %mi17_4_idle;
-    var_0[5]._id_4B63 = %mi17_5_idle;
-    var_0[6]._id_4B63 = %mi17_6_idle;
-    var_0[7]._id_4B63 = %mi17_7_idle;
-    var_0[8]._id_4B63 = %mi17_8_idle;
-    var_0[0]._id_4B63[0] = %helicopter_pilot1_idle;
-    var_0[0]._id_4B63[1] = %helicopter_pilot1_twitch_clickpannel;
-    var_0[0]._id_4B63[2] = %helicopter_pilot1_twitch_lookback;
-    var_0[0]._id_4B63[3] = %helicopter_pilot1_twitch_lookoutside;
-    var_0[0]._id_4B7E[0] = 500;
-    var_0[0]._id_4B7E[1] = 100;
-    var_0[0]._id_4B7E[2] = 100;
-    var_0[0]._id_4B7E[3] = 100;
+    var_0[1].idle = %mi17_1_idle;
+    var_0[2].idle = %mi17_2_idle;
+    var_0[3].idle = %mi17_3_idle;
+    var_0[4].idle = %mi17_4_idle;
+    var_0[5].idle = %mi17_5_idle;
+    var_0[6].idle = %mi17_6_idle;
+    var_0[7].idle = %mi17_7_idle;
+    var_0[8].idle = %mi17_8_idle;
+    var_0[0].idle[0] = %helicopter_pilot1_idle;
+    var_0[0].idle[1] = %helicopter_pilot1_twitch_clickpannel;
+    var_0[0].idle[2] = %helicopter_pilot1_twitch_lookback;
+    var_0[0].idle[3] = %helicopter_pilot1_twitch_lookoutside;
+    var_0[0].idleoccurrence[0] = 500;
+    var_0[0].idleoccurrence[1] = 100;
+    var_0[0].idleoccurrence[2] = 100;
+    var_0[0].idleoccurrence[3] = 100;
     var_0[0].bhasgunwhileriding = 0;
     var_0[9].bhasgunwhileriding = 0;
-    var_0[9]._id_4B63[0] = %helicopter_pilot2_idle;
-    var_0[9]._id_4B63[1] = %helicopter_pilot2_twitch_clickpannel;
-    var_0[9]._id_4B63[2] = %helicopter_pilot2_twitch_lookoutside;
-    var_0[9]._id_4B63[3] = %helicopter_pilot2_twitch_radio;
-    var_0[9]._id_4B7E[0] = 450;
-    var_0[9]._id_4B7E[1] = 100;
-    var_0[9]._id_4B7E[2] = 100;
-    var_0[9]._id_4B7E[3] = 100;
-    var_0[0]._id_85AE = "tag_driver";
-    var_0[1]._id_85AE = "tag_detach";
-    var_0[2]._id_85AE = "tag_detach";
-    var_0[3]._id_85AE = "tag_detach";
-    var_0[4]._id_85AE = "tag_detach";
-    var_0[5]._id_85AE = "tag_detach";
-    var_0[6]._id_85AE = "tag_detach";
-    var_0[7]._id_85AE = "tag_detach";
-    var_0[8]._id_85AE = "tag_detach";
-    var_0[9]._id_85AE = "tag_passenger";
-    var_0[1]._id_4068 = %mi17_1_drop;
-    var_0[2]._id_4068 = %mi17_2_drop;
-    var_0[3]._id_4068 = %mi17_3_drop;
-    var_0[4]._id_4068 = %mi17_4_drop;
-    var_0[5]._id_4068 = %mi17_5_drop;
-    var_0[6]._id_4068 = %mi17_6_drop;
-    var_0[7]._id_4068 = %mi17_7_drop;
-    var_0[8]._id_4068 = %mi17_8_drop;
-    var_0[1]._id_4076 = "crouch";
-    var_0[2]._id_4076 = "crouch";
-    var_0[3]._id_4076 = "crouch";
-    var_0[4]._id_4076 = "crouch";
-    var_0[5]._id_4076 = "crouch";
-    var_0[6]._id_4076 = "crouch";
-    var_0[7]._id_4076 = "crouch";
-    var_0[8]._id_4076 = "crouch";
-    var_0[1]._id_70DB = 1;
-    var_0[2]._id_70DB = 1;
-    var_0[3]._id_70DB = 1;
-    var_0[4]._id_70DB = 1;
-    var_0[5]._id_70DB = 1;
-    var_0[6]._id_70DB = 1;
-    var_0[7]._id_70DB = 1;
-    var_0[8]._id_70DB = 1;
-    var_0[1]._id_70DA = %fastrope_fall;
-    var_0[2]._id_70DA = %fastrope_fall;
-    var_0[3]._id_70DA = %fastrope_fall;
-    var_0[4]._id_70DA = %fastrope_fall;
-    var_0[5]._id_70DA = %fastrope_fall;
-    var_0[6]._id_70DA = %fastrope_fall;
-    var_0[7]._id_70DA = %fastrope_fall;
-    var_0[8]._id_70DA = %fastrope_fall;
-    var_0[1]._id_4075 = "fastrope_getout_npc";
-    var_0[2]._id_4075 = "fastrope_getout_npc";
-    var_0[3]._id_4075 = "fastrope_getout_npc";
-    var_0[4]._id_4075 = "fastrope_getout_npc";
-    var_0[5]._id_4075 = "fastrope_getout_npc";
-    var_0[6]._id_4075 = "fastrope_getout_npc";
-    var_0[7]._id_4075 = "fastrope_getout_npc";
-    var_0[8]._id_4075 = "fastrope_getout_npc";
-    var_0[1]._id_406F = "fastrope_loop_npc";
-    var_0[2]._id_406F = "fastrope_loop_npc";
-    var_0[3]._id_406F = "fastrope_loop_npc";
-    var_0[4]._id_406F = "fastrope_loop_npc";
-    var_0[5]._id_406F = "fastrope_loop_npc";
-    var_0[6]._id_406F = "fastrope_loop_npc";
-    var_0[7]._id_406F = "fastrope_loop_npc";
-    var_0[8]._id_406F = "fastrope_loop_npc";
-    var_0[1]._id_3680 = "TAG_FastRope_RI";
-    var_0[2]._id_3680 = "TAG_FastRope_RI";
-    var_0[3]._id_3680 = "TAG_FastRope_RI";
-    var_0[4]._id_3680 = "TAG_FastRope_RI";
-    var_0[5]._id_3680 = "TAG_FastRope_LE";
-    var_0[6]._id_3680 = "TAG_FastRope_LE";
-    var_0[7]._id_3680 = "TAG_FastRope_LE";
-    var_0[8]._id_3680 = "TAG_FastRope_LE";
-    return _id_7FE3( var_0 );
+    var_0[9].idle[0] = %helicopter_pilot2_idle;
+    var_0[9].idle[1] = %helicopter_pilot2_twitch_clickpannel;
+    var_0[9].idle[2] = %helicopter_pilot2_twitch_lookoutside;
+    var_0[9].idle[3] = %helicopter_pilot2_twitch_radio;
+    var_0[9].idleoccurrence[0] = 450;
+    var_0[9].idleoccurrence[1] = 100;
+    var_0[9].idleoccurrence[2] = 100;
+    var_0[9].idleoccurrence[3] = 100;
+    var_0[0].sittag = "tag_driver";
+    var_0[1].sittag = "tag_detach";
+    var_0[2].sittag = "tag_detach";
+    var_0[3].sittag = "tag_detach";
+    var_0[4].sittag = "tag_detach";
+    var_0[5].sittag = "tag_detach";
+    var_0[6].sittag = "tag_detach";
+    var_0[7].sittag = "tag_detach";
+    var_0[8].sittag = "tag_detach";
+    var_0[9].sittag = "tag_passenger";
+    var_0[1].getout = %mi17_1_drop;
+    var_0[2].getout = %mi17_2_drop;
+    var_0[3].getout = %mi17_3_drop;
+    var_0[4].getout = %mi17_4_drop;
+    var_0[5].getout = %mi17_5_drop;
+    var_0[6].getout = %mi17_6_drop;
+    var_0[7].getout = %mi17_7_drop;
+    var_0[8].getout = %mi17_8_drop;
+    var_0[1].getoutstance = "crouch";
+    var_0[2].getoutstance = "crouch";
+    var_0[3].getoutstance = "crouch";
+    var_0[4].getoutstance = "crouch";
+    var_0[5].getoutstance = "crouch";
+    var_0[6].getoutstance = "crouch";
+    var_0[7].getoutstance = "crouch";
+    var_0[8].getoutstance = "crouch";
+    var_0[1].ragdoll_getout_death = 1;
+    var_0[2].ragdoll_getout_death = 1;
+    var_0[3].ragdoll_getout_death = 1;
+    var_0[4].ragdoll_getout_death = 1;
+    var_0[5].ragdoll_getout_death = 1;
+    var_0[6].ragdoll_getout_death = 1;
+    var_0[7].ragdoll_getout_death = 1;
+    var_0[8].ragdoll_getout_death = 1;
+    var_0[1].ragdoll_fall_anim = %fastrope_fall;
+    var_0[2].ragdoll_fall_anim = %fastrope_fall;
+    var_0[3].ragdoll_fall_anim = %fastrope_fall;
+    var_0[4].ragdoll_fall_anim = %fastrope_fall;
+    var_0[5].ragdoll_fall_anim = %fastrope_fall;
+    var_0[6].ragdoll_fall_anim = %fastrope_fall;
+    var_0[7].ragdoll_fall_anim = %fastrope_fall;
+    var_0[8].ragdoll_fall_anim = %fastrope_fall;
+    var_0[1].getoutsnd = "fastrope_getout_npc";
+    var_0[2].getoutsnd = "fastrope_getout_npc";
+    var_0[3].getoutsnd = "fastrope_getout_npc";
+    var_0[4].getoutsnd = "fastrope_getout_npc";
+    var_0[5].getoutsnd = "fastrope_getout_npc";
+    var_0[6].getoutsnd = "fastrope_getout_npc";
+    var_0[7].getoutsnd = "fastrope_getout_npc";
+    var_0[8].getoutsnd = "fastrope_getout_npc";
+    var_0[1].getoutloopsnd = "fastrope_loop_npc";
+    var_0[2].getoutloopsnd = "fastrope_loop_npc";
+    var_0[3].getoutloopsnd = "fastrope_loop_npc";
+    var_0[4].getoutloopsnd = "fastrope_loop_npc";
+    var_0[5].getoutloopsnd = "fastrope_loop_npc";
+    var_0[6].getoutloopsnd = "fastrope_loop_npc";
+    var_0[7].getoutloopsnd = "fastrope_loop_npc";
+    var_0[8].getoutloopsnd = "fastrope_loop_npc";
+    var_0[1].fastroperig = "TAG_FastRope_RI";
+    var_0[2].fastroperig = "TAG_FastRope_RI";
+    var_0[3].fastroperig = "TAG_FastRope_RI";
+    var_0[4].fastroperig = "TAG_FastRope_RI";
+    var_0[5].fastroperig = "TAG_FastRope_LE";
+    var_0[6].fastroperig = "TAG_FastRope_LE";
+    var_0[7].fastroperig = "TAG_FastRope_LE";
+    var_0[8].fastroperig = "TAG_FastRope_LE";
+    return setplayer_anims( var_0 );
 }
 
-_id_9A3D()
+unload_groups()
 {
     var_0 = [];
     var_0["back"] = [];
@@ -237,19 +219,19 @@ _id_9A3D()
     return var_0;
 }
 
-_id_7DDA()
+set_attached_models()
 {
     var_0 = [];
     var_0["TAG_FastRope_LE"] = spawnstruct();
     var_0["TAG_FastRope_LE"].model = "rope_test";
     var_0["TAG_FastRope_LE"].tag = "TAG_FastRope_LE";
-    var_0["TAG_FastRope_LE"]._id_4B79 = %mi17_rope_idle_le;
-    var_0["TAG_FastRope_LE"]._id_2F6D = %mi17_rope_drop_le;
+    var_0["TAG_FastRope_LE"].idleanim = %mi17_rope_idle_le;
+    var_0["TAG_FastRope_LE"].dropanim = %mi17_rope_drop_le;
     var_0["TAG_FastRope_RI"] = spawnstruct();
     var_0["TAG_FastRope_RI"].model = "rope_test_ri";
     var_0["TAG_FastRope_RI"].tag = "TAG_FastRope_RI";
-    var_0["TAG_FastRope_RI"]._id_4B79 = %mi17_rope_idle_ri;
-    var_0["TAG_FastRope_RI"]._id_2F6D = %mi17_rope_drop_ri;
+    var_0["TAG_FastRope_RI"].idleanim = %mi17_rope_idle_ri;
+    var_0["TAG_FastRope_RI"].dropanim = %mi17_rope_drop_ri;
     var_1 = getarraykeys( var_0 );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )

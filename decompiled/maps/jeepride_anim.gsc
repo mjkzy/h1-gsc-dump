@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     setup_exploder_anims();
@@ -29,93 +11,93 @@ main()
 
 main_anim()
 {
-    level._id_78BA["price"]["stand_down"] = "armada_pri_allteamsstanddown";
-    level._id_78BA["price"]["roger_hq"] = "armada_pri_rogerhq";
-    level._id_78BA["price"]["heads_up"] = "armada_pri_headsup";
-    level._id_78BA["generic"]["tvstation"] = "armada_gm1_tvstation";
-    level._id_78BA["generic"]["breaching_breaching"] = "armada_gm1_breachingbreaching";
-    level._id_78BA["price"]["jeepride_pri_helistatus"] = "jeepride_pri_helistatus";
-    level._id_78BA["price"]["jeepride_pri_notgood"] = "jeepride_pri_notgood";
-    level._id_78BA["price"]["jeepride_pri_lockandload"] = "jeepride_pri_lockandload";
-    level._id_78BA["price"]["jeepride_pri_bmprear"] = "jeepride_pri_bmprear";
-    level._id_78BA["price"]["jeepride_pri_bmpright"] = "jeepride_pri_bmpright";
-    level._id_78BA["price"]["jeepride_pri_bmpleft"] = "jeepride_pri_bmpleft";
-    level._id_78BA["price"]["jeepride_pri_bmpfront"] = "jeepride_pri_bmpfront";
-    level._id_78BA["price"]["jeepride_pri_hind6oclock"] = "jeepride_pri_hind6oclock";
-    level._id_78BA["price"]["jeepride_pri_hind9oclock"] = "jeepride_pri_hind9oclock";
-    level._id_78BA["price"]["jeepride_pri_hind3oclock"] = "jeepride_pri_hind3oclock";
-    level._id_78BA["price"]["jeepride_pri_hinddeadahead"] = "jeepride_pri_hinddeadahead";
-    level._id_78BA["price"]["jeepride_pri_grabrpg"] = "jeepride_pri_grabrpg";
-    level._id_78BA["price"]["jeepride_pri_letsgetfire"] = "jeepride_pri_letsgetfire";
-    level._id_78BA["price"]["jeepride_pri_openfire"] = "jeepride_pri_openfire";
-    level._id_78BA["price"]["jeepride_pri_takehimout"] = "jeepride_pri_takehimout";
-    level._id_78BA["price"]["jeepride_pri_firefire"] = "jeepride_pri_firefire";
-    level._id_78BA["price"]["jeepride_pri_takehimdown"] = "jeepride_pri_takehimdown";
-    level._id_78BA["price"]["jeepride_pri_company"] = "jeepride_pri_company";
-    level._id_78BA["price"]["jeepride_pri_truckleft"] = "jeepride_pri_truckleft";
-    level._id_78BA["price"]["jeepride_pri_truckright"] = "jeepride_pri_truckright";
-    level._id_78BA["price"]["jeepride_pri_truck12oclock"] = "jeepride_pri_truck12oclock";
-    level._id_78BA["price"]["jeepride_pri_getoffyour"] = "jeepride_pri_getoffyour";
-    level._id_78BA["price"]["jeepride_pri_fireontruck"] = "jeepride_pri_fireontruck";
-    level._id_78BA["price"]["jeepride_pri_shootthattruck"] = "jeepride_pri_shootthattruck";
-    level._id_78BA["price"]["jeepride_pri_goodshot"] = "jeepride_pri_goodshot";
-    level._id_78BA["price"]["jeepride_pri_wegothim"] = "jeepride_pri_wegothim";
-    level._id_78BA["price"]["jeepride_pri_damaged"] = "jeepride_pri_damaged";
-    level._id_78BA["price"]["jeepride_pri_watchyour6"] = "jeepride_pri_watchyour6";
-    level._id_78BA["price"]["jeepride_pri_coverfront"] = "jeepride_pri_coverfront";
-    level._id_78BA["price"]["jeepride_pri_coverflanks"] = "jeepride_pri_coverflanks";
-    level._id_78BA["price"]["jeepride_pri_coverrear"] = "jeepride_pri_coverrear";
-    level._id_78BA["price"]["jeepride_pri_buggered"] = "jeepride_pri_buggered";
-    level._id_78BA["price"]["jeepride_pri_sitreponhelis"] = "jeepride_pri_sitreponhelis";
-    level._id_78BA["price"]["jeepride_pri_thebridge"] = "jeepride_pri_thebridge";
-    level._id_78BA["friendguy"]["jeepride_gaz_boxingin"] = "jeepride_gaz_boxingin";
-    level._id_78BA["friendguy"]["jeepride_gaz_takecareofit"] = "jeepride_gaz_takecareofit";
-    level._id_78BA["hq"]["jeepride_hqr_griggsisnthere"] = "jeepride_hqr_griggsisnthere";
-    level._id_78BA["griggs"]["jeepride_grg_hangon"] = "jeepride_grg_hangon";
-    level._id_78BA["griggs"]["jeepride_grg_bmpbehind"] = "jeepride_grg_bmpbehind";
-    level._id_78BA["griggs"]["jeepride_grg_bmpright"] = "jeepride_grg_bmpright";
-    level._id_78BA["griggs"]["jeepride_grg_bmpleft"] = "jeepride_grg_bmpleft";
-    level._id_78BA["griggs"]["jeepride_grg_bmp12oclock"] = "jeepride_grg_bmp12oclock";
-    level._id_78BA["griggs"]["jeepride_grg_hindbehind"] = "jeepride_grg_hindbehind";
-    level._id_78BA["griggs"]["jeepride_grg_hind9oclock"] = "jeepride_grg_hind9oclock";
-    level._id_78BA["griggs"]["jeepride_grg_hind3oclock"] = "jeepride_grg_hind3oclock";
-    level._id_78BA["griggs"]["jeepride_grg_hind12oclock"] = "jeepride_grg_hind12oclock";
-    level._id_78BA["griggs"]["jeepride_grg_rpgfirehind"] = "jeepride_grg_rpgfirehind";
-    level._id_78BA["griggs"]["jeepride_grg_hithelicopter"] = "jeepride_grg_hithelicopter";
-    level._id_78BA["griggs"]["jeepride_grg_rpgontruck"] = "jeepride_grg_rpgontruck";
-    level._id_78BA["griggs"]["jeepride_grg_takemout"] = "jeepride_grg_takemout";
-    level._id_78BA["griggs"]["jeepride_grg_anotherrpg"] = "jeepride_grg_anotherrpg";
-    level._id_78BA["griggs"]["jeepride_grg_hostilerpg"] = "jeepride_grg_hostilerpg";
-    level._id_78BA["griggs"]["jeepride_grg_truck6oclock"] = "jeepride_grg_truck6oclock";
-    level._id_78BA["griggs"]["jeepride_grg_truck3oclock"] = "jeepride_grg_truck3oclock";
-    level._id_78BA["griggs"]["jeepride_grg_truck9oclock"] = "jeepride_grg_truck9oclock";
-    level._id_78BA["griggs"]["jeepride_grg_truckdeadahead"] = "jeepride_grg_truckdeadahead";
-    level._id_78BA["griggs"]["jeepride_grg_killfirm"] = "jeepride_grg_killfirm";
-    level._id_78BA["griggs"]["jeepride_grg_niceshootin"] = "jeepride_grg_niceshootin";
-    level._id_78BA["griggs"]["jeepride_grg_success"] = "jeepride_grg_success";
-    level._id_78BA["griggs"]["jeepride_grg_thatsahit"] = "jeepride_grg_thatsahit";
-    level._id_78BA["griggs"]["jeepride_grg_devastation"] = "jeepride_grg_devastation";
-    level._id_78BA["griggs"]["jeepride_grg_bouttocollapse"] = "jeepride_grg_bouttocollapse";
-    level._id_78BA["griggs"]["jeepride_grg_tankabouttoblow"] = "jeepride_grg_tankabouttoblow";
-    level._id_78BA["griggs"]["jeepride_grg_takeoutbridge"] = "jeepride_grg_takeoutbridge";
-    level._id_78BA["gaz"]["jeepride_gaz_heavyattackbridge"] = "jeepride_gaz_heavyattackbridge";
-    level._id_78BA["gaz"]["jeepride_gaz_uselesswanker"] = "jeepride_gaz_uselesswanker";
-    level._id_78BA["gaz"]["jeepride_gaz_wereonourown"] = "jeepride_gaz_wereonourown";
-    level._id_78BA["gaz"]["jeepride_gaz_goodtohear"] = "jeepride_gaz_goodtohear";
-    level._id_78BA["gaz"]["jeepride_gaz_goodenough"] = "jeepride_gaz_goodenough";
-    level._id_78BA["gaz"]["jeepride_gaz_stopbloodytruck"] = "jeepride_gaz_stopbloodytruck";
-    level._id_78BA["griggs"]["jeepride_grg_devastation"] = "jeepride_grg_devastation";
-    level._id_78BA["griggs"]["jeepride_grg_devastation"] = "jeepride_grg_devastation";
-    level._id_78AC["price"]["jeepride_ending_price01"] = %jeepride_ending_price;
-    level._id_78AC["price"]["jeepride_ending_price02"] = %jeepride_ending_price;
-    level._id_78AC["price"]["wave_player_over"] = %h1_jeepride_bridgecollapse_price;
+    level.scr_sound["price"]["stand_down"] = "armada_pri_allteamsstanddown";
+    level.scr_sound["price"]["roger_hq"] = "armada_pri_rogerhq";
+    level.scr_sound["price"]["heads_up"] = "armada_pri_headsup";
+    level.scr_sound["generic"]["tvstation"] = "armada_gm1_tvstation";
+    level.scr_sound["generic"]["breaching_breaching"] = "armada_gm1_breachingbreaching";
+    level.scr_sound["price"]["jeepride_pri_helistatus"] = "jeepride_pri_helistatus";
+    level.scr_sound["price"]["jeepride_pri_notgood"] = "jeepride_pri_notgood";
+    level.scr_sound["price"]["jeepride_pri_lockandload"] = "jeepride_pri_lockandload";
+    level.scr_sound["price"]["jeepride_pri_bmprear"] = "jeepride_pri_bmprear";
+    level.scr_sound["price"]["jeepride_pri_bmpright"] = "jeepride_pri_bmpright";
+    level.scr_sound["price"]["jeepride_pri_bmpleft"] = "jeepride_pri_bmpleft";
+    level.scr_sound["price"]["jeepride_pri_bmpfront"] = "jeepride_pri_bmpfront";
+    level.scr_sound["price"]["jeepride_pri_hind6oclock"] = "jeepride_pri_hind6oclock";
+    level.scr_sound["price"]["jeepride_pri_hind9oclock"] = "jeepride_pri_hind9oclock";
+    level.scr_sound["price"]["jeepride_pri_hind3oclock"] = "jeepride_pri_hind3oclock";
+    level.scr_sound["price"]["jeepride_pri_hinddeadahead"] = "jeepride_pri_hinddeadahead";
+    level.scr_sound["price"]["jeepride_pri_grabrpg"] = "jeepride_pri_grabrpg";
+    level.scr_sound["price"]["jeepride_pri_letsgetfire"] = "jeepride_pri_letsgetfire";
+    level.scr_sound["price"]["jeepride_pri_openfire"] = "jeepride_pri_openfire";
+    level.scr_sound["price"]["jeepride_pri_takehimout"] = "jeepride_pri_takehimout";
+    level.scr_sound["price"]["jeepride_pri_firefire"] = "jeepride_pri_firefire";
+    level.scr_sound["price"]["jeepride_pri_takehimdown"] = "jeepride_pri_takehimdown";
+    level.scr_sound["price"]["jeepride_pri_company"] = "jeepride_pri_company";
+    level.scr_sound["price"]["jeepride_pri_truckleft"] = "jeepride_pri_truckleft";
+    level.scr_sound["price"]["jeepride_pri_truckright"] = "jeepride_pri_truckright";
+    level.scr_sound["price"]["jeepride_pri_truck12oclock"] = "jeepride_pri_truck12oclock";
+    level.scr_sound["price"]["jeepride_pri_getoffyour"] = "jeepride_pri_getoffyour";
+    level.scr_sound["price"]["jeepride_pri_fireontruck"] = "jeepride_pri_fireontruck";
+    level.scr_sound["price"]["jeepride_pri_shootthattruck"] = "jeepride_pri_shootthattruck";
+    level.scr_sound["price"]["jeepride_pri_goodshot"] = "jeepride_pri_goodshot";
+    level.scr_sound["price"]["jeepride_pri_wegothim"] = "jeepride_pri_wegothim";
+    level.scr_sound["price"]["jeepride_pri_damaged"] = "jeepride_pri_damaged";
+    level.scr_sound["price"]["jeepride_pri_watchyour6"] = "jeepride_pri_watchyour6";
+    level.scr_sound["price"]["jeepride_pri_coverfront"] = "jeepride_pri_coverfront";
+    level.scr_sound["price"]["jeepride_pri_coverflanks"] = "jeepride_pri_coverflanks";
+    level.scr_sound["price"]["jeepride_pri_coverrear"] = "jeepride_pri_coverrear";
+    level.scr_sound["price"]["jeepride_pri_buggered"] = "jeepride_pri_buggered";
+    level.scr_sound["price"]["jeepride_pri_sitreponhelis"] = "jeepride_pri_sitreponhelis";
+    level.scr_sound["price"]["jeepride_pri_thebridge"] = "jeepride_pri_thebridge";
+    level.scr_sound["friendguy"]["jeepride_gaz_boxingin"] = "jeepride_gaz_boxingin";
+    level.scr_sound["friendguy"]["jeepride_gaz_takecareofit"] = "jeepride_gaz_takecareofit";
+    level.scr_sound["hq"]["jeepride_hqr_griggsisnthere"] = "jeepride_hqr_griggsisnthere";
+    level.scr_sound["griggs"]["jeepride_grg_hangon"] = "jeepride_grg_hangon";
+    level.scr_sound["griggs"]["jeepride_grg_bmpbehind"] = "jeepride_grg_bmpbehind";
+    level.scr_sound["griggs"]["jeepride_grg_bmpright"] = "jeepride_grg_bmpright";
+    level.scr_sound["griggs"]["jeepride_grg_bmpleft"] = "jeepride_grg_bmpleft";
+    level.scr_sound["griggs"]["jeepride_grg_bmp12oclock"] = "jeepride_grg_bmp12oclock";
+    level.scr_sound["griggs"]["jeepride_grg_hindbehind"] = "jeepride_grg_hindbehind";
+    level.scr_sound["griggs"]["jeepride_grg_hind9oclock"] = "jeepride_grg_hind9oclock";
+    level.scr_sound["griggs"]["jeepride_grg_hind3oclock"] = "jeepride_grg_hind3oclock";
+    level.scr_sound["griggs"]["jeepride_grg_hind12oclock"] = "jeepride_grg_hind12oclock";
+    level.scr_sound["griggs"]["jeepride_grg_rpgfirehind"] = "jeepride_grg_rpgfirehind";
+    level.scr_sound["griggs"]["jeepride_grg_hithelicopter"] = "jeepride_grg_hithelicopter";
+    level.scr_sound["griggs"]["jeepride_grg_rpgontruck"] = "jeepride_grg_rpgontruck";
+    level.scr_sound["griggs"]["jeepride_grg_takemout"] = "jeepride_grg_takemout";
+    level.scr_sound["griggs"]["jeepride_grg_anotherrpg"] = "jeepride_grg_anotherrpg";
+    level.scr_sound["griggs"]["jeepride_grg_hostilerpg"] = "jeepride_grg_hostilerpg";
+    level.scr_sound["griggs"]["jeepride_grg_truck6oclock"] = "jeepride_grg_truck6oclock";
+    level.scr_sound["griggs"]["jeepride_grg_truck3oclock"] = "jeepride_grg_truck3oclock";
+    level.scr_sound["griggs"]["jeepride_grg_truck9oclock"] = "jeepride_grg_truck9oclock";
+    level.scr_sound["griggs"]["jeepride_grg_truckdeadahead"] = "jeepride_grg_truckdeadahead";
+    level.scr_sound["griggs"]["jeepride_grg_killfirm"] = "jeepride_grg_killfirm";
+    level.scr_sound["griggs"]["jeepride_grg_niceshootin"] = "jeepride_grg_niceshootin";
+    level.scr_sound["griggs"]["jeepride_grg_success"] = "jeepride_grg_success";
+    level.scr_sound["griggs"]["jeepride_grg_thatsahit"] = "jeepride_grg_thatsahit";
+    level.scr_sound["griggs"]["jeepride_grg_devastation"] = "jeepride_grg_devastation";
+    level.scr_sound["griggs"]["jeepride_grg_bouttocollapse"] = "jeepride_grg_bouttocollapse";
+    level.scr_sound["griggs"]["jeepride_grg_tankabouttoblow"] = "jeepride_grg_tankabouttoblow";
+    level.scr_sound["griggs"]["jeepride_grg_takeoutbridge"] = "jeepride_grg_takeoutbridge";
+    level.scr_sound["gaz"]["jeepride_gaz_heavyattackbridge"] = "jeepride_gaz_heavyattackbridge";
+    level.scr_sound["gaz"]["jeepride_gaz_uselesswanker"] = "jeepride_gaz_uselesswanker";
+    level.scr_sound["gaz"]["jeepride_gaz_wereonourown"] = "jeepride_gaz_wereonourown";
+    level.scr_sound["gaz"]["jeepride_gaz_goodtohear"] = "jeepride_gaz_goodtohear";
+    level.scr_sound["gaz"]["jeepride_gaz_goodenough"] = "jeepride_gaz_goodenough";
+    level.scr_sound["gaz"]["jeepride_gaz_stopbloodytruck"] = "jeepride_gaz_stopbloodytruck";
+    level.scr_sound["griggs"]["jeepride_grg_devastation"] = "jeepride_grg_devastation";
+    level.scr_sound["griggs"]["jeepride_grg_devastation"] = "jeepride_grg_devastation";
+    level.scr_anim["price"]["jeepride_ending_price01"] = %jeepride_ending_price;
+    level.scr_anim["price"]["jeepride_ending_price02"] = %jeepride_ending_price;
+    level.scr_anim["price"]["wave_player_over"] = %h1_jeepride_bridgecollapse_price;
     maps\_anim::addnotetrack_animsound( "price", "jeepride_ending_price02", "scn_price_throw_colt_to_player", "scn_price_throw_colt_to_player" );
-    level._id_78AC["medic"]["jeepride_CPR_medic"] = %jeepride_cpr_medic;
-    level._id_78AC["price"]["jeepride_CPR_price"] = %jeepride_cpr_price;
-    level._id_78B1["price"] = #animtree;
-    level._id_78AC["griggs"]["drag_player"] = %jeepride_drag_grigsby;
-    level._id_78AC["price"]["drag_player"] = %jeepride_ending_price;
-    level._id_78B1["griggs"] = #animtree;
+    level.scr_anim["medic"]["jeepride_CPR_medic"] = %jeepride_cpr_medic;
+    level.scr_anim["price"]["jeepride_CPR_price"] = %jeepride_cpr_price;
+    level.scr_animtree["price"] = #animtree;
+    level.scr_anim["griggs"]["drag_player"] = %jeepride_drag_grigsby;
+    level.scr_anim["price"]["drag_player"] = %jeepride_ending_price;
+    level.scr_animtree["griggs"] = #animtree;
     maps\_anim::addnotetrack_customfunction( "griggs", "drop_pistol", ::drop_pistol );
     maps\_anim::addnotetrack_customfunction( "griggs", "fire", maps\jeepride::shoot_loc );
     maps\_anim::addnotetrack_customfunction( "griggs", "scripted_weaponswitch", ::scripted_weaponswitch );
@@ -125,52 +107,52 @@ main_anim()
     maps\_anim::addnotetrack_startfxontag( "vehicles", "start_cabin_fire", "bettle_Crash", "fire_crash_jeepride", "tag_deathfx" );
     maps\_anim::addnotetrack_startfxontag( "vehicles", "explosion_02", "bettle_Crash", "vehicle_explosion_generic", "tag_deathfx" );
     maps\_anim::addnotetrack_customfunction( "griggs", "scn_griggs_drag_colt_empty", ::play_griggs_custom_fire_empty_sfx, "drag_player" );
-    level._id_78AC["zakhaev"]["end_scene_01"] = %jeepride_zak_approach;
-    level._id_78AC["zakhaev_buddy1"]["end_scene_01"] = %jeepride_lguy_approach;
-    level._id_78AC["zakhaev_buddy2"]["end_scene_01"] = %jeepride_rguy_approach;
-    level._id_78AC["end_friend_1"]["end_scene_01"] = %jeepride_dying_approach;
-    level._id_78AC["end_friend_2"]["intopain"] = %dying_stand_2_crawl_v1;
-    level._id_78AC["end_friend_3"]["intopain"] = %dying_stand_2_back_v3;
-    level._id_78AC["end_friend_2"]["pain_pose"] = %dying_crawl_death_v1;
-    level._id_78AC["end_friend_2"]["pain_loop"][0] = %h1_jeepride_ending_dyingsoldier;
-    level._id_78AC["end_friend_3"]["pain_loop"][0] = %jeepride_dying_back_idle;
-    level._id_78AC["end_friend_3"]["pain_loop"][1] = %jeepride_dying_back_idle;
-    level._id_78AC["ru1"]["player_pickup"] = %jeepride_player_pickup_guy1;
-    level._id_78AC["ru2"]["player_pickup"] = %jeepride_player_pickup_guy2;
+    level.scr_anim["zakhaev"]["end_scene_01"] = %jeepride_zak_approach;
+    level.scr_anim["zakhaev_buddy1"]["end_scene_01"] = %jeepride_lguy_approach;
+    level.scr_anim["zakhaev_buddy2"]["end_scene_01"] = %jeepride_rguy_approach;
+    level.scr_anim["end_friend_1"]["end_scene_01"] = %jeepride_dying_approach;
+    level.scr_anim["end_friend_2"]["intopain"] = %dying_stand_2_crawl_v1;
+    level.scr_anim["end_friend_3"]["intopain"] = %dying_stand_2_back_v3;
+    level.scr_anim["end_friend_2"]["pain_pose"] = %dying_crawl_death_v1;
+    level.scr_anim["end_friend_2"]["pain_loop"][0] = %h1_jeepride_ending_dyingsoldier;
+    level.scr_anim["end_friend_3"]["pain_loop"][0] = %jeepride_dying_back_idle;
+    level.scr_anim["end_friend_3"]["pain_loop"][1] = %jeepride_dying_back_idle;
+    level.scr_anim["ru1"]["player_pickup"] = %jeepride_player_pickup_guy1;
+    level.scr_anim["ru2"]["player_pickup"] = %jeepride_player_pickup_guy2;
     maps\_anim::addnotetrack_dialogue( "ru2", "dialog", "player_pickup", "jeepride_ru2_allrightmyfriend" );
     maps\_anim::addnotetrack_dialogue( "ru2", "dialog", "player_pickup", "jeepride_ru2_gethimoutofhere" );
     maps\_anim::addnotetrack_sound( "ru1", "scn_jeepride_player_pickup_guy1_foley", "player_pickup", "scn_jeepride_player_pickup_guy1_foley" );
     maps\_anim::addnotetrack_sound( "ru2", "scn_jeepride_player_pickup_guy2_foley", "player_pickup", "scn_jeepride_player_pickup_guy2_foley" );
-    level._id_78AC["zakhaev"]["end_scene_02"] = %jeepride_zak_end;
-    level._id_78AC["zakhaev_buddy1"]["end_scene_02"] = %jeepride_lguy_end;
-    level._id_78AC["zakhaev_buddy2"]["end_scene_02"] = %jeepride_rguy_end;
-    level._id_78AC["generic"]["patrol_walk"] = %patrol_bored_patrolwalk;
-    level._id_78AC["generic"]["patrol_walk_twitch"] = %patrol_bored_patrolwalk_twitch;
-    level._id_78AC["generic"]["patrol_stop"] = %patrol_bored_walk_2_bored;
-    level._id_78AC["generic"]["patrol_start"] = %patrol_bored_2_walk;
-    level._id_78AC["generic"]["patrol_turn180"] = %patrol_bored_2_walk_180turn;
-    level._id_78AC["generic"]["patrol_idle_1"] = %patrol_bored_idle;
-    level._id_78AC["generic"]["patrol_idle_2"] = %patrol_bored_idle_smoke;
-    level._id_78AC["generic"]["patrol_idle_3"] = %patrol_bored_idle_cellphone;
-    level._id_78AC["generic"]["patrol_idle_4"] = %patrol_bored_twitch_bug;
-    level._id_78AC["generic"]["patrol_idle_5"] = %patrol_bored_twitch_checkphone;
-    level._id_78AC["generic"]["patrol_idle_6"] = %patrol_bored_twitch_stretch;
-    level._id_78AC["generic"]["patrol_idle_smoke"] = %patrol_bored_idle_smoke;
-    level._id_78AC["generic"]["patrol_idle_checkphone"] = %patrol_bored_twitch_checkphone;
-    level._id_78AC["generic"]["patrol_idle_stretch"] = %patrol_bored_twitch_stretch;
-    level._id_78AC["generic"]["patrol_idle_phone"] = %patrol_bored_idle_cellphone;
-    level._id_78AC["generic"]["patrol_jog"] = %patrol_jog;
-    level._id_78AC["generic"]["combat_jog"] = %combat_jog;
-    level._id_78AC["generic"]["patrol_jog_turn180"] = %patrol_jog_360;
-    level._id_78AC["generic"]["stealth_jog"] = %patrol_jog;
-    level._id_78AC["generic"]["stealth_walk"] = %patrol_bored_patrolwalk;
-    level._id_78AC["price"]["rpgfromgriggs_price"] = %h1_jeepride_rpgfromgriggs_price;
-    level._id_78AC["generic"]["rpgfromgriggs_price_idle"] = %uaz_lguy_idle_hide;
-    level._id_78AC["griggs"]["rpgfromgriggs_griggs"] = %h1_jeepride_rpgfromgriggs_griggs;
-    level._id_78AC["generic"]["rpgfromgriggs_griggs_idle"] = %uaz_rguy_idle;
+    level.scr_anim["zakhaev"]["end_scene_02"] = %jeepride_zak_end;
+    level.scr_anim["zakhaev_buddy1"]["end_scene_02"] = %jeepride_lguy_end;
+    level.scr_anim["zakhaev_buddy2"]["end_scene_02"] = %jeepride_rguy_end;
+    level.scr_anim["generic"]["patrol_walk"] = %patrol_bored_patrolwalk;
+    level.scr_anim["generic"]["patrol_walk_twitch"] = %patrol_bored_patrolwalk_twitch;
+    level.scr_anim["generic"]["patrol_stop"] = %patrol_bored_walk_2_bored;
+    level.scr_anim["generic"]["patrol_start"] = %patrol_bored_2_walk;
+    level.scr_anim["generic"]["patrol_turn180"] = %patrol_bored_2_walk_180turn;
+    level.scr_anim["generic"]["patrol_idle_1"] = %patrol_bored_idle;
+    level.scr_anim["generic"]["patrol_idle_2"] = %patrol_bored_idle_smoke;
+    level.scr_anim["generic"]["patrol_idle_3"] = %patrol_bored_idle_cellphone;
+    level.scr_anim["generic"]["patrol_idle_4"] = %patrol_bored_twitch_bug;
+    level.scr_anim["generic"]["patrol_idle_5"] = %patrol_bored_twitch_checkphone;
+    level.scr_anim["generic"]["patrol_idle_6"] = %patrol_bored_twitch_stretch;
+    level.scr_anim["generic"]["patrol_idle_smoke"] = %patrol_bored_idle_smoke;
+    level.scr_anim["generic"]["patrol_idle_checkphone"] = %patrol_bored_twitch_checkphone;
+    level.scr_anim["generic"]["patrol_idle_stretch"] = %patrol_bored_twitch_stretch;
+    level.scr_anim["generic"]["patrol_idle_phone"] = %patrol_bored_idle_cellphone;
+    level.scr_anim["generic"]["patrol_jog"] = %patrol_jog;
+    level.scr_anim["generic"]["combat_jog"] = %combat_jog;
+    level.scr_anim["generic"]["patrol_jog_turn180"] = %patrol_jog_360;
+    level.scr_anim["generic"]["stealth_jog"] = %patrol_jog;
+    level.scr_anim["generic"]["stealth_walk"] = %patrol_bored_patrolwalk;
+    level.scr_anim["price"]["rpgfromgriggs_price"] = %h1_jeepride_rpgfromgriggs_price;
+    level.scr_anim["generic"]["rpgfromgriggs_price_idle"] = %uaz_lguy_idle_hide;
+    level.scr_anim["griggs"]["rpgfromgriggs_griggs"] = %h1_jeepride_rpgfromgriggs_griggs;
+    level.scr_anim["generic"]["rpgfromgriggs_griggs_idle"] = %uaz_rguy_idle;
     maps\_anim::addnotetrack_customfunction( "griggs", "drop_rpg", maps\jeepride::remove_rpg_models, "rpgfromgriggs_griggs" );
-    _id_9C8B();
-    _id_6A5B();
+    vehicle_anims();
+    player_anims();
     thread cliff_collapse_anim();
     bridge_animation();
 }
@@ -195,45 +177,45 @@ drop_pistol( var_0 )
     var_3 = spawn( "script_model", var_0 gettagorigin( var_1 ) );
     var_3 setmodel( "weapon_colt1911_white" );
     var_3.angles = var_0 gettagorigin( var_1 );
-    var_3 physicslaunch( var_3.origin + ( 0.0, 0.0, 0.0 ), maps\_utility::vector_multiply( var_3.origin - var_2, 25 ) );
+    var_3 physicslaunchclient( var_3.origin + ( 0.0, 0.0, 0.0 ), maps\_utility::vector_multiply( var_3.origin - var_2, 25 ) );
 }
 
 play_griggs_brain_splatter_sfx( var_0 )
 {
-    var_0 thread maps\_utility::_id_69C5( "scn_griggs_shot_in_the_head", "TAG_EYE" );
+    var_0 thread maps\_utility::play_sound_on_tag( "scn_griggs_shot_in_the_head", "TAG_EYE" );
 }
 
 play_griggs_custom_fire_sfx( var_0 )
 {
     if ( isdefined( var_0.scriptedweapon ) && var_0.scriptedweapon == "wpn_h1_pst_m1911_vm" )
-        var_0.scriptedweaponmodel thread maps\_utility::_id_69C5( "scn_griggs_drag_colt_shot", "TAG_FLASH" );
+        var_0.scriptedweaponmodel thread maps\_utility::play_sound_on_tag( "scn_griggs_drag_colt_shot", "TAG_FLASH" );
     else
-        var_0 thread maps\_utility::_id_69C5( "scn_griggs_drag_saw_shot", "TAG_FLASH" );
+        var_0 thread maps\_utility::play_sound_on_tag( "scn_griggs_drag_saw_shot", "TAG_FLASH" );
 }
 
 play_griggs_custom_fire_empty_sfx( var_0 )
 {
-    var_0.scriptedweaponmodel thread maps\_utility::_id_69C5( "scn_griggs_drag_colt_empty", "TAG_FLASH" );
+    var_0.scriptedweaponmodel thread maps\_utility::play_sound_on_tag( "scn_griggs_drag_colt_empty", "TAG_FLASH" );
 }
 #using_animtree("player");
 
-_id_6A5B()
+player_anims()
 {
-    level._id_78AC["playerview"]["drag_player"] = %jeepride_drag_player;
-    level._id_78AC["playerview"]["player_pickup"] = %jeepride_player_pickup_player;
-    level._id_78AC["playerview"]["drag_player_wait"] = %h1_jeepride_drag_player_wait;
-    level._id_78B5["playerview"] = "worldbody_h1_sas_woodland_nopistol";
-    level._id_78B1["playerview"] = #animtree;
-    level._id_78AC["playerview"]["player_bridge"] = %h1_jeepride_bridgeexplosion_wakeup;
-    level._id_78AC["playerview"]["player_bridgeexplosion"] = %h1_jeepride_beforeexplosion_player;
-    level._id_78AC["playerview"]["player_bridge_mantle"] = %h1_jeepride_bridgecollapse_mantle;
+    level.scr_anim["playerview"]["drag_player"] = %jeepride_drag_player;
+    level.scr_anim["playerview"]["player_pickup"] = %jeepride_player_pickup_player;
+    level.scr_anim["playerview"]["drag_player_wait"] = %h1_jeepride_drag_player_wait;
+    level.scr_model["playerview"] = "worldbody_h1_sas_woodland_nopistol";
+    level.scr_animtree["playerview"] = #animtree;
+    level.scr_anim["playerview"]["player_bridge"] = %h1_jeepride_bridgeexplosion_wakeup;
+    level.scr_anim["playerview"]["player_bridgeexplosion"] = %h1_jeepride_beforeexplosion_player;
+    level.scr_anim["playerview"]["player_bridge_mantle"] = %h1_jeepride_bridgecollapse_mantle;
 }
 #using_animtree("vehicles");
 
-_id_9C8B()
+vehicle_anims()
 {
-    level._id_78AC["mi28"]["end_scene_01"] = %jeepride_mi28_flyby;
-    level._id_78B1["mi28"] = #animtree;
+    level.scr_anim["mi28"]["end_scene_01"] = %jeepride_mi28_flyby;
+    level.scr_animtree["mi28"] = #animtree;
     level.jeepride_crash_model = [];
     level.jeepride_crash_anim["Jeepride_crash_tunnel_pickup"] = %jeepride_crash_pillar;
     level.jeepride_crash_model["Jeepride_crash_tunnel_pickup"] = "vehicle_pickup_tankcrush";
@@ -241,18 +223,18 @@ _id_9C8B()
     level.jeepride_crash_anim["Jeepride_crash_tunnel_pickup2"] = %jeepride_flip_pickup;
     level.jeepride_crash_model["Jeepride_crash_tunnel_pickup2"] = "vehicle_pickup_4door";
     level.jeepride_crash_animtree["Jeepride_crash_tunnel_pickup2"] = #animtree;
-    level._id_78B1["vehicles"] = #animtree;
-    level._id_78AC["vehicles"]["crossroad_crash"] = %h1_jeepride_truck_crash_woodbeam;
-    level._id_78AC["vehicles"]["truck_tanker_crash"] = %h1_jeepride_truck_crash_tanker_bm21;
-    level._id_78AC["vehicles"]["tanker_tanker_crash"] = %h1_jeepride_truck_crash_tanker_tanker;
-    level._id_78AC["vehicles"]["tunnel_crash_truck01"] = %h1_jeepride_truck_crash_tunnel_truck01;
-    level._id_78AC["vehicles"]["tunnel_crash_truck02"] = %h1_jeepride_truck_crash_tunnel_truck02;
-    level._id_78AC["vehicles"]["drift_01"] = %h1_jeepride_civillian_car_drift01;
-    level._id_78AC["vehicles"]["three_crash"] = %h1_civilian_car_treecrash;
-    level._id_78AC["vehicles"]["heli_crash"] = %h1_jeepride_crashheli_ending;
-    level._id_78AC["vehicles"]["bettle_Crash"] = %h1_civilian_beetle_explosion;
-    level._id_78AC["vehicles"]["rock_Crash"] = %h1_civilian_pickup_rockcrash;
-    level._id_78AC["vehicles"]["concrete_Crash"] = %h1_civilian_pickup_concretecrash;
+    level.scr_animtree["vehicles"] = #animtree;
+    level.scr_anim["vehicles"]["crossroad_crash"] = %h1_jeepride_truck_crash_woodbeam;
+    level.scr_anim["vehicles"]["truck_tanker_crash"] = %h1_jeepride_truck_crash_tanker_bm21;
+    level.scr_anim["vehicles"]["tanker_tanker_crash"] = %h1_jeepride_truck_crash_tanker_tanker;
+    level.scr_anim["vehicles"]["tunnel_crash_truck01"] = %h1_jeepride_truck_crash_tunnel_truck01;
+    level.scr_anim["vehicles"]["tunnel_crash_truck02"] = %h1_jeepride_truck_crash_tunnel_truck02;
+    level.scr_anim["vehicles"]["drift_01"] = %h1_jeepride_civillian_car_drift01;
+    level.scr_anim["vehicles"]["three_crash"] = %h1_civilian_car_treecrash;
+    level.scr_anim["vehicles"]["heli_crash"] = %h1_jeepride_crashheli_ending;
+    level.scr_anim["vehicles"]["bettle_Crash"] = %h1_civilian_beetle_explosion;
+    level.scr_anim["vehicles"]["rock_Crash"] = %h1_civilian_pickup_rockcrash;
+    level.scr_anim["vehicles"]["concrete_Crash"] = %h1_civilian_pickup_concretecrash;
     maps\_anim::addnotetrack_customfunction( "vehicles", "scripted_sfx", maps\jeepride_aud::crossroad_crash, "crossroad_crash" );
     maps\_anim::addnotetrack_customfunction( "vehicles", "explosion_end", maps\jeepride_aud::play_anim_vehicle_explosion_sfx, "crossroad_crash", "scn_bm21_explode" );
     maps\_anim::addnotetrack_customfunction( "vehicles", "scripted_sfx", maps\jeepride_aud::truck_tanker_crash, "truck_tanker_crash" );
@@ -279,11 +261,11 @@ _id_9C8B()
     maps\_anim::addnotetrack_customfunction( "vehicles", "HitWall", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "tunnel_crash_truck01" );
     maps\_anim::addnotetrack_customfunction( "vehicles", "Flip", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "tunnel_crash_truck02" );
     maps\_anim::addnotetrack_customfunction( "vehicles", "HitTanker", maps\jeepride_code::anim_throw_junk_and_kill_all_guys, "truck_tanker_crash" );
-    level._id_78B3["vehicles"]["crossroad_crash"] = 0;
-    level._id_78B3["vehicles"]["tunnel_crash_truck01"] = 0;
-    level._id_78B3["vehicles"]["tunnel_crash_truck02"] = 0;
-    level._id_78B3["vehicles"]["truck_tanker_crash"] = 0;
-    level._id_78B3["vehicles"]["tanker_tanker_crash"] = 0;
+    level.scr_goaltime["vehicles"]["crossroad_crash"] = 0;
+    level.scr_goaltime["vehicles"]["tunnel_crash_truck01"] = 0;
+    level.scr_goaltime["vehicles"]["tunnel_crash_truck02"] = 0;
+    level.scr_goaltime["vehicles"]["truck_tanker_crash"] = 0;
+    level.scr_goaltime["vehicles"]["tanker_tanker_crash"] = 0;
     maps\_anim::addnotetrack_customfunction( "vehicles", "sparks_on", maps\jeepride_code::anim_spark_on );
     maps\_anim::addnotetrack_customfunction( "vehicles", "sparks_off", maps\jeepride_code::anim_spark_off );
     precache_crash_models();
@@ -303,25 +285,25 @@ precache_crash_models()
 
 uaz_overrides()
 {
-    var_0 = vehicle_scripts\_uaz::_id_7F23();
-    var_0[0]._id_85AE = "tag_driver";
-    var_0[1]._id_85AE = "tag_passenger";
-    var_0[2]._id_85AE = "tag_guy0";
-    var_0[3]._id_85AE = "tag_guy1";
-    var_0[4]._id_85AE = "tag_guy2";
-    var_0[5]._id_85AE = "tag_guy3";
-    var_0[0]._id_4B63 = %uaz_driver_idle;
-    var_0[1]._id_4B63 = %uaz_rguy_idle;
-    var_0[2]._id_4068 = %uaz_driver_exit_into_run;
-    var_0[3]._id_4068 = %uaz_passenger_exit_into_run;
-    var_0[2]._id_4B63 = [];
-    var_0[2]._id_4B63[0] = %uaz_lguy_idle_hide;
-    var_0[2]._id_4B63[1] = %uaz_lguy_idle_react;
-    var_0[2]._id_4B7E[0] = 1000;
-    var_0[2]._id_4B7E[1] = 100;
-    var_0[3]._id_4B63 = %uaz_rguy_idle;
-    var_0[4]._id_4B63 = undefined;
-    var_0[5]._id_4B63 = undefined;
+    var_0 = vehicle_scripts\_uaz::setanims();
+    var_0[0].sittag = "tag_driver";
+    var_0[1].sittag = "tag_passenger";
+    var_0[2].sittag = "tag_guy0";
+    var_0[3].sittag = "tag_guy1";
+    var_0[4].sittag = "tag_guy2";
+    var_0[5].sittag = "tag_guy3";
+    var_0[0].idle = %uaz_driver_idle;
+    var_0[1].idle = %uaz_rguy_idle;
+    var_0[2].getout = %uaz_driver_exit_into_run;
+    var_0[3].getout = %uaz_passenger_exit_into_run;
+    var_0[2].idle = [];
+    var_0[2].idle[0] = %uaz_lguy_idle_hide;
+    var_0[2].idle[1] = %uaz_lguy_idle_react;
+    var_0[2].idleoccurrence[0] = 1000;
+    var_0[2].idleoccurrence[1] = 100;
+    var_0[3].idle = %uaz_rguy_idle;
+    var_0[4].idle = undefined;
+    var_0[5].idle = undefined;
     var_0[2].hidetoback = %uaz_lguy_trans_hide2back;
     var_0[2].back_attack = %uaz_lguy_fire_back;
     var_0[2].backtohide = %uaz_lguy_trans_back2hide;
@@ -347,10 +329,10 @@ uaz_overrides()
     var_0[1].hide_attack_left[1] = %h1_uaz_rguy_fire_side_v2_l;
     var_0[1].hide_attack_left_occurrence[0] = 500;
     var_0[1].hide_attack_left_occurrence[1] = 500;
-    var_0[0]._id_2FB6 = %uaz_driver_duck;
-    var_0[0]._id_9925 = %uaz_driver_turnright;
-    var_0[0]._id_990B = %uaz_driver_turnleft;
-    var_0[0]._id_A2F7 = %uaz_driver_weave;
+    var_0[0].duck_once = %uaz_driver_duck;
+    var_0[0].turn_right = %uaz_driver_turnright;
+    var_0[0].turn_left = %uaz_driver_turnleft;
+    var_0[0].weave = %uaz_driver_weave;
     return var_0;
 }
 #using_animtree("vehicles");
@@ -362,29 +344,29 @@ override_roto_anim()
 
     for (;;)
     {
-        self _meth_814D( %mi28_rotors_add, 1, 0.2, 1 );
+        self setanim( %mi28_rotors_add, 1, 0.2, 1 );
         wait(var_0);
     }
 }
 
 uaz_override_vehicle( var_0 )
 {
-    var_0 = vehicle_scripts\_uaz::_id_7EFA( var_0 );
-    var_0[0]._id_9CE4 = %uaz_steeringwheel_idle;
-    var_0[0]._id_9CBE = %uaz_steeringwheel_duck;
-    var_0[0]._id_9D5C = %uaz_steeringwheel_turnleft;
-    var_0[0]._id_9D5D = %uaz_steeringwheel_turnright;
-    var_0[0]._id_9D6C = %uaz_steeringwheel_weave;
-    var_0[2]._id_9CD5 = %uaz_rear_driver_exit_into_run_door;
-    var_0[3]._id_9CD5 = %uaz_passenger2_exit_into_run_door;
+    var_0 = vehicle_scripts\_uaz::set_vehicle_anims( var_0 );
+    var_0[0].vehicle_idle = %uaz_steeringwheel_idle;
+    var_0[0].vehicle_duck_once = %uaz_steeringwheel_duck;
+    var_0[0].vehicle_turn_left = %uaz_steeringwheel_turnleft;
+    var_0[0].vehicle_turn_right = %uaz_steeringwheel_turnright;
+    var_0[0].vehicle_weave = %uaz_steeringwheel_weave;
+    var_0[2].vehicle_getoutanim = %uaz_rear_driver_exit_into_run_door;
+    var_0[3].vehicle_getoutanim = %uaz_passenger2_exit_into_run_door;
     return var_0;
 }
 #using_animtree("animated_props");
 
 bridge_animation()
 {
-    level._id_78B1["bridge_collapse"] = #animtree;
-    level._id_78AC["bridge_collapse"]["bridge_collapsing"] = %h1_jeepride_bridgecollapse;
+    level.scr_animtree["bridge_collapse"] = #animtree;
+    level.scr_anim["bridge_collapse"]["bridge_collapsing"] = %h1_jeepride_bridgecollapse;
     maps\_anim::addnotetrack_customfunction( "bridge_collapse", "scn_bridge_collapse_01", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "01" );
     maps\_anim::addnotetrack_customfunction( "bridge_collapse", "scn_bridge_collapse_02", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "02" );
     maps\_anim::addnotetrack_customfunction( "bridge_collapse", "scn_bridge_collapse_03", maps\jeepride_aud::play_bridge_collapse_sfx, "bridge_collapsing", "03" );
@@ -432,21 +414,21 @@ bridge_animation()
     for ( var_0 = 1; var_0 <= 7; var_0++ )
         maps\_anim::addnotetrack_startfxontag( "bridge_collapse", "vfx_dust_ambient_" + var_0, "bridge_collapsing", "bridge_leftovers_2", "tag_fx_dust_ambient_" + var_0 );
 
-    level._id_78B1["rpgfromgriggs"] = #animtree;
-    level._id_78AC["rpgfromgriggs"]["rpgfromgriggs_rpg"] = %h1_jeepride_rpgfromgriggs_rpg;
-    level._id_78B1["pistol_griggs"] = #animtree;
-    level._id_78AC["pistol_griggs"]["drag_pistol"] = %h1_jeepride_drag_pistol;
+    level.scr_animtree["rpgfromgriggs"] = #animtree;
+    level.scr_anim["rpgfromgriggs"]["rpgfromgriggs_rpg"] = %h1_jeepride_rpgfromgriggs_rpg;
+    level.scr_animtree["pistol_griggs"] = #animtree;
+    level.scr_anim["pistol_griggs"]["drag_pistol"] = %h1_jeepride_drag_pistol;
 }
 #using_animtree("script_model");
 
 cliff_collapse_anim()
 {
-    level._id_78B1["exploder_script_model"] = #animtree;
-    level._id_78AC["exploder_script_model"]["h1_jeepride_cliff_collapse_1_anim"] = %h1_jeepride_cliff_collapse_1_anim;
-    level._id_78AC["exploder_script_model"]["h1_jeepride_cliff_collapse_2_anim"] = %h1_jeepride_cliff_collapse_2_anim;
-    level._id_78AC["exploder_script_model"]["h1_jeepride_cliff_collapse_3_anim"] = %h1_jeepride_cliff_collapse_3_anim;
-    level._id_78AC["exploder_script_model"]["h1_jeepride_cliff_collapse_4_anim"] = %h1_jeepride_cliff_collapse_4_anim;
-    level._id_78AC["exploder_script_model"]["h1_jeepride_cliff_collapse_5_anim"] = %h1_jeepride_cliff_collapse_5_anim;
+    level.scr_animtree["exploder_script_model"] = #animtree;
+    level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_1_anim"] = %h1_jeepride_cliff_collapse_1_anim;
+    level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_2_anim"] = %h1_jeepride_cliff_collapse_2_anim;
+    level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_3_anim"] = %h1_jeepride_cliff_collapse_3_anim;
+    level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_4_anim"] = %h1_jeepride_cliff_collapse_4_anim;
+    level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_5_anim"] = %h1_jeepride_cliff_collapse_5_anim;
 }
 #using_animtree("animated_props");
 

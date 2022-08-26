@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     precache_lighting_and_fx();
-    _id_4D05();
+    init_level_lighting_flags();
     level.cheat_highcontrast_override = "_night";
-    thread _id_80C6();
-    thread _id_7E68();
+    thread setup_dof_presets();
+    thread set_level_lighting_values();
     thread generic_lights_flickering();
     setup_lighting_triggers();
     setup_lights_triggers();
@@ -41,12 +23,12 @@ precache_lighting_and_fx()
     precacheshader( "credits_cod4" );
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
 
 }
 
-_id_80C6()
+setup_dof_presets()
 {
 
 }
@@ -77,7 +59,7 @@ lighting_trigger_think()
     }
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
     setsaveddvar( "sm_sunSampleSizeNear", ".5" );
     setsaveddvar( "r_specularColorScale", "3" );
@@ -99,8 +81,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 0.0;
 
-            maps\_utility::_id_7F00( "cargoship_intro", var_1 );
-            maps\_utility::_id_9E6E( "cargoship_intro", var_1 );
+            maps\_utility::set_vision_set( "cargoship_intro", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_intro", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_intro" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -108,8 +90,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "cargoship_exterior", var_1 );
-            maps\_utility::_id_9E6E( "cargoship_exterior", var_1 );
+            maps\_utility::set_vision_set( "cargoship_exterior", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_exterior", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -117,7 +99,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "cargoship_introtransit", var_1 );
+            maps\_utility::set_vision_set( "cargoship_introtransit", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -125,8 +107,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 3.0;
 
-            maps\_utility::_id_7F00( "cargoship_interior_upperdeck", var_1 );
-            maps\_utility::_id_9E6E( "cargoship_interior_upperdeck", var_1 );
+            maps\_utility::set_vision_set( "cargoship_interior_upperdeck", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_interior_upperdeck", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_upperdeck" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -134,8 +116,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            maps\_utility::_id_7F00( "cargoship_interior_transition", var_1 );
-            maps\_utility::_id_9E6E( "cargoship_interior_transition", var_1 );
+            maps\_utility::set_vision_set( "cargoship_interior_transition", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_interior_transition", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_transition" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -143,10 +125,10 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            maps\_utility::_id_7F00( "cargoship_explosion", 0.2 );
+            maps\_utility::set_vision_set( "cargoship_explosion", 0.2 );
             wait 0.3;
-            maps\_utility::_id_9E6E( "cargoship_interior_cargohold_alert", var_1 );
-            maps\_utility::_id_7F00( "cargoship_interior_cargohold_alert_igc", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_interior_cargohold_alert", var_1 );
+            maps\_utility::set_vision_set( "cargoship_interior_cargohold_alert_igc", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_cargohold_alert" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -154,8 +136,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            maps\_utility::_id_7F00( "cargoship_interior_cargohold_alert", var_1 );
-            maps\_utility::_id_9E6E( "cargoship_interior_cargohold_alert", var_1 );
+            maps\_utility::set_vision_set( "cargoship_interior_cargohold_alert", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_interior_cargohold_alert", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_cargohold_alert" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -163,8 +145,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            maps\_utility::_id_7F00( "cargoship_exterior_outro", var_1 );
-            maps\_utility::_id_395E( "cargoship_exterior" );
+            maps\_utility::set_vision_set( "cargoship_exterior_outro", var_1 );
+            maps\_utility::fog_set_changes( "cargoship_exterior" );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior_outro" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -172,8 +154,8 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 2.0;
 
-            maps\_utility::_id_7F00( "cargoship_outro", var_1 );
-            maps\_utility::_id_9E6E( "cargoship_outro", var_1 );
+            maps\_utility::set_vision_set( "cargoship_outro", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_outro", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_outro" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -181,7 +163,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_9E6E( "cargoship_exterior", var_1 );
+            maps\_utility::vision_set_fog_changes( "cargoship_exterior", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.player _meth_848C( "clut_cargoship", var_1 );
             break;
@@ -205,7 +187,7 @@ activate_lights( var_0, var_1, var_2 )
         return;
 
     var_3 = getentarray( var_0, "targetname" );
-    var_4 = common_scripts\utility::_id_40FD( var_0, "targetname" );
+    var_4 = common_scripts\utility::getstructarray( var_0, "targetname" );
 
     foreach ( var_6 in var_3 )
         var_6 set_light_intensity( !var_1, var_2 );
@@ -223,7 +205,7 @@ set_light_intensity( var_0, var_1 )
     {
         var_5 = var_3[var_4];
 
-        if ( isdefined( var_5._id_7A99 ) && var_5._id_7A99 == "light" )
+        if ( isdefined( var_5.script_parameters ) && var_5.script_parameters == "light" )
         {
             var_2 = var_5;
             break;
@@ -235,7 +217,7 @@ set_light_intensity( var_0, var_1 )
         if ( !isdefined( var_2.old_light_intensity ) )
             var_2.old_light_intensity = var_2 getlightintensity();
 
-        var_2 setlightintensity( common_scripts\utility::_id_9294( var_0, 0.0, var_2.old_light_intensity ) );
+        var_2 setlightintensity( common_scripts\utility::ter_op( var_0, 0.0, var_2.old_light_intensity ) );
 
         if ( isdefined( var_1 ) )
             var_2 _meth_8494( var_1 );
@@ -268,7 +250,7 @@ apply_lights_change( var_0 )
     if ( !isdefined( var_0 ) )
         return;
 
-    var_1 = strtok( self._id_7A99, ":; " );
+    var_1 = strtok( self.script_parameters, ":; " );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -295,22 +277,22 @@ apply_lights_change( var_0 )
 
 generic_lights_flickering()
 {
-    thread maps\_lighting::_id_5D3A( "flicker_1", 0, 200, 3000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
+    thread maps\_lighting::model_flicker_preset( "flicker_1", 0, 200, 3000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
 }
 
 aftdeck_lights_flickering()
 {
-    thread maps\_lighting::_id_5D3A( "flicker_3", 0, 150, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
+    thread maps\_lighting::model_flicker_preset( "flicker_3", 0, 150, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, undefined, 100 );
 }
 
 cargohold_lights_flickering()
 {
-    thread maps\_lighting::_id_5D3A( "flicker_2", 0, 200, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
+    thread maps\_lighting::model_flicker_preset( "flicker_2", 0, 200, 8000, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
 }
 
 sinking_ship_lights_flickering()
 {
-    thread maps\_lighting::_id_5D3A( "flicker_4", 0, 2, 100, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
+    thread maps\_lighting::model_flicker_preset( "flicker_4", 0, 2, 100, undefined, undefined, 0.005, 0.5, 0.005, 0.6, undefined, undefined, 100 );
 }
 
 init_emergency_lights()
@@ -331,22 +313,22 @@ activate_emergency_lights()
 
     foreach ( var_3 in var_1 )
     {
-        var_4 = common_scripts\utility::_id_8959();
+        var_4 = common_scripts\utility::spawn_tag_origin();
         var_4.origin = var_3.origin;
         var_4.angles = var_3.angles;
         var_4 linkto( var_3 );
-        playfxontag( common_scripts\utility::_id_3FA8( "emergency_light" ), var_4, "tag_origin" );
+        playfxontag( common_scripts\utility::getfx( "emergency_light" ), var_4, "tag_origin" );
     }
 
     foreach ( var_7 in var_0 )
     {
         if ( var_7.code_classname == "light" )
-            var_7 setlightintensity( var_7._id_7A18 );
+            var_7 setlightintensity( var_7.script_index );
 
         var_8 = undefined;
 
-        if ( isdefined( var_7._id_7A26 ) )
-            var_8 = getent( var_7._id_7A26, "script_linkname" );
+        if ( isdefined( var_7.script_linkto ) )
+            var_8 = getent( var_7.script_linkto, "script_linkname" );
 
         if ( !isdefined( var_8 ) )
             var_8 = var_7;
@@ -372,22 +354,22 @@ emergency_light_rotation( var_0 )
 
 explosion_lerping()
 {
-    common_scripts\utility::_id_384A( "escape_explosion" );
-    maps\_lighting::_id_56A0( "fire", 0, 250000 );
-    maps\_lighting::_id_56A0( "fire_crate", 0, 250000 );
-    maps\_lighting::_id_56A0( "price_fall_fill", 0, 55000 );
-    maps\_lighting::_id_56A0( "gaz_fall_rim", 1, 20000 );
+    common_scripts\utility::flag_wait( "escape_explosion" );
+    maps\_lighting::lerp_spot_intensity( "fire", 0, 250000 );
+    maps\_lighting::lerp_spot_intensity( "fire_crate", 0, 250000 );
+    maps\_lighting::lerp_spot_intensity( "price_fall_fill", 0, 55000 );
+    maps\_lighting::lerp_spot_intensity( "gaz_fall_rim", 1, 20000 );
     wait 8;
-    maps\_lighting::_id_56A0( "gaz_fall_rim", 0, 0 );
-    maps\_lighting::_id_56A0( "gaz_rim", 0, 65000 );
+    maps\_lighting::lerp_spot_intensity( "gaz_fall_rim", 0, 0 );
+    maps\_lighting::lerp_spot_intensity( "gaz_rim", 0, 65000 );
     wait 5;
-    maps\_lighting::_id_56A0( "price_fill", 0, 65000 );
-    maps\_lighting::_id_56A0( "price_bounce", 0, 15000 );
-    maps\_lighting::_id_56A0( "price_fall_fill", 1, 0 );
-    common_scripts\utility::_id_384A( "escape_get_to_catwalks" );
-    maps\_lighting::_id_56A0( "price_fill", 1, 0 );
-    maps\_lighting::_id_56A0( "gaz_rim", 1, 0 );
-    maps\_lighting::_id_56A0( "price_bounce", 1, 0 );
+    maps\_lighting::lerp_spot_intensity( "price_fill", 0, 65000 );
+    maps\_lighting::lerp_spot_intensity( "price_bounce", 0, 15000 );
+    maps\_lighting::lerp_spot_intensity( "price_fall_fill", 1, 0 );
+    common_scripts\utility::flag_wait( "escape_get_to_catwalks" );
+    maps\_lighting::lerp_spot_intensity( "price_fill", 1, 0 );
+    maps\_lighting::lerp_spot_intensity( "gaz_rim", 1, 0 );
+    maps\_lighting::lerp_spot_intensity( "price_bounce", 1, 0 );
 }
 
 special_lighting_trigger_think()
@@ -396,7 +378,7 @@ special_lighting_trigger_think()
     {
         self waittill( "trigger" );
 
-        if ( common_scripts\utility::_id_382E( "escape_exterior_visionset" ) )
+        if ( common_scripts\utility::flag( "escape_exterior_visionset" ) )
             var_0 = "cargoship_exterior_outro";
         else
             var_0 = "cargoship_exterior";

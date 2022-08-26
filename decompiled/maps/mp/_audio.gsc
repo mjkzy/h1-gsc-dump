@@ -1,41 +1,23 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4CB6()
+init_audio()
 {
     if ( !isdefined( level.audio ) )
         level.audio = spawnstruct();
 
-    _id_4D38();
-    _id_4D78();
-    level._id_64C9 = ::_id_64C9;
+    init_reverb();
+    init_whizby();
+    level.onplayerconnectaudioinit = ::onplayerconnectaudioinit;
 }
 
-_id_64C9()
+onplayerconnectaudioinit()
 {
     apply_reverb( "default" );
     apply_whizby();
 }
 
-_id_4D38()
+init_reverb()
 {
     add_reverb( "default", "generic", 0.15, 0.9, 2 );
 }
@@ -43,56 +25,56 @@ _id_4D38()
 add_reverb( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = [];
-    _id_5078( var_1 );
+    is_roomtype_valid( var_1 );
     var_5["roomtype"] = var_1;
     var_5["wetlevel"] = var_2;
     var_5["drylevel"] = var_3;
     var_5["fadetime"] = var_4;
-    level.audio._id_74F1[var_0] = var_5;
+    level.audio.reverb_settings[var_0] = var_5;
 }
 
-_id_5078( var_0 )
+is_roomtype_valid( var_0 )
 {
 
 }
 
 apply_reverb( var_0 )
 {
-    if ( !isdefined( level.audio._id_74F1[var_0] ) )
-        var_1 = level.audio._id_74F1["default"];
+    if ( !isdefined( level.audio.reverb_settings[var_0] ) )
+        var_1 = level.audio.reverb_settings["default"];
     else
-        var_1 = level.audio._id_74F1[var_0];
+        var_1 = level.audio.reverb_settings[var_0];
 
     self setreverb( "snd_enveffectsprio_level", var_1["roomtype"], var_1["drylevel"], var_1["wetlevel"], var_1["fadetime"] );
 }
 
-_id_4D78()
+init_whizby()
 {
-    level.audio._id_A315 = [];
-    _id_7F0A( 15.0, 30.0, 50.0 );
-    _id_7F0B( 150.0, 250.0, 350.0 );
+    level.audio.whizby_settings = [];
+    set_whizby_radius( 15.0, 30.0, 50.0 );
+    set_whizby_spread( 150.0, 250.0, 350.0 );
 }
 
-_id_7F0A( var_0, var_1, var_2 )
+set_whizby_radius( var_0, var_1, var_2 )
 {
-    level.audio._id_A315["radius"] = [ var_0, var_1, var_2 ];
+    level.audio.whizby_settings["radius"] = [ var_0, var_1, var_2 ];
 }
 
-_id_7F0B( var_0, var_1, var_2 )
+set_whizby_spread( var_0, var_1, var_2 )
 {
-    level.audio._id_A315["spread"] = [ var_0, var_1, var_2 ];
+    level.audio.whizby_settings["spread"] = [ var_0, var_1, var_2 ];
 }
 
 apply_whizby()
 {
-    var_0 = level.audio._id_A315;
+    var_0 = level.audio.whizby_settings;
     var_1 = var_0["spread"];
     var_2 = var_0["radius"];
     self setwhizbyspreads( var_1[0], var_1[1], var_1[2] );
     self setwhizbyradii( var_2[0], var_2[1], var_2[2] );
 }
 
-_id_8746( var_0, var_1 )
+snd_play_team_splash( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = "null";
@@ -121,19 +103,19 @@ _id_8746( var_0, var_1 )
     }
 }
 
-_id_8744( var_0, var_1, var_2, var_3 )
+snd_play_on_notetrack_timer( var_0, var_1, var_2, var_3 )
 {
 
 }
 
-_id_8743( var_0, var_1, var_2 )
+snd_play_on_notetrack( var_0, var_1, var_2 )
 {
     self endon( "stop_sequencing_notetracks" );
     self endon( "death" );
-    _id_87B7( var_0, var_1, var_2 );
+    sndx_play_on_notetrack_internal( var_0, var_1, var_2 );
 }
 
-_id_87B7( var_0, var_1, var_2 )
+sndx_play_on_notetrack_internal( var_0, var_1, var_2 )
 {
     for (;;)
     {
@@ -157,16 +139,16 @@ _id_87B7( var_0, var_1, var_2 )
     }
 }
 
-_id_7B43( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+scriptmodelplayanimwithnotify( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( isdefined( var_4 ) )
         level endon( var_4 );
 
-    var_0 _meth_8277( var_1, var_2 );
-    thread _id_7B44( var_0, var_2, var_3, var_4, var_5, var_6 );
+    var_0 scriptmodelplayanimdeltamotion( var_1, var_2 );
+    thread scriptmodelplayanimwithnotify_notetracks( var_0, var_2, var_3, var_4, var_5, var_6 );
 }
 
-_id_7B44( var_0, var_1, var_2, var_3, var_4, var_5 )
+scriptmodelplayanimwithnotify_notetracks( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( isdefined( var_3 ) )
         level endon( var_3 );
@@ -193,7 +175,7 @@ scriptmodelplayanimwithnotify_uniquename( var_0, var_1, var_2, var_3, var_4, var
     if ( isdefined( var_5 ) )
         level endon( var_5 );
 
-    var_0 _meth_8277( var_1, var_2 );
+    var_0 scriptmodelplayanimdeltamotion( var_1, var_2 );
     thread scriptmodelplayanimwithnotify_notetracks_uniquename( var_0, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
@@ -240,7 +222,7 @@ scriptmodelplayanimwithnotify_notetracks_uniquename( var_0, var_1, var_2, var_3,
     }
 }
 
-_id_877E( var_0, var_1, var_2 )
+snd_veh_play_loops( var_0, var_1, var_2 )
 {
     var_3 = self;
     var_4 = [ var_0, var_1, var_2 ];
@@ -265,7 +247,7 @@ _id_877E( var_0, var_1, var_2 )
     }
 }
 
-_id_2899( var_0, var_1 )
+deprecated_aud_map( var_0, var_1 )
 {
     var_2 = 0.0;
     var_3 = var_1.size;
@@ -292,7 +274,7 @@ _id_2899( var_0, var_1 )
     return var_2;
 }
 
-_id_8741( var_0, var_1, var_2, var_3 )
+snd_play_loop_in_space( var_0, var_1, var_2, var_3 )
 {
     var_4 = 0.2;
 
@@ -301,11 +283,11 @@ _id_8741( var_0, var_1, var_2, var_3 )
 
     var_5 = spawn( "script_origin", var_1 );
     var_5 playloopsound( var_0 );
-    thread _id_87B6( var_5, var_2, var_4 );
+    thread sndx_play_loop_in_space_internal( var_5, var_2, var_4 );
     return var_5;
 }
 
-_id_87B6( var_0, var_1, var_2 )
+sndx_play_loop_in_space_internal( var_0, var_1, var_2 )
 {
     level waittill( var_1 );
 
@@ -317,32 +299,32 @@ _id_87B6( var_0, var_1, var_2 )
     }
 }
 
-_id_8750( var_0 )
+snd_script_timer( var_0 )
 {
-    level._id_9376 = 0;
+    level.timer_number = 0;
 
     if ( !isdefined( var_0 ) )
         var_0 = 0.1;
 
     for (;;)
     {
-        iprintln( level._id_9376 );
+        iprintln( level.timer_number );
         wait(var_0);
-        level._id_9376 += var_0;
+        level.timer_number += var_0;
     }
 }
 
-_id_8736( var_0, var_1, var_2, var_3 )
+snd_play_in_space( var_0, var_1, var_2, var_3 )
 {
     var_4 = 9;
     var_5 = 0.75;
     var_6 = spawn( "script_origin", var_1 );
     var_6 playsound( var_0 );
-    var_6 thread _id_87B3( var_4, var_5 );
+    var_6 thread sndx_play_in_space_internal( var_4, var_5 );
     return var_6;
 }
 
-_id_87B3( var_0, var_1 )
+sndx_play_in_space_internal( var_0, var_1 )
 {
     var_2 = 9;
     var_3 = 0.05;
@@ -366,16 +348,16 @@ _id_87B3( var_0, var_1 )
     }
 }
 
-_id_8737( var_0, var_1, var_2, var_3, var_4 )
+snd_play_in_space_delayed( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = 9;
     var_6 = 0.75;
     var_7 = spawn( "script_origin", var_1 );
-    var_7 thread _id_87B2( var_0, var_2, var_3, var_4 );
+    var_7 thread sndx_play_in_space_delayed_internal( var_0, var_2, var_3, var_4 );
     return var_7;
 }
 
-_id_87B2( var_0, var_1, var_2, var_3 )
+sndx_play_in_space_delayed_internal( var_0, var_1, var_2, var_3 )
 {
     wait(var_1);
     var_4 = 9;
@@ -401,15 +383,15 @@ _id_87B2( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_8738( var_0, var_1, var_2, var_3 )
+snd_play_linked( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawn( "script_origin", var_1.origin );
     var_4 linkto( var_1 );
-    var_4 thread _id_87B4( var_0, var_1, var_2, var_3 );
+    var_4 thread sndx_play_linked_internal( var_0, var_1, var_2, var_3 );
     return var_4;
 }
 
-_id_87B4( var_0, var_1, var_2, var_3 )
+sndx_play_linked_internal( var_0, var_1, var_2, var_3 )
 {
     var_4 = 9;
     var_5 = 0.05;
@@ -432,15 +414,15 @@ _id_87B4( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_873A( var_0, var_1, var_2 )
+snd_play_linked_loop( var_0, var_1, var_2 )
 {
     var_3 = spawn( "script_origin", var_1.origin );
     var_3 linkto( var_1 );
-    var_3 thread _id_87B5( var_0, var_1, var_2 );
+    var_3 thread sndx_play_linked_loop_internal( var_0, var_1, var_2 );
     return var_3;
 }
 
-_id_87B5( var_0, var_1, var_2 )
+sndx_play_linked_loop_internal( var_0, var_1, var_2 )
 {
     var_3 = 0.05;
     var_4 = self;
@@ -523,7 +505,7 @@ audx_print_3d_timer( var_0 )
         self notify( "aud_stop_3D_print" );
 }
 
-_id_877F()
+snd_vehicle_mp()
 {
 
 }

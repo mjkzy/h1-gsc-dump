@@ -1,108 +1,90 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main( var_0 )
 {
     self endon( "killanimscript" );
-    animscripts\utility::_id_4DD7( "saw" );
+    animscripts\utility::initialize( "saw" );
 
     if ( !isdefined( var_0 ) )
         return;
 
-    self.a._id_8A1A = "saw";
+    self.a.special = "saw";
 
-    if ( isdefined( var_0._id_798E ) )
-        var_1 = var_0._id_798E;
+    if ( isdefined( var_0.script_delay_min ) )
+        var_1 = var_0.script_delay_min;
     else
         var_1 = maps\_mgturret::burst_fire_settings( "delay" );
 
-    if ( isdefined( var_0._id_798D ) )
-        var_2 = var_0._id_798D - var_1;
+    if ( isdefined( var_0.script_delay_max ) )
+        var_2 = var_0.script_delay_max - var_1;
     else
         var_2 = maps\_mgturret::burst_fire_settings( "delay_range" );
 
-    if ( isdefined( var_0._id_7968 ) )
-        var_3 = var_0._id_7968;
+    if ( isdefined( var_0.script_burst_min ) )
+        var_3 = var_0.script_burst_min;
     else
         var_3 = maps\_mgturret::burst_fire_settings( "burst" );
 
-    if ( isdefined( var_0._id_7967 ) )
-        var_4 = var_0._id_7967 - var_3;
+    if ( isdefined( var_0.script_burst_max ) )
+        var_4 = var_0.script_burst_max - var_3;
     else
         var_4 = maps\_mgturret::burst_fire_settings( "burst_range" );
 
     var_5 = gettime();
     var_6 = "start";
-    animscripts\shared::_id_6869( self.weapon, "none" );
+    animscripts\shared::placeweaponon( self.weapon, "none" );
     var_0 show();
 
     if ( isdefined( var_0.aiowner ) )
     {
-        self.a._id_6E8D = ::_id_6E8D;
-        self.a._id_9C3C = var_0;
+        self.a.postscriptfunc = ::postscriptfunc;
+        self.a.usingturret = var_0;
         var_0 notify( "being_used" );
-        thread _id_8F09();
+        thread stopusingturretwhennodelost();
     }
     else
-        self.a._id_6E8D = ::_id_6F1D;
+        self.a.postscriptfunc = ::preplacedpostscriptfunc;
 
-    var_0._id_2C7E = 0;
-    thread _id_37D1( var_0 );
-    self _meth_8197( self._id_6F8E );
-    self _meth_8147( self._id_6F8E, 1, 0.2, 1 );
-    self _meth_8148( self.additiveturretidle );
-    self _meth_8148( self.additiveturretfire );
-    var_0 _meth_8148( var_0.additiveturretidle );
-    var_0 _meth_8148( var_0.additiveturretfire );
+    var_0.dofiring = 0;
+    thread firecontroller( var_0 );
+    self setturretanim( self.primaryturretanim );
+    self setanimknobrestart( self.primaryturretanim, 1, 0.2, 1 );
+    self setanimknoblimitedrestart( self.additiveturretidle );
+    self setanimknoblimitedrestart( self.additiveturretfire );
+    var_0 setanimknoblimitedrestart( var_0.additiveturretidle );
+    var_0 setanimknoblimitedrestart( var_0.additiveturretfire );
     var_0 endon( "death" );
 
     for (;;)
     {
-        if ( var_0._id_2C7E )
+        if ( var_0.dofiring )
         {
-            thread _id_2D79( var_0 );
-            _id_A0FB( randomfloatrange( var_3, var_3 + var_4 ), var_0 );
+            thread doshoot( var_0 );
+            waittimeoruntilturretstatechange( randomfloatrange( var_3, var_3 + var_4 ), var_0 );
             var_0 notify( "turretstatechange" );
 
-            if ( var_0._id_2C7E )
+            if ( var_0.dofiring )
             {
-                thread _id_2BE1( var_0 );
+                thread doaim( var_0 );
                 wait(randomfloatrange( var_1, var_1 + var_2 ));
             }
 
             continue;
         }
 
-        thread _id_2BE1( var_0 );
+        thread doaim( var_0 );
         var_0 waittill( "turretstatechange" );
     }
 }
 
-_id_A0FB( var_0, var_1 )
+waittimeoruntilturretstatechange( var_0, var_1 )
 {
     var_1 endon( "turretstatechange" );
     wait(var_0);
 }
 
-_id_37D1( var_0 )
+firecontroller( var_0 )
 {
     self endon( "killanimscript" );
     var_1 = cos( 15 );
@@ -114,26 +96,26 @@ _id_37D1( var_0 )
             var_2 = self.enemy.origin;
             var_3 = var_0 gettagangles( "tag_aim" );
 
-            if ( common_scripts\utility::_id_A347( var_0.origin, var_3, var_2, var_1 ) || distancesquared( var_0.origin, var_2 ) < 40000 )
+            if ( common_scripts\utility::within_fov( var_0.origin, var_3, var_2, var_1 ) || distancesquared( var_0.origin, var_2 ) < 40000 )
             {
-                if ( !var_0._id_2C7E )
+                if ( !var_0.dofiring )
                 {
-                    var_0._id_2C7E = 1;
+                    var_0.dofiring = 1;
                     var_0 notify( "turretstatechange" );
                 }
             }
-            else if ( var_0._id_2C7E )
+            else if ( var_0.dofiring )
             {
-                var_0._id_2C7E = 0;
+                var_0.dofiring = 0;
                 var_0 notify( "turretstatechange" );
             }
 
             wait 0.05;
         }
 
-        if ( var_0._id_2C7E )
+        if ( var_0.dofiring )
         {
-            var_0._id_2C7E = 0;
+            var_0.dofiring = 0;
             var_0 notify( "turretstatechange" );
         }
 
@@ -141,7 +123,7 @@ _id_37D1( var_0 )
     }
 }
 
-_id_99C3( var_0, var_1 )
+turrettimer( var_0, var_1 )
 {
     if ( var_0 <= 0 )
         return;
@@ -152,82 +134,82 @@ _id_99C3( var_0, var_1 )
     var_1 notify( "turretstatechange" );
 }
 
-_id_8F09()
+stopusingturretwhennodelost()
 {
     self endon( "killanimscript" );
 
     for (;;)
     {
         if ( !isdefined( self.node ) || distancesquared( self.origin, self.node.origin ) > 4096 )
-            self _meth_818F();
+            self stopuseturret();
 
         wait 0.25;
     }
 }
 
-_id_6E8D( var_0 )
+postscriptfunc( var_0 )
 {
     if ( var_0 == "pain" )
     {
         if ( isdefined( self.node ) && distancesquared( self.origin, self.node.origin ) < 4096 )
         {
-            self.a._id_9C3C hide();
-            animscripts\shared::_id_6869( self.weapon, "right" );
-            self.a._id_6E8D = ::_id_6E8B;
+            self.a.usingturret hide();
+            animscripts\shared::placeweaponon( self.weapon, "right" );
+            self.a.postscriptfunc = ::postpainfunc;
             return;
         }
         else
-            self _meth_818F();
+            self stopuseturret();
     }
 
     if ( var_0 == "saw" )
     {
-        var_1 = self _meth_8198();
+        var_1 = self getturret();
         return;
     }
 
-    self.a._id_9C3C delete();
-    self.a._id_9C3C = undefined;
-    animscripts\shared::_id_6869( self.weapon, "right" );
+    self.a.usingturret delete();
+    self.a.usingturret = undefined;
+    animscripts\shared::placeweaponon( self.weapon, "right" );
 }
 
-_id_6E8B( var_0 )
+postpainfunc( var_0 )
 {
     if ( !isdefined( self.node ) || distancesquared( self.origin, self.node.origin ) > 4096 )
     {
-        self _meth_818F();
-        self.a._id_9C3C delete();
-        self.a._id_9C3C = undefined;
+        self stopuseturret();
+        self.a.usingturret delete();
+        self.a.usingturret = undefined;
 
         if ( isdefined( self.weapon ) && self.weapon != "none" )
-            animscripts\shared::_id_6869( self.weapon, "right" );
+            animscripts\shared::placeweaponon( self.weapon, "right" );
     }
     else if ( var_0 != "saw" )
-        self.a._id_9C3C delete();
+        self.a.usingturret delete();
 }
 
-_id_6F1D( var_0 )
+preplacedpostscriptfunc( var_0 )
 {
-    animscripts\shared::_id_6869( self.weapon, "right" );
+    animscripts\shared::placeweaponon( self.weapon, "right" );
 }
 #using_animtree("generic_human");
 
-_id_2D79( var_0 )
+doshoot( var_0 )
 {
-    self _meth_814D( %additive_saw_idle, 0, 0.1 );
-    self _meth_814D( %additive_saw_fire, 1, 0.1 );
-    var_0 _id_99B0();
-    _id_99AF( var_0 );
+    self setanim( %additive_saw_idle, 0, 0.1 );
+    self setanim( %additive_saw_fire, 1, 0.1 );
+    var_0 turretdoshootanims();
+    turretdoshoot( var_0 );
 }
 
-_id_2BE1( var_0 )
+doaim( var_0 )
 {
-    self _meth_814D( %additive_saw_idle, 1, 0.1 );
-    self _meth_814D( %additive_saw_fire, 0, 0.1 );
-    var_0 _id_99AE();
+    self setanim( %additive_saw_idle, 1, 0.1 );
+    self setanim( %additive_saw_fire, 0, 0.1 );
+    var_0 turretdoaimanims();
 }
 
-_id_99AF( var_0 )
+turretdoshoot( var_0 )
 {
     self endon( "killanimscript" );
     var_0 endon( "turretstatechange" );
@@ -240,14 +222,14 @@ _id_99AF( var_0 )
 }
 #using_animtree("mg42");
 
-_id_99B0()
+turretdoshootanims()
 {
-    self _meth_814D( %additive_saw_idle, 0, 0.1 );
-    self _meth_814D( %additive_saw_fire, 1, 0.1 );
+    self setanim( %additive_saw_idle, 0, 0.1 );
+    self setanim( %additive_saw_fire, 1, 0.1 );
 }
 
-_id_99AE()
+turretdoaimanims()
 {
-    self _meth_814D( %additive_saw_idle, 1, 0.1 );
-    self _meth_814D( %additive_saw_fire, 0, 0.1 );
+    self setanim( %additive_saw_idle, 1, 0.1 );
+    self setanim( %additive_saw_fire, 0, 0.1 );
 }

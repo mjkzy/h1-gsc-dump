@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     level._effect["water_wake"] = loadfx( "vfx/treadfx/body_wake_water" );
@@ -27,46 +9,46 @@ init()
     level._effect["water_splash_enter"] = loadfx( "vfx/water/body_splash" );
     precacheshellshock( "underwater" );
 
-    if ( !isdefined( level._id_A29A ) )
-        level._id_A29A = [];
+    if ( !isdefined( level.waterline_ents ) )
+        level.waterline_ents = [];
 
-    if ( !isdefined( level._id_A29B ) )
-        level._id_A29B = 0;
+    if ( !isdefined( level.waterline_offset ) )
+        level.waterline_offset = 0;
 
-    if ( !isdefined( level._id_83B2 ) )
-        _id_8006( "iw5_combatknife_mp" );
+    if ( !isdefined( level.shallow_water_weapon ) )
+        setshallowwaterweapon( "iw5_combatknife_mp" );
 
-    if ( !isdefined( level._id_2764 ) )
-        _id_7F45( "iw5_underwater_mp" );
+    if ( !isdefined( level.deep_water_weapon ) )
+        setdeepwaterweapon( "iw5_underwater_mp" );
 
     if ( !isdefined( level.allow_swimming ) )
         level.allow_swimming = 1;
 
-    if ( level._id_2764 == level._id_83B2 )
+    if ( level.deep_water_weapon == level.shallow_water_weapon )
         level.allow_swimming = 0;
 
-    if ( !isdefined( level._id_9074 ) )
-        level._id_9074 = 48;
+    if ( !isdefined( level.swimming_depth ) )
+        level.swimming_depth = 48;
 
     var_0 = getentarray( "trigger_underwater", "targetname" );
-    level._id_A28D = var_0;
+    level.water_triggers = var_0;
 
     foreach ( var_2 in var_0 )
     {
-        var_2 _id_23A5();
-        var_2 thread _id_A24E();
-        level thread _id_1F0E( var_2 );
+        var_2 create_clientside_water_ents();
+        var_2 thread watchplayerenterwater();
+        level thread clearwatervarsonspawn( var_2 );
     }
 
-    level thread _id_64CD();
+    level thread onplayerconnectfunctions();
 }
 
-_id_6C05( var_0 )
+player_set_in_water( var_0 )
 {
     if ( var_0 )
-        self._id_4FAD = 1;
+        self.inwater = 1;
     else
-        self._id_4FAD = undefined;
+        self.inwater = undefined;
 }
 
 watchforhostmigration()
@@ -79,12 +61,12 @@ watchforhostmigration()
     {
         self waittill( "player_migrated" );
 
-        foreach ( var_1 in level._id_A29A )
+        foreach ( var_1 in level.waterline_ents )
             self _meth_84E2( var_1.script_noteworthy, var_1 );
     }
 }
 
-_id_64CD()
+onplayerconnectfunctions()
 {
     level endon( "game_ended" );
 
@@ -93,26 +75,26 @@ _id_64CD()
         level waittill( "connected", var_0 );
         var_0 thread watchforhostmigration();
 
-        foreach ( var_2 in level._id_A29A )
+        foreach ( var_2 in level.waterline_ents )
             var_0 _meth_84E2( var_2.script_noteworthy, var_2 );
     }
 }
 
-_id_23A5()
+create_clientside_water_ents()
 {
-    var_0 = common_scripts\utility::_id_40FB( self.target, "targetname" );
-    var_0.origin += ( 0, 0, level._id_A29B );
-    var_1 = var_0 common_scripts\utility::_id_8959();
+    var_0 = common_scripts\utility::getstruct( self.target, "targetname" );
+    var_0.origin += ( 0, 0, level.waterline_offset );
+    var_1 = var_0 common_scripts\utility::spawn_tag_origin();
     var_1 show();
 
     if ( isdefined( self.script_noteworthy ) )
     {
         var_1.script_noteworthy = self.script_noteworthy;
-        level._id_A29A = common_scripts\utility::array_add( level._id_A29A, var_1 );
+        level.waterline_ents = common_scripts\utility::array_add( level.waterline_ents, var_1 );
     }
 }
 
-_id_1F0E( var_0 )
+clearwatervarsonspawn( var_0 )
 {
     level endon( "game_ended" );
 
@@ -122,19 +104,19 @@ _id_1F0E( var_0 )
 
         if ( !var_1 istouching( var_0 ) )
         {
-            var_1 _id_6C05( 0 );
-            var_1._id_9A04 = undefined;
-            var_1._id_4EC2 = undefined;
-            var_1._id_51C4 = undefined;
-            var_1._id_5201 = undefined;
-            var_1._id_A27B = undefined;
-            var_1._id_519F = undefined;
+            var_1 player_set_in_water( 0 );
+            var_1.underwater = undefined;
+            var_1.inthickwater = undefined;
+            var_1.isswimming = undefined;
+            var_1.iswading = undefined;
+            var_1.water_last_weapon = undefined;
+            var_1.isshocked = undefined;
             var_1 notify( "out_of_water" );
         }
     }
 }
 
-_id_A24E()
+watchplayerenterwater()
 {
     level endon( "game_ended" );
 
@@ -142,8 +124,8 @@ _id_A24E()
     {
         self waittill( "trigger", var_0 );
 
-        if ( isdefined( level._id_511D ) && level._id_511D && isagent( var_0 ) && isdefined( var_0._id_494C ) && var_0._id_494C == "Quad" && !isdefined( var_0._id_4FAD ) )
-            var_0 thread _id_497C( self );
+        if ( isdefined( level.ishorde ) && level.ishorde && isagent( var_0 ) && isdefined( var_0.horde_type ) && var_0.horde_type == "Quad" && !isdefined( var_0.inwater ) )
+            var_0 thread hordedoginwater( self );
 
         if ( !isplayer( var_0 ) && !isai( var_0 ) )
             continue;
@@ -151,111 +133,111 @@ _id_A24E()
         if ( !isalive( var_0 ) )
             continue;
 
-        if ( !isdefined( var_0._id_4FAD ) )
+        if ( !isdefined( var_0.inwater ) )
         {
-            var_0 _id_6C05( 1 );
-            var_0 thread _id_6CD1( self );
+            var_0 player_set_in_water( 1 );
+            var_0 thread playerinwater( self );
         }
     }
 }
 
-_id_497C( var_0 )
+hordedoginwater( var_0 )
 {
     level endon( "game_ended" );
     self endon( "death" );
     self endon( "disconnect" );
-    _id_6C05( 1 );
+    player_set_in_water( 1 );
 
     for (;;)
     {
-        if ( !_id_4E85( var_0, 40 ) )
+        if ( !inshallowwater( var_0, 40 ) )
         {
             wait 2.5;
 
-            if ( !_id_4E85( var_0, 20 ) )
+            if ( !inshallowwater( var_0, 20 ) )
                 self dodamage( self.health, self.origin );
         }
 
-        waittillframeend;
+        waitframe();
     }
 }
 
-_id_6CD1( var_0 )
+playerinwater( var_0 )
 {
     level endon( "game_ended" );
     self endon( "death" );
     self endon( "disconnect" );
-    thread _id_4FAE( var_0 );
-    thread _id_6D92();
-    self._id_35B3 = 0;
-    self._id_35B2 = 0;
+    thread inwaterwake( var_0 );
+    thread playerwaterclearwait();
+    self.eyeheightlastframe = 0;
+    self.eye_velocity = 0;
 
     for (;;)
     {
-        if ( maps\mp\_utility::_id_51E3() )
+        if ( maps\mp\_utility::isusingremote() )
         {
-            if ( isdefined( self._id_9A04 ) && isdefined( self._id_519F ) )
+            if ( isdefined( self.underwater ) && isdefined( self.isshocked ) )
             {
                 self stopshellshock();
-                self._id_519F = undefined;
+                self.isshocked = undefined;
             }
         }
-        else if ( isdefined( self._id_9A04 ) && !isdefined( self._id_519F ) )
+        else if ( isdefined( self.underwater ) && !isdefined( self.isshocked ) )
         {
             self shellshock( "underwater", 19, 0, 0 );
-            self._id_519F = 1;
+            self.isshocked = 1;
         }
 
         if ( !self istouching( var_0 ) )
         {
-            _id_6C05( 0 );
-            self._id_9A04 = undefined;
-            self._id_4EC2 = undefined;
-            self._id_51C4 = undefined;
+            player_set_in_water( 0 );
+            self.underwater = undefined;
+            self.inthickwater = undefined;
+            self.isswimming = undefined;
             self.movespeedscaler = level.baseplayermovescale;
-            maps\mp\gametypes\_weapons::_id_9B3D();
+            maps\mp\gametypes\_weapons::updatemovespeedscale();
             self notify( "out_of_water" );
             break;
         }
 
-        if ( isdefined( self._id_4EC2 ) && _id_4E85( var_0, 32 ) )
+        if ( isdefined( self.inthickwater ) && inshallowwater( var_0, 32 ) )
         {
-            self._id_4EC2 = undefined;
+            self.inthickwater = undefined;
             self.movespeedscaler = level.baseplayermovescale;
-            maps\mp\gametypes\_weapons::_id_9B3D();
+            maps\mp\gametypes\_weapons::updatemovespeedscale();
         }
 
-        if ( _id_4E85( var_0, 32 ) )
+        if ( inshallowwater( var_0, 32 ) )
         {
-            self._id_4EC2 = undefined;
+            self.inthickwater = undefined;
 
             if ( isdefined( level.watermovescale ) )
                 self.movespeedscaler = level.baseplayermovescale * level.watermovescale;
             else
                 self.movespeedscaler = level.baseplayermovescale;
 
-            maps\mp\gametypes\_weapons::_id_9B3D();
+            maps\mp\gametypes\_weapons::updatemovespeedscale();
         }
 
-        if ( !isdefined( self._id_4EC2 ) && !_id_4E85( var_0, 32 ) )
+        if ( !isdefined( self.inthickwater ) && !inshallowwater( var_0, 32 ) )
         {
-            self._id_4EC2 = 1;
+            self.inthickwater = 1;
             self.movespeedscaler = 0.7 * level.baseplayermovescale;
-            maps\mp\gametypes\_weapons::_id_9B3D();
+            maps\mp\gametypes\_weapons::updatemovespeedscale();
         }
 
-        if ( !isdefined( self._id_9A04 ) && !_id_50A5( var_0, 0 ) )
+        if ( !isdefined( self.underwater ) && !isabovewaterline( var_0, 0 ) )
         {
-            self._id_9A04 = 1;
-            thread _id_6CB9();
+            self.underwater = 1;
+            thread playerhandledamage();
 
-            if ( maps\mp\_utility::_id_50C4() )
-                _id_2B0F();
+            if ( maps\mp\_utility::isaugmentedgamemode() )
+                disableexo();
 
-            if ( !maps\mp\_utility::_id_51E3() )
+            if ( !maps\mp\_utility::isusingremote() )
             {
                 self shellshock( "underwater", 19, 0, 0 );
-                self._id_519F = 1;
+                self.isshocked = 1;
             }
 
             var_1 = self getcurrentweapon();
@@ -265,85 +247,85 @@ _id_6CD1( var_0 )
                 var_2 = weaponinventorytype( var_1 );
 
                 if ( var_2 == "primary" || var_2 == "altmode" )
-                    self._id_A27B = var_1;
-                else if ( isdefined( self._id_55C6 ) && self hasweapon( self._id_55C6 ) )
-                    self._id_A27B = self._id_55C6;
+                    self.water_last_weapon = var_1;
+                else if ( isdefined( self.lastnonuseweapon ) && self hasweapon( self.lastnonuseweapon ) )
+                    self.water_last_weapon = self.lastnonuseweapon;
             }
 
-            if ( isdefined( level._id_3BF7 ) )
-                self [[ level._id_3BF7 ]]( var_0 );
+            if ( isdefined( level.gamemodeonunderwater ) )
+                self [[ level.gamemodeonunderwater ]]( var_0 );
 
             if ( isdefined( level.hordeonunderwater ) )
                 self [[ level.hordeonunderwater ]]( var_0 );
         }
 
-        if ( isdefined( self._id_9A04 ) && ( isdefined( self._id_51C4 ) || !isdefined( self._id_5201 ) ) && ( _id_4E85( var_0, level._id_9074 ) || self getstance() == "prone" || !level.allow_swimming ) )
+        if ( isdefined( self.underwater ) && ( isdefined( self.isswimming ) || !isdefined( self.iswading ) ) && ( inshallowwater( var_0, level.swimming_depth ) || self getstance() == "prone" || !level.allow_swimming ) )
         {
-            self._id_5201 = 1;
-            self._id_51C4 = undefined;
-            _id_6C8D();
+            self.iswading = 1;
+            self.isswimming = undefined;
+            playerdisableunderwater();
 
-            if ( isdefined( self._id_5131 ) && self._id_5131 == 1 )
+            if ( isdefined( self.isjuggernaut ) && self.isjuggernaut == 1 )
             {
-                _id_6C9A( "none" );
+                playerenableunderwater( "none" );
                 self allowfire( 0 );
                 self _meth_84BB();
             }
             else if ( !isdefined( level.iszombiegame ) || !isscriptedagent( self ) )
-                _id_6C9A( "shallow" );
+                playerenableunderwater( "shallow" );
         }
 
-        if ( isdefined( self._id_9A04 ) && ( isdefined( self._id_5201 ) || !isdefined( self._id_51C4 ) ) && ( !_id_4E85( var_0, level._id_9074 ) && self getstance() != "prone" && level.allow_swimming ) )
+        if ( isdefined( self.underwater ) && ( isdefined( self.iswading ) || !isdefined( self.isswimming ) ) && ( !inshallowwater( var_0, level.swimming_depth ) && self getstance() != "prone" && level.allow_swimming ) )
         {
-            self._id_51C4 = 1;
-            self._id_5201 = undefined;
-            _id_6C8D();
+            self.isswimming = 1;
+            self.iswading = undefined;
+            playerdisableunderwater();
 
-            if ( isdefined( self._id_5131 ) && self._id_5131 == 1 )
+            if ( isdefined( self.isjuggernaut ) && self.isjuggernaut == 1 )
             {
-                _id_6C9A( "none" );
+                playerenableunderwater( "none" );
                 self allowfire( 0 );
                 self _meth_84BB();
             }
             else if ( !isdefined( level.iszombiegame ) || !isscriptedagent( self ) )
-                _id_6C9A( "deep" );
+                playerenableunderwater( "deep" );
         }
 
-        if ( isdefined( self._id_9A04 ) && _id_50A5( var_0, 0 ) )
+        if ( isdefined( self.underwater ) && isabovewaterline( var_0, 0 ) )
         {
-            self._id_9A04 = undefined;
-            self._id_51C4 = undefined;
-            self._id_5201 = undefined;
+            self.underwater = undefined;
+            self.isswimming = undefined;
+            self.iswading = undefined;
             self notify( "above_water" );
             var_3 = distance( self getvelocity(), ( 0.0, 0.0, 0.0 ) );
-            var_4 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) );
+            var_4 = ( self.origin[0], self.origin[1], getwaterline( var_0 ) );
             playfx( level._effect["water_splash_emerge"], var_4, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270.0, 180.0, 0.0 ) ) );
 
-            if ( !maps\mp\_utility::_id_51E3() )
+            if ( !maps\mp\_utility::isusingremote() )
             {
                 self stopshellshock();
-                self._id_519F = undefined;
+                self.isshocked = undefined;
             }
 
-            _id_6C8D();
+            playerdisableunderwater();
 
-            if ( maps\mp\_utility::_id_50C4() )
-                _id_310E();
+            if ( maps\mp\_utility::isaugmentedgamemode() )
+                enableexo();
         }
 
         wait 0.05;
     }
 }
 
-_id_50A7( var_0 )
+isactivekillstreakwaterrestricted( var_0 )
 {
-    if ( isdefined( var_0._id_539D ) )
+    if ( isdefined( var_0.killstreakindexweapon ) )
     {
-        var_1 = self.pers["killstreaks"][self._id_539D]._id_8F26;
+        var_1 = self.pers["killstreaks"][self.killstreakindexweapon].streakname;
 
         if ( isdefined( var_1 ) )
         {
-            if ( common_scripts\utility::_id_8F55( var_1, "turret" ) > 0 )
+            if ( common_scripts\utility::string_find( var_1, "turret" ) > 0 )
                 return 1;
         }
     }
@@ -351,20 +333,20 @@ _id_50A7( var_0 )
     return 0;
 }
 
-_id_6D92()
+playerwaterclearwait()
 {
-    var_0 = common_scripts\utility::_id_A070( "death", "out_of_water" );
-    self._id_9A21 = undefined;
-    self._id_2D21 = undefined;
-    _id_6C05( 0 );
-    self._id_9A04 = undefined;
-    self._id_4EC2 = undefined;
-    self._id_A27B = undefined;
+    var_0 = common_scripts\utility::waittill_any_return( "death", "out_of_water" );
+    self.underwatermotiontype = undefined;
+    self.dont_give_or_take_weapon = undefined;
+    player_set_in_water( 0 );
+    self.underwater = undefined;
+    self.inthickwater = undefined;
+    self.water_last_weapon = undefined;
     self.movespeedscaler = level.baseplayermovescale;
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
 }
 
-_id_4FAE( var_0 )
+inwaterwake( var_0 )
 {
     level endon( "game_ended" );
     self endon( "death" );
@@ -374,7 +356,7 @@ _id_4FAE( var_0 )
 
     if ( var_1 > 90 )
     {
-        var_2 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) );
+        var_2 = ( self.origin[0], self.origin[1], getwaterline( var_0 ) );
         playfx( level._effect["water_splash_enter"], var_2, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270.0, 180.0, 0.0 ) ) );
     }
 
@@ -392,17 +374,17 @@ _id_4FAE( var_0 )
         {
             var_4 = vectornormalize( ( var_3[0], var_3[1], 0 ) );
             var_5 = anglestoforward( vectortoangles( var_4 ) + ( 270.0, 180.0, 0.0 ) );
-            var_2 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) ) + var_1 / 4 * var_4;
+            var_2 = ( self.origin[0], self.origin[1], getwaterline( var_0 ) ) + var_1 / 4 * var_4;
             playfx( level._effect["water_wake"], var_2, var_5 );
             continue;
         }
 
-        var_2 = ( self.origin[0], self.origin[1], _id_415F( var_0 ) );
+        var_2 = ( self.origin[0], self.origin[1], getwaterline( var_0 ) );
         playfx( level._effect["water_wake_stationary"], var_2, anglestoforward( ( 0, self.angles[1], 0 ) + ( 270.0, 180.0, 0.0 ) ) );
     }
 }
 
-_id_6CB9()
+playerhandledamage()
 {
     level endon( "game_ended" );
     self endon( "death" );
@@ -410,78 +392,78 @@ _id_6CB9()
     self endon( "disconnect" );
     self endon( "above_water" );
 
-    if ( isdefined( level._id_511D ) && level._id_511D )
+    if ( isdefined( level.ishorde ) && level.ishorde )
         self endon( "becameSpectator" );
 
-    thread _id_64D2();
+    thread onplayerdeath();
     wait 13;
 
     for (;;)
     {
-        if ( !isdefined( self._id_5131 ) || self._id_5131 == 0 )
+        if ( !isdefined( self.isjuggernaut ) || self.isjuggernaut == 0 )
             radiusdamage( self.origin + anglestoforward( self.angles ) * 5, 1, 20, 20, undefined, "MOD_TRIGGER_HURT" );
 
         wait 1;
     }
 }
 
-_id_64D2()
+onplayerdeath()
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
     self endon( "above_water" );
 
-    if ( isdefined( level._id_511D ) && level._id_511D )
-        common_scripts\utility::_id_A069( "death", "becameSpectator" );
+    if ( isdefined( level.ishorde ) && level.ishorde )
+        common_scripts\utility::waittill_any( "death", "becameSpectator" );
     else
         self waittill( "death" );
 
-    _id_6C05( 0 );
-    self._id_9A04 = undefined;
-    self._id_4EC2 = undefined;
-    self._id_51C4 = undefined;
-    self._id_5201 = undefined;
-    self._id_A27B = undefined;
-    self._id_9A21 = undefined;
-    self._id_35B2 = 0;
-    self._id_35B3 = 0;
+    player_set_in_water( 0 );
+    self.underwater = undefined;
+    self.inthickwater = undefined;
+    self.isswimming = undefined;
+    self.iswading = undefined;
+    self.water_last_weapon = undefined;
+    self.underwatermotiontype = undefined;
+    self.eye_velocity = 0;
+    self.eyeheightlastframe = 0;
 }
 
-_id_4E85( var_0, var_1 )
+inshallowwater( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = 32;
 
-    if ( level _id_415F( var_0 ) - self.origin[2] <= var_1 )
+    if ( level getwaterline( var_0 ) - self.origin[2] <= var_1 )
         return 1;
 
     return 0;
 }
 
-_id_50A5( var_0, var_1 )
+isabovewaterline( var_0, var_1 )
 {
-    if ( _id_408A() + var_1 >= level _id_415F( var_0 ) )
+    if ( getplayereyeheight() + var_1 >= level getwaterline( var_0 ) )
         return 1;
     else
         return 0;
 }
 
-_id_408A()
+getplayereyeheight()
 {
     var_0 = self geteye();
-    self._id_35B2 = var_0[2] - self._id_35B3;
-    self._id_35B3 = var_0[2];
+    self.eye_velocity = var_0[2] - self.eyeheightlastframe;
+    self.eyeheightlastframe = var_0[2];
     return var_0[2];
 }
 
-_id_415F( var_0 )
+getwaterline( var_0 )
 {
-    var_1 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
+    var_1 = common_scripts\utility::getstruct( var_0.target, "targetname" );
     var_2 = var_1.origin[2];
     return var_2;
 }
 
-_id_6C9A( var_0 )
+playerenableunderwater( var_0 )
 {
     level endon( "game_ended" );
     self endon( "death" );
@@ -491,28 +473,28 @@ _id_6C9A( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = "shallow";
 
-    if ( var_0 == "shallow" && self hasweapon( level._id_83B2 ) || var_0 == "deep" && self hasweapon( level._id_2764 ) )
-        self._id_2D21 = 1;
+    if ( var_0 == "shallow" && self hasweapon( level.shallow_water_weapon ) || var_0 == "deep" && self hasweapon( level.deep_water_weapon ) )
+        self.dont_give_or_take_weapon = 1;
 
     switch ( var_0 )
     {
         case "deep":
-            _id_41DA( level._id_2764 );
-            self switchtoweaponimmediate( level._id_2764 );
-            self._id_9A21 = "deep";
+            give_water_weapon( level.deep_water_weapon );
+            self switchtoweaponimmediate( level.deep_water_weapon );
+            self.underwatermotiontype = "deep";
             break;
         case "shallow":
-            _id_41DA( level._id_83B2 );
-            self switchtoweaponimmediate( level._id_83B2 );
-            self._id_9A21 = "shallow";
+            give_water_weapon( level.shallow_water_weapon );
+            self switchtoweaponimmediate( level.shallow_water_weapon );
+            self.underwatermotiontype = "shallow";
             break;
         case "none":
-            self._id_9A21 = "none";
+            self.underwatermotiontype = "none";
             break;
         default:
-            _id_41DA( level._id_83B2 );
-            self switchtoweaponimmediate( level._id_83B2 );
-            self._id_9A21 = "shallow";
+            give_water_weapon( level.shallow_water_weapon );
+            self switchtoweaponimmediate( level.shallow_water_weapon );
+            self.underwatermotiontype = "shallow";
             break;
     }
 
@@ -521,99 +503,99 @@ _id_6C9A( var_0 )
     common_scripts\utility::_disableoffhandweapons();
 }
 
-_id_6C8D()
+playerdisableunderwater()
 {
     level endon( "game_ended" );
     self endon( "death" );
     self endon( "disconnect" );
 
-    if ( isdefined( self._id_9A21 ) )
+    if ( isdefined( self.underwatermotiontype ) )
     {
-        var_0 = self._id_9A21;
+        var_0 = self.underwatermotiontype;
         self notify( "end_swimming" );
         self enableweaponpickup();
         common_scripts\utility::_enableweaponswitch();
         common_scripts\utility::_enableoffhandweapons();
 
-        if ( isdefined( self._id_5131 ) && self._id_5131 == 1 && isdefined( self._id_479B ) )
+        if ( isdefined( self.isjuggernaut ) && self.isjuggernaut == 1 && isdefined( self.heavyexodata ) )
         {
             self allowfire( 1 );
 
-            if ( !isdefined( self._id_479B._id_4736 ) || self._id_479B._id_4736 == 0 )
+            if ( !isdefined( self.heavyexodata.haslongpunch ) || self.heavyexodata.haslongpunch == 0 )
                 self disableoffhandweapons();
 
-            if ( !isdefined( self._id_479B._id_4742 ) || self._id_479B._id_4742 == 0 )
+            if ( !isdefined( self.heavyexodata.hasrockets ) || self.heavyexodata.hasrockets == 0 )
                 self _meth_84BB();
             else
                 self _meth_84BC();
         }
 
-        if ( isdefined( level._id_511D ) && isplayer( self ) )
-            maps\mp\gametypes\_weapons::_id_74B3( "underwater" );
-        else if ( isdefined( self._id_A27B ) )
-            maps\mp\_utility::_id_907A( self._id_A27B );
+        if ( isdefined( level.ishorde ) && isplayer( self ) )
+            maps\mp\gametypes\_weapons::restoreweapon( "underwater" );
+        else if ( isdefined( self.water_last_weapon ) )
+            maps\mp\_utility::switch_to_last_weapon( self.water_last_weapon );
 
         switch ( var_0 )
         {
             case "deep":
-                _id_911D( level._id_2764 );
+                take_water_weapon( level.deep_water_weapon );
                 break;
             case "shallow":
-                _id_911D( level._id_83B2 );
+                take_water_weapon( level.shallow_water_weapon );
                 break;
             case "none":
                 break;
             default:
-                _id_911D( level._id_83B2 );
+                take_water_weapon( level.shallow_water_weapon );
                 break;
         }
 
-        self._id_9A21 = undefined;
-        self._id_2D21 = undefined;
+        self.underwatermotiontype = undefined;
+        self.dont_give_or_take_weapon = undefined;
     }
 }
 
-_id_41DA( var_0 )
+give_water_weapon( var_0 )
 {
-    if ( !isdefined( self._id_2D21 ) || !self._id_2D21 )
+    if ( !isdefined( self.dont_give_or_take_weapon ) || !self.dont_give_or_take_weapon )
         self giveweapon( var_0 );
 }
 
-_id_911D( var_0 )
+take_water_weapon( var_0 )
 {
-    if ( !isdefined( self._id_2D21 ) || !self._id_2D21 )
+    if ( !isdefined( self.dont_give_or_take_weapon ) || !self.dont_give_or_take_weapon )
         self takeweapon( var_0 );
 }
 
-_id_310E()
+enableexo()
 {
-    maps\mp\_utility::_id_6C62( 1 );
-    maps\mp\_utility::_id_6C63( 1 );
-    maps\mp\_utility::_id_6C60( 1 );
-    maps\mp\_utility::_id_6C64( 1 );
-    maps\mp\_utility::_id_6C61( 1 );
+    maps\mp\_utility::playerallowhighjump( 1 );
+    maps\mp\_utility::playerallowhighjumpdrop( 1 );
+    maps\mp\_utility::playerallowboostjump( 1 );
+    maps\mp\_utility::playerallowpowerslide( 1 );
+    maps\mp\_utility::playerallowdodge( 1 );
 }
 
-_id_2B0F()
+disableexo()
 {
-    maps\mp\_utility::_id_6C62( 0 );
-    maps\mp\_utility::_id_6C63( 0 );
-    maps\mp\_utility::_id_6C60( 0 );
-    maps\mp\_utility::_id_6C64( 0 );
-    maps\mp\_utility::_id_6C61( 0 );
+    maps\mp\_utility::playerallowhighjump( 0 );
+    maps\mp\_utility::playerallowhighjumpdrop( 0 );
+    maps\mp\_utility::playerallowboostjump( 0 );
+    maps\mp\_utility::playerallowpowerslide( 0 );
+    maps\mp\_utility::playerallowdodge( 0 );
 }
 
-_id_8006( var_0 )
+setshallowwaterweapon( var_0 )
 {
-    level._id_83B2 = var_0;
+    level.shallow_water_weapon = var_0;
 }
 
-_id_7F45( var_0 )
+setdeepwaterweapon( var_0 )
 {
-    level._id_2764 = var_0;
+    level.deep_water_weapon = var_0;
 }
 
-_id_51FB( var_0 )
+isvalidunderwaterweapon( var_0 )
 {
     switch ( var_0 )
     {

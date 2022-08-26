@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     precachestring( &"SCOUTSNIPER_MRHR" );
@@ -32,11 +14,11 @@ main()
         var_1.radiation = spawnstruct();
         var_1.radiation.super_dose = 0;
         var_1.radiation.inside = 0;
-        var_1 maps\_utility::_id_32DD( "_radiation_poisoning" );
+        var_1 maps\_utility::ent_flag_init( "_radiation_poisoning" );
     }
 
-    common_scripts\utility::_id_76BB( "radiation", ::updateradiationtriggers );
-    common_scripts\utility::_id_76BB( "super_radiation", ::super_radiation_trigger );
+    common_scripts\utility::run_thread_on_targetname( "radiation", ::updateradiationtriggers );
+    common_scripts\utility::run_thread_on_targetname( "super_radiation", ::super_radiation_trigger );
     common_scripts\utility::array_thread( level.players, ::updateradiationdosage );
     common_scripts\utility::array_thread( level.players, ::updateradiationdosimeter );
     common_scripts\utility::array_thread( level.players, ::updateradiationshock );
@@ -48,7 +30,7 @@ main()
 
 updateradiationtriggers()
 {
-    self._id_5BA6 = 0;
+    self.members = 0;
 
     for (;;)
     {
@@ -83,7 +65,7 @@ updateradiationdosage()
     self.radiation.triggers = [];
     self.radiation.rate = 0;
     self.radiation.ratepercent = 0;
-    self.radiation._id_93F3 = 0;
+    self.radiation.total = 0;
     self.radiation.totalpercent = 0;
     var_0 = 1;
     var_1 = 0;
@@ -124,17 +106,17 @@ updateradiationdosage()
 
         if ( self.radiation.ratepercent > 25 )
         {
-            self.radiation._id_93F3 += var_9;
-            self.radiation.totalpercent = self.radiation._id_93F3 / var_3 * 100;
+            self.radiation.total += var_9;
+            self.radiation.totalpercent = self.radiation.total / var_3 * 100;
         }
-        else if ( self.radiation.ratepercent < 1 && self.radiation._id_93F3 > 0 )
+        else if ( self.radiation.ratepercent < 1 && self.radiation.total > 0 )
         {
-            self.radiation._id_93F3 -= 1500;
+            self.radiation.total -= 1500;
 
-            if ( self.radiation._id_93F3 < 0 )
-                self.radiation._id_93F3 = 0;
+            if ( self.radiation.total < 0 )
+                self.radiation.total = 0;
 
-            self.radiation.totalpercent = self.radiation._id_93F3 / var_3 * 100;
+            self.radiation.totalpercent = self.radiation.total / var_3 * 100;
         }
 
         wait(var_0);
@@ -150,20 +132,20 @@ updateradiationshock()
         if ( self.radiation.ratepercent >= 75 )
         {
             self shellshock( "radiation_high", 5 );
-            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_high" );
+            soundscripts\_snd::snd_message( "aud_radiation_shellshock", "radiation_high" );
         }
         else if ( self.radiation.ratepercent >= 50 )
         {
             self shellshock( "radiation_med", 5 );
-            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_med" );
+            soundscripts\_snd::snd_message( "aud_radiation_shellshock", "radiation_med" );
         }
         else if ( self.radiation.ratepercent > 25 )
         {
             self shellshock( "radiation_low", 5 );
-            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_low" );
+            soundscripts\_snd::snd_message( "aud_radiation_shellshock", "radiation_low" );
         }
         else if ( self.radiation.ratepercent <= 25 && self.radiation.ratepercent > 0 )
-            soundscripts\_snd::_id_870C( "aud_radiation_shellshock", "radiation_none" );
+            soundscripts\_snd::snd_message( "aud_radiation_shellshock", "radiation_none" );
 
         wait(var_0);
     }
@@ -176,15 +158,15 @@ updateradiationsound()
     for (;;)
     {
         if ( self.radiation.ratepercent >= 75 )
-            self.radiation._id_8899 = "item_geigercouner_level4";
+            self.radiation.sound = "item_geigercouner_level4";
         else if ( self.radiation.ratepercent >= 50 )
-            self.radiation._id_8899 = "item_geigercouner_level3";
+            self.radiation.sound = "item_geigercouner_level3";
         else if ( self.radiation.ratepercent >= 25 )
-            self.radiation._id_8899 = "item_geigercouner_level2";
+            self.radiation.sound = "item_geigercouner_level2";
         else if ( self.radiation.ratepercent > 0 )
-            self.radiation._id_8899 = "item_geigercouner_level1";
+            self.radiation.sound = "item_geigercouner_level1";
         else
-            self.radiation._id_8899 = "none";
+            self.radiation.sound = "none";
 
         wait 0.05;
     }
@@ -195,9 +177,9 @@ updateradiationflag()
     for (;;)
     {
         if ( self.radiation.ratepercent > 25 )
-            maps\_utility::_id_32DE( "_radiation_poisoning" );
+            maps\_utility::ent_flag_set( "_radiation_poisoning" );
         else
-            maps\_utility::_id_32DA( "_radiation_poisoning" );
+            maps\_utility::ent_flag_clear( "_radiation_poisoning" );
 
         wait 0.05;
     }
@@ -210,19 +192,19 @@ playradiationsound()
     var_0.origin = self.origin;
     var_0.angles = self.angles;
     var_0 linkto( self );
-    var_1 = self.radiation._id_8899;
+    var_1 = self.radiation.sound;
 
     for (;;)
     {
-        if ( var_1 != self.radiation._id_8899 )
+        if ( var_1 != self.radiation.sound )
         {
             var_0 stoploopsound();
 
-            if ( isdefined( self.radiation._id_8899 ) && self.radiation._id_8899 != "none" )
-                var_0 playloopsound( self.radiation._id_8899 );
+            if ( isdefined( self.radiation.sound ) && self.radiation.sound != "none" )
+                var_0 playloopsound( self.radiation.sound );
         }
 
-        var_1 = self.radiation._id_8899;
+        var_1 = self.radiation.sound;
         wait 0.05;
     }
 }
@@ -353,8 +335,8 @@ updateradiationblackout()
                 break;
 
             var_16 = var_10 / 2;
-            var_0 _id_35F1( var_16, var_12, var_13, self );
-            var_0 _id_35F6( var_16, var_14, var_15, self );
+            var_0 fadeinblackout( var_16, var_12, var_13, self );
+            var_0 fadeoutblackout( var_16, var_14, var_15, self );
             wait(var_7 * 0.5);
         }
 
@@ -362,30 +344,30 @@ updateradiationblackout()
             break;
 
         if ( var_0.alpha != 0 )
-            var_0 _id_35F6( 1, 0, 0, self );
+            var_0 fadeoutblackout( 1, 0, 0, self );
 
         wait 0.05;
     }
 
-    var_0 _id_35F1( 2, 1, 6, self );
+    var_0 fadeinblackout( 2, 1, 6, self );
     thread radiation_kill();
 }
 
 radiation_kill()
 {
-    self._id_8A2A = 1;
-    self._id_8A2B = 1;
+    self.specialdamage = 1;
+    self.specialdeath = 1;
     self.radiationdeath = 1;
 
-    if ( !maps\_utility::_id_5346() )
+    if ( !maps\_utility::kill_wrapper() )
         return;
 
-    waitframe;
+    waittillframeend;
     var_0 = &"SCRIPT_RADIATION_DEATH";
     setdvar( "ui_deadquote", var_0 );
 }
 
-_id_35F1( var_0, var_1, var_2, var_3 )
+fadeinblackout( var_0, var_1, var_2, var_3 )
 {
     self fadeovertime( var_0 );
     self.alpha = var_1;
@@ -393,7 +375,7 @@ _id_35F1( var_0, var_1, var_2, var_3 )
     wait(var_0);
 }
 
-_id_35F6( var_0, var_1, var_2, var_3 )
+fadeoutblackout( var_0, var_1, var_2, var_3 )
 {
     self fadeovertime( var_0 );
     self.alpha = var_1;
@@ -407,13 +389,13 @@ first_radiation_dialogue()
 
     for (;;)
     {
-        maps\_utility::_id_32E0( "_radiation_poisoning" );
+        maps\_utility::ent_flag_wait( "_radiation_poisoning" );
 
         if ( level.script == "scoutsniper" || level.script == "co_scoutsniper" )
-            level thread maps\_utility::_id_3AF2( maps\_utility::_id_70BD, "scoutsniper_mcm_youdaft" );
+            level thread maps\_utility::function_stack( maps\_utility::radio_dialogue, "scoutsniper_mcm_youdaft" );
 
         level notify( "radiation_warning" );
-        maps\_utility::_id_32E4( "_radiation_poisoning" );
+        maps\_utility::ent_flag_waitopen( "_radiation_poisoning" );
         wait 10;
     }
 }

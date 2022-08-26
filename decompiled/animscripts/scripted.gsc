@@ -1,23 +1,5 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
 main()
@@ -25,41 +7,41 @@ main()
     self endon( "death" );
     self notify( "killanimscript" );
     self notify( "clearSuppressionAttack" );
-    self.a._id_8FE8 = 0;
-    self._id_2001["root"] = %body;
+    self.a.suppressingenemy = 0;
+    self.codescripted["root"] = %body;
     self endon( "end_sequence" );
-    self _meth_8241( self._id_2001["notifyName"], self._id_2001["origin"], self._id_2001["angles"], self._id_2001["anim"], self._id_2001["animMode"], self._id_2001["root"], self._id_2001["goalTime"] );
-    self._id_2001 = undefined;
+    self startscriptedanim( self.codescripted["notifyName"], self.codescripted["origin"], self.codescripted["angles"], self.codescripted["anim"], self.codescripted["animMode"], self.codescripted["root"], self.codescripted["goalTime"] );
+    self.codescripted = undefined;
 
-    if ( isdefined( self._id_7B35 ) || isdefined( self._id_35C2 ) )
+    if ( isdefined( self.scripted_dialogue ) || isdefined( self.facial_animation ) )
     {
-        animscripts\face::_id_7828( self._id_35C2, self._id_7B35, 0.9, "scripted_anim_facedone" );
-        self._id_35C2 = undefined;
-        self._id_7B35 = undefined;
+        animscripts\face::sayspecificdialogue( self.facial_animation, self.scripted_dialogue, 0.9, "scripted_anim_facedone" );
+        self.facial_animation = undefined;
+        self.scripted_dialogue = undefined;
     }
 
-    if ( isdefined( self._id_2670 ) )
-        self._id_266F = self._id_2670;
+    if ( isdefined( self.deathstring_passed ) )
+        self.deathstring = self.deathstring_passed;
 
     self waittill( "killanimscript" );
 }
 
 init( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    self._id_2001["notifyName"] = var_0;
-    self._id_2001["origin"] = var_1;
-    self._id_2001["angles"] = var_2;
-    self._id_2001["anim"] = var_3;
+    self.codescripted["notifyName"] = var_0;
+    self.codescripted["origin"] = var_1;
+    self.codescripted["angles"] = var_2;
+    self.codescripted["anim"] = var_3;
 
     if ( isdefined( var_4 ) )
-        self._id_2001["animMode"] = var_4;
+        self.codescripted["animMode"] = var_4;
     else
-        self._id_2001["animMode"] = "normal";
+        self.codescripted["animMode"] = "normal";
 
     if ( isdefined( var_5 ) )
-        self._id_2001["root"] = var_5;
+        self.codescripted["root"] = var_5;
     else
-        self._id_2001["root"] = %body;
+        self.codescripted["root"] = %body;
 
-    self._id_2001["goalTime"] = var_6;
+    self.codescripted["goalTime"] = var_6;
 }

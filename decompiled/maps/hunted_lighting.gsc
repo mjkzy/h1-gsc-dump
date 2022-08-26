@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     precache_lighting_and_fx();
-    _id_4D05();
+    init_level_lighting_flags();
     level.cheat_highcontrast_override = "_night";
-    thread _id_80C6();
-    thread _id_7E68();
+    thread setup_dof_presets();
+    thread set_level_lighting_values();
     thread setup_fade_angle_lights();
 
     if ( getdvar( "beautiful_corner" ) != "1" )
@@ -42,14 +24,14 @@ main()
 
     thread setup_lighting_pass_helicrash();
     thread setup_lighting_pass_interior();
-    thread _id_8106();
-    thread maps\_lighting::_id_694A( "firelight_motion_01", "heli_fire_01" );
-    thread maps\_lighting::_id_694A( "firelight_motion_02", "heli_fire_02" );
-    thread maps\_lighting::_id_694A( "firelight_motion_03", "heli_fire_03" );
-    thread maps\_lighting::_id_694A( "firelight_motion_04", "heli_fire_04" );
-    thread maps\_lighting::_id_694A( "fire_barrel_small_01", "barrel_01" );
-    thread maps\_lighting::_id_694A( "fire_barrel_small_02", "barrel_02" );
-    thread maps\_lighting::_id_694A( "fire_barrel_small_03", "dumpster_01" );
+    thread setup_flickerlight_motion_presets();
+    thread maps\_lighting::play_flickerlight_motion_preset( "firelight_motion_01", "heli_fire_01" );
+    thread maps\_lighting::play_flickerlight_motion_preset( "firelight_motion_02", "heli_fire_02" );
+    thread maps\_lighting::play_flickerlight_motion_preset( "firelight_motion_03", "heli_fire_03" );
+    thread maps\_lighting::play_flickerlight_motion_preset( "firelight_motion_04", "heli_fire_04" );
+    thread maps\_lighting::play_flickerlight_motion_preset( "fire_barrel_small_01", "barrel_01" );
+    thread maps\_lighting::play_flickerlight_motion_preset( "fire_barrel_small_02", "barrel_02" );
+    thread maps\_lighting::play_flickerlight_motion_preset( "fire_barrel_small_03", "dumpster_01" );
 }
 
 precache_lighting_and_fx()
@@ -60,19 +42,19 @@ precache_lighting_and_fx()
     precacherumble( "blackhawk_down_crash_rumble" );
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
-    common_scripts\utility::_id_383D( "vision_barn_interior" );
-    common_scripts\utility::_id_383D( "lighting_player_exit_helicrash" );
-    common_scripts\utility::_id_383D( "lighting_player_entered_helicrash" );
+    common_scripts\utility::flag_init( "vision_barn_interior" );
+    common_scripts\utility::flag_init( "lighting_player_exit_helicrash" );
+    common_scripts\utility::flag_init( "lighting_player_entered_helicrash" );
 }
 
-_id_80C6()
+setup_dof_presets()
 {
 
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
     setsaveddvar( "r_specularcolorscale", "2.3" );
     setsaveddvar( "sm_sunShadowScale", "0.5" );
@@ -124,9 +106,9 @@ update_fade_angle_lights()
 
 handle_heli_flight_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_flight" );
+    common_scripts\utility::flag_wait( "aa_flight" );
     var_0 = getent( "crash_blackhawk", "targetname" );
-    var_1 = var_0._id_555C.attachedguys;
+    var_1 = var_0.last_spawned_vehicle.attachedguys;
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
@@ -177,7 +159,7 @@ setup_missile_dof()
 
 handle_flight_going_down()
 {
-    common_scripts\utility::_id_384A( "blackhawk_hit" );
+    common_scripts\utility::flag_wait( "blackhawk_hit" );
 
     if ( getdvarint( "use_original_crash_view" ) == 1 )
     {
@@ -185,25 +167,25 @@ handle_flight_going_down()
         return;
     }
 
-    var_0 = _id_23D0( "black", 0 );
-    var_1 = _id_23D0( "overlay_hunted_red", 0 );
+    var_0 = create_overlay_element( "black", 0 );
+    var_1 = create_overlay_element( "overlay_hunted_red", 0 );
     var_1.sort = 0;
     var_0.sort = 1;
     maps\_cinematography::dyndof_system_clear_all();
     var_2 = create_crash_cinseq( var_0 );
     var_2 thread maps\_cinematography::cinseq_start_sequence();
-    common_scripts\utility::_id_384A( "blackhawk_hit" );
-    thread common_scripts\_exploder::_id_3528( 44 );
+    common_scripts\utility::flag_wait( "blackhawk_hit" );
+    thread common_scripts\_exploder::exploder( 44 );
     level.player playrumbleonentity( "blackhawk_down_crash_rumble" );
-    common_scripts\utility::_id_384A( "blackhawk_down" );
+    common_scripts\utility::flag_wait( "blackhawk_down" );
     var_1 destroy();
     var_0 thread fade_overlay( 0, 4 );
 }
 
 handle_flight_going_down_preh1()
 {
-    var_0 = _id_23D0( "black", 0 );
-    var_1 = _id_23D0( "overlay_hunted_red", 0 );
+    var_0 = create_overlay_element( "black", 0 );
+    var_1 = create_overlay_element( "overlay_hunted_red", 0 );
     var_1.sort = 0;
     var_0.sort = 1;
     wait 4;
@@ -211,7 +193,7 @@ handle_flight_going_down_preh1()
     var_0 thread exp_fade_overlay( 0.5, 4.5 );
     wait 5.25;
     var_0 thread fade_overlay( 1, 0.1 );
-    common_scripts\utility::_id_384A( "blackhawk_down" );
+    common_scripts\utility::flag_wait( "blackhawk_down" );
     var_1 destroy();
     var_0 thread fade_overlay( 0, 4 );
 }
@@ -231,7 +213,7 @@ create_crash_cinseq( var_0 )
     var_3.duration_fade_up = 0;
     var_3.pitch_scale = 5;
     var_3.roll_scale = 3;
-    var_3._id_A3B7 = 2;
+    var_3.yaw_scale = 2;
     var_3.frequency_roll = 8;
     var_3.frequency_pitch = 11;
     var_3.frequency_yaw = 10;
@@ -244,7 +226,7 @@ create_crash_cinseq( var_0 )
     var_3.duration_fade_up = 0;
     var_3.pitch_scale = 8;
     var_3.roll_scale = 3;
-    var_3._id_A3B7 = 8;
+    var_3.yaw_scale = 8;
     var_3.frequency_roll = 10;
     var_3.frequency_pitch = 15;
     var_3.frequency_yaw = 15;
@@ -315,15 +297,15 @@ remove_crash_terrain_mask()
 
 handle_heli_crash_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_crash" );
+    common_scripts\utility::flag_wait( "aa_crash" );
     thread handle_wakeup_overlay();
     set_specular_scale( 1.7, 0 );
-    maps\_utility::_id_7F00( "hunted", 0 );
+    maps\_utility::set_vision_set( "hunted", 0 );
 }
 
 handle_wakeup_overlay()
 {
-    thread common_scripts\_exploder::_id_3528( 45 );
+    thread common_scripts\_exploder::exploder( 45 );
 
     if ( getdvarint( "use_original_crash_view" ) == 1 )
     {
@@ -331,14 +313,14 @@ handle_wakeup_overlay()
         return;
     }
 
-    var_0 = _id_23D0( "black", 1 );
+    var_0 = create_overlay_element( "black", 1 );
     var_1 = maps\_cinematography::cinematic_sequence( "wakeup_from_crash" );
     var_1 maps\_cinematography::cinseq_key( "initial_fov" ) maps\_cinematography::cinseq_key_time( 0 ) maps\_cinematography::cinseq_key_lerp_fov( 45, 0 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "fade_in_initial" ) maps\_cinematography::cinseq_key_time( 2 ) maps\_cinematography::cinseq_key_add_custom_func( "fade_in_initial", ::exp_fade_overlay, var_0, 0.25, 4 );
     var_2 maps\_cinematography::cinseq_key_dyndof_values( "main", 1.5, 20, 40, 20 ) maps\_cinematography::cinseq_key_start_dynamic_dof( 1 );
     var_2 maps\_cinematography::cinseq_key_lerp_fov( 49, 3 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "blur_in" ) maps\_cinematography::cinseq_key_time( 5 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 3, -1, 1, 0.3 );
-    var_2 maps\_cinematography::cinseq_key_dyndof_ref_ent( "main", level._id_6F7C ) maps\_cinematography::cinseq_key_dyndof_tag_name( "main", "tag_eye" );
+    var_2 maps\_cinematography::cinseq_key_dyndof_ref_ent( "main", level.price ) maps\_cinematography::cinseq_key_dyndof_tag_name( "main", "tag_eye" );
     var_2 maps\_cinematography::cinseq_key_lerp_fov( 50, 1.5 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "fade_out" ) maps\_cinematography::cinseq_key_time( 8 ) maps\_cinematography::cinseq_key_add_custom_func( "fade_in_initial", ::exp_fade_overlay, var_0, 1, 2 );
     var_2 maps\_cinematography::cinseq_key_dyndof_values( "main", 2, 5, 0.2, 0.2 );
@@ -359,8 +341,8 @@ handle_wakeup_overlay()
 
 handle_wakeup_preh1()
 {
-    var_0 = _id_23D0( "splatter_alt_sp", 0 );
-    var_1 = _id_23D0( "black", 1 );
+    var_0 = create_overlay_element( "splatter_alt_sp", 0 );
+    var_1 = create_overlay_element( "black", 1 );
     wait 2;
     setblur( 5, 0 );
     var_1 thread exp_fade_overlay( 0.25, 4 );
@@ -382,7 +364,7 @@ handle_wakeup_preh1()
 
 handle_wakeup_done()
 {
-    common_scripts\utility::_id_384A( "wakeup_done" );
+    common_scripts\utility::flag_wait( "wakeup_done" );
     thread post_crash_flashlight_off();
     set_specular_scale( 2.3, 1 );
     level.player maps\_utility::set_light_set_player( "heli_crash" );
@@ -396,7 +378,7 @@ post_crash_flashlight_off()
 
 handle_barn_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_barn" );
+    common_scripts\utility::flag_wait( "aa_barn" );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_values( 6, -1, 5, 2 ) maps\_cinematography::dyndof_autofocus( 1 );
     thread maps\_cinematography::dyndof_system_start( 1 );
     thread handle_barn_combat_start();
@@ -413,17 +395,17 @@ handle_barn_lighting_init()
 
 handle_barn_combat_start()
 {
-    common_scripts\utility::_id_384C( "player_interruption", "interrogation_done" );
+    common_scripts\utility::flag_wait_any( "player_interruption", "interrogation_done" );
     maps\_cinematography::dyndof_system_end();
 }
 
 handle_field_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_field" );
+    common_scripts\utility::flag_wait( "aa_field" );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_values( 6, -1, 5, 2 ) maps\_cinematography::dyndof_autofocus( 1 );
     thread maps\_cinematography::dyndof_system_start( 1 );
     thread handle_field_combat_start();
-    common_scripts\utility::_id_384A( "field_cover" );
+    common_scripts\utility::flag_wait( "field_cover" );
     wait 1;
 
     if ( isdefined( level.helicopter ) )
@@ -435,18 +417,18 @@ handle_field_lighting_init()
 
 handle_field_combat_start()
 {
-    common_scripts\utility::_id_3852( "field_spoted", "field_truck" );
+    common_scripts\utility::flag_wait_either( "field_spoted", "field_truck" );
     maps\_cinematography::dyndof_system_end();
 }
 
 handle_farm_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_farm" );
+    common_scripts\utility::flag_wait( "aa_farm" );
 }
 
 handle_creek_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_creek" );
+    common_scripts\utility::flag_wait( "aa_creek" );
 }
 
 handle_creek_combat_start()
@@ -456,10 +438,10 @@ handle_creek_combat_start()
 
 handle_ac130_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_ac130" );
+    common_scripts\utility::flag_wait( "aa_ac130" );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_values( 6, -1, 5, 2 ) maps\_cinematography::dyndof_autofocus( 1 );
     thread maps\_cinematography::dyndof_system_start( 1 );
-    common_scripts\utility::_id_384A( "gasstation_start" );
+    common_scripts\utility::flag_wait( "gasstation_start" );
     wait 12;
     var_0 = getentarray( "gasstation_truck", "targetname" );
     var_1 = undefined;
@@ -468,7 +450,7 @@ handle_ac130_lighting_init()
     {
         if ( var_3.model == "vehicle_t72_tank" )
         {
-            var_1 = var_3._id_555C;
+            var_1 = var_3.last_spawned_vehicle;
             break;
         }
     }
@@ -484,7 +466,7 @@ handle_ac130_lighting_init()
     var_6.duration_fade_down = 0.3;
     var_6.pitch_scale = 0.7;
     var_6.roll_scale = 0.4;
-    var_6._id_A3B7 = 0.62;
+    var_6.yaw_scale = 0.62;
     var_6.frequency_roll = 12;
     var_6.frequency_yaw = 15;
     var_6.frequency_pitch = 8;
@@ -493,7 +475,7 @@ handle_ac130_lighting_init()
     var_7.duration_fade_down = 0.4;
     var_7.pitch_scale = 1;
     var_7.roll_scale = 0.56;
-    var_7._id_A3B7 = 0.9;
+    var_7.yaw_scale = 0.9;
     var_7.frequency_roll = 12;
     var_7.frequency_yaw = 15;
     var_7.frequency_pitch = 8;
@@ -518,12 +500,12 @@ handle_ac130_lighting_init()
     var_8 maps\_cinematography::cinseq_key( "sixth_hit_away" ) maps\_cinematography::cinseq_key_time( 13.1 ) maps\_cinematography::cinseq_key_dyndof_values( "ac130_explosions", 4.5, -1, 4, 3.5 );
     var_8 maps\_cinematography::cinseq_key( "seventh_hit" ) maps\_cinematography::cinseq_key_time( 15.05 ) maps\_cinematography::cinseq_key_dyndof_values( "ac130_explosions", 0.2, -1, 20, 10 ) maps\_cinematography::cinseq_key_screen_shake( var_7 );
     var_8 maps\_cinematography::cinseq_key( "seventh_hit_away" ) maps\_cinematography::cinseq_key_time( 15.5 ) maps\_cinematography::cinseq_key_dyndof_values( "ac130_explosions", 4.5, -1, 3, 3.5 );
-    common_scripts\utility::_id_384A( "ac130_barrage" );
+    common_scripts\utility::flag_wait( "ac130_barrage" );
     var_8 maps\_cinematography::cinseq_start_sequence();
     maps\_cinematography::dyndof_remove( "ac130_explosions" );
 }
 
-_id_23D0( var_0, var_1 )
+create_overlay_element( var_0, var_1 )
 {
     var_2 = newhudelem();
     var_2.x = 0;
@@ -607,7 +589,7 @@ visionset_trigger( var_0 )
     {
         self waittill( "trigger" );
         var_0 notify( "new_visionset" );
-        maps\_utility::_id_7F00( self.script_noteworthy, self.script_delay );
+        maps\_utility::set_vision_set( self.script_noteworthy, self.script_delay );
         var_0 waittill( "new_visionset" );
     }
 }
@@ -616,11 +598,11 @@ setup_lighting_pass_helicrash()
 {
     for (;;)
     {
-        common_scripts\utility::_id_384A( "lighting_player_exit_helicrash" );
-        common_scripts\utility::_id_3831( "lighting_player_entered_helicrash" );
+        common_scripts\utility::flag_wait( "lighting_player_exit_helicrash" );
+        common_scripts\utility::flag_clear( "lighting_player_entered_helicrash" );
         apply_lighting_pass_hunted_outside();
-        common_scripts\utility::_id_384A( "lighting_player_entered_helicrash" );
-        common_scripts\utility::_id_3831( "lighting_player_exit_helicrash" );
+        common_scripts\utility::flag_wait( "lighting_player_entered_helicrash" );
+        common_scripts\utility::flag_clear( "lighting_player_exit_helicrash" );
         apply_lighting_pass_hunted_helicrash();
     }
 }
@@ -629,9 +611,9 @@ setup_lighting_pass_interior()
 {
     for (;;)
     {
-        common_scripts\utility::_id_384A( "vision_barn_interior" );
+        common_scripts\utility::flag_wait( "vision_barn_interior" );
         apply_lighting_pass_hunted_inside();
-        common_scripts\utility::_id_3857( "vision_barn_interior" );
+        common_scripts\utility::flag_waitopen( "vision_barn_interior" );
         apply_lighting_pass_hunted_outside();
     }
 }
@@ -641,17 +623,17 @@ apply_lighting_pass_hunted_outside( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = 5.0;
 
-    maps\_utility::_id_9E6E( "hunted", 2 );
+    maps\_utility::vision_set_fog_changes( "hunted", 2 );
     level.player maps\_utility::set_light_set_player( "hunted" );
     level.player _meth_848C( "clut_hunted", var_0 );
 }
 
 apply_lighting_pass_hunted_inside()
 {
-    maps\_utility::_id_9E6E( "hunted_barn_interior", 2 );
+    maps\_utility::vision_set_fog_changes( "hunted_barn_interior", 2 );
     level.player maps\_utility::set_light_set_player( "barn_interior" );
     level.player _meth_848C( "clut_hunted", 5 );
-    maps\_utility::_id_7F00( "hunted_barn_interior", 6 );
+    maps\_utility::set_vision_set( "hunted_barn_interior", 6 );
 }
 
 apply_lighting_pass_hunted_helicrash()
@@ -659,18 +641,18 @@ apply_lighting_pass_hunted_helicrash()
     level.player maps\_utility::set_light_set_player( "heli_crash" );
 }
 
-_id_8106()
+setup_flickerlight_motion_presets()
 {
-    maps\_lighting::_id_23B3( "firelight_motion_01", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "firelight_motion_02", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "firelight_motion_03", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "firelight_motion_04", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "fire_barrel_small_01", ( 1.0, 0.4, 0.1 ), 45, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "fire_barrel_small_02", ( 1.0, 0.65, 0.4 ), 28, 20, 0.1, 0.8 );
-    maps\_lighting::_id_23B3( "fire_barrel_small_03", ( 1.0, 0.4, 0.1 ), 55, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "firelight_motion_01", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "firelight_motion_02", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "firelight_motion_03", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "firelight_motion_04", ( 1.0, 0.7, 0.4 ), 800, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "fire_barrel_small_01", ( 1.0, 0.4, 0.1 ), 45, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "fire_barrel_small_02", ( 1.0, 0.65, 0.4 ), 28, 20, 0.1, 0.8 );
+    maps\_lighting::create_flickerlight_motion_preset( "fire_barrel_small_03", ( 1.0, 0.4, 0.1 ), 55, 20, 0.1, 0.8 );
 }
 
 end_slomo_mix()
 {
-    soundscripts\_snd::_id_870C( "aud_heli_crashing" );
+    soundscripts\_snd::snd_message( "aud_heli_crashing" );
 }

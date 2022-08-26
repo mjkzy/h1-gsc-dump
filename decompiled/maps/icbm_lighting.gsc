@@ -1,49 +1,31 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_4D05();
+    init_level_lighting_flags();
     level.cheat_invert_override = "_bright";
     level.cheat_highcontrast_override = "_night";
-    thread _id_80C6();
-    thread _id_7E68();
+    thread setup_dof_presets();
+    thread set_level_lighting_values();
     level thread sun_rise_handling_init();
     level.nightvisionlightset = "icbm_nightvision";
-    _func_144( "icbm_nightvision" );
+    visionsetnight( "icbm_nightvision" );
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
-    common_scripts\utility::_id_383D( "stop_snow" );
+    common_scripts\utility::flag_init( "stop_snow" );
 }
 
-_id_80C6()
+setup_dof_presets()
 {
 
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
-    maps\_utility::_id_9E6E( "icbm", 0 );
+    maps\_utility::vision_set_fog_changes( "icbm", 0 );
     level.player maps\_utility::set_light_set_player( "icbm" );
     level.player _meth_848C( "clut_icbm", 0.0 );
 }
@@ -63,7 +45,7 @@ sun_rise_handling_init()
     var_2.interval = 20;
     thread handle_sunrise2_colors();
     wait 0.05;
-    maps\_utility::_id_9E6E( "icbm_sunrise0", 0 );
+    maps\_utility::vision_set_fog_changes( "icbm_sunrise0", 0 );
     level.player _meth_848C( "clut_icbm_sunrise0", 0.0 );
     thread sunrise_lerp_loop();
 }
@@ -97,15 +79,15 @@ skip_to_sunrise2()
 
 stop_snow()
 {
-    common_scripts\utility::_id_383F( "stop_snow" );
+    common_scripts\utility::flag_set( "stop_snow" );
 }
 
 remove_cloud_cover()
 {
-    var_0 = maps\_utility::_id_3FA9( "cloud_cover" );
+    var_0 = maps\_utility::getfxarraybyid( "cloud_cover" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] common_scripts\utility::_id_671F();
+        var_0[var_1] common_scripts\utility::pauseeffect();
 }
 
 handle_sunrise3_colors()
@@ -162,10 +144,10 @@ launchvision()
     wait 5;
     thread handle_launch_cinematic_effects();
     level.player maps\_utility::set_light_set_player( "icbm_launch" );
-    maps\_utility::_id_9E6E( "icbm_launch", 0.5 );
+    maps\_utility::vision_set_fog_changes( "icbm_launch", 0.5 );
     level.player _meth_848C( "clut_icbm_launch", 0.5 );
     wait 2;
-    maps\_utility::_id_9E6E( "icbm_sunrise4", 5 );
+    maps\_utility::vision_set_fog_changes( "icbm_sunrise4", 5 );
     level.player maps\_utility::set_light_set_player( "icbm_sunrise_04" );
     level.player _meth_848C( "clut_icbm_sunrise4", 5 );
     level notify( "missile_vision_done" );
@@ -187,13 +169,13 @@ set_interior_vision()
 {
     for (;;)
     {
-        common_scripts\utility::_id_384A( "player_is_inside" );
-        maps\_utility::_id_7F00( "icbm_village_interior", 2 );
-        maps\_utility::_id_9E6E( "icbm_village_interior", 2 );
+        common_scripts\utility::flag_wait( "player_is_inside" );
+        maps\_utility::set_vision_set( "icbm_village_interior", 2 );
+        maps\_utility::vision_set_fog_changes( "icbm_village_interior", 2 );
         level.player maps\_utility::set_light_set_player( "icbm_village_interior" );
-        common_scripts\utility::_id_3857( "player_is_inside" );
-        maps\_utility::_id_7F00( level.outside_vision_set, 2 );
-        maps\_utility::_id_9E6E( level.outside_vision_set, 6 );
+        common_scripts\utility::flag_waitopen( "player_is_inside" );
+        maps\_utility::set_vision_set( level.outside_vision_set, 2 );
+        maps\_utility::vision_set_fog_changes( level.outside_vision_set, 6 );
         level.player maps\_utility::set_light_set_player( level.outside_light_set );
     }
 }
@@ -221,8 +203,8 @@ set_exterior_vision_and_light_set( var_0, var_1, var_2 )
 
     if ( !level.playerisinside )
     {
-        maps\_utility::_id_7F00( level.outside_vision_set, var_2 );
-        maps\_utility::_id_9E6E( level.outside_vision_set, var_2 );
+        maps\_utility::set_vision_set( level.outside_vision_set, var_2 );
+        maps\_utility::vision_set_fog_changes( level.outside_vision_set, var_2 );
         level.player maps\_utility::set_light_set_player( level.outside_light_set );
     }
 }

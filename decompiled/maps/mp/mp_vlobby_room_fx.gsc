@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["pigeon_flock_vista_loop"] = loadfx( "vfx/animal/pigeon_flock_vista_loop" );
@@ -71,33 +53,33 @@ loadprecacheddepoteffects()
 
 setupdepotexploders()
 {
-    var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -609.323 ), ( 270.0, 152.37, 157.63 ) );
-    var_0 common_scripts\_createfx::_id_7E40();
+    var_0 = common_scripts\utility::createexploder( "vlobby_crate_glow" );
+    var_0 common_scripts\_createfx::set_origin_and_angles( ( 14089.0, 1251.84, -609.323 ), ( 270.0, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::set_forward_and_up_vectors();
     var_0.v["fxid"] = "vlobby_crate_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "106";
-    var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_rare_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -608.323 ), ( 270.0, 152.37, 157.63 ) );
-    var_0 common_scripts\_createfx::_id_7E40();
+    var_0 = common_scripts\utility::createexploder( "vlobby_crate_rare_glow" );
+    var_0 common_scripts\_createfx::set_origin_and_angles( ( 14089.0, 1251.84, -608.323 ), ( 270.0, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::set_forward_and_up_vectors();
     var_0.v["fxid"] = "vlobby_crate_rare_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "109";
-    var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_leg_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -607.323 ), ( 270.0, 152.37, 157.63 ) );
-    var_0 common_scripts\_createfx::_id_7E40();
+    var_0 = common_scripts\utility::createexploder( "vlobby_crate_leg_glow" );
+    var_0 common_scripts\_createfx::set_origin_and_angles( ( 14089.0, 1251.84, -607.323 ), ( 270.0, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::set_forward_and_up_vectors();
     var_0.v["fxid"] = "vlobby_crate_leg_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "112";
-    var_0 = common_scripts\utility::_id_23FE( "vlobby_crate_epic_glow" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14089.0, 1251.84, -606.323 ), ( 270.0, 152.37, 157.63 ) );
-    var_0 common_scripts\_createfx::_id_7E40();
+    var_0 = common_scripts\utility::createexploder( "vlobby_crate_epic_glow" );
+    var_0 common_scripts\_createfx::set_origin_and_angles( ( 14089.0, 1251.84, -606.323 ), ( 270.0, 152.37, 157.63 ) );
+    var_0 common_scripts\_createfx::set_forward_and_up_vectors();
     var_0.v["fxid"] = "vlobby_crate_epic_glow";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "115";
-    var_0 = common_scripts\utility::_id_23FE( "smoke_crate_open" );
-    var_0 common_scripts\_createfx::_id_7E8F( ( 14088.3, 1253.98, -612.744 ), ( 352.008, 131.04, -89.7203 ) );
-    var_0 common_scripts\_createfx::_id_7E40();
+    var_0 = common_scripts\utility::createexploder( "smoke_crate_open" );
+    var_0 common_scripts\_createfx::set_origin_and_angles( ( 14088.3, 1253.98, -612.744 ), ( 352.008, 131.04, -89.7203 ) );
+    var_0 common_scripts\_createfx::set_forward_and_up_vectors();
     var_0.v["fxid"] = "smoke_crate_open";
     var_0.v["delay"] = 0;
     var_0.v["exploder"] = "201";

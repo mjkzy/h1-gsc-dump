@@ -1,75 +1,57 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4D0D()
+init_littlebird_landing()
 {
-    if ( isdefined( level._id_57AA ) )
+    if ( isdefined( level.little_bird_landing_init ) )
         return;
 
-    level._id_57AA = 1;
-    thread _id_4D0E();
+    level.little_bird_landing_init = 1;
+    thread init_littlebird_landing_thread();
 }
 
-_id_4D0E()
+init_littlebird_landing_thread()
 {
-    waitframe;
-    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "gag_stage_littlebird_unload", "script_noteworthy" ), ::_id_8121 );
-    common_scripts\utility::array_thread( common_scripts\utility::_id_40FD( "gag_stage_littlebird_load", "script_noteworthy" ), ::_id_8120 );
+    waittillframeend;
+    common_scripts\utility::array_thread( common_scripts\utility::getstructarray( "gag_stage_littlebird_unload", "script_noteworthy" ), ::setup_gag_stage_littlebird_unload );
+    common_scripts\utility::array_thread( common_scripts\utility::getstructarray( "gag_stage_littlebird_load", "script_noteworthy" ), ::setup_gag_stage_littlebird_load );
 }
 
-_id_57B1()
+littlebird_landing()
 {
     self endon( "death" );
-    maps\_utility::_id_32DD( "prep_unload" );
-    maps\_utility::_id_32E0( "prep_unload" );
-    maps\_vehicle_code::_id_992C();
-    var_0 = _id_3DAF();
-    var_0 _id_57B2( self );
-    maps\_vehicle::_id_9D17( var_0 );
+    maps\_utility::ent_flag_init( "prep_unload" );
+    maps\_utility::ent_flag_wait( "prep_unload" );
+    maps\_vehicle_code::turn_unloading_drones_to_ai();
+    var_0 = get_landing_node();
+    var_0 littlebird_lands_and_unloads( self );
+    maps\_vehicle::vehicle_paths( var_0 );
 }
 
-_id_8AE9( var_0, var_1, var_2, var_3 )
+stage_guy( var_0, var_1, var_2, var_3 )
 {
     var_4 = "stage_littlebird_" + var_1;
     var_5 = [];
     var_5[0] = var_0;
     var_3 maps\_anim::anim_generic_reach( var_5[0], var_4, "tag_detach_" + var_1 );
     var_3 maps\_anim::anim_generic( var_5[0], var_4, "tag_detach_" + var_1 );
-    maps\_utility::_id_32DE( "staged_guy_" + var_1 );
-    var_0 _meth_81AA( common_scripts\utility::_id_2F69( var_0.origin ) );
+    maps\_utility::ent_flag_set( "staged_guy_" + var_1 );
+    var_0 setgoalpos( common_scripts\utility::drop_to_ground( var_0.origin ) );
     var_0.goalradius = 16;
-    maps\_utility::_id_32E0( "guy2_in_" + var_1 );
-    thread maps\_vehicle_aianim::_id_57BF( [ var_0 ], undefined, var_1 );
+    maps\_utility::ent_flag_wait( "guy2_in_" + var_1 );
+    thread maps\_vehicle_aianim::load_ai( [ var_0 ], undefined, var_1 );
 }
 
-_id_8121()
+setup_gag_stage_littlebird_unload()
 {
     for (;;)
     {
         self waittill( "trigger", var_0 );
-        _id_57B2( var_0 );
+        littlebird_lands_and_unloads( var_0 );
     }
 }
 
-_id_8120()
+setup_gag_stage_littlebird_load()
 {
     for (;;)
     {
@@ -79,35 +61,35 @@ _id_8120()
         var_0 settargetyaw( self.angles[1] );
         var_0 vehicle_setspeed( 20, 7, 7 );
 
-        while ( distance( common_scripts\utility::_id_38C9( var_0.origin ), common_scripts\utility::_id_38C9( self.origin ) ) > 256 )
+        while ( distance( common_scripts\utility::flat_origin( var_0.origin ), common_scripts\utility::flat_origin( self.origin ) ) > 256 )
             wait 0.05;
 
         var_0 endon( "death" );
-        var_0 thread _id_9CF6( 220, self );
+        var_0 thread vehicle_land_beneath_node( 220, self );
         var_0 waittill( "near_goal" );
         var_0 vehicle_setspeed( 20, 22, 7 );
-        var_0 thread _id_9CF6( 16, self );
+        var_0 thread vehicle_land_beneath_node( 16, self );
         var_0 waittill( "near_goal" );
-        var_0 maps\_vehicle_code::_id_A0B8();
+        var_0 maps\_vehicle_code::waittill_stable();
         var_0 notify( "touch_down", self );
         var_0 vehicle_setspeed( 20, 8, 7 );
     }
 }
 
-_id_57B2( var_0 )
+littlebird_lands_and_unloads( var_0 )
 {
     var_0 setdeceleration( 6 );
     var_0 setacceleration( 4 );
     var_0 settargetyaw( self.angles[1] );
     var_0 vehicle_setspeed( 20, 7, 7 );
 
-    while ( distance( common_scripts\utility::_id_38C9( var_0.origin ), common_scripts\utility::_id_38C9( self.origin ) ) > 512 )
+    while ( distance( common_scripts\utility::flat_origin( var_0.origin ), common_scripts\utility::flat_origin( self.origin ) ) > 512 )
         wait 0.05;
 
     var_0 endon( "death" );
     var_1 = "landing" + randomint( 99999 );
     badplace_cylinder( var_1, 30, self.origin, 200, 300, "axis", "allies", "neutral", "team3" );
-    var_0 thread _id_9CF6( 424, self );
+    var_0 thread vehicle_land_beneath_node( 424, self );
     var_0 waittill( "near_goal" );
     badplace_delete( var_1 );
     badplace_cylinder( var_1, 30, self.origin, 200, 300, "axis", "allies", "neutral", "team3" );
@@ -116,13 +98,13 @@ _id_57B2( var_0 )
     var_0 vehicle_setspeed( 20, 22, 7 );
     var_0 notify( "nearing_landing" );
 
-    if ( isdefined( var_0._id_2549 ) )
+    if ( isdefined( var_0.custom_landing ) )
     {
-        switch ( var_0._id_2549 )
+        switch ( var_0.custom_landing )
         {
             case "hover_then_land":
                 var_0 vehicle_setspeed( 10, 22, 7 );
-                var_0 thread _id_9CF6( 32, self, 64 );
+                var_0 thread vehicle_land_beneath_node( 32, self, 64 );
                 var_0 waittill( "near_goal" );
                 var_0 notify( "hovering" );
                 wait 1;
@@ -132,47 +114,47 @@ _id_57B2( var_0 )
         }
     }
 
-    var_0 thread _id_9CF6( 16, self );
+    var_0 thread vehicle_land_beneath_node( 16, self );
     var_0 waittill( "near_goal" );
     badplace_delete( var_1 );
     maps\_utility::script_delay();
-    var_0 maps\_vehicle::_id_9D67();
-    var_0 maps\_vehicle_code::_id_A0B8();
+    var_0 maps\_vehicle::vehicle_unload();
+    var_0 maps\_vehicle_code::waittill_stable();
     var_0 vehicle_setspeed( 20, 8, 7 );
     wait 0.2;
     var_0 notify( "stable_for_unlink" );
     wait 0.2;
 
-    if ( isdefined( self._id_79D8 ) )
-        common_scripts\utility::_id_383F( self._id_79D8 );
+    if ( isdefined( self.script_flag_set ) )
+        common_scripts\utility::flag_set( self.script_flag_set );
 
-    if ( isdefined( self._id_79DA ) )
-        common_scripts\utility::_id_384A( self._id_79DA );
+    if ( isdefined( self.script_flag_wait ) )
+        common_scripts\utility::flag_wait( self.script_flag_wait );
 
     var_0 notify( "littlebird_liftoff" );
 }
 
-_id_7EBF( var_0, var_1, var_2 )
+set_stage( var_0, var_1, var_2 )
 {
-    if ( !maps\_utility::_id_32DC( "staged_guy_" + var_2 ) )
-        maps\_utility::_id_32DD( "staged_guy_" + var_2 );
+    if ( !maps\_utility::ent_flag_exist( "staged_guy_" + var_2 ) )
+        maps\_utility::ent_flag_init( "staged_guy_" + var_2 );
     else
-        maps\_utility::_id_32DA( "staged_guy_" + var_2 );
+        maps\_utility::ent_flag_clear( "staged_guy_" + var_2 );
 
-    if ( !maps\_utility::_id_32DC( "guy2_in_" + var_2 ) )
-        maps\_utility::_id_32DD( "guy2_in_" + var_2 );
+    if ( !maps\_utility::ent_flag_exist( "guy2_in_" + var_2 ) )
+        maps\_utility::ent_flag_init( "guy2_in_" + var_2 );
     else
-        maps\_utility::_id_32DA( "guy2_in_" + var_2 );
+        maps\_utility::ent_flag_clear( "guy2_in_" + var_2 );
 
-    var_3 = _id_3E6E( var_0, var_2 );
-    var_4 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
+    var_3 = get_stage_nodes( var_0, var_2 );
+    var_4 = common_scripts\utility::getstruct( var_0.target, "targetname" );
     var_5 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_5 setmodel( self.model );
 
-    if ( isdefined( self._id_60A8 ) )
+    if ( isdefined( self.new_stage_heli_spawn ) )
         var_5.origin = self.origin;
     else
-        var_5.origin = common_scripts\utility::_id_2F69( var_4.origin ) + ( 0, 0, self._id_65A7 );
+        var_5.origin = common_scripts\utility::drop_to_ground( var_4.origin ) + ( 0, 0, self.originheightoffset );
 
     var_5.angles = var_4.angles;
     var_5 hide();
@@ -186,7 +168,7 @@ _id_7EBF( var_0, var_1, var_2 )
 
         foreach ( var_13 in var_1 )
         {
-            if ( isdefined( var_13._id_7ADC ) && var_13._id_7ADC == var_10._id_7ADC )
+            if ( isdefined( var_13.script_startingposition ) && var_13.script_startingposition == var_10.script_startingposition )
             {
                 var_11 = var_13;
                 break;
@@ -194,31 +176,31 @@ _id_7EBF( var_0, var_1, var_2 )
         }
 
         if ( !isdefined( var_11 ) )
-            var_11 = common_scripts\utility::_id_3F33( var_10.origin, var_1 );
+            var_11 = common_scripts\utility::getclosest( var_10.origin, var_1 );
 
-        var_11._id_7ADC = var_10._id_7ADC;
+        var_11.script_startingposition = var_10.script_startingposition;
 
-        if ( var_11._id_7ADC == 2 || var_11._id_7ADC == 5 )
+        if ( var_11.script_startingposition == 2 || var_11.script_startingposition == 5 )
         {
             var_6 = var_11;
-            var_11 maps\_spawner::_id_4244( var_10 );
+            var_11 maps\_spawner::go_to_node_set_goal_node( var_10 );
         }
-        else if ( var_11._id_7ADC == 3 || var_11._id_7ADC == 6 )
+        else if ( var_11.script_startingposition == 3 || var_11.script_startingposition == 6 )
             var_8 = var_11;
-        else if ( var_11._id_7ADC == 4 || var_11._id_7ADC == 7 )
+        else if ( var_11.script_startingposition == 4 || var_11.script_startingposition == 7 )
         {
             var_7 = var_11;
-            var_11 maps\_spawner::_id_4244( var_10 );
+            var_11 maps\_spawner::go_to_node_set_goal_node( var_10 );
         }
 
         var_1 = common_scripts\utility::array_remove( var_1, var_11 );
     }
 
-    thread _id_8AE9( var_8, var_2, var_7, var_5 );
-    thread common_scripts\utility::_id_2825( var_5 );
+    thread stage_guy( var_8, var_2, var_7, var_5 );
+    thread common_scripts\utility::delete_on_death( var_5 );
 }
 
-_id_3E6E( var_0, var_1 )
+get_stage_nodes( var_0, var_1 )
 {
     var_2 = getnodearray( var_0.target, "targetname" );
     var_3 = [];
@@ -232,22 +214,22 @@ _id_3E6E( var_0, var_1 )
     return var_3;
 }
 
-_id_3DAF()
+get_landing_node()
 {
-    var_0 = self._id_251D;
+    var_0 = self.currentnode;
 
     for (;;)
     {
-        var_1 = maps\_utility::_id_3F82( var_0.target, "targetname" );
+        var_1 = maps\_utility::getent_or_struct( var_0.target, "targetname" );
 
-        if ( isdefined( var_1._id_7B06 ) )
+        if ( isdefined( var_1.script_unload ) )
             return var_1;
 
         var_0 = var_1;
     }
 }
 
-_id_57D1( var_0, var_1 )
+load_side( var_0, var_1 )
 {
     var_2 = undefined;
     var_3 = undefined;
@@ -255,31 +237,31 @@ _id_57D1( var_0, var_1 )
 
     foreach ( var_6 in var_1 )
     {
-        if ( var_6._id_7ADC == 2 || var_6._id_7ADC == 5 )
+        if ( var_6.script_startingposition == 2 || var_6.script_startingposition == 5 )
         {
             var_2 = var_6;
             continue;
         }
 
-        if ( var_6._id_7ADC == 3 || var_6._id_7ADC == 6 )
+        if ( var_6.script_startingposition == 3 || var_6.script_startingposition == 6 )
         {
             var_4 = var_6;
             continue;
         }
 
-        if ( var_6._id_7ADC == 4 || var_6._id_7ADC == 7 )
+        if ( var_6.script_startingposition == 4 || var_6.script_startingposition == 7 )
             var_3 = var_6;
     }
 
-    maps\_utility::_id_32E0( "staged_guy_" + var_0 );
-    thread maps\_vehicle::_id_9D06( var_2, undefined, var_0 );
+    maps\_utility::ent_flag_wait( "staged_guy_" + var_0 );
+    thread maps\_vehicle::vehicle_load_ai_single( var_2, undefined, var_0 );
     var_2 waittill( "boarding_vehicle" );
-    thread maps\_vehicle::_id_9D06( var_3, undefined, var_0 );
+    thread maps\_vehicle::vehicle_load_ai_single( var_3, undefined, var_0 );
     var_3 waittill( "boarding_vehicle" );
-    maps\_utility::_id_32DE( "guy2_in_" + var_0 );
+    maps\_utility::ent_flag_set( "guy2_in_" + var_0 );
 }
 
-_id_9CF6( var_0, var_1, var_2 )
+vehicle_land_beneath_node( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 0;
@@ -292,7 +274,7 @@ _id_9CF6( var_0, var_1, var_2 )
     self neargoalnotifydist( var_0 );
     self sethoverparams( 0, 0, 0 );
     self cleargoalyaw();
-    self settargetyaw( common_scripts\utility::_id_38C8( var_1.angles )[1] );
-    maps\_vehicle_code::_setvehgoalpos_wrap( maps\_utility::_id_4417( var_1.origin ) + ( 0, 0, var_2 ), 1 );
+    self settargetyaw( common_scripts\utility::flat_angle( var_1.angles )[1] );
+    maps\_vehicle_code::_setvehgoalpos_wrap( maps\_utility::groundpos( var_1.origin ) + ( 0, 0, var_2 ), 1 );
     self waittill( "goal" );
 }

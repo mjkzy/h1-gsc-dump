@@ -1,30 +1,12 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     precacheshellshock( "ambush_stunned" );
-    _id_4D05();
-    thread _id_80C6();
-    thread _id_7E68();
+    init_level_lighting_flags();
+    thread setup_dof_presets();
+    thread set_level_lighting_values();
     thread handle_aarea_takeover_lighting_init();
     thread handle_takeover_fade();
     thread handle_ambush_lighting_setup();
@@ -32,17 +14,17 @@ main()
     thread handle_ambush_tower_blackout_lighting();
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
 
 }
 
-_id_80C6()
+setup_dof_presets()
 {
 
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
     var_0 = getent( "day_skydome", "targetname" );
     var_0 hide();
@@ -50,51 +32,51 @@ _id_7E68()
 
 handle_aarea_takeover_lighting_init()
 {
-    common_scripts\utility::_id_384A( "aa_takeover" );
-    maps\_utility::_id_7F00( "ambush_start", 0 );
-    maps\_utility::_id_9E6E( "ambush_start", 0 );
+    common_scripts\utility::flag_wait( "aa_takeover" );
+    maps\_utility::set_vision_set( "ambush_start", 0 );
+    maps\_utility::vision_set_fog_changes( "ambush_start", 0 );
     level.player _meth_848C( "clut_ambush_start", 1.0 );
     level.player maps\_utility::set_light_set_player( "ambush_start" );
 }
 
 handle_takeover_fade()
 {
-    common_scripts\utility::_id_384A( "takeover_fade" );
-    var_0 = _id_23D0( "black", 0 );
+    common_scripts\utility::flag_wait( "takeover_fade" );
+    var_0 = create_overlay_element( "black", 0 );
     var_0 fadeovertime( 2 );
     var_0.alpha = 1;
-    common_scripts\utility::_id_384A( "takeover_fade_begin_fade_in" );
+    common_scripts\utility::flag_wait( "takeover_fade_begin_fade_in" );
     var_0 fadeovertime( 4 );
     var_0.alpha = 0;
-    common_scripts\utility::_id_384A( "takeover_fade_done" );
+    common_scripts\utility::flag_wait( "takeover_fade_done" );
     var_0 destroy();
 }
 
 handle_ambush_lighting_setup()
 {
-    common_scripts\utility::_id_384A( "ambush_init" );
+    common_scripts\utility::flag_wait( "ambush_init" );
 }
 
 handle_ambush_briefing_done_lighting()
 {
-    common_scripts\utility::_id_384A( "takeover_finalized_done" );
+    common_scripts\utility::flag_wait( "takeover_finalized_done" );
     setup_daytime_lights();
 }
 
 handle_ambush_tower_blackout_lighting()
 {
-    common_scripts\utility::_id_384A( "player_tower_hits_ground" );
-    var_0 = _id_23D0( "black", 1 );
+    common_scripts\utility::flag_wait( "player_tower_hits_ground" );
+    var_0 = create_overlay_element( "black", 1 );
 
     if ( getdvarint( "use_old_tower_fall_cinematic_fx" ) == 1 )
         thread handle_tower_fall_cinematic_fx_preh1();
     else
         thread handle_tower_fall_cinematic_fx();
 
-    common_scripts\utility::_id_384A( "ambush_tower_blackout_come_to" );
+    common_scripts\utility::flag_wait( "ambush_tower_blackout_come_to" );
     var_0 fadeovertime( 3 );
     var_0.alpha = 0;
-    common_scripts\utility::_id_384A( "ambush_recovered" );
+    common_scripts\utility::flag_wait( "ambush_recovered" );
     var_0 destroy();
 }
 
@@ -117,14 +99,14 @@ handle_tower_fall_cinematic_fx()
     var_0 maps\_cinematography::cinseq_key( "slight_blur_out_2" ) maps\_cinematography::cinseq_key_time( 13 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 0.6, 30, 5, 1 );
     var_0 maps\_cinematography::cinseq_key( "focus_zak_son_4" ) maps\_cinematography::cinseq_key_time( 13.2 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 1.8, -1, 3, 1 );
     var_0 maps\_cinematography::cinseq_key( "focus_normal" ) maps\_cinematography::cinseq_key_time( 16 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 12, 800, 2, 0.7 ) maps\_cinematography::cinseq_key_dyndof_ref_ent( "main", undefined );
-    common_scripts\utility::_id_384A( "ambush_tower_blackout_come_to" );
+    common_scripts\utility::flag_wait( "ambush_tower_blackout_come_to" );
     var_0 maps\_cinematography::cinseq_start_sequence();
     maps\_cinematography::dyndof_system_end();
 }
 
 handle_village_start_lighting()
 {
-    common_scripts\utility::_id_384A( "aa_hunt" );
+    common_scripts\utility::flag_wait( "aa_hunt" );
     setculldist( 0 );
 }
 
@@ -143,7 +125,7 @@ setup_apartment_start_lighting()
     setup_daytime_lights();
 }
 
-_id_23D0( var_0, var_1 )
+create_overlay_element( var_0, var_1 )
 {
     var_2 = newhudelem();
     var_2.x = 0;
@@ -161,8 +143,8 @@ _id_23D0( var_0, var_1 )
 
 setup_daytime_lights()
 {
-    maps\_utility::_id_7F00( "ambush", 0 );
-    maps\_utility::_id_9E6E( "ambush", 0 );
+    maps\_utility::set_vision_set( "ambush", 0 );
+    maps\_utility::vision_set_fog_changes( "ambush", 0 );
     level.player _meth_848C( "clut_ambush_chase01", 1.0 );
     level.player maps\_utility::set_light_set_player( "ambush" );
     var_0 = getent( "dawn_skydome", "targetname" );

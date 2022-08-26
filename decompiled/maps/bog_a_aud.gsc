@@ -1,110 +1,92 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_2110();
-    _id_4D5B();
-    _id_4CF4();
-    _id_5625();
-    _id_5618();
-    thread _id_5617();
-    _id_23C4();
-    _id_6ECB();
-    _id_72E8();
+    config_system();
+    init_snd_flags();
+    init_globals();
+    launch_threads();
+    launch_loops();
+    thread launch_line_emitters();
+    create_level_envelop_arrays();
+    precache_presets();
+    register_snd_messages();
 }
 
-_id_2110()
+config_system()
 {
-    soundscripts\_audio::_id_7EC8( "shg" );
-    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_bog_a_global" );
+    soundscripts\_audio::set_stringtable_mapname( "shg" );
+    soundscripts\_snd_filters::snd_set_occlusion( "med_occlusion" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_bog_a_global" );
 }
 
-_id_4D5B()
+init_snd_flags()
 {
 
 }
 
-_id_4CF4()
+init_globals()
 {
     level.aud.bog_faked_ambience_ent = getent( "amb_damb_bog_01", "targetname" );
 }
 
-_id_5625()
+launch_threads()
 {
     common_scripts\utility::array_thread( getentarray( "trigger_sound_emitter", "script_noteworthy" ), ::trigger_sound_emitter );
 }
 
-_id_5618()
+launch_loops()
 {
 
 }
 
-_id_5617()
+launch_line_emitters()
 {
     wait 0.1;
 }
 
-_id_23C4()
+create_level_envelop_arrays()
 {
 
 }
 
-_id_6ECB()
+precache_presets()
 {
 
 }
 
-_id_72E8()
+register_snd_messages()
 {
-    soundscripts\_snd::_id_874D( "snd_zone_handler", ::_id_A3E6 );
-    soundscripts\_snd::_id_874D( "snd_music_handler", ::_id_5FFD );
-    soundscripts\_snd::_id_874D( "start_ambush_checkpoint", ::start_ambush_checkpoint );
-    soundscripts\_snd::_id_874D( "start_melee_checkpoint", ::start_melee_checkpoint );
-    soundscripts\_snd::_id_874D( "start_breach_checkpoint", ::start_breach_checkpoint );
-    soundscripts\_snd::_id_874D( "start_alley_checkpoint", ::start_alley_checkpoint );
-    soundscripts\_snd::_id_874D( "start_shanty_checkpoint", ::start_shanty_checkpoint );
-    soundscripts\_snd::_id_874D( "start_bog_checkpoint", ::start_bog_checkpoint );
-    soundscripts\_snd::_id_874D( "start_zpu_checkpoint", ::start_zpu_checkpoint );
-    soundscripts\_snd::_id_874D( "start_cobra_checkpoint", ::start_cobra_checkpoint );
-    soundscripts\_snd::_id_874D( "start_end_checkpoint", ::start_end_checkpoint );
-    soundscripts\_snd::_id_874D( "play_intro_scripted_cobra_pass_by", ::play_intro_scripted_cobra_pass_by );
-    soundscripts\_snd::_id_874D( "start_cobra_crash_sequence", ::start_cobra_crash_sequence );
-    soundscripts\_snd::_id_874D( "stop_cobra_crash_sequence", ::stop_cobra_crash_sequence );
-    soundscripts\_snd::_id_874D( "start_shanty_open_audio", ::start_shanty_open_audio );
-    soundscripts\_snd::_id_874D( "start_cobra_support_mix", ::start_cobra_support_mix );
-    soundscripts\_snd::_id_874D( "set_bog_ambience_to_bog_end_ext0", ::set_bog_ambience_to_bog_end_ext0 );
-    soundscripts\_snd::_id_874D( "stop_cobra_support_mix", ::stop_cobra_support_mix );
-    soundscripts\_snd::_id_874D( "start_ending_area_mix", ::start_ending_area_mix );
-    soundscripts\_snd::_id_874D( "start_tank_mission_failure", ::start_tank_mission_failure );
-    soundscripts\_snd::_id_874D( "start_end_black_screen_mix", ::start_end_black_screen_mix );
+    soundscripts\_snd::snd_register_message( "snd_zone_handler", ::zone_handler );
+    soundscripts\_snd::snd_register_message( "snd_music_handler", ::music_handler );
+    soundscripts\_snd::snd_register_message( "start_ambush_checkpoint", ::start_ambush_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_melee_checkpoint", ::start_melee_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_breach_checkpoint", ::start_breach_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_alley_checkpoint", ::start_alley_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_shanty_checkpoint", ::start_shanty_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_bog_checkpoint", ::start_bog_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_zpu_checkpoint", ::start_zpu_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_cobra_checkpoint", ::start_cobra_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_end_checkpoint", ::start_end_checkpoint );
+    soundscripts\_snd::snd_register_message( "play_intro_scripted_cobra_pass_by", ::play_intro_scripted_cobra_pass_by );
+    soundscripts\_snd::snd_register_message( "start_cobra_crash_sequence", ::start_cobra_crash_sequence );
+    soundscripts\_snd::snd_register_message( "stop_cobra_crash_sequence", ::stop_cobra_crash_sequence );
+    soundscripts\_snd::snd_register_message( "start_shanty_open_audio", ::start_shanty_open_audio );
+    soundscripts\_snd::snd_register_message( "start_cobra_support_mix", ::start_cobra_support_mix );
+    soundscripts\_snd::snd_register_message( "set_bog_ambience_to_bog_end_ext0", ::set_bog_ambience_to_bog_end_ext0 );
+    soundscripts\_snd::snd_register_message( "stop_cobra_support_mix", ::stop_cobra_support_mix );
+    soundscripts\_snd::snd_register_message( "start_ending_area_mix", ::start_ending_area_mix );
+    soundscripts\_snd::snd_register_message( "start_tank_mission_failure", ::start_tank_mission_failure );
+    soundscripts\_snd::snd_register_message( "start_end_black_screen_mix", ::start_end_black_screen_mix );
 }
 
-_id_A3E6( var_0, var_1 )
+zone_handler( var_0, var_1 )
 {
 
 }
 
-_id_5FFD( var_0, var_1 )
+music_handler( var_0, var_1 )
 {
 
 }
@@ -171,31 +153,31 @@ start_end_checkpoint( var_0 )
 
 play_intro_scripted_cobra_pass_by()
 {
-    var_0 = common_scripts\utility::_id_40FB( "auto9", "targetname" );
-    var_1 = common_scripts\utility::_id_40FB( "auto3112", "targetname" );
+    var_0 = common_scripts\utility::getstruct( "auto9", "targetname" );
+    var_1 = common_scripts\utility::getstruct( "auto3112", "targetname" );
     var_0 thread play_scripted_pass_by_sfx( "scn_intro_cobra_passby_01" );
     var_1 thread play_scripted_pass_by_sfx( "scn_intro_cobra_passby_02" );
 }
 
 start_cobra_crash_sequence()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "cobra_crash_sequence" );
-    level.alarm_ent common_scripts\utility::_id_8EA1( "emt_air_raid_alarm" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "cobra_crash_sequence" );
+    level.alarm_ent common_scripts\utility::stop_loop_sound_on_entity( "emt_air_raid_alarm" );
 }
 
 stop_cobra_crash_sequence()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "cobra_crash_sequence" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "cobra_crash_sequence" );
 }
 
 start_cobra_support_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "cobra_support_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "cobra_support_mix" );
 }
 
 stop_cobra_support_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "cobra_support_mix" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "cobra_support_mix" );
 }
 
 set_bog_ambience_to_bog_end_ext0()
@@ -205,7 +187,7 @@ set_bog_ambience_to_bog_end_ext0()
 
 start_shanty_open_audio()
 {
-    soundscripts\_audio_dynamic_ambi::_id_25C4( "bog_gun_fire", "first_war_zone_gunfire", 0.8 );
+    soundscripts\_audio_dynamic_ambi::damb_stop_preset_at_point( "bog_gun_fire", "first_war_zone_gunfire", 0.8 );
     soundscripts\_audio_zone_manager::azm_set_zone_streamed_ambience( "exterior_javelin_square", "ambient_bog_ext0", 1.0 );
     start_bog_combat_emitter();
     thread play_chain_link_fence_sfx();
@@ -218,7 +200,7 @@ play_chain_link_fence_sfx()
     for (;;)
     {
         var_0 waittill( "trigger", var_1 );
-        thread common_scripts\utility::_id_69C2( "scn_chainlink_fence_rattle", var_1.origin );
+        thread common_scripts\utility::play_sound_in_space( "scn_chainlink_fence_rattle", var_1.origin );
 
         while ( var_1 istouching( var_0 ) )
             wait 0.05;
@@ -227,41 +209,41 @@ play_chain_link_fence_sfx()
 
 play_melee_custom_pistol_fire_sfx( var_0 )
 {
-    var_0 thread maps\_utility::_id_69C5( "scn_melee_custom_pistol_fire", "tag_flash" );
+    var_0 thread maps\_utility::play_sound_on_tag( "scn_melee_custom_pistol_fire", "tag_flash" );
 }
 
 play_scripted_pass_by_sfx( var_0 )
 {
     self waittill( "trigger", var_1 );
     var_1 vehicle_turnengineoff();
-    var_1._id_799F = 1;
-    var_1 maps\_utility::_id_69C4( var_0 );
+    var_1.script_disablevehicleaudio = 1;
+    var_1 maps\_utility::play_sound_on_entity( var_0 );
 }
 
 trigger_sound_emitter()
 {
-    if ( isdefined( self._id_7A99 ) && isdefined( self.target ) )
+    if ( isdefined( self.script_parameters ) && isdefined( self.target ) )
     {
         self waittill( "trigger", var_0 );
         var_1 = getent( self.target, "targetname" );
-        var_1 maps\_utility::_id_69C4( self._id_7A99 );
+        var_1 maps\_utility::play_sound_on_entity( self.script_parameters );
     }
 }
 
 start_gunfire_damb_bog()
 {
-    soundscripts\_audio_dynamic_ambi::_id_25C0( "bog_gun_fire", level.aud.bog_faked_ambience_ent.origin );
+    soundscripts\_audio_dynamic_ambi::damb_start_preset_at_point( "bog_gun_fire", level.aud.bog_faked_ambience_ent.origin );
 }
 
 start_gunfire_damb_first_war_zone()
 {
     var_0 = getent( "amb_damb_first_warzone_01", "targetname" );
-    soundscripts\_audio_dynamic_ambi::_id_25C0( "bog_gun_fire", var_0.origin, "first_war_zone_gunfire" );
+    soundscripts\_audio_dynamic_ambi::damb_start_preset_at_point( "bog_gun_fire", var_0.origin, "first_war_zone_gunfire" );
 }
 
 start_bog_combat_emitter()
 {
-    level.aud.bog_faked_ambience_ent thread common_scripts\utility::_id_6975( "emt_bog_a_bog_combat", undefined, 1.0, 5.0 );
+    level.aud.bog_faked_ambience_ent thread common_scripts\utility::play_loop_sound_on_entity( "emt_bog_a_bog_combat", undefined, 1.0, 5.0 );
     thread monitor_stop_bog_combat_emitter();
 }
 
@@ -269,7 +251,7 @@ monitor_stop_bog_combat_emitter()
 {
     var_0 = getent( "stop_combat_emitter_sfx", "targetname" );
     var_0 waittill( "trigger" );
-    level.aud.bog_faked_ambience_ent common_scripts\utility::_id_8EA1( "emt_bog_a_bog_combat" );
+    level.aud.bog_faked_ambience_ent common_scripts\utility::stop_loop_sound_on_entity( "emt_bog_a_bog_combat" );
 }
 
 handle_cobra_waypoint_audio( var_0 )
@@ -279,18 +261,18 @@ handle_cobra_waypoint_audio( var_0 )
         switch ( var_0.targetname )
         {
             case "maverick_waypoint1":
-                thread maps\_utility::_id_69C4( "scn_cobra_support_arrival_01" );
-                thread maps\_utility::_id_6976( "h1r_bog_a_cobra_helicopter_wind", undefined, 1, 1 );
+                thread maps\_utility::play_sound_on_entity( "scn_cobra_support_arrival_01" );
+                thread maps\_utility::play_loop_sound_on_tag( "h1r_bog_a_cobra_helicopter_wind", undefined, 1, 1 );
                 break;
             case "cobra2_arrival_scripted_sfx":
-                thread maps\_utility::_id_69C4( "scn_cobra_support_arrival_02" );
-                thread maps\_utility::_id_6976( "h1r_bog_a_cobra_helicopter_wind", undefined, 1, 1 );
+                thread maps\_utility::play_sound_on_entity( "scn_cobra_support_arrival_02" );
+                thread maps\_utility::play_loop_sound_on_tag( "h1r_bog_a_cobra_helicopter_wind", undefined, 1, 1 );
                 break;
             case "cobra1_start_leaving_sfx":
-                thread maps\_utility::_id_69C4( "scn_cobra_support_leaving_01" );
+                thread maps\_utility::play_sound_on_entity( "scn_cobra_support_leaving_01" );
                 break;
             case "cobra2_start_leaving_sfx":
-                thread maps\_utility::_id_69C4( "scn_cobra_support_leaving_02" );
+                thread maps\_utility::play_sound_on_entity( "scn_cobra_support_leaving_02" );
                 break;
         }
     }
@@ -299,20 +281,20 @@ handle_cobra_waypoint_audio( var_0 )
 start_distant_alarm_sfx()
 {
     level.alarm_ent = getent( "distant_alarm_sfx", "targetname" );
-    level.alarm_ent thread common_scripts\utility::_id_6975( "emt_air_raid_alarm", undefined, 0, 20 );
+    level.alarm_ent thread common_scripts\utility::play_loop_sound_on_entity( "emt_air_raid_alarm", undefined, 0, 20 );
 }
 
 start_ending_area_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "ending_area_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "ending_area_mix" );
 }
 
 start_tank_mission_failure()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "tank_mission_failure_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "tank_mission_failure_mix" );
 }
 
 start_end_black_screen_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "end_black_screen_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "end_black_screen_mix" );
 }

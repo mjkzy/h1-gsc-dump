@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     game["round_end"]["draw"] = 1;
@@ -70,29 +52,29 @@ init()
     level.lua_splash_type_challenge = 3;
     level.lua_splash_type_rankup = 4;
     level.lua_splash_type_generic = 5;
-    level thread _id_64C8();
+    level thread onplayerconnect();
     setdvar( "scr_lua_splashes", "1" );
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_58A7();
-        var_0 thread _id_4DF5();
+        var_0 thread lowermessagethink();
+        var_0 thread initnotifymessage();
         var_0 thread manageluasplashtimers();
     }
 }
 
-_id_4909( var_0 )
+hintmessage( var_0 )
 {
     var_1 = spawnstruct();
-    var_1._id_6238 = var_0;
-    _id_622E( var_1 );
+    var_1.notifytext = var_0;
+    notifymessage( var_1 );
 }
 
-_id_4DF5()
+initnotifymessage()
 {
     if ( level.splitscreen || self issplitscreenplayerprimary() )
     {
@@ -117,101 +99,101 @@ _id_4DF5()
         var_7 = 0;
     }
 
-    self._id_623A = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_0 );
-    self._id_623A maps\mp\gametypes\_hud_util::setpoint( var_4, undefined, var_7, var_6 );
-    self._id_623A.hidewheninmenu = 1;
-    self._id_623A.archived = 0;
-    self._id_623A.alpha = 0;
-    self._id_6238 = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_1 );
-    self._id_6238 maps\mp\gametypes\_hud_util::setParent( self._id_623A );
-    self._id_6238 maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
-    self._id_6238.hidewheninmenu = 1;
-    self._id_6238.archived = 0;
-    self._id_6238.alpha = 0;
-    self._id_6239 = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_1 );
-    self._id_6239 maps\mp\gametypes\_hud_util::setParent( self._id_623A );
-    self._id_6239 maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
-    self._id_6239.hidewheninmenu = 1;
-    self._id_6239.archived = 0;
-    self._id_6239.alpha = 0;
-    self._id_622D = maps\mp\gametypes\_hud_util::createIcon( "white", var_2, var_2 );
-    self._id_622D maps\mp\gametypes\_hud_util::setParent( self._id_6239 );
-    self._id_622D maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
-    self._id_622D.hidewheninmenu = 1;
-    self._id_622D.archived = 0;
-    self._id_622D.alpha = 0;
-    self._id_6233 = maps\mp\gametypes\_hud_util::createIcon( "white", var_2, var_2 );
-    self._id_6233 maps\mp\gametypes\_hud_util::setParent( self._id_622D );
-    self._id_6233 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, 0 );
-    self._id_6233.hidewheninmenu = 1;
-    self._id_6233.archived = 0;
-    self._id_6233.alpha = 0;
-    self._id_2CE9 = [];
-    self._id_2CE9[0] = undefined;
-    self._id_2CE9[1] = undefined;
-    self._id_2CE9[2] = undefined;
-    self._id_2CE9[3] = undefined;
-    self._id_8A6B = [];
-    self._id_8A6B[0] = [];
-    self._id_8A6B[1] = [];
-    self._id_8A6B[2] = [];
-    self._id_8A6B[3] = [];
+    self.notifytitle = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_0 );
+    self.notifytitle maps\mp\gametypes\_hud_util::setpoint( var_4, undefined, var_7, var_6 );
+    self.notifytitle.hidewheninmenu = 1;
+    self.notifytitle.archived = 0;
+    self.notifytitle.alpha = 0;
+    self.notifytext = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_1 );
+    self.notifytext maps\mp\gametypes\_hud_util::setparent( self.notifytitle );
+    self.notifytext maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
+    self.notifytext.hidewheninmenu = 1;
+    self.notifytext.archived = 0;
+    self.notifytext.alpha = 0;
+    self.notifytext2 = maps\mp\gametypes\_hud_util::createfontstring( var_3, var_1 );
+    self.notifytext2 maps\mp\gametypes\_hud_util::setparent( self.notifytitle );
+    self.notifytext2 maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
+    self.notifytext2.hidewheninmenu = 1;
+    self.notifytext2.archived = 0;
+    self.notifytext2.alpha = 0;
+    self.notifyicon = maps\mp\gametypes\_hud_util::createicon( "white", var_2, var_2 );
+    self.notifyicon maps\mp\gametypes\_hud_util::setparent( self.notifytext2 );
+    self.notifyicon maps\mp\gametypes\_hud_util::setpoint( var_4, var_5, 0, 0 );
+    self.notifyicon.hidewheninmenu = 1;
+    self.notifyicon.archived = 0;
+    self.notifyicon.alpha = 0;
+    self.notifyoverlay = maps\mp\gametypes\_hud_util::createicon( "white", var_2, var_2 );
+    self.notifyoverlay maps\mp\gametypes\_hud_util::setparent( self.notifyicon );
+    self.notifyoverlay maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, 0 );
+    self.notifyoverlay.hidewheninmenu = 1;
+    self.notifyoverlay.archived = 0;
+    self.notifyoverlay.alpha = 0;
+    self.doingsplash = [];
+    self.doingsplash[0] = undefined;
+    self.doingsplash[1] = undefined;
+    self.doingsplash[2] = undefined;
+    self.doingsplash[3] = undefined;
+    self.splashqueue = [];
+    self.splashqueue[0] = [];
+    self.splashqueue[1] = [];
+    self.splashqueue[2] = [];
+    self.splashqueue[3] = [];
 }
 
-_id_63DB( var_0, var_1, var_2, var_3, var_4, var_5 )
+oldnotifymessage( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = spawnstruct();
-    var_6._id_93A2 = var_0;
-    var_6._id_6238 = var_1;
-    var_6._id_4B48 = var_2;
+    var_6.titletext = var_0;
+    var_6.notifytext = var_1;
+    var_6.iconname = var_2;
     var_6.glowcolor = var_3;
-    var_6._id_8899 = var_4;
+    var_6.sound = var_4;
     var_6.duration = var_5;
-    _id_622E( var_6 );
+    notifymessage( var_6 );
 }
 
-_id_622E( var_0 )
+notifymessage( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
 
-    if ( !isdefined( var_0._id_8631 ) )
-        var_0._id_8631 = 0;
+    if ( !isdefined( var_0.slot ) )
+        var_0.slot = 0;
 
-    var_1 = var_0._id_8631;
+    var_1 = var_0.slot;
 
     if ( !isdefined( var_0.type ) )
         var_0.type = "";
 
-    if ( !isdefined( self._id_2CE9[var_1] ) )
+    if ( !isdefined( self.doingsplash[var_1] ) )
     {
-        thread _id_8521( var_0 );
+        thread shownotifymessage( var_0 );
         return;
     }
 
-    self._id_8A6B[var_1][self._id_8A6B[var_1].size] = var_0;
+    self.splashqueue[var_1][self.splashqueue[var_1].size] = var_0;
 }
 
-_id_2B40( var_0 )
+dispatchnotify( var_0 )
 {
-    waitframe;
-    var_1 = self._id_8A6B[var_0][0];
+    waittillframeend;
+    var_1 = self.splashqueue[var_0][0];
 
     if ( !isdefined( var_1 ) )
         return;
 
-    for ( var_2 = 1; var_2 < self._id_8A6B[var_0].size; var_2++ )
-        self._id_8A6B[var_0][var_2 - 1] = self._id_8A6B[var_0][var_2];
+    for ( var_2 = 1; var_2 < self.splashqueue[var_0].size; var_2++ )
+        self.splashqueue[var_0][var_2 - 1] = self.splashqueue[var_0][var_2];
 
-    self._id_8A6B[var_0][var_2 - 1] = undefined;
+    self.splashqueue[var_0][var_2 - 1] = undefined;
 
     if ( isdefined( var_1.name ) )
         actionnotify( var_1 );
     else
-        _id_8521( var_1 );
+        shownotifymessage( var_1 );
 }
 
-_id_7018()
+promotionsplashnotify()
 {
     if ( !isplayer( self ) )
         return;
@@ -220,42 +202,42 @@ _id_7018()
     var_0 = spawnstruct();
     var_1 = "promotion";
     var_0.name = var_1;
-    var_0.type = tablelookup( _id_3E83(), 0, var_1, 11 );
-    var_0._id_8899 = tablelookup( _id_3E83(), 0, var_1, 9 );
-    var_0._id_8631 = 0;
+    var_0.type = tablelookup( get_table_name(), 0, var_1, 11 );
+    var_0.sound = tablelookup( get_table_name(), 0, var_1, 9 );
+    var_0.slot = 0;
     thread actionnotify( var_0 );
 }
 
-_id_8521( var_0 )
+shownotifymessage( var_0 )
 {
     self endon( "disconnect" );
 
-    if ( maps\mp\_utility::_id_5092( var_0._id_7454 ) )
+    if ( maps\mp\_utility::is_true( var_0.resetondeath ) )
         self endon( "death" );
 
-    var_1 = var_0._id_8631;
+    var_1 = var_0.slot;
 
     if ( level.gameended )
     {
         if ( isdefined( var_0.type ) && var_0.type == "rank" )
         {
             self setclientdvar( "ui_promotion", 1 );
-            self._id_6E8A = 1;
+            self.postgamepromotion = 1;
         }
 
-        if ( self._id_8A6B[var_1].size )
-            thread _id_2B40( var_1 );
+        if ( self.splashqueue[var_1].size )
+            thread dispatchnotify( var_1 );
 
         return;
     }
 
-    self._id_2CE9[var_1] = var_0;
+    self.doingsplash[var_1] = var_0;
 
-    if ( maps\mp\_utility::_id_5092( var_0._id_7454 ) )
-        thread _id_7454();
+    if ( maps\mp\_utility::is_true( var_0.resetondeath ) )
+        thread resetondeath();
 
-    thread _id_7453();
-    _id_A054( 0 );
+    thread resetoncancel();
+    waitrequirevisibility( 0 );
 
     if ( isdefined( var_0.duration ) )
         var_2 = var_0.duration;
@@ -264,156 +246,156 @@ _id_8521( var_0 )
     else
         var_2 = 4.0;
 
-    if ( isdefined( var_0._id_8899 ) )
-        self playlocalsound( var_0._id_8899 );
+    if ( isdefined( var_0.sound ) )
+        self playlocalsound( var_0.sound );
 
-    if ( isdefined( var_0._id_565B ) )
-        maps\mp\_utility::_id_5655( var_0._id_565B );
+    if ( isdefined( var_0.leadersound ) )
+        maps\mp\_utility::leaderdialogonplayer( var_0.leadersound );
 
     var_3 = var_0.glowcolor;
-    var_4 = self._id_623A;
+    var_4 = self.notifytitle;
 
-    if ( isdefined( var_0._id_93A2 ) )
+    if ( isdefined( var_0.titletext ) )
     {
-        if ( isdefined( var_0._id_93A0 ) )
-            self._id_623A.label = var_0._id_93A0;
+        if ( isdefined( var_0.titlelabel ) )
+            self.notifytitle.label = var_0.titlelabel;
         else
-            self._id_623A.label = &"";
+            self.notifytitle.label = &"";
 
-        if ( isdefined( var_0._id_93A0 ) && !isdefined( var_0._id_939F ) )
-            self._id_623A setvalue( var_0._id_93A2 );
+        if ( isdefined( var_0.titlelabel ) && !isdefined( var_0.titleisstring ) )
+            self.notifytitle setvalue( var_0.titletext );
         else
-            self._id_623A settext( var_0._id_93A2 );
+            self.notifytitle settext( var_0.titletext );
 
         if ( isdefined( var_3 ) )
-            self._id_623A.glowcolor = var_3;
+            self.notifytitle.glowcolor = var_3;
 
-        self._id_623A.alpha = 1;
-        self._id_623A fadeovertime( var_2 * 1.25 );
-        self._id_623A.alpha = 0;
+        self.notifytitle.alpha = 1;
+        self.notifytitle fadeovertime( var_2 * 1.25 );
+        self.notifytitle.alpha = 0;
     }
 
-    if ( isdefined( var_0._id_92BC ) )
-        var_3 = var_0._id_92BC;
+    if ( isdefined( var_0.textglowcolor ) )
+        var_3 = var_0.textglowcolor;
 
-    if ( isdefined( var_0._id_6238 ) )
+    if ( isdefined( var_0.notifytext ) )
     {
-        if ( isdefined( var_0._id_92BF ) )
-            self._id_6238.label = var_0._id_92BF;
+        if ( isdefined( var_0.textlabel ) )
+            self.notifytext.label = var_0.textlabel;
         else
-            self._id_6238.label = &"";
+            self.notifytext.label = &"";
 
-        if ( isdefined( var_0._id_92BF ) && !isdefined( var_0._id_92BE ) )
-            self._id_6238 setvalue( var_0._id_6238 );
+        if ( isdefined( var_0.textlabel ) && !isdefined( var_0.textisstring ) )
+            self.notifytext setvalue( var_0.notifytext );
         else
-            self._id_6238 settext( var_0._id_6238 );
+            self.notifytext settext( var_0.notifytext );
 
         if ( isdefined( var_3 ) )
-            self._id_6238.glowcolor = var_3;
+            self.notifytext.glowcolor = var_3;
 
-        self._id_6238.alpha = 1;
-        self._id_6238 fadeovertime( var_2 * 1.25 );
-        self._id_6238.alpha = 0;
-        var_4 = self._id_6238;
+        self.notifytext.alpha = 1;
+        self.notifytext fadeovertime( var_2 * 1.25 );
+        self.notifytext.alpha = 0;
+        var_4 = self.notifytext;
     }
 
-    if ( isdefined( var_0._id_6239 ) )
+    if ( isdefined( var_0.notifytext2 ) )
     {
-        self._id_6239 maps\mp\gametypes\_hud_util::setParent( var_4 );
+        self.notifytext2 maps\mp\gametypes\_hud_util::setparent( var_4 );
 
-        if ( isdefined( var_0._id_92BA ) )
-            self._id_6239.label = var_0._id_92BA;
+        if ( isdefined( var_0.text2label ) )
+            self.notifytext2.label = var_0.text2label;
         else
-            self._id_6239.label = &"";
+            self.notifytext2.label = &"";
 
-        self._id_6239 settext( var_0._id_6239 );
+        self.notifytext2 settext( var_0.notifytext2 );
 
         if ( isdefined( var_3 ) )
-            self._id_6239.glowcolor = var_3;
+            self.notifytext2.glowcolor = var_3;
 
-        self._id_6239.alpha = 1;
-        self._id_6239 fadeovertime( var_2 * 1.25 );
-        self._id_6239.alpha = 0;
-        var_4 = self._id_6239;
+        self.notifytext2.alpha = 1;
+        self.notifytext2 fadeovertime( var_2 * 1.25 );
+        self.notifytext2.alpha = 0;
+        var_4 = self.notifytext2;
     }
 
-    if ( isdefined( var_0._id_4B48 ) )
+    if ( isdefined( var_0.iconname ) )
     {
-        self._id_622D maps\mp\gametypes\_hud_util::setParent( var_4 );
+        self.notifyicon maps\mp\gametypes\_hud_util::setparent( var_4 );
 
         if ( level.splitscreen || self issplitscreenplayerprimary() )
-            self._id_622D setshader( var_0._id_4B48, 30, 30 );
+            self.notifyicon setshader( var_0.iconname, 30, 30 );
         else
-            self._id_622D setshader( var_0._id_4B48, 60, 60 );
+            self.notifyicon setshader( var_0.iconname, 60, 60 );
 
-        self._id_622D.alpha = 0;
+        self.notifyicon.alpha = 0;
 
-        if ( isdefined( var_0._id_4B4C ) )
+        if ( isdefined( var_0.iconoverlay ) )
         {
-            self._id_622D fadeovertime( 0.15 );
-            self._id_622D.alpha = 1;
-            var_0._id_65F7 = 0;
-            self._id_6233 maps\mp\gametypes\_hud_util::setParent( self._id_622D );
-            self._id_6233 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, var_0._id_65F7 );
-            self._id_6233 setshader( var_0._id_4B4C, 511, 511 );
-            self._id_6233.alpha = 0;
-            self._id_6233.color = game["colors"]["orange"];
-            self._id_6233 fadeovertime( 0.4 );
-            self._id_6233.alpha = 0.85;
-            self._id_6233 scaleovertime( 0.4, 32, 32 );
-            _id_A054( var_2 );
-            self._id_622D fadeovertime( 0.75 );
-            self._id_622D.alpha = 0;
-            self._id_6233 fadeovertime( 0.75 );
-            self._id_6233.alpha = 0;
+            self.notifyicon fadeovertime( 0.15 );
+            self.notifyicon.alpha = 1;
+            var_0.overlayoffsety = 0;
+            self.notifyoverlay maps\mp\gametypes\_hud_util::setparent( self.notifyicon );
+            self.notifyoverlay maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, var_0.overlayoffsety );
+            self.notifyoverlay setshader( var_0.iconoverlay, 511, 511 );
+            self.notifyoverlay.alpha = 0;
+            self.notifyoverlay.color = game["colors"]["orange"];
+            self.notifyoverlay fadeovertime( 0.4 );
+            self.notifyoverlay.alpha = 0.85;
+            self.notifyoverlay scaleovertime( 0.4, 32, 32 );
+            waitrequirevisibility( var_2 );
+            self.notifyicon fadeovertime( 0.75 );
+            self.notifyicon.alpha = 0;
+            self.notifyoverlay fadeovertime( 0.75 );
+            self.notifyoverlay.alpha = 0;
         }
         else
         {
-            self._id_622D fadeovertime( 1.0 );
-            self._id_622D.alpha = 1;
-            _id_A054( var_2 );
-            self._id_622D fadeovertime( 0.75 );
-            self._id_622D.alpha = 0;
+            self.notifyicon fadeovertime( 1.0 );
+            self.notifyicon.alpha = 1;
+            waitrequirevisibility( var_2 );
+            self.notifyicon fadeovertime( 0.75 );
+            self.notifyicon.alpha = 0;
         }
     }
     else
-        _id_A054( var_2 );
+        waitrequirevisibility( var_2 );
 
     self notify( "notifyMessageDone" );
-    self._id_2CE9[var_1] = undefined;
+    self.doingsplash[var_1] = undefined;
 
-    if ( self._id_8A6B[var_1].size )
-        thread _id_2B40( var_1 );
+    if ( self.splashqueue[var_1].size )
+        thread dispatchnotify( var_1 );
 }
 
-_id_21C7( var_0, var_1 )
+coopkillstreaksplashnotify( var_0, var_1 )
 {
     if ( !isplayer( self ) )
         return;
 
     self endon( "disconnect" );
-    waitframe;
+    waittillframeend;
 
     if ( level.gameended )
         return;
 
     var_2 = spawnstruct();
     var_2.name = var_0;
-    var_2.type = tablelookup( _id_3E83(), 0, var_0, 11 );
-    var_2._id_6547 = 0;
-    var_2._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
-    var_2._id_565B = var_1;
-    var_2._id_8631 = 0;
+    var_2.type = tablelookup( get_table_name(), 0, var_0, 11 );
+    var_2.optionalnumber = 0;
+    var_2.sound = tablelookup( get_table_name(), 0, var_0, 9 );
+    var_2.leadersound = var_1;
+    var_2.slot = 0;
     thread actionnotify( var_2 );
 }
 
-_id_53A9( var_0, var_1, var_2, var_3, var_4 )
+killstreaksplashnotify( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isplayer( self ) )
         return;
 
     self endon( "disconnect" );
-    waitframe;
+    waittillframeend;
 
     if ( !isdefined( self ) )
         return;
@@ -443,41 +425,41 @@ _id_53A9( var_0, var_1, var_2, var_3, var_4 )
 
     var_6 = spawnstruct();
     var_6.name = var_0;
-    var_6.type = tablelookup( _id_3E83(), 0, var_0, 11 );
-    var_6._id_6547 = var_1;
-    var_6._id_8899 = maps\mp\_utility::_id_3FF7( var_0 );
-    var_6._id_565B = var_0;
-    var_6._id_565C = "killstreak_earned";
-    var_6._id_8631 = 0;
+    var_6.type = tablelookup( get_table_name(), 0, var_0, 11 );
+    var_6.optionalnumber = var_1;
+    var_6.sound = maps\mp\_utility::getkillstreaksound( var_0 );
+    var_6.leadersound = var_0;
+    var_6.leadersoundgroup = "killstreak_earned";
+    var_6.slot = 0;
     var_6.killstreakslot = var_4;
 
     if ( isdefined( var_3 ) && isarray( var_3 ) )
     {
         if ( var_3.size > 0 )
-            var_6._id_5D54 = tablelookuprownum( level._id_53DC, level._id_53D9, var_3[0] );
+            var_6.module1idx = tablelookuprownum( level.ks_modules_table, level.ks_module_ref_column, var_3[0] );
 
         if ( var_3.size > 1 )
-            var_6._id_5D55 = tablelookuprownum( level._id_53DC, level._id_53D9, var_3[1] );
+            var_6.module2idx = tablelookuprownum( level.ks_modules_table, level.ks_module_ref_column, var_3[1] );
 
         if ( var_3.size > 2 )
-            var_6._id_5D56 = tablelookuprownum( level._id_53DC, level._id_53D9, var_3[2] );
+            var_6.module3idx = tablelookuprownum( level.ks_modules_table, level.ks_module_ref_column, var_3[2] );
     }
 
     thread actionnotify( var_6 );
 }
 
-_id_1C64( var_0, var_1, var_2 )
+challengesplashnotify( var_0, var_1, var_2 )
 {
     if ( !isplayer( self ) )
         return;
 
     self endon( "disconnect" );
-    waitframe;
+    waittillframeend;
     wait 0.05;
 
     for ( var_3 = var_2 - 1; var_3 >= var_1; var_3-- )
     {
-        var_4 = maps\mp\gametypes\_hud_util::_id_1C4E( var_0, var_3 );
+        var_4 = maps\mp\gametypes\_hud_util::ch_gettarget( var_0, var_3 );
 
         if ( var_4 == 0 )
             var_4 = 1;
@@ -504,11 +486,11 @@ _id_1C64( var_0, var_1, var_2 )
 
         var_7 = spawnstruct();
         var_7.name = var_0;
-        var_7.type = tablelookup( _id_3E83(), 0, var_0, 11 );
+        var_7.type = tablelookup( get_table_name(), 0, var_0, 11 );
         var_7.challengetier = var_3;
-        var_7._id_6547 = var_4;
-        var_7._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
-        var_7._id_8631 = 0;
+        var_7.optionalnumber = var_4;
+        var_7.sound = tablelookup( get_table_name(), 0, var_0, 9 );
+        var_7.slot = 0;
         thread actionnotify( var_7 );
     }
 }
@@ -528,10 +510,10 @@ medalsplashnotify( var_0 )
         }
     }
     else
-        _id_8A68( var_0 );
+        splashnotify( var_0 );
 }
 
-_id_8A68( var_0, var_1, var_2 )
+splashnotify( var_0, var_1, var_2 )
 {
     if ( !isplayer( self ) )
         return;
@@ -563,25 +545,25 @@ _id_8A68( var_0, var_1, var_2 )
     wait 0.05;
     var_4 = spawnstruct();
     var_4.name = var_0;
-    var_4.type = tablelookup( _id_3E83(), 0, var_0, 11 );
-    var_4._id_6547 = var_1;
-    var_4._id_8899 = tablelookup( _id_3E83(), 0, var_4.name, 9 );
+    var_4.type = tablelookup( get_table_name(), 0, var_0, 11 );
+    var_4.optionalnumber = var_1;
+    var_4.sound = tablelookup( get_table_name(), 0, var_4.name, 9 );
 
     if ( !isdefined( var_2 ) )
         var_2 = -1;
 
     var_4.killstreakslot = var_2;
-    var_4._id_8631 = 0;
+    var_4.slot = 0;
     thread actionnotify( var_4 );
 }
 
-_id_713B( var_0, var_1, var_2 )
+rankupsplashnotify( var_0, var_1, var_2 )
 {
     if ( !isplayer( self ) )
         return;
 
     self endon( "disconnect" );
-    waitframe;
+    waittillframeend;
 
     if ( !isdefined( self ) )
         return;
@@ -605,21 +587,21 @@ _id_713B( var_0, var_1, var_2 )
 
     var_4 = spawnstruct();
     var_4.name = var_0;
-    var_4.type = tablelookup( _id_3E83(), 0, var_0, 11 );
-    var_4._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
+    var_4.type = tablelookup( get_table_name(), 0, var_0, 11 );
+    var_4.sound = tablelookup( get_table_name(), 0, var_0, 9 );
     var_4.rank = var_1;
     var_4.prestige = var_2;
-    var_4._id_8631 = 0;
+    var_4.slot = 0;
     thread actionnotify( var_4 );
 }
 
-_id_6C6F( var_0, var_1, var_2 )
+playercardsplashnotify( var_0, var_1, var_2 )
 {
     if ( !isplayer( self ) )
         return;
 
     self endon( "disconnect" );
-    waitframe;
+    waittillframeend;
 
     if ( !isdefined( self ) )
         return;
@@ -629,14 +611,14 @@ _id_6C6F( var_0, var_1, var_2 )
 
     var_3 = spawnstruct();
     var_3.name = var_0;
-    var_3.type = tablelookup( _id_3E83(), 0, var_0, 11 );
-    var_3._id_6547 = var_2;
-    var_3._id_8899 = tablelookup( _id_3E83(), 0, var_0, 9 );
-    var_3._id_6C6E = var_1;
-    var_3._id_8631 = 0;
+    var_3.type = tablelookup( get_table_name(), 0, var_0, 11 );
+    var_3.optionalnumber = var_2;
+    var_3.sound = tablelookup( get_table_name(), 0, var_0, 9 );
+    var_3.playercardplayer = var_1;
+    var_3.slot = 0;
 
     if ( var_3.type == "playercard_splash" )
-        var_3._id_8631 = 1;
+        var_3.slot = 1;
 
     thread actionnotify( var_3 );
 }
@@ -645,12 +627,12 @@ actionnotify( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
-    var_1 = var_0._id_8631;
+    var_1 = var_0.slot;
 
     if ( !isdefined( var_0.type ) )
         var_0.type = "";
 
-    if ( !isdefined( self._id_2CE9[var_1] ) )
+    if ( !isdefined( self.doingsplash[var_1] ) )
     {
         thread actionnotifymessage( var_0 );
         return;
@@ -660,9 +642,9 @@ actionnotify( var_0 )
         switch ( var_0.type )
         {
             case "urgent_splash":
-                self._id_6238.alpha = 0;
-                self._id_6239.alpha = 0;
-                self._id_622D.alpha = 0;
+                self.notifytext.alpha = 0;
+                self.notifytext2.alpha = 0;
+                self.notifyicon.alpha = 0;
                 self setclientomnvar( "ui_splash_idx", -1 );
                 self setclientomnvar( "ui_splash_killstreak_mod_1", -1 );
                 self setclientomnvar( "ui_splash_killstreak_mod_2", -1 );
@@ -673,11 +655,11 @@ actionnotify( var_0 )
             case "splash":
             case "killstreak_splash":
             case "killstreak_coop_splash":
-                if ( self._id_2CE9[var_1].type != "splash" && self._id_2CE9[var_1].type != "urgent_splash" && self._id_2CE9[var_1].type != "killstreak_coop_splash" && self._id_2CE9[var_1].type != "killstreak_splash" && self._id_2CE9[var_1].type != "challenge_splash" && self._id_2CE9[var_1].type != "promotion_splash" && self._id_2CE9[var_1].type != "intel_splash" && self._id_2CE9[var_1].type != "rankup_splash" )
+                if ( self.doingsplash[var_1].type != "splash" && self.doingsplash[var_1].type != "urgent_splash" && self.doingsplash[var_1].type != "killstreak_coop_splash" && self.doingsplash[var_1].type != "killstreak_splash" && self.doingsplash[var_1].type != "challenge_splash" && self.doingsplash[var_1].type != "promotion_splash" && self.doingsplash[var_1].type != "intel_splash" && self.doingsplash[var_1].type != "rankup_splash" )
                 {
-                    self._id_6238.alpha = 0;
-                    self._id_6239.alpha = 0;
-                    self._id_622D.alpha = 0;
+                    self.notifytext.alpha = 0;
+                    self.notifytext2.alpha = 0;
+                    self.notifyicon.alpha = 0;
                     thread actionnotifymessage( var_0 );
                     return;
                 }
@@ -688,26 +670,26 @@ actionnotify( var_0 )
 
     if ( var_0.type == "challenge_splash" || var_0.type == "killstreak_splash" || var_0.type == "killstreak_coop_splash" )
     {
-        for ( var_2 = self._id_8A6B[var_1].size; var_2 > 0; var_2-- )
-            self._id_8A6B[var_1][var_2] = self._id_8A6B[var_1][var_2 - 1];
+        for ( var_2 = self.splashqueue[var_1].size; var_2 > 0; var_2-- )
+            self.splashqueue[var_1][var_2] = self.splashqueue[var_1][var_2 - 1];
 
-        self._id_8A6B[var_1][0] = var_0;
+        self.splashqueue[var_1][0] = var_0;
     }
     else
-        self._id_8A6B[var_1][self._id_8A6B[var_1].size] = var_0;
+        self.splashqueue[var_1][self.splashqueue[var_1].size] = var_0;
 }
 
 actionnotifymessage( var_0 )
 {
     self endon( "disconnect" );
-    var_1 = var_0._id_8631;
+    var_1 = var_0.slot;
 
     if ( level.gameended )
     {
         if ( isdefined( var_0.type ) && ( var_0.type == "promotion_splash" || var_0.type == "promotion_weapon_splash" ) )
         {
             self setclientdvar( "ui_promotion", 1 );
-            self._id_6E8A = 1;
+            self.postgamepromotion = 1;
         }
         else if ( isdefined( var_0.type ) && var_0.type == "challenge_splash" )
         {
@@ -715,16 +697,16 @@ actionnotifymessage( var_0 )
             self setclientdvar( "ui_challenge_" + self.pers["postGameChallenges"] + "_ref", var_0.name );
         }
 
-        if ( self._id_8A6B[var_1].size )
-            thread _id_2B40( var_1 );
+        if ( self.splashqueue[var_1].size )
+            thread dispatchnotify( var_1 );
 
         return;
     }
 
-    if ( tablelookup( _id_3E83(), 0, var_0.name, 0 ) != "" )
+    if ( tablelookup( get_table_name(), 0, var_0.name, 0 ) != "" )
     {
-        var_2 = tablelookuprownum( _id_3E83(), 0, var_0.name );
-        var_3 = maps\mp\_utility::_id_8F5A( tablelookupbyrow( _id_3E83(), var_2, 4 ) );
+        var_2 = tablelookuprownum( get_table_name(), 0, var_0.name );
+        var_3 = maps\mp\_utility::stringtofloat( tablelookupbyrow( get_table_name(), var_2, 4 ) );
 
         switch ( var_0.type )
         {
@@ -735,42 +717,42 @@ actionnotifymessage( var_0 )
 
                 self setclientomnvar( "ui_splash_killstreak_idx", var_2 );
 
-                if ( isdefined( var_0._id_6C6E ) && var_0._id_6C6E != self )
-                    self setclientomnvar( "ui_splash_killstreak_clientnum", var_0._id_6C6E getentitynumber() );
+                if ( isdefined( var_0.playercardplayer ) && var_0.playercardplayer != self )
+                    self setclientomnvar( "ui_splash_killstreak_clientnum", var_0.playercardplayer getentitynumber() );
                 else
                     self setclientomnvar( "ui_splash_killstreak_clientnum", -1 );
 
-                if ( isdefined( var_0._id_6547 ) )
-                    self setclientomnvar( "ui_splash_killstreak_optional_number", var_0._id_6547 );
+                if ( isdefined( var_0.optionalnumber ) )
+                    self setclientomnvar( "ui_splash_killstreak_optional_number", var_0.optionalnumber );
                 else
                     self setclientomnvar( "ui_splash_killstreak_optional_number", 0 );
 
-                if ( isdefined( var_0._id_5D54 ) )
-                    self setclientomnvar( "ui_splash_killstreak_mod_1", var_0._id_5D54 );
+                if ( isdefined( var_0.module1idx ) )
+                    self setclientomnvar( "ui_splash_killstreak_mod_1", var_0.module1idx );
                 else
                     self setclientomnvar( "ui_splash_killstreak_mod_1", -1 );
 
-                if ( isdefined( var_0._id_5D55 ) )
-                    self setclientomnvar( "ui_splash_killstreak_mod_2", var_0._id_5D55 );
+                if ( isdefined( var_0.module2idx ) )
+                    self setclientomnvar( "ui_splash_killstreak_mod_2", var_0.module2idx );
                 else
                     self setclientomnvar( "ui_splash_killstreak_mod_2", -1 );
 
-                if ( isdefined( var_0._id_5D56 ) )
-                    self setclientomnvar( "ui_splash_killstreak_mod_3", var_0._id_5D56 );
+                if ( isdefined( var_0.module3idx ) )
+                    self setclientomnvar( "ui_splash_killstreak_mod_3", var_0.module3idx );
                 else
                     self setclientomnvar( "ui_splash_killstreak_mod_3", -1 );
 
                 break;
             case "playercard_splash":
-                if ( isdefined( var_0._id_6C6E ) )
+                if ( isdefined( var_0.playercardplayer ) )
                 {
                     self setclientomnvar( "ui_splash_playercard_idx", var_2 );
 
-                    if ( isplayer( var_0._id_6C6E ) )
-                        self setclientomnvar( "ui_splash_playercard_clientnum", var_0._id_6C6E getentitynumber() );
+                    if ( isplayer( var_0.playercardplayer ) )
+                        self setclientomnvar( "ui_splash_playercard_clientnum", var_0.playercardplayer getentitynumber() );
 
-                    if ( isdefined( var_0._id_6547 ) )
-                        self setclientomnvar( "ui_splash_playercard_optional_number", var_0._id_6547 );
+                    if ( isdefined( var_0.optionalnumber ) )
+                        self setclientomnvar( "ui_splash_playercard_optional_number", var_0.optionalnumber );
                 }
 
                 break;
@@ -779,8 +761,8 @@ actionnotifymessage( var_0 )
             case "intel_splash":
                 self setclientomnvar( "ui_splash_idx", var_2 );
 
-                if ( isdefined( var_0._id_6547 ) )
-                    self setclientomnvar( "ui_splash_optional_number", var_0._id_6547 );
+                if ( isdefined( var_0.optionalnumber ) )
+                    self setclientomnvar( "ui_splash_optional_number", var_0.optionalnumber );
 
                 break;
             case "rankup_splash":
@@ -801,100 +783,100 @@ actionnotifymessage( var_0 )
                 if ( isdefined( var_0.challengetier ) )
                     self setclientomnvar( "ui_challenge_splash_tier", var_0.challengetier );
 
-                if ( isdefined( var_0._id_6547 ) )
-                    self setclientomnvar( "ui_challenge_splash_optional_number", var_0._id_6547 );
+                if ( isdefined( var_0.optionalnumber ) )
+                    self setclientomnvar( "ui_challenge_splash_optional_number", var_0.optionalnumber );
 
                 break;
             default:
                 break;
         }
 
-        self._id_2CE9[var_1] = var_0;
+        self.doingsplash[var_1] = var_0;
 
-        if ( isdefined( var_0._id_8899 ) && var_0._id_8899 != "" )
-            self playlocalsound( var_0._id_8899 );
+        if ( isdefined( var_0.sound ) && var_0.sound != "" )
+            self playlocalsound( var_0.sound );
 
-        if ( isdefined( var_0._id_565B ) )
+        if ( isdefined( var_0.leadersound ) )
         {
-            if ( isdefined( var_0._id_565C ) )
-                maps\mp\_utility::_id_5655( var_0._id_565B, var_0._id_565C, 1 );
+            if ( isdefined( var_0.leadersoundgroup ) )
+                maps\mp\_utility::leaderdialogonplayer( var_0.leadersound, var_0.leadersoundgroup, 1 );
             else
-                maps\mp\_utility::_id_5655( var_0._id_565B );
+                maps\mp\_utility::leaderdialogonplayer( var_0.leadersound );
         }
 
         self notify( "actionNotifyMessage" + var_1 );
         self endon( "actionNotifyMessage" + var_1 );
         wait(var_3 + 0.5);
-        self._id_2CE9[var_1] = undefined;
+        self.doingsplash[var_1] = undefined;
     }
 
-    if ( self._id_8A6B[var_1].size )
-        thread _id_2B40( var_1 );
+    if ( self.splashqueue[var_1].size )
+        thread dispatchnotify( var_1 );
 }
 
-_id_A054( var_0 )
+waitrequirevisibility( var_0 )
 {
     var_1 = 0.05;
 
-    while ( !_id_1ADA() )
+    while ( !canreadtext() )
         wait(var_1);
 
     while ( var_0 > 0 )
     {
         wait(var_1);
 
-        if ( _id_1ADA() )
+        if ( canreadtext() )
             var_0 -= var_1;
     }
 }
 
-_id_1ADA()
+canreadtext()
 {
-    if ( maps\mp\_flashgrenades::_id_5107() )
+    if ( maps\mp\_flashgrenades::isflashbanged() )
         return 0;
 
     return 1;
 }
 
-_id_7454()
+resetondeath()
 {
     self endon( "notifyMessageDone" );
     self endon( "disconnect" );
     self waittill( "death" );
-    _id_7452();
+    resetnotify();
 }
 
-_id_7453()
+resetoncancel()
 {
     self notify( "resetOnCancel" );
     self endon( "resetOnCancel" );
     self endon( "notifyMessageDone" );
     self endon( "disconnect" );
     level waittill( "cancel_notify" );
-    _id_7452();
+    resetnotify();
 }
 
-_id_7452()
+resetnotify()
 {
-    self._id_623A fadeovertime( 0.05 );
-    self._id_623A.alpha = 0;
-    self._id_6238.alpha = 0;
-    self._id_622D.alpha = 0;
-    self._id_6233.alpha = 0;
-    self._id_2CE9[0] = undefined;
-    self._id_2CE9[1] = undefined;
-    self._id_2CE9[2] = undefined;
-    self._id_2CE9[3] = undefined;
+    self.notifytitle fadeovertime( 0.05 );
+    self.notifytitle.alpha = 0;
+    self.notifytext.alpha = 0;
+    self.notifyicon.alpha = 0;
+    self.notifyoverlay.alpha = 0;
+    self.doingsplash[0] = undefined;
+    self.doingsplash[1] = undefined;
+    self.doingsplash[2] = undefined;
+    self.doingsplash[3] = undefined;
 }
 
-_id_58A7()
+lowermessagethink()
 {
     self endon( "disconnect" );
-    self._id_58A6 = [];
+    self.lowermessages = [];
     var_0 = "objective";
 
-    if ( isdefined( level._id_58A5 ) )
-        var_0 = level._id_58A5;
+    if ( isdefined( level.lowermessagefont ) )
+        var_0 = level.lowermessagefont;
 
     var_1 = -140;
     var_2 = level.lowertextfontsize;
@@ -906,39 +888,39 @@ _id_58A7()
         var_3 *= 1.5;
     }
 
-    self._id_58A4 = maps\mp\gametypes\_hud_util::createfontstring( var_0, var_2 );
-    self._id_58A4 settext( "" );
-    self._id_58A4.archived = 0;
-    self._id_58A4.sort = 10;
-    self._id_58A4.showinkillcam = 0;
-    self._id_58A4 maps\mp\gametypes\_hud_util::setpoint( "CENTER", level.lowertextyalign, 0, var_1 );
-    self._id_58AB = maps\mp\gametypes\_hud_util::createfontstring( "default", var_3 );
-    self._id_58AB maps\mp\gametypes\_hud_util::setParent( self._id_58A4 );
-    self._id_58AB maps\mp\gametypes\_hud_util::setpoint( "TOP", "BOTTOM", 0, 0 );
-    self._id_58AB settext( "" );
-    self._id_58AB.archived = 0;
-    self._id_58AB.sort = 10;
-    self._id_58AB.showinkillcam = 0;
+    self.lowermessage = maps\mp\gametypes\_hud_util::createfontstring( var_0, var_2 );
+    self.lowermessage settext( "" );
+    self.lowermessage.archived = 0;
+    self.lowermessage.sort = 10;
+    self.lowermessage.showinkillcam = 0;
+    self.lowermessage maps\mp\gametypes\_hud_util::setpoint( "CENTER", level.lowertextyalign, 0, var_1 );
+    self.lowertimer = maps\mp\gametypes\_hud_util::createfontstring( "default", var_3 );
+    self.lowertimer maps\mp\gametypes\_hud_util::setparent( self.lowermessage );
+    self.lowertimer maps\mp\gametypes\_hud_util::setpoint( "TOP", "BOTTOM", 0, 0 );
+    self.lowertimer settext( "" );
+    self.lowertimer.archived = 0;
+    self.lowertimer.sort = 10;
+    self.lowertimer.showinkillcam = 0;
 }
 
-_id_65B6( var_0 )
+outcomeoverlay( var_0 )
 {
     if ( level.teambased )
     {
         if ( var_0 == "tie" )
-            _id_59E4( "draw" );
+            matchoutcomenotify( "draw" );
         else if ( var_0 == self.team )
-            _id_59E4( "victory" );
+            matchoutcomenotify( "victory" );
         else
-            _id_59E4( "defeat" );
+            matchoutcomenotify( "defeat" );
     }
     else if ( var_0 == self )
-        _id_59E4( "victory" );
+        matchoutcomenotify( "victory" );
     else
-        _id_59E4( "defeat" );
+        matchoutcomenotify( "defeat" );
 }
 
-_id_59E4( var_0 )
+matchoutcomenotify( var_0 )
 {
     var_1 = self.team;
     var_2 = maps\mp\gametypes\_hud_util::createfontstring( "bigfixed", 1.0 );
@@ -962,8 +944,8 @@ _id_59E4( var_0 )
             break;
     }
 
-    var_3 = maps\mp\gametypes\_hud_util::createIcon( game["icons"][var_1], 64, 64 );
-    var_3 maps\mp\gametypes\_hud_util::setParent( var_2 );
+    var_3 = maps\mp\gametypes\_hud_util::createicon( game["icons"][var_1], 64, 64 );
+    var_3 maps\mp\gametypes\_hud_util::setparent( var_2 );
     var_3 maps\mp\gametypes\_hud_util::setpoint( "TOP", "BOTTOM", 0, 30 );
     var_3.foreground = 1;
     var_3.hidewheninmenu = 0;
@@ -972,24 +954,24 @@ _id_59E4( var_0 )
     var_3 fadeovertime( 0.5 );
     var_3.alpha = 1;
     wait 3.0;
-    var_2 maps\mp\gametypes\_hud_util::destroyElem();
-    var_3 maps\mp\gametypes\_hud_util::destroyElem();
+    var_2 maps\mp\gametypes\_hud_util::destroyelem();
+    var_3 maps\mp\gametypes\_hud_util::destroyelem();
 }
 
-_id_50F5()
+isdoingsplash()
 {
-    if ( isdefined( self._id_2CE9 ) )
+    if ( isdefined( self.doingsplash ) )
     {
-        if ( isdefined( self._id_2CE9[0] ) )
+        if ( isdefined( self.doingsplash[0] ) )
             return 1;
 
-        if ( isdefined( self._id_2CE9[1] ) )
+        if ( isdefined( self.doingsplash[1] ) )
             return 1;
 
-        if ( isdefined( self._id_2CE9[2] ) )
+        if ( isdefined( self.doingsplash[2] ) )
             return 1;
 
-        if ( isdefined( self._id_2CE9[3] ) )
+        if ( isdefined( self.doingsplash[3] ) )
             return 1;
     }
 
@@ -999,18 +981,18 @@ _id_50F5()
     return 0;
 }
 
-_id_91F9( var_0, var_1, var_2, var_3 )
+teamoutcomenotify( var_0, var_1, var_2, var_3 )
 {
     self endon( "disconnect" );
     self notify( "reset_outcome" );
-    thread _id_56B5( 32, 1 );
+    thread lerpscreenblurup( 32, 1 );
     wait 0.5;
     var_4 = self.pers["team"];
 
     if ( !isdefined( var_4 ) || var_4 != "allies" && var_4 != "axis" )
         var_4 = "allies";
 
-    while ( _id_50F5() )
+    while ( isdoingsplash() )
         wait 0.05;
 
     self endon( "reset_outcome" );
@@ -1037,7 +1019,7 @@ _id_91F9( var_0, var_1, var_2, var_3 )
         self setclientomnvar( "ui_round_end_title", game["round_end"]["roundend"] );
         var_0 = "allies";
     }
-    else if ( maps\mp\_utility::_id_516C( var_0 ) )
+    else if ( maps\mp\_utility::isovertimetext( var_0 ) )
     {
         self setclientomnvar( "ui_round_end_title", game["round_end"]["overtime"] );
 
@@ -1071,24 +1053,24 @@ _id_91F9( var_0, var_1, var_2, var_3 )
 
     self setclientomnvar( "ui_round_end_reason", var_2 );
 
-    if ( var_5 && !level._id_A32B )
+    if ( var_5 && !level.winbycaptures )
     {
         self setclientomnvar( "ui_round_end_friendly_score", game["roundsWon"][var_4] );
-        self setclientomnvar( "ui_round_end_enemy_score", game["roundsWon"][level._id_65B3[var_4]] );
+        self setclientomnvar( "ui_round_end_enemy_score", game["roundsWon"][level.otherteam[var_4]] );
     }
-    else if ( !maps\mp\_utility::_id_5194() || !maps\mp\_utility::_id_5160() )
+    else if ( !maps\mp\_utility::isroundbased() || !maps\mp\_utility::isobjectivebased() )
     {
         self setclientomnvar( "ui_round_end_friendly_score", maps\mp\gametypes\_gamescores::_getteamscore( var_4 ) );
-        self setclientomnvar( "ui_round_end_enemy_score", maps\mp\gametypes\_gamescores::_getteamscore( level._id_65B3[var_4] ) );
+        self setclientomnvar( "ui_round_end_enemy_score", maps\mp\gametypes\_gamescores::_getteamscore( level.otherteam[var_4] ) );
     }
     else
     {
         self setclientomnvar( "ui_round_end_friendly_score", game["roundsWon"][var_4] );
-        self setclientomnvar( "ui_round_end_enemy_score", game["roundsWon"][level._id_65B3[var_4]] );
+        self setclientomnvar( "ui_round_end_enemy_score", game["roundsWon"][level.otherteam[var_4]] );
     }
 
-    if ( isdefined( self._id_59DF ) )
-        self setclientomnvar( "ui_round_end_match_bonus", self._id_59DF );
+    if ( isdefined( self.matchbonus ) )
+        self setclientomnvar( "ui_round_end_match_bonus", self.matchbonus );
 
     if ( isdefined( game["round_time_to_beat"] ) )
         self setclientomnvar( "ui_round_end_stopwatch", int( game["round_time_to_beat"] * 60 ) );
@@ -1096,16 +1078,16 @@ _id_91F9( var_0, var_1, var_2, var_3 )
     self setclientomnvar( "ui_round_end", 1 );
 }
 
-_id_65B5( var_0, var_1 )
+outcomenotify( var_0, var_1 )
 {
     self endon( "disconnect" );
     self notify( "reset_outcome" );
 
-    while ( _id_50F5() )
+    while ( isdoingsplash() )
         wait 0.05;
 
     self endon( "reset_outcome" );
-    var_2 = level._id_6861["all"];
+    var_2 = level.placement["all"];
     var_3 = var_2[0];
     var_4 = var_2[1];
     var_5 = var_2[2];
@@ -1128,31 +1110,31 @@ _id_65B5( var_0, var_1 )
 
     self setclientomnvar( "ui_round_end_reason", var_1 );
 
-    if ( isdefined( self._id_59DF ) )
-        self setclientomnvar( "ui_round_end_match_bonus", self._id_59DF );
+    if ( isdefined( self.matchbonus ) )
+        self setclientomnvar( "ui_round_end_match_bonus", self.matchbonus );
 
     self setclientomnvar( "ui_round_end", 1 );
     self waittill( "update_outcome" );
 }
 
-_id_1AEA( var_0 )
+canshowsplash( var_0 )
 {
 
 }
 
-_id_56B5( var_0, var_1 )
+lerpscreenblurup( var_0, var_1 )
 {
     self setblurforplayer( var_0, var_1 );
 }
 
-_id_3E83()
+get_table_name()
 {
     return "mp/splashTable.csv";
 }
 
 isdoingluasplash()
 {
-    return maps\mp\_utility::_id_5092( self.luasplashactive );
+    return maps\mp\_utility::is_true( self.luasplashactive );
 }
 
 manageluasplashtimers()
@@ -1249,7 +1231,7 @@ manageluasplashtimers()
             }
 
             var_3 = ( self.luasplashnextoutrocompletetime - gettime() ) * 0.001;
-            common_scripts\utility::_id_A0A0( "luaSplashTimerUpdate", var_3 );
+            common_scripts\utility::waittill_notify_or_timeout( "luaSplashTimerUpdate", var_3 );
         }
 
         self.luasplashactive = 0;

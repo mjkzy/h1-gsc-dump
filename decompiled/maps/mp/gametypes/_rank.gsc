@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    level._id_A3AA = _id_4170();
+    level.xpscale = getxpscale();
     level.xpscalewithparty = getxpscalewithparty();
-    level._id_A3A5 = [];
-    level._id_713A = [];
-    level._id_5A50 = int( tablelookup( "mp/rankTable.csv", 0, "maxrank", 1 ) );
+    level.xpeventinfo = [];
+    level.ranktable = [];
+    level.maxrank = int( tablelookup( "mp/rankTable.csv", 0, "maxrank", 1 ) );
     level.maxprestige = int( tablelookup( "mp/rankIconTable.csv", 0, "maxPrestige", 1 ) );
     level.maxrankformaxprestige = int( tablelookup( "mp/rankTable.csv", 0, "maxrankformaxprestige", 1 ) );
 
@@ -36,29 +18,29 @@ init()
 
     for ( var_1 = tablelookup( "mp/rankTable.csv", 0, var_0, 1 ); isdefined( var_1 ) && var_1 != ""; var_1 = tablelookup( "mp/rankTable.csv", 0, var_0, 1 ) )
     {
-        level._id_713A[var_0][1] = tablelookup( "mp/rankTable.csv", 0, var_0, 1 );
-        level._id_713A[var_0][2] = tablelookup( "mp/rankTable.csv", 0, var_0, 2 );
-        level._id_713A[var_0][3] = tablelookup( "mp/rankTable.csv", 0, var_0, 3 );
-        level._id_713A[var_0][7] = tablelookup( "mp/rankTable.csv", 0, var_0, 7 );
+        level.ranktable[var_0][1] = tablelookup( "mp/rankTable.csv", 0, var_0, 1 );
+        level.ranktable[var_0][2] = tablelookup( "mp/rankTable.csv", 0, var_0, 2 );
+        level.ranktable[var_0][3] = tablelookup( "mp/rankTable.csv", 0, var_0, 3 );
+        level.ranktable[var_0][7] = tablelookup( "mp/rankTable.csv", 0, var_0, 7 );
         var_0++;
     }
 
-    level.maxxp = int( level._id_713A[level._id_5A50][7] );
-    level.maxxponext = int( level._id_713A[level._id_5A50][3] );
+    level.maxxp = int( level.ranktable[level.maxrank][7] );
+    level.maxxponext = int( level.ranktable[level.maxrank][3] );
     maps\mp\gametypes\_misions::buildchallegeinfo();
-    level thread _id_64C8();
+    level thread onplayerconnect();
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
 
-        if ( !isai( var_0 ) && var_0 maps\mp\_utility::_id_7139() )
+        if ( !isai( var_0 ) && var_0 maps\mp\_utility::rankingenabled() )
         {
-            var_1 = var_0 _id_409B();
-            var_2 = var_0 maps\mp\gametypes\_persistence::_id_8D68( "experience" );
+            var_1 = var_0 getprestigelevel();
+            var_2 = var_0 maps\mp\gametypes\_persistence::statget( "experience" );
 
             if ( var_2 < 0 )
                 var_2 = 0;
@@ -68,7 +50,7 @@ _id_64C8()
         }
         else if ( isai( var_0 ) )
         {
-            var_0 maps\mp\_utility::_id_7EA5();
+            var_0 maps\mp\_utility::set_rank_xp_and_prestige_for_bot();
             var_2 = var_0.pers["rankxp"];
             var_1 = var_0.pers["prestige"];
             var_3 = 0;
@@ -89,23 +71,23 @@ _id_64C8()
         if ( !isdefined( var_0.pers["participation"] ) )
             var_0.pers["participation"] = 0;
 
-        var_5 = _func_2EC( var_0 _id_4137(), var_1 );
+        var_5 = _func_2EC( var_0 gettotalxp(), var_1 );
         var_0.pers["rank"] = var_5;
 
         if ( isai( var_0 ) )
             var_0 maps\mp\_utility::set_rank_options_for_bot();
 
-        var_0._id_A3AB = 0;
-        var_0._id_6E8A = 0;
-        var_0._id_357F[0] = 0;
+        var_0.xpupdatetotal = 0;
+        var_0.postgamepromotion = 0;
+        var_0.explosivekills[0] = 0;
         var_0 setrank( var_5, var_1 );
         var_0 thread processprestigemasteryonspawn( var_1, var_2 );
         var_0 syncxpomnvars();
 
-        if ( var_0.clientid < level._id_5A42 )
+        if ( var_0.clientid < level.maxlogclients )
         {
             setmatchdata( "players", var_0.clientid, "Prestige", var_1 );
-            setmatchdata( "players", var_0.clientid, "rankAtStart", maps\mp\_utility::_id_1E28( var_0.pers["rank"] ) );
+            setmatchdata( "players", var_0.clientid, "rankAtStart", maps\mp\_utility::clamptobyte( var_0.pers["rank"] ) );
         }
 
         if ( !isdefined( var_0.pers["postGameChallenges"] ) )
@@ -129,10 +111,10 @@ _id_64C8()
         if ( getdvar( "virtualLobbyActive" ) != "1" )
         {
             var_0 setclientdvar( "ui_opensummary", 0 );
-            var_0 thread maps\mp\gametypes\_misions::_id_9AFE();
+            var_0 thread maps\mp\gametypes\_misions::updatechallenges();
         }
 
-        var_0 thread _id_64D6();
+        var_0 thread onplayerspawned();
     }
 }
 
@@ -144,12 +126,12 @@ processprestigemasteryonspawn( var_0, var_1 )
     if ( isdefined( var_2 ) )
     {
         self waittill( "spawned_player" );
-        maps\mp\_utility::_id_3BE1( "prematch_done" );
-        thread maps\mp\gametypes\_hud_message::_id_8A68( var_2 );
+        maps\mp\_utility::gameflagwait( "prematch_done" );
+        thread maps\mp\gametypes\_hud_message::splashnotify( var_2 );
     }
 }
 
-_id_64D6()
+onplayerspawned()
 {
     self endon( "disconnect" );
 
@@ -157,7 +139,7 @@ _id_64D6()
         self waittill( "spawned_player" );
 }
 
-_id_4170()
+getxpscale()
 {
     var_0 = getdvarint( "scr_xpscale" );
 
@@ -177,88 +159,88 @@ getxpscalewithparty()
     return var_0;
 }
 
-_id_518A( var_0 )
+isregisteredevent( var_0 )
 {
-    if ( isdefined( level._id_A3A5[var_0] ) )
+    if ( isdefined( level.xpeventinfo[var_0] ) )
         return 1;
     else
         return 0;
 }
 
-_id_72FF( var_0, var_1, var_2, var_3 )
+registerxpeventinfo( var_0, var_1, var_2, var_3 )
 {
-    level._id_A3A5[var_0]["value"] = var_1;
-    level._id_A3A5[var_0]["allowPlayerScore"] = 0;
-    level._id_A3A5[var_0]["playSplash"] = 0;
+    level.xpeventinfo[var_0]["value"] = var_1;
+    level.xpeventinfo[var_0]["allowPlayerScore"] = 0;
+    level.xpeventinfo[var_0]["playSplash"] = 0;
 
     if ( isdefined( var_2 ) && var_2 )
-        level._id_A3A5[var_0]["allowPlayerScore"] = 1;
+        level.xpeventinfo[var_0]["allowPlayerScore"] = 1;
 
     if ( isdefined( var_3 ) && var_3 )
-        level._id_A3A5[var_0]["playSplash"] = 1;
+        level.xpeventinfo[var_0]["playSplash"] = 1;
 }
 
 allowplayerscore( var_0 )
 {
-    return level._id_A3A5[var_0]["allowPlayerScore"];
+    return level.xpeventinfo[var_0]["allowPlayerScore"];
 }
 
-_id_84A4( var_0 )
+shouldplaysplash( var_0 )
 {
-    return level._id_A3A5[var_0]["playSplash"];
+    return level.xpeventinfo[var_0]["playSplash"];
 }
 
-_id_40C1( var_0 )
+getscoreinfovalue( var_0 )
 {
     var_1 = "scr_" + level.gametype + "_score_" + var_0;
 
     if ( getdvar( var_1 ) != "" )
         return getdvarint( var_1 );
 
-    return level._id_A3A5[var_0]["value"];
+    return level.xpeventinfo[var_0]["value"];
 }
 
-_id_40AF( var_0 )
+getrankinfominxp( var_0 )
 {
-    if ( var_0 > level._id_5A50 )
+    if ( var_0 > level.maxrank )
     {
-        var_1 = var_0 - level._id_5A50;
+        var_1 = var_0 - level.maxrank;
         return level.maxxp + ( var_1 - 1 ) * level.maxxponext;
     }
     else
-        return int( level._id_713A[var_0][2] );
+        return int( level.ranktable[var_0][2] );
 }
 
-_id_40B0( var_0 )
+getrankinfoxpamt( var_0 )
 {
-    if ( var_0 > level._id_5A50 )
+    if ( var_0 > level.maxrank )
         return level.maxxponext;
     else
-        return int( level._id_713A[var_0][3] );
+        return int( level.ranktable[var_0][3] );
 }
 
-_id_40AE( var_0 )
+getrankinfomaxxp( var_0 )
 {
-    if ( var_0 > level._id_5A50 )
+    if ( var_0 > level.maxrank )
     {
-        var_1 = var_0 - level._id_5A50;
+        var_1 = var_0 - level.maxrank;
         return level.maxxp + var_1 * level.maxxponext;
     }
     else
-        return int( level._id_713A[var_0][7] );
+        return int( level.ranktable[var_0][7] );
 }
 
-_id_40AC( var_0 )
+getrankinfofull( var_0 )
 {
-    if ( var_0 > level._id_5A50 )
+    if ( var_0 > level.maxrank )
         return &"RANK_PARAGON_FULL";
     else
         return tablelookupistring( "mp/rankTable.csv", 0, var_0, 16 );
 }
 
-_id_40AD( var_0 )
+getrankinfolevel( var_0 )
 {
-    if ( var_0 > level._id_5A50 )
+    if ( var_0 > level.maxrank )
         return var_0 + 1;
     else
         return int( tablelookup( "mp/rankTable.csv", 0, var_0, 13 ) );
@@ -266,25 +248,25 @@ _id_40AD( var_0 )
 
 awardgameevent( var_0, var_1, var_2, var_3, var_4 )
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return;
 
-    if ( _id_84A4( var_0 ) )
+    if ( shouldplaysplash( var_0 ) )
         var_1 thread maps\mp\gametypes\_hud_message::medalsplashnotify( var_0 );
 
-    var_1 _id_41FF( var_0, undefined, var_2, var_4, undefined, var_3 );
+    var_1 giverankxp( var_0, undefined, var_2, var_4, undefined, var_3 );
 
     if ( allowplayerscore( var_0 ) )
-        var_1 maps\mp\gametypes\_gamescores::_id_41FC( var_0, var_1, var_3 );
+        var_1 maps\mp\gametypes\_gamescores::giveplayerscore( var_0, var_1, var_3 );
 }
 
-_id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
+giverankxp( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     self endon( "disconnect" );
 
     if ( isdefined( self.owner ) && !isbot( self ) )
     {
-        self.owner _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 );
+        self.owner giverankxp( var_0, var_1, var_2, var_3, var_4, var_5 );
         return;
     }
 
@@ -294,27 +276,27 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( !isplayer( self ) )
         return;
 
-    if ( !maps\mp\_utility::_id_7139() )
+    if ( !maps\mp\_utility::rankingenabled() )
         return;
 
-    if ( level.teambased && ( !level._id_91ED["allies"] || !level._id_91ED["axis"] ) && var_0 != "win" )
+    if ( level.teambased && ( !level.teamcount["allies"] || !level.teamcount["axis"] ) && var_0 != "win" )
         return;
 
-    if ( !level.teambased && level._id_91ED["allies"] + level._id_91ED["axis"] < 2 && var_0 != "win" )
+    if ( !level.teambased && level.teamcount["allies"] + level.teamcount["axis"] < 2 && var_0 != "win" )
         return;
 
-    if ( isdefined( level._id_2B23 ) && level._id_2B23 )
+    if ( isdefined( level.disableranking ) && level.disableranking )
         return;
 
     if ( !isdefined( var_1 ) )
-        var_1 = _id_40C1( var_0 );
+        var_1 = getscoreinfovalue( var_0 );
 
     if ( var_1 == 0 )
         return;
 
-    if ( var_1 > 0 && !isdefined( self._id_5895 ) )
+    if ( var_1 > 0 && !isdefined( self.lootplaytimevalidated ) )
     {
-        self._id_5895 = 1;
+        self.lootplaytimevalidated = 1;
         lootservicevalidateplaytime( self.xuid );
     }
 
@@ -329,24 +311,24 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
         case "loss":
             break;
         default:
-            if ( level._id_A3AA > 1 )
-                var_6 = int( var_6 * level._id_A3AA );
+            if ( level.xpscale > 1 )
+                var_6 = int( var_6 * level.xpscale );
 
-            if ( level.xpscalewithparty > 1 && maps\mp\_utility::_id_5092( self.inpartywithotherplayers ) )
+            if ( level.xpscalewithparty > 1 && maps\mp\_utility::is_true( self.inpartywithotherplayers ) )
                 var_6 = int( var_6 * level.xpscalewithparty );
 
             if ( level.xpgamemodescale > 1 )
                 var_6 = int( var_6 * level.xpgamemodescale );
 
-            if ( self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "hasDoubleXPItem" ) )
+            if ( self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "hasDoubleXPItem" ) )
                 var_6 = int( var_6 * 2 );
 
-            if ( isdefined( level._id_626D ) && level._id_626D )
+            if ( isdefined( level.nukedetonated ) && level.nukedetonated )
             {
-                if ( level.teambased && level._id_6274.team == self.team )
-                    var_6 *= level._id_6274._id_A3A9;
-                else if ( !level.teambased && level._id_6274.player == self )
-                    var_6 *= level._id_6274._id_A3A9;
+                if ( level.teambased && level.nukeinfo.team == self.team )
+                    var_6 *= level.nukeinfo.xpscalar;
+                else if ( !level.teambased && level.nukeinfo.player == self )
+                    var_6 *= level.nukeinfo.xpscalar;
 
                 var_6 = int( var_6 );
             }
@@ -356,15 +338,15 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 
     var_8 = int( var_6 * var_7 );
-    var_9 = _id_40B1();
-    _id_4C31( var_6 + var_8 );
+    var_9 = getrankxp();
+    incrankxp( var_6 + var_8 );
 
-    if ( maps\mp\_utility::_id_7139() && _id_9B52( var_9 ) )
-        thread _id_9B53();
+    if ( maps\mp\_utility::rankingenabled() && updaterank( var_9 ) )
+        thread updaterankannouncehud();
 
-    _id_9089();
+    syncxpstat();
     syncxpomnvars();
-    var_10 = maps\mp\gametypes\_misions::_id_5205( var_4 );
+    var_10 = maps\mp\gametypes\_misions::isweaponchallenge( var_4 );
 
     if ( var_10 )
         var_2 = self getcurrentweapon();
@@ -389,7 +371,7 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
             self.pers["summary"]["challenge"] += var_6;
             break;
         default:
-            if ( _id_518A( var_0 ) )
+            if ( isregisteredevent( var_0 ) )
                 self.pers["summary"]["score"] += var_6;
             else
                 self.pers["summary"]["misc"] += var_6;
@@ -398,9 +380,9 @@ _id_41FF( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 }
 
-_id_9B52( var_0 )
+updaterank( var_0 )
 {
-    var_1 = _id_40A9();
+    var_1 = getrank();
 
     if ( var_1 == self.pers["rank"] )
         return 0;
@@ -411,7 +393,7 @@ _id_9B52( var_0 )
     return 1;
 }
 
-_id_9B53()
+updaterankannouncehud()
 {
     self endon( "disconnect" );
     self notify( "update_rank" );
@@ -421,8 +403,8 @@ _id_9B53()
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( !maps\mp\_utility::_id_56D9( "game_over" ) )
-        level common_scripts\utility::_id_A0A0( "game_over", 0.25 );
+    if ( !maps\mp\_utility::levelflag( "game_over" ) )
+        level common_scripts\utility::waittill_notify_or_timeout( "game_over", 0.25 );
 
     var_1 = self.pers["rank"];
     var_2 = self.pers["prestige"];
@@ -430,21 +412,21 @@ _id_9B53()
     if ( ( var_1 + 1 ) % 50 == 0 )
     {
         var_3 = var_1 + 1;
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_" + var_3 + "_paragon" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_" + var_3 + "_paragon" );
     }
 
-    thread maps\mp\gametypes\_hud_message::_id_713B( "ranked_up", var_1, var_2 );
+    thread maps\mp\gametypes\_hud_message::rankupsplashnotify( "ranked_up", var_1, var_2 );
 
-    if ( var_1 <= level._id_5A50 )
+    if ( var_1 <= level.maxrank )
     {
-        var_4 = level._id_713A[var_1][1];
+        var_4 = level.ranktable[var_1][1];
         var_5 = int( var_4[var_4.size - 1] );
 
         if ( var_5 > 1 )
             return;
     }
 
-    var_6 = _id_40AC( var_1 );
+    var_6 = getrankinfofull( var_1 );
 
     for ( var_7 = 0; var_7 < level.players.size; var_7++ )
     {
@@ -455,19 +437,19 @@ _id_9B53()
         {
             if ( var_9 == var_0 )
             {
-                if ( var_1 > level._id_5A50 )
+                if ( var_1 > level.maxrank )
                 {
-                    var_8 clientiprintln( &"RANK_PLAYER_WAS_PROMOTED_N", self, var_6, var_1 + 1 );
+                    var_8 iprintln( &"RANK_PLAYER_WAS_PROMOTED_N", self, var_6, var_1 + 1 );
                     continue;
                 }
 
-                var_8 clientiprintln( &"RANK_PLAYER_WAS_PROMOTED", self, var_6 );
+                var_8 iprintln( &"RANK_PLAYER_WAS_PROMOTED", self, var_6 );
             }
         }
     }
 }
 
-_id_A3A6( var_0, var_1 )
+xppointspopup( var_0, var_1 )
 {
     self endon( "disconnect" );
     self endon( "joined_team" );
@@ -491,8 +473,8 @@ _id_A3A6( var_0, var_1 )
         return;
     }
 
-    self._id_A3AB += var_1;
-    self setclientomnvar( "ui_points_popup", self._id_A3AB );
+    self.xpupdatetotal += var_1;
+    self setclientomnvar( "ui_points_popup", self.xpupdatetotal );
 
     if ( !isdefined( var_2 ) || isdefined( var_2 ) && var_2 == -1 )
     {
@@ -502,30 +484,30 @@ _id_A3A6( var_0, var_1 )
         self setclientomnvar( "ui_points_popup_event", var_2 );
 
     wait 1;
-    self._id_A3AB = 0;
+    self.xpupdatetotal = 0;
 }
 
-_id_40A9()
+getrank()
 {
-    var_0 = _id_4137();
+    var_0 = gettotalxp();
     var_1 = self.pers["rank"];
-    var_2 = _id_409B();
+    var_2 = getprestigelevel();
 
-    if ( var_0 < _id_40AF( var_1 ) + _id_40B0( var_1 ) )
+    if ( var_0 < getrankinfominxp( var_1 ) + getrankinfoxpamt( var_1 ) )
         return var_1;
     else
         return _func_2EC( var_0, var_2 );
 }
 
-_id_409B()
+getprestigelevel()
 {
     if ( isai( self ) && isdefined( self.pers["prestige_fake"] ) )
         return self.pers["prestige_fake"];
     else
-        return maps\mp\gametypes\_persistence::_id_8D68( "prestige" );
+        return maps\mp\gametypes\_persistence::statget( "prestige" );
 }
 
-_id_40B1()
+getrankxp()
 {
     if ( isdefined( self.pers["rankxp"] ) )
         return self.pers["rankxp"];
@@ -533,7 +515,7 @@ _id_40B1()
         return 0;
 }
 
-_id_40B3()
+getredeemedxp()
 {
     if ( isdefined( self.pers["redeemedxp"] ) )
         return self.pers["redeemedxp"];
@@ -541,24 +523,24 @@ _id_40B3()
         return 0;
 }
 
-_id_4137()
+gettotalxp()
 {
-    return _id_40B1() + _id_40B3();
+    return getrankxp() + getredeemedxp();
 }
 
-_id_4C31( var_0 )
+incrankxp( var_0 )
 {
-    if ( !maps\mp\_utility::_id_7139() )
+    if ( !maps\mp\_utility::rankingenabled() )
         return;
 
-    var_1 = _id_40B1();
+    var_1 = getrankxp();
     var_2 = self.pers["prestige"];
-    var_3 = level._id_5A50;
+    var_3 = level.maxrank;
 
     if ( var_2 >= level.maxprestige )
         var_3 = level.maxrankformaxprestige;
 
-    var_4 = _id_40AE( var_3 ) - _id_40B3();
+    var_4 = getrankinfomaxxp( var_3 ) - getredeemedxp();
     var_5 = int( min( var_1, var_4 ) ) + var_0;
 
     if ( var_5 > var_4 )
@@ -568,17 +550,17 @@ _id_4C31( var_0 )
     var_6 = processprestigemastery( var_2, var_5 );
 
     if ( isdefined( var_6 ) )
-        thread maps\mp\gametypes\_hud_message::_id_8A68( var_6 );
+        thread maps\mp\gametypes\_hud_message::splashnotify( var_6 );
 }
 
 processprestigemastery( var_0, var_1 )
 {
-    var_2 = _id_40AE( level._id_5A50 ) - _id_40B3();
-    var_3 = _id_40AE( level.maxrankformaxprestige - 1 ) - _id_40B3();
+    var_2 = getrankinfomaxxp( level.maxrank ) - getredeemedxp();
+    var_3 = getrankinfomaxxp( level.maxrankformaxprestige - 1 ) - getredeemedxp();
 
     if ( var_0 == level.maxprestige && var_1 >= var_3 && !isdefined( self.pers["prestigeMaster2"] ) )
     {
-        var_4 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
+        var_4 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
         var_5 = var_4 >= 3;
         self.pers["prestigeMaster2"] = self _meth_853E();
 
@@ -588,7 +570,7 @@ processprestigemastery( var_0, var_1 )
 
     if ( var_0 == level.maxprestige && var_1 >= var_2 && !isdefined( self.pers["prestigeMaster"] ) )
     {
-        var_4 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
+        var_4 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
         var_5 = var_4 >= 2;
         self.pers["prestigeMaster"] = self _meth_853E();
 
@@ -604,8 +586,8 @@ syncxpomnvars()
     var_0 = self.pers["rankxp"];
     var_1 = self.pers["rank"];
     var_2 = self.pers["prestige"];
-    var_3 = _id_40AF( var_1 );
-    var_4 = _id_40AE( var_1 );
+    var_3 = getrankinfominxp( var_1 );
+    var_4 = getrankinfomaxxp( var_1 );
     var_5 = 0;
 
     if ( var_4 - var_3 > 0 )
@@ -622,8 +604,8 @@ syncxpomnvars()
     self setclientomnvar( "ui_player_xp_prestige", var_2 );
 }
 
-_id_9089()
+syncxpstat()
 {
-    var_0 = _id_40B1();
-    maps\mp\gametypes\_persistence::_id_8D78( "experience", var_0 );
+    var_0 = getrankxp();
+    maps\mp\gametypes\_persistence::statset( "experience", var_0 );
 }

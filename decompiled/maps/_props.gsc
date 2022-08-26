@@ -1,69 +1,51 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_7039( var_0, var_1 )
+prop_notetrack_exist( var_0, var_1 )
 {
-    if ( !isdefined( level._id_703A ) )
-        level._id_703A = [];
+    if ( !isdefined( level.prop_notetracks ) )
+        level.prop_notetracks = [];
 
-    if ( !isdefined( level._id_703A[var_0] ) )
-        level._id_703A[var_0] = [];
+    if ( !isdefined( level.prop_notetracks[var_0] ) )
+        level.prop_notetracks[var_0] = [];
 
-    if ( isdefined( level._id_703A[var_0][var_1] ) )
+    if ( isdefined( level.prop_notetracks[var_0][var_1] ) )
         return 1;
 
-    level._id_703A[var_0][var_1] = 1;
+    level.prop_notetracks[var_0][var_1] = 1;
     return 0;
 }
 
 add_smoking_notetracks( var_0 )
 {
-    if ( _id_7039( var_0, "add_smoking_notetracks" ) )
+    if ( prop_notetrack_exist( var_0, "add_smoking_notetracks" ) )
         return;
 
     maps\_anim::addnotetrack_customfunction( var_0, "attach cig", ::attach_cig );
-    maps\_anim::addnotetrack_customfunction( var_0, "detach cig", ::_id_2976 );
-    maps\_anim::addnotetrack_customfunction( var_0, "puff", ::_id_8682 );
-    maps\_anim::addnotetrack_customfunction( var_0, "exhale", ::_id_8680 );
+    maps\_anim::addnotetrack_customfunction( var_0, "detach cig", ::detach_cig );
+    maps\_anim::addnotetrack_customfunction( var_0, "puff", ::smoke_puff );
+    maps\_anim::addnotetrack_customfunction( var_0, "exhale", ::smoke_exhale );
     level._effect["cigar_glow"] = loadfx( "fx/fire/cigar_glow_far" );
     level._effect["cigar_glow_puff"] = loadfx( "fx/fire/cigar_glow_puff" );
     level._effect["cigar_smoke_puff"] = loadfx( "fx/smoke/cigarsmoke_puff_far" );
     level._effect["cigar_exhale"] = loadfx( "fx/smoke/cigarsmoke_exhale_far" );
-    level._id_78B5["cigar"] = "prop_price_cigar";
+    level.scr_model["cigar"] = "prop_price_cigar";
 }
 
-_id_2979( var_0 )
+detach_idle_clip( var_0 )
 {
-    if ( isdefined( var_0._id_1F96 ) )
-        var_0._id_1F96 delete();
+    if ( isdefined( var_0.clip ) )
+        var_0.clip delete();
 }
 
 add_sit_load_ak_notetracks( var_0 )
 {
-    if ( _id_7039( var_0, "add_cellphone_notetracks" ) )
+    if ( prop_notetrack_exist( var_0, "add_cellphone_notetracks" ) )
         return;
 
     maps\_anim::addnotetrack_customfunction( var_0, "attach clip left", ::attach_clip );
-    maps\_anim::addnotetrack_customfunction( var_0, "detach clip left", ::_id_2979 );
-    level._id_78B5["clip"] = "weapon_ak47_clip";
+    maps\_anim::addnotetrack_customfunction( var_0, "detach clip left", ::detach_idle_clip );
+    level.scr_model["clip"] = "weapon_ak47_clip";
 }
 
 attach_clip( var_0 )
@@ -71,19 +53,19 @@ attach_clip( var_0 )
     var_0 notify( "new_prop_rotation" );
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 linkto( var_0, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_1 setmodel( maps\_utility::_id_4026( "clip" ) );
-    var_0._id_1F96 = var_1;
-    thread _id_7037( var_1, var_0 );
+    var_1 setmodel( maps\_utility::getmodel( "clip" ) );
+    var_0.clip = var_1;
+    thread prop_delete( var_1, var_0 );
 }
 
 add_cellphone_notetracks( var_0 )
 {
-    if ( _id_7039( var_0, "add_cellphone_notetracks" ) )
+    if ( prop_notetrack_exist( var_0, "add_cellphone_notetracks" ) )
         return;
 
     maps\_anim::addnotetrack_customfunction( var_0, "attach phone", ::attach_phone );
-    maps\_anim::addnotetrack_customfunction( var_0, "detach phone", ::_id_297D );
-    level._id_78B5["cellphone"] = "com_cellphone_off";
+    maps\_anim::addnotetrack_customfunction( var_0, "detach phone", ::detach_phone );
+    level.scr_model["cellphone"] = "com_cellphone_off";
 }
 
 attach_phone( var_0 )
@@ -91,15 +73,15 @@ attach_phone( var_0 )
     var_0 notify( "new_phone_rotation" );
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 linkto( var_0, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_1 setmodel( maps\_utility::_id_4026( "cellphone" ) );
-    var_0._id_67ED = var_1;
-    thread _id_7037( var_1, var_0 );
+    var_1 setmodel( maps\_utility::getmodel( "cellphone" ) );
+    var_0.phone = var_1;
+    thread prop_delete( var_1, var_0 );
 }
 
-_id_297D( var_0 )
+detach_phone( var_0 )
 {
-    if ( isdefined( var_0._id_67ED ) )
-        var_0._id_67ED delete();
+    if ( isdefined( var_0.phone ) )
+        var_0.phone delete();
 }
 
 attach_cig( var_0 )
@@ -107,56 +89,56 @@ attach_cig( var_0 )
     var_0 notify( "new_cigar_rotation" );
     var_1 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_1 linkto( var_0, "tag_inhand", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_1 setmodel( maps\_utility::_id_4026( "cigar" ) );
-    playfxontag( common_scripts\utility::_id_3FA8( "cigar_glow" ), var_1, "tag_cigarglow" );
-    var_0._id_1D6B = var_1;
-    thread _id_7038( var_1, var_0 );
+    var_1 setmodel( maps\_utility::getmodel( "cigar" ) );
+    playfxontag( common_scripts\utility::getfx( "cigar_glow" ), var_1, "tag_cigarglow" );
+    var_0.cigar = var_1;
+    thread prop_delete_cig( var_1, var_0 );
 }
 
-_id_2976( var_0 )
+detach_cig( var_0 )
 {
-    if ( isdefined( var_0._id_1D6B ) )
-        var_0._id_1D6B thread _id_7036();
+    if ( isdefined( var_0.cigar ) )
+        var_0.cigar thread prop_cig_throw();
 }
 
-_id_7037( var_0, var_1 )
+prop_delete( var_0, var_1 )
 {
     var_1 notify( "new_prop_rotation" + var_0.model );
     var_1 endon( "new_prop_rotation" + var_0.model );
     var_0 endon( "death" );
     var_1 maps\_utility::add_endon( "new_prop_rotation" + var_0.model );
     var_0 maps\_utility::add_endon( "death" );
-    maps\_utility::add_wait( maps\_utility::_id_A099, "stop_loop" );
-    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
-    maps\_utility::_id_2BDD();
+    maps\_utility::add_wait( maps\_utility::waittill_msg, "stop_loop" );
+    var_1 maps\_utility::add_wait( maps\_utility::waittill_msg, "death" );
+    maps\_utility::do_wait_any();
     var_0 delete();
 }
 
-_id_7038( var_0, var_1 )
+prop_delete_cig( var_0, var_1 )
 {
     var_1 notify( "new_prop_rotation" + var_0.model );
     var_1 endon( "new_prop_rotation" + var_0.model );
     var_0 endon( "death" );
     var_1 maps\_utility::add_endon( "new_prop_rotation" + var_0.model );
     var_0 maps\_utility::add_endon( "death" );
-    maps\_utility::add_wait( maps\_utility::_id_A099, "stop_loop" );
-    var_1 maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
-    maps\_utility::_id_2BDD();
-    var_0 thread _id_7036();
+    maps\_utility::add_wait( maps\_utility::waittill_msg, "stop_loop" );
+    var_1 maps\_utility::add_wait( maps\_utility::waittill_msg, "death" );
+    maps\_utility::do_wait_any();
+    var_0 thread prop_cig_throw();
 }
 
-_id_7036()
+prop_cig_throw()
 {
     self endon( "death" );
 
     if ( !isdefined( self ) )
         return;
 
-    if ( isdefined( self._id_1D6A ) && self._id_1D6A )
+    if ( isdefined( self.cig_throwing ) && self.cig_throwing )
         return;
 
-    self._id_1D6A = 1;
-    stopfxontag( common_scripts\utility::_id_3FA8( "cigar_glow" ), self, "tag_cigarglow" );
+    self.cig_throwing = 1;
+    stopfxontag( common_scripts\utility::getfx( "cigar_glow" ), self, "tag_cigarglow" );
     var_0 = 3;
     var_1 = anglestoforward( self.angles );
     self unlink();
@@ -166,27 +148,27 @@ _id_7036()
     self delete();
 }
 
-_id_8682( var_0 )
+smoke_puff( var_0 )
 {
-    if ( !isdefined( var_0._id_1D6B ) )
+    if ( !isdefined( var_0.cigar ) )
         return;
 
     var_0 endon( "death" );
-    var_0._id_1D6B endon( "death" );
-    playfxontag( common_scripts\utility::_id_3FA8( "cigar_glow_puff" ), var_0._id_1D6B, "tag_cigarglow" );
+    var_0.cigar endon( "death" );
+    playfxontag( common_scripts\utility::getfx( "cigar_glow_puff" ), var_0.cigar, "tag_cigarglow" );
     wait 1;
-    playfxontag( common_scripts\utility::_id_3FA8( "cigar_smoke_puff" ), var_0, "tag_eye" );
+    playfxontag( common_scripts\utility::getfx( "cigar_smoke_puff" ), var_0, "tag_eye" );
 }
 
-_id_8680( var_0 )
+smoke_exhale( var_0 )
 {
-    if ( !isdefined( var_0._id_1D6B ) )
+    if ( !isdefined( var_0.cigar ) )
         return;
 
-    playfxontag( common_scripts\utility::_id_3FA8( "cigar_exhale" ), var_0, "tag_eye" );
+    playfxontag( common_scripts\utility::getfx( "cigar_exhale" ), var_0, "tag_eye" );
 }
 
-_id_418B()
+ghillie_leaves()
 {
     var_0 = [];
     var_0[var_0.size] = "J_MainRoot";
@@ -217,7 +199,7 @@ _id_418B()
             continue;
         }
 
-        playfxontag( level._effect["ghillie_leaves"], self, common_scripts\utility::_id_710E( var_0 ) );
+        playfxontag( level._effect["ghillie_leaves"], self, common_scripts\utility::random( var_0 ) );
         wait(randomfloatrange( 0.1, 2.5 ));
     }
 }

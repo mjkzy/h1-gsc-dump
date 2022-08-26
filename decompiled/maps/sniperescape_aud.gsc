@@ -1,122 +1,104 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_2110();
-    _id_4D5B();
-    _id_4CF4();
-    _id_5625();
-    _id_5618();
-    thread _id_5617();
-    _id_23C4();
-    _id_6ECB();
-    _id_72E8();
+    config_system();
+    init_snd_flags();
+    init_globals();
+    launch_threads();
+    launch_loops();
+    thread launch_line_emitters();
+    create_level_envelop_arrays();
+    precache_presets();
+    register_snd_messages();
 }
 
-_id_2110()
+config_system()
 {
-    soundscripts\_audio::_id_7EC8( "shg" );
-    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_sniperescape_global" );
+    soundscripts\_audio::set_stringtable_mapname( "shg" );
+    soundscripts\_snd_filters::snd_set_occlusion( "med_occlusion" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_sniperescape_global" );
 }
 
-_id_4D5B()
-{
-
-}
-
-_id_4CF4()
+init_snd_flags()
 {
 
 }
 
-_id_5625()
+init_globals()
 {
 
 }
 
-_id_5618()
+launch_threads()
 {
 
 }
 
-_id_5617()
+launch_loops()
+{
+
+}
+
+launch_line_emitters()
 {
     wait 0.1;
 }
 
-_id_23C4()
+create_level_envelop_arrays()
 {
 
 }
 
-_id_6ECB()
+precache_presets()
 {
 
 }
 
-_id_72E8()
+register_snd_messages()
 {
-    soundscripts\_snd::_id_874D( "start_default_checkpoint", ::start_default_checkpoint );
-    soundscripts\_snd::_id_874D( "start_rappel_checkpoint", ::start_rappel_checkpoint );
-    soundscripts\_snd::_id_874D( "start_run_checkpoint", ::start_run_checkpoint );
-    soundscripts\_snd::_id_874D( "start_apart_checkpoint", ::start_apart_checkpoint );
-    soundscripts\_snd::_id_874D( "start_wounding_checkpoint", ::start_wounding_checkpoint );
-    soundscripts\_snd::_id_874D( "start_crash_checkpoint", ::start_crash_checkpoint );
-    soundscripts\_snd::_id_874D( "start_wounded_checkpoint", ::start_wounded_checkpoint );
-    soundscripts\_snd::_id_874D( "start_burnt_checkpoint", ::start_burnt_checkpoint );
-    soundscripts\_snd::_id_874D( "start_pool_checkpoint", ::start_pool_checkpoint );
-    soundscripts\_snd::_id_874D( "start_fair_checkpoint", ::start_fair_checkpoint );
-    soundscripts\_snd::_id_874D( "start_fair_battle_checkpoint", ::start_fair_battle_checkpoint );
-    soundscripts\_snd::_id_874D( "start_seaknight_checkpoint", ::start_seaknight_checkpoint );
-    soundscripts\_snd::_id_874D( "start_heli_block_sequence", ::start_heli_block_sequence );
-    soundscripts\_snd::_id_874D( "start_heli_block_moves", ::start_heli_block_moves );
-    soundscripts\_snd::_id_874D( "start_snipe_scoped_in_mix", ::start_snipe_scoped_in_mix );
-    soundscripts\_snd::_id_874D( "escape_hotel_mix", ::escape_hotel_mix );
-    soundscripts\_snd::_id_874D( "rappel_foley_mix", ::rappel_foley_mix );
-    soundscripts\_snd::_id_874D( "havoc_appear_mix", ::havoc_appear_mix );
-    soundscripts\_snd::_id_874D( "havoc_explode_mix", ::havoc_explode_mix );
-    soundscripts\_snd::_id_874D( "havoc_crashed_mix", ::havoc_crashed_mix );
-    soundscripts\_snd::_id_874D( "carrying_macmillan_mix", ::carrying_macmillan_mix );
-    soundscripts\_snd::_id_874D( "clear_carrying_mix", ::clear_carrying_mix );
-    soundscripts\_snd::_id_874D( "seaknight_rescue_submix", ::seaknight_rescue_submix );
-    soundscripts\_snd::_id_874D( "seaknight_rescue_submix_fade_out", ::seaknight_rescue_submix_fade_out );
-    soundscripts\_snd::_id_874D( "seaknight_rescue_submix_arrival", ::seaknight_rescue_submix_arrival );
-    soundscripts\_snd::_id_874D( "seaknight_rescue_submix_waiting", ::seaknight_rescue_submix_waiting );
+    soundscripts\_snd::snd_register_message( "start_default_checkpoint", ::start_default_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_rappel_checkpoint", ::start_rappel_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_run_checkpoint", ::start_run_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_apart_checkpoint", ::start_apart_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_wounding_checkpoint", ::start_wounding_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_crash_checkpoint", ::start_crash_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_wounded_checkpoint", ::start_wounded_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_burnt_checkpoint", ::start_burnt_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_pool_checkpoint", ::start_pool_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_fair_checkpoint", ::start_fair_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_fair_battle_checkpoint", ::start_fair_battle_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_seaknight_checkpoint", ::start_seaknight_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_heli_block_sequence", ::start_heli_block_sequence );
+    soundscripts\_snd::snd_register_message( "start_heli_block_moves", ::start_heli_block_moves );
+    soundscripts\_snd::snd_register_message( "start_snipe_scoped_in_mix", ::start_snipe_scoped_in_mix );
+    soundscripts\_snd::snd_register_message( "escape_hotel_mix", ::escape_hotel_mix );
+    soundscripts\_snd::snd_register_message( "rappel_foley_mix", ::rappel_foley_mix );
+    soundscripts\_snd::snd_register_message( "havoc_appear_mix", ::havoc_appear_mix );
+    soundscripts\_snd::snd_register_message( "havoc_explode_mix", ::havoc_explode_mix );
+    soundscripts\_snd::snd_register_message( "havoc_crashed_mix", ::havoc_crashed_mix );
+    soundscripts\_snd::snd_register_message( "carrying_macmillan_mix", ::carrying_macmillan_mix );
+    soundscripts\_snd::snd_register_message( "clear_carrying_mix", ::clear_carrying_mix );
+    soundscripts\_snd::snd_register_message( "seaknight_rescue_submix", ::seaknight_rescue_submix );
+    soundscripts\_snd::snd_register_message( "seaknight_rescue_submix_fade_out", ::seaknight_rescue_submix_fade_out );
+    soundscripts\_snd::snd_register_message( "seaknight_rescue_submix_arrival", ::seaknight_rescue_submix_arrival );
+    soundscripts\_snd::snd_register_message( "seaknight_rescue_submix_waiting", ::seaknight_rescue_submix_waiting );
 }
 
-_id_A3E6( var_0, var_1 )
+zone_handler( var_0, var_1 )
 {
 
 }
 
-_id_5FFD( var_0, var_1 )
+music_handler( var_0, var_1 )
 {
 
 }
 
 start_default_checkpoint( var_0 )
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "snipe_before_heli_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "snipe_before_heli_mix" );
     soundscripts\_audio_zone_manager::azm_start_zone( "interior_snipe_building" );
 }
 
@@ -177,82 +159,82 @@ start_seaknight_checkpoint( var_0 )
 
 start_snipe_scoped_in_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "snipe_before_heli_mix" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "snipe_scoped_in_mix" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "snipe_before_heli_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "snipe_scoped_in_mix" );
 }
 
 start_heli_block_sequence()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "snipe_scoped_in_mix" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "heli_block_mix" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "snipe_scoped_in_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "heli_block_mix" );
 }
 
 start_heli_block_moves()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "heli_block_mix" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "heli_block_mix" );
 }
 
 escape_hotel_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "heli_block_mix" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_hotel_escape" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "heli_block_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_hotel_escape" );
 }
 
 rappel_foley_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_hotel_escape" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_rappel_foley" );
-    common_scripts\utility::_id_384A( "aa_heat" );
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_rappel_foley" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_hotel_escape" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_rappel_foley" );
+    common_scripts\utility::flag_wait( "aa_heat" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_rappel_foley" );
 }
 
 havoc_appear_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_havoc_appear" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_havoc_appear" );
 }
 
 havoc_explode_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_havoc_appear" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_havoc_explode" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_havoc_appear" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_havoc_explode" );
 }
 
 havoc_crashed_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_havoc_explode" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_havoc_crashed" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_havoc_explode" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_havoc_crashed" );
 }
 
 carrying_macmillan_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_havoc_crashed" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_carrying_macmillan" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_havoc_crashed" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_carrying_macmillan" );
 }
 
 clear_carrying_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_carrying_macmillan" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_carrying_macmillan" );
 }
 
 seaknight_rescue_submix_arrival()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_seaknight_arrive" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_seaknight_arrive" );
 }
 
 seaknight_rescue_submix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_seaknight_arrive" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_seaknight_rescue" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_seaknight_arrive" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_seaknight_rescue" );
 }
 
 seaknight_rescue_submix_waiting()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_seaknight_rescue" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_seaknight_rescue_waiting" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_seaknight_rescue" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_seaknight_rescue_waiting" );
 }
 
 seaknight_rescue_submix_fade_out()
 {
-    soundscripts\_audio_mix_manager::_id_5CF6( "mix_seaknight_rescue_waiting" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_seaknight_rescue_fade" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mix_seaknight_rescue_waiting" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_seaknight_rescue_fade" );
 }

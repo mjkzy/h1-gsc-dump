@@ -1,51 +1,33 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_8FCC();
-    var_0 = maps\_utility::_id_23DF( "bog_a" );
-    var_0._id_8D08 = 1267.61;
-    var_0._id_4500 = 2049;
-    var_0._id_7299 = 1;
-    var_0._id_43D8 = 0.784136;
+    sunflare();
+    var_0 = maps\_utility::create_vision_set_fog( "bog_a" );
+    var_0.startdist = 1267.61;
+    var_0.halfwaydist = 2049;
+    var_0.red = 1;
+    var_0.green = 0.784136;
     var_0.blue = 0.675201;
-    var_0._id_4774 = 4.59;
-    var_0._id_5A47 = 0.378365;
-    var_0._id_971C = 0;
-    var_0._id_8FD1 = 0;
-    var_0._id_8FD9 = 0.5;
-    var_0._id_8FD2 = 0.5;
-    var_0._id_8FBF = 0.5;
-    var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
-    var_0._id_8FBD = 0;
-    var_0._id_8FC9 = 1;
-    var_0._id_615E = 1;
-    var_0._id_85CD = 0;
-    var_0._id_85CF = 48.0714;
-    var_0._id_85CE = 96.2788;
-    var_0._id_479F = 1;
-    var_0._id_479E = 0;
-    var_0._id_47A0 = 206.435;
+    var_0.hdrcolorintensity = 4.59;
+    var_0.maxopacity = 0.378365;
+    var_0.transitiontime = 0;
+    var_0.sunfogenabled = 0;
+    var_0.sunred = 0.5;
+    var_0.sungreen = 0.5;
+    var_0.sunblue = 0.5;
+    var_0.hdrsuncolorintensity = -8;
+    var_0.sundir = ( 0.0, 0.0, 0.0 );
+    var_0.sunbeginfadeangle = 0;
+    var_0.sunendfadeangle = 1;
+    var_0.normalfogscale = 1;
+    var_0.skyfogintensity = 0;
+    var_0.skyfogminangle = 48.0714;
+    var_0.skyfogmaxangle = 96.2788;
+    var_0.heightfogenabled = 1;
+    var_0.heightfogbaseheight = 0;
+    var_0.heightfoghalfplanedistance = 206.435;
     var_0.atmosfogenabled = 1;
     var_0.atmosfogsunfogcolor = ( 0.764161, 0.829042, 0.883625 );
     var_0.atmosfoghazecolor = ( 1.0, 0.823587, 0.581871 );
@@ -64,30 +46,30 @@ main()
     var_0.atmosfogheightfogenabled = 0;
     var_0.atmosfogheightfogbaseheight = -42;
     var_0.atmosfogheightfoghalfplanedistance = 961;
-    var_0 = maps\_utility::_id_23DF( "bog_a_bog_eh" );
-    var_0._id_8D08 = 1267.61;
-    var_0._id_4500 = 2049;
-    var_0._id_7299 = 1;
-    var_0._id_43D8 = 0.784136;
+    var_0 = maps\_utility::create_vision_set_fog( "bog_a_bog_eh" );
+    var_0.startdist = 1267.61;
+    var_0.halfwaydist = 2049;
+    var_0.red = 1;
+    var_0.green = 0.784136;
     var_0.blue = 0.675201;
-    var_0._id_4774 = 4.59;
-    var_0._id_5A47 = 0.378365;
-    var_0._id_971C = 0;
-    var_0._id_8FD1 = 0;
-    var_0._id_8FD9 = 0.5;
-    var_0._id_8FD2 = 0.5;
-    var_0._id_8FBF = 0.5;
-    var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
-    var_0._id_8FBD = 0;
-    var_0._id_8FC9 = 1;
-    var_0._id_615E = 1;
-    var_0._id_85CD = 0;
-    var_0._id_85CF = 48.0714;
-    var_0._id_85CE = 96.2788;
-    var_0._id_479F = 1;
-    var_0._id_479E = 0;
-    var_0._id_47A0 = 206.435;
+    var_0.hdrcolorintensity = 4.59;
+    var_0.maxopacity = 0.378365;
+    var_0.transitiontime = 0;
+    var_0.sunfogenabled = 0;
+    var_0.sunred = 0.5;
+    var_0.sungreen = 0.5;
+    var_0.sunblue = 0.5;
+    var_0.hdrsuncolorintensity = -8;
+    var_0.sundir = ( 0.0, 0.0, 0.0 );
+    var_0.sunbeginfadeangle = 0;
+    var_0.sunendfadeangle = 1;
+    var_0.normalfogscale = 1;
+    var_0.skyfogintensity = 0;
+    var_0.skyfogminangle = 48.0714;
+    var_0.skyfogmaxangle = 96.2788;
+    var_0.heightfogenabled = 1;
+    var_0.heightfogbaseheight = 0;
+    var_0.heightfoghalfplanedistance = 206.435;
     var_0.atmosfogenabled = 1;
     var_0.atmosfogsunfogcolor = ( 0.537148, 0.417229, 0.356128 );
     var_0.atmosfoghazecolor = ( 0.558988, 0.447577, 0.415477 );
@@ -106,30 +88,30 @@ main()
     var_0.atmosfogheightfogenabled = 0;
     var_0.atmosfogheightfogbaseheight = -42;
     var_0.atmosfogheightfoghalfplanedistance = 170;
-    var_0 = maps\_utility::_id_23DF( "bog_a_flare" );
-    var_0._id_8D08 = 1267.61;
-    var_0._id_4500 = 2049;
-    var_0._id_7299 = 1;
-    var_0._id_43D8 = 0.784136;
+    var_0 = maps\_utility::create_vision_set_fog( "bog_a_flare" );
+    var_0.startdist = 1267.61;
+    var_0.halfwaydist = 2049;
+    var_0.red = 1;
+    var_0.green = 0.784136;
     var_0.blue = 0.675201;
-    var_0._id_4774 = 4.59;
-    var_0._id_5A47 = 0.378365;
-    var_0._id_971C = 0;
-    var_0._id_8FD1 = 0;
-    var_0._id_8FD9 = 0.5;
-    var_0._id_8FD2 = 0.5;
-    var_0._id_8FBF = 0.5;
-    var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
-    var_0._id_8FBD = 0;
-    var_0._id_8FC9 = 1;
-    var_0._id_615E = 1;
-    var_0._id_85CD = 0;
-    var_0._id_85CF = 48.0714;
-    var_0._id_85CE = 96.2788;
-    var_0._id_479F = 1;
-    var_0._id_479E = 0;
-    var_0._id_47A0 = 206.435;
+    var_0.hdrcolorintensity = 4.59;
+    var_0.maxopacity = 0.378365;
+    var_0.transitiontime = 0;
+    var_0.sunfogenabled = 0;
+    var_0.sunred = 0.5;
+    var_0.sungreen = 0.5;
+    var_0.sunblue = 0.5;
+    var_0.hdrsuncolorintensity = -8;
+    var_0.sundir = ( 0.0, 0.0, 0.0 );
+    var_0.sunbeginfadeangle = 0;
+    var_0.sunendfadeangle = 1;
+    var_0.normalfogscale = 1;
+    var_0.skyfogintensity = 0;
+    var_0.skyfogminangle = 48.0714;
+    var_0.skyfogmaxangle = 96.2788;
+    var_0.heightfogenabled = 1;
+    var_0.heightfogbaseheight = 0;
+    var_0.heightfoghalfplanedistance = 206.435;
     var_0.atmosfogenabled = 1;
     var_0.atmosfogsunfogcolor = ( 0.520692, 0.601151, 0.689173 );
     var_0.atmosfoghazecolor = ( 1.0, 0.828125, 0.586609 );
@@ -148,30 +130,30 @@ main()
     var_0.atmosfogheightfogenabled = 1;
     var_0.atmosfogheightfogbaseheight = -42.6706;
     var_0.atmosfogheightfoghalfplanedistance = 3242;
-    var_0 = maps\_utility::_id_23DF( "bog_a_nightvision" );
-    var_0._id_8D08 = 1267.61;
-    var_0._id_4500 = 2049;
-    var_0._id_7299 = 1;
-    var_0._id_43D8 = 0.784136;
+    var_0 = maps\_utility::create_vision_set_fog( "bog_a_nightvision" );
+    var_0.startdist = 1267.61;
+    var_0.halfwaydist = 2049;
+    var_0.red = 1;
+    var_0.green = 0.784136;
     var_0.blue = 0.675201;
-    var_0._id_4774 = 4.59;
-    var_0._id_5A47 = 0.378365;
-    var_0._id_971C = 0;
-    var_0._id_8FD1 = 0;
-    var_0._id_8FD9 = 0.5;
-    var_0._id_8FD2 = 0.5;
-    var_0._id_8FBF = 0.5;
-    var_0._id_4776 = -8;
-    var_0._id_8FC6 = ( 0.0, 0.0, 0.0 );
-    var_0._id_8FBD = 0;
-    var_0._id_8FC9 = 1;
-    var_0._id_615E = 1;
-    var_0._id_85CD = 0;
-    var_0._id_85CF = 48.0714;
-    var_0._id_85CE = 96.2788;
-    var_0._id_479F = 1;
-    var_0._id_479E = 0;
-    var_0._id_47A0 = 206.435;
+    var_0.hdrcolorintensity = 4.59;
+    var_0.maxopacity = 0.378365;
+    var_0.transitiontime = 0;
+    var_0.sunfogenabled = 0;
+    var_0.sunred = 0.5;
+    var_0.sungreen = 0.5;
+    var_0.sunblue = 0.5;
+    var_0.hdrsuncolorintensity = -8;
+    var_0.sundir = ( 0.0, 0.0, 0.0 );
+    var_0.sunbeginfadeangle = 0;
+    var_0.sunendfadeangle = 1;
+    var_0.normalfogscale = 1;
+    var_0.skyfogintensity = 0;
+    var_0.skyfogminangle = 48.0714;
+    var_0.skyfogmaxangle = 96.2788;
+    var_0.heightfogenabled = 1;
+    var_0.heightfogbaseheight = 0;
+    var_0.heightfoghalfplanedistance = 206.435;
     var_0.atmosfogenabled = 1;
     var_0.atmosfogsunfogcolor = ( 0.615273, 0.477913, 0.407925 );
     var_0.atmosfoghazecolor = ( 0.902738, 0.722815, 0.670975 );
@@ -192,9 +174,9 @@ main()
     var_0.atmosfogheightfoghalfplanedistance = 170;
 }
 
-_id_8FCC()
+sunflare()
 {
-    var_0 = maps\_utility::_id_23DB( "default" );
+    var_0 = maps\_utility::create_sunflare_setting( "default" );
     var_0.position = ( -5.27893, -115.812, 0.0 );
-    maps\_art::_id_8FCD( "default", 0 );
+    maps\_art::sunflare_changes( "default", 0 );
 }

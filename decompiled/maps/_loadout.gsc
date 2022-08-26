@@ -1,74 +1,56 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4D0F()
+init_loadout()
 {
-    _id_41CA();
-    maps\_loadout_code::_id_57D8();
+    give_loadout();
+    maps\_loadout_code::loadout_complete();
 }
 
-_id_41CA()
+give_loadout()
 {
-    if ( isdefined( level._id_2C2C ) )
+    if ( isdefined( level.dodgeloadout ) )
         return;
 
-    if ( !isdefined( level._id_1A3D ) )
-        level._id_1A3D = "american";
+    if ( !isdefined( level.campaign ) )
+        level.campaign = "american";
 
-    var_0 = maps\_loadout_code::_id_3DCC();
-    level.player maps\_loadout_code::_id_7F46();
-    level._id_46F3 = 0;
-    maps\_loadout_code::_id_67D9( "sniperescape", "scoutsniper" );
-    maps\_loadout_code::_id_67D9( "launchfacility_a", "icbm" );
-    maps\_loadout_code::_id_67D9( "launchfacility_b", "launchfacility_a" );
-    maps\_loadout_code::_id_57D6( "killhouse", undefined, undefined, "fraggrenade", "flash_grenade", "viewhands_black_kit", "british" );
-    maps\_loadout_code::_id_57D6( "cargoship", "mp5_silencer", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_black_kit", "british" );
-    maps\_loadout_code::_id_57D6( "coup", undefined, undefined, undefined, undefined, undefined, "american" );
-    maps\_loadout_code::_id_57D6( "blackout", "m4m203_silencer_reflex", "m14_scoped_silencer_woodland", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "american" );
-    maps\_loadout_code::_id_57D6( "armada", "m4_grunt", "beretta", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
-    maps\_loadout_code::_id_57D6( "bog_a", "m4_grenadier", "beretta", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
-    maps\_loadout_code::_id_57D6( "hunted", undefined, "colt45", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "ac130", undefined, undefined, undefined, undefined, "viewmodel_base_viewhands", "american" );
-    maps\_loadout_code::_id_57D6( "bog_b", "m4_grenadier", "beretta", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
-    maps\_loadout_code::_id_57D6( "airlift", "m4_grenadier", "colt45", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
-    maps\_loadout_code::_id_57D6( "aftermath", undefined, undefined, undefined, undefined, "viewmodel_base_viewhands", "american" );
-    maps\_loadout_code::_id_57D6( "village_assault", "m4m203_silencer_reflex", "m1014", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "scoutsniper", "m14_scoped_silencer", "usp_silencer", "fraggrenade", undefined, "viewhands_marine_sniper", "british" );
-    maps\_loadout_code::_id_57D6( "sniperescape", "m14_scoped_woodland", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_marine_sniper", "british" );
-    maps\_loadout_code::_id_57D6( "village_defend", "saw", "m14_scoped_woodland", "fraggrenade", "smoke_grenade_american", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "ambush", "remington700", "colt45", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "icbm", "m4m203_silencer_reflex", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "launchfacility_a", "m4m203_silencer_reflex", "usp_silencer", "fraggrenade", "smoke_grenade_american", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "launchfacility_b", "m4m203_silencer_reflex", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "jeepride", "m4_grunt", "colt45", "fraggrenade", undefined, "viewhands_sas_woodland", "british" );
-    maps\_loadout_code::_id_57D6( "airplane", "mp5_silencer", "usp_silencer", undefined, "flash_grenade", "viewhands_black_kit", "british" );
-    maps\_loadout_code::_id_57D6( "simplecredits", undefined, undefined, undefined, undefined, undefined, undefined );
-    maps\_loadout_code::_id_57DB( "blackout", "c4", "claymore" );
-    maps\_loadout_code::_id_57DB( "armada", undefined, "claymore" );
-    maps\_loadout_code::_id_57DB( "village_assault", "c4", "cobra_air_support" );
-    maps\_loadout_code::_id_57DB( "sniperescape", "c4", "claymore" );
-    maps\_loadout_code::_id_57DB( "village_defend", undefined, "claymore" );
-    maps\_loadout_code::_id_57DB( "icbm", "c4", "claymore" );
-    maps\_loadout_code::_id_57DB( "launchfacility_a", "c4", "claymore" );
-    maps\_loadout_code::_id_57DB( "launchfacility_b", "c4", "claymore" );
+    var_0 = maps\_loadout_code::get_loadout();
+    level.player maps\_loadout_code::setdefaultactionslot();
+    level.has_loadout = 0;
+    maps\_loadout_code::persist( "sniperescape", "scoutsniper" );
+    maps\_loadout_code::persist( "launchfacility_a", "icbm" );
+    maps\_loadout_code::persist( "launchfacility_b", "launchfacility_a" );
+    maps\_loadout_code::loadout( "killhouse", undefined, undefined, "fraggrenade", "flash_grenade", "viewhands_black_kit", "british" );
+    maps\_loadout_code::loadout( "cargoship", "mp5_silencer", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_black_kit", "british" );
+    maps\_loadout_code::loadout( "coup", undefined, undefined, undefined, undefined, undefined, "american" );
+    maps\_loadout_code::loadout( "blackout", "m4m203_silencer_reflex", "m14_scoped_silencer_woodland", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "american" );
+    maps\_loadout_code::loadout( "armada", "m4_grunt", "beretta", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
+    maps\_loadout_code::loadout( "bog_a", "m4_grenadier", "beretta", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
+    maps\_loadout_code::loadout( "hunted", undefined, "colt45", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "ac130", undefined, undefined, undefined, undefined, "viewmodel_base_viewhands", "american" );
+    maps\_loadout_code::loadout( "bog_b", "m4_grenadier", "beretta", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
+    maps\_loadout_code::loadout( "airlift", "m4_grenadier", "colt45", "fraggrenade", "flash_grenade", "viewmodel_base_viewhands", "american" );
+    maps\_loadout_code::loadout( "aftermath", undefined, undefined, undefined, undefined, "viewmodel_base_viewhands", "american" );
+    maps\_loadout_code::loadout( "village_assault", "m4m203_silencer_reflex", "m1014", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "scoutsniper", "m14_scoped_silencer", "usp_silencer", "fraggrenade", undefined, "viewhands_marine_sniper", "british" );
+    maps\_loadout_code::loadout( "sniperescape", "m14_scoped_woodland", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_marine_sniper", "british" );
+    maps\_loadout_code::loadout( "village_defend", "saw", "m14_scoped_woodland", "fraggrenade", "smoke_grenade_american", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "ambush", "remington700", "colt45", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "icbm", "m4m203_silencer_reflex", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "launchfacility_a", "m4m203_silencer_reflex", "usp_silencer", "fraggrenade", "smoke_grenade_american", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "launchfacility_b", "m4m203_silencer_reflex", "usp_silencer", "fraggrenade", "flash_grenade", "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "jeepride", "m4_grunt", "colt45", "fraggrenade", undefined, "viewhands_sas_woodland", "british" );
+    maps\_loadout_code::loadout( "airplane", "mp5_silencer", "usp_silencer", undefined, "flash_grenade", "viewhands_black_kit", "british" );
+    maps\_loadout_code::loadout( "simplecredits", undefined, undefined, undefined, undefined, undefined, undefined );
+    maps\_loadout_code::loadoutequipment( "blackout", "c4", "claymore" );
+    maps\_loadout_code::loadoutequipment( "armada", undefined, "claymore" );
+    maps\_loadout_code::loadoutequipment( "village_assault", "c4", "cobra_air_support" );
+    maps\_loadout_code::loadoutequipment( "sniperescape", "c4", "claymore" );
+    maps\_loadout_code::loadoutequipment( "village_defend", undefined, "claymore" );
+    maps\_loadout_code::loadoutequipment( "icbm", "c4", "claymore" );
+    maps\_loadout_code::loadoutequipment( "launchfacility_a", "c4", "claymore" );
+    maps\_loadout_code::loadoutequipment( "launchfacility_b", "c4", "claymore" );
     maps\_loadout_code::loadoutcustomization();
-    maps\_loadout_code::_id_2783();
+    maps\_loadout_code::default_loadout_if_notset();
 }

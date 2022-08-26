@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["ac130_pinetree_trunk"] = loadfx( "vfx/map/ac130/ac130_pinetree_trunk" );
     precachemodel( "ac130_pine01_stump" );
     var_0 = 500;
     var_1 = getentarray( "ac130_tree", "targetname" );
-    common_scripts\utility::_id_76BB( "ac130_tree", ::ac130_tree_setup );
+    common_scripts\utility::run_thread_on_targetname( "ac130_tree", ::ac130_tree_setup );
 }
 #using_animtree("script_model");
 
@@ -64,9 +46,9 @@ ac130_tree_wobble( var_0 )
     var_1 = 1000.0;
     var_2 = clamp( var_0 / var_1, 0.5, 1.0 ) * randomfloatrange( 0.95, 1.05 );
     var_3 = self.ac130_tree_anims["sway"][randomint( self.ac130_tree_anims["sway"].size )];
-    self _meth_814D( var_3, var_2, 0.0, randomfloatrange( 0.75, 1.25 ) );
+    self setanim( var_3, var_2, 0.0, randomfloatrange( 0.75, 1.25 ) );
     wait(getanimlength( var_3 ));
-    self _meth_8144( var_3, 0.0 );
+    self clearanim( var_3, 0.0 );
 }
 
 ac130_tree_death()
@@ -84,7 +66,7 @@ ac130_tree_death()
 ac130_tree_think()
 {
     self endon( "death" );
-    self _meth_814D( self.ac130_tree_anims["still"], 1.0, 0.0, 1.0 );
+    self setanim( self.ac130_tree_anims["still"], 1.0, 0.0, 1.0 );
 
     for (;;)
     {

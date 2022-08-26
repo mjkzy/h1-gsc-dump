@@ -1,64 +1,46 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
-_id_5F4C()
+movecqb()
 {
     cqb_checkchangeweapon();
 
-    if ( self.a._id_6E5A != "stand" )
+    if ( self.a.pose != "stand" )
     {
-        self _meth_8144( %animscript_root, 0.2 );
+        self clearanim( %animscript_root, 0.2 );
 
-        if ( self.a._id_6E5A == "prone" )
-            animscripts\utility::_id_344B( 1 );
+        if ( self.a.pose == "prone" )
+            animscripts\utility::exitpronewrapper( 1 );
 
-        self.a._id_6E5A = "stand";
+        self.a.pose = "stand";
     }
 
-    self.a._id_5F5B = self.movemode;
-    _id_22DF();
-    self _meth_8144( %h1_stairs, 0.1 );
+    self.a.movement = self.movemode;
+    cqbtracking();
+    self clearanim( %h1_stairs, 0.1 );
 
     if ( cqb_checkreload() )
         return;
 
-    var_0 = _id_29A6();
+    var_0 = determinecqbanim();
     var_1 = cqb_gettranstime();
     var_2 = 0.2;
     thread cqb_scaleforslowdown( var_0, var_2 );
     cqb_animate( var_0, var_2, var_1 );
-    _id_22D5( var_0 );
-    animscripts\notetracks::_id_2D0B( var_2, "runanim" );
+    cqb_playfacialanim( var_0 );
+    animscripts\notetracks::donotetracksfortime( var_2, "runanim" );
 }
 
 cqb_checkchangeweapon()
 {
     if ( !animscripts\stairs_utility::isonstairs() )
-        animscripts\run::_id_8B10();
+        animscripts\run::standrun_checkchangeweapon();
 }
 
 cqb_checkreload()
 {
-    return !animscripts\stairs_utility::isonstairs() && animscripts\run::_id_8B11();
+    return !animscripts\stairs_utility::isonstairs() && animscripts\run::standrun_checkreload();
 }
 
 cqb_gettranstime()
@@ -73,120 +55,120 @@ cqb_gettranstime()
 
 cqb_animate( var_0, var_1, var_2 )
 {
-    if ( isdefined( self._id_9369 ) )
-        var_3 = self._id_9369;
+    if ( isdefined( self.timeofmaincqbupdate ) )
+        var_3 = self.timeofmaincqbupdate;
     else
         var_3 = 0;
 
-    self._id_9369 = gettime();
+    self.timeofmaincqbupdate = gettime();
 
     if ( !animscripts\stairs_utility::isonstairs() )
     {
         var_4 = animscripts\stairs_utility::getstairtransitionfinishedthisframe();
         var_5 = %walk_and_run_loops;
 
-        if ( self._id_9369 - var_3 > var_1 * 1000 && var_4 == "none" )
+        if ( self.timeofmaincqbupdate - var_3 > var_1 * 1000 && var_4 == "none" )
             var_5 = %stand_and_crouch;
 
-        self setflaggedanimknoball( "runanim", var_0, var_5, 1, var_2, self._id_5F65 * self.cqb_slowdown_scale, 1 );
-        animscripts\run::_id_7FB7( animscripts\utility::_id_5863( "cqb", "move_b" ), animscripts\utility::_id_5863( "cqb", "move_l" ), animscripts\utility::_id_5863( "cqb", "move_r" ) );
-        thread animscripts\run::_id_7F3E( "cqb" );
+        self setflaggedanimknoball( "runanim", var_0, var_5, 1, var_2, self.moveplaybackrate * self.cqb_slowdown_scale, 1 );
+        animscripts\run::setmovenonforwardanims( animscripts\utility::lookupanim( "cqb", "move_b" ), animscripts\utility::lookupanim( "cqb", "move_l" ), animscripts\utility::lookupanim( "cqb", "move_r" ) );
+        thread animscripts\run::setcombatstandmoveanimweights( "cqb" );
     }
     else
     {
         self notify( "stop_move_anim_update" );
-        self._id_9AC9 = undefined;
+        self.update_move_anim_type = undefined;
         var_5 = %body;
-        self setflaggedanimknoball( "runanim", var_0, var_5, 1, var_2, self._id_5F65 * self.cqb_slowdown_scale, 1 );
+        self setflaggedanimknoball( "runanim", var_0, var_5, 1, var_2, self.moveplaybackrate * self.cqb_slowdown_scale, 1 );
     }
 }
 
-_id_29A6()
+determinecqbanim()
 {
-    if ( isdefined( self._id_2563 ) && isdefined( self._id_2563["cqb"] ) )
-        return animscripts\run::_id_40BD();
+    if ( isdefined( self.custommoveanimset ) && isdefined( self.custommoveanimset["cqb"] ) )
+        return animscripts\run::getrunanim();
 
     if ( animscripts\stairs_utility::isonstairs() )
     {
         var_0 = animscripts\stairs_utility::getstairsanimnameatgroundpos();
-        return animscripts\utility::_id_5863( "cqb", var_0 );
+        return animscripts\utility::lookupanim( "cqb", var_0 );
     }
 
     if ( self.movemode == "walk" )
-        return animscripts\utility::_id_5863( "cqb", "move_f" );
+        return animscripts\utility::lookupanim( "cqb", "move_f" );
 
     if ( isdefined( self.a.bdisablemovetwitch ) && self.a.bdisablemovetwitch )
-        return animscripts\utility::_id_5863( "cqb", "straight" );
+        return animscripts\utility::lookupanim( "cqb", "straight" );
 
-    if ( !isdefined( self.a._id_76D4 ) )
-        return animscripts\utility::_id_5863( "cqb", "straight" );
+    if ( !isdefined( self.a.runloopcount ) )
+        return animscripts\utility::lookupanim( "cqb", "straight" );
 
-    var_1 = animscripts\utility::_id_5863( "cqb", "straight_twitch" );
+    var_1 = animscripts\utility::lookupanim( "cqb", "straight_twitch" );
 
     if ( !isdefined( var_1 ) || var_1.size == 0 )
-        return animscripts\utility::_id_5863( "cqb", "straight" );
+        return animscripts\utility::lookupanim( "cqb", "straight" );
 
-    var_2 = animscripts\utility::_id_40A6( self.a._id_76D4, 4 );
+    var_2 = animscripts\utility::getrandomintfromseed( self.a.runloopcount, 4 );
 
     if ( var_2 == 0 )
         return animscripts\utility::gettwitchanim( var_1 );
 
-    return animscripts\utility::_id_5863( "cqb", "straight" );
+    return animscripts\utility::lookupanim( "cqb", "straight" );
 }
 
-_id_22D7()
+cqb_reloadinternal()
 {
     self endon( "movemode" );
     self endon( "should_stairs_transition" );
-    self _meth_8193( "face motion" );
-    var_0 = "reload_" + animscripts\combat_utility::_id_4143();
-    var_1 = animscripts\utility::_id_5863( "cqb", "reload" );
+    self orientmode( "face motion" );
+    var_0 = "reload_" + animscripts\combat_utility::getuniqueflagnameindex();
+    var_1 = animscripts\utility::lookupanim( "cqb", "reload" );
 
     if ( isarray( var_1 ) )
         var_1 = var_1[randomint( var_1.size )];
 
     thread cqb_scaleforslowdown( var_1, getanimlength( var_1 ) );
-    self setflaggedanimknoballrestart( var_0, var_1, %body, 1, 0.25, self._id_5F65 * self.cqb_slowdown_scale );
-    _id_22D5( var_1 );
-    animscripts\run::_id_7FB7( animscripts\utility::_id_5863( "cqb", "move_b" ), animscripts\utility::_id_5863( "cqb", "move_l" ), animscripts\utility::_id_5863( "cqb", "move_r" ) );
-    thread animscripts\run::_id_7F3E( "cqb" );
+    self setflaggedanimknoballrestart( var_0, var_1, %body, 1, 0.25, self.moveplaybackrate * self.cqb_slowdown_scale );
+    cqb_playfacialanim( var_1 );
+    animscripts\run::setmovenonforwardanims( animscripts\utility::lookupanim( "cqb", "move_b" ), animscripts\utility::lookupanim( "cqb", "move_l" ), animscripts\utility::lookupanim( "cqb", "move_r" ) );
+    thread animscripts\run::setcombatstandmoveanimweights( "cqb" );
     childthread animscripts\stairs_utility::threadcheckstairstransition( var_1, 0, 0.3 );
-    animscripts\shared::_id_2D06( var_0 );
+    animscripts\shared::donotetracks( var_0 );
     self notify( "killThreadCheckStairsTransition" );
 }
 
-_id_22DF()
+cqbtracking()
 {
     var_0 = animscripts\stairs_utility::isonstairs();
-    var_1 = !var_0 && animscripts\move::_id_5A61();
-    animscripts\run::_id_800D( var_1 );
+    var_1 = !var_0 && animscripts\move::mayshootwhilemoving();
+    animscripts\run::setshootwhilemoving( var_1 );
 
     if ( var_0 )
-        animscripts\run::_id_315D();
+        animscripts\run::endfaceenemyaimtracking();
     else
-        thread animscripts\run::_id_35B6();
+        thread animscripts\run::faceenemyaimtracking();
 }
 
-_id_8308()
+setupcqbpointsofinterest()
 {
-    level._id_22DE = [];
+    level.cqbpointsofinterest = [];
     var_0 = getentarray( "cqb_point_of_interest", "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        level._id_22DE[var_1] = var_0[var_1].origin;
+        level.cqbpointsofinterest[var_1] = var_0[var_1].origin;
         var_0[var_1] delete();
     }
 }
 
-_id_377E()
+findcqbpointsofinterest()
 {
-    if ( isdefined( anim._id_3781 ) )
+    if ( isdefined( anim.findingcqbpointsofinterest ) )
         return;
 
-    anim._id_3781 = 1;
+    anim.findingcqbpointsofinterest = 1;
 
-    if ( !level._id_22DE.size )
+    if ( !level.cqbpointsofinterest.size )
         return;
 
     for (;;)
@@ -196,9 +178,9 @@ _id_377E()
 
         foreach ( var_3 in var_0 )
         {
-            if ( isalive( var_3 ) && var_3 animscripts\utility::_id_50E9() && !isdefined( var_3._id_2A8B ) )
+            if ( isalive( var_3 ) && var_3 animscripts\utility::iscqbwalking() && !isdefined( var_3.disable_cqb_points_of_interest ) )
             {
-                var_4 = var_3.a._id_5F5B != "stop";
+                var_4 = var_3.a.movement != "stop";
                 var_5 = ( var_3.origin[0], var_3.origin[1], var_3 getshootatpos()[2] );
                 var_6 = var_5;
                 var_7 = anglestoforward( var_3.angles );
@@ -212,9 +194,9 @@ _id_377E()
                 var_9 = -1;
                 var_10 = 1048576;
 
-                for ( var_11 = 0; var_11 < level._id_22DE.size; var_11++ )
+                for ( var_11 = 0; var_11 < level.cqbpointsofinterest.size; var_11++ )
                 {
-                    var_12 = level._id_22DE[var_11];
+                    var_12 = level.cqbpointsofinterest[var_11];
                     var_13 = distancesquared( var_12, var_6 );
 
                     if ( var_13 < var_10 )
@@ -241,9 +223,9 @@ _id_377E()
                 }
 
                 if ( var_9 < 0 )
-                    var_3._id_22D6 = undefined;
+                    var_3.cqb_point_of_interest = undefined;
                 else
-                    var_3._id_22D6 = level._id_22DE[var_9];
+                    var_3.cqb_point_of_interest = level.cqbpointsofinterest[var_9];
 
                 wait 0.05;
                 var_1 = 1;
@@ -255,15 +237,15 @@ _id_377E()
     }
 }
 
-_id_22D5( var_0 )
+cqb_playfacialanim( var_0 )
 {
-    self._id_35C7 = animscripts\face::_id_6D9B( var_0, "run", self._id_35C7 );
+    self.facialidx = animscripts\face::playfacialanim( var_0, "run", self.facialidx );
 }
 
-_id_22D0()
+cqb_clearfacialanim()
 {
-    self._id_35C7 = undefined;
-    self _meth_8144( %head, 0.2 );
+    self.facialidx = undefined;
+    self clearanim( %head, 0.2 );
 }
 
 cqb_scaleforslowdown( var_0, var_1 )
@@ -303,7 +285,7 @@ cqb_slowdownwatcher()
 cqb_slowdownscale( var_0 )
 {
     self.cqb_slowdown_scale = var_0;
-    self _meth_83C5( self.cqb_slowdown_anim, self._id_5F65 * self.cqb_slowdown_scale );
+    self setanimrate( self.cqb_slowdown_anim, self.moveplaybackrate * self.cqb_slowdown_scale );
 }
 
 cqb_slowdownwatcher_ender()
@@ -313,7 +295,7 @@ cqb_slowdownwatcher_ender()
     self endon( "move_interrupt" );
     wait(self.cqb_slowdown_move_time);
 
-    while ( animscripts\utility::_id_848B() )
+    while ( animscripts\utility::shouldcqb() )
         wait(self.cqb_slowdown_move_time);
 
     self notify( "end_cqb_slowdown_watcher" );

@@ -1,63 +1,45 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    level._id_8A4A["allies"] = spawnstruct();
-    level._id_8A4A["axis"] = spawnstruct();
-    level thread _id_64C8();
+    level.spectateoverride["allies"] = spawnstruct();
+    level.spectateoverride["axis"] = spawnstruct();
+    level thread onplayerconnect();
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_64B4();
-        var_0 thread _id_64B3();
-        var_0 thread _id_64EB();
+        var_0 thread onjoinedteam();
+        var_0 thread onjoinedspectators();
+        var_0 thread onspectatingclient();
     }
 }
 
-_id_64B4()
+onjoinedteam()
 {
     self endon( "disconnect" );
 
     for (;;)
     {
         self waittill( "joined_team" );
-        _id_8019();
+        setspectatepermissions();
     }
 }
 
-_id_64B3()
+onjoinedspectators()
 {
     self endon( "disconnect" );
 
     for (;;)
     {
         self waittill( "joined_spectators" );
-        _id_8019();
+        setspectatepermissions();
 
-        if ( !maps\mp\_utility::_id_4FA6() && ( self _meth_842D() || isdefined( self.pers["mlgSpectator"] ) && self.pers["mlgSpectator"] ) )
+        if ( !maps\mp\_utility::invirtuallobby() && ( self _meth_842D() || isdefined( self.pers["mlgSpectator"] ) && self.pers["mlgSpectator"] ) )
         {
             self _meth_84FD( 1 );
 
@@ -76,7 +58,7 @@ updatemlgicons()
         for (;;)
         {
             level waittill( "player_spawned", var_0 );
-            var_1 = var_0._id_8A4C;
+            var_1 = var_0.spectatorviewloadout;
 
             if ( isdefined( var_1 ) )
             {
@@ -90,7 +72,7 @@ updatemlgicons()
     }
 }
 
-_id_64EB()
+onspectatingclient()
 {
     self endon( "disconnect" );
     thread updatemlgicons();
@@ -105,32 +87,32 @@ _id_64EB()
             self setcarddisplayslot( var_0, 6 );
 
             if ( self _meth_842D() )
-                _id_9B70( var_0 );
+                updatespectatedloadout( var_0 );
         }
     }
 }
 
 allowallyteamspectating()
 {
-    while ( !isdefined( level._id_8A4A ) )
+    while ( !isdefined( level.spectateoverride ) )
         wait 0.05;
 
-    level._id_8A4A["allies"].allowallyspectate = 1;
-    level._id_8A4A["axis"].allowallyspectate = 1;
-    _id_9B72();
+    level.spectateoverride["allies"].allowallyspectate = 1;
+    level.spectateoverride["axis"].allowallyspectate = 1;
+    updatespectatesettings();
 }
 
-_id_9B72()
+updatespectatesettings()
 {
     level endon( "game_ended" );
 
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
-        level.players[var_0] _id_8019();
+        level.players[var_0] setspectatepermissions();
 }
 
-_id_8019()
+setspectatepermissions()
 {
-    if ( level.gameended && gettime() - level._id_3BDC >= 2000 )
+    if ( level.gameended && gettime() - level.gameendtime >= 2000 )
     {
         if ( level.multiteambased )
         {
@@ -148,8 +130,8 @@ _id_8019()
         return;
     }
 
-    var_1 = maps\mp\gametypes\_tweakables::_id_4142( "game", "spectatetype" );
-    var_2 = maps\mp\gametypes\_tweakables::_id_4142( "game", "lockspectatepov" );
+    var_1 = maps\mp\gametypes\_tweakables::gettweakablevalue( "game", "spectatetype" );
+    var_2 = maps\mp\gametypes\_tweakables::gettweakablevalue( "game", "lockspectatepov" );
     var_3 = self.sessionteam;
 
     if ( var_1 == 1 )
@@ -160,7 +142,7 @@ _id_8019()
             var_3 = var_4;
     }
 
-    if ( self _meth_842D() && !maps\mp\_utility::_id_4FA6() )
+    if ( self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
         var_1 = 2;
 
     if ( isdefined( level.iszombiegame ) && level.iszombiegame )
@@ -256,39 +238,39 @@ _id_8019()
         switch ( var_2 )
         {
             case 0:
-                self _meth_8270( var_5, "freelook" );
+                self forcespectatepov( var_5, "freelook" );
                 break;
             case 1:
                 if ( level.teambased )
                     self allowspectateteam( "none", 0 );
 
                 self allowspectateteam( "freelook", 0 );
-                self _meth_8270( var_5, "first_person" );
+                self forcespectatepov( var_5, "first_person" );
                 break;
             case 2:
                 if ( level.teambased )
                     self allowspectateteam( "none", 0 );
 
                 self allowspectateteam( "freelook", 0 );
-                self _meth_8270( var_5, "third_person" );
+                self forcespectatepov( var_5, "third_person" );
                 break;
         }
     }
 
     if ( isdefined( var_3 ) && ( var_3 == "axis" || var_3 == "allies" ) )
     {
-        if ( maps\mp\_utility::_id_5092( level._id_8A4A[var_3].allowfreespectate ) )
+        if ( maps\mp\_utility::is_true( level.spectateoverride[var_3].allowfreespectate ) )
             self allowspectateteam( "freelook", 1 );
 
-        if ( maps\mp\_utility::_id_5092( level._id_8A4A[var_3].allowallyspectate ) )
+        if ( maps\mp\_utility::is_true( level.spectateoverride[var_3].allowallyspectate ) )
             self allowspectateteam( var_3, 1 );
 
-        if ( maps\mp\_utility::_id_5092( level._id_8A4A[var_3].allowenemyspectate ) )
+        if ( maps\mp\_utility::is_true( level.spectateoverride[var_3].allowenemyspectate ) )
             self allowspectateteam( maps\mp\_utility::getotherteam( var_3 ), 1 );
     }
 }
 
-_id_9B71( var_0, var_1, var_2, var_3, var_4 )
+updatespectatedloadoutweapon( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( isdefined( var_1 ) )
     {
@@ -336,11 +318,11 @@ _id_9B71( var_0, var_1, var_2, var_3, var_4 )
         self setclientomnvar( var_0 + "furniturekit", 0 );
 }
 
-_id_9B70( var_0 )
+updatespectatedloadout( var_0 )
 {
-    var_1 = var_0._id_8A4C;
-    _id_9B71( "ui_mlg_loadout_primary_", var_1.primary, [ var_1._id_6F82, var_1.primaryattachment2, var_1.primaryattachment3 ], var_1.primaryattachkit, var_1.primaryfurniturekit );
-    _id_9B71( "ui_mlg_loadout_secondary_", var_1.secondary, [ var_1._id_7BF7, var_1.secondaryattachment2 ], var_1.secondaryattachkit, var_1.secondaryfurniturekit );
+    var_1 = var_0.spectatorviewloadout;
+    updatespectatedloadoutweapon( "ui_mlg_loadout_primary_", var_1.primary, [ var_1.primaryattachment, var_1.primaryattachment2, var_1.primaryattachment3 ], var_1.primaryattachkit, var_1.primaryfurniturekit );
+    updatespectatedloadoutweapon( "ui_mlg_loadout_secondary_", var_1.secondary, [ var_1.secondaryattachment, var_1.secondaryattachment2 ], var_1.secondaryattachkit, var_1.secondaryfurniturekit );
     var_2 = var_1.offhand;
 
     if ( isdefined( var_2 ) )

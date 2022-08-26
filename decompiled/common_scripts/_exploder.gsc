@@ -1,34 +1,16 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_3F8E( var_0 )
+getexploders( var_0 )
 {
     var_0 += "";
 
-    if ( isdefined( level._id_241A ) )
-        return level._id_241A[var_0];
+    if ( isdefined( level.createfxexploders ) )
+        return level.createfxexploders[var_0];
 
     var_1 = [];
 
-    foreach ( var_3 in level._id_2417 )
+    foreach ( var_3 in level.createfxent )
     {
         if ( !isdefined( var_3 ) )
             continue;
@@ -46,41 +28,41 @@ _id_3F8E( var_0 )
     return var_1;
 }
 
-_id_814F( var_0 )
+setup_individual_exploder( var_0 )
 {
-    var_1 = var_0._id_79BF;
+    var_1 = var_0.script_exploder;
 
-    if ( !isdefined( level._id_353C[var_1] ) )
-        level._id_353C[var_1] = [];
+    if ( !isdefined( level.exploders[var_1] ) )
+        level.exploders[var_1] = [];
 
     var_2 = var_0.targetname;
 
     if ( !isdefined( var_2 ) )
         var_2 = "";
 
-    level._id_353C[var_1][level._id_353C[var_1].size] = var_0;
+    level.exploders[var_1][level.exploders[var_1].size] = var_0;
 
-    if ( _id_3532( var_0 ) )
+    if ( exploder_model_starts_hidden( var_0 ) )
     {
         var_0 hide();
         return;
     }
 
-    if ( _id_3531( var_0 ) )
+    if ( exploder_model_is_damaged_model( var_0 ) )
     {
         var_0 hide();
         var_0 notsolid();
 
         if ( isdefined( var_0.spawnflags ) && var_0.spawnflags & 1 )
         {
-            if ( isdefined( var_0._id_79A0 ) )
+            if ( isdefined( var_0.script_disconnectpaths ) )
                 var_0 connectpaths();
         }
 
         return;
     }
 
-    if ( _id_3530( var_0 ) )
+    if ( exploder_model_is_chunk( var_0 ) )
     {
         var_0 hide();
         var_0 notsolid();
@@ -103,9 +85,9 @@ _id_814F( var_0 )
     }
 }
 
-_id_8313()
+setupexploders()
 {
-    level._id_353C = [];
+    level.exploders = [];
     var_0 = getentarray( "script_brushmodel", "classname" );
     var_1 = getentarray( "script_model", "classname" );
 
@@ -114,14 +96,14 @@ _id_8313()
 
     foreach ( var_4 in var_0 )
     {
-        if ( isdefined( var_4._id_7AA6 ) )
-            var_4._id_79BF = var_4._id_7AA6;
+        if ( isdefined( var_4.script_prefab_exploder ) )
+            var_4.script_exploder = var_4.script_prefab_exploder;
 
-        if ( isdefined( var_4._id_59D6 ) )
+        if ( isdefined( var_4.masked_exploder ) )
             continue;
 
-        if ( isdefined( var_4._id_79BF ) )
-            _id_814F( var_4 );
+        if ( isdefined( var_4.script_exploder ) )
+            setup_individual_exploder( var_4 );
     }
 
     var_6 = [];
@@ -129,10 +111,10 @@ _id_8313()
 
     for ( var_2 = 0; var_2 < var_7.size; var_2++ )
     {
-        if ( isdefined( var_7[var_2]._id_7AA6 ) )
-            var_7[var_2]._id_79BF = var_7[var_2]._id_7AA6;
+        if ( isdefined( var_7[var_2].script_prefab_exploder ) )
+            var_7[var_2].script_exploder = var_7[var_2].script_prefab_exploder;
 
-        if ( isdefined( var_7[var_2]._id_79BF ) )
+        if ( isdefined( var_7[var_2].script_exploder ) )
             var_6[var_6.size] = var_7[var_2];
     }
 
@@ -140,10 +122,10 @@ _id_8313()
 
     for ( var_2 = 0; var_2 < var_7.size; var_2++ )
     {
-        if ( isdefined( var_7[var_2]._id_7AA6 ) )
-            var_7[var_2]._id_79BF = var_7[var_2]._id_7AA6;
+        if ( isdefined( var_7[var_2].script_prefab_exploder ) )
+            var_7[var_2].script_exploder = var_7[var_2].script_prefab_exploder;
 
-        if ( isdefined( var_7[var_2]._id_79BF ) )
+        if ( isdefined( var_7[var_2].script_exploder ) )
             var_6[var_6.size] = var_7[var_2];
     }
 
@@ -151,10 +133,10 @@ _id_8313()
 
     for ( var_2 = 0; var_2 < var_7.size; var_2++ )
     {
-        if ( isdefined( var_7[var_2]._id_7AA6 ) )
-            var_7[var_2]._id_79BF = var_7[var_2]._id_7AA6;
+        if ( isdefined( var_7[var_2].script_prefab_exploder ) )
+            var_7[var_2].script_exploder = var_7[var_2].script_prefab_exploder;
 
-        if ( isdefined( var_7[var_2]._id_79BF ) )
+        if ( isdefined( var_7[var_2].script_exploder ) )
             var_6[var_6.size] = var_7[var_2];
     }
 
@@ -162,24 +144,24 @@ _id_8313()
 
     for ( var_2 = 0; var_2 < var_7.size; var_2++ )
     {
-        if ( isdefined( var_7[var_2]._id_7AA6 ) )
-            var_7[var_2]._id_79BF = var_7[var_2]._id_7AA6;
+        if ( isdefined( var_7[var_2].script_prefab_exploder ) )
+            var_7[var_2].script_exploder = var_7[var_2].script_prefab_exploder;
 
-        if ( isdefined( var_7[var_2]._id_79BF ) )
+        if ( isdefined( var_7[var_2].script_exploder ) )
             var_6[var_6.size] = var_7[var_2];
     }
 
-    var_7 = level._id_8F60;
+    var_7 = level.struct;
 
     for ( var_2 = 0; var_2 < var_7.size; var_2++ )
     {
         if ( !isdefined( var_7[var_2] ) )
             continue;
 
-        if ( isdefined( var_7[var_2]._id_7AA6 ) )
-            var_7[var_2]._id_79BF = var_7[var_2]._id_7AA6;
+        if ( isdefined( var_7[var_2].script_prefab_exploder ) )
+            var_7[var_2].script_exploder = var_7[var_2].script_prefab_exploder;
 
-        if ( isdefined( var_7[var_2]._id_79BF ) )
+        if ( isdefined( var_7[var_2].script_exploder ) )
         {
             if ( !isdefined( var_7[var_2].angles ) )
                 var_7[var_2].angles = ( 0.0, 0.0, 0.0 );
@@ -188,57 +170,57 @@ _id_8313()
         }
     }
 
-    if ( !isdefined( level._id_2417 ) )
-        level._id_2417 = [];
+    if ( !isdefined( level.createfxent ) )
+        level.createfxent = [];
 
     var_8 = [];
     var_8["exploderchunk visible"] = 1;
     var_8["exploderchunk"] = 1;
     var_8["exploder"] = 1;
-    thread _id_8103();
+    thread setup_flag_exploders();
 
     for ( var_2 = 0; var_2 < var_6.size; var_2++ )
     {
         var_9 = var_6[var_2];
-        var_4 = common_scripts\utility::_id_23FE( var_9._id_79F1 );
+        var_4 = common_scripts\utility::createexploder( var_9.script_fxid );
         var_4.v = [];
         var_4.v["origin"] = var_9.origin;
         var_4.v["angles"] = var_9.angles;
         var_4.v["delay"] = var_9.script_delay;
-        var_4.v["delay_post"] = var_9._id_798F;
-        var_4.v["firefx"] = var_9._id_79CB;
-        var_4.v["firefxdelay"] = var_9._id_79CC;
-        var_4.v["firefxsound"] = var_9._id_79CD;
-        var_4.v["firefxtimeout"] = var_9._id_79CE;
-        var_4.v["earthquake"] = var_9._id_79B5;
-        var_4.v["rumble"] = var_9._id_7ABB;
-        var_4.v["damage"] = var_9._id_7981;
-        var_4.v["damage_radius"] = var_9._id_7AB2;
-        var_4.v["soundalias"] = var_9._id_7ACB;
-        var_4.v["repeat"] = var_9._id_7AB6;
-        var_4.v["delay_min"] = var_9._id_798E;
-        var_4.v["delay_max"] = var_9._id_798D;
+        var_4.v["delay_post"] = var_9.script_delay_post;
+        var_4.v["firefx"] = var_9.script_firefx;
+        var_4.v["firefxdelay"] = var_9.script_firefxdelay;
+        var_4.v["firefxsound"] = var_9.script_firefxsound;
+        var_4.v["firefxtimeout"] = var_9.script_firefxtimeout;
+        var_4.v["earthquake"] = var_9.script_earthquake;
+        var_4.v["rumble"] = var_9.script_rumble;
+        var_4.v["damage"] = var_9.script_damage;
+        var_4.v["damage_radius"] = var_9.script_radius;
+        var_4.v["soundalias"] = var_9.script_soundalias;
+        var_4.v["repeat"] = var_9.script_repeat;
+        var_4.v["delay_min"] = var_9.script_delay_min;
+        var_4.v["delay_max"] = var_9.script_delay_max;
         var_4.v["target"] = var_9.target;
-        var_4.v["ender"] = var_9._id_79B8;
-        var_4.v["physics"] = var_9._id_7AA0;
+        var_4.v["ender"] = var_9.script_ender;
+        var_4.v["physics"] = var_9.script_physics;
         var_4.v["type"] = "exploder";
 
-        if ( !isdefined( var_9._id_79F1 ) )
+        if ( !isdefined( var_9.script_fxid ) )
             var_4.v["fxid"] = "No FX";
         else
-            var_4.v["fxid"] = var_9._id_79F1;
+            var_4.v["fxid"] = var_9.script_fxid;
 
-        var_4.v["exploder"] = var_9._id_79BF;
+        var_4.v["exploder"] = var_9.script_exploder;
 
-        if ( isdefined( level._id_241A ) )
+        if ( isdefined( level.createfxexploders ) )
         {
-            var_10 = level._id_241A[var_4.v["exploder"]];
+            var_10 = level.createfxexploders[var_4.v["exploder"]];
 
             if ( !isdefined( var_10 ) )
                 var_10 = [];
 
             var_10[var_10.size] = var_4;
-            level._id_241A[var_4.v["exploder"]] = var_10;
+            level.createfxexploders[var_4.v["exploder"]] = var_10;
         }
 
         if ( !isdefined( var_4.v["delay"] ) )
@@ -255,7 +237,7 @@ _id_8313()
             }
             else
             {
-                var_11 = common_scripts\utility::_id_3E89( var_4.v["target"] );
+                var_11 = common_scripts\utility::get_target_ent( var_4.v["target"] );
 
                 if ( isdefined( var_11 ) )
                 {
@@ -269,13 +251,13 @@ _id_8313()
         {
             var_4.model = var_9;
 
-            if ( isdefined( var_4.model._id_7A3C ) )
-                precachemodel( var_4.model._id_7A3C );
+            if ( isdefined( var_4.model.script_modelname ) )
+                precachemodel( var_4.model.script_modelname );
         }
         else if ( var_9.code_classname == "script_brushmodel" || isdefined( var_9.model ) )
         {
             var_4.model = var_9;
-            var_4.model._id_2B34 = var_9._id_79A0;
+            var_4.model.disconnect_paths = var_9.script_disconnectpaths;
         }
 
         if ( isdefined( var_9.targetname ) && isdefined( var_8[var_9.targetname] ) )
@@ -285,29 +267,29 @@ _id_8313()
         else
             var_4.v["exploder_type"] = "normal";
 
-        if ( isdefined( var_9._id_59D6 ) )
+        if ( isdefined( var_9.masked_exploder ) )
         {
             var_4.v["masked_exploder"] = var_9.model;
             var_4.v["masked_exploder_spawnflags"] = var_9.spawnflags;
-            var_4.v["masked_exploder_script_disconnectpaths"] = var_9._id_79A0;
+            var_4.v["masked_exploder_script_disconnectpaths"] = var_9.script_disconnectpaths;
             var_9 delete();
         }
 
-        var_4 common_scripts\_createfx::_id_6E6D();
+        var_4 common_scripts\_createfx::post_entity_creation_function();
     }
 
-    if ( level._id_2409 && getdvar( "createfx_exploder_waittime" ) == "" )
+    if ( level.createfx_enabled && getdvar( "createfx_exploder_waittime" ) == "" )
         setdvar( "createfx_exploder_waittime", 3 );
 }
 
-_id_8103()
+setup_flag_exploders()
 {
-    waitframe;
-    waitframe;
-    waitframe;
+    waittillframeend;
+    waittillframeend;
+    waittillframeend;
     var_0 = [];
 
-    foreach ( var_2 in level._id_2417 )
+    foreach ( var_2 in level.createfxent )
     {
         if ( var_2.v["type"] != "exploder" )
             continue;
@@ -324,17 +306,17 @@ _id_8103()
     }
 
     foreach ( var_7, var_6 in var_0 )
-        thread _id_352E( var_7 );
+        thread exploder_flag_wait( var_7 );
 }
 
-_id_352E( var_0 )
+exploder_flag_wait( var_0 )
 {
-    if ( !common_scripts\utility::_id_3839( var_0 ) )
-        common_scripts\utility::_id_383D( var_0 );
+    if ( !common_scripts\utility::flag_exist( var_0 ) )
+        common_scripts\utility::flag_init( var_0 );
 
-    common_scripts\utility::_id_384A( var_0 );
+    common_scripts\utility::flag_wait( var_0 );
 
-    foreach ( var_2 in level._id_2417 )
+    foreach ( var_2 in level.createfxent )
     {
         if ( var_2.v["type"] != "exploder" )
             continue;
@@ -351,17 +333,17 @@ _id_352E( var_0 )
     }
 }
 
-_id_3531( var_0 )
+exploder_model_is_damaged_model( var_0 )
 {
     return isdefined( var_0.targetname ) && var_0.targetname == "exploder";
 }
 
-_id_3532( var_0 )
+exploder_model_starts_hidden( var_0 )
 {
     return var_0.model == "fx" && ( !isdefined( var_0.targetname ) || var_0.targetname != "exploderchunk" );
 }
 
-_id_3530( var_0 )
+exploder_model_is_chunk( var_0 )
 {
     return isdefined( var_0.targetname ) && var_0.targetname == "exploderchunk";
 }
@@ -371,19 +353,19 @@ exploder_model_is_anim_model( var_0 )
     return isdefined( var_0.targetname ) && issubstr( var_0.targetname, "exploderanim" );
 }
 
-_id_84CF( var_0 )
+show_exploder_models_proc( var_0 )
 {
     var_0 += "";
 
-    if ( isdefined( level._id_241A ) )
+    if ( isdefined( level.createfxexploders ) )
     {
-        var_1 = level._id_241A[var_0];
+        var_1 = level.createfxexploders[var_0];
 
         if ( isdefined( var_1 ) )
         {
             foreach ( var_3 in var_1 )
             {
-                if ( !_id_3532( var_3.model ) && !_id_3531( var_3.model ) && !_id_3530( var_3.model ) )
+                if ( !exploder_model_starts_hidden( var_3.model ) && !exploder_model_is_damaged_model( var_3.model ) && !exploder_model_is_chunk( var_3.model ) )
                     var_3.model show();
 
                 if ( isdefined( var_3.brush_shown ) )
@@ -395,9 +377,9 @@ _id_84CF( var_0 )
     }
     else
     {
-        for ( var_5 = 0; var_5 < level._id_2417.size; var_5++ )
+        for ( var_5 = 0; var_5 < level.createfxent.size; var_5++ )
         {
-            var_3 = level._id_2417[var_5];
+            var_3 = level.createfxent[var_5];
 
             if ( !isdefined( var_3 ) )
                 continue;
@@ -413,7 +395,7 @@ _id_84CF( var_0 )
 
             if ( isdefined( var_3.model ) )
             {
-                if ( !_id_3532( var_3.model ) && !_id_3531( var_3.model ) && !_id_3530( var_3.model ) )
+                if ( !exploder_model_starts_hidden( var_3.model ) && !exploder_model_is_damaged_model( var_3.model ) && !exploder_model_is_chunk( var_3.model ) )
                     var_3.model show();
 
                 if ( isdefined( var_3.brush_shown ) )
@@ -423,22 +405,22 @@ _id_84CF( var_0 )
     }
 }
 
-_id_8E7F( var_0 )
+stop_exploder_proc( var_0 )
 {
     var_0 += "";
 
-    if ( isdefined( level._id_241A ) )
+    if ( isdefined( level.createfxexploders ) )
     {
-        var_1 = level._id_241A[var_0];
+        var_1 = level.createfxexploders[var_0];
 
         if ( isdefined( var_1 ) )
         {
             foreach ( var_3 in var_1 )
             {
-                if ( !isdefined( var_3._id_587B ) )
+                if ( !isdefined( var_3.looper ) )
                     continue;
 
-                var_3._id_587B delete();
+                var_3.looper delete();
             }
 
             return;
@@ -446,9 +428,9 @@ _id_8E7F( var_0 )
     }
     else
     {
-        for ( var_5 = 0; var_5 < level._id_2417.size; var_5++ )
+        for ( var_5 = 0; var_5 < level.createfxent.size; var_5++ )
         {
-            var_3 = level._id_2417[var_5];
+            var_3 = level.createfxent[var_5];
 
             if ( !isdefined( var_3 ) )
                 continue;
@@ -462,29 +444,29 @@ _id_8E7F( var_0 )
             if ( var_3.v["exploder"] + "" != var_0 )
                 continue;
 
-            if ( !isdefined( var_3._id_587B ) )
+            if ( !isdefined( var_3.looper ) )
                 continue;
 
-            var_3._id_587B delete();
+            var_3.looper delete();
         }
     }
 }
 
-_id_3D60( var_0 )
+get_exploder_array_proc( var_0 )
 {
     var_0 += "";
     var_1 = [];
 
-    if ( isdefined( level._id_241A ) )
+    if ( isdefined( level.createfxexploders ) )
     {
-        var_2 = level._id_241A[var_0];
+        var_2 = level.createfxexploders[var_0];
 
         if ( isdefined( var_2 ) )
             var_1 = var_2;
     }
     else
     {
-        foreach ( var_4 in level._id_2417 )
+        foreach ( var_4 in level.createfxent )
         {
             if ( var_4.v["type"] != "exploder" )
                 continue;
@@ -502,13 +484,13 @@ _id_3D60( var_0 )
     return var_1;
 }
 
-_id_4850( var_0 )
+hide_exploder_models_proc( var_0 )
 {
     var_0 += "";
 
-    if ( isdefined( level._id_241A ) )
+    if ( isdefined( level.createfxexploders ) )
     {
-        var_1 = level._id_241A[var_0];
+        var_1 = level.createfxexploders[var_0];
 
         if ( isdefined( var_1 ) )
         {
@@ -523,9 +505,9 @@ _id_4850( var_0 )
     }
     else
     {
-        for ( var_5 = 0; var_5 < level._id_2417.size; var_5++ )
+        for ( var_5 = 0; var_5 < level.createfxent.size; var_5++ )
         {
-            var_3 = level._id_2417[var_5];
+            var_3 = level.createfxent[var_5];
 
             if ( !isdefined( var_3 ) )
                 continue;
@@ -545,13 +527,13 @@ _id_4850( var_0 )
     }
 }
 
-_id_280E( var_0 )
+delete_exploder_proc( var_0 )
 {
     var_0 += "";
 
-    if ( isdefined( level._id_241A ) )
+    if ( isdefined( level.createfxexploders ) )
     {
-        var_1 = level._id_241A[var_0];
+        var_1 = level.createfxexploders[var_0];
 
         if ( isdefined( var_1 ) )
         {
@@ -564,9 +546,9 @@ _id_280E( var_0 )
     }
     else
     {
-        for ( var_5 = 0; var_5 < level._id_2417.size; var_5++ )
+        for ( var_5 = 0; var_5 < level.createfxent.size; var_5++ )
         {
-            var_3 = level._id_2417[var_5];
+            var_3 = level.createfxent[var_5];
 
             if ( !isdefined( var_3 ) )
                 continue;
@@ -588,7 +570,7 @@ _id_280E( var_0 )
     level notify( "killexplodertridgers" + var_0 );
 }
 
-_id_352B()
+exploder_damage()
 {
     if ( isdefined( self.v["delay"] ) )
         var_0 = self.v["delay"];
@@ -604,8 +586,8 @@ _id_352B()
     var_3 = self.v["origin"];
     wait(var_0);
 
-    if ( isdefined( level._id_254E ) )
-        [[ level._id_254E ]]( var_3, var_1, var_2 );
+    if ( isdefined( level.custom_radius_damage_for_exploders ) )
+        [[ level.custom_radius_damage_for_exploders ]]( var_3, var_1, var_2 );
     else
         radiusdamage( var_3, var_1, var_2, var_2 );
 }
@@ -613,24 +595,24 @@ _id_352B()
 activate_individual_exploder_proc()
 {
     if ( isdefined( self.v["firefx"] ) )
-        thread _id_37AD();
+        thread fire_effect();
 
     if ( isdefined( self.v["fxid"] ) && self.v["fxid"] != "No FX" )
-        thread _id_1AD3();
+        thread cannon_effect();
     else if ( isdefined( self.v["soundalias"] ) && self.v["soundalias"] != "nil" )
-        thread _id_889C();
+        thread sound_effect();
 
     if ( isdefined( self.v["loopsound"] ) && self.v["loopsound"] != "nil" )
-        thread _id_301C();
+        thread effect_loopsound();
 
     if ( isdefined( self.v["damage"] ) )
-        thread _id_352B();
+        thread exploder_damage();
 
     if ( isdefined( self.v["earthquake"] ) )
-        thread _id_352D();
+        thread exploder_earthquake();
 
     if ( isdefined( self.v["rumble"] ) )
-        thread _id_3536();
+        thread exploder_rumble();
 
     if ( self.v["exploder_type"] == "exploderanim" )
         thread exploder_anim();
@@ -656,16 +638,16 @@ brush_delete()
 
     if ( isdefined( self.model.classname ) )
     {
-        if ( common_scripts\utility::_id_51AE() && self.model.spawnflags & 1 )
-            self.model call [[ level._id_214E ]]();
+        if ( common_scripts\utility::issp() && self.model.spawnflags & 1 )
+            self.model call [[ level.connectpathsfunction ]]();
     }
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
     {
-        if ( isdefined( self._id_3527 ) )
+        if ( isdefined( self.exploded ) )
             return;
 
-        self._id_3527 = 1;
+        self.exploded = 1;
 
         if ( isdefined( self.model ) && isdefined( self.model.classname ) )
         {
@@ -675,7 +657,7 @@ brush_delete()
 
         var_1 = getdvarint( "createfx_exploder_waittime", 3 );
         wait(var_1);
-        self._id_3527 = undefined;
+        self.exploded = undefined;
 
         if ( isdefined( self.model ) && isdefined( self.model.classname ) )
         {
@@ -689,7 +671,7 @@ brush_delete()
     if ( !isdefined( self.v["fxid"] ) || self.v["fxid"] == "No FX" )
         self.v["exploder"] = undefined;
 
-    waitframe;
+    waittillframeend;
 
     if ( isdefined( self.model ) && isdefined( self.model.classname ) )
         self.model delete();
@@ -703,7 +685,7 @@ brush_throw()
     var_0 = undefined;
 
     if ( isdefined( self.v["target"] ) )
-        var_0 = common_scripts\utility::_id_3E89( self.v["target"] );
+        var_0 = common_scripts\utility::get_target_ent( self.v["target"] );
 
     if ( !isdefined( var_0 ) )
     {
@@ -732,7 +714,7 @@ brush_throw()
         var_9 = undefined;
 
         if ( isdefined( var_0.target ) )
-            var_9 = var_0 common_scripts\utility::_id_3E89();
+            var_9 = var_0 common_scripts\utility::get_target_ent();
 
         if ( !isdefined( var_9 ) )
         {
@@ -745,7 +727,7 @@ brush_throw()
             var_11 = ( var_9.origin - var_0.origin ) * self.v["physics"];
         }
 
-        self.model physicslaunch( var_10, var_11 );
+        self.model physicslaunchclient( var_10, var_11 );
         return;
     }
     else
@@ -754,15 +736,15 @@ brush_throw()
         self.model movegravity( ( var_5, var_6, var_7 ), 12 );
     }
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
     {
-        if ( isdefined( self._id_3527 ) )
+        if ( isdefined( self.exploded ) )
             return;
 
-        self._id_3527 = 1;
+        self.exploded = 1;
         var_12 = getdvarint( "createfx_exploder_waittime", 3 );
         wait(var_12);
-        self._id_3527 = undefined;
+        self.exploded = undefined;
         self.v["origin"] = var_1;
         self.v["angles"] = var_2;
         self.model hide();
@@ -781,43 +763,43 @@ brush_show()
     if ( isdefined( self.v["delay"] ) )
         wait(self.v["delay"]);
 
-    if ( !isdefined( self.model._id_7A3C ) )
+    if ( !isdefined( self.model.script_modelname ) )
     {
         self.model show();
         self.model solid();
     }
     else
     {
-        var_0 = self.model common_scripts\utility::_id_8959();
+        var_0 = self.model common_scripts\utility::spawn_tag_origin();
 
         if ( isdefined( self.model.script_linkname ) )
             var_0.script_linkname = self.model.script_linkname;
 
-        var_0 setmodel( self.model._id_7A3C );
+        var_0 setmodel( self.model.script_modelname );
         var_0 show();
     }
 
     self.brush_shown = 1;
 
-    if ( common_scripts\utility::_id_51AE() && !isdefined( self.model._id_7A3C ) && self.model.spawnflags & 1 )
+    if ( common_scripts\utility::issp() && !isdefined( self.model.script_modelname ) && self.model.spawnflags & 1 )
     {
-        if ( !isdefined( self.model._id_2B34 ) )
-            self.model call [[ level._id_214E ]]();
+        if ( !isdefined( self.model.disconnect_paths ) )
+            self.model call [[ level.connectpathsfunction ]]();
         else
-            self.model call [[ level._id_2B39 ]]();
+            self.model call [[ level.disconnectpathsfunction ]]();
     }
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
     {
-        if ( isdefined( self._id_3527 ) )
+        if ( isdefined( self.exploded ) )
             return;
 
-        self._id_3527 = 1;
+        self.exploded = 1;
         var_1 = getdvarint( "createfx_exploder_waittime", 3 );
         wait(var_1);
-        self._id_3527 = undefined;
+        self.exploded = undefined;
 
-        if ( !isdefined( self.model._id_7A3C ) )
+        if ( !isdefined( self.model.script_modelname ) )
         {
             self.model hide();
             self.model notsolid();
@@ -837,16 +819,16 @@ exploder_anim()
     var_0 notify( "play_exploder_anim" );
 }
 
-_id_3536()
+exploder_rumble()
 {
-    if ( !common_scripts\utility::_id_51AE() )
+    if ( !common_scripts\utility::issp() )
         return;
 
-    _id_352C();
+    exploder_delay();
     level.player playrumbleonentity( self.v["rumble"] );
 }
 
-_id_352C()
+exploder_delay()
 {
     if ( !isdefined( self.v["delay"] ) )
         self.v["delay"] = 0;
@@ -864,45 +846,45 @@ _id_352C()
         wait(randomfloatrange( var_0, var_1 ));
 }
 
-_id_301C()
+effect_loopsound()
 {
-    if ( isdefined( self._id_5891 ) )
-        self._id_5891 delete();
+    if ( isdefined( self.loopsound_ent ) )
+        self.loopsound_ent delete();
 
     var_0 = self.v["origin"];
     var_1 = self.v["loopsound"];
-    _id_352C();
-    self._id_5891 = common_scripts\utility::_id_697A( var_1, var_0 );
+    exploder_delay();
+    self.loopsound_ent = common_scripts\utility::play_loopsound_in_space( var_1, var_0 );
 }
 
-_id_889C()
+sound_effect()
 {
-    _id_301D();
+    effect_soundalias();
 }
 
-_id_301D()
+effect_soundalias()
 {
     var_0 = self.v["origin"];
     var_1 = self.v["soundalias"];
-    _id_352C();
-    common_scripts\utility::_id_69C2( var_1, var_0 );
+    exploder_delay();
+    common_scripts\utility::play_sound_in_space( var_1, var_0 );
 }
 
-_id_352D()
+exploder_earthquake()
 {
-    _id_352C();
-    common_scripts\utility::_id_2BBD( self.v["earthquake"], self.v["origin"] );
+    exploder_delay();
+    common_scripts\utility::do_earthquake( self.v["earthquake"], self.v["origin"] );
 }
 
-_id_3535()
+exploder_playsound()
 {
     if ( !isdefined( self.v["soundalias"] ) || self.v["soundalias"] == "nil" )
         return;
 
-    common_scripts\utility::_id_69C2( self.v["soundalias"], self.v["origin"] );
+    common_scripts\utility::play_sound_in_space( self.v["soundalias"], self.v["origin"] );
 }
 
-_id_37AD()
+fire_effect()
 {
     var_0 = self.v["forward"];
     var_1 = self.v["up"];
@@ -920,24 +902,24 @@ _id_37AD()
     if ( isdefined( self.v["firefxdelay"] ) )
         var_7 = self.v["firefxdelay"];
 
-    _id_352C();
+    exploder_delay();
 
     if ( isdefined( var_3 ) )
-        common_scripts\utility::_id_5874( var_3, var_4, ( 0.0, 0.0, 0.0 ), 1, var_6 );
+        common_scripts\utility::loop_fx_sound_with_angles( var_3, var_4, ( 0.0, 0.0, 0.0 ), 1, var_6 );
 
     playfx( level._effect[var_5], self.v["origin"], var_0, var_1 );
 }
 
-_id_1AD3()
+cannon_effect()
 {
     if ( isdefined( self.v["repeat"] ) )
     {
-        thread _id_3535();
+        thread exploder_playsound();
 
         for ( var_0 = 0; var_0 < self.v["repeat"]; var_0++ )
         {
             playfx( level._effect[self.v["fxid"]], self.v["origin"], self.v["forward"], self.v["up"] );
-            _id_352C();
+            exploder_delay();
         }
 
         return;
@@ -948,7 +930,7 @@ _id_1AD3()
 
     if ( self.v["delay"] >= 0 )
     {
-        _id_352C();
+        exploder_delay();
         var_1 = 0;
     }
     else
@@ -959,23 +941,23 @@ _id_1AD3()
     else
         cannon_spawnfx( var_1 );
 
-    _id_3535();
+    exploder_playsound();
 }
 
 cannon_spawnfx( var_0 )
 {
-    if ( isdefined( self._id_587B ) )
-        self._id_587B delete();
+    if ( isdefined( self.looper ) )
+        self.looper delete();
 
-    self._id_587B = spawnfx( common_scripts\utility::_id_3FA8( self.v["fxid"] ), self.v["origin"], self.v["forward"], self.v["up"] );
+    self.looper = spawnfx( common_scripts\utility::getfx( self.v["fxid"] ), self.v["origin"], self.v["forward"], self.v["up"] );
 
-    if ( level._id_2409 )
-        setfxkillondelete( self._id_587B, 1 );
+    if ( level.createfx_enabled )
+        setfxkillondelete( self.looper, 1 );
 
     if ( self.v["delay"] >= 0 )
-        triggerfx( self._id_587B );
+        triggerfx( self.looper );
     else
-        triggerfx( self._id_587B, var_0 );
+        triggerfx( self.looper, var_0 );
 }
 
 activate_exploder( var_0, var_1, var_2 )
@@ -984,15 +966,15 @@ activate_exploder( var_0, var_1, var_2 )
     level notify( "exploding_" + var_0 );
     var_3 = 0;
 
-    if ( isdefined( level._id_241A ) && !level._id_2409 )
+    if ( isdefined( level.createfxexploders ) && !level.createfx_enabled )
     {
-        var_4 = level._id_241A[var_0];
+        var_4 = level.createfxexploders[var_0];
 
         if ( isdefined( var_4 ) )
         {
             foreach ( var_6 in var_4 )
             {
-                if ( !var_6 _id_1CB9() )
+                if ( !var_6 check_exploder_platform() )
                     continue;
 
                 var_6 common_scripts\utility::activate_individual_exploder();
@@ -1002,9 +984,9 @@ activate_exploder( var_0, var_1, var_2 )
     }
     else
     {
-        for ( var_8 = 0; var_8 < level._id_2417.size; var_8++ )
+        for ( var_8 = 0; var_8 < level.createfxent.size; var_8++ )
         {
-            var_6 = level._id_2417[var_8];
+            var_6 = level.createfxent[var_8];
 
             if ( !isdefined( var_6 ) )
                 continue;
@@ -1018,7 +1000,7 @@ activate_exploder( var_0, var_1, var_2 )
             if ( var_6.v["exploder"] + "" != var_0 )
                 continue;
 
-            if ( !var_6 _id_1CB9() )
+            if ( !var_6 check_exploder_platform() )
                 continue;
 
             var_6 common_scripts\utility::activate_individual_exploder();
@@ -1026,35 +1008,35 @@ activate_exploder( var_0, var_1, var_2 )
         }
     }
 
-    if ( !_id_84A8() && !var_3 )
+    if ( !shouldrunserversideeffects() && !var_3 )
         activate_clientside_exploder( var_0, var_1, var_2 );
 }
 
-_id_3528( var_0, var_1, var_2 )
+exploder( var_0, var_1, var_2 )
 {
-    [[ level._fx._id_3539 ]]( var_0, var_1, var_2 );
+    [[ level._fx.exploderfunction ]]( var_0, var_1, var_2 );
 }
 
-_id_5309( var_0 )
+kill_exploder( var_0 )
 {
-    var_1 = _id_3F8E( var_0 );
+    var_1 = getexploders( var_0 );
 
     if ( isdefined( var_1 ) )
     {
         foreach ( var_3 in var_1 )
         {
-            if ( isdefined( var_3._id_587B ) )
-                setfxkillondelete( var_3._id_587B, 1 );
+            if ( isdefined( var_3.looper ) )
+                setfxkillondelete( var_3.looper, 1 );
         }
 
-        waittillframeend;
+        waitframe();
 
         foreach ( var_3 in var_1 )
-            var_3 common_scripts\utility::_id_671F();
+            var_3 common_scripts\utility::pauseeffect();
     }
 }
 
-_id_1CB9()
+check_exploder_platform()
 {
     var_0 = self;
 
@@ -1071,23 +1053,23 @@ _id_1CB9()
 
 activate_clientside_exploder( var_0, var_1, var_2 )
 {
-    if ( !_id_509A( var_0 ) )
+    if ( !is_valid_clientside_exploder_name( var_0 ) )
         return;
 
     var_3 = int( var_0 );
     activateclientexploder( var_3, var_1, var_2 );
 }
 
-_id_262B( var_0, var_1, var_2 )
+deactivate_clientside_exploder( var_0, var_1, var_2 )
 {
-    if ( !_id_509A( var_0 ) )
+    if ( !is_valid_clientside_exploder_name( var_0 ) )
         return;
 
     var_3 = int( var_0 );
     stopclientexploder( var_3, var_1, var_2 );
 }
 
-_id_509A( var_0 )
+is_valid_clientside_exploder_name( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1105,28 +1087,28 @@ _id_509A( var_0 )
     return var_1 >= 0;
 }
 
-_id_84A8()
+shouldrunserversideeffects()
 {
-    if ( common_scripts\utility::_id_51AE() )
+    if ( common_scripts\utility::issp() )
         return 1;
 
-    if ( !isdefined( level._id_2409 ) )
-        level._id_2409 = getdvar( "createfx" ) != "";
+    if ( !isdefined( level.createfx_enabled ) )
+        level.createfx_enabled = getdvar( "createfx" ) != "";
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
         return 1;
     else
         return getdvar( "clientSideEffects" ) != "1";
 }
 
-_id_352A( var_0, var_1, var_2 )
+exploder_before_load( var_0, var_1, var_2 )
 {
-    waitframe;
-    waitframe;
+    waittillframeend;
+    waittillframeend;
     activate_exploder( var_0, var_1, var_2 );
 }
 
-_id_3529( var_0, var_1, var_2 )
+exploder_after_load( var_0, var_1, var_2 )
 {
     activate_exploder( var_0, var_1, var_2 );
 }

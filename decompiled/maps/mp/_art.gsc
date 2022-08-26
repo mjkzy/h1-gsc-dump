@@ -1,100 +1,82 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    if ( !isdefined( level._id_2C7B ) )
+    if ( !isdefined( level.dofdefault ) )
     {
-        level._id_2C7B["nearStart"] = 0;
-        level._id_2C7B["nearEnd"] = 0;
-        level._id_2C7B["farStart"] = 0;
-        level._id_2C7B["farEnd"] = 0;
-        level._id_2C7B["nearBlur"] = 6;
-        level._id_2C7B["farBlur"] = 1.8;
+        level.dofdefault["nearStart"] = 0;
+        level.dofdefault["nearEnd"] = 0;
+        level.dofdefault["farStart"] = 0;
+        level.dofdefault["farEnd"] = 0;
+        level.dofdefault["nearBlur"] = 6;
+        level.dofdefault["farBlur"] = 1.8;
     }
 }
 
-_id_810B()
+setup_fog_tweak()
 {
 
 }
 
-_id_4E31()
+inittweaks()
 {
 
 }
 
-_id_99E3()
+tweaklightset()
 {
 
 }
 
-_id_99E1()
+tweakart()
 {
 
 }
 
-_id_3A04()
+fovslidercheck()
 {
 
 }
 
-_id_215C()
+construct_vision_ents()
 {
-    if ( !isdefined( level._id_9E6D ) )
-        level._id_9E6D = [];
+    if ( !isdefined( level.vision_set_fog ) )
+        level.vision_set_fog = [];
 
     var_0 = getentarray( "trigger_multiple_visionset", "classname" );
 
     foreach ( var_2 in var_0 )
     {
         if ( isdefined( var_2.script_visionset ) )
-            _id_215D( var_2.script_visionset );
+            construct_vision_set( var_2.script_visionset );
 
-        if ( isdefined( var_2._id_7B1F ) )
-            _id_215D( var_2._id_7B1F );
+        if ( isdefined( var_2.script_visionset_start ) )
+            construct_vision_set( var_2.script_visionset_start );
 
-        if ( isdefined( var_2._id_7B1E ) )
-            _id_215D( var_2._id_7B1E );
+        if ( isdefined( var_2.script_visionset_end ) )
+            construct_vision_set( var_2.script_visionset_end );
     }
 }
 
-_id_215D( var_0 )
+construct_vision_set( var_0 )
 {
-    if ( isdefined( level._id_9E6D[var_0] ) )
+    if ( isdefined( level.vision_set_fog[var_0] ) )
         return;
 
-    _id_23AA( var_0 );
-    _id_23E0( var_0 );
+    create_default_vision_set_fog( var_0 );
+    create_vision_set_vision( var_0 );
     iprintlnbold( "new vision: " + var_0 );
 }
 
-_id_23E0( var_0 )
+create_vision_set_vision( var_0 )
 {
-    if ( !isdefined( level._id_9E73 ) )
-        level._id_9E73 = [];
+    if ( !isdefined( level.vision_set_vision ) )
+        level.vision_set_vision = [];
 
     var_1 = spawnstruct();
     var_1.name = var_0;
-    level._id_9E73[var_0] = var_1;
+    level.vision_set_vision[var_0] = var_1;
     return var_1;
 }
 
@@ -108,62 +90,62 @@ add_vision_set( var_0 )
 
 }
 
-_id_23AA( var_0 )
+create_default_vision_set_fog( var_0 )
 {
-    var_1 = _id_23DF( var_0 );
-    var_1._id_8D08 = 3764.17;
-    var_1._id_4500 = 19391;
-    var_1._id_7299 = 0.661137;
-    var_1._id_43D8 = 0.554261;
+    var_1 = create_vision_set_fog( var_0 );
+    var_1.startdist = 3764.17;
+    var_1.halfwaydist = 19391;
+    var_1.red = 0.661137;
+    var_1.green = 0.554261;
     var_1.blue = 0.454014;
-    var_1._id_5A47 = 0.7;
-    var_1._id_971C = 0;
-    var_1._id_85CD = 0;
-    var_1._id_85CF = 0;
-    var_1._id_85CE = 0;
-    var_1._id_479F = 0;
-    var_1._id_479E = 0;
-    var_1._id_47A0 = 1000;
+    var_1.maxopacity = 0.7;
+    var_1.transitiontime = 0;
+    var_1.skyfogintensity = 0;
+    var_1.skyfogminangle = 0;
+    var_1.skyfogmaxangle = 0;
+    var_1.heightfogenabled = 0;
+    var_1.heightfogbaseheight = 0;
+    var_1.heightfoghalfplanedistance = 1000;
 }
 
-_id_23DF( var_0 )
+create_vision_set_fog( var_0 )
 {
-    if ( !isdefined( level._id_9E6D ) )
-        level._id_9E6D = [];
+    if ( !isdefined( level.vision_set_fog ) )
+        level.vision_set_fog = [];
 
     var_1 = spawnstruct();
     var_1.name = var_0;
-    var_1._id_85CD = 0;
-    var_1._id_85CF = 0;
-    var_1._id_85CE = 0;
-    var_1._id_479F = 0;
-    var_1._id_479E = 0;
-    var_1._id_47A0 = 1000;
-    level._id_9E6D[tolower( var_0 )] = var_1;
+    var_1.skyfogintensity = 0;
+    var_1.skyfogminangle = 0;
+    var_1.skyfogmaxangle = 0;
+    var_1.heightfogenabled = 0;
+    var_1.heightfogbaseheight = 0;
+    var_1.heightfoghalfplanedistance = 1000;
+    level.vision_set_fog[tolower( var_0 )] = var_1;
     return var_1;
 }
 
-_id_7E34( var_0, var_1 )
+set_fog( var_0, var_1 )
 {
-    level._id_9E72._id_9E6B = var_0;
-    level._id_9E72.time = var_1;
-    var_2 = _id_3D76( var_0 );
+    level.vision_set_transition_ent.vision_set = var_0;
+    level.vision_set_transition_ent.time = var_1;
+    var_2 = get_fog( var_0 );
 
     if ( getdvarint( "scr_art_tweak" ) != 0 )
     {
-        _id_9725( var_2 );
+        translateenttosliders( var_2 );
         var_1 = 0;
     }
 
-    common_scripts\utility::_id_7E36( var_2, var_1 );
+    common_scripts\utility::set_fog_to_ent_values( var_2, var_1 );
 }
 
-_id_9725( var_0 )
+translateenttosliders( var_0 )
 {
 
 }
 
-_id_4AC6()
+hud_init()
 {
     var_0 = 7;
     var_1 = [];
@@ -176,7 +158,7 @@ _id_4AC6()
     for ( var_7 = 0; var_7 < var_0; var_7++ )
     {
         var_1[var_7] = _newhudelem();
-        var_1[var_7]._id_57F4 = 0;
+        var_1[var_7].location = 0;
         var_1[var_7].alignx = "left";
         var_1[var_7].aligny = "middle";
         var_1[var_7].foreground = 1;
@@ -199,32 +181,32 @@ _id_4AC6()
         var_4 -= var_2;
     }
 
-    level._id_88B7 = var_1;
+    level.spam_group_hudelems = var_1;
 }
 
 _newhudelem()
 {
-    if ( !isdefined( level._id_7B36 ) )
-        level._id_7B36 = [];
+    if ( !isdefined( level.scripted_elems ) )
+        level.scripted_elems = [];
 
     var_0 = newhudelem();
-    level._id_7B36[level._id_7B36.size] = var_0;
+    level.scripted_elems[level.scripted_elems.size] = var_0;
     return var_0;
 }
 
 _settext( var_0 )
 {
-    self._id_71EA = var_0;
+    self.realtext = var_0;
     self settext( "_" );
     thread _clearalltextafterhudelem();
     var_1 = 0;
 
-    foreach ( var_3 in level._id_7B36 )
+    foreach ( var_3 in level.scripted_elems )
     {
-        if ( isdefined( var_3._id_71EA ) )
+        if ( isdefined( var_3.realtext ) )
         {
-            var_1 += var_3._id_71EA.size;
-            var_3 settext( var_3._id_71EA );
+            var_1 += var_3.realtext.size;
+            var_3 settext( var_3.realtext );
         }
     }
 }
@@ -243,15 +225,15 @@ _clearalltextafterhudelem()
     level._clearalltextafterhudelem = 0;
 }
 
-_id_7F82()
+setgroup_up()
 {
-    _id_7426();
+    reset_cmds();
     var_0 = undefined;
-    var_1 = getarraykeys( level._id_9E6D );
+    var_1 = getarraykeys( level.vision_set_fog );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( var_1[var_2] == level._id_9E72._id_9E6B )
+        if ( var_1[var_2] == level.vision_set_transition_ent.vision_set )
         {
             var_0 = var_2 + 1;
             break;
@@ -261,18 +243,18 @@ _id_7F82()
     if ( var_0 == var_1.size )
         return;
 
-    _id_7F44( var_1[var_0] );
+    setcurrentgroup( var_1[var_0] );
 }
 
-_id_7F81()
+setgroup_down()
 {
-    _id_7426();
+    reset_cmds();
     var_0 = undefined;
-    var_1 = getarraykeys( level._id_9E6D );
+    var_1 = getarraykeys( level.vision_set_fog );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( var_1[var_2] == level._id_9E72._id_9E6B )
+        if ( var_1[var_2] == level.vision_set_transition_ent.vision_set )
         {
             var_0 = var_2 - 1;
             break;
@@ -282,10 +264,10 @@ _id_7F81()
     if ( var_0 < 0 )
         return;
 
-    _id_7F44( var_1[var_0] );
+    setcurrentgroup( var_1[var_0] );
 }
 
-_id_7426()
+reset_cmds()
 {
 
 }
@@ -300,12 +282,12 @@ vision_set_fog_changes_mp( var_0, var_1 )
         var_3 closepopupmenu( "dev_vision_exec" );
     }
 
-    _id_7E34( var_0, var_1 );
+    set_fog( var_0, var_1 );
 }
 
-_id_7F44( var_0 )
+setcurrentgroup( var_0 )
 {
-    var_1 = getarraykeys( level._id_9E6D );
+    var_1 = getarraykeys( level.vision_set_fog );
 
     if ( level.currentgen )
     {
@@ -316,9 +298,9 @@ _id_7F44( var_0 )
             var_0 = var_2;
     }
 
-    level._id_88B8 = var_0;
+    level.spam_model_current_group = var_0;
     var_4 = 0;
-    var_5 = int( level._id_88B7.size / 2 );
+    var_5 = int( level.spam_group_hudelems.size / 2 );
 
     for ( var_6 = 0; var_6 < var_1.size; var_6++ )
     {
@@ -329,61 +311,61 @@ _id_7F44( var_0 )
         }
     }
 
-    level._id_88B7[var_5] _settext( var_1[var_4] );
+    level.spam_group_hudelems[var_5] _settext( var_1[var_4] );
 
-    for ( var_6 = 1; var_6 < level._id_88B7.size - var_5; var_6++ )
+    for ( var_6 = 1; var_6 < level.spam_group_hudelems.size - var_5; var_6++ )
     {
         if ( var_4 - var_6 < 0 )
         {
-            level._id_88B7[var_5 + var_6] _settext( "." );
+            level.spam_group_hudelems[var_5 + var_6] _settext( "." );
             continue;
         }
 
-        level._id_88B7[var_5 + var_6] _settext( var_1[var_4 - var_6] );
+        level.spam_group_hudelems[var_5 + var_6] _settext( var_1[var_4 - var_6] );
     }
 
-    for ( var_6 = 1; var_6 < level._id_88B7.size - var_5; var_6++ )
+    for ( var_6 = 1; var_6 < level.spam_group_hudelems.size - var_5; var_6++ )
     {
         if ( var_4 + var_6 > var_1.size - 1 )
         {
-            level._id_88B7[var_5 - var_6] _settext( "." );
+            level.spam_group_hudelems[var_5 - var_6] _settext( "." );
             continue;
         }
 
-        level._id_88B7[var_5 - var_6] _settext( var_1[var_4 + var_6] );
+        level.spam_group_hudelems[var_5 - var_6] _settext( var_1[var_4 + var_6] );
     }
 
     vision_set_fog_changes_mp( var_1[var_4], 0 );
 }
 
-_id_3D76( var_0 )
+get_fog( var_0 )
 {
-    if ( !isdefined( level._id_9E6D ) )
-        level._id_9E6D = [];
+    if ( !isdefined( level.vision_set_fog ) )
+        level.vision_set_fog = [];
 
-    var_1 = level._id_9E6D[var_0];
+    var_1 = level.vision_set_fog[var_0];
     return var_1;
 }
 
-_id_4CF3()
+init_fog_transition()
 {
-    if ( !isdefined( level._id_3961 ) )
+    if ( !isdefined( level.fog_transition_ent ) )
     {
-        level._id_3961 = spawnstruct();
-        level._id_3961._id_3964 = "";
-        level._id_3961.time = 0;
+        level.fog_transition_ent = spawnstruct();
+        level.fog_transition_ent.fogset = "";
+        level.fog_transition_ent.time = 0;
     }
 }
 
-_id_6CCC()
+playerinit()
 {
-    var_0 = level._id_9E72._id_9E6B;
-    level._id_9E72._id_9E6B = "";
-    level._id_9E72.time = "";
-    _id_4CF3();
-    level._id_3961._id_3964 = "";
-    level._id_3961.time = "";
-    _id_7F44( var_0 );
+    var_0 = level.vision_set_transition_ent.vision_set;
+    level.vision_set_transition_ent.vision_set = "";
+    level.vision_set_transition_ent.time = "";
+    init_fog_transition();
+    level.fog_transition_ent.fogset = "";
+    level.fog_transition_ent.time = "";
+    setcurrentgroup( var_0 );
 }
 
 button_down( var_0, var_1 )
@@ -403,46 +385,46 @@ button_down( var_0, var_1 )
     return var_2;
 }
 
-_id_2FC8()
+dumpsettings()
 {
 
 }
 
 artstartvisionfileexport()
 {
-    common_scripts\utility::_id_36B9();
+    common_scripts\utility::fileprint_launcher_start_file();
 }
 
 artendvisionfileexport()
 {
-    return common_scripts\utility::_id_36B8( "\\share\\raw\\vision\\" + level.script + ".vision", 1 );
+    return common_scripts\utility::fileprint_launcher_end_file( "\\share\\raw\\vision\\" + level.script + ".vision", 1 );
 }
 
 artstartfogfileexport()
 {
-    common_scripts\utility::_id_36B9();
+    common_scripts\utility::fileprint_launcher_start_file();
 }
 
 artendfogfileexport()
 {
-    return common_scripts\utility::_id_36B8( "\\share\\raw\\maps\\createart\\" + level.script + "_art.gsc", 1 );
+    return common_scripts\utility::fileprint_launcher_end_file( "\\share\\raw\\maps\\createart\\" + level.script + "_art.gsc", 1 );
 }
 
 artfxprintlnfog()
 {
-    common_scripts\utility::_id_36B7( "" );
-    common_scripts\utility::_id_36B7( "\\t//* Fog section * " );
-    common_scripts\utility::_id_36B7( "" );
-    common_scripts\utility::_id_36B7( "\\tsetDevDvar( \"scr_fog_disable\", \"" + getdvarint( "scr_fog_disable" ) + "\"" + " );" );
-    common_scripts\utility::_id_36B7( "" );
-    common_scripts\utility::_id_36B7( "\\t/$" );
+    common_scripts\utility::fileprint_launcher( "" );
+    common_scripts\utility::fileprint_launcher( "\\t//* Fog section * " );
+    common_scripts\utility::fileprint_launcher( "" );
+    common_scripts\utility::fileprint_launcher( "\\tsetDevDvar( \"scr_fog_disable\", \"" + getdvarint( "scr_fog_disable" ) + "\"" + " );" );
+    common_scripts\utility::fileprint_launcher( "" );
+    common_scripts\utility::fileprint_launcher( "\\t/$" );
 
     if ( isusinghdr() )
-        common_scripts\utility::_id_36B7( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script + "_fog_hdr::main;" );
+        common_scripts\utility::fileprint_launcher( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script + "_fog_hdr::main;" );
     else
-        common_scripts\utility::_id_36B7( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script + "_fog::main;" );
+        common_scripts\utility::fileprint_launcher( "\\tlevel._art_fog_setup = maps\\createart\\" + level.script + "_fog::main;" );
 
-    common_scripts\utility::_id_36B7( "\\t$/" );
+    common_scripts\utility::fileprint_launcher( "\\t$/" );
 }
 
 art_print_fog()
@@ -450,13 +432,13 @@ art_print_fog()
 
 }
 
-_id_23C7( var_0 )
+create_light_set( var_0 )
 {
-    if ( !isdefined( level._id_570B ) )
-        level._id_570B = [];
+    if ( !isdefined( level.light_set ) )
+        level.light_set = [];
 
     var_1 = spawnstruct();
     var_1.name = var_0;
-    level._id_570B[var_0] = var_1;
+    level.light_set[var_0] = var_1;
     return var_1;
 }

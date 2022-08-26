@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     precachestring( &"SCRIPT_COLON" );
@@ -63,7 +45,7 @@ main()
     level.arcademode_last_streak_time = 0;
     level.arcademode_ramping_score = 0;
     level.arcademode_new_kill_streak_allowed = 1;
-    common_scripts\utility::_id_383D( "arcadeMode_multiplier_maxed" );
+    common_scripts\utility::flag_init( "arcadeMode_multiplier_maxed" );
     setdvar( "arcademode_lives_changed", 0 );
     level.arcademode_kill_streak_current_multiplier = 1;
     level.arcademode_kill_streak_multiplier_count = 3;
@@ -75,18 +57,18 @@ main()
     level.arcademode_last_multi_kill_sound = 0;
     level.arcademode_success = 0;
     arcademode_define_damage_multipliers();
-    common_scripts\utility::_id_383D( "arcademode_complete" );
-    common_scripts\utility::_id_383D( "arcademode_ending_complete" );
-    waitframe;
+    common_scripts\utility::flag_init( "arcademode_complete" );
+    common_scripts\utility::flag_init( "arcademode_ending_complete" );
+    waittillframeend;
 
     if ( getdvar( "arcademode_full" ) == "1" )
         precacheleaderboards( "LB_AM_FULLCHALLENGE" );
     else
         precacheleaderboards( "LB_AM_" + level.script );
 
-    level._id_422E = ::player_kill;
-    level._id_4226 = ::player_damage_ads;
-    level._id_4225 = ::_id_6AC2;
+    level.global_kill_func = ::player_kill;
+    level.global_damage_func_ads = ::player_damage_ads;
+    level.global_damage_func = ::player_damage;
     level.arcademode_hud_sort = 50;
     level.arcademode_maxlives = 10;
     level.arcademode_rewarded_lives = 0;
@@ -136,8 +118,8 @@ main()
     for (;;)
     {
         wait 0.05;
-        waitframe;
-        waitframe;
+        waittillframeend;
+        waittillframeend;
         var_3 = getarraykeys( level.arcademode_multikills );
         common_scripts\utility::array_levelthread( var_3, ::arcademode_add_points_for_mod );
         level.arcademode_multikills = var_4;
@@ -149,7 +131,7 @@ arcademode_complete()
     if ( getdvar( "arcademode" ) != "1" )
         return 0;
 
-    return common_scripts\utility::_id_382E( "arcademode_complete" );
+    return common_scripts\utility::flag( "arcademode_complete" );
 }
 
 arcademode_get_level_time()
@@ -185,9 +167,9 @@ arcademode_get_level_time()
 arcademode_death_detection()
 {
     level endon( "arcademode_complete" );
-    level maps\_utility::add_wait( common_scripts\utility::_id_384A, "missionfailed" );
-    level.player maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
-    maps\_utility::_id_2BDD();
+    level maps\_utility::add_wait( common_scripts\utility::flag_wait, "missionfailed" );
+    level.player maps\_utility::add_wait( maps\_utility::waittill_msg, "death" );
+    maps\_utility::do_wait_any();
     setdvar( "arcademode_died", 1 );
     var_0 = getdvarint( "arcademode_lives" );
     var_1 = getdvarint( "arcademode_earned_lives" );
@@ -238,7 +220,7 @@ arcademode_update_timer()
     wait(var_1);
     level.arcademode_failurestring = &"SCRIPT_TIME_UP";
     thread arcademode_ends();
-    soundscripts\_snd::_id_870C( "player_death" );
+    soundscripts\_snd::snd_message( "player_death" );
 }
 
 arcademode_update_lives()
@@ -276,7 +258,7 @@ arcademode_update_lives()
                 var_2 = var_3;
                 setdvar( "arcademode_earned_lives", var_3 );
                 setdvar( "arcademode_lives", var_3 );
-                level.player thread common_scripts\utility::_id_69C2( "h1_arcademode_life_lost", level.player geteye() );
+                level.player thread common_scripts\utility::play_sound_in_space( "h1_arcademode_life_lost", level.player geteye() );
             }
 
             arcademode_redraw_lives( var_2 );
@@ -309,7 +291,7 @@ arcademode_checkpoint_print()
     arcademode_convert_extra_lives();
     var_0 = 800;
     var_1 = 0.8;
-    level.player thread common_scripts\utility::_id_69C2( "arcademode_checkpoint", level.player geteye() );
+    level.player thread common_scripts\utility::play_sound_in_space( "arcademode_checkpoint", level.player geteye() );
     thread draw_checkpoint( 0, var_1, 1 );
     thread draw_checkpoint_scanlines( 0, var_1, 1 );
     thread draw_checkpoint_flare();
@@ -412,8 +394,8 @@ arcademode_update_streak_progress()
 {
     for (;;)
     {
-        level common_scripts\utility::_id_A087( "arcademode_decrement_kill_streak", "arcademode_new_kill" );
-        waitframe;
+        level common_scripts\utility::waittill_either( "arcademode_decrement_kill_streak", "arcademode_new_kill" );
+        waittillframeend;
         arcademode_redraw_streak_progress();
     }
 }
@@ -557,7 +539,7 @@ arcademode_add_kill_streak_time( var_0 )
     else
         level.arcademode_kill_streak_ends += var_0 * 1000;
 
-    waitframe;
+    waittillframeend;
 
     if ( isdefined( level.arcademode_hud_streak ) )
     {
@@ -648,7 +630,7 @@ arcademode_add_kill_streak_time( var_0 )
 
 arcademode_add_kill_streak()
 {
-    if ( common_scripts\utility::_id_382E( "arcadeMode_multiplier_maxed" ) )
+    if ( common_scripts\utility::flag( "arcadeMode_multiplier_maxed" ) )
         return;
 
     level endon( "arcadeMode_multiplier_maxed" );
@@ -694,8 +676,8 @@ arcademode_add_kill_streak()
 
 streak_timer_color_pulse()
 {
-    waitframe;
-    waitframe;
+    waittillframeend;
+    waittillframeend;
     level.arcademode_streak_hud endon( "death" );
 
     for (;;)
@@ -709,12 +691,12 @@ streak_timer_color_pulse()
 
 arcademode_multiplier_maxed()
 {
-    waitframe;
+    waittillframeend;
 
-    if ( common_scripts\utility::_id_382E( "arcadeMode_multiplier_maxed" ) )
+    if ( common_scripts\utility::flag( "arcadeMode_multiplier_maxed" ) )
         return;
 
-    common_scripts\utility::_id_383F( "arcadeMode_multiplier_maxed" );
+    common_scripts\utility::flag_set( "arcadeMode_multiplier_maxed" );
     var_0 = 20;
     level.arcademode_kill_streak_ends = gettime() + var_0 * 1000;
     thread arcademode_add_kill_streak_time( 0 );
@@ -723,15 +705,15 @@ arcademode_multiplier_maxed()
     wait 0.05;
     musicplay( "airplane_alt_maximum_music" );
     level maps\_utility::add_wait( maps\_utility::_wait, var_0 + 1 );
-    level maps\_utility::add_wait( maps\_utility::_id_A099, "lost_streak" );
-    maps\_utility::_id_2BDD();
+    level maps\_utility::add_wait( maps\_utility::waittill_msg, "lost_streak" );
+    maps\_utility::do_wait_any();
     thread arcademode_reset_kill_streak();
     musicstop();
 
-    if ( isdefined( level._id_555B ) )
+    if ( isdefined( level.last_song ) )
     {
         wait 0.05;
-        musicplay( level._id_555B );
+        musicplay( level.last_song );
     }
 }
 
@@ -882,8 +864,8 @@ hud_draw_score_for_elements( var_0, var_1 )
     level.arcademode_hud_score_backer setshader( "h1_arcademode_scanelines_border", 50 + ( var_2.size - 1 ) * 22, 50 );
     level.arcademode_hud_score_backer.x = -5.16667 + ( var_2.size - 1 ) * 2.4;
 
-    if ( !common_scripts\utility::_id_382E( "arcademode_complete" ) )
-        level.player thread common_scripts\utility::_id_69C2( "h1_arcademode_add_counter_pt", level.player geteye() );
+    if ( !common_scripts\utility::flag( "arcademode_complete" ) )
+        level.player thread common_scripts\utility::play_sound_in_space( "h1_arcademode_add_counter_pt", level.player geteye() );
 }
 
 hud_draw_score_for_elements_align_left( var_0, var_1 )
@@ -1101,7 +1083,7 @@ extra_lives_display_flare()
 extra_lives_display( var_0 )
 {
     wait 0.5;
-    level.player thread common_scripts\utility::_id_69C2( "arcademode_extralife", level.player geteye() );
+    level.player thread common_scripts\utility::play_sound_in_space( "arcademode_extralife", level.player geteye() );
     var_1 = new_ending_hud( "center", 0.001, 0, 97.7778 );
     var_1.fontscale = 1.7;
     var_1.vertalign = "top_adjustable";
@@ -1122,7 +1104,7 @@ extra_lives_display( var_0 )
     var_1 destroy();
 }
 
-_id_35E3( var_0 )
+fade_out( var_0 )
 {
     self fadeovertime( var_0 );
     self.alpha = 0;
@@ -1136,7 +1118,7 @@ extra_lives_sizzle()
     var_0.alpha = randomfloatrange( 0.1, 0.45 );
     var_0.sort -= 1;
     var_0 settext( &"SCRIPT_EXTRA_LIFE" );
-    var_0 maps\_utility::_id_27EF( 3, ::_id_35E3, 1 );
+    var_0 maps\_utility::delaythread( 3, ::fade_out, 1 );
     var_0 endon( "death" );
     var_1 = var_0.x;
     var_2 = var_0.y;
@@ -1217,7 +1199,7 @@ arcademode_add_point_towards_extra_life()
         setdvar( "arcademode_lives_changed", 1 );
     }
 
-    level.arcademode_kills_until_next_extra_life = level.arcademode_extra_lives_range[level._id_3BFE];
+    level.arcademode_kills_until_next_extra_life = level.arcademode_extra_lives_range[level.gameskill];
 }
 
 arcademode_set_origin_in_radius()
@@ -1278,8 +1260,8 @@ pointpulse( var_0 )
         level.player.pointpulseindex = 0;
     }
 
-    if ( !common_scripts\utility::_id_382E( "arcademode_complete" ) )
-        level.player thread common_scripts\utility::_id_69C2( "h1_arcademode_pulse_score", level.player geteye() );
+    if ( !common_scripts\utility::flag( "arcademode_complete" ) )
+        level.player thread common_scripts\utility::play_sound_in_space( "h1_arcademode_pulse_score", level.player geteye() );
 
     var_1 = newhudelem();
     var_1.horzalign = "center";
@@ -1349,10 +1331,10 @@ set_circular_origin()
             break;
     }
 
-    if ( common_scripts\utility::_id_2006() )
+    if ( common_scripts\utility::cointoss() )
         var_1 *= -1;
 
-    if ( common_scripts\utility::_id_2006() )
+    if ( common_scripts\utility::cointoss() )
         var_2 *= -1;
 
     self.x = var_1;
@@ -1399,7 +1381,7 @@ player_kill( var_0, var_1, var_2 )
     level.arcademode_multikills[var_3][level.arcademode_multikills[var_3].size] = var_5;
 }
 
-_id_6AC2( var_0, var_1, var_2 )
+player_damage( var_0, var_1, var_2 )
 {
     thread arcademode_add_points( var_2, 0, var_0, level.arcademode_damagebase );
 }
@@ -1542,13 +1524,13 @@ rescale_ending_huds( var_0, var_1, var_2, var_3, var_4, var_5 )
 
 arcademode_ends()
 {
-    if ( common_scripts\utility::_id_382E( "arcademode_complete" ) )
+    if ( common_scripts\utility::flag( "arcademode_complete" ) )
         return;
 
-    common_scripts\utility::_id_383F( "arcademode_complete" );
-    maps\_utility::_id_8644( 0.05 );
-    maps\_utility::_id_8641();
-    maps\_utility::_id_863E();
+    common_scripts\utility::flag_set( "arcademode_complete" );
+    maps\_utility::slowmo_setlerptime_out( 0.05 );
+    maps\_utility::slowmo_lerp_out();
+    maps\_utility::slowmo_end();
 
     if ( level.arcademode_success )
     {
@@ -1859,7 +1841,7 @@ arcademode_ends()
 
         wait 1;
 
-        if ( getdvarint( "arcademode_died" ) != 1 && level._id_3BFE >= 2 )
+        if ( getdvarint( "arcademode_died" ) != 1 && level.gameskill >= 2 )
         {
             var_34 = int( var_30 );
             arcademode_end_boost( var_30, var_22, var_34, &"SCRIPT_ZERO_DEATHS", "arcademode_zerodeaths", var_13, var_4, var_17 );
@@ -1877,7 +1859,7 @@ arcademode_ends()
         wait 2;
     }
 
-    var_51 = level.arcademode_skillmultiplier[level._id_3BFE];
+    var_51 = level.arcademode_skillmultiplier[level.gameskill];
 
     if ( var_51 > 1 )
     {
@@ -1918,10 +1900,10 @@ arcademode_ends()
                 var_53 = 1;
         }
 
-        var_59 = level.player getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore" );
+        var_59 = level.player getplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore" );
 
         if ( var_22 > var_59 )
-            level.player setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore", var_22 );
+            level.player setplayerdata( common_scripts\utility::getstatsgroup_sp(), "fullChallengeScore", var_22 );
 
         level.player uploadscore( "LB_AM_FULLCHALLENGE", getdvarint( var_54 ) );
     }
@@ -1950,12 +1932,12 @@ arcademode_ends()
 
         if ( isdefined( var_61 ) )
         {
-            var_59 = level.player getrankedplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script );
+            var_59 = level.player getplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script );
 
             if ( var_30 > var_59 )
             {
                 var_53 = 1;
-                level.player setcommonplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script, var_30 );
+                level.player setplayerdata( common_scripts\utility::getstatsgroup_sp(), "arcadeScore", level.script, var_30 );
             }
 
             level.player uploadscore( "LB_AM_" + level.script, var_30 );
@@ -2021,14 +2003,14 @@ arcademode_ends()
     wait 1;
 
     if ( getdvar( "arcademode_full" ) == "1" )
-        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script + ", gameskill: " + level._id_3BFE + ", total: " + var_22 );
+        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script + ", gameskill: " + level.gameskill + ", total: " + var_22 );
     else
-        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script + ", gameskill: " + level._id_3BFE );
+        logstring( "ArcadeMode Score: " + var_30 + ", mission: " + level.script + ", gameskill: " + level.gameskill );
 
     setdvar( "arcademode_combined_score", var_22 );
 
     if ( var_22 >= 400000 )
-        maps\_utility::_id_41DD( "ARCADE_ADDICT" );
+        maps\_utility::giveachievement_wrapper( "ARCADE_ADDICT" );
 
     if ( !level.arcademode_success )
     {
@@ -2044,7 +2026,7 @@ arcademode_ends()
             level.arcademode_ending_hud[var_21].alpha = 0;
     }
 
-    common_scripts\utility::_id_383F( "arcademode_ending_complete" );
+    common_scripts\utility::flag_set( "arcademode_ending_complete" );
 }
 
 arcademode_end_boost( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -2143,7 +2125,7 @@ player_invul_forever()
         level.player.deathinvulnerabletime = 70000;
         level.player.ignoreme = 1;
         var_0 = getaispeciesarray( "all", "all" );
-        common_scripts\utility::array_thread( var_0, maps\_utility::_id_7E5E, 1 );
+        common_scripts\utility::array_thread( var_0, maps\_utility::set_ignoreme, 1 );
         wait 0.05;
     }
 }
@@ -2326,7 +2308,7 @@ arcademode_killstreak_complete_display()
     if ( level.arcademode_kill_streak_current_multiplier == 1 )
         return;
 
-    if ( common_scripts\utility::_id_382E( "arcademode_complete" ) )
+    if ( common_scripts\utility::flag( "arcademode_complete" ) )
         return;
 
     var_0 = new_ending_hud( "right", 0.2, -21.6667, 80.0 );
@@ -2341,12 +2323,12 @@ arcademode_killstreak_complete_display()
 
     if ( level.arcademode_kill_streak_current_multiplier >= 8 )
     {
-        level.player thread common_scripts\utility::_id_69C2( "arcademode_kill_streak_won", level.player geteye() );
+        level.player thread common_scripts\utility::play_sound_in_space( "arcademode_kill_streak_won", level.player geteye() );
         var_0 settext( &"SCRIPT_STREAK_COMPLETE" );
     }
     else
     {
-        level.player thread common_scripts\utility::_id_69C2( "arcademode_kill_streak_lost", level.player geteye() );
+        level.player thread common_scripts\utility::play_sound_in_space( "arcademode_kill_streak_lost", level.player geteye() );
         var_0 settext( &"SCRIPT_STREAK_BONUS_LOST" );
     }
 
@@ -2377,7 +2359,7 @@ arcademode_reset_kill_streak()
     thread arcademode_killstreak_complete_display();
     level notify( "arcademode_stop_kill_streak" );
     arcademode_reset_kill_streak_art();
-    common_scripts\utility::_id_3831( "arcadeMode_multiplier_maxed" );
+    common_scripts\utility::flag_clear( "arcadeMode_multiplier_maxed" );
     level.arcademode_kill_streak_current_count = level.arcademode_kill_streak_multiplier_count;
     level.arcademode_kill_streak_current_multiplier = 1;
 }

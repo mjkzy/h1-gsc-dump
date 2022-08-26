@@ -1,42 +1,24 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     level._effect["c4_light_blink"] = loadfx( "vfx/lights/light_c4_blink" );
     level._effect["claymore_laser"] = loadfx( "vfx/props/claymore_laser" );
 
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
-        level.players[var_0] thread _id_A232();
+        level.players[var_0] thread watchgrenadeusage();
 }
 
-_id_A232()
+watchgrenadeusage()
 {
     level.c4explodethisframe = 0;
     self endon( "death" );
     self.c4array = [];
     self.throwinggrenade = 0;
-    thread _id_A203();
-    thread _id_A206();
-    thread _id_A20A();
+    thread watchc4();
+    thread watchc4detonation();
+    thread watchclaymores();
     thread begin_semtex_grenade_tracking();
     thread begin_concussion_grenade_tracking();
 
@@ -65,10 +47,10 @@ beginsmokegrenadetracking()
 {
     self waittill( "grenade_fire", var_0, var_1 );
 
-    if ( !isdefined( level._id_8684 ) )
-        level._id_8684 = 0;
+    if ( !isdefined( level.smokegrenades ) )
+        level.smokegrenades = 0;
 
-    var_0 thread _id_8681();
+    var_0 thread smoke_grenade_death();
 }
 
 beginflashgrenadetracking()
@@ -87,7 +69,7 @@ beginflashgrenadetracking()
             var_1 waittill( "explode", var_5 );
 
             if ( soundexists( "null" ) )
-                thread common_scripts\utility::_id_69C2( "null", var_5 );
+                thread common_scripts\utility::play_sound_in_space( "null", var_5 );
 
             radiusdamage( var_5, 96, 300, 200, self, "MOD_UNKNOWN", "flash_grenade" );
         }
@@ -102,27 +84,27 @@ begin_semtex_grenade_tracking()
 
         if ( var_1 == "semtex_grenade" )
         {
-            thread _id_94B2( var_0 );
-            var_0 thread _id_7C7B( self );
+            thread track_semtex_grenade( var_0 );
+            var_0 thread semtex_sticky_handle( self );
         }
     }
 }
 
-_id_94B2( var_0 )
+track_semtex_grenade( var_0 )
 {
     self.throwinggrenade = 0;
 
-    if ( !isdefined( level._id_933F ) )
-        level._id_933F = 1;
+    if ( !isdefined( level.thrown_semtex_grenades ) )
+        level.thrown_semtex_grenades = 1;
     else
-        level._id_933F++;
+        level.thrown_semtex_grenades++;
 
     var_0 waittill( "death" );
-    waitframe;
-    level._id_933F--;
+    waittillframeend;
+    level.thrown_semtex_grenades--;
 }
 
-_id_7C7B( var_0 )
+semtex_sticky_handle( var_0 )
 {
     self waittill( "missile_stuck", var_1 );
 
@@ -132,15 +114,15 @@ _id_7C7B( var_0 )
     if ( var_1.code_classname != "script_vehicle" )
         return;
 
-    var_1._id_46FD = 1;
+    var_1.has_semtex_on_it = 1;
     self waittill( "explode" );
 
     if ( !isdefined( var_1 ) || !isalive( var_1 ) )
         return;
 
-    if ( var_1 maps\_vehicle::_id_5031() || var_1 maps\_vehicle_code::attacker_isonmyteam( var_0 ) )
+    if ( var_1 maps\_vehicle::is_godmode() || var_1 maps\_vehicle_code::attacker_isonmyteam( var_0 ) )
     {
-        var_1._id_46FD = undefined;
+        var_1.has_semtex_on_it = undefined;
         return;
     }
 
@@ -154,31 +136,31 @@ begin_concussion_grenade_tracking()
         self waittill( "grenade_fire", var_0, var_1 );
 
         if ( var_1 == "concussion_grenade" )
-            thread _id_94A1( var_0 );
+            thread track_concussion_grenade( var_0 );
     }
 }
 
-_id_94A1( var_0 )
+track_concussion_grenade( var_0 )
 {
     self.throwinggrenade = 0;
     var_0 waittill( "death" );
-    maps\_utility::_id_8643( 0.1 );
-    maps\_utility::_id_8644( 0.25 );
-    maps\_utility::_id_8645( 1 );
-    maps\_utility::_id_8646( 0.25 );
-    maps\_utility::_id_8640();
+    maps\_utility::slowmo_setlerptime_in( 0.1 );
+    maps\_utility::slowmo_setlerptime_out( 0.25 );
+    maps\_utility::slowmo_setspeed_norm( 1 );
+    maps\_utility::slowmo_setspeed_slow( 0.25 );
+    maps\_utility::slowmo_lerp_in();
     setdvar( "noflash", "1" );
     wait 0.05;
     setdvar( "noflash", "0" );
     wait 2.0;
-    maps\_utility::_id_8641();
+    maps\_utility::slowmo_lerp_out();
 }
 
-_id_8681()
+smoke_grenade_death()
 {
-    level._id_8684++;
+    level.smokegrenades++;
     wait 50;
-    level._id_8684--;
+    level.smokegrenades--;
 }
 
 begingrenadetracking()
@@ -187,9 +169,9 @@ begingrenadetracking()
     self waittill( "grenade_fire", var_0, var_1 );
 
     if ( var_1 == "fraggrenade" )
-        var_0 thread maps\_utility::_id_43E9();
+        var_0 thread maps\_utility::grenade_earthquake();
     else if ( var_1 == "ninebang_grenade" )
-        self._id_9336 = 1;
+        self.threw_ninebang = 1;
 
     self.throwinggrenade = 0;
 }
@@ -197,11 +179,11 @@ begingrenadetracking()
 beginc4tracking()
 {
     self endon( "death" );
-    common_scripts\utility::_id_A069( "grenade_fire", "weapon_change" );
+    common_scripts\utility::waittill_any( "grenade_fire", "weapon_change" );
     self.throwinggrenade = 0;
 }
 
-_id_A203()
+watchc4()
 {
     for (;;)
     {
@@ -210,13 +192,13 @@ _id_A203()
         if ( var_1 == "c4" )
         {
             if ( !self.c4array.size )
-                thread _id_A204();
+                thread watchc4altdetonate();
 
             self.c4array[self.c4array.size] = var_0;
             var_0.owner = self;
             var_0 thread c4damage();
             thread c4death( var_0 );
-            var_0 thread _id_6A35();
+            var_0 thread playc4effects();
         }
     }
 }
@@ -227,7 +209,7 @@ c4death( var_0 )
     self.c4array = maps\_utility::array_remove_nokeys( self.c4array, var_0 );
 }
 
-_id_A20A()
+watchclaymores()
 {
     self endon( "spawned_player" );
     self endon( "disconnect" );
@@ -240,20 +222,20 @@ _id_A20A()
         {
             var_0.owner = self;
             var_0 thread c4damage( 1 );
-            var_0 thread _id_1E48();
-            var_0 thread _id_6A36();
+            var_0 thread claymoredetonation();
+            var_0 thread playclaymoreeffects();
         }
     }
 }
 
-_id_1E49( var_0 )
+claymoremakesentient( var_0 )
 {
     self endon( "death" );
     wait 1;
 
-    if ( isdefined( level._id_1E4B ) )
+    if ( isdefined( level.claymoresentientfunc ) )
     {
-        self thread [[ level._id_1E4B ]]( var_0 );
+        self thread [[ level.claymoresentientfunc ]]( var_0 );
         return;
     }
 
@@ -263,25 +245,25 @@ _id_1E49( var_0 )
     self.threatbias = -1000;
 }
 
-_id_1E48()
+claymoredetonation()
 {
     self endon( "death" );
     self waittill( "missile_stuck" );
     var_0 = 192;
 
-    if ( isdefined( self._id_29B3 ) )
-        var_0 = self._id_29B3;
+    if ( isdefined( self.detonateradius ) )
+        var_0 = self.detonateradius;
 
     var_1 = spawn( "trigger_radius", self.origin + ( 0, 0, 0 - var_0 ), 9, var_0, var_0 * 2 );
-    thread _id_285A( var_1 );
+    thread deleteondeath( var_1 );
 
-    if ( !isdefined( level._id_1E4A ) )
-        level._id_1E4A = [];
+    if ( !isdefined( level.claymores ) )
+        level.claymores = [];
 
-    level._id_1E4A = common_scripts\utility::array_add( level._id_1E4A, self );
+    level.claymores = common_scripts\utility::array_add( level.claymores, self );
 
-    if ( !maps\_utility::_id_5083() && level._id_1E4A.size > 15 )
-        level._id_1E4A[0] delete();
+    if ( !maps\_utility::is_specialop() && level.claymores.size > 15 )
+        level.claymores[0] delete();
 
     for (;;)
     {
@@ -308,17 +290,17 @@ _id_1E48()
     }
 }
 
-_id_285A( var_0 )
+deleteondeath( var_0 )
 {
     self waittill( "death" );
-    level._id_1E4A = maps\_utility::array_remove_nokeys( level._id_1E4A, self );
+    level.claymores = maps\_utility::array_remove_nokeys( level.claymores, self );
     wait 0.05;
 
     if ( isdefined( var_0 ) )
         var_0 delete();
 }
 
-_id_A206()
+watchc4detonation()
 {
     self endon( "death" );
 
@@ -332,7 +314,7 @@ _id_A206()
             for ( var_1 = 0; var_1 < self.c4array.size; var_1++ )
             {
                 if ( isdefined( self.c4array[var_1] ) )
-                    self.c4array[var_1] thread _id_A006( 0.1 );
+                    self.c4array[var_1] thread waitanddetonate( 0.1 );
             }
 
             self.c4array = [];
@@ -340,7 +322,7 @@ _id_A206()
     }
 }
 
-_id_A205()
+watchc4altdetonation()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -359,7 +341,7 @@ _id_A205()
                 var_3 = self.c4array[var_2];
 
                 if ( isdefined( self.c4array[var_2] ) )
-                    var_3 thread _id_A006( 0.1 );
+                    var_3 thread waitanddetonate( 0.1 );
             }
 
             self.c4array = var_1;
@@ -368,7 +350,7 @@ _id_A205()
     }
 }
 
-_id_A006( var_0 )
+waitanddetonate( var_0 )
 {
     self endon( "death" );
     wait(var_0);
@@ -404,7 +386,7 @@ c4damage( var_0 )
     if ( isdefined( var_0 ) && var_0 && isplayer( var_1 ) )
         level.claymoreexplodethisframe_byplayer = 1;
 
-    thread _id_7447();
+    thread resetc4explodethisframe();
 
     if ( isplayer( var_1 ) )
         self detonate( var_1 );
@@ -412,40 +394,40 @@ c4damage( var_0 )
         self detonate();
 }
 
-_id_7447()
+resetc4explodethisframe()
 {
     wait 0.05;
     level.c4explodethisframe = 0;
     level.claymoreexplodethisframe_byplayer = 0;
 }
 
-_id_7823( var_0, var_1 )
+saydamaged( var_0, var_1 )
 {
     for ( var_2 = 0; var_2 < 60; var_2++ )
         wait 0.05;
 }
 
-_id_6A35()
+playc4effects()
 {
     self endon( "death" );
     self waittill( "missile_stuck" );
-    playfxontag( common_scripts\utility::_id_3FA8( "c4_light_blink" ), self, "tag_fx" );
+    playfxontag( common_scripts\utility::getfx( "c4_light_blink" ), self, "tag_fx" );
 }
 
-_id_6A36()
+playclaymoreeffects()
 {
     self endon( "death" );
     self waittill( "missile_stuck" );
-    playfxontag( common_scripts\utility::_id_3FA8( "claymore_laser" ), self, "tag_fx" );
+    playfxontag( common_scripts\utility::getfx( "claymore_laser" ), self, "tag_fx" );
 }
 
-_id_1EEE( var_0 )
+clearfxondeath( var_0 )
 {
     self waittill( "death" );
     var_0 delete();
 }
 
-_id_3F48( var_0, var_1, var_2, var_3 )
+getdamageableents( var_0, var_1, var_2, var_3 )
 {
     var_4 = [];
 
@@ -463,13 +445,13 @@ _id_3F48( var_0, var_1, var_2, var_3 )
         var_6 = level.players[var_5].origin + ( 0.0, 0.0, 32.0 );
         var_7 = distance( var_0, var_6 );
 
-        if ( var_7 < var_1 && ( !var_2 || _id_A2D6( var_0, var_6, var_3, undefined ) ) )
+        if ( var_7 < var_1 && ( !var_2 || weapondamagetracepassed( var_0, var_6, var_3, undefined ) ) )
         {
             var_8 = spawnstruct();
-            var_8._id_5175 = 1;
-            var_8._id_50A8 = 0;
+            var_8.isplayer = 1;
+            var_8.isadestructable = 0;
             var_8.entity = level.players[var_5];
-            var_8._id_258F = var_6;
+            var_8.damagecenter = var_6;
             var_4[var_4.size] = var_8;
         }
     }
@@ -481,13 +463,13 @@ _id_3F48( var_0, var_1, var_2, var_3 )
         var_10 = var_9[var_5].origin;
         var_7 = distance( var_0, var_10 );
 
-        if ( var_7 < var_1 && ( !var_2 || _id_A2D6( var_0, var_10, var_3, var_9[var_5] ) ) )
+        if ( var_7 < var_1 && ( !var_2 || weapondamagetracepassed( var_0, var_10, var_3, var_9[var_5] ) ) )
         {
             var_8 = spawnstruct();
-            var_8._id_5175 = 0;
-            var_8._id_50A8 = 0;
+            var_8.isplayer = 0;
+            var_8.isadestructable = 0;
             var_8.entity = var_9[var_5];
-            var_8._id_258F = var_10;
+            var_8.damagecenter = var_10;
             var_4[var_4.size] = var_8;
         }
     }
@@ -499,13 +481,13 @@ _id_3F48( var_0, var_1, var_2, var_3 )
         var_10 = var_11[var_5].origin;
         var_7 = distance( var_0, var_10 );
 
-        if ( var_7 < var_1 && ( !var_2 || _id_A2D6( var_0, var_10, var_3, var_11[var_5] ) ) )
+        if ( var_7 < var_1 && ( !var_2 || weapondamagetracepassed( var_0, var_10, var_3, var_11[var_5] ) ) )
         {
             var_8 = spawnstruct();
-            var_8._id_5175 = 0;
-            var_8._id_50A8 = 1;
+            var_8.isplayer = 0;
+            var_8.isadestructable = 1;
             var_8.entity = var_11[var_5];
-            var_8._id_258F = var_10;
+            var_8.damagecenter = var_10;
             var_4[var_4.size] = var_8;
         }
     }
@@ -513,7 +495,7 @@ _id_3F48( var_0, var_1, var_2, var_3 )
     return var_4;
 }
 
-_id_A2D6( var_0, var_1, var_2, var_3 )
+weapondamagetracepassed( var_0, var_1, var_2, var_3 )
 {
     var_4 = undefined;
     var_5 = var_1 - var_0;
@@ -528,40 +510,40 @@ _id_A2D6( var_0, var_1, var_2, var_3 )
     if ( getdvarint( "scr_damage_debug" ) != 0 )
     {
         if ( var_7["fraction"] == 1 )
-            thread _id_2729( var_4, var_1, ( 1.0, 1.0, 1.0 ) );
+            thread debugline( var_4, var_1, ( 1.0, 1.0, 1.0 ) );
         else
         {
-            thread _id_2729( var_4, var_7["position"], ( 1.0, 0.9, 0.8 ) );
-            thread _id_2729( var_7["position"], var_1, ( 1.0, 0.4, 0.3 ) );
+            thread debugline( var_4, var_7["position"], ( 1.0, 0.9, 0.8 ) );
+            thread debugline( var_7["position"], var_1, ( 1.0, 0.4, 0.3 ) );
         }
     }
 
     return var_7["fraction"] == 1;
 }
 
-_id_259B( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+damageent( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    if ( self._id_5175 )
+    if ( self.isplayer )
     {
-        self._id_25A8 = var_5;
+        self.damageorigin = var_5;
         self.entity thread [[ level.callbackplayerdamage ]]( var_0, var_1, var_2, 0, var_3, var_4, var_5, var_6, "none", 0 );
     }
     else
     {
-        if ( self._id_50A8 && ( var_4 == "artillery_mp" || var_4 == "claymore_mp" ) )
+        if ( self.isadestructable && ( var_4 == "artillery_mp" || var_4 == "claymore_mp" ) )
             return;
 
         self.entity notify( "damage", var_2, var_1 );
     }
 }
 
-_id_2729( var_0, var_1, var_2 )
+debugline( var_0, var_1, var_2 )
 {
     for ( var_3 = 0; var_3 < 600; var_3++ )
         wait 0.05;
 }
 
-_id_64FD( var_0, var_1, var_2, var_3 )
+onweapondamage( var_0, var_1, var_2, var_3 )
 {
     self endon( "death" );
 
@@ -579,7 +561,7 @@ _id_64FD( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_A204()
+watchc4altdetonate()
 {
     self endon( "death" );
     self endon( "disconnect" );

@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     precacheshader( "h1_hud_tutorial_blur" );
@@ -27,7 +9,7 @@ init()
     precacheshellshock( "chaplincheat" );
     precachemodel( "com_junktire" );
     level.random_tire_model = "com_junktire";
-    level._id_9E5C = 0;
+    level.vision_cheat_enabled = 0;
     setsaveddvar( "using_vision_cheat", 0 );
     level.tire_explosion = 0;
     level.cheatstates = [];
@@ -47,14 +29,14 @@ init()
         level._effect = [];
 
     level._effect["grain_test"] = loadfx( "fx/misc/grain_test" );
-    common_scripts\utility::_id_383D( "has_cheated" );
+    common_scripts\utility::flag_init( "has_cheated" );
     level.visionsets["bw"] = 0;
     level.visionsets["invert"] = 0;
     level.visionsets["contrast"] = 0;
     level.visionsets["chaplin"] = 0;
-    _id_864A();
+    slowmo_system_init();
     thread death_monitor();
-    common_scripts\utility::_id_383D( "disable_slowmo_cheat" );
+    common_scripts\utility::flag_init( "disable_slowmo_cheat" );
 
     if ( getdvar( "credits_active" ) == "1" )
         return;
@@ -80,7 +62,7 @@ setdvars_based_on_varibles()
     for ( var_0 = 0; var_0 < level.cheatdvars.size; var_0++ )
         setdvar( level.cheatdvars[var_0], level.cheatstates[level.cheatdvars[var_0]] );
 
-    if ( !isdefined( level._id_244D ) || !level._id_244D )
+    if ( !isdefined( level.credits_active ) || !level.credits_active )
     {
         setdvar( "credits_active", "0" );
         setdvar( "credits_load", "0" );
@@ -111,7 +93,7 @@ checkcheatchanged( var_0 )
         return;
 
     if ( var_1 )
-        common_scripts\utility::_id_383F( "has_cheated" );
+        common_scripts\utility::flag_set( "has_cheated" );
 
     level.cheatstates[var_0] = var_1;
     [[ level.cheatfuncs[var_0] ]]( var_1 );
@@ -135,7 +117,7 @@ specialfeaturesmenu()
     level.cheatdvars = getarraykeys( level.cheatstates );
 
     if ( is_cheating() )
-        common_scripts\utility::_id_383F( "has_cheated" );
+        common_scripts\utility::flag_set( "has_cheated" );
 
     for (;;)
     {
@@ -169,7 +151,7 @@ tirecheat_dogs_enemy_spawned()
     {
         var_0 = self.origin;
         var_1 = self geteye();
-        waitframe;
+        waittillframeend;
 
         for ( var_2 = 0; var_2 < 15; var_2++ )
             thread maps\_spawner::random_tire( var_0, var_1 );
@@ -319,39 +301,39 @@ applyvisionsets()
 
     if ( level.visionsets["chaplin"] )
     {
-        level._id_9E5C = 1;
+        level.vision_cheat_enabled = 1;
         setsaveddvar( "using_vision_cheat", 1 );
-        _func_143( "sepia", var_0 );
+        visionsetnaked( "sepia", var_0 );
     }
     else if ( var_1 != "" )
     {
-        level._id_9E5C = 1;
+        level.vision_cheat_enabled = 1;
         setsaveddvar( "using_vision_cheat", 1 );
-        _func_143( "cheat" + var_1, var_0 );
+        visionsetnaked( "cheat" + var_1, var_0 );
     }
     else
     {
-        level._id_9E5C = 0;
+        level.vision_cheat_enabled = 0;
         setsaveddvar( "using_vision_cheat", 0 );
-        maps\_utility::_id_7F00( level._id_58BC, var_0 );
+        maps\_utility::set_vision_set( level.lvl_visionset, var_0 );
     }
 }
 
-_id_864A()
+slowmo_system_init()
 {
-    level._id_8637 = spawnstruct();
-    _id_8649();
+    level.slowmo = spawnstruct();
+    slowmo_system_defaults();
     notifyoncommand( "_cheat_player_press_slowmo", "+melee" );
     notifyoncommand( "_cheat_player_press_slowmo", "+melee_breath" );
     notifyoncommand( "_cheat_player_press_slowmo", "+melee_zoom" );
 }
 
-_id_8649()
+slowmo_system_defaults()
 {
-    level._id_8637._id_56A9 = 0.0;
-    level._id_8637._id_56AA = 0.25;
-    level._id_8637._id_8A56 = 0.4;
-    level._id_8637._id_8A53 = 1.0;
+    level.slowmo.lerp_time_in = 0.0;
+    level.slowmo.lerp_time_out = 0.25;
+    level.slowmo.speed_slow = 0.4;
+    level.slowmo.speed_norm = 1.0;
 }
 
 slowmo_check_system()
@@ -361,7 +343,7 @@ slowmo_check_system()
 
 slowmo_hintprint()
 {
-    common_scripts\utility::_id_384A( "introscreen_complete" );
+    common_scripts\utility::flag_wait( "introscreen_complete" );
 
     if ( level.cheatshowslowmohint != 0 )
     {
@@ -376,9 +358,9 @@ slowmo_hintprint()
 
     level.cheatshowslowmohint = 1;
     var_1 = 180;
-    var_2 = maps\_hud_util::createIcon( "h1_hud_tutorial_blur", 400, 25 );
-    var_3 = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 400, 1 );
-    var_4 = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 400, 1 );
+    var_2 = maps\_hud_util::createicon( "h1_hud_tutorial_blur", 400, 25 );
+    var_3 = maps\_hud_util::createicon( "h1_hud_tutorial_border", 400, 1 );
+    var_4 = maps\_hud_util::createicon( "h1_hud_tutorial_border", 400, 1 );
     var_2 maps\_hud_util::setpoint( "TOP", undefined, 0, var_1 );
     var_2.sort = 1;
     var_2.hidewheninmenu = 1;
@@ -426,11 +408,11 @@ slowmo_hintprint()
 
 slowmomode( var_0 )
 {
-    level.slowmo_mode_enabled = common_scripts\utility::_id_9294( var_0, 1, 0 );
+    level.slowmo_mode_enabled = common_scripts\utility::ter_op( var_0, 1, 0 );
 
     if ( level.slowmo_mode_enabled )
     {
-        level._id_8637 thread gamespeed_proc();
+        level.slowmo thread gamespeed_proc();
         level.player allowmelee( 0 );
         thread slowmo_hintprint();
     }
@@ -438,7 +420,7 @@ slowmomode( var_0 )
     {
         level notify( "disable_slowmo" );
         level.player allowmelee( 1 );
-        level._id_8637 thread gamespeed_reset();
+        level.slowmo thread gamespeed_reset();
         level.cheatshowslowmohint = 0;
     }
 }
@@ -452,17 +434,17 @@ gamespeed_proc()
     {
         level.player waittill( "_cheat_player_press_slowmo" );
         level.cheatshowslowmohint = 0;
-        _id_8649();
+        slowmo_system_defaults();
 
-        if ( !common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
+        if ( !common_scripts\utility::flag( "disable_slowmo_cheat" ) )
         {
-            if ( gettimescale() < level._id_8637._id_8A53 )
+            if ( gettimescale() < level.slowmo.speed_norm )
                 thread gamespeed_reset();
             else
                 thread gamespeed_slowmo();
         }
 
-        waitframe;
+        waittillframeend;
     }
 }
 
@@ -476,23 +458,23 @@ gamespeed_reset_on_death()
 
 gamespeed_slowmo()
 {
-    level.player thread common_scripts\utility::_id_6975( "h1_slowmo_cheat_heartbeat" );
-    setslowmotion( self._id_8A53, self._id_8A56, self._id_56A9 );
+    level.player thread common_scripts\utility::play_loop_sound_on_entity( "h1_slowmo_cheat_heartbeat" );
+    setslowmotion( self.speed_norm, self.speed_slow, self.lerp_time_in );
 }
 
 gamespeed_reset()
 {
-    level.player thread common_scripts\utility::_id_8EA1( "h1_slowmo_cheat_heartbeat" );
+    level.player thread common_scripts\utility::stop_loop_sound_on_entity( "h1_slowmo_cheat_heartbeat" );
 
-    if ( !common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
-        setslowmotion( self._id_8A56, self._id_8A53, self._id_56AA );
+    if ( !common_scripts\utility::flag( "disable_slowmo_cheat" ) )
+        setslowmotion( self.speed_slow, self.speed_norm, self.lerp_time_out );
 }
 
 slowmomodesuspend()
 {
     level endon( "slowmo_resume" );
 
-    if ( gettimescale() < level._id_8637._id_8A53 )
+    if ( gettimescale() < level.slowmo.speed_norm )
         level.sloweddown = 1;
 
     for (;;)
@@ -500,7 +482,7 @@ slowmomodesuspend()
         if ( isdefined( level.slowmo_mode_enabled ) && level.slowmo_mode_enabled )
         {
             level notify( "disable_slowmo" );
-            level._id_8637 thread gamespeed_reset();
+            level.slowmo thread gamespeed_reset();
             level.player allowmelee( 1 );
         }
 
@@ -515,9 +497,9 @@ slowmomoderesume()
         level notify( "slowmo_resume" );
 
         if ( isdefined( level.sloweddown ) )
-            level._id_8637 thread gamespeed_slowmo();
+            level.slowmo thread gamespeed_slowmo();
 
-        level._id_8637 thread gamespeed_proc();
+        level.slowmo thread gamespeed_proc();
         level.player allowmelee( 0 );
         level.sloweddown = undefined;
     }
@@ -535,7 +517,7 @@ chaplinmode( var_0 )
         setsaveddvar( "bg_weaponBobAmplitudeStanding", "0.08 0.04" );
         setomnvar( "ui_ragtimewarefare_overlay", 1 );
         level.visionsets["chaplin"] = 1;
-        _func_144( "cheat_chaplinnight" );
+        visionsetnight( "cheat_chaplinnight" );
         chaplin_grain_start();
         thread chaplin_proc();
     }
@@ -545,14 +527,14 @@ chaplinmode( var_0 )
         level notify( "disable_chaplin_grain" );
         chaplin_grain_end();
         level.player stopshellshock();
-        _func_144( "default_night" );
+        visionsetnight( "default_night" );
         setomnvar( "ui_ragtimewarefare_overlay", 0 );
         level.visionsets["chaplin"] = 0;
-        soundscripts\_snd::_id_870C( "aud_stop_ragtime_warfare" );
+        soundscripts\_snd::snd_message( "aud_stop_ragtime_warfare" );
         setsaveddvar( "bg_weaponBobAmplitudeStanding", level.cheatbobamporiginal );
         setsaveddvar( "chaplincheat", "0" );
 
-        if ( !common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
+        if ( !common_scripts\utility::flag( "disable_slowmo_cheat" ) )
             settimescale( 1.0 );
     }
 
@@ -601,7 +583,7 @@ chaplin_titlecard( var_0 )
     if ( getdvar( "cheat_chaplin_titlecardshowing" ) == "1" )
         return;
 
-    if ( common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
+    if ( common_scripts\utility::flag( "disable_slowmo_cheat" ) )
         return;
 
     setdvar( "cheat_chaplin_titlecardshowing", 1 );
@@ -618,14 +600,14 @@ chaplin_titlecard( var_0 )
 chaplin_proc()
 {
     level endon( "disable_chaplin" );
-    soundscripts\_snd::_id_870C( "aud_start_ragtime_warfare" );
+    soundscripts\_snd::snd_message( "aud_start_ragtime_warfare" );
 
     for (;;)
     {
         level.player shellshock( "chaplincheat", 60, 1 );
         wait 0.5;
 
-        if ( !common_scripts\utility::_id_382E( "disable_slowmo_cheat" ) )
+        if ( !common_scripts\utility::flag( "disable_slowmo_cheat" ) )
         {
             if ( getdvar( "cheat_chaplin_titlecardshowing" ) == "1" )
             {
@@ -679,7 +661,7 @@ is_cheating()
 
 ragdoll_mode( var_0 )
 {
-    level.cheat_super_ragdoll = common_scripts\utility::_id_9294( var_0, 1, 0 );
+    level.cheat_super_ragdoll = common_scripts\utility::ter_op( var_0, 1, 0 );
 }
 
 melonhead_mode_init()
@@ -695,7 +677,7 @@ melonhead_mode_init()
 
 melonhead_mode_update( var_0 )
 {
-    level.melonhead_mode_enabled = common_scripts\utility::_id_9294( var_0, 1, 0 );
+    level.melonhead_mode_enabled = common_scripts\utility::ter_op( var_0, 1, 0 );
     level notify( "melonhead_mode_updated" );
 }
 
@@ -704,7 +686,7 @@ melonhead_monitor()
     self endon( "death" );
     self notify( "melonhead_monitor" );
     self endon( "melonhead_monitor" );
-    waittillframeend;
+    waitframe();
 
     if ( isdefined( self.melonhead_ignore ) && self.melonhead_ignore )
         return;
@@ -754,7 +736,7 @@ melonhead_remove_melon( var_0, var_1 )
     if ( isdefined( var_0 ) && var_0 )
     {
         playfx( level.melonhead_mode_fx, self gettagorigin( level.melonhead_mode_attachtag ), anglestoforward( self.angles ) );
-        thread common_scripts\utility::_id_69C2( "h1_hit_watermelon", self gettagorigin( level.melonhead_mode_attachtag ) );
+        thread common_scripts\utility::play_sound_in_space( "h1_hit_watermelon", self gettagorigin( level.melonhead_mode_attachtag ) );
     }
 
     self notify( "melonhead_removed" );
@@ -800,7 +782,7 @@ handgun_mode_update( var_0 )
     if ( level.script == "ac130" )
         return;
 
-    level.cheat_handgun = common_scripts\utility::_id_9294( var_0, 1, 0 );
+    level.cheat_handgun = common_scripts\utility::ter_op( var_0, 1, 0 );
     level notify( "handgun_mode_updated" );
 
     if ( level.cheat_handgun )
@@ -817,9 +799,9 @@ handgun_monitor()
     for (;;)
     {
         if ( level.player issplitscreenplayer() == 1 && level.player getcurrentweapon() == level.cheat_handgun_weaponname )
-            level.player maps\_utility::_id_6C65( 0, "cheat_handgun" );
+            level.player maps\_utility::playerallowweaponpickup( 0, "cheat_handgun" );
         else if ( level.player issplitscreenplayer() == 0 && level.player getcurrentweapon() != level.cheat_handgun_weaponname )
-            level.player maps\_utility::_id_6C65( 1, "cheat_handgun" );
+            level.player maps\_utility::playerallowweaponpickup( 1, "cheat_handgun" );
 
         wait 0.05;
     }
@@ -855,7 +837,7 @@ givehandgun()
 takehandgun()
 {
     if ( level.player issplitscreenplayer() == 0 )
-        level.player maps\_utility::_id_6C65( 1, "cheat_handgun" );
+        level.player maps\_utility::playerallowweaponpickup( 1, "cheat_handgun" );
 
     var_0 = level.player getcurrentweapon();
     var_1 = 0;
@@ -893,7 +875,7 @@ lemonade_mode_init()
 
 lemonade_mode_update( var_0 )
 {
-    level.cheat_lemonade = common_scripts\utility::_id_9294( var_0, 1, 0 );
+    level.cheat_lemonade = common_scripts\utility::ter_op( var_0, 1, 0 );
 
     if ( level.cheat_lemonade )
         givelemonade();
@@ -954,14 +936,14 @@ tracksuit_mode_init()
 
 tracksuit_mode_update( var_0 )
 {
-    level.tracksuit_mode_enabled = common_scripts\utility::_id_9294( var_0, 1, 0 );
+    level.tracksuit_mode_enabled = common_scripts\utility::ter_op( var_0, 1, 0 );
     level notify( "tracksuit_mode_updated" );
 }
 
 tracksuit_monitor()
 {
     self endon( "death" );
-    waittillframeend;
+    waitframe();
 
     if ( isdefined( self.tracksuit_ignore ) && self.tracksuit_ignore )
         return;
@@ -990,23 +972,23 @@ add_tracksuit()
     if ( isdefined( self.weapon ) && !isdefined( self.ignoreweaponintracksuitmode ) && self.classname != "script_model" )
     {
         if ( isdefined( self.a ) && isdefined( self.a.aimidlethread ) )
-            animscripts\combat_utility::_id_315E();
+            animscripts\combat_utility::endfireandanimidlethread();
 
-        self.tracksuitmode_previousprimary = animscripts\utility::_id_3EE5();
+        self.tracksuitmode_previousprimary = animscripts\utility::getaiprimaryweapon();
         var_0 = tracksuit_should_equipweapon();
-        maps\_utility::_id_39D0( level.tracksuit_mode_weapon, "primary" );
+        maps\_utility::forceuseweapon( level.tracksuit_mode_weapon, "primary" );
 
         if ( !var_0 )
-            maps\_utility::_id_4462();
+            maps\_utility::gun_remove();
 
-        self.tracksuitmode_previousneverlean = self.a._id_6096;
-        self.a._id_6096 = 1;
-        self.tracksuitmode_previousrocketvisible = self.a._id_7597;
-        self.a._id_7597 = 1;
-        thread animscripts\shared::_id_766B();
+        self.tracksuitmode_previousneverlean = self.a.neverlean;
+        self.a.neverlean = 1;
+        self.tracksuitmode_previousrocketvisible = self.a.rocketvisible;
+        self.a.rocketvisible = 1;
+        thread animscripts\shared::rpgplayerrepulsor();
         self.primaryweapon = level.tracksuit_mode_weapon;
         self.weapon = level.tracksuit_mode_weapon;
-        self._id_560F = level.tracksuit_mode_weapon;
+        self.lastweapon = level.tracksuit_mode_weapon;
         self.tracksuitmode_previoussecondary = self.secondaryweapon;
         self.secondaryweapon = "none";
     }
@@ -1014,11 +996,11 @@ add_tracksuit()
     if ( self.model == level.tracksuit_mode_model || self.model == "body_zakhaev_viktor" )
         return;
 
-    if ( isdefined( self._id_475D ) )
+    if ( isdefined( self.hatmodel ) )
     {
-        self.tracksuitmode_previoushatmodel = self._id_475D;
-        self detach( self._id_475D );
-        self._id_475D = undefined;
+        self.tracksuitmode_previoushatmodel = self.hatmodel;
+        self detach( self.hatmodel );
+        self.hatmodel = undefined;
     }
 
     if ( isdefined( self.headmodel ) )
@@ -1059,21 +1041,21 @@ remove_tracksuit()
     if ( isdefined( self.tracksuitmode_previoushatmodel ) )
     {
         self attach( self.tracksuitmode_previoushatmodel );
-        self._id_475D = self.tracksuitmode_previoushatmodel;
+        self.hatmodel = self.tracksuitmode_previoushatmodel;
         self.tracksuitmode_previoushatmodel = undefined;
     }
 
     if ( isdefined( self.tracksuitmode_previousprimary ) && !isdefined( self.ignoreweaponintracksuitmode ) )
     {
         if ( isdefined( self.a ) && isdefined( self.a.aimidlethread ) )
-            animscripts\combat_utility::_id_315E();
+            animscripts\combat_utility::endfireandanimidlethread();
 
         if ( tracksuit_should_equipweapon() )
-            maps\_utility::_id_39D0( self.tracksuitmode_previousprimary, "primary" );
+            maps\_utility::forceuseweapon( self.tracksuitmode_previousprimary, "primary" );
 
         self.secondaryweapon = self.tracksuitmode_previoussecondary;
-        self.a._id_6096 = self.tracksuitmode_previousneverlean;
-        self.a._id_7597 = self.tracksuitmode_previousrocketvisible;
+        self.a.neverlean = self.tracksuitmode_previousneverlean;
+        self.a.rocketvisible = self.tracksuitmode_previousrocketvisible;
     }
 
     self.tracksuitmode = 0;

@@ -1,100 +1,82 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     self endon( "killanimscript" );
 
     if ( !isalive( self.enemy ) )
-        _id_20AC();
+        combatidle();
     else
     {
         if ( isplayer( self.enemy ) )
         {
-            _id_5B81();
+            meleebiteattackplayer();
             return;
         }
 
-        _id_5B92();
+        meleestrugglevsai();
     }
 }
 
-_id_5374()
+killplayer()
 {
     self endon( "pvd_melee_interrupted" );
 
-    if ( !isdefined( self._id_5B8B._id_6C50 ) )
+    if ( !isdefined( self.meleeingplayer.player_view ) )
         return;
 
-    var_0 = self._id_5B8B._id_6C50;
+    var_0 = self.meleeingplayer.player_view;
 
-    if ( isdefined( var_0._id_6B7D ) )
+    if ( isdefined( var_0.player_killed ) )
         return;
 
-    var_0._id_6B7D = 1;
+    var_0.player_killed = 1;
 
-    if ( maps\_utility::_id_536C( self._id_5B8B ) )
+    if ( maps\_utility::killing_will_down( self.meleeingplayer ) )
     {
-        _id_53C0( self._id_5B8B, self );
+        knock_down_player_coop( self.meleeingplayer, self );
         return;
     }
 
-    self._id_5B8B._id_8A2B = 1;
-    self._id_5B8B setcandamage( 1 );
+    self.meleeingplayer.specialdeath = 1;
+    self.meleeingplayer setcandamage( 1 );
     playfxontag( level._effect["dog_bite_blood"], var_0, "tag_torso" );
     wait 1;
 
-    if ( !isdefined( self ) || !isdefined( self._id_5B8B ) )
+    if ( !isdefined( self ) || !isdefined( self.meleeingplayer ) )
         return;
 
-    var_1 = _id_503A();
-    self._id_5B8B enablehealthshield( 0 );
+    var_1 = is_hyena();
+    self.meleeingplayer enablehealthshield( 0 );
 
-    if ( !isalive( self._id_5B8B ) )
+    if ( !isalive( self.meleeingplayer ) )
         return;
 
-    self._id_5B8B _id_2CB5( self );
-    self._id_5B8B shellshock( "default", 5 );
-    waitframe;
+    self.meleeingplayer dog_player_kill( self );
+    self.meleeingplayer shellshock( "default", 5 );
+    waittillframeend;
     setdvar( "ui_deadquote", "" );
-    thread _id_2C97( self._id_5B8B, var_1 );
+    thread dog_death_hud( self.meleeingplayer, var_1 );
 }
 #using_animtree("dog");
 
-_id_53C0( var_0, var_1 )
+knock_down_player_coop( var_0, var_1 )
 {
-    var_0._id_2C9D = 1;
-    var_2 = _id_2CBB();
+    var_0.dog_downed_player = 1;
+    var_2 = dog_vs_player_anim_rate();
     self setflaggedanimknobrestart( "meleeanim", %german_shepherd_player_getoff, 1, 0.1, var_2 );
-    var_0._id_6C50 notify( "pvd_melee_interrupted" );
-    var_0._id_6C50 notify( "pvd_melee_done" );
-    var_0._id_6C50 _id_6D7B( var_0 );
+    var_0.player_view notify( "pvd_melee_interrupted" );
+    var_0.player_view notify( "pvd_melee_done" );
+    var_0.player_view playerview_endsequence( var_0 );
 
-    if ( !maps\_utility::_id_536C( var_0 ) )
-        var_0 _id_2CB5( var_1 );
+    if ( !maps\_utility::killing_will_down( var_0 ) )
+        var_0 dog_player_kill( var_1 );
 }
 
-_id_2CB5( var_0 )
+dog_player_kill( var_0 )
 {
-    if ( maps\_utility::_id_55E1() )
+    if ( maps\_utility::laststand_enabled() )
         self enabledeathshield( 0 );
 
     self disableinvulnerability();
@@ -105,13 +87,13 @@ _id_2CB5( var_0 )
         self kill( self.origin );
 }
 
-_id_2C97( var_0, var_1 )
+dog_death_hud( var_0, var_1 )
 {
-    if ( maps\_utility::_id_5083() )
+    if ( maps\_utility::is_specialop() )
         return;
 
     wait 1.5;
-    thread _id_2C9A( var_0 );
+    thread dog_deathquote( var_0 );
     var_2 = newclienthudelem( var_0 );
     var_2.x = 0;
     var_2.y = 15;
@@ -131,11 +113,11 @@ _id_2C97( var_0, var_1 )
     var_2.alpha = 1;
 }
 
-_id_2C9A( var_0 )
+dog_deathquote( var_0 )
 {
-    var_1 = var_0 maps\_hud_util::_id_23ED( "default", 1 );
+    var_1 = var_0 maps\_hud_util::createclientfontstring( "default", 1 );
     var_1.color = ( 1.0, 1.0, 1.0 );
-    var_1 settext( level._id_2C98 );
+    var_1 settext( level.dog_death_quote );
     var_1.x = 0;
     var_1.y = -30;
     var_1.alignx = "center";
@@ -150,7 +132,7 @@ _id_2C9A( var_0 )
 
 attackmiss()
 {
-    self _meth_8144( %root, 0.1 );
+    self clearanim( %root, 0.1 );
     var_0 = %german_shepherd_attack_player_miss_b;
 
     if ( isdefined( self.enemy ) )
@@ -160,10 +142,10 @@ attackmiss()
         var_3 = self.enemy.origin - self.origin + var_1 * 40;
 
         if ( vectordot( var_2, var_1 ) > 0.707 || vectordot( var_3, var_1 ) > 0 )
-            thread animscripts\dog\dog_stop::_id_585C( "normal" );
+            thread animscripts\dog\dog_stop::lookattarget( "normal" );
         else
         {
-            self._id_85C3 = 1;
+            self.skipstartmove = 1;
             thread attackmisstracktargetthread();
 
             if ( var_2[0] * var_1[1] - var_2[1] * var_1[0] > 0 )
@@ -175,7 +157,7 @@ attackmiss()
 
     self setflaggedanimrestart( "miss_anim", var_0, 1, 0, 1 );
     var_4 = getanimlength( var_0 );
-    animscripts\notetracks::_id_2D0B( var_4 - 0.1, "miss_anim" );
+    animscripts\notetracks::donotetracksfortime( var_4 - 0.1, "miss_anim" );
     self notify( "stop tracking" );
 }
 
@@ -183,10 +165,10 @@ attackmisstracktargetthread()
 {
     self endon( "killanimscript" );
     wait 0.6;
-    self _meth_8193( "face enemy" );
+    self orientmode( "face enemy" );
 }
 
-_id_53C3( var_0 )
+knockoutofads( var_0 )
 {
     var_0 endon( "death" );
     var_0 allowads( 0 );
@@ -194,38 +176,38 @@ _id_53C3( var_0 )
     var_0 allowads( 1 );
 }
 
-_id_2CD3()
+dogmelee()
 {
-    if ( isdefined( self._id_5B8B ) )
+    if ( isdefined( self.meleeingplayer ) )
     {
-        if ( isdefined( self._id_5B8B._id_9C29 ) && self._id_5B8B._id_9C29 )
-            self._id_5B8B notify( "force_out_of_uav" );
+        if ( isdefined( self.meleeingplayer.using_uav ) && self.meleeingplayer.using_uav )
+            self.meleeingplayer notify( "force_out_of_uav" );
 
-        if ( self._id_5B8B islinked() && common_scripts\utility::_id_3839( "price_picked_up" ) && !common_scripts\utility::_id_382E( "price_picked_up" ) )
+        if ( self.meleeingplayer islinked() && common_scripts\utility::flag_exist( "price_picked_up" ) && !common_scripts\utility::flag( "price_picked_up" ) )
             return undefined;
 
-        if ( self._id_5B8B ismantling() )
+        if ( self.meleeingplayer ismantling() )
             return undefined;
 
-        if ( self._id_5B8B.laststand && self._id_5B8B.ignoreme )
+        if ( self.meleeingplayer.laststand && self.meleeingplayer.ignoreme )
             return undefined;
     }
 
     if ( isdefined( self.enemy ) )
     {
         if ( distance2d( self.origin, self.enemy.origin ) < 32 )
-            return self _meth_81EC();
+            return self melee();
     }
 
-    return self _meth_81EC( anglestoforward( self.angles ) );
+    return self melee( anglestoforward( self.angles ) );
 }
 
-_id_4666( var_0 )
+handlemeleebiteattacknotetracks( var_0 )
 {
     switch ( var_0 )
     {
         case "dog_melee":
-            var_1 = _id_2CD3();
+            var_1 = dogmelee();
 
             if ( isdefined( var_1 ) )
             {
@@ -234,7 +216,7 @@ _id_4666( var_0 )
                     if ( getdvarint( "survival_chaos" ) != 1 )
                     {
                         var_1 shellshock( "dog_bite", 1 );
-                        thread _id_53C3( var_1 );
+                        thread knockoutofads( var_1 );
                     }
                 }
             }
@@ -246,60 +228,60 @@ _id_4666( var_0 )
 
             break;
         case "stop_tracking":
-            self _meth_8193( "face current" );
+            self orientmode( "face current" );
             break;
     }
 }
 
 addsafetyhealth()
 {
-    var_0 = self._id_5B8B getnormalhealth();
+    var_0 = self.meleeingplayer getnormalhealth();
 
     if ( var_0 == 0 )
         return 0;
 
     if ( var_0 < 0.25 )
     {
-        self._id_5B8B setnormalhealth( var_0 + 0.25 );
+        self.meleeingplayer setnormalhealth( var_0 + 0.25 );
         return 1;
     }
 
     return 0;
 }
 
-_id_73D7()
+removesafetyhealth()
 {
-    var_0 = self._id_5B8B getnormalhealth();
+    var_0 = self.meleeingplayer getnormalhealth();
 
     if ( var_0 > 0.25 )
-        self._id_5B8B setnormalhealth( var_0 - 0.25 );
+        self.meleeingplayer setnormalhealth( var_0 - 0.25 );
     else
-        self._id_5B8B setnormalhealth( 0.01 );
+        self.meleeingplayer setnormalhealth( 0.01 );
 }
 
-_id_4668( var_0 )
+handlemeleefinishattacknotetracks( var_0 )
 {
     switch ( var_0 )
     {
         case "dog_melee":
             var_1 = addsafetyhealth();
-            var_2 = _id_2CD3();
+            var_2 = dogmelee();
 
-            if ( isdefined( var_2 ) && isplayer( var_2 ) && isalive( self._id_5B8B ) )
+            if ( isdefined( var_2 ) && isplayer( var_2 ) && isalive( self.meleeingplayer ) )
             {
                 if ( var_1 )
-                    _id_73D7();
+                    removesafetyhealth();
 
-                self._id_85C3 = undefined;
-                self._id_5B8B._id_6C50 = _id_6D82( self );
+                self.skipstartmove = undefined;
+                self.meleeingplayer.player_view = playerview_spawn( self );
 
-                if ( self._id_5B8B._id_6C50 _id_6D83( self ) )
+                if ( self.meleeingplayer.player_view playerview_startsequence( self ) )
                     self setcandamage( 0 );
             }
             else
             {
                 if ( var_1 )
-                    _id_73D7();
+                    removesafetyhealth();
 
                 attackmiss();
                 return 1;
@@ -310,31 +292,31 @@ _id_4668( var_0 )
             self notify( "dog_early_notetrack" );
             thread show_prepare_dog_hint_h1();
             thread destroy_dog_hint_on_dog_death_h1();
-            var_3 = 0.45 + 0.8 * level._id_2CB0[level._id_2CAF];
-            var_3 *= _id_2CBB();
-            level._id_2CAF++;
+            var_3 = 0.45 + 0.8 * level.dog_melee_timing_array[level.dog_melee_index];
+            var_3 *= dog_vs_player_anim_rate();
+            level.dog_melee_index++;
 
-            if ( level._id_2CAF >= level._id_2CB0.size )
+            if ( level.dog_melee_index >= level.dog_melee_timing_array.size )
             {
-                level._id_2CAF = 0;
-                level._id_2CB0 = common_scripts\utility::array_randomize( level._id_2CB0 );
+                level.dog_melee_index = 0;
+                level.dog_melee_timing_array = common_scripts\utility::array_randomize( level.dog_melee_timing_array );
             }
 
             self setflaggedanimlimited( "meleeanim", %german_shepherd_attack_player, 1, 0.2, var_3 );
             self setflaggedanimlimited( "meleeanim", %german_shepherd_attack_player_late, 1, 0.2, var_3 );
-            self._id_5B8B._id_6C50 _id_6D7F( var_3 );
+            self.meleeingplayer.player_view playerview_playknockdownanimlimited( var_3 );
             break;
         case "dog_lunge":
-            thread _id_7E7C();
-            var_3 = _id_2CBB();
+            thread set_melee_timer();
+            var_3 = dog_vs_player_anim_rate();
             self setflaggedanim( "meleeanim", %german_shepherd_attack_player, 1, 0.2, var_3 );
-            self._id_5B8B._id_6C50 _id_6D7E( var_3 );
+            self.meleeingplayer.player_view playerview_playknockdownanim( var_3 );
             break;
         case "dogbite_damage":
-            thread _id_5374();
+            thread killplayer();
             break;
         case "stop_tracking":
-            self _meth_8193( "face current" );
+            self orientmode( "face current" );
             break;
     }
 }
@@ -345,37 +327,37 @@ destroy_dog_hint_on_dog_death_h1()
     destroy_dog_hint();
 }
 
-_id_4555( var_0 )
+handle_dogbite_notetrack( var_0 )
 {
     switch ( var_0 )
     {
         case "dogbite_damage":
-            thread _id_5374();
+            thread killplayer();
             break;
     }
 }
 
-_id_7E7C()
+set_melee_timer()
 {
     wait 0.1;
-    self.press_time = self._id_5B8B._id_4441._id_2CB6 / _id_2CBB();
+    self.press_time = self.meleeingplayer.gs.dog_presstime / dog_vs_player_anim_rate();
     thread dog_hint_h1();
-    self._id_5B37 = gettime();
+    self.melee_able_timer = gettime();
 }
 
-_id_6C8F()
+playerdoginit()
 {
-    self._id_5596 = 0;
-    self._id_2CD5 = 0;
+    self.lastdogmeleeplayertime = 0;
+    self.dogmeleeplayercounter = 0;
 }
 
-_id_5B81()
+meleebiteattackplayer()
 {
-    thread maps\_utility::_id_69C4( "anml_dog_attack_jump" );
-    self._id_5B8B = self.enemy;
+    thread maps\_utility::play_sound_on_entity( "anml_dog_attack_jump" );
+    self.meleeingplayer = self.enemy;
 
-    if ( !isdefined( self._id_5B8B._id_2CCF ) )
-        self._id_5B8B _id_6C8F();
+    if ( !isdefined( self.meleeingplayer.doginited ) )
+        self.meleeingplayer playerdoginit();
 
     var_0 = 30;
     var_1 = self.meleeattackdist + var_0;
@@ -388,56 +370,56 @@ _id_5B81()
         if ( !isplayer( self.enemy ) )
             break;
 
-        if ( maps\_utility::_id_5062( self.enemy ) )
+        if ( maps\_utility::is_player_down( self.enemy ) )
         {
-            _id_20AC();
+            combatidle();
             continue;
         }
 
-        if ( isdefined( self._id_5B8B.syncedmeleetarget ) && self._id_5B8B.syncedmeleetarget != self || isdefined( self._id_5B8B._id_6C50 ) && isdefined( self._id_5B8B._id_6C50._id_4E82 ) )
+        if ( isdefined( self.meleeingplayer.syncedmeleetarget ) && self.meleeingplayer.syncedmeleetarget != self || isdefined( self.meleeingplayer.player_view ) && isdefined( self.meleeingplayer.player_view.inseq ) )
         {
-            if ( _id_1CFC( var_1 ) )
+            if ( checkendcombat( var_1 ) )
                 break;
             else
             {
-                _id_20AC();
+                combatidle();
                 continue;
             }
         }
 
-        if ( _id_84BC() )
+        if ( shouldwaitincombatidle() )
         {
-            _id_20AC();
+            combatidle();
             continue;
         }
 
-        self _meth_8193( "face enemy" );
-        self _meth_8192( "zonly_physics" );
+        self orientmode( "face enemy" );
+        self animmode( "zonly_physics" );
         self.safetochangescript = 0;
-        _id_6F19();
-        self _meth_8144( %root, 0.1 );
-        self _meth_81FF();
-        self._id_5B8B _id_7FBD( 500 );
+        prepareattackplayer();
+        self clearanim( %root, 0.1 );
+        self clearpitchorient();
+        self.meleeingplayer setnextdogattackallowtime( 500 );
 
-        if ( _id_2C92() )
+        if ( dog_cant_kill_in_one_hit() )
         {
-            self._id_5B8B._id_5596 = gettime();
-            self._id_5B8B._id_2CD5++;
+            self.meleeingplayer.lastdogmeleeplayertime = gettime();
+            self.meleeingplayer.dogmeleeplayercounter++;
             self setflaggedanimrestart( "meleeanim", %german_shepherd_run_attack_b, 1, 0.2, 1 );
-            animscripts\shared::_id_2D06( "meleeanim", ::_id_4666 );
+            animscripts\shared::donotetracks( "meleeanim", ::handlemeleebiteattacknotetracks );
         }
         else
         {
-            thread _id_2CAE();
-            self._id_5B8B.attacked_by_dog = 1;
-            self._id_5B8B.laststand = 0;
-            self._id_5B8B.achieve_downed_kills = undefined;
-            thread _id_1ECC();
+            thread dog_melee_death();
+            self.meleeingplayer.attacked_by_dog = 1;
+            self.meleeingplayer.laststand = 0;
+            self.meleeingplayer.achieve_downed_kills = undefined;
+            thread clear_player_attacked_by_dog_on_death();
             self setflaggedanimrestart( "meleeanim", %german_shepherd_attack_player, 1, 0.2, 1 );
             self setflaggedanimrestart( "meleeanim", %german_shepherd_attack_player_late, 1, 0, 1 );
-            self _meth_814E( %attack_player, 1, 0, 1 );
-            self _meth_814E( %attack_player_late, 0.01, 0, 1 );
-            animscripts\shared::_id_2D06( "meleeanim", ::_id_4668 );
+            self setanimlimited( %attack_player, 1, 0, 1 );
+            self setanimlimited( %attack_player_late, 0.01, 0, 1 );
+            animscripts\shared::donotetracks( "meleeanim", ::handlemeleefinishattacknotetracks );
             self notify( "dog_no_longer_melee_able" );
             self setcandamage( 1 );
             self unlink();
@@ -446,73 +428,73 @@ _id_5B81()
         self.safetochangescript = 1;
         wait 0.05;
 
-        if ( _id_1CFC( var_1 ) )
+        if ( checkendcombat( var_1 ) )
             break;
     }
 
     self.safetochangescript = 1;
-    self _meth_8192( "none" );
+    self animmode( "none" );
 }
 
-_id_1ECC()
+clear_player_attacked_by_dog_on_death()
 {
     self waittill( "death" );
-    self._id_5B8B.attacked_by_dog = undefined;
+    self.meleeingplayer.attacked_by_dog = undefined;
 }
 
-_id_2C92()
+dog_cant_kill_in_one_hit()
 {
-    if ( isdefined( self._id_5B8B._id_2CD9 ) )
+    if ( isdefined( self.meleeingplayer.dogs_dont_instant_kill ) )
         return 1;
 
     if ( getdvarint( "survival_chaos" ) == 1 )
         return 1;
 
-    if ( maps\_utility::_id_5062( self._id_5B8B ) )
+    if ( maps\_utility::is_player_down( self.meleeingplayer ) )
         return 1;
 
-    if ( isdefined( self._id_5B8B._id_8626 ) )
+    if ( isdefined( self.meleeingplayer.slidemodel ) )
         return 1;
 
-    if ( gettime() - self._id_5B8B._id_5596 > 8000 )
-        self._id_5B8B._id_2CD5 = 0;
+    if ( gettime() - self.meleeingplayer.lastdogmeleeplayertime > 8000 )
+        self.meleeingplayer.dogmeleeplayercounter = 0;
 
-    return self._id_5B8B._id_2CD5 < self._id_5B8B._id_4441._id_2CA7 && self._id_5B8B.health > 25;
+    return self.meleeingplayer.dogmeleeplayercounter < self.meleeingplayer.gs.dog_hits_before_kill && self.meleeingplayer.health > 25;
 }
 
-_id_84BC()
+shouldwaitincombatidle()
 {
-    return isdefined( self.enemy._id_2CC2 ) && gettime() < self.enemy._id_2CC2;
+    return isdefined( self.enemy.dogattackallowtime ) && gettime() < self.enemy.dogattackallowtime;
 }
 
-_id_7FBD( var_0 )
+setnextdogattackallowtime( var_0 )
 {
-    self._id_2CC2 = gettime() + var_0;
+    self.dogattackallowtime = gettime() + var_0;
 }
 
-_id_5B92()
+meleestrugglevsai()
 {
     if ( !isalive( self.enemy ) )
         return;
 
     self.enemy notify( "dog_attacks_ai" );
 
-    if ( isdefined( self.enemy.syncedmeleetarget ) || _id_84BC() || !isai( self.enemy ) || isdefined( self.enemy._id_51DA ) )
-        _id_20AC();
+    if ( isdefined( self.enemy.syncedmeleetarget ) || shouldwaitincombatidle() || !isai( self.enemy ) || isdefined( self.enemy.istraversing ) )
+        combatidle();
     else
     {
-        self.enemy _id_7FBD( 500 );
+        self.enemy setnextdogattackallowtime( 500 );
         self.safetochangescript = 0;
-        self _meth_8192( "zonly_physics" );
+        self animmode( "zonly_physics" );
         self.pushable = 0;
-        self _meth_81FF();
-        self._id_5B8C = !isdefined( self.enemy._id_58D7 ) && ( isdefined( self.enemy.a._id_2CE7 ) || isdefined( self._id_5B7F ) || randomint( 100 ) > 50 );
+        self clearpitchorient();
+        self.meleekilltarget = !isdefined( self.enemy.magic_bullet_shield ) && ( isdefined( self.enemy.a.doinglongdeath ) || isdefined( self.meleealwayswin ) || randomint( 100 ) > 50 );
         var_0 = [];
         var_1[0] = %root;
         var_1[1] = %german_shepherd_attack_ai_01_start_a;
         var_1[2] = %german_shepherd_attack_ai_02_idle_a;
 
-        if ( self._id_5B8C )
+        if ( self.meleekilltarget )
         {
             var_1[3] = %german_shepherd_attack_ai_03_pushed_a;
             var_1[4] = %german_shepherd_attack_ai_04_middle_a;
@@ -527,31 +509,31 @@ _id_5B92()
 
         var_3 = vectortoangles( self.origin - self.enemy.origin );
         var_3 = ( 0, var_3[1], 0 );
-        self._id_65A6 = self.enemy;
+        self.originaltarget = self.enemy;
         self setcandamage( 0 );
-        self _meth_8144( var_1[0], 0.1 );
-        self _meth_8142( "meleeanim", self.enemy.origin, var_3, var_1[1] );
-        animscripts\shared::_id_2D06( "meleeanim", ::_id_4680 );
+        self clearanim( var_1[0], 0.1 );
+        self animrelative( "meleeanim", self.enemy.origin, var_3, var_1[1] );
+        animscripts\shared::donotetracks( "meleeanim", ::handlestartaipart );
         self setcandamage( 1 );
-        self _meth_8192( "zonly_physics" );
+        self animmode( "zonly_physics" );
 
         for ( var_4 = 1; var_4 < var_2; var_4++ )
         {
-            self _meth_8144( var_1[var_4], 0 );
+            self clearanim( var_1[var_4], 0 );
 
-            if ( !_id_4E92() )
+            if ( !insyncmeleewithtarget() )
                 break;
 
-            if ( !self._id_5B8C && var_4 + 1 == var_2 )
+            if ( !self.meleekilltarget && var_4 + 1 == var_2 )
                 self.health = 1;
 
             self setflaggedanimrestart( "meleeanim", var_1[var_4 + 1], 1, 0, 1 );
-            animscripts\shared::_id_2D06( "meleeanim" );
+            animscripts\shared::donotetracks( "meleeanim" );
         }
 
         self unlink();
 
-        if ( !self._id_5B8C )
+        if ( !self.meleekilltarget )
         {
             self kill();
             return;
@@ -559,27 +541,27 @@ _id_5B92()
 
         self.pushable = 1;
         self.safetochangescript = 1;
-        self._id_38A8 = 0;
+        self.flashbangimmunity = 0;
     }
 }
 
-_id_20AC()
+combatidle()
 {
-    self _meth_8193( "face enemy" );
-    self _meth_8144( %root, 0.1 );
-    self _meth_8192( "zonly_physics" );
+    self orientmode( "face enemy" );
+    self clearanim( %root, 0.1 );
+    self animmode( "zonly_physics" );
     var_0 = [];
     var_0[0] = %german_shepherd_attackidle_b;
     var_0[1] = %german_shepherd_attackidle_bark;
     var_0[2] = %german_shepherd_attackidle_growl;
-    var_1 = common_scripts\utility::_id_710E( var_0 );
-    thread _id_20AD();
+    var_1 = common_scripts\utility::random( var_0 );
+    thread combatidlepreventoverlappingplayer();
     self setflaggedanimrestart( "combat_idle", var_1, 1, 0.2, 1 );
-    animscripts\shared::_id_2D06( "combat_idle" );
+    animscripts\shared::donotetracks( "combat_idle" );
     self notify( "combatIdleEnd" );
 }
 
-_id_20AD()
+combatidlepreventoverlappingplayer()
 {
     self endon( "killanimscript" );
     self endon( "combatIdleEnd" );
@@ -610,18 +592,18 @@ _id_20AD()
             if ( var_4 < 30 )
             {
                 var_3 *= 3 / var_4;
-                self _meth_81CB( self.origin - var_3, ( 0.0, 30.0, 0.0 ) );
+                self safeteleport( self.origin - var_3, ( 0.0, 30.0, 0.0 ) );
             }
         }
     }
 }
 
-_id_4E92()
+insyncmeleewithtarget()
 {
     return isdefined( self.enemy ) && isdefined( self.enemy.syncedmeleetarget ) && self.enemy.syncedmeleetarget == self;
 }
 
-_id_4680( var_0 )
+handlestartaipart( var_0 )
 {
     if ( var_0 != "ai_attack_start" )
         return 0;
@@ -629,18 +611,18 @@ _id_4680( var_0 )
     if ( !isdefined( self.enemy ) )
         return 1;
 
-    if ( self.enemy != self._id_65A6 )
+    if ( self.enemy != self.originaltarget )
         return 1;
 
     if ( isdefined( self.enemy.syncedmeleetarget ) )
         return 1;
 
-    self._id_38A8 = 1;
+    self.flashbangimmunity = 1;
     self.enemy.syncedmeleetarget = self;
-    self.enemy _meth_819E( ::_id_5B97 );
+    self.enemy animcustom( ::meleestrugglevsdog );
 }
 
-_id_1CFC( var_0 )
+checkendcombat( var_0 )
 {
     if ( !isdefined( self.enemy ) )
         return 0;
@@ -649,20 +631,20 @@ _id_1CFC( var_0 )
     return var_1 > var_0 * var_0;
 }
 
-_id_6F19()
+prepareattackplayer()
 {
-    if ( _id_503A() )
+    if ( is_hyena() )
     {
-        level._id_2C98 = &"NEW_HYENA_DEATH_DO_NOTHING_ALT";
-        level._id_8857 = "@NEW_HYENA_DEATH_DO_NOTHING_ALT";
+        level.dog_death_quote = &"NEW_HYENA_DEATH_DO_NOTHING_ALT";
+        level.so_dog_death_quote = "@NEW_HYENA_DEATH_DO_NOTHING_ALT";
     }
     else
     {
-        level._id_2C98 = &"NEW_DOG_DEATH_DO_NOTHING_ALT";
-        level._id_8857 = "@NEW_DOG_DEATH_DO_NOTHING_ALT";
+        level.dog_death_quote = &"NEW_DOG_DEATH_DO_NOTHING_ALT";
+        level.so_dog_death_quote = "@NEW_DOG_DEATH_DO_NOTHING_ALT";
     }
 
-    level._id_2C99 = "nothing";
+    level.dog_death_type = "nothing";
     var_0 = distance( self.origin, self.enemy.origin );
 
     if ( var_0 > self.meleeattackdist )
@@ -683,41 +665,41 @@ attackteleportthread( var_0 )
 
     for ( var_3 = 0; var_3 < var_1; var_3++ )
     {
-        self _meth_81C9( self.origin + var_2 );
+        self teleport( self.origin + var_2 );
         wait 0.05;
     }
 }
 
-_id_6A62()
+player_attacked()
 {
-    return isalive( self._id_5B8B ) && self._id_5B8B meleebuttonpressed();
+    return isalive( self.meleeingplayer ) && self.meleeingplayer meleebuttonpressed();
 }
 
 destroy_dog_hint()
 {
-    if ( !isdefined( self._id_5B8B._id_2CCE ) )
+    if ( !isdefined( self.meleeingplayer.doghintelem ) )
         return;
 
-    self._id_5B8B._id_2CCE maps\_hud_util::destroyElem();
+    self.meleeingplayer.doghintelem maps\_hud_util::destroyelem();
 
-    if ( isdefined( self._id_5B8B.doghintbackerblur ) )
+    if ( isdefined( self.meleeingplayer.doghintbackerblur ) )
     {
-        self._id_5B8B.doghintbackerblur maps\_hud_util::destroyElem();
-        self._id_5B8B.doghintbackerbordertop maps\_hud_util::destroyElem();
-        self._id_5B8B.doghintbackerborderbottom maps\_hud_util::destroyElem();
+        self.meleeingplayer.doghintbackerblur maps\_hud_util::destroyelem();
+        self.meleeingplayer.doghintbackerbordertop maps\_hud_util::destroyelem();
+        self.meleeingplayer.doghintbackerborderbottom maps\_hud_util::destroyelem();
     }
     else
-        self._id_5B8B.doghintstar maps\_hud_util::destroyElem();
+        self.meleeingplayer.doghintstar maps\_hud_util::destroyelem();
 
     level notify( "clearing_dog_hint" );
 }
 
 show_prepare_dog_hint_h1()
 {
-    if ( isdefined( self._id_5B8B._id_2CCE ) )
+    if ( isdefined( self.meleeingplayer.doghintelem ) )
         destroy_dog_hint();
 
-    if ( level.player common_scripts\utility::_id_5064() )
+    if ( level.player common_scripts\utility::is_player_gamepad_enabled() )
     {
         var_0 = 1.5;
 
@@ -744,78 +726,78 @@ show_prepare_dog_hint_h1()
             }
         }
 
-        self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", var_0 );
-        self._id_5B8B._id_2CCE.color = ( 1.0, 1.0, 1.0 );
-        self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT" );
-        self._id_5B8B._id_2CCE.x = 0;
-        self._id_5B8B._id_2CCE.y = 20;
-        self._id_5B8B._id_2CCE.alignx = "center";
-        self._id_5B8B._id_2CCE.aligny = "middle";
-        self._id_5B8B._id_2CCE.horzalign = "center";
-        self._id_5B8B._id_2CCE.vertalign = "middle";
-        self._id_5B8B._id_2CCE.foreground = 1;
-        self._id_5B8B._id_2CCE.alpha = 0.1;
-        self._id_5B8B._id_2CCE.sort = -1;
-        self._id_5B8B.doghintstar = maps\_hud_util::createIcon( "h1_dog_melee_prompt_star", 0, 0 );
-        self._id_5B8B.doghintstar.color = ( 1.0, 1.0, 1.0 );
-        self._id_5B8B.doghintstar.x = 0;
-        self._id_5B8B.doghintstar.y = 20;
-        self._id_5B8B.doghintstar.alignx = "center";
-        self._id_5B8B.doghintstar.aligny = "middle";
-        self._id_5B8B.doghintstar.horzalign = "center";
-        self._id_5B8B.doghintstar.vertalign = "middle";
-        self._id_5B8B.doghintstar.foreground = 1;
-        self._id_5B8B.doghintstar.alpha = 0;
-        self._id_5B8B.doghintstar.sort = -2;
+        self.meleeingplayer.doghintelem = self.meleeingplayer maps\_hud_util::createclientfontstring( "timer", var_0 );
+        self.meleeingplayer.doghintelem.color = ( 1.0, 1.0, 1.0 );
+        self.meleeingplayer.doghintelem settext( &"SCRIPT_PLATFORM_DOG_HINT" );
+        self.meleeingplayer.doghintelem.x = 0;
+        self.meleeingplayer.doghintelem.y = 20;
+        self.meleeingplayer.doghintelem.alignx = "center";
+        self.meleeingplayer.doghintelem.aligny = "middle";
+        self.meleeingplayer.doghintelem.horzalign = "center";
+        self.meleeingplayer.doghintelem.vertalign = "middle";
+        self.meleeingplayer.doghintelem.foreground = 1;
+        self.meleeingplayer.doghintelem.alpha = 0.1;
+        self.meleeingplayer.doghintelem.sort = -1;
+        self.meleeingplayer.doghintstar = maps\_hud_util::createicon( "h1_dog_melee_prompt_star", 0, 0 );
+        self.meleeingplayer.doghintstar.color = ( 1.0, 1.0, 1.0 );
+        self.meleeingplayer.doghintstar.x = 0;
+        self.meleeingplayer.doghintstar.y = 20;
+        self.meleeingplayer.doghintstar.alignx = "center";
+        self.meleeingplayer.doghintstar.aligny = "middle";
+        self.meleeingplayer.doghintstar.horzalign = "center";
+        self.meleeingplayer.doghintstar.vertalign = "middle";
+        self.meleeingplayer.doghintstar.foreground = 1;
+        self.meleeingplayer.doghintstar.alpha = 0;
+        self.meleeingplayer.doghintstar.sort = -2;
     }
     else
     {
-        self._id_5B8B._id_2CCE = self._id_5B8B maps\_hud_util::_id_23ED( "timer", 0.5 );
-        self._id_5B8B._id_2CCE.color = ( 1.0, 1.0, 1.0 );
-        self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD" );
-        self._id_5B8B._id_2CCE.x = 0;
-        self._id_5B8B._id_2CCE.y = 20;
-        self._id_5B8B._id_2CCE.font = "timer";
-        self._id_5B8B._id_2CCE.alignx = "center";
-        self._id_5B8B._id_2CCE.aligny = "middle";
-        self._id_5B8B._id_2CCE.horzalign = "center";
-        self._id_5B8B._id_2CCE.vertalign = "middle";
-        self._id_5B8B._id_2CCE.foreground = 1;
-        self._id_5B8B._id_2CCE.alpha = 0.25;
-        self._id_5B8B._id_2CCE.sort = -1;
-        self._id_5B8B.doghintbackerblur = maps\_hud_util::createIcon( "h1_hud_tutorial_blur", 225, 20 );
-        self._id_5B8B.doghintbackerbordertop = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 225, 1 );
-        self._id_5B8B.doghintbackerborderbottom = maps\_hud_util::createIcon( "h1_hud_tutorial_border", 225, 1 );
-        self._id_5B8B.doghintbackerblur.x = 0;
-        self._id_5B8B.doghintbackerblur.y = 20;
-        self._id_5B8B.doghintbackerblur.sort = -3;
-        self._id_5B8B.doghintbackerblur.alignx = "center";
-        self._id_5B8B.doghintbackerblur.aligny = "middle";
-        self._id_5B8B.doghintbackerblur.horzalign = "center";
-        self._id_5B8B.doghintbackerblur.vertalign = "middle";
-        self._id_5B8B.doghintbackerblur.foreground = 1;
-        self._id_5B8B.doghintbackerblur.hidewheninmenu = 1;
-        self._id_5B8B.doghintbackerblur.alpha = 0.225;
-        self._id_5B8B.doghintbackerbordertop.x = 0;
-        self._id_5B8B.doghintbackerbordertop.y = 10;
-        self._id_5B8B.doghintbackerbordertop.sort = -2;
-        self._id_5B8B.doghintbackerbordertop.alignx = "center";
-        self._id_5B8B.doghintbackerbordertop.aligny = "middle";
-        self._id_5B8B.doghintbackerbordertop.horzalign = "center";
-        self._id_5B8B.doghintbackerbordertop.vertalign = "middle";
-        self._id_5B8B.doghintbackerbordertop.foreground = 1;
-        self._id_5B8B.doghintbackerbordertop.hidewheninmenu = 1;
-        self._id_5B8B.doghintbackerbordertop.alpha = 0.0125;
-        self._id_5B8B.doghintbackerborderbottom.x = 0;
-        self._id_5B8B.doghintbackerborderbottom.y = 30;
-        self._id_5B8B.doghintbackerborderbottom.sort = -2;
-        self._id_5B8B.doghintbackerborderbottom.alignx = "center";
-        self._id_5B8B.doghintbackerborderbottom.aligny = "middle";
-        self._id_5B8B.doghintbackerborderbottom.horzalign = "center";
-        self._id_5B8B.doghintbackerborderbottom.vertalign = "middle";
-        self._id_5B8B.doghintbackerborderbottom.foreground = 1;
-        self._id_5B8B.doghintbackerborderbottom.hidewheninmenu = 1;
-        self._id_5B8B.doghintbackerborderbottom.alpha = 0.0125;
+        self.meleeingplayer.doghintelem = self.meleeingplayer maps\_hud_util::createclientfontstring( "timer", 0.5 );
+        self.meleeingplayer.doghintelem.color = ( 1.0, 1.0, 1.0 );
+        self.meleeingplayer.doghintelem settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD" );
+        self.meleeingplayer.doghintelem.x = 0;
+        self.meleeingplayer.doghintelem.y = 20;
+        self.meleeingplayer.doghintelem.font = "timer";
+        self.meleeingplayer.doghintelem.alignx = "center";
+        self.meleeingplayer.doghintelem.aligny = "middle";
+        self.meleeingplayer.doghintelem.horzalign = "center";
+        self.meleeingplayer.doghintelem.vertalign = "middle";
+        self.meleeingplayer.doghintelem.foreground = 1;
+        self.meleeingplayer.doghintelem.alpha = 0.25;
+        self.meleeingplayer.doghintelem.sort = -1;
+        self.meleeingplayer.doghintbackerblur = maps\_hud_util::createicon( "h1_hud_tutorial_blur", 225, 20 );
+        self.meleeingplayer.doghintbackerbordertop = maps\_hud_util::createicon( "h1_hud_tutorial_border", 225, 1 );
+        self.meleeingplayer.doghintbackerborderbottom = maps\_hud_util::createicon( "h1_hud_tutorial_border", 225, 1 );
+        self.meleeingplayer.doghintbackerblur.x = 0;
+        self.meleeingplayer.doghintbackerblur.y = 20;
+        self.meleeingplayer.doghintbackerblur.sort = -3;
+        self.meleeingplayer.doghintbackerblur.alignx = "center";
+        self.meleeingplayer.doghintbackerblur.aligny = "middle";
+        self.meleeingplayer.doghintbackerblur.horzalign = "center";
+        self.meleeingplayer.doghintbackerblur.vertalign = "middle";
+        self.meleeingplayer.doghintbackerblur.foreground = 1;
+        self.meleeingplayer.doghintbackerblur.hidewheninmenu = 1;
+        self.meleeingplayer.doghintbackerblur.alpha = 0.225;
+        self.meleeingplayer.doghintbackerbordertop.x = 0;
+        self.meleeingplayer.doghintbackerbordertop.y = 10;
+        self.meleeingplayer.doghintbackerbordertop.sort = -2;
+        self.meleeingplayer.doghintbackerbordertop.alignx = "center";
+        self.meleeingplayer.doghintbackerbordertop.aligny = "middle";
+        self.meleeingplayer.doghintbackerbordertop.horzalign = "center";
+        self.meleeingplayer.doghintbackerbordertop.vertalign = "middle";
+        self.meleeingplayer.doghintbackerbordertop.foreground = 1;
+        self.meleeingplayer.doghintbackerbordertop.hidewheninmenu = 1;
+        self.meleeingplayer.doghintbackerbordertop.alpha = 0.0125;
+        self.meleeingplayer.doghintbackerborderbottom.x = 0;
+        self.meleeingplayer.doghintbackerborderbottom.y = 30;
+        self.meleeingplayer.doghintbackerborderbottom.sort = -2;
+        self.meleeingplayer.doghintbackerborderbottom.alignx = "center";
+        self.meleeingplayer.doghintbackerborderbottom.aligny = "middle";
+        self.meleeingplayer.doghintbackerborderbottom.horzalign = "center";
+        self.meleeingplayer.doghintbackerborderbottom.vertalign = "middle";
+        self.meleeingplayer.doghintbackerborderbottom.foreground = 1;
+        self.meleeingplayer.doghintbackerborderbottom.hidewheninmenu = 1;
+        self.meleeingplayer.doghintbackerborderbottom.alpha = 0.0125;
     }
 
     maps\_cheat::melonhead_remove_melon( 1, 1 );
@@ -823,17 +805,17 @@ show_prepare_dog_hint_h1()
 
 dog_hint_h1()
 {
-    if ( !isdefined( self._id_5B8B._id_2CCE ) )
+    if ( !isdefined( self.meleeingplayer.doghintelem ) )
         return;
 
     level endon( "clearing_dog_hint" );
     thread dog_hint_succeed_effect();
-    self._id_5B8B._id_2CCE.alpha = 1;
+    self.meleeingplayer.doghintelem.alpha = 1;
     var_0 = self.press_time / 1000;
 
-    if ( isdefined( self._id_5B8B.doghintstar ) )
+    if ( isdefined( self.meleeingplayer.doghintstar ) )
     {
-        var_1 = self._id_5B8B.doghintstar;
+        var_1 = self.meleeingplayer.doghintstar;
         var_2 = 0.11;
         var_3 = 64;
         var_4 = 64;
@@ -854,20 +836,20 @@ dog_hint_h1()
     }
     else
     {
-        self._id_5B8B.doghintbackerborderbottom.alpha = 0.05;
-        self._id_5B8B.doghintbackerbordertop.alpha = 0.05;
-        self._id_5B8B.doghintbackerblur.alpha = 0.9;
+        self.meleeingplayer.doghintbackerborderbottom.alpha = 0.05;
+        self.meleeingplayer.doghintbackerbordertop.alpha = 0.05;
+        self.meleeingplayer.doghintbackerblur.alpha = 0.9;
         wait(var_0);
     }
 
-    if ( !maps\_utility::_id_32D8( "neck_snapped" ) )
+    if ( !maps\_utility::ent_flag( "neck_snapped" ) )
         thread dog_hint_fail_effect();
 }
 
 dog_hint_succeed_effect()
 {
     level endon( "clearing_dog_hint" );
-    maps\_utility::_id_32E0( "neck_snapped" );
+    maps\_utility::ent_flag_wait( "neck_snapped" );
 
     if ( !isdefined( self ) )
         return;
@@ -883,38 +865,38 @@ dog_hint_fail_effect()
     if ( !isdefined( self ) )
         return;
 
-    if ( !isdefined( self._id_5B8B._id_2CCE ) )
+    if ( !isdefined( self.meleeingplayer.doghintelem ) )
         return;
 
-    if ( isdefined( self._id_5B8B.doghintbackerblur ) )
+    if ( isdefined( self.meleeingplayer.doghintbackerblur ) )
     {
         var_0 = 1.0;
-        self._id_5B8B._id_2CCE settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD_FAIL" );
+        self.meleeingplayer.doghintelem settext( &"SCRIPT_PLATFORM_DOG_HINT_KEYBOARD_FAIL" );
         wait 0.05;
-        self._id_5B8B._id_2CCE fadeovertime( var_0 );
-        self._id_5B8B.doghintbackerblur fadeovertime( var_0 );
-        self._id_5B8B.doghintbackerbordertop fadeovertime( var_0 );
-        self._id_5B8B.doghintbackerborderbottom fadeovertime( var_0 );
-        self._id_5B8B._id_2CCE.alpha = 0;
-        self._id_5B8B.doghintbackerblur.alpha = 0;
-        self._id_5B8B.doghintbackerbordertop.alpha = 0;
-        self._id_5B8B.doghintbackerborderbottom.alpha = 0;
+        self.meleeingplayer.doghintelem fadeovertime( var_0 );
+        self.meleeingplayer.doghintbackerblur fadeovertime( var_0 );
+        self.meleeingplayer.doghintbackerbordertop fadeovertime( var_0 );
+        self.meleeingplayer.doghintbackerborderbottom fadeovertime( var_0 );
+        self.meleeingplayer.doghintelem.alpha = 0;
+        self.meleeingplayer.doghintbackerblur.alpha = 0;
+        self.meleeingplayer.doghintbackerbordertop.alpha = 0;
+        self.meleeingplayer.doghintbackerborderbottom.alpha = 0;
         wait(var_0);
         destroy_dog_hint();
     }
     else
     {
-        self._id_5B8B.doghintstar.alpha = 0;
+        self.meleeingplayer.doghintstar.alpha = 0;
         wait 0.05;
         var_0 = 0.25;
-        self._id_5B8B._id_2CCE fadeovertime( var_0 );
-        self._id_5B8B._id_2CCE.alpha = 0;
+        self.meleeingplayer.doghintelem fadeovertime( var_0 );
+        self.meleeingplayer.doghintelem.alpha = 0;
         wait(var_0);
         destroy_dog_hint();
     }
 }
 
-_id_2C9C()
+dog_delayed_unlink()
 {
     wait 0.7;
 
@@ -922,7 +904,7 @@ _id_2C9C()
         self unlink();
 }
 
-_id_2C9B()
+dog_delayed_allow_damage()
 {
     self endon( "death" );
     wait 1.5;
@@ -931,18 +913,18 @@ _id_2C9B()
         self setcandamage( 1 );
 }
 
-_id_2CAE()
+dog_melee_death()
 {
     self endon( "killanimscript" );
     self endon( "dog_no_longer_melee_able" );
 
-    if ( !maps\_utility::_id_32DC( "neck_snapped" ) )
-        maps\_utility::_id_32DD( "neck_snapped" );
+    if ( !maps\_utility::ent_flag_exist( "neck_snapped" ) )
+        maps\_utility::ent_flag_init( "neck_snapped" );
 
     var_0 = 0;
     self waittill( "dog_early_notetrack" );
 
-    while ( _id_6A62() )
+    while ( player_attacked() )
         wait 0.05;
 
     var_1 = 0;
@@ -951,53 +933,53 @@ _id_2CAE()
     {
         if ( !var_0 )
         {
-            if ( _id_6A62() )
+            if ( player_attacked() )
             {
                 var_0 = 1;
 
-                if ( isdefined( self._id_5B37 ) && isalive( self._id_5B8B ) )
+                if ( isdefined( self.melee_able_timer ) && isalive( self.meleeingplayer ) )
                 {
-                    if ( gettime() - self._id_5B37 <= self.press_time )
+                    if ( gettime() - self.melee_able_timer <= self.press_time )
                     {
-                        self._id_5B8B _id_7E7B( var_1 );
-                        self._id_5B8B._id_6C50._id_607A = 1;
-                        maps\_utility::_id_32DE( "neck_snapped" );
+                        self.meleeingplayer set_melee_early( var_1 );
+                        self.meleeingplayer.player_view.necksnapped = 1;
+                        maps\_utility::ent_flag_set( "neck_snapped" );
                         self notify( "melee_stop" );
                         self setflaggedanimknobrestart( "dog_death_anim", %german_shepherd_player_neck_snap, 1, 0.2, 1 );
-                        thread _id_2C9B();
+                        thread dog_delayed_allow_damage();
                         self setcandamage( 0 );
-                        maps\_utility::_id_41DD( "DOWN_BOY_DOWN" );
+                        maps\_utility::giveachievement_wrapper( "DOWN_BOY_DOWN" );
                         self waittillmatch( "dog_death_anim", "dog_death" );
-                        thread common_scripts\utility::_id_69C2( "dog_neckbreak", self geteye() );
+                        thread common_scripts\utility::play_sound_in_space( "dog_neckbreak", self geteye() );
                         self setcandamage( 1 );
-                        self.a._id_612E = 1;
-                        self._id_2CB2 = 1;
-                        var_2 = self._id_5B8B.origin - self.origin;
+                        self.a.nodeath = 1;
+                        self.dog_neck_snapped = 1;
+                        var_2 = self.meleeingplayer.origin - self.origin;
                         var_2 = ( var_2[0], var_2[1], 0 );
                         maps\_utility::arcademode_kill( self.origin, "melee", 50 );
-                        thread _id_2C9C();
-                        self kill( self geteye() - var_2, self._id_5B8B );
+                        thread dog_delayed_unlink();
+                        self kill( self geteye() - var_2, self.meleeingplayer );
                         self notify( "killanimscript" );
                     }
                     else
                     {
-                        self._id_5B8B _id_7E7B( var_1 );
-                        self._id_5B8B._id_6C50 _id_6D7D();
-                        self _meth_814E( %attack_player, 0.01, 0.2, 1 );
-                        self _meth_814E( %attack_player_late, 1, 0.2, 1 );
+                        self.meleeingplayer set_melee_early( var_1 );
+                        self.meleeingplayer.player_view playerview_knockdownlate();
+                        self setanimlimited( %attack_player, 0.01, 0.2, 1 );
+                        self setanimlimited( %attack_player_late, 1, 0.2, 1 );
 
-                        if ( _id_503A() )
+                        if ( is_hyena() )
                         {
-                            level._id_2C98 = &"NEW_HYENA_DEATH_TOO_LATE_ALT";
-                            level._id_8857 = "@NEW_HYENA_DEATH_TOO_LATE_ALT";
+                            level.dog_death_quote = &"NEW_HYENA_DEATH_TOO_LATE_ALT";
+                            level.so_dog_death_quote = "@NEW_HYENA_DEATH_TOO_LATE_ALT";
                         }
                         else
                         {
-                            level._id_2C98 = &"NEW_DOG_DEATH_TOO_LATE_ALT";
-                            level._id_8857 = "@NEW_DOG_DEATH_TOO_LATE_ALT";
+                            level.dog_death_quote = &"NEW_DOG_DEATH_TOO_LATE_ALT";
+                            level.so_dog_death_quote = "@NEW_DOG_DEATH_TOO_LATE_ALT";
                         }
 
-                        level._id_2C99 = "late";
+                        level.dog_death_type = "late";
                     }
 
                     return;
@@ -1005,56 +987,56 @@ _id_2CAE()
 
                 var_1 = 1;
 
-                if ( self._id_5B8B _id_1A48() )
+                if ( self.meleeingplayer can_early_melee() )
                 {
-                    if ( _id_503A() )
+                    if ( is_hyena() )
                     {
-                        level._id_2C98 = &"NEW_HYENA_DEATH_TOO_SOON_ALT";
-                        level._id_8857 = "@NEW_HYENA_DEATH_TOO_SOON_ALT";
+                        level.dog_death_quote = &"NEW_HYENA_DEATH_TOO_SOON_ALT";
+                        level.so_dog_death_quote = "@NEW_HYENA_DEATH_TOO_SOON_ALT";
                     }
                     else
                     {
-                        level._id_2C98 = &"NEW_DOG_DEATH_TOO_SOON_ALT";
-                        level._id_8857 = "@NEW_DOG_DEATH_TOO_SOON_ALT";
+                        level.dog_death_quote = &"NEW_DOG_DEATH_TOO_SOON_ALT";
+                        level.so_dog_death_quote = "@NEW_DOG_DEATH_TOO_SOON_ALT";
                     }
 
-                    level._id_2C99 = "soon";
-                    var_3 = _id_2CBB();
+                    level.dog_death_type = "soon";
+                    var_3 = dog_vs_player_anim_rate();
                     self setflaggedanimknobrestart( "meleeanim", %german_shepherd_player_neck_miss, 1, 0.2, var_3 );
-                    self._id_5B8B._id_6C50 _id_6D80( var_3 );
+                    self.meleeingplayer.player_view playerview_playmissanim( var_3 );
                     return;
                 }
             }
         }
-        else if ( !_id_6A62() )
+        else if ( !player_attacked() )
             var_0 = 0;
 
         wait 0.05;
     }
 }
 
-_id_1A48()
+can_early_melee()
 {
-    if ( self._id_3BFE == 3 )
+    if ( self.gameskill == 3 )
         return 1;
 
-    if ( isdefined( self._id_2CD4 ) && self._id_2CD4 )
+    if ( isdefined( self.dogmeleeearly ) && self.dogmeleeearly )
         return 1;
 
     return 0;
 }
 
-_id_7E7B( var_0 )
+set_melee_early( var_0 )
 {
     if ( !var_0 )
         return;
 
-    if ( level._id_3BFE > 1 && !isdefined( self._id_2CD4 ) )
-        self._id_2CD4 = 1;
+    if ( level.gameskill > 1 && !isdefined( self.dogmeleeearly ) )
+        self.dogmeleeearly = 1;
 }
 #using_animtree("generic_human");
 
-_id_5B97()
+meleestrugglevsdog()
 {
     self endon( "killanimscript" );
     self endon( "death" );
@@ -1064,20 +1046,20 @@ _id_5B97()
     if ( !isdefined( self.syncedmeleetarget ) )
         return;
 
-    self _meth_8193( "face point", self.syncedmeleetarget.origin, 1 );
-    self _meth_8192( "gravity" );
-    self.a._id_6E5A = "stand";
-    self.a._id_8A1A = "none";
+    self orientmode( "face point", self.syncedmeleetarget.origin, 1 );
+    self animmode( "gravity" );
+    self.a.pose = "stand";
+    self.a.special = "none";
 
-    if ( animscripts\utility::_id_9C3A() )
-        animscripts\shared::_id_6869( self.primaryweapon, "right" );
+    if ( animscripts\utility::usingsidearm() )
+        animscripts\shared::placeweaponon( self.primaryweapon, "right" );
 
     var_0 = [];
     var_0[0] = %root;
     var_0[1] = %ai_attacked_german_shepherd_01_start_a;
     var_0[2] = %ai_attacked_german_shepherd_02_idle_a;
 
-    if ( self.syncedmeleetarget._id_5B8C )
+    if ( self.syncedmeleetarget.meleekilltarget )
     {
         var_0[3] = %ai_attacked_german_shepherd_03_push_a;
         var_0[4] = %ai_attacked_german_shepherd_04_middle_a;
@@ -1090,50 +1072,50 @@ _id_5B97()
         var_1 = 3;
     }
 
-    self._id_5B8F = 0;
-    thread _id_5B9A();
-    self _meth_8144( var_0[0], 0.1 );
+    self.meleeseq = 0;
+    thread meleestrugglevsdog_interruptedcheck();
+    self clearanim( var_0[0], 0.1 );
     self setflaggedanimrestart( "aianim", var_0[1], 1, 0.1, 1 );
     wait 0.15;
     self.syncedmeleetarget linkto( self, "tag_sync", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     self waittillmatch( "aianim", "end" );
-    self._id_5B8F = 1;
+    self.meleeseq = 1;
 
-    while ( self._id_5B8F < var_1 )
+    while ( self.meleeseq < var_1 )
     {
-        self _meth_8144( var_0[self._id_5B8F], 0 );
-        self._id_5B8F++;
+        self clearanim( var_0[self.meleeseq], 0 );
+        self.meleeseq++;
 
-        if ( var_1 == 3 && self._id_5B8F == 3 )
-            _id_7FBD( getanimlength( var_0[self._id_5B8F] ) * 1000 - 1000 );
+        if ( var_1 == 3 && self.meleeseq == 3 )
+            setnextdogattackallowtime( getanimlength( var_0[self.meleeseq] ) * 1000 - 1000 );
 
-        self setflaggedanimrestart( "aianim", var_0[self._id_5B8F], 1, 0, 1 );
-        animscripts\shared::_id_2D06( "aianim" );
+        self setflaggedanimrestart( "aianim", var_0[self.meleeseq], 1, 0, 1 );
+        animscripts\shared::donotetracks( "aianim" );
 
         if ( !isdefined( self.syncedmeleetarget ) || !isalive( self.syncedmeleetarget ) )
         {
-            if ( self._id_5B8F == 3 && var_1 == 5 )
+            if ( self.meleeseq == 3 && var_1 == 5 )
             {
                 var_0[4] = %ai_attacked_german_shepherd_04_getup_a;
                 var_1 = 4;
             }
         }
 
-        if ( self._id_5B8F == 5 )
+        if ( self.meleeseq == 5 )
         {
-            if ( !isdefined( self._id_58D7 ) )
+            if ( !isdefined( self.magic_bullet_shield ) )
             {
-                self.a._id_612E = 1;
-                animscripts\shared::_id_2F6C();
+                self.a.nodeath = 1;
+                animscripts\shared::dropallaiweapons();
                 self kill();
             }
         }
     }
 
-    _id_5B99();
+    meleestrugglevsdog_end();
 }
 
-_id_5B9A()
+meleestrugglevsdog_interruptedcheck()
 {
     self endon( "killanimscript" );
     self endon( "death" );
@@ -1142,7 +1124,7 @@ _id_5B9A()
     var_0[1] = %ai_attacked_german_shepherd_02_getup_a;
     var_0[2] = %ai_attacked_german_shepherd_02_getup_a;
 
-    if ( self.syncedmeleetarget._id_5B8C )
+    if ( self.syncedmeleetarget.meleekilltarget )
         var_0[4] = %ai_attacked_german_shepherd_04_getup_a;
 
     for (;;)
@@ -1153,42 +1135,42 @@ _id_5B9A()
         wait 0.1;
     }
 
-    if ( self._id_5B8F > 0 )
+    if ( self.meleeseq > 0 )
     {
-        if ( !isdefined( var_0[self._id_5B8F] ) )
+        if ( !isdefined( var_0[self.meleeseq] ) )
             return;
 
-        self _meth_8144( %melee_dog, 0.1 );
-        self setflaggedanimrestart( "getupanim", var_0[self._id_5B8F], 1, 0.1, 1 );
-        animscripts\shared::_id_2D06( "getupanim" );
+        self clearanim( %melee_dog, 0.1 );
+        self setflaggedanimrestart( "getupanim", var_0[self.meleeseq], 1, 0.1, 1 );
+        animscripts\shared::donotetracks( "getupanim" );
     }
 
-    _id_5B99();
+    meleestrugglevsdog_end();
 }
 
-_id_5B99()
+meleestrugglevsdog_end()
 {
-    self _meth_8193( "face default" );
+    self orientmode( "face default" );
     self.syncedmeleetarget = undefined;
-    self._id_5B8F = undefined;
+    self.meleeseq = undefined;
     self.allowpain = 1;
-    _id_7FBD( 1000 );
+    setnextdogattackallowtime( 1000 );
     self notify( "end_melee_all" );
 }
 #using_animtree("player");
 
-_id_6D82( var_0 )
+playerview_spawn( var_0 )
 {
-    var_1 = spawn( "script_model", var_0._id_5B8B.origin );
-    var_1.angles = var_0._id_5B8B.angles;
-    var_1 setmodel( level._id_6C51 );
+    var_1 = spawn( "script_model", var_0.meleeingplayer.origin );
+    var_1.angles = var_0.meleeingplayer.angles;
+    var_1 setmodel( level.player_viewhand_model );
     var_1 useanimtree( #animtree );
     var_1 hide();
     var_1 _meth_855D();
     return var_1;
 }
 
-_id_466E( var_0 )
+handleplayerknockdownnotetracks( var_0 )
 {
     switch ( var_0 )
     {
@@ -1201,10 +1183,10 @@ _id_466E( var_0 )
 
             break;
         case "blood_pool":
-            if ( !isdefined( self.dog._id_5B8B ) )
+            if ( !isdefined( self.dog.meleeingplayer ) )
                 break;
 
-            if ( maps\_utility::_id_536C( self.dog._id_5B8B ) )
+            if ( maps\_utility::killing_will_down( self.dog.meleeingplayer ) )
                 break;
 
             var_1 = self gettagorigin( "tag_torso" );
@@ -1218,74 +1200,74 @@ _id_466E( var_0 )
     }
 }
 
-_id_6D7C( var_0 )
+playerview_knockdownanim( var_0 )
 {
     self endon( "pvd_melee_interrupted" );
-    var_1 = var_0._id_5B8B;
+    var_1 = var_0.meleeingplayer;
     self.dog = var_0;
-    thread _id_6D7A( var_1 );
+    thread playerview_checkinterrupted( var_1 );
     self setflaggedanimrestart( "viewanim", %player_view_dog_knockdown );
     self setflaggedanimrestart( "viewanim", %player_view_dog_knockdown_late );
-    self _meth_814E( %knockdown, 1, 0, 1 );
-    self _meth_814E( %knockdown_late, 0.01, 0, 1 );
-    animscripts\shared::_id_2D06( "viewanim", ::_id_466E );
+    self setanimlimited( %knockdown, 1, 0, 1 );
+    self setanimlimited( %knockdown_late, 0.01, 0, 1 );
+    animscripts\shared::donotetracks( "viewanim", ::handleplayerknockdownnotetracks );
     self dontinterpolate();
     self.dog = undefined;
-    _id_6D7B( var_1 );
+    playerview_endsequence( var_1 );
     self notify( "pvd_melee_done" );
 }
 
-_id_6D7A( var_0 )
+playerview_checkinterrupted( var_0 )
 {
     self endon( "pvd_melee_done" );
-    self.dog common_scripts\utility::_id_A069( "death", "pain", "melee_stop" );
+    self.dog common_scripts\utility::waittill_any( "death", "pain", "melee_stop" );
 
-    if ( !isdefined( var_0._id_8A2B ) && isalive( var_0 ) )
+    if ( !isdefined( var_0.specialdeath ) && isalive( var_0 ) )
     {
         self notify( "pvd_melee_interrupted" );
         self.dog notify( "pvd_melee_interrupted" );
-        _id_6D7B( var_0 );
+        playerview_endsequence( var_0 );
     }
 }
 
-_id_6D83( var_0 )
+playerview_startsequence( var_0 )
 {
-    if ( isdefined( self._id_4E82 ) )
+    if ( isdefined( self.inseq ) )
         return 0;
 
-    var_1 = var_0._id_5B8B;
+    var_1 = var_0.meleeingplayer;
 
-    if ( isdefined( var_1 ) && isdefined( var_1._id_686B ) )
+    if ( isdefined( var_1 ) && isdefined( var_1.placingsentry ) )
         var_1 notify( "sentry_placement_canceled" );
 
     var_1 notify( "dog_attacks_player" );
-    self._id_4E82 = 1;
+    self.inseq = 1;
 
     if ( isalive( var_1 ) )
         var_1 hidehud();
 
     var_1 setstance( "stand" );
     var_1.syncedmeleetarget = var_0;
-    var_1._id_6C50 _id_6D81( var_1 );
+    var_1.player_view playerview_show( var_1 );
     var_2 = var_0.origin - var_1.origin;
     self.angles = vectortoangles( var_2 );
     self.angles = ( 0, self.angles[1], 0 );
-    self._id_8CFF = self.angles;
+    self.startangles = self.angles;
     var_3 = var_1.origin;
-    var_4 = var_1 _meth_813E( var_1.origin );
+    var_4 = var_1 getdroptofloorposition( var_1.origin );
 
     if ( isdefined( var_4 ) )
         self.origin = var_4;
     else
         self.origin = var_1.origin;
 
-    thread _id_6D7C( var_0 );
+    thread playerview_knockdownanim( var_0 );
     self dontinterpolate();
     var_1 playerlinktoabsolute( self, "tag_player" );
     var_0 linkto( self, "tag_sync", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_5 = self gettagangles( "tag_sync" );
-    var_0 _meth_8193( "face angle", var_5[1] );
-    var_0 _meth_8193( "face default" );
+    var_0 orientmode( "face angle", var_5[1] );
+    var_0 orientmode( "face default" );
     var_1 allowstand( 1 );
     var_1 allowlean( 0 );
     var_1 allowcrouch( 0 );
@@ -1295,77 +1277,77 @@ _id_6D83( var_0 )
     return 1;
 }
 
-_id_7819( var_0 )
+savednotify( var_0 )
 {
     wait 0.5;
     var_0 playsound( "saved_from_dog" );
 }
 
-_id_6B2B()
+player_gets_weapons_back()
 {
     self endon( "death" );
     self _meth_847D();
     self enableweapons();
 }
 
-_id_6D7B( var_0 )
+playerview_endsequence( var_0 )
 {
     var_0 showhud();
 
     if ( isalive( var_0 ) )
     {
-        self _meth_8144( %player_view_dog_knockdown, 0.1 );
+        self clearanim( %player_view_dog_knockdown, 0.1 );
 
-        if ( isdefined( self._id_607A ) )
+        if ( isdefined( self.necksnapped ) )
             self setflaggedanimrestart( "viewanim", %player_view_dog_knockdown_neck_snap, 1, 0.2, 1 );
-        else if ( isdefined( var_0._id_2C9D ) )
+        else if ( isdefined( var_0.dog_downed_player ) )
             self setflaggedanimknobrestart( "viewanim", %player_view_dog_knockdown_laststand, 1, 0.1, 1 );
         else
         {
-            thread _id_7819( var_0 );
+            thread savednotify( var_0 );
             self setflaggedanimrestart( "viewanim", %player_view_dog_knockdown_saved );
         }
 
-        if ( !isdefined( var_0._id_2C9D ) )
+        if ( !isdefined( var_0.dog_downed_player ) )
         {
-            var_0 maps\_utility::_id_27EF( 2.5, ::_id_6B2B );
-            animscripts\shared::_id_2D06( "viewanim" );
+            var_0 maps\_utility::delaythread( 2.5, ::player_gets_weapons_back );
+            animscripts\shared::donotetracks( "viewanim" );
             var_0 notify( "player_saved_from_dog" );
         }
         else
         {
-            animscripts\shared::_id_2D06( "viewanim" );
+            animscripts\shared::donotetracks( "viewanim" );
             var_0 notify( "deathshield", 1000000, self.dog );
             var_0 _meth_847D();
         }
 
-        _id_6D84( var_0 );
+        playerview_unlinkplayeranddelete( var_0 );
     }
     else
         setsaveddvar( "compass", 0 );
 
     var_0.syncedmeleetarget = undefined;
-    var_0._id_2C9D = undefined;
-    _id_74B0( var_0 );
+    var_0.dog_downed_player = undefined;
+    restoreplayercontrols( var_0 );
 }
 
-_id_6D84( var_0 )
+playerview_unlinkplayeranddelete( var_0 )
 {
     var_0 show();
     var_0 unlink();
     var_0 setorigin( self.origin );
-    var_0 setplayerangles( self._id_8CFF );
+    var_0 setplayerangles( self.startangles );
     var_0 setcandamage( 1 );
-    var_1 = var_0._id_6C50;
+    var_1 = var_0.player_view;
 
     if ( isdefined( var_1 ) )
     {
         var_1 delete();
-        var_0._id_6C50 = undefined;
+        var_0.player_view = undefined;
     }
 }
 
-_id_74B0( var_0 )
+restoreplayercontrols( var_0 )
 {
     var_0 allowlean( 1 );
     var_0 allowcrouch( 1 );
@@ -1374,42 +1356,42 @@ _id_74B0( var_0 )
     var_0.attacked_by_dog = undefined;
 }
 
-_id_6D81( var_0 )
+playerview_show( var_0 )
 {
     self showonclient( var_0 );
     var_0 _meth_847E();
     var_0 disableweapons();
 }
 
-_id_6D7F( var_0 )
+playerview_playknockdownanimlimited( var_0 )
 {
     self setflaggedanimlimited( "viewanim", %player_view_dog_knockdown, 1, 0.2, var_0 );
     self setflaggedanimlimited( "viewanim", %player_view_dog_knockdown_late, 1, 0.2, var_0 );
 }
 
-_id_6D7E( var_0 )
+playerview_playknockdownanim( var_0 )
 {
     self setflaggedanimlimited( "viewanim", %player_view_dog_knockdown, 1, 0.2, var_0 );
     self setflaggedanimlimited( "viewanim", %player_view_dog_knockdown_late, 1, 0.2, var_0 );
 }
 
-_id_6D80( var_0 )
+playerview_playmissanim( var_0 )
 {
     self setflaggedanimknobrestart( "viewanim", %player_view_dog_knockdown_neck_miss, 1, 0.2, var_0 );
 }
 
-_id_6D7D()
+playerview_knockdownlate()
 {
-    self _meth_814E( %knockdown, 0.01, 0.2, 1 );
-    self _meth_814E( %knockdown_late, 1, 0.2, 1 );
+    self setanimlimited( %knockdown, 0.01, 0.2, 1 );
+    self setanimlimited( %knockdown_late, 1, 0.2, 1 );
 }
 
-_id_2CBB()
+dog_vs_player_anim_rate()
 {
     return 1;
 }
 
-_id_503A()
+is_hyena()
 {
     if ( issubstr( self.classname, "hyena" ) )
         return 1;

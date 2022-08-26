@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-setParent( var_0 )
+setparent( var_0 )
 {
     if ( isdefined( self.parent ) && self.parent == var_0 )
         return;
@@ -31,22 +13,22 @@ setParent( var_0 )
     self.parent addchild( self );
 
     if ( isdefined( self.point ) )
-        setpoint( self.point, self.relativePoint, self.xoffset, self.yoffset );
+        setpoint( self.point, self.relativepoint, self.xoffset, self.yoffset );
     else
         setpoint( "TOPLEFT" );
 }
 
-getParent()
+getparent()
 {
     return self.parent;
 }
 
-_id_739D()
+removedestroyedchildren()
 {
-    if ( isdefined( self._id_1D3C ) && self._id_1D3C == gettime() )
+    if ( isdefined( self.childchecktime ) && self.childchecktime == gettime() )
         return;
 
-    self._id_1D3C = gettime();
+    self.childchecktime = gettime();
     var_0 = [];
 
     foreach ( var_3, var_2 in self.children )
@@ -65,7 +47,7 @@ addchild( var_0 )
 {
     var_0.index = self.children.size;
     self.children[self.children.size] = var_0;
-    _id_739D();
+    removedestroyedchildren();
 }
 
 removechild( var_0 )
@@ -87,7 +69,7 @@ setpoint( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_4 ) )
         var_4 = 0;
 
-    var_5 = getParent();
+    var_5 = getparent();
 
     if ( var_4 )
         self moveovertime( var_4 );
@@ -120,7 +102,7 @@ setpoint( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_1 ) )
         var_1 = var_0;
 
-    self.relativePoint = var_1;
+    self.relativepoint = var_1;
     var_6 = "center";
     var_7 = "middle";
 
@@ -220,11 +202,11 @@ setpointbar( var_0, var_1, var_2, var_3 )
     self.bar.y = self.bar.offset_y + self.y;
 
     if ( self.alignx == "left" )
-        self.bar.x = self.bar.offset_x + self.x + self._id_A3A3;
+        self.bar.x = self.bar.offset_x + self.x + self.xpadding;
     else if ( self.alignx == "right" )
-        self.bar.x = self.bar.offset_x + self.x - ( self.width - self._id_A3A3 );
+        self.bar.x = self.bar.offset_x + self.x - ( self.width - self.xpadding );
     else
-        self.bar.x = self.bar.offset_x + self.x - int( ( self.width - self._id_A3A3 * 2 ) / 2 );
+        self.bar.x = self.bar.offset_x + self.x - int( ( self.width - self.xpadding * 2 ) / 2 );
 
     if ( isdefined( self.progress_bg_distort ) )
     {
@@ -241,27 +223,27 @@ setpointbar( var_0, var_1, var_2, var_3 )
 
 updatebar( var_0 )
 {
-    var_1 = int( ( self.width - self._id_A3A3 * 2 ) * var_0 );
+    var_1 = int( ( self.width - self.xpadding * 2 ) * var_0 );
 
     if ( !var_1 )
         var_1 = 1;
 
     self.bar.frac = var_0;
-    self.bar setshader( self.bar.shader, var_1, self.height - self._id_A3BD * 2 );
+    self.bar setshader( self.bar.shader, var_1, self.height - self.ypadding * 2 );
 }
 
-_id_486E( var_0 )
+hidebar( var_0 )
 {
-    var_0 = common_scripts\utility::_id_9294( isdefined( var_0 ), var_0, 1 );
+    var_0 = common_scripts\utility::ter_op( isdefined( var_0 ), var_0, 1 );
 
-    if ( var_0 || !isdefined( self._id_658B ) || !isdefined( self.bar._id_658B ) )
+    if ( var_0 || !isdefined( self.orig_alpha ) || !isdefined( self.bar.orig_alpha ) )
     {
-        self._id_658B = self.alpha;
-        self.bar._id_658B = self.bar.alpha;
+        self.orig_alpha = self.alpha;
+        self.bar.orig_alpha = self.bar.alpha;
     }
 
-    self.alpha = common_scripts\utility::_id_9294( var_0, 0, self._id_658B );
-    self.bar.alpha = common_scripts\utility::_id_9294( var_0, 0, self.bar._id_658B );
+    self.alpha = common_scripts\utility::ter_op( var_0, 0, self.orig_alpha );
+    self.bar.alpha = common_scripts\utility::ter_op( var_0, 0, self.bar.orig_alpha );
 }
 
 createfontstring( var_0, var_1 )
@@ -273,15 +255,15 @@ createfontstring( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     return var_2;
 }
 
-_id_23ED( var_0, var_1 )
+createclientfontstring( var_0, var_1 )
 {
     var_2 = newclienthudelem( self );
     var_2.elemtype = "font";
@@ -290,15 +272,15 @@ _id_23ED( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     return var_2;
 }
 
-_id_23F1( var_0, var_1 )
+createclienttimer( var_0, var_1 )
 {
     var_2 = newclienthudelem( self );
     var_2.elemtype = "timer";
@@ -307,11 +289,11 @@ _id_23F1( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     return var_2;
 }
 
@@ -324,11 +306,11 @@ createserverfontstring( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     return var_2;
 }
 
@@ -341,27 +323,27 @@ createservertimer( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     return var_2;
 }
 
-createIcon( var_0, var_1, var_2 )
+createicon( var_0, var_1, var_2 )
 {
     var_3 = newhudelem();
-    return _id_2421( var_3, var_0, var_1, var_2 );
+    return createicon_hudelem( var_3, var_0, var_1, var_2 );
 }
 
-_id_23EF( var_0, var_1, var_2 )
+createclienticon( var_0, var_1, var_2 )
 {
     var_3 = newclienthudelem( self );
-    return _id_2421( var_3, var_0, var_1, var_2 );
+    return createicon_hudelem( var_3, var_0, var_1, var_2 );
 }
 
-_id_2421( var_0, var_1, var_2, var_3 )
+createicon_hudelem( var_0, var_1, var_2, var_3 )
 {
     var_0.elemtype = "icon";
     var_0.x = 0;
@@ -371,7 +353,7 @@ _id_2421( var_0, var_1, var_2, var_3 )
     var_0.xoffset = 0;
     var_0.yoffset = 0;
     var_0.children = [];
-    var_0 setParent( level.uiparent );
+    var_0 setparent( level.uiparent );
 
     if ( isdefined( var_1 ) )
         var_0 setshader( var_1, var_2, var_3 );
@@ -417,16 +399,16 @@ h1_createbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_9.sort = -1;
     var_9.width = var_2;
     var_9.height = var_3;
-    var_9._id_A3A3 = 2;
-    var_9._id_A3BD = 3;
+    var_9.xpadding = 2;
+    var_9.ypadding = 3;
     var_9.children = [];
     var_9.progress_bg_distort = var_7;
     var_9.bar = var_8;
-    var_9 setParent( level.uiparent );
+    var_9 setparent( level.uiparent );
     return var_9;
 }
 
-createBar( var_0, var_1, var_2, var_3, var_4 )
+createbar( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = "white";
@@ -450,8 +432,8 @@ createBar( var_0, var_1, var_2, var_3, var_4 )
 
     if ( isdefined( var_4 ) )
     {
-        var_5.flashFarc = var_4;
-        var_5 thread flashThread();
+        var_5.flashfrac = var_4;
+        var_5 thread flashthread();
     }
 
     var_5.offset_x = 0;
@@ -466,31 +448,31 @@ createBar( var_0, var_1, var_2, var_3, var_4 )
     var_6.yoffset = 0;
     var_6.bar = var_5;
     var_6.children = [];
-    var_6._id_A3A3 = 2;
-    var_6._id_A3BD = 2;
+    var_6.xpadding = 2;
+    var_6.ypadding = 2;
     var_6.sort = -2;
     var_6.alpha = 0.5;
-    var_6 setParent( level.uiparent );
+    var_6 setparent( level.uiparent );
     var_6 setshader( var_1, var_2, var_3 );
     return var_6;
 }
 
-_id_23F0( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+createclientprogressbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    var_0 = common_scripts\utility::_id_9294( isdefined( var_0 ), var_0, level.player );
-    var_1 = common_scripts\utility::_id_9294( isdefined( var_1 ), var_1, 90 );
-    var_2 = common_scripts\utility::_id_9294( isdefined( var_2 ), var_2, "white" );
-    var_3 = common_scripts\utility::_id_9294( isdefined( var_3 ), var_3, "black" );
-    var_4 = common_scripts\utility::_id_9294( isdefined( var_4 ), var_4, 100 );
-    var_5 = common_scripts\utility::_id_9294( isdefined( var_5 ), var_5, 9 );
-    var_6 = common_scripts\utility::_id_9294( isdefined( var_6 ), var_6, 2 );
-    var_7 = common_scripts\utility::_id_9294( isdefined( var_7 ), var_7, 2 );
-    var_8 = var_0 _id_23EC( var_2, var_3, var_4, var_5, undefined, var_6, var_7 );
+    var_0 = common_scripts\utility::ter_op( isdefined( var_0 ), var_0, level.player );
+    var_1 = common_scripts\utility::ter_op( isdefined( var_1 ), var_1, 90 );
+    var_2 = common_scripts\utility::ter_op( isdefined( var_2 ), var_2, "white" );
+    var_3 = common_scripts\utility::ter_op( isdefined( var_3 ), var_3, "black" );
+    var_4 = common_scripts\utility::ter_op( isdefined( var_4 ), var_4, 100 );
+    var_5 = common_scripts\utility::ter_op( isdefined( var_5 ), var_5, 9 );
+    var_6 = common_scripts\utility::ter_op( isdefined( var_6 ), var_6, 2 );
+    var_7 = common_scripts\utility::ter_op( isdefined( var_7 ), var_7, 2 );
+    var_8 = var_0 createclientbar( var_2, var_3, var_4, var_5, undefined, var_6, var_7 );
     var_8 setpoint( "CENTER", undefined, 0, var_1 );
     return var_8;
 }
 
-_id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+createclientbar( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( var_5 ) )
         var_5 = 2;
@@ -508,8 +490,8 @@ _id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     if ( isdefined( var_4 ) )
     {
-        var_7.flashFarc = var_4;
-        var_7 thread flashThread();
+        var_7.flashfrac = var_4;
+        var_7 thread flashthread();
     }
 
     var_8 = newclienthudelem( self );
@@ -522,21 +504,21 @@ _id_23EC( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_8.yoffset = 0;
     var_8.bar = var_7;
     var_8.children = [];
-    var_8._id_A3A3 = var_5;
-    var_8._id_A3BD = var_6;
+    var_8.xpadding = var_5;
+    var_8.ypadding = var_6;
     var_8.sort = -2;
     var_8.alpha = 0.5;
-    var_8 setParent( level.uiparent );
+    var_8 setparent( level.uiparent );
     var_8 setshader( var_1, var_2, var_3 );
     return var_8;
 }
 
-setFlashFrac( var_0 )
+setflashfrac( var_0 )
 {
-    self.bar.flashFarc = var_0;
+    self.bar.flashfrac = var_0;
 }
 
-_id_35E8( var_0, var_1 )
+fade_over_time( var_0, var_1 )
 {
     if ( isdefined( var_1 ) && var_1 > 0 )
         self fadeovertime( var_1 );
@@ -547,14 +529,14 @@ _id_35E8( var_0, var_1 )
         wait(var_1);
 }
 
-flashThread()
+flashthread()
 {
     self endon( "death" );
     self.alpha = 1;
 
     for (;;)
     {
-        if ( self.frac >= self.flashFarc )
+        if ( self.frac >= self.flashfrac )
         {
             self fadeovertime( 0.3 );
             self.alpha = 0.2;
@@ -570,7 +552,7 @@ flashThread()
     }
 }
 
-destroyElem()
+destroyelem()
 {
     if ( isdefined( self.children ) && self.children.size )
     {
@@ -580,7 +562,7 @@ destroyElem()
             var_0[var_1] = self.children[var_1];
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-            var_0[var_1] setParent( getParent() );
+            var_0[var_1] setparent( getparent() );
     }
 
     if ( isdefined( self.elemtype ) && self.elemtype == "bar" )
@@ -594,22 +576,22 @@ destroyElem()
     self destroy();
 }
 
-setIconShader( var_0 )
+seticonshader( var_0 )
 {
     self setshader( var_0, self.width, self.height );
 }
 
-setWidth( var_0 )
+setwidth( var_0 )
 {
     self.width = var_0;
 }
 
-setHeight( var_0 )
+setheight( var_0 )
 {
     self.height = var_0;
 }
 
-setSize( var_0, var_1 )
+setsize( var_0, var_1 )
 {
     self.width = var_0;
     self.height = var_1;
@@ -620,44 +602,44 @@ updatechildren( var_0 )
     for ( var_1 = 0; var_1 < self.children.size; var_1++ )
     {
         var_2 = self.children[var_1];
-        var_2 setpoint( var_2.point, var_2.relativePoint, var_2.xoffset, var_2.yoffset, var_0 );
+        var_2 setpoint( var_2.point, var_2.relativepoint, var_2.xoffset, var_2.yoffset, var_0 );
     }
 }
 
-_id_8AF5( var_0 )
+stance_carry_icon_enable( var_0 )
 {
     if ( isdefined( var_0 ) && var_0 == 0 )
     {
-        _id_8AF4();
+        stance_carry_icon_disable();
         return;
     }
 
     setsaveddvar( "hud_showStanceCarry", "1" );
 }
 
-_id_8AF4()
+stance_carry_icon_disable()
 {
     setsaveddvar( "hud_showStanceCarry", "0" );
 }
 
-_id_23CB()
+create_mantle()
 {
     if ( level.console )
     {
         var_0 = createfontstring( "default", 1.8 );
         var_0 setpoint( "CENTER", undefined, 0, 115 );
-        var_0 settext( level._id_8F58["mantle"] );
+        var_0 settext( level.strings["mantle"] );
     }
     else
     {
         var_0 = createfontstring( "default", 1.6 );
         var_0 setpoint( "CENTER", undefined, 0, 115 );
-        var_0 settext( level._id_8F58["mantle"] );
+        var_0 settext( level.strings["mantle"] );
     }
 
     var_0.alpha = 0;
-    level._id_4AC8 = [];
-    level._id_4AC8["text"] = var_0;
+    level.hud_mantle = [];
+    level.hud_mantle["text"] = var_0;
 }
 
 add_hint_background( var_0, var_1, var_2 )
@@ -674,23 +656,23 @@ add_hint_background( var_0, var_1, var_2 )
     {
         var_3 = 121;
         var_4 = 38;
-        level._id_48F3 = createIcon( "h1_hud_tutorial_blur", 560, 39 );
-        level.hintbordertop = createIcon( "h1_hud_tutorial_border", 560, 1 );
-        level.hintborderbottom = createIcon( "h1_hud_tutorial_border", 560, 1 );
+        level.hintbackground = createicon( "h1_hud_tutorial_blur", 560, 39 );
+        level.hintbordertop = createicon( "h1_hud_tutorial_border", 560, 1 );
+        level.hintborderbottom = createicon( "h1_hud_tutorial_border", 560, 1 );
     }
     else
     {
         var_3 = 121;
         var_4 = 24;
-        level._id_48F3 = createIcon( "h1_hud_tutorial_blur", 560, 25 );
-        level.hintbordertop = createIcon( "h1_hud_tutorial_border", 560, 1 );
-        level.hintborderbottom = createIcon( "h1_hud_tutorial_border", 560, 1 );
+        level.hintbackground = createicon( "h1_hud_tutorial_blur", 560, 25 );
+        level.hintbordertop = createicon( "h1_hud_tutorial_border", 560, 1 );
+        level.hintborderbottom = createicon( "h1_hud_tutorial_border", 560, 1 );
     }
 
-    level._id_48F3 setpoint( "TOP", undefined, 0, var_3 + var_1 );
-    level._id_48F3.sort = 1;
-    level._id_48F3.hidewheninmenu = 1;
-    level._id_48F3.hidewhendead = 1;
+    level.hintbackground setpoint( "TOP", undefined, 0, var_3 + var_1 );
+    level.hintbackground.sort = 1;
+    level.hintbackground.hidewheninmenu = 1;
+    level.hintbackground.hidewhendead = 1;
     level.hintbordertop setpoint( "TOP", undefined, 0, var_3 + var_1 );
     level.hintbordertop.sort = 1;
     level.hintbordertop.hidewheninmenu = 1;
@@ -702,15 +684,15 @@ add_hint_background( var_0, var_1, var_2 )
 
     if ( var_2 == 0 )
     {
-        level._id_48F3.alpha = 0.9;
+        level.hintbackground.alpha = 0.9;
         level.hintbordertop.alpha = 0.05;
         level.hintborderbottom.alpha = 0.05;
     }
     else
     {
-        level._id_48F3.alpha = 0;
-        level._id_48F3 fadeovertime( var_2 );
-        level._id_48F3.alpha = 0.9;
+        level.hintbackground.alpha = 0;
+        level.hintbackground fadeovertime( var_2 );
+        level.hintbackground.alpha = 0.9;
         level.hintbordertop.alpha = 0;
         level.hintbordertop fadeovertime( var_2 );
         level.hintbordertop.alpha = 0.05;
@@ -722,12 +704,12 @@ add_hint_background( var_0, var_1, var_2 )
 
 fade_hint_background( var_0 )
 {
-    if ( isdefined( level._id_48F3 ) )
+    if ( isdefined( level.hintbackground ) )
     {
         if ( var_0 > 0 )
-            level._id_48F3 fadeovertime( var_0 );
+            level.hintbackground fadeovertime( var_0 );
 
-        level._id_48F3.alpha = 0;
+        level.hintbackground.alpha = 0;
     }
 
     if ( isdefined( level.hintbordertop ) )
@@ -749,14 +731,14 @@ fade_hint_background( var_0 )
 
 clear_hint_background()
 {
-    if ( isdefined( level._id_48F3 ) )
-        level._id_48F3 destroyElem();
+    if ( isdefined( level.hintbackground ) )
+        level.hintbackground destroyelem();
 
     if ( isdefined( level.hintbordertop ) )
-        level.hintbordertop destroyElem();
+        level.hintbordertop destroyelem();
 
     if ( isdefined( level.hintborderbottom ) )
-        level.hintborderbottom destroyElem();
+        level.hintborderbottom destroyelem();
 }
 
 get_stats_display_hud( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -764,9 +746,9 @@ get_stats_display_hud( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    var_6 = common_scripts\utility::_id_9294( !isdefined( var_0 ) || var_3, -225, var_0 );
-    var_7 = common_scripts\utility::_id_9294( !isdefined( var_1 ), 10.5, var_1 );
-    var_4 = common_scripts\utility::_id_9294( !isdefined( var_4 ), 1.6, var_4 );
+    var_6 = common_scripts\utility::ter_op( !isdefined( var_0 ) || var_3, -225, var_0 );
+    var_7 = common_scripts\utility::ter_op( !isdefined( var_1 ), 10.5, var_1 );
+    var_4 = common_scripts\utility::ter_op( !isdefined( var_4 ), 1.6, var_4 );
 
     if ( isdefined( var_2 ) )
         var_8 = newclienthudelem( var_2 );
@@ -907,13 +889,13 @@ add_countdown_flourish( var_0, var_1, var_2, var_3 )
     var_15 destroy();
 }
 
-_id_3D17( var_0, var_1, var_2, var_3, var_4 )
+get_countdown_hud( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    var_5 = common_scripts\utility::_id_9294( !isdefined( var_0 ) || var_3, 0, var_0 );
-    var_6 = common_scripts\utility::_id_9294( !isdefined( var_1 ), 10.5, var_1 );
+    var_5 = common_scripts\utility::ter_op( !isdefined( var_0 ) || var_3, 0, var_0 );
+    var_6 = common_scripts\utility::ter_op( !isdefined( var_1 ), 10.5, var_1 );
 
     if ( isdefined( var_2 ) )
         var_7 = newclienthudelem( var_2 );
@@ -949,21 +931,21 @@ _id_3D17( var_0, var_1, var_2, var_3, var_4 )
     var_7.foreground = 1;
     var_7.hidewheninmenu = 1;
     var_7.hidewhendead = 1;
-    var_7._id_92B2 = newhudelem();
-    var_7._id_92B2.alignx = "center";
-    var_7._id_92B2.aligny = "top";
-    var_7._id_92B2.horzalign = "center_adjustable";
-    var_7._id_92B2.vertalign = "top_adjustable";
-    var_7._id_92B2.x = var_5;
-    var_7._id_92B2.y = var_6 + 8;
-    var_7._id_92B2.fontscale = 0.45;
-    var_7._id_92B2.color = ( 1.0, 1.0, 1.0 );
-    var_7._id_92B2.font = "timer";
-    var_7._id_92B2.glowcolor = ( 0.0, 0.0, 0.0 );
-    var_7._id_92B2.glowalpha = 1;
-    var_7._id_92B2.foreground = 1;
-    var_7._id_92B2.hidewheninmenu = 1;
-    var_7._id_92B2.hidewhendead = 1;
+    var_7.text = newhudelem();
+    var_7.text.alignx = "center";
+    var_7.text.aligny = "top";
+    var_7.text.horzalign = "center_adjustable";
+    var_7.text.vertalign = "top_adjustable";
+    var_7.text.x = var_5;
+    var_7.text.y = var_6 + 8;
+    var_7.text.fontscale = 0.45;
+    var_7.text.color = ( 1.0, 1.0, 1.0 );
+    var_7.text.font = "timer";
+    var_7.text.glowcolor = ( 0.0, 0.0, 0.0 );
+    var_7.text.glowalpha = 1;
+    var_7.text.foreground = 1;
+    var_7.text.hidewheninmenu = 1;
+    var_7.text.hidewhendead = 1;
     var_7.blur = newhudelem();
     var_7.blur.x = var_5;
     var_7.blur.y = var_6;
@@ -1004,8 +986,8 @@ destroy_countdown_hud( var_0 )
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( isdefined( var_0._id_92B2 ) )
-        var_0._id_92B2 destroy();
+    if ( isdefined( var_0.text ) )
+        var_0.text destroy();
 
     if ( isdefined( var_0.blur ) )
         var_0.blur destroy();
@@ -1016,7 +998,7 @@ destroy_countdown_hud( var_0 )
     var_0 destroy();
 }
 
-_id_3D47( var_0, var_1, var_2, var_3 )
+get_download_state_hud( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 0;
@@ -1060,7 +1042,7 @@ _id_3D47( var_0, var_1, var_2, var_3 )
     return var_6;
 }
 
-_id_23A2( var_0, var_1, var_2 )
+create_client_overlay( var_0, var_1, var_2 )
 {
     if ( isdefined( var_2 ) )
         var_3 = newclienthudelem( var_2 );
@@ -1080,9 +1062,9 @@ _id_23A2( var_0, var_1, var_2 )
     return var_3;
 }
 
-_id_23A3( var_0, var_1, var_2, var_3, var_4 )
+create_client_overlay_custom_size( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = maps\_utility::_id_3E25();
+    var_5 = maps\_utility::get_player_from_self();
     var_6 = newclienthudelem( var_5 );
 
     if ( !isdefined( var_4 ) )
@@ -1107,9 +1089,9 @@ _id_23A3( var_0, var_1, var_2, var_3, var_4 )
     return var_6;
 }
 
-_id_23A4( var_0, var_1, var_2, var_3, var_4 )
+create_client_overlay_fullscreen( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = maps\_utility::_id_3E25();
+    var_5 = maps\_utility::get_player_from_self();
     var_6 = newclienthudelem( var_5 );
 
     if ( !isdefined( var_4 ) )
@@ -1128,34 +1110,34 @@ _id_23A4( var_0, var_1, var_2, var_3, var_4 )
     return var_6;
 }
 
-_id_35DC( var_0, var_1 )
+fade_in( var_0, var_1 )
 {
-    if ( level._id_5CDE )
+    if ( level.missionfailed )
         return;
 
     if ( !isdefined( var_0 ) )
         var_0 = 0.3;
 
-    var_2 = _id_3E03( var_1 );
+    var_2 = get_optional_overlay( var_1 );
     var_2 fadeovertime( var_0 );
     var_2.alpha = 0;
     wait(var_0);
 }
 
-_id_3E03( var_0 )
+get_optional_overlay( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = "black";
 
-    return _id_3E13( var_0 );
+    return get_overlay( var_0 );
 }
 
-_id_35E3( var_0, var_1 )
+fade_out( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0.3;
 
-    var_2 = _id_3E03( var_1 );
+    var_2 = get_optional_overlay( var_1 );
 
     if ( var_0 > 0 )
         var_2 fadeovertime( var_0 );
@@ -1164,34 +1146,34 @@ _id_35E3( var_0, var_1 )
     wait(var_0);
 }
 
-_id_8C23( var_0 )
+start_overlay( var_0 )
 {
-    var_1 = _id_3E03( var_0 );
+    var_1 = get_optional_overlay( var_0 );
     var_1.alpha = 1;
 }
 
-_id_3E13( var_0 )
+get_overlay( var_0 )
 {
     if ( isplayer( self ) )
         var_1 = self;
     else
         var_1 = level.player;
 
-    if ( !isdefined( var_1._id_65F6 ) )
-        var_1._id_65F6 = [];
+    if ( !isdefined( var_1.overlay ) )
+        var_1.overlay = [];
 
-    if ( !isdefined( var_1._id_65F6[var_0] ) )
-        var_1._id_65F6[var_0] = _id_23A2( var_0, 0, var_1 );
+    if ( !isdefined( var_1.overlay[var_0] ) )
+        var_1.overlay[var_0] = create_client_overlay( var_0, 0, var_1 );
 
-    var_1._id_65F6[var_0].sort = 0;
-    var_1._id_65F6[var_0].foreground = 1;
-    return var_1._id_65F6[var_0];
+    var_1.overlay[var_0].sort = 0;
+    var_1.overlay[var_0].foreground = 1;
+    return var_1.overlay[var_0];
 }
 
 display_custom_nameplate( var_0, var_1, var_2 )
 {
-    if ( !maps\_utility::_id_32DC( "kill_custom_nameplate" ) )
-        maps\_utility::_id_32DD( "kill_custom_nameplate" );
+    if ( !maps\_utility::ent_flag_exist( "kill_custom_nameplate" ) )
+        maps\_utility::ent_flag_init( "kill_custom_nameplate" );
 
     var_3 = undefined;
 
@@ -1211,7 +1193,7 @@ display_custom_nameplate( var_0, var_1, var_2 )
 
     for (;;)
     {
-        if ( !isdefined( self ) || maps\_utility::_id_32D8( "kill_custom_nameplate" ) )
+        if ( !isdefined( self ) || maps\_utility::ent_flag( "kill_custom_nameplate" ) )
         {
             if ( isdefined( var_5 ) )
                 var_5 destroy();

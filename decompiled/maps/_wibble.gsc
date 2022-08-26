@@ -1,28 +1,10 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 set_cloth_wibble( var_0 )
 {
-    _func_2E8( 0, "x", 1.0 );
-    _func_2E8( 0, "y", var_0 );
+    setshaderconstant( 0, "x", 1.0 );
+    setshaderconstant( 0, "y", var_0 );
 }
 
 setup_wibble_triggers( var_0, var_1, var_2, var_3, var_4 )
@@ -43,7 +25,7 @@ setup_wibble_triggers( var_0, var_1, var_2, var_3, var_4 )
 setup_wibble_helis( var_0, var_1 )
 {
     if ( isdefined( var_1 ) )
-        common_scripts\utility::_id_384A( var_1 );
+        common_scripts\utility::flag_wait( var_1 );
 
     if ( var_0 )
     {
@@ -55,11 +37,11 @@ setup_wibble_helis( var_0, var_1 )
         {
             var_3 = 0;
 
-            if ( isdefined( level._id_4816 ) )
+            if ( isdefined( level.helis ) )
             {
-                level._id_4816 = common_scripts\utility::array_removeundefined( level._id_4816 );
+                level.helis = common_scripts\utility::array_removeundefined( level.helis );
 
-                foreach ( var_5 in level._id_4816 )
+                foreach ( var_5 in level.helis )
                 {
                     var_6 = distancesquared( level.player.origin, var_5.origin );
 
@@ -113,8 +95,8 @@ wibble_trigger_think( var_0, var_1, var_2 )
 
 wibble_add_heli_to_track( var_0 )
 {
-    if ( !isdefined( level._id_4816 ) )
-        level._id_4816 = [];
+    if ( !isdefined( level.helis ) )
+        level.helis = [];
 
-    level._id_4816 = common_scripts\utility::array_add( level._id_4816, var_0 );
+    level.helis = common_scripts\utility::array_add( level.helis, var_0 );
 }

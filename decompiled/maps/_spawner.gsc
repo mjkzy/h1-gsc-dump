@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     precachemodel( "grenade_bag" );
@@ -26,66 +8,66 @@ main()
     createthreatbiasgroup( "axis" );
     createthreatbiasgroup( "team3" );
     createthreatbiasgroup( "civilian" );
-    maps\_anim::addnotetrack_customfunction( "generic", "rappel_pushoff_initial_npc", maps\_utility::_id_3098 );
-    maps\_anim::addnotetrack_customfunction( "generic", "ps_rappel_pushoff_initial_npc", maps\_utility::_id_3098 );
-    maps\_anim::addnotetrack_customfunction( "generic", "feet_on_ground", maps\_utility::_id_2A73 );
-    maps\_anim::addnotetrack_customfunction( "generic", "ps_rappel_clipout_npc", maps\_utility::_id_2A73 );
+    maps\_anim::addnotetrack_customfunction( "generic", "rappel_pushoff_initial_npc", maps\_utility::enable_achievement_harder_they_fall_guy );
+    maps\_anim::addnotetrack_customfunction( "generic", "ps_rappel_pushoff_initial_npc", maps\_utility::enable_achievement_harder_they_fall_guy );
+    maps\_anim::addnotetrack_customfunction( "generic", "feet_on_ground", maps\_utility::disable_achievement_harder_they_fall_guy );
+    maps\_anim::addnotetrack_customfunction( "generic", "ps_rappel_clipout_npc", maps\_utility::disable_achievement_harder_they_fall_guy );
 
     foreach ( var_1 in level.players )
         var_1 setthreatbiasgroup( "allies" );
 
     level._nextcoverprint = 0;
     level._ai_group = [];
-    level._id_535B = 0;
-    level._id_36A2 = 0;
-    level._id_5CDE = 0;
-    level._id_3C5D = [];
-    level._id_8683 = [];
+    level.killedaxis = 0;
+    level.ffpoints = 0;
+    level.missionfailed = 0;
+    level.gather_delay = [];
+    level.smoke_thrown = [];
 
-    if ( !isdefined( level._id_265B ) )
-        level._id_265B = [];
+    if ( !isdefined( level.deathflags ) )
+        level.deathflags = [];
 
-    level._id_89C6 = 0;
-    level._id_4242 = [];
+    level.spawner_number = 0;
+    level.go_to_node_arrays = [];
 
-    if ( !isdefined( level._id_8F83 ) )
-        level._id_8F83 = [];
+    if ( !isdefined( level.subclass_spawn_functions ) )
+        level.subclass_spawn_functions = [];
 
-    level._id_8F83["regular"] = ::_id_8F81;
-    level._id_8F83["elite"] = ::_id_8F7E;
-    level._id_91E6 = [];
-    level._id_91E6["axis"] = ::_id_8960;
-    level._id_91E6["allies"] = ::_id_895F;
-    level._id_91E6["team3"] = ::_id_8962;
-    level._id_91E6["neutral"] = ::_id_8961;
-    level._id_60BC = 0;
-    level._id_44D0 = randomintrange( 1, 4 );
+    level.subclass_spawn_functions["regular"] = ::subclass_regular;
+    level.subclass_spawn_functions["elite"] = ::subclass_elite;
+    level.team_specific_spawn_functions = [];
+    level.team_specific_spawn_functions["axis"] = ::spawn_team_axis;
+    level.team_specific_spawn_functions["allies"] = ::spawn_team_allies;
+    level.team_specific_spawn_functions["team3"] = ::spawn_team_team3;
+    level.team_specific_spawn_functions["neutral"] = ::spawn_team_neutral;
+    level.next_health_drop_time = 0;
+    level.guys_to_die_before_next_health_drop = randomintrange( 1, 4 );
 
-    if ( !isdefined( level._id_2780 ) )
-        level._id_2780 = 2048;
+    if ( !isdefined( level.default_goalradius ) )
+        level.default_goalradius = 2048;
 
-    if ( !isdefined( level._id_277F ) )
-        level._id_277F = 80;
+    if ( !isdefined( level.default_goalheight ) )
+        level.default_goalheight = 80;
 
-    level._id_6E4B = "J_Shoulder_RI";
-    level._id_5BC7 = 1024;
+    level.portable_mg_gun_tag = "J_Shoulder_RI";
+    level.mg42_hide_distance = 1024;
 
-    if ( !isdefined( level._id_5A3A ) )
-        level._id_5A3A = 11;
+    if ( !isdefined( level.maxfriendlies ) )
+        level.maxfriendlies = 11;
 
     level._max_script_health = 0;
     var_3 = getaispeciesarray();
-    common_scripts\utility::array_thread( var_3, ::_id_57BA );
+    common_scripts\utility::array_thread( var_3, ::living_ai_prethink );
     level.ai_classname_in_level = [];
-    level._id_2E9E = [];
+    level.drone_paths = [];
     var_4 = getspawnerarray();
 
     for ( var_5 = 0; var_5 < var_4.size; var_5++ )
-        var_4[var_5] thread _id_8942();
+        var_4[var_5] thread spawn_prethink();
 
-    level._id_2E9E = undefined;
-    thread _id_6FE9();
-    common_scripts\utility::array_thread( var_3, ::_id_8965 );
+    level.drone_paths = undefined;
+    thread process_deathflags();
+    common_scripts\utility::array_thread( var_3, ::spawn_think );
     level.ai_classname_in_level_keys = getarraykeys( level.ai_classname_in_level );
 
     for ( var_5 = 0; var_5 < level.ai_classname_in_level_keys.size; var_5++ )
@@ -105,7 +87,7 @@ aitype_check()
 
 }
 
-_id_1CE4( var_0 )
+check_script_char_group_ratio( var_0 )
 {
     if ( var_0.size <= 16 )
         return;
@@ -120,35 +102,35 @@ _id_1CE4( var_0 )
 
         var_1++;
 
-        if ( !var_0[var_3] _id_46E5() )
+        if ( !var_0[var_3] has_char_group() )
             continue;
 
         var_2++;
     }
 }
 
-_id_46E5()
+has_char_group()
 {
-    if ( isdefined( self._id_796F ) )
+    if ( isdefined( self.script_char_group ) )
         return 1;
 
-    return isdefined( self._id_7970 );
+    return isdefined( self.script_char_index );
 }
 
-_id_6FE9()
+process_deathflags()
 {
-    foreach ( var_2, var_1 in level._id_265B )
+    foreach ( var_2, var_1 in level.deathflags )
     {
-        level._id_265B[var_2] = [];
-        level._id_265B[var_2]["spawners"] = [];
-        level._id_265B[var_2]["ai"] = [];
+        level.deathflags[var_2] = [];
+        level.deathflags[var_2]["spawners"] = [];
+        level.deathflags[var_2]["ai"] = [];
 
-        if ( !isdefined( level._id_382E[var_2] ) )
-            common_scripts\utility::_id_383D( var_2 );
+        if ( !isdefined( level.flag[var_2] ) )
+            common_scripts\utility::flag_init( var_2 );
     }
 }
 
-_id_890A()
+spawn_guys_until_death_or_no_count()
 {
     self endon( "death" );
 
@@ -157,7 +139,7 @@ _id_890A()
         if ( self.count > 0 )
             self waittill( "spawned" );
 
-        waitframe;
+        waittillframeend;
 
         if ( !self.count )
             return;
@@ -166,90 +148,90 @@ _id_890A()
 
 ai_deathflag()
 {
-    level._id_265B[self._id_7987]["ai"][self._id_9A29] = self;
-    var_0 = self._id_9A29;
-    var_1 = self._id_7987;
+    level.deathflags[self.script_deathflag]["ai"][self.unique_id] = self;
+    var_0 = self.unique_id;
+    var_1 = self.script_deathflag;
 
-    if ( isdefined( self._id_7988 ) )
-        _id_A0D6();
+    if ( isdefined( self.script_deathflag_longdeath ) )
+        waittilldeathorpaindeath();
     else
         self waittill( "death" );
 
-    level._id_265B[var_1]["ai"][var_0] = undefined;
-    _id_9AAD( var_1 );
+    level.deathflags[var_1]["ai"][var_0] = undefined;
+    update_deathflag( var_1 );
 }
 
-_id_9CAD()
+vehicle_deathflag()
 {
-    var_0 = self._id_9A29;
-    var_1 = self._id_7987;
+    var_0 = self.unique_id;
+    var_1 = self.script_deathflag;
 
-    if ( !isdefined( level._id_265B ) || !isdefined( level._id_265B[self._id_7987] ) )
+    if ( !isdefined( level.deathflags ) || !isdefined( level.deathflags[self.script_deathflag] ) )
     {
-        waitframe;
+        waittillframeend;
 
         if ( !isdefined( self ) )
             return;
     }
 
-    level._id_265B[var_1]["vehicles"][var_0] = self;
+    level.deathflags[var_1]["vehicles"][var_0] = self;
     self waittill( "death" );
-    level._id_265B[var_1]["vehicles"][var_0] = undefined;
-    _id_9AAD( var_1 );
+    level.deathflags[var_1]["vehicles"][var_0] = undefined;
+    update_deathflag( var_1 );
 }
 
-_id_89C0()
+spawner_deathflag()
 {
-    level._id_265B[self._id_7987] = [];
-    waitframe;
+    level.deathflags[self.script_deathflag] = [];
+    waittillframeend;
 
     if ( !isdefined( self ) || self.count == 0 )
         return;
 
-    self._id_89C6 = level._id_89C6;
-    level._id_89C6++;
-    level._id_265B[self._id_7987]["spawners"][self._id_89C6] = self;
-    var_0 = self._id_7987;
-    var_1 = self._id_89C6;
-    _id_890A();
-    level._id_265B[var_0]["spawners"][var_1] = undefined;
-    _id_9AAD( var_0 );
+    self.spawner_number = level.spawner_number;
+    level.spawner_number++;
+    level.deathflags[self.script_deathflag]["spawners"][self.spawner_number] = self;
+    var_0 = self.script_deathflag;
+    var_1 = self.spawner_number;
+    spawn_guys_until_death_or_no_count();
+    level.deathflags[var_0]["spawners"][var_1] = undefined;
+    update_deathflag( var_0 );
 }
 
-_id_9D46()
+vehicle_spawner_deathflag()
 {
-    level._id_265B[self._id_7987] = [];
-    waitframe;
+    level.deathflags[self.script_deathflag] = [];
+    waittillframeend;
 
     if ( !isdefined( self ) )
         return;
 
-    self._id_89C6 = level._id_89C6;
-    level._id_89C6++;
-    level._id_265B[self._id_7987]["vehicle_spawners"][self._id_89C6] = self;
-    var_0 = self._id_7987;
-    var_1 = self._id_89C6;
-    _id_890A();
-    level._id_265B[var_0]["vehicle_spawners"][var_1] = undefined;
-    _id_9AAD( var_0 );
+    self.spawner_number = level.spawner_number;
+    level.spawner_number++;
+    level.deathflags[self.script_deathflag]["vehicle_spawners"][self.spawner_number] = self;
+    var_0 = self.script_deathflag;
+    var_1 = self.spawner_number;
+    spawn_guys_until_death_or_no_count();
+    level.deathflags[var_0]["vehicle_spawners"][var_1] = undefined;
+    update_deathflag( var_0 );
 }
 
-_id_9AAD( var_0 )
+update_deathflag( var_0 )
 {
     level notify( "updating_deathflag_" + var_0 );
     level endon( "updating_deathflag_" + var_0 );
-    waitframe;
+    waittillframeend;
 
-    foreach ( var_3, var_2 in level._id_265B[var_0] )
+    foreach ( var_3, var_2 in level.deathflags[var_0] )
     {
         if ( getarraykeys( var_2 ).size > 0 )
             return;
     }
 
-    common_scripts\utility::_id_383F( var_0 );
+    common_scripts\utility::flag_set( var_0 );
 }
 
-_id_65BC( var_0 )
+outdoor_think( var_0 )
 {
     var_0 endon( "death" );
 
@@ -260,13 +242,13 @@ _id_65BC( var_0 )
         if ( !isai( var_1 ) )
             continue;
 
-        var_1 thread maps\_utility::_id_4BAC( 0.15 );
-        var_1 maps\_utility::_id_2A8D();
-        var_1._id_A154 = 0;
+        var_1 thread maps\_utility::ignore_triggers( 0.15 );
+        var_1 maps\_utility::disable_cqbwalk();
+        var_1.wantshotgun = 0;
     }
 }
 
-_id_4C45( var_0 )
+indoor_think( var_0 )
 {
     var_0 endon( "death" );
 
@@ -277,13 +259,13 @@ _id_4C45( var_0 )
         if ( !isai( var_1 ) )
             continue;
 
-        var_1 thread maps\_utility::_id_4BAC( 0.15 );
-        var_1 maps\_utility::_id_30B0();
-        var_1._id_A154 = 1;
+        var_1 thread maps\_utility::ignore_triggers( 0.15 );
+        var_1 maps\_utility::enable_cqbwalk();
+        var_1.wantshotgun = 1;
     }
 }
 
-_id_2BE4( var_0 )
+doautospawn( var_0 )
 {
     var_0 endon( "death" );
     self endon( "death" );
@@ -298,12 +280,12 @@ _id_2BE4( var_0 )
         if ( self.target != var_0.targetname )
             return;
 
-        if ( isdefined( var_0._id_981E ) )
+        if ( isdefined( var_0.triggerunlocked ) )
             return;
 
-        var_1 = var_0 maps\_utility::_id_88C3();
+        var_1 = var_0 maps\_utility::spawn_ai();
 
-        if ( maps\_utility::_id_88F1( var_1 ) )
+        if ( maps\_utility::spawn_failed( var_1 ) )
             var_0 notify( "spawn_failed" );
 
         if ( isdefined( self.wait ) && self.wait > 0 )
@@ -311,15 +293,15 @@ _id_2BE4( var_0 )
     }
 }
 
-_id_97F9( var_0 )
+trigger_spawner( var_0 )
 {
-    var_1 = var_0._id_7116;
+    var_1 = var_0.random_killspawner;
     var_2 = var_0.target;
     var_0 waittill( "trigger" );
     var_0 maps\_utility::script_delay();
 
     if ( isdefined( var_1 ) )
-        waitframe;
+        waittillframeend;
 
     var_3 = getentarray( var_2, "targetname" );
 
@@ -327,56 +309,56 @@ _id_97F9( var_0 )
     {
         if ( var_5.code_classname == "script_vehicle" )
         {
-            if ( isdefined( var_5._id_7A40 ) && var_5._id_7A40 == 1 || !isdefined( var_5.target ) )
-                thread maps\_vehicle::_id_9D41( var_5 );
+            if ( isdefined( var_5.script_moveoverride ) && var_5.script_moveoverride == 1 || !isdefined( var_5.target ) )
+                thread maps\_vehicle::vehicle_spawn( var_5 );
             else
-                var_5 thread maps\_vehicle::_id_8977();
+                var_5 thread maps\_vehicle::spawn_vehicle_and_gopath();
 
             continue;
         }
 
-        var_5 thread _id_97FB();
+        var_5 thread trigger_spawner_spawns_guys();
 
         if ( level.currentgen )
             wait 0.1;
     }
 
-    if ( isdefined( level._id_893E ) )
-        _id_97D4( var_2 );
+    if ( isdefined( level.spawn_pool_enabled ) )
+        trigger_pool_spawners( var_2 );
 }
 
-_id_97D4( var_0 )
+trigger_pool_spawners( var_0 )
 {
-    var_1 = common_scripts\utility::_id_40FD( var_0, "targetname" );
+    var_1 = common_scripts\utility::getstructarray( var_0, "targetname" );
 
     if ( getentarray( var_0, "target" ).size <= 1 )
-        maps\_utility::_id_286F( var_1 );
+        maps\_utility::deletestructarray_ref( var_1 );
 
-    var_2 = _id_3E35( var_1 );
-    common_scripts\utility::array_thread( var_2, ::_id_97FB );
+    var_2 = get_pool_spawners_from_structarray( var_1 );
+    common_scripts\utility::array_thread( var_2, ::trigger_spawner_spawns_guys );
 }
 
-_id_3E35( var_0 )
+get_pool_spawners_from_structarray( var_0 )
 {
     var_1 = [];
     var_2 = [];
 
     foreach ( var_4 in var_0 )
     {
-        if ( !isdefined( var_4._id_7ACE ) )
+        if ( !isdefined( var_4.script_spawn_pool ) )
             continue;
 
-        if ( !isdefined( var_2[var_4._id_7ACE] ) )
-            var_2[var_4._id_7ACE] = [];
+        if ( !isdefined( var_2[var_4.script_spawn_pool] ) )
+            var_2[var_4.script_spawn_pool] = [];
 
-        var_2[var_4._id_7ACE][var_2[var_4._id_7ACE].size] = var_4;
+        var_2[var_4.script_spawn_pool][var_2[var_4.script_spawn_pool].size] = var_4;
     }
 
     foreach ( var_7 in var_2 )
     {
         foreach ( var_4 in var_7 )
         {
-            var_9 = _id_3E68( var_4, var_7.size );
+            var_9 = get_spawner_from_pool( var_4, var_7.size );
             var_1[var_1.size] = var_9;
         }
     }
@@ -384,18 +366,18 @@ _id_3E35( var_0 )
     return var_1;
 }
 
-_id_3E68( var_0, var_1 )
+get_spawner_from_pool( var_0, var_1 )
 {
-    if ( !isdefined( level._id_89C7 ) )
-        level._id_89C7 = [];
+    if ( !isdefined( level.spawner_pool ) )
+        level.spawner_pool = [];
 
-    if ( !isdefined( level._id_89C7[var_0._id_7ACE] ) )
-        level._id_89C7[var_0._id_7ACE] = _id_23CE( var_0._id_7ACE );
+    if ( !isdefined( level.spawner_pool[var_0.script_spawn_pool] ) )
+        level.spawner_pool[var_0.script_spawn_pool] = create_new_spawner_pool( var_0.script_spawn_pool );
 
-    var_2 = level._id_89C7[var_0._id_7ACE];
-    var_3 = var_2._id_6E2F[var_2._id_6E3D];
-    var_2._id_6E3D++;
-    var_2._id_6E3D %= var_2._id_6E2F.size;
+    var_2 = level.spawner_pool[var_0.script_spawn_pool];
+    var_3 = var_2.pool[var_2.poolindex];
+    var_2.poolindex++;
+    var_2.poolindex %= var_2.pool.size;
     var_3.origin = var_0.origin;
 
     if ( isdefined( var_0.angles ) )
@@ -408,8 +390,8 @@ _id_3E68( var_0, var_1 )
             var_3.angles = vectortoangles( var_4.origin - var_3.origin );
     }
 
-    if ( isdefined( level._id_893D ) )
-        var_3 [[ level._id_893D ]]( var_0 );
+    if ( isdefined( level.spawn_pool_copy_function ) )
+        var_3 [[ level.spawn_pool_copy_function ]]( var_0 );
 
     if ( isdefined( var_0.target ) )
         var_3.target = var_0.target;
@@ -418,7 +400,7 @@ _id_3E68( var_0, var_1 )
     return var_3;
 }
 
-_id_23CE( var_0 )
+create_new_spawner_pool( var_0 )
 {
     var_1 = getspawnerarray();
     var_2 = spawnstruct();
@@ -426,21 +408,21 @@ _id_23CE( var_0 )
 
     foreach ( var_5 in var_1 )
     {
-        if ( !isdefined( var_5._id_7ACE ) )
+        if ( !isdefined( var_5.script_spawn_pool ) )
             continue;
 
-        if ( var_5._id_7ACE != var_0 )
+        if ( var_5.script_spawn_pool != var_0 )
             continue;
 
         var_3[var_3.size] = var_5;
     }
 
-    var_2._id_6E3D = 0;
-    var_2._id_6E2F = var_3;
+    var_2.poolindex = 0;
+    var_2.pool = var_3;
     return var_2;
 }
 
-_id_97FB()
+trigger_spawner_spawns_guys()
 {
     self endon( "death" );
     maps\_utility::script_delay();
@@ -448,30 +430,30 @@ _id_97FB()
     if ( !isdefined( self ) )
         return undefined;
 
-    if ( isdefined( self._id_79AD ) )
+    if ( isdefined( self.script_drone ) )
     {
-        var_0 = maps\_utility::_id_2F29( self, 1 );
+        var_0 = maps\_utility::dronespawn( self, 1 );
         return undefined;
     }
     else if ( !issubstr( self.classname, "actor" ) )
         return undefined;
 
-    var_1 = isdefined( self._id_7AE1 ) && common_scripts\utility::_id_382E( "_stealth_enabled" ) && !common_scripts\utility::_id_382E( "_stealth_spotted" );
+    var_1 = isdefined( self.script_stealth ) && common_scripts\utility::flag( "_stealth_enabled" ) && !common_scripts\utility::flag( "_stealth_spotted" );
 
-    if ( isdefined( self._id_79EB ) )
+    if ( isdefined( self.script_forcespawn ) )
         var_0 = self stalingradspawn( var_1 );
     else
         var_0 = self dospawn( var_1 );
 
-    if ( !maps\_utility::_id_88F1( var_0 ) )
+    if ( !maps\_utility::spawn_failed( var_0 ) )
     {
-        if ( isdefined( self._id_797A ) )
+        if ( isdefined( self.script_combatbehavior ) )
         {
-            if ( self._id_797A == "heat" )
-                var_0 maps\_utility::_id_30C9();
+            if ( self.script_combatbehavior == "heat" )
+                var_0 maps\_utility::enable_heat_behavior();
 
-            if ( self._id_797A == "cqb" )
-                var_0 maps\_utility::_id_30B0();
+            if ( self.script_combatbehavior == "cqb" )
+                var_0 maps\_utility::enable_cqbwalk();
         }
 
         var_0 maps\_colors::setup_nodes_intelligently_from_team();
@@ -480,7 +462,7 @@ _id_97FB()
     return var_0;
 }
 
-_id_97FA( var_0 )
+trigger_spawner_reinforcement( var_0 )
 {
     var_1 = var_0.target;
     var_2 = 0;
@@ -495,10 +477,10 @@ _id_97FA( var_0 )
 
         if ( !isdefined( var_6 ) )
         {
-            if ( !isdefined( var_5._id_7A26 ) )
+            if ( !isdefined( var_5.script_linkto ) )
                 continue;
 
-            var_6 = var_5 common_scripts\utility::_id_3DBC();
+            var_6 = var_5 common_scripts\utility::get_linked_ent();
 
             if ( !isdefined( var_6 ) )
                 continue;
@@ -516,13 +498,13 @@ _id_97FA( var_0 )
     var_3 = getentarray( var_1, "targetname" );
 
     foreach ( var_5 in var_3 )
-        var_5 thread _id_97DA();
+        var_5 thread trigger_reinforcement_spawn_guys();
 }
 
-_id_97DA()
+trigger_reinforcement_spawn_guys()
 {
-    var_0 = _id_97D9();
-    var_1 = _id_97FB();
+    var_0 = trigger_reinforcement_get_reinforcement_spawner();
+    var_1 = trigger_spawner_spawns_guys();
 
     if ( !isdefined( var_1 ) )
     {
@@ -530,7 +512,7 @@ _id_97DA()
 
         if ( isdefined( var_0 ) )
         {
-            var_1 = var_0 _id_97FB();
+            var_1 = var_0 trigger_spawner_spawns_guys();
             var_0 delete();
 
             if ( !isdefined( var_1 ) )
@@ -556,7 +538,7 @@ _id_97DA()
         if ( !isdefined( var_0 ) )
             break;
 
-        var_2 = var_0 thread _id_97FB();
+        var_2 = var_0 thread trigger_spawner_spawns_guys();
 
         if ( !isdefined( var_2 ) )
         {
@@ -564,10 +546,10 @@ _id_97DA()
             break;
         }
 
-        var_2 thread _id_7302( var_0 );
+        var_2 thread reincrement_count_if_deleted( var_0 );
         var_2 waittill( "death", var_3 );
 
-        if ( !_id_6BF3( var_2, var_3 ) )
+        if ( !player_saw_kill( var_2, var_3 ) )
         {
             if ( !isdefined( var_0 ) )
                 break;
@@ -587,7 +569,7 @@ _id_97DA()
         if ( var_0.count <= 0 )
             break;
 
-        if ( !maps\_utility::_id_7B20() )
+        if ( !maps\_utility::script_wait() )
             wait(randomfloatrange( 1, 3 ));
     }
 
@@ -595,7 +577,7 @@ _id_97DA()
         var_0 delete();
 }
 
-_id_97D9()
+trigger_reinforcement_get_reinforcement_spawner()
 {
     if ( isdefined( self.target ) )
     {
@@ -605,9 +587,9 @@ _id_97D9()
             return var_0;
     }
 
-    if ( isdefined( self._id_7A26 ) )
+    if ( isdefined( self.script_linkto ) )
     {
-        var_0 = common_scripts\utility::_id_3DBC();
+        var_0 = common_scripts\utility::get_linked_ent();
 
         if ( isdefined( var_0 ) && isspawner( var_0 ) )
             return var_0;
@@ -616,19 +598,19 @@ _id_97D9()
     return undefined;
 }
 
-_id_38F1( var_0 )
+flood_spawner_scripted( var_0 )
 {
-    common_scripts\utility::array_thread( var_0, ::_id_38F0 );
-    common_scripts\utility::array_thread( var_0, ::_id_38F3 );
+    common_scripts\utility::array_thread( var_0, ::flood_spawner_init );
+    common_scripts\utility::array_thread( var_0, ::flood_spawner_think );
 }
 
-_id_7302( var_0 )
+reincrement_count_if_deleted( var_0 )
 {
     var_0 endon( "death" );
 
-    if ( isdefined( self._id_79E5 ) )
+    if ( isdefined( self.script_force_count ) )
     {
-        if ( self._id_79E5 )
+        if ( self.script_force_count )
             return;
     }
 
@@ -638,7 +620,7 @@ _id_7302( var_0 )
         var_0.count++;
 }
 
-_id_2837( var_0 )
+delete_start( var_0 )
 {
     for ( var_1 = 0; var_1 < 2; var_1++ )
     {
@@ -656,16 +638,16 @@ _id_2837( var_0 )
 
         for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         {
-            if ( isdefined( var_3[var_4]._id_7ADA ) )
+            if ( isdefined( var_3[var_4].script_start ) )
             {
-                if ( var_3[var_4]._id_7ADA == var_0 )
-                    var_3[var_4] thread _id_2819();
+                if ( var_3[var_4].script_start == var_0 )
+                    var_3[var_4] thread delete_me();
             }
         }
     }
 }
 
-_id_533E( var_0 )
+kill_trigger( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return;
@@ -676,31 +658,31 @@ _id_533E( var_0 )
     var_0 delete();
 }
 
-_id_7116( var_0 )
+random_killspawner( var_0 )
 {
     var_0 endon( "death" );
-    var_1 = var_0._id_7AB3;
-    waitframe;
+    var_1 = var_0.script_random_killspawner;
+    waittillframeend;
 
-    if ( !isdefined( level._id_537C[var_1] ) )
+    if ( !isdefined( level.killspawn_groups[var_1] ) )
         return;
 
     var_0 waittill( "trigger" );
-    _id_24B6( var_1 );
+    cull_spawners_from_killspawner( var_1 );
 }
 
-_id_24B6( var_0 )
+cull_spawners_from_killspawner( var_0 )
 {
-    if ( !isdefined( level._id_537C[var_0] ) )
+    if ( !isdefined( level.killspawn_groups[var_0] ) )
         return;
 
-    var_1 = level._id_537C[var_0];
+    var_1 = level.killspawn_groups[var_0];
     var_2 = getarraykeys( var_1 );
 
     if ( var_2.size <= 1 )
         return;
 
-    var_3 = common_scripts\utility::_id_710E( var_2 );
+    var_3 = common_scripts\utility::random( var_2 );
     var_1[var_3] = undefined;
 
     foreach ( var_9, var_5 in var_1 )
@@ -711,135 +693,135 @@ _id_24B6( var_0 )
                 var_7 delete();
         }
 
-        level._id_537C[var_0][var_9] = undefined;
+        level.killspawn_groups[var_0][var_9] = undefined;
     }
 }
 
-_id_537D( var_0 )
+killspawner( var_0 )
 {
     var_1 = getspawnerarray();
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( isdefined( var_1[var_2]._id_7A1D ) && var_0 == var_1[var_2]._id_7A1D )
+        if ( isdefined( var_1[var_2].script_killspawner ) && var_0 == var_1[var_2].script_killspawner )
             var_1[var_2] delete();
     }
 }
 
-_id_5339( var_0 )
+kill_spawner( var_0 )
 {
-    var_1 = var_0._id_7A1D;
+    var_1 = var_0.script_killspawner;
     var_0 waittill( "trigger" );
-    waitframe;
-    waitframe;
-    _id_537D( var_1 );
-    _id_533E( var_0 );
+    waittillframeend;
+    waittillframeend;
+    killspawner( var_1 );
+    kill_trigger( var_0 );
 }
 
-_id_3095( var_0 )
+empty_spawner( var_0 )
 {
-    var_1 = var_0._id_79B6;
+    var_1 = var_0.script_emptyspawner;
     var_0 waittill( "trigger" );
     var_2 = getspawnerarray();
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( !isdefined( var_2[var_3]._id_79B6 ) )
+        if ( !isdefined( var_2[var_3].script_emptyspawner ) )
             continue;
 
-        if ( var_1 != var_2[var_3]._id_79B6 )
+        if ( var_1 != var_2[var_3].script_emptyspawner )
             continue;
 
-        if ( isdefined( var_2[var_3]._id_79DD ) )
-            level notify( "stop_flanker_behavior" + var_2[var_3]._id_79DD );
+        if ( isdefined( var_2[var_3].script_flanker ) )
+            level notify( "stop_flanker_behavior" + var_2[var_3].script_flanker );
 
-        var_2[var_3] maps\_utility::_id_7DF8( 0 );
+        var_2[var_3] maps\_utility::set_count( 0 );
         var_2[var_3] notify( "emptied spawner" );
     }
 
     var_0 notify( "deleted spawners" );
 }
 
-_id_533A( var_0 )
+kill_spawnernum( var_0 )
 {
     var_1 = getspawnerarray();
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( !isdefined( var_1[var_2]._id_7A1D ) )
+        if ( !isdefined( var_1[var_2].script_killspawner ) )
             continue;
 
-        if ( var_0 != var_1[var_2]._id_7A1D )
+        if ( var_0 != var_1[var_2].script_killspawner )
             continue;
 
         var_1[var_2] delete();
     }
 }
 
-_id_97F7( var_0 )
+trigger_spawn( var_0 )
 {
 
 }
 
-_id_8904( var_0, var_1 )
+spawn_grenade( var_0, var_1 )
 {
-    if ( !isdefined( level._id_43E2 ) || !isdefined( level._id_43E2[var_1] ) )
+    if ( !isdefined( level.grenade_cache ) || !isdefined( level.grenade_cache[var_1] ) )
     {
-        level._id_43E3[var_1] = 0;
-        level._id_43E2[var_1] = [];
+        level.grenade_cache_index[var_1] = 0;
+        level.grenade_cache[var_1] = [];
     }
 
-    var_2 = level._id_43E3[var_1];
-    var_3 = level._id_43E2[var_1][var_2];
+    var_2 = level.grenade_cache_index[var_1];
+    var_3 = level.grenade_cache[var_1][var_2];
 
     if ( isdefined( var_3 ) )
         var_3 delete();
 
     var_4 = "weapon_fraggrenade";
 
-    if ( isdefined( level.player ) && isdefined( level.player._id_9C5F ) )
+    if ( isdefined( level.player ) && isdefined( level.player.variable_grenade ) )
     {
-        if ( common_scripts\utility::_id_2006() )
+        if ( common_scripts\utility::cointoss() )
             var_4 = "weapon_frag_grenade_var";
         else
             var_4 = "weapon_flash_grenade_var";
     }
 
     var_3 = spawn( var_4, var_0 );
-    level._id_43E2[var_1][var_2] = var_3;
-    level._id_43E3[var_1] = ( var_2 + 1 ) % 16;
+    level.grenade_cache[var_1][var_2] = var_3;
+    level.grenade_cache_index[var_1] = ( var_2 + 1 ) % 16;
     return var_3;
 }
 
-_id_A0D6()
+waittilldeathorpaindeath()
 {
     self endon( "death" );
     self waittill( "pain_death" );
 }
 
-_id_2F42()
+drop_gear()
 {
     var_0 = self.team;
-    _id_A0D6();
+    waittilldeathorpaindeath();
 
     if ( !isdefined( self ) )
         return;
 
-    if ( isdefined( self._id_613F ) )
+    if ( isdefined( self.nodrop ) )
         return;
 
     if ( level.tire_explosion )
     {
         var_1 = self.origin;
         var_2 = self geteye();
-        waitframe;
+        waittillframeend;
 
         for ( var_3 = 0; var_3 < 15; var_3++ )
             thread random_tire( var_1, var_2 );
 
         if ( isdefined( self ) )
         {
-            animscripts\shared::_id_2F6C();
+            animscripts\shared::dropallaiweapons();
             wait 0.1;
 
             if ( isdefined( self ) && !isremovedentity( self ) )
@@ -854,17 +836,17 @@ _id_2F42()
     if ( self.grenadeammo <= 0 )
         return;
 
-    level._id_60CB--;
+    level.nextgrenadedrop--;
 
-    if ( level._id_60CB > 0 )
+    if ( level.nextgrenadedrop > 0 )
         return;
 
-    level._id_60CB = 3 + randomint( 2 );
+    level.nextgrenadedrop = 3 + randomint( 2 );
     var_4 = 25;
     var_5 = 12;
     var_1 = self.origin + ( randomint( var_4 ) - var_5, randomint( var_4 ) - var_5, 2 ) + ( 0.0, 0.0, 42.0 );
     var_6 = ( 0, randomint( 360 ), 90 );
-    thread _id_8905( var_1, var_6, self.team );
+    thread spawn_grenade_bag( var_1, var_6, self.team );
 }
 
 random_tire( var_0, var_1 )
@@ -880,9 +862,9 @@ random_tire( var_0, var_1 )
     var_3 = randomfloat( 1 );
     var_2.origin = var_0 * var_3 + var_1 * ( 1 - var_3 );
     var_2 setmodel( level.random_tire_model );
-    var_4 = common_scripts\utility::_id_712D( 15000 );
+    var_4 = common_scripts\utility::randomvector( 15000 );
     var_4 = ( var_4[0], var_4[1], abs( var_4[2] ) );
-    var_2 physicslaunch( var_2.origin, var_4 );
+    var_2 physicslaunchclient( var_2.origin, var_4 );
     level.cheattires[level.cheattires.size] = var_2;
     var_2 endon( "death" );
     wait(randomfloatrange( 5.0, 10.0 ));
@@ -900,9 +882,9 @@ override_random_tire( var_0 )
     level.random_tire_model = var_0;
 }
 
-_id_8905( var_0, var_1, var_2 )
+spawn_grenade_bag( var_0, var_1, var_2 )
 {
-    var_3 = _id_8904( var_0, var_2 );
+    var_3 = spawn_grenade( var_0, var_2 );
     var_3 setmodel( "grenade_bag" );
     var_3.angles = var_1;
     var_3 hide();
@@ -914,9 +896,9 @@ _id_8905( var_0, var_1, var_2 )
     var_3 show();
 }
 
-_id_2F2B()
+dronespawner_init()
 {
-    maps\_drone_base::_id_2E62();
+    maps\_drone_base::drone_init_path();
 }
 
 empty()
@@ -924,33 +906,33 @@ empty()
 
 }
 
-_id_8942()
+spawn_prethink()
 {
     level.ai_classname_in_level[self.classname] = 1;
 
-    if ( isdefined( self._id_799E ) )
+    if ( isdefined( self.script_difficulty ) )
     {
-        switch ( self._id_799E )
+        switch ( self.script_difficulty )
         {
             case "easy":
-                if ( level._id_3BFE > 1 )
-                    maps\_utility::_id_7DF8( 0 );
+                if ( level.gameskill > 1 )
+                    maps\_utility::set_count( 0 );
 
                 break;
             case "hard":
-                if ( level._id_3BFE < 2 )
-                    maps\_utility::_id_7DF8( 0 );
+                if ( level.gameskill < 2 )
+                    maps\_utility::set_count( 0 );
 
                 break;
         }
     }
 
-    if ( isdefined( self._id_79AD ) )
-        thread _id_2F2B();
+    if ( isdefined( self.script_drone ) )
+        thread dronespawner_init();
 
-    if ( isdefined( self._id_792E ) )
+    if ( isdefined( self.script_aigroup ) )
     {
-        var_0 = self._id_792E;
+        var_0 = self.script_aigroup;
 
         if ( !isdefined( level._ai_group[var_0] ) )
             aigroup_create( var_0 );
@@ -958,49 +940,49 @@ _id_8942()
         thread aigroup_spawnerthink( level._ai_group[var_0] );
     }
 
-    if ( isdefined( self._id_7992 ) )
+    if ( isdefined( self.script_delete ) )
     {
         var_1 = 0;
 
         if ( isdefined( level._ai_delete ) )
         {
-            if ( isdefined( level._ai_delete[self._id_7992] ) )
-                var_1 = level._ai_delete[self._id_7992].size;
+            if ( isdefined( level._ai_delete[self.script_delete] ) )
+                var_1 = level._ai_delete[self.script_delete].size;
         }
 
-        level._ai_delete[self._id_7992][var_1] = self;
+        level._ai_delete[self.script_delete][var_1] = self;
     }
 
-    if ( isdefined( self._id_7A0C ) )
+    if ( isdefined( self.script_health ) )
     {
-        if ( self._id_7A0C > level._max_script_health )
-            level._max_script_health = self._id_7A0C;
+        if ( self.script_health > level._max_script_health )
+            level._max_script_health = self.script_health;
 
         var_1 = 0;
 
         if ( isdefined( level._ai_health ) )
         {
-            if ( isdefined( level._ai_health[self._id_7A0C] ) )
-                var_1 = level._ai_health[self._id_7A0C].size;
+            if ( isdefined( level._ai_health[self.script_health] ) )
+                var_1 = level._ai_health[self.script_health].size;
         }
 
-        level._ai_health[self._id_7A0C][var_1] = self;
+        level._ai_health[self.script_health][var_1] = self;
     }
 
-    if ( isdefined( self._id_7987 ) )
-        thread _id_89C0();
+    if ( isdefined( self.script_deathflag ) )
+        thread spawner_deathflag();
 
     if ( isdefined( self.target ) )
-        _id_238C();
+        crawl_through_targets_to_init_flags();
 
-    if ( isdefined( self._id_7ACF ) )
+    if ( isdefined( self.script_spawngroup ) )
         add_to_spawngroup();
 
-    if ( isdefined( self._id_7AB3 ) )
+    if ( isdefined( self.script_random_killspawner ) )
         add_random_killspawner_to_spawngroup();
 
-    if ( !isdefined( self._id_8900 ) )
-        self._id_8900 = [];
+    if ( !isdefined( self.spawn_functions ) )
+        self.spawn_functions = [];
 
     for (;;)
     {
@@ -1010,64 +992,64 @@ _id_8942()
         if ( !isalive( var_2 ) )
             continue;
 
-        if ( isdefined( level._id_89CB ) )
-            self thread [[ level._id_89CB ]]( var_2 );
+        if ( isdefined( level.spawnercallbackthread ) )
+            self thread [[ level.spawnercallbackthread ]]( var_2 );
 
-        if ( isdefined( self._id_7992 ) )
+        if ( isdefined( self.script_delete ) )
         {
-            for ( var_3 = 0; var_3 < level._ai_delete[self._id_7992].size; var_3++ )
+            for ( var_3 = 0; var_3 < level._ai_delete[self.script_delete].size; var_3++ )
             {
-                if ( level._ai_delete[self._id_7992][var_3] != self )
-                    level._ai_delete[self._id_7992][var_3] delete();
+                if ( level._ai_delete[self.script_delete][var_3] != self )
+                    level._ai_delete[self.script_delete][var_3] delete();
             }
         }
 
-        var_2._id_88FE = self._id_8900;
+        var_2.spawn_funcs = self.spawn_functions;
         var_2.spawner = self;
 
         if ( isdefined( self.targetname ) )
         {
-            var_2 thread _id_8965( self.targetname );
+            var_2 thread spawn_think( self.targetname );
             continue;
         }
 
-        var_2 thread _id_8965();
+        var_2 thread spawn_think();
     }
 }
 
-_id_8965( var_0 )
+spawn_think( var_0 )
 {
     level.ai_classname_in_level[self.classname] = 1;
-    _id_8966( var_0 );
+    spawn_think_action( var_0 );
     self endon( "death" );
 
-    if ( _id_84A0() )
+    if ( shouldnt_spawn_because_of_script_difficulty() )
         self delete();
 
-    thread _id_76B6();
-    self._id_3797 = 1;
+    thread run_spawn_functions();
+    self.finished_spawning = 1;
     self notify( "finished spawning" );
 
-    if ( self.team == "allies" && !isdefined( self._id_7A7F ) )
-        thread _id_3A98();
+    if ( self.team == "allies" && !isdefined( self.script_nofriendlywave ) )
+        thread friendlydeath_thread();
 }
 
-_id_84A0()
+shouldnt_spawn_because_of_script_difficulty()
 {
-    if ( !isdefined( self._id_799E ) )
+    if ( !isdefined( self.script_difficulty ) )
         return 0;
 
     var_0 = 0;
 
-    switch ( self._id_799E )
+    switch ( self.script_difficulty )
     {
         case "easy":
-            if ( level._id_3BFE > 1 )
+            if ( level.gameskill > 1 )
                 var_0 = 1;
 
             break;
         case "hard":
-            if ( level._id_3BFE < 2 )
+            if ( level.gameskill < 2 )
                 var_0 = 1;
 
             break;
@@ -1076,19 +1058,19 @@ _id_84A0()
     return var_0;
 }
 
-_id_76B6()
+run_spawn_functions()
 {
     self endon( "death" );
 
-    if ( !isdefined( self._id_88FE ) )
+    if ( !isdefined( self.spawn_funcs ) )
     {
         self.spawner = undefined;
         return;
     }
 
-    for ( var_0 = 0; var_0 < self._id_88FE.size; var_0++ )
+    for ( var_0 = 0; var_0 < self.spawn_funcs.size; var_0++ )
     {
-        var_1 = self._id_88FE[var_0];
+        var_1 = self.spawn_funcs[var_0];
 
         if ( isdefined( var_1["param5"] ) )
         {
@@ -1123,13 +1105,13 @@ _id_76B6()
         thread [[ var_1["function"] ]]();
     }
 
-    var_2 = common_scripts\utility::_id_9294( isdefined( level._id_9D42 ) && level._id_9D42 && self.code_classname == "script_vehicle", self._id_7AEF, self.team );
+    var_2 = common_scripts\utility::ter_op( isdefined( level.vehicle_spawn_functions_enable ) && level.vehicle_spawn_functions_enable && self.code_classname == "script_vehicle", self.script_team, self.team );
 
     if ( isdefined( var_2 ) )
     {
-        for ( var_0 = 0; var_0 < level._id_88FE[var_2].size; var_0++ )
+        for ( var_0 = 0; var_0 < level.spawn_funcs[var_2].size; var_0++ )
         {
-            var_1 = level._id_88FE[var_2][var_0];
+            var_1 = level.spawn_funcs[var_2][var_0];
 
             if ( isdefined( var_1["param5"] ) )
             {
@@ -1165,27 +1147,27 @@ _id_76B6()
         }
     }
 
-    self._id_88FE = undefined;
+    self.spawn_funcs = undefined;
     self.spawner = undefined;
 }
 
-_id_8A49()
+specops_think()
 {
-    if ( !maps\_utility::_id_5083() )
+    if ( !maps\_utility::is_specialop() )
         return;
 
-    maps\_utility::add_damage_function( ::_id_8A47 );
-    thread _id_5FE4();
+    maps\_utility::add_damage_function( ::specops_dmg );
+    thread multikill_monitor();
 }
 
-_id_5FE4()
+multikill_monitor()
 {
     self waittill( "death", var_0, var_1, var_2 );
 
     if ( !isdefined( self ) )
         return;
 
-    if ( !self _meth_813F() )
+    if ( !self isbadguy() )
         return;
 
     if ( !isdefined( var_0 ) )
@@ -1196,31 +1178,31 @@ _id_5FE4()
 
     if ( !isdefined( var_2 ) )
     {
-        var_0._id_5FE3 = undefined;
+        var_0.multikill_count = undefined;
         return;
     }
 
-    if ( !isdefined( var_0._id_5FE3 ) )
-        var_0._id_5FE3 = 1;
+    if ( !isdefined( var_0.multikill_count ) )
+        var_0.multikill_count = 1;
     else
-        var_0._id_5FE3++;
+        var_0.multikill_count++;
 
-    if ( maps\_utility::_id_5087() && var_0._id_5FE3 >= 4 )
+    if ( maps\_utility::is_survival() && var_0.multikill_count >= 4 )
         var_0 notify( "sur_ch_quadkill" );
 
-    waitframe;
-    var_0._id_5FE3 = undefined;
+    waittillframeend;
+    var_0.multikill_count = undefined;
 }
 
-_id_8A47( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+specops_dmg( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( self ) )
         return;
 
     if ( isdefined( var_1 ) && isplayer( var_1 ) )
     {
-        self._id_551A = var_1;
-        self._id_551B = var_4;
+        self.last_dmg_player = var_1;
+        self.last_dmg_type = var_4;
     }
 }
 
@@ -1257,12 +1239,12 @@ check_explosion_man_achievement( var_0, var_1, var_2 )
             level.h1_achievement_explosionman++;
 
             if ( level.h1_achievement_explosionman == 20 )
-                maps\_utility::_id_41DD( "EXPLOSION_MAN" );
+                maps\_utility::giveachievement_wrapper( "EXPLOSION_MAN" );
         }
     }
 }
 
-_id_2661()
+deathfunctions()
 {
     self waittill( "death", var_0, var_1, var_2 );
     level notify( "ai_killed", self );
@@ -1278,7 +1260,7 @@ _id_2661()
 
             if ( isdefined( var_0.attacker ) )
             {
-                if ( isdefined( var_0._id_519D ) && var_0._id_519D )
+                if ( isdefined( var_0.issentrygun ) && var_0.issentrygun )
                     var_3 = "sentry";
 
                 if ( isdefined( var_0.destructible_type ) )
@@ -1293,12 +1275,12 @@ _id_2661()
 
                 var_0 = var_0.owner;
             }
-            else if ( isdefined( var_0._id_25A9 ) )
+            else if ( isdefined( var_0.damageowner ) )
             {
                 if ( isdefined( var_0.destructible_type ) )
                     var_3 = "destructible";
 
-                var_0 = var_0._id_25A9;
+                var_0 = var_0.damageowner;
             }
 
             check_explosion_man_achievement( var_0, var_2, var_1 );
@@ -1307,23 +1289,23 @@ _id_2661()
             if ( isplayer( var_0 ) )
                 var_4 = 1;
 
-            if ( isdefined( level._id_6E02 ) && level._id_6E02 )
+            if ( isdefined( level.pmc_match ) && level.pmc_match )
                 var_4 = 1;
 
             if ( isdefined( var_1 ) && var_1 == "MOD_CRUSH" )
             {
-                if ( isdefined( level._id_4A91 ) || isdefined( level.player._id_2E19 ) )
-                    level.player maps\_upgrade_challenge::_id_41CF( 1 );
+                if ( isdefined( level.hovertank_player ) || isdefined( level.player.drivingvehicleandturret ) )
+                    level.player maps\_upgrade_challenge::give_player_challenge_kill( 1 );
             }
 
             if ( var_4 )
-                var_0 maps\_player_stats::_id_72DF( self, var_1, var_2, var_3 );
+                var_0 maps\_player_stats::register_kill( self, var_1, var_2, var_3 );
         }
     }
 
-    for ( var_5 = 0; var_5 < self._id_265F.size; var_5++ )
+    for ( var_5 = 0; var_5 < self.deathfuncs.size; var_5++ )
     {
-        var_6 = self._id_265F[var_5];
+        var_6 = self.deathfuncs[var_5];
 
         switch ( var_6["params"] )
         {
@@ -1345,7 +1327,7 @@ _id_2661()
 
 ai_damage_think()
 {
-    self._id_257E = [];
+    self.damage_functions = [];
 
     for (;;)
     {
@@ -1355,11 +1337,11 @@ ai_damage_think()
         {
             var_7 = var_1 getcurrentweapon();
 
-            if ( isdefined( var_7 ) && maps\_utility::_id_5185( var_7 ) && isdefined( var_4 ) && ( var_4 == "MOD_PISTOL_BULLET" || var_4 == "MOD_RIFLE_BULLET" ) )
-                var_1 thread maps\_player_stats::_id_72E7();
+            if ( isdefined( var_7 ) && maps\_utility::isprimaryweapon( var_7 ) && isdefined( var_4 ) && ( var_4 == "MOD_PISTOL_BULLET" || var_4 == "MOD_RIFLE_BULLET" ) )
+                var_1 thread maps\_player_stats::register_shot_hit();
         }
 
-        foreach ( var_9 in self._id_257E )
+        foreach ( var_9 in self.damage_functions )
             thread [[ var_9 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 
         if ( !isalive( self ) || self.delayeddeath )
@@ -1367,18 +1349,18 @@ ai_damage_think()
     }
 }
 
-_id_57BA()
+living_ai_prethink()
 {
-    if ( isdefined( self._id_7987 ) )
-        level._id_265B[self._id_7987] = 1;
+    if ( isdefined( self.script_deathflag ) )
+        level.deathflags[self.script_deathflag] = 1;
 
     if ( isdefined( self.target ) )
-        _id_238C();
+        crawl_through_targets_to_init_flags();
 }
 
-_id_238C()
+crawl_through_targets_to_init_flags()
 {
-    var_0 = _id_3DEF();
+    var_0 = get_node_funcs_based_on_target();
 
     if ( isdefined( var_0 ) )
     {
@@ -1386,59 +1368,59 @@ _id_238C()
         var_2 = var_0["get_target_func"];
 
         for ( var_3 = 0; var_3 < var_1.size; var_3++ )
-            _id_238B( var_1[var_3], var_2 );
+            crawl_target_and_init_flags( var_1[var_3], var_2 );
     }
 }
 
-_id_895F()
+spawn_team_allies()
 {
     self.usechokepoints = 0;
 }
 
-_id_8960()
+spawn_team_axis()
 {
-    if ( isdefined( level._id_A3A1 ) && level._id_A3A1 && isdefined( level._id_A3A0 ) )
-        self thread [[ level._id_A3A0 ]]();
+    if ( isdefined( level.xp_enable ) && level.xp_enable && isdefined( level.xp_ai_func ) )
+        self thread [[ level.xp_ai_func ]]();
 
-    if ( self.type == "human" && !isdefined( level._id_2B13 ) )
-        thread _id_2F42();
+    if ( self.type == "human" && !isdefined( level.disablegeardrop ) )
+        thread drop_gear();
 
     maps\_utility::add_damage_function( maps\_gameskill::auto_adjust_enemy_death_detection );
 
-    if ( isdefined( self._id_797B ) )
-        self.combatmode = self._id_797B;
+    if ( isdefined( self.script_combatmode ) )
+        self.combatmode = self.script_combatmode;
 }
 
-_id_8962()
+spawn_team_team3()
 {
-    _id_8960();
+    spawn_team_axis();
 }
 
-_id_8961()
+spawn_team_neutral()
 {
 
 }
 
-_id_8F7E()
+subclass_elite()
 {
     self endon( "death" );
-    self._id_305E = 1;
-    self._id_2D65 = 0.5;
+    self.elite = 1;
+    self.doorflashchance = 0.5;
 
-    if ( !isdefined( self._id_792C ) )
+    if ( !isdefined( self.script_accuracy ) )
         self.baseaccuracy = 2;
 
     self.aggressivemode = 1;
     self.minpaindamage = 100;
     maps\_utility::add_damage_function( animscripts\pain::additive_pain );
-    maps\_utility::add_damage_function( ::_id_664B );
-    self._id_254A = ::_id_89C3;
+    maps\_utility::add_damage_function( ::pain_resistance );
+    self.custom_laser_function = ::spawner_force_laser_on;
 
     if ( isdefined( self.weapon ) && weaponclass( self.weapon ) != "rocketlauncher" )
         self laseron();
 }
 
-_id_89C3()
+spawner_force_laser_on()
 {
     var_0 = undefined;
 
@@ -1451,13 +1433,13 @@ _id_89C3()
         self laseron();
 }
 
-_id_8F81()
+subclass_regular()
 {
-    if ( !isdefined( self._id_792C ) )
+    if ( !isdefined( self.script_accuracy ) )
         self.baseaccuracy = 1.05;
 }
 
-_id_664B( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+pain_resistance( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     self endon( "death" );
 
@@ -1478,7 +1460,7 @@ bullet_resistance( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( !isdefined( self ) || self.health <= 0 )
         return;
 
-    if ( isdefined( self._id_58D7 ) && self._id_58D7 )
+    if ( isdefined( self.magic_bullet_shield ) && self.magic_bullet_shield )
         return;
 
     if ( !issubstr( var_4, "BULLET" ) )
@@ -1492,7 +1474,7 @@ bullet_resistance( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     self.health += var_7;
 }
 
-_id_8967()
+spawn_think_game_skill_related()
 {
     maps\_gameskill::grenadeawareness();
 }
@@ -1514,255 +1496,255 @@ ai_lasers()
     self laseroff();
 }
 
-_id_8968()
+spawn_think_script_inits()
 {
-    if ( isdefined( self._id_79AA ) )
-        self._id_2D3B = 1;
+    if ( isdefined( self.script_dontshootwhilemoving ) )
+        self.dontshootwhilemoving = 1;
 
-    if ( isdefined( self._id_7987 ) )
+    if ( isdefined( self.script_deathflag ) )
         thread ai_deathflag();
 
-    if ( isdefined( self._id_7941 ) )
-        self.attackeraccuracy = self._id_7941;
+    if ( isdefined( self.script_attackeraccuracy ) )
+        self.attackeraccuracy = self.script_attackeraccuracy;
 
-    if ( isdefined( self._id_7ADE ) )
-        thread _id_8C18();
+    if ( isdefined( self.script_startrunning ) )
+        thread start_off_running();
 
-    if ( isdefined( self._id_798A ) )
-        thread _id_2671();
+    if ( isdefined( self.script_deathtime ) )
+        thread deathtime();
 
-    if ( isdefined( self._id_7A83 ) )
-        maps\_utility::_id_2ADA();
+    if ( isdefined( self.script_nosurprise ) )
+        maps\_utility::disable_surprise();
 
-    if ( isdefined( self._id_7A7A ) )
-        self._id_85B9 = 1;
+    if ( isdefined( self.script_nobloodpool ) )
+        self.skipbloodpool = 1;
 
-    if ( isdefined( self._id_7A21 ) )
+    if ( isdefined( self.script_laser ) )
         thread ai_lasers();
 
-    if ( isdefined( self._id_7982 ) )
+    if ( isdefined( self.script_danger_react ) )
     {
-        var_0 = self._id_7982;
+        var_0 = self.script_danger_react;
 
         if ( var_0 == 1 )
             var_0 = 8;
 
-        maps\_utility::_id_30B4( var_0 );
+        maps\_utility::enable_danger_react( var_0 );
     }
 
-    if ( isdefined( self._id_79C4 ) )
-        self.maxfaceenemydist = self._id_79C4;
+    if ( isdefined( self.script_faceenemydist ) )
+        self.maxfaceenemydist = self.script_faceenemydist;
     else
         self.maxfaceenemydist = getdefaultmaxfaceenemydistance();
 
-    if ( isdefined( self._id_79E6 ) )
-        maps\_utility::_id_7E38( self._id_79E6 );
+    if ( isdefined( self.script_forcecolor ) )
+        maps\_utility::set_force_color( self.script_forcecolor );
 
-    if ( isdefined( self._id_2D33 ) )
+    if ( isdefined( self.dontdropweapon ) )
         self.dropweapon = 0;
 
-    if ( isdefined( self._id_79D1 ) )
-        self.fixednode = self._id_79D1 == 1;
+    if ( isdefined( self.script_fixednode ) )
+        self.fixednode = self.script_fixednode == 1;
     else
         self.fixednode = self.team == "allies";
 
     self.providecoveringfire = self.team == "allies" && self.fixednode;
 
     if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "mgpair" )
-        thread maps\_mg_penetration::_id_23CC();
+        thread maps\_mg_penetration::create_mg_team();
 
-    if ( isdefined( self._id_7A03 ) && !( isdefined( self._id_7A40 ) && self._id_7A40 == 1 || isdefined( self._id_7AE1 ) ) )
-        thread _id_7E4F();
+    if ( isdefined( self.script_goalvolume ) && !( isdefined( self.script_moveoverride ) && self.script_moveoverride == 1 || isdefined( self.script_stealth ) ) )
+        thread set_goal_volume();
 
-    if ( isdefined( self._id_7AF3 ) )
-        self setthreatbiasgroup( self._id_7AF3 );
+    if ( isdefined( self.script_threatbiasgroup ) )
+        self setthreatbiasgroup( self.script_threatbiasgroup );
     else if ( self.team == "neutral" )
         self setthreatbiasgroup( "civilian" );
     else
         self setthreatbiasgroup( self.team );
 
-    if ( isdefined( self._id_795C ) )
-        maps\_utility::_id_7DDF( self._id_795C );
+    if ( isdefined( self.script_bcdialog ) )
+        maps\_utility::set_battlechatter( self.script_bcdialog );
 
-    if ( isdefined( self._id_792C ) )
-        self.baseaccuracy = self._id_792C;
+    if ( isdefined( self.script_accuracy ) )
+        self.baseaccuracy = self.script_accuracy;
 
-    if ( isdefined( self._id_7A15 ) )
+    if ( isdefined( self.script_ignoreme ) )
         self.ignoreme = 1;
 
-    if ( isdefined( self._id_7A13 ) )
+    if ( isdefined( self.script_ignore_suppression ) )
         self.ignoresuppression = 1;
 
-    if ( isdefined( self._id_7A14 ) )
+    if ( isdefined( self.script_ignoreall ) )
     {
         self.ignoreall = 1;
-        self _meth_816A();
+        self clearenemy();
     }
 
-    if ( isdefined( self._id_7AC4 ) )
-        self.maxsightdistsqrd = self._id_7AC4;
+    if ( isdefined( self.script_sightrange ) )
+        self.maxsightdistsqrd = self.script_sightrange;
 
-    if ( isdefined( self._id_79C9 ) )
+    if ( isdefined( self.script_favoriteenemy ) )
     {
-        if ( self._id_79C9 == "player" )
+        if ( self.script_favoriteenemy == "player" )
         {
             self.favoriteenemy = level.player;
             level.player.targetname = "player";
         }
     }
 
-    if ( isdefined( self._id_79CA ) )
-        self.pathenemyfightdist = self._id_79CA;
+    if ( isdefined( self.script_fightdist ) )
+        self.pathenemyfightdist = self.script_fightdist;
 
-    if ( isdefined( self._id_7A31 ) )
-        self.pathenemylookahead = self._id_7A31;
+    if ( isdefined( self.script_maxdist ) )
+        self.pathenemylookahead = self.script_maxdist;
 
-    if ( isdefined( self._id_7A28 ) )
-        self.a._id_2B18 = 1;
+    if ( isdefined( self.script_longdeath ) )
+        self.a.disablelongdeath = 1;
 
-    if ( isdefined( self._id_799D ) )
+    if ( isdefined( self.script_diequietly ) )
         self.diequietly = 1;
 
-    if ( isdefined( self._id_79DE ) )
+    if ( isdefined( self.script_flashbangs ) )
     {
         self.grenadeweapon = "flash_grenade";
-        self.grenadeammo = self._id_79DE;
+        self.grenadeammo = self.script_flashbangs;
     }
 
-    if ( isdefined( self._id_7A95 ) )
+    if ( isdefined( self.script_pacifist ) )
         self.pacifist = 1;
 
-    if ( isdefined( self._id_7ADB ) )
-        self.health = self._id_7ADB;
+    if ( isdefined( self.script_startinghealth ) )
+        self.health = self.script_startinghealth;
 
-    if ( isdefined( self._id_7A7D ) )
-        self._id_613F = self._id_7A7D;
+    if ( isdefined( self.script_nodrop ) )
+        self.nodrop = self.script_nodrop;
 }
 
-_id_8966( var_0 )
+spawn_think_action( var_0 )
 {
     thread ai_damage_think();
-    thread _id_9193();
-    thread _id_263B();
-    thread _id_8A49();
+    thread tanksquish();
+    thread death_achievements();
+    thread specops_think();
 
     if ( !isdefined( level.ai_dont_glow_in_thermal ) )
         self thermaldrawenable();
 
-    self._id_89C6 = undefined;
+    self.spawner_number = undefined;
 
-    if ( !isdefined( self._id_9A29 ) )
-        maps\_utility::_id_7DB5();
+    if ( !isdefined( self.unique_id ) )
+        maps\_utility::set_ai_number();
 
-    if ( !isdefined( self._id_265F ) )
-        self._id_265F = [];
+    if ( !isdefined( self.deathfuncs ) )
+        self.deathfuncs = [];
 
-    thread _id_2661();
-    level thread maps\_friendlyfire::_id_3A59( self );
+    thread deathfunctions();
+    level thread maps\_friendlyfire::friendly_fire_think( self );
     self.walkdist = 16;
-    _id_4D37();
-    _id_8967();
-    _id_8968();
-    [[ level._id_91E6[self.team] ]]();
-    thread [[ level._id_8F83[self._id_8F7D] ]]();
-    thread maps\_damagefeedback::_id_5E3F();
-    _id_7E4A();
+    init_reset_ai();
+    spawn_think_game_skill_related();
+    spawn_think_script_inits();
+    [[ level.team_specific_spawn_functions[self.team] ]]();
+    thread [[ level.subclass_spawn_functions[self.subclass] ]]();
+    thread maps\_damagefeedback::monitordamage();
+    set_goal_height_from_settings();
 
-    if ( isdefined( self._id_7AA5 ) )
+    if ( isdefined( self.script_playerseek ) )
     {
-        self _meth_81AB( level.player );
+        self setgoalentity( level.player );
         return;
     }
 
-    if ( isdefined( self._id_7AE1 ) )
+    if ( isdefined( self.script_stealth ) )
     {
-        if ( isdefined( self._id_7AE3 ) )
+        if ( isdefined( self.script_stealth_function ) )
         {
-            var_1 = level._id_8DB6[self._id_7AE3];
+            var_1 = level.stealth_default_func[self.script_stealth_function];
             self thread [[ var_1 ]]();
         }
         else
-            self thread [[ level._id_4224["_spawner_stealth_default"] ]]();
+            self thread [[ level.global_callbacks["_spawner_stealth_default"] ]]();
     }
 
-    if ( isdefined( self._id_7A11 ) )
+    if ( isdefined( self.script_idleanim ) )
     {
-        self thread [[ level._id_4224["_idle_call_idle_func"] ]]();
+        self thread [[ level.global_callbacks["_idle_call_idle_func"] ]]();
         return;
     }
 
-    if ( isdefined( self._id_7A12 ) && !isdefined( self._id_7A40 ) )
-        self thread [[ level._id_4224["_idle_call_idle_func"] ]]();
+    if ( isdefined( self.script_idlereach ) && !isdefined( self.script_moveoverride ) )
+        self thread [[ level.global_callbacks["_idle_call_idle_func"] ]]();
 
-    if ( isdefined( self._id_7A9C ) && !isdefined( self._id_7A40 ) )
+    if ( isdefined( self.script_patroller ) && !isdefined( self.script_moveoverride ) )
     {
-        thread maps\_patrol::_id_66FC();
+        thread maps\_patrol::patrol();
         return;
     }
 
-    if ( isdefined( self._id_7AB5 ) && self._id_7AB5 == 1 )
-        maps\_utility::_id_30EB();
+    if ( isdefined( self.script_readystand ) && self.script_readystand == 1 )
+        maps\_utility::enable_readystand();
 
-    if ( isdefined( self._id_7991 ) )
+    if ( isdefined( self.script_delayed_playerseek ) )
     {
-        if ( !isdefined( self._id_7AB2 ) )
+        if ( !isdefined( self.script_radius ) )
             self.goalradius = 800;
 
-        self _meth_81AB( level.player );
-        level thread _id_27DC( self );
+        self setgoalentity( level.player );
+        level thread delayed_player_seek_think( self );
         return;
     }
 
-    if ( isdefined( self._id_9BF5 ) )
+    if ( isdefined( self.used_an_mg42 ) )
         return;
 
-    if ( isdefined( self._id_7A40 ) && self._id_7A40 == 1 )
+    if ( isdefined( self.script_moveoverride ) && self.script_moveoverride == 1 )
     {
-        _id_7E49();
-        self _meth_81AA( self.origin );
+        set_goal_from_settings();
+        self setgoalpos( self.origin );
         return;
     }
 
-    if ( !isdefined( self._id_7AE1 ) )
+    if ( !isdefined( self.script_stealth ) )
     {
 
     }
 
-    _id_7E49();
+    set_goal_from_settings();
 
     if ( isdefined( self.target ) )
-        thread _id_4241();
+        thread go_to_node();
 }
 
-_id_4D37()
+init_reset_ai()
 {
-    maps\_utility::_id_7E0B();
+    maps\_utility::set_default_pathenemy_settings();
 
-    if ( isdefined( self._id_7A07 ) )
-        self.grenadeammo = self._id_7A07;
+    if ( isdefined( self.script_grenades ) )
+        self.grenadeammo = self.script_grenades;
     else
         self.grenadeammo = 3;
 
     if ( isdefined( self.primaryweapon ) )
         self.noattackeraccuracymod = animscripts\combat_utility::issniper();
 
-    if ( !maps\_utility::_id_5083() )
-        self._id_6097 = 1;
+    if ( !maps\_utility::is_specialop() )
+        self.neversprintforvariation = 1;
 }
 
-_id_7B48()
+scrub_guy()
 {
     if ( self.team == "neutral" )
         self setthreatbiasgroup( "civilian" );
     else
         self setthreatbiasgroup( self.team );
 
-    _id_4D37();
+    init_reset_ai();
     self.baseaccuracy = 1;
     maps\_gameskill::grenadeawareness();
-    maps\_utility::_id_1EB8();
+    maps\_utility::clear_force_color();
     self.interval = 96;
-    self._id_2AF3 = undefined;
+    self.disablearrivals = undefined;
     self.ignoreme = 0;
     self.threatbias = 0;
     self.pacifist = 0;
@@ -1776,26 +1758,26 @@ _id_7B48()
     self.dontavoidplayer = 0;
     self.drawoncompass = 1;
     self.dropweapon = 1;
-    self.goalradius = level._id_2780;
-    self.goalheight = level._id_277F;
+    self.goalradius = level.default_goalradius;
+    self.goalheight = level.default_goalheight;
     self.ignoresuppression = 0;
-    self _meth_81A7( 0 );
+    self pushplayer( 0 );
 
-    if ( isdefined( self._id_58D7 ) && self._id_58D7 )
-        maps\_utility::_id_8EA4();
+    if ( isdefined( self.magic_bullet_shield ) && self.magic_bullet_shield )
+        maps\_utility::stop_magic_bullet_shield();
 
-    maps\_utility::_id_2ACC();
+    maps\_utility::disable_replace_on_death();
     self.maxsightdistsqrd = 67108864;
-    self._id_79EA = 0;
+    self.script_forcegrenade = 0;
     self.walkdist = 16;
-    maps\_utility::_id_9A4B();
+    maps\_utility::unmake_hero();
     self.pushable = 1;
     self.script_pushable = 1;
-    animscripts\init::_id_7DBE();
+    animscripts\init::set_anim_playback_rate();
     self.fixednode = self.team == "allies";
 }
 
-_id_27DC( var_0 )
+delayed_player_seek_think( var_0 )
 {
     var_0 endon( "death" );
 
@@ -1808,29 +1790,29 @@ _id_27DC( var_0 )
     }
 }
 
-_id_3849( var_0 )
+flag_turret_for_use( var_0 )
 {
     self endon( "death" );
 
-    if ( !self._id_3864 )
+    if ( !self.flagged_for_use )
     {
-        var_0._id_9BF5 = 1;
-        self._id_3864 = 1;
+        var_0.used_an_mg42 = 1;
+        self.flagged_for_use = 1;
         var_0 waittill( "death" );
-        self._id_3864 = 0;
+        self.flagged_for_use = 0;
         self notify( "get new user" );
     }
 }
 
-_id_7E4F()
+set_goal_volume()
 {
     self endon( "death" );
-    waitframe;
+    waittillframeend;
 
     if ( isdefined( self.team ) && self.team == "allies" )
         self.fixednode = 0;
 
-    var_0 = level._id_4255[self._id_7A03];
+    var_0 = level.goalvolumes[self.script_goalvolume];
 
     if ( !isdefined( var_0 ) )
         return;
@@ -1839,23 +1821,23 @@ _id_7E4F()
     {
         var_1 = getnode( var_0.target, "targetname" );
         var_2 = getent( var_0.target, "targetname" );
-        var_3 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
+        var_3 = common_scripts\utility::getstruct( var_0.target, "targetname" );
         var_4 = undefined;
 
         if ( isdefined( var_1 ) )
         {
             var_4 = var_1;
-            self _meth_81A9( var_4 );
+            self getgoalvolume( var_4 );
         }
         else if ( isdefined( var_2 ) )
         {
             var_4 = var_2;
-            self _meth_81AA( var_4.origin );
+            self setgoalpos( var_4.origin );
         }
         else if ( isdefined( var_3 ) )
         {
             var_4 = var_3;
-            self _meth_81AA( var_4.origin );
+            self setgoalpos( var_4.origin );
         }
 
         if ( isdefined( var_4.radius ) && var_4.radius != 0 )
@@ -1866,17 +1848,17 @@ _id_7E4F()
     }
 
     if ( isdefined( self.target ) )
-        self _meth_81AC( var_0 );
+        self setgoalvolume( var_0 );
     else
-        self _meth_81AD( var_0 );
+        self setgoalvolumeauto( var_0 );
 }
 
-_id_3E8A( var_0 )
+get_target_ents( var_0 )
 {
     return getentarray( var_0, "targetname" );
 }
 
-_id_3E8C( var_0 )
+get_target_nodes( var_0 )
 {
     return getnodearray( var_0, "targetname" );
 }
@@ -1886,32 +1868,32 @@ get_target_vehicle_nodes( var_0 )
     return getvehiclenodearray( var_0, "targetname" );
 }
 
-_id_3E8E( var_0 )
+get_target_structs( var_0 )
 {
-    return common_scripts\utility::_id_40FD( var_0, "targetname" );
+    return common_scripts\utility::getstructarray( var_0, "targetname" );
 }
 
-_id_6123( var_0 )
+node_has_radius( var_0 )
 {
     return isdefined( var_0.radius ) && var_0.radius != 0;
 }
 
-_id_4248( var_0, var_1 )
+go_to_origin( var_0, var_1 )
 {
-    _id_4241( var_0, "origin", var_1 );
+    go_to_node( var_0, "origin", var_1 );
 }
 
-_id_4249( var_0, var_1 )
+go_to_struct( var_0, var_1 )
 {
-    _id_4241( var_0, "struct", var_1 );
+    go_to_node( var_0, "struct", var_1 );
 }
 
-_id_4241( var_0, var_1, var_2, var_3, var_4 )
+go_to_node( var_0, var_1, var_2, var_3, var_4 )
 {
-    if ( isdefined( self._id_9BF5 ) )
+    if ( isdefined( self.used_an_mg42 ) )
         return;
 
-    var_5 = _id_3DEF( var_0, var_1 );
+    var_5 = get_node_funcs_based_on_target( var_0, var_1 );
 
     if ( !isdefined( var_5 ) )
     {
@@ -1919,20 +1901,20 @@ _id_4241( var_0, var_1, var_2, var_3, var_4 )
         return;
     }
 
-    _id_4246( var_5["destination"], var_5["get_target_func"], var_5["set_goal_func_quits"], var_2, var_3, var_4 );
+    go_to_node_using_funcs( var_5["destination"], var_5["get_target_func"], var_5["set_goal_func_quits"], var_2, var_3, var_4 );
 }
 
-_id_3DB5( var_0 )
+get_least_used_from_array( var_0 )
 {
     if ( var_0.size == 1 )
         return var_0[0];
 
     var_1 = var_0[0].targetname;
 
-    if ( !isdefined( level._id_4242[var_1] ) )
-        level._id_4242[var_1] = var_0;
+    if ( !isdefined( level.go_to_node_arrays[var_1] ) )
+        level.go_to_node_arrays[var_1] = var_0;
 
-    var_0 = level._id_4242[var_1];
+    var_0 = level.go_to_node_arrays[var_1];
     var_2 = var_0[0];
     var_3 = [];
 
@@ -1940,11 +1922,11 @@ _id_3DB5( var_0 )
         var_3[var_4] = var_0[var_4 + 1];
 
     var_3[var_0.size - 1] = var_0[0];
-    level._id_4242[var_1] = var_3;
+    level.go_to_node_arrays[var_1] = var_3;
     return var_2;
 }
 
-_id_4246( var_0, var_1, var_2, var_3, var_4, var_5 )
+go_to_node_using_funcs( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     self notify( "stop_going_to_node" );
     self endon( "stop_going_to_node" );
@@ -1952,39 +1934,39 @@ _id_4246( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     for (;;)
     {
-        var_0 = _id_3DB5( var_0 );
+        var_0 = get_least_used_from_array( var_0 );
         var_6 = var_4;
 
-        if ( isdefined( var_0._id_7AB7 ) )
+        if ( isdefined( var_0.script_requires_player ) )
         {
-            if ( var_0._id_7AB7 > 1 )
-                var_6 = var_0._id_7AB7;
+            if ( var_0.script_requires_player > 1 )
+                var_6 = var_0.script_requires_player;
 
-            var_0._id_7AB7 = 0;
+            var_0.script_requires_player = 0;
         }
 
-        if ( _id_6123( var_0 ) )
+        if ( node_has_radius( var_0 ) )
             self.goalradius = var_0.radius;
         else
-            self.goalradius = level._id_2780;
+            self.goalradius = level.default_goalradius;
 
         if ( isdefined( var_0.height ) )
             self.goalheight = var_0.height;
         else
-            self.goalheight = level._id_277F;
+            self.goalheight = level.default_goalheight;
 
         [[ var_2 ]]( var_0 );
 
-        if ( maps\_utility::_id_32DC( "_stealth_override_goalpos" ) )
+        if ( maps\_utility::ent_flag_exist( "_stealth_override_goalpos" ) )
         {
             for (;;)
             {
                 self waittill( "goal" );
 
-                if ( !maps\_utility::_id_32D8( "_stealth_override_goalpos" ) )
+                if ( !maps\_utility::ent_flag( "_stealth_override_goalpos" ) )
                     break;
 
-                maps\_utility::_id_32E4( "_stealth_override_goalpos" );
+                maps\_utility::ent_flag_waitopen( "_stealth_override_goalpos" );
             }
         }
         else
@@ -1995,38 +1977,38 @@ _id_4246( var_0, var_1, var_2, var_3, var_4, var_5 )
         if ( isdefined( var_3 ) )
             [[ var_3 ]]( var_0 );
 
-        if ( isdefined( var_0._id_79D8 ) )
-            common_scripts\utility::_id_383F( var_0._id_79D8 );
+        if ( isdefined( var_0.script_flag_set ) )
+            common_scripts\utility::flag_set( var_0.script_flag_set );
 
-        if ( isdefined( var_0._id_79BC ) )
-            maps\_utility::_id_32DE( var_0._id_79BC );
+        if ( isdefined( var_0.script_ent_flag_set ) )
+            maps\_utility::ent_flag_set( var_0.script_ent_flag_set );
 
-        if ( isdefined( var_0._id_79D4 ) )
-            common_scripts\utility::_id_3831( var_0._id_79D4 );
+        if ( isdefined( var_0.script_flag_clear ) )
+            common_scripts\utility::flag_clear( var_0.script_flag_clear );
 
         if ( isdefined( var_0.script_noteworthy ) )
             self notify( var_0.script_noteworthy );
 
-        if ( _id_91DA( var_0 ) )
+        if ( targets_and_uses_turret( var_0 ) )
             return 1;
 
         var_0 maps\_utility::script_delay();
 
-        if ( isdefined( var_0._id_79DA ) )
-            common_scripts\utility::_id_384A( var_0._id_79DA );
+        if ( isdefined( var_0.script_flag_wait ) )
+            common_scripts\utility::flag_wait( var_0.script_flag_wait );
 
-        var_0 maps\_utility::_id_7B20();
+        var_0 maps\_utility::script_wait();
 
-        if ( isdefined( var_0._id_798F ) )
-            wait(var_0._id_798F);
+        if ( isdefined( var_0.script_delay_post ) )
+            wait(var_0.script_delay_post);
 
-        while ( isdefined( var_0._id_7AB7 ) )
+        while ( isdefined( var_0.script_requires_player ) )
         {
-            var_0._id_7AB7 = 0;
+            var_0.script_requires_player = 0;
 
-            if ( _id_4247( var_0, var_1, var_6 ) )
+            if ( go_to_node_wait_for_player( var_0, var_1, var_6 ) )
             {
-                var_0._id_7AB7 = 1;
+                var_0.script_requires_player = 1;
                 var_0 notify( "script_requires_player" );
                 break;
             }
@@ -2050,13 +2032,13 @@ _id_4246( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     self notify( "reached_path_end" );
 
-    if ( isdefined( self._id_79E9 ) )
+    if ( isdefined( self.script_forcegoal ) )
         return;
 
-    self.goalradius = level._id_2780;
+    self.goalradius = level.default_goalradius;
 }
 
-_id_4247( var_0, var_1, var_2 )
+go_to_node_wait_for_player( var_0, var_1, var_2 )
 {
     foreach ( var_4 in level.players )
     {
@@ -2100,31 +2082,31 @@ _id_4247( var_0, var_1, var_2 )
     return 0;
 }
 
-_id_4243( var_0 )
+go_to_node_set_goal_ent( var_0 )
 {
     if ( var_0.classname == "info_volume" )
     {
-        self _meth_81AD( var_0 );
+        self setgoalvolumeauto( var_0 );
         self notify( "go_to_node_new_goal" );
         return;
     }
 
-    _id_4245( var_0 );
+    go_to_node_set_goal_pos( var_0 );
 }
 
-_id_4245( var_0 )
+go_to_node_set_goal_pos( var_0 )
 {
-    maps\_utility::_id_7E47( var_0 );
+    maps\_utility::set_goal_ent( var_0 );
     self notify( "go_to_node_new_goal" );
 }
 
-_id_4244( var_0 )
+go_to_node_set_goal_node( var_0 )
 {
-    maps\_utility::_id_7E4B( var_0 );
+    maps\_utility::set_goal_node( var_0 );
     self notify( "go_to_node_new_goal" );
 }
 
-_id_91DA( var_0 )
+targets_and_uses_turret( var_0 )
 {
     if ( !isdefined( var_0.target ) )
         return 0;
@@ -2139,19 +2121,19 @@ _id_91DA( var_0 )
     if ( var_2.classname != "misc_turret" )
         return 0;
 
-    thread _id_9BD0( var_2 );
+    thread use_a_turret( var_2 );
     return 1;
 }
 
-_id_733B( var_0 )
+remove_crawled( var_0 )
 {
-    waitframe;
+    waittillframeend;
 
     if ( isdefined( var_0 ) )
-        var_0._id_238D = undefined;
+        var_0.crawled = undefined;
 }
 
-_id_238B( var_0, var_1 )
+crawl_target_and_init_flags( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = [];
@@ -2159,27 +2141,27 @@ _id_238B( var_0, var_1 )
 
     for (;;)
     {
-        if ( !isdefined( var_0._id_238D ) )
+        if ( !isdefined( var_0.crawled ) )
         {
-            var_0._id_238D = 1;
-            level thread _id_733B( var_0 );
+            var_0.crawled = 1;
+            level thread remove_crawled( var_0 );
 
-            if ( isdefined( var_0._id_79D8 ) )
+            if ( isdefined( var_0.script_flag_set ) )
             {
-                if ( !isdefined( level._id_382E[var_0._id_79D8] ) )
-                    common_scripts\utility::_id_383D( var_0._id_79D8 );
+                if ( !isdefined( level.flag[var_0.script_flag_set] ) )
+                    common_scripts\utility::flag_init( var_0.script_flag_set );
             }
 
-            if ( isdefined( var_0._id_79DA ) )
+            if ( isdefined( var_0.script_flag_wait ) )
             {
-                if ( !isdefined( level._id_382E[var_0._id_79DA] ) )
-                    common_scripts\utility::_id_383D( var_0._id_79DA );
+                if ( !isdefined( level.flag[var_0.script_flag_wait] ) )
+                    common_scripts\utility::flag_init( var_0.script_flag_wait );
             }
 
-            if ( isdefined( var_0._id_79D4 ) )
+            if ( isdefined( var_0.script_flag_clear ) )
             {
-                if ( !isdefined( level._id_382E[var_0._id_79D4] ) )
-                    common_scripts\utility::_id_383D( var_0._id_79D4 );
+                if ( !isdefined( level.flag[var_0.script_flag_clear] ) )
+                    common_scripts\utility::flag_init( var_0.script_flag_clear );
             }
 
             if ( isdefined( var_0.target ) )
@@ -2198,16 +2180,16 @@ _id_238B( var_0, var_1 )
     }
 }
 
-_id_3DEF( var_0, var_1 )
+get_node_funcs_based_on_target( var_0, var_1 )
 {
-    var_2["entity"] = ::_id_3E8A;
-    var_2["origin"] = ::_id_3E8A;
-    var_2["node"] = ::_id_3E8C;
-    var_2["struct"] = ::_id_3E8E;
-    var_3["entity"] = ::_id_4243;
-    var_3["origin"] = ::_id_4243;
-    var_3["struct"] = ::_id_4245;
-    var_3["node"] = ::_id_4244;
+    var_2["entity"] = ::get_target_ents;
+    var_2["origin"] = ::get_target_ents;
+    var_2["node"] = ::get_target_nodes;
+    var_2["struct"] = ::get_target_structs;
+    var_3["entity"] = ::go_to_node_set_goal_ent;
+    var_3["origin"] = ::go_to_node_set_goal_ent;
+    var_3["struct"] = ::go_to_node_set_goal_pos;
+    var_3["node"] = ::go_to_node_set_goal_node;
 
     if ( !isdefined( var_1 ) )
         var_1 = "node";
@@ -2229,7 +2211,7 @@ _id_3DEF( var_0, var_1 )
 
             if ( !var_0.size )
             {
-                var_0 = common_scripts\utility::_id_40FD( self.target, "targetname" );
+                var_0 = common_scripts\utility::getstructarray( self.target, "targetname" );
 
                 if ( !var_0.size )
                     return;
@@ -2246,23 +2228,23 @@ _id_3DEF( var_0, var_1 )
     return var_4;
 }
 
-_id_7E4A()
+set_goal_height_from_settings()
 {
-    if ( isdefined( self._id_7A01 ) )
-        self.goalheight = self._id_7A01;
+    if ( isdefined( self.script_goalheight ) )
+        self.goalheight = self.script_goalheight;
     else
-        self.goalheight = level._id_277F;
+        self.goalheight = level.default_goalheight;
 }
 
-_id_7E49( var_0 )
+set_goal_from_settings( var_0 )
 {
-    if ( isdefined( self._id_7AB2 ) )
+    if ( isdefined( self.script_radius ) )
     {
-        self.goalradius = self._id_7AB2;
+        self.goalradius = self.script_radius;
         return;
     }
 
-    if ( isdefined( self._id_79E9 ) )
+    if ( isdefined( self.script_forcegoal ) )
     {
         if ( isdefined( var_0 ) && isdefined( var_0.radius ) )
         {
@@ -2271,12 +2253,12 @@ _id_7E49( var_0 )
         }
     }
 
-    if ( !isdefined( self _meth_81AE() ) )
+    if ( !isdefined( self getgoalvolume() ) )
     {
         if ( self.type == "civilian" )
             self.goalradius = 128;
         else
-            self.goalradius = level._id_2780;
+            self.goalradius = level.default_goalradius;
     }
 }
 
@@ -2294,7 +2276,7 @@ autotarget( var_0 )
 
         if ( !isdefined( var_1.enemy ) )
         {
-            self settargetentity( common_scripts\utility::_id_710E( var_0 ) );
+            self settargetentity( common_scripts\utility::random( var_0 ) );
             self notify( "startfiring" );
             self startfiring();
         }
@@ -2303,26 +2285,26 @@ autotarget( var_0 )
     }
 }
 
-_id_597D( var_0 )
+manualtarget( var_0 )
 {
     for (;;)
     {
-        self settargetentity( common_scripts\utility::_id_710E( var_0 ) );
+        self settargetentity( common_scripts\utility::random( var_0 ) );
         self notify( "startfiring" );
         self startfiring();
         wait(2 + randomfloat( 1 ));
     }
 }
 
-_id_9BD0( var_0 )
+use_a_turret( var_0 )
 {
-    if ( self _meth_813F() && self.health == 150 )
+    if ( self isbadguy() && self.health == 150 )
     {
         self.health = 100;
-        self.a._id_2B18 = 1;
+        self.a.disablelongdeath = 1;
     }
 
-    self _meth_818E( var_0 );
+    self useturret( var_0 );
 
     if ( isdefined( var_0.target ) && var_0.target != var_0.targetname )
     {
@@ -2335,34 +2317,34 @@ _id_9BD0( var_0 )
                 var_2[var_2.size] = var_1[var_3];
         }
 
-        if ( isdefined( var_0._id_7953 ) )
+        if ( isdefined( var_0.script_autotarget ) )
             var_0 thread autotarget( var_2 );
-        else if ( isdefined( var_0._id_7A2A ) )
+        else if ( isdefined( var_0.script_manualtarget ) )
         {
             var_0 setmode( "manual_ai" );
-            var_0 thread _id_597D( var_2 );
+            var_0 thread manualtarget( var_2 );
         }
         else if ( var_2.size > 0 )
         {
             if ( var_2.size == 1 )
             {
-                var_0._id_5974 = var_2[0];
+                var_0.manual_target = var_2[0];
                 var_0 settargetentity( var_2[0] );
-                thread maps\_mgturret::_id_5975( var_0 );
+                thread maps\_mgturret::manual_think( var_0 );
             }
             else
-                var_0 thread maps\_mgturret::_id_5BC9( var_2 );
+                var_0 thread maps\_mgturret::mg42_suppressionfire( var_2 );
         }
     }
 
-    thread maps\_mgturret::_id_5BC4( var_0 );
+    thread maps\_mgturret::mg42_firing( var_0 );
     var_0 notify( "startfiring" );
 }
 
-_id_3661( var_0, var_1 )
+fallback_spawner_think( var_0, var_1 )
 {
     self endon( "death" );
-    level._id_24E3[var_0] += self.count;
+    level.current_fallbackers[var_0] += self.count;
     var_2 = 1;
 
     while ( self.count > 0 )
@@ -2382,49 +2364,49 @@ _id_3661( var_0, var_1 )
 
         wait 0.05;
 
-        if ( maps\_utility::_id_88F1( var_3 ) )
+        if ( maps\_utility::spawn_failed( var_3 ) )
         {
             level notify( "fallbacker_died" + var_0 );
-            level._id_24E3[var_0]--;
+            level.current_fallbackers[var_0]--;
             continue;
         }
 
-        var_3 thread _id_365A( var_0, var_1, "is spawner" );
+        var_3 thread fallback_ai_think( var_0, var_1, "is spawner" );
     }
 }
 
-_id_365B( var_0, var_1 )
+fallback_ai_think_death( var_0, var_1 )
 {
     var_0 waittill( "death" );
-    level._id_24E3[var_1]--;
+    level.current_fallbackers[var_1]--;
     level notify( "fallbacker_died" + var_1 );
 }
 
-_id_365A( var_0, var_1, var_2 )
+fallback_ai_think( var_0, var_1, var_2 )
 {
-    if ( !isdefined( self._id_3658 ) || !isdefined( self._id_3658[var_0] ) )
-        self._id_3658[var_0] = 1;
+    if ( !isdefined( self.fallback ) || !isdefined( self.fallback[var_0] ) )
+        self.fallback[var_0] = 1;
     else
         return;
 
-    self._id_79C6 = var_0;
+    self.script_fallback = var_0;
 
     if ( !isdefined( var_2 ) )
-        level._id_24E3[var_0]++;
+        level.current_fallbackers[var_0]++;
 
-    if ( isdefined( var_1 ) && level._id_365F[var_0] )
-        thread _id_3659( var_0, var_1 );
+    if ( isdefined( var_1 ) && level.fallback_initiated[var_0] )
+        thread fallback_ai( var_0, var_1 );
 
-    level thread _id_365B( self, var_0 );
+    level thread fallback_ai_think_death( self, var_0 );
 }
 
-_id_365D( var_0, var_1 )
+fallback_death( var_0, var_1 )
 {
     var_0 waittill( "death" );
     level notify( "fallback_reached_goal" + var_1 );
 }
 
-_id_365E()
+fallback_goal()
 {
     self waittill( "goal" );
     self.ignoresuppression = 0;
@@ -2432,28 +2414,28 @@ _id_365E()
     self notify( "stop_coverprint" );
 }
 
-_id_3659( var_0, var_1 )
+fallback_ai( var_0, var_1 )
 {
     self notify( "stop_going_to_node" );
-    self _meth_818F();
+    self stopuseturret();
     self.ignoresuppression = 1;
-    self _meth_81A9( var_1 );
+    self getgoalvolume( var_1 );
 
-    if ( _id_6123( var_1 ) )
+    if ( node_has_radius( var_1 ) )
         self.goalradius = var_1.radius;
 
     self endon( "death" );
-    level thread _id_365D( self, var_0 );
-    thread _id_365E();
+    level thread fallback_death( self, var_0 );
+    thread fallback_goal();
 
     if ( getdvar( "fallback", "0" ) == "1" )
-        thread _id_22BD( var_1.origin );
+        thread coverprint( var_1.origin );
 
     self waittill( "fallback_notify" );
     level notify( "fallback_reached_goal" + var_0 );
 }
 
-_id_22BD( var_0 )
+coverprint( var_0 )
 {
     self endon( "fallback_notify" );
     self endon( "stop_coverprint" );
@@ -2462,32 +2444,32 @@ _id_22BD( var_0 )
         wait 0.05;
 }
 
-_id_60AD( var_0, var_1 )
+newfallback_overmind( var_0, var_1 )
 {
     var_2 = undefined;
 
     foreach ( var_4 in getallnodes() )
     {
-        if ( isdefined( var_4._id_79C6 ) && var_4._id_79C6 == var_0 )
+        if ( isdefined( var_4.script_fallback ) && var_4.script_fallback == var_0 )
             var_2 = common_scripts\utility::add_to_array( var_2, var_4 );
     }
 
     if ( !isdefined( var_2 ) )
         return;
 
-    level._id_24E3[var_0] = 0;
-    level._id_89C2[var_0] = 0;
-    level._id_365F[var_0] = 0;
+    level.current_fallbackers[var_0] = 0;
+    level.spawner_fallbackers[var_0] = 0;
+    level.fallback_initiated[var_0] = 0;
     var_6 = getspawnerarray();
 
     for ( var_7 = 0; var_7 < var_6.size; var_7++ )
     {
-        if ( isdefined( var_6[var_7]._id_79C6 ) && var_6[var_7]._id_79C6 == var_0 )
+        if ( isdefined( var_6[var_7].script_fallback ) && var_6[var_7].script_fallback == var_0 )
         {
             if ( var_6[var_7].count > 0 )
             {
-                var_6[var_7] thread _id_3661( var_0, var_2[randomint( var_2.size )] );
-                level._id_89C2[var_0]++;
+                var_6[var_7] thread fallback_spawner_think( var_0, var_2[randomint( var_2.size )] );
+                level.spawner_fallbackers[var_0]++;
             }
         }
     }
@@ -2496,16 +2478,16 @@ _id_60AD( var_0, var_1 )
 
     for ( var_7 = 0; var_7 < var_8.size; var_7++ )
     {
-        if ( isdefined( var_8[var_7]._id_79C6 ) && var_8[var_7]._id_79C6 == var_0 )
-            var_8[var_7] thread _id_365A( var_0 );
+        if ( isdefined( var_8[var_7].script_fallback ) && var_8[var_7].script_fallback == var_0 )
+            var_8[var_7] thread fallback_ai_think( var_0 );
     }
 
-    if ( !level._id_24E3[var_0] && !level._id_89C2[var_0] )
+    if ( !level.current_fallbackers[var_0] && !level.spawner_fallbackers[var_0] )
         return;
 
     var_6 = undefined;
     var_8 = undefined;
-    thread _id_3663( var_0, var_1 );
+    thread fallback_wait( var_0, var_1 );
     level waittill( "fallbacker_trigger" + var_0 );
 
     if ( getdvar( "fallback", "0" ) == "1" )
@@ -2513,13 +2495,13 @@ _id_60AD( var_0, var_1 )
 
     }
 
-    level._id_365F[var_0] = 1;
+    level.fallback_initiated[var_0] = 1;
     var_9 = undefined;
     var_8 = getaiarray();
 
     for ( var_7 = 0; var_7 < var_8.size; var_7++ )
     {
-        if ( isdefined( var_8[var_7]._id_79C6 ) && var_8[var_7]._id_79C6 == var_0 || isdefined( var_8[var_7]._id_79C7 ) && isdefined( var_1 ) && var_8[var_7]._id_79C7 == var_1 )
+        if ( isdefined( var_8[var_7].script_fallback ) && var_8[var_7].script_fallback == var_0 || isdefined( var_8[var_7].script_fallback_group ) && isdefined( var_1 ) && var_8[var_7].script_fallback_group == var_1 )
             var_9 = common_scripts\utility::add_to_array( var_9, var_8[var_7] );
     }
 
@@ -2533,7 +2515,7 @@ _id_60AD( var_0, var_1 )
     level notify( "fallback initiated " + var_0 );
 
     for ( var_7 = 0; var_7 < var_10; var_7++ )
-        var_9[var_7] thread _id_3659( var_0, var_2[randomint( var_2.size )] );
+        var_9[var_7] thread fallback_ai( var_0, var_2[randomint( var_2.size )] );
 
     for ( var_7 = 0; var_7 < var_10; var_7++ )
         level waittill( "fallback_reached_goal" + var_0 );
@@ -2541,11 +2523,11 @@ _id_60AD( var_0, var_1 )
     for ( var_7 = var_10; var_7 < var_9.size; var_7++ )
     {
         if ( isalive( var_9[var_7] ) )
-            var_9[var_7] thread _id_3659( var_0, var_2[randomint( var_2.size )] );
+            var_9[var_7] thread fallback_ai( var_0, var_2[randomint( var_2.size )] );
     }
 }
 
-_id_3663( var_0, var_1 )
+fallback_wait( var_0, var_1 )
 {
     level endon( "fallbacker_trigger" + var_0 );
 
@@ -2554,7 +2536,7 @@ _id_3663( var_0, var_1 )
 
     }
 
-    for ( var_2 = 0; var_2 < level._id_89C2[var_0]; var_2++ )
+    for ( var_2 = 0; var_2 < level.spawner_fallbackers[var_0]; var_2++ )
     {
         if ( getdvar( "fallback", "0" ) == "1" )
         {
@@ -2573,14 +2555,14 @@ _id_3663( var_0, var_1 )
 
     for ( var_2 = 0; var_2 < var_3.size; var_2++ )
     {
-        if ( isdefined( var_3[var_2]._id_79C6 ) && var_3[var_2]._id_79C6 == var_0 || isdefined( var_3[var_2]._id_79C7 ) && isdefined( var_1 ) && var_3[var_2]._id_79C7 == var_1 )
-            var_3[var_2] thread _id_365A( var_0 );
+        if ( isdefined( var_3[var_2].script_fallback ) && var_3[var_2].script_fallback == var_0 || isdefined( var_3[var_2].script_fallback_group ) && isdefined( var_1 ) && var_3[var_2].script_fallback_group == var_1 )
+            var_3[var_2] thread fallback_ai_think( var_0 );
     }
 
     var_3 = undefined;
-    var_4 = level._id_24E3[var_0];
+    var_4 = level.current_fallbackers[var_0];
 
-    for ( var_5 = 0; level._id_24E3[var_0] > var_4 * 0.5; var_5++ )
+    for ( var_5 = 0; level.current_fallbackers[var_0] > var_4 * 0.5; var_5++ )
     {
         if ( getdvar( "fallback", "0" ) == "1" )
         {
@@ -2593,27 +2575,27 @@ _id_3663( var_0, var_1 )
     level notify( "fallbacker_trigger" + var_0 );
 }
 
-_id_3662( var_0 )
+fallback_think( var_0 )
 {
-    if ( !isdefined( level._id_3658 ) || !isdefined( level._id_3658[var_0._id_79C6] ) )
-        level thread _id_60AD( var_0._id_79C6, var_0._id_79C7 );
+    if ( !isdefined( level.fallback ) || !isdefined( level.fallback[var_0.script_fallback] ) )
+        level thread newfallback_overmind( var_0.script_fallback, var_0.script_fallback_group );
 
     var_0 waittill( "trigger" );
-    level notify( "fallbacker_trigger" + var_0._id_79C6 );
-    _id_533E( var_0 );
+    level notify( "fallbacker_trigger" + var_0.script_fallback );
+    kill_trigger( var_0 );
 }
 
 arrive( var_0 )
 {
     self waittill( "goal" );
 
-    if ( _id_6123( var_0 ) )
+    if ( node_has_radius( var_0 ) )
         self.goalradius = var_0.radius;
     else
-        self.goalradius = level._id_2780;
+        self.goalradius = level.default_goalradius;
 }
 
-_id_365C()
+fallback_coverprint()
 {
     self endon( "fallback" );
     self endon( "fallback_clear_goal" );
@@ -2621,7 +2603,7 @@ _id_365C()
 
     for (;;)
     {
-        if ( isdefined( self._id_22BB ) )
+        if ( isdefined( self.coverpoint ) )
         {
 
         }
@@ -2630,14 +2612,14 @@ _id_365C()
     }
 }
 
-_id_3660()
+fallback_print()
 {
     self endon( "fallback_clear_goal" );
     self endon( "fallback_clear_death" );
 
     for (;;)
     {
-        if ( isdefined( self._id_22BB ) )
+        if ( isdefined( self.coverpoint ) )
         {
 
         }
@@ -2646,53 +2628,53 @@ _id_3660()
     }
 }
 
-_id_3658()
+fallback()
 {
     var_0 = getnode( self.target, "targetname" );
-    self._id_22BB = var_0;
-    self _meth_81A9( var_0 );
+    self.coverpoint = var_0;
+    self getgoalvolume( var_0 );
 
-    if ( isdefined( self._id_7ABF ) )
+    if ( isdefined( self.script_seekgoal ) )
         thread arrive( var_0 );
-    else if ( _id_6123( var_0 ) )
+    else if ( node_has_radius( var_0 ) )
         self.goalradius = var_0.radius;
     else
-        self.goalradius = level._id_2780;
+        self.goalradius = level.default_goalradius;
 
     for (;;)
     {
         self waittill( "fallback" );
         self.interval = 20;
-        level thread _id_365D( self );
+        level thread fallback_death( self );
 
         if ( getdvar( "fallback", "0" ) == "1" )
-            thread _id_3660();
+            thread fallback_print();
 
         if ( isdefined( var_0.target ) )
         {
             var_0 = getnode( var_0.target, "targetname" );
-            self._id_22BB = var_0;
-            self _meth_81A9( var_0 );
-            thread _id_365E();
+            self.coverpoint = var_0;
+            self getgoalvolume( var_0 );
+            thread fallback_goal();
 
-            if ( _id_6123( var_0 ) )
+            if ( node_has_radius( var_0 ) )
                 self.goalradius = var_0.radius;
 
             continue;
         }
 
-        level notify( "fallback_arrived" + self._id_79C6 );
+        level notify( "fallback_arrived" + self.script_fallback );
         return;
     }
 }
 
-_id_2819()
+delete_me()
 {
     wait 0.05;
     self delete();
 }
 
-_id_9EAD( var_0, var_1 )
+vlength( var_0, var_1 )
 {
     var_2 = var_0[0] - var_1[0];
     var_3 = var_0[1] - var_1[1];
@@ -2704,16 +2686,16 @@ _id_9EAD( var_0, var_1 )
     return var_5;
 }
 
-_id_8A28( var_0 )
+specialcheck( var_0 )
 {
     for (;;)
         wait 0.05;
 }
 
-_id_3A8E( var_0 )
+friendly_wave( var_0 )
 {
-    if ( !isdefined( level._id_3A8F ) )
-        thread _id_3A90();
+    if ( !isdefined( level.friendly_wave_active ) )
+        thread friendly_wave_masterthread();
 
     for (;;)
     {
@@ -2721,15 +2703,15 @@ _id_3A8E( var_0 )
         level notify( "friendly_died" );
 
         if ( var_0.targetname == "friendly_wave" )
-            level._id_3A91 = var_0;
+            level.friendly_wave_trigger = var_0;
         else
-            level._id_3A91 = undefined;
+            level.friendly_wave_trigger = undefined;
 
         wait 1;
     }
 }
 
-_id_7EBC( var_0 )
+set_spawncount( var_0 )
 {
     if ( !isdefined( self.target ) )
         return;
@@ -2737,37 +2719,37 @@ _id_7EBC( var_0 )
     var_1 = getentarray( self.target, "targetname" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
-        var_1[var_2] maps\_utility::_id_7DF8( var_0 );
+        var_1[var_2] maps\_utility::set_count( var_0 );
 }
 
-_id_3A98()
+friendlydeath_thread()
 {
-    if ( !isdefined( level._id_93F9 ) )
-        level._id_93F9 = 0;
+    if ( !isdefined( level.totalfriends ) )
+        level.totalfriends = 0;
 
-    level._id_93F9++;
+    level.totalfriends++;
     self waittill( "death" );
     level notify( "friendly_died" );
-    level._id_93F9--;
+    level.totalfriends--;
 }
 
-_id_3A90()
+friendly_wave_masterthread()
 {
-    level._id_3A8F = 1;
+    level.friendly_wave_active = 1;
     var_0 = getentarray( "friendly_wave", "targetname" );
-    common_scripts\utility::array_thread( var_0, ::_id_7EBC, 0 );
+    common_scripts\utility::array_thread( var_0, ::set_spawncount, 0 );
 
-    if ( !isdefined( level._id_5A3A ) )
-        level._id_5A3A = 7;
+    if ( !isdefined( level.maxfriendlies ) )
+        level.maxfriendlies = 7;
 
     var_1 = 1;
 
     for (;;)
     {
-        if ( isdefined( level._id_3A91 ) && isdefined( level._id_3A91.target ) )
+        if ( isdefined( level.friendly_wave_trigger ) && isdefined( level.friendly_wave_trigger.target ) )
         {
-            var_2 = level._id_3A91;
-            var_3 = getentarray( level._id_3A91.target, "targetname" );
+            var_2 = level.friendly_wave_trigger;
+            var_3 = getentarray( level.friendly_wave_trigger.target, "targetname" );
 
             if ( !var_3.size )
             {
@@ -2776,57 +2758,57 @@ _id_3A90()
             }
 
             var_4 = 0;
-            var_5 = isdefined( level._id_3A91.script_delay );
+            var_5 = isdefined( level.friendly_wave_trigger.script_delay );
 
-            while ( isdefined( level._id_3A91 ) && level._id_93F9 < level._id_5A3A )
+            while ( isdefined( level.friendly_wave_trigger ) && level.totalfriends < level.maxfriendlies )
             {
-                if ( var_2 != level._id_3A91 )
+                if ( var_2 != level.friendly_wave_trigger )
                 {
-                    var_5 = isdefined( level._id_3A91.script_delay );
-                    var_2 = level._id_3A91;
-                    var_3 = getentarray( level._id_3A91.target, "targetname" );
+                    var_5 = isdefined( level.friendly_wave_trigger.script_delay );
+                    var_2 = level.friendly_wave_trigger;
+                    var_3 = getentarray( level.friendly_wave_trigger.target, "targetname" );
                 }
                 else if ( !var_5 )
                     var_4 = randomint( var_3.size );
                 else if ( var_4 == var_3.size )
                     var_4 = 0;
 
-                var_3[var_4] maps\_utility::_id_7DF8( 1 );
-                var_6 = isdefined( var_3[var_4]._id_7AE1 ) && common_scripts\utility::_id_382E( "_stealth_enabled" ) && !common_scripts\utility::_id_382E( "_stealth_spotted" );
+                var_3[var_4] maps\_utility::set_count( 1 );
+                var_6 = isdefined( var_3[var_4].script_stealth ) && common_scripts\utility::flag( "_stealth_enabled" ) && !common_scripts\utility::flag( "_stealth_spotted" );
 
-                if ( isdefined( var_3[var_4]._id_79EB ) )
+                if ( isdefined( var_3[var_4].script_forcespawn ) )
                     var_7 = var_3[var_4] stalingradspawn( var_6 );
                 else
                     var_7 = var_3[var_4] dospawn( var_6 );
 
-                var_3[var_4] maps\_utility::_id_7DF8( 0 );
+                var_3[var_4] maps\_utility::set_count( 0 );
 
-                if ( maps\_utility::_id_88F1( var_7 ) )
+                if ( maps\_utility::spawn_failed( var_7 ) )
                 {
                     wait 0.2;
                     continue;
                 }
 
-                if ( isdefined( var_3[var_4]._id_797A ) )
+                if ( isdefined( var_3[var_4].script_combatbehavior ) )
                 {
-                    if ( var_3[var_4]._id_20A7 == "heat" )
-                        var_7 maps\_utility::_id_30C9();
+                    if ( var_3[var_4].combatbehavior == "heat" )
+                        var_7 maps\_utility::enable_heat_behavior();
 
-                    if ( var_3[var_4]._id_20A7 == "cqb" )
-                        var_7 maps\_utility::_id_30B0();
+                    if ( var_3[var_4].combatbehavior == "cqb" )
+                        var_7 maps\_utility::enable_cqbwalk();
                 }
 
-                if ( isdefined( level._id_3ABF ) )
-                    level thread [[ level._id_3ABF ]]( var_7 );
+                if ( isdefined( level.friendlywave_thread ) )
+                    level thread [[ level.friendlywave_thread ]]( var_7 );
                 else
-                    var_7 _meth_81AB( level.player );
+                    var_7 setgoalentity( level.player );
 
                 if ( var_5 )
                 {
-                    if ( level._id_3A91.script_delay == 0 )
-                        waitframe;
+                    if ( level.friendly_wave_trigger.script_delay == 0 )
+                        waittillframeend;
                     else
-                        wait(level._id_3A91.script_delay);
+                        wait(level.friendly_wave_trigger.script_delay);
 
                     var_4++;
                     continue;
@@ -2840,7 +2822,7 @@ _id_3A90()
     }
 }
 
-_id_3A70( var_0 )
+friendly_mgturret( var_0 )
 {
     var_1 = getnode( var_0.target, "targetname" );
     var_2 = getent( var_1.target, "targetname" );
@@ -2861,30 +2843,30 @@ _id_3A70( var_0 )
         if ( var_4.team != "allies" )
             continue;
 
-        if ( isdefined( var_4._id_7B0A ) && var_4._id_7B0A == 0 )
+        if ( isdefined( var_4.script_usemg42 ) && var_4.script_usemg42 == 0 )
             continue;
 
-        if ( var_4 thread _id_3A6E( var_2, var_1 ) )
+        if ( var_4 thread friendly_mg42_useable( var_2, var_1 ) )
         {
-            var_4 thread _id_3A6D( var_2, var_1 );
+            var_4 thread friendly_mg42_think( var_2, var_1 );
             var_2 waittill( "friendly_finished_using_mg42" );
 
             if ( isalive( var_4 ) )
-                var_4._id_999F = gettime() + 10000;
+                var_4.turret_use_time = gettime() + 10000;
         }
 
         wait 1;
     }
 }
 
-_id_3A69( var_0, var_1 )
+friendly_mg42_death_notify( var_0, var_1 )
 {
     var_1 endon( "friendly_finished_using_mg42" );
     var_0 waittill( "death" );
     var_1 notify( "friendly_finished_using_mg42" );
 }
 
-_id_3A6F( var_0 )
+friendly_mg42_wait_for_use( var_0 )
 {
     var_0 endon( "friendly_finished_using_mg42" );
     self.useable = 1;
@@ -2893,17 +2875,17 @@ _id_3A6F( var_0 )
     self waittill( "trigger" );
     self.useable = 0;
     self sethintstring( "" );
-    self _meth_818F();
+    self stopuseturret();
     self notify( "stopped_use_turret" );
     var_0 notify( "friendly_finished_using_mg42" );
 }
 
-_id_3A6E( var_0, var_1 )
+friendly_mg42_useable( var_0, var_1 )
 {
     if ( self.useable )
         return 0;
 
-    if ( isdefined( self._id_999F ) && gettime() < self._id_999F )
+    if ( isdefined( self.turret_use_time ) && gettime() < self.turret_use_time )
         return 0;
 
     if ( distance( level.player.origin, var_1.origin ) < 100 )
@@ -2912,49 +2894,49 @@ _id_3A6E( var_0, var_1 )
     return 1;
 }
 
-_id_3A6B( var_0, var_1 )
+friendly_mg42_endtrigger( var_0, var_1 )
 {
     var_0 endon( "friendly_finished_using_mg42" );
     self waittill( "trigger" );
     var_0 notify( "friendly_finished_using_mg42" );
 }
 
-_id_3A6C()
+friendly_mg42_stop_use()
 {
-    if ( !isdefined( self._id_3A67 ) )
+    if ( !isdefined( self.friendly_mg42 ) )
         return;
 
-    self._id_3A67 notify( "friendly_finished_using_mg42" );
+    self.friendly_mg42 notify( "friendly_finished_using_mg42" );
 }
 
-_id_6144()
+nofour()
 {
     self endon( "death" );
     self waittill( "goal" );
-    self.goalradius = self._id_63DF;
+    self.goalradius = self.oldradius;
 
     if ( self.goalradius < 32 )
         self.goalradius = 400;
 }
 
-_id_3A6D( var_0, var_1 )
+friendly_mg42_think( var_0, var_1 )
 {
     self endon( "death" );
     var_0 endon( "friendly_finished_using_mg42" );
-    level thread _id_3A69( self, var_0 );
-    self._id_63DF = self.goalradius;
+    level thread friendly_mg42_death_notify( self, var_0 );
+    self.oldradius = self.goalradius;
     self.goalradius = 28;
-    thread _id_6144();
-    self _meth_81A9( var_1 );
+    thread nofour();
+    self getgoalvolume( var_1 );
     self.ignoresuppression = 1;
     self waittill( "goal" );
-    self.goalradius = self._id_63DF;
+    self.goalradius = self.oldradius;
 
     if ( self.goalradius < 32 )
         self.goalradius = 400;
 
     self.ignoresuppression = 0;
-    self.goalradius = self._id_63DF;
+    self.goalradius = self.oldradius;
 
     if ( distance( level.player.origin, var_1.origin ) < 32 )
     {
@@ -2962,23 +2944,23 @@ _id_3A6D( var_0, var_1 )
         return;
     }
 
-    self._id_3A67 = var_0;
-    thread _id_3A6F( var_0 );
-    thread _id_3A68( var_0 );
-    self _meth_818E( var_0 );
+    self.friendly_mg42 = var_0;
+    thread friendly_mg42_wait_for_use( var_0 );
+    thread friendly_mg42_cleanup( var_0 );
+    self useturret( var_0 );
 
     if ( isdefined( var_0.target ) )
     {
         var_2 = getent( var_0.target, "targetname" );
 
         if ( isdefined( var_2 ) )
-            var_2 thread _id_3A6B( var_0, self );
+            var_2 thread friendly_mg42_endtrigger( var_0, self );
     }
 
     for (;;)
     {
         if ( distance( self.origin, var_1.origin ) < 32 )
-            self _meth_818E( var_0 );
+            self useturret( var_0 );
         else
             break;
 
@@ -2988,22 +2970,22 @@ _id_3A6D( var_0, var_1 )
     var_0 notify( "friendly_finished_using_mg42" );
 }
 
-_id_3A68( var_0 )
+friendly_mg42_cleanup( var_0 )
 {
     self endon( "death" );
     var_0 waittill( "friendly_finished_using_mg42" );
-    _id_3A6A();
+    friendly_mg42_doneusingturret();
 }
 
-_id_3A6A()
+friendly_mg42_doneusingturret()
 {
     self endon( "death" );
-    var_0 = self._id_3A67;
-    self._id_3A67 = undefined;
-    self _meth_818F();
+    var_0 = self.friendly_mg42;
+    self.friendly_mg42 = undefined;
+    self stopuseturret();
     self notify( "stopped_use_turret" );
     self.useable = 0;
-    self.goalradius = self._id_63DF;
+    self.goalradius = self.oldradius;
 
     if ( !isdefined( var_0 ) )
         return;
@@ -3014,7 +2996,7 @@ _id_3A6A()
     var_1 = getnode( var_0.target, "targetname" );
     var_2 = self.goalradius;
     self.goalradius = 8;
-    self _meth_81A9( var_1 );
+    self getgoalvolume( var_1 );
     wait 2;
     self.goalradius = 384;
     return;
@@ -3028,24 +3010,24 @@ _id_3A6A()
             var_1 = getnode( var_1.target, "targetname" );
 
         if ( isdefined( var_1 ) )
-            self _meth_81A9( var_1 );
+            self getgoalvolume( var_1 );
     }
 
     self.goalradius = var_2;
 }
 
-_id_9193()
+tanksquish()
 {
-    if ( isdefined( level._id_616B ) )
+    if ( isdefined( level.notanksquish ) )
         return;
 
-    if ( isdefined( level._id_56E2 ) && !level._id_56E2 )
+    if ( isdefined( level.levelhasvehicles ) && !level.levelhasvehicles )
         return;
 
-    maps\_utility::add_damage_function( ::_id_9194 );
+    maps\_utility::add_damage_function( ::tanksquish_damage_check );
 }
 
-_id_9194( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+tanksquish_damage_check( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( !isdefined( self ) )
         return;
@@ -3059,46 +3041,46 @@ _id_9194( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     if ( !isdefined( var_1.vehicletype ) )
         return;
 
-    if ( var_1 maps\_vehicle::_id_5118() )
+    if ( var_1 maps\_vehicle::ishelicopter() )
         return;
 
-    if ( !isdefined( self._id_6159 ) )
+    if ( !isdefined( self.noragdoll ) )
         self startragdoll();
 
     if ( !isdefined( self ) )
         return;
 
-    maps\_utility::_id_733C( ::_id_9194 );
+    maps\_utility::remove_damage_function( ::tanksquish_damage_check );
 }
 
-_id_667A( var_0, var_1, var_2, var_3, var_4 )
+panzer_target( var_0, var_1, var_2, var_3, var_4 )
 {
     var_0 endon( "death" );
-    var_0._id_6678 = var_1;
+    var_0.panzer_node = var_1;
 
     if ( isdefined( var_1.script_delay ) )
-        var_0._id_6675 = var_1.script_delay;
+        var_0.panzer_delay = var_1.script_delay;
 
     if ( isdefined( var_3 ) && isdefined( var_4 ) )
     {
-        var_0._id_6676 = var_3;
-        var_0._id_6677 = var_4;
+        var_0.panzer_ent = var_3;
+        var_0.panzer_ent_offset = var_4;
     }
     else
-        var_0._id_6679 = var_2;
+        var_0.panzer_pos = var_2;
 
-    var_0 _meth_81AA( var_0.origin );
-    var_0 _meth_81A9( var_1 );
+    var_0 setgoalpos( var_0.origin );
+    var_0 getgoalvolume( var_1 );
     var_0.goalradius = 12;
     var_0 waittill( "goal" );
     var_0.goalradius = 28;
     var_0 waittill( "shot_at_target" );
-    var_0._id_6676 = undefined;
-    var_0._id_6679 = undefined;
-    var_0._id_6675 = undefined;
+    var_0.panzer_ent = undefined;
+    var_0.panzer_pos = undefined;
+    var_0.panzer_delay = undefined;
 }
 
-_id_852D( var_0, var_1, var_2 )
+showstart( var_0, var_1, var_2 )
 {
     var_3 = getstartorigin( var_0, var_1, var_2 );
 
@@ -3106,59 +3088,59 @@ _id_852D( var_0, var_1, var_2 )
         wait 0.05;
 }
 
-_id_8A17()
+spawnwaypointfriendlies()
 {
-    maps\_utility::_id_7DF8( 1 );
+    maps\_utility::set_count( 1 );
 
-    if ( isdefined( self._id_79EB ) )
+    if ( isdefined( self.script_forcespawn ) )
         var_0 = self stalingradspawn();
     else
         var_0 = self dospawn();
 
-    if ( maps\_utility::_id_88F1( var_0 ) )
+    if ( maps\_utility::spawn_failed( var_0 ) )
         return;
 
-    if ( isdefined( self._id_797A ) )
+    if ( isdefined( self.script_combatbehavior ) )
     {
-        if ( self._id_797A == "heat" )
-            var_0 maps\_utility::_id_30C9();
+        if ( self.script_combatbehavior == "heat" )
+            var_0 maps\_utility::enable_heat_behavior();
 
-        if ( self._id_797A == "cqb" )
-            var_0 maps\_utility::_id_30B0();
+        if ( self.script_combatbehavior == "cqb" )
+            var_0 maps\_utility::enable_cqbwalk();
     }
 
-    var_0._id_3AC0 = 1;
+    var_0.friendlywaypoint = 1;
 }
 
-_id_A0D5()
+waittilldeathorleavesquad()
 {
     self endon( "death" );
     self waittill( "leaveSquad" );
 }
 
-_id_3ABC()
+friendlyspawnwave()
 {
-    common_scripts\utility::array_thread( getentarray( self.target, "targetname" ), ::_id_3ABD, self );
+    common_scripts\utility::array_thread( getentarray( self.target, "targetname" ), ::friendlyspawnwave_triggerthink, self );
 
     for (;;)
     {
         self waittill( "trigger", var_2 );
 
-        if ( activefriendlyspawn() && _id_3FA6() == self )
-            _id_9A75();
+        if ( activefriendlyspawn() && getfriendlyspawntrigger() == self )
+            unsetfriendlyspawn();
 
         self waittill( "friendly_wave_start", var_3 );
-        _id_7F79( var_3, self );
+        setfriendlyspawn( var_3, self );
 
         if ( !isdefined( var_3.target ) )
             continue;
 
         var_4 = getent( var_3.target, "targetname" );
-        var_4 thread _id_8A16( self );
+        var_4 thread spawnwavestoptrigger( self );
     }
 }
 
-_id_38EA( var_0 )
+flood_and_secure( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0;
@@ -3166,9 +3148,9 @@ _id_38EA( var_0 )
     if ( isdefined( self.script_noteworthy ) && self.script_noteworthy == "instant_respawn" )
         var_0 = 1;
 
-    level._id_89CE = [];
+    level.spawnerwave = [];
     var_1 = getentarray( self.target, "targetname" );
-    common_scripts\utility::array_thread( var_1, ::_id_38ED, var_0 );
+    common_scripts\utility::array_thread( var_1, ::flood_and_secure_spawner, var_0 );
     var_2 = 0;
     var_3 = 0;
 
@@ -3176,7 +3158,7 @@ _id_38EA( var_0 )
     {
         self waittill( "trigger", var_4 );
 
-        if ( !_id_62FF() )
+        if ( !objectiveisallowed() )
             continue;
 
         if ( !var_3 )
@@ -3194,7 +3176,7 @@ _id_38EA( var_0 )
 
             if ( isplayer( var_4 ) )
                 var_2 = 1;
-            else if ( !isdefined( var_4._id_51B6 ) || !var_4._id_51B6 )
+            else if ( !isdefined( var_4.issquad ) || !var_4.issquad )
                 continue;
         }
 
@@ -3202,15 +3184,15 @@ _id_38EA( var_0 )
 
         if ( isdefined( var_1[0] ) )
         {
-            if ( isdefined( var_1[0]._id_7AB4 ) )
-                _id_24B6( var_1[0]._id_7AB4 );
+            if ( isdefined( var_1[0].script_randomspawn ) )
+                cull_spawners_from_killspawner( var_1[0].script_randomspawn );
         }
 
         var_1 = getentarray( self.target, "targetname" );
 
         for ( var_5 = 0; var_5 < var_1.size; var_5++ )
         {
-            var_1[var_5]._id_6D73 = var_2;
+            var_1[var_5].playertriggered = var_2;
             var_1[var_5] notify( "flood_begin" );
         }
 
@@ -3224,35 +3206,35 @@ _id_38EA( var_0 )
     }
 }
 
-_id_24B7( var_0 )
+cull_spawners_leaving_one_set( var_0 )
 {
     var_1 = [];
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
-        var_1[var_0[var_2]._id_7AB4] = 1;
+        var_1[var_0[var_2].script_randomspawn] = 1;
 
     var_3 = getarraykeys( var_1 );
-    var_4 = common_scripts\utility::_id_710E( var_3 );
+    var_4 = common_scripts\utility::random( var_3 );
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( var_0[var_2]._id_7AB4 != var_4 )
+        if ( var_0[var_2].script_randomspawn != var_4 )
             var_0[var_2] delete();
     }
 }
 
-_id_38ED( var_0 )
+flood_and_secure_spawner( var_0 )
 {
-    if ( isdefined( self._id_7C07 ) )
+    if ( isdefined( self.securestarted ) )
         return;
 
-    self._id_7C07 = 1;
-    self._id_981E = 1;
+    self.securestarted = 1;
+    self.triggerunlocked = 1;
     var_1 = self.target;
     var_2 = self.targetname;
 
-    if ( !isdefined( var_1 ) && !isdefined( self._id_7A40 ) )
-        waitframe;
+    if ( !isdefined( var_1 ) && !isdefined( self.script_moveoverride ) )
+        waittillframeend;
 
     var_3 = [];
 
@@ -3271,7 +3253,7 @@ _id_38ED( var_0 )
 
     var_6 = spawnstruct();
     var_7 = self.origin;
-    _id_38EE( var_6, var_3.size > 0, var_0 );
+    flood_and_secure_spawner_think( var_6, var_3.size > 0, var_0 );
 
     if ( isalive( var_6.ai ) )
         var_6.ai waittill( "death" );
@@ -3301,13 +3283,13 @@ _id_38ED( var_0 )
         }
 
         var_4[var_5].target = var_8;
-        var_4[var_5] thread _id_38ED( var_0 );
-        var_4[var_5]._id_6D73 = 1;
+        var_4[var_5] thread flood_and_secure_spawner( var_0 );
+        var_4[var_5].playertriggered = 1;
         var_4[var_5] notify( "flood_begin" );
     }
 }
 
-_id_38EE( var_0, var_1, var_2 )
+flood_and_secure_spawner_think( var_0, var_1, var_2 )
 {
     self endon( "death" );
     var_3 = self.count;
@@ -3315,7 +3297,7 @@ _id_38EE( var_0, var_1, var_2 )
     if ( !var_1 )
         var_1 = isdefined( self.script_noteworthy ) && self.script_noteworthy == "delete";
 
-    maps\_utility::_id_7DF8( 2 );
+    maps\_utility::set_count( 2 );
 
     if ( isdefined( self.script_delay ) )
         var_4 = self.script_delay;
@@ -3326,7 +3308,7 @@ _id_38EE( var_0, var_1, var_2 )
     {
         self waittill( "flood_begin" );
 
-        if ( self._id_6D73 )
+        if ( self.playertriggered )
             break;
 
         if ( var_4 )
@@ -3339,17 +3321,17 @@ _id_38EE( var_0, var_1, var_2 )
 
     while ( var_3 )
     {
-        self._id_9887 = var_3;
-        maps\_utility::_id_7DF8( 2 );
+        self.truecount = var_3;
+        maps\_utility::set_count( 2 );
         wait(var_4);
-        var_6 = isdefined( self._id_7AE1 ) && common_scripts\utility::_id_382E( "_stealth_enabled" ) && !common_scripts\utility::_id_382E( "_stealth_spotted" );
+        var_6 = isdefined( self.script_stealth ) && common_scripts\utility::flag( "_stealth_enabled" ) && !common_scripts\utility::flag( "_stealth_spotted" );
 
-        if ( isdefined( self._id_79EB ) )
+        if ( isdefined( self.script_forcespawn ) )
             var_7 = self stalingradspawn( var_6 );
         else
             var_7 = self dospawn( var_6 );
 
-        if ( maps\_utility::_id_88F1( var_7 ) )
+        if ( maps\_utility::spawn_failed( var_7 ) )
         {
             var_8 = 0;
 
@@ -3360,20 +3342,20 @@ _id_38EE( var_0, var_1, var_2 )
         }
         else
         {
-            if ( isdefined( self._id_797A ) )
+            if ( isdefined( self.script_combatbehavior ) )
             {
-                if ( self._id_797A == "heat" )
-                    var_7 maps\_utility::_id_30C9();
+                if ( self.script_combatbehavior == "heat" )
+                    var_7 maps\_utility::enable_heat_behavior();
 
-                if ( self._id_797A == "cqb" )
-                    var_7 maps\_utility::_id_30B0();
+                if ( self.script_combatbehavior == "cqb" )
+                    var_7 maps\_utility::enable_cqbwalk();
             }
 
             thread addtowavespawner( var_7 );
-            var_7 thread _id_38EB( self );
+            var_7 thread flood_and_secure_spawn( self );
 
-            if ( isdefined( self._id_792C ) )
-                var_7.baseaccuracy = self._id_792C;
+            if ( isdefined( self.script_accuracy ) )
+                var_7.baseaccuracy = self.script_accuracy;
 
             var_0.ai = var_7;
             var_0 notify( "got_ai" );
@@ -3387,21 +3369,21 @@ _id_38EE( var_0, var_1, var_2 )
 
         if ( var_9 )
         {
-            _id_A0F1( var_5 );
+            waittillrestartordistance( var_5 );
             continue;
         }
 
-        if ( _id_6D8A( var_8 || var_1, var_0.ai ) )
+        if ( playerwasnearby( var_8 || var_1, var_0.ai ) )
             var_3--;
 
         if ( !var_2 )
-            _id_A101();
+            waituntilwaverelease();
     }
 
     self delete();
 }
 
-_id_A0D7( var_0 )
+waittilldeletedordeath( var_0 )
 {
     self endon( "death" );
     var_0 waittill( "death" );
@@ -3411,34 +3393,34 @@ addtowavespawner( var_0 )
 {
     var_1 = self.targetname;
 
-    if ( !isdefined( level._id_89CE[var_1] ) )
+    if ( !isdefined( level.spawnerwave[var_1] ) )
     {
-        level._id_89CE[var_1] = spawnstruct();
-        level._id_89CE[var_1] maps\_utility::_id_7DF8( 0 );
-        level._id_89CE[var_1]._id_93F3 = 0;
+        level.spawnerwave[var_1] = spawnstruct();
+        level.spawnerwave[var_1] maps\_utility::set_count( 0 );
+        level.spawnerwave[var_1].total = 0;
     }
 
     if ( !isdefined( self.addedtowave ) )
     {
         self.addedtowave = 1;
-        level._id_89CE[var_1]._id_93F3++;
+        level.spawnerwave[var_1].total++;
     }
 
-    level._id_89CE[var_1].count++;
-    _id_A0D7( var_0 );
-    level._id_89CE[var_1].count--;
+    level.spawnerwave[var_1].count++;
+    waittilldeletedordeath( var_0 );
+    level.spawnerwave[var_1].count--;
 
     if ( !isdefined( self ) )
-        level._id_89CE[var_1]._id_93F3--;
+        level.spawnerwave[var_1].total--;
 
-    if ( level._id_89CE[var_1]._id_93F3 )
+    if ( level.spawnerwave[var_1].total )
     {
-        if ( level._id_89CE[var_1].count / level._id_89CE[var_1]._id_93F3 < 0.32 )
-            level._id_89CE[var_1] notify( "waveReady" );
+        if ( level.spawnerwave[var_1].count / level.spawnerwave[var_1].total < 0.32 )
+            level.spawnerwave[var_1] notify( "waveReady" );
     }
 }
 
-_id_273C( var_0 )
+debugwavecount( var_0 )
 {
     self endon( "debug_stop" );
     self endon( "death" );
@@ -3447,15 +3429,15 @@ _id_273C( var_0 )
         wait 0.05;
 }
 
-_id_A101()
+waituntilwaverelease()
 {
     var_0 = self.targetname;
 
-    if ( level._id_89CE[var_0].count )
-        level._id_89CE[var_0] waittill( "waveReady" );
+    if ( level.spawnerwave[var_0].count )
+        level.spawnerwave[var_0] waittill( "waveReady" );
 }
 
-_id_6D8A( var_0, var_1 )
+playerwasnearby( var_0, var_1 )
 {
     if ( var_0 )
         return 1;
@@ -3471,7 +3453,7 @@ _id_6D8A( var_0, var_1 )
     return bullettracepassed( level.player geteye(), var_1 geteye(), 0, undefined );
 }
 
-_id_A0F1( var_0 )
+waittillrestartordistance( var_0 )
 {
     self endon( "flood_begin" );
     var_0 *= 0.75;
@@ -3480,9 +3462,9 @@ _id_A0F1( var_0 )
         wait 1;
 }
 
-_id_38EB( var_0 )
+flood_and_secure_spawn( var_0 )
 {
-    thread _id_38EC();
+    thread flood_and_secure_spawn_goal();
     self waittill( "death", var_1 );
     var_2 = isalive( var_1 ) && isplayer( var_1 );
 
@@ -3493,28 +3475,28 @@ _id_38EB( var_0 )
     var_0 notify( "spawn_died", var_3, var_2 );
 }
 
-_id_38EC()
+flood_and_secure_spawn_goal()
 {
-    if ( isdefined( self._id_7A40 ) )
+    if ( isdefined( self.script_moveoverride ) )
         return;
 
     self endon( "death" );
     var_0 = getnode( self.target, "targetname" );
 
     if ( isdefined( var_0 ) )
-        self _meth_81A9( var_0 );
+        self getgoalvolume( var_0 );
     else
     {
         var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
-            self _meth_81AA( var_0.origin );
+            self setgoalpos( var_0.origin );
     }
 
-    if ( isdefined( level._id_36AC ) )
+    if ( isdefined( level.fightdist ) )
     {
-        self.pathenemyfightdist = level._id_36AC;
-        self.pathenemylookahead = level._id_5A30;
+        self.pathenemyfightdist = level.fightdist;
+        self.pathenemylookahead = level.maxdist;
     }
 
     if ( isdefined( var_0.radius ) && var_0.radius >= 0 )
@@ -3533,9 +3515,9 @@ _id_38EC()
         else
             break;
 
-        self _meth_81A9( var_0 );
+        self getgoalvolume( var_0 );
 
-        if ( _id_6123( var_0 ) )
+        if ( node_has_radius( var_0 ) )
             self.goalradius = var_0.radius;
         else
             self.goalradius = 256;
@@ -3558,49 +3540,49 @@ _id_38EC()
 
         if ( isdefined( var_2 ) && ( var_2.code_classname == "misc_mgturret" || var_2.code_classname == "misc_turret" ) )
         {
-            self _meth_81A9( var_0 );
+            self getgoalvolume( var_0 );
             self.goalradius = 4;
             self waittill( "goal" );
 
-            if ( !isdefined( self._id_79E9 ) )
-                self.goalradius = level._id_2780;
+            if ( !isdefined( self.script_forcegoal ) )
+                self.goalradius = level.default_goalradius;
 
-            _id_9BD0( var_2 );
+            use_a_turret( var_2 );
         }
     }
 
     if ( isdefined( self.script_noteworthy ) )
     {
-        if ( isdefined( self._id_7A84 ) )
+        if ( isdefined( self.script_noteworthy2 ) )
         {
-            if ( self._id_7A84 == "furniture_push" )
-                thread _id_3B0F();
+            if ( self.script_noteworthy2 == "furniture_push" )
+                thread furniturepushsound();
         }
 
         if ( self.script_noteworthy == "hide" )
         {
-            thread maps\_utility::_id_7DDF( 0 );
+            thread maps\_utility::set_battlechatter( 0 );
             return;
         }
     }
 
-    if ( !isdefined( self._id_79E9 ) && !isdefined( self _meth_81AE() ) )
-        self.goalradius = level._id_2780;
+    if ( !isdefined( self.script_forcegoal ) && !isdefined( self getgoalvolume() ) )
+        self.goalradius = level.default_goalradius;
 }
 
-_id_3B0F()
+furniturepushsound()
 {
     var_0 = getent( self.target, "targetname" ).origin;
-    common_scripts\utility::_id_69C2( "furniture_slide", var_0 );
+    common_scripts\utility::play_sound_in_space( "furniture_slide", var_0 );
     wait 0.9;
 
-    if ( isdefined( level._id_A303 ) )
-        common_scripts\utility::_id_69C2( common_scripts\utility::_id_710E( level._id_A303 ), var_0 );
+    if ( isdefined( level.whisper ) )
+        common_scripts\utility::play_sound_in_space( common_scripts\utility::random( level.whisper ), var_0 );
 }
 
-_id_3A93()
+friendlychain()
 {
-    waitframe;
+    waittillframeend;
     var_0 = getentarray( self.target, "targetname" );
 
     if ( !var_0.size )
@@ -3611,22 +3593,22 @@ _id_3A93()
         {
             self waittill( "trigger" );
 
-            if ( isdefined( level._id_55A3 ) && level._id_55A3 == self )
+            if ( isdefined( level.lastfriendlytrigger ) && level.lastfriendlytrigger == self )
             {
                 wait 0.5;
                 continue;
             }
 
-            if ( !_id_62FF() )
+            if ( !objectiveisallowed() )
             {
                 wait 0.5;
                 continue;
             }
 
             level notify( "new_friendly_trigger" );
-            level._id_55A3 = self;
-            var_2 = !isdefined( self._id_7959 ) || self._id_7959 == 0;
-            _id_7FBC( var_1, var_2 );
+            level.lastfriendlytrigger = self;
+            var_2 = !isdefined( self.script_baseoffire ) || self.script_baseoffire == 0;
+            setnewplayerchain( var_1, var_2 );
         }
     }
 
@@ -3637,33 +3619,33 @@ _id_3A93()
         while ( level.player istouching( self ) )
             wait 0.05;
 
-        if ( !_id_62FF() )
+        if ( !objectiveisallowed() )
         {
             wait 0.05;
             continue;
         }
 
-        if ( isdefined( level._id_55A3 ) && level._id_55A3 == self )
+        if ( isdefined( level.lastfriendlytrigger ) && level.lastfriendlytrigger == self )
             continue;
 
         level notify( "new_friendly_trigger" );
-        level._id_55A3 = self;
-        common_scripts\utility::array_thread( var_0, ::_id_3ABE );
+        level.lastfriendlytrigger = self;
+        common_scripts\utility::array_thread( var_0, ::friendlytrigger );
         wait 0.5;
     }
 }
 
-_id_62FF()
+objectiveisallowed()
 {
     var_0 = 1;
 
-    if ( isdefined( self._id_7A8A ) )
+    if ( isdefined( self.script_objective_active ) )
     {
         var_0 = 0;
 
         for ( var_1 = 0; var_1 < level.active_objective.size; var_1++ )
         {
-            if ( !issubstr( self._id_7A8A, level.active_objective[var_1] ) )
+            if ( !issubstr( self.script_objective_active, level.active_objective[var_1] ) )
                 continue;
 
             var_0 = 1;
@@ -3674,95 +3656,95 @@ _id_62FF()
             return 0;
     }
 
-    if ( !isdefined( self._id_7A8B ) )
+    if ( !isdefined( self.script_objective_inactive ) )
         return var_0;
 
     var_2 = 0;
 
-    for ( var_1 = 0; var_1 < level._id_4C12.size; var_1++ )
+    for ( var_1 = 0; var_1 < level.inactive_objective.size; var_1++ )
     {
-        if ( !issubstr( self._id_7A8B, level._id_4C12[var_1] ) )
+        if ( !issubstr( self.script_objective_inactive, level.inactive_objective[var_1] ) )
             continue;
 
         var_2++;
     }
 
-    var_3 = strtok( self._id_7A8B, " " );
+    var_3 = strtok( self.script_objective_inactive, " " );
     return var_2 == var_3.size;
 }
 
-_id_3ABE( var_0 )
+friendlytrigger( var_0 )
 {
     level endon( "new_friendly_trigger" );
     self waittill( "trigger" );
     var_0 = getnode( self.target, "targetname" );
-    var_1 = !isdefined( self._id_7959 ) || self._id_7959 == 0;
-    _id_7FBC( var_0, var_1 );
+    var_1 = !isdefined( self.script_baseoffire ) || self.script_baseoffire == 0;
+    setnewplayerchain( var_0, var_1 );
 }
 
-_id_A0D4()
+waittilldeathorempty()
 {
     self endon( "death" );
-    var_0 = self._id_7986;
+    var_0 = self.script_deathchain;
 
     while ( self.count )
     {
         self waittill( "spawned", var_1 );
-        var_1 thread _id_2655( var_0 );
+        var_1 thread deathchainainotify( var_0 );
     }
 }
 
-_id_2655( var_0 )
+deathchainainotify( var_0 )
 {
-    level._id_266B[var_0]++;
+    level.deathspawner[var_0]++;
     self waittill( "death" );
-    level._id_266B[var_0]--;
+    level.deathspawner[var_0]--;
     level notify( "spawner_expired" + var_0 );
 }
 
-_id_2656()
+deathchainspawnerlogic()
 {
-    var_0 = self._id_7986;
-    level._id_266B[var_0]++;
+    var_0 = self.script_deathchain;
+    level.deathspawner[var_0]++;
     var_1 = self.origin;
-    _id_A0D4();
+    waittilldeathorempty();
     level notify( "spawner dot" + var_1 );
-    level._id_266B[var_0]--;
+    level.deathspawner[var_0]--;
     level notify( "spawner_expired" + var_0 );
 }
 
-_id_3A94()
+friendlychain_ondeath()
 {
     var_0 = getentarray( "friendly_chain_on_death", "targetname" );
     var_1 = getspawnerarray();
-    level._id_266B = [];
+    level.deathspawner = [];
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( !isdefined( var_1[var_2]._id_7986 ) )
+        if ( !isdefined( var_1[var_2].script_deathchain ) )
             continue;
 
-        var_3 = var_1[var_2]._id_7986;
+        var_3 = var_1[var_2].script_deathchain;
 
-        if ( !isdefined( level._id_266B[var_3] ) )
-            level._id_266B[var_3] = 0;
+        if ( !isdefined( level.deathspawner[var_3] ) )
+            level.deathspawner[var_3] = 0;
 
-        var_1[var_2] thread _id_2656();
+        var_1[var_2] thread deathchainspawnerlogic();
     }
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( !isdefined( var_0[var_2]._id_7986 ) )
+        if ( !isdefined( var_0[var_2].script_deathchain ) )
             return;
 
-        var_0[var_2] thread _id_3A95();
+        var_0[var_2] thread friendlychain_ondeaththink();
     }
 }
 
-_id_3A95()
+friendlychain_ondeaththink()
 {
-    while ( level._id_266B[self._id_7986] > 0 )
-        level waittill( "spawner_expired" + self._id_7986 );
+    while ( level.deathspawner[self.script_deathchain] > 0 )
+        level waittill( "spawner_expired" + self.script_deathchain );
 
     level endon( "start_chain" );
     var_0 = getnode( self.target, "targetname" );
@@ -3770,89 +3752,89 @@ _id_3A95()
     for (;;)
     {
         self waittill( "trigger" );
-        _id_7FBC( var_0, 1 );
+        setnewplayerchain( var_0, 1 );
         iprintlnbold( "Area secured, move up!" );
         wait 5;
     }
 }
 
-_id_7FBC( var_0, var_1 )
+setnewplayerchain( var_0, var_1 )
 {
     level notify( "new_escort_trigger" );
     level notify( "new_escort_debug" );
     level notify( "start_chain", var_1 );
 }
 
-_id_3A96()
+friendlychains()
 {
-    level._id_3ABA = [];
-    level._id_3ABB = [];
-    common_scripts\utility::array_thread( getentarray( "friendlychain", "targetname" ), ::_id_3A93 );
+    level.friendlyspawnorg = [];
+    level.friendlyspawntrigger = [];
+    common_scripts\utility::array_thread( getentarray( "friendlychain", "targetname" ), ::friendlychain );
 }
 
-_id_9A75()
+unsetfriendlyspawn()
 {
     var_0 = [];
     var_1 = [];
 
-    for ( var_2 = 0; var_2 < level._id_3ABA.size; var_2++ )
+    for ( var_2 = 0; var_2 < level.friendlyspawnorg.size; var_2++ )
     {
-        var_0[var_0.size] = level._id_3ABA[var_2];
-        var_1[var_1.size] = level._id_3ABB[var_2];
+        var_0[var_0.size] = level.friendlyspawnorg[var_2];
+        var_1[var_1.size] = level.friendlyspawntrigger[var_2];
     }
 
-    level._id_3ABA = var_0;
-    level._id_3ABB = var_1;
+    level.friendlyspawnorg = var_0;
+    level.friendlyspawntrigger = var_1;
 
     if ( activefriendlyspawn() )
         return;
 
-    common_scripts\utility::_id_3831( "spawning_friendlies" );
+    common_scripts\utility::flag_clear( "spawning_friendlies" );
 }
 
-_id_3FA5()
+getfriendlyspawnstart()
 {
-    return level._id_3ABA[level._id_3ABA.size - 1];
+    return level.friendlyspawnorg[level.friendlyspawnorg.size - 1];
 }
 
 activefriendlyspawn()
 {
-    return level._id_3ABA.size > 0;
+    return level.friendlyspawnorg.size > 0;
 }
 
-_id_3FA6()
+getfriendlyspawntrigger()
 {
-    return level._id_3ABB[level._id_3ABB.size - 1];
+    return level.friendlyspawntrigger[level.friendlyspawntrigger.size - 1];
 }
 
-_id_7F79( var_0, var_1 )
+setfriendlyspawn( var_0, var_1 )
 {
-    level._id_3ABA[level._id_3ABA.size] = var_0.origin;
-    level._id_3ABB[level._id_3ABB.size] = var_1;
-    common_scripts\utility::_id_383F( "spawning_friendlies" );
+    level.friendlyspawnorg[level.friendlyspawnorg.size] = var_0.origin;
+    level.friendlyspawntrigger[level.friendlyspawntrigger.size] = var_1;
+    common_scripts\utility::flag_set( "spawning_friendlies" );
 }
 
-_id_27E5()
+delayedplayergoal()
 {
     self endon( "death" );
     self endon( "leaveSquad" );
     wait 0.5;
-    self _meth_81AB( level.player );
+    self setgoalentity( level.player );
 }
 
-_id_8A16( var_0 )
+spawnwavestoptrigger( var_0 )
 {
     self notify( "stopTrigger" );
     self endon( "stopTrigger" );
     self waittill( "trigger" );
 
-    if ( _id_3FA6() != var_0 )
+    if ( getfriendlyspawntrigger() != var_0 )
         return;
 
-    _id_9A75();
+    unsetfriendlyspawn();
 }
 
-_id_3ABD( var_0 )
+friendlyspawnwave_triggerthink( var_0 )
 {
     var_1 = getent( self.target, "targetname" );
 
@@ -3866,25 +3848,25 @@ _id_3ABD( var_0 )
     }
 }
 
-_id_4255()
+goalvolumes()
 {
     var_0 = getentarray( "info_volume", "classname" );
-    level._id_2654 = [];
-    level._id_4255 = [];
+    level.deathchain_goalvolume = [];
+    level.goalvolumes = [];
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_2 = var_0[var_1];
 
-        if ( isdefined( var_2._id_7986 ) )
-            level._id_2654[var_2._id_7986] = var_2;
+        if ( isdefined( var_2.script_deathchain ) )
+            level.deathchain_goalvolume[var_2.script_deathchain] = var_2;
 
-        if ( isdefined( var_2._id_7A03 ) )
-            level._id_4255[var_2._id_7A03] = var_2;
+        if ( isdefined( var_2.script_goalvolume ) )
+            level.goalvolumes[var_2.script_goalvolume] = var_2;
     }
 }
 
-_id_2731( var_0, var_1, var_2 )
+debugprint( var_0, var_1, var_2 )
 {
     if ( 1 )
         return;
@@ -3917,16 +3899,16 @@ aigroup_create( var_0 )
 {
     level._ai_group[var_0] = spawnstruct();
     level._ai_group[var_0].aicount = 0;
-    level._ai_group[var_0]._id_89CC = 0;
+    level._ai_group[var_0].spawnercount = 0;
     level._ai_group[var_0].ai = [];
-    level._ai_group[var_0]._id_89CD = [];
+    level._ai_group[var_0].spawners = [];
 }
 
 aigroup_spawnerthink( var_0 )
 {
     self endon( "death" );
-    self._id_2760 = 0;
-    var_0._id_89CC++;
+    self.decremented = 0;
+    var_0.spawnercount++;
     thread aigroup_spawnerdeath( var_0 );
     thread aigroup_spawnerempty( var_0 );
 
@@ -3934,42 +3916,42 @@ aigroup_spawnerthink( var_0 )
     {
         self waittill( "spawned", var_1 );
 
-        if ( maps\_utility::_id_88F1( var_1 ) )
+        if ( maps\_utility::spawn_failed( var_1 ) )
             continue;
 
         var_1 thread aigroup_soldierthink( var_0 );
     }
 
-    waitframe;
+    waittillframeend;
 
-    if ( self._id_2760 )
+    if ( self.decremented )
         return;
 
-    self._id_2760 = 1;
-    var_0._id_89CC--;
+    self.decremented = 1;
+    var_0.spawnercount--;
 }
 
 aigroup_spawnerdeath( var_0 )
 {
     self waittill( "death" );
 
-    if ( self._id_2760 )
+    if ( self.decremented )
         return;
 
-    var_0._id_89CC--;
+    var_0.spawnercount--;
 }
 
 aigroup_spawnerempty( var_0 )
 {
     self endon( "death" );
     self waittill( "emptied spawner" );
-    waitframe;
+    waittillframeend;
 
-    if ( self._id_2760 )
+    if ( self.decremented )
         return;
 
-    self._id_2760 = 1;
-    var_0._id_89CC--;
+    self.decremented = 1;
+    var_0.spawnercount--;
 }
 
 aigroup_soldierthink( var_0 )
@@ -3977,17 +3959,17 @@ aigroup_soldierthink( var_0 )
     var_0.aicount++;
     var_0.ai[var_0.ai.size] = self;
 
-    if ( isdefined( self._id_7988 ) )
-        _id_A0D6();
+    if ( isdefined( self.script_deathflag_longdeath ) )
+        waittilldeathorpaindeath();
     else
         self waittill( "death" );
 
     var_0.aicount--;
 }
 
-_id_1A42( var_0 )
+camper_trigger_think( var_0 )
 {
-    var_1 = strtok( var_0._id_7A26, " " );
+    var_1 = strtok( var_0.script_linkto, " " );
     var_2 = [];
     var_3 = [];
 
@@ -4014,7 +3996,7 @@ _id_1A42( var_0 )
     var_3 = common_scripts\utility::array_randomize( var_3 );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
-        var_3[var_4]._id_1E1D = 0;
+        var_3[var_4].claimed = 0;
 
     var_8 = 0;
 
@@ -4025,7 +4007,7 @@ _id_1A42( var_0 )
         if ( !isdefined( var_9 ) )
             continue;
 
-        if ( isdefined( var_9._id_7ACC ) )
+        if ( isdefined( var_9.script_spawn_here ) )
             continue;
 
         while ( isdefined( var_3[var_8].script_noteworthy ) && var_3[var_8].script_noteworthy == "dont_spawn" )
@@ -4033,22 +4015,22 @@ _id_1A42( var_0 )
 
         var_9.origin = var_3[var_8].origin;
         var_9.angles = var_3[var_8].angles;
-        var_9 maps\_utility::add_spawn_function( ::_id_1E1C, var_3[var_8] );
+        var_9 maps\_utility::add_spawn_function( ::claim_a_node, var_3[var_8] );
         var_8++;
     }
 
-    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, ::_id_1A40 );
-    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, ::_id_5F41, var_3 );
-    common_scripts\utility::array_thread( var_2, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, ::camper_guy );
+    common_scripts\utility::array_thread( var_2, maps\_utility::add_spawn_function, ::move_when_enemy_hides, var_3 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::spawn_ai );
 }
 
-_id_1A40()
+camper_guy()
 {
     self.goalradius = 8;
     self.fixednode = 1;
 }
 
-_id_5F41( var_0 )
+move_when_enemy_hides( var_0 )
 {
     self endon( "death" );
     var_1 = 0;
@@ -4064,14 +4046,14 @@ _id_5F41( var_0 )
 
         if ( isplayer( self.enemy ) )
         {
-            if ( self.enemy maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) || common_scripts\utility::_id_382E( "player_flashed" ) )
+            if ( self.enemy maps\_utility::ent_flag( "player_has_red_flashing_overlay" ) || common_scripts\utility::flag( "player_flashed" ) )
             {
                 self.fixednode = 0;
 
                 for (;;)
                 {
                     self.goalradius = 180;
-                    self _meth_81AA( level.player.origin );
+                    self setgoalpos( level.player.origin );
                     wait 1;
                 }
 
@@ -4081,7 +4063,7 @@ _id_5F41( var_0 )
 
         if ( var_1 )
         {
-            if ( self _meth_81C2( self.enemy ) )
+            if ( self cansee( self.enemy ) )
             {
                 wait 0.05;
                 continue;
@@ -4091,7 +4073,7 @@ _id_5F41( var_0 )
         }
         else
         {
-            if ( self _meth_81C2( self.enemy ) )
+            if ( self cansee( self.enemy ) )
                 var_1 = 1;
 
             wait 0.05;
@@ -4100,32 +4082,32 @@ _id_5F41( var_0 )
 
         if ( randomint( 3 ) > 0 )
         {
-            var_2 = _id_3770( var_0 );
+            var_2 = find_unclaimed_node( var_0 );
 
             if ( isdefined( var_2 ) )
             {
-                _id_1E1C( var_2, self._id_1E1F );
+                claim_a_node( var_2, self.claimed_node );
                 self waittill( "goal" );
             }
         }
     }
 }
 
-_id_1E1C( var_0, var_1 )
+claim_a_node( var_0, var_1 )
 {
-    self _meth_81A9( var_0 );
-    self._id_1E1F = var_0;
-    var_0._id_1E1D = 1;
+    self getgoalvolume( var_0 );
+    self.claimed_node = var_0;
+    var_0.claimed = 1;
 
     if ( isdefined( var_1 ) )
-        var_1._id_1E1D = 0;
+        var_1.claimed = 0;
 }
 
-_id_3770( var_0 )
+find_unclaimed_node( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( var_0[var_1]._id_1E1D )
+        if ( var_0[var_1].claimed )
             continue;
         else
             return var_0[var_1];
@@ -4134,72 +4116,72 @@ _id_3770( var_0 )
     return undefined;
 }
 
-_id_38F4( var_0 )
+flood_trigger_think( var_0 )
 {
     var_1 = getentarray( var_0.target, "targetname" );
-    common_scripts\utility::array_thread( var_1, ::_id_38F0 );
+    common_scripts\utility::array_thread( var_1, ::flood_spawner_init );
     var_0 waittill( "trigger" );
     var_1 = getentarray( var_0.target, "targetname" );
-    common_scripts\utility::array_thread( var_1, ::_id_38F3, var_0 );
+    common_scripts\utility::array_thread( var_1, ::flood_spawner_think, var_0 );
 }
 
-_id_38F0( var_0 )
+flood_spawner_init( var_0 )
 {
 
 }
 
-_id_97DB( var_0 )
+trigger_requires_player( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
 
-    return isdefined( var_0._id_7AB7 );
+    return isdefined( var_0.script_requires_player );
 }
 
-_id_99E5( var_0 )
+two_stage_spawner_think( var_0 )
 {
     var_1 = getent( var_0.target, "targetname" );
-    waitframe;
+    waittillframeend;
     var_2 = getentarray( var_1.target, "targetname" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        var_2[var_3]._id_7A40 = 1;
-        var_2[var_3] maps\_utility::add_spawn_function( ::_id_9FF2, var_1 );
+        var_2[var_3].script_moveoverride = 1;
+        var_2[var_3] maps\_utility::add_spawn_function( ::wait_to_go, var_1 );
     }
 
     var_0 waittill( "trigger" );
     var_2 = getentarray( var_1.target, "targetname" );
-    common_scripts\utility::array_thread( var_2, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_2, maps\_utility::spawn_ai );
 }
 
-_id_9FF2( var_0 )
+wait_to_go( var_0 )
 {
     var_0 endon( "death" );
     self endon( "death" );
     self.goalradius = 8;
     var_0 waittill( "trigger" );
-    thread _id_4241();
+    thread go_to_node();
 }
 
-_id_38F3( var_0 )
+flood_spawner_think( var_0 )
 {
-    if ( !isdefined( level._id_893E ) || isspawner( self ) )
+    if ( !isdefined( level.spawn_pool_enabled ) || isspawner( self ) )
         self endon( "death" );
 
     self notify( "stop current floodspawner" );
     self endon( "stop current floodspawner" );
 
-    if ( _id_5072() )
+    if ( is_pyramid_spawner() )
     {
-        _id_7070( var_0 );
+        pyramid_spawn( var_0 );
         return;
     }
 
-    var_1 = _id_97DB( var_0 );
+    var_1 = trigger_requires_player( var_0 );
     maps\_utility::script_delay();
 
-    if ( isdefined( level._id_893E ) )
+    if ( isdefined( level.spawn_pool_enabled ) )
     {
         if ( !isspawner( self ) )
             self.count = 1;
@@ -4210,37 +4192,37 @@ _id_38F3( var_0 )
         while ( var_1 && !level.player istouching( var_0 ) )
             wait 0.5;
 
-        var_2 = isdefined( self._id_7AE1 ) && common_scripts\utility::_id_382E( "_stealth_enabled" ) && !common_scripts\utility::_id_382E( "_stealth_spotted" );
+        var_2 = isdefined( self.script_stealth ) && common_scripts\utility::flag( "_stealth_enabled" ) && !common_scripts\utility::flag( "_stealth_spotted" );
         var_3 = self;
 
-        if ( isdefined( level._id_893E ) )
+        if ( isdefined( level.spawn_pool_enabled ) )
         {
             if ( !isspawner( self ) )
-                var_3 = _id_3E68( self, 1 );
+                var_3 = get_spawner_from_pool( self, 1 );
         }
 
-        if ( isdefined( self._id_79EB ) )
+        if ( isdefined( self.script_forcespawn ) )
             var_4 = var_3 stalingradspawn( var_2 );
         else
             var_4 = var_3 dospawn( var_2 );
 
-        if ( maps\_utility::_id_88F1( var_4 ) )
+        if ( maps\_utility::spawn_failed( var_4 ) )
         {
             wait 2;
             continue;
         }
 
-        if ( isdefined( self._id_797A ) )
+        if ( isdefined( self.script_combatbehavior ) )
         {
-            if ( self._id_797A == "heat" )
-                var_4 maps\_utility::_id_30C9();
+            if ( self.script_combatbehavior == "heat" )
+                var_4 maps\_utility::enable_heat_behavior();
 
-            if ( self._id_797A == "cqb" )
-                var_4 maps\_utility::_id_30B0();
+            if ( self.script_combatbehavior == "cqb" )
+                var_4 maps\_utility::enable_cqbwalk();
         }
 
-        var_4 thread _id_7302( self );
-        var_4 thread _id_3517( var_0 );
+        var_4 thread reincrement_count_if_deleted( self );
+        var_4 thread expand_goalradius( var_0 );
 
         if ( isdefined( var_4 ) && !isdefined( var_4.targetname ) )
         {
@@ -4250,7 +4232,7 @@ _id_38F3( var_0 )
 
         var_4 waittill( "death", var_5 );
 
-        if ( !_id_6BF3( var_4, var_5 ) )
+        if ( !player_saw_kill( var_4, var_5 ) )
             self.count++;
         else if ( isdefined( level.ac130_flood_respawn ) )
         {
@@ -4264,21 +4246,21 @@ _id_38F3( var_0 )
         if ( !isdefined( var_4 ) )
             continue;
 
-        if ( !maps\_utility::_id_7B20() )
+        if ( !maps\_utility::script_wait() )
             wait(randomfloatrange( 5, 9 ));
     }
 }
 
-_id_38F2()
+flood_spawner_stop()
 {
     self notify( "stop current floodspawner" );
 }
 
-_id_6BF3( var_0, var_1 )
+player_saw_kill( var_0, var_1 )
 {
-    if ( isdefined( self._id_79E5 ) )
+    if ( isdefined( self.script_force_count ) )
     {
-        if ( self._id_79E5 )
+        if ( self.script_force_count )
             return 1;
     }
 
@@ -4308,7 +4290,7 @@ _id_6BF3( var_0, var_1 )
     return bullettracepassed( level.player geteye(), var_0 geteye(), 0, undefined );
 }
 
-_id_5072()
+is_pyramid_spawner()
 {
     if ( !isdefined( self.target ) )
         return 0;
@@ -4321,16 +4303,16 @@ _id_5072()
     return issubstr( var_0[0].classname, "actor" );
 }
 
-_id_706F( var_0 )
+pyramid_death_report( var_0 )
 {
-    var_0._id_88BD waittill( "death" );
+    var_0.spawn waittill( "death" );
     self notify( "death_report" );
 }
 
-_id_7070( var_0 )
+pyramid_spawn( var_0 )
 {
     self endon( "death" );
-    var_1 = _id_97DB( var_0 );
+    var_1 = trigger_requires_player( var_0 );
     maps\_utility::script_delay();
 
     if ( var_1 )
@@ -4340,8 +4322,8 @@ _id_7070( var_0 )
     }
 
     var_2 = getentarray( self.target, "targetname" );
-    self._id_89CD = 0;
-    common_scripts\utility::array_thread( var_2, ::_id_7071, self );
+    self.spawners = 0;
+    common_scripts\utility::array_thread( var_2, ::pyramid_spawner_reports_death, self );
     var_4 = randomint( var_2.size );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
@@ -4356,19 +4338,19 @@ _id_7070( var_0 )
 
         var_5 = var_2[var_4];
         var_5.count = 1;
-        var_6 = var_5 maps\_utility::_id_88C3();
+        var_6 = var_5 maps\_utility::spawn_ai();
 
-        if ( maps\_utility::_id_88F1( var_6 ) )
+        if ( maps\_utility::spawn_failed( var_6 ) )
         {
             wait 2;
             continue;
         }
 
         self.count--;
-        var_5._id_88BD = var_6;
-        var_6 thread _id_7302( self );
-        var_6 thread _id_3517( var_0 );
-        thread _id_706F( var_5 );
+        var_5.spawn = var_6;
+        var_6 thread reincrement_count_if_deleted( self );
+        var_6 thread expand_goalradius( var_0 );
+        thread pyramid_death_report( var_5 );
     }
 
     var_7 = 0.01;
@@ -4376,7 +4358,7 @@ _id_7070( var_0 )
     while ( self.count > 0 )
     {
         self waittill( "death_report" );
-        maps\_utility::_id_7B20();
+        maps\_utility::script_wait();
         wait(var_7);
         var_7 += 2.5;
         var_4 = randomint( var_2.size );
@@ -4400,7 +4382,7 @@ _id_7070( var_0 )
 
             var_5 = var_2[var_4];
 
-            if ( isalive( var_5._id_88BD ) )
+            if ( isalive( var_5.spawn ) )
                 continue;
 
             if ( isdefined( var_5.target ) )
@@ -4408,18 +4390,18 @@ _id_7070( var_0 )
             else
                 self.target = undefined;
 
-            var_6 = maps\_utility::_id_88C3();
+            var_6 = maps\_utility::spawn_ai();
 
-            if ( maps\_utility::_id_88F1( var_6 ) )
+            if ( maps\_utility::spawn_failed( var_6 ) )
             {
                 wait 2;
                 continue;
             }
 
-            var_6 thread _id_7302( self );
-            var_6 thread _id_3517( var_0 );
-            var_5._id_88BD = var_6;
-            thread _id_706F( var_5 );
+            var_6 thread reincrement_count_if_deleted( self );
+            var_6 thread expand_goalradius( var_0 );
+            var_5.spawn = var_6;
+            thread pyramid_death_report( var_5 );
 
             if ( self.count <= 0 )
                 return;
@@ -4427,36 +4409,36 @@ _id_7070( var_0 )
     }
 }
 
-_id_7071( var_0 )
+pyramid_spawner_reports_death( var_0 )
 {
     var_0 endon( "death" );
-    var_0._id_89CD++;
+    var_0.spawners++;
     self waittill( "death" );
-    var_0._id_89CD--;
+    var_0.spawners--;
 
-    if ( !var_0._id_89CD )
+    if ( !var_0.spawners )
         var_0 delete();
 }
 
-_id_3517( var_0 )
+expand_goalradius( var_0 )
 {
-    if ( isdefined( self._id_79E9 ) )
+    if ( isdefined( self.script_forcegoal ) )
         return;
 
-    var_1 = level._id_2780;
+    var_1 = level.default_goalradius;
 
     if ( isdefined( var_0 ) )
     {
-        if ( isdefined( var_0._id_7AB2 ) )
+        if ( isdefined( var_0.script_radius ) )
         {
-            if ( var_0._id_7AB2 == -1 )
+            if ( var_0.script_radius == -1 )
                 return;
 
-            var_1 = var_0._id_7AB2;
+            var_1 = var_0.script_radius;
         }
     }
 
-    if ( isdefined( self._id_79E9 ) )
+    if ( isdefined( self.script_forcegoal ) )
         return;
 
     self endon( "death" );
@@ -4464,33 +4446,33 @@ _id_3517( var_0 )
     self.goalradius = var_1;
 }
 
-_id_2F43()
+drop_health_timeout_thread()
 {
     self endon( "death" );
     wait 95;
     self notify( "timeout" );
 }
 
-_id_2F44()
+drop_health_trigger_think()
 {
     self endon( "timeout" );
-    thread _id_2F43();
+    thread drop_health_timeout_thread();
     self waittill( "trigger" );
-    maps\_utility::_id_1C72( 1 );
+    maps\_utility::change_player_health_packets( 1 );
 }
 
-_id_949B( var_0 )
+traceshow( var_0 )
 {
     for (;;)
         wait 0.05;
 }
 
-_id_84C1()
+show_bad_path()
 {
 
 }
 
-_id_7118( var_0 )
+random_spawn( var_0 )
 {
     var_0 waittill( "trigger" );
     var_1 = getentarray( var_0.target, "targetname" );
@@ -4498,68 +4480,68 @@ _id_7118( var_0 )
     if ( !var_1.size )
         return;
 
-    var_2 = common_scripts\utility::_id_710E( var_1 );
+    var_2 = common_scripts\utility::random( var_1 );
     var_1 = [];
     var_1[var_1.size] = var_2;
 
-    if ( isdefined( var_2._id_7A26 ) )
+    if ( isdefined( var_2.script_linkto ) )
     {
-        var_3 = strtok( var_2._id_7A26, " " );
+        var_3 = strtok( var_2.script_linkto, " " );
 
         for ( var_4 = 0; var_4 < var_3.size; var_4++ )
             var_1[var_1.size] = getent( var_3[var_4], "script_linkname" );
     }
 
-    waitframe;
+    waittillframeend;
     common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::blowout_goalradius_on_pathend );
-    common_scripts\utility::array_thread( var_1, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_1, maps\_utility::spawn_ai );
 }
 
 blowout_goalradius_on_pathend()
 {
-    if ( isdefined( self._id_79E9 ) )
+    if ( isdefined( self.script_forcegoal ) )
         return;
 
     self endon( "death" );
     self waittill( "reached_path_end" );
 
-    if ( !isdefined( self _meth_81AE() ) )
-        self.goalradius = level._id_2780;
+    if ( !isdefined( self getgoalvolume() ) )
+        self.goalradius = level.default_goalradius;
 }
 
-_id_62ED( var_0 )
+objective_event_init( var_0 )
 {
-    var_1 = var_0 maps\_utility::_id_3EA3();
-    common_scripts\utility::_id_383D( var_1 );
+    var_1 = var_0 maps\_utility::get_trigger_flag();
+    common_scripts\utility::flag_init( var_1 );
 
-    while ( level._id_266B[var_0._id_7986] > 0 )
-        level waittill( "spawner_expired" + var_0._id_7986 );
+    while ( level.deathspawner[var_0.script_deathchain] > 0 )
+        level waittill( "spawner_expired" + var_0.script_deathchain );
 
-    common_scripts\utility::_id_383F( var_1 );
+    common_scripts\utility::flag_set( var_1 );
 }
 
-_id_8043()
+setup_ai_eq_triggers()
 {
     self endon( "death" );
-    waitframe;
-    self._id_508A = isplayer( self );
-    self._id_333B = [];
-    self._id_333C = [];
+    waittillframeend;
+    self.is_the_player = isplayer( self );
+    self.eq_table = [];
+    self.eq_touching = [];
 
-    for ( var_0 = 0; var_0 < level._id_333E; var_0++ )
-        self._id_333B[var_0] = 0;
+    for ( var_0 = 0; var_0 < level.eq_trigger_num; var_0++ )
+        self.eq_table[var_0] = 0;
 }
 
 ai_array()
 {
-    level.ai_array[level._id_9A29] = self;
+    level.ai_array[level.unique_id] = self;
     self waittill( "death" );
-    waitframe;
-    level.ai_array[level._id_9A29] = undefined;
+    waittillframeend;
+    level.ai_array[level.unique_id] = undefined;
 }
 #using_animtree("generic_human");
 
-_id_89C1( var_0 )
+spawner_dronespawn( var_0 )
 {
     var_1 = var_0 spawndrone();
     var_1 useanimtree( #animtree );
@@ -4568,16 +4550,16 @@ _id_89C1( var_0 )
     {
         var_2 = getweaponmodel( var_1.weapon );
         var_1 attach( var_2, "tag_weapon_right" );
-        var_1 maps\_utility::_id_9AEE( var_1.weapon );
+        var_1 maps\_utility::update_weapon_tag_visibility( var_1.weapon );
     }
 
     var_1.spawner = var_0;
-    var_1._id_2E3F = isdefined( var_0.script_noteworthy ) && var_0.script_noteworthy == "drone_delete_on_unload";
+    var_1.drone_delete_on_unload = isdefined( var_0.script_noteworthy ) && var_0.script_noteworthy == "drone_delete_on_unload";
     var_0 notify( "drone_spawned", var_1 );
     return var_1;
 }
 
-_id_89C9( var_0 )
+spawner_swap_drone_to_ai( var_0 )
 {
     if ( !isdefined( var_0.spawner ) )
     {
@@ -4592,7 +4574,7 @@ _id_89C9( var_0 )
     var_1.origin = var_0.origin;
     var_1.angles = var_0.angles;
     var_4 = var_1 stalingradspawn();
-    var_5 = maps\_utility::_id_88F1( var_4 );
+    var_5 = maps\_utility::spawn_failed( var_4 );
 
     if ( var_5 )
     {
@@ -4602,12 +4584,12 @@ _id_89C9( var_0 )
 
     var_4.spawner = var_1;
     var_4 setmodel( var_0.model );
-    var_4 codescripts\character::_id_7F88( var_0.headmodel );
-    var_4._id_9CE7 = var_0._id_9CE7;
-    var_4._id_9D1B = var_0._id_9D1B;
-    var_4._id_8B09 = var_0._id_8B09;
-    var_4._id_39B0 = var_0._id_39B0;
-    var_4 _meth_83BD( var_0 );
+    var_4 codescripts\character::setheadmodel( var_0.headmodel );
+    var_4.vehicle_idling = var_0.vehicle_idling;
+    var_4.vehicle_position = var_0.vehicle_position;
+    var_4.standing = var_0.standing;
+    var_4.forcecolor = var_0.forcecolor;
+    var_4 copyanimtreestate( var_0 );
     var_1.origin = var_2;
     var_1.angles = var_3;
     var_0 delete();
@@ -4615,14 +4597,14 @@ _id_89C9( var_0 )
     return var_4;
 }
 
-_id_89C8( var_0 )
+spawner_swap_ai_to_drone( var_0 )
 {
     var_1 = var_0.spawner;
     var_2 = var_1.origin;
     var_3 = var_1.angles;
     var_1.origin = var_0.origin;
     var_1.angles = var_0.angles;
-    var_4 = var_1 maps\_utility::_id_2F29();
+    var_4 = var_1 maps\_utility::dronespawn();
 
     if ( !isdefined( var_4 ) )
     {
@@ -4630,12 +4612,12 @@ _id_89C8( var_0 )
     }
 
     var_4 setmodel( var_0.model );
-    var_4 codescripts\character::_id_7F88( var_0.headmodel );
-    var_4._id_9CE7 = var_0._id_9CE7;
-    var_4._id_9D1B = var_0._id_9D1B;
-    var_4._id_8B09 = var_0._id_8B09;
-    var_4._id_39B0 = var_0._id_39B0;
-    var_4 _meth_83BD( var_0 );
+    var_4 codescripts\character::setheadmodel( var_0.headmodel );
+    var_4.vehicle_idling = var_0.vehicle_idling;
+    var_4.vehicle_position = var_0.vehicle_position;
+    var_4.standing = var_0.standing;
+    var_4.forcecolor = var_0.forcecolor;
+    var_4 copyanimtreestate( var_0 );
     var_1.origin = var_2;
     var_1.angles = var_3;
     var_0 delete();
@@ -4643,7 +4625,7 @@ _id_89C8( var_0 )
     return var_4;
 }
 
-_id_263B()
+death_achievements()
 {
     self waittill( "death", var_0, var_1, var_2 );
 
@@ -4676,7 +4658,7 @@ achieve_three_of_kind( var_0, var_1 )
         level.achieve_three_of_kind++;
 
     if ( level.achieve_three_of_kind == 3 )
-        maps\_utility::_id_41DD( "THREE_OF_A_KIND" );
+        maps\_utility::giveachievement_wrapper( "THREE_OF_A_KIND" );
 
     level notify( "achieve_three_of_kind" );
     level endon( "achieve_three_of_kind" );
@@ -4695,7 +4677,7 @@ achieve_four_of_kind( var_0, var_1 )
     if ( var_0 != level.player )
         return;
 
-    if ( var_1 == "MOD_MELEE" || !animscripts\utility::_id_25A6( "head", "neck", "helmet" ) )
+    if ( var_1 == "MOD_MELEE" || !animscripts\utility::damagelocationisany( "head", "neck", "helmet" ) )
     {
         level.achieve_four_of_kind = undefined;
         return;
@@ -4707,7 +4689,7 @@ achieve_four_of_kind( var_0, var_1 )
         level.achieve_four_of_kind++;
 
     if ( level.achieve_four_of_kind == 4 )
-        maps\_utility::_id_41DD( "FOUR_OF_A_KIND" );
+        maps\_utility::giveachievement_wrapper( "FOUR_OF_A_KIND" );
 
     level notify( "achieve_four_of_kind" );
     level endon( "achieve_four_of_kind" );
@@ -4723,8 +4705,8 @@ achieve_enemy_killed_by_flash_banged( var_0 )
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( level._id_382E["player_flashed"] && var_0 == level.player )
-        maps\_utility::_id_41DD( "DAREDEVIL" );
+    if ( level.flag["player_flashed"] && var_0 == level.player )
+        maps\_utility::giveachievement_wrapper( "DAREDEVIL" );
 }
 
 achieve_carkilled_by_player( var_0 )
@@ -4746,7 +4728,7 @@ achieve_carkilled_by_player( var_0 )
 
     if ( isdefined( level.achieve_car_killed_one ) )
     {
-        maps\_utility::_id_41DD( "ROADKILL" );
+        maps\_utility::giveachievement_wrapper( "ROADKILL" );
         level.achieve_car_killed_one = undefined;
     }
     else
@@ -4756,51 +4738,51 @@ achieve_carkilled_by_player( var_0 )
     }
 }
 
-_id_263C( var_0 )
+death_achievements_rappel( var_0 )
 {
 
 }
 
 add_random_killspawner_to_spawngroup()
 {
-    var_0 = self._id_7AB3;
-    var_1 = self._id_7AB4;
+    var_0 = self.script_random_killspawner;
+    var_1 = self.script_randomspawn;
 
-    if ( !isdefined( level._id_537C[var_0] ) )
-        level._id_537C[var_0] = [];
+    if ( !isdefined( level.killspawn_groups[var_0] ) )
+        level.killspawn_groups[var_0] = [];
 
-    if ( !isdefined( level._id_537C[var_0][var_1] ) )
-        level._id_537C[var_0][var_1] = [];
+    if ( !isdefined( level.killspawn_groups[var_0][var_1] ) )
+        level.killspawn_groups[var_0][var_1] = [];
 
-    level._id_537C[var_0][var_1][self._id_3584] = self;
+    level.killspawn_groups[var_0][var_1][self.export] = self;
 }
 
 add_to_spawngroup()
 {
-    var_0 = self._id_7ACF;
-    var_1 = self._id_7AD0;
+    var_0 = self.script_spawngroup;
+    var_1 = self.script_spawnsubgroup;
 
-    if ( !isdefined( level._id_8907[var_0] ) )
-        level._id_8907[var_0] = [];
+    if ( !isdefined( level.spawn_groups[var_0] ) )
+        level.spawn_groups[var_0] = [];
 
-    if ( !isdefined( level._id_8907[var_0][var_1] ) )
-        level._id_8907[var_0][var_1] = [];
+    if ( !isdefined( level.spawn_groups[var_0][var_1] ) )
+        level.spawn_groups[var_0][var_1] = [];
 
-    level._id_8907[var_0][var_1][self._id_3584] = self;
+    level.spawn_groups[var_0][var_1][self.export] = self;
 }
 
-_id_8C18()
+start_off_running()
 {
     self endon( "death" );
-    self._id_2B0E = 1;
+    self.disableexits = 1;
     wait 3;
-    self._id_2B0E = 0;
+    self.disableexits = 0;
 }
 
-_id_2671()
+deathtime()
 {
     self endon( "death" );
-    wait(self._id_798A);
+    wait(self.script_deathtime);
     wait(randomfloat( 10 ));
     self kill();
 }

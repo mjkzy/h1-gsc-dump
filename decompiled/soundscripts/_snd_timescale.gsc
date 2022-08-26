@@ -1,84 +1,66 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_877C()
+snd_timescale_init()
 {
-    _id_8707();
-    _id_8753( "" );
+    snd_load_timescale_presets();
+    snd_set_current_timescale_preset_name( "" );
 }
 
-_id_8753( var_0 )
+snd_set_current_timescale_preset_name( var_0 )
 {
-    level._snd._id_937D._id_24F6 = var_0;
+    level._snd.timescale.current_preset_name = var_0;
 }
 
-_id_86E5()
+snd_get_current_timescale_preset_name()
 {
-    return level._snd._id_937D._id_24F6;
+    return level._snd.timescale.current_preset_name;
 }
 
-_id_8707()
+snd_load_timescale_presets()
 {
-    level._snd._id_937D = spawnstruct();
+    level._snd.timescale = spawnstruct();
     var_0 = [];
     var_0[var_0.size] = "soundtables/sp_defaults.csv";
     var_0[var_0.size] = "soundtables/" + level.script + ".csv";
-    level._snd._id_937D._id_6F22 = soundscripts\_snd::_id_871B( "Timescale", var_0, 3, "timescale_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
+    level._snd.timescale.presets = soundscripts\_snd::snd_parse_soundtables( "Timescale", var_0, 3, "timescale_names", "zone_names;reverb_names;filter_names;occlusion_names;timescale_names;dynamic_ambience_names;components;loop_defs;whizby_preset_names;mix_names;healthfx_params" );
 }
 
-_id_875A( var_0 )
+snd_set_timescale( var_0 )
 {
-    var_1 = _id_86EF( var_0 );
+    var_1 = snd_get_timescale_preset( var_0 );
 
     if ( !isdefined( var_1 ) )
         return;
 
-    if ( _id_86E5() != var_0 )
-        thread _id_875F( var_1 );
+    if ( snd_get_current_timescale_preset_name() != var_0 )
+        thread snd_set_timescale_threaded( var_1 );
 }
 
-_id_86EF( var_0 )
+snd_get_timescale_preset( var_0 )
 {
-    if ( isdefined( level._snd._id_937D._id_6F22 ) && isdefined( level._snd._id_937D._id_6F22[var_0] ) )
-        return level._snd._id_937D._id_6F22[var_0];
+    if ( isdefined( level._snd.timescale.presets ) && isdefined( level._snd.timescale.presets[var_0] ) )
+        return level._snd.timescale.presets[var_0];
 
     return undefined;
 }
 
-_id_875F( var_0 )
+snd_set_timescale_threaded( var_0 )
 {
-    var_1 = soundscripts\_snd::_id_86EE();
+    var_1 = soundscripts\_snd::snd_get_throttler();
 
-    foreach ( var_3 in var_0._id_8034 )
+    foreach ( var_3 in var_0.settings )
     {
         var_4 = var_3["dsp_bus_name"];
 
         if ( var_4 == "all" )
         {
-            var_5 = soundscripts\_snd_filters::_id_86E6();
+            var_5 = soundscripts\_snd_filters::snd_get_dsp_buses();
 
             foreach ( var_7 in var_5 )
             {
                 soundsettimescalefactor( var_7, var_3["scalefactor"] );
-                var_1 soundscripts\_snd::_id_877A();
+                var_1 soundscripts\_snd::snd_throttle_wait();
             }
 
             continue;
@@ -88,35 +70,35 @@ _id_875F( var_0 )
     }
 }
 
-_id_875B( var_0 )
+snd_set_timescale_all( var_0 )
 {
-    thread _id_875C( var_0 );
+    thread snd_set_timescale_all_threaded( var_0 );
 }
 
-_id_875C( var_0 )
+snd_set_timescale_all_threaded( var_0 )
 {
-    var_1 = soundscripts\_snd::_id_86EE();
-    var_2 = soundscripts\_snd_filters::_id_86E6();
+    var_1 = soundscripts\_snd::snd_get_throttler();
+    var_2 = soundscripts\_snd_filters::snd_get_dsp_buses();
 
     foreach ( var_4 in var_2 )
     {
         soundsettimescalefactor( var_4, var_0 );
-        var_1 soundscripts\_snd::_id_877A();
+        var_1 soundscripts\_snd::snd_throttle_wait();
     }
 }
 
-_id_875D( var_0, var_1 )
+snd_set_timescale_array_to_value( var_0, var_1 )
 {
-    thread _id_875E( var_0, var_1 );
+    thread snd_set_timescale_array_to_value_threaded( var_0, var_1 );
 }
 
-_id_875E( var_0, var_1 )
+snd_set_timescale_array_to_value_threaded( var_0, var_1 )
 {
-    var_2 = soundscripts\_snd::_id_86EE();
+    var_2 = soundscripts\_snd::snd_get_throttler();
 
     foreach ( var_4 in var_0 )
     {
         soundsettimescalefactor( var_4, var_1 );
-        var_2 soundscripts\_snd::_id_877A();
+        var_2 soundscripts\_snd::snd_throttle_wait();
     }
 }

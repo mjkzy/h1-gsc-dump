@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     anims();
     setup_exploder_anims();
     blast_door();
-    _id_6A5B();
-    _id_29F3();
+    player_anims();
+    dialogue();
 }
 #using_animtree("generic_human");
 
@@ -33,57 +15,57 @@ anims()
 {
     if ( getdvarint( "use_old_vent_drop" ) == 1 )
     {
-        level._id_78AC["price"]["vent_drop_l"] = %launchfacility_b_vent_drop_l;
-        level._id_78AC["grigsby"]["vent_drop_r"] = %launchfacility_b_vent_drop_r;
-        level._id_78AC["steve"]["vent_drop_team1"] = %launchfacility_b_vent_drop_r;
+        level.scr_anim["price"]["vent_drop_l"] = %launchfacility_b_vent_drop_l;
+        level.scr_anim["grigsby"]["vent_drop_r"] = %launchfacility_b_vent_drop_r;
+        level.scr_anim["steve"]["vent_drop_team1"] = %launchfacility_b_vent_drop_r;
     }
     else
     {
-        level._id_78AC["price"]["vent_drop_l"] = %h1_launchfacility_b_vent_drop_l;
-        level._id_78AC["grigsby"]["vent_drop_r"] = %h1_launchfacility_b_vent_drop_r;
-        level._id_78AC["steve"]["vent_drop_team1"] = %h1_launchfacility_b_vent_drop_r;
+        level.scr_anim["price"]["vent_drop_l"] = %h1_launchfacility_b_vent_drop_l;
+        level.scr_anim["grigsby"]["vent_drop_r"] = %h1_launchfacility_b_vent_drop_r;
+        level.scr_anim["steve"]["vent_drop_team1"] = %h1_launchfacility_b_vent_drop_r;
     }
 
-    level._id_78AC["price"]["blast_door_runto"] = %launchfacility_b_blast_door_seq_approch;
-    level._id_78AC["price"]["blast_door_wave"][0] = %launchfacility_b_blast_door_seq_waveidle;
-    level._id_78AC["price"]["blast_door_close"] = %launchfacility_b_blast_door_seq_close;
+    level.scr_anim["price"]["blast_door_runto"] = %launchfacility_b_blast_door_seq_approch;
+    level.scr_anim["price"]["blast_door_wave"][0] = %launchfacility_b_blast_door_seq_waveidle;
+    level.scr_anim["price"]["blast_door_close"] = %launchfacility_b_blast_door_seq_close;
 
     if ( getdvarint( "use_old_vaultdoors" ) == 1 )
     {
-        level._id_78AC["price"]["guard_vaultdoors"] = %launchfacility_b_wargame_door_price;
-        level._id_78AC["grigsby"]["guard_vaultdoors"] = %launchfacility_b_wargame_door_grigs;
+        level.scr_anim["price"]["guard_vaultdoors"] = %launchfacility_b_wargame_door_price;
+        level.scr_anim["grigsby"]["guard_vaultdoors"] = %launchfacility_b_wargame_door_grigs;
     }
     else
     {
-        level._id_78AC["price"]["guard_vaultdoors"] = %h1_launchfacility_b_wargame_door_price;
+        level.scr_anim["price"]["guard_vaultdoors"] = %h1_launchfacility_b_wargame_door_price;
         maps\_anim::addnotetrack_dialogue( "price", "dialog", "guard_vaultdoors", "launchfacility_b_pri_atdoor" );
         maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog1", ::play_gaz_doors1_roger, "guard_vaultdoors" );
         maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog2", ::play_gaz_doors2_standby, "guard_vaultdoors" );
         maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog3", ::play_gaz_doors3_gotit, "guard_vaultdoors" );
         maps\_anim::addnotetrack_dialogue( "price", "dialog", "guard_vaultdoors", "launchfacility_b_pri_faster" );
         maps\_anim::addnotetrack_customfunction( "price", "gaz_dialog4", ::play_gaz_doors4_negative, "guard_vaultdoors" );
-        level._id_78AC["grigsby"]["guard_vaultdoors"] = %h1_launchfacility_b_wargame_door_grigs;
+        level.scr_anim["grigsby"]["guard_vaultdoors"] = %h1_launchfacility_b_wargame_door_grigs;
         maps\_anim::addnotetrack_dialogue( "grigsby", "griggs_dialog", "guard_vaultdoors", "launchfacility_b_grg_shittinme" );
     }
 
-    level._id_78AC["grigsby"]["elevator_runin"] = %hunted_tunnel_guy1_runin;
-    level._id_78AC["grigsby"]["elevator_idle"][0] = %hunted_tunnel_guy1_idle;
-    level._id_78AC["price"]["elevator_runin"] = %hunted_tunnel_guy2_runin;
-    level._id_78AC["price"]["elevator_idle"][0] = %hunted_tunnel_guy2_idle;
-    level._id_78AC["price"]["elevator_runout"] = %hunted_tunnel_guy2_runout;
-    level._id_78AC["grigsby"]["elevator_runout"] = %hunted_tunnel_guy1_runout;
-    level._id_78AC["grigsby"]["h1_elevator_elevator"] = %h1_launchfacility_b_elevator_griggs_elevator;
-    level._id_78AC["grigsby"]["h1_elevator_idle1"][0] = %h1_launchfacility_b_elevator_griggs_idle1;
-    level._id_78AC["grigsby"]["h1_elevator_idle2"][0] = %h1_launchfacility_b_elevator_griggs_idle2;
-    level._id_78AC["grigsby"]["h1_elevator_runin"] = %h1_launchfacility_b_elevator_griggs_runin;
-    level._id_78AC["grigsby"]["h1_elevator_runout"] = %h1_launchfacility_b_elevator_griggs_runout;
-    level._id_78AC["price"]["h1_elevator_elevator"] = %h1_launchfacility_b_elevator_price_elevator;
-    level._id_78AC["price"]["h1_elevator_entering"] = %h1_launchfacility_b_elevator_price_entering;
-    level._id_78AC["price"]["h1_elevator_run_to_idle1"] = %h1_launchfacility_b_elevator_price_run_to_idle1;
-    level._id_78AC["price"]["h1_elevator_idle1"][0] = %h1_launchfacility_b_elevator_price_idle1;
-    level._id_78AC["price"]["h1_elevator_idle2"][0] = %h1_launchfacility_b_elevator_price_idle2;
-    level._id_78AC["price"]["h1_elevator_runin"] = %h1_launchfacility_b_elevator_price_runin;
-    level._id_78AC["price"]["h1_elevator_runout"] = %h1_launchfacility_b_elevator_price_runout;
+    level.scr_anim["grigsby"]["elevator_runin"] = %hunted_tunnel_guy1_runin;
+    level.scr_anim["grigsby"]["elevator_idle"][0] = %hunted_tunnel_guy1_idle;
+    level.scr_anim["price"]["elevator_runin"] = %hunted_tunnel_guy2_runin;
+    level.scr_anim["price"]["elevator_idle"][0] = %hunted_tunnel_guy2_idle;
+    level.scr_anim["price"]["elevator_runout"] = %hunted_tunnel_guy2_runout;
+    level.scr_anim["grigsby"]["elevator_runout"] = %hunted_tunnel_guy1_runout;
+    level.scr_anim["grigsby"]["h1_elevator_elevator"] = %h1_launchfacility_b_elevator_griggs_elevator;
+    level.scr_anim["grigsby"]["h1_elevator_idle1"][0] = %h1_launchfacility_b_elevator_griggs_idle1;
+    level.scr_anim["grigsby"]["h1_elevator_idle2"][0] = %h1_launchfacility_b_elevator_griggs_idle2;
+    level.scr_anim["grigsby"]["h1_elevator_runin"] = %h1_launchfacility_b_elevator_griggs_runin;
+    level.scr_anim["grigsby"]["h1_elevator_runout"] = %h1_launchfacility_b_elevator_griggs_runout;
+    level.scr_anim["price"]["h1_elevator_elevator"] = %h1_launchfacility_b_elevator_price_elevator;
+    level.scr_anim["price"]["h1_elevator_entering"] = %h1_launchfacility_b_elevator_price_entering;
+    level.scr_anim["price"]["h1_elevator_run_to_idle1"] = %h1_launchfacility_b_elevator_price_run_to_idle1;
+    level.scr_anim["price"]["h1_elevator_idle1"][0] = %h1_launchfacility_b_elevator_price_idle1;
+    level.scr_anim["price"]["h1_elevator_idle2"][0] = %h1_launchfacility_b_elevator_price_idle2;
+    level.scr_anim["price"]["h1_elevator_runin"] = %h1_launchfacility_b_elevator_price_runin;
+    level.scr_anim["price"]["h1_elevator_runout"] = %h1_launchfacility_b_elevator_price_runout;
 
     if ( getdvarint( "use_old_elevator" ) != 1 )
     {
@@ -107,105 +89,105 @@ setup_exploder_anims()
 
 blast_door()
 {
-    level._id_78B1["door"] = #animtree;
-    level._id_78AC["door"]["blast_door_close"] = %launchfacility_b_blast_door_seq_close_door;
-    level._id_78B1["exploder_script_model"] = #animtree;
-    level._id_78AC["exploder_script_model"]["h1_launch_b_breach_anim"] = %h1_launch_b_breach_anim;
+    level.scr_animtree["door"] = #animtree;
+    level.scr_anim["door"]["blast_door_close"] = %launchfacility_b_blast_door_seq_close_door;
+    level.scr_animtree["exploder_script_model"] = #animtree;
+    level.scr_anim["exploder_script_model"]["h1_launch_b_breach_anim"] = %h1_launch_b_breach_anim;
 }
 #using_animtree("player");
 
-_id_6A5B()
+player_anims()
 {
-    level._id_78B1["player"] = #animtree;
-    level._id_78B5["player"] = "viewhands_player_sas_woodland";
-    level._id_78AC["player"]["typing_abort_codes"] = %h1_launchfacility_b_player_typing;
+    level.scr_animtree["player"] = #animtree;
+    level.scr_model["player"] = "viewhands_player_sas_woodland";
+    level.scr_anim["player"]["typing_abort_codes"] = %h1_launchfacility_b_player_typing;
 }
 
-_id_29F3()
+dialogue()
 {
-    level._id_78B9["letsmove"] = "launchfacility_b_pri_letsmove";
-    level._id_78B9["basesecurity"] = "launchfacility_b_gm1_basesecurity";
-    level._id_78B9["invents"] = "launchfacility_b_pri_invents";
-    level._id_78B9["gm1_copythat"] = "launchfacility_b_gm1_copythat";
-    level._id_78B9["heavyresistance"] = "launchfacility_b_gm2_heavyresistance";
-    level._id_78B9["gaincontrol"] = "launchfacility_b_pri_gaincontrol";
-    level._id_78B9["regroup"] = "launchfacility_b_gm2_regroup";
-    level._id_78B9["15mins"] = "launchfacility_b_hqr_15mins";
-    level._id_78B9["11mins"] = "launchfacility_b_hqr_11mins";
-    level._id_78B9["9mins"] = "launchfacility_b_hqr_9mins";
-    level._id_78BA["price"]["pri_copythat"] = "launchfacility_b_pri_copythat";
-    level._id_78B9["grg_gottamove"] = "launchfacility_b_grg_gottamove";
-    level._id_78B9["grg_goinon"] = "launchfacility_b_grg_goinon";
-    level._id_78B9["startedcountdown"] = "launchfacility_b_pri_startedcountdown";
-    level._id_78B9["pri_movemove"] = "launchfacility_b_pri_movemove";
-    level._id_78B9["pri_gogogo1"] = "launchfacility_b_pri_gogogo1";
-    level._id_78B9["controlbasesec"] = "launchfacility_b_gm1_controlbasesec";
-    level._id_78BA["price"]["pri_atdoor"] = "launchfacility_b_pri_atdoor";
-    level._id_78B9["workinonit"] = "launchfacility_b_gm1_workinonit";
-    level._id_78B9["almostthere"] = "launchfacility_b_gm1_almostthere";
-    level._id_78B9["gotit"] = "launchfacility_b_gm1_gotit";
-    level._id_78BA["grigsby"]["grg_shittinme"] = "launchfacility_b_grg_shittinme";
-    level._id_78B9["pri_faster"] = "launchfacility_b_pri_faster";
-    level._id_78B9["gm1_trypulling"] = "launchfacility_b_gm1_trypulling";
-    level._id_78BA["price"]["pri_cheeky"] = "launchfacility_b_pri_cheeky";
-    level._id_78BA["price"]["status"] = "launchfacility_b_pri_status";
-    level._id_78B9["gm2_inposition"] = "launchfacility_b_gm2_inposition";
-    level._id_78B9["prepbreach"] = "launchfacility_b_pri_prepbreach";
-    level._id_78B9["grg_inposition"] = "launchfacility_b_grg_inposition";
-    level._id_78BA["price"]["pri_plantexplos"] = "launchfacility_b_pri_plantexplos";
-    level._id_78B9["movingin"] = "launchfacility_b_gm2_movingin";
-    level._id_78B9["pri_gogogo2"] = "launchfacility_b_pri_gogogo2";
-    level._id_78B9["grg_clearR"] = "launchfacility_b_grg_clearR";
-    level._id_78B9["entercodes"] = "launchfacility_b_pri_entercodes";
-    level._id_78B9["hqr_confirm"] = "launchfacility_b_hqr_confirm";
-    level._id_78B9["hqr_standby"] = "launchfacility_b_hqr_standby";
-    level._id_78B9["hqr_crashed"] = "launchfacility_b_hqr_crashed";
-    level._id_78B9["hqr_confdest"] = "launchfacility_b_hqr_confdest";
-    level._id_78B9["checkfeed2"] = "launchfacility_b_gm2_checkfeed2";
-    level._id_78B9["extractionpoint"] = "launchfacility_b_pri_extractionpoint";
-    level._id_78B9["sendcoordinates"] = "launchfacility_b_gm1_sendcoordinates";
-    level._id_78BA["price"]["vehicledepot"] = "launchfacility_b_pri_vehicledepot";
-    level._id_78BA["price"]["pri_outtahere"] = "launchfacility_b_pri_outtahere";
-    level._id_78B9["exfilfromarea"] = "launchfacility_b_hqr_exfilfromarea";
-    level._id_78BA["grigsby"]["grg_company"] = "launchfacility_b_grg_company";
-    level._id_78BA["price"]["pri_movemove"] = "launchfacility_b_pri_movemove";
-    level._id_78B9["pri_movemove"] = "launchfacility_b_pri_movemove";
-    level._id_78B9["takinfire"] = "launchfacility_b_gm1_takinfire";
-    level._id_78B9["upthelift"] = "launchfacility_b_pri_upthelift";
-    level._id_78BA["grigsby"]["grg_ashot"] = "launchfacility_b_grg_ashot";
-    level._id_78BA["price"]["pri_getinline"] = "launchfacility_b_pri_getinline";
-    level._id_78B9["takinfire"] = "launchfacility_b_gm1_takinfire";
-    level._id_78BA["price"]["letsgo"] = "launchfacility_b_pri_letsgo";
-    level._id_78BA["grigsby"]["grg_move"] = "launchfacility_b_grg_move";
-    level._id_78B9["grg_10"] = "launchfacility_b_grg_10";
-    level._id_78B9["grg_8"] = "launchfacility_b_grg_8";
-    level._id_78B9["grg_6"] = "launchfacility_b_grg_6";
-    level._id_78B9["grg_5"] = "launchfacility_b_grg_5";
-    level._id_78B9["grg_4"] = "launchfacility_b_grg_4";
-    level._id_78B9["grg_3"] = "launchfacility_b_grg_3";
+    level.scr_radio["letsmove"] = "launchfacility_b_pri_letsmove";
+    level.scr_radio["basesecurity"] = "launchfacility_b_gm1_basesecurity";
+    level.scr_radio["invents"] = "launchfacility_b_pri_invents";
+    level.scr_radio["gm1_copythat"] = "launchfacility_b_gm1_copythat";
+    level.scr_radio["heavyresistance"] = "launchfacility_b_gm2_heavyresistance";
+    level.scr_radio["gaincontrol"] = "launchfacility_b_pri_gaincontrol";
+    level.scr_radio["regroup"] = "launchfacility_b_gm2_regroup";
+    level.scr_radio["15mins"] = "launchfacility_b_hqr_15mins";
+    level.scr_radio["11mins"] = "launchfacility_b_hqr_11mins";
+    level.scr_radio["9mins"] = "launchfacility_b_hqr_9mins";
+    level.scr_sound["price"]["pri_copythat"] = "launchfacility_b_pri_copythat";
+    level.scr_radio["grg_gottamove"] = "launchfacility_b_grg_gottamove";
+    level.scr_radio["grg_goinon"] = "launchfacility_b_grg_goinon";
+    level.scr_radio["startedcountdown"] = "launchfacility_b_pri_startedcountdown";
+    level.scr_radio["pri_movemove"] = "launchfacility_b_pri_movemove";
+    level.scr_radio["pri_gogogo1"] = "launchfacility_b_pri_gogogo1";
+    level.scr_radio["controlbasesec"] = "launchfacility_b_gm1_controlbasesec";
+    level.scr_sound["price"]["pri_atdoor"] = "launchfacility_b_pri_atdoor";
+    level.scr_radio["workinonit"] = "launchfacility_b_gm1_workinonit";
+    level.scr_radio["almostthere"] = "launchfacility_b_gm1_almostthere";
+    level.scr_radio["gotit"] = "launchfacility_b_gm1_gotit";
+    level.scr_sound["grigsby"]["grg_shittinme"] = "launchfacility_b_grg_shittinme";
+    level.scr_radio["pri_faster"] = "launchfacility_b_pri_faster";
+    level.scr_radio["gm1_trypulling"] = "launchfacility_b_gm1_trypulling";
+    level.scr_sound["price"]["pri_cheeky"] = "launchfacility_b_pri_cheeky";
+    level.scr_sound["price"]["status"] = "launchfacility_b_pri_status";
+    level.scr_radio["gm2_inposition"] = "launchfacility_b_gm2_inposition";
+    level.scr_radio["prepbreach"] = "launchfacility_b_pri_prepbreach";
+    level.scr_radio["grg_inposition"] = "launchfacility_b_grg_inposition";
+    level.scr_sound["price"]["pri_plantexplos"] = "launchfacility_b_pri_plantexplos";
+    level.scr_radio["movingin"] = "launchfacility_b_gm2_movingin";
+    level.scr_radio["pri_gogogo2"] = "launchfacility_b_pri_gogogo2";
+    level.scr_radio["grg_clearR"] = "launchfacility_b_grg_clearR";
+    level.scr_radio["entercodes"] = "launchfacility_b_pri_entercodes";
+    level.scr_radio["hqr_confirm"] = "launchfacility_b_hqr_confirm";
+    level.scr_radio["hqr_standby"] = "launchfacility_b_hqr_standby";
+    level.scr_radio["hqr_crashed"] = "launchfacility_b_hqr_crashed";
+    level.scr_radio["hqr_confdest"] = "launchfacility_b_hqr_confdest";
+    level.scr_radio["checkfeed2"] = "launchfacility_b_gm2_checkfeed2";
+    level.scr_radio["extractionpoint"] = "launchfacility_b_pri_extractionpoint";
+    level.scr_radio["sendcoordinates"] = "launchfacility_b_gm1_sendcoordinates";
+    level.scr_sound["price"]["vehicledepot"] = "launchfacility_b_pri_vehicledepot";
+    level.scr_sound["price"]["pri_outtahere"] = "launchfacility_b_pri_outtahere";
+    level.scr_radio["exfilfromarea"] = "launchfacility_b_hqr_exfilfromarea";
+    level.scr_sound["grigsby"]["grg_company"] = "launchfacility_b_grg_company";
+    level.scr_sound["price"]["pri_movemove"] = "launchfacility_b_pri_movemove";
+    level.scr_radio["pri_movemove"] = "launchfacility_b_pri_movemove";
+    level.scr_radio["takinfire"] = "launchfacility_b_gm1_takinfire";
+    level.scr_radio["upthelift"] = "launchfacility_b_pri_upthelift";
+    level.scr_sound["grigsby"]["grg_ashot"] = "launchfacility_b_grg_ashot";
+    level.scr_sound["price"]["pri_getinline"] = "launchfacility_b_pri_getinline";
+    level.scr_radio["takinfire"] = "launchfacility_b_gm1_takinfire";
+    level.scr_sound["price"]["letsgo"] = "launchfacility_b_pri_letsgo";
+    level.scr_sound["grigsby"]["grg_move"] = "launchfacility_b_grg_move";
+    level.scr_radio["grg_10"] = "launchfacility_b_grg_10";
+    level.scr_radio["grg_8"] = "launchfacility_b_grg_8";
+    level.scr_radio["grg_6"] = "launchfacility_b_grg_6";
+    level.scr_radio["grg_5"] = "launchfacility_b_grg_5";
+    level.scr_radio["grg_4"] = "launchfacility_b_grg_4";
+    level.scr_radio["grg_3"] = "launchfacility_b_grg_3";
 }
 
 play_gaz_elevator_radio( var_0 )
 {
-    maps\_utility::_id_70BD( "takinfire" );
+    maps\_utility::radio_dialogue( "takinfire" );
 }
 
 play_gaz_doors1_roger( var_0 )
 {
-    maps\_utility::_id_70BD( "workinonit" );
+    maps\_utility::radio_dialogue( "workinonit" );
 }
 
 play_gaz_doors2_standby( var_0 )
 {
-    maps\_utility::_id_70BD( "almostthere" );
+    maps\_utility::radio_dialogue( "almostthere" );
 }
 
 play_gaz_doors3_gotit( var_0 )
 {
-    maps\_utility::_id_70BD( "gotit" );
+    maps\_utility::radio_dialogue( "gotit" );
     thread maps\launchfacility_b::vault_doors_team_ready();
     wait 0.5;
-    common_scripts\utility::_id_383F( "vault_doors_unlocked" );
+    common_scripts\utility::flag_set( "vault_doors_unlocked" );
 }
 
 play_gaz_doors4_negative_scenecompletedevent()
@@ -217,6 +199,6 @@ play_gaz_doors4_negative_scenecompletedevent()
 play_gaz_doors4_negative( var_0 )
 {
     thread play_gaz_doors4_negative_scenecompletedevent();
-    maps\_utility::_id_70BD( "gm1_trypulling" );
-    level._id_6F7C thread maps\_anim::anim_single_queue( level._id_6F7C, "pri_cheeky" );
+    maps\_utility::radio_dialogue( "gm1_trypulling" );
+    level.price thread maps\_anim::anim_single_queue( level.price, "pri_cheeky" );
 }

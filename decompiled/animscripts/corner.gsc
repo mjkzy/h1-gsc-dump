@@ -1,78 +1,60 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_2222( var_0, var_1 )
+corner_think( var_0, var_1 )
 {
     self endon( "killanimscript" );
-    self.animarrayfuncs["exposed"]["stand"] = ::_id_7EC0;
-    self.animarrayfuncs["exposed"]["crouch"] = ::_id_7DFA;
-    self._id_22BA = self.node;
-    self._id_2225 = var_0;
-    self.a._id_2227 = "unknown";
+    self.animarrayfuncs["exposed"]["stand"] = ::set_standing_animarray_aiming;
+    self.animarrayfuncs["exposed"]["crouch"] = ::set_crouching_animarray_aiming;
+    self.covernode = self.node;
+    self.cornerdirection = var_0;
+    self.a.cornermode = "unknown";
     self.a.aimidlethread = undefined;
-    animscripts\cover_behavior::_id_993F( var_1 );
-    _id_7DF6();
-    self._id_51A0 = 0;
-    self._id_94C2 = 0;
-    self._id_2223 = 0;
-    animscripts\track::_id_7F21( 0 );
-    self._id_475F = 0;
+    animscripts\cover_behavior::turntomatchnodedirection( var_1 );
+    set_corner_anim_array();
+    self.isshooting = 0;
+    self.tracking = 0;
+    self.corneraiming = 0;
+    animscripts\track::setanimaimweight( 0 );
+    self.havegonetocover = 0;
     var_2 = spawnstruct();
 
     if ( !self.fixednode )
-        var_2._id_5F93 = animscripts\cover_behavior::_id_5F93;
+        var_2.movetonearbycover = animscripts\cover_behavior::movetonearbycover;
 
-    var_2._id_590A = ::_id_590A;
-    var_2.reload = ::_id_2228;
-    var_2._id_5667 = ::_id_8E29;
-    var_2.look = ::_id_5860;
-    var_2._id_367E = ::_id_367E;
-    var_2._id_4B63 = ::_id_4B63;
-    var_2.grenade = ::_id_98A5;
-    var_2._id_4401 = ::_id_98A6;
+    var_2.mainloopstart = ::mainloopstart;
+    var_2.reload = ::cornerreload;
+    var_2.leavecoverandshoot = ::stepoutandshootenemy;
+    var_2.look = ::lookforenemy;
+    var_2.fastlook = ::fastlook;
+    var_2.idle = ::idle;
+    var_2.grenade = ::trythrowinggrenade;
+    var_2.grenadehidden = ::trythrowinggrenadestayhidden;
     var_2.blindfire = ::blindfire;
     animscripts\cover_behavior::main( var_2 );
 }
 
-_id_3143()
+end_script_corner()
 {
-    self._id_8E2A = undefined;
-    self.a._id_565E = undefined;
+    self.stepoutyaw = undefined;
+    self.a.leanaim = undefined;
 }
 
-_id_7DF6()
+set_corner_anim_array()
 {
-    if ( self.a._id_6E5A == "crouch" )
-        _id_7DBC( "crouch" );
-    else if ( self.a._id_6E5A == "stand" )
-        _id_7DBC( "stand" );
+    if ( self.a.pose == "crouch" )
+        set_anim_array( "crouch" );
+    else if ( self.a.pose == "stand" )
+        set_anim_array( "stand" );
     else
     {
-        animscripts\utility::_id_344B( 1 );
-        self.a._id_6E5A = "crouch";
-        _id_7DBC( "crouch" );
+        animscripts\utility::exitpronewrapper( 1 );
+        self.a.pose = "crouch";
+        set_anim_array( "crouch" );
     }
 }
 
-_id_8488()
+shouldchangestanceforfun()
 {
     if ( !isdefined( self.allowstancechangesforfun ) )
         return 0;
@@ -80,29 +62,29 @@ _id_8488()
     if ( !isdefined( self.enemy ) )
         return 0;
 
-    if ( !isdefined( self._id_1C82 ) )
-        self._id_1C82 = gettime() + randomintrange( 5000, 20000 );
+    if ( !isdefined( self.changestanceforfuntime ) )
+        self.changestanceforfuntime = gettime() + randomintrange( 5000, 20000 );
 
-    if ( gettime() > self._id_1C82 )
+    if ( gettime() > self.changestanceforfuntime )
     {
-        self._id_1C82 = gettime() + randomintrange( 5000, 20000 );
+        self.changestanceforfuntime = gettime() + randomintrange( 5000, 20000 );
 
-        if ( isdefined( self._id_7109 ) && self.a._id_6E5A == "stand" )
+        if ( isdefined( self.rambochance ) && self.a.pose == "stand" )
             return 0;
 
-        self.a._id_6F4D = undefined;
+        self.a.prevattack = undefined;
         return 1;
     }
 
     return 0;
 }
 
-_id_590A()
+mainloopstart()
 {
     var_0 = gettime();
     var_1 = "stand";
 
-    if ( self.a._id_6E5A == "crouch" )
+    if ( self.a.pose == "crouch" )
     {
         var_1 = "crouch";
 
@@ -114,15 +96,15 @@ _id_590A()
                 var_1 = "crouch_l";
         }
 
-        if ( self._id_22BA doesnodeallowstance( "stand" ) )
+        if ( self.covernode doesnodeallowstance( "stand" ) )
         {
-            if ( !self._id_22BA doesnodeallowstance( "crouch" ) || _id_8488() )
+            if ( !self.covernode doesnodeallowstance( "crouch" ) || shouldchangestanceforfun() )
                 var_1 = "stand";
         }
     }
-    else if ( self._id_22BA doesnodeallowstance( "crouch" ) )
+    else if ( self.covernode doesnodeallowstance( "crouch" ) )
     {
-        if ( !self._id_22BA doesnodeallowstance( "stand" ) || _id_8488() )
+        if ( !self.covernode doesnodeallowstance( "stand" ) || shouldchangestanceforfun() )
         {
             var_1 = "crouch";
 
@@ -136,7 +118,7 @@ _id_590A()
         }
     }
 
-    if ( self._id_475F )
+    if ( self.havegonetocover )
     {
         if ( isdefined( self.animarchetype ) && self.animarchetype == "s1_soldier" )
         {
@@ -144,17 +126,17 @@ _id_590A()
                 var_1 = "crouch";
         }
 
-        _id_9720( var_1 );
+        transitiontostance( var_1 );
     }
     else
     {
         var_2 = undefined;
 
-        if ( self.a._id_6E5A == var_1 )
+        if ( self.a.pose == var_1 )
         {
             var_3 = 0.4;
 
-            if ( isdefined( self.cover ) && isdefined( self.cover._id_4880 ) && self.cover._id_4880 == "back" )
+            if ( isdefined( self.cover ) && isdefined( self.cover.hidestate ) && self.cover.hidestate == "back" )
                 var_4 = animscripts\utility::animarray( "alert_idle_back" );
             else if ( var_1 == "crouch" && shouldplayalerttransition( self ) )
             {
@@ -169,7 +151,7 @@ _id_590A()
             else
                 var_4 = animscripts\utility::animarray( "alert_idle" );
 
-            _id_4281( var_4, 0.3, var_3 );
+            gotocover( var_4, 0.3, var_3 );
         }
         else
         {
@@ -177,12 +159,12 @@ _id_590A()
             {
                 if ( var_1 == "crouch_l" )
                 {
-                    var_2 = animscripts\utility::_id_5863( "combat", "trans_to_crouch_l" );
+                    var_2 = animscripts\utility::lookupanim( "combat", "trans_to_crouch_l" );
                     var_1 = "crouch";
                 }
                 else if ( var_1 == "crouch_r" )
                 {
-                    var_2 = animscripts\utility::_id_5863( "combat", "trans_to_crouch_r" );
+                    var_2 = animscripts\utility::lookupanim( "combat", "trans_to_crouch_r" );
                     var_1 = "crouch";
                 }
             }
@@ -190,11 +172,11 @@ _id_590A()
             if ( !isdefined( var_2 ) )
                 var_2 = animscripts\utility::animarray( "stance_change" );
 
-            _id_4281( var_2, 0.3, getanimlength( var_2 ) );
-            _id_7DBC( var_1 );
+            gotocover( var_2, 0.3, getanimlength( var_2 ) );
+            set_anim_array( var_1 );
         }
 
-        self._id_475F = 1;
+        self.havegonetocover = 1;
     }
 
     return gettime() - var_0 > 0;
@@ -207,7 +189,7 @@ hasonekneeup()
 
     foreach ( var_2 in var_0 )
     {
-        if ( self _meth_8152( var_2 ) != 0.0 )
+        if ( self getanimweight( var_2 ) != 0.0 )
             return 1;
     }
 
@@ -224,109 +206,109 @@ shouldplayalerttransition( var_0 )
 
     foreach ( var_4 in var_1 )
     {
-        if ( var_0 _meth_8152( var_4 ) != 0.0 )
+        if ( var_0 getanimweight( var_4 ) != 0.0 )
             return 0;
     }
 
     if ( var_0 hasonekneeup() )
         return 1;
 
-    if ( var_0 _meth_8152( %exposed_modern ) != 0.0 && var_0 _meth_8152( %exposed_aiming ) != 0.0 )
+    if ( var_0 getanimweight( %exposed_modern ) != 0.0 && var_0 getanimweight( %exposed_aiming ) != 0.0 )
         return 1;
 
     foreach ( var_7 in var_2 )
     {
-        if ( var_0 _meth_8152( var_7 ) != 0.0 )
+        if ( var_0 getanimweight( var_7 ) != 0.0 )
             return 1;
     }
 
     return 0;
 }
 
-_id_6FBA()
+printyaws()
 {
     wait 2;
 
     for (;;)
     {
-        _id_6FBB();
+        printyawtoenemy();
         wait 0.05;
     }
 }
 
-_id_1AE4( var_0, var_1 )
+canseepointfromexposedatcorner( var_0, var_1 )
 {
-    var_2 = var_1 animscripts\utility::_id_4176( var_0 );
+    var_2 = var_1 animscripts\utility::getyawtoorigin( var_0 );
 
     if ( var_2 > 60 || var_2 < -60 )
         return 0;
 
-    if ( animscripts\utility::_id_515B( var_1 ) && var_2 > 14 )
+    if ( animscripts\utility::isnodecoverleft( var_1 ) && var_2 > 14 )
         return 0;
 
-    if ( animscripts\utility::_id_515E( var_1 ) && var_2 < -12 )
+    if ( animscripts\utility::isnodecoverright( var_1 ) && var_2 < -12 )
         return 0;
 
     return 1;
 }
 
-_id_8410()
+shootposoutsidelegalyawrange()
 {
-    if ( !isdefined( self._id_840F ) )
+    if ( !isdefined( self.shootpos ) )
         return 0;
 
-    var_0 = self._id_22BA animscripts\utility::_id_4176( self._id_840F );
+    var_0 = self.covernode animscripts\utility::getyawtoorigin( self.shootpos );
 
-    if ( self.a._id_2227 == "over" )
+    if ( self.a.cornermode == "over" )
         return var_0 < self.leftaimlimit || self.rightaimlimit < var_0;
 
-    if ( self._id_2225 == "up" )
+    if ( self.cornerdirection == "up" )
         return var_0 < -50 || var_0 > 50;
-    else if ( self._id_2225 == "left" )
+    else if ( self.cornerdirection == "left" )
     {
-        if ( self.a._id_2227 == "B" )
+        if ( self.a.cornermode == "B" )
             return var_0 < 0 - self.abanglecutoff || var_0 > 14;
-        else if ( self.a._id_2227 == "A" )
+        else if ( self.a.cornermode == "A" )
             return var_0 > 0 - self.abanglecutoff;
         else
             return var_0 < -50 || var_0 > 8;
     }
-    else if ( self.a._id_2227 == "B" )
+    else if ( self.a.cornermode == "B" )
         return var_0 > self.abanglecutoff || var_0 < -12;
-    else if ( self.a._id_2227 == "A" )
+    else if ( self.a.cornermode == "A" )
         return var_0 < self.abanglecutoff;
     else
         return var_0 > 50 || var_0 < -8;
 }
 
-_id_3F3D( var_0, var_1 )
+getcornermode( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = 0;
 
     if ( isdefined( var_1 ) )
-        var_3 = var_0 animscripts\utility::_id_4176( var_1 );
+        var_3 = var_0 animscripts\utility::getyawtoorigin( var_1 );
 
     var_4 = [];
 
-    if ( isdefined( var_0 ) && self.a._id_6E5A == "crouch" && ( var_3 > self.leftaimlimit && self.rightaimlimit > var_3 ) )
+    if ( isdefined( var_0 ) && self.a.pose == "crouch" && ( var_3 > self.leftaimlimit && self.rightaimlimit > var_3 ) )
         var_4 = var_0 getvalidcoverpeekouts();
 
-    if ( self._id_2225 == "up" )
+    if ( self.cornerdirection == "up" )
     {
-        if ( animscripts\utility::_id_51B0() )
+        if ( animscripts\utility::isspaceai() )
         {
             var_5 = 0;
 
             if ( isdefined( var_1 ) )
             {
                 var_6 = anglestoup( self.angles );
-                var_5 = animscripts\combat_utility::_id_4083( var_1, self geteye() + ( var_6[0] * 12, var_6[1] * 12, var_6[2] * 12 ) );
+                var_5 = animscripts\combat_utility::getpitchtoorgfromorg( var_1, self geteye() + ( var_6[0] * 12, var_6[1] * 12, var_6[2] * 12 ) );
             }
 
-            if ( _id_1ACD( var_5, -5, 80 ) )
+            if ( canlean( var_5, -5, 80 ) )
             {
-                var_2 = _id_849E();
+                var_2 = shouldlean();
                 var_4[var_4.size] = "lean";
                 var_4[var_4.size] = "lean";
             }
@@ -337,11 +319,11 @@ _id_3F3D( var_0, var_1 )
         else
             var_4[var_4.size] = "A";
     }
-    else if ( self._id_2225 == "left" )
+    else if ( self.cornerdirection == "left" )
     {
-        if ( _id_1ACD( var_3, -40, 0 ) )
+        if ( canlean( var_3, -40, 0 ) )
         {
-            var_2 = _id_849E();
+            var_2 = shouldlean();
 
             if ( var_2 )
                 var_4[var_4.size] = "lean";
@@ -357,9 +339,9 @@ _id_3F3D( var_0, var_1 )
     }
     else
     {
-        if ( _id_1ACD( var_3, 0, 40 ) )
+        if ( canlean( var_3, 0, 40 ) )
         {
-            var_2 = _id_849E();
+            var_2 = shouldlean();
 
             if ( var_2 )
                 var_4[var_4.size] = "lean";
@@ -374,31 +356,31 @@ _id_3F3D( var_0, var_1 )
         }
     }
 
-    return animscripts\combat_utility::_id_40A4( var_4 );
+    return animscripts\combat_utility::getrandomcovermode( var_4 );
 }
 
-_id_3F18()
+getbeststepoutpos()
 {
     var_0 = 0;
 
-    if ( animscripts\utility::_id_1AEF() )
-        var_0 = self._id_22BA animscripts\utility::_id_4176( animscripts\utility::_id_3F7E() );
-    else if ( self.doingambush && isdefined( self._id_840F ) )
-        var_0 = self._id_22BA animscripts\utility::_id_4176( self._id_840F );
+    if ( animscripts\utility::cansuppressenemy() )
+        var_0 = self.covernode animscripts\utility::getyawtoorigin( animscripts\utility::getenemysightpos() );
+    else if ( self.doingambush && isdefined( self.shootpos ) )
+        var_0 = self.covernode animscripts\utility::getyawtoorigin( self.shootpos );
 
-    if ( self.a._id_2227 == "lean" )
+    if ( self.a.cornermode == "lean" )
         return "lean";
 
-    if ( self.a._id_2227 == "over" )
+    if ( self.a.cornermode == "over" )
         return "over";
-    else if ( self.a._id_2227 == "B" )
+    else if ( self.a.cornermode == "B" )
     {
-        if ( self._id_2225 == "left" )
+        if ( self.cornerdirection == "left" )
         {
             if ( var_0 < 0 - self.abanglecutoff )
                 return "A";
         }
-        else if ( self._id_2225 == "right" )
+        else if ( self.cornerdirection == "right" )
         {
             if ( var_0 > self.abanglecutoff )
                 return "A";
@@ -406,16 +388,16 @@ _id_3F18()
 
         return "B";
     }
-    else if ( self.a._id_2227 == "A" )
+    else if ( self.a.cornermode == "A" )
     {
-        if ( self._id_2225 == "up" )
+        if ( self.cornerdirection == "up" )
             return "A";
-        else if ( self._id_2225 == "left" )
+        else if ( self.cornerdirection == "left" )
         {
             if ( var_0 > 0 - self.abanglecutoff )
                 return "B";
         }
-        else if ( self._id_2225 == "right" )
+        else if ( self.cornerdirection == "right" )
         {
             if ( var_0 < self.abanglecutoff )
                 return "B";
@@ -425,38 +407,38 @@ _id_3F18()
     }
 }
 
-_id_1C83()
+changestepoutpos()
 {
     self endon( "killanimscript" );
-    var_0 = _id_3F18();
+    var_0 = getbeststepoutpos();
 
-    if ( var_0 == self.a._id_2227 )
+    if ( var_0 == self.a.cornermode )
         return 0;
 
-    self._id_1C86 = 1;
+    self.changingcoverpos = 1;
     self notify( "done_changing_cover_pos" );
-    var_1 = self.a._id_2227 + "_to_" + var_0;
+    var_1 = self.a.cornermode + "_to_" + var_0;
     var_2 = animscripts\utility::animarraypickrandom( var_1 );
 
-    if ( animscripts\utility::_id_51B0() && ( var_1 == "A_to_B" || var_1 == "B_to_A" ) )
+    if ( animscripts\utility::isspaceai() && ( var_1 == "A_to_B" || var_1 == "B_to_A" ) )
         return 0;
 
     var_3 = !self.swimmer;
-    var_4 = _id_4097();
+    var_4 = getpredictedpathmidpoint();
 
-    if ( !self _meth_81C7( var_4, var_3 ) )
+    if ( !self maymovetopoint( var_4, var_3 ) )
         return 0;
 
-    if ( !self _meth_81C8( var_4, animscripts\utility::_id_3EFC( var_2 ), var_3 ) )
+    if ( !self maymovefrompointtopoint( var_4, animscripts\utility::getanimendpos( var_2 ), var_3 ) )
         return 0;
 
-    animscripts\combat_utility::_id_3156();
-    _id_8EDD( 0.3 );
-    var_5 = self.a._id_6E5A;
-    self _meth_814E( animscripts\utility::animarray( "straight_level" ), 0, 0.2 );
-    self _meth_8154( "changeStepOutPos", var_2, 1, 0.2, 1.2 );
-    _id_2221( var_2 );
-    thread _id_2D13( "changeStepOutPos" );
+    animscripts\combat_utility::endaimidlethread();
+    stopaiming( 0.3 );
+    var_5 = self.a.pose;
+    self setanimlimited( animscripts\utility::animarray( "straight_level" ), 0, 0.2 );
+    self setflaggedanimknob( "changeStepOutPos", var_2, 1, 0.2, 1.2 );
+    corner_playcornerfacialanim( var_2 );
+    thread donotetrackswithendon( "changeStepOutPos" );
     var_6 = animhasnotetrack( var_2, "start_aim" );
 
     if ( var_6 )
@@ -464,90 +446,90 @@ _id_1C83()
     else
         self waittillmatch( "changeStepOutPos", "end" );
 
-    thread _id_8CFC( undefined, 0, 0.3 );
+    thread startaiming( undefined, 0, 0.3 );
 
     if ( var_6 )
         self waittillmatch( "changeStepOutPos", "end" );
 
-    self _meth_8144( var_2, 0.1 );
-    self.a._id_2227 = var_0;
-    self._id_1C86 = 0;
-    self._id_22BC = gettime();
+    self clearanim( var_2, 0.1 );
+    self.a.cornermode = var_0;
+    self.changingcoverpos = 0;
+    self.coverposestablishedtime = gettime();
 
-    if ( self.a._id_6E5A != var_5 )
-        _id_7DBC( self.a._id_6E5A );
+    if ( self.a.pose != var_5 )
+        set_anim_array( self.a.pose );
 
-    thread _id_1C7D( undefined, 1, 0.3 );
+    thread changeaiming( undefined, 1, 0.3 );
     return 1;
 }
 
-_id_1ACD( var_0, var_1, var_2 )
+canlean( var_0, var_1, var_2 )
 {
-    if ( self.a._id_6096 )
+    if ( self.a.neverlean )
         return 0;
 
     return var_1 <= var_0 && var_0 <= var_2;
 }
 
-_id_849E()
+shouldlean()
 {
-    if ( !animscripts\utility::using_improved_transitions() && self.a._id_6E5A != "stand" )
+    if ( !animscripts\utility::using_improved_transitions() && self.a.pose != "stand" )
         return 0;
 
     if ( self.team == "allies" )
         return 1;
 
-    if ( animscripts\utility::_id_516E() )
+    if ( animscripts\utility::ispartiallysuppressedwrapper() )
         return 1;
 
     return 0;
 }
 
-_id_2D13( var_0 )
+donotetrackswithendon( var_0 )
 {
     self endon( "killanimscript" );
-    animscripts\shared::_id_2D06( var_0 );
+    animscripts\shared::donotetracks( var_0 );
 }
 
-_id_8CFC( var_0, var_1, var_2 )
+startaiming( var_0, var_1, var_2 )
 {
-    self._id_2223 = 1;
+    self.corneraiming = 1;
 
-    if ( self.a._id_2227 == "lean" )
-        self.a._id_565E = 1;
+    if ( self.a.cornermode == "lean" )
+        self.a.leanaim = 1;
     else
-        self.a._id_565E = undefined;
+        self.a.leanaim = undefined;
 
-    _id_7F18( var_0, var_1, var_2 );
+    setaimingparams( var_0, var_1, var_2 );
 }
 
-_id_1C7D( var_0, var_1, var_2 )
+changeaiming( var_0, var_1, var_2 )
 {
-    if ( self.a._id_2227 == "lean" )
-        self.a._id_565E = 1;
+    if ( self.a.cornermode == "lean" )
+        self.a.leanaim = 1;
     else
-        self.a._id_565E = undefined;
+        self.a.leanaim = undefined;
 
-    _id_7F18( var_0, var_1, var_2 );
+    setaimingparams( var_0, var_1, var_2 );
 }
 
-_id_8EDD( var_0 )
+stopaiming( var_0 )
 {
-    self._id_2223 = 0;
-    self _meth_8144( %add_fire, var_0 );
-    animscripts\track::_id_7F21( 0, var_0 );
-    self._id_35C7 = undefined;
-    self _meth_8144( %head, 0.2 );
+    self.corneraiming = 0;
+    self clearanim( %add_fire, var_0 );
+    animscripts\track::setanimaimweight( 0, var_0 );
+    self.facialidx = undefined;
+    self clearanim( %head, 0.2 );
 }
 
-_id_7F18( var_0, var_1, var_2 )
+setaimingparams( var_0, var_1, var_2 )
 {
-    self._id_8A7D = var_0;
-    self _meth_814E( %exposed_modern, 1, var_2 );
-    self _meth_814E( %exposed_aiming, 1, var_2 );
-    self _meth_814E( %add_idle, 1, var_2 );
-    animscripts\track::_id_7F21( 1, var_2 );
-    _id_2220( undefined );
+    self.spot = var_0;
+    self setanimlimited( %exposed_modern, 1, var_2 );
+    self setanimlimited( %exposed_aiming, 1, var_2 );
+    self setanimlimited( %add_idle, 1, var_2 );
+    animscripts\track::setanimaimweight( 1, var_2 );
+    corner_playaimfacialanim( undefined );
     var_3 = undefined;
 
     if ( isdefined( self.a.array["lean_aim_straight"] ) )
@@ -555,72 +537,72 @@ _id_7F18( var_0, var_1, var_2 )
 
     thread animscripts\combat_utility::aimidlethread();
 
-    if ( isdefined( self.a._id_565E ) )
+    if ( isdefined( self.a.leanaim ) )
     {
-        self _meth_814E( var_3, 1, var_2 );
-        self _meth_814E( animscripts\utility::animarray( "straight_level" ), 0, 0 );
-        self _meth_8146( animscripts\utility::animarray( "lean_aim_left" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "lean_aim_right" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "lean_aim_up" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "lean_aim_down" ), 1, var_2 );
+        self setanimlimited( var_3, 1, var_2 );
+        self setanimlimited( animscripts\utility::animarray( "straight_level" ), 0, 0 );
+        self setanimknoblimited( animscripts\utility::animarray( "lean_aim_left" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "lean_aim_right" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "lean_aim_up" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "lean_aim_down" ), 1, var_2 );
     }
     else if ( var_1 )
     {
-        self _meth_814E( animscripts\utility::animarray( "straight_level" ), 1, var_2 );
+        self setanimlimited( animscripts\utility::animarray( "straight_level" ), 1, var_2 );
 
         if ( isdefined( var_3 ) )
-            self _meth_814E( var_3, 0, 0 );
+            self setanimlimited( var_3, 0, 0 );
 
-        self _meth_8146( animscripts\utility::animarray( "add_aim_up" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "add_aim_down" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "add_aim_left" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "add_aim_right" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_aim_up" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_aim_down" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_aim_left" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_aim_right" ), 1, var_2 );
     }
     else
     {
-        self _meth_814E( animscripts\utility::animarray( "straight_level" ), 0, var_2 );
+        self setanimlimited( animscripts\utility::animarray( "straight_level" ), 0, var_2 );
 
         if ( isdefined( var_3 ) )
-            self _meth_814E( var_3, 0, 0 );
+            self setanimlimited( var_3, 0, 0 );
 
-        self _meth_8146( animscripts\utility::animarray( "add_turn_aim_up" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "add_turn_aim_down" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "add_turn_aim_left" ), 1, var_2 );
-        self _meth_8146( animscripts\utility::animarray( "add_turn_aim_right" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_turn_aim_up" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_turn_aim_down" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_turn_aim_left" ), 1, var_2 );
+        self setanimknoblimited( animscripts\utility::animarray( "add_turn_aim_right" ), 1, var_2 );
     }
 }
 
-_id_8E28()
+stepoutandhidespeed()
 {
-    if ( self.a._id_2227 == "over" )
+    if ( self.a.cornermode == "over" )
         return 1;
 
-    return animscripts\combat_utility::_id_711F();
+    return animscripts\combat_utility::randomfasteranimspeed();
 }
 
-_id_8E27()
+stepout()
 {
-    self.a._id_2227 = "alert";
+    self.a.cornermode = "alert";
 
     if ( isdefined( self.disablestepout ) && self.disablestepout )
         return 0;
 
-    _id_7F48();
+    setdefaultcorneranimmode();
 
-    if ( self.a._id_6E5A == "stand" )
+    if ( self.a.pose == "stand" )
         self.abanglecutoff = 38;
     else
         self.abanglecutoff = 31;
 
-    var_0 = self.a._id_6E5A;
-    _id_7DBC( var_0 );
-    animscripts\combat::_id_7E08();
+    var_0 = self.a.pose;
+    set_anim_array( var_0 );
+    animscripts\combat::set_default_aim_limits();
     var_1 = "none";
 
-    if ( animscripts\utility::_id_472C() )
-        var_1 = _id_3F3D( self._id_22BA, animscripts\utility::_id_3F7E() );
+    if ( animscripts\utility::hasenemysightpos() )
+        var_1 = getcornermode( self.covernode, animscripts\utility::getenemysightpos() );
     else
-        var_1 = _id_3F3D( self._id_22BA );
+        var_1 = getcornermode( self.covernode );
 
     if ( !isdefined( var_1 ) )
         return 0;
@@ -632,128 +614,128 @@ _id_8E27()
 
     var_3 = animscripts\utility::animarraypickrandom( var_2 );
 
-    if ( var_1 == "lean" && !_id_5171() )
+    if ( var_1 == "lean" && !ispeekoutposclear() )
         return 0;
 
-    if ( var_1 != "over" && !_id_516F( var_3, var_1 != "lean" ) )
+    if ( var_1 != "over" && !ispathclear( var_3, var_1 != "lean" ) )
         return 0;
 
-    self.a._id_2227 = var_1;
-    self.a._id_6F4D = var_1;
+    self.a.cornermode = var_1;
+    self.a.prevattack = var_1;
 
-    if ( self.a._id_2227 == "lean" )
-        animscripts\combat::_id_7E08( self._id_22BA );
+    if ( self.a.cornermode == "lean" )
+        animscripts\combat::set_default_aim_limits( self.covernode );
 
     if ( var_1 == "A" || var_1 == "B" )
-        self.a._id_8A1A = "cover_" + self._id_2225 + "_" + self.a._id_6E5A + "_" + var_1;
+        self.a.special = "cover_" + self.cornerdirection + "_" + self.a.pose + "_" + var_1;
     else if ( var_1 == "over" )
-        self.a._id_8A1A = "cover_crouch_aim";
+        self.a.special = "cover_crouch_aim";
     else
-        self.a._id_8A1A = "none";
+        self.a.special = "none";
 
     self.keepclaimednodeifvalid = 1;
     var_4 = 0;
-    self._id_1C86 = 1;
+    self.changingcoverpos = 1;
     self notify( "done_changing_cover_pos" );
-    var_5 = _id_8E28();
+    var_5 = stepoutandhidespeed();
     self.pushable = 0;
     self setflaggedanimknoballrestart( "stepout", var_3, %animscript_root, 1, 0.2, var_5 );
-    _id_2221( var_3 );
-    thread _id_2D13( "stepout" );
+    corner_playcornerfacialanim( var_3 );
+    thread donotetrackswithendon( "stepout" );
     var_4 = animhasnotetrack( var_3, "start_aim" );
 
     if ( var_4 )
     {
-        self._id_8E2A = self.angles[1] + getangledelta( var_3, 0, 1 );
+        self.stepoutyaw = self.angles[1] + getangledelta( var_3, 0, 1 );
         self waittillmatch( "stepout", "start_aim" );
     }
     else
         self waittillmatch( "stepout", "end" );
 
-    if ( var_1 == "B" && common_scripts\utility::_id_2006() && self._id_2225 == "right" )
-        self.a._id_8A1A = "corner_right_martyrdom";
+    if ( var_1 == "B" && common_scripts\utility::cointoss() && self.cornerdirection == "right" )
+        self.a.special = "corner_right_martyrdom";
 
-    _id_7DBD( var_0 );
-    var_6 = var_1 == "over" || animscripts\utility::_id_51B0();
-    _id_8CFC( undefined, var_6, 0.3 );
-    thread animscripts\track::_id_9512();
+    set_anim_array_aiming( var_0 );
+    var_6 = var_1 == "over" || animscripts\utility::isspaceai();
+    startaiming( undefined, var_6, 0.3 );
+    thread animscripts\track::trackshootentorpos();
 
     if ( var_4 )
     {
         self waittillmatch( "stepout", "end" );
-        self._id_8E2A = undefined;
+        self.stepoutyaw = undefined;
     }
 
-    _id_1C7D( undefined, 1, 0.2 );
-    self _meth_8144( %cover, 0.1 );
-    self _meth_8144( %corner, 0.1 );
-    self._id_1C86 = 0;
-    self._id_22BC = gettime();
+    changeaiming( undefined, 1, 0.2 );
+    self clearanim( %cover, 0.1 );
+    self clearanim( %corner, 0.1 );
+    self.changingcoverpos = 0;
+    self.coverposestablishedtime = gettime();
     self.pushable = 1;
     return 1;
 }
 
-_id_8E29()
+stepoutandshootenemy()
 {
     self.keepclaimednodeifvalid = 1;
 
-    if ( isdefined( self._id_7109 ) && randomfloat( 1 ) < self._id_7109 )
+    if ( isdefined( self.rambochance ) && randomfloat( 1 ) < self.rambochance )
     {
-        if ( _id_7104() )
+        if ( rambo() )
             return 1;
     }
 
-    if ( !_id_8E27() )
+    if ( !stepout() )
         return 0;
 
-    _id_83EA();
+    shootastold();
 
-    if ( isdefined( self._id_840F ) )
+    if ( isdefined( self.shootpos ) )
     {
-        var_0 = lengthsquared( self.origin - self._id_840F );
+        var_0 = lengthsquared( self.origin - self.shootpos );
 
-        if ( animscripts\utility::_id_9C36() && animscripts\utility::_id_8495( var_0 ) )
+        if ( animscripts\utility::usingrocketlauncher() && animscripts\utility::shoulddroprocketlauncher( var_0 ) )
         {
-            if ( self.a._id_6E5A == "stand" )
-                animscripts\shared::_id_933A( animscripts\utility::_id_5863( "combat", "drop_rpg_stand" ) );
+            if ( self.a.pose == "stand" )
+                animscripts\shared::throwdownweapon( animscripts\utility::lookupanim( "combat", "drop_rpg_stand" ) );
             else
-                animscripts\shared::_id_933A( animscripts\utility::_id_5863( "combat", "drop_rpg_crouch" ) );
+                animscripts\shared::throwdownweapon( animscripts\utility::lookupanim( "combat", "drop_rpg_crouch" ) );
 
-            thread _id_76C9();
+            thread runcombat();
             return;
         }
     }
 
-    _id_74E1();
+    returntocover();
     self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
-_id_4761( var_0 )
+haventramboedwithintime( var_0 )
 {
-    if ( !isdefined( self._id_55D1 ) )
+    if ( !isdefined( self.lastrambotime ) )
         return 1;
 
-    return gettime() - self._id_55D1 > var_0 * 1000;
+    return gettime() - self.lastrambotime > var_0 * 1000;
 }
 
-_id_7104()
+rambo()
 {
-    if ( !animscripts\utility::_id_472C() )
+    if ( !animscripts\utility::hasenemysightpos() )
         return 0;
 
     var_0 = 0;
     var_1 = 90;
-    var_2 = self._id_22BA animscripts\utility::_id_4176( animscripts\utility::_id_3F7E() );
+    var_2 = self.covernode animscripts\utility::getyawtoorigin( animscripts\utility::getenemysightpos() );
 
-    if ( self._id_2225 == "left" )
+    if ( self.cornerdirection == "left" )
         var_2 = 0 - var_2;
 
     if ( var_2 > 30 )
     {
         var_1 = 45;
 
-        if ( self._id_2225 == "left" )
+        if ( self.cornerdirection == "left" )
             var_0 = 45;
         else
             var_0 = -45;
@@ -765,47 +747,47 @@ _id_7104()
         return 0;
 
     var_4 = animscripts\utility::animarraypickrandom( var_3 );
-    var_5 = _id_4097( 48 );
+    var_5 = getpredictedpathmidpoint( 48 );
 
-    if ( !self _meth_81C7( var_5, !self.swimmer ) )
+    if ( !self maymovetopoint( var_5, !self.swimmer ) )
         return 0;
 
-    self._id_22BC = gettime();
-    _id_7F48();
+    self.coverposestablishedtime = gettime();
+    setdefaultcorneranimmode();
     self.keepclaimednodeifvalid = 1;
-    self._id_5187 = 1;
-    self.a._id_6F4D = "rambo";
-    self._id_1C86 = 1;
-    thread animscripts\shared::_id_7106( var_0 );
+    self.isrambo = 1;
+    self.a.prevattack = "rambo";
+    self.changingcoverpos = 1;
+    thread animscripts\shared::ramboaim( var_0 );
     self setflaggedanimknoballrestart( "rambo", var_4, %body, 1, 0, 1 );
-    _id_2221( var_4 );
-    animscripts\shared::_id_2D06( "rambo" );
+    corner_playcornerfacialanim( var_4 );
+    animscripts\shared::donotetracks( "rambo" );
     self notify( "rambo_aim_end" );
-    self._id_1C86 = 0;
+    self.changingcoverpos = 0;
     self.keepclaimednodeifvalid = 0;
-    self._id_55D1 = gettime();
-    self._id_1C86 = 0;
-    self._id_5187 = undefined;
+    self.lastrambotime = gettime();
+    self.changingcoverpos = 0;
+    self.isrambo = undefined;
     return 1;
 }
 
-_id_83EA()
+shootastold()
 {
-    maps\_gameskill::_id_2A4D();
+    maps\_gameskill::didsomethingotherthanshooting();
 
     for (;;)
     {
         for (;;)
         {
-            if ( isdefined( self._id_84A7 ) )
+            if ( isdefined( self.shouldreturntocover ) )
                 break;
 
-            if ( !isdefined( self._id_840F ) )
+            if ( !isdefined( self.shootpos ) )
             {
                 self waittill( "do_slow_things" );
-                waitframe;
+                waittillframeend;
 
-                if ( isdefined( self._id_840F ) )
+                if ( isdefined( self.shootpos ) )
                     continue;
 
                 break;
@@ -814,42 +796,42 @@ _id_83EA()
             if ( !self.bulletsinclip )
                 break;
 
-            if ( _id_8410() )
+            if ( shootposoutsidelegalyawrange() )
             {
-                if ( !_id_1C83() )
+                if ( !changestepoutpos() )
                 {
-                    if ( _id_3F18() == self.a._id_2227 )
+                    if ( getbeststepoutpos() == self.a.cornermode )
                         break;
 
-                    _id_841A( 0.2 );
+                    shootuntilshootbehaviorchangefortime( 0.2 );
                     continue;
                 }
 
-                if ( _id_8410() )
+                if ( shootposoutsidelegalyawrange() )
                     break;
             }
             else
             {
-                _id_8418( 1 );
-                self _meth_8144( %add_fire, 0.2 );
+                shootuntilshootbehaviorchange_corner( 1 );
+                self clearanim( %add_fire, 0.2 );
             }
         }
 
-        if ( _id_1ADB( self.a._id_2227 != "lean" ) )
+        if ( canreturntocover( self.a.cornermode != "lean" ) )
             break;
 
-        if ( _id_8410() && _id_1C83() )
+        if ( shootposoutsidelegalyawrange() && changestepoutpos() )
             continue;
 
-        _id_841A( 0.2 );
+        shootuntilshootbehaviorchangefortime( 0.2 );
     }
 }
 
-_id_841A( var_0 )
+shootuntilshootbehaviorchangefortime( var_0 )
 {
-    thread _id_6236( var_0 );
+    thread notifystopshootingaftertime( var_0 );
     var_1 = gettime();
-    _id_8418( 0 );
+    shootuntilshootbehaviorchange_corner( 0 );
     self notify( "stopNotifyStopShootingAfterTime" );
     var_2 = ( gettime() - var_1 ) / 1000;
 
@@ -857,7 +839,7 @@ _id_841A( var_0 )
         wait(var_0 - var_2);
 }
 
-_id_6236( var_0 )
+notifystopshootingaftertime( var_0 )
 {
     self endon( "killanimscript" );
     self endon( "stopNotifyStopShootingAfterTime" );
@@ -865,7 +847,7 @@ _id_6236( var_0 )
     self notify( "stopShooting" );
 }
 
-_id_8418( var_0 )
+shootuntilshootbehaviorchange_corner( var_0 )
 {
     self endon( "return_to_cover" );
 
@@ -873,7 +855,7 @@ _id_8418( var_0 )
         thread anglerangethread();
 
     thread animscripts\combat_utility::aimidlethread();
-    animscripts\combat_utility::_id_8417();
+    animscripts\combat_utility::shootuntilshootbehaviorchange();
 }
 
 anglerangethread()
@@ -885,7 +867,7 @@ anglerangethread()
 
     for (;;)
     {
-        if ( _id_8410() )
+        if ( shootposoutsidelegalyawrange() )
             break;
 
         wait 0.1;
@@ -894,7 +876,7 @@ anglerangethread()
     self notify( "stopShooting" );
 }
 
-_id_852E()
+showstate()
 {
     self.enemy endon( "death" );
     self endon( "enemy" );
@@ -904,66 +886,66 @@ _id_852E()
         wait 0.05;
 }
 
-_id_1ADB( var_0 )
+canreturntocover( var_0 )
 {
     var_1 = !self.swimmer;
 
     if ( var_0 )
     {
-        var_2 = _id_4097();
+        var_2 = getpredictedpathmidpoint();
 
-        if ( !self _meth_81C7( var_2, var_1 ) )
+        if ( !self maymovetopoint( var_2, var_1 ) )
             return 0;
 
-        return self _meth_81C8( var_2, self._id_22BA.origin, var_1 );
+        return self maymovefrompointtopoint( var_2, self.covernode.origin, var_1 );
     }
     else
-        return self _meth_81C7( self._id_22BA.origin, var_1 );
+        return self maymovetopoint( self.covernode.origin, var_1 );
 }
 
-_id_74E1()
+returntocover()
 {
-    animscripts\combat_utility::_id_315E();
-    var_0 = animscripts\utility::_id_51C3();
+    animscripts\combat_utility::endfireandanimidlethread();
+    var_0 = animscripts\utility::issuppressedwrapper();
     self notify( "take_cover_at_corner" );
-    self._id_1C86 = 1;
+    self.changingcoverpos = 1;
     self notify( "done_changing_cover_pos" );
-    var_1 = self.a._id_2227 + "_to_alert";
+    var_1 = self.a.cornermode + "_to_alert";
     var_2 = animscripts\utility::animarraypickrandom( var_1 );
-    _id_8EDD( 0.3 );
+    stopaiming( 0.3 );
     var_3 = 0;
 
-    if ( self.a._id_2227 != "lean" && var_0 && animscripts\utility::animarrayanyexist( var_1 + "_reload" ) && randomfloat( 100 ) < 75 )
+    if ( self.a.cornermode != "lean" && var_0 && animscripts\utility::animarrayanyexist( var_1 + "_reload" ) && randomfloat( 100 ) < 75 )
     {
         var_2 = animscripts\utility::animarraypickrandom( var_1 + "_reload" );
         var_3 = 1;
     }
 
-    var_4 = _id_8E28();
+    var_4 = stepoutandhidespeed();
 
-    if ( animscripts\utility::_id_51B0() )
-        self _meth_8144( %exposed_modern, 0.2 );
+    if ( animscripts\utility::isspaceai() )
+        self clearanim( %exposed_modern, 0.2 );
     else
-        self _meth_8144( %body, 0.1 );
+        self clearanim( %body, 0.1 );
 
     self setflaggedanimrestart( "hide", var_2, 1, 0.1, var_4 );
-    _id_2221( var_2 );
-    animscripts\shared::_id_2D06( "hide" );
+    corner_playcornerfacialanim( var_2 );
+    animscripts\shared::donotetracks( "hide" );
 
     if ( var_3 )
-        animscripts\weaponlist::_id_72B1();
+        animscripts\weaponlist::refillclip();
 
-    self._id_1C86 = 0;
+    self.changingcoverpos = 0;
 
-    if ( self._id_2225 == "up" )
-        self.a._id_8A1A = "cover_up";
-    else if ( self._id_2225 == "left" )
-        self.a._id_8A1A = "cover_left";
+    if ( self.cornerdirection == "up" )
+        self.a.special = "cover_up";
+    else if ( self.cornerdirection == "left" )
+        self.a.special = "cover_left";
     else
-        self.a._id_8A1A = "cover_right";
+        self.a.special = "cover_right";
 
     self.keepclaimednodeifvalid = 0;
-    self _meth_8144( var_2, 0.2 );
+    self clearanim( var_2, 0.2 );
 }
 
 blindfire()
@@ -972,17 +954,17 @@ blindfire()
         return 0;
 
     behaviorstransitiontocorrectpose();
-    _id_7F48();
+    setdefaultcorneranimmode();
     self.keepclaimednodeifvalid = 1;
     var_0 = animscripts\utility::animarraypickrandom( "blind_fire" );
     self setflaggedanimknoballrestart( "blindfire", var_0, %body, 1, 0, 1 );
-    _id_2221( var_0 );
-    animscripts\shared::_id_2D06( "blindfire" );
+    corner_playcornerfacialanim( var_0 );
+    animscripts\shared::donotetracks( "blindfire" );
     self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
-_id_5776( var_0, var_1, var_2 )
+linethread( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = ( 1.0, 1.0, 1.0 );
@@ -991,28 +973,28 @@ _id_5776( var_0, var_1, var_2 )
         wait 0.05;
 }
 
-_id_98A6( var_0 )
+trythrowinggrenadestayhidden( var_0 )
 {
-    if ( self.a._id_6E5A == "crouch" && shouldplayalerttransition( self ) )
+    if ( self.a.pose == "crouch" && shouldplayalerttransition( self ) )
         return 0;
 
-    return _id_98A5( var_0, 1 );
+    return trythrowinggrenade( var_0, 1 );
 }
 
-_id_98A5( var_0, var_1 )
+trythrowinggrenade( var_0, var_1 )
 {
-    if ( !self _meth_81C7( _id_4097() ) )
+    if ( !self maymovetopoint( getpredictedpathmidpoint() ) )
         return 0;
 
-    if ( isdefined( self._id_2D34 ) || isdefined( var_0._id_2D2B ) )
+    if ( isdefined( self.dontevershoot ) || isdefined( var_0.dontattackme ) )
         return 0;
 
-    if ( self.a._id_6E5A == "crouch" && shouldplayalerttransition( self ) )
+    if ( self.a.pose == "crouch" && shouldplayalerttransition( self ) )
         return 0;
 
     var_2 = undefined;
 
-    if ( isdefined( self._id_7109 ) && randomfloat( 1 ) < self._id_7109 )
+    if ( isdefined( self.rambochance ) && randomfloat( 1 ) < self.rambochance )
     {
         if ( isdefined( self.a.array["grenade_rambo"] ) )
             var_2 = animscripts\utility::animarray( "grenade_rambo" );
@@ -1036,67 +1018,67 @@ _id_98A5( var_0, var_1 )
         }
     }
 
-    _id_7F48();
+    setdefaultcorneranimmode();
     self.keepclaimednodeifvalid = 1;
-    var_3 = animscripts\combat_utility::_id_989D( var_0, var_2 );
+    var_3 = animscripts\combat_utility::trygrenade( var_0, var_2 );
     self.keepclaimednodeifvalid = 0;
     return var_3;
 }
 
-_id_6FBB()
+printyawtoenemy()
 {
 
 }
 
-_id_5860( var_0 )
+lookforenemy( var_0 )
 {
     if ( !isdefined( self.a.array["alert_to_look"] ) )
         return 0;
 
-    _id_7F48();
+    setdefaultcorneranimmode();
     self.keepclaimednodeifvalid = 1;
 
-    if ( !_id_67B9() )
+    if ( !peekout() )
         return 0;
 
     behaviorstransitiontocorrectpose();
-    animscripts\shared::_id_6DC1( animscripts\utility::animarray( "look_idle" ), var_0, ::_id_1AEE );
+    animscripts\shared::playlookanimation( animscripts\utility::animarray( "look_idle" ), var_0, ::canstoppeeking );
     var_1 = undefined;
 
-    if ( animscripts\utility::_id_51C3() )
+    if ( animscripts\utility::issuppressedwrapper() )
         var_1 = animscripts\utility::animarray( "look_to_alert_fast" );
     else
         var_1 = animscripts\utility::animarray( "look_to_alert" );
 
     self setflaggedanimknoballrestart( "looking_end", var_1, %body, 1, 0.1, 1.0 );
-    _id_2221( var_1 );
-    animscripts\shared::_id_2D06( "looking_end" );
-    _id_7F48();
+    corner_playcornerfacialanim( var_1 );
+    animscripts\shared::donotetracks( "looking_end" );
+    setdefaultcorneranimmode();
     self.keepclaimednodeifvalid = 0;
     return 1;
 }
 
-_id_5171()
+ispeekoutposclear()
 {
-    var_0 = self._id_22BA.angles;
+    var_0 = self.covernode.angles;
 
-    if ( animscripts\utility::_id_51B0() )
-        var_0 = animscripts\utility::_id_413B( self._id_22BA );
+    if ( animscripts\utility::isspaceai() )
+        var_0 = animscripts\utility::gettruenodeangles( self.covernode );
 
     var_1 = self geteye();
     var_2 = anglestoright( var_0 );
     var_3 = anglestoup( var_0 );
 
-    if ( self._id_2225 == "right" )
+    if ( self.cornerdirection == "right" )
         var_1 += var_2 * 30;
-    else if ( self._id_2225 == "left" )
+    else if ( self.cornerdirection == "left" )
         var_1 -= var_2 * 30;
     else
         var_1 += var_3 * 30;
 
-    if ( self.team == "allies" && level.player maps\_utility::_id_50A9() )
+    if ( self.team == "allies" && level.player maps\_utility::isads() )
     {
-        if ( maps\_utility::_id_6B91( var_1, 0.95, undefined, level.player ) )
+        if ( maps\_utility::player_looking_at( var_1, 0.95, undefined, level.player ) )
             return 0;
     }
 
@@ -1104,89 +1086,89 @@ _id_5171()
     return sighttracepassed( var_1, var_4, 1, self );
 }
 
-_id_67B9()
+peekout()
 {
-    if ( isdefined( self._id_22BA._id_79A9 ) )
+    if ( isdefined( self.covernode.script_dontpeek ) )
         return 0;
 
-    if ( isdefined( self._id_60D9 ) && gettime() < self._id_60D9 )
+    if ( isdefined( self.nextpeekoutattempttime ) && gettime() < self.nextpeekoutattempttime )
         return 0;
 
-    if ( !_id_5171() )
+    if ( !ispeekoutposclear() )
     {
-        self._id_60D9 = gettime() + 3000;
+        self.nextpeekoutattempttime = gettime() + 3000;
         return 0;
     }
 
     var_0 = animscripts\utility::animarray( "alert_to_look" );
     self setflaggedanimknoball( "looking_start", var_0, %body, 1, 0.2, 1 );
-    _id_2221( var_0 );
-    animscripts\shared::_id_2D06( "looking_start" );
+    corner_playcornerfacialanim( var_0 );
+    animscripts\shared::donotetracks( "looking_start" );
     return 1;
 }
 
-_id_1AEE()
+canstoppeeking()
 {
-    return self _meth_81C7( self._id_22BA.origin, !self.swimmer );
+    return self maymovetopoint( self.covernode.origin, !self.swimmer );
 }
 
-_id_367E()
+fastlook()
 {
     return 0;
 }
 
-_id_2228()
+cornerreload()
 {
-    if ( self.a._id_6E5A == "crouch" && shouldplayalerttransition( self ) )
+    if ( self.a.pose == "crouch" && shouldplayalerttransition( self ) )
     {
-        animscripts\weaponlist::_id_72B1();
+        animscripts\weaponlist::refillclip();
         return 0;
     }
 
     var_0 = "reload";
 
-    if ( animscripts\utility::_id_51A3( self.weapon ) && animscripts\utility::animarrayanyexist( "shotgun_reload" ) )
+    if ( animscripts\utility::isshotgun( self.weapon ) && animscripts\utility::animarrayanyexist( "shotgun_reload" ) )
         var_0 = "shotgun_reload";
 
     var_1 = animscripts\utility::animarraypickrandom( var_0 );
     self setflaggedanimknobrestart( "cornerReload", var_1, 1, 0.2 );
-    _id_2221( var_1 );
-    animscripts\shared::_id_2D06( "cornerReload" );
+    corner_playcornerfacialanim( var_1 );
+    animscripts\shared::donotetracks( "cornerReload" );
     self notify( "abort_reload" );
-    animscripts\weaponlist::_id_72B1();
-    self _meth_814F( animscripts\utility::animarray( "alert_idle" ), 1, 0.2 );
-    self _meth_8144( var_1, 0.2 );
+    animscripts\weaponlist::refillclip();
+    self setanimrestart( animscripts\utility::animarray( "alert_idle" ), 1, 0.2 );
+    self clearanim( var_1, 0.2 );
     return 1;
 }
 
-_id_516F( var_0, var_1 )
+ispathclear( var_0, var_1 )
 {
     var_2 = !self.swimmer;
 
     if ( var_1 )
     {
-        var_3 = _id_4097();
+        var_3 = getpredictedpathmidpoint();
 
-        if ( !self _meth_81C7( var_3, var_2 ) )
+        if ( !self maymovetopoint( var_3, var_2 ) )
             return 0;
 
         if ( self.swimmer )
             return 1;
 
-        return self _meth_81C8( var_3, animscripts\utility::_id_3EFC( var_0 ), var_2 );
+        return self maymovefrompointtopoint( var_3, animscripts\utility::getanimendpos( var_0 ), var_2 );
     }
     else
     {
         if ( self.swimmer )
             return 1;
 
-        return self _meth_81C7( animscripts\utility::_id_3EFC( var_0 ), var_2 );
+        return self maymovetopoint( animscripts\utility::getanimendpos( var_0 ), var_2 );
     }
 }
 
-_id_4097( var_0 )
+getpredictedpathmidpoint( var_0 )
 {
-    var_1 = self._id_22BA.angles;
+    var_1 = self.covernode.angles;
     var_2 = anglestoright( var_1 );
 
     if ( !isdefined( var_0 ) )
@@ -1196,16 +1178,16 @@ _id_4097( var_0 )
 
     if ( var_3 == "cover_multi" )
     {
-        if ( self.cover._id_8D56 == "right" )
+        if ( self.cover.state == "right" )
             var_3 = "cover_right";
-        else if ( self.cover._id_8D56 == "left" )
+        else if ( self.cover.state == "left" )
             var_3 = "cover_left";
     }
 
     if ( var_3 == "cover_swim_up" )
     {
         var_4 = anglestoup( var_1 );
-        return self._id_22BA.origin + var_4 * var_0;
+        return self.covernode.origin + var_4 * var_0;
     }
 
     switch ( var_3 )
@@ -1221,20 +1203,20 @@ _id_4097( var_0 )
         default:
     }
 
-    return self._id_22BA.origin + ( var_2[0], var_2[1], 0 );
+    return self.covernode.origin + ( var_2[0], var_2[1], 0 );
 }
 
 behaviorstransitiontocorrectpose()
 {
-    if ( self.a._id_6E5A == "crouch" && shouldplayalerttransition( self ) )
+    if ( self.a.pose == "crouch" && shouldplayalerttransition( self ) )
     {
         var_0 = animscripts\utility::animarray( "1knee_2_2knees" );
         var_1 = getanimlength( var_0 );
-        _id_4281( var_0, 0.3, var_1 );
+        gotocover( var_0, 0.3, var_1 );
     }
 }
 
-_id_4B63()
+idle()
 {
     self endon( "end_idle" );
 
@@ -1248,95 +1230,95 @@ _id_4B63()
         else
             var_1 = animscripts\utility::animarray( "alert_idle" );
 
-        _id_6DAC( var_1, var_0 );
+        playidleanimation( var_1, var_0 );
     }
 }
 
-_id_38DF()
+flinch()
 {
     if ( !animscripts\utility::animarrayanyexist( "alert_idle_flinch" ) )
         return 0;
 
-    _id_6DAC( animscripts\utility::animarraypickrandom( "alert_idle_flinch" ), 1 );
+    playidleanimation( animscripts\utility::animarraypickrandom( "alert_idle_flinch" ), 1 );
     return 1;
 }
 
-_id_6DAC( var_0, var_1 )
+playidleanimation( var_0, var_1 )
 {
     if ( var_1 )
         self setflaggedanimknoballrestart( "idle", var_0, %body, 1, 0.1, 1 );
     else
         self setflaggedanimknoball( "idle", var_0, %body, 1, 0.1, 1 );
 
-    _id_2221( var_0 );
-    animscripts\shared::_id_2D06( "idle" );
+    corner_playcornerfacialanim( var_0 );
+    animscripts\shared::donotetracks( "idle" );
 }
 
-_id_7DBC( var_0 )
+set_anim_array( var_0 )
 {
     [[ self.animarrayfuncs["hiding"][var_0] ]]();
     [[ self.animarrayfuncs["exposed"][var_0] ]]();
 }
 
-_id_7DBD( var_0 )
+set_anim_array_aiming( var_0 )
 {
     [[ self.animarrayfuncs["exposed"][var_0] ]]();
 }
 
-_id_9720( var_0 )
+transitiontostance( var_0 )
 {
-    if ( self.a._id_6E5A == var_0 )
+    if ( self.a.pose == var_0 )
     {
-        _id_7DBC( var_0 );
+        set_anim_array( var_0 );
         return;
     }
 
     var_1 = animscripts\utility::animarray( "stance_change" );
     self setflaggedanimknoballrestart( "changeStance", var_1, %body );
-    _id_2221( var_1 );
-    _id_7DBC( var_0 );
-    animscripts\shared::_id_2D06( "changeStance" );
+    corner_playcornerfacialanim( var_1 );
+    set_anim_array( var_0 );
+    animscripts\shared::donotetracks( "changeStance" );
     wait 0.2;
 }
 
-_id_4281( var_0, var_1, var_2 )
+gotocover( var_0, var_1, var_2 )
 {
-    var_3 = animscripts\utility::_id_4048();
-    var_4 = animscripts\utility::_id_3F2F();
-    var_5 = var_3 + self._id_4884;
+    var_3 = animscripts\utility::getnodedirection();
+    var_4 = animscripts\utility::getclaimednode();
+    var_5 = var_3 + self.hideyawoffset;
 
-    if ( animscripts\utility::_id_51B0() )
+    if ( animscripts\utility::isspaceai() )
         self notify( "force_space_rotation_update", 0, 0 );
     else
-        self _meth_8193( "face angle", var_5 );
+        self orientmode( "face angle", var_5 );
 
-    self _meth_8192( "normal" );
+    self animmode( "normal" );
 
     if ( isdefined( var_4 ) )
-        thread animscripts\shared::_id_5F94( var_4, var_1 );
+        thread animscripts\shared::movetonodeovertime( var_4, var_1 );
 
     self setflaggedanimknoballrestart( "coveranim", var_0, %body, 1, var_1 );
-    _id_2221( var_0 );
-    animscripts\notetracks::_id_2D0B( var_2, "coveranim" );
+    corner_playcornerfacialanim( var_0 );
+    animscripts\notetracks::donotetracksfortime( var_2, "coveranim" );
 
     while ( animscripts\utility::absangleclamp180( self.angles[1] - var_5 ) > 1 )
     {
-        animscripts\notetracks::_id_2D0B( 0.1, "coveranim" );
-        var_3 = animscripts\utility::_id_4048();
-        var_5 = var_3 + self._id_4884;
+        animscripts\notetracks::donotetracksfortime( 0.1, "coveranim" );
+        var_3 = animscripts\utility::getnodedirection();
+        var_5 = var_3 + self.hideyawoffset;
     }
 
-    _id_7F48();
+    setdefaultcorneranimmode();
 
-    if ( self._id_2225 == "left" )
-        self.a._id_8A1A = "cover_left";
-    else if ( self._id_2225 == "right" )
-        self.a._id_8A1A = "cover_right";
+    if ( self.cornerdirection == "left" )
+        self.a.special = "cover_left";
+    else if ( self.cornerdirection == "right" )
+        self.a.special = "cover_right";
     else
-        self.a._id_8A1A = "cover_up";
+        self.a.special = "cover_up";
 }
 
-_id_2DDD()
+drawoffset()
 {
     self endon( "killanimscript" );
 
@@ -1344,11 +1326,11 @@ _id_2DDD()
         wait 0.05;
 }
 
-_id_7EC0()
+set_standing_animarray_aiming()
 {
     if ( self.swimmer && isdefined( self.node ) )
     {
-        _id_7ECC();
+        set_swimming_animarray_aiming();
         return;
     }
 
@@ -1357,7 +1339,7 @@ _id_7EC0()
 
     }
 
-    var_0 = animscripts\utility::_id_5864( "default_stand" );
+    var_0 = animscripts\utility::lookupanimarray( "default_stand" );
     self.a.array["add_aim_up"] = var_0["add_aim_up"];
     self.a.array["add_aim_down"] = var_0["add_aim_down"];
     self.a.array["add_aim_left"] = var_0["add_aim_left"];
@@ -1368,7 +1350,7 @@ _id_7EC0()
     self.a.array["add_turn_aim_right"] = var_0["add_turn_aim_right"];
     self.a.array["straight_level"] = var_0["straight_level"];
 
-    if ( self.a._id_2227 == "lean" )
+    if ( self.a.cornermode == "lean" )
     {
         var_1 = self.a.array["lean_fire"];
         var_2 = self.a.array["lean_single"];
@@ -1392,8 +1374,8 @@ _id_7EC0()
         self.a.array["semi4"] = var_0["semi4"];
         self.a.array["semi5"] = var_0["semi5"];
 
-        if ( animscripts\utility::_id_A2CF() )
-            self.a.array["single"] = animscripts\utility::_id_5863( "shotgun_stand", "single" );
+        if ( animscripts\utility::weapon_pump_action_shotgun() )
+            self.a.array["single"] = animscripts\utility::lookupanim( "shotgun_stand", "single" );
         else
             self.a.array["single"] = var_0["single"];
 
@@ -1407,11 +1389,11 @@ _id_7EC0()
     self.a.array["exposed_idle"] = var_0["exposed_idle"];
 }
 
-_id_7DFA()
+set_crouching_animarray_aiming()
 {
     if ( self.swimmer && isdefined( self.node ) )
     {
-        _id_7ECC();
+        set_swimming_animarray_aiming();
         return;
     }
 
@@ -1420,23 +1402,23 @@ _id_7DFA()
 
     }
 
-    var_0 = animscripts\utility::_id_5864( "default_crouch" );
-    var_1["add_aim_up"] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_up" );
-    var_2["add_aim_up"] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_up" );
-    var_3[0] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_up" );
+    var_0 = animscripts\utility::lookupanimarray( "default_crouch" );
+    var_1["add_aim_up"] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_up" );
+    var_2["add_aim_up"] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_up" );
+    var_3[0] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_up" );
 
-    if ( self.a._id_2227 == "over" )
+    if ( self.a.cornermode == "over" )
     {
-        self.a.array["add_aim_up"] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_up" );
-        self.a.array["add_aim_down"] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_down" );
-        self.a.array["add_aim_left"] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_left" );
-        self.a.array["add_aim_right"] = animscripts\utility::_id_5863( "cover_crouch", "add_aim_right" );
-        self.a.array["straight_level"] = animscripts\utility::_id_5863( "cover_crouch", "straight_level" );
-        self.a.array["exposed_idle"] = animscripts\utility::_id_5863( "default_stand", "exposed_idle" );
+        self.a.array["add_aim_up"] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_up" );
+        self.a.array["add_aim_down"] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_down" );
+        self.a.array["add_aim_left"] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_left" );
+        self.a.array["add_aim_right"] = animscripts\utility::lookupanim( "cover_crouch", "add_aim_right" );
+        self.a.array["straight_level"] = animscripts\utility::lookupanim( "cover_crouch", "straight_level" );
+        self.a.array["exposed_idle"] = animscripts\utility::lookupanim( "default_stand", "exposed_idle" );
         return;
     }
 
-    if ( self.a._id_2227 == "lean" )
+    if ( self.a.cornermode == "lean" )
     {
         var_4 = self.a.array["lean_fire"];
         var_5 = self.a.array["lean_single"];
@@ -1460,8 +1442,8 @@ _id_7DFA()
         self.a.array["semi4"] = var_0["semi4"];
         self.a.array["semi5"] = var_0["semi5"];
 
-        if ( animscripts\utility::_id_A2CF() )
-            self.a.array["single"] = animscripts\utility::_id_5863( "shotgun_crouch", "single" );
+        if ( animscripts\utility::weapon_pump_action_shotgun() )
+            self.a.array["single"] = animscripts\utility::lookupanim( "shotgun_crouch", "single" );
         else
             self.a.array["single"] = var_0["single"];
 
@@ -1484,7 +1466,7 @@ _id_7DFA()
     self.a.array["exposed_idle"] = var_0["exposed_idle"];
 }
 
-_id_7ECC()
+set_swimming_animarray_aiming()
 {
     if ( !isdefined( self.a.array ) )
     {
@@ -1494,13 +1476,13 @@ _id_7ECC()
     var_0 = [];
 
     if ( self.approachtype == "cover_corner_r" )
-        var_0 = animscripts\swim::_id_4100( "cover_corner_r" );
+        var_0 = animscripts\swim::getswimanim( "cover_corner_r" );
     else if ( self.approachtype == "cover_corner_l" )
-        var_0 = animscripts\swim::_id_4100( "cover_corner_l" );
+        var_0 = animscripts\swim::getswimanim( "cover_corner_l" );
     else if ( self.approachtype == "cover_u" )
-        var_0 = animscripts\swim::_id_4100( "cover_u" );
+        var_0 = animscripts\swim::getswimanim( "cover_u" );
     else if ( self.approachtype == "exposed" )
-        var_0 = animscripts\swim::_id_4100( "exposed" );
+        var_0 = animscripts\swim::getswimanim( "exposed" );
     else
     {
 
@@ -1529,37 +1511,37 @@ _id_7ECC()
     self.a.array["exposed_idle"] = animscripts\utility::array( var_0["add_aim_idle"] );
 }
 
-_id_76C9()
+runcombat()
 {
     self notify( "killanimscript" );
     thread animscripts\combat::main();
 }
 
-_id_7F48()
+setdefaultcorneranimmode()
 {
     if ( self.swimmer )
-        self _meth_8192( "nogravity" );
+        self animmode( "nogravity" );
     else
-        self _meth_8192( "zonly_physics" );
+        self animmode( "zonly_physics" );
 }
 
-_id_2221( var_0 )
+corner_playcornerfacialanim( var_0 )
 {
-    if ( self._id_2225 == "left" )
+    if ( self.cornerdirection == "left" )
         var_1 = "corner_stand_L";
     else
         var_1 = "corner_stand_R";
 
-    self._id_35C7 = animscripts\face::_id_6D9B( var_0, var_1, self._id_35C7 );
+    self.facialidx = animscripts\face::playfacialanim( var_0, var_1, self.facialidx );
 }
 
-_id_2220( var_0 )
+corner_playaimfacialanim( var_0 )
 {
-    self._id_35C7 = animscripts\face::_id_6D9B( var_0, "aim", self._id_35C7 );
+    self.facialidx = animscripts\face::playfacialanim( var_0, "aim", self.facialidx );
 }
 
-_id_221F()
+corner_clearfacialanim()
 {
-    self._id_35C7 = undefined;
-    self _meth_8144( %head, 0.2 );
+    self.facialidx = undefined;
+    self clearanim( %head, 0.2 );
 }

@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["saw_sparks"] = loadfx( "fx/misc/rescuesaw_sparks" );
@@ -66,36 +48,36 @@ main()
     level._effect["static_headlight"] = loadfx( "vfx/lights/launch_a_headlight" );
     level._effect["static_taillight_flipped"] = loadfx( "vfx/map/blackout/blackout_taillight" );
     level._effect["static_taillight"] = loadfx( "vfx/map/blackout/blackout_taillight_flipped" );
-    animscripts\utility::_id_7F74( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "brick", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "grass", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "metal", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "mud", loadfx( "fx/impacts/footstep_snow" ) );
-    animscripts\utility::_id_7F74( "rock", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "sand", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "snow", loadfx( "fx/impacts/footstep_snow" ) );
-    animscripts\utility::_id_7F74( "water", loadfx( "fx/impacts/footstep_water" ) );
-    animscripts\utility::_id_7F74( "wood", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "brick", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "grass", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "metal", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "mud", loadfx( "fx/impacts/footstep_snow" ) );
+    animscripts\utility::setfootstepeffect( "rock", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "sand", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "snow", loadfx( "fx/impacts/footstep_snow" ) );
+    animscripts\utility::setfootstepeffect( "water", loadfx( "fx/impacts/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "wood", loadfx( "fx/impacts/footstep_dust" ) );
     level._effect["00_particle_shadow_animated_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_lrg_e" );
     level._effect["00_particle_shadow_animated_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_med_e" );
     level._effect["00_particle_shadow_animated_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_sm_e" );
     level._effect["00_particle_shadow_static_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_static_lrg_e" );
     level._effect["00_particle_shadow_static_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_static_med_e" );
     level._effect["00_particle_shadow_static_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_static_sm_e" );
-    level._id_78BA["launch_chopsaw1"] = "launch_chopsaw1";
-    level._id_78BA["launch_chopsaw2"] = "launch_chopsaw2";
-    level._id_78BA["launch_heli_dying_loop"] = "launch_heli_dying_loop";
-    level._id_78BA["launch_heli_alarm_loop"] = "launch_heli_alarm_loop";
-    level._id_78BA["launch_alarm_buzzer"] = "launch_alarm_buzzer";
-    level._id_78BA["launch_tube_prepare"] = "launch_tube_prepare";
-    level._id_78BA["launch_tube_open_start"] = "launch_tube_open_start";
-    level._id_78BA["launch_tube_open_loop"] = "launch_tube_open_loop";
-    level._id_78BA["launch_tube_open_end"] = "launch_tube_open_end";
+    level.scr_sound["launch_chopsaw1"] = "launch_chopsaw1";
+    level.scr_sound["launch_chopsaw2"] = "launch_chopsaw2";
+    level.scr_sound["launch_heli_dying_loop"] = "launch_heli_dying_loop";
+    level.scr_sound["launch_heli_alarm_loop"] = "launch_heli_alarm_loop";
+    level.scr_sound["launch_alarm_buzzer"] = "launch_alarm_buzzer";
+    level.scr_sound["launch_tube_prepare"] = "launch_tube_prepare";
+    level.scr_sound["launch_tube_open_start"] = "launch_tube_open_start";
+    level.scr_sound["launch_tube_open_loop"] = "launch_tube_open_loop";
+    level.scr_sound["launch_tube_open_end"] = "launch_tube_open_end";
     maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_bm21_mobile", "fx/explosions/vehicle_explosion_bmp", "tag_deathfx", "fx/fire/h1_fire_tank_wreck_lg" );
     maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_bm21_mobile", "fx/fire/firelp_med_pm", "tag_fx_cab", "fx/fire/h1_fire_tank_wreck_lg" );
     maps\_vehicle::swap_deathfx_effect_only( "script_vehicle_bm21_mobile", "fx/explosions/small_vehicle_explosion", "tag_fx_tank", "fx/explosions/small_vehicle_explosion_launch_a" );

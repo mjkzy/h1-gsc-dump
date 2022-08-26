@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 achievements_init()
 {
     level thread master_ninja_init();
@@ -29,8 +11,8 @@ achievements_init()
 
 master_ninja_init()
 {
-    common_scripts\utility::_id_383D( "master_ninja_melee_kill" );
-    common_scripts\utility::_id_383D( "master_ninja_illegal_kill" );
+    common_scripts\utility::flag_init( "master_ninja_melee_kill" );
+    common_scripts\utility::flag_init( "master_ninja_illegal_kill" );
     maps\_utility::add_global_spawn_function( "axis", ::master_ninja_enemy_spawned );
     common_scripts\utility::array_thread( getaiarray( "axis" ), ::master_ninja_enemy_spawned );
     level thread master_ninja_mission_complete();
@@ -41,8 +23,8 @@ master_ninja_mission_complete()
     level endon( "master_ninja_illegal_kill" );
     level waittill( "achievements_level_complete" );
 
-    if ( common_scripts\utility::_id_382E( "master_ninja_melee_kill" ) && !common_scripts\utility::_id_382E( "master_ninja_illegal_kill" ) )
-        maps\_utility::_id_41DD( "MASTER_NINJA" );
+    if ( common_scripts\utility::flag( "master_ninja_melee_kill" ) && !common_scripts\utility::flag( "master_ninja_illegal_kill" ) )
+        maps\_utility::giveachievement_wrapper( "MASTER_NINJA" );
 }
 
 master_ninja_enemy_spawned()
@@ -53,9 +35,9 @@ master_ninja_enemy_spawned()
     if ( isdefined( var_0 ) && var_0 == level.player )
     {
         if ( var_1 == "MOD_MELEE" )
-            common_scripts\utility::_id_383F( "master_ninja_melee_kill" );
+            common_scripts\utility::flag_set( "master_ninja_melee_kill" );
         else
-            common_scripts\utility::_id_383F( "master_ninja_illegal_kill" );
+            common_scripts\utility::flag_set( "master_ninja_illegal_kill" );
     }
 }
 
@@ -86,7 +68,7 @@ retro_shooter_mission_complete()
 {
     level endon( "retro_shooter_player_reloaded" );
     level waittill( "achievements_level_complete" );
-    maps\_utility::_id_41DD( "RETRO_SHOOTER" );
+    maps\_utility::giveachievement_wrapper( "RETRO_SHOOTER" );
 }
 
 weapon_master_init()
@@ -104,7 +86,7 @@ weapon_master_barrett()
 {
     if ( level.script == "sniperescape" )
     {
-        common_scripts\utility::_id_A069( "weapon_master_barrett_kill", "makarov_killed" );
+        common_scripts\utility::waittill_any( "weapon_master_barrett_kill", "makarov_killed" );
         weapon_master_register_kill( "barrett" );
     }
 }
@@ -202,12 +184,12 @@ weapon_master_register_kill( var_0 )
     if ( !isdefined( var_1 ) )
         return;
 
-    if ( common_scripts\utility::_id_382E( "has_cheated" ) || maps\_cheat::is_cheating() )
+    if ( common_scripts\utility::flag( "has_cheated" ) || maps\_cheat::is_cheating() )
         return;
 
-    if ( level.player _meth_8212( "sp_weaponMaster", var_1 ) != "1" )
+    if ( level.player getlocalplayerprofiledata( "sp_weaponMaster", var_1 ) != "1" )
     {
-        level.player _meth_8213( "sp_weaponMaster", var_1, 1 );
+        level.player setlocalplayerprofiledata( "sp_weaponMaster", var_1, 1 );
         updategamerprofileall();
         weapon_master_check_success();
     }
@@ -221,7 +203,7 @@ weapon_master_check_success()
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        var_4 = level.player _meth_8212( "sp_weaponMaster", var_3 );
+        var_4 = level.player getlocalplayerprofiledata( "sp_weaponMaster", var_3 );
         var_1[var_0[var_3]] = var_4;
 
         if ( var_4 == "1" )
@@ -229,7 +211,7 @@ weapon_master_check_success()
     }
 
     if ( var_2 == var_0.size || platform_tracks_progression() )
-        maps\_utility::_id_41DD( "WEAPON_MASTER" );
+        maps\_utility::giveachievement_wrapper( "WEAPON_MASTER" );
 }
 
 i_hate_dogs_init()
@@ -250,20 +232,20 @@ i_hate_dogs_enemy_spawned()
 
     if ( isdefined( var_0 ) && var_0 == level.player && var_1 == "MOD_MELEE" )
     {
-        if ( common_scripts\utility::_id_382E( "has_cheated" ) || maps\_cheat::is_cheating() )
+        if ( common_scripts\utility::flag( "has_cheated" ) || maps\_cheat::is_cheating() )
             return;
 
-        var_2 = level.player _meth_8212( "sp_iHateDogs" );
+        var_2 = level.player getlocalplayerprofiledata( "sp_iHateDogs" );
         var_3 = 20;
 
         if ( var_2 < var_3 )
         {
             var_2++;
-            level.player _meth_8213( "sp_iHateDogs", var_2 );
+            level.player setlocalplayerprofiledata( "sp_iHateDogs", var_2 );
             updategamerprofileall();
 
             if ( var_2 >= var_3 || platform_tracks_progression() )
-                maps\_utility::_id_41DD( "DOGS_I_HATE_DOGS" );
+                maps\_utility::giveachievement_wrapper( "DOGS_I_HATE_DOGS" );
         }
     }
 }

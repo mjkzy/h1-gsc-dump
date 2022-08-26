@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    common_scripts\utility::_id_383D( "no_ai_tv_damage" );
+    common_scripts\utility::flag_init( "no_ai_tv_damage" );
     var_0 = 0;
     var_1 = getentarray( "explodable_barrel", "targetname" );
 
@@ -109,7 +91,7 @@ main()
         precachemodel( "com_tv1_testpattern" );
         precachemodel( "com_tv2_testpattern" );
         setbreakablesfx( "tv_explode", undefined, "fx/explosions/tv_explosion", "tv_shot_burst" );
-        level._id_99D2 = getentarray( "interactive_tv_light", "targetname" );
+        level.tv_lite_array = getentarray( "interactive_tv_light", "targetname" );
     }
 
     var_8 = getentarray( "destroyable_security_camera", "script_noteworthy" );
@@ -140,7 +122,7 @@ main()
     for ( var_10 = 0; var_10 < level.console_auto_aim_2nd.size; var_10++ )
         level.console_auto_aim_2nd[var_10] notsolid();
 
-    maps\_utility::_id_7DF3();
+    maps\_utility::set_console_status();
 
     if ( level.console )
     {
@@ -167,7 +149,7 @@ main()
     common_scripts\utility::array_thread( getentarray( "breakable_vase", "targetname" ), ::breakable_think );
     common_scripts\utility::array_thread( getentarray( "oil_spill", "targetname" ), ::oil_spill_think );
     common_scripts\utility::array_thread( getentarray( "glass", "targetname" ), ::glass_logic );
-    common_scripts\utility::array_thread( getentarray( "interactive_tv", "targetname" ), ::_id_99D3 );
+    common_scripts\utility::array_thread( getentarray( "interactive_tv", "targetname" ), ::tv_logic );
     common_scripts\utility::array_thread( getentarray( "destroyable_security_camera", "script_noteworthy" ), ::security_camera_logic );
     common_scripts\utility::array_thread( getentarray( "hanging_object", "targetname" ), ::hanging_object_logic );
     common_scripts\utility::array_thread( getentarray( "platestack", "targetname" ), ::destroy_platestack );
@@ -191,89 +173,89 @@ security_camera_logic()
     playfxontag( level.breakables_fx["security_camera_explode"], self, "tag_deathfx" );
 
     if ( isdefined( level.breakables_sfx["security_camera_explode"] ) )
-        thread maps\_utility::_id_69C6( level.breakables_sfx["security_camera_explode"] );
+        thread maps\_utility::play_sound_on_tag_endon_death( level.breakables_sfx["security_camera_explode"] );
 }
 
-_id_99D3()
+tv_logic()
 {
     self setcandamage( 1 );
-    self._id_25A7 = undefined;
-    self._id_6378 = undefined;
+    self.damagemodel = undefined;
+    self.offmodel = undefined;
 
     if ( issubstr( self.model, "1" ) )
     {
-        self._id_6378 = "com_tv1";
-        self._id_64BC = "com_tv1_testpattern";
-        self._id_25A7 = "com_tv1_d";
+        self.offmodel = "com_tv1";
+        self.onmodel = "com_tv1_testpattern";
+        self.damagemodel = "com_tv1_d";
     }
     else if ( issubstr( self.model, "2" ) )
     {
-        self._id_25A7 = "com_tv2_d";
-        self._id_6378 = "com_tv2";
-        self._id_64BC = "com_tv2_testpattern";
+        self.damagemodel = "com_tv2_d";
+        self.offmodel = "com_tv2";
+        self.onmodel = "com_tv2_testpattern";
     }
 
     if ( isdefined( self.target ) )
     {
-        self._id_9C1A = getent( self.target, "targetname" );
-        self._id_9C1A usetriggerrequirelookat();
-        self._id_9C1A setcursorhint( "HINT_NOICON" );
+        self.usetrig = getent( self.target, "targetname" );
+        self.usetrig usetriggerrequirelookat();
+        self.usetrig setcursorhint( "HINT_NOICON" );
     }
 
     if ( !isdefined( self.script_noteworthy ) || self.script_noteworthy != "nolite" )
     {
-        var_0 = common_scripts\utility::_id_3CCB( self.origin, level._id_99D2, undefined, undefined, 64 );
+        var_0 = common_scripts\utility::get_array_of_closest( self.origin, level.tv_lite_array, undefined, undefined, 64 );
 
         if ( var_0.size )
         {
-            self._id_57A7 = var_0[0];
-            level._id_99D2 = common_scripts\utility::array_remove( level._id_99D2, self._id_57A7 );
-            self._id_57A9 = self._id_57A7 getlightintensity();
-            self._id_57A7.tv = self;
+            self.lite = var_0[0];
+            level.tv_lite_array = common_scripts\utility::array_remove( level.tv_lite_array, self.lite );
+            self.liteintensity = self.lite getlightintensity();
+            self.lite.tv = self;
         }
     }
 
-    thread _id_99CF();
+    thread tv_damage();
 
     if ( isdefined( self.target ) )
-        thread _id_99D6();
+        thread tv_off();
 }
 
-_id_99D6()
+tv_off()
 {
-    self._id_9C1A endon( "death" );
+    self.usetrig endon( "death" );
 
     for (;;)
     {
         wait 0.2;
-        self._id_9C1A waittill( "trigger" );
-        thread maps\_utility::_id_69C6( "scn_tv_trigger_on_off" );
+        self.usetrig waittill( "trigger" );
+        thread maps\_utility::play_sound_on_tag_endon_death( "scn_tv_trigger_on_off" );
         self notify( "off" );
 
         if ( is_tv_off() )
         {
-            self setmodel( self._id_64BC );
+            self setmodel( self.onmodel );
 
-            if ( isdefined( self._id_57A7 ) )
-                self._id_57A7 setlightintensity( self._id_57A9 );
+            if ( isdefined( self.lite ) )
+                self.lite setlightintensity( self.liteintensity );
 
             continue;
         }
 
-        self setmodel( self._id_6378 );
+        self setmodel( self.offmodel );
 
-        if ( isdefined( self._id_57A7 ) )
-            self._id_57A7 setlightintensity( 0 );
+        if ( isdefined( self.lite ) )
+            self.lite setlightintensity( 0 );
     }
 }
 
-_id_99CF()
+tv_damage()
 {
     for (;;)
     {
         self waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
-        if ( common_scripts\utility::_id_382E( "no_ai_tv_damage" ) )
+        if ( common_scripts\utility::flag( "no_ai_tv_damage" ) )
         {
             if ( !isalive( var_1 ) )
                 continue;
@@ -290,36 +272,36 @@ _id_99CF()
 
     self notify( "off" );
 
-    if ( isdefined( self._id_9C1A ) )
-        self._id_9C1A notify( "death" );
+    if ( isdefined( self.usetrig ) )
+        self.usetrig notify( "death" );
 
-    self setmodel( self._id_25A7 );
+    self setmodel( self.damagemodel );
 
-    if ( isdefined( self._id_57A7 ) )
-        self._id_57A7 setlightintensity( 0 );
+    if ( isdefined( self.lite ) )
+        self.lite setlightintensity( 0 );
 
     playfxontag( level.breakables_fx["tv_explode"], self, "tag_fx" );
 
     if ( isdefined( level.breakables_sfx["tv_explode"] ) )
-        thread maps\_utility::_id_69C5( level.breakables_sfx["tv_explode"], "tag_fx" );
+        thread maps\_utility::play_sound_on_tag( level.breakables_sfx["tv_explode"], "tag_fx" );
 
-    if ( isdefined( self._id_9C1A ) )
-        self._id_9C1A delete();
+    if ( isdefined( self.usetrig ) )
+        self.usetrig delete();
 }
 
 is_tv_on()
 {
-    return self.model == self._id_64BC;
+    return self.model == self.onmodel;
 }
 
 is_tv_off()
 {
-    return self.model == self._id_6378;
+    return self.model == self.offmodel;
 }
 
 is_tv_damaged()
 {
-    return self.model == self._id_25A7;
+    return self.model == self.damagemodel;
 }
 
 is_tv_emitting_light()
@@ -329,7 +311,7 @@ is_tv_emitting_light()
 
 destroy_platestack()
 {
-    setbreakablesfx( "platestack_shatter", undefined, self._id_7A99 );
+    setbreakablesfx( "platestack_shatter", undefined, self.script_parameters );
     self setcandamage( 1 );
     var_0 = getentarray( self.target, "targetname" );
 
@@ -361,7 +343,7 @@ hanging_object_logic()
 
         if ( var_4 != "MOD_MELEE" && var_4 != "MOD_IMPACT" )
         {
-            self physicslaunch( self.origin, ( 0.0, 0.0, 0.0 ) );
+            self physicslaunchclient( self.origin, ( 0.0, 0.0, 0.0 ) );
             break;
         }
 
@@ -379,9 +361,9 @@ glass_logic()
     if ( isdefined( self.target ) )
         var_2 = getent( self.target, "targetname" );
 
-    if ( isdefined( self._id_7A26 ) )
+    if ( isdefined( self.script_linkto ) )
     {
-        var_4 = common_scripts\utility::_id_3DC3();
+        var_4 = common_scripts\utility::get_links();
         var_5 = getent( var_4[0], "script_linkname" );
         self linkto( var_5 );
     }
@@ -406,8 +388,8 @@ glass_logic()
         var_1 = var_2 setcontents( 0 );
     }
 
-    if ( isdefined( self._id_7A0C ) )
-        var_3 = self._id_7A0C;
+    if ( isdefined( self.script_health ) )
+        var_3 = self.script_health;
     else if ( isdefined( var_2 ) )
         var_3 = 99;
     else
@@ -469,16 +451,16 @@ glass_logic()
 
 glass_play_break_fx( var_0, var_1, var_2 )
 {
-    thread common_scripts\utility::_id_69C2( level._glass_info[var_1]["breaksnd"], var_0 );
+    thread common_scripts\utility::play_sound_in_space( level._glass_info[var_1]["breaksnd"], var_0 );
     playfx( level._glass_info[var_1]["breakfx"], var_0, var_2 );
     level notify( "glass_shatter" );
 }
 
 oil_spill_think()
 {
-    self._id_311C = common_scripts\utility::_id_40FB( self.target, "targetname" );
-    self._id_8B20 = common_scripts\utility::_id_40FB( self._id_311C.target, "targetname" );
-    self.barrel = getclosestent( self._id_8B20.origin, getentarray( "explodable_barrel", "targetname" ) );
+    self.end = common_scripts\utility::getstruct( self.target, "targetname" );
+    self.start = common_scripts\utility::getstruct( self.end.target, "targetname" );
+    self.barrel = getclosestent( self.start.origin, getentarray( "explodable_barrel", "targetname" ) );
 
     if ( isdefined( self.barrel ) )
     {
@@ -497,17 +479,17 @@ oil_spill_think()
         if ( var_5 == "MOD_MELEE" || var_5 == "MOD_IMPACT" )
             continue;
 
-        self._id_25A9 = var_2;
+        self.damageowner = var_2;
         playfx( level.breakables_fx["oilspill"]["spark"], var_4, var_3 );
         var_0 = spawn( "script_origin", var_4 );
 
         if ( isdefined( level.breakables_sfx["oilspill"]["spark"] ) )
-            var_0 thread maps\_utility::_id_69C6( level.breakables_sfx["oilspill"]["spark"] );
+            var_0 thread maps\_utility::play_sound_on_tag_endon_death( level.breakables_sfx["oilspill"]["spark"] );
 
-        var_4 = pointonsegmentnearesttopoint( self._id_8B20.origin, self._id_311C.origin, var_4 );
+        var_4 = pointonsegmentnearesttopoint( self.start.origin, self.end.origin, var_4 );
         thread oil_spill_burn_section( var_4 );
-        thread oil_spill_burn( var_4, self._id_8B20.origin );
-        thread oil_spill_burn( var_4, self._id_311C.origin );
+        thread oil_spill_burn( var_4, self.start.origin );
+        thread oil_spill_burn( var_4, self.end.origin );
         break;
     }
 
@@ -533,11 +515,11 @@ oil_spill_burn_after()
         if ( var_4 == "MOD_MELEE" || var_4 == "MOD_IMPACT" )
             continue;
 
-        self._id_25A9 = var_1;
+        self.damageowner = var_1;
         break;
     }
 
-    self entityradiusdamage( self._id_8B20.origin, 4, 10, 10, self._id_25A9 );
+    self radiusdamage( self.start.origin, 4, 10, 10, self.damageowner );
 }
 
 oil_spill_burn( var_0, var_1 )
@@ -596,7 +578,7 @@ oil_spill_burn( var_0, var_1 )
     if ( !isdefined( self.barrel ) )
         return;
 
-    if ( distance( var_0, self._id_8B20.origin ) < 32 )
+    if ( distance( var_0, self.start.origin ) < 32 )
         self.barrel dodamage( 80 + randomfloat( 10 ), var_0 );
 }
 
@@ -607,7 +589,7 @@ oil_spill_burn_section( var_0 )
     playfx( level.breakables_fx["oilspill"]["burn"], var_0 );
 
     if ( isdefined( level.breakables_sfx["oilspill"]["burn"] ) )
-        thread maps\_utility::_id_6976( level.breakables_sfx["oilspill"]["burn"], undefined, 1, 1 );
+        thread maps\_utility::play_loop_sound_on_tag( level.breakables_sfx["oilspill"]["burn"], undefined, 1, 1 );
 }
 
 explodable_barrel_think()
@@ -635,7 +617,7 @@ explodable_barrel_think()
         if ( var_4 == "MOD_MELEE" || var_4 == "MOD_IMPACT" )
             continue;
 
-        self._id_25A9 = var_1;
+        self.damageowner = var_1;
 
         if ( level.barrelexplodingthisframe )
             wait(randomfloat( 1 ));
@@ -672,7 +654,7 @@ explodable_barrel_burn()
             playfx( level.breakables_fx["barrel"]["burn_start"], self.origin + var_5 );
 
             if ( isdefined( level.breakables_sfx["barrel"]["burn_start"] ) )
-                thread maps\_utility::_id_69C6( level.breakables_sfx["barrel"]["burn_start"] );
+                thread maps\_utility::play_sound_on_tag_endon_death( level.breakables_sfx["barrel"]["burn_start"] );
 
             var_1 = 1;
         }
@@ -683,7 +665,7 @@ explodable_barrel_burn()
         playfx( level.breakables_fx["barrel"]["burn"], self.origin + var_6 );
 
         if ( isdefined( level.breakables_sfx["barrel"]["burn"] ) )
-            var_7 thread maps\_utility::_id_6976( level.breakables_sfx["barrel"]["burn"], undefined, 1, 1 );
+            var_7 thread maps\_utility::play_loop_sound_on_tag( level.breakables_sfx["barrel"]["burn"], undefined, 1, 1 );
 
         if ( var_0 == 0 )
         {
@@ -722,7 +704,7 @@ explodable_barrel_explode()
     playfx( level.breakables_fx["barrel"]["explode"], self.origin + var_3 );
 
     if ( isdefined( level.breakables_sfx["barrel"]["explode"] ) )
-        thread maps\_utility::_id_69C6( level.breakables_sfx["barrel"]["explode"] );
+        thread maps\_utility::play_sound_on_tag_endon_death( level.breakables_sfx["barrel"]["explode"] );
 
     physicsexplosionsphere( self.origin + var_3, 100, 80, 1 );
     level.barrelexplodingthisframe = 1;
@@ -742,18 +724,18 @@ explodable_barrel_explode()
 
     var_9 = undefined;
 
-    if ( isdefined( self._id_25A9 ) )
+    if ( isdefined( self.damageowner ) )
     {
-        var_9 = self._id_25A9;
+        var_9 = self.damageowner;
 
         if ( isplayer( var_9 ) )
             maps\_utility::arcademode_kill( self.origin, "rifle", 150 );
     }
 
-    level._id_55A0["time"] = gettime();
-    level._id_55A0["origin"] = self.origin + ( 0.0, 0.0, 30.0 );
-    level._id_55A0["radius"] = 350;
-    self entityradiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_8, var_7, var_6, var_9 );
+    level.lastexplodingbarrel["time"] = gettime();
+    level.lastexplodingbarrel["origin"] = self.origin + ( 0.0, 0.0, 30.0 );
+    level.lastexplodingbarrel["radius"] = 350;
+    self radiusdamage( self.origin + ( 0.0, 0.0, 30.0 ), var_8, var_7, var_6, var_9 );
 
     if ( randomint( 2 ) == 0 )
         self setmodel( "com_barrel_piece" );
@@ -813,7 +795,7 @@ tincan_think()
     playfx( level.breakables_fx["tincan"], self.origin, var_3 );
 
     if ( isdefined( level.breakables_sfx["tincan"] ) )
-        thread common_scripts\utility::_id_69C2( level.breakables_sfx["tincan"], self.origin );
+        thread common_scripts\utility::play_sound_in_space( level.breakables_sfx["tincan"], self.origin );
 
     self delete();
 }
@@ -841,7 +823,7 @@ helmet_logic()
 
     if ( !isdefined( self.dontremove ) && var_1 == level.player )
     {
-        thread animscripts\death::_id_481F( var_3 );
+        thread animscripts\death::helmetlaunch( var_3 );
         return;
     }
 
@@ -850,7 +832,7 @@ helmet_logic()
     var_4 = spawn( "script_model", self.origin + ( 0.0, 0.0, 5.0 ) );
     var_4.angles = self.angles;
     var_4 setmodel( self.model );
-    var_4 thread animscripts\death::_id_481F( var_3 );
+    var_4 thread animscripts\death::helmetlaunch( var_3 );
     self.dontremove = 0;
     self notify( "ok_remove" );
 }
@@ -1088,10 +1070,10 @@ breakable_logic( var_0 )
             if ( !allowbreak( var_1 ) )
                 continue;
 
-            if ( !isdefined( level._id_386B ) || !isdefined( level._id_386B["Breakable Boxes"] ) )
+            if ( !isdefined( level.flags ) || !isdefined( level.flags["Breakable Boxes"] ) )
                 break;
 
-            if ( isdefined( level._id_386B["Breakable Boxes"] ) && level._id_386B["Breakable Boxes"] == 1 )
+            if ( isdefined( level.flags["Breakable Boxes"] ) && level.flags["Breakable Boxes"] == 1 )
                 break;
         }
         else
@@ -1142,7 +1124,7 @@ breakable_logic( var_0 )
             break;
     }
 
-    thread common_scripts\utility::_id_69C2( var_3, self.origin );
+    thread common_scripts\utility::play_sound_in_space( var_3, self.origin );
     thread make_broken_peices( self, var_0 );
 
     if ( isdefined( var_4 ) )
@@ -1211,7 +1193,7 @@ xenon_remove_auto_aim( var_0 )
     self.autoaim thread xenon_enable_auto_aim( var_0 );
     self.dontremove = 1;
     self waittill( "damage", var_1, var_2 );
-    self.autoaim _meth_81D7();
+    self.autoaim disableaimassist();
     self.autoaim delete();
 
     if ( self.dontremove )
@@ -1239,7 +1221,7 @@ xenon_enable_auto_aim( var_0 )
     if ( isdefined( self.recreate ) && self.recreate == 1 )
         self waittill( "recreate" );
 
-    self _meth_81B9();
+    self enableaimassist();
 }
 
 breakable_clip()
@@ -1527,7 +1509,7 @@ addpiece( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     var_13 = var_6.origin + var_10 + var_11 + var_12;
     var_14 = spawn( "script_model", var_13 );
     var_14 setmodel( var_8 );
-    var_14._id_5D46 = var_9;
+    var_14.modelscale = var_9;
     var_14.angles = var_6.angles + var_7;
     list_add( var_14 );
     return var_14;
@@ -1643,13 +1625,13 @@ setbreakablesfx( var_0, var_1, var_2, var_3 )
 
 misc_rotate_fans()
 {
-    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_slow", "targetname" ), ::_id_366A, "veryslow" );
-    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A, "slow" );
-    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_fast", "targetname" ), ::_id_366A, "fast" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_slow", "targetname" ), ::fan_blade_rotate, "veryslow" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::fan_blade_rotate, "slow" );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_fast", "targetname" ), ::fan_blade_rotate, "fast" );
     common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_custom", "targetname" ), ::fan_blade_rotate_custom );
 }
 
-_id_366A( var_0 )
+fan_blade_rotate( var_0 )
 {
     if ( !isdefined( self ) )
         return;

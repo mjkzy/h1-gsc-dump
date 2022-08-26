@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     var_0 = getdvar( "g_gametype" );
@@ -64,28 +46,28 @@ init()
         {
             var_5 = int( var_5 );
             var_4 = int( var_4 );
-            maps\mp\gametypes\_rank::_id_72FF( var_3, var_6, var_5, var_4 );
+            maps\mp\gametypes\_rank::registerxpeventinfo( var_3, var_6, var_5, var_4 );
         }
 
         var_1++;
     }
 
-    level._id_62A5 = 0;
-    level thread _id_64C8();
+    level.numkills = 0;
+    level thread onplayerconnect();
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0.killedplayers = [];
-        var_0._id_259A = [];
-        var_0._id_55B1 = undefined;
-        var_0._id_7260 = 0;
-        var_0._id_55B6 = 0;
+        var_0.killedplayerscurrent = [];
+        var_0.damagedplayers = [];
+        var_0.lastkilledby = undefined;
+        var_0.recentkillcount = 0;
+        var_0.lastkilltime = 0;
         var_0.bulletstreak = 0;
-        var_0._id_558D = 0;
+        var_0.lastcoopstreaktime = 0;
     }
 }
 
@@ -100,17 +82,17 @@ addnemesisscoreforplayer( var_0, var_1 )
         self.pers["nemesis_guid"] = var_0;
 }
 
-_id_5360( var_0, var_1, var_2, var_3, var_4 )
+killedplayer( var_0, var_1, var_2, var_3, var_4 )
 {
-    level._id_62A5++;
+    level.numkills++;
     var_5 = var_1.guid;
     var_6 = var_1.pers["cur_kill_streak"];
     var_7 = self.guid;
     var_8 = gettime();
 
-    if ( maps\mp\_utility::_id_50CD( var_3 ) )
+    if ( maps\mp\_utility::isbulletdamage( var_3 ) )
     {
-        if ( self._id_55B6 == var_8 )
+        if ( self.lastkilltime == var_8 )
             self.bulletstreak++;
         else
             self.bulletstreak = 1;
@@ -118,11 +100,11 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
     else
         self.bulletstreak = 0;
 
-    self._id_55B6 = gettime();
-    self._id_55B2 = var_1;
+    self.lastkilltime = gettime();
+    self.lastkilledplayer = var_1;
     self.modifiers = [];
-    self._id_259A[var_5] = undefined;
-    thread _id_9B55( var_0, var_2 );
+    self.damagedplayers[var_5] = undefined;
+    thread updaterecentkills( var_0, var_2 );
 
     if ( !maps\mp\_utility::iskillstreakweapon( var_2 ) )
     {
@@ -137,71 +119,71 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
 
         if ( weaponinventorytype( var_2 ) == "primary" )
         {
-            self._id_7C58["killDistanceTotal"] += distance2d( self.origin, var_1.origin );
-            self._id_7C58["killDistanceCount"]++;
+            self.segments["killDistanceTotal"] += distance2d( self.origin, var_1.origin );
+            self.segments["killDistanceCount"]++;
         }
 
         if ( var_3 == "MOD_HEAD_SHOT" )
-            _id_477E( var_0, var_2, var_3 );
+            headshotevent( var_0, var_2, var_3 );
 
-        if ( level._id_62A5 == 1 )
-            _id_3816( var_0, var_2, var_3 );
+        if ( level.numkills == 1 )
+            firstbloodevent( var_0, var_2, var_3 );
 
-        if ( level.teambased && var_8 - var_1._id_55B6 < 3000 && var_1._id_55B2 != self )
+        if ( level.teambased && var_8 - var_1.lastkilltime < 3000 && var_1.lastkilledplayer != self )
             avengedplayerevent( var_0, var_2, var_3 );
 
-        if ( !isalive( self ) && self != var_1 && isdefined( self._id_2671 ) && self._id_2671 + 1200 < gettime() )
-            _id_6E87( var_0 );
+        if ( !isalive( self ) && self != var_1 && isdefined( self.deathtime ) && self.deathtime + 1200 < gettime() )
+            postdeathkillevent( var_0 );
 
         if ( self.pers["cur_death_streak"] > 3 )
-            _id_20B8( var_0, var_2, var_3 );
+            comebackevent( var_0, var_2, var_3 );
 
         if ( isdefined( self.assistedsuicide ) && self.assistedsuicide )
             assistedsuicideevent( var_0, var_2, var_3 );
 
-        if ( _id_514B( self, var_2, var_3, var_1 ) )
-            _id_5850( var_0, var_2, var_3 );
+        if ( islongshot( self, var_2, var_3, var_1 ) )
+            longshotevent( var_0, var_2, var_3 );
 
-        if ( _id_518F( var_1, var_8 ) )
-            _id_27AA( var_0, var_2, var_3 );
+        if ( isresuce( var_1, var_8 ) )
+            defendedplayerevent( var_0, var_2, var_3 );
 
-        if ( var_6 > 0 && _id_50D0( var_1 ) )
+        if ( var_6 > 0 && isbuzzkillevent( var_1 ) )
             buzzkillevent( var_0, var_1, var_2, var_3 );
 
-        if ( _id_5166( var_1, var_2, var_3 ) )
-            _id_64A1( var_0, var_2, var_3 );
+        if ( isoneshotkill( var_1, var_2, var_3 ) )
+            oneshotkillevent( var_0, var_2, var_3 );
 
-        if ( isdefined( self._id_55B1 ) && self._id_55B1 == var_1 )
-            _id_74EA( var_0 );
+        if ( isdefined( self.lastkilledby ) && self.lastkilledby == var_1 )
+            revengeevent( var_0 );
 
-        if ( var_1.idflags & level._id_4B5C )
+        if ( var_1.idflags & level.idflags_penetration )
             bulletpenetrationevent( var_0, var_2 );
 
-        if ( _id_5180( var_1, var_3 ) )
-            _id_6E24( var_0, var_2, var_3 );
+        if ( ispointblank( var_1, var_3 ) )
+            pointblankevent( var_0, var_2, var_3 );
 
         if ( self.health < 20 && self.health > 0 )
-            _id_606F( var_2, var_3 );
+            neardeathkillevent( var_2, var_3 );
 
-        if ( common_scripts\utility::_id_5108() )
-            _id_38B0( var_2, var_3 );
+        if ( common_scripts\utility::isflashed() )
+            flashedkillevent( var_2, var_3 );
 
-        if ( _id_51D2( var_2, var_3 ) )
-            _id_9310();
+        if ( isthinkfast( var_2, var_3 ) )
+            thinkfastevent();
 
         if ( self.bulletstreak == 2 )
-            _id_5FE6();
+            multikillonebulletevent();
 
-        if ( _id_50C5( var_1, var_2, var_3 ) )
+        if ( isbackstabevent( var_1, var_2, var_3 ) )
             backstabevent();
 
-        if ( _id_51D5( var_1, var_2, var_3 ) )
-            _id_9339();
+        if ( isthrowbackevent( var_1, var_2, var_3 ) )
+            throwbackkillevent();
 
-        if ( isdefined( self._id_680B[var_2] ) && self._id_680B[var_2] == var_1 && !maps\mp\_utility::_id_5150( var_3 ) )
-            _id_911F();
+        if ( isdefined( self.pickedupweaponfrom[var_2] ) && self.pickedupweaponfrom[var_2] == var_1 && !maps\mp\_utility::ismeleemod( var_3 ) )
+            takeandkillevent();
 
-        if ( maps\mp\_utility::_id_50CD( var_3 ) && !isdefined( self.assistedsuicide ) )
+        if ( maps\mp\_utility::isbulletdamage( var_3 ) && !isdefined( self.assistedsuicide ) )
         {
             if ( maps\mp\_utility::_hasperk( "specialty_bulletdamage" ) )
                 stoppingpowerevent();
@@ -209,7 +191,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
             if ( maps\mp\_utility::_hasperk( "specialty_fastreload" ) )
                 sleightofhandevent( var_2 );
 
-            if ( maps\mp\_utility::_hasperk( "specialty_rof" ) && maps\mp\_utility::_id_5092( var_1.laststand ) )
+            if ( maps\mp\_utility::_hasperk( "specialty_rof" ) && maps\mp\_utility::is_true( var_1.laststand ) )
                 doubletapevent();
 
             if ( maps\mp\_utility::_hasperk( "specialty_twoprimaries" ) && var_2 == self.secondaryweapon )
@@ -218,7 +200,7 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
             if ( maps\mp\_utility::_hasperk( "specialty_bulletaccuracy" ) && self playerads() < 0.5 )
                 steadyaimevent();
 
-            if ( maps\mp\_utility::_hasperk( "specialty_pistoldeath" ) && maps\mp\_utility::_id_5092( self.laststand ) && maps\mp\_utility::_id_5092( var_1.laststand ) )
+            if ( maps\mp\_utility::_hasperk( "specialty_pistoldeath" ) && maps\mp\_utility::is_true( self.laststand ) && maps\mp\_utility::is_true( var_1.laststand ) )
                 laststandevent();
 
             if ( maps\mp\_utility::_hasperk( "specialty_holdbreath" ) && weaponclass( var_2 ) == "sniper" )
@@ -234,35 +216,35 @@ _id_5360( var_0, var_1, var_2, var_3, var_4 )
         if ( maps\mp\_utility::_hasperk( "specialty_explosivedamage" ) && isexplosivedamagemod( var_3 ) )
             sonicboomevent();
 
-        _id_1D0C( var_1 );
-        _id_1D28( var_1, var_2, var_3 );
+        checkhigherrankkillevents( var_1 );
+        checkweaponspecifickill( var_1, var_2, var_3 );
     }
 
-    _id_1D1B( var_1 );
+    checkstreakingevents( var_1 );
 
     if ( !isdefined( self.pers["killed_players"][var_5] ) )
         self.pers["killed_players"][var_5] = 0;
 
-    if ( !isdefined( self.killedplayers[var_5] ) )
-        self.killedplayers[var_5] = 0;
+    if ( !isdefined( self.killedplayerscurrent[var_5] ) )
+        self.killedplayerscurrent[var_5] = 0;
 
     if ( !isdefined( var_1.pers["killed_by"][var_7] ) )
         var_1.pers["killed_by"][var_7] = 0;
 
     self.pers["killed_players"][var_5]++;
-    self.killedplayers[var_5]++;
+    self.killedplayerscurrent[var_5]++;
     addnemesisscoreforplayer( var_5, 1.0 );
     var_1.pers["killed_by"][var_7]++;
-    var_1._id_55B1 = self;
+    var_1.lastkilledby = self;
     var_1 addnemesisscoreforplayer( var_7, 1.5 );
 
     if ( self.pers["prey_guid"] == "" || self.pers["killed_players"][var_5] > self.pers["killed_players"][self.pers["prey_guid"]] )
         self.pers["prey_guid"] = var_5;
 }
 
-_id_5180( var_0, var_1 )
+ispointblank( var_0, var_1 )
 {
-    if ( maps\mp\_utility::_id_50CD( var_1 ) )
+    if ( maps\mp\_utility::isbulletdamage( var_1 ) )
     {
         var_2 = self.origin;
         var_3 = 9216;
@@ -277,22 +259,22 @@ _id_5180( var_0, var_1 )
     return 0;
 }
 
-_id_6E24( var_0, var_1, var_2 )
+pointblankevent( var_0, var_1, var_2 )
 {
-    maps\mp\_utility::_id_4C2F( "pointblank", 1 );
+    maps\mp\_utility::incplayerstat( "pointblank", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "pointblank", self, var_1, undefined, var_2 );
 
     if ( maps\mp\_utility::_hasperk( "specialty_quieter" ) )
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_deadsilence" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_deadsilence" );
 }
 
-_id_5361( var_0, var_1, var_2 )
+killedplayerevent( var_0, var_1, var_2 )
 {
-    maps\mp\_utility::_id_4C2F( "kills", 1 );
-    maps\mp\_utility::_id_4C2E( "kills", 1 );
-    self.kills = maps\mp\_utility::_id_4081( "kills" );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "kills", self.kills );
-    maps\mp\_utility::_id_9B47( "kdRatio", "kills", "deaths" );
+    maps\mp\_utility::incplayerstat( "kills", 1 );
+    maps\mp\_utility::incpersstat( "kills", 1 );
+    self.kills = maps\mp\_utility::getpersstat( "kills" );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "kills", self.kills );
+    maps\mp\_utility::updatepersratio( "kdRatio", "kills", "deaths" );
     var_3 = "kill";
 
     switch ( var_1 )
@@ -309,28 +291,28 @@ _id_5361( var_0, var_1, var_2 )
 
     if ( var_3 != "kill" )
     {
-        maps\mp\_utility::_id_4C2F( var_3, 1 );
-        maps\mp\gametypes\_misions::_id_1C55( var_3 );
+        maps\mp\_utility::incplayerstat( var_3, 1 );
+        maps\mp\gametypes\_misions::ch_streak_kill( var_3 );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_3, self, var_1, var_0, var_2 );
 }
 
-_id_51D2( var_0, var_1 )
+isthinkfast( var_0, var_1 )
 {
-    if ( maps\mp\_utility::_id_5092( self.assistedsuicide ) )
+    if ( maps\mp\_utility::is_true( self.assistedsuicide ) )
         return 0;
 
     if ( var_1 == "MOD_IMPACT" || var_1 == "MOD_HEAD_SHOT" )
     {
-        if ( _id_51D3( var_0 ) )
+        if ( isthinkfastweapon( var_0 ) )
             return 1;
     }
 
     return 0;
 }
 
-_id_51D3( var_0 )
+isthinkfastweapon( var_0 )
 {
     switch ( var_0 )
     {
@@ -344,56 +326,56 @@ _id_51D3( var_0 )
     }
 }
 
-_id_9310()
+thinkfastevent()
 {
-    maps\mp\_utility::_id_4C2F( "think_fast", 1 );
+    maps\mp\_utility::incplayerstat( "think_fast", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "think_fast", self );
 }
 
-_id_300B( var_0, var_1, var_2, var_3 )
+earnedkillstreakevent( var_0, var_1, var_2, var_3 )
 {
-    maps\mp\_utility::_id_4C2F( var_0 + "_earned", 1 );
+    maps\mp\_utility::incplayerstat( var_0 + "_earned", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( var_0 + "_earned", self );
-    thread maps\mp\gametypes\_hud_message::_id_53A9( var_0, var_1, undefined, var_2, var_3 );
+    thread maps\mp\gametypes\_hud_message::killstreaksplashnotify( var_0, var_1, undefined, var_2, var_3 );
 }
 
 bulletpenetrationevent( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "bulletpenkills", 1 );
+    maps\mp\_utility::incplayerstat( "bulletpenkills", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "bulletpen", self );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_xrayvision" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_xrayvision" );
 
     if ( maps\mp\_utility::_hasperk( "specialty_bulletpenetration" ) )
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_deepimpact" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_deepimpact" );
 }
 
-_id_5FE6()
+multikillonebulletevent()
 {
-    maps\mp\_utility::_id_4C2F( "multiKillOneBullet", 1 );
+    maps\mp\_utility::incplayerstat( "multiKillOneBullet", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "multiKillOneBullet", self );
 }
 
-_id_1D28( var_0, var_1, var_2 )
+checkweaponspecifickill( var_0, var_1, var_2 )
 {
 
 }
 
-_id_606F( var_0, var_1 )
+neardeathkillevent( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "near_death_kill", 1 );
+    maps\mp\_utility::incplayerstat( "near_death_kill", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "near_death_kill", self, var_0, undefined, var_1 );
 
     if ( maps\mp\_utility::_hasperk( "specialty_armorvest" ) )
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_juggernaut" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_juggernaut" );
 }
 
-_id_38B0( var_0, var_1 )
+flashedkillevent( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "flash_kill", 1 );
+    maps\mp\_utility::incplayerstat( "flash_kill", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "flash_kill", self, var_0, undefined, var_1 );
 }
 
-_id_5166( var_0, var_1, var_2 )
+isoneshotkill( var_0, var_1, var_2 )
 {
     if ( var_0.attackers.size != 1 )
         return 0;
@@ -401,10 +383,10 @@ _id_5166( var_0, var_1, var_2 )
     if ( !isdefined( var_0.attackers[self.guid] ) )
         return 0;
 
-    if ( maps\mp\_utility::_id_5150( var_2 ) )
+    if ( maps\mp\_utility::ismeleemod( var_2 ) )
         return 0;
 
-    if ( gettime() != var_0.attackerdata[self.guid]._id_3822 )
+    if ( gettime() != var_0.attackerdata[self.guid].firsttimedamaged )
         return 0;
 
     var_3 = maps\mp\_utility::getweaponclass( var_1 );
@@ -415,7 +397,7 @@ _id_5166( var_0, var_1, var_2 )
     return 0;
 }
 
-_id_514B( var_0, var_1, var_2, var_3 )
+islongshot( var_0, var_1, var_2, var_3 )
 {
     if ( isdefined( var_3.agentbody ) )
         return 0;
@@ -425,7 +407,7 @@ _id_514B( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_3.attackerposition ) )
         var_4 = var_3.attackerposition;
 
-    if ( isalive( var_0 ) && !var_0 maps\mp\_utility::_id_51E3() && ( var_2 == "MOD_RIFLE_BULLET" || var_2 == "MOD_PISTOL_BULLET" || var_2 == "MOD_HEAD_SHOT" || issubstr( var_1, "exocrossbow" ) || issubstr( var_1, "m990" ) ) && !maps\mp\_utility::iskillstreakweapon( var_1 ) && !isdefined( var_0.assistedsuicide ) )
+    if ( isalive( var_0 ) && !var_0 maps\mp\_utility::isusingremote() && ( var_2 == "MOD_RIFLE_BULLET" || var_2 == "MOD_PISTOL_BULLET" || var_2 == "MOD_HEAD_SHOT" || issubstr( var_1, "exocrossbow" ) || issubstr( var_1, "m990" ) ) && !maps\mp\_utility::iskillstreakweapon( var_1 ) && !isdefined( var_0.assistedsuicide ) )
     {
         var_5 = maps\mp\_utility::getweaponclass( var_1 );
 
@@ -465,12 +447,12 @@ _id_514B( var_0, var_1, var_2, var_3 )
     return 0;
 }
 
-_id_518F( var_0, var_1 )
+isresuce( var_0, var_1 )
 {
     if ( !level.teambased )
         return 0;
 
-    foreach ( var_4, var_3 in var_0._id_259A )
+    foreach ( var_4, var_3 in var_0.damagedplayers )
     {
         if ( var_4 != self.guid && var_1 - var_3 < 500 )
             return 1;
@@ -479,35 +461,35 @@ _id_518F( var_0, var_1 )
     return 0;
 }
 
-_id_5850( var_0, var_1, var_2 )
+longshotevent( var_0, var_1, var_2 )
 {
     self.modifiers["longshot"] = 1;
-    maps\mp\_utility::_id_4C2F( "longshots", 1 );
+    maps\mp\_utility::incplayerstat( "longshots", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "longshot", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "longshot" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "longshot" );
 }
 
-_id_477E( var_0, var_1, var_2 )
+headshotevent( var_0, var_1, var_2 )
 {
     self.modifiers["headshot"] = 1;
-    maps\mp\_utility::_id_4C2E( "headshots", 1 );
-    maps\mp\_utility::_id_4C2F( "headshots", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "headshots", maps\mp\_utility::_id_1E29( self.pers["headshots"] ) );
-    self.headshots = maps\mp\_utility::_id_4081( "headshots" );
+    maps\mp\_utility::incpersstat( "headshots", 1 );
+    maps\mp\_utility::incplayerstat( "headshots", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "headshots", maps\mp\_utility::clamptoshort( self.pers["headshots"] ) );
+    self.headshots = maps\mp\_utility::getpersstat( "headshots" );
     level thread maps\mp\gametypes\_rank::awardgameevent( "headshot", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "headshot" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "headshot" );
 
     if ( !isdefined( self.headhuntercounter ) )
         self.headhuntercounter = 1;
 
     if ( isdefined( self.headshots ) && self.headshots >= self.headhuntercounter * 10 )
     {
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_headhunter" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_headhunter" );
         self.headhuntercounter++;
     }
 }
 
-_id_51D5( var_0, var_1, var_2 )
+isthrowbackevent( var_0, var_1, var_2 )
 {
     if ( !isexplosivedamagemod( var_2 ) )
         return 0;
@@ -515,75 +497,75 @@ _id_51D5( var_0, var_1, var_2 )
     if ( !issubstr( var_1, "h1_frag" ) )
         return 0;
 
-    if ( isdefined( var_0 ) && isdefined( var_0._id_357E ) && isdefined( var_0._id_357E["throwbackKill"] ) && var_0._id_357E["throwbackKill"] )
+    if ( isdefined( var_0 ) && isdefined( var_0.explosiveinfo ) && isdefined( var_0.explosiveinfo["throwbackKill"] ) && var_0.explosiveinfo["throwbackKill"] )
         return 1;
 
     return 0;
 }
 
-_id_9339()
+throwbackkillevent()
 {
-    maps\mp\_utility::_id_4C2F( "throwback_kill", 1 );
+    maps\mp\_utility::incplayerstat( "throwback_kill", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "throwback_kill", self );
 }
 
 avengedplayerevent( var_0, var_1, var_2 )
 {
     self.modifiers["avenger"] = 1;
-    maps\mp\_utility::_id_4C2F( "avengekills", 1 );
+    maps\mp\_utility::incplayerstat( "avengekills", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "avenger", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "avenger" );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_avenger" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "avenger" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_avenger" );
 }
 
 assistedsuicideevent( var_0, var_1, var_2 )
 {
     self.modifiers["assistedsuicide"] = 1;
-    maps\mp\_utility::_id_4C2F( "assistedsuicide", 1 );
+    maps\mp\_utility::incplayerstat( "assistedsuicide", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "assistedsuicide", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "assistedsuicide" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "assistedsuicide" );
 }
 
-_id_27AA( var_0, var_1, var_2 )
+defendedplayerevent( var_0, var_1, var_2 )
 {
     self.modifiers["defender"] = 1;
-    maps\mp\_utility::_id_4C2F( "rescues", 1 );
+    maps\mp\_utility::incplayerstat( "rescues", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "defender", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "defender" );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_savior" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "defender" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_savior" );
 }
 
-_id_27AE( var_0, var_1 )
+defendobjectiveevent( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "defends", 1 );
-    maps\mp\_utility::_id_4C2E( "defends", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "defends", self.pers["defends"] );
+    maps\mp\_utility::incplayerstat( "defends", 1 );
+    maps\mp\_utility::incpersstat( "defends", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "defends", self.pers["defends"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "defend", self );
-    var_0 thread maps\mp\_matchdata::_id_5838( var_1, "assaulting" );
+    var_0 thread maps\mp\_matchdata::logkillevent( var_1, "assaulting" );
 }
 
 assaultobjectiveevent( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "assault", 1 );
+    maps\mp\_utility::incplayerstat( "assault", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "assault", self );
-    var_0 thread maps\mp\_matchdata::_id_5838( var_1, "defending" );
+    var_0 thread maps\mp\_matchdata::logkillevent( var_1, "defending" );
 }
 
-_id_6E87( var_0 )
+postdeathkillevent( var_0 )
 {
     self.modifiers["posthumous"] = 1;
-    maps\mp\_utility::_id_4C2F( "posthumous", 1 );
+    maps\mp\_utility::incplayerstat( "posthumous", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "posthumous", self );
-    thread maps\mp\_matchdata::_id_5838( var_0, "posthumous" );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_afterlife" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "posthumous" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_afterlife" );
 }
 
-_id_50C5( var_0, var_1, var_2 )
+isbackstabevent( var_0, var_1, var_2 )
 {
-    if ( !maps\mp\_utility::_id_5150( var_2 ) )
+    if ( !maps\mp\_utility::ismeleemod( var_2 ) )
         return 0;
 
-    if ( maps\mp\gametypes\_weapons::_id_5192( var_1 ) )
+    if ( maps\mp\gametypes\_weapons::isriotshield( var_1 ) )
         return 0;
 
     var_3 = var_0 getplayerangles();
@@ -598,193 +580,193 @@ _id_50C5( var_0, var_1, var_2 )
 
 backstabevent( var_0 )
 {
-    maps\mp\_utility::_id_4C2F( "backstab", 1 );
+    maps\mp\_utility::incplayerstat( "backstab", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "backstab", self );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_backstab" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_backstab" );
 }
 
-_id_74EA( var_0 )
+revengeevent( var_0 )
 {
     self.modifiers["revenge"] = 1;
-    self._id_55B1 = undefined;
-    maps\mp\_utility::_id_4C2F( "revengekills", 1 );
+    self.lastkilledby = undefined;
+    maps\mp\_utility::incplayerstat( "revengekills", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "revenge", self );
-    thread maps\mp\_matchdata::_id_5838( var_0, "revenge" );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_revenge" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "revenge" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_revenge" );
 }
 
-_id_5FE5( var_0, var_1, var_2, var_3 )
+multikillevent( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    var_4 = maps\mp\gametypes\_misions::_id_3CE8( var_2 );
-    var_5 = maps\mp\_utility::_id_3F11( var_2 );
+    var_4 = maps\mp\gametypes\_misions::get_challenge_weapon_class( var_2 );
+    var_5 = maps\mp\_utility::getbaseweaponname( var_2 );
 
-    if ( maps\mp\_utility::_id_514D( var_5 ) )
-        var_5 = maps\mp\gametypes\_class::_id_3F10( var_5 );
+    if ( maps\mp\_utility::islootweapon( var_5 ) )
+        var_5 = maps\mp\gametypes\_class::getbasefromlootversion( var_5 );
 
     var_6 = "";
 
-    if ( common_scripts\utility::_id_8F57( var_5, "iw5_" ) )
+    if ( common_scripts\utility::string_starts_with( var_5, "iw5_" ) )
         var_6 = getsubstr( var_5, 4 );
-    else if ( common_scripts\utility::_id_8F57( var_5, "h1_" ) )
+    else if ( common_scripts\utility::string_starts_with( var_5, "h1_" ) )
         var_6 = getsubstr( var_5, 3 );
 
     switch ( var_1 )
     {
         case 2:
             level thread maps\mp\gametypes\_rank::awardgameevent( "doublekill", self );
-            maps\mp\_utility::_id_4C2F( "doublekill", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_double" );
+            maps\mp\_utility::incplayerstat( "doublekill", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_double" );
             break;
         case 3:
             level thread maps\mp\gametypes\_rank::awardgameevent( "triplekill", self );
-            level thread maps\mp\_utility::_id_91FA( "callout_3xkill", self );
-            maps\mp\_utility::_id_4C2F( "triplekill", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_triple" );
+            level thread maps\mp\_utility::teamplayercardsplash( "callout_3xkill", self );
+            maps\mp\_utility::incplayerstat( "triplekill", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_triple" );
 
-            if ( maps\mp\gametypes\_misions::_id_50BC() )
-                maps\mp\gametypes\_misions::_id_6FF6( "ch_triplehurt" );
+            if ( maps\mp\gametypes\_misions::isatbrinkofdeath() )
+                maps\mp\gametypes\_misions::processchallenge( "ch_triplehurt" );
 
             break;
         case 4:
             level thread maps\mp\gametypes\_rank::awardgameevent( "fourkill", self );
-            level thread maps\mp\_utility::_id_91FA( "callout_4xkill", self );
-            maps\mp\_utility::_id_4C2F( "fourkill", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_quadra" );
+            level thread maps\mp\_utility::teamplayercardsplash( "callout_4xkill", self );
+            maps\mp\_utility::incplayerstat( "fourkill", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_quadra" );
             break;
         case 5:
             level thread maps\mp\gametypes\_rank::awardgameevent( "fivekill", self );
-            level thread maps\mp\_utility::_id_91FA( "callout_5xkill", self );
-            maps\mp\_utility::_id_4C2F( "fivekill", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_penta" );
+            level thread maps\mp\_utility::teamplayercardsplash( "callout_5xkill", self );
+            maps\mp\_utility::incplayerstat( "fivekill", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_penta" );
             break;
         case 6:
             level thread maps\mp\gametypes\_rank::awardgameevent( "sixkill", self );
-            level thread maps\mp\_utility::_id_91FA( "callout_6xkill", self );
-            maps\mp\_utility::_id_4C2F( "sixkill", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_hexa" );
+            level thread maps\mp\_utility::teamplayercardsplash( "callout_6xkill", self );
+            maps\mp\_utility::incplayerstat( "sixkill", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_hexa" );
             break;
         case 7:
             level thread maps\mp\gametypes\_rank::awardgameevent( "sevenkill", self );
-            level thread maps\mp\_utility::_id_91FA( "callout_7xkill", self );
-            maps\mp\_utility::_id_4C2F( "sevenkill", 1 );
+            level thread maps\mp\_utility::teamplayercardsplash( "callout_7xkill", self );
+            maps\mp\_utility::incplayerstat( "sevenkill", 1 );
             break;
         case 8:
             level thread maps\mp\gametypes\_rank::awardgameevent( "eightkill", self );
-            level thread maps\mp\_utility::_id_91FA( "callout_8xkill", self );
-            maps\mp\_utility::_id_4C2F( "eightkill", 1 );
+            level thread maps\mp\_utility::teamplayercardsplash( "callout_8xkill", self );
+            maps\mp\_utility::incplayerstat( "eightkill", 1 );
             break;
         default:
             level thread maps\mp\gametypes\_rank::awardgameevent( "multikill", self );
-            thread maps\mp\_utility::_id_91FA( "callout_9xpluskill", self );
-            maps\mp\_utility::_id_4C2F( "multikill", 1 );
+            thread maps\mp\_utility::teamplayercardsplash( "callout_9xpluskill", self );
+            maps\mp\_utility::incplayerstat( "multikill", 1 );
             break;
     }
 
-    thread maps\mp\_matchdata::_id_583D( var_0, var_1 );
+    thread maps\mp\_matchdata::logmultikill( var_0, var_1 );
 }
 
-_id_911F()
+takeandkillevent()
 {
-    maps\mp\_utility::_id_4C2F( "take_and_kill", 1 );
+    maps\mp\_utility::incplayerstat( "take_and_kill", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "take_and_kill", self );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_backfire" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_backfire" );
 
-    if ( maps\mp\_utility::_id_4015() == "mp_bog_summer" )
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_summer_backfire" );
+    if ( maps\mp\_utility::getmapname() == "mp_bog_summer" )
+        maps\mp\gametypes\_misions::processchallenge( "ch_summer_backfire" );
 }
 
 setuplinkstats()
 {
-    var_0 = maps\mp\_utility::_id_408F( "fieldgoal" ) + maps\mp\_utility::_id_408F( "touchdown" ) * 2;
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", var_0 );
-    maps\mp\_utility::_id_7F6B( var_0 );
+    var_0 = maps\mp\_utility::getplayerstat( "fieldgoal" ) + maps\mp\_utility::getplayerstat( "touchdown" ) * 2;
+    maps\mp\gametypes\_persistence::statsetchild( "round", "captures", var_0 );
+    maps\mp\_utility::setextrascore0( var_0 );
 }
 
-_id_3868()
+flagpickupevent()
 {
-    thread maps\mp\_utility::_id_91FA( "callout_flagpickup", self );
-    maps\mp\_utility::_id_4C2F( "flagscarried", 1 );
+    thread maps\mp\_utility::teamplayercardsplash( "callout_flagpickup", self );
+    maps\mp\_utility::incplayerstat( "flagscarried", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "flag_pickup", self );
-    thread maps\mp\_matchdata::_id_5827( "pickup", self.origin );
+    thread maps\mp\_matchdata::loggameevent( "pickup", self.origin );
 }
 
-_id_385F()
+flagcaptureevent()
 {
-    thread maps\mp\_utility::_id_91FA( "callout_flagcapture", self );
-    maps\mp\_utility::_id_4C2F( "flagscaptured", 1 );
-    maps\mp\_utility::_id_4C2E( "captures", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
-    maps\mp\_utility::_id_7F6B( self.pers["captures"] );
+    thread maps\mp\_utility::teamplayercardsplash( "callout_flagcapture", self );
+    maps\mp\_utility::incplayerstat( "flagscaptured", 1 );
+    maps\mp\_utility::incpersstat( "captures", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "captures", self.pers["captures"] );
+    maps\mp\_utility::setextrascore0( self.pers["captures"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "flag_capture", self );
-    thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
+    thread maps\mp\_matchdata::loggameevent( "capture", self.origin );
 }
 
-_id_3869()
+flagreturnevent()
 {
-    thread maps\mp\_utility::_id_91FA( "callout_flagreturn", self );
-    maps\mp\_utility::_id_4C2F( "flagsreturned", 1 );
-    maps\mp\_utility::_id_4C2E( "returns", 1 );
+    thread maps\mp\_utility::teamplayercardsplash( "callout_flagreturn", self );
+    maps\mp\_utility::incplayerstat( "flagsreturned", 1 );
+    maps\mp\_utility::incpersstat( "returns", 1 );
     self.assists = self.pers["returns"];
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "returns", self.pers["returns"] );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "returns", self.pers["returns"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "flag_return", self );
-    thread maps\mp\_matchdata::_id_5827( "return", self.origin );
+    thread maps\mp\_matchdata::loggameevent( "return", self.origin );
 }
 
-_id_53B6()
+killwithflagevent()
 {
-    maps\mp\_utility::_id_4C2F( "killsasflagcarrier", 1 );
+    maps\mp\_utility::incplayerstat( "killsasflagcarrier", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "kill_with_flag", self );
 }
 
-_id_5368( var_0 )
+killflagcarrierevent( var_0 )
 {
-    thread maps\mp\_utility::_id_91FA( "callout_killflagcarrier", self );
-    maps\mp\_utility::_id_4C2F( "flagcarrierkills", 1 );
-    maps\mp\_utility::_id_4C2E( "defends", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "defends", self.pers["defends"] );
+    thread maps\mp\_utility::teamplayercardsplash( "callout_killflagcarrier", self );
+    maps\mp\_utility::incplayerstat( "flagcarrierkills", 1 );
+    maps\mp\_utility::incpersstat( "defends", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "defends", self.pers["defends"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "kill_flag_carrier", self );
-    thread maps\mp\_matchdata::_id_5838( var_0, "carrying" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "carrying" );
 }
 
-_id_5359( var_0 )
+killdeniedevent( var_0 )
 {
-    maps\mp\_utility::_id_4C2F( "killsdenied", 1 );
-    maps\mp\_utility::_id_4C2E( "denied", 1 );
-    maps\mp\_utility::_id_7F6C( self.pers["denied"] );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "denied", self.pers["denied"] );
+    maps\mp\_utility::incplayerstat( "killsdenied", 1 );
+    maps\mp\_utility::incpersstat( "denied", 1 );
+    maps\mp\_utility::setextrascore1( self.pers["denied"] );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "denied", self.pers["denied"] );
     var_1 = "kill_denied";
 
     if ( var_0 )
     {
         var_1 = "kill_denied_retrieved";
-        maps\mp\_utility::_id_4C2F( "kill_denied_retrieved", 1 );
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_save_yourself" );
+        maps\mp\_utility::incplayerstat( "kill_denied_retrieved", 1 );
+        maps\mp\gametypes\_misions::processchallenge( "ch_save_yourself" );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_1, self );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_denial" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_denial" );
 }
 
-_id_5356()
+killconfirmedevent()
 {
-    maps\mp\_utility::_id_4C2F( "killsconfirmed", 1 );
-    maps\mp\_utility::_id_4C2E( "confirmed", 1 );
-    maps\mp\_utility::_id_7F6B( self.pers["confirmed"] );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "confirmed", self.pers["confirmed"] );
+    maps\mp\_utility::incplayerstat( "killsconfirmed", 1 );
+    maps\mp\_utility::incpersstat( "confirmed", 1 );
+    maps\mp\_utility::setextrascore0( self.pers["confirmed"] );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "confirmed", self.pers["confirmed"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "kill_confirmed", self );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_collector" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_collector" );
 }
 
-_id_90E0()
+tagcollectorevent()
 {
-    maps\mp\_utility::_id_4C2F( "tag_collector", 1 );
+    maps\mp\_utility::incplayerstat( "tag_collector", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "tag_collector", self );
 }
 
-_id_5ED2( var_0 )
+monitortagcollector( var_0 )
 {
     if ( !isplayer( var_0 ) )
         return;
@@ -792,62 +774,62 @@ _id_5ED2( var_0 )
     var_0 notify( "tagCollector" );
     var_0 endon( "tagCollector" );
 
-    if ( !isdefined( var_0._id_90E1 ) )
-        var_0._id_90E1 = 0;
+    if ( !isdefined( var_0.tagcollectortotal ) )
+        var_0.tagcollectortotal = 0;
 
-    var_0._id_90E1++;
+    var_0.tagcollectortotal++;
 
-    if ( var_0._id_90E1 > 2 )
+    if ( var_0.tagcollectortotal > 2 )
     {
-        var_0 _id_90E0();
-        var_0._id_90E1 = 0;
+        var_0 tagcollectorevent();
+        var_0.tagcollectortotal = 0;
     }
 
     wait 2.5;
 
     if ( isdefined( var_0 ) )
-        var_0._id_90E1 = 0;
+        var_0.tagcollectortotal = 0;
 }
 
 bombplantevent()
 {
-    maps\mp\_utility::_id_4C2F( "bombsplanted", 1 );
-    maps\mp\_utility::_id_4C2E( "plants", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "plants", self.pers["plants"] );
-    maps\mp\_utility::_id_7F6B( self.pers["plants"] );
-    level thread maps\mp\_utility::_id_91FA( "callout_bombplanted", self );
+    maps\mp\_utility::incplayerstat( "bombsplanted", 1 );
+    maps\mp\_utility::incpersstat( "plants", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "plants", self.pers["plants"] );
+    maps\mp\_utility::setextrascore0( self.pers["plants"] );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_bombplanted", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "plant", self );
-    thread maps\mp\_matchdata::_id_5827( "plant", self.origin );
+    thread maps\mp\_matchdata::loggameevent( "plant", self.origin );
 }
 
 bombdefuseevent( var_0 )
 {
-    maps\mp\_utility::_id_4C2F( "bombsdefused", 1 );
-    maps\mp\_utility::_id_4C2E( "defuses", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "defuses", self.pers["defuses"] );
-    maps\mp\_utility::_id_7F6C( self.pers["defuses"] );
-    level thread maps\mp\_utility::_id_91FA( "callout_bombdefused", self );
+    maps\mp\_utility::incplayerstat( "bombsdefused", 1 );
+    maps\mp\_utility::incpersstat( "defuses", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "defuses", self.pers["defuses"] );
+    maps\mp\_utility::setextrascore1( self.pers["defuses"] );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_bombdefused", self );
 
     if ( var_0 == "ninja_defuse" || var_0 == "last_man_defuse" )
     {
-        maps\mp\_utility::_id_4C2F( var_0, 1 );
+        maps\mp\_utility::incplayerstat( var_0, 1 );
 
-        if ( var_0 == "ninja_defuse" && isdefined( level.bombowner ) && level.bombowner.bombplantedtime + 6000 + level._id_27BF * 1000 > gettime() )
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_ninja" );
+        if ( var_0 == "ninja_defuse" && isdefined( level.bombowner ) && level.bombowner.bombplantedtime + 6000 + level.defusetime * 1000 > gettime() )
+            maps\mp\gametypes\_misions::processchallenge( "ch_ninja" );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_0, self );
-    thread maps\mp\_matchdata::_id_5827( "defuse", self.origin );
+    thread maps\mp\_matchdata::loggameevent( "defuse", self.origin );
 }
 
-_id_305C( var_0, var_1 )
+eliminateplayerevent( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "elimination", 1 );
-    level thread maps\mp\_utility::_id_91FA( "callout_eliminated", var_1 );
+    maps\mp\_utility::incplayerstat( "elimination", 1 );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_eliminated", var_1 );
 
     if ( var_0 )
     {
-        maps\mp\_utility::_id_4C2F( "last_man_standing", 1 );
+        maps\mp\_utility::incplayerstat( "last_man_standing", 1 );
         level thread maps\mp\gametypes\_rank::awardgameevent( "last_man_standing", self );
     }
     else
@@ -856,131 +838,131 @@ _id_305C( var_0, var_1 )
 
 bombdetonateevent()
 {
-    maps\mp\_utility::_id_4C2F( "targetsdestroyed", 1 );
-    maps\mp\_utility::_id_4C2E( "destructions", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "destructions", self.pers["destructions"] );
-    level thread maps\mp\_utility::_id_91FA( "callout_destroyed_objective", self );
+    maps\mp\_utility::incplayerstat( "targetsdestroyed", 1 );
+    maps\mp\_utility::incpersstat( "destructions", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "destructions", self.pers["destructions"] );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_destroyed_objective", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "destroy", self );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_sd_destroyer" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_sd_destroyer" );
 }
 
-_id_4C34()
+increasegunlevelevent()
 {
-    maps\mp\_utility::_id_4C2F( "levelup", 1 );
+    maps\mp\_utility::incplayerstat( "levelup", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "gained_gun_score", self );
 }
 
-_id_2758()
+decreasegunlevelevent()
 {
-    maps\mp\_utility::_id_4C2F( "dejavu", 1 );
-    maps\mp\_utility::_id_4C2E( "setbacks", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "setbacks", self.pers["setbacks"] );
+    maps\mp\_utility::incplayerstat( "dejavu", 1 );
+    maps\mp\_utility::incpersstat( "setbacks", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "setbacks", self.pers["setbacks"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "dropped_gun_score", self );
 }
 
-_id_7F2C()
+setbackenemygunlevelevent()
 {
-    maps\mp\_utility::_id_4C2F( "humiliation", 1 );
-    maps\mp\_utility::_id_4C2E( "humiliations", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "humiliations", self.pers["humiliations"] );
+    maps\mp\_utility::incplayerstat( "humiliation", 1 );
+    maps\mp\_utility::incpersstat( "humiliations", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "humiliations", self.pers["humiliations"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "dropped_enemy_gun_rank", self );
 }
 
-_id_70A1()
+quickgunlevelevent()
 {
-    maps\mp\_utility::_id_4C2F( "gunslinger", 1 );
+    maps\mp\_utility::incplayerstat( "gunslinger", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "quick_gun_rank", self );
 }
 
-_id_7F2D()
+setbackfirstplayergunlevelevent()
 {
-    maps\mp\_utility::_id_4C2F( "regicide", 1 );
+    maps\mp\_utility::incplayerstat( "regicide", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "dropped_first_player_gun_rank", self );
 }
 
-_id_2CF0( var_0 )
+domcaptureevent( var_0 )
 {
-    maps\mp\_utility::_id_4C2F( "pointscaptured", 1 );
-    maps\mp\_utility::_id_4C2E( "captures", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
-    maps\mp\_utility::_id_7F6B( self.pers["captures"] );
+    maps\mp\_utility::incplayerstat( "pointscaptured", 1 );
+    maps\mp\_utility::incpersstat( "captures", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "captures", self.pers["captures"] );
+    maps\mp\_utility::setextrascore0( self.pers["captures"] );
     var_1 = "capture";
 
     if ( var_0 )
     {
         var_1 = "opening_move";
-        maps\mp\_utility::_id_4C2F( "opening_move", 1 );
+        maps\mp\_utility::incplayerstat( "opening_move", 1 );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_1, self );
-    thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_dom_aggression" );
+    thread maps\mp\_matchdata::loggameevent( "capture", self.origin );
+    maps\mp\gametypes\_misions::processchallenge( "ch_dom_aggression" );
 }
 
-_id_2CFC()
+domneutralizeevent()
 {
     level thread maps\mp\gametypes\_rank::awardgameevent( "neutralize", self );
 }
 
-_id_53B4( var_0, var_1 )
+killwhilecapture( var_0, var_1 )
 {
-    maps\mp\_utility::_id_4C2F( "assault", 1 );
-    maps\mp\_utility::_id_4C2F( "kill_while_capture", 1 );
+    maps\mp\_utility::incplayerstat( "assault", 1 );
+    maps\mp\_utility::incplayerstat( "kill_while_capture", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "kill_while_capture", self );
-    var_0 thread maps\mp\_matchdata::_id_5838( var_1, "defending" );
+    var_0 thread maps\mp\_matchdata::logkillevent( var_1, "defending" );
 }
 
-_id_7C06()
+securehardpointevent()
 {
-    maps\mp\_utility::_id_4C2F( "hp_secure", 1 );
-    maps\mp\_utility::_id_4C2E( "captures", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
-    level thread maps\mp\_utility::_id_91FA( "callout_hp_captured_by", self );
+    maps\mp\_utility::incplayerstat( "hp_secure", 1 );
+    maps\mp\_utility::incpersstat( "captures", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "captures", self.pers["captures"] );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_hp_captured_by", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "hp_secure", self );
-    thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
+    thread maps\mp\_matchdata::loggameevent( "capture", self.origin );
 }
 
 holdhardpointevent()
 {
-    maps\mp\_utility::_id_4C2E( "captureTime", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "captureTime", self.pers["captureTime"] );
-    maps\mp\_utility::_id_7F6B( self.pers["captureTime"] );
+    maps\mp\_utility::incpersstat( "captureTime", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "captureTime", self.pers["captureTime"] );
+    maps\mp\_utility::setextrascore0( self.pers["captureTime"] );
 }
 
 hqcaptureevent()
 {
-    maps\mp\_utility::_id_4C2F( "hqscaptured", 1 );
-    maps\mp\_utility::_id_4C2E( "captures", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "captures", self.pers["captures"] );
-    maps\mp\_utility::_id_7F6B( self.pers["captures"] );
-    level thread maps\mp\_utility::_id_91FA( "callout_capturedhq", self );
+    maps\mp\_utility::incplayerstat( "hqscaptured", 1 );
+    maps\mp\_utility::incpersstat( "captures", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "captures", self.pers["captures"] );
+    maps\mp\_utility::setextrascore0( self.pers["captures"] );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_capturedhq", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "hq_secure", self );
-    thread maps\mp\_matchdata::_id_5827( "capture", self.origin );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_hq_aggression" );
+    thread maps\mp\_matchdata::loggameevent( "capture", self.origin );
+    maps\mp\gametypes\_misions::processchallenge( "ch_hq_aggression" );
 }
 
 hqdestroyevent()
 {
-    maps\mp\_utility::_id_4C2F( "hqsdestroyed", 1 );
-    maps\mp\_utility::_id_4C2E( "destructions", 1 );
-    maps\mp\gametypes\_persistence::_id_8D7A( "round", "destructions", self.pers["destructions"] );
-    maps\mp\_utility::_id_7F6C( self.pers["destructions"] );
-    level thread maps\mp\_utility::_id_91FA( "callout_destroyedhq", self );
+    maps\mp\_utility::incplayerstat( "hqsdestroyed", 1 );
+    maps\mp\_utility::incpersstat( "destructions", 1 );
+    maps\mp\gametypes\_persistence::statsetchild( "round", "destructions", self.pers["destructions"] );
+    maps\mp\_utility::setextrascore1( self.pers["destructions"] );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_destroyedhq", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "hq_destroy", self );
-    thread maps\mp\_matchdata::_id_5827( "destroy", self.origin );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_hq_destroyer" );
+    thread maps\mp\_matchdata::loggameevent( "destroy", self.origin );
+    maps\mp\gametypes\_misions::processchallenge( "ch_hq_destroyer" );
 }
 
-_id_3816( var_0, var_1, var_2 )
+firstbloodevent( var_0, var_1, var_2 )
 {
     self.modifiers["firstblood"] = 1;
-    maps\mp\_utility::_id_4C2F( "firstblood", 1 );
-    thread maps\mp\_utility::_id_91FA( "callout_firstblood", self );
+    maps\mp\_utility::incplayerstat( "firstblood", 1 );
+    thread maps\mp\_utility::teamplayercardsplash( "callout_firstblood", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "firstblood", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "firstblood" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "firstblood" );
 }
 
-_id_50D0( var_0 )
+isbuzzkillevent( var_0 )
 {
     var_1 = var_0.pers["cur_kill_streak"];
 
@@ -993,23 +975,23 @@ _id_50D0( var_0 )
 buzzkillevent( var_0, var_1, var_2, var_3 )
 {
     self.modifiers["buzzkill"] = var_1.pers["cur_kill_streak"];
-    maps\mp\_utility::_id_4C2F( "buzzkill", 1 );
+    maps\mp\_utility::incplayerstat( "buzzkill", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "buzzkill", self, var_2, undefined, var_3 );
 }
 
-_id_64A1( var_0, var_1, var_2 )
+oneshotkillevent( var_0, var_1, var_2 )
 {
     self.modifiers["oneshotkill"] = 1;
-    maps\mp\_utility::_id_4C2F( "oneshotkill", 1 );
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_deadeye" );
+    maps\mp\_utility::incplayerstat( "oneshotkill", 1 );
+    maps\mp\gametypes\_misions::processchallenge( "ch_deadeye" );
 }
 
-_id_20B8( var_0, var_1, var_2 )
+comebackevent( var_0, var_1, var_2 )
 {
     self.modifiers["comeback"] = 1;
-    maps\mp\_utility::_id_4C2F( "comebacks", 1 );
+    maps\mp\_utility::incplayerstat( "comebacks", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "comeback", self, var_1, undefined, var_2 );
-    thread maps\mp\_matchdata::_id_5838( var_0, "comeback" );
+    thread maps\mp\_matchdata::logkillevent( var_0, "comeback" );
 }
 
 choosenextbestnemesis()
@@ -1054,7 +1036,7 @@ choosenextbestprey()
     self.pers["prey_guid"] = var_2;
 }
 
-_id_2B36()
+disconnected()
 {
     var_0 = self.guid;
 
@@ -1063,8 +1045,8 @@ _id_2B36()
         if ( isdefined( level.players[var_1].pers["killed_players"][var_0] ) )
             level.players[var_1].pers["killed_players"][var_0] = undefined;
 
-        if ( isdefined( level.players[var_1].killedplayers[var_0] ) )
-            level.players[var_1].killedplayers[var_0] = undefined;
+        if ( isdefined( level.players[var_1].killedplayerscurrent[var_0] ) )
+            level.players[var_1].killedplayerscurrent[var_0] = undefined;
 
         if ( isdefined( level.players[var_1].pers["killed_by"][var_0] ) )
             level.players[var_1].pers["killed_by"][var_0] = undefined;
@@ -1084,12 +1066,12 @@ _id_2B36()
         if ( isdefined( level.players[var_1].attackerdata ) && isdefined( level.players[var_1].attackerdata[var_0] ) )
             level.players[var_1].attackerdata[var_0] = undefined;
 
-        if ( isdefined( level.players[var_1]._id_32AE ) && isdefined( level.players[var_1]._id_32AE[var_0] ) )
-            level.players[var_1]._id_32AE[var_0] = undefined;
+        if ( isdefined( level.players[var_1].enemyhitcounts ) && isdefined( level.players[var_1].enemyhitcounts[var_0] ) )
+            level.players[var_1].enemyhitcounts[var_0] = undefined;
     }
 }
 
-_id_9B55( var_0, var_1 )
+updaterecentkills( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = "";
@@ -1098,7 +1080,7 @@ _id_9B55( var_0, var_1 )
     level endon( "game_ended" );
     self notify( "updateRecentKills" );
     self endon( "updateRecentKills" );
-    self._id_7260++;
+    self.recentkillcount++;
     var_2 = 0;
 
     if ( self playerads() >= 0.2 )
@@ -1106,15 +1088,15 @@ _id_9B55( var_0, var_1 )
 
     wait 2.0;
 
-    if ( self._id_7260 > 1 )
-        _id_5FE5( var_0, self._id_7260, var_1, var_2 );
+    if ( self.recentkillcount > 1 )
+        multikillevent( var_0, self.recentkillcount, var_1, var_2 );
 
-    self._id_7260 = 0;
+    self.recentkillcount = 0;
 }
 
-_id_1D24( var_0 )
+checkvandalismmedal( var_0 )
 {
-    if ( isdefined( level._id_511D ) )
+    if ( isdefined( level.ishorde ) )
         return;
 
     if ( !isdefined( self.attackerlist ) )
@@ -1142,12 +1124,12 @@ _id_1D24( var_0 )
         if ( var_3.team == self.team )
             continue;
 
-        var_3 maps\mp\_utility::_id_4C2F( "assist_killstreak_destroyed", 1 );
+        var_3 maps\mp\_utility::incplayerstat( "assist_killstreak_destroyed", 1 );
         level thread maps\mp\gametypes\_rank::awardgameevent( "assist_killstreak_destroyed", var_3 );
     }
 }
 
-_id_1D1B( var_0 )
+checkstreakingevents( var_0 )
 {
     var_1 = self.killstreakcount + 1;
 
@@ -1158,72 +1140,72 @@ _id_1D1B( var_0 )
     {
         case 5:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak5", self );
-            maps\mp\_utility::_id_4C2F( "killstreak5", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_bloodthirsty" );
+            maps\mp\_utility::incplayerstat( "killstreak5", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_bloodthirsty" );
             break;
         case 10:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak10", self );
-            maps\mp\_utility::_id_4C2F( "killstreak10", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_merciless" );
+            maps\mp\_utility::incplayerstat( "killstreak10", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_merciless" );
             break;
         case 15:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak15", self );
-            maps\mp\_utility::_id_4C2F( "killstreak15", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_ruthless" );
+            maps\mp\_utility::incplayerstat( "killstreak15", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_ruthless" );
             break;
         case 20:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak20", self );
-            maps\mp\_utility::_id_4C2F( "killstreak20", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_relentless" );
+            maps\mp\_utility::incplayerstat( "killstreak20", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_relentless" );
             break;
         case 25:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak25", self );
-            maps\mp\_utility::_id_4C2F( "killstreak25", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_brutal" );
+            maps\mp\_utility::incplayerstat( "killstreak25", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_brutal" );
             break;
         case 30:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak30", self );
-            maps\mp\_utility::_id_4C2F( "killstreak30", 1 );
-            maps\mp\gametypes\_misions::_id_6FF6( "ch_killer_vicious" );
+            maps\mp\_utility::incplayerstat( "killstreak30", 1 );
+            maps\mp\gametypes\_misions::processchallenge( "ch_killer_vicious" );
             break;
         default:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak30plus", self );
-            maps\mp\_utility::_id_4C2F( "killstreak30plus", 1 );
+            maps\mp\_utility::incplayerstat( "killstreak30plus", 1 );
             break;
     }
 
-    thread maps\mp\_utility::_id_91FA( "callout_kill_streaking", self, undefined, var_1 );
+    thread maps\mp\_utility::teamplayercardsplash( "callout_kill_streaking", self, undefined, var_1 );
 }
 
-_id_1D0C( var_0 )
+checkhigherrankkillevents( var_0 )
 {
-    if ( maps\mp\_utility::_id_412C() < 90000.0 )
+    if ( maps\mp\_utility::gettimepassed() < 90000.0 )
         return;
 
     var_1 = level.players;
 
     if ( level.teambased )
-        var_1 = level._id_91F5[maps\mp\_utility::getotherteam( self.team )];
+        var_1 = level.teamlist[maps\mp\_utility::getotherteam( self.team )];
 
     if ( var_1.size < 3 )
         return;
 
-    var_2 = common_scripts\utility::array_sort_with_func( var_1, ::_id_5079 );
+    var_2 = common_scripts\utility::array_sort_with_func( var_1, ::is_score_a_greater_than_b );
 
     if ( isdefined( var_2[0] ) && var_0 == var_2[0] )
     {
-        maps\mp\_utility::_id_4C2F( "firstplacekill", 1 );
+        maps\mp\_utility::incplayerstat( "firstplacekill", 1 );
         level thread maps\mp\gametypes\_rank::awardgameevent( "firstplacekill", self );
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_kingslayer" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_kingslayer" );
     }
 }
 
-_id_5079( var_0, var_1 )
+is_score_a_greater_than_b( var_0, var_1 )
 {
     return var_0.score > var_1.score;
 }
 
-_id_6FF4( var_0, var_1 )
+processassistevent( var_0, var_1 )
 {
     if ( isdefined( level.assists_disabled ) && level.assists_disabled )
         return;
@@ -1244,24 +1226,24 @@ _id_6FF4( var_0, var_1 )
         return;
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_2, self, undefined, var_0 );
-    var_0 maps\mp\_matchdata::_id_584B( self, var_2 );
+    var_0 maps\mp\_matchdata::logspecialassists( self, var_2 );
 
     if ( var_2 == "assist" )
     {
-        maps\mp\_utility::_id_4C2F( "assists", 1 );
-        maps\mp\_utility::_id_4C2E( "assists", 1 );
+        maps\mp\_utility::incplayerstat( "assists", 1 );
+        maps\mp\_utility::incpersstat( "assists", 1 );
 
-        if ( !maps\mp\_utility::_id_5092( level.assists_count_disabled ) )
-            self.assists = maps\mp\_utility::_id_4081( "assists" );
+        if ( !maps\mp\_utility::is_true( level.assists_count_disabled ) )
+            self.assists = maps\mp\_utility::getpersstat( "assists" );
 
-        maps\mp\gametypes\_persistence::_id_8D7A( "round", "assists", self.assists );
-        thread maps\mp\gametypes\_misions::_id_6C67();
+        maps\mp\gametypes\_persistence::statsetchild( "round", "assists", self.assists );
+        thread maps\mp\gametypes\_misions::playerassist();
     }
 }
 
 stoppingpowerevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_stoppingpower" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_stoppingpower" );
 }
 
 sleightofhandeventwatcher()
@@ -1270,10 +1252,10 @@ sleightofhandeventwatcher()
     self endon( "disconnect" );
     self endon( "sleightOfHandEventEnd" );
     level endon( "game_ended" );
-    var_0 = common_scripts\utility::_id_A070( "sleightOfHandEventEarned", "sleightOfHandEventFailed" );
+    var_0 = common_scripts\utility::waittill_any_return( "sleightOfHandEventEarned", "sleightOfHandEventFailed" );
 
     if ( var_0 == "sleightOfHandEventEarned" )
-        maps\mp\gametypes\_misions::_id_6FF6( "ch_sleightofhand" );
+        maps\mp\gametypes\_misions::processchallenge( "ch_sleightofhand" );
 
     self.sleightofhandeventweap = undefined;
 }
@@ -1319,40 +1301,40 @@ sleightofhandevent( var_0, var_1 )
 
 doubletapevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_doubletap" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_doubletap" );
 }
 
 overkillevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_overkill" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_overkill" );
 }
 
 uavjammerevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_uavjammer" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_uavjammer" );
 }
 
 sonicboomevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_sonicboom" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_sonicboom" );
 }
 
 steadyaimevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_steadyaim" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_steadyaim" );
 }
 
 laststandevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_laststand" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_laststand" );
 }
 
 ironlungsevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_ironlungs" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_ironlungs" );
 }
 
 eavesdropevent()
 {
-    maps\mp\gametypes\_misions::_id_6FF6( "ch_eavesdrop" );
+    maps\mp\gametypes\_misions::processchallenge( "ch_eavesdrop" );
 }

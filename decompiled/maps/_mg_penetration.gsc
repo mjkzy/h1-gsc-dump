@@ -1,86 +1,68 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4476( var_0 )
+gunner_think( var_0 )
 {
     self endon( "death" );
     self notify( "end_mg_behavior" );
     self endon( "end_mg_behavior" );
-    self._id_1A49 = 1;
-    self._id_A151 = 0;
+    self.can_fire_turret = 1;
+    self.wants_to_fire = 0;
 
-    if ( !maps\_mgturret::_id_9BE8( var_0 ) )
+    if ( !maps\_mgturret::use_the_turret( var_0 ) )
     {
         self notify( "continue_cover_script" );
         return;
     }
 
-    self._id_5524 = undefined;
-    thread _id_7283();
+    self.last_enemy_sighting_position = undefined;
+    thread record_enemy_sightings();
     var_1 = anglestoforward( var_0.angles );
     var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-    thread _id_91A1( var_2 );
+    thread target_ent_cleanup( var_2 );
     var_2.origin = var_0.origin + var_1 * 500;
 
-    if ( isdefined( self._id_5524 ) )
-        var_2.origin = self._id_5524;
+    if ( isdefined( self.last_enemy_sighting_position ) )
+        var_2.origin = self.last_enemy_sighting_position;
 
     var_0 settargetentity( var_2 );
     var_3 = undefined;
 
     for (;;)
     {
-        if ( !isalive( self._id_24DF ) )
+        if ( !isalive( self.current_enemy ) )
         {
-            _id_8E84();
+            stop_firing();
             self waittill( "new_enemy" );
         }
 
-        _id_8BA9();
-        _id_83DC( var_2 );
+        start_firing();
+        shoot_enemy_until_he_hides_then_shoot_wall( var_2 );
 
-        if ( !isalive( self._id_24DF ) )
+        if ( !isalive( self.current_enemy ) )
             continue;
 
-        if ( self _meth_81C2( self._id_24DF ) )
+        if ( self cansee( self.current_enemy ) )
             continue;
 
         self waittill( "saw_enemy" );
     }
 }
 
-_id_91A1( var_0 )
+target_ent_cleanup( var_0 )
 {
-    common_scripts\utility::_id_A087( "death", "end_mg_behavior" );
+    common_scripts\utility::waittill_either( "death", "end_mg_behavior" );
     var_0 delete();
 }
 
-_id_83DC( var_0 )
+shoot_enemy_until_he_hides_then_shoot_wall( var_0 )
 {
     self endon( "death" );
     self endon( "new_enemy" );
-    self._id_24DF endon( "death" );
-    var_1 = self._id_24DF;
+    self.current_enemy endon( "death" );
+    var_1 = self.current_enemy;
 
-    while ( self _meth_81C2( var_1 ) )
+    while ( self cansee( var_1 ) )
     {
         var_2 = vectortoangles( var_1 geteye() - var_0.origin );
         var_2 = anglestoforward( var_2 );
@@ -95,16 +77,16 @@ _id_83DC( var_0 )
         var_2 = vectortoangles( var_3 - var_0.origin );
         var_2 = anglestoforward( var_2 );
         var_4 = 150;
-        var_5 = distance( var_0.origin, self._id_5524 ) / var_4;
+        var_5 = distance( var_0.origin, self.last_enemy_sighting_position ) / var_4;
 
         if ( var_5 > 0 )
         {
-            var_0 moveto( self._id_5524, var_5 );
+            var_0 moveto( self.last_enemy_sighting_position, var_5 );
             wait(var_5);
         }
 
         var_6 = var_0.origin + var_2 * 180;
-        var_7 = _id_3E80( self geteye(), var_0.origin, var_6 );
+        var_7 = get_suppress_point( self geteye(), var_0.origin, var_6 );
 
         if ( !isdefined( var_7 ) )
             var_7 = var_0.origin;
@@ -115,54 +97,54 @@ _id_83DC( var_0 )
     }
 
     wait(randomfloatrange( 2.5, 4 ));
-    _id_8E84();
+    stop_firing();
 }
 
-_id_7E21( var_0 )
+set_firing( var_0 )
 {
     if ( var_0 )
     {
-        self._id_1A49 = 1;
+        self.can_fire_turret = 1;
 
-        if ( self._id_A151 )
-            self._id_9940 notify( "startfiring" );
+        if ( self.wants_to_fire )
+            self.turret notify( "startfiring" );
     }
     else
     {
-        self._id_1A49 = 0;
-        self._id_9940 notify( "stopfiring" );
+        self.can_fire_turret = 0;
+        self.turret notify( "stopfiring" );
     }
 }
 
-_id_8E84()
+stop_firing()
 {
-    self._id_A151 = 0;
-    self._id_9940 notify( "stopfiring" );
+    self.wants_to_fire = 0;
+    self.turret notify( "stopfiring" );
 }
 
-_id_8BA9()
+start_firing()
 {
-    self._id_A151 = 1;
+    self.wants_to_fire = 1;
 
-    if ( self._id_1A49 )
-        self._id_9940 notify( "startfiring" );
+    if ( self.can_fire_turret )
+        self.turret notify( "startfiring" );
 }
 
-_id_23CC()
+create_mg_team()
 {
-    if ( isdefined( level._id_5BC1 ) )
+    if ( isdefined( level.mg_gunner_team ) )
     {
-        level._id_5BC1[level._id_5BC1.size] = self;
+        level.mg_gunner_team[level.mg_gunner_team.size] = self;
         return;
     }
 
-    level._id_5BC1 = [];
-    level._id_5BC1[level._id_5BC1.size] = self;
-    waitframe;
+    level.mg_gunner_team = [];
+    level.mg_gunner_team[level.mg_gunner_team.size] = self;
+    waittillframeend;
     var_0 = spawnstruct();
-    common_scripts\utility::array_thread( level._id_5BC1, ::_id_5BC0, var_0 );
-    var_1 = level._id_5BC1;
-    level._id_5BC1 = undefined;
+    common_scripts\utility::array_thread( level.mg_gunner_team, ::mg_gunner_death_notify, var_0 );
+    var_1 = level.mg_gunner_team;
+    level.mg_gunner_team = undefined;
     var_0 waittill( "gunner_died" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
@@ -171,17 +153,17 @@ _id_23CC()
             continue;
 
         var_1[var_2] notify( "stop_using_built_in_burst_fire" );
-        var_1[var_2] thread _id_8871();
+        var_1[var_2] thread solo_fires();
     }
 }
 
-_id_5BC0( var_0 )
+mg_gunner_death_notify( var_0 )
 {
     self waittill( "death" );
     var_0 notify( "gunner_died" );
 }
 
-_id_5BD4( var_0 )
+mgteam_take_turns_firing( var_0 )
 {
     wait 1;
     level notify( "new_mg_firing_team" + var_0[0].script_noteworthy );
@@ -189,12 +171,12 @@ _id_5BD4( var_0 )
 
     for (;;)
     {
-        _id_2FB0( var_0 );
-        _id_8872( var_0 );
+        dual_firing( var_0 );
+        solo_firing( var_0 );
     }
 }
 
-_id_8872( var_0 )
+solo_firing( var_0 )
 {
     var_1 = undefined;
 
@@ -211,20 +193,20 @@ _id_8872( var_0 )
         return;
 }
 
-_id_8871()
+solo_fires()
 {
     self endon( "death" );
 
     for (;;)
     {
-        self._id_9940 startfiring();
+        self.turret startfiring();
         wait(randomfloatrange( 0.3, 0.7 ));
-        self._id_9940 stopfiring();
+        self.turret stopfiring();
         wait(randomfloatrange( 0.1, 1.1 ));
     }
 }
 
-_id_2FB0( var_0 )
+dual_firing( var_0 )
 {
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] endon( "death" );
@@ -235,10 +217,10 @@ _id_2FB0( var_0 )
     for (;;)
     {
         if ( isalive( var_0[var_2] ) )
-            var_0[var_2] _id_7E21( 1 );
+            var_0[var_2] set_firing( 1 );
 
         if ( isalive( var_0[var_3] ) )
-            var_0[var_3] _id_7E21( 0 );
+            var_0[var_3] set_firing( 0 );
 
         var_4 = var_2;
         var_2 = var_3;
@@ -247,14 +229,14 @@ _id_2FB0( var_0 )
     }
 }
 
-_id_8A91( var_0, var_1 )
+spotted_an_enemy( var_0, var_1 )
 {
-    _id_8BA9();
+    start_firing();
     self endon( "death" );
     self endon( "new_enemy" );
     var_1 endon( "death" );
 
-    while ( self _meth_81C2( var_1 ) )
+    while ( self cansee( var_1 ) )
     {
         var_2 = vectortoangles( var_1 geteye() - var_0.origin );
         var_2 = anglestoforward( var_2 );
@@ -265,18 +247,18 @@ _id_8A91( var_0, var_1 )
     var_2 = vectortoangles( var_1 geteye() - var_0.origin );
     var_2 = anglestoforward( var_2 );
     var_3 = 150;
-    var_4 = distance( var_0.origin, self._id_5524 ) / var_3;
-    var_0 moveto( self._id_5524, var_4 );
+    var_4 = distance( var_0.origin, self.last_enemy_sighting_position ) / var_3;
+    var_0 moveto( self.last_enemy_sighting_position, var_4 );
     wait(var_4);
     var_5 = var_0.origin;
     var_0 moveto( var_0.origin + var_2 * 80 + ( 0.0, 0.0, -25.0 ), 3, 1, 1 );
     wait 3.5;
     var_0 moveto( var_5 + var_2 * -20, 3, 1, 1 );
     wait 1;
-    _id_8E84();
+    stop_firing();
 }
 
-_id_3E80( var_0, var_1, var_2 )
+get_suppress_point( var_0, var_1, var_2 )
 {
     var_3 = distance( var_1, var_2 ) * 0.05;
 
@@ -307,33 +289,33 @@ _id_3E80( var_0, var_1, var_2 )
     return var_6;
 }
 
-_id_7283()
+record_enemy_sightings()
 {
     self endon( "death" );
     self endon( "end_mg_behavior" );
-    self._id_24DF = undefined;
+    self.current_enemy = undefined;
 
     for (;;)
     {
-        _id_7287();
+        record_sighting();
         wait 0.05;
     }
 }
 
-_id_7287()
+record_sighting()
 {
     if ( !isalive( self.enemy ) )
         return;
 
-    if ( !self _meth_81C2( self.enemy ) )
+    if ( !self cansee( self.enemy ) )
         return;
 
-    self._id_5524 = self.enemy geteye();
+    self.last_enemy_sighting_position = self.enemy geteye();
     self notify( "saw_enemy" );
 
-    if ( !isalive( self._id_24DF ) || self._id_24DF != self.enemy )
+    if ( !isalive( self.current_enemy ) || self.current_enemy != self.enemy )
     {
-        self._id_24DF = self.enemy;
+        self.current_enemy = self.enemy;
         self notify( "new_enemy" );
     }
 }

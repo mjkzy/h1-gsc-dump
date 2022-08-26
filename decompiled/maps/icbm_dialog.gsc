@@ -1,44 +1,26 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 dialog_intro()
 {
-    common_scripts\utility::_id_384A( "landed" );
+    common_scripts\utility::flag_wait( "landed" );
     wait 1;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "regrouponme" );
+    level.price maps\_anim::anim_single_queue( level.price, "regrouponme" );
     wait 6;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "wheresgriggs" );
+    level.price maps\_anim::anim_single_queue( level.price, "wheresgriggs" );
     wait 0.5;
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "noidea" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "noidea" );
     wait 1;
     level.player playsound( "icbm_hqr_gettingabortcodes" );
     wait 6;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "wereonourway" );
-    common_scripts\utility::_id_383F( "intro_dialog_done" );
+    level.price maps\_anim::anim_single_queue( level.price, "wereonourway" );
+    common_scripts\utility::flag_set( "intro_dialog_done" );
 }
 
 dialog_intro_h1()
 {
-    var_0[0] = level._id_6F7C;
-    var_0[1] = level._id_3C61;
+    var_0[0] = level.price;
+    var_0[1] = level.gaz;
 
     if ( isdefined( level.soldier ) )
         var_0[2] = level.soldier;
@@ -51,16 +33,16 @@ dialog_intro_h1()
 
     var_4 = spawn( "script_origin", ( 9037.58, -21616.8, -683.706 ) );
     var_4.angles = ( 0.0, -104.433, 0.0 );
-    common_scripts\utility::_id_384A( "landed" );
+    common_scripts\utility::flag_wait( "landed" );
     var_4 thread maps\_anim::anim_first_frame( var_0, "intro_briefing" );
     wait 1.9;
     var_4 thread maps\_anim::anim_single( var_0, "intro_briefing" );
-    level._id_6F7C waittillmatch( "single anim", "dialog" );
-    level._id_6F7C waittillmatch( "single anim", "dialog" );
-    level._id_3C61 waittillmatch( "single anim", "dialog" );
+    level.price waittillmatch( "single anim", "dialog" );
+    level.price waittillmatch( "single anim", "dialog" );
+    level.gaz waittillmatch( "single anim", "dialog" );
     level.soldier waittillmatch( "single anim", "radio_guy" );
     level.player playsound( "icbm_hqr_gettingabortcodes" );
-    level._id_6F7C waittillmatch( "single anim", "dialog" );
+    level.price waittillmatch( "single anim", "dialog" );
 
     foreach ( var_2 in var_0 )
     {
@@ -68,30 +50,30 @@ dialog_intro_h1()
             var_2.keepnodeduringscriptedanim = 0;
     }
 
-    common_scripts\utility::_id_383F( "intro_dialog_done" );
+    common_scripts\utility::flag_set( "intro_dialog_done" );
 }
 
 dialog_price_finds_griggs()
 {
     level.griggs maps\_anim::anim_single_queue( level.griggs, "leavemebehind" );
     wait 0.5;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "firstthought" );
+    level.price maps\_anim::anim_single_queue( level.price, "firstthought" );
 }
 
 dialog_griggs_is_good()
 {
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "youallright" );
+    level.price maps\_anim::anim_single_queue( level.price, "youallright" );
     level.griggs maps\_anim::anim_single_queue( level.griggs, "goodtogo" );
     wait 1;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "gotgriggs" );
+    level.price maps\_anim::anim_single_queue( level.price, "gotgriggs" );
 }
 
 dialog_check_houses()
 {
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "griggsinhouses" );
+    level.price maps\_anim::anim_single_queue( level.price, "griggsinhouses" );
     wait 1;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "keepitquiet" );
-    common_scripts\utility::_id_383F( "music_endon_start_rescue" );
+    level.price maps\_anim::anim_single_queue( level.price, "keepitquiet" );
+    common_scripts\utility::flag_set( "music_endon_start_rescue" );
     thread maps\icbm_code::music_tension_loop( "music_endon_tower_collapse", "icbm_launch_tension_music", 103 );
     level.ambient_track["amb_day_intensity0"] = "ambient_icbm_ext0";
 }
@@ -101,25 +83,25 @@ dialog_ambush_finished()
     var_0 = maps\icbm_code::get_a_generic_friendly();
     var_0 maps\_anim::anim_single_queue( var_0, "tangodown" );
     wait 1;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "move" );
+    level.price maps\_anim::anim_single_queue( level.price, "move" );
 }
 
 dialog_post_knife_kill()
 {
-    maps\_utility::_id_980D( "gaz_floor_clear", "targetname" );
+    maps\_utility::trigger_wait( "gaz_floor_clear", "targetname" );
 
-    if ( !common_scripts\utility::_id_382E( "house1_cleared" ) )
-        level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "roomclear" );
+    if ( !common_scripts\utility::flag( "house1_cleared" ) )
+        level.gaz maps\_anim::anim_single_queue( level.gaz, "roomclear" );
 
     wait 2;
 
-    if ( !common_scripts\utility::_id_382E( "house1_cleared" ) )
-        level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "floorsclear" );
+    if ( !common_scripts\utility::flag( "house1_cleared" ) )
+        level.gaz maps\_anim::anim_single_queue( level.gaz, "floorsclear" );
 }
 
 dialog_proceed_upstairs()
 {
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "proceedupstairs" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "proceedupstairs" );
 }
 
 dialog_rescue_breach()
@@ -133,13 +115,13 @@ tower_nag()
 {
     level endon( "tower_destroyed" );
 
-    if ( common_scripts\utility::_id_382E( "tower_destroyed" ) )
+    if ( common_scripts\utility::flag( "tower_destroyed" ) )
         return;
 
     for (;;)
     {
         wait 30;
-        level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "doit" );
+        level.price maps\_anim::anim_single_queue( level.price, "doit" );
     }
 }
 
@@ -150,7 +132,7 @@ fence1_nag()
     for (;;)
     {
         wait 50;
-        level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "jacksonregroup" );
+        level.price maps\_anim::anim_single_queue( level.price, "jacksonregroup" );
     }
 }
 
@@ -160,15 +142,15 @@ dialog_rescue()
 
     if ( getdvarint( "use_old_griggs_rescue" ) == 1 )
     {
-        level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "allclear" );
+        level.gaz maps\_anim::anim_single_queue( level.gaz, "allclear" );
         wait 1;
-        level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "cutloose" );
+        level.price maps\_anim::anim_single_queue( level.price, "cutloose" );
         wait 1;
         objective_string( 2, &"ICBM_UNTIE_GRIGGS" );
         wait 3;
         dialog_price_finds_griggs();
         wait 1;
-        common_scripts\utility::_id_384A( "griggs_loose" );
+        common_scripts\utility::flag_wait( "griggs_loose" );
         dialog_griggs_is_good();
     }
     else
@@ -198,7 +180,7 @@ dialog_grigs_guys_jibjab()
     wait 1;
     level.griggs maps\_anim::anim_single_queue( level.griggs, "grg_678" );
     level.ru1 maps\_anim::anim_single_queue( level.ru1, "whoisofficer" );
-    common_scripts\utility::_id_383F( "get_yer_ass" );
+    common_scripts\utility::flag_set( "get_yer_ass" );
     level.griggs maps\_anim::anim_single_queue( level.griggs, "blowme" );
     wait 2;
     level.ru1 maps\_anim::anim_single_queue( level.ru1, "whereshacksaw" );
@@ -212,12 +194,12 @@ dialog_enemy_vehicle()
 {
     self waittill( "trigger" );
     wait 3;
-    common_scripts\utility::_id_384A( "intro_dialog_done" );
+    common_scripts\utility::flag_wait( "intro_dialog_done" );
 
-    if ( !common_scripts\utility::_id_382E( "truckguys dead" ) )
-        level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "enemyvehicle" );
+    if ( !common_scripts\utility::flag( "truckguys dead" ) )
+        level.gaz maps\_anim::anim_single_queue( level.gaz, "enemyvehicle" );
 
-    common_scripts\utility::_id_383F( "truck_spotted" );
+    common_scripts\utility::flag_set( "truck_spotted" );
 }
 
 dialog_blow_up_tower()
@@ -228,7 +210,7 @@ dialog_blow_up_tower()
         var_0 waittill( "trigger" );
 
     wait 0.5;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "blowuptower" );
+    level.price maps\_anim::anim_single_queue( level.price, "blowuptower" );
 }
 
 dialog_contacts_in_the_woods()
@@ -241,10 +223,10 @@ dialog_contacts_in_the_woods()
             break;
     }
 
-    if ( common_scripts\utility::_id_382E( "contacts_in_the_woods" ) )
+    if ( common_scripts\utility::flag( "contacts_in_the_woods" ) )
         return;
 
-    common_scripts\utility::_id_383F( "contacts_in_the_woods" );
+    common_scripts\utility::flag_set( "contacts_in_the_woods" );
     var_0 = maps\icbm_code::get_a_generic_friendly();
 
     if ( isalive( var_0 ) )
@@ -267,7 +249,7 @@ dialog_jackson_do_it()
             wait 0.5;
     }
 
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "doit" );
+    level.price maps\_anim::anim_single_queue( level.price, "doit" );
     level thread tower_nag();
 }
 
@@ -304,7 +286,7 @@ dialog_enemy_kills( var_0 )
 
 dialog_get_fence_open()
 {
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "getfenceopen" );
+    level.price maps\_anim::anim_single_queue( level.price, "getfenceopen" );
     musicstop( 10 );
 }
 
@@ -312,8 +294,8 @@ dialog_enemy_helicopters()
 {
     var_0 = getent( "move_to_oldbase01", "targetname" );
     var_0 waittill( "trigger" );
-    var_0 common_scripts\utility::_id_97CC();
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "enemyhelicopters" );
+    var_0 common_scripts\utility::trigger_off();
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "enemyhelicopters" );
     wait 1;
     level.griggs maps\_anim::anim_single_queue( level.griggs, "getbusy2" );
 }
@@ -322,39 +304,39 @@ dialog_trucks_with_shooters()
 {
     var_0 = getent( "move_to_oldbase02", "targetname" );
     var_0 waittill( "trigger" );
-    var_0 common_scripts\utility::_id_97CC();
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "truckswithshooters" );
+    var_0 common_scripts\utility::trigger_off();
+    level.price maps\_anim::anim_single_queue( level.price, "truckswithshooters" );
     wait 0.5;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "approachingbase" );
+    level.price maps\_anim::anim_single_queue( level.price, "approachingbase" );
 }
 
 dialog_rpgs_on_rooftops()
 {
-    maps\_utility::_id_980D( "rpgs_on_roof_top", "targetname" );
+    maps\_utility::trigger_wait( "rpgs_on_roof_top", "targetname" );
     wait 4;
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "rpgsonrooftop" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "rpgsonrooftop" );
 }
 
 dialog_rpgs_on_rooftops2()
 {
-    maps\_utility::_id_980D( "rpgs_on_roof_top2", "targetname" );
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "rpgsonrooftop2" );
+    maps\_utility::trigger_wait( "rpgs_on_roof_top2", "targetname" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "rpgsonrooftop2" );
 }
 
 dialog_choppers_dropping()
 {
-    maps\_utility::_id_980D( "chopper_dialog1", "targetname" );
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "choppersinbound" );
+    maps\_utility::trigger_wait( "chopper_dialog1", "targetname" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "choppersinbound" );
     wait 6;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "droppingin" );
+    level.price maps\_anim::anim_single_queue( level.price, "droppingin" );
 }
 
 dialog_first_fight_clear_and_move()
 {
     level endon( "second_fight_started" );
-    common_scripts\utility::_id_384A( "first_fight_clear" );
+    common_scripts\utility::flag_wait( "first_fight_clear" );
     wait 2;
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "allclear" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "allclear" );
     wait 0.3;
     maps\_utility::activate_trigger_with_targetname( "first_fight_clear_nodes" );
     maps\_utility::autosave_by_name( "all_clear" );
@@ -363,9 +345,9 @@ dialog_first_fight_clear_and_move()
 dialog_second_fight_clear_and_move()
 {
     level endon( "third_fight_started" );
-    common_scripts\utility::_id_384A( "second_fight_cleared" );
+    common_scripts\utility::flag_wait( "second_fight_cleared" );
     wait 2;
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "allclear" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "allclear" );
     wait 0.3;
     maps\_utility::activate_trigger_with_targetname( "second_fight_friendly_nodes" );
     maps\_utility::autosave_by_name( "all_clear" );

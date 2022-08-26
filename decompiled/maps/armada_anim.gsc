@@ -1,44 +1,26 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
 anim_main()
 {
     maps\_anim::addnotetrack_customfunction( "generic", "fire", maps\armada::kill_during_breach, "detcord_stack_leftbreach_02" );
     anim_blackhawk();
-    level._id_78AC["generic"]["jog"] = %combat_jog;
-    level._id_78AC["generic"]["walk"] = %patrol_bored_patrolwalk;
-    level._id_78AC["generic"]["patrol_stop"] = %patrol_bored_walk_2_bored;
-    level._id_78AC["price"]["hunted_open_barndoor"] = %h1_armada_vasquez_open_door;
-    level._id_78AC["price"]["hunted_open_barndoor_stop"] = %h1_armada_vasquez_open_door_stop;
-    level._id_78AC["price"]["hunted_open_barndoor_idle"][0] = %h1_armada_vasquez_open_door_idle;
+    level.scr_anim["generic"]["jog"] = %combat_jog;
+    level.scr_anim["generic"]["walk"] = %patrol_bored_patrolwalk;
+    level.scr_anim["generic"]["patrol_stop"] = %patrol_bored_walk_2_bored;
+    level.scr_anim["price"]["hunted_open_barndoor"] = %h1_armada_vasquez_open_door;
+    level.scr_anim["price"]["hunted_open_barndoor_stop"] = %h1_armada_vasquez_open_door_stop;
+    level.scr_anim["price"]["hunted_open_barndoor_idle"][0] = %h1_armada_vasquez_open_door_idle;
     animated_model_setup();
-    level._id_78AC["razorwire_guy"]["razor_setup"] = %armada_wire_setup_guy;
-    level._id_78AC["barbed_wire_long"]["razor_setup"] = %armada_wire_setup_wire;
-    level._id_78AC["razorwire_guy"]["razor_idle"] = %armada_wire_setup_guy_startidle;
-    level._id_78AC["barbed_wire_long"]["razor_idle"] = %armada_wire_setup_wire_startidle;
-    level._id_78AC["razorwire_guy"]["razor_endidle"] = %armada_wire_setup_guy;
-    level._id_78AC["barbed_wire_long"]["razor_endidle"] = %armada_wire_setup_wire_endidle;
-    level._id_78B1["barbed_wire_long"] = #animtree;
-    level._id_78AC["griggs"]["enter"] = %armada_grigs_enter;
+    level.scr_anim["razorwire_guy"]["razor_setup"] = %armada_wire_setup_guy;
+    level.scr_anim["barbed_wire_long"]["razor_setup"] = %armada_wire_setup_wire;
+    level.scr_anim["razorwire_guy"]["razor_idle"] = %armada_wire_setup_guy_startidle;
+    level.scr_anim["barbed_wire_long"]["razor_idle"] = %armada_wire_setup_wire_startidle;
+    level.scr_anim["razorwire_guy"]["razor_endidle"] = %armada_wire_setup_guy;
+    level.scr_anim["barbed_wire_long"]["razor_endidle"] = %armada_wire_setup_wire_endidle;
+    level.scr_animtree["barbed_wire_long"] = #animtree;
+    level.scr_anim["griggs"]["enter"] = %armada_grigs_enter;
     maps\_anim::addnotetrack_dialogue( "griggs", "dialog", "enter", "armada_grg_scoreone" );
     maps\_anim::addnotetrack_dialogue( "griggs", "dialog", "enter", "armada_grg_rogerMS" );
     maps\_anim::addnotetrack_dialogue( "griggs", "dialog", "enter", "armada_grg_yeahoorah" );
@@ -47,49 +29,49 @@ anim_main()
     maps\_anim::addnotetrack_notify( "griggs", "Grab_USB", "trash_asad_usb", "enter" );
     maps\_anim::addnotetrack_notify( "griggs", "Throw_USB", "grounded_asad_usb", "enter" );
     maps\_anim::addnotetrack_customfunction( "griggs", "detach_usbkey", maps\armada::ending_griggs_usbkey_think, "enter" );
-    level._id_78AC["final_breacher_shotgun"]["react"] = %armada_left_guy_react;
-    level._id_78AC["final_breacher_right"]["react"] = %armada_right_guy_react;
-    level._id_78AC["price"]["enter"] = %armada_sarge_enter;
+    level.scr_anim["final_breacher_shotgun"]["react"] = %armada_left_guy_react;
+    level.scr_anim["final_breacher_right"]["react"] = %armada_right_guy_react;
+    level.scr_anim["price"]["enter"] = %armada_sarge_enter;
     maps\_anim::addnotetrack_dialogue( "price", "dialog", "enter", "armada_vsq_griggsmusic" );
     maps\_anim::addnotetrack_dialogue( "price", "dialog", "enter", "armada_vsq_recording" );
     maps\_anim::addnotetrack_dialogue( "price", "dialog", "enter", "armada_vsq_rogercommand" );
     maps\_anim::addnotetrack_dialogue( "price", "dialog", "enter", "armada_vsq_rallyup" );
     anim_props();
-    level._id_78BA["price"]["targetbuilding"] = "armada_vsq_targetbuilding";
-    level._id_78BA["price"]["throwflash"] = "armada_vsq_throwflash";
-    level._id_78BA["griggs"]["watchsix"] = "armada_grg_watchsix";
-    level._id_78BA["price"]["allcallsigns"] = "armada_vsq_allcallsigns";
-    level._id_78BA["generic"]["negid"] = "armada_gm1_negid";
-    level._id_78BA["generic"]["nosign"] = "armada_gm2_nosign";
-    level._id_78BA["generic"]["oorah1"] = "armada_gm2_oorah";
-    level._id_78BA["generic"]["oorah2"] = "armada_gm3_oorah";
-    level._id_78BA["generic"]["armada_gm1_clear"] = "armada_gm1_clear";
-    level._id_78BA["generic"]["armada_gm2_clear"] = "armada_gm2_clear";
-    level._id_78BA["generic"]["armada_gm3_roomclear"] = "armada_gm3_roomclear";
-    level._id_78BA["generic"]["armada_gm2_nothere"] = "armada_gm2_nothere";
-    level._id_78BA["generic"]["armada_gm1_onaloop"] = "armada_gm1_onaloop";
-    level._id_78BA["price"]["jacksonpoint"] = "armada_vsq_jacksonpoint";
-    level._id_78BA["price"]["stand_down"] = "armada_vsq_donthavealasad";
-    level._id_78BA["price"]["roger_hq"] = "armada_vsq_rogerthat";
-    level._id_78BA["price"]["heads_up"] = "armada_vsq_halfclickeast";
-    level._id_78BA["price"]["move_out"] = "armada_vsq_moveout";
-    level._id_78BA["generic"]["tvstation"] = "armada_gm1_tvstation";
-    level._id_78BA["price"]["get_into_pos"] = "armada_vsq_getintoposition";
-    level._id_78BA["price"]["do_it"] = "armada_vsq_doit";
-    level._id_78BA["generic"]["breaching_breaching"] = "armada_gm1_breachingbreaching";
-    level._id_78BA["price"]["room_clear"] = "armada_vsq_roomclear";
-    level._id_78BA["generic"]["goesourboys"] = "armada_gm1_goesourboys";
-    level._id_78BA["griggs"]["hold_fire"] = "armada_grg_holdfire";
-    level._id_78BA["griggs"]["no_sign"] = "armada_grg_nosign";
-    level._id_78BA["price"]["fall_in"] = "armada_vsq_fallin";
-    level._id_78BA["griggs"]["I_hear_him"] = "armada_grg_ihearhim";
-    level._id_78BA["griggs"]["score_one"] = "armada_grg_scoreone";
-    level._id_78BA["price"]["grigs_music"] = "armada_vsq_griggsmusic";
-    level._id_78BA["griggs"]["roger_that"] = "armada_grg_rogerMS";
-    level._id_78BA["price"]["recording"] = "armada_vsq_recording";
-    level._id_78BA["griggs"]["yeahhh"] = "armada_grg_yeahoorah";
-    level._id_78BA["price"]["roger_command"] = "armada_vsq_rogercommand";
-    level._id_78BA["price"]["new_assign"] = "armada_vsq_rallyup";
+    level.scr_sound["price"]["targetbuilding"] = "armada_vsq_targetbuilding";
+    level.scr_sound["price"]["throwflash"] = "armada_vsq_throwflash";
+    level.scr_sound["griggs"]["watchsix"] = "armada_grg_watchsix";
+    level.scr_sound["price"]["allcallsigns"] = "armada_vsq_allcallsigns";
+    level.scr_sound["generic"]["negid"] = "armada_gm1_negid";
+    level.scr_sound["generic"]["nosign"] = "armada_gm2_nosign";
+    level.scr_sound["generic"]["oorah1"] = "armada_gm2_oorah";
+    level.scr_sound["generic"]["oorah2"] = "armada_gm3_oorah";
+    level.scr_sound["generic"]["armada_gm1_clear"] = "armada_gm1_clear";
+    level.scr_sound["generic"]["armada_gm2_clear"] = "armada_gm2_clear";
+    level.scr_sound["generic"]["armada_gm3_roomclear"] = "armada_gm3_roomclear";
+    level.scr_sound["generic"]["armada_gm2_nothere"] = "armada_gm2_nothere";
+    level.scr_sound["generic"]["armada_gm1_onaloop"] = "armada_gm1_onaloop";
+    level.scr_sound["price"]["jacksonpoint"] = "armada_vsq_jacksonpoint";
+    level.scr_sound["price"]["stand_down"] = "armada_vsq_donthavealasad";
+    level.scr_sound["price"]["roger_hq"] = "armada_vsq_rogerthat";
+    level.scr_sound["price"]["heads_up"] = "armada_vsq_halfclickeast";
+    level.scr_sound["price"]["move_out"] = "armada_vsq_moveout";
+    level.scr_sound["generic"]["tvstation"] = "armada_gm1_tvstation";
+    level.scr_sound["price"]["get_into_pos"] = "armada_vsq_getintoposition";
+    level.scr_sound["price"]["do_it"] = "armada_vsq_doit";
+    level.scr_sound["generic"]["breaching_breaching"] = "armada_gm1_breachingbreaching";
+    level.scr_sound["price"]["room_clear"] = "armada_vsq_roomclear";
+    level.scr_sound["generic"]["goesourboys"] = "armada_gm1_goesourboys";
+    level.scr_sound["griggs"]["hold_fire"] = "armada_grg_holdfire";
+    level.scr_sound["griggs"]["no_sign"] = "armada_grg_nosign";
+    level.scr_sound["price"]["fall_in"] = "armada_vsq_fallin";
+    level.scr_sound["griggs"]["I_hear_him"] = "armada_grg_ihearhim";
+    level.scr_sound["griggs"]["score_one"] = "armada_grg_scoreone";
+    level.scr_sound["price"]["grigs_music"] = "armada_vsq_griggsmusic";
+    level.scr_sound["griggs"]["roger_that"] = "armada_grg_rogerMS";
+    level.scr_sound["price"]["recording"] = "armada_vsq_recording";
+    level.scr_sound["griggs"]["yeahhh"] = "armada_grg_yeahoorah";
+    level.scr_sound["price"]["roger_command"] = "armada_vsq_rogercommand";
+    level.scr_sound["price"]["new_assign"] = "armada_vsq_rallyup";
 }
 
 guy_snipe( var_0, var_1 )
@@ -101,9 +83,9 @@ guy_snipe( var_0, var_1 )
     self notify( "ropeidleend" );
 
     if ( var_1 == 2 )
-        maps\_vehicle_aianim::animontag( var_0, var_2._id_85AE, %armada_blackhawk_sniper_idle );
+        maps\_vehicle_aianim::animontag( var_0, var_2.sittag, %armada_blackhawk_sniper_idle );
 
-    thread maps\_vehicle_aianim::_id_449B( var_0, var_1 );
+    thread maps\_vehicle_aianim::guy_idle( var_0, var_1 );
 }
 #using_animtree("animated_props");
 
@@ -134,8 +116,8 @@ animated_model_setup()
 
 anim_blackhawk()
 {
-    level._id_78B1["blackhawk"] = #animtree;
-    level._id_78AC["blackhawk"]["interiorwires"][0] = %h1_blackhawk_interiorwires;
+    level.scr_animtree["blackhawk"] = #animtree;
+    level.scr_anim["blackhawk"]["interiorwires"][0] = %h1_blackhawk_interiorwires;
 }
 
 player_heli_ropeanimoverride()
@@ -154,7 +136,7 @@ player_heli_ropeanimoverride()
     var_6 useanimtree( #animtree );
     thread player_heli_ropeanimoverride_idle( var_6, var_0, var_3 );
     self waittill( "unloading" );
-    level.player thread maps\_utility::_id_69C4( "scn_armada_intro_foley" );
+    level.player thread maps\_utility::play_sound_on_entity( "scn_armada_intro_foley" );
     thread maps\_vehicle_aianim::animontag( var_6, var_0, var_4 );
     wait(getanimlength( var_4 ) - 1.8);
     var_6 unlink();
@@ -179,7 +161,7 @@ anim_props()
     level.anim_prop_models["h1_foliage_backlot_palm_tree_03_hero"]["still"] = %h1_foliage_backlot_palm_tree_03_hero_still;
     level.anim_prop_models["h1_foliage_backlot_palm_tree_03_hero"]["strong"] = %h1_foliage_backlot_palm_tree_03_hero_sway;
     level.anim_prop_models["h1_foliage_backlot_palm_tree_03_hero"]["heli"] = %h1_foliage_backlot_palm_tree_03_hero_heliwash;
-    level._id_78B1["asad_usbkey"] = #animtree;
-    level._id_78B5["asad_usbkey"] = "h1_me_armada_usb_device";
-    level._id_78AC["asad_usbkey"]["enter"] = %h1_armada_grigs_enter_usbdevice;
+    level.scr_animtree["asad_usbkey"] = #animtree;
+    level.scr_model["asad_usbkey"] = "h1_me_armada_usb_device";
+    level.scr_anim["asad_usbkey"]["enter"] = %h1_armada_grigs_enter_usbdevice;
 }

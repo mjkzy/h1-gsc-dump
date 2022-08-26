@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_7F43()
+setcrouchmovement()
 {
-    thread _id_248D();
-    _id_2483();
+    thread crouchstatelistener();
+    crouchmovementsetspeed();
 }
 
-_id_248D()
+crouchstatelistener()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -35,48 +17,48 @@ _id_248D()
 
     for (;;)
     {
-        common_scripts\utility::_id_A069( "adjustedStance", "sprint_begin", "weapon_change" );
+        common_scripts\utility::waittill_any( "adjustedStance", "sprint_begin", "weapon_change" );
         wait 0.5;
-        _id_2483();
+        crouchmovementsetspeed();
     }
 }
 
-_id_2483()
+crouchmovementsetspeed()
 {
-    self._id_8AFB = self getstance();
+    self.stancecrouchmovement = self getstance();
     var_0 = 0;
 
-    if ( self._id_8AFB == "crouch" )
-        var_0 = self._id_247D;
+    if ( self.stancecrouchmovement == "crouch" )
+        var_0 = self.crouch_speed_scalar;
     else if ( maps\mp\_utility::_hasperk( "specialty_lightweight" ) )
-        var_0 = maps\mp\_utility::_id_5761();
+        var_0 = maps\mp\_utility::lightweightscalar();
 
     self.movespeedscaler = var_0;
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
 }
 
-_id_9A67()
+unsetcrouchmovement()
 {
     self notify( "unsetCrouchMovement" );
     var_0 = 1;
 
     if ( maps\mp\_utility::_hasperk( "specialty_lightweight" ) )
-        var_0 = maps\mp\_utility::_id_5761();
+        var_0 = maps\mp\_utility::lightweightscalar();
 
     self.movespeedscaler = var_0;
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
 }
 
-_id_7FE0()
+setpersonaluav()
 {
     var_0 = spawn( "script_model", self.origin );
     var_0.team = self.team;
     var_0 makeportableradar( self );
-    self._id_67E3 = var_0;
-    thread _id_70AF( var_0 );
+    self.personalradar = var_0;
+    thread radarmover( var_0 );
 }
 
-_id_70AF( var_0 )
+radarmover( var_0 )
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
@@ -90,37 +72,37 @@ _id_70AF( var_0 )
     }
 }
 
-_id_9A85()
+unsetpersonaluav()
 {
-    if ( isdefined( self._id_67E3 ) )
+    if ( isdefined( self.personalradar ) )
     {
         self notify( "personal_uav_removed" );
-        level maps\mp\gametypes\_portable_radar::_id_2865( self._id_67E3 );
-        self._id_67E3 = undefined;
+        level maps\mp\gametypes\_portable_radar::deleteportableradar( self.personalradar );
+        self.personalradar = undefined;
     }
 }
 
-_id_7FD7()
+setoverkillpro()
 {
 
 }
 
-_id_9A83()
+unsetoverkillpro()
 {
 
 }
 
-_id_7F60()
+setempimmune()
 {
 
 }
 
-_id_9A6A()
+unsetempimmune()
 {
 
 }
 
-_id_7F2B()
+setautospot()
 {
     autospotadswatcher();
     autospotdeathwatcher();
@@ -135,7 +117,7 @@ autospotdeathwatcher()
     self autospotoverlayoff();
 }
 
-_id_9A62()
+unsetautospot()
 {
     self notify( "endAutoSpotAdsWatcher" );
     self autospotoverlayoff();
@@ -178,27 +160,27 @@ autospotadswatcher()
     }
 }
 
-_id_7FFE()
+setregenspeed()
 {
 
 }
 
-_id_9A88()
+unsetregenspeed()
 {
 
 }
 
-_id_8007()
+setsharpfocus()
 {
     self setviewkickscale( 0.5 );
 }
 
-_id_9A8A()
+unsetsharpfocus()
 {
     self setviewkickscale( 1 );
 }
 
-_id_7F59()
+setdoubleload()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -240,12 +222,12 @@ _id_7F59()
     }
 }
 
-_id_9A69()
+unsetdoubleload()
 {
     self notify( "endDoubleLoad" );
 }
 
-_id_7FA8( var_0 )
+setmarksman( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -256,17 +238,17 @@ _id_7FA8( var_0 )
     else
         var_0 = int( var_0 ) * 2;
 
-    maps\mp\_utility::_id_7FFB( var_0 );
+    maps\mp\_utility::setrecoilscale( var_0 );
     self.recoilscale = var_0;
 }
 
-_id_9A7F()
+unsetmarksman()
 {
-    maps\mp\_utility::_id_7FFB( 0 );
+    maps\mp\_utility::setrecoilscale( 0 );
     self.recoilscale = 0;
 }
 
-_id_8020( var_0 )
+setstunresistance( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -278,12 +260,12 @@ _id_8020( var_0 )
         self.stunscaler = int( var_0 ) / 10;
 }
 
-_id_9A93()
+unsetstunresistance()
 {
     self.stunscaler = 1;
 }
 
-_id_801B()
+setsteadyaimpro()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -291,7 +273,7 @@ _id_801B()
     self setaimspreadmovementscale( 0.5 );
 }
 
-_id_9A8F()
+unsetsteadyaimpro()
 {
     self notify( "end_SteadyAimPro" );
     self setaimspreadmovementscale( 1.0 );
@@ -308,58 +290,58 @@ blastshieldusetracker( var_0, var_1 )
     {
         self waittill( "empty_offhand" );
 
-        if ( !common_scripts\utility::_id_5163() )
+        if ( !common_scripts\utility::isoffhandweaponenabled() )
             continue;
 
         self [[ var_1 ]]( maps\mp\_utility::_hasperk( "specialty_blastshield2" ) );
     }
 }
 
-_id_67D6()
+perkusedeathtracker()
 {
     self endon( "disconnect" );
     self waittill( "death" );
     self._useperkenabled = undefined;
 }
 
-_id_7FFA()
+setrearview()
 {
 
 }
 
-_id_9A86()
+unsetrearview()
 {
     self notify( "end_perkUseTracker" );
 }
 
-_id_7F62()
+setendgame()
 {
-    if ( isdefined( self._id_315F ) )
+    if ( isdefined( self.endgame ) )
         return;
 
-    self.maxhealth = maps\mp\gametypes\_tweakables::_id_4142( "player", "maxhealth" ) * 4;
+    self.maxhealth = maps\mp\gametypes\_tweakables::gettweakablevalue( "player", "maxhealth" ) * 4;
     self.health = self.maxhealth;
-    self._id_315F = 1;
+    self.endgame = 1;
     self.attackertable[0] = "";
     self visionsetnakedforplayer( "end_game", 5 );
-    thread _id_3160( 7 );
-    self._id_4729 = 1;
+    thread endgamedeath( 7 );
+    self.hasdonecombat = 1;
 }
 
-_id_9A6B()
+unsetendgame()
 {
     self notify( "stopEndGame" );
-    self._id_315F = undefined;
-    maps\mp\_utility::_id_74FA();
+    self.endgame = undefined;
+    maps\mp\_utility::revertvisionsetforplayer();
 
-    if ( !isdefined( self._id_3165 ) )
+    if ( !isdefined( self.endgametimer ) )
         return;
 
-    self._id_3165 maps\mp\gametypes\_hud_util::destroyElem();
-    self._id_3162 maps\mp\gametypes\_hud_util::destroyElem();
+    self.endgametimer maps\mp\gametypes\_hud_util::destroyelem();
+    self.endgameicon maps\mp\gametypes\_hud_util::destroyelem();
 }
 
-_id_3160( var_0 )
+endgamedeath( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -370,7 +352,7 @@ _id_3160( var_0 )
     maps\mp\_utility::_suicide();
 }
 
-_id_8AFD()
+stancestatelistener()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -383,11 +365,11 @@ _id_8AFD()
         if ( self.movespeedscaler != 0 )
             continue;
 
-        _id_9A8D();
+        unsetsiege();
     }
 }
 
-_id_52CB()
+jumpstatelistener()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -400,108 +382,108 @@ _id_52CB()
         if ( self.movespeedscaler != 0 )
             continue;
 
-        _id_9A8D();
+        unsetsiege();
     }
 }
 
-_id_9A8D()
+unsetsiege()
 {
     self.movespeedscaler = level.baseplayermovescale;
     self resetspreadoverride();
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
     self player_recoilscaleoff();
     self allowjump( 1 );
 }
 
-_id_8000()
+setsaboteur()
 {
     self.objectivescaler = 2;
 }
 
-_id_9A89()
+unsetsaboteur()
 {
     self.objectivescaler = 1;
 }
 
-_id_7FA3( var_0 )
+setlightweight( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 10;
 
-    self.movespeedscaler = maps\mp\_utility::_id_5761( var_0 );
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    self.movespeedscaler = maps\mp\_utility::lightweightscalar( var_0 );
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
 }
 
-_id_9A7D()
+unsetlightweight()
 {
     self.movespeedscaler = level.baseplayermovescale;
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
 }
 
-_id_7F2F()
+setblackbox()
 {
-    self._id_53A5 = 1.5;
+    self.killstreakscaler = 1.5;
 }
 
-_id_9A63()
+unsetblackbox()
 {
-    self._id_53A5 = 1;
+    self.killstreakscaler = 1;
 }
 
-_id_801C()
+setsteelnerves()
 {
-    maps\mp\_utility::_id_41F8( "specialty_bulletaccuracy", 1 );
-    maps\mp\_utility::_id_41F8( "specialty_holdbreath", 0 );
+    maps\mp\_utility::giveperk( "specialty_bulletaccuracy", 1 );
+    maps\mp\_utility::giveperk( "specialty_holdbreath", 0 );
 }
 
-_id_9A90()
+unsetsteelnerves()
 {
     maps\mp\_utility::_unsetperk( "specialty_bulletaccuracy" );
     maps\mp\_utility::_unsetperk( "specialty_holdbreath" );
 }
 
-_id_7F4F()
+setdelaymine()
 {
 
 }
 
-_id_9A68()
+unsetdelaymine()
 {
 
 }
 
-_id_7FA4()
+setlocaljammer()
 {
-    if ( !maps\mp\_utility::_id_50F9() )
-        self _meth_8216( 0 );
+    if ( !maps\mp\_utility::isemped() )
+        self setmotiontrackervisible( 0 );
 }
 
-_id_9A7E()
+unsetlocaljammer()
 {
-    self _meth_8216( 1 );
+    self setmotiontrackervisible( 1 );
 }
 
-_id_802F()
+setthermal()
 {
     self thermalvisionon();
 }
 
-_id_9A94()
+unsetthermal()
 {
     self thermalvisionoff();
 }
 
-_id_7FCF()
+setonemanarmy()
 {
-    thread _id_648C();
+    thread onemanarmyweaponchangetracker();
 }
 
-_id_9A81()
+unsetonemanarmy()
 {
     self notify( "stop_oneManArmyTracker" );
 }
 
-_id_648C()
+onemanarmyweaponchangetracker()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -515,11 +497,11 @@ _id_648C()
         if ( var_0 != "onemanarmy_mp" )
             continue;
 
-        thread _id_7C70();
+        thread selectonemanarmyclass();
     }
 }
 
-_id_5165( var_0 )
+isonemanarmymenu( var_0 )
 {
     if ( var_0 == game["menu_onemanarmy"] )
         return 1;
@@ -533,7 +515,7 @@ _id_5165( var_0 )
     return 0;
 }
 
-_id_7C70()
+selectonemanarmyclass()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -542,20 +524,20 @@ _id_7C70()
     common_scripts\utility::_disableoffhandweapons();
     common_scripts\utility::_disableusability();
     self openpopupmenu( game["menu_onemanarmy"] );
-    thread _id_1FDD();
+    thread closeomamenuondeath();
     self waittill( "menuresponse", var_0, var_1 );
     common_scripts\utility::_enableweaponswitch();
     common_scripts\utility::_enableoffhandweapons();
     common_scripts\utility::_enableusability();
 
-    if ( var_1 == "back" || !_id_5165( var_0 ) || maps\mp\_utility::_id_51E3() )
+    if ( var_1 == "back" || !isonemanarmymenu( var_0 ) || maps\mp\_utility::isusingremote() )
     {
         if ( self getcurrentweapon() == "onemanarmy_mp" )
         {
             common_scripts\utility::_disableweaponswitch();
             common_scripts\utility::_disableoffhandweapons();
             common_scripts\utility::_disableusability();
-            self switchtoweapon( common_scripts\utility::_id_3FFD() );
+            self switchtoweapon( common_scripts\utility::getlastweapon() );
             self waittill( "weapon_change" );
             common_scripts\utility::_enableweaponswitch();
             common_scripts\utility::_enableoffhandweapons();
@@ -565,10 +547,10 @@ _id_7C70()
         return;
     }
 
-    thread _id_41F6( var_1 );
+    thread giveonemanarmyclass( var_1 );
 }
 
-_id_1FDD()
+closeomamenuondeath()
 {
     self endon( "menuresponse" );
     self endon( "disconnect" );
@@ -580,7 +562,7 @@ _id_1FDD()
     self closepopupmenu();
 }
 
-_id_41F6( var_0 )
+giveonemanarmyclass( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -601,7 +583,7 @@ _id_41F6( var_0 )
         self playsoundtoteam( "foly_onemanarmy_bag6_npc", "axis", self );
     }
 
-    thread _id_6437( var_1 );
+    thread omausebar( var_1 );
     common_scripts\utility::_disableweapon();
     common_scripts\utility::_disableoffhandweapons();
     common_scripts\utility::_disableusability();
@@ -610,7 +592,7 @@ _id_41F6( var_0 )
     common_scripts\utility::_enableoffhandweapons();
     common_scripts\utility::_enableusability();
     self.omaclasschanged = 1;
-    maps\mp\gametypes\_class::giveloadout( self.pers["team"], var_0, 0 );
+    maps\mp\gametypes\_class::giveandapplyloadout( self.pers["team"], var_0, 0 );
 
     if ( isdefined( self.carryflag ) )
         self attach( self.carryflag, "J_spine4", 1 );
@@ -619,65 +601,65 @@ _id_41F6( var_0 )
     level notify( "changed_kit" );
 }
 
-_id_6437( var_0 )
+omausebar( var_0 )
 {
     self endon( "disconnect" );
-    var_1 = maps\mp\gametypes\_hud_util::createPrimaryProgressBar( 0, -25 );
-    var_2 = maps\mp\gametypes\_hud_util::createPrimaryProgressBarText( 0, -25 );
+    var_1 = maps\mp\gametypes\_hud_util::createprimaryprogressbar( 0, -25 );
+    var_2 = maps\mp\gametypes\_hud_util::createprimaryprogressbartext( 0, -25 );
     var_2 settext( &"MPUI_CHANGING_KIT" );
     var_1 maps\mp\gametypes\_hud_util::updatebar( 0, 1 / var_0 );
 
     for ( var_3 = 0; var_3 < var_0 && isalive( self ) && !level.gameended; var_3 += 0.05 )
         wait 0.05;
 
-    var_1 maps\mp\gametypes\_hud_util::destroyElem();
-    var_2 maps\mp\gametypes\_hud_util::destroyElem();
+    var_1 maps\mp\gametypes\_hud_util::destroyelem();
+    var_2 maps\mp\gametypes\_hud_util::destroyelem();
 }
 
-_id_7F30()
+setblastshield()
 {
     self setweaponhudiconoverride( "primaryoffhand", "specialty_s1_temp" );
 }
 
-_id_9A64()
+unsetblastshield()
 {
     self setweaponhudiconoverride( "primaryoffhand", "none" );
 }
 
-_id_7F77()
+setfreefall()
 {
 
 }
 
-_id_9A73()
+unsetfreefall()
 {
 
 }
 
-_id_7FDB( var_0 )
+setpainted( var_0 )
 {
     if ( isplayer( self ) )
     {
-        if ( isdefined( var_0._id_8A3E ) && !maps\mp\_utility::_hasperk( "specialty_coldblooded" ) )
+        if ( isdefined( var_0.specialty_paint_time ) && !maps\mp\_utility::_hasperk( "specialty_coldblooded" ) )
         {
-            self._id_665D = 1;
+            self.painted = 1;
             self setperk( "specialty_radararrow", 1, 0 );
-            thread _id_9A84( var_0._id_8A3E );
-            thread _id_A247();
+            thread unsetpainted( var_0.specialty_paint_time );
+            thread watchpainteddeath();
         }
     }
 }
 
-_id_A247()
+watchpainteddeath()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
     self endon( "unsetPainted" );
     self waittill( "death" );
-    self._id_665D = 0;
+    self.painted = 0;
 }
 
-_id_9A84( var_0 )
+unsetpainted( var_0 )
 {
     self notify( "painted_again" );
     self endon( "painted_again" );
@@ -685,81 +667,81 @@ _id_9A84( var_0 )
     self endon( "death" );
     level endon( "game_ended" );
     wait(var_0);
-    self._id_665D = 0;
+    self.painted = 0;
     self unsetperk( "specialty_radararrow", 1 );
     self notify( "unsetPainted" );
 }
 
-_id_516D()
+ispainted()
 {
-    return isdefined( self._id_665D ) && self._id_665D;
+    return isdefined( self.painted ) && self.painted;
 }
 
-_id_7FFC()
+setrefillgrenades()
 {
-    if ( isdefined( self._id_6F83 ) )
-        self givemaxammo( self._id_6F83 );
+    if ( isdefined( self.primarygrenade ) )
+        self givemaxammo( self.primarygrenade );
 
-    if ( isdefined( self._id_7BF9 ) )
-        self givemaxammo( self._id_7BF9 );
+    if ( isdefined( self.secondarygrenade ) )
+        self givemaxammo( self.secondarygrenade );
 }
 
-_id_7F6D()
+setfinalstand()
 {
-    maps\mp\_utility::_id_41F8( "specialty_pistoldeath", 0 );
+    maps\mp\_utility::giveperk( "specialty_pistoldeath", 0 );
 }
 
-_id_9A70()
+unsetfinalstand()
 {
     maps\mp\_utility::_unsetperk( "specialty_pistoldeath" );
 }
 
-_id_803B()
+setuav()
 {
 
 }
 
-_id_9A95()
+unsetuav()
 {
 
 }
 
-_id_801F()
+setstoppingpower()
 {
-    maps\mp\_utility::_id_41F8( "specialty_bulletdamage", 0 );
-    thread _id_A25E();
+    maps\mp\_utility::giveperk( "specialty_bulletdamage", 0 );
+    thread watchstoppingpowerkill();
 }
 
-_id_A25E()
+watchstoppingpowerkill()
 {
     self notify( "watchStoppingPowerKill" );
     self endon( "watchStoppingPowerKill" );
     self endon( "disconnect" );
     level endon( "game_ended" );
     self waittill( "killed_enemy" );
-    _id_9A92();
+    unsetstoppingpower();
 }
 
-_id_9A92()
+unsetstoppingpower()
 {
     maps\mp\_utility::_unsetperk( "specialty_bulletdamage" );
     self notify( "watchStoppingPowerKill" );
 }
 
-_id_7F97( var_0, var_1, var_2 )
+setjuiced( var_0, var_1, var_2 )
 {
     self endon( "death" );
     self endon( "faux_spawn" );
     self endon( "disconnect" );
     self endon( "unset_juiced" );
     level endon( "end_game" );
-    self._id_5137 = 1;
+    self.isjuiced = 1;
 
     if ( !isdefined( var_0 ) )
         var_0 = 1.25;
 
     self.movespeedscaler = var_0;
-    maps\mp\gametypes\_weapons::_id_9B3D();
+    maps\mp\gametypes\_weapons::updatemovespeedscale();
 
     if ( level.splitscreen )
     {
@@ -777,51 +759,51 @@ _id_7F97( var_0, var_1, var_2 )
 
     if ( !isdefined( var_2 ) || var_2 == 1 )
     {
-        self._id_52B0 = maps\mp\gametypes\_hud_util::createtimer( "hudsmall", 1.0 );
-        self._id_52B0 maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, var_3 );
-        self._id_52B0 settimer( var_1 );
-        self._id_52B0.color = ( 0.8, 0.8, 0.0 );
-        self._id_52B0.archived = 0;
-        self._id_52B0.foreground = 1;
-        self._id_52AF = maps\mp\gametypes\_hud_util::createIcon( level._id_8A3D, var_4, var_4 );
-        self._id_52AF.alpha = 0;
-        self._id_52AF maps\mp\gametypes\_hud_util::setParent( self._id_52B0 );
-        self._id_52AF maps\mp\gametypes\_hud_util::setpoint( "BOTTOM", "TOP" );
-        self._id_52AF.archived = 1;
-        self._id_52AF.sort = 1;
-        self._id_52AF.foreground = 1;
-        self._id_52AF fadeovertime( 1.0 );
-        self._id_52AF.alpha = 0.85;
+        self.juicedtimer = maps\mp\gametypes\_hud_util::createtimer( "hudsmall", 1.0 );
+        self.juicedtimer maps\mp\gametypes\_hud_util::setpoint( "CENTER", "CENTER", 0, var_3 );
+        self.juicedtimer settimer( var_1 );
+        self.juicedtimer.color = ( 0.8, 0.8, 0.0 );
+        self.juicedtimer.archived = 0;
+        self.juicedtimer.foreground = 1;
+        self.juicedicon = maps\mp\gametypes\_hud_util::createicon( level.specialty_juiced_icon, var_4, var_4 );
+        self.juicedicon.alpha = 0;
+        self.juicedicon maps\mp\gametypes\_hud_util::setparent( self.juicedtimer );
+        self.juicedicon maps\mp\gametypes\_hud_util::setpoint( "BOTTOM", "TOP" );
+        self.juicedicon.archived = 1;
+        self.juicedicon.sort = 1;
+        self.juicedicon.foreground = 1;
+        self.juicedicon fadeovertime( 1.0 );
+        self.juicedicon.alpha = 0.85;
     }
 
-    thread _id_9A79();
-    thread _id_9A7A();
+    thread unsetjuicedondeath();
+    thread unsetjuicedonride();
     wait(var_1 - 2);
 
-    if ( isdefined( self._id_52AF ) )
+    if ( isdefined( self.juicedicon ) )
     {
-        self._id_52AF fadeovertime( 2.0 );
-        self._id_52AF.alpha = 0.0;
+        self.juicedicon fadeovertime( 2.0 );
+        self.juicedicon.alpha = 0.0;
     }
 
-    if ( isdefined( self._id_52B0 ) )
+    if ( isdefined( self.juicedtimer ) )
     {
-        self._id_52B0 fadeovertime( 2.0 );
-        self._id_52B0.alpha = 0.0;
+        self.juicedtimer fadeovertime( 2.0 );
+        self.juicedtimer.alpha = 0.0;
     }
 
     wait 2;
-    _id_9A78();
+    unsetjuiced();
 }
 
-_id_9A78( var_0 )
+unsetjuiced( var_0 )
 {
     if ( !isdefined( var_0 ) )
     {
-        if ( maps\mp\_utility::_id_5131() )
+        if ( maps\mp\_utility::isjuggernaut() )
         {
-            if ( isdefined( self._id_52AA ) )
-                self.movespeedscaler = self._id_52AA;
+            if ( isdefined( self.juggmovespeedscaler ) )
+                self.movespeedscaler = self.juggmovespeedscaler;
             else
                 self.movespeedscaler = 0.7;
         }
@@ -830,23 +812,23 @@ _id_9A78( var_0 )
             self.movespeedscaler = level.baseplayermovescale;
 
             if ( maps\mp\_utility::_hasperk( "specialty_lightweight" ) )
-                self.movespeedscaler = maps\mp\_utility::_id_5761();
+                self.movespeedscaler = maps\mp\_utility::lightweightscalar();
         }
 
-        maps\mp\gametypes\_weapons::_id_9B3D();
+        maps\mp\gametypes\_weapons::updatemovespeedscale();
     }
 
-    if ( isdefined( self._id_52AF ) )
-        self._id_52AF destroy();
+    if ( isdefined( self.juicedicon ) )
+        self.juicedicon destroy();
 
-    if ( isdefined( self._id_52B0 ) )
-        self._id_52B0 destroy();
+    if ( isdefined( self.juicedtimer ) )
+        self.juicedtimer destroy();
 
-    self._id_5137 = undefined;
+    self.isjuiced = undefined;
     self notify( "unset_juiced" );
 }
 
-_id_9A7A()
+unsetjuicedonride()
 {
     self endon( "disconnect" );
     self endon( "unset_juiced" );
@@ -855,84 +837,84 @@ _id_9A7A()
     {
         wait 0.05;
 
-        if ( maps\mp\_utility::_id_51E3() )
+        if ( maps\mp\_utility::isusingremote() )
         {
-            thread _id_9A78();
+            thread unsetjuiced();
             break;
         }
     }
 }
 
-_id_9A79()
+unsetjuicedondeath()
 {
     self endon( "disconnect" );
     self endon( "unset_juiced" );
-    common_scripts\utility::_id_A069( "death", "faux_spawn" );
-    thread _id_9A78( 1 );
+    common_scripts\utility::waittill_any( "death", "faux_spawn" );
+    thread unsetjuiced( 1 );
 }
 
-_id_7FA1( var_0 )
+setlightarmorhp( var_0 )
 {
     if ( isdefined( var_0 ) )
     {
-        self._id_5714 = var_0;
+        self.lightarmorhp = var_0;
 
-        if ( isplayer( self ) && isdefined( self._id_5A3E ) && self._id_5A3E > 0 )
+        if ( isplayer( self ) && isdefined( self.maxlightarmorhp ) && self.maxlightarmorhp > 0 )
         {
-            var_1 = clamp( self._id_5714 / self._id_5A3E, 0, 1 );
+            var_1 = clamp( self.lightarmorhp / self.maxlightarmorhp, 0, 1 );
             self setclientomnvar( "ui_light_armor_percent", var_1 );
         }
     }
     else
     {
-        self._id_5714 = undefined;
-        self._id_5A3E = undefined;
+        self.lightarmorhp = undefined;
+        self.maxlightarmorhp = undefined;
         self setclientomnvar( "ui_light_armor_percent", 0 );
     }
 }
 
-_id_7FA0( var_0 )
+setlightarmor( var_0 )
 {
     self notify( "give_light_armor" );
 
-    if ( isdefined( self._id_5714 ) )
-        _id_9A7C();
+    if ( isdefined( self.lightarmorhp ) )
+        unsetlightarmor();
 
-    thread _id_73B9();
-    thread _id_73BA();
+    thread removelightarmorondeath();
+    thread removelightarmoronmatchend();
 
     if ( isdefined( var_0 ) )
-        self._id_5A3E = var_0;
+        self.maxlightarmorhp = var_0;
     else
-        self._id_5A3E = 150;
+        self.maxlightarmorhp = 150;
 
-    _id_7FA1( self._id_5A3E );
+    setlightarmorhp( self.maxlightarmorhp );
 }
 
-_id_73B9()
+removelightarmorondeath()
 {
     self endon( "disconnect" );
     self endon( "give_light_armor" );
     self endon( "remove_light_armor" );
     self waittill( "death" );
-    _id_9A7C();
+    unsetlightarmor();
 }
 
-_id_9A7C()
+unsetlightarmor()
 {
-    _id_7FA1( undefined );
+    setlightarmorhp( undefined );
     self notify( "remove_light_armor" );
 }
 
-_id_73BA()
+removelightarmoronmatchend()
 {
     self endon( "disconnect" );
     self endon( "remove_light_armor" );
-    level common_scripts\utility::_id_A069( "round_end_finished", "game_ended" );
-    thread _id_9A7C();
+    level common_scripts\utility::waittill_any( "round_end_finished", "game_ended" );
+    thread unsetlightarmor();
 }
 
-_id_4735()
+haslightarmor()
 {
-    return isdefined( self._id_5714 ) && self._id_5714 > 0;
+    return isdefined( self.lightarmorhp ) && self.lightarmorhp > 0;
 }

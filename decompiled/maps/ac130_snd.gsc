@@ -1,95 +1,77 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    level._id_78BA["fco"]["ac130_fco_donotengage"] = "ac130_fco_donotengage";
-    level._id_78BA["price"]["ac130_pri_towntoeast"] = "ac130_pri_towntoeast";
-    level._id_78BA["tvo"]["ac130_tvo_eyesonfriendlies"] = "ac130_tvo_eyesonfriendlies";
-    level._id_78BA["fco"]["ac130_fco_nofirestrobe"] = "ac130_fco_nofirestrobe";
-    level._id_78BA["nav"]["ac130_nav_confirmchurch"] = "ac130_nav_confirmchurch";
-    level._id_78BA["tvo"]["ac130_tvo_weseeit"] = "ac130_tvo_weseeit";
-    level._id_78BA["fco"]["ac130_fco_rogerwerethere"] = "ac130_fco_rogerwerethere";
-    level._id_78BA["nav"]["ac130_nav_notauthorizedchurch"] = "ac130_nav_notauthorizedchurch";
-    level._id_78BA["tvo"]["ac130_tvo_vehiclemovingnow"] = "ac130_tvo_vehiclemovingnow";
-    level._id_78BA["fco"]["ac130_fco_onevehiclemoving"] = "ac130_fco_onevehiclemoving";
-    level._id_78BA["tvo"]["ac130_tvo_personnelchurch"] = "ac130_tvo_personnelchurch";
-    level._id_78BA["fco"]["ac130_fco_armedpersonnelchurch"] = "ac130_fco_armedpersonnelchurch";
-    level._id_78BA["pilot"]["ac130_plt_cleartoengage"] = "ac130_plt_cleartoengage";
-    level._id_78BA["fco"]["ac130_fco_cleartoengage"] = "ac130_fco_cleartoengage";
-    level._id_78BA["pri"]["ac130_pri_passingchurch"] = "ac130_pri_passingchurch";
-    level._id_78BA["plt"]["ac130_plt_woutstrobe"] = "ac130_plt_woutstrobe";
-    level._id_78BA["plt"]["ac130_plt_bankingtovillage"] = "ac130_plt_bankingtovillage";
-    level._id_78BA["plt"]["ac130_plt_smokem"] = "ac130_plt_smokem";
-    level._id_78BA["fco"]["ac130_fco_movingvehicle"] = "ac130_fco_movingvehicle";
-    level._id_78BA["fco"]["ac130_fco_donoengage"] = "ac130_fco_donoengage";
-    level._id_78BA["fco"]["ac130_fco_civilianvehicles"] = "ac130_fco_civilianvehicles";
-    level._id_78BA["fco"]["ac130_fco_alttransport"] = "ac130_fco_alttransport";
-    level._id_78BA["tvo"]["ac130_tvo_nicetruck"] = "ac130_tvo_nicetruck";
-    level._id_78BA["fco"]["ac130_fco_nahscared"] = "ac130_fco_nahscared";
-    level._id_78BA["pri"]["ac130_pri_confirmyousee"] = "ac130_pri_confirmyousee";
-    level._id_78BA["fco"]["ac130_fco_seebeacons"] = "ac130_fco_seebeacons";
-    level._id_78BA["pri"]["ac130_pri_coverus"] = "ac130_pri_coverus";
-    level._id_78BA["nav"]["ac130_nav_ambushroad"] = "ac130_nav_ambushroad";
-    level._id_78BA["fco"]["ac130_fco_whichcurved"] = "ac130_fco_whichcurved";
-    level._id_78BA["nav"]["ac130_nav_seewatertower"] = "ac130_nav_seewatertower";
-    level._id_78BA["fco"]["ac130_fco_confirmyousee"] = "ac130_fco_confirmyousee";
-    level._id_78BA["tvo"]["ac130_tvo_nearintersection"] = "ac130_tvo_nearintersection";
-    level._id_78BA["nav"]["ac130_nav_thatstheone"] = "ac130_nav_thatstheone";
-    level._id_78BA["nav"]["ac130_nav_doyouseethat"] = "ac130_nav_doyouseethat";
-    level._id_78BA["fco"]["ac130_fco_rogerthat"] = "ac130_fco_rogerthat";
-    level._id_78BA["nav"]["ac130_nav_trackthatroad"] = "ac130_nav_trackthatroad";
-    level._id_78BA["fco"]["ac130_fco_howfar"] = "ac130_fco_howfar";
-    level._id_78BA["nav"]["ac130_nav_uhhangon"] = "ac130_nav_uhhangon";
-    level._id_78BA["nav"]["ac130_nav_600meters"] = "ac130_nav_2klicks";
-    level._id_78BA["tvo"]["ac130_tvo_rogerthat"] = "ac130_tvo_rogerthat";
-    level._id_78BA["tvo"]["ac130_tvo_hostilescurved"] = "ac130_tvo_hostilescurved";
-    level._id_78BA["fco"]["ac130_fco_partiallyconcealed"] = "ac130_fco_partiallyconcealed";
-    level._id_78BA["fco"]["ac130_fco_requestpermission"] = "ac130_fco_requestpermission";
-    level._id_78BA["fco"]["ac130_fco_takeout"] = "ac130_fco_takeout";
-    level._id_78BA["tvo"]["ac130_tvo_armoredvehicle"] = "ac130_tvo_armoredvehicle";
-    level._id_78BA["fco"]["ac130_fco_smallgroups"] = "ac130_fco_smallgroups";
-    level._id_78BA["tvo"]["ac130_tvo_firedrpg"] = "ac130_tvo_firedrpg";
-    level._id_78BA["pri"]["ac130_pri_underattack"] = "ac130_pri_underattack";
-    level._id_78BA["fco"]["ac130_fco_smoketrails"] = "ac130_fco_smoketrails";
-    level._id_78BA["tvo"]["ac130_tvo_ushaped"] = "ac130_tvo_ushaped";
-    level._id_78BA["fco"]["ac130_fco_ushaped"] = "ac130_fco_ushaped";
-    level._id_78BA["tvo"]["ac130_tvo_flatroof"] = "ac130_tvo_flatroof";
-    level._id_78BA["fco"]["ac130_fco_outofbarn"] = "ac130_fco_outofbarn";
-    level._id_78BA["pri"]["ac130_pri_junkyard"] = "ac130_pri_junkyard";
-    level._id_78BA["fco"]["ac130_fco_flashingstrobe"] = "ac130_fco_flashingstrobe";
-    level._id_78BA["fco"]["ac130_fco_watchstrobe"] = "ac130_fco_watchstrobe";
-    level._id_78BA["tvo"]["ac130_tvo_enemyjunkyard"] = "ac130_tvo_enemyjunkyard";
-    level._id_78BA["fco"]["ac130_fco_smokeem"] = "ac130_fco_smokeem";
-    level._id_78BA["fco"]["ac130_fco_gointotown"] = "ac130_fco_gointotown";
-    level._id_78BA["pri"]["ac130_pri_fireallsides"] = "ac130_pri_fireallsides";
-    level._id_78BA["nav"]["ac130_nav_dangerclose"] = "ac130_nav_dangerclose";
-    level._id_78BA["fco"]["ac130_fco_friendliesentering"] = "ac130_fco_friendliesentering";
-    level._id_78BA["tvo"]["ac130_tvo_copy"] = "ac130_tvo_copy";
-    level._id_78BA["pri"]["ac130_pri_thanksforassist"] = "ac130_pri_thanksforassist";
-    level._id_78BA["fco"]["ac130_fco_highlightreel"] = "ac130_fco_highlightreel";
-    level._id_78BA["tvo"]["ac130_tvo_heardthat"] = "ac130_tvo_heardthat";
-    level._id_78BA["nav"]["ac130_nav_vipsecure"] = "ac130_nav_vipsecure";
-    level._id_78BA["plt"]["ac130_plt_returningbase"] = "ac130_plt_returningbase";
-    level._id_78BA["fco"]["ac130_fco_firingtoclose"] = "ac130_fco_firingtoclose";
+    level.scr_sound["fco"]["ac130_fco_donotengage"] = "ac130_fco_donotengage";
+    level.scr_sound["price"]["ac130_pri_towntoeast"] = "ac130_pri_towntoeast";
+    level.scr_sound["tvo"]["ac130_tvo_eyesonfriendlies"] = "ac130_tvo_eyesonfriendlies";
+    level.scr_sound["fco"]["ac130_fco_nofirestrobe"] = "ac130_fco_nofirestrobe";
+    level.scr_sound["nav"]["ac130_nav_confirmchurch"] = "ac130_nav_confirmchurch";
+    level.scr_sound["tvo"]["ac130_tvo_weseeit"] = "ac130_tvo_weseeit";
+    level.scr_sound["fco"]["ac130_fco_rogerwerethere"] = "ac130_fco_rogerwerethere";
+    level.scr_sound["nav"]["ac130_nav_notauthorizedchurch"] = "ac130_nav_notauthorizedchurch";
+    level.scr_sound["tvo"]["ac130_tvo_vehiclemovingnow"] = "ac130_tvo_vehiclemovingnow";
+    level.scr_sound["fco"]["ac130_fco_onevehiclemoving"] = "ac130_fco_onevehiclemoving";
+    level.scr_sound["tvo"]["ac130_tvo_personnelchurch"] = "ac130_tvo_personnelchurch";
+    level.scr_sound["fco"]["ac130_fco_armedpersonnelchurch"] = "ac130_fco_armedpersonnelchurch";
+    level.scr_sound["pilot"]["ac130_plt_cleartoengage"] = "ac130_plt_cleartoengage";
+    level.scr_sound["fco"]["ac130_fco_cleartoengage"] = "ac130_fco_cleartoengage";
+    level.scr_sound["pri"]["ac130_pri_passingchurch"] = "ac130_pri_passingchurch";
+    level.scr_sound["plt"]["ac130_plt_woutstrobe"] = "ac130_plt_woutstrobe";
+    level.scr_sound["plt"]["ac130_plt_bankingtovillage"] = "ac130_plt_bankingtovillage";
+    level.scr_sound["plt"]["ac130_plt_smokem"] = "ac130_plt_smokem";
+    level.scr_sound["fco"]["ac130_fco_movingvehicle"] = "ac130_fco_movingvehicle";
+    level.scr_sound["fco"]["ac130_fco_donoengage"] = "ac130_fco_donoengage";
+    level.scr_sound["fco"]["ac130_fco_civilianvehicles"] = "ac130_fco_civilianvehicles";
+    level.scr_sound["fco"]["ac130_fco_alttransport"] = "ac130_fco_alttransport";
+    level.scr_sound["tvo"]["ac130_tvo_nicetruck"] = "ac130_tvo_nicetruck";
+    level.scr_sound["fco"]["ac130_fco_nahscared"] = "ac130_fco_nahscared";
+    level.scr_sound["pri"]["ac130_pri_confirmyousee"] = "ac130_pri_confirmyousee";
+    level.scr_sound["fco"]["ac130_fco_seebeacons"] = "ac130_fco_seebeacons";
+    level.scr_sound["pri"]["ac130_pri_coverus"] = "ac130_pri_coverus";
+    level.scr_sound["nav"]["ac130_nav_ambushroad"] = "ac130_nav_ambushroad";
+    level.scr_sound["fco"]["ac130_fco_whichcurved"] = "ac130_fco_whichcurved";
+    level.scr_sound["nav"]["ac130_nav_seewatertower"] = "ac130_nav_seewatertower";
+    level.scr_sound["fco"]["ac130_fco_confirmyousee"] = "ac130_fco_confirmyousee";
+    level.scr_sound["tvo"]["ac130_tvo_nearintersection"] = "ac130_tvo_nearintersection";
+    level.scr_sound["nav"]["ac130_nav_thatstheone"] = "ac130_nav_thatstheone";
+    level.scr_sound["nav"]["ac130_nav_doyouseethat"] = "ac130_nav_doyouseethat";
+    level.scr_sound["fco"]["ac130_fco_rogerthat"] = "ac130_fco_rogerthat";
+    level.scr_sound["nav"]["ac130_nav_trackthatroad"] = "ac130_nav_trackthatroad";
+    level.scr_sound["fco"]["ac130_fco_howfar"] = "ac130_fco_howfar";
+    level.scr_sound["nav"]["ac130_nav_uhhangon"] = "ac130_nav_uhhangon";
+    level.scr_sound["nav"]["ac130_nav_600meters"] = "ac130_nav_2klicks";
+    level.scr_sound["tvo"]["ac130_tvo_rogerthat"] = "ac130_tvo_rogerthat";
+    level.scr_sound["tvo"]["ac130_tvo_hostilescurved"] = "ac130_tvo_hostilescurved";
+    level.scr_sound["fco"]["ac130_fco_partiallyconcealed"] = "ac130_fco_partiallyconcealed";
+    level.scr_sound["fco"]["ac130_fco_requestpermission"] = "ac130_fco_requestpermission";
+    level.scr_sound["fco"]["ac130_fco_takeout"] = "ac130_fco_takeout";
+    level.scr_sound["tvo"]["ac130_tvo_armoredvehicle"] = "ac130_tvo_armoredvehicle";
+    level.scr_sound["fco"]["ac130_fco_smallgroups"] = "ac130_fco_smallgroups";
+    level.scr_sound["tvo"]["ac130_tvo_firedrpg"] = "ac130_tvo_firedrpg";
+    level.scr_sound["pri"]["ac130_pri_underattack"] = "ac130_pri_underattack";
+    level.scr_sound["fco"]["ac130_fco_smoketrails"] = "ac130_fco_smoketrails";
+    level.scr_sound["tvo"]["ac130_tvo_ushaped"] = "ac130_tvo_ushaped";
+    level.scr_sound["fco"]["ac130_fco_ushaped"] = "ac130_fco_ushaped";
+    level.scr_sound["tvo"]["ac130_tvo_flatroof"] = "ac130_tvo_flatroof";
+    level.scr_sound["fco"]["ac130_fco_outofbarn"] = "ac130_fco_outofbarn";
+    level.scr_sound["pri"]["ac130_pri_junkyard"] = "ac130_pri_junkyard";
+    level.scr_sound["fco"]["ac130_fco_flashingstrobe"] = "ac130_fco_flashingstrobe";
+    level.scr_sound["fco"]["ac130_fco_watchstrobe"] = "ac130_fco_watchstrobe";
+    level.scr_sound["tvo"]["ac130_tvo_enemyjunkyard"] = "ac130_tvo_enemyjunkyard";
+    level.scr_sound["fco"]["ac130_fco_smokeem"] = "ac130_fco_smokeem";
+    level.scr_sound["fco"]["ac130_fco_gointotown"] = "ac130_fco_gointotown";
+    level.scr_sound["pri"]["ac130_pri_fireallsides"] = "ac130_pri_fireallsides";
+    level.scr_sound["nav"]["ac130_nav_dangerclose"] = "ac130_nav_dangerclose";
+    level.scr_sound["fco"]["ac130_fco_friendliesentering"] = "ac130_fco_friendliesentering";
+    level.scr_sound["tvo"]["ac130_tvo_copy"] = "ac130_tvo_copy";
+    level.scr_sound["pri"]["ac130_pri_thanksforassist"] = "ac130_pri_thanksforassist";
+    level.scr_sound["fco"]["ac130_fco_highlightreel"] = "ac130_fco_highlightreel";
+    level.scr_sound["tvo"]["ac130_tvo_heardthat"] = "ac130_tvo_heardthat";
+    level.scr_sound["nav"]["ac130_nav_vipsecure"] = "ac130_nav_vipsecure";
+    level.scr_sound["plt"]["ac130_plt_returningbase"] = "ac130_plt_returningbase";
+    level.scr_sound["fco"]["ac130_fco_firingtoclose"] = "ac130_fco_firingtoclose";
     add_context_sensative_dialog( "ai", "in_sight", 0, "ac130_fco_moreenemy" );
     add_context_sensative_dialog( "ai", "in_sight", 1, "ac130_fco_getthatguy" );
     add_context_sensative_dialog( "ai", "in_sight", 2, "ac130_fco_guymovin" );
@@ -185,15 +167,15 @@ main()
 
 add_context_sensative_dialog( var_0, var_1, var_2, var_3 )
 {
-    if ( !isdefined( level._id_78BA[var_0] ) || !isdefined( level._id_78BA[var_0][var_1] ) || !isdefined( level._id_78BA[var_0][var_1][var_2] ) )
+    if ( !isdefined( level.scr_sound[var_0] ) || !isdefined( level.scr_sound[var_0][var_1] ) || !isdefined( level.scr_sound[var_0][var_1][var_2] ) )
     {
-        level._id_78BA[var_0][var_1][var_2] = spawnstruct();
-        level._id_78BA[var_0][var_1][var_2].played = 0;
-        level._id_78BA[var_0][var_1][var_2].sounds = [];
+        level.scr_sound[var_0][var_1][var_2] = spawnstruct();
+        level.scr_sound[var_0][var_1][var_2].played = 0;
+        level.scr_sound[var_0][var_1][var_2].sounds = [];
     }
 
-    var_4 = level._id_78BA[var_0][var_1][var_2].sounds.size;
-    level._id_78BA[var_0][var_1][var_2].sounds[var_4] = var_3;
+    var_4 = level.scr_sound[var_0][var_1][var_2].sounds.size;
+    level.scr_sound[var_0][var_1][var_2].sounds[var_4] = var_3;
 }
 
 add_context_sensative_timeout( var_0, var_1, var_2, var_3 )
@@ -213,10 +195,10 @@ add_context_sensative_timeout( var_0, var_1, var_2, var_3 )
 
     if ( isdefined( var_2 ) )
     {
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E = [];
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )] = spawnstruct();
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["timeoutDuration"] = var_3 * 1000;
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["lastPlayed"] = var_3 * -1000;
+        level.context_sensative_dialog_timeouts[var_0][var_1].groups = [];
+        level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )] = spawnstruct();
+        level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )].v["timeoutDuration"] = var_3 * 1000;
+        level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )].v["lastPlayed"] = var_3 * -1000;
     }
     else
     {

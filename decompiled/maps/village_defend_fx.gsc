@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level.airstrikefx = loadfx( "vfx/map/village_defend/village_defend_clusterbomb" );
@@ -114,126 +96,126 @@ main()
     level._effect["killzone_marker_red"] = loadfx( "fx/misc/ui_flagbase_gold_verticle_red" );
     level._effect["turret_overheat_haze"] = loadfx( "fx/distortion/abrams_exhaust" );
     level._effect["turret_overheat_smoke"] = loadfx( "fx/distortion/armored_car_overheat" );
-    animscripts\utility::_id_7F74( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "brick", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "grass", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "metal", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "mud", loadfx( "fx/impacts/footstep_mud_dark" ) );
-    animscripts\utility::_id_7F74( "rock", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "sand", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "water", loadfx( "fx/impacts/footstep_water" ) );
-    animscripts\utility::_id_7F74( "wood", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "brick", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "grass", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "metal", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "mud", loadfx( "fx/impacts/footstep_mud_dark" ) );
+    animscripts\utility::setfootstepeffect( "rock", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "sand", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "water", loadfx( "fx/impacts/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "wood", loadfx( "fx/impacts/footstep_dust" ) );
     level._effect["00_particle_shadow_animated_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_lrg_e" );
     level._effect["00_particle_shadow_animated_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_med_e" );
     level._effect["00_particle_shadow_animated_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_sm_e" );
     level._effect["00_particle_shadow_static_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_static_lrg_e" );
     level._effect["00_particle_shadow_static_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_static_med_e" );
     level._effect["00_particle_shadow_static_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_static_sm_e" );
-    _id_974C();
+    treadfx_override();
     maps\createfx\village_defend_fx::main();
     maps\createfx\village_defend_sound::main();
 }
 
-_id_974C()
+treadfx_override()
 {
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "brick", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "bark", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "carpet", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "cloth", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "concrete", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "dirt", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "flesh", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "foliage", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "glass", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "grass", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "gravel", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "ice", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "metal", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "mud", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "paper", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "plaster", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "rock", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "sand", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "snow", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "water", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "water_waist", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "water_knee", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "water_ankle", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "wood", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "asphalt", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "ceramic", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "plastic", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "rubber", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "cushion", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "fruit", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "painted metal", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "default", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_t72_tank_woodland", "none", "fx/treadfx/tread_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "brick", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "bark", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "carpet", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "cloth", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "concrete", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "dirt", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "flesh", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "foliage", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "glass", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "grass", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "gravel", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "ice", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "metal", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "mud", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "paper", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "plaster", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "rock", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "sand", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "snow", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "water", "fx/treadfx/seaknight_water" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "water_waist", "fx/treadfx/seaknight_water" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "water_knee", "fx/treadfx/seaknight_water" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "water_ankle", "fx/treadfx/seaknight_water" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "wood", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "asphalt", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "ceramic", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "plastic", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "rubber", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "cushion", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "fruit", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "painted metal", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "default", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e", "none", "fx/treadfx/heli_dust_village_defend" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "brick", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "bark", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "carpet", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "cloth", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "concrete", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "dirt", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "flesh", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "foliage", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "glass", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "grass", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "gravel", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "ice", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "metal", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "mud", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "paper", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "plaster", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "rock", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "sand", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "snow", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "wood", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "asphalt", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "ceramic", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "plastic", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "rubber", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "cushion", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "fruit", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "painted metal", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "default", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_mi17_woodland_fly_cheap", "none", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "brick", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "bark", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "carpet", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "cloth", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "concrete", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "dirt", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "flesh", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "foliage", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "glass", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "grass", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "gravel", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "ice", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "metal", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "mud", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "paper", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "plaster", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "rock", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "sand", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "snow", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "water", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "water_waist", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "water_knee", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "water_ankle", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "wood", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "asphalt", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "ceramic", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "plastic", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "rubber", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "cushion", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "fruit", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "painted metal", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "default", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_t72_tank_woodland", "none", "fx/treadfx/tread_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "brick", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "bark", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "carpet", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "cloth", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "concrete", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "dirt", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "flesh", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "foliage", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "glass", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "grass", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "gravel", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "ice", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "metal", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "mud", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "paper", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "plaster", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "rock", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "sand", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "snow", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "water", "fx/treadfx/seaknight_water" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "water_waist", "fx/treadfx/seaknight_water" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "water_knee", "fx/treadfx/seaknight_water" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "water_ankle", "fx/treadfx/seaknight_water" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "wood", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "asphalt", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "ceramic", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "plastic", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "rubber", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "cushion", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "fruit", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "painted metal", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "default", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e", "none", "fx/treadfx/heli_dust_village_defend" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "brick", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "bark", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "carpet", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "cloth", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "concrete", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "dirt", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "flesh", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "foliage", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "glass", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "grass", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "gravel", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "ice", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "metal", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "mud", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "paper", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "plaster", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "rock", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "sand", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "snow", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "wood", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "asphalt", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "ceramic", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "plastic", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "rubber", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "cushion", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "fruit", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "painted metal", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "default", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_mi17_woodland_fly_cheap", "none", "fx/treadfx/heli_dust_village_defend", "h1r_village_defend_mi17_helicopter_wind" );
 }

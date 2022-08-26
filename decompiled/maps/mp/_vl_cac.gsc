@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init_cac()
 {
     initweaponavatar();
@@ -36,7 +18,7 @@ playercacprocesslui( var_0, var_1 )
         resetloadout( var_1 );
     else
     {
-        if ( maps\mp\_utility::_id_5092( level.in_depot ) )
+        if ( maps\mp\_utility::is_true( level.in_depot ) )
             return;
 
         if ( var_0 == "cac" )
@@ -68,14 +50,14 @@ playercacprocesslui( var_0, var_1 )
 resetloadout( var_0 )
 {
     var_1 = var_0 & 15;
-    var_2 = maps\mp\_vl_base::_id_3F9E( var_1 );
-    var_3 = level._id_9EAB[var_2];
+    var_2 = maps\mp\_vl_base::getfocusfromcontroller( var_1 );
+    var_3 = level.vlavatars[var_2];
 
     if ( isdefined( var_3 ) )
     {
-        level._id_9EA2 = var_2;
-        thread maps\mp\_vl_base::_id_9E55( var_2, var_1, "lobby" + self._id_2522, 1 );
-        var_4 = level._id_9EAB[level._id_9EA2];
+        level.vl_focus = var_2;
+        thread maps\mp\_vl_base::virtual_lobby_set_class( var_2, var_1, "lobby" + self.currentselectedclass, 1 );
+        var_4 = level.vlavatars[level.vl_focus];
         level.cac_weapon = var_3.primaryweapon;
     }
 }
@@ -84,7 +66,7 @@ handlecacweapmodechange( var_0, var_1 )
 {
     if ( var_0 == 0 )
     {
-        if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
+        if ( maps\mp\_utility::is_true( level.cac_weap ) )
         {
             maps\mp\_vl_base::resetweaponavatar();
             maps\mp\_vl_base::resetplayeravatar();
@@ -95,7 +77,7 @@ handlecacweapmodechange( var_0, var_1 )
             return 1;
         }
     }
-    else if ( !maps\mp\_utility::_id_5092( level.cac_weap ) )
+    else if ( !maps\mp\_utility::is_true( level.cac_weap ) )
     {
         maps\mp\_vl_base::resetweaponavatar();
         thread maps\mp\_vl_base::handlerotateweaponavatar( var_1 );
@@ -112,9 +94,9 @@ handlecacmodechange( var_0 )
 {
     if ( var_0 == 0 )
     {
-        if ( maps\mp\_utility::_id_5092( level.cac ) )
+        if ( maps\mp\_utility::is_true( level.cac ) )
         {
-            if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
+            if ( maps\mp\_utility::is_true( level.cac_weap ) )
                 handlecacweapmodechange( 0 );
 
             maps\mp\_vl_base::resetweaponavatar();
@@ -126,15 +108,15 @@ handlecacmodechange( var_0 )
         else
             self notify( "handleRotateAvatar" );
     }
-    else if ( maps\mp\_utility::_id_5092( level.cac_weap ) )
+    else if ( maps\mp\_utility::is_true( level.cac_weap ) )
         handlecacweapmodechange( 0 );
-    else if ( !maps\mp\_utility::_id_5092( level.cac ) )
+    else if ( !maps\mp\_utility::is_true( level.cac ) )
     {
         maps\mp\_vl_base::resetplayeravatar();
         thread maps\mp\_vl_base::handlerotateplayeravatar();
         level.cac = 1;
-        maps\mp\_vl_camera::_id_382D();
-        var_1 = level._id_9EAB[level._id_9EA2];
+        maps\mp\_vl_camera::fixlocalfocus();
+        var_1 = level.vlavatars[level.vl_focus];
         maps\mp\_vl_avatar::playerteleportavatartocac( var_1 );
         maps\mp\_vl_base::playerchangecameramode( "cac" );
     }
@@ -150,25 +132,25 @@ handleclassselect( var_0, var_1 )
         maps\mp\_vl_base::vlprintln( "handleClassSelect " + var_0 + " controller=" + var_2 + "  class=" + var_3 );
 
         if ( var_3 > 0 )
-            self._id_2522 = var_3;
+            self.currentselectedclass = var_3;
 
         var_4 = maps\mp\_utility::cac_getcustomclassloc();
         self.currentclassloc = var_4;
-        var_5 = maps\mp\_vl_base::_id_3F9E( var_2 );
-        var_6 = level._id_9EAB[var_5];
+        var_5 = maps\mp\_vl_base::getfocusfromcontroller( var_2 );
+        var_6 = level.vlavatars[var_5];
 
         if ( isdefined( var_6 ) )
         {
-            var_7 = getvlclass( var_0, self._id_2522 );
+            var_7 = getvlclass( var_0, self.currentselectedclass );
             _func_300( var_2 );
-            level._id_9EA2 = var_5;
+            level.vl_focus = var_5;
 
             if ( !maps\mp\_vl_cao::isequipmenuactive() )
                 handlecacmodechange( 1 );
 
-            maps\mp\_vl_avatar::_id_4846( var_6 );
-            maps\mp\_vl_camera::_id_7DDB( 1 );
-            thread maps\mp\_vl_base::_id_9E55( var_5, var_2, var_7, 1 );
+            maps\mp\_vl_avatar::hide_avatar_weapons( var_6 );
+            maps\mp\_vl_camera::set_avatar_dof( 1 );
+            thread maps\mp\_vl_base::virtual_lobby_set_class( var_5, var_2, var_7, 1 );
             level.cac_weapon = var_6.primaryweapon;
             maps\mp\_vl_camera::playerupdatecamera();
             return;
@@ -194,7 +176,7 @@ handleweaponhighlighted( var_0 )
 
     if ( var_0 != "none" && var_0 != "" && !maps\mp\_vl_cao::iscollectionsmenuactive() && !maps\mp\_vl_cao::isarmorymenuactive() )
     {
-        maps\mp\_vl_avatar::_id_4847();
+        maps\mp\_vl_avatar::hide_avatars();
         var_5 = handlecacweapmodechange( 1, var_3 );
 
         if ( var_5 )
@@ -284,7 +266,7 @@ shouldhidecamoonweapon( var_0, var_1, var_2 )
 {
     var_3 = tablelookup( "mp/camotable.csv", 0, var_2, 1 );
     var_4 = doescamoignoreprivatematchunlock( var_3 );
-    return !maps\mp\gametypes\_class::_id_50D6( var_1, var_3, var_4, var_0 );
+    return !maps\mp\gametypes\_class::iscamounlocked( var_1, var_3, var_4, var_0 );
 }
 
 parseweaponhighlightedcategory( var_0 )
@@ -351,16 +333,16 @@ handlefactionchanged( var_0 )
         var_2 = int( var_1[0] );
         var_3 = int( var_1[1] );
         level.vl_selectedfaction = var_2;
-        var_4 = maps\mp\_vl_base::_id_3F9E( var_3 );
+        var_4 = maps\mp\_vl_base::getfocusfromcontroller( var_3 );
 
         if ( var_4 >= 0 )
         {
-            var_5 = level._id_9EAB[var_4];
+            var_5 = level.vlavatars[var_4];
 
-            if ( !isdefined( var_5._id_57D6 ) )
-                var_5._id_57D6 = spawnstruct();
+            if ( !isdefined( var_5.loadout ) )
+                var_5.loadout = spawnstruct();
 
-            var_5._id_57D6._id_A7E7 = var_2;
+            var_5.loadout._id_A7E7 = var_2;
             thread maps\mp\_vl_base::playerrefreshavatar( var_4 );
         }
     }
@@ -377,26 +359,26 @@ streamcacweaponwait( var_0 )
     var_1 = [ var_0 ];
     var_2 = gettime();
     var_3 = getdvarfloat( "scr_vl_minweaponstreamtime", 0.0 );
-    waitframe;
+    waittillframeend;
 
     if ( self _meth_8508( var_1 ) )
         return;
 
     level.weaponavatarparent dontinterpolate();
-    waittillframeend;
+    waitframe();
 
     for (;;)
     {
-        waitframe;
+        waittillframeend;
 
         if ( self _meth_8508( var_1 ) )
             break;
 
-        waittillframeend;
+        waitframe();
     }
 
     while ( ( gettime() - var_2 ) / 1000 < var_3 )
-        waittillframeend;
+        waitframe();
 }
 
 setcacweapon( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
@@ -404,7 +386,7 @@ setcacweapon( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     self notify( "setCacWeapon" );
     self endon( "setCacWeapon" );
 
-    if ( maps\mp\_utility::_id_5092( var_7 ) )
+    if ( maps\mp\_utility::is_true( var_7 ) )
         maps\mp\_utility::waittillplayersnextsnapshot( self );
 
     var_8 = "none";
@@ -459,8 +441,8 @@ has_suffix( var_0, var_1 )
 
 initweaponavatar()
 {
-    level.weaponavatarparent = common_scripts\utility::_id_8959();
-    level.weaponavatarparent.cameralocation = common_scripts\utility::_id_40FB( "weaponCamera", "targetname" );
+    level.weaponavatarparent = common_scripts\utility::spawn_tag_origin();
+    level.weaponavatarparent.cameralocation = common_scripts\utility::getstruct( "weaponCamera", "targetname" );
     spawnloadingweaponavatar( "h1_ak47loading_mp" );
     maps\mp\_vl_base::resetweaponavatar();
 }
@@ -549,8 +531,8 @@ getweaponbounds( var_0, var_1 )
     if ( !isdefined( var_1 ) )
         var_1 = 0;
 
-    if ( isdefined( level.weaponmodelboundscache[var_0._id_A2C6] ) )
-        return level.weaponmodelboundscache[var_0._id_A2C6];
+    if ( isdefined( level.weaponmodelboundscache[var_0.weapon_name] ) )
+        return level.weaponmodelboundscache[var_0.weapon_name];
     else if ( !var_1 )
     {
         var_2 = getweaponmodelbounds( var_0 );
@@ -558,8 +540,8 @@ getweaponbounds( var_0, var_1 )
         if ( !isdefined( var_2 ) )
             var_2 = [];
 
-        if ( !maps\mp\_utility::_id_5092( var_0.isloadingweapon ) )
-            level.weaponmodelboundscache[var_0._id_A2C6] = var_2;
+        if ( !maps\mp\_utility::is_true( var_0.isloadingweapon ) )
+            level.weaponmodelboundscache[var_0.weapon_name] = var_2;
 
         return var_2;
     }
@@ -649,11 +631,11 @@ getperkbounds( var_0 )
 
 spawnloadingweaponavatar( var_0 )
 {
-    var_1 = common_scripts\utility::_id_40FB( "cameraWeapon", "targetname" ).origin;
+    var_1 = common_scripts\utility::getstruct( "cameraWeapon", "targetname" ).origin;
     var_2 = spawn( "weapon_" + var_0, var_1, 1 );
     var_2.isloadingweapon = 1;
     var_2 _meth_8447();
-    var_2._id_A2C6 = var_0;
+    var_2.weapon_name = var_0;
     var_2.linker = spawngenericprop3avatar();
     level.weaponavatarparent.loadingweaponavatar = var_2;
     return var_2;
@@ -672,14 +654,14 @@ showloadingweaponavatar( var_0, var_1 )
     {
         var_2 show();
 
-        if ( var_2._id_A2C6 == var_0 )
+        if ( var_2.weapon_name == var_0 )
             return;
     }
 
     var_3 = strtok( var_0, "_" );
     var_4 = var_3[0] + "_" + var_3[1] + "loading_mp";
     var_2 _meth_847F( var_4, 1 );
-    var_2._id_A2C6 = var_0;
+    var_2.weapon_name = var_0;
     var_2.category = var_1;
     var_5 = shouldplayidleanim( var_1 );
     weaponitemplayidleanim( var_2, var_5 );
@@ -689,7 +671,7 @@ showloadingweaponavatar( var_0, var_1 )
     {
         if ( !isdefined( var_2.akimboavatar ) )
         {
-            var_7 = common_scripts\utility::_id_40FB( "cameraWeapon", "targetname" ).origin;
+            var_7 = common_scripts\utility::getstruct( "cameraWeapon", "targetname" ).origin;
             var_2.akimboavatar = spawn( "weapon_" + var_0, var_7, 1 );
             var_2.akimboavatar _meth_8447();
             var_2.akimboavatar _meth_8442( var_2.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
@@ -741,7 +723,7 @@ showweaponavatar( var_0 )
         var_1 show();
 
     var_1 _meth_847F( level.cac_weapon, 1 );
-    var_1._id_A2C6 = level.cac_weapon;
+    var_1.weapon_name = level.cac_weapon;
     var_1.category = var_0;
     var_2 = shouldplayidleanim( var_0 );
     weaponitemplayidleanim( var_1, var_2 );
@@ -771,7 +753,7 @@ showweaponavatar( var_0 )
 
     positionweaponavatar( var_1, var_0 );
     level.weaponavatarparent.weaponavatar = var_1;
-    maps\mp\_vl_base::_id_6F0F( level.weaponavatarparent );
+    maps\mp\_vl_base::prep_for_controls( level.weaponavatarparent );
 }
 
 shouldplayidleanim( var_0 )
@@ -806,11 +788,11 @@ showperkavatar( var_0 )
 
     var_2 = getperkmodel( level.cac_weapon );
     var_1 setmodel( var_2 );
-    var_1._id_A2C6 = level.cac_weapon;
+    var_1.weapon_name = level.cac_weapon;
     var_1.category = var_0;
     positionweaponavatar( var_1, var_0 );
     level.weaponavatarparent.weaponavatar = var_1;
-    maps\mp\_vl_base::_id_6F0F( level.weaponavatarparent );
+    maps\mp\_vl_base::prep_for_controls( level.weaponavatarparent );
 }
 
 hideperkavatar()
@@ -860,7 +842,7 @@ isweaponavataraweapon( var_0 )
 
 isavataraperk( var_0 )
 {
-    return maps\mp\_utility::_id_5092( var_0.isperk );
+    return maps\mp\_utility::is_true( var_0.isperk );
 }
 
 isavatarameleeweapon( var_0 )
@@ -870,12 +852,12 @@ isavatarameleeweapon( var_0 )
 
 isavatarbottle( var_0 )
 {
-    return isavatarameleeweapon( var_0 ) && ( issubstr( var_0._id_A2C6, "meleebottle" ) || issubstr( var_0._id_A2C6, "meleejun6" ) );
+    return isavatarameleeweapon( var_0 ) && ( issubstr( var_0.weapon_name, "meleebottle" ) || issubstr( var_0.weapon_name, "meleejun6" ) );
 }
 
 isavatarakimbo( var_0 )
 {
-    return issubstr( var_0._id_A2C6, "akimbo" );
+    return issubstr( var_0.weapon_name, "akimbo" );
 }
 
 getperkmodel( var_0 )
@@ -970,7 +952,7 @@ isclassvalid( var_0, var_1 )
     else
         return 0;
 
-    var_3 = maps\mp\_utility::_id_3F32( var_0 );
+    var_3 = maps\mp\_utility::getclassindex( var_0 );
     var_4 = getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_3, "class", "weaponSetups", 0, "weapon" );
     return var_4 != "none";
 }

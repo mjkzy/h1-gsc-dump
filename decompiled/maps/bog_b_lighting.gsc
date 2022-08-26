@@ -1,28 +1,10 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_7E68();
-    _id_4D05();
+    set_level_lighting_values();
+    init_level_lighting_flags();
     level.cheat_invert_override = "_bright";
     thread setup_lighting_pass_archway();
     thread setup_lighting_pass_interior();
@@ -40,7 +22,7 @@ handle_tank_fight_dof()
     var_1 maps\_cinematography::dyndof_angles( -15, 15 ) maps\_cinematography::dyndof_priority( 2 );
     var_2 = maps\_cinematography::dyndof( "m1a1" ) maps\_cinematography::dyndof_values( 2.4, -1, 3, 1 ) maps\_cinematography::dyndof_reference_entity( level.abrams ) maps\_cinematography::dyndof_require_visible( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 6 );
     var_2 maps\_cinematography::dyndof_angles( -10, 10 ) maps\_cinematography::dyndof_priority( 1 );
-    maps\_cinematography::dyndof( "main_dof" ) maps\_cinematography::dyndof_values( 4, 640, 3, 1 ) maps\_cinematography::dyndof_autofocus( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 10 ) maps\_cinematography::dyndof_reference_entity( level._id_6F7C ) maps\_cinematography::dyndof_valid_range( 0, 200 );
+    maps\_cinematography::dyndof( "main_dof" ) maps\_cinematography::dyndof_values( 4, 640, 3, 1 ) maps\_cinematography::dyndof_autofocus( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 10 ) maps\_cinematography::dyndof_reference_entity( level.price ) maps\_cinematography::dyndof_valid_range( 0, 200 );
     maps\_cinematography::dyndof( "off_angle_dof" ) maps\_cinematography::dyndof_values( 64, 1200, 3, 1 ) maps\_cinematography::dyndof_autofocus( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 5 );
     thread maps\_cinematography::dyndof_system_start( 1 );
     var_3 = maps\_cinematography::cinseq_create_screen_shake_struct();
@@ -74,14 +56,14 @@ handle_finale_dof()
 
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
-    common_scripts\utility::_id_383D( "lighting_player_entered_alley" );
-    common_scripts\utility::_id_383D( "lighting_player_entered_bog" );
-    common_scripts\utility::_id_383D( "lighting_player_interior" );
+    common_scripts\utility::flag_init( "lighting_player_entered_alley" );
+    common_scripts\utility::flag_init( "lighting_player_entered_bog" );
+    common_scripts\utility::flag_init( "lighting_player_interior" );
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
     setsaveddvar( "r_disablelightsets", 0 );
     setsunflareposition( ( -50.0, 136.0, 0.0 ) );
@@ -175,11 +157,11 @@ setup_lighting_pass_archway()
 {
     for (;;)
     {
-        common_scripts\utility::_id_384A( "lighting_player_entered_alley" );
-        common_scripts\utility::_id_3831( "lighting_player_entered_bog" );
+        common_scripts\utility::flag_wait( "lighting_player_entered_alley" );
+        common_scripts\utility::flag_clear( "lighting_player_entered_bog" );
         apply_lighting_pass_bog_street_part01();
-        common_scripts\utility::_id_384A( "lighting_player_entered_bog" );
-        common_scripts\utility::_id_3831( "lighting_player_entered_alley" );
+        common_scripts\utility::flag_wait( "lighting_player_entered_bog" );
+        common_scripts\utility::flag_clear( "lighting_player_entered_alley" );
         apply_lighting_pass_bog_outside();
     }
 }
@@ -188,9 +170,9 @@ setup_lighting_pass_interior()
 {
     for (;;)
     {
-        common_scripts\utility::_id_384A( "lighting_player_interior" );
+        common_scripts\utility::flag_wait( "lighting_player_interior" );
         apply_lighting_pass_bog_inside();
-        common_scripts\utility::_id_3857( "lighting_player_interior" );
+        common_scripts\utility::flag_waitopen( "lighting_player_interior" );
         apply_lighting_pass_bog_outside();
     }
 }
@@ -200,28 +182,28 @@ apply_lighting_pass_bog_outside( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = 5.0;
 
-    maps\_utility::_id_9E6E( "bog_b", 2 );
+    maps\_utility::vision_set_fog_changes( "bog_b", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b" );
     level.player _meth_848C( "clut_bog_b", var_0 );
 }
 
 apply_lighting_pass_bog_inside()
 {
-    maps\_utility::_id_9E6E( "bog_b_interior", 2 );
+    maps\_utility::vision_set_fog_changes( "bog_b_interior", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b_interior" );
     level.player _meth_848C( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_street_part01()
 {
-    maps\_utility::_id_9E6E( "bog_b", 2 );
+    maps\_utility::vision_set_fog_changes( "bog_b", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b" );
     level.player _meth_848C( "clut_bog_b", 5 );
 }
 
 apply_lighting_pass_bog_tank_sequence()
 {
-    maps\_utility::_id_9E6E( "bog_b", 2 );
+    maps\_utility::vision_set_fog_changes( "bog_b", 2 );
     level.player maps\_utility::set_light_set_player( "bog_b" );
     level.player _meth_848C( "clut_bog_b", 5 );
 }
@@ -234,9 +216,9 @@ play_flickering_light()
     var_2["off"] = "emt_light_flicker_off";
     var_2["loop"] = "emt_light_flicker_lp";
     var_2["vol_env"] = [ [ var_0, 0.2 ], [ var_1, 1.0 ] ];
-    thread maps\_lighting::_id_5D3A( "model_flicker_01", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
+    thread maps\_lighting::model_flicker_preset( "model_flicker_01", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
     var_0 = 1800;
     var_1 = 25000;
     var_2["vol_env"] = [ [ var_0, 0.2 ], [ var_1, 1.0 ] ];
-    thread maps\_lighting::_id_5D3A( "model_flicker_03", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
+    thread maps\_lighting::model_flicker_preset( "model_flicker_03", 0, var_0, var_1, undefined, undefined, 0.005, 0.5, 0.005, 0.05, undefined, var_2, 1500 );
 }

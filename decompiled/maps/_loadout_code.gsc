@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_781E( var_0 )
+saveplayerweaponstatepersistent( var_0 )
 {
     var_1 = level.player getcurrentweapon();
 
@@ -38,7 +20,7 @@ _id_781E( var_0 )
         game["weaponstates"][var_0]["list"][var_4]["name"] = var_3[var_4];
 }
 
-_id_74B1( var_0 )
+restoreplayerweaponstatepersistent( var_0 )
 {
     if ( !isdefined( game["weaponstates"] ) )
         return 0;
@@ -89,7 +71,7 @@ _id_74B1( var_0 )
     return 1;
 }
 
-_id_7F46()
+setdefaultactionslot()
 {
     self setactionslot( 1, "" );
     self setactionslot( 2, "" );
@@ -97,23 +79,23 @@ _id_7F46()
     self setactionslot( 4, "" );
 }
 
-_id_4D31()
+init_player()
 {
-    _id_7F46();
+    setdefaultactionslot();
     self takeallweapons();
 }
 
-_id_3DCC()
+get_loadout()
 {
-    if ( isdefined( level._id_57D6 ) )
-        return level._id_57D6;
+    if ( isdefined( level.loadout ) )
+        return level.loadout;
 
     return level.script;
 }
 
-_id_67D9( var_0, var_1 )
+persist( var_0, var_1 )
 {
-    var_2 = _id_3DCC();
+    var_2 = get_loadout();
 
     if ( var_0 != var_2 )
         return;
@@ -125,15 +107,15 @@ _id_67D9( var_0, var_1 )
         return;
 
     level._lc_persists = 1;
-    _id_74B1( var_1 );
-    level._id_46F3 = 1;
+    restoreplayerweaponstatepersistent( var_1 );
+    level.has_loadout = 1;
 }
 
-_id_57D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+loadout( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( isdefined( var_0 ) )
     {
-        var_7 = _id_3DCC();
+        var_7 = get_loadout();
 
         if ( var_0 != var_7 )
             return;
@@ -143,7 +125,7 @@ _id_57D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     {
         if ( isdefined( var_1 ) )
         {
-            level._id_2792 = var_1;
+            level.default_weapon = var_1;
             level.player giveweapon( var_1 );
         }
 
@@ -172,12 +154,12 @@ _id_57D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         level.player setviewmodel( var_5 );
 
     if ( isdefined( var_6 ) )
-        level._id_1A3D = var_6;
+        level.campaign = var_6;
 
-    level._id_46F3 = 1;
+    level.has_loadout = 1;
 }
 
-_id_57DB( var_0, var_1, var_2 )
+loadoutequipment( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_0 ) )
         return;
@@ -198,19 +180,19 @@ _id_57DB( var_0, var_1, var_2 )
     }
 }
 
-_id_57D8()
+loadout_complete()
 {
-    level._id_57DA = 1;
+    level.loadoutcomplete = 1;
     level notify( "loadout complete" );
 }
 
-_id_2783()
+default_loadout_if_notset()
 {
-    if ( level._id_46F3 )
+    if ( level.has_loadout )
         return;
 
-    _id_57D6( undefined, "mp5", undefined, "fraggrenade", "flash_grenade", "viewmodel_base_viewhands" );
-    level._id_5985 = 1;
+    loadout( undefined, "mp5", undefined, "fraggrenade", "flash_grenade", "viewmodel_base_viewhands" );
+    level.map_without_loadout = 1;
 }
 
 loadoutcustomization()
@@ -292,7 +274,7 @@ loadout_scoutsniper()
 
 loadout_sniperescape()
 {
-    if ( level._id_3BFE >= 2 )
+    if ( level.gameskill >= 2 )
     {
         level.player setweaponammoclip( "claymore", 10 );
         level.player setweaponammoclip( "c4", 6 );

@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init_depot()
 {
     setdepotstate( "" );
@@ -63,21 +45,21 @@ init_depot()
     level.inventoryitemrarity["Epic"] = 5;
     level.raritycardfx = [];
     level.raritycardfx[level.inventoryitemrarity["Common"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Common"]]._id_3B23 = "loot_card_trail_common";
-    level.raritycardfx[level.inventoryitemrarity["Common"]]._id_7675 = "loot_crate_open_common";
-    level.raritycardfx[level.inventoryitemrarity["Common"]]._id_3528 = 106;
+    level.raritycardfx[level.inventoryitemrarity["Common"]].fx = "loot_card_trail_common";
+    level.raritycardfx[level.inventoryitemrarity["Common"]].rumble = "loot_crate_open_common";
+    level.raritycardfx[level.inventoryitemrarity["Common"]].exploder = 106;
     level.raritycardfx[level.inventoryitemrarity["Rare"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Rare"]]._id_3B23 = "loot_card_trail_rare";
-    level.raritycardfx[level.inventoryitemrarity["Rare"]]._id_7675 = "loot_crate_open_rare";
-    level.raritycardfx[level.inventoryitemrarity["Rare"]]._id_3528 = 109;
+    level.raritycardfx[level.inventoryitemrarity["Rare"]].fx = "loot_card_trail_rare";
+    level.raritycardfx[level.inventoryitemrarity["Rare"]].rumble = "loot_crate_open_rare";
+    level.raritycardfx[level.inventoryitemrarity["Rare"]].exploder = 109;
     level.raritycardfx[level.inventoryitemrarity["Legendary"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Legendary"]]._id_3B23 = "loot_card_trail_legendary";
-    level.raritycardfx[level.inventoryitemrarity["Legendary"]]._id_7675 = "loot_crate_open_legendary";
-    level.raritycardfx[level.inventoryitemrarity["Legendary"]]._id_3528 = 112;
+    level.raritycardfx[level.inventoryitemrarity["Legendary"]].fx = "loot_card_trail_legendary";
+    level.raritycardfx[level.inventoryitemrarity["Legendary"]].rumble = "loot_crate_open_legendary";
+    level.raritycardfx[level.inventoryitemrarity["Legendary"]].exploder = 112;
     level.raritycardfx[level.inventoryitemrarity["Epic"]] = spawnstruct();
-    level.raritycardfx[level.inventoryitemrarity["Epic"]]._id_3B23 = "loot_card_trail_epic";
-    level.raritycardfx[level.inventoryitemrarity["Epic"]]._id_7675 = "loot_crate_open_epic";
-    level.raritycardfx[level.inventoryitemrarity["Epic"]]._id_3528 = 115;
+    level.raritycardfx[level.inventoryitemrarity["Epic"]].fx = "loot_card_trail_epic";
+    level.raritycardfx[level.inventoryitemrarity["Epic"]].rumble = "loot_crate_open_epic";
+    level.raritycardfx[level.inventoryitemrarity["Epic"]].exploder = 115;
     depotscenelightsoff();
 }
 
@@ -315,18 +297,18 @@ playerenterdepot( var_0 )
     self endon( "leave_depot" );
     setdvar( "vlDepotEnabled", 1 );
 
-    if ( !maps\mp\_utility::_id_5092( level.in_depot ) )
+    if ( !maps\mp\_utility::is_true( level.in_depot ) )
     {
         while ( !getdvarint( "vlDepotLoaded", 0 ) || !getdvarint( "virtualLobbyPresentable" ) )
             wait 0.05;
 
         level.depotcontroller = var_0;
-        var_1 = maps\mp\_vl_base::_id_3F9E( var_0 );
-        level._id_9EA2 = var_1;
+        var_1 = maps\mp\_vl_base::getfocusfromcontroller( var_0 );
+        level.vl_focus = var_1;
         var_2 = self;
         depotsetupseasonal();
 
-        if ( !maps\mp\_utility::_id_5092( level.depotinitialized ) )
+        if ( !maps\mp\_utility::is_true( level.depotinitialized ) )
         {
             var_2 thread maps\mp\_vl_base::playerreloadallavatarmodels();
             maps\mp\mp_vlobby_room_fx::loadprecacheddepoteffects();
@@ -340,7 +322,7 @@ playerenterdepot( var_0 )
                 self [[ var_4.stateinitfunc ]]();
         }
 
-        var_6 = level._id_1A3E._id_1A13;
+        var_6 = level.camparams.camera;
         var_6.depotpos = "dealer";
         var_6.depotsceneent _meth_8487( "h1_vlobby_armory_scene1_cam_idle", var_6.depotsceneent.scriptednode.origin, var_6.depotsceneent.scriptednode.angles, "scene_node_anim" );
 
@@ -386,9 +368,9 @@ playerleavedepot( var_0 )
     level notify( "leave_depot" );
     setdvar( "vlDepotEnabled", 0 );
 
-    if ( !maps\mp\_utility::_id_5092( level.in_depot ) )
+    if ( !maps\mp\_utility::is_true( level.in_depot ) )
     {
-        if ( !maps\mp\_utility::_id_5092( level.depotinitialized ) )
+        if ( !maps\mp\_utility::is_true( level.depotinitialized ) )
             thread maps\mp\_vl_base::playerreloadallavatarmodels();
 
         return;
@@ -426,7 +408,7 @@ playerreturntodepot( var_0 )
 
     if ( getdvar( "vlDepotState" ) == "pause" )
     {
-        if ( level._id_1A3E._id_1A13.depotpos == "crate" )
+        if ( level.camparams.camera.depotpos == "crate" )
             setdepotstate( "purchaseidle" );
         else
             setdepotstate( "idle" );
@@ -456,7 +438,7 @@ setupdepotpropent( var_0, var_1, var_2, var_3 )
 {
     var_0 _meth_8442( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 
-    if ( maps\mp\_utility::_id_5092( var_3 ) )
+    if ( maps\mp\_utility::is_true( var_3 ) )
         var_0 hide();
 
     if ( !isdefined( level.depotpropents ) )
@@ -560,15 +542,15 @@ depotinitsounds()
 
 spawnandinitdepotents()
 {
-    var_0 = level._id_1A3E._id_1A13;
+    var_0 = level.camparams.camera;
 
     if ( isdefined( var_0.depotsceneent ) )
         return;
 
-    while ( !isdefined( common_scripts\utility::_id_40FB( "characterBM", "targetname" ) ) )
+    while ( !isdefined( common_scripts\utility::getstruct( "characterBM", "targetname" ) ) )
         wait 0.05;
 
-    var_1 = common_scripts\utility::_id_40FB( "characterBM", "targetname" );
+    var_1 = common_scripts\utility::getstruct( "characterBM", "targetname" );
     var_0.depotsceneent = spawn( "script_model", var_1.origin );
     var_0.depotsceneent setmodel( "genericprop" );
     var_0.depotsceneent.scriptednode = var_1;
@@ -615,7 +597,7 @@ spawnandinitdepotents()
     level.depotlackey.props["cards"].animstatesuffix = "cards";
     level.depotlackey.props["cards"].animscenenode = level.depotlackey.sceneent.scriptednode;
     level.depotprop = playerspawndepotcharacter( self.class, "vldepot_props_animclass", "body_graves_lackey", "head_graves_lackey", 0 );
-    maps\mp\_vl_avatar::_id_4842( level.depotprop );
+    maps\mp\_vl_avatar::hide_avatar( level.depotprop );
     level.depotspecialanimprops = [];
     level.depotspecialanimprops["pistol"] = [];
     level.depotspecialanimprops["pistol"][level.depotspecialanimprops["pistol"].size] = level.depotagent.props["pistol"];
@@ -623,7 +605,7 @@ spawnandinitdepotents()
     level.depotspecialanimprops["knife"] = level.depotagent.props["cloth"];
     level.depotspecialanimprops["laptop"] = level.depotagent.props["laptop"];
     level.depotspecialanimprops["lackey"] = level.depotlackey.props["cards"];
-    var_4 = common_scripts\utility::_id_40FB( "drop_crate", "targetname" );
+    var_4 = common_scripts\utility::getstruct( "drop_crate", "targetname" );
     level.depotcrate = spawn( "script_model", var_4.origin );
     level.depotcrate.angles = var_4.angles;
     level.depotcrate setmodel( "h1_supply_drop_crate_a_anim" );
@@ -651,15 +633,15 @@ playerspawndepotcharacter( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_4 ) )
         var_4 = 1;
 
-    var_5 = maps\mp\gametypes\_class::_id_4009( self.pers["team"], var_0 );
-    var_6 = common_scripts\utility::_id_40FB( "characterBM", "targetname" );
-    var_7 = maps\mp\_vl_avatar::_id_88CE( self, var_6, var_5._id_6F84, self._id_2236, var_5._id_A7ED, undefined, undefined, var_4, 1, var_2, var_3 );
+    var_5 = maps\mp\gametypes\_class::getloadout( self.pers["team"], var_0 );
+    var_6 = common_scripts\utility::getstruct( "characterBM", "targetname" );
+    var_7 = maps\mp\_vl_avatar::spawn_an_avatar( self, var_6, var_5.primaryname, self.costume, var_5._id_A7ED, undefined, undefined, var_4, 1, var_2, var_3 );
     var_7._id_A7EA = var_5.emblemindex;
     var_7 _meth_8577( var_5._id_A7EC );
     var_7 setanimclass( var_1 );
-    var_7 getmlgspectatorteam( 1 );
-    var_7 setphysicsmode( "noclip" );
-    maps\mp\_vl_avatar::_id_4844( var_7 );
+    var_7 scragentsetscripted( 1 );
+    var_7 scragentsetphysicsmode( "noclip" );
+    maps\mp\_vl_avatar::hide_avatar_primary_weapon( var_7 );
     return var_7;
 }
 
@@ -868,7 +850,7 @@ depotswitchingtogreetingfirst( var_0 )
 {
     sethasvisiteddepot();
 
-    if ( level._id_1A3E._id_1A13.depotpos != "dealer" )
+    if ( level.camparams.camera.depotpos != "dealer" )
         thread playertransitiontodealer();
 }
 
@@ -883,13 +865,13 @@ depotswitchingtogreeting( var_0 )
 
 depotswitchingtoidle( var_0 )
 {
-    if ( level._id_1A3E._id_1A13.depotpos != "dealer" )
+    if ( level.camparams.camera.depotpos != "dealer" )
     {
         thread playertransitiontodealer();
         thread playbobbleanim();
     }
 
-    if ( isdefined( level.depotstates[var_0] ) && !maps\mp\_utility::_id_5092( level.depotstates[var_0].idletype ) )
+    if ( isdefined( level.depotstates[var_0] ) && !maps\mp\_utility::is_true( level.depotstates[var_0].idletype ) )
         level.depotidlestarttime = gettime();
 }
 
@@ -932,7 +914,7 @@ depotswitchingtopurchase( var_0 )
 {
     thread depotopenlootcrate();
 
-    if ( level._id_1A3E._id_1A13.depotpos != "crate" )
+    if ( level.camparams.camera.depotpos != "crate" )
         thread playertransitiontocrate();
 
     level.depotstates["purchase"].animname = level.depotstates["purchase"].origanimname;
@@ -1135,7 +1117,7 @@ depotanimstatemachine()
                 var_3 = getdvar( "vlDepotState" );
             }
 
-            if ( maps\mp\_utility::_id_5092( level.depotstates[var_3].nochecknecessary ) || self [[ level.depotstates[var_3].canswitchtostatefunc ]]( var_0 ) )
+            if ( maps\mp\_utility::is_true( level.depotstates[var_3].nochecknecessary ) || self [[ level.depotstates[var_3].canswitchtostatefunc ]]( var_0 ) )
             {
                 level notify( "depot_state_changed" );
                 level notify( "depot_state_" + var_3 );
@@ -1156,7 +1138,7 @@ depotanimstatemachine()
 
 depotshowlackeyprops()
 {
-    if ( !maps\mp\_utility::_id_5092( level.showinglackeyprops ) )
+    if ( !maps\mp\_utility::is_true( level.showinglackeyprops ) )
     {
         foreach ( var_1 in level.depotlackey.props )
             var_1 show();
@@ -1171,18 +1153,18 @@ depotlackeyfidgets()
     var_0 = 15000;
     var_1 = 30000;
     var_2 = gettime();
-    maps\mp\_vl_avatar::_id_4842( level.depotlackey );
+    maps\mp\_vl_avatar::hide_avatar( level.depotlackey );
 
     for (;;)
     {
         if ( gettime() - var_2 > randomfloatrange( var_0, var_1 ) )
         {
-            maps\mp\_vl_avatar::_id_84BF( level.depotlackey, 0 );
+            maps\mp\_vl_avatar::show_avatar( level.depotlackey, 0 );
             depotshowlackeyprops();
             var_3 = thread agentplaydepotanim( level.depotlackey, "armory_lackey_fidgets" );
             sceneplayanim( level.depotlackey.sceneent, level.depotlackey.sceneent.scriptednode, level.depotprop getanimentryname( "armory_lackey_fidgets_prop", var_3 ) );
-            level.depotlackey maps\mp\agents\_scripted_agent_anim_util::_id_A100( "lackey_fidget", "end", "armory_lackey_fidgets", var_3 );
-            maps\mp\_vl_avatar::_id_4842( level.depotlackey );
+            level.depotlackey maps\mp\agents\_scripted_agent_anim_util::waituntilnotetrack( "lackey_fidget", "end", "armory_lackey_fidgets", var_3 );
+            maps\mp\_vl_avatar::hide_avatar( level.depotlackey );
             var_2 = gettime();
             wait(var_0 / 1000);
         }
@@ -1207,11 +1189,11 @@ depotplayscene( var_0, var_1, var_2 )
             {
                 if ( level.depotlackey _meth_8558( var_4 + "_lackey" ) && level.depotlackey getanimentrycount( var_4 + "_lackey" ) > var_3 )
                 {
-                    maps\mp\_vl_avatar::_id_84BF( level.depotlackey, 0 );
+                    maps\mp\_vl_avatar::show_avatar( level.depotlackey, 0 );
                     thread agentplaydepotanim( level.depotlackey, var_4 + "_lackey", var_3 );
                 }
                 else
-                    maps\mp\_vl_avatar::_id_4842( level.depotlackey );
+                    maps\mp\_vl_avatar::hide_avatar( level.depotlackey );
 
                 if ( level.depotprop _meth_8558( var_4 + "_prop_lackey" ) && level.depotprop getanimentrycount( var_4 + "_prop_lackey" ) > var_3 )
                 {
@@ -1291,18 +1273,18 @@ agentplaydepotanim( var_0, var_1, var_2, var_3 )
 agentupdatestateonanimend( var_0, var_1, var_2 )
 {
     level endon( "depot_state_changed" );
-    level.depotagent maps\mp\agents\_scripted_agent_anim_util::_id_A100( var_2, "end", var_0, var_1 );
+    level.depotagent maps\mp\agents\_scripted_agent_anim_util::waituntilnotetrack( var_2, "end", var_0, var_1 );
     level.depotstatefinished = 1;
 }
 
 playertransitiontocrate()
 {
-    var_0 = level._id_1A3E._id_1A13;
+    var_0 = level.camparams.camera;
     var_0.depotpos = "crate";
     self _meth_84A7( 2.2, 72.5 );
     self playsound( "h1_ui_loot_cam_whoosh" );
     sceneplayanim( var_0.depotsceneent, var_0.depotsceneent.scriptednode, "h1_vlobby_armory_scene1_cam_zoomin", 1 );
-    level.depotagent common_scripts\utility::_id_27CD( 1, ::stopsounds );
+    level.depotagent common_scripts\utility::delaycall( 1, ::stopsounds );
 
     if ( var_0.depotpos == "crate" )
         sceneplayanim( var_0.depotsceneent, var_0.depotsceneent.scriptednode, "h1_vlobby_armory_scene1_cam_loot_idle" );
@@ -1310,7 +1292,7 @@ playertransitiontocrate()
 
 playertransitiontodealer()
 {
-    var_0 = level._id_1A3E._id_1A13;
+    var_0 = level.camparams.camera;
     var_0.depotpos = "dealer";
     thread playerdepot_dof();
     sceneplayanim( var_0.depotsceneent, var_0.depotsceneent.scriptednode, "h1_vlobby_armory_scene1_cam_zoomout", 1 );
@@ -1335,7 +1317,7 @@ sceneplayanim( var_0, var_1, var_2, var_3, var_4 )
         var_0 _meth_8487( var_2, var_1.origin, var_1.angles, "scene_node_anim", var_4 );
         var_0 thread scenedepotpropnotetracks();
 
-        if ( maps\mp\_utility::_id_5092( var_3 ) )
+        if ( maps\mp\_utility::is_true( var_3 ) )
             var_0 waittillmatch( "scene_node_anim", "end" );
     }
 }
@@ -1345,8 +1327,8 @@ depotopenlootcrate()
     level notify( "openLootCrate" );
     level endon( "openLootCrate" );
 
-    if ( level._id_1A3E._id_1A13.depotpos != "crate" )
-        level._id_1A3E._id_1A13.depotsceneent waittillmatch( "scene_node_anim", "crack_crate" );
+    if ( level.camparams.camera.depotpos != "crate" )
+        level.camparams.camera.depotsceneent waittillmatch( "scene_node_anim", "crack_crate" );
 
     level.depotcrate scriptmodelclearanim();
     level.depotcrate _meth_8487( "h1_vlobby_armory_lootcrate_crack_open", level.depotcrate.originalorigin, level.depotcrate.originalangles, "crate_anim" );
@@ -1369,7 +1351,7 @@ depotopenlootcrate()
             level.depotcrate playloopsound( "h1_ui_lootbox_rattle" );
 
             while ( getdvar( "vlDepotState" ) == "purchasewait" )
-                waittillframeend;
+                waitframe();
         }
 
         level.depotcrate stoploopsound();
@@ -1385,7 +1367,7 @@ depotopenlootcrate()
 
             for ( var_2 = 0; var_2 < level.depotlootrarities.size && var_2 < level.depotlootcards.size; var_2++ )
             {
-                level.depotlootcards[var_2].rarity_fx = level._effect[level.raritycardfx[level.inventoryitemrarity["Common"]]._id_3B23];
+                level.depotlootcards[var_2].rarity_fx = level._effect[level.raritycardfx[level.inventoryitemrarity["Common"]].fx];
                 playfxontag( level.depotlootcards[var_2].rarity_fx, level.depotlootcards[var_2], "tag_card" );
                 var_1 = int( max( var_1, level.depotlootrarities[var_2] ) );
             }
@@ -1399,17 +1381,17 @@ depotopenlootcrate()
             level.depotcrate _meth_8487( "h1_vlobby_armory_lootcrate_full_open", level.depotcrate.originalorigin, level.depotcrate.originalangles, "crate_anim" );
             level.depotcrate playsound( "h1_ui_loot_box_open" );
             level.depotcrate waittillmatch( "crate_anim", "play_fx" );
-            thread common_scripts\_exploder::_id_3528( level.raritycardfx[var_1]._id_3528 );
+            thread common_scripts\_exploder::exploder( level.raritycardfx[var_1].exploder );
 
-            if ( isdefined( level.raritycardfx[var_1]._id_7675 ) )
-                playrumbleonposition( level.raritycardfx[var_1]._id_7675, self.origin );
+            if ( isdefined( level.raritycardfx[var_1].rumble ) )
+                playrumbleonposition( level.raritycardfx[var_1].rumble, self.origin );
 
             level.depotlootprop waittillmatch( "card_anim", "cards_off_screen" );
             luinotifyevent( &"supply_drop_ui", 0 );
             level.depotlootrarities = undefined;
             level.depotcrate waittillmatch( "crate_anim", "crate_shut" );
             level.depotcrate playsound( "h1_ui_loot_box_close" );
-            thread common_scripts\_exploder::_id_3528( 201 );
+            thread common_scripts\_exploder::exploder( 201 );
             level.depotcrate waittillmatch( "crate_anim", "end" );
 
             foreach ( var_4 in level.depotlootcards )
@@ -1455,12 +1437,12 @@ scenedepotpropnotetracks()
 scenerundepotpropeffect( var_0 )
 {
     var_1 = level.depotpropents[var_0.model];
-    playfxontag( common_scripts\utility::_id_3FA8( var_0.fxref ), var_1, var_0.tagname );
+    playfxontag( common_scripts\utility::getfx( var_0.fxref ), var_1, var_0.tagname );
 
-    if ( maps\mp\_utility::_id_5092( var_0.islooping ) )
+    if ( maps\mp\_utility::is_true( var_0.islooping ) )
     {
         waittilldepotpropfxdone( var_1, var_0.stopnotetrack );
-        stopfxontag( common_scripts\utility::_id_3FA8( var_0.fxref ), var_1, var_0.tagname );
+        stopfxontag( common_scripts\utility::getfx( var_0.fxref ), var_1, var_0.tagname );
     }
 }
 

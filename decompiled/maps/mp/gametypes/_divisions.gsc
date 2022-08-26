@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 checkforseason1start()
 {
     if ( !isvalidplayer() )
@@ -27,35 +9,35 @@ checkforseason1start()
     if ( isdefined( level.iszombiegame ) && level.iszombiegame )
         return;
 
-    if ( isdefined( level._id_511D ) && level._id_511D )
+    if ( isdefined( level.ishorde ) && level.ishorde )
         return;
 
-    if ( !maps\mp\_utility::_id_7139() )
+    if ( !maps\mp\_utility::rankingenabled() )
         return;
 
     if ( isdefined( self.pers["division"] ) && isdefined( self.pers["division"]["seasonStart"] ) )
         return;
 
-    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "currentSeason" );
+    var_0 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "currentSeason" );
     var_1 = getdvarint( "scr_game_season" );
 
     if ( var_1 > 0 && var_0 == 0 )
     {
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", 0 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr", -31768 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", 0 );
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "currentSeason", var_1 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", 0 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr", -31768 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", 0 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "currentSeason", var_1 );
         self.pers["division"]["seasonStart"] = 1;
     }
 }
 
 init()
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return;
 
     if ( getdvarint( "scr_game_division" ) == 1 )
@@ -101,16 +83,16 @@ onrankedmatchstart()
     level endon( "exitLevel_called" );
 
     foreach ( var_1 in level.players )
-        var_1 thread _id_64C8();
+        var_1 thread onplayerconnect();
 
     for (;;)
     {
         level waittill( "connected", var_1 );
-        var_1 thread _id_64C8();
+        var_1 thread onplayerconnect();
     }
 }
 
-_id_64C8()
+onplayerconnect()
 {
     level endon( "game_win" );
     level endon( "exitLevel_called" );
@@ -152,9 +134,9 @@ onmatchend()
             else
                 var_2 ondivisionloss( var_3 );
 
-            var_4 = var_2 getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division" );
-            var_2 setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", var_4 - var_3 + 128 );
-            var_2 setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", 0 );
+            var_4 = var_2 getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division" );
+            var_2 setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchDp", var_4 - var_3 + 128 );
+            var_2 setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", 0 );
         }
 
         break;
@@ -175,7 +157,7 @@ ondivisionwin( var_0 )
     self.pers["division"]["dp"] = var_0;
 
     if ( self.pers["division"]["minDP"] == var_0 )
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
 
     if ( isdefined( self.pers["division"]["maxDP"] ) )
     {
@@ -183,19 +165,19 @@ ondivisionwin( var_0 )
         {
             if ( self.pers["division"]["init"]["winBits"] > 0 )
             {
-                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + 1 );
-                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
+                self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + 1 );
+                self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
             }
             else
-                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
+                self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
 
             updatedivisionchallengestatus( 1 );
         }
         else
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
     }
     else
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + var_1 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 + var_1 );
 }
 
 ondivisionloss( var_0 )
@@ -220,7 +202,7 @@ ondivisionloss( var_0 )
     else if ( self.pers["division"]["minDP"] == var_0 )
         return;
     else
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
 }
 
 ondivisiontie( var_0 )
@@ -241,25 +223,25 @@ ondivisiontie( var_0 )
     setplayermmr( var_1 );
 
     if ( self.pers["division"]["minDP"] == var_0 )
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", self.pers["division"]["init"]["relegation"] );
 
     if ( isdefined( self.pers["division"]["maxDP"] ) )
     {
         if ( self.pers["division"]["maxDP"] == var_0 )
         {
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", self.pers["division"]["init"]["playBits"] );
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", self.pers["division"]["init"]["winBits"] );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", var_0 );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", self.pers["division"]["init"]["playBits"] );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", self.pers["division"]["init"]["winBits"] );
             return;
         }
         else if ( var_1 > 0 )
         {
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( min( float( self.pers["division"]["maxDP"] ), float( var_0 + var_1 ) ) ) );
             return;
         }
     }
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
+    self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
 }
 
 initloss()
@@ -268,7 +250,7 @@ initloss()
         return;
 
     clearmatchprediction();
-    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division" );
+    var_0 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division" );
     var_1 = int( tablelookup( "mp/divisiontable.csv", 0, "forfeit", 1 ) );
     getdivisionchallengestatus();
     getmmr();
@@ -276,14 +258,14 @@ initloss()
     if ( self.pers["division"]["wins"] >= 2 || self.pers["division"]["losses"] >= 2 )
         cleardivisionchallengestatus();
 
-    if ( self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" ) >= 3 )
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
+    if ( self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" ) >= 3 )
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", 0 );
 
     self.pers["division"]["init"]["dp"] = var_0;
     self.pers["division"]["init"]["deltaDP"] = var_1;
-    self.pers["division"]["init"]["relegation"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" );
-    self.pers["division"]["init"]["playBits"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
-    self.pers["division"]["init"]["winBits"] = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
+    self.pers["division"]["init"]["relegation"] = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter" );
+    self.pers["division"]["init"]["playBits"] = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
+    self.pers["division"]["init"]["winBits"] = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
     self.pers["division"]["init"]["MMR"] = self.pers["division"]["MMR"];
     thread updatelockouttime();
     self.pers["division"]["dp"] = var_0;
@@ -299,7 +281,7 @@ initloss()
         self.pers["division"]["losses"]++;
 
         if ( self.pers["division"]["losses"] >= 2 )
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
         else
         {
 
@@ -316,18 +298,18 @@ initloss()
             if ( var_2 >= 3 )
             {
                 getdivisionpointrange( var_0 - 1 );
-                self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
+                self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", self.pers["division"]["minDP"] + getdivisionresetoffset() );
             }
             else
             {
 
             }
 
-            self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", var_2 );
+            self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionRelegationCounter", var_2 );
         }
     }
     else
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "division", int( max( float( self.pers["division"]["minDP"] ), float( var_0 + var_1 ) ) ) );
 }
 
 updatelockouttime()
@@ -341,7 +323,7 @@ updatelockouttime()
         if ( isremovedentity( self ) )
             break;
 
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", gettimeutc() );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "rankedPlaylistLockTime", gettimeutc() );
         wait 10;
     }
 }
@@ -380,8 +362,8 @@ getdivisionpointrange( var_0 )
 
 getdivisionchallengestatus()
 {
-    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
-    var_1 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
+    var_0 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed" );
+    var_1 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon" );
     var_2 = 0;
     var_3 = 0;
 
@@ -406,8 +388,8 @@ getdivisionchallengestatus()
 
 cleardivisionchallengestatus()
 {
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", 0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", 0 );
     self.pers["division"]["wins"] = 0;
     self.pers["division"]["losses"] = 0;
 }
@@ -422,13 +404,13 @@ updatedivisionchallengestatus( var_0 )
     if ( var_0 )
         var_2 |= 1;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", var_1 );
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", var_2 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengePlayed", var_1 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "divisionChallengeWon", var_2 );
 }
 
 getmmr()
 {
-    var_0 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr" );
+    var_0 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr" );
     var_0 -= -32768;
     self.pers["division"]["MMR"] = var_0;
 }
@@ -436,7 +418,7 @@ getmmr()
 savemmr()
 {
     var_0 = self.pers["division"]["MMR"] + -32768;
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr", var_0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "mmr", var_0 );
 }
 
 savematchprediction( var_0 )
@@ -454,7 +436,7 @@ savematchprediction( var_0 )
     else if ( var_0 == "loss" )
         var_1 |= 32;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", var_1 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", var_1 );
 }
 
 clearmatchprediction()
@@ -462,7 +444,7 @@ clearmatchprediction()
     if ( !isvalidplayer() )
         return;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "matchPrediction", 0 );
 }
 
 calculateteammmrs()

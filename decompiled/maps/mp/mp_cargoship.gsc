@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     maps\mp\mp_cargoship_precache::main();
@@ -65,15 +47,15 @@ misc_rotate_fans()
 {
     precachempanim( "rotate_Z_L" );
     common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate_custom", "targetname" ), ::fan_blade_rotate_custom );
-    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::_id_366A );
+    common_scripts\utility::array_thread( getentarray( "com_wall_fan_blade_rotate", "targetname" ), ::fan_blade_rotate );
 }
 
 fan_blade_rotate_custom()
 {
-    self _meth_8277( "rotate_Z_L" );
+    self scriptmodelplayanimdeltamotion( "rotate_Z_L" );
 }
 
-_id_366A()
+fan_blade_rotate()
 {
     var_0 = 600;
 
@@ -90,8 +72,8 @@ animated_cranes()
     precachempanim( "h1_mp_crane_idle_2" );
     var_0 = getent( "crane1", "targetname" );
     var_1 = getent( "crane2", "targetname" );
-    var_0 _meth_8277( "h1_mp_crane_idle_1" );
-    var_1 _meth_8277( "h1_mp_crane_idle_2" );
+    var_0 scriptmodelplayanimdeltamotion( "h1_mp_crane_idle_1" );
+    var_1 scriptmodelplayanimdeltamotion( "h1_mp_crane_idle_2" );
 }
 
 animated_boats_precache()
@@ -118,7 +100,7 @@ animated_boats()
     for (;;)
     {
         var_2 = randomint( 3 );
-        self _meth_8277( var_0[var_2] );
+        self scriptmodelplayanimdeltamotion( var_0[var_2] );
         wait(getanimlength( var_1[var_2] ));
     }
 }

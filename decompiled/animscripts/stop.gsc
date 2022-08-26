@@ -1,26 +1,8 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
-_id_4C8F()
+init_animset_idle()
 {
     var_0 = [];
     var_0["stand"][0] = [ %casual_stand_idle, %casual_stand_idle_twitch, %casual_stand_idle_twitchb ];
@@ -51,96 +33,96 @@ _id_4C8F()
 
 main()
 {
-    if ( isdefined( self._id_60EE ) )
+    if ( isdefined( self.no_ai ) )
         return;
 
-    if ( isdefined( self._id_2533 ) )
+    if ( isdefined( self.custom_animscript ) )
     {
-        if ( isdefined( self._id_2533["stop"] ) )
+        if ( isdefined( self.custom_animscript["stop"] ) )
         {
-            [[ self._id_2533["stop"] ]]();
+            [[ self.custom_animscript["stop"] ]]();
             return;
         }
     }
 
     self notify( "stopScript" );
     self endon( "killanimscript" );
-    [[ self._id_33E5["stop_immediate"] ]]();
-    thread _id_27E0();
-    animscripts\utility::_id_4DD7( "stop" );
+    [[ self.exception["stop_immediate"] ]]();
+    thread delayedexception();
+    animscripts\utility::initialize( "stop" );
 
-    if ( isdefined( self._id_8A2F ) )
-        _id_8A30();
+    if ( isdefined( self.specialidleanim ) )
+        specialidleloop();
 
-    animscripts\utility::_id_7129();
-    thread _id_7F9E();
-    thread animscripts\reactions::_id_718A();
-    var_0 = isdefined( self._id_255D );
+    animscripts\utility::randomizeidleset();
+    thread setlaststoppedtime();
+    thread animscripts\reactions::reactionscheckloop();
+    var_0 = isdefined( self.customidleanimset );
 
     if ( !var_0 )
     {
-        if ( self.a._id_A2E2["right"] == "none" && self.a._id_A2E2["left"] == "none" )
+        if ( self.a.weaponpos["right"] == "none" && self.a.weaponpos["left"] == "none" )
             var_0 = 1;
-        else if ( angleclamp180( self _meth_81BD()[0] ) > 20 )
+        else if ( angleclamp180( self getmuzzleangle()[0] ) > 20 )
             var_0 = 1;
     }
 
     if ( self.swimmer && !isdefined( self.enemy ) )
     {
-        var_1 = animscripts\exit_node::_id_3F8B();
+        var_1 = animscripts\exit_node::getexitnode();
 
         if ( isdefined( var_1 ) )
         {
-            self setflaggedanimknoballrestart( "idle", self._id_255D["stand"], %body, 1, 0.5, self.animplaybackrate );
-            _id_993C( var_1.angles[1] );
+            self setflaggedanimknoballrestart( "idle", self.customidleanimset["stand"], %body, 1, 0.5, self.animplaybackrate );
+            turntoangle( var_1.angles[1] );
         }
         else
-            self _meth_8193( "face angle", self.angles[1] );
+            self orientmode( "face angle", self.angles[1] );
     }
 
     for (;;)
     {
-        var_2 = _id_3F56();
+        var_2 = getdesiredidlepose();
 
         if ( var_2 == "prone" )
         {
             var_0 = 1;
-            _id_7028();
+            pronestill();
             continue;
         }
 
-        if ( self.a._id_6E5A != var_2 )
+        if ( self.a.pose != var_2 )
         {
-            self _meth_8144( %animscript_root, 0.3 );
+            self clearanim( %animscript_root, 0.3 );
             var_0 = 0;
         }
 
-        if ( animscripts\setposemovement::_id_7FF1( var_2, "stop" ) )
+        if ( animscripts\setposemovement::setposemovement( var_2, "stop" ) )
             continue;
 
         if ( !var_0 )
         {
-            _id_971F( var_2, self.a._id_4B81 );
+            transitiontoidle( var_2, self.a.idleset );
             var_0 = 1;
             continue;
         }
 
-        _id_6DAA( var_2, self.a._id_4B81 );
+        playidle( var_2, self.a.idleset );
     }
 }
 
-_id_993C( var_0 )
+turntoangle( var_0 )
 {
     var_1 = self.angles[1];
     var_2 = angleclamp180( var_0 - var_1 );
 
     if ( -20 < var_2 && var_2 < 20 )
     {
-        _id_7608( var_0, 2 );
+        rotatetoangle( var_0, 2 );
         return;
     }
 
-    var_3 = animscripts\swim::_id_4100( "idle_turn" );
+    var_3 = animscripts\swim::getswimanim( "idle_turn" );
 
     if ( var_2 < -80 )
         var_4 = var_3[2];
@@ -155,35 +137,35 @@ _id_993C( var_0 )
     var_6 = abs( var_2 ) / self.turnrate;
     var_6 /= 1000;
     var_7 = var_5 / var_6;
-    self _meth_8193( "face angle", var_0 );
-    self setflaggedanimrestart( "swim_turn", var_4, 1, 0.2, var_7 * self._id_5F65 );
-    animscripts\shared::_id_2D06( "swim_turn" );
-    self _meth_8144( var_4, 0.2 );
+    self orientmode( "face angle", var_0 );
+    self setflaggedanimrestart( "swim_turn", var_4, 1, 0.2, var_7 * self.moveplaybackrate );
+    animscripts\shared::donotetracks( "swim_turn" );
+    self clearanim( var_4, 0.2 );
 }
 
-_id_7608( var_0, var_1 )
+rotatetoangle( var_0, var_1 )
 {
-    self _meth_8193( "face angle", var_0 );
+    self orientmode( "face angle", var_0 );
 
     while ( angleclamp( var_0 - self.angles[1] ) > var_1 )
         wait 0.1;
 }
 
-_id_7F9E()
+setlaststoppedtime()
 {
     self endon( "death" );
     self waittill( "killanimscript" );
-    self._id_55FD = gettime();
+    self.laststoppedtime = gettime();
 }
 
-_id_8A30()
+specialidleloop()
 {
     self endon( "stop_specialidle" );
-    self.a._id_5F5B = "stop";
-    var_0 = self._id_8A2F;
-    self _meth_8192( "gravity" );
-    self _meth_8193( "face current" );
-    self _meth_8144( %animscript_root, 0.2 );
+    self.a.movement = "stop";
+    var_0 = self.specialidleanim;
+    self animmode( "gravity" );
+    self orientmode( "face current" );
+    self clearanim( %animscript_root, 0.2 );
 
     if ( var_0.size == 0 )
         return;
@@ -203,17 +185,17 @@ _id_8A30()
 
         var_1 = common_scripts\utility::array_remove( var_1, var_2 );
         self setflaggedanimrestart( "special_idle", var_2, 1, 0.2, self.animplaybackrate );
-        childthread animscripts\shared::_id_2D06( "special_idle" );
+        childthread animscripts\shared::donotetracks( "special_idle" );
         self waittillmatch( "special_idle", "end" );
 
         if ( var_0.size > 1 )
-            self _meth_8144( var_2, 0.2 );
+            self clearanim( var_2, 0.2 );
     }
 }
 
-_id_3F56()
+getdesiredidlepose()
 {
-    var_0 = animscripts\utility::_id_3F2F();
+    var_0 = animscripts\utility::getclaimednode();
 
     if ( isdefined( var_0 ) )
     {
@@ -226,22 +208,22 @@ _id_3F56()
         var_2 = "node was undefined";
     }
 
-    animscripts\face::_id_7F8F( anim.alertface );
-    var_3 = animscripts\utility::_id_1D45();
+    animscripts\face::setidleface( anim.alertface );
+    var_3 = animscripts\utility::choosepose();
 
     if ( var_2 == "Cover Stand" || var_2 == "Conceal Stand" )
-        var_3 = animscripts\utility::_id_1D45( "stand" );
+        var_3 = animscripts\utility::choosepose( "stand" );
     else if ( var_2 == "Cover Crouch" || var_2 == "Conceal Crouch" )
-        var_3 = animscripts\utility::_id_1D45( "crouch" );
+        var_3 = animscripts\utility::choosepose( "crouch" );
     else if ( var_2 == "Cover Prone" || var_2 == "Conceal Prone" )
-        var_3 = animscripts\utility::_id_1D45( "prone" );
+        var_3 = animscripts\utility::choosepose( "prone" );
 
     return var_3;
 }
 
-_id_971F( var_0, var_1 )
+transitiontoidle( var_0, var_1 )
 {
-    var_2 = self _meth_8167();
+    var_2 = self getisforcedincombat();
 
     if ( isdefined( self.node ) )
     {
@@ -252,28 +234,28 @@ _id_971F( var_0, var_1 )
             var_2 = 0;
     }
 
-    if ( animscripts\utility::_id_50E9() && self.a._id_6E5A == "stand" && ( animscripts\utility::_id_5124() || var_2 ) )
+    if ( animscripts\utility::iscqbwalking() && self.a.pose == "stand" && ( animscripts\utility::isincombat() || var_2 ) )
         var_0 = "stand_cqb";
-    else if ( animscripts\utility::_id_9C3B() && self.a._id_6E5A == "stand" )
+    else if ( animscripts\utility::usingsmg() && self.a.pose == "stand" )
         var_0 = "stand_smg";
-    else if ( self.a._id_6E5A == "stand" && var_2 )
+    else if ( self.a.pose == "stand" && var_2 )
         var_0 = "stand_combat";
-    else if ( self.a._id_6E5A == "crouch" && var_2 )
+    else if ( self.a.pose == "crouch" && var_2 )
         var_0 = "crouch_combat";
 
-    var_3 = animscripts\utility::_id_5864( "idle_transitions" );
+    var_3 = animscripts\utility::lookupanimarray( "idle_transitions" );
 
     if ( isdefined( var_3[var_0] ) )
     {
         var_4 = var_3[var_0];
         self setflaggedanimknoballrestart( "idle_transition", var_4, %body, 1, 0.2, self.animplaybackrate );
-        animscripts\shared::_id_2D06( "idle_transition" );
+        animscripts\shared::donotetracks( "idle_transition" );
     }
 }
 
-_id_6DAA( var_0, var_1 )
+playidle( var_0, var_1 )
 {
-    var_2 = self _meth_8167();
+    var_2 = self getisforcedincombat();
 
     if ( isdefined( self.node ) )
     {
@@ -284,37 +266,37 @@ _id_6DAA( var_0, var_1 )
             var_2 = 0;
     }
 
-    if ( animscripts\utility::_id_50E9() && self.a._id_6E5A == "stand" && ( animscripts\utility::_id_5124() || var_2 ) )
+    if ( animscripts\utility::iscqbwalking() && self.a.pose == "stand" && ( animscripts\utility::isincombat() || var_2 ) )
         var_0 = "stand_cqb";
-    else if ( self.a._id_6E5A == "stand" && var_2 )
+    else if ( self.a.pose == "stand" && var_2 )
         var_0 = "stand_combat";
-    else if ( self.a._id_6E5A == "crouch" && var_2 )
+    else if ( self.a.pose == "crouch" && var_2 )
         var_0 = "crouch_combat";
 
     var_3 = undefined;
 
-    if ( isdefined( self._id_255D ) && isdefined( self._id_255D[var_0] ) )
+    if ( isdefined( self.customidleanimset ) && isdefined( self.customidleanimset[var_0] ) )
     {
-        if ( isarray( self._id_255D[var_0] ) )
-            var_4 = animscripts\utility::anim_array( self._id_255D[var_0], self._id_255E[var_0] );
+        if ( isarray( self.customidleanimset[var_0] ) )
+            var_4 = animscripts\utility::anim_array( self.customidleanimset[var_0], self.customidleanimweights[var_0] );
         else
         {
-            var_4 = self._id_255D[var_0];
+            var_4 = self.customidleanimset[var_0];
             var_5 = var_0 + "_add";
 
-            if ( isdefined( self._id_255D[var_5] ) )
-                var_3 = self._id_255D[var_5];
+            if ( isdefined( self.customidleanimset[var_5] ) )
+                var_3 = self.customidleanimset[var_5];
         }
     }
-    else if ( isdefined( anim._id_71DD ) && ( var_0 == "stand" || var_0 == "stand_cqb" ) && isdefined( self.busereadyidle ) && self.busereadyidle == 1 )
-        var_4 = animscripts\utility::anim_array( anim._id_71DD["stand"][0], anim._id_71DE["stand"][0] );
+    else if ( isdefined( anim.readyanimarray ) && ( var_0 == "stand" || var_0 == "stand_cqb" ) && isdefined( self.busereadyidle ) && self.busereadyidle == 1 )
+        var_4 = animscripts\utility::anim_array( anim.readyanimarray["stand"][0], anim.readyanimweights["stand"][0] );
     else
     {
-        var_6 = animscripts\utility::_id_5864( "idle" );
-        var_7 = animscripts\utility::_id_5864( "idle_weights" );
+        var_6 = animscripts\utility::lookupanimarray( "idle" );
+        var_7 = animscripts\utility::lookupanimarray( "idle_weights" );
         var_1 %= var_6[var_0].size;
         var_4 = animscripts\utility::anim_array( var_6[var_0][var_1], var_7[var_0][var_1] );
-        var_8 = animscripts\utility::_id_5864( "idle_add" );
+        var_8 = animscripts\utility::lookupanimarray( "idle_add" );
 
         if ( isdefined( var_8[var_0] ) )
         {
@@ -328,42 +310,42 @@ _id_6DAA( var_0, var_1 )
 
     var_11 = 0.2;
 
-    if ( gettime() == self.a._id_7B46 )
+    if ( gettime() == self.a.scriptstarttime )
         var_11 = 0.5;
 
     if ( isdefined( var_3 ) )
     {
-        self _meth_8149( var_4, %body, 1, var_11, 1 );
-        self _meth_814D( %add_idle );
+        self setanimknoball( var_4, %body, 1, var_11, 1 );
+        self setanim( %add_idle );
         self setflaggedanimknoballrestart( "idle", var_3, %add_idle, 1, var_11, self.animplaybackrate );
     }
     else
         self setflaggedanimknoballrestart( "idle", var_4, %body, 1, var_11, self.animplaybackrate );
 
-    animscripts\shared::_id_2D06( "idle" );
+    animscripts\shared::donotetracks( "idle" );
 }
 
-_id_7028()
+pronestill()
 {
     var_0 = [];
     var_1 = undefined;
     var_2 = undefined;
 
-    if ( self.a._id_6E5A != "prone" )
+    if ( self.a.pose != "prone" )
     {
         var_0["stand_2_prone"] = %stand_2_prone;
         var_0["crouch_2_prone"] = %crouch_2_prone;
-        var_1 = var_0[self.a._id_6E5A + "_2_prone"];
+        var_1 = var_0[self.a.pose + "_2_prone"];
     }
-    else if ( self.a._id_5F5B != "stop" )
+    else if ( self.a.movement != "stop" )
     {
         if ( self.prevscript == "move" && isdefined( self.movetransitionanimation ) && isdefined( self.movetransitionendpose ) && self.movetransitionendpose == "prone" )
         {
-            var_3 = getanimlength( self.movetransitionanimation ) * ( 1 - self _meth_8151( self.movetransitionanimation ) );
+            var_3 = getanimlength( self.movetransitionanimation ) * ( 1 - self getanimtime( self.movetransitionanimation ) );
 
             if ( var_3 > 0.05 )
             {
-                var_2 = self _meth_8151( self.movetransitionanimation );
+                var_2 = self getanimtime( self.movetransitionanimation );
                 var_1 = self.movetransitionanimation;
             }
         }
@@ -378,45 +360,45 @@ _id_7028()
         if ( isdefined( var_2 ) )
             self setanimtime( var_1, var_2 );
 
-        animscripts\shared::_id_2D06( "trans" );
-        self.a._id_5F5B = "stop";
-        self _meth_81FD( -45, 45, %prone_legs_down, %exposed_modern, %prone_legs_up );
+        animscripts\shared::donotetracks( "trans" );
+        self.a.movement = "stop";
+        self setproneanimnodes( -45, 45, %prone_legs_down, %exposed_modern, %prone_legs_up );
         return;
     }
 
-    thread _id_9B4F();
+    thread updatepronethread();
 
     if ( randomint( 10 ) < 3 )
     {
-        var_4 = animscripts\utility::_id_5863( "cover_prone", "twitch" );
+        var_4 = animscripts\utility::lookupanim( "cover_prone", "twitch" );
         var_5 = var_4[randomint( var_4.size )];
         self setflaggedanimknoball( "prone_idle", var_5, %exposed_modern, 1, 0.2 );
     }
     else
     {
-        self _meth_8149( animscripts\utility::_id_5863( "cover_prone", "straight_level" ), %exposed_modern, 1, 0.2 );
-        self _meth_8154( "prone_idle", animscripts\utility::_id_5863( "cover_prone", "exposed_idle" )[0], 1, 0.2 );
+        self setanimknoball( animscripts\utility::lookupanim( "cover_prone", "straight_level" ), %exposed_modern, 1, 0.2 );
+        self setflaggedanimknob( "prone_idle", animscripts\utility::lookupanim( "cover_prone", "exposed_idle" )[0], 1, 0.2 );
     }
 
     self waittillmatch( "prone_idle", "end" );
     self notify( "kill UpdateProneThread" );
 }
 
-_id_9B4F()
+updatepronethread()
 {
     self endon( "killanimscript" );
     self endon( "kill UpdateProneThread" );
 
     for (;;)
     {
-        animscripts\cover_prone::_id_9B50( 0.1 );
+        animscripts\cover_prone::updatepronewrapper( 0.1 );
         wait 0.1;
     }
 }
 
-_id_27E0()
+delayedexception()
 {
     self endon( "killanimscript" );
     wait 0.05;
-    [[ self._id_33E5["stop"] ]]();
+    [[ self.exception["stop"] ]]();
 }

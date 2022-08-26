@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     maps\mp\mp_crash_snow_precache::main();
@@ -41,14 +23,14 @@ main()
     setdvar( "r_specularcolorscale", "1" );
     setdvar( "compassmaxrange", "1600" );
     level thread light_delete();
-    level thread _id_64C8();
+    level thread onplayerconnect();
 }
 
 airstrikeplanefx( var_0 )
 {
-    playfxontag( common_scripts\utility::_id_3FA8( "sleigh_glow_trail" ), self, "tag_engine_right" );
-    playfxontag( common_scripts\utility::_id_3FA8( "sleigh_glow_trail" ), self, "tag_engine_left" );
-    playfxontag( common_scripts\utility::_id_3FA8( "sleigh_rudolph_nose" ), self, "tag_light_nose" );
+    playfxontag( common_scripts\utility::getfx( "sleigh_glow_trail" ), self, "tag_engine_right" );
+    playfxontag( common_scripts\utility::getfx( "sleigh_glow_trail" ), self, "tag_engine_left" );
+    playfxontag( common_scripts\utility::getfx( "sleigh_rudolph_nose" ), self, "tag_light_nose" );
 }
 
 light_delete()
@@ -86,23 +68,23 @@ light_model_delete()
     }
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0._id_6EFA = ::_id_6D29;
+        var_0.prekilledfunc = ::playerprekilled;
     }
 }
 
-_id_6D29( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+playerprekilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     playerplaysnowfx();
 }
 
 playerplaysnowfx()
 {
-    self._id_487B = 1;
+    self.hideondeath = 1;
     var_0 = ( 0.0, 0.0, 30.0 );
     var_1 = self getstance();
 
@@ -111,5 +93,5 @@ playerplaysnowfx()
     else if ( var_1 == "prone" )
         var_0 = ( 0.0, 0.0, 10.0 );
 
-    playfx( common_scripts\utility::_id_3FA8( "deathfx_xmas_snow" ), self.origin + var_0 );
+    playfx( common_scripts\utility::getfx( "deathfx_xmas_snow" ), self.origin + var_0 );
 }

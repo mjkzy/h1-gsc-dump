@@ -1,40 +1,22 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     if ( level.multiteambased )
     {
         foreach ( var_1 in level.teamnamelist )
         {
-            level._id_51D0[var_1] = 0;
-            level._id_8A19[var_1] = [];
+            level.isteamspeaking[var_1] = 0;
+            level.speakers[var_1] = [];
         }
     }
     else
     {
-        level._id_51D0["allies"] = 0;
-        level._id_51D0["axis"] = 0;
-        level._id_8A19["allies"] = [];
-        level._id_8A19["axis"] = [];
+        level.isteamspeaking["allies"] = 0;
+        level.isteamspeaking["axis"] = 0;
+        level.speakers["allies"] = [];
+        level.speakers["axis"] = [];
     }
 
     level.bcsounds = [];
@@ -48,31 +30,31 @@ init()
     level.bcsounds["kill"] = "inform_killfirm_infantry";
     level.bcinfo = [];
 
-    foreach ( var_5, var_4 in level._id_8A19 )
+    foreach ( var_5, var_4 in level.speakers )
     {
-        level._id_9F33[var_5]["m"] = 0;
-        level._id_9F33[var_5]["fe"] = 0;
+        level.voice_count[var_5]["m"] = 0;
+        level.voice_count[var_5]["fe"] = 0;
     }
 
     var_6 = getdvar( "g_gametype" );
-    level._id_51C7 = 1;
+    level.istactical = 1;
 
     if ( var_6 == "war" || var_6 == "conf" || var_6 == "dom" )
-        level._id_51C7 = 0;
+        level.istactical = 0;
 
-    level thread _id_64C8();
+    level thread onplayerconnect();
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_64D6();
+        var_0 thread onplayerspawned();
     }
 }
 
-_id_64D6()
+onplayerspawned()
 {
     self endon( "disconnect" );
 
@@ -80,11 +62,11 @@ _id_64D6()
     {
         self waittill( "spawned_player" );
 
-        if ( maps\mp\_utility::_id_5092( level._id_9E56 ) )
+        if ( maps\mp\_utility::is_true( level.virtuallobbyactive ) )
             continue;
 
         self.bcinfo = [];
-        var_0 = maps\mp\gametypes\_teams::_id_4120( self.team );
+        var_0 = maps\mp\gametypes\_teams::getteamvoiceprefix( self.team );
 
         if ( !isdefined( self.pers["voiceIndex"] ) )
         {
@@ -95,12 +77,12 @@ _id_64D6()
             if ( !isagent( self ) && self hasfemalecustomizationmodel() )
                 var_3 = "fe";
 
-            self.pers["voiceNum"] = level._id_9F33[self.team][var_3] + 1;
+            self.pers["voiceNum"] = level.voice_count[self.team][var_3] + 1;
 
             if ( var_3 == "fe" )
-                level._id_9F33[self.team][var_3] = ( level._id_9F33[self.team][var_3] + 1 ) % var_2;
+                level.voice_count[self.team][var_3] = ( level.voice_count[self.team][var_3] + 1 ) % var_2;
             else
-                level._id_9F33[self.team][var_3] = ( level._id_9F33[self.team][var_3] + 1 ) % var_1;
+                level.voice_count[self.team][var_3] = ( level.voice_count[self.team][var_3] + 1 ) % var_1;
 
             self.pers["voicePrefix"] = var_0 + self.pers["voiceNum"] + var_3 + "_";
         }
@@ -111,13 +93,13 @@ _id_64D6()
         if ( !level.teambased )
             continue;
 
-        thread _id_731E();
-        thread _id_440E();
+        thread reloadtracking();
+        thread grenadetracking();
         thread claymoretracking();
     }
 }
 
-_id_731E()
+reloadtracking()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -126,11 +108,11 @@ _id_731E()
     for (;;)
     {
         self waittill( "reload_start" );
-        level thread _id_7826( self, "reload", 0 );
+        level thread saylocalsound( self, "reload", 0 );
     }
 }
 
-_id_440E()
+grenadetracking()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -142,30 +124,30 @@ _id_440E()
 
         if ( var_1 == "h1_fraggrenade_mp" )
         {
-            level thread _id_7826( self, "frag_out", 0 );
+            level thread saylocalsound( self, "frag_out", 0 );
             continue;
         }
 
         if ( var_1 == "h1_flashgrenade_mp" )
         {
-            level thread _id_7826( self, "flash_out", 0 );
+            level thread saylocalsound( self, "flash_out", 0 );
             continue;
         }
 
         if ( var_1 == "h1_concussiongrenade_mp" )
         {
-            level thread _id_7826( self, "conc_out", 0 );
+            level thread saylocalsound( self, "conc_out", 0 );
             continue;
         }
 
         if ( var_1 == "h1_smokegrenade_mp" )
         {
-            level thread _id_7826( self, "smoke_out", 0 );
+            level thread saylocalsound( self, "smoke_out", 0 );
             continue;
         }
 
         if ( var_1 == "h1_c4_mp" )
-            level thread _id_7826( self, "c4_plant", 0 );
+            level thread saylocalsound( self, "c4_plant", 0 );
     }
 }
 
@@ -181,11 +163,11 @@ claymoretracking()
         var_0 = self getcurrentweapon();
 
         if ( var_0 == "h1_claymore_mp" )
-            level thread _id_7826( self, "claymore_plant", 0 );
+            level thread saylocalsound( self, "claymore_plant", 0 );
     }
 }
 
-_id_7827( var_0, var_1, var_2, var_3, var_4 )
+saylocalsounddelayed( var_0, var_1, var_2, var_3, var_4 )
 {
     var_0 endon( "death" );
     var_0 endon( "disconnect" );
@@ -194,21 +176,21 @@ _id_7827( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_3 ) && isdefined( 0 ) )
         var_3 = 0;
 
-    _id_7826( var_0, var_1, var_3, var_4 );
+    saylocalsound( var_0, var_1, var_3, var_4 );
 }
 
-_id_7826( var_0, var_1, var_2, var_3 )
+saylocalsound( var_0, var_1, var_2, var_3 )
 {
     var_0 endon( "death" );
     var_0 endon( "disconnect" );
 
-    if ( isdefined( level._id_1CA7 ) && level._id_1CA7 )
+    if ( isdefined( level.chatterdisabled ) && level.chatterdisabled )
         return;
 
     if ( isdefined( var_0.bcdisabled ) && var_0.bcdisabled == 1 )
         return;
 
-    if ( _id_51B2( var_0 ) )
+    if ( isspeakerinrange( var_0 ) )
         return;
 
     if ( var_0.team != "spectator" )
@@ -232,18 +214,18 @@ _id_7826( var_0, var_1, var_2, var_3 )
         }
         else
         {
-            _id_57F5( var_1 );
+            location_add_last_callout_time( var_1 );
             var_5 = var_4 + "co_loc_" + var_1;
-            var_0 thread _id_2D82( var_5, var_1 );
+            var_0 thread dothreatcalloutresponse( var_5, var_1 );
             var_1 = "callout_location";
         }
 
-        var_0 _id_9AFF( var_1 );
-        var_0 thread _id_2D7C( var_5, var_2, var_3 );
+        var_0 updatechatter( var_1 );
+        var_0 thread dosound( var_5, var_2, var_3 );
     }
 }
 
-_id_2D7C( var_0, var_1, var_2 )
+dosound( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 0;
@@ -251,15 +233,15 @@ _id_2D7C( var_0, var_1, var_2 )
     var_3 = self.pers["team"];
     level addspeaker( self, var_3 );
 
-    if ( var_2 && ( !level._id_51C7 || !maps\mp\_utility::_hasperk( "specialty_coldblooded" ) && ( isagent( self ) || self issighted() ) ) )
+    if ( var_2 && ( !level.istactical || !maps\mp\_utility::_hasperk( "specialty_coldblooded" ) && ( isagent( self ) || self issighted() ) ) )
     {
         if ( isagent( self ) || level.alivecount[var_3] > 3 )
-            thread _id_2D7D( var_0, var_3 );
+            thread dosounddistant( var_0, var_3 );
     }
 
     if ( !soundexists( var_0 ) )
     {
-        level _id_73DF( self, var_3 );
+        level removespeaker( self, var_3 );
         return;
     }
 
@@ -268,12 +250,12 @@ _id_2D7C( var_0, var_1, var_2 )
     else
         self playsoundtoteam( var_0, var_3, self );
 
-    thread _id_9363( var_0 );
-    common_scripts\utility::_id_A069( var_0, "death", "disconnect" );
-    level _id_73DF( self, var_3 );
+    thread timehack( var_0 );
+    common_scripts\utility::waittill_any( var_0, "death", "disconnect" );
+    level removespeaker( self, var_3 );
 }
 
-_id_2D7D( var_0, var_1 )
+dosounddistant( var_0, var_1 )
 {
     if ( soundexists( var_0 ) )
     {
@@ -285,9 +267,9 @@ _id_2D7D( var_0, var_1 )
     }
 }
 
-_id_2D82( var_0, var_1 )
+dothreatcalloutresponse( var_0, var_1 )
 {
-    var_2 = common_scripts\utility::_id_A070( var_0, "death", "disconnect" );
+    var_2 = common_scripts\utility::waittill_any_return( var_0, "death", "disconnect" );
 
     if ( var_2 == var_0 )
     {
@@ -302,7 +284,7 @@ _id_2D82( var_0, var_1 )
         var_6 = self.origin;
         wait 0.5;
 
-        foreach ( var_8 in level._id_669D )
+        foreach ( var_8 in level.participants )
         {
             if ( !isdefined( var_8 ) )
                 continue;
@@ -310,7 +292,7 @@ _id_2D82( var_0, var_1 )
             if ( var_8 == self )
                 continue;
 
-            if ( !maps\mp\_utility::_id_5189( var_8 ) )
+            if ( !maps\mp\_utility::isreallyalive( var_8 ) )
                 continue;
 
             if ( var_8.team != var_3 )
@@ -321,24 +303,24 @@ _id_2D82( var_0, var_1 )
             else
                 var_9 = 0;
 
-            if ( ( var_5 != var_8.pers["voiceNum"] || var_4 != var_9 ) && distancesquared( var_6, var_8.origin ) <= 262144 && !_id_51B2( var_8 ) )
+            if ( ( var_5 != var_8.pers["voiceNum"] || var_4 != var_9 ) && distancesquared( var_6, var_8.origin ) <= 262144 && !isspeakerinrange( var_8 ) )
             {
                 var_10 = var_8.pers["voicePrefix"];
                 var_11 = var_10 + "co_loc_" + var_1 + "_echo";
 
-                if ( common_scripts\utility::_id_2006() && soundexists( var_11 ) )
+                if ( common_scripts\utility::cointoss() && soundexists( var_11 ) )
                     var_12 = var_11;
                 else
                     var_12 = var_10 + level.bcsounds["callout_response_generic"];
 
-                var_8 thread _id_2D7C( var_12, 0, 0 );
+                var_8 thread dosound( var_12, 0, 0 );
                 break;
             }
         }
     }
 }
 
-_id_9363( var_0 )
+timehack( var_0 )
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -346,7 +328,7 @@ _id_9363( var_0 )
     self notify( var_0 );
 }
 
-_id_51B2( var_0, var_1 )
+isspeakerinrange( var_0, var_1 )
 {
     var_0 endon( "death" );
     var_0 endon( "disconnect" );
@@ -358,9 +340,9 @@ _id_51B2( var_0, var_1 )
 
     if ( isdefined( var_0 ) && isdefined( var_0.team ) && var_0.team != "spectator" )
     {
-        for ( var_3 = 0; var_3 < level._id_8A19[var_0.team].size; var_3++ )
+        for ( var_3 = 0; var_3 < level.speakers[var_0.team].size; var_3++ )
         {
-            var_4 = level._id_8A19[var_0.team][var_3];
+            var_4 = level.speakers[var_0.team][var_3];
 
             if ( var_4 == var_0 )
                 return 1;
@@ -378,35 +360,35 @@ _id_51B2( var_0, var_1 )
 
 addspeaker( var_0, var_1 )
 {
-    level._id_8A19[var_1][level._id_8A19[var_1].size] = var_0;
+    level.speakers[var_1][level.speakers[var_1].size] = var_0;
 }
 
-_id_73DF( var_0, var_1 )
+removespeaker( var_0, var_1 )
 {
     var_2 = [];
 
-    for ( var_3 = 0; var_3 < level._id_8A19[var_1].size; var_3++ )
+    for ( var_3 = 0; var_3 < level.speakers[var_1].size; var_3++ )
     {
-        if ( level._id_8A19[var_1][var_3] == var_0 )
+        if ( level.speakers[var_1][var_3] == var_0 )
             continue;
 
-        var_2[var_2.size] = level._id_8A19[var_1][var_3];
+        var_2[var_2.size] = level.speakers[var_1][var_3];
     }
 
-    level._id_8A19[var_1] = var_2;
+    level.speakers[var_1] = var_2;
 }
 
-_id_2AF6( var_0 )
+disablebattlechatter( var_0 )
 {
     var_0.bcdisabled = 1;
 }
 
-_id_3109( var_0 )
+enablebattlechatter( var_0 )
 {
     var_0.bcdisabled = undefined;
 }
 
-_id_9AFF( var_0 )
+updatechatter( var_0 )
 {
     var_1 = self.pers["team"];
     self.bcinfo["last_say_time"][var_0] = gettime();
@@ -414,22 +396,22 @@ _id_9AFF( var_0 )
     level.bcinfo["last_say_pos"][var_1][var_0] = self.origin;
 }
 
-_id_400A()
+getlocation()
 {
-    var_0 = _id_3CBF();
+    var_0 = get_all_my_locations();
     var_0 = common_scripts\utility::array_randomize( var_0 );
 
     if ( var_0.size )
     {
         foreach ( var_2 in var_0 )
         {
-            if ( !_id_57F7( var_2 ) )
+            if ( !location_called_out_ever( var_2 ) )
                 return var_2;
         }
 
         foreach ( var_2 in var_0 )
         {
-            if ( !_id_57F8( var_2 ) )
+            if ( !location_called_out_recently( var_2 ) )
                 return var_2;
         }
     }
@@ -437,22 +419,22 @@ _id_400A()
     return undefined;
 }
 
-_id_414B( var_0 )
+getvalidlocation( var_0 )
 {
-    var_1 = _id_3CBF();
+    var_1 = get_all_my_locations();
     var_1 = common_scripts\utility::array_randomize( var_1 );
 
     if ( var_1.size )
     {
         foreach ( var_3 in var_1 )
         {
-            if ( !_id_57F7( var_3 ) && var_0 _id_1AB0( var_3 ) )
+            if ( !location_called_out_ever( var_3 ) && var_0 cancalloutlocation( var_3 ) )
                 return var_3;
         }
 
         foreach ( var_3 in var_1 )
         {
-            if ( !_id_57F8( var_3 ) && var_0 _id_1AB0( var_3 ) )
+            if ( !location_called_out_recently( var_3 ) && var_0 cancalloutlocation( var_3 ) )
                 return var_3;
         }
     }
@@ -460,7 +442,7 @@ _id_414B( var_0 )
     return undefined;
 }
 
-_id_3CBF()
+get_all_my_locations()
 {
     var_0 = anim.bcs_locations;
     var_1 = self getistouchingentities( var_0 );
@@ -468,35 +450,35 @@ _id_3CBF()
 
     foreach ( var_4 in var_1 )
     {
-        if ( isdefined( var_4._id_57FB ) )
+        if ( isdefined( var_4.locationaliases ) )
             var_2[var_2.size] = var_4;
     }
 
     return var_2;
 }
 
-_id_9AA2()
+update_bcs_locations()
 {
     if ( isdefined( anim.bcs_locations ) )
         anim.bcs_locations = common_scripts\utility::array_removeundefined( anim.bcs_locations );
 }
 
-_id_503C()
+is_in_callable_location()
 {
-    var_0 = _id_3CBF();
+    var_0 = get_all_my_locations();
 
     foreach ( var_2 in var_0 )
     {
-        if ( !_id_57F8( var_2 ) )
+        if ( !location_called_out_recently( var_2 ) )
             return 1;
     }
 
     return 0;
 }
 
-_id_57F7( var_0 )
+location_called_out_ever( var_0 )
 {
-    var_1 = _id_57FA( var_0._id_57FB[0] );
+    var_1 = location_get_last_callout_time( var_0.locationaliases[0] );
 
     if ( !isdefined( var_1 ) )
         return 0;
@@ -504,9 +486,9 @@ _id_57F7( var_0 )
     return 1;
 }
 
-_id_57F8( var_0 )
+location_called_out_recently( var_0 )
 {
-    var_1 = _id_57FA( var_0._id_57FB[0] );
+    var_1 = location_get_last_callout_time( var_0.locationaliases[0] );
 
     if ( !isdefined( var_1 ) )
         return 0;
@@ -519,26 +501,26 @@ _id_57F8( var_0 )
     return 0;
 }
 
-_id_57F5( var_0 )
+location_add_last_callout_time( var_0 )
 {
-    anim._id_57FC[var_0] = gettime();
+    anim.locationlastcallouttimes[var_0] = gettime();
 }
 
-_id_57FA( var_0 )
+location_get_last_callout_time( var_0 )
 {
-    if ( isdefined( anim._id_57FC[var_0] ) )
-        return anim._id_57FC[var_0];
+    if ( isdefined( anim.locationlastcallouttimes[var_0] ) )
+        return anim.locationlastcallouttimes[var_0];
 
     return undefined;
 }
 
-_id_1AB0( var_0 )
+cancalloutlocation( var_0 )
 {
-    foreach ( var_2 in var_0._id_57FB )
+    foreach ( var_2 in var_0.locationaliases )
     {
-        var_3 = _id_400B( "co_loc_" + var_2 );
-        var_4 = _id_409F( var_2, 0 );
-        var_5 = _id_400B( "concat_loc_" + var_2 );
+        var_3 = getloccalloutalias( "co_loc_" + var_2 );
+        var_4 = getqacalloutalias( var_2, 0 );
+        var_5 = getloccalloutalias( "concat_loc_" + var_2 );
         var_6 = soundexists( var_3 ) || soundexists( var_4 ) || soundexists( var_5 );
 
         if ( var_6 )
@@ -548,47 +530,47 @@ _id_1AB0( var_0 )
     return 0;
 }
 
-_id_1AC2( var_0 )
+canconcat( var_0 )
 {
-    var_1 = var_0._id_57FB;
+    var_1 = var_0.locationaliases;
 
     foreach ( var_3 in var_1 )
     {
-        if ( _id_50D3( var_3, self ) )
+        if ( iscallouttypeconcat( var_3, self ) )
             return 1;
     }
 
     return 0;
 }
 
-_id_3F24( var_0 )
+getcannedresponse( var_0 )
 {
     var_1 = undefined;
-    var_2 = self._id_57FB;
+    var_2 = self.locationaliases;
 
     foreach ( var_4 in var_2 )
     {
-        if ( _id_50D4( var_4, var_0 ) && !isdefined( self._id_7073 ) )
+        if ( iscallouttypeqa( var_4, var_0 ) && !isdefined( self.qafinished ) )
         {
             var_1 = var_4;
             break;
         }
 
-        if ( _id_50D5( var_4 ) )
+        if ( iscallouttypereport( var_4 ) )
             var_1 = var_4;
     }
 
     return var_1;
 }
 
-_id_50D5( var_0 )
+iscallouttypereport( var_0 )
 {
     return issubstr( var_0, "_report" );
 }
 
-_id_50D3( var_0, var_1 )
+iscallouttypeconcat( var_0, var_1 )
 {
-    var_2 = var_1 _id_400B( "concat_loc_" + var_0 );
+    var_2 = var_1 getloccalloutalias( "concat_loc_" + var_0 );
 
     if ( soundexists( var_2 ) )
         return 1;
@@ -596,12 +578,12 @@ _id_50D3( var_0, var_1 )
     return 0;
 }
 
-_id_50D4( var_0, var_1 )
+iscallouttypeqa( var_0, var_1 )
 {
     if ( issubstr( var_0, "_qa" ) && soundexists( var_0 ) )
         return 1;
 
-    var_2 = var_1 _id_409F( var_0, 0 );
+    var_2 = var_1 getqacalloutalias( var_0, 0 );
 
     if ( soundexists( var_2 ) )
         return 1;
@@ -609,15 +591,15 @@ _id_50D4( var_0, var_1 )
     return 0;
 }
 
-_id_400B( var_0 )
+getloccalloutalias( var_0 )
 {
     var_1 = self.pers["voicePrefix"] + var_0;
     return var_1;
 }
 
-_id_409F( var_0, var_1 )
+getqacalloutalias( var_0, var_1 )
 {
-    var_2 = _id_400B( var_0 );
+    var_2 = getloccalloutalias( var_0 );
     var_2 += ( "_qa" + var_1 );
     return var_2;
 }
@@ -647,7 +629,7 @@ battlechatter_debugprint( var_0 )
 
 }
 
-_id_3EE9( var_0 )
+getaliastypefromsoundalias( var_0 )
 {
 
 }
@@ -657,7 +639,7 @@ battlechatter_printdumpline( var_0, var_1, var_2 )
 
 }
 
-_id_3A71( var_0 )
+friendly_nearby( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 262144;

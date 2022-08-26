@@ -1,52 +1,34 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    level.killcam = maps\mp\gametypes\_tweakables::_id_4142( "game", "allowkillcam" );
+    level.killcam = maps\mp\gametypes\_tweakables::gettweakablevalue( "game", "allowkillcam" );
 }
 
-_id_7F9B( var_0, var_1, var_2, var_3, var_4, var_5 )
+setkillcamerastyle( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     return 0;
 }
 
-_id_6EF9( var_0, var_1, var_2, var_3 )
+prekillcamnotify( var_0, var_1, var_2, var_3 )
 {
     if ( isplayer( self ) && isdefined( var_1 ) && isplayer( var_1 ) )
     {
         var_4 = gettime();
-        waitframe;
+        waittillframeend;
 
         if ( isplayer( self ) && isdefined( var_1 ) && isplayer( var_1 ) )
         {
             var_4 = ( gettime() - var_4 ) / 1000;
-            var_5 = maps\mp\gametypes\_playerlogic::_id_3C60();
+            var_5 = maps\mp\gametypes\_playerlogic::gatherclassweapons();
             var_6 = var_1 _meth_841F( var_2 + var_4, var_3, var_5 );
             var_7 = spawnstruct();
             var_7.team = var_1.team;
-            var_7.weapon = var_1._id_57DF;
+            var_7.weapon = var_1.loadoutprimary;
             var_8 = spawnstruct();
             var_8.cust = var_7;
-            var_8._id_A2E6 = var_6;
+            var_8.weapons = var_6;
             self.killcamstream = var_8;
             self _meth_8420( var_7, var_6 );
             self _meth_852C( var_3 );
@@ -54,7 +36,7 @@ _id_6EF9( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_5353( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+killcamtime( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( getdvar( "scr_killcam_time" ) == "" )
     {
@@ -110,9 +92,9 @@ killcamarchivetime( var_0, var_1, var_2, var_3 )
     return var_4;
 }
 
-_id_5354( var_0, var_1 )
+killcamvalid( var_0, var_1 )
 {
-    return var_1 && level.killcam && !( isdefined( var_0._id_1AB3 ) && var_0._id_1AB3 ) && game["state"] == "playing" && !var_0 maps\mp\_utility::_id_51E3() && !level.showingfinalkillcam && !isagent( var_0 );
+    return var_1 && level.killcam && !( isdefined( var_0.cancelkillcam ) && var_0.cancelkillcam ) && game["state"] == "playing" && !var_0 maps\mp\_utility::isusingremote() && !level.showingfinalkillcam && !isagent( var_0 );
 }
 
 killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12, var_13, var_14, var_15, var_16, var_17, var_18 )
@@ -124,15 +106,15 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     if ( var_1 < 0 || !isdefined( var_13 ) )
         return;
 
-    level._id_62AB++;
-    var_19 = level._id_62AB * 0.05;
+    level.numplayerswaitingtoenterkillcam++;
+    var_19 = level.numplayerswaitingtoenterkillcam * 0.05;
 
-    if ( level._id_62AB > 1 )
-        wait(0.05 * ( level._id_62AB - 1 ));
+    if ( level.numplayerswaitingtoenterkillcam > 1 )
+        wait(0.05 * ( level.numplayerswaitingtoenterkillcam - 1 ));
 
     wait 0.05;
-    level._id_62AB--;
-    var_20 = _id_5353( var_3, var_4, var_8, var_11, var_12, var_18, level.showingfinalkillcam );
+    level.numplayerswaitingtoenterkillcam--;
+    var_20 = killcamtime( var_3, var_4, var_8, var_11, var_12, var_18, level.showingfinalkillcam );
 
     if ( getdvar( "scr_killcam_posttime" ) == "" )
         var_21 = 2;
@@ -164,7 +146,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
     self setclientomnvar( "ui_killcam_end_milliseconds", 0 );
 
-    if ( isagent( var_13 ) && !isdefined( var_13._id_50A6 ) )
+    if ( isagent( var_13 ) && !isdefined( var_13.isactive ) )
         return;
 
     if ( isplayer( var_14 ) )
@@ -179,7 +161,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
     if ( maps\mp\_utility::iskillstreakweapon( var_4 ) )
     {
-        var_23 = maps\mp\_utility::_id_3FF5( level._id_53AF[var_4] );
+        var_23 = maps\mp\_utility::getkillstreakrownum( level.killstreakwieldweapons[var_4] );
         self setclientomnvar( "ui_killcam_killedby_killstreak", var_23 );
         self setclientomnvar( "ui_killcam_killedby_weapon", -1 );
         self setclientomnvar( "ui_killcam_killedby_weapon_custom", -1 );
@@ -193,7 +175,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
         if ( isdefined( var_25 ) )
         {
-            if ( maps\mp\_utility::_id_5150( var_15 ) && !maps\mp\gametypes\_weapons::_id_5192( var_4 ) )
+            if ( maps\mp\_utility::ismeleemod( var_15 ) && !maps\mp\gametypes\_weapons::isriotshield( var_4 ) )
                 var_25 = "iw5_combatknife";
             else
             {
@@ -251,7 +233,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     if ( !isagent( var_13 ) && isdefined( var_13 ) && isplayer( var_14 ) )
         var_13 visionsyncwithplayer( var_14 );
 
-    maps\mp\_utility::_id_9B69( "spectator" );
+    maps\mp\_utility::updatesessionstate( "spectator" );
     self.spectatekillcam = 1;
 
     if ( isagent( var_13 ) )
@@ -260,10 +242,10 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     self _meth_852B( 0 );
     self.forcespectatorclient = var_1;
     self.killcamentity = -1;
-    var_28 = _id_7F9B( var_0, var_1, var_2, var_4, var_14, var_20 );
+    var_28 = setkillcamerastyle( var_0, var_1, var_2, var_4, var_14, var_20 );
 
     if ( !var_28 )
-        thread _id_7F9A( var_2, var_26, var_3 );
+        thread setkillcamentity( var_2, var_26, var_3 );
 
     var_17 = killcamadjustalivetime( var_17, var_1, var_2 );
 
@@ -287,7 +269,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     foreach ( var_30 in level.teamnamelist )
         self allowspectateteam( var_30, 1 );
 
-    thread _id_315A();
+    thread endedkillcamcleanup();
     wait 0.05;
 
     if ( !isdefined( self ) )
@@ -304,8 +286,8 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
 
     if ( var_20 <= 0 )
     {
-        maps\mp\_utility::_id_9B69( "dead" );
-        maps\mp\_utility::_id_1EF2();
+        maps\mp\_utility::updatesessionstate( "dead" );
+        maps\mp\_utility::clearkillcamstate();
         self notify( "killcam_ended" );
         return;
     }
@@ -313,39 +295,39 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     self setclientomnvar( "ui_killcam_end_milliseconds", int( var_22 * 1000 ) + gettime() );
 
     if ( level.showingfinalkillcam )
-        thread _id_2C7D( var_20, var_2 );
+        thread dofinalkillcamfx( var_20, var_2 );
 
     self.killcam = 1;
-    thread _id_89A6();
-    self._id_85BF = 0;
-    self._id_5351 = maps\mp\_utility::_id_412E();
+    thread spawnedkillcamcleanup();
+    self.skippedkillcam = 0;
+    self.killcamstartedtimedeciseconds = maps\mp\_utility::gettimepasseddecisecondsincludingrounds();
 
     if ( !level.showingfinalkillcam )
-        thread _id_A05B( var_10 );
+        thread waitskipkillcambutton( var_10 );
     else
         self notify( "showing_final_killcam" );
 
-    thread _id_31B3();
-    _id_A0DF();
+    thread endkillcamifnothingtoshow();
+    waittillkillcamover();
 
     if ( level.showingfinalkillcam )
     {
         if ( self == var_13 )
-            var_13 maps\mp\gametypes\_misions::_id_6FF6( "ch_moviestar" );
+            var_13 maps\mp\gametypes\_misions::processchallenge( "ch_moviestar" );
 
-        thread maps\mp\gametypes\_playerlogic::_id_89B6();
+        thread maps\mp\gametypes\_playerlogic::spawnendofgame();
         return;
     }
 
-    thread _id_534C( 1 );
+    thread killcamcleanup( 1 );
 }
 
-_id_2C7D( var_0, var_1 )
+dofinalkillcamfx( var_0, var_1 )
 {
-    if ( isdefined( level._id_2CE6 ) )
+    if ( isdefined( level.doingfinalkillcamfx ) )
         return;
 
-    level._id_2CE6 = 1;
+    level.doingfinalkillcamfx = 1;
     var_2 = var_0;
 
     if ( var_2 > 1.0 )
@@ -357,16 +339,16 @@ _id_2C7D( var_0, var_1 )
     setslowmotion( 1.0, 0.25, var_2 );
     wait(var_2 + 0.5);
     setslowmotion( 0.25, 1, 1.0 );
-    level._id_2CE6 = undefined;
+    level.doingfinalkillcamfx = undefined;
 }
 
-_id_A0DF()
+waittillkillcamover()
 {
     self endon( "abort_killcam" );
     wait(self.killcamlength - 0.05);
 }
 
-_id_7F9A( var_0, var_1, var_2 )
+setkillcamentity( var_0, var_1, var_2 )
 {
     self endon( "disconnect" );
     self endon( "killcam_ended" );
@@ -385,7 +367,7 @@ _id_7F9A( var_0, var_1, var_2 )
     self.killcamentity = var_0;
 }
 
-_id_A05B( var_0 )
+waitskipkillcambutton( var_0 )
 {
     self endon( "disconnect" );
     self endon( "killcam_ended" );
@@ -396,18 +378,18 @@ _id_A05B( var_0 )
     while ( !self usebuttonpressed() )
         wait 0.05;
 
-    self._id_85BF = 1;
+    self.skippedkillcam = 1;
 
     if ( isdefined( self.pers["totalKillcamsSkipped"] ) )
         self.pers["totalKillcamsSkipped"]++;
 
     if ( var_0 <= 0 )
-        maps\mp\_utility::_id_1EF5( "kc_info" );
+        maps\mp\_utility::clearlowermessage( "kc_info" );
 
     self notify( "abort_killcam" );
 }
 
-_id_31B3()
+endkillcamifnothingtoshow()
 {
     self endon( "disconnect" );
     self endon( "killcam_ended" );
@@ -423,74 +405,74 @@ _id_31B3()
     self notify( "abort_killcam" );
 }
 
-_id_89A6()
+spawnedkillcamcleanup()
 {
     self endon( "disconnect" );
     self endon( "killcam_ended" );
     self waittill( "spawned" );
-    thread _id_534C( 0 );
+    thread killcamcleanup( 0 );
 }
 
-_id_315A()
+endedkillcamcleanup()
 {
     self endon( "disconnect" );
     self endon( "killcam_ended" );
     level waittill( "game_ended" );
-    thread _id_534C( 1 );
+    thread killcamcleanup( 1 );
 }
 
-_id_534C( var_0 )
+killcamcleanup( var_0 )
 {
     self setclientomnvar( "ui_killcam_end_milliseconds", 0 );
     self.killcam = undefined;
 
-    if ( isdefined( self._id_5351 ) && isplayer( self ) && isdefined( self._id_56F7 ) && maps\mp\_matchdata::_id_1AD1( self._id_56F7 ) )
+    if ( isdefined( self.killcamstartedtimedeciseconds ) && isplayer( self ) && isdefined( self.lifeid ) && maps\mp\_matchdata::canloglife( self.lifeid ) )
     {
-        var_1 = maps\mp\_utility::_id_412E();
-        setmatchdata( "lives", self._id_56F7, "killcamWatchTimeDeciSeconds", maps\mp\_utility::_id_1E28( var_1 - self._id_5351 ) );
+        var_1 = maps\mp\_utility::gettimepasseddecisecondsincludingrounds();
+        setmatchdata( "lives", self.lifeid, "killcamWatchTimeDeciSeconds", maps\mp\_utility::clamptobyte( var_1 - self.killcamstartedtimedeciseconds ) );
     }
 
     if ( !level.gameended )
-        maps\mp\_utility::_id_1EF5( "kc_info" );
+        maps\mp\_utility::clearlowermessage( "kc_info" );
 
-    thread maps\mp\gametypes\_spectating::_id_8019();
+    thread maps\mp\gametypes\_spectating::setspectatepermissions();
     self notify( "killcam_ended" );
 
     if ( !var_0 )
         return;
 
-    maps\mp\_utility::_id_9B69( "dead" );
-    maps\mp\_utility::_id_1EF2();
+    maps\mp\_utility::updatesessionstate( "dead" );
+    maps\mp\_utility::clearkillcamstate();
 }
 
-_id_1AB5()
+cancelkillcamonuse()
 {
-    self._id_1AB3 = 0;
-    thread _id_1AB6( ::_id_1AB9, ::_id_1AB4 );
+    self.cancelkillcam = 0;
+    thread cancelkillcamonuse_specificbutton( ::cancelkillcamusebutton, ::cancelkillcamcallback );
 }
 
-_id_1AB9()
+cancelkillcamusebutton()
 {
     return self usebuttonpressed();
 }
 
-_id_1AB7()
+cancelkillcamsafespawnbutton()
 {
     return self fragbuttonpressed();
 }
 
-_id_1AB4()
+cancelkillcamcallback()
 {
-    self._id_1AB3 = 1;
+    self.cancelkillcam = 1;
 }
 
-_id_1AB8()
+cancelkillcamsafespawncallback()
 {
-    self._id_1AB3 = 1;
-    self._id_A152 = 1;
+    self.cancelkillcam = 1;
+    self.wantsafespawn = 1;
 }
 
-_id_1AB6( var_0, var_1 )
+cancelkillcamonuse_specificbutton( var_0, var_1 )
 {
     self endon( "death_delay_finished" );
     self endon( "disconnect" );

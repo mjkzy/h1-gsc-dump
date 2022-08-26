@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["fog_bog_a"] = loadfx( "fx/weather/fog_bog_a_02" );
@@ -83,22 +65,22 @@ main()
     level.destructible_effect_override["fx/props/car_glass_med"] = "fx/props/car_glass_med_night";
     level.destructible_effect_override["fx/props/car_glass_headlight"] = "fx/props/car_glass_headlight_night";
     level.destructible_effect_override["fx/props/car_glass_brakelight"] = "fx/props/car_glass_brakelight_night";
-    animscripts\utility::_id_7F74( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "brick", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "grass", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "metal", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "mud", loadfx( "fx/impacts/footstep_mud" ) );
-    animscripts\utility::_id_7F74( "rock", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "sand", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "water", loadfx( "fx/impacts/footstep_water" ) );
-    animscripts\utility::_id_7F74( "wood", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "brick", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "grass", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "metal", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "mud", loadfx( "fx/impacts/footstep_mud" ) );
+    animscripts\utility::setfootstepeffect( "rock", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "sand", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "water", loadfx( "fx/impacts/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "wood", loadfx( "fx/impacts/footstep_dust" ) );
     globalfx_override();
-    _id_974C();
+    treadfx_override();
     thread horizon_flashes();
     maps\createfx\bog_a_fx::main();
     maps\createfx\bog_a_sound::main();
@@ -111,7 +93,7 @@ horizon_flashes()
         var_0 = randomfloatrange( 1, 4 );
         var_1 = randomint( 3 );
         wait(var_0);
-        common_scripts\_exploder::_id_3528( 10 + var_1 );
+        common_scripts\_exploder::exploder( 10 + var_1 );
     }
 }
 
@@ -121,36 +103,36 @@ globalfx_override()
     maps\_global_fx::override_global_fx( "me_dumpster_fire_FX_origin", "fx/fire/firelp_med_pm_bog_a", undefined, "fire_dumpster_medium", "fire_metal_small" );
 }
 
-_id_974C()
+treadfx_override()
 {
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "brick", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "bark", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "carpet", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "cloth", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "concrete", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "dirt", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "flesh", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "foliage", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "glass", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "grass", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "gravel", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "ice", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "metal", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "mud", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "paper", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "plaster", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "rock", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "sand", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "snow", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "water", "vfx/map/bog_a/heli_dust_water_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "wood", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "asphalt", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "ceramic", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "plastic", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "rubber", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "cushion", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "fruit", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "painted metal", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "default", "vfx/map/bog_a/heli_dust_bog_a" );
-    maps\_treadfx::_id_8350( "script_vehicle_cobra_helicopter_fly_low", "none", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "brick", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "bark", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "carpet", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "cloth", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "concrete", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "dirt", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "flesh", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "foliage", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "glass", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "grass", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "gravel", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "ice", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "metal", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "mud", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "paper", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "plaster", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "rock", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "sand", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "snow", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "water", "vfx/map/bog_a/heli_dust_water_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "wood", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "asphalt", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "ceramic", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "plastic", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "rubber", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "cushion", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "fruit", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "painted metal", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "default", "vfx/map/bog_a/heli_dust_bog_a" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_cobra_helicopter_fly_low", "none", "vfx/map/bog_a/heli_dust_bog_a" );
 }

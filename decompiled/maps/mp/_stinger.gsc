@@ -1,46 +1,28 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4E2A()
+initstingerusage()
 {
-    self._id_8E59 = undefined;
-    self._id_8E5A = undefined;
-    self._id_8E48 = undefined;
-    self._id_8E49 = undefined;
-    thread _id_7460();
+    self.stingerstage = undefined;
+    self.stingertarget = undefined;
+    self.stingerlockstarttime = undefined;
+    self.stingerlostsightlinetime = undefined;
+    thread resetstingerlockingondeath();
 }
 
-_id_745F()
+resetstingerlocking()
 {
-    if ( !isdefined( self._id_8E5C ) )
+    if ( !isdefined( self.stingeruseentered ) )
         return;
 
-    self._id_8E5C = undefined;
+    self.stingeruseentered = undefined;
     self notify( "stop_javelin_locking_feedback" );
     self notify( "stop_javelin_locked_feedback" );
     self weaponlockfree();
-    _id_4E2A();
+    initstingerusage();
 }
 
-_id_7460()
+resetstingerlockingondeath()
 {
     self endon( "disconnect" );
     self notify( "ResetStingerLockingOnDeath" );
@@ -49,35 +31,35 @@ _id_7460()
     for (;;)
     {
         self waittill( "death" );
-        _id_745F();
+        resetstingerlocking();
     }
 }
 
-_id_8E38( var_0 )
+stillvalidstingerlock( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( !self circle( var_0.origin, 65, 85 ) )
+    if ( !self worldpointinreticle_circle( var_0.origin, 65, 85 ) )
         return 0;
 
-    if ( isdefined( level.ac130 ) && self._id_8E5A == level.ac130._id_687C && !isdefined( level.ac130player ) )
+    if ( isdefined( level.ac130 ) && self.stingertarget == level.ac130.planemodel && !isdefined( level.ac130player ) )
         return 0;
 
     return 1;
 }
 
-_id_5894()
+loopstingerlockingfeedback()
 {
     self endon( "faux_spawn" );
     self endon( "stop_javelin_locking_feedback" );
 
     for (;;)
     {
-        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.chopper.gunner )
+        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self.stingertarget ) && self.stingertarget == level.chopper.gunner )
             level.chopper.gunner playlocalsound( "missile_locking" );
 
-        if ( isdefined( level.ac130player ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.ac130._id_687C )
+        if ( isdefined( level.ac130player ) && isdefined( self.stingertarget ) && self.stingertarget == level.ac130.planemodel )
             level.ac130player playlocalsound( "missile_locking" );
 
         self playlocalsound( "stinger_locking" );
@@ -86,17 +68,17 @@ _id_5894()
     }
 }
 
-_id_5893()
+loopstingerlockedfeedback()
 {
     self endon( "faux_spawn" );
     self endon( "stop_javelin_locked_feedback" );
 
     for (;;)
     {
-        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.chopper.gunner )
+        if ( isdefined( level.chopper ) && isdefined( level.chopper.gunner ) && isdefined( self.stingertarget ) && self.stingertarget == level.chopper.gunner )
             level.chopper.gunner playlocalsound( "missile_locking" );
 
-        if ( isdefined( level.ac130player ) && isdefined( self._id_8E5A ) && self._id_8E5A == level.ac130._id_687C )
+        if ( isdefined( level.ac130player ) && isdefined( self.stingertarget ) && self.stingertarget == level.ac130.planemodel )
             level.ac130player playlocalsound( "missile_locking" );
 
         self playlocalsound( "stinger_locked" );
@@ -105,7 +87,7 @@ _id_5893()
     }
 }
 
-_id_5818( var_0 )
+locksighttest( var_0 )
 {
     var_1 = self geteye();
 
@@ -132,40 +114,40 @@ _id_5818( var_0 )
     return 0;
 }
 
-_id_8E45( var_0 )
+stingerdebugdraw( var_0 )
 {
 
 }
 
-_id_8862()
+softsighttest()
 {
     var_0 = 500;
 
-    if ( _id_5818( self._id_8E5A ) )
+    if ( locksighttest( self.stingertarget ) )
     {
-        self._id_8E49 = 0;
+        self.stingerlostsightlinetime = 0;
         return 1;
     }
 
-    if ( self._id_8E49 == 0 )
-        self._id_8E49 = gettime();
+    if ( self.stingerlostsightlinetime == 0 )
+        self.stingerlostsightlinetime = gettime();
 
-    var_1 = gettime() - self._id_8E49;
+    var_1 = gettime() - self.stingerlostsightlinetime;
 
     if ( var_1 >= var_0 )
     {
-        _id_745F();
+        resetstingerlocking();
         return 0;
     }
 
     return 1;
 }
 
-_id_4107()
+gettargetlist()
 {
     var_0 = [];
 
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return var_0;
 
     if ( level.teambased )
@@ -174,11 +156,11 @@ _id_4107()
             var_0[var_0.size] = level.chopper;
 
         if ( isdefined( level.ac130player ) && level.ac130player.team != self.team )
-            var_0[var_0.size] = level.ac130._id_687C;
+            var_0[var_0.size] = level.ac130.planemodel;
 
-        if ( isdefined( level._id_46DF ) )
+        if ( isdefined( level.harriers ) )
         {
-            foreach ( var_2 in level._id_46DF )
+            foreach ( var_2 in level.harriers )
             {
                 if ( isdefined( var_2 ) && ( var_2.team != self.team || isdefined( var_2.owner ) && var_2.owner == self ) )
                     var_0[var_0.size] = var_2;
@@ -191,32 +173,32 @@ _id_4107()
             {
                 if ( self.team != level.teamnamelist[var_4] )
                 {
-                    if ( level._id_99E9[level.teamnamelist[var_4]].size )
+                    if ( level.uavmodels[level.teamnamelist[var_4]].size )
                     {
-                        foreach ( var_6 in level._id_99E9[level.teamnamelist[var_4]] )
+                        foreach ( var_6 in level.uavmodels[level.teamnamelist[var_4]] )
                             var_0[var_0.size] = var_6;
                     }
                 }
             }
         }
-        else if ( level._id_99E9[level._id_65B3[self.team]].size )
+        else if ( level.uavmodels[level.otherteam[self.team]].size )
         {
-            foreach ( var_6 in level._id_99E9[level._id_65B3[self.team]] )
+            foreach ( var_6 in level.uavmodels[level.otherteam[self.team]] )
                 var_0[var_0.size] = var_6;
         }
 
-        if ( isdefined( level._id_57B8 ) )
+        if ( isdefined( level.littlebirds ) )
         {
-            foreach ( var_11 in level._id_57B8 )
+            foreach ( var_11 in level.littlebirds )
             {
                 if ( isdefined( var_11 ) && ( var_11.team != self.team || isdefined( var_11.owner ) && var_11.owner == self ) )
                     var_0[var_0.size] = var_11;
             }
         }
 
-        if ( isdefined( level._id_99EF ) )
+        if ( isdefined( level.ugvs ) )
         {
-            foreach ( var_14 in level._id_99EF )
+            foreach ( var_14 in level.ugvs )
             {
                 if ( isdefined( var_14 ) && ( var_14.team != self.team || isdefined( var_14.owner ) && var_14.owner == self ) )
                     var_0[var_0.size] = var_14;
@@ -229,20 +211,20 @@ _id_4107()
             var_0[var_0.size] = level.chopper;
 
         if ( isdefined( level.ac130player ) )
-            var_0[var_0.size] = level.ac130._id_687C;
+            var_0[var_0.size] = level.ac130.planemodel;
 
-        if ( isdefined( level._id_46DF ) )
+        if ( isdefined( level.harriers ) )
         {
-            foreach ( var_2 in level._id_46DF )
+            foreach ( var_2 in level.harriers )
             {
                 if ( isdefined( var_2 ) )
                     var_0[var_0.size] = var_2;
             }
         }
 
-        if ( level._id_99E9.size )
+        if ( level.uavmodels.size )
         {
-            foreach ( var_19, var_6 in level._id_99E9 )
+            foreach ( var_19, var_6 in level.uavmodels )
             {
                 if ( isdefined( var_6.owner ) && var_6.owner == self )
                     continue;
@@ -251,9 +233,9 @@ _id_4107()
             }
         }
 
-        if ( isdefined( level._id_57B8 ) )
+        if ( isdefined( level.littlebirds ) )
         {
-            foreach ( var_11 in level._id_57B8 )
+            foreach ( var_11 in level.littlebirds )
             {
                 if ( !isdefined( var_11 ) )
                     continue;
@@ -262,9 +244,9 @@ _id_4107()
             }
         }
 
-        if ( isdefined( level._id_99EF ) )
+        if ( isdefined( level.ugvs ) )
         {
-            foreach ( var_14 in level._id_99EF )
+            foreach ( var_14 in level.ugvs )
             {
                 if ( !isdefined( var_14 ) )
                     continue;
@@ -277,7 +259,7 @@ _id_4107()
     return var_0;
 }
 
-_id_8E5B()
+stingerusageloop()
 {
     if ( !isplayer( self ) )
         return;
@@ -286,7 +268,7 @@ _id_8E5B()
     self endon( "disconnect" );
     self endon( "faux_spawn" );
     var_0 = 1000;
-    _id_4E2A();
+    initstingerusage();
 
     for (;;)
     {
@@ -294,7 +276,7 @@ _id_8E5B()
 
         if ( self playerads() < 0.95 )
         {
-            _id_745F();
+            resetstingerlocking();
             continue;
         }
 
@@ -305,20 +287,20 @@ _id_8E5B()
 
         if ( var_1 != "stinger_mp" )
         {
-            _id_745F();
+            resetstingerlocking();
             continue;
         }
 
-        self._id_8E5C = 1;
+        self.stingeruseentered = 1;
 
-        if ( !isdefined( self._id_8E59 ) )
-            self._id_8E59 = 0;
+        if ( !isdefined( self.stingerstage ) )
+            self.stingerstage = 0;
 
-        _id_8E45( self._id_8E5A );
+        stingerdebugdraw( self.stingertarget );
 
-        if ( self._id_8E59 == 0 )
+        if ( self.stingerstage == 0 )
         {
-            var_2 = _id_4107();
+            var_2 = gettargetlist();
 
             if ( var_2.size == 0 )
                 continue;
@@ -330,7 +312,7 @@ _id_8E5B()
                 if ( !isdefined( var_5 ) )
                     continue;
 
-                var_6 = self circle( var_5.origin, 65, 75 );
+                var_6 = self worldpointinreticle_circle( var_5.origin, 65, 75 );
 
                 if ( var_6 )
                     var_3[var_3.size] = var_5;
@@ -341,30 +323,30 @@ _id_8E5B()
 
             var_8 = sortbydistance( var_3, self.origin );
 
-            if ( !_id_5818( var_8[0] ) )
+            if ( !locksighttest( var_8[0] ) )
                 continue;
 
-            thread _id_5894();
-            self._id_8E5A = var_8[0];
-            self._id_8E48 = gettime();
-            self._id_8E59 = 1;
-            self._id_8E49 = 0;
+            thread loopstingerlockingfeedback();
+            self.stingertarget = var_8[0];
+            self.stingerlockstarttime = gettime();
+            self.stingerstage = 1;
+            self.stingerlostsightlinetime = 0;
         }
 
-        if ( self._id_8E59 == 1 )
+        if ( self.stingerstage == 1 )
         {
-            if ( !_id_8E38( self._id_8E5A ) )
+            if ( !stillvalidstingerlock( self.stingertarget ) )
             {
-                _id_745F();
+                resetstingerlocking();
                 continue;
             }
 
-            var_9 = _id_8862();
+            var_9 = softsighttest();
 
             if ( !var_9 )
                 continue;
 
-            var_10 = gettime() - self._id_8E48;
+            var_10 = gettime() - self.stingerlockstarttime;
 
             if ( maps\mp\_utility::_hasperk( "specialty_fasterlockon" ) )
             {
@@ -375,21 +357,21 @@ _id_8E5B()
                 continue;
 
             self notify( "stop_javelin_locking_feedback" );
-            thread _id_5893();
-            self weaponlockfinalize( self._id_8E5A );
-            self._id_8E59 = 2;
+            thread loopstingerlockedfeedback();
+            self weaponlockfinalize( self.stingertarget );
+            self.stingerstage = 2;
         }
 
-        if ( self._id_8E59 == 2 )
+        if ( self.stingerstage == 2 )
         {
-            var_9 = _id_8862();
+            var_9 = softsighttest();
 
             if ( !var_9 )
                 continue;
 
-            if ( !_id_8E38( self._id_8E5A ) )
+            if ( !stillvalidstingerlock( self.stingertarget ) )
             {
-                _id_745F();
+                resetstingerlocking();
                 continue;
             }
         }

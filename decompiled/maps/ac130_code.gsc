@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 precachelevelstuff()
 {
     precachestring( &"AC130_HINT_CYCLE_WEAPONS" );
@@ -106,7 +88,7 @@ scriptcalls()
     thread exploderanimhide_setup();
     common_scripts\utility::array_thread( getentarray( "destructible_building", "targetname" ), ::destructible_building );
     common_scripts\utility::array_thread( getentarray( "sim_destruction", "targetname" ), ::sim_destruction );
-    common_scripts\utility::array_thread( getentarray( "invulnerable", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_utility::_id_58D7 );
+    common_scripts\utility::array_thread( getentarray( "invulnerable", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_utility::magic_bullet_shield );
     common_scripts\utility::array_thread( getentarray( "damage_church", "targetname" ), ::damage_church );
     common_scripts\utility::array_thread( getentarray( "level_scripted_unloadnode", "script_noteworthy" ), ::level_scripted_unloadnode );
     thread helictoper_friendly_fire( "blackhawk1" );
@@ -120,7 +102,7 @@ missionend( var_0 )
     if ( isdefined( var_0 ) && var_0 )
     {
         wait 6;
-        maps\_utility::_id_60D6();
+        maps\_utility::nextmission();
     }
 }
 
@@ -139,10 +121,10 @@ stop_enemies( var_0 )
         return;
 
     var_1 = getent( var_0, "script_noteworthy" );
-    thread maps\_spawner::_id_533A( var_1._id_7A1E );
+    thread maps\_spawner::kill_spawnernum( var_1.script_killspawner_group );
 }
 
-_id_88FC( var_0 )
+spawn_friendlies( var_0 )
 {
     var_1 = getentarray( var_0, "targetname" );
     level.friendlies = [];
@@ -151,7 +133,7 @@ _id_88FC( var_0 )
     {
         var_3 = var_1[var_2] stalingradspawn();
 
-        if ( !maps\_utility::_id_88F1( var_3 ) )
+        if ( !maps\_utility::spawn_failed( var_3 ) )
             level.friendlies[level.friendlies.size] = var_3;
     }
 
@@ -171,7 +153,7 @@ move_friendlies( var_0 )
 {
     var_1 = getent( var_0, "targetname" );
 
-    if ( common_scripts\utility::_id_382E( "ignore_friendly_move_commands" ) )
+    if ( common_scripts\utility::flag( "ignore_friendly_move_commands" ) )
         return;
 
     var_1 notify( "trigger" );
@@ -192,7 +174,7 @@ damage_church()
         if ( issubstr( tolower( var_4 ), "splash" ) )
             continue;
 
-        if ( !common_scripts\utility::_id_382E( "mission_failed" ) )
+        if ( !common_scripts\utility::flag( "mission_failed" ) )
             break;
     }
 
@@ -207,12 +189,12 @@ autosavefriendlycountcheck( var_0 )
 
 missionfail_church()
 {
-    if ( common_scripts\utility::_id_382E( "mission_failed" ) )
+    if ( common_scripts\utility::flag( "mission_failed" ) )
         return;
 
-    common_scripts\utility::_id_383F( "mission_failed" );
+    common_scripts\utility::flag_set( "mission_failed" );
     setdvar( "ui_deadquote", "@AC130_CHURCH_DAMAGED" );
-    maps\_utility::_id_5CDF();
+    maps\_utility::missionfailedwrapper();
 }
 
 mission_fail_vehicle_death()
@@ -220,28 +202,28 @@ mission_fail_vehicle_death()
     level endon( "getaway_vehicles_unloaded" );
     self waittill( "death", var_0 );
 
-    if ( common_scripts\utility::_id_382E( "mission_failed" ) )
+    if ( common_scripts\utility::flag( "mission_failed" ) )
         return;
 
     if ( isdefined( var_0 ) && isplayer( var_0 ) )
     {
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_FRIENDLY_FIRE" );
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
     else
     {
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_FRIENDLIES_DEAD" );
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
 }
 
-_id_490D( var_0, var_1 )
+hintprint( var_0, var_1 )
 {
-    thread maps\_utility::_id_48B0( var_0, undefined, undefined, var_1 );
+    thread maps\_utility::hint( var_0, undefined, undefined, var_1 );
     wait(level.hintprintduration);
-    maps\_utility::_id_48CB( 0.5 );
+    maps\_utility::hint_fade( 0.5 );
 }
 
 getenemiesinzone( var_0 )
@@ -265,10 +247,10 @@ level_scripted_unloadnode()
 {
     self waittill( "trigger", var_0 );
     var_0 setcontents( 0 );
-    var_0._id_2D30 = 1;
-    var_0 maps\_utility::_id_9CB3();
+    var_0.dontdisconnectpaths = 1;
+    var_0 maps\_utility::vehicle_detachfrompath();
     var_0 vehicle_setspeed( 20, 20 );
-    var_0 maps\_utility::_id_9CF5();
+    var_0 maps\_utility::vehicle_land();
 
     if ( !isdefined( level.friendlies_told_to_load_choppers ) )
     {
@@ -278,33 +260,33 @@ level_scripted_unloadnode()
 
     var_1 = [];
 
-    for ( var_2 = 0; var_2 < var_0._id_750A.size; var_2++ )
+    for ( var_2 = 0; var_2 < var_0.riders.size; var_2++ )
     {
-        if ( !isdefined( var_0._id_750A[var_2] ) )
+        if ( !isdefined( var_0.riders[var_2] ) )
             continue;
 
-        if ( !isdefined( var_0._id_750A[var_2]._id_9D1B ) )
+        if ( !isdefined( var_0.riders[var_2].vehicle_position ) )
             continue;
 
-        if ( var_0._id_750A[var_2]._id_9D1B >= 1 && var_0._id_750A[var_2]._id_9D1B <= 4 )
-            var_1[var_1.size] = var_0._id_750A[var_2];
+        if ( var_0.riders[var_2].vehicle_position >= 1 && var_0.riders[var_2].vehicle_position <= 4 )
+            var_1[var_1.size] = var_0.riders[var_2];
     }
 
     var_0 notify( "unload" );
-    var_0 maps\_utility::_id_32E0( "unloaded" );
+    var_0 maps\_utility::ent_flag_wait( "unloaded" );
     common_scripts\utility::array_thread( var_1, maps\_ac130::add_beacon_effect, "friendlies_in_choppers" );
-    common_scripts\utility::_id_384A( "friendlies_in_choppers" );
+    common_scripts\utility::flag_wait( "friendlies_in_choppers" );
     wait(randomfloatrange( 1.0, 5.0 ));
     var_0 thread seaknight_doors();
-    var_0 thread maps\_vehicle::_id_9D05( maps\_utility::array_removedead( var_1 ) );
+    var_0 thread maps\_vehicle::vehicle_load_ai( maps\_utility::array_removedead( var_1 ) );
     thread missionendfailsafe();
-    var_0 maps\_utility::_id_32E0( "loaded" );
+    var_0 maps\_utility::ent_flag_wait( "loaded" );
     wait 1.5;
-    var_0 maps\_utility::_id_9D1F();
+    var_0 maps\_utility::vehicle_resumepath();
     var_3 = getaiarray( "axis" );
     common_scripts\utility::array_thread( var_3, ::attack_fleeing_helicopter, var_0 );
     wait 5;
-    common_scripts\utility::_id_383F( "choppers_flew_away" );
+    common_scripts\utility::flag_set( "choppers_flew_away" );
 }
 
 attack_fleeing_helicopter( var_0 )
@@ -314,30 +296,30 @@ attack_fleeing_helicopter( var_0 )
     for (;;)
     {
         wait(randomfloatrange( 0.5, 2.5 ));
-        animscripts\shoot_behavior::_id_800A( "burst", 0 );
-        self _meth_81EA( randomfloatrange( 0.2, 1.0 ), var_0.origin );
+        animscripts\shoot_behavior::setshootstyle( "burst", 0 );
+        self shoot( randomfloatrange( 0.2, 1.0 ), var_0.origin );
     }
 }
 
 seaknight_doors()
 {
     if ( !isdefined( level.seaknight_doors_close_anim ) )
-        level.seaknight_doors_close_anim = level._id_9C82["script_vehicle_ch46e_opened_door"][1]._id_9CD0;
+        level.seaknight_doors_close_anim = level.vehicle_aianims["script_vehicle_ch46e_opened_door"][1].vehicle_getinanim;
 
-    level._id_9C82["script_vehicle_ch46e_opened_door"][1]._id_9CD0 = undefined;
-    maps\_utility::_id_32E0( "loaded" );
-    self _meth_8147( level.seaknight_doors_close_anim, 1, 0, 1 );
+    level.vehicle_aianims["script_vehicle_ch46e_opened_door"][1].vehicle_getinanim = undefined;
+    maps\_utility::ent_flag_wait( "loaded" );
+    self setanimknobrestart( level.seaknight_doors_close_anim, 1, 0, 1 );
 }
 
 missionendfailsafe()
 {
     wait 120;
-    common_scripts\utility::_id_383F( "choppers_flew_away" );
+    common_scripts\utility::flag_set( "choppers_flew_away" );
 }
 
 friendlies_into_choppers()
 {
-    common_scripts\utility::_id_383F( "ignore_friendly_move_commands" );
+    common_scripts\utility::flag_set( "ignore_friendly_move_commands" );
     level notify( "stop_casualty_tracking" );
     var_0[0] = getnode( "chopper_ai_node1", "targetname" );
     var_0[1] = getnode( "chopper_ai_node2", "targetname" );
@@ -360,12 +342,12 @@ friendlies_into_choppers()
         level.friendlies[var_2] thread friendly_run_into_chopper( var_0[var_1] );
     }
 
-    common_scripts\utility::_id_383F( "friendlies_moving_to_choppers" );
+    common_scripts\utility::flag_set( "friendlies_moving_to_choppers" );
 
     while ( level.friendlies_not_in_chopper > 0 )
         wait 0.05;
 
-    common_scripts\utility::_id_383F( "friendlies_in_choppers" );
+    common_scripts\utility::flag_set( "friendlies_in_choppers" );
 }
 
 friendly_run_into_chopper( var_0 )
@@ -373,23 +355,23 @@ friendly_run_into_chopper( var_0 )
     self endon( "death" );
     level.friendlies_not_in_chopper++;
     self.fixednode = 0;
-    self.a._id_2B20 = 1;
+    self.a.disablepain = 1;
     self.ignoreme = 1;
     self.ignoreall = 1;
     self.maxsightdistsqrd = 0;
     self.ignoresuppression = 1;
-    thread maps\_utility::_id_4BB0( 1 );
+    thread maps\_utility::ignoreallenemies( 1 );
     self setcandamage( 0 );
     self.goalradius = 32;
-    self _meth_81A9( var_0 );
+    self getgoalvolume( var_0 );
     self waittill( "goal" );
 
-    if ( isdefined( self._id_58D7 ) )
-        maps\_utility::_id_8EA4();
+    if ( isdefined( self.magic_bullet_shield ) )
+        maps\_utility::stop_magic_bullet_shield();
 
     self notify( "boarded_chopper" );
     level.friendlies_not_in_chopper--;
-    waitframe;
+    waittillframeend;
     self delete();
 }
 
@@ -414,17 +396,17 @@ friendly_fire_vehicle_thread()
         if ( !isplayer( var_1 ) )
             continue;
 
-        if ( common_scripts\utility::_id_382E( "mission_failed" ) )
+        if ( common_scripts\utility::flag( "mission_failed" ) )
             return;
 
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
 
-        if ( common_scripts\utility::_id_382E( "friendlies_loading_vehicles" ) )
+        if ( common_scripts\utility::flag( "friendlies_loading_vehicles" ) )
             setdvar( "ui_deadquote", "@AC130_FRIENDLY_FIRE" );
         else
             setdvar( "ui_deadquote", "@AC130_CIVILIAN_FIRE_VEHICLE" );
 
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
 }
 
@@ -432,10 +414,10 @@ helicopter_driver_beacons( var_0 )
 {
     var_1 = maps\_vehicle::waittill_vehiclespawn( var_0 );
 
-    for ( var_2 = 0; var_2 < var_1._id_750A.size; var_2++ )
+    for ( var_2 = 0; var_2 < var_1.riders.size; var_2++ )
     {
-        if ( var_1._id_750A[var_2]._id_9D1B == 0 || var_1._id_750A[var_2]._id_9D1B == 5 )
-            var_1._id_750A[var_2] thread maps\_ac130::add_beacon_effect( undefined, 1 );
+        if ( var_1.riders[var_2].vehicle_position == 0 || var_1.riders[var_2].vehicle_position == 5 )
+            var_1.riders[var_2] thread maps\_ac130::add_beacon_effect( undefined, 1 );
     }
 }
 
@@ -453,12 +435,12 @@ helictoper_friendly_fire( var_0 )
         if ( !isplayer( var_3 ) )
             continue;
 
-        if ( common_scripts\utility::_id_382E( "mission_failed" ) )
+        if ( common_scripts\utility::flag( "mission_failed" ) )
             return;
 
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_FRIENDLY_FIRE_HELICOPTER" );
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
 }
 
@@ -483,18 +465,18 @@ civilian_car_riders_spawn_and_idle()
 civilian_car_riders_spawn_and_idle_start( var_0, var_1, var_2 )
 {
     var_0.edriver = var_1 stalingradspawn();
-    maps\_utility::_id_88F1( var_0.edriver );
-    var_0.edriver maps\_utility::_id_4462();
+    maps\_utility::spawn_failed( var_0.edriver );
+    var_0.edriver maps\_utility::gun_remove();
     var_0.edriver.ignoreme = 1;
     var_0.edriver.ignoreall = 1;
     var_0.edriver.maxsightdistsqrd = 0;
     var_0.edriver.ignoresuppression = 1;
-    var_0.edriver thread maps\_utility::_id_4BB0( 1 );
+    var_0.edriver thread maps\_utility::ignoreallenemies( 1 );
     var_0.edriver.civilian = 1;
     var_0.edriver.melonhead_ignore = 1;
     var_0.edriver.tracksuit_ignore = 1;
     var_0.edriver.animname = var_2;
-    var_0.edriver maps\_utility::_id_7EAB( "runaway", 1, 1 );
+    var_0.edriver maps\_utility::set_run_anim( "runaway", 1, 1 );
     var_0.edriver linkto( var_0 );
     var_0.edriver.animname = var_2;
     var_0.edriver thread maps\_anim::anim_loop_solo( var_0.edriver, "idle", "tag_driver", "stop_idle", var_0 );
@@ -518,12 +500,12 @@ civilian_car_riders_mission_fail()
         if ( !isplayer( var_1 ) )
             continue;
 
-        if ( common_scripts\utility::_id_382E( "mission_failed" ) )
+        if ( common_scripts\utility::flag( "mission_failed" ) )
             return;
 
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_CIVILIAN_FIRE" );
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
 }
 
@@ -531,12 +513,12 @@ hijack_friendlies_force_position()
 {
     self endon( "hijack_friendlies_in_position" );
     wait 15;
-    self _meth_81CA( self.goalpos );
+    self forceteleport( self.goalpos );
 }
 
 do_hijack( var_0, var_1, var_2, var_3 )
 {
-    common_scripts\utility::array_thread( var_1, maps\ac130::_id_2D39, 1 );
+    common_scripts\utility::array_thread( var_1, maps\ac130::dontshoot, 1 );
     var_0 disconnectpaths();
     common_scripts\utility::array_thread( var_1, ::hijack_friendlies_force_position );
     var_0 maps\_anim::anim_reach( var_1, "hijack", "tag_detach", undefined, var_0 );
@@ -566,7 +548,7 @@ do_hijack( var_0, var_1, var_2, var_3 )
     var_0 thread do_hijack_vehicle_anim( var_3 );
     var_0 maps\_anim::anim_single( var_5, "hijack", "tag_detach", undefined, var_0 );
     var_0 notify( "hijack_done" );
-    common_scripts\utility::array_thread( var_1, maps\ac130::_id_2D39, 0 );
+    common_scripts\utility::array_thread( var_1, maps\ac130::dontshoot, 0 );
 }
 
 hijack_driver_flee()
@@ -577,8 +559,8 @@ hijack_driver_flee()
     self.edriver waittillmatch( "single anim", "end" );
     self.edriver maps\_anim::anim_single_queue( self.edriver, "runaway" );
     var_0 = getnode( self.edriver.target, "targetname" );
-    self.edriver _meth_8143();
-    self.edriver _meth_81A9( var_0 );
+    self.edriver stopanimscripted();
+    self.edriver getgoalvolume( var_0 );
 }
 
 do_hijack_others( var_0 )
@@ -590,17 +572,17 @@ do_hijack_others( var_0 )
 do_hijack_vehicle_anim( var_0 )
 {
     self useanimtree( #animtree );
-    self _meth_814D( var_0 );
+    self setanim( var_0 );
 }
 
 do_car_idle_after_hijack( var_0 )
 {
     self waittillmatch( "single anim", "end" );
     self linkto( var_0 );
-    var_0 thread maps\_anim::anim_loop_solo( self, "idle", self._id_85AE, "stop_idle", var_0 );
+    var_0 thread maps\_anim::anim_loop_solo( self, "idle", self.sittag, "stop_idle", var_0 );
     var_0 waittill( "getout" );
-    maps\_utility::_id_7E38( "r" );
-    var_0 maps\_anim::anim_single_solo( self, "getout", self._id_85AE, undefined, var_0 );
+    maps\_utility::set_force_color( "r" );
+    var_0 maps\_anim::anim_single_solo( self, "getout", self.sittag, undefined, var_0 );
     self unlink();
 }
 
@@ -615,14 +597,14 @@ sim_destruction()
     {
         self waittill( "damage", var_0, var_1, var_2, var_3, var_4 );
 
-        if ( !isdefined( level._id_244D ) )
+        if ( !isdefined( level.credits_active ) )
         {
             if ( !isplayer( var_1 ) )
                 continue;
         }
 
         if ( var_0 >= 999 )
-            common_scripts\_exploder::_id_3528( self.script_noteworthy );
+            common_scripts\_exploder::exploder( self.script_noteworthy );
 
         if ( var_0 == 990 )
         {
@@ -680,7 +662,7 @@ destructible_building()
     {
         self waittill( "damage", var_7, var_8, var_9, var_10, var_11 );
 
-        if ( !isdefined( level._id_244D ) )
+        if ( !isdefined( level.credits_active ) )
         {
             if ( !isplayer( var_8 ) )
                 continue;
@@ -720,7 +702,7 @@ destructible_building()
             var_18 = var_15[2];
             var_2[var_4] rotatevelocity( ( var_16, var_17, var_18 ), 12 );
             var_2[var_4] movegravity( ( var_16, var_17, var_18 ), 12 );
-            thread maps\_utility::_id_27EF( 12, maps\_utility::_id_7C71 );
+            thread maps\_utility::delaythread( 12, maps\_utility::self_delete );
         }
     }
 
@@ -734,7 +716,7 @@ destructible_building()
         var_24 = 2.0;
         var_1[var_4] moveto( var_1[var_4].origin - ( 0.0, 0.0, 512.0 ), var_22, var_23, var_24 );
         var_1[var_4] rotateto( var_1[var_4].angles + ( var_19, var_20, var_21 ), var_22 / 2, var_23 / 2, var_24 / 2 );
-        var_1[var_4] thread maps\_utility::_id_27EF( 5.0, maps\_utility::_id_7C71 );
+        var_1[var_4] thread maps\_utility::delaythread( 5.0, maps\_utility::self_delete );
     }
 
     self delete();
@@ -789,7 +771,7 @@ get_exploderanimhides_in_array( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level._id_353C[var_0] )
+    foreach ( var_3 in level.exploders[var_0] )
     {
         if ( isdefined( var_3.targetname ) && issubstr( var_3.targetname, "exploderanimhide" ) )
             var_1[var_1.size] = var_3;
@@ -805,7 +787,7 @@ exploderanimhide_setup()
     foreach ( var_1 in level.ac130_exploder_finalstates )
         precachemodel( var_1 );
 
-    foreach ( var_4 in getarraykeys( level._id_353C ) )
+    foreach ( var_4 in getarraykeys( level.exploders ) )
     {
         var_5 = get_exploderanimhides_in_array( var_4 );
 
@@ -821,9 +803,9 @@ exploderanimhide_think( var_0 )
     wait 0.1;
     var_2 = var_1 get_exploder_anim_name();
 
-    if ( isdefined( var_2 ) && common_scripts\utility::array_contains( getarraykeys( level._id_78AC["exploder_script_model"] ), var_2 ) )
+    if ( isdefined( var_2 ) && common_scripts\utility::array_contains( getarraykeys( level.scr_anim["exploder_script_model"] ), var_2 ) )
     {
-        var_3 = level._id_78AC["exploder_script_model"][var_2];
+        var_3 = level.scr_anim["exploder_script_model"][var_2];
         var_4 = getanimlength( var_3 );
         wait(var_4);
         var_5 = getsubstr( var_1.model, 0, var_1.model.size - 1 ) + "_final";

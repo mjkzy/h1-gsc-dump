@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 near_tv()
 {
     level endon( "tvstation_entered" );
@@ -26,14 +8,14 @@ near_tv()
     for (;;)
     {
         self waittill( "trigger" );
-        common_scripts\utility::_id_383F( "near_tv" );
+        common_scripts\utility::flag_set( "near_tv" );
 
         while ( level.player istouching( self ) )
             wait 1;
 
         stopcinematicingame();
         level notify( "away_from_tv" );
-        common_scripts\utility::_id_3831( "near_tv" );
+        common_scripts\utility::flag_clear( "near_tv" );
     }
 }
 
@@ -45,7 +27,7 @@ movies_on_tvs()
 
     for (;;)
     {
-        common_scripts\utility::_id_384C( "tvstation_entered", "near_tv" );
+        common_scripts\utility::flag_wait_any( "tvstation_entered", "near_tv" );
         start_movie_loop();
     }
 }
@@ -69,10 +51,10 @@ flashbang_hint()
 {
     var_0 = getent( "flashbang_hint", "targetname" );
     var_0 waittill( "trigger" );
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "throwflash" );
+    level.price maps\_anim::anim_single_queue( level.price, "throwflash" );
     wait 2;
 
-    if ( !common_scripts\utility::_id_382E( "player_has_flashed" ) )
+    if ( !common_scripts\utility::flag( "player_has_flashed" ) )
         thread maps\armada::keyhint( &"ARMADA_HINT_FLASH", "flash", "+smoke", 10 );
 
     var_1 = getentarray( "hq_breachers", "script_noteworthy" );
@@ -88,7 +70,7 @@ flag_on_flash()
 {
     notifyoncommand( "player_flash", "-smoke" );
     level.player waittill( "player_flash" );
-    common_scripts\utility::_id_383F( "player_has_flashed" );
+    common_scripts\utility::flag_set( "player_has_flashed" );
 }
 
 quiet_circling_helicopters()
@@ -105,7 +87,7 @@ add_damage_recorder()
     self.non_player_damage_done = 0;
 }
 
-_id_6ACA()
+player_did_most_damage()
 {
     return self.player_damage_done * 1.75 > self.non_player_damage_done;
 }
@@ -133,7 +115,7 @@ init_pickup_technical_badplace()
         if ( isdefined( var_2.classname ) )
         {
             if ( var_2.classname == "script_vehicle_pickup_technical" )
-                var_2._id_2554 = ::pickup_technical_custombadplace;
+                var_2.custombadplacethread = ::pickup_technical_custombadplace;
         }
     }
 }
@@ -148,7 +130,7 @@ pickup_technical_custombadplace()
 
     self endon( "delete" );
     var_1 = getent( "PickupTechnicalBadBlaceVolume", "targetname" );
-    var_2 = isdefined( level._id_9CE0[self.model] ) && level._id_9CE0[self.model];
+    var_2 = isdefined( level.vehicle_hasmainturret[self.model] ) && level.vehicle_hasmainturret[self.model];
     var_3 = 0.1;
     var_4 = 17;
     var_5 = 17;
@@ -183,8 +165,8 @@ pickup_technical_custombadplace()
 
         var_1.origin = self.origin;
         var_1.angles = ( 0.0, self.angles[1], 0.0 );
-        badplace_arc( self._id_9A29 + "arc", var_3, self.origin, var_7 * 1.9, var_0, var_8, var_4, var_5, "axis", "team3", "allies" );
-        badplace_brush( self._id_9A29 + "bru", var_3, var_1, "axis", "allies" );
+        badplace_arc( self.unique_id + "arc", var_3, self.origin, var_7 * 1.9, var_0, var_8, var_4, var_5, "axis", "team3", "allies" );
+        badplace_brush( self.unique_id + "bru", var_3, var_1, "axis", "allies" );
         wait(var_3 + 0.05);
     }
 }
@@ -194,7 +176,7 @@ pickup_arcade_setup()
     add_damage_recorder();
     pickup_check_damage();
 
-    if ( _id_6ACA() )
+    if ( player_did_most_damage() )
         thread maps\_arcademode::arcademode_add_points( self.origin, 1, "explosive", 200 );
 }
 
@@ -220,7 +202,7 @@ pickup_check_damage()
 pickup_check_death()
 {
     while ( isdefined( self.model ) && self.model != "vehicle_pickup_technical_destroyed" )
-        waittillframeend;
+        waitframe();
 
     self notify( "pickup_death" );
 }
@@ -228,8 +210,8 @@ pickup_check_death()
 pickup_technical_think()
 {
     self waittill( "spawned", var_0 );
-    var_0.attachedguys[0].a._id_2B20 = 1;
-    var_0.attachedguys[0]._id_2AF7 = 1;
+    var_0.attachedguys[0].a.disablepain = 1;
+    var_0.attachedguys[0].disablebulletwhizbyreaction = 1;
 
     if ( maps\_utility::arcademode() )
         var_0 thread pickup_arcade_setup();
@@ -242,12 +224,12 @@ pickup_technical_think()
     var_0.tailgate_clip.angles = var_0 gettagangles( "tag_rear_tailgate" );
     var_0.tailgate_clip linkto( var_0, "tag_rear_tailgate" );
     var_0 thread vehicle_tail_gate_remove();
-    var_1 = spawn( "script_model", var_0._id_5BD5[0] gettagorigin( "tag_flash" ) );
-    var_1 linkto( var_0._id_5BD5[0], "tag_flash", ( -25.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_1 = spawn( "script_model", var_0.mgturret[0] gettagorigin( "tag_flash" ) );
+    var_1 linkto( var_0.mgturret[0], "tag_flash", ( -25.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_0.col_clip = getent( "col_clip_pickup", "targetname" );
-    var_0.col_clip.origin = var_0._id_5BD5[0].origin + ( 0.0, 0.0, -12.0 );
-    var_0.col_clip.angles = var_0._id_5BD5[0] gettagangles( "tag_flash" );
-    var_0.col_clip linkto( var_0._id_5BD5[0], "tag_flash" );
+    var_0.col_clip.origin = var_0.mgturret[0].origin + ( 0.0, 0.0, -12.0 );
+    var_0.col_clip.angles = var_0.mgturret[0] gettagangles( "tag_flash" );
+    var_0.col_clip linkto( var_0.mgturret[0], "tag_flash" );
     var_0 thread vehicle_gun_clip_remove();
     var_0 thread pickup_check_death();
 
@@ -292,7 +274,7 @@ intro_helis_fire()
 {
     common_scripts\utility::array_thread( level.heli_turrets, ::intro_heli_minigun_firethread );
     common_scripts\utility::array_thread( level.heli_turrets, ::heli_minigun_targetthread, 2 );
-    common_scripts\utility::_id_384A( "kill_rpgs" );
+    common_scripts\utility::flag_wait( "kill_rpgs" );
     level notify( "helis_stop_firing" );
 }
 
@@ -407,7 +389,7 @@ draw_target()
 {
     for (;;)
     {
-        maps\_debug::_id_2DD0( self.origin, self.angles );
+        maps\_debug::drawarrow( self.origin, self.angles );
         wait 0.05;
     }
 }

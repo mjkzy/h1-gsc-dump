@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main( var_0, var_1 )
 {
     if ( !isdefined( level._effect ) )
@@ -28,11 +10,11 @@ main( var_0, var_1 )
     level._effect["flare_runner"] = loadfx( "fx/misc/flare" );
     level._effect["flare_runner_fizzout"] = loadfx( "fx/misc/flare_end" );
     maps\_vehicle::build_template( "flare", var_0, var_1, "script_vehicle_flare" );
-    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_localinit( ::init_local );
     maps\_vehicle::build_life( 9999 );
 }
 
-_id_4D10()
+init_local()
 {
 
 }
@@ -139,8 +121,8 @@ combine_sunlight_and_brightness()
 
 flare_path()
 {
-    thread maps\_vehicle::_id_427A( self );
-    common_scripts\utility::_id_384A( "flare_stop_setting_sundir" );
+    thread maps\_vehicle::gopath( self );
+    common_scripts\utility::flag_wait( "flare_stop_setting_sundir" );
     self delete();
 }
 
@@ -156,13 +138,13 @@ flare_initial_fx()
 
 flare_explodes()
 {
-    common_scripts\utility::_id_383F( "flare_start_setting_sundir" );
+    common_scripts\utility::flag_set( "flare_start_setting_sundir" );
     level.red_suncolor = [];
     level.red_suncolor[0] = 1.0;
     level.red_suncolor[1] = 0.05;
     level.red_suncolor[2] = 0.05;
     level.red_suncolor = normalized_color( level.red_suncolor );
-    level.red_suncolor = ( common_scripts\utility::_id_576F( level.red_suncolor[0] ), common_scripts\utility::_id_576F( level.red_suncolor[1] ), common_scripts\utility::_id_576F( level.red_suncolor[2] ) );
+    level.red_suncolor = ( common_scripts\utility::lineartogamma_srgb( level.red_suncolor[0] ), common_scripts\utility::lineartogamma_srgb( level.red_suncolor[1] ), common_scripts\utility::lineartogamma_srgb( level.red_suncolor[2] ) );
     level.red_sunbrightness = 0.015;
     level.original_suncolor = getmapsunlight();
     level.original_brightness = 0.0;
@@ -174,7 +156,7 @@ flare_explodes()
     thread merge_sunbrightness( 0, 1.0, level.original_brightness, level.red_sunbrightness );
 
     if ( isdefined( level.flare_fog ) )
-        maps\_utility::_id_9E6E( level.flare_fog, 1.0 );
+        maps\_utility::vision_set_fog_changes( level.flare_fog, 1.0 );
 
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
     var_0 setmodel( "tag_origin" );
@@ -190,27 +172,27 @@ flare_burns_out()
     var_0 setmodel( "tag_origin" );
     var_0 linkto( self, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     playfxontag( level._effect["flare_runner_fizzout"], var_0, "tag_origin" );
-    var_0 thread maps\_utility::_id_69C6( "flare_runner_fizzout" );
+    var_0 thread maps\_utility::play_sound_on_tag_endon_death( "flare_runner_fizzout" );
     thread merge_sunsingledvar( "sm_sunSampleSizeNear", 0, 1, 1, 0.5 );
     thread merge_sunbrightness( 0, 1, level.red_sunbrightness, level.original_brightness );
     thread merge_suncolor( 0, 0.01, level.red_suncolor, normalized_color( level.original_suncolor ) );
 
     if ( isdefined( level.flare_fog_return ) )
-        maps\_utility::_id_9E6E( level.flare_fog_return, 1 );
+        maps\_utility::vision_set_fog_changes( level.flare_fog_return, 1 );
 
     thread maps\_vehicle::volume_down( 1 );
     wait 1.0;
     level notify( "stop_combining_sunlight_and_brightness" );
     wait 0.1;
-    common_scripts\utility::_id_383F( "flare_stop_setting_sundir" );
-    waitframe;
+    common_scripts\utility::flag_set( "flare_stop_setting_sundir" );
+    waittillframeend;
     var_0 delete();
     resetsundirection();
     resetsunlight();
-    common_scripts\utility::_id_383F( "flare_complete" );
+    common_scripts\utility::flag_set( "flare_complete" );
 }
 
-_id_3891()
+flare_fx()
 {
     flare_initial_fx();
     flare_explodes();
@@ -219,31 +201,31 @@ _id_3891()
 
 flag_flare( var_0 )
 {
-    if ( !isdefined( level._id_382E[var_0] ) )
+    if ( !isdefined( level.flag[var_0] ) )
     {
-        common_scripts\utility::_id_383D( var_0 );
+        common_scripts\utility::flag_init( var_0 );
         return;
     }
 }
 
 flare_from_targetname( var_0 )
 {
-    var_1 = maps\_vehicle::_id_8978( var_0 );
+    var_1 = maps\_vehicle::spawn_vehicle_from_targetname( var_0 );
     flag_flare( "flare_in_use" );
     flag_flare( "flare_complete" );
     flag_flare( "flare_stop_setting_sundir" );
     flag_flare( "flare_start_setting_sundir" );
-    common_scripts\utility::_id_3857( "flare_in_use" );
-    common_scripts\utility::_id_383F( "flare_in_use" );
+    common_scripts\utility::flag_waitopen( "flare_in_use" );
+    common_scripts\utility::flag_set( "flare_in_use" );
     resetsunlight();
     resetsundirection();
     var_1 thread flare_path();
-    var_1 thread _id_3891();
+    var_1 thread flare_fx();
     var_2 = getmapsundirection();
     var_3 = var_2;
     var_4 = var_3 * -100;
-    common_scripts\utility::_id_384A( "flare_start_setting_sundir" );
-    var_5 = getent( var_1._id_7A26, "script_linkname" ).origin;
+    common_scripts\utility::flag_wait( "flare_start_setting_sundir" );
+    var_5 = getent( var_1.script_linkto, "script_linkname" ).origin;
     var_3 = vectortoangles( var_1.origin - var_5 );
     var_6 = anglestoforward( var_3 );
 
@@ -251,7 +233,7 @@ flare_from_targetname( var_0 )
     {
         wait 0.05;
 
-        if ( common_scripts\utility::_id_382E( "flare_stop_setting_sundir" ) )
+        if ( common_scripts\utility::flag( "flare_stop_setting_sundir" ) )
             break;
 
         var_3 = vectortoangles( var_1.origin - var_5 );
@@ -260,12 +242,12 @@ flare_from_targetname( var_0 )
         var_6 = var_7;
     }
 
-    common_scripts\utility::_id_384A( "flare_complete" );
-    waitframe;
-    common_scripts\utility::_id_3831( "flare_complete" );
-    common_scripts\utility::_id_3831( "flare_stop_setting_sundir" );
-    common_scripts\utility::_id_3831( "flare_start_setting_sundir" );
+    common_scripts\utility::flag_wait( "flare_complete" );
+    waittillframeend;
+    common_scripts\utility::flag_clear( "flare_complete" );
+    common_scripts\utility::flag_clear( "flare_stop_setting_sundir" );
+    common_scripts\utility::flag_clear( "flare_start_setting_sundir" );
     resetsunlight();
     resetsundirection();
-    common_scripts\utility::_id_3831( "flare_in_use" );
+    common_scripts\utility::flag_clear( "flare_in_use" );
 }

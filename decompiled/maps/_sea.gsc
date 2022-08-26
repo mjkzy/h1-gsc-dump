@@ -1,33 +1,15 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._sea_scale = 1;
     level.sea_model = getent( "sea", "targetname" );
     level._sea_org = spawn( "script_origin", level.sea_model.origin );
-    level._sea_org._id_6379 = level.sea_model.origin * -1;
+    level._sea_org.offset = level.sea_model.origin * -1;
     level._sea_org.sway = "sway2";
     level._sea_link = spawn( "script_origin", level.sea_model.origin );
-    level._sea_link._id_6379 = level._sea_org._id_6379;
+    level._sea_link.offset = level._sea_org.offset;
     level.sea_model linkto( level._sea_link );
     level.sea_foam = getent( "sea_foam", "targetname" );
 
@@ -42,11 +24,11 @@ main()
     if ( isdefined( level.sea_black ) )
         level.sea_black linkto( level._sea_link );
 
-    common_scripts\utility::_id_383D( "_sea_waves" );
-    common_scripts\utility::_id_383D( "_sea_viewbob" );
-    common_scripts\utility::_id_383D( "_sea_bob" );
-    common_scripts\utility::_id_383F( "_sea_bob" );
-    common_scripts\utility::_id_383F( "_sea_viewbob" );
+    common_scripts\utility::flag_init( "_sea_waves" );
+    common_scripts\utility::flag_init( "_sea_viewbob" );
+    common_scripts\utility::flag_init( "_sea_bob" );
+    common_scripts\utility::flag_set( "_sea_bob" );
+    common_scripts\utility::flag_set( "_sea_viewbob" );
     var_0 = getentarray( "boat_sway", "script_noteworthy" );
 
     if ( isdefined( var_0 ) )
@@ -61,7 +43,7 @@ sea_animate()
 {
     self.animname = "sea";
     self useanimtree( #animtree );
-    self _meth_814D( %cargoship_water );
+    self setanim( %cargoship_water );
 }
 
 sea_logic()
@@ -69,8 +51,8 @@ sea_logic()
     wait 0.05;
     var_0 = getmapsundirection();
     setsundirection( var_0 );
-    level._id_57A8 = vectortoangles( var_0 );
-    level._id_60A3 = level._id_57A8;
+    level.lite_settings = vectortoangles( var_0 );
+    level.new_lite_settings = level.lite_settings;
     level._sea_org thread sea_bob();
     level._sea_org thread sea_litebob();
     level._sea_org thread sea_waves();
@@ -82,9 +64,9 @@ sea_objectbob_precalc( var_0, var_1 )
     self.waittime = randomfloatrange( 0.5, 1 );
 
     if ( isdefined( self.setscale ) )
-        self._id_782D = self.setscale;
+        self.scale = self.setscale;
     else
-        self._id_782D = randomfloatrange( 2, 3 );
+        self.scale = randomfloatrange( 2, 3 );
 
     var_2 = 0;
     var_3 = 0;
@@ -101,7 +83,7 @@ sea_objectbob_precalc( var_0, var_1 )
 
     if ( self.axial )
     {
-        var_4 = var_0.rotation[0] * self.pratio * self._id_782D + var_0.rotation[2] * self.rratio * self._id_782D;
+        var_4 = var_0.rotation[0] * self.pratio * self.scale + var_0.rotation[2] * self.rratio * self.scale;
 
         if ( var_2 < abs( var_4 ) )
         {
@@ -116,7 +98,7 @@ sea_objectbob_precalc( var_0, var_1 )
         self.ang = ( self.angles[0], self.angles[1], var_3 );
     }
     else
-        self.ang = var_0.rotation * self._id_782D;
+        self.ang = var_0.rotation * self.scale;
 }
 
 sea_objectbob( var_0 )
@@ -129,7 +111,7 @@ sea_objectbob( var_0 )
             var_1[var_2] linkto( self );
     }
 
-    var_3 = common_scripts\utility::_id_40FD( self.target, "targetname" );
+    var_3 = common_scripts\utility::getstructarray( self.target, "targetname" );
     var_4 = var_3[0].origin;
     var_5 = undefined;
     var_6 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
@@ -155,9 +137,9 @@ sea_objectbob( var_0 )
     var_6.sway2max = 100;
     var_6.setscale = undefined;
 
-    if ( isdefined( var_3[0]._id_7A99 ) )
+    if ( isdefined( var_3[0].script_parameters ) )
     {
-        var_8 = strtok( var_3[0]._id_7A99, ":;, " );
+        var_8 = strtok( var_3[0].script_parameters, ":;, " );
 
         for ( var_2 = 0; var_2 < var_8.size; var_2++ )
         {
@@ -207,7 +189,7 @@ sea_objectbob( var_0 )
         var_6.pratio = vectordot( anglestoright( var_11 ), anglestoforward( var_12 ) );
     }
 
-    self._id_577B = var_6;
+    self.link = var_6;
     self notify( "got_link" );
 
     for ( var_2 = 0; var_2 < var_3.size; var_2++ )
@@ -216,7 +198,7 @@ sea_objectbob( var_0 )
     wait 0.05;
     self linkto( var_6 );
 
-    if ( isdefined( self._id_7A99 ) )
+    if ( isdefined( self.script_parameters ) )
     {
 
     }
@@ -268,10 +250,10 @@ sea_objectbob_findparent( var_0, var_1 )
 
     var_0.parent = getent( self.target, "targetname" );
 
-    if ( !isdefined( var_0.parent._id_577B ) )
+    if ( !isdefined( var_0.parent.link ) )
         var_0.parent waittill( "got_link" );
 
-    var_2 = var_0.parent._id_577B;
+    var_2 = var_0.parent.link;
     var_3 = var_0.origin;
     var_4 = spawn( "script_origin", var_2.origin );
     var_4.angles = var_2.angles;
@@ -294,7 +276,7 @@ sea_objectbob_findparent( var_0, var_1 )
 sea_bob()
 {
     self endon( "manual_override" );
-    common_scripts\utility::_id_384A( "_sea_bob" );
+    common_scripts\utility::flag_wait( "_sea_bob" );
     thread sea_bob_reset();
     wait 0.05;
 
@@ -308,23 +290,23 @@ sea_bob()
         self.sway = "sway1";
         self notify( "sway1" );
 
-        if ( common_scripts\utility::_id_382E( "_sea_bob" ) )
+        if ( common_scripts\utility::flag( "_sea_bob" ) )
             level._sea_link rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
 
         self rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
-        level._id_47A3.heightsea = 110;
-        soundscripts\_snd::_id_870C( "aud_start_sway1" );
+        level.heli.heightsea = 110;
+        soundscripts\_snd::snd_message( "aud_start_sway1" );
         wait(self.time);
         self.rotation *= -1;
         self.sway = "sway2";
         self notify( "sway2" );
 
-        if ( common_scripts\utility::_id_382E( "_sea_bob" ) )
+        if ( common_scripts\utility::flag( "_sea_bob" ) )
             level._sea_link rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
 
         self rotateto( self.rotation, self.time, self.time * 0.5, self.time * 0.5 );
-        level._id_47A3.heightsea = 180;
-        soundscripts\_snd::_id_870C( "aud_start_sway2" );
+        level.heli.heightsea = 180;
+        soundscripts\_snd::snd_message( "aud_start_sway2" );
         wait(self.time);
     }
 }
@@ -332,7 +314,7 @@ sea_bob()
 sea_bob_reset_loop()
 {
     self endon( "manual_override" );
-    common_scripts\utility::_id_384A( "_sea_bob" );
+    common_scripts\utility::flag_wait( "_sea_bob" );
     thread sea_bob_reset();
 }
 
@@ -347,7 +329,7 @@ sea_bob_reset()
     level._sea_link rotateto( var_1, var_0, var_0 * 0.5, var_0 * 0.5 );
     wait(var_0);
     wait 0.05;
-    level._id_60A3 = level._id_57A8;
+    level.new_lite_settings = level.lite_settings;
     level._sea_link.angles = ( 0.0, 0.0, 0.0 );
 }
 
@@ -362,10 +344,10 @@ sea_waves()
 
     for (;;)
     {
-        common_scripts\utility::_id_384A( "_sea_waves" );
+        common_scripts\utility::flag_wait( "_sea_waves" );
         self waittill( "sway1" );
         thread sea_waves_fx( var_0, "right" );
-        common_scripts\utility::_id_384A( "_sea_waves" );
+        common_scripts\utility::flag_wait( "_sea_waves" );
         self waittill( "sway2" );
         thread sea_waves_fx( var_0, "left" );
     }
@@ -375,7 +357,7 @@ sea_waves_fx( var_0, var_1 )
 {
     wait(self.time * 0.5);
     var_2 = 2;
-    var_3 = common_scripts\utility::_id_710E( sea_closestwavearray( var_0[var_1], var_2 ) );
+    var_3 = common_scripts\utility::random( sea_closestwavearray( var_0[var_1], var_2 ) );
 
     if ( !isdefined( self.oldwaves[var_1] ) )
         self.oldwaves[var_1] = var_3;
@@ -383,7 +365,7 @@ sea_waves_fx( var_0, var_1 )
     while ( self.oldwaves[var_1] == var_3 )
     {
         wait 0.05;
-        var_3 = common_scripts\utility::_id_710E( sea_closestwavearray( var_0[var_1], var_2 ) );
+        var_3 = common_scripts\utility::random( sea_closestwavearray( var_0[var_1], var_2 ) );
     }
 
     self.oldwaves[var_1] = var_3;
@@ -393,8 +375,8 @@ sea_waves_fx( var_0, var_1 )
 sea_waves_fx2()
 {
     wait(randomfloat( 0.15 ));
-    thread common_scripts\utility::_id_69C2( "elm_wave_crash_ext", self.origin );
-    common_scripts\_exploder::_id_3528( self._id_3528.v["exploder"] );
+    thread common_scripts\utility::play_sound_in_space( "elm_wave_crash_ext", self.origin );
+    common_scripts\_exploder::exploder( self.exploder.v["exploder"] );
 }
 
 sea_closestwavearray( var_0, var_1 )
@@ -440,8 +422,8 @@ sea_closestwavelogic( var_0, var_1 )
 
 sea_waves_setup()
 {
-    var_0 = common_scripts\utility::_id_40FD( "wave_fx", "targetname" );
-    var_1 = common_scripts\utility::_id_40FB( "wave_fx_center", "targetname" );
+    var_0 = common_scripts\utility::getstructarray( "wave_fx", "targetname" );
+    var_1 = common_scripts\utility::getstruct( "wave_fx_center", "targetname" );
 
     if ( !var_0.size )
         return undefined;
@@ -477,16 +459,16 @@ sea_waves_setup()
 
     for ( var_5 = 0; var_5 < var_4["right"].size; var_5++ )
     {
-        var_7 = common_scripts\utility::_id_3F33( var_4["right"][var_5].origin, var_6, 64 );
+        var_7 = common_scripts\utility::getclosest( var_4["right"][var_5].origin, var_6, 64 );
         var_6 = common_scripts\utility::array_remove( var_6, var_7 );
-        var_4["right"][var_5]._id_3528 = var_7;
+        var_4["right"][var_5].exploder = var_7;
     }
 
     for ( var_5 = 0; var_5 < var_4["left"].size; var_5++ )
     {
-        var_7 = common_scripts\utility::_id_3F33( var_4["left"][var_5].origin, var_6, 64 );
+        var_7 = common_scripts\utility::getclosest( var_4["left"][var_5].origin, var_6, 64 );
         var_6 = common_scripts\utility::array_remove( var_6, var_7 );
-        var_4["left"][var_5]._id_3528 = var_7;
+        var_4["left"][var_5].exploder = var_7;
     }
 
     return var_4;
@@ -499,13 +481,13 @@ sea_litebob()
         wait 0.2;
         var_0 = self.angles * 2;
         var_0 = ( var_0[0], var_0[1], var_0[2] );
-        var_1 = level._id_60A3;
-        level._id_60A3 = combineangles( var_0, level._id_57A8 );
-        var_2 = level._id_60A3;
+        var_1 = level.new_lite_settings;
+        level.new_lite_settings = combineangles( var_0, level.lite_settings );
+        var_2 = level.new_lite_settings;
         var_3 = anglestoforward( var_1 );
         var_4 = anglestoforward( var_2 );
 
-        if ( common_scripts\utility::_id_382E( "final_sun_direction" ) )
+        if ( common_scripts\utility::flag( "final_sun_direction" ) )
         {
             setsundirection( ( 0.6, 0.5, 0.7 ) );
             return;
@@ -519,10 +501,10 @@ sea_viewbob()
 {
     for (;;)
     {
-        common_scripts\utility::_id_384A( "_sea_viewbob" );
+        common_scripts\utility::flag_wait( "_sea_viewbob" );
         level.player playersetgroundreferenceent( self );
 
-        if ( common_scripts\utility::_id_382E( "_sea_viewbob" ) )
+        if ( common_scripts\utility::flag( "_sea_viewbob" ) )
             level waittill( "_sea_viewbob" );
 
         level.player playersetgroundreferenceent( undefined );

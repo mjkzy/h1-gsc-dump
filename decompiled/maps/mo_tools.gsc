@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 wait_timeout( var_0, var_1 )
 {
     self endon( "wait timed out" );
@@ -59,7 +41,7 @@ get_ai( var_0, var_1, var_2 )
 
                 continue;
             case "script_forcecolor":
-                if ( var_3[var_5] maps\_utility::_id_1CC0( var_0 ) )
+                if ( var_3[var_5] maps\_utility::check_force_color( var_0 ) )
                     var_4[var_4.size] = var_3[var_5];
 
                 continue;
@@ -144,25 +126,25 @@ get_ents_within_dist( var_0, var_1, var_2 )
     return var_3;
 }
 
-_id_2D41( var_0, var_1, var_2, var_3 )
+door_breach( var_0, var_1, var_2, var_3 )
 {
     var_1.ignoreme = 1;
-    var_1._id_63DF = var_1.goalradius;
+    var_1.oldradius = var_1.goalradius;
     var_1.goalradius = 16;
     var_4 = 0;
     var_5 = 0;
 
-    if ( isdefined( var_1._id_7E3E ) )
+    if ( isdefined( var_1.set_forcedgoal ) )
         var_4 = 1;
 
-    if ( isdefined( var_1._id_58D7 ) )
+    if ( isdefined( var_1.magic_bullet_shield ) )
         var_5 = 1;
 
     if ( !var_4 )
-        var_1 maps\_utility::_id_7E3F();
+        var_1 maps\_utility::set_forcegoal();
 
     if ( !var_5 )
-        var_1 thread maps\_utility::_id_58D7();
+        var_1 thread maps\_utility::magic_bullet_shield();
 
     if ( var_3 == "kick" )
     {
@@ -173,14 +155,14 @@ _id_2D41( var_0, var_1, var_2, var_3 )
         var_0 = var_7;
     }
 
-    var_1._id_63C4 = var_1.animname;
+    var_1.oldanimname = var_1.animname;
     var_1.animname = "guy";
 
     if ( var_3 == "kick" )
         var_0 maps\_anim::anim_reach_solo( var_1, var_3 );
     else
     {
-        var_1 _meth_81A9( var_0 );
+        var_1 getgoalvolume( var_0 );
         var_1 waittill( "goal" );
     }
 
@@ -191,20 +173,20 @@ _id_2D41( var_0, var_1, var_2, var_3 )
     if ( var_3 == "kick" )
     {
         wait 0.2;
-        var_1 _meth_8143();
+        var_1 stopanimscripted();
     }
     else
         var_1 waittillmatch( "single anim", "end" );
 
-    var_1.animname = var_1._id_63C4;
-    var_1.goalradius = var_1._id_63DF;
+    var_1.animname = var_1.oldanimname;
+    var_1.goalradius = var_1.oldradius;
     var_1.ignoreme = 0;
 
     if ( !var_4 )
-        var_1 maps\_utility::_id_9A61();
+        var_1 maps\_utility::unset_forcegoal();
 
     if ( !var_5 )
-        var_1 maps\_utility::_id_8EA4();
+        var_1 maps\_utility::stop_magic_bullet_shield();
 }
 
 door_breach_door()
@@ -218,7 +200,7 @@ door_breach_door()
     var_1 = 0;
     var_2 = 0;
 
-    switch ( self._id_7A99 )
+    switch ( self.script_parameters )
     {
         case "left":
             var_1 = randomfloatrange( 88, 92 );
@@ -278,14 +260,14 @@ spawner_switch_think2()
     self endon( "death" );
     self.count = 1;
 
-    if ( !maps\_utility::_id_7B20() )
+    if ( !maps\_utility::script_wait() )
         wait(randomfloatrange( 2, 4 ));
 
     for (;;)
     {
         var_0 = self dospawn();
 
-        if ( !maps\_utility::_id_88F1( var_0 ) )
+        if ( !maps\_utility::spawn_failed( var_0 ) )
             break;
 
         wait 0.2;
@@ -308,7 +290,7 @@ player_fastrope_go( var_0 )
     level.player playerlinktoabsolute( var_1, "tag_player" );
     playerweapontake();
     var_2 maps\_anim::anim_single_solo( var_1, "fastrope_on" );
-    var_2 movez( ( var_0._id_7131 + 96 ) * -1, var_0.time + 0.5 );
+    var_2 movez( ( var_0.range + 96 ) * -1, var_0.time + 0.5 );
     var_2 thread maps\_anim::anim_loop_solo( var_1, "fastrope_loop", undefined, "stopanimscripted" );
     wait(var_0.time);
     var_2 notify( "stopanimscripted" );
@@ -340,12 +322,12 @@ ai_clear_dialog_logic_guy( var_0 )
 ai_clear_dialog_logic_check()
 {
     self endon( "death" );
-    self._id_71D4 = 0;
+    self.ready = 0;
 
     while ( self.count )
         self waittill( "ai_death" );
 
-    self._id_71D4 = 1;
+    self.ready = 1;
     self notify( "ready" );
 }
 
@@ -355,7 +337,7 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_2 endon( var_3 );
 
     var_6 = spawnstruct();
-    var_6._id_71D4 = 1;
+    var_6.ready = 1;
 
     if ( isdefined( var_1 ) )
     {
@@ -364,9 +346,9 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
         common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::ai_clear_dialog_logic_guy, var_6 );
     }
 
-    maps\_utility::_id_A07E( var_0 );
+    maps\_utility::waittill_dead( var_0 );
 
-    if ( !var_6._id_71D4 )
+    if ( !var_6.ready )
         var_6 waittill( "ready" );
 
     var_6 notify( "death" );
@@ -378,13 +360,13 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
         if ( var_4 == level.player )
             thread radio_msg_stack( var_5 );
         else
-            var_4 thread maps\_utility::_id_69C4( var_5 );
+            var_4 thread maps\_utility::play_sound_on_entity( var_5 );
     }
     else
     {
         var_7 = getaiarray( "allies" );
         var_8 = [];
-        var_9 = maps\_utility::_id_3CFA( level.player.origin, var_7, 1024 );
+        var_9 = maps\_utility::get_closest_living( level.player.origin, var_7, 1024 );
 
         if ( !isdefined( var_9 ) )
         {
@@ -405,10 +387,10 @@ ai_clear_dialog_logic( var_0, var_1, var_2, var_3, var_4, var_5 )
         switch ( var_11 )
         {
             case 0:
-                var_9 thread maps\_utility::_id_69C4( level.level_name + "_gm2_clear" );
+                var_9 thread maps\_utility::play_sound_on_entity( level.level_name + "_gm2_clear" );
                 break;
             case 1:
-                var_9 thread maps\_utility::_id_69C4( level.level_name + "_gm3_clear" );
+                var_9 thread maps\_utility::play_sound_on_entity( level.level_name + "_gm3_clear" );
                 break;
         }
     }
@@ -479,7 +461,7 @@ radio_msg_stack_proc( var_0 )
     while ( level.radio_stack[0] != var_0 )
         level waittill( "level_radio_stack_ready" );
 
-    maps\_utility::_id_70BD( var_0 );
+    maps\_utility::radio_dialogue( var_0 );
     level.radio_stack = common_scripts\utility::array_remove( level.radio_stack, var_0 );
     level notify( "level_radio_stack_ready" );
     self notify( "radio_dialogue_done" );
@@ -487,7 +469,7 @@ radio_msg_stack_proc( var_0 )
 
 disable_cqbwalk_ign_demo_wrapper()
 {
-    maps\_utility::_id_2A8D();
+    maps\_utility::disable_cqbwalk();
 
     if ( !isdefined( self.a.cqbchangedontmodifyinterval ) || !self.a.cqbchangedontmodifyinterval )
         self.interval = 96;
@@ -495,7 +477,7 @@ disable_cqbwalk_ign_demo_wrapper()
 
 enable_cqbwalk_ign_demo_wrapper()
 {
-    maps\_utility::_id_30B0();
+    maps\_utility::enable_cqbwalk();
 
     if ( !isdefined( self.a.cqbchangedontmodifyinterval ) || !self.a.cqbchangedontmodifyinterval )
         self.interval = 50;

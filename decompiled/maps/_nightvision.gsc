@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
@@ -27,57 +9,57 @@ main( var_0, var_1 )
     if ( !isdefined( level.nightvisionlightset ) )
         level.nightvisionlightset = "nightvision";
 
-    thread _id_4C75( var_0, var_1 );
+    thread init_and_run( var_0, var_1 );
 }
 
-_id_4C75( var_0, var_1 )
+init_and_run( var_0, var_1 )
 {
-    var_1 = common_scripts\utility::_id_9294( isdefined( var_1 ), var_1, 1 );
+    var_1 = common_scripts\utility::ter_op( isdefined( var_1 ), var_1, 1 );
     precachenightvisioncodeassets();
     precacheshellshock( "nightvision" );
-    level._id_60E4 = loadfx( "fx/misc/NV_dlight" );
-    level._id_60E9 = loadfx( "fx/misc/ir_tapeReflect" );
+    level.nightvision_dlight_effect = loadfx( "fx/misc/NV_dlight" );
+    level.nightvision_reflector_effect = loadfx( "fx/misc/ir_tapeReflect" );
     level.nightvision_distortion_effect = loadfx( "vfx/distortion/distortion_nightvision" );
     level.nightvision_phosphor_effect = loadfx( "vfx/ui/nvg_phosphor" );
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
         var_3 = var_0[var_2];
-        var_3 maps\_utility::_id_32DD( "nightvision_enabled" );
-        var_3 maps\_utility::_id_32DD( "nightvision_on" );
-        var_3 maps\_utility::_id_32DE( "nightvision_enabled" );
-        var_3 maps\_utility::_id_32DD( "nightvision_dlight_enabled" );
-        var_3 maps\_utility::_id_32DE( "nightvision_dlight_enabled" );
+        var_3 maps\_utility::ent_flag_init( "nightvision_enabled" );
+        var_3 maps\_utility::ent_flag_init( "nightvision_on" );
+        var_3 maps\_utility::ent_flag_set( "nightvision_enabled" );
+        var_3 maps\_utility::ent_flag_init( "nightvision_dlight_enabled" );
+        var_3 maps\_utility::ent_flag_set( "nightvision_dlight_enabled" );
         var_3 setactionslot( var_1, "nightvision" );
     }
 
-    _func_144( "default_night" );
+    visionsetnight( "default_night" );
     thread monitor_blowouts();
-    waitframe;
+    waittillframeend;
     wait 0.05;
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
         var_3 = var_0[var_2];
-        var_3 thread _id_60EB();
+        var_3 thread nightvision_toggle();
     }
 }
 
-_id_60EB()
+nightvision_toggle()
 {
     self endon( "death" );
 
     for (;;)
     {
         self waittill( "night_vision_on" );
-        _id_60E8();
+        nightvision_on();
         var_0 = spawnfx( level.nightvision_distortion_effect, level.player.origin );
         var_1 = spawnfx( level.nightvision_phosphor_effect, level.player.origin );
         triggerfx( var_0 );
         triggerfx( var_1 );
         setomnvar( "ui_nightvision", 1 );
         self waittill( "night_vision_off" );
-        _id_60E7();
+        nightvision_off();
         setomnvar( "ui_nightvision", 0 );
         var_0 delete();
         var_1 delete();
@@ -85,34 +67,34 @@ _id_60EB()
     }
 }
 
-_id_60E2( var_0 )
+nightvision_check( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = level.player;
 
-    return isdefined( var_0._id_60E6 );
+    return isdefined( var_0.nightvision_enabled );
 }
 
-_id_60E8()
+nightvision_on()
 {
     level.player _meth_848D( "disabled", 0 );
-    self._id_60EA = 1;
-    maps\_utility::_id_32DE( "nightvision_on" );
-    self._id_60E6 = 1;
+    self.nightvision_started = 1;
+    maps\_utility::ent_flag_set( "nightvision_on" );
+    self.nightvision_enabled = 1;
     thread h1_view_weapon_laser_update();
-    level.player _meth_83BF( level.nightvisionlightset, 0 );
+    level.player lightsetoverrideenableforplayer( level.nightvisionlightset, 0 );
 
-    if ( maps\_utility::_id_32D8( "nightvision_dlight_enabled" ) )
+    if ( maps\_utility::ent_flag( "nightvision_dlight_enabled" ) )
     {
-        level._id_60E3 = spawnfx( level._id_60E4, level.player.origin );
-        triggerfx( level._id_60E3 );
+        level.nightvision_dlight = spawnfx( level.nightvision_dlight_effect, level.player.origin );
+        triggerfx( level.nightvision_dlight );
     }
 
     var_0 = getaiarray( "allies" );
-    common_scripts\utility::array_thread( var_0, ::_id_30CD );
+    common_scripts\utility::array_thread( var_0, ::enable_ir_beacon );
 
-    if ( !maps\_utility::_id_3416( "allies", ::_id_30CD ) )
-        maps\_utility::add_global_spawn_function( "allies", ::_id_30CD );
+    if ( !maps\_utility::exists_global_spawn_function( "allies", ::enable_ir_beacon ) )
+        maps\_utility::add_global_spawn_function( "allies", ::enable_ir_beacon );
 }
 
 has_laser_sight_nightvision( var_0 )
@@ -129,7 +111,7 @@ h1_view_weapon_laser_update()
     {
         if ( self getcurrentweapon() == "none" )
         {
-            waittillframeend;
+            waitframe();
             continue;
         }
 
@@ -138,13 +120,13 @@ h1_view_weapon_laser_update()
         else
             self laseroff();
 
-        common_scripts\utility::_id_A069( "weapon_switch_started", "weapon_taken" );
+        common_scripts\utility::waittill_any( "weapon_switch_started", "weapon_taken" );
         self laseroff();
-        common_scripts\utility::_id_A069( "grenade_fire", "weapon_change" );
+        common_scripts\utility::waittill_any( "grenade_fire", "weapon_change" );
     }
 }
 
-_id_30CD()
+enable_ir_beacon()
 {
     if ( !isai( self ) )
         return;
@@ -152,11 +134,11 @@ _id_30CD()
     if ( !isdefined( self.has_ir ) )
         return;
 
-    animscripts\shared::_id_9B2D();
-    thread _id_588E();
+    animscripts\shared::updatelaserstatus();
+    thread loopreflectoreffect();
 }
 
-_id_588E()
+loopreflectoreffect()
 {
     level endon( "night_vision_off" );
     self endon( "death" );
@@ -164,75 +146,75 @@ _id_588E()
     for (;;)
     {
         if ( self _meth_843E( "tag_reflector_arm_le" ) != -1 )
-            playfxontag( level._id_60E9, self, "tag_reflector_arm_le" );
+            playfxontag( level.nightvision_reflector_effect, self, "tag_reflector_arm_le" );
 
         if ( self _meth_843E( "tag_reflector_arm_ri" ) != -1 )
-            playfxontag( level._id_60E9, self, "tag_reflector_arm_ri" );
+            playfxontag( level.nightvision_reflector_effect, self, "tag_reflector_arm_ri" );
 
         wait 0.1;
     }
 }
 
-_id_8EB3()
+stop_reflector_effect()
 {
     if ( !isdefined( self.has_ir ) )
         return;
 
-    stopfxontag( level._id_60E9, self, "tag_reflector_arm_le" );
-    stopfxontag( level._id_60E9, self, "tag_reflector_arm_ri" );
+    stopfxontag( level.nightvision_reflector_effect, self, "tag_reflector_arm_le" );
+    stopfxontag( level.nightvision_reflector_effect, self, "tag_reflector_arm_ri" );
 }
 
-_id_60E7()
+nightvision_off()
 {
-    self._id_60EA = undefined;
+    self.nightvision_started = undefined;
     self laseroff();
     level notify( "night_vision_off" );
 
-    if ( isdefined( level._id_60E3 ) )
-        level._id_60E3 delete();
+    if ( isdefined( level.nightvision_dlight ) )
+        level.nightvision_dlight delete();
 
     self notify( "nightvision_shellshock_off" );
-    maps\_utility::_id_32DA( "nightvision_on" );
-    self._id_60E6 = undefined;
-    level.player _meth_83C0();
+    maps\_utility::ent_flag_clear( "nightvision_on" );
+    self.nightvision_enabled = undefined;
+    level.player lightsetoverridedisableforplayer();
     level.player _meth_848E( 0 );
     var_0 = 0;
 
     for ( var_1 = 0; var_1 < level.players.size; var_1++ )
     {
-        if ( _id_60E2( level.players[var_1] ) )
+        if ( nightvision_check( level.players[var_1] ) )
             var_0 = 1;
     }
 
     if ( !var_0 )
-        maps\_utility::_id_735B( "allies", ::_id_30CD );
+        maps\_utility::remove_global_spawn_function( "allies", ::enable_ir_beacon );
 
-    thread _id_60E5();
+    thread nightvision_effectsoff();
 }
 
-_id_60E5()
+nightvision_effectsoff()
 {
     var_0 = getaiarray( "allies" );
 
     foreach ( var_2 in var_0 )
     {
-        var_2._id_9C2F = undefined;
-        var_2 animscripts\shared::_id_9B2D();
-        var_2 _id_8EB3();
+        var_2.usingnvfx = undefined;
+        var_2 animscripts\shared::updatelaserstatus();
+        var_2 stop_reflector_effect();
     }
 }
 
-_id_8487()
+shouldbreaknvghintprint()
 {
-    if ( isdefined( self._id_60EA ) )
+    if ( isdefined( self.nightvision_started ) )
         return 1;
 
     return isdefined( self.end_nightvision_hint );
 }
 
-_id_8451()
+should_break_disable_nvg_print()
 {
-    if ( !isdefined( self._id_60EA ) )
+    if ( !isdefined( self.nightvision_started ) )
         return 1;
 
     return isdefined( self.end_nightvision_disable_hint );
@@ -256,10 +238,10 @@ monitor_blowouts()
 
     for (;;)
     {
-        level.player maps\_utility::_id_32E0( "nightvision_on" );
-        thread maps\_utility::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_nvg_value, 0.25 );
-        level.player maps\_utility::_id_32E4( "nightvision_on" );
-        thread maps\_utility::_id_569C( "r_ssrBlendScale", level.r_ssrblendscale_default_value, 0.25 );
+        level.player maps\_utility::ent_flag_wait( "nightvision_on" );
+        thread maps\_utility::lerp_saveddvar( "r_ssrBlendScale", level.r_ssrblendscale_nvg_value, 0.25 );
+        level.player maps\_utility::ent_flag_waitopen( "nightvision_on" );
+        thread maps\_utility::lerp_saveddvar( "r_ssrBlendScale", level.r_ssrblendscale_default_value, 0.25 );
     }
 }
 

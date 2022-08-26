@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_35F7( var_0, var_1, var_2 )
+fadeoverlay( var_0, var_1, var_2 )
 {
     self fadeovertime( var_0 );
     self.alpha = var_1;
@@ -29,12 +11,12 @@ _id_35F7( var_0, var_1, var_2 )
 
 blackout( var_0, var_1 )
 {
-    _id_35F7( var_0, 1, var_1 );
+    fadeoverlay( var_0, 1, var_1 );
 }
 
-_id_74B2( var_0, var_1 )
+restorevision( var_0, var_1 )
 {
-    _id_35F7( var_0, 0, var_1 );
+    fadeoverlay( var_0, 0, var_1 );
 }
 
 initdof()
@@ -50,10 +32,10 @@ initdof()
 
 setdefaultdepthoffield()
 {
-    level.player setdepthoffield( level._id_2C7B["nearStart"], level._id_2C7B["nearEnd"], level._id_2C7B["farStart"], level._id_2C7B["farEnd"], level._id_2C7B["nearBlur"], level._id_2C7B["farBlur"] );
+    level.player setdepthoffield( level.dofdefault["nearStart"], level.dofdefault["nearEnd"], level.dofdefault["farStart"], level.dofdefault["farEnd"], level.dofdefault["nearBlur"], level.dofdefault["farBlur"] );
 }
 
-_id_7F54( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+setdof( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     if ( isdefined( var_6 ) && var_6 > 0 )
     {
@@ -73,17 +55,17 @@ _id_7F54( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         }
     }
 
-    self._id_2C3D["nearStart"] = var_0;
-    self._id_2C3D["nearEnd"] = var_1;
-    self._id_2C3D["nearBlur"] = var_2;
-    self._id_2C3D["farStart"] = var_3;
-    self._id_2C3D["farEnd"] = var_4;
-    self._id_2C3D["farBlur"] = var_5;
+    self.dof["nearStart"] = var_0;
+    self.dof["nearEnd"] = var_1;
+    self.dof["nearBlur"] = var_2;
+    self.dof["farStart"] = var_3;
+    self.dof["farEnd"] = var_4;
+    self.dof["farBlur"] = var_5;
 }
 
 lerpdofvalue( var_0, var_1, var_2 )
 {
-    level._id_2C7B[var_0] = self._id_2C3D[var_0] + ( var_1 - self._id_2C3D[var_0] ) * var_2;
+    level.dofdefault[var_0] = self.dof[var_0] + ( var_1 - self.dof[var_0] ) * var_2;
 }
 
 scripted_array_spawn( var_0, var_1, var_2 )
@@ -102,9 +84,9 @@ scripted_spawn2( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_3 ) )
         var_3 = getent( var_0, var_1 );
 
-    if ( isdefined( var_3._id_79AD ) )
+    if ( isdefined( var_3.script_drone ) )
     {
-        var_4 = maps\_utility::_id_2F29( var_3, 1 );
+        var_4 = maps\_utility::dronespawn( var_3, 1 );
 
         if ( var_3.classname == "actor_enemy_arab_AR_ak47" )
         {
@@ -123,7 +105,7 @@ scripted_spawn2( var_0, var_1, var_2, var_3 )
         else
             var_5 = var_3 dospawn();
 
-        maps\_utility::_id_88F1( var_5 );
+        maps\_utility::spawn_failed( var_5 );
         return var_5;
     }
 }
@@ -136,7 +118,7 @@ deletecharactertriggers()
     {
         var_2 = var_0[var_1];
 
-        if ( isdefined( var_2._id_7993 ) )
+        if ( isdefined( var_2.script_deleteai ) )
             var_2 thread deletecharacter();
     }
 }
@@ -150,7 +132,7 @@ deletecharacter()
     {
         var_2 = var_0[var_1];
 
-        if ( isdefined( var_2._id_7993 ) && var_2._id_7993 == self._id_7993 )
+        if ( isdefined( var_2.script_deleteai ) && var_2.script_deleteai == self.script_deleteai )
             var_2 delete();
     }
 
@@ -160,13 +142,13 @@ deletecharacter()
 
     for ( var_1 = 0; var_1 < var_3.size; var_1++ )
     {
-        var_4 = level._id_2F1A[var_3[var_1]].array;
+        var_4 = level.drones[var_3[var_1]].array;
 
         for ( var_5 = 0; var_5 < var_4.size; var_5++ )
         {
             var_6 = var_4[var_5];
 
-            if ( isdefined( var_6._id_7993 ) && var_6._id_7993 == self._id_7993 )
+            if ( isdefined( var_6.script_deleteai ) && var_6.script_deleteai == self.script_deleteai )
                 var_6 delete();
         }
     }
@@ -214,8 +196,8 @@ pulsefadevision( var_0, var_1 )
             var_16 = var_9 * 0.5;
             var_17 = 7.2 * var_16;
             var_0 = var_12 / 2;
-            var_2 _id_35F7( var_0, var_14, var_15 );
-            var_2 _id_35F7( var_0, var_16, var_17 );
+            var_2 fadeoverlay( var_0, var_14, var_15 );
+            var_2 fadeoverlay( var_0, var_16, var_17 );
             wait(var_9 * 0.5);
         }
 
@@ -241,7 +223,7 @@ updatepulsefadeamount( var_0, var_1 )
 dropdead()
 {
     self waittill( "death", var_0 );
-    animscripts\shared::_id_2F6C();
+    animscripts\shared::dropallaiweapons();
     self startragdoll();
     var_1 = self.origin;
     var_1 += ( 0.0, 16.0, 0.0 );
@@ -254,8 +236,8 @@ deleteentity( var_0 )
 {
     if ( isdefined( var_0 ) )
     {
-        if ( isdefined( var_0._id_58D7 ) )
-            var_0 maps\_utility::_id_8EA4();
+        if ( isdefined( var_0.magic_bullet_shield ) )
+            var_0 maps\_utility::stop_magic_bullet_shield();
 
         var_0 delete();
     }
@@ -269,7 +251,7 @@ deleteongoal()
 
 deleteonflag( var_0, var_1 )
 {
-    common_scripts\utility::_id_384A( var_0 );
+    common_scripts\utility::flag_wait( var_0 );
     wait(var_1);
     self delete();
 }
@@ -291,7 +273,7 @@ playspeech( var_0, var_1 )
     if ( isdefined( var_1 ) )
         printspeech( var_1 );
 
-    level.player thread maps\_utility::_id_69C4( var_0 );
+    level.player thread maps\_utility::play_sound_on_entity( var_0 );
 }
 
 playspeechcarradio( var_0, var_1 )
@@ -300,7 +282,7 @@ playspeechcarradio( var_0, var_1 )
         printspeech( var_1 );
 
     var_2 = var_0 + "_r";
-    level.car thread maps\_utility::_id_69C4( var_2 );
+    level.car thread maps\_utility::play_sound_on_entity( var_2 );
 }
 
 playalasadspeech( var_0, var_1 )
@@ -308,7 +290,7 @@ playalasadspeech( var_0, var_1 )
     if ( isdefined( var_1 ) )
         printspeech( var_1 );
 
-    level.alasad thread maps\_utility::_id_69C4( var_0 );
+    level.alasad thread maps\_utility::play_sound_on_entity( var_0 );
 }
 
 randomizeguardcharacter()
@@ -329,7 +311,7 @@ randomizeguardcharacter()
             self detach( var_1[var_3], var_2[var_3] );
     }
 
-    self._id_475D = undefined;
+    self.hatmodel = undefined;
     self.headmodel = undefined;
 
     switch ( randomint( 6 ) )
@@ -399,7 +381,7 @@ playlinkedsound( var_0 )
     var_1.origin = self.origin;
     var_1.angles = self.angles;
     var_1 linkto( self );
-    var_1 thread maps\_utility::_id_69C5( var_0, undefined, 1 );
+    var_1 thread maps\_utility::play_sound_on_tag( var_0, undefined, 1 );
     return var_1;
 }
 
@@ -444,7 +426,7 @@ opfor_swaphead_for_facialanim()
             self attach( var_0[var_2], "", 1 );
             self.headmodel = var_0[var_2];
             self attach( var_1[var_2] );
-            self._id_475D = var_1[var_2];
+            self.hatmodel = var_1[var_2];
         }
     }
 }

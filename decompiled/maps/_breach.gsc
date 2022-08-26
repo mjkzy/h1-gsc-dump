@@ -1,34 +1,16 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["_breach_doorbreach_detpack"] = loadfx( "fx/explosions/exp_pack_doorbreach" );
     level._effect["_breach_doorbreach_kick"] = loadfx( "fx/dust/door_kick" );
-    level._id_78BA["_breach_doorbreach_detpack"] = "detpack_explo_main";
-    level._id_78BA["breach_wooden_door"] = "";
-    level._id_78BA["breach_wood_door_kick"] = "wood_door_kick";
+    level.scr_sound["_breach_doorbreach_detpack"] = "detpack_explo_main";
+    level.scr_sound["breach_wooden_door"] = "";
+    level.scr_sound["breach_wood_door_kick"] = "wood_door_kick";
     common_scripts\utility::array_call( getentarray( "breached_door", "script_noteworthy" ), ::hide );
     common_scripts\utility::array_call( getentarray( "breached_door", "script_noteworthy" ), ::notsolid );
-    common_scripts\utility::_id_383D( "begin_the_breach" );
+    common_scripts\utility::flag_init( "begin_the_breach" );
 }
 
 breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -36,25 +18,25 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
     self endon( "breach_abort" );
 
     if ( isdefined( var_5 ) && var_5 == 0 )
-        anim._id_37BF["scripted"] = ::breach_fire_straight;
+        anim.fire_notetrack_functions["scripted"] = ::breach_fire_straight;
 
-    self._id_38C7 = 0;
-    self._id_1FE1 = undefined;
+    self.flashthrown = 0;
+    self.closestai = undefined;
     self.animent = undefined;
     self.breached = 0;
     self.breachers = 0;
     self.breachersready = 0;
-    self._id_858F = 0;
-    self._id_71E3 = 0;
+    self.singlebreacher = 0;
+    self.readytobreach = 0;
     self.aiareintheroom = 0;
     self.abouttobebreached = 0;
-    self._id_1EE9 = 0;
-    self._id_472A = 1;
-    self._id_472E = 0;
-    self._id_4A35 = 0;
+    self.cleared = 0;
+    self.hasdoor = 1;
+    self.hasflashbangs = 0;
+    self.hostilesspawned = 0;
     var_6 = getentarray( self.targetname, "targetname" );
     var_7 = self.targetname;
-    self._id_7829 = "badplace_" + var_7;
+    self.sbadplacename = "badplace_" + var_7;
     self.badplace = getent( "badplace_" + var_7, "targetname" );
 
     if ( isdefined( self.badplace ) )
@@ -72,10 +54,10 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
         switch ( self.breachtrigger.classname )
         {
             case "trigger_use":
-                self._id_9812 = var_2;
+                self.triggerhintstring = var_2;
                 break;
             case "trigger_use_touch":
-                self._id_9812 = var_2;
+                self.triggerhintstring = var_2;
                 break;
             case "trigger_radius":
                 break;
@@ -93,14 +75,14 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
         case "shotgunhinges_breach_left":
             break;
         case "flash_breach_no_door_right":
-            self._id_472A = 0;
-            self._id_472E = 1;
+            self.hasdoor = 0;
+            self.hasflashbangs = 1;
             break;
         default:
             break;
     }
 
-    if ( self._id_472A == 1 )
+    if ( self.hasdoor == 1 )
     {
         var_8 = undefined;
 
@@ -110,41 +92,41 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
         if ( isdefined( var_8 ) && isdefined( var_8.script_noteworthy ) && var_8.script_noteworthy == "breach_anim_ent" )
             self.animent = var_8;
 
-        self._id_3015 = getent( self._id_7A26, "script_linkname" );
+        self.edoor = getent( self.script_linkto, "script_linkname" );
 
-        if ( self._id_3015.classname == "script_model" )
+        if ( self.edoor.classname == "script_model" )
         {
-            self.edoorpivot = spawn( "script_origin", self._id_3015.origin );
-            self.edoorpivot.angles = self._id_3015.angles;
+            self.edoorpivot = spawn( "script_origin", self.edoor.origin );
+            self.edoorpivot.angles = self.edoor.angles;
         }
-        else if ( self._id_3015.classname == "script_brushmodel" && !isdefined( self.animent ) )
+        else if ( self.edoor.classname == "script_brushmodel" && !isdefined( self.animent ) )
         {
-            self.edoorpivot = getent( self._id_3015.target, "targetname" );
-            self._id_3015._id_9C6F = anglestoforward( self.edoorpivot.angles );
+            self.edoorpivot = getent( self.edoor.target, "targetname" );
+            self.edoor.vector = anglestoforward( self.edoorpivot.angles );
         }
 
         if ( !isdefined( self.animent ) )
             self.animent = self.edoorpivot;
 
         self.animent.type = "Cover Right";
-        self._id_3017 = getent( self._id_3015._id_7A26, "script_linkname" );
-        self._id_4B9A = self._id_3017._id_79BF;
+        self.eexploderorigin = getent( self.edoor.script_linkto, "script_linkname" );
+        self.iexplodernum = self.eexploderorigin.script_exploder;
 
-        if ( isdefined( self._id_3017._id_7A26 ) )
+        if ( isdefined( self.eexploderorigin.script_linkto ) )
         {
-            var_9 = getent( self._id_3017._id_7A26, "script_linkname" );
+            var_9 = getent( self.eexploderorigin.script_linkto, "script_linkname" );
 
             if ( isdefined( var_9 ) && isdefined( var_9.script_noteworthy ) && var_9.script_noteworthy == "breached_door" )
                 self.ebreacheddoor = var_9;
         }
     }
-    else if ( self._id_472A == 0 )
-        self.animent = getent( self._id_7A26, "script_linkname" );
+    else if ( self.hasdoor == 0 )
+        self.animent = getent( self.script_linkto, "script_linkname" );
 
-    if ( self._id_472E == 1 )
+    if ( self.hasflashbangs == 1 )
     {
-        self._id_4404 = getent( "flashthrow_" + var_7, "targetname" );
-        self._id_43FE = getent( self._id_4404.target, "targetname" );
+        self.grenadeorigin = getent( "flashthrow_" + var_7, "targetname" );
+        self.grenadedest = getent( self.grenadeorigin.target, "targetname" );
     }
 
     thread breach_abort( var_0 );
@@ -154,10 +136,10 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     for ( var_11 = 0; var_11 < var_0.size; var_11++ )
     {
-        if ( isdefined( var_0[var_11]._id_3817 ) )
+        if ( isdefined( var_0[var_11].firstbreacher ) )
         {
             var_10++;
-            self._id_1FE1 = var_0[var_11];
+            self.closestai = var_0[var_11];
         }
     }
 
@@ -166,10 +148,10 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     }
     else
-        self._id_1FE1 = common_scripts\utility::_id_3F33( self.edoorpivot.origin, var_0 );
+        self.closestai = common_scripts\utility::getclosest( self.edoorpivot.origin, var_0 );
 
     if ( var_0.size == 1 )
-        self._id_858F = 1;
+        self.singlebreacher = 1;
 
     for ( var_11 = 0; var_11 < var_0.size; var_11++ )
         var_0[var_11] thread breacher_think( self, var_1, var_5 );
@@ -178,7 +160,7 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
         wait 0.05;
 
     self notify( "ready_to_breach" );
-    self._id_71E3 = 1;
+    self.readytobreach = 1;
 
     if ( isdefined( self.breachtrigger ) )
     {
@@ -188,19 +170,19 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
     else
         self notify( "execute_the_breach" );
 
-    common_scripts\utility::_id_383F( "begin_the_breach" );
+    common_scripts\utility::flag_set( "begin_the_breach" );
     self.abouttobebreached = 1;
 
     if ( isdefined( var_3 ) && var_3 == 1 )
     {
         var_12 = getentarray( "hostiles_" + var_7, "targetname" );
         self waittill( "spawn_hostiles" );
-        _id_8994( var_12 );
-        self._id_4A35 = 1;
+        spawnbreachhostiles( var_12 );
+        self.hostilesspawned = 1;
     }
 
     if ( isdefined( self.badplace ) )
-        badplace_cylinder( self._id_7829, -1, self.badplace.origin, self.badplace.radius, 200, "bad_guys" );
+        badplace_cylinder( self.sbadplacename, -1, self.badplace.origin, self.badplace.radius, 200, "bad_guys" );
 
     var_13 = getaiarray( "bad_guys" );
     var_14 = [];
@@ -222,7 +204,7 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( !var_14.size )
         return;
 
-    while ( !self._id_1EE9 )
+    while ( !self.cleared )
     {
         wait 0.05;
 
@@ -232,7 +214,7 @@ breach_think( var_0, var_1, var_2, var_3, var_4, var_5 )
                 var_14 = common_scripts\utility::array_remove( var_14, var_14[var_11] );
 
             if ( var_14.size == 0 )
-                self._id_1EE9 = 1;
+                self.cleared = 1;
         }
     }
 }
@@ -242,7 +224,7 @@ breach_dont_fire()
     while ( self.breaching == 1 )
     {
         self waittillmatch( "single anim", "fire" );
-        self.a._id_55D7 = gettime();
+        self.a.lastshoottime = gettime();
     }
 }
 
@@ -254,28 +236,28 @@ breacher_think( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) )
         var_2 = 1;
 
-    self _meth_81A7( 1 );
-    thread _id_41C7();
+    self pushplayer( 1 );
+    thread give_infinite_ammo();
     var_0 endon( "breach_abort" );
-    self._id_315B = "stop_idle_" + self getentitynumber();
+    self.ender = "stop_idle_" + self getentitynumber();
     var_3 = undefined;
     var_4 = undefined;
     var_5 = undefined;
     var_6 = undefined;
     var_7 = undefined;
 
-    if ( self == var_0._id_1FE1 )
+    if ( self == var_0.closestai )
         var_3 = "01";
     else
         var_3 = "02";
 
-    if ( var_0._id_858F == 1 && var_1 == "explosive_breach_left" )
+    if ( var_0.singlebreacher == 1 && var_1 == "explosive_breach_left" )
         var_3 = "02";
 
     switch ( var_1 )
     {
         case "explosive_breach_left":
-            if ( isdefined( self._id_9BF0 ) && self._id_9BF0 == 0 )
+            if ( isdefined( self.usebreachapproach ) && self.usebreachapproach == 0 )
                 var_4 = "detcord_stack_left_start_no_approach_" + var_3;
             else
                 var_4 = "detcord_stack_left_start_" + var_3;
@@ -289,7 +271,7 @@ breacher_think( var_0, var_1, var_2 )
             var_6 = "shotgunhinges_breach_left_stack_breach_" + var_3;
             break;
         case "flash_breach_no_door_right":
-            if ( var_0._id_858F == 1 )
+            if ( var_0.singlebreacher == 1 )
             {
                 var_4 = "flash_stack_right_start_single";
                 var_5 = "flash_stack_right_idle_single";
@@ -311,7 +293,7 @@ breacher_think( var_0, var_1, var_2 )
 
     breach_set_goaladius( 64 );
 
-    if ( !isdefined( self._id_9BF0 ) || self._id_9BF0 )
+    if ( !isdefined( self.usebreachapproach ) || self.usebreachapproach )
         var_0.animent maps\_anim::anim_generic_reach( self, var_4 );
     else
     {
@@ -320,19 +302,19 @@ breacher_think( var_0, var_1, var_2 )
     }
 
     var_0.animent maps\_anim::anim_generic( self, var_4 );
-    var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self._id_315B );
+    var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self.ender );
     self._id_7F7E = self.origin;
     var_0.breachers++;
     self.scriptedarrivalent = undefined;
     var_0 waittill( "execute_the_breach" );
 
-    if ( !var_0._id_38C7 && isdefined( var_7 ) )
+    if ( !var_0.flashthrown && isdefined( var_7 ) )
     {
-        var_0.animent notify( self._id_315B );
+        var_0.animent notify( self.ender );
         var_0.animent thread maps\_anim::anim_generic( self, var_7 );
         wait 1;
 
-        if ( var_3 == "02" || var_0._id_858F == 1 )
+        if ( var_3 == "02" || var_0.singlebreacher == 1 )
         {
             var_8 = "J_Mid_LE_1";
             self attach( "projectile_m84_flashbang_grenade", var_8 );
@@ -343,21 +325,21 @@ breacher_think( var_0, var_1, var_2 )
             if ( var_3 == "02" )
                 self waittillmatch( "single anim", "grenade_throw" );
 
-            if ( var_0._id_858F == 1 && var_3 == "01" )
+            if ( var_0.singlebreacher == 1 && var_3 == "01" )
                 self waittillmatch( "single anim", "fire" );
 
-            self magicgrenade( var_0._id_4404.origin, var_0._id_43FE.origin, level._id_4B9D );
+            self magicgrenade( var_0.grenadeorigin.origin, var_0.grenadedest.origin, level.iflashfuse );
             self detach( "projectile_m84_flashbang_grenade", var_8 );
             self.grenadeweapon = var_9;
             self.grenadeammo = 0;
         }
 
         self waittillmatch( "single anim", "end" );
-        var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self._id_315B );
+        var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self.ender );
         wait 0.1;
     }
 
-    var_0.animent notify( self._id_315B );
+    var_0.animent notify( self.ender );
 
     if ( var_2 == 0 )
         self.breachdonotfire = 1;
@@ -368,8 +350,8 @@ breacher_think( var_0, var_1, var_2 )
     {
         if ( var_3 == "02" )
         {
-            var_0._id_3015 thread door_animation( "explosive", var_0 );
-            thread _id_2986( var_0 );
+            var_0.edoor thread door_animation( "explosive", var_0 );
+            thread detcord_logic( var_0 );
             self waittillmatch( "single anim", "pull fuse" );
             wait 1;
             var_0 notify( "spawn_hostiles" );
@@ -377,7 +359,7 @@ breacher_think( var_0, var_1, var_2 )
             self waittillmatch( "single anim", "explosion" );
             var_0 notify( "detpack_detonated" );
             var_0.breached = 1;
-            var_0._id_3015 thread _id_2D4C( "explosive", var_0 );
+            var_0.edoor thread door_open( "explosive", var_0 );
             var_0 notify( "play_breach_fx" );
         }
     }
@@ -385,10 +367,10 @@ breacher_think( var_0, var_1, var_2 )
     {
         if ( var_3 == "01" )
         {
-            var_0._id_3015 thread door_animation( "shotgun", var_0 );
+            var_0.edoor thread door_animation( "shotgun", var_0 );
             var_0 notify( "spawn_hostiles" );
             self waittillmatch( "single anim", "kick" );
-            var_0._id_3015 thread _id_2D4C( "shotgun", var_0 );
+            var_0.edoor thread door_open( "shotgun", var_0 );
             var_0 notify( "play_breach_fx" );
         }
     }
@@ -403,14 +385,14 @@ breacher_think( var_0, var_1, var_2 )
     if ( var_2 == 0 )
         self.breachdonotfire = undefined;
 
-    if ( isdefined( level._id_3A44 ) )
-        self thread [[ level._id_3A44 ]]( var_0 );
+    if ( isdefined( level.friendly_breach_thread ) )
+        self thread [[ level.friendly_breach_thread ]]( var_0 );
 
     var_0.aiareintheroom = 1;
-    self _meth_81A7( 0 );
+    self pushplayer( 0 );
     breach_reset_animname();
 
-    while ( !var_0._id_1EE9 )
+    while ( !var_0.cleared )
         wait 0.05;
 
     self.breaching = 0;
@@ -421,12 +403,12 @@ breach_fire_straight()
     if ( isdefined( self.breachdonotfire ) )
         return;
 
-    animscripts\notetracks::_id_37C7();
+    animscripts\notetracks::fire_straight();
 }
 
-_id_2986( var_0 )
+detcord_logic( var_0 )
 {
-    thread _id_889D( var_0 );
+    thread sound_effect_play( var_0 );
     self waittillmatch( "single anim", "attach prop right" );
     var_1 = "TAG_INHAND";
     self attach( "weapon_detcord", var_1 );
@@ -442,10 +424,10 @@ _id_2986( var_0 )
     var_4 delete();
 }
 
-_id_889D( var_0 )
+sound_effect_play( var_0 )
 {
     self waittillmatch( "single anim", "sound effect" );
-    thread common_scripts\utility::_id_69C2( "detpack_plant_arming", var_0.edoorpivot.origin );
+    thread common_scripts\utility::play_sound_in_space( "detpack_plant_arming", var_0.edoorpivot.origin );
 }
 
 breach_enemies_stunned( var_0 )
@@ -454,14 +436,14 @@ breach_enemies_stunned( var_0 )
     var_0 endon( "breach_aborted" );
     var_0 waittill( "detpack_detonated" );
 
-    if ( distance( self.origin, var_0.edoorpivot.origin ) <= level._id_29B8 )
+    if ( distance( self.origin, var_0.edoorpivot.origin ) <= level.detpackstunradius )
     {
-        level._id_8F75++;
+        level.stunnedanimnumber++;
 
-        if ( level._id_8F75 > 2 )
-            level._id_8F75 = 1;
+        if ( level.stunnedanimnumber > 2 )
+            level.stunnedanimnumber = 1;
 
-        var_1 = "exposed_flashbang_v" + level._id_8F75;
+        var_1 = "exposed_flashbang_v" + level.stunnedanimnumber;
         self.allowdeath = 1;
         maps\_anim::anim_generic_custom_animmode( self, "gravity", var_1 );
         breach_reset_animname();
@@ -480,29 +462,29 @@ breach_trigger_think( var_0 )
 breach_trigger_cleanup( var_0 )
 {
     var_0 waittill( "execute_the_breach" );
-    common_scripts\utility::_id_97CC();
+    common_scripts\utility::trigger_off();
 
-    if ( isdefined( var_0._id_3012 ) )
-        var_0._id_3012 delete();
+    if ( isdefined( var_0.ebreachmodel ) )
+        var_0.ebreachmodel delete();
 }
 
 breach_abort( var_0 )
 {
     self endon( "breach_complete" );
     self waittill( "breach_abort" );
-    self._id_1EE9 = 1;
+    self.cleared = 1;
     thread breach_cleanup( var_0 );
 }
 
 breach_cleanup( var_0 )
 {
-    while ( !self._id_1EE9 )
+    while ( !self.cleared )
         wait 0.05;
 
     if ( isdefined( self.badplace ) )
-        badplace_delete( self._id_7829 );
+        badplace_delete( self.sbadplacename );
 
-    while ( !self._id_1EE9 )
+    while ( !self.cleared )
         wait 0.05;
 
     common_scripts\utility::array_thread( var_0, ::breach_ai_reset, self );
@@ -513,9 +495,9 @@ breach_ai_reset( var_0 )
     self endon( "death" );
     breach_reset_animname();
     breach_reset_goaladius();
-    var_0.animent notify( self._id_315B );
+    var_0.animent notify( self.ender );
     self notify( "stop_infinite_ammo" );
-    self _meth_81A7( 0 );
+    self pushplayer( 0 );
 }
 
 breach_play_fx( var_0, var_1 )
@@ -527,20 +509,20 @@ breach_play_fx( var_0, var_1 )
     {
         case "explosive_breach_left":
             self waittill( "play_breach_fx" );
-            common_scripts\_exploder::_id_3528( self._id_4B9A );
-            thread common_scripts\utility::_id_69C2( level._id_78BA["breach_wooden_door"], self._id_3017.origin );
-            thread common_scripts\utility::_id_69C2( level._id_78BA["_breach_doorbreach_detpack"], self._id_3017.origin );
+            common_scripts\_exploder::exploder( self.iexplodernum );
+            thread common_scripts\utility::play_sound_in_space( level.scr_sound["breach_wooden_door"], self.eexploderorigin.origin );
+            thread common_scripts\utility::play_sound_in_space( level.scr_sound["_breach_doorbreach_detpack"], self.eexploderorigin.origin );
 
             if ( var_1 )
-                playfx( level._effect["_breach_doorbreach_detpack"], self._id_3017.origin, anglestoforward( self._id_3017.angles ) );
+                playfx( level._effect["_breach_doorbreach_detpack"], self.eexploderorigin.origin, anglestoforward( self.eexploderorigin.angles ) );
 
             break;
         case "shotgunhinges_breach_left":
             self waittill( "play_breach_fx" );
-            common_scripts\_exploder::_id_3528( self._id_4B9A );
+            common_scripts\_exploder::exploder( self.iexplodernum );
 
             if ( var_1 )
-                playfx( level._effect["_breach_doorbreach_kick"], self._id_3017.origin, anglestoforward( self._id_3017.angles ) );
+                playfx( level._effect["_breach_doorbreach_kick"], self.eexploderorigin.origin, anglestoforward( self.eexploderorigin.angles ) );
 
             break;
         case "flash_breach_no_door_right":
@@ -550,27 +532,27 @@ breach_play_fx( var_0, var_1 )
     }
 }
 
-_id_89E3( var_0 )
+spawnhostile( var_0 )
 {
     var_1 = var_0 dospawn();
-    maps\_utility::_id_88F1( var_1 );
+    maps\_utility::spawn_failed( var_1 );
     return var_1;
 }
 
-_id_8994( var_0 )
+spawnbreachhostiles( var_0 )
 {
     var_1 = [];
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_3 = _id_89E3( var_0[var_2] );
+        var_3 = spawnhostile( var_0[var_2] );
         var_1[var_1.size] = var_3;
     }
 
     return var_1;
 }
 
-_id_41C7()
+give_infinite_ammo()
 {
     self endon( "death" );
     self endon( "stop_infinite_ammo" );
@@ -589,7 +571,7 @@ door_animation( var_0, var_1 )
 {
     var_2 = "breach_door";
 
-    if ( !isdefined( level._id_78AC[var_2] ) )
+    if ( !isdefined( level.scr_anim[var_2] ) )
         return;
 
     var_3 = undefined;
@@ -607,16 +589,16 @@ door_animation( var_0, var_1 )
     if ( !isdefined( var_3 ) )
         return;
 
-    if ( !isdefined( level._id_78AC[var_2][var_3] ) )
+    if ( !isdefined( level.scr_anim[var_2][var_3] ) )
         return;
 
-    var_4 = common_scripts\utility::_id_9294( isdefined( var_1.ebreacheddoor ), var_1.ebreacheddoor, self );
+    var_4 = common_scripts\utility::ter_op( isdefined( var_1.ebreacheddoor ), var_1.ebreacheddoor, self );
     var_4 maps\_utility::assign_animtree( var_2 );
     var_4 thread maps\_anim::anim_single_solo( var_4, var_3 );
     var_1.isdooranimated = 1;
 }
 
-_id_2D4C( var_0, var_1, var_2 )
+door_open( var_0, var_1, var_2 )
 {
     var_3 = self;
 
@@ -633,30 +615,30 @@ _id_2D4C( var_0, var_1, var_2 )
         var_2 = 1;
 
     if ( var_2 == 1 )
-        self playsound( level._id_78BA["breach_wood_door_kick"] );
+        self playsound( level.scr_sound["breach_wood_door_kick"] );
 
     switch ( var_0 )
     {
         case "explosive":
             if ( !isdefined( var_1.isdooranimated ) || !var_1.isdooranimated )
-                var_3 thread _id_2D45( var_1.edoorpivot );
+                var_3 thread door_fall_over( var_1.edoorpivot );
 
-            _id_2D44();
-            self playsound( level._id_78BA["breach_wooden_door"] );
+            door_connectpaths();
+            self playsound( level.scr_sound["breach_wooden_door"] );
             earthquake( 0.4, 1, self.origin, 1000 );
-            radiusdamage( self.origin, 56, level._id_5A2E, level._id_5C43 );
+            radiusdamage( self.origin, 56, level.maxdetpackdamage, level.mindetpackdamage );
             break;
         case "shotgun":
             if ( !isdefined( var_1.isdooranimated ) || !var_1.isdooranimated )
-                var_3 thread _id_2D45( var_1.edoorpivot );
+                var_3 thread door_fall_over( var_1.edoorpivot );
 
-            _id_2D44();
-            self playsound( level._id_78BA["breach_wooden_door"] );
+            door_connectpaths();
+            self playsound( level.scr_sound["breach_wooden_door"] );
             break;
     }
 }
 
-_id_2D44()
+door_connectpaths()
 {
     if ( self.classname == "script_brushmodel" )
         self connectpaths();
@@ -669,14 +651,14 @@ _id_2D44()
     }
 }
 
-_id_2D45( var_0 )
+door_fall_over( var_0 )
 {
     var_1 = undefined;
 
     if ( self.classname == "script_model" )
         var_1 = anglestoforward( self.angles );
     else if ( self.classname == "script_brushmodel" )
-        var_1 = self._id_9C6F;
+        var_1 = self.vector;
     else
     {
 
@@ -700,32 +682,32 @@ _id_2D45( var_0 )
 
 breach_set_goaladius( var_0 )
 {
-    if ( !isdefined( self._id_63A3 ) )
-        self._id_63A3 = self.goalradius;
+    if ( !isdefined( self.old_goalradius ) )
+        self.old_goalradius = self.goalradius;
 
     self.goalradius = var_0;
 }
 
 breach_reset_goaladius()
 {
-    if ( isdefined( self._id_63A3 ) )
-        self.goalradius = self._id_63A3;
+    if ( isdefined( self.old_goalradius ) )
+        self.goalradius = self.old_goalradius;
 
-    self._id_63A3 = undefined;
+    self.old_goalradius = undefined;
 }
 
 breach_set_animname( var_0 )
 {
-    if ( !isdefined( self._id_6395 ) )
-        self._id_6395 = self.animname;
+    if ( !isdefined( self.old_animname ) )
+        self.old_animname = self.animname;
 
     self.animname = var_0;
 }
 
 breach_reset_animname()
 {
-    if ( isdefined( self._id_6395 ) )
-        self.animname = self._id_6395;
+    if ( isdefined( self.old_animname ) )
+        self.animname = self.old_animname;
 
-    self._id_6395 = undefined;
+    self.old_animname = undefined;
 }

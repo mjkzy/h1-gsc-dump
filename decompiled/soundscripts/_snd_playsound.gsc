@@ -1,126 +1,108 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_8738( var_0, var_1, var_2, var_3, var_4, var_5 )
+snd_play_linked( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = "oneshot";
     var_7 = undefined;
     var_8 = "3d";
-    return _id_87AC( var_0, var_6, var_7, var_8, var_1, var_2, var_3, var_4, var_5 );
+    return sndx_play_alias( var_0, var_6, var_7, var_8, var_1, var_2, var_3, var_4, var_5 );
 }
 
-_id_872E( var_0, var_1, var_2, var_3, var_4, var_5 )
+snd_play_at( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = "oneshot";
     var_7 = var_1;
     var_8 = "3d";
-    return _id_87AC( var_0, var_6, var_7, var_8, var_2, var_3, var_4, var_5 );
+    return sndx_play_alias( var_0, var_6, var_7, var_8, var_2, var_3, var_4, var_5 );
 }
 
-_id_872B( var_0, var_1, var_2, var_3, var_4 )
+snd_play_2d( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = "oneshot";
     var_6 = undefined;
     var_7 = "2d";
-    return _id_87AC( var_0, var_5, var_6, var_7, var_1, var_2, var_3, var_4 );
+    return sndx_play_alias( var_0, var_5, var_6, var_7, var_1, var_2, var_3, var_4 );
 }
 
-_id_8742( var_0, var_1, var_2, var_3, var_4, var_5 )
+snd_play_loop_linked( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = "loop";
     var_7 = undefined;
     var_8 = "3d";
-    return _id_87AC( var_0, var_6, var_7, var_8, var_1, var_2, var_3, var_4, var_5 );
+    return sndx_play_alias( var_0, var_6, var_7, var_8, var_1, var_2, var_3, var_4, var_5 );
 }
 
-_id_8740( var_0, var_1, var_2, var_3, var_4, var_5 )
+snd_play_loop_at( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = "loop";
     var_7 = var_1;
     var_8 = "3d";
-    return _id_87AC( var_0, var_6, var_7, var_8, var_2, var_3, var_4, var_5 );
+    return sndx_play_alias( var_0, var_6, var_7, var_8, var_2, var_3, var_4, var_5 );
 }
 
-_id_873F( var_0, var_1, var_2, var_3, var_4 )
+snd_play_loop_2d( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = "loop";
     var_6 = undefined;
     var_7 = "2d";
-    return _id_87AC( var_0, var_5, var_6, var_7, var_1, var_2, var_3, var_4 );
+    return sndx_play_alias( var_0, var_5, var_6, var_7, var_1, var_2, var_3, var_4 );
 }
 
-_id_8731( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+snd_play_delayed_linked( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = "oneshot";
     var_9 = undefined;
     var_10 = "3d";
-    return _id_87AC( var_0, var_8, var_9, var_10, var_3, var_4, var_5, var_6, var_7, var_1, var_2 );
+    return sndx_play_alias( var_0, var_8, var_9, var_10, var_3, var_4, var_5, var_6, var_7, var_1, var_2 );
 }
 
-_id_8730( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+snd_play_delayed_at( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = "oneshot";
     var_9 = var_1;
     var_10 = "3d";
-    return _id_87AC( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0.0, 0.0, 0.0 ), var_2, var_3 );
+    return sndx_play_alias( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0.0, 0.0, 0.0 ), var_2, var_3 );
 }
 
-_id_872F( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+snd_play_delayed_2d( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = "oneshot";
     var_8 = undefined;
     var_9 = "2d";
-    return _id_87AC( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
+    return sndx_play_alias( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
 }
 
-_id_8735( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+snd_play_delayed_loop_linked( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = "loop";
     var_9 = undefined;
     var_10 = "3d";
-    return _id_87AC( var_0, var_8, var_9, var_10, var_3, var_4, var_5, var_6, var_7, var_1, var_2 );
+    return sndx_play_alias( var_0, var_8, var_9, var_10, var_3, var_4, var_5, var_6, var_7, var_1, var_2 );
 }
 
-_id_8734( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+snd_play_delayed_loop_at( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = "loop";
     var_9 = var_3;
     var_10 = "3d";
-    return _id_87AC( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
+    return sndx_play_alias( var_0, var_8, var_9, var_10, var_4, var_5, var_6, var_7, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
 }
 
-_id_8733( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+snd_play_delayed_loop_2d( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_7 = "loop";
     var_8 = undefined;
     var_9 = "2d";
-    return _id_87AC( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
+    return sndx_play_alias( var_0, var_7, var_8, var_9, var_3, var_4, var_5, var_6, ( 0.0, 0.0, 0.0 ), var_1, var_2 );
 }
 
-_id_8745( var_0 )
+snd_play_set_cleanup_msg( var_0 )
 {
 
 }
 
-_id_87AC( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+sndx_play_alias( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     if ( !soundexists( var_0 ) )
         return;
@@ -140,14 +122,14 @@ _id_87AC( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_14 = var_2;
 
     var_15 = spawn( "script_origin", var_14 );
-    var_13 thread _id_87B1( var_0, var_1, var_12, var_2, var_3, var_15, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
+    var_13 thread sndx_play_alias_thread( var_0, var_1, var_12, var_2, var_3, var_15, var_4, var_5, var_6, var_7, var_8, var_9, var_10 );
     return var_15;
 }
 
-_id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
+sndx_play_alias_thread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
 {
     var_13 = self;
-    var_14 = "sndx_play_alias_" + soundscripts\_snd::_id_8718();
+    var_14 = "sndx_play_alias_" + soundscripts\_snd::snd_new_guid();
     level endon( var_14 );
     var_5 endon( "death" );
     var_6 = soundscripts\_audio::aud_get_optional_param( undefined, var_6 );
@@ -166,7 +148,7 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             var_15 = "";
 
         var_5 linkto( var_13, var_15, var_10, ( 0.0, 0.0, 0.0 ) );
-        var_5 thread _id_87AE( var_8, var_14, var_13 );
+        var_5 thread sndx_play_alias_monitor_linkdeath( var_8, var_14, var_13 );
     }
 
     if ( var_11 > 0 )
@@ -181,48 +163,48 @@ _id_87B1( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     {
         var_16 = "sounddone";
         var_17 = var_7;
-        var_5 _id_872A( var_0, var_16, var_17 );
-        var_5 thread _id_87AF( 0.05, var_14, var_16 );
+        var_5 snd_play( var_0, var_16, var_17 );
+        var_5 thread sndx_play_alias_monitor_sounddone( 0.05, var_14, var_16 );
     }
     else
-        var_5 _id_873E( var_0 );
+        var_5 snd_play_loop( var_0 );
 
     var_5 scalevolume( 0, 0 );
 
     if ( isstring( var_6 ) )
-        var_5 thread _id_87B0( var_8, var_14, var_6 );
+        var_5 thread sndx_play_alias_monitor_stopnotify( var_8, var_14, var_6 );
 
     var_5 scalevolume( var_9, var_7 );
 }
 
-_id_87AE( var_0, var_1, var_2 )
+sndx_play_alias_monitor_linkdeath( var_0, var_1, var_2 )
 {
     level endon( var_1 );
     self endon( "death" );
     var_3 = self;
     var_2 waittill( "death" );
-    var_3 thread _id_87AD( var_0, var_1 );
+    var_3 thread sndx_play_alias_fade_delete( var_0, var_1 );
 }
 
-_id_87AF( var_0, var_1, var_2 )
+sndx_play_alias_monitor_sounddone( var_0, var_1, var_2 )
 {
     level endon( var_1 );
     self endon( "death" );
     var_3 = self;
     var_3 waittill( var_2 );
-    var_3 thread _id_87AD( undefined, var_1 );
+    var_3 thread sndx_play_alias_fade_delete( undefined, var_1 );
 }
 
-_id_87B0( var_0, var_1, var_2 )
+sndx_play_alias_monitor_stopnotify( var_0, var_1, var_2 )
 {
     level endon( var_1 );
     self endon( "death" );
     var_3 = self;
     level waittill( var_2 );
-    var_3 thread _id_87AD( var_0, var_1 );
+    var_3 thread sndx_play_alias_fade_delete( var_0, var_1 );
 }
 
-_id_87AD( var_0, var_1 )
+sndx_play_alias_fade_delete( var_0, var_1 )
 {
     level notify( var_1 );
     var_2 = self;
@@ -233,7 +215,7 @@ _id_87AD( var_0, var_1 )
         {
             var_2 scalevolume( 0, var_0 );
             wait(var_0);
-            waitframe;
+            waittillframeend;
         }
 
         if ( isdefined( var_2 ) )
@@ -241,12 +223,12 @@ _id_87AD( var_0, var_1 )
     }
 }
 
-_id_872A( var_0, var_1, var_2 )
+snd_play( var_0, var_1, var_2 )
 {
     if ( soundexists( var_0 ) )
     {
-        self.guid = soundscripts\_snd::_id_8718();
-        self._id_8702 = 1;
+        self.guid = soundscripts\_snd::snd_new_guid();
+        self.snd_is_one_shot = 1;
         var_1 = soundscripts\_audio::aud_get_optional_param( undefined, var_1 );
         var_2 = soundscripts\_audio::aud_get_optional_param( 0, var_2 );
         self playsound( var_0, var_1, 0, var_2 );
@@ -257,15 +239,15 @@ _id_872A( var_0, var_1, var_2 )
     }
 }
 
-_id_873E( var_0 )
+snd_play_loop( var_0 )
 {
     if ( soundexists( var_0 ) )
     {
-        if ( !isdefined( self._id_8701 ) )
+        if ( !isdefined( self.snd_is_loop ) )
         {
             self playloopsound( var_0 );
-            self.guid = soundscripts\_snd::_id_8718();
-            self._id_8701 = 1;
+            self.guid = soundscripts\_snd::snd_new_guid();
+            self.snd_is_loop = 1;
         }
         else
         {
@@ -278,22 +260,22 @@ _id_873E( var_0 )
     }
 }
 
-_id_8778()
+snd_stop_sound()
 {
-    if ( isdefined( self._id_8702 ) )
+    if ( isdefined( self.snd_is_one_shot ) )
     {
-        self._id_8702 = undefined;
+        self.snd_is_one_shot = undefined;
         self stopsounds();
     }
-    else if ( isdefined( self._id_8701 ) )
+    else if ( isdefined( self.snd_is_loop ) )
     {
-        self._id_8701 = undefined;
+        self.snd_is_loop = undefined;
         self stoploopsound();
         self notify( "sounddone" );
     }
 }
 
-_id_872D( var_0, var_1, var_2, var_3 )
+snd_play_amb_loop( var_0, var_1, var_2, var_3 )
 {
     if ( soundexists( var_0 ) )
     {

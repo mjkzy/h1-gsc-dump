@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     level.uselegacyspawning = issupportedmap() && issupportedmode() && getdvarint( "legacySpawningEnabled", 0 );
@@ -72,7 +54,7 @@ getspawnpoint_final( var_0, var_1 )
     {
         for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         {
-            if ( isdefined( self._id_55DD ) && self._id_55DD == var_0[var_3] )
+            if ( isdefined( self.lastspawnpoint ) && self.lastspawnpoint == var_0[var_3] )
                 continue;
 
             if ( positionwouldtelefrag( var_0[var_3].origin ) )
@@ -84,11 +66,11 @@ getspawnpoint_final( var_0, var_1 )
 
         if ( !isdefined( var_2 ) )
         {
-            if ( isdefined( self._id_55DD ) && !positionwouldtelefrag( self._id_55DD.origin ) )
+            if ( isdefined( self.lastspawnpoint ) && !positionwouldtelefrag( self.lastspawnpoint.origin ) )
             {
                 for ( var_3 = 0; var_3 < var_0.size; var_3++ )
                 {
-                    if ( var_0[var_3] == self._id_55DD )
+                    if ( var_0[var_3] == self.lastspawnpoint )
                     {
                         var_2 = var_0[var_3];
                         break;
@@ -161,7 +143,7 @@ getbestweightedspawnpoint( var_0 )
     }
 }
 
-_id_40D8( var_0 )
+getspawnpoint_random( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return undefined;
@@ -204,18 +186,18 @@ getallalliedandenemyplayers( var_0 )
         if ( self.pers["team"] == "allies" )
         {
             var_0.allies = level.aliveplayers["allies"];
-            var_0._id_31CA = level.aliveplayers["axis"];
+            var_0.enemies = level.aliveplayers["axis"];
         }
         else
         {
             var_0.allies = level.aliveplayers["axis"];
-            var_0._id_31CA = level.aliveplayers["allies"];
+            var_0.enemies = level.aliveplayers["allies"];
         }
     }
     else
     {
         var_0.allies = [];
-        var_0._id_31CA = level.activeplayers;
+        var_0.enemies = level.activeplayers;
     }
 }
 
@@ -225,19 +207,19 @@ initweights( var_0 )
         var_0[var_1].weight = 0;
 }
 
-_id_40D7( var_0, var_1 )
+getspawnpoint_nearteam( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         return undefined;
 
     if ( getdvarint( "scr_spawnsimple" ) > 0 )
-        return _id_40D8( var_0 );
+        return getspawnpoint_random( var_0 );
 
     spawnlogic_begin();
     initweights( var_0 );
     var_2 = spawnstruct();
     getallalliedandenemyplayers( var_2 );
-    var_3 = var_2.allies.size + var_2._id_31CA.size;
+    var_3 = var_2.allies.size + var_2.enemies.size;
     var_4 = 2;
     var_5 = self.pers["team"];
     var_6 = maps\mp\_utility::getotherteam( var_5 );
@@ -351,19 +333,19 @@ avoidweapondamage( var_0 )
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
-        for ( var_4 = 0; var_4 < level._id_4407.size; var_4++ )
+        for ( var_4 = 0; var_4 < level.grenades.size; var_4++ )
         {
-            if ( !isdefined( level._id_4407[var_4] ) )
+            if ( !isdefined( level.grenades[var_4] ) )
                 continue;
 
-            if ( distancesquared( var_0[var_3].origin, level._id_4407[var_4].origin ) < var_2 )
+            if ( distancesquared( var_0[var_3].origin, level.grenades[var_4].origin ) < var_2 )
                 var_0[var_3].weight -= var_1;
         }
 
         if ( !isdefined( level.artillerydangercenters ) )
             continue;
 
-        var_5 = maps\mp\gametypes\_hardpoints::_id_3EE6( var_0[var_3].origin );
+        var_5 = maps\mp\gametypes\_hardpoints::getairstrikedanger( var_0[var_3].origin );
 
         if ( var_5 > 0 )
         {
@@ -390,23 +372,23 @@ spawnperframeupdate()
             var_3 = 0;
         }
 
-        if ( !isdefined( level._id_8A01 ) )
+        if ( !isdefined( level.spawnpoints ) )
             return;
 
-        var_0 = ( var_0 + 1 ) % level._id_8A01.size;
-        var_5 = level._id_8A01[var_0];
+        var_0 = ( var_0 + 1 ) % level.spawnpoints.size;
+        var_5 = level.spawnpoints[var_0];
 
         if ( level.teambased )
         {
             var_5.sights["axis"] = 0;
             var_5.sights["allies"] = 0;
-            var_5._id_606E["axis"] = [];
-            var_5._id_606E["allies"] = [];
+            var_5.nearbyplayers["axis"] = [];
+            var_5.nearbyplayers["allies"] = [];
         }
         else
         {
             var_5.sights = 0;
-            var_5._id_606E["all"] = [];
+            var_5.nearbyplayers["all"] = [];
         }
 
         var_6 = var_5.forward;
@@ -432,7 +414,7 @@ spawnperframeupdate()
                 var_12 = var_9.pers["team"];
 
             if ( var_11 < 1024 )
-                var_5._id_606E[var_12][var_5._id_606E[var_12].size] = var_9;
+                var_5.nearbyplayers[var_12][var_5.nearbyplayers[var_12].size] = var_9;
 
             var_5.distsum[var_12] += var_11;
             var_5.numplayersatlastupdate++;
@@ -442,7 +424,7 @@ spawnperframeupdate()
                 continue;
 
             var_2++;
-            var_14 = legacybullettracepassed( var_9.origin + ( 0.0, 0.0, 50.0 ), var_5._id_856B, var_5 );
+            var_14 = legacybullettracepassed( var_9.origin + ( 0.0, 0.0, 50.0 ), var_5.sighttracepoint, var_5 );
             var_5.lastsighttracetime = gettime();
 
             if ( var_14 )
@@ -458,7 +440,7 @@ spawnperframeupdate()
         }
 
         var_3++;
-        var_15 = var_3 == level._id_8A01.size;
+        var_15 = var_3 == level.spawnpoints.size;
         var_16 = var_2 + var_7 > getdvarint( "legacySpawningMaxTraces", 18 );
         var_4 = var_15 || var_16;
     }
@@ -489,7 +471,7 @@ lastminutesighttraces( var_0 )
     if ( level.teambased )
         var_1 = maps\mp\_utility::getotherteam( self.pers["team"] );
 
-    if ( !isdefined( var_0._id_606E ) )
+    if ( !isdefined( var_0.nearbyplayers ) )
         return 0;
 
     var_2 = undefined;
@@ -497,9 +479,9 @@ lastminutesighttraces( var_0 )
     var_4 = undefined;
     var_5 = undefined;
 
-    for ( var_6 = 0; var_6 < var_0._id_606E[var_1].size; var_6++ )
+    for ( var_6 = 0; var_6 < var_0.nearbyplayers[var_1].size; var_6++ )
     {
-        var_7 = var_0._id_606E[var_1][var_6];
+        var_7 = var_0.nearbyplayers[var_1][var_6];
 
         if ( !isdefined( var_7 ) )
             continue;
@@ -530,13 +512,13 @@ lastminutesighttraces( var_0 )
 
     if ( isdefined( var_2 ) )
     {
-        if ( legacybullettracepassed( var_2.origin + ( 0.0, 0.0, 50.0 ), var_0._id_856B, var_0 ) )
+        if ( legacybullettracepassed( var_2.origin + ( 0.0, 0.0, 50.0 ), var_0.sighttracepoint, var_0 ) )
             return 1;
     }
 
     if ( isdefined( var_4 ) )
     {
-        if ( legacybullettracepassed( var_4.origin + ( 0.0, 0.0, 50.0 ), var_0._id_856B, var_0 ) )
+        if ( legacybullettracepassed( var_4.origin + ( 0.0, 0.0, 50.0 ), var_0.sighttracepoint, var_0 ) )
             return 1;
     }
 
@@ -589,7 +571,7 @@ avoidspawnreuse( var_0, var_1 )
 
     for ( var_5 = 0; var_5 < var_0.size; var_5++ )
     {
-        if ( !isdefined( var_0[var_5].lastspawnedplayer ) || !isdefined( var_0[var_5]._id_55DF ) || !isalive( var_0[var_5].lastspawnedplayer ) )
+        if ( !isdefined( var_0[var_5].lastspawnedplayer ) || !isdefined( var_0[var_5].lastspawntime ) || !isalive( var_0[var_5].lastspawnedplayer ) )
             continue;
 
         if ( var_0[var_5].lastspawnedplayer == self )
@@ -598,7 +580,7 @@ avoidspawnreuse( var_0, var_1 )
         if ( var_1 && var_0[var_5].lastspawnedplayer.pers["team"] == self.pers["team"] )
             continue;
 
-        var_6 = var_2 - var_0[var_5]._id_55DF;
+        var_6 = var_2 - var_0[var_5].lastspawntime;
 
         if ( var_6 < var_3 )
         {
@@ -624,12 +606,12 @@ avoidsamespawn( var_0 )
     if ( getdvar( "scr_spawnpointnewlogic" ) == "0" )
         return;
 
-    if ( !isdefined( self._id_55DD ) )
+    if ( !isdefined( self.lastspawnpoint ) )
         return;
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( var_0[var_1] == self._id_55DD )
+        if ( var_0[var_1] == self.lastspawnpoint )
         {
             var_0[var_1].weight -= 50000;
             break;

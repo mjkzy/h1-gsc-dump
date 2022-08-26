@@ -1,278 +1,260 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_8010( var_0 )
+setskill( var_0 )
 {
     if ( !isdefined( level.script ) )
         level.script = tolower( getdvar( "mapname" ) );
 
     if ( !isdefined( var_0 ) || var_0 == 0 )
     {
-        if ( isdefined( level._id_3BFE ) )
+        if ( isdefined( level.gameskill ) )
             return;
 
-        if ( !isdefined( level._id_254D ) )
-            level._id_254D = ::_id_74D1;
+        if ( !isdefined( level.custom_player_attacker ) )
+            level.custom_player_attacker = ::return_false;
 
-        level._id_4226 = ::_id_3094;
-        level._id_4225 = ::_id_3094;
-        level._id_422E = ::_id_3094;
-        maps\_utility::_id_7DF3();
+        level.global_damage_func_ads = ::empty_kill_func;
+        level.global_damage_func = ::empty_kill_func;
+        level.global_kill_func = ::empty_kill_func;
+        maps\_utility::set_console_status();
 
         if ( getdvar( "arcademode" ) == "1" )
             thread maps\_arcademode::main();
 
         foreach ( var_2 in level.players )
         {
-            var_2 maps\_utility::_id_32DD( "player_has_red_flashing_overlay" );
-            var_2 maps\_utility::_id_32DD( "player_is_invulnerable" );
-            var_2 maps\_utility::_id_32DD( "player_zero_attacker_accuracy" );
-            var_2 maps\_utility::_id_32DD( "player_no_auto_blur" );
-            var_2 maps\_utility::_id_32DD( "near_death_vision_enabled" );
-            var_2 maps\_utility::_id_32DA( "near_death_vision_enabled" );
-            var_2._id_4441 = spawnstruct();
+            var_2 maps\_utility::ent_flag_init( "player_has_red_flashing_overlay" );
+            var_2 maps\_utility::ent_flag_init( "player_is_invulnerable" );
+            var_2 maps\_utility::ent_flag_init( "player_zero_attacker_accuracy" );
+            var_2 maps\_utility::ent_flag_init( "player_no_auto_blur" );
+            var_2 maps\_utility::ent_flag_init( "near_death_vision_enabled" );
+            var_2 maps\_utility::ent_flag_clear( "near_death_vision_enabled" );
+            var_2.gs = spawnstruct();
             var_2.a = spawnstruct();
-            var_2._id_257E = [];
-            var_2 maps\_player_stats::_id_4D62();
-            var_2 maps\_utility::_id_32DD( "global_hint_in_use" );
+            var_2.damage_functions = [];
+            var_2 maps\_player_stats::init_stats();
+            var_2 maps\_utility::ent_flag_init( "global_hint_in_use" );
             var_2.pers = [];
 
             if ( !isdefined( var_2.baseignorerandombulletdamage ) )
                 var_2.baseignorerandombulletdamage = 0;
 
-            var_2._id_2B0B = 0;
-            var_2._id_2B0C = 0;
-            var_2._id_2B0A = 0;
+            var_2.disabledweapon = 0;
+            var_2.disabledweaponswitch = 0;
+            var_2.disabledusability = 0;
         }
 
-        level._id_2A63[0] = "easy";
-        level._id_2A63[1] = "normal";
-        level._id_2A63[2] = "hardened";
-        level._id_2A63[3] = "veteran";
-        level._id_2A62["easy"] = &"GAMESKILL_EASY";
-        level._id_2A62["normal"] = &"GAMESKILL_NORMAL";
-        level._id_2A62["hardened"] = &"GAMESKILL_HARDENED";
-        level._id_2A62["veteran"] = &"GAMESKILL_VETERAN";
-        thread _id_3C00();
+        level.difficultytype[0] = "easy";
+        level.difficultytype[1] = "normal";
+        level.difficultytype[2] = "hardened";
+        level.difficultytype[3] = "veteran";
+        level.difficultystring["easy"] = &"GAMESKILL_EASY";
+        level.difficultystring["normal"] = &"GAMESKILL_NORMAL";
+        level.difficultystring["hardened"] = &"GAMESKILL_HARDENED";
+        level.difficultystring["veteran"] = &"GAMESKILL_VETERAN";
+        thread gameskill_change_monitor();
     }
 
     setdvarifuninitialized( "autodifficulty_playerDeathTimer", 0 );
-    anim._id_76A4 = 0.5;
-    anim._id_A105 = 0.8;
+    anim.run_accuracy = 0.5;
+    anim.walk_accuracy = 0.8;
     setdvar( "autodifficulty_frac", 0 );
-    level._id_2A61 = [];
+    level.difficultysettings_frac_data_points = [];
 
     foreach ( var_2 in level.players )
     {
-        var_2 _id_4D65();
-        var_2 thread _id_4C3B();
+        var_2 init_take_cover_warnings();
+        var_2 thread increment_take_cover_warnings_on_death();
     }
 
-    level._id_5BCE = 8;
-    level._id_5BCD = 16;
-    level._id_2A60["playerGrenadeBaseTime"]["easy"] = 40000;
-    level._id_2A60["playerGrenadeBaseTime"]["normal"] = 25000;
-    level._id_2A60["playerGrenadeBaseTime"]["hardened"] = 10000;
-    level._id_2A60["playerGrenadeBaseTime"]["veteran"] = 0;
-    level._id_2A60["playerGrenadeRangeTime"]["easy"] = 20000;
-    level._id_2A60["playerGrenadeRangeTime"]["normal"] = 15000;
-    level._id_2A60["playerGrenadeRangeTime"]["hardened"] = 5000;
-    level._id_2A60["playerGrenadeRangeTime"]["veteran"] = 1;
-    level._id_2A60["playerDoubleGrenadeTime"]["easy"] = 3600000;
-    level._id_2A60["playerDoubleGrenadeTime"]["normal"] = 120000;
-    level._id_2A60["playerDoubleGrenadeTime"]["hardened"] = 15000;
-    level._id_2A60["playerDoubleGrenadeTime"]["veteran"] = 0;
-    level._id_2A60["double_grenades_allowed"]["easy"] = 0;
-    level._id_2A60["double_grenades_allowed"]["normal"] = 1;
-    level._id_2A60["double_grenades_allowed"]["hardened"] = 1;
-    level._id_2A60["double_grenades_allowed"]["veteran"] = 1;
-    level._id_2A60["threatbias"]["easy"] = 100;
-    level._id_2A60["threatbias"]["normal"] = 150;
-    level._id_2A60["threatbias"]["hardened"] = 200;
-    level._id_2A60["threatbias"]["veteran"] = 400;
-    level._id_2A60["base_enemy_accuracy"]["easy"] = 1.0;
-    level._id_2A60["base_enemy_accuracy"]["normal"] = 1.0;
-    level._id_2A60["base_enemy_accuracy"]["hardened"] = 1.3;
-    level._id_2A60["base_enemy_accuracy"]["veteran"] = 1.3;
-    level._id_2A60["accuracyDistScale"]["easy"] = 1.0;
-    level._id_2A60["accuracyDistScale"]["normal"] = 1.0;
-    level._id_2A60["accuracyDistScale"]["hardened"] = 1.0;
-    level._id_2A60["accuracyDistScale"]["veteran"] = 0.5;
-    level._id_2A60["min_sniper_burst_delay_time"]["easy"] = 3.0;
-    level._id_2A60["min_sniper_burst_delay_time"]["normal"] = 2.0;
-    level._id_2A60["min_sniper_burst_delay_time"]["hardened"] = 1.5;
-    level._id_2A60["min_sniper_burst_delay_time"]["veteran"] = 1.1;
-    level._id_2A60["max_sniper_burst_delay_time"]["easy"] = 4.0;
-    level._id_2A60["max_sniper_burst_delay_time"]["normal"] = 3.0;
-    level._id_2A60["max_sniper_burst_delay_time"]["hardened"] = 2.0;
-    level._id_2A60["max_sniper_burst_delay_time"]["veteran"] = 1.5;
-    level._id_2A60["dog_health"]["easy"] = 0.25;
-    level._id_2A60["dog_health"]["normal"] = 0.75;
-    level._id_2A60["dog_health"]["hardened"] = 1.0;
-    level._id_2A60["dog_health"]["veteran"] = 1.0;
+    level.mg42badplace_mintime = 8;
+    level.mg42badplace_maxtime = 16;
+    level.difficultysettings["playerGrenadeBaseTime"]["easy"] = 40000;
+    level.difficultysettings["playerGrenadeBaseTime"]["normal"] = 25000;
+    level.difficultysettings["playerGrenadeBaseTime"]["hardened"] = 10000;
+    level.difficultysettings["playerGrenadeBaseTime"]["veteran"] = 0;
+    level.difficultysettings["playerGrenadeRangeTime"]["easy"] = 20000;
+    level.difficultysettings["playerGrenadeRangeTime"]["normal"] = 15000;
+    level.difficultysettings["playerGrenadeRangeTime"]["hardened"] = 5000;
+    level.difficultysettings["playerGrenadeRangeTime"]["veteran"] = 1;
+    level.difficultysettings["playerDoubleGrenadeTime"]["easy"] = 3600000;
+    level.difficultysettings["playerDoubleGrenadeTime"]["normal"] = 120000;
+    level.difficultysettings["playerDoubleGrenadeTime"]["hardened"] = 15000;
+    level.difficultysettings["playerDoubleGrenadeTime"]["veteran"] = 0;
+    level.difficultysettings["double_grenades_allowed"]["easy"] = 0;
+    level.difficultysettings["double_grenades_allowed"]["normal"] = 1;
+    level.difficultysettings["double_grenades_allowed"]["hardened"] = 1;
+    level.difficultysettings["double_grenades_allowed"]["veteran"] = 1;
+    level.difficultysettings["threatbias"]["easy"] = 100;
+    level.difficultysettings["threatbias"]["normal"] = 150;
+    level.difficultysettings["threatbias"]["hardened"] = 200;
+    level.difficultysettings["threatbias"]["veteran"] = 400;
+    level.difficultysettings["base_enemy_accuracy"]["easy"] = 1.0;
+    level.difficultysettings["base_enemy_accuracy"]["normal"] = 1.0;
+    level.difficultysettings["base_enemy_accuracy"]["hardened"] = 1.3;
+    level.difficultysettings["base_enemy_accuracy"]["veteran"] = 1.3;
+    level.difficultysettings["accuracyDistScale"]["easy"] = 1.0;
+    level.difficultysettings["accuracyDistScale"]["normal"] = 1.0;
+    level.difficultysettings["accuracyDistScale"]["hardened"] = 1.0;
+    level.difficultysettings["accuracyDistScale"]["veteran"] = 0.5;
+    level.difficultysettings["min_sniper_burst_delay_time"]["easy"] = 3.0;
+    level.difficultysettings["min_sniper_burst_delay_time"]["normal"] = 2.0;
+    level.difficultysettings["min_sniper_burst_delay_time"]["hardened"] = 1.5;
+    level.difficultysettings["min_sniper_burst_delay_time"]["veteran"] = 1.1;
+    level.difficultysettings["max_sniper_burst_delay_time"]["easy"] = 4.0;
+    level.difficultysettings["max_sniper_burst_delay_time"]["normal"] = 3.0;
+    level.difficultysettings["max_sniper_burst_delay_time"]["hardened"] = 2.0;
+    level.difficultysettings["max_sniper_burst_delay_time"]["veteran"] = 1.5;
+    level.difficultysettings["dog_health"]["easy"] = 0.25;
+    level.difficultysettings["dog_health"]["normal"] = 0.75;
+    level.difficultysettings["dog_health"]["hardened"] = 1.0;
+    level.difficultysettings["dog_health"]["veteran"] = 1.0;
 
     if ( getdvar( "old_dog_melee_combat" ) == "1" )
     {
-        level._id_2A60["dog_presstime"]["easy"] = 415;
-        level._id_2A60["dog_presstime"]["normal"] = 375;
-        level._id_2A60["dog_presstime"]["hardened"] = 250;
-        level._id_2A60["dog_presstime"]["veteran"] = 225;
+        level.difficultysettings["dog_presstime"]["easy"] = 415;
+        level.difficultysettings["dog_presstime"]["normal"] = 375;
+        level.difficultysettings["dog_presstime"]["hardened"] = 250;
+        level.difficultysettings["dog_presstime"]["veteran"] = 225;
     }
     else
     {
-        level._id_2A60["dog_presstime"]["easy"] = 750;
-        level._id_2A60["dog_presstime"]["normal"] = 550;
-        level._id_2A60["dog_presstime"]["hardened"] = 350;
-        level._id_2A60["dog_presstime"]["veteran"] = 250;
+        level.difficultysettings["dog_presstime"]["easy"] = 750;
+        level.difficultysettings["dog_presstime"]["normal"] = 550;
+        level.difficultysettings["dog_presstime"]["hardened"] = 350;
+        level.difficultysettings["dog_presstime"]["veteran"] = 250;
     }
 
-    level._id_2A60["dog_hits_before_kill"]["easy"] = 2;
-    level._id_2A60["dog_hits_before_kill"]["normal"] = 1;
-    level._id_2A60["dog_hits_before_kill"]["hardened"] = 0;
-    level._id_2A60["dog_hits_before_kill"]["veteran"] = 0;
-    level._id_2A60["pain_test"]["easy"] = ::always_pain;
-    level._id_2A60["pain_test"]["normal"] = ::always_pain;
-    level._id_2A60["pain_test"]["hardened"] = ::_id_6649;
-    level._id_2A60["pain_test"]["veteran"] = ::_id_6649;
-    level._id_2A60["missTimeConstant"]["easy"] = 1.0;
-    level._id_2A60["missTimeConstant"]["normal"] = 0.05;
-    level._id_2A60["missTimeConstant"]["hardened"] = 0;
-    level._id_2A60["missTimeConstant"]["veteran"] = 0;
-    level._id_2A60["missTimeDistanceFactor"]["easy"] = 0.0008;
-    level._id_2A60["missTimeDistanceFactor"]["normal"] = 0.0001;
-    level._id_2A60["missTimeDistanceFactor"]["hardened"] = 0.00005;
-    level._id_2A60["missTimeDistanceFactor"]["veteran"] = 0;
-    level._id_2A60["flashbangedInvulFactor"]["easy"] = 0.25;
-    level._id_2A60["flashbangedInvulFactor"]["normal"] = 0;
-    level._id_2A60["flashbangedInvulFactor"]["hardened"] = 0;
-    level._id_2A60["flashbangedInvulFactor"]["veteran"] = 0;
-    level._id_2A60["player_criticalBulletDamageDist"]["easy"] = 0;
-    level._id_2A60["player_criticalBulletDamageDist"]["normal"] = 0;
-    level._id_2A60["player_criticalBulletDamageDist"]["hardened"] = 0;
-    level._id_2A60["player_criticalBulletDamageDist"]["veteran"] = 0;
-    level._id_2A60["player_deathInvulnerableTime"]["easy"] = 4000;
-    level._id_2A60["player_deathInvulnerableTime"]["normal"] = 1700;
-    level._id_2A60["player_deathInvulnerableTime"]["hardened"] = 600;
-    level._id_2A60["player_deathInvulnerableTime"]["veteran"] = 100;
-    level._id_2A60["invulTime_preShield"]["easy"] = 0.6;
-    level._id_2A60["invulTime_preShield"]["normal"] = 0.35;
-    level._id_2A60["invulTime_preShield"]["hardened"] = 0.1;
-    level._id_2A60["invulTime_preShield"]["veteran"] = 0.0;
-    level._id_2A60["invulTime_onShield"]["easy"] = 0.8;
-    level._id_2A60["invulTime_onShield"]["normal"] = 0.5;
-    level._id_2A60["invulTime_onShield"]["hardened"] = 0.1;
-    level._id_2A60["invulTime_onShield"]["veteran"] = 0.05;
-    level._id_2A60["invulTime_postShield"]["easy"] = 0.5;
-    level._id_2A60["invulTime_postShield"]["normal"] = 0.3;
-    level._id_2A60["invulTime_postShield"]["hardened"] = 0.1;
-    level._id_2A60["invulTime_postShield"]["veteran"] = 0.0;
-    level._id_2A60["playerHealth_RegularRegenDelay"]["easy"] = 3000;
-    level._id_2A60["playerHealth_RegularRegenDelay"]["normal"] = 2000;
-    level._id_2A60["playerHealth_RegularRegenDelay"]["hardened"] = 1200;
-    level._id_2A60["playerHealth_RegularRegenDelay"]["veteran"] = 1200;
-    level._id_2A60["worthyDamageRatio"]["easy"] = 0.0;
-    level._id_2A60["worthyDamageRatio"]["normal"] = 0.1;
-    level._id_2A60["worthyDamageRatio"]["hardened"] = 0.1;
-    level._id_2A60["worthyDamageRatio"]["veteran"] = 0.1;
-    level._id_2A60["playerDifficultyHealth"]["easy"] = 475;
-    level._id_2A60["playerDifficultyHealth"]["normal"] = 275;
-    level._id_2A60["playerDifficultyHealth"]["hardened"] = 165;
-    level._id_2A60["playerDifficultyHealth"]["veteran"] = 115;
-    level._id_2A60["longRegenTime"]["easy"] = 5000;
-    level._id_2A60["longRegenTime"]["normal"] = 5000;
-    level._id_2A60["longRegenTime"]["hardened"] = 5000;
-    level._id_2A60["longRegenTime"]["veteran"] = 5000;
-    level._id_2A60["healthOverlayCutoff"]["easy"] = 0.01;
-    level._id_2A60["healthOverlayCutoff"]["normal"] = 0.2;
-    level._id_2A60["healthOverlayCutoff"]["hardened"] = 0.3;
-    level._id_2A60["healthOverlayCutoff"]["veteran"] = 0.5;
-    level._id_2A60["health_regenRate"]["easy"] = 0.1;
-    level._id_2A60["health_regenRate"]["normal"] = 0.1;
-    level._id_2A60["health_regenRate"]["hardened"] = 0.1;
-    level._id_2A60["health_regenRate"]["veteran"] = 0.1;
-    level._id_2A60["explosivePlantTime"]["easy"] = 10;
-    level._id_2A60["explosivePlantTime"]["normal"] = 10;
-    level._id_2A60["explosivePlantTime"]["hardened"] = 5;
-    level._id_2A60["explosivePlantTime"]["veteran"] = 5;
-    level._id_2A60["player_downed_buffer_time"]["normal"] = 2;
-    level._id_2A60["player_downed_buffer_time"]["hardened"] = 1.5;
-    level._id_2A60["player_downed_buffer_time"]["veteran"] = 0;
-    level._id_55CC = 0;
+    level.difficultysettings["dog_hits_before_kill"]["easy"] = 2;
+    level.difficultysettings["dog_hits_before_kill"]["normal"] = 1;
+    level.difficultysettings["dog_hits_before_kill"]["hardened"] = 0;
+    level.difficultysettings["dog_hits_before_kill"]["veteran"] = 0;
+    level.difficultysettings["pain_test"]["easy"] = ::always_pain;
+    level.difficultysettings["pain_test"]["normal"] = ::always_pain;
+    level.difficultysettings["pain_test"]["hardened"] = ::pain_protection;
+    level.difficultysettings["pain_test"]["veteran"] = ::pain_protection;
+    level.difficultysettings["missTimeConstant"]["easy"] = 1.0;
+    level.difficultysettings["missTimeConstant"]["normal"] = 0.05;
+    level.difficultysettings["missTimeConstant"]["hardened"] = 0;
+    level.difficultysettings["missTimeConstant"]["veteran"] = 0;
+    level.difficultysettings["missTimeDistanceFactor"]["easy"] = 0.0008;
+    level.difficultysettings["missTimeDistanceFactor"]["normal"] = 0.0001;
+    level.difficultysettings["missTimeDistanceFactor"]["hardened"] = 0.00005;
+    level.difficultysettings["missTimeDistanceFactor"]["veteran"] = 0;
+    level.difficultysettings["flashbangedInvulFactor"]["easy"] = 0.25;
+    level.difficultysettings["flashbangedInvulFactor"]["normal"] = 0;
+    level.difficultysettings["flashbangedInvulFactor"]["hardened"] = 0;
+    level.difficultysettings["flashbangedInvulFactor"]["veteran"] = 0;
+    level.difficultysettings["player_criticalBulletDamageDist"]["easy"] = 0;
+    level.difficultysettings["player_criticalBulletDamageDist"]["normal"] = 0;
+    level.difficultysettings["player_criticalBulletDamageDist"]["hardened"] = 0;
+    level.difficultysettings["player_criticalBulletDamageDist"]["veteran"] = 0;
+    level.difficultysettings["player_deathInvulnerableTime"]["easy"] = 4000;
+    level.difficultysettings["player_deathInvulnerableTime"]["normal"] = 1700;
+    level.difficultysettings["player_deathInvulnerableTime"]["hardened"] = 600;
+    level.difficultysettings["player_deathInvulnerableTime"]["veteran"] = 100;
+    level.difficultysettings["invulTime_preShield"]["easy"] = 0.6;
+    level.difficultysettings["invulTime_preShield"]["normal"] = 0.35;
+    level.difficultysettings["invulTime_preShield"]["hardened"] = 0.1;
+    level.difficultysettings["invulTime_preShield"]["veteran"] = 0.0;
+    level.difficultysettings["invulTime_onShield"]["easy"] = 0.8;
+    level.difficultysettings["invulTime_onShield"]["normal"] = 0.5;
+    level.difficultysettings["invulTime_onShield"]["hardened"] = 0.1;
+    level.difficultysettings["invulTime_onShield"]["veteran"] = 0.05;
+    level.difficultysettings["invulTime_postShield"]["easy"] = 0.5;
+    level.difficultysettings["invulTime_postShield"]["normal"] = 0.3;
+    level.difficultysettings["invulTime_postShield"]["hardened"] = 0.1;
+    level.difficultysettings["invulTime_postShield"]["veteran"] = 0.0;
+    level.difficultysettings["playerHealth_RegularRegenDelay"]["easy"] = 3000;
+    level.difficultysettings["playerHealth_RegularRegenDelay"]["normal"] = 2000;
+    level.difficultysettings["playerHealth_RegularRegenDelay"]["hardened"] = 1200;
+    level.difficultysettings["playerHealth_RegularRegenDelay"]["veteran"] = 1200;
+    level.difficultysettings["worthyDamageRatio"]["easy"] = 0.0;
+    level.difficultysettings["worthyDamageRatio"]["normal"] = 0.1;
+    level.difficultysettings["worthyDamageRatio"]["hardened"] = 0.1;
+    level.difficultysettings["worthyDamageRatio"]["veteran"] = 0.1;
+    level.difficultysettings["playerDifficultyHealth"]["easy"] = 475;
+    level.difficultysettings["playerDifficultyHealth"]["normal"] = 275;
+    level.difficultysettings["playerDifficultyHealth"]["hardened"] = 165;
+    level.difficultysettings["playerDifficultyHealth"]["veteran"] = 115;
+    level.difficultysettings["longRegenTime"]["easy"] = 5000;
+    level.difficultysettings["longRegenTime"]["normal"] = 5000;
+    level.difficultysettings["longRegenTime"]["hardened"] = 5000;
+    level.difficultysettings["longRegenTime"]["veteran"] = 5000;
+    level.difficultysettings["healthOverlayCutoff"]["easy"] = 0.01;
+    level.difficultysettings["healthOverlayCutoff"]["normal"] = 0.2;
+    level.difficultysettings["healthOverlayCutoff"]["hardened"] = 0.3;
+    level.difficultysettings["healthOverlayCutoff"]["veteran"] = 0.5;
+    level.difficultysettings["health_regenRate"]["easy"] = 0.1;
+    level.difficultysettings["health_regenRate"]["normal"] = 0.1;
+    level.difficultysettings["health_regenRate"]["hardened"] = 0.1;
+    level.difficultysettings["health_regenRate"]["veteran"] = 0.1;
+    level.difficultysettings["explosivePlantTime"]["easy"] = 10;
+    level.difficultysettings["explosivePlantTime"]["normal"] = 10;
+    level.difficultysettings["explosivePlantTime"]["hardened"] = 5;
+    level.difficultysettings["explosivePlantTime"]["veteran"] = 5;
+    level.difficultysettings["player_downed_buffer_time"]["normal"] = 2;
+    level.difficultysettings["player_downed_buffer_time"]["hardened"] = 1.5;
+    level.difficultysettings["player_downed_buffer_time"]["veteran"] = 0;
+    level.lastplayersighted = 0;
     setsaveddvar( "player_meleeDamageMultiplier", 0.4 );
 
-    if ( isdefined( level._id_2545 ) )
-        [[ level._id_2545 ]]();
+    if ( isdefined( level.custom_gameskill_func ) )
+        [[ level.custom_gameskill_func ]]();
 
-    _id_9B21();
-    _id_9AF2();
-    setdvar( "autodifficulty_original_setting", level._id_3BFE );
+    updategameskill();
+    updatealldifficulty();
+    setdvar( "autodifficulty_original_setting", level.gameskill );
 }
 
-_id_9AF2()
+updatealldifficulty()
 {
-    _id_7F7D();
+    setglobaldifficulty();
 
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
-        level.players[var_0] _id_7F51();
+        level.players[var_0] setdifficulty();
 }
 
-_id_7F51()
+setdifficulty()
 {
-    _id_7E12();
+    set_difficulty_from_locked_settings();
 }
 
-_id_7F7D()
+setglobaldifficulty()
 {
-    var_0 = ::_id_3DCF;
-    var_1 = _id_3E63( level._id_3BFE );
-    anim._id_2CA4 = [[ var_0 ]]( "dog_health", level._id_3BFE );
-    anim._id_664F = level._id_2A60["pain_test"][var_1];
-    level._id_3580 = level._id_2A60["explosivePlantTime"][var_1];
-    anim._id_5C36 = [[ var_0 ]]( "min_sniper_burst_delay_time", level._id_3BFE );
-    anim._id_5A17 = [[ var_0 ]]( "max_sniper_burst_delay_time", level._id_3BFE );
-    setsaveddvar( "ai_accuracyDistScale", [[ var_0 ]]( "accuracyDistScale", level._id_3BFE ) );
+    var_0 = ::get_locked_difficulty_val_global;
+    var_1 = get_skill_from_index( level.gameskill );
+    anim.dog_health = [[ var_0 ]]( "dog_health", level.gameskill );
+    anim.pain_test = level.difficultysettings["pain_test"][var_1];
+    level.explosiveplanttime = level.difficultysettings["explosivePlantTime"][var_1];
+    anim.min_sniper_burst_delay_time = [[ var_0 ]]( "min_sniper_burst_delay_time", level.gameskill );
+    anim.max_sniper_burst_delay_time = [[ var_0 ]]( "max_sniper_burst_delay_time", level.gameskill );
+    setsaveddvar( "ai_accuracyDistScale", [[ var_0 ]]( "accuracyDistScale", level.gameskill ) );
 
-    if ( maps\_utility::_id_55E1() )
-        level._id_6AE0 = level._id_2A60["player_downed_buffer_time"][var_1];
+    if ( maps\_utility::laststand_enabled() )
+        level.player_downed_death_buffer_time = level.difficultysettings["player_downed_buffer_time"][var_1];
 
-    maps\_mgturret::_id_7F51();
+    maps\_mgturret::setdifficulty();
 }
 
-_id_9B21()
+updategameskill()
 {
     foreach ( var_1 in level.players )
-        var_1._id_3BFE = var_1 maps\_utility::_id_3E26();
+        var_1.gameskill = var_1 maps\_utility::get_player_gameskill();
 
-    level._id_3BFE = level.player._id_3BFE;
-    level._id_8A48 = level.player._id_3BFE;
+    level.gameskill = level.player.gameskill;
+    level.specops_reward_gameskill = level.player.gameskill;
 
-    if ( isdefined( level._id_39B9 ) )
-        level._id_3BFE = level._id_39B9;
+    if ( isdefined( level.forcedgameskill ) )
+        level.gameskill = level.forcedgameskill;
 
-    return level._id_3BFE;
+    return level.gameskill;
 }
 
-_id_3C00()
+gameskill_change_monitor()
 {
-    var_0 = level._id_3BFE;
+    var_0 = level.gameskill;
     var_1 = 0;
 
     for (;;)
@@ -280,97 +262,97 @@ _id_3C00()
         if ( !isdefined( var_0 ) )
         {
             wait 1;
-            var_0 = level._id_3BFE;
+            var_0 = level.gameskill;
             continue;
         }
 
         if ( !var_1 )
         {
-            _id_9AF2();
+            updatealldifficulty();
             var_1 = 1;
         }
 
-        if ( var_0 != _id_9B21() )
+        if ( var_0 != updategameskill() )
         {
-            var_0 = level._id_3BFE;
-            _id_9AF2();
+            var_0 = level.gameskill;
+            updatealldifficulty();
         }
 
         wait 1;
     }
 }
 
-_id_3E63( var_0 )
+get_skill_from_index( var_0 )
 {
-    return level._id_2A63[var_0];
+    return level.difficultytype[var_0];
 }
 
 apply_difficulty_frac_with_func( var_0, var_1 )
 {
-    self._id_4441._id_4FAC = [[ var_0 ]]( "invulTime_preShield", var_1 );
-    self._id_4441._id_4FAA = [[ var_0 ]]( "invulTime_onShield", var_1 );
-    self._id_4441._id_4FAB = [[ var_0 ]]( "invulTime_postShield", var_1 );
-    self._id_4441._id_6CC3 = [[ var_0 ]]( "playerHealth_RegularRegenDelay", var_1 );
-    self._id_4441._id_A353 = [[ var_0 ]]( "worthyDamageRatio", var_1 );
+    self.gs.invultime_preshield = [[ var_0 ]]( "invulTime_preShield", var_1 );
+    self.gs.invultime_onshield = [[ var_0 ]]( "invulTime_onShield", var_1 );
+    self.gs.invultime_postshield = [[ var_0 ]]( "invulTime_postShield", var_1 );
+    self.gs.playerhealth_regularregendelay = [[ var_0 ]]( "playerHealth_RegularRegenDelay", var_1 );
+    self.gs.worthydamageratio = [[ var_0 ]]( "worthyDamageRatio", var_1 );
     self.threatbias = int( [[ var_0 ]]( "threatbias", var_1 ) );
-    self._id_4441._id_584F = [[ var_0 ]]( "longRegenTime", var_1 );
-    self._id_4441._id_478D = [[ var_0 ]]( "healthOverlayCutoff", var_1 );
-    self._id_4441._id_72D3 = [[ var_0 ]]( "health_regenRate", var_1 );
-    self._id_4441._id_6A64 = [[ var_0 ]]( "base_enemy_accuracy", var_1 );
-    self.attackeraccuracy = self._id_4441._id_6A64;
-    _id_9AD3();
-    self._id_4441._id_6CB3 = int( [[ var_0 ]]( "playerGrenadeBaseTime", var_1 ) );
-    self._id_4441._id_6CB4 = int( [[ var_0 ]]( "playerGrenadeRangeTime", var_1 ) );
-    self._id_4441._id_6C95 = int( [[ var_0 ]]( "playerDoubleGrenadeTime", var_1 ) );
-    self._id_4441._id_5C36 = [[ var_0 ]]( "min_sniper_burst_delay_time", var_1 );
-    self._id_4441._id_5A17 = [[ var_0 ]]( "max_sniper_burst_delay_time", var_1 );
-    self._id_4441._id_2CB6 = [[ var_0 ]]( "dog_presstime", var_1 );
+    self.gs.longregentime = [[ var_0 ]]( "longRegenTime", var_1 );
+    self.gs.healthoverlaycutoff = [[ var_0 ]]( "healthOverlayCutoff", var_1 );
+    self.gs.regenrate = [[ var_0 ]]( "health_regenRate", var_1 );
+    self.gs.player_attacker_accuracy = [[ var_0 ]]( "base_enemy_accuracy", var_1 );
+    self.attackeraccuracy = self.gs.player_attacker_accuracy;
+    update_player_attacker_accuracy();
+    self.gs.playergrenadebasetime = int( [[ var_0 ]]( "playerGrenadeBaseTime", var_1 ) );
+    self.gs.playergrenaderangetime = int( [[ var_0 ]]( "playerGrenadeRangeTime", var_1 ) );
+    self.gs.playerdoublegrenadetime = int( [[ var_0 ]]( "playerDoubleGrenadeTime", var_1 ) );
+    self.gs.min_sniper_burst_delay_time = [[ var_0 ]]( "min_sniper_burst_delay_time", var_1 );
+    self.gs.max_sniper_burst_delay_time = [[ var_0 ]]( "max_sniper_burst_delay_time", var_1 );
+    self.gs.dog_presstime = [[ var_0 ]]( "dog_presstime", var_1 );
     self.deathinvulnerabletime = int( [[ var_0 ]]( "player_deathInvulnerableTime", var_1 ) );
     self.criticalbulletdamagedist = int( [[ var_0 ]]( "player_criticalBulletDamageDist", var_1 ) );
     self.damagemultiplier = 100 / [[ var_0 ]]( "playerDifficultyHealth", var_1 );
 }
 
-_id_9AD3()
+update_player_attacker_accuracy()
 {
-    if ( maps\_utility::_id_32D8( "player_zero_attacker_accuracy" ) )
+    if ( maps\_utility::ent_flag( "player_zero_attacker_accuracy" ) )
         return;
 
     self.ignorerandombulletdamage = self.baseignorerandombulletdamage;
-    self.attackeraccuracy = self._id_4441._id_6A64;
+    self.attackeraccuracy = self.gs.player_attacker_accuracy;
 }
 
 apply_difficulty_step_with_func( var_0, var_1 )
 {
-    self._id_4441._id_5CE4 = [[ var_0 ]]( "missTimeConstant", var_1 );
-    self._id_4441._id_5CE6 = [[ var_0 ]]( "missTimeDistanceFactor", var_1 );
-    self._id_4441._id_2CA7 = [[ var_0 ]]( "dog_hits_before_kill", var_1 );
-    self._id_4441._id_2D8C = [[ var_0 ]]( "double_grenades_allowed", var_1 );
+    self.gs.misstimeconstant = [[ var_0 ]]( "missTimeConstant", var_1 );
+    self.gs.misstimedistancefactor = [[ var_0 ]]( "missTimeDistanceFactor", var_1 );
+    self.gs.dog_hits_before_kill = [[ var_0 ]]( "dog_hits_before_kill", var_1 );
+    self.gs.double_grenades_allowed = [[ var_0 ]]( "double_grenades_allowed", var_1 );
 }
 
-_id_7E12()
+set_difficulty_from_locked_settings()
 {
-    apply_difficulty_frac_with_func( ::_id_3DD0, 1 );
-    apply_difficulty_step_with_func( ::_id_3DCE, 1 );
+    apply_difficulty_frac_with_func( ::get_locked_difficulty_val_player, 1 );
+    apply_difficulty_step_with_func( ::get_locked_difficulty_step_val_player, 1 );
 }
 
-_id_3DCE( var_0, var_1 )
+get_locked_difficulty_step_val_player( var_0, var_1 )
 {
-    return level._id_2A60[var_0][_id_3E63( self._id_3BFE )];
+    return level.difficultysettings[var_0][get_skill_from_index( self.gameskill )];
 }
 
-_id_3F44( var_0 )
+getcurrentdifficultysetting( var_0 )
 {
-    return level._id_2A60[var_0][_id_3E63( self._id_3BFE )];
+    return level.difficultysettings[var_0][get_skill_from_index( self.gameskill )];
 }
 
-_id_3DD0( var_0, var_1 )
+get_locked_difficulty_val_player( var_0, var_1 )
 {
-    return level._id_2A60[var_0][_id_3E63( self._id_3BFE )];
+    return level.difficultysettings[var_0][get_skill_from_index( self.gameskill )];
 }
 
-_id_3DCF( var_0, var_1 )
+get_locked_difficulty_val_global( var_0, var_1 )
 {
-    return level._id_2A60[var_0][_id_3E63( level._id_3BFE )];
+    return level.difficultysettings[var_0][get_skill_from_index( level.gameskill )];
 }
 
 always_pain()
@@ -378,15 +360,15 @@ always_pain()
     return 0;
 }
 
-_id_6649()
+pain_protection()
 {
-    if ( !_id_664A() )
+    if ( !pain_protection_check() )
         return 0;
 
     return randomint( 100 ) > 25;
 }
 
-_id_664A()
+pain_protection_check()
 {
     if ( !isalive( self.enemy ) )
         return 0;
@@ -394,10 +376,10 @@ _id_664A()
     if ( !isplayer( self.enemy ) )
         return 0;
 
-    if ( !isalive( level._id_6650 ) || level._id_6650.script != "pain" )
-        level._id_6650 = self;
+    if ( !isalive( level.painai ) || level.painai.script != "pain" )
+        level.painai = self;
 
-    if ( self == level._id_6650 )
+    if ( self == level.painai )
         return 0;
 
     if ( self.damageweapon != "none" && weaponisboltaction( self.damageweapon ) )
@@ -406,19 +388,19 @@ _id_664A()
     return 1;
 }
 
-_id_7DAF()
+set_accuracy_based_on_situation()
 {
     if ( animscripts\combat_utility::issniper() && isalive( self.enemy ) )
     {
-        _id_8011();
+        setsniperaccuracy();
         return;
     }
 
     if ( isplayer( self.enemy ) )
     {
-        _id_744F();
+        resetmissdebouncetime();
 
-        if ( self.a._id_5CE3 > gettime() )
+        if ( self.a.misstime > gettime() )
         {
             self.accuracy = 0;
             return;
@@ -426,67 +408,67 @@ _id_7DAF()
 
         if ( self.script == "move" )
         {
-            self.accuracy = anim._id_76A4 * self.baseaccuracy;
+            self.accuracy = anim.run_accuracy * self.baseaccuracy;
             return;
         }
     }
     else if ( self.script == "move" )
     {
-        self.accuracy = anim._id_76A4 * self.baseaccuracy;
+        self.accuracy = anim.run_accuracy * self.baseaccuracy;
         return;
     }
 
     self.accuracy = self.baseaccuracy;
 }
 
-_id_8011()
+setsniperaccuracy()
 {
-    if ( !isdefined( self._id_8832 ) )
+    if ( !isdefined( self.snipershotcount ) )
     {
-        self._id_8832 = 0;
-        self._id_8803 = 0;
+        self.snipershotcount = 0;
+        self.sniperhitcount = 0;
     }
 
-    self._id_8832++;
+    self.snipershotcount++;
 
-    if ( ( !isdefined( self._id_55BF ) || self.enemy != self._id_55BF ) && distancesquared( self.origin, self.enemy.origin ) > 250000 )
+    if ( ( !isdefined( self.lastmissedenemy ) || self.enemy != self.lastmissedenemy ) && distancesquared( self.origin, self.enemy.origin ) > 250000 )
     {
         self.accuracy = 0;
 
-        if ( level._id_3BFE > 0 || self._id_8832 > 1 )
-            self._id_55BF = self.enemy;
+        if ( level.gameskill > 0 || self.snipershotcount > 1 )
+            self.lastmissedenemy = self.enemy;
 
         return;
     }
 
-    self.accuracy = ( 1 + 1 * self._id_8803 ) * self.baseaccuracy;
-    self._id_8803++;
+    self.accuracy = ( 1 + 1 * self.sniperhitcount ) * self.baseaccuracy;
+    self.sniperhitcount++;
 
-    if ( level._id_3BFE < 1 && self._id_8803 == 1 )
-        self._id_55BF = undefined;
+    if ( level.gameskill < 1 && self.sniperhitcount == 1 )
+        self.lastmissedenemy = undefined;
 }
 
-_id_2A4D()
+didsomethingotherthanshooting()
 {
-    self.a._id_5CE5 = 0;
+    self.a.misstimedebounce = 0;
 }
 
-_id_7442()
+resetaccuracyandpause()
 {
-    _id_7450();
+    resetmisstime();
 }
 
-_id_7450()
+resetmisstime()
 {
-    if ( !self _meth_813F() )
+    if ( !self isbadguy() )
         return;
 
     if ( self.weapon == "none" )
         return;
 
-    if ( !animscripts\weaponlist::_id_9C2C() && !animscripts\weaponlist::_id_9C38() )
+    if ( !animscripts\weaponlist::usingautomaticweapon() && !animscripts\weaponlist::usingsemiautoweapon() )
     {
-        self._id_5CE3 = 0;
+        self.misstime = 0;
         return;
     }
 
@@ -500,74 +482,74 @@ _id_7450()
     }
 
     var_0 = distance( self.enemy.origin, self.origin );
-    _id_7FAD( self.enemy._id_4441._id_5CE4 + var_0 * self.enemy._id_4441._id_5CE6 );
+    setmisstime( self.enemy.gs.misstimeconstant + var_0 * self.enemy.gs.misstimedistancefactor );
 }
 
-_id_744F()
+resetmissdebouncetime()
 {
-    self.a._id_5CE5 = gettime() + 3000;
+    self.a.misstimedebounce = gettime() + 3000;
 }
 
-_id_7FAD( var_0 )
+setmisstime( var_0 )
 {
-    if ( self.a._id_5CE5 > gettime() )
+    if ( self.a.misstimedebounce > gettime() )
         return;
 
     if ( var_0 > 0 )
         self.accuracy = 0;
 
     var_0 *= 1000;
-    self.a._id_5CE3 = gettime() + var_0;
+    self.a.misstime = gettime() + var_0;
     self.a.accuracygrowthmultiplier = 1;
 }
 
-_id_6CC9()
+playerhurtcheck()
 {
-    self._id_4B0B = 0;
+    self.hurtagain = 0;
 
     for (;;)
     {
         self waittill( "damage", var_0, var_1, var_2, var_3 );
-        self._id_4B0B = 1;
-        self._id_25AA = var_3;
-        self._id_258D = var_1;
+        self.hurtagain = 1;
+        self.damagepoint = var_3;
+        self.damageattacker = var_1;
     }
 }
 
-_id_6B4E()
+player_health_packets()
 {
-    self._id_6B4E = 3;
+    self.player_health_packets = 3;
 }
 
-_id_6CC4()
+playerhealthregen()
 {
     thread healthoverlayalt();
-    thread _id_4789();
+    thread healthoverlay();
     thread redhitflash();
     thread bloodsplatter();
     var_0 = 1;
     var_1 = 0;
-    thread _id_6B4E();
+    thread player_health_packets();
     var_2 = 0;
     var_3 = 0;
     var_4 = 0;
     var_5 = 0;
     var_6 = 0;
     var_7 = 1;
-    thread _id_6CC9();
+    thread playerhurtcheck();
     self.bolthit = 0;
 
     for (;;)
     {
         wait 0.05;
-        waitframe;
+        waittillframeend;
 
         if ( self.health == self.maxhealth )
         {
-            thread soundscripts\_audio::_id_7498();
+            thread soundscripts\_audio::restore_after_deathsdoor();
 
-            if ( maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
-                maps\_utility::_id_32DA( "player_has_red_flashing_overlay" );
+            if ( maps\_utility::ent_flag( "player_has_red_flashing_overlay" ) )
+                maps\_utility::ent_flag_clear( "player_has_red_flashing_overlay" );
 
             var_7 = 1;
             var_3 = 0;
@@ -582,7 +564,7 @@ _id_6CC4()
         var_9 = var_2;
         var_10 = self.health / self.maxhealth;
 
-        if ( var_10 <= self._id_4441._id_478D && self._id_6B4E > 1 )
+        if ( var_10 <= self.gs.healthoverlaycutoff && self.player_health_packets > 1 )
         {
             var_2 = 1;
 
@@ -603,36 +585,36 @@ _id_6CC4()
                 else
                     thread blurview( 7.5, 0.67 );
 
-                thread soundscripts\_audio::_id_7E07();
+                thread soundscripts\_audio::set_deathsdoor();
 
-                if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
-                    self _meth_823B();
+                if ( maps\_utility::ent_flag( "near_death_vision_enabled" ) )
+                    self painvisionon();
 
-                maps\_utility::_id_32DE( "player_has_red_flashing_overlay" );
+                maps\_utility::ent_flag_set( "player_has_red_flashing_overlay" );
                 var_3 = 1;
             }
         }
 
-        if ( self._id_4B0B )
+        if ( self.hurtagain )
         {
             var_5 = gettime();
-            self._id_4B0B = 0;
+            self.hurtagain = 0;
         }
 
         if ( self.health / self.maxhealth >= var_0 )
         {
-            if ( gettime() - var_5 < self._id_4441._id_6CC3 )
+            if ( gettime() - var_5 < self.gs.playerhealth_regularregendelay )
                 continue;
 
             if ( var_2 )
             {
                 var_6 = var_10;
 
-                if ( gettime() > var_5 + self._id_4441._id_584F )
-                    var_6 += self._id_4441._id_72D3;
+                if ( gettime() > var_5 + self.gs.longregentime )
+                    var_6 += self.gs.regenrate;
 
                 if ( var_6 >= 1 )
-                    _id_72A8();
+                    reducetakecoverwarnings();
             }
             else
                 var_6 = 1;
@@ -649,7 +631,7 @@ _id_6CC4()
         }
 
         var_0 = var_7;
-        var_11 = var_0 - var_10 >= self._id_4441._id_A353;
+        var_11 = var_0 - var_10 >= self.gs.worthydamageratio;
 
         if ( self.health <= 1 )
         {
@@ -680,48 +662,48 @@ _id_6CC4()
         if ( !var_11 )
             continue;
 
-        if ( maps\_utility::_id_32D8( "player_is_invulnerable" ) )
+        if ( maps\_utility::ent_flag( "player_is_invulnerable" ) )
             continue;
 
-        maps\_utility::_id_32DE( "player_is_invulnerable" );
+        maps\_utility::ent_flag_set( "player_is_invulnerable" );
         level notify( "player_becoming_invulnerable" );
 
         if ( var_3 )
         {
-            var_4 = self._id_4441._id_4FAA;
+            var_4 = self.gs.invultime_onshield;
             var_3 = 0;
         }
         else if ( var_2 )
-            var_4 = self._id_4441._id_4FAB;
+            var_4 = self.gs.invultime_postshield;
         else
-            var_4 = self._id_4441._id_4FAC;
+            var_4 = self.gs.invultime_preshield;
 
         var_7 = self.health / self.maxhealth;
-        thread _id_6CD0( var_4 );
+        thread playerinvul( var_4 );
     }
 }
 
-_id_72A8()
+reducetakecoverwarnings()
 {
-    if ( !_id_9110() )
+    if ( !take_cover_warnings_enabled() )
         return;
 
     if ( isalive( self ) )
     {
-        var_0 = self _meth_8212( "takeCoverWarnings" );
+        var_0 = self getlocalplayerprofiledata( "takeCoverWarnings" );
 
         if ( var_0 > 0 )
         {
             var_0--;
-            self _meth_8213( "takeCoverWarnings", var_0 );
+            self setlocalplayerprofiledata( "takeCoverWarnings", var_0 );
         }
     }
 }
 
-_id_6CD0( var_0 )
+playerinvul( var_0 )
 {
-    if ( isdefined( self._id_38B1 ) && self._id_38B1 > gettime() )
-        var_0 *= _id_3F44( "flashbangedInvulFactor" );
+    if ( isdefined( self.flashendtime ) && self.flashendtime > gettime() )
+        var_0 *= getcurrentdifficultysetting( "flashbangedInvulFactor" );
 
     if ( var_0 > 0 )
     {
@@ -730,21 +712,21 @@ _id_6CD0( var_0 )
         wait(var_0);
     }
 
-    _id_9AD3();
-    maps\_utility::_id_32DA( "player_is_invulnerable" );
+    update_player_attacker_accuracy();
+    maps\_utility::ent_flag_clear( "player_is_invulnerable" );
 }
 
-_id_277A()
+default_door_node_flashbang_frequency()
 {
     if ( self.team == "allies" )
-        self._id_2D65 = 0.6;
+        self.doorflashchance = 0.6;
 
-    if ( self _meth_813F() )
+    if ( self isbadguy() )
     {
-        if ( level._id_3BFE >= 2 )
-            self._id_2D65 = 0.8;
+        if ( level.gameskill >= 2 )
+            self.doorflashchance = 0.8;
         else
-            self._id_2D65 = 0.6;
+            self.doorflashchance = 0.6;
     }
 }
 
@@ -756,9 +738,9 @@ grenadeawareness()
         return;
     }
 
-    if ( self _meth_813F() )
+    if ( self isbadguy() )
     {
-        if ( level._id_3BFE >= 2 )
+        if ( level.gameskill >= 2 )
         {
             if ( randomint( 100 ) < 33 )
                 self.grenadeawareness = 0.2;
@@ -774,7 +756,7 @@ grenadeawareness()
 
 blurview( var_0, var_1 )
 {
-    if ( maps\_utility::_id_32D8( "player_no_auto_blur" ) )
+    if ( maps\_utility::ent_flag( "player_no_auto_blur" ) )
         return;
 
     self notify( "blurview_stop" );
@@ -848,7 +830,7 @@ healthoverlayalt()
     var_0.horzalign = "fullscreen";
     var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
-    thread _id_478B( var_0 );
+    thread healthoverlay_remove( var_0 );
 
     for (;;)
     {
@@ -858,7 +840,7 @@ healthoverlayalt()
         if ( !isalive( level.player ) )
             break;
 
-        maps\_utility::_id_32E0( "player_has_red_flashing_overlay" );
+        maps\_utility::ent_flag_wait( "player_has_red_flashing_overlay" );
 
         if ( getdvarint( "cg_altDamageMode" ) == 1 )
         {
@@ -870,7 +852,7 @@ healthoverlayalt()
     }
 }
 
-_id_4789()
+healthoverlay()
 {
     self endon( "noHealthOverlay" );
     var_0 = newclienthudelem( self );
@@ -885,7 +867,7 @@ _id_4789()
     var_0.horzalign = "fullscreen";
     var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
-    thread _id_478B( var_0 );
+    thread healthoverlay_remove( var_0 );
 
     for (;;)
     {
@@ -895,7 +877,7 @@ _id_4789()
         if ( !isalive( level.player ) )
             break;
 
-        maps\_utility::_id_32E0( "player_has_red_flashing_overlay" );
+        maps\_utility::ent_flag_wait( "player_has_red_flashing_overlay" );
 
         if ( getdvarint( "cg_altDamageMode" ) == 0 )
         {
@@ -924,7 +906,7 @@ bloodsplatter()
     var_0.enablehudlighting = 1;
     var_0.color = ( 0.0, 0.0, 0.0 );
     var_0.alpha = 0;
-    thread _id_478B( var_0 );
+    thread healthoverlay_remove( var_0 );
     var_1 = 0;
     var_2 = 0.28;
     var_3 = 0.05;
@@ -967,11 +949,11 @@ redhitflash()
     var_0.horzalign = "fullscreen";
     var_0.vertalign = "fullscreen";
     var_0.alpha = 0;
-    thread _id_478B( var_0 );
+    thread healthoverlay_remove( var_0 );
 
     for (;;)
     {
-        level.player _id_A0E5();
+        level.player waittillplayerishitagain();
 
         if ( !isalive( self ) )
             break;
@@ -1022,7 +1004,7 @@ compasshealthoverlay()
 
         self waittill( "activate_compass_red_overlay" );
 
-        if ( !maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
+        if ( !maps\_utility::ent_flag( "player_has_red_flashing_overlay" ) )
             continue;
 
         if ( getdvar( "compass" ) == "0" )
@@ -1038,7 +1020,7 @@ compasshealthoverlay()
 compassflashingoverlay( var_0 )
 {
     self endon( "hit_again" );
-    var_1 = gettime() + self._id_4441._id_584F;
+    var_1 = gettime() + self.gs.longregentime;
     var_2 = var_1 + 500;
     var_3 = 0.2;
     var_4 = 0.2;
@@ -1099,12 +1081,12 @@ add_hudelm_position_internal( var_0 )
     self.background.alpha = 0.5;
 }
 
-_id_23E1()
+create_warning_elem()
 {
     var_0 = newclienthudelem( self );
     var_0 add_hudelm_position_internal();
-    var_0 thread _id_28D4();
-    var_0 thread _id_28D5();
+    var_0 thread destroy_warning_elem_when_hit_again();
+    var_0 thread destroy_warning_elem_when_mission_failed();
     var_0 settext( &"GAME_GET_TO_COVER" );
     var_0.fontscale = 2;
     var_0.alpha = 1;
@@ -1114,28 +1096,28 @@ _id_23E1()
     return var_0;
 }
 
-_id_A0E5()
+waittillplayerishitagain()
 {
     self endon( "hit_again" );
     self waittill( "damage" );
 }
 
-_id_28D4()
+destroy_warning_elem_when_hit_again()
 {
     self endon( "being_destroyed" );
-    level.player _id_A0E5();
+    level.player waittillplayerishitagain();
     var_0 = !isalive( level.player );
-    thread _id_28D3( var_0 );
+    thread destroy_warning_elem( var_0 );
 }
 
-_id_28D5()
+destroy_warning_elem_when_mission_failed()
 {
     self endon( "being_destroyed" );
-    common_scripts\utility::_id_384A( "missionfailed" );
-    thread _id_28D3( 1 );
+    common_scripts\utility::flag_wait( "missionfailed" );
+    thread destroy_warning_elem( 1 );
 }
 
-_id_28D3( var_0 )
+destroy_warning_elem( var_0 )
 {
     self notify( "being_destroyed" );
     self.beingdestroyed = 1;
@@ -1151,7 +1133,7 @@ _id_28D3( var_0 )
     self destroy();
 }
 
-_id_5A5A( var_0 )
+may_change_cover_warning_alpha( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1162,7 +1144,7 @@ _id_5A5A( var_0 )
     return 1;
 }
 
-_id_3980( var_0, var_1 )
+fontscaler( var_0, var_1 )
 {
     self endon( "death" );
     var_0 *= 2;
@@ -1205,7 +1187,7 @@ pulseoverlay( var_0 )
     }
 }
 
-_id_35EE( var_0, var_1, var_2, var_3, var_4 )
+fadefunc( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = 0.65;
     var_6 = 0.5;
@@ -1223,7 +1205,7 @@ _id_35EE( var_0, var_1, var_2, var_3, var_4 )
     var_0 fadeovertime( var_7 );
     var_0.alpha = var_3 * 1.0;
 
-    if ( _id_5A5A( var_1 ) )
+    if ( may_change_cover_warning_alpha( var_1 ) )
     {
         if ( !var_4 )
         {
@@ -1233,13 +1215,13 @@ _id_35EE( var_0, var_1, var_2, var_3, var_4 )
     }
 
     if ( isdefined( var_1 ) )
-        var_1 thread _id_3980( 1.0, var_7 );
+        var_1 thread fontscaler( 1.0, var_7 );
 
     wait(var_7 + var_8);
     var_0 fadeovertime( var_9 );
     var_0.alpha = var_3 * var_13;
 
-    if ( _id_5A5A( var_1 ) )
+    if ( may_change_cover_warning_alpha( var_1 ) )
     {
         if ( !var_4 )
         {
@@ -1252,7 +1234,7 @@ _id_35EE( var_0, var_1, var_2, var_3, var_4 )
     var_0 fadeovertime( var_10 );
     var_0.alpha = var_3 * var_12;
 
-    if ( _id_5A5A( var_1 ) )
+    if ( may_change_cover_warning_alpha( var_1 ) )
     {
         if ( !var_4 )
         {
@@ -1262,27 +1244,27 @@ _id_35EE( var_0, var_1, var_2, var_3, var_4 )
     }
 
     if ( isdefined( var_1 ) )
-        var_1 thread _id_3980( 0.9, var_10 );
+        var_1 thread fontscaler( 0.9, var_10 );
 
     wait(var_10);
     wait(var_11);
 }
 
-_id_9110()
+take_cover_warnings_enabled()
 {
-    if ( isdefined( level._id_229B ) )
+    if ( isdefined( level.cover_warnings_disabled ) )
         return 0;
 
-    if ( isdefined( self._id_9A04 ) && self._id_9A04 == 1 )
+    if ( isdefined( self.underwater ) && self.underwater == 1 )
         return 0;
 
-    if ( isdefined( self._id_9C7E ) )
+    if ( isdefined( self.vehicle ) )
         return 0;
 
     return 1;
 }
 
-_id_8477()
+should_show_cover_warning()
 {
     if ( maps\_utility::is_h1_level() )
         return 0;
@@ -1296,22 +1278,22 @@ _id_8477()
     if ( self.ignoreme )
         return 0;
 
-    if ( !_id_9110() )
+    if ( !take_cover_warnings_enabled() )
         return 0;
 
-    if ( self._id_3BFE > 1 )
+    if ( self.gameskill > 1 )
         return 0;
 
-    if ( level._id_5CDE )
+    if ( level.missionfailed )
         return 0;
 
-    if ( !maps\_load::_id_5982() )
+    if ( !maps\_load::map_is_early_in_the_game() )
         return 0;
 
     if ( getdvar( "limited_mode" ) == "1" )
         return 0;
 
-    var_0 = self _meth_8212( "takeCoverWarnings" );
+    var_0 = self getlocalplayerprofiledata( "takeCoverWarnings" );
 
     if ( var_0 <= 3 )
         return 0;
@@ -1325,14 +1307,14 @@ redflashingoverlayalt( var_0 )
     self notify( "activate_compass_red_overlay" );
     var_1 = undefined;
 
-    if ( _id_8477() )
-        var_1 = _id_23E1();
+    if ( should_show_cover_warning() )
+        var_1 = create_warning_elem();
 
-    var_2 = gettime() + self._id_4441._id_584F;
+    var_2 = gettime() + self.gs.longregentime;
     thread pulseoverlay( var_0 );
-    wait(self._id_4441._id_584F / 1000.0);
+    wait(self.gs.longregentime / 1000.0);
 
-    if ( _id_5A5A( var_1 ) )
+    if ( may_change_cover_warning_alpha( var_1 ) )
     {
         var_1 fadeovertime( 1.0 );
         var_1.alpha = 0;
@@ -1341,9 +1323,9 @@ redflashingoverlayalt( var_0 )
     self notify( "kill_pulse" );
     var_0 fadeovertime( 0.5 );
     var_0.alpha = 0;
-    maps\_utility::_id_32DA( "player_has_red_flashing_overlay" );
+    maps\_utility::ent_flag_clear( "player_has_red_flashing_overlay" );
 
-    if ( !isdefined( self._id_2A84 ) || !self._id_2A84 )
+    if ( !isdefined( self.disable_breathing_sound ) || !self.disable_breathing_sound )
     {
         var_3 = "breathing_better";
 
@@ -1351,8 +1333,8 @@ redflashingoverlayalt( var_0 )
             self playlocalsound( var_3 );
     }
 
-    if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
-        self _meth_823C();
+    if ( maps\_utility::ent_flag( "near_death_vision_enabled" ) )
+        self painvisionoff();
 }
 
 redflashingoverlay( var_0 )
@@ -1361,34 +1343,34 @@ redflashingoverlay( var_0 )
     self notify( "activate_compass_red_overlay" );
     var_1 = undefined;
 
-    if ( _id_8477() )
-        var_1 = _id_23E1();
+    if ( should_show_cover_warning() )
+        var_1 = create_warning_elem();
 
-    var_2 = gettime() + self._id_4441._id_584F;
-    _id_35EE( var_0, var_1, 0.8, 0.7, 0 );
+    var_2 = gettime() + self.gs.longregentime;
+    fadefunc( var_0, var_1, 0.8, 0.7, 0 );
     level.player playsound( "breathing_heartbeat" );
 
-    while ( gettime() < var_2 && isalive( self ) && maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
+    while ( gettime() < var_2 && isalive( self ) && maps\_utility::ent_flag( "player_has_red_flashing_overlay" ) )
     {
-        _id_35EE( var_0, var_1, 0.9, 1, 0 );
+        fadefunc( var_0, var_1, 0.9, 1, 0 );
         var_3 = "breathing_heartbeat";
 
         if ( soundexists( var_3 ) )
             self playlocalsound( var_3 );
     }
 
-    if ( _id_5A5A( var_1 ) )
+    if ( may_change_cover_warning_alpha( var_1 ) )
     {
         var_1 fadeovertime( 1.0 );
         var_1.alpha = 0;
     }
 
-    _id_35EE( var_0, var_1, 0, 0.7, 1 );
+    fadefunc( var_0, var_1, 0, 0.7, 1 );
     var_0 fadeovertime( 0.5 );
     var_0.alpha = 0;
-    maps\_utility::_id_32DA( "player_has_red_flashing_overlay" );
+    maps\_utility::ent_flag_clear( "player_has_red_flashing_overlay" );
 
-    if ( !isdefined( self._id_2A84 ) || !self._id_2A84 )
+    if ( !isdefined( self.disable_breathing_sound ) || !self.disable_breathing_sound )
     {
         var_4 = "breathing_better";
 
@@ -1396,54 +1378,54 @@ redflashingoverlay( var_0 )
             self playlocalsound( var_4 );
     }
 
-    if ( maps\_utility::_id_32D8( "near_death_vision_enabled" ) )
-        self _meth_823C();
+    if ( maps\_utility::ent_flag( "near_death_vision_enabled" ) )
+        self painvisionoff();
 }
 
-_id_478B( var_0 )
+healthoverlay_remove( var_0 )
 {
     self waittill( "noHealthOverlay" );
     var_0 destroy();
 }
 
-_id_745C()
+resetskill()
 {
-    waitframe;
-    _id_8010( 1 );
+    waittillframeend;
+    setskill( 1 );
 }
 
-_id_4D65()
+init_take_cover_warnings()
 {
     var_0 = level.script == "cargoship" || level.script == "coup";
 
-    if ( self _meth_8212( "takeCoverWarnings" ) == -1 || var_0 )
-        self _meth_8213( "takeCoverWarnings", 9 );
+    if ( self getlocalplayerprofiledata( "takeCoverWarnings" ) == -1 || var_0 )
+        self setlocalplayerprofiledata( "takeCoverWarnings", 9 );
 }
 
-_id_4C3B()
+increment_take_cover_warnings_on_death()
 {
     self notify( "new_cover_on_death_thread" );
     self endon( "new_cover_on_death_thread" );
     self waittill( "death" );
 
-    if ( !maps\_utility::_id_32D8( "player_has_red_flashing_overlay" ) )
+    if ( !maps\_utility::ent_flag( "player_has_red_flashing_overlay" ) )
         return;
 
-    if ( !_id_9110() )
+    if ( !take_cover_warnings_enabled() )
         return;
 
-    if ( level._id_3BFE > 1 )
+    if ( level.gameskill > 1 )
         return;
 
-    var_0 = self _meth_8212( "takeCoverWarnings" );
+    var_0 = self getlocalplayerprofiledata( "takeCoverWarnings" );
 
     if ( var_0 < 10 )
-        self _meth_8213( "takeCoverWarnings", var_0 + 1 );
+        self setlocalplayerprofiledata( "takeCoverWarnings", var_0 + 1 );
 }
 
 aa_init_stats()
 {
-    level._id_88B2 = ::auto_adjust_new_zone;
+    level.sp_stat_tracking_func = ::auto_adjust_new_zone;
     setdvar( "aa_player_kills", "0" );
     setdvar( "aa_enemy_deaths", "0" );
     setdvar( "aa_enemy_damage_taken", "0" );
@@ -1457,14 +1439,14 @@ aa_init_stats()
     thread aa_time_tracking();
     thread aa_player_health_tracking();
     thread aa_player_ads_tracking();
-    common_scripts\utility::_id_383F( "auto_adjust_initialized" );
-    common_scripts\utility::_id_383D( "aa_main_" + level.script );
-    common_scripts\utility::_id_383F( "aa_main_" + level.script );
+    common_scripts\utility::flag_set( "auto_adjust_initialized" );
+    common_scripts\utility::flag_init( "aa_main_" + level.script );
+    common_scripts\utility::flag_set( "aa_main_" + level.script );
 }
 
 aa_time_tracking()
 {
-    waitframe;
+    waittillframeend;
 
     for (;;)
         wait 0.2;
@@ -1473,15 +1455,15 @@ aa_time_tracking()
 aa_player_ads_tracking()
 {
     level.player endon( "death" );
-    level._id_6A4E = 0;
+    level.player_ads_time = 0;
 
     for (;;)
     {
-        if ( level.player maps\_utility::_id_50A9() )
+        if ( level.player maps\_utility::isads() )
         {
-            level._id_6A4E = gettime();
+            level.player_ads_time = gettime();
 
-            while ( level.player maps\_utility::_id_50A9() )
+            while ( level.player maps\_utility::isads() )
                 wait 0.05;
 
             continue;
@@ -1511,10 +1493,10 @@ auto_adjust_new_zone( var_0 )
     if ( !isdefined( level.auto_adjust_flags ) )
         level.auto_adjust_flags = [];
 
-    common_scripts\utility::_id_384A( "auto_adjust_initialized" );
+    common_scripts\utility::flag_wait( "auto_adjust_initialized" );
     level.auto_adjust_results[var_0] = [];
     level.auto_adjust_flags[var_0] = 0;
-    common_scripts\utility::_id_384A( var_0 );
+    common_scripts\utility::flag_wait( var_0 );
 
     if ( getdvar( "aa_zone" + var_0 ) == "" )
     {
@@ -1533,7 +1515,7 @@ auto_adjust_new_zone( var_0 )
     else if ( getdvar( "aa_zone" + var_0 ) == "done" )
         return;
 
-    common_scripts\utility::_id_3857( var_0 );
+    common_scripts\utility::flag_waitopen( var_0 );
     auto_adust_zone_complete( var_0 );
 }
 
@@ -1601,7 +1583,7 @@ auto_adust_zone_complete( var_0 )
     var_23["player_damage_dealt_per_minute"] = var_16;
     var_23["minutes"] = var_9 / 60;
     var_23["deaths"] = var_22;
-    var_23["gameskill"] = level._id_3BFE;
+    var_23["gameskill"] = level.gameskill;
     level.auto_adjust_results[var_0] = var_23;
     var_24 = "Completed AA sequence: ";
     var_24 += ( level.script + "/" + var_0 );
@@ -1635,31 +1617,31 @@ aa_add_event_float( var_0, var_1 )
     setdvar( var_0, var_2 + var_1 );
 }
 
-_id_74D1( var_0 )
+return_false( var_0 )
 {
     return 0;
 }
 
-_id_6A63( var_0 )
+player_attacker( var_0 )
 {
-    if ( [[ level._id_254D ]]( var_0 ) )
+    if ( [[ level.custom_player_attacker ]]( var_0 ) )
         return 1;
 
     if ( isplayer( var_0 ) )
         return 1;
 
-    if ( !isdefined( var_0._id_1B69 ) )
+    if ( !isdefined( var_0.car_damage_owner_recorder ) )
         return 0;
 
-    return var_0 _id_6ACA();
+    return var_0 player_did_most_damage();
 }
 
-_id_6ACA()
+player_did_most_damage()
 {
-    return self._id_6AC2 * 1.75 > self._id_614F;
+    return self.player_damage * 1.75 > self.non_player_damage;
 }
 
-_id_3094( var_0, var_1, var_2 )
+empty_kill_func( var_0, var_1, var_2 )
 {
 
 }
@@ -1671,10 +1653,10 @@ auto_adjust_enemy_died( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_1 ) )
         return;
 
-    if ( !_id_6A63( var_1 ) )
+    if ( !player_attacker( var_1 ) )
         return;
 
-    [[ level._id_422E ]]( var_2, self.damagelocation, var_3 );
+    [[ level.global_kill_func ]]( var_2, self.damagelocation, var_3 );
     aa_add_event( "aa_player_kills", 1 );
 }
 
@@ -1686,7 +1668,7 @@ auto_adjust_enemy_death_detection( var_0, var_1, var_2, var_3, var_4, var_5, var
         return;
     }
 
-    if ( !_id_6A63( var_2 ) )
+    if ( !player_attacker( var_2 ) )
         return;
 
     aa_player_attacks_enemy_with_ads( var_1, var_5, var_4 );
@@ -1696,19 +1678,19 @@ aa_player_attacks_enemy_with_ads( var_0, var_1, var_2 )
 {
     aa_add_event( "aa_player_damage_dealt", var_0 );
 
-    if ( !level.player maps\_utility::_id_50A9() )
+    if ( !level.player maps\_utility::isads() )
     {
-        [[ level._id_4225 ]]( var_1, self.damagelocation, var_2 );
+        [[ level.global_damage_func ]]( var_1, self.damagelocation, var_2 );
         return 0;
     }
 
     if ( !bullet_attack( var_1 ) )
     {
-        [[ level._id_4225 ]]( var_1, self.damagelocation, var_2 );
+        [[ level.global_damage_func ]]( var_1, self.damagelocation, var_2 );
         return 0;
     }
 
-    [[ level._id_4226 ]]( var_1, self.damagelocation, var_2 );
+    [[ level.global_damage_func_ads ]]( var_1, self.damagelocation, var_2 );
     aa_add_event( "aa_ads_damage_dealt", var_0 );
     return 1;
 }
@@ -1721,22 +1703,22 @@ bullet_attack( var_0 )
     return var_0 == "MOD_RIFLE_BULLET";
 }
 
-_id_21C3()
+coop_player_in_special_ops_survival()
 {
 
 }
 
-_id_8874()
+solo_player_in_special_ops()
 {
 
 }
 
-_id_8873()
+solo_player_in_coop_gameskill_settings()
 {
 
 }
 
-_id_43E7( var_0 )
+grenade_dirt_on_screen( var_0 )
 {
 
 }

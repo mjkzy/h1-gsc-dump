@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 dead_script()
 {
     common_scripts\_ca_blockout::init();
@@ -43,7 +25,7 @@ main()
     maps\_utility::add_start( "town", ::start_town, &"STARTS_TOWN" );
     maps\_utility::add_start( "alasad_barn", ::start_alasad_barn, &"STARTS_ALASADBARN" );
     maps\_utility::add_start( "alasad_house", ::start_alasad_house, &"STARTS_ALASADHOUSE" );
-    maps\_utility::_id_278B( ::start_start );
+    maps\_utility::default_start( ::start_start );
     maps\village_assault_precache::main();
     maps\createart\village_assault_art::main();
     maps\village_assault_fx::main();
@@ -54,10 +36,10 @@ main()
     maps\_load::main();
     maps\_hiding_door::init_hiding_door();
     maps\_nightvision::main();
-    maps\_load::_id_7E9E( "viewhands_player_sas_woodland" );
+    maps\_load::set_player_viewhand_model( "viewhands_player_sas_woodland" );
     maps\_javelin::init();
     maps\_drone_ai::init();
-    animscripts\dog\dog_init::_id_4DAB();
+    animscripts\dog\dog_init::initdoganimations();
     maps\village_assault_code::setleveldvars();
     maps\village_assault_lighting::main();
     maps\village_assault_aud::main();
@@ -122,16 +104,16 @@ gameplay_start()
     maps\village_assault_code::friendly_stance( "stand", "crouch", "prone" );
     var_0 = getent( "first_trigger_after_gas_station", "script_noteworthy" );
 
-    if ( !isdefined( var_0._id_97CC ) || var_0._id_97CC == 0 )
+    if ( !isdefined( var_0.trigger_off ) || var_0.trigger_off == 0 )
         var_0 notify( "trigger" );
 
     for ( var_1 = 0; var_1 < level.friendlies.size; var_1++ )
-        level.friendlies[var_1] _meth_81A7( 1 );
+        level.friendlies[var_1] pushplayer( 1 );
 
     getent( "pushplayer_off", "targetname" ) waittill( "trigger" );
 
     for ( var_1 = 0; var_1 < level.friendlies.size; var_1++ )
-        level.friendlies[var_1] _meth_81A7( 0 );
+        level.friendlies[var_1] pushplayer( 0 );
 }
 
 battlechatter_trigger_on()

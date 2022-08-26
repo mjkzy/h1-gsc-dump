@@ -1,90 +1,72 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_5F70()
+moverun()
 {
-    var_0 = [[ self._id_1D46 ]]( "stand" );
+    var_0 = [[ self.chooseposefunc ]]( "stand" );
 
     switch ( var_0 )
     {
         case "stand":
-            if ( animscripts\setposemovement::_id_8B0F() )
+            if ( animscripts\setposemovement::standrun_begin() )
                 return;
 
-            if ( isdefined( self._id_76AF ) )
+            if ( isdefined( self.run_overrideanim ) )
             {
-                animscripts\move::_id_5F7C( self._id_76AF, self._id_76AE );
+                animscripts\move::movestand_moveoverride( self.run_overrideanim, self.run_override_weights );
                 return;
             }
 
-            if ( _id_8B10() )
+            if ( standrun_checkchangeweapon() )
                 return;
 
-            if ( _id_8B11() )
+            if ( standrun_checkreload() )
                 return;
 
-            animscripts\utility::_id_9B2B();
+            animscripts\utility::updateisincombattimer();
 
-            if ( animscripts\utility::_id_5124() )
-                _id_8B12();
+            if ( animscripts\utility::isincombat() )
+                standrun_combatnormal();
             else
-                _id_8B13();
+                standrun_noncombatnormal();
 
             break;
         case "crouch":
-            if ( animscripts\setposemovement::_id_2484() )
+            if ( animscripts\setposemovement::crouchrun_begin() )
                 return;
 
-            if ( isdefined( self._id_2485 ) )
-                _id_2487();
+            if ( isdefined( self.crouchrun_combatanim ) )
+                crouchrun_runoverride();
             else
-                _id_2486();
+                crouchrun_runnormal();
 
             break;
         default:
-            if ( animscripts\setposemovement::_id_7027() )
+            if ( animscripts\setposemovement::pronerun_begin() )
                 return;
 
-            _id_7023();
+            pronecrawl();
             break;
     }
 }
 
-_id_40BD()
+getrunanim()
 {
-    if ( !isdefined( self.a._id_5F43 ) )
+    if ( !isdefined( self.a.moveanimset ) )
     {
-        var_0 = animscripts\utility::_id_5863( "run", "straight" );
+        var_0 = animscripts\utility::lookupanim( "run", "straight" );
         return var_0;
     }
 
     var_1 = animscripts\stairs_utility::isonstairs();
 
-    if ( !self.facemotion && !self _meth_8195() )
+    if ( !self.facemotion && !self shouldfacemotion() )
     {
-        var_2 = abs( self _meth_8194() );
+        var_2 = abs( self getmotionangle() );
 
         if ( !var_1 || var_2 > 45 )
         {
-            var_0 = animscripts\utility::_id_402D( "move_f" );
+            var_0 = animscripts\utility::getmoveanim( "move_f" );
             return var_0;
         }
     }
@@ -92,33 +74,33 @@ _id_40BD()
     if ( var_1 )
     {
         var_3 = animscripts\stairs_utility::getstairsanimnameatgroundpos();
-        var_0 = animscripts\utility::_id_402D( var_3 );
+        var_0 = animscripts\utility::getmoveanim( var_3 );
         return var_0;
     }
-    else if ( animscripts\utility::_id_9C3B() )
+    else if ( animscripts\utility::usingsmg() )
     {
-        var_0 = animscripts\utility::_id_402D( "smg_straight" );
+        var_0 = animscripts\utility::getmoveanim( "smg_straight" );
         return var_0;
     }
 
-    if ( animscripts\utility::_id_5124() || isdefined( self._id_6165 ) && self._id_6165 || isdefined( self.a.bdisablemovetwitch ) && self.a.bdisablemovetwitch )
+    if ( animscripts\utility::isincombat() || isdefined( self.noruntwitch ) && self.noruntwitch || isdefined( self.a.bdisablemovetwitch ) && self.a.bdisablemovetwitch )
     {
-        var_0 = animscripts\utility::_id_402D( "straight" );
+        var_0 = animscripts\utility::getmoveanim( "straight" );
         return var_0;
     }
 
-    if ( !isdefined( self.a._id_76D4 ) )
-        return animscripts\utility::_id_402D( "straight" );
+    if ( !isdefined( self.a.runloopcount ) )
+        return animscripts\utility::getmoveanim( "straight" );
 
-    var_4 = animscripts\utility::_id_402D( "straight_twitch" );
+    var_4 = animscripts\utility::getmoveanim( "straight_twitch" );
 
     if ( !isdefined( var_4 ) || var_4.size == 0 )
     {
-        var_0 = animscripts\utility::_id_402D( "straight" );
+        var_0 = animscripts\utility::getmoveanim( "straight" );
         return var_0;
     }
 
-    var_5 = animscripts\utility::_id_40A6( self.a._id_76D4, 4 );
+    var_5 = animscripts\utility::getrandomintfromseed( self.a.runloopcount, 4 );
 
     if ( var_5 == 0 )
     {
@@ -126,112 +108,112 @@ _id_40BD()
         return var_0;
     }
 
-    var_0 = animscripts\utility::_id_402D( "straight" );
+    var_0 = animscripts\utility::getmoveanim( "straight" );
     return var_0;
 }
 
-_id_3F43()
+getcrouchrunanim()
 {
-    if ( !isdefined( self.a._id_5F43 ) )
+    if ( !isdefined( self.a.moveanimset ) )
     {
-        if ( animscripts\utility::_id_9C3B() )
-            return animscripts\utility::_id_5863( "smg_crouch_run", "crouch" );
+        if ( animscripts\utility::usingsmg() )
+            return animscripts\utility::lookupanim( "smg_crouch_run", "crouch" );
         else
-            return animscripts\utility::_id_5863( "run", "crouch" );
+            return animscripts\utility::lookupanim( "run", "crouch" );
     }
 
-    return animscripts\utility::_id_402D( "crouch" );
+    return animscripts\utility::getmoveanim( "crouch" );
 }
 
-_id_7023()
+pronecrawl()
 {
-    self.a._id_5F5B = "run";
-    self _meth_8154( "runanim", animscripts\utility::_id_402D( "prone" ), 1, 0.3, self._id_5F65 );
-    _id_76A8();
-    animscripts\notetracks::_id_2D0B( 0.25, "runanim" );
+    self.a.movement = "run";
+    self setflaggedanimknob( "runanim", animscripts\utility::getmoveanim( "prone" ), 1, 0.3, self.moveplaybackrate );
+    run_clearfacialanim();
+    animscripts\notetracks::donotetracksfortime( 0.25, "runanim" );
 }
 #using_animtree("generic_human");
 
-_id_4E05()
+initrunngun()
 {
-    if ( !isdefined( self._id_76D6 ) )
+    if ( !isdefined( self.runngun ) )
     {
         self notify( "stop_move_anim_update" );
-        self._id_9AC9 = undefined;
-        self _meth_8144( %combatrun_backward, 0.2 );
-        self _meth_8144( %combatrun_right, 0.2 );
-        self _meth_8144( %combatrun_left, 0.2 );
-        self _meth_8144( %w_aim_2, 0.2 );
-        self _meth_8144( %w_aim_4, 0.2 );
-        self _meth_8144( %w_aim_6, 0.2 );
-        self _meth_8144( %w_aim_8, 0.2 );
-        self._id_76D6 = 1;
+        self.update_move_anim_type = undefined;
+        self clearanim( %combatrun_backward, 0.2 );
+        self clearanim( %combatrun_right, 0.2 );
+        self clearanim( %combatrun_left, 0.2 );
+        self clearanim( %w_aim_2, 0.2 );
+        self clearanim( %w_aim_4, 0.2 );
+        self clearanim( %w_aim_6, 0.2 );
+        self clearanim( %w_aim_8, 0.2 );
+        self.runngun = 1;
     }
 }
 
-_id_8F00()
+stoprunngun()
 {
-    if ( isdefined( self._id_76D6 ) )
+    if ( isdefined( self.runngun ) )
     {
-        self _meth_8144( %run_n_gun, 0.2 );
-        self._id_76D6 = undefined;
+        self clearanim( %run_n_gun, 0.2 );
+        self.runngun = undefined;
     }
 
     return 0;
 }
 
-_id_76D6( var_0 )
+runngun( var_0 )
 {
     if ( var_0 )
     {
-        var_1 = _id_4098( 0.2 );
+        var_1 = getpredictedyawtoenemy( 0.2 );
         var_2 = var_1 < 0;
     }
     else
     {
         var_1 = 0;
-        var_2 = self._id_76DA < 0;
+        var_2 = self.runngunweight < 0;
     }
 
-    var_3 = self._id_5A52;
-    var_4 = self._id_76D9;
-    var_5 = self._id_76D8;
+    var_3 = self.maxrunngunangle;
+    var_4 = self.runnguntransitionpoint;
+    var_5 = self.runngunincrement;
 
     if ( !var_0 || squared( var_1 ) > var_3 * var_3 )
     {
-        self _meth_8144( %add_fire, 0 );
+        self clearanim( %add_fire, 0 );
 
-        if ( squared( self._id_76DA ) < var_5 * var_5 )
+        if ( squared( self.runngunweight ) < var_5 * var_5 )
         {
-            self._id_76DA = 0;
-            self._id_76D6 = undefined;
+            self.runngunweight = 0;
+            self.runngun = undefined;
             return 0;
         }
-        else if ( self._id_76DA > 0 )
-            self._id_76DA -= var_5;
+        else if ( self.runngunweight > 0 )
+            self.runngunweight -= var_5;
         else
-            self._id_76DA += var_5;
+            self.runngunweight += var_5;
     }
     else
     {
         var_6 = var_1 / var_3;
-        var_7 = var_6 - self._id_76DA;
+        var_7 = var_6 - self.runngunweight;
 
         if ( abs( var_7 ) < var_4 * 0.7 )
-            self._id_76DA = var_6;
+            self.runngunweight = var_6;
         else if ( var_7 > 0 )
-            self._id_76DA += var_5;
+            self.runngunweight += var_5;
         else
-            self._id_76DA -= var_5;
+            self.runngunweight -= var_5;
     }
 
-    _id_4E05();
+    initrunngun();
     runngun_animate( var_4, var_2 );
-    _id_76B3( undefined );
+    run_playfacialanim( undefined );
     self.a.allowedpartialreloadontheruntime = gettime() + 500;
 
     if ( var_0 && isplayer( self.enemy ) )
-        self _meth_81ED();
+        self updateplayersightaccuracy();
 
     return 1;
 }
@@ -239,14 +221,14 @@ _id_76D6( var_0 )
 runngun_animate( var_0, var_1 )
 {
     var_2 = 1 - var_1;
-    var_3 = abs( self._id_76DA );
-    var_4 = animscripts\utility::_id_5864( "run_n_gun" );
+    var_3 = abs( self.runngunweight );
+    var_4 = animscripts\utility::lookupanimarray( "run_n_gun" );
 
     if ( animscripts\stairs_utility::isonstairs() )
     {
         var_5 = animscripts\stairs_utility::getstairsanimnameatgroundpos();
         var_6 = var_4[var_5];
-        self _meth_8144( %body, 0.1 );
+        self clearanim( %body, 0.1 );
         var_7 = animscripts\stairs_utility::getstairtransitionfinishedthisframe();
 
         if ( var_7 == "in" )
@@ -255,39 +237,39 @@ runngun_animate( var_0, var_1 )
             var_8 = 0.2;
 
         self.laststairrunngunanimplayed = var_6;
-        self _meth_8154( "runanim", var_6, 1, var_8, 1, 1 );
+        self setflaggedanimknob( "runanim", var_6, 1, var_8, 1, 1 );
     }
     else
     {
         if ( isdefined( self.laststairrunngunanimplayed ) )
         {
-            self _meth_8144( self.laststairrunngunanimplayed, 0.1 );
+            self clearanim( self.laststairrunngunanimplayed, 0.1 );
             self.laststairrunngunanimplayed = undefined;
         }
 
-        self _meth_8144( %h1_stairs, 0.1 );
+        self clearanim( %h1_stairs, 0.1 );
 
         if ( var_3 > var_0 )
         {
             var_9 = ( var_3 - var_0 ) / var_0;
             var_9 = clamp( var_9, 0, 1 );
-            self _meth_8144( var_4["F"], 0.2 );
-            self _meth_814E( var_4["L"], ( 1.0 - var_9 ) * var_1, 0.2 );
-            self _meth_814E( var_4["R"], ( 1.0 - var_9 ) * var_2, 0.2 );
-            self _meth_814E( var_4["LB"], var_9 * var_1, 0.2 );
-            self _meth_814E( var_4["RB"], var_9 * var_2, 0.2 );
+            self clearanim( var_4["F"], 0.2 );
+            self setanimlimited( var_4["L"], ( 1.0 - var_9 ) * var_1, 0.2 );
+            self setanimlimited( var_4["R"], ( 1.0 - var_9 ) * var_2, 0.2 );
+            self setanimlimited( var_4["LB"], var_9 * var_1, 0.2 );
+            self setanimlimited( var_4["RB"], var_9 * var_2, 0.2 );
         }
         else
         {
             var_9 = clamp( var_3 / var_0, 0, 1 );
-            self _meth_814E( var_4["F"], 1.0 - var_9, 0.2 );
-            self _meth_814E( var_4["L"], var_9 * var_1, 0.2 );
-            self _meth_814E( var_4["R"], var_9 * var_2, 0.2 );
+            self setanimlimited( var_4["F"], 1.0 - var_9, 0.2 );
+            self setanimlimited( var_4["L"], var_9 * var_1, 0.2 );
+            self setanimlimited( var_4["R"], var_9 * var_2, 0.2 );
 
             if ( var_0 < 1 )
             {
-                self _meth_8144( var_4["LB"], 0.2 );
-                self _meth_8144( var_4["RB"], 0.2 );
+                self clearanim( var_4["LB"], 0.2 );
+                self clearanim( var_4["RB"], 0.2 );
             }
         }
 
@@ -298,25 +280,25 @@ runngun_animate( var_0, var_1 )
         else
             var_8 = 0.3;
 
-        self _meth_8154( "runanim", %run_n_gun, 1, var_8, 0.8 );
+        self setflaggedanimknob( "runanim", %run_n_gun, 1, var_8, 0.8 );
     }
 }
 
-_id_76D7()
+runngun_backward()
 {
-    _id_4E05();
-    var_0 = animscripts\utility::_id_5863( "run_n_gun", "move_back" );
-    self _meth_8154( "runanim", var_0, 1, 0.3, 0.8 );
-    _id_76B3( var_0 );
+    initrunngun();
+    var_0 = animscripts\utility::lookupanim( "run_n_gun", "move_back" );
+    self setflaggedanimknob( "runanim", var_0, 1, 0.3, 0.8 );
+    run_playfacialanim( var_0 );
 
     if ( isplayer( self.enemy ) )
-        self _meth_81ED();
+        self updateplayersightaccuracy();
 
-    animscripts\notetracks::_id_2D0B( 0.2, "runanim" );
-    self _meth_8144( var_0, 0.2 );
+    animscripts\notetracks::donotetracksfortime( 0.2, "runanim" );
+    self clearanim( var_0, 0.2 );
 }
 
-_id_71D1()
+reacttobulletsinterruptcheck()
 {
     self endon( "killanimscript" );
 
@@ -324,79 +306,79 @@ _id_71D1()
     {
         wait 0.2;
 
-        if ( !isdefined( self._id_717B ) )
+        if ( !isdefined( self.reactingtobullet ) )
             break;
 
         if ( !isdefined( self.pathgoalpos ) || distancesquared( self.pathgoalpos, self.origin ) < squared( 80 ) )
         {
-            _id_31C1();
+            endrunningreacttobullets();
             self notify( "interrupt_react_to_bullet" );
             break;
         }
     }
 }
 
-_id_31C1()
+endrunningreacttobullets()
 {
-    self _meth_8193( "face default" );
-    self._id_717B = undefined;
-    self._id_7409 = undefined;
+    self orientmode( "face default" );
+    self.reactingtobullet = undefined;
+    self.requestreacttobullet = undefined;
 }
 
-_id_76E3()
+runningreacttobullets()
 {
-    if ( isdefined( self._id_5A7A ) && self._id_5A7A )
+    if ( isdefined( self.mech ) && self.mech )
         return;
 
-    _id_315D();
+    endfaceenemyaimtracking();
     self endon( "interrupt_react_to_bullet" );
-    self._id_717B = 1;
-    self _meth_8193( "face motion" );
-    var_0 = animscripts\utility::_id_5864( "running_react_to_bullets" );
+    self.reactingtobullet = 1;
+    self orientmode( "face motion" );
+    var_0 = animscripts\utility::lookupanimarray( "running_react_to_bullets" );
     var_1 = randomint( var_0.size );
 
-    if ( var_1 == anim._id_55D5 )
+    if ( var_1 == anim.lastrunningreactanim )
         var_1 = ( var_1 + 1 ) % var_0.size;
 
-    anim._id_55D5 = var_1;
+    anim.lastrunningreactanim = var_1;
     var_2 = var_0[var_1];
     self setflaggedanimknobrestart( "reactanim", var_2, 1, 0.5, 1 );
-    _id_76B3( var_2 );
-    thread _id_71D1();
-    animscripts\shared::_id_2D06( "reactanim" );
-    _id_31C1();
+    run_playfacialanim( var_2 );
+    thread reacttobulletsinterruptcheck();
+    animscripts\shared::donotetracks( "reactanim" );
+    endrunningreacttobullets();
 }
 
-_id_2568()
+customrunningreacttobullets()
 {
-    _id_315D();
-    self._id_717B = 1;
-    self _meth_8193( "face motion" );
-    var_0 = randomint( self._id_76B1.size );
-    var_1 = self._id_76B1[var_0];
+    endfaceenemyaimtracking();
+    self.reactingtobullet = 1;
+    self orientmode( "face motion" );
+    var_0 = randomint( self.run_overridebulletreact.size );
+    var_1 = self.run_overridebulletreact[var_0];
     self setflaggedanimknobrestart( "reactanim", var_1, 1, 0.5, 1.0 );
-    _id_76B3( var_1 );
-    thread _id_71D1();
-    animscripts\shared::_id_2D06( "reactanim" );
-    _id_31C1();
+    run_playfacialanim( var_1 );
+    thread reacttobulletsinterruptcheck();
+    animscripts\shared::donotetracks( "reactanim" );
+    endrunningreacttobullets();
 }
 
-_id_40E3()
+getsprintanim()
 {
     var_0 = undefined;
 
     if ( isdefined( self.grenade ) )
-        var_0 = animscripts\utility::_id_402D( "sprint_short" );
+        var_0 = animscripts\utility::getmoveanim( "sprint_short" );
 
     if ( !isdefined( var_0 ) )
-        var_0 = animscripts\utility::_id_402D( "sprint" );
+        var_0 = animscripts\utility::getmoveanim( "sprint" );
 
     return var_0;
 }
 
-_id_84B1()
+shouldsprint()
 {
-    if ( isdefined( self._id_8AA8 ) )
+    if ( isdefined( self.sprint ) )
         return 1;
 
     if ( isdefined( self.grenade ) && isdefined( self.enemy ) && self.frontshieldanglecos == 1 )
@@ -405,9 +387,9 @@ _id_84B1()
     return 0;
 }
 
-_id_84B2()
+shouldsprintforvariation()
 {
-    if ( isdefined( self._id_6097 ) )
+    if ( isdefined( self.neversprintforvariation ) )
         return 0;
 
     if ( !self.facemotion || animscripts\stairs_utility::isonstairs() )
@@ -415,30 +397,30 @@ _id_84B2()
 
     var_0 = gettime();
 
-    if ( isdefined( self._id_25F1 ) )
+    if ( isdefined( self.dangersprinttime ) )
     {
-        if ( var_0 < self._id_25F1 )
+        if ( var_0 < self.dangersprinttime )
             return 1;
 
-        if ( var_0 - self._id_25F1 < 6000 )
+        if ( var_0 - self.dangersprinttime < 6000 )
             return 0;
     }
 
     if ( !isdefined( self.enemy ) || !issentient( self.enemy ) )
         return 0;
 
-    if ( randomint( 100 ) < 25 && self _meth_81C4( self.enemy ) + 2000 > var_0 )
+    if ( randomint( 100 ) < 25 && self lastknowntime( self.enemy ) + 2000 > var_0 )
     {
-        self._id_25F1 = var_0 + 2000 + randomint( 1000 );
+        self.dangersprinttime = var_0 + 2000 + randomint( 1000 );
         return 1;
     }
 
     return 0;
 }
 
-_id_402E()
+getmoveplaybackrate()
 {
-    var_0 = self._id_5F65;
+    var_0 = self.moveplaybackrate;
 
     if ( animscripts\stairs_utility::isonstairs() )
         var_0 = 1;
@@ -457,78 +439,78 @@ recentlydisabledcqb()
     return 0;
 }
 
-_id_8B12()
+standrun_combatnormal()
 {
-    var_0 = _id_402E();
+    var_0 = getmoveplaybackrate();
     var_1 = animscripts\stairs_utility::isonstairs();
 
     if ( !var_1 )
-        self _meth_8145( %combatrun, 1.0, 0.5, var_0 );
+        self setanimknob( %combatrun, 1.0, 0.5, var_0 );
 
     var_2 = 0;
-    var_3 = !var_1 && isdefined( self._id_7409 ) && gettime() - self._id_7409 < 100;
+    var_3 = !var_1 && isdefined( self.requestreacttobullet ) && gettime() - self.requestreacttobullet < 100;
     var_4 = animscripts\utility::getreacttobulletchance();
 
     if ( var_3 && randomfloat( 1 ) < var_4 )
     {
-        _id_8F00();
-        _id_800D( 0 );
-        _id_76E3();
+        stoprunngun();
+        setshootwhilemoving( 0 );
+        runningreacttobullets();
         return;
     }
 
-    if ( !var_1 && _id_84B1() )
+    if ( !var_1 && shouldsprint() )
     {
-        var_5 = _id_40E3();
-        self _meth_8154( "runanim", var_5, 1, 0.5, 1.0 );
-        _id_76B3( var_5 );
-        _id_800D( 0 );
+        var_5 = getsprintanim();
+        self setflaggedanimknob( "runanim", var_5, 1, 0.5, 1.0 );
+        run_playfacialanim( var_5 );
+        setshootwhilemoving( 0 );
         var_2 = 1;
     }
-    else if ( isdefined( self.enemy ) && animscripts\move::_id_5A61() )
+    else if ( isdefined( self.enemy ) && animscripts\move::mayshootwhilemoving() )
     {
-        _id_800D( 1 );
+        setshootwhilemoving( 1 );
 
         if ( !var_1 && !self.facemotion )
-            thread _id_35B6();
-        else if ( self._id_8415 != "none" && !isdefined( self._id_6163 ) )
+            thread faceenemyaimtracking();
+        else if ( self.shootstyle != "none" && !isdefined( self.norunngun ) )
         {
-            _id_315D();
+            endfaceenemyaimtracking();
 
-            if ( _id_1AE9() )
-                var_2 = _id_76D6( 1 );
-            else if ( !var_1 && _id_1AE8() )
+            if ( canshootwhilerunningforward() )
+                var_2 = runngun( 1 );
+            else if ( !var_1 && canshootwhilerunningbackward() )
             {
-                _id_76D7();
+                runngun_backward();
                 return;
             }
         }
-        else if ( isdefined( self._id_76DA ) && self._id_76DA != 0 )
-            var_2 = _id_76D6( 0 );
+        else if ( isdefined( self.runngunweight ) && self.runngunweight != 0 )
+            var_2 = runngun( 0 );
     }
-    else if ( isdefined( self._id_76DA ) && self._id_76DA != 0 )
+    else if ( isdefined( self.runngunweight ) && self.runngunweight != 0 )
     {
-        _id_800D( 0 );
-        var_2 = _id_76D6( 0 );
+        setshootwhilemoving( 0 );
+        var_2 = runngun( 0 );
     }
     else
-        _id_800D( 0 );
+        setshootwhilemoving( 0 );
 
     if ( !var_2 )
     {
-        _id_8F00();
+        stoprunngun();
         var_4 = animscripts\utility::getreacttobulletchance();
 
         if ( var_3 && var_4 != 0 )
         {
-            _id_76E3();
+            runningreacttobullets();
             return;
         }
 
-        if ( !var_1 && _id_84B2() )
-            var_6 = animscripts\utility::_id_402D( "sprint_short" );
+        if ( !var_1 && shouldsprintforvariation() )
+            var_6 = animscripts\utility::getmoveanim( "sprint_short" );
         else
-            var_6 = _id_40BD();
+            var_6 = getrunanim();
 
         if ( recentlydisabledcqb() )
             var_7 = 0.3;
@@ -538,30 +520,30 @@ _id_8B12()
         standrun_combatnormal_animate( var_6, var_7 );
     }
 
-    animscripts\notetracks::_id_2D0B( 0.2, "runanim" );
+    animscripts\notetracks::donotetracksfortime( 0.2, "runanim" );
 }
 
 standrun_combatnormal_animate( var_0, var_1 )
 {
     if ( !animscripts\stairs_utility::isonstairs() )
     {
-        self _meth_8144( %h1_stairs, var_1 );
-        self _meth_8155( "runanim", var_0, 1, var_1, 1, 1 );
-        _id_76B3( var_0 );
-        _id_7FB7( animscripts\utility::_id_402D( "move_b" ), animscripts\utility::_id_402D( "move_l" ), animscripts\utility::_id_402D( "move_r" ), self._id_855F );
-        thread _id_7F3E( "run" );
+        self clearanim( %h1_stairs, var_1 );
+        self setflaggedanimknoblimited( "runanim", var_0, 1, var_1, 1, 1 );
+        run_playfacialanim( var_0 );
+        setmovenonforwardanims( animscripts\utility::getmoveanim( "move_b" ), animscripts\utility::getmoveanim( "move_l" ), animscripts\utility::getmoveanim( "move_r" ), self.sidesteprate );
+        thread setcombatstandmoveanimweights( "run" );
     }
     else
     {
         self notify( "stop_move_anim_update" );
-        self._id_9AC9 = undefined;
-        self _meth_8144( %body, var_1 );
-        self _meth_8154( "runanim", var_0, 1, var_1, 1, 1 );
-        _id_76B3( var_0 );
+        self.update_move_anim_type = undefined;
+        self clearanim( %body, var_1 );
+        self setflaggedanimknob( "runanim", var_0, 1, var_1, 1, 1 );
+        run_playfacialanim( var_0 );
     }
 }
 
-_id_40E5( var_0, var_1, var_2 )
+getstairstransitionanim( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = "none";
@@ -592,20 +574,20 @@ _id_40E5( var_0, var_1, var_2 )
             break;
     }
 
-    var_4 = isdefined( self.enemy ) && animscripts\utility::_id_5124() && !isdefined( self._id_6163 ) && _id_1AE9() && isdefined( self._id_8415 ) && self._id_8415 != "none";
+    var_4 = isdefined( self.enemy ) && animscripts\utility::isincombat() && !isdefined( self.norunngun ) && canshootwhilerunningforward() && isdefined( self.shootstyle ) && self.shootstyle != "none";
     var_3 = var_3 + "_" + var_2;
 
-    if ( animscripts\utility::_id_848B() )
-        return animscripts\utility::_id_5863( "cqb", var_3 );
+    if ( animscripts\utility::shouldcqb() )
+        return animscripts\utility::lookupanim( "cqb", var_3 );
     else if ( var_4 )
-        return animscripts\utility::_id_5863( "run_n_gun", var_3 );
-    else if ( isdefined( self.a._id_5F43 ) )
-        return animscripts\utility::_id_402D( var_3 );
+        return animscripts\utility::lookupanim( "run_n_gun", var_3 );
+    else if ( isdefined( self.a.moveanimset ) )
+        return animscripts\utility::getmoveanim( var_3 );
     else
-        return animscripts\utility::_id_5863( "run", var_3 );
+        return animscripts\utility::lookupanim( "run", var_3 );
 }
 
-_id_35B6()
+faceenemyaimtracking()
 {
     if ( isdefined( self.aim_while_moving_thread ) )
         return;
@@ -613,46 +595,46 @@ _id_35B6()
     self.aim_while_moving_thread = 1;
     self endon( "killanimscript" );
     self endon( "end_face_enemy_tracking" );
-    self _meth_8177();
+    self setdefaultaimlimits();
     var_0 = undefined;
 
-    if ( isdefined( self._id_20B3 ) && isdefined( self._id_20B3["walk_aims"] ) )
+    if ( isdefined( self.combatstandanims ) && isdefined( self.combatstandanims["walk_aims"] ) )
     {
-        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_2"] );
-        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_4"] );
-        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_6"] );
-        self _meth_814E( self._id_20B3["walk_aims"]["walk_aim_8"] );
+        self setanimlimited( self.combatstandanims["walk_aims"]["walk_aim_2"] );
+        self setanimlimited( self.combatstandanims["walk_aims"]["walk_aim_4"] );
+        self setanimlimited( self.combatstandanims["walk_aims"]["walk_aim_6"] );
+        self setanimlimited( self.combatstandanims["walk_aims"]["walk_aim_8"] );
     }
     else
     {
         var_1 = "walk";
 
-        if ( animscripts\utility::_id_848B() && isdefined( animscripts\utility::_id_5863( "cqb", "aim_2" ) ) )
+        if ( animscripts\utility::shouldcqb() && isdefined( animscripts\utility::lookupanim( "cqb", "aim_2" ) ) )
             var_1 = "cqb";
 
-        var_2 = animscripts\utility::_id_5864( var_1 );
-        self _meth_814E( var_2["aim_2"] );
-        self _meth_814E( var_2["aim_4"] );
-        self _meth_814E( var_2["aim_6"] );
-        self _meth_814E( var_2["aim_8"] );
+        var_2 = animscripts\utility::lookupanimarray( var_1 );
+        self setanimlimited( var_2["aim_2"] );
+        self setanimlimited( var_2["aim_4"] );
+        self setanimlimited( var_2["aim_6"] );
+        self setanimlimited( var_2["aim_8"] );
 
         if ( isdefined( var_2["aim_5"] ) )
         {
-            self _meth_814E( var_2["aim_5"] );
+            self setanimlimited( var_2["aim_5"] );
             var_0 = %w_aim_5;
         }
     }
 
-    animscripts\track::_id_9502( %w_aim_2, %w_aim_4, %w_aim_6, %w_aim_8, var_0 );
+    animscripts\track::trackloop( %w_aim_2, %w_aim_4, %w_aim_6, %w_aim_8, var_0 );
 }
 
-_id_315D()
+endfaceenemyaimtracking()
 {
     self.aim_while_moving_thread = undefined;
     self notify( "end_face_enemy_tracking" );
 }
 
-_id_800D( var_0 )
+setshootwhilemoving( var_0 )
 {
     var_1 = isdefined( self.bshootwhilemoving );
 
@@ -662,8 +644,8 @@ _id_800D( var_0 )
 
         if ( !var_1 )
         {
-            thread _id_76CA();
-            thread _id_76E9();
+            thread rundecidewhatandhowtoshoot();
+            thread runshootwhilemoving();
         }
     }
     else
@@ -674,36 +656,36 @@ _id_800D( var_0 )
         {
             self notify( "end_shoot_while_moving" );
             self notify( "end_face_enemy_tracking" );
-            self._id_83E7 = undefined;
+            self.shoot_while_moving_thread = undefined;
             self.aim_while_moving_thread = undefined;
-            self._id_76D6 = undefined;
+            self.runngun = undefined;
         }
     }
 }
 
-_id_76CA()
+rundecidewhatandhowtoshoot()
 {
     self endon( "killanimscript" );
     self endon( "end_shoot_while_moving" );
-    animscripts\shoot_behavior::_id_2743( "normal" );
+    animscripts\shoot_behavior::decidewhatandhowtoshoot( "normal" );
 }
 
-_id_76E9()
+runshootwhilemoving()
 {
     self endon( "killanimscript" );
     self endon( "end_shoot_while_moving" );
-    animscripts\move::_id_841B();
+    animscripts\move::shootwhilemoving();
 }
 
 aimedsomewhatatenemy()
 {
-    if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-        var_0 = animscripts\combat_utility::_id_3DB2( self.enemy );
+    if ( common_scripts\utility::flag( "_cloaked_stealth_enabled" ) )
+        var_0 = animscripts\combat_utility::get_last_known_shoot_pos( self.enemy );
     else
         var_0 = self.enemy getshootatpos();
 
-    var_1 = self _meth_81BD();
-    var_2 = vectortoangles( var_0 - self _meth_81BC() );
+    var_1 = self getmuzzleangle();
+    var_2 = vectortoangles( var_0 - self getmuzzlepos() );
 
     if ( animscripts\utility::absangleclamp180( var_1[1] - var_2[1] ) > 15 )
         return 0;
@@ -711,20 +693,20 @@ aimedsomewhatatenemy()
     return animscripts\utility::absangleclamp180( var_1[0] - var_2[0] ) <= 20;
 }
 
-_id_1AE9()
+canshootwhilerunningforward()
 {
-    if ( ( !isdefined( self._id_76DA ) || self._id_76DA == 0 ) && abs( self _meth_8194() ) > self._id_5A52 )
+    if ( ( !isdefined( self.runngunweight ) || self.runngunweight == 0 ) && abs( self getmotionangle() ) > self.maxrunngunangle )
         return 0;
 
     return 1;
 }
 
-_id_1AE8()
+canshootwhilerunningbackward()
 {
-    if ( 180 - abs( self _meth_8194() ) >= 45 )
+    if ( 180 - abs( self getmotionangle() ) >= 45 )
         return 0;
 
-    var_0 = _id_4098( 0.2 );
+    var_0 = getpredictedyawtoenemy( 0.2 );
 
     if ( abs( var_0 ) > 30 )
         return 0;
@@ -732,27 +714,27 @@ _id_1AE8()
     return 1;
 }
 
-_id_1AE7()
+canshootwhilerunning()
 {
-    return animscripts\move::_id_5A61() && isdefined( self.enemy ) && ( _id_1AE9() || _id_1AE8() );
+    return animscripts\move::mayshootwhilemoving() && isdefined( self.enemy ) && ( canshootwhilerunningforward() || canshootwhilerunningbackward() );
 }
 
-_id_4098( var_0 )
+getpredictedyawtoenemy( var_0 )
 {
     var_1 = self.origin;
-    var_2 = self.angles[1] + self _meth_8194();
+    var_2 = self.angles[1] + self getmotionangle();
     var_1 += ( cos( var_2 ), sin( var_2 ), 0 ) * length( self.velocity ) * var_0;
     var_3 = self.angles[1] - vectortoyaw( self.enemy.origin - var_1 );
     var_3 = angleclamp180( var_3 );
     return var_3;
 }
 
-_id_5F06()
+move_checkstairstransition()
 {
     if ( !animscripts\stairs_utility::using_h1_stairs_system() )
         return 0;
 
-    if ( isdefined( self._id_993B ) && self._id_993B == gettime() )
+    if ( isdefined( self.turntime ) && self.turntime == gettime() )
         return 0;
 
     var_0 = animscripts\move::getexpectedcurrentmoveanim();
@@ -769,9 +751,9 @@ _id_5F06()
         return 0;
 
     self notify( "stop_move_anim_update" );
-    self._id_9AC9 = undefined;
+    self.update_move_anim_type = undefined;
     self.isinstairstransition = 1;
-    var_3 = 1 / self._id_5F65;
+    var_3 = 1 / self.moveplaybackrate;
     var_4 = getnotetracktimes( var_2, "stair_edge" );
     var_5 = getanimlength( var_2 );
 
@@ -785,14 +767,14 @@ _id_5F06()
     if ( var_7 == "turn_L90" || var_7 == "turn_R90" )
     {
         var_8 = var_6 * 0.85;
-        self._id_4BB7 = 1;
+        self.ignorepathchange = 1;
     }
     else
         var_8 = min( var_6, 0.1 );
 
-    self _meth_8144( %body, var_8 );
+    self clearanim( %body, var_8 );
     self setflaggedanimknoballrestart( "runanim", var_2, %body, 1, var_8, var_3 );
-    _id_76B3( var_2 );
+    run_playfacialanim( var_2 );
 
     if ( isdefined( self.stairstransition["startTime"] ) )
         self setanimtime( var_2, self.stairstransition["startTime"] );
@@ -801,8 +783,8 @@ _id_5F06()
     var_10 = 0.05 * var_3 / var_5;
     childthread animscripts\stairs_utility::stairupdatepos( var_2, self.origin, self.stairstransition, var_4[0], var_9, var_10 );
     thread animscripts\stairs_utility::waitforstairedge( var_2, var_4[0] );
-    animscripts\shared::_id_2D06( "runanim" );
-    self._id_4BB7 = undefined;
+    animscripts\shared::donotetracks( "runanim" );
+    self.ignorepathchange = undefined;
     self.lastfinishedstairtransitiontime = gettime();
 
     if ( var_9 )
@@ -814,20 +796,20 @@ _id_5F06()
     return 1;
 }
 
-_id_8B13()
+standrun_noncombatnormal()
 {
     self endon( "movemode" );
     var_0 = animscripts\stairs_utility::isonstairs();
 
     if ( !var_0 )
-        self _meth_8144( %combatrun, 0.6 );
+        self clearanim( %combatrun, 0.6 );
     else
-        self _meth_8144( %body, 0.1 );
+        self clearanim( %body, 0.1 );
 
-    if ( !var_0 && _id_84B1() )
-        var_1 = _id_40E3();
+    if ( !var_0 && shouldsprint() )
+        var_1 = getsprintanim();
     else
-        var_1 = _id_40BD();
+        var_1 = getrunanim();
 
     var_2 = standrun_noncombatnormal_gettranstime();
     standrun_noncombatnormal_animate( var_1, var_2 );
@@ -839,7 +821,7 @@ _id_8B13()
         var_3 = -1;
 
     var_4 = max( 0.2, var_2 );
-    animscripts\notetracks::_id_2D0B( var_4, "runanim" );
+    animscripts\notetracks::donotetracksfortime( var_4, "runanim" );
 }
 
 standrun_noncombatnormal_gettranstime()
@@ -855,64 +837,64 @@ standrun_noncombatnormal_gettranstime()
 standrun_noncombatnormal_animate( var_0, var_1 )
 {
     var_2 = animscripts\stairs_utility::isonstairs();
-    var_3 = _id_402E();
+    var_3 = getmoveplaybackrate();
 
     if ( !var_2 )
     {
-        self _meth_8144( %h1_stairs, 0.1 );
-        self _meth_8149( %combatrun, %body, 1, 0.2, var_3 );
+        self clearanim( %h1_stairs, 0.1 );
+        self setanimknoball( %combatrun, %body, 1, 0.2, var_3 );
     }
 
-    self _meth_8154( "runanim", var_0, 1, var_1, 1, 1 );
-    _id_76B3( var_0 );
+    self setflaggedanimknob( "runanim", var_0, 1, var_1, 1, 1 );
+    run_playfacialanim( var_0 );
 
     if ( !var_2 )
     {
-        _id_7FB7( animscripts\utility::_id_402D( "move_b" ), animscripts\utility::_id_402D( "move_l" ), animscripts\utility::_id_402D( "move_r" ) );
-        thread _id_7F3E( "run" );
+        setmovenonforwardanims( animscripts\utility::getmoveanim( "move_b" ), animscripts\utility::getmoveanim( "move_l" ), animscripts\utility::getmoveanim( "move_r" ) );
+        thread setcombatstandmoveanimweights( "run" );
     }
     else
     {
         self notify( "stop_move_anim_update" );
-        self._id_9AC9 = undefined;
+        self.update_move_anim_type = undefined;
     }
 }
 
-_id_2487()
+crouchrun_runoverride()
 {
     self endon( "movemode" );
-    self setflaggedanimknoball( "runanim", self._id_2485, %body, 1, 0.4, self._id_5F65 );
-    _id_76B3( self._id_2485 );
-    animscripts\shared::_id_2D06( "runanim" );
+    self setflaggedanimknoball( "runanim", self.crouchrun_combatanim, %body, 1, 0.4, self.moveplaybackrate );
+    run_playfacialanim( self.crouchrun_combatanim );
+    animscripts\shared::donotetracks( "runanim" );
 }
 
-_id_2486()
+crouchrun_runnormal()
 {
     self endon( "movemode" );
-    var_0 = _id_3F43();
-    self _meth_8145( var_0, 1, 0.4 );
+    var_0 = getcrouchrunanim();
+    self setanimknob( var_0, 1, 0.4 );
     var_1 = "run";
 
-    if ( animscripts\utility::_id_9C3B() )
+    if ( animscripts\utility::usingsmg() )
         var_1 = "smg_crouch_run";
 
-    thread _id_9B3B( "crouchrun", var_0, animscripts\utility::_id_5863( var_1, "crouch_b" ), animscripts\utility::_id_5863( var_1, "crouch_l" ), animscripts\utility::_id_5863( var_1, "crouch_r" ) );
-    self setflaggedanimknoball( "runanim", %crouchrun, %body, 1, 0.2, self._id_5F65 );
-    _id_76B3( undefined );
-    animscripts\notetracks::_id_2D0B( 0.2, "runanim" );
+    thread updatemoveanimweights( "crouchrun", var_0, animscripts\utility::lookupanim( var_1, "crouch_b" ), animscripts\utility::lookupanim( var_1, "crouch_l" ), animscripts\utility::lookupanim( var_1, "crouch_r" ) );
+    self setflaggedanimknoball( "runanim", %crouchrun, %body, 1, 0.2, self.moveplaybackrate );
+    run_playfacialanim( undefined );
+    animscripts\notetracks::donotetracksfortime( 0.2, "runanim" );
 }
 
-_id_8B11()
+standrun_checkreload()
 {
     var_0 = isdefined( self.a.allowedpartialreloadontheruntime ) && self.a.allowedpartialreloadontheruntime > gettime();
     var_0 = var_0 || isdefined( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < 65536;
 
     if ( var_0 )
     {
-        if ( !animscripts\combat_utility::_id_6089( 0 ) )
+        if ( !animscripts\combat_utility::needtoreload( 0 ) )
             return 0;
     }
-    else if ( !animscripts\combat_utility::_id_6089( 0.5 ) )
+    else if ( !animscripts\combat_utility::needtoreload( 0.5 ) )
         return 0;
 
     if ( isdefined( self.grenade ) )
@@ -921,10 +903,10 @@ _id_8B11()
     if ( !self.facemotion || animscripts\stairs_utility::isonstairs() )
         return 0;
 
-    if ( isdefined( self._id_2D3B ) || isdefined( self._id_6164 ) )
+    if ( isdefined( self.dontshootwhilemoving ) || isdefined( self.norunreload ) )
         return 0;
 
-    if ( _id_1AE7() && !animscripts\combat_utility::_id_6089( 0 ) )
+    if ( canshootwhilerunning() && !animscripts\combat_utility::needtoreload( 0 ) )
         return 0;
 
     if ( !isdefined( self.pathgoalpos ) || distancesquared( self.origin, self.pathgoalpos ) < 65536 )
@@ -935,53 +917,53 @@ _id_8B11()
     if ( var_1 > 0 && self.lookaheaddist < var_1 )
         return 0;
 
-    var_2 = angleclamp180( self _meth_8194() );
+    var_2 = angleclamp180( self getmotionangle() );
 
     if ( abs( var_2 ) > 25 )
         return 0;
 
-    if ( !animscripts\utility::_id_9C35() )
+    if ( !animscripts\utility::usingriflelikeweapon() )
         return 0;
 
-    if ( !_id_76D5() )
+    if ( !runloopisnearbeginning() )
         return 0;
 
-    if ( animscripts\utility::_id_848B() )
-        animscripts\cqb::_id_22D7();
+    if ( animscripts\utility::shouldcqb() )
+        animscripts\cqb::cqb_reloadinternal();
     else
-        _id_8B14();
+        standrun_reloadinternal();
 
     self notify( "abort_reload" );
-    self _meth_8193( "face default" );
+    self orientmode( "face default" );
     return 1;
 }
 
-_id_8B14()
+standrun_reloadinternal()
 {
     self endon( "movemode" );
     self endon( "should_stairs_transition" );
-    self _meth_8193( "face motion" );
-    var_0 = "reload_" + animscripts\combat_utility::_id_4143();
-    var_1 = animscripts\utility::_id_5863( "run", "reload" );
+    self orientmode( "face motion" );
+    var_0 = "reload_" + animscripts\combat_utility::getuniqueflagnameindex();
+    var_1 = animscripts\utility::lookupanim( "run", "reload" );
 
     if ( isarray( var_1 ) )
         var_1 = var_1[randomint( var_1.size )];
 
     self setflaggedanimknoballrestart( var_0, var_1, %body, 1, 0.25 );
-    _id_76B3( var_1 );
-    self._id_9ACA = 1;
-    _id_7FB7( animscripts\utility::_id_402D( "move_b" ), animscripts\utility::_id_402D( "move_l" ), animscripts\utility::_id_402D( "move_r" ) );
-    thread _id_7F3E( "run" );
+    run_playfacialanim( var_1 );
+    self.update_move_front_bias = 1;
+    setmovenonforwardanims( animscripts\utility::getmoveanim( "move_b" ), animscripts\utility::getmoveanim( "move_l" ), animscripts\utility::getmoveanim( "move_r" ) );
+    thread setcombatstandmoveanimweights( "run" );
     childthread animscripts\stairs_utility::threadcheckstairstransition( var_1, 0, 0.3 );
-    animscripts\shared::_id_2D06( var_0 );
-    self._id_9ACA = undefined;
+    animscripts\shared::donotetracks( var_0 );
+    self.update_move_front_bias = undefined;
     self notify( "killThreadCheckStairsTransition" );
 }
 
-_id_76D5()
+runloopisnearbeginning()
 {
-    var_0 = self _meth_8151( %walk_and_run_loops );
-    var_1 = getanimlength( animscripts\utility::_id_5863( "run", "straight" ) ) / 3.0;
+    var_0 = self getanimtime( %walk_and_run_loops );
+    var_1 = getanimlength( animscripts\utility::lookupanim( "run", "straight" ) ) / 3.0;
     var_0 *= 3.0;
 
     if ( var_0 > 3 )
@@ -998,65 +980,65 @@ _id_76D5()
     return 0;
 }
 
-_id_7FB7( var_0, var_1, var_2, var_3 )
+setmovenonforwardanims( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 1;
 
-    self _meth_8146( var_0, 1, 0.1, var_3, 1 );
-    self _meth_8146( var_1, 1, 0.1, var_3, 1 );
-    self _meth_8146( var_2, 1, 0.1, var_3, 1 );
+    self setanimknoblimited( var_0, 1, 0.1, var_3, 1 );
+    self setanimknoblimited( var_1, 1, 0.1, var_3, 1 );
+    self setanimknoblimited( var_2, 1, 0.1, var_3, 1 );
 }
 
-_id_7F3E( var_0 )
+setcombatstandmoveanimweights( var_0 )
 {
-    _id_9B3B( var_0, %combatrun_forward, %combatrun_backward, %combatrun_left, %combatrun_right );
+    updatemoveanimweights( var_0, %combatrun_forward, %combatrun_backward, %combatrun_left, %combatrun_right );
 }
 
-_id_9B3B( var_0, var_1, var_2, var_3, var_4 )
+updatemoveanimweights( var_0, var_1, var_2, var_3, var_4 )
 {
-    if ( isdefined( self._id_9AC9 ) && self._id_9AC9 == var_0 )
+    if ( isdefined( self.update_move_anim_type ) && self.update_move_anim_type == var_0 )
         return;
 
     self notify( "stop_move_anim_update" );
-    self._id_9AC9 = var_0;
-    self._id_A1C8 = undefined;
+    self.update_move_anim_type = var_0;
+    self.wasfacingmotion = undefined;
     self endon( "killanimscript" );
     self endon( "move_interrupt" );
     self endon( "stop_move_anim_update" );
 
     for (;;)
     {
-        _id_9B5D( var_1, var_2, var_3, var_4 );
+        updaterunweightsonce( var_1, var_2, var_3, var_4 );
         wait 0.05;
-        waitframe;
+        waittillframeend;
     }
 }
 
-_id_9B5D( var_0, var_1, var_2, var_3 )
+updaterunweightsonce( var_0, var_1, var_2, var_3 )
 {
-    if ( self.facemotion && !animscripts\utility::_id_848B() && !isdefined( self._id_9ACA ) && !( isdefined( self._id_5A7A ) && self._id_5A7A ) )
+    if ( self.facemotion && !animscripts\utility::shouldcqb() && !isdefined( self.update_move_front_bias ) && !( isdefined( self.mech ) && self.mech ) )
     {
-        if ( !isdefined( self._id_A1C8 ) )
+        if ( !isdefined( self.wasfacingmotion ) )
         {
-            self._id_A1C8 = 1;
+            self.wasfacingmotion = 1;
             var_4 = 0.2;
 
-            if ( isdefined( self._id_8F1E ) )
-                var_4 = self._id_8F1E;
+            if ( isdefined( self.strafeblendtimes ) )
+                var_4 = self.strafeblendtimes;
 
-            self _meth_814D( var_0, 1, var_4, 1, 1 );
-            self _meth_814D( var_1, 0, var_4, 1, 1 );
-            self _meth_814D( var_2, 0, var_4, 1, 1 );
-            self _meth_814D( var_3, 0, var_4, 1, 1 );
+            self setanim( var_0, 1, var_4, 1, 1 );
+            self setanim( var_1, 0, var_4, 1, 1 );
+            self setanim( var_2, 0, var_4, 1, 1 );
+            self setanim( var_3, 0, var_4, 1, 1 );
         }
     }
     else
     {
-        self._id_A1C8 = undefined;
-        var_5 = animscripts\utility::_id_7082( self _meth_8194() );
+        self.wasfacingmotion = undefined;
+        var_5 = animscripts\utility::quadrantanimweights( self getmotionangle() );
 
-        if ( isdefined( self._id_9ACA ) )
+        if ( isdefined( self.update_move_front_bias ) )
         {
             var_5["back"] = 0.0;
 
@@ -1066,25 +1048,25 @@ _id_9B5D( var_0, var_1, var_2, var_3 )
 
         var_4 = 0.2;
 
-        if ( isdefined( self._id_8F1E ) )
-            var_4 = self._id_8F1E;
+        if ( isdefined( self.strafeblendtimes ) )
+            var_4 = self.strafeblendtimes;
 
         var_6 = var_5["front"];
 
         if ( var_6 < 0.001 )
             var_6 = 0.001;
 
-        self _meth_814D( var_0, var_6, var_4, 1, 1 );
-        self _meth_814D( var_1, var_5["back"], var_4, 1, 1 );
-        self _meth_814D( var_2, var_5["left"], var_4, 1, 1 );
-        self _meth_814D( var_3, var_5["right"], var_4, 1, 1 );
+        self setanim( var_0, var_6, var_4, 1, 1 );
+        self setanim( var_1, var_5["back"], var_4, 1, 1 );
+        self setanim( var_2, var_5["left"], var_4, 1, 1 );
+        self setanim( var_3, var_5["right"], var_4, 1, 1 );
     }
 }
 
-_id_8B10()
+standrun_checkchangeweapon()
 {
-    var_0 = isdefined( self._id_A154 ) && self._id_A154;
-    var_1 = animscripts\utility::_id_51A3( self.weapon );
+    var_0 = isdefined( self.wantshotgun ) && self.wantshotgun;
+    var_1 = animscripts\utility::isshotgun( self.weapon );
 
     if ( var_0 == var_1 )
         return 0;
@@ -1095,7 +1077,7 @@ _id_8B10()
     if ( !isdefined( self.pathgoalpos ) || distancesquared( self.origin, self.pathgoalpos ) < 65536 )
         return 0;
 
-    if ( animscripts\utility::_id_9C3A() )
+    if ( animscripts\utility::usingsidearm() )
         return 0;
 
     if ( self.weapon == self.primaryweapon )
@@ -1103,7 +1085,7 @@ _id_8B10()
         if ( !var_0 )
             return 0;
 
-        if ( !animscripts\utility::_id_51A3( self.secondaryweapon ) )
+        if ( !animscripts\utility::isshotgun( self.secondaryweapon ) )
             return 0;
     }
     else
@@ -1111,77 +1093,77 @@ _id_8B10()
         if ( var_0 )
             return 0;
 
-        if ( animscripts\utility::_id_51A3( self.primaryweapon ) )
+        if ( animscripts\utility::isshotgun( self.primaryweapon ) )
             return 0;
     }
 
-    var_2 = angleclamp180( self _meth_8194() );
+    var_2 = angleclamp180( self getmotionangle() );
 
     if ( abs( var_2 ) > 25 )
         return 0;
 
-    if ( !_id_76D5() )
+    if ( !runloopisnearbeginning() )
         return 0;
 
     if ( var_0 )
-        _id_8445( "shotgunPullout", animscripts\utility::_id_5863( "cqb", "shotgun_pullout" ), "gun_2_chest", "none", self.secondaryweapon, "shotgun_pickup" );
+        shotgunswitchstandruninternal( "shotgunPullout", animscripts\utility::lookupanim( "cqb", "shotgun_pullout" ), "gun_2_chest", "none", self.secondaryweapon, "shotgun_pickup" );
     else
-        _id_8445( "shotgunPutaway", animscripts\utility::_id_5863( "cqb", "shotgun_putaway" ), "gun_2_back", "back", self.primaryweapon, "shotgun_pickup" );
+        shotgunswitchstandruninternal( "shotgunPutaway", animscripts\utility::lookupanim( "cqb", "shotgun_putaway" ), "gun_2_back", "back", self.primaryweapon, "shotgun_pickup" );
 
     self notify( "switchEnded" );
     return 1;
 }
 
-_id_8445( var_0, var_1, var_2, var_3, var_4, var_5 )
+shotgunswitchstandruninternal( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     self endon( "movemode" );
     self endon( "should_stairs_transition" );
     self setflaggedanimknoballrestart( var_0, var_1, %body, 1, 0.25 );
-    _id_76B3( var_1 );
-    self._id_9ACA = 1;
-    _id_7FB7( animscripts\utility::_id_402D( "move_b" ), animscripts\utility::_id_402D( "move_l" ), animscripts\utility::_id_402D( "move_r" ) );
-    thread _id_7F3E( "run" );
-    thread _id_A259( var_0, var_2, var_3, var_4, var_5 );
+    run_playfacialanim( var_1 );
+    self.update_move_front_bias = 1;
+    setmovenonforwardanims( animscripts\utility::getmoveanim( "move_b" ), animscripts\utility::getmoveanim( "move_l" ), animscripts\utility::getmoveanim( "move_r" ) );
+    thread setcombatstandmoveanimweights( "run" );
+    thread watchshotgunswitchnotetracks( var_0, var_2, var_3, var_4, var_5 );
     childthread animscripts\stairs_utility::threadcheckstairstransition( var_1, 0, 0.3 );
-    animscripts\notetracks::_id_2D0D( getanimlength( var_1 ) - 0.25, var_0, ::_id_4EAB );
-    self._id_9ACA = undefined;
+    animscripts\notetracks::donotetracksfortimeintercept( getanimlength( var_1 ) - 0.25, var_0, ::interceptnotetracksforweaponswitch );
+    self.update_move_front_bias = undefined;
     self notify( "killThreadCheckStairsTransition" );
 }
 
-_id_4EAB( var_0 )
+interceptnotetracksforweaponswitch( var_0 )
 {
     if ( var_0 == "gun_2_chest" || var_0 == "gun_2_back" )
         return 1;
 }
 
-_id_A259( var_0, var_1, var_2, var_3, var_4 )
+watchshotgunswitchnotetracks( var_0, var_1, var_2, var_3, var_4 )
 {
     self endon( "killanimscript" );
     self endon( "movemode" );
     self endon( "switchEnded" );
     self waittillmatch( var_0, var_1 );
-    animscripts\shared::_id_6869( self.weapon, var_2 );
-    thread _id_8444( var_3 );
+    animscripts\shared::placeweaponon( self.weapon, var_2 );
+    thread shotgunswitchfinish( var_3 );
     self waittillmatch( var_0, var_4 );
     self notify( "complete_weapon_switch" );
 }
 
-_id_8444( var_0 )
+shotgunswitchfinish( var_0 )
 {
     self endon( "death" );
-    common_scripts\utility::_id_A069( "killanimscript", "movemode", "switchEnded", "complete_weapon_switch" );
-    self._id_560F = self.weapon;
-    animscripts\shared::_id_6869( var_0, "right" );
+    common_scripts\utility::waittill_any( "killanimscript", "movemode", "switchEnded", "complete_weapon_switch" );
+    self.lastweapon = self.weapon;
+    animscripts\shared::placeweaponon( var_0, "right" );
     self.bulletsinclip = weaponclipsize( self.weapon );
 }
 
-_id_76B3( var_0 )
+run_playfacialanim( var_0 )
 {
-    self._id_35C7 = animscripts\face::_id_6D9B( var_0, "run", self._id_35C7 );
+    self.facialidx = animscripts\face::playfacialanim( var_0, "run", self.facialidx );
 }
 
-_id_76A8()
+run_clearfacialanim()
 {
-    self._id_35C7 = undefined;
-    self _meth_8144( %head, 0.2 );
+    self.facialidx = undefined;
+    self clearanim( %head, 0.2 );
 }

@@ -1,61 +1,43 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4D1B()
+init_move_transition_arrays()
 {
-    if ( isdefined( anim._id_5F39 ) )
+    if ( isdefined( anim.move_transition_arrays ) )
         return;
 
-    anim._id_5F39 = 1;
+    anim.move_transition_arrays = 1;
 
-    if ( !isdefined( anim._id_22C7 ) )
-        anim._id_22C7 = [];
+    if ( !isdefined( anim.covertrans ) )
+        anim.covertrans = [];
 
-    if ( !isdefined( anim._id_22A3 ) )
-        anim._id_22A3 = [];
+    if ( !isdefined( anim.coverexit ) )
+        anim.coverexit = [];
 
-    anim._id_5A2F = [];
-    anim._id_33E8 = [];
-    anim._id_973E = [];
+    anim.maxdirections = [];
+    anim.excludedir = [];
+    anim.traverseinfo = [];
 
-    if ( !isdefined( anim._id_22C9 ) )
-        anim._id_22C9 = [];
+    if ( !isdefined( anim.covertransdist ) )
+        anim.covertransdist = [];
 
-    if ( !isdefined( anim._id_22A5 ) )
-        anim._id_22A5 = [];
+    if ( !isdefined( anim.coverexitdist ) )
+        anim.coverexitdist = [];
 
-    anim._id_22A7 = [];
-    anim._id_22CA = [];
+    anim.coverexitpostdist = [];
+    anim.covertranspredist = [];
 
-    if ( !isdefined( anim._id_22C8 ) )
-        anim._id_22C8 = [];
+    if ( !isdefined( anim.covertransangles ) )
+        anim.covertransangles = [];
 
-    if ( !isdefined( anim._id_22A4 ) )
-        anim._id_22A4 = [];
+    if ( !isdefined( anim.coverexitangles ) )
+        anim.coverexitangles = [];
 
     anim.arrivalendstance = [];
 }
 #using_animtree("generic_human");
 
-_id_4E1E()
+initsoldierentrance()
 {
     var_0 = [];
     var_0["right"][1] = %corner_standr_trans_in_1;
@@ -239,14 +221,14 @@ _id_4E1E()
     var_0["wall_over_96"][1] = %traverse90_in_ml;
     var_0["wall_over_96"][2] = %traverse90_in_m;
     var_0["wall_over_96"][3] = %traverse90_in_mr;
-    anim._id_973E["wall_over_96"]["height"] = 96;
+    anim.traverseinfo["wall_over_96"]["height"] = 96;
     var_0["wall_over_40"][1] = %traverse_window_m_2_run;
     var_0["wall_over_40"][2] = %traverse_window_m_2_run;
     var_0["wall_over_40"][3] = %traverse_window_m_2_run;
     anim.archetypes["soldier"]["cover_trans"] = var_0;
 }
 
-_id_4E1F()
+initsoldierexit()
 {
     var_0 = [];
     var_0["right"][1] = %corner_standr_trans_out_1;
@@ -481,7 +463,7 @@ getmoveend( var_0 )
     return var_3;
 }
 
-_id_4E2F( var_0 )
+inittransdistandanglesforarchetype( var_0 )
 {
     if ( !isdefined( anim.archetypes[var_0] ) )
         return;
@@ -572,22 +554,22 @@ _id_4E2F( var_0 )
         anim.archetypes[var_0]["CoverTransLongestDist"][var_4] = sqrt( anim.archetypes[var_0]["CoverTransLongestDist"][var_4] );
     }
 
-    anim._id_3594["exposed"] = 1;
-    anim._id_3594["exposed_crouch"] = 1;
-    anim._id_3594["exposed_crouch_crouchwalk"] = 1;
-    anim._id_3594["exposed_cqb"] = 1;
-    anim._id_3594["exposed_crouch_cqb"] = 1;
-    anim._id_3594["exposed_ready_cqb"] = 1;
-    anim._id_3594["exposed_unstable"] = 1;
-    anim._id_3594["exposed_unstable_run"] = 1;
-    anim._id_3594["exposed_ready"] = 1;
-    anim._id_3594["exposed_smg"] = 1;
-    anim._id_3594["heat"] = 1;
+    anim.exposedtransition["exposed"] = 1;
+    anim.exposedtransition["exposed_crouch"] = 1;
+    anim.exposedtransition["exposed_crouch_crouchwalk"] = 1;
+    anim.exposedtransition["exposed_cqb"] = 1;
+    anim.exposedtransition["exposed_crouch_cqb"] = 1;
+    anim.exposedtransition["exposed_ready_cqb"] = 1;
+    anim.exposedtransition["exposed_unstable"] = 1;
+    anim.exposedtransition["exposed_unstable_run"] = 1;
+    anim.exposedtransition["exposed_ready"] = 1;
+    anim.exposedtransition["exposed_smg"] = 1;
+    anim.exposedtransition["heat"] = 1;
 
     if ( !isdefined( anim.archetypes[var_0]["longestExposedApproachDist"] ) )
         anim.archetypes[var_0]["longestExposedApproachDist"] = 0;
 
-    foreach ( var_4, var_8 in anim._id_3594 )
+    foreach ( var_4, var_8 in anim.exposedtransition )
     {
         for ( var_2 = 7; var_2 <= 9; var_2++ )
         {
@@ -620,44 +602,44 @@ _id_4E2F( var_0 )
     }
 }
 
-_id_4DF3()
+initmovestartstoptransitions()
 {
-    _id_4D1B();
+    init_move_transition_arrays();
     anim.approach_types = [];
     anim.approach_types["Cover Left"] = [];
     anim.approach_types["Cover Left"]["stand"] = "left";
     anim.approach_types["Cover Left"]["crouch"] = "left_crouch";
     anim.approach_types["Cover Wide Left"] = anim.approach_types["Cover Left"];
-    anim._id_5A2F["Cover Left"] = 9;
-    anim._id_33E8["Cover Left"] = 9;
+    anim.maxdirections["Cover Left"] = 9;
+    anim.excludedir["Cover Left"] = 9;
     anim.approach_types["Cover Right"] = [];
     anim.approach_types["Cover Right"]["stand"] = "right";
     anim.approach_types["Cover Right"]["crouch"] = "right_crouch";
     anim.approach_types["Cover Wide Right"] = anim.approach_types["Cover Right"];
-    anim._id_5A2F["Cover Right"] = 9;
-    anim._id_33E8["Cover Right"] = 7;
+    anim.maxdirections["Cover Right"] = 9;
+    anim.excludedir["Cover Right"] = 7;
     anim.approach_types["Cover Crouch"] = [];
     anim.approach_types["Cover Crouch"]["stand"] = "crouch";
     anim.approach_types["Cover Crouch"]["crouch"] = "crouch";
     anim.approach_types["Conceal Crouch"] = anim.approach_types["Cover Crouch"];
     anim.approach_types["Cover Crouch Window"] = anim.approach_types["Cover Crouch"];
-    anim._id_5A2F["Cover Crouch"] = 6;
-    anim._id_33E8["Cover Crouch"] = -1;
-    anim._id_5A2F["Conceal Crouch"] = 6;
-    anim._id_33E8["Conceal Crouch"] = -1;
+    anim.maxdirections["Cover Crouch"] = 6;
+    anim.excludedir["Cover Crouch"] = -1;
+    anim.maxdirections["Conceal Crouch"] = 6;
+    anim.excludedir["Conceal Crouch"] = -1;
     anim.approach_types["Cover Stand"] = [];
     anim.approach_types["Cover Stand"]["stand"] = "stand";
     anim.approach_types["Cover Stand"]["crouch"] = "stand";
     anim.approach_types["Conceal Stand"] = anim.approach_types["Cover Stand"];
-    anim._id_5A2F["Cover Stand"] = 6;
-    anim._id_33E8["Cover Stand"] = -1;
-    anim._id_5A2F["Conceal Stand"] = 6;
-    anim._id_33E8["Conceal Stand"] = -1;
+    anim.maxdirections["Cover Stand"] = 6;
+    anim.excludedir["Cover Stand"] = -1;
+    anim.maxdirections["Conceal Stand"] = 6;
+    anim.excludedir["Conceal Stand"] = -1;
     anim.approach_types["Cover Prone"] = [];
     anim.approach_types["Cover Prone"]["stand"] = "exposed";
     anim.approach_types["Cover Prone"]["crouch"] = "exposed";
     anim.approach_types["Conceal Prone"] = anim.approach_types["Cover Prone"];
-    anim._id_33E8["Conceal Prone"] = -1;
+    anim.excludedir["Conceal Prone"] = -1;
     anim.approach_types["Path"] = [];
     anim.approach_types["Path"]["stand"] = "exposed";
     anim.approach_types["Path"]["crouch"] = "exposed_crouch";
@@ -666,51 +648,51 @@ _id_4DF3()
     anim.approach_types["Ambush"] = anim.approach_types["Path"];
     anim.approach_types["Scripted"] = anim.approach_types["Path"];
     anim.approach_types["Exposed"] = anim.approach_types["Path"];
-    anim._id_50E3["Guard"] = 1;
-    anim._id_50E3["Ambush"] = 1;
-    anim._id_50E3["Exposed"] = 1;
-    anim._id_50E4["Guard"] = 1;
-    anim._id_50E4["Exposed"] = 1;
-    _id_4E1E();
-    _id_4E1F();
+    anim.iscombatpathnode["Guard"] = 1;
+    anim.iscombatpathnode["Ambush"] = 1;
+    anim.iscombatpathnode["Exposed"] = 1;
+    anim.iscombatscriptnode["Guard"] = 1;
+    anim.iscombatscriptnode["Exposed"] = 1;
+    initsoldierentrance();
+    initsoldierexit();
 
-    if ( maps\_utility::_id_76FF() )
+    if ( maps\_utility::s1_motionset_avaliable() )
     {
-        animscripts\s1_common_anims::_id_4E21();
-        animscripts\s1_common_anims::_id_4E22();
+        animscripts\s1_common_anims::initsoliders1entrance();
+        animscripts\s1_common_anims::initsoliders1exit();
     }
 
-    _id_4E2F( "soldier" );
+    inittransdistandanglesforarchetype( "soldier" );
 
-    if ( maps\_utility::_id_76FF() )
-        _id_4E2F( "s1_soldier" );
+    if ( maps\_utility::s1_motionset_avaliable() )
+        inittransdistandanglesforarchetype( "s1_soldier" );
 
-    anim._id_8A78 = [];
-    anim._id_8A78["left"] = 1;
-    anim._id_8A78["left_crouch"] = 1;
-    anim._id_8A78["left_crouch_cqb"] = 1;
-    anim._id_8A78["left_cqb"] = 1;
-    anim._id_8A7A = [];
-    anim._id_8A7A["left"] = 1;
-    anim._id_8A7A["left_crouch"] = 1;
-    anim._id_8A7A["left_crouch_cqb"] = 1;
-    anim._id_8A7A["left_cqb"] = 1;
-    anim._id_8A7A["heat_left"] = 1;
-    anim._id_8A79 = [];
-    anim._id_8A79["right"] = 1;
-    anim._id_8A79["right_crouch"] = 1;
-    anim._id_8A79["right_cqb"] = 1;
-    anim._id_8A79["right_crouch_cqb"] = 1;
-    anim._id_8A7B = [];
-    anim._id_8A7B["right"] = 1;
-    anim._id_8A7B["right_crouch"] = 1;
-    anim._id_8A7B["right_cqb"] = 1;
-    anim._id_8A7B["right_crouch_cqb"] = 1;
-    anim._id_8A7B["heat_right"] = 1;
-    _id_40E1( "soldier" );
+    anim.splitarrivalsleft = [];
+    anim.splitarrivalsleft["left"] = 1;
+    anim.splitarrivalsleft["left_crouch"] = 1;
+    anim.splitarrivalsleft["left_crouch_cqb"] = 1;
+    anim.splitarrivalsleft["left_cqb"] = 1;
+    anim.splitexitsleft = [];
+    anim.splitexitsleft["left"] = 1;
+    anim.splitexitsleft["left_crouch"] = 1;
+    anim.splitexitsleft["left_crouch_cqb"] = 1;
+    anim.splitexitsleft["left_cqb"] = 1;
+    anim.splitexitsleft["heat_left"] = 1;
+    anim.splitarrivalsright = [];
+    anim.splitarrivalsright["right"] = 1;
+    anim.splitarrivalsright["right_crouch"] = 1;
+    anim.splitarrivalsright["right_cqb"] = 1;
+    anim.splitarrivalsright["right_crouch_cqb"] = 1;
+    anim.splitexitsright = [];
+    anim.splitexitsright["right"] = 1;
+    anim.splitexitsright["right_crouch"] = 1;
+    anim.splitexitsright["right_cqb"] = 1;
+    anim.splitexitsright["right_crouch_cqb"] = 1;
+    anim.splitexitsright["heat_right"] = 1;
+    getsplittimes( "soldier" );
 
-    if ( maps\_utility::_id_76FF() )
-        _id_40E1( "s1_soldier" );
+    if ( maps\_utility::s1_motionset_avaliable() )
+        getsplittimes( "s1_soldier" );
 
     anim.arrivalendstance["left"] = "stand";
     anim.arrivalendstance["left_cqb"] = "stand";
@@ -737,16 +719,16 @@ _id_4DF3()
     anim.arrivalendstance["prone_saw"] = "prone";
     anim.arrivalendstance["exposed_ready"] = "stand";
     anim.arrivalendstance["exposed_ready_cqb"] = "stand";
-    anim._id_740B["Cover Stand"] = "stand";
-    anim._id_740B["Conceal Stand"] = "stand";
-    anim._id_740B["Cover Crouch"] = "crouch";
-    anim._id_740B["Conceal Crouch"] = "crouch";
+    anim.requiredexitstance["Cover Stand"] = "stand";
+    anim.requiredexitstance["Conceal Stand"] = "stand";
+    anim.requiredexitstance["Cover Crouch"] = "crouch";
+    anim.requiredexitstance["Conceal Crouch"] = "crouch";
 }
 
-_id_40E1( var_0 )
+getsplittimes( var_0 )
 {
-    _id_40E2( var_0, 7, 8, 0, anim._id_8A78, anim._id_8A7A );
-    _id_40E2( var_0, 8, 9, 1, anim._id_8A79, anim._id_8A7B );
+    getsplittimesside( var_0, 7, 8, 0, anim.splitarrivalsleft, anim.splitexitsleft );
+    getsplittimesside( var_0, 8, 9, 1, anim.splitarrivalsright, anim.splitexitsright );
 }
 
 getsplitdeltas( var_0, var_1 )
@@ -763,7 +745,7 @@ getsplitdeltas( var_0, var_1 )
     return var_3;
 }
 
-_id_40E2( var_0, var_1, var_2, var_3, var_4, var_5 )
+getsplittimesside( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     for ( var_6 = var_1; var_6 <= var_2; var_6++ )
     {

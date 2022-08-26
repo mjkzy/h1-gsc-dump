@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     if ( getdvar( "mapname" ) == "mp_background" )
@@ -30,13 +12,13 @@ main()
     level.rankedmatch = 0;
     level.onstartgametype = ::onstartgametype;
     level.getspawnpoint = ::getspawnpoint;
-    level._id_64E9 = ::_id_64E9;
+    level.onspawnplayer = ::onspawnplayer;
     maps\mp\_utility::registernumlivesdvar( level.gametype, 0 );
     maps\mp\_utility::registertimelimitdvar( level.gametype, 0 );
     maps\mp\_utility::registerscorelimitdvar( level.gametype, 1 );
     maps\mp\_utility::registerhalftimedvar( level.gametype, 0 );
-    level._id_1E38 = level.class;
-    level.class = ::_id_5BB1;
+    level.classold = level.class;
+    level.class = ::menuclass;
     game["menu_team"] = "main";
     game["menu_class_allies"] = "main";
     game["menu_class_axis"] = "main";
@@ -47,11 +29,11 @@ main()
     game["axis"] = "atlas";
 }
 
-_id_5BB1( var_0 )
+menuclass( var_0 )
 {
     level.ingraceperiod = 1;
-    self._id_4729 = 0;
-    [[ level._id_1E38 ]]( var_0 );
+    self.hasdonecombat = 0;
+    [[ level.classold ]]( var_0 );
 }
 
 onstartgametype()
@@ -67,14 +49,14 @@ onstartgametype()
     maps\mp\_utility::setobjectivescoretext( "axis", &"OBJECTIVES_WAR" );
     maps\mp\_utility::setobjectivehinttext( "allies", &"OBJECTIVES_WAR" );
     maps\mp\_utility::setobjectivehinttext( "axis", &"OBJECTIVES_WAR" );
-    _id_4D5D();
+    init_spawns();
     var_0[0] = level.gametype;
     maps\mp\gametypes\_gameobjects::main( var_0 );
-    level._id_6F09 = 0;
-    level._id_6F0A = 0;
+    level.prematchperiod = 0;
+    level.prematchperiodend = 0;
 }
 
-_id_4D5D()
+init_spawns()
 {
     level.spawnmins = ( 0.0, 0.0, 0.0 );
     level.spawnmaxs = ( 0.0, 0.0, 0.0 );
@@ -118,8 +100,8 @@ getspawnpoint( var_0 )
     return var_3;
 }
 
-_id_64E9()
+onspawnplayer()
 {
-    if ( isdefined( level._id_9EAA ) )
-        self [[ level._id_9EAA ]]();
+    if ( isdefined( level.vl_onspawnplayer ) )
+        self [[ level.vl_onspawnplayer ]]();
 }

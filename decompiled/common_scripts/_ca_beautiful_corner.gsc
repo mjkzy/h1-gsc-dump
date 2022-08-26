@@ -1,29 +1,11 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4DD7()
+initialize()
 {
     if ( getdvar( "beautiful_corner" ) != "1" )
     {
-        _id_1E5F();
+        cleanup();
         return 0;
     }
 
@@ -45,7 +27,7 @@ activate()
     thread beautiful_views();
 }
 
-_id_1E5F()
+cleanup()
 {
     var_0 = getentarray( "beautiful_guy", "targetname" );
 
@@ -65,7 +47,7 @@ beautiful_player()
     }
 
     level.player thread beautiful_player_ammo();
-    level._id_3AA7 = 1;
+    level.friendlyfiredisabled = 1;
     level.player enableinvulnerability();
 }
 
@@ -100,13 +82,13 @@ beautiful_guys()
         if ( !isdefined( var_3 ) )
             return;
 
-        var_3 maps\_utility::_id_5926();
+        var_3 maps\_utility::make_hero();
         var_3 maps\_utility::ai_ignore_everything();
-        var_3 maps\_utility::_id_58D7();
-        var_3._id_79EE = "none";
+        var_3 maps\_utility::magic_bullet_shield();
+        var_3.script_friendname = "none";
 
         if ( isdefined( level.beautiful_weapon ) )
-            var_3 maps\_utility::_id_39D0( level.beautiful_weapon, "primary" );
+            var_3 maps\_utility::forceuseweapon( level.beautiful_weapon, "primary" );
 
         if ( isdefined( var_2.script_noteworthy ) )
         {
@@ -153,7 +135,7 @@ beautiful_offset_view_origin( var_0, var_1 )
     var_2.forward = var_1[0];
     var_2.right = var_1[1];
     var_2.up = var_1[2];
-    var_2 maps\_utility::_id_9723();
+    var_2 maps\_utility::translate_local();
 }
 
 beautiful_view_init()
@@ -161,9 +143,9 @@ beautiful_view_init()
     if ( level.beautiful_views.size <= 0 )
         return;
 
-    common_scripts\utility::_id_383D( "beautiful_view_transitioning" );
-    common_scripts\utility::_id_3831( "beautiful_view_transitioning" );
-    level.black_overlay = maps\_hud_util::_id_23A2( "black", 1 );
+    common_scripts\utility::flag_init( "beautiful_view_transitioning" );
+    common_scripts\utility::flag_clear( "beautiful_view_transitioning" );
+    level.black_overlay = maps\_hud_util::create_client_overlay( "black", 1 );
     level.black_overlay.sort = 1000;
     level.player takeweapon( "beretta" );
     level.player takeweapon( "fraggrenade" );
@@ -188,7 +170,7 @@ beautiful_view_move_request()
         while ( !( level.player buttonpressed( "DPAD_UP" ) || level.player buttonpressed( "HOME" ) ) )
             wait 0.05;
 
-        if ( !common_scripts\utility::_id_382E( "beautiful_view_transitioning" ) )
+        if ( !common_scripts\utility::flag( "beautiful_view_transitioning" ) )
         {
             beautiful_view_get_next_position();
             beautiful_view_update( level.beautiful_views[level.beautiful_view_index] );
@@ -221,7 +203,7 @@ beautiful_view_state_request()
         while ( !( level.player buttonpressed( "DPAD_DOWN" ) || level.player buttonpressed( "END" ) ) )
             wait 0.05;
 
-        if ( !common_scripts\utility::_id_382E( "beautiful_view_transitioning" ) )
+        if ( !common_scripts\utility::flag( "beautiful_view_transitioning" ) )
         {
             level.beautiful_view_static = !level.beautiful_view_static;
             beautiful_view_update( level.beautiful_views[level.beautiful_view_index] );
@@ -233,13 +215,13 @@ beautiful_view_state_request()
 
 beautiful_view_update( var_0 )
 {
-    common_scripts\utility::_id_383F( "beautiful_view_transitioning" );
+    common_scripts\utility::flag_set( "beautiful_view_transitioning" );
     beautiful_view_fade_out();
     beautiful_view_position( var_0 );
     wait 0.25;
     beautiful_view_fade_in();
     wait 0.25;
-    common_scripts\utility::_id_3831( "beautiful_view_transitioning" );
+    common_scripts\utility::flag_clear( "beautiful_view_transitioning" );
 }
 
 beautiful_view_fade_in()
@@ -274,10 +256,10 @@ beautiful_view_fade_out()
 beautiful_view_position( var_0 )
 {
     if ( level.beautiful_visions[var_0] != "" )
-        maps\_utility::_id_9E6E( level.beautiful_visions[var_0], 0 );
+        maps\_utility::vision_set_fog_changes( level.beautiful_visions[var_0], 0 );
 
     if ( level.beautiful_lightsets[var_0] != "" )
-        level.player _meth_83BE( level.beautiful_lightsets[var_0] );
+        level.player lightsetforplayer( level.beautiful_lightsets[var_0] );
 
     if ( level.beautiful_cluts[var_0] != "" )
         level.player _meth_848C( level.beautiful_cluts[var_0], 0 );
@@ -320,7 +302,7 @@ beautiful_view_position_static( var_0 )
         return;
 
     if ( !isdefined( level.beautiful_view_ent ) )
-        level.beautiful_view_ent = common_scripts\utility::_id_8959();
+        level.beautiful_view_ent = common_scripts\utility::spawn_tag_origin();
 
     level.beautiful_view_ent.origin = var_1.origin;
     level.beautiful_view_ent.angles = var_1.angles;

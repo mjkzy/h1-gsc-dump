@@ -1,51 +1,33 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init_hiding_door()
 {
-    common_scripts\utility::_id_76B9( "hiding_door_spawner", ::hiding_door_spawner );
+    common_scripts\utility::run_thread_on_noteworthy( "hiding_door_spawner", ::hiding_door_spawner );
 }
 
 hiding_door_spawner()
 {
     var_0 = undefined;
 
-    if ( isdefined( self._id_7A99 ) && common_scripts\utility::_id_3839( self._id_7A99 ) )
-        var_0 = self._id_7A99;
+    if ( isdefined( self.script_parameters ) && common_scripts\utility::flag_exist( self.script_parameters ) )
+        var_0 = self.script_parameters;
 
     var_1 = undefined;
 
-    if ( isdefined( self._id_7A99 ) && self._id_7A99 == "open_door_when_spawner_deleted" )
-        var_1 = self._id_7A99;
+    if ( isdefined( self.script_parameters ) && self.script_parameters == "open_door_when_spawner_deleted" )
+        var_1 = self.script_parameters;
 
     var_2 = getentarray( "hiding_door_guy_org", "targetname" );
-    var_3 = common_scripts\utility::_id_3F33( self.origin, var_2 );
+    var_3 = common_scripts\utility::getclosest( self.origin, var_2 );
     var_3.targetname = undefined;
     var_4 = getentarray( var_3.target, "targetname" );
     var_5 = undefined;
     var_6 = undefined;
     var_7 = undefined;
 
-    if ( isdefined( var_3._id_7A26 ) )
-        var_7 = var_3 common_scripts\utility::_id_3DBC();
+    if ( isdefined( var_3.script_linkto ) )
+        var_7 = var_3 common_scripts\utility::get_linked_ent();
 
     if ( var_4.size == 1 )
         var_5 = var_4[0];
@@ -84,7 +66,7 @@ hiding_door_spawner()
     }
 
     var_5 delete();
-    var_13 = maps\_utility::_id_88D1( "hiding_door" );
+    var_13 = maps\_utility::spawn_anim_model( "hiding_door" );
     var_3 thread maps\_anim::anim_first_frame_solo( var_13, "fire_3" );
 
     if ( isdefined( var_6 ) )
@@ -109,7 +91,7 @@ hiding_door_spawner()
             var_14 = undefined;
     }
 
-    if ( !isdefined( self._id_79DA ) && !isdefined( var_14 ) )
+    if ( !isdefined( self.script_flag_wait ) && !isdefined( var_14 ) )
     {
         var_15 = 200;
 
@@ -135,7 +117,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
     self endon( "death" );
     self endon( "damage" );
     self.grenadeammo = 2;
-    maps\_utility::_id_7E06( "death_2" );
+    maps\_utility::set_deathanim( "death_2" );
     self.allowdeath = 1;
     self.health = 50000;
     var_6 = [];
@@ -155,7 +137,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
         var_1 waittill( "trigger" );
     }
     else
-        common_scripts\utility::_id_384A( self._id_79DA );
+        common_scripts\utility::flag_wait( self.script_flag_wait );
 
     if ( var_5 )
     {
@@ -195,7 +177,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
         {
             var_11 = "fire_1";
 
-            if ( common_scripts\utility::_id_2006() )
+            if ( common_scripts\utility::cointoss() )
                 var_11 = "fire_2";
         }
         else
@@ -210,9 +192,9 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
         {
             var_11 = "jump";
 
-            if ( common_scripts\utility::_id_2006() )
+            if ( common_scripts\utility::cointoss() )
             {
-                if ( self _meth_81C7( animscripts\utility::_id_3EFC( level._id_78AC[self.animname]["kick"] ) ) )
+                if ( self maymovetopoint( animscripts\utility::getanimendpos( level.scr_anim[self.animname]["kick"] ) ) )
                     var_11 = "kick";
             }
 
@@ -221,7 +203,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
             self notify( "charge" );
             self.allowdeath = 1;
             self.health = 100;
-            maps\_utility::_id_1EAB();
+            maps\_utility::clear_deathanim();
             var_0 maps\_anim::anim_single( var_6, var_11 );
             quit_door_behavior();
             return;
@@ -236,7 +218,7 @@ hiding_door_guy( var_0, var_1, var_2, var_3, var_4 )
         var_7 = 0;
         var_8++;
         var_0 thread maps\_anim::anim_single( var_6, var_11 );
-        maps\_utility::_id_27EF( 0.05, maps\_anim::anim_set_time, var_6, var_11, 0.3 );
+        maps\_utility::delaythread( 0.05, maps\_anim::anim_set_time, var_6, var_11, 0.3 );
         var_0 waittill( var_11 );
         var_0 thread maps\_anim::anim_first_frame( var_6, "open" );
         wait(randomfloatrange( 0.2, 1.0 ));
@@ -256,11 +238,11 @@ quit_door_behavior( var_0, var_1 )
     }
 
     self.health = 100;
-    maps\_utility::_id_1EAB();
+    maps\_utility::clear_deathanim();
     self.goalradius = 512;
-    self _meth_81AA( self.origin );
+    self setgoalpos( self.origin );
     self notify( "quit_door_behavior" );
-    self _meth_8143();
+    self stopanimscripted();
     self notify( "killanimscript" );
     return 1;
 }
@@ -304,7 +286,7 @@ hiding_door_guy_should_charge( var_0, var_1, var_2 )
     if ( var_6 > var_5 )
         return 0;
 
-    return common_scripts\utility::_id_2006();
+    return common_scripts\utility::cointoss();
 }
 
 hiding_door_guy_should_throw_grenade( var_0, var_1 )
@@ -348,7 +330,7 @@ hiding_door_spawner_cleanup( var_0, var_1, var_2, var_3 )
 {
     self endon( "spawned" );
     self waittill( "death" );
-    waittillframeend;
+    waitframe();
     var_0 notify( "stop_loop" );
     thread hiding_door_death_door_connections( var_2, var_3 );
     var_0 notify( "push_player" );
@@ -363,7 +345,7 @@ hiding_door_spawner_cleanup( var_0, var_1, var_2, var_3 )
 hiding_door_guy_cleanup( var_0, var_1, var_2, var_3, var_4 )
 {
     var_1 endon( "charge" );
-    var_1 common_scripts\utility::_id_A087( "death", "quit_door_behavior" );
+    var_1 common_scripts\utility::waittill_either( "death", "quit_door_behavior" );
     var_0 notify( "stop_loop" );
     thread hiding_door_death_door_connections( var_3, var_4 );
     var_0 notify( "push_player" );
@@ -389,9 +371,9 @@ toggle_pushplayerclip_with_flag( var_0 )
 
     for (;;)
     {
-        common_scripts\utility::_id_384A( var_0 );
+        common_scripts\utility::flag_wait( var_0 );
         self notsolid();
-        common_scripts\utility::_id_3857( var_0 );
+        common_scripts\utility::flag_waitopen( var_0 );
         self solid();
     }
 }

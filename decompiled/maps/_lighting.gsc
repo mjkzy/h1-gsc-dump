@@ -1,78 +1,60 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_5705()
+light_init()
 {
     if ( !isdefined( level._light ) )
     {
         level._light = spawnstruct();
-        _id_5710();
-        _id_570D();
-        _id_570E();
-        _id_570F();
-        _id_5711();
-        _id_5707();
-        thread _id_4D54();
+        light_setup_global_dvars();
+        light_setup_common_dof_presets();
+        light_setup_common_dof_viewmodel_presets();
+        light_setup_common_flickerlight_presets();
+        light_setup_pulse_presets();
+        light_message_init();
+        thread init_scriptable_primary_lights();
     }
 
     thread setup_emissive_modifiers();
 }
 
-_id_4D54()
+init_scriptable_primary_lights()
 {
-    level._id_7B2B = 0;
-    level._id_78B8 = undefined;
+    level.scriptable_primary_light_override = 0;
+    level.scr_prim_light = undefined;
     wait 0.05;
 }
 
-_id_33F3( var_0 )
+execute_scriptable_primary_light( var_0 )
 {
-    var_1 = level._id_78B7[var_0];
-    var_1._id_8D56 = 0;
-    var_1._id_96D5[0] = 0;
-    thread _id_33F2( 0, var_1 );
+    var_1 = level.scr_prim_lght[var_0];
+    var_1.state = 0;
+    var_1.trans_time[0] = 0;
+    thread execute_primary_light_setkey_internal( 0, var_1 );
 
-    for ( var_4 = 1; var_4 < var_1._id_96D5.size; var_4++ )
-        maps\_utility::_id_27EF( var_1.time[var_4], ::_id_33F2, var_4, var_1 );
+    for ( var_4 = 1; var_4 < var_1.trans_time.size; var_4++ )
+        maps\_utility::delaythread( var_1.time[var_4], ::execute_primary_light_setkey_internal, var_4, var_1 );
 }
 
-_id_7B33( var_0, var_1 )
+scriptable_primary_light_think( var_0, var_1 )
 {
     var_2 = getdvarint( "scr_prim_edit_lights" );
     var_3 = getdvarint( "scr_prim_light_state" );
     var_4 = getdvarint( "scr_prim_light_num" );
-    var_5 = var_0._id_4E9E["curr"];
+    var_5 = var_0.intensity["curr"];
 
     while ( var_0.active )
     {
-        var_6 = var_0._id_6E57["curr"];
-        var_7 = var_0._id_2A68["curr"];
-        var_8 = vectornormalize( anglestoforward( var_0._id_2A68["curr"] ) );
-        var_9 = var_0._id_6E57["curr"];
-        var_10 = var_0._id_4E9E["curr"];
+        var_6 = var_0.pos["curr"];
+        var_7 = var_0.dir["curr"];
+        var_8 = vectornormalize( anglestoforward( var_0.dir["curr"] ) );
+        var_9 = var_0.pos["curr"];
+        var_10 = var_0.intensity["curr"];
         var_11 = var_0.color["curr"];
-        var_12 = var_0._id_4E3E["curr"];
-        var_13 = var_0._id_65BE["curr"];
+        var_12 = var_0.innercone["curr"];
+        var_13 = var_0.outercone["curr"];
         var_14 = var_0.radius["curr"];
-        var_15 = var_0._id_5708;
+        var_15 = var_0.light_number;
 
         if ( isdefined( var_0.attach_ent ) )
         {
@@ -82,87 +64,87 @@ _id_7B33( var_0, var_1 )
             var_22 = vectornormalize( anglestoright( var_0.attach_tag.angles ) );
             var_23 = vectornormalize( var_20 * var_8[0] + var_21 * var_8[2] - var_22 * var_8[1] );
             var_24 = var_20 * var_6[0] + var_21 * var_6[2] - var_22 * var_6[1];
-            var_0._id_6F80 unlink();
-            var_0._id_6F80.angles = vectortoangles( var_23 );
-            var_0._id_6F80.origin = var_19 + var_24;
+            var_0.primary_light unlink();
+            var_0.primary_light.angles = vectortoangles( var_23 );
+            var_0.primary_light.origin = var_19 + var_24;
 
-            if ( isdefined( var_0._id_2004 ) )
+            if ( isdefined( var_0.coi_ent ) )
             {
-                var_25 = var_0._id_2004 gettagorigin( var_0._id_2003 );
-                var_0._id_6F80.angles = vectortoangles( vectornormalize( var_25 - var_0._id_6F80.origin ) );
+                var_25 = var_0.coi_ent gettagorigin( var_0.coi_bone );
+                var_0.primary_light.angles = vectortoangles( vectornormalize( var_25 - var_0.primary_light.origin ) );
             }
 
-            if ( isdefined( var_0._id_2005 ) )
-                var_0._id_6F80.angles = vectortoangles( vectornormalize( var_0._id_2005 - var_0._id_6F80.origin ) );
+            if ( isdefined( var_0.coi_pos ) )
+                var_0.primary_light.angles = vectortoangles( vectornormalize( var_0.coi_pos - var_0.primary_light.origin ) );
 
-            var_0._id_6F80 linkto( var_0.attach_tag );
+            var_0.primary_light linkto( var_0.attach_tag );
         }
         else
         {
-            var_0._id_6F80.angles = var_7;
+            var_0.primary_light.angles = var_7;
 
-            if ( isdefined( var_0._id_2004 ) )
+            if ( isdefined( var_0.coi_ent ) )
             {
-                var_25 = var_0._id_2004 gettagorigin( var_0._id_2003 );
-                var_0._id_6F80.angles = vectortoangles( vectornormalize( var_25 - var_0._id_6F80.origin ) );
+                var_25 = var_0.coi_ent gettagorigin( var_0.coi_bone );
+                var_0.primary_light.angles = vectortoangles( vectornormalize( var_25 - var_0.primary_light.origin ) );
             }
 
-            if ( isdefined( var_0._id_2005 ) )
-                var_0._id_6F80.angles = vectortoangles( vectornormalize( var_0._id_2005 - var_0._id_6F80.origin ) );
+            if ( isdefined( var_0.coi_pos ) )
+                var_0.primary_light.angles = vectortoangles( vectornormalize( var_0.coi_pos - var_0.primary_light.origin ) );
 
-            var_0._id_6F80.origin = var_6;
+            var_0.primary_light.origin = var_6;
         }
 
-        var_0._id_6F80 setlightintensity( var_10 );
-        var_0._id_6F80 setlightcolor( var_11 );
-        var_0._id_6F80 setlightfovrange( var_13, var_12 );
-        var_0._id_6F80 setlightradius( var_14 );
+        var_0.primary_light setlightintensity( var_10 );
+        var_0.primary_light setlightcolor( var_11 );
+        var_0.primary_light setlightfovrange( var_13, var_12 );
+        var_0.primary_light setlightradius( var_14 );
         wait 0.05;
     }
 }
 
-_id_33F2( var_0, var_1 )
+execute_primary_light_setkey_internal( var_0, var_1 )
 {
-    var_2 = var_1._id_96D5[var_0] * 20.0;
+    var_2 = var_1.trans_time[var_0] * 20.0;
     var_3 = var_0 - 1;
 
     for ( var_4 = 0; var_4 < var_2; var_4++ )
     {
         var_5 = float( var_4 ) / var_2;
         var_6 = 1.0 - var_5;
-        var_1._id_6E57["curr"] = var_1._id_6E57[var_0] * var_5 + var_1._id_6E57[var_3] * var_6;
-        var_1._id_2A68["curr"] = var_1._id_2A68[var_0] * var_5 + var_1._id_2A68[var_3] * var_6;
-        var_1._id_4E9E["curr"] = var_1._id_4E9E[var_0] * var_5 + var_1._id_4E9E[var_3] * var_6;
+        var_1.pos["curr"] = var_1.pos[var_0] * var_5 + var_1.pos[var_3] * var_6;
+        var_1.dir["curr"] = var_1.dir[var_0] * var_5 + var_1.dir[var_3] * var_6;
+        var_1.intensity["curr"] = var_1.intensity[var_0] * var_5 + var_1.intensity[var_3] * var_6;
         var_1.color["curr"] = var_1.color[var_0] * var_5 + var_1.color[var_3] * var_6;
-        var_1._id_4E3E["curr"] = var_1._id_4E3E[var_0] * var_5 + var_1._id_4E3E[var_3] * var_6;
-        var_1._id_65BE["curr"] = var_1._id_65BE[var_0] * var_5 + var_1._id_65BE[var_3] * var_6;
+        var_1.innercone["curr"] = var_1.innercone[var_0] * var_5 + var_1.innercone[var_3] * var_6;
+        var_1.outercone["curr"] = var_1.outercone[var_0] * var_5 + var_1.outercone[var_3] * var_6;
         var_1.radius["curr"] = var_1.radius[var_0] * var_5 + var_1.radius[var_3] * var_6;
         wait 0.05;
     }
 
-    var_1._id_6E57["curr"] = var_1._id_6E57[var_0];
-    var_1._id_2A68["curr"] = var_1._id_2A68[var_0];
-    var_1._id_4E9E["curr"] = var_1._id_4E9E[var_0];
+    var_1.pos["curr"] = var_1.pos[var_0];
+    var_1.dir["curr"] = var_1.dir[var_0];
+    var_1.intensity["curr"] = var_1.intensity[var_0];
     var_1.color["curr"] = var_1.color[var_0];
-    var_1._id_4E3E["curr"] = var_1._id_4E3E[var_0];
-    var_1._id_65BE["curr"] = var_1._id_65BE[var_0];
+    var_1.innercone["curr"] = var_1.innercone[var_0];
+    var_1.outercone["curr"] = var_1.outercone[var_0];
     var_1.radius["curr"] = var_1.radius[var_0];
-    var_1._id_8D56 = var_0;
+    var_1.state = var_0;
 }
 
-_id_8EBE( var_0 )
+stop_scriptable_primary_light( var_0 )
 {
-    var_1 = level._id_78B7[var_0];
+    var_1 = level.scr_prim_lght[var_0];
     var_1.active = 0;
 
     if ( isdefined( var_1.attach_ent ) )
     {
-        if ( isdefined( var_1._id_6F80 ) )
-            var_1._id_6F80 unlink();
+        if ( isdefined( var_1.primary_light ) )
+            var_1.primary_light unlink();
     }
 }
 
-_id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
+setup_scriptable_primary_light( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = ( 0.0, 0.0, 0.0 );
@@ -186,26 +168,26 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_10 = 50;
 
     var_11 = spawnstruct();
-    var_11._id_5708 = var_1;
+    var_11.light_number = var_1;
     var_11.time[0] = 0;
-    var_11._id_2A68[0] = var_3;
-    var_11._id_6E57[0] = var_2;
+    var_11.dir[0] = var_3;
+    var_11.pos[0] = var_2;
     var_11.active = 1;
     var_11.color[0] = var_5;
-    var_11._id_4E3E[0] = var_6;
-    var_11._id_65BE[0] = var_7;
+    var_11.innercone[0] = var_6;
+    var_11.outercone[0] = var_7;
     var_11.radius[0] = var_10;
-    var_11._id_4E9E[0] = var_4;
-    var_11._id_96D5[0] = 0;
-    var_11._id_2A68["curr"] = var_3;
-    var_11._id_6E57["curr"] = var_2;
+    var_11.intensity[0] = var_4;
+    var_11.trans_time[0] = 0;
+    var_11.dir["curr"] = var_3;
+    var_11.pos["curr"] = var_2;
     var_11.color["curr"] = var_5;
-    var_11._id_4E3E["curr"] = var_6;
-    var_11._id_65BE["curr"] = var_7;
+    var_11.innercone["curr"] = var_6;
+    var_11.outercone["curr"] = var_7;
     var_11.radius["curr"] = var_10;
-    var_11._id_4E9E["curr"] = 0.1;
-    var_11._id_8D56 = -1;
-    var_11._id_6F80 = getent( var_0, "targetname" );
+    var_11.intensity["curr"] = 0.1;
+    var_11.state = -1;
+    var_11.primary_light = getent( var_0, "targetname" );
     var_11.attach_ent = undefined;
     var_11.attach_bone = undefined;
     var_12 = undefined;
@@ -233,7 +215,7 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         else
             var_11.attach_bone = undefined;
 
-        var_11.attach_tag = common_scripts\utility::_id_8959();
+        var_11.attach_tag = common_scripts\utility::spawn_tag_origin();
 
         if ( isdefined( var_9 ) )
         {
@@ -252,16 +234,16 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_16 = vectornormalize( anglestoright( var_11.attach_tag.angles ) );
         var_17 = vectornormalize( var_14 * var_3[0] + var_15 * var_3[2] - var_16 * var_3[1] );
         var_18 = var_14 * var_2[0] + var_15 * var_2[2] - var_16 * var_2[1];
-        var_11._id_6F80.angles = vectortoangles( var_17 );
-        var_11._id_6F80.origin = var_13 + var_18;
+        var_11.primary_light.angles = vectortoangles( var_17 );
+        var_11.primary_light.origin = var_13 + var_18;
 
-        if ( !isdefined( var_11._id_6F80._id_5792 ) )
+        if ( !isdefined( var_11.primary_light.linkedtotag ) )
         {
-            var_11._id_6F80._id_5792 = 1;
-            var_11._id_6F80 enablelinkto();
+            var_11.primary_light.linkedtotag = 1;
+            var_11.primary_light enablelinkto();
         }
 
-        var_11._id_6F80 linkto( var_11.attach_tag );
+        var_11.primary_light linkto( var_11.attach_tag );
     }
     else
     {
@@ -271,18 +253,18 @@ _id_828C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
 
     var_19 = 0;
 
-    if ( isdefined( level._id_78B7 ) )
-        var_19 = level._id_78B7.size;
+    if ( isdefined( level.scr_prim_lght ) )
+        var_19 = level.scr_prim_lght.size;
 
-    var_11._id_4B53 = var_19;
-    level._id_78B7[var_19] = var_11;
-    thread _id_7B33( var_11, var_11._id_4B53 );
-    return var_11._id_4B53;
+    var_11.id = var_19;
+    level.scr_prim_lght[var_19] = var_11;
+    thread scriptable_primary_light_think( var_11, var_11.id );
+    return var_11.id;
 }
 
-_id_7B2A( var_0, var_1, var_2, var_3 )
+scriptable_primary_light_centerofinterest( var_0, var_1, var_2, var_3 )
 {
-    var_4 = level._id_78B7[var_0];
+    var_4 = level.scr_prim_lght[var_0];
 
     if ( isdefined( var_2 ) )
     {
@@ -294,76 +276,76 @@ _id_7B2A( var_0, var_1, var_2, var_3 )
     else if ( !isdefined( var_1 ) )
         var_1 = ( 0.0, 0.0, 0.0 );
 
-    level._id_78B7[var_0]._id_2003 = var_3;
-    level._id_78B7[var_0]._id_2005 = var_1;
-    level._id_78B7[var_0]._id_2004 = var_2;
+    level.scr_prim_lght[var_0].coi_bone = var_3;
+    level.scr_prim_lght[var_0].coi_pos = var_1;
+    level.scr_prim_lght[var_0].coi_ent = var_2;
 }
 
-_id_7B2D( var_0, var_1, var_2, var_3 )
+scriptable_primary_light_setstate_color( var_0, var_1, var_2, var_3 )
 {
-    _id_7B2C( var_0, var_1, undefined, undefined, undefined, var_2, undefined, undefined, undefined, var_3 );
+    scriptable_primary_light_setstate( var_0, var_1, undefined, undefined, undefined, var_2, undefined, undefined, undefined, var_3 );
 }
 
-_id_7B31( var_0, var_1, var_2, var_3 )
+scriptable_primary_light_setstate_pos( var_0, var_1, var_2, var_3 )
 {
-    _id_7B2C( var_0, var_1, var_2, undefined, undefined, undefined, undefined, undefined, undefined, var_3 );
+    scriptable_primary_light_setstate( var_0, var_1, var_2, undefined, undefined, undefined, undefined, undefined, undefined, var_3 );
 }
 
-_id_7B2F( var_0, var_1, var_2, var_3 )
+scriptable_primary_light_setstate_dir( var_0, var_1, var_2, var_3 )
 {
-    _id_7B2C( var_0, var_1, undefined, var_2, undefined, undefined, undefined, undefined, undefined, var_3 );
+    scriptable_primary_light_setstate( var_0, var_1, undefined, var_2, undefined, undefined, undefined, undefined, undefined, var_3 );
 }
 
-_id_7B30( var_0, var_1, var_2, var_3 )
+scriptable_primary_light_setstate_intensity( var_0, var_1, var_2, var_3 )
 {
-    _id_7B2C( var_0, var_1, undefined, var_2, undefined, undefined, undefined, undefined, undefined, var_3 );
+    scriptable_primary_light_setstate( var_0, var_1, undefined, var_2, undefined, undefined, undefined, undefined, undefined, var_3 );
 }
 
-_id_7B2E( var_0, var_1, var_2, var_3, var_4 )
+scriptable_primary_light_setstate_cone( var_0, var_1, var_2, var_3, var_4 )
 {
-    _id_7B2C( var_0, var_1, undefined, undefined, undefined, var_2, var_3, undefined, undefined, var_4 );
+    scriptable_primary_light_setstate( var_0, var_1, undefined, undefined, undefined, var_2, var_3, undefined, undefined, var_4 );
 }
 
-_id_7B32( var_0, var_1, var_2, var_3 )
+scriptable_primary_light_setstate_radius( var_0, var_1, var_2, var_3 )
 {
-    _id_7B2C( var_0, var_1, undefined, undefined, undefined, undefined, undefined, undefined, var_2, var_3 );
+    scriptable_primary_light_setstate( var_0, var_1, undefined, undefined, undefined, undefined, undefined, undefined, var_2, var_3 );
 }
 
-_id_7B2C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+scriptable_primary_light_setstate( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    var_10 = level._id_78B7[var_0];
+    var_10 = level.scr_prim_lght[var_0];
     var_11 = var_10.time.size;
 
     if ( !isdefined( var_3 ) )
-        var_3 = var_10._id_2A68[var_11 - 1];
+        var_3 = var_10.dir[var_11 - 1];
 
     if ( !isdefined( var_2 ) )
-        var_2 = var_10._id_6E57[var_11 - 1];
+        var_2 = var_10.pos[var_11 - 1];
 
     if ( !isdefined( var_4 ) )
-        var_4 = var_10._id_4E9E[var_11 - 1];
+        var_4 = var_10.intensity[var_11 - 1];
 
     if ( !isdefined( var_5 ) )
         var_5 = var_10.color[var_11 - 1];
 
     if ( !isdefined( var_6 ) )
-        var_6 = var_10._id_4E3E[var_11 - 1];
+        var_6 = var_10.innercone[var_11 - 1];
 
     if ( !isdefined( var_7 ) )
-        var_7 = var_10._id_65BE[var_11 - 1];
+        var_7 = var_10.outercone[var_11 - 1];
 
     if ( !isdefined( var_8 ) )
         var_8 = var_10.radius[var_11 - 1];
 
     var_10.time[var_11] = var_1;
-    var_10._id_6E57[var_11] = var_2;
-    var_10._id_2A68[var_11] = var_3;
-    var_10._id_4E9E[var_11] = var_4;
+    var_10.pos[var_11] = var_2;
+    var_10.dir[var_11] = var_3;
+    var_10.intensity[var_11] = var_4;
     var_10.color[var_11] = var_5;
-    var_10._id_4E3E[var_11] = var_6;
-    var_10._id_65BE[var_11] = var_7;
+    var_10.innercone[var_11] = var_6;
+    var_10.outercone[var_11] = var_7;
     var_10.radius[var_11] = var_8;
-    var_10._id_96D5[var_11] = var_9;
+    var_10.trans_time[var_11] = var_9;
 }
 
 model_animation_light( var_0 )
@@ -405,12 +387,12 @@ model_animation_light( var_0 )
             continue;
 
         var_14.animname = var_2;
-        var_14 maps\_anim::_id_7F29();
+        var_14 maps\_anim::setanimtree();
         var_14 thread maps\_anim::anim_loop_solo( var_14, var_3, var_4 );
         var_15 = getent( var_14.target, "targetname" );
-        var_16 = common_scripts\utility::_id_8959();
+        var_16 = common_scripts\utility::spawn_tag_origin();
         var_16 linkto( var_14, var_5, var_6, var_7 );
-        var_15 thread maps\_utility::_id_5972( var_16 );
+        var_15 thread maps\_utility::manual_linkto( var_16 );
 
         if ( isdefined( var_8 ) )
         {
@@ -422,7 +404,7 @@ model_animation_light( var_0 )
     }
 }
 
-_id_5710()
+light_setup_global_dvars()
 {
     if ( isusinghdr() )
     {
@@ -466,7 +448,7 @@ _id_5710()
     set_r_hbaodvars();
 }
 
-_id_7919( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+screen_effect_base( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = newclienthudelem( level.player );
     var_8.x = 0;
@@ -479,7 +461,7 @@ _id_7919( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8.horzalign = "fullscreen";
     var_8.vertalign = "fullscreen";
     var_8.alpha = var_4;
-    var_8 thread _id_1E7A();
+    var_8 thread cleanup_overlay();
 
     if ( isdefined( var_5 ) )
         var_8.x = var_5;
@@ -551,11 +533,11 @@ _id_7919( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         var_8 destroy();
     }
 
-    level._id_65F6 = var_8;
-    return level._id_65F6;
+    level.overlay = var_8;
+    return level.overlay;
 }
 
-_id_1E7A()
+cleanup_overlay()
 {
     level waittill( "end_screen_effect" );
     self destroy();
@@ -566,7 +548,7 @@ blood_splatter_simple()
 
 }
 
-_id_2A6F()
+dirt_splatter_simple()
 {
     var_0 = newclienthudelem( level.player );
     var_0.x = 0;
@@ -652,7 +634,7 @@ bob_mask( var_0 )
     }
 }
 
-_id_3C29( var_0, var_1, var_2, var_3 )
+gasmask_on_player( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 1;
@@ -667,173 +649,173 @@ _id_3C29( var_0, var_1, var_2, var_3 )
         var_3 = 0.25;
 
     if ( var_0 )
-        maps\_hud_util::_id_35E3( var_1 );
+        maps\_hud_util::fade_out( var_1 );
 
-    self._id_3C24 = newclienthudelem( self );
-    self._id_3C24.x = 0;
-    self._id_3C24.y = 0;
-    self._id_3C24.horzalign = "fullscreen";
-    self._id_3C24.vertalign = "fullscreen";
-    self._id_3C24.foreground = 0;
-    self._id_3C24.sort = -1;
-    self._id_3C24 setshader( "gasmask_overlay_delta2_top", 650, 138 );
-    self._id_3C24.alpha = 1.0;
-    self._id_3C25 = newclienthudelem( self );
-    self._id_3C25.x = 0;
-    self._id_3C25.y = 352;
-    self._id_3C25.horzalign = "fullscreen";
-    self._id_3C25.vertalign = "fullscreen";
-    self._id_3C25.foreground = 0;
-    self._id_3C25.sort = -1;
-    self._id_3C25 setshader( "gasmask_overlay_delta2_bottom", 650, 138 );
-    self._id_3C25.alpha = 1.0;
-    level.player maps\_utility::_id_27EF( 1.0, ::_id_3C23 );
-    thread bob_mask( self._id_3C24 );
-    thread bob_mask( self._id_3C25 );
+    self.gasmask_hud_elem = newclienthudelem( self );
+    self.gasmask_hud_elem.x = 0;
+    self.gasmask_hud_elem.y = 0;
+    self.gasmask_hud_elem.horzalign = "fullscreen";
+    self.gasmask_hud_elem.vertalign = "fullscreen";
+    self.gasmask_hud_elem.foreground = 0;
+    self.gasmask_hud_elem.sort = -1;
+    self.gasmask_hud_elem setshader( "gasmask_overlay_delta2_top", 650, 138 );
+    self.gasmask_hud_elem.alpha = 1.0;
+    self.gasmask_hud_elem1 = newclienthudelem( self );
+    self.gasmask_hud_elem1.x = 0;
+    self.gasmask_hud_elem1.y = 352;
+    self.gasmask_hud_elem1.horzalign = "fullscreen";
+    self.gasmask_hud_elem1.vertalign = "fullscreen";
+    self.gasmask_hud_elem1.foreground = 0;
+    self.gasmask_hud_elem1.sort = -1;
+    self.gasmask_hud_elem1 setshader( "gasmask_overlay_delta2_bottom", 650, 138 );
+    self.gasmask_hud_elem1.alpha = 1.0;
+    level.player maps\_utility::delaythread( 1.0, ::gasmask_breathing );
+    thread bob_mask( self.gasmask_hud_elem );
+    thread bob_mask( self.gasmask_hud_elem1 );
 
     if ( var_0 )
     {
         wait(var_3);
-        maps\_hud_util::_id_35DC( var_2 );
+        maps\_hud_util::fade_in( var_2 );
     }
 }
 
-_id_3C27()
+gasmask_off_player()
 {
-    maps\_hud_util::_id_35E3( 0.25 );
+    maps\_hud_util::fade_out( 0.25 );
     self notify( "stop_mask_bob" );
 
-    if ( isdefined( self._id_3C24 ) )
+    if ( isdefined( self.gasmask_hud_elem ) )
     {
-        self._id_3C24 destroy();
-        self._id_3C24 = undefined;
+        self.gasmask_hud_elem destroy();
+        self.gasmask_hud_elem = undefined;
     }
 
-    if ( isdefined( self._id_3C25 ) )
+    if ( isdefined( self.gasmask_hud_elem1 ) )
     {
-        self._id_3C25 destroy();
-        self._id_3C25 = undefined;
+        self.gasmask_hud_elem1 destroy();
+        self.gasmask_hud_elem1 = undefined;
     }
 
     level.player notify( "stop_breathing" );
     wait 0.25;
-    maps\_hud_util::_id_35DC( 1.5 );
+    maps\_hud_util::fade_in( 1.5 );
 }
 
-_id_3C23()
+gasmask_breathing()
 {
     var_0 = 1.0;
     self endon( "stop_breathing" );
 
     for (;;)
     {
-        maps\_utility::_id_69C4( "breathing_gasmask" );
+        maps\_utility::play_sound_on_entity( "breathing_gasmask" );
         wait(var_0);
     }
 }
 
-_id_3C28()
+gasmask_on_npc()
 {
-    self._id_3C22 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
-    self._id_3C22 setmodel( "prop_sas_gasmask" );
-    self._id_3C22 linkto( self, "tag_eye", ( -4.0, 0.0, 2.0 ), ( 120.0, 0.0, 0.0 ) );
+    self.gasmask = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
+    self.gasmask setmodel( "prop_sas_gasmask" );
+    self.gasmask linkto( self, "tag_eye", ( -4.0, 0.0, 2.0 ), ( 120.0, 0.0, 0.0 ) );
 }
 
-_id_3C26()
+gasmask_off_npc()
 {
-    if ( isdefined( self._id_3C22 ) )
-        self._id_3C22 delete();
+    if ( isdefined( self.gasmask ) )
+        self.gasmask delete();
 }
 
-_id_570F()
+light_setup_common_flickerlight_presets()
 {
-    _id_23B4( "fire", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 8 );
-    _id_23B4( "blue_fire", ( 0.445098, 0.62451, 0.972549 ), ( 0.05, 0.150451, 0.307843 ), 0.005, 0.2, 8 );
-    _id_23B4( "white_fire", ( 0.972549, 0.972549, 0.972549 ), ( 0.2, 0.2, 0.2 ), 0.005, 0.2, 8 );
-    _id_23B4( "white_fire_dim", ( 0.972549, 0.972549, 0.972549 ), ( 0.2, 0.2, 0.2 ), 0.005, 0.2, 0.5 );
-    _id_23B4( "street_light", ( 0.972549, 0.972549, 0.972549 ), ( 0.572549, 0.572549, 0.572549 ), 0.005, 0.2, 8 );
-    _id_23B4( "pulse", ( 0.0, 0.0, 0.0 ), ( 255.0, 107.0, 107.0 ), 0.2, 1, 8 );
-    _id_23B4( "lightbulb", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 6 );
-    _id_23B4( "fluorescent", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 7 );
-    _id_23B4( "static_screen", ( 0.63, 0.72, 0.92 ), ( 0.4, 0.43, 0.48 ), 0.005, 0.2, 7 );
-    _id_23B4( "sfb_fire", ( 1.0, 0.65, 0.8 ), ( 0.4, 0.24, 0.3 ), 0.005, 0.2, 8 );
+    create_flickerlight_preset( "fire", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 8 );
+    create_flickerlight_preset( "blue_fire", ( 0.445098, 0.62451, 0.972549 ), ( 0.05, 0.150451, 0.307843 ), 0.005, 0.2, 8 );
+    create_flickerlight_preset( "white_fire", ( 0.972549, 0.972549, 0.972549 ), ( 0.2, 0.2, 0.2 ), 0.005, 0.2, 8 );
+    create_flickerlight_preset( "white_fire_dim", ( 0.972549, 0.972549, 0.972549 ), ( 0.2, 0.2, 0.2 ), 0.005, 0.2, 0.5 );
+    create_flickerlight_preset( "street_light", ( 0.972549, 0.972549, 0.972549 ), ( 0.572549, 0.572549, 0.572549 ), 0.005, 0.2, 8 );
+    create_flickerlight_preset( "pulse", ( 0.0, 0.0, 0.0 ), ( 255.0, 107.0, 107.0 ), 0.2, 1, 8 );
+    create_flickerlight_preset( "lightbulb", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 6 );
+    create_flickerlight_preset( "fluorescent", ( 0.972549, 0.62451, 0.345098 ), ( 0.2, 0.146275, 0.0878432 ), 0.005, 0.2, 7 );
+    create_flickerlight_preset( "static_screen", ( 0.63, 0.72, 0.92 ), ( 0.4, 0.43, 0.48 ), 0.005, 0.2, 7 );
+    create_flickerlight_preset( "sfb_fire", ( 1.0, 0.65, 0.8 ), ( 0.4, 0.24, 0.3 ), 0.005, 0.2, 8 );
 }
 
-_id_23B3( var_0, var_1, var_2, var_3, var_4, var_5 )
+create_flickerlight_motion_preset( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level._light._id_38D3 ) )
-        level._light._id_38D3 = [];
+    if ( !isdefined( level._light.flicker_motion_presets ) )
+        level._light.flicker_motion_presets = [];
 
     var_6 = spawnstruct();
     var_6.color = var_1;
-    var_6._id_4E9E = var_2;
-    var_6._id_5A43 = var_3;
-    var_6._id_5C42 = var_4;
-    var_6._id_5A2C = var_5;
-    level._light._id_38D3[var_0] = var_6;
+    var_6.intensity = var_2;
+    var_6.maxmove = var_3;
+    var_6.mindelay = var_4;
+    var_6.maxdelay = var_5;
+    level._light.flicker_motion_presets[var_0] = var_6;
 }
 
-_id_3D71( var_0 )
+get_flickerlight_motion_preset( var_0 )
 {
-    if ( isdefined( level._light._id_38D3 ) && isdefined( level._light._id_38D3[var_0] ) )
-        return level._light._id_38D3[var_0];
+    if ( isdefined( level._light.flicker_motion_presets ) && isdefined( level._light.flicker_motion_presets[var_0] ) )
+        return level._light.flicker_motion_presets[var_0];
 
     return undefined;
 }
 
-_id_694A( var_0, var_1 )
+play_flickerlight_motion_preset( var_0, var_1 )
 {
     var_2 = getentarray( var_1, "targetname" );
 
     if ( !isdefined( var_2 ) || var_2.size <= 0 )
         return;
 
-    var_3 = _id_3D71( var_0 );
+    var_3 = get_flickerlight_motion_preset( var_0 );
 
     if ( !isdefined( var_3 ) )
         return;
 
     foreach ( var_5 in var_2 )
     {
-        var_5 setlightintensity( var_3._id_4E9E );
-        var_5._id_5147 = 1;
-        var_5._id_5148 = 0;
-        var_5 thread _id_2FD8( var_3.color, var_3._id_4E9E, var_3._id_5A43, var_3._id_5C42, var_3._id_5A2C );
+        var_5 setlightintensity( var_3.intensity );
+        var_5.islightflickering = 1;
+        var_5.islightflickerpaused = 0;
+        var_5 thread dyn_motion_flickerlight( var_3.color, var_3.intensity, var_3.maxmove, var_3.mindelay, var_3.maxdelay );
     }
 
     return var_2;
 }
 
-_id_23B4( var_0, var_1, var_2, var_3, var_4, var_5 )
+create_flickerlight_preset( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level._light._id_38D4 ) )
-        level._light._id_38D4 = [];
+    if ( !isdefined( level._light.flicker_presets ) )
+        level._light.flicker_presets = [];
 
     var_6 = spawnstruct();
-    var_6._id_2044 = var_1;
-    var_6._id_2046 = var_2;
-    var_6._id_5C42 = var_3;
-    var_6._id_5A2C = var_4;
-    var_6._id_4E9E = var_5;
-    level._light._id_38D4[var_0] = var_6;
+    var_6.color0 = var_1;
+    var_6.color1 = var_2;
+    var_6.mindelay = var_3;
+    var_6.maxdelay = var_4;
+    var_6.intensity = var_5;
+    level._light.flicker_presets[var_0] = var_6;
 }
 
-_id_3D72( var_0 )
+get_flickerlight_preset( var_0 )
 {
-    if ( isdefined( level._light._id_38D4 ) && isdefined( level._light._id_38D4[var_0] ) )
-        return level._light._id_38D4[var_0];
+    if ( isdefined( level._light.flicker_presets ) && isdefined( level._light.flicker_presets[var_0] ) )
+        return level._light.flicker_presets[var_0];
 
     return undefined;
 }
 
-_id_694B( var_0, var_1, var_2 )
+play_flickerlight_preset( var_0, var_1, var_2 )
 {
     var_3 = getent( var_1, "targetname" );
 
     if ( !isdefined( var_3 ) )
         return;
 
-    var_4 = _id_3D72( var_0 );
+    var_4 = get_flickerlight_preset( var_0 );
 
     if ( !isdefined( var_4 ) )
         return;
@@ -843,24 +825,24 @@ _id_694B( var_0, var_1, var_2 )
         if ( var_2 < 0 )
             var_2 = 0;
 
-        var_4._id_4E9E = var_2;
+        var_4.intensity = var_2;
     }
 
-    var_3 setlightintensity( var_4._id_4E9E );
-    var_3._id_5147 = 1;
-    var_3._id_5148 = 0;
-    var_3 thread _id_2FD7( var_4._id_2044, var_4._id_2046, var_4._id_5C42, var_4._id_5A2C );
+    var_3 setlightintensity( var_4.intensity );
+    var_3.islightflickering = 1;
+    var_3.islightflickerpaused = 0;
+    var_3 thread dyn_flickerlight( var_4.color0, var_4.color1, var_4.mindelay, var_4.maxdelay );
     return var_3;
 }
 
-_id_8E8B( var_0, var_1, var_2 )
+stop_flickerlight( var_0, var_1, var_2 )
 {
     var_3 = getent( var_1, "targetname" );
 
     if ( !isdefined( var_3 ) )
         return;
 
-    if ( !isdefined( var_3._id_5147 ) )
+    if ( !isdefined( var_3.islightflickering ) )
         return;
 
     if ( isdefined( var_2 ) )
@@ -871,36 +853,36 @@ _id_8E8B( var_0, var_1, var_2 )
 
     var_3 setlightintensity( var_2 );
     var_3 notify( "kill_flicker" );
-    var_3._id_5147 = undefined;
+    var_3.islightflickering = undefined;
 }
 
-_id_671C( var_0, var_1 )
+pause_flickerlight( var_0, var_1 )
 {
     var_2 = getent( var_1, "targetname" );
 
     if ( !isdefined( var_2 ) )
         return;
 
-    if ( !isdefined( var_2._id_5147 ) )
+    if ( !isdefined( var_2.islightflickering ) )
         return;
 
-    var_2._id_5148 = 1;
+    var_2.islightflickerpaused = 1;
 }
 
-_id_9A56( var_0, var_1 )
+unpause_flickerlight( var_0, var_1 )
 {
     var_2 = getent( var_1, "targetname" );
 
     if ( !isdefined( var_2 ) )
         return;
 
-    if ( !isdefined( var_2._id_5147 ) )
+    if ( !isdefined( var_2.islightflickering ) )
         return;
 
-    var_2._id_5148 = 0;
+    var_2.islightflickerpaused = 0;
 }
 
-_id_2FD7( var_0, var_1, var_2, var_3 )
+dyn_flickerlight( var_0, var_1, var_2, var_3 )
 {
     self endon( "kill_flicker" );
     var_4 = var_0;
@@ -908,7 +890,7 @@ _id_2FD7( var_0, var_1, var_2, var_3 )
 
     for (;;)
     {
-        if ( self._id_5148 )
+        if ( self.islightflickerpaused )
         {
             wait 0.05;
             continue;
@@ -925,7 +907,7 @@ _id_2FD7( var_0, var_1, var_2, var_3 )
         if ( var_5 == 0 )
             var_5 += 0.0000001;
 
-        for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !self._id_5148; var_5 -= 0.05 )
+        for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !self.islightflickerpaused; var_5 -= 0.05 )
         {
             self setlightcolor( var_4 + var_7 * var_5 );
             wait 0.05;
@@ -933,12 +915,12 @@ _id_2FD7( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_2FD8( var_0, var_1, var_2, var_3, var_4 )
+dyn_motion_flickerlight( var_0, var_1, var_2, var_3, var_4 )
 {
     self endon( "kill_flicker" );
     self setlightcolor( var_0 );
     self setlightintensity( var_1 );
-    thread _id_37B3();
+    thread fire_flicker();
     var_5 = self.origin;
     var_6 = var_2;
     var_7 = var_2;
@@ -956,12 +938,12 @@ _id_2FD8( var_0, var_1, var_2, var_3, var_4 )
         self moveto( var_15, var_11 );
         wait(var_11);
 
-        while ( self._id_5148 )
+        while ( self.islightflickerpaused )
             wait 0.05;
     }
 }
 
-_id_37B3()
+fire_flicker()
 {
     var_0 = self getlightintensity();
     self endon( "kill_flicker" );
@@ -973,7 +955,7 @@ _id_37B3()
         var_3 = randomfloatrange( 0.2, 1.0 );
         var_3 *= 0.75;
 
-        while ( self._id_5148 )
+        while ( self.islightflickerpaused )
             wait 0.05;
 
         for ( var_4 = 0; var_4 < var_3; var_4++ )
@@ -987,55 +969,55 @@ _id_37B3()
     }
 }
 
-_id_23C6( var_0, var_1 )
+create_light_object( var_0, var_1 )
 {
     var_2 = spawnstruct();
     var_3 = getentarray( var_0, "script_noteworthy" );
-    var_2._id_5717 = [];
-    var_2._id_5D42 = [];
+    var_2.lightents = [];
+    var_2.modelents = [];
 
     foreach ( var_5 in var_3 )
     {
         if ( var_5.classname == "script_model" )
-            var_2._id_5D42[var_2._id_5D42.size] = var_5;
+            var_2.modelents[var_2.modelents.size] = var_5;
 
         if ( var_5.classname == "light_spot" )
-            var_2._id_5717[var_2._id_5717.size] = var_5;
+            var_2.lightents[var_2.lightents.size] = var_5;
     }
 
-    var_2._id_3BA8 = var_1;
+    var_2.fxid = var_1;
     return var_2;
 }
 
-_id_5709( var_0, var_1, var_2 )
+light_object_set_intensity( var_0, var_1, var_2 )
 {
-    foreach ( var_4 in self._id_5717 )
+    foreach ( var_4 in self.lightents )
     {
         var_4 setlightintensity( var_0 );
         var_4 setlightcolor( var_1 );
     }
 
-    if ( var_2 && !isdefined( self._id_A1BC ) )
+    if ( var_2 && !isdefined( self.was_on ) )
     {
-        common_scripts\_exploder::_id_3528( self._id_3BA8 );
+        common_scripts\_exploder::exploder( self.fxid );
 
-        foreach ( var_7 in self._id_5D42 )
+        foreach ( var_7 in self.modelents )
             var_7 show();
 
-        self._id_A1BC = 1;
+        self.was_on = 1;
     }
-    else if ( isdefined( self._id_A1BC ) && !var_2 )
+    else if ( isdefined( self.was_on ) && !var_2 )
     {
-        maps\_utility::_id_8E7E( self._id_3BA8 );
+        maps\_utility::stop_exploder( self.fxid );
 
-        foreach ( var_7 in self._id_5D42 )
+        foreach ( var_7 in self.modelents )
             var_7 hide();
 
-        self._id_A1BC = undefined;
+        self.was_on = undefined;
     }
 }
 
-_id_38D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+flickering_light( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
     var_0 endon( "kill_flicker" );
     var_7 = 0;
@@ -1058,15 +1040,15 @@ _id_38D6( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         {
             var_11 = var_7 - var_8 * var_10;
             var_12 = vectorlerp( var_1, var_3, var_11 );
-            var_13 = maps\_utility::_id_576B( var_11, var_2, var_4 );
+            var_13 = maps\_utility::linear_interpolate( var_11, var_2, var_4 );
             var_14 = var_11 > 0.5;
-            var_0 _id_5709( var_13, var_12, var_14 );
+            var_0 light_object_set_intensity( var_13, var_12, var_14 );
             wait 0.05;
         }
     }
 }
 
-_id_67D7( var_0, var_1, var_2, var_3, var_4 )
+perlin_flickering_light( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = 2;
     var_6 = 3;
@@ -1076,14 +1058,14 @@ _id_67D7( var_0, var_1, var_2, var_3, var_4 )
     {
         var_8 = clamp( perlinnoise2d( gettime() * 0.001 * var_5, 0, var_6, 2, var_7 ), 0, 1 );
         var_9 = vectorlerp( var_1, var_3, var_8 );
-        var_10 = maps\_utility::_id_576B( var_8, var_2, var_4 );
+        var_10 = maps\_utility::linear_interpolate( var_8, var_2, var_4 );
         var_11 = var_8 > 0.5;
-        var_0 _id_5709( var_10, var_9, var_11 );
+        var_0 light_object_set_intensity( var_10, var_9, var_11 );
         wait 0.05;
     }
 }
 
-_id_56A0( var_0, var_1, var_2 )
+lerp_spot_intensity( var_0, var_1, var_2 )
 {
     var_3 = getent( var_0, "targetname" );
 
@@ -1091,7 +1073,7 @@ _id_56A0( var_0, var_1, var_2 )
         return;
 
     var_4 = var_3 getlightintensity();
-    var_3._id_31B2 = var_2;
+    var_3.endintensity = var_2;
     var_5 = 0;
 
     while ( var_5 < var_1 )
@@ -1105,14 +1087,14 @@ _id_56A0( var_0, var_1, var_2 )
     var_3 setlightintensity( var_2 );
 }
 
-_id_56A1( var_0, var_1, var_2 )
+lerp_spot_intensity_array( var_0, var_1, var_2 )
 {
     var_3 = getentarray( var_0, "targetname" );
 
     foreach ( var_5 in var_3 )
     {
         var_6 = var_5 getlightintensity();
-        var_5._id_31B2 = var_2;
+        var_5.endintensity = var_2;
         var_7 = 0;
 
         while ( var_7 < var_1 )
@@ -1127,7 +1109,7 @@ _id_56A1( var_0, var_1, var_2 )
     }
 }
 
-_id_56A2( var_0, var_1, var_2 )
+lerp_spot_radius( var_0, var_1, var_2 )
 {
     var_3 = getent( var_0, "targetname" );
 
@@ -1135,7 +1117,7 @@ _id_56A2( var_0, var_1, var_2 )
         return;
 
     var_4 = var_3 getlightradius();
-    var_3._id_31BE = var_2;
+    var_3.endradius = var_2;
     var_5 = 0;
 
     while ( var_5 < var_1 )
@@ -1149,7 +1131,7 @@ _id_56A2( var_0, var_1, var_2 )
     var_3 setlightradius( var_2 );
 }
 
-_id_7EBE( var_0, var_1 )
+set_spot_intensity( var_0, var_1 )
 {
     var_2 = getent( var_0, "targetname" );
 
@@ -1159,7 +1141,7 @@ _id_7EBE( var_0, var_1 )
     var_2 setlightintensity( var_1 );
 }
 
-_id_569F( var_0, var_1, var_2 )
+lerp_spot_color( var_0, var_1, var_2 )
 {
     var_3 = getent( var_0, "targetname" );
 
@@ -1167,7 +1149,7 @@ _id_569F( var_0, var_1, var_2 )
         return;
 
     var_4 = var_3 getlightcolor();
-    var_3._id_3157 = var_2;
+    var_3.endcolor = var_2;
     var_5 = 0;
 
     while ( var_5 < var_1 )
@@ -1181,44 +1163,44 @@ _id_569F( var_0, var_1, var_2 )
     var_3 setlightcolor( var_2 );
 }
 
-_id_7EBD( var_0, var_1 )
+set_spot_color( var_0, var_1 )
 {
     var_2 = getent( var_0, "targetname" );
     var_2 setlightcolor( var_1 );
 }
 
-_id_5711()
+light_setup_pulse_presets()
 {
-    _id_23D3( "red", 0.1, 0.1, 10000, ( 1.0, 0.2, 0.2 ), 2 );
-    _id_23D3( "red2", 0.1, 0.1, 68200000, ( 1.0, 0.2, 0.2 ), 2 );
-    _id_23D3( "yellow", 0.1, 0.1, 68200000, ( 1.0, 0.7, 0.2 ), 2 );
-    _id_23D3( "white", 0.1, 0.1, 68200000, ( 1.0, 1.0, 1.0 ), 2 );
-    _id_23D3( "turbine_pulse", 0.1, 0.1, 10000, ( 0.9, 0.9, 1.0 ), 2 );
+    create_pulselight_preset( "red", 0.1, 0.1, 10000, ( 1.0, 0.2, 0.2 ), 2 );
+    create_pulselight_preset( "red2", 0.1, 0.1, 68200000, ( 1.0, 0.2, 0.2 ), 2 );
+    create_pulselight_preset( "yellow", 0.1, 0.1, 68200000, ( 1.0, 0.7, 0.2 ), 2 );
+    create_pulselight_preset( "white", 0.1, 0.1, 68200000, ( 1.0, 1.0, 1.0 ), 2 );
+    create_pulselight_preset( "turbine_pulse", 0.1, 0.1, 10000, ( 0.9, 0.9, 1.0 ), 2 );
 }
 
-_id_23D3( var_0, var_1, var_2, var_3, var_4, var_5 )
+create_pulselight_preset( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
-    if ( !isdefined( level._light._id_7050 ) )
-        level._light._id_7050 = [];
+    if ( !isdefined( level._light.pulse_presets ) )
+        level._light.pulse_presets = [];
 
     var_6 = spawnstruct();
-    var_6._id_970F = var_1;
-    var_6._id_970E = var_2;
-    var_6._id_4E9E = var_3;
-    var_6._id_2045 = var_4;
-    var_6._id_627D = var_5;
-    level._light._id_7050[var_0] = var_6;
+    var_6.transition_on = var_1;
+    var_6.transition_off = var_2;
+    var_6.intensity = var_3;
+    var_6.color01 = var_4;
+    var_6.num = var_5;
+    level._light.pulse_presets[var_0] = var_6;
 }
 
-_id_3E3F( var_0 )
+get_pulselight_preset( var_0 )
 {
-    if ( isdefined( level._light._id_7050 ) && isdefined( level._light._id_7050[var_0] ) )
-        return level._light._id_7050[var_0];
+    if ( isdefined( level._light.pulse_presets ) && isdefined( level._light.pulse_presets[var_0] ) )
+        return level._light.pulse_presets[var_0];
 
     return undefined;
 }
 
-_id_6995( var_0, var_1, var_2, var_3 )
+play_pulse_preset( var_0, var_1, var_2, var_3 )
 {
     var_4 = var_0 + var_1 + "_pulse";
     level notify( var_4 );
@@ -1228,7 +1210,7 @@ _id_6995( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_5 ) )
         return;
 
-    var_6 = _id_3E3F( var_0 );
+    var_6 = get_pulselight_preset( var_0 );
 
     if ( !isdefined( var_6 ) )
         return;
@@ -1238,20 +1220,20 @@ _id_6995( var_0, var_1, var_2, var_3 )
         if ( var_2 < 0 )
             var_2 = 0;
 
-        var_6._id_4E9E = var_2;
+        var_6.intensity = var_2;
     }
 
-    var_5 setlightintensity( var_6._id_4E9E );
-    var_5 setlightcolor( var_6._id_2045 );
-    var_7 = var_6._id_627D;
+    var_5 setlightintensity( var_6.intensity );
+    var_5 setlightcolor( var_6.color01 );
+    var_7 = var_6.num;
     var_8 = var_5 getlightintensity();
     var_9 = 0.05;
     var_10 = var_8;
-    var_11 = var_6._id_970F;
-    var_12 = var_6._id_970E;
+    var_11 = var_6.transition_on;
+    var_12 = var_6.transition_off;
     var_13 = ( var_8 - var_9 ) / ( var_11 / 0.05 );
     var_14 = ( var_8 - var_9 ) / ( var_12 / 0.05 );
-    var_15 = var_6._id_627D;
+    var_15 = var_6.num;
 
     for (;;)
     {
@@ -1268,7 +1250,7 @@ _id_6995( var_0, var_1, var_2, var_3 )
         }
 
         if ( isdefined( var_3 ) )
-            maps\_utility::_id_8E7E( var_3 );
+            maps\_utility::stop_exploder( var_3 );
 
         wait 0.8;
         var_17 = 0;
@@ -1283,7 +1265,7 @@ _id_6995( var_0, var_1, var_2, var_3 )
         }
 
         if ( isdefined( var_3 ) )
-            common_scripts\_exploder::_id_3528( var_3 );
+            common_scripts\_exploder::exploder( var_3 );
 
         wait 0.1;
 
@@ -1320,7 +1302,7 @@ _id_6995( var_0, var_1, var_2, var_3 )
     return var_5;
 }
 
-_id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
+model_flicker_preset( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12 )
 {
     self endon( "death" );
 
@@ -1368,13 +1350,13 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_25 = var_11["vol_env"];
 
         if ( isstring( var_23 ) )
-            var_24 = "model_flicker_preset_" + soundscripts\_snd::_id_8718();
+            var_24 = "model_flicker_preset_" + soundscripts\_snd::snd_new_guid();
     }
 
     var_27 = 0;
 
     if ( isdefined( var_4 ) )
-        common_scripts\_exploder::_id_3528( var_4 );
+        common_scripts\_exploder::exploder( var_4 );
 
     while ( var_27 < var_1 || var_1 == 0 )
     {
@@ -1405,14 +1387,14 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
                     level notify( var_24 );
 
                 if ( isdefined( var_22 ) )
-                    var_34 soundscripts\_snd_playsound::_id_8738( var_22, undefined, undefined, undefined, var_26 );
+                    var_34 soundscripts\_snd_playsound::snd_play_linked( var_22, undefined, undefined, undefined, var_26 );
 
                 var_20 = 0;
             }
         }
 
         if ( isdefined( var_5 ) )
-            maps\_utility::_id_8E7E( var_5 );
+            maps\_utility::stop_exploder( var_5 );
 
         foreach ( var_37 in var_15 )
             var_37 hide();
@@ -1437,20 +1419,20 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
             if ( isdefined( var_21 ) && !var_20 )
             {
                 if ( isarray( var_25 ) )
-                    var_26 = soundscripts\_snd::_id_8708( var_18, var_25 );
+                    var_26 = soundscripts\_snd::snd_map( var_18, var_25 );
 
                 if ( isdefined( var_21 ) )
-                    var_34 soundscripts\_snd_playsound::_id_8738( var_21, undefined, undefined, undefined, var_26 );
+                    var_34 soundscripts\_snd_playsound::snd_play_linked( var_21, undefined, undefined, undefined, var_26 );
 
                 if ( isdefined( var_23 ) )
-                    var_34 soundscripts\_snd_playsound::_id_8742( var_23, var_24, 0.0, 0.1, var_26 );
+                    var_34 soundscripts\_snd_playsound::snd_play_loop_linked( var_23, var_24, 0.0, 0.1, var_26 );
 
                 var_20 = 1;
             }
         }
 
         if ( isdefined( var_5 ) )
-            common_scripts\_exploder::_id_3528( var_5 );
+            common_scripts\_exploder::exploder( var_5 );
 
         foreach ( var_37 in var_15 )
             var_37 show();
@@ -1465,19 +1447,19 @@ _id_5D3A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     }
 }
 
-_id_570D()
+light_setup_common_dof_presets()
 {
-    _id_23AB( "default", 1, 1, 4.5, 500, 500, 0.05, 0.5 );
-    _id_23AB( "viewmodel_blur", 1, 1, 4.5, 500, 500, 0.05, 0.5 );
-    _id_23AB( "close_none_viewmodel_blur", 1, 50, 4, 1000, 7000, 0.05, 0.5 );
-    _id_23AB( "river", 1, 104, 4.5, 500, 500, 1.8, 0.5 );
-    _id_23AB( "medium_none_viewmodel_blur", 1, 500, 10, 1000, 7000, 0.05, 0.5 );
+    create_dof_preset( "default", 1, 1, 4.5, 500, 500, 0.05, 0.5 );
+    create_dof_preset( "viewmodel_blur", 1, 1, 4.5, 500, 500, 0.05, 0.5 );
+    create_dof_preset( "close_none_viewmodel_blur", 1, 50, 4, 1000, 7000, 0.05, 0.5 );
+    create_dof_preset( "river", 1, 104, 4.5, 500, 500, 1.8, 0.5 );
+    create_dof_preset( "medium_none_viewmodel_blur", 1, 500, 10, 1000, 7000, 0.05, 0.5 );
 }
 
-_id_23AB( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+create_dof_preset( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    if ( !isdefined( level._light._id_2C66 ) )
-        level._light._id_2C66 = [];
+    if ( !isdefined( level._light.dof_presets ) )
+        level._light.dof_presets = [];
 
     var_8 = [];
     var_8["nearStart"] = var_1;
@@ -1487,24 +1469,24 @@ _id_23AB( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_8["farEnd"] = var_5;
     var_8["farBlur"] = var_6;
     var_8["bias"] = var_7;
-    level._light._id_2C66[var_0] = var_8;
+    level._light.dof_presets[var_0] = var_8;
 }
 
-_id_5703( var_0 )
+light_get_dof_preset( var_0 )
 {
-    if ( isdefined( level._light._id_2C66 ) && isdefined( level._light._id_2C66[var_0] ) )
-        return level._light._id_2C66[var_0];
+    if ( isdefined( level._light.dof_presets ) && isdefined( level._light.dof_presets[var_0] ) )
+        return level._light.dof_presets[var_0];
 }
 
 blend_dof_presets( var_0, var_1, var_2 )
 {
-    if ( isdefined( level._light._id_2C66 ) )
+    if ( isdefined( level._light.dof_presets ) )
     {
-        var_3 = _id_5703( var_0 );
-        var_4 = _id_5703( var_1 );
+        var_3 = light_get_dof_preset( var_0 );
+        var_4 = light_get_dof_preset( var_1 );
 
         if ( isdefined( var_3 ) && isdefined( var_4 ) )
-            maps\_art::_id_2C4B( var_4["nearStart"], var_4["nearEnd"], var_4["nearBlur"], var_4["farStart"], var_4["farEnd"], var_4["farBlur"], var_2, var_4["bias"] );
+            maps\_art::dof_enable_script( var_4["nearStart"], var_4["nearEnd"], var_4["nearBlur"], var_4["farStart"], var_4["farEnd"], var_4["farBlur"], var_2, var_4["bias"] );
         else
         {
 
@@ -1512,37 +1494,37 @@ blend_dof_presets( var_0, var_1, var_2 )
     }
 }
 
-_id_570E()
+light_setup_common_dof_viewmodel_presets()
 {
-    _id_23AC( "default", 2, 8 );
-    _id_23AC( "viewmodel_blur", 10, 90 );
-    _id_23AC( "max", 2, 128 );
+    create_dof_viewmodel_preset( "default", 2, 8 );
+    create_dof_viewmodel_preset( "viewmodel_blur", 10, 90 );
+    create_dof_viewmodel_preset( "max", 2, 128 );
 }
 
-_id_23AC( var_0, var_1, var_2 )
+create_dof_viewmodel_preset( var_0, var_1, var_2 )
 {
-    if ( !isdefined( level._light._id_2C79 ) )
-        level._light._id_2C79 = [];
+    if ( !isdefined( level._light.dof_viewmodel_presets ) )
+        level._light.dof_viewmodel_presets = [];
 
     var_3["start"] = var_1;
     var_3["end"] = var_2;
-    level.player._id_9E1A = var_3["start"];
-    level.player._id_9E19 = var_3["end"];
-    level._light._id_2C79[var_0] = var_3;
+    level.player.viewmodel_dof_start = var_3["start"];
+    level.player.viewmodel_dof_end = var_3["end"];
+    level._light.dof_viewmodel_presets[var_0] = var_3;
 }
 
-_id_5704( var_0 )
+light_get_dof_viewmodel_preset( var_0 )
 {
-    if ( isdefined( level._light._id_2C79 ) && isdefined( level._light._id_2C79[var_0] ) )
-        return level._light._id_2C79[var_0];
+    if ( isdefined( level._light.dof_viewmodel_presets ) && isdefined( level._light.dof_viewmodel_presets[var_0] ) )
+        return level._light.dof_viewmodel_presets[var_0];
 }
 
 blend_dof_viewmodel_presets( var_0, var_1, var_2 )
 {
-    if ( isdefined( level._light._id_2C79 ) )
+    if ( isdefined( level._light.dof_viewmodel_presets ) )
     {
-        var_3 = _id_5704( var_0 );
-        var_4 = _id_5704( var_1 );
+        var_3 = light_get_dof_viewmodel_preset( var_0 );
+        var_4 = light_get_dof_viewmodel_preset( var_1 );
 
         if ( isdefined( var_3 ) && isdefined( var_4 ) )
             blend_viewmodel_dof( var_3, var_4, var_2 );
@@ -1559,16 +1541,16 @@ blend_viewmodel_dof( var_0, var_1, var_2 )
     {
         var_3 = ( var_1["start"] - var_0["start"] ) * 0.05 / var_2;
         var_4 = ( var_1["end"] - var_0["end"] ) * 0.05 / var_2;
-        thread _id_56AE( var_1, var_3, var_4 );
+        thread lerp_viewmodel_dof( var_1, var_3, var_4 );
     }
     else
     {
-        level.player._id_9E1A = var_1["start"];
-        level.player._id_9E19 = var_1["end"];
+        level.player.viewmodel_dof_start = var_1["start"];
+        level.player.viewmodel_dof_end = var_1["end"];
     }
 }
 
-_id_56AE( var_0, var_1, var_2 )
+lerp_viewmodel_dof( var_0, var_1, var_2 )
 {
     level notify( "lerp_viewmodel_dof" );
     level endon( "lerp_viewmodel_dof" );
@@ -1579,68 +1561,68 @@ _id_56AE( var_0, var_1, var_2 )
     {
         if ( !var_3 )
         {
-            level.player._id_9E1A += var_1;
+            level.player.viewmodel_dof_start += var_1;
 
-            if ( var_1 > 0 && level.player._id_9E1A > var_0["start"] || var_1 < 0 && level.player._id_9E1A < var_0["start"] )
+            if ( var_1 > 0 && level.player.viewmodel_dof_start > var_0["start"] || var_1 < 0 && level.player.viewmodel_dof_start < var_0["start"] )
             {
-                level.player._id_9E1A = var_0["start"];
+                level.player.viewmodel_dof_start = var_0["start"];
                 var_3 = 1;
             }
         }
 
         if ( !var_4 )
         {
-            level.player._id_9E19 += var_2;
+            level.player.viewmodel_dof_end += var_2;
 
-            if ( var_2 > 0 && level.player._id_9E19 > var_0["end"] || var_2 < 0 && level.player._id_9E19 < var_0["end"] )
+            if ( var_2 > 0 && level.player.viewmodel_dof_end > var_0["end"] || var_2 < 0 && level.player.viewmodel_dof_end < var_0["end"] )
             {
-                level.player._id_9E19 = var_0["end"];
+                level.player.viewmodel_dof_end = var_0["end"];
                 var_4 = 1;
             }
         }
 
-        level.player setviewmodeldepthoffield( level.player._id_9E1A, level.player._id_9E19 );
+        level.player setviewmodeldepthoffield( level.player.viewmodel_dof_start, level.player.viewmodel_dof_end );
         wait 0.05;
     }
 }
 
-_id_5707()
+light_message_init()
 {
-    level._light._id_5BB9 = [];
+    level._light.messages = [];
 }
 
-_id_56FF()
+light_debug_dvar_init()
 {
 
 }
 
-_id_570A( var_0, var_1 )
+light_register_message( var_0, var_1 )
 {
-    level._light._id_5BB9[var_0] = var_1;
+    level._light.messages[var_0] = var_1;
 }
 
-_id_5706( var_0, var_1, var_2, var_3 )
+light_message( var_0, var_1, var_2, var_3 )
 {
-    if ( isdefined( level._light._id_5BB9[var_0] ) )
+    if ( isdefined( level._light.messages[var_0] ) )
     {
         if ( isdefined( var_3 ) )
-            thread [[ level._light._id_5BB9[var_0] ]]( var_1, var_2, var_3 );
+            thread [[ level._light.messages[var_0] ]]( var_1, var_2, var_3 );
         else if ( isdefined( var_2 ) )
-            thread [[ level._light._id_5BB9[var_0] ]]( var_1, var_2 );
+            thread [[ level._light.messages[var_0] ]]( var_1, var_2 );
         else if ( isdefined( var_1 ) )
-            thread [[ level._light._id_5BB9[var_0] ]]( var_1 );
+            thread [[ level._light.messages[var_0] ]]( var_1 );
         else
-            thread [[ level._light._id_5BB9[var_0] ]]();
+            thread [[ level._light.messages[var_0] ]]();
     }
 }
 
-_id_568E( var_0, var_1, var_2, var_3, var_4 )
+lerp_light_fov_range( var_0, var_1, var_2, var_3, var_4 )
 {
     for ( var_5 = 0; var_5 <= var_4; var_5 += 0.05 )
     {
         var_6 = var_5 / var_4;
-        self setlightfovrange( maps\_utility::_id_576B( var_6, var_0, var_2 ), maps\_utility::_id_576B( var_6, var_1, var_3 ) );
-        waittillframeend;
+        self setlightfovrange( maps\_utility::linear_interpolate( var_6, var_0, var_2 ), maps\_utility::linear_interpolate( var_6, var_1, var_3 ) );
+        waitframe();
     }
 }
 
@@ -1649,34 +1631,34 @@ setup_emissive_modifiers()
     var_0 = getentarray( "emissive_intensity_0", "targetname" );
 
     foreach ( var_2 in var_0 )
-        var_2 _meth_83A5( 0.0, 0.0 );
+        var_2 setmaterialscriptparam( 0.0, 0.0 );
 
     var_4 = getentarray( "emissive_intensity_25", "targetname" );
 
     foreach ( var_2 in var_4 )
-        var_2 _meth_83A5( 0.25, 0.0 );
+        var_2 setmaterialscriptparam( 0.25, 0.0 );
 
     var_7 = getentarray( "emissive_intensity_50", "targetname" );
 
     foreach ( var_2 in var_7 )
-        var_2 _meth_83A5( 0.5, 0.0 );
+        var_2 setmaterialscriptparam( 0.5, 0.0 );
 
     var_10 = getentarray( "emissive_intensity_75", "targetname" );
 
     foreach ( var_2 in var_10 )
-        var_2 _meth_83A5( 0.75, 0.0 );
+        var_2 setmaterialscriptparam( 0.75, 0.0 );
 
     var_13 = getentarray( "emissive_intensity_100", "targetname" );
 
     foreach ( var_2 in var_13 )
-        var_2 _meth_83A5( 1.0, 0.0 );
+        var_2 setmaterialscriptparam( 1.0, 0.0 );
 
     var_16 = getentarray( "emissive_intensity", "targetname" );
 
     foreach ( var_2 in var_16 )
     {
         var_18 = float( var_2.script_noteworthy ) * 0.01;
-        var_2 _meth_83A5( var_18, 0.0 );
+        var_2 setmaterialscriptparam( var_18, 0.0 );
     }
 }
 

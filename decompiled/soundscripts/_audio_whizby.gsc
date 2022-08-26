@@ -1,39 +1,21 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_A30E()
+whiz_init()
 {
-    level._audio._id_A30D = spawnstruct();
-    level._audio._id_A30D._id_9BE7 = 0;
+    level._audio.whiz = spawnstruct();
+    level._audio.whiz.use_string_table_presets = 0;
 }
 
-_id_A314()
+whiz_use_string_table()
 {
-    level._audio._id_A30D._id_9BE7 = 1;
+    level._audio.whiz.use_string_table_presets = 1;
 }
 
-_id_A310( var_0 )
+whiz_set_preset( var_0 )
 {
     var_1 = [];
-    var_1 = _id_A318( var_0 );
+    var_1 = whizx_get_stringtable_preset( var_0 );
     var_1["name"] = var_0;
     var_2 = var_1["probability"];
     var_3 = var_1["spread"];
@@ -45,35 +27,35 @@ _id_A310( var_0 )
     level.player setwhizbyoffset( var_5 );
 }
 
-_id_A311( var_0, var_1, var_2 )
+whiz_set_probabilities( var_0, var_1, var_2 )
 {
     level.player setwhizbyprobabilities( var_0, var_1, var_2 );
 }
 
-_id_A313( var_0, var_1, var_2 )
+whiz_set_spreads( var_0, var_1, var_2 )
 {
     level.player setwhizbyspreads( var_0, var_1, var_2 );
 }
 
-_id_A312( var_0, var_1, var_2 )
+whiz_set_radii( var_0, var_1, var_2 )
 {
     level.player setwhizbyradii( var_0, var_1, var_2 );
 }
 
-_id_A30F( var_0 )
+whiz_set_offset( var_0 )
 {
     level.player setwhizbyoffset( var_0 );
 }
 
-_id_A318( var_0 )
+whizx_get_stringtable_preset( var_0 )
 {
     var_1 = "soundtables/sp_defaults.csv";
     var_2 = [];
-    var_2 = _id_A317( var_1, var_0 );
+    var_2 = whizx_get_mix_preset_from_stringtable_internal( var_1, var_0 );
     return var_2;
 }
 
-_id_A317( var_0, var_1 )
+whizx_get_mix_preset_from_stringtable_internal( var_0, var_1 )
 {
     var_2 = [];
     var_3 = "";

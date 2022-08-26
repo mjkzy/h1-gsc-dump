@@ -1,53 +1,35 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4D7B()
+init2()
 {
     var_0 = getentarray( "generic_flickering", "targetname" );
     var_1 = getentarray( "generic_pulsing", "targetname" );
     var_2 = getentarray( "generic_double_strobe", "targetname" );
     var_3 = getentarray( "burning_trash_fire", "targetname" );
     var_4 = getentarray( "scripted_light", "targetname" );
-    common_scripts\utility::array_thread( var_0, ::_id_3C94 );
-    common_scripts\utility::array_thread( var_1, ::_id_3CA1 );
-    common_scripts\utility::array_thread( var_2, ::_id_3C8E );
+    common_scripts\utility::array_thread( var_0, ::generic_flickering );
+    common_scripts\utility::array_thread( var_1, ::generic_pulsing );
+    common_scripts\utility::array_thread( var_2, ::generic_double_strobe );
     common_scripts\utility::array_thread( var_3, ::burning_trash_fire );
-    common_scripts\utility::array_thread( var_4, ::_id_4D55 );
+    common_scripts\utility::array_thread( var_4, ::init_scripted_light );
 }
 
-_id_5049( var_0 )
+is_light_entity( var_0 )
 {
     return var_0.classname == "light_spot" || var_0.classname == "light_omni" || var_0.classname == "light";
 }
 
-_id_38D8( var_0, var_1, var_2, var_3 )
+flickerlight( var_0, var_1, var_2, var_3 )
 {
     self endon( "kill_flicker" );
     var_4 = var_0;
     var_5 = 0.0;
-    maps\_utility::_id_32DD( "stop_flicker" );
+    maps\_utility::ent_flag_init( "stop_flicker" );
 
     for (;;)
     {
-        if ( maps\_utility::_id_32D8( "stop_flicker" ) )
+        if ( maps\_utility::ent_flag( "stop_flicker" ) )
         {
             wait 0.05;
             continue;
@@ -64,7 +46,7 @@ _id_38D8( var_0, var_1, var_2, var_3 )
         if ( var_5 == 0 )
             var_5 += 0.0000001;
 
-        for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !maps\_utility::_id_32D8( "stop_flicker" ); var_5 -= 0.05 )
+        for ( var_7 = ( var_6 - var_4 ) * 1 / var_5; var_5 > 0 && !maps\_utility::ent_flag( "stop_flicker" ); var_5 -= 0.05 )
         {
             self setlightcolor( var_4 + var_7 * var_5 );
             wait 0.05;
@@ -72,7 +54,7 @@ _id_38D8( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_530C( var_0 )
+kill_flicker_when_damaged( var_0 )
 {
     var_1 = getentarray( var_0, "script_noteworthy" );
     var_2 = undefined;
@@ -98,7 +80,7 @@ _id_530C( var_0 )
     }
 }
 
-_id_3CA1()
+generic_pulsing()
 {
     if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
     {
@@ -143,7 +125,7 @@ _id_3CA1()
     }
 }
 
-_id_3C8E()
+generic_double_strobe()
 {
     if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
     {
@@ -165,7 +147,7 @@ _id_3C8E()
 
         for ( var_8 = 0; var_8 < var_7.size; var_8++ )
         {
-            if ( _id_5049( var_7[var_8] ) )
+            if ( is_light_entity( var_7[var_8] ) )
             {
                 var_5 = 1;
                 var_6[var_6.size] = var_7[var_8];
@@ -221,11 +203,11 @@ _id_3C8E()
     }
 }
 
-_id_3F3A( var_0 )
+getclosests_flickering_model( var_0 )
 {
     var_1 = getentarray( "light_flicker_model", "targetname" );
     var_2 = [];
-    var_3 = common_scripts\utility::_id_3F33( var_0, var_1 );
+    var_3 = common_scripts\utility::getclosest( var_0, var_1 );
 
     if ( isdefined( var_3 ) )
         var_2[0] = var_3;
@@ -233,7 +215,7 @@ _id_3F3A( var_0 )
     return var_2;
 }
 
-_id_3C94()
+generic_flickering()
 {
     if ( getdvar( "r_reflectionProbeGenerate" ) == "1" )
     {
@@ -243,96 +225,96 @@ _id_3C94()
 
     self endon( "stop_dynamic_light_behavior" );
     self endon( "death" );
-    self._id_578C = 0;
-    self._id_57A6 = undefined;
-    self._id_9A39 = undefined;
-    self._id_578A = 0;
-    self._id_5789 = [];
-    self._id_578E = undefined;
-    self._id_5790 = [];
+    self.linked_models = 0;
+    self.lit_models = undefined;
+    self.unlit_models = undefined;
+    self.linked_lights = 0;
+    self.linked_light_ents = [];
+    self.linked_prefab_ents = undefined;
+    self.linked_things = [];
 
-    if ( isdefined( self._id_7A26 ) )
+    if ( isdefined( self.script_linkto ) )
     {
-        self._id_578E = common_scripts\utility::_id_3DBD();
+        self.linked_prefab_ents = common_scripts\utility::get_linked_ents();
 
-        foreach ( var_1 in self._id_578E )
+        foreach ( var_1 in self.linked_prefab_ents )
         {
             if ( isdefined( var_1.script_noteworthy ) && var_1.script_noteworthy == "on" )
             {
-                if ( !isdefined( self._id_57A6 ) )
-                    self._id_57A6[0] = var_1;
+                if ( !isdefined( self.lit_models ) )
+                    self.lit_models[0] = var_1;
                 else
-                    self._id_57A6[self._id_57A6.size] = var_1;
+                    self.lit_models[self.lit_models.size] = var_1;
 
                 continue;
             }
 
             if ( isdefined( var_1.script_noteworthy ) && var_1.script_noteworthy == "off" )
             {
-                if ( !isdefined( self._id_9A39 ) )
-                    self._id_9A39[0] = var_1;
+                if ( !isdefined( self.unlit_models ) )
+                    self.unlit_models[0] = var_1;
                 else
-                    self._id_9A39[self._id_9A39.size] = var_1;
+                    self.unlit_models[self.unlit_models.size] = var_1;
 
-                self._id_9A38 = var_1;
+                self.unlit_model = var_1;
                 continue;
             }
 
-            if ( _id_5049( var_1 ) )
+            if ( is_light_entity( var_1 ) )
             {
-                self._id_578A = 1;
-                self._id_5789[self._id_5789.size] = var_1;
+                self.linked_lights = 1;
+                self.linked_light_ents[self.linked_light_ents.size] = var_1;
             }
         }
 
-        self._id_578C = 1;
+        self.linked_models = 1;
     }
 
     if ( isdefined( self.script_noteworthy ) )
-        self._id_5790 = getentarray( self.script_noteworthy, "targetname" );
+        self.linked_things = getentarray( self.script_noteworthy, "targetname" );
 
-    if ( !self._id_5790.size && !isdefined( self._id_578E ) )
-        self._id_5790 = _id_3F3A( self.origin );
+    if ( !self.linked_things.size && !isdefined( self.linked_prefab_ents ) )
+        self.linked_things = getclosests_flickering_model( self.origin );
 
-    for ( var_3 = 0; var_3 < self._id_5790.size; var_3++ )
+    for ( var_3 = 0; var_3 < self.linked_things.size; var_3++ )
     {
-        if ( _id_5049( self._id_5790[var_3] ) )
+        if ( is_light_entity( self.linked_things[var_3] ) )
         {
-            self._id_578A = 1;
-            self._id_5789[self._id_5789.size] = self._id_5790[var_3];
+            self.linked_lights = 1;
+            self.linked_light_ents[self.linked_light_ents.size] = self.linked_things[var_3];
         }
 
-        if ( self._id_5790[var_3].classname == "script_model" )
+        if ( self.linked_things[var_3].classname == "script_model" )
         {
-            var_4 = self._id_5790[var_3];
+            var_4 = self.linked_things[var_3];
 
-            if ( !isdefined( self._id_57A6 ) )
-                self._id_57A6[0] = var_4;
+            if ( !isdefined( self.lit_models ) )
+                self.lit_models[0] = var_4;
             else
-                self._id_57A6[self._id_57A6.size] = var_4;
+                self.lit_models[self.lit_models.size] = var_4;
 
-            if ( !isdefined( self._id_9A39 ) )
-                self._id_9A39[0] = getent( var_4.target, "targetname" );
+            if ( !isdefined( self.unlit_models ) )
+                self.unlit_models[0] = getent( var_4.target, "targetname" );
             else
-                self._id_9A39[self._id_9A39.size] = getent( var_4.target, "targetname" );
+                self.unlit_models[self.unlit_models.size] = getent( var_4.target, "targetname" );
 
-            self._id_578C = 1;
+            self.linked_models = 1;
         }
     }
 
-    if ( isdefined( self._id_57A6 ) )
+    if ( isdefined( self.lit_models ) )
     {
-        foreach ( var_4 in self._id_57A6 )
+        foreach ( var_4 in self.lit_models )
         {
-            if ( isdefined( var_4 ) && isdefined( var_4._id_79F1 ) )
+            if ( isdefined( var_4 ) && isdefined( var_4.script_fxid ) )
             {
-                var_4._id_3018 = common_scripts\utility::_id_242E( var_4._id_79F1 );
+                var_4.effect = common_scripts\utility::createoneshoteffect( var_4.script_fxid );
                 var_6 = ( 0.0, 0.0, 0.0 );
                 var_7 = ( 0.0, 0.0, 0.0 );
 
-                if ( isdefined( var_4._id_7A99 ) )
+                if ( isdefined( var_4.script_parameters ) )
                 {
-                    var_8 = strtok( var_4._id_7A99, ", " );
+                    var_8 = strtok( var_4.script_parameters, ", " );
 
                     if ( var_8.size < 3 )
                     {
@@ -358,104 +340,104 @@ _id_3C94()
                     }
                 }
 
-                var_4._id_3018.v["origin"] = var_4.origin + var_6;
-                var_4._id_3018.v["angles"] = var_4.angles + var_7;
+                var_4.effect.v["origin"] = var_4.origin + var_6;
+                var_4.effect.v["angles"] = var_4.angles + var_7;
             }
         }
     }
 
-    thread _id_3C92();
-    thread _id_3C91();
+    thread generic_flicker_msg_watcher();
+    thread generic_flicker();
 }
 
-_id_3C92()
+generic_flicker_msg_watcher()
 {
-    maps\_utility::_id_32DD( "flicker_on" );
+    maps\_utility::ent_flag_init( "flicker_on" );
 
-    if ( isdefined( self._id_7A23 ) && self._id_7A23 != "nil" )
+    if ( isdefined( self.script_light_startnotify ) && self.script_light_startnotify != "nil" )
     {
         for (;;)
         {
-            level waittill( self._id_7A23 );
-            maps\_utility::_id_32DE( "flicker_on" );
+            level waittill( self.script_light_startnotify );
+            maps\_utility::ent_flag_set( "flicker_on" );
 
-            if ( isdefined( self._id_7A24 ) && self._id_7A24 != "nil" )
+            if ( isdefined( self.script_light_stopnotify ) && self.script_light_stopnotify != "nil" )
             {
-                level waittill( self._id_7A24 );
-                maps\_utility::_id_32DA( "flicker_on" );
+                level waittill( self.script_light_stopnotify );
+                maps\_utility::ent_flag_clear( "flicker_on" );
             }
         }
     }
     else
-        maps\_utility::_id_32DE( "flicker_on" );
+        maps\_utility::ent_flag_set( "flicker_on" );
 }
 
-_id_3C93()
+generic_flicker_pause()
 {
     var_0 = self getlightintensity();
 
-    if ( !maps\_utility::_id_32D8( "flicker_on" ) )
+    if ( !maps\_utility::ent_flag( "flicker_on" ) )
     {
-        if ( self._id_578C )
+        if ( self.linked_models )
         {
-            if ( isdefined( self._id_57A6 ) )
+            if ( isdefined( self.lit_models ) )
             {
-                foreach ( var_2 in self._id_57A6 )
+                foreach ( var_2 in self.lit_models )
                 {
                     var_2 hide();
 
-                    if ( isdefined( var_2._id_3018 ) )
-                        var_2._id_3018 common_scripts\utility::_id_671F();
+                    if ( isdefined( var_2.effect ) )
+                        var_2.effect common_scripts\utility::pauseeffect();
                 }
             }
 
-            if ( isdefined( self._id_9A39 ) )
+            if ( isdefined( self.unlit_models ) )
             {
-                foreach ( var_5 in self._id_9A39 )
+                foreach ( var_5 in self.unlit_models )
                     var_5 show();
             }
         }
 
         self setlightintensity( 0 );
 
-        if ( self._id_578A )
+        if ( self.linked_lights )
         {
-            for ( var_7 = 0; var_7 < self._id_5789.size; var_7++ )
-                self._id_5789[var_7] setlightintensity( 0 );
+            for ( var_7 = 0; var_7 < self.linked_light_ents.size; var_7++ )
+                self.linked_light_ents[var_7] setlightintensity( 0 );
         }
 
-        maps\_utility::_id_32E0( "flicker_on" );
+        maps\_utility::ent_flag_wait( "flicker_on" );
         self setlightintensity( var_0 );
 
-        if ( self._id_578A )
+        if ( self.linked_lights )
         {
-            for ( var_7 = 0; var_7 < self._id_5789.size; var_7++ )
-                self._id_5789[var_7] setlightintensity( var_0 );
+            for ( var_7 = 0; var_7 < self.linked_light_ents.size; var_7++ )
+                self.linked_light_ents[var_7] setlightintensity( var_0 );
         }
 
-        if ( self._id_578C )
+        if ( self.linked_models )
         {
-            if ( isdefined( self._id_57A6 ) )
+            if ( isdefined( self.lit_models ) )
             {
-                foreach ( var_2 in self._id_57A6 )
+                foreach ( var_2 in self.lit_models )
                 {
                     var_2 show();
 
-                    if ( isdefined( var_2._id_3018 ) )
-                        var_2._id_3018 maps\_utility::_id_748D();
+                    if ( isdefined( var_2.effect ) )
+                        var_2.effect maps\_utility::restarteffect();
                 }
             }
 
-            if ( isdefined( self._id_9A39 ) )
+            if ( isdefined( self.unlit_models ) )
             {
-                foreach ( var_5 in self._id_9A39 )
+                foreach ( var_5 in self.unlit_models )
                     var_5 hide();
             }
         }
     }
 }
 
-_id_3C91()
+generic_flicker()
 {
     self endon( "stop_dynamic_light_behavior" );
     self endon( "death" );
@@ -468,31 +450,31 @@ _id_3C91()
 
     while ( isdefined( self ) )
     {
-        _id_3C93();
+        generic_flicker_pause();
 
         for ( var_5 = randomintrange( 1, 10 ); var_5; var_5-- )
         {
-            _id_3C93();
+            generic_flicker_pause();
             wait(randomfloatrange( 0.05, 0.1 ));
 
             if ( var_4 > 0.2 )
             {
                 var_4 = randomfloatrange( 0, 0.3 );
 
-                if ( self._id_578C )
+                if ( self.linked_models )
                 {
-                    foreach ( var_7 in self._id_57A6 )
+                    foreach ( var_7 in self.lit_models )
                     {
                         var_7 hide();
 
-                        if ( isdefined( var_7._id_3018 ) )
-                            var_7._id_3018 common_scripts\utility::_id_671F();
+                        if ( isdefined( var_7.effect ) )
+                            var_7.effect common_scripts\utility::pauseeffect();
                     }
                 }
 
-                if ( isdefined( self._id_9A39 ) )
+                if ( isdefined( self.unlit_models ) )
                 {
-                    foreach ( var_10 in self._id_9A39 )
+                    foreach ( var_10 in self.unlit_models )
                         var_10 show();
                 }
             }
@@ -500,25 +482,25 @@ _id_3C91()
             {
                 var_4 = var_2;
 
-                if ( self._id_578C )
+                if ( self.linked_models )
                 {
-                    if ( isdefined( self._id_57A6 ) )
+                    if ( isdefined( self.lit_models ) )
                     {
-                        foreach ( var_7 in self._id_57A6 )
+                        foreach ( var_7 in self.lit_models )
                         {
                             var_7 show();
 
-                            if ( isdefined( var_7._id_3018 ) )
-                                var_7._id_3018 maps\_utility::_id_748D();
+                            if ( isdefined( var_7.effect ) )
+                                var_7.effect maps\_utility::restarteffect();
                         }
                     }
 
-                    if ( isdefined( self._id_9A39 ) )
+                    if ( isdefined( self.unlit_models ) )
                     {
-                        foreach ( var_10 in self._id_9A39 )
+                        foreach ( var_10 in self.unlit_models )
                         {
                             var_10 hide();
-                            soundscripts\_audio::_id_28A2( "light_flicker_on", var_10 );
+                            soundscripts\_audio::deprecated_aud_send_msg( "light_flicker_on", var_10 );
                         }
                     }
                 }
@@ -526,38 +508,38 @@ _id_3C91()
 
             self setlightintensity( var_4 );
 
-            if ( self._id_578A )
+            if ( self.linked_lights )
             {
-                for ( var_16 = 0; var_16 < self._id_5789.size; var_16++ )
-                    self._id_5789[var_16] setlightintensity( var_4 );
+                for ( var_16 = 0; var_16 < self.linked_light_ents.size; var_16++ )
+                    self.linked_light_ents[var_16] setlightintensity( var_4 );
             }
         }
 
-        _id_3C93();
+        generic_flicker_pause();
         self setlightintensity( var_2 );
 
-        if ( self._id_578A )
+        if ( self.linked_lights )
         {
-            for ( var_16 = 0; var_16 < self._id_5789.size; var_16++ )
-                self._id_5789[var_16] setlightintensity( var_2 );
+            for ( var_16 = 0; var_16 < self.linked_light_ents.size; var_16++ )
+                self.linked_light_ents[var_16] setlightintensity( var_2 );
         }
 
-        if ( self._id_578C )
+        if ( self.linked_models )
         {
-            if ( isdefined( self._id_57A6 ) )
+            if ( isdefined( self.lit_models ) )
             {
-                foreach ( var_7 in self._id_57A6 )
+                foreach ( var_7 in self.lit_models )
                 {
                     var_7 show();
 
-                    if ( isdefined( var_7._id_3018 ) )
-                        var_7._id_3018 maps\_utility::_id_748D();
+                    if ( isdefined( var_7.effect ) )
+                        var_7.effect maps\_utility::restarteffect();
                 }
             }
 
-            if ( isdefined( self._id_9A39 ) )
+            if ( isdefined( self.unlit_models ) )
             {
-                foreach ( var_10 in self._id_9A39 )
+                foreach ( var_10 in self.unlit_models )
                     var_10 hide();
             }
         }
@@ -566,13 +548,13 @@ _id_3C91()
     }
 }
 
-_id_3CA3()
+generic_spot()
 {
     for (;;)
-        waittillframeend;
+        waitframe();
 }
 
-_id_38D9( var_0, var_1 )
+flickerlightintensity( var_0, var_1 )
 {
     var_2 = self getlightintensity();
     var_3 = 0;
@@ -626,7 +608,7 @@ burning_trash_fire()
     }
 }
 
-_id_8F5F( var_0, var_1, var_2, var_3 )
+strobelight( var_0, var_1, var_2, var_3 )
 {
     var_4 = 360 / var_2;
     var_5 = 0;
@@ -643,13 +625,13 @@ _id_8F5F( var_0, var_1, var_2, var_3 )
 
         if ( isdefined( var_3 ) )
         {
-            if ( common_scripts\utility::_id_382E( var_3 ) )
+            if ( common_scripts\utility::flag( var_3 ) )
                 return;
         }
     }
 }
 
-_id_1C80( var_0, var_1, var_2, var_3 )
+changelightcolorto( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 0;
@@ -657,10 +639,10 @@ _id_1C80( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    thread _id_1C81( var_0, var_1, var_2, var_3 );
+    thread changelightcolortoworkerthread( var_0, var_1, var_2, var_3 );
 }
 
-_id_1C81( var_0, var_1, var_2, var_3 )
+changelightcolortoworkerthread( var_0, var_1, var_2, var_3 )
 {
     var_4 = self getlightcolor();
     var_5 = 1 / ( var_1 * 2 - var_2 + var_3 );
@@ -699,13 +681,13 @@ _id_1C81( var_0, var_1, var_2, var_3 )
     self setlightcolor( var_0 );
 }
 
-_id_9260()
+television()
 {
-    thread _id_99CE();
-    thread _id_99CD();
+    thread tv_changes_intensity();
+    thread tv_changes_color();
 }
 
-_id_99CE()
+tv_changes_intensity()
 {
     self endon( "light_off" );
     var_0 = self getlightintensity();
@@ -728,7 +710,7 @@ _id_99CE()
     }
 }
 
-_id_99CD()
+tv_changes_color()
 {
     self endon( "light_off" );
     var_0 = 0.5;
@@ -766,24 +748,24 @@ _id_99CD()
     }
 }
 
-_id_8FBC( var_0 )
+sun_shadow_trigger( var_0 )
 {
     var_1 = 1;
 
-    if ( isdefined( var_0._id_79B4 ) )
-        var_1 = var_0._id_79B4;
+    if ( isdefined( var_0.script_duration ) )
+        var_1 = var_0.script_duration;
 
     for (;;)
     {
         var_0 waittill( "trigger", var_2 );
-        var_0 _id_7ECB( var_1 );
+        var_0 set_sun_shadow_params( var_1 );
 
         while ( var_2 istouching( var_0 ) )
             wait 0.25;
     }
 }
 
-_id_7ECB( var_0 )
+set_sun_shadow_params( var_0 )
 {
     var_1 = getdvarint( "sm_sunenable", 1 );
     var_2 = getdvarfloat( "sm_sunshadowscale", 1.0 );
@@ -791,22 +773,22 @@ _id_7ECB( var_0 )
     var_4 = getdvarfloat( "sm_sunsamplesizenear", 0.25 );
     var_5 = getdvarfloat( "sm_qualityspotshadow", 1.0 );
 
-    if ( isdefined( self._id_7AE7 ) )
-        var_1 = self._id_7AE7;
+    if ( isdefined( self.script_sunenable ) )
+        var_1 = self.script_sunenable;
 
-    if ( isdefined( self._id_7AE9 ) )
-        var_2 = self._id_7AE9;
+    if ( isdefined( self.script_sunshadowscale ) )
+        var_2 = self.script_sunshadowscale;
 
-    if ( isdefined( self._id_7AD5 ) )
-        var_3 = self._id_7AD5;
+    if ( isdefined( self.script_spotlimit ) )
+        var_3 = self.script_spotlimit;
 
-    if ( isdefined( self._id_7AE8 ) )
-        var_4 = self._id_7AE8;
+    if ( isdefined( self.script_sunsamplesizenear ) )
+        var_4 = self.script_sunsamplesizenear;
 
     var_4 = min( max( 0.016, var_4 ), 32 );
 
-    if ( isdefined( self._id_7AB1 ) )
-        var_5 = self._id_7AB1;
+    if ( isdefined( self.script_qualityspotshadow ) )
+        var_5 = self.script_qualityspotshadow;
 
     var_6 = getdvarint( "sm_sunenable", 1 );
     var_7 = getdvarfloat( "sm_sunshadowscale", 1.0 );
@@ -816,10 +798,10 @@ _id_7ECB( var_0 )
     setsaveddvar( "sm_sunshadowscale", var_2 );
     setsaveddvar( "sm_spotlimit", var_3 );
     setsaveddvar( "sm_qualityspotshadow", var_5 );
-    _id_56A7( var_4, var_0 );
+    lerp_sunsamplesizenear_overtime( var_4, var_0 );
 }
 
-_id_56A7( var_0, var_1 )
+lerp_sunsamplesizenear_overtime( var_0, var_1 )
 {
     level notify( "changing_sunsamplesizenear" );
     level endon( "changing_sunsamplesizenear" );
@@ -847,17 +829,17 @@ _id_56A7( var_0, var_1 )
     setsaveddvar( "sm_sunSampleSizeNear", var_0 );
 }
 
-_id_4D55()
+init_scripted_light()
 {
-    _id_4D0B();
-    _id_4D08();
+    init_linked_ents();
+    init_light_def();
 }
 
-_id_4D0B()
+init_linked_ents()
 {
-    self._id_57A6 = [];
-    self._id_9A39 = [];
-    self._id_578A = [];
+    self.lit_models = [];
+    self.unlit_models = [];
+    self.linked_lights = [];
 
     if ( isdefined( self.target ) )
     {
@@ -868,10 +850,10 @@ _id_4D0B()
 
         foreach ( var_2 in var_0 )
         {
-            if ( _id_5049( var_2 ) )
+            if ( is_light_entity( var_2 ) )
             {
-                self._id_578A[self._id_578A.size] = var_2;
-                var_2 _id_4D0B();
+                self.linked_lights[self.linked_lights.size] = var_2;
+                var_2 init_linked_ents();
                 continue;
             }
 
@@ -882,56 +864,56 @@ _id_4D0B()
                 if ( var_2.script_noteworthy == "on" )
                 {
                     var_3 = 0;
-                    _id_4D0C( var_2 );
+                    init_lit_model( var_2 );
                 }
                 else if ( var_2.script_noteworthy == "off" )
                 {
                     var_3 = 0;
-                    self._id_9A39[self._id_9A39.size] = var_2;
+                    self.unlit_models[self.unlit_models.size] = var_2;
                 }
             }
 
             if ( var_3 )
             {
-                _id_4D0C( var_2 );
+                init_lit_model( var_2 );
                 var_4 = getentarray( var_2.target, "targetname" );
 
                 foreach ( var_6 in var_4 )
-                    self._id_9A39[self._id_9A39.size] = var_6;
+                    self.unlit_models[self.unlit_models.size] = var_6;
             }
         }
 
-        foreach ( var_2 in self._id_57A6 )
-            var_2._id_9E5A = 1;
+        foreach ( var_2 in self.lit_models )
+            var_2.visible = 1;
 
-        foreach ( var_2 in self._id_9A39 )
+        foreach ( var_2 in self.unlit_models )
         {
-            var_2._id_9E5A = 0;
+            var_2.visible = 0;
             var_2 hide();
         }
     }
 }
 
-_id_4D0C( var_0 )
+init_lit_model( var_0 )
 {
-    self._id_57A6[self._id_57A6.size] = var_0;
+    self.lit_models[self.lit_models.size] = var_0;
     var_1 = undefined;
     var_2 = undefined;
     var_3 = undefined;
 
-    if ( isdefined( var_0._id_79F1 ) )
+    if ( isdefined( var_0.script_fxid ) )
     {
-        var_1 = self._id_79F1;
+        var_1 = self.script_fxid;
         var_2 = var_0.origin;
         var_3 = var_0.angles;
     }
     else if ( isdefined( var_0.target ) )
     {
-        var_4 = common_scripts\utility::_id_40FB( var_0.target, "targetname" );
+        var_4 = common_scripts\utility::getstruct( var_0.target, "targetname" );
 
-        if ( isdefined( var_4 ) && isdefined( var_4._id_79F1 ) )
+        if ( isdefined( var_4 ) && isdefined( var_4.script_fxid ) )
         {
-            var_1 = var_4._id_79F1;
+            var_1 = var_4.script_fxid;
             var_2 = var_4.origin;
             var_3 = ( 0.0, 0.0, 0.0 );
 
@@ -942,40 +924,40 @@ _id_4D0C( var_0 )
 
     if ( isdefined( var_1 ) )
     {
-        var_0._id_3018 = common_scripts\utility::_id_242E( var_1 );
-        var_0._id_3018.v["origin"] = var_2;
-        var_0._id_3018.v["angles"] = var_3;
+        var_0.effect = common_scripts\utility::createoneshoteffect( var_1 );
+        var_0.effect.v["origin"] = var_2;
+        var_0.effect.v["angles"] = var_3;
     }
 }
 
-_id_7051()
+pulse_think()
 {
     self endon( "stop_scripted_light" );
     self endon( "death" );
 
     for (;;)
     {
-        maps\_utility::_id_7B20();
-        var_0 = self._id_7A1A;
-        var_1 = self._id_7A1A + ( self._id_7A19 - self._id_7A1A ) * 0.4;
-        var_2 = self._id_7A19 - ( self._id_7A19 - self._id_7A1A ) * 0.4;
-        var_3 = self._id_7A19;
-        var_4 = randomintrange( self._id_797E, self._id_797D );
+        maps\_utility::script_wait();
+        var_0 = self.script_intensity_min;
+        var_1 = self.script_intensity_min + ( self.script_intensity_max - self.script_intensity_min ) * 0.4;
+        var_2 = self.script_intensity_max - ( self.script_intensity_max - self.script_intensity_min ) * 0.4;
+        var_3 = self.script_intensity_max;
+        var_4 = randomintrange( self.script_count_min, self.script_count_max );
 
         for ( var_5 = 0; var_5 < var_4; var_5++ )
         {
             var_6 = randomfloatrange( var_0, var_1 );
-            _id_568D( var_6, _id_3D30() );
+            lerp_intensity( var_6, get_delay() );
             maps\_utility::script_delay();
             var_6 = randomfloatrange( var_2, var_3 );
-            _id_568D( var_6, _id_3D30() );
+            lerp_intensity( var_6, get_delay() );
         }
 
-        _id_568D( self._id_7A19, _id_3D30() );
+        lerp_intensity( self.script_intensity_max, get_delay() );
     }
 }
 
-_id_568D( var_0, var_1 )
+lerp_intensity( var_0, var_1 )
 {
     var_2 = int( var_1 * 20 );
     var_3 = self getlightintensity();
@@ -983,157 +965,157 @@ _id_568D( var_0, var_1 )
 
     for ( var_5 = 0; var_5 < var_2; var_5++ )
     {
-        thread _id_45B4( var_0 );
+        thread handle_linked_ents( var_0 );
         self setlightintensity( var_3 + var_5 * var_4 );
         wait 0.05;
     }
 
     var_6[0] = self;
 
-    if ( isdefined( self._id_578A ) )
-        var_6 = common_scripts\utility::array_combine( var_6, self._id_578A );
+    if ( isdefined( self.linked_lights ) )
+        var_6 = common_scripts\utility::array_combine( var_6, self.linked_lights );
 
     foreach ( var_8 in var_6 )
     {
-        var_8 thread _id_45B4( var_0 );
+        var_8 thread handle_linked_ents( var_0 );
         var_8 setlightintensity( var_0 );
     }
 }
 
-_id_45B4( var_0 )
+handle_linked_ents( var_0 )
 {
-    var_1 = var_0 > self._id_7AF4;
+    var_1 = var_0 > self.script_threshold;
 
-    foreach ( var_3 in self._id_57A6 )
+    foreach ( var_3 in self.lit_models )
     {
-        if ( var_1 && !var_3._id_9E5A )
+        if ( var_1 && !var_3.visible )
         {
-            var_3._id_9E5A = var_1;
+            var_3.visible = var_1;
             var_3 show();
 
-            if ( isdefined( var_3._id_3018 ) )
-                var_3._id_3018 thread maps\_utility::_id_748D();
+            if ( isdefined( var_3.effect ) )
+                var_3.effect thread maps\_utility::restarteffect();
 
             continue;
         }
 
-        if ( !var_1 && var_3._id_9E5A )
+        if ( !var_1 && var_3.visible )
         {
-            var_3._id_9E5A = var_1;
+            var_3.visible = var_1;
             var_3 hide();
 
-            if ( isdefined( var_3._id_3018 ) )
-                var_3._id_3018 thread common_scripts\utility::_id_671F();
+            if ( isdefined( var_3.effect ) )
+                var_3.effect thread common_scripts\utility::pauseeffect();
         }
     }
 
-    foreach ( var_3 in self._id_9A39 )
+    foreach ( var_3 in self.unlit_models )
     {
-        if ( !var_1 && !var_3._id_9E5A )
+        if ( !var_1 && !var_3.visible )
         {
-            var_3._id_9E5A = 1;
+            var_3.visible = 1;
             var_3 show();
             continue;
         }
 
-        if ( var_1 && var_3._id_9E5A )
+        if ( var_1 && var_3.visible )
         {
-            var_3._id_9E5A = 0;
+            var_3.visible = 0;
             var_3 hide();
         }
     }
 }
 
-_id_3D30()
+get_delay()
 {
-    return randomfloatrange( self._id_798E, self._id_798D );
+    return randomfloatrange( self.script_delay_min, self.script_delay_max );
 }
 
-_id_4D08()
+init_light_def()
 {
-    var_0["pulse"] = ::_id_2773;
-    var_0["neon"] = ::_id_276E;
-    var_0["fire"] = ::_id_276B;
-    [[ var_0[self._id_7A22] ]]();
+    var_0["pulse"] = ::def_pulse;
+    var_0["neon"] = ::def_neon;
+    var_0["fire"] = ::def_fire;
+    [[ var_0[self.script_light] ]]();
 }
 
-_id_2773()
+def_pulse()
 {
-    _id_7E0E( 0.1, 0.2 );
-    _id_7F04( 1, 4 );
-    _id_7DF9( 3, 6 );
-    _id_7ED9( 0.5 );
+    set_delays( 0.1, 0.2 );
+    set_waits( 1, 4 );
+    set_counts( 3, 6 );
+    set_threshold( 0.5 );
     var_0 = self getlightintensity();
-    _id_7E62( var_0 * 0.25, var_0 );
-    thread _id_7051();
+    set_intensities( var_0 * 0.25, var_0 );
+    thread pulse_think();
 }
 
-_id_276E()
+def_neon()
 {
-    _id_7E0E( 0.05, 0.1 );
-    _id_7F04( 2, 5 );
-    _id_7DF9( 1, 3 );
-    _id_7ED9( 0.5 );
+    set_delays( 0.05, 0.1 );
+    set_waits( 2, 5 );
+    set_counts( 1, 3 );
+    set_threshold( 0.5 );
     var_0 = self getlightintensity();
-    _id_7E62( var_0 * 0.1, var_0 );
-    thread _id_7051();
+    set_intensities( var_0 * 0.1, var_0 );
+    thread pulse_think();
 }
 
-_id_276B()
+def_fire()
 {
-    _id_7E0E( 0.05, 0.1 );
-    _id_7F04( 0.05, 0.1 );
-    _id_7DF9( 1, 2 );
-    _id_7ED9( 0.5 );
+    set_delays( 0.05, 0.1 );
+    set_waits( 0.05, 0.1 );
+    set_counts( 1, 2 );
+    set_threshold( 0.5 );
     var_0 = self getlightintensity();
-    _id_7E62( var_0 * 0.75, var_0 );
-    thread _id_7051();
+    set_intensities( var_0 * 0.75, var_0 );
+    thread pulse_think();
 }
 
-_id_7ED9( var_0 )
+set_threshold( var_0 )
 {
-    if ( !isdefined( self._id_7AF4 ) )
-        self._id_7AF4 = var_0;
+    if ( !isdefined( self.script_threshold ) )
+        self.script_threshold = var_0;
 
-    foreach ( var_2 in self._id_578A )
+    foreach ( var_2 in self.linked_lights )
     {
-        if ( !isdefined( var_2._id_7AF4 ) )
-            var_2._id_7AF4 = self._id_7AF4;
+        if ( !isdefined( var_2.script_threshold ) )
+            var_2.script_threshold = self.script_threshold;
     }
 }
 
-_id_7E0E( var_0, var_1 )
+set_delays( var_0, var_1 )
 {
-    if ( !isdefined( self._id_798E ) )
-        self._id_798E = var_0;
+    if ( !isdefined( self.script_delay_min ) )
+        self.script_delay_min = var_0;
 
-    if ( !isdefined( self._id_798D ) )
-        self._id_798D = var_1;
+    if ( !isdefined( self.script_delay_max ) )
+        self.script_delay_max = var_1;
 }
 
-_id_7F04( var_0, var_1 )
+set_waits( var_0, var_1 )
 {
-    if ( !isdefined( self._id_7B23 ) )
-        self._id_7B23 = var_0;
+    if ( !isdefined( self.script_wait_min ) )
+        self.script_wait_min = var_0;
 
-    if ( !isdefined( self._id_7B22 ) )
-        self._id_7B22 = var_1;
+    if ( !isdefined( self.script_wait_max ) )
+        self.script_wait_max = var_1;
 }
 
-_id_7DF9( var_0, var_1 )
+set_counts( var_0, var_1 )
 {
-    if ( !isdefined( self._id_797E ) )
-        self._id_797E = var_0;
+    if ( !isdefined( self.script_count_min ) )
+        self.script_count_min = var_0;
 
-    if ( !isdefined( self._id_797D ) )
-        self._id_797D = var_1;
+    if ( !isdefined( self.script_count_max ) )
+        self.script_count_max = var_1;
 }
 
-_id_7E62( var_0, var_1 )
+set_intensities( var_0, var_1 )
 {
-    if ( !isdefined( self._id_7A1A ) )
-        self._id_7A1A = var_0;
+    if ( !isdefined( self.script_intensity_min ) )
+        self.script_intensity_min = var_0;
 
-    if ( !isdefined( self._id_7A19 ) )
-        self._id_7A19 = var_1;
+    if ( !isdefined( self.script_intensity_max ) )
+        self.script_intensity_max = var_1;
 }

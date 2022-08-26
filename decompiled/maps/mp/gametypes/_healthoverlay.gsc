@@ -1,56 +1,38 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     level.mw1_health_regen = 1;
-    level._id_478D = 0.55;
+    level.healthoverlaycutoff = 0.55;
     var_0 = 5;
-    var_0 = maps\mp\gametypes\_tweakables::_id_4142( "player", "healthregentime" );
-    level._id_6CC3 = var_0 * 1000;
-    level._id_478E = level._id_6CC3 <= 0;
-    level thread _id_64C8();
+    var_0 = maps\mp\gametypes\_tweakables::gettweakablevalue( "player", "healthregentime" );
+    level.playerhealth_regularregendelay = var_0 * 1000;
+    level.healthregendisabled = level.playerhealth_regularregendelay <= 0;
+    level thread onplayerconnect();
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_64D6();
+        var_0 thread onplayerspawned();
     }
 }
 
-_id_64D6()
+onplayerspawned()
 {
     self endon( "disconnect" );
 
     for (;;)
     {
         self waittill( "spawned_player" );
-        thread _id_6CC4();
+        thread playerhealthregen();
     }
 }
 
-_id_6CC4()
+playerhealthregen()
 {
     self endon( "death" );
     self endon( "disconnect" );
@@ -65,7 +47,7 @@ _id_6CC4()
 
     var_0 = 0;
     var_1 = 0;
-    thread _id_6D22();
+    thread playerpainbreathingsound();
 
     for (;;)
     {
@@ -77,21 +59,21 @@ _id_6CC4()
         var_1 = gettime();
         var_7 = self.health / self.maxhealth;
 
-        if ( !isdefined( self._id_4792 ) )
-            self._id_72D4 = 1;
-        else if ( self._id_4792 == 0.33 )
-            self._id_72D4 = 0.75;
-        else if ( self._id_4792 == 0.66 )
-            self._id_72D4 = 0.5;
-        else if ( self._id_4792 == 0.99 )
-            self._id_72D4 = 0.3;
+        if ( !isdefined( self.healthregenlevel ) )
+            self.regenspeed = 1;
+        else if ( self.healthregenlevel == 0.33 )
+            self.regenspeed = 0.75;
+        else if ( self.healthregenlevel == 0.66 )
+            self.regenspeed = 0.5;
+        else if ( self.healthregenlevel == 0.99 )
+            self.regenspeed = 0.3;
         else
-            self._id_72D4 = 1;
+            self.regenspeed = 1;
 
-        if ( var_7 <= level._id_478D )
+        if ( var_7 <= level.healthoverlaycutoff )
             self.atbrinkofdeath = 1;
 
-        thread _id_4790( var_1, var_7 );
+        thread healthregeneration( var_1, var_7 );
         thread breathingmanager( var_1, var_7, var_2, var_6 );
     }
 }
@@ -106,14 +88,14 @@ breathingmanager( var_0, var_1, var_2, var_3 )
     self endon( "joined_spectators" );
     level endon( "game_ended" );
 
-    if ( maps\mp\_utility::_id_51E3() || maps\mp\_utility::_id_512B() )
+    if ( maps\mp\_utility::isusingremote() || maps\mp\_utility::isinremotetransition() )
         return;
 
     if ( !isplayer( self ) )
         return;
 
     if ( isdefined( var_3 ) && var_3 != "MOD_FALLING" || isdefined( var_2 ) && var_2 > 1 )
-        _id_6A3C( var_0 );
+        playdamagesound( var_0 );
 
     if ( isdefined( level.iszombiegame ) && level.iszombiegame )
         return;
@@ -123,12 +105,12 @@ breathingmanager( var_0, var_1, var_2, var_3 )
 
     if ( level.mw1_health_regen )
     {
-        self.breathingstoptime = var_0 + 6000 * self._id_72D4;
+        self.breathingstoptime = var_0 + 6000 * self.regenspeed;
         return;
     }
 
-    self.breathingstoptime = var_0 + 3000 * self._id_72D4;
-    wait(7 * self._id_72D4);
+    self.breathingstoptime = var_0 + 3000 * self.regenspeed;
+    wait(7 * self.regenspeed);
 
     if ( !level.gameended && isdefined( self.atbrinkofdeath ) && self.atbrinkofdeath == 1 )
     {
@@ -141,16 +123,16 @@ breathingmanager( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_6A3C( var_0 )
+playdamagesound( var_0 )
 {
     if ( isdefined( level.customplaydamagesound ) )
         self thread [[ level.customplaydamagesound ]]( var_0 );
     else
     {
-        if ( isdefined( self._id_258B ) && self._id_258B + 5000 > var_0 )
+        if ( isdefined( self.damage_sound_time ) && self.damage_sound_time + 5000 > var_0 )
             return;
 
-        self._id_258B = var_0;
+        self.damage_sound_time = var_0;
         var_1 = randomintrange( 1, 8 );
 
         if ( self.team == "axis" )
@@ -173,7 +155,7 @@ _id_6A3C( var_0 )
     }
 }
 
-_id_4790( var_0, var_1 )
+healthregeneration( var_0, var_1 )
 {
     self notify( "healthRegeneration" );
     self endon( "healthRegeneration" );
@@ -184,16 +166,16 @@ _id_4790( var_0, var_1 )
     self endon( "goliath_equipped" );
     level endon( "game_ended" );
 
-    if ( level._id_478E )
+    if ( level.healthregendisabled )
         return;
 
-    if ( !isdefined( self._id_4BB9 ) )
-        self._id_4BB9 = 0;
+    if ( !isdefined( self.ignoreregendelay ) )
+        self.ignoreregendelay = 0;
 
-    if ( self._id_4BB9 == 0 )
-        wait(level._id_6CC3 / 1000 * self._id_72D4);
+    if ( self.ignoreregendelay == 0 )
+        wait(level.playerhealth_regularregendelay / 1000 * self.regenspeed);
     else
-        self._id_4BB9 = 0;
+        self.ignoreregendelay = 0;
 
     if ( var_1 < 0.55 )
         var_2 = 1;
@@ -210,7 +192,7 @@ _id_4790( var_0, var_1 )
             self.health = self.maxhealth;
             break;
         }
-        else if ( self._id_72D4 == 0.75 )
+        else if ( self.regenspeed == 0.75 )
         {
             wait 0.2;
 
@@ -219,7 +201,7 @@ _id_4790( var_0, var_1 )
             else
                 break;
         }
-        else if ( self._id_72D4 == 0.5 )
+        else if ( self.regenspeed == 0.5 )
         {
             wait 0.05;
 
@@ -228,7 +210,7 @@ _id_4790( var_0, var_1 )
             else
                 break;
         }
-        else if ( self._id_72D4 == 0.3 )
+        else if ( self.regenspeed == 0.3 )
         {
             wait 0.15;
 
@@ -237,7 +219,7 @@ _id_4790( var_0, var_1 )
             else
                 break;
         }
-        else if ( !isdefined( self._id_72D4 ) || self._id_72D4 == 1 )
+        else if ( !isdefined( self.regenspeed ) || self.regenspeed == 1 )
         {
             if ( !level.mw1_health_regen )
                 wait 0.05;
@@ -264,21 +246,21 @@ _id_4790( var_0, var_1 )
             self.health = self.maxhealth;
     }
 
-    maps\mp\gametypes\_damage::_id_7445();
-    maps\mp\gametypes\_misions::_id_478F();
+    maps\mp\gametypes\_damage::resetattackerlist();
+    maps\mp\gametypes\_misions::healthregenerated();
 }
 
-_id_9FB2()
+wait_for_not_using_remote()
 {
     self notify( "waiting_to_stop_remote" );
     self endon( "waiting_to_stop_remote" );
     self endon( "death" );
     level endon( "game_ended" );
     self waittill( "stopped_using_remote" );
-    maps\mp\_utility::_id_74FA( 0 );
+    maps\mp\_utility::revertvisionsetforplayer( 0 );
 }
 
-_id_6D22()
+playerpainbreathingsound()
 {
     level endon( "game_ended" );
     self endon( "death" );
@@ -307,10 +289,10 @@ _id_6D22()
         if ( self.health >= self.maxhealth * 0.55 )
             continue;
 
-        if ( level._id_478E && gettime() > self.breathingstoptime )
+        if ( level.healthregendisabled && gettime() > self.breathingstoptime )
             continue;
 
-        if ( maps\mp\_utility::_id_51E3() || maps\mp\_utility::_id_512B() )
+        if ( maps\mp\_utility::isusingremote() || maps\mp\_utility::isinremotetransition() )
             continue;
 
         if ( self hasfemalecustomizationmodel() )

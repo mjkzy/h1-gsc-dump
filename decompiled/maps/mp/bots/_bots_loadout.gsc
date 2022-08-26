@@ -1,36 +1,18 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    _id_4D68();
-    _id_4CC5();
+    init_template_table();
+    init_class_table();
     init_bot_attachkittable();
-    _id_4CC0();
-    _id_4CBE();
+    init_bot_weap_statstable();
+    init_bot_camotable();
     level.bot_min_rank_for_item = [];
     level.bot_loadouts_initialized = 1;
 }
 
-_id_4CC5()
+init_class_table()
 {
     var_0 = "mp/botClassTable.csv";
     level.botloadoutsets = [];
@@ -63,14 +45,14 @@ _id_4CC5()
             {
                 var_15 = bot_loadout_set( var_12, var_14, 1 );
                 var_16 = spawnstruct();
-                var_16._id_57E7 = var_5;
+                var_16.loadoutvalues = var_5;
                 var_15.loadouts[var_15.loadouts.size] = var_16;
             }
         }
     }
 }
 
-_id_4D68()
+init_template_table()
 {
     var_0 = "mp/botTemplateTable.csv";
     level.botloadouttemplates = [];
@@ -175,7 +157,7 @@ bot_loadout_choose_fallback_primary( var_0 )
 
     foreach ( var_4 in var_2 )
     {
-        var_1 = bot_loadout_choose_from_statstable( "weap_statstable", var_0, "loadoutPrimary", self._id_67DF, var_4 );
+        var_1 = bot_loadout_choose_from_statstable( "weap_statstable", var_0, "loadoutPrimary", self.personality, var_4 );
 
         if ( var_1 != "none" )
             return var_1;
@@ -253,7 +235,7 @@ bot_default_class_random()
         }
     }
 
-    var_2 = common_scripts\utility::_id_710E( var_0 );
+    var_2 = common_scripts\utility::random( var_0 );
     var_3 = [];
 
     foreach ( var_5 in level.bot_loadout_fields )
@@ -281,7 +263,7 @@ bot_pick_personality_from_weapon( var_0 )
             var_2 = strtok( var_1, "| " );
 
             if ( var_2.size > 0 )
-                maps\mp\bots\_bots_util::bot_set_personality( common_scripts\utility::_id_710E( var_2 ) );
+                maps\mp\bots\_bots_util::bot_set_personality( common_scripts\utility::random( var_2 ) );
         }
     }
 }
@@ -334,7 +316,7 @@ bot_loadout_pick( var_0, var_1 )
     if ( isdefined( var_2 ) && isdefined( var_2.loadouts ) && var_2.loadouts.size > 0 )
     {
         var_3 = randomint( var_2.loadouts.size );
-        return var_2.loadouts[var_3]._id_57E7;
+        return var_2.loadouts[var_3].loadoutvalues;
     }
 }
 
@@ -429,7 +411,7 @@ bot_validate_attachkit_for_weapon( var_0, var_1, var_2 )
     return 1;
 }
 
-_id_4CC0()
+init_bot_weap_statstable()
 {
     var_0 = "mp/statstable.csv";
     var_1 = 4;
@@ -454,9 +436,9 @@ _id_4CC0()
         {
             var_9 = "loadoutPrimary";
 
-            if ( maps\mp\gametypes\_class::_id_51F5( var_6 ) )
+            if ( maps\mp\gametypes\_class::isvalidsecondary( var_6 ) )
                 var_9 = "loadoutSecondary";
-            else if ( !maps\mp\gametypes\_class::_id_51F3( var_6 ) )
+            else if ( !maps\mp\gametypes\_class::isvalidprimary( var_6 ) )
             {
                 var_4++;
                 continue;
@@ -531,7 +513,7 @@ bot_validate_offhand( var_0, var_1, var_2 )
     if ( !bot_loadout_item_allowed( "perk", var_0, "Tactical" ) )
         return 0;
 
-    if ( !maps\mp\gametypes\_class::_id_51F2( var_0 ) )
+    if ( !maps\mp\gametypes\_class::isvalidoffhand( var_0 ) )
         return 0;
 
     if ( var_0 == "h1_smokegrenade_mp" )
@@ -612,34 +594,34 @@ bot_loadout_choose_from_default_class( var_0, var_1 )
     switch ( var_1 )
     {
         case "loadoutPrimary":
-            return maps\mp\gametypes\_class::_id_90A4( level._id_1E3D, var_2, 0 );
+            return maps\mp\gametypes\_class::table_getweapon( level.classtablename, var_2, 0 );
         case "loadoutPrimaryAttachKit":
-            return maps\mp\gametypes\_class::table_getweaponattachkit( level._id_1E3D, var_2, 0 );
+            return maps\mp\gametypes\_class::table_getweaponattachkit( level.classtablename, var_2, 0 );
         case "loadoutPrimaryFurnitureKit":
-            return maps\mp\gametypes\_class::table_getweaponfurniturekit( level._id_1E3D, var_2, 0 );
+            return maps\mp\gametypes\_class::table_getweaponfurniturekit( level.classtablename, var_2, 0 );
         case "loadoutPrimaryCamo":
-            return maps\mp\gametypes\_class::_id_90A7( level._id_1E3D, var_2, 0 );
+            return maps\mp\gametypes\_class::table_getweaponcamo( level.classtablename, var_2, 0 );
         case "loadoutPrimaryReticle":
-            return maps\mp\gametypes\_class::_id_90A8( level._id_1E3D, var_2, 0 );
+            return maps\mp\gametypes\_class::table_getweaponreticle( level.classtablename, var_2, 0 );
         case "loadoutSecondary":
-            return maps\mp\gametypes\_class::_id_90A4( level._id_1E3D, var_2, 1 );
+            return maps\mp\gametypes\_class::table_getweapon( level.classtablename, var_2, 1 );
         case "loadoutSecondaryAttachKit":
-            return maps\mp\gametypes\_class::table_getweaponattachkit( level._id_1E3D, var_2, 1 );
+            return maps\mp\gametypes\_class::table_getweaponattachkit( level.classtablename, var_2, 1 );
         case "loadoutSecondaryFurnitureKit":
-            return maps\mp\gametypes\_class::table_getweaponfurniturekit( level._id_1E3D, var_2, 1 );
+            return maps\mp\gametypes\_class::table_getweaponfurniturekit( level.classtablename, var_2, 1 );
         case "loadoutSecondaryCamo":
-            return maps\mp\gametypes\_class::_id_90A7( level._id_1E3D, var_2, 1 );
+            return maps\mp\gametypes\_class::table_getweaponcamo( level.classtablename, var_2, 1 );
         case "loadoutSecondaryReticle":
-            return maps\mp\gametypes\_class::_id_90A8( level._id_1E3D, var_2, 1 );
+            return maps\mp\gametypes\_class::table_getweaponreticle( level.classtablename, var_2, 1 );
         case "loadoutEquipment":
-            return maps\mp\gametypes\_class::_id_909C( level._id_1E3D, var_2 );
+            return maps\mp\gametypes\_class::table_getequipment( level.classtablename, var_2 );
         case "loadoutOffhand":
-            return maps\mp\gametypes\_class::_id_90A0( level._id_1E3D, var_2 );
+            return maps\mp\gametypes\_class::table_getoffhand( level.classtablename, var_2 );
         case "loadoutPerk1":
         case "loadoutPerk2":
         case "loadoutPerk3":
             var_3 = int( getsubstr( var_1, 11 ) ) - 1;
-            var_4 = maps\mp\gametypes\_class::_id_90A2( level._id_1E3D, var_2, var_3 );
+            var_4 = maps\mp\gametypes\_class::table_getperk( level.classtablename, var_2, var_3 );
 
             if ( var_4 == "" )
                 return "specialty_null";
@@ -660,11 +642,11 @@ bot_loadout_choose_from_custom_default_class( var_0, var_1 )
             return getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 0, "weapon" );
         case "loadoutPrimaryAttachKit":
             var_3 = getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 0, "kit", "attachKit" );
-            var_4 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_3 ), 1 );
+            var_4 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_3 ), 1 );
             return var_4;
         case "loadoutPrimaryFurnitureKit":
             var_5 = getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 0, "kit", "furnitureKit" );
-            var_6 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_5 ), 1 );
+            var_6 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_5 ), 1 );
             return var_6;
         case "loadoutPrimaryCamo":
             return getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 0, "camo" );
@@ -674,11 +656,11 @@ bot_loadout_choose_from_custom_default_class( var_0, var_1 )
             return getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 1, "weapon" );
         case "loadoutSecondaryAttachKit":
             var_3 = getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 1, "kit", "attachKit" );
-            var_4 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_3 ), 1 );
+            var_4 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_3 ), 1 );
             return var_4;
         case "loadoutSecondaryFurnitureKit":
             var_5 = getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 1, "kit", "furnitureKit" );
-            var_6 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_5 ), 1 );
+            var_6 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_5 ), 1 );
             return var_6;
         case "loadoutSecondaryCamo":
             return getmatchrulesdata( "defaultClasses", var_2, "defaultClass", var_0, "class", "weaponSetups", 1, "camo" );
@@ -788,7 +770,7 @@ bot_cross_validate_attachkit_and_perk( var_0, var_1 )
 
     if ( bot_attachkit_replaces_perk1( var_0["loadoutPrimaryAttachKit"] ) && var_0["loadoutPerk1"] != "specialty_null" )
     {
-        var_3 = common_scripts\utility::_id_710E( var_2 );
+        var_3 = common_scripts\utility::random( var_2 );
 
         if ( var_3 == "attachKit" )
         {
@@ -819,7 +801,7 @@ bot_attachkit_replaces_perk1( var_0 )
     if ( var_0 == "none" )
         return 0;
 
-    if ( maps\mp\_utility::_id_5092( level.bot_attachkittable_reference[var_0]["replacesPerk1"] ) )
+    if ( maps\mp\_utility::is_true( level.bot_attachkittable_reference[var_0]["replacesPerk1"] ) )
         return 1;
 
     return 0;
@@ -849,7 +831,7 @@ bot_loadout_choose_from_attachkittable( var_0, var_1, var_2, var_3, var_4 )
     return var_5;
 }
 
-_id_4CBE()
+init_bot_camotable()
 {
     var_0 = "mp/camotable.csv";
     var_1 = 1;
@@ -923,15 +905,15 @@ bot_loadout_item_valid_for_rank( var_0, var_1, var_2 )
     if ( var_0 == "classtable_any" && var_2 == "recruit" )
         return 1;
 
-    if ( !isdefined( self._id_7136 ) )
+    if ( !isdefined( self.rank_for_items ) )
     {
-        self._id_7136 = self.pers["rank"];
+        self.rank_for_items = self.pers["rank"];
 
-        if ( !isdefined( self._id_7136 ) )
-            self._id_7136 = level.bot_rnd_rank[var_2][0];
+        if ( !isdefined( self.rank_for_items ) )
+            self.rank_for_items = level.bot_rnd_rank[var_2][0];
     }
 
-    if ( level.bot_min_rank_for_item[var_1] <= self._id_7136 )
+    if ( level.bot_min_rank_for_item[var_1] <= self.rank_for_items )
         return 1;
 
     return 0;
@@ -945,12 +927,12 @@ bot_loadout_valid_choice( var_0, var_1, var_2, var_3 )
     {
         case "loadoutPrimary":
             var_4 = bot_loadout_item_allowed( "weapon", var_3, undefined );
-            var_4 = var_4 && maps\mp\gametypes\_class::_id_51F3( var_3 );
+            var_4 = var_4 && maps\mp\gametypes\_class::isvalidprimary( var_3 );
             var_4 = var_4 && bot_loadout_item_valid_for_rank( var_0, var_3, self botgetdifficulty() );
             break;
         case "loadoutEquipment":
             var_4 = bot_loadout_item_allowed( "perk", var_3, "Lethal" );
-            var_4 = var_4 && maps\mp\gametypes\_class::_id_51EA( var_3 );
+            var_4 = var_4 && maps\mp\gametypes\_class::isvalidequipment( var_3 );
             var_4 = var_4 && bot_loadout_item_valid_for_rank( var_0, var_3, self botgetdifficulty() );
             break;
         case "loadoutOffhand":
@@ -968,12 +950,12 @@ bot_loadout_valid_choice( var_0, var_1, var_2, var_3 )
             break;
         case "loadoutPrimaryCamo":
             var_4 = !isdefined( self.botloadoutfavoritecamoprimary ) || var_3 == self.botloadoutfavoritecamoprimary;
-            var_4 = var_4 && maps\mp\gametypes\_class::_id_51E7( var_3 );
+            var_4 = var_4 && maps\mp\gametypes\_class::isvalidcamo( var_3 );
             break;
         case "loadoutSecondary":
             var_4 = var_3 != var_1["loadoutPrimary"];
             var_4 = var_4 && bot_loadout_item_allowed( "weapon", var_3, undefined );
-            var_4 = var_4 && maps\mp\gametypes\_class::_id_51F5( var_3, var_1["loadoutPerk2"] == "specialty_twoprimaries" );
+            var_4 = var_4 && maps\mp\gametypes\_class::isvalidsecondary( var_3, var_1["loadoutPerk2"] == "specialty_twoprimaries" );
             var_4 = var_4 && bot_loadout_item_valid_for_rank( var_0, var_3, self botgetdifficulty() );
             break;
         case "loadoutSecondaryAttachKit":
@@ -987,7 +969,7 @@ bot_loadout_valid_choice( var_0, var_1, var_2, var_3 )
             break;
         case "loadoutSecondaryCamo":
             var_4 = !isdefined( self.botloadoutfavoritecamosecondary ) || var_3 == self.botloadoutfavoritecamosecondary;
-            var_4 = var_4 && maps\mp\gametypes\_class::_id_51E7( var_3 );
+            var_4 = var_4 && maps\mp\gametypes\_class::isvalidcamo( var_3 );
             break;
         case "loadoutPerk1":
         case "loadoutPerk2":
@@ -1015,10 +997,10 @@ bot_loadout_choose_from_set( var_0, var_1, var_2, var_3, var_4 )
 
     if ( var_1 == "classtable_any" )
     {
-        if ( !isdefined( self._id_2779 ) )
-            self._id_2779 = common_scripts\utility::_id_710E( [ "class1", "class2", "class3", "class4", "class5", "class6" ] );
+        if ( !isdefined( self.default_class_chosen ) )
+            self.default_class_chosen = common_scripts\utility::random( [ "class1", "class2", "class3", "class4", "class5", "class6" ] );
 
-        var_0 = [ self._id_2779 ];
+        var_0 = [ self.default_class_chosen ];
     }
 
     foreach ( var_9 in var_0 )
@@ -1031,18 +1013,18 @@ bot_loadout_choose_from_set( var_0, var_1, var_2, var_3, var_4 )
             var_11 = level.botloadouttemplates[var_9][var_3];
             var_9 = bot_loadout_choose_from_set( strtok( var_11, "| " ), var_1, var_2, var_3, 1 );
 
-            if ( isdefined( var_10 ) && isdefined( self._id_1D63[var_10] ) )
+            if ( isdefined( var_10 ) && isdefined( self.chosentemplates[var_10] ) )
                 return var_9;
         }
 
         if ( var_9 == "attachkittable" )
-            return bot_loadout_choose_from_attachkittable( var_1, var_2, var_3, self._id_67DF, self._id_2A5F );
+            return bot_loadout_choose_from_attachkittable( var_1, var_2, var_3, self.personality, self.difficulty );
 
         if ( var_9 == "weap_statstable" )
-            return bot_loadout_choose_from_statstable( var_1, var_2, var_3, self._id_67DF, self._id_2A5F );
+            return bot_loadout_choose_from_statstable( var_1, var_2, var_3, self.personality, self.difficulty );
 
         if ( var_9 == "camotable" )
-            return bot_loadout_choose_from_camotable( var_1, var_2, var_3, self._id_67DF, self._id_2A5F );
+            return bot_loadout_choose_from_camotable( var_1, var_2, var_3, self.personality, self.difficulty );
 
         if ( getsubstr( var_9, 0, 5 ) == "class" && int( getsubstr( var_9, 5, 6 ) ) > 0 )
             var_9 = bot_loadout_choose_from_default_class( var_9, var_3 );
@@ -1060,14 +1042,14 @@ bot_loadout_choose_from_set( var_0, var_1, var_2, var_3, var_4 )
     }
 
     if ( isdefined( var_6 ) )
-        self._id_1D63[var_6] = 1;
+        self.chosentemplates[var_6] = 1;
 
     return var_5;
 }
 
 bot_loadout_choose_values( var_0 )
 {
-    self._id_1D63 = [];
+    self.chosentemplates = [];
 
     foreach ( var_6, var_2 in var_0 )
     {
@@ -1122,13 +1104,13 @@ bot_get_stored_launcher_class()
 
 bot_allowed_to_try_last_loadout()
 {
-    if ( maps\mp\_utility::_id_5092( self.bot_pick_new_loadout_next_spawn ) )
+    if ( maps\mp\_utility::is_true( self.bot_pick_new_loadout_next_spawn ) )
         return 0;
     else if ( !isdefined( self.pers["botLastLoadout"] ) )
         return 0;
-    else if ( maps\mp\_utility::_id_5092( self._id_7477 ) )
+    else if ( maps\mp\_utility::is_true( self.respawn_with_launcher ) )
         return 0;
-    else if ( isdefined( self._id_4726 ) && !self._id_4726 )
+    else if ( isdefined( self.hasdied ) && !self.hasdied )
         return 0;
 
     return 1;
@@ -1139,12 +1121,12 @@ bot_loadout_class_callback( var_0 )
     while ( !isdefined( level.bot_loadouts_initialized ) )
         wait 0.05;
 
-    while ( !isdefined( self._id_67DF ) )
+    while ( !isdefined( self.personality ) )
         wait 0.05;
 
     var_1 = [];
     var_2 = bot_loadout_get_difficulty();
-    self._id_2A5F = var_2;
+    self.difficulty = var_2;
     var_3 = self botgetpersonality();
 
     if ( !isdefined( self.bot_last_loadout_num ) )
@@ -1152,7 +1134,7 @@ bot_loadout_class_callback( var_0 )
 
     self.bot_last_loadout_num = self.bot_cur_loadout_num;
 
-    if ( isdefined( self.pers["botLastLoadout"] ) && maps\mp\_utility::_id_5092( var_0 ) )
+    if ( isdefined( self.pers["botLastLoadout"] ) && maps\mp\_utility::is_true( var_0 ) )
         return self.pers["botLastLoadout"];
 
     var_4 = !isdefined( self.pers["botLastLoadoutDifficulty"] ) || self.pers["botLastLoadoutDifficulty"] == var_2;
@@ -1184,9 +1166,9 @@ bot_loadout_class_callback( var_0 )
         var_9 = bot_get_stored_launcher_class();
         var_10 = undefined;
 
-        if ( isdefined( self._id_7477 ) && isdefined( var_9 ) )
+        if ( isdefined( self.respawn_with_launcher ) && isdefined( var_9 ) )
         {
-            self._id_7477 = undefined;
+            self.respawn_with_launcher = undefined;
             self.bot_pick_new_loadout_next_spawn = 1;
             var_10 = var_9;
         }
@@ -1201,13 +1183,13 @@ bot_loadout_class_callback( var_0 )
                 if ( var_11.size < 5 )
                     var_12 = 1;
             }
-            else if ( isdefined( self._id_7477 ) )
+            else if ( isdefined( self.respawn_with_launcher ) )
                 var_12 = 1;
             else if ( var_11.size < 4 )
                 var_12 = 1;
 
             if ( !var_12 )
-                var_10 = common_scripts\utility::_id_710E( var_11 );
+                var_10 = common_scripts\utility::random( var_11 );
         }
 
         if ( isdefined( var_10 ) )
@@ -1266,12 +1248,12 @@ bot_loadout_class_callback( var_0 )
             else
                 maps\mp\bots\_bots_util::bot_set_personality( self.bot_fallback_personality );
 
-            var_3 = self._id_67DF;
+            var_3 = self.personality;
             self.bot_fallback_personality = undefined;
         }
     }
 
-    var_18 = isdefined( self._id_7477 );
+    var_18 = isdefined( self.respawn_with_launcher );
 
     if ( var_14 && maps\mp\bots\_bots::bot_israndom() )
     {
@@ -1293,7 +1275,7 @@ bot_loadout_class_callback( var_0 )
                 self.bot_pick_new_loadout_next_spawn = 1;
             }
 
-            self._id_7477 = undefined;
+            self.respawn_with_launcher = undefined;
         }
 
         if ( var_1["loadoutPerk2"] == "specialty_explosivedamage" )
@@ -1391,12 +1373,12 @@ bot_setup_loadout_callback()
 
     if ( isdefined( var_2 ) && isdefined( var_2.loadouts ) && var_2.loadouts.size > 0 )
     {
-        self._id_1E33 = ::bot_loadout_class_callback;
+        self.classcallback = ::bot_loadout_class_callback;
         return 1;
     }
 
     var_3 = getsubstr( self.name, 0, self.name.size - 10 );
-    self._id_1E33 = undefined;
+    self.classcallback = undefined;
     return 0;
 }
 

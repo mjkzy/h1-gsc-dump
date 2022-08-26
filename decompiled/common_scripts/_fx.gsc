@@ -1,76 +1,58 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4DBF()
+initfx()
 {
-    if ( !isdefined( level._id_3AE4 ) )
-        level._id_3AE4 = [];
+    if ( !isdefined( level.func ) )
+        level.func = [];
 
-    if ( !isdefined( level._id_3AE4["create_triggerfx"] ) )
-        level._id_3AE4["create_triggerfx"] = ::_id_23DD;
+    if ( !isdefined( level.func["create_triggerfx"] ) )
+        level.func["create_triggerfx"] = ::create_triggerfx;
 
     if ( !isdefined( level._fx ) )
         level._fx = spawnstruct();
 
-    common_scripts\utility::_id_23C8( "createfx_looper", 20 );
-    level._id_3BA6 = 1;
-    level._fx._id_3539 = common_scripts\_exploder::_id_352A;
-    waitframe;
-    waitframe;
-    level._fx._id_3539 = common_scripts\_exploder::_id_3529;
-    level._fx._id_7D9E = 0;
+    common_scripts\utility::create_lock( "createfx_looper", 20 );
+    level.fxfireloopmod = 1;
+    level._fx.exploderfunction = common_scripts\_exploder::exploder_before_load;
+    waittillframeend;
+    waittillframeend;
+    level._fx.exploderfunction = common_scripts\_exploder::exploder_after_load;
+    level._fx.server_culled_sounds = 0;
 
     if ( getdvarint( "serverCulledSounds" ) == 1 )
-        level._fx._id_7D9E = 1;
+        level._fx.server_culled_sounds = 1;
 
-    if ( level._id_2409 )
-        level._fx._id_7D9E = 0;
+    if ( level.createfx_enabled )
+        level._fx.server_culled_sounds = 0;
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
         level waittill( "createfx_common_done" );
 
-    for ( var_0 = 0; var_0 < level._id_2417.size; var_0++ )
+    for ( var_0 = 0; var_0 < level.createfxent.size; var_0++ )
     {
-        var_1 = level._id_2417[var_0];
-        var_1 common_scripts\_createfx::_id_7E40();
+        var_1 = level.createfxent[var_0];
+        var_1 common_scripts\_createfx::set_forward_and_up_vectors();
 
         switch ( var_1.v["type"] )
         {
             case "loopfx":
-                var_1 thread _id_5883();
+                var_1 thread loopfxthread();
                 break;
             case "oneshotfx":
-                var_1 thread _id_64A0();
+                var_1 thread oneshotfxthread();
                 break;
             case "soundfx":
-                var_1 thread _id_23CA();
+                var_1 thread create_loopsound();
                 break;
             case "soundfx_interval":
-                var_1 thread _id_23C3();
+                var_1 thread create_interval_sound();
                 break;
             case "reactive_fx":
                 var_1 add_reactive_fx();
                 break;
             case "soundfx_dynamic":
-                var_1 thread _id_23AF();
+                var_1 thread create_dynamicambience();
                 break;
         }
 
@@ -78,31 +60,31 @@ _id_4DBF()
             var_1 thread common_scripts\_createfx::stop_fx_looper_on_exploder();
     }
 
-    _id_1CB4();
+    check_createfx_limit();
 }
 
-_id_7346()
+remove_dupes()
 {
 
 }
 
-_id_1CB4()
+check_createfx_limit()
 {
 
 }
 
-_id_1CD1( var_0, var_1 )
+check_limit_type( var_0, var_1 )
 {
 
 }
 
-_id_6F99( var_0, var_1, var_2, var_3 )
+print_org( var_0, var_1, var_2, var_3 )
 {
     if ( getdvar( "debug" ) == "1" )
         return;
 }
 
-_id_688F()
+platformmatches()
 {
     if ( isdefined( self.v["platform"] ) && isdefined( level.currentgen ) )
     {
@@ -115,16 +97,16 @@ _id_688F()
     return 1;
 }
 
-_id_649F( var_0, var_1, var_2, var_3 )
+oneshotfx( var_0, var_1, var_2, var_3 )
 {
 
 }
 
-_id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12, var_13, var_14, var_15, var_16, var_17 )
+exploderfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11, var_12, var_13, var_14, var_15, var_16, var_17 )
 {
     if ( 1 )
     {
-        var_18 = common_scripts\utility::_id_23FE( var_1 );
+        var_18 = common_scripts\utility::createexploder( var_1 );
         var_18.v["origin"] = var_2;
         var_18.v["angles"] = ( 0.0, 0.0, 0.0 );
 
@@ -134,15 +116,15 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
         var_18.v["delay"] = var_3;
         var_18.v["exploder"] = var_0;
 
-        if ( isdefined( level._id_241A ) )
+        if ( isdefined( level.createfxexploders ) )
         {
-            var_19 = level._id_241A[var_18.v["exploder"]];
+            var_19 = level.createfxexploders[var_18.v["exploder"]];
 
             if ( !isdefined( var_19 ) )
                 var_19 = [];
 
             var_19[var_19.size] = var_18;
-            level._id_241A[var_18.v["exploder"]] = var_19;
+            level.createfxexploders[var_18.v["exploder"]] = var_19;
         }
 
         return;
@@ -151,25 +133,25 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     var_20 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_20.origin = var_2;
     var_20.angles = vectortoangles( var_4 - var_2 );
-    var_20._id_79BF = var_0;
-    var_20._id_79F1 = var_1;
+    var_20.script_exploder = var_0;
+    var_20.script_fxid = var_1;
     var_20.script_delay = var_3;
-    var_20._id_79CB = var_5;
-    var_20._id_79CC = var_6;
-    var_20._id_79CD = var_7;
-    var_20._id_7ACA = var_8;
-    var_20._id_79B5 = var_9;
-    var_20._id_7981 = var_10;
-    var_20._id_7AB2 = var_15;
-    var_20._id_7ACB = var_11;
-    var_20._id_79CE = var_16;
-    var_20._id_7AB6 = var_12;
-    var_20._id_798E = var_13;
-    var_20._id_798D = var_14;
-    var_20._id_79C1 = var_17;
+    var_20.script_firefx = var_5;
+    var_20.script_firefxdelay = var_6;
+    var_20.script_firefxsound = var_7;
+    var_20.script_sound = var_8;
+    var_20.script_earthquake = var_9;
+    var_20.script_damage = var_10;
+    var_20.script_radius = var_15;
+    var_20.script_soundalias = var_11;
+    var_20.script_firefxtimeout = var_16;
+    var_20.script_repeat = var_12;
+    var_20.script_delay_min = var_13;
+    var_20.script_delay_max = var_14;
+    var_20.script_exploder_group = var_17;
     var_21 = anglestoforward( var_20.angles );
     var_21 *= 150;
-    var_20._id_91D8 = var_2 + var_21;
+    var_20.targetpos = var_2 + var_21;
 
     if ( !isdefined( level._script_exploders ) )
         level._script_exploders = [];
@@ -177,9 +159,9 @@ _id_353A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, 
     level._script_exploders[level._script_exploders.size] = var_20;
 }
 
-_id_587C( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
+loopfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    var_7 = common_scripts\utility::_id_2428( var_0 );
+    var_7 = common_scripts\utility::createloopeffect( var_0 );
     var_7.v["origin"] = var_1;
     var_7.v["angles"] = ( 0.0, 0.0, 0.0 );
 
@@ -189,15 +171,15 @@ _id_587C( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     var_7.v["delay"] = var_2;
 }
 
-_id_23C9()
+create_looper()
 {
-    self._id_587B = playloopedfx( level._effect[self.v["fxid"]], self.v["delay"], self.v["origin"], 0, self.v["forward"], self.v["up"] );
-    _id_23CA();
+    self.looper = playloopedfx( level._effect[self.v["fxid"]], self.v["delay"], self.v["origin"], 0, self.v["forward"], self.v["up"] );
+    create_loopsound();
 }
 
-_id_23CA()
+create_loopsound()
 {
-    if ( !_id_688F() )
+    if ( !platformmatches() )
         return;
 
     self notify( "stop_loop" );
@@ -213,30 +195,30 @@ _id_23CA()
 
     if ( isdefined( self.v["stopable"] ) && self.v["stopable"] )
     {
-        if ( isdefined( self._id_587B ) )
+        if ( isdefined( self.looper ) )
             var_1 = "death";
         else
             var_1 = "stop_loop";
     }
-    else if ( level._fx._id_7D9E && isdefined( self.v["server_culled"] ) )
+    else if ( level._fx.server_culled_sounds && isdefined( self.v["server_culled"] ) )
         var_0 = self.v["server_culled"];
 
     var_2 = self;
 
-    if ( isdefined( self._id_587B ) )
-        var_2 = self._id_587B;
+    if ( isdefined( self.looper ) )
+        var_2 = self.looper;
 
     var_3 = undefined;
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
         var_3 = self;
 
-    var_2 common_scripts\utility::_id_5874( self.v["soundalias"], self.v["origin"], self.v["angles"], var_0, var_1, var_3 );
+    var_2 common_scripts\utility::loop_fx_sound_with_angles( self.v["soundalias"], self.v["origin"], self.v["angles"], var_0, var_1, var_3 );
 }
 
-_id_23C3()
+create_interval_sound()
 {
-    if ( !_id_688F() )
+    if ( !platformmatches() )
         return;
 
     self notify( "stop_loop" );
@@ -250,23 +232,23 @@ _id_23C3()
     var_0 = undefined;
     var_1 = self;
 
-    if ( isdefined( self.v["stopable"] ) && self.v["stopable"] || level._id_2409 )
+    if ( isdefined( self.v["stopable"] ) && self.v["stopable"] || level.createfx_enabled )
     {
-        if ( isdefined( self._id_587B ) )
+        if ( isdefined( self.looper ) )
         {
-            var_1 = self._id_587B;
+            var_1 = self.looper;
             var_0 = "death";
         }
         else
             var_0 = "stop_loop";
     }
 
-    var_1 thread common_scripts\utility::_id_5873( self.v["soundalias"], self.v["origin"], self.v["angles"], var_0, undefined, self.v["delay_min"], self.v["delay_max"] );
+    var_1 thread common_scripts\utility::loop_fx_sound_interval_with_angles( self.v["soundalias"], self.v["origin"], self.v["angles"], var_0, undefined, self.v["delay_min"], self.v["delay_max"] );
 }
 
-_id_23AF()
+create_dynamicambience()
 {
-    if ( !_id_688F() )
+    if ( !platformmatches() )
         return;
 
     if ( !isdefined( self.v["ambiencename"] ) )
@@ -275,46 +257,46 @@ _id_23AF()
     if ( self.v["ambiencename"] == "nil" )
         return;
 
-    if ( common_scripts\utility::_id_51AE() )
+    if ( common_scripts\utility::issp() )
         return;
 
     if ( getdvar( "createfx" ) == "on" )
-        common_scripts\utility::_id_384A( "createfx_started" );
+        common_scripts\utility::flag_wait( "createfx_started" );
 
-    if ( isdefined( self._id_25CC ) )
-        level.player _meth_847A( self._id_25CC._id_9A29 );
+    if ( isdefined( self.dambinfostruct ) )
+        level.player _meth_847A( self.dambinfostruct.unique_id );
 
-    self._id_25CC = spawnstruct();
-    self._id_25CC common_scripts\utility::assign_unique_id();
-    level.player _meth_8479( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self._id_25CC._id_9A29 );
+    self.dambinfostruct = spawnstruct();
+    self.dambinfostruct common_scripts\utility::assign_unique_id();
+    level.player _meth_8479( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self.dambinfostruct.unique_id );
     return;
 }
 
-_id_5883()
+loopfxthread()
 {
-    waittillframeend;
+    waitframe();
 
-    if ( isdefined( self._id_3BB9 ) )
-        level waittill( "start fx" + self._id_3BB9 );
+    if ( isdefined( self.fxstart ) )
+        level waittill( "start fx" + self.fxstart );
 
     for (;;)
     {
-        _id_23C9();
+        create_looper();
 
-        if ( isdefined( self._id_936B ) )
-            thread _id_5882( self._id_936B );
+        if ( isdefined( self.timeout ) )
+            thread loopfxstop( self.timeout );
 
-        if ( isdefined( self._id_3BBA ) )
-            level waittill( "stop fx" + self._id_3BBA );
+        if ( isdefined( self.fxstop ) )
+            level waittill( "stop fx" + self.fxstop );
         else
             return;
 
-        if ( isdefined( self._id_587B ) )
-            self._id_587B delete();
+        if ( isdefined( self.looper ) )
+            self.looper delete();
 
-        if ( isdefined( self._id_3BB9 ) )
+        if ( isdefined( self.fxstart ) )
         {
-            level waittill( "start fx" + self._id_3BB9 );
+            level waittill( "start fx" + self.fxstart );
             continue;
         }
 
@@ -322,13 +304,13 @@ _id_5883()
     }
 }
 
-_id_587F( var_0 )
+loopfxchangeid( var_0 )
 {
     self endon( "death" );
     var_0 waittill( "effect id changed", var_1 );
 }
 
-_id_5880( var_0 )
+loopfxchangeorg( var_0 )
 {
     self endon( "death" );
 
@@ -339,47 +321,47 @@ _id_5880( var_0 )
     }
 }
 
-_id_587E( var_0 )
+loopfxchangedelay( var_0 )
 {
     self endon( "death" );
     var_0 waittill( "effect delay changed", var_1 );
 }
 
-_id_5881( var_0 )
+loopfxdeletion( var_0 )
 {
     self endon( "death" );
     var_0 waittill( "effect deleted" );
     self delete();
 }
 
-_id_5882( var_0 )
+loopfxstop( var_0 )
 {
     self endon( "death" );
     wait(var_0);
-    self._id_587B delete();
+    self.looper delete();
 }
 
-_id_5890( var_0, var_1, var_2 )
+loopsound( var_0, var_1, var_2 )
 {
-    level thread _id_5892( var_0, var_1, var_2 );
+    level thread loopsoundthread( var_0, var_1, var_2 );
 }
 
-_id_5892( var_0, var_1, var_2 )
+loopsoundthread( var_0, var_1, var_2 )
 {
     var_3 = spawn( "script_origin", var_1 );
     var_3.origin = var_1;
     var_3 playloopsound( var_0 );
 }
 
-_id_446A( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+gunfireloopfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    thread _id_446B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
+    thread gunfireloopfxthread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
 }
 
-_id_446B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+gunfireloopfxthread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     level endon( "stop all gunfireloopfx" );
-    waittillframeend;
+    waitframe();
 
     if ( var_7 < var_6 )
     {
@@ -412,7 +394,7 @@ _id_446B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     var_14 = var_3 - var_2;
     var_15 = spawnfx( level._effect[var_0], var_1 );
 
-    if ( !level._id_2409 )
+    if ( !level.createfx_enabled )
         var_15 willneverchange();
 
     for (;;)
@@ -429,15 +411,15 @@ _id_446B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
     }
 }
 
-_id_446C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+gunfireloopfxvec( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
-    thread _id_446D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+    thread gunfireloopfxvecthread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 }
 
-_id_446D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+gunfireloopfxvecthread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
     level endon( "stop all gunfireloopfx" );
-    waittillframeend;
+    waitframe();
 
     if ( var_8 < var_7 )
     {
@@ -471,17 +453,17 @@ _id_446D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     var_2 = vectornormalize( var_2 - var_1 );
     var_16 = spawnfx( level._effect[var_0], var_1, var_2 );
 
-    if ( !level._id_2409 )
+    if ( !level.createfx_enabled )
         var_16 willneverchange();
 
     for (;;)
     {
         var_17 = var_14 + randomint( var_15 );
 
-        for ( var_18 = 0; var_18 < int( var_17 / level._id_3BA6 ); var_18++ )
+        for ( var_18 = 0; var_18 < int( var_17 / level.fxfireloopmod ); var_18++ )
         {
             triggerfx( var_16 );
-            var_19 = ( var_12 + randomfloat( var_13 ) ) * level._id_3BA6;
+            var_19 = ( var_12 + randomfloat( var_13 ) ) * level.fxfireloopmod;
 
             if ( var_19 < 0.05 )
                 var_19 = 0.05;
@@ -494,14 +476,14 @@ _id_446D( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
     }
 }
 
-_id_7F6E( var_0 )
+setfireloopmod( var_0 )
 {
-    level._id_3BA6 = 1 / var_0;
+    level.fxfireloopmod = 1 / var_0;
 }
 
-_id_811E()
+setup_fx()
 {
-    if ( !isdefined( self._id_79F1 ) || !isdefined( self._id_79F0 ) || !isdefined( self.script_delay ) )
+    if ( !isdefined( self.script_fxid ) || !isdefined( self.script_fxcommand ) || !isdefined( self.script_delay ) )
         return;
 
     if ( isdefined( self.model ) )
@@ -525,22 +507,22 @@ _id_811E()
 
     var_2 = undefined;
 
-    if ( isdefined( self._id_79F2 ) )
-        var_2 = self._id_79F2;
+    if ( isdefined( self.script_fxstart ) )
+        var_2 = self.script_fxstart;
 
     var_3 = undefined;
 
-    if ( isdefined( self._id_79F3 ) )
-        var_3 = self._id_79F3;
+    if ( isdefined( self.script_fxstop ) )
+        var_3 = self.script_fxstop;
 
-    if ( self._id_79F0 == "OneShotfx" )
-        _id_649F( self._id_79F1, self.origin, self.script_delay, var_0 );
+    if ( self.script_fxcommand == "OneShotfx" )
+        oneshotfx( self.script_fxid, self.origin, self.script_delay, var_0 );
 
-    if ( self._id_79F0 == "loopfx" )
-        _id_587C( self._id_79F1, self.origin, self.script_delay, var_0, var_2, var_3 );
+    if ( self.script_fxcommand == "loopfx" )
+        loopfx( self.script_fxid, self.origin, self.script_delay, var_0, var_2, var_3 );
 
-    if ( self._id_79F0 == "loopsound" )
-        _id_5890( self._id_79F1, self.origin, self.script_delay );
+    if ( self.script_fxcommand == "loopsound" )
+        loopsound( self.script_fxid, self.origin, self.script_delay );
 
     self delete();
 }
@@ -548,7 +530,7 @@ _id_811E()
 burnville_paratrooper_hack()
 {
     var_0 = ( 0, 0, self.angles[1] );
-    var_1 = level._effect[self._id_79F1];
+    var_1 = level._effect[self.script_fxid];
     var_2 = self.origin;
     wait 1;
     level thread burnville_paratrooper_hack_loop( var_0, var_2, var_1 );
@@ -564,9 +546,9 @@ burnville_paratrooper_hack_loop( var_0, var_1, var_2 )
     }
 }
 
-_id_23DD()
+create_triggerfx()
 {
-    if ( !_id_9D87( self.v["fxid"] ) )
+    if ( !verify_effects_assignment( self.v["fxid"] ) )
         return;
 
     if ( isdefined( self.v["tintcolor"] ) || isdefined( self.v["tintalpha"] ) || isdefined( self.v["fadein"] ) || isdefined( self.v["fadeout"] ) || isdefined( self.v["emissive"] ) || isdefined( self.v["sizescale"] ) )
@@ -601,22 +583,22 @@ _id_23DD()
         if ( !isdefined( var_5 ) )
             var_5 = 1;
 
-        self._id_587B = spawnfx( level._effect[self.v["fxid"]], self.v["origin"], self.v["forward"], self.v["up"], var_0, var_1, var_2, var_3, var_4, var_5 );
+        self.looper = spawnfx( level._effect[self.v["fxid"]], self.v["origin"], self.v["forward"], self.v["up"], var_0, var_1, var_2, var_3, var_4, var_5 );
     }
     else
-        self._id_587B = spawnfx( level._effect[self.v["fxid"]], self.v["origin"], self.v["forward"], self.v["up"] );
+        self.looper = spawnfx( level._effect[self.v["fxid"]], self.v["origin"], self.v["forward"], self.v["up"] );
 
-    triggerfx( self._id_587B, self.v["delay"] );
+    triggerfx( self.looper, self.v["delay"] );
 
-    if ( !level._id_2409 )
-        self._id_587B willneverchange();
+    if ( !level.createfx_enabled )
+        self.looper willneverchange();
     else
-        setfxkillondelete( self._id_587B, 1 );
+        setfxkillondelete( self.looper, 1 );
 
-    _id_23CA();
+    create_loopsound();
 }
 
-_id_9D87( var_0 )
+verify_effects_assignment( var_0 )
 {
     if ( isdefined( level._effect[var_0] ) )
         return 1;
@@ -625,11 +607,11 @@ _id_9D87( var_0 )
         level._missing_fx = [];
 
     level._missing_fx[self.v["fxid"]] = var_0;
-    _id_9D88( var_0 );
+    verify_effects_assignment_print( var_0 );
     return 0;
 }
 
-_id_9D88( var_0 )
+verify_effects_assignment_print( var_0 )
 {
     level notify( "verify_effects_assignment_print" );
     level endon( "verify_effects_assignment_print" );
@@ -642,74 +624,74 @@ _id_9D88( var_0 )
     }
 }
 
-_id_64A0()
+oneshotfxthread()
 {
     wait 0.05;
 
-    if ( !_id_688F() )
+    if ( !platformmatches() )
         return;
 
     if ( self.v["delay"] > 0 )
         wait(self.v["delay"]);
 
-    [[ level._id_3AE4["create_triggerfx"] ]]();
+    [[ level.func["create_triggerfx"] ]]();
 }
 
 add_reactive_fx()
 {
-    if ( !_id_688F() )
+    if ( !platformmatches() )
         return;
 
-    if ( !common_scripts\utility::_id_51AE() && getdvar( "createfx" ) == "" )
+    if ( !common_scripts\utility::issp() && getdvar( "createfx" ) == "" )
         return;
 
-    if ( !isdefined( level._fx._id_7190 ) )
+    if ( !isdefined( level._fx.reactive_thread ) )
     {
-        level._fx._id_7190 = 1;
-        level thread _id_718E();
+        level._fx.reactive_thread = 1;
+        level thread reactive_fx_thread();
     }
 
-    if ( !isdefined( level._fx._id_718D ) )
-        level._fx._id_718D = [];
+    if ( !isdefined( level._fx.reactive_fx_ents ) )
+        level._fx.reactive_fx_ents = [];
 
-    level._fx._id_718D[level._fx._id_718D.size] = self;
-    self._id_60C0 = 3000;
+    level._fx.reactive_fx_ents[level._fx.reactive_fx_ents.size] = self;
+    self.next_reactive_time = 3000;
 }
 
-_id_718E()
+reactive_fx_thread()
 {
-    if ( !common_scripts\utility::_id_51AE() )
+    if ( !common_scripts\utility::issp() )
     {
         if ( getdvar( "createfx" ) == "on" )
-            common_scripts\utility::_id_384A( "createfx_started" );
+            common_scripts\utility::flag_wait( "createfx_started" );
     }
 
-    level._fx._id_718F = [];
+    level._fx.reactive_sound_ents = [];
     var_0 = 256;
 
     for (;;)
     {
         level waittill( "code_damageradius", var_1, var_0, var_2, var_3 );
-        var_4 = _id_8892( var_2, var_0 );
+        var_4 = sort_reactive_ents( var_2, var_0 );
 
         foreach ( var_7, var_6 in var_4 )
-            var_6 thread _id_6998( var_7 );
+            var_6 thread play_reactive_fx( var_7 );
     }
 }
 
-_id_9C71( var_0 )
+vector2d( var_0 )
 {
     return ( var_0[0], var_0[1], 0 );
 }
 
-_id_8892( var_0, var_1 )
+sort_reactive_ents( var_0, var_1 )
 {
     var_2 = [];
     var_3 = gettime();
 
-    foreach ( var_5 in level._fx._id_718D )
+    foreach ( var_5 in level._fx.reactive_fx_ents )
     {
-        if ( var_5._id_60C0 > var_3 )
+        if ( var_5.next_reactive_time > var_3 )
             continue;
 
         var_6 = var_5.v["reactive_radius"] + var_1;
@@ -721,18 +703,18 @@ _id_8892( var_0, var_1 )
 
     foreach ( var_5 in var_2 )
     {
-        var_9 = _id_9C71( var_5.v["origin"] - level.player.origin );
-        var_10 = _id_9C71( var_0 - level.player.origin );
+        var_9 = vector2d( var_5.v["origin"] - level.player.origin );
+        var_10 = vector2d( var_0 - level.player.origin );
         var_11 = vectornormalize( var_9 );
         var_12 = vectornormalize( var_10 );
-        var_5._id_2D80 = vectordot( var_11, var_12 );
+        var_5.dot = vectordot( var_11, var_12 );
     }
 
     for ( var_14 = 0; var_14 < var_2.size - 1; var_14++ )
     {
         for ( var_15 = var_14 + 1; var_15 < var_2.size; var_15++ )
         {
-            if ( var_2[var_14]._id_2D80 > var_2[var_15]._id_2D80 )
+            if ( var_2[var_14].dot > var_2[var_15].dot )
             {
                 var_16 = var_2[var_14];
                 var_2[var_14] = var_2[var_15];
@@ -744,7 +726,7 @@ _id_8892( var_0, var_1 )
     foreach ( var_5 in var_2 )
     {
         var_5.origin = undefined;
-        var_5._id_2D80 = undefined;
+        var_5.dot = undefined;
     }
 
     for ( var_14 = 4; var_14 < var_2.size; var_14++ )
@@ -753,19 +735,19 @@ _id_8892( var_0, var_1 )
     return var_2;
 }
 
-_id_6998( var_0 )
+play_reactive_fx( var_0 )
 {
-    var_1 = _id_3E4D();
+    var_1 = get_reactive_sound_ent();
 
     if ( !isdefined( var_1 ) )
         return;
 
-    self._id_60C0 = gettime() + 3000;
+    self.next_reactive_time = gettime() + 3000;
     var_1.origin = self.v["origin"];
-    var_1._id_506C = 1;
+    var_1.is_playing = 1;
     wait(var_0 * randomfloatrange( 0.05, 0.1 ));
 
-    if ( common_scripts\utility::_id_51AE() )
+    if ( common_scripts\utility::issp() )
     {
         var_1 playsound( self.v["soundalias"], "sounddone" );
         var_1 waittill( "sounddone" );
@@ -777,22 +759,22 @@ _id_6998( var_0 )
     }
 
     wait 0.1;
-    var_1._id_506C = 0;
+    var_1.is_playing = 0;
 }
 
-_id_3E4D()
+get_reactive_sound_ent()
 {
-    foreach ( var_1 in level._fx._id_718F )
+    foreach ( var_1 in level._fx.reactive_sound_ents )
     {
-        if ( !var_1._id_506C )
+        if ( !var_1.is_playing )
             return var_1;
     }
 
-    if ( level._fx._id_718F.size < 4 )
+    if ( level._fx.reactive_sound_ents.size < 4 )
     {
         var_1 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-        var_1._id_506C = 0;
-        level._fx._id_718F[level._fx._id_718F.size] = var_1;
+        var_1.is_playing = 0;
+        level._fx.reactive_sound_ents[level._fx.reactive_sound_ents.size] = var_1;
         return var_1;
     }
 

@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
 
@@ -33,7 +15,7 @@ hurtgen_style()
         var_0[var_2] setup_mortar_terrain();
 
     if ( !isdefined( level.mortar ) )
-        common_scripts\utility::_id_334F( "level.mortar not defined. define in level script" );
+        common_scripts\utility::error( "level.mortar not defined. define in level script" );
 
     level waittill( "start_mortars" );
 
@@ -94,7 +76,7 @@ railyard_style( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, v
     }
 
     if ( !isdefined( level.mortar ) )
-        common_scripts\utility::_id_334F( "level.mortar not defined. define in level script" );
+        common_scripts\utility::error( "level.mortar not defined. define in level script" );
 
     if ( isdefined( level.mortar_notify ) )
         level waittill( level.mortar_notify );
@@ -138,10 +120,10 @@ script_mortargroup_style()
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( isdefined( var_2[var_3]._id_7A3E ) )
+        if ( isdefined( var_2[var_3].script_mortargroup ) )
         {
-            if ( !isdefined( level.mortars[var_2[var_3]._id_7A3E] ) )
-                level.mortars[var_2[var_3]._id_7A3E] = [];
+            if ( !isdefined( level.mortars[var_2[var_3].script_mortargroup] ) )
+                level.mortars[var_2[var_3].script_mortargroup] = [];
 
             var_4 = spawnstruct();
             var_4.origin = var_2[var_3].origin;
@@ -153,7 +135,7 @@ script_mortargroup_style()
             if ( isdefined( var_2[var_3].target ) )
                 var_4.target = var_2[var_3].target;
 
-            level.mortars[var_2[var_3]._id_7A3E][level.mortars[var_2[var_3]._id_7A3E].size] = var_4;
+            level.mortars[var_2[var_3].script_mortargroup][level.mortars[var_2[var_3].script_mortargroup].size] = var_4;
             var_2[var_3] delete();
         }
     }
@@ -171,10 +153,10 @@ script_mortargroup_style()
 
     for ( var_3 = 0; var_3 < var_5.size; var_3++ )
     {
-        if ( isdefined( var_5[var_3]._id_7A3E ) )
+        if ( isdefined( var_5[var_3].script_mortargroup ) )
         {
-            if ( !isdefined( level.mortars[var_5[var_3]._id_7A3E] ) )
-                level.mortars[var_5[var_3]._id_7A3E] = [];
+            if ( !isdefined( level.mortars[var_5[var_3].script_mortargroup] ) )
+                level.mortars[var_5[var_3].script_mortargroup] = [];
 
             var_1[var_1.size] = var_5[var_3];
         }
@@ -195,7 +177,7 @@ script_mortargroup_style()
         if ( isdefined( var_6 ) )
             var_6 notify( "wait again" );
 
-        level.mortarzone = var_7._id_7A3E;
+        level.mortarzone = var_7.script_mortargroup;
         var_7 thread script_mortargroup_mortarzone();
         var_6 = var_7;
     }
@@ -207,19 +189,19 @@ script_mortargroup_mortarzone()
     var_1 = gettime();
     var_2 = 0;
 
-    if ( isdefined( self._id_7AF6 ) )
+    if ( isdefined( self.script_timer ) )
     {
         level notify( "timed barrage" );
-        var_1 = gettime() + self._id_7AF6 * 1000;
+        var_1 = gettime() + self.script_timer * 1000;
         var_2 = 1;
     }
 
-    if ( isdefined( self._id_7AB2 ) )
-        var_3 = self._id_7AB2;
+    if ( isdefined( self.script_radius ) )
+        var_3 = self.script_radius;
     else
         var_3 = 0;
 
-    if ( isdefined( self._id_798E ) && isdefined( self._id_798D ) )
+    if ( isdefined( self.script_delay_min ) && isdefined( self.script_delay_max ) )
         var_4 = 1;
     else
         var_4 = 0;
@@ -229,10 +211,10 @@ script_mortargroup_mortarzone()
     var_7 = 4;
     var_8 = 0;
 
-    while ( level.mortars[self._id_7A3E].size > 0 && level.mortarzone == self._id_7A3E || var_2 )
+    while ( level.mortars[self.script_mortargroup].size > 0 && level.mortarzone == self.script_mortargroup || var_2 )
     {
         if ( var_4 )
-            wait(randomfloat( self._id_798D - self._id_798E ) + self._id_798E);
+            wait(randomfloat( self.script_delay_max - self.script_delay_min ) + self.script_delay_min);
         else if ( var_8 )
         {
             if ( var_5 < var_7 )
@@ -263,22 +245,22 @@ script_mortargroup_mortarzone()
         }
 
         var_10 = [];
-        var_11 = randomint( level.mortars[self._id_7A3E].size );
+        var_11 = randomint( level.mortars[self.script_mortargroup].size );
 
         if ( randomint( 100 ) < 75 )
         {
             var_12 = anglestoforward( level.player.angles );
             var_13 = [];
 
-            for ( var_14 = 0; var_14 < level.mortars[self._id_7A3E].size; var_14++ )
+            for ( var_14 = 0; var_14 < level.mortars[self.script_mortargroup].size; var_14++ )
             {
-                if ( var_3 > 0 && distance( level.player.origin, level.mortars[self._id_7A3E][var_14].origin ) > var_3 )
+                if ( var_3 > 0 && distance( level.player.origin, level.mortars[self.script_mortargroup][var_14].origin ) > var_3 )
                     continue;
 
-                if ( is_lastblast( level.mortars[self._id_7A3E][var_14], var_0 ) )
+                if ( is_lastblast( level.mortars[self.script_mortargroup][var_14], var_0 ) )
                     continue;
 
-                var_15 = vectornormalize( level.mortars[self._id_7A3E][var_14].origin - level.player.origin );
+                var_15 = vectornormalize( level.mortars[self.script_mortargroup][var_14].origin - level.player.origin );
 
                 if ( vectordot( var_12, var_15 ) > 0.3 )
                     var_13[var_13.size] = var_14;
@@ -291,8 +273,8 @@ script_mortargroup_mortarzone()
         if ( var_0.size > 3 )
             var_0 = [];
 
-        var_0[var_0.size] = level.mortars[self._id_7A3E][var_11];
-        level.mortars[self._id_7A3E][var_11] thread script_mortargroup_domortar();
+        var_0[var_0.size] = level.mortars[self.script_mortargroup][var_11];
+        level.mortars[self.script_mortargroup][var_11] thread script_mortargroup_domortar();
 
         if ( var_2 && gettime() > var_1 )
         {
@@ -347,7 +329,7 @@ script_mortargroup_mortar_group()
     {
         self waittill( "trigger" );
 
-        if ( isdefined( level.mortarzone ) && level.mortarzone == self._id_7A3E )
+        if ( isdefined( level.mortarzone ) && level.mortarzone == self.script_mortargroup )
             continue;
 
         level notify( "mortarzone", self );
@@ -362,14 +344,14 @@ trigger_targeted()
 
     for ( var_0 = 0; var_0 < level.mortars.size; var_0++ )
     {
-        if ( isdefined( level.mortars[var_0]._id_7A3E ) )
+        if ( isdefined( level.mortars[var_0].script_mortargroup ) )
             level.mortars[var_0] setup_mortar_terrain();
     }
 
     level.lastmortar = -1;
 
     if ( !isdefined( level.mortar ) )
-        common_scripts\utility::_id_334F( "level.mortar not defined. define in level script" );
+        common_scripts\utility::error( "level.mortar not defined. define in level script" );
 
     for ( var_0 = 0; var_0 < level.mortartrigger.size; var_0++ )
         thread trigger_targeted_mortars( var_0 );
@@ -404,7 +386,7 @@ bunker_style_mortar()
     var_0 = [];
     var_1 = undefined;
     var_2 = [];
-    var_3 = common_scripts\utility::_id_40FD( "mortar_bunker", "targetname" );
+    var_3 = common_scripts\utility::getstructarray( "mortar_bunker", "targetname" );
     var_4 = getentarray( "mortar_bunker", "targetname" );
 
     if ( isdefined( var_4 ) && var_4.size > 0 )
@@ -414,11 +396,11 @@ bunker_style_mortar()
 
     for ( var_5 = 0; var_5 < var_1.size; var_5++ )
     {
-        if ( !isdefined( var_1[var_5]._id_7A3E ) )
+        if ( !isdefined( var_1[var_5].script_mortargroup ) )
             continue;
 
         var_6 = -1;
-        var_7 = int( var_1[var_5]._id_7A3E );
+        var_7 = int( var_1[var_5].script_mortargroup );
 
         for ( var_8 = 0; var_8 < var_0.size; var_8++ )
         {
@@ -462,7 +444,7 @@ bunker_style_mortar_think( var_0, var_1 )
     else
         var_3 = 6;
 
-    var_4 = int( var_0[0]._id_7A3E );
+    var_4 = int( var_0[0].script_mortargroup );
 
     for (;;)
     {
@@ -479,18 +461,18 @@ bunker_style_mortar_activate( var_0, var_1, var_2, var_3, var_4 )
     for (;;)
     {
         wait 0.05;
-        var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_4 );
+        var_5 = common_scripts\utility::getclosest( level.player.origin, var_4 );
 
         if ( !isdefined( level.mortarnoincomingsound ) )
-            common_scripts\utility::_id_69C2( "mortar_incoming_bunker", var_5.origin );
+            common_scripts\utility::play_sound_in_space( "mortar_incoming_bunker", var_5.origin );
 
-        var_5 = common_scripts\utility::_id_3F33( level.player.origin, var_4 );
-        thread common_scripts\utility::_id_69C2( "exp_artillery_underground", var_5.origin );
+        var_5 = common_scripts\utility::getclosest( level.player.origin, var_4 );
+        thread common_scripts\utility::play_sound_in_space( "exp_artillery_underground", var_5.origin );
         common_scripts\utility::array_thread( var_0, ::bunker_style_mortar_explode );
 
         if ( !isdefined( level.mortarnoquake ) )
         {
-            if ( common_scripts\utility::_id_2006() )
+            if ( common_scripts\utility::cointoss() )
                 earthquake( 0.2, 1.5, var_5.origin, 1250 );
             else
                 earthquake( 0.35, 2.75, var_5.origin, 1250 );
@@ -532,10 +514,10 @@ bunker_style_mortar_explode( var_0, var_1 )
     }
     else
     {
-        playfx( level._effect["mortar"][self._id_79F1], self.origin );
+        playfx( level._effect["mortar"][self.script_fxid], self.origin );
 
         if ( var_4 < 262144 )
-            thread common_scripts\utility::_id_69C2( "emt_single_ceiling_debris", self.origin );
+            thread common_scripts\utility::play_sound_in_space( "emt_single_ceiling_debris", self.origin );
     }
 }
 
@@ -543,15 +525,15 @@ bog_style_mortar()
 {
     var_0 = [];
     var_1 = [];
-    var_2 = maps\_utility::_id_40FE( "mortar", "targetname" );
+    var_2 = maps\_utility::getstructarray_delete( "mortar", "targetname" );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( !isdefined( var_2[var_3]._id_7A3E ) )
+        if ( !isdefined( var_2[var_3].script_mortargroup ) )
             continue;
 
         var_4 = -1;
-        var_5 = int( var_2[var_3]._id_7A3E );
+        var_5 = int( var_2[var_3].script_mortargroup );
 
         for ( var_6 = 0; var_6 < var_0.size; var_6++ )
         {
@@ -595,7 +577,7 @@ bog_style_mortar_think( var_0, var_1 )
     else
         var_3 = 3;
 
-    var_1 = int( var_0[0]._id_7A3E );
+    var_1 = int( var_0[0].script_mortargroup );
 
     for (;;)
     {
@@ -694,7 +676,7 @@ mortar_within_player_fov( var_0 )
     if ( isdefined( level.playermortarfovoffset ) )
         var_2 = level.playermortarfovoffset;
 
-    var_3 = common_scripts\utility::_id_A347( var_1, level.player getplayerangles() + var_2, self.origin, var_0 );
+    var_3 = common_scripts\utility::within_fov( var_1, level.player getplayerangles() + var_2, self.origin, var_0 );
     return var_3;
 }
 
@@ -712,17 +694,17 @@ bog_style_mortar_explode( var_0, var_1 )
     thread bog_style_mortar_cooldown();
 
     if ( !var_0 )
-        common_scripts\utility::_id_69C2( level._id_78BA["mortar"]["incomming"] );
+        common_scripts\utility::play_sound_in_space( level.scr_sound["mortar"]["incomming"] );
 
     if ( isdefined( var_1 ) )
-        thread common_scripts\utility::_id_69C2( var_1 );
+        thread common_scripts\utility::play_sound_in_space( var_1 );
     else
-        thread common_scripts\utility::_id_69C2( level._id_78BA["mortar"][self._id_79F1] );
+        thread common_scripts\utility::play_sound_in_space( level.scr_sound["mortar"][self.script_fxid] );
 
     setplayerignoreradiusdamage( 1 );
     radiusdamage( self.origin, level.mortardamageradius, 150, 50 );
     setplayerignoreradiusdamage( 0 );
-    playfx( level._effect["mortar"][self._id_79F1], self.origin );
+    playfx( level._effect["mortar"][self.script_fxid], self.origin );
 
     if ( isdefined( level.alwaysquake ) )
         earthquake( 0.3, 1, level.player.origin, 2000 );
@@ -748,9 +730,9 @@ bog_style_mortar_trigger( var_0 )
     self waittill( "trigger" );
 
     if ( var_0 == "on" )
-        bog_style_mortar_on( self._id_7A3E );
+        bog_style_mortar_on( self.script_mortargroup );
     else if ( var_0 == "off" )
-        bog_style_mortar_off( self._id_7A3E );
+        bog_style_mortar_off( self.script_mortargroup );
 }
 
 bog_style_mortar_on( var_0 )
@@ -790,9 +772,9 @@ bunker_style_mortar_trigger( var_0 )
     self waittill( "trigger" );
 
     if ( var_0 == "on" )
-        bunker_style_mortar_on( self._id_7A3E );
+        bunker_style_mortar_on( self.script_mortargroup );
     else if ( var_0 == "off" )
-        bunker_style_mortar_off( self._id_7A3E );
+        bunker_style_mortar_off( self.script_mortargroup );
 }
 
 burnville_style_mortar()
@@ -845,10 +827,10 @@ setup_mortar_terrain()
 
     }
 
-    if ( isdefined( self._id_7A0E ) )
+    if ( isdefined( self.script_hidden ) )
     {
-        if ( isdefined( self._id_7A0E ) )
-            self.hidden_terrain = getent( self._id_7A0E, "targetname" );
+        if ( isdefined( self.script_hidden ) )
+            self.hidden_terrain = getent( self.script_hidden, "targetname" );
         else if ( isdefined( self.terrain ) && isdefined( self.terrain[0].target ) )
             self.hidden_terrain = getent( self.terrain[0].target, "targetname" );
 
@@ -944,7 +926,7 @@ mortar_sound( var_0 )
     if ( !var_0 )
         self playsound( "mortar_explosion" + var_1 );
     else
-        common_scripts\utility::_id_69C2( "mortar_explosion" + var_1, self.origin );
+        common_scripts\utility::play_sound_in_space( "mortar_explosion" + var_1, self.origin );
 }
 
 incoming_sound( var_0, var_1 )
@@ -967,7 +949,7 @@ incoming_sound( var_0, var_1 )
     if ( var_0 == 1 )
     {
         if ( var_1 )
-            thread common_scripts\utility::_id_69C2( "mortar_incoming1", self.origin );
+            thread common_scripts\utility::play_sound_in_space( "mortar_incoming1", self.origin );
         else
             self playsound( "mortar_incoming1" );
 
@@ -976,7 +958,7 @@ incoming_sound( var_0, var_1 )
     else if ( var_0 == 2 )
     {
         if ( var_1 )
-            thread common_scripts\utility::_id_69C2( "mortar_incoming2", self.origin );
+            thread common_scripts\utility::play_sound_in_space( "mortar_incoming2", self.origin );
         else
             self playsound( "mortar_incoming2" );
 
@@ -985,7 +967,7 @@ incoming_sound( var_0, var_1 )
     else
     {
         if ( var_1 )
-            thread common_scripts\utility::_id_69C2( "mortar_incoming3", self.origin );
+            thread common_scripts\utility::play_sound_in_space( "mortar_incoming3", self.origin );
         else
             self playsound( "mortar_incoming3" );
 

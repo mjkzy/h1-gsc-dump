@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     setsaveddvar( "scr_dof_enable", "0" );
@@ -106,19 +88,19 @@ init()
     precacheshellshock( "ac130" );
     level._effect["cloud"] = loadfx( "fx/misc/ac130_cloud" );
     level._effect["beacon"] = loadfx( "fx/misc/ir_beacon" );
-    level._id_2543 = "@AC130_FRIENDLY_FIRE";
-    level._id_2544 = "ac130_friendly_fire_icon";
-    level._id_89CB = ::spawn_callback_thread;
-    level._id_9D7D = ::context_sensative_dialog_vehiclespawn;
+    level.custom_friendly_fire_message = "@AC130_FRIENDLY_FIRE";
+    level.custom_friendly_fire_shader = "ac130_friendly_fire_icon";
+    level.spawnercallbackthread = ::spawn_callback_thread;
+    level.vehiclespawncallbackthread = ::context_sensative_dialog_vehiclespawn;
     level.enemieskilledintimewindow = 0;
     level.radioforcedtransmissionqueue = [];
     level.lastradiotransmission = gettime();
     level.color["white"] = ( 1.0, 1.0, 1.0 );
     level.color["red"] = ( 1.0, 0.0, 0.0 );
     level.color["blue"] = ( 0.1, 0.3, 1.0 );
-    level._id_2235 = [];
-    level._id_2235["45"] = cos( 45 );
-    level._id_2235["5"] = cos( 5 );
+    level.cosine = [];
+    level.cosine["45"] = cos( 45 );
+    level.cosine["5"] = cos( 5 );
     maps\_utility::enable_scuff_footsteps_sound( 0 );
     level.player takeallweapons();
     level.player.ignoreme = 1;
@@ -135,18 +117,18 @@ init()
     level.badplaceduration["ac130_25mm_alt"] = level.badplaceduration["ac130_25mm"];
     level.badplaceduration["ac130_40mm_alt"] = level.badplaceduration["ac130_40mm"];
     level.badplaceduration["ac130_105mm_alt"] = level.badplaceduration["ac130_105mm"];
-    level._id_6804["ac130_25mm"] = 60;
-    level._id_6804["ac130_40mm"] = 600;
-    level._id_6804["ac130_105mm"] = 1000;
-    level._id_6804["ac130_25mm_alt"] = level._id_6804["ac130_25mm"];
-    level._id_6804["ac130_40mm_alt"] = level._id_6804["ac130_40mm"];
-    level._id_6804["ac130_105mm_alt"] = level._id_6804["ac130_105mm"];
-    level._id_6803["ac130_25mm"] = 0;
-    level._id_6803["ac130_40mm"] = 3.0;
-    level._id_6803["ac130_105mm"] = 6.0;
-    level._id_6803["ac130_25mm_alt"] = level._id_6803["ac130_25mm"];
-    level._id_6803["ac130_40mm_alt"] = level._id_6803["ac130_40mm"];
-    level._id_6803["ac130_105mm_alt"] = level._id_6803["ac130_105mm"];
+    level.physicssphereradius["ac130_25mm"] = 60;
+    level.physicssphereradius["ac130_40mm"] = 600;
+    level.physicssphereradius["ac130_105mm"] = 1000;
+    level.physicssphereradius["ac130_25mm_alt"] = level.physicssphereradius["ac130_25mm"];
+    level.physicssphereradius["ac130_40mm_alt"] = level.physicssphereradius["ac130_40mm"];
+    level.physicssphereradius["ac130_105mm_alt"] = level.physicssphereradius["ac130_105mm"];
+    level.physicssphereforce["ac130_25mm"] = 0;
+    level.physicssphereforce["ac130_40mm"] = 3.0;
+    level.physicssphereforce["ac130_105mm"] = 6.0;
+    level.physicssphereforce["ac130_25mm_alt"] = level.physicssphereforce["ac130_25mm"];
+    level.physicssphereforce["ac130_40mm_alt"] = level.physicssphereforce["ac130_40mm"];
+    level.physicssphereforce["ac130_105mm_alt"] = level.physicssphereforce["ac130_105mm"];
     level.weaponreloadtime["ac130_25mm"] = 0.05;
     level.weaponreloadtime["ac130_40mm"] = 0.5;
     level.weaponreloadtime["ac130_105mm"] = 6.0;
@@ -168,12 +150,12 @@ init()
     level.ac130_speed["move"] = 250;
     level.ac130_speed["rotate"] = 70;
     level.enemieskilledbyplayer = 0;
-    common_scripts\utility::_id_383D( "allow_context_sensative_dialog" );
-    common_scripts\utility::_id_383D( "clear_to_engage" );
-    common_scripts\utility::_id_383D( "player_changed_weapons" );
-    common_scripts\utility::_id_383D( "player_changed_thermal" );
-    common_scripts\utility::_id_383D( "player_changed_thermal_back" );
-    common_scripts\utility::_id_383D( "player_changed_weapons_back" );
+    common_scripts\utility::flag_init( "allow_context_sensative_dialog" );
+    common_scripts\utility::flag_init( "clear_to_engage" );
+    common_scripts\utility::flag_init( "player_changed_weapons" );
+    common_scripts\utility::flag_init( "player_changed_thermal" );
+    common_scripts\utility::flag_init( "player_changed_thermal_back" );
+    common_scripts\utility::flag_init( "player_changed_weapons_back" );
     level.player takeallweapons();
 
     if ( getdvar( "ac130_alternate_controls" ) == "0" )
@@ -211,10 +193,10 @@ init()
 
     if ( getdvar( "ac130_enabled" ) == "1" )
     {
-        thread _id_65F6();
+        thread overlay();
         thread huditemsoff();
         thread attachplayer();
-        thread _id_1C85();
+        thread changeweapons();
         thread weaponfiredthread();
         thread ac130_25mm_loop_fire_sound();
         thread ac130_25mm_loop_rumble();
@@ -227,10 +209,10 @@ init()
             thread nofirecrosshair();
 
         thread context_sensative_dialog();
-        thread _id_843F();
-        thread _id_1FEE();
+        thread shotfired();
+        thread clouds();
         thread maps\_ac130_amb::main();
-        thread _id_7603( "on" );
+        thread rotateplane( "on" );
         thread hud_target_blink_timer();
     }
 }
@@ -246,146 +228,146 @@ delay_overlay()
     level waittill( "introscreen_fading_out" );
 }
 
-_id_65F6()
+overlay()
 {
     wait 0.05;
     setsaveddvar( "g_friendlynamedist", 0 );
     setsaveddvar( "compass", 0 );
     delay_overlay();
-    level._id_4AEC = [];
-    level._id_4AEC["crosshairs"] = newhudelem();
-    level._id_4AEC["crosshairs"].x = 0;
-    level._id_4AEC["crosshairs"].y = 0;
-    level._id_4AEC["crosshairs"].alignx = "center";
-    level._id_4AEC["crosshairs"].aligny = "middle";
-    level._id_4AEC["crosshairs"].horzalign = "center";
-    level._id_4AEC["crosshairs"].vertalign = "middle";
-    level._id_4AEC["crosshairs"] setshader( "ac130_overlay_105mm", 640, 480 );
-    level._id_4AEC["crosshairs"].sort = -2;
+    level.huditem = [];
+    level.huditem["crosshairs"] = newhudelem();
+    level.huditem["crosshairs"].x = 0;
+    level.huditem["crosshairs"].y = 0;
+    level.huditem["crosshairs"].alignx = "center";
+    level.huditem["crosshairs"].aligny = "middle";
+    level.huditem["crosshairs"].horzalign = "center";
+    level.huditem["crosshairs"].vertalign = "middle";
+    level.huditem["crosshairs"] setshader( "ac130_overlay_105mm", 640, 480 );
+    level.huditem["crosshairs"].sort = -2;
 
-    if ( getdvar( "ac130_hud_text_misc" ) == "1" && !isdefined( level._id_244D ) )
+    if ( getdvar( "ac130_hud_text_misc" ) == "1" && !isdefined( level.credits_active ) )
     {
-        level._id_4AEC["hud_text_top"] = newhudelem();
-        level._id_4AEC["hud_text_top"].x = _1080tovirtualcoords( 54 );
-        level._id_4AEC["hud_text_top"].y = _1080tovirtualcoords( 123 );
-        level._id_4AEC["hud_text_top"].alignx = "left";
-        level._id_4AEC["hud_text_top"].aligny = "top";
-        level._id_4AEC["hud_text_top"].horzalign = "left_adjustable";
-        level._id_4AEC["hud_text_top"].vertalign = "top_adjustable";
-        level._id_4AEC["hud_text_top"] setshader( "ac130_overlay_top_left_txt", _1080tovirtualcoords( 672 ), _1080tovirtualcoords( 64 ) );
-        level._id_4AEC["hud_text_top"].alpha = level.textimagealpha;
-        level._id_4AEC["hud_text_left"] = newhudelem();
-        level._id_4AEC["hud_text_left"].x = _1080tovirtualcoords( 64 );
-        level._id_4AEC["hud_text_left"].y = _1080tovirtualcoords( 183 );
-        level._id_4AEC["hud_text_left"].alignx = "left";
-        level._id_4AEC["hud_text_left"].aligny = "top";
-        level._id_4AEC["hud_text_left"].horzalign = "left_adjustable";
-        level._id_4AEC["hud_text_left"].vertalign = "top_adjustable";
-        level._id_4AEC["hud_text_left"] setshader( "ac130_overlay_left_side_txt", _1080tovirtualcoords( 180 ), _1080tovirtualcoords( 360 ) );
-        level._id_4AEC["hud_text_left"].alpha = level.textimagealpha;
-        level._id_4AEC["hud_text_right"] = newhudelem();
-        level._id_4AEC["hud_text_right"].x = _1080tovirtualcoords( -57 );
-        level._id_4AEC["hud_text_right"].y = _1080tovirtualcoords( 186 );
-        level._id_4AEC["hud_text_right"].alignx = "right";
-        level._id_4AEC["hud_text_right"].aligny = "top";
-        level._id_4AEC["hud_text_right"].horzalign = "right_adjustable";
-        level._id_4AEC["hud_text_right"].vertalign = "top_adjustable";
-        level._id_4AEC["hud_text_right"] setshader( "ac130_overlay_right_side_txt", _1080tovirtualcoords( 64 ), _1080tovirtualcoords( 748 ) );
-        level._id_4AEC["hud_text_right"].alpha = level.textimagealpha;
-        level._id_4AEC["hud_text_bottom"] = newhudelem();
-        level._id_4AEC["hud_text_bottom"].x = -13;
-        level._id_4AEC["hud_text_bottom"].y = _1080tovirtualcoords( -21 );
-        level._id_4AEC["hud_text_bottom"].alignx = "center";
-        level._id_4AEC["hud_text_bottom"].aligny = "bottom";
-        level._id_4AEC["hud_text_bottom"].horzalign = "center_adjustable";
-        level._id_4AEC["hud_text_bottom"].vertalign = "bottom_adjustable";
-        level._id_4AEC["hud_text_bottom"] setshader( level.bottom_shader, _1080tovirtualcoords( 328 ), _1080tovirtualcoords( 64 ) );
-        level._id_4AEC["hud_text_bottom"].alpha = level.textimagealpha;
+        level.huditem["hud_text_top"] = newhudelem();
+        level.huditem["hud_text_top"].x = _1080tovirtualcoords( 54 );
+        level.huditem["hud_text_top"].y = _1080tovirtualcoords( 123 );
+        level.huditem["hud_text_top"].alignx = "left";
+        level.huditem["hud_text_top"].aligny = "top";
+        level.huditem["hud_text_top"].horzalign = "left_adjustable";
+        level.huditem["hud_text_top"].vertalign = "top_adjustable";
+        level.huditem["hud_text_top"] setshader( "ac130_overlay_top_left_txt", _1080tovirtualcoords( 672 ), _1080tovirtualcoords( 64 ) );
+        level.huditem["hud_text_top"].alpha = level.textimagealpha;
+        level.huditem["hud_text_left"] = newhudelem();
+        level.huditem["hud_text_left"].x = _1080tovirtualcoords( 64 );
+        level.huditem["hud_text_left"].y = _1080tovirtualcoords( 183 );
+        level.huditem["hud_text_left"].alignx = "left";
+        level.huditem["hud_text_left"].aligny = "top";
+        level.huditem["hud_text_left"].horzalign = "left_adjustable";
+        level.huditem["hud_text_left"].vertalign = "top_adjustable";
+        level.huditem["hud_text_left"] setshader( "ac130_overlay_left_side_txt", _1080tovirtualcoords( 180 ), _1080tovirtualcoords( 360 ) );
+        level.huditem["hud_text_left"].alpha = level.textimagealpha;
+        level.huditem["hud_text_right"] = newhudelem();
+        level.huditem["hud_text_right"].x = _1080tovirtualcoords( -57 );
+        level.huditem["hud_text_right"].y = _1080tovirtualcoords( 186 );
+        level.huditem["hud_text_right"].alignx = "right";
+        level.huditem["hud_text_right"].aligny = "top";
+        level.huditem["hud_text_right"].horzalign = "right_adjustable";
+        level.huditem["hud_text_right"].vertalign = "top_adjustable";
+        level.huditem["hud_text_right"] setshader( "ac130_overlay_right_side_txt", _1080tovirtualcoords( 64 ), _1080tovirtualcoords( 748 ) );
+        level.huditem["hud_text_right"].alpha = level.textimagealpha;
+        level.huditem["hud_text_bottom"] = newhudelem();
+        level.huditem["hud_text_bottom"].x = -13;
+        level.huditem["hud_text_bottom"].y = _1080tovirtualcoords( -21 );
+        level.huditem["hud_text_bottom"].alignx = "center";
+        level.huditem["hud_text_bottom"].aligny = "bottom";
+        level.huditem["hud_text_bottom"].horzalign = "center_adjustable";
+        level.huditem["hud_text_bottom"].vertalign = "bottom_adjustable";
+        level.huditem["hud_text_bottom"] setshader( level.bottom_shader, _1080tovirtualcoords( 328 ), _1080tovirtualcoords( 64 ) );
+        level.huditem["hud_text_bottom"].alpha = level.textimagealpha;
     }
 
-    if ( getdvar( "ac130_hud_text_thermal" ) == "1" && !isdefined( level._id_244D ) )
+    if ( getdvar( "ac130_hud_text_thermal" ) == "1" && !isdefined( level.credits_active ) )
     {
-        level._id_4AEC["thermal_mode"] = newhudelem();
-        level._id_4AEC["thermal_mode"].x = _1080tovirtualcoords( -250 );
-        level._id_4AEC["thermal_mode"].y = _1080tovirtualcoords( 178 );
-        level._id_4AEC["thermal_mode"].alignx = "right";
-        level._id_4AEC["thermal_mode"].aligny = "top";
-        level._id_4AEC["thermal_mode"].horzalign = "right_adjustable";
-        level._id_4AEC["thermal_mode"].vertalign = "top_adjustable";
-        level._id_4AEC["thermal_mode"] setshader( level.whot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
-        level._id_4AEC["thermal_mode"].alpha = level.textimagealpha;
+        level.huditem["thermal_mode"] = newhudelem();
+        level.huditem["thermal_mode"].x = _1080tovirtualcoords( -250 );
+        level.huditem["thermal_mode"].y = _1080tovirtualcoords( 178 );
+        level.huditem["thermal_mode"].alignx = "right";
+        level.huditem["thermal_mode"].aligny = "top";
+        level.huditem["thermal_mode"].horzalign = "right_adjustable";
+        level.huditem["thermal_mode"].vertalign = "top_adjustable";
+        level.huditem["thermal_mode"] setshader( level.whot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
+        level.huditem["thermal_mode"].alpha = level.textimagealpha;
     }
 
-    if ( getdvar( "ac130_hud_text_weapons" ) == "1" && !isdefined( level._id_244D ) )
+    if ( getdvar( "ac130_hud_text_weapons" ) == "1" && !isdefined( level.credits_active ) )
     {
-        level._id_4AEC["weapon_text"][0] = newhudelem();
-        level._id_4AEC["weapon_text"][0].x = _1080tovirtualcoords( 60 );
-        level._id_4AEC["weapon_text"][0].y = _1080tovirtualcoords( -83 );
-        level._id_4AEC["weapon_text"][0].alignx = "left";
-        level._id_4AEC["weapon_text"][0].aligny = "bottom";
-        level._id_4AEC["weapon_text"][0].horzalign = "left_adjustable";
-        level._id_4AEC["weapon_text"][0].vertalign = "bottom_adjustable";
-        level._id_4AEC["weapon_text"][0] setshader( "ac130_overlay_105mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
-        level._id_4AEC["weapon_text"][1] = newhudelem();
-        level._id_4AEC["weapon_text"][1].x = _1080tovirtualcoords( 45 );
-        level._id_4AEC["weapon_text"][1].y = _1080tovirtualcoords( -145 );
-        level._id_4AEC["weapon_text"][1].alignx = "left";
-        level._id_4AEC["weapon_text"][1].aligny = "bottom";
-        level._id_4AEC["weapon_text"][1].horzalign = "left_adjustable";
-        level._id_4AEC["weapon_text"][1].vertalign = "bottom_adjustable";
-        level._id_4AEC["weapon_text"][1] setshader( "ac130_overlay_40mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
-        level._id_4AEC["weapon_text"][2] = newhudelem();
-        level._id_4AEC["weapon_text"][2].x = _1080tovirtualcoords( 46 );
-        level._id_4AEC["weapon_text"][2].y = _1080tovirtualcoords( -207 );
-        level._id_4AEC["weapon_text"][2].alignx = "left";
-        level._id_4AEC["weapon_text"][2].aligny = "bottom";
-        level._id_4AEC["weapon_text"][2].horzalign = "left_adjustable";
-        level._id_4AEC["weapon_text"][2].vertalign = "bottom_adjustable";
-        level._id_4AEC["weapon_text"][2] setshader( "ac130_overlay_25mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
+        level.huditem["weapon_text"][0] = newhudelem();
+        level.huditem["weapon_text"][0].x = _1080tovirtualcoords( 60 );
+        level.huditem["weapon_text"][0].y = _1080tovirtualcoords( -83 );
+        level.huditem["weapon_text"][0].alignx = "left";
+        level.huditem["weapon_text"][0].aligny = "bottom";
+        level.huditem["weapon_text"][0].horzalign = "left_adjustable";
+        level.huditem["weapon_text"][0].vertalign = "bottom_adjustable";
+        level.huditem["weapon_text"][0] setshader( "ac130_overlay_105mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
+        level.huditem["weapon_text"][1] = newhudelem();
+        level.huditem["weapon_text"][1].x = _1080tovirtualcoords( 45 );
+        level.huditem["weapon_text"][1].y = _1080tovirtualcoords( -145 );
+        level.huditem["weapon_text"][1].alignx = "left";
+        level.huditem["weapon_text"][1].aligny = "bottom";
+        level.huditem["weapon_text"][1].horzalign = "left_adjustable";
+        level.huditem["weapon_text"][1].vertalign = "bottom_adjustable";
+        level.huditem["weapon_text"][1] setshader( "ac130_overlay_40mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
+        level.huditem["weapon_text"][2] = newhudelem();
+        level.huditem["weapon_text"][2].x = _1080tovirtualcoords( 46 );
+        level.huditem["weapon_text"][2].y = _1080tovirtualcoords( -207 );
+        level.huditem["weapon_text"][2].alignx = "left";
+        level.huditem["weapon_text"][2].aligny = "bottom";
+        level.huditem["weapon_text"][2].horzalign = "left_adjustable";
+        level.huditem["weapon_text"][2].vertalign = "bottom_adjustable";
+        level.huditem["weapon_text"][2] setshader( "ac130_overlay_25mm_txt", _1080tovirtualcoords( 240 ), _1080tovirtualcoords( 64 ) );
     }
 
     thread hud_timer();
     thread overlay_coords();
     thread blink_hud_elem( 0 );
-    level._id_4AEC["grain"] = newhudelem();
-    level._id_4AEC["grain"].x = 0;
-    level._id_4AEC["grain"].y = 0;
-    level._id_4AEC["grain"].alignx = "left";
-    level._id_4AEC["grain"].aligny = "top";
-    level._id_4AEC["grain"].horzalign = "fullscreen";
-    level._id_4AEC["grain"].vertalign = "fullscreen";
-    level._id_4AEC["grain"] setshader( "ac130_overlay_grain", 640, 480 );
-    level._id_4AEC["grain"].alpha = 0.4;
-    level._id_4AEC["grain"].sort = -3;
-    level._id_4AEC["zoom_blur"] = newhudelem();
-    level._id_4AEC["zoom_blur"].x = 0;
-    level._id_4AEC["zoom_blur"].y = 0;
-    level._id_4AEC["zoom_blur"].alignx = "left";
-    level._id_4AEC["zoom_blur"].aligny = "top";
-    level._id_4AEC["zoom_blur"].horzalign = "fullscreen";
-    level._id_4AEC["zoom_blur"].vertalign = "fullscreen";
-    level._id_4AEC["zoom_blur"].alpha = 0.0;
-    level._id_4AEC["zoom_blur"].sort = 6;
-    level._id_4AEC["screen_overlay"] = newhudelem();
-    level._id_4AEC["screen_overlay"].x = 0;
-    level._id_4AEC["screen_overlay"].y = 0;
-    level._id_4AEC["screen_overlay"].alignx = "left";
-    level._id_4AEC["screen_overlay"].aligny = "top";
-    level._id_4AEC["screen_overlay"].horzalign = "fullscreen";
-    level._id_4AEC["screen_overlay"].vertalign = "fullscreen";
-    level._id_4AEC["screen_overlay"] setshader( "h1_ac130_screen_overlay", 640, 480 );
-    level._id_4AEC["screen_overlay"].alpha = 1.0;
-    level._id_4AEC["screen_overlay"].sort = -2;
-    level._id_4AEC["screen_distort"] = newhudelem();
-    level._id_4AEC["screen_distort"].x = 0;
-    level._id_4AEC["screen_distort"].y = 0;
-    level._id_4AEC["screen_distort"].alignx = "left";
-    level._id_4AEC["screen_distort"].aligny = "top";
-    level._id_4AEC["screen_distort"].horzalign = "fullscreen";
-    level._id_4AEC["screen_distort"].vertalign = "fullscreen";
-    level._id_4AEC["screen_distort"] setshader( "h1_ac130_distort", 640, 480 );
-    level._id_4AEC["screen_distort"].alpha = 1.0;
-    level._id_4AEC["screen_distort"].sort = 5;
+    level.huditem["grain"] = newhudelem();
+    level.huditem["grain"].x = 0;
+    level.huditem["grain"].y = 0;
+    level.huditem["grain"].alignx = "left";
+    level.huditem["grain"].aligny = "top";
+    level.huditem["grain"].horzalign = "fullscreen";
+    level.huditem["grain"].vertalign = "fullscreen";
+    level.huditem["grain"] setshader( "ac130_overlay_grain", 640, 480 );
+    level.huditem["grain"].alpha = 0.4;
+    level.huditem["grain"].sort = -3;
+    level.huditem["zoom_blur"] = newhudelem();
+    level.huditem["zoom_blur"].x = 0;
+    level.huditem["zoom_blur"].y = 0;
+    level.huditem["zoom_blur"].alignx = "left";
+    level.huditem["zoom_blur"].aligny = "top";
+    level.huditem["zoom_blur"].horzalign = "fullscreen";
+    level.huditem["zoom_blur"].vertalign = "fullscreen";
+    level.huditem["zoom_blur"].alpha = 0.0;
+    level.huditem["zoom_blur"].sort = 6;
+    level.huditem["screen_overlay"] = newhudelem();
+    level.huditem["screen_overlay"].x = 0;
+    level.huditem["screen_overlay"].y = 0;
+    level.huditem["screen_overlay"].alignx = "left";
+    level.huditem["screen_overlay"].aligny = "top";
+    level.huditem["screen_overlay"].horzalign = "fullscreen";
+    level.huditem["screen_overlay"].vertalign = "fullscreen";
+    level.huditem["screen_overlay"] setshader( "h1_ac130_screen_overlay", 640, 480 );
+    level.huditem["screen_overlay"].alpha = 1.0;
+    level.huditem["screen_overlay"].sort = -2;
+    level.huditem["screen_distort"] = newhudelem();
+    level.huditem["screen_distort"].x = 0;
+    level.huditem["screen_distort"].y = 0;
+    level.huditem["screen_distort"].alignx = "left";
+    level.huditem["screen_distort"].aligny = "top";
+    level.huditem["screen_distort"].horzalign = "fullscreen";
+    level.huditem["screen_distort"].vertalign = "fullscreen";
+    level.huditem["screen_distort"] setshader( "h1_ac130_distort", 640, 480 );
+    level.huditem["screen_distort"].alpha = 1.0;
+    level.huditem["screen_distort"].sort = 5;
     thread ac130shellshock();
     thread blur_thread();
 }
@@ -418,7 +400,7 @@ blur_thread()
             setdvar( "ac130_blur_set", 1 );
         }
 
-        waittillframeend;
+        waitframe();
     }
 }
 
@@ -456,15 +438,15 @@ huditemsoff()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isdefined( level._id_4AEC[var_0[var_1]] ) )
+        if ( isdefined( level.huditem[var_0[var_1]] ) )
         {
-            if ( !isarray( level._id_4AEC[var_0[var_1]] ) )
+            if ( !isarray( level.huditem[var_0[var_1]] ) )
             {
-                level._id_4AEC[var_0[var_1]] destroy();
+                level.huditem[var_0[var_1]] destroy();
                 continue;
             }
 
-            foreach ( var_3 in level._id_4AEC[var_0[var_1]] )
+            foreach ( var_3 in level.huditem[var_0[var_1]] )
                 var_3 destroy();
         }
     }
@@ -475,11 +457,11 @@ hud_timer()
     if ( getdvar( "ac130_hud_text_misc" ) == "0" )
         return;
 
-    if ( isdefined( level._id_244D ) )
+    if ( isdefined( level.credits_active ) )
         return;
 
     level endon( "post_effects_disabled" );
-    level._id_4AEC["timer"] = [];
+    level.huditem["timer"] = [];
     var_0 = [];
     var_0[0] = _1080tovirtualcoords( 288 );
     var_0[1] = _1080tovirtualcoords( 330 );
@@ -489,20 +471,20 @@ hud_timer()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        level._id_4AEC["timer"][var_1] = newhudelem();
-        level._id_4AEC["timer"][var_1].x = var_0[var_1] * -1;
-        level._id_4AEC["timer"][var_1].y = _1080tovirtualcoords( 87 ) * -1;
-        level._id_4AEC["timer"][var_1].alignx = "right";
-        level._id_4AEC["timer"][var_1].aligny = "bottom";
-        level._id_4AEC["timer"][var_1].horzalign = "right_adjustable";
-        level._id_4AEC["timer"][var_1].vertalign = "bottom_adjustable";
-        level._id_4AEC["timer"][var_1].alpha = level.textimagealpha;
+        level.huditem["timer"][var_1] = newhudelem();
+        level.huditem["timer"][var_1].x = var_0[var_1] * -1;
+        level.huditem["timer"][var_1].y = _1080tovirtualcoords( 87 ) * -1;
+        level.huditem["timer"][var_1].alignx = "right";
+        level.huditem["timer"][var_1].aligny = "bottom";
+        level.huditem["timer"][var_1].horzalign = "right_adjustable";
+        level.huditem["timer"][var_1].vertalign = "bottom_adjustable";
+        level.huditem["timer"][var_1].alpha = level.textimagealpha;
     }
 
-    level._id_4AEC["timer"][4].y = _1080tovirtualcoords( 80 ) * -1;
+    level.huditem["timer"][4].y = _1080tovirtualcoords( 80 ) * -1;
     level waittill( "start_clock" );
     var_2 = gettime();
-    level._id_4AEC["timer"][4] setshader( "ac130_overlay_timer_txt", _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 64 ) );
+    level.huditem["timer"][4] setshader( "ac130_overlay_timer_txt", _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 64 ) );
 
     for (;;)
     {
@@ -510,7 +492,7 @@ hud_timer()
         var_4 = millisecondstoshaders( var_3 );
 
         for ( var_1 = 0; var_1 < 4; var_1++ )
-            level._id_4AEC["timer"][var_1] setshader( var_4[var_1], _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 55 ) );
+            level.huditem["timer"][var_1] setshader( var_4[var_1], _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 55 ) );
 
         wait 1;
     }
@@ -557,53 +539,53 @@ overlay_coords()
     if ( getdvar( "ac130_hud_text_misc" ) == "0" )
         return;
 
-    if ( isdefined( level._id_244D ) )
+    if ( isdefined( level.credits_active ) )
         return;
 
-    level._id_4AEC["coordinate_long"] = [];
-    level._id_4AEC["coordinate_lat"] = [];
-    level._id_4AEC["coordinate_agl_txt"] = [];
+    level.huditem["coordinate_long"] = [];
+    level.huditem["coordinate_lat"] = [];
+    level.huditem["coordinate_agl_txt"] = [];
     var_0 = 5;
     var_1 = 6;
 
     for ( var_2 = 0; var_2 < var_0; var_2++ )
     {
-        level._id_4AEC["coordinate_long"][var_2] = newhudelem();
-        level._id_4AEC["coordinate_long"][var_2].x = _1080tovirtualcoords( 340 + var_2 * 40 ) * -1;
-        level._id_4AEC["coordinate_long"][var_2].y = _1080tovirtualcoords( 80 );
-        level._id_4AEC["coordinate_long"][var_2].alignx = "right";
-        level._id_4AEC["coordinate_long"][var_2].aligny = "top";
-        level._id_4AEC["coordinate_long"][var_2].horzalign = "right_adjustable";
-        level._id_4AEC["coordinate_long"][var_2].vertalign = "top_adjustable";
-        level._id_4AEC["coordinate_lat"][var_2] = newhudelem();
-        level._id_4AEC["coordinate_lat"][var_2].x = _1080tovirtualcoords( 70 + var_2 * 40 ) * -1;
-        level._id_4AEC["coordinate_lat"][var_2].y = _1080tovirtualcoords( 80 );
-        level._id_4AEC["coordinate_lat"][var_2].alignx = "right";
-        level._id_4AEC["coordinate_lat"][var_2].aligny = "top";
-        level._id_4AEC["coordinate_lat"][var_2].horzalign = "right_adjustable";
-        level._id_4AEC["coordinate_lat"][var_2].vertalign = "top_adjustable";
+        level.huditem["coordinate_long"][var_2] = newhudelem();
+        level.huditem["coordinate_long"][var_2].x = _1080tovirtualcoords( 340 + var_2 * 40 ) * -1;
+        level.huditem["coordinate_long"][var_2].y = _1080tovirtualcoords( 80 );
+        level.huditem["coordinate_long"][var_2].alignx = "right";
+        level.huditem["coordinate_long"][var_2].aligny = "top";
+        level.huditem["coordinate_long"][var_2].horzalign = "right_adjustable";
+        level.huditem["coordinate_long"][var_2].vertalign = "top_adjustable";
+        level.huditem["coordinate_lat"][var_2] = newhudelem();
+        level.huditem["coordinate_lat"][var_2].x = _1080tovirtualcoords( 70 + var_2 * 40 ) * -1;
+        level.huditem["coordinate_lat"][var_2].y = _1080tovirtualcoords( 80 );
+        level.huditem["coordinate_lat"][var_2].alignx = "right";
+        level.huditem["coordinate_lat"][var_2].aligny = "top";
+        level.huditem["coordinate_lat"][var_2].horzalign = "right_adjustable";
+        level.huditem["coordinate_lat"][var_2].vertalign = "top_adjustable";
     }
 
     for ( var_2 = 0; var_2 < var_1; var_2++ )
     {
-        level._id_4AEC["coordinate_agl_txt"][var_2] = newhudelem();
-        level._id_4AEC["coordinate_agl_txt"][var_2].x = _1080tovirtualcoords( 220 + var_2 * 40 ) * -1;
-        level._id_4AEC["coordinate_agl_txt"][var_2].y = _1080tovirtualcoords( 134 );
-        level._id_4AEC["coordinate_agl_txt"][var_2].alignx = "right";
-        level._id_4AEC["coordinate_agl_txt"][var_2].aligny = "top";
-        level._id_4AEC["coordinate_agl_txt"][var_2].horzalign = "right_adjustable";
-        level._id_4AEC["coordinate_agl_txt"][var_2].vertalign = "top_adjustable";
+        level.huditem["coordinate_agl_txt"][var_2] = newhudelem();
+        level.huditem["coordinate_agl_txt"][var_2].x = _1080tovirtualcoords( 220 + var_2 * 40 ) * -1;
+        level.huditem["coordinate_agl_txt"][var_2].y = _1080tovirtualcoords( 134 );
+        level.huditem["coordinate_agl_txt"][var_2].alignx = "right";
+        level.huditem["coordinate_agl_txt"][var_2].aligny = "top";
+        level.huditem["coordinate_agl_txt"][var_2].horzalign = "right_adjustable";
+        level.huditem["coordinate_agl_txt"][var_2].vertalign = "top_adjustable";
     }
 
-    level._id_4AEC["coordinate_agl"] = newhudelem();
-    level._id_4AEC["coordinate_agl"].x = _1080tovirtualcoords( -58 );
-    level._id_4AEC["coordinate_agl"].y = _1080tovirtualcoords( 124 );
-    level._id_4AEC["coordinate_agl"].alignx = "right";
-    level._id_4AEC["coordinate_agl"].aligny = "top";
-    level._id_4AEC["coordinate_agl"].horzalign = "right_adjustable";
-    level._id_4AEC["coordinate_agl"].vertalign = "top_adjustable";
-    level._id_4AEC["coordinate_agl"] setshader( level.agl_shader, _1080tovirtualcoords( 144 ), _1080tovirtualcoords( 64 ) );
-    level._id_4AEC["coordinate_agl"].alpha = level.textimagealpha;
+    level.huditem["coordinate_agl"] = newhudelem();
+    level.huditem["coordinate_agl"].x = _1080tovirtualcoords( -58 );
+    level.huditem["coordinate_agl"].y = _1080tovirtualcoords( 124 );
+    level.huditem["coordinate_agl"].alignx = "right";
+    level.huditem["coordinate_agl"].aligny = "top";
+    level.huditem["coordinate_agl"].horzalign = "right_adjustable";
+    level.huditem["coordinate_agl"].vertalign = "top_adjustable";
+    level.huditem["coordinate_agl"] setshader( level.agl_shader, _1080tovirtualcoords( 144 ), _1080tovirtualcoords( 64 ) );
+    level.huditem["coordinate_agl"].alpha = level.textimagealpha;
     level endon( "post_effects_disabled" );
     wait 0.05;
 
@@ -616,20 +598,20 @@ overlay_coords()
         {
             if ( isdefined( var_3[var_2] ) )
             {
-                level._id_4AEC["coordinate_long"][var_2] setshader( var_3[var_2], _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 55 ) );
-                level._id_4AEC["coordinate_long"][var_2].alpha = level.textimagealpha;
+                level.huditem["coordinate_long"][var_2] setshader( var_3[var_2], _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 55 ) );
+                level.huditem["coordinate_long"][var_2].alpha = level.textimagealpha;
             }
             else
-                level._id_4AEC["coordinate_long"][var_2].alpha = 0;
+                level.huditem["coordinate_long"][var_2].alpha = 0;
 
             if ( isdefined( var_4[var_2] ) )
             {
-                level._id_4AEC["coordinate_lat"][var_2] setshader( var_4[var_2], _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 55 ) );
-                level._id_4AEC["coordinate_lat"][var_2].alpha = level.textimagealpha;
+                level.huditem["coordinate_lat"][var_2] setshader( var_4[var_2], _1080tovirtualcoords( 42 ), _1080tovirtualcoords( 55 ) );
+                level.huditem["coordinate_lat"][var_2].alpha = level.textimagealpha;
                 continue;
             }
 
-            level._id_4AEC["coordinate_lat"][var_2].alpha = 0;
+            level.huditem["coordinate_lat"][var_2].alpha = 0;
         }
 
         var_5 = physicstrace( level.player.origin, level.player.origin - ( 0.0, 0.0, 100000.0 ) );
@@ -643,12 +625,12 @@ overlay_coords()
             {
                 if ( isdefined( var_7[var_2] ) )
                 {
-                    level._id_4AEC["coordinate_agl_txt"][var_2] setshader( var_7[var_2], _1080tovirtualcoords( 40 ), _1080tovirtualcoords( 55 ) );
-                    level._id_4AEC["coordinate_agl_txt"][var_2].alpha = level.textimagealpha;
+                    level.huditem["coordinate_agl_txt"][var_2] setshader( var_7[var_2], _1080tovirtualcoords( 40 ), _1080tovirtualcoords( 55 ) );
+                    level.huditem["coordinate_agl_txt"][var_2].alpha = level.textimagealpha;
                     continue;
                 }
 
-                level._id_4AEC["coordinate_agl_txt"][var_2].alpha = 0;
+                level.huditem["coordinate_agl_txt"][var_2].alpha = 0;
             }
         }
 
@@ -671,7 +653,7 @@ ac130shellshock()
     }
 }
 
-_id_7603( var_0 )
+rotateplane( var_0 )
 {
     level notify( "stop_rotatePlane_thread" );
     level endon( "stop_rotatePlane_thread" );
@@ -760,7 +742,7 @@ moveplanetopoint( var_0, var_1 )
 
     if ( var_1 )
     {
-        thread _id_7603( "off" );
+        thread rotateplane( "off" );
         var_6 = getflyingac130anglestopoint( var_0 ) - getrealac130angles();
 
         if ( var_6 < 0 )
@@ -797,7 +779,7 @@ moveplanetopoint( var_0, var_1 )
         level notify( "ac130_almost_at_destination" );
 
         if ( var_1 )
-            thread _id_7603( "on" );
+            thread rotateplane( "on" );
 
         wait 2.0;
     }
@@ -806,7 +788,7 @@ moveplanetopoint( var_0, var_1 )
         wait(var_3);
 
         if ( var_1 )
-            thread _id_7603( "on" );
+            thread rotateplane( "on" );
     }
 }
 #using_animtree("ac130");
@@ -838,29 +820,29 @@ ac130_move_out()
     level.ac130_moving_out = undefined;
 }
 
-_id_1C85()
+changeweapons()
 {
     level.ac130_weapon = [];
     level.ac130_weapon[0] = spawnstruct();
-    level.ac130_weapon[0]._id_65F6 = "ac130_overlay_105mm";
+    level.ac130_weapon[0].overlay = "ac130_overlay_105mm";
     level.ac130_weapon[0].fov = "55";
     level.ac130_weapon[0].name = "105mm";
-    level.ac130_weapon[0]._id_8F53 = &"AC130_HUD_WEAPON_105MM";
-    level.ac130_weapon[0]._id_4AE7 = -20;
+    level.ac130_weapon[0].string = &"AC130_HUD_WEAPON_105MM";
+    level.ac130_weapon[0].hudelem_y = -20;
     level.ac130_weapon[0].blur = "h1_ac130_blur_105mm";
     level.ac130_weapon[1] = spawnstruct();
-    level.ac130_weapon[1]._id_65F6 = "ac130_overlay_40mm";
+    level.ac130_weapon[1].overlay = "ac130_overlay_40mm";
     level.ac130_weapon[1].fov = "25";
     level.ac130_weapon[1].name = "40mm";
-    level.ac130_weapon[1]._id_8F53 = &"AC130_HUD_WEAPON_40MM";
-    level.ac130_weapon[1]._id_4AE7 = -40;
+    level.ac130_weapon[1].string = &"AC130_HUD_WEAPON_40MM";
+    level.ac130_weapon[1].hudelem_y = -40;
     level.ac130_weapon[1].blur = "h1_ac130_blur_40mm";
     level.ac130_weapon[2] = spawnstruct();
-    level.ac130_weapon[2]._id_65F6 = "ac130_overlay_25mm";
+    level.ac130_weapon[2].overlay = "ac130_overlay_25mm";
     level.ac130_weapon[2].fov = "10";
     level.ac130_weapon[2].name = "25mm";
-    level.ac130_weapon[2]._id_8F53 = &"AC130_HUD_WEAPON_25MM";
-    level.ac130_weapon[2]._id_4AE7 = -60;
+    level.ac130_weapon[2].string = &"AC130_HUD_WEAPON_25MM";
+    level.ac130_weapon[2].hudelem_y = -60;
     level.ac130_weapon[2].blur = "h1_ac130_blur_25mm";
 
     if ( getdvar( "ac130_alternate_controls" ) == "0" )
@@ -877,10 +859,10 @@ _id_1C85()
     }
 
     var_0 = 0;
-    level._id_252D = level.ac130_weapon[var_0].name;
+    level.currentweapon = level.ac130_weapon[var_0].name;
     thread fire_screenshake();
 
-    if ( isdefined( level._id_244D ) )
+    if ( isdefined( level.credits_active ) )
         return;
 
     notifyoncommand( "switch_ac130_weapons", "weapnext" );
@@ -901,17 +883,17 @@ _id_1C85()
         if ( var_0 >= level.ac130_weapon.size )
             var_0 = 0;
 
-        level._id_252D = level.ac130_weapon[var_0].name;
+        level.currentweapon = level.ac130_weapon[var_0].name;
 
         if ( isdefined( level.ac130_weapon[var_0].blur ) )
         {
-            level._id_4AEC["zoom_blur"] setshader( level.ac130_weapon[var_0].blur, 640, 480 );
-            level._id_4AEC["zoom_blur"].alpha = 1.0;
+            level.huditem["zoom_blur"] setshader( level.ac130_weapon[var_0].blur, 640, 480 );
+            level.huditem["zoom_blur"].alpha = 1.0;
         }
         else
-            level._id_4AEC["zoom_blur"].alpha = 0.0;
+            level.huditem["zoom_blur"].alpha = 0.0;
 
-        level._id_4AEC["crosshairs"] setshader( level.ac130_weapon[var_0]._id_65F6, 640, 480 );
+        level.huditem["crosshairs"] setshader( level.ac130_weapon[var_0].overlay, 640, 480 );
         thread blink_crosshairs( level.ac130_weapon[var_0].weapon );
         thread blink_hud_elem( var_0 );
 
@@ -920,15 +902,15 @@ _id_1C85()
 
         level.player takeallweapons();
         level.player giveweapon( level.ac130_weapon[var_0].weapon );
-        level._id_6D93 = level.ac130_weapon[var_0].weapon;
+        level.playerweapon = level.ac130_weapon[var_0].weapon;
         level.player switchtoweapon( level.ac130_weapon[var_0].weapon );
         setammo();
-        level.player thread maps\_utility::_id_69C4( "ac130_weapon_switch" );
+        level.player thread maps\_utility::play_sound_on_entity( "ac130_weapon_switch" );
 
         if ( var_0 == 0 )
-            common_scripts\utility::_id_383F( "player_changed_weapons_back" );
+            common_scripts\utility::flag_set( "player_changed_weapons_back" );
 
-        common_scripts\utility::_id_383F( "player_changed_weapons" );
+        common_scripts\utility::flag_set( "player_changed_weapons" );
     }
 }
 
@@ -937,21 +919,21 @@ blink_hud_elem( var_0 )
     level notify( "blinking_weapon_name_hud_elem" );
     level endon( "blinking_weapon_name_hud_elem" );
 
-    if ( !isdefined( level._id_4AEC["weapon_text"] ) )
+    if ( !isdefined( level.huditem["weapon_text"] ) )
         return;
 
-    for ( var_1 = 0; var_1 < level._id_4AEC["weapon_text"].size; var_1++ )
-        level._id_4AEC["weapon_text"][var_1].alpha = 0.5;
+    for ( var_1 = 0; var_1 < level.huditem["weapon_text"].size; var_1++ )
+        level.huditem["weapon_text"][var_1].alpha = 0.5;
 
-    level._id_4AEC["weapon_text"][var_0].alpha = 1;
+    level.huditem["weapon_text"][var_0].alpha = 1;
 
     for (;;)
     {
-        level._id_4AEC["weapon_text"][var_0] fadeovertime( 0.2 );
-        level._id_4AEC["weapon_text"][var_0].alpha = 0;
+        level.huditem["weapon_text"][var_0] fadeovertime( 0.2 );
+        level.huditem["weapon_text"][var_0].alpha = 0;
         wait 0.2;
-        level._id_4AEC["weapon_text"][var_0] fadeovertime( 0.2 );
-        level._id_4AEC["weapon_text"][var_0].alpha = 1;
+        level.huditem["weapon_text"][var_0] fadeovertime( 0.2 );
+        level.huditem["weapon_text"][var_0].alpha = 1;
         wait 0.2;
     }
 }
@@ -960,23 +942,23 @@ blink_crosshairs( var_0 )
 {
     level notify( "stop_blinking_crosshairs" );
     level endon( "stop_blinking_crosshairs" );
-    level._id_4AEC["crosshairs"].alpha = 1;
+    level.huditem["crosshairs"].alpha = 1;
 
     if ( !issubstr( tolower( var_0 ), "105" ) )
         return;
 
-    waitframe;
+    waittillframeend;
 
     if ( level.weaponreadytofire[var_0] )
         return;
 
     for (;;)
     {
-        level._id_4AEC["crosshairs"] fadeovertime( 0.3 );
-        level._id_4AEC["crosshairs"].alpha = 0;
+        level.huditem["crosshairs"] fadeovertime( 0.3 );
+        level.huditem["crosshairs"].alpha = 0;
         wait 0.3;
-        level._id_4AEC["crosshairs"] fadeovertime( 0.3 );
-        level._id_4AEC["crosshairs"].alpha = 1;
+        level.huditem["crosshairs"] fadeovertime( 0.3 );
+        level.huditem["crosshairs"].alpha = 1;
         wait 0.3;
     }
 }
@@ -984,7 +966,7 @@ blink_crosshairs( var_0 )
 blink_crosshairs_stop()
 {
     level notify( "stop_blinking_crosshairs" );
-    level._id_4AEC["crosshairs"].alpha = 1;
+    level.huditem["crosshairs"].alpha = 1;
 }
 
 weaponfiredthread()
@@ -1066,10 +1048,10 @@ invertthermal()
         return;
 
     level.player endon( "death" );
-    maps\_utility::_id_7F00( "ac130", 0 );
+    maps\_utility::set_vision_set( "ac130", 0 );
     var_0 = "0";
 
-    if ( isdefined( level._id_244D ) )
+    if ( isdefined( level.credits_active ) )
         return;
 
     notifyoncommand( "switch thermal", "+usereload" );
@@ -1087,27 +1069,27 @@ invertthermal()
 
         if ( var_0 == "0" )
         {
-            maps\_utility::_id_7F00( "ac130_inverted", 0 );
+            maps\_utility::set_vision_set( "ac130_inverted", 0 );
 
-            if ( isdefined( level._id_4AEC["thermal_mode"] ) )
-                level._id_4AEC["thermal_mode"] setshader( level.bhot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
+            if ( isdefined( level.huditem["thermal_mode"] ) )
+                level.huditem["thermal_mode"] setshader( level.bhot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
 
             var_0 = "1";
         }
         else
         {
-            maps\_utility::_id_7F00( "ac130", 0 );
+            maps\_utility::set_vision_set( "ac130", 0 );
 
-            if ( isdefined( level._id_4AEC["thermal_mode"] ) )
-                level._id_4AEC["thermal_mode"] setshader( level.whot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
+            if ( isdefined( level.huditem["thermal_mode"] ) )
+                level.huditem["thermal_mode"] setshader( level.whot_shader, _1080tovirtualcoords( 188 ), _1080tovirtualcoords( 64 ) );
 
             var_0 = "0";
         }
 
-        if ( common_scripts\utility::_id_382E( "player_changed_thermal" ) )
-            common_scripts\utility::_id_383F( "player_changed_thermal_back" );
+        if ( common_scripts\utility::flag( "player_changed_thermal" ) )
+            common_scripts\utility::flag_set( "player_changed_thermal_back" );
 
-        common_scripts\utility::_id_383F( "player_changed_thermal" );
+        common_scripts\utility::flag_set( "player_changed_thermal" );
     }
 }
 
@@ -1116,7 +1098,7 @@ setammo()
     level notify( "setting_ammo" );
     level endon( "setting_ammo" );
 
-    if ( common_scripts\utility::_id_382E( "clear_to_engage" ) )
+    if ( common_scripts\utility::flag( "clear_to_engage" ) )
         var_0 = 1;
     else
         var_0 = 0;
@@ -1136,11 +1118,11 @@ failmissionforengaging()
     level.player waittill( "weapon_fired" );
     wait 2;
 
-    if ( !common_scripts\utility::_id_382E( "mission_failed" ) )
+    if ( !common_scripts\utility::flag( "mission_failed" ) )
     {
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_DO_NOT_ENGAGE" );
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
 }
 
@@ -1148,7 +1130,7 @@ nofirecrosshair()
 {
     level endon( "clear_to_engage" );
 
-    if ( common_scripts\utility::_id_382E( "clear_to_engage" ) )
+    if ( common_scripts\utility::flag( "clear_to_engage" ) )
         return;
 
     thread nofirecrosshair_remove();
@@ -1163,11 +1145,11 @@ nofirecrosshair()
                 break;
             }
 
-            level._id_4AEC["crosshairs"] fadeovertime( 0.3 );
-            level._id_4AEC["crosshairs"].alpha = 0;
+            level.huditem["crosshairs"] fadeovertime( 0.3 );
+            level.huditem["crosshairs"].alpha = 0;
             wait 0.3;
-            level._id_4AEC["crosshairs"] fadeovertime( 0.3 );
-            level._id_4AEC["crosshairs"].alpha = 1;
+            level.huditem["crosshairs"] fadeovertime( 0.3 );
+            level.huditem["crosshairs"].alpha = 1;
             wait 0.3;
         }
 
@@ -1187,17 +1169,17 @@ fire_screenshake()
     {
         level.player waittill( "weapon_fired" );
 
-        if ( level._id_252D == "105mm" )
+        if ( level.currentweapon == "105mm" )
         {
-            if ( getdvar( "ac130_pre_engagement_mode" ) == "2" && !common_scripts\utility::_id_382E( "clear_to_engage" ) )
+            if ( getdvar( "ac130_pre_engagement_mode" ) == "2" && !common_scripts\utility::flag( "clear_to_engage" ) )
                 continue;
 
             thread gun_fired_and_ready_105mm();
             earthquake( 0.2, 1, level.player.origin, 1000 );
         }
-        else if ( level._id_252D == "40mm" )
+        else if ( level.currentweapon == "40mm" )
         {
-            if ( getdvar( "ac130_pre_engagement_mode" ) == "2" && !common_scripts\utility::_id_382E( "clear_to_engage" ) )
+            if ( getdvar( "ac130_pre_engagement_mode" ) == "2" && !common_scripts\utility::flag( "clear_to_engage" ) )
                 continue;
 
             earthquake( 0.1, 0.5, level.player.origin, 1000 );
@@ -1207,22 +1189,22 @@ fire_screenshake()
     }
 }
 
-_id_1FEE()
+clouds()
 {
     level endon( "stop_clounds" );
     wait 6;
-    _id_1FEF();
+    clouds_create();
 
     for (;;)
     {
         wait(randomfloatrange( 40, 80 ));
-        _id_1FEF();
+        clouds_create();
     }
 }
 
-_id_1FEF()
+clouds_create()
 {
-    if ( isdefined( level._id_6D93 ) && issubstr( tolower( level._id_6D93 ), "25" ) )
+    if ( isdefined( level.playerweapon ) && issubstr( tolower( level.playerweapon ), "25" ) )
         return;
 
     playfxontag( level._effect["cloud"], level.ac130, "tag_player" );
@@ -1268,7 +1250,7 @@ getfriendlyscenter()
     return var_0;
 }
 
-_id_843F()
+shotfired()
 {
     for (;;)
     {
@@ -1281,7 +1263,7 @@ _id_843F()
         thread shotfiredbadplace( var_1, var_0 );
 
         if ( getdvar( "ac130_ragdoll_deaths" ) == "1" )
-            thread _id_8440( var_1, var_0 );
+            thread shotfiredphysicssphere( var_1, var_0 );
 
         wait 0.05;
     }
@@ -1302,8 +1284,8 @@ shotfiredfriendlyproximity( var_0, var_1 )
 
     if ( getdvar( "ac130_debug_weapons" ) == "1" )
     {
-        thread _id_2682( var_2, var_3, var_6, level.color["white"], undefined, 1 );
-        thread _id_2682( var_2 + ( 0, 0, var_4 ), var_3, var_6, level.color["white"], undefined, 1 );
+        thread debug_circle( var_2, var_3, var_6, level.color["white"], undefined, 1 );
+        thread debug_circle( var_2 + ( 0, 0, var_4 ), var_3, var_6, level.color["white"], undefined, 1 );
     }
 }
 
@@ -1317,7 +1299,7 @@ shotfiredfriendlyproximity_trigger( var_0, var_1 )
         return;
 
     level.lastfriendlyproximitywarningplayed = gettime();
-    thread playsoundoverradio( level._id_78BA["fco"]["ac130_fco_firingtoclose"], 1, 5.0 );
+    thread playsoundoverradio( level.scr_sound["fco"]["ac130_fco_firingtoclose"], 1, 5.0 );
 }
 
 shotfiredfriendlyproximity_trigger_timeout( var_0, var_1 )
@@ -1332,13 +1314,13 @@ shotfiredbadplace( var_0, var_1 )
     badplace_cylinder( "", level.badplaceduration[var_1], var_0, level.badplaceradius[var_1], level.badplaceradius[var_1], "axis" );
 
     if ( getdvar( "ac130_debug_weapons" ) == "1" )
-        thread _id_2682( var_0, level.badplaceradius[var_1], level.badplaceduration[var_1], level.color["blue"], undefined, 1 );
+        thread debug_circle( var_0, level.badplaceradius[var_1], level.badplaceduration[var_1], level.color["blue"], undefined, 1 );
 }
 
-_id_8440( var_0, var_1 )
+shotfiredphysicssphere( var_0, var_1 )
 {
     wait 0.1;
-    physicsexplosionsphere( var_0, level._id_6804[var_1], level._id_6804[var_1] / 2, level._id_6803[var_1] );
+    physicsexplosionsphere( var_0, level.physicssphereradius[var_1], level.physicssphereradius[var_1] / 2, level.physicssphereforce[var_1] );
 }
 
 shotfireddarkscreenoverlay()
@@ -1346,26 +1328,26 @@ shotfireddarkscreenoverlay()
     level notify( "darkScreenOverlay" );
     level endon( "darkScreenOverlay" );
 
-    if ( !isdefined( level._id_25F4 ) )
+    if ( !isdefined( level.darkscreenoverlay ) )
     {
-        level._id_25F4 = newhudelem();
-        level._id_25F4.x = 0;
-        level._id_25F4.y = 0;
-        level._id_25F4.alignx = "left";
-        level._id_25F4.aligny = "top";
-        level._id_25F4.horzalign = "fullscreen";
-        level._id_25F4.vertalign = "fullscreen";
-        level._id_25F4 setshader( "black", 640, 480 );
-        level._id_25F4.sort = -10;
-        level._id_25F4.alpha = 0.0;
+        level.darkscreenoverlay = newhudelem();
+        level.darkscreenoverlay.x = 0;
+        level.darkscreenoverlay.y = 0;
+        level.darkscreenoverlay.alignx = "left";
+        level.darkscreenoverlay.aligny = "top";
+        level.darkscreenoverlay.horzalign = "fullscreen";
+        level.darkscreenoverlay.vertalign = "fullscreen";
+        level.darkscreenoverlay setshader( "black", 640, 480 );
+        level.darkscreenoverlay.sort = -10;
+        level.darkscreenoverlay.alpha = 0.0;
     }
 
-    level._id_25F4.alpha = 0.0;
-    level._id_25F4 fadeovertime( 0.2 );
-    level._id_25F4.alpha = 0.6;
+    level.darkscreenoverlay.alpha = 0.0;
+    level.darkscreenoverlay fadeovertime( 0.2 );
+    level.darkscreenoverlay.alpha = 0.6;
     wait 0.4;
-    level._id_25F4 fadeovertime( 0.8 );
-    level._id_25F4.alpha = 0.0;
+    level.darkscreenoverlay fadeovertime( 0.8 );
+    level.darkscreenoverlay.alpha = 0.0;
 }
 
 add_beacon_effect( var_0, var_1 )
@@ -1465,7 +1447,7 @@ enemy_killed_thread( var_0 )
         return;
 
     if ( getdvar( "ac130_ragdoll_deaths" ) == "1" )
-        var_0._id_85BA = 1;
+        var_0.skipdeathanim = 1;
 
     var_0 waittill( "death", var_1 );
 
@@ -1475,7 +1457,7 @@ enemy_killed_thread( var_0 )
     if ( getdvar( "ac130_ragdoll_deaths" ) == "1" )
     {
         if ( isdefined( var_0.damageweapon ) && issubstr( var_0.damageweapon, "25mm" ) )
-            var_0._id_85BA = undefined;
+            var_0.skipdeathanim = undefined;
     }
 
     thread context_sensative_dialog_kill( var_0, var_1 );
@@ -1516,7 +1498,7 @@ context_sensative_dialog_guy_in_sight_check()
         if ( !isalive( var_0[var_1] ) )
             continue;
 
-        if ( common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), var_0[var_1].origin, level._id_2235["5"] ) )
+        if ( common_scripts\utility::within_fov( level.player geteye(), level.player getplayerangles(), var_0[var_1].origin, level.cosine["5"] ) )
             return 1;
 
         wait 0.05;
@@ -1534,7 +1516,7 @@ context_sensative_dialog_guy_crawling()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 0.0, 1.0, 0.0 ) );
+                thread debug_line( level.player.origin, var_0.origin, 5.0, ( 0.0, 1.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_crawl" );
@@ -1550,7 +1532,7 @@ context_sensative_dialog_guy_pain_falling()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
+                thread debug_line( level.player.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_pain" );
@@ -1566,7 +1548,7 @@ context_sensative_dialog_guy_pain()
         if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
+                thread debug_line( level.player.origin, var_0.origin, 5.0, ( 1.0, 0.0, 0.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "ai", "wounded_pain" );
@@ -1583,7 +1565,7 @@ context_sensative_dialog_secondary_explosion_vehicle()
         if ( isdefined( var_0 ) )
         {
             if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-                thread _id_26AB( level.player.origin, var_0, 5.0, ( 0.0, 0.0, 1.0 ) );
+                thread debug_line( level.player.origin, var_0, 5.0, ( 0.0, 0.0, 1.0 ) );
         }
 
         thread context_sensative_dialog_play_random_group_sound( "explosion", "secondary" );
@@ -1604,7 +1586,7 @@ context_sensative_dialog_kill( var_0, var_1 )
     if ( isdefined( var_0 ) && isdefined( var_0.origin ) )
     {
         if ( getdvar( "ac130_debug_context_sensative_dialog" ) == "1" )
-            thread _id_26AB( level.player.origin, var_0.origin, 5.0, ( 1.0, 1.0, 0.0 ) );
+            thread debug_line( level.player.origin, var_0.origin, 5.0, ( 1.0, 1.0, 0.0 ) );
     }
 }
 
@@ -1620,7 +1602,7 @@ context_sensative_dialog_kill_thread()
         var_2 = undefined;
 
         if ( level.enemieskilledintimewindow >= 5 )
-            maps\_utility::_id_41DD( "STRAIGHT_FLUSH" );
+            maps\_utility::giveachievement_wrapper( "STRAIGHT_FLUSH" );
 
         if ( level.enemieskilledintimewindow >= 3 )
             var_2 = "large_group";
@@ -1664,7 +1646,7 @@ context_sensative_dialog_locations_thread()
         if ( !isdefined( var_0 ) )
             continue;
 
-        if ( !common_scripts\utility::_id_382E( "allow_context_sensative_dialog" ) )
+        if ( !common_scripts\utility::flag( "allow_context_sensative_dialog" ) )
             continue;
 
         thread context_sensative_dialog_play_random_group_sound( "location", var_0 );
@@ -1691,13 +1673,13 @@ context_sensative_dialog_locations_add_notify_event( var_0 )
 
 context_sensative_dialog_vehiclespawn( var_0 )
 {
-    if ( var_0._id_7AEF != "axis" )
+    if ( var_0.script_team != "axis" )
         return;
 
     thread context_sensative_dialog_vehicledeath( var_0 );
     var_0 endon( "death" );
 
-    while ( !common_scripts\utility::_id_A347( level.player geteye(), level.player getplayerangles(), var_0.origin, level._id_2235["45"] ) )
+    while ( !common_scripts\utility::within_fov( level.player geteye(), level.player getplayerangles(), var_0.origin, level.cosine["45"] ) )
         wait 0.5;
 
     context_sensative_dialog_play_random_group_sound( "vehicle", "incoming" );
@@ -1733,27 +1715,27 @@ context_sensative_dialog_play_random_group_sound( var_0, var_1, var_2 )
     if ( !isdefined( var_2 ) )
         var_2 = 0;
 
-    if ( !common_scripts\utility::_id_382E( "allow_context_sensative_dialog" ) )
+    if ( !common_scripts\utility::flag( "allow_context_sensative_dialog" ) )
     {
         if ( var_2 )
-            common_scripts\utility::_id_384A( "allow_context_sensative_dialog" );
+            common_scripts\utility::flag_wait( "allow_context_sensative_dialog" );
         else
             return;
     }
 
     var_3 = undefined;
-    var_4 = randomint( level._id_78BA[var_0][var_1].size );
+    var_4 = randomint( level.scr_sound[var_0][var_1].size );
 
-    if ( level._id_78BA[var_0][var_1][var_4].played == 1 )
+    if ( level.scr_sound[var_0][var_1][var_4].played == 1 )
     {
-        for ( var_5 = 0; var_5 < level._id_78BA[var_0][var_1].size; var_5++ )
+        for ( var_5 = 0; var_5 < level.scr_sound[var_0][var_1].size; var_5++ )
         {
             var_4++;
 
-            if ( var_4 >= level._id_78BA[var_0][var_1].size )
+            if ( var_4 >= level.scr_sound[var_0][var_1].size )
                 var_4 = 0;
 
-            if ( level._id_78BA[var_0][var_1][var_4].played == 1 )
+            if ( level.scr_sound[var_0][var_1][var_4].played == 1 )
                 continue;
 
             var_3 = var_4;
@@ -1762,10 +1744,10 @@ context_sensative_dialog_play_random_group_sound( var_0, var_1, var_2 )
 
         if ( !isdefined( var_3 ) )
         {
-            for ( var_5 = 0; var_5 < level._id_78BA[var_0][var_1].size; var_5++ )
-                level._id_78BA[var_0][var_1][var_5].played = 0;
+            for ( var_5 = 0; var_5 < level.scr_sound[var_0][var_1].size; var_5++ )
+                level.scr_sound[var_0][var_1][var_5].played = 0;
 
-            var_3 = randomint( level._id_78BA[var_0][var_1].size );
+            var_3 = randomint( level.scr_sound[var_0][var_1].size );
         }
     }
     else
@@ -1774,9 +1756,9 @@ context_sensative_dialog_play_random_group_sound( var_0, var_1, var_2 )
     if ( context_sensative_dialog_timedout( var_0, var_1, var_3 ) )
         return;
 
-    level._id_78BA[var_0][var_1][var_3].played = 1;
-    var_6 = randomint( level._id_78BA[var_0][var_1][var_3].size );
-    playsoundoverradio( level._id_78BA[var_0][var_1][var_3].sounds[var_6], var_2 );
+    level.scr_sound[var_0][var_1][var_3].played = 1;
+    var_6 = randomint( level.scr_sound[var_0][var_1][var_3].size );
+    playsoundoverradio( level.scr_sound[var_0][var_1][var_3].sounds[var_6], var_2 );
 }
 
 context_sensative_dialog_timedout( var_0, var_1, var_2 )
@@ -1790,14 +1772,14 @@ context_sensative_dialog_timedout( var_0, var_1, var_2 )
     if ( !isdefined( level.context_sensative_dialog_timeouts[var_0][var_1] ) )
         return 0;
 
-    if ( isdefined( level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E ) && isdefined( level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )] ) )
+    if ( isdefined( level.context_sensative_dialog_timeouts[var_0][var_1].groups ) && isdefined( level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )] ) )
     {
         var_3 = gettime();
 
-        if ( var_3 - level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["lastPlayed"] < level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["timeoutDuration"] )
+        if ( var_3 - level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )].v["lastPlayed"] < level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )].v["timeoutDuration"] )
             return 1;
 
-        level.context_sensative_dialog_timeouts[var_0][var_1]._id_443E[maps\_utility::_id_8F53( var_2 )].v["lastPlayed"] = var_3;
+        level.context_sensative_dialog_timeouts[var_0][var_1].groups[maps\_utility::string( var_2 )].v["lastPlayed"] = var_3;
     }
     else if ( isdefined( level.context_sensative_dialog_timeouts[var_0][var_1].v ) )
     {
@@ -1882,9 +1864,9 @@ mission_fail_casualties()
 
     if ( level.friendlycount < level.minimumfriendlycount )
     {
-        common_scripts\utility::_id_383F( "mission_failed" );
+        common_scripts\utility::flag_set( "mission_failed" );
         setdvar( "ui_deadquote", "@AC130_FRIENDLIES_DEAD" );
-        maps\_utility::_id_5CDF();
+        maps\_utility::missionfailedwrapper();
     }
 }
 
@@ -1911,13 +1893,13 @@ debug_friendly_count()
     self waittill( "death" );
     level.friendlycounthudelem fadeovertime( 0.3 );
     level.friendlycounthudelem.alpha = 0;
-    waitframe;
+    waittillframeend;
     level.friendlycounthudelem setvalue( level.friendlycount );
     level.friendlycounthudelem fadeovertime( 0.3 );
     level.friendlycounthudelem.alpha = 1;
 }
 
-_id_2682( var_0, var_1, var_2, var_3, var_4, var_5 )
+debug_circle( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = 16;
     var_7 = 360 / var_6;
@@ -1937,10 +1919,10 @@ _id_2682( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_4 ) )
         wait(var_4);
 
-    thread _id_2683( var_8, var_2, var_3, var_5, var_0 );
+    thread debug_circle_drawlines( var_8, var_2, var_3, var_5, var_0 );
 }
 
-_id_2683( var_0, var_1, var_2, var_3, var_4 )
+debug_circle_drawlines( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 0;
@@ -1957,14 +1939,14 @@ _id_2683( var_0, var_1, var_2, var_3, var_4 )
         else
             var_7 = var_0[var_5 + 1];
 
-        thread _id_26AB( var_6, var_7, var_1, var_2 );
+        thread debug_line( var_6, var_7, var_1, var_2 );
 
         if ( var_3 )
-            thread _id_26AB( var_4, var_6, var_1, var_2 );
+            thread debug_line( var_4, var_6, var_1, var_2 );
     }
 }
 
-_id_26AB( var_0, var_1, var_2, var_3 )
+debug_line( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = ( 1.0, 1.0, 1.0 );

@@ -1,53 +1,35 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("dog");
 
 main()
 {
     self endon( "killanimscript" );
-    self _meth_8144( %root, 0.1 );
-    self _meth_8144( %german_shepherd_idle, 0.2 );
-    self _meth_8144( %german_shepherd_attackidle_knob, 0.2 );
-    thread _id_585C( "attackIdle" );
+    self clearanim( %root, 0.1 );
+    self clearanim( %german_shepherd_idle, 0.2 );
+    self clearanim( %german_shepherd_attackidle_knob, 0.2 );
+    thread lookattarget( "attackIdle" );
 
     for (;;)
     {
-        if ( _id_8483() )
+        if ( shouldattackidle() )
         {
-            self _meth_8144( %german_shepherd_idle, 0.2 );
+            self clearanim( %german_shepherd_idle, 0.2 );
             randomattackidle();
         }
         else
         {
-            self _meth_8193( "face current" );
-            self _meth_8144( %german_shepherd_attackidle_knob, 0.2 );
+            self orientmode( "face current" );
+            self clearanim( %german_shepherd_attackidle_knob, 0.2 );
             self setflaggedanimrestart( "dog_idle", %german_shepherd_idle, 1, 0.2, self.animplaybackrate );
         }
 
-        animscripts\shared::_id_2D06( "dog_idle" );
+        animscripts\shared::donotetracks( "dog_idle" );
 
-        if ( isdefined( self._id_6F7A ) )
+        if ( isdefined( self.prevturnrate ) )
         {
-            self.turnrate = self._id_6F7A;
-            self._id_6F7A = undefined;
+            self.turnrate = self.prevturnrate;
+            self.prevturnrate = undefined;
         }
     }
 }
@@ -66,10 +48,10 @@ isfacingenemy( var_0 )
 
 randomattackidle()
 {
-    self _meth_8144( %german_shepherd_attackidle_knob, 0.1 );
+    self clearanim( %german_shepherd_attackidle_knob, 0.1 );
 
     if ( isfacingenemy( 0.866 ) )
-        self _meth_8193( "face angle", self.angles[1] );
+        self orientmode( "face angle", self.angles[1] );
     else
     {
         if ( isdefined( self.enemy ) )
@@ -79,8 +61,8 @@ randomattackidle()
 
             if ( abs( var_1 ) > 10 )
             {
-                self _meth_8193( "face enemy" );
-                self._id_6F7A = self.turnrate;
+                self orientmode( "face enemy" );
+                self.prevturnrate = self.turnrate;
                 self.turnrate = 0.3;
 
                 if ( var_1 > 0 )
@@ -89,32 +71,32 @@ randomattackidle()
                     var_2 = %german_shepherd_rotate_cw;
 
                 self setflaggedanimrestart( "dog_turn", var_2, 1, 0.2, 1.0 );
-                animscripts\shared::_id_2D06( "dog_turn" );
-                self.turnrate = self._id_6F7A;
-                self._id_6F7A = undefined;
-                self _meth_8144( %german_shepherd_rotate_cw, 0.2 );
-                self _meth_8144( %german_shepherd_rotate_ccw, 0.2 );
+                animscripts\shared::donotetracks( "dog_turn" );
+                self.turnrate = self.prevturnrate;
+                self.prevturnrate = undefined;
+                self clearanim( %german_shepherd_rotate_cw, 0.2 );
+                self clearanim( %german_shepherd_rotate_ccw, 0.2 );
             }
         }
 
-        self _meth_8193( "face angle", self.angles[1] );
+        self orientmode( "face angle", self.angles[1] );
     }
 
-    if ( _id_846C() )
+    if ( should_growl() )
         self setflaggedanimrestart( "dog_idle", %german_shepherd_attackidle_growl, 1, 0.2, 1 );
     else
     {
         var_3 = 33;
         var_4 = 66;
 
-        if ( isdefined( self._id_5D35 ) )
+        if ( isdefined( self.mode ) )
         {
-            if ( self._id_5D35 == "growl" )
+            if ( self.mode == "growl" )
             {
                 var_3 = 15;
                 var_4 = 30;
             }
-            else if ( self._id_5D35 == "bark" )
+            else if ( self.mode == "bark" )
             {
                 var_3 = 15;
                 var_4 = 85;
@@ -138,37 +120,37 @@ randomattackidle()
     }
 }
 
-_id_8483()
+shouldattackidle()
 {
     return isdefined( self.enemy ) && isalive( self.enemy ) && distancesquared( self.origin, self.enemy.origin ) < 1000000;
 }
 
-_id_846C()
+should_growl()
 {
-    if ( isdefined( self._id_7A0B ) )
+    if ( isdefined( self.script_growl ) )
         return 1;
 
     if ( !isalive( self.enemy ) )
         return 1;
 
-    return !self _meth_81C2( self.enemy );
+    return !self cansee( self.enemy );
 }
 
-_id_585C( var_0 )
+lookattarget( var_0 )
 {
     self endon( "killanimscript" );
     self endon( "stop tracking" );
-    self _meth_8144( %german_shepherd_look_2, 0 );
-    self _meth_8144( %german_shepherd_look_4, 0 );
-    self _meth_8144( %german_shepherd_look_6, 0 );
-    self _meth_8144( %german_shepherd_look_8, 0 );
-    self _meth_8177();
+    self clearanim( %german_shepherd_look_2, 0 );
+    self clearanim( %german_shepherd_look_4, 0 );
+    self clearanim( %german_shepherd_look_6, 0 );
+    self clearanim( %german_shepherd_look_8, 0 );
+    self setdefaultaimlimits();
     self.rightaimlimit = 90;
     self.leftaimlimit = -90;
-    self _meth_814E( anim._id_2CD2[var_0][2], 1, 0 );
-    self _meth_814E( anim._id_2CD2[var_0][4], 1, 0 );
-    self _meth_814E( anim._id_2CD2[var_0][6], 1, 0 );
-    self _meth_814E( anim._id_2CD2[var_0][8], 1, 0 );
-    animscripts\track::_id_7F21( 1, 0.2 );
-    animscripts\track::_id_9502( %german_shepherd_look_2, %german_shepherd_look_4, %german_shepherd_look_6, %german_shepherd_look_8 );
+    self setanimlimited( anim.doglookpose[var_0][2], 1, 0 );
+    self setanimlimited( anim.doglookpose[var_0][4], 1, 0 );
+    self setanimlimited( anim.doglookpose[var_0][6], 1, 0 );
+    self setanimlimited( anim.doglookpose[var_0][8], 1, 0 );
+    animscripts\track::setanimaimweight( 1, 0.2 );
+    animscripts\track::trackloop( %german_shepherd_look_2, %german_shepherd_look_4, %german_shepherd_look_6, %german_shepherd_look_8 );
 }

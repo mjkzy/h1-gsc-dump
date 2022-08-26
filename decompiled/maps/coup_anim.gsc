@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     anim_human();
@@ -36,19 +18,19 @@ main()
 
 anim_playerview()
 {
-    level._id_78B1["playerview"] = #animtree;
-    level._id_78B5["playerview"] = "worldbody_h1_vip_president";
-    level._id_78AC["playerview"]["intro"] = %coup_opening_playerview;
-    level._id_78AC["playerview"]["car_idle_fullbody"] = %h1_coup_player_idle;
-    level._id_78AC["playerview"]["car_idle"][0] = %coup_opening_playerview_idle;
-    level._id_78AC["playerview"]["car_idle_firstframe"] = %coup_opening_playerview_idle;
-    level._id_78AC["playerview"]["carexit"] = %coup_ending_drag_playerview;
-    level._id_78AC["playerview"]["endtaunt"] = %coup_ending_zakhaev_intro_playerview;
-    level._id_78AC["playerview"]["ending"] = %coup_ending_player;
-    level._id_78AC["playerview"]["playerview_idle_normal"] = %coup_opening_playerview_idle_normal;
-    level._id_78AC["playerview"]["playerview_idle_smooth"] = %coup_opening_playerview_idle_smooth;
-    level._id_78AC["playerview"]["playerview_idle_bumpy"] = %coup_opening_playerview_idle_bumpy;
-    level._id_78AC["playerview"]["playerview_idle_static"] = %coup_opening_playerview_idle_static;
+    level.scr_animtree["playerview"] = #animtree;
+    level.scr_model["playerview"] = "worldbody_h1_vip_president";
+    level.scr_anim["playerview"]["intro"] = %coup_opening_playerview;
+    level.scr_anim["playerview"]["car_idle_fullbody"] = %h1_coup_player_idle;
+    level.scr_anim["playerview"]["car_idle"][0] = %coup_opening_playerview_idle;
+    level.scr_anim["playerview"]["car_idle_firstframe"] = %coup_opening_playerview_idle;
+    level.scr_anim["playerview"]["carexit"] = %coup_ending_drag_playerview;
+    level.scr_anim["playerview"]["endtaunt"] = %coup_ending_zakhaev_intro_playerview;
+    level.scr_anim["playerview"]["ending"] = %coup_ending_player;
+    level.scr_anim["playerview"]["playerview_idle_normal"] = %coup_opening_playerview_idle_normal;
+    level.scr_anim["playerview"]["playerview_idle_smooth"] = %coup_opening_playerview_idle_smooth;
+    level.scr_anim["playerview"]["playerview_idle_bumpy"] = %coup_opening_playerview_idle_bumpy;
+    level.scr_anim["playerview"]["playerview_idle_static"] = %coup_opening_playerview_idle_static;
     maps\_anim::addnotetrack_flag( "playerview", "start_car_rearview_mirror_video", "start_car_rearview_mirror_video" );
     maps\_anim::addnotetrack_customfunction( "playerview", "throw_in_car", ::playerthrownincar, "intro" );
     maps\_anim::addnotetrack_customfunction( "playerview", "hit", ::playerhit, "intro" );
@@ -59,173 +41,173 @@ anim_playerview()
 
 anim_human()
 {
-    level._id_78B1["human"] = #animtree;
-    level._id_78AC["human"]["stand_and_crouch"] = %stand_and_crouch;
-    level._id_78AC["human"]["cardriver_idle"][0] = %coup_driver_idle;
-    level._id_78AC["human"]["cardriver_bigleft2center"] = %coup_driver_bigleft2center;
-    level._id_78AC["human"]["cardriver_bigleft_idle"][0] = %coup_driver_bigleft_idle;
-    level._id_78AC["human"]["cardriver_bigleftloop"] = %coup_driver_bigleft_loop;
-    level._id_78AC["human"]["cardriver_center2smallleft"] = %coup_driver_center2smallleft;
-    level._id_78AC["human"]["cardriver_center2smallright"] = %coup_driver_center2smallright;
-    level._id_78AC["human"]["cardriver_lookright"] = %coup_driver_lookright;
-    level._id_78AC["human"]["cardriver_smallleft2bigleft"] = %coup_driver_smallleft2bigleft;
-    level._id_78AC["human"]["cardriver_smallleft2center"] = %coup_driver_smallleft2center;
-    level._id_78AC["human"]["cardriver_smallleft_idle"][0] = %coup_driver_smallleft_idle;
-    level._id_78AC["human"]["cardriver_smallright2center"] = %coup_driver_smallright2center;
-    level._id_78AC["human"]["cardriver_smallright_idle"][0] = %coup_driver_smallright_idle;
-    level._id_78AC["human"]["cardriver_wave1"] = %coup_driver_wave1;
-    level._id_78AC["human"]["cardriver_wave2"] = %coup_driver_wave2;
-    level._id_78AC["human"]["cardriver_fulldrive"] = %h1_coup_03_driver_idle;
-    level._id_78AC["human"]["carpassenger_idle"][0] = %coup_passenger_idle;
-    level._id_78AC["human"]["carpassenger_phone"] = %coup_passenger_phone;
-    level._id_78AC["human"]["carpassenger_point"] = %coup_passenger_point;
-    level._id_78AC["human"]["carpassenger_pointturn"] = %coup_passenger_pointturn;
-    level._id_78AC["human"]["carpassenger_lookback"] = %coup_passenger_lookback;
-    level._id_78AC["human"]["carpassenger_lookright"] = %coup_passenger_lookright;
-    level._id_78AC["human"]["carpassenger_shiftweight"] = %coup_passenger_shiftweight;
-    level._id_78AC["human"]["carpassenger_fulldrive"] = %h1_coup_03_passenger_idle;
-    level._id_78AC["human"]["intro_leftguard"] = %coup_opening_guyl;
-    level._id_78AC["human"]["intro_rightguard"] = %coup_opening_guyr;
-    level._id_78AC["human"]["intro_idle_soldier_left"] = %h1_coup_01_soldieraidlestanding_left;
-    level._id_78AC["human"]["intro_idle_soldier_right"] = %h1_coup_01_soldierbidlestanding_right;
-    level._id_78AC["human"]["intro_cardriver"] = %h1_coup_01_driver;
-    level._id_78AC["human"]["intro_carpassenger"] = %h1_coup_01_zakhaevson;
-    level._id_78AC["human"]["intro_spittingguard"] = %h1_coup_01_soldierdspitting;
-    level._id_78AC["human"]["intro_soldierholdcivilian"] = %h1_coup_01_soldiercholdcivilian;
-    level._id_78AC["human"]["intro_civilianliesdown"] = %h1_coup_01_civilianliesdown;
-    level._id_78AC["human"]["carexit_leftguard"] = %coup_ending_drag_guyl;
-    level._id_78AC["human"]["carexit_rightguard"] = %coup_ending_drag_guyr;
-    level._id_78AC["human"]["carexit_driver"] = %h1_coup_24_driver;
-    level._id_78AC["human"]["carexit_passenger"] = %h1_coup_24_zakhaevson;
-    level._id_78AC["human"]["close_garage_a"] = %unarmed_close_garage;
-    level._id_78AC["human"]["close_garage_b"] = %unarmed_close_garage_v2;
-    level._id_78AC["human"]["window_shout_a"] = %unarmed_shout_window;
-    level._id_78AC["human"]["window_shout_b"] = %unarmed_shout_window_v2;
-    level._id_78AC["human"]["leaning_smoking_idle"][0] = %parabolic_leaning_guy_smoking_idle;
-    level._id_78AC["human"]["radio"] = %casual_stand_v2_twitch_radio;
-    level._id_78AC["human"]["talkingguards_leftguard"] = %coup_talking_patrol_guy1;
-    level._id_78AC["human"]["talkingguards_rightguard"] = %coup_talking_patrol_guy2;
-    level._id_78AC["human"]["ending_leftguard"] = %coup_ending_guyl;
-    level._id_78AC["human"]["ending_rightguard"] = %coup_ending_guyr;
-    level._id_78AC["human"]["ending_alasad"] = %coup_ending_alasad;
-    level._id_78AC["human"]["ending_zakhaev"] = %coup_ending_zakhaev;
-    level._id_78AC["human"]["endtaunt"] = %coup_ending_zakhaev_intro;
-    level._id_78AC["human"]["ziptie_civilian_idle"][0] = %ziptie_suspect_idle;
-    level._id_78AC["human"]["crowdmember_gunup_idle"] = %coup_guard1_idle;
-    level._id_78AC["human"]["crowdmember_gunup_fire"] = %coup_guard1_jeer;
-    level._id_78AC["human"]["crowdmember_gundown_idle"] = %coup_guard2_idle;
-    level._id_78AC["human"]["crowdmember_gundown_jeer"] = %coup_guard2_jeera;
-    level._id_78AC["human"]["crowdmember_gundown_fire_a"] = %coup_guard2_jeerb;
-    level._id_78AC["human"]["crowdmember_gundown_fire_b"] = %coup_guard2_jeerc;
-    level._id_78AC["human"]["crowdmember_witnessing_arrival_gunup"][0] = %h1_coup_26_witnessingthearrival_soldier_01;
-    level._id_78AC["human"]["crowdmember_witnessing_arrival_taunt"][0] = %h1_coup_26_witnessingthearrival_soldier_02;
-    level._id_78AC["human"]["crowdmember_witnessing_arrival_cutroat_1"][0] = %h1_coup_26_witnessingthearrival_soldier_03;
-    level._id_78AC["human"]["crowdmember_witnessing_arrival_cutroat_2"][0] = %h1_coup_26_witnessingthearrival_soldier_04;
-    level._id_78AC["human"]["crowdmember_witnessing_arrival_spitting"][0] = %h1_coup_26_witnessingthearrival_soldier_05;
-    level._id_78AC["human"]["crowdmember_witnessing_arrival_crossedarms"][0] = %h1_coup_26_witnessingthearrival_soldier_06;
-    level._id_78AC["human"]["crowdmember_soldier_welcome_1"][0] = %h1_coup_soldiers_welcome_01;
-    level._id_78AC["human"]["crowdmember_soldier_welcome_2"][0] = %h1_coup_soldiers_welcome_02;
-    level._id_78AC["human"]["crowdmember_soldier_welcome_3"] = %h1_coup_soldiers_welcome_03;
-    level._id_78AC["human"]["crowdmember_soldier_welcome_4"][0] = %h1_coup_soldiers_welcome_04;
-    level._id_78AC["human"]["run_panicked1"] = %unarmed_panickedrun_loop_v1;
-    level._id_78AC["human"]["run_panicked2"] = %unarmed_panickedrun_loop_v2;
-    level._id_78AC["human"]["civilians_running_garage"] = %h1_coup_13_twocivilians_running_civil01;
-    level._id_78AC["human"]["civilians_running_02"] = %h1_coup_13_twocivilians_running_civil02;
-    level._id_78AC["human"]["civilians_running_03"] = %h1_coup_13_twocivilians_running_civil03;
-    level._id_78AC["human"]["civilians_running_04"] = %h1_coup_13_twocivilians_running_civil04;
-    level._id_78AC["human"]["runinto_garage_left"] = %unarmed_runinto_garage_left;
-    level._id_78AC["human"]["runinto_garage_right"] = %unarmed_runinto_garage_right;
-    level._id_78AC["human"]["spraypainting"] = %coup_spraypainting_sequence;
+    level.scr_animtree["human"] = #animtree;
+    level.scr_anim["human"]["stand_and_crouch"] = %stand_and_crouch;
+    level.scr_anim["human"]["cardriver_idle"][0] = %coup_driver_idle;
+    level.scr_anim["human"]["cardriver_bigleft2center"] = %coup_driver_bigleft2center;
+    level.scr_anim["human"]["cardriver_bigleft_idle"][0] = %coup_driver_bigleft_idle;
+    level.scr_anim["human"]["cardriver_bigleftloop"] = %coup_driver_bigleft_loop;
+    level.scr_anim["human"]["cardriver_center2smallleft"] = %coup_driver_center2smallleft;
+    level.scr_anim["human"]["cardriver_center2smallright"] = %coup_driver_center2smallright;
+    level.scr_anim["human"]["cardriver_lookright"] = %coup_driver_lookright;
+    level.scr_anim["human"]["cardriver_smallleft2bigleft"] = %coup_driver_smallleft2bigleft;
+    level.scr_anim["human"]["cardriver_smallleft2center"] = %coup_driver_smallleft2center;
+    level.scr_anim["human"]["cardriver_smallleft_idle"][0] = %coup_driver_smallleft_idle;
+    level.scr_anim["human"]["cardriver_smallright2center"] = %coup_driver_smallright2center;
+    level.scr_anim["human"]["cardriver_smallright_idle"][0] = %coup_driver_smallright_idle;
+    level.scr_anim["human"]["cardriver_wave1"] = %coup_driver_wave1;
+    level.scr_anim["human"]["cardriver_wave2"] = %coup_driver_wave2;
+    level.scr_anim["human"]["cardriver_fulldrive"] = %h1_coup_03_driver_idle;
+    level.scr_anim["human"]["carpassenger_idle"][0] = %coup_passenger_idle;
+    level.scr_anim["human"]["carpassenger_phone"] = %coup_passenger_phone;
+    level.scr_anim["human"]["carpassenger_point"] = %coup_passenger_point;
+    level.scr_anim["human"]["carpassenger_pointturn"] = %coup_passenger_pointturn;
+    level.scr_anim["human"]["carpassenger_lookback"] = %coup_passenger_lookback;
+    level.scr_anim["human"]["carpassenger_lookright"] = %coup_passenger_lookright;
+    level.scr_anim["human"]["carpassenger_shiftweight"] = %coup_passenger_shiftweight;
+    level.scr_anim["human"]["carpassenger_fulldrive"] = %h1_coup_03_passenger_idle;
+    level.scr_anim["human"]["intro_leftguard"] = %coup_opening_guyl;
+    level.scr_anim["human"]["intro_rightguard"] = %coup_opening_guyr;
+    level.scr_anim["human"]["intro_idle_soldier_left"] = %h1_coup_01_soldieraidlestanding_left;
+    level.scr_anim["human"]["intro_idle_soldier_right"] = %h1_coup_01_soldierbidlestanding_right;
+    level.scr_anim["human"]["intro_cardriver"] = %h1_coup_01_driver;
+    level.scr_anim["human"]["intro_carpassenger"] = %h1_coup_01_zakhaevson;
+    level.scr_anim["human"]["intro_spittingguard"] = %h1_coup_01_soldierdspitting;
+    level.scr_anim["human"]["intro_soldierholdcivilian"] = %h1_coup_01_soldiercholdcivilian;
+    level.scr_anim["human"]["intro_civilianliesdown"] = %h1_coup_01_civilianliesdown;
+    level.scr_anim["human"]["carexit_leftguard"] = %coup_ending_drag_guyl;
+    level.scr_anim["human"]["carexit_rightguard"] = %coup_ending_drag_guyr;
+    level.scr_anim["human"]["carexit_driver"] = %h1_coup_24_driver;
+    level.scr_anim["human"]["carexit_passenger"] = %h1_coup_24_zakhaevson;
+    level.scr_anim["human"]["close_garage_a"] = %unarmed_close_garage;
+    level.scr_anim["human"]["close_garage_b"] = %unarmed_close_garage_v2;
+    level.scr_anim["human"]["window_shout_a"] = %unarmed_shout_window;
+    level.scr_anim["human"]["window_shout_b"] = %unarmed_shout_window_v2;
+    level.scr_anim["human"]["leaning_smoking_idle"][0] = %parabolic_leaning_guy_smoking_idle;
+    level.scr_anim["human"]["radio"] = %casual_stand_v2_twitch_radio;
+    level.scr_anim["human"]["talkingguards_leftguard"] = %coup_talking_patrol_guy1;
+    level.scr_anim["human"]["talkingguards_rightguard"] = %coup_talking_patrol_guy2;
+    level.scr_anim["human"]["ending_leftguard"] = %coup_ending_guyl;
+    level.scr_anim["human"]["ending_rightguard"] = %coup_ending_guyr;
+    level.scr_anim["human"]["ending_alasad"] = %coup_ending_alasad;
+    level.scr_anim["human"]["ending_zakhaev"] = %coup_ending_zakhaev;
+    level.scr_anim["human"]["endtaunt"] = %coup_ending_zakhaev_intro;
+    level.scr_anim["human"]["ziptie_civilian_idle"][0] = %ziptie_suspect_idle;
+    level.scr_anim["human"]["crowdmember_gunup_idle"] = %coup_guard1_idle;
+    level.scr_anim["human"]["crowdmember_gunup_fire"] = %coup_guard1_jeer;
+    level.scr_anim["human"]["crowdmember_gundown_idle"] = %coup_guard2_idle;
+    level.scr_anim["human"]["crowdmember_gundown_jeer"] = %coup_guard2_jeera;
+    level.scr_anim["human"]["crowdmember_gundown_fire_a"] = %coup_guard2_jeerb;
+    level.scr_anim["human"]["crowdmember_gundown_fire_b"] = %coup_guard2_jeerc;
+    level.scr_anim["human"]["crowdmember_witnessing_arrival_gunup"][0] = %h1_coup_26_witnessingthearrival_soldier_01;
+    level.scr_anim["human"]["crowdmember_witnessing_arrival_taunt"][0] = %h1_coup_26_witnessingthearrival_soldier_02;
+    level.scr_anim["human"]["crowdmember_witnessing_arrival_cutroat_1"][0] = %h1_coup_26_witnessingthearrival_soldier_03;
+    level.scr_anim["human"]["crowdmember_witnessing_arrival_cutroat_2"][0] = %h1_coup_26_witnessingthearrival_soldier_04;
+    level.scr_anim["human"]["crowdmember_witnessing_arrival_spitting"][0] = %h1_coup_26_witnessingthearrival_soldier_05;
+    level.scr_anim["human"]["crowdmember_witnessing_arrival_crossedarms"][0] = %h1_coup_26_witnessingthearrival_soldier_06;
+    level.scr_anim["human"]["crowdmember_soldier_welcome_1"][0] = %h1_coup_soldiers_welcome_01;
+    level.scr_anim["human"]["crowdmember_soldier_welcome_2"][0] = %h1_coup_soldiers_welcome_02;
+    level.scr_anim["human"]["crowdmember_soldier_welcome_3"] = %h1_coup_soldiers_welcome_03;
+    level.scr_anim["human"]["crowdmember_soldier_welcome_4"][0] = %h1_coup_soldiers_welcome_04;
+    level.scr_anim["human"]["run_panicked1"] = %unarmed_panickedrun_loop_v1;
+    level.scr_anim["human"]["run_panicked2"] = %unarmed_panickedrun_loop_v2;
+    level.scr_anim["human"]["civilians_running_garage"] = %h1_coup_13_twocivilians_running_civil01;
+    level.scr_anim["human"]["civilians_running_02"] = %h1_coup_13_twocivilians_running_civil02;
+    level.scr_anim["human"]["civilians_running_03"] = %h1_coup_13_twocivilians_running_civil03;
+    level.scr_anim["human"]["civilians_running_04"] = %h1_coup_13_twocivilians_running_civil04;
+    level.scr_anim["human"]["runinto_garage_left"] = %unarmed_runinto_garage_left;
+    level.scr_anim["human"]["runinto_garage_right"] = %unarmed_runinto_garage_right;
+    level.scr_anim["human"]["spraypainting"] = %coup_spraypainting_sequence;
     maps\_anim::addnotetrack_customfunction( "human", "start_spray", ::fx_paint_spray_coup, "spraypainting" );
     maps\_anim::addnotetrack_customfunction( "human", "end_spray", ::fx_stop_paint_spray_coup, "spraypainting" );
     maps\_anim::addnotetrack_customfunction( "human", "drop_can", ::detach_paint_spray_coup, "spraypainting" );
-    level._id_78AC["human"]["civiliankilled_tumblesoncar"] = %h1_coup_opening_car_driving_civiliangetskilled_runner;
-    level._id_78AC["human"]["civiliankilled_guard_a"] = %h1_coup_opening_car_driving_civiliangetskilled_soldiera;
-    level._id_78AC["human"]["civiliankilled_guard_b"] = %h1_coup_opening_car_driving_civiliangetskilled_soldierb;
-    level._id_78AC["human"]["wall_climb"] = %h1_coup_19_dogthreat;
-    level._id_78AC["human"]["sneakattack_attack_side"] = %melee_l_attack;
-    level._id_78AC["human"]["sneakattack_defend_side"] = %melee_l_defend;
-    level._id_78AC["human"]["sneakattack_attack_behind"] = %melee_b_attack;
-    level._id_78AC["human"]["sneakattack_defend_behind"] = %melee_b_defend;
-    level._id_78AC["human"]["patrol_walk"] = %patrol_bored_patrolwalk;
-    level._id_78AC["human"]["aim_straight"][0] = %stand_aim_straight;
-    level._id_78AC["human"]["cowerstand_idle"][0] = %unarmed_cowerstand_idle;
-    level._id_78AC["human"]["cowerstand_pointidle"][0] = %unarmed_cowerstand_pointidle;
-    level._id_78AC["human"]["cowerstand_point_to_idle"] = %unarmed_cowerstand_point2idle;
-    level._id_78AC["human"]["cowerstand_idle_to_point"] = %unarmed_cowerstand_idle2point;
-    level._id_78AC["human"]["cowerstand_react"] = %unarmed_cowerstand_react;
-    level._id_78AC["human"]["cowerstand_react_to_crouch"] = %unarmed_cowerstand_react_2_crouch;
-    level._id_78AC["human"]["cowercrouch_idle"][0] = %unarmed_cowercrouch_idle;
-    level._id_78AC["human"]["cowercrouch_idle_duck"] = %unarmed_cowercrouch_idle_duck;
-    level._id_78AC["human"]["cowercrouch_react_a"] = %unarmed_cowercrouch_react_a;
-    level._id_78AC["human"]["cowercrouch_react_b"] = %unarmed_cowercrouch_react_b;
-    level._id_78AC["human"]["cowercrouch_to_stand"] = %unarmed_cowercrouch_crouch_2_stand;
-    level._id_78AC["human"]["ziptie_guard"] = %ziptie_soldier;
-    level._id_78AC["human"]["ziptie_civilian"] = %ziptie_suspect;
-    level._id_78AC["human"]["doorkick_left_idle"] = %shotgunbreach_v1_shoot_hinge_idle;
-    level._id_78AC["human"]["doorkick_left_stepout"] = %shotgunbreach_v1_shoot_hinge;
-    level._id_78AC["human"]["doorkick_left_runin"] = %shotgunbreach_v1_shoot_hinge_runin;
-    level._id_78AC["human"]["doorkick_right_idle"] = %shotgunbreach_v1_stackb_idle;
-    level._id_78AC["human"]["doorkick_right_stepout_runin"] = %shotgunbreach_v1_stackb;
-    level._id_78AC["human"]["carjack_victim"] = %ac130_carjack_driver_1a;
-    level._id_78AC["human"]["carjack_driver"] = %ac130_carjack_1a;
-    level._id_78AC["human"]["carjack_frontright"] = %ac130_carjack_2;
-    level._id_78AC["human"]["carjack_backright"] = %ac130_carjack_3;
-    level._id_78AC["human"]["carjack_backleft"] = %ac130_carjack_4;
-    level._id_78AC["human"]["stand_idle"][0] = %casual_stand_idle;
-    level._id_78AC["human"]["dumpster_open"] = %coup_dumpster_man;
-    level._id_78AC["human"]["interrogation_suspect_a"] = %coup_civilians_interrogated_civilian_v1;
-    level._id_78AC["human"]["interrogation_suspect_b"] = %coup_civilians_interrogated_civilian_v2;
-    level._id_78AC["human"]["interrogation_suspect_c"] = %coup_civilians_interrogated_civilian_v3;
-    level._id_78AC["human"]["interrogation_suspect_d"] = %coup_civilians_interrogated_civilian_v4;
-    level._id_78AC["human"]["interrogation_guard_a"] = %coup_civilians_interrogated_guard_v1;
-    level._id_78AC["human"]["interrogation_guard_b"] = %coup_civilians_interrogated_guard_v2;
-    level._id_78AC["human"]["interrogation_civilian_4"] = %h1_coup_civilians_interrogated_civilian_v1;
-    level._id_78AC["human"]["interrogation_civilian_5b"] = %h1_coup_civilians_interrogated_civilian_v2;
-    level._id_78AC["human"]["interrogation_civilian_5"] = %h1_coup_civilians_interrogated_civilian_v3;
-    level._id_78AC["human"]["interrogation_guard_4"] = %h1_coup_civilians_interrogated_guard_v1;
-    level._id_78AC["human"]["interrogation_guard_5b"] = %h1_coup_civilians_interrogated_guard_v2;
-    level._id_78AC["human"]["interrogation_guard_5"] = %h1_coup_civilians_interrogated_guard_v3;
+    level.scr_anim["human"]["civiliankilled_tumblesoncar"] = %h1_coup_opening_car_driving_civiliangetskilled_runner;
+    level.scr_anim["human"]["civiliankilled_guard_a"] = %h1_coup_opening_car_driving_civiliangetskilled_soldiera;
+    level.scr_anim["human"]["civiliankilled_guard_b"] = %h1_coup_opening_car_driving_civiliangetskilled_soldierb;
+    level.scr_anim["human"]["wall_climb"] = %h1_coup_19_dogthreat;
+    level.scr_anim["human"]["sneakattack_attack_side"] = %melee_l_attack;
+    level.scr_anim["human"]["sneakattack_defend_side"] = %melee_l_defend;
+    level.scr_anim["human"]["sneakattack_attack_behind"] = %melee_b_attack;
+    level.scr_anim["human"]["sneakattack_defend_behind"] = %melee_b_defend;
+    level.scr_anim["human"]["patrol_walk"] = %patrol_bored_patrolwalk;
+    level.scr_anim["human"]["aim_straight"][0] = %stand_aim_straight;
+    level.scr_anim["human"]["cowerstand_idle"][0] = %unarmed_cowerstand_idle;
+    level.scr_anim["human"]["cowerstand_pointidle"][0] = %unarmed_cowerstand_pointidle;
+    level.scr_anim["human"]["cowerstand_point_to_idle"] = %unarmed_cowerstand_point2idle;
+    level.scr_anim["human"]["cowerstand_idle_to_point"] = %unarmed_cowerstand_idle2point;
+    level.scr_anim["human"]["cowerstand_react"] = %unarmed_cowerstand_react;
+    level.scr_anim["human"]["cowerstand_react_to_crouch"] = %unarmed_cowerstand_react_2_crouch;
+    level.scr_anim["human"]["cowercrouch_idle"][0] = %unarmed_cowercrouch_idle;
+    level.scr_anim["human"]["cowercrouch_idle_duck"] = %unarmed_cowercrouch_idle_duck;
+    level.scr_anim["human"]["cowercrouch_react_a"] = %unarmed_cowercrouch_react_a;
+    level.scr_anim["human"]["cowercrouch_react_b"] = %unarmed_cowercrouch_react_b;
+    level.scr_anim["human"]["cowercrouch_to_stand"] = %unarmed_cowercrouch_crouch_2_stand;
+    level.scr_anim["human"]["ziptie_guard"] = %ziptie_soldier;
+    level.scr_anim["human"]["ziptie_civilian"] = %ziptie_suspect;
+    level.scr_anim["human"]["doorkick_left_idle"] = %shotgunbreach_v1_shoot_hinge_idle;
+    level.scr_anim["human"]["doorkick_left_stepout"] = %shotgunbreach_v1_shoot_hinge;
+    level.scr_anim["human"]["doorkick_left_runin"] = %shotgunbreach_v1_shoot_hinge_runin;
+    level.scr_anim["human"]["doorkick_right_idle"] = %shotgunbreach_v1_stackb_idle;
+    level.scr_anim["human"]["doorkick_right_stepout_runin"] = %shotgunbreach_v1_stackb;
+    level.scr_anim["human"]["carjack_victim"] = %ac130_carjack_driver_1a;
+    level.scr_anim["human"]["carjack_driver"] = %ac130_carjack_1a;
+    level.scr_anim["human"]["carjack_frontright"] = %ac130_carjack_2;
+    level.scr_anim["human"]["carjack_backright"] = %ac130_carjack_3;
+    level.scr_anim["human"]["carjack_backleft"] = %ac130_carjack_4;
+    level.scr_anim["human"]["stand_idle"][0] = %casual_stand_idle;
+    level.scr_anim["human"]["dumpster_open"] = %coup_dumpster_man;
+    level.scr_anim["human"]["interrogation_suspect_a"] = %coup_civilians_interrogated_civilian_v1;
+    level.scr_anim["human"]["interrogation_suspect_b"] = %coup_civilians_interrogated_civilian_v2;
+    level.scr_anim["human"]["interrogation_suspect_c"] = %coup_civilians_interrogated_civilian_v3;
+    level.scr_anim["human"]["interrogation_suspect_d"] = %coup_civilians_interrogated_civilian_v4;
+    level.scr_anim["human"]["interrogation_guard_a"] = %coup_civilians_interrogated_guard_v1;
+    level.scr_anim["human"]["interrogation_guard_b"] = %coup_civilians_interrogated_guard_v2;
+    level.scr_anim["human"]["interrogation_civilian_4"] = %h1_coup_civilians_interrogated_civilian_v1;
+    level.scr_anim["human"]["interrogation_civilian_5b"] = %h1_coup_civilians_interrogated_civilian_v2;
+    level.scr_anim["human"]["interrogation_civilian_5"] = %h1_coup_civilians_interrogated_civilian_v3;
+    level.scr_anim["human"]["interrogation_guard_4"] = %h1_coup_civilians_interrogated_guard_v1;
+    level.scr_anim["human"]["interrogation_guard_5b"] = %h1_coup_civilians_interrogated_guard_v2;
+    level.scr_anim["human"]["interrogation_guard_5"] = %h1_coup_civilians_interrogated_guard_v3;
     maps\_anim::addnotetrack_animsound( "human", "interrogation_guard_5b", "scream", "coup_scream_female" );
     maps\_anim::addnotetrack_animsound( "human", "interrogation_guard_5b", "death", "coup_death_female" );
-    level._id_78B1["generic"] = #animtree;
-    level._id_78AC["generic"]["patrol_walk"] = %patrol_bored_patrolwalk;
-    level._id_78AC["generic"]["patrol_walk_twitch"] = %patrol_bored_patrolwalk_twitch;
-    level._id_78AC["generic"]["patrol_stop"] = %patrol_bored_walk_2_bored;
-    level._id_78AC["generic"]["patrol_start"] = %patrol_bored_2_walk;
-    level._id_78AC["generic"]["patrol_turn180"] = %patrol_bored_2_walk_180turn;
-    level._id_78AC["generic"]["patrol_idle_1"] = %patrol_bored_idle;
-    level._id_78AC["generic"]["patrol_idle_2"] = %patrol_bored_idle_smoke;
-    level._id_78AC["generic"]["patrol_idle_3"] = %patrol_bored_idle_cellphone;
-    level._id_78AC["generic"]["patrol_idle_4"] = %patrol_bored_twitch_bug;
-    level._id_78AC["generic"]["patrol_idle_5"] = %patrol_bored_twitch_checkphone;
-    level._id_78AC["generic"]["patrol_idle_6"] = %patrol_bored_twitch_stretch;
-    level._id_78AC["generic"]["patrol_idle_smoke"] = %patrol_bored_idle_smoke;
-    level._id_78AC["generic"]["patrol_idle_checkphone"] = %patrol_bored_twitch_checkphone;
-    level._id_78AC["generic"]["patrol_idle_stretch"] = %patrol_bored_twitch_stretch;
-    level._id_78AC["generic"]["patrol_idle_phone"] = %patrol_bored_idle_cellphone;
-    level._id_78AC["generic"]["npcline_run_wavearm"][0] = %coup_09_soldiers_front;
-    level._id_78AC["generic"]["npcline_run_headdown"][0] = %coup_09_soldiers_middle;
-    level._id_78AC["generic"]["npcline_run_lookback"][0] = %coup_09_soldiers_last;
-    level._id_78AC["generic"]["npcline_run_generic"][0] = %coup_09_soldiers_oldone;
-    level._id_78AC["generic"]["death_runners1"] = %s1_run_death_facedown;
-    level._id_78AC["human"]["execution_victim_captain"] = %h1_coup_21_execution_captain;
-    level._id_78AC["human"]["execution_victim_female_01"] = %h1_coup_21_execution_female_01;
-    level._id_78AC["human"]["execution_victim_female_02"] = %h1_coup_21_execution_female_02;
-    level._id_78AC["human"]["execution_victim_male_01_L"] = %h1_coup_21_execution_male_01_l;
-    level._id_78AC["human"]["execution_victim_male_01_R"] = %h1_coup_21_execution_male_01_r;
-    level._id_78AC["human"]["execution_victim_male_02_L"] = %h1_coup_21_execution_male_02_l;
-    level._id_78AC["human"]["execution_victim_male_02_R"] = %h1_coup_21_execution_male_02_r;
-    level._id_78AC["human"]["execution_victim_male_03_L"] = %h1_coup_21_execution_male_03_l;
-    level._id_78AC["human"]["execution_victim_male_03_R"] = %h1_coup_21_execution_male_03_r;
-    level._id_78AC["human"]["execution_victim_male_04_L"] = %h1_coup_21_execution_male_04_l;
-    level._id_78AC["human"]["execution_victim_male_04_R"] = %h1_coup_21_execution_male_04_r;
-    level._id_78AC["human"]["execution_soldier_01"] = %h1_coup_21_execution_soldiers_01;
-    level._id_78AC["human"]["execution_soldier_02"] = %h1_coup_21_execution_soldiers_02;
-    level._id_78AC["human"]["execution_soldier_03"] = %h1_coup_21_execution_soldiers_03;
-    level._id_78AC["human"]["execution_soldier_04"] = %h1_coup_21_execution_soldiers_04;
-    level._id_78AC["human"]["execution_soldier_05"] = %h1_coup_21_execution_soldiers_05;
-    level._id_78AC["human"]["execution_soldier_06"] = %h1_coup_21_execution_soldiers_06;
+    level.scr_animtree["generic"] = #animtree;
+    level.scr_anim["generic"]["patrol_walk"] = %patrol_bored_patrolwalk;
+    level.scr_anim["generic"]["patrol_walk_twitch"] = %patrol_bored_patrolwalk_twitch;
+    level.scr_anim["generic"]["patrol_stop"] = %patrol_bored_walk_2_bored;
+    level.scr_anim["generic"]["patrol_start"] = %patrol_bored_2_walk;
+    level.scr_anim["generic"]["patrol_turn180"] = %patrol_bored_2_walk_180turn;
+    level.scr_anim["generic"]["patrol_idle_1"] = %patrol_bored_idle;
+    level.scr_anim["generic"]["patrol_idle_2"] = %patrol_bored_idle_smoke;
+    level.scr_anim["generic"]["patrol_idle_3"] = %patrol_bored_idle_cellphone;
+    level.scr_anim["generic"]["patrol_idle_4"] = %patrol_bored_twitch_bug;
+    level.scr_anim["generic"]["patrol_idle_5"] = %patrol_bored_twitch_checkphone;
+    level.scr_anim["generic"]["patrol_idle_6"] = %patrol_bored_twitch_stretch;
+    level.scr_anim["generic"]["patrol_idle_smoke"] = %patrol_bored_idle_smoke;
+    level.scr_anim["generic"]["patrol_idle_checkphone"] = %patrol_bored_twitch_checkphone;
+    level.scr_anim["generic"]["patrol_idle_stretch"] = %patrol_bored_twitch_stretch;
+    level.scr_anim["generic"]["patrol_idle_phone"] = %patrol_bored_idle_cellphone;
+    level.scr_anim["generic"]["npcline_run_wavearm"][0] = %coup_09_soldiers_front;
+    level.scr_anim["generic"]["npcline_run_headdown"][0] = %coup_09_soldiers_middle;
+    level.scr_anim["generic"]["npcline_run_lookback"][0] = %coup_09_soldiers_last;
+    level.scr_anim["generic"]["npcline_run_generic"][0] = %coup_09_soldiers_oldone;
+    level.scr_anim["generic"]["death_runners1"] = %s1_run_death_facedown;
+    level.scr_anim["human"]["execution_victim_captain"] = %h1_coup_21_execution_captain;
+    level.scr_anim["human"]["execution_victim_female_01"] = %h1_coup_21_execution_female_01;
+    level.scr_anim["human"]["execution_victim_female_02"] = %h1_coup_21_execution_female_02;
+    level.scr_anim["human"]["execution_victim_male_01_L"] = %h1_coup_21_execution_male_01_l;
+    level.scr_anim["human"]["execution_victim_male_01_R"] = %h1_coup_21_execution_male_01_r;
+    level.scr_anim["human"]["execution_victim_male_02_L"] = %h1_coup_21_execution_male_02_l;
+    level.scr_anim["human"]["execution_victim_male_02_R"] = %h1_coup_21_execution_male_02_r;
+    level.scr_anim["human"]["execution_victim_male_03_L"] = %h1_coup_21_execution_male_03_l;
+    level.scr_anim["human"]["execution_victim_male_03_R"] = %h1_coup_21_execution_male_03_r;
+    level.scr_anim["human"]["execution_victim_male_04_L"] = %h1_coup_21_execution_male_04_l;
+    level.scr_anim["human"]["execution_victim_male_04_R"] = %h1_coup_21_execution_male_04_r;
+    level.scr_anim["human"]["execution_soldier_01"] = %h1_coup_21_execution_soldiers_01;
+    level.scr_anim["human"]["execution_soldier_02"] = %h1_coup_21_execution_soldiers_02;
+    level.scr_anim["human"]["execution_soldier_03"] = %h1_coup_21_execution_soldiers_03;
+    level.scr_anim["human"]["execution_soldier_04"] = %h1_coup_21_execution_soldiers_04;
+    level.scr_anim["human"]["execution_soldier_05"] = %h1_coup_21_execution_soldiers_05;
+    level.scr_anim["human"]["execution_soldier_06"] = %h1_coup_21_execution_soldiers_06;
     maps\_anim::addnotetrack_customfunction( "human", "execution_fire", ::shootcivilianexecution );
     maps\_anim::addnotetrack_customfunction( "human", "melee", ::melee_kill, "sneakattack_attack_side" );
     maps\_anim::addnotetrack_customfunction( "human", "no death", ::rag_doll_death, "sneakattack_defend_side" );
@@ -266,31 +248,31 @@ anim_human()
 
 play_soz_vo( var_0, var_1 )
 {
-    level.car.passenger.head thread maps\_utility::_id_69C4( var_1 );
+    level.car.passenger.head thread maps\_utility::play_sound_on_entity( var_1 );
 }
 
 play_soz_foley( var_0, var_1 )
 {
-    level.car.passenger.body thread maps\_utility::_id_69C4( var_1 );
+    level.car.passenger.body thread maps\_utility::play_sound_on_entity( var_1 );
 }
 
 play_soz_ringtone( var_0, var_1 )
 {
-    level.car.passenger._id_67ED thread maps\_utility::_id_69C4( var_1 );
+    level.car.passenger.phone thread maps\_utility::play_sound_on_entity( var_1 );
 }
 #using_animtree("vehicles");
 
 anim_vehicles()
 {
-    level._id_78B1["car"] = #animtree;
-    level._id_78B5["car"] = "vehicle_luxurysedan_viewmodel";
-    level._id_78AC["car"]["intro"] = %coup_opening_car;
-    level._id_78AC["car"]["coup_car_driving"] = %coup_opening_car_driving;
-    level._id_78AC["car"]["car_idle_normal"] = %coup_opening_car_driving_idle_normal;
-    level._id_78AC["car"]["car_idle_smooth"] = %coup_opening_car_driving_idle_smooth;
-    level._id_78AC["car"]["car_idle_bumpy"] = %coup_opening_car_driving_idle_bumpy;
-    level._id_78AC["car"]["car_idle_static"] = %coup_opening_car_driving_idle_static;
-    level._id_78AC["car"]["carexit"] = %coup_ending_drag_cardoor;
+    level.scr_animtree["car"] = #animtree;
+    level.scr_model["car"] = "vehicle_luxurysedan_viewmodel";
+    level.scr_anim["car"]["intro"] = %coup_opening_car;
+    level.scr_anim["car"]["coup_car_driving"] = %coup_opening_car_driving;
+    level.scr_anim["car"]["car_idle_normal"] = %coup_opening_car_driving_idle_normal;
+    level.scr_anim["car"]["car_idle_smooth"] = %coup_opening_car_driving_idle_smooth;
+    level.scr_anim["car"]["car_idle_bumpy"] = %coup_opening_car_driving_idle_bumpy;
+    level.scr_anim["car"]["car_idle_static"] = %coup_opening_car_driving_idle_static;
+    level.scr_anim["car"]["carexit"] = %coup_ending_drag_cardoor;
     maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "bump_front_01", "scn_coup_car_bump_front_01" );
     maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "big_turn_left_01", "scn_coup_car_turn_01" );
     maps\_anim::addnotetrack_animsound( "car", "coup_car_driving", "brake_civilian", "scn_coup_car_brake_01" );
@@ -306,22 +288,22 @@ anim_vehicles()
     maps\_anim::addnotetrack_customfunction( "car", "big_turn_left_02", ::car_event, "coup_car_driving", "big_turn_left_02" );
     maps\_anim::addnotetrack_customfunction( "car", "big_turn_left_03", ::car_event, "coup_car_driving", "big_turn_left_03" );
     maps\_anim::addnotetrack_customfunction( "car", "slowdown", ::car_event, "coup_car_driving", "slowdown" );
-    level._id_78AC["car"]["wheel_bigleft2center"] = %coup_driver_bigleft2center_car;
-    level._id_78AC["car"]["wheel_bigleft_idle"] = %coup_driver_bigleft_idle_car;
-    level._id_78AC["car"]["wheel_bigleftloop_idle"] = %coup_driver_bigleftloop_idle_car;
-    level._id_78AC["car"]["wheel_bigleftloop"] = %coup_driver_bigleft_loop_car;
-    level._id_78AC["car"]["wheel_bigleftloop2center"] = %coup_driver_bigleftloop2center_car;
-    level._id_78AC["car"]["wheel_center2smallleft"] = %coup_driver_center2smallleft_car;
-    level._id_78AC["car"]["wheel_center2smallright"] = %coup_driver_center2smallright_car;
-    level._id_78AC["car"]["wheel_idle"] = %coup_driver_idle_car;
-    level._id_78AC["car"]["wheel_smallleft2bigleft"] = %coup_driver_smallleft2bigleft_car;
-    level._id_78AC["car"]["wheel_smallleft2center"] = %coup_driver_smallleft2center_car;
-    level._id_78AC["car"]["wheel_smallleft_idle"] = %coup_driver_smallleft_idle_car;
-    level._id_78AC["car"]["wheel_smallright2center"] = %coup_driver_smallright2center_car;
-    level._id_78AC["car"]["wheel_smallright_idle"] = %coup_driver_smallright_idle_car;
-    level._id_78B1["uaz"] = #animtree;
-    level._id_78AC["uaz"]["carjack_driver_door"] = %ac130_carjack_door_1a;
-    level._id_78AC["uaz"]["carjack_others_door"] = %ac130_carjack_door_others;
+    level.scr_anim["car"]["wheel_bigleft2center"] = %coup_driver_bigleft2center_car;
+    level.scr_anim["car"]["wheel_bigleft_idle"] = %coup_driver_bigleft_idle_car;
+    level.scr_anim["car"]["wheel_bigleftloop_idle"] = %coup_driver_bigleftloop_idle_car;
+    level.scr_anim["car"]["wheel_bigleftloop"] = %coup_driver_bigleft_loop_car;
+    level.scr_anim["car"]["wheel_bigleftloop2center"] = %coup_driver_bigleftloop2center_car;
+    level.scr_anim["car"]["wheel_center2smallleft"] = %coup_driver_center2smallleft_car;
+    level.scr_anim["car"]["wheel_center2smallright"] = %coup_driver_center2smallright_car;
+    level.scr_anim["car"]["wheel_idle"] = %coup_driver_idle_car;
+    level.scr_anim["car"]["wheel_smallleft2bigleft"] = %coup_driver_smallleft2bigleft_car;
+    level.scr_anim["car"]["wheel_smallleft2center"] = %coup_driver_smallleft2center_car;
+    level.scr_anim["car"]["wheel_smallleft_idle"] = %coup_driver_smallleft_idle_car;
+    level.scr_anim["car"]["wheel_smallright2center"] = %coup_driver_smallright2center_car;
+    level.scr_anim["car"]["wheel_smallright_idle"] = %coup_driver_smallright_idle_car;
+    level.scr_animtree["uaz"] = #animtree;
+    level.scr_anim["uaz"]["carjack_driver_door"] = %ac130_carjack_door_1a;
+    level.scr_anim["uaz"]["carjack_others_door"] = %ac130_carjack_door_others;
 }
 
 play_engine( var_0, var_1 )
@@ -358,23 +340,23 @@ car_event( var_0, var_1 )
 
 anim_door()
 {
-    level._id_78B1["door"] = #animtree;
-    level._id_78AC["door"]["doorkick"] = %shotgunbreach_door_immediate;
-    level._id_78B5["door"] = "com_door_01_handleright";
+    level.scr_animtree["door"] = #animtree;
+    level.scr_anim["door"]["doorkick"] = %shotgunbreach_door_immediate;
+    level.scr_model["door"] = "com_door_01_handleright";
 }
 #using_animtree("trash_can");
 
 anim_trashcan()
 {
-    level._id_78B1["trashcan_rig"] = #animtree;
-    level._id_78B5["trashcan_rig"] = "prop_rig";
+    level.scr_animtree["trashcan_rig"] = #animtree;
+    level.scr_model["trashcan_rig"] = "prop_rig";
 }
 #using_animtree("script_model");
 
 anim_dumpster()
 {
-    level._id_78B1["dumpster"] = #animtree;
-    level._id_78AC["dumpster"]["dumpster_open"] = %coup_dumpster_lid;
+    level.scr_animtree["dumpster"] = #animtree;
+    level.scr_anim["dumpster"]["dumpster_open"] = %coup_dumpster_lid;
 }
 #using_animtree("animated_props");
 
@@ -410,61 +392,61 @@ anim_props()
     level.anim_prop_models["foliage_afr_tree_fanpalm_01a_v2"]["still"] = %afr_tree_fanpalm_still;
     level.anim_prop_models["foliage_afr_tree_fanpalm_01a_v2"]["strong"] = %afr_tree_fanpalm_sway;
     level.anim_prop_models["foliage_afr_tree_fanpalm_01a_v2"]["heli"] = %afr_tree_fanpalm_sway;
-    level._id_78B1["rope_hands"] = #animtree;
-    level._id_78B5["rope_hands"] = "h1_president_rope";
-    level._id_78AC["rope_hands"]["intro_ropehands"] = %h1_coup_president_rope_opening;
-    level._id_78AC["rope_hands"]["car_idle_fullbody_ropehands"] = %h1_coup_president_rope;
-    level._id_78AC["rope_hands"]["carexit_ropehands"] = %h1_coup_president_rope_ending;
+    level.scr_animtree["rope_hands"] = #animtree;
+    level.scr_model["rope_hands"] = "h1_president_rope";
+    level.scr_anim["rope_hands"]["intro_ropehands"] = %h1_coup_president_rope_opening;
+    level.scr_anim["rope_hands"]["car_idle_fullbody_ropehands"] = %h1_coup_president_rope;
+    level.scr_anim["rope_hands"]["carexit_ropehands"] = %h1_coup_president_rope_ending;
 }
 #using_animtree("animals");
 
 anim_chickens()
 {
-    level._id_78B1["chicken"] = #animtree;
-    level._id_78B5["chicken"] = "chicken";
-    level._id_78AC["chicken"]["walk_basic"] = %chicken_walk_basic;
-    level._id_78AC["chicken"]["cage_freakout"] = %chicken_cage_freakout;
+    level.scr_animtree["chicken"] = #animtree;
+    level.scr_model["chicken"] = "chicken";
+    level.scr_anim["chicken"]["walk_basic"] = %chicken_walk_basic;
+    level.scr_anim["chicken"]["cage_freakout"] = %chicken_cage_freakout;
 }
 #using_animtree("dog");
 
 anim_dogs()
 {
-    level._id_78B1["dog"] = #animtree;
-    level._id_78AC["dog"]["idle"] = %german_shepherd_idle;
-    level._id_78AC["dog"]["walk"] = %german_shepherd_walk;
-    level._id_78AC["dog"]["eating"][0] = %german_shepherd_eating_loop;
-    level._id_78AC["dog"]["sleeping"][0] = %german_shepherd_sleeping;
-    level._id_78AC["dog"]["wakeup_slow"] = %german_shepherd_wakeup_slow;
-    level._id_78AC["dog"]["wakeup_fast"] = %german_shepherd_wakeup_fast;
-    level._id_78AC["dog"]["fence_attack"] = %sniper_escape_dog_fence;
-    level._id_78AC["dog"]["attackidle_growl"][0] = %german_shepherd_attackidle_growl;
-    level._id_78AC["dog"]["attackidle_bark"][0] = %german_shepherd_attackidle_bark;
-    level._id_78AC["dog"]["attackidle"][0] = %german_shepherd_attackidle;
+    level.scr_animtree["dog"] = #animtree;
+    level.scr_anim["dog"]["idle"] = %german_shepherd_idle;
+    level.scr_anim["dog"]["walk"] = %german_shepherd_walk;
+    level.scr_anim["dog"]["eating"][0] = %german_shepherd_eating_loop;
+    level.scr_anim["dog"]["sleeping"][0] = %german_shepherd_sleeping;
+    level.scr_anim["dog"]["wakeup_slow"] = %german_shepherd_wakeup_slow;
+    level.scr_anim["dog"]["wakeup_fast"] = %german_shepherd_wakeup_fast;
+    level.scr_anim["dog"]["fence_attack"] = %sniper_escape_dog_fence;
+    level.scr_anim["dog"]["attackidle_growl"][0] = %german_shepherd_attackidle_growl;
+    level.scr_anim["dog"]["attackidle_bark"][0] = %german_shepherd_attackidle_bark;
+    level.scr_anim["dog"]["attackidle"][0] = %german_shepherd_attackidle;
     maps\_anim::addnotetrack_sound( "dog", "fence", "fence_attack", "fence_smash" );
 }
 
 car_normal( var_0 )
 {
-    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_normal" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_normal" ), 1, 0, 1 );
+    var_0 setanimknob( var_0 maps\_utility::getanim( "car_idle_normal" ), 1, 0, 1 );
+    var_0.playerview setanimknob( var_0.playerview maps\_utility::getanim( "playerview_idle_normal" ), 1, 0, 1 );
 }
 
 car_smooth( var_0 )
 {
-    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_smooth" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_smooth" ), 1, 0, 1 );
+    var_0 setanimknob( var_0 maps\_utility::getanim( "car_idle_smooth" ), 1, 0, 1 );
+    var_0.playerview setanimknob( var_0.playerview maps\_utility::getanim( "playerview_idle_smooth" ), 1, 0, 1 );
 }
 
 car_bumpy( var_0 )
 {
-    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_bumpy" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_bumpy" ), 1, 0, 1 );
+    var_0 setanimknob( var_0 maps\_utility::getanim( "car_idle_bumpy" ), 1, 0, 1 );
+    var_0.playerview setanimknob( var_0.playerview maps\_utility::getanim( "playerview_idle_bumpy" ), 1, 0, 1 );
 }
 
 car_static( var_0 )
 {
-    var_0 _meth_8145( var_0 maps\_utility::_id_3EF5( "car_idle_static" ), 1, 0, 1 );
-    var_0.playerview _meth_8145( var_0.playerview maps\_utility::_id_3EF5( "playerview_idle_static" ), 1, 0, 1 );
+    var_0 setanimknob( var_0 maps\_utility::getanim( "car_idle_static" ), 1, 0, 1 );
+    var_0.playerview setanimknob( var_0.playerview maps\_utility::getanim( "playerview_idle_static" ), 1, 0, 1 );
 }
 
 driver_turnright1( var_0 )
@@ -524,10 +506,10 @@ driver_turnspecial( var_0 )
 
 playerdeath( var_0 )
 {
-    playfxontag( common_scripts\utility::_id_3FA8( "execution_muzzleflash" ), var_0, "tag_flash" );
-    playfxontag( common_scripts\utility::_id_3FA8( "execution_shell_eject" ), var_0, "tag_brass" );
+    playfxontag( common_scripts\utility::getfx( "execution_muzzleflash" ), var_0, "tag_flash" );
+    playfxontag( common_scripts\utility::getfx( "execution_shell_eject" ), var_0, "tag_brass" );
     level.player playrumbleonentity( "grenade_rumble" );
-    level.player thread maps\_utility::_id_69C4( "assassination_shot" );
+    level.player thread maps\_utility::play_sound_on_entity( "assassination_shot" );
     wait 0.1;
     var_1 = newhudelem();
     var_1.x = 0;
@@ -541,41 +523,41 @@ playerdeath( var_0 )
     var_1.sort = 1;
     level notify( "player_death" );
     level.player shellshock( "coup_death", 10 );
-    soundscripts\_snd::_id_870C( "start_coup_player_death_mix" );
+    soundscripts\_snd::snd_message( "start_coup_player_death_mix" );
     wait 4.5;
-    maps\_utility::_id_60D6();
+    maps\_utility::nextmission();
 }
 
 playerthrownincar( var_0 )
 {
     wait 0.3;
-    soundscripts\_snd::_id_870C( "aud_coup_car_open" );
+    soundscripts\_snd::snd_message( "aud_coup_car_open" );
     wait 0.25;
     level.player playrumbleonentity( "grenade_rumble" );
     wait 1.8;
-    level.leftguard maps\_utility::_id_69C4( "coup_ab0_move_generic_custom" );
+    level.leftguard maps\_utility::play_sound_on_entity( "coup_ab0_move_generic_custom" );
 }
 
 playerhit( var_0 )
 {
     wait 0.15;
-    soundscripts\_snd::_id_870C( "aud_add_stunned_car_event" );
+    soundscripts\_snd::snd_message( "aud_add_stunned_car_event" );
     level.player playrumbleonentity( "grenade_rumble" );
     setblur( 40, 0.1 );
-    maps\_utility::_id_7F00( "coup_hit", 0 );
+    maps\_utility::set_vision_set( "coup_hit", 0 );
     setsaveddvar( "r_glow_allowed_script_forced", "0" );
     wait 0.1;
-    maps\_utility::_id_7F00( "coup_ride", 0.2 );
+    maps\_utility::set_vision_set( "coup_ride", 0.2 );
     setblur( 0, 0.75 );
-    thread _id_6C6A( 35.0, 25 );
+    thread playerbreathingsound( 35.0, 25 );
     wait 5;
-    soundscripts\_snd::_id_870C( "aud_stop_stunned_car_event" );
+    soundscripts\_snd::snd_message( "aud_stop_stunned_car_event" );
 }
 
 playerpulledfromcar( var_0 )
 {
     wait 2.15;
-    soundscripts\_snd::_id_870C( "aud_coup_car_thrown_out" );
+    soundscripts\_snd::snd_message( "aud_coup_car_thrown_out" );
     wait 2.0;
     level.player playrumbleonentity( "grenade_rumble" );
 }
@@ -594,7 +576,7 @@ playerhitdamage( var_0 )
     level.player dodamage( var_3, level.player.origin );
 }
 
-_id_6C6A( var_0, var_1 )
+playerbreathingsound( var_0, var_1 )
 {
     wait 2;
 
@@ -607,10 +589,10 @@ _id_6C6A( var_0, var_1 )
 
         var_2 = var_1 / var_0;
 
-        if ( var_2 > level.player._id_4441._id_478D )
+        if ( var_2 > level.player.gs.healthoverlaycutoff )
             continue;
 
-        level.player maps\_utility::_id_69C4( "breathing_hurt" );
+        level.player maps\_utility::play_sound_on_entity( "breathing_hurt" );
         wait(0.1 + randomfloat( 0.8 ));
     }
 }
@@ -655,7 +637,7 @@ killed_by_player( var_0 )
 
     if ( isdefined( var_0 ) )
     {
-        animscripts\shared::_id_2F6C();
+        animscripts\shared::dropallaiweapons();
         self startragdoll();
     }
 }
@@ -668,11 +650,11 @@ playdriveranim( var_0, var_1 )
         printturnanim( " ---          , " + var_0 );
 
     if ( var_0 == "bigleft2center" && var_1 == "turnleft3" )
-        self _meth_8145( maps\_utility::_id_3EF5( "wheel_bigleftloop2center" ), 1, 0, 1 );
+        self setanimknob( maps\_utility::getanim( "wheel_bigleftloop2center" ), 1, 0, 1 );
     else
-        self _meth_8145( maps\_utility::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
+        self setanimknob( maps\_utility::getanim( "wheel_" + var_0 ), 1, 0, 1 );
 
-    maps\_anim::anim_single_solo( self._id_2E04, "cardriver_" + var_0, "tag_driver" );
+    maps\_anim::anim_single_solo( self.driver, "cardriver_" + var_0, "tag_driver" );
 }
 
 loopdriveranim( var_0, var_1, var_2 )
@@ -685,11 +667,11 @@ loopdriveranim( var_0, var_1, var_2 )
     self notify( "stop_driver_loop" );
 
     if ( var_0 == "bigleft_idle" && var_1 == "turnleft3" )
-        self _meth_8145( maps\_utility::_id_3EF5( "wheel_bigleftloop_idle" ), 1, 0, 1 );
+        self setanimknob( maps\_utility::getanim( "wheel_bigleftloop_idle" ), 1, 0, 1 );
     else
-        self _meth_8145( maps\_utility::_id_3EF5( "wheel_" + var_0 ), 1, 0, 1 );
+        self setanimknob( maps\_utility::getanim( "wheel_" + var_0 ), 1, 0, 1 );
 
-    thread maps\_anim::anim_loop_solo( self._id_2E04, "cardriver_" + var_0, "tag_driver", "stop_driver_loop" );
+    thread maps\_anim::anim_loop_solo( self.driver, "cardriver_" + var_0, "tag_driver", "stop_driver_loop" );
 
     if ( isdefined( var_2 ) )
     {
@@ -727,25 +709,25 @@ printpassengeranim( var_0 )
 ambientcarinterior( var_0 )
 {
     wait 0.6;
-    soundscripts\_snd::_id_870C( "aud_coup_enter_car" );
+    soundscripts\_snd::snd_message( "aud_coup_enter_car" );
 }
 
 ambientcarexterior( var_0 )
 {
     wait 0.1;
-    soundscripts\_snd::_id_870C( "aud_coup_exit_car" );
+    soundscripts\_snd::snd_message( "aud_coup_exit_car" );
 }
 
 passengerlookback( var_0 )
 {
     wait 2.5;
-    level.car.passenger.body thread maps\_utility::_id_69C4( "scn_coup_car_soz_foley_01" );
+    level.car.passenger.body thread maps\_utility::play_sound_on_entity( "scn_coup_car_soz_foley_01" );
 }
 
 crowdfireweapon( var_0 )
 {
-    var_0 thread maps\_utility::_id_69C5( "weap_ak47_fire_npc", "tag_flash" );
-    playfxontag( common_scripts\utility::_id_3FA8( "ak47_muzzleflash" ), var_0, "tag_flash" );
+    var_0 thread maps\_utility::play_sound_on_tag( "weap_ak47_fire_npc", "tag_flash" );
+    playfxontag( common_scripts\utility::getfx( "ak47_muzzleflash" ), var_0, "tag_flash" );
 }
 
 shootciviliantrashstumble( var_0 )
@@ -760,7 +742,7 @@ shootcivilianinterrogation1( var_0 )
 
 shootcivilianexecution( var_0 )
 {
-    var_1 = common_scripts\utility::_id_3DF3( "target_" + var_0.target );
+    var_1 = common_scripts\utility::get_noteworthy_ent( "target_" + var_0.target );
 
     for ( var_2 = 0; var_2 < 6; var_2++ )
     {
@@ -771,12 +753,12 @@ shootcivilianexecution( var_0 )
 
 fx_paint_spray_coup( var_0 )
 {
-    playfxontag( common_scripts\utility::_id_3FA8( "paint_spray_coup" ), var_0, "tag_spraycan_fx" );
+    playfxontag( common_scripts\utility::getfx( "paint_spray_coup" ), var_0, "tag_spraycan_fx" );
 }
 
 fx_stop_paint_spray_coup( var_0 )
 {
-    stopfxontag( common_scripts\utility::_id_3FA8( "paint_spray_coup" ), var_0, "tag_spraycan_fx" );
+    stopfxontag( common_scripts\utility::getfx( "paint_spray_coup" ), var_0, "tag_spraycan_fx" );
 }
 
 detach_paint_spray_coup( var_0 )
@@ -787,6 +769,6 @@ detach_paint_spray_coup( var_0 )
 attach_phone_to_car( var_0 )
 {
     level.car attach( "com_cellphone_on", "tag_cellphone" );
-    common_scripts\utility::_id_384A( "start_dragged_aftercarexit" );
+    common_scripts\utility::flag_wait( "start_dragged_aftercarexit" );
     level.car detach( "com_cellphone_on", "tag_cellphone" );
 }

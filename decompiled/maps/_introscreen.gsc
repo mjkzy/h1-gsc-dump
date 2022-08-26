@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    if ( isdefined( level._id_244D ) )
+    if ( isdefined( level.credits_active ) )
         return 0;
 
     introscreen_init();
@@ -38,12 +20,12 @@ main()
 
 introscreen_init()
 {
-    common_scripts\utility::_id_383D( "pullup_weapon" );
-    common_scripts\utility::_id_383D( "introscreen_activate" );
-    common_scripts\utility::_id_383D( "introscreen_remove_submix" );
-    common_scripts\utility::_id_383D( "introscreen_complete" );
-    common_scripts\utility::_id_383D( "safe_for_objectives" );
-    maps\_utility::_id_27EF( 10, common_scripts\utility::_id_383F, "safe_for_objectives" );
+    common_scripts\utility::flag_init( "pullup_weapon" );
+    common_scripts\utility::flag_init( "introscreen_activate" );
+    common_scripts\utility::flag_init( "introscreen_remove_submix" );
+    common_scripts\utility::flag_init( "introscreen_complete" );
+    common_scripts\utility::flag_init( "safe_for_objectives" );
+    maps\_utility::delaythread( 10, common_scripts\utility::flag_set, "safe_for_objectives" );
     level.linefeed_delay = 16;
     level.background_sort = 1000;
     level.intro_text_sort = 1001;
@@ -53,8 +35,8 @@ introscreen_init()
     if ( getdvar( "introscreen" ) == "" )
         setdvar( "introscreen", "1" );
 
-    waitframe;
-    waitframe;
+    waittillframeend;
+    waittillframeend;
 }
 
 introscreen_should_activate()
@@ -81,7 +63,7 @@ activate_intro()
     if ( should_revive_ammo_counter() )
         thread revive_ammo_counter();
 
-    common_scripts\utility::_id_383F( "introscreen_activate" );
+    common_scripts\utility::flag_set( "introscreen_activate" );
 
     switch ( level.script )
     {
@@ -138,12 +120,12 @@ activate_intro()
 
 simple_intro()
 {
-    waitframe;
-    waitframe;
-    waitframe;
-    waitframe;
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    waittillframeend;
+    waittillframeend;
+    waittillframeend;
+    waittillframeend;
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
 }
 
 flying_intro_dvars()
@@ -198,7 +180,7 @@ flying_intro()
                 break;
         }
 
-        _id_4F90( level.introscreen_lines );
+        introscreen_feed_lines( level.introscreen_lines );
     }
 
     thread flying_intro_force_streaming_center( level.player.origin );
@@ -212,7 +194,7 @@ flying_intro()
     var_5.angles = ( var_5.angles[0] + 89, var_5.angles[1], 0 );
     wait(var_2);
     var_5 moveto( var_4 + ( 0.0, 0.0, 0.0 ), 2, 0, 2 );
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     wait 1.2;
     wait 0.3;
     var_5 rotateto( ( var_5.angles[0] - 89, var_5.angles[1], 0 ), 0.5, 0.3, 0.2 );
@@ -221,15 +203,15 @@ flying_intro()
         savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
 
     wait 0.5;
-    common_scripts\utility::_id_383F( "pullup_weapon" );
+    common_scripts\utility::flag_set( "pullup_weapon" );
     wait 0.2;
     level.player unlink();
     level.player freezecontrols( 0 );
-    thread common_scripts\utility::_id_69C2( "ui_screen_trans_in", level.player.origin );
+    thread common_scripts\utility::play_sound_in_space( "ui_screen_trans_in", level.player.origin );
     wait 0.2;
-    thread common_scripts\utility::_id_69C2( "ui_screen_trans_out", level.player.origin );
+    thread common_scripts\utility::play_sound_in_space( "ui_screen_trans_out", level.player.origin );
     wait 0.2;
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     wait 2;
     var_5 delete();
 }
@@ -262,12 +244,12 @@ cargoship_intro()
     wait 0.4;
     level notify( "intro_movie_done" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     introscreen_generic_white_fade_in( 1.75 );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     wait 1;
     level.player freezecontrols( 0 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
@@ -275,9 +257,9 @@ jeepride_intro()
 {
     level.player freezecontrols( 1 );
     cinematicingamesync( "jeepride_fade" );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
@@ -293,7 +275,7 @@ airlift_intro()
     thread airlift_intro_dvars();
     level.player freezecontrols( 1 );
     cinematicingamesync( "airlift_fade" );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     wait 2;
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     level notify( "introscreen_black" );
@@ -308,9 +290,9 @@ airlift_intro()
     wait 1;
     var_0 fadeovertime( 1.5 );
     var_0.alpha = 0;
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     wait 1;
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     thread maps\_utility::autosave_now( 1 );
     level.player freezecontrols( 0 );
 }
@@ -352,10 +334,10 @@ village_defend_intro()
     var_1.glowalpha = 0.2;
     var_1 setpulsefx( 30, 8000, 700 );
     wait 8.8;
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     wait 10;
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     var_0 fadeovertime( 1.5 );
     var_0.alpha = 0;
     wait 1;
@@ -363,7 +345,7 @@ village_defend_intro()
     setsaveddvar( "compass", 1 );
     setsaveddvar( "ammoCounterHide", "0" );
     setsaveddvar( "hud_showStance", 1 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
@@ -373,7 +355,7 @@ scoutsniper_intro()
     thread scoutsniperintroplayer();
     cinematicingamesync( "scoutsniper_fade" );
     wait 4;
-    maps\_utility::_id_7F00( "grayscale" );
+    maps\_utility::set_vision_set( "grayscale" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     var_0 = newhudelem();
     var_0.x = 0;
@@ -401,15 +383,15 @@ scoutsniper_intro()
     var_1.glowalpha = 0.2;
     var_1 setpulsefx( 30, 2000, 700 );
     wait 2;
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     wait 1;
     var_0 fadeovertime( 1.5 );
     var_0.alpha = 0;
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     wait 4.5;
-    maps\_utility::_id_7F00( "scoutsniper_start", 1 );
+    maps\_utility::set_vision_set( "scoutsniper_start", 1 );
     wait 8.0;
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
     wait 0.5;
     setsaveddvar( "compass", 1 );
@@ -437,7 +419,7 @@ scoutsniperintrodvars()
 ac130_intro()
 {
     level.player freezecontrols( 1 );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     level notify( "introscreen_black" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     var_0 = newhudelem();
@@ -457,14 +439,14 @@ ac130_intro()
     wait 1;
     level.player freezecontrols( 0 );
     setsaveddvar( "hud_showStance", 0 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
 aftermath_intro()
 {
     cinematicingamesync( "black" );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
 }
 
 hunted_intro_dvars()
@@ -478,16 +460,16 @@ hunted_intro()
 {
     thread hunted_intro_dvars();
     level.player freezecontrols( 1 );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     cinematicingamesync( "hunted_fade" );
     wait 1;
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     introscreen_generic_white_fade_in( 2 );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     wait 1;
     level.player freezecontrols( 0 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
@@ -505,13 +487,13 @@ launchfacility_b_intro()
 {
     thread launchfacility_b_intro_dvars();
     level.player freezecontrols( 1 );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     introscreen_generic_white_fade_in( 1 );
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     wait 1;
     level.player freezecontrols( 0 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
@@ -526,19 +508,19 @@ ambush_intro()
 {
     thread ambush_intro_dvars();
     level.player freezecontrols( 1 );
-    _id_4F90( level.introscreen_lines );
+    introscreen_feed_lines( level.introscreen_lines );
     cinematicingamesync( "ambush_fade" );
     wait 2;
     savegame( "levelstart", &"AUTOSAVE_LEVELSTART", "whatever", 1 );
     introscreen_generic_white_fade_in( 2 );
-    common_scripts\utility::_id_383F( "introscreen_remove_submix" );
+    common_scripts\utility::flag_set( "introscreen_remove_submix" );
     thread maps\_utility::autosave_now( 1 );
     setsaveddvar( "compass", 1 );
     setsaveddvar( "ammoCounterHide", "0" );
     setsaveddvar( "hud_showStance", 1 );
     wait 1;
     level.player freezecontrols( 0 );
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     level.player freezecontrols( 0 );
 }
 
@@ -546,19 +528,19 @@ armada_intro()
 {
     setsaveddvar( "hud_drawhud", "0" );
     level.player disableweapons();
-    _id_4F91( 0.2, 0.2 );
-    _id_4F90( level.introscreen_lines );
+    introscreen_generic_black_fade_in( 0.2, 0.2 );
+    introscreen_feed_lines( level.introscreen_lines );
     wait 3;
     level.player freezecontrols( 0 );
     wait 2;
-    common_scripts\utility::_id_383F( "introscreen_complete" );
+    common_scripts\utility::flag_set( "introscreen_complete" );
     wait 2;
     maps\_utility::autosave_by_name( "levelstart" );
     wait 4;
     level.player enableweapons();
 }
 
-_id_4F90( var_0 )
+introscreen_feed_lines( var_0 )
 {
     var_1 = getarraykeys( var_0 );
 
@@ -567,21 +549,21 @@ _id_4F90( var_0 )
         var_3 = var_1[var_2];
         var_4 = 1;
         var_5 = var_2 * var_4 + 1;
-        maps\_utility::_id_27EF( var_5, ::_id_4F8E, var_0[var_3], var_0.size - var_2 - 1, var_4, var_3 );
+        maps\_utility::delaythread( var_5, ::introscreen_corner_line, var_0[var_3], var_0.size - var_2 - 1, var_4, var_3 );
     }
 }
 
-_id_4F91( var_0, var_1 )
+introscreen_generic_black_fade_in( var_0, var_1 )
 {
-    _id_4F92( "black", var_0, var_1 );
+    introscreen_generic_fade_in( "black", var_0, var_1 );
 }
 
 introscreen_generic_white_fade_in( var_0, var_1 )
 {
-    _id_4F92( "white", var_0, var_1 );
+    introscreen_generic_fade_in( "white", var_0, var_1 );
 }
 
-_id_4F92( var_0, var_1, var_2 )
+introscreen_generic_fade_in( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 1.5;
@@ -642,10 +624,10 @@ _cornerlinethread( var_0, var_1, var_2, var_3 )
 {
     level notify( "new_introscreen_element" );
 
-    if ( !isdefined( level._id_4F4E ) )
-        level._id_4F4E = 0;
+    if ( !isdefined( level.intro_offset ) )
+        level.intro_offset = 0;
     else
-        level._id_4F4E++;
+        level.intro_offset++;
 
     var_4 = _cornerlinethread_height();
     var_5 = newhudelem();
@@ -669,7 +651,7 @@ _cornerlinethread( var_0, var_1, var_2, var_3 )
     var_5.glowalpha = 0.2;
     var_6 = int( var_1 * var_2 * 1000 + 4000 );
     var_5 setpulsefx( 30, var_6, 700 );
-    thread _id_4AE2( var_5 );
+    thread hudelem_destroy( var_5 );
 
     if ( !isdefined( var_3 ) )
         return;
@@ -683,19 +665,19 @@ _cornerlinethread( var_0, var_1, var_2, var_3 )
 
 _cornerlinethread_height()
 {
-    return level._id_4F4E * 18 - 82;
+    return level.intro_offset * 18 - 82;
 }
 
-_id_4F8E( var_0, var_1, var_2, var_3 )
+introscreen_corner_line( var_0, var_1, var_2, var_3 )
 {
     thread _cornerlinethread( var_0, var_1, var_2, var_3 );
 }
 
-_id_4AE2( var_0 )
+hudelem_destroy( var_0 )
 {
     wait(level.linefeed_delay);
     var_0 notify( "destroying" );
-    level._id_4F4E = undefined;
+    level.intro_offset = undefined;
     var_1 = 0.5;
     var_0 fadeovertime( var_1 );
     var_0.alpha = 0;
@@ -708,13 +690,13 @@ weapon_pullout()
 {
     var_0 = level.player getweaponslistall()[0];
     level.player disableweapons();
-    common_scripts\utility::_id_384A( "pullup_weapon" );
+    common_scripts\utility::flag_wait( "pullup_weapon" );
     level.player enableweapons();
 }
 
 revive_ammo_counter()
 {
-    common_scripts\utility::_id_384A( "safe_for_objectives" );
+    common_scripts\utility::flag_wait( "safe_for_objectives" );
 
     if ( !isdefined( level.nocompass ) )
         setsaveddvar( "compass", 1 );

@@ -1,34 +1,16 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
-_id_9512()
+trackshootentorpos()
 {
     self endon( "killanimscript" );
     self endon( "stop tracking" );
     self endon( "melee" );
-    _id_9502( %aim_2, %aim_4, %aim_6, %aim_8 );
+    trackloop( %aim_2, %aim_4, %aim_6, %aim_8 );
 }
 
-_id_9502( var_0, var_1, var_2, var_3, var_4 )
+trackloop( var_0, var_1, var_2, var_3, var_4 )
 {
     var_5 = 0;
     var_6 = 0;
@@ -48,7 +30,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
     if ( self.type == "dog" )
     {
         var_19 = 0;
-        self._id_83F6 = self.enemy;
+        self.shootent = self.enemy;
     }
     else
     {
@@ -56,28 +38,28 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
         var_20 = 0;
         var_21 = 0;
 
-        if ( isdefined( self._id_22A0 ) )
-            var_20 = anim._id_22A1;
+        if ( isdefined( self.covercrouchlean_aimmode ) )
+            var_20 = anim.covercrouchleanpitch;
 
         var_22 = self.script;
 
         if ( var_22 == "cover_multi" )
         {
-            if ( self.cover._id_8D56 == "right" )
+            if ( self.cover.state == "right" )
                 var_22 = "cover_right";
-            else if ( self.cover._id_8D56 == "left" )
+            else if ( self.cover.state == "left" )
                 var_22 = "cover_left";
         }
 
-        if ( ( var_22 == "cover_left" || var_22 == "cover_right" ) && isdefined( self.a._id_2227 ) && self.a._id_2227 == "lean" )
-            var_21 = self._id_22BA.angles[1] - self.angles[1];
+        if ( ( var_22 == "cover_left" || var_22 == "cover_right" ) && isdefined( self.a.cornermode ) && self.a.cornermode == "lean" )
+            var_21 = self.covernode.angles[1] - self.angles[1];
 
         var_12 = ( var_20, var_21, 0 );
     }
 
     for (;;)
     {
-        _id_4C30();
+        incranimaimweight();
 
         if ( self _meth_843E( "tag_flash" ) == -1 )
         {
@@ -85,23 +67,23 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             continue;
         }
 
-        var_23 = animscripts\shared::_id_40C8();
-        var_24 = self._id_840F;
+        var_23 = animscripts\shared::getshootfrompos();
+        var_24 = self.shootpos;
 
-        if ( isdefined( self._id_83F6 ) )
+        if ( isdefined( self.shootent ) )
         {
-            if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-                var_24 = animscripts\combat_utility::_id_3DB2( self._id_83F6 );
+            if ( common_scripts\utility::flag( "_cloaked_stealth_enabled" ) )
+                var_24 = animscripts\combat_utility::get_last_known_shoot_pos( self.shootent );
             else
-                var_24 = self._id_83F6 getshootatpos();
+                var_24 = self.shootent getshootatpos();
         }
         else if ( isdefined( var_24 ) && isdefined( self.forceaimtorwardsenemy ) && isdefined( self.enemy ) )
             var_24 = self.enemy getshootatpos();
 
-        if ( !isdefined( var_24 ) && animscripts\utility::_id_848B() )
-            var_24 = _id_9505( var_23 );
+        if ( !isdefined( var_24 ) && animscripts\utility::shouldcqb() )
+            var_24 = trackloop_cqbshootpos( var_23 );
 
-        var_25 = isdefined( self._id_64E7 ) || isdefined( self._id_6450 );
+        var_25 = isdefined( self.onsnowmobile ) || isdefined( self.onatv );
         var_26 = isdefined( var_24 );
         var_27 = ( 0.0, 0.0, 0.0 );
 
@@ -109,18 +91,18 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             var_27 = var_24;
 
         var_28 = 0;
-        var_29 = isdefined( self._id_8E2A );
+        var_29 = isdefined( self.stepoutyaw );
 
         if ( var_29 )
-            var_28 = self._id_8E2A;
+            var_28 = self.stepoutyaw;
 
-        var_7 = self _meth_81BF( var_23, var_27, var_26, var_12, var_28, var_29, var_25 );
+        var_7 = self getaimangle( var_23, var_27, var_26, var_12, var_28, var_29, var_25 );
         var_30 = var_7[0];
         var_31 = var_7[1];
         var_7 = undefined;
         var_32 = undefined;
 
-        if ( self.a._id_6E5A == "prone" )
+        if ( self.a.pose == "prone" )
         {
             var_32 = self.proneaimlimits;
             var_30 = clamp( var_30, var_32.downaimlimit, var_32.upaimlimit );
@@ -135,7 +117,7 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
             var_32.downaimlimit = self.downaimlimit;
         }
 
-        if ( animscripts\utility::_id_51B0() )
+        if ( animscripts\utility::isspaceai() )
         {
             var_33 = self.angles[2] * -1;
             var_34 = var_30 * cos( var_33 ) - var_31 * sin( var_33 );
@@ -185,24 +167,24 @@ _id_9502( var_0, var_1, var_2, var_3, var_4 )
         var_8 = 0;
         var_5 = var_31;
         var_6 = var_30;
-        _id_9507( var_0, var_1, var_2, var_3, var_4, var_30, var_31, var_32 );
+        trackloop_setanimweights( var_0, var_1, var_2, var_3, var_4, var_30, var_31, var_32 );
         wait 0.05;
     }
 }
 
-_id_9505( var_0 )
+trackloop_cqbshootpos( var_0 )
 {
     var_1 = undefined;
     var_2 = anglestoforward( self.angles );
 
-    if ( isdefined( self._id_22D8 ) )
+    if ( isdefined( self.cqb_target ) )
     {
-        if ( common_scripts\utility::_id_382E( "_cloaked_stealth_enabled" ) )
-            var_1 = animscripts\combat_utility::_id_3DB2( self._id_22D8 );
+        if ( common_scripts\utility::flag( "_cloaked_stealth_enabled" ) )
+            var_1 = animscripts\combat_utility::get_last_known_shoot_pos( self.cqb_target );
         else
-            var_1 = self._id_22D8 getshootatpos();
+            var_1 = self.cqb_target getshootatpos();
 
-        if ( isdefined( self._id_22DC ) )
+        if ( isdefined( self.cqb_wide_target_track ) )
         {
             if ( vectordot( vectornormalize( var_1 - var_0 ), var_2 ) < 0.177 )
                 var_1 = undefined;
@@ -211,11 +193,11 @@ _id_9505( var_0 )
             var_1 = undefined;
     }
 
-    if ( !isdefined( var_1 ) && isdefined( self._id_22D6 ) )
+    if ( !isdefined( var_1 ) && isdefined( self.cqb_point_of_interest ) )
     {
-        var_1 = self._id_22D6;
+        var_1 = self.cqb_point_of_interest;
 
-        if ( isdefined( self._id_22DB ) )
+        if ( isdefined( self.cqb_wide_poi_track ) )
         {
             if ( vectordot( vectornormalize( var_1 - var_0 ), var_2 ) < 0.177 )
                 var_1 = undefined;
@@ -227,23 +209,23 @@ _id_9505( var_0 )
     return var_1;
 }
 
-_id_9503( var_0, var_1 )
+trackloop_anglesfornoshootpos( var_0, var_1 )
 {
-    if ( animscripts\utility::_id_7262() )
+    if ( animscripts\utility::recentlysawenemy() )
     {
         var_2 = self.enemy getshootatpos() - self.enemy.origin;
-        var_3 = self _meth_81C5( self.enemy ) + var_2;
-        return _id_9506( var_3 - var_0, var_1 );
+        var_3 = self lastknownpos( self.enemy ) + var_2;
+        return trackloop_getdesiredangles( var_3 - var_0, var_1 );
     }
 
     var_4 = 0;
     var_5 = 0;
 
-    if ( isdefined( self.node ) && isdefined( anim._id_50E4[self.node.type] ) && distancesquared( self.origin, self.node.origin ) < 16 )
+    if ( isdefined( self.node ) && isdefined( anim.iscombatscriptnode[self.node.type] ) && distancesquared( self.origin, self.node.origin ) < 16 )
         var_5 = angleclamp180( self.angles[1] - self.node.angles[1] );
     else
     {
-        var_6 = self _meth_8196();
+        var_6 = self getanglestolikelyenemypath();
 
         if ( isdefined( var_6 ) )
         {
@@ -255,7 +237,7 @@ _id_9503( var_0, var_1 )
     return ( var_4, var_5, 0 );
 }
 
-_id_9506( var_0, var_1 )
+trackloop_getdesiredangles( var_0, var_1 )
 {
     var_2 = vectortoangles( var_0 );
     var_3 = 0;
@@ -263,12 +245,12 @@ _id_9506( var_0, var_1 )
 
     if ( self.stairsstate == "up" )
     {
-        if ( !isdefined( self._id_5A7A ) || isdefined( self._id_5A7A ) && !self._id_5A7A )
+        if ( !isdefined( self.mech ) || isdefined( self.mech ) && !self.mech )
             var_3 = -40;
     }
     else if ( self.stairsstate == "down" )
     {
-        if ( !isdefined( self._id_5A7A ) || isdefined( self._id_5A7A ) && !self._id_5A7A )
+        if ( !isdefined( self.mech ) || isdefined( self.mech ) && !self.mech )
         {
             var_3 = 40;
             var_4 = 12;
@@ -278,8 +260,8 @@ _id_9506( var_0, var_1 )
     var_5 = 360 - var_2[0];
     var_5 = angleclamp180( var_5 + var_1[0] + var_3 );
 
-    if ( isdefined( self._id_8E2A ) )
-        var_6 = self._id_8E2A - var_2[1];
+    if ( isdefined( self.stepoutyaw ) )
+        var_6 = self.stepoutyaw - var_2[1];
     else
     {
         var_7 = angleclamp180( self.desiredangle - self.angles[1] ) * 0.5;
@@ -290,9 +272,9 @@ _id_9506( var_0, var_1 )
     return ( var_5, var_6, 0 );
 }
 
-_id_9504( var_0, var_1, var_2 )
+trackloop_clampangles( var_0, var_1, var_2 )
 {
-    if ( isdefined( self._id_64E7 ) || isdefined( self._id_6450 ) )
+    if ( isdefined( self.onsnowmobile ) || isdefined( self.onatv ) )
     {
         if ( var_1 > self.rightaimlimit || var_1 < self.leftaimlimit )
             var_1 = 0;
@@ -300,7 +282,7 @@ _id_9504( var_0, var_1, var_2 )
         if ( var_0 > self.upaimlimit || var_0 < self.downaimlimit )
             var_0 = 0;
     }
-    else if ( var_2 && ( abs( var_1 ) > anim._id_5A26 || abs( var_0 ) > anim._id_5A25 ) )
+    else if ( var_2 && ( abs( var_1 ) > anim.maxanglecheckyawdelta || abs( var_0 ) > anim.maxanglecheckpitchdelta ) )
     {
         var_1 = 0;
         var_0 = 0;
@@ -318,7 +300,7 @@ _id_9504( var_0, var_1, var_2 )
     return ( var_0, var_1, 0 );
 }
 
-_id_9507( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+trackloop_setanimweights( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = 0;
     var_9 = 0;
@@ -352,16 +334,16 @@ _id_9507( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         var_10 = 1;
     }
 
-    self _meth_814E( var_0, var_8, var_13, 1, 1 );
-    self _meth_814E( var_1, var_9, var_13, 1, 1 );
-    self _meth_814E( var_2, var_11, var_13, 1, 1 );
-    self _meth_814E( var_3, var_12, var_13, 1, 1 );
+    self setanimlimited( var_0, var_8, var_13, 1, 1 );
+    self setanimlimited( var_1, var_9, var_13, 1, 1 );
+    self setanimlimited( var_2, var_11, var_13, 1, 1 );
+    self setanimlimited( var_3, var_12, var_13, 1, 1 );
 
     if ( isdefined( var_4 ) )
-        self _meth_814E( var_4, var_10, var_13, 1, 1 );
+        self setanimlimited( var_4, var_10, var_13, 1, 1 );
 }
 
-_id_7F21( var_0, var_1 )
+setanimaimweight( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) || var_1 <= 0 )
     {
@@ -383,7 +365,7 @@ _id_7F21( var_0, var_1 )
     self.a.aimweight_t = 0;
 }
 
-_id_4C30()
+incranimaimweight()
 {
     if ( self.a.aimweight_t < self.a.aimweight_transframes )
     {

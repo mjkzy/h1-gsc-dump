@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 bog_backhalf_shell()
 {
 
@@ -33,7 +15,7 @@ bog_backhalf_init()
 {
     level.tankexplosion_fx = loadfx( "fx/explosions/javelin_explosion" );
     level.abrams = getent( "abrams", "targetname" );
-    level.abrams._id_4257 = 1;
+    level.abrams.godmode = 1;
     level.abrams.forwardent = spawn( "script_origin", level.abrams gettagorigin( "tag_flash" ) );
     level.abrams.forwardent linkto( level.abrams );
     var_0 = getent( "abrams_top_clip", "targetname" );
@@ -47,20 +29,20 @@ bog_backhalf_init()
     level.encroacherdiv = 3;
     level.zpublastradius = 384;
     level.playeristargeted = 0;
-    common_scripts\utility::_id_383D( "tankoverrun" );
-    common_scripts\utility::_id_383D( "zpu_speech_started" );
-    common_scripts\utility::_id_383D( "zpu_orders_given" );
-    common_scripts\utility::_id_383D( "zpus_destroyed" );
-    common_scripts\utility::_id_383D( "activate_final_bldg" );
-    common_scripts\utility::_id_383D( "lower_health_of_tank_defense_stragglers" );
-    common_scripts\utility::_id_383D( "beacon_orders" );
-    common_scripts\utility::_id_383D( "beacon_planted" );
-    common_scripts\utility::_id_383D( "final_bldg_fired_upon" );
-    common_scripts\utility::_id_383D( "pilot_final_dialogue" );
-    common_scripts\utility::_id_383D( "cobra_success" );
-    common_scripts\utility::_id_383D( "reached_ending_area" );
-    common_scripts\utility::_id_383D( "ending_final_positions" );
-    common_scripts\utility::_id_383D( "clipped_off_dest" );
+    common_scripts\utility::flag_init( "tankoverrun" );
+    common_scripts\utility::flag_init( "zpu_speech_started" );
+    common_scripts\utility::flag_init( "zpu_orders_given" );
+    common_scripts\utility::flag_init( "zpus_destroyed" );
+    common_scripts\utility::flag_init( "activate_final_bldg" );
+    common_scripts\utility::flag_init( "lower_health_of_tank_defense_stragglers" );
+    common_scripts\utility::flag_init( "beacon_orders" );
+    common_scripts\utility::flag_init( "beacon_planted" );
+    common_scripts\utility::flag_init( "final_bldg_fired_upon" );
+    common_scripts\utility::flag_init( "pilot_final_dialogue" );
+    common_scripts\utility::flag_init( "cobra_success" );
+    common_scripts\utility::flag_init( "reached_ending_area" );
+    common_scripts\utility::flag_init( "ending_final_positions" );
+    common_scripts\utility::flag_init( "clipped_off_dest" );
     level.c4_sound_override = 1;
     level.tankencroachsteps = 3;
     level.tankencroachinitradius = 1600;
@@ -69,17 +51,17 @@ bog_backhalf_init()
     level.defensesuccessratio = 0.87;
     level.beacon = getent( "beacon", "targetname" );
     level.beacon.origin += ( 0.0, 0.0, 2.85 );
-    thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", maps\_spawner::_id_533A, 1008 );
+    thread maps\_utility::do_in_order( common_scripts\utility::flag_wait, "final_bldg_fired_upon", maps\_spawner::kill_spawnernum, 1008 );
     common_scripts\utility::array_thread( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::add_spawn_function, ::tank_defender_spawn_setup );
-    common_scripts\utility::array_thread( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_utility::_id_7402 );
+    common_scripts\utility::array_thread( getentarray( "tank_defender", "script_noteworthy" ), maps\_utility::add_spawn_function, maps\_utility::replace_on_death );
     common_scripts\utility::array_thread( getentarray( "tank_attack_enemy", "script_noteworthy" ), maps\_utility::add_spawn_function, ::enemy_infantry_spawn_setup );
     common_scripts\utility::array_thread( getentarray( "tank_attack_enemy", "script_noteworthy" ), maps\_utility::add_spawn_function, ::tank_attack_death_tally );
 }
 
 start_bog_backhalf()
 {
-    common_scripts\utility::_id_383F( "tank_defense_activate" );
-    thread _id_6302();
+    common_scripts\utility::flag_set( "tank_defense_activate" );
+    thread objectives();
     thread bog_a_backhalf_autosaves();
     level.abrams thread tank_setup();
     level.abrams thread tank_turret_slewing();
@@ -95,19 +77,19 @@ start_bog_backhalf()
     thread cobra_bldg_activate();
     thread cobra_bldg_mg();
     thread cobra_sequence();
-    thread _id_29F3();
+    thread dialogue();
     var_0 = getent( "badplace_fires", "targetname" );
     badplace_cylinder( "hill_fires", -1, var_0.origin, var_0.radius, var_0.height, "allies" );
 }
 
 start_zpu()
 {
-    soundscripts\_snd::_id_870C( "start_zpu_checkpoint" );
-    common_scripts\utility::_id_383F( "zpu_orders_given" );
+    soundscripts\_snd::snd_message( "start_zpu_checkpoint" );
+    common_scripts\utility::flag_set( "zpu_orders_given" );
     var_0 = getent( "zpu_player_org", "targetname" );
     level.player setorigin( var_0.origin );
     level.player setplayerangles( var_0.angles );
-    thread _id_6302();
+    thread objectives();
     thread bog_a_backhalf_autosaves();
     level.abrams thread tank_setup();
     thread temp_friendly_boost();
@@ -117,27 +99,27 @@ start_zpu()
     thread cobra_bldg_activate();
     thread cobra_bldg_mg();
     thread cobra_sequence();
-    thread _id_29F3();
+    thread dialogue();
     wait 0.1;
     maps\_utility::activate_trigger_with_noteworthy( "zpu_trigger" );
 }
 
 start_cobras()
 {
-    soundscripts\_snd::_id_870C( "start_cobra_checkpoint" );
-    common_scripts\utility::_id_383F( "tank_defense_completed" );
-    common_scripts\utility::_id_383F( "final_bldg_activate" );
-    common_scripts\utility::_id_383F( "zpu_orders_given" );
-    common_scripts\utility::_id_383F( "zpus_destroyed" );
+    soundscripts\_snd::snd_message( "start_cobra_checkpoint" );
+    common_scripts\utility::flag_set( "tank_defense_completed" );
+    common_scripts\utility::flag_set( "final_bldg_activate" );
+    common_scripts\utility::flag_set( "zpu_orders_given" );
+    common_scripts\utility::flag_set( "zpus_destroyed" );
     thread cobra_bldg_activate();
     thread cobra_bldg_mg();
     thread start_cobras_pos();
-    thread _id_6302();
+    thread objectives();
     thread bog_a_backhalf_autosaves();
     level.abrams thread tank_setup();
     thread temp_friendly_boost();
     thread cobra_sequence();
-    thread _id_29F3();
+    thread dialogue();
     wait 5;
     level.zpu delete();
 }
@@ -147,38 +129,38 @@ start_cobras_pos()
     var_0 = getent( "start_cobras_player", "targetname" );
     level.player setorigin( var_0.origin );
     var_1 = getent( "start_cobras_price", "targetname" );
-    level._id_6F7C = getent( "price", "targetname" );
-    level._id_6F7C _meth_81C9( var_1.origin );
+    level.price = getent( "price", "targetname" );
+    level.price teleport( var_1.origin );
 }
 
 start_end()
 {
-    soundscripts\_snd::_id_870C( "start_end_checkpoint" );
+    soundscripts\_snd::snd_message( "start_end_checkpoint" );
     level.player setplayerangles( ( 0.0, 80.0, 0.0 ) );
     level.player setorigin( ( 4968.0, 1528.0, -12320.0 ) );
     var_0 = getaiarray();
-    common_scripts\utility::array_thread( var_0, maps\_utility::_id_7E5E, 1 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::set_ignoreme, 1 );
     level.abrams thread tank_setup();
     var_1 = getentarray( "tank_defender", "script_noteworthy" );
-    common_scripts\utility::array_thread( var_1, maps\_utility::_id_7C71 );
+    common_scripts\utility::array_thread( var_1, maps\_utility::self_delete );
     wait 0.05;
     level notify( "begin_sunrise_after_tank_defend", 1 );
     abrams_gets_drawing();
-    level._id_6F7C = getent( "price", "targetname" );
+    level.price = getent( "price", "targetname" );
     var_2 = getent( "price_spawner", "targetname" );
-    level._id_6F7C _meth_81C9( var_2.origin );
+    level.price teleport( var_2.origin );
     var_3 = getent( "mark_spawner", "targetname" ) stalingradspawn();
     level.mark = var_3;
-    maps\_utility::_id_88F1( var_3 );
-    maps\_utility::_id_88F1( level._id_6F7C );
-    level._id_6F7C maps\_utility::_id_5926();
-    var_3 maps\_utility::_id_5926();
+    maps\_utility::spawn_failed( var_3 );
+    maps\_utility::spawn_failed( level.price );
+    level.price maps\_utility::make_hero();
+    var_3 maps\_utility::make_hero();
     var_4 = getaiarray( "allies" );
-    var_4 = maps\_utility::_id_735E( var_4 );
+    var_4 = maps\_utility::remove_heroes_from_array( var_4 );
     maps\_utility::array_delete( var_4 );
     var_5 = getentarray( "main_friendly_unit", "script_noteworthy" );
     common_scripts\utility::array_thread( var_5, ::force_spawn );
-    waitframe;
+    waittillframeend;
     thread ending_sequence();
     wait 0.05;
     level.player setplayerangles( ( 0.0, 80.0, 0.0 ) );
@@ -188,7 +170,7 @@ start_end()
 temp_friendly_boost()
 {
     var_0 = getaiarray( "allies" );
-    var_0 = maps\_utility::_id_735E( var_0 );
+    var_0 = maps\_utility::remove_heroes_from_array( var_0 );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
@@ -248,7 +230,7 @@ tank_defender_deathmonitor()
     var_0 waittill( "trigger" );
     wait 10;
     level notify( "detpack_rush_flare" );
-    maps\_utility::_id_70C4( "movingindetpacks" );
+    maps\_utility::radio_dialogue_queue( "movingindetpacks" );
 }
 
 tank_defense_victory_check()
@@ -281,13 +263,13 @@ tank_defense_victory_check()
         level.totalcount += var_7;
     }
 
-    while ( !common_scripts\utility::_id_382E( "tank_defense_completed" ) )
+    while ( !common_scripts\utility::flag( "tank_defense_completed" ) )
     {
         var_8 = level.tankatkdead / level.totalcount;
 
         if ( var_8 >= level.defensesuccessratio )
         {
-            common_scripts\utility::_id_383F( "tank_defense_completed" );
+            common_scripts\utility::flag_set( "tank_defense_completed" );
             thread tank_defense_stragglers();
             break;
         }
@@ -315,10 +297,10 @@ tank_defense_killspawner_monitor()
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( !isdefined( var_2[var_3]._id_7A1D ) )
+        if ( !isdefined( var_2[var_3].script_killspawner ) )
             continue;
 
-        if ( var_2[var_3]._id_7A1D == self._id_7A1D )
+        if ( var_2[var_3].script_killspawner == self.script_killspawner )
             var_0[var_0.size] = var_2[var_3];
     }
 
@@ -341,10 +323,10 @@ tank_defense_killspawner_monitor()
 
 bog_a_backhalf_autosaves()
 {
-    common_scripts\utility::_id_384A( "tank_defense_completed" );
+    common_scripts\utility::flag_wait( "tank_defense_completed" );
     maps\_utility::autosave_by_name( "tank_defense_finished" );
 
-    if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
+    if ( !common_scripts\utility::flag( "zpus_destroyed" ) )
     {
         var_0 = getent( "zpuMidSaveTrig", "targetname" );
         var_0 waittill( "trigger" );
@@ -354,7 +336,7 @@ bog_a_backhalf_autosaves()
         maps\_utility::autosave_by_name( "zpu_dont_blow_yourself_up" );
     }
 
-    common_scripts\utility::_id_384A( "zpus_destroyed" );
+    common_scripts\utility::flag_wait( "zpus_destroyed" );
     maps\_utility::autosave_by_name( "airstrike_begin" );
 }
 
@@ -362,7 +344,7 @@ tank_defense_stragglers()
 {
     var_0 = getentarray( "tank_attack_killspawner", "targetname" );
     common_scripts\utility::array_thread( var_0, maps\_utility::activate_trigger );
-    common_scripts\utility::_id_383F( "lower_health_of_tank_defense_stragglers" );
+    common_scripts\utility::flag_set( "lower_health_of_tank_defense_stragglers" );
 }
 
 tank_attack_death_tally()
@@ -376,7 +358,7 @@ enemy_infantry_spawn_setup()
     self endon( "death" );
     self waittill( "reached_path_end" );
     thread enemy_infantry_tank_encroach();
-    common_scripts\utility::_id_384A( "lower_health_of_tank_defense_stragglers" );
+    common_scripts\utility::flag_wait( "lower_health_of_tank_defense_stragglers" );
     self.health = 5;
 }
 
@@ -396,16 +378,16 @@ enemy_infantry_tank_encroach()
         self.pathenemylookahead = 512;
         self waittill( "goal" );
 
-        if ( !common_scripts\utility::_id_382E( "tank_defense_completed" ) )
+        if ( !common_scripts\utility::flag( "tank_defense_completed" ) )
         {
             thread tank_destruction();
-            waitframe;
+            waittillframeend;
             level notify( "suicide_bomber_reached_tank" );
         }
         else
         {
             self.goalradius = 1000;
-            self _meth_81AB( level.player );
+            self setgoalentity( level.player );
         }
     }
 }
@@ -414,7 +396,7 @@ enemy_tank_encroach_mvmt()
 {
     self endon( "death" );
     var_0 = getnode( "tank_suicide_bomb_dest", "targetname" );
-    self _meth_81A9( var_0 );
+    self getgoalvolume( var_0 );
     self.goalradius = level.tankencroachinitradius;
     self.pathenemyfightdist = 96;
     self.pathenemylookahead = 512;
@@ -426,56 +408,56 @@ enemy_tank_encroach_mvmt()
     }
 }
 
-_id_6302()
+objectives()
 {
     objective_add( 1, "active", &"BOG_A_SECURE_THE_M1A1_ABRAMS", ( 4800.0, 1488.0, 32.0 ) );
     objective_add( 5, "active", &"BOG_A_INTERCEPT_THE_ENEMY_BEFORE", ( 4800.0, 1488.0, 32.0 ) );
     objective_indentlevel( 5, 1 );
     objective_current( 5 );
-    common_scripts\utility::_id_384A( "tank_defense_completed" );
-    common_scripts\utility::_id_3831( "aa_bog" );
-    common_scripts\utility::_id_384A( "zpu_orders_given" );
-    common_scripts\utility::_id_383D( "aa_zpu" );
-    common_scripts\utility::_id_383F( "aa_zpu" );
+    common_scripts\utility::flag_wait( "tank_defense_completed" );
+    common_scripts\utility::flag_clear( "aa_bog" );
+    common_scripts\utility::flag_wait( "zpu_orders_given" );
+    common_scripts\utility::flag_init( "aa_zpu" );
+    common_scripts\utility::flag_set( "aa_zpu" );
     objective_state( 5, "done" );
     maps\_utility::arcademode_checkpoint( 4.5, "d" );
     objective_add( 6, "active", &"BOG_A_DESTROY_THE_ZPU_ANTI", level.zpu.origin );
     objective_indentlevel( 6, 1 );
     objective_current( 6 );
-    common_scripts\utility::_id_384A( "zpus_destroyed" );
-    common_scripts\utility::_id_3831( "aa_zpu" );
+    common_scripts\utility::flag_wait( "zpus_destroyed" );
+    common_scripts\utility::flag_clear( "aa_zpu" );
     objective_state( 6, "done" );
     var_0 = getent( "southern_area_objective", "targetname" );
     objective_add( 7, "active", &"BOG_A_SECURE_THE_SOUTHERN_SECTOR", var_0.origin );
     objective_indentlevel( 7, 1 );
     objective_current( 7 );
-    common_scripts\utility::_id_384A( "beacon_orders" );
+    common_scripts\utility::flag_wait( "beacon_orders" );
     objective_add( 7, "active", &"BOG_A_PLANT_THE_IR_BEACON_TO", level.beacon.origin );
     objective_indentlevel( 7, 1 );
-    var_1 = spawnfx( common_scripts\utility::_id_3FA8( "beacon_glow" ), level.beacon.origin );
+    var_1 = spawnfx( common_scripts\utility::getfx( "beacon_glow" ), level.beacon.origin );
     triggerfx( var_1 );
     objective_current( 7 );
     maps\_utility::arcademode_checkpoint( 1.5, "e" );
-    common_scripts\utility::_id_384A( "beacon_planted" );
+    common_scripts\utility::flag_wait( "beacon_planted" );
     var_1 delete();
     maps\_utility::arcademode_checkpoint( 3, "f" );
     objective_delete( 7 );
     objective_add( 7, "active", &"BOG_A_WAIT_FOR_AIR_SUPPORT" );
     objective_indentlevel( 7, 1 );
     objective_current( 7 );
-    common_scripts\utility::_id_384A( "cobra_success" );
+    common_scripts\utility::flag_wait( "cobra_success" );
     objective_state( 7, "done" );
     objective_state( 1, "done" );
     var_2 = ( 5099.6, 1602.45, -6.36579 );
     objective_add( 9, "active", &"BOG_A_REGROUP_WITH_THE_SQUAD", var_2 );
     objective_current( 9 );
-    common_scripts\utility::_id_384A( "reached_ending_area" );
+    common_scripts\utility::flag_wait( "reached_ending_area" );
     objective_state( 9, "done" );
 }
 
 cobra_bldg_activate()
 {
-    common_scripts\utility::_id_384A( "activate_final_bldg" );
+    common_scripts\utility::flag_wait( "activate_final_bldg" );
     var_0 = getentarray( "trigger_multiple", "classname" );
 
     foreach ( var_2 in var_0 )
@@ -487,7 +469,7 @@ cobra_bldg_activate()
 
 cobra_bldg_mg()
 {
-    common_scripts\utility::_id_384A( "activate_final_bldg" );
+    common_scripts\utility::flag_wait( "activate_final_bldg" );
     var_0 = getentarray( "backhalf_manual_mg", "targetname" );
     common_scripts\utility::array_thread( var_0, ::backhalf_mg_setmode, "manual" );
     common_scripts\utility::array_thread( var_0, ::cobra_bldg_mg_targeting );
@@ -503,10 +485,10 @@ cobra_bldg_mg_targeting()
 
     for (;;)
     {
-        var_2 = common_scripts\utility::_id_710E( var_0 );
+        var_2 = common_scripts\utility::random( var_0 );
         wait(randomfloatrange( 1, 2 ));
 
-        if ( var_1 > 6 && !common_scripts\utility::_id_382E( "beacon_planted" ) && !level.playeristargeted )
+        if ( var_1 > 6 && !common_scripts\utility::flag( "beacon_planted" ) && !level.playeristargeted )
         {
             level.playeristargeted = 1;
             self settargetentity( level.player );
@@ -550,43 +532,43 @@ backhalf_manual_mg_fire()
 
 cobra_bldg_mg_cleanup()
 {
-    thread maps\_utility::_id_2BC3( common_scripts\utility::_id_384A, "final_bldg_fired_upon", maps\_utility::_id_7C82, "stop_firing" );
-    common_scripts\utility::_id_384A( "final_bldg_fired_upon" );
+    thread maps\_utility::do_in_order( common_scripts\utility::flag_wait, "final_bldg_fired_upon", maps\_utility::send_notify, "stop_firing" );
+    common_scripts\utility::flag_wait( "final_bldg_fired_upon" );
     self delete();
 }
 
 cobra_sequence()
 {
-    common_scripts\utility::_id_384A( "zpus_destroyed" );
-    soundscripts\_snd::_id_870C( "start_cobra_arrival_scripted_sfx" );
+    common_scripts\utility::flag_wait( "zpus_destroyed" );
+    soundscripts\_snd::snd_message( "start_cobra_arrival_scripted_sfx" );
     wait 6;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "plantbeacon" );
+    level.price maps\_anim::anim_single_queue( level.price, "plantbeacon" );
     thread cobra_sequence_reminder();
-    common_scripts\utility::_id_383F( "beacon_orders" );
+    common_scripts\utility::flag_set( "beacon_orders" );
     var_0 = spawn( "script_model", level.beacon.origin + ( 0.0, 0.0, -3.0 ) );
     var_0 setmodel( "com_night_beacon_obj" );
-    common_scripts\utility::_id_383F( "beacon_ready_to_use" );
+    common_scripts\utility::flag_set( "beacon_ready_to_use" );
     var_1 = getent( "beaconTrig", "targetname" );
     var_1 sethintstring( &"SCRIPT_PLATFORM_HINT_PLANTBEACON" );
     var_1 waittill( "trigger" );
-    level.player thread maps\_utility::_id_69C4( "scn_bog_a_beacon_plant" );
+    level.player thread maps\_utility::play_sound_on_entity( "scn_bog_a_beacon_plant" );
     var_1 delete();
     var_0 setmodel( "com_night_beacon" );
-    common_scripts\utility::_id_383F( "beacon_planted" );
-    soundscripts\_snd::_id_870C( "start_cobra_support_mix" );
-    var_2 = maps\_vehicle::_id_8978( "cobra1" );
-    var_3 = maps\_vehicle::_id_8978( "cobra2" );
-    var_2 thread maps\_vehicle::_id_5BD3();
-    var_3 thread maps\_vehicle::_id_5BD3();
+    common_scripts\utility::flag_set( "beacon_planted" );
+    soundscripts\_snd::snd_message( "start_cobra_support_mix" );
+    var_2 = maps\_vehicle::spawn_vehicle_from_targetname( "cobra1" );
+    var_3 = maps\_vehicle::spawn_vehicle_from_targetname( "cobra2" );
+    var_2 thread maps\_vehicle::mgon();
+    var_3 thread maps\_vehicle::mgon();
     var_2 thread cobra_flightplan();
     var_3 thread cobra_flightplan( 1 );
     musicstop( 1.9 );
     wait 2;
-    maps\_utility::_id_6008( "bog_a_victory" );
+    maps\_utility::musicplaywrapper( "bog_a_victory" );
     wait 1;
-    maps\_utility::_id_70C4( "cominhot" );
+    maps\_utility::radio_dialogue_queue( "cominhot" );
     wait 2;
-    maps\_utility::_id_70C4( "standby" );
+    maps\_utility::radio_dialogue_queue( "standby" );
 }
 
 cobra_sequence_reminder()
@@ -599,16 +581,16 @@ cobra_sequence_reminder()
         wait 40;
 
         if ( var_0 == 0 )
-            maps\_utility::_id_70C4( "buttonedup" );
+            maps\_utility::radio_dialogue_queue( "buttonedup" );
         else if ( var_0 == 1 )
-            maps\_utility::_id_70C4( "whereistheairsupport" );
+            maps\_utility::radio_dialogue_queue( "whereistheairsupport" );
         else if ( var_0 == 2 )
-            maps\_utility::_id_70C4( "canttakebuilding" );
+            maps\_utility::radio_dialogue_queue( "canttakebuilding" );
         else if ( var_0 == 3 )
-            maps\_utility::_id_70C4( "rippingusapart" );
+            maps\_utility::radio_dialogue_queue( "rippingusapart" );
         else if ( var_0 == 4 )
         {
-            maps\_utility::_id_70C4( "plantbeacon" );
+            maps\_utility::radio_dialogue_queue( "plantbeacon" );
             var_0 = 0;
         }
 
@@ -665,39 +647,39 @@ cobra_flightplan( var_0 )
 
         self neargoalnotifydist( var_7 );
 
-        if ( isdefined( var_12._id_79BA ) )
-            var_11 = var_12._id_79BA;
+        if ( isdefined( var_12.script_engagedelay ) )
+            var_11 = var_12.script_engagedelay;
 
-        if ( isdefined( var_12._id_7943 ) )
-            var_6 = var_12._id_7943;
+        if ( isdefined( var_12.script_attackpattern ) )
+            var_6 = var_12.script_attackpattern;
 
-        if ( isdefined( var_12._id_79B9 ) )
+        if ( isdefined( var_12.script_engage ) )
             thread cobra_fire( var_11, var_6 );
 
-        if ( isdefined( var_12._id_7930 ) )
-            var_1 = var_12._id_7930;
+        if ( isdefined( var_12.script_airspeed ) )
+            var_1 = var_12.script_airspeed;
 
-        if ( isdefined( var_12._id_7929 ) )
-            var_8 = var_12._id_7929;
+        if ( isdefined( var_12.script_accel ) )
+            var_8 = var_12.script_accel;
 
-        if ( isdefined( var_12._id_798B ) )
-            self vehicle_setspeed( var_1, var_8, var_12._id_798B );
+        if ( isdefined( var_12.script_decel ) )
+            self vehicle_setspeed( var_1, var_8, var_12.script_decel );
         else
             self vehicle_setspeed( var_1, var_8 );
 
-        if ( isdefined( var_12._id_7B27 ) )
-            self setyawspeed( var_12._id_7B27, var_2 );
+        if ( isdefined( var_12.script_yawspeed ) )
+            self setyawspeed( var_12.script_yawspeed, var_2 );
 
-        if ( isdefined( var_12._id_79EC ) )
+        if ( isdefined( var_12.script_forceyaw ) )
             self settargetyaw( var_12.angles[1] );
 
-        if ( isdefined( var_12._id_7973 ) )
+        if ( isdefined( var_12.script_cleartargetyaw ) )
             self cleartargetyaw();
 
         var_13 = 0;
 
-        if ( isdefined( var_4[var_10]._id_7AE5 ) )
-            var_13 = var_4[var_10]._id_7AE5;
+        if ( isdefined( var_4[var_10].script_stopnode ) )
+            var_13 = var_4[var_10].script_stopnode;
 
         maps\bog_a_aud::handle_cobra_waypoint_audio( var_12 );
         self setgoalpos( var_4[var_10].origin, var_13 );
@@ -713,10 +695,10 @@ cobra_flightplan( var_0 )
                 thread cobra_fire( 7.5, "zeta" );
             }
 
-            level common_scripts\utility::_id_384A( "cobra_missiles_done" );
-            thread maps\_vehicle::_id_5BD2();
+            level common_scripts\utility::flag_wait( "cobra_missiles_done" );
+            thread maps\_vehicle::mgoff();
             wait 3.75;
-            level common_scripts\utility::_id_383F( "pilot_final_dialogue" );
+            level common_scripts\utility::flag_set( "pilot_final_dialogue" );
             wait 7.35;
 
             if ( isdefined( var_0 ) && var_0 )
@@ -724,7 +706,7 @@ cobra_flightplan( var_0 )
         }
     }
 
-    self._id_799F = 1;
+    self.script_disablevehicleaudio = 1;
     self stoprumble( "heli_loop" );
 }
 
@@ -735,9 +717,9 @@ cobra_fire( var_0, var_1 )
     switch ( var_1 )
     {
         case "alpha":
-            common_scripts\_exploder::_id_3528( 500 );
+            common_scripts\_exploder::exploder( 500 );
             var_2 = getent( "ffar_1001", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 1, var_2 );
             thread cobra_missile_fired_earthquake();
             thread cobra_building_damage_fx( 1001 );
             var_3 = getentarray( "finalBldgKillSpawn", "targetname" );
@@ -758,53 +740,53 @@ cobra_fire( var_0, var_1 )
             }
 
             wait 0.5;
-            common_scripts\utility::_id_383F( "final_bldg_fired_upon" );
+            common_scripts\utility::flag_set( "final_bldg_fired_upon" );
             var_2 = getent( "ffar_1002", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1002 );
             var_2 = getent( "ffar_1003", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1003 );
 
-            if ( !common_scripts\utility::_id_382E( "clipped_off_dest" ) )
-                common_scripts\utility::_id_383F( "clipped_off_dest" );
+            if ( !common_scripts\utility::flag( "clipped_off_dest" ) )
+                common_scripts\utility::flag_set( "clipped_off_dest" );
 
             break;
         case "gamma":
             var_2 = getent( "ffar_1008", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1008 );
             break;
         case "delta":
             var_2 = getent( "ffar_1000", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1000 );
             wait 2;
             var_2 = getent( "ffar_1004", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 1, var_2 );
             thread cobra_missile_fired_earthquake();
             thread cobra_building_damage_fx( 1004 );
             wait 2;
             var_2 = getent( "ffar_1005", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 1, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 1, var_2 );
             thread cobra_missile_fired_earthquake();
             thread cobra_building_damage_fx( 1005 );
             break;
         case "zeta":
             var_2 = getent( "ffar_1007", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1007 );
             wait 3;
             var_2 = getent( "ffar_1006", "targetname" );
-            maps\_helicopter_globals::_id_37BA( "ffar_bog_a_lite", 2, var_2 );
+            maps\_helicopter_globals::fire_missile( "ffar_bog_a_lite", 2, var_2 );
             thread cobra_missile_fired_earthquake( 1 );
             thread cobra_building_damage_fx( 1006 );
-            level common_scripts\utility::_id_383F( "cobra_missiles_done" );
+            level common_scripts\utility::flag_set( "cobra_missiles_done" );
             break;
     }
 }
@@ -812,7 +794,7 @@ cobra_fire( var_0, var_1 )
 cobra_building_damage_fx( var_0 )
 {
     wait 0.2;
-    common_scripts\_exploder::_id_3528( var_0 );
+    common_scripts\_exploder::exploder( var_0 );
 }
 
 cobra_missile_fired_earthquake( var_0 )
@@ -841,20 +823,20 @@ tank_defense_warning()
     var_0 = 0;
     var_1 = 0;
 
-    while ( !common_scripts\utility::_id_382E( "zpu_speech_started" ) )
+    while ( !common_scripts\utility::flag( "zpu_speech_started" ) )
     {
         self waittill( "trigger" );
 
         switch ( var_0 )
         {
             case 0:
-                maps\_utility::_id_70C4( "dangeroverrun" );
+                maps\_utility::radio_dialogue_queue( "dangeroverrun" );
                 break;
             case 1:
-                maps\_utility::_id_70C4( "jacksonawol" );
+                maps\_utility::radio_dialogue_queue( "jacksonawol" );
                 break;
             case 2:
-                maps\_utility::_id_70C4( "fallbacktank" );
+                maps\_utility::radio_dialogue_queue( "fallbacktank" );
                 break;
         }
 
@@ -929,7 +911,7 @@ tank_destruction()
     level endon( "tank_defense_completed" );
     level notify( "tank_was_overrun" );
     thread tank_missionfailure();
-    common_scripts\utility::_id_69C2( "generic_meleecharge_arab_6", level.abrams.origin );
+    common_scripts\utility::play_sound_in_space( "generic_meleecharge_arab_6", level.abrams.origin );
     level.player playsound( "explo_mine" );
     playfx( level.tankexplosion_fx, level.abrams.origin );
     earthquake( 0.5, 2, level.player.origin, 1250 );
@@ -938,16 +920,16 @@ tank_destruction()
 
 tank_missionfailure()
 {
-    soundscripts\_snd::_id_870C( "start_tank_mission_failure" );
+    soundscripts\_snd::snd_message( "start_tank_mission_failure" );
     wait 2.25;
     setdvar( "ui_deadquote", &"BOG_A_THE_TANK_WAS_OVERRUN" );
-    maps\_utility::_id_5CDF();
+    maps\_utility::missionfailedwrapper();
 }
 
 zpu_battle_init()
 {
-    common_scripts\utility::_id_384A( "zpu_orders_given" );
-    common_scripts\utility::_id_383F( "zpu_battle_started" );
+    common_scripts\utility::flag_wait( "zpu_orders_given" );
+    common_scripts\utility::flag_set( "zpu_battle_started" );
     thread zpu_battle_friendly_advance();
     var_0 = getnode( "zpu_badplace", "targetname" );
     badplace_cylinder( "zpuNoAllies", -1, var_0.origin, var_0.radius, var_0.height, "allies" );
@@ -1002,11 +984,11 @@ zpu_c4()
     var_0 waittill( "c4_detonation" );
     var_0 notify( "death" );
     playfx( level.tankexplosion_fx, var_0.origin );
-    thread common_scripts\utility::_id_69C2( "bog_aagun_explode", var_0.origin );
+    thread common_scripts\utility::play_sound_in_space( "bog_aagun_explode", var_0.origin );
     var_0 setmodel( "vehicle_zpu4_burn" );
     radiusdamage( var_0.origin + ( 0.0, 0.0, 96.0 ), level.zpublastradius, 1000, 50 );
     maps\_utility::arcademode_kill( var_0.origin, "explosive", 2000 );
-    common_scripts\utility::_id_383F( "zpus_destroyed" );
+    common_scripts\utility::flag_set( "zpus_destroyed" );
     abrams_gets_drawing();
 }
 
@@ -1014,12 +996,12 @@ zpu_dialogue()
 {
     var_0 = getent( "plantc4_dialogue", "targetname" );
     var_0 waittill( "trigger" );
-    common_scripts\utility::_id_383F( "activate_final_bldg" );
+    common_scripts\utility::flag_set( "activate_final_bldg" );
     var_1 = getnode( "zpuTalkingFriendly", "targetname" );
     var_2 = getaiarray( "allies" );
-    var_2 = maps\_utility::_id_735E( var_2 );
-    var_3 = common_scripts\utility::_id_3F33( var_1.origin, var_2 );
-    var_3 thread maps\_utility::_id_58D7();
+    var_2 = maps\_utility::remove_heroes_from_array( var_2 );
+    var_3 = common_scripts\utility::getclosest( var_1.origin, var_2 );
+    var_3 thread maps\_utility::magic_bullet_shield();
     var_3.animname = "marine";
     var_3 thread maps\_anim::anim_single_queue( var_3, "plantc4" );
     level waittill( "c4_in_place" );
@@ -1035,15 +1017,15 @@ zpu_dialogue()
         wait 0.05;
     }
 
-    if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
+    if ( !common_scripts\utility::flag( "zpus_destroyed" ) )
         var_3 maps\_anim::anim_single_queue( var_3, "jacksondoit" );
 
-    var_3 maps\_utility::_id_8EA4();
+    var_3 maps\_utility::stop_magic_bullet_shield();
 }
 
 dont_show_c4_hint()
 {
-    if ( common_scripts\utility::_id_382E( "zpus_destroyed" ) )
+    if ( common_scripts\utility::flag( "zpus_destroyed" ) )
         return 0;
 
     var_0 = self getcurrentweapon();
@@ -1054,71 +1036,71 @@ zpu_interface()
 {
     level endon( "zpus_destroyed" );
     wait 2;
-    level.player thread maps\_utility::_id_2B4A( "c4_use" );
+    level.player thread maps\_utility::display_hint( "c4_use" );
 }
 
-_id_29F3()
+dialogue()
 {
-    if ( !common_scripts\utility::_id_382E( "tank_defense_completed" ) )
+    if ( !common_scripts\utility::flag( "tank_defense_completed" ) )
     {
         thread dialogue_south_tank_attack();
         var_0 = getent( "backhalf_dialogue", "targetname" );
         var_0 waittill( "trigger" );
-        maps\_utility::_id_70C4( "alphasixstatus" );
+        maps\_utility::radio_dialogue_queue( "alphasixstatus" );
         maps\_utility::battlechatter_on( "allies" );
         maps\_utility::battlechatter_on( "axis" );
-        maps\_utility::_id_70C4( "stillsurrounded" );
-        maps\_utility::_id_70C4( "maingunsoffline" );
+        maps\_utility::radio_dialogue_queue( "stillsurrounded" );
+        maps\_utility::radio_dialogue_queue( "maingunsoffline" );
     }
 
-    common_scripts\utility::_id_384A( "tank_defense_completed" );
+    common_scripts\utility::flag_wait( "tank_defense_completed" );
 
-    if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
+    if ( !common_scripts\utility::flag( "zpus_destroyed" ) )
     {
         thread zpu_player_followers();
-        maps\_utility::_id_70C4( "morewest" );
-        level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "twocharliebravosix" );
-        common_scripts\utility::_id_383F( "zpu_speech_started" );
-        maps\_utility::_id_70C4( "negativebravo" );
-        common_scripts\utility::_id_383F( "zpu_orders_given" );
+        maps\_utility::radio_dialogue_queue( "morewest" );
+        level.price maps\_anim::anim_single_queue( level.price, "twocharliebravosix" );
+        common_scripts\utility::flag_set( "zpu_speech_started" );
+        maps\_utility::radio_dialogue_queue( "negativebravo" );
+        common_scripts\utility::flag_set( "zpu_orders_given" );
 
-        if ( !common_scripts\utility::_id_382E( "zpus_destroyed" ) )
-            level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "jacksonfindzpu" );
+        if ( !common_scripts\utility::flag( "zpus_destroyed" ) )
+            level.price maps\_anim::anim_single_queue( level.price, "jacksonfindzpu" );
 
-        level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "securewest" );
+        level.price maps\_anim::anim_single_queue( level.price, "securewest" );
         wait 2;
-        level._id_78BA["price"]["letsmoveout"] = "bog_a_pri_letsmoveout";
+        level.scr_sound["price"]["letsmoveout"] = "bog_a_pri_letsmoveout";
     }
 
-    common_scripts\utility::_id_384A( "pilot_final_dialogue" );
-    soundscripts\_snd::_id_870C( "set_bog_ambience_to_bog_end_ext0" );
+    common_scripts\utility::flag_wait( "pilot_final_dialogue" );
+    soundscripts\_snd::snd_message( "set_bog_ambience_to_bog_end_ext0" );
     var_1 = getaiarray( "axis" );
-    common_scripts\utility::array_thread( var_1, maps\_utility::_id_2A51 );
+    common_scripts\utility::array_thread( var_1, maps\_utility::die );
     var_2 = getspawnerteamarray( "axis" );
-    common_scripts\utility::array_thread( var_2, maps\_utility::_id_7C71 );
-    maps\_utility::_id_70C4( "seeanyoneleft" );
+    common_scripts\utility::array_thread( var_2, maps\_utility::self_delete );
+    maps\_utility::radio_dialogue_queue( "seeanyoneleft" );
     wait 0.5;
-    maps\_utility::_id_70C4( "negative" );
+    maps\_utility::radio_dialogue_queue( "negative" );
     wait 0.3;
-    maps\_utility::_id_70C4( "alltargetsdestroyed" );
+    maps\_utility::radio_dialogue_queue( "alltargetsdestroyed" );
     level notify( "begin_sunrise_after_tank_defend", 90 );
     wait 3;
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "lzissecure" );
+    level.price maps\_anim::anim_single_queue( level.price, "lzissecure" );
     wait 0.15;
-    common_scripts\utility::_id_383F( "cobra_success" );
-    soundscripts\_snd::_id_870C( "stop_cobra_support_mix" );
+    common_scripts\utility::flag_set( "cobra_success" );
+    soundscripts\_snd::snd_message( "stop_cobra_support_mix" );
     thread ending_sequence();
     level notify( "abrams_stop_slewing_turret" );
     thread abrams_turn_straight();
-    maps\_utility::_id_70C4( "goodworkout" );
+    maps\_utility::radio_dialogue_queue( "goodworkout" );
     level.mark.animname = "left_guy";
     level.mark maps\_anim::anim_single_queue( level.mark, "regroupattank" );
 }
 
 abrams_gets_drawing()
 {
-    level.abrams setmodel( maps\_utility::_id_4026( "tank_draw" ) );
-    level._id_9F56 = maps\_utility::_id_4026( "tank_draw" );
+    level.abrams setmodel( maps\_utility::getmodel( "tank_draw" ) );
+    level.vtmodel = maps\_utility::getmodel( "tank_draw" );
     level.abrams maps\_vehicle::build_exhaust( "fx/distortion/abrams_exhaust" );
     level.abrams maps\_vehicle::build_deckdust( "fx/dust/abrams_deck_dust" );
 }
@@ -1130,16 +1112,16 @@ abrams_turn_straight()
 
 zpu_player_followers()
 {
-    thread maps\_utility::_id_7016( "c", "p" );
-    thread maps\_utility::_id_7016( "c", "p" );
+    thread maps\_utility::promote_nearest_friendly( "c", "p" );
+    thread maps\_utility::promote_nearest_friendly( "c", "p" );
 }
 
 ending_sequence()
 {
-    level._id_6F7C maps\_utility::_id_5926();
+    level.price maps\_utility::make_hero();
     var_0 = getaiarray( "allies" );
-    var_0 = maps\_utility::_id_735E( var_0 );
-    level._id_6F7C.animname = "price";
+    var_0 = maps\_utility::remove_heroes_from_array( var_0 );
+    level.price.animname = "price";
     var_0[0].animname = "right_guy";
     level.mark.animname = "left_guy";
     var_1 = [];
@@ -1149,7 +1131,7 @@ ending_sequence()
 
     thread schoolcircle( "schoolcircle", var_1 );
     var_3 = [];
-    var_3[var_3.size] = level._id_6F7C;
+    var_3[var_3.size] = level.price;
     var_3[var_3.size] = var_0[0];
     var_3[var_3.size] = level.mark;
     var_4 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
@@ -1166,10 +1148,10 @@ ending_sequence()
     while ( distance( level.player.origin, var_4.origin ) > var_5 )
         wait 0.05;
 
-    common_scripts\utility::_id_383F( "reached_ending_area" );
-    soundscripts\_snd::_id_870C( "start_ending_area_mix" );
+    common_scripts\utility::flag_set( "reached_ending_area" );
+    soundscripts\_snd::snd_message( "start_ending_area_mix" );
     var_4 notify( "stop_loop" );
-    level._id_6F7C thread new_goal_at_scene_end();
+    level.price thread new_goal_at_scene_end();
 
     if ( getdvarint( "use_old_tank_dialogue" ) == 1 )
     {
@@ -1178,19 +1160,19 @@ ending_sequence()
     }
     else
     {
-        var_6 = getanimlength( level._id_78AC[var_3[0].animname]["tank_talk"] );
+        var_6 = getanimlength( level.scr_anim[var_3[0].animname]["tank_talk"] );
         var_4 thread maps\_anim::anim_single( var_3, "tank_talk" );
         wait(var_6 - 1);
     }
 
-    soundscripts\_snd::_id_870C( "start_end_black_screen_mix" );
-    maps\_utility::_id_60D6();
+    soundscripts\_snd::snd_message( "start_end_black_screen_mix" );
+    maps\_utility::nextmission();
 }
 
 new_goal_at_scene_end()
 {
     common_scripts\utility::waittillend( "single anim" );
-    self _meth_81AA( self.origin );
+    self setgoalpos( self.origin );
     self.goalradius = 0;
     self.walkdist = 15010;
 }
@@ -1216,7 +1198,7 @@ dialogue_south_tank_attack()
         var_0 waittill( "trigger" );
 
     wait 4;
-    maps\_utility::_id_70C4( "contactseast" );
+    maps\_utility::radio_dialogue_queue( "contactseast" );
 }
 
 heroshield()
@@ -1227,7 +1209,7 @@ heroshield()
 
 hero()
 {
-    thread maps\_utility::_id_58D7();
+    thread maps\_utility::magic_bullet_shield();
     self.ignorerandombulletdamage = 1;
 }
 
@@ -1243,10 +1225,10 @@ schoolcircle_nav( var_0, var_1 )
 {
     self endon( "death" );
     wait 2.5;
-    self _meth_81A9( var_0[var_1] );
+    self getgoalvolume( var_0[var_1] );
     self.goalradius = 32;
     self.dontavoidplayer = 1;
-    self _meth_81CE( "stand" );
+    self allowedstances( "stand" );
 
     if ( !isdefined( var_0[var_1].script_noteworthy ) )
         return;
@@ -1258,5 +1240,5 @@ schoolcircle_nav( var_0, var_1 )
 schoolcircle_crouch( var_0 )
 {
     var_0 waittill( "goal" );
-    var_0 _meth_81CE( "crouch" );
+    var_0 allowedstances( "crouch" );
 }

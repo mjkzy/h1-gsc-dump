@@ -1,29 +1,11 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
 {
     maps\_vehicle::build_template( "uaz", var_0, var_1, var_2 );
-    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_localinit( ::init_local );
     maps\_vehicle::build_destructible( "vehicle_uaz_hardtop_destructible", "vehicle_uaz_hardtop" );
     maps\_vehicle::build_destructible( "vehicle_uaz_light_destructible", "vehicle_uaz_light" );
     maps\_vehicle::build_destructible( "vehicle_uaz_open_destructible", "vehicle_uaz_open" );
@@ -42,85 +24,85 @@ main( var_0, var_1, var_2 )
     maps\_vehicle::build_treadfx();
     maps\_vehicle::build_life( 999, 500, 1500 );
     maps\_vehicle::build_team( "axis" );
-    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
+    maps\_vehicle::build_aianims( ::setanims, ::set_vehicle_anims );
 }
 
-_id_4D10()
+init_local()
 {
-    self._id_1E9A = 1;
+    self.clear_anims_on_death = 1;
 }
 
-_id_7EFA( var_0 )
+set_vehicle_anims( var_0 )
 {
     if ( getdvarint( "use_old_uaz_anims" ) == 1 )
     {
-        var_0[0]._id_9CD5 = %uaz_driver_exit_into_run_door;
-        var_0[1]._id_9CD5 = %uaz_passenger_exit_into_run_door;
+        var_0[0].vehicle_getoutanim = %uaz_driver_exit_into_run_door;
+        var_0[1].vehicle_getoutanim = %uaz_passenger_exit_into_run_door;
     }
     else
     {
-        var_0[0]._id_9CD5 = %h1_uaz_driver_exit_into_idle_door;
-        var_0[1]._id_9CD5 = %h1_uaz_passenger_exit_into_idle_door;
+        var_0[0].vehicle_getoutanim = %h1_uaz_driver_exit_into_idle_door;
+        var_0[1].vehicle_getoutanim = %h1_uaz_passenger_exit_into_idle_door;
     }
 
-    var_0[0]._id_9CD0 = %uaz_driver_enter_from_huntedrun_door;
-    var_0[1]._id_9CD0 = %uaz_passenger_enter_from_huntedrun_door;
-    var_0[0]._id_9CD8 = "front_door_left_jnt";
-    var_0[1]._id_9CD8 = "front_door_right_jnt";
-    var_0[2]._id_9CD8 = "rear_door_left_jnt";
-    var_0[3]._id_9CD8 = "rear_door_right_jnt";
-    var_0[0]._id_9CD2 = "truck_door_open";
-    var_0[1]._id_9CD2 = "truck_door_open";
-    var_0[2]._id_9CD2 = "truck_door_open";
-    var_0[3]._id_9CD2 = "truck_door_open";
-    var_0[0]._id_9CD3 = "front_door_left_jnt";
-    var_0[1]._id_9CD3 = "front_door_right_jnt";
-    var_0[2]._id_9CD3 = "rear_door_left_jnt";
-    var_0[3]._id_9CD3 = "rear_door_right_jnt";
+    var_0[0].vehicle_getinanim = %uaz_driver_enter_from_huntedrun_door;
+    var_0[1].vehicle_getinanim = %uaz_passenger_enter_from_huntedrun_door;
+    var_0[0].vehicle_getoutsoundtag = "front_door_left_jnt";
+    var_0[1].vehicle_getoutsoundtag = "front_door_right_jnt";
+    var_0[2].vehicle_getoutsoundtag = "rear_door_left_jnt";
+    var_0[3].vehicle_getoutsoundtag = "rear_door_right_jnt";
+    var_0[0].vehicle_getinsound = "truck_door_open";
+    var_0[1].vehicle_getinsound = "truck_door_open";
+    var_0[2].vehicle_getinsound = "truck_door_open";
+    var_0[3].vehicle_getinsound = "truck_door_open";
+    var_0[0].vehicle_getinsoundtag = "front_door_left_jnt";
+    var_0[1].vehicle_getinsoundtag = "front_door_right_jnt";
+    var_0[2].vehicle_getinsoundtag = "rear_door_left_jnt";
+    var_0[3].vehicle_getinsoundtag = "rear_door_right_jnt";
     return var_0;
 }
 #using_animtree("generic_human");
 
-_id_7F23()
+setanims()
 {
     var_0 = [];
 
     for ( var_1 = 0; var_1 < 6; var_1++ )
         var_0[var_1] = spawnstruct();
 
-    var_0[0]._id_85AE = "tag_driver";
-    var_0[1]._id_85AE = "tag_passenger";
-    var_0[2]._id_85AE = "tag_guy0";
-    var_0[3]._id_85AE = "tag_guy1";
-    var_0[4]._id_85AE = "tag_guy2";
-    var_0[5]._id_85AE = "tag_guy3";
-    var_0[0]._id_4B63 = %uaz_driver_idle_drive;
-    var_0[1]._id_4B63 = %uaz_passenger_idle_drive;
-    var_0[2]._id_4B63 = %uaz_passenger_idle_drive;
-    var_0[3]._id_4B63 = %uaz_passenger_idle_drive;
-    var_0[4]._id_4B63 = %uaz_passenger_idle_drive;
-    var_0[5]._id_4B63 = %uaz_passenger_idle_drive;
+    var_0[0].sittag = "tag_driver";
+    var_0[1].sittag = "tag_passenger";
+    var_0[2].sittag = "tag_guy0";
+    var_0[3].sittag = "tag_guy1";
+    var_0[4].sittag = "tag_guy2";
+    var_0[5].sittag = "tag_guy3";
+    var_0[0].idle = %uaz_driver_idle_drive;
+    var_0[1].idle = %uaz_passenger_idle_drive;
+    var_0[2].idle = %uaz_passenger_idle_drive;
+    var_0[3].idle = %uaz_passenger_idle_drive;
+    var_0[4].idle = %uaz_passenger_idle_drive;
+    var_0[5].idle = %uaz_passenger_idle_drive;
 
     if ( getdvarint( "use_old_uaz_anims" ) == 1 )
     {
-        var_0[0]._id_4068 = %uaz_driver_exit_into_run;
-        var_0[1]._id_4068 = %uaz_passenger_exit_into_run;
-        var_0[2]._id_4068 = %uaz_driver_exit_into_run;
-        var_0[3]._id_4068 = %uaz_passenger_exit_into_run;
+        var_0[0].getout = %uaz_driver_exit_into_run;
+        var_0[1].getout = %uaz_passenger_exit_into_run;
+        var_0[2].getout = %uaz_driver_exit_into_run;
+        var_0[3].getout = %uaz_passenger_exit_into_run;
     }
     else
     {
-        var_0[0]._id_4068 = %h1_uaz_driver_exit_into_idle;
+        var_0[0].getout = %h1_uaz_driver_exit_into_idle;
         var_0[0].getout_ik = 1;
-        var_0[1]._id_4068 = %h1_uaz_passenger_exit_into_idle;
+        var_0[1].getout = %h1_uaz_passenger_exit_into_idle;
         var_0[1].getout_ik = 1;
-        var_0[2]._id_4068 = %h1_uaz_driver_exit_into_idle;
+        var_0[2].getout = %h1_uaz_driver_exit_into_idle;
         var_0[2].getout_ik = 1;
-        var_0[3]._id_4068 = %h1_uaz_passenger_exit_into_idle;
+        var_0[3].getout = %h1_uaz_passenger_exit_into_idle;
         var_0[3].getout_ik = 1;
     }
 
-    var_0[0]._id_3FD2 = %uaz_driver_enter_from_huntedrun;
-    var_0[1]._id_3FD2 = %uaz_passenger_enter_from_huntedrun;
+    var_0[0].getin = %uaz_driver_enter_from_huntedrun;
+    var_0[1].getin = %uaz_passenger_enter_from_huntedrun;
     return var_0;
 }

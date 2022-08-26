@@ -1,42 +1,24 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_2110();
-    _id_4D5B();
-    _id_4CF4();
-    _id_5625();
-    _id_5618();
-    thread _id_5617();
-    _id_23C4();
-    _id_6ECB();
-    _id_72E8();
+    config_system();
+    init_snd_flags();
+    init_globals();
+    launch_threads();
+    launch_loops();
+    thread launch_line_emitters();
+    create_level_envelop_arrays();
+    precache_presets();
+    register_snd_messages();
 }
 
-_id_2110()
+config_system()
 {
-    soundscripts\_audio::_id_7EC8( "shg" );
-    soundscripts\_snd_filters::_id_8757( "med_occlusion" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "mix_armada_global" );
+    soundscripts\_audio::set_stringtable_mapname( "shg" );
+    soundscripts\_snd_filters::snd_set_occlusion( "med_occlusion" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mix_armada_global" );
     soundsettraceflags( "vehicles", "solid", "glass" );
     soundsettraceflags( "battlechatter", "solid", "glass" );
     soundsettraceflags( "voices", "solid", "glass" );
@@ -45,66 +27,66 @@ _id_2110()
     soundsettraceflags( "explosions", "solid", "glass" );
 }
 
-_id_4D5B()
+init_snd_flags()
 {
 
 }
 
-_id_4CF4()
+init_globals()
 {
 
 }
 
-_id_5625()
+launch_threads()
 {
 
 }
 
-_id_5618()
+launch_loops()
 {
 
 }
 
-_id_5617()
+launch_line_emitters()
 {
     wait 0.1;
 }
 
-_id_23C4()
+create_level_envelop_arrays()
 {
 
 }
 
-_id_6ECB()
+precache_presets()
 {
 
 }
 
-_id_72E8()
+register_snd_messages()
 {
-    soundscripts\_snd::_id_874D( "snd_zone_handler", ::_id_A3E6 );
-    soundscripts\_snd::_id_874D( "snd_music_handler", ::_id_5FFD );
-    soundscripts\_snd::_id_874D( "start_default_checkpoint", ::start_default_checkpoint );
-    soundscripts\_snd::_id_874D( "start_ride_checkpoint", ::start_ride_checkpoint );
-    soundscripts\_snd::_id_874D( "start_landed_checkpoint", ::start_landed_checkpoint );
-    soundscripts\_snd::_id_874D( "start_hq2tv_checkpoint", ::start_hq2tv_checkpoint );
-    soundscripts\_snd::_id_874D( "start_intel_checkpoint", ::start_intel_checkpoint );
-    soundscripts\_snd::_id_874D( "start_tv_checkpoint", ::start_tv_checkpoint );
-    soundscripts\_snd::_id_874D( "start_tank_checkpoint", ::start_tank_checkpoint );
-    soundscripts\_snd::_id_874D( "start_end_checkpoint", ::start_end_checkpoint );
-    soundscripts\_snd::_id_874D( "stop_inside_blackhawk_mix", ::stop_inside_blackhawk_mix );
-    soundscripts\_snd::_id_874D( "stop_intro_mix", ::stop_intro_mix );
-    soundscripts\_snd::_id_874D( "set_ambiance_level_01", ::set_ambiance_level_01 );
-    soundscripts\_snd::_id_874D( "set_ambiance_level_03", ::set_ambiance_level_03 );
-    soundscripts\_snd::_id_874D( "start_last_mig29_mix", ::start_last_mig29_mix );
+    soundscripts\_snd::snd_register_message( "snd_zone_handler", ::zone_handler );
+    soundscripts\_snd::snd_register_message( "snd_music_handler", ::music_handler );
+    soundscripts\_snd::snd_register_message( "start_default_checkpoint", ::start_default_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_ride_checkpoint", ::start_ride_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_landed_checkpoint", ::start_landed_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_hq2tv_checkpoint", ::start_hq2tv_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_intel_checkpoint", ::start_intel_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_tv_checkpoint", ::start_tv_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_tank_checkpoint", ::start_tank_checkpoint );
+    soundscripts\_snd::snd_register_message( "start_end_checkpoint", ::start_end_checkpoint );
+    soundscripts\_snd::snd_register_message( "stop_inside_blackhawk_mix", ::stop_inside_blackhawk_mix );
+    soundscripts\_snd::snd_register_message( "stop_intro_mix", ::stop_intro_mix );
+    soundscripts\_snd::snd_register_message( "set_ambiance_level_01", ::set_ambiance_level_01 );
+    soundscripts\_snd::snd_register_message( "set_ambiance_level_03", ::set_ambiance_level_03 );
+    soundscripts\_snd::snd_register_message( "start_last_mig29_mix", ::start_last_mig29_mix );
 }
 
-_id_A3E6( var_0, var_1 )
+zone_handler( var_0, var_1 )
 {
 
 }
 
-_id_5FFD( var_0, var_1 )
+music_handler( var_0, var_1 )
 {
 
 }
@@ -113,14 +95,14 @@ start_default_checkpoint( var_0 )
 {
     set_ambiance_level_00();
     soundscripts\_audio_zone_manager::azm_start_zone( "inside_blackhawk" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "Intro_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "Intro_mix" );
 }
 
 start_ride_checkpoint( var_0 )
 {
     set_ambiance_level_00();
     soundscripts\_audio_zone_manager::azm_start_zone( "inside_blackhawk" );
-    soundscripts\_audio_mix_manager::_id_5CF2( "Intro_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "Intro_mix" );
 }
 
 start_landed_checkpoint( var_0 )
@@ -157,7 +139,7 @@ start_end_checkpoint( var_0 )
 stop_intro_mix()
 {
     wait 1.0;
-    soundscripts\_audio_mix_manager::_id_5CF6( "Intro_mix" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "Intro_mix" );
 }
 
 stop_inside_blackhawk_mix()
@@ -192,9 +174,9 @@ set_ambiance_level_03()
 
 start_last_mig29_mix()
 {
-    soundscripts\_audio_mix_manager::_id_5CF2( "last_mig29_mix" );
+    soundscripts\_audio_mix_manager::mm_add_submix( "last_mig29_mix" );
     wait 5.0;
-    soundscripts\_audio_mix_manager::_id_5CF6( "last_mig29_mix" );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "last_mig29_mix" );
 }
 
 play_technical_scripted_sfx_sequence()
@@ -203,8 +185,8 @@ play_technical_scripted_sfx_sequence()
 
     foreach ( var_2 in var_0 )
     {
-        if ( var_2._id_7B1A == 5 )
-            var_2._id_799F = 1;
+        if ( var_2.script_vehiclespawngroup == 5 )
+            var_2.script_disablevehicleaudio = 1;
     }
 
     var_4 = getvehiclenode( "auto2665", "targetname" );
@@ -219,6 +201,6 @@ play_scripted_technical_sfx( var_0 )
 {
     self waittill( "trigger", var_1 );
     var_1 playsound( var_0 );
-    var_1 common_scripts\utility::_id_A087( "driver dead", "death" );
+    var_1 common_scripts\utility::waittill_either( "driver dead", "death" );
     var_1 stopsounds();
 }

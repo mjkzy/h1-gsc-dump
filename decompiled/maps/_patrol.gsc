@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_66FC( var_0, var_1, var_2 )
+patrol( var_0, var_1, var_2 )
 {
     if ( isdefined( self.enemy ) )
         return;
@@ -28,29 +10,29 @@ _id_66FC( var_0, var_1, var_2 )
     self endon( "end_patrol" );
     level endon( "_stealth_spotted" );
     level endon( "_stealth_found_corpse" );
-    thread _id_A078();
-    thread _id_A083();
+    thread waittill_combat();
+    thread waittill_death();
     self endon( "enemy" );
     self.goalradius = 32;
-    self _meth_81CE( "stand" );
-    self._id_2AF3 = 1;
-    self._id_2B0E = 1;
+    self allowedstances( "stand" );
+    self.disablearrivals = 1;
+    self.disableexits = 1;
     self.allowdeath = 1;
-    self._id_7A9C = 1;
+    self.script_patroller = 1;
     var_3 = "patrol_walk";
 
-    if ( isdefined( self._id_6718 ) )
-        var_3 = self._id_6718;
+    if ( isdefined( self.patrol_walk_anim ) )
+        var_3 = self.patrol_walk_anim;
 
     var_4 = isdefined( self.canpatrolturn ) && self.canpatrolturn;
-    maps\_utility::_id_7E45( var_3, 1, !var_4 );
+    maps\_utility::set_generic_run_anim( var_3, 1, !var_4 );
     thread patrol_walk_twitch_loop();
-    var_5[1][1] = ::_id_3E8A;
-    var_5[1][0] = common_scripts\utility::_id_3DBD;
-    var_5[0][1] = ::_id_3E8C;
-    var_5[0][0] = ::_id_3DBE;
-    var_6[1] = maps\_utility::_id_7E47;
-    var_6[0] = maps\_utility::_id_7E4B;
+    var_5[1][1] = ::get_target_ents;
+    var_5[1][0] = common_scripts\utility::get_linked_ents;
+    var_5[0][1] = ::get_target_nodes;
+    var_5[0][0] = ::get_linked_nodes;
+    var_6[1] = maps\_utility::set_goal_ent;
+    var_6[0] = maps\_utility::set_goal_node;
 
     if ( isdefined( var_0 ) )
         self.target = var_0;
@@ -58,34 +40,34 @@ _id_66FC( var_0, var_1, var_2 )
     if ( isdefined( self.target ) )
     {
         var_7 = 1;
-        var_8 = _id_3E8A();
-        var_9 = _id_3E8C();
+        var_8 = get_target_ents();
+        var_9 = get_target_nodes();
 
         if ( var_8.size )
         {
-            var_10 = common_scripts\utility::_id_710E( var_8 );
+            var_10 = common_scripts\utility::random( var_8 );
             var_11 = 1;
         }
         else
         {
-            var_10 = common_scripts\utility::_id_710E( var_9 );
+            var_10 = common_scripts\utility::random( var_9 );
             var_11 = 0;
         }
     }
     else
     {
         var_7 = 0;
-        var_8 = common_scripts\utility::_id_3DBD();
-        var_9 = _id_3DBE();
+        var_8 = common_scripts\utility::get_linked_ents();
+        var_9 = get_linked_nodes();
 
         if ( var_8.size )
         {
-            var_10 = common_scripts\utility::_id_710E( var_8 );
+            var_10 = common_scripts\utility::random( var_8 );
             var_11 = 1;
         }
         else
         {
-            var_10 = common_scripts\utility::_id_710E( var_9 );
+            var_10 = common_scripts\utility::random( var_9 );
             var_11 = 0;
         }
     }
@@ -94,14 +76,14 @@ _id_66FC( var_0, var_1, var_2 )
 
     for (;;)
     {
-        while ( isdefined( var_12._id_6707 ) )
+        while ( isdefined( var_12.patrol_claimed ) )
             wait 0.05;
 
-        var_10._id_6707 = undefined;
+        var_10.patrol_claimed = undefined;
         var_10 = var_12;
         self notify( "release_node" );
-        var_10._id_6707 = 1;
-        self._id_5545 = var_10;
+        var_10.patrol_claimed = 1;
+        self.last_patrol_goal = var_10;
         [[ var_6[var_11] ]]( var_10 );
 
         if ( isdefined( var_10.radius ) && var_10.radius > 0 )
@@ -112,7 +94,7 @@ _id_66FC( var_0, var_1, var_2 )
         self waittill( "goal" );
         var_10 notify( "trigger", self );
 
-        if ( isdefined( var_10._id_793C ) )
+        if ( isdefined( var_10.script_animation ) )
         {
             if ( !isdefined( var_2 ) || var_2 == 0 )
             {
@@ -120,7 +102,7 @@ _id_66FC( var_0, var_1, var_2 )
                 maps\_anim::anim_generic_custom_animmode( self, "gravity", var_13 );
             }
 
-            switch ( var_10._id_793C )
+            switch ( var_10.script_animation )
             {
                 case "pause":
                     var_14 = "patrol_idle_" + randomintrange( 1, 6 );
@@ -168,7 +150,7 @@ _id_66FC( var_0, var_1, var_2 )
         }
 
         if ( isdefined( var_1 ) && var_1 == 1 )
-            self _meth_8192( "none" );
+            self animmode( "none" );
 
         var_18 = var_10 [[ var_5[var_11][var_7] ]]();
 
@@ -178,56 +160,56 @@ _id_66FC( var_0, var_1, var_2 )
             break;
         }
 
-        var_12 = common_scripts\utility::_id_710E( var_18 );
+        var_12 = common_scripts\utility::random( var_18 );
     }
 }
 
 add_to_patrol_animation_list( var_0, var_1 )
 {
     if ( isdefined( var_1 ) )
-        level._id_6706[var_0] = var_1;
+        level.patrol_anims[var_0] = var_1;
 }
 
 init_patrol_animation_list()
 {
-    add_to_patrol_animation_list( "patrol_walk", level._id_78AC["generic"]["patrol_walk"] );
-    add_to_patrol_animation_list( "patrol_walk_twitch", level._id_78AC["generic"]["patrol_walk_twitch"] );
-    add_to_patrol_animation_list( "patrol_stop", level._id_78AC["generic"]["patrol_stop"] );
-    add_to_patrol_animation_list( "patrol_start", level._id_78AC["generic"]["patrol_start"] );
-    add_to_patrol_animation_list( "patrol_turn180", level._id_78AC["generic"]["patrol_turn180"] );
-    add_to_patrol_animation_list( "patrol_idle_1", level._id_78AC["generic"]["patrol_idle_1"] );
-    add_to_patrol_animation_list( "patrol_idle_2", level._id_78AC["generic"]["patrol_idle_2"] );
-    add_to_patrol_animation_list( "patrol_idle_3", level._id_78AC["generic"]["patrol_idle_3"] );
-    add_to_patrol_animation_list( "patrol_idle_4", level._id_78AC["generic"]["patrol_idle_4"] );
-    add_to_patrol_animation_list( "patrol_idle_5", level._id_78AC["generic"]["patrol_idle_5"] );
-    add_to_patrol_animation_list( "patrol_idle_6", level._id_78AC["generic"]["patrol_idle_6"] );
-    add_to_patrol_animation_list( "patrol_idle_smoke", level._id_78AC["generic"]["patrol_idle_smoke"] );
-    add_to_patrol_animation_list( "patrol_idle_checkphone", level._id_78AC["generic"]["patrol_idle_checkphone"] );
-    add_to_patrol_animation_list( "patrol_idle_stretch", level._id_78AC["generic"]["patrol_idle_stretch"] );
-    add_to_patrol_animation_list( "patrol_idle_phone", level._id_78AC["generic"]["patrol_idle_phone"] );
-    add_to_patrol_animation_list( "patrol_turn_l45_rfoot", level._id_78AC["generic"]["patrol_turn_l45_rfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_l45_lfoot", level._id_78AC["generic"]["patrol_turn_l45_lfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_l90_rfoot", level._id_78AC["generic"]["patrol_turn_l90_rfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_l90_lfoot", level._id_78AC["generic"]["patrol_turn_l90_lfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_l135_rfoot", level._id_78AC["generic"]["patrol_turn_l135_rfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_l135_lfoot", level._id_78AC["generic"]["patrol_turn_l135_lfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_r45_rfoot", level._id_78AC["generic"]["patrol_turn_r45_rfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_r45_lfoot", level._id_78AC["generic"]["patrol_turn_r45_lfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_r90_rfoot", level._id_78AC["generic"]["patrol_turn_r90_rfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_r90_lfoot", level._id_78AC["generic"]["patrol_turn_r90_lfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_r135_rfoot", level._id_78AC["generic"]["patrol_turn_r135_rfoot"] );
-    add_to_patrol_animation_list( "patrol_turn_r135_lfoot", level._id_78AC["generic"]["patrol_turn_r135_lfoot"] );
-    add_to_patrol_animation_list( "patrol_walk_in_lfoot", level._id_78AC["generic"]["patrol_walk_in_lfoot"] );
-    add_to_patrol_animation_list( "patrol_walk_out_lfoot", level._id_78AC["generic"]["patrol_walk_out_lfoot"] );
-    add_to_patrol_animation_list( "patrol_walk_in_rfoot", level._id_78AC["generic"]["patrol_walk_in_rfoot"] );
-    add_to_patrol_animation_list( "patrol_walk_out_rfoot", level._id_78AC["generic"]["patrol_walk_out_rfoot"] );
+    add_to_patrol_animation_list( "patrol_walk", level.scr_anim["generic"]["patrol_walk"] );
+    add_to_patrol_animation_list( "patrol_walk_twitch", level.scr_anim["generic"]["patrol_walk_twitch"] );
+    add_to_patrol_animation_list( "patrol_stop", level.scr_anim["generic"]["patrol_stop"] );
+    add_to_patrol_animation_list( "patrol_start", level.scr_anim["generic"]["patrol_start"] );
+    add_to_patrol_animation_list( "patrol_turn180", level.scr_anim["generic"]["patrol_turn180"] );
+    add_to_patrol_animation_list( "patrol_idle_1", level.scr_anim["generic"]["patrol_idle_1"] );
+    add_to_patrol_animation_list( "patrol_idle_2", level.scr_anim["generic"]["patrol_idle_2"] );
+    add_to_patrol_animation_list( "patrol_idle_3", level.scr_anim["generic"]["patrol_idle_3"] );
+    add_to_patrol_animation_list( "patrol_idle_4", level.scr_anim["generic"]["patrol_idle_4"] );
+    add_to_patrol_animation_list( "patrol_idle_5", level.scr_anim["generic"]["patrol_idle_5"] );
+    add_to_patrol_animation_list( "patrol_idle_6", level.scr_anim["generic"]["patrol_idle_6"] );
+    add_to_patrol_animation_list( "patrol_idle_smoke", level.scr_anim["generic"]["patrol_idle_smoke"] );
+    add_to_patrol_animation_list( "patrol_idle_checkphone", level.scr_anim["generic"]["patrol_idle_checkphone"] );
+    add_to_patrol_animation_list( "patrol_idle_stretch", level.scr_anim["generic"]["patrol_idle_stretch"] );
+    add_to_patrol_animation_list( "patrol_idle_phone", level.scr_anim["generic"]["patrol_idle_phone"] );
+    add_to_patrol_animation_list( "patrol_turn_l45_rfoot", level.scr_anim["generic"]["patrol_turn_l45_rfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_l45_lfoot", level.scr_anim["generic"]["patrol_turn_l45_lfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_l90_rfoot", level.scr_anim["generic"]["patrol_turn_l90_rfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_l90_lfoot", level.scr_anim["generic"]["patrol_turn_l90_lfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_l135_rfoot", level.scr_anim["generic"]["patrol_turn_l135_rfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_l135_lfoot", level.scr_anim["generic"]["patrol_turn_l135_lfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_r45_rfoot", level.scr_anim["generic"]["patrol_turn_r45_rfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_r45_lfoot", level.scr_anim["generic"]["patrol_turn_r45_lfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_r90_rfoot", level.scr_anim["generic"]["patrol_turn_r90_rfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_r90_lfoot", level.scr_anim["generic"]["patrol_turn_r90_lfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_r135_rfoot", level.scr_anim["generic"]["patrol_turn_r135_rfoot"] );
+    add_to_patrol_animation_list( "patrol_turn_r135_lfoot", level.scr_anim["generic"]["patrol_turn_r135_lfoot"] );
+    add_to_patrol_animation_list( "patrol_walk_in_lfoot", level.scr_anim["generic"]["patrol_walk_in_lfoot"] );
+    add_to_patrol_animation_list( "patrol_walk_out_lfoot", level.scr_anim["generic"]["patrol_walk_out_lfoot"] );
+    add_to_patrol_animation_list( "patrol_walk_in_rfoot", level.scr_anim["generic"]["patrol_walk_in_rfoot"] );
+    add_to_patrol_animation_list( "patrol_walk_out_rfoot", level.scr_anim["generic"]["patrol_walk_out_rfoot"] );
 }
 
 is_patrolling()
 {
-    foreach ( var_1 in level._id_6706 )
+    foreach ( var_1 in level.patrol_anims )
     {
-        if ( isdefined( var_1 ) && self _meth_8152( var_1 ) != 0.0 )
+        if ( isdefined( var_1 ) && self getanimweight( var_1 ) != 0.0 )
         {
             self.usepathsmoothingvalues = 1;
             self.pathlookaheaddist = 70.0;
@@ -279,7 +261,7 @@ patrol_walk_twitch_loop()
     self notify( "patrol_walk_twitch_loop" );
     self endon( "patrol_walk_twitch_loop" );
 
-    if ( isdefined( self._id_6718 ) && !isdefined( self._id_6719 ) )
+    if ( isdefined( self.patrol_walk_anim ) && !isdefined( self.patrol_walk_twitch ) )
         return;
 
     for (;;)
@@ -287,23 +269,23 @@ patrol_walk_twitch_loop()
         wait(randomfloatrange( 8, 20 ));
         var_0 = "patrol_walk_twitch";
 
-        if ( isdefined( self._id_6719 ) )
-            var_0 = self._id_6719;
+        if ( isdefined( self.patrol_walk_twitch ) )
+            var_0 = self.patrol_walk_twitch;
 
         var_1 = isdefined( self.canpatrolturn ) && self.canpatrolturn;
-        maps\_utility::_id_7E45( var_0, 1, !var_1 );
-        var_2 = getanimlength( maps\_utility::_id_3EF7( var_0 ) );
+        maps\_utility::set_generic_run_anim( var_0, 1, !var_1 );
+        var_2 = getanimlength( maps\_utility::getanim_generic( var_0 ) );
         wait(var_2);
         var_0 = "patrol_walk";
 
-        if ( isdefined( self._id_6718 ) )
-            var_0 = self._id_6718;
+        if ( isdefined( self.patrol_walk_anim ) )
+            var_0 = self.patrol_walk_anim;
 
-        maps\_utility::_id_7E45( var_0, 1, !var_1 );
+        maps\_utility::set_generic_run_anim( var_0, 1, !var_1 );
     }
 }
 
-_id_A079()
+waittill_combat_wait()
 {
     self endon( "end_patrol" );
     level endon( "_stealth_spotted" );
@@ -311,7 +293,7 @@ _id_A079()
     self waittill( "enemy" );
 }
 
-_id_A083()
+waittill_death()
 {
     self waittill( "death" );
 
@@ -320,24 +302,24 @@ _id_A083()
 
     self notify( "release_node" );
 
-    if ( !isdefined( self._id_5545 ) )
+    if ( !isdefined( self.last_patrol_goal ) )
         return;
 
-    self._id_5545._id_6707 = undefined;
+    self.last_patrol_goal.patrol_claimed = undefined;
 }
 
-_id_A078()
+waittill_combat()
 {
     self endon( "death" );
-    _id_A079();
+    waittill_combat_wait();
 
     if ( !isdefined( self._stealth ) )
     {
-        maps\_utility::_id_1ED1();
-        self _meth_81CE( "stand", "crouch", "prone" );
-        self._id_2AF3 = 0;
-        self._id_2B0E = 0;
-        self _meth_8143();
+        maps\_utility::clear_run_anim();
+        self allowedstances( "stand", "crouch", "prone" );
+        self.disablearrivals = 0;
+        self.disableexits = 0;
+        self stopanimscripted();
         self notify( "stop_animmode" );
     }
 
@@ -348,13 +330,13 @@ _id_A078()
 
     self notify( "release_node" );
 
-    if ( !isdefined( self._id_5545 ) )
+    if ( !isdefined( self.last_patrol_goal ) )
         return;
 
-    self._id_5545._id_6707 = undefined;
+    self.last_patrol_goal.patrol_claimed = undefined;
 }
 
-_id_3E8A()
+get_target_ents()
 {
     var_0 = [];
 
@@ -364,7 +346,7 @@ _id_3E8A()
     return var_0;
 }
 
-_id_3E8C()
+get_target_nodes()
 {
     var_0 = [];
 
@@ -374,13 +356,13 @@ _id_3E8C()
     return var_0;
 }
 
-_id_3DBE()
+get_linked_nodes()
 {
     var_0 = [];
 
-    if ( isdefined( self._id_7A26 ) )
+    if ( isdefined( self.script_linkto ) )
     {
-        var_1 = strtok( self._id_7A26, " " );
+        var_1 = strtok( self.script_linkto, " " );
 
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
         {
@@ -394,17 +376,17 @@ _id_3DBE()
     return var_0;
 }
 
-_id_8502( var_0 )
+showclaimed( var_0 )
 {
     self endon( "release_node" );
 }
 
-_id_6712()
+patrol_resume_move_start_func()
 {
 
 }
 
-_id_67E7()
+pet_patrol()
 {
 
 }

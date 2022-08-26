@@ -1,29 +1,11 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 bot_killstreak_setup()
 {
     var_0 = gettime();
 
-    if ( !isdefined( level._id_5383 ) )
+    if ( !isdefined( level.killstreak_botfunc ) )
     {
         bot_register_killstreak_func( "radar_mp", ::bot_killstreak_simple_use, ::bot_can_use_uav );
         bot_register_killstreak_func( "airstrike_mp", ::bot_killstreak_choose_loc_enemies, ::bot_can_use_airstrike );
@@ -33,20 +15,20 @@ bot_killstreak_setup()
 
 bot_register_killstreak_func( var_0, var_1, var_2, var_3 )
 {
-    if ( !isdefined( level._id_5383 ) )
-        level._id_5383 = [];
+    if ( !isdefined( level.killstreak_botfunc ) )
+        level.killstreak_botfunc = [];
 
-    level._id_5383[var_0] = var_1;
+    level.killstreak_botfunc[var_0] = var_1;
 
-    if ( !isdefined( level._id_5382 ) )
-        level._id_5382 = [];
+    if ( !isdefined( level.killstreak_botcanuse ) )
+        level.killstreak_botcanuse = [];
 
-    level._id_5382[var_0] = var_2;
+    level.killstreak_botcanuse[var_0] = var_2;
 
-    if ( !isdefined( level._id_5384 ) )
-        level._id_5384 = [];
+    if ( !isdefined( level.killstreak_botparm ) )
+        level.killstreak_botparm = [];
 
-    level._id_5384[var_0] = var_3;
+    level.killstreak_botparm[var_0] = var_3;
 
     if ( !isdefined( level.bot_supported_killstreaks ) )
         level.bot_supported_killstreaks = [];
@@ -62,7 +44,7 @@ bot_think_killstreak()
     self endon( "disconnect" );
     level endon( "game_ended" );
 
-    while ( !isdefined( level._id_5383 ) )
+    while ( !isdefined( level.killstreak_botfunc ) )
         wait 0.05;
 
     for (;;)
@@ -78,12 +60,12 @@ bot_think_killstreak()
                 if ( isdefined( self.bot_killstreak_wait ) && isdefined( self.bot_killstreak_wait[var_0] ) && gettime() < self.bot_killstreak_wait[var_0] )
                     continue;
 
-                var_1 = level._id_5382[var_0];
+                var_1 = level.killstreak_botcanuse[var_0];
 
                 if ( isdefined( var_1 ) && !self [[ var_1 ]]( var_0 ) )
                     continue;
 
-                var_2 = level._id_5383[var_0];
+                var_2 = level.killstreak_botfunc[var_0];
 
                 if ( isdefined( var_2 ) )
                 {
@@ -171,12 +153,12 @@ bot_killstreak_get_zone_enemies()
 
     var_4 = [];
 
-    for ( var_5 = 0; var_5 < level._id_A3EF; var_5++ )
+    for ( var_5 = 0; var_5 < level.zonecount; var_5++ )
         var_4[var_5] = [];
 
     foreach ( var_7 in var_0 )
     {
-        var_8 = var_7 _meth_8385();
+        var_8 = var_7 getnearestnode();
 
         if ( !isdefined( var_8 ) )
         {
@@ -215,7 +197,7 @@ bot_killstreak_choose_loc_enemies( var_0, var_1 )
     bot_switch_to_killstreak_weapon( var_0 );
     wait 2.0;
 
-    if ( !isdefined( self._id_7C6F ) )
+    if ( !isdefined( self.selectinglocation ) )
     {
         self botsetflag( "disable_movement", 0 );
         return;
@@ -230,7 +212,7 @@ bot_killstreak_choose_loc_enemies( var_0, var_1 )
     var_9 = [];
     var_10 = [];
 
-    for ( var_11 = 0; var_11 < level._id_A3EF; var_11++ )
+    for ( var_11 = 0; var_11 < level.zonecount; var_11++ )
     {
         if ( var_11 != var_2 && botzonegetindoorpercent( var_11 ) < 0.25 )
         {
@@ -248,7 +230,7 @@ bot_killstreak_choose_loc_enemies( var_0, var_1 )
                     continue;
                 }
 
-                if ( isdefined( var_16._id_55D9 ) && gettime() - var_16._id_55D9 < 1500 )
+                if ( isdefined( var_16.lastshotfiredtime ) && gettime() - var_16.lastshotfiredtime < 1500 )
                 {
                     if ( !_func_2FB( var_16 getcurrentweapon() ) )
                         var_13[var_13.size] = var_16;
@@ -315,7 +297,7 @@ bot_killstreak_choose_loc_enemies( var_0, var_1 )
             var_35 = var_30;
     }
     else
-        var_35 = getzoneorigin( randomint( level._id_A3EF ) );
+        var_35 = getzoneorigin( randomint( level.zonecount ) );
 
     self notify( "confirm_location", var_35 );
     self waittill( "stop_location_selection" );
@@ -331,13 +313,13 @@ bot_think_watch_aerial_killstreak()
     self endon( "disconnect" );
     level endon( "game_ended" );
 
-    if ( !isdefined( level._id_552D ) )
-        level._id_552D = -10000;
+    if ( !isdefined( level.last_global_badplace_time ) )
+        level.last_global_badplace_time = -10000;
 
-    if ( !isdefined( level._id_5387 ) )
+    if ( !isdefined( level.killstreak_global_bp_exists_for ) )
     {
-        level._id_5387["allies"] = [];
-        level._id_5387["axis"] = [];
+        level.killstreak_global_bp_exists_for["allies"] = [];
+        level.killstreak_global_bp_exists_for["axis"] = [];
     }
 
     if ( !isdefined( level.aerial_danger_exists_for ) )
@@ -368,13 +350,13 @@ bot_think_watch_aerial_killstreak()
             var_2 = 1;
 
             if ( !bot_is_monitoring_aerial_danger( var_3 ) )
-                childthread _id_5D60( var_3 );
+                childthread monitor_aerial_danger( var_3 );
         }
 
         if ( enemy_airstrike_exists( self.team ) )
         {
             if ( level.teambased )
-                _id_988C( "airstrike", ::enemy_airstrike_exists );
+                try_place_global_badplace( "airstrike", ::enemy_airstrike_exists );
 
             var_2 = 1;
         }
@@ -403,7 +385,7 @@ bot_is_monitoring_aerial_danger( var_0 )
     return common_scripts\utility::array_contains( self.aerial_dangers_monitoring, var_0 );
 }
 
-_id_5D60( var_0 )
+monitor_aerial_danger( var_0 )
 {
     if ( !isdefined( self.aerial_dangers_monitoring ) )
         self.aerial_dangers_monitoring = [];
@@ -428,34 +410,34 @@ _id_5D60( var_0 )
     self.aerial_dangers_monitoring = common_scripts\utility::array_remove( self.aerial_dangers_monitoring, var_0 );
 }
 
-_id_988C( var_0, var_1 )
+try_place_global_badplace( var_0, var_1 )
 {
-    if ( !isdefined( level._id_5387[self.team][var_0] ) )
-        level._id_5387[self.team][var_0] = 0;
+    if ( !isdefined( level.killstreak_global_bp_exists_for[self.team][var_0] ) )
+        level.killstreak_global_bp_exists_for[self.team][var_0] = 0;
 
-    if ( !level._id_5387[self.team][var_0] )
+    if ( !level.killstreak_global_bp_exists_for[self.team][var_0] )
     {
-        level._id_5387[self.team][var_0] = 1;
-        level thread _id_5D95( self.team, var_0, var_1 );
+        level.killstreak_global_bp_exists_for[self.team][var_0] = 1;
+        level thread monitor_enemy_dangerous_killstreak( self.team, var_0, var_1 );
     }
 }
 
-_id_5D95( var_0, var_1, var_2 )
+monitor_enemy_dangerous_killstreak( var_0, var_1, var_2 )
 {
     var_3 = 0.5;
 
     while ( [[ var_2 ]]( var_0 ) )
     {
-        if ( gettime() > level._id_552D + 4000 )
+        if ( gettime() > level.last_global_badplace_time + 4000 )
         {
             badplace_global( "", 5.0, var_0, "only_sky" );
-            level._id_552D = gettime();
+            level.last_global_badplace_time = gettime();
         }
 
         wait(var_3);
     }
 
-    level._id_5387[var_0][var_1] = 0;
+    level.killstreak_global_bp_exists_for[var_0][var_1] = 0;
 }
 
 get_enemy_helicopter( var_0 )

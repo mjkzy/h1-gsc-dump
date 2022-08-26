@@ -1,28 +1,10 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     var_0 = [];
-    var_0 = _id_242B( "DEEP_AND_HARD" );
+    var_0 = createmission( "DEEP_AND_HARD" );
     var_0 addlevel( "killhouse", 0, "EARN_A_WINGED_DAGGER", 1, undefined, undefined );
     var_0 addlevel( "cargoship", 0, "MAKE_THE_JUMP", 1, "THE_PACKAGE", undefined );
     var_0 addlevel( "coup", 0, undefined, 1, undefined, undefined );
@@ -45,17 +27,17 @@ main()
     var_0 addlevel( "jeepride", 0, undefined, 1, "THE_FOURTH_HORSEMAN", undefined );
     var_0 addlevel( "airplane", 0, undefined, 1, "MILE_HIGH_CLUB", undefined );
 
-    if ( isdefined( level._id_31B6 ) )
+    if ( isdefined( level.endmission_main_func ) )
     {
-        [[ level._id_31B6 ]]();
-        level._id_31B6 = undefined;
+        [[ level.endmission_main_func ]]();
+        level.endmission_main_func = undefined;
     }
 
     precachestring( &"campaign_completed_popup" );
-    level._id_5CE0 = var_0;
+    level.missionsettings = var_0;
 }
 
-_id_2710()
+debug_test_next_mission()
 {
     wait 10;
 
@@ -67,7 +49,7 @@ _id_2710()
 
 _setmissiondvar( var_0, var_1 )
 {
-    if ( maps\_cheat::is_cheating() || common_scripts\utility::_id_382E( "has_cheated" ) )
+    if ( maps\_cheat::is_cheating() || common_scripts\utility::flag( "has_cheated" ) )
         return;
 
     if ( getdvar( "mis_cheat" ) == "1" )
@@ -77,14 +59,14 @@ _setmissiondvar( var_0, var_1 )
 _nextmission()
 {
     level notify( "achievements_level_complete" );
-    level._id_60D6 = 1;
+    level.nextmission = 1;
     level.player enableinvulnerability();
 
     if ( maps\_utility::arcademode() )
     {
         level.arcademode_success = 1;
         thread maps\_arcademode::arcademode_ends();
-        common_scripts\utility::_id_384A( "arcademode_ending_complete" );
+        common_scripts\utility::flag_wait( "arcademode_ending_complete" );
     }
 
     var_0 = undefined;
@@ -93,34 +75,34 @@ _nextmission()
     setdvar( "ui_popupString", "" );
     game["previous_map"] = level.script;
     maps\_gameskill::auto_adust_zone_complete( "aa_main_" + level.script );
-    var_0 = level._id_5CE0 _id_4000( level.script );
+    var_0 = level.missionsettings getlevelindex( level.script );
 
     if ( !isdefined( var_0 ) )
         return;
 
     if ( level.script != "jeepride" && level.script != "airplane" )
     {
-        thread maps\_hud_util::_id_35E3( 1, undefined );
-        soundscripts\_snd::_id_870C( "end_mission_fade_to_black" );
+        thread maps\_hud_util::fade_out( 1, undefined );
+        soundscripts\_snd::snd_message( "end_mission_fade_to_black" );
         wait 2;
-        maps\_utility::_id_56C0();
+        maps\_utility::level_end_save();
     }
 
-    var_1 = level._id_5CE0 isallmisioncompleted();
-    level._id_5CE0 _id_7F9F( var_0 );
+    var_1 = level.missionsettings isallmisioncompleted();
+    level.missionsettings setlevelcompleted( var_0 );
     updategamerprofile();
 
-    if ( level._id_5CE0 _id_4713( var_0 ) )
-        maps\_utility::_id_41DD( level._id_5CE0 _id_3ED8( var_0 ) );
+    if ( level.missionsettings hasachievement( var_0 ) )
+        maps\_utility::giveachievement_wrapper( level.missionsettings getachievement( var_0 ) );
 
-    if ( level._id_5CE0 _id_4734( var_0 ) && _id_3FFF( var_0 ) == 4 && level._id_5CE0 _id_1CDA( var_0 ) )
-        maps\_utility::_id_41DD( level._id_5CE0 _id_4003( var_0 ) );
+    if ( level.missionsettings haslevelveteranaward( var_0 ) && getlevelcompleted( var_0 ) == 4 && level.missionsettings check_other_haslevelveteranachievement( var_0 ) )
+        maps\_utility::giveachievement_wrapper( level.missionsettings getlevelveteranaward( var_0 ) );
 
-    if ( level._id_5CE0 _id_473A() && level._id_5CE0 _id_4014() > 2 )
-        maps\_utility::_id_41DD( level._id_5CE0 _id_3FC2() );
+    if ( level.missionsettings hasmissionhardenedaward() && level.missionsettings getlowestskill() > 2 )
+        maps\_utility::giveachievement_wrapper( level.missionsettings gethardenedaward() );
 
-    level._id_5CE0 checkcampaigncompleted();
-    var_2 = level._id_5CE0._id_56E5.size;
+    level.missionsettings checkcampaigncompleted();
+    var_2 = level.missionsettings.levels.size;
 
     if ( level.script == "airplane" )
     {
@@ -136,7 +118,7 @@ _nextmission()
     }
     else
     {
-        if ( var_1 != level._id_5CE0 isallmisioncompleted() )
+        if ( var_1 != level.missionsettings isallmisioncompleted() )
         {
             level.player _meth_84ED( &"campaign_completed_popup" );
             level.player waittill( "menuresponse", var_3, var_4 );
@@ -170,17 +152,17 @@ _nextmission()
 
             if ( level.script == "cargoship" )
             {
-                changelevel( "blackout", level._id_5CE0 _id_3FDE( var_0 ) );
+                changelevel( "blackout", level.missionsettings getkeepweapons( var_0 ) );
                 return;
             }
             else if ( level.script == "airlift" )
             {
-                changelevel( "village_assault", level._id_5CE0 _id_3FDE( var_0 ) );
+                changelevel( "village_assault", level.missionsettings getkeepweapons( var_0 ) );
                 return;
             }
             else if ( level.script == "jeepride" )
             {
-                changelevel( "airplane", level._id_5CE0 _id_3FDE( var_0 ) );
+                changelevel( "airplane", level.missionsettings getkeepweapons( var_0 ) );
                 return;
             }
         }
@@ -188,39 +170,39 @@ _nextmission()
         if ( level.script == "jeepride" )
         {
             setdvar( "credits_load", "1" );
-            changelevel( "simplecredits", level._id_5CE0 _id_3FDE( var_0 ) );
+            changelevel( "simplecredits", level.missionsettings getkeepweapons( var_0 ) );
             return;
         }
 
-        if ( level._id_5CE0 _id_85C2( var_0 ) )
+        if ( level.missionsettings skipssuccess( var_0 ) )
         {
-            changelevel( level._id_5CE0 _id_4001( var_2 ), level._id_5CE0 _id_3FDE( var_0 ) );
+            changelevel( level.missionsettings getlevelname( var_2 ), level.missionsettings getkeepweapons( var_0 ) );
             return;
         }
 
-        missionsuccess( level._id_5CE0 _id_4001( var_2 ), level._id_5CE0 _id_3FDE( var_0 ) );
+        missionsuccess( level.missionsettings getlevelname( var_2 ), level.missionsettings getkeepweapons( var_0 ) );
     }
 }
 
-_id_9B73()
+updatesppercent()
 {
-    var_0 = int( _id_4135() * 100 );
+    var_0 = int( gettotalpercentcompletesp() * 100 );
 
     if ( getdvarint( "mis_cheat" ) == 0 )
-        level.player _meth_8213( "percentCompleteSP", var_0 );
+        level.player setlocalplayerprofiledata( "percentCompleteSP", var_0 );
 
     return var_0;
 }
 
-_id_4135()
+gettotalpercentcompletesp()
 {
-    var_0 = max( _id_40ED(), _id_40F1() );
+    var_0 = max( getstat_easy(), getstat_regular() );
     var_1 = 0.5;
-    var_2 = _id_40EE();
+    var_2 = getstat_hardened();
     var_3 = 0.25;
-    var_4 = _id_40F2();
+    var_4 = getstat_veteran();
     var_5 = 0.1;
-    var_6 = _id_40EF();
+    var_6 = getstat_intel();
     var_7 = 0.15;
     var_8 = 0.0;
     var_8 += var_1 * var_0;
@@ -230,69 +212,69 @@ _id_4135()
     return var_8;
 }
 
-_id_40F0( var_0 )
+getstat_progression( var_0 )
 {
-    var_1 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_1 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
     var_2 = 0;
     var_3 = [];
     var_4 = 0;
 
-    for ( var_5 = 0; var_5 < level._id_5CE0._id_56E5.size; var_5++ )
+    for ( var_5 = 0; var_5 < level.missionsettings.levels.size; var_5++ )
     {
         if ( int( var_1[var_5] ) >= var_0 )
             var_2++;
     }
 
-    var_6 = var_2 / level._id_5CE0._id_56E5.size * 100;
+    var_6 = var_2 / level.missionsettings.levels.size * 100;
     return var_6;
 }
 
-_id_40ED()
+getstat_easy()
 {
     var_0 = 1;
-    return _id_40F0( var_0 );
+    return getstat_progression( var_0 );
 }
 
-_id_40F1()
+getstat_regular()
 {
     var_0 = 2;
-    return _id_40F0( var_0 );
+    return getstat_progression( var_0 );
 }
 
-_id_40EE()
+getstat_hardened()
 {
     var_0 = 3;
-    return _id_40F0( var_0 );
+    return getstat_progression( var_0 );
 }
 
-_id_40F2()
+getstat_veteran()
 {
     var_0 = 4;
-    return _id_40F0( var_0 );
+    return getstat_progression( var_0 );
 }
 
-_id_40EF()
+getstat_intel()
 {
     var_0 = 45;
-    var_1 = level.player _meth_8212( "cheatPoints" ) / var_0 * 100;
+    var_1 = level.player getlocalplayerprofiledata( "cheatPoints" ) / var_0 * 100;
     return var_1;
 }
 
-_id_3FFF( var_0 )
+getlevelcompleted( var_0 )
 {
-    return int( level.player _meth_8212( "missionHighestDifficulty" )[var_0] );
+    return int( level.player getlocalplayerprofiledata( "missionHighestDifficulty" )[var_0] );
 }
 
-_id_40CF( var_0 )
+getsolevelcompleted( var_0 )
 {
-    return int( level.player _meth_8212( "missionSOHighestDifficulty" )[var_0] );
+    return int( level.player getlocalplayerprofiledata( "missionSOHighestDifficulty" )[var_0] );
 }
 
-_id_7F9F( var_0 )
+setlevelcompleted( var_0 )
 {
-    var_1 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_1 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
     var_2 = "";
-    var_3 = level._id_3BFE;
+    var_3 = level.gameskill;
 
     if ( level.script == "killhouse" || level.script == "coup" || level.script == "aftermath" )
         var_3 = 3;
@@ -328,33 +310,33 @@ _id_7F9F( var_0 )
 
 _sethighestmissionifnotcheating( var_0 )
 {
-    if ( maps\_cheat::is_cheating() || common_scripts\utility::_id_382E( "has_cheated" ) )
+    if ( maps\_cheat::is_cheating() || common_scripts\utility::flag( "has_cheated" ) )
         return;
 
     if ( getdvar( "mis_cheat" ) == "1" )
         return;
 
-    level.player _meth_8213( "highestMission", var_0 );
+    level.player setlocalplayerprofiledata( "highestMission", var_0 );
 }
 
 _setmissiondiffstringifnotcheating( var_0 )
 {
-    if ( maps\_cheat::is_cheating() || common_scripts\utility::_id_382E( "has_cheated" ) )
+    if ( maps\_cheat::is_cheating() || common_scripts\utility::flag( "has_cheated" ) )
         return;
 
     if ( getdvar( "mis_cheat" ) == "1" )
         return;
 
-    level.player _meth_8213( "missionHighestDifficulty", var_0 );
+    level.player setlocalplayerprofiledata( "missionHighestDifficulty", var_0 );
 }
 
-_id_4002( var_0 )
+getlevelskill( var_0 )
 {
-    var_1 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_1 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
     return int( var_1[var_0] );
 }
 
-_id_4025( var_0 )
+getmissiondvarstring( var_0 )
 {
     if ( var_0 < 9 )
         return "mis_0" + ( var_0 + 1 );
@@ -362,12 +344,12 @@ _id_4025( var_0 )
         return "mis_" + ( var_0 + 1 );
 }
 
-_id_4014()
+getlowestskill()
 {
-    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
     var_1 = 4;
 
-    for ( var_2 = 0; var_2 < self._id_56E5.size; var_2++ )
+    for ( var_2 = 0; var_2 < self.levels.size; var_2++ )
     {
         if ( int( var_0[var_2] ) < var_1 )
             var_1 = int( var_0[var_2] );
@@ -378,9 +360,9 @@ _id_4014()
 
 isallmisioncompleted()
 {
-    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
 
-    for ( var_1 = 0; var_1 < self._id_56E5.size; var_1++ )
+    for ( var_1 = 0; var_1 < self.levels.size; var_1++ )
     {
         if ( int( var_0[var_1] ) == 0 )
             return 0;
@@ -391,11 +373,11 @@ isallmisioncompleted()
 
 checkcampaigncompleted()
 {
-    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
     var_1 = 1;
     var_2 = 1;
 
-    for ( var_3 = 0; var_3 < self._id_56E5.size - 1; var_3++ )
+    for ( var_3 = 0; var_3 < self.levels.size - 1; var_3++ )
     {
         if ( int( var_0[var_3] ) == 0 )
             var_1 = 0;
@@ -405,44 +387,44 @@ checkcampaigncompleted()
     }
 
     if ( var_1 )
-        maps\_utility::_id_41DD( "CAMPAIGN_COMPLETE" );
+        maps\_utility::giveachievement_wrapper( "CAMPAIGN_COMPLETE" );
 
     if ( var_2 )
-        maps\_utility::_id_41DD( "DEEP_AND_HARD" );
+        maps\_utility::giveachievement_wrapper( "DEEP_AND_HARD" );
 }
 
-_id_242B( var_0 )
+createmission( var_0 )
 {
     var_1 = spawnstruct();
-    var_1._id_56E5 = [];
-    var_1._id_6F1E = [];
-    var_1._id_46CC = var_0;
+    var_1.levels = [];
+    var_1.prereqs = [];
+    var_1.hardenedaward = var_0;
     return var_1;
 }
 
 addlevel( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
-    var_7 = self._id_56E5.size;
-    self._id_56E5[var_7] = spawnstruct();
-    self._id_56E5[var_7].name = var_0;
-    self._id_56E5[var_7]._id_52E4 = var_1;
-    self._id_56E5[var_7].achievement = var_2;
-    self._id_56E5[var_7]._id_85C2 = var_3;
-    self._id_56E5[var_7]._id_9D93 = var_4;
+    var_7 = self.levels.size;
+    self.levels[var_7] = spawnstruct();
+    self.levels[var_7].name = var_0;
+    self.levels[var_7].keepweapons = var_1;
+    self.levels[var_7].achievement = var_2;
+    self.levels[var_7].skipssuccess = var_3;
+    self.levels[var_7].veteran_achievement = var_4;
 
     if ( isdefined( var_5 ) )
-        self._id_56E5[var_7]._id_35E9 = var_5;
+        self.levels[var_7].fade_time = var_5;
 }
 
 addprereq( var_0 )
 {
-    var_1 = self._id_6F1E.size;
-    self._id_6F1E[var_1] = var_0;
+    var_1 = self.prereqs.size;
+    self.prereqs[var_1] = var_0;
 }
 
-_id_4000( var_0 )
+getlevelindex( var_0 )
 {
-    foreach ( var_3, var_2 in self._id_56E5 )
+    foreach ( var_3, var_2 in self.levels )
     {
         if ( var_2.name == var_0 )
             return var_3;
@@ -451,63 +433,63 @@ _id_4000( var_0 )
     return undefined;
 }
 
-_id_4001( var_0 )
+getlevelname( var_0 )
 {
-    return self._id_56E5[var_0].name;
+    return self.levels[var_0].name;
 }
 
-_id_3FDE( var_0 )
+getkeepweapons( var_0 )
 {
-    return self._id_56E5[var_0]._id_52E4;
+    return self.levels[var_0].keepweapons;
 }
 
-_id_3ED8( var_0 )
+getachievement( var_0 )
 {
-    return self._id_56E5[var_0].achievement;
+    return self.levels[var_0].achievement;
 }
 
-_id_4003( var_0 )
+getlevelveteranaward( var_0 )
 {
-    return self._id_56E5[var_0]._id_9D93;
+    return self.levels[var_0].veteran_achievement;
 }
 
-_id_3F90( var_0 )
+getfadetime( var_0 )
 {
-    if ( !isdefined( self._id_56E5[var_0]._id_35E9 ) )
+    if ( !isdefined( self.levels[var_0].fade_time ) )
         return undefined;
 
-    return self._id_56E5[var_0]._id_35E9;
+    return self.levels[var_0].fade_time;
 }
 
-_id_4734( var_0 )
+haslevelveteranaward( var_0 )
 {
-    if ( isdefined( self._id_56E5[var_0]._id_9D93 ) )
+    if ( isdefined( self.levels[var_0].veteran_achievement ) )
         return 1;
     else
         return 0;
 }
 
-_id_4713( var_0 )
+hasachievement( var_0 )
 {
-    if ( isdefined( self._id_56E5[var_0].achievement ) )
+    if ( isdefined( self.levels[var_0].achievement ) )
         return 1;
     else
         return 0;
 }
 
-_id_1CDA( var_0 )
+check_other_haslevelveteranachievement( var_0 )
 {
-    for ( var_1 = 0; var_1 < self._id_56E5.size; var_1++ )
+    for ( var_1 = 0; var_1 < self.levels.size; var_1++ )
     {
         if ( var_1 == var_0 )
             continue;
 
-        if ( !_id_4734( var_1 ) )
+        if ( !haslevelveteranaward( var_1 ) )
             continue;
 
-        if ( self._id_56E5[var_1]._id_9D93 == self._id_56E5[var_0]._id_9D93 )
+        if ( self.levels[var_1].veteran_achievement == self.levels[var_0].veteran_achievement )
         {
-            if ( _id_3FFF( var_1 ) < 4 )
+            if ( getlevelcompleted( var_1 ) < 4 )
                 return 0;
         }
     }
@@ -515,41 +497,41 @@ _id_1CDA( var_0 )
     return 1;
 }
 
-_id_85C2( var_0 )
+skipssuccess( var_0 )
 {
-    if ( !isdefined( self._id_56E5[var_0]._id_85C2 ) )
+    if ( !isdefined( self.levels[var_0].skipssuccess ) )
         return 0;
 
-    return self._id_56E5[var_0]._id_85C2;
+    return self.levels[var_0].skipssuccess;
 }
 
-_id_3FC2()
+gethardenedaward()
 {
-    return self._id_46CC;
+    return self.hardenedaward;
 }
 
-_id_473A()
+hasmissionhardenedaward()
 {
-    if ( isdefined( self._id_46CC ) )
+    if ( isdefined( self.hardenedaward ) )
         return 1;
     else
         return 0;
 }
 
-_id_403E()
+getnextlevelindex()
 {
-    for ( var_0 = 0; var_0 < self._id_56E5.size; var_0++ )
+    for ( var_0 = 0; var_0 < self.levels.size; var_0++ )
     {
-        if ( !_id_4002( var_0 ) )
+        if ( !getlevelskill( var_0 ) )
             return var_0;
     }
 
     return 0;
 }
 
-_id_3988()
+force_all_complete()
 {
-    var_0 = level.player _meth_8212( "missionHighestDifficulty" );
+    var_0 = level.player getlocalplayerprofiledata( "missionHighestDifficulty" );
     var_1 = "";
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
@@ -563,28 +545,28 @@ _id_3988()
         var_1 += 0;
     }
 
-    level.player _meth_8213( "missionHighestDifficulty", var_1 );
-    level.player _meth_8213( "highestMission", 20 );
+    level.player setlocalplayerprofiledata( "missionHighestDifficulty", var_1 );
+    level.player setlocalplayerprofiledata( "highestMission", 20 );
 }
 
-_id_1EE2()
+clearall()
 {
-    level.player _meth_8213( "missionHighestDifficulty", "00000000000000000000000000000000000000000000000000" );
-    level.player _meth_8213( "highestMission", 1 );
+    level.player setlocalplayerprofiledata( "missionHighestDifficulty", "00000000000000000000000000000000000000000000000000" );
+    level.player setlocalplayerprofiledata( "highestMission", 1 );
 }
 
-_id_2452()
+credits_end()
 {
     changelevel( "airplane", 0 );
 }
 
-_id_3139( var_0 )
+end_mission_fade_audio_and_video( var_0 )
 {
     if ( !isdefined( var_0 ) || var_0 == 0 )
         return;
 
-    soundscripts\_snd::_id_870C( "finish_mission_fade", var_0 );
-    var_1 = maps\_hud_util::_id_23A2( "black", 0, level.player );
+    soundscripts\_snd::snd_message( "finish_mission_fade", var_0 );
+    var_1 = maps\_hud_util::create_client_overlay( "black", 0, level.player );
     var_1.sort = 100;
     var_1 fadeovertime( var_0 );
     var_1.alpha = 1;

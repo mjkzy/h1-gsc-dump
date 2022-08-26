@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
     {
         level.oldschool = 0;
         return;
@@ -45,8 +27,8 @@ init()
     oldschoolloadout();
     level.bypassclasschoicefunc = ::bypassclasschoicefunc;
     level.streamprimariesfunc = ::streamprimariesfunc;
-    thread _id_4DFA();
-    thread _id_64C8();
+    thread initpickups();
+    thread onplayerconnect();
     level.oldschoolpickupsound = "oldschool_pickup";
     level.oldschoolrespawnsound = "oldschool_return";
     level.perkpickuphints = [];
@@ -88,7 +70,7 @@ streamprimariesfunc()
 
 oldschoolloadout()
 {
-    level.oldschool_loadout = maps\mp\gametypes\_class::_id_3F7B();
+    level.oldschool_loadout = maps\mp\gametypes\_class::getemptyloadout();
     level.oldschool_loadout["loadoutPrimary"] = "h1_skorpion";
     level.oldschool_loadout["loadoutSecondary"] = "h1_beretta";
     level.oldschool_loadout["loadoutEquipment"] = "h1_fraggrenade_mp";
@@ -180,7 +162,7 @@ converttoh1pickup( var_0 )
     var_6 = spawn( var_5, var_1, var_3 );
     var_6.angles = var_2;
     var_6.targetname = var_4;
-    var_6._id_7A99 = var_0._id_7A99;
+    var_6.script_parameters = var_0.script_parameters;
     var_0 delete();
 }
 
@@ -208,7 +190,7 @@ useunlitfx()
     level.pickupunavailableeffect = loadfx( "misc/ui_pickup_unavailable_unlit" );
 }
 
-_id_4DFA()
+initpickups()
 {
     if ( !isdefined( level.oldschoolfxtype ) )
         level.oldschoolfxtype = "normal";
@@ -305,7 +287,7 @@ trackpickup( var_0, var_1 )
     if ( issubstr( var_4, "weapon_" ) )
     {
         var_11 = 1;
-        var_13 = var_0 maps\mp\gametypes\_weapons::_id_3FDC();
+        var_13 = var_0 maps\mp\gametypes\_weapons::getitemweaponname();
         var_16 = level.pickupweaponrespawntime;
     }
     else if ( var_4 == "script_model" )
@@ -315,7 +297,7 @@ trackpickup( var_0, var_1 )
 
         if ( !isdefined( level.perkpickuphints[var_14] ) )
         {
-            common_scripts\utility::_id_334F( "oldschool_pickup with classname script_model does not have script_noteworthy set to a valid perk" );
+            common_scripts\utility::error( "oldschool_pickup with classname script_model does not have script_noteworthy set to a valid perk" );
             return;
         }
 
@@ -335,7 +317,7 @@ trackpickup( var_0, var_1 )
     }
     else
     {
-        common_scripts\utility::_id_334F( "oldschool_pickup with classname " + var_4 + " is not supported (at location " + var_0.origin + ")" );
+        common_scripts\utility::error( "oldschool_pickup with classname " + var_4 + " is not supported (at location " + var_0.origin + ")" );
         return;
     }
 
@@ -375,7 +357,7 @@ trackpickup( var_0, var_1 )
         {
             var_15 waittill( "trigger", var_17 );
             var_0 delete();
-            var_15 common_scripts\utility::_id_97CC();
+            var_15 common_scripts\utility::trigger_off();
         }
 
         if ( var_11 )
@@ -389,11 +371,11 @@ trackpickup( var_0, var_1 )
         }
         else if ( !var_17 maps\mp\_utility::_hasperk( var_14 ) )
         {
-            var_17 maps\mp\_utility::_id_41F8( var_14, 1, var_17.numperks );
+            var_17 maps\mp\_utility::giveperk( var_14, 1, var_17.numperks );
             var_17.numperks++;
         }
 
-        thread maps\mp\_utility::_id_6DDC( level.oldschoolpickupsound, var_5 );
+        thread maps\mp\_utility::playsoundinspace( level.oldschoolpickupsound, var_5 );
         var_3 delete();
         var_3 = spawnpickupfx( var_2, level.pickupunavailableeffect );
         wait(var_16);
@@ -407,7 +389,7 @@ trackpickup( var_0, var_1 )
         if ( var_12 )
         {
             var_0 setmodel( var_8 );
-            var_15 common_scripts\utility::_id_97CE();
+            var_15 common_scripts\utility::trigger_on();
         }
 
         var_0 playsound( level.oldschoolrespawnsound );
@@ -526,16 +508,16 @@ delayeddeletiononswappedweapons( var_0 )
     var_2 thread delayeddeletion( var_0 );
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connecting", var_0 );
-        var_0 thread _id_64D6();
+        var_0 thread onplayerspawned();
     }
 }
 
-_id_64D6()
+onplayerspawned()
 {
     self endon( "disconnect" );
 
@@ -561,8 +543,8 @@ clearperksondeath()
 watchweaponslist()
 {
     self endon( "death" );
-    waitframe;
-    self._id_A2E6 = self getweaponslistall();
+    waittillframeend;
+    self.weapons = self getweaponslistall();
 
     for (;;)
     {
@@ -576,14 +558,14 @@ updateweaponslist( var_0 )
     self endon( "death" );
     self notify( "updating_weapons_list" );
     self endon( "updating_weapons_list" );
-    self._id_A2E6 = self getweaponslistall();
+    self.weapons = self getweaponslistall();
 }
 
 hadweaponbeforepickingup( var_0 )
 {
-    for ( var_1 = 0; var_1 < self._id_A2E6.size; var_1++ )
+    for ( var_1 = 0; var_1 < self.weapons.size; var_1++ )
     {
-        if ( self._id_A2E6[var_1] == var_0 )
+        if ( self.weapons[var_1] == var_0 )
             return 1;
     }
 

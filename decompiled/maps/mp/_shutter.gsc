@@ -1,28 +1,10 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    level._id_4C13 = 0;
-    common_scripts\utility::array_levelthread( getentarray( "wire", "targetname" ), ::_id_A344 );
+    level.inc = 0;
+    common_scripts\utility::array_levelthread( getentarray( "wire", "targetname" ), ::wirewander );
     var_0 = getentarray( "shutter_left", "targetname" );
     var_1 = getentarray( "shutter_right_open", "targetname" );
 
@@ -43,7 +25,7 @@ main()
     wait 0.2;
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
-        var_0[var_2]._id_8D4A = var_0[var_2].angles[1];
+        var_0[var_2].startyaw = var_0[var_2].angles[1];
 
     var_4 = getentarray( "shutter_right", "targetname" );
     var_1 = getentarray( "shutter_left_open", "targetname" );
@@ -57,20 +39,20 @@ main()
         var_4[var_4.size] = var_1[var_2];
 
     for ( var_2 = 0; var_2 < var_4.size; var_2++ )
-        var_4[var_2]._id_8D4A = var_4[var_2].angles[1];
+        var_4[var_2].startyaw = var_4[var_2].angles[1];
 
     var_1 = undefined;
     var_5 = "left";
 
     for (;;)
     {
-        common_scripts\utility::array_levelthread( var_0, ::_id_8559, var_5 );
-        common_scripts\utility::array_levelthread( var_4, ::_id_855A, var_5 );
+        common_scripts\utility::array_levelthread( var_0, ::shutterwanderleft, var_5 );
+        common_scripts\utility::array_levelthread( var_4, ::shutterwanderright, var_5 );
         level waittill( "wind blows", var_5 );
     }
 }
 
-_id_A333()
+windcontroller()
 {
     for (;;)
     {
@@ -84,11 +66,11 @@ _id_A333()
     }
 }
 
-_id_8559( var_0, var_1 )
+shutterwanderleft( var_0, var_1 )
 {
-    level._id_4C13++;
+    level.inc++;
     level endon( "wind blows" );
-    var_2 = var_0._id_8D4A;
+    var_2 = var_0.startyaw;
 
     if ( var_1 == "left" )
         var_2 += 179.9;
@@ -107,7 +89,7 @@ _id_8559( var_0, var_1 )
         var_2 = var_0.angles[1] + var_4;
         var_5 = var_0.angles[1] + var_4 * -1;
 
-        if ( var_2 < var_0._id_8D4A || var_2 > var_0._id_8D4A + 179 )
+        if ( var_2 < var_0.startyaw || var_2 > var_0.startyaw + 179 )
             var_2 = var_5;
 
         var_6 = abs( var_0.angles[1] - var_2 );
@@ -121,11 +103,11 @@ _id_8559( var_0, var_1 )
     }
 }
 
-_id_855A( var_0, var_1 )
+shutterwanderright( var_0, var_1 )
 {
-    level._id_4C13++;
+    level.inc++;
     level endon( "wind blows" );
-    var_2 = var_0._id_8D4A;
+    var_2 = var_0.startyaw;
 
     if ( var_1 == "left" )
         var_2 += 179.9;
@@ -144,7 +126,7 @@ _id_855A( var_0, var_1 )
         var_2 = var_0.angles[1] + var_4;
         var_5 = var_0.angles[1] + var_4 * -1;
 
-        if ( var_2 < var_0._id_8D4A || var_2 > var_0._id_8D4A + 179 )
+        if ( var_2 < var_0.startyaw || var_2 > var_0.startyaw + 179 )
             var_2 = var_5;
 
         var_6 = abs( var_0.angles[1] - var_2 );
@@ -158,7 +140,7 @@ _id_855A( var_0, var_1 )
     }
 }
 
-_id_A344( var_0 )
+wirewander( var_0 )
 {
     var_1 = getentarray( var_0.target, "targetname" );
     var_2 = var_1[0].origin;

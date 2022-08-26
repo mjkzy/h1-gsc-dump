@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    level._id_78BA["knife_sequence"] = "parabolic_knife_sequence";
+    level.scr_sound["knife_sequence"] = "parabolic_knife_sequence";
     level._effect["knife_stab"] = loadfx( "fx/misc/parabolic_knife_stab" );
     level._effect["fog_icbm"] = loadfx( "fx/weather/fog_icbm" );
     level._effect["fog_icbm_a"] = loadfx( "fx/weather/fog_icbm_a" );
@@ -83,21 +65,21 @@ main()
     level._effect["electricity_online_icbm"] = loadfx( "vfx/map/icbm/electricity_online_icbm" );
     level._effect["fx_sunflare_icbm"] = loadfx( "vfx/lensflare/fx_sunflare_icbm" );
     level._effect["hunted_headlight_spotlight_alone"] = loadfx( "vfx/lights/hunted/hunted_headlight_spotlight_alone" );
-    animscripts\utility::_id_7F74( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "brick", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "grass", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "metal", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "mud", loadfx( "fx/impacts/footstep_snow" ) );
-    animscripts\utility::_id_7F74( "rock", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "sand", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "snow", loadfx( "fx/impacts/footstep_snow" ) );
-    animscripts\utility::_id_7F74( "water", loadfx( "fx/impacts/footstep_water" ) );
-    animscripts\utility::_id_7F74( "wood", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "brick", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "grass", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "metal", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "mud", loadfx( "fx/impacts/footstep_snow" ) );
+    animscripts\utility::setfootstepeffect( "rock", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "sand", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "snow", loadfx( "fx/impacts/footstep_snow" ) );
+    animscripts\utility::setfootstepeffect( "water", loadfx( "fx/impacts/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "wood", loadfx( "fx/impacts/footstep_dust" ) );
     level._effect["00_particle_shadow_animated_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_lrg_e" );
     level._effect["00_particle_shadow_animated_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_med_e" );
     level._effect["00_particle_shadow_animated_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_sm_e" );
@@ -123,62 +105,62 @@ playereffect()
 
 cloudcover()
 {
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 16297.7, -22377.5, 352.957 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -15;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 11919.2, -21866.1, 317.02 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -15;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 9175.91, -21694.6, 317.02 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -15;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 6279.5, -22038.7, 170.964 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -15;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 4398.43, -20449.8, 180.961 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -15;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 2362.25, -19845.8, 552.572 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -15;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 16297.7, -22377.5, 352.957 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 11886.4, -21637.4, 317.02 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 9210.19, -21701.7, 317.02 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 6279.5, -22038.7, 290.964 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 4398.43, -20449.8, 268.961 );
     var_0.v["angles"] = ( 86.0004, 179.999, 0.0 );
     var_0.v["fxid"] = "cloud_cover";
     var_0.v["delay"] = -100;
-    var_0 = common_scripts\utility::_id_242E( "cloud_cover" );
+    var_0 = common_scripts\utility::createoneshoteffect( "cloud_cover" );
     var_0.v["origin"] = ( 1306.07, -19108.0, 470.969 );
     var_0.v["angles"] = ( 89.9996, 12.6698, -167.33 );
     var_0.v["fxid"] = "cloud_cover";

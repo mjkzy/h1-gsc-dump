@@ -1,37 +1,19 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_8072();
-    _id_805E();
+    setup_callbacks();
+    setup_bot_hp();
 }
 
-_id_8072()
+setup_callbacks()
 {
     level.bot_funcs["gametype_think"] = ::bot_hp_think;
-    level.bot_funcs["should_start_cautious_approach"] = ::_id_847D;
+    level.bot_funcs["should_start_cautious_approach"] = ::should_start_cautious_approach_hp;
 }
 
-_id_805E()
+setup_bot_hp()
 {
     maps\mp\bots\_bots_util::bot_waittill_bots_enabled();
     var_0 = 0;
@@ -40,19 +22,19 @@ _id_805E()
     {
         var_2 = level.all_hp_zones[var_1];
         var_2.script_label = "zone_" + var_1;
-        var_2 thread maps\mp\bots\_bots_gametype_common::_id_5E23();
+        var_2 thread maps\mp\bots\_bots_gametype_common::monitor_zone_control();
         var_3 = 0;
 
-        if ( isdefined( var_2._id_9754._id_97CC ) && var_2._id_9754._id_97CC )
+        if ( isdefined( var_2.trig.trigger_off ) && var_2.trig.trigger_off )
         {
-            var_2._id_9754 common_scripts\utility::_id_97CE();
+            var_2.trig common_scripts\utility::trigger_on();
             var_3 = 1;
         }
 
-        var_2._id_6139 = maps\mp\bots\_bots_gametype_common::bot_get_valid_nodes_in_trigger( var_2._id_9754 );
+        var_2.nodes = maps\mp\bots\_bots_gametype_common::bot_get_valid_nodes_in_trigger( var_2.trig );
 
         if ( var_3 )
-            var_2._id_9754 common_scripts\utility::_id_97CC();
+            var_2.trig common_scripts\utility::trigger_off();
     }
 
     level.bot_set_zone_nodes = 1;
@@ -60,10 +42,10 @@ _id_805E()
     if ( !var_0 )
     {
         level.bot_hp_allow_predictive_capping = 1;
-        var_4 = level._id_A3DD;
+        var_4 = level.zone;
 
         if ( !isdefined( var_4 ) )
-            var_4 = common_scripts\utility::_id_710E( level.all_hp_zones );
+            var_4 = common_scripts\utility::random( level.all_hp_zones );
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_4 ] );
         level.bot_gametype_zones_precached[var_4 getentitynumber()] = 1;
@@ -77,12 +59,12 @@ bot_cache_entrances_to_other_zones( var_0 )
     for ( var_1 = common_scripts\utility::array_remove( level.all_hp_zones, var_0 ); var_1.size > 0; var_1 = common_scripts\utility::array_remove( var_1, var_2 ) )
     {
         var_2 = undefined;
-        var_3 = level._id_A3DD;
+        var_3 = level.zone;
 
         if ( isdefined( var_3 ) && common_scripts\utility::array_contains( var_1, var_3 ) )
             var_2 = var_3;
         else
-            var_2 = common_scripts\utility::_id_710E( var_1 );
+            var_2 = common_scripts\utility::random( var_1 );
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_2 ] );
         level.bot_gametype_zones_precached[var_2 getentitynumber()] = 1;
@@ -103,7 +85,7 @@ bot_hp_think()
     self botsetflag( "separation", 0 );
     self botsetflag( "grenade_objectives", 1 );
     var_0 = undefined;
-    var_1 = level._id_A3DD;
+    var_1 = level.zone;
 
     for (;;)
     {
@@ -112,38 +94,38 @@ bot_hp_think()
         if ( self.health <= 0 )
             continue;
 
-        if ( !isdefined( level._id_A3DD ) || !isdefined( level.bot_gametype_zones_precached[level._id_A3DD getentitynumber()] ) )
+        if ( !isdefined( level.zone ) || !isdefined( level.bot_gametype_zones_precached[level.zone getentitynumber()] ) )
         {
             if ( maps\mp\bots\_bots_util::bot_is_defending() )
                 maps\mp\bots\_bots_strategy::bot_defend_stop();
 
-            self._id_2507 = undefined;
-            self [[ self._id_67E1 ]]();
+            self.current_zone = undefined;
+            self [[ self.personality_update_function ]]();
             continue;
         }
 
-        if ( var_1 != level._id_A3DD )
+        if ( var_1 != level.zone )
         {
             var_0 = undefined;
-            var_1 = level._id_A3DD;
+            var_1 = level.zone;
         }
 
-        if ( isdefined( level._id_A3F4 ) && !isdefined( var_0 ) && level._id_7130 == 0 && level.bot_hp_allow_predictive_capping )
+        if ( isdefined( level.zonemovetime ) && !isdefined( var_0 ) && level.randomzonespawn == 0 && level.bot_hp_allow_predictive_capping )
         {
-            var_2 = level._id_A3F4 - gettime();
+            var_2 = level.zonemovetime - gettime();
 
             if ( var_2 > 0 && var_2 < 10000 )
             {
-                var_3 = level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_4078() == self.team;
+                var_3 = level.zone.gameobject maps\mp\gametypes\_gameobjects::getownerteam() == self.team;
 
                 if ( !var_3 )
                 {
-                    var_4 = level._id_A3DD._id_A3E0.radius * 6;
+                    var_4 = level.zone.zone_bounds.radius * 6;
 
                     if ( var_2 < 5000 )
-                        var_4 = level._id_A3DD._id_A3E0.radius * 3;
+                        var_4 = level.zone.zone_bounds.radius * 3;
 
-                    var_5 = distance( level._id_A3DD._id_A3E0._id_1C0F, self.origin );
+                    var_5 = distance( level.zone.zone_bounds.center, self.origin );
 
                     if ( var_5 > var_4 )
                         var_0 = bot_should_cap_next_zone();
@@ -156,7 +138,7 @@ bot_hp_think()
                     if ( var_2 < 5000 )
                         var_7 = ceil( var_6 / 3 );
 
-                    var_8 = bot_get_num_teammates_capturing_zone( level._id_A3DD );
+                    var_8 = bot_get_num_teammates_capturing_zone( level.zone );
 
                     if ( var_8 + 1 > var_7 )
                         var_0 = bot_should_cap_next_zone();
@@ -164,10 +146,10 @@ bot_hp_think()
             }
         }
 
-        var_9 = level._id_A3DD;
+        var_9 = level.zone;
 
         if ( isdefined( var_0 ) && var_0 )
-            var_9 = level._id_A3F6[( level._id_6F7B + 1 ) % level._id_A3F6.size];
+            var_9 = level.zones[( level.prevzoneindex + 1 ) % level.zones.size];
 
         if ( !bot_is_capturing_zone( var_9 ) )
             bot_capture_hp_zone( var_9 );
@@ -176,7 +158,7 @@ bot_hp_think()
 
 bot_should_cap_next_zone()
 {
-    if ( level._id_7130 )
+    if ( level.randomzonespawn )
         return 0;
     else
     {
@@ -203,11 +185,11 @@ bot_get_teammates_capturing_zone( var_0 )
 {
     var_1 = [];
 
-    foreach ( var_3 in level._id_669D )
+    foreach ( var_3 in level.participants )
     {
-        if ( var_3 != self && maps\mp\_utility::_id_51CE( var_3 ) && isalliedsentient( self, var_3 ) )
+        if ( var_3 != self && maps\mp\_utility::isteamparticipant( var_3 ) && isalliedsentient( self, var_3 ) )
         {
-            if ( var_3 istouching( level._id_A3DD._id_9754 ) )
+            if ( var_3 istouching( level.zone.trig ) )
             {
                 if ( !isai( var_3 ) || var_3 bot_is_capturing_zone( var_0 ) )
                     var_1[var_1.size] = var_3;
@@ -223,26 +205,26 @@ bot_is_capturing_zone( var_0 )
     if ( !maps\mp\bots\_bots_util::bot_is_capturing() )
         return 0;
 
-    return self._id_2507 == var_0;
+    return self.current_zone == var_0;
 }
 
 bot_capture_hp_zone( var_0 )
 {
-    self._id_2507 = var_0;
-    var_1["entrance_points_index"] = var_0._id_3320;
-    var_1["override_origin_node"] = var_0._id_1C10;
-    maps\mp\bots\_bots_strategy::bot_capture_zone( var_0.origin, var_0._id_6139, var_0._id_9754, var_1 );
+    self.current_zone = var_0;
+    var_1["entrance_points_index"] = var_0.entrance_indices;
+    var_1["override_origin_node"] = var_0.center_node;
+    maps\mp\bots\_bots_strategy::bot_capture_zone( var_0.origin, var_0.nodes, var_0.trig, var_1 );
 }
 
-_id_847D( var_0 )
+should_start_cautious_approach_hp( var_0 )
 {
     if ( var_0 )
     {
-        var_1 = level._id_A3DD._id_3BF8 maps\mp\gametypes\_gameobjects::_id_4078();
+        var_1 = level.zone.gameobject maps\mp\gametypes\_gameobjects::getownerteam();
 
         if ( var_1 == "neutral" || var_1 == self.team )
             return 0;
     }
 
-    return maps\mp\bots\_bots_strategy::_id_847B( var_0 );
+    return maps\mp\bots\_bots_strategy::should_start_cautious_approach_default( var_0 );
 }

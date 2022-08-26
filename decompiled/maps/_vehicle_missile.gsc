@@ -1,49 +1,31 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     if ( getdvar( "cobrapilot_surface_to_air_missiles_enabled" ) == "" )
         setdvar( "cobrapilot_surface_to_air_missiles_enabled", "1" );
 
-    _id_98A3();
-    thread _id_37E1();
-    thread _id_9999();
-    thread _id_297E();
+    tryreload();
+    thread firemissile();
+    thread turret_think();
+    thread detachall_on_death();
 }
 
-_id_297E()
+detachall_on_death()
 {
     self waittill( "death" );
     self detachall();
 }
 
-_id_9999()
+turret_think()
 {
     self endon( "death" );
 
-    if ( !isdefined( self._id_7AFF ) )
+    if ( !isdefined( self.script_turret ) )
         return;
 
-    if ( self._id_7AFF == 0 )
+    if ( self.script_turret == 0 )
         return;
 
     self.attackradius = 30000;
@@ -51,18 +33,18 @@ _id_9999()
     if ( isdefined( self.radius ) )
         self.attackradius = self.radius;
 
-    while ( !isdefined( level._id_1FFE ) )
+    while ( !isdefined( level.cobrapilot_difficulty ) )
         wait 0.05;
 
     var_0 = 1.0;
 
-    if ( level._id_1FFE == "easy" )
+    if ( level.cobrapilot_difficulty == "easy" )
         var_0 = 0.5;
-    else if ( level._id_1FFE == "medium" )
+    else if ( level.cobrapilot_difficulty == "medium" )
         var_0 = 1.7;
-    else if ( level._id_1FFE == "hard" )
+    else if ( level.cobrapilot_difficulty == "hard" )
         var_0 = 1.0;
-    else if ( level._id_1FFE == "insane" )
+    else if ( level.cobrapilot_difficulty == "insane" )
         var_0 = 1.5;
 
     self.attackradius *= var_0;
@@ -74,18 +56,18 @@ _id_9999()
     {
         wait(2 + randomfloat( 1 ));
         var_1 = undefined;
-        var_1 = maps\_helicopter_globals::_id_3F7F( self.attackradius, undefined, 0, 1 );
+        var_1 = maps\_helicopter_globals::getenemytarget( self.attackradius, undefined, 0, 1 );
 
         if ( !isdefined( var_1 ) )
             continue;
 
         var_2 = var_1.origin;
 
-        if ( isdefined( var_1._id_7AED ) )
-            var_2 += ( 0, 0, var_1._id_7AED );
+        if ( isdefined( var_1.script_targetoffset_z ) )
+            var_2 += ( 0, 0, var_1.script_targetoffset_z );
 
-        self _meth_825D( var_2 );
-        level thread _id_9984( self, 5.0 );
+        self setturrettargetvec( var_2 );
+        level thread turret_rotate_timeout( self, 5.0 );
         self waittill( "turret_rotate_stopped" );
         self clearturrettargetent();
 
@@ -105,12 +87,12 @@ _id_9999()
 
             if ( isdefined( var_4 ) )
             {
-                if ( level._id_1FFE == "hard" )
+                if ( level.cobrapilot_difficulty == "hard" )
                 {
                     wait(1 + randomfloat( 2 ));
                     continue;
                 }
-                else if ( level._id_1FFE == "insane" )
+                else if ( level.cobrapilot_difficulty == "insane" )
                     continue;
                 else
                     var_4 waittill( "death" );
@@ -121,7 +103,7 @@ _id_9999()
     }
 }
 
-_id_9984( var_0, var_1 )
+turret_rotate_timeout( var_0, var_1 )
 {
     var_0 endon( "death" );
     var_0 endon( "turret_rotate_stopped" );
@@ -129,7 +111,7 @@ _id_9984( var_0, var_1 )
     var_0 notify( "turret_rotate_stopped" );
 }
 
-_id_A346( var_0 )
+within_attack_range( var_0 )
 {
     var_1 = distance( ( self.origin[0], self.origin[1], 0 ), ( var_0.origin[0], var_0.origin[1], 0 ) );
     var_2 = var_0.origin[2] - self.origin[2];
@@ -145,7 +127,7 @@ _id_A346( var_0 )
     return 0;
 }
 
-_id_37E1()
+firemissile()
 {
     self endon( "death" );
 
@@ -154,35 +136,35 @@ _id_37E1()
         self waittill( "shoot_target", var_0 );
         var_1 = undefined;
 
-        if ( !isdefined( var_0._id_7AED ) )
-            var_0._id_7AED = 0;
+        if ( !isdefined( var_0.script_targetoffset_z ) )
+            var_0.script_targetoffset_z = 0;
 
-        var_2 = ( 0, 0, var_0._id_7AED );
-        var_1 = self fireweapon( self._id_5CCA[self._id_5CBD], var_0, var_2 );
-        var_1 thread maps\_utility::_id_69C6( "weap_bm21_missile_projectile" );
+        var_2 = ( 0, 0, var_0.script_targetoffset_z );
+        var_1 = self fireweapon( self.missiletags[self.missilelaunchnexttag], var_0, var_2 );
+        var_1 thread maps\_utility::play_sound_on_tag_endon_death( "weap_bm21_missile_projectile" );
 
         if ( getdvar( "cobrapilot_debug" ) == "1" )
-            level thread _id_2DC0( var_1, var_0, var_2 );
+            level thread draw_missile_target_line( var_1, var_0, var_2 );
 
-        if ( !isdefined( var_0._id_4C2D ) )
-            var_0._id_4C2D = [];
+        if ( !isdefined( var_0.incomming_missiles ) )
+            var_0.incomming_missiles = [];
 
-        var_0._id_4C2D = common_scripts\utility::array_add( var_0._id_4C2D, var_1 );
-        thread maps\_helicopter_globals::_id_5C8F( var_1, var_0 );
+        var_0.incomming_missiles = common_scripts\utility::array_add( var_0.incomming_missiles, var_1 );
+        thread maps\_helicopter_globals::missile_deathwait( var_1, var_0 );
 
-        if ( maps\_utility::_id_4749( self._id_5CBF, self._id_5CCA[self._id_5CBD] ) )
-            self detach( self._id_5CBF, self._id_5CCA[self._id_5CBD] );
+        if ( maps\_utility::hastag( self.missilemodel, self.missiletags[self.missilelaunchnexttag] ) )
+            self detach( self.missilemodel, self.missiletags[self.missilelaunchnexttag] );
 
-        self._id_5CBD++;
-        self._id_5CB3--;
+        self.missilelaunchnexttag++;
+        self.missileammo--;
         var_0 notify( "incomming_missile", var_1 );
-        _id_98A3();
+        tryreload();
         wait 0.05;
         self notify( "missile_fired", var_1 );
     }
 }
 
-_id_2DC0( var_0, var_1, var_2 )
+draw_missile_target_line( var_0, var_1, var_2 )
 {
     var_0 endon( "death" );
 
@@ -190,23 +172,23 @@ _id_2DC0( var_0, var_1, var_2 )
         wait 0.05;
 }
 
-_id_98A3()
+tryreload()
 {
-    if ( !isdefined( self._id_5CB3 ) )
-        self._id_5CB3 = 0;
+    if ( !isdefined( self.missileammo ) )
+        self.missileammo = 0;
 
-    if ( !isdefined( self._id_5CBD ) )
-        self._id_5CBD = 0;
+    if ( !isdefined( self.missilelaunchnexttag ) )
+        self.missilelaunchnexttag = 0;
 
-    if ( self._id_5CB3 > 0 )
+    if ( self.missileammo > 0 )
         return;
 
-    for ( var_0 = 0; var_0 < self._id_5CCA.size; var_0++ )
+    for ( var_0 = 0; var_0 < self.missiletags.size; var_0++ )
     {
-        if ( maps\_utility::_id_4749( self._id_5CBF, self._id_5CCA[var_0] ) )
-            self attach( self._id_5CBF, self._id_5CCA[var_0] );
+        if ( maps\_utility::hastag( self.missilemodel, self.missiletags[var_0] ) )
+            self attach( self.missilemodel, self.missiletags[var_0] );
     }
 
-    self._id_5CB3 = self._id_5CCA.size;
-    self._id_5CBD = 0;
+    self.missileammo = self.missiletags.size;
+    self.missilelaunchnexttag = 0;
 }

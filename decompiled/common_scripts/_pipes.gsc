@@ -1,37 +1,19 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    waitframe;
+    waittillframeend;
     var_0 = getentarray( "pipe_shootable", "targetname" );
 
     if ( !var_0.size )
         return;
 
-    level._id_6289 = 0;
+    level.num_pipe_fx = 0;
     level.limit_pipe_fx = 32;
-    var_0 thread _id_6EDB();
-    var_0 thread _id_5BBE();
-    common_scripts\utility::array_thread( var_0, ::_id_682F );
+    var_0 thread precachefx();
+    var_0 thread methodsinit();
+    common_scripts\utility::array_thread( var_0, ::pipesetup );
     var_1 = var_0;
     var_2 = getentarray( "pipe_break", "targetname" );
 
@@ -45,33 +27,33 @@ main()
     level.overlaymaskfxwastriggered = 0;
 }
 
-_id_5BBE()
+methodsinit()
 {
     level._pipe_methods = [];
-    level._pipe_methods["MOD_UNKNOWN"] = ::_id_6827;
-    level._pipe_methods["MOD_PISTOL_BULLET"] = ::_id_6825;
-    level._pipe_methods["MOD_RIFLE_BULLET"] = ::_id_6825;
-    level._pipe_methods["MOD_GRENADE"] = ::_id_6827;
-    level._pipe_methods["MOD_GRENADE_SPLASH"] = ::_id_6827;
-    level._pipe_methods["MOD_PROJECTILE"] = ::_id_6827;
-    level._pipe_methods["MOD_PROJECTILE_SPLASH"] = ::_id_6827;
-    level._pipe_methods["MOD_MELEE"] = ::_id_6826;
-    level._pipe_methods["MOD_HEAD_SHOT"] = ::_id_6826;
-    level._pipe_methods["MOD_CRUSH"] = ::_id_6826;
-    level._pipe_methods["MOD_TELEFRAG"] = ::_id_6826;
-    level._pipe_methods["MOD_FALLING"] = ::_id_6826;
-    level._pipe_methods["MOD_SUICIDE"] = ::_id_6826;
-    level._pipe_methods["MOD_TRIGGER_HURT"] = ::_id_6827;
-    level._pipe_methods["MOD_EXPLOSIVE"] = ::_id_6827;
-    level._pipe_methods["MOD_IMPACT"] = ::_id_6826;
+    level._pipe_methods["MOD_UNKNOWN"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_PISTOL_BULLET"] = ::pipe_calc_ballistic;
+    level._pipe_methods["MOD_RIFLE_BULLET"] = ::pipe_calc_ballistic;
+    level._pipe_methods["MOD_GRENADE"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_GRENADE_SPLASH"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_PROJECTILE"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_PROJECTILE_SPLASH"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_MELEE"] = ::pipe_calc_nofx;
+    level._pipe_methods["MOD_HEAD_SHOT"] = ::pipe_calc_nofx;
+    level._pipe_methods["MOD_CRUSH"] = ::pipe_calc_nofx;
+    level._pipe_methods["MOD_TELEFRAG"] = ::pipe_calc_nofx;
+    level._pipe_methods["MOD_FALLING"] = ::pipe_calc_nofx;
+    level._pipe_methods["MOD_SUICIDE"] = ::pipe_calc_nofx;
+    level._pipe_methods["MOD_TRIGGER_HURT"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_EXPLOSIVE"] = ::pipe_calc_splash;
+    level._pipe_methods["MOD_IMPACT"] = ::pipe_calc_nofx;
 }
 
-_id_6825( var_0, var_1 )
+pipe_calc_ballistic( var_0, var_1 )
 {
     return var_0;
 }
 
-_id_6827( var_0, var_1 )
+pipe_calc_splash( var_0, var_1 )
 {
     if ( self.use_bullet_hitnormal )
         return undefined;
@@ -81,7 +63,7 @@ _id_6827( var_0, var_1 )
     return var_0 + common_scripts\utility::vectorscale( var_2, 4 );
 }
 
-_id_6826( var_0, var_1 )
+pipe_calc_nofx( var_0, var_1 )
 {
     return undefined;
 }
@@ -100,7 +82,7 @@ pipemasterinit( var_0 )
         var_1 = level.pipe_breaks[level.pipe_breaks.size - 1];
         var_2 = spawnstruct();
         var_2.name = "pipe master at (" + var_1.origin + ") position";
-        var_1._id_59D8 = var_2;
+        var_1.master = var_2;
         level.pipe_breaks = common_scripts\utility::array_remove( level.pipe_breaks, var_1 );
         var_2 pipemasteriterate( var_1 );
     }
@@ -115,7 +97,7 @@ pipemasteriterate( var_0 )
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        var_1[var_2]._id_59D8 = self;
+        var_1[var_2].master = self;
         level.pipe_breaks = common_scripts\utility::array_remove( level.pipe_breaks, var_1[var_2] );
     }
 
@@ -163,7 +145,7 @@ pipebreakinit( var_0 )
 {
     for ( var_1 = 0; var_1 < self.size; var_1++ )
     {
-        self[var_1].whole = common_scripts\utility::_id_3F33( self[var_1] getorigin(), var_0 );
+        self[var_1].whole = common_scripts\utility::getclosest( self[var_1] getorigin(), var_0 );
         var_0 = common_scripts\utility::array_remove( var_0, self[var_1].whole );
         self[var_1].fxnode = spawnstruct();
         self[var_1].fxnode.origin = self[var_1].origin;
@@ -172,7 +154,7 @@ pipebreakinit( var_0 )
 
         if ( self[var_1].script_noteworthy == "fueltanker" )
         {
-            var_2 = common_scripts\utility::_id_40FB( self[var_1].whole.target, "targetname" );
+            var_2 = common_scripts\utility::getstruct( self[var_1].whole.target, "targetname" );
             self[var_1].fxnode.origin = var_2.origin;
             self[var_1].fxnode.forward = anglestoup( var_2.angles );
             self[var_1].fxnode.up = anglestoforward( var_2.angles );
@@ -327,7 +309,7 @@ pipebreakthink()
     {
         self.whole waittill( "pipe_ruptured" );
         badplace_cylinder( "", 2, self.whole.origin, 250, 250 );
-        self._id_59D8 notify( "pipe_ruptured" );
+        self.master notify( "pipe_ruptured" );
         thread pipebreakthink2();
     }
 }
@@ -336,7 +318,7 @@ pipebreakthink2()
 {
     self.whole endon( "pipe_ruptured" );
     self.whole endon( "deleting" );
-    self._id_59D8 waittill( "pipe_ruptured" );
+    self.master waittill( "pipe_ruptured" );
     self.whole.numfx++;
     thread pipebreakthink2();
 }
@@ -344,7 +326,7 @@ pipebreakthink2()
 pipebreakthink3()
 {
     self.whole endon( "pipe_breaking" );
-    self._id_59D8 waittill( "hurtme" );
+    self.master waittill( "hurtme" );
     wait(randomfloat( 0.2 ));
     self.whole notify( "pipe_breaking" );
 }
@@ -352,20 +334,20 @@ pipebreakthink3()
 pipebreakthink4()
 {
     self.whole waittill( "pipe_breaking" );
-    self._id_59D8 notify( "hurtme" );
+    self.master notify( "hurtme" );
 
     switch ( self.script_noteworthy )
     {
         case "fueltanker":
-            thread common_scripts\utility::_id_69C2( "explo_rock", self.fxnode.origin );
+            thread common_scripts\utility::play_sound_in_space( "explo_rock", self.fxnode.origin );
             break;
         default:
-            if ( isdefined( self._id_59D8.firstsnd ) )
-                thread common_scripts\utility::_id_69C2( "expl_gas_pipe_burst", self.fxnode.origin );
+            if ( isdefined( self.master.firstsnd ) )
+                thread common_scripts\utility::play_sound_in_space( "expl_gas_pipe_burst", self.fxnode.origin );
             else
             {
-                self._id_59D8.firstsnd = 1;
-                thread common_scripts\utility::_id_69C2( "expl_gas_pipe_burst_decay", self.fxnode.origin );
+                self.master.firstsnd = 1;
+                thread common_scripts\utility::play_sound_in_space( "expl_gas_pipe_burst_decay", self.fxnode.origin );
             }
 
             break;
@@ -394,17 +376,17 @@ pipebreakthink4()
     thread pipeimpact();
 }
 
-_id_682F()
+pipesetup()
 {
     self setcandamage( 1 );
     var_0 = undefined;
     self.use_bullet_hitnormal = 0;
 
-    if ( isdefined( self._id_7A99 ) && self._id_7A99 == "use_bullet_hitnormal" )
+    if ( isdefined( self.script_parameters ) && self.script_parameters == "use_bullet_hitnormal" )
         self.use_bullet_hitnormal = 1;
     else if ( isdefined( self.target ) )
     {
-        var_0 = common_scripts\utility::_id_40FB( self.target, "targetname" );
+        var_0 = common_scripts\utility::getstruct( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
         {
@@ -457,8 +439,8 @@ pipethink()
             if ( var_4 == "MOD_MELEE" || var_4 == "MOD_IMPACT" )
                 continue;
 
-            pipethink_logic( level._id_6289, level.limit_pipe_fx, var_3, var_0, var_4 );
-            level._id_6289++;
+            pipethink_logic( level.num_pipe_fx, level.limit_pipe_fx, var_3, var_0, var_4 );
+            level.num_pipe_fx++;
             thread pipethink2();
         }
     }
@@ -486,7 +468,7 @@ pipethink_logic( var_0, var_1, var_2, var_3, var_4 )
         if ( lengthsquared( var_8 ) == 0.0 )
             return;
 
-        thread _id_682C( var_3, var_8 );
+        thread pipefx( var_3, var_8 );
         var_9 = pipeoverlaymaskfxduration( level.pipe_fx_time[self.script_noteworthy] );
 
         if ( var_9 )
@@ -559,15 +541,15 @@ pipeoverlaymaskfx( var_0, var_1, var_2 )
 pipethink2()
 {
     wait(level.pipe_fx_time[self.script_noteworthy]);
-    level._id_6289--;
+    level.num_pipe_fx--;
 }
 
-_id_682C( var_0, var_1 )
+pipefx( var_0, var_1 )
 {
     if ( self.script_noteworthy != "fire" )
     {
         playfx( level._effect["pipe_interactive"][self.script_noteworthy], var_0, var_1 );
-        thread common_scripts\utility::_id_69C2( level._sound["pipe_interactive"][self.script_noteworthy], var_0 );
+        thread common_scripts\utility::play_sound_in_space( level._sound["pipe_interactive"][self.script_noteworthy], var_0 );
         return;
     }
 
@@ -582,7 +564,7 @@ _id_682C( var_0, var_1 )
     else
         self.burnsec -= self.burninterval;
 
-    thread common_scripts\utility::_id_69C2( "mtl_gas_pipe_hit", var_0 );
+    thread common_scripts\utility::play_sound_in_space( "mtl_gas_pipe_hit", var_0 );
     thread pipesndloopfx( "mtl_gas_pipe_flame_loop", var_0, "pipe_breaking" );
     thread pipe_snd_end( "mtl_gas_pipe_flame_end", var_0, "pipe_breaking" );
 
@@ -635,10 +617,10 @@ pipe_snd_end( var_0, var_1, var_2 )
         return;
 
     self waittill( var_2 );
-    thread common_scripts\utility::_id_69C2( var_0, var_1 );
+    thread common_scripts\utility::play_sound_in_space( var_0, var_1 );
 }
 
-_id_6EDB()
+precachefx()
 {
     for ( var_0 = 0; var_0 < self.size; var_0++ )
     {

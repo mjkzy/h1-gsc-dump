@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     if ( !isdefined( game["gamestarted"] ) )
@@ -79,29 +61,29 @@ init()
         precachestring( &"MP_HOST_ENDGAME_RESPONSE" );
     }
 
-    level thread _id_64C8();
+    level thread onplayerconnect();
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_A21E();
+        var_0 thread watchforclasschange();
         var_0 thread watchforopenteamselectmenu();
-        var_0 thread _id_A22B();
-        var_0 thread _id_A226();
-        var_0 thread _id_2149();
+        var_0 thread watchforteamchange();
+        var_0 thread watchforleavegame();
+        var_0 thread connectedmenus();
         var_0 maps\mp\gametypes\_class::cac_setlastenvironment( getmapcustom( "environment" ) );
     }
 }
 
-_id_2149()
+connectedmenus()
 {
 
 }
 
-_id_3F31( var_0 )
+getclasschoice( var_0 )
 {
     if ( var_0 <= 100 )
         var_0 = "custom" + var_0;
@@ -124,7 +106,7 @@ _id_3F31( var_0 )
     return var_0;
 }
 
-_id_A21E()
+watchforclasschange()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
@@ -136,7 +118,7 @@ _id_A21E()
         if ( var_0 != "class_select" )
             continue;
 
-        if ( maps\mp\_utility::_id_5155() && self _meth_842D() && !maps\mp\_utility::_id_4FA6() )
+        if ( maps\mp\_utility::ismlgsplitscreen() && self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
         {
             self setclientomnvar( "ui_options_menu", 0 );
             continue;
@@ -148,7 +130,7 @@ _id_A21E()
                 self setclientomnvar( "ui_loadout_selected", var_1 );
         }
 
-        if ( isdefined( self._id_A04C ) && self._id_A04C )
+        if ( isdefined( self.waitingtoselectclass ) && self.waitingtoselectclass )
             continue;
 
         if ( !maps\mp\_utility::allowclasschoice() )
@@ -162,32 +144,32 @@ _id_A21E()
             {
                 self.pers["class"] = var_1;
                 self.class = var_1;
-                maps\mp\gametypes\_class::_id_1EE7();
+                maps\mp\gametypes\_class::clearcopycatloadout();
             }
             else
             {
                 var_2 = var_1 + 1;
-                var_2 = _id_3F31( var_2 );
+                var_2 = getclasschoice( var_2 );
 
                 if ( !isdefined( self.pers["class"] ) || var_2 == self.pers["class"] )
                     continue;
 
                 self.pers["class"] = var_2;
                 self.class = var_2;
-                maps\mp\gametypes\_class::_id_1EE7();
+                maps\mp\gametypes\_class::clearcopycatloadout();
                 maps\mp\gametypes\_class::cac_setlastclassindex( var_1 + 1 );
                 maps\mp\gametypes\_class::cac_setlastgrouplocation( getdvarint( "xblive_privatematch" ) );
-                thread _id_5BB2( 0 );
+                thread menugiveclass( 0 );
             }
 
             continue;
         }
 
-        _id_5BB1( "callback" );
+        menuclass( "callback" );
     }
 }
 
-_id_A226()
+watchforleavegame()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
@@ -199,7 +181,7 @@ _id_A226()
         if ( var_0 != "end_game" )
             continue;
 
-        level thread maps\mp\gametypes\_gamelogic::_id_39BC();
+        level thread maps\mp\gametypes\_gamelogic::forceend();
     }
 }
 
@@ -220,14 +202,14 @@ watchforopenteamselectmenu()
         if ( var_0 != "open_team_select_menu" )
             continue;
 
-        var_1 = maps\mp\gametypes\_tweakables::_id_4142( "game", "spectatetype" );
+        var_1 = maps\mp\gametypes\_tweakables::gettweakablevalue( "game", "spectatetype" );
 
         if ( var_1 > 0 )
             maps\mp\_utility::streamnextspectatorweaponsifnecessary( 0 );
     }
 }
 
-_id_A22B()
+watchforteamchange()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
@@ -239,24 +221,24 @@ _id_A22B()
         if ( var_0 != "team_select" )
             continue;
 
-        if ( maps\mp\_utility::_id_59E3() && !getdvarint( "force_ranking" ) && !self _meth_8586() )
+        if ( maps\mp\_utility::matchmakinggame() && !getdvarint( "force_ranking" ) && !self _meth_8586() )
             continue;
 
         if ( var_1 != 3 && !teamchangeisfactionchange() && maps\mp\_utility::allowclasschoice() )
-            thread _id_851C();
+            thread showloadoutmenu();
 
         if ( var_1 == 3 )
         {
             self setclientomnvar( "ui_options_menu", 0 );
             self setclientomnvar( "ui_spectator_selected", 1 );
             self setclientomnvar( "ui_loadout_selected", -1 );
-            self._id_8A4B = 1;
+            self.spectating_actively = 1;
 
-            if ( maps\mp\_utility::_id_5155() )
+            if ( maps\mp\_utility::ismlgsplitscreen() )
             {
                 self _meth_84FD( 1 );
                 self setclientomnvar( "ui_use_mlg_hud", 1 );
-                thread maps\mp\gametypes\_spectating::_id_8019();
+                thread maps\mp\gametypes\_spectating::setspectatepermissions();
             }
 
             if ( teamchangeisfactionchange() && isdefined( self.addtoteam ) )
@@ -265,16 +247,16 @@ _id_A22B()
         else
         {
             self setclientomnvar( "ui_spectator_selected", -1 );
-            self._id_8A4B = 0;
+            self.spectating_actively = 0;
 
-            if ( maps\mp\_utility::_id_5155() )
+            if ( maps\mp\_utility::ismlgsplitscreen() )
             {
                 self _meth_84FD( 0 );
                 self setclientomnvar( "ui_use_mlg_hud", 0 );
             }
 
             if ( teamchangeisfactionchange() || !maps\mp\_utility::allowclasschoice() )
-                thread maps\mp\gametypes\_playerlogic::_id_803C( -1 );
+                thread maps\mp\gametypes\_playerlogic::setuioptionsmenu( -1 );
         }
 
         if ( var_1 == 0 )
@@ -302,13 +284,13 @@ _id_A22B()
 
         if ( var_1 == "axis" )
         {
-            thread _id_8027( "axis" );
+            thread setteam( "axis" );
             continue;
         }
 
         if ( var_1 == "allies" )
         {
-            thread _id_8027( "allies" );
+            thread setteam( "allies" );
             continue;
         }
 
@@ -319,15 +301,15 @@ _id_A22B()
         }
 
         if ( var_1 == "spectator" )
-            thread _id_801A();
+            thread setspectator();
     }
 }
 
-_id_851C()
+showloadoutmenu()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
-    common_scripts\utility::_id_A069( "joined_team", "selected_same_team" );
+    common_scripts\utility::waittill_any( "joined_team", "selected_same_team" );
 
     if ( maps\mp\_utility::ishodgepodgeph() && !maps\mp\_utility::allowclasschoice() )
         return;
@@ -339,29 +321,29 @@ autoassign()
 {
     if ( maps\mp\_utility::iscoop() )
     {
-        thread _id_8027( "allies" );
+        thread setteam( "allies" );
         self.sessionteam = "allies";
     }
-    else if ( self _meth_842D() && !maps\mp\_utility::_id_4FA6() )
-        thread _id_801A();
+    else if ( self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
+        thread setspectator();
     else
     {
         var_0 = isdefined( self.team ) && self.team == "axis";
         var_1 = isdefined( self.team ) && self.team == "allies";
 
-        if ( level._id_91ED["axis"] < level._id_91ED["allies"] && !var_0 )
+        if ( level.teamcount["axis"] < level.teamcount["allies"] && !var_0 )
         {
-            thread _id_8027( "axis" );
+            thread setteam( "axis" );
             return;
         }
 
-        if ( level._id_91ED["allies"] < level._id_91ED["axis"] && !var_1 )
+        if ( level.teamcount["allies"] < level.teamcount["axis"] && !var_1 )
         {
-            thread _id_8027( "allies" );
+            thread setteam( "allies" );
             return;
         }
 
-        if ( level._id_91ED["allies"] == level._id_91ED["axis"] )
+        if ( level.teamcount["allies"] == level.teamcount["axis"] )
         {
             if ( !var_0 && !var_1 )
             {
@@ -369,24 +351,24 @@ autoassign()
                 var_3 = getteamscore( "axis" );
 
                 if ( var_2 > var_3 && !var_0 )
-                    thread _id_8027( "axis" );
+                    thread setteam( "axis" );
                 else if ( var_3 > var_2 && !var_1 )
-                    thread _id_8027( "allies" );
+                    thread setteam( "allies" );
                 else
-                    thread _id_8027( common_scripts\utility::_id_710E( [ "allies", "axis" ] ) );
+                    thread setteam( common_scripts\utility::random( [ "allies", "axis" ] ) );
             }
         }
     }
 }
 
-_id_8027( var_0 )
+setteam( var_0 )
 {
     self endon( "disconnect" );
 
-    if ( !isai( self ) && level.teambased && !maps\mp\gametypes\_teams::_id_3FDD( var_0 ) )
+    if ( !isai( self ) && level.teambased && !maps\mp\gametypes\_teams::getjointeampermissions( var_0 ) )
         return;
 
-    var_1 = level.ingraceperiod && !self._id_4729;
+    var_1 = level.ingraceperiod && !self.hasdonecombat;
 
     if ( teamchangeisfactionchange() )
     {
@@ -398,12 +380,12 @@ _id_8027( var_0 )
         else
             self.addtoteam = var_0;
 
-        thread _id_5BB2( 1 );
+        thread menugiveclass( 1 );
     }
     else
     {
         if ( var_1 )
-            self._id_4745 = 0;
+            self.hasspawned = 0;
 
         if ( self.sessionstate == "playing" )
         {
@@ -418,8 +400,8 @@ _id_8027( var_0 )
         if ( self.sessionstate == "playing" )
             self suicide();
 
-        _id_A018();
-        _id_31BF();
+        waitforclassselect();
+        endrespawnnotify();
     }
 
     if ( self.sessionstate == "spectator" )
@@ -427,19 +409,19 @@ _id_8027( var_0 )
         if ( game["state"] == "postgame" )
             return;
 
-        if ( game["state"] == "playing" && !maps\mp\_utility::_id_5129() )
+        if ( game["state"] == "playing" && !maps\mp\_utility::isinkillcam() )
         {
-            if ( isdefined( self._id_A04E ) && self._id_A04E )
+            if ( isdefined( self.waitingtospawnamortize ) && self.waitingtospawnamortize )
                 return;
 
-            maps\mp\gametypes\_playerlogic::_id_8998();
+            maps\mp\gametypes\_playerlogic::spawnclient();
         }
 
-        thread maps\mp\gametypes\_spectating::_id_8019();
+        thread maps\mp\gametypes\_spectating::setspectatepermissions();
     }
 }
 
-_id_801A()
+setspectator()
 {
     if ( isdefined( self.pers["team"] ) && self.pers["team"] == "spectator" )
         return;
@@ -456,14 +438,14 @@ _id_801A()
     addtoteam( "spectator" );
     self.pers["class"] = undefined;
     self.class = undefined;
-    thread maps\mp\gametypes\_playerlogic::_id_8A0E();
+    thread maps\mp\gametypes\_playerlogic::spawnspectator();
 }
 
-_id_A018()
+waitforclassselect()
 {
     self endon( "disconnect" );
     level endon( "game_ended" );
-    self._id_A04C = 1;
+    self.waitingtoselectclass = 1;
 
     if ( maps\mp\_utility::allowclasschoice() )
     {
@@ -481,33 +463,33 @@ _id_A018()
             {
                 self.pers["class"] = var_1;
                 self.class = var_1;
-                maps\mp\gametypes\_class::_id_1EE7();
+                maps\mp\gametypes\_class::clearcopycatloadout();
             }
             else
             {
                 var_1 += 1;
-                self.pers["class"] = _id_3F31( var_1 );
-                self.class = _id_3F31( var_1 );
-                maps\mp\gametypes\_class::_id_1EE7();
+                self.pers["class"] = getclasschoice( var_1 );
+                self.class = getclasschoice( var_1 );
+                maps\mp\gametypes\_class::clearcopycatloadout();
                 maps\mp\gametypes\_class::cac_setlastclassindex( var_1 );
                 maps\mp\gametypes\_class::cac_setlastgrouplocation( getdvarint( "xblive_privatematch" ) );
             }
 
             self notify( "notWaitingToSelectClass" );
-            self._id_A04C = 0;
+            self.waitingtoselectclass = 0;
             return;
         }
 
         self notify( "notWaitingToSelectClass" );
-        self._id_A04C = 0;
-        _id_5BB1( "callback" );
+        self.waitingtoselectclass = 0;
+        menuclass( "callback" );
         return;
     }
     else
     {
-        if ( !isai( self ) && maps\mp\_utility::_id_8510() && ( self _meth_8443( "ui_options_menu" ) == 0 || maps\mp\_utility::ishodgepodgeph() ) )
+        if ( !isai( self ) && maps\mp\_utility::showgenericmenuonmatchstart() && ( self _meth_8443( "ui_options_menu" ) == 0 || maps\mp\_utility::ishodgepodgeph() ) )
         {
-            thread maps\mp\gametypes\_playerlogic::_id_803C( 3 );
+            thread maps\mp\gametypes\_playerlogic::setuioptionsmenu( 3 );
 
             for (;;)
             {
@@ -519,7 +501,7 @@ _id_A018()
         }
 
         self notify( "notWaitingToSelectClass" );
-        self._id_A04C = 0;
+        self.waitingtoselectclass = 0;
         bypassclasschoice();
     }
 }
@@ -530,30 +512,30 @@ beginclasschoice( var_0 )
 
     if ( maps\mp\_utility::allowclasschoice() )
     {
-        thread maps\mp\gametypes\_playerlogic::_id_803C( 2 );
+        thread maps\mp\gametypes\_playerlogic::setuioptionsmenu( 2 );
 
-        if ( !self _meth_842D() || maps\mp\_utility::_id_4FA6() )
-            _id_A018();
+        if ( !self _meth_842D() || maps\mp\_utility::invirtuallobby() )
+            waitforclassselect();
 
-        _id_31BF();
+        endrespawnnotify();
 
         if ( self.sessionstate == "spectator" )
         {
             if ( game["state"] == "postgame" )
                 return;
 
-            if ( game["state"] == "playing" && !maps\mp\_utility::_id_5129() )
+            if ( game["state"] == "playing" && !maps\mp\_utility::isinkillcam() )
             {
-                if ( isdefined( self._id_A04E ) && self._id_A04E )
+                if ( isdefined( self.waitingtospawnamortize ) && self.waitingtospawnamortize )
                     return;
 
-                thread maps\mp\gametypes\_playerlogic::_id_8998();
+                thread maps\mp\gametypes\_playerlogic::spawnclient();
             }
 
-            thread maps\mp\gametypes\_spectating::_id_8019();
+            thread maps\mp\gametypes\_spectating::setspectatepermissions();
         }
 
-        self._id_214F = gettime();
+        self.connecttime = gettime();
     }
     else
     {
@@ -564,23 +546,23 @@ beginclasschoice( var_0 )
             if ( game["state"] == "postgame" )
                 return;
 
-            if ( game["state"] == "playing" && !maps\mp\_utility::_id_5129() )
+            if ( game["state"] == "playing" && !maps\mp\_utility::isinkillcam() )
             {
-                if ( isdefined( self._id_A04E ) && self._id_A04E )
+                if ( isdefined( self.waitingtospawnamortize ) && self.waitingtospawnamortize )
                     return;
 
-                thread maps\mp\gametypes\_playerlogic::_id_8998();
+                thread maps\mp\gametypes\_playerlogic::spawnclient();
             }
 
-            thread maps\mp\gametypes\_spectating::_id_8019();
+            thread maps\mp\gametypes\_spectating::setspectatepermissions();
         }
     }
 }
 
 bypassclasschoice()
 {
-    maps\mp\gametypes\_class::_id_1EE7();
-    self._id_7C68 = 1;
+    maps\mp\gametypes\_class::clearcopycatloadout();
+    self.selectedclass = 1;
     self.class = "class0";
 
     if ( isdefined( level.bypassclasschoicefunc ) )
@@ -589,16 +571,16 @@ bypassclasschoice()
 
 beginteamchoice()
 {
-    thread maps\mp\gametypes\_playerlogic::_id_803C( 1 );
+    thread maps\mp\gametypes\_playerlogic::setuioptionsmenu( 1 );
 }
 
-_id_851D()
+showmainmenuforteam()
 {
     var_0 = self.pers["team"];
     self openpopupmenu( game["menu_class_" + var_0] );
 }
 
-_id_5BB5()
+menuspectator()
 {
     if ( isdefined( self.pers["team"] ) && self.pers["team"] == "spectator" )
         return;
@@ -614,13 +596,13 @@ _id_5BB5()
     addtoteam( "spectator" );
     self.pers["class"] = undefined;
     self.class = undefined;
-    maps\mp\gametypes\_class::_id_1EE7();
-    thread maps\mp\gametypes\_playerlogic::_id_8A0E();
+    maps\mp\gametypes\_class::clearcopycatloadout();
+    thread maps\mp\gametypes\_playerlogic::spawnspectator();
 }
 
-_id_A233( var_0 )
+watchhasdonecombat( var_0 )
 {
-    if ( !self._id_4729 )
+    if ( !self.hasdonecombat )
     {
         self endon( "death" );
         self endon( "disconnect" );
@@ -630,47 +612,47 @@ _id_A233( var_0 )
         self notify( "endStreamClass" );
 
         if ( var_0 )
-            self clientiprintlnbold( game["strings"]["change_team_cancel"] );
+            self iprintlnbold( game["strings"]["change_team_cancel"] );
         else
-            self clientiprintlnbold( game["strings"]["change_class_cancel"] );
+            self iprintlnbold( game["strings"]["change_class_cancel"] );
 
         wait 2.0;
 
         if ( var_0 )
-            self clientiprintlnbold( game["strings"]["change_team"] );
+            self iprintlnbold( game["strings"]["change_team"] );
         else
-            self clientiprintlnbold( game["strings"]["change_class"] );
+            self iprintlnbold( game["strings"]["change_class"] );
     }
 }
 
-_id_5BB2( var_0 )
+menugiveclass( var_0 )
 {
-    if ( level.ingraceperiod && !self._id_4729 )
+    if ( level.ingraceperiod && !self.hasdonecombat )
     {
         thread maps\mp\gametypes\_playerlogic::streamclass( 1 );
 
-        if ( self._id_1E41 )
+        if ( self.classweaponswait )
         {
             self endon( "death" );
             self endon( "disconnect" );
             level endon( "game_ended" );
             self endon( "endStreamClass" );
-            thread _id_A233( var_0 );
+            thread watchhasdonecombat( var_0 );
 
             if ( var_0 )
-                self clientiprintlnbold( game["strings"]["change_team_wait"] );
+                self iprintlnbold( game["strings"]["change_team_wait"] );
             else
-                self clientiprintlnbold( game["strings"]["change_class_wait"] );
+                self iprintlnbold( game["strings"]["change_class_wait"] );
 
             self waittill( "streamClassComplete" );
-            self clientiprintlnbold( "" );
+            self iprintlnbold( "" );
             self _meth_852B( 0 );
         }
 
         maps\mp\gametypes\_class::setclass( self.pers["class"] );
         self.tag_stowed_back = undefined;
-        self._id_90D3 = undefined;
-        maps\mp\gametypes\_class::_id_41F1( self.pers["team"], self.pers["class"] );
+        self.tag_stowed_hip = undefined;
+        maps\mp\gametypes\_class::giveloadout( self.pers["team"], self.pers["class"] );
 
         if ( !isdefined( self.spawnplayergivingloadout ) )
         {
@@ -690,17 +672,17 @@ _id_5BB2( var_0 )
         maps\mp\gametypes\_playerlogic::streamclass();
 
         if ( var_0 )
-            self clientiprintlnbold( game["strings"]["change_team"] );
+            self iprintlnbold( game["strings"]["change_team"] );
         else
-            self clientiprintlnbold( game["strings"]["change_class"] );
+            self iprintlnbold( game["strings"]["change_class"] );
     }
 }
 
-_id_5BB1( var_0 )
+menuclass( var_0 )
 {
     var_1 = self.pers["team"];
-    var_2 = maps\mp\gametypes\_class::_id_3F31( var_0 );
-    var_3 = maps\mp\gametypes\_class::_id_4166( var_0 );
+    var_2 = maps\mp\gametypes\_class::getclasschoice( var_0 );
+    var_3 = maps\mp\gametypes\_class::getweaponchoice( var_0 );
 
     if ( var_2 == "restricted" )
     {
@@ -724,13 +706,13 @@ _id_5BB1( var_0 )
 
         self.pers["class"] = var_2;
         self.class = var_2;
-        maps\mp\gametypes\_class::_id_1EE7();
+        maps\mp\gametypes\_class::clearcopycatloadout();
         self.pers["primary"] = var_3;
 
         if ( game["state"] == "postgame" )
             return;
 
-        thread _id_5BB2( 0 );
+        thread menugiveclass( 0 );
     }
     else
     {
@@ -742,17 +724,17 @@ _id_5BB1( var_0 )
 
         self.pers["class"] = var_2;
         self.class = var_2;
-        maps\mp\gametypes\_class::_id_1EE7();
+        maps\mp\gametypes\_class::clearcopycatloadout();
         self.pers["primary"] = var_3;
 
         if ( game["state"] == "postgame" )
             return;
 
-        if ( game["state"] == "playing" && !maps\mp\_utility::_id_5129() )
-            thread maps\mp\gametypes\_playerlogic::_id_8998();
+        if ( game["state"] == "playing" && !maps\mp\_utility::isinkillcam() )
+            thread maps\mp\gametypes\_playerlogic::spawnclient();
     }
 
-    thread maps\mp\gametypes\_spectating::_id_8019();
+    thread maps\mp\gametypes\_spectating::setspectatepermissions();
 }
 
 getuiteamindex( var_0 )
@@ -767,10 +749,10 @@ addtoteam( var_0, var_1, var_2 )
 {
     if ( isdefined( self.team ) )
     {
-        maps\mp\gametypes\_playerlogic::_id_73AF();
+        maps\mp\gametypes\_playerlogic::removefromteamcount();
 
         if ( isdefined( var_2 ) && var_2 )
-            maps\mp\gametypes\_playerlogic::_id_275E( self.team );
+            maps\mp\gametypes\_playerlogic::decrementalivecount( self.team );
     }
 
     self.pers["team"] = var_0;
@@ -787,7 +769,7 @@ addtoteam( var_0, var_1, var_2 )
         self setclientomnvar( "ui_team_selected", getuiteamindex( "axis" ) );
     }
 
-    if ( !getdvarint( "party_playersCoop", 0 ) && ( !maps\mp\_utility::_id_59E3() || isbot( self ) || istestclient( self ) || !maps\mp\_utility::allowteamchoice() || getdvarint( "force_ranking" ) ) )
+    if ( !getdvarint( "party_playersCoop", 0 ) && ( !maps\mp\_utility::matchmakinggame() || isbot( self ) || istestclient( self ) || !maps\mp\_utility::allowteamchoice() || getdvarint( "force_ranking" ) ) )
     {
         if ( level.teambased )
             self.sessionteam = var_0;
@@ -802,15 +784,15 @@ addtoteam( var_0, var_1, var_2 )
         maps\mp\gametypes\_playerlogic::addtoteamcount();
 
         if ( isdefined( var_2 ) && var_2 )
-            maps\mp\gametypes\_playerlogic::_id_4C3C( self.team );
+            maps\mp\gametypes\_playerlogic::incrementalivecount( self.team );
     }
 
-    maps\mp\_utility::_id_9B42();
+    maps\mp\_utility::updateobjectivetext();
 
     if ( isdefined( var_1 ) && var_1 )
-        waitframe;
+        waittillframeend;
 
-    maps\mp\_utility::_id_9B33();
+    maps\mp\_utility::updatemainmenu();
 
     if ( var_0 == "spectator" )
     {
@@ -824,8 +806,8 @@ addtoteam( var_0, var_1, var_2 )
     }
 }
 
-_id_31BF()
+endrespawnnotify()
 {
-    self._id_A04D = 0;
+    self.waitingtospawn = 0;
     self notify( "end_respawn" );
 }

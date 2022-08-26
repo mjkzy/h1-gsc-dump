@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 dyndof( var_0 )
 {
     if ( !isdefined( level.player_dynamic_dof_settings ) )
@@ -51,13 +33,13 @@ __create_dynamic_dof_struct( var_0 )
     var_1.angle_min = -180;
     var_1.angle_max = 180;
     var_1.reference_entity = undefined;
-    var_1._id_90C3 = undefined;
-    var_1._id_6379 = undefined;
+    var_1.tag_name = undefined;
+    var_1.offset = undefined;
     var_1.should_autofocus = 0;
     var_1.name = var_0;
     var_1.require_visible = 0;
-    var_1._id_5C33 = 0;
-    var_1._id_5A13 = 100000;
+    var_1.min_range = 0;
+    var_1.max_range = 100000;
     var_1.view_model_fstop_scale = 5;
     return var_1;
 }
@@ -182,8 +164,8 @@ dyndof_valid_range( var_0, var_1 )
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) )
         return self;
 
-    self._id_5C33 = var_0;
-    self._id_5A13 = var_1;
+    self.min_range = var_0;
+    self.max_range = var_1;
     return self;
 }
 
@@ -196,14 +178,14 @@ dyndof_reference_entity( var_0 )
 
 dyndof_tag_name( var_0 )
 {
-    self._id_90C3 = var_0;
+    self.tag_name = var_0;
     level.player_dynamic_dof_settings.settings_dirty = 1;
     return self;
 }
 
 dyndof_offset( var_0 )
 {
-    self._id_6379 = var_0;
+    self.offset = var_0;
     level.player_dynamic_dof_settings.settings_dirty = 1;
     return self;
 }
@@ -289,7 +271,7 @@ dyndof_system_start( var_0 )
             var_2 = combineangles( level.player.owner.angles, level.player.angles );
 
         var_4 = anglestoforward( var_2 );
-        var_5 = level.player.origin + ( 0, 0, level.player _meth_82EF() );
+        var_5 = level.player.origin + ( 0, 0, level.player getplayerviewheight() );
 
         if ( isdefined( level.player_dynamic_dof_settings.view_pos ) )
             var_5 = level.player_dynamic_dof_settings.view_pos;
@@ -314,9 +296,9 @@ dyndof_system_start( var_0 )
             {
                 var_8.reference_point = var_8.reference_entity.origin;
 
-                if ( isdefined( var_8._id_90C3 ) )
+                if ( isdefined( var_8.tag_name ) )
                 {
-                    if ( !maps\_utility::_id_4749( var_8.reference_entity.model, var_8._id_90C3 ) )
+                    if ( !maps\_utility::hastag( var_8.reference_entity.model, var_8.tag_name ) )
                     {
                         if ( !isdefined( var_8.reference_entity.headmodel ) )
                         {
@@ -328,20 +310,20 @@ dyndof_system_start( var_0 )
                         }
                     }
 
-                    var_8.reference_point = var_8.reference_entity gettagorigin( var_8._id_90C3 );
+                    var_8.reference_point = var_8.reference_entity gettagorigin( var_8.tag_name );
                 }
 
-                if ( isdefined( var_8._id_6379 ) )
+                if ( isdefined( var_8.offset ) )
                 {
-                    var_11 = rotatevector( var_8._id_6379, var_8.reference_entity.angles );
+                    var_11 = rotatevector( var_8.offset, var_8.reference_entity.angles );
                     var_8.reference_point += var_11;
                 }
 
                 var_12 = vectornormalize( var_8.reference_point - var_5 );
                 var_13 = vectordot( var_4, var_12 );
                 var_9 = acos( var_13 );
-                var_14 = var_8._id_5C33 * var_8._id_5C33;
-                var_15 = var_8._id_5A13 * var_8._id_5A13;
+                var_14 = var_8.min_range * var_8.min_range;
+                var_15 = var_8.max_range * var_8.max_range;
                 var_16 = distancesquared( var_5, var_8.reference_point );
 
                 if ( var_16 < var_14 || var_16 > var_15 )
@@ -589,15 +571,15 @@ __cinseq_activate_key( var_0 )
     if ( isdefined( var_0.slowmo_slow_scale ) )
         setslowmotion( gettimescale(), var_0.slowmo_slow_scale, var_0.slowmo_in_duration );
     else if ( isdefined( var_0.slowmo_out_duration ) )
-        setslowmotion( gettimescale(), level._id_8637._id_8A53, var_0.slowmo_out_duration );
+        setslowmotion( gettimescale(), level.slowmo.speed_norm, var_0.slowmo_out_duration );
 
     if ( isdefined( self.rumble_name ) )
-        self._id_767B playrumbleonentity( self.rumble_name );
+        self.rumble_entity playrumbleonentity( self.rumble_name );
 }
 
 __cinseq_start_screen_shake( var_0 )
 {
-    level.player _meth_83FC( var_0.pitch_scale, var_0._id_A3B7, var_0.roll_scale, var_0.duration, var_0.duration_fade_up, var_0.duration_fade_down, var_0.radius, var_0.frequency_pitch, var_0.frequency_roll, var_0.frequency_yaw, var_0._id_3583 );
+    level.player screenshakeonentity( var_0.pitch_scale, var_0.yaw_scale, var_0.roll_scale, var_0.duration, var_0.duration_fade_up, var_0.duration_fade_down, var_0.radius, var_0.frequency_pitch, var_0.frequency_roll, var_0.frequency_yaw, var_0.exponent );
 }
 
 __cinseq_call_custom_func( var_0 )
@@ -607,25 +589,25 @@ __cinseq_call_custom_func( var_0 )
     if ( !isdefined( var_1 ) )
         var_1 = level;
 
-    switch ( var_0._id_6683.size )
+    switch ( var_0.params.size )
     {
         case 0:
             var_1 thread [[ var_0.cin_function ]]();
             break;
         case 1:
-            var_1 thread [[ var_0.cin_function ]]( var_0._id_6683[0] );
+            var_1 thread [[ var_0.cin_function ]]( var_0.params[0] );
             break;
         case 2:
-            var_1 thread [[ var_0.cin_function ]]( var_0._id_6683[0], var_0._id_6683[1] );
+            var_1 thread [[ var_0.cin_function ]]( var_0.params[0], var_0.params[1] );
             break;
         case 3:
-            var_1 thread [[ var_0.cin_function ]]( var_0._id_6683[0], var_0._id_6683[1], var_0._id_6683[3] );
+            var_1 thread [[ var_0.cin_function ]]( var_0.params[0], var_0.params[1], var_0.params[3] );
             break;
         case 4:
-            var_1 thread [[ var_0.cin_function ]]( var_0._id_6683[0], var_0._id_6683[1], var_0._id_6683[2], var_0._id_6683[3] );
+            var_1 thread [[ var_0.cin_function ]]( var_0.params[0], var_0.params[1], var_0.params[2], var_0.params[3] );
             break;
         default:
-            var_1 thread [[ var_0.cin_function ]]( var_0._id_6683[0], var_0._id_6683[1], var_0._id_6683[2], var_0._id_6683[3], var_0._id_6683[4] );
+            var_1 thread [[ var_0.cin_function ]]( var_0.params[0], var_0.params[1], var_0.params[2], var_0.params[3], var_0.params[4] );
     }
 }
 
@@ -654,26 +636,26 @@ cinseq_key_add_custom_func( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var
     var_8 = spawnstruct();
     var_8.cin_function = var_1;
     var_8.scope_entity = var_2;
-    var_8._id_6683 = [];
+    var_8.params = [];
 
     if ( isdefined( var_3 ) )
     {
-        var_8._id_6683[0] = var_3;
+        var_8.params[0] = var_3;
 
         if ( isdefined( var_4 ) )
         {
-            var_8._id_6683[1] = var_4;
+            var_8.params[1] = var_4;
 
             if ( isdefined( var_5 ) )
             {
-                var_8._id_6683[2] = var_5;
+                var_8.params[2] = var_5;
 
                 if ( isdefined( var_6 ) )
                 {
-                    var_8._id_6683[3] = var_6;
+                    var_8.params[3] = var_6;
 
                     if ( isdefined( var_7 ) )
-                        var_8._id_6683[4] = var_7;
+                        var_8.params[4] = var_7;
                 }
             }
         }
@@ -700,7 +682,7 @@ cinseq_create_screen_shake_struct()
 {
     var_0 = spawnstruct();
     var_0.pitch_scale = 0;
-    var_0._id_A3B7 = 0;
+    var_0.yaw_scale = 0;
     var_0.roll_scale = 0;
     var_0.duration = 0;
     var_0.duration_fade_up = 0;
@@ -709,7 +691,7 @@ cinseq_create_screen_shake_struct()
     var_0.frequency_pitch = 1;
     var_0.frequency_yaw = 1;
     var_0.frequency_roll = 1;
-    var_0._id_3583 = 1;
+    var_0.exponent = 1;
     return var_0;
 }
 
@@ -800,14 +782,14 @@ __cinseq_set_dyn_dof_from_struct( var_0 )
         if ( isdefined( var_0.remove_ref_ent ) && var_0.remove_ref_ent )
             var_1 dyndof_reference_entity( undefined );
 
-        if ( isdefined( var_0._id_90C3 ) )
-            var_1 dyndof_tag_name( var_0._id_90C3 );
+        if ( isdefined( var_0.tag_name ) )
+            var_1 dyndof_tag_name( var_0.tag_name );
 
-        if ( isdefined( var_0._id_6FBE ) )
-            var_1 dyndof_priority( var_0._id_6FBE );
+        if ( isdefined( var_0.priority ) )
+            var_1 dyndof_priority( var_0.priority );
 
-        if ( isdefined( var_0._id_6379 ) )
-            var_1 dyndof_focus_distance_offset( var_0._id_6379 );
+        if ( isdefined( var_0.offset ) )
+            var_1 dyndof_focus_distance_offset( var_0.offset );
 
         if ( isdefined( var_0.view_model_fstop_scale ) )
             var_1 dyndof_view_model_fstop_scale( var_0.view_model_fstop_scale );
@@ -846,7 +828,7 @@ cinseq_key_dyndof_ref_ent( var_0, var_1, var_2 )
 cinseq_key_dyndof_tag_name( var_0, var_1 )
 {
     var_2 = __cinseq_dyndof_verify_create_setting( var_0 );
-    var_2._id_90C3 = var_1;
+    var_2.tag_name = var_1;
     return self;
 }
 
@@ -891,14 +873,14 @@ cinseq_key_clear_all_dyndofs()
 cinseq_key_dyndof_priority( var_0, var_1 )
 {
     var_2 = __cinseq_dyndof_verify_create_setting( var_0 );
-    var_2._id_6FBE = var_1;
+    var_2.priority = var_1;
     return self;
 }
 
 cinseq_key_dyndof_offset( var_0, var_1 )
 {
     var_2 = __cinseq_dyndof_verify_create_setting( var_0 );
-    var_2._id_6379 = var_1;
+    var_2.offset = var_1;
     return self;
 }
 
@@ -910,7 +892,7 @@ cinseq_key_rumble( var_0, var_1 )
             var_1 = level.player;
 
         self.rumble_name = var_0;
-        self._id_767B = var_1;
+        self.rumble_entity = var_1;
     }
 
     return self;

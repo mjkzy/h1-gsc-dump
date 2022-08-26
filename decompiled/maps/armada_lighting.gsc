@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    thread _id_80C6();
+    thread setup_dof_presets();
     thread tv_station_visionset();
     level.cheat_invert_override = "_bright";
     apply_lighting_pass_armada( "armada_ride", 0.0 );
@@ -34,12 +16,12 @@ main()
     setsaveddvar( "fx_cast_shadow", 0 );
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
 
 }
 
-_id_80C6()
+setup_dof_presets()
 {
 
 }
@@ -75,8 +57,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada", var_1 );
-            maps\_utility::_id_9E6E( "armada", var_1 );
+            maps\_utility::set_vision_set( "armada", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -84,8 +66,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_ride", var_1 );
-            maps\_utility::_id_9E6E( "armada_ride", var_1 );
+            maps\_utility::set_vision_set( "armada_ride", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_ride", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_ride" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -93,8 +75,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_hq", var_1 );
-            maps\_utility::_id_9E6E( "armada_hq", var_1 );
+            maps\_utility::set_vision_set( "armada_hq", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_hq", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_interior_HQ" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -102,8 +84,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_tvs", var_1 );
-            maps\_utility::_id_9E6E( "armada_tvs", var_1 );
+            maps\_utility::set_vision_set( "armada_tvs", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_interior_TVStation" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -111,8 +93,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_tvs", var_1 );
-            maps\_utility::_id_9E6E( "armada_tvs", var_1 );
+            maps\_utility::set_vision_set( "armada_tvs", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Hall" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -120,8 +102,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_tvs", var_1 );
-            maps\_utility::_id_9E6E( "armada_tvs", var_1 );
+            maps\_utility::set_vision_set( "armada_tvs", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Kitchen" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -129,8 +111,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_tvs", var_1 );
-            maps\_utility::_id_9E6E( "armada", var_1 );
+            maps\_utility::set_vision_set( "armada_tvs", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Roof01" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -138,8 +120,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_tvs", var_1 );
-            maps\_utility::_id_9E6E( "armada_tvs", var_1 );
+            maps\_utility::set_vision_set( "armada_tvs", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Stairwell" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -147,8 +129,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada", var_1 );
-            maps\_utility::_id_9E6E( "armada", var_1 );
+            maps\_utility::set_vision_set( "armada", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Roof02" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -156,8 +138,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada_tvs", var_1 );
-            maps\_utility::_id_9E6E( "armada_tvs", var_1 );
+            maps\_utility::set_vision_set( "armada_tvs", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_End" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -165,8 +147,8 @@ apply_lighting_pass_armada( var_0, var_1 )
             if ( !isdefined( var_1 ) )
                 var_1 = 1.0;
 
-            maps\_utility::_id_7F00( "armada", var_1 );
-            maps\_utility::_id_9E6E( "armada", var_1 );
+            maps\_utility::set_vision_set( "armada", var_1 );
+            maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada" );
             level.player _meth_848C( "clut_armada", var_1 );
             break;
@@ -190,8 +172,8 @@ turn_off_primary_lights()
 
 tv_station_visionset()
 {
-    common_scripts\utility::_id_384A( "tvstation_entered" );
-    maps\_utility::_id_7F00( "armada_tvs", 3 );
+    common_scripts\utility::flag_wait( "tvstation_entered" );
+    maps\_utility::set_vision_set( "armada_tvs", 3 );
 }
 
 play_flickering_light()
@@ -202,8 +184,8 @@ play_flickering_light()
     var_2["off"] = "emt_light_flicker_off";
     var_2["loop"] = "emt_light_flicker_lp";
     var_2["vol_env"] = [ [ var_0, 0.2 ], [ var_1, 1.0 ] ];
-    thread maps\_lighting::_id_5D3A( "flicker_1", 0, var_0, var_1, undefined, undefined, 0.5, 1, 0.005, 0.05, undefined, var_2, 100 );
-    thread maps\_lighting::_id_5D3A( "flicker_2", 0, var_0, var_1, undefined, undefined, 0.01, 5, 0.005, 0.05, undefined, var_2, 100 );
+    thread maps\_lighting::model_flicker_preset( "flicker_1", 0, var_0, var_1, undefined, undefined, 0.5, 1, 0.005, 0.05, undefined, var_2, 100 );
+    thread maps\_lighting::model_flicker_preset( "flicker_2", 0, var_0, var_1, undefined, undefined, 0.01, 5, 0.005, 0.05, undefined, var_2, 100 );
 }
 
 office_light_force_on()

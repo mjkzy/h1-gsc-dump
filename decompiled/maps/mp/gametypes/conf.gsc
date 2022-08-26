@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     if ( getdvar( "mapname" ) == "mp_background" )
@@ -159,10 +141,10 @@ getspawnpoint()
     else
     {
         var_2 = maps\mp\gametypes\_spawnlogic::getteamspawnpoints( var_0 );
-        var_1 = maps\mp\gametypes\_spawnscoring::_id_40D3( var_2 );
+        var_1 = maps\mp\gametypes\_spawnscoring::getspawnpoint_awayfromenemies( var_2 );
     }
 
-    maps\mp\gametypes\_spawnlogic::_id_7273( var_1 );
+    maps\mp\gametypes\_spawnlogic::recon_set_spawnpoint( var_1 );
     return var_1;
 }
 
@@ -170,7 +152,7 @@ onnormaldeath( var_0, var_1, var_2 )
 {
     level thread spawndogtags( var_0, var_1 );
 
-    if ( game["state"] == "postgame" && game["teamScores"][var_1.team] > game["teamScores"][level._id_65B3[var_1.team]] )
+    if ( game["state"] == "postgame" && game["teamScores"][var_1.team] > game["teamScores"][level.otherteam[var_1.team]] )
         var_1.finalkill = 1;
 }
 
@@ -197,16 +179,16 @@ spawndogtags( var_0, var_1 )
         var_3[1] setmodel( level.killconfirmeddogtagfriend );
         var_4 = spawn( "trigger_radius", ( 0.0, 0.0, 0.0 ), 0, 32, 32 );
         level.dogtags[var_0.guid] = maps\mp\gametypes\_gameobjects::createuseobject( "any", var_4, var_3, ( 0.0, 0.0, 16.0 ) );
-        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].teamobjids );
-        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid]._id_6306 );
-        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid]._id_6309 );
-        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid]._id_6316["allies"] );
-        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid]._id_6316["axis"] );
-        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid]._id_6316["mlg"] );
+        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].objidallies );
+        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].objidaxis );
+        maps\mp\_utility::_objective_delete( level.dogtags[var_0.guid].objidmlgspectator );
+        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid].objpoints["allies"] );
+        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid].objpoints["axis"] );
+        maps\mp\gametypes\_objpoints::deleteobjpoint( level.dogtags[var_0.guid].objpoints["mlg"] );
         level.dogtags[var_0.guid] maps\mp\gametypes\_gameobjects::setusetime( 0 );
         level.dogtags[var_0.guid].onuse = ::onuse;
-        level.dogtags[var_0.guid]._id_9E07 = var_0;
-        level.dogtags[var_0.guid]._id_9E0A = var_2;
+        level.dogtags[var_0.guid].victim = var_0;
+        level.dogtags[var_0.guid].victimteam = var_2;
         level.dogtags[var_0.guid].objid = maps\mp\gametypes\_gameobjects::getnextobjid();
         objective_add( level.dogtags[var_0.guid].objid, "invisible", ( 0.0, 0.0, 0.0 ) );
         objective_icon( level.dogtags[var_0.guid].objid, "waypoint_dogtags" );
@@ -266,7 +248,7 @@ showtoteam( var_0, var_1 )
             if ( var_3.team == "spectator" && var_1 == "allies" )
                 self showtoplayer( var_3 );
 
-            if ( var_0._id_9E0A == var_3.team && var_3 == var_0.attacker )
+            if ( var_0.victimteam == var_3.team && var_3 == var_0.attacker )
                 objective_state( var_0.objid, "invisible" );
         }
     }
@@ -279,18 +261,18 @@ onuse( var_0 )
 
     var_1 = var_0.pers["team"];
 
-    if ( var_1 == self._id_9E0A )
+    if ( var_1 == self.victimteam )
     {
         self.trigger playsound( "mp_kc_tag_denied" );
 
         if ( isplayer( var_0 ) )
-            var_0 maps\mp\_utility::_id_5655( "kill_denied" );
+            var_0 maps\mp\_utility::leaderdialogonplayer( "kill_denied" );
 
         if ( isdefined( self.attacker ) && isplayer( self.attacker ) )
-            self.attacker maps\mp\_utility::_id_5655( "kc_killlost" );
+            self.attacker maps\mp\_utility::leaderdialogonplayer( "kc_killlost" );
 
-        var_2 = self._id_9E07 == var_0;
-        var_0 maps\mp\_events::_id_5359( var_2 );
+        var_2 = self.victim == var_0;
+        var_0 maps\mp\_events::killdeniedevent( var_2 );
 
         if ( level.killstreak_tag_friendly )
             maps\mp\gametypes\_damage::incrementkillstreak( var_0 );
@@ -302,22 +284,22 @@ onuse( var_0 )
         if ( isplayer( self.attacker ) && self.attacker != var_0 )
             level thread maps\mp\gametypes\_rank::awardgameevent( "team_confirmed", self.attacker );
 
-        var_0 maps\mp\_events::_id_5356();
+        var_0 maps\mp\_events::killconfirmedevent();
 
         if ( isplayer( var_0 ) )
-            var_0 maps\mp\_utility::_id_5655( "kill_confirmed" );
+            var_0 maps\mp\_utility::leaderdialogonplayer( "kill_confirmed" );
 
-        var_0 maps\mp\gametypes\_gamescores::_id_420C( var_1, 1 );
+        var_0 maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_1, 1 );
 
         if ( level.killstreak_tag_enemy )
             maps\mp\gametypes\_damage::incrementkillstreak( var_0 );
     }
 
-    level thread maps\mp\_events::_id_5ED2( var_0 );
-    _id_7461();
+    level thread maps\mp\_events::monitortagcollector( var_0 );
+    resettags();
 }
 
-_id_7461()
+resettags()
 {
     self.attacker = undefined;
     self notify( "reset" );
@@ -340,8 +322,8 @@ tagteamupdater( var_0 )
     for (;;)
     {
         self waittill( "joined_team" );
-        var_0._id_9E0A = self.pers["team"];
-        var_0 _id_7461();
+        var_0.victimteam = self.pers["team"];
+        var_0 resettags();
     }
 }
 

@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4CB8()
+init_battlechatter()
 {
-    if ( isdefined( anim._id_1CA5 ) && anim._id_1CA5 )
+    if ( isdefined( anim.chatinitialized ) && anim.chatinitialized )
         return;
 
     if ( getdvar( "bcs_enable" ) == "" )
@@ -29,13 +11,13 @@ _id_4CB8()
 
     if ( getdvar( "bcs_enable" ) == "off" )
     {
-        anim._id_1CA5 = 0;
-        anim.player._id_1CA5 = 0;
+        anim.chatinitialized = 0;
+        anim.player.chatinitialized = 0;
         return;
     }
 
-    anim._id_1CA5 = 1;
-    anim.player._id_1CA5 = 0;
+    anim.chatinitialized = 1;
+    anim.player.chatinitialized = 0;
 
     if ( getdvar( "bcs_filterThreat" ) == "" )
         setdvar( "bcs_filterThreat", "off" );
@@ -82,150 +64,150 @@ _id_4CB8()
     if ( getdvar( "debug_bcprintdump" ) == "" )
         setdvar( "debug_bcprintdump", "off" );
 
-    anim._id_2244["british"] = "UK";
-    anim._id_2244["american"] = "US";
-    anim._id_2244["russian"] = "RU";
-    anim._id_2244["arab"] = "AB";
-    anim._id_9BF9 = [];
-    anim._id_9BF9["russian"] = [];
-    anim._id_9BF9["russian"][0] = spawnstruct();
-    anim._id_9BF9["russian"][0].count = 0;
-    anim._id_9BF9["russian"][0]._id_6252 = "0";
-    anim._id_9BF9["russian"][1] = spawnstruct();
-    anim._id_9BF9["russian"][1].count = 0;
-    anim._id_9BF9["russian"][1]._id_6252 = "1";
-    anim._id_9BF9["russian"][2] = spawnstruct();
-    anim._id_9BF9["russian"][2].count = 0;
-    anim._id_9BF9["russian"][2]._id_6252 = "3";
-    anim._id_9BF9["british"] = [];
-    anim._id_9BF9["british"][0] = spawnstruct();
-    anim._id_9BF9["british"][0].count = 0;
-    anim._id_9BF9["british"][0]._id_6252 = "0";
-    anim._id_9BF9["british"][1] = spawnstruct();
-    anim._id_9BF9["british"][1].count = 0;
-    anim._id_9BF9["british"][1]._id_6252 = "1";
-    anim._id_9BF9["british"][2] = spawnstruct();
-    anim._id_9BF9["british"][2].count = 0;
-    anim._id_9BF9["british"][2]._id_6252 = "2";
-    anim._id_9BF9["british"][3] = spawnstruct();
-    anim._id_9BF9["british"][3].count = 0;
-    anim._id_9BF9["british"][3]._id_6252 = "3";
-    anim._id_9BF9["american"] = [];
-    anim._id_9BF9["american"][0] = spawnstruct();
-    anim._id_9BF9["american"][0].count = 0;
-    anim._id_9BF9["american"][0]._id_6252 = "0";
-    anim._id_9BF9["american"][1] = spawnstruct();
-    anim._id_9BF9["american"][1].count = 0;
-    anim._id_9BF9["american"][1]._id_6252 = "1";
-    anim._id_9BF9["american"][2] = spawnstruct();
-    anim._id_9BF9["american"][2].count = 0;
-    anim._id_9BF9["american"][2]._id_6252 = "2";
-    anim._id_9BF9["arab"] = [];
-    anim._id_9BF9["arab"][0] = spawnstruct();
-    anim._id_9BF9["arab"][0].count = 0;
-    anim._id_9BF9["arab"][0]._id_6252 = "0";
-    anim._id_9BF9["arab"][1] = spawnstruct();
-    anim._id_9BF9["arab"][1].count = 0;
-    anim._id_9BF9["arab"][1]._id_6252 = "1";
-    anim._id_9BF9["arab"][2] = spawnstruct();
-    anim._id_9BF9["arab"][2].count = 0;
-    anim._id_9BF9["arab"][2]._id_6252 = "2";
-    anim._id_9BF9["arab"][3] = spawnstruct();
-    anim._id_9BF9["arab"][3].count = 0;
-    anim._id_9BF9["arab"][3]._id_6252 = "3";
-    anim._id_33DE = [];
-    anim._id_33DE["threat"] = [];
-    anim._id_33DE["response"] = [];
-    anim._id_33DE["reaction"] = [];
-    anim._id_33DE["order"] = [];
-    anim._id_33DE["inform"] = [];
-    anim._id_33DE["custom"] = [];
-    anim._id_33DE["direction"] = [];
+    anim.countryids["british"] = "UK";
+    anim.countryids["american"] = "US";
+    anim.countryids["russian"] = "RU";
+    anim.countryids["arab"] = "AB";
+    anim.usedids = [];
+    anim.usedids["russian"] = [];
+    anim.usedids["russian"][0] = spawnstruct();
+    anim.usedids["russian"][0].count = 0;
+    anim.usedids["russian"][0].npcid = "0";
+    anim.usedids["russian"][1] = spawnstruct();
+    anim.usedids["russian"][1].count = 0;
+    anim.usedids["russian"][1].npcid = "1";
+    anim.usedids["russian"][2] = spawnstruct();
+    anim.usedids["russian"][2].count = 0;
+    anim.usedids["russian"][2].npcid = "3";
+    anim.usedids["british"] = [];
+    anim.usedids["british"][0] = spawnstruct();
+    anim.usedids["british"][0].count = 0;
+    anim.usedids["british"][0].npcid = "0";
+    anim.usedids["british"][1] = spawnstruct();
+    anim.usedids["british"][1].count = 0;
+    anim.usedids["british"][1].npcid = "1";
+    anim.usedids["british"][2] = spawnstruct();
+    anim.usedids["british"][2].count = 0;
+    anim.usedids["british"][2].npcid = "2";
+    anim.usedids["british"][3] = spawnstruct();
+    anim.usedids["british"][3].count = 0;
+    anim.usedids["british"][3].npcid = "3";
+    anim.usedids["american"] = [];
+    anim.usedids["american"][0] = spawnstruct();
+    anim.usedids["american"][0].count = 0;
+    anim.usedids["american"][0].npcid = "0";
+    anim.usedids["american"][1] = spawnstruct();
+    anim.usedids["american"][1].count = 0;
+    anim.usedids["american"][1].npcid = "1";
+    anim.usedids["american"][2] = spawnstruct();
+    anim.usedids["american"][2].count = 0;
+    anim.usedids["american"][2].npcid = "2";
+    anim.usedids["arab"] = [];
+    anim.usedids["arab"][0] = spawnstruct();
+    anim.usedids["arab"][0].count = 0;
+    anim.usedids["arab"][0].npcid = "0";
+    anim.usedids["arab"][1] = spawnstruct();
+    anim.usedids["arab"][1].count = 0;
+    anim.usedids["arab"][1].npcid = "1";
+    anim.usedids["arab"][2] = spawnstruct();
+    anim.usedids["arab"][2].count = 0;
+    anim.usedids["arab"][2].npcid = "2";
+    anim.usedids["arab"][3] = spawnstruct();
+    anim.usedids["arab"][3].count = 0;
+    anim.usedids["arab"][3].npcid = "3";
+    anim.eventtypeminwait = [];
+    anim.eventtypeminwait["threat"] = [];
+    anim.eventtypeminwait["response"] = [];
+    anim.eventtypeminwait["reaction"] = [];
+    anim.eventtypeminwait["order"] = [];
+    anim.eventtypeminwait["inform"] = [];
+    anim.eventtypeminwait["custom"] = [];
+    anim.eventtypeminwait["direction"] = [];
 
     if ( isdefined( level._stealth ) )
     {
-        anim._id_33D9["threat"]["self"] = 20000;
-        anim._id_33D9["threat"]["squad"] = 30000;
+        anim.eventactionminwait["threat"]["self"] = 20000;
+        anim.eventactionminwait["threat"]["squad"] = 30000;
     }
     else
     {
-        anim._id_33D9["threat"]["self"] = 12000;
-        anim._id_33D9["threat"]["squad"] = 8000;
+        anim.eventactionminwait["threat"]["self"] = 12000;
+        anim.eventactionminwait["threat"]["squad"] = 8000;
     }
 
-    anim._id_33D9["response"]["self"] = 1000;
-    anim._id_33D9["response"]["squad"] = 1000;
-    anim._id_33D9["reaction"]["self"] = 1000;
-    anim._id_33D9["reaction"]["squad"] = 1000;
-    anim._id_33D9["order"]["self"] = 8000;
-    anim._id_33D9["order"]["squad"] = 40000;
-    anim._id_33D9["inform"]["self"] = 6000;
-    anim._id_33D9["inform"]["squad"] = 8000;
-    anim._id_33D9["custom"]["self"] = 0;
-    anim._id_33D9["custom"]["squad"] = 5000;
-    anim._id_33DE["reaction"]["casualty"] = 20000;
-    anim._id_33DE["reaction"]["taunt"] = 200000;
-    anim._id_33DE["inform"]["reloading"] = 20000;
-    anim._id_33DC["threat"]["infantry"] = 0.5;
-    anim._id_33DC["threat"]["vehicle"] = 0.7;
-    anim._id_33DC["response"]["killfirm"] = 0.8;
-    anim._id_33DC["response"]["ack"] = 0.9;
-    anim._id_33DC["reaction"]["casualty"] = 0.5;
-    anim._id_33DC["reaction"]["taunt"] = 0.9;
-    anim._id_33DC["order"]["cover"] = 0.9;
-    anim._id_33DC["order"]["action"] = 0.5;
-    anim._id_33DC["order"]["move"] = 0.9;
-    anim._id_33DC["order"]["displace"] = 0.5;
-    anim._id_33DC["inform"]["killfirm"] = 0.6;
-    anim._id_33DC["inform"]["attack"] = 0.9;
-    anim._id_33DC["inform"]["incoming"] = 0.8;
-    anim._id_33DC["inform"]["reloading"] = 0.2;
-    anim._id_33DC["inform"]["suppressed"] = 0.2;
-    anim._id_33DC["custom"]["generic"] = 1.0;
-    anim._id_33DB["threat"]["infantry"] = 1000;
-    anim._id_33DB["threat"]["vehicle"] = 1000;
-    anim._id_33DB["response"]["killfirm"] = 3000;
-    anim._id_33DB["response"]["ack"] = 2000;
-    anim._id_33DB["reaction"]["casualty"] = 2000;
-    anim._id_33DB["reaction"]["taunt"] = 2000;
-    anim._id_33DB["order"]["cover"] = 3000;
-    anim._id_33DB["order"]["action"] = 3000;
-    anim._id_33DB["order"]["move"] = 3000;
-    anim._id_33DB["order"]["displace"] = 3000;
-    anim._id_33DB["inform"]["killfirm"] = 1000;
-    anim._id_33DB["inform"]["attack"] = 1000;
-    anim._id_33DB["inform"]["incoming"] = 1000;
-    anim._id_33DB["inform"]["reloading"] = 1000;
-    anim._id_33DB["inform"]["suppressed"] = 2000;
-    anim._id_33DB["custom"]["generic"] = 1000;
+    anim.eventactionminwait["response"]["self"] = 1000;
+    anim.eventactionminwait["response"]["squad"] = 1000;
+    anim.eventactionminwait["reaction"]["self"] = 1000;
+    anim.eventactionminwait["reaction"]["squad"] = 1000;
+    anim.eventactionminwait["order"]["self"] = 8000;
+    anim.eventactionminwait["order"]["squad"] = 40000;
+    anim.eventactionminwait["inform"]["self"] = 6000;
+    anim.eventactionminwait["inform"]["squad"] = 8000;
+    anim.eventactionminwait["custom"]["self"] = 0;
+    anim.eventactionminwait["custom"]["squad"] = 5000;
+    anim.eventtypeminwait["reaction"]["casualty"] = 20000;
+    anim.eventtypeminwait["reaction"]["taunt"] = 200000;
+    anim.eventtypeminwait["inform"]["reloading"] = 20000;
+    anim.eventpriority["threat"]["infantry"] = 0.5;
+    anim.eventpriority["threat"]["vehicle"] = 0.7;
+    anim.eventpriority["response"]["killfirm"] = 0.8;
+    anim.eventpriority["response"]["ack"] = 0.9;
+    anim.eventpriority["reaction"]["casualty"] = 0.5;
+    anim.eventpriority["reaction"]["taunt"] = 0.9;
+    anim.eventpriority["order"]["cover"] = 0.9;
+    anim.eventpriority["order"]["action"] = 0.5;
+    anim.eventpriority["order"]["move"] = 0.9;
+    anim.eventpriority["order"]["displace"] = 0.5;
+    anim.eventpriority["inform"]["killfirm"] = 0.6;
+    anim.eventpriority["inform"]["attack"] = 0.9;
+    anim.eventpriority["inform"]["incoming"] = 0.8;
+    anim.eventpriority["inform"]["reloading"] = 0.2;
+    anim.eventpriority["inform"]["suppressed"] = 0.2;
+    anim.eventpriority["custom"]["generic"] = 1.0;
+    anim.eventduration["threat"]["infantry"] = 1000;
+    anim.eventduration["threat"]["vehicle"] = 1000;
+    anim.eventduration["response"]["killfirm"] = 3000;
+    anim.eventduration["response"]["ack"] = 2000;
+    anim.eventduration["reaction"]["casualty"] = 2000;
+    anim.eventduration["reaction"]["taunt"] = 2000;
+    anim.eventduration["order"]["cover"] = 3000;
+    anim.eventduration["order"]["action"] = 3000;
+    anim.eventduration["order"]["move"] = 3000;
+    anim.eventduration["order"]["displace"] = 3000;
+    anim.eventduration["inform"]["killfirm"] = 1000;
+    anim.eventduration["inform"]["attack"] = 1000;
+    anim.eventduration["inform"]["incoming"] = 1000;
+    anim.eventduration["inform"]["reloading"] = 1000;
+    anim.eventduration["inform"]["suppressed"] = 2000;
+    anim.eventduration["custom"]["generic"] = 1000;
     anim.chatcount = 0;
-    anim._id_5F63 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
+    anim.moveorigin = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     anim.areas = getentarray( "trigger_location", "targetname" );
     anim.locations = getentarray( "trigger_location", "targetname" );
     anim.landmarks = getentarray( "trigger_landmark", "targetname" );
-    anim._id_8AC9[anim._id_8AC9.size] = ::_id_4D5E;
-    anim._id_8ACA[anim._id_8ACA.size] = "::init_squadBattleChatter";
-    anim._id_51D0["allies"] = 0;
-    anim._id_51CF["allies"]["threat"] = 0;
-    anim._id_51CF["allies"]["order"] = 0;
-    anim._id_51CF["allies"]["reaction"] = 0;
-    anim._id_51CF["allies"]["response"] = 0;
-    anim._id_51CF["allies"]["inform"] = 0;
-    anim._id_51CF["allies"]["custom"] = 0;
-    anim._id_51D0["axis"] = 0;
-    anim._id_51CF["axis"]["threat"] = 0;
-    anim._id_51CF["axis"]["order"] = 0;
-    anim._id_51CF["axis"]["reaction"] = 0;
-    anim._id_51CF["axis"]["response"] = 0;
-    anim._id_51CF["axis"]["inform"] = 0;
-    anim._id_51CF["axis"]["custom"] = 0;
-    anim._id_51D0["neutral"] = 0;
-    anim._id_51CF["neutral"]["threat"] = 0;
-    anim._id_51CF["neutral"]["order"] = 0;
-    anim._id_51CF["neutral"]["reaction"] = 0;
-    anim._id_51CF["neutral"]["response"] = 0;
-    anim._id_51CF["neutral"]["inform"] = 0;
-    anim._id_51CF["neutral"]["custom"] = 0;
+    anim.squadcreatefuncs[anim.squadcreatefuncs.size] = ::init_squadbattlechatter;
+    anim.squadcreatestrings[anim.squadcreatestrings.size] = "::init_squadBattleChatter";
+    anim.isteamspeaking["allies"] = 0;
+    anim.isteamsaying["allies"]["threat"] = 0;
+    anim.isteamsaying["allies"]["order"] = 0;
+    anim.isteamsaying["allies"]["reaction"] = 0;
+    anim.isteamsaying["allies"]["response"] = 0;
+    anim.isteamsaying["allies"]["inform"] = 0;
+    anim.isteamsaying["allies"]["custom"] = 0;
+    anim.isteamspeaking["axis"] = 0;
+    anim.isteamsaying["axis"]["threat"] = 0;
+    anim.isteamsaying["axis"]["order"] = 0;
+    anim.isteamsaying["axis"]["reaction"] = 0;
+    anim.isteamsaying["axis"]["response"] = 0;
+    anim.isteamsaying["axis"]["inform"] = 0;
+    anim.isteamsaying["axis"]["custom"] = 0;
+    anim.isteamspeaking["neutral"] = 0;
+    anim.isteamsaying["neutral"]["threat"] = 0;
+    anim.isteamsaying["neutral"]["order"] = 0;
+    anim.isteamsaying["neutral"]["reaction"] = 0;
+    anim.isteamsaying["neutral"]["response"] = 0;
+    anim.isteamsaying["neutral"]["inform"] = 0;
+    anim.isteamsaying["neutral"]["custom"] = 0;
 
     if ( !isdefined( level.battlechatter ) )
     {
@@ -235,164 +217,164 @@ _id_4CB8()
         level.battlechatter["neutral"] = 1;
     }
 
-    anim._id_5602 = [];
-    anim._id_5602["allies"] = -5000;
-    anim._id_5602["axis"] = -5000;
+    anim.lastteamspeaktime = [];
+    anim.lastteamspeaktime["allies"] = -5000;
+    anim.lastteamspeaktime["axis"] = -5000;
 
-    for ( var_0 = 0; var_0 < anim._id_8ACE.size; var_0++ )
+    for ( var_0 = 0; var_0 < anim.squadindex.size; var_0++ )
     {
-        if ( isdefined( anim._id_8ACE[var_0]._id_1CA5 ) && anim._id_8ACE[var_0]._id_1CA5 )
+        if ( isdefined( anim.squadindex[var_0].chatinitialized ) && anim.squadindex[var_0].chatinitialized )
             continue;
 
-        anim._id_8ACE[var_0] _id_4D5E();
+        anim.squadindex[var_0] init_squadbattlechatter();
     }
 
     level notify( "battlechatter initialized" );
     anim notify( "battlechatter initialized" );
 }
 
-_id_854B()
+shutdown_battlechatter()
 {
-    anim._id_2244 = undefined;
-    anim._id_33DE = undefined;
-    anim._id_33D9 = undefined;
-    anim._id_33DE = undefined;
-    anim._id_33DC = undefined;
-    anim._id_33DB = undefined;
+    anim.countryids = undefined;
+    anim.eventtypeminwait = undefined;
+    anim.eventactionminwait = undefined;
+    anim.eventtypeminwait = undefined;
+    anim.eventpriority = undefined;
+    anim.eventduration = undefined;
     anim.chatcount = undefined;
-    anim._id_5F63 = undefined;
+    anim.moveorigin = undefined;
     anim.areas = undefined;
     anim.locations = undefined;
     anim.landmarks = undefined;
-    anim._id_9BF9 = undefined;
-    anim._id_1CA5 = 0;
-    anim.player._id_1CA5 = 0;
+    anim.usedids = undefined;
+    anim.chatinitialized = 0;
+    anim.player.chatinitialized = 0;
     level.battlechatter = undefined;
 
-    for ( var_0 = 0; var_0 < anim._id_8AC9.size; var_0++ )
+    for ( var_0 = 0; var_0 < anim.squadcreatefuncs.size; var_0++ )
     {
-        if ( anim._id_8ACA[var_0] != "::init_squadBattleChatter" )
+        if ( anim.squadcreatestrings[var_0] != "::init_squadBattleChatter" )
             continue;
 
-        if ( var_0 != anim._id_8AC9.size - 1 )
+        if ( var_0 != anim.squadcreatefuncs.size - 1 )
         {
-            anim._id_8AC9[var_0] = anim._id_8AC9[anim._id_8AC9.size - 1];
-            anim._id_8ACA[var_0] = anim._id_8ACA[anim._id_8ACA.size - 1];
+            anim.squadcreatefuncs[var_0] = anim.squadcreatefuncs[anim.squadcreatefuncs.size - 1];
+            anim.squadcreatestrings[var_0] = anim.squadcreatestrings[anim.squadcreatestrings.size - 1];
         }
 
-        anim._id_8AC9[anim._id_8AC9.size - 1] = undefined;
-        anim._id_8ACA[anim._id_8ACA.size - 1] = undefined;
+        anim.squadcreatefuncs[anim.squadcreatefuncs.size - 1] = undefined;
+        anim.squadcreatestrings[anim.squadcreatestrings.size - 1] = undefined;
     }
 
     level notify( "battlechatter disabled" );
     anim notify( "battlechatter disabled" );
 }
 
-_id_4D5E()
+init_squadbattlechatter()
 {
     var_0 = self;
-    var_0._id_62AE = 0;
-    var_0._id_5A54 = 1;
-    var_0._id_60DA = gettime() + 50;
-    var_0._id_60DB["threat"] = gettime() + 50;
-    var_0._id_60DB["order"] = gettime() + 50;
-    var_0._id_60DB["reaction"] = gettime() + 50;
-    var_0._id_60DB["response"] = gettime() + 50;
-    var_0._id_60DB["inform"] = gettime() + 50;
-    var_0._id_60DB["custom"] = gettime() + 50;
-    var_0._id_60DF["threat"] = [];
-    var_0._id_60DF["order"] = [];
-    var_0._id_60DF["reaction"] = [];
-    var_0._id_60DF["response"] = [];
-    var_0._id_60DF["inform"] = [];
-    var_0._id_60DF["custom"] = [];
-    var_0._id_5151["threat"] = 0;
-    var_0._id_5151["order"] = 0;
-    var_0._id_5151["reaction"] = 0;
-    var_0._id_5151["response"] = 0;
-    var_0._id_5151["inform"] = 0;
-    var_0._id_5151["custom"] = 0;
-    var_0._id_5595 = "";
-    var_0._id_5B9D[var_0._id_5B9D.size] = animscripts\battlechatter_ai::addtosystem;
-    var_0._id_5B9E[var_0._id_5B9E.size] = "::addToSystem";
-    var_0._id_5BA4[var_0._id_5BA4.size] = animscripts\battlechatter_ai::_id_73AE;
-    var_0._id_5BA5[var_0._id_5BA5.size] = "::removeFromSystem";
-    var_0._id_8AD9[var_0._id_8AD9.size] = ::_id_4DA3;
-    var_0._id_8ADA[var_0._id_8ADA.size] = "::initContact";
+    var_0.numspeakers = 0;
+    var_0.maxspeakers = 1;
+    var_0.nextsaytime = gettime() + 50;
+    var_0.nextsaytimes["threat"] = gettime() + 50;
+    var_0.nextsaytimes["order"] = gettime() + 50;
+    var_0.nextsaytimes["reaction"] = gettime() + 50;
+    var_0.nextsaytimes["response"] = gettime() + 50;
+    var_0.nextsaytimes["inform"] = gettime() + 50;
+    var_0.nextsaytimes["custom"] = gettime() + 50;
+    var_0.nexttypesaytimes["threat"] = [];
+    var_0.nexttypesaytimes["order"] = [];
+    var_0.nexttypesaytimes["reaction"] = [];
+    var_0.nexttypesaytimes["response"] = [];
+    var_0.nexttypesaytimes["inform"] = [];
+    var_0.nexttypesaytimes["custom"] = [];
+    var_0.ismembersaying["threat"] = 0;
+    var_0.ismembersaying["order"] = 0;
+    var_0.ismembersaying["reaction"] = 0;
+    var_0.ismembersaying["response"] = 0;
+    var_0.ismembersaying["inform"] = 0;
+    var_0.ismembersaying["custom"] = 0;
+    var_0.lastdirection = "";
+    var_0.memberaddfuncs[var_0.memberaddfuncs.size] = animscripts\battlechatter_ai::addtosystem;
+    var_0.memberaddstrings[var_0.memberaddstrings.size] = "::addToSystem";
+    var_0.memberremovefuncs[var_0.memberremovefuncs.size] = animscripts\battlechatter_ai::removefromsystem;
+    var_0.memberremovestrings[var_0.memberremovestrings.size] = "::removeFromSystem";
+    var_0.squadupdatefuncs[var_0.squadupdatefuncs.size] = ::initcontact;
+    var_0.squadupdatestrings[var_0.squadupdatestrings.size] = "::initContact";
 
-    for ( var_1 = 0; var_1 < anim._id_8ACE.size; var_1++ )
-        var_0 thread _id_4DA3( anim._id_8ACE[var_1].squadname );
+    for ( var_1 = 0; var_1 < anim.squadindex.size; var_1++ )
+        var_0 thread initcontact( anim.squadindex[var_1].squadname );
 
-    var_0 thread animscripts\battlechatter_ai::_id_8AD7();
-    var_0 thread animscripts\battlechatter_ai::_id_8AD3();
-    var_0._id_1CA5 = 1;
+    var_0 thread animscripts\battlechatter_ai::squadthreatwaiter();
+    var_0 thread animscripts\battlechatter_ai::squadofficerwaiter();
+    var_0.chatinitialized = 1;
     var_0 notify( "squad chat initialized" );
 }
 
-_id_854E()
+shutdown_squadbattlechatter()
 {
     var_0 = self;
-    var_0._id_62AE = undefined;
-    var_0._id_5A54 = undefined;
-    var_0._id_60DA = undefined;
-    var_0._id_60DB = undefined;
-    var_0._id_60DF = undefined;
-    var_0._id_5151 = undefined;
+    var_0.numspeakers = undefined;
+    var_0.maxspeakers = undefined;
+    var_0.nextsaytime = undefined;
+    var_0.nextsaytimes = undefined;
+    var_0.nexttypesaytimes = undefined;
+    var_0.ismembersaying = undefined;
 
-    for ( var_1 = 0; var_1 < var_0._id_5B9D.size; var_1++ )
+    for ( var_1 = 0; var_1 < var_0.memberaddfuncs.size; var_1++ )
     {
-        if ( var_0._id_5B9E[var_1] != "::addToSystem" )
+        if ( var_0.memberaddstrings[var_1] != "::addToSystem" )
             continue;
 
-        if ( var_1 != var_0._id_5B9D.size - 1 )
+        if ( var_1 != var_0.memberaddfuncs.size - 1 )
         {
-            var_0._id_5B9D[var_1] = var_0._id_5B9D[var_0._id_5B9D.size - 1];
-            var_0._id_5B9E[var_1] = var_0._id_5B9E[var_0._id_5B9E.size - 1];
+            var_0.memberaddfuncs[var_1] = var_0.memberaddfuncs[var_0.memberaddfuncs.size - 1];
+            var_0.memberaddstrings[var_1] = var_0.memberaddstrings[var_0.memberaddstrings.size - 1];
         }
 
-        var_0._id_5B9D[var_0._id_5B9D.size - 1] = undefined;
-        var_0._id_5B9E[var_0._id_5B9E.size - 1] = undefined;
+        var_0.memberaddfuncs[var_0.memberaddfuncs.size - 1] = undefined;
+        var_0.memberaddstrings[var_0.memberaddstrings.size - 1] = undefined;
     }
 
-    for ( var_1 = 0; var_1 < var_0._id_5BA4.size; var_1++ )
+    for ( var_1 = 0; var_1 < var_0.memberremovefuncs.size; var_1++ )
     {
-        if ( var_0._id_5BA5[var_1] != "::removeFromSystem" )
+        if ( var_0.memberremovestrings[var_1] != "::removeFromSystem" )
             continue;
 
-        if ( var_1 != var_0._id_5BA4.size - 1 )
+        if ( var_1 != var_0.memberremovefuncs.size - 1 )
         {
-            var_0._id_5BA4[var_1] = var_0._id_5BA4[var_0._id_5BA4.size - 1];
-            var_0._id_5BA5[var_1] = var_0._id_5BA5[var_0._id_5BA5.size - 1];
+            var_0.memberremovefuncs[var_1] = var_0.memberremovefuncs[var_0.memberremovefuncs.size - 1];
+            var_0.memberremovestrings[var_1] = var_0.memberremovestrings[var_0.memberremovestrings.size - 1];
         }
 
-        var_0._id_5BA4[var_0._id_5BA4.size - 1] = undefined;
-        var_0._id_5BA5[var_0._id_5BA5.size - 1] = undefined;
+        var_0.memberremovefuncs[var_0.memberremovefuncs.size - 1] = undefined;
+        var_0.memberremovestrings[var_0.memberremovestrings.size - 1] = undefined;
     }
 
-    for ( var_1 = 0; var_1 < var_0._id_8AD9.size; var_1++ )
+    for ( var_1 = 0; var_1 < var_0.squadupdatefuncs.size; var_1++ )
     {
-        if ( var_0._id_8ADA[var_1] != "::initContact" )
+        if ( var_0.squadupdatestrings[var_1] != "::initContact" )
             continue;
 
-        if ( var_1 != var_0._id_8AD9.size - 1 )
+        if ( var_1 != var_0.squadupdatefuncs.size - 1 )
         {
-            var_0._id_8AD9[var_1] = var_0._id_8AD9[var_0._id_8AD9.size - 1];
-            var_0._id_8ADA[var_1] = var_0._id_8ADA[var_0._id_8ADA.size - 1];
+            var_0.squadupdatefuncs[var_1] = var_0.squadupdatefuncs[var_0.squadupdatefuncs.size - 1];
+            var_0.squadupdatestrings[var_1] = var_0.squadupdatestrings[var_0.squadupdatestrings.size - 1];
         }
 
-        var_0._id_8AD9[var_0._id_8AD9.size - 1] = undefined;
-        var_0._id_8ADA[var_0._id_8ADA.size - 1] = undefined;
+        var_0.squadupdatefuncs[var_0.squadupdatefuncs.size - 1] = undefined;
+        var_0.squadupdatestrings[var_0.squadupdatestrings.size - 1] = undefined;
     }
 
-    for ( var_1 = 0; var_1 < anim._id_8ACE.size; var_1++ )
-        var_0 _id_854F( anim._id_8ACE[var_1].squadname );
+    for ( var_1 = 0; var_1 < anim.squadindex.size; var_1++ )
+        var_0 shutdowncontact( anim.squadindex[var_1].squadname );
 
-    var_0._id_1CA5 = 0;
+    var_0.chatinitialized = 0;
 }
 
 bcsenabled()
 {
-    return anim._id_1CA5;
+    return anim.chatinitialized;
 }
 
 bcsdebugwaiter()
@@ -408,13 +390,13 @@ bcsdebugwaiter()
             switch ( var_1 )
             {
                 case "on":
-                    if ( !anim._id_1CA5 )
-                        _id_3109();
+                    if ( !anim.chatinitialized )
+                        enablebattlechatter();
 
                     break;
                 case "off":
-                    if ( anim._id_1CA5 )
-                        _id_2AF6();
+                    if ( anim.chatinitialized )
+                        disablebattlechatter();
 
                     break;
             }
@@ -426,9 +408,9 @@ bcsdebugwaiter()
     }
 }
 
-_id_3109()
+enablebattlechatter()
 {
-    _id_4CB8();
+    init_battlechatter();
     anim.player thread animscripts\battlechatter_ai::addtosystem();
     var_0 = getaiarray();
 
@@ -436,21 +418,21 @@ _id_3109()
         var_0[var_1] animscripts\battlechatter_ai::addtosystem();
 }
 
-_id_2AF6()
+disablebattlechatter()
 {
-    _id_854B();
+    shutdown_battlechatter();
     var_0 = getaiarray();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isdefined( var_0[var_1]._id_8AB0 ) && var_0[var_1]._id_8AB0._id_1CA5 )
-            var_0[var_1]._id_8AB0 _id_854E();
+        if ( isdefined( var_0[var_1].squad ) && var_0[var_1].squad.chatinitialized )
+            var_0[var_1].squad shutdown_squadbattlechatter();
 
-        var_0[var_1] animscripts\battlechatter_ai::_id_73AE();
+        var_0[var_1] animscripts\battlechatter_ai::removefromsystem();
     }
 }
 
-_id_6A2E()
+playbattlechatter()
 {
     if ( !bcsenabled() )
         return;
@@ -458,23 +440,23 @@ _id_6A2E()
     if ( !self.battlechatter )
         return;
 
-    if ( self._id_51B3 )
+    if ( self.isspeaking )
         return;
 
     if ( self._animactive > 0 )
         return;
 
-    if ( self._id_8AB0._id_62AE >= self._id_8AB0._id_5A54 )
+    if ( self.squad.numspeakers >= self.squad.maxspeakers )
         return;
 
-    if ( anim._id_51D0[self.team] )
+    if ( anim.isteamspeaking[self.team] )
         return;
 
     if ( !isalive( self ) )
         return;
 
     self endon( "death" );
-    var_0 = _id_3FC7();
+    var_0 = gethighestpriorityevent();
 
     if ( !isdefined( var_0 ) )
         return;
@@ -482,48 +464,48 @@ _id_6A2E()
     switch ( var_0 )
     {
         case "custom":
-            thread _id_6A3B();
+            thread playcustomevent();
             break;
         case "response":
-            thread _id_6DD3();
+            thread playresponseevent();
             break;
         case "order":
-            thread _id_6DCC();
+            thread playorderevent();
             break;
         case "threat":
-            thread _id_6DE3();
+            thread playthreatevent();
             break;
         case "reaction":
-            thread _id_6DD2();
+            thread playreactionevent();
             break;
         case "inform":
-            thread _id_6DAF();
+            thread playinformevent();
             break;
     }
 }
 
-_id_6DE3()
+playthreatevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
     self endon( "cancel speaking" );
-    self._id_24C5 = self._id_1CA6["threat"];
-    var_0 = self._id_1CA6["threat"]._id_9317;
+    self.curevent = self.chatqueue["threat"];
+    var_0 = self.chatqueue["threat"].threat;
 
-    if ( !isalive( var_0 ) || isdefined( var_0._id_1A07 ) && isdefined( var_0._id_1A07[self._id_8AB0.squadname] ) )
+    if ( !isalive( var_0 ) || isdefined( var_0.calledout ) && isdefined( var_0.calledout[self.squad.squadname] ) )
         return;
 
-    anim thread _id_5808( self, "threat" );
+    anim thread lockaction( self, "threat" );
 
-    switch ( self._id_1CA6["threat"]._id_33DD )
+    switch ( self.chatqueue["threat"].eventtype )
     {
         case "infantry":
-            if ( var_0 == level.player || !isdefined( var_0 _meth_8198() ) )
-                _id_932B( var_0 );
+            if ( var_0 == level.player || !isdefined( var_0 getturret() ) )
+                threatinfantry( var_0 );
 
             break;
         case "dog":
-            _id_9329( var_0 );
+            threatdog( var_0 );
             break;
         case "vehicle":
             break;
@@ -534,63 +516,63 @@ _id_6DE3()
     if ( !isalive( var_0 ) )
         return;
 
-    var_0._id_1A07[self._id_8AB0.squadname] = spawnstruct();
-    var_0._id_1A07[self._id_8AB0.squadname]._id_8A97 = self;
-    var_0._id_1A07[self._id_8AB0.squadname]._id_9333 = self._id_1CA6["threat"]._id_33DD;
-    var_0._id_1A07[self._id_8AB0.squadname]._id_351C = gettime() + 3000;
+    var_0.calledout[self.squad.squadname] = spawnstruct();
+    var_0.calledout[self.squad.squadname].spotter = self;
+    var_0.calledout[self.squad.squadname].threattype = self.chatqueue["threat"].eventtype;
+    var_0.calledout[self.squad.squadname].expiretime = gettime() + 3000;
 
-    if ( isdefined( var_0._id_8AB0 ) )
-        self._id_8AB0._id_8AD0[var_0._id_8AB0.squadname]._id_1A07 = 1;
+    if ( isdefined( var_0.squad ) )
+        self.squad.squadlist[var_0.squad.squadname].calledout = 1;
 }
 
-_id_932B( var_0, var_1 )
+threatinfantry( var_0, var_1 )
 {
     self endon( "cancel speaking" );
-    var_2 = _id_23EB();
-    var_2._id_59D8 = 1;
+    var_2 = createchatphrase();
+    var_2.master = 1;
 
     if ( !isdefined( var_1 ) )
         var_2.forcedetail = 0;
     else
         var_2.forcedetail = var_1;
 
-    var_2._id_932A = var_0;
+    var_2.threatent = var_0;
 
-    if ( self._id_9F32 == "british" )
+    if ( self.voice == "british" )
     {
         if ( var_0 animscripts\pain::weaponanims() == "rocketlauncher" )
-            var_2 _id_932E( var_0 );
+            var_2 threatinfantryrpg( var_0 );
         else
         {
-            var_3 = _id_3F5A( self.origin, var_0.origin );
+            var_3 = getdirectioncompass( self.origin, var_0.origin );
 
             switch ( var_3 )
             {
                 case "northwest":
                     var_3 = "nthwest";
 
-                    if ( var_3 == self._id_8AB0._id_5595 )
+                    if ( var_3 == self.squad.lastdirection )
                         var_3 = "generic";
 
                     break;
                 case "northeast":
                     var_3 = "ntheast";
 
-                    if ( var_3 == self._id_8AB0._id_5595 )
+                    if ( var_3 == self.squad.lastdirection )
                         var_3 = "generic";
 
                     break;
                 case "southwest":
                     var_3 = "sthwest";
 
-                    if ( var_3 == self._id_8AB0._id_5595 )
+                    if ( var_3 == self.squad.lastdirection )
                         var_3 = "generic";
 
                     break;
                 case "southeast":
                     var_3 = "stheast";
 
-                    if ( var_3 == self._id_8AB0._id_5595 )
+                    if ( var_3 == self.squad.lastdirection )
                         var_3 = "generic";
 
                     break;
@@ -598,17 +580,17 @@ _id_932B( var_0, var_1 )
                     var_3 = "generic";
             }
 
-            self._id_8AB0._id_5595 = var_3;
+            self.squad.lastdirection = var_3;
             var_2 addthreatalias( 1.0, "infantry", var_3 );
         }
     }
     else if ( var_0 animscripts\pain::weaponanims() == "rocketlauncher" )
-        var_2 _id_932E( var_0 );
+        var_2 threatinfantryrpg( var_0 );
     else if ( var_0 animscripts\pain::weaponanims() == "mg" )
         var_2 threatinfantrymg( var_0 );
-    else if ( var_0 _id_5103() && !isdefined( var_0 getlandmark() ) )
-        var_2 _id_932D( var_0 );
-    else if ( !isdefined( var_0 _id_400A() ) && !isdefined( var_0 getlandmark() ) )
+    else if ( var_0 isexposed() && !isdefined( var_0 getlandmark() ) )
+        var_2 threatinfantryexposed( var_0 );
+    else if ( !isdefined( var_0 getlocation() ) && !isdefined( var_0 getlandmark() ) )
     {
         var_2 addthreatalias( 1.0, "infantry", "generic" );
         var_2 adddirectionalias( 1.0, "relative", var_0 );
@@ -620,11 +602,11 @@ _id_932B( var_0, var_1 )
 
         if ( var_2 addlocationalias( 1.0, var_0 ) )
         {
-            var_4 = _id_4108( var_0 );
+            var_4 = gettargettingai( var_0 );
 
             if ( isdefined( var_4 ) )
             {
-                if ( isdefined( var_4.bcname ) && _id_1ADE( var_4.bcname ) )
+                if ( isdefined( var_4.bcname ) && cansayname( var_4.bcname ) )
                 {
                     var_2 addnamealias( var_4.bcname );
                     var_2.looktarget = var_4;
@@ -637,7 +619,7 @@ _id_932B( var_0, var_1 )
 
                 var_2 addorderalias( 1.0, "attack", "infantry" );
 
-                if ( _id_5164() )
+                if ( isofficer() )
                     var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "yes", self, 0.9 );
                 else
                     var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "norankyes", self, 0.9 );
@@ -652,11 +634,11 @@ _id_932B( var_0, var_1 )
         }
         else if ( var_2 addlandmarkalias( 1.0, var_0 ) )
         {
-            var_4 = _id_4108( var_0 );
+            var_4 = gettargettingai( var_0 );
 
             if ( isdefined( var_4 ) )
             {
-                if ( isdefined( var_4.bcname ) && _id_1ADE( var_4.bcname ) )
+                if ( isdefined( var_4.bcname ) && cansayname( var_4.bcname ) )
                 {
                     var_2 addnamealias( var_4.bcname );
                     var_2.looktarget = var_4;
@@ -669,7 +651,7 @@ _id_932B( var_0, var_1 )
 
                 var_2 addorderalias( 1.0, "attack", "infantry" );
 
-                if ( _id_5164() )
+                if ( isofficer() )
                     var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "yes", self, 0.9 );
                 else
                     var_4 animscripts\battlechatter_ai::addresponseevent( "ack", "norankyes", self, 0.9 );
@@ -684,25 +666,25 @@ _id_932B( var_0, var_1 )
         }
     }
 
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_9329( var_0, var_1 )
+threatdog( var_0, var_1 )
 {
     self endon( "cancel speaking" );
-    var_2 = _id_23EB();
-    var_2._id_59D8 = 1;
+    var_2 = createchatphrase();
+    var_2.master = 1;
 
     if ( !isdefined( var_1 ) )
         var_2.forcedetail = 0;
     else
         var_2.forcedetail = var_1;
 
-    var_2._id_932A = var_0;
+    var_2.threatent = var_0;
 
-    if ( self._id_9F32 == "british" )
+    if ( self.voice == "british" )
     {
-        var_3 = _id_3F5A( self.origin, var_0.origin );
+        var_3 = getdirectioncompass( self.origin, var_0.origin );
 
         switch ( var_3 )
         {
@@ -730,10 +712,10 @@ _id_9329( var_0, var_1 )
         var_2 adddirectionalias( 1.0, "relative", var_0 );
     }
 
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_932D( var_0 )
+threatinfantryexposed( var_0 )
 {
     if ( !isdefined( var_0 getlandmark() ) )
         addthreatalias( 1.0, "infantry", "exposed" );
@@ -746,7 +728,7 @@ _id_932D( var_0 )
         adddirectionalias( 1.0, "relative", var_0 );
 }
 
-_id_932E( var_0 )
+threatinfantryrpg( var_0 )
 {
     addthreatalias( 1.0, "rpg", "generic" );
 
@@ -772,67 +754,67 @@ threatinfantrymg( var_0 )
         adddirectionalias( 0.5, "relative", var_0 );
 }
 
-_id_6DD2()
+playreactionevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    self._id_24C5 = self._id_1CA6["reaction"];
-    var_0 = self._id_1CA6["reaction"]._id_71CF;
-    anim thread _id_5808( self, "reaction" );
+    self.curevent = self.chatqueue["reaction"];
+    var_0 = self.chatqueue["reaction"].reactto;
+    anim thread lockaction( self, "reaction" );
 
-    switch ( self._id_1CA6["reaction"]._id_33DD )
+    switch ( self.chatqueue["reaction"].eventtype )
     {
         case "casualty":
-            _id_7188( var_0, self._id_1CA6["reaction"]._id_5D47 );
+            reactioncasualty( var_0, self.chatqueue["reaction"].modifier );
             break;
         case "taunt":
-            _id_718C( var_0, self._id_1CA6["reaction"]._id_5D47 );
+            reactiontaunt( var_0, self.chatqueue["reaction"].modifier );
             break;
     }
 
     self notify( "done speaking" );
 }
 
-_id_7188( var_0, var_1 )
+reactioncasualty( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
     var_2 addreactionalias( 1.0, "casualty", "generic" );
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_718C( var_0, var_1 )
+reactiontaunt( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
     var_2 addtauntalias( 1.0, "taunt", "generic" );
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_6DD3()
+playresponseevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    self._id_24C5 = self._id_1CA6["response"];
-    var_0 = self._id_1CA6["response"]._id_747E;
+    self.curevent = self.chatqueue["response"];
+    var_0 = self.chatqueue["response"].respondto;
 
     if ( !isalive( var_0 ) )
         return;
 
-    if ( self._id_1CA6["response"]._id_5D47 == "follow" && self.a._id_8D56 != "move" )
+    if ( self.chatqueue["response"].modifier == "follow" && self.a.state != "move" )
         return;
 
-    anim thread _id_5808( self, "response" );
+    anim thread lockaction( self, "response" );
 
-    switch ( self._id_1CA6["response"]._id_33DD )
+    switch ( self.chatqueue["response"].eventtype )
     {
         case "killfirm":
-            responsekillconfirm( var_0, self._id_1CA6["response"]._id_5D47 );
+            responsekillconfirm( var_0, self.chatqueue["response"].modifier );
             break;
         case "ack":
-            responseacknowledge( var_0, self._id_1CA6["response"]._id_5D47 );
+            responseacknowledge( var_0, self.chatqueue["response"].modifier );
             break;
     }
 
@@ -847,53 +829,53 @@ responseacknowledge( var_0, var_1 )
     if ( !isalive( var_0 ) )
         return;
 
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
     var_2 addresponsealias( 1.0, "ack", var_1 );
     var_2.looktarget = var_0;
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
 responsekillconfirm( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
     var_2 addresponsealias( 1.0, "killfirm", "infantry" );
     var_2.looktarget = var_0;
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_6DCC()
+playorderevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    self._id_24C5 = self._id_1CA6["order"];
-    anim thread _id_5808( self, "order" );
+    self.curevent = self.chatqueue["order"];
+    anim thread lockaction( self, "order" );
 
-    switch ( self._id_1CA6["order"]._id_33DD )
+    switch ( self.chatqueue["order"].eventtype )
     {
         case "action":
-            _id_657C( self._id_1CA6["order"]._id_5D47 );
+            orderaction( self.chatqueue["order"].modifier );
             break;
         case "move":
-            _id_657E( self._id_1CA6["order"]._id_5D47, self._id_1CA6["order"]._id_6580 );
+            ordermove( self.chatqueue["order"].modifier, self.chatqueue["order"].orderto );
             break;
         case "displace":
-            _id_657D( self._id_1CA6["order"]._id_5D47 );
+            orderdisplace( self.chatqueue["order"].modifier );
             break;
         case "cover":
-            ordercover( self._id_1CA6["order"]._id_5D47, self._id_1CA6["order"]._id_6580 );
+            ordercover( self.chatqueue["order"].modifier, self.chatqueue["order"].orderto );
             break;
     }
 
     self notify( "done speaking" );
 }
 
-_id_657E( var_0, var_1 )
+ordermove( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
 
     if ( var_0 == "follow" )
     {
@@ -905,11 +887,11 @@ _id_657E( var_0, var_1 )
             if ( var_3[var_4] == self )
                 continue;
 
-            if ( distance( self.origin, var_3[var_4].origin ) > 500 && var_3[var_4].a._id_8D56 == "move" && var_3[var_4] _id_1ADD( "response" ) )
+            if ( distance( self.origin, var_3[var_4].origin ) > 500 && var_3[var_4].a.state == "move" && var_3[var_4] cansay( "response" ) )
                 var_1 = var_3[var_4];
         }
 
-        if ( isdefined( var_1 ) && isdefined( var_1.bcname ) && _id_1ADE( var_1.bcname ) )
+        if ( isdefined( var_1 ) && isdefined( var_1.bcname ) && cansayname( var_1.bcname ) )
         {
             var_2 addnamealias( var_1.bcname );
             var_2.looktarget = var_1;
@@ -929,34 +911,34 @@ _id_657E( var_0, var_1 )
     else
         var_2 addorderalias( 1.0, "move", var_0 );
 
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_657D( var_0 )
+orderdisplace( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_1 = _id_23EB();
+    var_1 = createchatphrase();
     var_1 addorderalias( 1.0, "displace", var_0 );
-    _id_6DD0( var_1, 1 );
+    playphrase( var_1, 1 );
 }
 
-_id_657C( var_0 )
+orderaction( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_1 = _id_23EB();
+    var_1 = createchatphrase();
     var_1 addorderalias( 1.0, "action", var_0 );
-    _id_6DD0( var_1 );
+    playphrase( var_1 );
 }
 
 ordercover( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
 
-    if ( randomfloat( 1 ) < 0.5 && _id_5164() )
+    if ( randomfloat( 1 ) < 0.5 && isofficer() )
     {
         if ( isdefined( var_1 ) && isdefined( var_1.bcrank ) )
         {
@@ -964,7 +946,7 @@ ordercover( var_0, var_1 )
             var_2.looktarget = var_1;
         }
     }
-    else if ( isdefined( var_1 ) && isdefined( var_1.bcname ) && _id_1ADE( var_1.bcname ) )
+    else if ( isdefined( var_1 ) && isdefined( var_1.bcname ) && cansayname( var_1.bcname ) )
     {
         var_2 addnamealias( var_1.bcname );
         var_2.looktarget = var_1;
@@ -976,47 +958,47 @@ ordercover( var_0, var_1 )
     }
 
     var_2 addorderalias( 1.0, "cover", var_0 );
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
-_id_6DAF()
+playinformevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    self._id_24C5 = self._id_1CA6["inform"];
-    anim thread _id_5808( self, "inform" );
+    self.curevent = self.chatqueue["inform"];
+    anim thread lockaction( self, "inform" );
 
-    switch ( self._id_1CA6["inform"]._id_33DD )
+    switch ( self.chatqueue["inform"].eventtype )
     {
         case "killfirm":
-            informkillconfirm( self._id_1CA6["inform"]._id_5D47 );
+            informkillconfirm( self.chatqueue["inform"].modifier );
             break;
         case "incoming":
-            _id_4C62( self._id_1CA6["inform"]._id_5D47 );
+            informincoming( self.chatqueue["inform"].modifier );
             break;
         case "attack":
-            _id_4C61( self._id_1CA6["inform"]._id_5D47 );
+            informattacking( self.chatqueue["inform"].modifier );
             break;
         case "reloading":
-            _id_4C64( self._id_1CA6["inform"]._id_4C66, self._id_1CA6["inform"]._id_5D47 );
+            informreloading( self.chatqueue["inform"].informto, self.chatqueue["inform"].modifier );
             break;
         case "suppressed":
-            informsupressed( self._id_1CA6["inform"]._id_5D47 );
+            informsupressed( self.chatqueue["inform"].modifier );
             break;
     }
 
     self notify( "done speaking" );
 }
 
-_id_4C64( var_0, var_1 )
+informreloading( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_2 = _id_23EB();
+    var_2 = createchatphrase();
 
-    if ( var_1 == "coverme" && isalive( var_0 ) && isdefined( var_0.bcname ) && _id_1ADE( var_0.bcname ) )
+    if ( var_1 == "coverme" && isalive( var_0 ) && isdefined( var_0.bcname ) && cansayname( var_0.bcname ) )
     {
-        if ( var_0 == level.player || self._id_2243 != "US" )
+        if ( var_0 == level.player || self.countryid != "US" )
             var_1 = "generic";
         else
         {
@@ -1029,62 +1011,62 @@ _id_4C64( var_0, var_1 )
         var_1 = "generic";
 
     var_2 addinformalias( 1.0, "reloading", var_1 );
-    _id_6DD0( var_2 );
+    playphrase( var_2 );
 }
 
 informsupressed( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_1 = _id_23EB();
+    var_1 = createchatphrase();
     var_1 addinformalias( 1.0, "suppressed", var_0 );
-    _id_6DD0( var_1 );
+    playphrase( var_1 );
 }
 
-_id_4C62( var_0 )
+informincoming( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_1 = _id_23EB();
+    var_1 = createchatphrase();
 
     if ( var_0 == "grenade" )
-        var_1._id_59D8 = 1;
+        var_1.master = 1;
 
     var_1 addinformalias( 1.0, "incoming", var_0 );
-    _id_6DD0( var_1 );
+    playphrase( var_1 );
 }
 
-_id_4C61( var_0 )
+informattacking( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_1 = _id_23EB();
+    var_1 = createchatphrase();
     var_1 addinformalias( 1.0, "attack", var_0 );
-    _id_6DD0( var_1 );
+    playphrase( var_1 );
 }
 
 informkillconfirm( var_0 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    var_1 = _id_23EB();
+    var_1 = createchatphrase();
     var_1 addinformalias( 1.0, "killfirm", "infantry" );
-    _id_6DD0( var_1 );
+    playphrase( var_1 );
 }
 
-_id_6A3B()
+playcustomevent()
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
-    self._id_24C5 = self._id_1CA6["custom"];
-    anim thread _id_5808( self, self._id_24C5.type, 1 );
-    _id_6DD0( self._id_2558 );
+    self.curevent = self.chatqueue["custom"];
+    anim thread lockaction( self, self.curevent.type, 1 );
+    playphrase( self.customchatphrase );
     self notify( "done speaking" );
-    self._id_2557 = undefined;
-    self._id_2558 = undefined;
+    self.customchatevent = undefined;
+    self.customchatphrase = undefined;
 }
 
-_id_6DD0( var_0, var_1 )
+playphrase( var_0, var_1 )
 {
     anim endon( "battlechatter disabled" );
     self endon( "death" );
@@ -1092,23 +1074,23 @@ _id_6DD0( var_0, var_1 )
     if ( isdefined( var_1 ) )
         return;
 
-    if ( isdefined( level._stealth ) && self._id_9F32 == "british" )
+    if ( isdefined( level._stealth ) && self.voice == "british" )
     {
-        for ( var_2 = 0; var_2 < var_0._id_88A9.size; var_2++ )
-            var_0._id_88A9[var_2] += "_s";
+        for ( var_2 = 0; var_2 < var_0.soundaliases.size; var_2++ )
+            var_0.soundaliases[var_2] += "_s";
     }
 
     if ( battlechatter_canprint() )
     {
-        for ( var_2 = 0; var_2 < var_0._id_88A9.size; var_2++ )
-            battlechatter_print( var_0._id_88A9[var_2] );
+        for ( var_2 = 0; var_2 < var_0.soundaliases.size; var_2++ )
+            battlechatter_print( var_0.soundaliases[var_2] );
 
         battlechatter_println( "" );
     }
 
-    thread battlechatter_printdump( var_0._id_88A9 );
+    thread battlechatter_printdump( var_0.soundaliases );
 
-    for ( var_2 = 0; var_2 < var_0._id_88A9.size; var_2++ )
+    for ( var_2 = 0; var_2 < var_0.soundaliases.size; var_2++ )
     {
         if ( !self.battlechatter )
             continue;
@@ -1116,7 +1098,7 @@ _id_6DD0( var_0, var_1 )
         if ( self._animactive > 0 )
             continue;
 
-        if ( _id_5105( self._id_24C5._id_33D8 ) )
+        if ( isfiltered( self.curevent.eventaction ) )
         {
             wait 0.85;
             continue;
@@ -1124,96 +1106,96 @@ _id_6DD0( var_0, var_1 )
 
         var_3 = gettime();
 
-        if ( var_0._id_59D8 && self.team == "allies" )
+        if ( var_0.master && self.team == "allies" )
         {
             if ( getdvar( "bcs_threatPlayerRelative" ) == "on" )
             {
-                if ( strfind( var_0._id_88A9[var_2], "_direction_" ) )
+                if ( strfind( var_0.soundaliases[var_2], "_direction_" ) )
                 {
-                    if ( isdefined( var_0._id_932A ) )
-                        var_0._id_88A9[var_2] = var_0 getdirectionaliasplayerrelative( var_0._id_932A );
+                    if ( isdefined( var_0.threatent ) )
+                        var_0.soundaliases[var_2] = var_0 getdirectionaliasplayerrelative( var_0.threatent );
                 }
             }
 
-            self playsoundasmaster( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-            thread maps\_anim::anim_facialfiller( var_0._id_88A9[var_2], var_0.looktarget );
-            self waittill( var_0._id_88A9[var_2] );
+            self playsoundasmaster( var_0.soundaliases[var_2], var_0.soundaliases[var_2], 1 );
+            thread maps\_anim::anim_facialfiller( var_0.soundaliases[var_2], var_0.looktarget );
+            self waittill( var_0.soundaliases[var_2] );
             continue;
         }
 
-        self playsound( var_0._id_88A9[var_2], var_0._id_88A9[var_2], 1 );
-        thread maps\_anim::anim_facialfiller( var_0._id_88A9[var_2], var_0.looktarget );
-        self waittill( var_0._id_88A9[var_2] );
+        self playsound( var_0.soundaliases[var_2], var_0.soundaliases[var_2], 1 );
+        thread maps\_anim::anim_facialfiller( var_0.soundaliases[var_2], var_0.looktarget );
+        self waittill( var_0.soundaliases[var_2] );
     }
 
-    _id_2D8B( self._id_24C5._id_33D8, self._id_24C5._id_33DD );
+    dotypelimit( self.curevent.eventaction, self.curevent.eventtype );
 }
 
-_id_51B4( var_0 )
+isspeakingfailsafe( var_0 )
 {
     self endon( "death" );
     wait 45;
-    _id_1EF1( var_0 );
+    clearisspeaking( var_0 );
 }
 
-_id_1EF1( var_0 )
+clearisspeaking( var_0 )
 {
-    self._id_51B3 = 0;
-    self._id_1CA6[var_0]._id_351C = 0;
-    self._id_1CA6[var_0]._id_6FBE = 0.0;
-    self._id_60DB[var_0] = gettime() + anim._id_33D9[var_0]["self"];
+    self.isspeaking = 0;
+    self.chatqueue[var_0].expiretime = 0;
+    self.chatqueue[var_0].priority = 0.0;
+    self.nextsaytimes[var_0] = gettime() + anim.eventactionminwait[var_0]["self"];
 }
 
-_id_5808( var_0, var_1, var_2 )
+lockaction( var_0, var_1, var_2 )
 {
     anim endon( "battlechatter disabled" );
-    var_3 = var_0._id_8AB0;
+    var_3 = var_0.squad;
     var_4 = var_0.team;
-    var_0._id_51B3 = 1;
-    var_0 thread _id_51B4( var_1 );
-    var_3._id_5151[var_1] = 1;
-    var_3._id_62AE++;
-    anim._id_51D0[var_4] = 1;
-    anim._id_51CF[var_4][var_1] = 1;
-    var_5 = var_0 common_scripts\utility::_id_A070( "death", "done speaking", "cancel speaking" );
-    var_3._id_5151[var_1] = 0;
-    var_3._id_62AE--;
-    anim._id_51D0[var_4] = 0;
-    anim._id_51CF[var_4][var_1] = 0;
-    anim._id_5602[var_4] = gettime();
+    var_0.isspeaking = 1;
+    var_0 thread isspeakingfailsafe( var_1 );
+    var_3.ismembersaying[var_1] = 1;
+    var_3.numspeakers++;
+    anim.isteamspeaking[var_4] = 1;
+    anim.isteamsaying[var_4][var_1] = 1;
+    var_5 = var_0 common_scripts\utility::waittill_any_return( "death", "done speaking", "cancel speaking" );
+    var_3.ismembersaying[var_1] = 0;
+    var_3.numspeakers--;
+    anim.isteamspeaking[var_4] = 0;
+    anim.isteamsaying[var_4][var_1] = 0;
+    anim.lastteamspeaktime[var_4] = gettime();
 
     if ( var_5 == "cancel speaking" )
         return;
 
     if ( isalive( var_0 ) )
-        var_0 _id_1EF1( var_1 );
+        var_0 clearisspeaking( var_1 );
 
-    var_3._id_60DB[var_1] = gettime() + anim._id_33D9[var_1]["squad"];
+    var_3.nextsaytimes[var_1] = gettime() + anim.eventactionminwait[var_1]["squad"];
 }
 
-_id_9B0A( var_0, var_1 )
+updatecontact( var_0, var_1 )
 {
-    if ( gettime() - self._id_8AD0[var_0]._id_558C > 10000 )
+    if ( gettime() - self.squadlist[var_0].lastcontact > 10000 )
     {
         var_2 = 0;
 
-        for ( var_3 = 0; var_3 < self._id_5BA6.size; var_3++ )
+        for ( var_3 = 0; var_3 < self.members.size; var_3++ )
         {
-            if ( self._id_5BA6[var_3] != var_1 && isalive( self._id_5BA6[var_3].enemy ) && isdefined( self._id_5BA6[var_3].enemy._id_8AB0 ) && self._id_5BA6[var_3].enemy._id_8AB0.squadname == var_0 )
+            if ( self.members[var_3] != var_1 && isalive( self.members[var_3].enemy ) && isdefined( self.members[var_3].enemy.squad ) && self.members[var_3].enemy.squad.squadname == var_0 )
                 var_2 = 1;
         }
 
         if ( !var_2 )
         {
-            self._id_8AD0[var_0]._id_3819 = gettime();
-            self._id_8AD0[var_0]._id_1A07 = 0;
+            self.squadlist[var_0].firstcontact = gettime();
+            self.squadlist[var_0].calledout = 0;
         }
     }
 
-    self._id_8AD0[var_0]._id_558C = gettime();
+    self.squadlist[var_0].lastcontact = gettime();
 }
 
-_id_1ADD( var_0, var_1, var_2, var_3 )
+cansay( var_0, var_1, var_2, var_3 )
 {
     self endon( "death" );
     self endon( "removed from battleChatter" );
@@ -1227,19 +1209,19 @@ _id_1ADD( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_2 ) && var_2 >= 1 )
         return 1;
 
-    if ( gettime() + anim._id_33D9[var_0]["self"] < self._id_60DB[var_0] )
+    if ( gettime() + anim.eventactionminwait[var_0]["self"] < self.nextsaytimes[var_0] )
         return 0;
 
-    if ( gettime() + anim._id_33D9[var_0]["squad"] < self._id_8AB0._id_60DB[var_0] )
+    if ( gettime() + anim.eventactionminwait[var_0]["squad"] < self.squad.nextsaytimes[var_0] )
         return 0;
 
-    if ( isdefined( var_1 ) && _id_99E7( var_0, var_1 ) )
+    if ( isdefined( var_1 ) && typelimited( var_0, var_1 ) )
         return 0;
 
-    if ( isdefined( var_1 ) && anim._id_33DC[var_0][var_1] < self.bcs_minpriority )
+    if ( isdefined( var_1 ) && anim.eventpriority[var_0][var_1] < self.bcs_minpriority )
         return 0;
 
-    if ( self._id_9F32 == "british" )
+    if ( self.voice == "british" )
         return britfilter( var_0, var_1, var_3 );
 
     return 1;
@@ -1288,74 +1270,74 @@ britfilter( var_0, var_1, var_2 )
     return 0;
 }
 
-_id_3FC7()
+gethighestpriorityevent()
 {
     var_0 = undefined;
     var_1 = -999999999;
 
-    if ( _id_51EB( "custom" ) )
+    if ( isvalidevent( "custom" ) )
     {
         var_0 = "custom";
-        var_1 = self._id_1CA6["custom"]._id_6FBE;
+        var_1 = self.chatqueue["custom"].priority;
     }
 
-    if ( _id_51EB( "response" ) )
+    if ( isvalidevent( "response" ) )
     {
-        if ( self._id_1CA6["response"]._id_6FBE > var_1 )
+        if ( self.chatqueue["response"].priority > var_1 )
         {
             var_0 = "response";
-            var_1 = self._id_1CA6["response"]._id_6FBE;
+            var_1 = self.chatqueue["response"].priority;
         }
     }
 
-    if ( _id_51EB( "order" ) )
+    if ( isvalidevent( "order" ) )
     {
-        if ( self._id_1CA6["order"]._id_6FBE > var_1 )
+        if ( self.chatqueue["order"].priority > var_1 )
         {
             var_0 = "order";
-            var_1 = self._id_1CA6["order"]._id_6FBE;
+            var_1 = self.chatqueue["order"].priority;
         }
     }
 
-    if ( _id_51EB( "threat" ) )
+    if ( isvalidevent( "threat" ) )
     {
-        if ( self._id_1CA6["threat"]._id_6FBE > var_1 )
+        if ( self.chatqueue["threat"].priority > var_1 )
         {
             var_0 = "threat";
-            var_1 = self._id_1CA6["threat"]._id_6FBE;
+            var_1 = self.chatqueue["threat"].priority;
         }
     }
 
-    if ( _id_51EB( "inform" ) )
+    if ( isvalidevent( "inform" ) )
     {
-        if ( self._id_1CA6["inform"]._id_6FBE > var_1 )
+        if ( self.chatqueue["inform"].priority > var_1 )
         {
             var_0 = "inform";
-            var_1 = self._id_1CA6["inform"]._id_6FBE;
+            var_1 = self.chatqueue["inform"].priority;
         }
     }
 
-    if ( _id_51EB( "reaction" ) )
+    if ( isvalidevent( "reaction" ) )
     {
-        if ( self._id_1CA6["reaction"]._id_6FBE > var_1 )
+        if ( self.chatqueue["reaction"].priority > var_1 )
         {
             var_0 = "reaction";
-            var_1 = self._id_1CA6["reaction"]._id_6FBE;
+            var_1 = self.chatqueue["reaction"].priority;
         }
     }
 
     return var_0;
 }
 
-_id_4108( var_0 )
+gettargettingai( var_0 )
 {
-    var_1 = self._id_8AB0;
+    var_1 = self.squad;
     var_2 = [];
 
-    for ( var_3 = 0; var_3 < var_1._id_5BA6.size; var_3++ )
+    for ( var_3 = 0; var_3 < var_1.members.size; var_3++ )
     {
-        if ( isdefined( var_1._id_5BA6[var_3].enemy ) && var_1._id_5BA6[var_3].enemy == var_0 )
-            var_2[var_2.size] = var_1._id_5BA6[var_3];
+        if ( isdefined( var_1.members[var_3].enemy ) && var_1.members[var_3].enemy == var_0 )
+            var_2[var_2.size] = var_1.members[var_3];
     }
 
     if ( !isdefined( var_2[0] ) )
@@ -1365,14 +1347,14 @@ _id_4108( var_0 )
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( var_2[var_3] _id_1ADD( "response" ) )
+        if ( var_2[var_3] cansay( "response" ) )
             return var_4;
     }
 
-    return common_scripts\utility::_id_3F33( self.origin, var_2 );
+    return common_scripts\utility::getclosest( self.origin, var_2 );
 }
 
-_id_40A1()
+getqueueevents()
 {
     var_0 = [];
     var_1 = [];
@@ -1386,7 +1368,7 @@ _id_40A1()
     {
         for ( var_3 = 1; var_3 <= var_2; var_3++ )
         {
-            if ( self._id_1CA6[var_0[var_3 - 1]]._id_6FBE < self._id_1CA6[var_0[var_3]]._id_6FBE )
+            if ( self.chatqueue[var_0[var_3 - 1]].priority < self.chatqueue[var_0[var_3]].priority )
             {
                 var_4 = var_0[var_3 - 1];
                 var_0[var_3 - 1] = var_0[var_3];
@@ -1399,44 +1381,44 @@ _id_40A1()
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_6 = _id_3F8A( var_0[var_2] );
+        var_6 = geteventstate( var_0[var_2] );
 
         if ( var_6 == " valid" && !var_5 )
         {
             var_5 = 1;
-            var_1[var_2] = "g " + var_0[var_2] + var_6 + " " + self._id_1CA6[var_0[var_2]]._id_6FBE;
+            var_1[var_2] = "g " + var_0[var_2] + var_6 + " " + self.chatqueue[var_0[var_2]].priority;
             continue;
         }
 
         if ( var_6 == " valid" )
         {
-            var_1[var_2] = "y " + var_0[var_2] + var_6 + " " + self._id_1CA6[var_0[var_2]]._id_6FBE;
+            var_1[var_2] = "y " + var_0[var_2] + var_6 + " " + self.chatqueue[var_0[var_2]].priority;
             continue;
         }
 
-        if ( self._id_1CA6[var_0[var_2]]._id_351C == 0 )
+        if ( self.chatqueue[var_0[var_2]].expiretime == 0 )
         {
-            var_1[var_2] = "b " + var_0[var_2] + var_6 + " " + self._id_1CA6[var_0[var_2]]._id_6FBE;
+            var_1[var_2] = "b " + var_0[var_2] + var_6 + " " + self.chatqueue[var_0[var_2]].priority;
             continue;
         }
 
-        var_1[var_2] = "r " + var_0[var_2] + var_6 + " " + self._id_1CA6[var_0[var_2]]._id_6FBE;
+        var_1[var_2] = "r " + var_0[var_2] + var_6 + " " + self.chatqueue[var_0[var_2]].priority;
     }
 
     return var_1;
 }
 
-_id_3F8A( var_0 )
+geteventstate( var_0 )
 {
     var_1 = "";
 
-    if ( self._id_8AB0._id_5151[var_0] )
+    if ( self.squad.ismembersaying[var_0] )
         var_1 += " playing";
 
-    if ( gettime() > self._id_1CA6[var_0]._id_351C )
+    if ( gettime() > self.chatqueue[var_0].expiretime )
         var_1 += " expired";
 
-    if ( gettime() < self._id_8AB0._id_60DB[var_0] )
+    if ( gettime() < self.squad.nextsaytimes[var_0] )
         var_1 += " cantspeak";
 
     if ( var_1 == "" )
@@ -1445,7 +1427,7 @@ _id_3F8A( var_0 )
     return var_1;
 }
 
-_id_5105( var_0 )
+isfiltered( var_0 )
 {
     if ( getdvar( "bcs_filter" + var_0 ) == "on" || getdvar( "bcs_filter" + var_0 ) == "1" )
         return 1;
@@ -1453,37 +1435,37 @@ _id_5105( var_0 )
     return 0;
 }
 
-_id_51EB( var_0 )
+isvalidevent( var_0 )
 {
-    if ( !self._id_8AB0._id_5151[var_0] && !anim._id_51CF[self.team][var_0] && gettime() < self._id_1CA6[var_0]._id_351C && gettime() > self._id_8AB0._id_60DB[var_0] )
+    if ( !self.squad.ismembersaying[var_0] && !anim.isteamsaying[self.team][var_0] && gettime() < self.chatqueue[var_0].expiretime && gettime() > self.squad.nextsaytimes[var_0] )
     {
-        if ( !_id_99E7( var_0, self._id_1CA6[var_0]._id_33DD ) )
+        if ( !typelimited( var_0, self.chatqueue[var_0].eventtype ) )
             return 1;
     }
 
     return 0;
 }
 
-_id_99E7( var_0, var_1 )
+typelimited( var_0, var_1 )
 {
-    if ( !isdefined( anim._id_33DE[var_0][var_1] ) )
+    if ( !isdefined( anim.eventtypeminwait[var_0][var_1] ) )
         return 0;
 
-    if ( !isdefined( self._id_8AB0._id_60DF[var_0][var_1] ) )
+    if ( !isdefined( self.squad.nexttypesaytimes[var_0][var_1] ) )
         return 0;
 
-    if ( gettime() > self._id_8AB0._id_60DF[var_0][var_1] )
+    if ( gettime() > self.squad.nexttypesaytimes[var_0][var_1] )
         return 0;
 
     return 1;
 }
 
-_id_2D8B( var_0, var_1 )
+dotypelimit( var_0, var_1 )
 {
-    if ( !isdefined( anim._id_33DE[var_0][var_1] ) )
+    if ( !isdefined( anim.eventtypeminwait[var_0][var_1] ) )
         return;
 
-    self._id_8AB0._id_60DF[var_0][var_1] = gettime() + anim._id_33DE[var_0][var_1];
+    self.squad.nexttypesaytimes[var_0][var_1] = gettime() + anim.eventtypeminwait[var_0][var_1];
 }
 
 bcissniper()
@@ -1491,15 +1473,15 @@ bcissniper()
     if ( isplayer( self ) )
         return 0;
 
-    if ( _id_5103() )
+    if ( isexposed() )
         return 0;
 
-    return animscripts\utility::_id_51AC( self.weapon );
+    return animscripts\utility::issniperrifle( self.weapon );
 }
 
-_id_5103()
+isexposed()
 {
-    if ( isdefined( _id_400A() ) )
+    if ( isdefined( getlocation() ) )
         return 0;
 
     var_0 = bcgetclaimednode();
@@ -1533,10 +1515,10 @@ isclaimednodewindow()
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( !isdefined( var_0._id_7A27 ) )
+    if ( !isdefined( var_0.script_location ) )
         return 0;
 
-    if ( var_0._id_7A27 == "window" )
+    if ( var_0.script_location == "window" )
         return 1;
 
     return 0;
@@ -1555,9 +1537,9 @@ isnodecover()
     return 0;
 }
 
-_id_5164()
+isofficer()
 {
-    var_0 = _id_40A9();
+    var_0 = getrank();
 
     if ( var_0 == "sergeant" || var_0 == "lieutenant" || var_0 == "captain" || var_0 == "sergeant" )
         return 1;
@@ -1570,10 +1552,10 @@ bcgetclaimednode()
     if ( isplayer( self ) )
         var_0 = self.node;
     else
-        var_0 = animscripts\utility::_id_3F2F();
+        var_0 = animscripts\utility::getclaimednode();
 }
 
-_id_4030()
+getname()
 {
     if ( self.team == "axis" )
         var_0 = self.ainame;
@@ -1582,7 +1564,7 @@ _id_4030()
     else
         var_0 = undefined;
 
-    if ( !isdefined( var_0 ) || self._id_9F32 == "british" )
+    if ( !isdefined( var_0 ) || self.voice == "british" )
         return undefined;
 
     var_1 = strtok( var_0, " " );
@@ -1593,19 +1575,19 @@ _id_4030()
     return var_1[1];
 }
 
-_id_40A9()
+getrank()
 {
     return self.airank;
 }
 
 getclosestspeaker( var_0, var_1 )
 {
-    var_2 = _id_40DF( var_0, var_1 );
-    var_3 = common_scripts\utility::_id_3F33( self.origin, var_2 );
+    var_2 = getspeakers( var_0, var_1 );
+    var_3 = common_scripts\utility::getclosest( self.origin, var_2 );
     return var_3;
 }
 
-_id_40DF( var_0, var_1 )
+getspeakers( var_0, var_1 )
 {
     var_2 = [];
     var_3 = getaiarray( self.team );
@@ -1616,7 +1598,7 @@ _id_40DF( var_0, var_1 )
 
         for ( var_5 = 0; var_5 < var_3.size; var_5++ )
         {
-            if ( var_3[var_5] _id_5164() )
+            if ( var_3[var_5] isofficer() )
                 var_4[var_4.size] = var_3[var_5];
         }
 
@@ -1628,7 +1610,7 @@ _id_40DF( var_0, var_1 )
         if ( var_3[var_5] == self )
             continue;
 
-        if ( !var_3[var_5] _id_1ADD( var_0 ) )
+        if ( !var_3[var_5] cansay( var_0 ) )
             continue;
 
         var_2[var_2.size] = var_3[var_5];
@@ -1643,20 +1625,20 @@ getarea()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( self istouching( var_0[var_1] ) && isdefined( var_0[var_1]._id_793E ) )
+        if ( self istouching( var_0[var_1] ) && isdefined( var_0[var_1].script_area ) )
             return var_0[var_1];
     }
 
     return undefined;
 }
 
-_id_400A()
+getlocation()
 {
     var_0 = anim.locations;
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( self istouching( var_0[var_1] ) && isdefined( var_0[var_1]._id_7A27 ) )
+        if ( self istouching( var_0[var_1] ) && isdefined( var_0[var_1].script_location ) )
             return var_0[var_1];
     }
 
@@ -1669,14 +1651,14 @@ getlandmark()
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( self istouching( var_0[var_1] ) && isdefined( var_0[var_1]._id_7A20 ) )
+        if ( self istouching( var_0[var_1] ) && isdefined( var_0[var_1].script_landmark ) )
             return var_0[var_1];
     }
 
     return undefined;
 }
 
-_id_3F5A( var_0, var_1 )
+getdirectioncompass( var_0, var_1 )
 {
     var_2 = vectortoangles( var_1 - var_0 );
     var_3 = var_2[1];
@@ -1733,7 +1715,7 @@ getdirectionreferenceside( var_0, var_1, var_2 )
     return var_6;
 }
 
-_id_3F5E( var_0, var_1, var_2 )
+getdirectionfacingflank( var_0, var_1, var_2 )
 {
     var_3 = vectortoangles( var_2 );
     var_4 = vectortoangles( var_1 - var_0 );
@@ -1753,12 +1735,12 @@ _id_3F5E( var_0, var_1, var_2 )
     return var_6;
 }
 
-_id_4152( var_0 )
+getvectorrightangle( var_0 )
 {
     return ( var_0[1], 0 - var_0[0], var_0[2] );
 }
 
-_id_4151( var_0 )
+getvectorarrayaverage( var_0 )
 {
     var_1 = ( 0.0, 0.0, 0.0 );
 
@@ -1770,17 +1752,17 @@ _id_4151( var_0 )
 
 addnamealias( var_0 )
 {
-    self._id_88A9[self._id_88A9.size] = self.owner._id_2243 + "_" + self.owner._id_6252 + "_name_" + var_0;
+    self.soundaliases[self.soundaliases.size] = self.owner.countryid + "_" + self.owner.npcid + "_name_" + var_0;
 }
 
 addrankalias( var_0 )
 {
-    self._id_88A9[self._id_88A9.size] = self.owner._id_2243 + "_" + self.owner._id_6252 + "_rank_" + var_0;
+    self.soundaliases[self.soundaliases.size] = self.owner.countryid + "_" + self.owner.npcid + "_rank_" + var_0;
 }
 
-_id_1ADE( var_0 )
+cansayname( var_0 )
 {
-    var_1 = self._id_2243 + "_" + self._id_6252 + "_name_" + var_0;
+    var_1 = self.countryid + "_" + self.npcid + "_name_" + var_0;
 
     if ( soundexists( var_1 ) )
         return 1;
@@ -1798,17 +1780,17 @@ addareaalias( var_0, var_1 )
     if ( !isdefined( self.areaent ) )
         return 0;
 
-    if ( self.areaent._id_793E == "window" || self.areaent._id_793E == "doorway" )
+    if ( self.areaent.script_area == "window" || self.areaent.script_area == "doorway" )
     {
 
     }
 
-    var_2 = self.areaent._id_793E;
+    var_2 = self.areaent.script_area;
     var_3 = var_1 bcgetclaimednode();
 
-    if ( isdefined( var_3 ) && isdefined( var_3._id_793E ) )
+    if ( isdefined( var_3 ) && isdefined( var_3.script_area ) )
     {
-        var_2 += var_3._id_793E;
+        var_2 += var_3.script_area;
         self.areadetail = 1;
     }
     else
@@ -1817,8 +1799,8 @@ addareaalias( var_0, var_1 )
         var_2 += "_generic";
     }
 
-    self.area = self.owner._id_2243 + "_" + self.owner._id_6252 + "_area_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self.area;
+    self.area = self.owner.countryid + "_" + self.owner.npcid + "_area_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.area;
     return 1;
 }
 
@@ -1827,21 +1809,21 @@ addlocationalias( var_0, var_1 )
     if ( randomfloat( 1 ) > var_0 )
         return 0;
 
-    self.locationent = var_1 _id_400A();
+    self.locationent = var_1 getlocation();
 
     if ( !isdefined( self.locationent ) )
         return 0;
 
-    var_2 = self.locationent._id_7A27;
+    var_2 = self.locationent.script_location;
     var_3 = var_1 bcgetclaimednode();
 
-    if ( isdefined( var_3 ) && isdefined( var_3._id_7A27 ) )
-        var_2 += ( "_" + var_3._id_7A27 );
+    if ( isdefined( var_3 ) && isdefined( var_3.script_location ) )
+        var_2 += ( "_" + var_3.script_location );
     else
         var_2 += "_generic";
 
-    self._id_57F4 = self.owner._id_2243 + "_" + self.owner._id_6252 + "_location_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self._id_57F4;
+    self.location = self.owner.countryid + "_" + self.owner.npcid + "_location_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.location;
     return 1;
 }
 
@@ -1855,25 +1837,25 @@ addlandmarkalias( var_0, var_1 )
     if ( !isdefined( self.landmarkent ) )
         return 0;
 
-    var_2 = self.landmarkent._id_7A20;
+    var_2 = self.landmarkent.script_landmark;
     var_3 = getdirectionreferenceside( self.owner.origin, var_1.origin, self.landmarkent.origin );
 
-    if ( var_3 == "rear" && soundexists( self.owner._id_2243 + "_" + self.owner._id_6252 + "_landmark_behind_" + var_2 ) )
+    if ( var_3 == "rear" && soundexists( self.owner.countryid + "_" + self.owner.npcid + "_landmark_behind_" + var_2 ) )
         var_2 = "behind_" + var_2;
-    else if ( soundexists( self.owner._id_2243 + "_" + self.owner._id_6252 + "_landmark_near_" + var_2 ) )
+    else if ( soundexists( self.owner.countryid + "_" + self.owner.npcid + "_landmark_near_" + var_2 ) )
         var_2 = "near_" + var_2;
     else
         return 0;
 
-    self.landmark = self.owner._id_2243 + "_" + self.owner._id_6252 + "_landmark_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self.landmark;
+    self.landmark = self.owner.countryid + "_" + self.owner.npcid + "_landmark_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.landmark;
     return 1;
 }
 
 addgenericalias( var_0, var_1, var_2, var_3 )
 {
-    self._id_88A9[self._id_88A9.size] = self.owner._id_2243 + "_" + self.owner._id_6252 + "_" + var_1 + "_" + var_2 + "_" + var_3;
-    _id_2D8B( var_1, var_2 );
+    self.soundaliases[self.soundaliases.size] = self.owner.countryid + "_" + self.owner.npcid + "_" + var_1 + "_" + var_2 + "_" + var_3;
+    dotypelimit( var_1, var_2 );
 }
 
 adddirectionalias( var_0, var_1, var_2, var_3, var_4 )
@@ -1911,11 +1893,11 @@ adddirectionalias( var_0, var_1, var_2, var_3, var_4 )
                 var_6 = 1;
 
             if ( var_6 == 0 )
-                var_5 = _id_3F5A( self.owner.origin, var_2.origin );
+                var_5 = getdirectioncompass( self.owner.origin, var_2.origin );
             else if ( var_6 == 1 )
                 return 0;
             else
-                var_5 = _id_3F5A( self.owner.origin, var_2.origin );
+                var_5 = getdirectioncompass( self.owner.origin, var_2.origin );
 
             var_5 = var_1 + "_" + var_5;
             break;
@@ -1923,8 +1905,8 @@ adddirectionalias( var_0, var_1, var_2, var_3, var_4 )
             return 0;
     }
 
-    self._id_2A6D = self.owner._id_2243 + "_" + self.owner._id_6252 + "_direction_" + var_5;
-    self._id_88A9[self._id_88A9.size] = self._id_2A6D;
+    self.direction = self.owner.countryid + "_" + self.owner.npcid + "_direction_" + var_5;
+    self.soundaliases[self.soundaliases.size] = self.direction;
     return 1;
 }
 
@@ -1932,93 +1914,93 @@ getdirectionaliasplayerrelative( var_0 )
 {
     var_1 = getdirectionreferenceside( level.player.origin, var_0.origin, anglestoforward( level.player.angles ) );
     var_1 = "relative_" + var_1;
-    self._id_2A6D = self.owner._id_2243 + "_" + self.owner._id_6252 + "_direction_" + var_1;
-    return self._id_2A6D;
+    self.direction = self.owner.countryid + "_" + self.owner.npcid + "_direction_" + var_1;
+    return self.direction;
 }
 
 addthreatalias( var_0, var_1, var_2 )
 {
-    self._id_9317 = self.owner._id_2243 + "_" + self.owner._id_6252 + "_threat_" + var_1 + "_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self._id_9317;
+    self.threat = self.owner.countryid + "_" + self.owner.npcid + "_threat_" + var_1 + "_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.threat;
     return 1;
 }
 
 addinformalias( var_0, var_1, var_2 )
 {
-    self.inform = self.owner._id_2243 + "_" + self.owner._id_6252 + "_inform_" + var_1 + "_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self.inform;
+    self.inform = self.owner.countryid + "_" + self.owner.npcid + "_inform_" + var_1 + "_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.inform;
     return 1;
 }
 
 addresponsealias( var_0, var_1, var_2 )
 {
-    self.response = self.owner._id_2243 + "_" + self.owner._id_6252 + "_response_" + var_1 + "_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self.response;
+    self.response = self.owner.countryid + "_" + self.owner.npcid + "_response_" + var_1 + "_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.response;
     return 1;
 }
 
 addreactionalias( var_0, var_1, var_2 )
 {
-    self._id_717C = self.owner._id_2243 + "_" + self.owner._id_6252 + "_reaction_" + var_1 + "_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self._id_717C;
+    self.reaction = self.owner.countryid + "_" + self.owner.npcid + "_reaction_" + var_1 + "_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.reaction;
     return 1;
 }
 
 addtauntalias( var_0, var_1, var_2 )
 {
-    self._id_717C = self.owner._id_2243 + "_" + self.owner._id_6252 + "_taunt";
-    self._id_88A9[self._id_88A9.size] = self._id_717C;
+    self.reaction = self.owner.countryid + "_" + self.owner.npcid + "_taunt";
+    self.soundaliases[self.soundaliases.size] = self.reaction;
     return 1;
 }
 
 addorderalias( var_0, var_1, var_2 )
 {
-    self.order = self.owner._id_2243 + "_" + self.owner._id_6252 + "_order_" + var_1 + "_" + var_2;
-    self._id_88A9[self._id_88A9.size] = self.order;
+    self.order = self.owner.countryid + "_" + self.owner.npcid + "_order_" + var_1 + "_" + var_2;
+    self.soundaliases[self.soundaliases.size] = self.order;
     return 1;
 }
 
-_id_4DA3( var_0 )
+initcontact( var_0 )
 {
-    if ( !isdefined( self._id_8AD0[var_0]._id_1A07 ) )
-        self._id_8AD0[var_0]._id_1A07 = 0;
+    if ( !isdefined( self.squadlist[var_0].calledout ) )
+        self.squadlist[var_0].calledout = 0;
 
-    if ( !isdefined( self._id_8AD0[var_0]._id_3819 ) )
-        self._id_8AD0[var_0]._id_3819 = 2000000000;
+    if ( !isdefined( self.squadlist[var_0].firstcontact ) )
+        self.squadlist[var_0].firstcontact = 2000000000;
 
-    if ( !isdefined( self._id_8AD0[var_0]._id_558C ) )
-        self._id_8AD0[var_0]._id_558C = 0;
+    if ( !isdefined( self.squadlist[var_0].lastcontact ) )
+        self.squadlist[var_0].lastcontact = 0;
 }
 
-_id_854F( var_0 )
+shutdowncontact( var_0 )
 {
-    self._id_8AD0[var_0]._id_1A07 = undefined;
-    self._id_8AD0[var_0]._id_3819 = undefined;
-    self._id_8AD0[var_0]._id_558C = undefined;
+    self.squadlist[var_0].calledout = undefined;
+    self.squadlist[var_0].firstcontact = undefined;
+    self.squadlist[var_0].lastcontact = undefined;
 }
 
-_id_23EA( var_0, var_1, var_2 )
+createchatevent( var_0, var_1, var_2 )
 {
     var_3 = spawnstruct();
     var_3.owner = self;
-    var_3._id_33DD = var_1;
-    var_3._id_33D8 = var_0;
+    var_3.eventtype = var_1;
+    var_3.eventaction = var_0;
 
     if ( isdefined( var_2 ) )
-        var_3._id_6FBE = var_2;
+        var_3.priority = var_2;
     else
-        var_3._id_6FBE = anim._id_33DC[var_0][var_1];
+        var_3.priority = anim.eventpriority[var_0][var_1];
 
-    var_3._id_351C = gettime() + anim._id_33DB[var_0][var_1];
+    var_3.expiretime = gettime() + anim.eventduration[var_0][var_1];
     return var_3;
 }
 
-_id_23EB()
+createchatphrase()
 {
     var_0 = spawnstruct();
     var_0.owner = self;
-    var_0._id_88A9 = [];
-    var_0._id_59D8 = 0;
+    var_0.soundaliases = [];
+    var_0.master = 0;
     return var_0;
 }
 
@@ -2028,7 +2010,7 @@ canseepoint( var_0 )
     return vectordot( var_1, var_0 - self.origin ) > 0.766;
 }
 
-_id_6E26( var_0 )
+pointinfov( var_0 )
 {
     var_1 = anglestoforward( self.angles );
     return vectordot( var_1, var_0 - self.origin ) > 0.766;
@@ -2060,7 +2042,7 @@ battlechatter_print_internal( var_0, var_1 )
     var_2 = "";
 
     if ( var_0 != "" )
-        var_2 = common_scripts\utility::_id_9294( self.team == "allies", "^5", "^6" ) + "BC: ";
+        var_2 = common_scripts\utility::ter_op( self.team == "allies", "^5", "^6" ) + "BC: ";
 
     [[ var_1 ]]( var_2 + var_0 );
 }
@@ -2111,14 +2093,14 @@ threattracker()
 
         for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         {
-            if ( !level.player _id_6E26( var_0[var_3].origin ) )
+            if ( !level.player pointinfov( var_0[var_3].origin ) )
                 continue;
 
             if ( distance( level.player.origin, var_0[var_3].origin ) > 2048 )
                 continue;
 
             var_4 = "";
-            var_5 = var_0[var_3] _id_400A();
+            var_5 = var_0[var_3] getlocation();
 
             if ( !isdefined( var_5 ) )
             {
@@ -2127,10 +2109,10 @@ threattracker()
                 if ( !isdefined( var_5 ) )
                     continue;
 
-                var_4 = var_5._id_7A20;
+                var_4 = var_5.script_landmark;
             }
             else
-                var_4 = var_5._id_7A27;
+                var_4 = var_5.script_location;
 
             var_6 = 0;
 
@@ -2162,53 +2144,53 @@ bcdrawobjects()
 {
     for ( var_0 = 0; var_0 < anim.areas.size; var_0++ )
     {
-        if ( !isdefined( anim.areas[var_0]._id_793E ) )
+        if ( !isdefined( anim.areas[var_0].script_area ) )
             continue;
 
-        thread _id_2DD3( "Area:     " + anim.areas[var_0]._id_793E, anim.areas[var_0] getorigin(), ( 0.0, 0.0, 16.0 ), ( 1.0, 1.0, 1.0 ) );
+        thread drawbcobject( "Area:     " + anim.areas[var_0].script_area, anim.areas[var_0] getorigin(), ( 0.0, 0.0, 16.0 ), ( 1.0, 1.0, 1.0 ) );
     }
 
     for ( var_0 = 0; var_0 < anim.locations.size; var_0++ )
     {
-        if ( !isdefined( anim.locations[var_0]._id_7A27 ) )
+        if ( !isdefined( anim.locations[var_0].script_location ) )
             continue;
 
-        thread _id_2DD3( "Location: " + anim.locations[var_0]._id_7A27, anim.locations[var_0] getorigin(), ( 0.0, 0.0, 8.0 ), ( 1.0, 1.0, 1.0 ) );
+        thread drawbcobject( "Location: " + anim.locations[var_0].script_location, anim.locations[var_0] getorigin(), ( 0.0, 0.0, 8.0 ), ( 1.0, 1.0, 1.0 ) );
     }
 
     for ( var_0 = 0; var_0 < anim.landmarks.size; var_0++ )
     {
-        if ( !isdefined( anim.landmarks[var_0]._id_7A20 ) )
+        if ( !isdefined( anim.landmarks[var_0].script_landmark ) )
             continue;
 
-        thread _id_2DD3( "Landmark: " + anim.landmarks[var_0]._id_7A20, anim.landmarks[var_0] getorigin(), ( 0.0, 0.0, 0.0 ), ( 1.0, 1.0, 1.0 ) );
-        thread _id_2DD2( anim.landmarks[var_0] getorigin(), ( 0.0, 0.0, 8.0 ), ( 1.0, 1.0, 0.0 ) );
+        thread drawbcobject( "Landmark: " + anim.landmarks[var_0].script_landmark, anim.landmarks[var_0] getorigin(), ( 0.0, 0.0, 0.0 ), ( 1.0, 1.0, 1.0 ) );
+        thread drawbcdirections( anim.landmarks[var_0] getorigin(), ( 0.0, 0.0, 8.0 ), ( 1.0, 1.0, 0.0 ) );
     }
 
     var_1 = getallnodes();
 
     for ( var_0 = 0; var_0 < var_1.size; var_0++ )
     {
-        if ( !isdefined( var_1[var_0]._id_7A27 ) )
+        if ( !isdefined( var_1[var_0].script_location ) )
             continue;
 
-        anim._id_5F63.origin = var_1[var_0].origin;
-        anim._id_5F63.origin += ( 0.0, 0.0, 10.0 );
-        var_2 = anim._id_5F63 _id_400A();
+        anim.moveorigin.origin = var_1[var_0].origin;
+        anim.moveorigin.origin += ( 0.0, 0.0, 10.0 );
+        var_2 = anim.moveorigin getlocation();
 
         if ( isdefined( var_2 ) )
         {
-            thread _id_2DD3( var_1[var_0]._id_7A27 + " @ " + var_2._id_7A27, var_1[var_0].origin, ( 0.0, 0.0, 0.0 ), ( 0.0, 1.0, 0.0 ) );
+            thread drawbcobject( var_1[var_0].script_location + " @ " + var_2.script_location, var_1[var_0].origin, ( 0.0, 0.0, 0.0 ), ( 0.0, 1.0, 0.0 ) );
             continue;
         }
 
-        thread _id_2DD3( var_1[var_0]._id_7A27 + " @ undefined", var_1[var_0].origin, ( 0.0, 0.0, 0.0 ), ( 1.0, 0.0, 0.0 ) );
+        thread drawbcobject( var_1[var_0].script_location + " @ undefined", var_1[var_0].origin, ( 0.0, 0.0, 0.0 ), ( 1.0, 0.0, 0.0 ) );
     }
 
     var_1 = undefined;
 }
 
-_id_2DD3( var_0, var_1, var_2, var_3 )
+drawbcobject( var_0, var_1, var_2, var_3 )
 {
     for (;;)
     {
@@ -2222,7 +2204,7 @@ _id_2DD3( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_2DD2( var_0, var_1, var_2 )
+drawbcdirections( var_0, var_1, var_2 )
 {
     for (;;)
     {
@@ -2232,12 +2214,12 @@ _id_2DD2( var_0, var_1, var_2 )
             continue;
         }
 
-        var_3 = _id_3F5A( level.player.origin, var_0 );
+        var_3 = getdirectioncompass( level.player.origin, var_0 );
         wait 0.05;
     }
 }
 
-_id_7451( var_0, var_1 )
+resetnextsaytimes( var_0, var_1 )
 {
     var_2 = getaiarray( var_0 );
 
@@ -2251,12 +2233,12 @@ _id_7451( var_0, var_1 )
         if ( !isdefined( var_4.battlechatter ) )
             continue;
 
-        var_4._id_60DB[var_1] = gettime() + 350;
-        var_4._id_8AB0._id_60DB[var_1] = gettime() + 350;
+        var_4.nextsaytimes[var_1] = gettime() + 350;
+        var_4.squad.nextsaytimes[var_1] = gettime() + 350;
     }
 }
 
-_id_3F5D( var_0 )
+getdirectionfacingclockgivenangle( var_0 )
 {
     var_1 = undefined;
 
@@ -2288,7 +2270,7 @@ _id_3F5D( var_0 )
     return var_1;
 }
 
-_id_3F5B( var_0, var_1, var_2 )
+getdirectionfacingangle( var_0, var_1, var_2 )
 {
     var_3 = anglestoforward( var_0 );
     var_4 = vectornormalize( var_3 );
@@ -2300,7 +2282,7 @@ _id_3F5B( var_0, var_1, var_2 )
     return var_7;
 }
 
-_id_40B4( var_0 )
+getrelativeangles( var_0 )
 {
     var_1 = var_0.angles;
 
@@ -2315,7 +2297,7 @@ _id_40B4( var_0 )
     return var_1;
 }
 
-_id_3CBF()
+get_all_my_locations()
 {
     var_0 = [];
 
@@ -2330,16 +2312,16 @@ _id_3CBF()
 
     foreach ( var_4 in var_2 )
     {
-        if ( isdefined( var_4._id_57FB ) )
+        if ( isdefined( var_4.locationaliases ) )
             var_0[var_0.size] = var_4;
     }
 
     return var_0;
 }
 
-_id_3F38( var_0 )
+getclosestfriendlyspeaker( var_0 )
 {
-    var_1 = _id_40DF( var_0, 0 );
-    var_2 = common_scripts\utility::_id_3F33( self.origin, var_1 );
+    var_1 = getspeakers( var_0, 0 );
+    var_2 = common_scripts\utility::getclosest( self.origin, var_1 );
     return var_2;
 }

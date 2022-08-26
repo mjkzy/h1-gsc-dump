@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     level.skill_rdur_min_sec = getdvarint( "skill_rdur_min", 60 );
@@ -26,7 +8,7 @@ init()
     level.skill_sos_max_weight = getdvarint( "skill_sos_max_weight", 5 );
     level.skill_sos_tanh_scale = float( getdvarint( "skill_sos_tanh_scale", 1000 ) ) / 1000.0;
     level.skill_sos_default_rating = float( getdvarint( "skill_sos_default_rating", 500 ) ) / 1000.0;
-    level thread _id_64D6();
+    level thread onplayerspawned();
 }
 
 initsosproxy( var_0 )
@@ -41,20 +23,20 @@ initsosproxy( var_0 )
     level.sos_id++;
     var_1 = spawnstruct();
     var_1.begin_time = maps\mp\_utility::getgametimepassedseconds();
-    var_1.begin_sos_rating = var_0 getrankedplayerdata( "rankedMatchData", "sosRating" );
-    var_1.begin_sos_weight = var_0 getrankedplayerdata( "rankedMatchData", "sosWeight" );
+    var_1.begin_sos_rating = var_0 getplayerdata( "rankedMatchData", "sosRating" );
+    var_1.begin_sos_weight = var_0 getplayerdata( "rankedMatchData", "sosWeight" );
 
     if ( var_1.begin_sos_weight <= 0.5 )
         var_1.begin_sos_rating = level.skill_sos_default_rating;
 
-    var_1.begin_gdf_rating = var_0 getrankedplayerdata( "rankedMatchData", "gdfRating" );
-    var_1.begin_gdf_variance = var_0 getrankedplayerdata( "rankedMatchData", "gdfVariance" );
+    var_1.begin_gdf_rating = var_0 getplayerdata( "rankedMatchData", "gdfRating" );
+    var_1.begin_gdf_variance = var_0 getplayerdata( "rankedMatchData", "gdfVariance" );
     var_1.latest_time = var_1.begin_time;
     var_1.score_per_second = undefined;
     level.sos_players[var_0.sos_id] = var_1;
 }
 
-_id_6FDD()
+process()
 {
     foreach ( var_1 in level.players )
         var_1 _updateskill();
@@ -65,7 +47,7 @@ processplayer()
     _updateskill();
 }
 
-_id_64D6()
+onplayerspawned()
 {
     level.sos_players = [];
     level.sos_id = 0;
@@ -85,7 +67,7 @@ isskillenabled()
     if ( isbot( self ) )
         return 0;
 
-    if ( !maps\mp\_utility::_id_7139() )
+    if ( !maps\mp\_utility::rankingenabled() )
         return 0;
 
     return 1;
@@ -106,7 +88,7 @@ _ipow( var_0, var_1 )
 
 _cube_root( var_0 )
 {
-    var_1 = common_scripts\utility::_id_856D( var_0 );
+    var_1 = common_scripts\utility::sign( var_0 );
     var_2 = _func_0E5( log( abs( var_0 ) ) / 3 );
     var_2 *= var_1;
     return var_2;
@@ -367,8 +349,8 @@ _updateskill()
     var_10 += 0.0001;
     var_11 += var_10 * var_12;
     var_10 = max( 0.05, var_10 * ( 1.0 - var_10 * var_13 ) );
-    self setcommonplayerdata( "rankedMatchData", "gdfRating", var_11 );
-    self setcommonplayerdata( "rankedMatchData", "gdfVariance", var_10 );
+    self setplayerdata( "rankedMatchData", "gdfRating", var_11 );
+    self setplayerdata( "rankedMatchData", "gdfVariance", var_10 );
     var_23 = var_8 / var_9;
     var_24 = 1.0;
     var_25 = _calc_rating( var_5, var_6, var_7, level.skill_recent_sosc );
@@ -380,7 +362,7 @@ _updateskill()
     if ( var_29 > 0 )
     {
         var_27 = ( var_3.begin_sos_rating * var_28 + var_27 * var_24 ) / var_29;
-        self setcommonplayerdata( "rankedMatchData", "sosRating", var_27 );
-        self setcommonplayerdata( "rankedMatchData", "sosWeight", var_3.begin_sos_weight + var_24 );
+        self setplayerdata( "rankedMatchData", "sosRating", var_27 );
+        self setplayerdata( "rankedMatchData", "sosWeight", var_3.begin_sos_weight + var_24 );
     }
 }

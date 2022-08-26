@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_23D0( var_0, var_1 )
+create_overlay_element( var_0, var_1 )
 {
     var_2 = newhudelem();
     var_2.x = 0;
@@ -35,7 +17,7 @@ _id_23D0( var_0, var_1 )
     return var_2;
 }
 
-_id_4855()
+hide_geo()
 {
     self hide();
     self notsolid();
@@ -44,7 +26,7 @@ _id_4855()
         self connectpaths();
 }
 
-_id_486B( var_0 )
+hideall( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = getentarray( "hide", "script_noteworthy" );
@@ -77,7 +59,7 @@ _id_486B( var_0 )
             case "trigger_multiple_breachIcon":
             case "trigger_multiple_flag_lookat":
             case "trigger_multiple_flag_looking":
-                var_2 common_scripts\utility::_id_97CC();
+                var_2 common_scripts\utility::trigger_off();
                 continue;
         }
     }
@@ -100,7 +82,7 @@ ai_notify( var_0, var_1 )
     self notify( "ai_notify_complete" );
 }
 
-_id_3CBD( var_0 )
+get_all_ents_in_chain( var_0 )
 {
     var_1 = [];
     var_2 = self;
@@ -139,13 +121,13 @@ _id_3CBD( var_0 )
         return undefined;
 }
 
-_id_9FA9( var_0, var_1 )
+wait_for_level_notify_or_timeout( var_0, var_1 )
 {
     level endon( var_0 );
     wait(var_1);
 }
 
-_id_3CB9( var_0, var_1, var_2 )
+get_ai_within_radius( var_0, var_1, var_2 )
 {
     if ( isdefined( var_2 ) )
         var_3 = getaiarray( var_2 );
@@ -167,18 +149,18 @@ ai_stun( var_0 )
 {
     self endon( "death" );
 
-    if ( isdefined( self ) && isalive( self ) && maps\_utility::_id_38A9() )
-        maps\_utility::_id_38AB( var_0 );
+    if ( isdefined( self ) && isalive( self ) && maps\_utility::flashbangisactive() )
+        maps\_utility::flashbangstart( var_0 );
 }
 
-_id_8CC0( var_0 )
+start_teleport( var_0 )
 {
-    self _meth_81CA( var_0.origin, var_0.angles );
-    self _meth_81AA( self.origin );
-    self _meth_81A9( var_0 );
+    self forceteleport( var_0.origin, var_0.angles );
+    self setgoalpos( self.origin );
+    self getgoalvolume( var_0 );
 }
 
-_id_A0AB( var_0, var_1 )
+waittill_player_in_range( var_0, var_1 )
 {
     for (;;)
     {
@@ -189,7 +171,7 @@ _id_A0AB( var_0, var_1 )
     }
 }
 
-_id_9CDA( var_0, var_1 )
+vehicle_go_to_end_and_delete( var_0, var_1 )
 {
     var_2 = getvehiclenode( var_0, "targetname" );
     var_3 = "";
@@ -208,7 +190,7 @@ _id_9CDA( var_0, var_1 )
     var_4 = spawnvehicle( var_3, "plane", "truck", var_2.origin, var_2.angles );
 
     if ( var_1 == "truck" )
-        var_4 _id_9852();
+        var_4 truck_headlights_on();
 
     var_4 attachpath( var_2 );
     var_4 startpath();
@@ -217,13 +199,13 @@ _id_9CDA( var_0, var_1 )
     var_4 delete();
 }
 
-_id_9852()
+truck_headlights_on()
 {
     playfxontag( level._effect["headlight_truck"], self, "tag_headlight_left" );
     playfxontag( level._effect["headlight_truck"], self, "tag_headlight_right" );
 }
 
-_id_7E51( var_0, var_1 )
+set_goalvolume( var_0, var_1 )
 {
     self endon( "death" );
 
@@ -231,18 +213,18 @@ _id_7E51( var_0, var_1 )
         var_1 = getent( var_0, "targetname" );
 
     var_2 = getnode( var_1.target, "targetname" );
-    self._id_4254 = var_1;
-    self _meth_81A9( var_2 );
+    self.goalvolume = var_1;
+    self getgoalvolume( var_2 );
     self.goalradius = 0;
 
     if ( isdefined( var_2.radius ) )
         self.goalradius = var_2.radius;
 
-    self _meth_81AA( var_1.origin );
-    self _meth_81AC( var_1 );
+    self setgoalpos( var_1.origin );
+    self setgoalvolume( var_1 );
 }
 
-_id_A0C0( var_0 )
+waittill_touching_entity( var_0 )
 {
     self endon( "death" );
 
@@ -250,14 +232,14 @@ _id_A0C0( var_0 )
         wait 0.05;
 }
 
-_id_742E()
+reset_goalvolume()
 {
     self endon( "death" );
-    self _meth_81AA( self.origin );
-    self._id_4254 = undefined;
+    self setgoalpos( self.origin );
+    self.goalvolume = undefined;
 }
 
-_id_6FA6( var_0, var_1, var_2, var_3 )
+print3dthread( var_0, var_1, var_2, var_3 )
 {
     self endon( "death" );
 
@@ -290,12 +272,12 @@ _id_6FA6( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_867F()
+smoke_detect()
 {
     self endon( "smoke_has_been_thrown" );
-    self._id_8689 = 0;
+    self.smokethrown = 0;
 
-    while ( self._id_8689 == 0 )
+    while ( self.smokethrown == 0 )
     {
         wait 0.05;
         var_0 = getentarray( "grenade", "classname" );
@@ -306,7 +288,7 @@ _id_867F()
             {
                 if ( var_0[var_1] istouching( self ) )
                 {
-                    self._id_8689 = 1;
+                    self.smokethrown = 1;
                     self notify( "smoke_has_been_thrown" );
                 }
             }
@@ -314,60 +296,60 @@ _id_867F()
     }
 }
 
-_id_2A05( var_0 )
+dialogue_execute( var_0 )
 {
     self endon( "death" );
-    maps\_utility::_id_2A32( var_0 );
+    maps\_utility::dialogue_queue( var_0 );
 }
 
-_id_9755( var_0 )
+trigarraywait( var_0 )
 {
     var_1 = getentarray( var_0, "targetname" );
 
     if ( var_1.size == 1 )
-        _id_9823( var_0 );
+        trigwait( var_0 );
     else
     {
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
-            var_1[var_2] thread _id_9756( var_1 );
+            var_1[var_2] thread trigarraywait2( var_1 );
 
         var_1[0] waittill( "trigger" );
     }
 }
 
-_id_9756( var_0 )
+trigarraywait2( var_0 )
 {
     self waittill( "trigger" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_0[var_1] notify( "trigger" );
-        var_0[var_1] common_scripts\utility::_id_97CC();
+        var_0[var_1] common_scripts\utility::trigger_off();
     }
 }
 
-_id_9823( var_0 )
+trigwait( var_0 )
 {
     var_1 = getent( var_0, "targetname" );
     var_1 waittill( "trigger" );
-    var_1 common_scripts\utility::_id_97CC();
+    var_1 common_scripts\utility::trigger_off();
 }
 
-_id_981B( var_0, var_1, var_2 )
+triggersenable( var_0, var_1, var_2 )
 {
     var_3 = getentarray( var_0, var_1 );
 
     if ( var_2 == 1 )
-        common_scripts\utility::array_thread( var_3, common_scripts\utility::_id_97CE );
+        common_scripts\utility::array_thread( var_3, common_scripts\utility::trigger_on );
     else
-        common_scripts\utility::array_thread( var_3, common_scripts\utility::_id_97CC );
+        common_scripts\utility::array_thread( var_3, common_scripts\utility::trigger_off );
 }
 
-_id_9810( var_0 )
+triggeractivate( var_0 )
 {
     var_1 = getent( var_0, "targetname" );
     var_1 notify( "trigger", level.player );
-    var_1 common_scripts\utility::_id_97CC();
+    var_1 common_scripts\utility::trigger_off();
 }
 
 aa_ai_functions()
@@ -375,164 +357,164 @@ aa_ai_functions()
 
 }
 
-_id_5852( var_0 )
+look_at_position( var_0 )
 {
     var_1 = vectortoangles( self.origin - var_0.origin );
-    self _meth_816D( var_1[1] );
+    self setpotentialthreat( var_1[1] );
 }
 
-_id_7ED7( var_0 )
+set_threatbias( var_0 )
 {
-    if ( !isdefined( self._id_63B8 ) )
-        self._id_63B8 = self.threatbias;
+    if ( !isdefined( self.old_threatbias ) )
+        self.old_threatbias = self.threatbias;
 
     self.threatbias = var_0;
 }
 
-_id_7F05( var_0 )
+set_walkdist( var_0 )
 {
-    if ( !isdefined( self._id_63BF ) )
-        self._id_63BF = self.walkdist;
+    if ( !isdefined( self.old_walkdist ) )
+        self.old_walkdist = self.walkdist;
 
     self.walkdist = var_0;
 }
 
-_id_7440()
+reset_walkdist()
 {
-    if ( isdefined( self._id_63BF ) )
-        self.walkdist = self._id_63BF;
+    if ( isdefined( self.old_walkdist ) )
+        self.walkdist = self.old_walkdist;
 
-    self._id_63BF = undefined;
+    self.old_walkdist = undefined;
 }
 
-_id_7E56( var_0 )
+set_health( var_0 )
 {
-    self._id_63A5 = self.health;
+    self.old_health = self.health;
     self.health = var_0;
 }
 
-_id_7430()
+reset_health()
 {
-    if ( isdefined( self._id_63A5 ) )
-        self.health = self._id_63A5;
+    if ( isdefined( self.old_health ) )
+        self.health = self.old_health;
 }
 
-_id_7DD7( var_0 )
+set_animname( var_0 )
 {
-    if ( !isdefined( self._id_6395 ) )
-        self._id_6395 = self.animname;
+    if ( !isdefined( self.old_animname ) )
+        self.old_animname = self.animname;
 
     self.animname = var_0;
 }
 
-_id_7422()
+reset_animname()
 {
-    if ( isdefined( self._id_6395 ) )
-        self.animname = self._id_6395;
+    if ( isdefined( self.old_animname ) )
+        self.animname = self.old_animname;
 
-    self._id_6395 = undefined;
+    self.old_animname = undefined;
 }
 
-_id_7E72( var_0 )
+set_maxsightdistsqrd( var_0 )
 {
-    if ( !isdefined( self._id_63AD ) )
-        self._id_63AD = self.maxsightdistsqrd;
+    if ( !isdefined( self.old_maxsightdistsqrd ) )
+        self.old_maxsightdistsqrd = self.maxsightdistsqrd;
 
     self.maxsightdistsqrd = var_0;
 }
 
-_id_7432()
+reset_maxsightdistsqrd()
 {
-    if ( isdefined( self._id_63AD ) )
-        self.maxsightdistsqrd = self._id_63AD;
+    if ( isdefined( self.old_maxsightdistsqrd ) )
+        self.maxsightdistsqrd = self.old_maxsightdistsqrd;
 
-    self._id_63AD = undefined;
+    self.old_maxsightdistsqrd = undefined;
 }
 
-_id_7ED8( var_0 )
+set_threatbiasgroup( var_0 )
 {
     if ( !threatbiasgroupexists( var_0 ) )
     {
 
     }
 
-    if ( !isdefined( self._id_63B9 ) )
-        self._id_63B9 = self._id_9326;
+    if ( !isdefined( self.old_threatbiasgroupname ) )
+        self.old_threatbiasgroupname = self.threatbiasgroupname;
 
-    self._id_9326 = var_0;
+    self.threatbiasgroupname = var_0;
     self setthreatbiasgroup( var_0 );
 }
 
-_id_7439()
+reset_threatbiasgroup()
 {
-    if ( isdefined( self._id_63B9 ) )
+    if ( isdefined( self.old_threatbiasgroupname ) )
     {
-        self._id_9326 = self._id_63B9;
-        self setthreatbiasgroup( self._id_63B9 );
+        self.threatbiasgroupname = self.old_threatbiasgroupname;
+        self setthreatbiasgroup( self.old_threatbiasgroupname );
 
-        if ( !threatbiasgroupexists( self._id_63B9 ) )
+        if ( !threatbiasgroupexists( self.old_threatbiasgroupname ) )
         {
 
         }
     }
     else
     {
-        self._id_9326 = undefined;
+        self.threatbiasgroupname = undefined;
         self setthreatbiasgroup();
     }
 
-    self._id_63B9 = undefined;
+    self.old_threatbiasgroupname = undefined;
 }
 
-_id_7F7F( var_0 )
+setgoalradius( var_0 )
 {
-    if ( !isdefined( self._id_63A3 ) )
-        self._id_63A3 = self.goalradius;
+    if ( !isdefined( self.old_goalradius ) )
+        self.old_goalradius = self.goalradius;
 
     self.goalradius = var_0;
 }
 
-_id_744C()
+resetgoalradius()
 {
-    if ( isdefined( self._id_63A3 ) )
-        self.goalradius = self._id_63A3;
+    if ( isdefined( self.old_goalradius ) )
+        self.goalradius = self.old_goalradius;
 
-    self._id_63A3 = undefined;
+    self.old_goalradius = undefined;
 }
 
-_id_7F96( var_0 )
+setinterval( var_0 )
 {
-    if ( !isdefined( self._id_63A9 ) )
-        self._id_63A9 = self.interval;
+    if ( !isdefined( self.old_interval ) )
+        self.old_interval = self.interval;
 
     self.interval = var_0;
 }
 
-_id_744D()
+resetinterval()
 {
-    if ( isdefined( self._id_63A9 ) )
-        self.interval = self._id_63A9;
+    if ( isdefined( self.old_interval ) )
+        self.interval = self.old_interval;
 
-    self._id_63A9 = undefined;
+    self.old_interval = undefined;
 }
 
-_id_7DAE( var_0 )
+set_accuracy( var_0 )
 {
-    if ( !isdefined( self._id_6392 ) )
-        self._id_6392 = self.baseaccuracy;
+    if ( !isdefined( self.old_accuracy ) )
+        self.old_accuracy = self.baseaccuracy;
 
     self.baseaccuracy = var_0;
 }
 
-_id_741F()
+reset_accuracy()
 {
-    if ( isdefined( self._id_6392 ) )
-        self.baseaccuracy = self._id_6392;
+    if ( isdefined( self.old_accuracy ) )
+        self.baseaccuracy = self.old_accuracy;
 
-    self._id_6392 = undefined;
+    self.old_accuracy = undefined;
 }
 
-_id_3CF2( var_0 )
+get_closest_ally( var_0 )
 {
     var_1 = undefined;
 
@@ -541,32 +523,32 @@ _id_3CF2( var_0 )
     else
         var_2 = var_0 getorigin();
 
-    if ( isdefined( level._id_33E7 ) )
-        var_1 = maps\_utility::_id_3CEF( var_2, "allies", level._id_33E7 );
+    if ( isdefined( level.excludedai ) )
+        var_1 = maps\_utility::get_closest_ai_exclude( var_2, "allies", level.excludedai );
     else
-        var_1 = maps\_utility::_id_3CEE( var_2, "allies" );
+        var_1 = maps\_utility::get_closest_ai( var_2, "allies" );
 
     return var_1;
 }
 
-_id_3CF3()
+get_closest_axis()
 {
-    var_0 = maps\_utility::_id_3CEE( level.player getorigin(), "axis" );
+    var_0 = maps\_utility::get_closest_ai( level.player getorigin(), "axis" );
     return var_0;
 }
 
-_id_443F( var_0, var_1 )
+groupwarp( var_0, var_1 )
 {
     var_2 = getnodearray( var_1, "targetname" );
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
         if ( isdefined( var_2[var_3] ) )
-            var_0[var_3] _meth_81C9( var_2[var_3].origin );
+            var_0[var_3] teleport( var_2[var_3].origin );
     }
 }
 
-_id_3EDE( var_0, var_1, var_2 )
+getaiarraytouchingvolume( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = getent( var_1, "targetname" );
@@ -587,12 +569,12 @@ _id_3EDE( var_0, var_1, var_2 )
     return var_4;
 }
 
-_id_6251( var_0, var_1, var_2, var_3 )
+npcdelete( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
     {
         var_3 = [];
-        var_3[0] = level._id_6F7C;
+        var_3[0] = level.price;
     }
 
     var_4 = getent( var_0, "targetname" );
@@ -611,7 +593,7 @@ _id_6251( var_0, var_1, var_2, var_3 )
     {
         for ( var_6 = 0; var_6 < var_3.size; var_6++ )
         {
-            if ( maps\_utility::_id_503B( var_5, var_3[var_6] ) )
+            if ( maps\_utility::is_in_array( var_5, var_3[var_6] ) )
                 var_5 = common_scripts\utility::array_remove( var_5, var_3[var_6] );
         }
     }
@@ -620,7 +602,7 @@ _id_6251( var_0, var_1, var_2, var_3 )
     {
         if ( var_5[var_6] istouching( var_4 ) )
         {
-            var_5[var_6] _id_4FA8( 0 );
+            var_5[var_6] invulnerable( 0 );
 
             if ( var_2 == 1 )
             {
@@ -633,7 +615,7 @@ _id_6251( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_3F71( var_0, var_1 )
+getdudefromarray( var_0, var_1 )
 {
     var_2 = undefined;
 
@@ -646,7 +628,7 @@ _id_3F71( var_0, var_1 )
     return var_2;
 }
 
-_id_3F72( var_0, var_1 )
+getdudesfromarray( var_0, var_1 )
 {
     var_2 = [];
 
@@ -669,17 +651,17 @@ _id_3F72( var_0, var_1 )
         return undefined;
 }
 
-_id_4284( var_0 )
+gotonode( var_0 )
 {
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    _id_7F7F( var_1.radius );
-    self _meth_81A9( var_1 );
+    setgoalradius( var_1.radius );
+    self getgoalvolume( var_1 );
     self waittill( "goal" );
-    _id_744C();
+    resetgoalradius();
 }
 
-_id_4285( var_0 )
+gotonodeanddelete( var_0 )
 {
     if ( !isdefined( self ) )
         return;
@@ -689,13 +671,13 @@ _id_4285( var_0 )
 
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self _meth_81A9( var_1 );
-    _id_7F7F( var_1.radius );
+    self getgoalvolume( var_1 );
+    setgoalradius( var_1.radius );
     self waittill( "goal" );
     self delete();
 }
 
-_id_4286( var_0 )
+gotonodeandwait( var_0 )
 {
     if ( !isdefined( self ) )
         return;
@@ -705,47 +687,47 @@ _id_4286( var_0 )
 
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self _meth_81A9( var_1 );
-    _id_7F7F( var_1.radius );
+    self getgoalvolume( var_1 );
+    setgoalradius( var_1.radius );
     self waittill( "goal" );
-    _id_7DD7( "guy" );
+    set_animname( "guy" );
     self waittill( "stop_waiting_at_node" );
-    _id_744C();
+    resetgoalradius();
 }
 
-_id_39CF( var_0 )
+forcetonode( var_0 )
 {
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self _meth_81A7( 1 );
-    self _meth_81A9( var_1 );
+    self pushplayer( 1 );
+    self getgoalvolume( var_1 );
     self waittill( "goal" );
-    self _meth_81A7( 0 );
-    _id_744C();
+    self pushplayer( 0 );
+    resetgoalradius();
 }
 
-_id_7FF4( var_0 )
+setposture( var_0 )
 {
     if ( var_0 == "all" )
-        self _meth_81CE( "stand", "crouch", "prone" );
+        self allowedstances( "stand", "crouch", "prone" );
     else
-        self _meth_81CE( var_0 );
+        self allowedstances( var_0 );
 }
 
-_id_4FA8( var_0 )
+invulnerable( var_0 )
 {
     if ( var_0 == 0 )
     {
-        if ( isdefined( self._id_58D7 ) )
-            maps\_utility::_id_8EA4();
+        if ( isdefined( self.magic_bullet_shield ) )
+            maps\_utility::stop_magic_bullet_shield();
     }
-    else if ( !isdefined( self._id_58D7 ) )
-        thread maps\_utility::_id_58D7();
+    else if ( !isdefined( self.magic_bullet_shield ) )
+        thread maps\_utility::magic_bullet_shield();
 
-    self.a._id_2B20 = var_0;
+    self.a.disablepain = var_0;
 }
 
-_id_5365()
+killentity()
 {
     self endon( "death" );
 
@@ -756,17 +738,17 @@ _id_5365()
         return;
 
     self.allowdeath = 1;
-    _id_4FA8( 0 );
+    invulnerable( 0 );
     self kill();
 }
 
-_id_428A( var_0 )
+gotovolume( var_0 )
 {
     self endon( "death" );
     var_1 = getent( var_0, "targetname" );
     var_2 = getnode( var_1.target, "targetname" );
-    self _meth_81A9( var_2 );
-    self _meth_81AC( var_1 );
+    self getgoalvolume( var_2 );
+    self setgoalvolume( var_1 );
     self.goalradius = var_2.radius;
 }
 
@@ -782,7 +764,7 @@ spawndude( var_0, var_1 )
     else
         var_2 = var_0 dospawn();
 
-    maps\_utility::_id_88F1( var_2 );
+    maps\_utility::spawn_failed( var_2 );
     return var_2;
 }
 
@@ -791,7 +773,7 @@ aa_door_functions()
 
 }
 
-_id_2D4C( var_0, var_1, var_2 )
+door_open( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = 1;
@@ -800,44 +782,44 @@ _id_2D4C( var_0, var_1, var_2 )
         var_2 = 1;
 
     if ( var_1 == 1 )
-        self playsound( level._id_78BA["snd_wood_door_kick"] );
+        self playsound( level.scr_sound["snd_wood_door_kick"] );
 
     if ( self.classname == "script_brushmodel" )
         var_3 = getent( self.target, "targetname" );
     else
     {
         var_4 = getent( self.target, "targetname" );
-        var_3 = getent( var_4._id_7A26, "script_linkname" );
+        var_3 = getent( var_4.script_linkto, "script_linkname" );
     }
 
     switch ( var_0 )
     {
         case "explosive":
-            thread _id_2D45();
-            _id_2D44( var_2 );
-            self playsound( level._id_78BA["snd_breach_wooden_door"] );
+            thread door_fall_over();
+            door_connectpaths( var_2 );
+            self playsound( level.scr_sound["snd_breach_wooden_door"] );
             earthquake( 0.4, 1, self.origin, 1000 );
-            radiusdamage( self.origin, 56, level._id_5A2E, level._id_5C43 );
+            radiusdamage( self.origin, 56, level.maxdetpackdamage, level.mindetpackdamage );
             break;
         case "kicked":
             self rotateyaw( -175, 0.5 );
-            _id_2D44( var_2 );
+            door_connectpaths( var_2 );
             break;
         case "kicked_down":
-            thread _id_2D45();
-            _id_2D44( var_2 );
+            thread door_fall_over();
+            door_connectpaths( var_2 );
             break;
         default:
             self rotateyaw( -175, 0.5 );
-            _id_2D44();
+            door_connectpaths();
             break;
     }
 
-    var_5 = var_3._id_79BF;
-    common_scripts\_exploder::_id_3528( var_5 );
+    var_5 = var_3.script_exploder;
+    common_scripts\_exploder::exploder( var_5 );
 }
 
-_id_2D44( var_0 )
+door_connectpaths( var_0 )
 {
     if ( self.classname == "script_brushmodel" )
         self connectpaths();
@@ -850,7 +832,7 @@ _id_2D44( var_0 )
     }
 }
 
-_id_2D45()
+door_fall_over()
 {
     var_0 = anglestoforward( self.angles );
     var_1 = ( var_0[0] * 20, var_0[1] * 20, var_0[2] * 20 );
@@ -862,7 +844,7 @@ _id_2D45()
     self rotatepitch( 4, 0.15, 0.15 );
 }
 
-_id_2682( var_0, var_1, var_2, var_3, var_4, var_5 )
+debug_circle( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     var_6 = 16;
     var_7 = 360 / var_6;
@@ -882,10 +864,10 @@ _id_2682( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( isdefined( var_4 ) )
         wait(var_4);
 
-    thread _id_2683( var_8, var_2, var_3, var_5, var_0 );
+    thread debug_circle_drawlines( var_8, var_2, var_3, var_5, var_0 );
 }
 
-_id_2683( var_0, var_1, var_2, var_3, var_4 )
+debug_circle_drawlines( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 0;
@@ -902,14 +884,14 @@ _id_2683( var_0, var_1, var_2, var_3, var_4 )
         else
             var_7 = var_0[var_5 + 1];
 
-        thread _id_26AB( var_6, var_7, var_1, var_2 );
+        thread debug_line( var_6, var_7, var_1, var_2 );
 
         if ( var_3 )
-            thread _id_26AB( var_4, var_6, var_1, var_2 );
+            thread debug_line( var_4, var_6, var_1, var_2 );
     }
 }
 
-_id_26AB( var_0, var_1, var_2, var_3 )
+debug_line( var_0, var_1, var_2, var_3 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = ( 1.0, 1.0, 1.0 );

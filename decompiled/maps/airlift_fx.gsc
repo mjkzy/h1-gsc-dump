@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["at4_flash_airlift"] = loadfx( "fx/muzzleflashes/at4_flash_airlift" );
@@ -195,39 +177,39 @@ main()
     level._effect["helicopter_rotor_damaged_fire_airlift"] = loadfx( "vfx/fire/helicopter_rotor_damaged_fire_airlift" );
     level._effect["cobra_crash_site_explosion"] = loadfx( "vfx/map/airlift/cobra_crash_site_explosion" );
     level._effect["cobra_hitting_first_roof"] = loadfx( "vfx/map/airlift/cobra_hitting_first_roof" );
-    level._id_78BA["exploder"]["100"] = "explo_rock";
-    level._id_78BA["exploder"]["150"] = "building_explosion2";
-    level._id_78BA["exploder"]["151"] = "building_explosion2";
-    level._id_78BA["exploder"]["152"] = "building_explosion2";
-    level._id_78BA["exploder"]["153"] = "building_explosion2";
-    level._id_78BA["exploder"]["154"] = "building_explosion2";
-    level._id_78BA["exploder"]["155"] = "building_explosion2";
-    level._id_78BA["exploder"]["156"] = "building_explosion2";
-    level._id_78BA["exploder"]["157"] = "building_explosion2";
-    level._id_78BA["exploder"]["158"] = "building_explosion2";
-    level._id_78BA["exploder"]["159"] = "building_explosion2";
-    level._id_78BA["exploder"]["160"] = "building_explosion2";
-    level._id_78BA["exploder"]["161"] = "building_explosion2";
-    level._id_78BA["exploder"]["162"] = "building_explosion2";
-    level._id_78BA["exploder"]["163"] = "building_explosion2";
-    level._id_78BA["exploder"]["164"] = "building_explosion2";
-    level._id_78BA["exploder"]["165"] = "building_explosion2";
-    level._id_78BA["exploder"]["166"] = "building_explosion2";
-    level._id_78BA["exploder"]["167"] = "building_explosion2";
-    level._id_78BA["exploder"]["500"] = "building_explosion3";
-    level._id_78BA["exploder"]["600"] = "ffar_impact_armor_vehicle";
-    level._id_78BA["exploder"]["700"] = "building_explosion2";
-    level._id_78BA["exploder"]["800"] = "scn_airlift_cobra_exp4";
-    level._id_78BA["exploder"]["1000"] = "car_explode";
-    level._id_78BA["statue_fall"] = "ceiling_collapse";
-    level._id_78BA["statue_impact"] = "ceiling_collapse";
-    level._id_78BA["mortar"]["incomming"] = "fast_artillery_round";
-    level._id_78BA["mortar"]["dirt_large"] = "airstrike_explosion";
-    level._id_78BA["mortar"]["dirt"] = "mortar_explosion_dirt";
-    level._id_78BA["mortar"]["mud"] = "mortar_explosion_water";
-    level._id_78BA["mortar"]["water"] = "mortar_explosion_water";
-    level._id_78BA["mortar"]["concrete"] = "mortar_explosion_dirt";
-    _id_974C();
+    level.scr_sound["exploder"]["100"] = "explo_rock";
+    level.scr_sound["exploder"]["150"] = "building_explosion2";
+    level.scr_sound["exploder"]["151"] = "building_explosion2";
+    level.scr_sound["exploder"]["152"] = "building_explosion2";
+    level.scr_sound["exploder"]["153"] = "building_explosion2";
+    level.scr_sound["exploder"]["154"] = "building_explosion2";
+    level.scr_sound["exploder"]["155"] = "building_explosion2";
+    level.scr_sound["exploder"]["156"] = "building_explosion2";
+    level.scr_sound["exploder"]["157"] = "building_explosion2";
+    level.scr_sound["exploder"]["158"] = "building_explosion2";
+    level.scr_sound["exploder"]["159"] = "building_explosion2";
+    level.scr_sound["exploder"]["160"] = "building_explosion2";
+    level.scr_sound["exploder"]["161"] = "building_explosion2";
+    level.scr_sound["exploder"]["162"] = "building_explosion2";
+    level.scr_sound["exploder"]["163"] = "building_explosion2";
+    level.scr_sound["exploder"]["164"] = "building_explosion2";
+    level.scr_sound["exploder"]["165"] = "building_explosion2";
+    level.scr_sound["exploder"]["166"] = "building_explosion2";
+    level.scr_sound["exploder"]["167"] = "building_explosion2";
+    level.scr_sound["exploder"]["500"] = "building_explosion3";
+    level.scr_sound["exploder"]["600"] = "ffar_impact_armor_vehicle";
+    level.scr_sound["exploder"]["700"] = "building_explosion2";
+    level.scr_sound["exploder"]["800"] = "scn_airlift_cobra_exp4";
+    level.scr_sound["exploder"]["1000"] = "car_explode";
+    level.scr_sound["statue_fall"] = "ceiling_collapse";
+    level.scr_sound["statue_impact"] = "ceiling_collapse";
+    level.scr_sound["mortar"]["incomming"] = "fast_artillery_round";
+    level.scr_sound["mortar"]["dirt_large"] = "airstrike_explosion";
+    level.scr_sound["mortar"]["dirt"] = "mortar_explosion_dirt";
+    level.scr_sound["mortar"]["mud"] = "mortar_explosion_water";
+    level.scr_sound["mortar"]["water"] = "mortar_explosion_water";
+    level.scr_sound["mortar"]["concrete"] = "mortar_explosion_dirt";
+    treadfx_override();
     globalfx_override();
     destructiblefx_overide();
     maps\createfx\airlift_fx::main();
@@ -238,68 +220,68 @@ main()
         var_0[var_1] spawnoilwellsonfire();
 }
 
-_id_974C()
+treadfx_override()
 {
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "brick", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "bark", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "carpet", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "cloth", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "concrete", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "dirt", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "flesh", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "foliage", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "glass", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "grass", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "gravel", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "ice", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "metal", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "mud", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "paper", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "plaster", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "rock", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "sand", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "snow", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "water", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "wood", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "asphalt", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "ceramic", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "plastic", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "rubber", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "cushion", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "fruit", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "painted metal", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "default", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_ch46e_airlift", "none", "fx/treadfx/heli_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "asphalt", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "brick", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "bark", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "carpet", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "cloth", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "concrete", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "dirt", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "flesh", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "foliage", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "glass", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "grass", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "gravel", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "ice", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "metal", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "mud", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "paper", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "plaster", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "rock", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "sand", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "snow", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "water", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "wood", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "ceramic", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "plastic", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "rubber", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "cushion", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "fruit", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "painted metal", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "default", "fx/treadfx/tread_dust_airlift" );
-    maps\_treadfx::_id_8350( "script_vehicle_m1a1_abrams", "none", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "brick", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "bark", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "carpet", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "cloth", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "concrete", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "dirt", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "flesh", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "foliage", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "glass", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "grass", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "gravel", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "ice", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "metal", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "mud", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "paper", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "plaster", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "rock", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "sand", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "snow", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "water", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "wood", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "asphalt", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "ceramic", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "plastic", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "rubber", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "cushion", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "fruit", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "painted metal", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "default", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_ch46e_airlift", "none", "fx/treadfx/heli_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "asphalt", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "brick", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "bark", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "carpet", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "cloth", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "concrete", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "dirt", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "flesh", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "foliage", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "glass", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "grass", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "gravel", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "ice", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "metal", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "mud", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "paper", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "plaster", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "rock", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "sand", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "snow", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "water", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "wood", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "ceramic", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "plastic", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "rubber", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "cushion", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "fruit", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "painted metal", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "default", "fx/treadfx/tread_dust_airlift" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_m1a1_abrams", "none", "fx/treadfx/tread_dust_airlift" );
 }
 
 globalfx_override()
@@ -311,7 +293,7 @@ globalfx_override()
 spawnoilwellsonfire()
 {
     var_0 = self.origin + ( 0.0, 0.0, 1350.0 );
-    playfx( common_scripts\utility::_id_3FA8( "oil_field_fire" ), var_0, anglestoup( self.angles ), anglestoforward( self.angles ) );
+    playfx( common_scripts\utility::getfx( "oil_field_fire" ), var_0, anglestoup( self.angles ), anglestoforward( self.angles ) );
 }
 
 bmp_deathfx_override()

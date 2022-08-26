@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 idle_anim_think()
 {
     self endon( "death" );
@@ -28,12 +10,12 @@ idle_anim_think()
 
     var_0 = getent( self.target, "targetname" );
 
-    if ( !isdefined( var_0._id_793C ) )
+    if ( !isdefined( var_0.script_animation ) )
         return;
 
     var_1 = undefined;
 
-    switch ( var_0._id_793C )
+    switch ( var_0.script_animation )
     {
         case "coffee":
             var_1 = "coffee_";
@@ -58,30 +40,30 @@ idle_anim_think()
     var_0 = getent( self.target, "targetname" );
     self.ref_node = var_0;
 
-    if ( var_0._id_793C == "sleep" )
+    if ( var_0.script_animation == "sleep" )
     {
-        var_2 = maps\_utility::_id_88D1( "chair" );
-        self._id_46E9 = 1;
-        self.anim_props = maps\_utility::_id_590F( var_2 );
+        var_2 = maps\_utility::spawn_anim_model( "chair" );
+        self.has_delta = 1;
+        self.anim_props = maps\_utility::make_array( var_2 );
         var_0 thread maps\_anim::anim_first_frame_solo( var_2, "sleep_react" );
-        var_0 maps\_stealth_logic::_id_8D89( self, var_1 + "idle", var_1 + "react" );
+        var_0 maps\_stealth_logic::stealth_ai_idle_and_react( self, var_1 + "idle", var_1 + "react" );
     }
     else
-        var_0 maps\_stealth_logic::_id_8D8B( self, var_1 + "reach", var_1 + "idle", var_1 + "react" );
+        var_0 maps\_stealth_logic::stealth_ai_reach_and_arrive_idle_and_react( self, var_1 + "reach", var_1 + "idle", var_1 + "react" );
 }
 
 icbm_friendly_state_hidden()
 {
     level endon( "_stealth_detection_level_change" );
-    self.baseaccuracy = self._stealth.behavior._id_4277;
-    self.accuracy = self._stealth.behavior._id_4277;
-    self._stealth.behavior._id_63CE = self.grenadeammo;
+    self.baseaccuracy = self._stealth.behavior.goodaccuracy;
+    self.accuracy = self._stealth.behavior.goodaccuracy;
+    self._stealth.behavior.oldgrenadeammo = self.grenadeammo;
     self.grenadeammo = 0;
-    self._id_39C7 = undefined;
+    self.forcesidearm = undefined;
     self.ignoreall = 1;
     self.ignoreme = 1;
-    maps\_utility::_id_2A74();
-    waitframe;
+    maps\_utility::disable_ai_color();
+    waittillframeend;
     self.fixednode = 0;
 }
 
@@ -94,49 +76,49 @@ icbm_friendly_state_alert()
 icbm_friendly_state_spotted()
 {
     level endon( "_stealth_detection_level_change" );
-    thread maps\_stealth_behavior::_id_3A80();
+    thread maps\_stealth_behavior::friendly_spotted_getup_from_prone();
     self.baseaccuracy = self._stealth.behavior.badaccuracy;
     self.accuracy = self._stealth.behavior.badaccuracy;
-    self.grenadeammo = self._stealth.behavior._id_63CE;
-    self _meth_81CE( "prone", "crouch", "stand" );
-    self _meth_8143();
+    self.grenadeammo = self._stealth.behavior.oldgrenadeammo;
+    self allowedstances( "prone", "crouch", "stand" );
+    self stopanimscripted();
     self.ignoreall = 0;
     self.ignoreme = 0;
-    maps\_utility::_id_2A8D();
-    maps\_utility::_id_309A();
-    self._id_2AF3 = 1;
-    self._id_2B0E = 1;
-    self _meth_81A7( 0 );
+    maps\_utility::disable_cqbwalk();
+    maps\_utility::enable_ai_color();
+    self.disablearrivals = 1;
+    self.disableexits = 1;
+    self pushplayer( 0 );
 }
 
 friendlies_stop_on_truck_spotted()
 {
     self endon( "death" );
-    common_scripts\utility::_id_384A( "truck_spotted" );
+    common_scripts\utility::flag_wait( "truck_spotted" );
 
-    if ( common_scripts\utility::_id_382E( "truckguys dead" ) )
+    if ( common_scripts\utility::flag( "truckguys dead" ) )
         return;
 
-    maps\_utility::_id_2A74();
-    self _meth_81AA( self.origin );
+    maps\_utility::disable_ai_color();
+    self setgoalpos( self.origin );
     self.goalradius = 30;
-    common_scripts\utility::_id_384A( "truckguys dead" );
+    common_scripts\utility::flag_wait( "truckguys dead" );
     wait 1;
-    maps\_utility::_id_309A();
+    maps\_utility::enable_ai_color();
 }
 
 friendlies_stop_paths_to_fight()
 {
     self endon( "death" );
-    level common_scripts\utility::_id_A087( "_stealth_spotted", "at_range" );
+    level common_scripts\utility::waittill_either( "_stealth_spotted", "at_range" );
 
-    if ( common_scripts\utility::_id_382E( "patrollers_dead" ) )
+    if ( common_scripts\utility::flag( "patrollers_dead" ) )
         return;
 
     self.fixednode = 0;
     self notify( "stop_going_to_node" );
     self.goalradius = 5000;
-    common_scripts\utility::_id_384A( "patrollers_dead" );
+    common_scripts\utility::flag_wait( "patrollers_dead" );
     wait 3;
     make_friendies_not_cqb();
     maps\_utility::activate_trigger_with_targetname( "basement_door_nodes" );
@@ -145,13 +127,13 @@ friendlies_stop_paths_to_fight()
 
 disable_ignoreme_on_stealth_spotted()
 {
-    common_scripts\utility::_id_384A( "_stealth_spotted" );
+    common_scripts\utility::flag_wait( "_stealth_spotted" );
     stop_make_friendies_ignored();
 }
 
 disable_deadlyness_on_stealth_spotted()
 {
-    common_scripts\utility::_id_384A( "_stealth_spotted" );
+    common_scripts\utility::flag_wait( "_stealth_spotted" );
     disable_friendly_deadlyness();
 }
 
@@ -177,7 +159,7 @@ stop_make_friendies_ignored()
 friendlies_fighting_nodes()
 {
     level endon( "outside_cleared" );
-    common_scripts\utility::_id_384A( "_stealth_spotted" );
+    common_scripts\utility::flag_wait( "_stealth_spotted" );
     maps\_utility::activate_trigger_with_targetname( "friendlies_fighting_nodes" );
 }
 
@@ -185,18 +167,18 @@ truck_setup()
 {
     self waittill( "trigger" );
     var_0 = maps\_vehicle::waittill_vehiclespawn( "truck" );
-    var_0._id_5A3F = 1;
+    var_0.maxlightstopsperframe = 1;
     var_0 thread maps\icbm_aud::start_first_truck_audio();
-    var_0 maps\_vehicle::_id_9D02( "headlights" );
+    var_0 maps\_vehicle::vehicle_lights_on( "headlights" );
     wait 0.5;
-    common_scripts\utility::_id_384A( "truck_stopped" );
+    common_scripts\utility::flag_wait( "truck_stopped" );
     var_0 thread maps\icbm_aud::handle_first_truck_stop();
-    var_0 maps\_vehicle::_id_9D02( "brakelights" );
-    common_scripts\utility::_id_383F( "truck arived" );
-    common_scripts\utility::_id_384A( "price_basement_door_anim_complete" );
+    var_0 maps\_vehicle::vehicle_lights_on( "brakelights" );
+    common_scripts\utility::flag_set( "truck arived" );
+    common_scripts\utility::flag_wait( "price_basement_door_anim_complete" );
 
     if ( var_0.health > 0 )
-        var_0 maps\_vehicle::_id_9D01( "all" );
+        var_0 maps\_vehicle::vehicle_lights_off( "all" );
 }
 
 truck_guys_think()
@@ -204,7 +186,7 @@ truck_guys_think()
     self endon( "death" );
     level.truckguys[level.truckguys.size] = self;
     self.ignoreme = 1;
-    common_scripts\utility::_id_384A( "truck_stopped" );
+    common_scripts\utility::flag_wait( "truck_stopped" );
     wait 2;
     self.ignoreme = 0;
 }
@@ -212,7 +194,7 @@ truck_guys_think()
 ignore_truck_guys_till_truck_stopped()
 {
     var_0 = getentarray( "truck_guys", "script_noteworthy" );
-    common_scripts\utility::_id_384A( "truck_stopped" );
+    common_scripts\utility::flag_wait( "truck_stopped" );
 }
 
 music_tension_loop( var_0, var_1, var_2, var_3 )
@@ -227,7 +209,7 @@ music_tension_loop( var_0, var_1, var_2, var_3 )
 
     for (;;)
     {
-        maps\_utility::_id_6008( var_1 );
+        maps\_utility::musicplaywrapper( var_1 );
         wait(var_2);
         musicstop( var_3 );
         wait(var_3 + 0.2);
@@ -240,21 +222,21 @@ friendlies_start_paths()
     var_1 = getnode( "path_center", "targetname" );
     var_2 = getnode( "path_right", "targetname" );
     var_3 = get_a_generic_friendly();
-    level._id_3C61 thread maps\_spawner::_id_4241( var_1 );
+    level.gaz thread maps\_spawner::go_to_node( var_1 );
     wait 0.5;
-    level._id_6F7C thread maps\_spawner::_id_4241( var_0 );
+    level.price thread maps\_spawner::go_to_node( var_0 );
 
     if ( isalive( var_3 ) )
     {
         wait 0.5;
-        var_3 thread maps\_spawner::_id_4241( var_2 );
+        var_3 thread maps\_spawner::go_to_node( var_2 );
     }
 }
 
 get_a_generic_friendly()
 {
     var_0 = getaiarray( "allies" );
-    var_0 = maps\_utility::_id_735E( var_0 );
+    var_0 = maps\_utility::remove_heroes_from_array( var_0 );
     return var_0[0];
 }
 
@@ -262,14 +244,14 @@ attach_flashlight( var_0, var_1 )
 {
     self endon( "death" );
 
-    if ( isdefined( self._id_475E ) )
+    if ( isdefined( self.have_flashlight ) )
         return;
 
     if ( isdefined( var_1 ) )
         wait(randomfloatrange( 0, 5 ));
 
     self attach( "com_flashlight_on", "tag_inhand", 1 );
-    self._id_475E = 1;
+    self.have_flashlight = 1;
     flashlight_light( var_0 );
     thread dropflashlightondeath();
 }
@@ -291,12 +273,12 @@ detach_flashlight_onspotted()
 
 detach_flashlight()
 {
-    if ( !isdefined( self._id_475E ) )
+    if ( !isdefined( self.have_flashlight ) )
         return;
 
     self detach( "com_flashlight_on", "tag_inhand" );
     flashlight_light( 0 );
-    self._id_475E = undefined;
+    self.have_flashlight = undefined;
 }
 
 flashlight_light( var_0 )
@@ -312,30 +294,30 @@ flashlight_light( var_0 )
         thread flashlight_light_death( var_2 );
         playfxontag( level._effect["flashlight"], var_2, "tag_origin" );
     }
-    else if ( isdefined( self._id_475E ) )
+    else if ( isdefined( self.have_flashlight ) )
         self notify( "flashlight_off" );
 }
 
 flashlight_light_death( var_0 )
 {
-    common_scripts\utility::_id_A087( "death", "flashlight_off" );
+    common_scripts\utility::waittill_either( "death", "flashlight_off" );
     var_0 delete();
-    self._id_475E = undefined;
+    self.have_flashlight = undefined;
 }
 
 min_spec_kill_fx()
 {
     var_0 = [];
-    var_0 = maps\_utility::_id_3FA9( "fog_icbm" );
-    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "fog_icbm_a" ) );
-    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "fog_icbm_b" ) );
-    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "fog_icbm_c" ) );
-    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_bank" ) );
-    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_bank_a" ) );
-    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::_id_3FA9( "cloud_bank_far" ) );
+    var_0 = maps\_utility::getfxarraybyid( "fog_icbm" );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::getfxarraybyid( "fog_icbm_a" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::getfxarraybyid( "fog_icbm_b" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::getfxarraybyid( "fog_icbm_c" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::getfxarraybyid( "cloud_bank" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::getfxarraybyid( "cloud_bank_a" ) );
+    var_0 = common_scripts\utility::array_combine( var_0, maps\_utility::getfxarraybyid( "cloud_bank_far" ) );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] common_scripts\utility::_id_671F();
+        var_0[var_1] common_scripts\utility::pauseeffect();
 }
 
 whitein()
@@ -368,7 +350,7 @@ make_friendies_cqb()
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] maps\_utility::_id_30B0();
+        var_0[var_1] maps\_utility::enable_cqbwalk();
 }
 
 make_friendies_not_cqb()
@@ -376,7 +358,7 @@ make_friendies_not_cqb()
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] maps\_utility::_id_2A8D();
+        var_0[var_1] maps\_utility::disable_cqbwalk();
 }
 
 make_friendies_pushplayer( var_0 )
@@ -384,7 +366,7 @@ make_friendies_pushplayer( var_0 )
     var_1 = getaiarray( "allies" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
-        var_1[var_2] _meth_81A7( var_0 );
+        var_1[var_2] pushplayer( var_0 );
 }
 
 make_friendies_deadly()
@@ -408,13 +390,13 @@ all_friendlies_turn_blue()
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] maps\_utility::_id_7E38( "b" );
+        var_0[var_1] maps\_utility::set_force_color( "b" );
 }
 
 clip_nosight_logic()
 {
     self endon( "death" );
-    common_scripts\utility::_id_384A( self._id_79D3 );
+    common_scripts\utility::flag_wait( self.script_flag );
     thread clip_nosight_logic2();
     self setcandamage( 1 );
     clip_nosight_wait();
@@ -423,7 +405,7 @@ clip_nosight_logic()
 
 clip_nosight_wait()
 {
-    if ( common_scripts\utility::_id_382E( "_stealth_spotted" ) )
+    if ( common_scripts\utility::flag( "_stealth_spotted" ) )
         return;
 
     level endon( "_stealth_spotted" );
@@ -433,27 +415,27 @@ clip_nosight_wait()
 clip_nosight_logic2()
 {
     self endon( "death" );
-    common_scripts\utility::_id_3852( "_stealth_spotted", "_stealth_found_corpse" );
+    common_scripts\utility::flag_wait_either( "_stealth_spotted", "_stealth_found_corpse" );
     self delete();
 }
 
 first_chopper_fly_over()
 {
     wait 3;
-    level._id_3C61 maps\_anim::anim_single_queue( level._id_3C61, "enemyhelicopters" );
+    level.gaz maps\_anim::anim_single_queue( level.gaz, "enemyhelicopters" );
     var_0 = getaiarray( "allies" );
     var_1 = 0.0;
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        var_0[var_2] maps\_utility::_id_27EF( var_1, ::prone_till_flag, "chopper_gone" );
+        var_0[var_2] maps\_utility::delaythread( var_1, ::prone_till_flag, "chopper_gone" );
         var_1 += randomfloatrange( 0.1, 0.5 );
     }
 
     wait 1;
     level.player playsound( "h1_mi17_custom_flyby" );
-    common_scripts\utility::_id_384A( "chopper_gone" );
-    level._id_6F7C maps\_anim::anim_single_queue( level._id_6F7C, "move" );
+    common_scripts\utility::flag_wait( "chopper_gone" );
+    level.price maps\_anim::anim_single_queue( level.price, "move" );
     wait 1;
     maps\_utility::activate_trigger_with_targetname( "friendlies_at_tower" );
 }
@@ -481,8 +463,8 @@ chopper_fail_mission()
 
                 if ( var_7 > var_1 )
                 {
-                    maps\_player_death::_id_7E03( &"ICBM_MISSIONFAIL_ICBM_CHOPPERS_SHOT" );
-                    maps\_utility::_id_5CDF();
+                    maps\_player_death::set_deadquote( &"ICBM_MISSIONFAIL_ICBM_CHOPPERS_SHOT" );
+                    maps\_utility::missionfailedwrapper();
                     break;
                 }
             }
@@ -498,7 +480,7 @@ prone_till_flag( var_0 )
     var_1 = randomintrange( 1, 3 );
     maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_dive" + var_1 );
     thread maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_idle" + var_1 );
-    common_scripts\utility::_id_384A( var_0 );
+    common_scripts\utility::flag_wait( var_0 );
     wait(randomfloatrange( 0, 1 ));
     thread maps\_anim::anim_generic_custom_animmode( self, "gravity", "pronehide_2_stand" + var_1 );
 }
@@ -527,7 +509,7 @@ ignoreme_till_close()
     self endon( "death" );
     self.ignoreme = 1;
     common_scripts\utility::array_thread( level.friendlies, ::notify_at_range, self, 1200, "at_range" );
-    level common_scripts\utility::_id_A087( "_stealth_spotted", "at_range" );
+    level common_scripts\utility::waittill_either( "_stealth_spotted", "at_range" );
     self.ignoreme = 0;
 }
 
@@ -535,7 +517,7 @@ ignoreme_till_stealth_broken()
 {
     self endon( "death" );
     self.ignoreme = 1;
-    common_scripts\utility::_id_384A( "_stealth_spotted" );
+    common_scripts\utility::flag_wait( "_stealth_spotted" );
     self.ignoreme = 0;
 }
 
@@ -558,38 +540,38 @@ second_squad_talker_think()
 
 price_think()
 {
-    level._id_6F7C = self;
-    level._id_6F7C.animname = "price";
-    level._id_6F7C thread maps\_utility::_id_58D7();
-    level._id_6F7C.interval = 100;
+    level.price = self;
+    level.price.animname = "price";
+    level.price thread maps\_utility::magic_bullet_shield();
+    level.price.interval = 100;
     level.friendlies[level.friendlies.size] = self;
-    level._id_6F7C maps\_utility::_id_5926();
+    level.price maps\_utility::make_hero();
 }
 
 gaz_think()
 {
-    level._id_3C61 = self;
-    level._id_3C61.animname = "gaz";
-    level._id_3C61 thread maps\_utility::_id_58D7();
-    level._id_3C61.interval = 100;
+    level.gaz = self;
+    level.gaz.animname = "gaz";
+    level.gaz thread maps\_utility::magic_bullet_shield();
+    level.gaz.interval = 100;
     level.friendlies[level.friendlies.size] = self;
-    level._id_3C61 maps\_utility::_id_5926();
+    level.gaz maps\_utility::make_hero();
 }
 
 griggs_think()
 {
     level.griggs = self;
     level.griggs.animname = "griggs";
-    level.griggs thread maps\_utility::_id_58D7();
+    level.griggs thread maps\_utility::magic_bullet_shield();
     level.griggs.interval = 100;
     level.friendlies[level.friendlies.size] = self;
-    level.griggs maps\_utility::_id_5926();
+    level.griggs maps\_utility::make_hero();
 }
 
 captured_griggs_think()
 {
     self.pacifist = 1;
-    maps\_utility::_id_30B0();
+    maps\_utility::enable_cqbwalk();
     self.ignoreme = 1;
     level.griggs_node = getnode( "griggs_node", "targetname" );
     thread griggs_idle( level.griggs_node );
@@ -605,7 +587,7 @@ captured_griggs_think()
 griggs_grab_gun( var_0, var_1 )
 {
     level.griggs.fake_gun delete();
-    level.griggs maps\_utility::_id_4461();
+    level.griggs maps\_utility::gun_recall();
 }
 
 griggs_fake_gun()
@@ -616,7 +598,7 @@ griggs_fake_gun()
     var_2 setmodel( "weapon_saw" );
     var_2.angles = var_1;
     level.griggs.fake_gun = var_2;
-    level.griggs maps\_utility::_id_4462();
+    level.griggs maps\_utility::gun_remove();
 }
 
 griggs_idle( var_0 )
@@ -627,17 +609,17 @@ griggs_idle( var_0 )
 
 price_rescue_anims()
 {
-    level.griggs_node maps\_anim::anim_reach_solo( level._id_6F7C, "grigsby_rescue_price_in" );
-    level.griggs_node maps\_anim::anim_single_solo( level._id_6F7C, "grigsby_rescue_price_in" );
-    common_scripts\utility::_id_383F( "price_ready_for_griggs_rescue" );
-    level.griggs_node thread maps\_anim::anim_loop_solo( level._id_6F7C, "grigsby_rescue_price_idle", undefined, "stop_price_idle" );
+    level.griggs_node maps\_anim::anim_reach_solo( level.price, "grigsby_rescue_price_in" );
+    level.griggs_node maps\_anim::anim_single_solo( level.price, "grigsby_rescue_price_in" );
+    common_scripts\utility::flag_set( "price_ready_for_griggs_rescue" );
+    level.griggs_node thread maps\_anim::anim_loop_solo( level.price, "grigsby_rescue_price_idle", undefined, "stop_price_idle" );
 }
 
 friendly_think()
 {
     self.animname = "generic";
     self.interval = 100;
-    thread maps\_utility::_id_7402();
+    thread maps\_utility::replace_on_death();
     level.friendlies[level.friendlies.size] = self;
 
     if ( self.spawner.targetname == "chute_start_spawners" )
@@ -670,10 +652,10 @@ kill_during_breach2( var_0, var_1 )
     {
         if ( var_2[var_3].script_noteworthy == "interogation_speaker" )
         {
-            var_4 = level._id_6F7C;
+            var_4 = level.price;
 
-            if ( distancesquared( level._id_6F7C.origin, var_2[var_3].origin ) > distancesquared( level._id_3C61.origin, var_2[var_3].origin ) )
-                var_4 = level._id_3C61;
+            if ( distancesquared( level.price.origin, var_2[var_3].origin ) > distancesquared( level.gaz.origin, var_2[var_3].origin ) )
+                var_4 = level.gaz;
 
             magicbullet( var_4.weapon, var_4 gettagorigin( "tag_flash" ), var_2[var_3] gettagorigin( "tag_eye" ) );
             var_2[var_3] kill();
@@ -701,11 +683,11 @@ parachute_player()
 
 trigger_wait_and_set_flag( var_0 )
 {
-    common_scripts\utility::_id_383D( "trigger_" + var_0 );
+    common_scripts\utility::flag_init( "trigger_" + var_0 );
     var_1 = getent( var_0, "targetname" );
     var_1 waittill( "trigger" );
-    var_1 common_scripts\utility::_id_97CC();
-    common_scripts\utility::_id_383F( "trigger_" + var_0 );
+    var_1 common_scripts\utility::trigger_off();
+    common_scripts\utility::flag_set( "trigger_" + var_0 );
 }
 
 sound_fade_then_delete()
@@ -724,8 +706,8 @@ start_interogation()
     var_0 maps\_utility::add_spawn_function( ::interogation_speaker_think );
     var_1 = getentarray( "interogators", "targetname" );
     common_scripts\utility::array_thread( var_1, maps\_utility::add_spawn_function, ::ignore_all_till_flag, "breach_started" );
-    common_scripts\utility::array_thread( var_1, maps\_utility::_id_88C3 );
-    common_scripts\utility::_id_383F( "start_interogation" );
+    common_scripts\utility::array_thread( var_1, maps\_utility::spawn_ai );
+    common_scripts\utility::flag_set( "start_interogation" );
     wait 0.5;
     thread maps\icbm_dialog::dialog_grigs_guys_jibjab();
 }
@@ -734,7 +716,7 @@ ignore_all_till_flag( var_0 )
 {
     self endon( "death" );
     self.ignoreall = 1;
-    common_scripts\utility::_id_384A( var_0 );
+    common_scripts\utility::flag_wait( var_0 );
     self.ignoreall = 0;
 }
 
@@ -742,32 +724,32 @@ interogation_speaker_think()
 {
     level.ru1 = self;
     self.animname = "ru1";
-    self.a._id_2B18 = 1;
+    self.a.disablelongdeath = 1;
 }
 
 knife_kill_setup()
 {
     var_0 = getent( "price_knife_kill", "targetname" );
     var_0 waittill( "trigger" );
-    var_0 common_scripts\utility::_id_97CC();
+    var_0 common_scripts\utility::trigger_off();
     var_1 = getent( "house01_badguy01", "script_noteworthy" );
     level.knifekillnode = getnode( "knifeKillNode", "targetname" );
     createthreatbiasgroup( "victims" );
     setignoremegroup( "icbm_friendlies", "victims" );
 
-    if ( !common_scripts\utility::_id_382E( "_stealth_spotted" ) )
+    if ( !common_scripts\utility::flag( "_stealth_spotted" ) )
         var_1 maps\_utility::add_spawn_function( ::ai_hostile_think );
 
     var_1 maps\_utility::add_spawn_function( maps\_stealth_logic::stealth_ai );
     var_1 maps\_utility::add_spawn_function( ::set_threatbias_group, "victims" );
-    var_2 = var_1 maps\_utility::_id_88C3();
+    var_2 = var_1 maps\_utility::spawn_ai();
 
-    if ( !common_scripts\utility::_id_382E( "knife_sequence_done" ) )
+    if ( !common_scripts\utility::flag( "knife_sequence_done" ) )
         var_2 thread ai_hostile_knife_kill_think();
 
     var_2 waittill( "death" );
-    level._id_6F7C maps\_utility::_id_309A();
-    common_scripts\utility::_id_383F( "knife_sequence_done" );
+    level.price maps\_utility::enable_ai_color();
+    common_scripts\utility::flag_set( "knife_sequence_done" );
 }
 
 ai_hostile_think()
@@ -777,11 +759,11 @@ ai_hostile_think()
     self.allowdeath = 1;
     self.ignoreme = 1;
     self.health = 1;
-    thread maps\_stealth_logic::_id_8DCA();
+    thread maps\_stealth_logic::stealth_enemy_endon_alert();
     level.knifekillnode maps\_anim::anim_reach_solo( self, "phoneguy_idle_start" );
     level.knifekillnode thread maps\_anim::anim_loop_solo( self, "phoneguy_idle", undefined, "stop_idle" );
     self waittill( "stealth_enemy_endon_alert" );
-    self._id_67ED delete();
+    self.phone delete();
     self setthreatbiasgroup();
     self.ignoreme = 0;
     level.knifekillnode notify( "stop_idle" );
@@ -791,30 +773,30 @@ ai_hostile_knife_kill_think()
 {
     self endon( "death" );
     self endon( "stealth_enemy_endon_alert" );
-    level._id_6F7C _meth_81AA( self.origin );
-    common_scripts\utility::_id_383F( "knife_sequence_starting" );
-    level.knifekillnode maps\_anim::anim_reach_solo( level._id_6F7C, "knifekill_price" );
+    level.price setgoalpos( self.origin );
+    common_scripts\utility::flag_set( "knife_sequence_starting" );
+    level.knifekillnode maps\_anim::anim_reach_solo( level.price, "knifekill_price" );
     thread knife_kill_fx();
     thread ai_hostile_knife_kill_abort_think();
-    level.price_knife = spawn( "script_model", level._id_6F7C gettagorigin( "TAG_INHAND" ) );
-    level.price_knife.angles = level._id_6F7C gettagangles( "TAG_INHAND" );
-    level.price_knife linkto( level._id_6F7C, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    level.price_knife = spawn( "script_model", level.price gettagorigin( "TAG_INHAND" ) );
+    level.price_knife.angles = level.price gettagangles( "TAG_INHAND" );
+    level.price_knife linkto( level.price, "TAG_INHAND", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     level.price_knife setmodel( "weapon_parabolic_knife" );
     level.price_knife hide();
-    level._id_6F7C playsound( "scn_icbm_knife_melee" );
-    level.knifekillnode thread maps\_anim::anim_single_solo( level._id_6F7C, "knifekill_price" );
+    level.price playsound( "scn_icbm_knife_melee" );
+    level.knifekillnode thread maps\_anim::anim_single_solo( level.price, "knifekill_price" );
     level.knifekillnode thread maps\_anim::anim_single_solo( self, "phoneguy_death" );
-    var_0 = getanimlength( maps\_utility::_id_3EF5( "phoneguy_death" ) );
+    var_0 = getanimlength( maps\_utility::getanim( "phoneguy_death" ) );
     var_0 -= 2.75;
-    maps\_utility::_id_27EF( var_0, ::ai_hostile_knife_kill_finish_anim );
-    maps\_utility::_id_27EF( var_0, ::set_ignore_all );
+    maps\_utility::delaythread( var_0, ::ai_hostile_knife_kill_finish_anim );
+    maps\_utility::delaythread( var_0, ::set_ignore_all );
     level.knifekillnode waittill( "phoneguy_death" );
     level notify( "knife_kill_done" );
-    level._id_6F7C _meth_81AA( level._id_6F7C.origin );
-    level._id_6F7C _meth_8143();
-    self.a._id_612E = 1;
+    level.price setgoalpos( level.price.origin );
+    level.price stopanimscripted();
+    self.a.nodeath = 1;
     self.allowdeath = 1;
-    animscripts\shared::_id_2F6C();
+    animscripts\shared::dropallaiweapons();
     self kill( ( 0.0, 0.0, 0.0 ) );
 }
 
@@ -823,7 +805,7 @@ ai_hostile_knife_kill_finish_anim()
     self endon( "stealth_enemy_endon_alert" );
     self notify( "_stealth_stop_stealth_logic" );
     self.allowdeath = 0;
-    self.a._id_612E = 1;
+    self.a.nodeath = 1;
 }
 
 set_ignore_all()
@@ -833,12 +815,12 @@ set_ignore_all()
 
 ai_hostile_knife_kill_abort_think()
 {
-    common_scripts\utility::_id_384A( "knife_sequence_starting" );
-    common_scripts\utility::_id_A087( "death", "stealth_enemy_endon_alert" );
-    level._id_6F7C _meth_854D( "scn_icbm_knife_melee" );
+    common_scripts\utility::flag_wait( "knife_sequence_starting" );
+    common_scripts\utility::waittill_either( "death", "stealth_enemy_endon_alert" );
+    level.price _meth_854D( "scn_icbm_knife_melee" );
     level.price_knife unlink();
     level.price_knife delete();
-    level._id_6F7C _meth_8143();
+    level.price stopanimscripted();
 }
 
 knife_kill_fx()
@@ -848,7 +830,7 @@ knife_kill_fx()
     playfxontag( level._effect["knife_stab"], self, "j_neck" );
 }
 
-_id_2A05( var_0 )
+dialogue_execute( var_0 )
 {
     self endon( "death" );
     maps\_anim::anim_single_queue( self, var_0 );
@@ -862,38 +844,38 @@ friendlies_open_upstairs_door()
 beehive_wait()
 {
     level endon( "house1_upstairs_dead" );
-    common_scripts\utility::_id_384A( "_stealth_spotted" );
-    common_scripts\utility::_id_383F( "beehive1_active" );
-    common_scripts\utility::_id_383F( "knife_sequence_done" );
+    common_scripts\utility::flag_wait( "_stealth_spotted" );
+    common_scripts\utility::flag_set( "beehive1_active" );
+    common_scripts\utility::flag_set( "knife_sequence_done" );
     thread beehive_attack();
 }
 
 beehive_attack()
 {
     var_0 = getentarray( "beehive_enemy", "targetname" );
-    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::spawn_ai );
     wait 4;
     var_1 = getent( "house1_upstairs_first_door", "targetname" );
     var_2 = getent( "house1_upstairs_first_door_model", "targetname" );
     var_2 linkto( var_1 );
-    thread _id_6509( var_1, -178 );
+    thread open_door( var_1, -178 );
     wait 1;
     var_3 = getent( "house1_upstairs_second_door", "targetname" );
     var_4 = getent( "house1_upstairs_second_door_model", "targetname" );
     var_4 linkto( var_3 );
     var_5 = getentarray( "beehive_enemy_second_door", "targetname" );
-    _id_6509( var_3, 176, var_5 );
+    open_door( var_3, 176, var_5 );
     wait 0.1;
-    thread maps\_spawner::_id_533A( 0 );
+    thread maps\_spawner::kill_spawnernum( 0 );
 }
 
-_id_6509( var_0, var_1, var_2 )
+open_door( var_0, var_1, var_2 )
 {
     while ( distance( level.player.origin, var_0.origin ) < 160 )
         wait 0.1;
 
     if ( isdefined( var_2 ) )
-        common_scripts\utility::array_thread( var_2, maps\_utility::_id_88C3 );
+        common_scripts\utility::array_thread( var_2, maps\_utility::spawn_ai );
 
     var_0 rotateto( var_0.angles + ( 0, var_1, 0 ), 0.5, 0, 0 );
     var_0 connectpaths();
@@ -903,8 +885,8 @@ _id_6509( var_0, var_1, var_2 )
 beehive2_wait()
 {
     level endon( "outside_dead" );
-    common_scripts\utility::_id_384A( "_stealth_spotted" );
-    common_scripts\utility::_id_383F( "beehive2_active" );
+    common_scripts\utility::flag_wait( "_stealth_spotted" );
+    common_scripts\utility::flag_set( "beehive2_active" );
     thread beehive2_attack();
 }
 
@@ -937,7 +919,7 @@ beehive2_attack()
 {
     var_0 = getentarray( "beehive2_enemy", "targetname" );
     common_scripts\utility::array_thread( var_0, maps\_utility::add_spawn_function, ::beehive2_think );
-    common_scripts\utility::array_thread( var_0, maps\_utility::_id_88C3 );
+    common_scripts\utility::array_thread( var_0, maps\_utility::spawn_ai );
     wait 4;
     level notify( "beehive2_door_open" );
     var_1 = getent( "beehive2_front_door", "targetname" );
@@ -962,52 +944,52 @@ beehive2_attack()
 
 price_gets_ready_to_open_door( var_0 )
 {
-    var_0 maps\_anim::anim_reach_and_approach_node_solo( level._id_6F7C, "hunted_open_barndoor_stop" );
-    var_0 thread maps\_anim::anim_loop_solo( level._id_6F7C, "hunted_open_barndoor_idle", undefined, "stop_idle" );
-    common_scripts\utility::_id_383F( "price_ready" );
+    var_0 maps\_anim::anim_reach_and_approach_node_solo( level.price, "hunted_open_barndoor_stop" );
+    var_0 thread maps\_anim::anim_loop_solo( level.price, "hunted_open_barndoor_idle", undefined, "stop_idle" );
+    common_scripts\utility::flag_set( "price_ready" );
 }
 
 price_opens_door( var_0, var_1, var_2 )
 {
-    common_scripts\utility::_id_384A( "price_ready" );
+    common_scripts\utility::flag_wait( "price_ready" );
     var_0 notify( "stop_idle" );
-    var_0 thread maps\_anim::anim_single_solo( level._id_6F7C, "hunted_open_barndoor" );
+    var_0 thread maps\_anim::anim_single_solo( level.price, "hunted_open_barndoor" );
 
     if ( var_1.targetname == "house01_front_door" )
-        soundscripts\_snd::_id_870C( "aud_open_fisrt_door" );
+        soundscripts\_snd::snd_message( "aud_open_fisrt_door" );
 
     var_3 = getentarray( var_1.target, "targetname" );
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
         var_3[var_4] linkto( var_1 );
 
-    var_1 maps\_utility::_id_4B09();
-    common_scripts\utility::_id_3831( "price_ready" );
+    var_1 maps\_utility::hunted_style_door_open();
+    common_scripts\utility::flag_clear( "price_ready" );
 
     if ( isdefined( var_2 ) )
-        common_scripts\utility::_id_383F( var_2 );
+        common_scripts\utility::flag_set( var_2 );
 }
 
 base_lights()
 {
     var_0 = getentarray( "windows_on", "targetname" );
     common_scripts\utility::array_thread( var_0, ::showwindow );
-    common_scripts\utility::_id_384A( "lights_off" );
+    common_scripts\utility::flag_wait( "lights_off" );
     common_scripts\utility::array_thread( var_0, ::hidewindow );
-    common_scripts\utility::_id_384A( "lights_on" );
+    common_scripts\utility::flag_wait( "lights_on" );
     common_scripts\utility::array_thread( var_0, ::showwindow );
 }
 
 base_fx_on()
 {
-    var_0 = common_scripts\utility::_id_40FD( "icbm_post_FX_origin", "targetname" );
+    var_0 = common_scripts\utility::getstructarray( "icbm_post_FX_origin", "targetname" );
     var_1 = 0.05;
     var_2 = 1.5;
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         var_0[var_3] thread base_fx_light( randomfloatrange( var_1, var_2 ) );
 
-    common_scripts\utility::_id_384A( "lights_on" );
+    common_scripts\utility::flag_wait( "lights_on" );
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
         var_0[var_3] thread base_fx_light( randomfloatrange( var_1, var_2 ) );
@@ -1019,7 +1001,7 @@ base_fx_light( var_0 )
     var_1 = spawn( "script_model", self.origin );
     var_1 setmodel( "tag_origin" );
     playfxontag( level._effect["icbm_post_light_red"], var_1, "tag_origin" );
-    common_scripts\utility::_id_384A( "lights_off" );
+    common_scripts\utility::flag_wait( "lights_off" );
     var_1 delete();
 }
 
@@ -1068,18 +1050,18 @@ tower_earthquakes()
 
 tower_legbreak_fx( var_0 )
 {
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_leg" ), var_0, "tag_foot_left" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_leg" ), var_0, "tag_foot_left" );
     var_1 = getent( "tower_base_left", "targetname" );
-    thread common_scripts\utility::_id_69C2( "scn_icbm_tower_base1", var_1.origin );
+    thread common_scripts\utility::play_sound_in_space( "scn_icbm_tower_base1", var_1.origin );
     wait 0.1;
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_leg" ), var_0, "tag_foot_right" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_leg" ), var_0, "tag_foot_right" );
     var_2 = getent( "tower_base_right", "targetname" );
-    thread common_scripts\utility::_id_69C2( "scn_icbm_tower_base2", var_2.origin );
+    thread common_scripts\utility::play_sound_in_space( "scn_icbm_tower_base2", var_2.origin );
 }
 
 tower_collapse()
 {
-    common_scripts\utility::_id_384A( "house1_cleared" );
+    common_scripts\utility::flag_wait( "house1_cleared" );
     var_0 = getent( "tower", "targetname" );
     var_0 maps\_utility::assign_animtree( "tower" );
     var_1 = 18;
@@ -1118,7 +1100,7 @@ tower_collapse()
     for ( var_4 = 0; var_4 < var_1; var_4++ )
         var_6 thread maps\_anim::anim_loop_solo( var_3[var_4], "idle" + var_4, undefined, "stop_idle" );
 
-    common_scripts\utility::_id_384A( "tower_destroyed" );
+    common_scripts\utility::flag_wait( "tower_destroyed" );
     var_6 notify( "stop_idle" );
     var_0 setmodel( "com_powerline_tower_destroyed" );
     var_6 thread maps\_anim::anim_single_solo( var_0, "explosion" );
@@ -1131,20 +1113,20 @@ tower_collapse()
 
 tower_impact_fx( var_0 )
 {
-    common_scripts\_exploder::_id_3528( 5 );
+    common_scripts\_exploder::exploder( 5 );
 }
 
 tower_spark_fx( var_0 )
 {
-    thread _id_6DDC( "scn_icbm_tower_sparks", var_0.origin + ( 0.0, 0.0, 512.0 ) );
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left03" );
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right03" );
+    thread playsoundinspace( "scn_icbm_tower_sparks", var_0.origin + ( 0.0, 0.0, 512.0 ) );
+    playfxontag( common_scripts\utility::getfx( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left03" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right03" );
     wait 0.1;
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right02" );
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left02" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right02" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left02" );
     wait 0.1;
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left01" );
-    playfxontag( common_scripts\utility::_id_3FA8( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right01" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_spark_exp" ), var_0, "tag_fx_electric_left01" );
+    playfxontag( common_scripts\utility::getfx( "powerTower_spark_exp" ), var_0, "tag_fx_electric_right01" );
 }
 
 spraycan_fx( var_0 )
@@ -1154,7 +1136,7 @@ spraycan_fx( var_0 )
 
     for (;;)
     {
-        playfxontag( common_scripts\utility::_id_3FA8( "freezespray" ), var_0, "tag_spraycan_fx" );
+        playfxontag( common_scripts\utility::getfx( "freezespray" ), var_0, "tag_spraycan_fx" );
         wait 0.1;
     }
 }
@@ -1164,7 +1146,7 @@ spraycan_fx_stop( var_0 )
     level notify( "stop_spray_fx" );
 }
 
-_id_6DDC( var_0, var_1, var_2 )
+playsoundinspace( var_0, var_1, var_2 )
 {
     var_3 = spawn( "script_origin", ( 0.0, 0.0, 1.0 ) );
 
@@ -1186,7 +1168,7 @@ tower_interface()
 {
     level endon( "tower_destroyed" );
 
-    while ( !common_scripts\utility::_id_382E( "tower_destroyed" ) )
+    while ( !common_scripts\utility::flag( "tower_destroyed" ) )
     {
         var_0 = level.player getcurrentweapon();
 
@@ -1202,7 +1184,7 @@ set_threatbias_group( var_0 )
     self setthreatbiasgroup( var_0 );
 }
 
-_id_5308()
+kill_enemies()
 {
     var_0 = getaiarray( "axis" );
 
@@ -1213,13 +1195,13 @@ _id_5308()
 anim_reach_and_approach_solo_set_flag( var_0, var_1, var_2 )
 {
     maps\_anim::anim_reach_and_approach_node_solo( var_0, var_1 );
-    common_scripts\utility::_id_383F( var_2 );
+    common_scripts\utility::flag_set( var_2 );
 }
 
 anim_reach_solo_set_flag( var_0, var_1, var_2 )
 {
     maps\_anim::anim_reach_solo( var_0, var_1 );
-    common_scripts\utility::_id_383F( var_2 );
+    common_scripts\utility::flag_set( var_2 );
 }
 
 missile_launch01()
@@ -1227,8 +1209,8 @@ missile_launch01()
     var_0 = getent( "missile01_start", "targetname" );
     var_1 = getent( "missile01_end", "targetname" );
     var_2 = getent( "icbm_missile01", "targetname" );
-    common_scripts\utility::_id_384A( "launch_01" );
-    common_scripts\_exploder::_id_3528( 1 );
+    common_scripts\utility::flag_wait( "launch_01" );
+    common_scripts\_exploder::exploder( 1 );
     earthquake( 0.1, 8, level.player.origin, 8000 );
     var_2 linkto( var_0 );
     var_0 moveto( var_1.origin, 50, 10, 0 );
@@ -1242,9 +1224,9 @@ missile_launch02()
     var_0 = getent( "missile02_start", "targetname" );
     var_1 = getent( "missile02_end", "targetname" );
     var_2 = getent( "icbm_missile02", "targetname" );
-    common_scripts\utility::_id_384A( "launch_02" );
+    common_scripts\utility::flag_wait( "launch_02" );
     wait 1.5;
-    common_scripts\_exploder::_id_3528( 2 );
+    common_scripts\_exploder::exploder( 2 );
     earthquake( 0.1, 8, level.player.origin, 8000 );
     var_2 linkto( var_0 );
     var_0 moveto( var_1.origin, 50, 10, 0 );
@@ -1261,9 +1243,9 @@ woods_patroller_think()
     var_0[var_0.size] = "patrolwalk_3";
     var_0[var_0.size] = "patrolwalk_4";
     var_0[var_0.size] = "patrolwalk_5";
-    self._id_6719 = "patrolwalk_pause";
-    self._id_6718 = var_0[randomint( var_0.size )];
-    thread maps\_patrol::_id_66FC();
+    self.patrol_walk_twitch = "patrolwalk_pause";
+    self.patrol_walk_anim = var_0[randomint( var_0.size )];
+    thread maps\_patrol::patrol();
     wait 0.05;
     maps\_stealth_behavior::ai_create_behavior_function( "animation", "wrapper", ::woods_animation_wrapper );
     thread woods_keep_patroling();
@@ -1282,11 +1264,11 @@ woods_animation_wrapper( var_0 )
     wait(level.woods_pause);
     self notify( "drop_light" );
 
-    if ( maps\_stealth_behavior::_id_31EF( var_0 ) )
+    if ( maps\_stealth_behavior::enemy_animation_pre_anim( var_0 ) )
         return;
 
-    maps\_stealth_behavior::_id_31E9( var_0 );
-    maps\_stealth_behavior::_id_31EE( var_0 );
+    maps\_stealth_behavior::enemy_animation_do_anim( var_0 );
+    maps\_stealth_behavior::enemy_animation_post_anim( var_0 );
 }
 
 woods_keep_patroling()
@@ -1297,7 +1279,7 @@ woods_keep_patroling()
     for (;;)
     {
         woods_keep_patrolling_wait();
-        thread maps\_patrol::_id_66FC();
+        thread maps\_patrol::patrol();
     }
 }
 

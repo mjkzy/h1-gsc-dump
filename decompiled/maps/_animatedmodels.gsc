@@ -1,31 +1,13 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("animated_props");
 
 main()
 {
-    waitframe;
-    _id_4D79();
+    waittillframeend;
+    init_wind_if_uninitialized();
     thread heliwind_init_spawn_tracker();
-    level._id_4C78 = [];
+    level.init_animatedmodels_dump = [];
     level.anim_prop_models_animtree = #animtree;
 
     if ( !isdefined( level.anim_prop_models ) )
@@ -35,13 +17,13 @@ main()
         level.anim_prop_init_threads = [];
 
     var_0 = getentarray( "animated_model", "targetname" );
-    common_scripts\utility::array_thread( var_0, ::_id_5D3B );
+    common_scripts\utility::array_thread( var_0, ::model_init );
 
-    if ( isdefined( level._id_4C78 ) && level._id_4C78.size )
+    if ( isdefined( level.init_animatedmodels_dump ) && level.init_animatedmodels_dump.size )
     {
         var_1 = " ";
 
-        foreach ( var_3 in level._id_4C78 )
+        foreach ( var_3 in level.init_animatedmodels_dump )
             var_1 += ( var_3 + " " );
     }
 
@@ -72,23 +54,23 @@ main()
     }
 }
 
-_id_4D79()
+init_wind_if_uninitialized()
 {
-    if ( isdefined( level._id_A32C ) )
+    if ( isdefined( level.wind ) )
         return;
 
-    level._id_A32C = spawnstruct();
-    level._id_A32C.rate = 0.4;
-    level._id_A32C.weight = 1;
-    level._id_A32C._id_9C65 = 0.2;
+    level.wind = spawnstruct();
+    level.wind.rate = 0.4;
+    level.wind.weight = 1;
+    level.wind.variance = 0.2;
 }
 
-_id_5D3B()
+model_init()
 {
     if ( !isdefined( level.anim_prop_models[self.model] ) )
     {
-        if ( !already_dumpped( level._id_4C78, self.model ) )
-            level._id_4C78[level._id_4C78.size] = self.model;
+        if ( !already_dumpped( level.init_animatedmodels_dump, self.model ) )
+            level.init_animatedmodels_dump[level.init_animatedmodels_dump.size] = self.model;
     }
 }
 
@@ -112,7 +94,7 @@ animatemodel()
     var_0 = getarraykeys( level.anim_prop_models[self.model] );
     var_1 = var_0[randomint( var_0.size )];
     var_2 = level.anim_prop_models[self.model][var_1];
-    self _meth_814D( var_2, 1, self _meth_8151( var_2 ), 1 );
+    self setanim( var_2, 1, self getanimtime( var_2 ), 1 );
     self setanimtime( var_2, randomfloatrange( 0, 1 ) );
 }
 
@@ -132,10 +114,10 @@ animatetreewind()
 blendtreeanims( var_0 )
 {
     level endon( "windchange" );
-    var_1 = level._id_A32C.weight;
-    var_2 = level._id_A32C.rate + randomfloat( level._id_A32C._id_9C65 );
-    self _meth_814D( level.anim_prop_models[self.model]["still"], 1, self _meth_8151( level.anim_prop_models[self.model]["still"] ), var_2 );
-    self _meth_814D( level.anim_prop_models[self.model][var_0], var_1, self _meth_8151( level.anim_prop_models[self.model][var_0] ), var_2 );
+    var_1 = level.wind.weight;
+    var_2 = level.wind.rate + randomfloat( level.wind.variance );
+    self setanim( level.anim_prop_models[self.model]["still"], 1, self getanimtime( level.anim_prop_models[self.model]["still"] ), var_2 );
+    self setanim( level.anim_prop_models[self.model][var_0], var_1, self getanimtime( level.anim_prop_models[self.model][var_0] ), var_2 );
 }
 
 heliwind_check_should_track()
@@ -233,15 +215,15 @@ heliwind_track()
 heliwind_animate_tree()
 {
     self useanimtree( #animtree );
-    self _meth_814D( level.anim_prop_models[self.model]["strong"], 1.0, 0.05, 1.0 );
-    self _meth_814D( level.anim_prop_models[self.model]["heli"], 0.0, 0.05, 1.0 );
-    self _meth_8144( level.anim_prop_models[self.model]["still"], 0.0 );
+    self setanim( level.anim_prop_models[self.model]["strong"], 1.0, 0.05, 1.0 );
+    self setanim( level.anim_prop_models[self.model]["heli"], 0.0, 0.05, 1.0 );
+    self clearanim( level.anim_prop_models[self.model]["still"], 0.0 );
     var_0 = 0.15;
     var_1 = 0.0;
 
     for (;;)
     {
-        var_2 = self _meth_8152( level.anim_prop_models[self.model]["heli"] );
+        var_2 = self getanimweight( level.anim_prop_models[self.model]["heli"] );
         var_3 = self.heliwind_weight - var_2;
         var_4 = clamp( var_3, -1 * self.heliwind_max_delta, self.heliwind_max_delta );
         var_5 = var_2 + var_4;
@@ -249,9 +231,9 @@ heliwind_animate_tree()
         if ( var_5 != var_1 )
         {
             var_1 = var_5;
-            self _meth_814D( level.anim_prop_models[self.model]["strong"], 1.0 - var_5, var_0, 1.0 );
-            self _meth_814D( level.anim_prop_models[self.model]["heli"], var_5, var_0, 1.0 );
-            self _meth_814D( level.anim_prop_models[self.model]["still"], 0.0, 0.0, 1.0 );
+            self setanim( level.anim_prop_models[self.model]["strong"], 1.0 - var_5, var_0, 1.0 );
+            self setanim( level.anim_prop_models[self.model]["heli"], var_5, var_0, 1.0 );
+            self setanim( level.anim_prop_models[self.model]["still"], 0.0, 0.0, 1.0 );
             wait(var_0);
             continue;
         }
@@ -269,7 +251,7 @@ heliwind_init_spawn_tracker()
     {
         if ( isdefined( var_2.vehicletype ) )
         {
-            if ( var_2 maps\_vehicle::_id_5118() )
+            if ( var_2 maps\_vehicle::ishelicopter() )
                 var_2 thread heliwind_track_heli_alive();
         }
     }
@@ -287,9 +269,9 @@ heliwind_track_heli_alive()
 
     if ( isdefined( var_1 ) )
     {
-        waitframe;
+        waittillframeend;
 
-        if ( isdefined( var_0._id_235D ) && var_0._id_235D )
+        if ( isdefined( var_0.crashing ) && var_0.crashing )
             var_0 waittill( "crash_done" );
     }
 

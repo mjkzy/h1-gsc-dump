@@ -1,42 +1,24 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    _id_9BB8();
+    upgrade_init_tables();
 
     if ( isdefined( level.player ) )
-        _id_9BB7( level.player );
+        upgrade_init_player( level.player );
 }
 
-_id_9BB8()
+upgrade_init_tables()
 {
-    level._id_9BAF = [];
-    level._id_9BAF["kills"] = "ch_kills";
-    level._id_9BAF["headshots"] = "ch_headshots";
-    level._id_9BAF["kills_grenades"] = "ch_frag_kills";
-    level._id_9BAF["intel"] = "ch_intel";
-    level._id_9BAD = [];
-    level._id_9BAB = [];
-    level._id_9BAE = [];
+    level.upgrade_chal_stat_map = [];
+    level.upgrade_chal_stat_map["kills"] = "ch_kills";
+    level.upgrade_chal_stat_map["headshots"] = "ch_headshots";
+    level.upgrade_chal_stat_map["kills_grenades"] = "ch_frag_kills";
+    level.upgrade_chal_stat_map["intel"] = "ch_intel";
+    level.upgrade_chal_index = [];
+    level.upgrade_chal_complete_messages = [];
+    level.upgrade_chal_points_trackers = [];
     var_0 = 0;
 
     for (;;)
@@ -47,10 +29,10 @@ _id_9BB8()
         if ( var_2 == "" )
             break;
 
-        level._id_9BAD[var_2] = var_1;
-        level._id_9BAC[var_1] = [];
-        level._id_9BAB[var_1] = tablelookupbyrow( "sp/upgrade_challenges.csv", var_0, 4 );
-        level._id_9BAE[var_1] = 0;
+        level.upgrade_chal_index[var_2] = var_1;
+        level.upgrade_chal_goal[var_1] = [];
+        level.upgrade_chal_complete_messages[var_1] = tablelookupbyrow( "sp/upgrade_challenges.csv", var_0, 4 );
+        level.upgrade_chal_points_trackers[var_1] = 0;
         var_3 = 10;
 
         for (;;)
@@ -60,7 +42,7 @@ _id_9BB8()
             if ( var_4 <= 0 )
                 break;
 
-            level._id_9BAC[var_1][level._id_9BAC[var_1].size] = var_4;
+            level.upgrade_chal_goal[var_1][level.upgrade_chal_goal[var_1].size] = var_4;
             var_3++;
         }
 
@@ -68,115 +50,115 @@ _id_9BB8()
     }
 }
 
-_id_9BB7( var_0 )
+upgrade_init_player( var_0 )
 {
-    var_0 maps\_player_stats::_id_8D4D( ::_id_9BBA );
+    var_0 maps\_player_stats::stat_notify_register_func( ::upgrade_notify_stat );
 
-    if ( isdefined( level._id_9BAD ) && level._id_9BAD.size > 0 )
+    if ( isdefined( level.upgrade_chal_index ) && level.upgrade_chal_index.size > 0 )
     {
-        var_0._id_8D77["upgradeChallengeStage"] = [];
-        var_0._id_8D77["upgradeChallengeProgress"] = [];
+        var_0.stats["upgradeChallengeStage"] = [];
+        var_0.stats["upgradeChallengeProgress"] = [];
 
-        if ( !isdefined( var_0._id_8D77["upgradePoints"] ) )
-            var_0._id_8D77["upgradePoints"] = 0;
+        if ( !isdefined( var_0.stats["upgradePoints"] ) )
+            var_0.stats["upgradePoints"] = 0;
 
-        foreach ( var_3, var_2 in level._id_9BAF )
-            var_0 _id_9BBA( var_3, 0 );
+        foreach ( var_3, var_2 in level.upgrade_chal_stat_map )
+            var_0 upgrade_notify_stat( var_3, 0 );
     }
 }
 
-_id_41CF( var_0 )
+give_player_challenge_kill( var_0 )
 {
-    _id_9BBA( "kills", var_0 );
+    upgrade_notify_stat( "kills", var_0 );
 }
 
-_id_41CE( var_0 )
+give_player_challenge_headshot( var_0 )
 {
-    _id_9BBA( "headshots", var_0 );
-    _id_41CF( var_0 );
+    upgrade_notify_stat( "headshots", var_0 );
+    give_player_challenge_kill( var_0 );
 }
 
-_id_41CD( var_0 )
+give_player_challenge_frag( var_0 )
 {
-    _id_9BBA( "kills_grenades", var_0 );
-    _id_41CF( var_0 );
+    upgrade_notify_stat( "kills_grenades", var_0 );
+    give_player_challenge_kill( var_0 );
 }
 
-_id_9BBA( var_0, var_1 )
+upgrade_notify_stat( var_0, var_1 )
 {
-    if ( isdefined( level._id_9BAF ) && isdefined( level._id_9BAF[var_0] ) )
+    if ( isdefined( level.upgrade_chal_stat_map ) && isdefined( level.upgrade_chal_stat_map[var_0] ) )
     {
-        if ( !isdefined( level._id_9BAD[level._id_9BAF[var_0]] ) )
+        if ( !isdefined( level.upgrade_chal_index[level.upgrade_chal_stat_map[var_0]] ) )
             return;
 
-        var_2 = level._id_9BAD[level._id_9BAF[var_0]];
+        var_2 = level.upgrade_chal_index[level.upgrade_chal_stat_map[var_0]];
         var_3 = getomnvar( "ui_pm_t_" + var_0 );
         setomnvar( "ui_pm_t_" + var_0, var_3 + var_1 );
 
         if ( var_0 == "intel" )
         {
-            var_4 = int( self _meth_8212( "sp_upgradeChallengeStage_" + var_2 ) );
+            var_4 = int( self getlocalplayerprofiledata( "sp_upgradeChallengeStage_" + var_2 ) );
 
-            if ( !isdefined( self._id_8D77["upgradeChallengeStage"][var_0] ) )
+            if ( !isdefined( self.stats["upgradeChallengeStage"][var_0] ) )
             {
-                self._id_8D77["intelUpgradePoints"] = 0;
+                self.stats["intelUpgradePoints"] = 0;
                 setomnvar( "ui_pm_g_start_intel", var_4 );
             }
 
-            self._id_8D77["upgradeChallengeStage"][var_0] = var_4;
-            var_5 = int( self _meth_8212( "sp_upgradeChallengeProgress_" + var_2 ) );
+            self.stats["upgradeChallengeStage"][var_0] = var_4;
+            var_5 = int( self getlocalplayerprofiledata( "sp_upgradeChallengeProgress_" + var_2 ) );
 
-            if ( !isdefined( self._id_8D77["upgradeChallengeProgress"][var_0] ) )
+            if ( !isdefined( self.stats["upgradeChallengeProgress"][var_0] ) )
                 setomnvar( "ui_pm_p_start_intel", var_5 );
 
-            self._id_8D77["upgradeChallengeProgress"][var_0] = var_5;
+            self.stats["upgradeChallengeProgress"][var_0] = var_5;
         }
         else
         {
             var_4 = 0;
 
-            if ( !isdefined( self._id_8D77["upgradeChallengeStage"][var_0] ) )
+            if ( !isdefined( self.stats["upgradeChallengeStage"][var_0] ) )
             {
-                var_4 = int( self _meth_8212( "sp_upgradeChallengeStage_" + var_2 ) );
-                self._id_8D77["upgradeChallengeStage"][var_0] = var_4;
+                var_4 = int( self getlocalplayerprofiledata( "sp_upgradeChallengeStage_" + var_2 ) );
+                self.stats["upgradeChallengeStage"][var_0] = var_4;
             }
             else
-                var_4 = self._id_8D77["upgradeChallengeStage"][var_0];
+                var_4 = self.stats["upgradeChallengeStage"][var_0];
 
             var_5 = 0;
 
-            if ( !isdefined( self._id_8D77["upgradeChallengeProgress"][var_0] ) )
+            if ( !isdefined( self.stats["upgradeChallengeProgress"][var_0] ) )
             {
-                var_5 = int( self _meth_8212( "sp_upgradeChallengeProgress_" + var_2 ) );
-                self._id_8D77["upgradeChallengeProgress"][var_0] = var_5;
+                var_5 = int( self getlocalplayerprofiledata( "sp_upgradeChallengeProgress_" + var_2 ) );
+                self.stats["upgradeChallengeProgress"][var_0] = var_5;
             }
             else
-                var_5 = self._id_8D77["upgradeChallengeProgress"][var_0];
+                var_5 = self.stats["upgradeChallengeProgress"][var_0];
         }
 
-        var_6 = level._id_9BAC[var_2].size - 1;
-        var_7 = level._id_9BAC[var_2][var_6];
+        var_6 = level.upgrade_chal_goal[var_2].size - 1;
+        var_7 = level.upgrade_chal_goal[var_2][var_6];
 
         if ( var_4 >= var_6 && var_5 >= var_7 )
         {
-            setomnvar( "ui_pm_g_" + var_0, level._id_9BAC[var_2][var_6] );
+            setomnvar( "ui_pm_g_" + var_0, level.upgrade_chal_goal[var_2][var_6] );
             setomnvar( "ui_pm_p_" + var_0, var_7 );
             return;
         }
 
-        var_8 = level._id_9BAC[var_2][var_4];
+        var_8 = level.upgrade_chal_goal[var_2][var_4];
         var_9 = var_5;
         var_5 += var_1;
         var_10 = 0;
 
         while ( var_4 <= var_6 && var_5 >= var_8 && !var_10 )
         {
-            notifychallengecomplete( level._id_9BAB[var_2] );
+            notifychallengecomplete( level.upgrade_chal_complete_messages[var_2] );
 
             if ( var_0 == "intel" )
-                _id_9BB1( var_2 );
+                upgrade_challenge_complete_for_intel( var_2 );
             else
-                _id_9BB0( var_2 );
+                upgrade_challenge_complete( var_2 );
 
             if ( var_4 >= var_6 && var_5 >= var_7 )
             {
@@ -189,78 +171,78 @@ _id_9BBA( var_0, var_1 )
             var_4++;
 
             if ( var_4 <= var_6 )
-                var_8 = level._id_9BAC[var_2][var_4];
+                var_8 = level.upgrade_chal_goal[var_2][var_4];
         }
 
-        self._id_8D77["upgradeChallengeStage"][var_0] = var_4;
-        self._id_8D77["upgradeChallengeProgress"][var_0] = var_5;
-        setomnvar( "ui_pm_g_" + var_0, level._id_9BAC[var_2][var_4] );
+        self.stats["upgradeChallengeStage"][var_0] = var_4;
+        self.stats["upgradeChallengeProgress"][var_0] = var_5;
+        setomnvar( "ui_pm_g_" + var_0, level.upgrade_chal_goal[var_2][var_4] );
         setomnvar( "ui_pm_p_" + var_0, var_5 );
 
         if ( var_0 == "intel" )
-            _id_20BE( var_0, 1 );
+            commit_exo_awards_stage_and_progress( var_0, 1 );
     }
 }
 
-_id_9BB1( var_0, var_1 )
+upgrade_challenge_complete_for_intel( var_0, var_1 )
 {
-    _id_20BF( 1 );
-    self._id_8D77["intelUpgradePoints"]++;
-    level._id_9BAE[var_0] = self._id_8D77["intelUpgradePoints"];
+    commit_exo_awards_upgrade_points_custom( 1 );
+    self.stats["intelUpgradePoints"]++;
+    level.upgrade_chal_points_trackers[var_0] = self.stats["intelUpgradePoints"];
     var_2 = tablelookupbyrow( "sp/upgrade_challenges.csv", var_0, 6 );
-    setomnvar( var_2, level._id_9BAE[var_0] );
+    setomnvar( var_2, level.upgrade_chal_points_trackers[var_0] );
 }
 
-_id_9BB0( var_0 )
+upgrade_challenge_complete( var_0 )
 {
-    if ( !isdefined( self._id_8D77["upgradePoints"] ) )
-        self._id_8D77["upgradePoints"] = 0;
+    if ( !isdefined( self.stats["upgradePoints"] ) )
+        self.stats["upgradePoints"] = 0;
 
-    self._id_8D77["upgradePoints"]++;
-    level._id_9BAE[var_0] += 1;
+    self.stats["upgradePoints"]++;
+    level.upgrade_chal_points_trackers[var_0] += 1;
     var_1 = tablelookupbyrow( "sp/upgrade_challenges.csv", var_0, 6 );
-    setomnvar( var_1, level._id_9BAE[var_0] );
+    setomnvar( var_1, level.upgrade_chal_points_trackers[var_0] );
 }
 
-_id_20BF( var_0 )
+commit_exo_awards_upgrade_points_custom( var_0 )
 {
     if ( isdefined( level.player ) )
     {
         var_1 = level.player;
-        var_2 = int( var_1 _meth_8212( "sp_upgradePoints" ) );
+        var_2 = int( var_1 getlocalplayerprofiledata( "sp_upgradePoints" ) );
         var_3 = var_2 + var_0;
 
         if ( var_3 > var_2 )
-            var_1 _meth_8213( "sp_upgradePoints", var_3 );
+            var_1 setlocalplayerprofiledata( "sp_upgradePoints", var_3 );
     }
 }
 
-_id_20BE( var_0, var_1 )
+commit_exo_awards_stage_and_progress( var_0, var_1 )
 {
     if ( isdefined( level.player ) )
     {
         var_2 = level.player;
-        var_3 = level._id_9BAD[level._id_9BAF[var_0]];
+        var_3 = level.upgrade_chal_index[level.upgrade_chal_stat_map[var_0]];
         var_4 = 0;
 
-        if ( isdefined( var_2._id_8D77["upgradeChallengeStage"][var_0] ) )
+        if ( isdefined( var_2.stats["upgradeChallengeStage"][var_0] ) )
         {
-            var_4 = var_2._id_8D77["upgradeChallengeStage"][var_0];
-            var_5 = int( var_2 _meth_8212( "sp_upgradeChallengeStage_" + var_3 ) );
+            var_4 = var_2.stats["upgradeChallengeStage"][var_0];
+            var_5 = int( var_2 getlocalplayerprofiledata( "sp_upgradeChallengeStage_" + var_3 ) );
 
             if ( var_4 > var_5 )
-                var_2 _meth_8213( "sp_upgradeChallengeStage_" + var_3, var_4 );
+                var_2 setlocalplayerprofiledata( "sp_upgradeChallengeStage_" + var_3, var_4 );
         }
 
         var_6 = 0;
 
-        if ( isdefined( var_2._id_8D77["upgradeChallengeProgress"][var_0] ) )
+        if ( isdefined( var_2.stats["upgradeChallengeProgress"][var_0] ) )
         {
-            var_6 = var_2._id_8D77["upgradeChallengeProgress"][var_0];
-            var_7 = int( var_2 _meth_8212( "sp_upgradeChallengeProgress_" + var_3 ) );
+            var_6 = var_2.stats["upgradeChallengeProgress"][var_0];
+            var_7 = int( var_2 getlocalplayerprofiledata( "sp_upgradeChallengeProgress_" + var_3 ) );
 
             if ( var_6 != var_7 )
-                var_2 _meth_8213( "sp_upgradeChallengeProgress_" + var_3, var_6 );
+                var_2 setlocalplayerprofiledata( "sp_upgradeChallengeProgress_" + var_3, var_6 );
         }
 
         if ( var_1 )
@@ -268,29 +250,29 @@ _id_20BE( var_0, var_1 )
     }
 }
 
-_id_20C0()
+commit_exo_awards_upon_mission_success()
 {
     if ( isdefined( level.player ) )
     {
         var_0 = level.player;
-        _id_20BF( var_0._id_8D77["upgradePoints"] );
+        commit_exo_awards_upgrade_points_custom( var_0.stats["upgradePoints"] );
 
-        if ( isdefined( level._id_9BAF ) )
+        if ( isdefined( level.upgrade_chal_stat_map ) )
         {
-            foreach ( var_4, var_2 in level._id_9BAF )
+            foreach ( var_4, var_2 in level.upgrade_chal_stat_map )
             {
                 if ( var_4 == "intel" )
                     continue;
 
                 var_3 = var_4;
 
-                if ( !isdefined( level._id_9BAD[level._id_9BAF[var_3]] ) )
+                if ( !isdefined( level.upgrade_chal_index[level.upgrade_chal_stat_map[var_3]] ) )
                     continue;
 
-                if ( !isdefined( level._id_9BAF[var_3] ) )
+                if ( !isdefined( level.upgrade_chal_stat_map[var_3] ) )
                     continue;
 
-                _id_20BE( var_3, 0 );
+                commit_exo_awards_stage_and_progress( var_3, 0 );
             }
         }
 

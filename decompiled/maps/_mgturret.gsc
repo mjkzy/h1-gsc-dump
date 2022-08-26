@@ -1,46 +1,28 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_4D17()
+init_mgturretsettings()
 {
-    level._id_5BD9["easy"]["convergenceTime"] = 2.5;
-    level._id_5BD9["easy"]["suppressionTime"] = 3.0;
-    level._id_5BD9["easy"]["accuracy"] = 0.38;
-    level._id_5BD9["easy"]["aiSpread"] = 2;
-    level._id_5BD9["easy"]["playerSpread"] = 0.5;
-    level._id_5BD9["medium"]["convergenceTime"] = 1.5;
-    level._id_5BD9["medium"]["suppressionTime"] = 3.0;
-    level._id_5BD9["medium"]["accuracy"] = 0.38;
-    level._id_5BD9["medium"]["aiSpread"] = 2;
-    level._id_5BD9["medium"]["playerSpread"] = 0.5;
-    level._id_5BD9["hard"]["convergenceTime"] = 0.8;
-    level._id_5BD9["hard"]["suppressionTime"] = 3.0;
-    level._id_5BD9["hard"]["accuracy"] = 0.38;
-    level._id_5BD9["hard"]["aiSpread"] = 2;
-    level._id_5BD9["hard"]["playerSpread"] = 0.5;
-    level._id_5BD9["fu"]["convergenceTime"] = 0.4;
-    level._id_5BD9["fu"]["suppressionTime"] = 3.0;
-    level._id_5BD9["fu"]["accuracy"] = 0.38;
-    level._id_5BD9["fu"]["aiSpread"] = 2;
-    level._id_5BD9["fu"]["playerSpread"] = 0.5;
+    level.mgturretsettings["easy"]["convergenceTime"] = 2.5;
+    level.mgturretsettings["easy"]["suppressionTime"] = 3.0;
+    level.mgturretsettings["easy"]["accuracy"] = 0.38;
+    level.mgturretsettings["easy"]["aiSpread"] = 2;
+    level.mgturretsettings["easy"]["playerSpread"] = 0.5;
+    level.mgturretsettings["medium"]["convergenceTime"] = 1.5;
+    level.mgturretsettings["medium"]["suppressionTime"] = 3.0;
+    level.mgturretsettings["medium"]["accuracy"] = 0.38;
+    level.mgturretsettings["medium"]["aiSpread"] = 2;
+    level.mgturretsettings["medium"]["playerSpread"] = 0.5;
+    level.mgturretsettings["hard"]["convergenceTime"] = 0.8;
+    level.mgturretsettings["hard"]["suppressionTime"] = 3.0;
+    level.mgturretsettings["hard"]["accuracy"] = 0.38;
+    level.mgturretsettings["hard"]["aiSpread"] = 2;
+    level.mgturretsettings["hard"]["playerSpread"] = 0.5;
+    level.mgturretsettings["fu"]["convergenceTime"] = 0.4;
+    level.mgturretsettings["fu"]["suppressionTime"] = 3.0;
+    level.mgturretsettings["fu"]["accuracy"] = 0.38;
+    level.mgturretsettings["fu"]["aiSpread"] = 2;
+    level.mgturretsettings["fu"]["playerSpread"] = 0.5;
 }
 
 main()
@@ -48,18 +30,18 @@ main()
     if ( getdvar( "mg42" ) == "" )
         setdvar( "mgTurret", "off" );
 
-    level._id_58D9 = 24;
+    level.magic_distance = 24;
     var_0 = getentarray( "turretInfo", "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         var_0[var_1] delete();
 }
 
-_id_6E4A()
+portable_mg_behavior()
 {
     self detach( "weapon_mg42_carry", "tag_origin" );
     self endon( "death" );
-    self.goalradius = level._id_2780;
+    self.goalradius = level.default_goalradius;
 
     if ( isdefined( self.target ) )
     {
@@ -70,7 +52,7 @@ _id_6E4A()
             if ( isdefined( var_0.radius ) )
                 self.goalradius = var_0.radius;
 
-            self _meth_81A9( var_0 );
+            self getgoalvolume( var_0 );
         }
     }
 
@@ -94,43 +76,43 @@ _id_6E4A()
     if ( var_1.type != "Turret" )
         return;
 
-    var_2 = _id_4104();
+    var_2 = gettakennodes();
     var_2[self.node.origin + ""] = undefined;
 
     if ( isdefined( var_2[var_1.origin + ""] ) )
         return;
 
-    var_3 = var_1._id_9940;
+    var_3 = var_1.turret;
 
     if ( isdefined( var_3.reserved ) )
         return;
 
-    _id_741E( var_3 );
+    reserve_turret( var_3 );
 
-    if ( var_3._id_519E )
-        _id_5665( var_3 );
+    if ( var_3.issetup )
+        leave_gun_and_run_to_new_spot( var_3 );
     else
-        _id_76BE( var_3 );
+        run_to_new_spot_and_setup_gun( var_3 );
 
-    maps\_mg_penetration::_id_4476( var_1._id_9940 );
+    maps\_mg_penetration::gunner_think( var_1.turret );
 }
 
-_id_5BCC()
+mg42_trigger()
 {
     self waittill( "trigger" );
     level notify( self.targetname );
-    level._id_5BCC[self.targetname] = 1;
+    level.mg42_trigger[self.targetname] = 1;
     self delete();
 }
 
-_id_5BD6( var_0 )
+mgturret_auto( var_0 )
 {
     var_0 waittill( "trigger" );
     var_1 = getaiarray( "bad_guys" );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
-        if ( isdefined( var_1[var_2]._id_7A35 ) && var_0._id_7A35 == var_1[var_2]._id_7A35 )
+        if ( isdefined( var_1[var_2].script_mg42auto ) && var_0.script_mg42auto == var_1[var_2].script_mg42auto )
             var_1[var_2] notify( "auto_ai" );
     }
 
@@ -138,24 +120,24 @@ _id_5BD6( var_0 )
 
     for ( var_2 = 0; var_2 < var_3.size; var_2++ )
     {
-        if ( isdefined( var_3[var_2]._id_7A35 ) && var_0._id_7A35 == var_3[var_2]._id_7A35 )
+        if ( isdefined( var_3[var_2].script_mg42auto ) && var_0.script_mg42auto == var_3[var_2].script_mg42auto )
             var_3[var_2].ai_mode = "auto_ai";
     }
 
-    maps\_spawner::_id_533E( var_0 );
+    maps\_spawner::kill_trigger( var_0 );
 }
 
-_id_5BC9( var_0 )
+mg42_suppressionfire( var_0 )
 {
     self endon( "death" );
     self endon( "stop_suppressionFire" );
 
-    if ( !isdefined( self._id_8FE3 ) )
-        self._id_8FE3 = 1;
+    if ( !isdefined( self.suppresionfire ) )
+        self.suppresionfire = 1;
 
     for (;;)
     {
-        while ( self._id_8FE3 )
+        while ( self.suppresionfire )
         {
             self settargetentity( var_0[randomint( var_0.size )] );
             wait(2 + randomfloat( 2 ));
@@ -163,12 +145,12 @@ _id_5BC9( var_0 )
 
         self cleartargetentity();
 
-        while ( !self._id_8FE3 )
+        while ( !self.suppresionfire )
             wait 1;
     }
 }
 
-_id_5975( var_0 )
+manual_think( var_0 )
 {
     var_1 = self.origin;
     self waittill( "auto_ai" );
@@ -194,31 +176,31 @@ burst_fire_unmanned()
     self endon( "death" );
     self endon( "stop_burst_fire_unmanned" );
 
-    if ( isdefined( self._id_798E ) )
-        var_0 = self._id_798E;
+    if ( isdefined( self.script_delay_min ) )
+        var_0 = self.script_delay_min;
     else
         var_0 = burst_fire_settings( "delay" );
 
-    if ( isdefined( self._id_798D ) )
-        var_1 = self._id_798D - var_0;
+    if ( isdefined( self.script_delay_max ) )
+        var_1 = self.script_delay_max - var_0;
     else
         var_1 = burst_fire_settings( "delay_range" );
 
-    if ( isdefined( self._id_7968 ) )
-        var_2 = self._id_7968;
+    if ( isdefined( self.script_burst_min ) )
+        var_2 = self.script_burst_min;
     else
         var_2 = burst_fire_settings( "burst" );
 
-    if ( isdefined( self._id_7967 ) )
-        var_3 = self._id_7967 - var_2;
+    if ( isdefined( self.script_burst_max ) )
+        var_3 = self.script_burst_max - var_2;
     else
         var_3 = burst_fire_settings( "burst_range" );
 
     var_4 = gettime();
     var_5 = "start";
 
-    if ( isdefined( self._id_83B8 ) )
-        thread _id_998D();
+    if ( isdefined( self.shell_fx ) )
+        thread turret_shell_fx();
 
     for (;;)
     {
@@ -229,11 +211,11 @@ burst_fire_unmanned()
             if ( var_5 != "fire" )
             {
                 var_5 = "fire";
-                thread _id_2D79();
+                thread doshoot();
             }
 
             var_6 = var_2 + randomfloat( var_3 );
-            thread _id_99C3( var_6 );
+            thread turrettimer( var_6 );
             self waittill( "turretstatechange" );
             var_6 = var_0 + randomfloat( var_1 );
             var_4 = gettime() + int( var_6 * 1000 );
@@ -243,12 +225,12 @@ burst_fire_unmanned()
         if ( var_5 != "aim" )
             var_5 = "aim";
 
-        thread _id_99C3( var_6 );
+        thread turrettimer( var_6 );
         self waittill( "turretstatechange" );
     }
 }
 
-_id_2D79()
+doshoot()
 {
     self endon( "death" );
     self endon( "turretstatechange" );
@@ -261,39 +243,39 @@ _id_2D79()
     }
 }
 
-_id_998D()
+turret_shell_fx()
 {
     self endon( "death" );
     self endon( "stop_burst_fire_unmanned" );
 
-    if ( isdefined( self._id_83B9 ) )
-        self._id_83BA = 1;
+    if ( isdefined( self.shell_sound ) )
+        self.shell_sound_enabled = 1;
 
     for (;;)
     {
         self waittill( "turret_fire" );
-        playfxontag( self._id_83B8, self, "tag_origin" );
+        playfxontag( self.shell_fx, self, "tag_origin" );
 
-        if ( isdefined( self._id_83BA ) && self._id_83BA )
-            thread _id_998E();
+        if ( isdefined( self.shell_sound_enabled ) && self.shell_sound_enabled )
+            thread turret_shell_sound();
     }
 }
 
-_id_998E()
+turret_shell_sound()
 {
     self endon( "death" );
-    self._id_83BA = 0;
+    self.shell_sound_enabled = 0;
     var_0 = self gettagorigin( "tag_origin" );
-    var_1 = common_scripts\utility::_id_2F69( var_0, -30 );
+    var_1 = common_scripts\utility::drop_to_ground( var_0, -30 );
     var_2 = var_0[2] - var_1[2];
     var_3 = var_2 / 300;
     wait(var_3);
-    level thread common_scripts\utility::_id_69C2( self._id_83B9, var_1 );
+    level thread common_scripts\utility::play_sound_in_space( self.shell_sound, var_1 );
     wait 1;
-    self._id_83BA = 1;
+    self.shell_sound_enabled = 1;
 }
 
-_id_99C3( var_0 )
+turrettimer( var_0 )
 {
     if ( var_0 <= 0 )
         return;
@@ -305,7 +287,7 @@ _id_99C3( var_0 )
         self notify( "turretstatechange" );
 }
 
-_id_7119( var_0 )
+random_spread( var_0 )
 {
     self endon( "death" );
     self notify( "stop random_spread" );
@@ -316,16 +298,16 @@ _id_7119( var_0 )
     for (;;)
     {
         if ( isplayer( var_0 ) )
-            var_0.origin = self._id_5974 getorigin();
+            var_0.origin = self.manual_target getorigin();
         else
-            var_0.origin = self._id_5974.origin;
+            var_0.origin = self.manual_target.origin;
 
         var_0.origin += ( 20 - randomfloat( 40 ), 20 - randomfloat( 40 ), 20 - randomfloat( 60 ) );
         wait 0.2;
     }
 }
 
-_id_5BC4( var_0 )
+mg42_firing( var_0 )
 {
     self notify( "stop_using_built_in_burst_fire" );
     self endon( "stop_using_built_in_burst_fire" );
@@ -346,23 +328,23 @@ burst_fire( var_0, var_1 )
     var_0 endon( "stopfiring" );
     self endon( "stop_using_built_in_burst_fire" );
 
-    if ( isdefined( var_0._id_798E ) )
-        var_2 = var_0._id_798E;
+    if ( isdefined( var_0.script_delay_min ) )
+        var_2 = var_0.script_delay_min;
     else
         var_2 = burst_fire_settings( "delay" );
 
-    if ( isdefined( var_0._id_798D ) )
-        var_3 = var_0._id_798D - var_2;
+    if ( isdefined( var_0.script_delay_max ) )
+        var_3 = var_0.script_delay_max - var_2;
     else
         var_3 = burst_fire_settings( "delay_range" );
 
-    if ( isdefined( var_0._id_7968 ) )
-        var_4 = var_0._id_7968;
+    if ( isdefined( var_0.script_burst_min ) )
+        var_4 = var_0.script_burst_min;
     else
         var_4 = burst_fire_settings( "burst" );
 
-    if ( isdefined( var_0._id_7967 ) )
-        var_5 = var_0._id_7967 - var_4;
+    if ( isdefined( var_0.script_burst_max ) )
+        var_5 = var_0.script_burst_max - var_4;
     else
         var_5 = burst_fire_settings( "burst_range" );
 
@@ -371,7 +353,7 @@ burst_fire( var_0, var_1 )
         var_0 startfiring();
 
         if ( isdefined( var_1 ) )
-            var_0 thread _id_7119( var_1 );
+            var_0 thread random_spread( var_1 );
 
         wait(var_4 + randomfloat( var_5 ));
         var_0 stopfiring();
@@ -381,8 +363,8 @@ burst_fire( var_0, var_1 )
 
 _spawner_mg42_think()
 {
-    if ( !isdefined( self._id_3864 ) )
-        self._id_3864 = 0;
+    if ( !isdefined( self.flagged_for_use ) )
+        self.flagged_for_use = 0;
 
     if ( !isdefined( self.targetname ) )
         return;
@@ -392,13 +374,13 @@ _spawner_mg42_think()
     if ( !isdefined( var_0 ) )
         return;
 
-    if ( !isdefined( var_0._id_7A34 ) )
+    if ( !isdefined( var_0.script_mg42 ) )
         return;
 
-    if ( !isdefined( var_0._id_5BC3 ) )
-        var_0._id_5BC3 = 1;
+    if ( !isdefined( var_0.mg42_enabled ) )
+        var_0.mg42_enabled = 1;
 
-    self._id_7A34 = var_0._id_7A34;
+    self.script_mg42 = var_0.script_mg42;
     var_1 = 1;
 
     for (;;)
@@ -407,14 +389,14 @@ _spawner_mg42_think()
         {
             var_1 = 0;
 
-            if ( isdefined( var_0.targetname ) || self._id_3864 )
+            if ( isdefined( var_0.targetname ) || self.flagged_for_use )
                 self waittill( "get new user" );
         }
 
-        if ( !var_0._id_5BC3 )
+        if ( !var_0.mg42_enabled )
         {
             var_0 waittill( "enable mg42" );
-            var_0._id_5BC3 = 1;
+            var_0.mg42_enabled = 1;
         }
 
         var_2 = [];
@@ -424,10 +406,10 @@ _spawner_mg42_think()
         {
             var_5 = 1;
 
-            if ( isdefined( var_3[var_4]._id_7A34 ) && var_3[var_4]._id_7A34 == self._id_7A34 )
+            if ( isdefined( var_3[var_4].script_mg42 ) && var_3[var_4].script_mg42 == self.script_mg42 )
                 var_5 = 0;
 
-            if ( isdefined( var_3[var_4]._id_9BF5 ) )
+            if ( isdefined( var_3[var_4].used_an_mg42 ) )
                 var_5 = 1;
 
             if ( var_5 )
@@ -435,16 +417,16 @@ _spawner_mg42_think()
         }
 
         if ( var_2.size )
-            var_3 = maps\_utility::_id_3CEF( var_0.origin, undefined, var_2 );
+            var_3 = maps\_utility::get_closest_ai_exclude( var_0.origin, undefined, var_2 );
         else
-            var_3 = maps\_utility::_id_3CEE( var_0.origin, undefined );
+            var_3 = maps\_utility::get_closest_ai( var_0.origin, undefined );
 
         var_2 = undefined;
 
         if ( isdefined( var_3 ) )
         {
             var_3 notify( "stop_going_to_node" );
-            var_3 thread maps\_spawner::_id_4241( var_0 );
+            var_3 thread maps\_spawner::go_to_node( var_0 );
             var_3 waittill( "death" );
             continue;
         }
@@ -453,7 +435,7 @@ _spawner_mg42_think()
     }
 }
 
-_id_5BCB()
+mg42_think()
 {
     if ( !isdefined( self.ai_mode ) )
         self.ai_mode = "manual_ai";
@@ -464,14 +446,14 @@ _id_5BCB()
         return;
 
     var_1 = getent( var_0.target, "targetname" );
-    var_1._id_6581 = var_0.origin;
+    var_1.org = var_0.origin;
 
     if ( isdefined( var_1.target ) )
     {
-        if ( !isdefined( level._id_5BCC ) || !isdefined( level._id_5BCC[var_1.target] ) )
+        if ( !isdefined( level.mg42_trigger ) || !isdefined( level.mg42_trigger[var_1.target] ) )
         {
-            level._id_5BCC[var_1.target] = 0;
-            getent( var_1.target, "targetname" ) thread _id_5BCC();
+            level.mg42_trigger[var_1.target] = 0;
+            getent( var_1.target, "targetname" ) thread mg42_trigger();
         }
 
         var_2 = 1;
@@ -492,8 +474,8 @@ _id_5BCB()
             wait 1;
         }
 
-        var_3 thread _id_5BC6( var_1, var_2, self.ai_mode );
-        var_3 thread _id_5BC4( var_1 );
+        var_3 thread mg42_gunner_think( var_1, var_2, self.ai_mode );
+        var_3 thread mg42_firing( var_1 );
         var_3 waittill( "death" );
 
         if ( isdefined( self.script_delay ) )
@@ -502,9 +484,9 @@ _id_5BCB()
             continue;
         }
 
-        if ( isdefined( self._id_798E ) && isdefined( self._id_798D ) )
+        if ( isdefined( self.script_delay_min ) && isdefined( self.script_delay_max ) )
         {
-            wait(self._id_798E + randomfloat( self._id_798D - self._id_798E ));
+            wait(self.script_delay_min + randomfloat( self.script_delay_max - self.script_delay_min ));
             continue;
         }
 
@@ -512,7 +494,7 @@ _id_5BCB()
     }
 }
 
-_id_532B( var_0, var_1, var_2, var_3 )
+kill_objects( var_0, var_1, var_2, var_3 )
 {
     var_0 waittill( var_1 );
 
@@ -523,7 +505,7 @@ _id_532B( var_0, var_1, var_2, var_3 )
         var_3 delete();
 }
 
-_id_5BC6( var_0, var_1, var_2 )
+mg42_gunner_think( var_0, var_1, var_2 )
 {
     self endon( "death" );
 
@@ -531,9 +513,9 @@ _id_5BC6( var_0, var_1, var_2 )
     {
         for (;;)
         {
-            thread _id_5BC5( var_0, var_1 );
+            thread mg42_gunner_manual_think( var_0, var_1 );
             self waittill( "auto_ai" );
-            _id_5F3E( var_0, "auto_ai" );
+            move_use_turret( var_0, "auto_ai" );
             self waittill( "manual_ai" );
         }
     }
@@ -541,29 +523,29 @@ _id_5BC6( var_0, var_1, var_2 )
     {
         for (;;)
         {
-            _id_5F3E( var_0, "auto_ai", level.player );
+            move_use_turret( var_0, "auto_ai", level.player );
             self waittill( "manual_ai" );
-            thread _id_5BC5( var_0, var_1 );
+            thread mg42_gunner_manual_think( var_0, var_1 );
             self waittill( "auto_ai" );
         }
     }
 }
 
-_id_6BF2()
+player_safe()
 {
-    if ( !isdefined( level._id_6ABD ) )
+    if ( !isdefined( level.player_covertrigger ) )
         return 0;
 
     if ( level.player getstance() == "prone" )
         return 1;
 
-    if ( level._id_6ABE == "cow" && level.player getstance() == "crouch" )
+    if ( level.player_covertype == "cow" && level.player getstance() == "crouch" )
         return 1;
 
     return 0;
 }
 
-_id_8AF9()
+stance_num()
 {
     if ( level.player getstance() == "prone" )
         return ( 0.0, 0.0, 5.0 );
@@ -573,18 +555,18 @@ _id_8AF9()
     return ( 0.0, 0.0, 50.0 );
 }
 
-_id_5BC5( var_0, var_1 )
+mg42_gunner_manual_think( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "auto_ai" );
     self.pacifist = 1;
-    self _meth_81AA( var_0._id_6581 );
-    self.goalradius = level._id_58D9;
+    self setgoalpos( var_0.org );
+    self.goalradius = level.magic_distance;
     self waittill( "goal" );
 
     if ( var_1 )
     {
-        if ( !level._id_5BCC[var_0.target] )
+        if ( !level.mg42_trigger[var_0.target] )
             level waittill( var_0.target );
     }
 
@@ -593,15 +575,15 @@ _id_5BC5( var_0, var_1 )
     var_0 cleartargetentity();
     var_2 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_3 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
-    var_3._id_782D = 3;
+    var_3.scale = 3;
 
     if ( getdvar( "mg42" ) != "off" )
         var_3 setmodel( "temp" );
 
-    var_3 thread _id_9274( var_0, var_2 );
-    level thread _id_532B( self, "death", var_2, var_3 );
-    level thread _id_532B( self, "auto_ai", var_2, var_3 );
-    var_0._id_6C2D = 0;
+    var_3 thread temp_think( var_0, var_2 );
+    level thread kill_objects( self, "death", var_2, var_3 );
+    level thread kill_objects( self, "auto_ai", var_2, var_3 );
+    var_0.player_target = 0;
     var_4 = 0;
     var_5 = getentarray( "mg42_target", "targetname" );
 
@@ -609,9 +591,9 @@ _id_5BC5( var_0, var_1 )
     {
         var_6 = 1;
         var_7 = var_5[randomint( var_5.size )].origin;
-        thread _id_83DD( var_5 );
-        _id_5F3E( var_0 );
-        self._id_91A2 = var_2;
+        thread shoot_mg42_script_targets( var_5 );
+        move_use_turret( var_0 );
+        self.target_entity = var_2;
         var_0 setmode( "manual_ai" );
         var_0 settargetentity( var_2 );
         var_0 notify( "startfiring" );
@@ -621,13 +603,13 @@ _id_5BC5( var_0, var_1 )
         var_2.origin = var_5[randomint( var_5.size )].origin;
         var_11 = 0;
 
-        while ( !isdefined( level._id_6ABD ) )
+        while ( !isdefined( level.player_covertrigger ) )
         {
             var_7 = var_2.origin;
 
-            if ( distance( var_7, var_5[self._id_4466].origin ) > var_8 )
+            if ( distance( var_7, var_5[self.gun_targ].origin ) > var_8 )
             {
-                var_12 = vectornormalize( var_5[self._id_4466].origin - var_7 );
+                var_12 = vectornormalize( var_5[self.gun_targ].origin - var_7 );
                 var_12 *= var_8;
                 var_7 += var_12;
             }
@@ -642,9 +624,9 @@ _id_5BC5( var_0, var_1 )
         {
             for ( var_13 = 0; var_13 < 1; var_13 += var_10 )
             {
-                var_2.origin = var_7 * ( 1.0 - var_13 ) + ( level.player getorigin() + _id_8AF9() ) * var_13;
+                var_2.origin = var_7 * ( 1.0 - var_13 ) + ( level.player getorigin() + stance_num() ) * var_13;
 
-                if ( _id_6BF2() )
+                if ( player_safe() )
                     var_13 = 2;
 
                 wait(var_9);
@@ -652,22 +634,22 @@ _id_5BC5( var_0, var_1 )
 
             var_14 = level.player getorigin();
 
-            while ( !_id_6BF2() )
+            while ( !player_safe() )
             {
                 var_2.origin = level.player getorigin();
                 var_15 = var_2.origin - var_14;
-                var_2.origin = var_2.origin + var_15 + _id_8AF9();
+                var_2.origin = var_2.origin + var_15 + stance_num();
                 var_14 = level.player getorigin();
                 wait 0.1;
             }
 
-            if ( _id_6BF2() )
+            if ( player_safe() )
             {
                 var_11 = gettime() + 1500 + randomfloat( 4000 );
 
-                while ( _id_6BF2() && isdefined( level._id_6ABD.target ) && gettime() < var_11 )
+                while ( player_safe() && isdefined( level.player_covertrigger.target ) && gettime() < var_11 )
                 {
-                    var_16 = getentarray( level._id_6ABD.target, "targetname" );
+                    var_16 = getentarray( level.player_covertrigger.target, "targetname" );
                     var_16 = var_16[randomint( var_16.size )];
                     var_2.origin = var_16.origin + ( randomfloat( 30 ) - 15, randomfloat( 30 ) - 15, randomfloat( 40 ) - 60 );
                     wait 0.1;
@@ -676,13 +658,13 @@ _id_5BC5( var_0, var_1 )
 
             self notify( "next_target" );
 
-            while ( _id_6BF2() )
+            while ( player_safe() )
             {
                 var_7 = var_2.origin;
 
-                if ( distance( var_7, var_5[self._id_4466].origin ) > var_8 )
+                if ( distance( var_7, var_5[self.gun_targ].origin ) > var_8 )
                 {
-                    var_12 = vectornormalize( var_5[self._id_4466].origin - var_7 );
+                    var_12 = vectornormalize( var_5[self.gun_targ].origin - var_7 );
                     var_12 *= var_8;
                     var_7 += var_12;
                 }
@@ -698,34 +680,34 @@ _id_5BC5( var_0, var_1 )
     {
         for (;;)
         {
-            _id_5F3E( var_0 );
+            move_use_turret( var_0 );
 
-            while ( !isdefined( level._id_6ABD ) )
+            while ( !isdefined( level.player_covertrigger ) )
             {
-                if ( !var_0._id_6C2D )
+                if ( !var_0.player_target )
                 {
                     var_0 settargetentity( level.player );
-                    var_0._id_6C2D = 1;
-                    var_3._id_9197 = level.player;
+                    var_0.player_target = 1;
+                    var_3.targent = level.player;
                 }
 
                 wait 0.2;
             }
 
             var_0 setmode( "manual_ai" );
-            _id_5F3E( var_0 );
+            move_use_turret( var_0 );
             var_0 notify( "startfiring" );
             var_11 = gettime() + 1500 + randomfloat( 4000 );
 
             while ( var_11 > gettime() )
             {
-                if ( isdefined( level._id_6ABD ) )
+                if ( isdefined( level.player_covertrigger ) )
                 {
-                    var_16 = getentarray( level._id_6ABD.target, "targetname" );
+                    var_16 = getentarray( level.player_covertrigger.target, "targetname" );
                     var_16 = var_16[randomint( var_16.size )];
                     var_2.origin = var_16.origin + ( randomfloat( 30 ) - 15, randomfloat( 30 ) - 15, randomfloat( 40 ) - 60 );
                     var_0 settargetentity( var_2 );
-                    var_3._id_9197 = var_2;
+                    var_3.targent = var_2;
                     wait(randomfloat( 1 ));
                     continue;
                 }
@@ -734,18 +716,18 @@ _id_5BC5( var_0, var_1 )
             }
 
             var_0 notify( "stopfiring" );
-            _id_5F3E( var_0 );
+            move_use_turret( var_0 );
 
-            if ( var_0._id_6C2D )
+            if ( var_0.player_target )
             {
                 var_0 setmode( "auto_ai" );
                 var_0 cleartargetentity();
-                var_0._id_6C2D = 0;
-                var_3._id_9197 = var_3;
+                var_0.player_target = 0;
+                var_3.targent = var_3;
                 var_3.origin = ( 0.0, 0.0, 0.0 );
             }
 
-            while ( isdefined( level._id_6ABD ) )
+            while ( isdefined( level.player_covertrigger ) )
                 wait 0.2;
 
             wait(0.75 + randomfloat( 0.2 ));
@@ -753,7 +735,7 @@ _id_5BC5( var_0, var_1 )
     }
 }
 
-_id_83DD( var_0 )
+shoot_mg42_script_targets( var_0 )
 {
     self endon( "death" );
 
@@ -766,26 +748,26 @@ _id_83DD( var_0 )
 
         for ( var_2 = 0; var_2 < var_0.size; var_2++ )
         {
-            self._id_4466 = randomint( var_0.size );
+            self.gun_targ = randomint( var_0.size );
             self waittill( "next_target" );
 
-            while ( var_1[self._id_4466] )
+            while ( var_1[self.gun_targ] )
             {
-                self._id_4466++;
+                self.gun_targ++;
 
-                if ( self._id_4466 >= var_0.size )
-                    self._id_4466 = 0;
+                if ( self.gun_targ >= var_0.size )
+                    self.gun_targ = 0;
             }
 
-            var_1[self._id_4466] = 1;
+            var_1[self.gun_targ] = 1;
         }
     }
 }
 
-_id_5F3E( var_0, var_1, var_2 )
+move_use_turret( var_0, var_1, var_2 )
 {
-    self _meth_81AA( var_0._id_6581 );
-    self.goalradius = level._id_58D9;
+    self setgoalpos( var_0.org );
+    self.goalradius = level.magic_distance;
     self waittill( "goal" );
 
     if ( isdefined( var_1 ) && var_1 == "auto_ai" )
@@ -798,15 +780,15 @@ _id_5F3E( var_0, var_1, var_2 )
             var_0 cleartargetentity();
     }
 
-    self _meth_818E( var_0 );
+    self useturret( var_0 );
 }
 
-_id_9274( var_0, var_1 )
+temp_think( var_0, var_1 )
 {
     if ( getdvar( "mg42" ) == "off" )
         return;
 
-    self._id_9197 = self;
+    self.targent = self;
 
     for (;;)
     {
@@ -815,18 +797,18 @@ _id_9274( var_0, var_1 )
     }
 }
 
-_id_9999( var_0 )
+turret_think( var_0 )
 {
     var_1 = getent( var_0.auto_mg42_target, "targetname" );
     var_2 = 0.5;
 
-    if ( isdefined( var_1._id_7B02 ) )
-        var_2 = var_1._id_7B02;
+    if ( isdefined( var_1.script_turret_reuse_min ) )
+        var_2 = var_1.script_turret_reuse_min;
 
     var_3 = 2;
 
-    if ( isdefined( var_1._id_7B01 ) )
-        var_2 = var_1._id_7B01;
+    if ( isdefined( var_1.script_turret_reuse_max ) )
+        var_2 = var_1.script_turret_reuse_max;
 
     for (;;)
     {
@@ -835,40 +817,40 @@ _id_9999( var_0 )
 
         while ( !isturretactive( var_1 ) )
         {
-            _id_9958( var_0, var_1 );
+            turret_find_user( var_0, var_1 );
             wait 1.0;
         }
     }
 }
 
-_id_9958( var_0, var_1 )
+turret_find_user( var_0, var_1 )
 {
     var_2 = getaiarray();
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
-        if ( var_2[var_3] _meth_8161( var_0.origin ) && var_2[var_3] _meth_8190( var_1 ) )
+        if ( var_2[var_3] isingoal( var_0.origin ) && var_2[var_3] canuseturret( var_1 ) )
         {
             var_4 = var_2[var_3].keepclaimednodeifvalid;
             var_2[var_3].keepclaimednodeifvalid = 0;
 
-            if ( !var_2[var_3] _meth_81F3( var_0 ) )
+            if ( !var_2[var_3] usecovernode( var_0 ) )
                 var_2[var_3].keepclaimednodeifvalid = var_4;
         }
     }
 }
 
-_id_7F51()
+setdifficulty()
 {
-    _id_4D17();
+    init_mgturretsettings();
     var_0 = getentarray( "misc_turret", "code_classname" );
-    var_1 = maps\_utility::_id_3F58();
+    var_1 = maps\_utility::getdifficulty();
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
     {
-        if ( isdefined( var_0[var_2]._id_7AC5 ) )
+        if ( isdefined( var_0[var_2].script_skilloverride ) )
         {
-            switch ( var_0[var_2]._id_7AC5 )
+            switch ( var_0[var_2].script_skilloverride )
             {
                 case "easy":
                     var_1 = "easy";
@@ -887,20 +869,20 @@ _id_7F51()
             }
         }
 
-        _id_5BC8( var_0[var_2], var_1 );
+        mg42_setdifficulty( var_0[var_2], var_1 );
     }
 }
 
-_id_5BC8( var_0, var_1 )
+mg42_setdifficulty( var_0, var_1 )
 {
-    var_0.convergencetime = level._id_5BD9[var_1]["convergenceTime"];
-    var_0.suppressiontime = level._id_5BD9[var_1]["suppressionTime"];
-    var_0.accuracy = level._id_5BD9[var_1]["accuracy"];
-    var_0.aispread = level._id_5BD9[var_1]["aiSpread"];
-    var_0._id_6D5F = level._id_5BD9[var_1]["playerSpread"];
+    var_0.convergencetime = level.mgturretsettings[var_1]["convergenceTime"];
+    var_0.suppressiontime = level.mgturretsettings[var_1]["suppressionTime"];
+    var_0.accuracy = level.mgturretsettings[var_1]["accuracy"];
+    var_0.aispread = level.mgturretsettings[var_1]["aiSpread"];
+    var_0.playerspread = level.mgturretsettings[var_1]["playerSpread"];
 }
 
-_id_5BCA( var_0, var_1, var_2 )
+mg42_target_drones( var_0, var_1, var_2 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = 0.88;
@@ -908,18 +890,18 @@ _id_5BCA( var_0, var_1, var_2 )
     self endon( "death" );
     self notify( "stop_mg42_target_drones" );
     self endon( "stop_mg42_target_drones" );
-    self._id_2F08 = 0;
+    self.dronefailed = 0;
 
-    if ( !isdefined( self._id_79D0 ) )
-        self._id_79D0 = 0;
+    if ( !isdefined( self.script_fireondrones ) )
+        self.script_fireondrones = 0;
 
     if ( !isdefined( var_0 ) )
         var_0 = 0;
 
     self setmode( "manual_ai" );
-    var_3 = maps\_utility::_id_3F58();
+    var_3 = maps\_utility::getdifficulty();
 
-    if ( !isdefined( level._id_2F1A ) )
+    if ( !isdefined( level.drones ) )
         var_4 = 1;
     else
         var_4 = 0;
@@ -928,8 +910,8 @@ _id_5BCA( var_0, var_1, var_2 )
     {
         if ( var_4 )
         {
-            if ( isdefined( self._id_2F24 ) )
-                self setmode( self._id_279B );
+            if ( isdefined( self.drones_targets_sets_to_default ) )
+                self setmode( self.defaultonmode );
             else if ( var_0 )
                 self setmode( "auto_nonai" );
             else
@@ -938,8 +920,8 @@ _id_5BCA( var_0, var_1, var_2 )
             level waittill( "new_drone" );
         }
 
-        if ( !isdefined( self._id_63C8 ) )
-            self._id_63C8 = self.convergencetime;
+        if ( !isdefined( self.oldconvergencetime ) )
+            self.oldconvergencetime = self.convergencetime;
 
         self.convergencetime = 2;
 
@@ -963,20 +945,20 @@ _id_5BCA( var_0, var_1, var_2 )
         else
             var_6 = "allies";
 
-        while ( level._id_2F1A[var_6]._id_55AE )
+        while ( level.drones[var_6].lastindex )
         {
-            common_scripts\utility::_id_57FE( "mg42_drones" );
+            common_scripts\utility::lock( "mg42_drones" );
 
-            if ( !level._id_2F1A[var_6]._id_55AE )
+            if ( !level.drones[var_6].lastindex )
             {
-                common_scripts\utility::_id_9A45( "mg42_drones" );
+                common_scripts\utility::unlock( "mg42_drones" );
                 break;
             }
 
-            var_7 = _id_3CDB( var_6, var_2 );
-            common_scripts\utility::_id_9A45( "mg42_drones" );
+            var_7 = get_bestdrone( var_6, var_2 );
+            common_scripts\utility::unlock( "mg42_drones" );
 
-            if ( !isdefined( self._id_79D0 ) || !self._id_79D0 )
+            if ( !isdefined( self.script_fireondrones ) || !self.script_fireondrones )
             {
                 wait 0.05;
                 break;
@@ -997,7 +979,7 @@ _id_5BCA( var_0, var_1, var_2 )
                 self setmode( "manual_ai" );
 
             self settargetentity( var_7, ( 0.0, 0.0, 32.0 ) );
-            _id_2ED7( var_7, 1, var_2 );
+            drone_target( var_7, 1, var_2 );
             self cleartargetentity();
             self stopfiring();
 
@@ -1005,12 +987,12 @@ _id_5BCA( var_0, var_1, var_2 )
                 break;
         }
 
-        self.convergencetime = self._id_63C8;
-        self._id_63C8 = undefined;
+        self.convergencetime = self.oldconvergencetime;
+        self.oldconvergencetime = undefined;
         self cleartargetentity();
         self stopfiring();
 
-        if ( level._id_2F1A[var_6]._id_55AE )
+        if ( level.drones[var_6].lastindex )
         {
             var_4 = 0;
             continue;
@@ -1020,7 +1002,7 @@ _id_5BCA( var_0, var_1, var_2 )
     }
 }
 
-_id_2ED7( var_0, var_1, var_2 )
+drone_target( var_0, var_1, var_2 )
 {
     self endon( "death" );
     var_0 endon( "death" );
@@ -1029,17 +1011,17 @@ _id_2ED7( var_0, var_1, var_2 )
 
     while ( var_3 > gettime() || var_4 )
     {
-        common_scripts\utility::_id_57FE( "mg42_drones_target_trace" );
+        common_scripts\utility::lock( "mg42_drones_target_trace" );
         var_5 = self getturrettarget( 1 );
 
         if ( !bullettracepassed( self gettagorigin( "tag_flash" ), var_0.origin + ( 0.0, 0.0, 40.0 ), 0, var_0 ) )
         {
-            common_scripts\utility::_id_9A45( "mg42_drones_target_trace" );
+            common_scripts\utility::unlock( "mg42_drones_target_trace" );
             break;
         }
         else if ( isdefined( var_5 ) && distance( var_5.origin, self.origin ) < distance( self.origin, var_0.origin ) )
         {
-            common_scripts\utility::_id_9A45( "mg42_drones_target_trace" );
+            common_scripts\utility::unlock( "mg42_drones_target_trace" );
             break;
         }
 
@@ -1049,33 +1031,33 @@ _id_2ED7( var_0, var_1, var_2 )
             var_4 = 1;
         }
 
-        common_scripts\utility::_id_9A4A( "mg42_drones_target_trace" );
+        common_scripts\utility::unlock_wait( "mg42_drones_target_trace" );
     }
 
     self stopfiring();
-    maps\_utility::_id_8F69( level._id_2F1A[var_0.team], 1 );
+    maps\_utility::structarray_shuffle( level.drones[var_0.team], 1 );
 }
 
-_id_3CDB( var_0, var_1 )
+get_bestdrone( var_0, var_1 )
 {
-    if ( level._id_2F1A[var_0]._id_55AE < 1 )
+    if ( level.drones[var_0].lastindex < 1 )
         return;
 
     var_2 = undefined;
     var_3 = anglestoforward( self.angles );
 
-    for ( var_4 = 0; var_4 < level._id_2F1A[var_0]._id_55AE; var_4++ )
+    for ( var_4 = 0; var_4 < level.drones[var_0].lastindex; var_4++ )
     {
-        if ( !isdefined( level._id_2F1A[var_0].array[var_4] ) )
+        if ( !isdefined( level.drones[var_0].array[var_4] ) )
             continue;
 
-        var_5 = vectortoangles( level._id_2F1A[var_0].array[var_4].origin - self.origin );
+        var_5 = vectortoangles( level.drones[var_0].array[var_4].origin - self.origin );
         var_6 = anglestoforward( var_5 );
 
         if ( vectordot( var_3, var_6 ) < var_1 )
             continue;
 
-        var_2 = level._id_2F1A[var_0].array[var_4];
+        var_2 = level.drones[var_0].array[var_4];
 
         if ( !bullettracepassed( self gettagorigin( "tag_flash" ), var_2 getcentroid(), 0, var_2 ) )
         {
@@ -1088,7 +1070,7 @@ _id_3CDB( var_0, var_1 )
 
     var_7 = self getturrettarget( 1 );
 
-    if ( !isdefined( self._id_6EF6 ) )
+    if ( !isdefined( self.prefers_drones ) )
     {
         if ( isdefined( var_2 ) && isdefined( var_7 ) && distancesquared( self.origin, var_7.origin ) < distancesquared( self.origin, var_2.origin ) )
             var_2 = undefined;
@@ -1097,7 +1079,7 @@ _id_3CDB( var_0, var_1 )
     return var_2;
 }
 
-_id_7820( var_0 )
+saw_mgturretlink( var_0 )
 {
     var_1 = getentarray( "misc_turret", "code_classname" );
     var_2 = [];
@@ -1107,7 +1089,7 @@ _id_7820( var_0 )
         if ( isdefined( var_1[var_3].targetname ) )
             continue;
 
-        if ( isdefined( var_1[var_3]._id_51FF ) )
+        if ( isdefined( var_1[var_3].isvehicleattached ) )
             continue;
 
         var_2[var_1[var_3].origin + ""] = var_1[var_3];
@@ -1142,25 +1124,25 @@ _id_7820( var_0 )
             if ( var_10 < 0.9 )
                 continue;
 
-            var_5._id_99B3 = spawn( "script_origin", var_8.origin );
-            var_5._id_99B3.angles = var_8.angles;
-            var_5._id_99B3.node = var_5;
-            var_5._id_99B3.leftarc = 45;
-            var_5._id_99B3.rightarc = 45;
-            var_5._id_99B3.toparc = 15;
-            var_5._id_99B3.bottomarc = 15;
+            var_5.turretinfo = spawn( "script_origin", var_8.origin );
+            var_5.turretinfo.angles = var_8.angles;
+            var_5.turretinfo.node = var_5;
+            var_5.turretinfo.leftarc = 45;
+            var_5.turretinfo.rightarc = 45;
+            var_5.turretinfo.toparc = 15;
+            var_5.turretinfo.bottomarc = 15;
 
             if ( isdefined( var_8.leftarc ) )
-                var_5._id_99B3.leftarc = min( var_8.leftarc, 45 );
+                var_5.turretinfo.leftarc = min( var_8.leftarc, 45 );
 
             if ( isdefined( var_8.rightarc ) )
-                var_5._id_99B3.rightarc = min( var_8.rightarc, 45 );
+                var_5.turretinfo.rightarc = min( var_8.rightarc, 45 );
 
             if ( isdefined( var_8.toparc ) )
-                var_5._id_99B3.toparc = min( var_8.toparc, 15 );
+                var_5.turretinfo.toparc = min( var_8.toparc, 15 );
 
             if ( isdefined( var_8.bottomarc ) )
-                var_5._id_99B3.bottomarc = min( var_8.bottomarc, 15 );
+                var_5.turretinfo.bottomarc = min( var_8.bottomarc, 15 );
 
             var_2[var_11] = undefined;
             var_8 delete();
@@ -1178,10 +1160,10 @@ auto_mgturretlink( var_0 )
         if ( !isdefined( var_1[var_3].targetname ) || tolower( var_1[var_3].targetname ) != "find_mgTurret" )
             continue;
 
-        if ( !isdefined( var_1[var_3]._id_3584 ) )
+        if ( !isdefined( var_1[var_3].export ) )
             continue;
 
-        if ( !isdefined( var_1[var_3]._id_79A8 ) )
+        if ( !isdefined( var_1[var_3].script_dont_link_turret ) )
             var_2[var_1[var_3].origin + ""] = var_1[var_3];
     }
 
@@ -1217,9 +1199,9 @@ auto_mgturretlink( var_0 )
             if ( var_10 < 0.9 )
                 continue;
 
-            var_5._id_9940 = var_8;
+            var_5.turret = var_8;
             var_8.node = var_5;
-            var_8._id_519E = 1;
+            var_8.issetup = 1;
             var_2[var_7[var_3]] = undefined;
         }
     }
@@ -1227,35 +1209,35 @@ auto_mgturretlink( var_0 )
     var_0 = undefined;
 }
 
-_id_780D()
+save_turret_sharing_info()
 {
-    self._id_83B4 = [];
-    self._id_83B4["connected"] = [];
-    self._id_83B4["ambush"] = [];
+    self.shared_turrets = [];
+    self.shared_turrets["connected"] = [];
+    self.shared_turrets["ambush"] = [];
 
-    if ( !isdefined( self._id_3584 ) )
+    if ( !isdefined( self.export ) )
         return;
 
-    level._id_83B3[self._id_3584] = self;
+    level.shared_portable_turrets[self.export] = self;
 
-    if ( isdefined( self._id_7B03 ) )
+    if ( isdefined( self.script_turret_share ) )
     {
-        var_0 = strtok( self._id_7B03, " " );
+        var_0 = strtok( self.script_turret_share, " " );
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-            self._id_83B4["connected"][var_0[var_1]] = 1;
+            self.shared_turrets["connected"][var_0[var_1]] = 1;
     }
 
-    if ( isdefined( self._id_7B00 ) )
+    if ( isdefined( self.script_turret_ambush ) )
     {
-        var_0 = strtok( self._id_7B00, " " );
+        var_0 = strtok( self.script_turret_ambush, " " );
 
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-            self._id_83B4["ambush"][var_0[var_1]] = 1;
+            self.shared_turrets["ambush"][var_0[var_1]] = 1;
     }
 }
 
-_id_74A8()
+restoredefaultpitch()
 {
     self notify( "gun_placed_again" );
     self endon( "gun_placed_again" );
@@ -1264,27 +1246,27 @@ _id_74A8()
     self restoredefaultdroppitch();
 }
 
-_id_2F96()
+dropturret()
 {
-    thread _id_2F97();
+    thread dropturretproc();
 }
 
-_id_2F97()
+dropturretproc()
 {
     var_0 = spawn( "script_model", ( 0.0, 0.0, 0.0 ) );
-    var_0.origin = self gettagorigin( level._id_6E4B );
-    var_0.angles = self gettagangles( level._id_6E4B );
-    var_0 setmodel( self._id_99B5 );
+    var_0.origin = self gettagorigin( level.portable_mg_gun_tag );
+    var_0.angles = self gettagangles( level.portable_mg_gun_tag );
+    var_0 setmodel( self.turretmodel );
     var_1 = anglestoforward( self.angles );
     var_1 *= 100;
     var_0 movegravity( var_1, 0.5 );
-    self detach( self._id_99B5, level._id_6E4B );
-    self._id_99B5 = undefined;
+    self detach( self.turretmodel, level.portable_mg_gun_tag );
+    self.turretmodel = undefined;
     wait 0.7;
     var_0 delete();
 }
 
-_id_99AB()
+turretdeathdetacher()
 {
     self endon( "kill_turret_detach_thread" );
     self endon( "dropped_gun" );
@@ -1293,30 +1275,30 @@ _id_99AB()
     if ( !isdefined( self ) )
         return;
 
-    _id_2F96();
+    dropturret();
 }
 
-_id_99AD()
+turretdetacher()
 {
     self endon( "death" );
     self endon( "kill_turret_detach_thread" );
     self waittill( "dropped_gun" );
-    self detach( self._id_99B5, level._id_6E4B );
+    self detach( self.turretmodel, level.portable_mg_gun_tag );
 }
 
-_id_74A9()
+restoredefaults()
 {
-    self._id_76AF = undefined;
-    common_scripts\utility::_id_7DB7( animscripts\init::empty );
+    self.run_overrideanim = undefined;
+    common_scripts\utility::set_all_exceptions( animscripts\init::empty );
 }
 
-_id_74AE()
+restorepitch()
 {
     self waittill( "turret_deactivate" );
     self restoredefaultdroppitch();
 }
 
-_id_9AB8( var_0 )
+update_enemy_target_pos_while_running( var_0 )
 {
     self endon( "death" );
     self endon( "end_mg_behavior" );
@@ -1325,16 +1307,16 @@ _id_9AB8( var_0 )
     for (;;)
     {
         self waittill( "saw_enemy" );
-        var_0.origin = self._id_5524;
+        var_0.origin = self.last_enemy_sighting_position;
     }
 }
 
-_id_5F30( var_0, var_1 )
+move_target_pos_to_new_turrets_visibility( var_0, var_1 )
 {
     self endon( "death" );
     self endon( "end_mg_behavior" );
     self endon( "stop_updating_enemy_target_pos" );
-    var_2 = self._id_9940.origin + ( 0.0, 0.0, 16.0 );
+    var_2 = self.turret.origin + ( 0.0, 0.0, 16.0 );
     var_3 = var_1.origin + ( 0.0, 0.0, 16.0 );
 
     for (;;)
@@ -1351,7 +1333,7 @@ _id_5F30( var_0, var_1 )
     }
 }
 
-_id_7281( var_0 )
+record_bread_crumbs_for_ambush( var_0 )
 {
     self endon( "death" );
     self endon( "end_mg_behavior" );
@@ -1367,9 +1349,9 @@ _id_7281( var_0 )
 
 aim_turret_at_ambush_point_or_visible_enemy( var_0, var_1 )
 {
-    if ( !isalive( self._id_24DF ) && self _meth_81C2( self._id_24DF ) )
+    if ( !isalive( self.current_enemy ) && self cansee( self.current_enemy ) )
     {
-        var_1.origin = self._id_5524;
+        var_1.origin = self.last_enemy_sighting_position;
         return;
     }
 
@@ -1393,28 +1375,28 @@ aim_turret_at_ambush_point_or_visible_enemy( var_0, var_1 )
     }
 }
 
-_id_3751( var_0 )
+find_a_new_turret_spot( var_0 )
 {
-    var_1 = _id_3E36( var_0 );
+    var_1 = get_portable_mg_spot( var_0 );
     var_2 = var_1["spot"];
     var_3 = var_1["type"];
 
     if ( !isdefined( var_2 ) )
         return;
 
-    _id_741E( var_2 );
-    thread _id_9AB8( var_0 );
-    thread _id_5F30( var_0, var_2 );
+    reserve_turret( var_2 );
+    thread update_enemy_target_pos_while_running( var_0 );
+    thread move_target_pos_to_new_turrets_visibility( var_0, var_2 );
 
     if ( var_3 == "ambush" )
-        thread _id_7281( var_0 );
+        thread record_bread_crumbs_for_ambush( var_0 );
 
-    if ( var_2._id_519E )
-        _id_5665( var_2 );
+    if ( var_2.issetup )
+        leave_gun_and_run_to_new_spot( var_2 );
     else
     {
-        _id_6810( var_2 );
-        _id_76BE( var_2 );
+        pickup_gun( var_2 );
+        run_to_new_spot_and_setup_gun( var_2 );
     }
 
     self notify( "stop_updating_enemy_target_pos" );
@@ -1425,170 +1407,170 @@ _id_3751( var_0 )
     var_2 settargetentity( var_0 );
 }
 
-_id_86BC( var_0 )
+snap_lock_turret_onto_target( var_0 )
 {
     var_0 setmode( "manual" );
     wait 0.5;
     var_0 setmode( "manual_ai" );
 }
 
-_id_5665( var_0 )
+leave_gun_and_run_to_new_spot( var_0 )
 {
-    self _meth_818F();
-    animscripts\shared::_id_6869( self.primaryweapon, "none" );
-    var_1 = _id_3EA9( var_0 );
+    self stopuseturret();
+    animscripts\shared::placeweaponon( self.primaryweapon, "none" );
+    var_1 = get_turret_setup_anim( var_0 );
     var_2 = getstartorigin( var_0.origin, var_0.angles, var_1 );
-    self _meth_8162( var_2 );
+    self setruntopos( var_2 );
     self waittill( "runto_arrived" );
-    _id_9BE8( var_0 );
+    use_the_turret( var_0 );
 }
 
-_id_6810( var_0 )
+pickup_gun( var_0 )
 {
-    self _meth_818F();
-    self._id_9940 _id_4866();
+    self stopuseturret();
+    self.turret hide_turret();
 }
 
-_id_3EA9( var_0 )
+get_turret_setup_anim( var_0 )
 {
     var_1 = [];
-    var_1["saw_bipod_stand"] = level._id_5BBF["bipod_stand_setup"];
-    var_1["saw_bipod_crouch"] = level._id_5BBF["bipod_crouch_setup"];
-    var_1["saw_bipod_prone"] = level._id_5BBF["bipod_prone_setup"];
+    var_1["saw_bipod_stand"] = level.mg_animmg["bipod_stand_setup"];
+    var_1["saw_bipod_crouch"] = level.mg_animmg["bipod_crouch_setup"];
+    var_1["saw_bipod_prone"] = level.mg_animmg["bipod_prone_setup"];
     return var_1[var_0.weaponinfo];
 }
 #using_animtree("generic_human");
 
-_id_76BE( var_0 )
+run_to_new_spot_and_setup_gun( var_0 )
 {
     var_1 = self.health;
     var_0 endon( "turret_deactivate" );
-    self._id_5BC2 = var_0;
+    self.mg42 = var_0;
     self endon( "death" );
     self endon( "dropped_gun" );
-    var_2 = _id_3EA9( var_0 );
-    self._id_99B5 = "weapon_mg42_carry";
+    var_2 = get_turret_setup_anim( var_0 );
+    self.turretmodel = "weapon_mg42_carry";
     self notify( "kill_get_gun_back_on_killanimscript_thread" );
-    animscripts\shared::_id_6869( self.weapon, "none" );
+    animscripts\shared::placeweaponon( self.weapon, "none" );
 
-    if ( self _meth_813F() )
+    if ( self isbadguy() )
         self.health = 1;
 
-    self._id_76AF = %saw_gunner_run_fast;
-    self._id_2485 = %saw_gunner_run_fast;
-    self attach( self._id_99B5, level._id_6E4B );
-    thread _id_99AB();
+    self.run_overrideanim = %saw_gunner_run_fast;
+    self.crouchrun_combatanim = %saw_gunner_run_fast;
+    self attach( self.turretmodel, level.portable_mg_gun_tag );
+    thread turretdeathdetacher();
     var_3 = getstartorigin( var_0.origin, var_0.angles, var_2 );
-    self _meth_8162( var_3 );
+    self setruntopos( var_3 );
     wait 0.05;
-    common_scripts\utility::_id_7DB7( animscripts\combat::_id_33E6 );
-    common_scripts\utility::_id_1EB7( "move" );
-    common_scripts\utility::_id_7E1C( "cover_crouch", ::_id_493D );
+    common_scripts\utility::set_all_exceptions( animscripts\combat::exception_exposed_mg42_portable );
+    common_scripts\utility::clear_exception( "move" );
+    common_scripts\utility::set_exception( "cover_crouch", ::hold_indefintely );
 
     while ( distance( self.origin, var_3 ) > 16 )
     {
-        self _meth_8162( var_3 );
+        self setruntopos( var_3 );
         wait 0.05;
     }
 
     self notify( "kill_turret_detach_thread" );
 
-    if ( self _meth_813F() )
+    if ( self isbadguy() )
         self.health = var_1;
 
     if ( soundexists( "weapon_setup" ) )
-        thread common_scripts\utility::_id_69C2( "weapon_setup" );
+        thread common_scripts\utility::play_sound_in_space( "weapon_setup" );
 
-    self _meth_8140( "setup_done", var_0.origin, var_0.angles, var_2 );
-    _id_74A9();
+    self animscripted( "setup_done", var_0.origin, var_0.angles, var_2 );
+    restoredefaults();
     self waittillmatch( "setup_done", "end" );
     var_0 notify( "restore_default_drop_pitch" );
-    var_0 _id_84F4();
-    animscripts\shared::_id_6869( self.primaryweapon, "right" );
-    _id_9BE8( var_0 );
-    self detach( self._id_99B5, level._id_6E4B );
-    common_scripts\utility::_id_7DB7( animscripts\init::empty );
+    var_0 show_turret();
+    animscripts\shared::placeweaponon( self.primaryweapon, "right" );
+    use_the_turret( var_0 );
+    self detach( self.turretmodel, level.portable_mg_gun_tag );
+    common_scripts\utility::set_all_exceptions( animscripts\init::empty );
     self notify( "bcs_portable_turret_setup" );
 }
 
-_id_5F37()
+move_to_run_pos()
 {
-    self _meth_8162( self._id_76E7 );
+    self setruntopos( self.runpos );
 }
 
-_id_493D()
+hold_indefintely()
 {
     self endon( "killanimscript" );
     self waittill( "death" );
 }
 
-_id_9C1E()
+using_a_turret()
 {
-    if ( !isdefined( self._id_9940 ) )
+    if ( !isdefined( self.turret ) )
         return 0;
 
-    return self._id_9940.owner == self;
+    return self.turret.owner == self;
 }
 
-_id_99A0()
+turret_user_moves()
 {
-    if ( !_id_9C1E() )
+    if ( !using_a_turret() )
     {
-        common_scripts\utility::_id_1EB7( "move" );
+        common_scripts\utility::clear_exception( "move" );
         return;
     }
 
-    var_0 = _id_375C( "connected" );
+    var_0 = find_connected_turrets( "connected" );
     var_1 = var_0["spots"];
 
     if ( !var_1.size )
     {
-        common_scripts\utility::_id_1EB7( "move" );
+        common_scripts\utility::clear_exception( "move" );
         return;
     }
 
     var_2 = self.node;
 
-    if ( !isdefined( var_2 ) || !maps\_utility::_id_503B( var_1, var_2 ) )
+    if ( !isdefined( var_2 ) || !maps\_utility::is_in_array( var_1, var_2 ) )
     {
-        var_3 = _id_4104();
+        var_3 = gettakennodes();
 
         for ( var_4 = 0; var_4 < var_1.size; var_4++ )
         {
-            var_2 = common_scripts\utility::_id_710E( var_1 );
+            var_2 = common_scripts\utility::random( var_1 );
 
             if ( isdefined( var_3[var_2.origin + ""] ) )
                 return;
         }
     }
 
-    var_5 = var_2._id_9940;
+    var_5 = var_2.turret;
 
     if ( isdefined( var_5.reserved ) )
         return;
 
-    _id_741E( var_5 );
+    reserve_turret( var_5 );
 
-    if ( var_5._id_519E )
-        _id_5665( var_5 );
+    if ( var_5.issetup )
+        leave_gun_and_run_to_new_spot( var_5 );
     else
-        _id_76BE( var_5 );
+        run_to_new_spot_and_setup_gun( var_5 );
 
-    maps\_mg_penetration::_id_4476( var_2._id_9940 );
+    maps\_mg_penetration::gunner_think( var_2.turret );
 }
 
-_id_9BE8( var_0 )
+use_the_turret( var_0 )
 {
-    var_1 = self _meth_818E( var_0 );
+    var_1 = self useturret( var_0 );
 
     if ( var_1 )
     {
-        common_scripts\utility::_id_7E1C( "move", ::_id_99A0 );
-        self._id_9940 = var_0;
-        thread _id_5BC4( var_0 );
+        common_scripts\utility::set_exception( "move", ::turret_user_moves );
+        self.turret = var_0;
+        thread mg42_firing( var_0 );
         var_0 setmode( "manual_ai" );
-        var_0 thread _id_74AE();
-        self._id_9940 = var_0;
+        var_0 thread restorepitch();
+        self.turret = var_0;
         var_0.owner = self;
         return 1;
     }
@@ -1599,11 +1581,11 @@ _id_9BE8( var_0 )
     }
 }
 
-_id_3E36( var_0 )
+get_portable_mg_spot( var_0 )
 {
     var_1 = [];
-    var_1[var_1.size] = ::_id_3764;
-    var_1[var_1.size] = ::_id_3766;
+    var_1[var_1.size] = ::find_different_way_to_attack_last_seen_position;
+    var_1[var_1.size] = ::find_good_ambush_spot;
     var_1 = common_scripts\utility::array_randomize( var_1 );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
@@ -1613,12 +1595,12 @@ _id_3E36( var_0 )
         if ( !isdefined( var_3["spots"] ) )
             continue;
 
-        var_3["spot"] = common_scripts\utility::_id_710E( var_3["spots"] );
+        var_3["spot"] = common_scripts\utility::random( var_3["spots"] );
         return var_3;
     }
 }
 
-_id_4104()
+gettakennodes()
 {
     var_0 = [];
     var_1 = getaiarray();
@@ -1634,26 +1616,26 @@ _id_4104()
     return var_0;
 }
 
-_id_375C( var_0 )
+find_connected_turrets( var_0 )
 {
-    var_1 = level._id_83B3;
+    var_1 = level.shared_portable_turrets;
     var_2 = [];
     var_3 = getarraykeys( var_1 );
-    var_4 = _id_4104();
+    var_4 = gettakennodes();
     var_4[self.node.origin + ""] = undefined;
 
     for ( var_5 = 0; var_5 < var_3.size; var_5++ )
     {
         var_6 = var_3[var_5];
 
-        if ( var_1[var_6] == self._id_9940 )
+        if ( var_1[var_6] == self.turret )
             continue;
 
-        var_7 = getarraykeys( self._id_9940._id_83B4[var_0] );
+        var_7 = getarraykeys( self.turret.shared_turrets[var_0] );
 
         for ( var_8 = 0; var_8 < var_7.size; var_8++ )
         {
-            if ( var_1[var_6]._id_3584 + "" != var_7[var_8] )
+            if ( var_1[var_6].export + "" != var_7[var_8] )
                 continue;
 
             if ( isdefined( var_1[var_6].reserved ) )
@@ -1675,14 +1657,14 @@ _id_375C( var_0 )
     return var_9;
 }
 
-_id_3766( var_0 )
+find_good_ambush_spot( var_0 )
 {
-    return _id_375C( "ambush" );
+    return find_connected_turrets( "ambush" );
 }
 
-_id_3764( var_0 )
+find_different_way_to_attack_last_seen_position( var_0 )
 {
-    var_1 = _id_375C( "connected" );
+    var_1 = find_connected_turrets( "connected" );
     var_2 = var_1["spots"];
 
     if ( !var_2.size )
@@ -1692,7 +1674,7 @@ _id_3764( var_0 )
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
     {
-        if ( !common_scripts\utility::_id_A347( var_2[var_4].origin, var_2[var_4].angles, var_0.origin, 0.75 ) )
+        if ( !common_scripts\utility::within_fov( var_2[var_4].origin, var_2[var_4].angles, var_0.origin, 0.75 ) )
             continue;
 
         if ( !sighttracepassed( var_0.origin, var_2[var_4].origin + ( 0.0, 0.0, 16.0 ), 0, undefined ) )
@@ -1705,43 +1687,43 @@ _id_3764( var_0 )
     return var_1;
 }
 
-_id_6E4C()
+portable_mg_spot()
 {
-    _id_780D();
+    save_turret_sharing_info();
     var_0 = 1;
-    self._id_519E = 1;
+    self.issetup = 1;
     self.reserved = undefined;
 
-    if ( isdefined( self._id_51FF ) )
+    if ( isdefined( self.isvehicleattached ) )
         return;
 
     if ( self.spawnflags & var_0 )
         return;
 
-    _id_4866();
+    hide_turret();
 }
 
-_id_4866()
+hide_turret()
 {
     self notify( "stop_checking_for_flanking" );
-    self._id_519E = 0;
+    self.issetup = 0;
     self hide();
-    self._id_886E = 0;
+    self.solid = 0;
     self makeunusable();
-    self _meth_815C( 0 );
-    thread _id_74A8();
+    self setdefaultdroppitch( 0 );
+    thread restoredefaultpitch();
 }
 
-_id_84F4()
+show_turret()
 {
     self show();
-    self._id_886E = 1;
+    self.solid = 1;
     self makeusable();
-    self._id_519E = 1;
-    thread _id_8EA5();
+    self.issetup = 1;
+    thread stop_mg_behavior_if_flanked();
 }
 
-_id_8EA5()
+stop_mg_behavior_if_flanked()
 {
     self endon( "stop_checking_for_flanking" );
     self waittill( "turret_deactivate" );
@@ -1750,7 +1732,7 @@ _id_8EA5()
         self.owner notify( "end_mg_behavior" );
 }
 
-_id_996E( var_0 )
+turret_is_mine( var_0 )
 {
     var_1 = var_0 getturretowner();
 
@@ -1760,21 +1742,21 @@ _id_996E( var_0 )
     return var_1 == self;
 }
 
-_id_3153( var_0 )
+end_turret_reservation( var_0 )
 {
-    _id_A0C5( var_0 );
+    waittill_turret_is_released( var_0 );
     var_0.reserved = undefined;
 }
 
-_id_A0C5( var_0 )
+waittill_turret_is_released( var_0 )
 {
     var_0 endon( "turret_deactivate" );
     self endon( "death" );
     self waittill( "end_mg_behavior" );
 }
 
-_id_741E( var_0 )
+reserve_turret( var_0 )
 {
     var_0.reserved = self;
-    thread _id_3153( var_0 );
+    thread end_turret_reservation( var_0 );
 }

@@ -1,26 +1,8 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("generic_human");
 
-_id_4C9E()
+init_animset_melee()
 {
     var_0 = [];
     var_0["standard"] = %melee_1;
@@ -52,181 +34,181 @@ _id_4C9E()
     anim.archetypes["soldier"]["melee"] = var_0;
 }
 
-_id_5B61()
+melee_init()
 {
     precachemodel( "weapon_parabolic_knife" );
     level._effect["melee_knife_ai"] = loadfx( "vfx/weaponimpact/flesh_impact_knife" );
 }
 
-_id_5B78()
+melee_stealthcheck()
 {
     if ( !isdefined( self._stealth ) )
         return 0;
 
-    if ( isdefined( self._id_32D8 ) && isdefined( self._id_32D8["_stealth_enabled"] ) && self._id_32D8["_stealth_enabled"] )
+    if ( isdefined( self.ent_flag ) && isdefined( self.ent_flag["_stealth_enabled"] ) && self.ent_flag["_stealth_enabled"] )
     {
-        if ( isdefined( self._id_32D8["_stealth_attack"] ) && !self._id_32D8["_stealth_attack"] )
+        if ( isdefined( self.ent_flag["_stealth_attack"] ) && !self.ent_flag["_stealth_attack"] )
             return 1;
     }
 
     return 0;
 }
 
-_id_5B7B()
+melee_tryexecuting()
 {
     if ( !isdefined( self.enemy ) )
         return 0;
 
-    if ( isdefined( self._id_2D38 ) )
+    if ( isdefined( self.dontmelee ) )
         return 0;
 
-    if ( _id_5B78() )
+    if ( melee_stealthcheck() )
         return 0;
 
-    if ( !_id_5B38( self.enemy ) )
+    if ( !melee_acquiremutex( self.enemy ) )
         return 0;
 
-    _id_5B6B();
+    melee_resetaction();
 
-    if ( !_id_5B4A() )
+    if ( !melee_chooseaction() )
     {
-        _id_5B6A( self.enemy );
+        melee_releasemutex( self.enemy );
         return 0;
     }
 
-    self _meth_819E( ::_id_5B63, ::_id_5B54 );
+    self animcustom( ::melee_mainloop, ::melee_endscript );
 }
 
-_id_5B6B()
+melee_resetaction()
 {
-    self._id_5B36.target = self.enemy;
-    self._id_5B36._id_4DE7 = 0;
-    self._id_5B36._id_4E43 = 0;
+    self.melee.target = self.enemy;
+    self.melee.initiated = 0;
+    self.melee.inprogress = 0;
 }
 
-_id_5B4A()
+melee_chooseaction()
 {
-    if ( !_id_5B62() )
+    if ( !melee_isvalid() )
         return 0;
 
-    self._id_5B36._id_4DE7 = 1;
+    self.melee.initiated = 1;
 
-    if ( _id_5B3A() )
+    if ( melee_aivsai_chooseaction() )
     {
-        self._id_5B36._id_3AE4 = ::_id_5B45;
+        self.melee.func = ::melee_aivsai_main;
         return 1;
     }
 
-    if ( _id_5B70() )
+    if ( melee_standard_chooseaction() )
     {
-        if ( isdefined( self._id_8A31 ) )
-            self._id_5B36._id_3AE4 = self._id_8A31;
+        if ( isdefined( self.specialmelee_standard ) )
+            self.melee.func = self.specialmelee_standard;
         else
-            self._id_5B36._id_3AE4 = ::_id_5B73;
+            self.melee.func = ::melee_standard_main;
 
         return 1;
     }
 
-    self._id_5B36._id_3AE4 = undefined;
-    self._id_60D2 = gettime() + 150;
-    self._id_60D1 = self._id_5B36.target;
+    self.melee.func = undefined;
+    self.nextmeleechecktime = gettime() + 150;
+    self.nextmeleechecktarget = self.melee.target;
     return 0;
 }
 
-_id_5B7E()
+melee_updateandvalidatestartpos()
 {
     var_0 = 1;
-    var_1 = distance2d( self._id_5B36._id_8D38, self._id_5B36.target.origin );
+    var_1 = distance2d( self.melee.startpos, self.melee.target.origin );
 
     if ( var_1 < 32 )
     {
-        var_2 = vectornormalize( ( self._id_5B36._id_8D38[0] - self._id_5B36.target.origin[0], self._id_5B36._id_8D38[1] - self._id_5B36.target.origin[1], 0 ) );
-        self._id_5B36._id_8D38 += var_2 * ( 32 - var_1 );
+        var_2 = vectornormalize( ( self.melee.startpos[0] - self.melee.target.origin[0], self.melee.startpos[1] - self.melee.target.origin[1], 0 ) );
+        self.melee.startpos += var_2 * ( 32 - var_1 );
 
-        if ( distance( self._id_5B36._id_8D38, self._id_5B36.target.origin ) < 31.9 )
+        if ( distance( self.melee.startpos, self.melee.target.origin ) < 31.9 )
             return 0;
 
         var_0 = 0;
     }
 
-    var_3 = self _meth_813E( self._id_5B36._id_8D38 );
+    var_3 = self getdroptofloorposition( self.melee.startpos );
 
     if ( !isdefined( var_3 ) )
         return 0;
 
-    if ( abs( self._id_5B36._id_8D38[2] - var_3[2] ) > 51.2 )
+    if ( abs( self.melee.startpos[2] - var_3[2] ) > 51.2 )
         return 0;
 
     if ( abs( self.origin[2] - var_3[2] ) > 51.2 )
         return 0;
 
-    self._id_5B36._id_8D38 = var_3;
+    self.melee.startpos = var_3;
 
-    if ( !self _meth_81C7( self._id_5B36._id_8D38, 1, var_0 ) )
+    if ( !self maymovetopoint( self.melee.startpos, 1, var_0 ) )
         return 0;
 
-    if ( isdefined( self._id_5B36._id_8D43 ) )
+    if ( isdefined( self.melee.starttotargetcornerangles ) )
     {
-        var_4 = self._id_5B36._id_8D38 - self._id_5B36.target.origin;
-        var_5 = anglestoforward( self._id_5B36._id_8D43 );
+        var_4 = self.melee.startpos - self.melee.target.origin;
+        var_5 = anglestoforward( self.melee.starttotargetcornerangles );
         var_6 = vectordot( var_5, var_4 );
-        var_7 = self._id_5B36._id_8D38 - var_5 * var_6;
-        var_8 = self._id_5B36.target.origin - var_7;
-        var_9 = distance2d( self._id_5B36.target.origin, var_7 );
+        var_7 = self.melee.startpos - var_5 * var_6;
+        var_8 = self.melee.target.origin - var_7;
+        var_9 = distance2d( self.melee.target.origin, var_7 );
 
         if ( var_9 < 32 )
             var_7 -= var_8 * ( 32 - var_9 ) / 32;
     }
     else
     {
-        var_2 = vectornormalize( ( self._id_5B36._id_8D38[0] - self._id_5B36.target.origin[0], self._id_5B36._id_8D38[1] - self._id_5B36.target.origin[1], 0 ) );
-        var_7 = self._id_5B36.target.origin + var_2 * 32;
+        var_2 = vectornormalize( ( self.melee.startpos[0] - self.melee.target.origin[0], self.melee.startpos[1] - self.melee.target.origin[1], 0 ) );
+        var_7 = self.melee.target.origin + var_2 * 32;
     }
 
-    if ( !self _meth_81C8( self._id_5B36._id_8D38, var_7, 1, 0 ) )
+    if ( !self maymovefrompointtopoint( self.melee.startpos, var_7, 1, 0 ) )
         return 0;
 
-    if ( !self _meth_81C8( var_7, self._id_5B36.target.origin, 1, 1 ) )
+    if ( !self maymovefrompointtopoint( var_7, self.melee.target.origin, 1, 1 ) )
         return 0;
 
     return 1;
 }
 
-_id_5B62()
+melee_isvalid()
 {
-    if ( !isdefined( self._id_5B36.target ) )
+    if ( !isdefined( self.melee.target ) )
         return 0;
 
-    var_0 = self._id_5B36.target;
+    var_0 = self.melee.target;
 
-    if ( isdefined( var_0._id_2D38 ) )
+    if ( isdefined( var_0.dontmelee ) )
         return 0;
 
     var_1 = distancesquared( self.origin, var_0.origin );
 
-    if ( isdefined( self._id_5B82 ) )
-        var_2 = self._id_5B82;
+    if ( isdefined( self.meleechargedistsq ) )
+        var_2 = self.meleechargedistsq;
     else if ( isplayer( var_0 ) )
         var_2 = 40000;
     else
         var_2 = 25600;
 
-    if ( !self._id_5B36._id_4DE7 && var_1 > var_2 )
+    if ( !self.melee.initiated && var_1 > var_2 )
         return 0;
 
     if ( !isalive( self ) )
         return 0;
 
-    if ( isdefined( self.a._id_6143 ) && self.a._id_7B46 >= gettime() + 50 )
+    if ( isdefined( self.a.nofirstframemelee ) && self.a.scriptstarttime >= gettime() + 50 )
         return 0;
 
-    if ( isdefined( self._id_60D2 ) && isdefined( self._id_60D1 ) && gettime() < self._id_60D2 && self._id_60D1 == var_0 )
+    if ( isdefined( self.nextmeleechecktime ) && isdefined( self.nextmeleechecktarget ) && gettime() < self.nextmeleechecktime && self.nextmeleechecktarget == var_0 )
         return 0;
 
-    if ( isdefined( self.a._id_6451 ) || self.a._id_6E5A == "prone" )
+    if ( isdefined( self.a.onback ) || self.a.pose == "prone" )
         return 0;
 
-    if ( animscripts\utility::_id_9C3A() )
+    if ( animscripts\utility::usingsidearm() )
         return 0;
 
     if ( isdefined( self.grenade ) && self.frontshieldanglecos == 1 )
@@ -235,7 +217,7 @@ _id_5B62()
     if ( !isalive( var_0 ) )
         return 0;
 
-    if ( isdefined( var_0._id_2D2B ) || isdefined( var_0.ignoreme ) && var_0.ignoreme )
+    if ( isdefined( var_0.dontattackme ) || isdefined( var_0.ignoreme ) && var_0.ignoreme )
         return 0;
 
     if ( !isai( var_0 ) && !isplayer( var_0 ) )
@@ -243,33 +225,33 @@ _id_5B62()
 
     if ( isai( var_0 ) )
     {
-        if ( var_0 _meth_819F() )
+        if ( var_0 isinscriptedstate() )
             return 0;
 
-        if ( var_0 maps\_utility::_id_2CE7() || var_0.delayeddeath )
+        if ( var_0 maps\_utility::doinglongdeath() || var_0.delayeddeath )
             return 0;
     }
 
     if ( isplayer( var_0 ) )
         var_3 = var_0 getstance();
     else
-        var_3 = var_0.a._id_6E5A;
+        var_3 = var_0.a.pose;
 
     if ( var_3 != "stand" && var_3 != "crouch" )
         return 0;
 
-    if ( isdefined( self._id_58D7 ) && isdefined( var_0._id_58D7 ) )
+    if ( isdefined( self.magic_bullet_shield ) && isdefined( var_0.magic_bullet_shield ) )
         return 0;
 
     if ( isdefined( var_0.grenade ) )
         return 0;
 
-    if ( self._id_5B36._id_4E43 )
+    if ( self.melee.inprogress )
         var_4 = 110;
     else
         var_4 = 60;
 
-    var_5 = angleclamp180( self.angles[1] - animscripts\utility::_id_4171( var_0.origin ) );
+    var_5 = angleclamp180( self.angles[1] - animscripts\utility::getyaw( var_0.origin ) );
 
     if ( abs( var_5 ) > var_4 )
         return 0;
@@ -277,129 +259,129 @@ _id_5B62()
     if ( var_1 <= 4096 )
         return 1;
 
-    if ( self._id_5B36._id_4E43 )
+    if ( self.melee.inprogress )
         return 0;
 
-    if ( isdefined( self._id_60D0 ) && isdefined( self._id_60CF ) && gettime() < self._id_60D0 && self._id_60CF == var_0 )
+    if ( isdefined( self.nextmeleechargetime ) && isdefined( self.nextmeleechargetarget ) && gettime() < self.nextmeleechargetime && self.nextmeleechargetarget == var_0 )
         return 0;
 
     return 1;
 }
 
-_id_5B77()
+melee_startmovement()
 {
-    self._id_5B36._id_6DB8 = 1;
-    self.a._id_5F5B = "run";
+    self.melee.playingmovementanim = 1;
+    self.a.movement = "run";
 }
 
-_id_5B79()
+melee_stopmovement()
 {
-    self _meth_8144( %body, 0.2 );
-    self._id_5B36._id_6DB8 = undefined;
-    self.a._id_5F5B = "stop";
-    self _meth_8193( "face default" );
+    self clearanim( %body, 0.2 );
+    self.melee.playingmovementanim = undefined;
+    self.a.movement = "stop";
+    self orientmode( "face default" );
 }
 
-_id_5B63()
+melee_mainloop()
 {
     self endon( "killanimscript" );
     self endon( "end_melee" );
 
     for (;;)
     {
-        var_0 = self._id_5B36._id_3AE4;
-        [[ self._id_5B36._id_3AE4 ]]();
+        var_0 = self.melee.func;
+        [[ self.melee.func ]]();
 
-        if ( !isdefined( self._id_5B36._id_3AE4 ) || var_0 == self._id_5B36._id_3AE4 )
+        if ( !isdefined( self.melee.func ) || var_0 == self.melee.func )
             break;
     }
 }
 
-_id_5B71( var_0 )
+melee_standard_delaystandardcharge( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return;
 
-    self._id_60D4 = gettime() + 2500;
-    self._id_60D3 = var_0;
+    self.nextmeleestandardchargetime = gettime() + 2500;
+    self.nextmeleestandardchargetarget = var_0;
 }
 
-_id_5B6F()
+melee_standard_checktimeconstraints()
 {
-    var_0 = distancesquared( self._id_5B36.target.origin, self.origin );
+    var_0 = distancesquared( self.melee.target.origin, self.origin );
 
-    if ( var_0 > 4096 && isdefined( self._id_60D4 ) && isdefined( self._id_60D3 ) && gettime() < self._id_60D4 && self._id_60D3 == self._id_5B36.target )
+    if ( var_0 > 4096 && isdefined( self.nextmeleestandardchargetime ) && isdefined( self.nextmeleestandardchargetarget ) && gettime() < self.nextmeleestandardchargetime && self.nextmeleestandardchargetarget == self.melee.target )
         return 0;
 
     return 1;
 }
 
-_id_5B70()
+melee_standard_chooseaction()
 {
-    if ( isdefined( self._id_5B36.target._id_58D7 ) )
+    if ( isdefined( self.melee.target.magic_bullet_shield ) )
         return 0;
 
-    if ( !_id_5B6F() )
+    if ( !melee_standard_checktimeconstraints() )
         return 0;
 
-    if ( isdefined( self._id_5B36.target._id_8A32 ) )
+    if ( isdefined( self.melee.target.specialmeleechooseaction ) )
         return 0;
 
-    return _id_5B76();
+    return melee_standard_updateandvalidatetarget();
 }
 
-_id_5B75()
+melee_standard_resetgiveuptime()
 {
-    if ( isdefined( self._id_5B82 ) )
-        var_0 = self._id_5B82;
-    else if ( isplayer( self._id_5B36.target ) )
+    if ( isdefined( self.meleechargedistsq ) )
+        var_0 = self.meleechargedistsq;
+    else if ( isplayer( self.melee.target ) )
         var_0 = 40000;
     else
         var_0 = 25600;
 
-    if ( distancesquared( self.origin, self._id_5B36.target.origin ) > var_0 )
-        self._id_5B36._id_420F = gettime() + 3000;
+    if ( distancesquared( self.origin, self.melee.target.origin ) > var_0 )
+        self.melee.giveuptime = gettime() + 3000;
     else
-        self._id_5B36._id_420F = gettime() + 1000;
+        self.melee.giveuptime = gettime() + 1000;
 }
 
-_id_5B73()
+melee_standard_main()
 {
-    self _meth_8192( "zonly_physics" );
+    self animmode( "zonly_physics" );
 
-    if ( isdefined( self._id_5B36.target ) )
-        _id_5B75();
+    if ( isdefined( self.melee.target ) )
+        melee_standard_resetgiveuptime();
 
-    while ( isdefined( self._id_5B36.target ) )
+    while ( isdefined( self.melee.target ) )
     {
-        if ( !_id_5B72() )
+        if ( !melee_standard_getinposition() )
         {
-            self._id_60D0 = gettime() + 1500;
-            self._id_60CF = self._id_5B36.target;
+            self.nextmeleechargetime = gettime() + 1500;
+            self.nextmeleechargetarget = self.melee.target;
             break;
         }
 
-        if ( !isdefined( self._id_5B36.target ) )
+        if ( !isdefined( self.melee.target ) )
             break;
 
-        animscripts\battlechatter_ai::_id_33B4();
-        self _meth_8193( "face point", self._id_5B36.target.origin );
-        var_0 = animscripts\utility::_id_5863( "melee", "standard" );
+        animscripts\battlechatter_ai::evaluatemeleeevent();
+        self orientmode( "face point", self.melee.target.origin );
+        var_0 = animscripts\utility::lookupanim( "melee", "standard" );
         self setflaggedanimknoballrestart( "meleeanim", var_0, %body, 1, 0.2, 1 );
-        _id_5B68( var_0 );
-        self._id_5B36._id_4E43 = 1;
+        melee_playfacialanim( var_0 );
+        self.melee.inprogress = 1;
 
-        if ( !_id_5B74() )
+        if ( !melee_standard_playattackloop() )
         {
-            _id_5B71( self._id_5B36.target );
+            melee_standard_delaystandardcharge( self.melee.target );
             break;
         }
     }
 
-    self _meth_8192( "none" );
+    self animmode( "none" );
 }
 
-_id_5B74()
+melee_standard_playattackloop()
 {
     for (;;)
     {
@@ -410,63 +392,63 @@ _id_5B74()
 
         if ( var_0 == "stop" )
         {
-            if ( !_id_5B4A() )
+            if ( !melee_chooseaction() )
                 return 0;
 
-            if ( self._id_5B36._id_3AE4 != ::_id_5B73 )
+            if ( self.melee.func != ::melee_standard_main )
                 return 1;
         }
 
         if ( var_0 == "fire" )
         {
-            if ( isdefined( self._id_5B36.target ) )
+            if ( isdefined( self.melee.target ) )
             {
-                var_1 = self._id_5B36.target.health;
-                self _meth_81EC();
+                var_1 = self.melee.target.health;
+                self melee();
 
-                if ( isdefined( self._id_5B36.target ) && self._id_5B36.target.health < var_1 )
-                    _id_5B75();
+                if ( isdefined( self.melee.target ) && self.melee.target.health < var_1 )
+                    melee_standard_resetgiveuptime();
             }
         }
     }
 }
 
-_id_5B76()
+melee_standard_updateandvalidatetarget()
 {
-    if ( !isdefined( self._id_5B36.target ) )
+    if ( !isdefined( self.melee.target ) )
         return 0;
 
     if ( !isdefined( self.enemy ) )
         return 0;
 
-    if ( !_id_5B62() )
+    if ( !melee_isvalid() )
         return 0;
 
-    var_0 = vectornormalize( self._id_5B36.target.origin - self.origin );
-    self._id_5B36._id_8D38 = self._id_5B36.target.origin - 40.0 * var_0;
-    return _id_5B7E();
+    var_0 = vectornormalize( self.melee.target.origin - self.origin );
+    self.melee.startpos = self.melee.target.origin - 40.0 * var_0;
+    return melee_updateandvalidatestartpos();
 }
 
-_id_5B72()
+melee_standard_getinposition()
 {
-    if ( !_id_5B76() )
+    if ( !melee_standard_updateandvalidatetarget() )
         return 0;
 
-    var_0 = common_scripts\utility::_id_2B73( self.origin, self._id_5B36.target.origin );
+    var_0 = common_scripts\utility::distance_2d_squared( self.origin, self.melee.target.origin );
 
     if ( var_0 <= 4096 )
     {
-        var_1 = animscripts\utility::_id_5863( "melee", "standard_stand_to_melee" );
+        var_1 = animscripts\utility::lookupanim( "melee", "standard_stand_to_melee" );
         self setflaggedanimknoball( "readyanim", var_1, %body, 1, 0.3, 1 );
-        _id_5B68( var_1 );
-        animscripts\shared::_id_2D06( "readyanim" );
+        melee_playfacialanim( var_1 );
+        animscripts\shared::donotetracks( "readyanim" );
         return 1;
     }
 
-    _id_5B67();
-    var_2 = self._id_5B36.target.origin;
+    melee_playchargesound();
+    var_2 = self.melee.target.origin;
     var_3 = 0.1;
-    var_4 = animscripts\utility::_id_5863( "melee", "standard_run_to_melee" );
+    var_4 = animscripts\utility::lookupanim( "melee", "standard_run_to_melee" );
     var_5 = length( getmovedelta( var_4, 0, 1 ) );
     var_6 = 32;
     var_7 = 48.0 + var_6 + var_5;
@@ -478,15 +460,15 @@ _id_5B72()
     var_13 = var_11 - 200;
     var_14 = 0;
     var_15 = undefined;
-    var_16 = animscripts\utility::_id_5863( "run", "straight" );
+    var_16 = animscripts\utility::lookupanim( "run", "straight" );
 
-    if ( isplayer( self._id_5B36.target ) && self._id_5B36.target == self.enemy )
-        self _meth_8193( "face enemy" );
+    if ( isplayer( self.melee.target ) && self.melee.target == self.enemy )
+        self orientmode( "face enemy" );
     else
-        self _meth_8193( "face point", self._id_5B36.target.origin );
+        self orientmode( "face point", self.melee.target.origin );
 
     self setflaggedanimknoball( "chargeanim", var_16, %body, 1, 0.2, 1 );
-    _id_5B68( var_16 );
+    melee_playfacialanim( var_16 );
     var_17 = 0;
 
     for (;;)
@@ -498,9 +480,9 @@ _id_5B72()
         {
             if ( var_19 )
             {
-                _id_5B77();
+                melee_startmovement();
                 self setflaggedanimknoballrestart( "chargeanim", var_4, %body, 1, 0.1, 1 );
-                _id_5B68( var_4 );
+                melee_playfacialanim( var_4 );
                 var_14 = var_18;
                 var_17 = 1;
             }
@@ -511,106 +493,106 @@ _id_5B72()
 
             if ( var_18 - var_14 >= var_12 || !var_19 && !var_20 )
             {
-                _id_5B77();
+                melee_startmovement();
                 self setflaggedanimknoball( "chargeanim", var_16, %body, 1, 0.3, 1 );
-                _id_5B68( var_16 );
+                melee_playfacialanim( var_16 );
                 var_17 = 0;
             }
         }
 
-        animscripts\notetracks::_id_2D0B( var_3, "chargeanim" );
+        animscripts\notetracks::donotetracksfortime( var_3, "chargeanim" );
 
-        if ( !_id_5B76() )
+        if ( !melee_standard_updateandvalidatetarget() )
         {
-            _id_5B79();
+            melee_stopmovement();
             return 0;
         }
 
-        var_0 = common_scripts\utility::_id_2B73( self.origin, self._id_5B36.target.origin );
-        var_21 = ( self._id_5B36.target.origin - var_2 ) * 1 / ( gettime() - var_18 );
-        var_2 = self._id_5B36.target.origin;
-        var_22 = self._id_5B36.target.origin + var_21 * var_13;
-        var_15 = common_scripts\utility::_id_2B73( self.origin, var_22 );
+        var_0 = common_scripts\utility::distance_2d_squared( self.origin, self.melee.target.origin );
+        var_21 = ( self.melee.target.origin - var_2 ) * 1 / ( gettime() - var_18 );
+        var_2 = self.melee.target.origin;
+        var_22 = self.melee.target.origin + var_21 * var_13;
+        var_15 = common_scripts\utility::distance_2d_squared( self.origin, var_22 );
 
-        if ( var_17 && var_0 <= var_10 && ( gettime() - var_14 >= var_12 || !isplayer( self._id_5B36.target ) ) )
+        if ( var_17 && var_0 <= var_10 && ( gettime() - var_14 >= var_12 || !isplayer( self.melee.target ) ) )
             break;
 
-        if ( !var_17 && gettime() >= self._id_5B36._id_420F )
+        if ( !var_17 && gettime() >= self.melee.giveuptime )
         {
-            _id_5B79();
+            melee_stopmovement();
             return 0;
         }
     }
 
-    _id_5B79();
+    melee_stopmovement();
     return 1;
 }
 
-_id_5B67()
+melee_playchargesound()
 {
-    if ( !isdefined( self.a._id_60CE ) )
-        self.a._id_60CE = 0;
+    if ( !isdefined( self.a.nextmeleechargesound ) )
+        self.a.nextmeleechargesound = 0;
 
     if ( isdefined( self.enemy ) && isplayer( self.enemy ) || randomint( 3 ) == 0 )
     {
-        if ( gettime() > self.a._id_60CE )
+        if ( gettime() > self.a.nextmeleechargesound )
         {
-            animscripts\face::_id_7824( "meleecharge" );
-            self.a._id_60CE = gettime() + 8000;
+            animscripts\face::saygenericdialogue( "meleecharge" );
+            self.a.nextmeleechargesound = gettime() + 8000;
         }
     }
 }
 
-_id_5B3F( var_0 )
+melee_aivsai_exposed_chooseanimationandposition_flip( var_0 )
 {
     var_1 = 90;
 
-    if ( self._id_5B36._id_4E43 )
+    if ( self.melee.inprogress )
         var_1 += 50;
 
     if ( abs( var_0 ) < var_1 )
         return 0;
 
-    var_2 = self._id_5B36.target;
-    _id_5B4F();
+    var_2 = self.melee.target;
+    melee_decide_winner();
 
-    if ( self._id_5B36._id_A342 )
+    if ( self.melee.winner )
     {
-        self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_exposed_attackerwins_attack" );
-        var_2._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_exposed_attackerwins_defend" );
-        var_2._id_5B36._id_8FFB = animscripts\utility::_id_5863( "melee", "aivai_exposed_attackerwins_defend_survive" );
+        self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_exposed_attackerwins_attack" );
+        var_2.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_exposed_attackerwins_defend" );
+        var_2.melee.surviveanimname = animscripts\utility::lookupanim( "melee", "aivai_exposed_attackerwins_defend_survive" );
     }
     else
     {
-        self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_exposed_defenderwins_attack" );
-        var_2._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_exposed_defenderwins_defend" );
+        self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_exposed_defenderwins_attack" );
+        var_2.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_exposed_defenderwins_defend" );
     }
 
     return 1;
 }
 
-_id_5B40( var_0 )
+melee_aivsai_exposed_chooseanimationandposition_wrestle( var_0 )
 {
     var_1 = 100;
 
-    if ( self._id_5B36._id_4E43 )
+    if ( self.melee.inprogress )
         var_1 += 50;
 
     if ( abs( var_0 ) < var_1 )
         return 0;
 
-    var_2 = self._id_5B36.target;
+    var_2 = self.melee.target;
 
-    if ( isdefined( var_2._id_58D7 ) )
+    if ( isdefined( var_2.magic_bullet_shield ) )
         return 0;
 
-    if ( isdefined( var_2._id_5B7F ) )
+    if ( isdefined( var_2.meleealwayswin ) )
         return 0;
 
-    self._id_5B36._id_A342 = 1;
-    self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_wrestle_attackerwins_attack" );
-    var_2._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_wrestle_attackerwins_defend" );
-    var_2._id_5B36._id_8FFB = animscripts\utility::_id_5863( "melee", "aivai_wrestle_attackerwins_defend_survive" );
+    self.melee.winner = 1;
+    self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_wrestle_attackerwins_attack" );
+    var_2.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_wrestle_attackerwins_defend" );
+    var_2.melee.surviveanimname = animscripts\utility::lookupanim( "melee", "aivai_wrestle_attackerwins_defend_survive" );
     return 1;
 }
 
@@ -618,58 +600,58 @@ melee_aivsai_exposed_chooseanimationandposition_kick( var_0 )
 {
     var_1 = 90;
 
-    if ( self._id_5B36._id_4E43 )
+    if ( self.melee.inprogress )
         var_1 += 50;
 
     if ( abs( var_0 ) < var_1 )
         return 0;
 
-    if ( isdefined( self._id_58D7 ) )
+    if ( isdefined( self.magic_bullet_shield ) )
         return 0;
 
-    var_2 = self._id_5B36.target;
+    var_2 = self.melee.target;
 
-    if ( isdefined( self._id_5B7F ) )
+    if ( isdefined( self.meleealwayswin ) )
         return 0;
 
-    self._id_5B36._id_A342 = 0;
-    self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_exposed_defenderwins_attack_kick" );
-    self._id_5B36._id_8FFB = animscripts\utility::_id_5863( "melee", "aivai_exposed_defenderwins_attack_survive_kick" );
-    var_2._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_exposed_defenderwins_defend_kick" );
+    self.melee.winner = 0;
+    self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_exposed_defenderwins_attack_kick" );
+    self.melee.surviveanimname = animscripts\utility::lookupanim( "melee", "aivai_exposed_defenderwins_attack_survive_kick" );
+    var_2.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_exposed_defenderwins_defend_kick" );
     return 1;
 }
 
-_id_5B3D( var_0 )
+melee_aivsai_exposed_chooseanimationandposition_behind( var_0 )
 {
     if ( -90 > var_0 || var_0 > 0 )
         return 0;
 
-    var_1 = self._id_5B36.target;
+    var_1 = self.melee.target;
 
-    if ( isdefined( var_1._id_58D7 ) )
+    if ( isdefined( var_1.magic_bullet_shield ) )
         return 0;
 
-    if ( isdefined( var_1._id_5B7F ) )
+    if ( isdefined( var_1.meleealwayswin ) )
         return 0;
 
-    self._id_5B36._id_A342 = 1;
-    self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_behind_attackerwins_attack" );
-    var_1._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_behind_attackerwins_defend" );
+    self.melee.winner = 1;
+    self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_behind_attackerwins_attack" );
+    var_1.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_behind_attackerwins_defend" );
     return 1;
 }
 
-_id_5B3E()
+melee_aivsai_exposed_chooseanimationandposition_buildexposedlist()
 {
-    if ( isdefined( self._id_5B88 ) )
-        var_0[0] = ::_id_5B3F;
-    else if ( isdefined( self._id_5B89 ) )
-        var_0[0] = ::_id_5B40;
+    if ( isdefined( self.meleeforcedexposedflip ) )
+        var_0[0] = ::melee_aivsai_exposed_chooseanimationandposition_flip;
+    else if ( isdefined( self.meleeforcedexposedwrestle ) )
+        var_0[0] = ::melee_aivsai_exposed_chooseanimationandposition_wrestle;
     else
     {
-        var_0[0] = ::_id_5B3F;
-        var_0[1] = ::_id_5B40;
+        var_0[0] = ::melee_aivsai_exposed_chooseanimationandposition_flip;
+        var_0[1] = ::melee_aivsai_exposed_chooseanimationandposition_wrestle;
         var_0[2] = ::melee_aivsai_exposed_chooseanimationandposition_kick;
-        var_0[3] = ::_id_5B3D;
+        var_0[3] = ::melee_aivsai_exposed_chooseanimationandposition_behind;
 
         for ( var_1 = 2; var_1 > 0; var_1-- )
         {
@@ -683,24 +665,24 @@ _id_5B3E()
     return var_0;
 }
 
-_id_5B3C()
+melee_aivsai_exposed_chooseanimationandposition()
 {
     if ( isdefined( self.h1_melee_animations_enabled ) && !self.h1_melee_animations_enabled )
         return 0;
 
-    var_0 = self._id_5B36.target;
+    var_0 = self.melee.target;
     var_1 = vectortoangles( var_0.origin - self.origin );
     var_2 = angleclamp180( var_0.angles[1] - var_1[1] );
-    var_3 = _id_5B3E();
+    var_3 = melee_aivsai_exposed_chooseanimationandposition_buildexposedlist();
 
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
         if ( [[ var_3[var_4] ]]( var_2 ) )
         {
-            self._id_5B36._id_8CFF = ( 0, var_1[1], 0 );
-            self._id_5B36._id_8D38 = getstartorigin( var_0.origin, var_0.angles, self._id_5B36.animname );
+            self.melee.startangles = ( 0, var_1[1], 0 );
+            self.melee.startpos = getstartorigin( var_0.origin, var_0.angles, self.melee.animname );
 
-            if ( _id_5B7E() )
+            if ( melee_updateandvalidatestartpos() )
                 return 1;
         }
     }
@@ -708,89 +690,89 @@ _id_5B3C()
     return 0;
 }
 
-_id_5B4F()
+melee_decide_winner()
 {
-    var_0 = self._id_5B36.target;
+    var_0 = self.melee.target;
 
-    if ( isdefined( self._id_5B7F ) )
+    if ( isdefined( self.meleealwayswin ) )
     {
-        self._id_5B36._id_A342 = 1;
+        self.melee.winner = 1;
         return;
     }
-    else if ( isdefined( var_0._id_5B7F ) )
+    else if ( isdefined( var_0.meleealwayswin ) )
     {
-        self._id_5B36._id_A342 = 0;
+        self.melee.winner = 0;
         return;
     }
 
-    if ( isdefined( self._id_58D7 ) )
-        self._id_5B36._id_A342 = 1;
-    else if ( isdefined( var_0._id_58D7 ) )
-        self._id_5B36._id_A342 = 0;
+    if ( isdefined( self.magic_bullet_shield ) )
+        self.melee.winner = 1;
+    else if ( isdefined( var_0.magic_bullet_shield ) )
+        self.melee.winner = 0;
     else
-        self._id_5B36._id_A342 = common_scripts\utility::_id_2006();
+        self.melee.winner = common_scripts\utility::cointoss();
 }
 
-_id_5B48()
+melee_aivsai_specialcover_chooseanimationandposition()
 {
-    var_0 = self._id_5B36.target;
-    _id_5B4F();
-    var_1 = var_0._id_22BA.type;
+    var_0 = self.melee.target;
+    melee_decide_winner();
+    var_1 = var_0.covernode.type;
 
     if ( var_1 == "Cover Multi" )
-        var_1 = animscripts\utility::_id_3F3F( var_0._id_22BA );
+        var_1 = animscripts\utility::getcovermultipretendtype( var_0.covernode );
 
     if ( var_1 == "Cover Left" )
     {
-        if ( self._id_5B36._id_A342 )
+        if ( self.melee.winner )
         {
-            self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverleft_attackerwins_attack" );
-            var_0._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverleft_attackerwins_defend" );
-            var_0._id_5B36._id_8FFB = animscripts\utility::_id_5863( "melee", "aivai_coverleft_attackerwins_defend_survive" );
+            self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverleft_attackerwins_attack" );
+            var_0.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverleft_attackerwins_defend" );
+            var_0.melee.surviveanimname = animscripts\utility::lookupanim( "melee", "aivai_coverleft_attackerwins_defend_survive" );
         }
         else
         {
-            self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverleft_defenderwins_attack" );
-            self._id_5B36._id_8FFB = animscripts\utility::_id_5863( "melee", "aivai_coverleft_defenderwins_attack_survive" );
-            var_0._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverleft_defenderwins_defend" );
+            self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverleft_defenderwins_attack" );
+            self.melee.surviveanimname = animscripts\utility::lookupanim( "melee", "aivai_coverleft_defenderwins_attack_survive" );
+            var_0.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverleft_defenderwins_defend" );
         }
     }
-    else if ( self._id_5B36._id_A342 )
+    else if ( self.melee.winner )
     {
-        self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverright_attackerwins_attack" );
-        var_0._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverright_attackerwins_defend" );
+        self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverright_attackerwins_attack" );
+        var_0.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverright_attackerwins_defend" );
     }
     else
     {
-        self._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverright_defenderwins_attack" );
-        var_0._id_5B36.animname = animscripts\utility::_id_5863( "melee", "aivai_coverright_defenderwins_defend" );
+        self.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverright_defenderwins_attack" );
+        var_0.melee.animname = animscripts\utility::lookupanim( "melee", "aivai_coverright_defenderwins_defend" );
     }
 
-    self._id_5B36._id_8D38 = getstartorigin( var_0._id_22BA.origin, var_0._id_22BA.angles, self._id_5B36.animname );
-    self._id_5B36._id_8CFF = ( var_0._id_22BA.angles[0], angleclamp180( var_0._id_22BA.angles[1] + 180 ), var_0._id_22BA.angles[2] );
-    var_0._id_5B36._id_35C0 = animscripts\utility::_id_404B( var_0._id_22BA );
-    self._id_5B36._id_8D43 = var_0._id_22BA.angles;
+    self.melee.startpos = getstartorigin( var_0.covernode.origin, var_0.covernode.angles, self.melee.animname );
+    self.melee.startangles = ( var_0.covernode.angles[0], angleclamp180( var_0.covernode.angles[1] + 180 ), var_0.covernode.angles[2] );
+    var_0.melee.faceyaw = animscripts\utility::getnodeforwardyaw( var_0.covernode );
+    self.melee.starttotargetcornerangles = var_0.covernode.angles;
 
-    if ( !_id_5B7E() )
+    if ( !melee_updateandvalidatestartpos() )
     {
-        self._id_5B36._id_8D43 = undefined;
+        self.melee.starttotargetcornerangles = undefined;
         return 0;
     }
 
     return 1;
 }
 
-_id_5B47()
+melee_aivsai_specialcover_canexecute()
 {
     if ( isdefined( self.h1_melee_animations_enabled ) && !self.h1_melee_animations_enabled )
         return 0;
 
-    var_0 = self._id_5B36.target._id_22BA;
+    var_0 = self.melee.target.covernode;
 
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( distancesquared( var_0.origin, self._id_5B36.target.origin ) > 16 && isdefined( self._id_5B36.target.a._id_22AB ) && ( self._id_5B36.target.a._id_22AB != "hide" && self._id_5B36.target.a._id_22AB != "lean" ) )
+    if ( distancesquared( var_0.origin, self.melee.target.origin ) > 16 && isdefined( self.melee.target.a.covermode ) && ( self.melee.target.a.covermode != "hide" && self.melee.target.a.covermode != "lean" ) )
         return 0;
 
     var_1 = vectortoangles( self.origin - var_0.origin );
@@ -798,7 +780,7 @@ _id_5B47()
     var_3 = var_0.type;
 
     if ( var_3 == "Cover Multi" )
-        var_3 = animscripts\utility::_id_3F3F( var_0 );
+        var_3 = animscripts\utility::getcovermultipretendtype( var_0 );
 
     if ( var_3 == "Cover Left" )
     {
@@ -814,9 +796,9 @@ _id_5B47()
     return 0;
 }
 
-_id_5B3A()
+melee_aivsai_chooseaction()
 {
-    var_0 = self._id_5B36.target;
+    var_0 = self.melee.target;
 
     if ( !isai( var_0 ) || var_0.type != "human" )
         return 0;
@@ -824,118 +806,118 @@ _id_5B3A()
     if ( self.stairsstate != "none" || var_0.stairsstate != "none" )
         return 0;
 
-    if ( isdefined( self._id_5B7F ) && isdefined( var_0._id_5B7F ) )
+    if ( isdefined( self.meleealwayswin ) && isdefined( var_0.meleealwayswin ) )
         return 0;
 
-    if ( isdefined( self._id_58D7 ) && isdefined( var_0._id_58D7 ) )
+    if ( isdefined( self.magic_bullet_shield ) && isdefined( var_0.magic_bullet_shield ) )
         return 0;
 
-    if ( isdefined( self._id_5B7F ) && isdefined( var_0._id_58D7 ) || isdefined( var_0._id_5B7F ) && isdefined( self._id_58D7 ) )
+    if ( isdefined( self.meleealwayswin ) && isdefined( var_0.magic_bullet_shield ) || isdefined( var_0.meleealwayswin ) && isdefined( self.magic_bullet_shield ) )
         return 0;
 
-    if ( isdefined( self._id_8A32 ) )
+    if ( isdefined( self.specialmeleechooseaction ) )
     {
-        if ( ![[ self._id_8A32 ]]() )
+        if ( ![[ self.specialmeleechooseaction ]]() )
             return 0;
 
-        self._id_5B36._id_6EE9 = 1;
+        self.melee.precisepositioning = 1;
     }
-    else if ( isdefined( var_0._id_8A32 ) )
+    else if ( isdefined( var_0.specialmeleechooseaction ) )
         return 0;
-    else if ( _id_5B47() && _id_5B48() )
-        self._id_5B36._id_6EE9 = 1;
+    else if ( melee_aivsai_specialcover_canexecute() && melee_aivsai_specialcover_chooseanimationandposition() )
+        self.melee.precisepositioning = 1;
     else
     {
-        if ( !_id_5B3C() )
+        if ( !melee_aivsai_exposed_chooseanimationandposition() )
             return 0;
 
-        self._id_5B36._id_6EE9 = 0;
+        self.melee.precisepositioning = 0;
     }
 
-    if ( !isdefined( var_0._id_5B36._id_35C0 ) )
-        var_0._id_5B36._id_35C0 = var_0.angles[1];
+    if ( !isdefined( var_0.melee.faceyaw ) )
+        var_0.melee.faceyaw = var_0.angles[1];
 
-    self._id_5B36._id_8D39 = self._id_5B36._id_8D38 - var_0.origin;
+    self.melee.startposoffset = self.melee.startpos - var_0.origin;
     return 1;
 }
 
-_id_5B46( var_0 )
+melee_aivsai_schedulenotetracklink( var_0 )
 {
-    self._id_5B36._id_9088 = var_0;
-    var_0._id_5B36._id_9088 = undefined;
+    self.melee.syncnotetrackent = var_0;
+    var_0.melee.syncnotetrackent = undefined;
 }
 
-_id_5B49( var_0 )
+melee_aivsai_targetlink( var_0 )
 {
-    if ( !isdefined( var_0._id_5B36 ) )
+    if ( !isdefined( var_0.melee ) )
         return;
 
-    _id_5B67();
+    melee_playchargesound();
 
     if ( !isalive( var_0 ) )
         return;
 
     self.syncedmeleetarget = var_0;
     var_0.syncedmeleetarget = self;
-    self._id_5B36._id_5786 = 1;
-    var_0._id_5B36._id_5786 = 1;
+    self.melee.linked = 1;
+    var_0.melee.linked = 1;
     self linktoblendtotag( var_0, "tag_sync", 1, 1 );
 }
 
-_id_5B45()
+melee_aivsai_main()
 {
-    if ( !_id_5B41() )
+    if ( !melee_aivsai_getinposition() )
     {
-        self._id_60D0 = gettime() + 1500;
-        self._id_60CF = self._id_5B36.target;
+        self.nextmeleechargetime = gettime() + 1500;
+        self.nextmeleechargetarget = self.melee.target;
         return;
     }
 
-    var_0 = self._id_5B36.target;
+    var_0 = self.melee.target;
 
-    if ( !animhasnotetrack( self._id_5B36.animname, "sync" ) )
+    if ( !animhasnotetrack( self.melee.animname, "sync" ) )
         return;
 
-    _id_5B46( var_0 );
+    melee_aivsai_schedulenotetracklink( var_0 );
 
-    if ( self._id_5B36._id_A342 )
+    if ( self.melee.winner )
     {
-        self._id_5B36.death = undefined;
-        var_0._id_5B36.death = 1;
+        self.melee.death = undefined;
+        var_0.melee.death = 1;
     }
     else
     {
-        var_0._id_5B36.death = undefined;
-        self._id_5B36.death = 1;
+        var_0.melee.death = undefined;
+        self.melee.death = 1;
     }
 
-    self._id_5B36._id_66A5 = var_0;
-    var_0._id_5B36._id_66A5 = self;
+    self.melee.partner = var_0;
+    var_0.melee.partner = self;
 
-    if ( animscripts\utility::_id_9C3A() )
+    if ( animscripts\utility::usingsidearm() )
     {
-        maps\_utility::_id_39D0( self.primaryweapon, "primary" );
-        self._id_560F = self.primaryweapon;
+        maps\_utility::forceuseweapon( self.primaryweapon, "primary" );
+        self.lastweapon = self.primaryweapon;
     }
 
-    if ( var_0 animscripts\utility::_id_9C3A() )
+    if ( var_0 animscripts\utility::usingsidearm() )
     {
-        var_0 maps\_utility::_id_39D0( var_0.primaryweapon, "primary" );
-        var_0._id_560F = var_0.primaryweapon;
+        var_0 maps\_utility::forceuseweapon( var_0.primaryweapon, "primary" );
+        var_0.lastweapon = var_0.primaryweapon;
     }
 
-    self._id_5B36.weapon = self.weapon;
-    self._id_5B36._id_A2E9 = animscripts\utility::_id_3F47();
-    var_0._id_5B36.weapon = var_0.weapon;
-    var_0._id_5B36._id_A2E9 = var_0 animscripts\utility::_id_3F47();
-    self._id_5B36._id_4E43 = 1;
-    var_0 _meth_819E( ::_id_5B3B, ::_id_5B54 );
-    var_0 thread _id_5B39( self );
-    self._id_5B36.target = undefined;
-    _id_5B3B();
+    self.melee.weapon = self.weapon;
+    self.melee.weaponslot = animscripts\utility::getcurrentweaponslotname();
+    var_0.melee.weapon = var_0.weapon;
+    var_0.melee.weaponslot = var_0 animscripts\utility::getcurrentweaponslotname();
+    self.melee.inprogress = 1;
+    var_0 animcustom( ::melee_aivsai_execute, ::melee_endscript );
+    var_0 thread melee_aivsai_animcustominterruptionmonitor( self );
+    self.melee.target = undefined;
+    melee_aivsai_execute();
 }
 
-_id_5B39( var_0 )
+melee_aivsai_animcustominterruptionmonitor( var_0 )
 {
     self endon( "end_melee" );
     self endon( "melee_aivsai_execute" );
@@ -947,18 +929,18 @@ _id_5B39( var_0 )
     self notify( "end_melee" );
 }
 
-_id_5B44( var_0, var_1 )
+melee_aivsai_getinposition_updateandvalidatetarget( var_0, var_1 )
 {
     if ( isdefined( var_1 ) && var_1 <= gettime() )
         return 0;
 
-    if ( !_id_5B62() )
+    if ( !melee_isvalid() )
         return 0;
 
-    var_2 = self._id_5B36.target;
+    var_2 = self.melee.target;
     var_3 = distancesquared( var_2.origin, var_0 );
 
-    if ( self._id_5B36._id_6EE9 )
+    if ( self.melee.precisepositioning )
         var_4 = 256;
     else
         var_4 = 1296;
@@ -966,201 +948,201 @@ _id_5B44( var_0, var_1 )
     if ( var_3 > var_4 )
         return 0;
 
-    self._id_5B36._id_8D38 = var_2.origin + self._id_5B36._id_8D39;
+    self.melee.startpos = var_2.origin + self.melee.startposoffset;
 
-    if ( !_id_5B7E() )
+    if ( !melee_updateandvalidatestartpos() )
         return 0;
 
     return 1;
 }
 
-_id_5B43( var_0 )
+melee_aivsai_getinposition_issuccessful( var_0 )
 {
-    var_1 = distancesquared( ( self.origin[0], self.origin[1], 0 ), ( self._id_5B36._id_8D38[0], self._id_5B36._id_8D38[1], 0 ) );
+    var_1 = distancesquared( ( self.origin[0], self.origin[1], 0 ), ( self.melee.startpos[0], self.melee.startpos[1], 0 ) );
 
-    if ( var_1 < 64 && abs( self._id_5B36._id_8D38[2] - self.origin[2] ) < 64 )
+    if ( var_1 < 64 && abs( self.melee.startpos[2] - self.origin[2] ) < 64 )
         return 1;
 
-    var_2 = distancesquared( ( var_0[0], var_0[1], 0 ), ( self._id_5B36._id_8D38[0], self._id_5B36._id_8D38[1], 0 ) );
-    var_3 = distancesquared( ( self.origin[0], self.origin[1], 0 ), ( self._id_5B36.target.origin[0], self._id_5B36.target.origin[1], 0 ) );
+    var_2 = distancesquared( ( var_0[0], var_0[1], 0 ), ( self.melee.startpos[0], self.melee.startpos[1], 0 ) );
+    var_3 = distancesquared( ( self.origin[0], self.origin[1], 0 ), ( self.melee.target.origin[0], self.melee.target.origin[1], 0 ) );
 
-    if ( var_2 > var_3 && abs( self._id_5B36.target.origin[2] - self.origin[2] ) < 64 )
+    if ( var_2 > var_3 && abs( self.melee.target.origin[2] - self.origin[2] ) < 64 )
         return 1;
 
     return 0;
 }
 
-_id_5B42( var_0 )
+melee_aivsai_getinposition_finalize( var_0 )
 {
-    _id_5B79();
+    melee_stopmovement();
 
-    if ( self._id_5B36._id_6EE9 )
+    if ( self.melee.precisepositioning )
     {
-        self _meth_81CA( self._id_5B36._id_8D38, self._id_5B36._id_8CFF );
+        self forceteleport( self.melee.startpos, self.melee.startangles );
         wait 0.05;
     }
     else
     {
-        self _meth_8193( "face angle", self._id_5B36._id_8CFF[1] );
+        self orientmode( "face angle", self.melee.startangles[1] );
         wait 0.05;
     }
 
-    return _id_5B44( var_0 );
+    return melee_aivsai_getinposition_updateandvalidatetarget( var_0 );
 }
 
-_id_5B41()
+melee_aivsai_getinposition()
 {
-    if ( !_id_5B62() )
+    if ( !melee_isvalid() )
         return 0;
 
-    _id_5B77();
-    self _meth_8144( %body, 0.2 );
-    self _meth_8149( animscripts\run::_id_40BD(), %body, 1, 0.2 );
-    self _meth_8192( "zonly_physics" );
+    melee_startmovement();
+    self clearanim( %body, 0.2 );
+    self setanimknoball( animscripts\run::getrunanim(), %body, 1, 0.2 );
+    self animmode( "zonly_physics" );
     self.keepclaimednode = 1;
     var_0 = gettime() + 1500;
-    var_1 = self._id_5B36.target.origin;
+    var_1 = self.melee.target.origin;
 
-    while ( _id_5B44( var_1, var_0 ) )
+    while ( melee_aivsai_getinposition_updateandvalidatetarget( var_1, var_0 ) )
     {
-        if ( _id_5B43( var_1 ) )
-            return _id_5B42( var_1 );
+        if ( melee_aivsai_getinposition_issuccessful( var_1 ) )
+            return melee_aivsai_getinposition_finalize( var_1 );
 
-        self _meth_8193( "face point", self._id_5B36._id_8D38 );
+        self orientmode( "face point", self.melee.startpos );
         wait 0.05;
     }
 
-    _id_5B79();
+    melee_stopmovement();
     return 0;
 }
 
-_id_5B3B()
+melee_aivsai_execute()
 {
     self endon( "killanimscript" );
     self endon( "end_melee" );
     self notify( "melee_aivsai_execute" );
-    self _meth_8192( "zonly_physics" );
-    self.a._id_8A1A = "none";
-    self._id_8A2C = undefined;
-    thread _id_5B52();
-    thread _id_5B65();
+    self animmode( "zonly_physics" );
+    self.a.special = "none";
+    self.specialdeathfunc = undefined;
+    thread melee_droppedweaponmonitorthread();
+    thread melee_partnerendedmeleemonitorthread();
 
-    if ( isdefined( self._id_5B36._id_35C0 ) )
-        self _meth_8193( "face angle", self._id_5B36._id_35C0 );
+    if ( isdefined( self.melee.faceyaw ) )
+        self orientmode( "face angle", self.melee.faceyaw );
     else
-        self _meth_8193( "face current" );
+        self orientmode( "face current" );
 
-    self.a._id_6E5A = "stand";
-    self _meth_8144( %body, 0.2 );
+    self.a.pose = "stand";
+    self clearanim( %body, 0.2 );
 
-    if ( isdefined( self._id_5B36.death ) )
-        _id_5B50();
+    if ( isdefined( self.melee.death ) )
+        melee_disableinterruptions();
 
-    self setflaggedanimknoballrestart( "meleeAnim", self._id_5B36.animname, %body, 1, 0.2 );
-    _id_5B68( self._id_5B36.animname );
-    var_0 = animscripts\shared::_id_2D06( "meleeAnim", ::_id_5B5C );
+    self setflaggedanimknoballrestart( "meleeAnim", self.melee.animname, %body, 1, 0.2 );
+    melee_playfacialanim( self.melee.animname );
+    var_0 = animscripts\shared::donotetracks( "meleeAnim", ::melee_handlenotetracks );
 
-    if ( var_0 == "melee_death" && ( isdefined( self._id_5B36._id_8FF9 ) || isdefined( self._id_58D7 ) && self._id_58D7 ) )
+    if ( var_0 == "melee_death" && ( isdefined( self.melee.survive ) || isdefined( self.magic_bullet_shield ) && self.magic_bullet_shield ) )
     {
-        _id_5B53();
-        self setflaggedanimknoballrestart( "meleeAnim", self._id_5B36._id_8FFB, %body, 1, 0.2 );
-        _id_5B68( self._id_5B36._id_8FFB );
-        var_0 = animscripts\shared::_id_2D06( "meleeAnim", ::_id_5B5C );
+        melee_droppedweaponrestore();
+        self setflaggedanimknoballrestart( "meleeAnim", self.melee.surviveanimname, %body, 1, 0.2 );
+        melee_playfacialanim( self.melee.surviveanimname );
+        var_0 = animscripts\shared::donotetracks( "meleeAnim", ::melee_handlenotetracks );
     }
 
-    if ( isdefined( self._id_5B36 ) && isdefined( self._id_5B36.death ) )
+    if ( isdefined( self.melee ) && isdefined( self.melee.death ) )
         self kill();
 
     self.keepclaimednode = 0;
 }
 
-_id_5B50()
+melee_disableinterruptions()
 {
-    self._id_5B36._id_A1BF = self.allowpain;
-    self._id_5B36._id_A1C9 = self._id_38A8;
-    maps\_utility::_id_2AC2();
-    maps\_utility::_id_7F71( 1 );
+    self.melee.wasallowingpain = self.allowpain;
+    self.melee.wasflashbangimmune = self.flashbangimmunity;
+    maps\_utility::disable_pain();
+    maps\_utility::setflashbangimmunity( 1 );
 }
 
-_id_5B64()
+melee_needsweaponswap()
 {
-    return isdefined( self._id_5B36.weapon ) && self._id_5B36.weapon != "none" && self.weapon != self._id_5B36.weapon;
+    return isdefined( self.melee.weapon ) && self.melee.weapon != "none" && self.weapon != self.melee.weapon;
 }
 
-_id_5B53()
+melee_droppedweaponrestore()
 {
-    if ( self.weapon != "none" && self._id_560F != "none" )
+    if ( self.weapon != "none" && self.lastweapon != "none" )
         return;
 
-    if ( !isdefined( self._id_5B36.weapon ) || self._id_5B36.weapon == "none" )
+    if ( !isdefined( self.melee.weapon ) || self.melee.weapon == "none" )
         return;
 
-    maps\_utility::_id_39D0( self._id_5B36.weapon, self._id_5B36._id_A2E9 );
+    maps\_utility::forceuseweapon( self.melee.weapon, self.melee.weaponslot );
 
-    if ( isdefined( self._id_5B36._id_2F75 ) )
+    if ( isdefined( self.melee.droppedweaponent ) )
     {
-        self._id_5B36._id_2F75 delete();
-        self._id_5B36._id_2F75 = undefined;
+        self.melee.droppedweaponent delete();
+        self.melee.droppedweaponent = undefined;
     }
 }
 
-_id_5B52()
+melee_droppedweaponmonitorthread()
 {
     self endon( "killanimscript" );
     self endon( "end_melee" );
     self waittill( "weapon_dropped", var_0 );
 
     if ( isdefined( var_0 ) )
-        self._id_5B36._id_2F75 = var_0;
+        self.melee.droppedweaponent = var_0;
 }
 
-_id_5B66()
+melee_partnerendedmeleemonitorthread_shouldanimsurvive()
 {
-    if ( !isdefined( self._id_5B36._id_8FFB ) )
+    if ( !isdefined( self.melee.surviveanimname ) )
         return 0;
 
-    if ( !isdefined( self._id_5B36._id_8FFA ) )
+    if ( !isdefined( self.melee.surviveanimallowed ) )
         return 0;
 
     return 1;
 }
 
-_id_5B65()
+melee_partnerendedmeleemonitorthread()
 {
     self endon( "killanimscript" );
     self endon( "end_melee" );
     self waittill( "partner_end_melee" );
 
-    if ( isdefined( self._id_5B36.death ) )
+    if ( isdefined( self.melee.death ) )
     {
-        if ( isdefined( self._id_5B36.animateddeath ) || isdefined( self._id_5B36._id_4EC1 ) )
+        if ( isdefined( self.melee.animateddeath ) || isdefined( self.melee.interruptdeath ) )
             self kill();
         else
         {
-            self._id_5B36.death = undefined;
+            self.melee.death = undefined;
 
-            if ( _id_5B66() )
-                self._id_5B36._id_8FF9 = 1;
+            if ( melee_partnerendedmeleemonitorthread_shouldanimsurvive() )
+                self.melee.survive = 1;
             else
                 self notify( "end_melee" );
         }
     }
-    else if ( !isdefined( self._id_5B36._id_9A98 ) )
+    else if ( !isdefined( self.melee.unsynchappened ) )
         self notify( "end_melee" );
 }
 
-_id_5B7C()
+melee_unlink()
 {
-    if ( !isdefined( self._id_5B36._id_5786 ) )
+    if ( !isdefined( self.melee.linked ) )
         return;
 
     if ( isdefined( self.syncedmeleetarget ) )
-        self.syncedmeleetarget _id_5B7D();
+        self.syncedmeleetarget melee_unlinkinternal();
 
-    _id_5B7D();
+    melee_unlinkinternal();
 }
 
-_id_5B7D()
+melee_unlinkinternal()
 {
     self unlink();
     self.syncedmeleetarget = undefined;
@@ -1168,37 +1150,37 @@ _id_5B7D()
     if ( !isalive( self ) )
         return;
 
-    self._id_5B36._id_5786 = undefined;
-    self _meth_8192( "zonly_physics" );
-    self _meth_8193( "face angle", self.angles[1] );
+    self.melee.linked = undefined;
+    self animmode( "zonly_physics" );
+    self orientmode( "face angle", self.angles[1] );
 }
 
-_id_5B5F()
+melee_handlenotetracks_unsync()
 {
-    _id_5B7C();
-    self._id_5B36._id_9A98 = 1;
+    melee_unlink();
+    self.melee.unsynchappened = 1;
 
-    if ( isdefined( self._id_5B36._id_66A5 ) && isdefined( self._id_5B36._id_66A5._id_5B36 ) )
-        self._id_5B36._id_66A5._id_5B36._id_9A98 = 1;
+    if ( isdefined( self.melee.partner ) && isdefined( self.melee.partner.melee ) )
+        self.melee.partner.melee.unsynchappened = 1;
 }
 
-_id_5B5E()
+melee_handlenotetracks_shoulddieafterunsync()
 {
-    if ( animhasnotetrack( self._id_5B36.animname, "melee_death" ) )
+    if ( animhasnotetrack( self.melee.animname, "melee_death" ) )
         return 0;
 
-    return isdefined( self._id_5B36.death );
+    return isdefined( self.melee.death );
 }
 
-_id_5B5D( var_0 )
+melee_handlenotetracks_death( var_0 )
 {
     if ( isdefined( var_0 ) && var_0 )
-        self._id_5B36._id_4EC1 = 1;
+        self.melee.interruptdeath = 1;
     else
-        self._id_5B36.animateddeath = 1;
+        self.melee.animateddeath = 1;
 }
 
-_id_5B5C( var_0 )
+melee_handlenotetracks( var_0 )
 {
     if ( issubstr( var_0, "ps_" ) )
     {
@@ -1207,36 +1189,36 @@ _id_5B5C( var_0 )
     }
     else if ( var_0 == "sync" )
     {
-        if ( isdefined( self._id_5B36._id_9088 ) )
+        if ( isdefined( self.melee.syncnotetrackent ) )
         {
-            _id_5B49( self._id_5B36._id_9088 );
-            self._id_5B36._id_9088 = undefined;
+            melee_aivsai_targetlink( self.melee.syncnotetrackent );
+            self.melee.syncnotetrackent = undefined;
         }
     }
     else if ( var_0 == "unsync" )
     {
-        _id_5B5F();
+        melee_handlenotetracks_unsync();
 
-        if ( _id_5B5E() )
-            _id_5B5D();
+        if ( melee_handlenotetracks_shoulddieafterunsync() )
+            melee_handlenotetracks_death();
     }
     else if ( var_0 == "melee_interact" )
-        self._id_5B36._id_8FFA = 1;
+        self.melee.surviveanimallowed = 1;
     else if ( var_0 == "melee_death" )
     {
-        var_2 = isdefined( self._id_58D7 ) && self._id_58D7;
+        var_2 = isdefined( self.magic_bullet_shield ) && self.magic_bullet_shield;
 
-        if ( isdefined( self._id_5B36._id_8FF9 ) || var_2 )
+        if ( isdefined( self.melee.survive ) || var_2 )
         {
             if ( var_2 )
-                self._id_5B36.death = undefined;
+                self.melee.death = undefined;
 
             return var_0;
         }
 
-        _id_5B5D();
+        melee_handlenotetracks_death();
 
-        if ( isdefined( self._id_5B36.animateddeath ) )
+        if ( isdefined( self.melee.animateddeath ) )
         {
             return var_0;
             return;
@@ -1245,14 +1227,14 @@ _id_5B5C( var_0 )
     else if ( var_0 == "attach_knife" )
     {
         self attach( "weapon_parabolic_knife", "TAG_INHAND", 1 );
-        self._id_5B36._id_4732 = 1;
+        self.melee.hasknife = 1;
     }
     else
     {
         if ( var_0 == "detach_knife" )
         {
             self detach( "weapon_parabolic_knife", "TAG_INHAND", 1 );
-            self._id_5B36._id_4732 = undefined;
+            self.melee.hasknife = undefined;
             return;
         }
 
@@ -1260,130 +1242,130 @@ _id_5B5C( var_0 )
         {
             self playsound( "melee_knife_hit_body" );
 
-            if ( maps\_utility::_id_4749( self.model, "TAG_KNIFE_FX" ) )
+            if ( maps\_utility::hastag( self.model, "TAG_KNIFE_FX" ) )
                 playfxontag( level._effect["melee_knife_ai"], self, "TAG_KNIFE_FX" );
             else
             {
 
             }
 
-            if ( isdefined( self._id_5B36._id_66A5 ) && isdefined( self._id_5B36._id_66A5._id_5B36 ) )
-                self._id_5B36._id_66A5 _id_5B5D( 1 );
+            if ( isdefined( self.melee.partner ) && isdefined( self.melee.partner.melee ) )
+                self.melee.partner melee_handlenotetracks_death( 1 );
         }
     }
 }
 
-_id_5B4E()
+melee_deathhandler_regular()
 {
     self endon( "end_melee" );
-    animscripts\shared::_id_2F6C();
+    animscripts\shared::dropallaiweapons();
     return 0;
 }
 
-_id_5B4D()
+melee_deathhandler_delayed()
 {
     self endon( "end_melee" );
-    animscripts\notetracks::_id_2D14( "meleeAnim", 10.0 );
-    animscripts\shared::_id_2F6C();
+    animscripts\notetracks::donotetrackswithtimeout( "meleeAnim", 10.0 );
+    animscripts\shared::dropallaiweapons();
     self startragdoll();
     return 1;
 }
 
-_id_5B55()
+melee_endscript_checkdeath()
 {
-    if ( !isalive( self ) && isdefined( self._id_5B36.death ) )
+    if ( !isalive( self ) && isdefined( self.melee.death ) )
     {
-        if ( isdefined( self._id_5B36.animateddeath ) )
-            self._id_2660 = ::_id_5B4D;
+        if ( isdefined( self.melee.animateddeath ) )
+            self.deathfunction = ::melee_deathhandler_delayed;
         else
-            self._id_2660 = ::_id_5B4E;
+            self.deathfunction = ::melee_deathhandler_regular;
     }
 }
 
-_id_5B56()
+melee_endscript_checkpositionandmovement()
 {
     if ( !isalive( self ) )
         return;
 
-    if ( isdefined( self._id_5B36._id_6DB8 ) )
-        _id_5B79();
+    if ( isdefined( self.melee.playingmovementanim ) )
+        melee_stopmovement();
 
-    var_0 = self _meth_813E();
+    var_0 = self getdroptofloorposition();
 
     if ( isdefined( var_0 ) )
-        self _meth_81CA( var_0, self.angles );
+        self forceteleport( var_0, self.angles );
     else
     {
 
     }
 }
 
-_id_5B58()
+melee_endscript_checkweapon()
 {
-    if ( isdefined( self._id_5B36._id_4732 ) )
+    if ( isdefined( self.melee.hasknife ) )
         self detach( "weapon_parabolic_knife", "TAG_INHAND", 1 );
 
     if ( isalive( self ) )
-        _id_5B53();
+        melee_droppedweaponrestore();
 }
 
-_id_5B57()
+melee_endscript_checkstatechanges()
 {
-    if ( isdefined( self._id_5B36._id_A1BF ) )
+    if ( isdefined( self.melee.wasallowingpain ) )
     {
-        if ( self._id_5B36._id_A1BF )
-            maps\_utility::_id_30D9();
+        if ( self.melee.wasallowingpain )
+            maps\_utility::enable_pain();
         else
-            maps\_utility::_id_2AC2();
+            maps\_utility::disable_pain();
     }
 
-    if ( isdefined( self._id_5B36._id_A1C9 ) )
-        maps\_utility::_id_7F71( self._id_5B36._id_A1C9 );
+    if ( isdefined( self.melee.wasflashbangimmune ) )
+        maps\_utility::setflashbangimmunity( self.melee.wasflashbangimmune );
 }
 
-_id_5B54()
+melee_endscript()
 {
-    _id_5B7C();
-    _id_5B55();
-    _id_5B56();
-    _id_5B58();
-    _id_5B57();
+    melee_unlink();
+    melee_endscript_checkdeath();
+    melee_endscript_checkpositionandmovement();
+    melee_endscript_checkweapon();
+    melee_endscript_checkstatechanges();
 
-    if ( isdefined( self._id_5B36._id_66A5 ) )
-        self._id_5B36._id_66A5 notify( "partner_end_melee" );
+    if ( isdefined( self.melee.partner ) )
+        self.melee.partner notify( "partner_end_melee" );
 
-    _id_5B6A( self._id_5B36.target );
-    _id_5B4B();
+    melee_releasemutex( self.melee.target );
+    melee_clearfacialanim();
 }
 
-_id_5B38( var_0 )
+melee_acquiremutex( var_0 )
 {
-    if ( isdefined( self._id_5B36 ) )
+    if ( isdefined( self.melee ) )
         return 0;
 
-    if ( isdefined( var_0._id_5B36 ) )
+    if ( isdefined( var_0.melee ) )
         return 0;
 
-    self._id_5B36 = spawnstruct();
-    var_0._id_5B36 = spawnstruct();
+    self.melee = spawnstruct();
+    var_0.melee = spawnstruct();
     return 1;
 }
 
-_id_5B6A( var_0 )
+melee_releasemutex( var_0 )
 {
-    self._id_5B36 = undefined;
+    self.melee = undefined;
 
     if ( isdefined( var_0 ) )
-        var_0._id_5B36 = undefined;
+        var_0.melee = undefined;
 }
 
-_id_5B68( var_0 )
+melee_playfacialanim( var_0 )
 {
-    self._id_35C7 = animscripts\face::_id_6D9B( var_0, "pain", self._id_35C7 );
+    self.facialidx = animscripts\face::playfacialanim( var_0, "pain", self.facialidx );
 }
 
-_id_5B4B()
+melee_clearfacialanim()
 {
-    self._id_35C7 = undefined;
-    self _meth_8144( %head, 0.2 );
+    self.facialidx = undefined;
+    self clearanim( %head, 0.2 );
 }

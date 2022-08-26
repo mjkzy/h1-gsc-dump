@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     maps\mp\gametypes\_globallogic::init();
@@ -43,11 +25,11 @@ main()
         level.matchrules_vampirism = 0;
     }
 
-    maps\mp\_utility::_id_7FD9( 5 );
+    maps\mp\_utility::setovertimelimitdvar( 5 );
 
     if ( isdefined( game["round_time_to_beat"] ) )
     {
-        maps\mp\_utility::_id_7FD9( game["round_time_to_beat"] );
+        maps\mp\_utility::setovertimelimitdvar( game["round_time_to_beat"] );
         game["round_time_to_beat"] = undefined;
     }
 
@@ -60,16 +42,16 @@ main()
     maps\mp\_utility::setcarrierloadouts();
     level.assists_count_disabled = 1;
     level.teambased = 1;
-    level._id_62F8 = 1;
-    level._id_662E = 1;
-    level._id_64BB = 1;
-    level._id_6823 = maps\mp\_utility::_id_3FDB( "scr_ctf_ping_carrier", 1 );
-    level._id_A32B = maps\mp\_utility::_id_3FDB( "scr_ctf_win_by_captures", 0 );
+    level.objectivebased = 1;
+    level.overtimescorewinoverride = 1;
+    level.onlyroundoverride = 1;
+    level.pingstate = maps\mp\_utility::getintproperty( "scr_ctf_ping_carrier", 1 );
+    level.winbycaptures = maps\mp\_utility::getintproperty( "scr_ctf_win_by_captures", 0 );
     level.onstartgametype = ::onstartgametype;
     level.getspawnpoint = ::getspawnpoint;
-    level._id_64D3 = ::_id_64D3;
-    level._id_64F0 = ::_id_64F0;
-    level._id_64B2 = ::_id_64B2;
+    level.onplayerkilled = ::onplayerkilled;
+    level.ontimelimit = ::ontimelimit;
+    level.onhalftime = ::onhalftime;
     level.onoutcomenotify = ::onoutcomenotify;
 
     if ( !isdefined( game["shut_out"] ) )
@@ -78,17 +60,17 @@ main()
         game["shut_out"]["allies"] = 1;
     }
 
-    if ( level._id_A32B )
+    if ( level.winbycaptures )
         setdynamicdvar( "scr_ctf_scorelimit", 0 );
 
     if ( level.matchrules_damagemultiplier || level.matchrules_vampirism )
         level.modifyplayerdamage = maps\mp\gametypes\_damage::gamemodemodifyplayerdamage;
 
-    level._id_386A = maps\mp\_utility::_id_3FDB( "scr_ctf_returntime", 30 );
+    level.flagreturntime = maps\mp\_utility::getintproperty( "scr_ctf_returntime", 30 );
     game["dialog"]["gametype"] = "ctf_intro";
     game["dialog"]["offense_obj"] = "ctf_start";
     game["dialog"]["defense_obj"] = "ctf_start";
-    thread _id_64C8();
+    thread onplayerconnect();
 }
 
 initializematchrules()
@@ -112,7 +94,7 @@ onstartgametype()
     if ( !isdefined( game["switchedsides"] ) )
         game["switchedsides"] = 0;
 
-    if ( maps\mp\_utility::_id_516C( game["status"] ) )
+    if ( maps\mp\_utility::isovertimetext( game["status"] ) )
         game["switchedsides"] = !game["switchedsides"];
 
     if ( game["status"] == "halftime" )
@@ -133,7 +115,7 @@ onstartgametype()
         game["defenders"] = var_0;
     }
 
-    if ( !level._id_A32B )
+    if ( !level.winbycaptures )
     {
         game["teamScores"][game["attackers"]] = 0;
         setteamscore( game["attackers"], 0 );
@@ -142,22 +124,22 @@ onstartgametype()
     }
 
     setclientnamemode( "auto_change" );
-    level._id_386E["marines"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_usmc_blue" );
-    level._id_386E["marines"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_usmc_red" );
-    level._id_386E["sas"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_sas_blue" );
-    level._id_386E["sas"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_sas_red" );
-    level._id_386E["opfor"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_arab_blue" );
-    level._id_386E["opfor"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_arab_red" );
-    level._id_386E["russian"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_spet_blue" );
-    level._id_386E["russian"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_spet_red" );
-    level._id_3865["marines"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_usmc_blue_grnd" );
-    level._id_3865["marines"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_usmc_red_grnd" );
-    level._id_3865["sas"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_sas_blue_grnd" );
-    level._id_3865["sas"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_sas_red_grnd" );
-    level._id_3865["opfor"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_arab_blue_grnd" );
-    level._id_3865["opfor"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_arab_red_grnd" );
-    level._id_3865["russian"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_spet_blue_grnd" );
-    level._id_3865["russian"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_spet_red_grnd" );
+    level.flagstowedfxid["marines"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_usmc_blue" );
+    level.flagstowedfxid["marines"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_usmc_red" );
+    level.flagstowedfxid["sas"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_sas_blue" );
+    level.flagstowedfxid["sas"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_sas_red" );
+    level.flagstowedfxid["opfor"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_arab_blue" );
+    level.flagstowedfxid["opfor"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_arab_red" );
+    level.flagstowedfxid["russian"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_spet_blue" );
+    level.flagstowedfxid["russian"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_spet_red" );
+    level.flaggroundfxid["marines"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_usmc_blue_grnd" );
+    level.flaggroundfxid["marines"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_usmc_red_grnd" );
+    level.flaggroundfxid["sas"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_sas_blue_grnd" );
+    level.flaggroundfxid["sas"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_sas_red_grnd" );
+    level.flaggroundfxid["opfor"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_arab_blue_grnd" );
+    level.flaggroundfxid["opfor"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_arab_red_grnd" );
+    level.flaggroundfxid["russian"]["friendly"] = loadfx( "vfx/unique/vfx_ctf_spet_blue_grnd" );
+    level.flaggroundfxid["russian"]["enemy"] = loadfx( "vfx/unique/vfx_ctf_spet_red_grnd" );
     flagbasefxdefault();
 
     if ( level.splitscreen )
@@ -175,11 +157,11 @@ onstartgametype()
     maps\mp\_utility::setobjectivetext( game["defenders"], &"OBJECTIVES_CTF" );
     maps\mp\_utility::setobjectivehinttext( game["attackers"], &"OBJECTIVES_ONE_FLAG_ATTACKER_HINT" );
     maps\mp\_utility::setobjectivehinttext( game["defenders"], &"OBJECTIVES_ONE_FLAG_DEFENDER_HINT" );
-    _id_4E24();
+    initspawn();
     var_2[0] = "ctf";
     maps\mp\gametypes\_gameobjects::main( var_2 );
-    level thread _id_24AB();
-    level thread _id_9B63();
+    level thread ctf();
+    level thread updatescoreboardctf();
 }
 
 flagbasefxdefault()
@@ -194,25 +176,25 @@ flagbasefxdark()
 
 setflagbasefx( var_0, var_1 )
 {
-    if ( !isdefined( level._id_385D ) )
-        level._id_385D = [];
+    if ( !isdefined( level.flagbasefxid ) )
+        level.flagbasefxid = [];
 
     var_2 = [ "marines", "sas", "opfor", "russian" ];
 
     foreach ( var_4 in var_2 )
     {
-        if ( !isdefined( level._id_385D[var_4] ) )
-            level._id_385D[var_4] = [];
+        if ( !isdefined( level.flagbasefxid[var_4] ) )
+            level.flagbasefxid[var_4] = [];
 
-        if ( !isdefined( level._id_385D[var_4]["friendly"] ) )
-            level._id_385D[var_4]["friendly"] = loadfx( var_0 );
+        if ( !isdefined( level.flagbasefxid[var_4]["friendly"] ) )
+            level.flagbasefxid[var_4]["friendly"] = loadfx( var_0 );
 
-        if ( !isdefined( level._id_385D[var_4]["enemy"] ) )
-            level._id_385D[var_4]["enemy"] = loadfx( var_1 );
+        if ( !isdefined( level.flagbasefxid[var_4]["enemy"] ) )
+            level.flagbasefxid[var_4]["enemy"] = loadfx( var_1 );
     }
 }
 
-_id_4E24()
+initspawn()
 {
     level.spawnmins = ( 0.0, 0.0, 0.0 );
     level.spawnmaxs = ( 0.0, 0.0, 0.0 );
@@ -241,75 +223,75 @@ getspawnpoint()
         var_1 = maps\mp\gametypes\_spawnscoring::getspawnpoint_ctf( var_2, var_0 );
     }
 
-    maps\mp\gametypes\_spawnlogic::_id_7273( var_1 );
+    maps\mp\gametypes\_spawnlogic::recon_set_spawnpoint( var_1 );
     return var_1;
 }
 
-_id_9B63()
+updatescoreboardctf()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_9AFC();
-        var_0 thread _id_9B59();
-        var_0 thread _id_9B11();
+        var_0 thread updatecaptues();
+        var_0 thread updatereturns();
+        var_0 thread updatedefends();
     }
 }
 
-_id_9AFC()
+updatecaptues()
 {
-    waitframe;
-    maps\mp\_utility::_id_7F6B( self.pers["captures"] );
+    waittillframeend;
+    maps\mp\_utility::setextrascore0( self.pers["captures"] );
 }
 
-_id_9B59()
+updatereturns()
 {
-    waitframe;
+    waittillframeend;
     self.assists = self.pers["returns"];
 }
 
-_id_9B11()
+updatedefends()
 {
-    waitframe;
-    maps\mp\_utility::_id_7F6C( self.pers["defends"] );
+    waittillframeend;
+    maps\mp\_utility::setextrascore1( self.pers["defends"] );
 }
 
-_id_24AB()
+ctf()
 {
-    level._id_3866["allies"] = "tag_origin";
+    level.flagmodel["allies"] = "tag_origin";
     level.carryflag["allies"] = "tag_origin";
-    level._id_3866["axis"] = "tag_origin";
+    level.flagmodel["axis"] = "tag_origin";
     level.carryflag["axis"] = "tag_origin";
-    level._id_4B43 = "waypoint_escort";
-    level._id_4B42 = "waypoint_escort";
-    level._id_4B45 = "waypoint_kill";
-    level._id_4B44 = "waypoint_kill";
-    level._id_4B34 = "waypoint_capture_flag";
-    level._id_4B33 = "waypoint_capture_flag";
-    level._id_4B3B = "waypoint_defend_flag";
-    level._id_4B3A = "waypoint_defend_flag";
-    level._id_4B4F = "waypoint_return_flag";
-    level._id_4B4E = "waypoint_return_flag";
-    level._id_4B52 = "waypoint_waitfor_flag";
-    level._id_4B51 = "waypoint_waitfor_flag";
-    level._id_4B2E = "waypoint_esports_ctf_taken_blue";
-    level._id_4B2F = "waypoint_esports_ctf_taken_red";
-    level._id_4B3C = "waypoint_esports_ctf_dropped_blue";
-    level._id_4B3D = "waypoint_esports_ctf_dropped_red";
-    level._id_4B2C = "waypoint_esports_ctf_flag_blue";
-    level._id_4B2D = "waypoint_esports_ctf_flag_red";
-    level._id_4B46 = "waypoint_esports_ctf_flag_missing_blue";
-    level._id_4B47 = "waypoint_esports_ctf_flag_missing_red";
-    level._id_91EF[game["defenders"]] = _id_2442( game["defenders"] );
-    level._id_91EF[game["attackers"]] = _id_2442( game["attackers"] );
-    level._id_1B60[game["defenders"]] = _id_23E7( game["defenders"] );
-    level._id_1B60[game["attackers"]] = _id_23E7( game["attackers"] );
+    level.iconescort3d = "waypoint_escort";
+    level.iconescort2d = "waypoint_escort";
+    level.iconkill3d = "waypoint_kill";
+    level.iconkill2d = "waypoint_kill";
+    level.iconcaptureflag3d = "waypoint_capture_flag";
+    level.iconcaptureflag2d = "waypoint_capture_flag";
+    level.icondefendflag3d = "waypoint_defend_flag";
+    level.icondefendflag2d = "waypoint_defend_flag";
+    level.iconreturnflag3d = "waypoint_return_flag";
+    level.iconreturnflag2d = "waypoint_return_flag";
+    level.iconwaitforflag3d = "waypoint_waitfor_flag";
+    level.iconwaitforflag2d = "waypoint_waitfor_flag";
+    level.iconawayblue = "waypoint_esports_ctf_taken_blue";
+    level.iconawayred = "waypoint_esports_ctf_taken_red";
+    level.icondroppedblue = "waypoint_esports_ctf_dropped_blue";
+    level.icondroppedred = "waypoint_esports_ctf_dropped_red";
+    level.iconatbaseblue = "waypoint_esports_ctf_flag_blue";
+    level.iconatbasered = "waypoint_esports_ctf_flag_red";
+    level.iconmissingblue = "waypoint_esports_ctf_flag_missing_blue";
+    level.iconmissingred = "waypoint_esports_ctf_flag_missing_red";
+    level.teamflags[game["defenders"]] = createteamflag( game["defenders"] );
+    level.teamflags[game["attackers"]] = createteamflag( game["attackers"] );
+    level.capzones[game["defenders"]] = createcapzone( game["defenders"] );
+    level.capzones[game["attackers"]] = createcapzone( game["attackers"] );
     assignteamspawns();
-    _id_64E1( "allies" );
-    _id_64E1( "axis" );
+    onresetflaghudstatus( "allies" );
+    onresetflaghudstatus( "axis" );
 }
 
-_id_64E1( var_0 )
+onresetflaghudstatus( var_0 )
 {
     if ( var_0 == "allies" )
     {
@@ -325,7 +307,7 @@ _id_64E1( var_0 )
     level notify( "update_flag_status" );
 }
 
-_id_64C4( var_0 )
+onpickupflaghudstatus( var_0 )
 {
     var_1 = var_0.pers["team"];
 
@@ -345,7 +327,7 @@ _id_64C4( var_0 )
     level notify( "update_flag_status" );
 }
 
-_id_6470( var_0 )
+ondropflaghudstatus( var_0 )
 {
     if ( var_0 == "allies" )
     {
@@ -361,7 +343,7 @@ _id_6470( var_0 )
     level notify( "update_flag_status" );
 }
 
-_id_6D77()
+playerupdateflagstatus()
 {
     if ( !isdefined( self.team ) || !isdefined( level.alliesflagstatus ) )
         return;
@@ -395,7 +377,7 @@ _id_6D77()
     self setclientomnvar( "ui_ctf_status_changed", 1 );
 }
 
-_id_6D78()
+playerupdateflagstatusonjointeam()
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
@@ -403,26 +385,26 @@ _id_6D78()
     for (;;)
     {
         self waittill( "joined_team" );
-        _id_6D77();
+        playerupdateflagstatus();
         playerupdatetimetobeatomnvars();
     }
 }
 
-_id_6D8E()
+playerwatchflagstatus()
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
-    _id_6D77();
-    thread _id_6D78();
+    playerupdateflagstatus();
+    thread playerupdateflagstatusonjointeam();
 
     for (;;)
     {
         level waittill( "update_flag_status" );
-        _id_6D77();
+        playerupdateflagstatus();
     }
 }
 
-_id_4878( var_0 )
+hidehudelementongameend( var_0 )
 {
     level waittill( "game_ended" );
 
@@ -430,7 +412,7 @@ _id_4878( var_0 )
         var_0.alpha = 0;
 }
 
-_id_2442( var_0 )
+createteamflag( var_0 )
 {
     var_1 = var_0;
 
@@ -440,101 +422,101 @@ _id_2442( var_0 )
     var_2 = getent( "ctf_zone_" + var_1, "targetname" );
 
     if ( !isdefined( var_2 ) )
-        common_scripts\utility::_id_334F( "No ctf_zone_" + var_1 + " trigger found in map." );
+        common_scripts\utility::error( "No ctf_zone_" + var_1 + " trigger found in map." );
     else
     {
         var_3[0] = getent( "ctf_flag_" + var_1, "targetname" );
 
         if ( !isdefined( var_3[0] ) )
         {
-            common_scripts\utility::_id_334F( "No ctf_flag_" + var_1 + " script_model found in map." );
+            common_scripts\utility::error( "No ctf_flag_" + var_1 + " script_model found in map." );
             return;
         }
 
         var_4 = spawn( "trigger_radius", var_2.origin, 0, 96, var_2.height );
         var_2 = var_4;
-        var_3[0] setmodel( level._id_3866[var_0] );
-        var_3[0]._id_63C7 = var_3[0] setcontents( 0 );
+        var_3[0] setmodel( level.flagmodel[var_0] );
+        var_3[0].oldcontents = var_3[0] setcontents( 0 );
         var_5 = var_3[0].origin + ( 0.0, 0.0, 32.0 );
         var_6 = var_3[0].origin + ( 0.0, 0.0, -32.0 );
         var_7 = bullettrace( var_5, var_6, 0, undefined );
         var_3[0].origin = var_7["position"];
-        var_8 = maps\mp\gametypes\_gameobjects::_id_23E9( var_0, var_2, var_3, ( 0.0, 0.0, 85.0 ) );
+        var_8 = maps\mp\gametypes\_gameobjects::createcarryobject( var_0, var_2, var_3, ( 0.0, 0.0, 85.0 ) );
         var_9 = getdvarfloat( "scr_ctf_flag_pick_up_time_friendly", 0.0 );
 
         if ( var_9 > 0 )
-            var_8 maps\mp\gametypes\_gameobjects::_id_802E( "friendly", var_9 );
+            var_8 maps\mp\gametypes\_gameobjects::setteamusetime( "friendly", var_9 );
 
         var_10 = getdvarfloat( "scr_ctf_flag_pick_up_time_enemy", 0.0 );
 
         if ( var_10 > 0 )
-            var_8 maps\mp\gametypes\_gameobjects::_id_802E( "enemy", var_10 );
+            var_8 maps\mp\gametypes\_gameobjects::setteamusetime( "enemy", var_10 );
 
-        var_8 maps\mp\gametypes\_gameobjects::_id_802D( "enemy", &"MP_GRABBING_FLAG" );
-        var_8 maps\mp\gametypes\_gameobjects::_id_802D( "friendly", &"MP_RETURNING_FLAG" );
+        var_8 maps\mp\gametypes\_gameobjects::setteamusetext( "enemy", &"MP_GRABBING_FLAG" );
+        var_8 maps\mp\gametypes\_gameobjects::setteamusetext( "friendly", &"MP_RETURNING_FLAG" );
         var_8 maps\mp\gametypes\_gameobjects::allowcarry( "enemy" );
-        var_8 maps\mp\gametypes\_gameobjects::_id_8352( "none" );
-        var_8 maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B42 );
-        var_8 maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B43 );
+        var_8 maps\mp\gametypes\_gameobjects::setvisibleteam( "none" );
+        var_8 maps\mp\gametypes\_gameobjects::set2dicon( "enemy", level.iconescort2d );
+        var_8 maps\mp\gametypes\_gameobjects::set3dicon( "enemy", level.iconescort3d );
 
-        if ( level._id_6823 != 2 )
+        if ( level.pingstate != 2 )
         {
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B44 );
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B45 );
+            var_8 maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.iconkill2d );
+            var_8 maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.iconkill3d );
         }
         else
         {
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", undefined );
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", undefined );
+            var_8 maps\mp\gametypes\_gameobjects::set2dicon( "friendly", undefined );
+            var_8 maps\mp\gametypes\_gameobjects::set3dicon( "friendly", undefined );
         }
 
-        if ( maps\mp\_utility::_id_50C4() )
-            var_8._id_6313 = 2.5;
+        if ( maps\mp\_utility::isaugmentedgamemode() )
+            var_8.objpingdelay = 2.5;
 
-        var_8._id_630B = 1;
+        var_8.objidpingfriendly = 1;
         var_8.allowweapons = 1;
-        var_8._id_740F = 1;
-        var_8._id_64C2 = ::_id_64C2;
-        var_8._id_64C3 = ::_id_64C2;
-        var_8._id_646F = ::_id_646F;
-        var_8._id_64E0 = ::_id_64E0;
-        var_8._id_4273 = ::_id_426E;
-        var_8._id_1AFB = ::_id_1AF8;
-        var_8._id_4273 = ::_id_4272;
-        var_8._id_63DF = var_2.radius;
+        var_8.requireslos = 1;
+        var_8.onpickup = ::onpickup;
+        var_8.onpickupfailed = ::onpickup;
+        var_8.ondrop = ::ondrop;
+        var_8.onreset = ::onreset;
+        var_8.goliaththink = ::goliathattachflag;
+        var_8.canuseobject = ::canuse;
+        var_8.goliaththink = ::goliathdropflag;
+        var_8.oldradius = var_2.radius;
         var_8.origin = var_2.origin;
         var_8.highestspawndistratio = 0.0;
 
-        if ( level._id_6823 == 0 )
-            var_8._id_630B = 0;
+        if ( level.pingstate == 0 )
+            var_8.objidpingfriendly = 0;
 
         if ( var_0 == "allies" )
         {
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B2C );
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B2C );
+            var_8 maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconatbaseblue );
+            var_8 maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconatbaseblue );
             setomnvar( "ui_mlg_game_mode_status_1", 0 );
         }
         else
         {
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B2D );
-            var_8 maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B2D );
+            var_8 maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconatbasered );
+            var_8 maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconatbasered );
             setomnvar( "ui_mlg_game_mode_status_2", 0 );
         }
 
         thread maps\mp\_utility::streamcarrierweaponstoplayers( var_8, [ maps\mp\_utility::getotherteam( var_1 ) ], ::shouldstreamcarrierclasstoplayer );
-        var_8 thread _id_3860();
+        var_8 thread flageffects();
     }
 }
 
 shouldstreamcarrierclasstoplayer( var_0, var_1 )
 {
-    if ( isdefined( var_0._id_1BAF ) && var_0._id_1BAF == var_1 )
+    if ( isdefined( var_0.carrier ) && var_0.carrier == var_1 )
         return 0;
 
     return 1;
 }
 
-_id_23E7( var_0 )
+createcapzone( var_0 )
 {
     var_1 = var_0;
 
@@ -545,40 +527,40 @@ _id_23E7( var_0 )
     var_3 = [];
     var_4 = maps\mp\gametypes\_gameobjects::createuseobject( var_0, var_2, var_3, ( 0.0, 0.0, 85.0 ) );
     var_4 maps\mp\gametypes\_gameobjects::allowuse( "friendly" );
-    var_4 maps\mp\gametypes\_gameobjects::_id_8352( "any" );
-    var_4 maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B3A );
-    var_4 maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B3B );
-    var_4 maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B33 );
-    var_4 maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B34 );
+    var_4 maps\mp\gametypes\_gameobjects::setvisibleteam( "any" );
+    var_4 maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.icondefendflag2d );
+    var_4 maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.icondefendflag3d );
+    var_4 maps\mp\gametypes\_gameobjects::set2dicon( "enemy", level.iconcaptureflag2d );
+    var_4 maps\mp\gametypes\_gameobjects::set3dicon( "enemy", level.iconcaptureflag3d );
     var_4 maps\mp\gametypes\_gameobjects::setusetime( 0 );
-    var_4 maps\mp\gametypes\_gameobjects::_id_7F99( level._id_91EF[maps\mp\_utility::getotherteam( var_0 )] );
+    var_4 maps\mp\gametypes\_gameobjects::setkeyobject( level.teamflags[maps\mp\_utility::getotherteam( var_0 )] );
     var_4.onuse = ::onuse;
-    var_4._id_6459 = ::_id_6459;
+    var_4.oncantuse = ::oncantuse;
     var_5 = var_2.origin + ( 0.0, 0.0, 32.0 );
     var_6 = var_2.origin + ( 0.0, 0.0, -32.0 );
     var_7 = bullettrace( var_5, var_6, 0, undefined );
     var_4.baseeffectpos = var_7["position"];
     var_4.baseeffectforward = var_7["normal"];
-    var_4 thread _id_1B5F();
+    var_4 thread capturezoneeffects();
     return var_4;
 }
 
-_id_6454( var_0 )
+onbeginuse( var_0 )
 {
     var_1 = var_0.pers["team"];
 
-    if ( var_1 == maps\mp\gametypes\_gameobjects::_id_4078() )
+    if ( var_1 == maps\mp\gametypes\_gameobjects::getownerteam() )
         self.trigger.radius = 1024;
     else
-        self.trigger.radius = self._id_63DF;
+        self.trigger.radius = self.oldradius;
 }
 
-_id_648E( var_0, var_1, var_2 )
+onenduse( var_0, var_1, var_2 )
 {
-    self.trigger.radius = self._id_63DF;
+    self.trigger.radius = self.oldradius;
 }
 
-_id_64C2( var_0 )
+onpickup( var_0 )
 {
     self notify( "picked_up" );
     var_1 = var_0.pers["team"];
@@ -588,23 +570,23 @@ _id_64C2( var_0 )
     else
         var_2 = "allies";
 
-    _id_3861();
+    flageffectsstop();
 
-    if ( var_1 == maps\mp\gametypes\_gameobjects::_id_4078() )
+    if ( var_1 == maps\mp\gametypes\_gameobjects::getownerteam() )
     {
-        thread _id_74DE();
-        maps\mp\_utility::_id_564B( "flag_returned", var_1, "status" );
-        maps\mp\_utility::_id_6DDD( "mp_obj_notify_pos_med", var_1 );
-        maps\mp\_utility::_id_564B( "enemy_flag_returned", var_2, "status" );
-        maps\mp\_utility::_id_6DDD( "mp_obj_notify_neg_med", var_2 );
-        var_0 thread maps\mp\_events::_id_3869();
-        _id_64E1( var_1 );
+        thread returnflag();
+        maps\mp\_utility::leaderdialog( "flag_returned", var_1, "status" );
+        maps\mp\_utility::playsoundonplayers( "mp_obj_notify_pos_med", var_1 );
+        maps\mp\_utility::leaderdialog( "enemy_flag_returned", var_2, "status" );
+        maps\mp\_utility::playsoundonplayers( "mp_obj_notify_neg_med", var_2 );
+        var_0 thread maps\mp\_events::flagreturnevent();
+        onresetflaghudstatus( var_1 );
     }
     else
     {
         if ( isdefined( level.carrierloadouts ) && isdefined( level.carrierloadouts[var_1] ) )
         {
-            var_0 thread _id_A009( self );
+            var_0 thread waitattachflag( self );
             var_0 thread maps\mp\_utility::applycarrierclass();
         }
         else
@@ -612,51 +594,51 @@ _id_64C2( var_0 )
 
         thread bringhomeflagvo( var_0, var_1 );
         thread getflagbackvo( var_2 );
-        _id_64C4( var_0 );
-        maps\mp\gametypes\_gameobjects::_id_8352( "any" );
-        maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B42 );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B43 );
+        onpickupflaghudstatus( var_0 );
+        maps\mp\gametypes\_gameobjects::setvisibleteam( "any" );
+        maps\mp\gametypes\_gameobjects::set2dicon( "enemy", level.iconescort2d );
+        maps\mp\gametypes\_gameobjects::set3dicon( "enemy", level.iconescort3d );
 
-        if ( level._id_6823 != 2 )
+        if ( level.pingstate != 2 )
         {
-            maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B44 );
-            maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B45 );
+            maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.iconkill2d );
+            maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.iconkill3d );
         }
         else
         {
-            maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", undefined );
-            maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", undefined );
+            maps\mp\gametypes\_gameobjects::set2dicon( "friendly", undefined );
+            maps\mp\gametypes\_gameobjects::set3dicon( "friendly", undefined );
         }
 
-        level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::allowuse( "none" );
-        level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_8352( "friendly" );
-        level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B51 );
-        level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B52 );
+        level.capzones[var_2] maps\mp\gametypes\_gameobjects::allowuse( "none" );
+        level.capzones[var_2] maps\mp\gametypes\_gameobjects::setvisibleteam( "friendly" );
+        level.capzones[var_2] maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.iconwaitforflag2d );
+        level.capzones[var_2] maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.iconwaitforflag3d );
         var_3 = [ var_0 ];
-        maps\mp\_utility::_id_564B( "enemy_flag_taken", var_1, "status" );
-        maps\mp\_utility::_id_6DDD( "mp_obj_notify_pos_sml", var_1, var_3 );
+        maps\mp\_utility::leaderdialog( "enemy_flag_taken", var_1, "status" );
+        maps\mp\_utility::playsoundonplayers( "mp_obj_notify_pos_sml", var_1, var_3 );
         var_0 playlocalsound( "h1_mp_flag_grab" );
-        maps\mp\_utility::_id_564B( "flag_taken", var_2, "status" );
-        maps\mp\_utility::_id_6DDD( "mp_obj_notify_neg_sml", var_2 );
+        maps\mp\_utility::leaderdialog( "flag_taken", var_2, "status" );
+        maps\mp\_utility::playsoundonplayers( "mp_obj_notify_neg_sml", var_2 );
 
-        if ( maps\mp\gametypes\_gameobjects::_id_4078() == "allies" )
+        if ( maps\mp\gametypes\_gameobjects::getownerteam() == "allies" )
         {
-            level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B46 );
-            level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B46 );
-            maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B2E );
-            maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B2E );
+            level.capzones[var_2] maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconmissingblue );
+            level.capzones[var_2] maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconmissingblue );
+            maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconawayblue );
+            maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconawayblue );
             setomnvar( "ui_mlg_game_mode_status_1", var_0 getentitynumber() );
         }
         else
         {
-            level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B47 );
-            level._id_1B60[var_2] maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B47 );
-            maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B2F );
-            maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B2F );
+            level.capzones[var_2] maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconmissingred );
+            level.capzones[var_2] maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconmissingred );
+            maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconawayred );
+            maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconawayred );
             setomnvar( "ui_mlg_game_mode_status_2", var_0 getentitynumber() );
         }
 
-        var_0 thread maps\mp\_events::_id_3868();
+        var_0 thread maps\mp\_events::flagpickupevent();
     }
 }
 
@@ -671,8 +653,8 @@ bringhomeflagvo( var_0, var_1 )
     {
         wait 15;
 
-        if ( level._id_91EF[var_1] maps\mp\gametypes\_gameobjects::_id_511C() )
-            var_0 maps\mp\_utility::_id_5655( "enemy_flag_bringhome", "status" );
+        if ( level.teamflags[var_1] maps\mp\gametypes\_gameobjects::ishome() )
+            var_0 maps\mp\_utility::leaderdialogonplayer( "enemy_flag_bringhome", "status" );
     }
 }
 
@@ -688,7 +670,7 @@ getflagbackvo( var_0 )
     for (;;)
     {
         wait 15;
-        maps\mp\_utility::_id_564B( "flag_getback", var_0, "status" );
+        maps\mp\_utility::leaderdialog( "flag_getback", var_0, "status" );
     }
 }
 
@@ -701,34 +683,34 @@ getflagstatus( var_0 )
         return level.axisflagstatus;
 }
 
-_id_74DE()
+returnflag()
 {
-    maps\mp\gametypes\_gameobjects::_id_74DF();
+    maps\mp\gametypes\_gameobjects::returnhome();
 }
 
-_id_646F( var_0 )
+ondrop( var_0 )
 {
-    var_1 = maps\mp\gametypes\_gameobjects::_id_4078();
-    var_2 = level._id_65B3[var_1];
+    var_1 = maps\mp\gametypes\_gameobjects::getownerteam();
+    var_2 = level.otherteam[var_1];
     maps\mp\gametypes\_gameobjects::allowcarry( "any" );
-    maps\mp\gametypes\_gameobjects::_id_8352( "any" );
-    maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B4E );
-    maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B4F );
-    maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B33 );
-    maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B34 );
-    _id_6470( var_1 );
+    maps\mp\gametypes\_gameobjects::setvisibleteam( "any" );
+    maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.iconreturnflag2d );
+    maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.iconreturnflag3d );
+    maps\mp\gametypes\_gameobjects::set2dicon( "enemy", level.iconcaptureflag2d );
+    maps\mp\gametypes\_gameobjects::set3dicon( "enemy", level.iconcaptureflag3d );
+    ondropflaghudstatus( var_1 );
 
     if ( var_1 == "allies" )
     {
-        maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B3C );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B3C );
-        setomnvar( "ui_mlg_game_mode_status_1", 0 - level._id_386A );
+        maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.icondroppedblue );
+        maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.icondroppedblue );
+        setomnvar( "ui_mlg_game_mode_status_1", 0 - level.flagreturntime );
     }
     else
     {
-        maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B3D );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B3D );
-        setomnvar( "ui_mlg_game_mode_status_2", 0 - level._id_386A );
+        maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.icondroppedred );
+        maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.icondroppedred );
+        setomnvar( "ui_mlg_game_mode_status_2", 0 - level.flagreturntime );
     }
 
     if ( isdefined( var_0 ) )
@@ -736,74 +718,74 @@ _id_646F( var_0 )
         var_0.objective = 0;
 
         if ( isdefined( var_0.carryflag ) )
-            var_0 _id_2980();
+            var_0 detachflag();
     }
 
-    maps\mp\_utility::_id_564B( "flag_dropped", var_1, "status" );
-    maps\mp\_utility::_id_6DDD( "mp_obj_notify_neg_sml", var_1 );
-    maps\mp\_utility::_id_564B( "enemy_flag_dropped", var_2, "status" );
-    maps\mp\_utility::_id_6DDD( "mp_obj_notify_pos_sml", var_2 );
-    thread _id_3860();
-    thread _id_74DC();
+    maps\mp\_utility::leaderdialog( "flag_dropped", var_1, "status" );
+    maps\mp\_utility::playsoundonplayers( "mp_obj_notify_neg_sml", var_1 );
+    maps\mp\_utility::leaderdialog( "enemy_flag_dropped", var_2, "status" );
+    maps\mp\_utility::playsoundonplayers( "mp_obj_notify_pos_sml", var_2 );
+    thread flageffects();
+    thread returnaftertime();
 }
 
-_id_74DC()
+returnaftertime()
 {
     self endon( "picked_up" );
     self endon( "reset" );
-    wait(level._id_386A);
-    var_0 = maps\mp\gametypes\_gameobjects::_id_4078();
-    var_1 = level._id_65B3[var_0];
-    maps\mp\_utility::_id_564B( "flag_returned", var_0, "status" );
-    maps\mp\_utility::_id_6DDD( "mp_obj_notify_pos_med", var_0 );
-    maps\mp\_utility::_id_564B( "enemy_flag_returned", var_1, "status" );
-    maps\mp\_utility::_id_6DDD( "mp_obj_notify_neg_med", var_1 );
-    thread _id_74DE();
+    wait(level.flagreturntime);
+    var_0 = maps\mp\gametypes\_gameobjects::getownerteam();
+    var_1 = level.otherteam[var_0];
+    maps\mp\_utility::leaderdialog( "flag_returned", var_0, "status" );
+    maps\mp\_utility::playsoundonplayers( "mp_obj_notify_pos_med", var_0 );
+    maps\mp\_utility::leaderdialog( "enemy_flag_returned", var_1, "status" );
+    maps\mp\_utility::playsoundonplayers( "mp_obj_notify_neg_med", var_1 );
+    thread returnflag();
 }
 
-_id_64E0()
+onreset()
 {
-    var_0 = maps\mp\gametypes\_gameobjects::_id_4078();
-    var_1 = level._id_65B3[var_0];
+    var_0 = maps\mp\gametypes\_gameobjects::getownerteam();
+    var_1 = level.otherteam[var_0];
     maps\mp\gametypes\_gameobjects::allowcarry( "enemy" );
-    maps\mp\gametypes\_gameobjects::_id_8352( "none" );
-    maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B42 );
-    maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B43 );
+    maps\mp\gametypes\_gameobjects::setvisibleteam( "none" );
+    maps\mp\gametypes\_gameobjects::set2dicon( "enemy", level.iconescort2d );
+    maps\mp\gametypes\_gameobjects::set3dicon( "enemy", level.iconescort3d );
 
-    if ( level._id_6823 != 2 )
+    if ( level.pingstate != 2 )
     {
-        maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B44 );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B45 );
+        maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.iconkill2d );
+        maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.iconkill3d );
     }
     else
     {
-        maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", undefined );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", undefined );
+        maps\mp\gametypes\_gameobjects::set2dicon( "friendly", undefined );
+        maps\mp\gametypes\_gameobjects::set3dicon( "friendly", undefined );
     }
 
-    thread _id_3860();
-    _id_64E1( var_0 );
-    level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::allowuse( "friendly" );
-    level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_8352( "any" );
-    level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F12( "friendly", level._id_4B3A );
-    level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F13( "friendly", level._id_4B3B );
-    level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F12( "enemy", level._id_4B33 );
-    level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F13( "enemy", level._id_4B34 );
+    thread flageffects();
+    onresetflaghudstatus( var_0 );
+    level.capzones[var_0] maps\mp\gametypes\_gameobjects::allowuse( "friendly" );
+    level.capzones[var_0] maps\mp\gametypes\_gameobjects::setvisibleteam( "any" );
+    level.capzones[var_0] maps\mp\gametypes\_gameobjects::set2dicon( "friendly", level.icondefendflag2d );
+    level.capzones[var_0] maps\mp\gametypes\_gameobjects::set3dicon( "friendly", level.icondefendflag3d );
+    level.capzones[var_0] maps\mp\gametypes\_gameobjects::set2dicon( "enemy", level.iconcaptureflag2d );
+    level.capzones[var_0] maps\mp\gametypes\_gameobjects::set3dicon( "enemy", level.iconcaptureflag3d );
 
     if ( var_0 == "allies" )
     {
-        level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", undefined );
-        level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", undefined );
-        maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B2C );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B2C );
+        level.capzones[var_0] maps\mp\gametypes\_gameobjects::set2dicon( "mlg", undefined );
+        level.capzones[var_0] maps\mp\gametypes\_gameobjects::set3dicon( "mlg", undefined );
+        maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconatbaseblue );
+        maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconatbaseblue );
         setomnvar( "ui_mlg_game_mode_status_1", 0 );
     }
     else
     {
-        level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", undefined );
-        level._id_1B60[var_0] maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", undefined );
-        maps\mp\gametypes\_gameobjects::_id_7F12( "mlg", level._id_4B2D );
-        maps\mp\gametypes\_gameobjects::_id_7F13( "mlg", level._id_4B2D );
+        level.capzones[var_0] maps\mp\gametypes\_gameobjects::set2dicon( "mlg", undefined );
+        level.capzones[var_0] maps\mp\gametypes\_gameobjects::set3dicon( "mlg", undefined );
+        maps\mp\gametypes\_gameobjects::set2dicon( "mlg", level.iconatbasered );
+        maps\mp\gametypes\_gameobjects::set3dicon( "mlg", level.iconatbasered );
         setomnvar( "ui_mlg_game_mode_status_2", 0 );
     }
 }
@@ -817,14 +799,14 @@ onuse( var_0 )
     else
         var_2 = "allies";
 
-    maps\mp\_utility::_id_564B( "enemy_flag_captured", var_1, "status" );
-    maps\mp\_utility::_id_6DDD( "h1_mp_war_objective_taken", var_1 );
-    maps\mp\_utility::_id_564B( "flag_captured", var_2, "status" );
-    maps\mp\_utility::_id_6DDD( "h1_mp_war_objective_lost", var_2 );
-    var_0 thread maps\mp\_events::_id_385F();
+    maps\mp\_utility::leaderdialog( "enemy_flag_captured", var_1, "status" );
+    maps\mp\_utility::playsoundonplayers( "h1_mp_war_objective_taken", var_1 );
+    maps\mp\_utility::leaderdialog( "flag_captured", var_2, "status" );
+    maps\mp\_utility::playsoundonplayers( "h1_mp_war_objective_lost", var_2 );
+    var_0 thread maps\mp\_events::flagcaptureevent();
 
-    if ( !maps\mp\_utility::_id_4E3F() )
-        maps\mp\gametypes\_gamescores::_id_420C( var_1, 1 );
+    if ( !maps\mp\_utility::inovertime() )
+        maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_1, 1 );
 
     game["shut_out"][var_2] = 0;
 
@@ -833,25 +815,25 @@ onuse( var_0 )
         var_0.objective = 0;
 
         if ( isdefined( var_0.carryflag ) )
-            var_0 _id_2980();
+            var_0 detachflag();
     }
 
     if ( isdefined( level.carrierloadouts ) && isdefined( level.carrierloadouts[var_1] ) )
         var_0 thread maps\mp\_utility::removecarrierclass();
 
-    level._id_91EF[var_2] _id_74DE();
+    level.teamflags[var_2] returnflag();
 
-    if ( maps\mp\gametypes\_gameobjects::_id_4078() == "allies" )
+    if ( maps\mp\gametypes\_gameobjects::getownerteam() == "allies" )
         setomnvar( "ui_mlg_game_mode_status_1", 0 );
     else
         setomnvar( "ui_mlg_game_mode_status_2", 0 );
 
-    level thread _id_1D19( var_1 );
+    level thread checkroundwin( var_1 );
 }
 
 settimetobeat( var_0 )
 {
-    var_1 = maps\mp\_utility::_id_412C();
+    var_1 = maps\mp\_utility::gettimepassed();
     var_2 = "time_to_beat_" + var_0;
 
     if ( !game[var_2] || var_1 < game[var_2] )
@@ -883,39 +865,39 @@ playerupdatetimetobeatomnvars()
     }
 }
 
-_id_1D19( var_0 )
+checkroundwin( var_0 )
 {
     var_1 = "roundsWon";
 
-    if ( level._id_A32B )
+    if ( level.winbycaptures )
         var_1 = "teamScores";
 
-    if ( maps\mp\_utility::_id_4E3F() )
+    if ( maps\mp\_utility::inovertime() )
     {
-        level._id_374D = var_0;
+        level.finalkillcam_winner = var_0;
         settimetobeat( var_0 );
 
         if ( game["status"] == "overtime" )
         {
             game["teamScoredFirstHalf"] = var_0;
-            game["round_time_to_beat"] = maps\mp\_utility::_id_4024();
-            level thread maps\mp\gametypes\_gamelogic::_id_315F( "overtime_halftime", game["end_reason"]["score_limit_reached"] );
+            game["round_time_to_beat"] = maps\mp\_utility::getminutespassed();
+            level thread maps\mp\gametypes\_gamelogic::endgame( "overtime_halftime", game["end_reason"]["score_limit_reached"] );
         }
         else if ( game["status"] == "overtime_halftime" )
         {
-            _id_9B5B( var_0 );
+            updateroundswon( var_0 );
             game["teamScores"][var_0]++;
-            level thread maps\mp\gametypes\_gamelogic::_id_315F( var_0, game["end_reason"]["score_limit_reached"] );
+            level thread maps\mp\gametypes\_gamelogic::endgame( var_0, game["end_reason"]["score_limit_reached"] );
         }
     }
-    else if ( game["teamScores"][var_0] == maps\mp\_utility::_id_415E( "scorelimit" ) )
+    else if ( game["teamScores"][var_0] == maps\mp\_utility::getwatcheddvar( "scorelimit" ) )
     {
-        _id_9B5B( var_0 );
+        updateroundswon( var_0 );
 
         if ( game["status"] == "normal" )
         {
-            game["roundMillisecondsAlreadyPassed"] = maps\mp\_utility::_id_412C();
-            level thread maps\mp\gametypes\_gamelogic::_id_315F( "halftime", game["end_reason"]["score_limit_reached"] );
+            game["roundMillisecondsAlreadyPassed"] = maps\mp\_utility::gettimepassed();
+            level thread maps\mp\gametypes\_gamelogic::endgame( "halftime", game["end_reason"]["score_limit_reached"] );
         }
         else if ( game["status"] == "halftime" )
         {
@@ -924,25 +906,25 @@ _id_1D19( var_0 )
             if ( game[var_1]["axis"] == game[var_1]["allies"] )
             {
                 var_2 = "overtime";
-                level._id_374D = "none";
+                level.finalkillcam_winner = "none";
             }
 
-            level thread maps\mp\gametypes\_gamelogic::_id_315F( var_2, game["end_reason"]["score_limit_reached"] );
+            level thread maps\mp\gametypes\_gamelogic::endgame( var_2, game["end_reason"]["score_limit_reached"] );
         }
     }
 }
 
-_id_9B5B( var_0 )
+updateroundswon( var_0 )
 {
-    level._id_374D = var_0;
+    level.finalkillcam_winner = var_0;
     game["roundsWon"][var_0]++;
 }
 
 onoutcomenotify( var_0, var_1, var_2, var_3 )
 {
-    if ( !level._id_A32B )
+    if ( !level.winbycaptures )
     {
-        if ( maps\mp\_utility::_id_5092( var_3 ) || var_0 == "halftime" || var_0 == "overtime" )
+        if ( maps\mp\_utility::is_true( var_3 ) || var_0 == "halftime" || var_0 == "overtime" )
         {
             setteamscore( "allies", game["roundsWon"]["allies"] );
             setteamscore( "axis", game["roundsWon"]["axis"] );
@@ -950,30 +932,30 @@ onoutcomenotify( var_0, var_1, var_2, var_3 )
     }
 }
 
-_id_64B2( var_0 )
+onhalftime( var_0 )
 {
-    _id_64F0();
+    ontimelimit();
 }
 
-_id_64F0()
+ontimelimit()
 {
-    level._id_374D = "none";
+    level.finalkillcam_winner = "none";
     var_0 = "roundsWon";
 
-    if ( level._id_A32B )
+    if ( level.winbycaptures )
         var_0 = "teamScores";
 
-    if ( maps\mp\_utility::_id_4E3F() )
+    if ( maps\mp\_utility::inovertime() )
     {
         if ( game["status"] == "overtime" )
-            level thread maps\mp\gametypes\_gamelogic::_id_315F( "overtime_halftime", game["end_reason"]["time_limit_reached"] );
+            level thread maps\mp\gametypes\_gamelogic::endgame( "overtime_halftime", game["end_reason"]["time_limit_reached"] );
         else if ( game["status"] == "overtime_halftime" )
         {
             var_1 = game["teamScoredFirstHalf"];
 
             if ( isdefined( var_1 ) )
             {
-                _id_9B5B( var_1 );
+                updateroundswon( var_1 );
                 game["teamScores"][var_1]++;
             }
 
@@ -985,7 +967,7 @@ _id_64F0()
             if ( game[var_0]["allies"] > game[var_0]["axis"] )
                 var_2 = "allies";
 
-            level thread maps\mp\gametypes\_gamelogic::_id_315F( var_2, game["end_reason"]["time_limit_reached"] );
+            level thread maps\mp\gametypes\_gamelogic::endgame( var_2, game["end_reason"]["time_limit_reached"] );
         }
     }
     else if ( game["status"] == "halftime" )
@@ -999,26 +981,26 @@ _id_64F0()
             var_2 = "allies";
 
         if ( var_2 == "axis" || var_2 == "allies" )
-            _id_9B5B( var_2 );
+            updateroundswon( var_2 );
 
         if ( game[var_0]["axis"] == game[var_0]["allies"] )
             var_2 = "overtime";
 
-        level thread maps\mp\gametypes\_gamelogic::_id_315F( var_2, game["end_reason"]["time_limit_reached"] );
+        level thread maps\mp\gametypes\_gamelogic::endgame( var_2, game["end_reason"]["time_limit_reached"] );
     }
     else
     {
         if ( game["teamScores"]["axis"] > game["teamScores"]["allies"] )
-            _id_9B5B( "axis" );
+            updateroundswon( "axis" );
 
         if ( game["teamScores"]["allies"] > game["teamScores"]["axis"] )
-            _id_9B5B( "allies" );
+            updateroundswon( "allies" );
 
-        level thread maps\mp\gametypes\_gamelogic::_id_315F( "halftime", game["end_reason"]["time_limit_reached"] );
+        level thread maps\mp\gametypes\_gamelogic::endgame( "halftime", game["end_reason"]["time_limit_reached"] );
     }
 }
 
-_id_A009( var_0 )
+waitattachflag( var_0 )
 {
     level endon( "game_ended" );
     self endon( "disconnect" );
@@ -1027,24 +1009,24 @@ _id_A009( var_0 )
     attachflag( var_0 );
 }
 
-_id_6459( var_0 )
+oncantuse( var_0 )
 {
 
 }
 
-_id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+onplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     if ( isdefined( var_1 ) && isplayer( var_1 ) && var_1.pers["team"] != self.pers["team"] )
     {
         var_10 = isdefined( var_4 ) && maps\mp\_utility::iskillstreakweapon( var_4 );
 
         if ( isdefined( var_1.carryflag ) && !var_10 )
-            var_1 thread maps\mp\_events::_id_53B6();
+            var_1 thread maps\mp\_events::killwithflagevent();
 
         if ( isdefined( self.carryflag ) )
         {
-            var_1 thread maps\mp\_events::_id_5368( var_9 );
-            _id_2980();
+            var_1 thread maps\mp\_events::killflagcarrierevent( var_9 );
+            detachflag();
             return;
         }
 
@@ -1053,21 +1035,21 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
         var_11 = 65536;
 
-        foreach ( var_13 in level._id_1B60 )
+        foreach ( var_13 in level.capzones )
         {
             var_14 = distance2dsquared( var_1.origin, var_13.curorigin );
             var_15 = distance2dsquared( self.origin, var_13.curorigin );
 
-            if ( var_13._id_663A == var_1.team )
+            if ( var_13.ownerteam == var_1.team )
             {
                 if ( var_14 < var_11 || var_15 < var_11 )
                 {
-                    var_1 thread maps\mp\_events::_id_27AE( self, var_9 );
-                    var_1 maps\mp\_utility::_id_7F6C( var_1.pers["defends"] );
+                    var_1 thread maps\mp\_events::defendobjectiveevent( self, var_9 );
+                    var_1 maps\mp\_utility::setextrascore1( var_1.pers["defends"] );
                 }
             }
 
-            if ( var_13._id_663A == self.team )
+            if ( var_13.ownerteam == self.team )
             {
                 if ( var_14 < var_11 || var_15 < var_11 )
                     var_1 thread maps\mp\_events::assaultobjectiveevent( self, var_9 );
@@ -1075,18 +1057,18 @@ _id_64D3( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
         }
     }
     else if ( isdefined( self.carryflag ) )
-        _id_2980();
+        detachflag();
 }
 
 attachflag( var_0 )
 {
-    var_1 = level._id_65B3[self.pers["team"]];
+    var_1 = level.otherteam[self.pers["team"]];
     self attach( level.carryflag[var_1], "J_SpineUpper", 1 );
     self.carryflag = level.carryflag[var_1];
-    var_0 thread _id_3860();
+    var_0 thread flageffects();
 }
 
-_id_426E()
+goliathattachflag()
 {
     level endon( "game_ended" );
     self endon( "death" );
@@ -1100,22 +1082,22 @@ _id_426E()
     if ( isdefined( self.carryflag ) )
         self attach( self.carryflag, "J_SpineUpper", 1 );
 
-    if ( isdefined( self._id_1BB6 ) )
-        self._id_1BB6 thread _id_3860();
+    if ( isdefined( self.carryobject ) )
+        self.carryobject thread flageffects();
 }
 
-_id_1AF8( var_0 )
+canuse( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
 
-    if ( var_0 maps\mp\_utility::_id_5131() )
+    if ( var_0 maps\mp\_utility::isjuggernaut() )
         return 0;
 
     return 1;
 }
 
-_id_4272()
+goliathdropflag()
 {
     level endon( "game_ended" );
     self endon( "death" );
@@ -1124,14 +1106,14 @@ _id_4272()
     self endon( "faux_spawn" );
     self waittill( "goliath_equipped" );
 
-    if ( isdefined( self._id_1BB6 ) )
+    if ( isdefined( self.carryobject ) )
     {
         self.carryflag = undefined;
-        self._id_1BB6 thread maps\mp\gametypes\_gameobjects::_id_7F5D();
+        self.carryobject thread maps\mp\gametypes\_gameobjects::setdropped();
     }
 }
 
-_id_2980()
+detachflag()
 {
     self notify( "lost_ctf_flag" );
     var_0 = "J_SpineUpper";
@@ -1141,51 +1123,51 @@ _id_2980()
 
 assignteamspawns()
 {
-    var_0 = maps\mp\gametypes\_spawnlogic::_id_40DD( "mp_ctf_spawn" );
-    level._id_9201["axis"] = [];
-    level._id_9201["allies"] = [];
+    var_0 = maps\mp\gametypes\_spawnlogic::getspawnpointarray( "mp_ctf_spawn" );
+    level.teamspawnpoints["axis"] = [];
+    level.teamspawnpoints["allies"] = [];
 
     foreach ( var_2 in var_0 )
     {
-        var_2._id_91EA = _id_4034( var_2 );
+        var_2.teambase = getnearestflagteam( var_2 );
 
-        if ( var_2._id_91EA == "axis" )
+        if ( var_2.teambase == "axis" )
         {
-            level._id_9201["axis"][level._id_9201["axis"].size] = var_2;
+            level.teamspawnpoints["axis"][level.teamspawnpoints["axis"].size] = var_2;
             continue;
         }
 
-        level._id_9201["allies"][level._id_9201["allies"].size] = var_2;
+        level.teamspawnpoints["allies"][level.teamspawnpoints["allies"].size] = var_2;
     }
 }
 
-_id_71EC()
+reassign_ctf_team_spawns()
 {
-    var_0 = maps\mp\gametypes\_spawnlogic::_id_40DD( "mp_ctf_spawn" );
-    level._id_9201["axis"] = [];
-    level._id_9201["allies"] = [];
+    var_0 = maps\mp\gametypes\_spawnlogic::getspawnpointarray( "mp_ctf_spawn" );
+    level.teamspawnpoints["axis"] = [];
+    level.teamspawnpoints["allies"] = [];
 
     foreach ( var_2 in var_0 )
     {
-        var_2._id_91EA = _id_3DE5( var_2 );
+        var_2.teambase = get_nearest_capzone_team( var_2 );
 
-        if ( var_2._id_91EA == "axis" )
+        if ( var_2.teambase == "axis" )
         {
-            level._id_9201["axis"][level._id_9201["axis"].size] = var_2;
+            level.teamspawnpoints["axis"][level.teamspawnpoints["axis"].size] = var_2;
             continue;
         }
 
-        level._id_9201["allies"][level._id_9201["allies"].size] = var_2;
+        level.teamspawnpoints["allies"][level.teamspawnpoints["allies"].size] = var_2;
     }
 }
 
-_id_3DE5( var_0 )
+get_nearest_capzone_team( var_0 )
 {
-    var_1 = maps\mp\gametypes\_spawnlogic::_id_5170();
+    var_1 = maps\mp\gametypes\_spawnlogic::ispathdataavailable();
     var_2 = undefined;
     var_3 = undefined;
 
-    foreach ( var_5 in level._id_1B60 )
+    foreach ( var_5 in level.capzones )
     {
         var_6 = undefined;
 
@@ -1202,41 +1184,41 @@ _id_3DE5( var_0 )
         }
     }
 
-    return var_2._id_663A;
+    return var_2.ownerteam;
 }
 
-_id_4034( var_0 )
+getnearestflagteam( var_0 )
 {
-    var_1 = maps\mp\gametypes\_spawnlogic::_id_5170();
+    var_1 = maps\mp\gametypes\_spawnlogic::ispathdataavailable();
     var_2 = undefined;
     var_3 = undefined;
     var_4 = undefined;
 
     if ( var_1 )
     {
-        var_3 = getpathdist( var_0.origin, level._id_91EF["allies"].origin, 999999 );
-        var_4 = getpathdist( var_0.origin, level._id_91EF["axis"].origin, 999999 );
+        var_3 = getpathdist( var_0.origin, level.teamflags["allies"].origin, 999999 );
+        var_4 = getpathdist( var_0.origin, level.teamflags["axis"].origin, 999999 );
     }
 
     if ( !isdefined( var_3 ) || var_3 == -1 )
-        var_3 = distancesquared( level._id_91EF["allies"].origin, var_0.origin );
+        var_3 = distancesquared( level.teamflags["allies"].origin, var_0.origin );
 
     if ( !isdefined( var_4 ) || var_4 == -1 )
-        var_4 = distancesquared( level._id_91EF["axis"].origin, var_0.origin );
+        var_4 = distancesquared( level.teamflags["axis"].origin, var_0.origin );
 
     if ( isdefined( var_0.script_noteworthy ) )
     {
         if ( game["switchedsides"] && var_0.script_noteworthy == "axis_override" || !game["switchedsides"] && var_0.script_noteworthy == "allies_override" )
         {
             var_2 = "allies";
-            var_0.friendlyflag = level._id_91EF["allies"];
+            var_0.friendlyflag = level.teamflags["allies"];
             var_0.friendlyflagdist = var_3;
             var_0.enemyflagdist = var_4;
         }
         else if ( game["switchedsides"] && var_0.script_noteworthy == "allies_override" || !game["switchedsides"] && var_0.script_noteworthy == "axis_override" )
         {
             var_2 = "axis";
-            var_0.friendlyflag = level._id_91EF["axis"];
+            var_0.friendlyflag = level.teamflags["axis"];
             var_0.friendlyflagdist = var_4;
             var_0.enemyflagdist = var_3;
         }
@@ -1244,10 +1226,10 @@ _id_4034( var_0 )
 
     if ( !isdefined( var_2 ) )
     {
-        var_2 = common_scripts\utility::_id_9294( var_3 < var_4, "allies", "axis" );
-        var_0.friendlyflag = common_scripts\utility::_id_9294( var_3 < var_4, level._id_91EF["allies"], level._id_91EF["axis"] );
-        var_0.friendlyflagdist = common_scripts\utility::_id_9294( var_3 < var_4, var_3, var_4 );
-        var_0.enemyflagdist = common_scripts\utility::_id_9294( var_3 > var_4, var_3, var_4 );
+        var_2 = common_scripts\utility::ter_op( var_3 < var_4, "allies", "axis" );
+        var_0.friendlyflag = common_scripts\utility::ter_op( var_3 < var_4, level.teamflags["allies"], level.teamflags["axis"] );
+        var_0.friendlyflagdist = common_scripts\utility::ter_op( var_3 < var_4, var_3, var_4 );
+        var_0.enemyflagdist = common_scripts\utility::ter_op( var_3 > var_4, var_3, var_4 );
     }
 
     var_5 = var_0.friendlyflagdist / var_0.enemyflagdist;
@@ -1258,69 +1240,69 @@ _id_4034( var_0 )
     return var_2;
 }
 
-_id_3861()
+flageffectsstop()
 {
-    _id_3A9A();
+    friendlyenemyeffectsstop();
 }
 
-_id_3860()
+flageffects()
 {
-    waitframe;
+    waittillframeend;
 
-    if ( isdefined( self._id_1BAF ) )
-        _id_3A9B( level._id_386E, self._id_1BAF, "J_SpineUpper" );
+    if ( isdefined( self.carrier ) )
+        friendlyenemylinkedeffects( level.flagstowedfxid, self.carrier, "J_SpineUpper" );
     else
     {
         var_0 = self.visuals[0];
-        _id_3A99( level._id_3865, var_0.origin, anglestoforward( var_0.angles ) );
+        friendlyenemyeffects( level.flaggroundfxid, var_0.origin, anglestoforward( var_0.angles ) );
     }
 }
 
-_id_1B5F()
+capturezoneeffects()
 {
-    waitframe;
-    _id_3A99( level._id_385D, self.baseeffectpos, self.baseeffectforward );
+    waittillframeend;
+    friendlyenemyeffects( level.flagbasefxid, self.baseeffectpos, self.baseeffectforward );
 }
 
-_id_3A9A()
+friendlyenemyeffectsstop()
 {
-    if ( isdefined( self._id_3AAB ) )
-        self._id_3AAB delete();
+    if ( isdefined( self.friendlyfx ) )
+        self.friendlyfx delete();
 
-    if ( isdefined( self._id_32AC ) )
-        self._id_32AC delete();
+    if ( isdefined( self.enemyfx ) )
+        self.enemyfx delete();
 }
 
-_id_3A9B( var_0, var_1, var_2 )
+friendlyenemylinkedeffects( var_0, var_1, var_2 )
 {
-    var_3 = self._id_663A;
+    var_3 = self.ownerteam;
     var_4 = var_0[game[var_3]]["friendly"];
     var_5 = var_0[game[var_3]]["enemy"];
-    _id_3A9A();
-    self._id_3AAB = _id_89EC( var_4, var_3, var_1, var_2 );
-    self._id_32AC = _id_89EC( var_5, maps\mp\_utility::getotherteam( var_3 ), var_1, var_2 );
+    friendlyenemyeffectsstop();
+    self.friendlyfx = spawnlinkedfxshowtoteam( var_4, var_3, var_1, var_2 );
+    self.enemyfx = spawnlinkedfxshowtoteam( var_5, maps\mp\_utility::getotherteam( var_3 ), var_1, var_2 );
 }
 
-_id_3A99( var_0, var_1, var_2 )
+friendlyenemyeffects( var_0, var_1, var_2 )
 {
-    var_3 = self._id_663A;
+    var_3 = self.ownerteam;
     var_4 = var_0[game[var_3]]["friendly"];
     var_5 = var_0[game[var_3]]["enemy"];
-    _id_3A9A();
-    self._id_3AAB = maps\mp\_utility::_id_89DD( var_4, var_3, var_1, var_2 );
-    self._id_32AC = maps\mp\_utility::_id_89DD( var_5, maps\mp\_utility::getotherteam( var_3 ), var_1, var_2 );
+    friendlyenemyeffectsstop();
+    self.friendlyfx = maps\mp\_utility::spawnfxshowtoteam( var_4, var_3, var_1, var_2 );
+    self.enemyfx = maps\mp\_utility::spawnfxshowtoteam( var_5, maps\mp\_utility::getotherteam( var_3 ), var_1, var_2 );
 }
 
-_id_89EC( var_0, var_1, var_2, var_3 )
+spawnlinkedfxshowtoteam( var_0, var_1, var_2, var_3 )
 {
     var_4 = spawnlinkedfx( var_0, var_2, var_3 );
-    var_4 maps\mp\_utility::_id_3BB8( var_1 );
+    var_4 maps\mp\_utility::fxshowtoteam( var_1 );
     return var_4;
 }
 
-_id_1B5E()
+capturezone_reset_base_effects()
 {
-    foreach ( var_1 in level._id_91EF )
+    foreach ( var_1 in level.teamflags )
     {
         if ( var_1.visuals.size )
         {
@@ -1330,20 +1312,20 @@ _id_1B5E()
             var_5 = vectortoangles( var_4["normal"] );
             var_1.baseeffectforward = anglestoforward( var_5 );
             var_1.baseeffectpos = var_4["position"];
-            var_1 thread _id_3860();
-            var_6 = level._id_1B60[var_1._id_663A];
+            var_1 thread flageffects();
+            var_6 = level.capzones[var_1.ownerteam];
             var_6.baseeffectforward = var_1.baseeffectforward;
             var_6.baseeffectpos = var_1.baseeffectpos;
-            var_6 thread _id_1B5F();
+            var_6 thread capturezoneeffects();
         }
     }
 }
 
-_id_64C8()
+onplayerconnect()
 {
     for (;;)
     {
         level waittill( "connected", var_0 );
-        var_0 thread _id_6D8E();
+        var_0 thread playerwatchflagstatus();
     }
 }

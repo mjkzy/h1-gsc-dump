@@ -1,29 +1,11 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
 {
     maps\_vehicle::build_template( "bm21", var_0, var_1, var_2 );
-    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_localinit( ::init_local );
     maps\_vehicle::build_deathmodel( "vehicle_bm21_mobile", "vehicle_bm21_mobile_dstry" );
     precachemodel( "projectile_bm21_missile" );
     maps\_vehicle::build_deathfx( "fx/explosions/small_vehicle_explosion", "tag_fx_tank", "explo_metal_rand", undefined, undefined, undefined, 0 );
@@ -50,35 +32,35 @@ main( var_0, var_1, var_2 )
     maps\_vehicle::build_light( var_3, "breaklight_bm21_left", "tag_taillight_left", "fx/misc/car_brakelight_bm21", "brakelights" );
 }
 
-_id_4D10()
+init_local()
 {
-    self._id_5CBF = "projectile_bm21_missile";
-    self._id_5CCA = [];
-    self._id_5CCA[0] = "tag_missile1";
-    self._id_5CCA[1] = "tag_missile2";
-    self._id_5CCA[2] = "tag_missile3";
-    self._id_5CCA[3] = "tag_missile4";
-    self._id_5CCA[4] = "tag_missile5";
-    self._id_5CCA[5] = "tag_missile6";
-    self._id_5CCA[6] = "tag_missile7";
-    self._id_5CCA[7] = "tag_missile8";
-    self._id_5CCA[8] = "tag_missile9";
-    self._id_5CCA[9] = "tag_missile10";
-    self._id_5CCA[10] = "tag_missile11";
-    self._id_5CCA[11] = "tag_missile12";
-    self._id_5CCA[12] = "tag_missile13";
-    self._id_5CCA[13] = "tag_missile14";
-    self._id_5CCA[14] = "tag_missile15";
-    self._id_5CCA[15] = "tag_missile16";
-    self._id_5CCA[16] = "tag_missile17";
-    self._id_5CCA[17] = "tag_missile18";
-    self._id_5CCA[18] = "tag_missile19";
-    self._id_5CCA[19] = "tag_missile20";
-    self._id_5CCA[20] = "tag_missile21";
-    self._id_5CCA[21] = "tag_missile22";
-    self._id_5CCA[22] = "tag_missile23";
-    self._id_5CCA[23] = "tag_missile24";
-    self._id_5CCA[24] = "tag_missile25";
-    self._id_5CCA[25] = "tag_missile26";
+    self.missilemodel = "projectile_bm21_missile";
+    self.missiletags = [];
+    self.missiletags[0] = "tag_missile1";
+    self.missiletags[1] = "tag_missile2";
+    self.missiletags[2] = "tag_missile3";
+    self.missiletags[3] = "tag_missile4";
+    self.missiletags[4] = "tag_missile5";
+    self.missiletags[5] = "tag_missile6";
+    self.missiletags[6] = "tag_missile7";
+    self.missiletags[7] = "tag_missile8";
+    self.missiletags[8] = "tag_missile9";
+    self.missiletags[9] = "tag_missile10";
+    self.missiletags[10] = "tag_missile11";
+    self.missiletags[11] = "tag_missile12";
+    self.missiletags[12] = "tag_missile13";
+    self.missiletags[13] = "tag_missile14";
+    self.missiletags[14] = "tag_missile15";
+    self.missiletags[15] = "tag_missile16";
+    self.missiletags[16] = "tag_missile17";
+    self.missiletags[17] = "tag_missile18";
+    self.missiletags[18] = "tag_missile19";
+    self.missiletags[19] = "tag_missile20";
+    self.missiletags[20] = "tag_missile21";
+    self.missiletags[21] = "tag_missile22";
+    self.missiletags[22] = "tag_missile23";
+    self.missiletags[23] = "tag_missile24";
+    self.missiletags[24] = "tag_missile25";
+    self.missiletags[25] = "tag_missile26";
     thread maps\_vehicle_missile::main();
 }

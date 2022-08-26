@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-setParent( var_0 )
+setparent( var_0 )
 {
     if ( isdefined( self.parent ) && self.parent == var_0 )
         return;
@@ -31,12 +13,12 @@ setParent( var_0 )
     self.parent addchild( self );
 
     if ( isdefined( self.point ) )
-        setpoint( self.point, self.relativePoint, self.xoffset, self.yoffset );
+        setpoint( self.point, self.relativepoint, self.xoffset, self.yoffset );
     else
         setpoint( "TOPLEFT" );
 }
 
-getParent()
+getparent()
 {
     return self.parent;
 }
@@ -66,7 +48,7 @@ setpoint( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_4 ) )
         var_4 = 0;
 
-    var_5 = getParent();
+    var_5 = getparent();
 
     if ( var_4 )
         self moveovertime( var_4 );
@@ -99,7 +81,7 @@ setpoint( var_0, var_1, var_2, var_3, var_4 )
     if ( !isdefined( var_1 ) )
         var_1 = var_0;
 
-    self.relativePoint = var_1;
+    self.relativepoint = var_1;
     var_6 = "center_adjustable";
     var_7 = "middle";
 
@@ -251,11 +233,11 @@ createfontstring( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     var_2.hidden = 0;
     return var_2;
 }
@@ -274,11 +256,11 @@ createserverfontstring( var_0, var_1, var_2 )
     var_3.x = 0;
     var_3.y = 0;
     var_3.width = 0;
-    var_3.height = int( level._id_397D * var_1 );
+    var_3.height = int( level.fontheight * var_1 );
     var_3.xoffset = 0;
     var_3.yoffset = 0;
     var_3.children = [];
-    var_3 setParent( level.uiparent );
+    var_3 setparent( level.uiparent );
     var_3.hidden = 0;
     return var_3;
 }
@@ -297,11 +279,11 @@ createservertimer( var_0, var_1, var_2 )
     var_3.x = 0;
     var_3.y = 0;
     var_3.width = 0;
-    var_3.height = int( level._id_397D * var_1 );
+    var_3.height = int( level.fontheight * var_1 );
     var_3.xoffset = 0;
     var_3.yoffset = 0;
     var_3.children = [];
-    var_3 setParent( level.uiparent );
+    var_3 setparent( level.uiparent );
     var_3.hidden = 0;
     return var_3;
 }
@@ -316,16 +298,16 @@ createtimer( var_0, var_1 )
     var_2.x = 0;
     var_2.y = 0;
     var_2.width = 0;
-    var_2.height = int( level._id_397D * var_1 );
+    var_2.height = int( level.fontheight * var_1 );
     var_2.xoffset = 0;
     var_2.yoffset = 0;
     var_2.children = [];
-    var_2 setParent( level.uiparent );
+    var_2 setparent( level.uiparent );
     var_2.hidden = 0;
     return var_2;
 }
 
-createIcon( var_0, var_1, var_2 )
+createicon( var_0, var_1, var_2 )
 {
     var_3 = newclienthudelem( self );
     var_3.elemtype = "icon";
@@ -338,7 +320,7 @@ createIcon( var_0, var_1, var_2 )
     var_3.xoffset = 0;
     var_3.yoffset = 0;
     var_3.children = [];
-    var_3 setParent( level.uiparent );
+    var_3 setparent( level.uiparent );
     var_3.hidden = 0;
 
     if ( isdefined( var_0 ) )
@@ -350,7 +332,7 @@ createIcon( var_0, var_1, var_2 )
     return var_3;
 }
 
-createServerIcon( var_0, var_1, var_2, var_3 )
+createservericon( var_0, var_1, var_2, var_3 )
 {
     if ( isdefined( var_3 ) )
         var_4 = newteamhudelem( var_3 );
@@ -367,7 +349,7 @@ createServerIcon( var_0, var_1, var_2, var_3 )
     var_4.xoffset = 0;
     var_4.yoffset = 0;
     var_4.children = [];
-    var_4 setParent( level.uiparent );
+    var_4 setparent( level.uiparent );
     var_4.hidden = 0;
 
     if ( isdefined( var_0 ) )
@@ -379,7 +361,7 @@ createServerIcon( var_0, var_1, var_2, var_3 )
     return var_4;
 }
 
-createServerBar( var_0, var_1, var_2, var_3, var_4, var_5 )
+createserverbar( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( isdefined( var_4 ) )
         var_6 = newteamhudelem( var_4 );
@@ -396,7 +378,7 @@ createServerBar( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_6.hidden = 0;
 
     if ( isdefined( var_3 ) )
-        var_6.flashFarc = var_3;
+        var_6.flashfrac = var_3;
 
     if ( isdefined( var_4 ) )
         var_7 = newteamhudelem( var_4 );
@@ -415,13 +397,13 @@ createServerBar( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_7.sort = -3;
     var_7.color = ( 0.0, 0.0, 0.0 );
     var_7.alpha = 0.5;
-    var_7 setParent( level.uiparent );
+    var_7 setparent( level.uiparent );
     var_7 setshader( "progress_bar_bg", var_1, var_2 );
     var_7.hidden = 0;
     return var_7;
 }
 
-createBar( var_0, var_1, var_2, var_3 )
+createbar( var_0, var_1, var_2, var_3 )
 {
     var_4 = newclienthudelem( self );
     var_4.x = 0;
@@ -434,7 +416,7 @@ createBar( var_0, var_1, var_2, var_3 )
     var_4.hidden = 0;
 
     if ( isdefined( var_3 ) )
-        var_4.flashFarc = var_3;
+        var_4.flashfrac = var_3;
 
     var_5 = newclienthudelem( self );
     var_5.elemtype = "bar";
@@ -447,13 +429,13 @@ createBar( var_0, var_1, var_2, var_3 )
     var_5.sort = -3;
     var_5.color = ( 0.0, 0.0, 0.0 );
     var_5.alpha = 0.5;
-    var_5 setParent( level.uiparent );
+    var_5 setparent( level.uiparent );
     var_5 setshader( "progress_bar_bg", var_1 + 4, var_2 + 4 );
     var_5.hidden = 0;
     return var_5;
 }
 
-getCurrentFraction()
+getcurrentfraction()
 {
     var_0 = self.bar.frac;
 
@@ -471,7 +453,7 @@ getCurrentFraction()
     return var_0;
 }
 
-createPrimaryProgressBar( var_0, var_1 )
+createprimaryprogressbar( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0;
@@ -482,12 +464,12 @@ createPrimaryProgressBar( var_0, var_1 )
     if ( self issplitscreenplayerprimary() )
         var_1 += 20;
 
-    var_2 = createBar( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
+    var_2 = createbar( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
     var_2 setpoint( "CENTER", undefined, level.primaryprogressbarx + var_0, level.primaryprogressbary + var_1 );
     return var_2;
 }
 
-createPrimaryProgressBarText( var_0, var_1 )
+createprimaryprogressbartext( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0;
@@ -499,31 +481,31 @@ createPrimaryProgressBarText( var_0, var_1 )
         var_1 += 20;
 
     var_2 = createfontstring( "hudbig", level.primaryprogressbarfontsize );
-    var_2 setpoint( "CENTER", undefined, level.primaryprogressbartextx + var_0, level.primaryProgressBarTextY + var_1 );
+    var_2 setpoint( "CENTER", undefined, level.primaryprogressbartextx + var_0, level.primaryprogressbartexty + var_1 );
     var_2.sort = -1;
     return var_2;
 }
 
-createTeamProgressBar( var_0 )
+createteamprogressbar( var_0 )
 {
-    var_1 = createServerBar( ( 1.0, 0.0, 0.0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
+    var_1 = createserverbar( ( 1.0, 0.0, 0.0 ), level.teamprogressbarwidth, level.teamprogressbarheight, undefined, var_0 );
     var_1 setpoint( "TOP", undefined, 0, level.teamprogressbary );
     return var_1;
 }
 
-createTeamProgressBarText( var_0 )
+createteamprogressbartext( var_0 )
 {
     var_1 = createserverfontstring( "default", level.teamprogressbarfontsize, var_0 );
     var_1 setpoint( "TOP", undefined, 0, level.teamprogressbartexty );
     return var_1;
 }
 
-setFlashFrac( var_0 )
+setflashfrac( var_0 )
 {
-    self.bar.flashFarc = var_0;
+    self.bar.flashfrac = var_0;
 }
 
-hideElem()
+hideelem()
 {
     if ( self.hidden )
         return;
@@ -542,7 +524,7 @@ hideElem()
     }
 }
 
-showElem()
+showelem()
 {
     if ( !self.hidden )
         return;
@@ -563,7 +545,7 @@ showElem()
         self.alpha = 1;
 }
 
-flashThread()
+flashthread()
 {
     self endon( "death" );
 
@@ -572,7 +554,7 @@ flashThread()
 
     for (;;)
     {
-        if ( self.frac >= self.flashFarc )
+        if ( self.frac >= self.flashfrac )
         {
             if ( !self.hidden )
             {
@@ -594,7 +576,7 @@ flashThread()
     }
 }
 
-destroyElem()
+destroyelem()
 {
     var_0 = [];
 
@@ -605,7 +587,7 @@ destroyElem()
     }
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1] setParent( getParent() );
+        var_0[var_1] setparent( getparent() );
 
     if ( self.elemtype == "bar" || self.elemtype == "bar_shader" )
         self.bar destroy();
@@ -613,33 +595,33 @@ destroyElem()
     self destroy();
 }
 
-setIconShader( var_0 )
+seticonshader( var_0 )
 {
     self setshader( var_0, self.width, self.height );
     self.shader = var_0;
 }
 
-getIconShader( var_0 )
+geticonshader( var_0 )
 {
     return self.shader;
 }
 
-setIconSize( var_0, var_1 )
+seticonsize( var_0, var_1 )
 {
     self setshader( self.shader, var_0, var_1 );
 }
 
-setWidth( var_0 )
+setwidth( var_0 )
 {
     self.width = var_0;
 }
 
-setHeight( var_0 )
+setheight( var_0 )
 {
     self.height = var_0;
 }
 
-setSize( var_0, var_1 )
+setsize( var_0, var_1 )
 {
     self.width = var_0;
     self.height = var_1;
@@ -650,11 +632,11 @@ updatechildren()
     for ( var_0 = 0; var_0 < self.children.size; var_0++ )
     {
         var_1 = self.children[var_0];
-        var_1 setpoint( var_1.point, var_1.relativePoint, var_1.xoffset, var_1.yoffset );
+        var_1 setpoint( var_1.point, var_1.relativepoint, var_1.xoffset, var_1.yoffset );
     }
 }
 
-transitionReset()
+transitionreset()
 {
     self.x = self.xoffset;
     self.y = self.yoffset;
@@ -670,7 +652,7 @@ transitionReset()
     self.alpha = 0;
 }
 
-transitionZoomIn( var_0 )
+transitionzoomin( var_0 )
 {
     switch ( self.elemtype )
     {
@@ -687,7 +669,7 @@ transitionZoomIn( var_0 )
     }
 }
 
-transitionPulseFXIn( var_0, var_1 )
+transitionpulsefxin( var_0, var_1 )
 {
     var_2 = int( var_0 ) * 1000;
     var_3 = int( var_1 ) * 1000;
@@ -703,7 +685,7 @@ transitionPulseFXIn( var_0, var_1 )
     }
 }
 
-transitionSlideIn( var_0, var_1 )
+transitionslidein( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = "left";
@@ -729,7 +711,7 @@ transitionSlideIn( var_0, var_1 )
     self.y = self.yoffset;
 }
 
-transitionSlideOut( var_0, var_1 )
+transitionslideout( var_0, var_1 )
 {
     if ( !isdefined( var_1 ) )
         var_1 = "left";
@@ -759,7 +741,7 @@ transitionSlideOut( var_0, var_1 )
     self.y = var_3;
 }
 
-transitionZoomOut( var_0 )
+transitionzoomout( var_0 )
 {
     switch ( self.elemtype )
     {
@@ -773,23 +755,23 @@ transitionZoomOut( var_0 )
     }
 }
 
-transitionFadeIn( var_0 )
+transitionfadein( var_0 )
 {
     self fadeovertime( var_0 );
 
-    if ( isdefined( self.maxAlpha ) )
-        self.alpha = self.maxAlpha;
+    if ( isdefined( self.maxalpha ) )
+        self.alpha = self.maxalpha;
     else
         self.alpha = 1;
 }
 
-transitionFadeOut( var_0 )
+transitionfadeout( var_0 )
 {
     self fadeovertime( 0.15 );
     self.alpha = 0;
 }
 
-_id_51D6( var_0 )
+istimelimitedchallenge( var_0 )
 {
     if ( issubstr( var_0, "ch_limited" ) )
         return 1;
@@ -797,65 +779,65 @@ _id_51D6( var_0 )
     return 0;
 }
 
-_id_5206( var_0 )
+isweaponclasschallenge( var_0 )
 {
-    if ( common_scripts\utility::_id_8F57( var_0, "ch_attach_unlock_kills" ) )
+    if ( common_scripts\utility::string_starts_with( var_0, "ch_attach_unlock_kills" ) )
         return 1;
 
-    if ( common_scripts\utility::_id_8F57( var_0, "ch_attach_unlock_hipfirekills" ) )
+    if ( common_scripts\utility::string_starts_with( var_0, "ch_attach_unlock_hipfirekills" ) )
         return 1;
 
-    if ( common_scripts\utility::_id_8F57( var_0, "ch_attach_unlock_headShots" ) )
+    if ( common_scripts\utility::string_starts_with( var_0, "ch_attach_unlock_headShots" ) )
         return 1;
 
     return 0;
 }
 
-getDailyRef( var_0 )
+ch_getprogress( var_0 )
 {
-    if ( _id_5206( var_0 ) )
-        return _id_6FFE( var_0 );
-    else if ( maps\mp\_utility::_id_51BA( var_0, "ch_daily_" ) )
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", "ch_daily" );
+    if ( isweaponclasschallenge( var_0 ) )
+        return processviaitemstatsprogress( var_0 );
+    else if ( maps\mp\_utility::isstrstart( var_0, "ch_daily_" ) )
+        return self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", "ch_daily" );
     else
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", var_0 );
+        return self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", var_0 );
 }
 
-_id_1C4D( var_0 )
+ch_getstate( var_0 )
 {
-    if ( _id_5206( var_0 ) )
-        return _id_6FFF( var_0 );
-    else if ( maps\mp\_utility::_id_51BA( var_0, "ch_daily_" ) )
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_daily" );
+    if ( isweaponclasschallenge( var_0 ) )
+        return processviaitemstatsstate( var_0 );
+    else if ( maps\mp\_utility::isstrstart( var_0, "ch_daily_" ) )
+        return self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_daily" );
     else
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", var_0 );
+        return self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", var_0 );
 }
 
-_id_1C53( var_0, var_1 )
+ch_setprogress( var_0, var_1 )
 {
-    if ( _id_5206( var_0 ) )
+    if ( isweaponclasschallenge( var_0 ) )
         return;
 
     var_2 = var_1;
 
-    if ( maps\mp\_utility::_id_51BA( var_0, "ch_daily_" ) )
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", "ch_daily", var_2 );
+    if ( maps\mp\_utility::isstrstart( var_0, "ch_daily_" ) )
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", "ch_daily", var_2 );
     else
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", var_0, var_2 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeProgress", var_0, var_2 );
 }
 
-_id_1C54( var_0, var_1 )
+ch_setstate( var_0, var_1 )
 {
-    if ( _id_5206( var_0 ) )
+    if ( isweaponclasschallenge( var_0 ) )
         return;
 
-    if ( maps\mp\_utility::_id_51BA( var_0, "ch_daily_" ) )
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_daily", var_1 );
+    if ( maps\mp\_utility::isstrstart( var_0, "ch_daily_" ) )
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_daily", var_1 );
     else
-        self setcommonplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", var_0, var_1 );
+        self setplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", var_0, var_1 );
 }
 
-_id_1C4E( var_0, var_1 )
+ch_gettarget( var_0, var_1 )
 {
     var_2 = tablelookup( "mp/allChallengesTable.csv", 0, var_0, 10 + ( var_1 - 1 ) * 2 );
 
@@ -865,7 +847,7 @@ _id_1C4E( var_0, var_1 )
     return 0;
 }
 
-_id_2B5E( var_0, var_1, var_2, var_3 )
+displayclientstring( var_0, var_1, var_2, var_3 )
 {
     var_4 = createfontstring( "hudbig", var_2 );
     var_4 setpoint( "CENTER", "CENTER", 0, var_1 );
@@ -874,34 +856,34 @@ _id_2B5E( var_0, var_1, var_2, var_3 )
     var_4.foreground = 0;
     var_4.hidewheninmenu = 1;
     var_4 settext( var_0 );
-    common_scripts\utility::_id_A069( var_3, "joined_team", "death" );
+    common_scripts\utility::waittill_any( var_3, "joined_team", "death" );
 
     if ( isdefined( var_4 ) )
-        var_4 destroyElem();
+        var_4 destroyelem();
 }
 
-_id_6FFE( var_0 )
+processviaitemstatsprogress( var_0 )
 {
-    if ( common_scripts\utility::_id_8F57( var_0, "ch_attach_unlock_hipfirekills" ) )
-        return _id_93F6( var_0, "hipfirekills" );
-    else if ( common_scripts\utility::_id_8F57( var_0, "ch_attach_unlock_kills" ) )
-        return _id_93F6( var_0, "kills" );
-    else if ( common_scripts\utility::_id_8F57( var_0, "ch_attach_unlock_headShots" ) )
-        return _id_93F6( var_0, "headShots" );
+    if ( common_scripts\utility::string_starts_with( var_0, "ch_attach_unlock_hipfirekills" ) )
+        return totalallweaponvariants( var_0, "hipfirekills" );
+    else if ( common_scripts\utility::string_starts_with( var_0, "ch_attach_unlock_kills" ) )
+        return totalallweaponvariants( var_0, "kills" );
+    else if ( common_scripts\utility::string_starts_with( var_0, "ch_attach_unlock_headShots" ) )
+        return totalallweaponvariants( var_0, "headShots" );
 }
 
-_id_6FFF( var_0 )
+processviaitemstatsstate( var_0 )
 {
-    var_1 = _id_6FFE( var_0 );
+    var_1 = processviaitemstatsprogress( var_0 );
     var_2 = 1;
 
-    for ( var_3 = _id_1C4E( var_0, var_2 ); var_3 > 0 && var_1 >= var_3; var_3 = _id_1C4E( var_0, var_2 ) )
+    for ( var_3 = ch_gettarget( var_0, var_2 ); var_3 > 0 && var_1 >= var_3; var_3 = ch_gettarget( var_0, var_2 ) )
         var_2++;
 
     return var_2;
 }
 
-_id_93F6( var_0, var_1 )
+totalallweaponvariants( var_0, var_1 )
 {
     var_2 = undefined;
     var_3 = 0;
@@ -921,19 +903,19 @@ _id_93F6( var_0, var_1 )
         for ( var_6 = tablelookuprownum( "mp/statstable.csv", 59, var_2 ); var_6 >= 0; var_6 = tablelookuprownum( "mp/statstable.csv", 59, var_2, var_6 - 1 ) )
         {
             var_7 = tablelookupbyrow( "mp/statstable.csv", var_6, 4 );
-            var_3 += self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "weaponStats", var_7, var_1 );
+            var_3 += self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "weaponStats", var_7, var_1 );
         }
 
-        if ( var_1 == "kills" && isdefined( self._id_94FA ) )
-            var_3 += self._id_94FA;
+        if ( var_1 == "kills" && isdefined( self.trackingweaponkills ) )
+            var_3 += self.trackingweaponkills;
 
-        if ( var_1 == "hipfirekills" && isdefined( self._id_94F8 ) )
-            var_3 += self._id_94F8;
+        if ( var_1 == "hipfirekills" && isdefined( self.trackingweaponhipfirekills ) )
+            var_3 += self.trackingweaponhipfirekills;
 
-        if ( var_1 == "headShots" && isdefined( self._id_94F7 ) )
-            var_3 += self._id_94F7;
+        if ( var_1 == "headShots" && isdefined( self.trackingweaponheadshots ) )
+            var_3 += self.trackingweaponheadshots;
 
-        var_8 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_ranked(), "attachUnlock_" + var_1, var_2 );
+        var_8 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "attachUnlock_" + var_1, var_2 );
 
         if ( var_8 > var_3 )
             var_8 = 0;

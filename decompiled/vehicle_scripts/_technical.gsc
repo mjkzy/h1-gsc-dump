@@ -1,29 +1,11 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
-
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
 {
     maps\_vehicle::build_template( "technical", var_0, var_1, var_2 );
-    maps\_vehicle::build_localinit( ::_id_4D10 );
+    maps\_vehicle::build_localinit( ::init_local );
     maps\_vehicle::build_deathmodel( "vehicle_pickup_technical", "vehicle_pickup_technical_destroyed", 3 );
     maps\_vehicle::build_turret( "50cal_turret_technical", "tag_50cal", "weapon_pickup_technical_mg50cal", undefined, undefined, 2.9 );
     maps\_vehicle::build_drive( %technical_driving_idle_forward, %technical_driving_idle_backward, 10 );
@@ -36,8 +18,8 @@ main( var_0, var_1, var_2 )
     maps\_vehicle::build_treadfx();
     maps\_vehicle::build_life( 999, 500, 1500 );
     maps\_vehicle::build_team( "allies" );
-    maps\_vehicle::build_aianims( ::_id_7F23, ::_id_7EFA );
-    maps\_vehicle::build_unload_groups( ::_id_9A3D );
+    maps\_vehicle::build_aianims( ::setanims, ::set_vehicle_anims );
+    maps\_vehicle::build_unload_groups( ::unload_groups );
     maps\_vehicle::build_light( var_2, "headlight_truck_left", "tag_headlight_left", "fx/misc/car_headlight_truck_L", "headlights" );
     maps\_vehicle::build_light( var_2, "headlight_truck_right", "tag_headlight_right", "fx/misc/car_headlight_truck_R", "headlights" );
     maps\_vehicle::build_light( var_2, "parkinglight_truck_left_f", "tag_parkinglight_left_f", "fx/misc/car_parkinglight_truck_LF", "headlights" );
@@ -51,28 +33,28 @@ main( var_0, var_1, var_2 )
     maps\_vehicle::build_radiusdamage( ( 0.0, 0.0, 53.0 ), 512, 300, 20, 1, 2.9 );
 }
 
-_id_7EFA( var_0 )
+set_vehicle_anims( var_0 )
 {
     return var_0;
 }
 
-_id_4D10()
+init_local()
 {
-    _id_4521();
+    handle_audio();
 }
 
-_id_4521()
+handle_audio()
 {
     self endon( "death" );
     var_0 = 0;
     var_1 = 6000;
     var_2 = 1.0;
     vehicle_scripts\_technical_aud::snd_init_technical();
-    thread _id_5D80();
+    thread monitor_death_stop_sounds();
 
     for (;;)
     {
-        if ( !isdefined( self._id_799F ) || !self._id_799F )
+        if ( !isdefined( self.script_disablevehicleaudio ) || !self.script_disablevehicleaudio )
         {
             var_3 = distance( self.origin, level.player.origin );
 
@@ -98,7 +80,7 @@ _id_4521()
     }
 }
 
-_id_5D80()
+monitor_death_stop_sounds()
 {
     self waittill( "death" );
     var_0 = 1.0;
@@ -106,36 +88,36 @@ _id_5D80()
 }
 #using_animtree("generic_human");
 
-_id_7F23()
+setanims()
 {
     var_0 = [];
 
     for ( var_1 = 0; var_1 < 3; var_1++ )
         var_0[var_1] = spawnstruct();
 
-    var_0[0]._id_85AE = "tag_driver";
-    var_0[1]._id_85AE = "tag_gunner";
-    var_0[2]._id_85AE = "tag_passenger";
-    var_0[0]._id_4B63[0] = %technical_driver_idle;
-    var_0[0]._id_4B63[1] = %technical_driver_duck;
-    var_0[0]._id_4B7E[0] = 1000;
-    var_0[0]._id_4B7E[1] = 100;
+    var_0[0].sittag = "tag_driver";
+    var_0[1].sittag = "tag_gunner";
+    var_0[2].sittag = "tag_passenger";
+    var_0[0].idle[0] = %technical_driver_idle;
+    var_0[0].idle[1] = %technical_driver_duck;
+    var_0[0].idleoccurrence[0] = 1000;
+    var_0[0].idleoccurrence[1] = 100;
     var_0[0].death = %technical_driver_fallout;
     var_0[2].death = %technical_passenger_fallout;
-    var_0[0]._id_9A43 = 0.9;
-    var_0[1]._id_9A43 = 0.9;
-    var_0[2]._id_9A43 = 0.9;
-    var_0[2]._id_4B63[0] = %technical_passenger_idle;
-    var_0[2]._id_4B63[1] = %technical_passenger_duck;
-    var_0[2]._id_4B7E[0] = 1000;
-    var_0[2]._id_4B7E[1] = 100;
-    var_0[0]._id_4068 = %technical_driver_climb_out;
-    var_0[2]._id_4068 = %technical_passenger_climb_out;
-    var_0[1]._id_5BD5 = 0;
+    var_0[0].unload_ondeath = 0.9;
+    var_0[1].unload_ondeath = 0.9;
+    var_0[2].unload_ondeath = 0.9;
+    var_0[2].idle[0] = %technical_passenger_idle;
+    var_0[2].idle[1] = %technical_passenger_duck;
+    var_0[2].idleoccurrence[0] = 1000;
+    var_0[2].idleoccurrence[1] = 100;
+    var_0[0].getout = %technical_driver_climb_out;
+    var_0[2].getout = %technical_passenger_climb_out;
+    var_0[1].mgturret = 0;
     return var_0;
 }
 
-_id_9A3D()
+unload_groups()
 {
     var_0 = [];
     var_0["passengers"] = [];

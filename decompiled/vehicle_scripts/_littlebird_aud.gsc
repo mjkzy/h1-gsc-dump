@@ -1,28 +1,10 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_45B5()
+handle_littlebird_audio()
 {
     self endon( "death" );
-    soundscripts\_snd::_id_870C( "rec_littlebird_formation_spawn", self );
+    soundscripts\_snd::snd_message( "rec_littlebird_formation_spawn", self );
 
     if ( issubstr( self.classname, "sentinel" ) || issubstr( self.classname, "armed" ) || issubstr( self.classname, "atlas_bench" ) )
     {
@@ -34,10 +16,10 @@ _id_45B5()
         var_1 = 0;
         var_2 = 0;
         var_3 = spawnstruct();
-        var_3._id_6F21 = "littlebird_sentinel";
-        var_3._id_35F0 = 3;
-        var_3._id_35F5 = 3;
-        soundscripts\_snd::_id_870C( "snd_register_vehicle", "littlebird_sentinel", ::_id_57B5 );
+        var_3.preset_name = "littlebird_sentinel";
+        var_3.fadein_time = 3;
+        var_3.fadeout_time = 3;
+        soundscripts\_snd::snd_message( "snd_register_vehicle", "littlebird_sentinel", ::littlebird_sentinel_constructor );
 
         for (;;)
         {
@@ -45,12 +27,12 @@ _id_45B5()
 
             if ( !var_1 && var_4 < 5400 )
             {
-                soundscripts\_snd::_id_870C( "snd_start_vehicle", var_3 );
+                soundscripts\_snd::snd_message( "snd_start_vehicle", var_3 );
                 var_1 = 1;
             }
             else if ( var_1 && var_4 > 5400 )
             {
-                soundscripts\_snd::_id_870C( "snd_stop_vehicle" );
+                soundscripts\_snd::snd_message( "snd_stop_vehicle" );
                 var_1 = 0;
             }
 
@@ -59,7 +41,7 @@ _id_45B5()
     }
 }
 
-_id_57B5()
+littlebird_sentinel_constructor()
 {
     var_0 = undefined;
     var_1 = 1;
@@ -100,25 +82,25 @@ _id_57B5()
     soundscripts\_audio_vehicle_manager::avm_begin_oneshot_data();
     soundscripts\_audio_vehicle_manager::avm_end_oneshot_data();
     soundscripts\_audio_vehicle_manager::avm_begin_behavior_data();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_hover", ::_id_563B, [ "speed", "distance2d" ] );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_hover", ::lbs_condition_callback_to_state_hover, [ "speed", "distance2d" ] );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "ALL" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_flying", ::_id_5639, [ "speed", "distance2d" ] );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_flying", ::lbs_condition_callback_to_state_flying, [ "speed", "distance2d" ] );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "ALL" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_distant", ::_id_5637, [ "distance2d" ] );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_distant", ::lbs_condition_callback_to_state_distant, [ "distance2d" ] );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "ALL" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_flyby", ::_id_5638, [ "distance2d" ] );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_flyby", ::lbs_condition_callback_to_state_flyby, [ "distance2d" ] );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "ALL" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_deathspin", ::_id_5635 );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_deathspin", ::lbs_condition_callback_to_state_deathspin );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "NONE" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_destruct", ::_id_5636 );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_destruct", ::lbs_condition_callback_to_state_destruct );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "NONE" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
-    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_off", ::_id_563C );
+    soundscripts\_audio_vehicle_manager::avm_begin_behavior_def( "to_state_off", ::lbs_condition_callback_to_state_off );
     soundscripts\_audio_vehicle_manager::avm_add_loops( "NONE" );
     soundscripts\_audio_vehicle_manager::avm_end_behavior_def();
     soundscripts\_audio_vehicle_manager::avm_end_behavior_data();
@@ -168,15 +150,15 @@ _id_57B5()
     var_4 = 10;
     var_5 = 30;
     var_6 = var_5 - var_3;
-    var_7 = soundscripts\_audio_vehicle_manager::_id_A3B3( 0 );
-    var_8 = soundscripts\_audio_vehicle_manager::_id_A3B3( 99.0 );
+    var_7 = soundscripts\_audio_vehicle_manager::yards2units( 0 );
+    var_8 = soundscripts\_audio_vehicle_manager::yards2units( 99.0 );
     var_9 = var_8 - var_7;
     var_10 = 0.0;
     var_11 = 1.0;
     var_12 = var_11 - var_10;
-    var_13 = soundscripts\_audio_vehicle_manager::_id_A3B3( 10 );
-    var_14 = soundscripts\_audio_vehicle_manager::_id_A3B3( 30 );
-    var_15 = soundscripts\_audio_vehicle_manager::_id_A3B3( 1000000 );
+    var_13 = soundscripts\_audio_vehicle_manager::yards2units( 10 );
+    var_14 = soundscripts\_audio_vehicle_manager::yards2units( 30 );
+    var_15 = soundscripts\_audio_vehicle_manager::yards2units( 1000000 );
     var_16 = var_15 - var_13;
     var_17 = 0.0;
     var_18 = 1.0;
@@ -184,8 +166,8 @@ _id_57B5()
     var_20 = -25;
     var_21 = 0;
     var_22 = 25;
-    var_23 = soundscripts\_audio_vehicle_manager::_id_A3B3( 0 );
-    var_24 = soundscripts\_audio_vehicle_manager::_id_A3B3( 75.0 );
+    var_23 = soundscripts\_audio_vehicle_manager::yards2units( 0 );
+    var_24 = soundscripts\_audio_vehicle_manager::yards2units( 75.0 );
     var_25 = var_24 - var_23;
     var_26 = 0.0;
     var_27 = 1.0;
@@ -193,8 +175,8 @@ _id_57B5()
     var_29 = 0.6;
     var_30 = 1.0;
     var_31 = 1.6;
-    var_32 = soundscripts\_audio_vehicle_manager::_id_A3B3( 0 );
-    var_33 = soundscripts\_audio_vehicle_manager::_id_A3B3( 150.0 );
+    var_32 = soundscripts\_audio_vehicle_manager::yards2units( 0 );
+    var_33 = soundscripts\_audio_vehicle_manager::yards2units( 150.0 );
     var_34 = var_24 - var_23;
     var_35 = 0.0;
     var_36 = 0.4;
@@ -237,17 +219,17 @@ _id_57B5()
     soundscripts\_audio_vehicle_manager::avm_end_preset_def();
 }
 
-_id_563C()
+lbs_condition_callback_to_state_off()
 {
     return 0;
 }
 
-_id_563B( var_0, var_1 )
+lbs_condition_callback_to_state_hover( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = var_0["speed"];
     var_4 = var_0["distance2d"];
-    var_5 = soundscripts\_audio_vehicle_manager::_id_9A2A( var_4 );
+    var_5 = soundscripts\_audio_vehicle_manager::units2yards( var_4 );
 
     if ( var_3 <= 5.1 && var_5 < 100.0 )
         var_2 = 1;
@@ -255,12 +237,12 @@ _id_563B( var_0, var_1 )
     return var_2;
 }
 
-_id_5639( var_0, var_1 )
+lbs_condition_callback_to_state_flying( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = var_0["speed"];
     var_4 = var_0["distance2d"];
-    var_5 = soundscripts\_audio_vehicle_manager::_id_9A2A( var_4 );
+    var_5 = soundscripts\_audio_vehicle_manager::units2yards( var_4 );
 
     if ( var_3 > 5.1 && var_5 < 100.0 )
         var_2 = 1;
@@ -268,11 +250,11 @@ _id_5639( var_0, var_1 )
     return var_2;
 }
 
-_id_5637( var_0, var_1 )
+lbs_condition_callback_to_state_distant( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = var_0["distance2d"];
-    var_4 = soundscripts\_audio_vehicle_manager::_id_9A2A( var_3 );
+    var_4 = soundscripts\_audio_vehicle_manager::units2yards( var_3 );
 
     if ( var_4 >= 100.0 )
         var_2 = 1;
@@ -280,38 +262,38 @@ _id_5637( var_0, var_1 )
     return var_2;
 }
 
-_id_5638( var_0, var_1 )
+lbs_condition_callback_to_state_flyby( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = var_0["distance2d"];
-    var_4 = soundscripts\_audio_vehicle_manager::_id_9A2A( var_3 );
+    var_4 = soundscripts\_audio_vehicle_manager::units2yards( var_3 );
 
-    if ( !isdefined( var_1._id_391D ) )
+    if ( !isdefined( var_1.flyby ) )
     {
-        var_1._id_391D = spawnstruct();
-        var_1._id_391D._id_6F4B = var_4;
-        var_1._id_391D._id_6F3C = 0;
+        var_1.flyby = spawnstruct();
+        var_1.flyby.prev_yards = var_4;
+        var_1.flyby.prev_dx = 0;
     }
     else
     {
-        var_5 = var_4 - var_1._id_391D._id_6F4B;
+        var_5 = var_4 - var_1.flyby.prev_yards;
 
         if ( var_5 < 0 && var_4 < 6.0 )
             var_2 = 1;
 
-        var_1._id_391D._id_6F4B = var_4;
-        var_1._id_391D._id_6F3C = var_5;
+        var_1.flyby.prev_yards = var_4;
+        var_1.flyby.prev_dx = var_5;
     }
 
     return var_2;
 }
 
-_id_563A( var_0, var_1 )
+lbs_condition_callback_to_state_flyover( var_0, var_1 )
 {
     var_2 = 0;
     var_3 = var_0["distance2d"];
     var_4 = var_0["relative_speed"];
-    var_5 = soundscripts\_audio_vehicle_manager::_id_9A2A( var_3 );
+    var_5 = soundscripts\_audio_vehicle_manager::units2yards( var_3 );
 
     if ( var_5 < 30 )
         var_2 = 1;
@@ -319,12 +301,12 @@ _id_563A( var_0, var_1 )
     return var_2;
 }
 
-_id_5635( var_0, var_1 )
+lbs_condition_callback_to_state_deathspin( var_0, var_1 )
 {
     return 0;
 }
 
-_id_5636( var_0, var_1 )
+lbs_condition_callback_to_state_destruct( var_0, var_1 )
 {
     return 0;
 }

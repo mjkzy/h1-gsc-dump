@@ -1,58 +1,40 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    if ( !isdefined( level._id_3AE4 ) )
-        level._id_3AE4 = [];
+    if ( !isdefined( level.func ) )
+        level.func = [];
 
-    level._id_3AE4["setsaveddvar"] = ::setsaveddvar;
-    level._id_3AE4["useanimtree"] = ::useanimtree;
-    level._id_3AE4["setanim"] = ::_meth_814D;
-    level._id_3AE4["setanimknob"] = ::_meth_8145;
-    level._id_3AE4["setflaggedanimknob"] = ::_meth_8154;
-    level._id_3AE4["setflaggedanimknobrestart"] = ::setflaggedanimknobrestart;
-    level._id_3AE4["setanimlimited"] = ::_meth_814E;
-    level._id_3AE4["setanimtime"] = ::setanimtime;
-    level._id_3AE4["getanimtime"] = ::_meth_8151;
-    level._id_3AE4["getanimlength"] = ::getanimlength;
-    level._id_3AE4["clearanim"] = ::_meth_8144;
-    level._id_3AE4["kill"] = ::kill;
-    level._id_3AE4["magicgrenade"] = ::magicgrenade;
-    _id_7E18();
-    maps\_utility::_id_7DF3();
-    level._id_4224 = [];
-    level._id_4224["_autosave_stealthcheck"] = ::_id_422C;
-    level._id_4224["_patrol_endon_spotted_flag"] = ::_id_422C;
-    level._id_4224["_spawner_stealth_default"] = ::_id_422C;
-    level._id_4224["_idle_call_idle_func"] = ::_id_422C;
-    common_scripts\utility::_id_383D( "_cloaked_stealth_enabled" );
+    level.func["setsaveddvar"] = ::setsaveddvar;
+    level.func["useanimtree"] = ::useanimtree;
+    level.func["setanim"] = ::setanim;
+    level.func["setanimknob"] = ::setanimknob;
+    level.func["setflaggedanimknob"] = ::setflaggedanimknob;
+    level.func["setflaggedanimknobrestart"] = ::setflaggedanimknobrestart;
+    level.func["setanimlimited"] = ::setanimlimited;
+    level.func["setanimtime"] = ::setanimtime;
+    level.func["getanimtime"] = ::getanimtime;
+    level.func["getanimlength"] = ::getanimlength;
+    level.func["clearanim"] = ::clearanim;
+    level.func["kill"] = ::kill;
+    level.func["magicgrenade"] = ::magicgrenade;
+    set_early_level();
+    maps\_utility::set_console_status();
+    level.global_callbacks = [];
+    level.global_callbacks["_autosave_stealthcheck"] = ::global_empty_callback;
+    level.global_callbacks["_patrol_endon_spotted_flag"] = ::global_empty_callback;
+    level.global_callbacks["_spawner_stealth_default"] = ::global_empty_callback;
+    level.global_callbacks["_idle_call_idle_func"] = ::global_empty_callback;
+    common_scripts\utility::flag_init( "_cloaked_stealth_enabled" );
 
-    if ( !isdefined( level._id_9E7D ) )
-        level._id_9E7D = "default";
+    if ( !isdefined( level.visionthermaldefault ) )
+        level.visionthermaldefault = "default";
 
-    visionsetthermal( level._id_9E7D );
+    visionsetthermal( level.visionthermaldefault );
     visionsetpain( "near_death" );
-    level._id_3AE4["damagefeedback"] = maps\_damagefeedback::_id_9B0C;
-    common_scripts\utility::array_thread( getentarray( "script_model_pickup_claymore", "classname" ), ::_id_1E42 );
+    level.func["damagefeedback"] = maps\_damagefeedback::updatedamagefeedback;
+    common_scripts\utility::array_thread( getentarray( "script_model_pickup_claymore", "classname" ), ::claymore_pickup_think_global );
     common_scripts\utility::array_thread( getentarray( "ammo_cache", "targetname" ), ::ammo_cache_think_global );
     maps\_utility::array_delete( getentarray( "trigger_multiple_softlanding", "classname" ) );
 
@@ -89,24 +71,24 @@ main()
     setdvar( "minimap_sp", 0 );
     setdvar( "minimap_full_sp", 0 );
 
-    if ( !isdefined( anim._id_61E5 ) )
+    if ( !isdefined( anim.notetracks ) )
     {
-        anim._id_61E5 = [];
-        animscripts\notetracks::_id_72F3();
+        anim.notetracks = [];
+        animscripts\notetracks::registernotetracks();
     }
 
-    common_scripts\utility::_id_383D( "introscreen_complete" );
-    maps\_utility::add_start( "no_game", ::_id_8C16 );
+    common_scripts\utility::flag_init( "introscreen_complete" );
+    maps\_utility::add_start( "no_game", ::start_nogame );
     add_no_game_starts();
     level._loadstarted = 1;
-    level._id_380E = 1;
-    level._id_56D2 = 0;
-    thread _id_7367();
-    level._id_9F83 = [];
-    level._id_76AB = [];
-    level._id_76A7 = [];
-    level._id_76AD = [];
-    level._id_2BDE = [];
+    level.first_frame = 1;
+    level.level_specific_dof = 0;
+    thread remove_level_first_frame();
+    level.wait_any_func_array = [];
+    level.run_func_after_wait_array = [];
+    level.run_call_after_wait_array = [];
+    level.run_noself_call_after_wait_array = [];
+    level.do_wait_endons_array = [];
     level.abort_wait_any_func_array = [];
 
     if ( !isdefined( level.script ) )
@@ -121,73 +103,73 @@ main()
     precachestring( &"GAME_GET_TO_COVER" );
     level.ai_number = 0;
 
-    if ( !isdefined( level._id_382E ) )
-        common_scripts\utility::_id_4CF0();
+    if ( !isdefined( level.flag ) )
+        common_scripts\utility::init_flags();
     else
     {
-        var_0 = getarraykeys( level._id_382E );
-        common_scripts\utility::array_levelthread( var_0, ::_id_1CBC );
+        var_0 = getarraykeys( level.flag );
+        common_scripts\utility::array_levelthread( var_0, ::check_flag_for_stat_tracking );
     }
 
-    _id_4D06();
+    init_level_players();
 
     if ( issplitscreen() )
         setsaveddvar( "cg_fovScale", "0.75" );
     else
         setsaveddvar( "cg_fovScale", "1" );
 
-    level._id_70B8 = 0;
-    common_scripts\utility::_id_383D( "respawn_friendlies" );
-    common_scripts\utility::_id_383D( "missionfailed" );
-    common_scripts\utility::_id_383D( "auto_adjust_initialized" );
-    level.player maps\_utility::_id_32DD( "_radiation_poisoning" );
-    common_scripts\utility::_id_383D( "gameskill_selected" );
-    common_scripts\utility::_id_383D( "battlechatter_on_thread_waiting" );
-    common_scripts\utility::_id_383D( "start_is_set" );
+    level.radiation_totalpercent = 0;
+    common_scripts\utility::flag_init( "respawn_friendlies" );
+    common_scripts\utility::flag_init( "missionfailed" );
+    common_scripts\utility::flag_init( "auto_adjust_initialized" );
+    level.player maps\_utility::ent_flag_init( "_radiation_poisoning" );
+    common_scripts\utility::flag_init( "gameskill_selected" );
+    common_scripts\utility::flag_init( "battlechatter_on_thread_waiting" );
+    common_scripts\utility::flag_init( "start_is_set" );
     thread maps\_gameskill::aa_init_stats();
-    thread _id_6AC7();
-    level._id_278A = 190;
-    setsaveddvar( "g_speed", level._id_278A );
+    thread player_death_detection();
+    level.default_run_speed = 190;
+    setsaveddvar( "g_speed", level.default_run_speed );
 
-    if ( maps\_utility::_id_5083() )
+    if ( maps\_utility::is_specialop() )
         setsaveddvar( "sv_saveOnStartMap", 0 );
-    else if ( isdefined( level._id_244D ) )
+    else if ( isdefined( level.credits_active ) )
         setsaveddvar( "sv_saveOnStartMap", 0 );
     else
         setsaveddvar( "sv_saveOnStartMap", 1 );
 
-    common_scripts\utility::_id_23C8( "mg42_drones" );
-    common_scripts\utility::_id_23C8( "mg42_drones_target_trace" );
-    level._id_2F30 = [];
+    common_scripts\utility::create_lock( "mg42_drones" );
+    common_scripts\utility::create_lock( "mg42_drones_target_trace" );
+    level.dronestruct = [];
 
-    foreach ( var_3, var_2 in level._id_8F60 )
+    foreach ( var_3, var_2 in level.struct )
     {
         if ( !isdefined( var_2.targetname ) )
             continue;
 
         if ( var_2.targetname == "delete_on_load" )
-            level._id_8F60[var_3] = undefined;
+            level.struct[var_3] = undefined;
     }
 
-    common_scripts\utility::_id_8F63();
-    common_scripts\utility::_id_383D( "player_flashed" );
-    level._id_214E = ::connectpaths;
-    level._id_2B39 = ::disconnectpaths;
+    common_scripts\utility::struct_class_init();
+    common_scripts\utility::flag_init( "player_flashed" );
+    level.connectpathsfunction = ::connectpaths;
+    level.disconnectpathsfunction = ::disconnectpaths;
     level.badplace_cylinder_func = ::badplace_cylinder;
     level.badplace_delete_func = ::badplace_delete;
-    level._id_50AC = ::isai;
-    level._id_23EE = maps\_hud_util::_id_23ED;
-    level._id_4AFD = maps\_hud_util::setpoint;
-    level._id_5940 = ::makeentitysentient;
-    level._id_3A26 = ::freeentitysentient;
-    level._id_54FC = ::laseron;
-    level._id_54F9 = ::laseroff;
-    level._id_8D4F = maps\_player_stats::_id_72DF;
-    level._id_8D4E = maps\_player_stats::_id_72E7;
-    level._id_2D70 = 1;
+    level.isaifunc = ::isai;
+    level.createclientfontstring_func = maps\_hud_util::createclientfontstring;
+    level.hudsetpoint_func = maps\_hud_util::setpoint;
+    level.makeentitysentient_func = ::makeentitysentient;
+    level.freeentitysentient_func = ::freeentitysentient;
+    level.laseron_func = ::laseron;
+    level.laseroff_func = ::laseroff;
+    level.stat_track_kill_func = maps\_player_stats::register_kill;
+    level.stat_track_damage_func = maps\_player_stats::register_shot_hit;
+    level.dopickyautosavechecks = 1;
     level.autosave_threat_check_enabled = 1;
-    level._id_404C = ::getnode;
-    level._id_4047 = ::getnodearray;
+    level.getnodefunction = ::getnode;
+    level.getnodearrayfunction = ::getnodearray;
     level.addaieventlistener_func = ::addaieventlistener;
 
     if ( !isdefined( level._notetrackfx ) )
@@ -196,21 +178,21 @@ main()
     foreach ( var_5 in level.players )
     {
         var_5.maxhealth = level.player.health;
-        var_5._id_83BD = 0;
-        var_5._id_4FAD = 0;
-        var_5 thread _id_A263();
+        var_5.shellshocked = 0;
+        var_5.inwater = 0;
+        var_5 thread watchweaponchange();
     }
 
-    level._id_5541 = -5000;
-    level._id_483A = [];
-    thread _id_6ECE();
+    level.last_mission_sound_time = -5000;
+    level.hero_list = [];
+    thread precache_script_models();
 
     for ( var_7 = 0; var_7 < level.players.size; var_7++ )
     {
         var_5 = level.players[var_7];
-        var_5 thread maps\_utility::_id_38C1();
-        var_5 thread maps\_utility::_id_83D0();
-        var_5 thread maps\_utility::_id_6092();
+        var_5 thread maps\_utility::flashmonitor();
+        var_5 thread maps\_utility::shock_ondeath();
+        var_5 thread maps\_utility::never_saw_it_coming();
     }
 
     precachemodel( "fx" );
@@ -245,27 +227,27 @@ main()
     precachestring( &"close_hud" );
     precachelaser( "nvg_laser" );
     level._effect["deathfx_bloodpool_generic"] = loadfx( "vfx/weaponimpact/deathfx_bloodpool_generic" );
-    animscripts\pain::_id_4DF7();
-    animscripts\melee::_id_5B61();
+    animscripts\pain::initpainfx();
+    animscripts\melee::melee_init();
     animscripts\death::init_headshot_helmet();
-    level._id_2409 = getdvar( "createfx" ) != "";
+    level.createfx_enabled = getdvar( "createfx" ) != "";
     level.navigatemodels_enabled = 0;
-    _id_864A();
-    level._id_88FE = [];
-    level._id_88FE["allies"] = [];
-    level._id_88FE["axis"] = [];
-    level._id_88FE["team3"] = [];
-    level._id_88FE["neutral"] = [];
+    slowmo_system_init();
+    level.spawn_funcs = [];
+    level.spawn_funcs["allies"] = [];
+    level.spawn_funcs["axis"] = [];
+    level.spawn_funcs["team3"] = [];
+    level.spawn_funcs["neutral"] = [];
     maps\_cheat::init();
     maps\_mgturret::main();
-    common_scripts\_exploder::_id_8313();
+    common_scripts\_exploder::setupexploders();
     maps\_exploderanim::main();
     maps\_art::main();
-    maps\_gameskill::_id_8010();
+    maps\_gameskill::setskill();
     maps\_anim::init();
-    thread common_scripts\_fx::_id_4DBF();
+    thread common_scripts\_fx::initfx();
 
-    if ( level._id_2409 )
+    if ( level.createfx_enabled )
     {
 
     }
@@ -273,30 +255,30 @@ main()
     maps\_global_fx_code::init();
     maps\_global_fx::main();
     maps\_global_fx::create_custom_global_fx();
-    _id_277C();
+    default_footsteps();
     maps\_detonategrenades::init();
-    maps\_lighting::_id_5705();
-    maps\_lights::_id_4D7B();
-    maps\_names::_id_8241();
+    maps\_lighting::light_init();
+    maps\_lights::init2();
+    maps\_names::setup_names();
 
-    if ( isdefined( level._id_4618 ) )
-        thread [[ level._id_4618 ]]();
+    if ( isdefined( level.handle_starts_endons ) )
+        thread [[ level.handle_starts_endons ]]();
     else
-        thread _id_4617();
+        thread handle_starts();
 
     if ( getdvar( "functional_test_starts" ) == "1" )
-        thread _id_3AFB();
+        thread functional_tester_load_next_start();
 
-    if ( !isdefined( level._id_9794 ) )
-        common_scripts\utility::_id_4D6D();
+    if ( !isdefined( level.trigger_flags ) )
+        common_scripts\utility::init_trigger_flags();
 
-    level._id_537C = [];
+    level.killspawn_groups = [];
     soundscripts\_audio::aud_init();
-    soundscripts\_snd::_id_86F4();
-    maps\_trigger::_id_4D53();
+    soundscripts\_snd::snd_init();
+    maps\_trigger::init_script_triggers();
     setsaveddvar( "ufoHitsTriggers", "0" );
     maps\_hud::init();
-    _id_2BC7();
+    do_no_game_start();
 
     if ( getdvar( "g_connectpaths" ) == "2" )
         level waittill( "eternity" );
@@ -305,40 +287,40 @@ main()
     thread maps\_sp_matchdata::init();
 
     if ( !isdefined( level.animsounds ) )
-        thread _id_4CB2();
+        thread init_animsounds();
 
     maps\_anim::init();
 
     if ( isdefined( level.audio_stringtable_mapname ) )
-        soundscripts\_audio::_id_7EC8( level.audio_stringtable_mapname );
+        soundscripts\_audio::set_stringtable_mapname( level.audio_stringtable_mapname );
 
-    anim._id_9BFF = 0;
+    anim.usefacialanims = 0;
 
-    if ( !isdefined( level._id_5CDE ) )
-        level._id_5CDE = 0;
+    if ( !isdefined( level.missionfailed ) )
+        level.missionfailed = 0;
 
-    if ( !maps\_utility::_id_5083() )
+    if ( !maps\_utility::is_specialop() )
     {
-        maps\_loadout::_id_4D0F();
-        setsaveddvar( "ui_campaign", level._id_1A3D );
+        maps\_loadout::init_loadout();
+        setsaveddvar( "ui_campaign", level.campaign );
     }
 
     common_scripts\_static_destructible::main();
     common_scripts\_destructible::init();
-    thread maps\_vehicle::_id_4D73();
+    thread maps\_vehicle::init_vehicles();
     thread maps\_introscreen::main();
     thread maps\_endmission::main();
     thread maps\_damagefeedback::init();
     maps\_friendlyfire::main();
     common_scripts\utility::array_levelthread( getentarray( "badplace", "targetname" ), ::badplace_think );
-    common_scripts\utility::array_levelthread( getentarray( "delete_on_load", "targetname" ), maps\_utility::_id_284E );
-    common_scripts\utility::array_thread( getnodearray( "traverse", "targetname" ), ::_id_9741 );
-    common_scripts\utility::array_thread( getentarray( "piano_key", "targetname" ), ::_id_6807 );
-    common_scripts\utility::array_thread( getentarray( "piano_damage", "targetname" ), ::_id_6806 );
-    common_scripts\utility::array_thread( getentarray( "water", "targetname" ), ::_id_A29C );
-    common_scripts\utility::array_thread( getentarray( "kill_all_players", "targetname" ), ::_id_52F8 );
-    common_scripts\utility::_id_383D( "allow_ammo_pickups" );
-    common_scripts\utility::_id_383F( "allow_ammo_pickups" );
+    common_scripts\utility::array_levelthread( getentarray( "delete_on_load", "targetname" ), maps\_utility::deleteent );
+    common_scripts\utility::array_thread( getnodearray( "traverse", "targetname" ), ::traversethink );
+    common_scripts\utility::array_thread( getentarray( "piano_key", "targetname" ), ::pianothink );
+    common_scripts\utility::array_thread( getentarray( "piano_damage", "targetname" ), ::pianodamagethink );
+    common_scripts\utility::array_thread( getentarray( "water", "targetname" ), ::waterthink );
+    common_scripts\utility::array_thread( getentarray( "kill_all_players", "targetname" ), ::kill_all_players_trigger );
+    common_scripts\utility::flag_init( "allow_ammo_pickups" );
+    common_scripts\utility::flag_set( "allow_ammo_pickups" );
     common_scripts\utility::array_thread( getentarray( "ammo_pickup_grenade_launcher", "targetname" ), ::ammo_pickup, "grenade_launcher" );
     common_scripts\utility::array_thread( getentarray( "ammo_pickup_rpg", "targetname" ), ::ammo_pickup, "rpg" );
     common_scripts\utility::array_thread( getentarray( "ammo_pickup_c4", "targetname" ), ::ammo_pickup, "c4" );
@@ -355,42 +337,42 @@ main()
         var_5 = level.players[var_7];
 
         if ( !( getdvarint( "disable_player_regen" ) == 1 ) )
-            var_5 thread maps\_gameskill::_id_6CC4();
+            var_5 thread maps\_gameskill::playerhealthregen();
 
-        var_5 thread _id_6C83();
+        var_5 thread playerdamagerumble();
     }
 
     thread maps\_player_death::main();
-    thread _id_59D7();
-    common_scripts\utility::_id_383D( "spawning_friendlies" );
-    common_scripts\utility::_id_383D( "friendly_wave_spawn_enabled" );
-    common_scripts\utility::_id_3831( "spawning_friendlies" );
-    level._id_3A7F["rifleguy"] = getentarray( "rifle_spawner", "script_noteworthy" );
-    level._id_3A7F["smgguy"] = getentarray( "smg_spawner", "script_noteworthy" );
-    thread maps\_spawner::_id_4255();
-    thread maps\_spawner::_id_3A96();
-    thread maps\_spawner::_id_3A94();
-    common_scripts\utility::array_thread( getentarray( "friendly_spawn", "targetname" ), maps\_spawner::_id_3ABC );
-    common_scripts\utility::array_thread( getentarray( "flood_and_secure", "targetname" ), maps\_spawner::_id_38EA );
-    common_scripts\utility::array_thread( getentarray( "window_poster", "targetname" ), ::_id_A337 );
+    thread massnodeinitfunctions();
+    common_scripts\utility::flag_init( "spawning_friendlies" );
+    common_scripts\utility::flag_init( "friendly_wave_spawn_enabled" );
+    common_scripts\utility::flag_clear( "spawning_friendlies" );
+    level.friendly_spawner["rifleguy"] = getentarray( "rifle_spawner", "script_noteworthy" );
+    level.friendly_spawner["smgguy"] = getentarray( "smg_spawner", "script_noteworthy" );
+    thread maps\_spawner::goalvolumes();
+    thread maps\_spawner::friendlychains();
+    thread maps\_spawner::friendlychain_ondeath();
+    common_scripts\utility::array_thread( getentarray( "friendly_spawn", "targetname" ), maps\_spawner::friendlyspawnwave );
+    common_scripts\utility::array_thread( getentarray( "flood_and_secure", "targetname" ), maps\_spawner::flood_and_secure );
+    common_scripts\utility::array_thread( getentarray( "window_poster", "targetname" ), ::window_destroy );
 
-    if ( !isdefined( level._id_97A8 ) )
+    if ( !isdefined( level.trigger_hint_string ) )
     {
-        level._id_97A8 = [];
-        level._id_97A7 = [];
+        level.trigger_hint_string = [];
+        level.trigger_hint_func = [];
         level.trigger_hint_doubleline = [];
     }
 
-    level._id_83B3 = [];
-    level._id_8907 = [];
+    level.shared_portable_turrets = [];
+    level.spawn_groups = [];
     maps\_spawner::main();
     common_scripts\utility::array_thread( getentarray( "background_block", "targetname" ), ::background_block );
-    thread _id_57C3();
+    thread load_friendlies();
     thread maps\_animatedmodels::main();
     thread maps\_cagedchickens::initchickens();
-    thread _id_A2B6();
+    thread weapon_ammo();
 
-    foreach ( var_10, var_9 in level._id_5CE0._id_56E5 )
+    foreach ( var_10, var_9 in level.missionsettings.levels )
     {
         if ( var_9.name == level.script )
         {
@@ -399,32 +381,32 @@ main()
         }
     }
 
-    if ( level.script == level._id_5CE0._id_56E5[0].name && !level.player _meth_8212( "hasEverPlayed_SP" ) )
-        maps\_utility::_id_27EF( 0.1, ::_id_9AC0 );
+    if ( level.script == level.missionsettings.levels[0].name && !level.player getlocalplayerprofiledata( "hasEverPlayed_SP" ) )
+        maps\_utility::delaythread( 0.1, ::update_gamer_profile );
 
-    var_11 = level.player _meth_8211( "gameskill" );
-    var_12 = level._id_2A63[int( var_11 )];
+    var_11 = level.player getplayersetting( "gameskill" );
+    var_12 = level.difficultytype[int( var_11 )];
     setspmatchdata( "start_difficulty", var_12 );
     setspmatchdata( "final_difficulty", var_12 );
     level thread maps\_achievements::achievements_init();
     thread maps\_dragunov_lightset::dragunov_scope_init();
-    level thread maps\_utility::_id_8C0F();
+    level thread maps\_utility::start_monitor_escape_artist();
     level notify( "load_finished" );
-    _id_76B4();
-    level.player thread maps\_utility::_id_5820();
+    run_post_function();
+    level.player thread maps\_utility::logbreadcrumbdatasp();
 }
 
-_id_9AC0()
+update_gamer_profile()
 {
-    level.player _meth_8213( "hasEverPlayed_SP", 1 );
+    level.player setlocalplayerprofiledata( "hasEverPlayed_SP", 1 );
     updategamerprofile();
 }
 
-_id_76B4()
+run_post_function()
 {
-    if ( isdefined( level._id_6E7A ) )
+    if ( isdefined( level.post_load_funcs ) )
     {
-        foreach ( var_1 in level._id_6E7A )
+        foreach ( var_1 in level.post_load_funcs )
             [[ var_1 ]]();
     }
 }
@@ -456,34 +438,34 @@ set_dynent_playerwakeupradius()
     }
 }
 
-_id_7E18()
+set_early_level()
 {
-    level._id_3004 = [];
-    level._id_3004["killhouse"] = 1;
-    level._id_3004["cargoship"] = 1;
-    level._id_3004["coup"] = 1;
-    level._id_3004["blackout"] = 1;
-    level._id_3004["armada"] = 1;
-    level._id_3004["bog_a"] = 0;
-    level._id_3004["hunted"] = 0;
-    level._id_3004["ac130"] = 0;
-    level._id_3004["bog_b"] = 0;
-    level._id_3004["airlift"] = 0;
-    level._id_3004["aftermath"] = 0;
-    level._id_3004["village_assault"] = 0;
-    level._id_3004["ca_village_assault"] = 0;
-    level._id_3004["scoutsniper"] = 0;
-    level._id_3004["sniperescape"] = 0;
-    level._id_3004["village_defend"] = 0;
-    level._id_3004["ambush"] = 0;
-    level._id_3004["icbm"] = 0;
-    level._id_3004["launchfacility_a"] = 0;
-    level._id_3004["launchfacility_b"] = 0;
-    level._id_3004["jeepride"] = 0;
-    level._id_3004["airplane"] = 0;
+    level.early_level = [];
+    level.early_level["killhouse"] = 1;
+    level.early_level["cargoship"] = 1;
+    level.early_level["coup"] = 1;
+    level.early_level["blackout"] = 1;
+    level.early_level["armada"] = 1;
+    level.early_level["bog_a"] = 0;
+    level.early_level["hunted"] = 0;
+    level.early_level["ac130"] = 0;
+    level.early_level["bog_b"] = 0;
+    level.early_level["airlift"] = 0;
+    level.early_level["aftermath"] = 0;
+    level.early_level["village_assault"] = 0;
+    level.early_level["ca_village_assault"] = 0;
+    level.early_level["scoutsniper"] = 0;
+    level.early_level["sniperescape"] = 0;
+    level.early_level["village_defend"] = 0;
+    level.early_level["ambush"] = 0;
+    level.early_level["icbm"] = 0;
+    level.early_level["launchfacility_a"] = 0;
+    level.early_level["launchfacility_b"] = 0;
+    level.early_level["jeepride"] = 0;
+    level.early_level["airplane"] = 0;
 }
 
-_id_A2B6()
+weapon_ammo()
 {
     var_0 = getentarray();
 
@@ -494,7 +476,7 @@ _id_A2B6()
             var_2 = var_0[var_1];
             var_3 = getsubstr( var_2.classname, 7 );
 
-            if ( isdefined( var_2._id_7939 ) )
+            if ( isdefined( var_2.script_ammo_max ) )
             {
                 var_4 = weaponclipsize( var_3 );
                 var_5 = weaponmaxammo( var_3 );
@@ -518,27 +500,27 @@ _id_A2B6()
             var_12 = undefined;
             var_13 = undefined;
 
-            if ( isdefined( var_2._id_7937 ) )
+            if ( isdefined( var_2.script_ammo_clip ) )
             {
-                var_4 = var_2._id_7937;
+                var_4 = var_2.script_ammo_clip;
                 var_9 = 1;
             }
 
-            if ( isdefined( var_2._id_7938 ) )
+            if ( isdefined( var_2.script_ammo_extra ) )
             {
-                var_10 = var_2._id_7938;
+                var_10 = var_2.script_ammo_extra;
                 var_9 = 1;
             }
 
-            if ( isdefined( var_2._id_7935 ) )
+            if ( isdefined( var_2.script_ammo_alt_clip ) )
             {
-                var_12 = var_2._id_7935;
+                var_12 = var_2.script_ammo_alt_clip;
                 var_11 = 1;
             }
 
-            if ( isdefined( var_2._id_7936 ) )
+            if ( isdefined( var_2.script_ammo_alt_extra ) )
             {
-                var_13 = var_2._id_7936;
+                var_13 = var_2.script_ammo_alt_extra;
                 var_11 = 1;
             }
 
@@ -575,25 +557,25 @@ _id_A2B6()
     }
 }
 
-_id_352F( var_0 )
+exploder_load( var_0 )
 {
-    level endon( "killexplodertridgers" + var_0._id_79BF );
+    level endon( "killexplodertridgers" + var_0.script_exploder );
     var_0 waittill( "trigger" );
 
-    if ( isdefined( var_0._id_796E ) && randomfloat( 1 ) > var_0._id_796E )
+    if ( isdefined( var_0.script_chance ) && randomfloat( 1 ) > var_0.script_chance )
     {
         if ( !var_0 maps\_utility::script_delay() )
             wait 4;
 
-        level thread _id_352F( var_0 );
+        level thread exploder_load( var_0 );
         return;
     }
 
-    if ( !var_0 maps\_utility::script_delay() && isdefined( var_0._id_79C0 ) )
-        wait(var_0._id_79C0);
+    if ( !var_0 maps\_utility::script_delay() && isdefined( var_0.script_exploder_delay ) )
+        wait(var_0.script_exploder_delay);
 
-    common_scripts\_exploder::_id_3528( var_0._id_79BF );
-    level notify( "killexplodertridgers" + var_0._id_79BF );
+    common_scripts\_exploder::exploder( var_0.script_exploder );
+    level notify( "killexplodertridgers" + var_0.script_exploder );
 }
 
 badplace_think( var_0 )
@@ -605,36 +587,36 @@ badplace_think( var_0 )
     badplace_cylinder( "badplace" + level.badplaces, -1, var_0.origin, var_0.radius, 1024 );
 }
 
-_id_6C83()
+playerdamagerumble()
 {
     for (;;)
     {
         self waittill( "damage", var_0 );
 
-        if ( isdefined( self._id_8A2A ) )
+        if ( isdefined( self.specialdamage ) )
             continue;
 
         self playrumbleonentity( "damage_heavy" );
     }
 }
 
-_id_5982()
+map_is_early_in_the_game()
 {
-    if ( isdefined( level._id_3004[level.script] ) )
-        return level._id_3004[level.script];
+    if ( isdefined( level.early_level[level.script] ) )
+        return level.early_level[level.script];
     else
         return 0;
 }
 
-_id_9741()
+traversethink()
 {
     var_0 = getent( self.target, "targetname" );
-    self._id_972A = var_0.origin[2];
-    self._id_972B = var_0.origin[2] - self.origin[2];
+    self.traverse_height = var_0.origin[2];
+    self.traverse_height_delta = var_0.origin[2] - self.origin[2];
     var_0 delete();
 }
 
-_id_6806()
+pianodamagethink()
 {
     var_0 = self getorigin();
     var_1[0] = "large";
@@ -643,11 +625,11 @@ _id_6806()
     for (;;)
     {
         self waittill( "trigger" );
-        thread common_scripts\utility::_id_69C2( "bullet_" + common_scripts\utility::_id_710E( var_1 ) + "_piano", var_0 );
+        thread common_scripts\utility::play_sound_in_space( "bullet_" + common_scripts\utility::random( var_1 ) + "_piano", var_0 );
     }
 }
 
-_id_6807()
+pianothink()
 {
     var_0 = self getorigin();
     var_1 = "piano_" + self.script_noteworthy;
@@ -656,59 +638,59 @@ _id_6807()
     for (;;)
     {
         self waittill( "trigger" );
-        thread common_scripts\utility::_id_69C2( var_1, var_0 );
+        thread common_scripts\utility::play_sound_in_space( var_1, var_0 );
     }
 }
 
-_id_A29C()
+waterthink()
 {
     var_0 = getent( self.target, "targetname" );
     var_1 = var_0.origin[2];
     var_0 = undefined;
-    level._id_28AC = 8;
-    level._id_28AB = 33;
-    level._id_28AD = 50;
+    level.depth_allow_prone = 8;
+    level.depth_allow_crouch = 33;
+    level.depth_allow_stand = 50;
     var_2 = 0;
 
     for (;;)
     {
         wait 0.05;
 
-        if ( !level.player._id_4FAD && var_2 )
+        if ( !level.player.inwater && var_2 )
         {
             var_2 = 0;
             level.player allowprone( 1 );
             level.player allowcrouch( 1 );
             level.player allowstand( 1 );
-            thread _id_A29D( level._id_278A );
+            thread waterthink_rampspeed( level.default_run_speed );
         }
 
         self waittill( "trigger" );
-        level.player._id_4FAD = 1;
+        level.player.inwater = 1;
         var_2 = 1;
 
         while ( level.player istouching( self ) )
         {
-            level.player._id_4FAD = 1;
+            level.player.inwater = 1;
             var_3 = level.player getorigin();
             var_4 = var_3[2] - var_1;
 
             if ( var_4 > 0 )
                 break;
 
-            var_5 = int( level._id_278A - abs( var_4 * 5 ) );
+            var_5 = int( level.default_run_speed - abs( var_4 * 5 ) );
 
             if ( var_5 < 50 )
                 var_5 = 50;
 
-            thread _id_A29D( var_5 );
+            thread waterthink_rampspeed( var_5 );
 
-            if ( abs( var_4 ) > level._id_28AB )
+            if ( abs( var_4 ) > level.depth_allow_crouch )
                 level.player allowcrouch( 0 );
             else
                 level.player allowcrouch( 1 );
 
-            if ( abs( var_4 ) > level._id_28AC )
+            if ( abs( var_4 ) > level.depth_allow_prone )
                 level.player allowprone( 0 );
             else
                 level.player allowprone( 1 );
@@ -716,12 +698,12 @@ _id_A29C()
             wait 0.5;
         }
 
-        level.player._id_4FAD = 0;
+        level.player.inwater = 0;
         wait 0.05;
     }
 }
 
-_id_A29D( var_0 )
+waterthink_rampspeed( var_0 )
 {
     level notify( "ramping_water_movement_speed" );
     level endon( "ramping_water_movement_speed" );
@@ -751,15 +733,15 @@ _id_A29D( var_0 )
     setsaveddvar( "g_speed", var_0 );
 }
 
-_id_59D7()
+massnodeinitfunctions()
 {
     var_0 = getallnodes();
     thread maps\_mgturret::auto_mgturretlink( var_0 );
-    thread maps\_mgturret::_id_7820( var_0 );
-    thread maps\_colors::_id_4CCA( var_0 );
+    thread maps\_mgturret::saw_mgturretlink( var_0 );
+    thread maps\_colors::init_color_grouping( var_0 );
 }
 
-_id_4C43( var_0 )
+indicate_start( var_0 )
 {
     var_1 = newhudelem();
     var_1.alignx = "left";
@@ -779,22 +761,22 @@ _id_4C43( var_0 )
     var_1 destroy();
 }
 
-_id_4617()
+handle_starts()
 {
-    level._id_8CB0 = spawnstruct();
-    common_scripts\utility::_id_23AE( "start", "" );
+    level.start_struct = spawnstruct();
+    common_scripts\utility::create_dvar( "start", "" );
 
     if ( getdvar( "scr_generateClipModels" ) != "" && getdvar( "scr_generateClipModels" ) != "0" )
         return;
 
-    if ( !isdefined( level._id_8BB5 ) )
-        level._id_8BB5 = [];
+    if ( !isdefined( level.start_functions ) )
+        level.start_functions = [];
 
     var_0 = tolower( getdvar( "start" ) );
-    var_1 = _id_3E70();
+    var_1 = get_start_dvars();
 
-    if ( isdefined( level._id_8C36 ) )
-        var_0 = level._id_8C36;
+    if ( isdefined( level.start_point ) )
+        var_0 = level.start_point;
 
     var_2 = 0;
 
@@ -803,32 +785,32 @@ _id_4617()
         if ( var_0 == var_1[var_3] )
         {
             var_2 = var_3;
-            level._id_8C36 = var_1[var_3];
+            level.start_point = var_1[var_3];
             break;
         }
     }
 
-    if ( isdefined( level._id_278C ) && !isdefined( level._id_8C36 ) )
+    if ( isdefined( level.default_start_override ) && !isdefined( level.start_point ) )
     {
         foreach ( var_6, var_5 in var_1 )
         {
-            if ( level._id_278C == var_5 )
+            if ( level.default_start_override == var_5 )
             {
                 var_2 = var_6;
-                level._id_8C36 = var_5;
+                level.start_point = var_5;
                 break;
             }
         }
     }
 
-    if ( !isdefined( level._id_8C36 ) )
+    if ( !isdefined( level.start_point ) )
     {
-        if ( isdefined( level._id_278B ) )
-            level._id_8C36 = "default";
-        else if ( maps\_utility::_id_56C2() )
-            level._id_8C36 = level._id_8BB5[0]["name"];
+        if ( isdefined( level.default_start ) )
+            level.start_point = "default";
+        else if ( maps\_utility::level_has_start_points() )
+            level.start_point = level.start_functions[0]["name"];
         else
-            level._id_8C36 = "default";
+            level.start_point = "default";
     }
 
     var_7 = getdvarint( "sv_loadingsavegame", 0 );
@@ -845,9 +827,9 @@ _id_4617()
             loadstartpointtransient( var_9 );
         }
     }
-    else if ( level._id_8C36 != "default" )
+    else if ( level.start_point != "default" )
     {
-        var_10 = level._id_8B34[level._id_8C36];
+        var_10 = level.start_arrays[level.start_point];
 
         if ( isdefined( var_10["transients_to_load"] ) )
         {
@@ -860,43 +842,43 @@ _id_4617()
         }
     }
 
-    waitframe;
-    common_scripts\utility::_id_383F( "start_is_set" );
-    thread _id_8C0A();
+    waittillframeend;
+    common_scripts\utility::flag_set( "start_is_set" );
+    thread start_menu();
 
-    if ( level._id_8C36 == "default" )
+    if ( level.start_point == "default" )
     {
-        if ( isdefined( level._id_278B ) )
-            level thread [[ level._id_278B ]]();
+        if ( isdefined( level.default_start ) )
+            level thread [[ level.default_start ]]();
     }
     else
     {
-        var_10 = level._id_8B34[level._id_8C36];
+        var_10 = level.start_arrays[level.start_point];
         thread [[ var_10["start_func"] ]]();
     }
 
-    if ( maps\_utility::_id_5016() )
+    if ( maps\_utility::is_default_start() )
     {
-        var_12 = _id_3E7A( var_1 );
+        var_12 = get_string_for_starts( var_1 );
         setdvar( "start", var_12 );
     }
 
-    waitframe;
+    waittillframeend;
 
     if ( var_7 != 0 )
         wait 0.1;
 
     var_13 = [];
 
-    if ( !maps\_utility::_id_5016() && level._id_8C36 != "no_game" )
+    if ( !maps\_utility::is_default_start() && level.start_point != "no_game" )
     {
         var_14 = gettime();
 
-        for ( var_3 = 0; var_3 < level._id_8BB5.size; var_3++ )
+        for ( var_3 = 0; var_3 < level.start_functions.size; var_3++ )
         {
-            var_10 = level._id_8BB5[var_3];
+            var_10 = level.start_functions[var_3];
 
-            if ( var_10["name"] == level._id_8C36 )
+            if ( var_10["name"] == level.start_point )
                 break;
 
             if ( !isdefined( var_10["catchup_function"] ) )
@@ -906,9 +888,9 @@ _id_4617()
         }
     }
 
-    for ( var_3 = var_2; var_3 < level._id_8BB5.size; var_3++ )
+    for ( var_3 = var_2; var_3 < level.start_functions.size; var_3++ )
     {
-        var_10 = level._id_8BB5[var_3];
+        var_10 = level.start_functions[var_3];
 
         if ( !isdefined( var_10["logic_func"] ) )
             continue;
@@ -916,7 +898,7 @@ _id_4617()
         if ( already_ran_function( var_10["logic_func"], var_13 ) )
             continue;
 
-        level._id_8CB0 [[ var_10["logic_func"] ]]();
+        level.start_struct [[ var_10["logic_func"] ]]();
         var_13[var_13.size] = var_10["logic_func"];
     }
 }
@@ -932,7 +914,7 @@ already_ran_function( var_0, var_1 )
     return 0;
 }
 
-_id_3E7A( var_0 )
+get_string_for_starts( var_0 )
 {
     var_1 = " ** No starts have been set up for this map with maps_utility::add_start().";
 
@@ -948,7 +930,7 @@ _id_3E7A( var_0 )
     return var_1;
 }
 
-_id_23D9( var_0, var_1 )
+create_start( var_0, var_1 )
 {
     var_2 = 1;
     var_3 = ( 0.9, 0.9, 0.9 );
@@ -981,39 +963,39 @@ _id_23D9( var_0, var_1 )
     return var_5;
 }
 
-_id_8C0A()
+start_menu()
 {
 
 }
 
-_id_8C16()
+start_nogame()
 {
     common_scripts\utility::array_call( getaiarray(), ::delete );
     common_scripts\utility::array_call( getspawnerarray(), ::delete );
 }
 
-_id_3E70()
+get_start_dvars()
 {
     var_0 = [];
 
-    for ( var_1 = 0; var_1 < level._id_8BB5.size; var_1++ )
-        var_0[var_0.size] = level._id_8BB5[var_1]["name"];
+    for ( var_1 = 0; var_1 < level.start_functions.size; var_1++ )
+        var_0[var_0.size] = level.start_functions[var_1]["name"];
 
     return var_0;
 }
 
-_id_2B56()
+display_starts()
 {
-    level._id_2B57 = 1;
+    level.display_starts_pressed = 1;
 
-    if ( level._id_8BB5.size <= 0 )
+    if ( level.start_functions.size <= 0 )
         return;
 
-    var_0 = _id_3E70();
+    var_0 = get_start_dvars();
     var_0[var_0.size] = "default";
     var_0[var_0.size] = "cancel";
-    var_1 = _id_8BF8();
-    var_2 = _id_23D9( "Selected Start:", -1 );
+    var_1 = start_list_menu();
+    var_2 = create_start( "Selected Start:", -1 );
     var_2.color = ( 1.0, 1.0, 1.0 );
     var_3 = [];
 
@@ -1024,10 +1006,10 @@ _id_2B56()
 
         if ( var_5 != "cancel" && var_5 != "default" )
         {
-            if ( isdefined( level._id_8B34[var_5]["start_loc_string"] ) )
+            if ( isdefined( level.start_arrays[var_5]["start_loc_string"] ) )
             {
                 var_6 += " -> ";
-                var_6 += level._id_8B34[var_5]["start_loc_string"];
+                var_6 += level.start_arrays[var_5]["start_loc_string"];
             }
         }
 
@@ -1040,7 +1022,7 @@ _id_2B56()
 
     for ( var_10 = 0; var_7 > 0; var_7-- )
     {
-        if ( var_0[var_7] == level._id_8C36 )
+        if ( var_0[var_7] == level.start_point )
         {
             var_10 = 1;
             break;
@@ -1050,17 +1032,17 @@ _id_2B56()
     if ( !var_10 )
         var_7 = var_0.size - 1;
 
-    _id_8BF9( var_1, var_3, var_7 );
+    start_list_settext( var_1, var_3, var_7 );
     var_11 = var_7;
 
     for (;;)
     {
         if ( !level.player buttonpressed( "F10" ) )
-            level._id_2B57 = 0;
+            level.display_starts_pressed = 0;
 
         if ( var_11 != var_7 )
         {
-            _id_8BF9( var_1, var_3, var_7 );
+            start_list_settext( var_1, var_3, var_7 );
             var_11 = var_7;
         }
 
@@ -1094,7 +1076,7 @@ _id_2B56()
 
         if ( level.player buttonpressed( "BUTTON_B" ) )
         {
-            _id_8B87( var_1, var_2 );
+            start_display_cleanup( var_1, var_2 );
             break;
         }
 
@@ -1102,7 +1084,7 @@ _id_2B56()
         {
             if ( var_0[var_7] == "cancel" )
             {
-                _id_8B87( var_1, var_2 );
+                start_display_cleanup( var_1, var_2 );
                 break;
             }
 
@@ -1113,20 +1095,20 @@ _id_2B56()
     }
 }
 
-_id_8BF8()
+start_list_menu()
 {
     var_0 = [];
 
     for ( var_1 = 0; var_1 < 11; var_1++ )
     {
-        var_2 = _id_23D9( "", var_1 );
+        var_2 = create_start( "", var_1 );
         var_0[var_0.size] = var_2;
     }
 
     return var_0;
 }
 
-_id_8BF9( var_0, var_1, var_2 )
+start_list_settext( var_0, var_1, var_2 )
 {
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
@@ -1141,7 +1123,7 @@ _id_8BF9( var_0, var_1, var_2 )
     }
 }
 
-_id_8B87( var_0, var_1 )
+start_display_cleanup( var_0, var_1 )
 {
     var_1 destroy();
 
@@ -1151,13 +1133,13 @@ _id_8B87( var_0, var_1 )
 
 background_block()
 {
-    self.origin -= self._id_795E;
+    self.origin -= self.script_bg_offset;
 }
 
-_id_7E9E( var_0 )
+set_player_viewhand_model( var_0 )
 {
-    level._id_6C51 = var_0;
-    precachemodel( level._id_6C51 );
+    level.player_viewhand_model = var_0;
+    precachemodel( level.player_viewhand_model );
 }
 
 ammo_pickup( var_0 )
@@ -1271,10 +1253,10 @@ ammo_pickup( var_0 )
 
     for (;;)
     {
-        common_scripts\utility::_id_384A( "allow_ammo_pickups" );
+        common_scripts\utility::flag_wait( "allow_ammo_pickups" );
         var_2 waittill( "trigger", var_3 );
 
-        if ( !common_scripts\utility::_id_382E( "allow_ammo_pickups" ) )
+        if ( !common_scripts\utility::flag( "allow_ammo_pickups" ) )
             continue;
 
         if ( !isdefined( var_3 ) )
@@ -1342,13 +1324,13 @@ ammo_pickup( var_0 )
         self delete();
 }
 
-_id_7367()
+remove_level_first_frame()
 {
     wait 0.05;
-    level._id_380E = -1;
+    level.first_frame = -1;
 }
 
-_id_57C3()
+load_friendlies()
 {
     if ( isdefined( game["total characters"] ) )
         var_0 = game["total characters"];
@@ -1369,15 +1351,15 @@ _id_57C3()
 
         if ( var_2 > 0 )
         {
-            if ( isdefined( var_1[var_3]._id_79EE ) )
+            if ( isdefined( var_1[var_3].script_friendname ) )
             {
                 var_2--;
                 var_3++;
                 continue;
             }
 
-            var_1[var_3] codescripts\character::_id_6099();
-            var_1[var_3] thread codescripts\character::_id_57BD( game["character" + var_0 - 1] );
+            var_1[var_3] codescripts\character::new();
+            var_1[var_3] thread codescripts\character::load( game["character" + var_0 - 1] );
             var_2--;
             var_3++;
             var_0--;
@@ -1386,7 +1368,7 @@ _id_57C3()
 
         if ( var_5 > 0 )
         {
-            if ( isdefined( var_4[var_6]._id_79EE ) )
+            if ( isdefined( var_4[var_6].script_friendname ) )
             {
                 var_5--;
                 var_6++;
@@ -1396,7 +1378,7 @@ _id_57C3()
             var_7 = game["character" + var_0 - 1];
             maps\_utility::precache( var_7["model"] );
             maps\_utility::precache( var_7["model"] );
-            var_4[var_6] thread maps\_utility::_id_894D( game["character" + var_0 - 1] );
+            var_4[var_6] thread maps\_utility::spawn_setcharacter( game["character" + var_0 - 1] );
             var_5--;
             var_6++;
             var_0--;
@@ -1405,53 +1387,53 @@ _id_57C3()
     }
 }
 
-_id_1CBC( var_0 )
+check_flag_for_stat_tracking( var_0 )
 {
-    if ( !common_scripts\utility::_id_51C1( var_0, "aa_" ) )
+    if ( !common_scripts\utility::issuffix( var_0, "aa_" ) )
         return;
 
-    [[ level._id_88B2 ]]( var_0 );
+    [[ level.sp_stat_tracking_func ]]( var_0 );
 }
 
-_id_6ECE()
+precache_script_models()
 {
-    waitframe;
+    waittillframeend;
 
-    if ( !isdefined( level._id_78B5 ) )
+    if ( !isdefined( level.scr_model ) )
         return;
 
-    var_0 = getarraykeys( level._id_78B5 );
+    var_0 = getarraykeys( level.scr_model );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( isarray( level._id_78B5[var_0[var_1]] ) )
+        if ( isarray( level.scr_model[var_0[var_1]] ) )
         {
-            for ( var_2 = 0; var_2 < level._id_78B5[var_0[var_1]].size; var_2++ )
-                precachemodel( level._id_78B5[var_0[var_1]][var_2] );
+            for ( var_2 = 0; var_2 < level.scr_model[var_0[var_1]].size; var_2++ )
+                precachemodel( level.scr_model[var_0[var_1]][var_2] );
 
             continue;
         }
 
-        precachemodel( level._id_78B5[var_0[var_1]] );
+        precachemodel( level.scr_model[var_0[var_1]] );
     }
 }
 
-_id_6AC7()
+player_death_detection()
 {
     setdvar( "player_died_recently", "0" );
-    thread _id_6ACC();
-    level maps\_utility::add_wait( common_scripts\utility::_id_384A, "missionfailed" );
-    level.player maps\_utility::add_wait( maps\_utility::_id_A099, "death" );
-    maps\_utility::_id_2BDD();
+    thread player_died_recently_degrades();
+    level maps\_utility::add_wait( common_scripts\utility::flag_wait, "missionfailed" );
+    level.player maps\_utility::add_wait( maps\_utility::waittill_msg, "death" );
+    maps\_utility::do_wait_any();
     var_0 = [];
     var_0[0] = 70;
     var_0[1] = 30;
     var_0[2] = 0;
     var_0[3] = 0;
-    setdvar( "player_died_recently", var_0[level._id_3BFE] );
+    setdvar( "player_died_recently", var_0[level.gameskill] );
 }
 
-_id_6ACC()
+player_died_recently_degrades()
 {
     for (;;)
     {
@@ -1467,7 +1449,7 @@ _id_6ACC()
     }
 }
 
-_id_7271()
+recon_player()
 {
     self notify( "new_recon_player" );
     self endon( "new_recon_player" );
@@ -1489,13 +1471,13 @@ _id_7271()
         var_3 = vectordot( var_6, var_7 );
     }
 
-    reconspatialevent( self.origin, "script_player_death: playerid %s, enemy %s, enemyposition %v, enemydotproduct %f, cause %s, weapon %s", self._id_9A29, var_4, var_5, var_3, var_1, var_2 );
+    reconspatialevent( self.origin, "script_player_death: playerid %s, enemy %s, enemyposition %v, enemydotproduct %f, cause %s, weapon %s", self.unique_id, var_4, var_5, var_3, var_1, var_2 );
 
     if ( isdefined( var_0 ) )
-        reconspatialevent( var_0.origin, "script_player_killer: playerid %s, enemy %s, playerposition %v, enemydotproduct %f, cause %s, weapon %s", self._id_9A29, var_4, self.origin, var_3, var_1, var_2 );
+        reconspatialevent( var_0.origin, "script_player_killer: playerid %s, enemy %s, playerposition %v, enemydotproduct %f, cause %s, weapon %s", self.unique_id, var_4, self.origin, var_3, var_1, var_2 );
 }
 
-_id_7272()
+recon_player_downed()
 {
     self notify( "new_player_downed_recon" );
     self endon( "new_player_downed_recon" );
@@ -1507,107 +1489,107 @@ _id_7272()
         var_0 = getlevelticks() * 0.05;
         var_1 = var_0;
 
-        if ( isdefined( self._id_551C ) )
-            var_0 = var_1 - self._id_551C;
+        if ( isdefined( self.last_downed_time ) )
+            var_0 = var_1 - self.last_downed_time;
 
-        self._id_551C = var_1;
-        reconspatialevent( self.origin, "script_player_downed: playerid %s, leveltime %d, deltatime %d", self._id_9A29, var_1, var_0 );
+        self.last_downed_time = var_1;
+        reconspatialevent( self.origin, "script_player_downed: playerid %s, leveltime %d, deltatime %d", self.unique_id, var_1, var_0 );
     }
 }
 
-_id_4D06()
+init_level_players()
 {
     level.players = getentarray( "player", "classname" );
 
     for ( var_0 = 0; var_0 < level.players.size; var_0++ )
-        level.players[var_0]._id_9A29 = "player" + var_0;
+        level.players[var_0].unique_id = "player" + var_0;
 
     level.player = level.players[0];
 
     if ( level.players.size > 1 )
-        level._id_6C5B = level.players[1];
+        level.player2 = level.players[1];
 
     level notify( "level.players initialized" );
 
     foreach ( var_2 in level.players )
     {
-        var_2 thread _id_7271();
+        var_2 thread recon_player();
 
-        if ( maps\_utility::_id_5083() )
-            var_2 thread _id_7272();
+        if ( maps\_utility::is_specialop() )
+            var_2 thread recon_player_downed();
     }
 }
 
-_id_52F8()
+kill_all_players_trigger()
 {
     self waittill( "trigger", var_0 );
-    var_0 maps\_utility::_id_5346();
+    var_0 maps\_utility::kill_wrapper();
 }
 
-_id_A263()
+watchweaponchange()
 {
-    if ( !isdefined( level._id_3A8C ) )
-        level._id_3A8C = loadfx( "vfx/unique/thermal_beacon_inverted" );
+    if ( !isdefined( level.friendly_thermal_reflector_effect ) )
+        level.friendly_thermal_reflector_effect = loadfx( "vfx/unique/thermal_beacon_inverted" );
 
     self endon( "death" );
     var_0 = self getcurrentweapon();
 
-    if ( _id_A2B2( var_0 ) )
-        thread _id_9300();
-    else if ( _id_A2B3( var_0 ) )
-        thread _id_3060();
-    else if ( _id_A2B4( var_0 ) )
-        thread _id_4772();
-    else if ( _id_6B47() )
-        thread _id_48AC();
+    if ( weap_has_thermal( var_0 ) )
+        thread thermal_tracker();
+    else if ( weap_is_em1( var_0 ) )
+        thread em1_heat_meter();
+    else if ( weap_is_hbra3( var_0 ) )
+        thread hbra3_signature();
+    else if ( player_has_printing_himar() )
+        thread himar_print_ammo();
 
     for (;;)
     {
         self waittill( "weapon_change", var_1 );
 
-        if ( _id_A2B2( var_1 ) )
-            thread _id_9300();
+        if ( weap_has_thermal( var_1 ) )
+            thread thermal_tracker();
         else
             self notify( "acogThermalTracker" );
 
-        if ( _id_A2B3( var_1 ) )
-            thread _id_3060();
+        if ( weap_is_em1( var_1 ) )
+            thread em1_heat_meter();
 
-        if ( _id_A2B4( var_1 ) )
-            thread _id_4772();
+        if ( weap_is_hbra3( var_1 ) )
+            thread hbra3_signature();
 
-        if ( _id_6B47() )
-            thread _id_48AC();
+        if ( player_has_printing_himar() )
+            thread himar_print_ammo();
     }
 }
 
-_id_3061()
+em1_heat_meter_off()
 {
-    common_scripts\utility::_id_A069( "death", "weapon_change", "em1_heat_meter" );
+    common_scripts\utility::waittill_any( "death", "weapon_change", "em1_heat_meter" );
     setomnvar( "ui_em1", 0 );
     setomnvar( "ui_em1_heat", 0 );
 }
 
-_id_3060()
+em1_heat_meter()
 {
     self endon( "death" );
     self endon( "weapon_change" );
     self notify( "em1_heat_meter" );
     self endon( "em1_heat_meter" );
-    thread _id_3061();
+    thread em1_heat_meter_off();
     setomnvar( "ui_em1", 1 );
     setomnvar( "ui_em1_heat", 0 );
 
     for (;;)
     {
         var_0 = self getcurrentweapon();
-        var_1 = self _meth_83B7( var_0 );
+        var_1 = self getweaponheatlevel( var_0 );
         setomnvar( "ui_em1_heat", var_1 );
         wait 0.05;
     }
 }
 
-_id_A2B3( var_0 )
+weap_is_em1( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1618,23 +1600,23 @@ _id_A2B3( var_0 )
     return 0;
 }
 
-_id_4773()
+hbra3_signature_off()
 {
-    common_scripts\utility::_id_A069( "death", "weapon_change", "hbra3_signature" );
+    common_scripts\utility::waittill_any( "death", "weapon_change", "hbra3_signature" );
     setomnvar( "ui_hbra3", 0 );
 }
 
-_id_4772()
+hbra3_signature()
 {
     self endon( "death" );
     self endon( "weapon_change" );
     self notify( "hbra3_signature" );
     self endon( "hbra3_signature" );
-    thread _id_4773();
+    thread hbra3_signature_off();
     setomnvar( "ui_hbra3", 1 );
 }
 
-_id_A2B4( var_0 )
+weap_is_hbra3( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1645,15 +1627,15 @@ _id_A2B4( var_0 )
     return 0;
 }
 
-_id_48AC()
+himar_print_ammo()
 {
     self endon( "death" );
     self endon( "himar_print_ammo_stop" );
 
-    if ( isdefined( self._id_48AD ) && self._id_48AD )
+    if ( isdefined( self.himar_printer_equipped ) && self.himar_printer_equipped )
         return;
 
-    self._id_48AD = 1;
+    self.himar_printer_equipped = 1;
     self notify( "himar_print_ammo" );
     self endon( "himar_print_ammo" );
     setomnvar( "ui_himar", 1 );
@@ -1679,8 +1661,8 @@ _id_48AC()
 
         if ( var_4 < 1.0 )
         {
-            thread _id_48AE( var_0 );
-            common_scripts\utility::_id_A0A0( "himar_ammo_full", 30 );
+            thread himar_printing_ammo_full_check( var_0 );
+            common_scripts\utility::waittill_notify_or_timeout( "himar_ammo_full", 30 );
             self notify( "stop_himar_printing_ammo_full_check" );
             var_5 = self getweaponammostock( var_0 );
             var_6 = weaponmaxammo( var_0 );
@@ -1697,7 +1679,7 @@ _id_48AC()
     }
 }
 
-_id_48AE( var_0 )
+himar_printing_ammo_full_check( var_0 )
 {
     self endon( "stop_himar_printing_ammo_full_check" );
 
@@ -1707,7 +1689,7 @@ _id_48AE( var_0 )
     self notify( "himar_ammo_full" );
 }
 
-_id_A2B5( var_0 )
+weap_is_himar( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1718,7 +1700,7 @@ _id_A2B5( var_0 )
     return 0;
 }
 
-_id_6B47()
+player_has_printing_himar()
 {
     foreach ( var_1 in self getweaponslistprimaries() )
     {
@@ -1726,14 +1708,14 @@ _id_6B47()
             return 1;
     }
 
-    self._id_48AD = undefined;
+    self.himar_printer_equipped = undefined;
     self notify( "himar_print_ammo_stop" );
     setomnvar( "ui_himar", 0 );
     setomnvar( "ui_himar_printing", 0 );
     return 0;
 }
 
-_id_A2B2( var_0 )
+weap_has_thermal( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -1747,7 +1729,7 @@ _id_A2B2( var_0 )
     return 0;
 }
 
-_id_9300()
+thermal_tracker()
 {
     self endon( "death" );
     self notify( "acogThermalTracker" );
@@ -1759,16 +1741,16 @@ _id_9300()
         var_1 = var_0;
         var_0 = self playerads();
 
-        if ( _id_992A( var_0, var_1 ) )
-            _id_92FF();
-        else if ( _id_9929( var_0, var_1 ) )
-            _id_92FE();
+        if ( turn_thermal_on( var_0, var_1 ) )
+            thermal_effectson();
+        else if ( turn_thermal_off( var_0, var_1 ) )
+            thermal_effectsoff();
 
         wait 0.05;
     }
 }
 
-_id_992A( var_0, var_1 )
+turn_thermal_on( var_0, var_1 )
 {
     if ( var_0 <= var_1 )
         return 0;
@@ -1776,10 +1758,10 @@ _id_992A( var_0, var_1 )
     if ( var_0 <= 0.65 )
         return 0;
 
-    return !isdefined( self._id_503F );
+    return !isdefined( self.is_in_thermal_vision );
 }
 
-_id_9929( var_0, var_1 )
+turn_thermal_off( var_0, var_1 )
 {
     if ( var_0 >= var_1 )
         return 0;
@@ -1787,52 +1769,52 @@ _id_9929( var_0, var_1 )
     if ( var_0 >= 0.8 )
         return 0;
 
-    return isdefined( self._id_503F );
+    return isdefined( self.is_in_thermal_vision );
 }
 
-_id_92FF()
+thermal_effectson()
 {
-    self._id_503F = 1;
+    self.is_in_thermal_vision = 1;
     var_0 = getaiarray( "allies" );
 
     foreach ( var_2 in var_0 )
     {
-        if ( isdefined( var_2._id_4702 ) )
+        if ( isdefined( var_2.has_thermal_fx ) )
             continue;
 
-        var_2._id_4702 = 1;
-        var_2 thread _id_586F( self._id_9A29 );
+        var_2.has_thermal_fx = 1;
+        var_2 thread loop_friendly_thermal_reflector_effect( self.unique_id );
     }
 
-    if ( maps\_utility::_id_500C() )
+    if ( maps\_utility::is_coop() )
     {
-        var_4 = maps\_utility::_id_3E07( self );
+        var_4 = maps\_utility::get_other_player( self );
 
-        if ( !isdefined( var_4._id_4702 ) )
+        if ( !isdefined( var_4.has_thermal_fx ) )
         {
-            var_4._id_4702 = 1;
-            var_4 thread _id_586F( self._id_9A29, self );
+            var_4.has_thermal_fx = 1;
+            var_4 thread loop_friendly_thermal_reflector_effect( self.unique_id, self );
         }
     }
 }
 
-_id_92FE()
+thermal_effectsoff()
 {
-    self._id_503F = undefined;
-    level notify( "thermal_fx_off" + self._id_9A29 );
+    self.is_in_thermal_vision = undefined;
+    level notify( "thermal_fx_off" + self.unique_id );
     var_0 = getaiarray( "allies" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        var_0[var_1]._id_4702 = undefined;
+        var_0[var_1].has_thermal_fx = undefined;
 
-    if ( maps\_utility::_id_500C() )
+    if ( maps\_utility::is_coop() )
     {
-        var_2 = maps\_utility::_id_3E07( self );
-        var_2._id_4702 = undefined;
+        var_2 = maps\_utility::get_other_player( self );
+        var_2.has_thermal_fx = undefined;
     }
 }
 
-_id_586F( var_0, var_1 )
+loop_friendly_thermal_reflector_effect( var_0, var_1 )
 {
     if ( !isdefined( self.has_ir ) )
         return;
@@ -1843,15 +1825,15 @@ _id_586F( var_0, var_1 )
     for (;;)
     {
         if ( isdefined( var_1 ) )
-            playfxontagforclients( level._id_3A8C, self, "J_Spine4", var_1 );
+            playfxontagforclients( level.friendly_thermal_reflector_effect, self, "J_Spine4", var_1 );
         else
-            playfxontag( level._id_3A8C, self, "J_Spine4" );
+            playfxontag( level.friendly_thermal_reflector_effect, self, "J_Spine4" );
 
         wait 0.2;
     }
 }
 
-_id_1E42()
+claymore_pickup_think_global()
 {
     precacheitem( "claymore" );
     self endon( "deleted" );
@@ -1860,8 +1842,8 @@ _id_1E42()
     self makeusable();
     var_0 = weaponmaxammo( "claymore" ) + weaponclipsize( "claymore" );
 
-    if ( isdefined( self._id_7937 ) )
-        var_0 = self._id_7937;
+    if ( isdefined( self.script_ammo_clip ) )
+        var_0 = self.script_ammo_clip;
 
     while ( var_0 > 0 )
     {
@@ -1902,7 +1884,7 @@ _id_1E42()
 
         var_5 = 4;
 
-        if ( isdefined( var_1._id_7325 ) && var_1._id_7325 == 4 )
+        if ( isdefined( var_1.remotemissile_actionslot ) && var_1.remotemissile_actionslot == 4 )
             var_5 = 2;
 
         var_1 setactionslot( var_5, "weapon", "claymore" );
@@ -1924,30 +1906,30 @@ _id_1E42()
 ammo_cache_think_global( var_0 )
 {
     self endon( "remove_ammo_cache" );
-    self._id_9BEB = spawn( "script_model", self.origin + ( 0.0, 0.0, 28.0 ) );
-    self._id_9BEB setmodel( "tag_origin" );
-    self._id_9BEB makeusable();
-    self._id_9BEB setcursorhint( "HINT_NOICON" );
+    self.use_trigger = spawn( "script_model", self.origin + ( 0.0, 0.0, 28.0 ) );
+    self.use_trigger setmodel( "tag_origin" );
+    self.use_trigger makeusable();
+    self.use_trigger setcursorhint( "HINT_NOICON" );
     var_1 = &"WEAPON_CACHE_USE_HINT";
 
     if ( getdvar( "consoleGame" ) == "true" )
         var_1 = &"WEAPON_CACHE_USE_CONTROLLER_HINT";
 
-    self._id_9BEB sethintstring( var_1 );
+    self.use_trigger sethintstring( var_1 );
 
     if ( !isdefined( var_0 ) || isdefined( var_0 ) && var_0 )
         thread ammo_icon_think();
 
     for (;;)
     {
-        self._id_9BEB waittill( "trigger", var_2 );
+        self.use_trigger waittill( "trigger", var_2 );
 
-        if ( isdefined( var_2._id_2D17 ) )
+        if ( isdefined( var_2.dont_allow_ammo_cache ) )
             continue;
 
-        var_2._id_9C1F = 1;
+        var_2.using_ammo_cache = 1;
         self notify( "used_ammo_cache" );
-        self._id_9BEB makeunusable();
+        self.use_trigger makeunusable();
         var_2 playsound( "player_refill_all_ammo" );
         var_2 disableweapons();
         wait 0.1;
@@ -1973,8 +1955,8 @@ ammo_cache_think_global( var_0 )
 
         wait 1.4;
         var_2 enableweapons();
-        self._id_9BEB makeusable();
-        var_2._id_9C1F = undefined;
+        self.use_trigger makeusable();
+        var_2.using_ammo_cache = undefined;
     }
 }
 
@@ -1993,7 +1975,7 @@ ammo_icon_think()
     self.ammo_icon = var_1;
     self.ammo_icon_trig = var_0;
 
-    if ( isdefined( self._id_4B29 ) && self._id_4B29 )
+    if ( isdefined( self.icon_always_show ) && self.icon_always_show )
     {
         ammo_icon_fade_in( var_1 );
         return;
@@ -2018,7 +2000,7 @@ ammo_icon_think()
             else if ( var_2 getfractionmaxammo( var_4 ) > 0.9 )
                 var_3 = 0;
 
-            if ( maps\_utility::_id_6B91( self.origin, 0.8, 1 ) && var_3 )
+            if ( maps\_utility::player_looking_at( self.origin, 0.8, 1 ) && var_3 )
                 ammo_icon_fade_in( var_1 );
             else
                 ammo_icon_fade_out( var_1 );
@@ -2050,7 +2032,7 @@ ammo_icon_fade_out( var_0 )
     wait 0.2;
 }
 
-_id_A337()
+window_destroy()
 {
     var_0 = getglass( self.target );
 
@@ -2087,14 +2069,14 @@ _id_A337()
     }
 }
 
-_id_422C( var_0, var_1, var_2, var_3, var_4 )
+global_empty_callback( var_0, var_1, var_2, var_3, var_4 )
 {
 
 }
 
-_id_A2C5()
+weapon_list_debug()
 {
-    common_scripts\utility::_id_23AE( "weaponlist", "0" );
+    common_scripts\utility::create_dvar( "weaponlist", "0" );
 
     if ( !getdvarint( "weaponlist" ) )
         return;
@@ -2128,21 +2110,21 @@ _id_A2C5()
     }
 }
 
-_id_864A()
+slowmo_system_init()
 {
-    level._id_8637 = spawnstruct();
-    _id_8649();
+    level.slowmo = spawnstruct();
+    slowmo_system_defaults();
     notifyoncommand( "_cheat_player_press_slowmo", "+melee" );
     notifyoncommand( "_cheat_player_press_slowmo", "+melee_breath" );
     notifyoncommand( "_cheat_player_press_slowmo", "+melee_zoom" );
 }
 
-_id_8649()
+slowmo_system_defaults()
 {
-    level._id_8637._id_56A9 = 0.0;
-    level._id_8637._id_56AA = 0.25;
-    level._id_8637._id_8A56 = 0.4;
-    level._id_8637._id_8A53 = 1.0;
+    level.slowmo.lerp_time_in = 0.0;
+    level.slowmo.lerp_time_out = 0.25;
+    level.slowmo.speed_slow = 0.4;
+    level.slowmo.speed_norm = 1.0;
 }
 
 add_no_game_starts()
@@ -2154,36 +2136,36 @@ add_no_game_starts()
 
     foreach ( var_2 in var_0 )
     {
-        if ( !isdefined( var_2._id_7ADD ) )
+        if ( !isdefined( var_2.script_startname ) )
             continue;
 
-        maps\_utility::add_start( "no_game_" + var_2._id_7ADD, ::_id_8C16 );
+        maps\_utility::add_start( "no_game_" + var_2.script_startname, ::start_nogame );
     }
 }
 
-_id_2BC7()
+do_no_game_start()
 {
-    if ( !maps\_utility::_id_5056() )
+    if ( !maps\_utility::is_no_game_start() )
         return;
 
     setsaveddvar( "ufoHitsTriggers", "1" );
-    level._id_8E9E = 1;
+    level.stop_load = 1;
 
-    if ( isdefined( level._id_254C ) )
-        level [[ level._id_254C ]]();
+    if ( isdefined( level.custom_no_game_setupfunc ) )
+        level [[ level.custom_no_game_setupfunc ]]();
 
-    maps\_loadout::_id_4D0F();
+    maps\_loadout::init_loadout();
     soundscripts\_audio::aud_init();
-    soundscripts\_snd::_id_86F4();
+    soundscripts\_snd::snd_init();
     maps\_global_fx::main();
     thread maps\_sp_matchdata::init();
-    _id_2BC8();
+    do_no_game_start_teleport();
     common_scripts\utility::array_call( getentarray( "truckjunk", "targetname" ), ::delete );
     common_scripts\utility::array_call( getentarray( "truckjunk", "script_noteworthy" ), ::delete );
     level waittill( "eternity" );
 }
 
-_id_2BC8()
+do_no_game_start_teleport()
 {
     var_0 = getentarray( "script_origin_start_nogame", "classname" );
 
@@ -2192,68 +2174,68 @@ _id_2BC8()
 
     var_0 = sortbydistance( var_0, level.player.origin );
 
-    if ( level._id_8C36 == "no_game" )
+    if ( level.start_point == "no_game" )
     {
-        level.player maps\_utility::_id_923E( var_0[0] );
+        level.player maps\_utility::teleport_player( var_0[0] );
         return;
     }
 
-    var_1 = getsubstr( level._id_8C36, 8 );
+    var_1 = getsubstr( level.start_point, 8 );
     var_2 = 0;
 
     foreach ( var_4 in var_0 )
     {
-        if ( !isdefined( var_4._id_7ADD ) )
+        if ( !isdefined( var_4.script_startname ) )
             continue;
 
-        if ( var_1 != var_4._id_7ADD )
+        if ( var_1 != var_4.script_startname )
             continue;
 
         if ( isdefined( var_4.script_visionset ) )
-            maps\_utility::_id_9E6E( var_4.script_visionset, 0 );
+            maps\_utility::vision_set_fog_changes( var_4.script_visionset, 0 );
 
-        level.player maps\_utility::_id_923E( var_4 );
+        level.player maps\_utility::teleport_player( var_4 );
         var_2 = 1;
         break;
     }
 
     if ( !var_2 )
-        level.player maps\_utility::_id_923E( var_0[0] );
+        level.player maps\_utility::teleport_player( var_0[0] );
 }
 
-_id_4CB2()
+init_animsounds()
 {
     level.animsounds = [];
     level.animsound_aliases = [];
-    waitframe;
-    waitframe;
-    var_0 = getarraykeys( level._id_78B6 );
+    waittillframeend;
+    waittillframeend;
+    var_0 = getarraykeys( level.scr_notetrack );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        _id_4D21( var_0[var_1] );
+        init_notetracks_for_animname( var_0[var_1] );
 
-    var_0 = getarraykeys( level._id_78B0 );
+    var_0 = getarraykeys( level.scr_animsound );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        _id_4CB3( var_0[var_1] );
+        init_animsounds_for_animname( var_0[var_1] );
 }
 
-_id_4CB3( var_0 )
+init_animsounds_for_animname( var_0 )
 {
-    var_1 = getarraykeys( level._id_78B0[var_0] );
+    var_1 = getarraykeys( level.scr_animsound[var_0] );
 
     for ( var_2 = 0; var_2 < var_1.size; var_2++ )
     {
         var_3 = var_1[var_2];
-        var_4 = level._id_78B0[var_0][var_3];
+        var_4 = level.scr_animsound[var_0][var_3];
         level.animsound_aliases[var_0][var_3]["#" + var_3]["soundalias"] = var_4;
         level.animsound_aliases[var_0][var_3]["#" + var_3]["created_by_animSound"] = 1;
     }
 }
 
-_id_4D21( var_0 )
+init_notetracks_for_animname( var_0 )
 {
-    foreach ( var_10, var_2 in level._id_78B6[var_0] )
+    foreach ( var_10, var_2 in level.scr_notetrack[var_0] )
     {
         foreach ( var_9, var_4 in var_2 )
         {
@@ -2273,91 +2255,91 @@ _id_4D21( var_0 )
     }
 }
 
-_id_277C()
+default_footsteps()
 {
-    animscripts\utility::_id_7F74( "default", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "asphalt", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "brick", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "carpet", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "cloth", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "concrete", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "cushion", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "dirt", loadfx( "vfx/treadfx/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "foliage", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "grass", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "gravel", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "mud", loadfx( "vfx/treadfx/footstep_mud" ) );
-    animscripts\utility::_id_7F74( "rock", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "sand", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "wood", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "water_waist", loadfx( "vfx/treadfx/footstep_water" ) );
-    animscripts\utility::_id_7F74( "water_ankle", loadfx( "vfx/treadfx/footstep_water" ) );
-    animscripts\utility::_id_7F74( "water_knee", loadfx( "vfx/treadfx/footstep_water" ) );
-    animscripts\utility::_id_7F74( "snow", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F74( "ice", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "default", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "asphalt", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "brick", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "carpet", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "cloth", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "concrete", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "cushion", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "dirt", loadfx( "vfx/treadfx/footstep_dust" ) );
-    animscripts\utility::_id_7F75( "foliage", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "grass", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "gravel", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "mud", loadfx( "vfx/treadfx/footstep_mud" ) );
-    animscripts\utility::_id_7F75( "rock", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "sand", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "wood", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "water_waist", loadfx( "vfx/treadfx/footstep_water" ) );
-    animscripts\utility::_id_7F75( "water_ankle", loadfx( "vfx/treadfx/footstep_water" ) );
-    animscripts\utility::_id_7F75( "water_knee", loadfx( "vfx/treadfx/footstep_water" ) );
-    animscripts\utility::_id_7F75( "snow", loadfx( "vfx/unique/no_fx" ) );
-    animscripts\utility::_id_7F75( "ice", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "default", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "asphalt", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "brick", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "carpet", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "cloth", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "concrete", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "cushion", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "dirt", loadfx( "vfx/treadfx/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "foliage", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "grass", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "gravel", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "mud", loadfx( "vfx/treadfx/footstep_mud" ) );
+    animscripts\utility::setfootstepeffect( "rock", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "sand", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "wood", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "water_waist", loadfx( "vfx/treadfx/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "water_ankle", loadfx( "vfx/treadfx/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "water_knee", loadfx( "vfx/treadfx/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "snow", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffect( "ice", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "default", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "asphalt", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "brick", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "carpet", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "cloth", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "concrete", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "cushion", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "dirt", loadfx( "vfx/treadfx/footstep_dust" ) );
+    animscripts\utility::setfootstepeffectsmall( "foliage", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "grass", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "gravel", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "mud", loadfx( "vfx/treadfx/footstep_mud" ) );
+    animscripts\utility::setfootstepeffectsmall( "rock", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "sand", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "wood", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "water_waist", loadfx( "vfx/treadfx/footstep_water" ) );
+    animscripts\utility::setfootstepeffectsmall( "water_ankle", loadfx( "vfx/treadfx/footstep_water" ) );
+    animscripts\utility::setfootstepeffectsmall( "water_knee", loadfx( "vfx/treadfx/footstep_water" ) );
+    animscripts\utility::setfootstepeffectsmall( "snow", loadfx( "vfx/unique/no_fx" ) );
+    animscripts\utility::setfootstepeffectsmall( "ice", loadfx( "vfx/unique/no_fx" ) );
     var_0 = "bodyfall small";
     var_1 = "J_SpineLower";
     var_2 = "bodyfall_";
     var_3 = "_small";
-    animscripts\utility::_id_7FBF( var_0, var_1, "dirt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
-    animscripts\utility::_id_7FBF( var_0, var_1, "concrete", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
-    animscripts\utility::_id_7FBF( var_0, var_1, "asphalt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
-    animscripts\utility::_id_7FBF( var_0, var_1, "rock", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "dirt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "concrete", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "asphalt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "rock", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
     var_4 = [ "brick", "carpet", "foliage", "grass", "gravel", "ice", "metal", "painted metal", "mud", "plaster", "sand", "snow", "slush", "water", "wood", "ceramic" ];
 
     foreach ( var_6 in var_4 )
-        animscripts\utility::_id_7FC0( var_0, var_6, var_2, var_3 );
+        animscripts\utility::setnotetracksound( var_0, var_6, var_2, var_3 );
 
     var_0 = "bodyfall small";
     var_1 = "J_SpineLower";
     var_2 = "bodyfall_";
     var_3 = "_large";
-    animscripts\utility::_id_7FBF( var_0, var_1, "dirt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
-    animscripts\utility::_id_7FBF( var_0, var_1, "concrete", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
-    animscripts\utility::_id_7FBF( var_0, var_1, "asphalt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
-    animscripts\utility::_id_7FBF( var_0, var_1, "rock", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "dirt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "concrete", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "asphalt", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
+    animscripts\utility::setnotetrackeffect( var_0, var_1, "rock", loadfx( "vfx/treadfx/bodyfall_default_runner" ), var_2, var_3 );
 
     foreach ( var_6 in var_4 )
-        animscripts\utility::_id_7FC0( var_0, var_6, var_2, var_3 );
+        animscripts\utility::setnotetracksound( var_0, var_6, var_2, var_3 );
 }
 
-_id_3AFB()
+functional_tester_load_next_start()
 {
     wait 3;
 
-    if ( level._id_8BB5.size <= 0 )
+    if ( level.start_functions.size <= 0 )
         return;
 
-    var_0 = _id_3E70();
+    var_0 = get_start_dvars();
 
-    if ( !isdefined( var_0 ) || !isdefined( level._id_8C36 ) )
+    if ( !isdefined( var_0 ) || !isdefined( level.start_point ) )
         return;
 
     var_1 = 0;
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        if ( var_0[var_1] == level._id_8C36 )
+        if ( var_0[var_1] == level.start_point )
         {
             var_1++;
             break;

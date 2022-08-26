@@ -1,29 +1,11 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_4D05();
-    thread _id_80C6();
-    thread _id_7E68();
+    init_level_lighting_flags();
+    thread setup_dof_presets();
+    thread set_level_lighting_values();
     level.cheat_invert_override = "_bright";
     level.default_clut = "clut_sniperescape";
     level.default_lightset = "sniperescape";
@@ -37,19 +19,19 @@ main()
     level.default_visionset = "sniperescape";
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
 
 }
 
-_id_80C6()
+setup_dof_presets()
 {
 
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
-    maps\_utility::_id_9E6E( "sniperescape", 0 );
+    maps\_utility::vision_set_fog_changes( "sniperescape", 0 );
     level.player maps\_utility::set_light_set_player( "sniperescape" );
     level.player _meth_848C( "clut_sniperescape", 1.0 );
 }
@@ -57,7 +39,7 @@ _id_7E68()
 handle_player_on_sniper_rifle()
 {
     wait 0.05;
-    common_scripts\utility::_id_384A( "player_is_on_turret" );
+    common_scripts\utility::flag_wait( "player_is_on_turret" );
     setsaveddvar( "sv_znear", "100" );
     setsaveddvar( "sm_sunShadowCenter", getent( "blood_pool", "targetname" ).origin );
     var_0 = getentarray( "zakhaev_light", "targetname" );
@@ -66,8 +48,8 @@ handle_player_on_sniper_rifle()
         var_2 _meth_8494( "force_on" );
 
     level.player maps\_utility::set_light_set_player( "sniperescape_scope" );
-    maps\_utility::_id_9E6E( "sniperescape_scope", 2 );
-    common_scripts\utility::_id_384A( "player_gets_off_turret" );
+    maps\_utility::vision_set_fog_changes( "sniperescape_scope", 2 );
+    common_scripts\utility::flag_wait( "player_gets_off_turret" );
     setsaveddvar( "sv_znear", "1.0" );
     setsaveddvar( "sm_sunShadowCenter", ( 0.0, 0.0, 0.0 ) );
     var_0 = getentarray( "zakhaev_light", "targetname" );
@@ -76,16 +58,16 @@ handle_player_on_sniper_rifle()
         var_2 _meth_8494( "normal" );
 
     level.player maps\_utility::set_light_set_player( "sniperescape" );
-    maps\_utility::_id_9E6E( "sniperescape", 2 );
+    maps\_utility::vision_set_fog_changes( "sniperescape", 2 );
 }
 
 handle_player_rappel_init()
 {
     wait 0.05;
-    common_scripts\utility::_id_384A( "player_can_rappel" );
+    common_scripts\utility::flag_wait( "player_can_rappel" );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_values( 4.5, -1, 5, 2 ) maps\_cinematography::dyndof_autofocus( 1 );
     thread maps\_cinematography::dyndof_system_start( 1 );
-    common_scripts\utility::_id_384A( "player_rappels" );
+    common_scripts\utility::flag_wait( "player_rappels" );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_autofocus( 0 ) maps\_cinematography::dyndof_values( 4.5, 20, 5, 2 );
     var_0 = getnode( "player_rappel_node", "targetname" );
     var_1 = maps\_cinematography::cinematic_sequence( "rappel_sequence" );
@@ -100,7 +82,7 @@ handle_player_rappel_init()
     var_2 maps\_cinematography::cinseq_key_dyndof_ref_ent( "main", var_0 ) maps\_cinematography::cinseq_key_dyndof_offset( "main", 60 );
     var_1 maps\_cinematography::cinseq_key( "explosion" ) maps\_cinematography::cinseq_key_time( 4.75 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 2.4, -1, 10, 2 ) maps\_cinematography::cinseq_key_lerp_fov( 40, 0.3 ) maps\_cinematography::cinseq_key_set_slowmo( 0.1, 0.5 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "explosion_end" ) maps\_cinematography::cinseq_key_time( 5.1 ) maps\_cinematography::cinseq_key_lerp_fov( 47, 0.5 );
-    var_2 maps\_cinematography::cinseq_key_dyndof_ref_ent( "main", level._id_6F7C ) maps\_cinematography::cinseq_key_dyndof_offset( "main", 0 ) maps\_cinematography::cinseq_key_remove_slowmo( 0.5 );
+    var_2 maps\_cinematography::cinseq_key_dyndof_ref_ent( "main", level.price ) maps\_cinematography::cinseq_key_dyndof_offset( "main", 0 ) maps\_cinematography::cinseq_key_remove_slowmo( 0.5 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "look_at_hand" ) maps\_cinematography::cinseq_key_time( 5.7 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 1.6, 16, 4, 1 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "midway_to_ground" ) maps\_cinematography::cinseq_key_time( 6.2 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 1.4, -1, 3, 1 ) maps\_cinematography::cinseq_key_lerp_fov( 60, 0.6 );
     var_2 = var_1 maps\_cinematography::cinseq_key( "close_to_ground" ) maps\_cinematography::cinseq_key_time( 7.4 ) maps\_cinematography::cinseq_key_dyndof_values( "main", 2, -1, 2, 0.5 ) maps\_cinematography::cinseq_key_lerp_fov_default( 0.5 );
@@ -112,7 +94,7 @@ handle_player_rappel_init()
 handle_enemy_helicopter_crash()
 {
     wait 0.05;
-    common_scripts\utility::_id_384A( "heli_shot_down" );
+    common_scripts\utility::flag_wait( "heli_shot_down" );
     maps\_cinematography::dyndof( "heli" ) maps\_cinematography::dyndof_values( 3.2, -1, 3, 1 ) maps\_cinematography::dyndof_reference_entity( level.price_heli ) maps\_cinematography::dyndof_angles( -45, 45 );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_values( 16, 1000, 5, 2 ) maps\_cinematography::dyndof_autofocus( 1 );
     thread maps\_cinematography::dyndof_system_start( 1 );
@@ -130,12 +112,12 @@ handle_enemy_helicopter_crash()
 handle_helicopter_extraction()
 {
     wait 0.05;
-    common_scripts\utility::_id_384A( "player_made_it_to_seaknight" );
+    common_scripts\utility::flag_wait( "player_made_it_to_seaknight" );
     maps\_cinematography::dyndof( "main" ) maps\_cinematography::dyndof_values( 3.2, 400, 1, 0.5 ) maps\_cinematography::dyndof_autofocus( 1 ) maps\_cinematography::dyndof_view_model_fstop_scale( 8 );
     thread maps\_cinematography::dyndof_system_start( 1 );
     var_0 = maps\_cinematography::cinseq_create_screen_shake_struct();
     var_0.pitch_scale = 0.9;
-    var_0._id_A3B7 = 0.5;
+    var_0.yaw_scale = 0.5;
     var_0.roll_scale = 0.2;
     var_0.duration = 7;
     var_0.duration_fade_up = 2;
@@ -158,7 +140,7 @@ loop_camera_shake()
     var_0 = [];
     var_0[0] = maps\_cinematography::cinseq_create_screen_shake_struct();
     var_0[0].pitch_scale = 0.4;
-    var_0[0]._id_A3B7 = 0.2;
+    var_0[0].yaw_scale = 0.2;
     var_0[0].roll_scale = 0;
     var_0[0].duration = 3;
     var_0[0].duration_fade_up = 0;
@@ -168,7 +150,7 @@ loop_camera_shake()
     var_0[0].frequency_yaw = 0;
     var_0[1] = maps\_cinematography::cinseq_create_screen_shake_struct();
     var_0[1].pitch_scale = 0.7;
-    var_0[1]._id_A3B7 = 0.2;
+    var_0[1].yaw_scale = 0.2;
     var_0[1].roll_scale = 0;
     var_0[1].duration = 2;
     var_0[1].duration_fade_up = 0.5;
@@ -181,7 +163,7 @@ loop_camera_shake()
     {
         var_1 = randomintrange( 0, var_0.size );
         var_2 = var_0[var_1];
-        level.player _meth_83FC( var_2.pitch_scale, var_2._id_A3B7, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2._id_3583 );
+        level.player screenshakeonentity( var_2.pitch_scale, var_2.yaw_scale, var_2.roll_scale, var_2.duration, var_2.duration_fade_up, var_2.duration_fade_down, var_2.radius, var_2.frequency_pitch, var_2.frequency_roll, var_2.frequency_yaw, var_2.exponent );
         wait(var_0[var_1].duration - 0.5);
     }
 }
@@ -193,10 +175,10 @@ begin_vision_blurs()
 
 vision_glow_change()
 {
-    common_scripts\utility::_id_383F( "stop_adjusting_vision" );
-    maps\_utility::_id_7F00( "sniperescape_glow_off", 5 );
+    common_scripts\utility::flag_set( "stop_adjusting_vision" );
+    maps\_utility::set_vision_set( "sniperescape_glow_off", 5 );
     wait 10;
-    maps\_utility::_id_7F00( "sniperescape_outside", 5 );
+    maps\_utility::set_vision_set( "sniperescape_outside", 5 );
 }
 
 snipe_vision_adjust()
@@ -208,19 +190,19 @@ snipe_vision_adjust()
 
     for (;;)
     {
-        common_scripts\utility::_id_384A( "near_window" );
+        common_scripts\utility::flag_wait( "near_window" );
         var_0 = 1.25;
         var_1 = 1.25;
-        maps\_utility::_id_7F00( "sniperescape_glow_off", var_0 );
-        common_scripts\utility::_id_385B( "near_window", var_0 );
-        maps\_utility::_id_7F00( "sniperescape_outside", var_1 );
-        common_scripts\utility::_id_385B( "near_window", var_1 );
-        common_scripts\utility::_id_3857( "near_window" );
+        maps\_utility::set_vision_set( "sniperescape_glow_off", var_0 );
+        common_scripts\utility::flag_waitopen_or_timeout( "near_window", var_0 );
+        maps\_utility::set_vision_set( "sniperescape_outside", var_1 );
+        common_scripts\utility::flag_waitopen_or_timeout( "near_window", var_1 );
+        common_scripts\utility::flag_waitopen( "near_window" );
         var_0 = 0.25;
         var_1 = 1.25;
-        maps\_utility::_id_7F00( "sniperescape_glow_off", var_0 );
-        common_scripts\utility::_id_3856( "near_window", var_0 );
-        maps\_utility::_id_7F00( "sniperescape", var_1 );
-        common_scripts\utility::_id_3856( "near_window", var_1 );
+        maps\_utility::set_vision_set( "sniperescape_glow_off", var_0 );
+        common_scripts\utility::flag_wait_or_timeout( "near_window", var_0 );
+        maps\_utility::set_vision_set( "sniperescape", var_1 );
+        common_scripts\utility::flag_wait_or_timeout( "near_window", var_1 );
     }
 }

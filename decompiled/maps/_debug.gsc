@@ -1,25 +1,7 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_271E()
+debugchains()
 {
     var_0 = getallnodes();
     var_1 = 0;
@@ -52,7 +34,7 @@ _id_271E()
 
             for ( var_3 = 0; var_3 < var_5.size; var_3++ )
             {
-                var_6 = var_5[var_3] animscripts\utility::_id_3F2F();
+                var_6 = var_5[var_3] animscripts\utility::getclaimednode();
 
                 if ( isdefined( var_6 ) )
                 {
@@ -61,11 +43,11 @@ _id_271E()
             }
         }
 
-        waittillframeend;
+        waitframe();
     }
 }
 
-_id_2695( var_0 )
+debug_enemypos( var_0 )
 {
     var_1 = getaiarray();
 
@@ -74,12 +56,12 @@ _id_2695( var_0 )
         if ( var_1[var_2] getentitynumber() != var_0 )
             continue;
 
-        var_1[var_2] thread _id_2696();
+        var_1[var_2] thread debug_enemyposproc();
         break;
     }
 }
 
-_id_270B( var_0 )
+debug_stopenemypos( var_0 )
 {
     var_1 = getaiarray();
 
@@ -93,7 +75,7 @@ _id_270B( var_0 )
     }
 }
 
-_id_2696()
+debug_enemyposproc()
 {
     self endon( "death" );
     self endon( "stop_drawing_enemy_pos" );
@@ -107,14 +89,14 @@ _id_2696()
 
         }
 
-        if ( !animscripts\utility::_id_472C() )
+        if ( !animscripts\utility::hasenemysightpos() )
             continue;
 
-        var_0 = animscripts\utility::_id_3F7E();
+        var_0 = animscripts\utility::getenemysightpos();
     }
 }
 
-_id_2697()
+debug_enemyposreplay()
 {
     var_0 = getaiarray();
     var_1 = undefined;
@@ -131,9 +113,9 @@ _id_2697()
 
         }
 
-        if ( isdefined( var_1._id_4279 ) )
+        if ( isdefined( var_1.goodshootpos ) )
         {
-            if ( var_1 _meth_813F() )
+            if ( var_1 isbadguy() )
                 var_3 = ( 1.0, 0.0, 0.0 );
             else
                 var_3 = ( 0.0, 0.0, 1.0 );
@@ -160,7 +142,7 @@ _id_2697()
                 }
             }
 
-            common_scripts\utility::_id_2D9F( var_4, var_1._id_4279, var_3 );
+            common_scripts\utility::draw_arrow( var_4, var_1.goodshootpos, var_3 );
         }
     }
 
@@ -180,33 +162,33 @@ _id_2697()
 
     }
 
-    if ( isalive( var_1._id_4278 ) )
+    if ( isalive( var_1.goodenemy ) )
     {
 
     }
 
-    if ( !var_1 animscripts\utility::_id_472C() )
+    if ( !var_1 animscripts\utility::hasenemysightpos() )
         return;
 
-    var_6 = var_1 animscripts\utility::_id_3F7E();
+    var_6 = var_1 animscripts\utility::getenemysightpos();
 
-    if ( isdefined( var_1._id_4279 ) )
+    if ( isdefined( var_1.goodshootpos ) )
         return;
 }
 
-_id_2DD5( var_0 )
+drawenttag( var_0 )
 {
 
 }
 
-_id_2DE7( var_0, var_1, var_2 )
+drawtag( var_0, var_1, var_2 )
 {
     var_3 = self gettagorigin( var_0 );
     var_4 = self gettagangles( var_0 );
-    _id_2DD0( var_3, var_4, var_1, var_2 );
+    drawarrow( var_3, var_4, var_1, var_2 );
 }
 
-_id_2DDE( var_0 )
+draworgforever( var_0 )
 {
     var_1 = undefined;
     var_2 = undefined;
@@ -217,32 +199,32 @@ _id_2DDE( var_0 )
         {
             var_1 = self.origin;
             var_2 = self.angles;
-            _id_2DD0( var_1, var_2, var_0 );
+            drawarrow( var_1, var_2, var_0 );
         }
 
         wait 0.05;
     }
 }
 
-_id_2DD1( var_0, var_1 )
+drawarrowforever( var_0, var_1 )
 {
     for (;;)
     {
-        _id_2DD0( var_0, var_1 );
+        drawarrow( var_0, var_1 );
         wait 0.05;
     }
 }
 
-_id_2DDF()
+draworiginforever()
 {
     while ( isdefined( self ) )
     {
-        _id_2DD0( self.origin, self.angles );
+        drawarrow( self.origin, self.angles );
         wait 0.05;
     }
 }
 
-_id_2DD0( var_0, var_1, var_2, var_3 )
+drawarrow( var_0, var_1, var_2, var_3 )
 {
     var_4 = 10;
     var_5 = anglestoforward( var_1 );
@@ -269,7 +251,7 @@ _id_2DD0( var_0, var_1, var_2, var_3 )
         var_3 = 1;
 }
 
-_id_2DD6( var_0, var_1 )
+drawforwardforever( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 100;
@@ -287,40 +269,40 @@ _id_2DD6( var_0, var_1 )
     }
 }
 
-_id_2DE1()
+drawplayerviewforever()
 {
     for (;;)
     {
-        _id_2DD0( level.player.origin, level.player getplayerangles(), ( 1.0, 1.0, 1.0 ) );
+        drawarrow( level.player.origin, level.player getplayerangles(), ( 1.0, 1.0, 1.0 ) );
         wait 0.05;
     }
 }
 
-_id_2DE8( var_0, var_1 )
+drawtagforever( var_0, var_1 )
 {
     for (;;)
     {
         if ( !isdefined( self ) )
             return;
 
-        _id_2DE7( var_0, var_1 );
+        drawtag( var_0, var_1 );
         wait 0.05;
     }
 }
 
-_id_2DE9( var_0, var_1 )
+drawtagtrails( var_0, var_1 )
 {
     for (;;)
     {
         if ( !isdefined( self.origin ) )
             break;
 
-        _id_2DE7( var_0, var_1, 1000 );
+        drawtag( var_0, var_1, 1000 );
         wait 0.05;
     }
 }
 
-_id_2D9E( var_0, var_1 )
+dragtaguntildeath( var_0, var_1 )
 {
     self endon( "death" );
 
@@ -332,23 +314,23 @@ _id_2D9E( var_0, var_1 )
         if ( !isdefined( self.origin ) )
             break;
 
-        _id_2DE7( var_0, var_1 );
+        drawtag( var_0, var_1 );
         wait 0.05;
     }
 }
 
-_id_9E20( var_0, var_1 )
+viewtag( var_0, var_1 )
 {
     if ( var_0 == "ai" )
     {
         var_2 = getaiarray();
 
         for ( var_3 = 0; var_3 < var_2.size; var_3++ )
-            var_2[var_3] _id_2DE7( var_1 );
+            var_2[var_3] drawtag( var_1 );
     }
 }
 
-_id_2689()
+debug_corner()
 {
     level.player.ignoreme = 1;
     var_0 = getallnodes();
@@ -368,12 +350,12 @@ _id_2689()
     for ( var_2 = 0; var_2 < var_3.size; var_2++ )
         var_3[var_2] delete();
 
-    level._id_2735 = getspawnerarray();
+    level.debugspawners = getspawnerarray();
     level.activenodes = [];
-    level._id_20D4 = [];
+    level.completednodes = [];
 
-    for ( var_2 = 0; var_2 < level._id_2735.size; var_2++ )
-        level._id_2735[var_2].targetname = "blah";
+    for ( var_2 = 0; var_2 < level.debugspawners.size; var_2++ )
+        level.debugspawners[var_2].targetname = "blah";
 
     var_4 = 0;
 
@@ -382,7 +364,7 @@ _id_2689()
         if ( var_2 >= var_1.size )
             break;
 
-        var_1[var_2] thread _id_22C6();
+        var_1[var_2] thread covertest();
         var_4++;
     }
 
@@ -396,27 +378,27 @@ _id_2689()
         if ( var_4 >= var_1.size )
             var_4 = 0;
 
-        var_1[var_4] thread _id_22C6();
+        var_1[var_4] thread covertest();
         var_4++;
     }
 }
 
-_id_22C6()
+covertest()
 {
-    _id_22C2();
+    coversetupanim();
 }
 
-_id_22C2()
+coversetupanim()
 {
     var_0 = undefined;
     var_1 = undefined;
 
     for (;;)
     {
-        for ( var_2 = 0; var_2 < level._id_2735.size; var_2++ )
+        for ( var_2 = 0; var_2 < level.debugspawners.size; var_2++ )
         {
             wait 0.05;
-            var_1 = level._id_2735[var_2];
+            var_1 = level.debugspawners[var_2];
             var_3 = 0;
 
             for ( var_4 = 0; var_4 < level.activenodes.size; var_4++ )
@@ -433,9 +415,9 @@ _id_22C2()
 
             var_5 = 0;
 
-            for ( var_4 = 0; var_4 < level._id_20D4.size; var_4++ )
+            for ( var_4 = 0; var_4 < level.completednodes.size; var_4++ )
             {
-                if ( level._id_20D4[var_4] != self )
+                if ( level.completednodes[var_4] != self )
                     continue;
 
                 var_5 = 1;
@@ -451,9 +433,9 @@ _id_22C2()
             var_1.count = 1;
             var_0 = var_1 stalingradspawn();
 
-            if ( maps\_utility::_id_88F1( var_0 ) )
+            if ( maps\_utility::spawn_failed( var_0 ) )
             {
-                _id_7393( self );
+                removeactivespawner( self );
                 continue;
             }
 
@@ -470,18 +452,18 @@ _id_22C2()
     {
         var_0.ignoreme = 1;
         var_0.team = "neutral";
-        var_0 _meth_81AA( var_0.origin );
-        thread _id_2426( self.origin );
-        var_0 thread maps\_utility::_id_272C();
-        thread _id_2427( var_0 );
+        var_0 setgoalpos( var_0.origin );
+        thread createline( self.origin );
+        var_0 thread maps\_utility::debugorigin();
+        thread createlineconstantly( var_0 );
         var_0 waittill( "death" );
     }
 
-    _id_7393( self );
-    level._id_20D4[level._id_20D4.size] = self;
+    removeactivespawner( self );
+    level.completednodes[level.completednodes.size] = self;
 }
 
-_id_7393( var_0 )
+removeactivespawner( var_0 )
 {
     var_1 = [];
 
@@ -496,13 +478,13 @@ _id_7393( var_0 )
     level.activenodes = var_1;
 }
 
-_id_2426( var_0 )
+createline( var_0 )
 {
     for (;;)
         wait 0.05;
 }
 
-_id_2427( var_0 )
+createlineconstantly( var_0 )
 {
     var_1 = undefined;
 
@@ -516,7 +498,7 @@ _id_2427( var_0 )
         wait 0.05;
 }
 
-_id_272A()
+debugmisstime()
 {
     self notify( "stopdebugmisstime" );
     self endon( "stopdebugmisstime" );
@@ -524,7 +506,7 @@ _id_272A()
 
     for (;;)
     {
-        if ( self.a._id_5CE3 <= 0 )
+        if ( self.a.misstime <= 0 )
         {
 
         }
@@ -537,45 +519,45 @@ _id_272A()
     }
 }
 
-_id_272B()
+debugmisstimeoff()
 {
     self notify( "stopdebugmisstime" );
 }
 
-_id_7F61( var_0, var_1 )
+setemptydvar( var_0, var_1 )
 {
 
 }
 
-_id_2727( var_0 )
+debugjump( var_0 )
 {
 
 }
 
-_id_598E( var_0, var_1, var_2, var_3, var_4 )
+maprange( var_0, var_1, var_2, var_3, var_4 )
 {
     return var_3 + ( var_0 - var_1 ) * ( var_4 - var_3 ) / ( var_2 - var_1 );
 }
 
-_id_5F5E()
+movement_velocity_loop()
 {
 
 }
 
-_id_5F5C()
+movement_acceleration_loop()
 {
 
 }
 
-_id_8AED()
+stair_state_loop()
 {
 
 }
 
-_id_3D3F()
+get_direction()
 {
     var_0 = anglestoforward( self.angles );
-    var_1 = maps\_shg_utility::_id_3D3E();
+    var_1 = maps\_shg_utility::get_differentiated_velocity();
 
     if ( !isdefined( var_1 ) || !isdefined( var_0 ) )
         return "none";
@@ -597,7 +579,7 @@ _id_3D3F()
         return "right";
 }
 
-_id_4D61()
+init_state_list()
 {
     var_0 = [];
     var_0[0] = "Invalid";
@@ -615,7 +597,7 @@ _id_4D61()
     return var_0;
 }
 
-_id_8D60( var_0 )
+state_print_priority( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return 99;
@@ -670,12 +652,12 @@ _id_8D60( var_0 )
     }
 }
 
-_id_7ADF( var_0, var_1 )
+script_state_compare( var_0, var_1 )
 {
-    return _id_8D60( var_0 ) < _id_8D60( var_1 );
+    return state_print_priority( var_0 ) < state_print_priority( var_1 );
 }
 
-_id_7AF7( var_0 )
+script_to_state( var_0 )
 {
     var_1 = [];
 
@@ -691,10 +673,10 @@ _id_7AF7( var_0 )
         return var_1;
     }
 
-    if ( isdefined( self._id_7A9C ) && self._id_7A9C == 1 )
+    if ( isdefined( self.script_patroller ) && self.script_patroller == 1 )
         var_1 = common_scripts\utility::array_add( var_1, "patrol" );
 
-    if ( isdefined( self._id_51DA ) && self._id_51DA )
+    if ( isdefined( self.istraversing ) && self.istraversing )
         var_1 = common_scripts\utility::array_add( var_1, "traverse" );
 
     if ( isdefined( self._cloak_enemy_state ) && self._cloak_enemy_state != "default_stealth_state" )
@@ -729,7 +711,7 @@ _id_7AF7( var_0 )
             var_1 = common_scripts\utility::array_add( var_1, "cover" );
             break;
         default:
-            if ( common_scripts\utility::_id_8F55( var_0.script, "mantle" ) != -1 )
+            if ( common_scripts\utility::string_find( var_0.script, "mantle" ) != -1 )
             {
                 var_1 = common_scripts\utility::array_add( var_1, "mantle" );
                 break;
@@ -740,20 +722,20 @@ _id_7AF7( var_0 )
     }
 
     if ( var_1.size > 1 )
-        var_1 = common_scripts\utility::array_sort_with_func( var_1, ::_id_7ADF );
+        var_1 = common_scripts\utility::array_sort_with_func( var_1, ::script_state_compare );
 
     return var_1;
 }
 
-_id_970D( var_0 )
+transition_has_inverse( var_0 )
 {
     var_1 = " -> ";
-    var_2 = common_scripts\utility::_id_8F55( var_0, var_1 );
+    var_2 = common_scripts\utility::string_find( var_0, var_1 );
     var_3 = getsubstr( var_0, 0, var_2 );
     var_4 = getsubstr( var_0, var_2 + var_1.size, var_0.size );
     var_5 = var_4 + var_1 + var_3;
 
-    if ( isdefined( common_scripts\utility::array_find( level._id_9719, var_5 ) ) )
+    if ( isdefined( common_scripts\utility::array_find( level.transitions, var_5 ) ) )
     {
         var_6 = [];
         var_6["reversed"] = var_5;
@@ -764,77 +746,77 @@ _id_970D( var_0 )
     return undefined;
 }
 
-_id_65C8( var_0 )
+output_states_to_file( var_0 )
 {
 
 }
 
-_id_8D5D()
+state_loop()
 {
 
 }
 
-_id_2722()
+debugdvars()
 {
 
 }
 
-_id_737A()
+remove_reflection_objects()
 {
 
 }
 
-_id_23D7()
+create_reflection_objects()
 {
 
 }
 
-_id_23D6()
+create_reflection_object()
 {
 
 }
 
-_id_26B8()
+debug_reflection()
 {
 
 }
 
-_id_26B9()
+debug_reflection_buttons()
 {
 
 }
 
-_id_735A()
+remove_fxlighting_object()
 {
 
 }
 
-_id_23BA()
+create_fxlighting_object()
 {
 
 }
 
-_id_6956()
+play_fxlighting_fx()
 {
 
 }
 
-_id_269F()
+debug_fxlighting()
 {
 
 }
 
-_id_2692()
+debug_dumplightshadowstates()
 {
 
 }
 
-_id_26A0()
+debug_fxlighting_buttons()
 {
 
 }
 
-_id_8507()
+showdebugtrace()
 {
     var_0 = undefined;
     var_1 = undefined;
@@ -848,7 +830,7 @@ _id_8507()
         var_3 = var_1;
 
         if ( !isdefined( var_0 ) )
-            var_2 = level._id_949C;
+            var_2 = level.tracestart;
 
         if ( !isdefined( var_1 ) )
             var_3 = level.player geteye();
@@ -857,7 +839,7 @@ _id_8507()
     }
 }
 
-_id_2680()
+debug_character_count()
 {
     var_0 = newhudelem();
     var_0.alignx = "left";
@@ -937,18 +919,18 @@ _id_2680()
     }
 }
 
-_id_6265()
+nuke()
 {
     if ( !self.damageshield )
         self kill( ( 0.0, 0.0, -500.0 ), level.player, level.player );
 }
 
-_id_26B1()
+debug_nuke()
 {
 
 }
 
-_id_1A13()
+camera()
 {
     wait 0.05;
     var_0 = getentarray( "camera", "targetname" );
@@ -956,7 +938,7 @@ _id_1A13()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_2 = getent( var_0[var_1].target, "targetname" );
-        var_0[var_1]._id_6599 = var_2.origin;
+        var_0[var_1].origin2 = var_2.origin;
         var_0[var_1].angles = vectortoangles( var_2.origin - var_0[var_1].origin );
     }
 
@@ -966,7 +948,7 @@ _id_1A13()
 
         if ( !var_3.size )
         {
-            _id_3A29();
+            freeplayer();
             wait 0.5;
             continue;
         }
@@ -987,7 +969,7 @@ _id_1A13()
 
         if ( !var_4.size )
         {
-            _id_3A29();
+            freeplayer();
             wait 0.5;
             continue;
         }
@@ -997,7 +979,7 @@ _id_1A13()
         for ( var_1 = 0; var_1 < var_4.size; var_1++ )
         {
             var_7 = var_4[var_1];
-            var_8 = var_7._id_6599;
+            var_8 = var_7.origin2;
             var_9 = var_7.origin;
             var_10 = vectortoangles( ( var_9[0], var_9[1], var_9[2] ) - ( var_8[0], var_8[1], var_8[2] ) );
             var_11 = ( 0, var_10[1], 0 );
@@ -1013,7 +995,7 @@ _id_1A13()
 
         if ( !var_6.size )
         {
-            _id_3A29();
+            freeplayer();
             wait 0.5;
             continue;
         }
@@ -1032,17 +1014,17 @@ _id_1A13()
             var_14 = var_16;
         }
 
-        _id_7FED( var_15 );
+        setplayertocamera( var_15 );
         wait 3;
     }
 }
 
-_id_3A29()
+freeplayer()
 {
     setdvar( "cl_freemove", "0" );
 }
 
-_id_7FED( var_0 )
+setplayertocamera( var_0 )
 {
     setdvar( "cl_freemove", "2" );
 }
@@ -1058,75 +1040,75 @@ anglescheck()
     }
 }
 
-_id_266D()
+deathspawnerpreview()
 {
-    waitframe;
+    waittillframeend;
 
     for ( var_0 = 0; var_0 < 50; var_0++ )
     {
-        if ( !isdefined( level._id_266C[var_0] ) )
+        if ( !isdefined( level.deathspawnerents[var_0] ) )
             continue;
 
-        var_1 = level._id_266C[var_0];
+        var_1 = level.deathspawnerents[var_0];
 
         for ( var_2 = 0; var_2 < var_1.size; var_2++ )
         {
             var_3 = var_1[var_2];
 
-            if ( isdefined( var_3._id_9887 ) )
+            if ( isdefined( var_3.truecount ) )
                 continue;
         }
     }
 }
 
-_id_55DB()
+lastsightposwatch()
 {
 
 }
 
-_id_A23E()
+watchminimap()
 {
     precacheitem( "defaultweapon" );
 
     for (;;)
     {
-        _id_9B37();
+        updateminimapsetting();
         wait 0.25;
     }
 }
 
-_id_9B37()
+updateminimapsetting()
 {
     var_0 = getdvarfloat( "scr_requiredMapAspectRatio", 1 );
 
-    if ( !isdefined( level._id_5C74 ) )
+    if ( !isdefined( level.minimapcornertargetname ) )
     {
         setdvar( "scr_minimap_corner_targetname", "minimap_corner" );
-        level._id_5C74 = "minimap_corner";
+        level.minimapcornertargetname = "minimap_corner";
     }
 
-    if ( !isdefined( level._id_5C75 ) )
+    if ( !isdefined( level.minimapheight ) )
     {
         setdvar( "scr_minimap_height", "0" );
-        level._id_5C75 = 0;
+        level.minimapheight = 0;
     }
 
     var_1 = getdvarfloat( "scr_minimap_height" );
     var_2 = getdvar( "scr_minimap_corner_targetname" );
 
-    if ( var_1 != level._id_5C75 || var_2 != level._id_5C74 )
+    if ( var_1 != level.minimapheight || var_2 != level.minimapcornertargetname )
     {
-        if ( isdefined( level._id_5C77 ) )
+        if ( isdefined( level.minimaporigin ) )
         {
-            level._id_5C78 unlink();
-            level._id_5C77 delete();
+            level.minimapplayer unlink();
+            level.minimaporigin delete();
             level notify( "end_draw_map_bounds" );
         }
 
         if ( var_1 > 0 )
         {
-            level._id_5C75 = var_1;
-            level._id_5C74 = var_2;
+            level.minimapheight = var_1;
+            level.minimapcornertargetname = var_2;
             var_3 = level.player;
             var_4 = getentarray( var_2, "targetname" );
 
@@ -1170,7 +1152,7 @@ _id_9B37()
                     {
                         var_15 = var_0 / var_14;
                         var_13 *= var_15;
-                        var_16 = _id_9C6E( var_11, vectordot( var_11, var_6 - var_5 ) * ( var_15 - 1 ) );
+                        var_16 = vecscale( var_11, vectordot( var_11, var_6 - var_5 ) * ( var_15 - 1 ) );
                         var_7 -= var_16;
                         var_6 += var_16;
                     }
@@ -1178,7 +1160,7 @@ _id_9B37()
                     {
                         var_15 = var_14 / var_0;
                         var_12 *= var_15;
-                        var_16 = _id_9C6E( var_10, vectordot( var_10, var_6 - var_5 ) * ( var_15 - 1 ) );
+                        var_16 = vecscale( var_10, vectordot( var_10, var_6 - var_5 ) * ( var_15 - 1 ) );
                         var_7 -= var_16;
                         var_6 += var_16;
                     }
@@ -1215,9 +1197,9 @@ _id_9B37()
                 var_9.angles = ( 90, getnorthyaw(), 0 );
                 var_3 giveweapon( "defaultweapon" );
                 setsaveddvar( "cg_fov", var_20 );
-                level._id_5C78 = var_3;
-                level._id_5C77 = var_9;
-                thread _id_2DDA( var_5, var_7, var_6 );
+                level.minimapplayer = var_3;
+                level.minimaporigin = var_9;
+                thread drawminimapbounds( var_5, var_7, var_6 );
             }
             else
             {
@@ -1227,19 +1209,19 @@ _id_9B37()
     }
 }
 
-_id_3F2A()
+getchains()
 {
     var_0 = [];
     var_0 = getentarray( "minimap_line", "script_noteworthy" );
     var_1 = [];
 
     for ( var_2 = 0; var_2 < var_0.size; var_2++ )
-        var_1[var_2] = var_0[var_2] _id_3F29();
+        var_1[var_2] = var_0[var_2] getchain();
 
     return var_1;
 }
 
-_id_3F29()
+getchain()
 {
     var_0 = [];
     var_1 = self;
@@ -1268,12 +1250,12 @@ _id_3F29()
     return var_2;
 }
 
-_id_9C6E( var_0, var_1 )
+vecscale( var_0, var_1 )
 {
     return ( var_0[0] * var_1, var_0[1] * var_1, var_0[2] * var_1 );
 }
 
-_id_2DDA( var_0, var_1, var_2 )
+drawminimapbounds( var_0, var_1, var_2 )
 {
     level notify( "end_draw_map_bounds" );
     level endon( "end_draw_map_bounds" );
@@ -1281,30 +1263,30 @@ _id_2DDA( var_0, var_1, var_2 )
     var_4 = length( var_1 - var_2 );
     var_5 = var_1 - var_0;
     var_5 = vectornormalize( ( var_5[0], var_5[1], 0 ) );
-    var_1 += _id_9C6E( var_5, var_4 * 1 / 800 * 0 );
+    var_1 += vecscale( var_5, var_4 * 1 / 800 * 0 );
     var_6 = var_2 - var_0;
     var_6 = vectornormalize( ( var_6[0], var_6[1], 0 ) );
-    var_2 += _id_9C6E( var_6, var_4 * 1 / 800 * 0 );
+    var_2 += vecscale( var_6, var_4 * 1 / 800 * 0 );
     var_7 = ( cos( getnorthyaw() ), sin( getnorthyaw() ), 0 );
     var_8 = var_2 - var_1;
-    var_9 = _id_9C6E( var_7, vectordot( var_8, var_7 ) );
-    var_10 = _id_9C6E( var_7, abs( vectordot( var_8, var_7 ) ) );
+    var_9 = vecscale( var_7, vectordot( var_8, var_7 ) );
+    var_10 = vecscale( var_7, abs( vectordot( var_8, var_7 ) ) );
     var_11 = var_1;
     var_12 = var_1 + var_9;
     var_13 = var_2;
     var_14 = var_2 - var_9;
-    var_15 = _id_9C6E( var_1 + var_2, 0.5 ) + _id_9C6E( var_10, 0.51 );
+    var_15 = vecscale( var_1 + var_2, 0.5 ) + vecscale( var_10, 0.51 );
     var_16 = var_4 * 0.003;
-    var_17 = _id_3F2A();
+    var_17 = getchains();
 
     for (;;)
     {
-        common_scripts\utility::array_levelthread( var_17, common_scripts\utility::_id_6DF1 );
+        common_scripts\utility::array_levelthread( var_17, common_scripts\utility::plot_points );
         wait 0.05;
     }
 }
 
-_id_514C( var_0 )
+islookingatorigin( var_0 )
 {
     var_1 = vectornormalize( var_0 - self getshootatpos() );
     var_2 = vectornormalize( var_0 - ( 0.0, 0.0, 24.0 ) - self getshootatpos() );
@@ -1318,7 +1300,7 @@ _id_514C( var_0 )
         return 0;
 }
 
-_id_2687()
+debug_colornodes()
 {
     wait 0.05;
     var_0 = getaiarray();
@@ -1331,39 +1313,39 @@ _id_2687()
     {
         var_3 = var_0[var_2];
 
-        if ( !isdefined( var_3._id_250C ) )
+        if ( !isdefined( var_3.currentcolorcode ) )
             continue;
 
-        var_1[var_3.team][var_3._id_250C] = 1;
+        var_1[var_3.team][var_3.currentcolorcode] = 1;
         var_4 = ( 1.0, 1.0, 1.0 );
 
-        if ( isdefined( var_3._id_79E6 ) )
-            var_4 = level._id_2034[var_3._id_79E6];
+        if ( isdefined( var_3.script_forcecolor ) )
+            var_4 = level.color_debug[var_3.script_forcecolor];
 
-        var_5 = var_3._id_250C;
+        var_5 = var_3.currentcolorcode;
 
         if ( isdefined( var_3.being_careful ) && var_3.being_careful == 1 )
             var_5 += " (c)";
 
-        var_3 _id_9891();
+        var_3 try_to_draw_line_to_node();
     }
 
-    _id_2DAA( var_1, "allies" );
-    _id_2DAA( var_1, "axis" );
+    draw_colornodes( var_1, "allies" );
+    draw_colornodes( var_1, "axis" );
 }
 
-_id_2DAA( var_0, var_1 )
+draw_colornodes( var_0, var_1 )
 {
     var_2 = getarraykeys( var_0[var_1] );
 
     for ( var_3 = 0; var_3 < var_2.size; var_3++ )
     {
         var_4 = ( 1.0, 1.0, 1.0 );
-        var_4 = level._id_2034[getsubstr( var_2[var_3], 0, 1 )];
+        var_4 = level.color_debug[getsubstr( var_2[var_3], 0, 1 )];
 
-        if ( isdefined( level._id_2057[var_1][var_2[var_3]] ) )
+        if ( isdefined( level.colornodes_debug_array[var_1][var_2[var_3]] ) )
         {
-            var_5 = level._id_2057[var_1][var_2[var_3]];
+            var_5 = level.colornodes_debug_array[var_1][var_2[var_3]];
 
             for ( var_6 = 0; var_6 < var_5.size; var_6++ )
             {
@@ -1374,65 +1356,65 @@ _id_2DAA( var_0, var_1 )
                 else
                     var_7 = "N-" + var_2[var_3];
 
-                if ( isdefined( var_5[var_6]._id_2043 ) && var_5[var_6]._id_2043 == level.player )
+                if ( isdefined( var_5[var_6].color_user ) && var_5[var_6].color_user == level.player )
                     var_7 += " (p)";
             }
         }
     }
 }
 
-_id_3E91()
+get_team_substr()
 {
     if ( self.team == "allies" )
     {
-        if ( isdefined( self.node ) && isdefined( self.node._id_7975 ) )
-            return self.node._id_7975;
+        if ( isdefined( self.node ) && isdefined( self.node.script_color_allies ) )
+            return self.node.script_color_allies;
 
-        var_0 = self _meth_81AE();
+        var_0 = self getgoalvolume();
 
-        if ( isdefined( var_0 ) && isdefined( var_0._id_7975 ) )
-            return var_0._id_7975;
+        if ( isdefined( var_0 ) && isdefined( var_0.script_color_allies ) )
+            return var_0.script_color_allies;
     }
 
     if ( self.team == "axis" )
     {
-        if ( isdefined( self.node ) && isdefined( self.node._id_7976 ) )
-            return self.node._id_7976;
+        if ( isdefined( self.node ) && isdefined( self.node.script_color_axis ) )
+            return self.node.script_color_axis;
 
-        var_0 = self _meth_81AE();
+        var_0 = self getgoalvolume();
 
-        if ( isdefined( var_0 ) && isdefined( var_0._id_7976 ) )
-            return var_0._id_7976;
+        if ( isdefined( var_0 ) && isdefined( var_0.script_color_axis ) )
+            return var_0.script_color_axis;
     }
 }
 
-_id_9891()
+try_to_draw_line_to_node()
 {
     var_0 = ( 0.0, 0.0, 0.0 );
 
     if ( isdefined( self.node ) )
         var_0 = self.node.origin;
-    else if ( isdefined( self _meth_81AE() ) )
+    else if ( isdefined( self getgoalvolume() ) )
     {
-        var_1 = self _meth_81AE();
+        var_1 = self getgoalvolume();
         var_0 = var_1.origin;
     }
     else
         return;
 
-    if ( !isdefined( self._id_79E6 ) )
+    if ( !isdefined( self.script_forcecolor ) )
         return;
 
-    var_2 = _id_3E91();
+    var_2 = get_team_substr();
 
     if ( !isdefined( var_2 ) )
         return;
 
-    if ( !issubstr( var_2, self._id_79E6 ) )
+    if ( !issubstr( var_2, self.script_forcecolor ) )
         return;
 }
 
-_id_3962()
+fogcheck()
 {
     if ( getdvar( "depth_close" ) == "" )
         setdvar( "depth_close", "0" );
@@ -1445,18 +1427,18 @@ _id_3962()
     setexpfog( var_0, var_1, 1, 1, 1, 1, 0 );
 }
 
-_id_2738()
+debugthreat()
 {
-    level._id_5563 = gettime();
-    thread _id_2739();
+    level.last_threat_debug = gettime();
+    thread debugthreatcalc();
 }
 
-_id_2739()
+debugthreatcalc()
 {
 
 }
 
-_id_2B6B( var_0, var_1 )
+displaythreat( var_0, var_1 )
 {
     if ( self.team == var_0.team )
         return;
@@ -1510,22 +1492,22 @@ _id_2B6B( var_0, var_1 )
     }
 }
 
-_id_2720()
+debugcolorfriendlies()
 {
-    level._id_2685 = [];
-    level._id_2686 = [];
+    level.debug_color_friendlies = [];
+    level.debug_color_huds = [];
 
     for (;;)
     {
         level waittill( "updated_color_friendlies" );
-        _id_2DA8();
+        draw_color_friendlies();
     }
 }
 
-_id_2DA8()
+draw_color_friendlies()
 {
     level endon( "updated_color_friendlies" );
-    var_0 = getarraykeys( level._id_2685 );
+    var_0 = getarraykeys( level.debug_color_friendlies );
     var_1 = [];
     var_2 = [];
     var_2[var_2.size] = "r";
@@ -1538,21 +1520,21 @@ _id_2DA8()
     var_2[var_2.size] = "w";
     var_2[var_2.size] = "a";
     var_2[var_2.size] = "l";
-    var_3 = maps\_utility::_id_3E5A();
+    var_3 = maps\_utility::get_script_palette();
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
         var_1[var_2[var_4]] = 0;
 
     for ( var_4 = 0; var_4 < var_0.size; var_4++ )
     {
-        var_5 = level._id_2685[var_0[var_4]];
+        var_5 = level.debug_color_friendlies[var_0[var_4]];
         var_1[var_5]++;
     }
 
-    for ( var_4 = 0; var_4 < level._id_2686.size; var_4++ )
-        level._id_2686[var_4] destroy();
+    for ( var_4 = 0; var_4 < level.debug_color_huds.size; var_4++ )
+        level.debug_color_huds[var_4] destroy();
 
-    level._id_2686 = [];
+    level.debug_color_huds = [];
     var_6 = 15;
     var_7 = 365;
     var_8 = 25;
@@ -1573,14 +1555,14 @@ _id_2DA8()
             var_11.aligny = "bottom";
             var_11.alpha = 1;
             var_11.color = var_3[var_2[var_4]];
-            level._id_2686[level._id_2686.size] = var_11;
+            level.debug_color_huds[level.debug_color_huds.size] = var_11;
         }
 
         var_7 += var_9;
     }
 }
 
-_id_6D20()
+playernode()
 {
     for (;;)
     {
@@ -1593,29 +1575,29 @@ _id_6D20()
     }
 }
 
-_id_2DEA()
+drawusers()
 {
-    if ( isalive( self._id_2043 ) )
+    if ( isalive( self.color_user ) )
         return;
 }
 
-_id_2724()
+debuggoalpos()
 {
     for (;;)
     {
         var_0 = getaiarray();
-        common_scripts\utility::array_thread( var_0, ::_id_9E11 );
+        common_scripts\utility::array_thread( var_0, ::view_goal_pos );
         wait 0.05;
     }
 }
 
-_id_9E11()
+view_goal_pos()
 {
     if ( !isdefined( self.goalpos ) )
         return;
 }
 
-_id_204A()
+colordebug()
 {
     wait 0.5;
     var_0 = [];
@@ -1634,20 +1616,20 @@ _id_204A()
     {
         for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         {
-            var_2 = level._id_250D["allies"][var_0[var_1]];
+            var_2 = level.currentcolorforced["allies"][var_0[var_1]];
 
             if ( isdefined( var_2 ) )
-                _id_2DA9( var_2 );
+                draw_colored_nodes( var_2 );
         }
 
         wait 0.05;
     }
 }
 
-_id_2DA9( var_0 )
+draw_colored_nodes( var_0 )
 {
     var_1 = level.arrays_of_colorcoded_nodes["allies"][var_0];
-    common_scripts\utility::array_thread( var_1, ::_id_2DEA );
+    common_scripts\utility::array_thread( var_1, ::drawusers );
 }
 
 add_hud_line( var_0, var_1, var_2 )
@@ -1664,7 +1646,7 @@ add_hud_line( var_0, var_1, var_2 )
     return var_3;
 }
 
-_id_3CBB( var_0 )
+get_alias_from_stored( var_0 )
 {
     if ( !isdefined( level.animsound_aliases[var_0.animname] ) )
         return;
@@ -1672,18 +1654,18 @@ _id_3CBB( var_0 )
     if ( !isdefined( level.animsound_aliases[var_0.animname][var_0.anime] ) )
         return;
 
-    if ( !isdefined( level.animsound_aliases[var_0.animname][var_0.anime][var_0._id_6177] ) )
+    if ( !isdefined( level.animsound_aliases[var_0.animname][var_0.anime][var_0.notetrack] ) )
         return;
 
-    return level.animsound_aliases[var_0.animname][var_0.anime][var_0._id_6177]["soundalias"];
+    return level.animsound_aliases[var_0.animname][var_0.anime][var_0.notetrack]["soundalias"];
 }
 
-_id_502E( var_0, var_1, var_2 )
+is_from_animsound( var_0, var_1, var_2 )
 {
     return isdefined( level.animsound_aliases[var_0][var_1][var_2]["created_by_animSound"] );
 }
 
-_id_2B41()
+display_animsound()
 {
     if ( distance( level.player.origin, self.origin ) > 1500 )
         return;
@@ -1691,17 +1673,17 @@ _id_2B41()
     level.animsounds_thisframe[level.animsounds_thisframe.size] = self;
 }
 
-_id_2678( var_0 )
+debug_animsoundtag( var_0 )
 {
 
 }
 
-_id_2679()
+debug_animsoundtagselected()
 {
 
 }
 
-_id_90D2( var_0, var_1 )
+tag_sound( var_0, var_1 )
 {
     if ( !isdefined( level.animsound_tagged ) )
         return;
@@ -1710,16 +1692,16 @@ _id_90D2( var_0, var_1 )
         return;
 
     var_2 = level.animsound_tagged.animsounds[var_1];
-    var_3 = _id_3CBB( var_2 );
+    var_3 = get_alias_from_stored( var_2 );
 
-    if ( !isdefined( var_3 ) || _id_502E( var_2.animname, var_2.anime, var_2._id_6177 ) )
+    if ( !isdefined( var_3 ) || is_from_animsound( var_2.animname, var_2.anime, var_2.notetrack ) )
     {
-        level.animsound_aliases[var_2.animname][var_2.anime][var_2._id_6177]["soundalias"] = var_0;
-        level.animsound_aliases[var_2.animname][var_2.anime][var_2._id_6177]["created_by_animSound"] = 1;
+        level.animsound_aliases[var_2.animname][var_2.anime][var_2.notetrack]["soundalias"] = var_0;
+        level.animsound_aliases[var_2.animname][var_2.anime][var_2.notetrack]["created_by_animSound"] = 1;
     }
 }
 
-_id_93F1( var_0 )
+tostr( var_0 )
 {
     var_1 = "\"";
 
@@ -1739,7 +1721,7 @@ _id_93F1( var_0 )
     return var_1;
 }
 
-_id_5770( var_0, var_1, var_2, var_3, var_4, var_5 )
+linedraw( var_0, var_1, var_2, var_3, var_4, var_5 )
 {
     if ( !isdefined( var_2 ) )
         var_2 = ( 1.0, 1.0, 1.0 );
@@ -1758,7 +1740,7 @@ _id_5770( var_0, var_1, var_2, var_3, var_4, var_5 )
     }
 }
 
-_id_6FA3( var_0, var_1, var_2, var_3, var_4 )
+print3ddraw( var_0, var_1, var_2, var_3, var_4 )
 {
     self endon( "stop_print3ddraw" );
 
@@ -1772,80 +1754,80 @@ _id_6FA3( var_0, var_1, var_2, var_3, var_4 )
         wait 0.05;
 }
 
-_id_20D1()
+complete_me()
 {
     if ( getdvar( "credits_active" ) == "1" )
     {
         wait 7;
         setdvar( "credits_active", "0" );
-        maps\_endmission::_id_2452();
+        maps\_endmission::credits_end();
         return;
     }
 
     wait 7;
-    maps\_utility::_id_60D6();
+    maps\_utility::nextmission();
 }
 
-_id_3768( var_0 )
+find_new_chase_target( var_0 )
 {
 
 }
 
-_id_1CA3( var_0 )
+chasecam( var_0 )
 {
-    if ( !isdefined( level._id_1C98 ) )
-        level._id_1C98 = -1;
+    if ( !isdefined( level.chase_cam_last_num ) )
+        level.chase_cam_last_num = -1;
 
-    if ( level._id_1C98 == var_0 )
+    if ( level.chase_cam_last_num == var_0 )
         return;
 
-    _id_3768( var_0 );
+    find_new_chase_target( var_0 );
 
-    if ( !isdefined( level._id_1C99 ) )
+    if ( !isdefined( level.chase_cam_target ) )
         return;
 
-    level._id_1C98 = var_0;
+    level.chase_cam_last_num = var_0;
 
-    if ( !isdefined( level._id_1C97 ) )
-        level._id_1C97 = level._id_1C99 common_scripts\utility::_id_8959();
+    if ( !isdefined( level.chase_cam_ent ) )
+        level.chase_cam_ent = level.chase_cam_target common_scripts\utility::spawn_tag_origin();
 
-    thread _id_1CA4( level._id_1C99 );
+    thread chasecam_onent( level.chase_cam_target );
 }
 
-_id_1CA4( var_0 )
+chasecam_onent( var_0 )
 {
     level notify( "new_chasecam" );
     level endon( "new_chasecam" );
     var_0 endon( "death" );
     level.player unlink();
-    level.player playerlinktoblend( level._id_1C97, "tag_origin", 2, 0.5, 0.5 );
+    level.player playerlinktoblend( level.chase_cam_ent, "tag_origin", 2, 0.5, 0.5 );
     wait 2;
-    level.player playerlinktodelta( level._id_1C97, "tag_origin", 1, 180, 180, 180, 180 );
+    level.player playerlinktodelta( level.chase_cam_ent, "tag_origin", 1, 180, 180, 180, 180 );
 
     for (;;)
     {
         wait 0.2;
 
-        if ( !isdefined( level._id_1C99 ) )
+        if ( !isdefined( level.chase_cam_target ) )
             return;
 
-        var_1 = level._id_1C99.origin;
-        var_2 = level._id_1C99.angles;
+        var_1 = level.chase_cam_target.origin;
+        var_2 = level.chase_cam_target.angles;
         var_3 = anglestoforward( var_2 );
         var_3 *= 200;
         var_1 += var_3;
         var_2 = level.player getplayerangles();
         var_3 = anglestoforward( var_2 );
         var_3 *= -200;
-        level._id_1C97 moveto( var_1 + var_3, 0.2 );
+        level.chase_cam_ent moveto( var_1 + var_3, 0.2 );
     }
 }
 
-_id_9E16()
+viewfx()
 {
-    foreach ( var_1 in level._id_2417 )
+    foreach ( var_1 in level.createfxent )
     {
-        if ( isdefined( var_1._id_587B ) )
+        if ( isdefined( var_1.looper ) )
         {
 
         }
@@ -1857,12 +1839,12 @@ add_key( var_0, var_1 )
 
 }
 
-_id_6F9F( var_0 )
+print_vehicle_info( var_0 )
 {
-    if ( !isdefined( level._id_9F04 ) )
-        level._id_9F04 = 9500;
+    if ( !isdefined( level.vnum ) )
+        level.vnum = 9500;
 
-    level._id_9F04++;
+    level.vnum++;
     var_1 = "bridge_helpers";
     add_key( "origin", self.origin[0] + " " + self.origin[1] + " " + self.origin[2] );
     add_key( "angles", self.angles[0] + " " + self.angles[1] + " " + self.angles[2] );
@@ -1876,12 +1858,12 @@ _id_6F9F( var_0 )
         add_key( "script_noteworthy", var_0 );
 }
 
-_id_2DB1( var_0 )
+draw_dot_for_ent( var_0 )
 {
 
 }
 
-_id_2DB2()
+draw_dot_for_guy()
 {
     var_0 = level.player getplayerangles();
     var_1 = anglestoforward( var_0 );
@@ -1892,7 +1874,7 @@ _id_2DB2()
     var_6 = vectordot( var_5, var_1 );
 }
 
-_id_4EA6()
+interactive_warnings()
 {
     var_0 = getentarray( "explodable_barrel", "targetname" );
     var_0 = common_scripts\utility::array_combine( var_0, getentarray( "explodable_barrel", "script_noteworthy" ) );
@@ -1912,39 +1894,39 @@ _id_4EA6()
             var_4 = getent( var_2.target, "targetname" );
 
             if ( isdefined( var_4 ) )
-                var_4._id_799A = "pre";
+                var_4.script_destruct_collision = "pre";
 
             var_2.targetname = "destructible_toy";
         }
     }
 }
 
-_id_40E0( var_0 )
+getspherebounds( var_0 )
 {
-    common_scripts\utility::_id_2DB4( var_0, 1 );
+    common_scripts\utility::draw_entity_bounds( var_0, 1 );
 }
 
-_id_950A( var_0 )
+trackobject( var_0 )
 {
-    var_1 = _id_40E0( var_0 );
+    var_1 = getspherebounds( var_0 );
 }
 
-_id_268D( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
-{
-
-}
-
-_id_2DA6( var_0, var_1, var_2, var_3 )
+debug_draw_anim_path( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 {
 
 }
 
-_id_949F( var_0 )
+draw_code_move_info( var_0, var_1, var_2, var_3 )
 {
 
 }
 
-_id_269B()
+track_bone_origins( var_0 )
+{
+
+}
+
+debug_foot_passing()
 {
 
 }

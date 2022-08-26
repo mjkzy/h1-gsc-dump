@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     precacherumble( "stinger_lock_rumble" );
@@ -38,18 +20,18 @@ clearirtarget()
     if ( !isdefined( self.stinger ) )
         self.stinger = spawnstruct();
 
-    self.stinger._id_8E48 = 0;
+    self.stinger.stingerlockstarttime = 0;
     self.stinger.stingerlockstarted = 0;
     self.stinger.stingerlockfinalized = 0;
-    self.stinger._id_8E5A = undefined;
+    self.stinger.stingertarget = undefined;
     self notify( "stinger_irt_cleartarget" );
     self notify( "stop_lockon_sound" );
     self notify( "stop_locked_sound" );
     self.stinger.stingerlocksound = undefined;
     self stoprumble( "stinger_lock_rumble" );
     self weaponlockfree();
-    self setentertime( 0 );
-    self setmlgspectator( 0 );
+    self _meth_82E4( 0 );
+    self weaponlocknoclearance( 0 );
     self stoplocalsound( "stinger_clu_lock" );
     self stoplocalsound( "stinger_clu_aquiring_lock" );
 }
@@ -99,35 +81,35 @@ stingerirtloop()
 
         if ( self.stinger.stingerlockfinalized )
         {
-            if ( !isstillvalidtarget( self.stinger._id_8E5A ) )
+            if ( !isstillvalidtarget( self.stinger.stingertarget ) )
             {
                 clearirtarget();
                 continue;
             }
 
             thread looplocallocksound( "stinger_clu_lock", 0.75 );
-            settargettooclose( self.stinger._id_8E5A );
+            settargettooclose( self.stinger.stingertarget );
             setnoclearance();
             continue;
         }
 
         if ( self.stinger.stingerlockstarted )
         {
-            if ( !isstillvalidtarget( self.stinger._id_8E5A ) )
+            if ( !isstillvalidtarget( self.stinger.stingertarget ) )
             {
                 clearirtarget();
                 continue;
             }
 
-            var_1 = gettime() - self.stinger._id_8E48;
+            var_1 = gettime() - self.stinger.stingerlockstarttime;
 
             if ( var_1 < var_0 )
                 continue;
 
             self notify( "stop_lockon_sound" );
             self.stinger.stingerlockfinalized = 1;
-            self weaponlockfinalize( self.stinger._id_8E5A );
-            settargettooclose( self.stinger._id_8E5A );
+            self weaponlockfinalize( self.stinger.stingertarget );
+            settargettooclose( self.stinger.stingertarget );
             setnoclearance();
             continue;
         }
@@ -137,8 +119,8 @@ stingerirtloop()
         if ( !isdefined( var_2 ) )
             continue;
 
-        self.stinger._id_8E5A = var_2;
-        self.stinger._id_8E48 = gettime();
+        self.stinger.stingertarget = var_2;
+        self.stinger.stingerlockstarttime = gettime();
         self.stinger.stingerlockstarted = 1;
         thread looplocalseeksound( "stinger_clu_aquiring_lock", 0.6 );
     }
@@ -253,7 +235,7 @@ setnoclearance()
         }
     }
 
-    self setmlgspectator( var_12 );
+    self weaponlocknoclearance( var_12 );
 }
 
 settargettooclose( var_0 )
@@ -268,12 +250,12 @@ settargettooclose( var_0 )
     if ( var_2 < var_1 )
     {
         self.stinger.targettoclose = 1;
-        self setentertime( 1 );
+        self _meth_82E4( 1 );
     }
     else
     {
         self.stinger.targettoclose = 0;
-        self setentertime( 0 );
+        self _meth_82E4( 0 );
     }
 }
 

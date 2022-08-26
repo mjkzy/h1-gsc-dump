@@ -1,32 +1,14 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
 
 }
 
-_id_8241()
+setup_names()
 {
-    if ( isdefined( level._id_6048 ) )
+    if ( isdefined( level.names ) )
         return;
 
     var_0 = [];
@@ -54,7 +36,7 @@ _id_8241()
     var_0[var_0.size] = "northkorea";
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
-        level._id_6048[var_0[var_1]] = [];
+        level.names[var_0[var_1]] = [];
 
     add_name( "american", "Abrahamsson" );
     add_name( "american", "Alavi" );
@@ -522,32 +504,32 @@ _id_8241()
     add_name( "squad", "######InvalidName######" );
     add_name( "northkorea", "######InvalidName######" );
     add_name( "pmc", "######InvalidName######" );
-    _id_4D52();
+    init_script_friendnames();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
-        _id_737D( var_0[var_1] );
-        _id_7127( var_0[var_1] );
-        level._id_6045[var_0[var_1]] = 0;
+        remove_script_friendnames_from_list( var_0[var_1] );
+        randomize_name_list( var_0[var_1] );
+        level.nameindex[var_0[var_1]] = 0;
     }
 }
 
-_id_21D7( var_0, var_1 )
+copy_names( var_0, var_1 )
 {
-    level._id_6048[var_0] = level._id_6048[var_1];
+    level.names[var_0] = level.names[var_1];
 }
 
 add_name( var_0, var_1 )
 {
-    level._id_6048[var_0][level._id_6048[var_0].size] = var_1;
+    level.names[var_0][level.names[var_0].size] = var_1;
 }
 
-_id_736E( var_0, var_1 )
+remove_name( var_0, var_1 )
 {
-    level._id_6048[var_0] = common_scripts\utility::array_remove( level._id_6048[var_0], var_1 );
+    level.names[var_0] = common_scripts\utility::array_remove( level.names[var_0], var_1 );
 }
 
-_id_4D52()
+init_script_friendnames()
 {
     var_0 = [];
     var_1 = getspawnerarray();
@@ -555,26 +537,26 @@ _id_4D52()
 
     foreach ( var_4 in var_1 )
     {
-        if ( isdefined( var_4._id_79EE ) && var_4._id_79EE != "none" )
+        if ( isdefined( var_4.script_friendname ) && var_4.script_friendname != "none" )
         {
-            var_5 = _id_6160( var_4._id_79EE );
+            var_5 = normalize_script_friendname( var_4.script_friendname );
             var_0[var_0.size] = var_5;
         }
     }
 
     foreach ( var_8 in var_2 )
     {
-        if ( isdefined( var_8._id_79EE ) && var_8._id_79EE != "none" )
+        if ( isdefined( var_8.script_friendname ) && var_8.script_friendname != "none" )
         {
-            var_5 = _id_6160( var_8._id_79EE );
+            var_5 = normalize_script_friendname( var_8.script_friendname );
             var_0[var_0.size] = var_5;
         }
     }
 
-    level._id_79EF = var_0;
+    level.script_friendnames = var_0;
 }
 
-_id_6160( var_0 )
+normalize_script_friendname( var_0 )
 {
     var_1 = strtok( var_0, " " );
 
@@ -584,48 +566,48 @@ _id_6160( var_0 )
     return var_0;
 }
 
-_id_737D( var_0 )
+remove_script_friendnames_from_list( var_0 )
 {
-    foreach ( var_2 in level._id_79EF )
+    foreach ( var_2 in level.script_friendnames )
     {
-        foreach ( var_4 in level._id_6048[var_0] )
+        foreach ( var_4 in level.names[var_0] )
         {
             if ( var_2 == var_4 )
-                _id_736E( var_0, var_4 );
+                remove_name( var_0, var_4 );
         }
     }
 }
 
-_id_7127( var_0 )
+randomize_name_list( var_0 )
 {
-    var_1 = level._id_6048[var_0].size;
+    var_1 = level.names[var_0].size;
 
     for ( var_2 = 0; var_2 < var_1; var_2++ )
     {
         var_3 = randomint( var_1 );
-        var_4 = level._id_6048[var_0][var_2];
-        level._id_6048[var_0][var_2] = level._id_6048[var_0][var_3];
-        level._id_6048[var_0][var_3] = var_4;
+        var_4 = level.names[var_0][var_2];
+        level.names[var_0][var_2] = level.names[var_0][var_3];
+        level.names[var_0][var_3] = var_4;
     }
 }
 
-_id_3DE2( var_0 )
+get_name( var_0 )
 {
     if ( isdefined( self.team ) && self.team == "neutral" )
         return;
 
-    if ( isdefined( self._id_79EE ) )
+    if ( isdefined( self.script_friendname ) )
     {
-        if ( self._id_79EE == "none" )
+        if ( self.script_friendname == "none" )
             return;
 
-        self.name = self._id_79EE;
-        _id_40AB( self.name );
+        self.name = self.script_friendname;
+        getrankfromname( self.name );
         self notify( "set name and rank" );
         return;
     }
 
-    _id_3DE3( self._id_9F32 );
+    get_name_for_nationality( self.voice );
     self notify( "set name and rank" );
 }
 
@@ -641,11 +623,11 @@ validate_nationality( var_0 )
     }
 }
 
-_id_3DE3( var_0 )
+get_name_for_nationality( var_0 )
 {
     validate_nationality( var_0 );
-    level._id_6045[var_0] = ( level._id_6045[var_0] + 1 ) % level._id_6048[var_0].size;
-    var_1 = level._id_6048[var_0][level._id_6045[var_0]];
+    level.nameindex[var_0] = ( level.nameindex[var_0] + 1 ) % level.names[var_0].size;
+    var_1 = level.names[var_0][level.nameindex[var_0]];
     var_2 = randomint( 10 );
 
     if ( var_2 > 5 )
@@ -664,13 +646,13 @@ _id_3DE3( var_0 )
         self.airank = "sergeant";
     }
 
-    if ( isai( self ) && self _meth_813F() )
+    if ( isai( self ) && self isbadguy() )
         self.ainame = var_3;
     else
         self.name = var_3;
 }
 
-_id_40AB( var_0 )
+getrankfromname( var_0 )
 {
     if ( !isdefined( var_0 ) )
         self.airank = "private";
@@ -707,7 +689,7 @@ _id_40AB( var_0 )
     }
 }
 
-_id_6067( var_0 )
+nationalityusescallsigns( var_0 )
 {
     switch ( var_0 )
     {
@@ -724,7 +706,7 @@ _id_6067( var_0 )
     return 0;
 }
 
-_id_6068( var_0 )
+nationalityusessurnames( var_0 )
 {
-    return isdefined( level._id_6048[var_0 + "_surnames"] );
+    return isdefined( level.names[var_0 + "_surnames"] );
 }

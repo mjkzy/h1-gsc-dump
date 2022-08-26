@@ -1,33 +1,15 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    level thread _id_6EDB();
-    level thread _id_974C();
+    level thread precachefx();
+    level thread treadfx_override();
     maps\createfx\ambush_fx::main();
     maps\createfx\ambush_sound::main();
 }
 
-_id_6EDB()
+precachefx()
 {
     level._effect["ambush_vl"] = loadfx( "fx/misc/ambush_vl" );
     level._effect["ambush_vl_far"] = loadfx( "fx/misc/ambush_vl_far" );
@@ -80,20 +62,20 @@ _id_6EDB()
     level._effect["bullet_spark"] = loadfx( "fx/impacts/large_metalhit_1" );
     level._effect["head_fatal"] = loadfx( "fx/impacts/flesh_hit_head_fatal_exit" );
     level._effect["bloodpool"] = loadfx( "fx/impacts/deathfx_bloodpool_ambush" );
-    animscripts\utility::_id_7F74( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "brick", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "grass", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "metal", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "mud", loadfx( "fx/impacts/footstep_mud_dark" ) );
-    animscripts\utility::_id_7F74( "rock", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "sand", loadfx( "fx/impacts/footstep_dust" ) );
-    animscripts\utility::_id_7F74( "water", loadfx( "fx/impacts/footstep_water" ) );
-    animscripts\utility::_id_7F74( "wood", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "asphalt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "brick", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "carpet", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "cloth", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "concrete", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "dirt", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "foliage", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "grass", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "metal", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "mud", loadfx( "fx/impacts/footstep_mud_dark" ) );
+    animscripts\utility::setfootstepeffect( "rock", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "sand", loadfx( "fx/impacts/footstep_dust" ) );
+    animscripts\utility::setfootstepeffect( "water", loadfx( "fx/impacts/footstep_water" ) );
+    animscripts\utility::setfootstepeffect( "wood", loadfx( "fx/impacts/footstep_dust" ) );
     level._effect["00_particle_shadow_animated_lrg_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_lrg_e" );
     level._effect["00_particle_shadow_animated_med_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_med_e" );
     level._effect["00_particle_shadow_animated_sm_e"] = loadfx( "vfx/cloud/00_particle_shadow_animated_sm_e" );
@@ -114,137 +96,137 @@ _id_6EDB()
     thread play_nighttime_fx( "vfx/map/ambush/ambush_sign_sprite_light", ( -435.207, 1042.64, 173.216 ), ( 270.0, 0.0, 0.0 ) );
 }
 
-_id_974C()
+treadfx_override()
 {
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "brick", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "bark", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "carpet", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "cloth", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "concrete", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "dirt", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "flesh", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "foliage", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "glass", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "grass", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "gravel", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "ice", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "metal", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "mud", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "paper", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "plaster", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "rock", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "sand", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "snow", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "water", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "wood", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "asphalt", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "ceramic", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "plastic", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "rubber", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "cushion", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "fruit", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "painted metal", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "default", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bmp_woodland_low", "none", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "brick", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "bark", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "carpet", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "cloth", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "concrete", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "dirt", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "flesh", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "foliage", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "glass", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "grass", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "gravel", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "ice", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "metal", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "mud", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "paper", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "plaster", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "rock", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "sand", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "snow", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "water", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "wood", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "asphalt", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "ceramic", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "plastic", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "rubber", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "cushion", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "fruit", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "painted metal", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "default", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_bm21_mobile_cover", "none", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "brick", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "bark", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "carpet", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "cloth", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "concrete", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "dirt", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "flesh", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "foliage", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "glass", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "grass", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "gravel", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "ice", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "metal", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "mud", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "paper", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "plaster", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "rock", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "sand", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "snow", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "water", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "wood", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "asphalt", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "ceramic", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "plastic", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "rubber", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "cushion", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "fruit", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "painted metal", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "default", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_uaz_open", "none", "fx/treadfx/tread_dust_ambush" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "brick", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "bark", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "carpet", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "cloth", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "concrete", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "dirt", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "flesh", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "foliage", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "glass", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "grass", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "gravel", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "ice", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "metal", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "mud", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "paper", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "plaster", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "rock", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "sand", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "snow", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "water", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "wood", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "asphalt", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "ceramic", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "plastic", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "rubber", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "cushion", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "fruit", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "painted metal", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "default", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
-    maps\_treadfx::_id_8350( "script_vehicle_blackhawk", "none", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "brick", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "bark", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "carpet", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "cloth", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "concrete", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "dirt", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "flesh", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "foliage", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "glass", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "grass", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "gravel", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "ice", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "metal", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "mud", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "paper", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "plaster", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "rock", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "sand", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "snow", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "water", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "wood", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "asphalt", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "ceramic", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "plastic", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "rubber", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "cushion", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "fruit", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "painted metal", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "default", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bmp_woodland_low", "none", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "brick", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "bark", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "carpet", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "cloth", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "concrete", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "dirt", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "flesh", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "foliage", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "glass", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "grass", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "gravel", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "ice", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "metal", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "mud", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "paper", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "plaster", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "rock", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "sand", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "snow", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "water", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "wood", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "asphalt", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "ceramic", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "plastic", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "rubber", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "cushion", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "fruit", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "painted metal", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "default", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_bm21_mobile_cover", "none", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "brick", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "bark", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "carpet", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "cloth", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "concrete", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "dirt", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "flesh", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "foliage", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "glass", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "grass", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "gravel", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "ice", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "metal", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "mud", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "paper", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "plaster", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "rock", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "sand", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "snow", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "water", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "wood", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "asphalt", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "ceramic", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "plastic", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "rubber", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "cushion", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "fruit", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "painted metal", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "default", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_uaz_open", "none", "fx/treadfx/tread_dust_ambush" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "brick", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "bark", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "carpet", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "cloth", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "concrete", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "dirt", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "flesh", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "foliage", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "glass", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "grass", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "gravel", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "ice", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "metal", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "mud", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "paper", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "plaster", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "rock", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "sand", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "snow", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "water", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "wood", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "asphalt", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "ceramic", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "plastic", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "rubber", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "cushion", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "fruit", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "painted metal", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "default", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
+    maps\_treadfx::setvehiclefx( "script_vehicle_blackhawk", "none", "fx/treadfx/heli_dust_ambush", "ambush_helicopter_wind" );
 }
 
 play_nighttime_fx( var_0, var_1, var_2 )
 {
-    var_3 = common_scripts\utility::_id_8959();
+    var_3 = common_scripts\utility::spawn_tag_origin();
     var_3.origin = var_1;
     var_3.angles = var_2;
     var_4 = loadfx( var_0 );
     playfxontag( var_4, var_3, "tag_origin" );
-    common_scripts\utility::_id_384A( "takeover_fade_clear" );
+    common_scripts\utility::flag_wait( "takeover_fade_clear" );
     stopfxontag( var_4, var_3, "tag_origin" );
 }

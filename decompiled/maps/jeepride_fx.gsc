@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level._effect["car_damage_blacksmoke_fire"] = loadfx( "fx/smoke/car_damage_blacksmoke_fire" );
@@ -87,7 +69,7 @@ main()
     level._effect["tunnelspark"] = loadfx( "fx/misc/jeepride_tunnel_sparks" );
     level._effect["tunnelspark_dl"] = loadfx( "fx/misc/jeepride_tunnel_sparks" );
     level._effect["tanker_sparker"] = loadfx( "fx/misc/jeepride_tanker_sparks" );
-    level._id_3891["hind"] = loadfx( "fx/misc/flares_cobra" );
+    level.flare_fx["hind"] = loadfx( "fx/misc/flares_cobra" );
     level._effect["tire_deflate"] = loadfx( "fx/impacts/jeepride_tire_shot" );
     level._effect["truck_busts_pillar"] = loadfx( "fx/explosions/wall_explosion_draft" );
     level._effect["truck_crash_flame_spectacular"] = loadfx( "fx/misc/blank" );
@@ -193,7 +175,7 @@ main()
     maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/explosions/small_vehicle_explosion", undefined, "car_explode", undefined, undefined, undefined, 0 );
     maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_tire_right_r", "smallfire", undefined, undefined, 1, 0 );
     maps\_vehicle::build_deathfx_override( "script_vehicle_bm21_mobile_bed_destructible", "bm21_troops", "vehicle_bm21_mobile_bed_destructible", "fx/fire/firelp_med_pm", "tag_fx_cab", "smallfire", undefined, undefined, 1, 0 );
-    _id_974C();
+    treadfx_override();
     thread init_collapsing_bridge_parts();
     maps\createfx\jeepride_fx::main();
     maps\createfx\jeepride_sound::main();
@@ -246,7 +228,7 @@ remove_ghettotag()
     if ( !isdefined( self.ghettotags ) )
         return;
 
-    common_scripts\utility::array_thread( self.ghettotags, maps\jeepride_code::_id_2856 );
+    common_scripts\utility::array_thread( self.ghettotags, maps\jeepride_code::deleteme );
 
     if ( !isdefined( self ) )
         return;
@@ -264,9 +246,9 @@ transfer_ghettotag_to( var_0, var_1, var_2 )
     var_0 thread apply_ghettotag( var_1, var_2 );
 }
 
-_id_3D4B()
+get_dummy()
 {
-    var_0 = common_scripts\utility::_id_9294( isdefined( self._id_5D41 ) && self._id_5D41, self._id_5D40, self );
+    var_0 = common_scripts\utility::ter_op( isdefined( self.modeldummyon ) && self.modeldummyon, self.modeldummy, self );
     return var_0;
 }
 
@@ -283,7 +265,7 @@ ghettotag_generate_sparks( var_0 )
 
     while ( isdefined( self ) )
     {
-        var_3 = _id_3D4B() gettagorigin( var_0 );
+        var_3 = get_dummy() gettagorigin( var_0 );
         var_4 = distancesquared( var_3, var_1 );
         var_5 = 6;
 
@@ -344,19 +326,19 @@ playfxontag_record( var_0, var_1, var_2 )
     playfxontag( level._effect[var_0], var_1, "polySurface1" );
 }
 
-_id_974C()
+treadfx_override()
 {
     level.all_choppers = [ "script_vehicle_mi24p_hind_woodland", "script_vehicle_mi28_flying", "script_vehicle_mi17_woodland_fly_cheap" ];
     level.all_vehicles = [ "script_vehicle_bm21_cover_destructible", "script_vehicle_bm21_mobile_bed_destructible", "script_vehicle_bmp_woodland_jeepride", "script_vehicle_bus", "script_vehicle_luxurysedan", "script_vehicle_pickup_roobars", "script_vehicle_pickup_4door", "script_vehicle_small_hatchback_turq", "script_vehicle_small_wagon_white", "script_vehicle_tanker_truck_civ", "script_vehicle_uaz_fabric_destructible", "script_vehicle_uaz_hardtop_destructible", "script_vehicle_uaz_open_for_ride", "script_vehicle_uaz_open_destructible", "script_vehicle_uaz_van", "script_vehicle_80s_wagon1_green_destructible", "script_vehicle_80s_wagon1_tan_destructible", "script_vehicle_80s_hatch1_silv_destructible" ];
 
     foreach ( var_1 in level.all_vehicles )
     {
-        maps\_treadfx::_id_8350( var_1, "asphalt", "vfx/treadfx/tread_road_jeepride" );
-        maps\_treadfx::_id_8350( var_1, "grass", "vfx/treadfx/tread_dirt_jeepride" );
-        maps\_treadfx::_id_8350( var_1, "dirt", "vfx/treadfx/tread_dirt_jeepride" );
-        maps\_treadfx::_id_8350( var_1, "mud", "vfx/treadfx/tread_mud_jeepride" );
-        maps\_treadfx::_id_8350( var_1, "snow", "vfx/treadfx/tread_mud_jeepride" );
-        maps\_treadfx::_id_8350( var_1, "water", "vfx/treadfx/tread_water_jeepride" );
+        maps\_treadfx::setvehiclefx( var_1, "asphalt", "vfx/treadfx/tread_road_jeepride" );
+        maps\_treadfx::setvehiclefx( var_1, "grass", "vfx/treadfx/tread_dirt_jeepride" );
+        maps\_treadfx::setvehiclefx( var_1, "dirt", "vfx/treadfx/tread_dirt_jeepride" );
+        maps\_treadfx::setvehiclefx( var_1, "mud", "vfx/treadfx/tread_mud_jeepride" );
+        maps\_treadfx::setvehiclefx( var_1, "snow", "vfx/treadfx/tread_mud_jeepride" );
+        maps\_treadfx::setvehiclefx( var_1, "water", "vfx/treadfx/tread_water_jeepride" );
     }
 }
 
@@ -364,25 +346,25 @@ heli_tread_fx_swap( var_0, var_1 )
 {
     foreach ( var_3 in level.all_choppers )
     {
-        maps\_treadfx::_id_7F1E( var_3, var_0 );
+        maps\_treadfx::setallvehiclefx( var_3, var_0 );
 
         if ( isdefined( var_1 ) )
-            maps\_treadfx::_id_8350( var_3, "water", var_1 );
+            maps\_treadfx::setvehiclefx( var_3, "water", var_1 );
     }
 }
 
 remove_light_group_from_vehicle( var_0, var_1 )
 {
-    if ( isdefined( level._id_9CFF[var_0][var_1] ) )
+    if ( isdefined( level.vehicle_lights_group[var_0][var_1] ) )
     {
-        var_2 = level._id_9CFF[var_0][var_1];
-        var_3 = level._id_9CFF[var_0]["all"];
+        var_2 = level.vehicle_lights_group[var_0][var_1];
+        var_3 = level.vehicle_lights_group[var_0]["all"];
 
         foreach ( var_5 in var_2 )
             var_3 = common_scripts\utility::array_remove( var_3, var_5 );
 
-        level._id_9CFF[var_0]["all"] = var_3;
-        level._id_9CFF[var_0][var_1] = [];
+        level.vehicle_lights_group[var_0]["all"] = var_3;
+        level.vehicle_lights_group[var_0][var_1] = [];
     }
 }
 
@@ -410,7 +392,7 @@ init_collapsing_bridge_parts()
                 }
             }
 
-            var_9 = var_4._id_7A18;
+            var_9 = var_4.script_index;
 
             if ( !isdefined( var_9 ) )
                 var_9 = var_2;

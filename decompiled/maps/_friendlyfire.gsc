@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     level.friendlyfire["min_participation"] = -200;
@@ -26,31 +8,31 @@ main()
     level.friendlyfire["enemy_kill_points"] = 250;
     level.friendlyfire["friend_kill_points"] = -650;
     level.friendlyfire["point_loss_interval"] = 1.25;
-    level.player._id_669E = 0;
-    level._id_3AA7 = 0;
-    level._id_3AA8 = 0;
+    level.player.participation = 0;
+    level.friendlyfiredisabled = 0;
+    level.friendlyfiredisabledfordestructible = 0;
     setdvarifuninitialized( "friendlyfire_dev_disabled", "0" );
-    common_scripts\utility::_id_383D( "friendly_fire_warning" );
-    thread _id_269E();
-    thread _id_66A0();
+    common_scripts\utility::flag_init( "friendly_fire_warning" );
+    thread debug_friendlyfire();
+    thread participation_point_flattenovertime();
 }
 
-_id_269E()
+debug_friendlyfire()
 {
 
 }
 
 apply_friendly_fire_damage_modifier( var_0 )
 {
-    level._id_3A9C = var_0;
+    level.friendlyfire_damage_modifier = var_0;
 }
 
-_id_734D( var_0 )
+remove_friendly_fire_damage_modifier( var_0 )
 {
-    level._id_3A9C = undefined;
+    level.friendlyfire_damage_modifier = undefined;
 }
 
-_id_3A59( var_0 )
+friendly_fire_think( var_0 )
 {
     if ( !isdefined( var_0 ) )
         return;
@@ -58,13 +40,13 @@ _id_3A59( var_0 )
     if ( !isdefined( var_0.team ) )
         var_0.team = "allies";
 
-    if ( isdefined( level._id_60FA ) )
+    if ( isdefined( level.no_friendly_fire_penalty ) )
         return;
 
     level endon( "mission failed" );
-    level thread _id_6228( var_0 );
-    level thread _id_622A( var_0 );
-    level thread _id_622B( var_0 );
+    level thread notifydamage( var_0 );
+    level thread notifydamagenotdone( var_0 );
+    level thread notifydeath( var_0 );
 
     for (;;)
     {
@@ -89,9 +71,9 @@ _id_3A59( var_0 )
         if ( !isdefined( var_2 ) )
             continue;
 
-        if ( isdefined( level._id_3A9C ) )
+        if ( isdefined( level.friendlyfire_damage_modifier ) )
         {
-            var_1 *= level._id_3A9C;
+            var_1 *= level.friendlyfire_damage_modifier;
             var_1 = int( var_1 );
         }
 
@@ -100,16 +82,16 @@ _id_3A59( var_0 )
         if ( !isdefined( var_6 ) )
             var_6 = var_0.damageweapon;
 
-        if ( isdefined( level._id_3A9D ) )
+        if ( isdefined( level.friendlyfire_destructible_attacker ) )
         {
-            if ( isdefined( var_2._id_25A9 ) )
+            if ( isdefined( var_2.damageowner ) )
             {
                 var_7 = 1;
-                var_2 = var_2._id_25A9;
+                var_2 = var_2.damageowner;
             }
         }
 
-        if ( isdefined( level._id_3A9E ) )
+        if ( isdefined( level.friendlyfire_enable_attacker_owner_check ) )
         {
             if ( isdefined( var_2 ) && isdefined( var_2.owner ) && var_2.owner == level.player )
                 var_8 = 1;
@@ -156,17 +138,17 @@ _id_3A59( var_0 )
         {
             if ( var_12 )
             {
-                level.player._id_669E += level.friendlyfire["enemy_kill_points"];
-                _id_669F();
+                level.player.participation += level.friendlyfire["enemy_kill_points"];
+                participation_point_cap();
                 return;
             }
         }
         else
         {
-            if ( isdefined( var_0._id_60FA ) )
+            if ( isdefined( var_0.no_friendly_fire_penalty ) )
                 continue;
 
-            if ( var_5 == "MOD_PROJECTILE_SPLASH" && isdefined( level._id_60FB ) )
+            if ( var_5 == "MOD_PROJECTILE_SPLASH" && isdefined( level.no_friendly_fire_splash_damage ) )
                 continue;
 
             if ( isdefined( var_6 ) && var_6 == "claymore" )
@@ -181,17 +163,17 @@ _id_3A59( var_0 )
 
             if ( var_12 )
             {
-                if ( isdefined( var_0._id_3A3A ) )
-                    level.player._id_669E += var_0._id_3A3A;
+                if ( isdefined( var_0.friend_kill_points ) )
+                    level.player.participation += var_0.friend_kill_points;
                 else
-                    level.player._id_669E += level.friendlyfire["friend_kill_points"];
+                    level.player.participation += level.friendlyfire["friend_kill_points"];
             }
             else
-                level.player._id_669E -= var_1;
+                level.player.participation -= var_1;
 
-            _id_669F();
+            participation_point_cap();
 
-            if ( _id_1CC1( var_0, var_5 ) && _id_780F() )
+            if ( check_grenade( var_0, var_5 ) && savecommit_aftergrenade() )
             {
                 if ( var_12 )
                     return;
@@ -199,41 +181,41 @@ _id_3A59( var_0 )
                     continue;
             }
 
-            if ( isdefined( level._id_3A58 ) )
+            if ( isdefined( level.friendly_fire_fail_check ) )
             {
-                [[ level._id_3A58 ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+                [[ level.friendly_fire_fail_check ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
                 continue;
             }
 
-            _id_3A57( var_11 );
+            friendly_fire_checkpoints( var_11 );
         }
     }
 }
 
-_id_3A57( var_0 )
+friendly_fire_checkpoints( var_0 )
 {
-    if ( isdefined( level._id_361A ) && level._id_361A )
+    if ( isdefined( level.failonfriendlyfire ) && level.failonfriendlyfire )
     {
-        level thread _id_5CDD( var_0 );
+        level thread missionfail( var_0 );
         return;
     }
 
-    var_1 = level._id_3AA8;
+    var_1 = level.friendlyfiredisabledfordestructible;
 
-    if ( isdefined( level._id_3A9D ) && var_0 )
+    if ( isdefined( level.friendlyfire_destructible_attacker ) && var_0 )
         var_1 = 0;
 
     if ( var_1 )
         return;
 
-    if ( level._id_3AA7 == 1 )
+    if ( level.friendlyfiredisabled == 1 )
         return;
 
-    if ( level.player._id_669E <= level.friendlyfire["min_participation"] )
-        level thread _id_5CDD( var_0 );
+    if ( level.player.participation <= level.friendlyfire["min_participation"] )
+        level thread missionfail( var_0 );
 }
 
-_id_1CC1( var_0, var_1 )
+check_grenade( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) )
         return 0;
@@ -249,53 +231,53 @@ _id_1CC1( var_0, var_1 )
     return var_2;
 }
 
-_id_780F()
+savecommit_aftergrenade()
 {
     var_0 = gettime();
 
     if ( var_0 < 4500 )
         return 1;
-    else if ( var_0 - level._id_5578 < 4500 )
+    else if ( var_0 - level.lastautosavetime < 4500 )
         return 1;
 
     return 0;
 }
 
-_id_669F()
+participation_point_cap()
 {
-    if ( level.player._id_669E > level.friendlyfire["max_participation"] )
-        level.player._id_669E = level.friendlyfire["max_participation"];
+    if ( level.player.participation > level.friendlyfire["max_participation"] )
+        level.player.participation = level.friendlyfire["max_participation"];
 
-    if ( level.player._id_669E < level.friendlyfire["min_participation"] )
-        level.player._id_669E = level.friendlyfire["min_participation"];
+    if ( level.player.participation < level.friendlyfire["min_participation"] )
+        level.player.participation = level.friendlyfire["min_participation"];
 }
 
-_id_66A0()
+participation_point_flattenovertime()
 {
     level endon( "mission failed" );
 
     for (;;)
     {
-        if ( level.player._id_669E > 0 )
-            level.player._id_669E--;
-        else if ( level.player._id_669E < 0 )
-            level.player._id_669E++;
+        if ( level.player.participation > 0 )
+            level.player.participation--;
+        else if ( level.player.participation < 0 )
+            level.player.participation++;
 
         wait(level.friendlyfire["point_loss_interval"]);
     }
 }
 
-_id_992E()
+turnbackon()
 {
-    level._id_3AA7 = 0;
+    level.friendlyfiredisabled = 0;
 }
 
-_id_9932()
+turnoff()
 {
-    level._id_3AA7 = 1;
+    level.friendlyfiredisabled = 1;
 }
 
-_id_5CDD( var_0 )
+missionfail( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = 0;
@@ -311,36 +293,36 @@ _id_5CDD( var_0 )
     level endon( "mine death" );
     level notify( "mission failed" );
     level notify( "friendlyfire_mission_fail" );
-    waitframe;
+    waittillframeend;
     setsaveddvar( "hud_missionFailed", 1 );
     setsaveddvar( "ammoCounterHide", 1 );
     setsaveddvar( "hud_showstance", 0 );
     setsaveddvar( "actionSlotsHide", 1 );
 
-    if ( isdefined( level.player._id_3615 ) )
+    if ( isdefined( level.player.failingmission ) )
         return;
 
-    soundscripts\_snd::_id_870C( "friendly_fire_mission_failed" );
+    soundscripts\_snd::snd_message( "friendly_fire_mission_failed" );
 
     if ( var_0 )
-        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_CIVILIAN_KILLED" );
-    else if ( isdefined( level._id_2543 ) )
-        maps\_player_death::_id_7E03( level._id_2543 );
-    else if ( level._id_1A3D == "british" )
-        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_BRITISH" );
-    else if ( level._id_1A3D == "russian" )
-        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_RUSSIAN" );
+        maps\_player_death::set_deadquote( &"SCRIPT_MISSIONFAIL_CIVILIAN_KILLED" );
+    else if ( isdefined( level.custom_friendly_fire_message ) )
+        maps\_player_death::set_deadquote( level.custom_friendly_fire_message );
+    else if ( level.campaign == "british" )
+        maps\_player_death::set_deadquote( &"SCRIPT_MISSIONFAIL_KILLTEAM_BRITISH" );
+    else if ( level.campaign == "russian" )
+        maps\_player_death::set_deadquote( &"SCRIPT_MISSIONFAIL_KILLTEAM_RUSSIAN" );
     else
-        maps\_player_death::_id_7E03( &"SCRIPT_MISSIONFAIL_KILLTEAM_AMERICAN" );
+        maps\_player_death::set_deadquote( &"SCRIPT_MISSIONFAIL_KILLTEAM_AMERICAN" );
 
-    if ( isdefined( level._id_2544 ) )
-        thread maps\_player_death::_id_7E04( level._id_2544, 64, 64, 0 );
+    if ( isdefined( level.custom_friendly_fire_shader ) )
+        thread maps\_player_death::set_death_icon( level.custom_friendly_fire_shader, 64, 64, 0 );
 
     reconspatialevent( level.player.origin, "script_friendlyfire: civilian %d", var_0 );
-    maps\_utility::_id_5CDF();
+    maps\_utility::missionfailedwrapper();
 }
 
-_id_6228( var_0 )
+notifydamage( var_0 )
 {
     level endon( "mission failed" );
     var_0 endon( "death" );
@@ -362,21 +344,21 @@ _id_6228( var_0 )
     }
 }
 
-_id_622A( var_0 )
+notifydamagenotdone( var_0 )
 {
     level endon( "mission failed" );
     var_0 waittill( "damage_notdone", var_1, var_2, var_3, var_4, var_5 );
     var_0 notify( "friendlyfire_notify", -1, var_2, undefined, undefined, var_5 );
 }
 
-_id_622B( var_0 )
+notifydeath( var_0 )
 {
     level endon( "mission failed" );
     var_0 waittill( "death", var_1, var_2, var_3 );
     var_0 notify( "friendlyfire_notify", -1, var_1, undefined, undefined, var_2, var_3 );
 }
 
-_id_2993( var_0 )
+detectfriendlyfireonentity( var_0 )
 {
 
 }

@@ -1,24 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
     if ( !maps\_utility::is_h1_level() )
@@ -28,29 +10,29 @@ main()
     precacheshader( "h1_hud_ammo_status_glow" );
     precacheshader( "h1_hud_ammo_status_scanlines" );
     level.intel_items_total = 30;
-    level._id_4E97 = _id_239B();
-    level._id_90AA = _id_239C();
-    _id_4DDA();
+    level.intel_items = create_array_of_intel_items();
+    level.table_origins = create_array_of_origins_from_table();
+    initialize_intel();
 }
 
-_id_4DDA()
+initialize_intel()
 {
-    for ( var_0 = 0; var_0 < level._id_4E97.size; var_0++ )
+    for ( var_0 = 0; var_0 < level.intel_items.size; var_0++ )
     {
-        var_1 = level._id_4E97[var_0];
+        var_1 = level.intel_items[var_0];
         var_2 = var_1.origin;
-        level._id_4E97[var_0]._id_627D = _id_3DFB( var_2 );
+        level.intel_items[var_0].num = get_nums_from_origins( var_2 );
 
-        if ( level._id_4E97[var_0] _id_1CCD() )
+        if ( level.intel_items[var_0] check_item_found() )
         {
             var_1.item hide();
             var_1.item notsolid();
-            var_1 common_scripts\utility::_id_97CC();
-            level._id_4E97[var_0]._id_39F1 = 1;
+            var_1 common_scripts\utility::trigger_off();
+            level.intel_items[var_0].found = 1;
             continue;
         }
 
-        level._id_4E97[var_0] thread _id_9FB5();
+        level.intel_items[var_0] thread wait_for_pickup();
     }
 
     remove_found_intel();
@@ -60,15 +42,15 @@ remove_found_intel()
 {
     for (;;)
     {
-        for ( var_0 = 0; var_0 < level._id_4E97.size; var_0++ )
+        for ( var_0 = 0; var_0 < level.intel_items.size; var_0++ )
         {
-            if ( !isdefined( level._id_4E97[var_0]._id_739C ) && level._id_4E97[var_0] _id_1CCD() )
+            if ( !isdefined( level.intel_items[var_0].removed ) && level.intel_items[var_0] check_item_found() )
             {
-                level._id_4E97[var_0]._id_739C = 1;
-                level._id_4E97[var_0].item hide();
-                level._id_4E97[var_0].item notsolid();
-                level._id_4E97[var_0] common_scripts\utility::_id_97CC();
-                level._id_4E97[var_0] notify( "end_trigger_thread" );
+                level.intel_items[var_0].removed = 1;
+                level.intel_items[var_0].item hide();
+                level.intel_items[var_0].item notsolid();
+                level.intel_items[var_0] common_scripts\utility::trigger_off();
+                level.intel_items[var_0] notify( "end_trigger_thread" );
             }
         }
 
@@ -76,25 +58,25 @@ remove_found_intel()
     }
 }
 
-_id_1CCD()
+check_item_found()
 {
-    return level.player _meth_823D( self._id_627D );
+    return level.player getplayerintelisfound( self.num );
 }
 
-_id_239B()
+create_array_of_intel_items()
 {
     var_0 = getentarray( "intelligence_item", "targetname" );
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_0[var_1].item = getent( var_0[var_1].target, "targetname" );
-        var_0[var_1]._id_39F1 = 0;
+        var_0[var_1].found = 0;
     }
 
     return var_0;
 }
 
-_id_239C()
+create_array_of_origins_from_table()
 {
     var_0 = [];
 
@@ -119,44 +101,44 @@ _id_239C()
     return var_0;
 }
 
-_id_9FB5()
+wait_for_pickup()
 {
     self sethintstring( &"SCRIPT_INTELLIGENCE_PICKUP" );
     self usetriggerrequirelookat();
     self endon( "end_trigger_thread" );
     self waittill( "trigger" );
-    self._id_39F1 = 1;
-    common_scripts\utility::_id_97CC();
+    self.found = 1;
+    common_scripts\utility::trigger_off();
     save_that_item_is_found();
     updategamerprofile();
-    thread _id_4E96();
+    thread intel_feedback();
 }
 
 save_that_item_is_found()
 {
-    level.player _meth_823E( self._id_627D );
+    level.player setplayerintelfound( self.num );
 }
 
-_id_3DFB( var_0 )
+get_nums_from_origins( var_0 )
 {
-    for ( var_1 = 1; var_1 < level._id_90AA.size + 1; var_1++ )
+    for ( var_1 = 1; var_1 < level.table_origins.size + 1; var_1++ )
     {
-        if ( !isdefined( level._id_90AA[var_1] ) )
+        if ( !isdefined( level.table_origins[var_1] ) )
             continue;
 
-        if ( distancesquared( var_0, level._id_90AA[var_1] ) < 25 )
+        if ( distancesquared( var_0, level.table_origins[var_1] ) < 25 )
             return var_1;
     }
 }
 
-_id_4E96()
+intel_feedback()
 {
     self.item hide();
     self.item notsolid();
-    level thread common_scripts\utility::_id_69C2( "intelligence_pickup", self.item.origin );
+    level thread common_scripts\utility::play_sound_in_space( "intelligence_pickup", self.item.origin );
     var_0 = 3000;
     var_1 = 700;
-    var_2 = maps\_hud_util::createIcon( "h1_hud_ammo_status_glow", 400, 75 );
+    var_2 = maps\_hud_util::createicon( "h1_hud_ammo_status_glow", 400, 75 );
     var_2.color = ( 1.0, 0.95, 0.4 );
     var_2.x = 0;
     var_2.y = -65;
@@ -166,7 +148,7 @@ _id_4E96()
     var_2.vertalign = "middle";
     var_2.foreground = 1;
     var_2.alpha = 0.0;
-    var_3 = maps\_hud_util::createIcon( "h1_hud_ammo_status_scanlines", 800, 75 );
+    var_3 = maps\_hud_util::createicon( "h1_hud_ammo_status_scanlines", 800, 75 );
     var_3.color = ( 1.0, 0.85, 0.0 );
     var_3.x = 0;
     var_3.y = -65;
@@ -177,16 +159,16 @@ _id_4E96()
     var_3.foreground = 1;
     var_3.alpha = 0.0;
     var_4 = maps\_hud_util::createfontstring( "objective", 1.5 );
-    var_4 _id_814B();
+    var_4 setup_hud_elem();
     var_4 setpulsefx( 19, var_0, var_1 );
     var_4 setvalue( intel_found_total() );
     var_5 = intel_found_total();
 
     if ( var_5 == 15 || maps\_achievements::platform_tracks_progression() )
-        maps\_utility::_id_41DD( "LOOK_SHARP" );
+        maps\_utility::giveachievement_wrapper( "LOOK_SHARP" );
 
     if ( var_5 == 30 || maps\_achievements::platform_tracks_progression() )
-        maps\_utility::_id_41DD( "EYES_AND_EARS" );
+        maps\_utility::giveachievement_wrapper( "EYES_AND_EARS" );
 
     wait 0.7;
     var_2.alpha = 0.5;
@@ -203,7 +185,7 @@ _id_4E96()
     var_3 destroy();
 }
 
-_id_814B()
+setup_hud_elem()
 {
     self.fontscale = 1.2;
     self.glowcolor = ( 0.96, 0.81, 0.0 );
@@ -226,7 +208,7 @@ intel_found_total()
 
     for ( var_1 = 1; var_1 <= level.intel_items_total; var_1++ )
     {
-        if ( level.player _meth_823D( var_1 ) )
+        if ( level.player getplayerintelisfound( var_1 ) )
             var_0++;
     }
 

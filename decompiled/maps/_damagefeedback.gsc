@@ -1,68 +1,50 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     precacheshader( "damage_feedback" );
     precacheshader( "damage_feedback_headshot" );
-    maps\_utility::_id_30B2();
-    maps\_utility::_id_30B3();
-    common_scripts\utility::array_thread( level.players, ::_id_4CCF );
-    common_scripts\utility::array_thread( level.players, maps\_utility::_id_3C8C );
-    common_scripts\utility::array_thread( level.players, ::_id_5E3F );
+    maps\_utility::enable_damagefeedback_hud();
+    maps\_utility::enable_damagefeedback_snd();
+    common_scripts\utility::array_thread( level.players, ::init_damage_feedback );
+    common_scripts\utility::array_thread( level.players, maps\_utility::generic_damage_think );
+    common_scripts\utility::array_thread( level.players, ::monitordamage );
 }
 
-_id_4CCF()
+init_damage_feedback()
 {
-    self._id_4AB7 = newclienthudelem( self );
-    self._id_4AB7.alignx = "center";
-    self._id_4AB7.aligny = "middle";
-    self._id_4AB7.horzalign = "center";
-    self._id_4AB7.vertalign = "middle";
-    self._id_4AB7.alpha = 0;
-    self._id_4AB7.archived = 1;
-    self._id_4AB7 setshader( "damage_feedback", 50, 100 );
-    self._id_4AB7.y = 25;
-    self._id_4AB8 = newclienthudelem( self );
-    self._id_4AB8.alignx = "center";
-    self._id_4AB8.aligny = "middle";
-    self._id_4AB8.horzalign = "center";
-    self._id_4AB8.vertalign = "middle";
-    self._id_4AB8.alpha = 0;
-    self._id_4AB8.archived = 1;
-    self._id_4AB8 setshader( "damage_feedback_headshot", 50, 100 );
-    self._id_4AB8.y = 25;
+    self.hud_damagefeedback = newclienthudelem( self );
+    self.hud_damagefeedback.alignx = "center";
+    self.hud_damagefeedback.aligny = "middle";
+    self.hud_damagefeedback.horzalign = "center";
+    self.hud_damagefeedback.vertalign = "middle";
+    self.hud_damagefeedback.alpha = 0;
+    self.hud_damagefeedback.archived = 1;
+    self.hud_damagefeedback setshader( "damage_feedback", 50, 100 );
+    self.hud_damagefeedback.y = 25;
+    self.hud_damagefeedback_headshot = newclienthudelem( self );
+    self.hud_damagefeedback_headshot.alignx = "center";
+    self.hud_damagefeedback_headshot.aligny = "middle";
+    self.hud_damagefeedback_headshot.horzalign = "center";
+    self.hud_damagefeedback_headshot.vertalign = "middle";
+    self.hud_damagefeedback_headshot.alpha = 0;
+    self.hud_damagefeedback_headshot.archived = 1;
+    self.hud_damagefeedback_headshot setshader( "damage_feedback_headshot", 50, 100 );
+    self.hud_damagefeedback_headshot.y = 25;
 }
 
-_id_5E3F()
+monitordamage()
 {
-    maps\_utility::add_damage_function( ::_id_259E );
+    maps\_utility::add_damage_function( ::damagefeedback_took_damage );
 }
 
-_id_8EF9()
+stopmonitordamage()
 {
-    maps\_utility::_id_733C( ::_id_259E );
+    maps\_utility::remove_damage_function( ::damagefeedback_took_damage );
 }
 
-_id_259E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+damagefeedback_took_damage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     var_10 = 0;
 
@@ -74,7 +56,7 @@ _id_259E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 
         if ( isdefined( var_11[var_4] ) )
         {
-            if ( var_0 <= self.bullet_resistance && ( !isdefined( self._id_5A7A ) || !self._id_5A7A || !isdefined( var_9 ) || !issubstr( var_9, "iw5_em1" ) ) )
+            if ( var_0 <= self.bullet_resistance && ( !isdefined( self.mech ) || !self.mech || !isdefined( var_9 ) || !issubstr( var_9, "iw5_em1" ) ) )
                 return;
         }
     }
@@ -82,17 +64,17 @@ _id_259E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
     if ( isdefined( self.damagelocation ) && ( self.damagelocation == "head" || self.damagelocation == "helmet" ) )
         var_10 = 1;
 
-    var_1 _id_9B0C( self, var_10 );
+    var_1 updatedamagefeedback( self, var_10 );
 }
 
-_id_9B0C( var_0, var_1 )
+updatedamagefeedback( var_0, var_1 )
 {
     var_2 = undefined;
 
     if ( isdefined( var_0.team ) )
         var_2 = var_0.team;
-    else if ( isdefined( var_0._id_7AEF ) )
-        var_2 = var_0._id_7AEF;
+    else if ( isdefined( var_0.script_team ) )
+        var_2 = var_0.script_team;
 
     if ( !isdefined( var_2 ) )
         return;
@@ -100,25 +82,25 @@ _id_9B0C( var_0, var_1 )
     if ( var_2 == "neutral" || isdefined( self.team ) && var_2 == self.team )
         return;
 
-    if ( isdefined( var_0._id_58D7 ) && var_0._id_58D7 )
+    if ( isdefined( var_0.magic_bullet_shield ) && var_0.magic_bullet_shield )
         return;
 
-    if ( isdefined( var_0._id_4257 ) && var_0._id_4257 )
+    if ( isdefined( var_0.godmode ) && var_0.godmode )
         return;
 
-    if ( isdefined( var_0._id_7A06 ) && var_0._id_7A06 )
+    if ( isdefined( var_0.script_godmode ) && var_0.script_godmode )
         return;
 
-    _id_9B0E( var_0 );
-    _id_9B0D( var_1, var_0 );
+    updatedamagefeedbacksnd( var_0 );
+    updatedamagefeedbackhud( var_1, var_0 );
 }
 
-_id_9B0E( var_0 )
+updatedamagefeedbacksnd( var_0 )
 {
-    if ( !maps\_utility::_id_5012() )
+    if ( !maps\_utility::is_damagefeedback_snd_enabled() )
         return;
 
-    if ( isdefined( var_0 ) && isdefined( var_0._id_2B02 ) && var_0._id_2B02 )
+    if ( isdefined( var_0 ) && isdefined( var_0.disabledamagefeedbacksnd ) && var_0.disabledamagefeedbacksnd )
         return;
 
     if ( isplayer( self ) )
@@ -135,9 +117,9 @@ _id_9B0E( var_0 )
         return;
 }
 
-_id_9B0D( var_0, var_1 )
+updatedamagefeedbackhud( var_0, var_1 )
 {
-    if ( !maps\_utility::_id_5011() )
+    if ( !maps\_utility::is_damagefeedback_hud_enabled() )
         return;
 
     if ( !isplayer( self ) )
@@ -145,23 +127,23 @@ _id_9B0D( var_0, var_1 )
 
     var_2 = 1;
 
-    if ( isdefined( level._id_8637._id_8A56 ) )
-        var_2 = level._id_8637._id_8A56;
+    if ( isdefined( level.slowmo.speed_slow ) )
+        var_2 = level.slowmo.speed_slow;
 
     if ( 0 && isdefined( var_0 ) && var_0 && isdefined( var_1 ) && !isalive( var_1 ) )
     {
-        self._id_4AB8.alpha = 1;
-        self._id_4AB8 fadeovertime( var_2 );
-        self._id_4AB8.alpha = 0;
+        self.hud_damagefeedback_headshot.alpha = 1;
+        self.hud_damagefeedback_headshot fadeovertime( var_2 );
+        self.hud_damagefeedback_headshot.alpha = 0;
         var_3 = getdvarfloat( "cg_crosshairVerticalOffset" ) * 240;
-        self._id_4AB8.y = 25 - int( var_3 );
+        self.hud_damagefeedback_headshot.y = 25 - int( var_3 );
     }
     else
     {
-        self._id_4AB7.alpha = 1;
-        self._id_4AB7 fadeovertime( var_2 );
-        self._id_4AB7.alpha = 0;
+        self.hud_damagefeedback.alpha = 1;
+        self.hud_damagefeedback fadeovertime( var_2 );
+        self.hud_damagefeedback.alpha = 0;
         var_3 = getdvarfloat( "cg_crosshairVerticalOffset" ) * 240;
-        self._id_4AB7.y = 25 - int( var_3 );
+        self.hud_damagefeedback.y = 25 - int( var_3 );
     }
 }

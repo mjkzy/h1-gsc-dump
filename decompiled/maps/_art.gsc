@@ -1,57 +1,39 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    maps\_utility::_id_7DF3();
-    level._id_2C7B["nearStart"] = 1;
-    level._id_2C7B["nearEnd"] = 1;
-    level._id_2C7B["farStart"] = 500;
-    level._id_2C7B["farEnd"] = 500;
-    level._id_2C7B["nearBlur"] = 4.5;
-    level._id_2C7B["farBlur"] = 0.05;
-    level._id_24FC = "default";
+    maps\_utility::set_console_status();
+    level.dofdefault["nearStart"] = 1;
+    level.dofdefault["nearEnd"] = 1;
+    level.dofdefault["farStart"] = 500;
+    level.dofdefault["farEnd"] = 500;
+    level.dofdefault["nearBlur"] = 4.5;
+    level.dofdefault["farBlur"] = 0.05;
+    level.current_sunflare_setting = "default";
     level._clearalltextafterhudelem = 0;
-    _id_2C58();
-    _id_929B();
+    dof_init();
+    tess_init();
     precachemenu( "dev_vision_noloc" );
     precachemenu( "dev_vision_exec" );
-    level._id_8A24 = [];
+    level.special_weapon_dof_funcs = [];
     level.buttons = [];
 
-    if ( !isdefined( level._id_9E72 ) )
+    if ( !isdefined( level.vision_set_transition_ent ) )
     {
-        level._id_9E72 = spawnstruct();
-        level._id_9E72._id_9E6B = "";
-        level._id_9E72.time = 0;
+        level.vision_set_transition_ent = spawnstruct();
+        level.vision_set_transition_ent.vision_set = "";
+        level.vision_set_transition_ent.time = 0;
     }
 
-    if ( !isdefined( level._id_8FCE ) )
-        level._id_8FCE = [];
+    if ( !isdefined( level.sunflare_settings ) )
+        level.sunflare_settings = [];
 
-    if ( !isdefined( level._id_9E6D ) )
+    if ( !isdefined( level.vision_set_fog ) )
     {
-        level._id_9E6D = [];
-        _id_23AA( level.script );
-        common_scripts\_artcommon::_id_7F73();
+        level.vision_set_fog = [];
+        create_default_vision_set_fog( level.script );
+        common_scripts\_artcommon::setfogsliders();
     }
 
     if ( !isdefined( level.script ) )
@@ -60,80 +42,80 @@ main()
 
 setdefaultdepthoffield()
 {
-    self setdepthoffield( level._id_2C7B["nearStart"], level._id_2C7B["nearEnd"], level._id_2C7B["farStart"], level._id_2C7B["farEnd"], level._id_2C7B["nearBlur"], level._id_2C7B["farBlur"] );
+    self setdepthoffield( level.dofdefault["nearStart"], level.dofdefault["nearEnd"], level.dofdefault["farStart"], level.dofdefault["farEnd"], level.dofdefault["nearBlur"], level.dofdefault["farBlur"] );
 }
 
-_id_23AA( var_0 )
+create_default_vision_set_fog( var_0 )
 {
-    var_1 = maps\_utility::_id_23DF( var_0 );
-    var_1._id_8D08 = 3764.17;
-    var_1._id_4500 = 19391;
-    var_1._id_7299 = 0.661137;
-    var_1._id_43D8 = 0.554261;
+    var_1 = maps\_utility::create_vision_set_fog( var_0 );
+    var_1.startdist = 3764.17;
+    var_1.halfwaydist = 19391;
+    var_1.red = 0.661137;
+    var_1.green = 0.554261;
     var_1.blue = 0.454014;
-    var_1._id_5A47 = 0.7;
-    var_1._id_971C = 0;
-    var_1._id_85CD = 0;
-    var_1._id_85CF = 0;
-    var_1._id_85CE = 0;
-    var_1._id_479F = 0;
-    var_1._id_479E = 0;
-    var_1._id_47A0 = 1000;
+    var_1.maxopacity = 0.7;
+    var_1.transitiontime = 0;
+    var_1.skyfogintensity = 0;
+    var_1.skyfogminangle = 0;
+    var_1.skyfogmaxangle = 0;
+    var_1.heightfogenabled = 0;
+    var_1.heightfogbaseheight = 0;
+    var_1.heightfoghalfplanedistance = 1000;
 }
 
-_id_3D77()
+get_fog_filename()
 {
     if ( isusinghdr() )
-        return "\\share\\raw\\maps\\createart\\" + common_scripts\utility::_id_3E94() + "_fog_hdr.gsc";
+        return "\\share\\raw\\maps\\createart\\" + common_scripts\utility::get_template_level() + "_fog_hdr.gsc";
     else
-        return "\\share\\raw\\maps\\createart\\" + common_scripts\utility::_id_3E94() + "_fog.gsc";
+        return "\\share\\raw\\maps\\createart\\" + common_scripts\utility::get_template_level() + "_fog.gsc";
 }
 
-_id_2C6E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+dof_set_generic( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    level._id_2C3D[var_0][var_1]["nearStart"] = var_2;
-    level._id_2C3D[var_0][var_1]["nearEnd"] = var_3;
-    level._id_2C3D[var_0][var_1]["nearBlur"] = var_4;
-    level._id_2C3D[var_0][var_1]["farStart"] = var_5;
-    level._id_2C3D[var_0][var_1]["farEnd"] = var_6;
-    level._id_2C3D[var_0][var_1]["farBlur"] = var_7;
-    level._id_2C3D[var_0][var_1]["weight"] = var_8;
+    level.dof[var_0][var_1]["nearStart"] = var_2;
+    level.dof[var_0][var_1]["nearEnd"] = var_3;
+    level.dof[var_0][var_1]["nearBlur"] = var_4;
+    level.dof[var_0][var_1]["farStart"] = var_5;
+    level.dof[var_0][var_1]["farEnd"] = var_6;
+    level.dof[var_0][var_1]["farBlur"] = var_7;
+    level.dof[var_0][var_1]["weight"] = var_8;
 
     if ( isdefined( var_9 ) )
-        level._id_2C3D[var_0][var_1]["bias"] = var_9;
+        level.dof[var_0][var_1]["bias"] = var_9;
 }
 
-_id_2C43( var_0 )
+dof_blend_interior_generic( var_0 )
 {
-    if ( level._id_2C3D[var_0]["timeRemaining"] <= 0.0 )
+    if ( level.dof[var_0]["timeRemaining"] <= 0.0 )
         return;
 
-    var_1 = min( 1.0, 0.05 / level._id_2C3D[var_0]["timeRemaining"] );
-    level._id_2C3D[var_0]["timeRemaining"] -= 0.05;
+    var_1 = min( 1.0, 0.05 / level.dof[var_0]["timeRemaining"] );
+    level.dof[var_0]["timeRemaining"] -= 0.05;
 
-    if ( level._id_2C3D[var_0]["timeRemaining"] <= 0.0 )
+    if ( level.dof[var_0]["timeRemaining"] <= 0.0 )
     {
-        level._id_2C3D[var_0]["timeRemaining"] = 0.0;
-        level._id_2C3D[var_0]["current"]["nearStart"] = level._id_2C3D[var_0]["goal"]["nearStart"];
-        level._id_2C3D[var_0]["current"]["nearEnd"] = level._id_2C3D[var_0]["goal"]["nearEnd"];
-        level._id_2C3D[var_0]["current"]["nearBlur"] = level._id_2C3D[var_0]["goal"]["nearBlur"];
-        level._id_2C3D[var_0]["current"]["farStart"] = level._id_2C3D[var_0]["goal"]["farStart"];
-        level._id_2C3D[var_0]["current"]["farEnd"] = level._id_2C3D[var_0]["goal"]["farEnd"];
-        level._id_2C3D[var_0]["current"]["farBlur"] = level._id_2C3D[var_0]["goal"]["farBlur"];
-        level._id_2C3D[var_0]["current"]["weight"] = level._id_2C3D[var_0]["goal"]["weight"];
+        level.dof[var_0]["timeRemaining"] = 0.0;
+        level.dof[var_0]["current"]["nearStart"] = level.dof[var_0]["goal"]["nearStart"];
+        level.dof[var_0]["current"]["nearEnd"] = level.dof[var_0]["goal"]["nearEnd"];
+        level.dof[var_0]["current"]["nearBlur"] = level.dof[var_0]["goal"]["nearBlur"];
+        level.dof[var_0]["current"]["farStart"] = level.dof[var_0]["goal"]["farStart"];
+        level.dof[var_0]["current"]["farEnd"] = level.dof[var_0]["goal"]["farEnd"];
+        level.dof[var_0]["current"]["farBlur"] = level.dof[var_0]["goal"]["farBlur"];
+        level.dof[var_0]["current"]["weight"] = level.dof[var_0]["goal"]["weight"];
         return;
     }
 
-    level._id_2C3D[var_0]["current"]["nearStart"] += var_1 * ( level._id_2C3D[var_0]["goal"]["nearStart"] - level._id_2C3D[var_0]["current"]["nearStart"] );
-    level._id_2C3D[var_0]["current"]["nearEnd"] += var_1 * ( level._id_2C3D[var_0]["goal"]["nearEnd"] - level._id_2C3D[var_0]["current"]["nearEnd"] );
-    level._id_2C3D[var_0]["current"]["nearBlur"] += var_1 * ( level._id_2C3D[var_0]["goal"]["nearBlur"] - level._id_2C3D[var_0]["current"]["nearBlur"] );
-    level._id_2C3D[var_0]["current"]["farStart"] += var_1 * ( level._id_2C3D[var_0]["goal"]["farStart"] - level._id_2C3D[var_0]["current"]["farStart"] );
-    level._id_2C3D[var_0]["current"]["farEnd"] += var_1 * ( level._id_2C3D[var_0]["goal"]["farEnd"] - level._id_2C3D[var_0]["current"]["farEnd"] );
-    level._id_2C3D[var_0]["current"]["farBlur"] += var_1 * ( level._id_2C3D[var_0]["goal"]["farBlur"] - level._id_2C3D[var_0]["current"]["farBlur"] );
-    level._id_2C3D[var_0]["current"]["weight"] += var_1 * ( level._id_2C3D[var_0]["goal"]["weight"] - level._id_2C3D[var_0]["current"]["weight"] );
+    level.dof[var_0]["current"]["nearStart"] += var_1 * ( level.dof[var_0]["goal"]["nearStart"] - level.dof[var_0]["current"]["nearStart"] );
+    level.dof[var_0]["current"]["nearEnd"] += var_1 * ( level.dof[var_0]["goal"]["nearEnd"] - level.dof[var_0]["current"]["nearEnd"] );
+    level.dof[var_0]["current"]["nearBlur"] += var_1 * ( level.dof[var_0]["goal"]["nearBlur"] - level.dof[var_0]["current"]["nearBlur"] );
+    level.dof[var_0]["current"]["farStart"] += var_1 * ( level.dof[var_0]["goal"]["farStart"] - level.dof[var_0]["current"]["farStart"] );
+    level.dof[var_0]["current"]["farEnd"] += var_1 * ( level.dof[var_0]["goal"]["farEnd"] - level.dof[var_0]["current"]["farEnd"] );
+    level.dof[var_0]["current"]["farBlur"] += var_1 * ( level.dof[var_0]["goal"]["farBlur"] - level.dof[var_0]["current"]["farBlur"] );
+    level.dof[var_0]["current"]["weight"] += var_1 * ( level.dof[var_0]["goal"]["weight"] - level.dof[var_0]["current"]["weight"] );
 }
 
-_id_2C58()
+dof_init()
 {
     if ( getdvar( "scr_dof_enable" ) == "" )
         setsaveddvar( "scr_dof_enable", "1" );
@@ -154,72 +136,72 @@ _id_2C58()
     var_3 = 500;
     var_4 = 500;
     var_5 = 0.05;
-    level._id_2C3D = [];
-    level._id_2C3D["base"] = [];
-    level._id_2C3D["base"]["current"] = [];
-    level._id_2C3D["base"]["goal"] = [];
-    level._id_2C3D["base"]["timeRemaining"] = 0.0;
-    _id_2C6E( "base", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, 0.5 );
-    _id_2C6E( "base", "goal", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
-    level._id_2C3D["script"] = [];
-    level._id_2C3D["script"]["current"] = [];
-    level._id_2C3D["script"]["goal"] = [];
-    level._id_2C3D["script"]["timeRemaining"] = 0.0;
-    _id_2C6E( "script", "current", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
-    _id_2C6E( "script", "goal", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
-    level._id_2C3D["ads"] = [];
-    level._id_2C3D["ads"]["current"] = [];
-    level._id_2C3D["ads"]["goal"] = [];
-    _id_2C6E( "ads", "current", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
-    _id_2C6E( "ads", "goal", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
-    level._id_2C3D["results"] = [];
-    level._id_2C3D["results"]["current"] = [];
-    _id_2C6E( "results", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, 0.5 );
+    level.dof = [];
+    level.dof["base"] = [];
+    level.dof["base"]["current"] = [];
+    level.dof["base"]["goal"] = [];
+    level.dof["base"]["timeRemaining"] = 0.0;
+    dof_set_generic( "base", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, 0.5 );
+    dof_set_generic( "base", "goal", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
+    level.dof["script"] = [];
+    level.dof["script"]["current"] = [];
+    level.dof["script"]["goal"] = [];
+    level.dof["script"]["timeRemaining"] = 0.0;
+    dof_set_generic( "script", "current", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
+    dof_set_generic( "script", "goal", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
+    level.dof["ads"] = [];
+    level.dof["ads"]["current"] = [];
+    level.dof["ads"]["goal"] = [];
+    dof_set_generic( "ads", "current", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
+    dof_set_generic( "ads", "goal", 0, 0, 0, 0, 0, 0, 0.0, 0.5 );
+    level.dof["results"] = [];
+    level.dof["results"]["current"] = [];
+    dof_set_generic( "results", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, 0.5 );
 
     foreach ( var_7 in level.players )
-        var_7 thread _id_2C77();
+        var_7 thread dof_update();
 
-    level.player maps\_utility::_id_27EF( 1, ::dof_monitor_prone );
+    level.player maps\_utility::delaythread( 1, ::dof_monitor_prone );
 }
 
-_id_2C6C( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+dof_set_base( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    _id_2C6E( "base", "goal", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
-    level._id_2C3D["base"]["timeRemaining"] = var_6;
+    dof_set_generic( "base", "goal", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
+    level.dof["base"]["timeRemaining"] = var_6;
 
     if ( var_6 <= 0.0 )
-        _id_2C6E( "base", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
+        dof_set_generic( "base", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
 }
 
-_id_2C4B( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+dof_enable_script( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    _id_2C6E( "script", "goal", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
-    level._id_2C3D["script"]["timeRemaining"] = var_6;
+    dof_set_generic( "script", "goal", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
+    level.dof["script"]["timeRemaining"] = var_6;
 
     if ( var_6 <= 0.0 )
-        _id_2C6E( "script", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
-    else if ( level._id_2C3D["script"]["current"]["weight"] <= 0.0 )
-        _id_2C6E( "script", "current", var_0, var_1, var_2, var_3, var_4, var_5, 0.0, var_7 );
+        dof_set_generic( "script", "current", var_0, var_1, var_2, var_3, var_4, var_5, 1.0, var_7 );
+    else if ( level.dof["script"]["current"]["weight"] <= 0.0 )
+        dof_set_generic( "script", "current", var_0, var_1, var_2, var_3, var_4, var_5, 0.0, var_7 );
 }
 
-_id_2C47( var_0 )
+dof_disable_script( var_0 )
 {
-    level._id_2C3D["script"]["goal"]["weight"] = 0.0;
-    level._id_2C3D["script"]["timeRemaining"] = var_0;
+    level.dof["script"]["goal"]["weight"] = 0.0;
+    level.dof["script"]["timeRemaining"] = var_0;
 
     if ( var_0 <= 0.0 )
-        level._id_2C3D["script"]["current"]["weight"] = 0.0;
+        level.dof["script"]["current"]["weight"] = 0.0;
 }
 
-_id_2C48( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+dof_enable_ads( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
-    _id_2C6E( "ads", "goal", var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
+    dof_set_generic( "ads", "goal", var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 );
 
-    if ( level._id_2C3D["ads"]["current"]["weight"] <= 0.0 )
-        _id_2C6E( "ads", "current", var_0, var_1, var_2, var_3, var_4, var_5, 0.0, var_7 );
+    if ( level.dof["ads"]["current"]["weight"] <= 0.0 )
+        dof_set_generic( "ads", "current", var_0, var_1, var_2, var_3, var_4, var_5, 0.0, var_7 );
 }
 
-_id_2C41( var_0, var_1, var_2, var_3 )
+dof_blend_interior_ads_element( var_0, var_1, var_2, var_3 )
 {
     if ( var_0 > var_1 )
     {
@@ -253,9 +235,9 @@ _id_2C41( var_0, var_1, var_2, var_3 )
     return var_0;
 }
 
-_id_2C40()
+dof_blend_interior_ads()
 {
-    var_0 = level._id_2C3D["ads"]["goal"]["weight"];
+    var_0 = level.dof["ads"]["goal"]["weight"];
 
     if ( var_0 < 1.0 )
     {
@@ -264,73 +246,73 @@ _id_2C40()
         else
             var_0 = 0;
 
-        level._id_2C3D["ads"]["current"]["nearStart"] = level._id_2C3D["ads"]["goal"]["nearStart"];
-        level._id_2C3D["ads"]["current"]["nearEnd"] = level._id_2C3D["ads"]["goal"]["nearEnd"];
-        level._id_2C3D["ads"]["current"]["nearBlur"] = level._id_2C3D["ads"]["goal"]["nearBlur"];
-        level._id_2C3D["ads"]["current"]["farStart"] = level._id_2C3D["ads"]["goal"]["farStart"];
-        level._id_2C3D["ads"]["current"]["farEnd"] = level._id_2C3D["ads"]["goal"]["farEnd"];
-        level._id_2C3D["ads"]["current"]["farBlur"] = level._id_2C3D["ads"]["goal"]["farBlur"];
-        level._id_2C3D["ads"]["current"]["weight"] = var_0;
-        level._id_2C3D["ads"]["current"]["bias"] = level._id_2C3D["ads"]["goal"]["bias"];
+        level.dof["ads"]["current"]["nearStart"] = level.dof["ads"]["goal"]["nearStart"];
+        level.dof["ads"]["current"]["nearEnd"] = level.dof["ads"]["goal"]["nearEnd"];
+        level.dof["ads"]["current"]["nearBlur"] = level.dof["ads"]["goal"]["nearBlur"];
+        level.dof["ads"]["current"]["farStart"] = level.dof["ads"]["goal"]["farStart"];
+        level.dof["ads"]["current"]["farEnd"] = level.dof["ads"]["goal"]["farEnd"];
+        level.dof["ads"]["current"]["farBlur"] = level.dof["ads"]["goal"]["farBlur"];
+        level.dof["ads"]["current"]["weight"] = var_0;
+        level.dof["ads"]["current"]["bias"] = level.dof["ads"]["goal"]["bias"];
         return;
     }
 
-    if ( isdefined( level._id_2C42 ) )
-        var_1 = level._id_2C42;
+    if ( isdefined( level.dof_blend_interior_ads_scalar ) )
+        var_1 = level.dof_blend_interior_ads_scalar;
     else
         var_1 = 0.1;
 
     var_2 = 10;
-    var_3 = max( var_2, abs( level._id_2C3D["ads"]["current"]["nearStart"] - level._id_2C3D["ads"]["goal"]["nearStart"] ) * var_1 );
-    var_4 = max( var_2, abs( level._id_2C3D["ads"]["current"]["nearEnd"] - level._id_2C3D["ads"]["goal"]["nearEnd"] ) * var_1 );
-    var_5 = max( var_2, abs( level._id_2C3D["ads"]["current"]["farStart"] - level._id_2C3D["ads"]["goal"]["farStart"] ) * var_1 );
-    var_6 = max( var_2, abs( level._id_2C3D["ads"]["current"]["farEnd"] - level._id_2C3D["ads"]["goal"]["farEnd"] ) * var_1 );
+    var_3 = max( var_2, abs( level.dof["ads"]["current"]["nearStart"] - level.dof["ads"]["goal"]["nearStart"] ) * var_1 );
+    var_4 = max( var_2, abs( level.dof["ads"]["current"]["nearEnd"] - level.dof["ads"]["goal"]["nearEnd"] ) * var_1 );
+    var_5 = max( var_2, abs( level.dof["ads"]["current"]["farStart"] - level.dof["ads"]["goal"]["farStart"] ) * var_1 );
+    var_6 = max( var_2, abs( level.dof["ads"]["current"]["farEnd"] - level.dof["ads"]["goal"]["farEnd"] ) * var_1 );
     var_7 = 0.1;
     var_8 = 0.1;
-    level._id_2C3D["ads"]["current"]["nearStart"] = _id_2C41( level._id_2C3D["ads"]["current"]["nearStart"], level._id_2C3D["ads"]["goal"]["nearStart"], var_3, 0.33 );
-    level._id_2C3D["ads"]["current"]["nearEnd"] = _id_2C41( level._id_2C3D["ads"]["current"]["nearEnd"], level._id_2C3D["ads"]["goal"]["nearEnd"], var_4, 0.33 );
-    level._id_2C3D["ads"]["current"]["nearBlur"] = _id_2C41( level._id_2C3D["ads"]["current"]["nearBlur"], level._id_2C3D["ads"]["goal"]["nearBlur"], var_7, 0.33 );
-    level._id_2C3D["ads"]["current"]["farStart"] = _id_2C41( level._id_2C3D["ads"]["current"]["farStart"], level._id_2C3D["ads"]["goal"]["farStart"], var_5, 0.33 );
-    level._id_2C3D["ads"]["current"]["farEnd"] = _id_2C41( level._id_2C3D["ads"]["current"]["farEnd"], level._id_2C3D["ads"]["goal"]["farEnd"], var_6, 0.33 );
-    level._id_2C3D["ads"]["current"]["farBlur"] = _id_2C41( level._id_2C3D["ads"]["current"]["farBlur"], level._id_2C3D["ads"]["goal"]["farBlur"], var_7, 0.33 );
-    level._id_2C3D["ads"]["current"]["weight"] = 1.0;
-    level._id_2C3D["ads"]["current"]["bias"] = _id_2C41( level._id_2C3D["ads"]["current"]["bias"], level._id_2C3D["ads"]["goal"]["bias"], var_8, 0.33 );
+    level.dof["ads"]["current"]["nearStart"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["nearStart"], level.dof["ads"]["goal"]["nearStart"], var_3, 0.33 );
+    level.dof["ads"]["current"]["nearEnd"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["nearEnd"], level.dof["ads"]["goal"]["nearEnd"], var_4, 0.33 );
+    level.dof["ads"]["current"]["nearBlur"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["nearBlur"], level.dof["ads"]["goal"]["nearBlur"], var_7, 0.33 );
+    level.dof["ads"]["current"]["farStart"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["farStart"], level.dof["ads"]["goal"]["farStart"], var_5, 0.33 );
+    level.dof["ads"]["current"]["farEnd"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["farEnd"], level.dof["ads"]["goal"]["farEnd"], var_6, 0.33 );
+    level.dof["ads"]["current"]["farBlur"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["farBlur"], level.dof["ads"]["goal"]["farBlur"], var_7, 0.33 );
+    level.dof["ads"]["current"]["weight"] = 1.0;
+    level.dof["ads"]["current"]["bias"] = dof_blend_interior_ads_element( level.dof["ads"]["current"]["bias"], level.dof["ads"]["goal"]["bias"], var_8, 0.33 );
 }
 
-_id_2C46()
+dof_disable_ads()
 {
-    level._id_2C3D["ads"]["goal"]["weight"] = 0.0;
-    level._id_2C3D["ads"]["current"]["weight"] = 0.0;
+    level.dof["ads"]["goal"]["weight"] = 0.0;
+    level.dof["ads"]["current"]["weight"] = 0.0;
 }
 
-_id_2C3E( var_0 )
+dof_apply_to_results( var_0 )
 {
-    var_1 = level._id_2C3D[var_0]["current"]["weight"];
+    var_1 = level.dof[var_0]["current"]["weight"];
     var_2 = 1.0 - var_1;
-    level._id_2C3D["results"]["current"]["nearStart"] = level._id_2C3D["results"]["current"]["nearStart"] * var_2 + level._id_2C3D[var_0]["current"]["nearStart"] * var_1;
-    level._id_2C3D["results"]["current"]["nearEnd"] = level._id_2C3D["results"]["current"]["nearEnd"] * var_2 + level._id_2C3D[var_0]["current"]["nearEnd"] * var_1;
-    level._id_2C3D["results"]["current"]["nearBlur"] = level._id_2C3D["results"]["current"]["nearBlur"] * var_2 + level._id_2C3D[var_0]["current"]["nearBlur"] * var_1;
-    level._id_2C3D["results"]["current"]["farStart"] = level._id_2C3D["results"]["current"]["farStart"] * var_2 + level._id_2C3D[var_0]["current"]["farStart"] * var_1;
-    level._id_2C3D["results"]["current"]["farEnd"] = level._id_2C3D["results"]["current"]["farEnd"] * var_2 + level._id_2C3D[var_0]["current"]["farEnd"] * var_1;
-    level._id_2C3D["results"]["current"]["farBlur"] = level._id_2C3D["results"]["current"]["farBlur"] * var_2 + level._id_2C3D[var_0]["current"]["farBlur"] * var_1;
-    level._id_2C3D["results"]["current"]["bias"] = level._id_2C3D["results"]["current"]["bias"] * var_2 + level._id_2C3D[var_0]["current"]["bias"] * var_1;
+    level.dof["results"]["current"]["nearStart"] = level.dof["results"]["current"]["nearStart"] * var_2 + level.dof[var_0]["current"]["nearStart"] * var_1;
+    level.dof["results"]["current"]["nearEnd"] = level.dof["results"]["current"]["nearEnd"] * var_2 + level.dof[var_0]["current"]["nearEnd"] * var_1;
+    level.dof["results"]["current"]["nearBlur"] = level.dof["results"]["current"]["nearBlur"] * var_2 + level.dof[var_0]["current"]["nearBlur"] * var_1;
+    level.dof["results"]["current"]["farStart"] = level.dof["results"]["current"]["farStart"] * var_2 + level.dof[var_0]["current"]["farStart"] * var_1;
+    level.dof["results"]["current"]["farEnd"] = level.dof["results"]["current"]["farEnd"] * var_2 + level.dof[var_0]["current"]["farEnd"] * var_1;
+    level.dof["results"]["current"]["farBlur"] = level.dof["results"]["current"]["farBlur"] * var_2 + level.dof[var_0]["current"]["farBlur"] * var_1;
+    level.dof["results"]["current"]["bias"] = level.dof["results"]["current"]["bias"] * var_2 + level.dof[var_0]["current"]["bias"] * var_1;
 }
 
-_id_2C44()
+dof_calc_results()
 {
-    _id_2C43( "base" );
-    _id_2C43( "script" );
-    _id_2C40();
-    _id_2C3E( "base" );
-    _id_2C3E( "script" );
-    _id_2C3E( "ads" );
-    var_0 = level._id_2C3D["results"]["current"]["nearStart"];
-    var_1 = level._id_2C3D["results"]["current"]["nearEnd"];
-    var_2 = level._id_2C3D["results"]["current"]["nearBlur"];
-    var_3 = level._id_2C3D["results"]["current"]["farStart"];
-    var_4 = level._id_2C3D["results"]["current"]["farEnd"];
-    var_5 = level._id_2C3D["results"]["current"]["farBlur"];
-    var_6 = level._id_2C3D["results"]["current"]["bias"];
+    dof_blend_interior_generic( "base" );
+    dof_blend_interior_generic( "script" );
+    dof_blend_interior_ads();
+    dof_apply_to_results( "base" );
+    dof_apply_to_results( "script" );
+    dof_apply_to_results( "ads" );
+    var_0 = level.dof["results"]["current"]["nearStart"];
+    var_1 = level.dof["results"]["current"]["nearEnd"];
+    var_2 = level.dof["results"]["current"]["nearBlur"];
+    var_3 = level.dof["results"]["current"]["farStart"];
+    var_4 = level.dof["results"]["current"]["farEnd"];
+    var_5 = level.dof["results"]["current"]["farBlur"];
+    var_6 = level.dof["results"]["current"]["bias"];
     var_0 = max( 0, var_0 );
     var_1 = max( 0, var_1 );
     var_3 = max( 0, var_3 );
@@ -344,28 +326,28 @@ _id_2C44()
         var_3 = max( var_1, var_3 );
 
     var_6 = max( 0, var_6 );
-    level._id_2C3D["results"]["current"]["nearStart"] = var_0;
-    level._id_2C3D["results"]["current"]["nearEnd"] = var_1;
-    level._id_2C3D["results"]["current"]["nearBlur"] = var_2;
-    level._id_2C3D["results"]["current"]["farStart"] = var_3;
-    level._id_2C3D["results"]["current"]["farEnd"] = var_4;
-    level._id_2C3D["results"]["current"]["farBlur"] = var_5;
-    level._id_2C3D["results"]["current"]["bias"] = var_6;
+    level.dof["results"]["current"]["nearStart"] = var_0;
+    level.dof["results"]["current"]["nearEnd"] = var_1;
+    level.dof["results"]["current"]["nearBlur"] = var_2;
+    level.dof["results"]["current"]["farStart"] = var_3;
+    level.dof["results"]["current"]["farEnd"] = var_4;
+    level.dof["results"]["current"]["farBlur"] = var_5;
+    level.dof["results"]["current"]["bias"] = var_6;
 }
 
-_id_2C67()
+dof_process_ads()
 {
     var_0 = self playerads();
 
     if ( var_0 <= 0.0 )
     {
-        _id_2C46();
+        dof_disable_ads();
         return;
     }
 
-    if ( isdefined( level._id_2540 ) )
+    if ( isdefined( level.custom_dof_trace ) )
     {
-        [[ level._id_2540 ]]();
+        [[ level.custom_dof_trace ]]();
         return;
     }
 
@@ -381,8 +363,8 @@ _id_2C67()
     var_10 = self geteye();
     var_11 = self getplayerangles();
 
-    if ( isdefined( self._id_2C69 ) )
-        var_12 = combineangles( self._id_2C69.angles, var_11 );
+    if ( isdefined( self.dof_ref_ent ) )
+        var_12 = combineangles( self.dof_ref_ent.angles, var_11 );
     else
         var_12 = var_11;
 
@@ -391,9 +373,9 @@ _id_2C67()
     var_15 = getaiarray( "axis" );
     var_16 = self getcurrentweapon();
 
-    if ( isdefined( level._id_8A24[var_16] ) )
+    if ( isdefined( level.special_weapon_dof_funcs[var_16] ) )
     {
-        [[ level._id_8A24[var_16] ]]( var_14, var_15, var_10, var_13, var_0 );
+        [[ level.special_weapon_dof_funcs[var_16] ]]( var_14, var_15, var_10, var_13, var_0 );
         return;
     }
 
@@ -412,8 +394,8 @@ _id_2C67()
 
     foreach ( var_20 in var_15 )
     {
-        var_21 = var_20 _meth_840B();
-        var_22 = var_20 _meth_840C( var_3 );
+        var_21 = var_20 isenemyaware();
+        var_22 = var_20 hasenemybeenseen( var_3 );
 
         if ( !var_21 && !var_22 )
             continue;
@@ -449,13 +431,13 @@ _id_2C67()
 
     var_28 = var_17 * var_4;
     var_29 = var_18 * var_7;
-    _id_2C48( var_28, var_17, var_8, var_18, var_29, var_9, var_0 );
+    dof_enable_ads( var_28, var_17, var_8, var_18, var_29, var_9, var_0 );
 }
 
-_id_2C68( var_0 )
+dof_process_physical_ads( var_0 )
 {
-    if ( isdefined( level._id_2540 ) )
-        return [[ level._id_2540 ]]();
+    if ( isdefined( level.custom_dof_trace ) )
+        return [[ level.custom_dof_trace ]]();
 
     var_1 = getdvarfloat( "ads_dof_tracedist", 4096 );
     var_2 = getdvarfloat( "ads_dof_maxEnemyDist", 0 );
@@ -463,8 +445,8 @@ _id_2C68( var_0 )
     var_4 = self geteye();
     var_5 = self getplayerangles();
 
-    if ( isdefined( self._id_2C69 ) )
-        var_6 = combineangles( self._id_2C69.angles, var_5 );
+    if ( isdefined( self.dof_ref_ent ) )
+        var_6 = combineangles( self.dof_ref_ent.angles, var_5 );
     else
         var_6 = var_5;
 
@@ -473,16 +455,16 @@ _id_2C68( var_0 )
     var_9 = getaiarray( "axis" );
     var_10 = self getcurrentweapon();
 
-    if ( isdefined( level._id_8A24[var_10] ) )
-        return [[ level._id_8A24[var_10] ]]( var_8, var_9, var_4, var_7, var_0 );
+    if ( isdefined( level.special_weapon_dof_funcs[var_10] ) )
+        return [[ level.special_weapon_dof_funcs[var_10] ]]( var_8, var_9, var_4, var_7, var_0 );
 
     var_11["start"] = distance( var_4, var_8["position"] );
     var_11["end"] = var_11["start"];
 
     foreach ( var_13 in var_9 )
     {
-        var_14 = var_13 _meth_840B();
-        var_15 = var_13 _meth_840C( var_3 );
+        var_14 = var_13 isenemyaware();
+        var_15 = var_13 hasenemybeenseen( var_3 );
 
         if ( !var_14 && !var_15 )
             continue;
@@ -538,11 +520,11 @@ dof_set_prone()
     level.player _meth_84B8( 12.0, 900.0 );
 }
 
-_id_5226( var_0, var_1, var_2, var_3, var_4 )
+javelin_dof( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( var_4 < 0.88 )
     {
-        _id_2C46();
+        dof_disable_ads();
         return;
     }
 
@@ -607,16 +589,16 @@ _id_5226( var_0, var_1, var_2, var_3, var_4 )
     var_13 = var_6 * 4;
     var_14 = 4;
     var_15 = 1.8;
-    _id_2C48( var_7, var_5, var_14, var_6, var_13, var_15, var_4 );
+    dof_enable_ads( var_7, var_5, var_14, var_6, var_13, var_15, var_4 );
 }
 
-_id_2C77()
+dof_update()
 {
     for (;;)
     {
-        waittillframeend;
+        waitframe();
 
-        if ( level._id_56D2 )
+        if ( level.level_specific_dof )
             continue;
 
         if ( !getdvarint( "scr_dof_enable" ) )
@@ -628,84 +610,84 @@ _id_2C77()
 
             if ( var_0 > 0.0 )
             {
-                var_1 = _id_2C68( var_0 );
+                var_1 = dof_process_physical_ads( var_0 );
                 self _meth_84A8( var_1["start"], var_1["end"] );
             }
 
             continue;
         }
 
-        _id_2C67();
-        _id_2C44();
-        var_2 = level._id_2C3D["results"]["current"]["nearStart"];
-        var_3 = level._id_2C3D["results"]["current"]["nearEnd"];
-        var_4 = level._id_2C3D["results"]["current"]["farStart"];
-        var_5 = level._id_2C3D["results"]["current"]["farEnd"];
-        var_6 = level._id_2C3D["results"]["current"]["nearBlur"];
-        var_7 = level._id_2C3D["results"]["current"]["farBlur"];
+        dof_process_ads();
+        dof_calc_results();
+        var_2 = level.dof["results"]["current"]["nearStart"];
+        var_3 = level.dof["results"]["current"]["nearEnd"];
+        var_4 = level.dof["results"]["current"]["farStart"];
+        var_5 = level.dof["results"]["current"]["farEnd"];
+        var_6 = level.dof["results"]["current"]["nearBlur"];
+        var_7 = level.dof["results"]["current"]["farBlur"];
         self setdepthoffield( var_2, var_3, var_4, var_5, var_6, var_7 );
     }
 }
 
-_id_929B()
+tess_init()
 {
     var_0 = getdvar( "r_tessellation" );
 
     if ( var_0 == "" )
         return;
 
-    level._id_929A = spawnstruct();
-    level._id_929A._id_256B = getdvarfloat( "r_tessellationCutoffDistance", 960.0 );
-    level._id_929A._id_256C = level._id_929A._id_256B;
-    level._id_929A._id_256D = getdvarfloat( "r_tessellationCutoffFalloff", 320.0 );
-    level._id_929A._id_256E = level._id_929A._id_256D;
-    level._id_929A._id_9357 = 0.0;
+    level.tess = spawnstruct();
+    level.tess.cutoff_distance_current = getdvarfloat( "r_tessellationCutoffDistance", 960.0 );
+    level.tess.cutoff_distance_goal = level.tess.cutoff_distance_current;
+    level.tess.cutoff_falloff_current = getdvarfloat( "r_tessellationCutoffFalloff", 320.0 );
+    level.tess.cutoff_falloff_goal = level.tess.cutoff_falloff_current;
+    level.tess.time_remaining = 0.0;
 
     foreach ( var_2 in level.players )
-        var_2 thread _id_929D();
+        var_2 thread tess_update();
 }
 
-_id_929C( var_0, var_1, var_2 )
+tess_set_goal( var_0, var_1, var_2 )
 {
-    level._id_929A._id_256C = var_0;
-    level._id_929A._id_256E = var_1;
-    level._id_929A._id_9357 = var_2;
+    level.tess.cutoff_distance_goal = var_0;
+    level.tess.cutoff_falloff_goal = var_1;
+    level.tess.time_remaining = var_2;
 }
 
-_id_929D()
+tess_update()
 {
     for (;;)
     {
-        var_0 = level._id_929A._id_256B;
-        var_1 = level._id_929A._id_256D;
-        waittillframeend;
+        var_0 = level.tess.cutoff_distance_current;
+        var_1 = level.tess.cutoff_falloff_current;
+        waitframe();
 
-        if ( level._id_929A._id_9357 > 0.0 )
+        if ( level.tess.time_remaining > 0.0 )
         {
-            var_2 = level._id_929A._id_9357 * 20;
-            var_3 = ( level._id_929A._id_256C - level._id_929A._id_256B ) / var_2;
-            var_4 = ( level._id_929A._id_256E - level._id_929A._id_256D ) / var_2;
-            level._id_929A._id_256B += var_3;
-            level._id_929A._id_256D += var_4;
-            level._id_929A._id_9357 -= 0.05;
+            var_2 = level.tess.time_remaining * 20;
+            var_3 = ( level.tess.cutoff_distance_goal - level.tess.cutoff_distance_current ) / var_2;
+            var_4 = ( level.tess.cutoff_falloff_goal - level.tess.cutoff_falloff_current ) / var_2;
+            level.tess.cutoff_distance_current += var_3;
+            level.tess.cutoff_falloff_current += var_4;
+            level.tess.time_remaining -= 0.05;
         }
         else
         {
-            level._id_929A._id_256B = level._id_929A._id_256C;
-            level._id_929A._id_256D = level._id_929A._id_256E;
+            level.tess.cutoff_distance_current = level.tess.cutoff_distance_goal;
+            level.tess.cutoff_falloff_current = level.tess.cutoff_falloff_goal;
         }
 
-        if ( var_0 != level._id_929A._id_256B )
-            setsaveddvar( "r_tessellationCutoffDistance", level._id_929A._id_256B );
+        if ( var_0 != level.tess.cutoff_distance_current )
+            setsaveddvar( "r_tessellationCutoffDistance", level.tess.cutoff_distance_current );
 
-        if ( var_1 != level._id_929A._id_256D )
-            setsaveddvar( "r_tessellationCutoffFalloff", level._id_929A._id_256D );
+        if ( var_1 != level.tess.cutoff_falloff_current )
+            setsaveddvar( "r_tessellationCutoffFalloff", level.tess.cutoff_falloff_current );
     }
 }
 
-_id_8FCD( var_0, var_1 )
+sunflare_changes( var_0, var_1 )
 {
-    if ( !isdefined( level._id_8FCE[var_0] ) )
+    if ( !isdefined( level.sunflare_settings[var_0] ) )
         return;
 
     self notify( "sunflare_start_adjust" );
@@ -714,11 +696,11 @@ _id_8FCD( var_0, var_1 )
     var_3 = var_1 * 1000;
     var_4 = getdvarvector( "r_sunflare_position", ( 0.0, 0.0, 0.0 ) );
     var_5 = gettime() - var_2;
-    var_6 = level._id_8FCE[var_0].position;
+    var_6 = level.sunflare_settings[var_0].position;
 
-    for ( level._id_24FC = var_0; var_5 < var_3; var_5 = gettime() - var_2 )
+    for ( level.current_sunflare_setting = var_0; var_5 < var_3; var_5 = gettime() - var_2 )
     {
-        var_6 = level._id_8FCE[var_0].position;
+        var_6 = level.sunflare_settings[var_0].position;
         var_7 = min( float( var_5 / var_3 ), 1 );
         var_8 = var_4 + ( var_6 - var_4 ) * var_7;
         setdvar( "r_sunflare_position", var_8 );
@@ -726,50 +708,50 @@ _id_8FCD( var_0, var_1 )
         wait 0.05;
     }
 
-    setdvar( "r_sunflare_position", level._id_8FCE[var_0].position );
+    setdvar( "r_sunflare_position", level.sunflare_settings[var_0].position );
     setsunflareposition( var_6 );
 }
 
-_id_4CF3()
+init_fog_transition()
 {
-    if ( !isdefined( level._id_3961 ) )
+    if ( !isdefined( level.fog_transition_ent ) )
     {
-        level._id_3961 = spawnstruct();
-        level._id_3961._id_3964 = "";
-        level._id_3961.time = 0;
+        level.fog_transition_ent = spawnstruct();
+        level.fog_transition_ent.fogset = "";
+        level.fog_transition_ent.time = 0;
     }
 }
 
-_id_7E35( var_0 )
+set_fog_progress( var_0 )
 {
-    if ( isdefined( self._id_8BD0 ) )
+    if ( isdefined( self.start_hdrcolorintensity ) )
     {
         set_fog_progress_preh1( var_0 );
         return;
     }
 
     var_1 = 1 - var_0;
-    var_2 = self._id_8C15 * var_1 + self._id_313B * var_0;
-    var_3 = self._id_8BA2 * var_1 + self._id_3130 * var_0;
-    var_4 = self._id_8B66 * var_1 + self._id_3124 * var_0;
+    var_2 = self.start_neardist * var_1 + self.end_neardist * var_0;
+    var_3 = self.start_fardist * var_1 + self.end_fardist * var_0;
+    var_4 = self.start_color * var_1 + self.end_color * var_0;
     setexpfog( var_2, var_3, var_4[0], var_4[1], var_4[2], 1, 0.4 );
 }
 
 set_fog_progress_preh1( var_0 )
 {
     var_1 = 1 - var_0;
-    var_2 = self._id_8C15 * var_1 + self._id_313B * var_0;
-    var_3 = self._id_8BA2 * var_1 + self._id_3130 * var_0;
-    var_4 = self._id_8B66 * var_1 + self._id_3124 * var_0;
-    var_5 = self._id_8BD0 * var_1 + self._id_3135 * var_0;
-    var_6 = self._id_8C1F;
-    var_7 = self._id_313C;
-    var_8 = self._id_8C94;
-    var_9 = self._id_8C96;
-    var_10 = self._id_8C95;
-    var_8 = self._id_8C94 * var_1 + self._id_3144 * var_0;
-    var_9 = self._id_8C96 * var_1 + self._id_3146 * var_0;
-    var_10 = self._id_8C95 * var_1 + self._id_3145 * var_0;
+    var_2 = self.start_neardist * var_1 + self.end_neardist * var_0;
+    var_3 = self.start_fardist * var_1 + self.end_fardist * var_0;
+    var_4 = self.start_color * var_1 + self.end_color * var_0;
+    var_5 = self.start_hdrcolorintensity * var_1 + self.end_hdrcolorintensity * var_0;
+    var_6 = self.start_opacity;
+    var_7 = self.end_opacity;
+    var_8 = self.start_skyfogintensity;
+    var_9 = self.start_skyfogminangle;
+    var_10 = self.start_skyfogmaxangle;
+    var_8 = self.start_skyfogintensity * var_1 + self.end_skyfogintensity * var_0;
+    var_9 = self.start_skyfogminangle * var_1 + self.end_skyfogminangle * var_0;
+    var_10 = self.start_skyfogmaxangle * var_1 + self.end_skyfogmaxangle * var_0;
 
     if ( !isdefined( var_6 ) )
         var_6 = 1;
@@ -779,27 +761,27 @@ set_fog_progress_preh1( var_0 )
 
     var_11 = var_6 * var_1 + var_7 * var_0;
 
-    if ( self._id_8FD0 )
+    if ( self.sunfog_enabled )
     {
-        var_12 = self._id_8CB2 * var_1 + self._id_314C * var_0;
-        var_13 = self._id_8BD1 * var_1 + self._id_3136 * var_0;
-        var_14 = self._id_8CB3 * var_1 + self._id_314D * var_0;
-        var_15 = self._id_8CB1 * var_1 + self._id_314B * var_0;
-        var_16 = self._id_8CB4 * var_1 + self._id_314E * var_0;
-        var_17 = self._id_8CB5 * var_1 + self._id_314F * var_0;
+        var_12 = self.start_suncolor * var_1 + self.end_suncolor * var_0;
+        var_13 = self.start_hdrsuncolorintensity * var_1 + self.end_hdrsuncolorintensity * var_0;
+        var_14 = self.start_sundir * var_1 + self.end_sundir * var_0;
+        var_15 = self.start_sunbeginfadeangle * var_1 + self.end_sunbeginfadeangle * var_0;
+        var_16 = self.start_sunendfadeangle * var_1 + self.end_sunendfadeangle * var_0;
+        var_17 = self.start_sunfogscale * var_1 + self.end_sunfogscale * var_0;
         setexpfog( var_2, var_3, var_4[0], var_4[1], var_4[2], var_5, var_11, 0.4, var_12[0], var_12[1], var_12[2], var_13, var_14, var_15, var_16, var_17, var_8, var_9, var_10 );
     }
     else
         setexpfog( var_2, var_3, var_4[0], var_4[1], var_4[2], var_5, var_11, 0.4, var_8, var_9, var_10 );
 }
 
-_id_8ADF( var_0, var_1 )
+ssao_set_target_over_time_internal( var_0, var_1 )
 {
     level notify( "ssao_set_target_over_time_internal" );
     level endon( "ssao_set_target_over_time_internal" );
-    maps\_utility::_id_7DF3();
+    maps\_utility::set_console_status();
 
-    if ( !maps\_utility::_id_502F() )
+    if ( !maps\_utility::is_gen4() )
         return;
 
     var_2 = getdvarfloat( "r_ssaoScriptScale", 1.0 );
@@ -813,18 +795,18 @@ _id_8ADF( var_0, var_1 )
         if ( var_5 != var_2 )
             setsaveddvar( "r_ssaoScriptScale", var_2 );
 
-        waittillframeend;
+        waitframe();
     }
 
     setsaveddvar( "r_ssaoScriptScale", var_0 );
 }
 
-_id_2AD3( var_0 )
+disable_ssao_over_time( var_0 )
 {
-    level thread _id_8ADF( 0.0, var_0 );
+    level thread ssao_set_target_over_time_internal( 0.0, var_0 );
 }
 
-_id_30F2( var_0 )
+enable_ssao_over_time( var_0 )
 {
-    level thread _id_8ADF( 1.0, var_0 );
+    level thread ssao_set_target_over_time_internal( 1.0, var_0 );
 }

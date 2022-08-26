@@ -1,30 +1,12 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 agentfunc( var_0 )
 {
     return level.agent_funcs[self.agent_type][var_0];
 }
 
-_id_7DB1( var_0, var_1 )
+set_agent_team( var_0, var_1 )
 {
     self.team = var_0;
     self.agentteam = var_0;
@@ -34,28 +16,28 @@ _id_7DB1( var_0, var_1 )
     self setentityowner( var_1 );
 }
 
-_id_4D7F()
+initagentscriptvariables()
 {
     self.agent_type = "player";
     self.pers = [];
-    self._id_4726 = 0;
-    self._id_50A6 = 0;
-    self._id_50AB = 1;
-    self._id_A1D2 = 0;
+    self.hasdied = 0;
+    self.isactive = 0;
+    self.isagent = 1;
+    self.wasti = 0;
     self.issniper = 0;
     self.spawntime = 0;
-    self._id_3314 = self getentitynumber();
+    self.entity_number = self getentitynumber();
     self.agent_teamparticipant = 0;
     self.agent_gameparticipant = 0;
-    self._id_1AD6 = 0;
+    self.canperformclienttraces = 0;
     self.agentname = undefined;
     self.ignoreall = 0;
     self.ignoreme = 0;
     self detachall();
-    _id_4DFF( 0 );
+    initplayerscriptvariables( 0 );
 }
 
-_id_4DFF( var_0 )
+initplayerscriptvariables( var_0 )
 {
     if ( !var_0 )
     {
@@ -65,54 +47,54 @@ _id_4DFF( var_0 )
         self.avoidkillstreakonspawntimer = undefined;
         self.guid = undefined;
         self.name = undefined;
-        self._id_7811 = undefined;
+        self.saved_actionslotdata = undefined;
         self.perks = undefined;
         self.weaponlist = undefined;
         self.omaclasschanged = undefined;
         self.objectivescaler = undefined;
-        self._id_940F = undefined;
-        self._id_1BB6 = undefined;
-        self._id_1E23 = undefined;
-        self._id_1AD7 = undefined;
-        self._id_535F = undefined;
+        self.touchtriggers = undefined;
+        self.carryobject = undefined;
+        self.claimtrigger = undefined;
+        self.canpickupobject = undefined;
+        self.killedinuse = undefined;
         self.sessionteam = undefined;
         self.sessionstate = undefined;
-        self._id_55DF = undefined;
-        self._id_55DD = undefined;
-        self._id_2B0B = undefined;
-        self._id_2B0C = undefined;
-        self._id_2B05 = undefined;
-        self._id_2B0A = undefined;
-        self._id_83C6 = undefined;
-        self._id_83C5 = undefined;
+        self.lastspawntime = undefined;
+        self.lastspawnpoint = undefined;
+        self.disabledweapon = undefined;
+        self.disabledweaponswitch = undefined;
+        self.disabledoffhandweapons = undefined;
+        self.disabledusability = undefined;
+        self.shielddamage = undefined;
+        self.shieldbullethits = undefined;
     }
     else
     {
         self.movespeedscaler = level.baseplayermovescale;
         self.avoidkillstreakonspawntimer = 5;
-        self.guid = maps\mp\_utility::_id_4144();
+        self.guid = maps\mp\_utility::getuniqueid();
         self.name = self.guid;
         self.sessionteam = self.team;
         self.sessionstate = "playing";
-        self._id_83C6 = 0;
-        self._id_83C5 = 0;
+        self.shielddamage = 0;
+        self.shieldbullethits = 0;
         self.agent_gameparticipant = 1;
-        maps\mp\gametypes\_playerlogic::_id_833B();
+        maps\mp\gametypes\_playerlogic::setupsavedactionslots();
 
-        if ( maps\mp\_utility::_id_5112( self ) )
+        if ( maps\mp\_utility::isgameparticipant( self ) )
         {
             self.objectivescaler = 1;
-            maps\mp\gametypes\_gameobjects::_id_4D34();
-            self._id_2B0B = 0;
-            self._id_2B0C = 0;
-            self._id_2B05 = 0;
+            maps\mp\gametypes\_gameobjects::init_player_gameobjects();
+            self.disabledweapon = 0;
+            self.disabledweaponswitch = 0;
+            self.disabledoffhandweapons = 0;
         }
     }
 
-    self._id_2B0A = 1;
+    self.disabledusability = 1;
 }
 
-_id_3FA2( var_0 )
+getfreeagent( var_0 )
 {
     var_1 = undefined;
 
@@ -120,16 +102,16 @@ _id_3FA2( var_0 )
     {
         foreach ( var_3 in level.agentarray )
         {
-            if ( ( !isdefined( var_3._id_50A6 ) || !var_3._id_50A6 ) && ( !isdefined( var_3._id_518D ) || !var_3._id_518D ) )
+            if ( ( !isdefined( var_3.isactive ) || !var_3.isactive ) && ( !isdefined( var_3.isreserved ) || !var_3.isreserved ) )
             {
-                if ( isdefined( var_3._id_A04A ) && var_3._id_A04A )
+                if ( isdefined( var_3.waitingtodeactivate ) && var_3.waitingtodeactivate )
                     continue;
 
                 if ( isdefined( level.despawning_agents ) && common_scripts\utility::array_contains( level.despawning_agents, var_3 ) )
                     continue;
 
                 var_1 = var_3;
-                var_1 _id_4D7F();
+                var_1 initagentscriptvariables();
 
                 if ( isdefined( var_0 ) )
                     var_1.agent_type = var_0;
@@ -144,15 +126,15 @@ _id_3FA2( var_0 )
 
 activateagent()
 {
-    self._id_50A6 = 1;
+    self.isactive = 1;
 }
 
-_id_2631()
+deactivateagent()
 {
-    thread _id_2632();
+    thread deactivateagentdelayed();
 }
 
-_id_2632()
+deactivateagentdelayed()
 {
     self notify( "deactivateAgentDelayed" );
     self endon( "deactivateAgentDelayed" );
@@ -163,16 +145,16 @@ _id_2632()
     if ( !common_scripts\utility::array_contains( level.despawning_agents, self ) )
         level.despawning_agents = common_scripts\utility::array_add( level.despawning_agents, self );
 
-    if ( maps\mp\_utility::_id_5112( self ) )
-        maps\mp\gametypes\_spawnlogic::_id_73AC();
+    if ( maps\mp\_utility::isgameparticipant( self ) )
+        maps\mp\gametypes\_spawnlogic::removefromparticipantsarray();
 
-    maps\mp\gametypes\_spawnlogic::_id_73A7();
+    maps\mp\gametypes\_spawnlogic::removefromcharactersarray();
     wait 0.05;
-    self._id_50A6 = 0;
-    self._id_4726 = 0;
+    self.isactive = 0;
+    self.hasdied = 0;
     self.owner = undefined;
-    self._id_214F = undefined;
-    self._id_A04A = undefined;
+    self.connecttime = undefined;
+    self.waitingtodeactivate = undefined;
 
     foreach ( var_1 in level.characters )
     {
@@ -193,16 +175,16 @@ _id_2632()
     level.despawning_agents = common_scripts\utility::array_remove( level.despawning_agents, self );
 }
 
-_id_4054( var_0 )
+getnumactiveagents( var_0 )
 {
     if ( !isdefined( var_0 ) )
         var_0 = "all";
 
-    var_1 = _id_3ED9( var_0 );
+    var_1 = getactiveagentsoftype( var_0 );
     return var_1.size;
 }
 
-_id_3ED9( var_0 )
+getactiveagentsoftype( var_0 )
 {
     var_1 = [];
 
@@ -211,7 +193,7 @@ _id_3ED9( var_0 )
 
     foreach ( var_3 in level.agentarray )
     {
-        if ( isdefined( var_3._id_50A6 ) && var_3._id_50A6 )
+        if ( isdefined( var_3.isactive ) && var_3.isactive )
         {
             if ( var_0 == "all" || var_3.agent_type == var_0 )
                 var_1[var_1.size] = var_3;
@@ -221,12 +203,12 @@ _id_3ED9( var_0 )
     return var_1;
 }
 
-_id_4056( var_0 )
+getnumownedactiveagents( var_0 )
 {
-    return _id_4057( var_0, "all" );
+    return getnumownedactiveagentsbytype( var_0, "all" );
 }
 
-_id_4057( var_0, var_1 )
+getnumownedactiveagentsbytype( var_0, var_1 )
 {
     var_2 = 0;
 
@@ -235,7 +217,7 @@ _id_4057( var_0, var_1 )
 
     foreach ( var_4 in level.agentarray )
     {
-        if ( isdefined( var_4._id_50A6 ) && var_4._id_50A6 )
+        if ( isdefined( var_4.isactive ) && var_4.isactive )
         {
             if ( isdefined( var_4.owner ) && var_4.owner == var_0 )
             {
@@ -248,28 +230,28 @@ _id_4057( var_0, var_1 )
     return var_2;
 }
 
-_id_414D( var_0, var_1 )
+getvalidspawnpathnodenearplayer( var_0, var_1 )
 {
     var_2 = getnodesinradius( self.origin, 350, 64, 128, "Path" );
 
     if ( !isdefined( var_2 ) || var_2.size == 0 )
         return undefined;
 
-    if ( isdefined( level._id_A297 ) && isdefined( level._id_9822 ) )
+    if ( isdefined( level.waterdeletez ) && isdefined( level.trigunderwater ) )
     {
         var_3 = var_2;
         var_2 = [];
 
         foreach ( var_5 in var_3 )
         {
-            if ( var_5.origin[2] > level._id_A297 || !ispointinvolume( var_5.origin, level._id_9822 ) )
+            if ( var_5.origin[2] > level.waterdeletez || !ispointinvolume( var_5.origin, level.trigunderwater ) )
                 var_2[var_2.size] = var_5;
         }
     }
 
     var_7 = anglestoforward( self.angles );
     var_8 = -10;
-    var_9 = maps\mp\gametypes\_spawnlogic::_id_4091( self );
+    var_9 = maps\mp\gametypes\_spawnlogic::getplayertraceheight( self );
     var_10 = ( 0, 0, var_9 );
 
     if ( !isdefined( var_0 ) )
@@ -344,16 +326,16 @@ _id_414D( var_0, var_1 )
         return var_14;
     }
 
-    if ( var_11.size > 0 && isdefined( level._id_511D ) )
+    if ( var_11.size > 0 && isdefined( level.ishorde ) )
         return var_11[0];
 }
 
-_id_5349( var_0 )
+killagent( var_0 )
 {
     var_0 dodamage( var_0.health + 500000, var_0.origin );
 }
 
-_id_535A()
+killdog()
 {
     self [[ agentfunc( "on_damaged" ) ]]( level, undefined, self.health + 1, 0, "MOD_CRUSH", "none", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ), "none", 0 );
 }

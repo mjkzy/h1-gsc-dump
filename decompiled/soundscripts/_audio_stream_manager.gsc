@@ -1,36 +1,18 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
-_id_8653()
+sm_init()
 {
-    level._audio._id_8F2F = spawnstruct();
-    level._audio._id_8F2F._id_5FFB = spawnstruct();
-    level._audio._id_8F2F._id_5FFB._id_24CA = _id_8698();
-    level._audio._id_8F2F._id_5FFB._id_6F33 = _id_8698();
-    level._audio._id_8F2F.ambience = spawnstruct();
-    level._audio._id_8F2F.ambience._id_24CA = _id_8698();
-    level._audio._id_8F2F.ambience._id_6F33 = _id_8698();
+    level._audio.stream = spawnstruct();
+    level._audio.stream.music = spawnstruct();
+    level._audio.stream.music.curr = smx_create_struct();
+    level._audio.stream.music.prev = smx_create_struct();
+    level._audio.stream.ambience = spawnstruct();
+    level._audio.stream.ambience.curr = smx_create_struct();
+    level._audio.stream.ambience.prev = smx_create_struct();
 }
 
-_id_8656( var_0, var_1, var_2, var_3, var_4 )
+sm_start_preset( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !soundexists( var_0 ) )
         return;
@@ -45,12 +27,12 @@ _id_8656( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_4 ) )
         var_7 = max( var_4, 0 );
 
-    _id_8699( level._audio._id_8F2F.ambience._id_6F33, level._audio._id_8F2F.ambience._id_24CA.name, level._audio._id_8F2F.ambience._id_24CA._id_9F37, level._audio._id_8F2F.ambience._id_24CA._id_35D9 );
-    _id_8699( level._audio._id_8F2F.ambience._id_24CA, var_0, var_7, var_6 );
+    smx_set_values_for_struct( level._audio.stream.ambience.prev, level._audio.stream.ambience.curr.name, level._audio.stream.ambience.curr.vol, level._audio.stream.ambience.curr.fade );
+    smx_set_values_for_struct( level._audio.stream.ambience.curr, var_0, var_7, var_6 );
     ambientplay( var_0, var_6, var_7 );
 }
 
-_id_8655( var_0, var_1, var_2, var_3, var_4 )
+sm_start_music( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !soundexists( var_0 ) )
         return;
@@ -70,8 +52,8 @@ _id_8655( var_0, var_1, var_2, var_3, var_4 )
     if ( isdefined( var_3 ) )
         var_8 = max( var_3, 0 );
 
-    _id_8699( level._audio._id_8F2F._id_5FFB._id_6F33, level._audio._id_8F2F._id_5FFB._id_24CA.name, level._audio._id_8F2F._id_5FFB._id_24CA._id_9F37, level._audio._id_8F2F._id_5FFB._id_24CA._id_35D9 );
-    _id_8699( level._audio._id_8F2F._id_5FFB._id_24CA, var_0, var_8, var_6 );
+    smx_set_values_for_struct( level._audio.stream.music.prev, level._audio.stream.music.curr.name, level._audio.stream.music.curr.vol, level._audio.stream.music.curr.fade );
+    smx_set_values_for_struct( level._audio.stream.music.curr, var_0, var_8, var_6 );
 
     if ( isdefined( var_4 ) )
     {
@@ -82,7 +64,7 @@ _id_8655( var_0, var_1, var_2, var_3, var_4 )
         musicplay( var_0, var_6, var_8 );
 }
 
-_id_8658( var_0, var_1 )
+sm_stop_ambient_alias( var_0, var_1 )
 {
     if ( var_0 != "none" )
     {
@@ -94,19 +76,19 @@ _id_8658( var_0, var_1 )
         if ( isdefined( var_1 ) )
             var_3 = max( var_1, 0 );
 
-        if ( level._audio._id_8F2F.ambience._id_24CA.name == var_0 )
+        if ( level._audio.stream.ambience.curr.name == var_0 )
         {
-            level._audio._id_8F2F.ambience._id_24CA = level._audio._id_8F2F.ambience._id_6F33;
-            _id_8697( level._audio._id_8F2F.ambience._id_6F33 );
+            level._audio.stream.ambience.curr = level._audio.stream.ambience.prev;
+            smx_clear_struct( level._audio.stream.ambience.prev );
         }
-        else if ( level._audio._id_8F2F.ambience._id_6F33.name == var_0 )
-            _id_8697( level._audio._id_8F2F.ambience._id_6F33 );
+        else if ( level._audio.stream.ambience.prev.name == var_0 )
+            smx_clear_struct( level._audio.stream.ambience.prev );
 
         ambientstop( var_3, var_0 );
     }
 }
 
-_id_865A( var_0, var_1 )
+sm_stop_music_alias( var_0, var_1 )
 {
     if ( !soundexists( var_0 ) )
         return;
@@ -116,18 +98,18 @@ _id_865A( var_0, var_1 )
     if ( isdefined( var_1 ) )
         var_3 = max( var_1, 0 );
 
-    if ( level._audio._id_8F2F._id_5FFB._id_24CA.name == var_0 )
+    if ( level._audio.stream.music.curr.name == var_0 )
     {
-        level._audio._id_8F2F._id_5FFB._id_24CA = level._audio._id_8F2F._id_5FFB._id_6F33;
-        _id_8697( level._audio._id_8F2F._id_5FFB._id_6F33 );
+        level._audio.stream.music.curr = level._audio.stream.music.prev;
+        smx_clear_struct( level._audio.stream.music.prev );
     }
-    else if ( level._audio._id_8F2F.ambience._id_6F33.name == var_0 )
-        _id_8697( level._audio._id_8F2F._id_5FFB._id_6F33 );
+    else if ( level._audio.stream.ambience.prev.name == var_0 )
+        smx_clear_struct( level._audio.stream.music.prev );
 
     musicstop( var_3, var_0 );
 }
 
-_id_8657( var_0 )
+sm_stop_ambience( var_0 )
 {
     var_1 = 1.0;
 
@@ -137,35 +119,35 @@ _id_8657( var_0 )
     ambientstop( var_1 );
 }
 
-_id_8659( var_0 )
+sm_stop_music( var_0 )
 {
     var_1 = 1.0;
 
     if ( isdefined( var_0 ) )
         var_1 = var_0;
 
-    _id_8697( level._audio._id_8F2F._id_5FFB._id_24CA );
-    _id_8697( level._audio._id_8F2F._id_5FFB._id_6F33 );
+    smx_clear_struct( level._audio.stream.music.curr );
+    smx_clear_struct( level._audio.stream.music.prev );
     musicstop( var_1 );
 }
 
-_id_8654( var_0 )
+sm_mix_ambience( var_0 )
 {
     var_1 = 0.009;
 
     if ( var_0.size == 1 )
-        _id_8699( level._audio._id_8F2F.ambience._id_24CA, var_0[0].alias, var_0[0]._id_9F37, var_0[0]._id_35D9 );
+        smx_set_values_for_struct( level._audio.stream.ambience.curr, var_0[0].alias, var_0[0].vol, var_0[0].fade );
     else if ( var_0.size == 2 )
     {
-        _id_8699( level._audio._id_8F2F.ambience._id_6F33, var_0[0].alias, var_0[0]._id_9F37, var_0[0]._id_35D9 );
-        _id_8699( level._audio._id_8F2F.ambience._id_24CA, var_0[1].alias, var_0[1]._id_9F37, var_0[1]._id_35D9 );
+        smx_set_values_for_struct( level._audio.stream.ambience.prev, var_0[0].alias, var_0[0].vol, var_0[0].fade );
+        smx_set_values_for_struct( level._audio.stream.ambience.curr, var_0[1].alias, var_0[1].vol, var_0[1].fade );
     }
 
     for ( var_6 = 0; var_6 < var_0.size; var_6++ )
     {
         var_7 = var_0[var_6].alias;
-        var_8 = max( var_0[var_6]._id_9F37, 0 );
-        var_9 = clamp( var_0[var_6]._id_35D9, 0, 1 );
+        var_8 = max( var_0[var_6].vol, 0 );
+        var_9 = clamp( var_0[var_6].fade, 0, 1 );
 
         if ( var_7 != "none" )
         {
@@ -183,35 +165,35 @@ _id_8654( var_0 )
     }
 }
 
-_id_8651()
+sm_get_current_ambience_name()
 {
-    return level._audio._id_8F2F.ambience._id_24CA.name;
+    return level._audio.stream.ambience.curr.name;
 }
 
-_id_8652()
+sm_get_current_music_name()
 {
-    return level._audio._id_8F2F._id_5FFB._id_24CA.name;
+    return level._audio.stream.music.curr.name;
 }
 
-_id_8699( var_0, var_1, var_2, var_3 )
+smx_set_values_for_struct( var_0, var_1, var_2, var_3 )
 {
     var_0.name = var_1;
-    var_0._id_9F37 = var_2;
-    var_0._id_35D9 = var_3;
+    var_0.vol = var_2;
+    var_0.fade = var_3;
 }
 
-_id_8698()
+smx_create_struct()
 {
     var_0 = spawnstruct();
     var_0.name = "";
-    var_0._id_9F37 = 0.0;
-    var_0._id_35D9 = 0.0;
+    var_0.vol = 0.0;
+    var_0.fade = 0.0;
     return var_0;
 }
 
-_id_8697( var_0 )
+smx_clear_struct( var_0 )
 {
     var_0.name = "";
-    var_0._id_9F37 = 0.0;
-    var_0._id_35D9 = 0.0;
+    var_0.vol = 0.0;
+    var_0.fade = 0.0;
 }

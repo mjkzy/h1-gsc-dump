@@ -1,30 +1,12 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_4D05();
+    init_level_lighting_flags();
     level.cheat_invert_override = "_bright";
-    thread _id_80C6();
-    thread _id_7E68();
+    thread setup_dof_presets();
+    thread set_level_lighting_values();
 
     if ( getdvarint( "no_cinematic_fx" ) != 1 )
     {
@@ -33,12 +15,12 @@ main()
     }
 }
 
-_id_4D05()
+init_level_lighting_flags()
 {
-    common_scripts\utility::_id_383D( "player_blur" );
+    common_scripts\utility::flag_init( "player_blur" );
 }
 
-_id_80C6()
+setup_dof_presets()
 {
     if ( getdvarint( "no_cinematic_fx" ) != 1 )
         return;
@@ -55,7 +37,7 @@ player_dof_attenuation()
 
     for (;;)
     {
-        if ( !common_scripts\utility::_id_382E( "collapse" ) )
+        if ( !common_scripts\utility::flag( "collapse" ) )
         {
             var_0 maps\_cinematography::cinseq_key( "end_blur" ) maps\_cinematography::cinseq_key_time( randomfloatrange( 2, 4 ) );
             var_0 maps\_cinematography::cinseq_start_sequence();
@@ -84,14 +66,14 @@ player_random_blur()
     var_0 maps\_cinematography::cinseq_key( "finalize_fov" ) maps\_cinematography::cinseq_key_time( 4 ) maps\_cinematography::cinseq_key_lerp_fov_default( 2.5 ) maps\_cinematography::cinseq_key_gauss_blur( 0.25, 2 );
     wait(randomfloatrange( 0.25, 0.75 ));
 
-    while ( !common_scripts\utility::_id_382E( "building_collapse_back" ) && !common_scripts\utility::_id_382E( "building_collapse_side" ) )
+    while ( !common_scripts\utility::flag( "building_collapse_back" ) && !common_scripts\utility::flag( "building_collapse_side" ) )
     {
-        common_scripts\utility::_id_383F( "player_blur" );
+        common_scripts\utility::flag_set( "player_blur" );
         var_2 = randomfloatrange( 0.5, 1.5 );
         var_0 maps\_cinematography::cinseq_key( "end_blur" ) maps\_cinematography::cinseq_key_time( 2.5 + var_2 );
         var_0 maps\_cinematography::cinseq_key( "finalize_fov" ) maps\_cinematography::cinseq_key_time( 3 + var_2 );
         var_0 maps\_cinematography::cinseq_start_sequence();
-        common_scripts\utility::_id_3831( "player_blur" );
+        common_scripts\utility::flag_clear( "player_blur" );
         wait(randomfloatrange( 4, 10 ));
     }
 
@@ -107,7 +89,7 @@ handle_building_collapses()
     var_0.duration_fade_down = 2;
     var_0.duration_fade_up = 0.75;
     var_0.pitch_scale = 0.2;
-    var_0._id_A3B7 = 0.17;
+    var_0.yaw_scale = 0.17;
     var_0.roll_scale = 0.11;
     var_0.frequency_pitch = 9;
     var_0.frequency_yaw = 15;
@@ -134,14 +116,14 @@ handle_building_collapses()
 
 player_fallen()
 {
-    common_scripts\utility::_id_3857( "collapse" );
+    common_scripts\utility::flag_waitopen( "collapse" );
     maps\_cinematography::dyndof( "constant_fallout" ) maps\_cinematography::dyndof_values( 1.8, 200, 1.4, 0.6 );
     setblur( 0, 0 );
 }
 
-_id_7E68()
+set_level_lighting_values()
 {
-    maps\_utility::_id_9E6E( "aftermath", 0 );
+    maps\_utility::vision_set_fog_changes( "aftermath", 0 );
     level.player maps\_utility::set_light_set_player( "aftermath" );
     level.player _meth_848C( "clut_h1_aftermath", 0.0 );
     thread set_level_lighting_default();
@@ -172,7 +154,7 @@ set_level_lighting_pain()
         var_1.duration_fade_down = 0.6;
         var_1.duration_fade_up = 0;
         var_1.pitch_scale = 2;
-        var_1._id_A3B7 = 1.8;
+        var_1.yaw_scale = 1.8;
         var_1.roll_scale = 1.1;
         var_1.frequency_pitch = 10;
         var_1.frequency_yaw = 15;

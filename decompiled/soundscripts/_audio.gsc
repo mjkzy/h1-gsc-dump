@@ -1,30 +1,12 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 aud_init( var_0 )
 {
     if ( isdefined( var_0 ) )
         aud_set_level_fade_time( var_0 );
 
-    soundscripts\_snd::_id_86F4();
+    soundscripts\_snd::snd_init();
 
     if ( !isdefined( level.aud ) )
         level.aud = spawnstruct();
@@ -35,35 +17,35 @@ aud_init( var_0 )
     if ( !isdefined( level._audio ) )
         level._audio = spawnstruct();
 
-    level._audio._id_9C28 = 0;
-    level._audio._id_8F59 = [];
-    level._audio._id_5BB8 = [];
-    level._audio._id_7008 = [];
-    level._audio._id_7003 = [];
-    level._audio._id_9F0D = 0;
-    level._audio._id_8E32 = undefined;
-    level._audio._id_6C27 = spawnstruct();
-    level._audio._id_6C27._id_57F1 = "idle";
-    level._audio._id_6C27._id_57F2 = "idle";
+    level._audio.using_string_tables = 0;
+    level._audio.stringtables = [];
+    level._audio.message_handlers = [];
+    level._audio.progress_trigger_callbacks = [];
+    level._audio.progress_maps = [];
+    level._audio.vo_duck_active = 0;
+    level._audio.sticky_threat = undefined;
+    level._audio.player_state = spawnstruct();
+    level._audio.player_state.locamote = "idle";
+    level._audio.player_state.locamote_prev = "idle";
     level.ambient_reverb = [];
     level.ambient_track = [];
-    level._id_3BA6 = 1;
-    level._id_74F2 = "";
-    level._id_3339 = 0;
-    level._id_333A = 1;
-    level._id_333D[level._id_3339] = "";
-    level._id_333D[level._id_333A] = "";
-    soundscripts\_audio_stream_manager::_id_8653();
-    soundscripts\_audio_dynamic_ambi::_id_25B6();
+    level.fxfireloopmod = 1;
+    level.reverb_track = "";
+    level.eq_main_track = 0;
+    level.eq_mix_track = 1;
+    level.eq_track[level.eq_main_track] = "";
+    level.eq_track[level.eq_mix_track] = "";
+    soundscripts\_audio_stream_manager::sm_init();
+    soundscripts\_audio_dynamic_ambi::damb_init();
     soundscripts\_audio_zone_manager::azm_init();
-    thread soundscripts\_audio_mix_manager::_id_5CFA();
-    soundscripts\_audio_reverb::_id_76F0();
-    soundscripts\_audio_whizby::_id_A30E();
+    thread soundscripts\_audio_mix_manager::mm_init();
+    soundscripts\_audio_reverb::rvb_init();
+    soundscripts\_audio_whizby::whiz_init();
     soundscripts\_audio_vehicle_manager::avm_init();
-    soundscripts\_audio_music::_id_5FF4();
+    soundscripts\_audio_music::mus_init();
     thread aud_level_fadein();
     init_deathsdoor();
-    _id_28A1( ::_id_2891 );
+    deprecated_aud_register_msg_handler( ::deprecated__audio_msg_handler );
 }
 
 aud_set_level_fade_time( var_0 )
@@ -71,25 +53,25 @@ aud_set_level_fade_time( var_0 )
     if ( !isdefined( level._audio ) )
         level._audio = spawnstruct();
 
-    level._audio._id_56C1 = var_0;
+    level._audio.level_fade_time = var_0;
 }
 
 aud_level_fadein()
 {
-    if ( !isdefined( level._audio._id_56C1 ) )
-        level._audio._id_56C1 = 1.0;
+    if ( !isdefined( level._audio.level_fade_time ) )
+        level._audio.level_fade_time = 1.0;
 
     wait 0.05;
 
-    if ( common_scripts\utility::_id_3839( "chyron_video_done" ) )
-        common_scripts\utility::_id_384A( "chyron_video_done" );
+    if ( common_scripts\utility::flag_exist( "chyron_video_done" ) )
+        common_scripts\utility::flag_wait( "chyron_video_done" );
 
-    levelsoundfade( 1, level._audio._id_56C1 );
+    levelsoundfade( 1, level._audio.level_fade_time );
 }
 
 aud_is_specops()
 {
-    return isdefined( level._audio._id_8A46 );
+    return isdefined( level._audio.specops );
 }
 
 audx_set_spec_ops()
@@ -97,7 +79,7 @@ audx_set_spec_ops()
     if ( !isdefined( level._audio ) )
         level._audio = spawnstruct();
 
-    level._audio._id_8A46 = 1;
+    level._audio.specops = 1;
 }
 
 aud_set_spec_ops()
@@ -126,16 +108,16 @@ aud_play_line_emitter( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     var_8 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
     var_8.alias = var_1;
-    var_8._id_506C = 0;
-    var_8._id_6E22 = var_2;
-    var_8._id_6E23 = var_3;
-    var_8._id_35DC = var_6;
+    var_8.is_playing = 0;
+    var_8.point1 = var_2;
+    var_8.point2 = var_3;
+    var_8.fade_in = var_6;
     var_8.label = var_0;
     var_8 thread audx_play_line_emitter_internal();
     level waittill( var_0 + "_line_emitter_stop" );
     var_8 scalevolume( 0, var_7 );
     wait(var_7);
-    var_8 soundscripts\_snd_playsound::_id_8778();
+    var_8 soundscripts\_snd_playsound::snd_stop_sound();
     wait 0.05;
     var_8 delete();
 }
@@ -143,26 +125,26 @@ aud_play_line_emitter( var_0, var_1, var_2, var_3, var_4, var_5 )
 audx_play_line_emitter_internal()
 {
     level endon( self.label + "_line_emitter_stop" );
-    var_0 = self._id_6E23 - self._id_6E22;
+    var_0 = self.point2 - self.point1;
     var_1 = vectornormalize( var_0 );
-    var_2 = distance( self._id_6E22, self._id_6E23 );
+    var_2 = distance( self.point1, self.point2 );
     var_3 = 0.1;
 
     for (;;)
     {
-        var_4 = level.player.origin - self._id_6E22;
+        var_4 = level.player.origin - self.point1;
         var_5 = vectordot( var_4, var_1 );
         var_5 = clamp( var_5, 0, var_2 );
-        var_6 = self._id_6E22 + var_1 * var_5;
+        var_6 = self.point1 + var_1 * var_5;
 
-        if ( !self._id_506C )
+        if ( !self.is_playing )
         {
             self.origin = var_6;
-            soundscripts\_snd_playsound::_id_873E( self.alias );
+            soundscripts\_snd_playsound::snd_play_loop( self.alias );
             self scalevolume( 0 );
             wait 0.05;
-            self scalevolume( 1.0, self._id_35DC );
-            self._id_506C = 1;
+            self scalevolume( 1.0, self.fade_in );
+            self.is_playing = 1;
         }
         else
             self moveto( var_6, var_3 );
@@ -176,7 +158,7 @@ aud_play_point_source_loop( var_0, var_1, var_2, var_3 )
     var_4 = aud_get_optional_param( 1.0, var_2 );
     var_5 = aud_get_optional_param( 1.0, var_3 );
     var_6 = spawn( "script_origin", var_1 );
-    _id_2897( var_6, var_0, var_4, var_5, 1 );
+    deprecated_aud_fade_sound_in( var_6, var_0, var_4, var_5, 1 );
     return var_6;
 }
 
@@ -197,40 +179,40 @@ aud_set_music_submix( var_0, var_1 )
 {
     if ( var_0 == 1.0 )
     {
-        soundscripts\_audio_mix_manager::_id_5CFC( "music" );
-        soundscripts\_audio_mix_manager::_id_5CF6( "music", var_1 );
+        soundscripts\_audio_mix_manager::mm_make_submix_unsticky( "music" );
+        soundscripts\_audio_mix_manager::mm_clear_submix( "music", var_1 );
     }
     else
     {
-        soundscripts\_audio_mix_manager::_id_5CFE( "music", var_0, var_1 );
-        soundscripts\_audio_mix_manager::_id_5CFB( "music" );
+        soundscripts\_audio_mix_manager::mm_scale_submix( "music", var_0, var_1 );
+        soundscripts\_audio_mix_manager::mm_make_submix_sticky( "music" );
     }
 
-    level._audio._id_24D0 = var_0;
+    level._audio.curr_music_submix = var_0;
 }
 
 aud_set_ambi_submix( var_0, var_1 )
 {
     if ( var_0 == 1.0 )
     {
-        soundscripts\_audio_mix_manager::_id_5CFC( "ambi" );
-        soundscripts\_audio_mix_manager::_id_5CF6( "ambi", var_1 );
+        soundscripts\_audio_mix_manager::mm_make_submix_unsticky( "ambi" );
+        soundscripts\_audio_mix_manager::mm_clear_submix( "ambi", var_1 );
     }
     else
     {
-        soundscripts\_audio_mix_manager::_id_5CFE( "ambi", var_0, var_1 );
-        soundscripts\_audio_mix_manager::_id_5CFB( "ambi" );
+        soundscripts\_audio_mix_manager::mm_scale_submix( "ambi", var_0, var_1 );
+        soundscripts\_audio_mix_manager::mm_make_submix_sticky( "ambi" );
     }
 
-    level._audio._id_24CB = var_0;
+    level._audio.curr_ambi_submix = var_0;
 }
 
 aud_get_music_submix()
 {
     var_0 = 1.0;
 
-    if ( isdefined( level._audio._id_24D0 ) )
-        var_0 = level._audio._id_24D0;
+    if ( isdefined( level._audio.curr_music_submix ) )
+        var_0 = level._audio.curr_music_submix;
 
     return var_0;
 }
@@ -239,19 +221,19 @@ aud_get_ambi_submix()
 {
     var_0 = 1.0;
 
-    if ( isdefined( level._audio._id_24CB ) )
-        var_0 = level._audio._id_24CB;
+    if ( isdefined( level._audio.curr_ambi_submix ) )
+        var_0 = level._audio.curr_ambi_submix;
 
     return var_0;
 }
 
-_id_97BD( var_0 )
+trigger_multiple_audio_trigger( var_0 )
 {
     if ( !isdefined( level._audio ) )
         level._audio = spawnstruct();
 
-    if ( !isdefined( level._audio._id_97A0 ) )
-        level._audio._id_97A0 = [];
+    if ( !isdefined( level._audio.trigger_functions ) )
+        level._audio.trigger_functions = [];
 
     var_1 = undefined;
 
@@ -260,8 +242,8 @@ _id_97BD( var_0 )
         if ( isdefined( self.ambient ) )
             var_1 = strtok( self.ambient, " " );
     }
-    else if ( isdefined( self._id_7950 ) )
-        var_1 = strtok( self._id_7950, " " );
+    else if ( isdefined( self.script_audio_zones ) )
+        var_1 = strtok( self.script_audio_zones, " " );
     else if ( isdefined( self.audio_zones ) )
         var_1 = strtok( self.audio_zones, " " );
 
@@ -274,36 +256,36 @@ _id_97BD( var_0 )
         for (;;)
         {
             self waittill( "trigger", var_2 );
-            soundscripts\_audio_zone_manager::azm_start_zone( var_1[0], self._id_79B4 );
+            soundscripts\_audio_zone_manager::azm_start_zone( var_1[0], self.script_duration );
         }
     }
 
-    if ( isdefined( self._id_794C ) )
+    if ( isdefined( self.script_audio_progress_map ) )
     {
-        if ( !isdefined( level._audio._id_7003[self._id_794C] ) )
+        if ( !isdefined( level._audio.progress_maps[self.script_audio_progress_map] ) )
         {
             aud_print_error( "Trying to set a progress_map_function without defining the envelope in the level.aud.envs array." );
-            self._id_794C = undefined;
+            self.script_audio_progress_map = undefined;
         }
     }
 
-    if ( !isdefined( level._audio._id_979F ) )
-        level._audio._id_979F = [];
+    if ( !isdefined( level._audio.trigger_function_keys ) )
+        level._audio.trigger_function_keys = [];
 
-    if ( isdefined( self._id_7946 ) )
-        level._audio._id_979F[level._audio._id_979F.size] = self._id_7946;
+    if ( isdefined( self.script_audio_enter_func ) )
+        level._audio.trigger_function_keys[level._audio.trigger_function_keys.size] = self.script_audio_enter_func;
 
-    if ( isdefined( self._id_7948 ) )
-        level._audio._id_979F[level._audio._id_979F.size] = self._id_7948;
+    if ( isdefined( self.script_audio_exit_func ) )
+        level._audio.trigger_function_keys[level._audio.trigger_function_keys.size] = self.script_audio_exit_func;
 
-    if ( isdefined( self._id_794B ) )
-        level._audio._id_979F[level._audio._id_979F.size] = self._id_794B;
+    if ( isdefined( self.script_audio_progress_func ) )
+        level._audio.trigger_function_keys[level._audio.trigger_function_keys.size] = self.script_audio_progress_func;
 
-    if ( isdefined( self._id_794A ) )
-        level._audio._id_979F[level._audio._id_979F.size] = self._id_794A;
+    if ( isdefined( self.script_audio_point_func ) )
+        level._audio.trigger_function_keys[level._audio.trigger_function_keys.size] = self.script_audio_point_func;
 
-    if ( !isdefined( self._id_7945 ) )
-        self._id_7945 = "blend";
+    if ( !isdefined( self.script_audio_blend_mode ) )
+        self.script_audio_blend_mode = "blend";
 
     var_3 = undefined;
     var_4 = undefined;
@@ -311,30 +293,30 @@ _id_97BD( var_0 )
 
     if ( isdefined( self.target ) )
     {
-        if ( !isdefined( common_scripts\utility::_id_3E89() ) )
+        if ( !isdefined( common_scripts\utility::get_target_ent() ) )
         {
             aud_print_error( "Audo Zone Trigger at " + self.origin + " has defined a target, " + self.target + ", but that target doesn't exist." );
             return;
         }
 
-        if ( isdefined( _id_97B5() ) )
+        if ( isdefined( trigger_multiple_audio_get_target_ent_target() ) )
         {
-            var_3 = _id_97B4();
+            var_3 = trigger_multiple_audio_get_target_ent_origin();
 
-            if ( !isdefined( _id_97B6() ) )
+            if ( !isdefined( trigger_multiple_audio_get_target_ent_target_ent() ) )
             {
-                aud_print_error( "Audo Zone Trigger at " + self.origin + " has defined a target, " + _id_97B5() + ", but that target doesn't exist." );
+                aud_print_error( "Audo Zone Trigger at " + self.origin + " has defined a target, " + trigger_multiple_audio_get_target_ent_target() + ", but that target doesn't exist." );
                 return;
             }
 
-            var_4 = _id_97B7();
+            var_4 = trigger_multiple_audio_get_target_ent_target_ent_origin();
         }
         else
         {
-            var_6 = common_scripts\utility::_id_3E89();
+            var_6 = common_scripts\utility::get_target_ent();
             var_7 = 2 * ( self.origin - var_6.origin );
             var_8 = vectortoangles( var_7 );
-            var_3 = _id_97B4();
+            var_3 = trigger_multiple_audio_get_target_ent_origin();
             var_4 = var_3 + var_7;
 
             if ( angleclamp180( var_8[0] ) < 45 )
@@ -368,7 +350,7 @@ _id_97BD( var_0 )
                     var_9 = 1;
                 else if ( var_10 != "" )
                 {
-                    var_11 = _id_97BA( var_3, var_4, var_5, var_2.origin );
+                    var_11 = trigger_multiple_audio_progress( var_3, var_4, var_5, var_2.origin );
 
                     if ( var_11 < 0.5 )
                     {
@@ -388,7 +370,7 @@ _id_97BD( var_0 )
             }
             else
             {
-                var_11 = _id_97BA( var_3, var_4, var_5, var_2.origin );
+                var_11 = trigger_multiple_audio_progress( var_3, var_4, var_5, var_2.origin );
 
                 if ( var_11 < 0.5 )
                     var_9 = 0;
@@ -403,23 +385,23 @@ _id_97BD( var_0 )
                     if ( isdefined( level._snd ) && isdefined( var_1[1] ) )
                     {
                         var_12 = "enter_" + var_1[1];
-                        soundscripts\_snd::_id_870C( "snd_zone_handler", var_12, var_1[0] );
+                        soundscripts\_snd::snd_message( "snd_zone_handler", var_12, var_1[0] );
                     }
-                    else if ( isdefined( self._id_7947 ) )
-                        _id_28A2( self._id_7947, var_1[0] );
+                    else if ( isdefined( self.script_audio_enter_msg ) )
+                        deprecated_aud_send_msg( self.script_audio_enter_msg, var_1[0] );
                 }
-                else if ( isdefined( self._id_7947 ) )
-                    _id_28A2( self._id_7947, "front" );
+                else if ( isdefined( self.script_audio_enter_msg ) )
+                    deprecated_aud_send_msg( self.script_audio_enter_msg, "front" );
 
-                if ( isdefined( self._id_7946 ) )
+                if ( isdefined( self.script_audio_enter_func ) )
                 {
                     if ( isdefined( var_1 ) && isdefined( var_1[0] ) )
                     {
-                        if ( isdefined( level._audio._id_97A0[self._id_7946] ) )
-                            [[ level._audio._id_97A0[self._id_7946] ]]( var_1[0] );
+                        if ( isdefined( level._audio.trigger_functions[self.script_audio_enter_func] ) )
+                            [[ level._audio.trigger_functions[self.script_audio_enter_func] ]]( var_1[0] );
                     }
-                    else if ( isdefined( level._audio._id_97A0[self._id_7946] ) )
-                        [[ level._audio._id_97A0[self._id_7946] ]]( "front" );
+                    else if ( isdefined( level._audio.trigger_functions[self.script_audio_enter_func] ) )
+                        [[ level._audio.trigger_functions[self.script_audio_enter_func] ]]( "front" );
                 }
             }
             else
@@ -429,56 +411,56 @@ _id_97BD( var_0 )
                     if ( isdefined( level._snd ) )
                     {
                         var_12 = "enter_" + var_1[1];
-                        soundscripts\_snd::_id_870C( "snd_zone_handler", var_12, var_1[1] );
+                        soundscripts\_snd::snd_message( "snd_zone_handler", var_12, var_1[1] );
                     }
-                    else if ( isdefined( self._id_7947 ) )
-                        _id_28A2( self._id_7947, var_1[1] );
+                    else if ( isdefined( self.script_audio_enter_msg ) )
+                        deprecated_aud_send_msg( self.script_audio_enter_msg, var_1[1] );
                 }
-                else if ( isdefined( self._id_7947 ) )
-                    _id_28A2( self._id_7947, "back" );
+                else if ( isdefined( self.script_audio_enter_msg ) )
+                    deprecated_aud_send_msg( self.script_audio_enter_msg, "back" );
 
-                if ( isdefined( self._id_7946 ) )
+                if ( isdefined( self.script_audio_enter_func ) )
                 {
                     if ( isdefined( var_1 ) && isdefined( var_1[1] ) )
                     {
-                        if ( isdefined( level._audio._id_97A0[self._id_7946] ) )
-                            [[ level._audio._id_97A0[self._id_7946] ]]( var_1[1] );
+                        if ( isdefined( level._audio.trigger_functions[self.script_audio_enter_func] ) )
+                            [[ level._audio.trigger_functions[self.script_audio_enter_func] ]]( var_1[1] );
                     }
-                    else if ( isdefined( level._audio._id_97A0[self._id_7946] ) )
-                        [[ level._audio._id_97A0[self._id_7946] ]]( "back" );
+                    else if ( isdefined( level._audio.trigger_functions[self.script_audio_enter_func] ) )
+                        [[ level._audio.trigger_functions[self.script_audio_enter_func] ]]( "back" );
                 }
             }
         }
         else
         {
-            if ( isdefined( self._id_7947 ) )
-                _id_28A2( self._id_7947 );
+            if ( isdefined( self.script_audio_enter_msg ) )
+                deprecated_aud_send_msg( self.script_audio_enter_msg );
 
-            if ( isdefined( self._id_7946 ) )
+            if ( isdefined( self.script_audio_enter_func ) )
             {
-                if ( isdefined( level._audio._id_97A0[self._id_7946] ) )
-                    [[ level._audio._id_97A0[self._id_7946] ]]();
+                if ( isdefined( level._audio.trigger_functions[self.script_audio_enter_func] ) )
+                    [[ level._audio.trigger_functions[self.script_audio_enter_func] ]]();
             }
         }
 
         var_13 = undefined;
 
-        if ( isdefined( _id_97B8( var_1, var_9 ) ) && isdefined( _id_97B9( var_1, var_9 ) ) )
+        if ( isdefined( trigger_multiple_audio_get_zone_from( var_1, var_9 ) ) && isdefined( trigger_multiple_audio_get_zone_to( var_1, var_9 ) ) )
         {
-            var_13 = soundscripts\_audio_zone_manager::azmx_get_blend_args( _id_97B8( var_1, var_9 ), _id_97B9( var_1, var_9 ) );
+            var_13 = soundscripts\_audio_zone_manager::azmx_get_blend_args( trigger_multiple_audio_get_zone_from( var_1, var_9 ), trigger_multiple_audio_get_zone_to( var_1, var_9 ) );
 
             if ( isdefined( var_13 ) )
-                var_13._id_5D35 = self._id_7945;
+                var_13.mode = self.script_audio_blend_mode;
         }
 
         if ( isdefined( var_13 ) )
         {
-            if ( isdefined( var_13._id_36CA ) || isdefined( var_13._id_36CB ) )
+            if ( isdefined( var_13.filter1 ) || isdefined( var_13.filter2 ) )
             {
-                if ( !level._audio._id_A3E9._id_662B._id_36C5 )
+                if ( !level._audio.zone_mgr.overrides.filter_bypass )
                 {
-                    soundscripts\_snd_filters::_id_86C2( 0 );
-                    soundscripts\_snd_filters::_id_86C2( 1 );
+                    soundscripts\_snd_filters::snd_clear_filter( 0 );
+                    soundscripts\_snd_filters::snd_clear_filter( 1 );
                 }
             }
         }
@@ -488,46 +470,46 @@ _id_97BD( var_0 )
 
         while ( var_2 istouching( self ) )
         {
-            if ( isdefined( self._id_794A ) )
+            if ( isdefined( self.script_audio_point_func ) )
             {
-                var_15 = _id_97BB( var_3, var_4, var_2.origin );
+                var_15 = trigger_multiple_audio_progress_point( var_3, var_4, var_2.origin );
 
-                if ( isdefined( level._audio._id_97A0[self._id_794A] ) )
-                    [[ level._audio._id_97A0[self._id_794A] ]]( var_15 );
+                if ( isdefined( level._audio.trigger_functions[self.script_audio_point_func] ) )
+                    [[ level._audio.trigger_functions[self.script_audio_point_func] ]]( var_15 );
             }
 
             if ( isdefined( var_3 ) && isdefined( var_4 ) )
             {
-                var_11 = _id_97BA( var_3, var_4, var_5, var_2.origin );
+                var_11 = trigger_multiple_audio_progress( var_3, var_4, var_5, var_2.origin );
 
-                if ( isdefined( self._id_794C ) )
-                    var_11 = _id_2899( var_11, level._audio._id_7003[self._id_794C] );
+                if ( isdefined( self.script_audio_progress_map ) )
+                    var_11 = deprecated_aud_map( var_11, level._audio.progress_maps[self.script_audio_progress_map] );
 
                 if ( var_11 != var_14 )
                 {
-                    if ( isdefined( _id_97B8( var_1, var_9 ) ) && isdefined( _id_97B9( var_1, var_9 ) ) )
-                        soundscripts\_audio_zone_manager::azm_print_enter_blend( _id_97B8( var_1, var_9 ), _id_97B9( var_1, var_9 ), var_11 );
+                    if ( isdefined( trigger_multiple_audio_get_zone_from( var_1, var_9 ) ) && isdefined( trigger_multiple_audio_get_zone_to( var_1, var_9 ) ) )
+                        soundscripts\_audio_zone_manager::azm_print_enter_blend( trigger_multiple_audio_get_zone_from( var_1, var_9 ), trigger_multiple_audio_get_zone_to( var_1, var_9 ), var_11 );
 
-                    if ( isdefined( self._id_794D ) )
-                        _id_28A2( self._id_794D, var_11 );
+                    if ( isdefined( self.script_audio_progress_msg ) )
+                        deprecated_aud_send_msg( self.script_audio_progress_msg, var_11 );
 
-                    if ( isdefined( self._id_794B ) )
+                    if ( isdefined( self.script_audio_progress_func ) )
                     {
-                        if ( isdefined( level._audio._id_97A0[self._id_794B] ) )
-                            [[ level._audio._id_97A0[self._id_794B] ]]( var_11 );
+                        if ( isdefined( level._audio.trigger_functions[self.script_audio_progress_func] ) )
+                            [[ level._audio.trigger_functions[self.script_audio_progress_func] ]]( var_11 );
                     }
 
                     if ( isdefined( var_13 ) )
-                        _id_97B3( var_11, var_13, var_9 );
+                        trigger_multiple_audio_blend( var_11, var_13, var_9 );
 
                     var_14 = var_11;
                     soundscripts\_audio_zone_manager::azm_print_progress( var_11 );
                 }
             }
 
-            if ( isdefined( self._id_794E ) )
+            if ( isdefined( self.script_audio_update_rate ) )
             {
-                wait(self._id_794E);
+                wait(self.script_audio_update_rate);
                 continue;
             }
 
@@ -546,23 +528,23 @@ _id_97BD( var_0 )
                     if ( isdefined( level._snd ) )
                     {
                         var_16 = "exit_" + var_1[1];
-                        soundscripts\_snd::_id_870C( "snd_zone_handler", var_16, var_1[1] );
+                        soundscripts\_snd::snd_message( "snd_zone_handler", var_16, var_1[1] );
                     }
-                    else if ( isdefined( self._id_7949 ) )
-                        _id_28A2( self._id_7949, var_1[1] );
+                    else if ( isdefined( self.script_audio_exit_msg ) )
+                        deprecated_aud_send_msg( self.script_audio_exit_msg, var_1[1] );
                 }
-                else if ( isdefined( self._id_7949 ) )
-                    _id_28A2( self._id_7949, "back" );
+                else if ( isdefined( self.script_audio_exit_msg ) )
+                    deprecated_aud_send_msg( self.script_audio_exit_msg, "back" );
 
-                if ( isdefined( self._id_7948 ) )
+                if ( isdefined( self.script_audio_exit_func ) )
                 {
                     if ( isdefined( var_1 ) && isdefined( var_1[1] ) )
                     {
-                        if ( isdefined( level._audio._id_97A0[self._id_7948] ) )
-                            [[ level._audio._id_97A0[self._id_7948] ]]( var_1[1] );
+                        if ( isdefined( level._audio.trigger_functions[self.script_audio_exit_func] ) )
+                            [[ level._audio.trigger_functions[self.script_audio_exit_func] ]]( var_1[1] );
                     }
-                    else if ( isdefined( level._audio._id_97A0[self._id_7948] ) )
-                        [[ level._audio._id_97A0[self._id_7948] ]]( "back" );
+                    else if ( isdefined( level._audio.trigger_functions[self.script_audio_exit_func] ) )
+                        [[ level._audio.trigger_functions[self.script_audio_exit_func] ]]( "back" );
                 }
 
                 var_11 = 1;
@@ -577,51 +559,51 @@ _id_97BD( var_0 )
                     if ( isdefined( level._snd ) )
                     {
                         var_16 = "exit_" + var_1[1];
-                        soundscripts\_snd::_id_870C( "snd_zone_handler", var_16, var_1[0] );
+                        soundscripts\_snd::snd_message( "snd_zone_handler", var_16, var_1[0] );
                     }
-                    else if ( isdefined( self._id_7949 ) )
-                        _id_28A2( self._id_7949, var_1[0] );
+                    else if ( isdefined( self.script_audio_exit_msg ) )
+                        deprecated_aud_send_msg( self.script_audio_exit_msg, var_1[0] );
                 }
-                else if ( isdefined( self._id_7949 ) )
-                    _id_28A2( self._id_7949, "front" );
+                else if ( isdefined( self.script_audio_exit_msg ) )
+                    deprecated_aud_send_msg( self.script_audio_exit_msg, "front" );
 
-                if ( isdefined( self._id_7948 ) )
+                if ( isdefined( self.script_audio_exit_func ) )
                 {
                     if ( isdefined( var_1 ) && isdefined( var_1[0] ) )
                     {
-                        if ( isdefined( level._audio._id_97A0[self._id_7948] ) )
-                            [[ level._audio._id_97A0[self._id_7948] ]]( var_1[0] );
+                        if ( isdefined( level._audio.trigger_functions[self.script_audio_exit_func] ) )
+                            [[ level._audio.trigger_functions[self.script_audio_exit_func] ]]( var_1[0] );
                     }
-                    else if ( isdefined( level._audio._id_97A0[self._id_7948] ) )
-                        [[ level._audio._id_97A0[self._id_7948] ]]( "front" );
+                    else if ( isdefined( level._audio.trigger_functions[self.script_audio_exit_func] ) )
+                        [[ level._audio.trigger_functions[self.script_audio_exit_func] ]]( "front" );
                 }
 
                 var_11 = 0;
             }
 
             if ( isdefined( var_13 ) )
-                _id_97B3( var_11, var_13, var_9 );
+                trigger_multiple_audio_blend( var_11, var_13, var_9 );
 
             continue;
         }
 
-        if ( isdefined( self._id_7949 ) )
-            _id_28A2( self._id_7949 );
+        if ( isdefined( self.script_audio_exit_msg ) )
+            deprecated_aud_send_msg( self.script_audio_exit_msg );
 
-        if ( isdefined( self._id_7948 ) )
+        if ( isdefined( self.script_audio_exit_func ) )
         {
-            if ( isdefined( level._audio._id_97A0[self._id_7948] ) )
-                [[ level._audio._id_97A0[self._id_7948] ]]();
+            if ( isdefined( level._audio.trigger_functions[self.script_audio_exit_func] ) )
+                [[ level._audio.trigger_functions[self.script_audio_exit_func] ]]();
         }
     }
 }
 
-_id_97BA( var_0, var_1, var_2, var_3 )
+trigger_multiple_audio_progress( var_0, var_1, var_2, var_3 )
 {
     if ( var_2 == 0 )
         return 0;
 
-    if ( !isdefined( self._id_794F ) )
+    if ( !isdefined( self.script_audio_use_distance_only ) )
     {
         var_4 = vectornormalize( var_1 - var_0 );
         var_5 = var_3 - var_0;
@@ -637,7 +619,7 @@ _id_97BA( var_0, var_1, var_2, var_3 )
     return clamp( var_6, 0, 1.0 );
 }
 
-_id_97BB( var_0, var_1, var_2 )
+trigger_multiple_audio_progress_point( var_0, var_1, var_2 )
 {
     var_3 = vectornormalize( var_1 - var_0 );
     var_4 = var_2 - var_0;
@@ -645,14 +627,14 @@ _id_97BB( var_0, var_1, var_2 )
     return var_3 * var_5 + var_0;
 }
 
-_id_97B3( var_0, var_1, var_2 )
+trigger_multiple_audio_blend( var_0, var_1, var_2 )
 {
     var_0 = clamp( var_0, 0, 1.0 );
 
     if ( var_2 )
         var_0 = 1.0 - var_0;
 
-    var_3 = var_1._id_5D35;
+    var_3 = var_1.mode;
 
     if ( var_3 == "blend" )
     {
@@ -661,60 +643,60 @@ _id_97B3( var_0, var_1, var_2 )
         soundscripts\_audio_zone_manager::azmx_blend_zones( var_4, var_5, var_1 );
     }
     else if ( var_0 < 0.33 )
-        soundscripts\_audio_zone_manager::azm_start_zone( var_1._id_A3E4 );
+        soundscripts\_audio_zone_manager::azm_start_zone( var_1.zone_from_name );
     else if ( var_0 > 0.66 )
-        soundscripts\_audio_zone_manager::azm_start_zone( var_1._id_A3EE );
+        soundscripts\_audio_zone_manager::azm_start_zone( var_1.zone_to_name );
 }
 
-_id_97BC( var_0 )
+trigger_multiple_audio_register_callback( var_0 )
 {
-    if ( !isdefined( level._audio._id_97A0 ) )
-        level._audio._id_97A0 = [];
+    if ( !isdefined( level._audio.trigger_functions ) )
+        level._audio.trigger_functions = [];
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {
         var_2 = var_0[var_1];
         var_3 = var_2[0];
         var_4 = var_2[1];
-        level._audio._id_97A0[var_3] = var_4;
+        level._audio.trigger_functions[var_3] = var_4;
     }
 
-    if ( isdefined( level._audio._id_979F ) )
+    if ( isdefined( level._audio.trigger_function_keys ) )
     {
-        foreach ( var_3 in level._audio._id_979F )
+        foreach ( var_3 in level._audio.trigger_function_keys )
         {
 
         }
 
-        level._audio._id_979F = undefined;
+        level._audio.trigger_function_keys = undefined;
     }
 }
 
-_id_97B5()
+trigger_multiple_audio_get_target_ent_target()
 {
-    var_0 = common_scripts\utility::_id_3E89();
+    var_0 = common_scripts\utility::get_target_ent();
     return var_0.target;
 }
 
-_id_97B4()
+trigger_multiple_audio_get_target_ent_origin()
 {
-    var_0 = common_scripts\utility::_id_3E89();
+    var_0 = common_scripts\utility::get_target_ent();
     return var_0.origin;
 }
 
-_id_97B6()
+trigger_multiple_audio_get_target_ent_target_ent()
 {
-    var_0 = common_scripts\utility::_id_3E89();
-    return var_0 common_scripts\utility::_id_3E89();
+    var_0 = common_scripts\utility::get_target_ent();
+    return var_0 common_scripts\utility::get_target_ent();
 }
 
-_id_97B7()
+trigger_multiple_audio_get_target_ent_target_ent_origin()
 {
-    var_0 = _id_97B6();
+    var_0 = trigger_multiple_audio_get_target_ent_target_ent();
     return var_0.origin;
 }
 
-_id_97B8( var_0, var_1 )
+trigger_multiple_audio_get_zone_from( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) )
         return undefined;
@@ -725,7 +707,7 @@ _id_97B8( var_0, var_1 )
         return var_0[0];
 }
 
-_id_97B9( var_0, var_1 )
+trigger_multiple_audio_get_zone_to( var_0, var_1 )
 {
     if ( !isdefined( var_0 ) || !isdefined( var_1 ) )
         return undefined;
@@ -764,8 +746,8 @@ aud_play_dynamic_explosion( var_0, var_1, var_2, var_3, var_4, var_5 )
     {
         var_12 = spawn( "script_origin", var_7.origin );
         var_13 = spawn( "script_origin", var_7.origin );
-        var_12 soundscripts\_snd_playsound::_id_872A( var_1 );
-        var_13 soundscripts\_snd_playsound::_id_872A( var_2 );
+        var_12 soundscripts\_snd_playsound::snd_play( var_1 );
+        var_13 soundscripts\_snd_playsound::snd_play( var_2 );
         var_12 moveto( var_9[0], var_11, 0, 0 );
         var_13 moveto( var_9[1], var_11, 0, 0 );
     }
@@ -869,7 +851,7 @@ aud_print_zone_small( var_0 )
     aud_print( var_0, "zone_small" );
 }
 
-_id_333F( var_0, var_1 )
+equal_strings( var_0, var_1 )
 {
     if ( isdefined( var_0 ) && isdefined( var_1 ) )
         return var_0 == var_1;
@@ -877,7 +859,7 @@ _id_333F( var_0, var_1 )
         return !isdefined( var_0 ) && !isdefined( var_1 );
 }
 
-_id_51DD( var_0 )
+isundefined( var_0 )
 {
     return !isdefined( var_0 );
 }
@@ -885,8 +867,8 @@ _id_51DD( var_0 )
 aud_fade_out_and_delete( var_0, var_1 )
 {
     var_0 scalevolume( 0.0, var_1 );
-    var_0 common_scripts\utility::_id_27CD( var_1 + 0.05, ::stopsounds );
-    var_0 common_scripts\utility::_id_27CD( var_1 + 0.1, ::delete );
+    var_0 common_scripts\utility::delaycall( var_1 + 0.05, ::stopsounds );
+    var_0 common_scripts\utility::delaycall( var_1 + 0.1, ::delete );
 }
 
 aud_fade_loop_out_and_delete( var_0, var_1 )
@@ -929,7 +911,7 @@ aud_get_envelope_domain( var_0 )
     if ( isarray( var_0 ) )
         return [ var_0[0][0], var_0[var_0.size - 1][0] ];
     else
-        return [ var_0._id_3332[0][0], var_0._id_3332[var_0._id_3332.size - 1][0] ];
+        return [ var_0.env_array[0][0], var_0.env_array[var_0.env_array.size - 1][0] ];
 }
 
 aud_scale_envelope( var_0, var_1, var_2 )
@@ -963,46 +945,46 @@ aud_fade_in_music( var_0 )
     if ( isdefined( var_0 ) )
         var_1 = var_0;
 
-    soundscripts\_audio_mix_manager::_id_5CF2( "mute_music", 0.1 );
+    soundscripts\_audio_mix_manager::mm_add_submix( "mute_music", 0.1 );
     wait 0.05;
-    soundscripts\_audio_mix_manager::_id_5CF6( "mute_music", var_1 );
+    soundscripts\_audio_mix_manager::mm_clear_submix( "mute_music", var_1 );
 }
 
 aud_check_sound_done()
 {
     self endon( "cleanup" );
 
-    if ( !isdefined( self._id_88AA ) )
-        self._id_88AA = 0;
+    if ( !isdefined( self.sounddone ) )
+        self.sounddone = 0;
 
     self waittill( "sounddone" );
 
     if ( isdefined( self ) )
     {
-        self._id_88AA = 1;
+        self.sounddone = 1;
         self notify( "cleanup" );
     }
 }
 
 aud_in_zone( var_0 )
 {
-    return _id_333F( soundscripts\_audio_zone_manager::azm_get_current_zone(), var_0 );
+    return equal_strings( soundscripts\_audio_zone_manager::azm_get_current_zone(), var_0 );
 }
 
 aud_find_exploder( var_0 )
 {
-    if ( isdefined( level._id_241A ) )
+    if ( isdefined( level.createfxexploders ) )
     {
-        var_1 = level._id_241A["" + var_0];
+        var_1 = level.createfxexploders["" + var_0];
 
         if ( isdefined( var_1 ) )
             return var_1[0];
     }
     else
     {
-        for ( var_2 = 0; var_2 < level._id_2417.size; var_2++ )
+        for ( var_2 = 0; var_2 < level.createfxent.size; var_2++ )
         {
-            var_3 = level._id_2417[var_2];
+            var_3 = level.createfxent[var_2];
 
             if ( !isdefined( var_3 ) )
                 continue;
@@ -1041,9 +1023,9 @@ audx_duck( var_0, var_1, var_2, var_3 )
     if ( isdefined( var_3 ) )
         var_5 = var_3;
 
-    soundscripts\_audio_mix_manager::_id_5CF2( var_0, var_4 );
+    soundscripts\_audio_mix_manager::mm_add_submix( var_0, var_4 );
     wait(var_1);
-    soundscripts\_audio_mix_manager::_id_5CF6( var_0, var_5 );
+    soundscripts\_audio_mix_manager::mm_clear_submix( var_0, var_5 );
 }
 
 aud_percent_chance( var_0 )
@@ -1208,203 +1190,203 @@ audx_print_3d_timer( var_0 )
 
 aud_add_progress_map( var_0, var_1 )
 {
-    level._audio._id_7003[var_0] = var_1;
+    level._audio.progress_maps[var_0] = var_1;
 }
 
 aud_get_progress_map( var_0 )
 {
-    if ( isdefined( level._audio._id_7003[var_0] ) )
-        return level._audio._id_7003[var_0];
+    if ( isdefined( level._audio.progress_maps[var_0] ) )
+        return level._audio.progress_maps[var_0];
 }
 
-_id_5015()
+is_deathsdoor_audio_enabled()
 {
-    if ( !isdefined( level._audio._id_2669 ) )
+    if ( !isdefined( level._audio.deathsdoor_enabled ) )
         return 1;
     else
-        return level._audio._id_2669;
+        return level._audio.deathsdoor_enabled;
 }
 
 aud_enable_deathsdoor_audio()
 {
-    level.player._id_2A84 = 0;
-    level._audio._id_2669 = 1;
+    level.player.disable_breathing_sound = 0;
+    level._audio.deathsdoor_enabled = 1;
 }
 
 aud_disable_deathsdoor_audio()
 {
-    level.player._id_2A84 = 1;
-    level._audio._id_2669 = 0;
+    level.player.disable_breathing_sound = 1;
+    level._audio.deathsdoor_enabled = 0;
 }
 
-_id_7498()
+restore_after_deathsdoor()
 {
-    if ( _id_5015() && isdefined( level._audio._id_4C02 ) )
+    if ( is_deathsdoor_audio_enabled() && isdefined( level._audio.in_deathsdoor ) )
     {
-        level._audio._id_4C02 = undefined;
-        soundscripts\_audio_mix_manager::_id_5CF6( "deaths_door", 2 );
-        soundscripts\_snd_common::_id_86CD( "deathsdoor" );
+        level._audio.in_deathsdoor = undefined;
+        soundscripts\_audio_mix_manager::mm_clear_submix( "deaths_door", 2 );
+        soundscripts\_snd_common::snd_disable_soundcontextoverride( "deathsdoor" );
         level notify( "kill_deaths_door_audio" );
         level.player _meth_848F( 0 );
         soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
-        thread soundscripts\_audio_reverb::_id_76F3( level._audio._id_2668._id_74EC );
-        soundscripts\_snd_playsound::_id_872B( "deaths_door_exit" );
+        thread soundscripts\_audio_reverb::rvb_start_preset( level._audio.deathsdoor.reverb );
+        soundscripts\_snd_playsound::snd_play_2d( "deaths_door_exit" );
     }
 }
 
 init_deathsdoor()
 {
-    level._audio._id_2668 = spawnstruct();
-    level._audio._id_2668._id_74EC = undefined;
+    level._audio.deathsdoor = spawnstruct();
+    level._audio.deathsdoor.reverb = undefined;
 }
 
-_id_7E07()
+set_deathsdoor()
 {
-    level._audio._id_4C02 = 1;
+    level._audio.in_deathsdoor = 1;
 
-    if ( !isdefined( level._audio._id_2668 ) )
-        level._audio._id_2668 = spawnstruct();
+    if ( !isdefined( level._audio.deathsdoor ) )
+        level._audio.deathsdoor = spawnstruct();
 
-    level._audio._id_2668._id_74EC = undefined;
-    level._audio._id_2668._id_74EC = level._audio._id_24F8;
+    level._audio.deathsdoor.reverb = undefined;
+    level._audio.deathsdoor.reverb = level._audio.current_reverb;
 
-    if ( _id_5015() )
+    if ( is_deathsdoor_audio_enabled() )
     {
         soundscripts\_audio_zone_manager::azm_set_filter_bypass( 1 );
-        thread soundscripts\_audio_reverb::_id_76F3( "deathsdoor" );
-        soundscripts\_audio_mix_manager::_id_5CF2( "deaths_door" );
-        soundscripts\_snd_common::_id_86D3( "deathsdoor" );
-        soundscripts\_snd_playsound::_id_872B( "deaths_door_intro" );
-        soundscripts\_snd_playsound::_id_872B( "deaths_door_breaths", "kill_deaths_door_audio", 0, 0.5 );
-        soundscripts\_snd_playsound::_id_873F( "deaths_door_loop", "kill_deaths_door_audio", 0, 0.5 );
+        thread soundscripts\_audio_reverb::rvb_start_preset( "deathsdoor" );
+        soundscripts\_audio_mix_manager::mm_add_submix( "deaths_door" );
+        soundscripts\_snd_common::snd_enable_soundcontextoverride( "deathsdoor" );
+        soundscripts\_snd_playsound::snd_play_2d( "deaths_door_intro" );
+        soundscripts\_snd_playsound::snd_play_2d( "deaths_door_breaths", "kill_deaths_door_audio", 0, 0.5 );
+        soundscripts\_snd_playsound::snd_play_loop_2d( "deaths_door_loop", "kill_deaths_door_audio", 0, 0.5 );
         level.player _meth_848F( 1 );
     }
 }
 
 aud_restore_after_flashbang()
 {
-    soundscripts\_snd_filters::_id_86DC( 2 );
+    soundscripts\_snd_filters::snd_fade_out_filter( 2 );
     soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
 }
 
 aud_set_flashbang()
 {
     soundscripts\_audio_zone_manager::azm_set_filter_bypass( 1 );
-    soundscripts\_snd_filters::_id_86DB( "flashbang", 0.5 );
+    soundscripts\_snd_filters::snd_fade_in_filter( "flashbang", 0.5 );
 }
 
 aud_set_mission_failed_music( var_0 )
 {
-    level._audio._id_360E = var_0;
+    level._audio.failed_music_alias = var_0;
 }
 
 aud_wait_for_mission_fail_music()
 {
     wait 0.05;
 
-    while ( !common_scripts\utility::_id_3839( "missionfailed" ) )
+    while ( !common_scripts\utility::flag_exist( "missionfailed" ) )
         wait 0.05;
 
     var_0 = "shg_mission_failed_stinger";
-    common_scripts\utility::_id_384A( "missionfailed" );
+    common_scripts\utility::flag_wait( "missionfailed" );
 
-    if ( isdefined( level._audio._id_360E ) )
-        var_0 = level._audio._id_360E;
+    if ( isdefined( level._audio.failed_music_alias ) )
+        var_0 = level._audio.failed_music_alias;
 
     if ( soundexists( var_0 ) )
-        soundscripts\_audio_music::_id_5FF7( var_0, 2, 4 );
+        soundscripts\_audio_music::mus_play( var_0, 2, 4 );
 }
 
 aud_use_string_tables()
 {
-    level._audio._id_9C28 = 1;
+    level._audio.using_string_tables = 1;
     soundscripts\_audio_zone_manager::azm_use_string_table();
-    soundscripts\_audio_reverb::_id_76F4();
-    soundscripts\_audio_dynamic_ambi::_id_25C7();
-    soundscripts\_audio_whizby::_id_A314();
-    soundscripts\_audio_whizby::_id_A310( "default" );
+    soundscripts\_audio_reverb::rvb_use_string_table();
+    soundscripts\_audio_dynamic_ambi::damb_use_string_table();
+    soundscripts\_audio_whizby::whiz_use_string_table();
+    soundscripts\_audio_whizby::whiz_set_preset( "default" );
 }
 
-_id_7EC8( var_0 )
+set_stringtable_mapname( var_0 )
 {
-    soundscripts\_snd::_id_8759( var_0 );
+    soundscripts\_snd::snd_set_soundtable_name( var_0 );
     aud_use_string_tables();
-    level._audio._id_8F59["map"] = var_0;
+    level._audio.stringtables["map"] = var_0;
 }
 
-_id_3E7B()
+get_stringtable_mapname()
 {
-    return soundscripts\_snd::_id_86EC();
+    return soundscripts\_snd::snd_get_soundtable_name();
 }
 
-_id_7E02( var_0 )
+set_damb_stringtable( var_0 )
 {
-    level._audio._id_8F59["damb"] = var_0;
+    level._audio.stringtables["damb"] = var_0;
 }
 
-_id_3D2C()
+get_damb_stringtable()
 {
-    if ( !isdefined( level._audio._id_8F59["damb"] ) )
+    if ( !isdefined( level._audio.stringtables["damb"] ) )
         return "soundtables/" + level.script + ".csv";
     else
-        return "soundtables/" + level._audio._id_8F59["damb"];
+        return "soundtables/" + level._audio.stringtables["damb"];
 }
 
-_id_7E00( var_0 )
+set_damb_component_stringtable( var_0 )
 {
-    level._audio._id_8F59["damb_comp"] = var_0;
+    level._audio.stringtables["damb_comp"] = var_0;
 }
 
-_id_3D2A( var_0 )
+get_damb_component_stringtable( var_0 )
 {
-    if ( !isdefined( level._audio._id_8F59["damb_comp"] ) )
+    if ( !isdefined( level._audio.stringtables["damb_comp"] ) )
         return "soundtables/" + level.script + ".csv";
     else
-        return "soundtables/" + level._audio._id_8F59["damb_comp"];
+        return "soundtables/" + level._audio.stringtables["damb_comp"];
 }
 
-_id_7E01( var_0 )
+set_damb_loops_stringtable( var_0 )
 {
-    level._audio._id_8F59["damb_loops"] = var_0;
+    level._audio.stringtables["damb_loops"] = var_0;
 }
 
-_id_3D2B( var_0 )
+get_damb_loops_stringtable( var_0 )
 {
-    if ( !isdefined( level._audio._id_8F59["damb_loops"] ) )
+    if ( !isdefined( level._audio.stringtables["damb_loops"] ) )
         return "soundtables/" + level.script + ".csv";
     else
-        return "soundtables/" + level._audio._id_8F59["damb_loops"];
+        return "soundtables/" + level._audio.stringtables["damb_loops"];
 }
 
-_id_7EA8( var_0 )
+set_reverb_stringtable( var_0 )
 {
-    level._audio._id_8F59["reverb"] = var_0;
+    level._audio.stringtables["reverb"] = var_0;
 }
 
-_id_3E53()
+get_reverb_stringtable()
 {
-    if ( !isdefined( level._audio._id_8F59["reverb"] ) )
+    if ( !isdefined( level._audio.stringtables["reverb"] ) )
         return "soundtables/" + level.script + ".csv";
     else
-        return "soundtables/" + level._audio._id_8F59["reverb"];
+        return "soundtables/" + level._audio.stringtables["reverb"];
 }
 
-_id_7F11( var_0 )
+set_zone_stringtable( var_0 )
 {
-    level._audio._id_8F59["zone"] = var_0;
+    level._audio.stringtables["zone"] = var_0;
 }
 
-_id_3ED7()
+get_zone_stringtable()
 {
-    if ( !isdefined( level._audio._id_8F59["zone"] ) )
+    if ( !isdefined( level._audio.stringtables["zone"] ) )
         return "soundtables/" + level.script + ".csv";
     else
-        return "soundtables/" + level._audio._id_8F59["zone"];
+        return "soundtables/" + level._audio.stringtables["zone"];
 }
 
 aud_get_player_locamote_state()
 {
-    return level._audio._id_6C27._id_57F1;
+    return level._audio.player_state.locamote;
 }
 
 aud_get_threat_level( var_0, var_1, var_2 )
@@ -1466,17 +1448,17 @@ aud_get_threat_level( var_0, var_1, var_2 )
 
 aud_get_sticky_threat()
 {
-    return level._audio._id_8E32;
+    return level._audio.sticky_threat;
 }
 
 aud_set_sticky_threat( var_0 )
 {
-    level._audio._id_8E32 = var_0;
+    level._audio.sticky_threat = var_0;
 }
 
 aud_clear_sticky_threat()
 {
-    level._audio._id_8E32 = undefined;
+    level._audio.sticky_threat = undefined;
 }
 
 aud_num_alive_enemies( var_0 )
@@ -1503,7 +1485,7 @@ aud_num_alive_enemies( var_0 )
     return var_1;
 }
 
-_id_2897( var_0, var_1, var_2, var_3, var_4 )
+deprecated_aud_fade_sound_in( var_0, var_1, var_2, var_3, var_4 )
 {
     var_2 = aud_clamp( var_2, 0.0, 1.0 );
     var_3 = aud_max( 0.05, var_3 );
@@ -1513,52 +1495,52 @@ _id_2897( var_0, var_1, var_2, var_3, var_4 )
         var_5 = var_4;
 
     if ( var_5 )
-        var_0 soundscripts\_snd_playsound::_id_873E( var_1 );
+        var_0 soundscripts\_snd_playsound::snd_play_loop( var_1 );
     else
-        var_0 soundscripts\_snd_playsound::_id_872A( var_1 );
+        var_0 soundscripts\_snd_playsound::snd_play( var_1 );
 
     var_0 scalevolume( 0.0 );
-    var_0 common_scripts\utility::_id_27CD( 0.05, ::scalevolume, var_2, var_3 );
+    var_0 common_scripts\utility::delaycall( 0.05, ::scalevolume, var_2, var_3 );
 }
 
-_id_289B( var_0, var_1 )
+deprecated_aud_map2( var_0, var_1 )
 {
     return piecewiselinearlookup( var_0, var_1 );
 }
 
-_id_2899( var_0, var_1 )
+deprecated_aud_map( var_0, var_1 )
 {
     return piecewiselinearlookup( var_0, var_1 );
 }
 
-_id_289A( var_0, var_1, var_2, var_3 )
+deprecated_aud_map_range( var_0, var_1, var_2, var_3 )
 {
     var_4 = ( var_0 - var_1 ) / ( var_2 - var_1 );
     var_4 = clamp( var_4, 0.0, 1.0 );
     return piecewiselinearlookup( var_4, var_3 );
 }
 
-_id_28A1( var_0 )
+deprecated_aud_register_msg_handler( var_0 )
 {
-    level._audio._id_5BB8[level._audio._id_5BB8.size] = var_0;
+    level._audio.message_handlers[level._audio.message_handlers.size] = var_0;
 }
 
-_id_28A5( var_0, var_1, var_2 )
+deprecated_audio_message( var_0, var_1, var_2 )
 {
-    thread _id_28A6( var_0, var_1, var_2 );
+    thread deprecated_audx_dispatch_msg( var_0, var_1, var_2 );
 }
 
-_id_28A2( var_0, var_1, var_2 )
+deprecated_aud_send_msg( var_0, var_1, var_2 )
 {
-    _id_28A5( var_0, var_1, var_2 );
+    deprecated_audio_message( var_0, var_1, var_2 );
 }
 
-_id_28A6( var_0, var_1, var_2 )
+deprecated_audx_dispatch_msg( var_0, var_1, var_2 )
 {
     var_3 = 0;
     var_4 = 0;
 
-    foreach ( var_6 in level._audio._id_5BB8 )
+    foreach ( var_6 in level._audio.message_handlers )
     {
         var_4 = self [[ var_6 ]]( var_0, var_1 );
 
@@ -1586,57 +1568,57 @@ aud_play_pcap_vo( var_0, var_1, var_2 )
     var_5 = self;
 
     if ( isdefined( var_2 ) )
-        _id_2892( var_0, var_1, var_3, var_4 );
+        deprecated_aud_delay_play_2d_sound( var_0, var_1, var_3, var_4 );
     else
-        _id_2894( var_0, var_5, var_1, var_3, var_4 );
+        deprecated_aud_delay_play_linked_sound( var_0, var_5, var_1, var_3, var_4 );
 }
 
-_id_28AA( var_0 )
+deprecated_play_2d_sound_internal( var_0 )
 {
-    soundscripts\_snd_playsound::_id_872A( var_0, "sounddone" );
+    soundscripts\_snd_playsound::snd_play( var_0, "sounddone" );
     self waittill( "sounddone" );
     wait 0.05;
     self delete();
 }
 
-_id_2893( var_0, var_1, var_2, var_3 )
+deprecated_aud_delay_play_2d_sound_internal( var_0, var_1, var_2, var_3 )
 {
     aud_wait_delay( var_1, var_2, var_3 );
     var_4 = spawn( "script_origin", level.player.origin );
-    var_4 thread _id_28AA( var_0 );
+    var_4 thread deprecated_play_2d_sound_internal( var_0 );
     return var_4;
 }
 
-_id_289C( var_0 )
+deprecated_aud_play_2d_sound( var_0 )
 {
     var_1 = spawn( "script_origin", level.player.origin );
-    var_1 thread _id_28AA( var_0 );
+    var_1 thread deprecated_play_2d_sound_internal( var_0 );
     return var_1;
 }
 
-_id_2892( var_0, var_1, var_2, var_3, var_4 )
+deprecated_aud_delay_play_2d_sound( var_0, var_1, var_2, var_3, var_4 )
 {
-    var_5 = thread _id_2893( var_0, var_1, var_2, var_3 );
+    var_5 = thread deprecated_aud_delay_play_2d_sound_internal( var_0, var_1, var_2, var_3 );
     return var_5;
 }
 
-_id_2894( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
+deprecated_aud_delay_play_linked_sound( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
 {
-    thread _id_2895( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
+    thread deprecated_aud_delay_play_linked_sound_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 );
 }
 
-_id_2895( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
+deprecated_aud_delay_play_linked_sound_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
     aud_wait_delay( var_2, var_3, var_4, var_5 );
-    thread _id_289E( var_0, var_1, var_6, var_7, var_8, var_9 );
+    thread deprecated_aud_play_linked_sound( var_0, var_1, var_6, var_7, var_8, var_9 );
 }
 
-_id_28A8( var_0, var_1, var_2, var_3, var_4 )
+deprecated_audx_play_linked_sound_internal( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( var_0 == "loop" )
     {
         level endon( var_2 + "internal" );
-        soundscripts\_snd_playsound::_id_873E( var_1 );
+        soundscripts\_snd_playsound::snd_play_loop( var_1 );
         level waittill( var_2 );
 
         if ( isdefined( self ) )
@@ -1647,14 +1629,14 @@ _id_28A8( var_0, var_1, var_2, var_3, var_4 )
                 wait(var_4);
             }
 
-            soundscripts\_snd_playsound::_id_8778();
+            soundscripts\_snd_playsound::snd_stop_sound();
             wait 0.05;
             self delete();
         }
     }
     else if ( var_0 == "oneshot" )
     {
-        soundscripts\_snd_playsound::_id_872A( var_1, "sounddone" );
+        soundscripts\_snd_playsound::snd_play( var_1, "sounddone" );
 
         if ( isdefined( var_3 ) )
             self scalevolume( var_3, 0 );
@@ -1666,7 +1648,7 @@ _id_28A8( var_0, var_1, var_2, var_3, var_4 )
     }
 }
 
-_id_28A7( var_0, var_1, var_2 )
+deprecated_audx_monitor_linked_entity_health( var_0, var_1, var_2 )
 {
     level endon( var_1 );
 
@@ -1683,13 +1665,13 @@ _id_28A7( var_0, var_1, var_2 )
             wait(var_2);
         }
 
-        var_0 soundscripts\_snd_playsound::_id_8778();
+        var_0 soundscripts\_snd_playsound::snd_stop_sound();
         wait 0.05;
         var_0 delete();
     }
 }
 
-_id_289E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
+deprecated_aud_play_linked_sound( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
 {
     var_8 = "oneshot";
 
@@ -1709,15 +1691,15 @@ _id_289E( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
         var_10 linkto( var_1 );
 
     if ( var_8 == "loop" )
-        var_1 thread _id_28A7( var_10, var_3, var_7 );
+        var_1 thread deprecated_audx_monitor_linked_entity_health( var_10, var_3, var_7 );
 
-    var_10 thread _id_28A8( var_8, var_0, var_3, var_5, var_7 );
+    var_10 thread deprecated_audx_play_linked_sound_internal( var_8, var_0, var_3, var_5, var_7 );
     return var_10;
 }
 
-_id_28A0( var_0, var_1, var_2 )
+deprecated_aud_play_sound_at_internal( var_0, var_1, var_2 )
 {
-    soundscripts\_snd_playsound::_id_872A( var_0, "sounddone" );
+    soundscripts\_snd_playsound::snd_play( var_0, "sounddone" );
 
     if ( isdefined( var_2 ) )
     {
@@ -1731,35 +1713,35 @@ _id_28A0( var_0, var_1, var_2 )
     self delete();
 }
 
-_id_289F( var_0, var_1, var_2 )
+deprecated_aud_play_sound_at( var_0, var_1, var_2 )
 {
     var_3 = spawn( "script_origin", var_1 );
-    var_3 thread _id_28A0( var_0, var_1, var_2 );
+    var_3 thread deprecated_aud_play_sound_at_internal( var_0, var_1, var_2 );
     return var_3;
 }
 
-_id_28A4( var_0 )
+deprecated_aud_set_occlusion( var_0 )
 {
-    soundscripts\_snd_filters::_id_8757( var_0 );
+    soundscripts\_snd_filters::snd_set_occlusion( var_0 );
 }
 
-_id_28A3( var_0, var_1, var_2, var_3 )
+deprecated_aud_set_filter( var_0, var_1, var_2, var_3 )
 {
-    soundscripts\_snd_filters::_id_8754( var_0, var_1, var_3 );
+    soundscripts\_snd_filters::snd_set_filter( var_0, var_1, var_3 );
 }
 
-_id_2896()
+deprecated_aud_delete_on_sounddone()
 {
     self waittill( "sounddone" );
-    _id_28A9();
+    deprecated_delete_sound_entity();
 }
 
-_id_28A9()
+deprecated_delete_sound_entity()
 {
-    common_scripts\utility::_id_27CD( 0.05, ::delete );
+    common_scripts\utility::delaycall( 0.05, ::delete );
 }
 
-_id_2891( var_0, var_1 )
+deprecated__audio_msg_handler( var_0, var_1 )
 {
     var_2 = 1;
 
@@ -1769,10 +1751,10 @@ _id_2891( var_0, var_1 )
             var_3 = var_1[0];
             var_4 = var_1[1];
             wait(var_3);
-            soundscripts\_audio_mix_manager::_id_5D00( "mute_all", var_4 );
+            soundscripts\_audio_mix_manager::mm_start_preset( "mute_all", var_4 );
             break;
         case "generic_building_bomb_shake":
-            level.player soundscripts\_snd_playsound::_id_872A( "sewer_bombs" );
+            level.player soundscripts\_snd_playsound::snd_play( "sewer_bombs" );
             break;
         case "start_player_slide_trigger":
             break;
@@ -1783,16 +1765,16 @@ _id_2891( var_0, var_1 )
         case "msg_audio_fx_ambientExp":
             break;
         case "DEPRECATED_aud_play_sound_at":
-            _id_289F( var_1.alias, var_1._id_6E57 );
+            deprecated_aud_play_sound_at( var_1.alias, var_1.pos );
             break;
         case "aud_play_dynamic_explosion":
-            if ( isdefined( var_1._id_8AA4 ) )
-                var_5 = var_1._id_8AA4;
+            if ( isdefined( var_1.spread_width ) )
+                var_5 = var_1.spread_width;
             else
                 var_5 = undefined;
 
-            if ( isdefined( var_1._id_71EB ) )
-                var_6 = var_1._id_71EB;
+            if ( isdefined( var_1.rear_dist ) )
+                var_6 = var_1.rear_dist;
             else
                 var_6 = undefined;
 
@@ -1801,22 +1783,22 @@ _id_2891( var_0, var_1 )
             else
                 var_7 = undefined;
 
-            aud_play_dynamic_explosion( var_1._id_3544, var_1._id_566E, var_1._id_7517, var_5, var_6, var_7 );
+            aud_play_dynamic_explosion( var_1.explosion_pos, var_1.left_alias, var_1.right_alias, var_5, var_6, var_7 );
             break;
         case "DEPRECATED_aud_play_conversation":
-            _id_289D( var_0, var_1 );
+            deprecated_aud_play_conversation( var_0, var_1 );
             break;
         case "xm25_contact_explode":
             if ( soundexists( "xm25_proj_explo" ) )
             {
                 var_8 = var_1;
-                thread common_scripts\utility::_id_69C2( "xm25_proj_explo", var_8 );
+                thread common_scripts\utility::play_sound_in_space( "xm25_proj_explo", var_8 );
             }
 
             break;
         case "light_flicker_on":
             var_9 = var_1;
-            _id_2898( var_9 );
+            deprecated_aud_handle_flickering_light( var_9 );
             break;
         default:
             var_2 = 0;
@@ -1825,7 +1807,7 @@ _id_2891( var_0, var_1 )
     return var_2;
 }
 
-_id_2898( var_0 )
+deprecated_aud_handle_flickering_light( var_0 )
 {
     var_1 = 0;
 
@@ -1837,7 +1819,7 @@ _id_2898( var_0 )
             var_1 = 1;
 
             if ( soundexists( "paris_lamplight_flicker" ) )
-                thread common_scripts\utility::_id_69C2( "paris_lamplight_flicker", var_0.origin );
+                thread common_scripts\utility::play_sound_in_space( "paris_lamplight_flicker", var_0.origin );
 
             break;
         default:
@@ -1847,30 +1829,30 @@ _id_2898( var_0 )
     return var_1;
 }
 
-_id_289D( var_0, var_1 )
+deprecated_aud_play_conversation( var_0, var_1 )
 {
     var_2 = var_1;
     var_3 = [];
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
     {
-        var_3[var_4] = var_2[var_4]._id_32D5.battlechatter;
-        var_2[var_4]._id_32D5.battlechatter = 0;
+        var_3[var_4] = var_2[var_4].ent.battlechatter;
+        var_2[var_4].ent.battlechatter = 0;
     }
 
     foreach ( var_6 in var_2 )
     {
-        if ( isdefined( var_6._id_27C0 ) )
-            wait(var_6._id_27C0);
+        if ( isdefined( var_6.delay ) )
+            wait(var_6.delay);
 
         var_7 = spawn( "script_origin", ( 0.0, 0.0, 0.0 ) );
-        var_7 linkto( var_6._id_32D5, "", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-        var_7 soundscripts\_snd_playsound::_id_872A( var_6._id_8899, "sounddone" );
+        var_7 linkto( var_6.ent, "", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        var_7 soundscripts\_snd_playsound::snd_play( var_6.sound, "sounddone" );
         var_7 waittill( "sounddone" );
         wait 0.05;
         var_7 delete();
     }
 
     for ( var_4 = 0; var_4 < var_2.size; var_4++ )
-        var_2[var_4]._id_32D5.battlechatter = var_3[var_4];
+        var_2[var_4].ent.battlechatter = var_3[var_4];
 }

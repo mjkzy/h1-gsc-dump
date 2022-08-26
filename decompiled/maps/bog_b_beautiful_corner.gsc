@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 beautiful_corner()
 {
-    if ( !common_scripts\_ca_beautiful_corner::_id_4DD7() )
+    if ( !common_scripts\_ca_beautiful_corner::initialize() )
         return 0;
 
     setup_flags();
@@ -37,7 +19,7 @@ beautiful_corner()
     maps\bog_b_lighting::main();
     thread maps\bog_b::rotate_fans();
     thread remove_all_weapons();
-    thread _id_6504();
+    thread open_all_doors();
     thread player_position();
     beautiful_corner_settings();
     common_scripts\_ca_beautiful_corner::activate();
@@ -46,33 +28,33 @@ beautiful_corner()
 
 setup_flags()
 {
-    common_scripts\utility::_id_383D( "tank_clear_to_shoot" );
-    common_scripts\utility::_id_383D( "door_idle_guy_idling" );
-    common_scripts\utility::_id_383D( "price_at_spotter" );
-    common_scripts\utility::_id_383D( "ok_to_do_spotting" );
-    common_scripts\utility::_id_383D( "tank_in_final_position" );
-    common_scripts\utility::_id_383D( "tank_turret_aimed_at_t72" );
-    common_scripts\utility::_id_383D( "friendly_reactions_over" );
-    common_scripts\utility::_id_383D( "t72_in_final_position" );
-    common_scripts\utility::_id_383D( "t72_exploded" );
-    common_scripts\utility::_id_383D( "abrams_move_shoot_t72" );
-    common_scripts\utility::_id_383D( "abrams_advance_to_end_level" );
-    common_scripts\utility::_id_383D( "allowTankFire" );
-    common_scripts\utility::_id_383D( "aa_bog_b_zone_bog" );
-    common_scripts\utility::_id_383D( "aa_bog_b_zone_streets" );
-    common_scripts\utility::_id_383D( "aa_bog_b_zone_alley" );
-    common_scripts\utility::_id_383D( "dumpster_pushed" );
-    common_scripts\utility::_id_383D( "seaknight_dialog_done" );
-    common_scripts\utility::_id_383D( "alley_cleared" );
-    common_scripts\utility::_id_383D( "start_dumpster_push" );
-    common_scripts\utility::_id_383D( "player_passed_dumpster" );
-    common_scripts\utility::_id_383D( "truck_crush_tank_in_position" );
+    common_scripts\utility::flag_init( "tank_clear_to_shoot" );
+    common_scripts\utility::flag_init( "door_idle_guy_idling" );
+    common_scripts\utility::flag_init( "price_at_spotter" );
+    common_scripts\utility::flag_init( "ok_to_do_spotting" );
+    common_scripts\utility::flag_init( "tank_in_final_position" );
+    common_scripts\utility::flag_init( "tank_turret_aimed_at_t72" );
+    common_scripts\utility::flag_init( "friendly_reactions_over" );
+    common_scripts\utility::flag_init( "t72_in_final_position" );
+    common_scripts\utility::flag_init( "t72_exploded" );
+    common_scripts\utility::flag_init( "abrams_move_shoot_t72" );
+    common_scripts\utility::flag_init( "abrams_advance_to_end_level" );
+    common_scripts\utility::flag_init( "allowTankFire" );
+    common_scripts\utility::flag_init( "aa_bog_b_zone_bog" );
+    common_scripts\utility::flag_init( "aa_bog_b_zone_streets" );
+    common_scripts\utility::flag_init( "aa_bog_b_zone_alley" );
+    common_scripts\utility::flag_init( "dumpster_pushed" );
+    common_scripts\utility::flag_init( "seaknight_dialog_done" );
+    common_scripts\utility::flag_init( "alley_cleared" );
+    common_scripts\utility::flag_init( "start_dumpster_push" );
+    common_scripts\utility::flag_init( "player_passed_dumpster" );
+    common_scripts\utility::flag_init( "truck_crush_tank_in_position" );
 }
 #using_animtree("generic_human");
 
 beautiful_corner_settings()
 {
-    level._id_78AC["beautiful_guy"]["bc_casual_idle"][0] = %casual_stand_idle;
+    level.scr_anim["beautiful_guy"]["bc_casual_idle"][0] = %casual_stand_idle;
     level.beautiful_weapon = "m4_gl_mp";
     level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_alley" );
     level.beautiful_views = common_scripts\utility::array_add( level.beautiful_views, "beautiful_corner_store" );
@@ -125,7 +107,7 @@ player_position()
     level.player setplayerangles( var_0.angles );
 }
 
-_id_6504()
+open_all_doors()
 {
     var_0 = getent( "alley_door", "targetname" );
     var_0 rotateyaw( -140, 0.5, 0, 0 );

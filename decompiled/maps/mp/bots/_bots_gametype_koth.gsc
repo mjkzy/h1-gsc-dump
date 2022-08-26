@@ -1,27 +1,9 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 main()
 {
-    _id_8072();
+    setup_callbacks();
     bot_koth_start();
 }
 
@@ -30,7 +12,7 @@ bot_koth_start()
     setup_bot_koth();
 }
 
-_id_8072()
+setup_callbacks()
 {
     level.bot_funcs["gametype_think"] = ::bot_koth_think;
     level.bot_funcs["should_start_cautious_approach"] = ::should_start_cautious_approach_koth;
@@ -45,27 +27,27 @@ setup_bot_koth()
     {
         var_2 = level.radios[var_1];
         var_2.script_label = "radio_" + var_1;
-        var_2 thread maps\mp\bots\_bots_gametype_common::_id_5E23();
+        var_2 thread maps\mp\bots\_bots_gametype_common::monitor_zone_control();
         var_3 = 0;
 
-        if ( isdefined( var_2._id_9754._id_97CC ) && var_2._id_9754._id_97CC )
+        if ( isdefined( var_2.trig.trigger_off ) && var_2.trig.trigger_off )
         {
-            var_2._id_9754 common_scripts\utility::_id_97CE();
+            var_2.trig common_scripts\utility::trigger_on();
             var_3 = 1;
         }
 
         var_4 = 0;
 
-        if ( !var_2._id_9E5A )
+        if ( !var_2.visible )
         {
             var_2 maps\mp\gametypes\koth::makeradiovisible();
             var_4 = 1;
         }
 
-        var_2._id_6139 = maps\mp\bots\_bots_gametype_common::bot_get_valid_nodes_in_trigger( var_2._id_9754 );
+        var_2.nodes = maps\mp\bots\_bots_gametype_common::bot_get_valid_nodes_in_trigger( var_2.trig );
 
         if ( var_3 )
-            var_2._id_9754 common_scripts\utility::_id_97CC();
+            var_2.trig common_scripts\utility::trigger_off();
 
         if ( var_4 )
             var_2 maps\mp\gametypes\koth::makeradioinvisible();
@@ -78,7 +60,7 @@ setup_bot_koth()
         var_5 = find_current_radio();
 
         if ( !isdefined( var_5 ) )
-            var_5 = common_scripts\utility::_id_710E( level.radios );
+            var_5 = common_scripts\utility::random( level.radios );
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_5 ] );
         level.bot_gametype_radios_precached[var_5 getentitynumber()] = 1;
@@ -97,7 +79,7 @@ bot_cache_entrances_to_other_radios( var_0 )
         if ( isdefined( var_3 ) && common_scripts\utility::array_contains( var_1, var_3 ) )
             var_2 = var_3;
         else
-            var_2 = common_scripts\utility::_id_710E( var_1 );
+            var_2 = common_scripts\utility::random( var_1 );
 
         maps\mp\bots\_bots_gametype_common::bot_cache_entrances_to_zones( [ var_2 ] );
         level.bot_gametype_radios_precached[var_2 getentitynumber()] = 1;
@@ -130,11 +112,11 @@ bot_koth_think()
         if ( !isdefined( var_0 ) || !isdefined( level.bot_gametype_radios_precached[var_0 getentitynumber()] ) )
         {
             bot_clear_koth_zone();
-            self [[ self._id_67E1 ]]();
+            self [[ self.personality_update_function ]]();
             continue;
         }
 
-        var_1 = level.radioobject maps\mp\gametypes\_gameobjects::_id_4078();
+        var_1 = level.radioobject maps\mp\gametypes\_gameobjects::getownerteam();
 
         if ( self.team != var_1 )
         {
@@ -144,8 +126,8 @@ bot_koth_think()
             continue;
         }
 
-        var_2 = common_scripts\utility::_id_3D4F( self.team );
-        var_3 = level.radioobject._id_940D[var_2].size > 0;
+        var_2 = common_scripts\utility::get_enemy_team( self.team );
+        var_3 = level.radioobject.touchlist[var_2].size > 0;
 
         if ( var_3 )
         {
@@ -173,7 +155,7 @@ find_current_radio()
 {
     foreach ( var_1 in level.radios )
     {
-        if ( isdefined( level.radioobject ) && var_1._id_9754 == level.radioobject.trigger )
+        if ( isdefined( level.radioobject ) && var_1.trig == level.radioobject.trigger )
             return var_1;
     }
 }
@@ -183,7 +165,7 @@ bot_is_capturing_koth_zone( var_0 )
     if ( !maps\mp\bots\_bots_util::bot_is_capturing() )
         return 0;
 
-    return isdefined( self._id_2507 ) && self._id_2507 == var_0;
+    return isdefined( self.current_zone ) && self.current_zone == var_0;
 }
 
 bot_is_protecting_koth_zone( var_0 )
@@ -191,23 +173,23 @@ bot_is_protecting_koth_zone( var_0 )
     if ( !maps\mp\bots\_bots_util::bot_is_protecting() )
         return 0;
 
-    return isdefined( self._id_2507 ) && self._id_2507 == var_0;
+    return isdefined( self.current_zone ) && self.current_zone == var_0;
 }
 
 bot_capture_koth_zone( var_0 )
 {
-    self._id_2507 = var_0;
-    var_1["entrance_points_index"] = var_0._id_3320;
-    var_1["override_origin_node"] = var_0._id_1C10;
-    maps\mp\bots\_bots_strategy::bot_capture_zone( var_0.origin, var_0._id_6139, var_0._id_9754, var_1 );
+    self.current_zone = var_0;
+    var_1["entrance_points_index"] = var_0.entrance_indices;
+    var_1["override_origin_node"] = var_0.center_node;
+    maps\mp\bots\_bots_strategy::bot_capture_zone( var_0.origin, var_0.nodes, var_0.trig, var_1 );
 }
 
 bot_protect_koth_zone( var_0 )
 {
-    self._id_2507 = var_0;
-    var_1 = length( var_0._id_A3E0._id_44FB ) * 2;
-    var_2["override_origin_node"] = var_0._id_1C10;
-    maps\mp\bots\_bots_strategy::bot_protect_point( var_0._id_1C10.origin, var_1, var_2 );
+    self.current_zone = var_0;
+    var_1 = length( var_0.zone_bounds.half_size ) * 2;
+    var_2["override_origin_node"] = var_0.center_node;
+    maps\mp\bots\_bots_strategy::bot_protect_point( var_0.center_node.origin, var_1, var_2 );
 }
 
 bot_clear_koth_zone()
@@ -215,18 +197,18 @@ bot_clear_koth_zone()
     if ( maps\mp\bots\_bots_util::bot_is_defending() )
         maps\mp\bots\_bots_strategy::bot_defend_stop();
 
-    self._id_2507 = undefined;
+    self.current_zone = undefined;
 }
 
 should_start_cautious_approach_koth( var_0 )
 {
     if ( var_0 )
     {
-        var_1 = level.radioobject maps\mp\gametypes\_gameobjects::_id_4078();
+        var_1 = level.radioobject maps\mp\gametypes\_gameobjects::getownerteam();
 
         if ( var_1 == "neutral" || var_1 == self.team )
             return 0;
     }
 
-    return maps\mp\bots\_bots_strategy::_id_847B( var_0 );
+    return maps\mp\bots\_bots_strategy::should_start_cautious_approach_default( var_0 );
 }

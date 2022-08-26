@@ -1,30 +1,12 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
     setdvarifuninitialized( "scr_game_hodgepodgeMode", 0 );
     setdvarifuninitialized( "scr_game_pumpking", 0 );
 
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
     {
         level.hodgepodgemode = 0;
         return;
@@ -99,30 +81,30 @@ hodgepodgeonconnect()
 
 initmmmode()
 {
-    level._id_6466 = ::_id_6466;
+    level.ondeadevent = ::ondeadevent;
     level.callbackplayerdamage = ::mmcallbackplayerdamage;
-    level._id_64D3 = ::onmmplayerkilled;
-    level._id_64E9 = ::onmmspawnplayer;
+    level.onplayerkilled = ::onmmplayerkilled;
+    level.onspawnplayer = ::onmmspawnplayer;
     level.autoassign = ::mmautoassign;
     level.bypassclasschoicefunc = ::mmclass;
     level.getspawnpoint = ::getmmspawnpoint;
-    level._id_64C0 = ::mmononeleftevent;
-    level._id_2D73 = 1;
-    level._id_2B11 = 1;
+    level.ononeleftevent = ::mmononeleftevent;
+    level.doprematch = 1;
+    level.disableforfeit = 1;
     level.blockweapondrops = 1;
     level.bot_ignore_personality = 1;
     level.mm_allowsuicide = 0;
     level.mm_choseslasher = 0;
     level.mm_choosingslasher = 0;
     level.mm_countdowninprogress = 0;
-    common_scripts\utility::_id_383D( "slasher_chosen" );
+    common_scripts\utility::flag_init( "slasher_chosen" );
     level.mm_teamscores["axis"] = 0;
     level.mm_teamscores["allies"] = 0;
-    _id_9B85();
-    level._id_8A4A["allies"].allowenemyspectate = 1;
+    updateteamscores();
+    level.spectateoverride["allies"].allowenemyspectate = 1;
     level.allowlatecomers = 0;
     setupdvarsmm();
-    _id_8018();
+    setspecialloadouts();
     setclientnamemode( "auto_change" );
     var_0 = &"OBJECTIVES_MM";
     maps\mp\_utility::setobjectivetext( "allies", var_0 );
@@ -167,39 +149,39 @@ watchhostmigrationmm()
     }
 }
 
-_id_6466( var_0 )
+ondeadevent( var_0 )
 {
     return;
 }
 
 mmautoassign()
 {
-    thread maps\mp\gametypes\_menus::_id_8027( "allies" );
+    thread maps\mp\gametypes\_menus::setteam( "allies" );
     self.slasher_team = "allies";
 }
 
-_id_64F0()
+ontimelimit()
 {
-    level._id_374D = "allies";
-    level thread maps\mp\gametypes\_gamelogic::_id_315F( "allies", game["end_reason"]["time_limit_reached"] );
+    level.finalkillcam_winner = "allies";
+    level thread maps\mp\gametypes\_gamelogic::endgame( "allies", game["end_reason"]["time_limit_reached"] );
 }
 
 mmawardxp()
 {
     level endon( "game_ended" );
-    level._id_A3A5["kill"]["value"] = 300;
-    common_scripts\utility::_id_384A( "slasher_chosen" );
+    level.xpeventinfo["kill"]["value"] = 300;
+    common_scripts\utility::flag_wait( "slasher_chosen" );
 
     for (;;)
     {
-        maps\mp\gametypes\_hostmigration::_id_A052( 10 );
+        maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( 10 );
 
         foreach ( var_1 in level.players )
         {
-            if ( maps\mp\_utility::_id_5092( var_1.isslasher ) )
+            if ( maps\mp\_utility::is_true( var_1.isslasher ) )
                 continue;
 
-            if ( !maps\mp\_utility::_id_5189( var_1 ) )
+            if ( !maps\mp\_utility::isreallyalive( var_1 ) )
                 continue;
 
             level thread maps\mp\gametypes\_rank::awardgameevent( "still_alive", var_1 );
@@ -215,13 +197,13 @@ onmmspawnplayer()
         self allowfire( 0 );
 
     thread switchtostartweapon( self.team );
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "hasEverVisitedDepot", 0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "hasEverVisitedDepot", 0 );
 
-    if ( !maps\mp\_utility::_id_5092( level.mm_choseslasher ) )
-        maps\mp\_utility::_id_41F8( "specialty_radarimmune", 0 );
+    if ( !maps\mp\_utility::is_true( level.mm_choseslasher ) )
+        maps\mp\_utility::giveperk( "specialty_radarimmune", 0 );
 
     level.mm_teamscores["allies"]++;
-    _id_9B85();
+    updateteamscores();
 
     if ( !level.mm_choosingslasher )
     {
@@ -252,8 +234,8 @@ onmmspawnplayer()
 onfinalsurvivordelayed()
 {
     self endon( "disconnect" );
-    waittillframeend;
-    _id_64AC();
+    waitframe();
+    onfinalsurvivor();
 }
 
 chooseslasher()
@@ -261,9 +243,9 @@ chooseslasher()
     level endon( "game_ended" );
     level endon( "mm_stopCountdown" );
     level.mm_allowsuicide = 0;
-    maps\mp\_utility::_id_3BE1( "prematch_done" );
+    maps\mp\_utility::gameflagwait( "prematch_done" );
     level.mm_countdowninprogress = 1;
-    maps\mp\gametypes\_hostmigration::_id_A052( 1.0 );
+    maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( 1.0 );
     var_0 = 15;
     setomnvar( "ui_match_countdown_title", 4 );
     setomnvar( "ui_match_countdown_toggle", 1 );
@@ -272,7 +254,7 @@ chooseslasher()
     {
         var_0--;
         setomnvar( "ui_match_countdown", var_0 + 1 );
-        maps\mp\gametypes\_hostmigration::_id_A052( 1.0 );
+        maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( 1.0 );
     }
 
     setomnvar( "ui_match_countdown", 1 );
@@ -284,19 +266,19 @@ chooseslasher()
 
     foreach ( var_4 in level.players )
     {
-        if ( maps\mp\_utility::_id_59E3() && level.players.size > 1 && var_4 ishost() )
+        if ( maps\mp\_utility::matchmakinggame() && level.players.size > 1 && var_4 ishost() )
         {
             var_2 = var_4;
             continue;
         }
 
-        if ( !maps\mp\_utility::_id_5189( var_4 ) )
+        if ( !maps\mp\_utility::isreallyalive( var_4 ) )
             continue;
 
         if ( var_4.team == "axis" )
             continue;
 
-        if ( !var_4._id_4745 )
+        if ( !var_4.hasspawned )
             continue;
 
         var_1[var_1.size] = var_4;
@@ -310,7 +292,7 @@ chooseslasher()
 
     foreach ( var_4 in level.players )
     {
-        if ( maps\mp\_utility::_id_5092( var_4.isslasher ) )
+        if ( maps\mp\_utility::is_true( var_4.isslasher ) )
             continue;
 
         var_4.issurvivor = 1;
@@ -318,13 +300,13 @@ chooseslasher()
         var_4 maps\mp\_utility::_clearperks();
     }
 
-    level._id_3BE2 = 1;
-    common_scripts\utility::_id_383F( "slasher_chosen" );
+    level.gamehasstarted = 1;
+    common_scripts\utility::flag_set( "slasher_chosen" );
     setnojiptime( 1 );
     var_9 = getaliveplayersonteam( "allies" );
 
     if ( var_9.size <= 0 )
-        level thread maps\mp\gametypes\_gamelogic::_id_315F( "axis", game["end_reason"]["allies_eliminated"] );
+        level thread maps\mp\gametypes\_gamelogic::endgame( "axis", game["end_reason"]["allies_eliminated"] );
 
     if ( level.mm_teamscores["axis"] && level.mm_teamscores["allies"] )
     {
@@ -340,7 +322,7 @@ switchtostartweapon( var_0 )
     if ( var_0 == "allies" )
         var_1 = maps\mp\gametypes\_class::buildweaponname( "h1_colt45" );
 
-    waitframe;
+    waittillframeend;
     self takeallweapons();
     self giveweapon( var_1 );
     self setspawnweapon( var_1 );
@@ -352,7 +334,7 @@ switchtostartweapon( var_0 )
 setasslasher()
 {
     self endon( "disconnect" );
-    _id_6F1B();
+    prepareforclasschange();
     self.mm_isbeingchosen = 1;
     maps\mp\gametypes\_menus::addtoteam( "axis", undefined, 1 );
     self.slasher_team = "axis";
@@ -361,7 +343,7 @@ setasslasher()
     level notify( "update_game_time" );
     level.mm_teamscores["axis"] = 1;
     level.mm_teamscores["allies"]--;
-    _id_9B85();
+    updateteamscores();
     level.mm_allowsuicide = 1;
     slashersettings();
     thread slashermovespeedscale();
@@ -373,7 +355,7 @@ slashersettings()
     self.issurvivor = 0;
     self notify( "faux_spawn" );
     self.pers["gamemodeLoadout"] = level.mm_loadouts["axis"];
-    maps\mp\gametypes\_class::giveloadout( "axis", "gamemode" );
+    maps\mp\gametypes\_class::giveandapplyloadout( "axis", "gamemode" );
     thread switchtostartweapon( "axis" );
     self allowmelee( 1 );
 
@@ -410,7 +392,7 @@ slashermovespeedscale()
         }
 
         self setmovespeedscale( self.slashermovespeedscale );
-        waittillframeend;
+        waitframe();
     }
 }
 
@@ -425,17 +407,17 @@ slasherdouav()
 
     for (;;)
     {
-        maps\mp\gametypes\_hostmigration::_id_A052( var_0 );
+        maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( var_0 );
         maps\mp\gametypes\_hardpoints::useradaritem();
     }
 }
 
-_id_6F1B()
+prepareforclasschange()
 {
-    while ( !maps\mp\_utility::_id_5189( self ) || maps\mp\_utility::_id_51E3() )
+    while ( !maps\mp\_utility::isreallyalive( self ) || maps\mp\_utility::isusingremote() )
         wait 0.05;
 
-    if ( isdefined( self._id_50DA ) && self._id_50DA == 1 )
+    if ( isdefined( self.iscarrying ) && self.iscarrying == 1 )
     {
         self notify( "force_cancel_placement" );
         wait 0.05;
@@ -450,7 +432,7 @@ _id_6F1B()
     while ( !self isonground() && !self isonladder() )
         wait 0.05;
 
-    if ( maps\mp\_utility::_id_5131() )
+    if ( maps\mp\_utility::isjuggernaut() )
     {
         self notify( "lost_juggernaut" );
         wait 0.05;
@@ -458,7 +440,7 @@ _id_6F1B()
 
     wait 0.05;
 
-    while ( !maps\mp\_utility::_id_5189( self ) )
+    while ( !maps\mp\_utility::isreallyalive( self ) )
         wait 0.05;
 }
 
@@ -488,14 +470,14 @@ monitordisconnectmm()
     var_0 = self.slasher_team;
     var_1 = getaliveplayersonteam( var_0 );
     level.mm_teamscores[var_0] = var_1.size;
-    _id_9B85();
+    updateteamscores();
 
     if ( isdefined( self.mm_isbeingchosen ) || level.mm_choseslasher )
     {
         if ( level.mm_teamscores["axis"] && level.mm_teamscores["allies"] )
         {
             if ( var_0 == "allies" && level.mm_teamscores["allies"] == 1 )
-                _id_64AC();
+                onfinalsurvivor();
             else if ( var_0 == "axis" && level.mm_teamscores["axis"] == 1 )
             {
                 foreach ( var_3 in level.players )
@@ -506,7 +488,7 @@ monitordisconnectmm()
             }
         }
         else if ( level.mm_teamscores["allies"] == 0 )
-            _id_64EE();
+            onsurvivorseliminated();
         else if ( level.mm_teamscores["axis"] == 0 )
         {
             if ( level.mm_teamscores["allies"] == 1 )
@@ -526,19 +508,19 @@ monitordisconnectmm()
     }
 }
 
-_id_64EE()
+onsurvivorseliminated()
 {
-    level._id_374D = "axis";
-    level thread maps\mp\gametypes\_gamelogic::_id_315F( "axis", game["end_reason"]["allies_eliminated"] );
+    level.finalkillcam_winner = "axis";
+    level thread maps\mp\gametypes\_gamelogic::endgame( "axis", game["end_reason"]["allies_eliminated"] );
 }
 
 onslashereliminated()
 {
-    level._id_374D = "allies";
-    level thread maps\mp\gametypes\_gamelogic::_id_315F( "allies", game["end_reason"]["axis_eliminated"] );
+    level.finalkillcam_winner = "allies";
+    level thread maps\mp\gametypes\_gamelogic::endgame( "allies", game["end_reason"]["axis_eliminated"] );
 }
 
-_id_64AC()
+onfinalsurvivor()
 {
     foreach ( var_1 in level.players )
     {
@@ -548,7 +530,7 @@ _id_64AC()
         if ( var_1.team != "allies" )
             continue;
 
-        if ( !maps\mp\_utility::_id_5189( var_1 ) )
+        if ( !maps\mp\_utility::isreallyalive( var_1 ) )
             continue;
 
         var_1 slashersettings();
@@ -556,7 +538,7 @@ _id_64AC()
     }
 }
 
-_id_9B85()
+updateteamscores()
 {
     game["teamScores"]["allies"] = level.mm_teamscores["allies"];
     setteamscore( "allies", level.mm_teamscores["allies"] );
@@ -569,15 +551,15 @@ slasherreducesprint()
     self notify( "slasherReduceSprint" );
     self endon( "slasherReduceSprint" );
     self allowsprint( 0 );
-    maps\mp\gametypes\_hostmigration::_id_A052( 3 );
+    maps\mp\gametypes\_hostmigration::waitlongdurationwithhostmigrationpause( 3 );
     self allowsprint( 1 );
 }
 
 mmcallbackplayerdamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )
 {
-    if ( maps\mp\_utility::_id_5092( self.isslasher ) )
+    if ( maps\mp\_utility::is_true( self.isslasher ) )
     {
-        if ( isdefined( var_1 ) && maps\mp\_utility::_id_50CD( var_4 ) )
+        if ( isdefined( var_1 ) && maps\mp\_utility::isbulletdamage( var_4 ) )
             thread onslasherdamage( var_2 );
 
         if ( !isdefined( var_1 ) || level.mm_teamscores["allies"] > 1 )
@@ -599,19 +581,19 @@ onmmplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8,
 
     level notify( "update_game_time" );
     level.mm_teamscores[self.team]--;
-    _id_9B85();
+    updateteamscores();
 
     if ( self.team == "allies" )
     {
-        maps\mp\_utility::_id_6DDD( "mp_enemy_obj_captured", "allies" );
-        maps\mp\_utility::_id_6DDD( "mp_war_objective_taken", "axis" );
+        maps\mp\_utility::playsoundonplayers( "mp_enemy_obj_captured", "allies" );
+        maps\mp\_utility::playsoundonplayers( "mp_war_objective_taken", "axis" );
     }
 
-    level thread maps\mp\_utility::_id_91FA( "callout_eliminated", self, self.team );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_eliminated", self, self.team );
 
     if ( level.mm_teamscores["allies"] == 0 )
     {
-        _id_64EE();
+        onsurvivorseliminated();
         return;
     }
 
@@ -623,7 +605,7 @@ onmmplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8,
 
     if ( level.mm_teamscores["allies"] == 1 )
     {
-        _id_64AC();
+        onfinalsurvivor();
         return;
     }
 }
@@ -638,7 +620,7 @@ getmmspawnpoint()
         var_0 = maps\mp\gametypes\_spawnscoring::getspawnpoint_freeforall( var_1 );
     }
 
-    maps\mp\gametypes\_spawnlogic::_id_7273( var_0 );
+    maps\mp\gametypes\_spawnlogic::recon_set_spawnpoint( var_0 );
     return var_0;
 }
 
@@ -651,14 +633,14 @@ mmclass()
     self.lastclass = self.pers["lastClass"];
 }
 
-_id_8018()
+setspecialloadouts()
 {
-    level.mm_loadouts["allies"] = maps\mp\gametypes\_class::_id_3F7B();
+    level.mm_loadouts["allies"] = maps\mp\gametypes\_class::getemptyloadout();
     level.mm_loadouts["allies"]["loadoutSecondary"] = "h1_colt45";
     level.mm_loadouts["allies"]["loadoutPrimary"] = "h1_ak47";
     level.mm_loadouts["allies"]["loadoutEquipment"] = "h1_fraggrenade_mp";
     level.mm_loadouts["allies"]["loadoutOffhand"] = "h1_smokegrenade_mp";
-    level.mm_loadouts["axis"] = maps\mp\gametypes\_class::_id_3F7B();
+    level.mm_loadouts["axis"] = maps\mp\gametypes\_class::getemptyloadout();
     level.mm_loadouts["axis"]["loadoutMelee"] = "h1_meleeshovel";
     level.mm_loadouts["axis"]["loadoutPrimary"] = "h1_ak47";
     level.mm_loadouts["axis"]["loadoutEquipment"] = "h1_fraggrenade_mp";
@@ -670,17 +652,17 @@ mmononeleftevent( var_0 )
     if ( var_0 == "axis" )
         return;
 
-    var_1 = maps\mp\_utility::_id_3FFC( var_0 );
-    var_1 thread _id_41F0();
+    var_1 = maps\mp\_utility::getlastlivingplayer( var_0 );
+    var_1 thread givelastonteamwarning();
 }
 
-_id_41F0()
+givelastonteamwarning()
 {
     self endon( "death" );
     self endon( "disconnect" );
     level endon( "game_ended" );
-    maps\mp\_utility::_id_A0ED( 3 );
-    level thread maps\mp\_utility::_id_91FA( "callout_lastteammemberalive", self, self.pers["team"] );
+    maps\mp\_utility::waittillrecoveredhealth( 3 );
+    level thread maps\mp\_utility::teamplayercardsplash( "callout_lastteammemberalive", self, self.pers["team"] );
     level notify( "last_alive", self );
 }
 
@@ -691,7 +673,7 @@ botslasheristargetingme()
         if ( isai( level.slasher ) )
             return isdefined( level.slasher.enemy ) && level.slasher.enemy == self && level.slasher botcanseeentity( self );
         else
-            return common_scripts\utility::_id_A347( level.slasher geteye(), level.slasher getplayerangles(), self geteye(), 0.422618 ) && sighttracepassed( level.slasher geteye(), self geteye(), 0, self );
+            return common_scripts\utility::within_fov( level.slasher geteye(), level.slasher getplayerangles(), self geteye(), 0.422618 ) && sighttracepassed( level.slasher geteye(), self geteye(), 0, self );
     }
 
     return 0;
@@ -718,7 +700,7 @@ botmmlogic()
         if ( self.health <= 0 )
             continue;
 
-        if ( maps\mp\_utility::_id_5092( self.isslasher ) || level.mm_teamscores["allies"] == 1 )
+        if ( maps\mp\_utility::is_true( self.isslasher ) || level.mm_teamscores["allies"] == 1 )
         {
             if ( self botgetscriptgoaltype() == "critical" )
                 self botclearscriptgoal();
@@ -749,11 +731,11 @@ botmmlogic()
             var_5 = self botnodepick( var_4, var_4.size * 0.15, "node_hide_anywhere" );
 
             if ( !isdefined( var_5 ) )
-                var_5 = self _meth_8385();
+                var_5 = self getnearestnode();
 
             if ( isdefined( var_5 ) )
             {
-                var_6 = self botsetscriptgoal( var_5, "critical" );
+                var_6 = self botsetscriptgoalnode( var_5, "critical" );
 
                 if ( var_6 )
                     self.next_hide_time = gettime() + var_3;
@@ -781,9 +763,9 @@ giveprimaryweapon( var_0, var_1, var_2 )
         var_3 = var_2;
 
     var_4 = self.secondaryweapon;
-    var_5 = maps\mp\_utility::_id_5092( var_1 ) && maps\mp\_utility::_hasperk( "specialty_twoprimaries" ) && var_4 != "none";
+    var_5 = maps\mp\_utility::is_true( var_1 ) && maps\mp\_utility::_hasperk( "specialty_twoprimaries" ) && var_4 != "none";
 
-    if ( maps\mp\_utility::_id_5092( var_0 ) )
+    if ( maps\mp\_utility::is_true( var_0 ) )
         self allowmelee( 0 );
 
     self takeallweapons();
@@ -815,10 +797,10 @@ giveprimaryonlynomelee()
 
 initrpgonly()
 {
-    level._id_64E9 = ::onrpgspawnplayer;
+    level.onspawnplayer = ::onrpgspawnplayer;
     level.bypassclasschoicefunc = ::rpgonlyclass;
     level.modifyplayerdamage = ::rpgonlymodifyplayerdamage;
-    level.rpg_loadout = maps\mp\gametypes\_class::_id_3F7B();
+    level.rpg_loadout = maps\mp\gametypes\_class::getemptyloadout();
     level.rpg_loadout["loadoutSecondary"] = "h1_rpg";
     level.rpg_loadout["loadoutEquipment"] = "h1_fraggrenade_mp";
     level.rpg_loadout["loadoutOffhand"] = "h1_smokegrenade_mp";
@@ -862,14 +844,14 @@ onrpgspawnplayer()
 onrpgspawnplayerwait()
 {
     self endon( "disconnect" );
-    waitframe;
+    waittillframeend;
     giverpgperks();
     giveprimaryweapon( 0, 0, "h1_rpg_mp" );
 }
 
 giverpgperks()
 {
-    maps\mp\_utility::_id_41F8( "specialty_fastreload", 0 );
+    maps\mp\_utility::giveperk( "specialty_fastreload", 0 );
 }
 
 refillrpgammo()
@@ -1085,6 +1067,6 @@ matchbestkillrangeindicator()
 
 initsnipersonly()
 {
-    level._id_64D3 = ::onsniperonlyplayerkilled;
+    level.onplayerkilled = ::onsniperonlyplayerkilled;
     level matchbestkillrangeindicator();
 }

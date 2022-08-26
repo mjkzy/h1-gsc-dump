@@ -1,189 +1,171 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
 
-/*
-    ----- WARNING: -----
-
-    This GSC dump may contain symbols that H1-mod does not have named. Navigating to https://github.com/h1-mod/h1-mod/blob/develop/src/client/game/scripting/function_tables.cpp and
-    finding the function_map, method_map, & token_map maps will help you. CTRL + F (Find) and search your desired value (ex: 'isplayer') and see if it exists.
-
-    If H1-mod doesn't have the symbol named, then you'll need to use the '_ID' prefix.
-
-    (Reference for below: https://github.com/mjkzy/gsc-tool/blob/97abc4f5b1814d64f06fd48d118876106e8a3a39/src/h1/xsk/resolver.cpp#L877)
-
-    For example, if H1-mod theroetically didn't have this symbol, then you'll refer to the '0x1ad' part. This is the hexdecimal key of the value 'isplayer'.
-    So, if 'isplayer' wasn't defined with a proper name in H1-mod's function/method table, you would call this function as 'game:_id_1AD(player)' or 'game:_ID1AD(player)'
-
-    Once again, you may need to do this even though it's named in this GSC dump but not in H1-Mod. This dump just names stuff so you know what you're looking at.
-    --------------------
-
-*/
-
 init()
 {
-    level._id_1E36["class0"] = 0;
-    level._id_1E36["class1"] = 1;
-    level._id_1E36["class2"] = 2;
-    level._id_1E36["class3"] = 3;
-    level._id_1E36["class4"] = 4;
-    level._id_1E36["class5"] = 5;
-    level._id_1E36["class6"] = 6;
-    level._id_1E36["class7"] = 7;
-    level._id_1E36["class8"] = 8;
-    level._id_1E36["class9"] = 9;
-    level._id_1E36["class10"] = 10;
-    level._id_1E36["class11"] = 11;
-    level._id_1E36["class12"] = 12;
-    level._id_1E36["class13"] = 13;
-    level._id_1E36["class14"] = 14;
-    level._id_1E36["custom1"] = 0;
-    level._id_1E36["custom2"] = 1;
-    level._id_1E36["custom3"] = 2;
-    level._id_1E36["custom4"] = 3;
-    level._id_1E36["custom5"] = 4;
-    level._id_1E36["custom6"] = 5;
-    level._id_1E36["custom7"] = 6;
-    level._id_1E36["custom8"] = 7;
-    level._id_1E36["custom9"] = 8;
-    level._id_1E36["custom10"] = 9;
-    level._id_1E36["custom11"] = 10;
-    level._id_1E36["custom12"] = 11;
-    level._id_1E36["custom13"] = 12;
-    level._id_1E36["custom14"] = 13;
-    level._id_1E36["custom15"] = 14;
-    level._id_1E36["custom16"] = 15;
-    level._id_1E36["custom17"] = 16;
-    level._id_1E36["custom18"] = 17;
-    level._id_1E36["custom19"] = 18;
-    level._id_1E36["custom20"] = 19;
-    level._id_1E36["custom21"] = 20;
-    level._id_1E36["custom22"] = 21;
-    level._id_1E36["custom23"] = 22;
-    level._id_1E36["custom24"] = 23;
-    level._id_1E36["custom25"] = 24;
-    level._id_1E36["custom26"] = 25;
-    level._id_1E36["custom27"] = 26;
-    level._id_1E36["custom28"] = 27;
-    level._id_1E36["custom29"] = 28;
-    level._id_1E36["custom30"] = 29;
-    level._id_1E36["custom31"] = 30;
-    level._id_1E36["custom32"] = 31;
-    level._id_1E36["custom33"] = 32;
-    level._id_1E36["custom34"] = 33;
-    level._id_1E36["custom35"] = 34;
-    level._id_1E36["custom36"] = 35;
-    level._id_1E36["custom37"] = 36;
-    level._id_1E36["custom38"] = 37;
-    level._id_1E36["custom39"] = 38;
-    level._id_1E36["custom40"] = 39;
-    level._id_1E36["custom41"] = 40;
-    level._id_1E36["custom42"] = 41;
-    level._id_1E36["custom43"] = 42;
-    level._id_1E36["custom44"] = 43;
-    level._id_1E36["custom45"] = 44;
-    level._id_1E36["custom46"] = 45;
-    level._id_1E36["custom47"] = 46;
-    level._id_1E36["custom48"] = 47;
-    level._id_1E36["custom49"] = 48;
-    level._id_1E36["custom50"] = 49;
-    level._id_1E36["custom51"] = 50;
-    level._id_1E36["custom52"] = 51;
-    level._id_1E36["custom53"] = 52;
-    level._id_1E36["custom54"] = 53;
-    level._id_1E36["custom55"] = 54;
-    level._id_1E36["custom56"] = 55;
-    level._id_1E36["custom57"] = 56;
-    level._id_1E36["custom58"] = 57;
-    level._id_1E36["custom59"] = 58;
-    level._id_1E36["custom60"] = 59;
-    level._id_1E36["lobby1"] = 0;
-    level._id_1E36["lobby2"] = 1;
-    level._id_1E36["lobby3"] = 2;
-    level._id_1E36["lobby4"] = 3;
-    level._id_1E36["lobby5"] = 4;
-    level._id_1E36["lobby6"] = 5;
-    level._id_1E36["lobby7"] = 6;
-    level._id_1E36["lobby8"] = 7;
-    level._id_1E36["lobby9"] = 8;
-    level._id_1E36["lobby10"] = 9;
-    level._id_1E36["lobby11"] = 10;
-    level._id_1E36["lobby12"] = 11;
-    level._id_1E36["lobby13"] = 12;
-    level._id_1E36["lobby14"] = 13;
-    level._id_1E36["lobby15"] = 14;
-    level._id_1E36["lobby16"] = 15;
-    level._id_1E36["lobby17"] = 16;
-    level._id_1E36["lobby18"] = 17;
-    level._id_1E36["lobby19"] = 18;
-    level._id_1E36["lobby20"] = 19;
-    level._id_1E36["lobby21"] = 20;
-    level._id_1E36["lobby22"] = 21;
-    level._id_1E36["lobby23"] = 22;
-    level._id_1E36["lobby24"] = 23;
-    level._id_1E36["lobby25"] = 24;
-    level._id_1E36["lobby26"] = 25;
-    level._id_1E36["lobby27"] = 26;
-    level._id_1E36["lobby28"] = 27;
-    level._id_1E36["lobby29"] = 28;
-    level._id_1E36["lobby30"] = 29;
-    level._id_1E36["lobby31"] = 30;
-    level._id_1E36["lobby32"] = 31;
-    level._id_1E36["lobby33"] = 32;
-    level._id_1E36["lobby34"] = 33;
-    level._id_1E36["lobby35"] = 34;
-    level._id_1E36["lobby36"] = 35;
-    level._id_1E36["lobby37"] = 36;
-    level._id_1E36["lobby38"] = 37;
-    level._id_1E36["lobby39"] = 38;
-    level._id_1E36["lobby40"] = 39;
-    level._id_1E36["lobby41"] = 40;
-    level._id_1E36["lobby42"] = 41;
-    level._id_1E36["lobby43"] = 42;
-    level._id_1E36["lobby44"] = 43;
-    level._id_1E36["lobby45"] = 44;
-    level._id_1E36["lobby46"] = 45;
-    level._id_1E36["lobby47"] = 46;
-    level._id_1E36["lobby48"] = 47;
-    level._id_1E36["lobby49"] = 48;
-    level._id_1E36["lobby50"] = 49;
-    level._id_1E36["lobby51"] = 50;
-    level._id_1E36["lobby52"] = 51;
-    level._id_1E36["lobby53"] = 52;
-    level._id_1E36["lobby54"] = 53;
-    level._id_1E36["lobby55"] = 54;
-    level._id_1E36["lobby56"] = 55;
-    level._id_1E36["lobby57"] = 56;
-    level._id_1E36["lobby58"] = 57;
-    level._id_1E36["lobby59"] = 58;
-    level._id_1E36["lobby60"] = 59;
-    level._id_1E36["axis_recipe1"] = 0;
-    level._id_1E36["axis_recipe2"] = 1;
-    level._id_1E36["axis_recipe3"] = 2;
-    level._id_1E36["axis_recipe4"] = 3;
-    level._id_1E36["axis_recipe5"] = 4;
-    level._id_1E36["axis_recipe6"] = 5;
-    level._id_1E36["allies_recipe1"] = 0;
-    level._id_1E36["allies_recipe2"] = 1;
-    level._id_1E36["allies_recipe3"] = 2;
-    level._id_1E36["allies_recipe4"] = 3;
-    level._id_1E36["allies_recipe5"] = 4;
-    level._id_1E36["allies_recipe6"] = 5;
-    level._id_1E36["copycat"] = -1;
-    level._id_1E36["gamemode"] = 0;
-    level._id_1E36["callback"] = 0;
-    level._id_2793 = "CLASS_ASSAULT";
-    level._id_1E3D = "mp/classTable.csv";
+    level.classmap["class0"] = 0;
+    level.classmap["class1"] = 1;
+    level.classmap["class2"] = 2;
+    level.classmap["class3"] = 3;
+    level.classmap["class4"] = 4;
+    level.classmap["class5"] = 5;
+    level.classmap["class6"] = 6;
+    level.classmap["class7"] = 7;
+    level.classmap["class8"] = 8;
+    level.classmap["class9"] = 9;
+    level.classmap["class10"] = 10;
+    level.classmap["class11"] = 11;
+    level.classmap["class12"] = 12;
+    level.classmap["class13"] = 13;
+    level.classmap["class14"] = 14;
+    level.classmap["custom1"] = 0;
+    level.classmap["custom2"] = 1;
+    level.classmap["custom3"] = 2;
+    level.classmap["custom4"] = 3;
+    level.classmap["custom5"] = 4;
+    level.classmap["custom6"] = 5;
+    level.classmap["custom7"] = 6;
+    level.classmap["custom8"] = 7;
+    level.classmap["custom9"] = 8;
+    level.classmap["custom10"] = 9;
+    level.classmap["custom11"] = 10;
+    level.classmap["custom12"] = 11;
+    level.classmap["custom13"] = 12;
+    level.classmap["custom14"] = 13;
+    level.classmap["custom15"] = 14;
+    level.classmap["custom16"] = 15;
+    level.classmap["custom17"] = 16;
+    level.classmap["custom18"] = 17;
+    level.classmap["custom19"] = 18;
+    level.classmap["custom20"] = 19;
+    level.classmap["custom21"] = 20;
+    level.classmap["custom22"] = 21;
+    level.classmap["custom23"] = 22;
+    level.classmap["custom24"] = 23;
+    level.classmap["custom25"] = 24;
+    level.classmap["custom26"] = 25;
+    level.classmap["custom27"] = 26;
+    level.classmap["custom28"] = 27;
+    level.classmap["custom29"] = 28;
+    level.classmap["custom30"] = 29;
+    level.classmap["custom31"] = 30;
+    level.classmap["custom32"] = 31;
+    level.classmap["custom33"] = 32;
+    level.classmap["custom34"] = 33;
+    level.classmap["custom35"] = 34;
+    level.classmap["custom36"] = 35;
+    level.classmap["custom37"] = 36;
+    level.classmap["custom38"] = 37;
+    level.classmap["custom39"] = 38;
+    level.classmap["custom40"] = 39;
+    level.classmap["custom41"] = 40;
+    level.classmap["custom42"] = 41;
+    level.classmap["custom43"] = 42;
+    level.classmap["custom44"] = 43;
+    level.classmap["custom45"] = 44;
+    level.classmap["custom46"] = 45;
+    level.classmap["custom47"] = 46;
+    level.classmap["custom48"] = 47;
+    level.classmap["custom49"] = 48;
+    level.classmap["custom50"] = 49;
+    level.classmap["custom51"] = 50;
+    level.classmap["custom52"] = 51;
+    level.classmap["custom53"] = 52;
+    level.classmap["custom54"] = 53;
+    level.classmap["custom55"] = 54;
+    level.classmap["custom56"] = 55;
+    level.classmap["custom57"] = 56;
+    level.classmap["custom58"] = 57;
+    level.classmap["custom59"] = 58;
+    level.classmap["custom60"] = 59;
+    level.classmap["lobby1"] = 0;
+    level.classmap["lobby2"] = 1;
+    level.classmap["lobby3"] = 2;
+    level.classmap["lobby4"] = 3;
+    level.classmap["lobby5"] = 4;
+    level.classmap["lobby6"] = 5;
+    level.classmap["lobby7"] = 6;
+    level.classmap["lobby8"] = 7;
+    level.classmap["lobby9"] = 8;
+    level.classmap["lobby10"] = 9;
+    level.classmap["lobby11"] = 10;
+    level.classmap["lobby12"] = 11;
+    level.classmap["lobby13"] = 12;
+    level.classmap["lobby14"] = 13;
+    level.classmap["lobby15"] = 14;
+    level.classmap["lobby16"] = 15;
+    level.classmap["lobby17"] = 16;
+    level.classmap["lobby18"] = 17;
+    level.classmap["lobby19"] = 18;
+    level.classmap["lobby20"] = 19;
+    level.classmap["lobby21"] = 20;
+    level.classmap["lobby22"] = 21;
+    level.classmap["lobby23"] = 22;
+    level.classmap["lobby24"] = 23;
+    level.classmap["lobby25"] = 24;
+    level.classmap["lobby26"] = 25;
+    level.classmap["lobby27"] = 26;
+    level.classmap["lobby28"] = 27;
+    level.classmap["lobby29"] = 28;
+    level.classmap["lobby30"] = 29;
+    level.classmap["lobby31"] = 30;
+    level.classmap["lobby32"] = 31;
+    level.classmap["lobby33"] = 32;
+    level.classmap["lobby34"] = 33;
+    level.classmap["lobby35"] = 34;
+    level.classmap["lobby36"] = 35;
+    level.classmap["lobby37"] = 36;
+    level.classmap["lobby38"] = 37;
+    level.classmap["lobby39"] = 38;
+    level.classmap["lobby40"] = 39;
+    level.classmap["lobby41"] = 40;
+    level.classmap["lobby42"] = 41;
+    level.classmap["lobby43"] = 42;
+    level.classmap["lobby44"] = 43;
+    level.classmap["lobby45"] = 44;
+    level.classmap["lobby46"] = 45;
+    level.classmap["lobby47"] = 46;
+    level.classmap["lobby48"] = 47;
+    level.classmap["lobby49"] = 48;
+    level.classmap["lobby50"] = 49;
+    level.classmap["lobby51"] = 50;
+    level.classmap["lobby52"] = 51;
+    level.classmap["lobby53"] = 52;
+    level.classmap["lobby54"] = 53;
+    level.classmap["lobby55"] = 54;
+    level.classmap["lobby56"] = 55;
+    level.classmap["lobby57"] = 56;
+    level.classmap["lobby58"] = 57;
+    level.classmap["lobby59"] = 58;
+    level.classmap["lobby60"] = 59;
+    level.classmap["axis_recipe1"] = 0;
+    level.classmap["axis_recipe2"] = 1;
+    level.classmap["axis_recipe3"] = 2;
+    level.classmap["axis_recipe4"] = 3;
+    level.classmap["axis_recipe5"] = 4;
+    level.classmap["axis_recipe6"] = 5;
+    level.classmap["allies_recipe1"] = 0;
+    level.classmap["allies_recipe2"] = 1;
+    level.classmap["allies_recipe3"] = 2;
+    level.classmap["allies_recipe4"] = 3;
+    level.classmap["allies_recipe5"] = 4;
+    level.classmap["allies_recipe6"] = 5;
+    level.classmap["copycat"] = -1;
+    level.classmap["gamemode"] = 0;
+    level.classmap["callback"] = 0;
+    level.defaultclass = "CLASS_ASSAULT";
+    level.classtablename = "mp/classTable.csv";
     level.agentcostumetablename = "mp/agentCostumeTable.csv";
-    level._id_46C9 = "mp/hardcoreCostumeTable.csv";
-    level._id_1E39 = 13;
+    level.hardcorecostumetablename = "mp/hardcoreCostumeTable.csv";
+    level.classpickcount = 13;
 
-    if ( !isdefined( level._id_2559 ) )
-        level._id_2559 = 13;
+    if ( !isdefined( level.customclasspickcount ) )
+        level.customclasspickcount = 13;
 
-    level thread _id_64D1();
+    level thread onplayerconnecting();
 }
 
-_id_3F7B()
+getemptyloadout()
 {
     var_0 = [];
     var_0["loadoutPrimary"] = "h1_ak47";
@@ -198,17 +180,17 @@ _id_3F7B()
     var_0["loadoutSecondaryReticle"] = "none";
     var_0["loadoutEquipment"] = "specialty_null";
     var_0["loadoutOffhand"] = "none";
-    var_0["loadoutPerks"] = maps\mp\perks\_perks::_id_3F7C();
+    var_0["loadoutPerks"] = maps\mp\perks\_perks::getemptyperks();
     var_0["loadoutMelee"] = "none";
     return var_0;
 }
 
-_id_3F31( var_0 )
+getclasschoice( var_0 )
 {
     return var_0;
 }
 
-_id_4166( var_0 )
+getweaponchoice( var_0 )
 {
     var_1 = strtok( var_0, "," );
 
@@ -218,7 +200,7 @@ _id_4166( var_0 )
         return 0;
 }
 
-_id_5821( var_0, var_1, var_2, var_3 )
+logclasschoice( var_0, var_1, var_2, var_3 )
 {
     if ( var_0 == self.lastclass )
         return;
@@ -233,47 +215,47 @@ _id_5821( var_0, var_1, var_2, var_3 )
 
 usevirtuallobbyfunction()
 {
-    return maps\mp\_utility::_id_4FA6();
+    return maps\mp\_utility::invirtuallobby();
 }
 
 cac_getweapon( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "weaponSetups", var_1, "weapon" );
-    else if ( isdefined( level._id_39B1 ) )
-        return self getcacplayerdata( level._id_39B1, var_0, "weaponSetups", var_1, "weapon" );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        return self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "weaponSetups", var_1, "weapon" );
     else
-        return self _meth_8244( var_0, "weaponSetups", var_1, "weapon" );
+        return self getcacplayerdata( var_0, "weaponSetups", var_1, "weapon" );
 }
 
 cac_getweaponcamo( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "weaponSetups", var_1, "camo" );
-    else if ( isdefined( level._id_39B1 ) )
-        return self getcacplayerdata( level._id_39B1, var_0, "weaponSetups", var_1, "camo" );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        return self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "weaponSetups", var_1, "camo" );
     else
-        return self _meth_8244( var_0, "weaponSetups", var_1, "camo" );
+        return self getcacplayerdata( var_0, "weaponSetups", var_1, "camo" );
 }
 
 cac_getweaponreticle( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "weaponSetups", var_1, "reticle" );
-    else if ( isdefined( level._id_39B1 ) )
-        return self getcacplayerdata( level._id_39B1, var_0, "weaponSetups", var_1, "reticle" );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        return self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "weaponSetups", var_1, "reticle" );
     else
-        return self _meth_8244( var_0, "weaponSetups", var_1, "reticle" );
+        return self getcacplayerdata( var_0, "weaponSetups", var_1, "reticle" );
 }
 
 cac_getweaponattachkitid( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "weaponSetups", var_1, "kit", "attachKit" );
-    else if ( isdefined( level._id_39B1 ) )
-        var_3 = self getcacplayerdata( level._id_39B1, var_0, "weaponSetups", var_1, "kit", "attachKit" );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        var_3 = self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "weaponSetups", var_1, "kit", "attachKit" );
     else
-        var_3 = self _meth_8244( var_0, "weaponSetups", var_1, "kit", "attachKit" );
+        var_3 = self getcacplayerdata( var_0, "weaponSetups", var_1, "kit", "attachKit" );
 
     return var_3;
 }
@@ -281,7 +263,7 @@ cac_getweaponattachkitid( var_0, var_1, var_2 )
 cac_getweaponattachkit( var_0, var_1, var_2 )
 {
     var_3 = cac_getweaponattachkitid( var_0, var_1, var_2 );
-    var_4 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_3 ), 1 );
+    var_4 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_3 ), 1 );
     return var_4;
 }
 
@@ -289,10 +271,10 @@ cac_getweaponfurniturekitid( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "weaponSetups", var_1, "kit", "furnitureKit" );
-    else if ( isdefined( level._id_39B1 ) )
-        var_3 = self getcacplayerdata( level._id_39B1, var_0, "weaponSetups", var_1, "kit", "furnitureKit" );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        var_3 = self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "weaponSetups", var_1, "kit", "furnitureKit" );
     else
-        var_3 = self _meth_8244( var_0, "weaponSetups", var_1, "kit", "furnitureKit" );
+        var_3 = self getcacplayerdata( var_0, "weaponSetups", var_1, "kit", "furnitureKit" );
 
     return var_3;
 }
@@ -300,7 +282,7 @@ cac_getweaponfurniturekitid( var_0, var_1, var_2 )
 cac_getweaponfurniturekit( var_0, var_1, var_2 )
 {
     var_3 = cac_getweaponfurniturekitid( var_0, var_1, var_2 );
-    var_4 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_3 ), 1 );
+    var_4 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_3 ), 1 );
     return var_4;
 }
 
@@ -308,30 +290,30 @@ cac_getmeleeweapon( var_0, var_1 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_1, maps\mp\_utility::cac_getcustomclassloc(), var_0, "meleeWeapon" );
-    else if ( isdefined( level._id_39B1 ) )
-        return self getcacplayerdata( level._id_39B1, var_0, "meleeWeapon" );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        return self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "meleeWeapon" );
     else
-        return self _meth_8244( var_0, "meleeWeapon" );
+        return self getcacplayerdata( var_0, "meleeWeapon" );
 }
 
 cac_getperk( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "perkSlots", var_1 );
-    else if ( isdefined( level._id_39B1 ) )
-        return self getcacplayerdata( level._id_39B1, var_0, "perkSlots", var_1 );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        return self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "perkSlots", var_1 );
     else
-        return self _meth_8244( var_0, "perkSlots", var_1 );
+        return self getcacplayerdata( var_0, "perkSlots", var_1 );
 }
 
 cac_getequipment( var_0, var_1, var_2 )
 {
     if ( usevirtuallobbyfunction() )
         return _func_2F9( var_2, maps\mp\_utility::cac_getcustomclassloc(), var_0, "equipment", var_1 );
-    else if ( isdefined( level._id_39B1 ) )
-        return self getcacplayerdata( level._id_39B1, var_0, "equipment", var_1 );
+    else if ( isdefined( level.forcecustomclassloc ) )
+        return self getcacplayerdataforgroup( level.forcecustomclassloc, var_0, "equipment", var_1 );
     else
-        return self _meth_8244( var_0, "equipment", var_1 );
+        return self getcacplayerdata( var_0, "equipment", var_1 );
 }
 
 cac_getoffhand( var_0, var_1 )
@@ -339,106 +321,106 @@ cac_getoffhand( var_0, var_1 )
     return cac_getequipment( var_0, 1, var_1 );
 }
 
-_id_1B11( var_0 )
+cao_isglobalcostumecategory( var_0 )
 {
     return var_0 == "gender" || var_0 == "head";
 }
 
-_id_1B0F( var_0, var_1 )
+cao_getglobalcostumecategory( var_0, var_1 )
 {
-    if ( maps\mp\_utility::_id_4FA6() && isdefined( var_1 ) )
+    if ( maps\mp\_utility::invirtuallobby() && isdefined( var_1 ) )
         return _func_2FA( var_1, common_scripts\utility::getstatsgroup_common(), "globalCostume", var_0 );
     else
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "globalCostume", var_0 );
+        return self getplayerdata( common_scripts\utility::getstatsgroup_common(), "globalCostume", var_0 );
 }
 
-_id_1B10( var_0, var_1, var_2 )
+cao_getpercostumecategory( var_0, var_1, var_2 )
 {
-    if ( maps\mp\_utility::_id_4FA6() && isdefined( var_2 ) )
+    if ( maps\mp\_utility::invirtuallobby() && isdefined( var_2 ) )
         return _func_2FA( var_2, common_scripts\utility::getstatsgroup_common(), "costumes", var_1, var_0 );
     else
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "costumes", var_1, var_0 );
+        return self getplayerdata( common_scripts\utility::getstatsgroup_common(), "costumes", var_1, var_0 );
 }
 
-_id_1B17( var_0, var_1 )
+cao_setglobalcostumecategory( var_0, var_1 )
 {
-    return self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "globalCostume", var_0, var_1 );
+    return self setplayerdata( common_scripts\utility::getstatsgroup_common(), "globalCostume", var_0, var_1 );
 }
 
-_id_1B18( var_0, var_1, var_2 )
+cao_setpercostumecategory( var_0, var_1, var_2 )
 {
-    return self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "costumes", var_2, var_0, var_1 );
+    return self setplayerdata( common_scripts\utility::getstatsgroup_common(), "costumes", var_2, var_0, var_1 );
 }
 
-_id_1B0D( var_0 )
+cao_getactivecostumeindex( var_0 )
 {
-    if ( maps\mp\_utility::_id_4FA6() && isdefined( var_0 ) )
+    if ( maps\mp\_utility::invirtuallobby() && isdefined( var_0 ) )
         return _func_2FA( var_0, common_scripts\utility::getstatsgroup_common(), "activeCostume" );
     else
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "activeCostume" );
+        return self getplayerdata( common_scripts\utility::getstatsgroup_common(), "activeCostume" );
 }
 
 cao_getcharactercamoindex( var_0 )
 {
-    if ( maps\mp\_utility::_id_4FA6() && isdefined( var_0 ) )
+    if ( maps\mp\_utility::invirtuallobby() && isdefined( var_0 ) )
         return _func_2FA( var_0, common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
     else
-        return self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
+        return self getplayerdata( common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
 }
 
-_id_1B0E( var_0, var_1 )
+cao_getcostumebyindex( var_0, var_1 )
 {
     var_2 = [];
 
-    for ( var_3 = 0; var_3 < level._id_2239.size; var_3++ )
+    for ( var_3 = 0; var_3 < level.costumecategories.size; var_3++ )
     {
-        var_4 = level._id_2239[var_3];
+        var_4 = level.costumecategories[var_3];
 
-        if ( _id_1B11( var_4 ) )
+        if ( cao_isglobalcostumecategory( var_4 ) )
         {
-            var_2[var_3] = _id_1B0F( var_4, var_1 );
+            var_2[var_3] = cao_getglobalcostumecategory( var_4, var_1 );
             continue;
         }
 
-        var_2[var_3] = _id_1B10( var_4, var_0, var_1 );
+        var_2[var_3] = cao_getpercostumecategory( var_4, var_0, var_1 );
     }
 
     return var_2;
 }
 
-_id_1B0C( var_0 )
+cao_getactivecostume( var_0 )
 {
-    var_1 = _id_1B0D( var_0 );
-    return _id_1B0E( var_1, var_0 );
+    var_1 = cao_getactivecostumeindex( var_0 );
+    return cao_getcostumebyindex( var_1, var_0 );
 }
 
-_id_1B16( var_0, var_1 )
+cao_setcostumebyindex( var_0, var_1 )
 {
     var_0 = validatecostume( var_0 );
 
-    for ( var_2 = 0; var_2 < level._id_2239.size; var_2++ )
+    for ( var_2 = 0; var_2 < level.costumecategories.size; var_2++ )
     {
-        var_3 = level._id_2239[var_2];
+        var_3 = level.costumecategories[var_2];
 
-        if ( _id_1B11( var_3 ) )
+        if ( cao_isglobalcostumecategory( var_3 ) )
         {
-            _id_1B17( var_3, var_0[var_2] );
+            cao_setglobalcostumecategory( var_3, var_0[var_2] );
             continue;
         }
 
-        _id_1B18( var_3, var_0[var_2], var_1 );
+        cao_setpercostumecategory( var_3, var_0[var_2], var_1 );
     }
 }
 
-_id_1B15( var_0 )
+cao_setactivecostume( var_0 )
 {
-    var_1 = _id_1B0D();
-    _id_1B16( var_0, var_1 );
+    var_1 = cao_getactivecostumeindex();
+    cao_setcostumebyindex( var_0, var_1 );
 }
 
 cac_setlastteam( var_0 )
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return;
 
     var_1 = 0;
@@ -446,28 +428,28 @@ cac_setlastteam( var_0 )
     if ( var_0 == "axis" )
         var_1 = 1;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "team", var_1 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "team", var_1 );
 }
 
 cac_setlastgrouplocation( var_0 )
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "classLocation", var_0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "classLocation", var_0 );
 }
 
 cac_setlastclassindex( var_0 )
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "classIndex", var_0 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "classIndex", var_0 );
 }
 
 cac_setlastenvironment( var_0 )
 {
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         return;
 
     var_1 = 0;
@@ -477,7 +459,7 @@ cac_setlastenvironment( var_0 )
     else if ( var_0 == "woodland" )
         var_1 = 1;
 
-    self setcommonplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "environment", var_1 );
+    self setplayerdata( common_scripts\utility::getstatsgroup_common(), "lastGame", "environment", var_1 );
 }
 
 cac_getlastteam( var_0 )
@@ -521,7 +503,7 @@ cac_getlastenvironment( var_0 )
         return "desert";
 }
 
-_id_90A4( var_0, var_1, var_2 )
+table_getweapon( var_0, var_1, var_2 )
 {
     if ( var_2 == 0 )
         return tablelookup( var_0, 0, "loadoutPrimary", var_1 + 1 );
@@ -529,7 +511,7 @@ _id_90A4( var_0, var_1, var_2 )
         return tablelookup( var_0, 0, "loadoutSecondary", var_1 + 1 );
 }
 
-_id_90A6( var_0, var_1, var_2 )
+table_getweaponbuff( var_0, var_1, var_2 )
 {
     if ( var_2 == 0 )
         return tablelookup( var_0, 0, "loadoutPrimaryBuff", var_1 + 1 );
@@ -537,7 +519,7 @@ _id_90A6( var_0, var_1, var_2 )
         return tablelookup( var_0, 0, "loadoutSecondaryBuff", var_1 + 1 );
 }
 
-_id_90A7( var_0, var_1, var_2 )
+table_getweaponcamo( var_0, var_1, var_2 )
 {
     if ( var_2 == 0 )
         return tablelookup( var_0, 0, "loadoutPrimaryCamo", var_1 + 1 );
@@ -545,7 +527,7 @@ _id_90A7( var_0, var_1, var_2 )
         return tablelookup( var_0, 0, "loadoutSecondaryCamo", var_1 + 1 );
 }
 
-_id_90A8( var_0, var_1, var_2 )
+table_getweaponreticle( var_0, var_1, var_2 )
 {
     if ( var_2 == 0 )
         return tablelookup( var_0, 0, "loadoutPrimaryReticle", var_1 + 1 );
@@ -569,24 +551,24 @@ table_getweaponfurniturekit( var_0, var_1, var_2 )
         return tablelookup( var_0, 0, "loadoutSecondaryFurnitureKit", var_1 + 1 );
 }
 
-_id_90A2( var_0, var_1, var_2 )
+table_getperk( var_0, var_1, var_2 )
 {
     var_2++;
     var_3 = "loadoutPerk" + var_2;
     return tablelookup( var_0, 0, var_3, var_1 + 1 );
 }
 
-_id_909C( var_0, var_1 )
+table_getequipment( var_0, var_1 )
 {
     return tablelookup( var_0, 0, "loadoutEquipment", var_1 + 1 );
 }
 
-_id_90A3( var_0, var_1 )
+table_getteamperk( var_0, var_1 )
 {
     return tablelookup( var_0, 0, "loadoutTeamPerk", var_1 + 1 );
 }
 
-_id_90A0( var_0, var_1 )
+table_getoffhand( var_0, var_1 )
 {
     return tablelookup( var_0, 0, "loadoutOffhand", var_1 + 1 );
 }
@@ -605,11 +587,11 @@ furniturekitnametoid( var_0 )
     return var_1;
 }
 
-_id_1FCA()
+cloneloadout()
 {
     var_0 = "none";
-    var_1 = self._id_24C3;
-    var_2 = self._id_1E33;
+    var_1 = self.curclass;
+    var_2 = self.classcallback;
 
     if ( var_1 == "copycat" )
     {
@@ -628,19 +610,19 @@ _id_1FCA()
 
     if ( var_0 != "none" )
     {
-        var_4 = maps\mp\_utility::_id_3F32( var_1 );
+        var_4 = maps\mp\_utility::getclassindex( var_1 );
         var_5 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 0, "weapon" );
         var_6 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 0, "kit", "attachKit" );
         var_7 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 0, "kit", "furnitureKit" );
-        var_8 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_6 ), 1 );
-        var_9 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_7 ), 1 );
+        var_8 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_6 ), 1 );
+        var_9 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_7 ), 1 );
         var_10 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 0, "camo" );
         var_11 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 0, "reticle" );
         var_12 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 1, "weapon" );
         var_6 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 1, "kit", "attachKit" );
         var_7 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 1, "kit", "furnitureKit" );
-        var_13 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_6 ), 1 );
-        var_14 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_7 ), 1 );
+        var_13 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_6 ), 1 );
+        var_14 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_7 ), 1 );
         var_15 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 1, "camo" );
         var_16 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "weaponSetups", 1, "reticle" );
         var_17 = getmatchrulesdata( "defaultClasses", var_0, "defaultClass", var_4, "class", "equipment", 0 );
@@ -653,7 +635,7 @@ _id_1FCA()
     }
     else if ( issubstr( var_1, "custom" ) )
     {
-        var_21 = maps\mp\_utility::_id_3F32( var_1 );
+        var_21 = maps\mp\_utility::getclassindex( var_1 );
         var_5 = cac_getweapon( var_21, 0 );
         var_8 = cac_getweaponattachkit( var_21, 0 );
         var_9 = cac_getweaponfurniturekit( var_21, 0 );
@@ -675,12 +657,12 @@ _id_1FCA()
     else if ( var_1 == "callback" )
     {
         if ( !isdefined( var_2 ) )
-            common_scripts\utility::_id_334F( "self.classCallback function reference required for class 'callback'" );
+            common_scripts\utility::error( "self.classCallback function reference required for class 'callback'" );
 
         var_22 = [[ var_2 ]]( 1 );
 
         if ( !isdefined( var_22 ) )
-            common_scripts\utility::_id_334F( "array required from self.classCallback for class 'callback'" );
+            common_scripts\utility::error( "array required from self.classCallback for class 'callback'" );
 
         var_5 = var_22["loadoutPrimary"];
         var_8 = var_22["loadoutPrimaryAttachKit"];
@@ -701,22 +683,22 @@ _id_1FCA()
     }
     else
     {
-        var_21 = maps\mp\_utility::_id_3F32( var_1 );
-        var_5 = _id_90A4( level._id_1E3D, var_21, 0 );
-        var_8 = table_getweaponattachkit( level._id_1E3D, var_21, 0 );
-        var_9 = table_getweaponfurniturekit( level._id_1E3D, var_21, 0 );
-        var_10 = _id_90A7( level._id_1E3D, var_21, 0 );
-        var_11 = _id_90A8( level._id_1E3D, var_21, 0 );
-        var_12 = _id_90A4( level._id_1E3D, var_21, 1 );
-        var_13 = table_getweaponattachkit( level._id_1E3D, var_21, 1 );
-        var_14 = table_getweaponfurniturekit( level._id_1E3D, var_21, 1 );
-        var_15 = _id_90A7( level._id_1E3D, var_21, 1 );
-        var_16 = _id_90A8( level._id_1E3D, var_21, 1 );
-        var_17 = _id_909C( level._id_1E3D, var_21 );
-        var_18 = _id_90A0( level._id_1E3D, var_21 );
+        var_21 = maps\mp\_utility::getclassindex( var_1 );
+        var_5 = table_getweapon( level.classtablename, var_21, 0 );
+        var_8 = table_getweaponattachkit( level.classtablename, var_21, 0 );
+        var_9 = table_getweaponfurniturekit( level.classtablename, var_21, 0 );
+        var_10 = table_getweaponcamo( level.classtablename, var_21, 0 );
+        var_11 = table_getweaponreticle( level.classtablename, var_21, 0 );
+        var_12 = table_getweapon( level.classtablename, var_21, 1 );
+        var_13 = table_getweaponattachkit( level.classtablename, var_21, 1 );
+        var_14 = table_getweaponfurniturekit( level.classtablename, var_21, 1 );
+        var_15 = table_getweaponcamo( level.classtablename, var_21, 1 );
+        var_16 = table_getweaponreticle( level.classtablename, var_21, 1 );
+        var_17 = table_getequipment( level.classtablename, var_21 );
+        var_18 = table_getoffhand( level.classtablename, var_21 );
 
         for ( var_19 = 0; var_19 < 3; var_19++ )
-            var_3[var_19] = _id_90A2( level._id_1E3D, var_21, var_19 );
+            var_3[var_19] = table_getperk( level.classtablename, var_21, var_19 );
 
         var_20 = "none";
     }
@@ -748,7 +730,7 @@ _id_1FCA()
     return var_23;
 }
 
-_id_4009( var_0, var_1, var_2, var_3, var_4 )
+getloadout( var_0, var_1, var_2, var_3, var_4 )
 {
     if ( !isdefined( var_3 ) )
         var_3 = 1;
@@ -778,7 +760,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     {
         var_10 = 1;
         var_9 = 0;
-        var_6 = maps\mp\_utility::_id_3F32( "copycat" );
+        var_6 = maps\mp\_utility::getclassindex( "copycat" );
         var_14 = self.pers["copyCatLoadout"];
         var_15 = var_14["loadoutPrimary"];
         var_16 = var_14["loadoutPrimaryAttachKit"];
@@ -800,10 +782,10 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     }
     else if ( var_13 != "none" )
     {
-        var_29 = maps\mp\_utility::_id_3F32( var_1 );
+        var_29 = maps\mp\_utility::getclassindex( var_1 );
         var_6 = var_29;
-        self._id_1E2F = var_29;
-        self._id_91F6 = var_13;
+        self.class_num = var_29;
+        self.teamname = var_13;
         var_15 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 0, "weapon" );
 
         if ( var_15 == "none" )
@@ -816,8 +798,8 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
         {
             var_30 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 0, "kit", "attachKit" );
             var_31 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 0, "kit", "furnitureKit" );
-            var_16 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_30 ), 1 );
-            var_17 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_31 ), 1 );
+            var_16 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_30 ), 1 );
+            var_17 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_31 ), 1 );
         }
 
         var_18 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 0, "camo" );
@@ -825,8 +807,8 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
         var_20 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 1, "weapon" );
         var_30 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 1, "kit", "attachKit" );
         var_31 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 1, "kit", "furnitureKit" );
-        var_21 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::_id_93F2( var_30 ), 1 );
-        var_22 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::_id_93F2( var_31 ), 1 );
+        var_21 = tablelookup( "mp/attachkits.csv", 0, common_scripts\utility::tostring( var_30 ), 1 );
+        var_22 = tablelookup( "mp/furniturekits.csv", 0, common_scripts\utility::tostring( var_31 ), 1 );
         var_23 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 1, "camo" );
         var_24 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "weaponSetups", 1, "reticle" );
         var_25 = getmatchrulesdata( "defaultClasses", var_13, "defaultClass", var_29, "class", "equipment", 0 );
@@ -860,7 +842,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     }
     else if ( issubstr( var_1, "custom" ) )
     {
-        var_6 = maps\mp\_utility::_id_3F32( var_1 );
+        var_6 = maps\mp\_utility::getclassindex( var_1 );
         var_15 = cac_getweapon( var_6, 0 );
         var_16 = cac_getweaponattachkit( var_6, 0 );
         var_17 = cac_getweaponfurniturekit( var_6, 0 );
@@ -881,7 +863,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     }
     else if ( issubstr( var_1, "lobby" ) )
     {
-        var_6 = maps\mp\_utility::_id_3F32( var_1 );
+        var_6 = maps\mp\_utility::getclassindex( var_1 );
         var_32 = maps\mp\_utility::cac_getcustomclassloc();
         var_33 = [[ level.vl_loadoutfunc ]]( var_32, var_6 );
         var_15 = var_33["primary"];
@@ -928,13 +910,13 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     }
     else if ( var_1 == "callback" )
     {
-        if ( !isdefined( self._id_1E33 ) )
-            common_scripts\utility::_id_334F( "self.classCallback function reference required for class 'callback'" );
+        if ( !isdefined( self.classcallback ) )
+            common_scripts\utility::error( "self.classCallback function reference required for class 'callback'" );
 
-        var_35 = [[ self._id_1E33 ]]( var_4 );
+        var_35 = [[ self.classcallback ]]( var_4 );
 
         if ( !isdefined( var_35 ) )
-            common_scripts\utility::_id_334F( "array required from self.classCallback for class 'callback'" );
+            common_scripts\utility::error( "array required from self.classCallback for class 'callback'" );
 
         var_15 = var_35["loadoutPrimary"];
         var_16 = var_35["loadoutPrimaryAttachKit"];
@@ -955,22 +937,22 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     }
     else
     {
-        var_6 = maps\mp\_utility::_id_3F32( var_1 );
-        var_15 = _id_90A4( level._id_1E3D, var_6, 0 );
-        var_16 = table_getweaponattachkit( level._id_1E3D, var_6, 0 );
-        var_17 = table_getweaponfurniturekit( level._id_1E3D, var_6, 0 );
-        var_18 = _id_90A7( level._id_1E3D, var_6, 0 );
-        var_19 = _id_90A8( level._id_1E3D, var_6, 0 );
-        var_20 = _id_90A4( level._id_1E3D, var_6, 1 );
-        var_21 = table_getweaponattachkit( level._id_1E3D, var_6, 1 );
-        var_22 = table_getweaponfurniturekit( level._id_1E3D, var_6, 1 );
-        var_23 = _id_90A7( level._id_1E3D, var_6, 1 );
-        var_24 = _id_90A8( level._id_1E3D, var_6, 1 );
-        var_25 = _id_909C( level._id_1E3D, var_6 );
-        var_26 = _id_90A0( level._id_1E3D, var_6 );
-        var_11[0] = _id_90A2( level._id_1E3D, var_6, 0 );
-        var_11[1] = _id_90A2( level._id_1E3D, var_6, 1 );
-        var_11[2] = _id_90A2( level._id_1E3D, var_6, 2 );
+        var_6 = maps\mp\_utility::getclassindex( var_1 );
+        var_15 = table_getweapon( level.classtablename, var_6, 0 );
+        var_16 = table_getweaponattachkit( level.classtablename, var_6, 0 );
+        var_17 = table_getweaponfurniturekit( level.classtablename, var_6, 0 );
+        var_18 = table_getweaponcamo( level.classtablename, var_6, 0 );
+        var_19 = table_getweaponreticle( level.classtablename, var_6, 0 );
+        var_20 = table_getweapon( level.classtablename, var_6, 1 );
+        var_21 = table_getweaponattachkit( level.classtablename, var_6, 1 );
+        var_22 = table_getweaponfurniturekit( level.classtablename, var_6, 1 );
+        var_23 = table_getweaponcamo( level.classtablename, var_6, 1 );
+        var_24 = table_getweaponreticle( level.classtablename, var_6, 1 );
+        var_25 = table_getequipment( level.classtablename, var_6 );
+        var_26 = table_getoffhand( level.classtablename, var_6 );
+        var_11[0] = table_getperk( level.classtablename, var_6, 0 );
+        var_11[1] = table_getperk( level.classtablename, var_6, 1 );
+        var_11[2] = table_getperk( level.classtablename, var_6, 2 );
         var_28 = "none";
     }
 
@@ -980,58 +962,58 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
 
     if ( !var_12 && !var_37 && !level.oldschool && !( isdefined( self.pers["copyCatLoadout"] ) && self.pers["copyCatLoadout"]["inUse"] && var_2 ) )
     {
-        if ( !_id_51F3( var_15, 1 ) || level.rankedmatch && var_36 && !var_38 && !self isitemunlocked( var_15 ) )
+        if ( !isvalidprimary( var_15, 1 ) || level.rankedmatch && var_36 && !var_38 && !self isitemunlocked( var_15 ) )
         {
-            var_15 = _id_90A4( level._id_1E3D, 10, 0 );
+            var_15 = table_getweapon( level.classtablename, 10, 0 );
             var_18 = "none";
             var_19 = "none";
             var_16 = "none";
             var_17 = "none";
         }
 
-        if ( !_id_51E7( var_18, 1 ) || level.rankedmatch && var_36 && !var_38 && !_id_50D6( var_15, var_18 ) )
-            var_18 = _id_90A7( level._id_1E3D, 10, 0 );
+        if ( !isvalidcamo( var_18, 1 ) || level.rankedmatch && var_36 && !var_38 && !iscamounlocked( var_15, var_18 ) )
+            var_18 = table_getweaponcamo( level.classtablename, 10, 0 );
 
-        if ( !_id_51F4( var_19, 1 ) )
-            var_19 = _id_90A8( level._id_1E3D, 10, 0 );
+        if ( !isvalidreticle( var_19, 1 ) )
+            var_19 = table_getweaponreticle( level.classtablename, 10, 0 );
 
         if ( !isvalidattachkit( var_16, var_15, 1 ) || level.rankedmatch && var_36 && !var_38 && !isattachkitunlocked( var_15, var_16 ) )
-            var_16 = table_getweaponattachkit( level._id_1E3D, 10, 0 );
+            var_16 = table_getweaponattachkit( level.classtablename, 10, 0 );
 
         if ( !isvalidfurniturekit( var_17, var_15, 1 ) || level.rankedmatch && var_36 && !var_38 && !isfurniturekitunlocked( var_15, var_17 ) )
-            var_17 = table_getweaponfurniturekit( level._id_1E3D, 10, 0 );
+            var_17 = table_getweaponfurniturekit( level.classtablename, 10, 0 );
 
         var_40 = common_scripts\utility::array_contains( var_11, "specialty_twoprimaries" );
 
-        if ( !_id_51F5( var_20, var_40, 1 ) || level.rankedmatch && var_36 && !var_38 && !self isitemunlocked( var_20 ) )
+        if ( !isvalidsecondary( var_20, var_40, 1 ) || level.rankedmatch && var_36 && !var_38 && !self isitemunlocked( var_20 ) )
         {
-            var_20 = _id_90A4( level._id_1E3D, 10, 1 );
+            var_20 = table_getweapon( level.classtablename, 10, 1 );
             var_23 = "none";
             var_24 = "none";
             var_21 = "none";
             var_22 = "none";
         }
 
-        if ( !_id_51E7( var_23, 1 ) || level.rankedmatch && var_36 && !var_38 && !_id_50D6( var_20, var_23 ) )
-            var_23 = _id_90A7( level._id_1E3D, 10, 1 );
+        if ( !isvalidcamo( var_23, 1 ) || level.rankedmatch && var_36 && !var_38 && !iscamounlocked( var_20, var_23 ) )
+            var_23 = table_getweaponcamo( level.classtablename, 10, 1 );
 
-        if ( !_id_51F4( var_24, 1 ) )
-            var_24 = _id_90A8( level._id_1E3D, 10, 1 );
+        if ( !isvalidreticle( var_24, 1 ) )
+            var_24 = table_getweaponreticle( level.classtablename, 10, 1 );
 
         if ( !isvalidattachkit( var_21, var_20, 1 ) || level.rankedmatch && var_36 && !var_38 && !isattachkitunlocked( var_20, var_21 ) )
-            var_21 = table_getweaponattachkit( level._id_1E3D, 10, 1 );
+            var_21 = table_getweaponattachkit( level.classtablename, 10, 1 );
 
         if ( !isvalidfurniturekit( var_22, var_20, 1 ) || level.rankedmatch && var_36 && !var_38 && !isfurniturekitunlocked( var_20, var_22 ) )
-            var_22 = table_getweaponfurniturekit( level._id_1E3D, 10, 1 );
+            var_22 = table_getweaponfurniturekit( level.classtablename, 10, 1 );
 
-        if ( !_id_51EA( var_25, 1 ) || level.rankedmatch && var_36 && !var_38 && !self isitemunlocked( var_25 ) )
-            var_25 = _id_909C( level._id_1E3D, 10 );
+        if ( !isvalidequipment( var_25, 1 ) || level.rankedmatch && var_36 && !var_38 && !self isitemunlocked( var_25 ) )
+            var_25 = table_getequipment( level.classtablename, 10 );
 
         if ( var_25 == var_26 )
             var_25 = "specialty_null";
 
-        if ( !_id_51F2( var_26, 1 ) )
-            var_26 = _id_90A0( level._id_1E3D, 10 );
+        if ( !isvalidoffhand( var_26, 1 ) )
+            var_26 = table_getoffhand( level.classtablename, 10 );
 
         if ( !isvalidmeleeweapon( var_28, 1 ) )
             var_28 = "none";
@@ -1043,7 +1025,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
             continue;
 
         var_41 = var_11[var_27];
-        var_11[var_27] = maps\mp\perks\_perks::_id_9C4E( var_27, var_11[var_27] );
+        var_11[var_27] = maps\mp\perks\_perks::validateperk( var_27, var_11[var_27] );
 
         if ( var_41 != var_11[var_27] )
             foundinfraction( "^1Warning: Perk " + var_41 + " in wrong slot." );
@@ -1071,7 +1053,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     var_43 = 0;
     var_44 = 0;
 
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
     {
         var_42 = self.emblemloadout.emblemindex;
         var_43 = self.emblemloadout.shouldapplyemblemtoweapon;
@@ -1079,7 +1061,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     }
     else
     {
-        var_42 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
+        var_42 = self getplayerdata( common_scripts\utility::getstatsgroup_common(), "emblemPatchIndex" );
 
         if ( isai( self ) )
         {
@@ -1088,8 +1070,8 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
         }
         else
         {
-            var_43 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "applyEmblemToWeapon" );
-            var_44 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "applyEmblemToCharacter" );
+            var_43 = self getplayerdata( common_scripts\utility::getstatsgroup_common(), "applyEmblemToWeapon" );
+            var_44 = self getplayerdata( common_scripts\utility::getstatsgroup_common(), "applyEmblemToCharacter" );
         }
     }
 
@@ -1100,19 +1082,19 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
 
     var_46 = 0;
 
-    if ( maps\mp\_utility::_id_4FA6() )
+    if ( maps\mp\_utility::invirtuallobby() )
         var_46 = self.charactercamoloadout.camoindex;
     else
-        var_46 = self getrankedplayerdata( common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
+        var_46 = self getplayerdata( common_scripts\utility::getstatsgroup_common(), "characterCamoIndex" );
 
     var_33 = spawnstruct();
     var_33.class = var_1;
-    var_33._id_1E2F = var_6;
-    var_33._id_91F6 = var_13;
-    var_33._id_1EE3 = var_5;
-    var_33._id_21D9 = var_10;
+    var_33.class_num = var_6;
+    var_33.teamname = var_13;
+    var_33.clearammo = var_5;
+    var_33.copycatloadout = var_10;
     var_33.cacloadout = var_9;
-    var_33._id_5111 = var_12;
+    var_33.isgamemodeclass = var_12;
     var_33.primary = var_15;
     var_33.primaryattachkit = var_16;
     var_33.primaryfurniturekit = var_17;
@@ -1120,7 +1102,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     var_33.primaryreticle = var_19;
     var_18 = int( tablelookup( "mp/camoTable.csv", 1, var_33.primarycamo, 0 ) );
     var_19 = int( tablelookup( "mp/reticleTable.csv", 1, var_33.primaryreticle, 0 ) );
-    var_33._id_6F84 = buildweaponname( var_33.primary, var_33.primaryattachkit, var_33.primaryfurniturekit, var_18, var_19, var_45 );
+    var_33.primaryname = buildweaponname( var_33.primary, var_33.primaryattachkit, var_33.primaryfurniturekit, var_18, var_19, var_45 );
     var_33.secondary = var_20;
     var_33.secondaryattachkit = var_21;
     var_33.secondaryfurniturekit = var_22;
@@ -1128,7 +1110,7 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     var_33.secondaryreticle = var_24;
     var_23 = int( tablelookup( "mp/camoTable.csv", 1, var_33.secondarycamo, 0 ) );
     var_24 = int( tablelookup( "mp/reticleTable.csv", 1, var_33.secondaryreticle, 0 ) );
-    var_33._id_7BFA = buildweaponname( var_33.secondary, var_33.secondaryattachkit, var_33.secondaryfurniturekit, var_23, var_24, var_45 );
+    var_33.secondaryname = buildweaponname( var_33.secondary, var_33.secondaryattachkit, var_33.secondaryfurniturekit, var_23, var_24, var_45 );
     var_33.equipment = var_25;
     var_33.offhand = var_26;
     var_33.perks = var_11;
@@ -1139,74 +1121,74 @@ _id_4009( var_0, var_1, var_2, var_3, var_4 )
     else
         var_33.meleeweaponname = var_28;
 
-    var_33._id_7FF5 = var_3;
+    var_33.setprimaryspawnweapon = var_3;
     var_33.emblemindex = var_42;
     var_33.weaponemblemindex = var_45;
     var_33._id_A7EC = var_44;
     var_33._id_A7ED = var_46;
 
-    if ( maps\mp\_utility::_id_5092( level.movecompareactive ) && isdefined( level.movecompareloadoutfunc ) )
+    if ( maps\mp\_utility::is_true( level.movecompareactive ) && isdefined( level.movecompareloadoutfunc ) )
         var_33 = self [[ level.movecompareloadoutfunc ]]();
 
     return var_33;
 }
 
-_id_41F1( var_0, var_1, var_2, var_3 )
+giveloadout( var_0, var_1, var_2, var_3 )
 {
-    self._id_57D6 = _id_4009( var_0, var_1, var_2, var_3 );
+    self.loadout = getloadout( var_0, var_1, var_2, var_3 );
 }
 
 applyloadout()
 {
-    var_0 = self._id_57D6;
+    var_0 = self.loadout;
 
-    if ( !isdefined( self._id_57D6 ) )
+    if ( !isdefined( self.loadout ) )
         return;
 
-    self._id_57D6 = undefined;
-    self._id_8A4C = var_0;
+    self.loadout = undefined;
+    self.spectatorviewloadout = var_0;
     self takeallweapons();
     maps\mp\_utility::_clearperks();
     _detachall();
     self.changingweapon = undefined;
 
-    if ( var_0._id_21D9 )
+    if ( var_0.copycatloadout )
         setclass( "copycat" );
 
-    self._id_1E2F = var_0._id_1E2F;
-    self._id_57DF = var_0.primary;
-    self._id_57E0 = int( tablelookup( "mp/camoTable.csv", 1, var_0.primarycamo, 0 ) );
-    self._id_57E2 = var_0.secondary;
-    self._id_57E3 = int( tablelookup( "mp/camoTable.csv", 1, var_0.secondarycamo, 0 ) );
+    self.class_num = var_0.class_num;
+    self.loadoutprimary = var_0.primary;
+    self.loadoutprimarycamo = int( tablelookup( "mp/camoTable.csv", 1, var_0.primarycamo, 0 ) );
+    self.loadoutsecondary = var_0.secondary;
+    self.loadoutsecondarycamo = int( tablelookup( "mp/camoTable.csv", 1, var_0.secondarycamo, 0 ) );
 
     if ( !issubstr( var_0.primary, "iw5" ) && !issubstr( var_0.primary, "h1_" ) )
-        self._id_57E0 = 0;
+        self.loadoutprimarycamo = 0;
 
     if ( !issubstr( var_0.secondary, "iw5" ) && !issubstr( var_0.secondary, "h1_" ) )
-        self._id_57E3 = 0;
+        self.loadoutsecondarycamo = 0;
 
-    self._id_57E1 = int( tablelookup( "mp/reticleTable.csv", 1, var_0.primaryreticle, 0 ) );
-    self._id_57E4 = int( tablelookup( "mp/reticleTable.csv", 1, var_0.secondaryreticle, 0 ) );
+    self.loadoutprimaryreticle = int( tablelookup( "mp/reticleTable.csv", 1, var_0.primaryreticle, 0 ) );
+    self.loadoutsecondaryreticle = int( tablelookup( "mp/reticleTable.csv", 1, var_0.secondaryreticle, 0 ) );
 
     if ( !issubstr( var_0.primary, "iw5" ) && !issubstr( var_0.primary, "h1_" ) )
-        self._id_57E1 = 0;
+        self.loadoutprimaryreticle = 0;
 
     if ( !issubstr( var_0.secondary, "iw5" ) && !issubstr( var_0.secondary, "h1_" ) )
-        self._id_57E4 = 0;
+        self.loadoutsecondaryreticle = 0;
 
     self.loadoutmelee = var_0.meleeweapon;
 
-    if ( isdefined( var_0._id_529C ) && var_0._id_529C )
+    if ( isdefined( var_0.juggernaut ) && var_0.juggernaut )
     {
         self.health = self.maxhealth;
-        thread maps\mp\_utility::_id_7265( maps\mp\_utility::_id_5131() );
-        self._id_5131 = 1;
-        self._id_52AA = 0.7;
+        thread maps\mp\_utility::recipeclassapplyjuggernaut( maps\mp\_utility::isjuggernaut() );
+        self.isjuggernaut = 1;
+        self.juggmovespeedscaler = 0.7;
     }
-    else if ( maps\mp\_utility::_id_5131() )
+    else if ( maps\mp\_utility::isjuggernaut() )
     {
         self notify( "lost_juggernaut" );
-        self._id_5131 = 0;
+        self.isjuggernaut = 0;
         self.movespeedscaler = level.baseplayermovescale;
     }
 
@@ -1215,7 +1197,7 @@ applyloadout()
     if ( var_1 != "none" )
         maps\mp\_utility::_giveweapon( var_1 );
 
-    var_2 = var_0._id_7BFA;
+    var_2 = var_0.secondaryname;
 
     if ( var_2 != "none" )
     {
@@ -1225,10 +1207,10 @@ applyloadout()
             maps\mp\gametypes\_oldschool::givestartammooldschool( var_2 );
     }
 
-    if ( level._id_2A55 )
-        maps\mp\_utility::_id_41F8( "specialty_pistoldeath", 0 );
+    if ( level.diehardmode )
+        maps\mp\_utility::giveperk( "specialty_pistoldeath", 0 );
 
-    _id_57D9( var_0 );
+    loadoutallperks( var_0 );
     maps\mp\perks\_perks::applyperks();
     self setoffhandprimaryclass( var_0.equipment );
 
@@ -1238,7 +1220,7 @@ applyloadout()
         self setweaponammoclip( var_0.equipment, var_3 + 1 );
     }
     else
-        _id_41F5( var_0.equipment );
+        giveoffhand( var_0.equipment );
 
     if ( var_0.equipment != "specialty_null" && isdefined( self.perkscustom["grenades_count"] ) )
     {
@@ -1246,7 +1228,7 @@ applyloadout()
         self setweaponammoclip( var_0.equipment, var_4 );
     }
 
-    var_5 = var_0._id_6F84;
+    var_5 = var_0.primaryname;
     maps\mp\_utility::_giveweapon( var_5 );
 
     if ( level.oldschool )
@@ -1255,15 +1237,15 @@ applyloadout()
     if ( !isai( self ) && !maps\mp\_utility::ishodgepodgemm() )
         self switchtoweapon( var_5 );
 
-    if ( var_0._id_7FF5 )
-        self setspawnweapon( maps\mp\_utility::_id_3E67( var_0 ) );
+    if ( var_0.setprimaryspawnweapon )
+        self setspawnweapon( maps\mp\_utility::get_spawn_weapon_name( var_0 ) );
 
-    self.pers["primaryWeapon"] = maps\mp\_utility::_id_3F11( var_5 );
-    self._id_57DD = var_0.offhand;
+    self.pers["primaryWeapon"] = maps\mp\_utility::getbaseweaponname( var_5 );
+    self.loadoutoffhand = var_0.offhand;
     self setoffhandsecondaryclass( var_0.offhand );
 
     if ( !level.oldschool )
-        _id_41F5( var_0.offhand );
+        giveoffhand( var_0.offhand );
 
     if ( level.oldschool )
         self setweaponammoclip( var_0.offhand, 0 );
@@ -1279,7 +1261,7 @@ applyloadout()
     self.secondaryweapon = var_2;
     self.meleeweapon = var_1;
 
-    if ( var_0._id_1EE3 )
+    if ( var_0.clearammo )
     {
         self setweaponammoclip( self.primaryweapon, 0 );
         self setweaponammostock( self.primaryweapon, 0 );
@@ -1315,31 +1297,31 @@ applyloadout()
         self.lastclass = self.class;
     }
 
-    if ( isdefined( self._id_3BF3 ) )
+    if ( isdefined( self.gamemode_chosenclass ) )
     {
-        self.pers["class"] = self._id_3BF3;
-        self.pers["lastClass"] = self._id_3BF3;
-        self.class = self._id_3BF3;
+        self.pers["class"] = self.gamemode_chosenclass;
+        self.pers["lastClass"] = self.gamemode_chosenclass;
+        self.class = self.gamemode_chosenclass;
 
         if ( !isdefined( self.gamemode_carrierclass ) )
-            self.lastclass = self._id_3BF3;
+            self.lastclass = self.gamemode_chosenclass;
 
-        self._id_3BF3 = undefined;
+        self.gamemode_chosenclass = undefined;
     }
 
     self.gamemode_carrierclass = undefined;
 
     if ( !isdefined( level.iszombiegame ) || !level.iszombiegame )
     {
-        if ( !isdefined( self._id_2236 ) )
+        if ( !isdefined( self.costume ) )
         {
             if ( isplayer( self ) )
-                self._id_2236 = _id_1B0C();
+                self.costume = cao_getactivecostume();
             else if ( isagent( self ) && self.agent_type == "player" )
-                self._id_2236 = maps\mp\gametypes\_teams::_id_3F4F();
+                self.costume = maps\mp\gametypes\_teams::getdefaultcostume();
         }
 
-        if ( maps\mp\_utility::_id_4FA6() && isdefined( level.vl_cac_getfactionteam ) && isdefined( level.vl_cac_getfactionenvironment ) )
+        if ( maps\mp\_utility::invirtuallobby() && isdefined( level.vl_cac_getfactionteam ) && isdefined( level.vl_cac_getfactionenvironment ) )
         {
             var_7 = [[ level.vl_cac_getfactionteam ]]();
             var_8 = [[ level.vl_cac_getfactionenvironment ]]();
@@ -1350,7 +1332,7 @@ applyloadout()
         else
             maps\mp\gametypes\_teams::applycostume( var_6, self.team );
 
-        _id_5843();
+        logplayercostume();
         self _meth_857C( var_0._id_A7ED );
     }
 
@@ -1381,41 +1363,41 @@ applyloadout()
     self notify( "applyLoadout" );
 }
 
-_id_5843()
+logplayercostume()
 {
     if ( isagent( self ) )
         return;
 
-    if ( !isdefined( self._id_223A ) )
+    if ( !isdefined( self.costumelogged ) )
     {
-        var_0 = _id_1B0F( "gender" );
-        var_1 = _id_1B0F( "head" );
-        var_2 = _id_1B0D();
-        var_3 = _id_1B10( "shirt", var_2 );
-        var_4 = _id_1B10( "gloves", var_2 );
+        var_0 = cao_getglobalcostumecategory( "gender" );
+        var_1 = cao_getglobalcostumecategory( "head" );
+        var_2 = cao_getactivecostumeindex();
+        var_3 = cao_getpercostumecategory( "shirt", var_2 );
+        var_4 = cao_getpercostumecategory( "gloves", var_2 );
         setmatchdata( "players", self.clientid, "costume", "gender", var_0 );
         setmatchdata( "players", self.clientid, "costume", "head", var_1 );
         setmatchdata( "players", self.clientid, "costume", "shirt", var_3 );
         setmatchdata( "players", self.clientid, "costume", "gloves", var_4 );
-        self._id_223A = 1;
+        self.costumelogged = 1;
     }
 }
 
-giveloadout( var_0, var_1, var_2, var_3 )
+giveandapplyloadout( var_0, var_1, var_2, var_3 )
 {
-    _id_41F1( var_0, var_1, var_2, var_3 );
+    giveloadout( var_0, var_1, var_2, var_3 );
     applyloadout();
 }
 
-_id_41E5()
+givedefaultperks()
 {
-    self._id_89F9 = 0;
+    self.spawnperk = 0;
 
     if ( !maps\mp\_utility::_hasperk( "specialty_blindeye" ) && self.avoidkillstreakonspawntimer > 0 )
-        thread maps\mp\perks\_perks::_id_41E3();
+        thread maps\mp\perks\_perks::giveblindeyeafterspawn();
 }
 
-_id_728C()
+recordvalidationinfraction()
 {
     if ( isdefined( self ) && isdefined( self.pers ) && isdefined( self.pers["validationInfractions"] ) )
         self.pers["validationInfractions"] += 1;
@@ -1423,13 +1405,13 @@ _id_728C()
 
 _detachall()
 {
-    self._id_3AD9 = undefined;
+    self.frontshieldmodel = undefined;
     self.backshieldmodel = undefined;
     self.headmodel = undefined;
     self detachall();
 }
 
-_id_41F5( var_0 )
+giveoffhand( var_0 )
 {
     var_1 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
@@ -1448,7 +1430,7 @@ _id_41F5( var_0 )
     }
 }
 
-_id_912F( var_0 )
+takeoffhand( var_0 )
 {
     var_1 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
@@ -1467,12 +1449,12 @@ _id_912F( var_0 )
     }
 }
 
-_id_57D9( var_0 )
+loadoutallperks( var_0 )
 {
     var_1 = var_0.perks;
 
     for ( var_2 = 0; var_2 < 3; var_2++ )
-        var_1[var_2] = maps\mp\perks\_perks::_id_9C4E( var_2, var_1[var_2] );
+        var_1[var_2] = maps\mp\perks\_perks::validateperk( var_2, var_1[var_2] );
 
     for ( var_2 = 0; var_2 < 3; var_2++ )
     {
@@ -1481,17 +1463,17 @@ _id_57D9( var_0 )
         if ( var_3 == "specialty_null" )
             continue;
 
-        maps\mp\_utility::_id_41F8( var_3, 1, var_2 );
+        maps\mp\_utility::giveperk( var_3, 1, var_2 );
         var_4 = var_2 + 1;
         var_5 = "specialty" + var_4;
         maps\mp\perks\_perks::get_specialtydata( var_3, var_5, var_0 );
     }
 
-    self._id_57DE = var_1;
-    self._id_57DB = var_0.equipment;
+    self.loadoutperks = var_1;
+    self.loadoutequipment = var_0.equipment;
 }
 
-_id_5101( var_0 )
+isexoxmg( var_0 )
 {
     if ( issubstr( var_0, "_exoxmg" ) )
         return 1;
@@ -1499,7 +1481,7 @@ _id_5101( var_0 )
     return 0;
 }
 
-_id_5198( var_0 )
+issac3( var_0 )
 {
     if ( issubstr( var_0, "sac3" ) )
         return 1;
@@ -1507,7 +1489,7 @@ _id_5198( var_0 )
     return 0;
 }
 
-_id_514F( var_0 )
+ismahem( var_0 )
 {
     if ( issubstr( var_0, "mahem" ) )
         return 1;
@@ -1515,7 +1497,7 @@ _id_514F( var_0 )
     return 0;
 }
 
-_id_6083( var_0, var_1 )
+needsscopeoverride( var_0, var_1 )
 {
     var_2 = maps\mp\_utility::getweaponclass( var_0 ) == "weapon_sniper";
 
@@ -1529,7 +1511,7 @@ anyattachmentisscope( var_0 )
 {
     foreach ( var_2 in var_0 )
     {
-        if ( maps\mp\_utility::_id_3F0B( var_2 ) == "rail" || var_2 == "zoomscope" || var_2 == "ironsights" )
+        if ( maps\mp\_utility::getattachmenttype( var_2 ) == "rail" || var_2 == "zoomscope" || var_2 == "ironsights" )
             return 1;
     }
 
@@ -1539,9 +1521,9 @@ anyattachmentisscope( var_0 )
 addautomaticattachments( var_0, var_1 )
 {
     var_2 = [];
-    var_3 = maps\mp\_utility::_id_3F11( var_0 );
+    var_3 = maps\mp\_utility::getbaseweaponname( var_0 );
 
-    if ( _id_6083( var_3, var_1 ) )
+    if ( needsscopeoverride( var_3, var_1 ) )
     {
         var_4 = var_3;
 
@@ -1551,14 +1533,14 @@ addautomaticattachments( var_0, var_1 )
             var_4 = getsubstr( var_3, 4, var_5 );
         }
 
-        var_6 = _id_3F10( var_4 ) + "scope";
+        var_6 = getbasefromlootversion( var_4 ) + "scope";
         var_2[var_2.size] = var_6;
     }
 
     return var_2;
 }
 
-_id_6FF5( var_0, var_1 )
+processattachments( var_0, var_1 )
 {
     var_2 = var_0.size;
 
@@ -1578,7 +1560,7 @@ array_checkaddattachment( var_0, var_1 )
     return var_0;
 }
 
-_id_3F10( var_0 )
+getbasefromlootversion( var_0 )
 {
     var_1 = 0;
     var_2 = [];
@@ -1622,8 +1604,8 @@ buildweaponname( var_0, var_1, var_2, var_3, var_4, var_5 )
     if ( !isdefined( var_0 ) || var_0 == "none" || var_0 == "" )
         return var_0;
 
-    if ( !isdefined( level._id_56B6 ) )
-        level._id_56B6 = _id_5946();
+    if ( !isdefined( level.lettertonumber ) )
+        level.lettertonumber = makeletterstonumbers();
 
     var_6 = "";
 
@@ -1679,7 +1661,7 @@ buildweaponname( var_0, var_1, var_2, var_3, var_4, var_5 )
         var_7 = buildweaponnamecamo( var_7, var_3 );
         return var_7;
     }
-    else if ( !_id_51FC( var_7 + "_mp" ) )
+    else if ( !isvalidweapon( var_7 + "_mp" ) )
         return var_0 + "_mp";
     else
     {
@@ -1735,7 +1717,7 @@ buildweaponnameemblem( var_0, var_1 )
     return var_0;
 }
 
-_id_5946()
+makeletterstonumbers()
 {
     var_0 = [];
     var_0["a"] = 0;
@@ -1767,7 +1749,7 @@ _id_5946()
     return var_0;
 }
 
-_id_7403()
+replenishloadout()
 {
     var_0 = self.pers["team"];
     var_1 = self.pers["class"];
@@ -1783,14 +1765,14 @@ _id_7403()
             self setweaponammostock( var_4, 2 );
     }
 
-    if ( self getammocount( level._id_1E35[var_1]["primary"]["type"] ) < level._id_1E35[var_1]["primary"]["count"] )
-        self setweaponammoclip( level._id_1E35[var_1]["primary"]["type"], level._id_1E35[var_1]["primary"]["count"] );
+    if ( self getammocount( level.classgrenades[var_1]["primary"]["type"] ) < level.classgrenades[var_1]["primary"]["count"] )
+        self setweaponammoclip( level.classgrenades[var_1]["primary"]["type"], level.classgrenades[var_1]["primary"]["count"] );
 
-    if ( self getammocount( level._id_1E35[var_1]["secondary"]["type"] ) < level._id_1E35[var_1]["secondary"]["count"] )
-        self setweaponammoclip( level._id_1E35[var_1]["secondary"]["type"], level._id_1E35[var_1]["secondary"]["count"] );
+    if ( self getammocount( level.classgrenades[var_1]["secondary"]["type"] ) < level.classgrenades[var_1]["secondary"]["count"] )
+        self setweaponammoclip( level.classgrenades[var_1]["secondary"]["type"], level.classgrenades[var_1]["secondary"]["count"] );
 }
 
-_id_64D1()
+onplayerconnecting()
 {
     for (;;)
     {
@@ -1810,7 +1792,7 @@ _id_64D1()
     }
 }
 
-_id_35EC( var_0, var_1 )
+fadeaway( var_0, var_1 )
 {
     wait(var_0);
     self fadeovertime( var_1 );
@@ -1819,31 +1801,31 @@ _id_35EC( var_0, var_1 )
 
 setclass( var_0 )
 {
-    self._id_24C3 = var_0;
+    self.curclass = var_0;
 }
 
-_id_1EE7()
+clearcopycatloadout()
 {
     self.pers["copyCatLoadout"]["inUse"] = 0;
 }
 
 foundinfraction( var_0 )
 {
-    _id_728C();
+    recordvalidationinfraction();
 }
 
 isdefaultunlocked()
 {
-    if ( maps\mp\_utility::_id_5153() )
+    if ( maps\mp\_utility::ismlgmatch() )
         return 1;
 
     return 0;
 }
 
-_id_51F3( var_0, var_1 )
+isvalidprimary( var_0, var_1 )
 {
-    if ( maps\mp\_utility::_id_514D( var_0 ) )
-        var_0 = _id_3F10( var_0 );
+    if ( maps\mp\_utility::islootweapon( var_0 ) )
+        var_0 = getbasefromlootversion( var_0 );
 
     switch ( var_0 )
     {
@@ -1883,20 +1865,20 @@ _id_51F3( var_0, var_1 )
         case "h1_junsnp":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid primary: " + var_0 );
 
             return 0;
     }
 }
 
-_id_51F5( var_0, var_1, var_2 )
+isvalidsecondary( var_0, var_1, var_2 )
 {
-    if ( maps\mp\_utility::_id_5092( var_1 ) )
-        return _id_51F3( var_0 );
+    if ( maps\mp\_utility::is_true( var_1 ) )
+        return isvalidprimary( var_0 );
 
-    if ( maps\mp\_utility::_id_514D( var_0 ) )
-        var_0 = _id_3F10( var_0 );
+    if ( maps\mp\_utility::islootweapon( var_0 ) )
+        var_0 = getbasefromlootversion( var_0 );
 
     switch ( var_0 )
     {
@@ -1912,14 +1894,14 @@ _id_51F5( var_0, var_1, var_2 )
         case "h1_rpg":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_2 ) )
+            if ( maps\mp\_utility::is_true( var_2 ) )
                 foundinfraction( "Replacing invalid secondary: " + var_0 );
 
             return 0;
     }
 }
 
-_id_51E5( var_0, var_1, var_2 )
+isvalidattachment( var_0, var_1, var_2 )
 {
     var_3 = 0;
 
@@ -2005,22 +1987,22 @@ _id_51E5( var_0, var_1, var_2 )
 
     if ( var_3 && var_0 != "none" )
     {
-        var_4 = maps\mp\_utility::_id_4160( var_1 );
+        var_4 = maps\mp\_utility::getweaponattachmentarrayfromstats( var_1 );
         var_3 = common_scripts\utility::array_contains( var_4, var_0 );
     }
 
-    if ( !var_3 && maps\mp\_utility::_id_5092( var_2 ) )
+    if ( !var_3 && maps\mp\_utility::is_true( var_2 ) )
         foundinfraction( "Replacing invalid attachment: " + var_0 );
 
     return var_3;
 }
 
-_id_50C0( var_0, var_1 )
+isattachmentunlocked( var_0, var_1 )
 {
     if ( isdefaultunlocked() )
         return 1;
 
-    var_2 = _id_3F10( var_0 );
+    var_2 = getbasefromlootversion( var_0 );
     var_3 = var_2 + " " + var_1;
 
     if ( !self isitemunlocked( var_3 ) )
@@ -2029,7 +2011,7 @@ _id_50C0( var_0, var_1 )
     return 1;
 }
 
-_id_51E7( var_0, var_1 )
+isvalidcamo( var_0, var_1 )
 {
     switch ( var_0 )
     {
@@ -2404,14 +2386,14 @@ _id_51E7( var_0, var_1 )
         case "wc_super_reward":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid camo: " + var_0 );
 
             return 0;
     }
 }
 
-_id_51F4( var_0, var_1 )
+isvalidreticle( var_0, var_1 )
 {
     switch ( var_0 )
     {
@@ -2670,7 +2652,7 @@ _id_51F4( var_0, var_1 )
         case "ret_wildcard_reward":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid reticle " + var_0 );
 
             return 0;
@@ -2687,7 +2669,7 @@ isattachkitunlocked( var_0, var_1 )
     if ( !self isitemunlocked( var_2 ) )
         return 0;
 
-    var_3 = _id_3F10( var_0 );
+    var_3 = getbasefromlootversion( var_0 );
     var_4 = var_3 + " " + var_1;
 
     if ( !self isitemunlocked( var_4 ) )
@@ -2705,7 +2687,7 @@ isvalidattachkit( var_0, var_1, var_2 )
 
     if ( var_3 <= 0 )
     {
-        if ( maps\mp\_utility::_id_5092( var_2 ) )
+        if ( maps\mp\_utility::is_true( var_2 ) )
             foundinfraction( "Replacing invalid attachKit " + var_0 );
 
         return 0;
@@ -2718,7 +2700,7 @@ isvalidattachkit( var_0, var_1, var_2 )
 
         if ( var_5 == "default" )
         {
-            if ( maps\mp\_utility::_id_5092( var_2 ) )
+            if ( maps\mp\_utility::is_true( var_2 ) )
                 foundinfraction( "Replacing invalid attachKit " + var_0 );
 
             return 0;
@@ -2774,7 +2756,7 @@ isvalidattachkit( var_0, var_1, var_2 )
         }
     }
 
-    if ( !var_9 && maps\mp\_utility::_id_5092( var_2 ) )
+    if ( !var_9 && maps\mp\_utility::is_true( var_2 ) )
     {
         foundinfraction( "Replacing invalid attachKit " + var_0 );
         return 0;
@@ -2802,7 +2784,7 @@ isvalidfurniturekit( var_0, var_1, var_2 )
 
     if ( var_3 < 0 )
     {
-        if ( maps\mp\_utility::_id_5092( var_2 ) )
+        if ( maps\mp\_utility::is_true( var_2 ) )
             foundinfraction( "Replacing invalid furnitureKit " + var_0 );
 
         return 0;
@@ -2857,7 +2839,7 @@ isvalidfurniturekit( var_0, var_1, var_2 )
         }
     }
 
-    if ( !var_7 && maps\mp\_utility::_id_5092( var_2 ) )
+    if ( !var_7 && maps\mp\_utility::is_true( var_2 ) )
     {
         foundinfraction( "Replacing invalid furnitureKit " + var_0 );
         return 0;
@@ -2866,15 +2848,15 @@ isvalidfurniturekit( var_0, var_1, var_2 )
     return 1;
 }
 
-_id_50D6( var_0, var_1, var_2, var_3 )
+iscamounlocked( var_0, var_1, var_2, var_3 )
 {
     if ( isdefaultunlocked() )
         return 1;
 
-    var_4 = _id_3F10( var_0 );
+    var_4 = getbasefromlootversion( var_0 );
     var_5 = var_4 + " " + var_1;
 
-    if ( !maps\mp\_utility::_id_4FA6() )
+    if ( !maps\mp\_utility::invirtuallobby() )
     {
         if ( !self isitemunlocked( var_5, var_2 ) )
             return 0;
@@ -2912,7 +2894,7 @@ isperkprimary( var_0 )
     }
 }
 
-_id_51EA( var_0, var_1 )
+isvalidequipment( var_0, var_1 )
 {
     var_0 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
@@ -2922,14 +2904,14 @@ _id_51EA( var_0, var_1 )
         case "h1_fraggrenade_mp":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid equipment: " + var_0 );
 
             return 0;
     }
 }
 
-_id_51F2( var_0, var_1 )
+isvalidoffhand( var_0, var_1 )
 {
     var_0 = maps\mp\_utility::strip_suffix( var_0, "_lefthand" );
 
@@ -2942,33 +2924,33 @@ _id_51F2( var_0, var_1 )
         case "h1_flashgrenade_mp":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid offhand: " + var_0 );
 
             return 0;
     }
 }
 
-_id_51FC( var_0, var_1 )
+isvalidweapon( var_0, var_1 )
 {
-    if ( !isdefined( level._id_A2E5 ) )
+    if ( !isdefined( level.weaponrefs ) )
     {
-        level._id_A2E5 = [];
+        level.weaponrefs = [];
 
         foreach ( var_3 in level.weaponlist )
-            level._id_A2E5[var_3] = 1;
+            level.weaponrefs[var_3] = 1;
     }
 
-    if ( isdefined( level._id_A2E5[var_0] ) )
+    if ( isdefined( level.weaponrefs[var_0] ) )
         return 1;
 
-    if ( maps\mp\_utility::_id_5092( var_1 ) )
+    if ( maps\mp\_utility::is_true( var_1 ) )
         foundinfraction( "Replacing invalid weapon/attachment combo: " + var_0 );
 
     return 0;
 }
 
-_id_51EE( var_0, var_1 )
+isvalidkillstreak( var_0, var_1 )
 {
     switch ( var_0 )
     {
@@ -2976,7 +2958,7 @@ _id_51EE( var_0, var_1 )
         case "uav":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid killstreak: " + var_0 );
 
             return 0;
@@ -3044,7 +3026,7 @@ isvalidmeleeweapon( var_0, var_1 )
         case "h1_meleeaug4":
             return 1;
         default:
-            if ( maps\mp\_utility::_id_5092( var_1 ) )
+            if ( maps\mp\_utility::is_true( var_1 ) )
                 foundinfraction( "Replacing invalid melee weapon: " + var_0 );
 
             return 0;
